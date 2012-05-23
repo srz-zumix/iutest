@@ -1,0 +1,280 @@
+//======================================================================
+//-----------------------------------------------------------------------
+/**
+ * @file		iutest_result.hpp
+ * @brief		iris unit test result ファイル
+ *
+ * @author		t.sirayanagi
+ * @version		1.0
+ *
+ * @par			copyright
+ * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * The new BSD License is applied to this software.
+ * see LICENSE
+*/
+//-----------------------------------------------------------------------
+//======================================================================
+#ifndef INCG_IRIS_iutest_result_HPP_D27B1599_F42F_4e2d_B3EB_FACE24C2B921_
+#define INCG_IRIS_iutest_result_HPP_D27B1599_F42F_4e2d_B3EB_FACE24C2B921_
+
+//======================================================================
+// include
+#include "iutest_env.hpp"
+#include "internal/iutest_message.h"
+#include "internal/iutest_console.hpp"
+
+namespace iutest
+{
+
+namespace detail
+{
+	class DefaultGlobalTestPartResultReporter;
+}
+
+//======================================================================
+// class
+/**
+ * @brief	テスト結果の通知処理インターフェイス
+*/
+class TestPartResultReporterInterface
+{
+public:
+	virtual ~TestPartResultReporterInterface(void) {}
+	/**
+	 * @brief	テスト結果通知受け取り関数
+	 * @param [in] result	= テスト結果
+	*/
+	virtual void ReportTestPartResult(const TestPartResult& result)	= 0;
+};
+
+/**
+ * @brief	テスト結果を示すクラス
+*/
+class TestPartResult : public detail::iuCodeMessage
+{
+public:
+	/**
+	 * @brief	結果のタイプ
+	*/
+	enum Type
+	{
+		kWarning = -1,		//!< 警告
+		kSuccess,			//!< 成功
+		kNotFatalFailure,	//!< 致命的ではない失敗
+		kFatalFailure		//!< 致命的な失敗
+	};
+public:
+	/**
+	 * @brief	コンストラクタ
+	 * @param [in]	file	= ファイル名
+	 * @param [in]	line	= 行番号
+	 * @param [in]	message	= メッセージ
+	 * @param [in]	type	= 結果のタイプ
+	*/
+	TestPartResult(const char* file, int line, const char* message, Type type)
+		: detail::iuCodeMessage(file, line, message), m_type(type) {}
+	//! コピーコンストラクタ
+	TestPartResult(const TestPartResult& rhs) : detail::iuCodeMessage(rhs)
+		, m_type(rhs.m_type) {}
+
+public:
+	/**
+	 * @brief	失敗かどうか
+	*/
+	bool		failed(void)	const		{ return m_type != kSuccess && m_type != kWarning; }
+	/**
+	 * @brief	成功かどうか
+	*/
+	bool		passed(void)	const		{ return !failed(); }
+	/**
+	 * @brief	警告かどうか
+	*/
+	bool		warning(void)	const		{ return m_type == kWarning; }
+
+	/**
+	 * @brief	致命的ではない失敗かどうか
+	*/
+	bool		nonfatally_failed(void)	const	{ return m_type == kNotFatalFailure; }
+
+	/**
+	 * @brief	致命的な失敗かどうか
+	*/
+	bool		fatally_failed(void)	const	{ return m_type == kFatalFailure; }
+
+	/**
+	 * @brief	理由
+	*/
+	const char*	summary(void)	const	{ return message(); }
+
+	/**
+	 * @brief	結果のタイプ取得
+	*/
+	Type		type(void)	const		{ return m_type; }
+
+private:
+	Type	m_type;
+};
+
+// TestPartResult print 出力
+inline std::ostream& operator << (std::ostream& os, const TestPartResult& result)
+{
+	return os << result.make_message();
+}
+
+/**
+ * @brief	テストプロパティ
+ * @note	XML 属性
+*/
+class TestProperty
+{
+public:
+	/**
+	 * @brief	コンストラクタ
+	 * @param [in]	key		= キー
+	 * @param [in]	value	= 値
+	*/
+	TestProperty(const char* key, const char* value)
+		: m_key(key), m_value(value) {}
+
+	const char*	key(void)	const	{ return m_key.c_str(); }	//!< キーの取得
+	const char*	value(void)	const	{ return m_value.c_str(); }	//!< 値の取得
+
+private:
+	friend class TestResult;
+	std::string m_key;
+	std::string m_value;
+};
+
+/**
+ * @brief	テスト結果を示すクラス
+*/
+class TestResult
+{
+	typedef std::vector<TestPartResult>	TestPartResults;
+	typedef std::vector<TestProperty>	TestPropertys;
+public:
+	TestResult(void) {}
+
+public:
+	/**
+	 * @brief	成功したかどうか
+	 * @return	真偽値
+	*/
+	bool		Passed(void) const		{ return !Failed(); }
+	/**
+	 * @brief	失敗したかどうか
+	 * @return	真偽値
+	*/
+	bool		Failed(void) const		
+	{
+		for( TestPartResults::const_iterator it=m_test_part_results.begin(), end=m_test_part_results.end(); it != end; ++it )
+		{
+			if( it->failed() ) return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @brief	致命的なエラーがあるかどうか
+	 * @return	真偽値
+	*/
+	bool		HasFatalFailure(void)	const	{ return HasResult(TestPartResult::kFatalFailure); }
+
+	/**
+	 * @brief	致命的でないエラーがあるかどうか
+	 * @return	真偽値
+	*/
+	bool		HasNonfatalFailure(void)	const	{ return HasResult(TestPartResult::kNotFatalFailure); }
+
+	/**
+	 * @brief	テストの実行時間の取得
+	 * @return	テストの実行時間
+	*/
+	TimeInMillisec	elapsed_time(void)		const	{ return m_elapsedmsec; }
+
+	/**
+	 * @brief	結果の数を取得
+	 * @return	結果の数
+	*/
+	int			total_part_count(void)		const	{ return static_cast<int>(m_test_part_results.size()); }
+
+	/**
+	 * @brief	プロパティ総数の取得
+	 * @return	総数
+	*/
+	int			test_property_count(void)	const	{ return static_cast<int>(m_test_propertys.size()); }
+
+	/**
+	 * @brief	テスト結果の取得
+	 * @param [in]	index	= インデックス
+	 * @return	テスト結果
+	*/
+	const TestPartResult&	GetTestPartResult(int index) const	{ return m_test_part_results[index]; }
+
+	/**
+	 * @brief	プロパティの取得
+	 * @param [in]	index	= インデックス
+	 * @return	プロパティの
+	*/
+	const TestProperty&		GetTestProperty(int index) const	{ return m_test_propertys[index]; }
+
+public:
+	/**
+	 * @brief	失敗の数を取得
+	 * @return	失敗の数
+	*/
+	int			total_error_count(void)		const
+	{
+		int count = 0;
+		for( TestPartResults::const_iterator it=m_test_part_results.begin(), end=m_test_part_results.end(); it != end; ++it )
+		{
+			if( it->failed() ) ++count;
+		}
+		return count;
+	}
+
+private:
+	void AddTestPartResult(const TestPartResult& result)	{ m_test_part_results.push_back(result); }
+	void set_elapsed_time(TimeInMillisec time)		{ m_elapsedmsec = time; }
+
+private:
+	void RecordProperty(const TestProperty& prop)	
+	{
+		for( TestPropertys::iterator it=m_test_propertys.begin(), end=m_test_propertys.end(); it != end; ++it )
+		{
+			if( detail::IsStringEqual(it->key(), prop.key()) )
+			{
+				it->m_value = prop.m_value;
+				return;
+			}
+		}
+		m_test_propertys.push_back(prop);
+	}
+
+	void ClearResult(void)
+	{
+		m_test_part_results.clear();
+		m_elapsedmsec = 0;
+	}
+	bool HasResult(TestPartResult::Type eType) const
+	{
+		for( TestPartResults::const_iterator it=m_test_part_results.begin(), end=m_test_part_results.end(); it != end; ++it )
+		{
+			if( it->type() == eType ) return true;
+		}
+		return false;
+	}
+private:
+	friend class TestInfo;
+	friend class detail::DefaultGlobalTestPartResultReporter;
+
+	TestPartResults	m_test_part_results;
+	TestPropertys	m_test_propertys;
+	TimeInMillisec	m_elapsedmsec;
+
+	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TestResult);
+};
+
+}	// end of namespace iutest
+
+#endif

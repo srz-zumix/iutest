@@ -1,0 +1,189 @@
+//======================================================================
+//-----------------------------------------------------------------------
+/**
+ * @file		iutest_file.h
+ * @brief		iris unit test ファイルクラス ファイル
+ *
+ * @author		t.sirayanagi
+ * @version		1.0
+ *
+ * @par			copyright
+ * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * The new BSD License is applied to this software.
+ * see LICENSE
+*/
+//-----------------------------------------------------------------------
+//======================================================================
+#ifndef INCG_IRIS_iutest_file_H_77D2C2B9_F504_4bb5_BA56_D97A2EB37DC6_
+#define INCG_IRIS_iutest_file_H_77D2C2B9_F504_4bb5_BA56_D97A2EB37DC6_
+
+//======================================================================
+// include
+#include <stdarg.h>
+#include <string.h>
+#include "iutest_internal_defs.h"
+#include "iutest_stream.hpp"
+
+namespace iutest
+{
+
+//======================================================================
+// declare
+class IFile;
+
+namespace detail
+{
+
+//======================================================================
+// class
+/**
+ * @brief	ファイル処理クラスインターフェイス
+*/
+class IFileSystem
+{
+	template<typename T>
+	struct Variable
+	{
+		static IFileSystem*	m_pInstance;
+	};
+
+	typedef Variable<void>	var;
+public:
+	IFileSystem(void)
+	{
+		var::m_pInstance = this;
+	}
+	virtual ~IFileSystem(void)
+	{
+		var::m_pInstance = NULL;
+	}
+
+public:
+	virtual void	Initialize(void) {}
+
+public:
+	static IFileSystem*	GetInstance(void)	{ return var::m_pInstance; }
+
+public:
+	static IFile*	New(void)
+	{
+		IFileSystem* fs = GetInstance();
+		if( fs == NULL ) return NULL;
+		IFile* p = fs->Create();
+		return p;
+	}
+	static void		Free(IFile* ptr)
+	{
+		IFileSystem* fs = GetInstance();
+		if( fs == NULL ) return;
+		fs->Delete(ptr);
+	}
+
+private:
+	virtual IFile*	Create(void) = 0;
+	virtual void	Delete(IFile*) = 0;
+};
+
+template<typename T>
+IFileSystem*	IFileSystem::Variable<T>::m_pInstance = NULL;
+
+}
+
+/**
+ * @brief	ファイルクラスインターフェイス
+*/
+class IFile : public detail::IOutStream
+{
+public:
+	enum OpenFlag
+	{
+		OpenRead		= 0x00000001,	//!< 読み込み
+		OpenWrite		= 0x00000002,	//!< 書き込み
+		OpenReadWrite	= 0x00000003	//!< 読み書き
+	};
+public:
+	virtual ~IFile(void) {}
+public:
+	//! 開く
+	virtual	bool	Open(const char* filename, int mode) = 0;
+	//! 閉じる
+	virtual	void	Close(void)	= 0;
+};
+
+/**
+ * @brief	ファイル処理クラスインターフェイス
+*/
+template<typename FILE>
+class FileSystem : public detail::IFileSystem
+{
+private:
+	virtual IFile*	Create(void)		{ return new FILE; }
+	virtual void	Delete(IFile* ptr)	{ delete ptr; }
+};
+
+
+#if IUTEST_HAS_FOPEN
+
+/**
+ * @brief	標準ファイルクラス
+*/
+class StdioFile : public IFile
+{
+	FILE* m_fp;
+public:
+	StdioFile(void) : m_fp(NULL) {}
+	virtual ~StdioFile(void) { Close(); }
+public:
+	/**
+	 * @brief	開く
+	 * @param [in]	filename	= ファイルパス
+	 * @param [in]	mode		= モード
+	 * @return	成否
+	*/
+	virtual	bool	Open(const char* filename, int mode)
+	{
+		Close();
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+		switch( mode )
+		{
+		case IFile::OpenRead:
+			m_fp = fopen(filename, "rb");
+			break;
+		case IFile::OpenWrite:
+			m_fp = fopen(filename, "wb");
+			break;
+		case IFile::OpenReadWrite:
+			m_fp = fopen(filename, "ab");
+			break;
+		}
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+		return m_fp != NULL;
+	}
+	/**
+	 * @brief	閉じる
+	*/
+	virtual	void	Close(void)
+	{
+		if( m_fp != NULL )
+		{
+			fclose(m_fp);
+			m_fp = NULL;
+		}
+	}
+	/**
+	 * @brief	書き込み
+	 * @param [in]	buf		= 書き込みバッファ
+	 * @param [in]	size	= バッファサイズ
+	 * @param [in]	cnt		= 書き込み回数
+	*/
+	virtual void	Write(const void* buf, size_t size, size_t cnt)
+	{
+		fwrite(buf, size, cnt, m_fp);
+	}
+};
+
+#endif
+
+}	// end of namespace iutest
+
+#endif

@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{0f1f20da-17b3-4d53-925b-3c3827df1859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="iutest">
+      <UniqueIdentifier>{bba9aa0f-817a-456d-8fe4-977e7a1ec150}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="iutest\internal">
+      <UniqueIdentifier>{ed5a7099-9224-4756-8572-0fea0159ba41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="iutest\listener">
+      <UniqueIdentifier>{6f0ea11a-28bf-4264-9bf2-164bd383d5db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="iutest\gtest">
+      <UniqueIdentifier>{246de0de-3fa5-44c7-8cea-dd8325740f70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="iutest\util">
+      <UniqueIdentifier>{06f9ba7f-0222-41af-8da4-1bb2986d0717}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="iutest\tr1">
+      <UniqueIdentifier>{7610a64a-33f2-496e-9fd8-81f30a0ff317}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\test\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\test\iutest_tr1_value_tmp_tests.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\iutest.hpp">
+      <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\iutest_ver.h">
+      <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\iutest_assertion.hpp">
+      <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\iutest_body.hpp">
+      <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\iutest_case.hpp">
+      <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\iutest_core.hpp">
+      <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\iutest_defs.h">
+      <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\iutest_env.hpp">
+      <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\iutest_info.hpp">
+      <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\iutest_listener.hpp">
+      <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\iutest_param_tests.hpp">
+      <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\iutest_pred.hpp">
+      <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\iutest_printers.hpp">
+      <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\iutest_result.hpp">
+      <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\iutest_static_assertion.hpp">
+      <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\iutest_typed_tests.hpp">
+      <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\iutest_util.hpp">
+      <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_charcode.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_compiler.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_console.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_constant.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_core_impl.hpp">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_debug.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_exception.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_factory.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_file.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_genparams.hpp">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_internal.hpp">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_internal_defs.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_list.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_mediator.hpp">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_message.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_option_message.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_os.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_params_util.hpp">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_pool.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_pp.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_random.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_regex.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_string.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_time.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_tuple.hpp">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_typed_util.hpp">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\internal\iutest_typelist.hpp">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\listener\iutest_default_printer.hpp">
+      <Filter>iutest\listener</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\listener\iutest_default_xml_generator.hpp">
+      <Filter>iutest\listener</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\gtest\iutest_switch.hpp">
+      <Filter>iutest\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\util\iutest_util_assertion.hpp">
+      <Filter>iutest\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\util\iutest_util_output.hpp">
+      <Filter>iutest\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\tr1\iutest_value_tmp_tests.hpp">
+      <Filter>iutest\tr1</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

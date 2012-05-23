@@ -1,0 +1,165 @@
+//======================================================================
+//-----------------------------------------------------------------------
+/**
+ * @file		iutest_prod_tests.cpp
+ * @brief		product code access test
+ *
+ * @author		t.sirayanagi
+ * @version		1.0
+ *
+ * @par			copyright
+ * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * The new BSD License is applied to this software.
+ * see LICENSE
+*/
+//-----------------------------------------------------------------------
+//======================================================================
+
+//======================================================================
+// include
+#include "../include/gtest/iutest_switch.hpp"
+
+namespace prod_test
+{
+
+class ProdClass
+{
+	IUTEST_FRIEND_TEST(ProdTest, Friend);
+	
+public:
+	ProdClass(void) : m_x(0) {}
+	
+	int	GetX(void) { return m_x; }
+	int	GetZ(void) { return m_z; }
+private:
+	int m_dummy;
+	int m_x;
+	int m_z;
+	void SetX(int x) { m_x = x; }
+
+public:
+	static int GetY(void)	{ return m_y; }
+private:
+	static int m_y;
+	static void SetY(int y)	{ m_y = y; }
+	
+};
+
+int ProdClass::m_y = 0;
+
+static ProdClass s_prod;
+
+// IUTEST_FRIEND_TEST を使ってのアクセス
+IUTEST(ProdTest, Friend)
+{
+	s_prod.SetX(1);
+	IUTEST_ASSERT_EQ(1, s_prod.GetX());
+
+	s_prod.m_x = 2;
+	IUTEST_ASSERT_EQ(2, s_prod.GetX());
+}
+
+#if IUTEST_HAS_PEEP
+
+// peep を使ってのアクセス
+IUTEST_MAKE_PEEP(int ProdClass::*, ProdClass, m_x);
+
+IUTEST(ProdTest, Peep)
+{
+	// マクロ版
+	IUTEST_PEEP_GET(s_prod, ProdClass, m_x) = 4;
+	IUTEST_ASSERT_EQ(4, s_prod.GetX());
+
+	IUTEST_ASSERT_EQ(4, IUTEST_PEEP_GET(s_prod, ProdClass, m_x));
+
+	// object 版
+	IUTEST_PEEP(ProdClass, m_x) prod_class_x(&s_prod);
+	prod_class_x = 5;
+	IUTEST_ASSERT_EQ(5, s_prod.GetX());
+	prod_class_x += prod_class_x;
+	IUTEST_ASSERT_EQ(10, s_prod.GetX());
+
+	IUTEST_ASSERT_EQ(10, prod_class_x);
+}
+
+IUTEST_MAKE_PEEP(int *, ProdClass, m_y);
+
+IUTEST(ProdTest, StaticPeep)
+{
+	IUTEST_PEEP_STATIC_GET(ProdClass, m_y) = 4;
+	IUTEST_ASSERT_EQ(4, ProdClass::GetY());
+
+	IUTEST_ASSERT_EQ(4, IUTEST_PEEP_STATIC_GET(ProdClass, m_y));
+
+	// object 版
+	IUTEST_PEEP(ProdClass, m_y) prod_class_y;
+	prod_class_y = 5;
+	IUTEST_ASSERT_EQ(5, ProdClass::GetY());
+	prod_class_y *= 2;
+	IUTEST_ASSERT_EQ(10, ProdClass::GetY());
+
+	IUTEST_ASSERT_EQ(10, prod_class_y);
+}
+
+#if IUTEST_HAS_PEEP_FUNC
+
+typedef void (ProdClass::* ProdClassSetX)(int);
+IUTEST_MAKE_PEEP(ProdClassSetX, ProdClass, SetX);
+
+IUTEST(ProdTest, PeepFunction)
+{
+	IUTEST_PEEP_GET(s_prod, ProdClass, SetX)(100);
+	IUTEST_ASSERT_EQ(100, s_prod.GetX());
+
+	IUTEST_PEEP(ProdClass, SetX) peep(&s_prod);
+	peep(101);
+	IUTEST_ASSERT_EQ(101, s_prod.GetX());
+}
+
+#endif
+
+#if IUTEST_HAS_PEEP_STATIC_FUNC
+
+typedef void (* ProdClassSetY)(int);
+IUTEST_MAKE_PEEP(ProdClassSetY, ProdClass, SetY);
+
+IUTEST(ProdTest, StaticPeepFunction)
+{
+	IUTEST_PEEP_STATIC_GET(ProdClass, SetY)(100);
+	IUTEST_ASSERT_EQ(100, ProdClass::GetY());
+
+	// object 版
+	IUTEST_PEEP(ProdClass, SetY) peep;
+	peep(101);
+	IUTEST_ASSERT_EQ(101, ProdClass::GetY());
+}
+
+#endif
+
+#endif
+
+}
+
+
+#if IUTEST_HAS_PEEP
+
+// peep を使ってのアクセス
+IUTEST_MAKE_SCOPED_PEEP(int prod_test::ProdClass::*, prod_test, ProdClass, m_z);
+
+IUTEST(ProdTest, ScopedPeep)
+{
+	// マクロ版
+	IUTEST_PEEP_GET(prod_test::s_prod, ProdClass, m_z) = 4;
+	IUTEST_ASSERT_EQ(4, prod_test::s_prod.GetZ());
+
+	IUTEST_ASSERT_EQ(4, IUTEST_PEEP_GET(prod_test::s_prod, ProdClass, m_z));
+
+	// object 版
+	IUTEST_SCOPED_PEEP(prod_test, ProdClass, m_z) prod_class_z(&prod_test::s_prod);
+	prod_class_z = 5;
+	IUTEST_ASSERT_EQ(5, prod_test::s_prod.GetZ());
+
+	IUTEST_ASSERT_EQ(5, prod_class_z);
+}
+
+#endif
