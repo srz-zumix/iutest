@@ -22,10 +22,10 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x00300100	//!< iutest version 0.30.1.0
+#define	IUTEST_VER			0x00310000	//!< iutest version 0.31.0.0
 #define IUTEST_MAJORVER		0x00		//!< Major Version
-#define IUTEST_MINORVER		0x30		//!< Minor Version
-#define IUTEST_BUILD		0x01		//!< Build
+#define IUTEST_MINORVER		0x31		//!< Minor Version
+#define IUTEST_BUILD		0x00		//!< Build
 #define IUTEST_REVISION		0x00		//!< Revision
 
 /**
@@ -80,6 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    <tr><td>--iutest_catch_exceptions         </td><td>&lt;0|1&gt;</td><td>catch exceptions enable.</td></tr>
    <tr><td>--iutest_print_time               </td><td>&lt;0|1&gt;</td><td>Setting the display of elapsed time.</td></tr>
    <tr><td>--iutest_repeat                   </td><td>&lt;count&gt;</td><td>Set the number of repetitions of the test.</td></tr>
+   <tr><td>--feature                         </td><td></td><td>show iutest feature.</td></tr>
    <tr><td>--version, -v                     </td><td></td><td>show iutest version.</td></tr>
  </table>
   * yes or no option can use "yes|y|on|true|t|1|no|n|off|false|f|0"
@@ -89,6 +90,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	RELEASE		リリースノート
  * @par		release note
 <ul>
+  <li>v0.31.0.0
+    <ul>
+      <li>iutest::PrintToString でストリーム出力できない型に対応（バイト配列を出力）</li>
+	  <li>テスト用乱数のシード取得を追加</li>
+	  <li>IUTEST_*_TRUE|FALSE で iutest::AssertionResult を受け取れるように修正</li>
+      <li>--feature オプションを追加</li>
+    </ul>
+  </li>
   <li>v0.30.1.0
     <ul>
       <li>IUTEST_*_STREQ, IUTEST_*_STRNE を char16_t, char32_t に対応</li>

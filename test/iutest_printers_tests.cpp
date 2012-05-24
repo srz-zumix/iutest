@@ -89,6 +89,38 @@ IUTEST(PrintToTest, Std)
 	IUTEST_SUCCEED() << iutest::PrintToString(v);
 }
 
+struct Point0
+{
+	unsigned int x,y;
+};
+struct Point1
+{
+	int x,y;
+};
+struct Point2
+{
+	int x,y;
+};
+
+std::ostream& operator << (std::ostream& os, const Point1& x)
+{
+	return os << x.x << ", " << x.y << "(operator overload)";
+}
+
+void PrintTo(const Point2& x, std::ostream* os)
+{
+	*os << x.x << ", " << x.y << "(function overload)";
+}
+
+IUTEST(PrintToTest, Overload)
+{
+	Point0 p0 = { 0x12345678, 0x9ABCDEF0 };
+	Point1 p1 = {0, 0};
+	Point2 p2 = {1, 1};
+	IUTEST_SUCCEED() << iutest::PrintToString(p0);
+	IUTEST_SUCCEED() << iutest::PrintToString(p1);
+	IUTEST_SUCCEED() << iutest::PrintToString(p2);
+}
 
 #if IUTEST_HAS_TUPLE
 IUTEST(PrintToTest, Tuple)

@@ -55,13 +55,13 @@ public:
 			"    --iutest_catch_exceptions=<0|1>   : catch exceptions enable.\n"
 			"    --iutest_print_time=<0|1>         : Setting the display of elapsed time.\n"
 			"    --iutest_repeat=<count>           : Set the number of repetitions of the test.\n"
+			"    --feature                         : show iutest feature.\n"
 			"    --version, -v                     : show iutest version.\n"
 			"\n"
 			"--------------------------------------------------\n"
 			"License\n"
 			"\n"
-			"    Copyright (c) 2011-2012, Takazumi-Shirayanagi,\n"
-			"    All rights reserved.\n"
+			"    Copyright (c) 2011-2012, Takazumi-Shirayanagi\n"
 			"\n"
 			"    The new(modified) BSD License is applied to this software, see LICENSE\n"
 			"\n"
@@ -75,6 +75,37 @@ public:
 	{
 		detail::iuConsole::output("iutest version %x.%x.%x.%x\n"
 			, IUTEST_MAJORVER, IUTEST_MINORVER, IUTEST_BUILD, IUTEST_REVISION);
+	}
+	/**
+	 * @brief	ã@î\èoóÕ
+	*/
+	static void ShowFeature(void)
+	{
+#define SHOW_MACRO(macro)	detail::iuConsole::output("#define %s  %s\n", #macro, IUTEST_PP_TOSTRING(macro))
+		SHOW_MACRO(IUTEST_HAS_PARAM_TEST);
+		SHOW_MACRO(IUTEST_HAS_TYPED_TEST);
+		SHOW_MACRO(IUTEST_HAS_TYPED_TEST_P);
+		SHOW_MACRO(IUTEST_HAS_COMBINE);
+		SHOW_MACRO(IUTEST_HAS_EXCEPTIONS);
+		SHOW_MACRO(IUTEST_HAS_SEH);
+		SHOW_MACRO(IUTEST_HAS_GENRAND);
+		SHOW_MACRO(IUTEST_HAS_PEEP);
+		SHOW_MACRO(IUTEST_HAS_PEEP_FUNC);
+		SHOW_MACRO(IUTEST_HAS_PEEP_STATIC_FUNC);
+
+		SHOW_MACRO(IUTEST_HAS_RTTI);
+
+		SHOW_MACRO(IUTEST_HAS_CHAR16_T);
+		SHOW_MACRO(IUTEST_HAS_CHAR32_T);
+		SHOW_MACRO(IUTEST_HAS_CONSTEXPR);
+		SHOW_MACRO(IUTEST_HAS_DELETED_FUNCTIONS);
+		SHOW_MACRO(IUTEST_HAS_NULLPTR);
+		SHOW_MACRO(IUTEST_HAS_RVALUE_REFS);
+		SHOW_MACRO(IUTEST_HAS_TUPLE);
+		SHOW_MACRO(IUTEST_HAS_VARIADIC_TEMPLATES);
+		SHOW_MACRO(IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES);
+
+#undef SHOW_MACRO
 	}
 };
 

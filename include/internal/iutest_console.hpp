@@ -99,6 +99,8 @@ public:
 private:
 	static void color_output_impl(Color color, const char* fmt, va_list va)
 	{
+		(void)(fmt);
+		(void)(va);
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 		if( !IsColorModeAnsi() )
 		{

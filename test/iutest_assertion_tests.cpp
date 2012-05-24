@@ -19,13 +19,20 @@
 // include
 #include "../include/iutest.hpp"
 
+iutest::AssertionResult IsEven(int n)
+{
+	if( n%2 == 0 ) return iutest::AssertionSuccess();
+	return iutest::AssertionFailure() << n << " is odd";
+}
+
 IUTEST(AssertionTest, True)
 {
 	IUTEST_ASSERT_TRUE(true);
 	IUTEST_EXPECT_TRUE(true);
 	IUTEST_INFORM_TRUE(true);
-	IUTEST_ASSERT_TRUE(1);
-	IUTEST_ASSERT_TRUE(100==100);
+	IUTEST_EXPECT_TRUE(1);
+	IUTEST_EXPECT_TRUE(100==100);
+	IUTEST_EXPECT_TRUE(IsEven(2));
 }
 
 IUTEST(AssertionTest, False)
@@ -33,9 +40,15 @@ IUTEST(AssertionTest, False)
 	IUTEST_ASSERT_FALSE(false);
 	IUTEST_EXPECT_FALSE(false);
 	IUTEST_INFORM_FALSE(false);
-	IUTEST_ASSERT_FALSE(0);
-	IUTEST_ASSERT_FALSE(100!=100);
+	IUTEST_EXPECT_FALSE(0);
+	IUTEST_EXPECT_FALSE(100!=100);
 }
+
+struct Point
+{
+	int x,y;
+	bool operator == (const Point& rhs) const { return x==rhs.x && y==rhs.y; }
+};
 
 IUTEST(AssertionTest, EQ)
 {
@@ -54,6 +67,15 @@ IUTEST(AssertionTest, EQ)
 	IUTEST_ASSERT_EQ(v1, v2);
 	IUTEST_EXPECT_EQ(v1, v2);
 	IUTEST_INFORM_EQ(v1, v2);
+	
+	{
+		Point a = {0, 0};
+		Point b = {0, 0};
+		
+		IUTEST_ASSERT_EQ(a, b);
+		IUTEST_EXPECT_EQ(a, b);
+		IUTEST_INFORM_EQ(a, b);
+	}
 }
 
 IUTEST(AssertionTest, NE)
@@ -174,3 +196,52 @@ IUTEST(AssertionTest, HResult)
 
 #endif
 
+#if IUTEST_HAS_EXCEPTIONS
+
+static void	ExceptionFunction(int i)
+{
+	switch( i )
+	{
+	case 0:
+		return;
+	case 1:
+		throw 2;
+		break;
+	case 2:
+		throw std::bad_exception();
+		break;
+	default:
+		break;
+	}
+}
+
+IUTEST(AssertionTest, Exception)
+{
+	//IUTEST_ASSERT_THROW(throw std::bad_exception(), std::bad_exception);
+	IUTEST_ASSERT_THROW(ExceptionFunction(2), std::bad_exception);
+	IUTEST_EXPECT_THROW(ExceptionFunction(2), std::bad_exception);
+	IUTEST_INFORM_THROW(ExceptionFunction(2), std::bad_exception);
+	IUTEST_ASSERT_ANY_THROW(ExceptionFunction(1));
+	IUTEST_EXPECT_ANY_THROW(ExceptionFunction(1));
+	IUTEST_INFORM_ANY_THROW(ExceptionFunction(1));
+	IUTEST_ASSERT_NO_THROW(ExceptionFunction(0));
+	IUTEST_EXPECT_NO_THROW(ExceptionFunction(0));
+	IUTEST_INFORM_NO_THROW(ExceptionFunction(0));
+}
+
+class exception_test
+{
+public:
+	exception_test(const std::vector<int>&)
+	{
+		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw std::exception());
+	}
+};
+
+IUTEST(AssertionTest, Exception2)
+{
+	std::vector<int> a;
+	IUTEST_ASSERT_THROW(exception_test(a), std::exception);
+}
+
+#endif

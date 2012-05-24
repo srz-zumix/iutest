@@ -117,8 +117,10 @@
 #    if __has_feature(cxx_rvalue_references)
 #      define IUTEST_HAS_RVALUE_REFS	1
 #    endif
-#  elif (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 2)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
-#    define IUTEST_HAS_RVALUE_REFS	1
+#  elif defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 2)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_RVALUE_REFS	1
+#    endif
 #  elif	defined(_MSC_VER) && (_MSC_VER >= 1700)
 #    define IUTEST_HAS_RVALUE_REFS	1
 #  endif
@@ -129,18 +131,20 @@
 #endif
 
 // delete function
-#ifndef IUTEST_NO_DELETED_FUNCTIONS
+#ifndef IUTEST_HAS_DELETED_FUNCTIONS
 #  if	defined(__clang__)
 #    if __has_feature(cxx_deleted_functions)
 #      define IUTEST_HAS_DELETED_FUNCTIONS	1
 #    endif
-#  elif (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
-#    define IUTEST_HAS_DELETED_FUNCTIONS	1
+#  elif defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_DELETED_FUNCTIONS	1
+#    endif
 #  endif
 #endif
 
-#ifndef IUTEST_NO_DELETED_FUNCTIONS
-#  define IUTEST_NO_DELETED_FUNCTIONS		0
+#ifndef IUTEST_HAS_DELETED_FUNCTIONS
+#  define IUTEST_HAS_DELETED_FUNCTIONS		0
 #endif
 
 // variadic template
@@ -179,14 +183,18 @@
 
 // char16_t char32_t
 #ifndef IUTEST_HAS_CHAR16_T
-#  if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
-#    define IUTEST_HAS_CHAR16_T	1
+#  if defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_CHAR16_T	1
+#    endif
 #  endif
 #endif
 
 #ifndef IUTEST_HAS_CHAR32_T
-#  if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
-#    define IUTEST_HAS_CHAR32_T	1
+#  if defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_CHAR32_T	1
+#    endif
 #  endif
 #endif
 

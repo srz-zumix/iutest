@@ -36,6 +36,7 @@ private:
 IUTEST(Foo, Bar)
 {
 	IUTEST_ASSERT_NE(seed, iutest::UnitTest::GetInstance()->random_seed());
+	iutest::internal::posix::SleepMillisec(1);
 }
 
 #if IUTEST_HAS_PARAM_TEST
@@ -63,10 +64,11 @@ int main(int argc, char* argv[])
 {
 	MyEnvironment* const env = new MyEnvironment();
 	assert( iutest::AddGlobalTestEnvironment(env) == env );
+	IUTEST_INIT(&argc, argv);
+	
 	iutest::IUTEST_FLAG(repeat) = 3;
 	iutest::IUTEST_FLAG(shuffle) = true;
 
-	IUTEST_INIT(&argc, argv);
 	int ret = IUTEST_RUN_ALL_TESTS();
 	if( ret != 0 ) return ret;
 	

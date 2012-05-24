@@ -33,13 +33,99 @@ std::string PrintToString(const T& v);
 namespace detail
 {
 
+inline void PrintBytesInObjectTo(const unsigned char* buf, size_t size, std::ostream* os)
+{
+	const size_t kMaxCount = detail::kValues::MaxPrintContainerCount;
+	*os << size << "-Byte object < ";
+	for( size_t i=0; i < size; ++i )
+	{
+		*os << detail::ToHex(buf[i]>>4) << ToHex(buf[i]&0xF) << " ";
+		if( i == kMaxCount )
+		{
+			*os << "... ";
+			break;
+		}
+	}
+	*os << ">";
+}
+
+namespace printer_internal
+{
+
+template<typename T>
+class TypeWithoutFormatter
+{
+	template<bool convertible, typename DMY>
+	struct impl
+	{
+		static void Print(const T& value, std::ostream* os)
+		{
+			const unsigned char* ptr = reinterpret_cast<const unsigned char*>(&value);
+			size_t size = sizeof(T);
+			PrintBytesInObjectTo(ptr, size, os);
+		}
+	};
+	template<typename DMY>
+	struct impl<true, DMY>
+	{
+		static void Print(const T& value, std::ostream* os)
+		{
+			const BiggestInt v = value;
+			*os << v;
+		}
+	};
+public:
+	static void PrintValue(const T& value, std::ostream* os)
+	{
+		impl<is_convertible<const T&, BiggestInt>::value, void>::Print(value, os);
+	}
+};
+
+template<typename Elem, typename Traits, typename T>
+::std::basic_ostream<Elem, Traits>& operator << (::std::basic_ostream<Elem, Traits>& os, const T& value)
+{
+	TypeWithoutFormatter<T>::PrintValue(value, &os);
+	return os;
+}
+
+}	// end of printer_internal
+
+namespace printer_internal2
+{
+
+// 解決順序
+// foo::operator <<
+// ::operator <<
+// iutest::detail::printer_internal::operator <<
+template<typename T>
+void DefaultPrintNonContainerTo(const T& value, ::std::ostream* os)
+{
+	using namespace ::iutest::detail::printer_internal;
+	*os << value;
+}
+
+}
+
 //======================================================================
 // declare
-template<typename T>class iuUniversalPrinter;
+template<typename T>
+inline void UniversalPrintTo(T value, std::ostream* os);
+
+//======================================================================
+// class
+/** @private */
+template<typename T>
+class iuUniversalPrinter
+{
+public:
+	static void Print(const T& value, std::ostream* os)
+	{
+		UniversalPrintTo(value, os);
+	}
+};
 
 //======================================================================
 // function
-
 /** @private */
 template<typename T>
 inline void	UniversalPrint(const T& value, std::ostream* os)
@@ -80,36 +166,7 @@ inline void DefaultPrintTo(IsContainerHelper::no_t
 						   , false_type
 						   , const T& value, std::ostream* os)
 {
-	*os << value;
-}
-// char or unsigned char の時に、 0 が NULL 文字にならないように修正
-inline void DefaultPrintTo(IsContainerHelper::no_t
-						   , false_type
-						   , const char& value, std::ostream* os)
-{
-	if( value == 0 ) *os << "\\0";
-	else *os << "\'" << value << "\'";
-}
-inline void DefaultPrintTo(IsContainerHelper::no_t
-						   , false_type
-						   , const volatile char& value, std::ostream* os)
-{
-	if( value == 0 ) *os << "\\0";
-	else *os << "\'" << value << "\'";
-}
-inline void DefaultPrintTo(IsContainerHelper::no_t
-						   , false_type
-						   , const unsigned char& value, std::ostream* os)
-{
-	// 数値で出力する
-	*os << static_cast<unsigned int>(value);
-}
-inline void DefaultPrintTo(IsContainerHelper::no_t
-						   , false_type
-						   , const volatile unsigned char& value, std::ostream* os)
-{
-	// 数値で出力する
-	*os << static_cast<unsigned int>(value);
+	printer_internal2::DefaultPrintNonContainerTo(value, os);
 }
 
 template<typename T>
@@ -154,6 +211,21 @@ inline void PrintTo(const std::pair<T1, T2>& value, std::ostream* os)
 	*os << ", ";
 	iuUniversalPrinter<T2>::Print(value.second, os);
 	*os << ")";
+}
+// char or unsigned char の時に、 0 が NULL 文字にならないように修正
+inline void PrintTo(const char value, std::ostream* os)
+{
+	if( value == 0 ) *os << "\\0";
+	else *os << "\'" << value << "\'";
+}
+inline void PrintTo(const wchar_t value, std::ostream* os)
+{
+	if( value == 0 ) *os << "\\0";
+	else *os << "\'" << value << "\'";
+}
+inline void PrintTo(const unsigned char value, std::ostream* os)
+{
+	*os << static_cast<unsigned int>(value);
 }
 
 #if IUTEST_HAS_NULLPTR
@@ -296,14 +368,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const char* begin, size
 
 /** @private */
 template<typename T>
-class iuUniversalPrinter
-{
-public:
-	static void Print(const T& value, std::ostream* os)
-	{
-		PrintTo(value, os);
-	}
-};
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(T value, std::ostream* os) { PrintTo(value, os); }
 
 /** @private */
 template<typename T, size_t SIZE>

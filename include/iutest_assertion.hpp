@@ -232,11 +232,16 @@ inline std::string FormatForComparisonFailureMessage(const T1& value, const T2& 
 */
 inline std::string GetBooleanAssertionFailureMessage(const AssertionResult& ar, const char* expr, const char* actual, const char* expected)
 {
-	std::string str = ar.message();
-	str += "error: Value of: ";
+	std::string str = "error: Value of: ";
 	str += expr;
 	str += "\n  Actual: ";
 	str += actual;
+	if( !detail::IsEmpty(ar.message()) )
+	{
+		str += " (";
+		str += ar.message();
+		str += ")";
+	}
 	str += "\nExpected: ";
 	str += expected;
 	return str;
@@ -671,7 +676,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* e
 {
 	return CmpHelperSTRCASEEQ(expr1, expr2, val1.c_str(), val2);
 }
-static AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* expr1, const char* expr2
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* expr1, const char* expr2
 							   , const char* val1, const char* val2)
 {
 	if( val1 == NULL || val2 == NULL ) 
@@ -685,7 +690,7 @@ static AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* e
 	return AssertionFailure() << "error: Value of: " << expr1 << " != " << expr2
 		<< "\n  Actual: " << FormatForComparisonFailureMessage(val2, val1) << "\nExpected: " << FormatForComparisonFailureMessage(val1, val2) ;
 }
-static AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* expr1, const char* expr2
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* expr1, const char* expr2
 							   , const wchar_t* val1, const wchar_t* val2)
 {
 	if( val1 == NULL || val2 == NULL ) 

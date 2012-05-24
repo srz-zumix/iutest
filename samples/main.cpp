@@ -108,14 +108,28 @@ IUTEST_F(TestFixed, Test2)
 
 typedef TestFixed TestFixed2;
 
+struct Point
+{
+	int x, y;
+	bool operator == (const Point& rhs) const { return x==rhs.x && y==rhs.y; }
+};
+
 IUTEST_F(TestFixed2, Test1)
 {
 	IUTEST_ASSERT_EQ(1, x);
+
+	{
+		Point a = {0, 0};
+		Point b = {0, 0};
+		IUTEST_EXPECT_EQ(a, b); // operator == ‚ª‚ ‚ê‚Î‰Â”\.
+	}
 }
 
 IUTEST_F(TestFixed2, Test2)
 {
 	IUTEST_ASSERT_EQ(2, x);
+	IUTEST_EXPECT_EQ(2, x);
+	IUTEST_INFORM_EQ(2, x);
 }
 
 /** --------------------------------------------------
@@ -124,8 +138,6 @@ IUTEST_F(TestFixed2, Test2)
 IUTEST(AssertionTest, NoFailure)
 {
 	IUTEST_ASSERT_NO_FATAL_FAILURE( IUTEST_EXPECT_TRUE(true) );
-	IUTEST_EXPECT_NO_FATAL_FAILURE( IUTEST_EXPECT_TRUE(true) );
-	IUTEST_INFORM_NO_FATAL_FAILURE( IUTEST_EXPECT_TRUE(true) );
 }
 
 IUTEST(AssertionTest, Base)
@@ -135,77 +147,67 @@ IUTEST(AssertionTest, Base)
 	double d0=0.0, d1=1.0;
 	// true/false
 	{
-		IUTEST_ASSERT_TRUE(true);
 		IUTEST_EXPECT_TRUE(true);
-		IUTEST_INFORM_TRUE(true);
-		IUTEST_ASSERT_TRUE(1);
-		IUTEST_ASSERT_TRUE(100==100);
+		IUTEST_EXPECT_TRUE(1);
+		IUTEST_EXPECT_TRUE(100==100);
 
-		IUTEST_ASSERT_FALSE(false);
 		IUTEST_EXPECT_FALSE(false);
-		IUTEST_INFORM_FALSE(false);
-		IUTEST_ASSERT_FALSE(0);
-		IUTEST_ASSERT_FALSE(100!=100);
+		IUTEST_EXPECT_FALSE(0);
+		IUTEST_EXPECT_FALSE(100!=100);
 	}
 	// EQ
 	{
-		IUTEST_ASSERT_EQ(x0, y0);
 		IUTEST_EXPECT_EQ(x0, y0);
-		IUTEST_INFORM_EQ(x0, y0);
 		int* zero=NULL;
-		IUTEST_ASSERT_EQ(NULL, zero);
+		IUTEST_EXPECT_EQ(NULL, zero);
 
 		std::vector<int> v1, v2;
-		IUTEST_ASSERT_EQ(v1, v2);
 		IUTEST_EXPECT_EQ(v1, v2);
-		IUTEST_INFORM_EQ(v1, v2);
 	}
 
 	// NE
 	{
-		IUTEST_ASSERT_NE(x0, x1);
 		IUTEST_EXPECT_NE(x0, x1);
-		IUTEST_INFORM_NE(x0, x1);
 		int* one=(int*)1;
-		IUTEST_ASSERT_NE(NULL, one);
+		IUTEST_EXPECT_NE(NULL, one);
 	}
 
 	// LE, LT
 	{
-		IUTEST_ASSERT_LE(x0, y0);
+		IUTEST_EXPECT_LE(x0, y0);
 		IUTEST_EXPECT_LE(f0, f1);
-		IUTEST_INFORM_LE(0.0, 0x1);
-		IUTEST_ASSERT_LT(x0, x1);
+		IUTEST_EXPECT_LE(0.0, 0x1);
+		IUTEST_EXPECT_LT(x0, x1);
 		IUTEST_EXPECT_LT(d0, d1);
-		IUTEST_INFORM_LT(0.0, 0x1);
+		IUTEST_EXPECT_LT(0.0, 0x1);
 	}
 
 	// GE, GT
 	{
-		IUTEST_ASSERT_GE(x0, y0);
+		IUTEST_EXPECT_GE(x0, y0);
 		IUTEST_EXPECT_GE(f1, f0);
-		IUTEST_INFORM_GE(0x1, 0.0f);
-		IUTEST_ASSERT_GT(x1, x0);
+		IUTEST_EXPECT_GE(0x1, 0.0f);
+		IUTEST_EXPECT_GT(x1, x0);
 		IUTEST_EXPECT_GT(d1, d0);
-		IUTEST_INFORM_GT(0x1, 0.0f);
+		IUTEST_EXPECT_GT(0x1, 0.0f);
 	}
 
 	// float. double
 	{
-		IUTEST_ASSERT_FLOAT_EQ(1.0f, f1);
+		IUTEST_EXPECT_FLOAT_EQ(1.0f, f1);
 		IUTEST_EXPECT_FLOAT_EQ(0.0f, f0);
-		IUTEST_INFORM_FLOAT_EQ(-1.0f, -2.0f/2.0f);
+		IUTEST_EXPECT_FLOAT_EQ(-1.0f, -2.0f/2.0f);
 
-		IUTEST_ASSERT_DOUBLE_EQ(1.0, d1);
+		IUTEST_EXPECT_DOUBLE_EQ(1.0, d1);
 		IUTEST_EXPECT_DOUBLE_EQ(0.0, d0);
-		IUTEST_INFORM_DOUBLE_EQ(-1.0, -2.0/2.0);
+		IUTEST_EXPECT_DOUBLE_EQ(-1.0, -2.0/2.0);
 	}
 
 	// Near
 	{
-		IUTEST_ASSERT_NEAR(0, 1, 2);
+		IUTEST_EXPECT_NEAR(0, 1, 2);
 		IUTEST_EXPECT_NEAR(1.0f, 4.0f, 4);
-		IUTEST_INFORM_NEAR(2.0, 1.0, 2);
+		IUTEST_EXPECT_NEAR(2.0, 1.0, 2);
 	}
 }
 
@@ -214,22 +216,16 @@ IUTEST(AssertionTest, Base2)
 	// NULL
 	{
 		int* p1 = NULL;
-		IUTEST_ASSERT_NULL(p1);
 		IUTEST_EXPECT_NULL(p1);
-		IUTEST_INFORM_NULL(p1);
 
 		void* p2 = &p1;
-		IUTEST_ASSERT_NOTNULL(p2);
 		IUTEST_EXPECT_NOTNULL(p2);
-		IUTEST_INFORM_NOTNULL(p2);
 	}
 	// SAME
 	{
 		int v = 0;
 		int* p1 = &v;
-		IUTEST_ASSERT_SAME(v, *p1);
 		IUTEST_EXPECT_SAME(v, *p1);
-		IUTEST_INFORM_SAME(v, *p1);
 	}
 }
 
@@ -237,16 +233,12 @@ IUTEST(AssertionTest, Cpp11)
 {
 #if IUTEST_HAS_CHAR16_T
 	const char16_t c16[] = u"test";
-	IUTEST_ASSERT_STREQ(c16, u"test");
 	IUTEST_EXPECT_STREQ(c16, u"test");
-	IUTEST_INFORM_STREQ(c16, u"test");
 #endif
 
 #if IUTEST_HAS_CHAR32_T
 	const char32_t c32[] = U"test";
-	IUTEST_ASSERT_STREQ(c32, U"test");
 	IUTEST_EXPECT_STREQ(c32, U"test");
-	IUTEST_INFORM_STREQ(c32, U"test");
 #endif
 }
 
@@ -254,29 +246,20 @@ IUTEST(AssertionTest, String)
 {
 	const char mbs[] = "test";
 	const wchar_t wcs[] = L"test";
-	IUTEST_ASSERT_STREQ( "test", mbs);
-	IUTEST_ASSERT_STREQ(L"test", wcs);
 	IUTEST_EXPECT_STREQ( "test", mbs);
-	IUTEST_INFORM_STREQ(L"test", wcs);
-	IUTEST_ASSERT_STRNE( "host", mbs);
-	IUTEST_ASSERT_STRNE(L"host", wcs);
-	IUTEST_EXPECT_STRNE( "host", mbs);
-	IUTEST_INFORM_STRNE(L"host", wcs);
+	IUTEST_EXPECT_STREQ(L"test", wcs);
 
-	IUTEST_ASSERT_STRLNEQ(4, mbs);
-	IUTEST_ASSERT_STRLNEQ(4, wcs);
+	IUTEST_EXPECT_STRNE( "host", mbs);
+	IUTEST_EXPECT_STRNE(L"host", wcs);
+
+	IUTEST_EXPECT_STRLNEQ(4, mbs);
 	IUTEST_EXPECT_STRLNEQ(4, wcs);
-	IUTEST_INFORM_STRLNEQ(4, wcs);
 
 	{
 		std::string str1 = "test";
-		IUTEST_ASSERT_EQ(str1, "test");
 		IUTEST_EXPECT_EQ(str1, "test");
-		IUTEST_INFORM_EQ(str1, "test");
 
-		IUTEST_ASSERT_NE(str1, "host");
 		IUTEST_EXPECT_NE(str1, "host");
-		IUTEST_INFORM_EQ(str1, "host");
 	}
 
 	{
@@ -284,15 +267,15 @@ IUTEST(AssertionTest, String)
 		std::string str2 = "teSt";
 		std::string str3 = "hoSt";
 
-		IUTEST_ASSERT_STRCASEEQ("TeSt", mbs);
-		IUTEST_ASSERT_STRCASEEQ("TeSt", str1);
+		IUTEST_EXPECT_STRCASEEQ("TeSt", mbs);
+		IUTEST_EXPECT_STRCASEEQ("TeSt", str1);
 		IUTEST_EXPECT_STRCASEEQ(str1, "TeSt");
-		IUTEST_INFORM_STRCASEEQ(str1, str2);
+		IUTEST_EXPECT_STRCASEEQ(str1, str2);
 
-		IUTEST_ASSERT_STRCASENE("HoSt", mbs);
-		IUTEST_ASSERT_STRCASENE("HoSt", str1);
+		IUTEST_EXPECT_STRCASENE("HoSt", mbs);
+		IUTEST_EXPECT_STRCASENE("HoSt", str1);
 		IUTEST_EXPECT_STRCASENE(str1, "HoSt");
-		IUTEST_INFORM_STRCASENE(str1, str3);
+		IUTEST_EXPECT_STRCASENE(str1, str3);
 	}
 }
 
@@ -300,12 +283,8 @@ IUTEST(AssertionTest, String)
 
 IUTEST(AssertionTest, HResult)
 {
-	IUTEST_ASSERT_HRESULT_SUCCEEDED(0);
 	IUTEST_EXPECT_HRESULT_SUCCEEDED(0);
-	IUTEST_INFORM_HRESULT_SUCCEEDED(0);
-	IUTEST_ASSERT_HRESULT_FAILED(-1);
 	IUTEST_EXPECT_HRESULT_FAILED(-1);
-	IUTEST_INFORM_HRESULT_FAILED(-1);
 }
 
 #endif
@@ -335,21 +314,11 @@ static bool	PredTest5(int , int , int , int , int )
 }
 IUTEST(AssertionTest, Pred)
 {
-	IUTEST_ASSERT_PRED1(IsOdd, 3);
 	IUTEST_EXPECT_PRED1(IsOdd, 3);
-	IUTEST_INFORM_PRED1(IsOdd, 3);
-	IUTEST_ASSERT_PRED2(IsGreater, 3, 1);
 	IUTEST_EXPECT_PRED2(IsGreater, 3, 1);
-	IUTEST_INFORM_PRED2(IsGreater, 3, 1);
-	IUTEST_ASSERT_PRED3(PredTest3, 0, 1, 2);
 	IUTEST_EXPECT_PRED3(PredTest3, 0, 1, 2);
-	IUTEST_INFORM_PRED3(PredTest3, 0, 1, 2);
-	IUTEST_ASSERT_PRED4(PredTest4, 0, 1, 2, 3);
 	IUTEST_EXPECT_PRED4(PredTest4, 0, 1, 2, 3);
-	IUTEST_INFORM_PRED4(PredTest4, 0, 1, 2, 3);
-	IUTEST_ASSERT_PRED5(PredTest5, 0, 1, 2, 3, 4);
 	IUTEST_EXPECT_PRED5(PredTest5, 0, 1, 2, 3, 4);
-	IUTEST_INFORM_PRED5(PredTest5, 0, 1, 2, 3, 4);
 }
 
 /** --------------------------------------------------
@@ -594,16 +563,9 @@ static void	ExceptionFunction(int i)
 
 IUTEST(AssertionTest, Exception)
 {
-	//IUTEST_ASSERT_THROW(throw std::bad_exception(), std::bad_exception);
-	IUTEST_ASSERT_THROW(ExceptionFunction(2), std::bad_exception);
 	IUTEST_EXPECT_THROW(ExceptionFunction(2), std::bad_exception);
-	IUTEST_INFORM_THROW(ExceptionFunction(2), std::bad_exception);
-	IUTEST_ASSERT_ANY_THROW(ExceptionFunction(1));
 	IUTEST_EXPECT_ANY_THROW(ExceptionFunction(1));
-	IUTEST_INFORM_ANY_THROW(ExceptionFunction(1));
-	IUTEST_ASSERT_NO_THROW(ExceptionFunction(0));
 	IUTEST_EXPECT_NO_THROW(ExceptionFunction(0));
-	IUTEST_INFORM_NO_THROW(ExceptionFunction(0));
 }
 
 class exception_test

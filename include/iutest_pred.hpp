@@ -34,7 +34,7 @@ AssertionResult	AssertPred1Helper(const char* pred_str, const char* expr1
 							  , PRED pred, T1 val1)
 {
 	if( (*pred)(val1) ) return AssertionSuccess();
-	return AssertionFailure() << "error: " << pred_str << "(" << expr1 << ") evaluates to false: "
+	return AssertionFailure() << "error: " << pred_str << "(" << expr1 << ") evaluates to false, where "
 		<< "\n" << expr1 << " : " << val1 ;
 }
 
@@ -98,7 +98,7 @@ AssertionResult	AssertPred2Helper(const char* pred_str, const char* expr1, const
 	if( (*pred)(val1, val2) ) return AssertionSuccess();
 	return AssertionFailure() << "error: " << pred_str << "("
 		<< expr1 << ", " << expr2
-		<< ") evaluates to false: "
+		<< ") evaluates to false, where "
 		<< "\n" << expr1 << " : " << val1
 		<< "\n" << expr2 << " : " << val2 ;
 }
@@ -162,7 +162,7 @@ AssertionResult	AssertPred3Helper(const char* pred_str, const char* expr1, const
 	if( (*pred)(val1, val2, val3) ) return AssertionSuccess();
 	return AssertionFailure() << "error: " << pred_str << "("
 		<< expr1 << ", " << expr2 << ", " << expr3
-		<< ") evaluates to false: "
+		<< ") evaluates to false, where "
 		<< "\n" << expr1 << " : " << val1
 		<< "\n" << expr2 << " : " << val2
 		<< "\n" << expr3 << " : " << val3 ;
@@ -227,7 +227,7 @@ AssertionResult	AssertPred4Helper(const char* pred_str, const char* expr1, const
 	if( (*pred)(val1, val2, val3, val4) ) return AssertionSuccess();
 	return AssertionFailure() << "error: " << pred_str << "("
 		<< expr1 << ", " << expr2 << ", " << expr3 << ", " << expr4
-		<< ") evaluates to false: "
+		<< ") evaluates to false, where "
 		<< "\n" << expr1 << " : " << val1
 		<< "\n" << expr2 << " : " << val2
 		<< "\n" << expr3 << " : " << val3
@@ -294,7 +294,7 @@ AssertionResult	AssertPred5Helper(const char* pred_str, const char* expr1, const
 	if( (*pred)(val1, val2, val3, val4, val5) ) return AssertionSuccess();
 	return AssertionFailure() << "error: " << pred_str << "("
 		<< expr1 << ", " << expr2 << ", " << expr3 << ", " << expr4 << ", " << expr5
-		<< ") evaluates to false: "
+		<< ") evaluates to false, where "
 		<< "\n" << expr1 << " : " << val1
 		<< "\n" << expr2 << " : " << val2
 		<< "\n" << expr3 << " : " << val3

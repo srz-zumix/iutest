@@ -22,6 +22,7 @@ Command Line Options
     --iutest_catch_exceptions=<0|1>   : catch exceptions enable.
     --iutest_print_time=<0|1>         : Setting the display of elapsed time.
     --iutest_repeat=<count>           : Set the number of repetitions of the test.
+    --feature                         : show iutest feature.
     --version, -v                     : show iutest version.
 
 --------------------------------------------------

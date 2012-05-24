@@ -105,6 +105,10 @@ protected:
 		{
 			detail::iuOptionMessage::ShowVersion();
 		}
+		else if( TestFlag::IsEnableFlag(TestFlag::SHOW_FEATURE) )
+		{
+			detail::iuOptionMessage::ShowFeature();
+		}
 		else if( TestFlag::IsEnableFlag(TestFlag::SHOW_TESTS_LIST) )
 		{
 			Listup();

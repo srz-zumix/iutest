@@ -45,6 +45,7 @@ public:
 	Test(void)
 		: test_info_(NULL)
 		, m_test_info(NULL)
+		, m_random_seed(0)
 	{
 		CurrentTestObserver::s_current = this;
 	}
@@ -136,6 +137,8 @@ public:
 	unsigned int	genrand(void)				{ return m_random.genrand(); }
 	/** @ref genrand */
 	unsigned int	genrand(unsigned int max)	{ return m_random.genrand(max); }
+	/** —”ƒV[ƒh‚ÌŽæ“¾ */
+	unsigned int	random_seed(void)			{ return m_random_seed; }
 
 #endif
 
@@ -156,14 +159,13 @@ protected:
 	{
 		m_test_info = test_info;
 		test_info_ = test_info->ptr();
-		if( TestEnv::get_random_seed() == 0 )
+		unsigned int seed = TestEnv::get_random_seed();
+		if( seed == 0 )
 		{
-			m_random.init();
+			seed = detail::GetIndefiniteValue();
 		}
-		else
-		{
-			m_random.init(TestEnv::get_random_seed());
-		}
+		m_random_seed = seed;
+		m_random.init(seed);
 
 		SetUp();
 		Body();
@@ -197,6 +199,7 @@ private:
 	detail::iuITestInfoMediator*	m_test_info;
 #if IUTEST_HAS_GENRAND
 	detail::iuRandom				m_random;
+	unsigned int					m_random_seed;
 #endif
 };
 

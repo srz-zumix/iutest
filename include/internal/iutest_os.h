@@ -135,6 +135,18 @@ inline bool MakeDirectory(const char* path)
 
 #endif
 
+inline void SleepMillisec(unsigned int millisec)
+{
+#if		defined(IUTEST_OS_WINDOWS)
+	Sleep(millisec);
+#elif	defined(IUTEST_OS_LINUX)
+	usleep(millisec*1000);
+#else
+	volatile int x=0;
+	for( unsigned int i=0; i < millisec; ++i ) x += 1;
+#endif
+}
+
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 }	// end of namespace posix
