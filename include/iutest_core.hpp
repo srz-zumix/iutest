@@ -54,7 +54,7 @@ public:
 	const TestInfo*		current_test_info(void)		const	{ return Test::GetCurrentTestInfo(); }
 
 	/** 乱数シードの取得 */
-	int				random_seed(void)			const	{ return TestEnv::current_random_seed(); }
+	unsigned int		random_seed(void)			const	{ return TestEnv::current_random_seed(); }
 
 public:
 	/** テスト総数 */

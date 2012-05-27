@@ -443,6 +443,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\internal\iutest_stdlib.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\internal\iutest_stream.hpp"
 					>
 				</File>

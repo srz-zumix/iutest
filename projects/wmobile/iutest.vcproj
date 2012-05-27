@@ -820,6 +820,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\internal\iutest_function_traits_defs.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\internal\iutest_function_traits_undef.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\internal\iutest_genparams.hpp"
 					>
 				</File>
@@ -873,6 +881,10 @@
 				</File>
 				<File
 					RelativePath="..\..\include\internal\iutest_result_reporter.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\internal\iutest_stdlib.h"
 					>
 				</File>
 				<File
@@ -941,6 +953,10 @@
 				</File>
 				<File
 					RelativePath="..\..\include\util\iutest_util_output.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\util\iutest_util_tests.hpp"
 					>
 				</File>
 			</Filter>

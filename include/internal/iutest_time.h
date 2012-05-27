@@ -21,7 +21,13 @@
 // include
 #include "iutest_internal_defs.h"
 #include "iutest_string.h"
+#include "iutest_stdlib.h"
 #include <time.h>
+
+#if IUTEST_HAS_CXX11_HDR_CHRONO
+#  include <chrono>
+#endif
+
 
 namespace iutest {
 namespace detail
@@ -62,7 +68,10 @@ inline TimeInMillisec	GetTimeInMillis(void)
 #if		defined(IUTEST_GetMillisec)
 	return IUTEST_GetMillisec();
 
-#elif defined(IUTEST_OS_WINDOWS)
+#elif	IUTEST_HAS_CXX11_HDR_CHRONO
+	return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
+
+#elif	defined(IUTEST_OS_WINDOWS)
 	return GetTickCount();
 
 #elif	IUTEST_HAS_GETTIMEOFDAY

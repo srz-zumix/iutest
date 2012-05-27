@@ -58,7 +58,7 @@ public:
 		// シャッフルテスト
 		if( TestFlag::IsEnableFlag(TestFlag::SHUFFLE_TESTS) )
 		{
-			detail::iuConsole::color_output(detail::iuConsole::yellow, "Note: Randomizing tests' orders with a seed of %d\n", test.random_seed());
+			detail::iuConsole::color_output(detail::iuConsole::yellow, "Note: Randomizing tests' orders with a seed of %u\n", test.random_seed());
 		}
 		detail::iuConsole::color_output(detail::iuConsole::green, "[==========] ");
 		detail::iuConsole::output("Running %d tests from %d test cases.\n", test.test_to_run_count(), test.test_case_to_run_count() );

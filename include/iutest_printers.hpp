@@ -52,6 +52,7 @@ inline void PrintBytesInObjectTo(const unsigned char* buf, size_t size, std::ost
 namespace printer_internal
 {
 
+/** @private */
 template<typename T>
 class TypeWithoutFormatter
 {

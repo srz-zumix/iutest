@@ -45,6 +45,7 @@
     <ClInclude Include="..\..\include\internal\iutest_random.h" />
     <ClInclude Include="..\..\include\internal\iutest_regex.h" />
     <ClInclude Include="..\..\include\internal\iutest_result_reporter.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_stdlib.h" />
     <ClInclude Include="..\..\include\internal\iutest_stream.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_string.h" />
     <ClInclude Include="..\..\include\internal\iutest_time.h" />

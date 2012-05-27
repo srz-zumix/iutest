@@ -248,6 +248,7 @@
 	<References>
 	</References>
 	<Files>
+	<Files>
 		<Filter
 			Name="src"
 			>
@@ -440,6 +441,10 @@
 				</File>
 				<File
 					RelativePath="..\..\include\internal\iutest_result_reporter.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\internal\iutest_stdlib.h"
 					>
 				</File>
 				<File
