@@ -28,7 +28,7 @@
  * @internal
  * @brief	テスト名作成マクロ
 */
-#define IUTEST_TEST_CLASS_NAME_(testcase_, testname_)	iu_##testcase_##_##testname_##_Test
+#define IUTEST_TEST_CLASS_NAME_(testcase_, testname_)	iu_##testcase_##_x_##testname_##_Test
 
 /**
  * @internal
@@ -180,7 +180,7 @@
  * @brief	メッセージロギング
 */
 #define IIUT_SCOPED_MESSAGE(msg_)			\
-	const iutest::AssertionHelper::ScopedMessage IUTEST_PP_CAT(scoped_message_, __LINE__) = iutest::detail::iuCodeMessage(__FILE__, __LINE__, msg_)
+	const iutest::AssertionHelper::ScopedMessage IUTEST_PP_CAT(scoped_message_, __LINE__) = iutest::detail::iuCodeMessage(__FILE__, __LINE__, iutest::Message() << (msg_))
 
 
 /**

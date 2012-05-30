@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x00310100	//!< iutest version 0.31.1.0
+#define	IUTEST_VER			0x00310201	//!< iutest version 0.31.2.1
 #define IUTEST_MAJORVER		0x00		//!< Major Version
 #define IUTEST_MINORVER		0x31		//!< Minor Version
-#define IUTEST_BUILD		0x01		//!< Build
-#define IUTEST_REVISION		0x00		//!< Revision
+#define IUTEST_BUILD		0x02		//!< Build
+#define IUTEST_REVISION		0x01		//!< Revision
 
 /**
  * @mainpage
@@ -90,8 +90,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	RELEASE		リリースノート
  * @par		release note
 <ul>
-  <li>v0.31.1.0
+  <li>v0.31.2.1
     <ul>
+      <li>IUTEST_STATIC_ASSERT 追加</li>
+      <li>IUTEST_SCOPED_TRACE で gtest と同じ記法が使えるように修正</li>
       <li>std::chrono::high_resolution_clock に対応</li>
       <li>iutest::PrintToString でストリーム出力できない型に対応（バイト配列を出力）</li>
 	  <li>テスト用乱数のシード取得を追加</li>

@@ -66,11 +66,13 @@ class iuMessage
 	std::string	m_message;	//!< メッセージ
 public:
 	iuMessage(void) {}
-	iuMessage(const char* message) : m_message(message) {}
+	explicit iuMessage(const char* message) : m_message(message) {}
 	iuMessage(const iuMessage& rhs) : m_message(rhs.m_message) {}
 
 	const char*		message(void)	const	{ return m_message.c_str(); }	//!< メッセージの取得
 
+public:
+	std::string GetString(void)	const { return m_message; }
 public:
 	template<typename T>
 	iuMessage&	operator << (const T& value) 
@@ -120,13 +122,18 @@ public:
 		m_message += ShowWideCString(str);
 		return *this;
 	}
+	iuMessage&	operator << (const iuMessage& message)
+	{
+		m_message += message.m_message;
+		return *this;
+	}
 public:
 	/**
 	 * @brief	メッセージの追記
 	*/
 	void	add_message(const char* str)
 	{
-		m_message += str;
+		append(str);
 	}
 private:
 	void	append(const char* str)
@@ -142,6 +149,11 @@ private:
 	}
 };
 
+inline std::ostream& operator << (std::ostream& os, const iuMessage& msg)
+{
+	return os << msg.message();
+}
+
 /**
  * @brief	ファイル/ライン/メッセージクラス
 */
@@ -151,6 +163,11 @@ class iuCodeMessage : public iuMessage
 	int			m_line;		//!< ライン
 public:
 	iuCodeMessage(const char* file, int line, const char* message)
+		: iuMessage(message)
+		, m_file(file ? file : kStrings::UnkownFile)
+		, m_line(line)
+	{}
+	iuCodeMessage(const char* file, int line, const iuMessage& message)
 		: iuMessage(message)
 		, m_file(file ? file : kStrings::UnkownFile)
 		, m_line(line)

@@ -245,3 +245,36 @@ IUTEST(AssertionTest, Exception2)
 }
 
 #endif
+
+IUTEST(AssertionTest, ScopedTrace)
+{
+	{
+		int x=100;
+		IUTEST_SCOPED_TRACE(iutest::Message() << "x=" << x);
+	}
+	{
+		IUTEST_SCOPED_TRACE("test");
+	}
+}
+
+IUTEST(AssertionTest, Cpp11)
+{
+#if IUTEST_HAS_CHAR16_T
+	const char16_t c16[] = u"test";
+	IUTEST_EXPECT_STREQ(c16, u"test");
+#endif
+
+#if IUTEST_HAS_CHAR32_T
+	const char32_t c32[] = U"test";
+	IUTEST_EXPECT_STREQ(c32, U"test");
+#endif
+	
+#if IUTEST_HAS_LAMBDA
+	{
+		IUTEST_EXPECT_EQ(100, [] () -> int { return 100; }());
+		
+		int x=0, y=0;
+		[=] () { IUTEST_EXPECT_EQ(x, y); }();
+	}
+#endif
+}

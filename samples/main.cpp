@@ -746,9 +746,10 @@ static void Sub2(int n)
 IUTEST(TestFailureSubroutine, Test1)
 {
 	{
-		IUTEST_SCOPED_TRACE("routine1.");
+		int x=100;
+		IUTEST_SCOPED_TRACE(iutest::Message() << "routine1. x=" << x);
 
-		Sub1(2);
+		Sub1(x);
 	}
 	// ここの失敗には "routine1." のメッセージは表示されません。
 	Sub1(3);

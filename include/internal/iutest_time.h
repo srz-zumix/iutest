@@ -72,7 +72,7 @@ inline TimeInMillisec	GetTimeInMillis(void)
 	return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
 
 #elif	defined(IUTEST_OS_WINDOWS)
-	return GetTickCount();
+	return static_cast<TimeInMillisec>(GetTickCount());
 
 #elif	IUTEST_HAS_GETTIMEOFDAY
 	timeval tv;

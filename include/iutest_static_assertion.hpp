@@ -24,7 +24,7 @@
 // 
 #if 0
 /**
- * @ingroup	IUTEST_
+ * @ingroup	IUTEST_UTIL
  * @brief	型アサーション
 */
 template<typename T1, typename T2>
@@ -36,12 +36,26 @@ static bool	StaticAssertTypeEq(void)
 #else
 
 /**
- * @ingroup	IUTEST_
+ * @ingroup	IUTEST_UTIL
  * @brief	型アサーション
  * @note	マクロバージョン
  *			エラーが呼び出し位置に出る
 */
 #define StaticAssertTypeEq	detail::StaticAssertTypeEqHelper
+
+/**
+ * @brief	static_assert
+*/
+#if IUTEST_HAS_STATIC_ASSERT
+#  define IUTEST_STATIC_ASSERT_MSG(B, Msg)	static_assert(B, Msg)
+#else
+#  define IUTEST_STATIC_ASSERT_MSG(B, Msg)	\
+	typedef ::iutest::detail::StaticAssertionTest< sizeof(::iutest::detail::StaticAssertionFailure< (bool)B >) > IUTEST_PP_CAT(iutest_static_assert_typedef_, __LINE__)
+#endif
+
+#ifdef IUTEST_STATIC_ASSERT_MSG
+#  define IUTEST_STATIC_ASSERT(B)	IUTEST_STATIC_ASSERT_MSG(B, "")
+#endif
 
 #endif
 
@@ -63,6 +77,14 @@ struct StaticAssertTypeEqHelper<T, T>
 {
 	operator bool (void) const { return true; }
 };
+
+
+/** @private */
+template<bool b>struct StaticAssertionFailure;
+template<> struct StaticAssertionFailure<true> { enum { value = 1 }; };
+
+/** @private */
+template<int x>struct StaticAssertionTest {};
 
 }
 

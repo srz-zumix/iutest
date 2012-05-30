@@ -20,6 +20,7 @@
 #include "main.cpp"
 #include "iutest_assertion_tests.cpp"
 #include "iutest_basic_tests.cpp"
+#include "iutest_combine_tests.cpp"
 #include "iutest_compatibility_tests.cpp"
 #include "iutest_no_fatalfailure_tests.cpp"
 #include "iutest_param_test_tests1.cpp"

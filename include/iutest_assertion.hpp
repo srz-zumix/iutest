@@ -26,12 +26,15 @@
 namespace iutest
 {
 
+//! Message クラス
+typedef detail::iuMessage	Message;
+
 //======================================================================
 // class
 /**
  * @brief	テスト結果
 */
-class AssertionResult : public detail::iuMessage
+class AssertionResult : public Message
 {
 public:
 	/**
@@ -40,7 +43,7 @@ public:
 	*/
 	AssertionResult(bool result) : m_result(result) {}
 	//! コピーコンストラクタ
-	AssertionResult(const AssertionResult& rhs) : detail::iuMessage(rhs), m_result(rhs.m_result) {}
+	AssertionResult(const AssertionResult& rhs) : Message(rhs), m_result(rhs.m_result) {}
 
 	/**
 	 * @brief	成否
@@ -62,7 +65,7 @@ public:
 	template<typename T>
 	AssertionResult&		operator << (T value)	
 	{
-		detail::iuMessage::operator << (value);
+		Message::operator << (value);
 		return *this;
 	}
 
@@ -113,12 +116,12 @@ private:
 	typedef List<>	MessageList;
 public:
 	/** @private */
-	class Fixed : public detail::iuMessage {
+	class Fixed : public Message {
 	public:
 		template<typename T>
 		Fixed&		operator << (T value)	
 		{
-			detail::iuMessage::operator << (value);
+			Message::operator << (value);
 			return *this;
 		}
 	};

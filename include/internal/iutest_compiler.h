@@ -33,8 +33,10 @@
 #  define IUTEST_OS_CYGWIN				1
 #  include <sys/time.h>
 #  define IUTEST_HAS_GETTIMEOFDAY		1
+#  define IUTEST_PLATFORM				"CYGWIN"
 #elif	defined(_WIN32) || defined(WIN32) || defined(__WIN32__)
 #  define IUTEST_OS_WINDOWS				1
+#  define IUTEST_PLATFORM				"Win32"
 #  include <windows.h>
 #  if	defined(_WIN32_WCE)
 #    define IUTEST_OS_WINDOWS_MOBILE	1
@@ -45,13 +47,16 @@
 #  endif
 #elif	defined(__APPLE__)
 #  define IUTEST_OS_MAC					1
+#  define IUTEST_PLATFORM				"Mac OS"
 #elif	defined(__linux__)
 #  define IUTEST_OS_LINUX				1
+#  define IUTEST_PLATFORM				"LINUX"
 #  ifdef ANDROID
 #    define IUTEST_OS_LINUX_ANDROID		1
 #  endif
 #elif	defined(__native_client__)
 #  define IUTEST_OS_NACL				1
+#  define IUTEST_PLATFORM				"Google Native Client"
 #endif
 
 #if	!defined(IUTEST_HAS_CLOCK) && defined(CLOCKS_PER_SEC)
@@ -59,6 +64,7 @@
 #endif
 
 // c++11
+// nullptr
 #if !defined(IUTEST_HAS_NULLPTR)
 #  if	defined(__clang__)
 #    if __has_feature(cxx_nullptr)
@@ -78,6 +84,28 @@
 #if !defined(IUTEST_HAS_NULLPTR)
 #  define IUTEST_HAS_NULLPTR		0
 #endif
+
+// static_assert
+#if	!defined(IUTEST_HAS_STATIC_ASSERT)
+#  if	defined(__clang__)
+#    if !__has_feature(cxx_static_assert)
+#      define IUTEST_HAS_STATIC_ASSERT	1
+#    endif
+#  elif	defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 2)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_STATIC_ASSERT	1
+#    endif
+#  elif	defined(_MSC_VER)
+#    if _MSC_VER >= 1600
+#      define IUTEST_HAS_STATIC_ASSERT	1
+#    endif
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_STATIC_ASSERT
+#  define IUTEST_HAS_STATIC_ASSERT	0
+#endif
+
 
 // constexpr
 #if !defined(IUTEST_HAS_CONSTEXPR)
@@ -203,6 +231,23 @@
 #endif
 #ifndef IUTEST_HAS_CHAR32_T
 #  define IUTEST_HAS_CHAR32_T	0
+#endif
+
+// lambda
+#ifndef IUTEST_HAS_LAMBDA
+#  if defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_LAMBDA		1
+#    endif
+#  elif	defined(_MSC_VER)
+#    if _MSC_VER >= 1600
+#      define IUTEST_HAS_LAMBDA		1
+#    endif
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_LAMBDA
+#  define IUTEST_HAS_LAMBDA		0
 #endif
 
 // attribute
