@@ -1147,6 +1147,15 @@ static detail::iuValueArray50<T1, T2, T3, T4, T5, T6, T7, T8, T9
 
 #if IUTEST_HAS_COMBINE
 
+#if IUTEST_HAS_VARIADIC_COMBINE
+template<typename ...Generator>
+detail::iuCartesianProductHolder<Generator...> Combine(const Generator&... generators)
+{
+	return detail::iuCartesianProductHolder<Generator...>(generators...);
+}
+
+#else
+
 /**
  * @brief	複合条件パラメータ化
  * @note	9引数まで使用可能
@@ -1209,6 +1218,8 @@ detail::iuCartesianProductHolder9<G1, G2, G3, G4, G5, G6, G7, G8, G9> Combine(co
 {
 	return detail::iuCartesianProductHolder9<G1, G2, G3, G4, G5, G6, G7, G8, G9>(g1, g2, g3, g4, g5, g6, g7, g8, g9);
 }
+
+#endif
 
 #endif
 

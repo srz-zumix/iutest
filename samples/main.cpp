@@ -8,7 +8,6 @@
  * include testing framework
 */
 #include "../include/iutest.hpp"
-#include "../include/gtest/iutest_switch.hpp"
 
 #ifdef USE_TAP
 #include "../include/listener/iutest_tap_printer.hpp"
@@ -49,6 +48,8 @@ int main(int argc, char* argv[])
 	//listeners.Append( new iutest::TAPFileGeneratorListener("./t") );
 	listeners.Append( new iutest::TAPPrintListener );
 #endif
+
+	//::iuutil::SetUpQuietResultPrinter();
 
 	return IUTEST_RUN_ALL_TESTS();	// run all
 }
@@ -593,7 +594,7 @@ IUTEST(AssertionTest, Exception2)
 *//*--------------------------------------------------*/
 IUTEST(StaticTest, Eq)
 {
-	IUTEST_ASSERT_TRUE( (iutest::StaticAssertTypeEq<int, int>()) );
+	IUTEST_ASSERT_TRUE( (::iutest::StaticAssertTypeEq<int, int>()) );
 	//iutest::StaticAssertTypeEq<bool, int>();
 }
 
@@ -649,7 +650,7 @@ IUTEST(TestFailure, HRESULT)
 void AssertFunc(void)
 {
 	IUTEST_ASSERT_TRUE(FALSE);
-};
+}
 
 IUTEST(TestFailure, NoFailure)
 {

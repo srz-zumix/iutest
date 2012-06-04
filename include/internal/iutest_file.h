@@ -118,7 +118,7 @@ class FileSystem : public detail::IFileSystem
 {
 private:
 	virtual IFile*	Create(void)		{ return new FILE; }
-	virtual void	Delete(IFile* ptr)	{ delete ptr; }
+	virtual void	Delete(IFile* ptr)	{ detail::Delete<FILE>(static_cast<FILE*>(ptr)); }
 };
 
 

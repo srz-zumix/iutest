@@ -60,10 +60,10 @@
  * @{
 */
 
-#define IUTEST_TEST_FATAL_FAILURE_(statement, text, substr, on_failure)			\
+#define IUTEST_TEST_FATAL_FAILURE_(statement, text, substr, on_failure)		\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
 	if( iutest::detail::AlwaysTrue() ) {									\
-		class IUTestFatalFailureStatement { public: static void Execute() { statement; } }; \
+		struct IUTestFatalFailureStatement { static void Execute() { statement; } }; \
 		iutest::detail::NewTestPartResultCheckHelper::Reporter<				\
 			iutest::detail::NewTestPartResultCheckHelper::CondEq<			\
 				iutest::TestPartResult::kFatalFailure>						\
@@ -79,7 +79,7 @@
 #define IUTEST_TEST_NONFATAL_FAILURE_(statement, text, substr, on_failure)	\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
 	if( iutest::detail::AlwaysTrue() ) {									\
-		class IUTestFatalFailureStatement { public: static void Execute() { statement; } }; \
+		struct IUTestFatalFailureStatement { static void Execute() { statement; } }; \
 		iutest::detail::NewTestPartResultCheckHelper::Reporter<				\
 			iutest::detail::NewTestPartResultCheckHelper::CondEq<			\
 				iutest::TestPartResult::kNotFatalFailure>					\

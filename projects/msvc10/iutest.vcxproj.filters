@@ -204,6 +204,12 @@
     <ClInclude Include="..\..\include\internal\iutest_stdlib.h">
       <Filter>iutest\internal</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\internal\iutest_pragma.h">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\util\iutest_util_quiet_result_printer.hpp">
+      <Filter>iutest\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\doc\Doxyfile">
@@ -215,6 +221,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\samples\sub.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\iutest_prod_tests.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

@@ -544,6 +544,12 @@ namespace tr1
 #undef IUTEST_EXPECT_FAIL_AT
 #undef IUTEST_SCOPED_TRACE
 
+#undef IUTEST_PRED_FORMAT1_
+#undef IUTEST_PRED_FORMAT2_
+#undef IUTEST_PRED_FORMAT3_
+#undef IUTEST_PRED_FORMAT4_
+#undef IUTEST_PRED_FORMAT5_
+
 #ifdef IUTEST_OS_WINDOWS
 #undef IUTEST_ASSERT_HRESULT_SUCCEEDED
 #undef IUTEST_ASSERT_HRESULT_FAILED
@@ -564,8 +570,11 @@ namespace tr1
 
 #undef IUTEST_HAS_PARAM_TEST
 #undef IUTEST_HAS_COMBINE
+#undef IUTEST_HAS_VARIADIC_COMBINE
 #undef IUTEST_HAS_TYPED_TEST
 #undef IUTEST_HAS_TYPED_TEST_P
+
+#undef IUTEST_THROW_ON_ASSERT_FAILURE
 
 #undef IUTEST_HAS_PEEP
 #undef IUTEST_HAS_PEEP_FUNC
@@ -819,6 +828,14 @@ namespace tr1
 #define IUTEST_INFORM_ANY_THROW(statement)					INFORM_ANY_THROW((void)statement)
 #define IUTEST_INFORM_NO_FATAL_FAILURE		INFORM_NO_FATAL_FAILURE
 
+
+#define IUTEST_PRED_FORMAT1_	GTEST_PRED_FORMAT1_
+#define IUTEST_PRED_FORMAT2_	GTEST_PRED_FORMAT2_
+#define IUTEST_PRED_FORMAT3_	GTEST_PRED_FORMAT3_
+#define IUTEST_PRED_FORMAT4_	GTEST_PRED_FORMAT4_
+#define IUTEST_PRED_FORMAT5_	GTEST_PRED_FORMAT5_
+
+
 #ifdef GTEST_OS_WINDOWS
 # define INFORM_HRESULT_SUCCEEDED(expr) \
 	INFORM_PRED_FORMAT1(::testing::internal::IsHRESULTSuccess, (expr))
@@ -862,8 +879,11 @@ namespace tr1
 
 #define IUTEST_HAS_PARAM_TEST		GTEST_HAS_PARAM_TEST
 #define IUTEST_HAS_COMBINE			GTEST_HAS_COMBINE
+#define IUTEST_HAS_VARIADIC_COMBINE	0
 #define IUTEST_HAS_TYPED_TEST		GTEST_HAS_TYPED_TEST
 #define IUTEST_HAS_TYPED_TEST_P		GTEST_HAS_TYPED_TEST_P
+
+#define IUTEST_THROW_ON_ASSERT_FAILURE	0
 
 #define IUTEST_HAS_PEEP				0
 #define IUTEST_HAS_PEEP_FUNC		0
@@ -1090,17 +1110,6 @@ namespace iusupport
 
 }	// end of namespace testing
 
-#ifndef IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END
-#  if defined(_MSC_VER) && defined(__STDC_WANT_SECURE_LIB__) && __STDC_WANT_SECURE_LIB__
-#    define IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()	__pragma(warning (push))	\
-															__pragma(warning (disable:4996))
-#    define IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()		__pragma(warning (pop))
-#  else
-#    define IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
-#    define IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()	
-#  endif
-#endif
-
 #ifdef INCG_IRIS_iutest_HPP_
 // Ç∑Ç≈Ç… iutest namespace Ç™ë∂ç›Ç∑ÇÈÇÃÇ≈ÅAdefine Ç≈ëŒâû
 #  define iutest testing
@@ -1108,6 +1117,7 @@ namespace iusupport
 namespace iutest = testing;
 #endif
 
+#include "../internal/iutest_pragma.h"
 #include "../iutest_util.hpp"
 
 #ifndef INCG_IRIS_iutest_HPP_

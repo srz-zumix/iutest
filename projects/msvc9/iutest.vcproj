@@ -431,6 +431,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\internal\iutest_pragma.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\internal\iutest_random.h"
 					>
 				</File>
@@ -512,6 +516,10 @@
 				</File>
 				<File
 					RelativePath="..\..\include\util\iutest_util_output.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\util\iutest_util_quiet_result_printer.hpp"
 					>
 				</File>
 				<File

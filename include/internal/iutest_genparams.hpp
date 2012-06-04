@@ -20,7 +20,6 @@
 //======================================================================
 // include
 #include "iutest_internal_defs.h"
-#include <vector>
 
 #if IUTEST_HAS_PARAM_TEST
 
@@ -57,7 +56,7 @@ class iuParamGenerator : public iuIParamGenerator<T>
 	typedef iuIParamGenerator<T>	_Interface;
 
 public:
-	iuParamGenerator(_Interface* pInterface) : m_pInterface(pInterface) {}
+	iuParamGenerator(_Interface* pInterface=NULL) : m_pInterface(pInterface) {}
 
 public:
 	virtual	void	Begin(void)	{ m_pInterface->Begin(); }	//!< パラメータリストの先頭に移動
@@ -169,29 +168,29 @@ public:
 	virtual bool	IsEnd(void) const	{ return (m_it == m_values.end()); }
 };
 
-#if IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_STD_TUPLE
+#if IUTEST_HAS_VARIADIC_TEMPLATES
 template<typename... Args>
 class iuValueArray
 {
-	typedef std::tuple<Args...>	_MyTuple;
+	typedef tuple::tuple<Args...>	_MyTuple;
 
 	template<typename T>
 	struct make_array
 	{
-		T val[std::tuple_size<_MyTuple>::value];
+		T val[tuple::tuple_size<_MyTuple>::value];
 		make_array(const _MyTuple& t)
 		{
 			make<0>(t);
 		};
 
 		template<int I>
-		void	make(const _MyTuple& t, typename detail::enable_if<(I != std::tuple_size<_MyTuple>::value), void>::type*& = detail::enabler::value )
+		void	make(const _MyTuple& t, typename detail::enable_if<(I != tuple::tuple_size<_MyTuple>::value), void>::type*& = detail::enabler::value )
 		{
-			val[I] = std::get<I>(t);
+			val[I] = tuple::get<I>(t);
 			make<I+1>(t);
 		}
 		template<int I>
-		void	make(_MyTuple, typename detail::enable_if<(I == std::tuple_size<_MyTuple>::value), void>::type*& = detail::enabler::value )
+		void	make(_MyTuple, typename detail::enable_if<(I == tuple::tuple_size<_MyTuple>::value), void>::type*& = detail::enabler::value )
 		{}
 	};
 public:
@@ -1817,6 +1816,135 @@ private:
 
 #if IUTEST_HAS_COMBINE
 
+#if IUTEST_HAS_VARIADIC_COMBINE
+
+template<typename... Args>
+class iuCartesianProductGenerator : public iuIParamGenerator< tuple::tuple<Args...> >
+{
+	typedef tuple::tuple< iuParamGenerator<Args>... > _MyTuple;
+	static const int count = tuple::tuple_size<_MyTuple>::value;
+
+	template<int index, int end, typename Tuple>
+	void begin_foreach(Tuple& t, typename detail::enable_if<index != end, void>::type*& = detail::enabler::value )
+	{
+		tuple::get<index>(t).Begin();
+		begin_foreach<index+1, end>(t);
+	}
+	template<int index, int end, typename Tuple>
+	void begin_foreach(Tuple& , typename detail::enable_if<index == end, void>::type*& = detail::enabler::value )
+	{
+	}
+
+	template<int index, int end, typename Tuple>
+	bool is_end_foreach(Tuple& t, typename detail::enable_if<index != end, void>::type*& = detail::enabler::value ) const
+	{
+		bool b = tuple::get<index>(t).IsEnd();
+		return b && is_end_foreach<index+1, end>(t);
+	}
+	template<int index, int end, typename Tuple>
+	bool is_end_foreach(Tuple& , typename detail::enable_if<index == end, void>::type*& = detail::enabler::value ) const
+	{
+		return true;
+	}
+
+	template<int index, int end, typename Tuple>
+	void next_foreach(Tuple& t, typename detail::enable_if<index != end, void>::type*& = detail::enabler::value )
+	{
+		next_foreach<index+1, end>(t);
+		if( is_end_foreach<index+1, end>(t) )
+		{
+			tuple::get<index>(t).Next();
+			if( !tuple::get<index>(t).IsEnd() ) begin_foreach<index+1, end>(t);
+		}
+	}
+	template<int index, int end, typename Tuple>
+	void next_foreach(Tuple& , typename detail::enable_if<index == end, void>::type*& = detail::enabler::value )
+	{
+	}
+
+	template<int index, int end, typename T1, typename ...TArgs>
+	tuple::tuple<T1, TArgs...> current_foreach(typename detail::enable_if<index != end-1, void>::type*& = detail::enabler::value ) const
+	{
+		return std::tuple_cat( tuple::tuple<T1>(tuple::get<index>(v).GetCurrent())
+			, current_foreach<index+1, end, TArgs...>());
+	}
+	template<int index, int end, typename T1, typename ...TArgs>
+	tuple::tuple<T1>  current_foreach(typename detail::enable_if<index == end-1, void>::type*& = detail::enabler::value ) const
+	{
+		return tuple::tuple<T1>(tuple::get<index>(v).GetCurrent());
+	}
+
+public:
+	typedef tuple::tuple<Args...>	ParamType;
+public:
+	iuCartesianProductGenerator(void)
+	{}
+
+public:
+	virtual	void	Begin(void)
+	{
+		begin_foreach<0, count>(v);
+	}
+	virtual void	Next(void)
+	{
+		if( IsEnd() ) return;
+		next_foreach<0, count>(v);
+	}
+	virtual bool	IsEnd(void) const
+	{
+		return is_end_foreach<0, count>(v);
+	}
+	virtual ParamType	GetCurrent(void) const
+	{
+		return current_foreach<0, count, Args...>();
+	}
+
+	_MyTuple&	generators(void) { return v; }
+private:
+	_MyTuple v;
+};
+
+template<typename... Generator>
+class iuCartesianProductHolder
+{
+	typedef iuCartesianProductHolder<Generator...> _Myt;
+
+	typedef tuple::tuple<const Generator...>	_MyTuple;
+
+	template<int index, int end, typename ArgTuple, typename SrcTuple, typename DstTuple>
+	void set_foreach(SrcTuple& src, DstTuple& dst, typename detail::enable_if<index != end, void>::type*& = detail::enabler::value ) const
+	{
+		tuple::get<index>(dst) = static_cast< typename tuple::tuple_element<index, DstTuple>::type >(tuple::get<index>(src));
+		set_foreach<index+1, end, ArgTuple>(src, dst);
+	}
+	template<int index, int end, typename ArgTuple, typename SrcTuple, typename DstTuple>
+	void set_foreach(SrcTuple& , DstTuple& , typename detail::enable_if<index == end, void>::type*& = detail::enabler::value ) const
+	{
+	}
+
+public:
+	iuCartesianProductHolder(const Generator&... generators)
+		: v(generators...) {}
+
+public:
+	template<typename... Args>
+	operator iuIParamGenerator< tuple::tuple<Args...> >* () const 
+	{
+		typedef tuple::tuple<Args...> ArgTuple;
+		iuCartesianProductGenerator<Args...>* p = new iuCartesianProductGenerator<Args...>();
+		set_foreach<0, tuple::tuple_size<ArgTuple>::value, ArgTuple>(v, p->generators());
+		return p;
+	}
+
+private:
+	void	operator = (const _Myt&) {}
+private:
+	_MyTuple v;
+};
+
+
+#else
+
 template<typename Generator1, typename Generator2, typename ParamType>
 class iuICartesianProductGeneratorBase : public iuIParamGenerator< ParamType >
 {
@@ -2350,6 +2478,8 @@ private:
 	const Generator8	m_g8;
 	const Generator9	m_g9;
 };
+
+#endif
 
 #endif
 

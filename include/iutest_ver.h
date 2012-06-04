@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x00310201	//!< iutest version 0.31.2.1
+#define	IUTEST_VER			0x00330000	//!< iutest version 0.33.0.0
 #define IUTEST_MAJORVER		0x00		//!< Major Version
-#define IUTEST_MINORVER		0x31		//!< Minor Version
-#define IUTEST_BUILD		0x02		//!< Build
-#define IUTEST_REVISION		0x01		//!< Revision
+#define IUTEST_MINORVER		0x33		//!< Minor Version
+#define IUTEST_BUILD		0x00		//!< Build
+#define IUTEST_REVISION		0x00		//!< Revision
 
 /**
  * @mainpage
@@ -90,6 +90,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	RELEASE		リリースノート
  * @par		release note
 <ul>
+  <li>v0.33.0.0
+    <ul>
+      <li>QuietResultPrinter 追加</li>
+      <li>util 修正</li>
+    </ul>
+  </li>
+  <li>v0.32.0.0
+    <ul>
+      <li>iutest::Combine を可変長に対応</li>
+      <li>IUTEST_PEEP を cv 修飾されたメンバに対応</li>
+      <li>テスト全体、テストケースの経過時間の計測方法を変更</li>
+    </ul>
+  </li>
   <li>v0.31.2.1
     <ul>
       <li>IUTEST_STATIC_ASSERT 追加</li>

@@ -53,7 +53,6 @@
 #include "iutest_static_assertion.hpp"
 #include "listener/iutest_default_printer.hpp"
 #include "listener/iutest_default_xml_generator.hpp"
-#include "iutest_util.hpp"
 
 namespace iutest
 {
@@ -858,5 +857,11 @@ inline Environment IUTEST_ATTRIBUTE_UNUSED_ * AddGlobalTestEnvironment(Environme
 }
 
 }
+
+#ifdef IUTEST_USE_GTEST
+#  include "gtest/iutest_switch.hpp"
+#endif
+
+#include "iutest_util.hpp"
 
 #endif

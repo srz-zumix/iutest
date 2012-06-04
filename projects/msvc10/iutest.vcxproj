@@ -43,6 +43,7 @@
     <ClInclude Include="..\..\include\internal\iutest_params_util.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_pool.h" />
     <ClInclude Include="..\..\include\internal\iutest_pp.h" />
+    <ClInclude Include="..\..\include\internal\iutest_pragma.h" />
     <ClInclude Include="..\..\include\internal\iutest_random.h" />
     <ClInclude Include="..\..\include\internal\iutest_regex.h" />
     <ClInclude Include="..\..\include\internal\iutest_result_reporter.hpp" />
@@ -78,6 +79,7 @@
     <ClInclude Include="..\..\include\listener\iutest_tap_printer.hpp" />
     <ClInclude Include="..\..\include\util\iutest_util_assertion.hpp" />
     <ClInclude Include="..\..\include\util\iutest_util_output.hpp" />
+    <ClInclude Include="..\..\include\util\iutest_util_quiet_result_printer.hpp" />
     <ClInclude Include="..\..\include\util\iutest_util_tests.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -86,6 +88,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\samples\main.cpp" />
     <ClCompile Include="..\..\samples\sub.cpp" />
+    <ClCompile Include="..\..\test\iutest_prod_tests.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{13851977-F039-448D-A853-A98325BDA088}</ProjectGuid>

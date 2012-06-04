@@ -56,7 +56,7 @@ public:
 	virtual void OnTestCaseStart(const TestCase& test_case)			= 0;	//!< テストケース開始時に呼ばれます
 	virtual void OnTestStart(const TestInfo& test_info)				= 0;	//!< テスト開始時に呼ばれます
 	virtual void OnTestPartResult(const TestPartResult& test_part_result)	= 0;	//!< テスト失敗時に呼ばれます
-	virtual void OnTestRecordProperty(const TestProperty& test_property)	= 0;	//!< テスト失敗時に呼ばれます
+	virtual void OnTestRecordProperty(const TestProperty& /*test_property*/) {}	//!< RecordProperty 時に呼ばれます
 	virtual void OnTestEnd(const TestInfo& test_info)				= 0;	//!< テストケース終了時にに呼ばれます
 	virtual void OnTestCaseEnd(const TestCase& test_case)			= 0;	//!< テスト終了時にに呼ばれます
 	virtual void OnEnvironmentsTearDownStart(const UnitTest& test)	= 0;	//!< グローバル環境設定 TearDown 前に呼ばれます

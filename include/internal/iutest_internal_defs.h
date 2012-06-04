@@ -97,6 +97,15 @@ struct IteratorTraits<const T*>
 };
 
 /**
+ * @brief	delete
+*/
+template<typename T>
+inline void Delete(T* ptr)
+{
+	delete ptr;
+}
+
+/**
  * @internal
  * @brief	空オブジェクト
 */

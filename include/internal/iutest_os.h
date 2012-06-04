@@ -137,11 +137,9 @@ inline bool MakeDirectory(const char* path)
 
 inline void SleepMillisec(unsigned int millisec)
 {
-#if		defined(IUTEST_OS_WINDOWS) || defined(_MSC_VER)
+#if		defined(IUTEST_OS_WINDOWS)
 	Sleep(millisec);
-#elif	defined(IUTEST_OS_LINUX)
-	usleep(millisec*1000);
-#elif	defined(__GNUC__)
+#elif	defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN)
 	usleep(millisec*1000);
 #else
 	volatile int x=0;

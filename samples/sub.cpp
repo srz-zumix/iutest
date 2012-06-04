@@ -8,7 +8,6 @@
  * include testing framework
 */
 #include "../include/iutest.hpp"
-#include "../include/gtest/iutest_switch.hpp"
 
 #if 1	// Success Tests
 

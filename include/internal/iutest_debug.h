@@ -19,14 +19,14 @@
 
 //======================================================================
 // include
-#include <streambuf>
-#include <xlocnum>
-#include <xtree>
 
 #ifdef _IUTEST_DEBUG
 // iutest 自体のデバッグ用定義
 
 #if	defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+#  include <streambuf>
+#  include <xlocnum>
+#  include <xtree>
 #  include <crtdbg.h>
 #  ifndef _DEBUG_NEW_
 #    define _DEBUG_NEW_		new ( _NORMAL_BLOCK , __FILE__, __LINE__)
@@ -41,7 +41,9 @@ namespace iutest {
 namespace detail
 {
 
-static void	iuDebugInitialize(void)
+//======================================================================
+// function
+static void	IUTEST_ATTRIBUTE_UNUSED_ iuDebugInitialize(void)
 {
 #ifdef _IUTEST_DEBUG
 #  if	defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)
@@ -50,13 +52,14 @@ static void	iuDebugInitialize(void)
 #endif
 }
 
-static void iuDebugBreakAlloc(long n)
+static void IUTEST_ATTRIBUTE_UNUSED_ iuDebugBreakAlloc(long n)
 {
 #ifdef _IUTEST_DEBUG
 #  if	defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 	_CrtSetBreakAlloc(n);
 #  endif
 #endif
+	(void)n;
 }
 
 }	// end of namespace detail

@@ -136,19 +136,24 @@ private:
 	bool RunImpl(void)
 	{
 		bool result=true;
-		m_setup();
 		m_elapsedmsec = 0;
-		for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
+
+		m_setup();
 		{
-			if( it->should_run() )
+			detail::iuStopWatch sw;
+			sw.start();
+			for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
 			{
-				// ŽÀs
-				if( !it->Run() )
+				if( it->should_run() )
 				{
-					result = false;
+					// ŽÀs
+					if( !it->Run() )
+					{
+						result = false;
+					}
 				}
-				m_elapsedmsec += it->elapsed_time();
 			}
+			m_elapsedmsec = sw.stop();
 		}
 		m_teardown();
 		return result;

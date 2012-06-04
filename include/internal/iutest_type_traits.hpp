@@ -152,6 +152,14 @@ template<typename T>
 class is_void : public helper::is_void_helper<T>::type {};
 
 /**
+ * @brief	is_const
+*/
+template<typename T>
+struct is_const : public false_type {};
+template<typename T>
+struct is_const<T const> : public true_type {};
+
+/**
  * @brief	is convertible
 */
 template<typename From, typename To>
@@ -253,7 +261,7 @@ class is_function_pointer
 #endif
 
 public:
-	enum { value = impl<T>::value };
+	enum { value = impl< typename remove_cv<T>::type >::value };
 };
 
 /**
@@ -266,20 +274,43 @@ class is_member_function_pointer
 	struct impl : public false_type {};
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
-	template<typename R, typename U, typename ...Args>
-	struct impl<R (U::*)(Args...)> : public true_type {};
-	template<typename R, typename U, typename ...Args>
-	struct impl<R (U::*)(Args..., ...)> : public true_type {};
+
+#define IS_MEMBER_FUNCTION_PTR_CV_IMPL(CV)	\
+	template<typename R, typename U, typename ...Args>			\
+	struct impl<R (U::*)(Args...) CV> : public true_type {};	\
+	template<typename R, typename U, typename ...Args>			\
+	struct impl<R (U::*)(Args..., ...) CV> : public true_type {}
+
+	IS_MEMBER_FUNCTION_PTR_CV_IMPL();
+	IS_MEMBER_FUNCTION_PTR_CV_IMPL(const);
+	IS_MEMBER_FUNCTION_PTR_CV_IMPL(volatile);
+	IS_MEMBER_FUNCTION_PTR_CV_IMPL(const volatile);
+
+#undef IS_MEMBER_FUNCTION_PTR_CV_IMPL
 
 #else
-	template<typename R, typename U>
-	struct impl<R (U::*)()> : public true_type {};
-	template<typename R, typename U>
-	struct impl<R (U::*)(...)> : public true_type {};
+
+#define IS_MEMBER_FUNCTION_PTR_VOID_CV_IMPL(CV)	\
+	template<typename R, typename U>struct impl<R (U::*)() CV> : public true_type {};	\
+	template<typename R, typename U>struct impl<R (U::*)(...) CV> : public true_type {}
+
+	template<typename R, typename U>struct impl<R (U::*)()> : public true_type {};
+	template<typename R, typename U>struct impl<R (U::*)(...)> : public true_type {};
+	IS_MEMBER_FUNCTION_PTR_VOID_CV_IMPL(const);
+	IS_MEMBER_FUNCTION_PTR_VOID_CV_IMPL(volatile);
+	IS_MEMBER_FUNCTION_PTR_VOID_CV_IMPL(const volatile);
+
+#undef IS_MEMBER_FUNCTION_PTR_VOID_CV_IMPL
 
 #define IS_MEMBER_FUNCTION_PTR_IMPL(NUMBER)	\
-	template<typename R, typename U, IUTEST_FUNCTION_TEMPLATE_TEMPLATES##NUMBER>struct impl<R (U::*)(IUTEST_FUNCTION_TEMPLATE_ARGS##NUMBER)> : public true_type {};	\
-	template<typename R, typename U, IUTEST_FUNCTION_TEMPLATE_TEMPLATES##NUMBER>struct impl<R (U::*)(IUTEST_FUNCTION_TEMPLATE_ARGS##NUMBER, ...)> : public true_type {}
+	IS_MEMBER_FUNCTION_PTR_IMPL2(NUMBER, );	\
+	IS_MEMBER_FUNCTION_PTR_IMPL2(NUMBER, const);	\
+	IS_MEMBER_FUNCTION_PTR_IMPL2(NUMBER, volatile);	\
+	IS_MEMBER_FUNCTION_PTR_IMPL2(NUMBER, const volatile)
+
+#define IS_MEMBER_FUNCTION_PTR_IMPL2(NUMBER, CV)	\
+	template<typename R, typename U, IUTEST_FUNCTION_TEMPLATE_TEMPLATES##NUMBER>struct impl<R (U::*)(IUTEST_FUNCTION_TEMPLATE_ARGS##NUMBER) CV> : public true_type {};	\
+	template<typename R, typename U, IUTEST_FUNCTION_TEMPLATE_TEMPLATES##NUMBER>struct impl<R (U::*)(IUTEST_FUNCTION_TEMPLATE_ARGS##NUMBER, ...) CV> : public true_type {}
 
 	IS_MEMBER_FUNCTION_PTR_IMPL(1);
 	IS_MEMBER_FUNCTION_PTR_IMPL(2);
@@ -303,11 +334,27 @@ class is_member_function_pointer
 	IS_MEMBER_FUNCTION_PTR_IMPL(20);
 
 #undef IS_MEMBER_FUNCTION_PTR_IMPL
+#undef IS_MEMBER_FUNCTION_PTR_IMPL2
 
 #endif
 
 public:
-	enum { value = impl<T>::value };
+	enum { value = impl< typename remove_cv<T>::type >::value };
+};
+
+/**
+ * @brief	is member pointer
+*/
+template<typename T>
+class is_member_pointer
+{
+	template<typename U>
+	struct impl : public false_type {};
+	template<typename U, typename C>
+	struct impl<U C::*> : public true_type {};
+
+public:
+	enum { value = impl< typename remove_cv<T>::type >::value || is_member_function_pointer<T>::value ? true : false };
 };
 
 /**
@@ -323,6 +370,16 @@ class function_return_type
 	template<typename R, typename ...Args>struct impl<R (*)(Args..., ...)>	{ typedef R type; };
 	template<typename R, typename U, typename ...Args>struct impl<R (U::*)(Args...)>		{ typedef R type; };
 	template<typename R, typename U, typename ...Args>struct impl<R (U::*)(Args..., ...)>	{ typedef R type; };
+
+#define FUNCTION_RETURN_TYPE_CV_IMPL(CV)	\
+	template<typename R, typename U, typename ...Args>struct impl<R (U::*)(Args...) CV>		{ typedef R type; };	\
+	template<typename R, typename U, typename ...Args>struct impl<R (U::*)(Args..., ...) CV>{ typedef R type; }
+
+	FUNCTION_RETURN_TYPE_CV_IMPL(const);
+	FUNCTION_RETURN_TYPE_CV_IMPL(volatile);
+	FUNCTION_RETURN_TYPE_CV_IMPL(const volatile);
+#undef FUNCTION_RETURN_TYPE_CV_IMPL
+
 #else
 
 #define FUNCTION_RETURN_TYPE_IMPL(NUMBER)	\
@@ -330,13 +387,28 @@ class function_return_type
 	{ typedef R type; };	\
 	template<typename R, IUTEST_FUNCTION_TEMPLATE_TEMPLATES##NUMBER>struct impl<R (*)(IUTEST_FUNCTION_TEMPLATE_ARGS##NUMBER, ...)>	\
 	{ typedef R type; };	\
-	template<typename R, typename U, IUTEST_FUNCTION_TEMPLATE_TEMPLATES##NUMBER>struct impl<R (U::*)(IUTEST_FUNCTION_TEMPLATE_ARGS##NUMBER)>	\
+	FUNCTION_RETURN_TYPE_IMPL2(NUMBER, );	\
+	FUNCTION_RETURN_TYPE_IMPL2(NUMBER, const);	\
+	FUNCTION_RETURN_TYPE_IMPL2(NUMBER, volatile);	\
+	FUNCTION_RETURN_TYPE_IMPL2(NUMBER, const volatile)	\
+
+#define FUNCTION_RETURN_TYPE_IMPL2(NUMBER, CV)	\
+	template<typename R, typename U, IUTEST_FUNCTION_TEMPLATE_TEMPLATES##NUMBER>struct impl<R (U::*)(IUTEST_FUNCTION_TEMPLATE_ARGS##NUMBER) CV>	\
 	{ typedef R type; };	\
-	template<typename R, typename U, IUTEST_FUNCTION_TEMPLATE_TEMPLATES##NUMBER>struct impl<R (U::*)(IUTEST_FUNCTION_TEMPLATE_ARGS##NUMBER, ...)>	\
+	template<typename R, typename U, IUTEST_FUNCTION_TEMPLATE_TEMPLATES##NUMBER>struct impl<R (U::*)(IUTEST_FUNCTION_TEMPLATE_ARGS##NUMBER, ...) CV>	\
 	{ typedef R type; }
 
 	template<typename R>struct impl<R (*)(void)>	{ typedef R type; };
 	template<typename R, typename U>struct impl<R (U::*)(void)>	{ typedef R type; };
+
+#define FUNCTION_RETURN_TYPE_VOID_IMPL(CV)	\
+	template<typename R, typename U>struct impl<R (U::*)(void) CV>	{ typedef R type; }
+
+	FUNCTION_RETURN_TYPE_VOID_IMPL(const);
+	FUNCTION_RETURN_TYPE_VOID_IMPL(volatile);
+	FUNCTION_RETURN_TYPE_VOID_IMPL(const volatile);
+
+#undef FUNCTION_RETURN_TYPE_VOID_IMPL
 
 	FUNCTION_RETURN_TYPE_IMPL(1);
 	FUNCTION_RETURN_TYPE_IMPL(2);
@@ -360,11 +432,12 @@ class function_return_type
 	FUNCTION_RETURN_TYPE_IMPL(20);
 
 #undef FUNCTION_RETURN_TYPE_IMPL
+#undef FUNCTION_RETURN_TYPE_IMPL2
 
 #endif
 
 public:
-	typedef typename impl<T>::type type;
+	typedef typename impl< typename remove_cv<T>::type >::type type;
 };
 
 #include "iutest_function_traits_undef.h"

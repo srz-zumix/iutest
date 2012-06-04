@@ -76,6 +76,14 @@
 #  endif
 #endif
 
+#ifndef IUTEST_HAS_VARIADIC_COMBINE
+#  if IUTEST_HAS_COMBINE && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_STD_TUPLE
+#    define IUTEST_HAS_VARIADIC_COMBINE	1
+#  else
+#    define IUTEST_HAS_VARIADIC_COMBINE	0
+#  endif
+#endif
+
 #ifndef IUTEST_HAS_PEEP
 #  define IUTEST_HAS_PEEP			1	//!< private メンバーへのアクセスマクロが使用可能かどうか
 #endif

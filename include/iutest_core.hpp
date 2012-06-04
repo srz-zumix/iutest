@@ -281,14 +281,18 @@ private:
 			return false;
 		}
 
-		for( iuTestCases::iterator it=m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
 		{
-			if( !it->should_run() ) continue;
+			detail::iuStopWatch sw;
+			sw.start();
+			for( iuTestCases::iterator it=m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
+			{
+				if( !it->should_run() ) continue;
 
-			m_current_testcase = *it;
-			it->Run();
-			m_current_testcase = NULL;
-			m_elapsedmsec += it->elapsed_time();
+				m_current_testcase = *it;
+				it->Run();
+				m_current_testcase = NULL;
+			}
+			m_elapsedmsec = sw.stop();
 		}
 
 		// グローバル環境セット

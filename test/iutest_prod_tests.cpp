@@ -27,22 +27,26 @@ class ProdClass
 	IUTEST_FRIEND_TEST(ProdTest, Friend);
 	
 public:
-	ProdClass(void) : m_x(0) {}
-	
-	int	GetX(void) { return m_x; }
-	int	GetZ(void) { return m_z; }
+	ProdClass(void) : m_dummy(0), m_x(0), m_z(0), m_c(42) {}
+	ProdClass(const ProdClass& rhs) : m_dummy(rhs.m_dummy), m_x(rhs.m_x), m_z(rhs.m_z), m_c(42) {}
+
+	int	GetX(void) const { return m_x; }
+	int	GetZ(void) const { return m_z; }
 private:
 	int m_dummy;
 	int m_x;
 	int m_z;
+	const int m_c;
 	void SetX(int x) { m_x = x; }
+	int	ConstGetX(void) const { return m_x; }
 
 public:
 	static int GetY(void)	{ return m_y; }
 private:
 	static int m_y;
 	static void SetY(int y)	{ m_y = y; }
-	
+private:
+	ProdClass& operator = (const ProdClass&);
 };
 
 int ProdClass::m_y = 0;
@@ -63,6 +67,7 @@ IUTEST(ProdTest, Friend)
 
 // peep を使ってのアクセス
 IUTEST_MAKE_PEEP(int ProdClass::*, ProdClass, m_x);
+IUTEST_MAKE_PEEP(const int ProdClass::*, ProdClass, m_c);
 
 IUTEST(ProdTest, Peep)
 {
@@ -80,6 +85,16 @@ IUTEST(ProdTest, Peep)
 	IUTEST_ASSERT_EQ(10, s_prod.GetX());
 
 	IUTEST_ASSERT_EQ(10, prod_class_x);
+}
+
+IUTEST(ProdTest, PeepConst)
+{
+	// マクロ版
+	IUTEST_ASSERT_EQ(42, IUTEST_PEEP_GET(s_prod, ProdClass, m_c));
+
+	// object 版
+	IUTEST_PEEP(ProdClass, m_c) prod_class_c(&s_prod);
+	IUTEST_ASSERT_EQ(42, prod_class_c);
 }
 
 IUTEST_MAKE_PEEP(int *, ProdClass, m_y);
@@ -104,16 +119,22 @@ IUTEST(ProdTest, StaticPeep)
 #if IUTEST_HAS_PEEP_FUNC
 
 typedef void (ProdClass::* ProdClassSetX)(int);
+typedef int (ProdClass::* ProdClassGetX)() const;
 IUTEST_MAKE_PEEP(ProdClassSetX, ProdClass, SetX);
+IUTEST_MAKE_PEEP(ProdClassGetX, ProdClass, ConstGetX);
 
 IUTEST(ProdTest, PeepFunction)
 {
 	IUTEST_PEEP_GET(s_prod, ProdClass, SetX)(100);
 	IUTEST_ASSERT_EQ(100, s_prod.GetX());
+	IUTEST_ASSERT_EQ(100, IUTEST_PEEP_GET(s_prod, ProdClass, ConstGetX)());
 
-	IUTEST_PEEP(ProdClass, SetX) peep(&s_prod);
-	peep(101);
+	IUTEST_PEEP(ProdClass, SetX) peep_set(&s_prod);
+	peep_set(101);
 	IUTEST_ASSERT_EQ(101, s_prod.GetX());
+
+	IUTEST_PEEP(ProdClass, ConstGetX) peep_get(&s_prod);
+	IUTEST_ASSERT_EQ(101, peep_get());
 }
 
 #endif
