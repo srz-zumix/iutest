@@ -82,7 +82,7 @@ protected:
 		{
 			detail::iuConsole::output(it->name());
 			detail::iuConsole::output("\n");
-			
+
 			for( TestCase::iuTestInfos::iterator it2 = it->begin(), end2=it->end(); it2 != end2; ++it2 )
 			{
 				detail::iuConsole::output("  ");

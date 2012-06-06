@@ -122,7 +122,7 @@ public:
 	/**
 	 * @brief	出力ファイルの設定
 	*/
-	void	SetFilePath(const char* directory)	
+	void	SetFilePath(const char* directory)
 	{
 		if( directory == NULL || *directory == '\0' )
 		{

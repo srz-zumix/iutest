@@ -68,7 +68,7 @@
 #endif
 
 #ifndef IUTEST_HAS_COMBINE
-//! iutest::Combine が仕様使用可能かどうか
+//! iutest::Combine が使用可能かどうか
 #  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TUPLE
 #    define IUTEST_HAS_COMBINE		1
 #  else
@@ -78,9 +78,9 @@
 
 #ifndef IUTEST_HAS_VARIADIC_COMBINE
 #  if IUTEST_HAS_COMBINE && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_STD_TUPLE
-#    define IUTEST_HAS_VARIADIC_COMBINE	1
+#    define IUTEST_HAS_VARIADIC_COMBINE	1	//!< 可変長引数に対応した Combine が使用可能かどうか
 #  else
-#    define IUTEST_HAS_VARIADIC_COMBINE	0
+#    define IUTEST_HAS_VARIADIC_COMBINE	0	//!< 可変長引数に対応した Combine が使用可能かどうか
 #  endif
 #endif
 

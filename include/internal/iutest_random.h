@@ -97,7 +97,7 @@ public:
 		return genrand(max);
 	}
 };
-	
+
 }	// end of namespace detail
 }	// end of namespace iutest
 

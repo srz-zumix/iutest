@@ -165,7 +165,7 @@ public:
 	 * @brief	é∏îsÇµÇΩÇ©Ç«Ç§Ç©
 	 * @return	ê^ãUíl
 	*/
-	bool		Failed(void) const		
+	bool		Failed(void) const
 	{
 		for( TestPartResults::const_iterator it=m_test_part_results.begin(), end=m_test_part_results.end(); it != end; ++it )
 		{
@@ -238,7 +238,7 @@ private:
 	void set_elapsed_time(TimeInMillisec time)		{ m_elapsedmsec = time; }
 
 private:
-	void RecordProperty(const TestProperty& prop)	
+	void RecordProperty(const TestProperty& prop)
 	{
 		for( TestPropertys::iterator it=m_test_propertys.begin(), end=m_test_propertys.end(); it != end; ++it )
 		{

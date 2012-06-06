@@ -87,7 +87,7 @@ public:
 public:
 	/** test case 名の取得 */
 	const	char*	name(void)					const	{ return m_testcase_name.c_str(); }
-	
+
 	/** テスト総数 */
 	int				total_test_count(void)		const	{ return m_testinfos.count(); }
 	/** 実行したテスト総数 */

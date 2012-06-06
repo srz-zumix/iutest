@@ -179,7 +179,7 @@ public:
 	{}
 public:
 	template<typename T>
-	iuCodeMessage&		operator << (T value)	
+	iuCodeMessage&		operator << (T value)
 	{
 		iuMessage::operator << (value);
 		return *this;

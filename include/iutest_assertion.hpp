@@ -63,7 +63,7 @@ public:
 	 * @brief	メッセージ追加
 	*/
 	template<typename T>
-	AssertionResult&		operator << (T value)	
+	AssertionResult&		operator << (T value)
 	{
 		Message::operator << (value);
 		return *this;
@@ -119,7 +119,7 @@ public:
 	class Fixed : public Message {
 	public:
 		template<typename T>
-		Fixed&		operator << (T value)	
+		Fixed&		operator << (T value)
 		{
 			Message::operator << (value);
 			return *this;
@@ -261,7 +261,7 @@ inline AssertionResult EqFailure(const char* expected_expression, const char* ac
 		<< "\nExpected: " << expected_expression;
 	if( ignoring_case ) strm << "(ignoring case)";
 	if( !detail::IsStringEqual(expected_expression, expected) ) strm << "\nWhich is: " << expected;
-	return AssertionFailure() << strm.str();	
+	return AssertionFailure() << strm.str();
 }
 
 /**

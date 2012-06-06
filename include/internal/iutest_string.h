@@ -244,7 +244,7 @@ public:
 	public:
 		iu_basic_stream(void) {}
 	public:
-		
+
 		inline _Myt& operator<< (char v)
 		{
 			s += v;

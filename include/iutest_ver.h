@@ -22,10 +22,10 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x00330000	//!< iutest version 0.33.0.0
+#define	IUTEST_VER			0x00330100	//!< iutest version 0.33.1.0
 #define IUTEST_MAJORVER		0x00		//!< Major Version
 #define IUTEST_MINORVER		0x33		//!< Minor Version
-#define IUTEST_BUILD		0x00		//!< Build
+#define IUTEST_BUILD		0x01		//!< Build
 #define IUTEST_REVISION		0x00		//!< Revision
 
 /**
@@ -90,8 +90,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	RELEASE		リリースノート
  * @par		release note
 <ul>
-  <li>v0.33.0.0
+  <li>v0.33.1.0
     <ul>
+      <li>UnitTest::repeat_counter 関数を追加</li>
+      <li>OnTestIterationStart/End の iteration 引数が 0 から始まるように修正</li>
       <li>QuietResultPrinter 追加</li>
       <li>util 修正</li>
     </ul>

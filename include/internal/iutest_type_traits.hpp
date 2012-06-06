@@ -25,7 +25,7 @@ namespace iutest_type_traits
 
 //======================================================================
 // struct
-	
+
 /**
  * @brief	bool constant
 */

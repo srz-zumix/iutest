@@ -30,7 +30,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
  * @brief	xml 出力に skipped タグを含めるかどうか
 */
 #ifndef IUTEST_REPORT_SKIPPED
-#  define IUTEST_REPORT_SKIPPED	1	
+#  define IUTEST_REPORT_SKIPPED		1
 #endif
 
 namespace iutest
@@ -63,7 +63,7 @@ public:
 	/**
 	 * @brief	出力ファイルの設定
 	*/
-	void	SetFilePath(const char* path)	
+	void	SetFilePath(const char* path)
 	{
 		if( path == NULL || *path == '\0' )
 		{

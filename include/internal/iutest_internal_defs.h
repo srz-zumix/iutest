@@ -198,7 +198,7 @@ typedef enabler_t<void>	enabler;
 /**
  * @brief	true ‚ğ•Ô‚·(Œx‘Îô—p)
 */
-inline IUTEST_CONSTEXPR bool	AlwaysTrue(void)	
+inline IUTEST_CONSTEXPR bool	AlwaysTrue(void)
 {
 	return true;
 }
@@ -211,10 +211,6 @@ inline IUTEST_CONSTEXPR bool	AlwaysFalse(void)	{ return !AlwaysTrue(); }
  * @brief	0 ‚ğ•Ô‚·(Œx‘Îô—p)
 */
 inline IUTEST_CONSTEXPR int		AlwaysZero(void)	{ return 0; }
-
-/**
- * @brief	
-*/
 
 }	// end of namespace detail
 }	// end of namespace iutest

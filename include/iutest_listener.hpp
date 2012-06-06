@@ -162,7 +162,7 @@ private:
 		}
 	}
 
-	void OnTestCaseStart(const TestCase& test_case)	
+	void OnTestCaseStart(const TestCase& test_case)
 	{
 		for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
 		{
@@ -197,7 +197,7 @@ private:
 			(*it)->OnTestEnd(test_info);
 		}
 	}
-	void OnTestCaseEnd(const TestCase& test_case)	
+	void OnTestCaseEnd(const TestCase& test_case)
 	{
 		for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
 		{

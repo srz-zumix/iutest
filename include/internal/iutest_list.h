@@ -109,7 +109,7 @@ public:
 /**
  * @internal
  * @brief	リストクラス
- * @deprecated stl に変えたほうがいいかも、保守するのがメンドイ	
+ * @deprecated stl に変えたほうがいいかも、保守するのがメンドイ
 */
 template<typename NODE>
 class iu_list

@@ -60,6 +60,12 @@ private:
 	virtual void TearDown(void)	{ ++g_environment_teardown; }
 };
 
+IUTEST(Repeat, Counter)
+{
+	IUTEST_ASSERT_EQ(g_environment_setup, iutest::UnitTest::GetInstance()->repeat_counter()+1);
+}
+
+
 void ClearCounter(void)
 {
 	g_foo_bar = 0;

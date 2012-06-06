@@ -56,6 +56,9 @@ public:
 	/** 乱数シードの取得 */
 	unsigned int		random_seed(void)			const	{ return TestEnv::current_random_seed(); }
 
+	/** 現在何回目のくり返しか取得 */
+	int					repeat_counter(void)		const	{ return m_repeat_counter; }
+
 public:
 	/** テスト総数 */
 	int				total_test_count(void)		const	{ return m_total_test_num; }
@@ -173,24 +176,25 @@ protected:
 private:
 	int RunImpl(void)
 	{
+		m_repeat_counter = 0;
+		int repeat = TestEnv::get_repeat_count();
+		if( repeat == 0 ) return 0;
+
 		TestProgramStart();
 
-		int repeat = TestEnv::get_repeat_count();
-
-		int count = repeat > 1 ? 1 : 0;
 		bool result = true;
 		while(repeat)
 		{
 			SetUpTestIteration();
 
-			listeners().OnTestIterationStart(*this, count);
+			listeners().OnTestIterationStart(*this, m_repeat_counter);
 			if( !RunOnce() )
 			{
 				result = false;
 			}
-			listeners().OnTestIterationEnd(*this, count);
+			listeners().OnTestIterationEnd(*this, m_repeat_counter);
 
-			++count;
+			++m_repeat_counter;
 			if( repeat > 0 ) --repeat;
 		}
 
@@ -334,7 +338,8 @@ private:
 
 private:
 	UnitTest(void)
-		: m_current_testcase(NULL)
+		: m_repeat_counter(0)
+		, m_current_testcase(NULL)
 	{
 		// デフォルトリポーターをセット
 		TestEnv::SetGlobalTestPartResultReporter(&m_default_test_part_result_reporter);
@@ -390,6 +395,7 @@ private:
 private:
 	friend class UnitTestSource;
 
+	int m_repeat_counter;
 	const TestCase*	m_current_testcase;
 	detail::DefaultGlobalTestPartResultReporter	m_default_test_part_result_reporter;
 

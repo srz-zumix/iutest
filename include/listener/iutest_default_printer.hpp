@@ -51,9 +51,9 @@ public:
 	virtual void OnTestIterationStart(const UnitTest& test
 									, int iteration)
 	{
-		if( iteration > 0 )
+		if( IUTEST_FLAG(repeat) != 1 )
 		{
-			detail::iuConsole::output("\nRepeating all tests (iteration %d) . . .\n\n", iteration);
+			detail::iuConsole::output("\nRepeating all tests (iteration %d) . . .\n\n", iteration+1);
 		}
 		// シャッフルテスト
 		if( TestFlag::IsEnableFlag(TestFlag::SHUFFLE_TESTS) )
