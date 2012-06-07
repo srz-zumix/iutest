@@ -46,6 +46,6 @@ License
     Copyright (c) 2011-2012, Takazumi-Shirayanagi,
     All rights reserved.
 
-    The new(modified) BSD License is applied to this software, see LICENSE
+    The new(3-clause) BSD License is applied to this software, see LICENSE
 
 

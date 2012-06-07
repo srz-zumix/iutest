@@ -57,6 +57,7 @@ public:
 	}
 	virtual ~DefaultXmlGeneratorListener(void)
 	{
+		FileClose();
 		TestEnv::event_listeners().set_default_xml_generator(NULL);
 	}
 public:
@@ -83,14 +84,7 @@ public:
 	virtual void OnTestProgramStart(const UnitTest& test)
 	{
 		IUTEST_UNUSED_VAR(test);
-		m_fp = detail::IFileSystem::New();
-		if( m_fp == NULL ) return;
-
-		if( !m_fp->Open(m_output_path.c_str(), IFile::OpenWrite) )
-		{
-			fprintf(stderr, "Unable to open file \"%s\".\n", m_output_path.c_str());
-			fflush(stderr);
-		}
+		FileOpen(m_output_path.c_str());
 	}
 	//virtual void OnTestIterationEnd(const UnitTest& test
 	//								, int iteration)
@@ -98,7 +92,11 @@ public:
 	//}
 	virtual void OnTestProgramEnd(const UnitTest& test)
 	{
-		if( m_fp == NULL ) return;
+		if( m_fp == NULL ) 
+		{
+			FileOpen(m_output_path.c_str());
+			if( m_fp == NULL ) return;
+		}
 
 		m_fp->Printf("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 		m_fp->Printf("<testsuites tests=\"%d\" failures=\"%d\" disabled=\"%d\" "
@@ -123,10 +121,8 @@ public:
 			OnReportTestCase(m_fp, *test.GetTestCase(i));
 		}
 		m_fp->Printf("</testsuites>\n");
-		m_fp->Close();
 
-		detail::IFileSystem::Free(m_fp);
-		m_fp = NULL;
+		FileClose();
 	}
 
 private:
@@ -173,7 +169,7 @@ private:
 			}
 		}
 
-		if( should_run )
+		if( test_info.is_ran() )
 			file->Printf("status=\"run\" ");
 		else
 			file->Printf("status=\"notrun\" ");
@@ -229,6 +225,27 @@ private:
 				file->Printf(" />\n");
 			}
 		}
+	}
+private:
+	bool FileOpen(const char* path)
+	{
+		m_fp = detail::IFileSystem::New();
+		if( m_fp == NULL ) return false;
+
+		if( !m_fp->Open(path, IFile::OpenWrite) )
+		{
+			fprintf(stderr, "Unable to open file \"%s\".\n", m_output_path.c_str());
+			fflush(stderr);
+			return false;
+		}
+		return true;
+	}
+	void FileClose(void)
+	{
+		if( m_fp == NULL ) return;
+		m_fp->Close();
+		detail::IFileSystem::Free(m_fp);
+		m_fp = NULL;
 	}
 private:
 	static void	OutputXmlCDataSection(IFile* file, const char* data)

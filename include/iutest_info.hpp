@@ -76,7 +76,83 @@ public:
 			m_disable = true;
 		}
 	}
+
 public:
+	/** test case 名の取得 */
+	const	char*	test_case_name(void)	const	{ return m_testcase->test_case_name(); }
+	/** test 名の取得 */
+	const	char*	name(void)				const	{ return m_testname.c_str(); }
+	/** should_run */
+	bool			should_run(void)		const	{ return m_should_run; }
+	/** is ran */
+	bool			is_ran(void)			const	{ return m_ran; }
+	/** disable */
+	bool			is_disabled_test(void)	const	{ return m_disable; }
+	/** テストの実行ミリ秒 */
+	TimeInMillisec	elapsed_time(void)		const	{ return m_test_result.elapsed_time(); }
+	/** テスト結果の取得 */
+	const TestResult*	result(void)		const	{ return &m_test_result; }
+
+	/** value param 文字列の取得 */
+	const	char*	value_param(void)		const	{ return m_value_param.empty() ? NULL : m_value_param.c_str(); }
+	/** type param 文字列の取得 */
+	const	char*	type_param(void)		const	{ return m_testcase->type_param(); }
+
+public:
+	/**
+	 * @brief	致命的なエラーが出たかどうか
+	 * @return	真偽値
+	*/
+	bool	HasFatalFailure(void) const
+	{
+		return m_test_result.HasFatalFailure();
+	}
+
+	/**
+	 * @brief	致命的ではないエラーが出たかどうか
+	 * @return	真偽値
+	*/
+	bool	HasNonfatalFailure(void) const
+	{
+		return m_test_result.HasNonfatalFailure();
+	}
+
+	/**
+	 * @brief	エラーが出たかどうか
+	 * @return	真偽値
+	*/
+	bool	HasFailure(void) const
+	{
+		return m_test_result.Failed();
+	}
+
+public:
+	/** テストのフル名を取得 */
+	std::string	test_full_name(void)		const
+	{
+		std::string fullname = test_case_name();
+		fullname += ".";
+		fullname += name();
+		return fullname;
+	}
+
+	/** テスト名 + where の取得 */
+	std::string test_name_with_where(void)	const
+	{
+		std::string str = m_testname;
+		if( value_param() != NULL )
+		{
+			str += ", where GetParam() = ";
+			str += m_value_param;
+		}
+		return str;
+	}
+
+public:
+	/** @private */
+	void	set_value_param(const char* str)	{ m_value_param = str; }
+
+private:
 	/**
 	 * @brief	実行
 	*/
@@ -89,6 +165,7 @@ public:
 
 		// テスト開始
 		TestEnv::event_listeners().OnTestStart(*this);
+		m_ran = true;
 
 #if IUTEST_HAS_EXCEPTIONS
 		if( TestFlag::IsEnableFlag(TestFlag::CATCH_EXCEPTION_EACH) )
@@ -134,90 +211,19 @@ public:
 
 		m_test_result.set_elapsed_time(elapsedmsec);
 
-#if IUTEST_HAS_EXCEPTIONS
 		if( HasFailure() && TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
 		{
+#if IUTEST_HAS_EXCEPTIONS
 			throw HasFatalFailure() ? TestPartResult::kFatalFailure : TestPartResult::kNotFatalFailure;
-		}
+#else
+			exit(1);
 #endif
+		}
 
 		// テスト終了
 		TestEnv::event_listeners().OnTestEnd(*this);
 		return !HasFailure();
 	}
-
-public:
-	/**
-	 * @brief	致命的なエラーが出たかどうか
-	 * @return	真偽値
-	*/
-	bool	HasFatalFailure(void) const
-	{
-		return m_test_result.HasFatalFailure();
-	}
-
-	/**
-	 * @brief	致命的ではないエラーが出たかどうか
-	 * @return	真偽値
-	*/
-	bool	HasNonfatalFailure(void) const
-	{
-		return m_test_result.HasNonfatalFailure();
-	}
-
-	/**
-	 * @brief	エラーが出たかどうか
-	 * @return	真偽値
-	*/
-	bool	HasFailure(void) const
-	{
-		return m_test_result.Failed();
-	}
-
-public:
-	/** test case 名の取得 */
-	const	char*	test_case_name(void)	const	{ return m_testcase->test_case_name(); }
-	/** test 名の取得 */
-	const	char*	name(void)				const	{ return m_testname.c_str(); }
-	/** should_run */
-	bool			should_run(void)		const	{ return m_should_run; }
-	/** disable */
-	bool			is_disabled_test(void)	const	{ return m_disable; }
-	/** テストの実行ミリ秒 */
-	TimeInMillisec	elapsed_time(void)		const	{ return m_test_result.elapsed_time(); }
-	/** テスト結果の取得 */
-	const TestResult*	result(void)		const	{ return &m_test_result; }
-
-	/** value param 文字列の取得 */
-	const	char*	value_param(void)		const	{ return m_value_param.empty() ? NULL : m_value_param.c_str(); }
-	/** type param 文字列の取得 */
-	const	char*	type_param(void)		const	{ return m_testcase->type_param(); }
-
-public:
-	/** テストのフル名を取得 */
-	std::string	test_full_name(void)		const
-	{
-		std::string fullname = test_case_name();
-		fullname += ".";
-		fullname += name();
-		return fullname;
-	}
-
-	/** テスト名 + where の取得 */
-	std::string test_name_with_where(void)	const
-	{
-		std::string str = m_testname;
-		if( value_param() != NULL )
-		{
-			str += ", where GetParam() = ";
-			str += m_value_param;
-		}
-		return str;
-	}
-
-public:
-	/** @private */
-	void	set_value_param(const char* str)	{ m_value_param = str; }
 
 private:
 
@@ -247,6 +253,7 @@ private:
 	*/
 	void	clear(void)
 	{
+		m_ran = false;
 		m_test_result.ClearResult();
 	}
 
@@ -286,6 +293,7 @@ private:
 	detail::iuFactoryBase*	m_factory;			//!< テスト生成器
 	Mediator				m_mediator;			//!< 自身の仲介インスタンス
 	bool					m_should_run;		//!< 実行すべきかの真偽値
+	bool					m_ran;				//!< 実行したかどうか
 	bool					m_disable;			//!< 無効真偽値
 
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TestInfo);

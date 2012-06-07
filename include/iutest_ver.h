@@ -22,10 +22,10 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x00330100	//!< iutest version 0.33.1.0
+#define	IUTEST_VER			0x00340000	//!< iutest version 0.34.0.0
 #define IUTEST_MAJORVER		0x00		//!< Major Version
-#define IUTEST_MINORVER		0x33		//!< Minor Version
-#define IUTEST_BUILD		0x01		//!< Build
+#define IUTEST_MINORVER		0x34		//!< Minor Version
+#define IUTEST_BUILD		0x00		//!< Build
 #define IUTEST_REVISION		0x00		//!< Revision
 
 /**
@@ -90,6 +90,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	RELEASE		リリースノート
  * @par		release note
 <ul>
+  <li>v0.34.0.0
+    <ul>
+      <li>複数 IUTEST_REGISTER_TYPED_TEST_CASE_P できない不具合を修正</li>
+      <li>テストが中断した際に実行されなかったテストを notrun で XML 出力するように修正</li>
+      <li>--iutest_break_on_failure を有効にしデバッグなし実行をしたときにダイアログがでないように修正</li>
+    </ul>
+  </li>
   <li>v0.33.1.0
     <ul>
       <li>UnitTest::repeat_counter 関数を追加</li>

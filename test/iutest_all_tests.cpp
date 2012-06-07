@@ -32,6 +32,7 @@
 #include "iutest_tr1_value_tmp_tests.cpp"
 #include "iutest_type_param_tests1.cpp"
 #include "iutest_type_param_tests2.cpp"
+#include "iutest_type_param_tests3.cpp"
 #include "iutest_typed_test_tests.cpp"
 #include "iutest_util_tests.cpp"
 #include "iutest_variadic_templates_tests.cpp"

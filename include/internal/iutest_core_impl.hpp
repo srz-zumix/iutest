@@ -39,7 +39,7 @@ protected:
 	{
 		ptr() = this;
 	}
-	~UnitTestImpl(void) { Terminate(); }
+	~UnitTestImpl(void) { TerminateImpl(); }
 
 public:
 	/**
@@ -97,6 +97,8 @@ protected:
 	*/
 	bool	PreRunner(void)
 	{
+		InitializeImpl();
+
 		if( TestFlag::IsEnableFlag(TestFlag::SHOW_HELP) )
 		{
 			detail::iuOptionMessage::ShowHelp();
@@ -122,9 +124,26 @@ protected:
 
 private:
 	/**
+	 * @brief	セットアップ
+	*/
+	void	InitializeImpl(void)
+	{
+#if IUTEST_HAS_SEH
+
+#if !defined(IUTEST_OS_WINDOWS_MOBILE)
+		SetErrorMode(SEM_FAILCRITICALERRORS | SEM_NOALIGNMENTFAULTEXCEPT | SEM_NOGPFAULTERRORBOX | SEM_NOOPENFILEERRORBOX);
+#endif
+
+#if	(defined(_MSC_VER) || IUTEST_OS_WINDOWS_MINGW) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+		_set_error_mode(_OUT_TO_STDERR);
+#endif
+
+#endif
+	}
+	/**
 	 * @brief	後片付け
 	*/
-	void	Terminate(void)
+	void	TerminateImpl(void)
 	{
 		for( iuTestCases::iterator it = m_testcases.begin(); it != m_testcases.end(); it = m_testcases.begin())
 		{

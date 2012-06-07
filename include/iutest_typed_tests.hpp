@@ -130,7 +130,7 @@
 	namespace IUTEST_TYPED_TEST_P_NAMESPACE(testcase_) {							\
 		typedef iutest::detail::Templates<__VA_ARGS__>::type	iutest_AllTests_;	\
 	}																				\
-	static bool s_iutest_##testname_##_register_dummy_ IUTEST_ATTRIBUTE_UNUSED_ =	\
+	static bool s_iutest_##testcase_##_register_dummy_ IUTEST_ATTRIBUTE_UNUSED_ =	\
 	IUTEST_TYPED_TEST_CASE_PSTATE_NAME(testcase_).VerifyTestNames(__FILE__, __LINE__, #__VA_ARGS__)
 
 #define IUTEST_INSTANTIATE_TYPED_TEST_CASE_P_(prefix_, testcase_, types_)	\
