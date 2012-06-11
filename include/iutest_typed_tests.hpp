@@ -49,8 +49,7 @@
 #define IUTEST_TYPED_TEST_PARAMS(testcase_)			iutest_types_params_##testcase_
 
 #define IIUT_TYPED_TEST_CASE_(testcase_, types_)		\
-	typedef iutest::detail::TypeList< types_ >::type	\
-	IUTEST_TYPED_TEST_PARAMS(testcase_)
+	typedef iutest::detail::TypeList< types_ >::type	IUTEST_TYPED_TEST_PARAMS(testcase_)
 
 #define IIUT_TYPED_TEST_(testcase_, testname_)									\
 	template<typename iutest_TypeParam>											\

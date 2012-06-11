@@ -22,9 +22,9 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x00340000	//!< iutest version 0.34.0.0
+#define	IUTEST_VER			0x00350000	//!< iutest version 0.35.0.0
 #define IUTEST_MAJORVER		0x00		//!< Major Version
-#define IUTEST_MINORVER		0x34		//!< Minor Version
+#define IUTEST_MINORVER		0x35		//!< Minor Version
 #define IUTEST_BUILD		0x00		//!< Build
 #define IUTEST_REVISION		0x00		//!< Revision
 
@@ -90,6 +90,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	RELEASE		リリースノート
  * @par		release note
 <ul>
+  <li>v0.35.0.0
+    <ul>
+      <li>IUTEST_PMZ, IUTEST_PMZ_F テスト生成マクロを追加</li>
+    </ul>
+  </li>
   <li>v0.34.0.0
     <ul>
       <li>複数 IUTEST_REGISTER_TYPED_TEST_CASE_P できない不具合を修正</li>

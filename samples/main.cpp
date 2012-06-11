@@ -598,6 +598,26 @@ IUTEST(StaticTest, Eq)
 	//iutest::StaticAssertTypeEq<bool, int>();
 }
 
+/** --------------------------------------------------
+ * パラメタライズ関数コール
+*//*--------------------------------------------------*/
+#if IUTEST_HAS_PARAM_METHOD_TEST
+
+void TestFunction(int x, int y)
+{
+	IUTEST_ASSERT_EQ(x, y);
+}
+IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 0, 0);
+IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 1, 1);
+IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 2, 2);
+
+typedef TestFixed ParamMethodTestFixed;
+
+IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 0, 0);
+IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 1, 1);
+IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 2, 2);
+
+#endif
 
 /** --------------------------------------------------
  * 失敗の確認
@@ -767,5 +787,22 @@ IUTEST(TestFailureSubroutine, Test2)
 	// ここの失敗には "routine2." のメッセージは表示されません。
 	Sub2(3);
 }
+
+/** --------------------------------------------------
+ * パラメタライズ関数コール
+*//*--------------------------------------------------*/
+#if IUTEST_HAS_PARAM_METHOD_TEST
+
+IUTEST_PMZ(TestFailureParamMethod, EQ, TestFunction, 0, 0);
+IUTEST_PMZ(TestFailureParamMethod, EQ, TestFunction, 1, 2);
+IUTEST_PMZ(TestFailureParamMethod, EQ, TestFunction, 2, 2);
+
+typedef TestFixed TestFailureParamMethodFixed;
+
+IUTEST_PMZ_F(TestFailureParamMethodFixed, EQ, TestFunction, 0, 0);
+IUTEST_PMZ_F(TestFailureParamMethodFixed, EQ, TestFunction, 1, 1);
+IUTEST_PMZ_F(TestFailureParamMethodFixed, EQ, TestFunction, 2, 3);
+
+#endif
 
 #endif

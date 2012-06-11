@@ -45,6 +45,31 @@
 		, type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);			\
 	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body(void)
 
+
+#ifndef IUTEST_NO_VARIADIC_MACROS
+
+#define IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)	IUTEST_PP_CAT(iu_##testcase_##_x_##testname_##_Test, __LINE__)
+/**
+ * @internal
+ * @brief	パラメタライズテスト定義マクロ
+*/
+#define IIUT_TEST_PMZ_(testcase_, testname_, method_, parent_class_, type_id_, ...)				\
+	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_);										\
+	class IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {			\
+		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_));	\
+		public:	IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
+		static std::string MakeTestName(void) { ::iutest::detail::iuStringStream::type strm; strm << #testname_	\
+			<< "/" << iutest::detail::UniqueCounter<IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>::count();	\
+			return strm.str(); }																\
+		protected: virtual void Body(void) { method_(__VA_ARGS__); }							\
+	};																							\
+	iutest::detail::TestInstance<IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)>				\
+	IUTEST_PP_CAT(s_##testcase_##_##testname_, __LINE__)( #testcase_							\
+	, IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)::MakeTestName().c_str(), #__VA_ARGS__	\
+		, type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase)
+
+#endif
+
 /**
  * @internal
  * @brief	ASSERTION メッセージ処理

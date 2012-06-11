@@ -40,6 +40,14 @@
 #endif
 
 // support
+#ifndef IUTEST_HAS_PARAM_METHOD_TEST
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define IUTEST_HAS_PARAM_METHOD_TEST	1	//!< パラメタライズ関数コールテストが使用可能かどうか
+#  else
+#    define IUTEST_HAS_PARAM_METHOD_TEST	0	//!< パラメタライズ関数コールテストが使用可能かどうか
+#  endif
+#endif
+
 #ifndef IUTEST_HAS_PARAM_TEST
 #  define IUTEST_HAS_PARAM_TEST		1	//!< 値をパラメータ化したテストが使用可能かどうか
 #endif

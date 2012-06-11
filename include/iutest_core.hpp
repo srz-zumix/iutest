@@ -421,6 +421,14 @@ public:
 	{
 		UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
 	}
+	// コンストラクタ
+	TestInstance(const char* testcase, const char* name, const char*  value_params, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+		: m_mediator(UnitTest::instance().AddTestCase<TestCase>(testcase, id, setup, teardown))
+		, m_info(&m_mediator, name, &m_factory)
+	{
+		m_info.set_value_param(value_params);
+		UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
+	}
 
 private:
 	TestCaseMediator	m_mediator;

@@ -88,7 +88,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\samples\main.cpp" />
     <ClCompile Include="..\..\samples\sub.cpp" />
-    <ClCompile Include="..\..\test\iutest_prod_tests.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{13851977-F039-448D-A853-A98325BDA088}</ProjectGuid>

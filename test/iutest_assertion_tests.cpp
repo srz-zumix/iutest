@@ -278,3 +278,4 @@ IUTEST(AssertionTest, Cpp11)
 	}
 #endif
 }
+

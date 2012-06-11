@@ -27,6 +27,21 @@
 //======================================================================
 // define
 /**
+ * @ingroup	TESTDEF
+ * @def		IUTEST_INSTANTIATE_TEST_CASE_P
+ * @brief	パラメータテストインスタンス化マクロ
+*/
+#define IUTEST_INSTANTIATE_TEST_CASE_P(prefix_, testcase_, generator_)	\
+													IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_)
+
+/**
+ * @ingroup	TESTDEF
+ * @def		IUTEST_P(testcase_, testname_)
+ * @brief	パラメータユーザー指定テスト関数定義マクロ
+*/
+#define IUTEST_P(testcase_, testname_)				IIUT_TEST_P_(testcase_, testname_)
+
+/**
  * @private
  * @{
 */
@@ -36,10 +51,10 @@
 */
 #define IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_)						\
 	static iutest::detail::iuIParamGenerator<testcase_::ParamType>*							\
-		s_##prefix_##_##testcase_##__EvalGenerator_(void) { return generator_; }			\
+		s_##prefix_##_##testcase_##_EvalGenerator_(void) { return generator_; }				\
 		int s_##prefix_##_##testcase_##_dummy =												\
 			iutest::UnitTest::GetInstance()->parameterized_test_registry().					\
-			GetTestCasePatternHolder<testcase_>(#testcase_)->AddTestCaseInstantiation(#prefix_, s_##prefix_##_##testcase_##__EvalGenerator_)
+			GetTestCasePatternHolder<testcase_>(#testcase_)->AddTestCaseInstantiation(#prefix_, s_##prefix_##_##testcase_##_EvalGenerator_)
 
 /**
  * @brief	パラメータテストクラス定義

@@ -223,8 +223,5 @@
     <ClCompile Include="..\..\samples\sub.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\test\iutest_prod_tests.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

@@ -113,6 +113,18 @@ class None {};
 template<typename T>
 class NoneT1 {};
 
+/**
+ * @brief	型に依存したユニークなカウンタ
+*/
+template<typename T>
+class UniqueCounter
+{
+	static int value;
+public:
+	static int count(void) { return value++; }
+};
+template<typename T>int UniqueCounter<T>::value = 0;
+
 //======================================================================
 // function
 /**

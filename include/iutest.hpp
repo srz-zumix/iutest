@@ -88,22 +88,22 @@ namespace iutest
 #define IUTEST_F(testfixture_, testname_)			IUTEST_TEST_(testfixture_, testname_, testfixture_	\
 														, iutest::internal::GetTypeId<testfixture_>())
 
-#if IUTEST_HAS_PARAM_TEST
+#if IUTEST_HAS_PARAM_METHOD_TEST
+/**
+ * @ingroup	TESTDEF
+ * @def		IUTEST_PMZ(testcase_, testname_, method_, ...)
+ * @brief	パラメタライズ関数コールテスト定義マクロ
+*/
+#define IUTEST_PMZ(testcase_, testname_, method_, ...)	IIUT_TEST_PMZ_(testcase_, testname_, method_, iutest::Test	\
+														, iutest::internal::GetTestTypeId(), __VA_ARGS__)
 
 /**
  * @ingroup	TESTDEF
- * @def		IUTEST_INSTANTIATE_TEST_CASE_P
- * @brief	パラメータテストインスタンス化マクロ
+ * @def		IUTEST_PMZ_F(testfixture_, testname_, method_, ...)
+ * @brief	パラメタライズ関数コールテスト定義マクロ
 */
-#define IUTEST_INSTANTIATE_TEST_CASE_P(prefix_, testcase_, generator_)	\
-													IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_)
-
-/**
- * @ingroup	TESTDEF
- * @def		IUTEST_P(testcase_, testname_)
- * @brief	パラメータユーザー指定テスト関数定義マクロ
-*/
-#define IUTEST_P(testcase_, testname_)				IIUT_TEST_P_(testcase_, testname_)
+#define IUTEST_PMZ_F(testfixture_, testname_, method_, ...)	IIUT_TEST_PMZ_(testfixture_, testname_, method_, testfixture_	\
+														, iutest::internal::GetTypeId<testfixture_>(), __VA_ARGS__)
 
 #endif
 
