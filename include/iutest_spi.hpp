@@ -60,10 +60,21 @@
  * @{
 */
 
+#if IUTEST_HAS_EXCEPTIONS && IUTEST_THROW_ON_ASSERT_FAILURE
+#  define IIUT_STATEMENT_EXECUTER(statement)	struct IUTestFatalFailureStatement {	\
+	static void Execute() { ::iutest::detail::ScopedSPITestFlag guard;					\
+	try { statement; } catch(...) {} }													\
+	}
+#else
+#  define IIUT_STATEMENT_EXECUTER(statement)	struct IUTestFatalFailureStatement {	\
+	static void Execute() { ::iutest::detail::ScopedSPITestFlag guard; statement; }		\
+	}
+#endif
+
 #define IUTEST_TEST_FATAL_FAILURE_(statement, text, substr, on_failure)		\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
 	if( iutest::detail::AlwaysTrue() ) {									\
-		struct IUTestFatalFailureStatement { static void Execute() { statement; } }; \
+		IIUT_STATEMENT_EXECUTER(statement);									\
 		iutest::detail::NewTestPartResultCheckHelper::Reporter<				\
 			iutest::detail::NewTestPartResultCheckHelper::CondEq<			\
 				iutest::TestPartResult::kFatalFailure>						\
@@ -79,7 +90,7 @@
 #define IUTEST_TEST_NONFATAL_FAILURE_(statement, text, substr, on_failure)	\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
 	if( iutest::detail::AlwaysTrue() ) {									\
-		struct IUTestFatalFailureStatement { static void Execute() { statement; } }; \
+		IIUT_STATEMENT_EXECUTER(statement);									\
 		iutest::detail::NewTestPartResultCheckHelper::Reporter<				\
 			iutest::detail::NewTestPartResultCheckHelper::CondEq<			\
 				iutest::TestPartResult::kNotFatalFailure>					\
@@ -114,6 +125,19 @@ public:
 	virtual void ReportTestPartResult(const TestPartResult& result)
 	{
 		IUTEST_UNUSED_VAR(result);
+	}
+};
+
+/**
+ * @biref	フラグ変更スコープ
+*/
+class ScopedSPITestFlag : public TestFlag::ScopedGuard
+{
+public:
+	ScopedSPITestFlag(void)
+	{
+		IUTEST_FLAG(throw_on_failure) = false;
+		IUTEST_FLAG(break_on_failure) = false;
 	}
 };
 

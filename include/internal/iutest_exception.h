@@ -34,7 +34,7 @@ namespace detail
  * @param [in]	description	= 説明
  * @return	メッセージ
 */
-static std::string FormatCxxException(const char* description)
+inline std::string FormatCxxException(const char* description)
 {
 	iuStringStream::type strm;
 	if( description != NULL )

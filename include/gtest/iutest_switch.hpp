@@ -356,21 +356,21 @@ namespace iutest
 
 //======================================================================
 // function
-static void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleTest(int* argc, char** argv)
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleTest(int* argc, char** argv)
 {
 	InitIrisUnitTest(argc, argv);
 }
-static void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleTest(int* argc, wchar_t** argv)
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleTest(int* argc, wchar_t** argv)
 {
 	InitIrisUnitTest(argc, argv);
 }
 
 #ifdef GMOCK_INCLUDE_GMOCK_GMOCK_H_
-static void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleMock(int* argc, char** argv)
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleMock(int* argc, char** argv)
 {
 	testing::InitGoogleMock(argc, argv);
 }
-static void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleMock(int* argc, wchar_t** argv)
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleMock(int* argc, wchar_t** argv)
 {
 	testing::InitGoogleMock(argc, argv);
 }
@@ -938,19 +938,19 @@ namespace testing
 
 //======================================================================
 // function
-static void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, char** argv)
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, char** argv)
 {
 	InitGoogleTest(pargc, argv);
 }
-static void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, wchar_t** argv)
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, wchar_t** argv)
 {
 	InitGoogleTest(pargc, argv);
 }
-static void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const char** argv)
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const char** argv)
 {
 	InitGoogleTest(pargc, const_cast<char**>(argv));
 }
-static void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const wchar_t** argv)
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const wchar_t** argv)
 {
 	InitGoogleTest(pargc, const_cast<wchar_t**>(argv));
 }
@@ -960,7 +960,7 @@ namespace internal
 {
 
 template<typename T1, typename T2>
-static AssertionResult	CmpHelperSame(const char* expected_str, const char* actual_str
+inline AssertionResult	CmpHelperSame(const char* expected_str, const char* actual_str
 									  , const T1& expected, const T2& actual)
 {
 	return EqHelper<false>::Compare(expected_str, actual_str, &expected, &actual);

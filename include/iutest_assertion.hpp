@@ -23,6 +23,11 @@
 #include "iutest_printers.hpp"
 #include "internal/iutest_list.h"
 
+namespace iutest_report_result
+{
+	void ReportTestPartResult(const iutest::TestPartResult& test_part_result);
+}
+
 namespace iutest
 {
 
@@ -188,6 +193,11 @@ private:
 		if( TestEnv::GetGlobalTestPartResultReporter() != NULL )
 		{
 			TestEnv::GetGlobalTestPartResultReporter()->ReportTestPartResult(m_part_result);
+		}
+		else
+		{
+			using namespace iutest_report_result;
+			ReportTestPartResult(m_part_result);
 		}
 
 		if( m_part_result.type() != TestPartResult::kSuccess )

@@ -204,6 +204,15 @@
     <ClInclude Include="..\..\include\internal\iutest_pragma.h">
       <Filter>iutest\internal</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\gtest\iutest_assertion_only.hpp">
+      <Filter>iutest\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gtest\iutest_spi_switch.hpp">
+      <Filter>iutest\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\util\iutest_util_tests.hpp">
+      <Filter>iutest\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\doc\Doxyfile">

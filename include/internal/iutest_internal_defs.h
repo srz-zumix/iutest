@@ -117,13 +117,13 @@ class NoneT1 {};
  * @brief	型に依存したユニークなカウンタ
 */
 template<typename T>
-class UniqueCounter
+class TypeUniqueCounter
 {
 	static int value;
 public:
 	static int count(void) { return value++; }
 };
-template<typename T>int UniqueCounter<T>::value = 0;
+template<typename T>int TypeUniqueCounter<T>::value = 0;
 
 //======================================================================
 // function

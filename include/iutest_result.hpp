@@ -26,6 +26,8 @@
 namespace iutest
 {
 
+//======================================================================
+// declare
 namespace detail
 {
 	class DefaultGlobalTestPartResultReporter;

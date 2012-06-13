@@ -102,4 +102,16 @@ public:
 }	// end of namespace detail
 }	// end of namespace iutest
 
+namespace iutest_report_result
+{
+	/**
+	 * @brief	TestPartResult リポーター
+	*/
+	inline void ReportTestPartResult(const iutest::TestPartResult& test_part_result)
+	{
+		iutest::detail::iuConsole::output(test_part_result.make_newline_message().c_str());
+	}
+}
+
+
 #endif

@@ -22,9 +22,9 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x00350000	//!< iutest version 0.35.0.0
+#define	IUTEST_VER			0x00360000	//!< iutest version 0.36.0.0
 #define IUTEST_MAJORVER		0x00		//!< Major Version
-#define IUTEST_MINORVER		0x35		//!< Minor Version
+#define IUTEST_MINORVER		0x36		//!< Minor Version
 #define IUTEST_BUILD		0x00		//!< Build
 #define IUTEST_REVISION		0x00		//!< Revision
 
@@ -90,6 +90,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	RELEASE		リリースノート
  * @par		release note
 <ul>
+  <li>v0.36.0.0
+    <ul>
+      <li>IUTEST_THROW_ON_ASSERT_FAILURE のデフォルト値を 0 に変更</li>
+      <li>IUTEST_THROW_ON_ASSERT_FAILURE が有効なとき IUTEST_*_FATAL_FAILURE が正しく動作しない問題を修正</li>
+      <li>spi テスト中に break_on_failure/throw_on_failure で止まらないように修正</li>
+      <li>アサーションのみの利用ができるように修正</li>
+    </ul>
+  </li>
   <li>v0.35.0.0
     <ul>
       <li>IUTEST_PMZ, IUTEST_PMZ_F テスト生成マクロを追加</li>
@@ -135,8 +143,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>nullptr に対応</li>
       <li>乱数シードを指定しなかった場合に現在時刻（ミリ秒）からシードを決定するように修正</li>
       <li>シャッフルテスト時に乱数シードをログ出力するように修正</li>
-	  <li>時刻取得用のコンフィグマクロを追加</li>
-	  <li>iutest::PrintToString でコンパイルが通らない型があったので修正</li>
+      <li>時刻取得用のコンフィグマクロを追加</li>
+      <li>iutest::PrintToString でコンパイルが通らない型があったので修正</li>
       <li>EQ系アサーションのメッセージを修正</li>
     </ul>
   </li>

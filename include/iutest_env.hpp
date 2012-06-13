@@ -83,6 +83,20 @@ public:
 class TestFlag
 {
 public:
+	class ScopedGuard
+	{
+		int m_test_flags;
+	public:
+		ScopedGuard(void) 
+		{
+			m_test_flags = TestFlag::GetInstance().m_test_flags;
+		}
+		~ScopedGuard(void) 
+		{
+			TestFlag::GetInstance().m_test_flags = m_test_flags;
+		}
+	};
+public:
 	/** 
 	 * @brief	ƒtƒ‰ƒO
 	*/

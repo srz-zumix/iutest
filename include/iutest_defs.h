@@ -141,7 +141,7 @@
  * @brief	ASSERT マクロで失敗時に例外を throw します。
  * @note	サブ関数にアサーションを記述しても、その時点でテストが中断されるようになります
 */
-#  define IUTEST_THROW_ON_ASSERT_FAILURE	IUTEST_HAS_EXCEPTIONS
+#  define IUTEST_THROW_ON_ASSERT_FAILURE	0
 #endif
 
 #ifndef IUTEST_HAS_GETTIMEOFDAY

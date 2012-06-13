@@ -160,11 +160,23 @@ private:
 	{
 		if( !m_should_run ) return true;
 
+		// テスト開始
+		TestEnv::event_listeners().OnTestStart(*this);
+
+		RunImpl();
+
+		// テスト終了
+		TestEnv::event_listeners().OnTestEnd(*this);
+		return !HasFailure();
+	}
+
+private:
+
+	void	RunImpl(void)
+	{
 		detail::iuStopWatch sw;
 		TimeInMillisec elapsedmsec = 0;
 
-		// テスト開始
-		TestEnv::event_listeners().OnTestStart(*this);
 		m_ran = true;
 
 #if IUTEST_HAS_EXCEPTIONS
@@ -219,13 +231,7 @@ private:
 			exit(1);
 #endif
 		}
-
-		// テスト終了
-		TestEnv::event_listeners().OnTestEnd(*this);
-		return !HasFailure();
 	}
-
-private:
 
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
 	void	RunOnMSC(detail::auto_ptr<Test>& test)

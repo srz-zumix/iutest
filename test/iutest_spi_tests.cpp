@@ -25,7 +25,7 @@ namespace spitest
 const char* null_str = NULL;
 int a=0, b=0;
 
-IUTEST(SPITest, FatalFailure)
+void SPITest_FatalFailure_Sub(int& count)
 {
 	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_TRUE(false), "" );
 	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_FALSE(true), "" );
@@ -60,9 +60,25 @@ IUTEST(SPITest, FatalFailure)
 	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_HRESULT_FAILED(0), "" );
 	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_HRESULT_FAILED(100), "" );
 #endif
+	
+	count++;
+}
+	
+IUTEST(SPITest, FatalFailure)
+{
+	int count=0;
+#if IUTEST_HAS_EXCEPTIONS
+	try {
+		SPITest_FatalFailure_Sub(count);
+	} catch(...) {
+	}
+#else
+	SPITest_FatalFailure_Sub(count);
+#endif
+	ASSERT_EQ(1, count);
 }
 
-IUTEST(SPITest, FatalFailure2)
+void SPITest_FatalFailure2_Sub(int& count)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_TRUE(false), "" );
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_FALSE(true), "" );
@@ -97,6 +113,21 @@ IUTEST(SPITest, FatalFailure2)
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_HRESULT_FAILED(0), "" );
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_HRESULT_FAILED(100), "" );
 #endif
+	count++;
+}
+	
+IUTEST(SPITest, FatalFailure2)
+{
+	int count=0;
+#if IUTEST_HAS_EXCEPTIONS
+	try {
+		SPITest_FatalFailure2_Sub(count);
+	} catch(...) {
+	}
+#else
+	SPITest_FatalFailure2_Sub(count);
+#endif
+	ASSERT_EQ(1, count);
 }
 
 IUTEST(SPITest, NonFatalFailure)

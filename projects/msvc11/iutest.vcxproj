@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\gtest\iutest_assertion_only.hpp" />
+    <ClInclude Include="..\..\include\gtest\iutest_spi_switch.hpp" />
     <ClInclude Include="..\..\include\gtest\iutest_switch.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_charcode.h" />
     <ClInclude Include="..\..\include\internal\iutest_compiler.h" />
@@ -79,6 +81,7 @@
     <ClInclude Include="..\..\include\util\iutest_util_assertion.hpp" />
     <ClInclude Include="..\..\include\util\iutest_util_output.hpp" />
     <ClInclude Include="..\..\include\util\iutest_util_quiet_result_printer.hpp" />
+    <ClInclude Include="..\..\include\util\iutest_util_tests.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\doc\Doxyfile" />
