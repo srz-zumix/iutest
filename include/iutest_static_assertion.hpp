@@ -53,6 +53,9 @@ static bool	StaticAssertTypeEq(void)
 	typedef ::iutest::detail::StaticAssertionTest< sizeof(::iutest::detail::StaticAssertionFailure< (bool)B >) > IUTEST_PP_CAT(iutest_static_assert_typedef_, __LINE__)
 #endif
 
+/**
+ * @brief	static_assert
+*/
 #ifdef IUTEST_STATIC_ASSERT_MSG
 #  ifdef IUTEST_NO_VARIADIC_MACROS
 #    define IUTEST_STATIC_ASSERT(B)		IUTEST_STATIC_ASSERT_MSG(B, "")
@@ -85,6 +88,7 @@ struct StaticAssertTypeEqHelper<T, T>
 
 /** @private */
 template<bool b>struct StaticAssertionFailure;
+/** @overload */
 template<> struct StaticAssertionFailure<true> { enum { value = 1 }; };
 
 /** @private */

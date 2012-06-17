@@ -21,17 +21,25 @@
 
 #else
 
-#include <gtest/gtest.h>
+#include "iutest_gtest_ver.hpp"
 #if GTEST_OS_WINDOWS
 #include <windows.h>
 #endif
 
 namespace testing
 {
+#if		GTEST_MINORVER == 0x06
+	typedef ::std::string				GTestAssertionResultString;
+#elif	GTEST_MINORVER == 0x05
+	typedef ::testing::internal::String	GTestAssertionResultString;
+#else
+#  error sorry, google test version 1.4.0 or less is unsupported.
+#endif
+
 	AssertionResult::AssertionResult(const AssertionResult& other)
 		: success_(other.success_)
 		, message_(other.message_.get() != NULL ?
-		new ::std::string(*other.message_) : static_cast< ::std::string*>(NULL))
+		new GTestAssertionResultString(*other.message_) : static_cast< GTestAssertionResultString*>(NULL))
 	{
 	}
 
@@ -140,7 +148,7 @@ namespace testing
 		}
 		String String::ShowCStringQuoted(const char* c_str)
 		{
-			std::string s = "\"";
+			::std::string s = "\"";
 			s += c_str;
 			s += "\"";
 			return String(s);
@@ -177,6 +185,9 @@ namespace testing
 			}
 
 			return String(helper.str().c_str());
+		}
+		String StrStreamToString(::std::stringstream* ss) {
+			return StringStreamToString(ss);
 		}
 
 		AssertionResult CmpHelperSTREQ(const char* expected_expression,

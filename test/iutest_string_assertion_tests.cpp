@@ -17,7 +17,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "../include/gtest/iutest_switch.hpp"
 
 namespace strtest
 {
@@ -50,17 +50,17 @@ template<> const char32_t*	text<char32_t>::host = U"host";
 #endif
 
 	template<typename T>
-class StrTest : public iutest::Test
+class StrTest : public ::iutest::Test
 {
 public:
 	typedef text<T>	Text;
-	typedef std::basic_string< T, std::char_traits<T>, std::allocator<T> > String;
+	typedef ::std::basic_string< T, ::std::char_traits<T>, ::std::allocator<T> > String;
 };
 
 template<typename T>
 class StrCaseTest : public StrTest<T> {};
 
-typedef iutest::Types<char, wchar_t
+typedef ::iutest::Types<char, wchar_t
 #if IUTEST_HAS_CHAR16_T
 	, char16_t
 #endif
@@ -68,7 +68,7 @@ typedef iutest::Types<char, wchar_t
 	, char32_t
 #endif
 	> StrTestTypes;
-typedef iutest::Types<char, wchar_t> StrCaseTestTypes;
+typedef ::iutest::Types<char, wchar_t> StrCaseTestTypes;
 
 IUTEST_TYPED_TEST_CASE(StrTest, StrTestTypes);
 IUTEST_TYPED_TEST_CASE(StrCaseTest, StrCaseTestTypes);

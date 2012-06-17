@@ -21,7 +21,7 @@
 
 #if IUTEST_HAS_PARAM_TEST
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My2, MultiInstantiateParamTest, iutest::Values(0, 1, 10));
+IUTEST_INSTANTIATE_TEST_CASE_P(My2, MultiInstantiateParamTest, ::iutest::Values(0, 1, 10));
 
 #endif
 

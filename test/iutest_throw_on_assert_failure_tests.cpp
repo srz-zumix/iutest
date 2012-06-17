@@ -50,9 +50,9 @@ int main(int argc, char* argv[])
 	
 	assert( ret != 0 );
 #if IUTEST_THROW_ON_ASSERT_FAILURE
-	assert( iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
+	assert( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
 #else
-	assert( iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
+	assert( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
 #endif
 	if( ret != 0 ) 	printf("*** Successful ***\n");
 	return ret ? 0 : 1;

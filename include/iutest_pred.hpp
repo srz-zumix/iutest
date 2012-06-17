@@ -43,7 +43,7 @@ AssertionResult	AssertPred1Helper(const char* pred_str, const char* expr1
  * @{
 */
 #define IUTEST_PRED1_(pred, v1, on_failure)	\
-	IUTEST_TEST_ASSERT_(iutest::AssertPred1Helper(#pred, #v1, pred, v1), on_failure)
+	IUTEST_TEST_ASSERT_(::iutest::AssertPred1Helper(#pred, #v1, pred, v1), on_failure)
 #define IUTEST_PRED_FORMAT1_(pred_formatter, v1, on_failure)	\
 	IUTEST_TEST_ASSERT_(pred_formatter(#v1, v1), on_failure)
 /**
@@ -108,7 +108,7 @@ AssertionResult	AssertPred2Helper(const char* pred_str, const char* expr1, const
  * @{
 */
 #define IUTEST_PRED2_(pred, v1, v2, on_failure)	\
-	IUTEST_TEST_ASSERT_(iutest::AssertPred2Helper(#pred, #v1, #v2, pred, v1, v2), on_failure)
+	IUTEST_TEST_ASSERT_(::iutest::AssertPred2Helper(#pred, #v1, #v2, pred, v1, v2), on_failure)
 #define IUTEST_PRED_FORMAT2_(pred_formatter, v1, v2, on_failure)	\
 	IUTEST_TEST_ASSERT_(pred_formatter(#v1, #v2, v1, v2), on_failure)
 /**
@@ -173,7 +173,7 @@ AssertionResult	AssertPred3Helper(const char* pred_str, const char* expr1, const
  * @{
 */
 #define IUTEST_PRED3_(pred, v1, v2, v3, on_failure)	\
-	IUTEST_TEST_ASSERT_(iutest::AssertPred3Helper(#pred, #v1, #v2, #v3, pred, v1, v2, v3), on_failure)
+	IUTEST_TEST_ASSERT_(::iutest::AssertPred3Helper(#pred, #v1, #v2, #v3, pred, v1, v2, v3), on_failure)
 #define IUTEST_PRED_FORMAT3_(pred_formatter, v1, v2, v3, on_failure)	\
 	IUTEST_TEST_ASSERT_(pred_formatter(#v1, #v2, #v3, v1, v2, v3), on_failure)
 /**
@@ -239,7 +239,7 @@ AssertionResult	AssertPred4Helper(const char* pred_str, const char* expr1, const
  * @{
 */
 #define IUTEST_PRED4_(pred, v1, v2, v3, v4, on_failure)	\
-	IUTEST_TEST_ASSERT_(iutest::AssertPred4Helper(#pred, #v1, #v2, #v3, #v4, pred, v1, v2, v3, v4), on_failure)
+	IUTEST_TEST_ASSERT_(::iutest::AssertPred4Helper(#pred, #v1, #v2, #v3, #v4, pred, v1, v2, v3, v4), on_failure)
 #define IUTEST_PRED_FORMAT4_(pred_formatter, v1, v2, v3, v4, on_failure)	\
 	IUTEST_TEST_ASSERT_(pred_formatter(#v1, #v2, #v3, #v4, v1, v2, v3, v4), on_failure)
 /**
@@ -307,7 +307,7 @@ AssertionResult	AssertPred5Helper(const char* pred_str, const char* expr1, const
  * @{
 */
 #define IUTEST_PRED5_(pred, v1, v2, v3, v4, v5, on_failure)	\
-	IUTEST_TEST_ASSERT_(iutest::AssertPred5Helper(#pred, #v1, #v2, #v3, #v4, #v5, pred, v1, v2, v3, v4, v5), on_failure)
+	IUTEST_TEST_ASSERT_(::iutest::AssertPred5Helper(#pred, #v1, #v2, #v3, #v4, #v5, pred, v1, v2, v3, v4, v5), on_failure)
 #define IUTEST_PRED_FORMAT5_(pred_formatter, v1, v2, v3, v4, v5, on_failure)	\
 	IUTEST_TEST_ASSERT_(pred_formatter(#v1, #v2, #v3, #v4, #v5, v1, v2, v3, v4, v5), on_failure)
 /**
@@ -369,7 +369,7 @@ AssertionResult	AssertPredVariadicHelper(const char* pred_str, const char* param
  * @{
 */
 #define IUTEST_PRED_(pred, on_failure, ...)	\
-	IUTEST_TEST_ASSERT_(iutest::AssertPredVariadicHelper(#pred, #__VA_ARGS__, pred, __VA_ARGS__), on_failure)
+	IUTEST_TEST_ASSERT_(::iutest::AssertPredVariadicHelper(#pred, #__VA_ARGS__, pred, __VA_ARGS__), on_failure)
 /**
  * @}
 */

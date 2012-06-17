@@ -49,7 +49,7 @@
 #define IUTEST_TYPED_TEST_PARAMS(testcase_)			iutest_types_params_##testcase_
 
 #define IIUT_TYPED_TEST_CASE_(testcase_, types_)		\
-	typedef iutest::detail::TypeList< types_ >::type	IUTEST_TYPED_TEST_PARAMS(testcase_)
+	typedef ::iutest::detail::TypeList< types_ >::type	IUTEST_TYPED_TEST_PARAMS(testcase_)
 
 #define IIUT_TYPED_TEST_(testcase_, testname_)									\
 	template<typename iutest_TypeParam>											\
@@ -58,7 +58,7 @@
 		typedef iutest_TypeParam	TypeParam;									\
 		protected: virtual void Body(void);										\
 	};																			\
-	iutest::detail::TypeParamTestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_), IUTEST_TYPED_TEST_PARAMS(testcase_)>	\
+	::iutest::detail::TypeParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_), IUTEST_TYPED_TEST_PARAMS(testcase_) >	\
 	s_##testcase_##_##testname_( #testcase_, #testname_);						\
 	template<typename iutest_TypeParam>											\
 	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_TypeParam>::Body(void)
@@ -109,7 +109,7 @@
 #define IUTEST_TYPED_TEST_P_NAMESPACE(testcase_)		iutest_typed_test_case_p_name_##testcase_##_
 
 #define IUTEST_TYPED_TEST_CASE_P_(testcase_)		\
-	static iutest::detail::TypedTestCasePState	IUTEST_TYPED_TEST_CASE_PSTATE_NAME(testcase_)
+	static ::iutest::detail::TypedTestCasePState	IUTEST_TYPED_TEST_CASE_PSTATE_NAME(testcase_)
 
 #define IUTEST_TYPED_TEST_P_(testcase_, testname_)				\
 	namespace IUTEST_TYPED_TEST_P_NAMESPACE(testcase_) {		\
@@ -125,18 +125,18 @@
 	template<typename iutest_TypeParam>							\
 	void IUTEST_TYPED_TEST_P_NAMESPACE(testcase_)::testname_<iutest_TypeParam>::Body(void)
 
-#define IUTEST_REGISTER_TYPED_TEST_CASE_P_(testcase_, ...)							\
-	namespace IUTEST_TYPED_TEST_P_NAMESPACE(testcase_) {							\
-		typedef iutest::detail::Templates<__VA_ARGS__>::type	iutest_AllTests_;	\
-	}																				\
-	static bool s_iutest_##testcase_##_register_dummy_ IUTEST_ATTRIBUTE_UNUSED_ =	\
+#define IUTEST_REGISTER_TYPED_TEST_CASE_P_(testcase_, ...)								\
+	namespace IUTEST_TYPED_TEST_P_NAMESPACE(testcase_) {								\
+		typedef ::iutest::detail::Templates< __VA_ARGS__ >::type	iutest_AllTests_;	\
+	}																					\
+	static bool s_iutest_##testcase_##_register_dummy_ IUTEST_ATTRIBUTE_UNUSED_ =		\
 	IUTEST_TYPED_TEST_CASE_PSTATE_NAME(testcase_).VerifyTestNames(__FILE__, __LINE__, #__VA_ARGS__)
 
 #define IUTEST_INSTANTIATE_TYPED_TEST_CASE_P_(prefix_, testcase_, types_)	\
 	bool iutest_##prefix_##_##testcase_ IUTEST_ATTRIBUTE_UNUSED_ =			\
-		iutest::detail::TypeParameterizedTestCase<testcase_					\
+		::iutest::detail::TypeParameterizedTestCase< testcase_				\
 		, IUTEST_TYPED_TEST_P_NAMESPACE(testcase_)::iutest_AllTests_		\
-		, iutest::detail::TypeList< types_ >::type >::Register(#prefix_, #testcase_	\
+		, ::iutest::detail::TypeList< types_ >::type >::Register(#prefix_, #testcase_	\
 		, IUTEST_TYPED_TEST_CASE_PSTATE_NAME(testcase_).names())
 
 /**
@@ -169,9 +169,9 @@ class TypeParamTestInstance
 	 * @param [in]	testcase	= ベース名
 	 * @param [in]	index		= 型インデックス
 	*/
-	static std::string MakeTestCaseName(const char* testcase, int index)
+	static ::std::string MakeTestCaseName(const char* testcase, int index)
 	{
-		std::string name = testcase;
+		::std::string name = testcase;
 		detail::iuStringStream::type strm; strm << index;
 		name += "/";
 		name += strm.str();
@@ -280,7 +280,7 @@ private:
 #if IUTEST_TYPED_TEST_P_STRICT
 		if( names == NULL ) return true;
 		const char* comma = FindComma(names);
-		std::string name;
+		::std::string name;
 		if( comma == NULL ) name = names;
 		else
 		{
@@ -298,7 +298,7 @@ private:
 	const char* m_names;
 
 #if IUTEST_TYPED_TEST_P_STRICT
-	std::set<const char*>	m_list;
+	::std::set<const char*>	m_list;
 #endif
 };
 
@@ -335,7 +335,7 @@ class TypeParameterizedTestCase
 		{
 			const char* str = detail::SkipSpace(test_names);
 			const char* comma = strchr(str, ',');
-			std::string test_name;
+			::std::string test_name;
 			if( comma == NULL ) 
 			{
 				test_name = str;
@@ -384,9 +384,9 @@ public:
 	}
 private:
 	// テスト名の作成
-	static std::string MakeTestCaseName(const char* prefix, const char* name, int index)
+	static ::std::string MakeTestCaseName(const char* prefix, const char* name, int index)
 	{
-		std::string pname;
+		::std::string pname;
 		if( *prefix != '\0' )
 		{
 			pname += prefix;

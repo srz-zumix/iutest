@@ -19,6 +19,7 @@
 // include
 #include "../include/iutest.hpp"
 
+#if !defined(IUTEST_USE_GTEST)
 
 #include "../include/tr1/iutest_value_tmp_tests.hpp"
 
@@ -51,13 +52,13 @@ public:
 };
 
 template<int N>
-class TestValueType : public iutest::Test
+class TestValueType : public ::iutest::Test
 {
 protected:
 	static const int V = factorial<N>::value;
 };
 
-typedef iutest::Types< iutest::TemplateValue<10>, iutest::TemplateValue<0> > Types;
+typedef ::iutest::Types< ::iutest::TemplateValue<10>, ::iutest::TemplateValue<0> > Types;
 
 IUTEST_VALUETMP_TEST_CASE(TestValueType, Types);
 
@@ -67,7 +68,7 @@ IUTEST_VALUETMP_TEST(TestValueType, Equal)
 }
 
 template<typename T>
-class TestValueType2 : public iutest::Test
+class TestValueType2 : public ::iutest::Test
 {
 };
 
@@ -77,4 +78,6 @@ IUTEST_TYPED_TEST(TestValueType2, Equal)
 {
 	IUTEST_SUCCEED() << factorial<TypeParam::kValue>::value;
 }
+
+#endif
 

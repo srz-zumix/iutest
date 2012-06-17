@@ -34,7 +34,7 @@ namespace detail
  * @param [in]	description	= 説明
  * @return	メッセージ
 */
-inline std::string FormatCxxException(const char* description)
+inline ::std::string FormatCxxException(const char* description)
 {
 	iuStringStream::type strm;
 	if( description != NULL )
@@ -61,18 +61,18 @@ namespace detail
 /**
  * @brief	SEH 例外
 */
-class seh_exception : public std::exception
+class seh_exception : public ::std::exception
 {
 public:
-	seh_exception(const char *const& _What) : std::exception(_What) {}
-	seh_exception(void) : std::exception() {}
+	seh_exception(const char *const& _What) : ::std::exception(_What) {}
+	seh_exception(void) : ::std::exception() {}
 	~seh_exception(void) {}
 public:
 	static void	translator(DWORD code, _EXCEPTION_POINTERS* ep)
 	{
 		IUTEST_UNUSED_VAR(ep);
 		iuStringStream::type strm;
-		strm << "SEH exception with code 0x" << std::setbase(16) << code << std::setbase(10);
+		strm << "SEH exception with code 0x" << ::std::setbase(16) << code << ::std::setbase(10);
 		throw seh_exception(strm.str().c_str());
 	}
 	static int should_process_through_break_and_cppexceptions(DWORD code)

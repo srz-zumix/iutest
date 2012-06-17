@@ -23,7 +23,7 @@
 
 static int test_counter = 0;
 
-class MyEnvironment : public iutest::Environment
+class MyEnvironment : public ::iutest::Environment
 {
 public:
 	static bool setup;
@@ -50,7 +50,7 @@ private:
 	}
 };
 
-class MyEnvironment2 : public iutest::Environment
+class MyEnvironment2 : public ::iutest::Environment
 {
 private:
 	virtual void SetUp(void)
@@ -83,9 +83,9 @@ int main(int argc, char* argv[])
 {
 	IUTEST_INIT(&argc, argv);
 	MyEnvironment* const env = new MyEnvironment();
-	assert( iutest::AddGlobalTestEnvironment(NULL) == NULL );
-	assert( iutest::AddGlobalTestEnvironment(env) == env );
-	iutest::AddGlobalTestEnvironment(new MyEnvironment2());
+	assert( ::iutest::AddGlobalTestEnvironment(NULL) == NULL );
+	assert( ::iutest::AddGlobalTestEnvironment(env) == env );
+	::iutest::AddGlobalTestEnvironment(new MyEnvironment2());
 	env->Reset();
 	int ret = IUTEST_RUN_ALL_TESTS();	// run all
 	

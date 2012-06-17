@@ -24,7 +24,7 @@
 namespace type_param_test
 {
 
-typedef iutest::Types<int, short, char> MyTypes1;
+typedef ::iutest::Types<int, short, char> MyTypes1;
 
 IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(My1, TypeParamTest, MyTypes1);
 

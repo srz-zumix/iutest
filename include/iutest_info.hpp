@@ -128,18 +128,18 @@ public:
 
 public:
 	/** テストのフル名を取得 */
-	std::string	test_full_name(void)		const
+	::std::string	test_full_name(void)		const
 	{
-		std::string fullname = test_case_name();
+		::std::string fullname = test_case_name();
 		fullname += ".";
 		fullname += name();
 		return fullname;
 	}
 
 	/** テスト名 + where の取得 */
-	std::string test_name_with_where(void)	const
+	::std::string test_name_with_where(void)	const
 	{
-		std::string str = m_testname;
+		::std::string str = m_testname;
 		if( value_param() != NULL )
 		{
 			str += ", where GetParam() = ";
@@ -193,7 +193,7 @@ private:
 #endif
 				elapsedmsec = sw.stop();
 			}
-			catch (const std::exception& e)
+			catch (const ::std::exception& e)
 			{
 				elapsedmsec = sw.stop();
 				iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(e.what()), TestPartResult::kFatalFailure).OnFixed(AssertionHelper::Fixed());
@@ -293,8 +293,8 @@ private:
 	friend class TestCase;
 
 	detail::iuITestCaseMediator*	m_testcase;	//!< テストケース仲介者
-	std::string						m_testname;	//!< テスト名
-	std::string				m_value_param;		//!< value param string
+	::std::string					m_testname;	//!< テスト名
+	::std::string			m_value_param;		//!< value param string
 	TestResult				m_test_result;		//!< テスト結果
 	detail::iuFactoryBase*	m_factory;			//!< テスト生成器
 	Mediator				m_mediator;			//!< 自身の仲介インスタンス

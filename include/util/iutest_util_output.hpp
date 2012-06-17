@@ -36,7 +36,7 @@ namespace iuutil
 {
 
 //!< コンソール出力クラスの再利用
-typedef iutest::detail::iuConsole	Console;
+typedef ::iutest::detail::iuConsole	Console;
 
 }	// end of namespace iuutil
 

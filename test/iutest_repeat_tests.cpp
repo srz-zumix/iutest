@@ -39,9 +39,9 @@ int g_param_test = 0;
 
 const int kNumberOfParamTests = 10;
 
-class TestP : public iutest::TestWithParam<int> {};
+class TestP : public ::iutest::TestWithParam<int> {};
 
-IUTEST_INSTANTIATE_TEST_CASE_P(Foo, TestP, iutest::Range<int>(0, kNumberOfParamTests));
+IUTEST_INSTANTIATE_TEST_CASE_P(Foo, TestP, ::iutest::Range<int>(0, kNumberOfParamTests));
 
 IUTEST_P(TestP, Bar)
 {
@@ -53,7 +53,7 @@ IUTEST_P(TestP, Bar)
 int g_environment_setup = 0;
 int g_environment_teardown = 0;
 
-class MyEnvironment : public iutest::Environment
+class MyEnvironment : public ::iutest::Environment
 {
 private:
 	virtual void SetUp(void)	{ ++g_environment_setup; }
@@ -62,7 +62,7 @@ private:
 
 IUTEST(Repeat, Counter)
 {
-	IUTEST_ASSERT_EQ(g_environment_setup, iutest::UnitTest::GetInstance()->repeat_counter()+1);
+	IUTEST_ASSERT_EQ(g_environment_setup, ::iutest::UnitTest::GetInstance()->repeat_counter()+1);
 }
 
 
@@ -90,12 +90,12 @@ bool RunTest(void)
 {
 	ClearCounter();
 	IUTEST_RUN_ALL_TESTS();
-	return iutest::UnitTest::GetInstance()->Passed();
+	return ::iutest::UnitTest::GetInstance()->Passed();
 }
 
 bool RepeatTest(int repeat)
 {
-	iutest::IUTEST_FLAG(repeat) = repeat;
+	::iutest::IUTEST_FLAG(repeat) = repeat;
 	return RunTest();
 }
 
@@ -103,34 +103,34 @@ bool RepeatTestUnspecified(void)
 {
 	RunTest();
 	CheckCount(1);
-	return iutest::UnitTest::GetInstance()->Passed();
+	return ::iutest::UnitTest::GetInstance()->Passed();
 }
 
 bool RepeatTestNonFilter(int repeat)
 {
 	if( !RepeatTest(repeat) ) return false;
 	CheckCount(repeat);
-	return iutest::UnitTest::GetInstance()->Passed();
+	return ::iutest::UnitTest::GetInstance()->Passed();
 }
 
 bool RepeatTestWithEmpyFilter(int repeat)
 {
-	iutest::IUTEST_FLAG(filter) = "None";
+	::iutest::IUTEST_FLAG(filter) = "None";
 	if( !RepeatTest(repeat) ) return false;
 	CheckCount(0);
-	return iutest::UnitTest::GetInstance()->Passed();
+	return ::iutest::UnitTest::GetInstance()->Passed();
 }
 
 bool RepeatTestWithFilter(int repeat)
 {
-	iutest::IUTEST_FLAG(filter) = "*Bar*";
+	::iutest::IUTEST_FLAG(filter) = "*Bar*";
 	if( !RepeatTest(repeat) ) return false;
 	IUTEST_EXPECT_EQ(repeat, g_environment_setup);
 	IUTEST_EXPECT_EQ(repeat, g_environment_teardown);
 	IUTEST_EXPECT_EQ(repeat, g_foo_bar);
 	IUTEST_EXPECT_EQ(0, g_hoge_fuga);
 	IUTEST_EXPECT_EQ(repeat*kNumberOfParamTests, g_param_test);
-	return iutest::UnitTest::GetInstance()->Passed();
+	return ::iutest::UnitTest::GetInstance()->Passed();
 }
 
 #ifdef UNICODE
@@ -140,7 +140,7 @@ int main(int argc, char* argv[])
 #endif
 {
 	MyEnvironment* const env = new MyEnvironment();
-	assert( iutest::AddGlobalTestEnvironment(env) == env );
+	assert( ::iutest::AddGlobalTestEnvironment(env) == env );
 	IUTEST_INIT(&argc, argv);
 	
 	assert( RepeatTestUnspecified() );

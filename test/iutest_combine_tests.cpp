@@ -23,10 +23,10 @@
 
 static const int tble[] = {0, 1};
 
-class CombineTest : public iutest::TestWithParam< iutest::tuple::tuple<bool, int, int> >
+class CombineTest : public ::iutest::TestWithParam< ::iutest::tuple::tuple<bool, int, int> >
 {
 public:
-	typedef iutest::tuple::tuple<bool, int, int> Tuple;
+	typedef ::iutest::tuple::tuple<bool, int, int> Tuple;
 	static const int TABLE_SIZE = sizeof(tble)/sizeof(tble[0]);
 
 	static int index;
@@ -47,12 +47,12 @@ CombineTest::Tuple CombineTest::list[2*2*CombineTest::TABLE_SIZE] = {
 
 IUTEST_P(CombineTest, Num)
 {
-	EXPECT_EQ( 2*2*TABLE_SIZE, iutest::UnitTest::GetInstance()->current_test_case()->total_test_count() );
+	EXPECT_EQ( 2*2*TABLE_SIZE, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count() );
 	EXPECT_EQ( list[index++], GetParam() );
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P(A, CombineTest
-	, iutest::Combine(iutest::Bool(), iutest::Values(1, 10), iutest::ValuesIn(tble)));
+	, ::iutest::Combine(::iutest::Bool(), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble)));
 
 
 #if IUTEST_HAS_VARIADIC_COMBINE
@@ -60,13 +60,13 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, CombineTest
 namespace variadic_combine_test
 {
 
-typedef iutest::tuple::tuple<int, int, int, int, int, int, int, int, int, int> VariadicCombineTestTuple;
+typedef ::iutest::tuple::tuple<int, int, int, int, int, int, int, int, int, int> VariadicCombineTestTuple;
 
-static const int TUPLE_SIZE = iutest::tuple::tuple_size< VariadicCombineTestTuple >::value;
+static const int TUPLE_SIZE = ::iutest::tuple::tuple_size< VariadicCombineTestTuple >::value;
 static const int test_table[] = { 0, 1 };
 static const int TABLE_SIZE = sizeof(test_table)/sizeof(test_table[0]);
 
-class VariadicCombineTest : public iutest::TestWithParam< VariadicCombineTestTuple >
+class VariadicCombineTest : public ::iutest::TestWithParam< VariadicCombineTestTuple >
 {
 	static int power(int n, int c) { return c == 0 ? 1 : power(n, c-1) * n; }
 public:
@@ -75,7 +75,7 @@ public:
 	
 	static VariadicCombineTestTuple count_to_tuple(int c)
 	{
-		return iutest::tuple::make_tuple(
+		return ::iutest::tuple::make_tuple(
 			(c>>(TUPLE_SIZE-1))&1
 			, (c>>(TUPLE_SIZE-2))&1
 			, (c>>(TUPLE_SIZE-3))&1
@@ -94,21 +94,21 @@ int VariadicCombineTest::count = 0;
 
 IUTEST_P(VariadicCombineTest, Num)
 {
-	EXPECT_EQ( num, iutest::UnitTest::GetInstance()->current_test_case()->total_test_count() );
+	EXPECT_EQ( num, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count() );
 	EXPECT_EQ( count_to_tuple(count++), GetParam() );
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P(A, VariadicCombineTest
-	, iutest::Combine(iutest::ValuesIn(test_table)
-		, iutest::ValuesIn(test_table)
-		, iutest::ValuesIn(test_table)
-		, iutest::ValuesIn(test_table)
-		, iutest::ValuesIn(test_table)
-		, iutest::ValuesIn(test_table)
-		, iutest::ValuesIn(test_table)
-		, iutest::ValuesIn(test_table)
-		, iutest::ValuesIn(test_table)
-		, iutest::ValuesIn(test_table)
+	, ::iutest::Combine(::iutest::ValuesIn(test_table)
+		, ::iutest::ValuesIn(test_table)
+		, ::iutest::ValuesIn(test_table)
+		, ::iutest::ValuesIn(test_table)
+		, ::iutest::ValuesIn(test_table)
+		, ::iutest::ValuesIn(test_table)
+		, ::iutest::ValuesIn(test_table)
+		, ::iutest::ValuesIn(test_table)
+		, ::iutest::ValuesIn(test_table)
+		, ::iutest::ValuesIn(test_table)
 	));
 
 }

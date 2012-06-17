@@ -129,7 +129,7 @@ public:
 template<typename T>
 class iuValueInParamsGenerator : public iuIParamGenerator<T>
 {
-	typedef std::vector<T>	params_t;
+	typedef ::std::vector<T>	params_t;
 	params_t	m_values;
 	typename params_t::iterator m_it;
 public:
@@ -1865,7 +1865,7 @@ class iuCartesianProductGenerator : public iuIParamGenerator< tuple::tuple<Args.
 	template<int index, int end, typename T1, typename ...TArgs>
 	tuple::tuple<T1, TArgs...> current_foreach(typename detail::enable_if<index != end-1, void>::type*& = detail::enabler::value ) const
 	{
-		return std::tuple_cat( tuple::tuple<T1>(tuple::get<index>(v).GetCurrent())
+		return ::std::tuple_cat( tuple::tuple<T1>(tuple::get<index>(v).GetCurrent())
 			, current_foreach<index+1, end, TArgs...>());
 	}
 	template<int index, int end, typename T1, typename ...TArgs>

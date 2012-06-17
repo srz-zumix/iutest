@@ -54,7 +54,7 @@ namespace iuutil
  * @private
  * @{
 */
-#define	IUTEST_TEST_STRLNEQ(len, v2, on_failure)	IUTEST_PRED_FORMAT2_( iuutil::CmpHelperSTRLNEQ, len, v2, on_failure )
+#define	IUTEST_TEST_STRLNEQ(len, v2, on_failure)	IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRLNEQ, len, v2, on_failure )
 
 /**
  * @}
@@ -65,23 +65,23 @@ namespace iuutil
 /**
  * @brief	文字列長アサーションフォーマッター
 */
-inline iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const char* expr1, const char* expr2
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const char* expr1, const char* expr2
 										 , size_t len1, const char* val2)
 {
 	size_t	len2 = strlen(val2);
-	if( len2 == len1 ) return iutest::AssertionSuccess();
-	return iutest::AssertionFailure() << "error: Value of: " << expr1 << " == strlen(" << expr2 << ")"
+	if( len2 == len1 ) return ::iutest::AssertionSuccess();
+	return ::iutest::AssertionFailure() << "error: Value of: " << expr1 << " == strlen(" << expr2 << ")"
 		<< "\n  Actual: " << val2 << " : " << len2 << "\nExpected: " << len1 ;
 }
 /**
  * @brief	文字列長アサーションフォーマッター
 */
-inline iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const char* expr1, const char* expr2
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const char* expr1, const char* expr2
 										 , size_t len1, const wchar_t* val2)
 {
 	size_t	len2 = wcslen(val2);
-	if( len2 == len1 ) return iutest::AssertionSuccess();
-	return iutest::AssertionFailure() << "error: Value of: " << expr1 << " == wcslen(" << expr2 << ")"
+	if( len2 == len1 ) return ::iutest::AssertionSuccess();
+	return ::iutest::AssertionFailure() << "error: Value of: " << expr1 << " == wcslen(" << expr2 << ")"
 		<< "\n  Actual: " << val2 << " : " << len2 << "\nExpected: " << len1 ;
 }
 
@@ -91,8 +91,8 @@ inline iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const c
 */
 #define COMPARE_HELPER_DEC(name)	struct name {											\
 	template<typename T1, typename T2>														\
-	static iutest::AssertionResult Comp(const char* expr1, const char* expr2, const T1& val1, const T2& val2)	{	\
-		return iutest::internal::CmpHelper##name(expr1, expr2, val1, val2);					\
+	static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2, const T1& val1, const T2& val2)	{	\
+		return ::iutest::internal::CmpHelper##name(expr1, expr2, val1, val2);				\
 	}																						\
 	}
 /**
@@ -124,7 +124,7 @@ private:
 	struct CompImpl
 	{
 		template<typename T1, typename T2>
-		static iutest::AssertionResult Comp(const char* expr1, const char* expr2
+		static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2
 			, T1 val1, T2 val2)
 		{
 			return T::Comp(expr1, expr2, val1, val2);
@@ -134,7 +134,7 @@ private:
 	struct CompImpl<CmpHelper::EQ, DMY>
 	{
 		template<typename T1, typename T2>
-		static iutest::AssertionResult Comp(const char* expr1, const char* expr2
+		static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2
 			, T1 val1, T2 val2)
 		{
 			// val1 == actual
@@ -147,35 +147,35 @@ public:
 	 * @brief	フォーマッター
 	*/
 	template<typename T1, typename T2>
-	static iutest::AssertionResult Comp(const char* expr1, const char* expr2
+	static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2
 		, T1 val1, T2 val2)
 	{
 		return CompImpl<COMP>::Comp(expr1, expr2, val1, val2);
 	}
 	/** @overload */
 	template<typename T1, typename T2, typename T3>
-	static iutest::AssertionResult Comp(const char* expr1, const char* expr2, const char* expr3
+	static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2, const char* expr3
 		, T1 val1, T2 val2, T3 val3)
 	{
-		typename iutest_type_traits::add_revalue_reference<iutest::AssertionResult>::type ar = Comp(expr1, expr2, val1, val2);
+		typename ::iutest_type_traits::add_revalue_reference< ::iutest::AssertionResult >::type ar = Comp(expr1, expr2, val1, val2);
 		if( ar ) return ar;
 		return Comp(expr1, expr3, val1, val3) << "\n" << ar.message();
 	}
 	/** @overload */
 	template<typename T1, typename T2, typename T3, typename T4>
-	static iutest::AssertionResult Comp(const char* expr1, const char* expr2, const char* expr3, const char* expr4
+	static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2, const char* expr3, const char* expr4
 		, T1 val1, T2 val2, T3 val3, T4 val4)
 	{
-		typename iutest_type_traits::add_revalue_reference<iutest::AssertionResult>::type ar =  Comp(expr1, expr2, expr3, val1, val2, val3);
+		typename ::iutest_type_traits::add_revalue_reference< ::iutest::AssertionResult >::type ar =  Comp(expr1, expr2, expr3, val1, val2, val3);
 		if( ar ) return ar;
 		return Comp(expr1, expr4, val1, val4) << "\n" << ar.message();
 	}
 	/** @overload */
 	template<typename T1, typename T2, typename T3, typename T4, typename T5>
-	static iutest::AssertionResult Comp(const char* expr1, const char* expr2, const char* expr3, const char* expr4, const char* expr5
+	static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2, const char* expr3, const char* expr4, const char* expr5
 		, T1 val1, T2 val2, T3 val3, T4 val4, T5 val5)
 	{
-		typename iutest_type_traits::add_revalue_reference<iutest::AssertionResult>::type ar =  Comp(expr1, expr2, expr3, expr4, val1, val2, val3, val4);
+		typename ::iutest_type_traits::add_revalue_reference< ::iutest::AssertionResult >::type ar =  Comp(expr1, expr2, expr3, expr4, val1, val2, val3, val4);
 		if( ar ) return ar;
 		return Comp(expr1, expr5, val1, val5) << "\n" << ar.message();
 	}

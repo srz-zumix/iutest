@@ -19,10 +19,10 @@
 // include
 #include "../include/iutest.hpp"
 
-iutest::AssertionResult IsEven(int n)
+::iutest::AssertionResult IsEven(int n)
 {
-	if( n%2 == 0 ) return iutest::AssertionSuccess();
-	return iutest::AssertionFailure() << n << " is odd";
+	if( n%2 == 0 ) return ::iutest::AssertionSuccess();
+	return ::iutest::AssertionFailure() << n << " is odd";
 }
 
 IUTEST(AssertionTest, True)
@@ -63,7 +63,8 @@ IUTEST(AssertionTest, EQ)
 	IUTEST_ASSERT_EQ(zero, nullptr);
 #endif
 
-	std::vector<int> v1, v2;
+#if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x06)
+	::std::vector<int> v1, v2;
 	IUTEST_ASSERT_EQ(v1, v2);
 	IUTEST_EXPECT_EQ(v1, v2);
 	IUTEST_INFORM_EQ(v1, v2);
@@ -76,6 +77,7 @@ IUTEST(AssertionTest, EQ)
 		IUTEST_EXPECT_EQ(a, b);
 		IUTEST_INFORM_EQ(a, b);
 	}
+#endif
 }
 
 IUTEST(AssertionTest, NE)
@@ -208,7 +210,7 @@ static void	ExceptionFunction(int i)
 		throw 2;
 		break;
 	case 2:
-		throw std::bad_exception();
+		throw ::std::bad_exception();
 		break;
 	default:
 		break;
@@ -217,10 +219,10 @@ static void	ExceptionFunction(int i)
 
 IUTEST(AssertionTest, Exception)
 {
-	//IUTEST_ASSERT_THROW(throw std::bad_exception(), std::bad_exception);
-	IUTEST_ASSERT_THROW(ExceptionFunction(2), std::bad_exception);
-	IUTEST_EXPECT_THROW(ExceptionFunction(2), std::bad_exception);
-	IUTEST_INFORM_THROW(ExceptionFunction(2), std::bad_exception);
+	//IUTEST_ASSERT_THROW(throw ::std::bad_exception(), ::std::bad_exception);
+	IUTEST_ASSERT_THROW(ExceptionFunction(2), ::std::bad_exception);
+	IUTEST_EXPECT_THROW(ExceptionFunction(2), ::std::bad_exception);
+	IUTEST_INFORM_THROW(ExceptionFunction(2), ::std::bad_exception);
 	IUTEST_ASSERT_ANY_THROW(ExceptionFunction(1));
 	IUTEST_EXPECT_ANY_THROW(ExceptionFunction(1));
 	IUTEST_INFORM_ANY_THROW(ExceptionFunction(1));
@@ -232,16 +234,16 @@ IUTEST(AssertionTest, Exception)
 class exception_test
 {
 public:
-	exception_test(const std::vector<int>&)
+	exception_test(const ::std::vector<int>&)
 	{
-		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw std::exception());
+		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw ::std::exception());
 	}
 };
 
 IUTEST(AssertionTest, Exception2)
 {
-	std::vector<int> a;
-	IUTEST_ASSERT_THROW(exception_test(a), std::exception);
+	::std::vector<int> a;
+	IUTEST_ASSERT_THROW(exception_test(a), ::std::exception);
 }
 
 #endif
@@ -250,7 +252,7 @@ IUTEST(AssertionTest, ScopedTrace)
 {
 	{
 		int x=100;
-		IUTEST_SCOPED_TRACE(iutest::Message() << "x=" << x);
+		IUTEST_SCOPED_TRACE(::iutest::Message() << "x=" << x);
 	}
 	{
 		IUTEST_SCOPED_TRACE("test");

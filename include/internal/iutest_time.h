@@ -41,7 +41,7 @@ namespace detail
   * @param	[in]	msec	= ƒ~ƒŠ•b
   * @return	•b”‚Ì•¶š—ñ
 */
-inline std::string	FormatTimeInMillisecAsSecond(TimeInMillisec msec)
+inline ::std::string	FormatTimeInMillisecAsSecond(TimeInMillisec msec)
 {
 	detail::iuStringStream::type ss;
 	ss << msec/1000.0;
@@ -69,7 +69,7 @@ inline TimeInMillisec	GetTimeInMillis(void)
 	return IUTEST_GetMillisec();
 
 #elif	IUTEST_HAS_CXX11_HDR_CHRONO
-	return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count();
+	return ::std::chrono::duration_cast< ::std::chrono::milliseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();
 
 #elif	defined(IUTEST_OS_WINDOWS)
 	return static_cast<TimeInMillisec>(GetTickCount());

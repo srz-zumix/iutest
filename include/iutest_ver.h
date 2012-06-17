@@ -22,10 +22,10 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x00360000	//!< iutest version 0.36.0.0
+#define	IUTEST_VER			0x00360200	//!< iutest version 0.36.2.0
 #define IUTEST_MAJORVER		0x00		//!< Major Version
 #define IUTEST_MINORVER		0x36		//!< Minor Version
-#define IUTEST_BUILD		0x00		//!< Build
+#define IUTEST_BUILD		0x02		//!< Build
 #define IUTEST_REVISION		0x00		//!< Revision
 
 /**
@@ -90,12 +90,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	RELEASE		リリースノート
  * @par		release note
 <ul>
-  <li>v0.36.0.0
+  <li>v0.36.2.0
     <ul>
+      <li>Google Test を使用した場合でも std::string に対応した文字列比較アサーションを使えるように修正</li>
+      <li>Google Test を使用した時に wchar_t 版の STRCASENE が使えるように修正</li>
       <li>IUTEST_THROW_ON_ASSERT_FAILURE のデフォルト値を 0 に変更</li>
       <li>IUTEST_THROW_ON_ASSERT_FAILURE が有効なとき IUTEST_*_FATAL_FAILURE が正しく動作しない問題を修正</li>
       <li>spi テスト中に break_on_failure/throw_on_failure で止まらないように修正</li>
       <li>アサーションのみの利用ができるように修正</li>
+	  <li>グローバルスコープ解決演算子をつけるように修正</li>
+      <li>Google Test のバージョン判別を追加</li>
     </ul>
   </li>
   <li>v0.35.0.0

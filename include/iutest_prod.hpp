@@ -65,22 +65,22 @@ typename Tag::type peep<Tag>::value;
 /**
  * @brief	private	メンバーへのアクセス
 */
-#define IUTEST_PEEP_GET(v, class_name, member_name)		(v.*iutest::detail::peep<IUTEST_PEEP_TAG_NAME_(class_name, member_name)>::value)
+#define IUTEST_PEEP_GET(v, class_name, member_name)		(v.*::iutest::detail::peep< IUTEST_PEEP_TAG_NAME_(class_name, member_name) >::value)
 
 /**
  * @brief	static private	メンバーへのアクセス
 */
-#define IUTEST_PEEP_STATIC_GET(class_name, member_name)	(*iutest::detail::peep<IUTEST_PEEP_TAG_NAME_(class_name, member_name)>::value)
+#define IUTEST_PEEP_STATIC_GET(class_name, member_name)	(*::iutest::detail::peep< IUTEST_PEEP_TAG_NAME_(class_name, member_name) >::value)
 
 /**
  * @brief	private メンバーへのアクセスクラス宣言
 */
-#define IUTEST_PEEP(class_name, member_name)	iutest::Peep<class_name, IUTEST_PEEP_TAG_NAME_(class_name, member_name)>::type
+#define IUTEST_PEEP(class_name, member_name)	::iutest::Peep< class_name, IUTEST_PEEP_TAG_NAME_(class_name, member_name) >::type
 
 /**
  * @brief	private メンバーへのアクセスクラス宣言
 */
-#define IUTEST_SCOPED_PEEP(scope_name, class_name, member_name)	iutest::Peep<scope_name::class_name, IUTEST_PEEP_TAG_NAME_(class_name, member_name)>::type
+#define IUTEST_SCOPED_PEEP(scope_name, class_name, member_name)	::iutest::Peep< scope_name::class_name, IUTEST_PEEP_TAG_NAME_(class_name, member_name) >::type
 
 /**
  * @private
@@ -89,7 +89,7 @@ typename Tag::type peep<Tag>::value;
 #define IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name)	\
 struct IUTEST_PEEP_TAG_NAME_(class_name, member_name) { typedef member_type type; };	\
 	template<typename Tag, typename Tag::type X>struct IUTEST_PEEP_SETTER_NAME_(class_name, member_name) {	\
-	IUTEST_PEEP_SETTER_NAME_(class_name, member_name)(void) { iutest::detail::peep<Tag>::value = X; }		\
+	IUTEST_PEEP_SETTER_NAME_(class_name, member_name)(void) { ::iutest::detail::peep<Tag>::value = X; }		\
 	static IUTEST_PEEP_SETTER_NAME_(class_name, member_name)	instance;									\
 	};	\
 	template<typename Tag, typename Tag::type X>IUTEST_PEEP_SETTER_NAME_(class_name, member_name)<Tag, X>	\

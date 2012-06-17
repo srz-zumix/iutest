@@ -25,9 +25,9 @@
 
 //======================================================================
 // class
-class ParamTest : public iutest::TestWithParam<int> {};
+class ParamTest : public ::iutest::TestWithParam<int> {};
 
-class MultiInstantiateParamTest : public iutest::TestWithParam<int> 
+class MultiInstantiateParamTest : public ::iutest::TestWithParam<int> 
 {
 public:
 	const int value;

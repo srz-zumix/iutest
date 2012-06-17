@@ -26,19 +26,19 @@ IUTEST_P(ParamTest, Test)
 }
 
 int a[] = { 3, 2, 1, 0 };
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, ParamTest, iutest::Range<int>(0, 10));
-IUTEST_INSTANTIATE_TEST_CASE_P(My3, ParamTest, iutest::Values(0, 1, 10));
-IUTEST_INSTANTIATE_TEST_CASE_P(My4, ParamTest, iutest::ValuesIn(a));
+IUTEST_INSTANTIATE_TEST_CASE_P(My1, ParamTest, ::iutest::Range<int>(0, 10));
+IUTEST_INSTANTIATE_TEST_CASE_P(My3, ParamTest, ::iutest::Values(0, 1, 10));
+IUTEST_INSTANTIATE_TEST_CASE_P(My4, ParamTest, ::iutest::ValuesIn(a));
 
-class BoolParamTest : public iutest::TestWithParam<bool> {};
+class BoolParamTest : public ::iutest::TestWithParam<bool> {};
 
 IUTEST_P(BoolParamTest, Test)
 {
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, BoolParamTest, iutest::Bool());
+IUTEST_INSTANTIATE_TEST_CASE_P(My1, BoolParamTest, ::iutest::Bool());
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, MultiInstantiateParamTest, iutest::Range<int>(0, 10));
+IUTEST_INSTANTIATE_TEST_CASE_P(My1, MultiInstantiateParamTest, ::iutest::Range<int>(0, 10));
 
 #endif
 

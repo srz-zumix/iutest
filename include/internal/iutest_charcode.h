@@ -110,7 +110,7 @@ inline char* CodePointToUtf8(UInt32 code_point, char* buf)
  * @param [in]	num = 入力バッファサイズ
  * @return	UTF8 文字列
 */
-inline std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const wchar_t* str, int num=-1)
+inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const wchar_t* str, int num=-1)
 {
 	if( num == -1 )
 		num = static_cast<int>(wcslen(str));
@@ -137,7 +137,7 @@ inline std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const wchar_t* str,
 	return ss.str();
 }
 
-inline std::string ShowWideCString(const wchar_t* wide_c_str)
+inline ::std::string ShowWideCString(const wchar_t* wide_c_str)
 {
 	if( wide_c_str == NULL ) return "(null)";
 #if IUTEST_MBS_CODE == IUTEST_MBS_CODE_UTF8
@@ -145,7 +145,7 @@ inline std::string ShowWideCString(const wchar_t* wide_c_str)
 #elif IUTEST_MBS_CODE == IUTEST_MBS_CODE_WINDOWS31J
 	return win::WideStringToMultiByteString(wide_c_str);
 #else
-	std::string str;
+	::std::string str;
 	const size_t length = wcslen(wide_c_str) * MB_CUR_MAX + 1;
 	char* mbs = new char [length];
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
@@ -169,7 +169,7 @@ struct mbs_ptr
 {
 	struct wcs_impl
 	{
-		std::string m_arg;
+		::std::string m_arg;
 		const char* ptr(const wchar_t* arg) 
 		{
 			m_arg = ShowWideCString(arg);

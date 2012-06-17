@@ -51,25 +51,25 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	iutest::IUTEST_FLAG(throw_on_failure) = true;
+	::iutest::IUTEST_FLAG(throw_on_failure) = true;
 	
 #if IUTEST_HAS_EXCEPTIONS
 	{
-		iutest::IUTEST_FLAG(filter) = "*Expect*";
+		::iutest::IUTEST_FLAG(filter) = "*Expect*";
 		IUTEST_INIT(&argc, argv);
 		int ret = IUTEST_RUN_ALL_TESTS();	// run all
 		
 		assert( ret != 0 );
-		assert( iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
+		assert( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
 	}
 
 	{
-		iutest::IUTEST_FLAG(filter) = "*Assert*";
+		::iutest::IUTEST_FLAG(filter) = "*Assert*";
 		IUTEST_INIT(&argc, argv);
 		int ret = IUTEST_RUN_ALL_TESTS();	// run all
 		
 		assert( ret != 0 );
-		assert( iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
+		assert( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
 	}
 #endif
 	return 0;

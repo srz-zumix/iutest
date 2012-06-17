@@ -367,7 +367,7 @@
 #  define IUTEST_USE_EXTERNAL_TR1_TUPLE	0
 #endif
 
-// std::tuple
+// ::std::tuple
 #ifndef IUTEST_HAS_STD_TUPLE
 #  if defined(IUTEST_USE_EXTERNAL_STD_TUPLE) && IUTEST_USE_EXTERNAL_STD_TUPLE
 #    define IUTEST_HAS_STD_TUPLE	1
@@ -392,7 +392,7 @@
 
 #if !IUTEST_HAS_STD_TUPLE
 
-// std::tr1::tuple
+// ::std::tr1::tuple
 #ifndef IUTEST_HAS_TR1_TUPLE
 #  if defined(IUTEST_USE_EXTERNAL_TR1_TUPLE) && IUTEST_USE_EXTERNAL_TR1_TUPLE
 #    define IUTEST_HAS_TR1_TUPLE	1
@@ -450,17 +450,17 @@ namespace iutest {
 namespace tuple
 {
 #if IUTEST_HAS_STD_TUPLE
-	using std::tuple;
-	using std::tuple_size;
-	using std::tuple_element;
-	using std::make_tuple;
-	using std::get;
+	using ::std::tuple;
+	using ::std::tuple_size;
+	using ::std::tuple_element;
+	using ::std::make_tuple;
+	using ::std::get;
 #elif IUTEST_HAS_TR1_TUPLE
-	using std::tr1::tuple;
-	using std::tr1::tuple_size;
-	using std::tr1::tuple_element;
-	using std::tr1::make_tuple;
-	using std::tr1::get;
+	using ::std::tr1::tuple;
+	using ::std::tr1::tuple_size;
+	using ::std::tr1::tuple_element;
+	using ::std::tr1::make_tuple;
+	using ::std::tr1::get;
 #endif
 }
 }

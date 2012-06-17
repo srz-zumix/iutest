@@ -7,7 +7,6 @@
 /*
  * include testing framework
 */
-#include "../include/iutest.hpp"
 #include "../include/gtest/iutest_switch.hpp"
 
 #ifdef USE_TAP

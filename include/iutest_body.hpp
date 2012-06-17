@@ -103,7 +103,7 @@ public:
 	{
 		// 不正なキーのチェック
 		const char* ban[] = { "name", "status", "time", "classname", "type_param", "value_param" };
-		std::string key_ = key;
+		::std::string key_ = key;
 		for( int i=0, n=sizeof(ban)/sizeof(ban[0]); i < n; ++i )
 		{
 			if( key_ == ban[i] )

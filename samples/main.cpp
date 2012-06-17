@@ -16,7 +16,7 @@
 /** --------------------------------------------------
  * Environment サンプル
 *//*--------------------------------------------------*/
-class FooEnvironment : public iutest::Environment
+class FooEnvironment : public ::iutest::Environment
 {
 	virtual void	SetUp(void)
 	{
@@ -43,10 +43,10 @@ int main(int argc, char* argv[])
 	IUTEST_INIT(&argc, argv);
 
 #ifdef USE_TAP
-	iutest::TestEventListeners& listeners = iutest::UnitTest::GetInstance()->listeners();
+	::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
 	delete listeners.Release(listeners.default_result_printer());
-	//listeners.Append( new iutest::TAPFileGeneratorListener("./t") );
-	listeners.Append( new iutest::TAPPrintListener );
+	//listeners.Append( new ::iutest::TAPFileGeneratorListener("./t") );
+	listeners.Append( new ::iutest::TAPPrintListener );
 #endif
 
 	//::iuutil::SetUpQuietResultPrinter();
@@ -68,7 +68,7 @@ IUTEST(Test, Version)
 IUTEST(Test, GetName)
 {
 	IUTEST_ASSERT_STREQ("GetName", test_info_->name());
-	RecordProperty("test_name", iutest::UnitTest::GetInstance()->current_test_info()->name());
+	RecordProperty("test_name", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 	RecordProperty("number", 1);
 }
 
@@ -81,7 +81,7 @@ IUTEST(Test, Stream)
 /** --------------------------------------------------
  * テストフィクスチャの利用
 *//*--------------------------------------------------*/
-class TestFixed : public iutest::Test
+class TestFixed : public ::iutest::Test
 {
 protected:
 	static int x;
@@ -162,7 +162,7 @@ IUTEST(AssertionTest, Base)
 		int* zero=NULL;
 		IUTEST_EXPECT_EQ(NULL, zero);
 
-		std::vector<int> v1, v2;
+		::std::vector<int> v1, v2;
 		IUTEST_EXPECT_EQ(v1, v2);
 	}
 
@@ -257,16 +257,16 @@ IUTEST(AssertionTest, String)
 	IUTEST_EXPECT_STRLNEQ(4, wcs);
 
 	{
-		std::string str1 = "test";
+		::std::string str1 = "test";
 		IUTEST_EXPECT_EQ(str1, "test");
 
 		IUTEST_EXPECT_NE(str1, "host");
 	}
 
 	{
-		std::string str1 = "tEst";
-		std::string str2 = "teSt";
-		std::string str3 = "hoSt";
+		::std::string str1 = "tEst";
+		::std::string str2 = "teSt";
+		::std::string str3 = "hoSt";
 
 		IUTEST_EXPECT_STRCASEEQ("TeSt", mbs);
 		IUTEST_EXPECT_STRCASEEQ("TeSt", str1);
@@ -352,7 +352,7 @@ IUTEST(AssertionTest, OREQ)
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_PARAM_TEST
 // Param Test Range
-class TestP : public iutest::TestWithParam<int>
+class TestP : public ::iutest::TestWithParam<int>
 {
 protected:
 	static int a;
@@ -367,7 +367,7 @@ public:
 int TestP::a = 0;
 int TestP::b = 0;
 
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPInstance, TestP, iutest::Range<int>(0, 10));
+IUTEST_INSTANTIATE_TEST_CASE_P(TestPInstance, TestP, ::iutest::Range<int>(0, 10));
 
 IUTEST_P(TestP, TestA)
 {
@@ -382,8 +382,8 @@ IUTEST_P(TestP, TestB)
 }
 
 // Param Test Bool
-class TestBool : public iutest::TestWithParam<bool> {};
-IUTEST_INSTANTIATE_TEST_CASE_P(TestBoolInstance, TestBool, iutest::Bool());
+class TestBool : public ::iutest::TestWithParam<bool> {};
+IUTEST_INSTANTIATE_TEST_CASE_P(TestBoolInstance, TestBool, ::iutest::Bool());
 
 IUTEST_P(TestBool, TestA)
 {
@@ -394,7 +394,7 @@ IUTEST_P(TestBool, TestA)
 
 // Param Test ValueIn
 const char ValueInTestText[] = "ValueInTestText";
-class TestPValueIn : public iutest::TestWithParam<char>
+class TestPValueIn : public ::iutest::TestWithParam<char>
 {
 protected:
 	static int a;
@@ -405,7 +405,7 @@ public:
 	}
 };
 int TestPValueIn::a = 0;
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPValueInInstance, TestPValueIn, iutest::ValuesIn(ValueInTestText));
+IUTEST_INSTANTIATE_TEST_CASE_P(TestPValueInInstance, TestPValueIn, ::iutest::ValuesIn(ValueInTestText));
 
 IUTEST_P(TestPValueIn, TestA)
 {
@@ -413,15 +413,15 @@ IUTEST_P(TestPValueIn, TestA)
 }
 
 // Param Test Values
-class TestPValues1 : public iutest::TestWithParam<float> {};
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPValues1Instance, TestPValues1, iutest::Values(1.0f));
+class TestPValues1 : public ::iutest::TestWithParam<float> {};
+IUTEST_INSTANTIATE_TEST_CASE_P(TestPValues1Instance, TestPValues1, ::iutest::Values(1.0f));
 
 IUTEST_P(TestPValues1, TestA)
 {
 	IUTEST_ASSERT_FLOAT_EQ(1.0f, GetParam());
 }
 
-class TestPValuesN : public iutest::TestWithParam<int>
+class TestPValuesN : public ::iutest::TestWithParam<int>
 {
 protected:
 	static int a;
@@ -432,7 +432,7 @@ public:
 	}
 };
 int TestPValuesN::a = 1;
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPValuesNInstance, TestPValuesN, iutest::Values(1, 2, 3, 4, 5, 6, 7, 8, 9
+IUTEST_INSTANTIATE_TEST_CASE_P(TestPValuesNInstance, TestPValuesN, ::iutest::Values(1, 2, 3, 4, 5, 6, 7, 8, 9
 																	//, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
 																	//, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29
 																	//, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39
@@ -447,20 +447,20 @@ IUTEST_P(TestPValuesN, TestA)
 
 #if IUTEST_HAS_COMBINE
 
-class TestPCombine : public iutest::TestWithParam< iutest::tuple::tuple<bool, int, int> >
+class TestPCombine : public ::iutest::TestWithParam< ::iutest::tuple::tuple<bool, int, int> >
 {
 };
 
 IUTEST_P(TestPCombine, TestA)
 {
-	bool b = iutest::tuple::get<0>(GetParam());
-	int i1 = iutest::tuple::get<1>(GetParam());
-	int i2 = iutest::tuple::get<2>(GetParam());
+	bool b = ::iutest::tuple::get<0>(GetParam());
+	int i1 = ::iutest::tuple::get<1>(GetParam());
+	int i2 = ::iutest::tuple::get<2>(GetParam());
 	IUTEST_SUCCEED() << b << ", " << i1 << ", " << i2;
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P(TestPCombineInstance, TestPCombine
-							   , iutest::Combine( iutest::Bool(), iutest::Values(1, 2), iutest::Values(10, 11) ) );
+							   , ::iutest::Combine( ::iutest::Bool(), ::iutest::Values(1, 2), ::iutest::Values(10, 11) ) );
 #endif
 
 #endif
@@ -471,8 +471,8 @@ IUTEST_INSTANTIATE_TEST_CASE_P(TestPCombineInstance, TestPCombine
 #if IUTEST_HAS_TYPED_TEST
 
 template<typename T>
-class TypedTest : public iutest::Test {};
-typedef iutest::Types<int, long, short> TypedTestTypes;
+class TypedTest : public ::iutest::Test {};
+typedef ::iutest::Types<int, long, short> TypedTestTypes;
 IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
 
 IUTEST_TYPED_TEST(TypedTest, Equal)
@@ -495,8 +495,8 @@ IUTEST_TYPED_TEST(TypedTest, Litle)
 #if IUTEST_HAS_TYPED_TEST_P
 
 template<typename T>
-class TypedTestP : public iutest::Test {};
-typedef iutest::Types<int, long, short> TypedTestTypes;
+class TypedTestP : public ::iutest::Test {};
+typedef ::iutest::Types<int, long, short> TypedTestTypes;
 IUTEST_TYPED_TEST_CASE_P(TypedTestP);
 
 IUTEST_TYPED_TEST_P(TypedTestP, Equal)
@@ -555,7 +555,7 @@ static void	ExceptionFunction(int i)
 		throw 2;
 		break;
 	case 2:
-		throw std::bad_exception();
+		throw ::std::bad_exception();
 		break;
 	default:
 		break;
@@ -564,7 +564,7 @@ static void	ExceptionFunction(int i)
 
 IUTEST(AssertionTest, Exception)
 {
-	IUTEST_EXPECT_THROW(ExceptionFunction(2), std::bad_exception);
+	IUTEST_EXPECT_THROW(ExceptionFunction(2), ::std::bad_exception);
 	IUTEST_EXPECT_ANY_THROW(ExceptionFunction(1));
 	IUTEST_EXPECT_NO_THROW(ExceptionFunction(0));
 }
@@ -572,16 +572,16 @@ IUTEST(AssertionTest, Exception)
 class exception_test
 {
 public:
-	exception_test(const std::vector<int>&)
+	exception_test(const ::std::vector<int>&)
 	{
-		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw std::exception());
+		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw ::std::exception());
 	}
 };
 
 IUTEST(AssertionTest, Exception2)
 {
-	std::vector<int> a;
-	IUTEST_ASSERT_THROW(exception_test(a), std::exception);
+	::std::vector<int> a;
+	IUTEST_ASSERT_THROW(exception_test(a), ::std::exception);
 }
 
 #endif
@@ -768,7 +768,7 @@ IUTEST(TestFailureSubroutine, Test1)
 {
 	{
 		int x=100;
-		IUTEST_SCOPED_TRACE(iutest::Message() << "routine1. x=" << x);
+		IUTEST_SCOPED_TRACE(::iutest::Message() << "routine1. x=" << x);
 
 		Sub1(x);
 	}

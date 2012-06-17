@@ -213,6 +213,9 @@
     <ClInclude Include="..\..\include\gtest\iutest_assertion_only.hpp">
       <Filter>iutest\gtest</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\gtest\iutest_gtest_ver.hpp">
+      <Filter>iutest\gtest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\doc\Doxyfile">

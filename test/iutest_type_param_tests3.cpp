@@ -22,7 +22,7 @@
 #if IUTEST_HAS_TYPED_TEST_P
 
 template<typename T>
-class TypeParamTest3 : public iutest::Test
+class TypeParamTest3 : public ::iutest::Test
 {
 public:
 	static T value;

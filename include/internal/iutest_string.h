@@ -119,10 +119,10 @@ inline IUTEST_CONSTEXPR const char*	FindComma(const char* p)
 inline bool IsStringEqual(const char* str1, const char* str2) { return strcmp(str1, str2) == 0; }
 inline bool IsStringCaseEqual(const char* str1, const char* str2) { return iu_stricmp(str1, str2) == 0; }
 
-inline void StringReplace(std::string& str, char a, const char* to)
+inline void StringReplace(::std::string& str, char a, const char* to)
 {
-	std::string::size_type pos = 0;
-	while( pos = str.find(a, pos), pos != std::string::npos )
+	::std::string::size_type pos = 0;
+	while( pos = str.find(a, pos), pos != ::std::string::npos )
 	{
 		str.replace(pos, 1, to);
 		++pos;
@@ -131,8 +131,8 @@ inline void StringReplace(std::string& str, char a, const char* to)
 
 inline IUTEST_CONSTEXPR char ToHex(unsigned int n) { return (n&0xF) >= 0xA ? 'A'+((n&0xF)-0xA) : '0'+(n&0xF); }
 
-inline std::string ShowStringQuoted(const char* str) { std::string s = "\""; s += str; s += "\""; return s; }
-inline std::string ShowStringQuoted(const std::string& str) { std::string s = "\""; s += str; s += "\""; return s; }
+inline ::std::string ShowStringQuoted(const char* str) { ::std::string s = "\""; s += str; s += "\""; return s; }
+inline ::std::string ShowStringQuoted(const ::std::string& str) { ::std::string s = "\""; s += str; s += "\""; return s; }
 
 //======================================================================
 // class
@@ -141,28 +141,28 @@ class iuStringStream
 public:
 #if IUTEST_HAS_STRINGSTREAM
 #  if IUTEST_USE_STRSTREAM
-	class stlstream : public std::strstream
+	class stlstream : public ::std::strstream
 	{
 		CHAR buf[256];
 	public:
 		stlstream(void)
-			: std::strstream(buf, 254, std::ios::out)
+			: ::std::strstream(buf, 254, ::std::ios::out)
 		{}
 	public:
-		std::string str(void)
+		::std::string str(void)
 		{
-			*this << std::ends;
-			std::string str = std::strstream::str();
+			*this << ::std::ends;
+			::std::string str = ::std::strstream::str();
 			return str;
 		}
 	};
 #  else
-	typedef std::stringstream	stlstream;
+	typedef ::std::stringstream	stlstream;
 #  endif
 #else
 	template<class _Elem, class _Traits>class iu_basic_stream;
-	typedef iu_basic_stream<char, std::char_traits<char> >			iu_stream;
-	typedef iu_basic_stream<wchar_t, std::char_traits<wchar_t> >	iu_wstream;
+	typedef iu_basic_stream<char, ::std::char_traits<char> >			iu_stream;
+	typedef iu_basic_stream<wchar_t, ::std::char_traits<wchar_t> >	iu_wstream;
 #endif
 
 public:
@@ -212,9 +212,9 @@ public:
 	class iu_basic_stream
 	{
 		typedef iu_basic_stream<_Elem, _Traits>			_Myt;
-		//typedef std::basic_streambuf<_Elem, _Traits>	streambuf;
-		//typedef std::basic_ostream<_Elem, _Traits>	ostream;
-		typedef std::basic_string<_Elem, _Traits>		string;
+		//typedef ::std::basic_streambuf<_Elem, _Traits>	streambuf;
+		//typedef ::std::basic_ostream<_Elem, _Traits>	ostream;
+		typedef ::std::basic_string<_Elem, _Traits>		string;
 		string s;
 
 		struct impl
@@ -370,7 +370,7 @@ public:
 			s += a;
 			return *this;
 		}
-		inline _Myt& operator<< (const std::string& v)
+		inline _Myt& operator<< (const ::std::string& v)
 		{
 			s += v;
 			return *this;

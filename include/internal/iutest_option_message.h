@@ -63,7 +63,7 @@ public:
 			"\n"
 			"    Copyright (c) 2011-2012, Takazumi-Shirayanagi\n"
 			"\n"
-			"    The new(modified) BSD License is applied to this software, see LICENSE\n"
+			"    The new(3-clause) BSD License is applied to this software, see LICENSE\n"
 			"\n"
 			;
 		detail::iuConsole::color_output(detail::iuConsole::cyan, readme);
@@ -83,6 +83,7 @@ public:
 	{
 #define SHOW_MACRO(macro)	detail::iuConsole::output("#define %s  %s\n", #macro, IUTEST_PP_TOSTRING(macro))
 		SHOW_MACRO(IUTEST_HAS_PARAM_TEST);
+		SHOW_MACRO(IUTEST_HAS_PARAM_METHOD_TEST);
 		SHOW_MACRO(IUTEST_HAS_TYPED_TEST);
 		SHOW_MACRO(IUTEST_HAS_TYPED_TEST_P);
 		SHOW_MACRO(IUTEST_HAS_COMBINE);

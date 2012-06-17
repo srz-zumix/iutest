@@ -36,7 +36,7 @@ void test_printf(const char* fmt, ...);
 #include "../include/gtest/iutest_assertion_only.hpp"
 
 #ifdef IUTEST_USE_GTEST
-static std::stringstream s_outstream;
+static ::std::stringstream s_outstream;
 #else
 static ::iutest::detail::iuStringStream::type s_outstream;
 #endif
@@ -66,10 +66,10 @@ int main(int, char**)
 	IUTEST_EXPECT_EQ(0, 1);
 
 #ifndef IUTEST_USE_GTEST
-	std::cout << s_outstream.str();
+	::std::cout << s_outstream.str();
 	if( s_outstream.str().empty() ) return 1;
 #endif
-	std::cout << "*** Successful ***" << std::endl;
+	::std::cout << "*** Successful ***" << ::std::endl;
 	return 0;
 }
 

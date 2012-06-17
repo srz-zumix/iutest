@@ -32,7 +32,7 @@ class UnitTestImpl
 {
 protected:
 	typedef detail::iu_list<TestCase>	iuTestCases;
-	typedef std::vector<Environment*>	iuEnvironmentList;
+	typedef ::std::vector<Environment*>	iuEnvironmentList;
 protected:
 	UnitTestImpl(void) : m_total_test_num(0), m_disable_num(0), m_should_run_num(0)
 		, m_elapsedmsec(0) 

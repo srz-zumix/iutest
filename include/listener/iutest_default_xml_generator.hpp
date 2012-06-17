@@ -43,7 +43,7 @@ namespace iutest
 */
 class DefaultXmlGeneratorListener : public EmptyTestEventListener
 {
-	std::string	m_output_path;
+	::std::string	m_output_path;
 	IFile*	m_fp;
 public:
 	/**
@@ -202,7 +202,7 @@ private:
 				file->Printf("      <failure message=\"");
 				file->Printf(EscapeXmlAttribute(part.summary()).c_str());
 				file->Printf("\" type=\"\">");
-				std::string message = detail::FormatCompilerIndependentFileLocation(part.file_name(), part.line_number());
+				::std::string message = detail::FormatCompilerIndependentFileLocation(part.file_name(), part.line_number());
 				message += "\n";
 				message += part.summary();
 				OutputXmlCDataSection(file, message.c_str());
@@ -256,20 +256,20 @@ private:
 	}
 
 private:
-	static std::string EscapeXmlAttribute(const char* str)
+	static ::std::string EscapeXmlAttribute(const char* str)
 	{
 		return EscapeXml(str, true);
 	}
-	static std::string EscapeXmlText(const char* str)
+	static ::std::string EscapeXmlText(const char* str)
 	{
 		return EscapeXml(str, false);
 	}
 	/**
 	 * @brief	xml ‚ÅŽg‚¦‚È‚¢•¶Žš‚ð’u‚«Š·‚¦
 	*/
-	static std::string EscapeXml(const char* str, bool is_attribute)
+	static ::std::string EscapeXml(const char* str, bool is_attribute)
 	{
-		std::string msg;
+		::std::string msg;
 		if( str != NULL )
 		{
 			for( const char* src = str; *src; ++src )

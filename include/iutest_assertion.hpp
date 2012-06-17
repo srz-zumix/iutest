@@ -25,7 +25,8 @@
 
 namespace iutest_report_result
 {
-	void ReportTestPartResult(const iutest::TestPartResult& test_part_result);
+	//! TestPartResultReporter がない場合の処理関数
+	void ReportTestPartResult(const ::iutest::TestPartResult& test_part_result);
 }
 
 namespace iutest
@@ -148,7 +149,7 @@ public:
 	 * @param [in]	message	= メッセージ
 	 * @param [in]	type	= テスト結果のタイプ
 	*/
-	AssertionHelper(const char* file, int line, const std::string& message, TestPartResult::Type type)
+	AssertionHelper(const char* file, int line, const ::std::string& message, TestPartResult::Type type)
 		: m_part_result(file, line, message.c_str(), type)
 	{}
 
@@ -235,7 +236,7 @@ namespace internal
  * @brief	比較テストの値を文字列にフォーマット
 */
 template<typename T1, typename T2>
-inline std::string FormatForComparisonFailureMessage(const T1& value, const T2& /*other_operand*/)
+inline ::std::string FormatForComparisonFailureMessage(const T1& value, const T2& /*other_operand*/)
 {
 	return PrintToString(value);
 }
@@ -243,9 +244,9 @@ inline std::string FormatForComparisonFailureMessage(const T1& value, const T2& 
 /**
  * @brief	boolean テストの失敗メッセージの出力
 */
-inline std::string GetBooleanAssertionFailureMessage(const AssertionResult& ar, const char* expr, const char* actual, const char* expected)
+inline ::std::string GetBooleanAssertionFailureMessage(const AssertionResult& ar, const char* expr, const char* actual, const char* expected)
 {
-	std::string str = "error: Value of: ";
+	::std::string str = "error: Value of: ";
 	str += expr;
 	str += "\n  Actual: ";
 	str += actual;
@@ -503,8 +504,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(const char* expr1
 }
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(const char* expr1, const char* expr2
-																   , const std::basic_string<Elem, Traits, Ax>& val1
-																   , const std::basic_string<Elem, Traits, Ax>& val2)
+																   , const ::std::basic_string<Elem, Traits, Ax>& val1
+																   , const ::std::basic_string<Elem, Traits, Ax>& val2)
 {
 	if( val1 == val2 ) return AssertionSuccess();
 	return EqFailure(expr1, expr2
@@ -514,7 +515,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(const char* expr1
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(const char* expr1, const char* expr2
 																   , const Elem* val1
-																   , const std::basic_string<Elem, Traits, Ax>& val2)
+																   , const ::std::basic_string<Elem, Traits, Ax>& val2)
 {
 	if( val2 == val1 ) return AssertionSuccess();
 	return EqFailure(expr1, expr2
@@ -523,7 +524,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(const char* expr1
 }
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(const char* expr1, const char* expr2
-																   , const std::basic_string<Elem, Traits, Ax>& val1
+																   , const ::std::basic_string<Elem, Traits, Ax>& val1
 																   , const Elem* val2)
 {
 	if( val1 == val2 ) return AssertionSuccess();
@@ -539,7 +540,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(const char* expr1
 	{
 		if( val1 == val2 ) return AssertionSuccess();
 	}
-	std::u16string v1 = val1;
+	::std::u16string v1 = val1;
 	return CmpHelperSTREQ(expr1, expr2, v1, val2);
 }
 #endif
@@ -551,7 +552,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(const char* expr1
 	{
 		if( val1 == val2 ) return AssertionSuccess();
 	}
-	std::u32string v1 = val1;
+	::std::u32string v1 = val1;
 	return CmpHelperSTREQ(expr1, expr2, v1, val2);
 }
 #endif
@@ -586,8 +587,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1
 }
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1, const char* expr2
-															   , const std::basic_string<Elem, Traits, Ax>& val1
-															   , const std::basic_string<Elem, Traits, Ax>& val2)
+															   , const ::std::basic_string<Elem, Traits, Ax>& val1
+															   , const ::std::basic_string<Elem, Traits, Ax>& val2)
 {
 	if( val1 != val2 ) return AssertionSuccess();
 	return AssertionFailure() << "error: Value of: " << expr1 << " == " << expr2
@@ -596,7 +597,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1, const char* expr2
 															   , const Elem* val1
-															   , const std::basic_string<Elem, Traits, Ax>& val2)
+															   , const ::std::basic_string<Elem, Traits, Ax>& val2)
 {
 	if( val2 != val1 ) return AssertionSuccess();
 	return AssertionFailure() << "error: Value of: " << expr1 << " == " << expr2
@@ -604,7 +605,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1
 }
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1, const char* expr2
-															   , const std::basic_string<Elem, Traits, Ax>& val1
+															   , const ::std::basic_string<Elem, Traits, Ax>& val1
 															   , const Elem* val2)
 {
 	if( val1 != val2 ) return AssertionSuccess();
@@ -619,7 +620,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1
 	{
 		if( val1 != val2 ) return AssertionSuccess();
 	}
-	std::u16string v1 = val1;
+	::std::u16string v1 = val1;
 	return CmpHelperSTRNE(expr1, expr2, v1, val2);
 }
 #endif
@@ -631,7 +632,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1
 	{
 		if( val1 != val2 ) return AssertionSuccess();
 	}
-	std::u32string v1 = val1;
+	::std::u32string v1 = val1;
 	return CmpHelperSTRNE(expr1, expr2, v1, val2);
 }
 #endif
@@ -670,21 +671,21 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* e
 }
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* expr1, const char* expr2
-																   , const std::basic_string<Elem, Traits, Ax>& val1
-																   , const std::basic_string<Elem, Traits, Ax>& val2)
+																   , const ::std::basic_string<Elem, Traits, Ax>& val1
+																   , const ::std::basic_string<Elem, Traits, Ax>& val2)
 {
 	return CmpHelperSTRCASEEQ(expr1, expr2, val1.c_str(), val2.c_str());
 }
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* expr1, const char* expr2
 																   , const Elem* val1
-																   , const std::basic_string<Elem, Traits, Ax>& val2)
+																   , const ::std::basic_string<Elem, Traits, Ax>& val2)
 {
 	return CmpHelperSTRCASEEQ(expr1, expr2, val1, val2.c_str());
 }
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* expr1, const char* expr2
-																   , const std::basic_string<Elem, Traits, Ax>& val1
+																   , const ::std::basic_string<Elem, Traits, Ax>& val1
 																   , const Elem* val2)
 {
 	return CmpHelperSTRCASEEQ(expr1, expr2, val1.c_str(), val2);
@@ -719,21 +720,21 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* e
 }
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* expr1, const char* expr2
-																   , const std::basic_string<Elem, Traits, Ax>& val1
-																   , const std::basic_string<Elem, Traits, Ax>& val2)
+																   , const ::std::basic_string<Elem, Traits, Ax>& val1
+																   , const ::std::basic_string<Elem, Traits, Ax>& val2)
 {
 	return CmpHelperSTRCASENE(expr1, expr2, val1.c_str(), val2.c_str());
 }
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* expr1, const char* expr2
 																   , const Elem* val1
-																   , const std::basic_string<Elem, Traits, Ax>& val2)
+																   , const ::std::basic_string<Elem, Traits, Ax>& val2)
 {
 	return CmpHelperSTRCASENE(expr1, expr2, val1, val2.c_str());
 }
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* expr1, const char* expr2
-																   , const std::basic_string<Elem, Traits, Ax>& val1
+																   , const ::std::basic_string<Elem, Traits, Ax>& val1
 																   , const Elem* val2)
 {
 	return CmpHelperSTRCASENE(expr1, expr2, val1.c_str(), val2);

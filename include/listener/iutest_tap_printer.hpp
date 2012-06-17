@@ -85,7 +85,7 @@ protected:
 					for( int j=0, count=test_info->result()->total_part_count(); j < count; ++j )
 					{
 						const TestPartResult& part = test_info->result()->GetTestPartResult(j);
-						std::string summary = part.make_message();
+						::std::string summary = part.make_message();
 						// 改行を置き換え
 						detail::StringReplace(summary, '\n', ", ");
 						stream->Printf("%s. ", summary.c_str() );
@@ -108,7 +108,7 @@ protected:
 */
 class TAPFileGeneratorListener : public TAPPrintListener
 {
-	std::string	m_output_path;
+	::std::string	m_output_path;
 public:
 	/**
 	 * @brief	コンストラクタ
@@ -133,8 +133,8 @@ public:
 			m_output_path = directory;
 			//if( strchr(directory, '.') != NULL )
 			//{
-			//	std::string::size_type pos = m_output_path.rfind('\\');
-			//	if( pos == std::string::npos )
+			//	::std::string::size_type pos = m_output_path.rfind('\\');
+			//	if( pos == ::std::string::npos )
 			//	{
 			//		m_output_path = internal::posix::GetCWD();
 			//	}
@@ -164,8 +164,8 @@ public:
 			IFile* fp = detail::IFileSystem::New();
 			if( fp == NULL ) return;
 
-			std::string filepath = m_output_path;
-			std::string name = test_case.name();
+			::std::string filepath = m_output_path;
+			::std::string name = test_case.name();
 			detail::StringReplace(name, '/', "_");
 			filepath += "\\";
 			filepath += name;

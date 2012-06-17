@@ -24,7 +24,7 @@
 //======================================================================
 // class
 template<typename T>
-class TypedTest : public iutest::Test
+class TypedTest : public ::iutest::Test
 {
 public:
 	static T value;
@@ -33,7 +33,7 @@ public:
 template<typename T>
 T TypedTest<T>::value = 0;
 
-typedef iutest::Types<int, long, short> TypedTestTypes;
+typedef ::iutest::Types<int, long, short> TypedTestTypes;
 IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
 
 

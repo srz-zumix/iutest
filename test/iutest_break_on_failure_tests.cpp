@@ -42,7 +42,7 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	iutest::IUTEST_FLAG(break_on_failure) = true;
+	::iutest::IUTEST_FLAG(break_on_failure) = true;
 	
 #if IUTEST_OS_WINDOWS
 	SetErrorMode(SEM_NOGPFAULTERRORBOX | SEM_FAILCRITICALERRORS);

@@ -118,7 +118,7 @@ private:
 };
 
 //! TestPartResult print o—Í
-inline std::ostream& operator << (std::ostream& os, const TestPartResult& result)
+inline ::std::ostream& operator << (::std::ostream& os, const TestPartResult& result)
 {
 	return os << result.make_message();
 }
@@ -143,8 +143,8 @@ public:
 
 private:
 	friend class TestResult;
-	std::string m_key;
-	std::string m_value;
+	::std::string m_key;
+	::std::string m_value;
 };
 
 /**
@@ -152,8 +152,8 @@ private:
 */
 class TestResult
 {
-	typedef std::vector<TestPartResult>	TestPartResults;
-	typedef std::vector<TestProperty>	TestPropertys;
+	typedef ::std::vector<TestPartResult>	TestPartResults;
+	typedef ::std::vector<TestProperty>		TestPropertys;
 public:
 	TestResult(void) {}
 

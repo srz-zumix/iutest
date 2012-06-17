@@ -34,8 +34,8 @@ int main(int argc, char* argv[])
 #if IUTEST_HAS_TYPED_TEST
 
 template<typename T>
-class TypedPrintToTest : public iutest::Test {};
-typedef iutest::Types<char, unsigned char, short, unsigned short, int, unsigned int, long, unsigned long, int*> PrintStringTestTypes;
+class TypedPrintToTest : public ::iutest::Test {};
+typedef ::iutest::Types<char, unsigned char, short, unsigned short, int, unsigned int, long, unsigned long, int*> PrintStringTestTypes;
 IUTEST_TYPED_TEST_CASE(TypedPrintToTest, PrintStringTestTypes);
 
 IUTEST_TYPED_TEST(TypedPrintToTest, Print)
@@ -45,10 +45,10 @@ IUTEST_TYPED_TEST(TypedPrintToTest, Print)
 	const TypeParam c = a;
 	const volatile TypeParam d = a;
 
-	IUTEST_SUCCEED() << iutest::PrintToString(a);
-	IUTEST_SUCCEED() << iutest::PrintToString(b);
-	IUTEST_SUCCEED() << iutest::PrintToString(c);
-	IUTEST_SUCCEED() << iutest::PrintToString(d);
+	IUTEST_SUCCEED() << ::iutest::PrintToString(a);
+	IUTEST_SUCCEED() << ::iutest::PrintToString(b);
+	IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+	IUTEST_SUCCEED() << ::iutest::PrintToString(d);
 }
 
 #endif
@@ -61,10 +61,10 @@ IUTEST(PrintToTest, RawArray)
 		const volatile unsigned char c[3] = {0, 1, 2};
 		volatile unsigned char d[3] = {0, 1, 2};
 
-		IUTEST_SUCCEED() << iutest::PrintToString(a);
-		IUTEST_SUCCEED() << iutest::PrintToString(b);
-		IUTEST_SUCCEED() << iutest::PrintToString(c);
-		IUTEST_SUCCEED() << iutest::PrintToString(d);
+		IUTEST_SUCCEED() << ::iutest::PrintToString(a);
+		IUTEST_SUCCEED() << ::iutest::PrintToString(b);
+		IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+		IUTEST_SUCCEED() << ::iutest::PrintToString(d);
 	}
 	{
 		char a[3] = {0, 1, 2};
@@ -72,21 +72,21 @@ IUTEST(PrintToTest, RawArray)
 		const volatile char c[3] = {0, 1, 2};
 		volatile char d[3] = {0, 1, 2};
 
-		IUTEST_SUCCEED() << iutest::PrintToString(a);
-		IUTEST_SUCCEED() << iutest::PrintToString(b);
-		IUTEST_SUCCEED() << iutest::PrintToString(c);
-		IUTEST_SUCCEED() << iutest::PrintToString(d);
+		IUTEST_SUCCEED() << ::iutest::PrintToString(a);
+		IUTEST_SUCCEED() << ::iutest::PrintToString(b);
+		IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+		IUTEST_SUCCEED() << ::iutest::PrintToString(d);
 	}
 }
 
 IUTEST(PrintToTest, Std)
 {
 	const int a[] = {0, 1, 2};
-	std::pair<int, int> p(0, 1);
-	std::vector<int> v(a, a+(sizeof(a)/sizeof(a[0])));
+	::std::pair<int, int> p(0, 1);
+	::std::vector<int> v(a, a+(sizeof(a)/sizeof(a[0])));
 
-	IUTEST_SUCCEED() << iutest::PrintToString(p);
-	IUTEST_SUCCEED() << iutest::PrintToString(v);
+	IUTEST_SUCCEED() << ::iutest::PrintToString(p);
+	IUTEST_SUCCEED() << ::iutest::PrintToString(v);
 }
 
 struct Point0
@@ -102,12 +102,12 @@ struct Point2
 	int x,y;
 };
 
-std::ostream& operator << (std::ostream& os, const Point1& x)
+std::ostream& operator << (::std::ostream& os, const Point1& x)
 {
 	return os << x.x << ", " << x.y << "(operator overload)";
 }
 
-void PrintTo(const Point2& x, std::ostream* os)
+void PrintTo(const Point2& x, ::std::ostream* os)
 {
 	*os << x.x << ", " << x.y << "(function overload)";
 }
@@ -117,17 +117,17 @@ IUTEST(PrintToTest, Overload)
 	Point0 p0 = { 0x12345678, 0x9ABCDEF0 };
 	Point1 p1 = {0, 0};
 	Point2 p2 = {1, 1};
-	IUTEST_SUCCEED() << iutest::PrintToString(p0);
-	IUTEST_SUCCEED() << iutest::PrintToString(p1);
-	IUTEST_SUCCEED() << iutest::PrintToString(p2);
+	IUTEST_SUCCEED() << ::iutest::PrintToString(p0);
+	IUTEST_SUCCEED() << ::iutest::PrintToString(p1);
+	IUTEST_SUCCEED() << ::iutest::PrintToString(p2);
 }
 
 #if IUTEST_HAS_TUPLE
 IUTEST(PrintToTest, Tuple)
 {
-	iutest::tuple::tuple<bool, int, char> t(false, 100, 'a');
+	::iutest::tuple::tuple<bool, int, char> t(false, 100, 'a');
 	
-	IUTEST_SUCCEED() << iutest::PrintToString(t);
+	IUTEST_SUCCEED() << ::iutest::PrintToString(t);
 }
 #endif
 

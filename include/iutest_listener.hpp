@@ -95,7 +95,7 @@ public:
 */
 class TestEventListeners
 {
-	typedef std::vector<TestEventListener*>	ListenerContainer;
+	typedef ::std::vector<TestEventListener*>	ListenerContainer;
 
 public:
 	TestEventListeners(void) : m_default_result_printer(NULL), m_default_xml_generator(NULL) {}
@@ -114,7 +114,7 @@ public:
 	*/
 	TestEventListener*	Release(TestEventListener* listener)
 	{
-		ListenerContainer::iterator it = std::find(m_listeners.begin(), m_listeners.end(), listener);
+		ListenerContainer::iterator it = ::std::find(m_listeners.begin(), m_listeners.end(), listener);
 		if( it == m_listeners.end() ) return NULL;
 		m_listeners.erase(it);
 		return listener;

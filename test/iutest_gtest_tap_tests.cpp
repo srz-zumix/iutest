@@ -21,7 +21,7 @@
 #define GTEST_TAP_PRINT_TO_STDOUT
 #include "tap.h"
 
-TEST(Foo, Bar)
+IUTEST(Foo, Bar)
 {
 	IUTEST_EXPECT_EQ(0, 1);
 }
@@ -38,4 +38,3 @@ int main(int argc, char* argv[])
 	listeners.Append(new tap::TapListener());
 	return IUTEST_RUN_ALL_TESTS();	// run all
 }
-

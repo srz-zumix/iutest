@@ -28,13 +28,13 @@ namespace iuutil
 /**
  * @brief	TestCase ‚ÌŒŸõ
 */
-inline const iutest::TestCase* FindTestCase(const char* testcase_name)
+inline const ::iutest::TestCase* FindTestCase(const char* testcase_name)
 {
 	if( testcase_name == NULL ) return NULL;
-	int testcase_count = iutest::UnitTest::GetInstance()->total_test_case_count();
+	int testcase_count = ::iutest::UnitTest::GetInstance()->total_test_case_count();
 	for( int i=0; i < testcase_count; ++i )
 	{
-		const iutest::TestCase* testcase = iutest::UnitTest::GetInstance()->GetTestCase(i);
+		const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->GetTestCase(i);
 		if( strcmp(testcase->name(), testcase_name) == 0 )
 		{
 			return testcase;
@@ -46,10 +46,10 @@ inline const iutest::TestCase* FindTestCase(const char* testcase_name)
 /**
  * @brief	TestInfo ‚ÌŒŸõ
 */
-inline const iutest::TestInfo* FindTestInfo(const char* testcase_name, const char* testinfo_name)
+inline const ::iutest::TestInfo* FindTestInfo(const char* testcase_name, const char* testinfo_name)
 {
 	if( testcase_name == NULL || testinfo_name == NULL ) return NULL;
-	const iutest::TestCase* testcase = FindTestCase(testcase_name);
+	const ::iutest::TestCase* testcase = FindTestCase(testcase_name);
 	if( testcase == NULL ) return NULL;
 
 	if( strcmp(testcase->name(), testcase_name) == 0 )
@@ -57,7 +57,7 @@ inline const iutest::TestInfo* FindTestInfo(const char* testcase_name, const cha
 		int testinfo_count = testcase->total_test_count();
 		for( int i=0; i < testinfo_count; ++i )
 		{
-			const iutest::TestInfo* testinfo = testcase->GetTestInfo(i);
+			const ::iutest::TestInfo* testinfo = testcase->GetTestInfo(i);
 			if( strcmp(testinfo->name(), testinfo_name) == 0 )
 			{
 				return testinfo;

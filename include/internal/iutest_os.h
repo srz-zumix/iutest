@@ -116,7 +116,7 @@ inline const char* GetCWD(char* buf, size_t length)
 #endif
 }
 
-inline std::string GetCWD(void)
+inline ::std::string GetCWD(void)
 {
 	char buf[260];
 	return GetCWD(buf, 260);
@@ -163,7 +163,7 @@ inline bool SetEnvironmentVariable(const char* name, const char* value)
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 	return ::SetEnvironmentVariableA(name, value) ? true : false;
 #else
-	std::string var = name;
+	::std::string var = name;
 	var += "=";
 	var += value;
 	return internal::posix::PutEnv(var.c_str()) == 0 ? true : false;
@@ -198,7 +198,7 @@ inline bool GetEnvironmentVariable(const char* name, T (&buf)[SIZE])
  * @param [out]	var		= 出力文字列
  * @return	成否
 */
-inline bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentVariable(const char* name, std::string& var)
+inline bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentVariable(const char* name, ::std::string& var)
 {
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 	char buf[128];
@@ -243,10 +243,10 @@ namespace win
 /**
  * @brief	文字列変換
 */
-inline std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const wchar_t* wide_c_str)
+inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const wchar_t* wide_c_str)
 {
 	if( wide_c_str == NULL ) return "(null)";
-	std::string str;
+	::std::string str;
 	const int length = static_cast<int>(wcslen(wide_c_str)) * 2 + 1;
 	char* mbs = new char [length];
 	WideCharToMultiByte(932, 0, wide_c_str, static_cast<int>(wcslen(wide_c_str))+1, mbs, length, NULL, NULL);
@@ -260,7 +260,7 @@ inline std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const wc
  * @param [in]	hr	= エラー値
  * @return	文字列
 */
-inline std::string IUTEST_ATTRIBUTE_UNUSED_ GetHResultString(HRESULT hr)
+inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ GetHResultString(HRESULT hr)
 {
 #if defined(IUTEST_OS_WINDOWS_MOBILE)
 	LPWSTR buf = NULL;
@@ -273,7 +273,7 @@ inline std::string IUTEST_ATTRIBUTE_UNUSED_ GetHResultString(HRESULT hr)
 		0,
 		NULL );
 
-	std::string str = (buf == NULL) ? "" : WideStringToMultiByteString(buf);
+	::std::string str = (buf == NULL) ? "" : WideStringToMultiByteString(buf);
 #else
 	LPSTR buf = NULL;
 	FormatMessageA(
@@ -285,7 +285,7 @@ inline std::string IUTEST_ATTRIBUTE_UNUSED_ GetHResultString(HRESULT hr)
 		0,
 		NULL );
 
-	std::string str = (buf == NULL) ? "" : buf;
+	::std::string str = (buf == NULL) ? "" : buf;
 #endif
 	LocalFree(buf);
 	return str;

@@ -21,7 +21,7 @@
 
 #include <assert.h>
 
-class MyTestEventListener : public iutest::TestEventListener
+class MyTestEventListener : public ::iutest::TestEventListener
 {
 public:
 	bool called_OnTestProgramStart;
@@ -58,61 +58,61 @@ public:
 	{}
 	
 public:
-	virtual void OnTestProgramStart(const iutest::UnitTest& /*test*/)
+	virtual void OnTestProgramStart(const ::iutest::UnitTest& /*test*/)
 	{
 		called_OnTestProgramStart = true;
 	}
-	virtual void OnTestIterationStart(const iutest::UnitTest& /*test*/
+	virtual void OnTestIterationStart(const ::iutest::UnitTest& /*test*/
 									, int /*iteration*/)
 	{
 		called_OnTestIterationStart = true;
 	}
-	virtual void OnEnvironmentsSetUpStart(const iutest::UnitTest& /*test*/)
+	virtual void OnEnvironmentsSetUpStart(const ::iutest::UnitTest& /*test*/)
 	{
 		called_OnEnvironmentsSetUpStart = true;
 	}
-	virtual void OnEnvironmentsSetUpEnd(const iutest::UnitTest& /*test*/)
+	virtual void OnEnvironmentsSetUpEnd(const ::iutest::UnitTest& /*test*/)
 	{
 		called_OnEnvironmentsSetUpEnd = true;
 	}
-	virtual void OnTestCaseStart(const iutest::TestCase& /*test_case*/)
+	virtual void OnTestCaseStart(const ::iutest::TestCase& /*test_case*/)
 	{
 		called_OnTestCaseStart = true;
 	}
-	virtual void OnTestStart(const iutest::TestInfo& /*test_info*/)
+	virtual void OnTestStart(const ::iutest::TestInfo& /*test_info*/)
 	{
 		called_OnTestStart = true;
 	}
-	virtual void OnTestPartResult(const iutest::TestPartResult& /*test_part_result*/)
+	virtual void OnTestPartResult(const ::iutest::TestPartResult& /*test_part_result*/)
 	{
 		called_OnTestPartResult = true;
 	}
-	virtual void OnTestRecordProperty(const iutest::TestProperty& /*test_propterty*/)
+	virtual void OnTestRecordProperty(const ::iutest::TestProperty& /*test_propterty*/)
 	{
 		called_OnTestRecordProperty = true;
 	}
-	virtual void OnTestEnd(const iutest::TestInfo& /*test_info*/)
+	virtual void OnTestEnd(const ::iutest::TestInfo& /*test_info*/)
 	{
 		called_OnTestEnd = true;
 	}
-	virtual void OnTestCaseEnd(const iutest::TestCase& /*test_case*/)
+	virtual void OnTestCaseEnd(const ::iutest::TestCase& /*test_case*/)
 	{
 		called_OnTestCaseEnd = true;
 	}
-	virtual void OnEnvironmentsTearDownStart(const iutest::UnitTest& /*test*/)
+	virtual void OnEnvironmentsTearDownStart(const ::iutest::UnitTest& /*test*/)
 	{
 		called_OnEnvironmentsTearDownStart = true;
 	}
-	virtual void OnEnvironmentsTearDownEnd(const iutest::UnitTest& /*test*/)
+	virtual void OnEnvironmentsTearDownEnd(const ::iutest::UnitTest& /*test*/)
 	{
 		called_OnEnvironmentsTearDownEnd = true;
 	}
-	virtual void OnTestIterationEnd(const iutest::UnitTest& /*test*/
+	virtual void OnTestIterationEnd(const ::iutest::UnitTest& /*test*/
 									, int /*iteration*/)
 	{
 		called_OnTestIterationEnd = true;
 	}
-	virtual void OnTestProgramEnd(const iutest::UnitTest& /*test*/)
+	virtual void OnTestProgramEnd(const ::iutest::UnitTest& /*test*/)
 	{
 		called_OnTestProgramEnd = true;
 	}
@@ -154,7 +154,7 @@ int main(int argc, char* argv[])
 	IUTEST_INIT(&argc, argv);
 
 	listener = new MyTestEventListener();
-	iutest::TestEventListeners& listeners = iutest::UnitTest::GetInstance()->listeners();
+	::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
 	listeners.Append( listener );
 	int ret = IUTEST_RUN_ALL_TESTS();	// run all
 	

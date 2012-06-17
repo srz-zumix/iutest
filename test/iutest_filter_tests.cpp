@@ -42,7 +42,7 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	iutest::IUTEST_FLAG(filter) = "-*Fail*";
+	::iutest::IUTEST_FLAG(filter) = "-*Fail*";
 	
 	IUTEST_INIT(&argc, argv);
 	int ret = IUTEST_RUN_ALL_TESTS();	// run all

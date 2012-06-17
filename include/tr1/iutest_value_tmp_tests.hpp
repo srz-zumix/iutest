@@ -92,9 +92,9 @@ class ValueTmpParamTestInstance
 	 * @param [in]	testcase	= ベース名
 	 * @param [in]	index		= 型インデックス
 	*/
-	static std::string MakeTestCaseName(const char* testcase, int index)
+	static ::std::string MakeTestCaseName(const char* testcase, int index)
 	{
-		std::string name = testcase;
+		::std::string name = testcase;
 		detail::iuStringStream::type strm; strm << index;
 		name += "/";
 		name += strm.str();

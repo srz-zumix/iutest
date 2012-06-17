@@ -35,7 +35,7 @@ void PrintTo(const Bar& bar, ::std::ostream* os)
 
 IUTEST(PrintToTest, Test1)
 {
-	std::vector<int> a;
+	::std::vector<int> a;
 	for( int i=0; i < 10; ++i )
 		a.push_back(i);
 	IUTEST_SUCCEED() << ::iutest::PrintToString(a);
@@ -64,10 +64,10 @@ IUTEST(PrintToTest, RawArray)
 		const volatile unsigned char c[3] = {0, 1, 2};
 		volatile unsigned char d[3] = {0, 1, 2};
 
-		IUTEST_SUCCEED() << iutest::PrintToString(a);
-		IUTEST_SUCCEED() << iutest::PrintToString(b);
-		IUTEST_SUCCEED() << iutest::PrintToString(c);
-		IUTEST_SUCCEED() << iutest::PrintToString(d);
+		IUTEST_SUCCEED() << ::iutest::PrintToString(a);
+		IUTEST_SUCCEED() << ::iutest::PrintToString(b);
+		IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+		IUTEST_SUCCEED() << ::iutest::PrintToString(d);
 	}
 	{
 		char a[3] = {0, 1, 2};
@@ -75,18 +75,18 @@ IUTEST(PrintToTest, RawArray)
 		const volatile char c[3] = {0, 1, 2};
 		volatile char d[3] = {0, 1, 2};
 
-		IUTEST_SUCCEED() << iutest::PrintToString(a);
-		IUTEST_SUCCEED() << iutest::PrintToString(b);
-		IUTEST_SUCCEED() << iutest::PrintToString(c);
-		IUTEST_SUCCEED() << iutest::PrintToString(d);
+		IUTEST_SUCCEED() << ::iutest::PrintToString(a);
+		IUTEST_SUCCEED() << ::iutest::PrintToString(b);
+		IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+		IUTEST_SUCCEED() << ::iutest::PrintToString(d);
 	}
 }
 
 #if IUTEST_HAS_TYPED_TEST
 
 template<typename T>
-class TypedPrintToTest : public iutest::Test {};
-typedef iutest::Types<char, unsigned char, short, unsigned short, int, unsigned int, long, unsigned long> PrintStringTestTypes;
+class TypedPrintToTest : public ::iutest::Test {};
+typedef ::iutest::Types<char, unsigned char, short, unsigned short, int, unsigned int, long, unsigned long> PrintStringTestTypes;
 IUTEST_TYPED_TEST_CASE(TypedPrintToTest, PrintStringTestTypes);
 
 IUTEST_TYPED_TEST(TypedPrintToTest, Print)
@@ -96,10 +96,10 @@ IUTEST_TYPED_TEST(TypedPrintToTest, Print)
 	const TypeParam c = a;
 	const volatile TypeParam d = a;
 
-	IUTEST_SUCCEED() << iutest::PrintToString(a);
-	IUTEST_SUCCEED() << iutest::PrintToString(b);
-	IUTEST_SUCCEED() << iutest::PrintToString(c);
-	IUTEST_SUCCEED() << iutest::PrintToString(d);
+	IUTEST_SUCCEED() << ::iutest::PrintToString(a);
+	IUTEST_SUCCEED() << ::iutest::PrintToString(b);
+	IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+	IUTEST_SUCCEED() << ::iutest::PrintToString(d);
 }
 
 #endif
@@ -116,7 +116,7 @@ IUTEST(DISABLED_MacroTest, Enable)
 
 IUTEST(EnabledTest, Count)
 {
-	const iutest::TestCase* testcase = iutest::UnitTest::GetInstance()->current_test_case();
+	const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->current_test_case();
 	IUTEST_ASSERT_NOTNULL(testcase);
 	IUTEST_ASSERT_EQ(2, testcase->total_test_count());
 	IUTEST_ASSERT_EQ(2, testcase->test_to_run_count());
@@ -130,7 +130,7 @@ IUTEST(MacroTest, NotRun)
 	IUTEST_ASSERT_EQ(2, 3);
 }
 
-class EnabledTestFixed : public iutest::Test {};
+class EnabledTestFixed : public ::iutest::Test {};
 
 typedef EnabledTestFixed	DISABLED_TestFixed;
 
@@ -149,7 +149,7 @@ IUTEST_F(DISABLED_MacroTestF, Run)
 
 IUTEST_F(EnabledTestFixed, Count)
 {
-	const iutest::TestCase* testcase = iutest::UnitTest::GetInstance()->current_test_case();
+	const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->current_test_case();
 	IUTEST_ASSERT_NOTNULL(testcase);
 	IUTEST_ASSERT_EQ(2, testcase->total_test_count());
 	IUTEST_ASSERT_EQ(2, testcase->test_to_run_count());

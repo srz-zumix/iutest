@@ -503,6 +503,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\gtest\iutest_gtest_ver.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\gtest\iutest_spi_switch.hpp"
 					>
 				</File>

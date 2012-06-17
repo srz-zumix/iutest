@@ -42,10 +42,10 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	iutest::IUTEST_FLAG(catch_exceptions) = false;
+	::iutest::IUTEST_FLAG(catch_exceptions) = false;
 
 #if IUTEST_HAS_EXCEPTIONS
-	std::set_terminate(&TerminateHandler);	
+	::std::set_terminate(&TerminateHandler);	
 #endif
 
 	IUTEST_INIT(&argc, argv);

@@ -45,7 +45,7 @@ public:
 		virtual TestCase*	MakeTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown) const = 0;
 		virtual void RegisterTest(TestCase* , ParamType param, int index) = 0;
 	protected:
-		std::string m_name;
+		::std::string m_name;
 	};
 
 	virtual ~IParamTestCaseInfo(void) {}
@@ -55,9 +55,9 @@ protected:
 public:
 	virtual void	RegisterTests(void) = 0;
 
-	std::string		GetTestCaseBaseName(void)	const	{ return m_testcase_base_name; }
+	::std::string	GetTestCaseBaseName(void)	const	{ return m_testcase_base_name; }
 protected:
-	std::string	m_testcase_base_name;
+	::std::string	m_testcase_base_name;
 };
 
 /**
@@ -93,7 +93,7 @@ public:
 	/**
 	 * @brief	インスタンスの登録
 	*/
-	int	AddTestCaseInstantiation(std::string name, pfnCreateGeneratorFunc* func)
+	int	AddTestCaseInstantiation(::std::string name, pfnCreateGeneratorFunc* func)
 	{
 		m_instantiation.push_back(InstantiationPair(name, func));
 		return 0;
@@ -111,7 +111,7 @@ public:
 				// パラメータ生成器の作成
 				detail::auto_ptr<ParamGenerator> p = (gen_it->second)();
 
-				std::string testcase_name = m_testcase_base_name;
+				::std::string testcase_name = m_testcase_base_name;
 				if( !gen_it->first.empty() )
 				{
 					testcase_name = gen_it->first;
@@ -134,9 +134,9 @@ public:
 		}
 	}
 private:
-	typedef std::vector<TestInfoData*>	TestInfoContainer;
-	typedef std::pair<std::string, pfnCreateGeneratorFunc*>	InstantiationPair;
-	typedef std::vector<InstantiationPair>					InstantiationContainer;
+	typedef ::std::vector<TestInfoData*>	TestInfoContainer;
+	typedef ::std::pair< ::std::string, pfnCreateGeneratorFunc* >	InstantiationPair;
+	typedef ::std::vector<InstantiationPair>						InstantiationContainer;
 	TestInfoContainer		m_testinfos;
 	InstantiationContainer	m_instantiation;
 };
@@ -187,11 +187,11 @@ private:
 	// テストを登録
 	void	RegisterTests(void)
 	{
-		std::for_each(m_testcase_infos.begin(), m_testcase_infos.end(), RegisterTestsFunctor());
+		::std::for_each(m_testcase_infos.begin(), m_testcase_infos.end(), RegisterTestsFunctor());
 	}
 private:
 	friend class UnitTest;
-	typedef std::vector<IParamTestCaseInfo*>	TestCaseInfoContainer;
+	typedef ::std::vector<IParamTestCaseInfo*>	TestCaseInfoContainer;
 	TestCaseInfoContainer	m_testcase_infos;
 };
 

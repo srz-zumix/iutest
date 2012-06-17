@@ -50,11 +50,11 @@
  * @brief	パラメータテスト登録
 */
 #define IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_)						\
-	static iutest::detail::iuIParamGenerator<testcase_::ParamType>*							\
+	static ::iutest::detail::iuIParamGenerator<testcase_::ParamType>*						\
 		s_##prefix_##_##testcase_##_EvalGenerator_(void) { return generator_; }				\
 		int s_##prefix_##_##testcase_##_dummy =												\
-			iutest::UnitTest::GetInstance()->parameterized_test_registry().					\
-			GetTestCasePatternHolder<testcase_>(#testcase_)->AddTestCaseInstantiation(#prefix_, s_##prefix_##_##testcase_##_EvalGenerator_)
+			::iutest::UnitTest::GetInstance()->parameterized_test_registry().				\
+			GetTestCasePatternHolder< testcase_ >(#testcase_)->AddTestCaseInstantiation(#prefix_, s_##prefix_##_##testcase_##_EvalGenerator_)
 
 /**
  * @brief	パラメータテストクラス定義
@@ -64,9 +64,9 @@
 		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}							\
 		protected: virtual void Body(void);														\
 		private: static int	AddRegister(void) {													\
-			static iutest::detail::ParamTestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_)> testinfo(#testname_);	\
-			iutest::UnitTest::GetInstance()->parameterized_test_registry().						\
-				GetTestCasePatternHolder<testcase_>(#testcase_)->AddTestPattern(&testinfo);		\
+			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_) > testinfo(#testname_);	\
+			::iutest::UnitTest::GetInstance()->parameterized_test_registry().					\
+				GetTestCasePatternHolder< testcase_ >(#testcase_)->AddTestPattern(&testinfo);	\
 			return 0;																			\
 		}																						\
 		static int dummy_;																		\
@@ -133,18 +133,18 @@ private:
 	}
 private:
 	// テスト名の作成
-	std::string MakeTestName(int index)
+	::std::string MakeTestName(int index)
 	{
-		std::string pname = this->m_name;
+		::std::string pname = this->m_name;
 		pname += "/";
 		detail::iuStringStream::type strm;
 		strm << index;
 		pname += strm.str().c_str();
 		return pname;
 	}
-	std::string MakeTestNameByParam(ParamType param)
+	::std::string MakeTestNameByParam(ParamType param)
 	{
-		std::string pname = this->m_name;
+		::std::string pname = this->m_name;
 		pname += "/";
 		pname += PrintToString(param);
 		return pname;

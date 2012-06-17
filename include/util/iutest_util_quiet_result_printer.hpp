@@ -25,7 +25,9 @@ namespace iuutil
 //======================================================================
 // class
 
-//! コンパクトなデフォルトコンソール出力イベントリスナー
+/**
+ * @brief	コンパクトなデフォルトコンソール出力イベントリスナー
+*/
 class QuietResultPrinter : public ::iutest::TestEventListener
 {
 public:

@@ -19,7 +19,7 @@
 // include
 #include "../include/iutest.hpp"
 
-class TestFixed : public iutest::Test
+class TestFixed : public ::iutest::Test
 {
 protected:
 	static int x;

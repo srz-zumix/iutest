@@ -117,9 +117,9 @@ public:
 	virtual const char*	type_param(void)		const	{ return NULL; }
 
 	/** TestCase 出力情報の取得 */
-	std::string testcase_name_with_where(void) const
+	::std::string testcase_name_with_where(void) const
 	{
-		std::string str = m_testcase_name;
+		::std::string str = m_testcase_name;
 		if( type_param() != NULL )
 		{
 			str += ", where TypeParam = ";
@@ -245,7 +245,7 @@ private:
 	friend class UnitTestImpl;
 	friend class UnitTest;
 
-	std::string		m_testcase_name;	//!< テストケース名
+	::std::string	m_testcase_name;	//!< テストケース名
 	iuTestInfos		m_testinfos;		//!< テスト情報リスト
 	SetUpMethod		m_setup;			//!< SetUp 関数
 	TearDownMethod	m_teardown;			//!< TearDown 関数
@@ -289,7 +289,7 @@ public:
 private:
 	friend class UnitTestImpl;
 
-	std::string	m_type_param;		//!< type param string
+	::std::string	m_type_param;		//!< type param string
 };
 
 namespace detail

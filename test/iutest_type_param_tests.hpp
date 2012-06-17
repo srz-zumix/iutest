@@ -26,7 +26,7 @@
 //======================================================================
 // class
 template<typename T>
-class TypeParamTest : public iutest::Test
+class TypeParamTest : public ::iutest::Test
 {
 public:
 	static T value;

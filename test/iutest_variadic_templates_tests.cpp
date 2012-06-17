@@ -23,7 +23,7 @@
 #if IUTEST_HAS_PARAM_TEST
 #if IUTEST_HAS_VARIADIC_TEMPLATES
 
-class TestPValuesN : public iutest::TestWithParam<int>
+class TestPValuesN : public ::iutest::TestWithParam<int>
 {
 protected:
 	static int a;
@@ -34,7 +34,7 @@ public:
 	}
 };
 int TestPValuesN::a = 1;
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPValuesNInstance, TestPValuesN, iutest::Values(1, 2, 3, 4, 5, 6, 7, 8, 9
+IUTEST_INSTANTIATE_TEST_CASE_P(TestPValuesNInstance, TestPValuesN, ::iutest::Values(1, 2, 3, 4, 5, 6, 7, 8, 9
 																	, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
 																	, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29
 																	, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39

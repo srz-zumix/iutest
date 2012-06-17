@@ -76,7 +76,7 @@
 #endif
 
 #ifndef IUTEST_HAS_COMBINE
-//! iutest::Combine が使用可能かどうか
+//! ::iutest::Combine が使用可能かどうか
 #  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TUPLE
 #    define IUTEST_HAS_COMBINE		1
 #  else

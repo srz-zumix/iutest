@@ -62,7 +62,7 @@ namespace iutest
 /**
  * @brief	環境変数の取得
 */
-inline std::string EnvironmentString(const char* name) { std::string var; detail::GetEnvironmentVariable(name, var); return var; }
+inline ::std::string EnvironmentString(const char* name) { ::std::string var; detail::GetEnvironmentVariable(name, var); return var; }
 
 //======================================================================
 // class
@@ -83,6 +83,9 @@ public:
 class TestFlag
 {
 public:
+	/**
+	 * @brief	テストフラグ保存/復元クラス
+	*/
 	class ScopedGuard
 	{
 		int m_test_flags;
@@ -172,17 +175,17 @@ class TestPartResultReporterInterface;
 */
 class TestEnv
 {
-	typedef std::vector<Environment*>	iuEnvironmentList;
+	typedef ::std::vector<Environment*>	iuEnvironmentList;
 private:
 	class OptionString
 	{
 	protected:
-		std::string	m_option;
+		::std::string	m_option;
 	public:
 		bool operator == (const char* c_str_)		{ return m_option == c_str_; }
-		bool operator == (const std::string& str)	{ return m_option == str; }
+		bool operator == (const ::std::string& str)	{ return m_option == str; }
 		bool operator != (const char* c_str_)		{ return m_option != c_str_; }
-		bool operator != (const std::string& str)	{ return m_option != str; }
+		bool operator != (const ::std::string& str)	{ return m_option != str; }
 
 	public:
 		const char* c_str(void) const	{ return m_option.c_str(); }
@@ -256,7 +259,7 @@ public:
 			ParseOutputOption(c_str_);
 			return *this;
 		}
-		const ColorOptionSet& operator = (const std::string& str)
+		const ColorOptionSet& operator = (const ::std::string& str)
 		{
 			m_option = str;
 			ParseOutputOption(str.c_str());
@@ -281,7 +284,7 @@ public:
 			set_test_filter(c_str_);
 			return *this;
 		}
-		const FilterOption& operator = (const std::string& str)
+		const FilterOption& operator = (const ::std::string& str)
 		{
 			m_option = str;
 			set_test_filter(str.c_str());
@@ -301,8 +304,8 @@ private:
 		unsigned int		m_random_seed;
 		unsigned int		m_current_random_seed;
 		int					m_repeat_count;
-		std::string			m_report_file;
-		std::string			m_test_filter;
+		::std::string		m_report_file;
+		::std::string		m_test_filter;
 		detail::iuRandom	m_genrand;
 		iuEnvironmentList	m_environment_list;
 		TestEventListeners	m_event_listeners;
@@ -394,9 +397,9 @@ public:
 	 * @brief	コマンドライン引数の解析(vector)
 	*/
 	template<typename CharType>
-	static void	ParseCommandLine(std::vector< std::basic_string<CharType> >& argv)
+	static void	ParseCommandLine(::std::vector< ::std::basic_string<CharType> >& argv)
 	{
-		for( typename std::vector< std::basic_string<CharType> >::iterator it = argv.begin(); it != argv.end(); )
+		for( typename ::std::vector< ::std::basic_string<CharType> >::iterator it = argv.begin(); it != argv.end(); )
 		{
 			if( ParseCommandLineElem(it->c_str()) )
 			{

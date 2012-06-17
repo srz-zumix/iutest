@@ -32,7 +32,7 @@ template<typename T>
 class iuPool
 {
 	typedef iuPool<T>		_Myt;
-	typedef std::vector<T*>	pool;
+	typedef ::std::vector<T*>	pool;
 	pool	m_pool;
 public:
 	typedef T				value_type;

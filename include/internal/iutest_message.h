@@ -31,7 +31,7 @@ namespace detail
 /**
  * @brief	ファイル名と行番号を連結した文字列を生成(コンパイラを考慮する)
 */
-inline std::string FormatFileLocation(const char* file, int line)
+inline ::std::string FormatFileLocation(const char* file, int line)
 {
 	const char* const file_name = file == NULL ? kStrings::UnkownFile : file;
 	if( line < 0 ) return file;
@@ -47,7 +47,7 @@ inline std::string FormatFileLocation(const char* file, int line)
 /**
  * @brief	ファイル名と行番号を連結した文字列を生成
 */
-inline std::string FormatCompilerIndependentFileLocation(const char* file, int line)
+inline ::std::string FormatCompilerIndependentFileLocation(const char* file, int line)
 {
 	const char* const file_name = file == NULL ? kStrings::UnkownFile : file;
 	if( line < 0 ) return file;
@@ -63,7 +63,7 @@ inline std::string FormatCompilerIndependentFileLocation(const char* file, int l
 */
 class iuMessage
 {
-	std::string	m_message;	//!< メッセージ
+	::std::string	m_message;	//!< メッセージ
 public:
 	iuMessage(void) {}
 	explicit iuMessage(const char* message) : m_message(message) {}
@@ -72,7 +72,7 @@ public:
 	const char*		message(void)	const	{ return m_message.c_str(); }	//!< メッセージの取得
 
 public:
-	std::string GetString(void)	const { return m_message; }
+	::std::string GetString(void)	const { return m_message; }
 public:
 	template<typename T>
 	iuMessage&	operator << (const T& value) 
@@ -149,7 +149,7 @@ private:
 	}
 };
 
-inline std::ostream& operator << (std::ostream& os, const iuMessage& msg)
+inline ::std::ostream& operator << (::std::ostream& os, const iuMessage& msg)
 {
 	return os << msg.message();
 }
@@ -189,14 +189,14 @@ public:
 	int				line_number(void)	const	{ return m_line; }				//!< ライン番号の取得
 public:
 	/** @private */
-	std::string	make_message(void) const
+	::std::string	make_message(void) const
 	{
-		std::string str = FormatFileLocation(m_file, m_line);
+		::std::string str = FormatFileLocation(m_file, m_line);
 		str += ": ";
 		str += message();
 		return str;
 	}
-	std::string	make_newline_message(void) const
+	::std::string	make_newline_message(void) const
 	{
 		return make_message() + "\n";
 	}

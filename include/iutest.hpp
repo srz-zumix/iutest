@@ -70,8 +70,8 @@ namespace iutest
  * @def		IUTEST_TEST(testcase_, testname_)
  * @brief	テスト関数定義マクロ
 */
-#define IUTEST_TEST(testcase_, testname_)			IUTEST_TEST_(testcase_, testname_, iutest::Test	\
-														, iutest::internal::GetTestTypeId())
+#define IUTEST_TEST(testcase_, testname_)			IUTEST_TEST_(testcase_, testname_, ::iutest::Test	\
+														, ::iutest::internal::GetTestTypeId())
 
 /**
  * @ingroup	TESTDEF
@@ -86,7 +86,7 @@ namespace iutest
  * @brief	ユーザー指定テスト関数定義マクロ
 */
 #define IUTEST_F(testfixture_, testname_)			IUTEST_TEST_(testfixture_, testname_, testfixture_	\
-														, iutest::internal::GetTypeId<testfixture_>())
+														, ::iutest::internal::GetTypeId< testfixture_ >())
 
 #if IUTEST_HAS_PARAM_METHOD_TEST
 /**
@@ -94,8 +94,8 @@ namespace iutest
  * @def		IUTEST_PMZ(testcase_, testname_, method_, ...)
  * @brief	パラメタライズ関数コールテスト定義マクロ
 */
-#define IUTEST_PMZ(testcase_, testname_, method_, ...)	IIUT_TEST_PMZ_(testcase_, testname_, method_, iutest::Test	\
-														, iutest::internal::GetTestTypeId(), __VA_ARGS__)
+#define IUTEST_PMZ(testcase_, testname_, method_, ...)	IIUT_TEST_PMZ_(testcase_, testname_, method_, ::iutest::Test	\
+														, ::iutest::internal::GetTestTypeId(), __VA_ARGS__)
 
 /**
  * @ingroup	TESTDEF
@@ -103,7 +103,7 @@ namespace iutest
  * @brief	パラメタライズ関数コールテスト定義マクロ
 */
 #define IUTEST_PMZ_F(testfixture_, testname_, method_, ...)	IIUT_TEST_PMZ_(testfixture_, testname_, method_, testfixture_	\
-														, iutest::internal::GetTypeId<testfixture_>(), __VA_ARGS__)
+														, ::iutest::internal::GetTypeId< testfixture_ >(), __VA_ARGS__)
 
 #endif
 
@@ -111,13 +111,13 @@ namespace iutest
  * @ingroup	TESTDEF
  * @brief	iutest の初期化処理
 */
-#define IUTEST_INIT(argc_, argv_)					iutest::InitIrisUnitTest(argc_, argv_)
+#define IUTEST_INIT(argc_, argv_)					::iutest::InitIrisUnitTest(argc_, argv_)
 
 /**
  * @ingroup	TESTDEF
  * @brief	すべてのテストを実行する
 */
-#define IUTEST_RUN_ALL_TESTS()						iutest::UnitTestSource::GetInstance().Run()
+#define IUTEST_RUN_ALL_TESTS()						::iutest::UnitTestSource::GetInstance().Run()
 
 
 /**
@@ -840,7 +840,7 @@ inline void	IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const wchar_t*
 
 //! 初期化
 template<typename CharType>
-inline void	IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(std::vector< std::basic_string<CharType> >& argv)
+inline void	IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(::std::vector< ::std::basic_string<CharType> >& argv)
 {
 	TestEnv::ParseCommandLine(argv); UnitTestSource::GetInstance().Initialize();
 }
