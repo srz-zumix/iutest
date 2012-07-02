@@ -21,7 +21,6 @@
 // include
 #include "iutest_internal_defs.h"
 #include "iutest_string.h"
-#include "iutest_stdlib.h"
 #include <time.h>
 
 #if IUTEST_HAS_CXX11_HDR_CHRONO

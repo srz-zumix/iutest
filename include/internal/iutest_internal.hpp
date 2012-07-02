@@ -151,6 +151,34 @@
 
 /**
  * @internal
+ * @brief	throw テスト用マクロ
+*/
+#define IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure)	\
+	IUTEST_AMBIGUOUS_ELSE_BLOCKER_													\
+	if( const char* msg = "" ) {													\
+		try {																		\
+			IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING((void)statement);				\
+			msg = "\nExpected: " #statement " throws an exception of type "			\
+				  #expected_exception ".\n  Actual: it throws nothing.";			\
+			goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);					\
+		} catch( expected_exception const& e) {										\
+			if( e == expected_exception_value ) {									\
+			} else {																\
+			msg = "\nExpected: " #statement " throws an exception of value "		\
+			#expected_exception_value ".\n  Actual: it throws a different value.";	\
+				goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);				\
+			}																		\
+		} catch( ... ) {															\
+			msg = "\nExpected: " #statement " throws an exception of type "			\
+	          #expected_exception ".\n  Actual: it throws a different type.";		\
+			goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);					\
+		}																			\
+	} else																			\
+		IUTEST_PP_CAT(iutest_label_throw_value, __LINE__):							\
+		on_failure(msg)
+
+/**
+ * @internal
  * @brief	any throw テスト用マクロ
 */
 #define IUTEST_TEST_ANY_THROW_(statement, on_failure)						\

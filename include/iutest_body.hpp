@@ -135,7 +135,10 @@ public:
 	 *			指定しなかった場合は実行時に決定します。
 	*/
 	unsigned int	genrand(void)				{ return m_random.genrand(); }
-	/** @ref genrand */
+	/**
+	 * @overload
+	 * @param [in]	max	= [0,max) の乱数を生成
+	*/
 	unsigned int	genrand(unsigned int max)	{ return m_random.genrand(max); }
 	/** 乱数シードの取得 */
 	unsigned int	random_seed(void)			{ return m_random_seed; }

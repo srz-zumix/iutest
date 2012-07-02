@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 {
 	(void)argc;
 	int targc = 2;
-	char* targv[] = {
+	const char* targv[] = {
 		argv[0]
 		, "--help"
 	};

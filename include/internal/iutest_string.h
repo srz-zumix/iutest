@@ -131,6 +131,21 @@ inline void StringReplace(::std::string& str, char a, const char* to)
 
 inline IUTEST_CONSTEXPR char ToHex(unsigned int n) { return (n&0xF) >= 0xA ? 'A'+((n&0xF)-0xA) : '0'+(n&0xF); }
 
+template<typename T>
+inline ::std::string ToHexString(T value)
+{
+	const size_t len = sizeof(T)*2;
+	char buf[len+3];
+	buf[0] = '0';
+	buf[1] = 'x';
+	for( size_t i=0; i < len; ++i )
+	{
+		buf[i+2] = ToHex(static_cast<unsigned int>((value>>((len-i-1)*4))));
+	}
+	buf[len+2] = '\0';
+	return buf;
+}
+
 inline ::std::string ShowStringQuoted(const char* str) { ::std::string s = "\""; s += str; s += "\""; return s; }
 inline ::std::string ShowStringQuoted(const ::std::string& str) { ::std::string s = "\""; s += str; s += "\""; return s; }
 

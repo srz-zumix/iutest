@@ -45,4 +45,20 @@
 #  define IUTEST_HAS_CXX11_HDR_CHRONO	0
 #endif
 
+
+// abi
+#ifndef IUTEST_HAS_HDR_CXXABI
+
+#if defined(__GLIBCXX__) || defined(_LIBCPP_VERSION)
+#  define IUTEST_HAS_HDR_CXXABI			1
+#else
+#  define IUTEST_HAS_HDR_CXXABI			0
+#endif
+
+#endif
+
+#ifndef IUTEST_HAS_HDR_CXXABI
+#  define IUTEST_HAS_HDR_CXXABI			0
+#endif
+
 #endif

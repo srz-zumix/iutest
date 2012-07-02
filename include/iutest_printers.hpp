@@ -204,6 +204,8 @@ inline void PrintTo(bool b, ::std::ostream* os)			{ *os << (b ? "true" : "false"
 inline void PrintTo(const char* c, ::std::ostream* os)	{ *os << c; }
 inline void PrintTo(char* c, ::std::ostream* os)		{ *os << c; }
 inline void PrintTo(const ::std::string& str, ::std::ostream* os)	{ *os << str.c_str(); }
+template<typename T>
+inline void PrintTo(const floating_point<T>& f, ::std::ostream* os)	{ *os << f.raw() << "(" << ToHexString(f.bit()) << ")"; }
 template<typename T1, typename T2>
 inline void PrintTo(const ::std::pair<T1, T2>& value, ::std::ostream* os)
 {

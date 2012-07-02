@@ -227,6 +227,19 @@ private:
 	template<typename DMY>
 	struct impl<double, DMY> { typedef detail::type_least_t<8>	type; };
 
+	template<typename T, typename DMY>
+	struct ieee 
+	{
+		static const int EXP	= 8;
+		static const int FRAC	= 23;
+	};
+	template<typename DMY>
+	struct ieee<double, DMY>
+	{
+		static const int EXP	= 11;
+		static const int FRAC	= 52;
+	};
+
 	typedef typename impl<RawType, void>::type	type;
 	typedef typename type::Int	Int;
 	typedef typename type::UInt	UInt;
@@ -237,7 +250,18 @@ private:
 		RawType	fv;
 	};
 
+	static const int EXP	= ieee<RawType, void>::EXP;
+	static const int FRAC	= ieee<RawType, void>::FRAC;
+
 public:
+	/**
+	 * @brief	コンストラクタ
+	*/
+	floating_point(void)
+	{
+		m_v.uv = 0;
+	}
+
 	/**
 	 * @brief	コンストラクタ
 	 * @param [in]	f	= 浮動小数点数
@@ -247,10 +271,18 @@ public:
 		m_v.fv = f;
 	}
 
+	/**
+	 * @brief	コンストラクタ
+	*/
+	floating_point(const _Myt& rhs)
+	{
+		m_v.uv = rhs.m_v.uv;
+	}
+
 public:
 	/**
 	 * @brief	浮動小数点数がほぼ一致するかどうか
-	 * @note	http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
+	 * @sa		http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
 	*/
 	bool	AlmostEquals(const _Myt& rhs) const
 	{
@@ -260,6 +292,69 @@ public:
 		if( diff <= kMaxUlps ) return true;
 		return false;
 	}
+
+public:
+	/**
+	 * @brief	ビット列の取得
+	*/
+	UInt	bit(void) const	{ return m_v.uv; }
+
+	/**
+	 * @brief	raw データの取得
+	*/
+	RawType	raw(void) const	{ return m_v.fv; }
+
+public:
+	//! ＋ inf
+	static _Myt	PINF(void)
+	{
+		_Myt f;
+		f.m_v.uv = ((1<<EXP)-1);
+		f.m_v.uv <<= FRAC;
+		return f;
+	}
+	//! － inf
+	static _Myt	NINF(void)
+	{
+		_Myt f = PINF();
+		f.m_v.uv |= static_cast<UInt>(1u) << (EXP+FRAC);
+		return f;
+	}
+	//! ＋ nan
+	static _Myt	PNAN(void)
+	{
+		_Myt f = PINF();
+		f.m_v.uv |= 1;
+		return f;
+	}
+	//! － nan
+	static _Myt	NNAN(void)
+	{
+		_Myt f = NINF();
+		f.m_v.uv |= 1;
+		return f;
+	}
+	//! ＋ qnan
+	static _Myt	PQNAN(void)
+	{
+		_Myt f;
+		f.m_v.uv = ((1<<(EXP+1))-1);
+		f.m_v.uv <<= FRAC-1;
+		return f;
+	}
+	//! － qnan
+	static _Myt	NQNAN(void)
+	{
+		_Myt f = PQNAN();
+		f.m_v.uv |= static_cast<UInt>(1u) << (EXP+FRAC);
+		return f;
+	}
+
+public:
+	operator RawType (void) const	{ return m_v.fv; }
+	_Myt&	operator = (RawType f)	{ m_v.fv = f; }
+
+	bool	operator == (const _Myt& rhs) const	{ return m_v.uv == rhs.m_v.uv; }
 
 private:
 	static const Int	kMaxUlps = 4;

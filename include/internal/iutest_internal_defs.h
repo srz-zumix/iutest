@@ -20,8 +20,14 @@
 //======================================================================
 // include
 #include "../iutest_defs.h"
+#include "iutest_stdlib.h"
+#include "iutest_string.h"
 #include "iutest_type_traits.hpp"
 #include "iutest_pp.h"
+
+#if IUTEST_HAS_HDR_CXXABI
+#  include <cxxabi.h>
+#endif
 
 //======================================================================
 // define
@@ -206,6 +212,32 @@ struct enabler_t
 template<typename TN>void*	enabler_t<TN>::value = NULL;
 
 typedef enabler_t<void>	enabler;
+
+/**
+ * @brief	Œ^–¼‚Ìæ“¾
+*/
+template<typename T>
+inline std::string	GetTypeName(void)
+{
+#if IUTEST_HAS_RTTI
+	const char* const name = typeid(T).name();
+
+#if IUTEST_HAS_HDR_CXXABI
+	using abi::__cxa_demangle;
+	int status=1;
+	char* const read_name = __cxa_demangle(name, 0, 0, &status);
+	std::string str = status == 0 ? read_name : name;
+	free(read_name);
+	return str;
+#else
+	return name;
+#endif
+
+#else
+	return "<type>";
+#endif
+}
+
 
 /**
  * @brief	true ‚ğ•Ô‚·(Œx‘Îô—p)
