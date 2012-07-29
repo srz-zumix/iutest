@@ -152,6 +152,11 @@
 #  define IUTEST_HAS_CLOCK			0	//!< clock 関数が使用可能かどうか
 #endif
 
+// Doxygen 用
+#ifdef IUTEST_BUILD_DOXYGEN
+#define IUTEST_GetMillisec()	//!< 現在時刻のミリ秒取得関数を独自定義
+#endif
+
 /**
  * @}
 */
@@ -352,7 +357,7 @@ public:
 
 public:
 	operator RawType (void) const	{ return m_v.fv; }
-	_Myt&	operator = (RawType f)	{ m_v.fv = f; }
+	_Myt&	operator = (RawType f)	{ m_v.fv = f; return *this; }
 
 	bool	operator == (const _Myt& rhs) const	{ return m_v.uv == rhs.m_v.uv; }
 

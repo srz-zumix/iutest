@@ -42,11 +42,19 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	::iutest::IUTEST_FLAG(filter) = "-*Fail*";
-	
 	IUTEST_INIT(&argc, argv);
-	int ret = IUTEST_RUN_ALL_TESTS();	// run all
-	
-	if( ret != 0 ) return 1;
+	{
+		::iutest::IUTEST_FLAG(filter) = "-*Fail*";
+		int ret = IUTEST_RUN_ALL_TESTS();	// run all
+		
+		if( ret != 0 ) return 1;
+	}
+	{
+		::iutest::IUTEST_FLAG(filter) = "*Fail*";
+		int ret = IUTEST_RUN_ALL_TESTS();	// run all
+		
+		if( ret == 0 ) return 1;
+	}
+	printf("*** Successful ***\n");
 	return 0;
 }

@@ -144,6 +144,7 @@ inline void SleepMillisec(unsigned int millisec)
 #else
 	volatile int x=0;
 	for( unsigned int i=0; i < millisec; ++i ) x += 1;
+	IUTEST_UNUSED_VAR(x);
 #endif
 }
 

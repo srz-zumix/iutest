@@ -22,29 +22,6 @@
 #define INCG_IRIS_iutest_HPP_
 
 //======================================================================
-// user able define
-#if 0
-// vprintf function
-#define IUTEST_VPRINTF
-// printf function
-#define IUTEST_PRINTF
-// get time millisecond
-#define IUTEST_GetMillisec()	0
-
-// supported option
-#define IUTEST_HAS_EXCEPTIONS	1
-#define IUTEST_HAS_RTTI			1
-#define IUTEST_HAS_SEH			0
-
-// fopen
-#define IUTEST_HAS_FOPEN		0
-// not supported stl str(ing)stream
-#define IUTEST_HAS_STRINGSTREAM	0
-// using strstream
-#define IUTEST_USE_STRSTREAM	0
-#endif
-
-//======================================================================
 // include
 #include "iutest_ver.h"
 #include "iutest_param_tests.hpp"

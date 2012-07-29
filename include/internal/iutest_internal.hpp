@@ -213,7 +213,7 @@
 
 #define IUTEST_TEST_BOOLEAN_(expression, text, actual, expected, on_failure)	\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_												\
-	if( const ::iutest::AssertionResult iutest_ar = ::iutest::AssertionResult(expression) )	\
+	if( const ::iutest::AssertionResult iutest_ar = ::iutest::AssertionResult((expression) ? true : false) )	\
 		;																		\
 	else																		\
 		on_failure(::iutest::internal::GetBooleanAssertionFailureMessage(		\

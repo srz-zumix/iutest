@@ -55,6 +55,8 @@ private:
 		{
 			return ptr()->RecordProperty(prop);
 		}
+	public:
+		void SetPointer(TestInfo* p) { m_test_info = p; }
 	};
 public:
 	/**
@@ -70,7 +72,7 @@ public:
 		, m_should_run(true)
 		, m_disable(false)
 	{
-		m_mediator = Mediator(this);
+		m_mediator.SetPointer(this);
 		if( strstr(name, "DISABLED_") == name )
 		{
 			m_disable = true;
