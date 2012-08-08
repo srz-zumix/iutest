@@ -20,6 +20,7 @@
 //======================================================================
 // include
 #include "internal/iutest_compiler.h"
+#include "internal/iutest_stdlib.h"
 #include <stdio.h>
 #include <vector>
 #include <algorithm>
@@ -84,8 +85,16 @@
 #  endif
 #endif
 
+#ifndef IUTEST_HAS_VARIADIC_VALUES
+#  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
+#    define IUTEST_HAS_VARIADIC_VALUES	1	//!< 可変長引数に対応した Values が使用可能かどうか
+#  else
+#    define IUTEST_HAS_VARIADIC_VALUES	0	//!< 可変長引数に対応した Values が使用可能かどうか
+#  endif
+#endif
+
 #ifndef IUTEST_HAS_VARIADIC_COMBINE
-#  if IUTEST_HAS_COMBINE && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_STD_TUPLE
+#  if IUTEST_HAS_COMBINE && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
 #    define IUTEST_HAS_VARIADIC_COMBINE	1	//!< 可変長引数に対応した Combine が使用可能かどうか
 #  else
 #    define IUTEST_HAS_VARIADIC_COMBINE	0	//!< 可変長引数に対応した Combine が使用可能かどうか
@@ -154,7 +163,26 @@
 
 // Doxygen 用
 #ifdef IUTEST_BUILD_DOXYGEN
+
 #define IUTEST_GetMillisec()	//!< 現在時刻のミリ秒取得関数を独自定義
+
+
+/**
+ * @brief	iutest で t1/tuple.h をインクルードするかどうか
+ * @details	1: std::tr1 名前空間にある tuple を使用します。
+ *			tuple.h はユーザーがインクルードします。
+ *			0: 指定なし iutest が自動で判断します。
+*/
+#define IUTEST_USE_EXTERNAL_TR1_TUPLE	0
+
+/**
+ * @brief	iutest で tuple.h をインクルードするかどうか
+ * @details	1: std 名前空間にある tuple を使用します。
+ *			tuple.h はユーザーがインクルードします。
+ *			0: 指定なし iutest が自動で判断します。
+*/
+#define IUTEST_USE_EXTERNAL_STD_TUPLE	0
+
 #endif
 
 /**

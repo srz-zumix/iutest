@@ -24,6 +24,7 @@
 #if IUTEST_HAS_EXCEPTIONS
 #include "iutest_string.h"
 #include <exception>
+//#include <stdexcept>	// std::invalid_argment
 
 namespace iutest {
 namespace detail

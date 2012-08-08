@@ -73,7 +73,7 @@ public:
 	*/
 	static bool	HasFatalFailure(void)
 	{
-		return CurrentTestObserver::s_current->m_test_info->HasFatalFailure();
+		return GetCurrentTest()->m_test_info->HasFatalFailure();
 	}
 
 	/**
@@ -82,7 +82,7 @@ public:
 	*/
 	static bool	HasNonfatalFailure(void)
 	{
-		return CurrentTestObserver::s_current->m_test_info->HasNonfatalFailure();
+		return GetCurrentTest()->m_test_info->HasNonfatalFailure();
 	}
 
 	/**
@@ -91,7 +91,7 @@ public:
 	*/
 	static bool	HasFailure(void)
 	{
-		return CurrentTestObserver::s_current->m_test_info->HasFailure();
+		return GetCurrentTest()->m_test_info->HasFailure();
 	}
 
 	/**

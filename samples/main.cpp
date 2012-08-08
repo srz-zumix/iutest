@@ -447,15 +447,15 @@ IUTEST_P(TestPValuesN, TestA)
 
 #if IUTEST_HAS_COMBINE
 
-class TestPCombine : public ::iutest::TestWithParam< ::iutest::tuple::tuple<bool, int, int> >
+class TestPCombine : public ::iutest::TestWithParam< ::iutest::tuples::tuple<bool, int, int> >
 {
 };
 
 IUTEST_P(TestPCombine, TestA)
 {
-	bool b = ::iutest::tuple::get<0>(GetParam());
-	int i1 = ::iutest::tuple::get<1>(GetParam());
-	int i2 = ::iutest::tuple::get<2>(GetParam());
+	bool b = ::iutest::tuples::get<0>(GetParam());
+	int i1 = ::iutest::tuples::get<1>(GetParam());
+	int i2 = ::iutest::tuples::get<2>(GetParam());
 	IUTEST_SUCCEED() << b << ", " << i1 << ", " << i2;
 }
 

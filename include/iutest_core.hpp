@@ -129,6 +129,17 @@ protected:
 	*/
 	int Run(void)
 	{
+		if( m_init_iutest_count == 0 )
+		{
+//#if IUTEST_HAS_PARAM_TEST
+//			if( m_param_testcase_holder.count() )
+//#endif
+			{
+				detail::iuConsole::output("This test program did NOT call ::iutest::InitIrisUnitTest before calling IUTEST_RUN_ALL_TESTS().  Please fix it.\n");
+				return 1;
+			}
+		}
+
 		if( !PreRunner() ) return 0;
 
 		int ret = 1;
@@ -339,6 +350,7 @@ private:
 private:
 	UnitTest(void)
 		: m_repeat_counter(0)
+		, m_init_iutest_count(0)
 		, m_current_testcase(NULL)
 	{
 		// デフォルトリポーターをセット
@@ -356,9 +368,7 @@ private:
 	// 初期化処理
 	void	Initialize(void)
 	{
-#if IUTEST_HAS_PARAM_TEST
-		m_param_testcase_holder.RegisterTests();
-#endif
+		m_init_iutest_count++;
 
 		// ファイルシステムの初期化
 		if( detail::IFileSystem::GetInstance() == NULL )
@@ -371,6 +381,13 @@ private:
 			filesystem.Initialize();
 #endif
 		}
+
+		// 以降初回のみ
+		if( m_init_iutest_count != 1 ) return;
+
+#if IUTEST_HAS_PARAM_TEST
+		m_param_testcase_holder.RegisterTests();
+#endif
 	}
 
 	int get_failed_test_count(void) const
@@ -396,6 +413,7 @@ private:
 	friend class UnitTestSource;
 
 	int m_repeat_counter;
+	int m_init_iutest_count;
 	const TestCase*	m_current_testcase;
 	detail::DefaultGlobalTestPartResultReporter	m_default_test_part_result_reporter;
 

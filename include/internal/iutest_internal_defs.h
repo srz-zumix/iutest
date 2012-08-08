@@ -20,7 +20,6 @@
 //======================================================================
 // include
 #include "../iutest_defs.h"
-#include "iutest_stdlib.h"
 #include "iutest_string.h"
 #include "iutest_type_traits.hpp"
 #include "iutest_pp.h"
@@ -83,6 +82,9 @@ namespace type_traits = iutest_type_traits;
 namespace detail
 {
 
+//======================================================================
+// class
+
 // detail ‚©‚çg‚¦‚é‚æ‚¤‚É‚·‚é
 using namespace iutest_type_traits;
 
@@ -131,8 +133,9 @@ public:
 };
 template<typename T>int TypeUniqueCounter<T>::value = 0;
 
-//======================================================================
-// function
+template<typename T>
+inline int GetTypeUniqueCounter(void) { return TypeUniqueCounter<T>::count(); }
+
 /**
  * @internal
  * @brief	auto_ptr
@@ -238,6 +241,8 @@ inline std::string	GetTypeName(void)
 #endif
 }
 
+//======================================================================
+// function
 
 /**
  * @brief	true ‚ğ•Ô‚·(Œx‘Îô—p)

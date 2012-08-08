@@ -193,17 +193,17 @@
 #  define IUTEST_HAS_VARIADIC_TEMPLATES		0
 #endif
 
-//#ifndef IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES
-//#  if	defined(__clang__)
-//#    if __has_feature(cxx_variadic_templates)
-//#      define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES	1
-//#    endif
-//#  elif	defined(__GNUC__)
-//#    if defined(__VARIADIC_TEMPLATES) || (__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7) && defined(__GXX_EXPERIMENTAL_CXX0X__))
-//#      define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES	1
-//#    endif
-//#  endif
-//#endif
+#ifndef IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES
+#  if	defined(__clang__)
+#    if __has_feature(cxx_variadic_templates)
+#      define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES	1
+#    endif
+#  elif	defined(__GNUC__)
+#    if defined(__VARIADIC_TEMPLATES) || (__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7) && (__GNUC_PATCHLEVEL__ >= 1) && defined(__GXX_EXPERIMENTAL_CXX0X__))
+#      define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES	1
+#    endif
+#  endif
+#endif
 
 #ifndef IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES
 #  define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES	0
@@ -356,115 +356,6 @@
 #  else
 #    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_STATIC_MEMBER_FUNCTION	1
 #  endif
-#endif
-
-// tuple
-#if	defined(IUTEST_USE_EXTERNAL_TR1_TUPLE) && IUTEST_USE_EXTERNAL_TR1_TUPLE
-# define IUTEST_HAS_STD_TUPLE	0
-#endif
-
-#ifndef IUTEST_USE_EXTERNAL_TR1_TUPLE
-#  define IUTEST_USE_EXTERNAL_TR1_TUPLE	0
-#endif
-
-// ::std::tuple
-#ifndef IUTEST_HAS_STD_TUPLE
-#  if defined(IUTEST_USE_EXTERNAL_STD_TUPLE) && IUTEST_USE_EXTERNAL_STD_TUPLE
-#    define IUTEST_HAS_STD_TUPLE	1
-#  elif defined(_MSC_VER)
-#    if (_MSC_VER >= 1700) && _VARIADIC_MAX >= 9
-#      define IUTEST_HAS_STD_TUPLE	1
-#    endif
-#  elif	defined(__GNUC__)
-#    if IUTEST_HAS_VARIADIC_TEMPLATES
-#      define IUTEST_HAS_STD_TUPLE	1
-#    endif
-#  endif
-#endif
-
-#ifndef IUTEST_HAS_STD_TUPLE
-#  define IUTEST_HAS_STD_TUPLE		0
-#endif
-
-#ifndef IUTEST_USE_EXTERNAL_STD_TUPLE
-#  define IUTEST_USE_EXTERNAL_STD_TUPLE	0
-#endif
-
-#if !IUTEST_HAS_STD_TUPLE
-
-// ::std::tr1::tuple
-#ifndef IUTEST_HAS_TR1_TUPLE
-#  if defined(IUTEST_USE_EXTERNAL_TR1_TUPLE) && IUTEST_USE_EXTERNAL_TR1_TUPLE
-#    define IUTEST_HAS_TR1_TUPLE	1
-#  elif defined(_MSC_VER)
-#    if (_MSC_VER >= 1500) && (_MSC_VER < 1700)
-#      define IUTEST_HAS_TR1_TUPLE	1
-#    endif
-#  elif	defined(__GNUC__)
-#    if (!defined(__CUDACC__) && !defined(__ARMCC_VERSION) && (__GNUC__ >= 4))
-#      define IUTEST_HAS_TR1_TUPLE	1
-#    endif
-#  endif
-#endif
-
-#endif
-
-#ifndef IUTEST_HAS_TR1_TUPLE
-#  define IUTEST_HAS_TR1_TUPLE		0
-#endif
-
-#ifndef IUTEST_USE_OWN_TR1_TUPLE
-#  define IUTEST_USE_OWN_TR1_TUPLE	0
-#endif
-
-#if IUTEST_HAS_STD_TUPLE
-#  if !IUTEST_USE_EXTERNAL_STD_TUPLE
-#    include <tuple>
-#  endif
-#else
-#  if IUTEST_HAS_TR1_TUPLE && !IUTEST_USE_EXTERNAL_TR1_TUPLE
-#    if IUTEST_USE_OWN_TR1_TUPLE
-#      include "iutest_tuple.h"
-#    else
-#      if (defined(__GNUC__) && (__GNUC__ >= 4))
-#        include <tr1/tuple>
-#      else
-#        include <tuple>
-#      endif
-#    endif
-#  endif
-#endif
-
-#ifdef IUTEST_HAS_TUPLE
-#  undef IUTEST_HAS_TUPLE
-#endif
-#if IUTEST_HAS_STD_TUPLE || IUTEST_HAS_TR1_TUPLE
-#  define IUTEST_HAS_TUPLE	1
-#else
-#  define IUTEST_HAS_TUPLE	0
-#endif
-
-#if IUTEST_HAS_TUPLE
-
-namespace iutest {
-namespace tuple
-{
-#if IUTEST_HAS_STD_TUPLE
-	using ::std::tuple;
-	using ::std::tuple_size;
-	using ::std::tuple_element;
-	using ::std::make_tuple;
-	using ::std::get;
-#elif IUTEST_HAS_TR1_TUPLE
-	using ::std::tr1::tuple;
-	using ::std::tr1::tuple_size;
-	using ::std::tr1::tuple_element;
-	using ::std::tr1::make_tuple;
-	using ::std::tr1::get;
-#endif
-}
-}
-
 #endif
 
 // â¬ïœí∑à¯êîÉ}ÉNÉç

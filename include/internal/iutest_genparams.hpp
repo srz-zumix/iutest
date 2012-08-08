@@ -168,29 +168,29 @@ public:
 	virtual bool	IsEnd(void) const	{ return (m_it == m_values.end()); }
 };
 
-#if IUTEST_HAS_VARIADIC_TEMPLATES
+#if IUTEST_HAS_VARIADIC_VALUES
 template<typename... Args>
 class iuValueArray
 {
-	typedef tuple::tuple<Args...>	_MyTuple;
+	typedef tuples::tuple<Args...>	_MyTuple;
 
 	template<typename T>
 	struct make_array
 	{
-		T val[tuple::tuple_size<_MyTuple>::value];
+		T val[tuples::tuple_size<_MyTuple>::value];
 		make_array(const _MyTuple& t)
 		{
 			make<0>(t);
 		};
 
 		template<int I>
-		void	make(const _MyTuple& t, typename detail::enable_if<(I != tuple::tuple_size<_MyTuple>::value), void>::type*& = detail::enabler::value )
+		void	make(const _MyTuple& t, typename detail::enable_if<(I != tuples::tuple_size<_MyTuple>::value), void>::type*& = detail::enabler::value )
 		{
-			val[I] = tuple::get<I>(t);
+			val[I] = tuples::get<I>(t);
 			make<I+1>(t);
 		}
 		template<int I>
-		void	make(_MyTuple, typename detail::enable_if<(I == tuple::tuple_size<_MyTuple>::value), void>::type*& = detail::enabler::value )
+		void	make(_MyTuple, typename detail::enable_if<(I == tuples::tuple_size<_MyTuple>::value), void>::type*& = detail::enabler::value )
 		{}
 	};
 public:
@@ -1819,15 +1819,15 @@ private:
 #if IUTEST_HAS_VARIADIC_COMBINE
 
 template<typename... Args>
-class iuCartesianProductGenerator : public iuIParamGenerator< tuple::tuple<Args...> >
+class iuCartesianProductGenerator : public iuIParamGenerator< tuples::tuple<Args...> >
 {
-	typedef tuple::tuple< iuParamGenerator<Args>... > _MyTuple;
-	static const int count = tuple::tuple_size<_MyTuple>::value;
+	typedef tuples::tuple< iuParamGenerator<Args>... > _MyTuple;
+	static const int count = tuples::tuple_size<_MyTuple>::value;
 
 	template<int index, int end, typename Tuple>
 	void begin_foreach(Tuple& t, typename detail::enable_if<index != end, void>::type*& = detail::enabler::value )
 	{
-		tuple::get<index>(t).Begin();
+		tuples::get<index>(t).Begin();
 		begin_foreach<index+1, end>(t);
 	}
 	template<int index, int end, typename Tuple>
@@ -1838,7 +1838,7 @@ class iuCartesianProductGenerator : public iuIParamGenerator< tuple::tuple<Args.
 	template<int index, int end, typename Tuple>
 	bool is_end_foreach(Tuple& t, typename detail::enable_if<index != end, void>::type*& = detail::enabler::value ) const
 	{
-		bool b = tuple::get<index>(t).IsEnd();
+		bool b = tuples::get<index>(t).IsEnd();
 		return b && is_end_foreach<index+1, end>(t);
 	}
 	template<int index, int end, typename Tuple>
@@ -1853,8 +1853,8 @@ class iuCartesianProductGenerator : public iuIParamGenerator< tuple::tuple<Args.
 		next_foreach<index+1, end>(t);
 		if( is_end_foreach<index+1, end>(t) )
 		{
-			tuple::get<index>(t).Next();
-			if( !tuple::get<index>(t).IsEnd() ) begin_foreach<index+1, end>(t);
+			tuples::get<index>(t).Next();
+			if( !tuples::get<index>(t).IsEnd() ) begin_foreach<index+1, end>(t);
 		}
 	}
 	template<int index, int end, typename Tuple>
@@ -1863,19 +1863,19 @@ class iuCartesianProductGenerator : public iuIParamGenerator< tuple::tuple<Args.
 	}
 
 	template<int index, int end, typename T1, typename ...TArgs>
-	tuple::tuple<T1, TArgs...> current_foreach(typename detail::enable_if<index != end-1, void>::type*& = detail::enabler::value ) const
+	tuples::tuple<T1, TArgs...> current_foreach(typename detail::enable_if<index != end-1, void>::type*& = detail::enabler::value ) const
 	{
-		return ::std::tuple_cat( tuple::tuple<T1>(tuple::get<index>(v).GetCurrent())
+		return ::std::tuple_cat( tuples::tuple<T1>(tuples::get<index>(v).GetCurrent())
 			, current_foreach<index+1, end, TArgs...>());
 	}
 	template<int index, int end, typename T1, typename ...TArgs>
-	tuple::tuple<T1>  current_foreach(typename detail::enable_if<index == end-1, void>::type*& = detail::enabler::value ) const
+	tuples::tuple<T1>  current_foreach(typename detail::enable_if<index == end-1, void>::type*& = detail::enabler::value ) const
 	{
-		return tuple::tuple<T1>(tuple::get<index>(v).GetCurrent());
+		return tuples::tuple<T1>(tuples::get<index>(v).GetCurrent());
 	}
 
 public:
-	typedef tuple::tuple<Args...>	ParamType;
+	typedef tuples::tuple<Args...>	ParamType;
 public:
 	iuCartesianProductGenerator(void)
 	{}
@@ -1909,12 +1909,12 @@ class iuCartesianProductHolder
 {
 	typedef iuCartesianProductHolder<Generator...> _Myt;
 
-	typedef tuple::tuple<const Generator...>	_MyTuple;
+	typedef tuples::tuple<const Generator...>	_MyTuple;
 
 	template<int index, int end, typename ArgTuple, typename SrcTuple, typename DstTuple>
 	void set_foreach(SrcTuple& src, DstTuple& dst, typename detail::enable_if<index != end, void>::type*& = detail::enabler::value ) const
 	{
-		tuple::get<index>(dst) = static_cast< typename tuple::tuple_element<index, DstTuple>::type >(tuple::get<index>(src));
+		tuples::get<index>(dst) = static_cast< typename tuples::tuple_element<index, DstTuple>::type >(tuples::get<index>(src));
 		set_foreach<index+1, end, ArgTuple>(src, dst);
 	}
 	template<int index, int end, typename ArgTuple, typename SrcTuple, typename DstTuple>
@@ -1928,11 +1928,11 @@ public:
 
 public:
 	template<typename... Args>
-	operator iuIParamGenerator< tuple::tuple<Args...> >* () const 
+	operator iuIParamGenerator< tuples::tuple<Args...> >* () const 
 	{
-		typedef tuple::tuple<Args...> ArgTuple;
+		typedef tuples::tuple<Args...> ArgTuple;
 		iuCartesianProductGenerator<Args...>* p = new iuCartesianProductGenerator<Args...>();
-		set_foreach<0, tuple::tuple_size<ArgTuple>::value, ArgTuple>(v, p->generators());
+		set_foreach<0, tuples::tuple_size<ArgTuple>::value, ArgTuple>(v, p->generators());
 		return p;
 	}
 
@@ -1979,13 +1979,13 @@ protected:
 };
 
 template<typename T1, typename T2>
-class iuCartesianProductGenerator2 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>, iuParamGenerator<T2>, tuple::tuple<T1, T2> >
+class iuCartesianProductGenerator2 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>, iuParamGenerator<T2>, tuples::tuple<T1, T2> >
 {
-	typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>, iuParamGenerator<T2>, tuple::tuple<T1, T2> > _Mybase;
+	typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>, iuParamGenerator<T2>, tuples::tuple<T1, T2> > _Mybase;
 	typedef iuParamGenerator<T1> Generator1;
 	typedef iuParamGenerator<T2> Generator2;
 public:
-	typedef tuple::tuple<T1, T2>	ParamType;
+	typedef tuples::tuple<T1, T2>	ParamType;
 
 public:
 	iuCartesianProductGenerator2(const Generator1& g1, const Generator2& g2)
@@ -2002,14 +2002,14 @@ public:
 template<typename T1, typename T2, typename T3>
 class iuCartesianProductGenerator3 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
 																			, iuCartesianProductGenerator2<T2, T3>
-																			, tuple::tuple<T1, T2, T3> >
+																			, tuples::tuple<T1, T2, T3> >
 {
-	typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>, iuCartesianProductGenerator2<T2, T3>, tuple::tuple<T1, T2, T3> >	_Mybase;
+	typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>, iuCartesianProductGenerator2<T2, T3>, tuples::tuple<T1, T2, T3> >	_Mybase;
 	typedef iuParamGenerator<T1> Generator1;
 	typedef iuParamGenerator<T2> Generator2;
 	typedef iuParamGenerator<T3> Generator3;
 public:
-	typedef tuple::tuple<T1, T2, T3>	ParamType;
+	typedef tuples::tuple<T1, T2, T3>	ParamType;
 public:
 	iuCartesianProductGenerator3(const Generator1& g1, const Generator2& g2, const Generator3& g3)
 		: _Mybase(g1, iuCartesianProductGenerator2<T2, T3>(g2, g3))
@@ -2018,26 +2018,26 @@ public:
 public:
 	virtual ParamType	GetCurrent(void) const
 	{
-		tuple::tuple<T2, T3> param(this->m_g2.GetCurrent());
-		return ParamType(this->m_g1.GetCurrent(), tuple::get<0>(param), tuple::get<1>(param) );
+		tuples::tuple<T2, T3> param(this->m_g2.GetCurrent());
+		return ParamType(this->m_g1.GetCurrent(), tuples::get<0>(param), tuples::get<1>(param) );
 	}
 };
 
 template<typename T1, typename T2, typename T3, typename T4>
 class iuCartesianProductGenerator4 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
 																			, iuCartesianProductGenerator3<T2, T3, T4>
-																			, tuple::tuple<T1, T2, T3, T4> >
+																			, tuples::tuple<T1, T2, T3, T4> >
 {
 	typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>
 		, iuCartesianProductGenerator3<T2, T3, T4>
-		, tuple::tuple<T1, T2, T3, T4> >	_Mybase;
+		, tuples::tuple<T1, T2, T3, T4> >	_Mybase;
 
 	typedef iuParamGenerator<T1> Generator1;
 	typedef iuParamGenerator<T2> Generator2;
 	typedef iuParamGenerator<T3> Generator3;
 	typedef iuParamGenerator<T4> Generator4;
 public:
-	typedef tuple::tuple<T1, T2, T3, T4>	ParamType;
+	typedef tuples::tuple<T1, T2, T3, T4>	ParamType;
 public:
 	iuCartesianProductGenerator4(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4)
 		: _Mybase(g1, iuCartesianProductGenerator3<T2, T3, T4>(g2, g3, g4))
@@ -2046,19 +2046,19 @@ public:
 public:
 	virtual ParamType	GetCurrent(void) const
 	{
-		tuple::tuple<T2, T3, T4> param(this->m_g2.GetCurrent());
-		return ParamType(this->m_g1.GetCurrent(), tuple::get<0>(param), tuple::get<1>(param), tuple::get<2>(param));
+		tuples::tuple<T2, T3, T4> param(this->m_g2.GetCurrent());
+		return ParamType(this->m_g1.GetCurrent(), tuples::get<0>(param), tuples::get<1>(param), tuples::get<2>(param));
 	}
 };
 
 template<typename T1, typename T2, typename T3, typename T4, typename T5>
 class iuCartesianProductGenerator5 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
 																			, iuCartesianProductGenerator4<T2, T3, T4, T5>
-																			, tuple::tuple<T1, T2, T3, T4, T5> >
+																			, tuples::tuple<T1, T2, T3, T4, T5> >
 {
 	typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>
 		, iuCartesianProductGenerator4<T2, T3, T4, T5>
-		, tuple::tuple<T1, T2, T3, T4, T5> >	_Mybase;
+		, tuples::tuple<T1, T2, T3, T4, T5> >	_Mybase;
 
 	typedef iuParamGenerator<T1> Generator1;
 	typedef iuParamGenerator<T2> Generator2;
@@ -2066,7 +2066,7 @@ class iuCartesianProductGenerator5 : public iuICartesianProductGeneratorBase<iuP
 	typedef iuParamGenerator<T4> Generator4;
 	typedef iuParamGenerator<T5> Generator5;
 public:
-	typedef tuple::tuple<T1, T2, T3, T4, T5>	ParamType;
+	typedef tuples::tuple<T1, T2, T3, T4, T5>	ParamType;
 public:
 	iuCartesianProductGenerator5(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5)
 		: _Mybase(g1, iuCartesianProductGenerator4<T2, T3, T4, T5>(g2, g3, g4, g5))
@@ -2075,19 +2075,19 @@ public:
 public:
 	virtual ParamType	GetCurrent(void) const
 	{
-		tuple::tuple<T2, T3, T4, T5> param(this->m_g2.GetCurrent());
-		return ParamType(this->m_g1.GetCurrent(), tuple::get<0>(param), tuple::get<1>(param), tuple::get<2>(param), tuple::get<3>(param) );
+		tuples::tuple<T2, T3, T4, T5> param(this->m_g2.GetCurrent());
+		return ParamType(this->m_g1.GetCurrent(), tuples::get<0>(param), tuples::get<1>(param), tuples::get<2>(param), tuples::get<3>(param) );
 	}
 };
 
 template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
 class iuCartesianProductGenerator6 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
 																			, iuCartesianProductGenerator5<T2, T3, T4, T5, T6>
-																			, tuple::tuple<T1, T2, T3, T4, T5, T6> >
+																			, tuples::tuple<T1, T2, T3, T4, T5, T6> >
 {
 	typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>
 		, iuCartesianProductGenerator5<T2, T3, T4, T5, T6>
-		, tuple::tuple<T1, T2, T3, T4, T5, T6> >	_Mybase;
+		, tuples::tuple<T1, T2, T3, T4, T5, T6> >	_Mybase;
 
 	typedef iuParamGenerator<T1> Generator1;
 	typedef iuParamGenerator<T2> Generator2;
@@ -2096,7 +2096,7 @@ class iuCartesianProductGenerator6 : public iuICartesianProductGeneratorBase<iuP
 	typedef iuParamGenerator<T5> Generator5;
 	typedef iuParamGenerator<T6> Generator6;
 public:
-	typedef tuple::tuple<T1, T2, T3, T4, T5, T6>	ParamType;
+	typedef tuples::tuple<T1, T2, T3, T4, T5, T6>	ParamType;
 public:
 	iuCartesianProductGenerator6(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
 		, const Generator6& g6)
@@ -2106,19 +2106,19 @@ public:
 public:
 	virtual ParamType	GetCurrent(void) const
 	{
-		tuple::tuple<T2, T3, T4, T5, T6> param(this->m_g2.GetCurrent());
-		return ParamType(this->m_g1.GetCurrent(), tuple::get<0>(param), tuple::get<1>(param), tuple::get<2>(param), tuple::get<3>(param), tuple::get<4>(param) );
+		tuples::tuple<T2, T3, T4, T5, T6> param(this->m_g2.GetCurrent());
+		return ParamType(this->m_g1.GetCurrent(), tuples::get<0>(param), tuples::get<1>(param), tuples::get<2>(param), tuples::get<3>(param), tuples::get<4>(param) );
 	}
 };
 
 template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
 class iuCartesianProductGenerator7 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
 																			, iuCartesianProductGenerator6<T2, T3, T4, T5, T6, T7>
-																			, tuple::tuple<T1, T2, T3, T4, T5, T6, T7> >
+																			, tuples::tuple<T1, T2, T3, T4, T5, T6, T7> >
 {
 	typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>
 		, iuCartesianProductGenerator6<T2, T3, T4, T5, T6, T7>
-		, tuple::tuple<T1, T2, T3, T4, T5, T6, T7> >	_Mybase;
+		, tuples::tuple<T1, T2, T3, T4, T5, T6, T7> >	_Mybase;
 
 	typedef iuParamGenerator<T1> Generator1;
 	typedef iuParamGenerator<T2> Generator2;
@@ -2128,7 +2128,7 @@ class iuCartesianProductGenerator7 : public iuICartesianProductGeneratorBase<iuP
 	typedef iuParamGenerator<T6> Generator6;
 	typedef iuParamGenerator<T7> Generator7;
 public:
-	typedef tuple::tuple<T1, T2, T3, T4, T5, T6, T7>	ParamType;
+	typedef tuples::tuple<T1, T2, T3, T4, T5, T6, T7>	ParamType;
 public:
 	iuCartesianProductGenerator7(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
 		, const Generator6& g6, const Generator7& g7)
@@ -2138,20 +2138,20 @@ public:
 public:
 	virtual ParamType	GetCurrent(void) const
 	{
-		tuple::tuple<T2, T3, T4, T5, T6, T7> param(this->m_g2.GetCurrent());
-		return ParamType(this->m_g1.GetCurrent(), tuple::get<0>(param), tuple::get<1>(param), tuple::get<2>(param), tuple::get<3>(param), tuple::get<4>(param)
-			, tuple::get<5>(param) );
+		tuples::tuple<T2, T3, T4, T5, T6, T7> param(this->m_g2.GetCurrent());
+		return ParamType(this->m_g1.GetCurrent(), tuples::get<0>(param), tuples::get<1>(param), tuples::get<2>(param), tuples::get<3>(param), tuples::get<4>(param)
+			, tuples::get<5>(param) );
 	}
 };
 
 template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
 class iuCartesianProductGenerator8 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
 																			, iuCartesianProductGenerator7<T2, T3, T4, T5, T6, T7, T8>
-																			, tuple::tuple<T1, T2, T3, T4, T5, T6, T7, T8> >
+																			, tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8> >
 {
 	typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>
 		, iuCartesianProductGenerator7<T2, T3, T4, T5, T6, T7, T8>
-		, tuple::tuple<T1, T2, T3, T4, T5, T6, T7, T8> >	_Mybase;
+		, tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8> >	_Mybase;
 
 	typedef iuParamGenerator<T1> Generator1;
 	typedef iuParamGenerator<T2> Generator2;
@@ -2162,7 +2162,7 @@ class iuCartesianProductGenerator8 : public iuICartesianProductGeneratorBase<iuP
 	typedef iuParamGenerator<T7> Generator7;
 	typedef iuParamGenerator<T8> Generator8;
 public:
-	typedef tuple::tuple<T1, T2, T3, T4, T5, T6, T7, T8>	ParamType;
+	typedef tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8>	ParamType;
 public:
 	iuCartesianProductGenerator8(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
 		, const Generator6& g6, const Generator7& g7, const Generator8& g8)
@@ -2172,20 +2172,20 @@ public:
 public:
 	virtual ParamType	GetCurrent(void) const
 	{
-		tuple::tuple<T2, T3, T4, T5, T6, T7, T8> param(this->m_g2.GetCurrent());
-		return ParamType(this->m_g1.GetCurrent(), tuple::get<0>(param), tuple::get<1>(param), tuple::get<2>(param), tuple::get<3>(param), tuple::get<4>(param)
-			, tuple::get<5>(param), tuple::get<6>(param) );
+		tuples::tuple<T2, T3, T4, T5, T6, T7, T8> param(this->m_g2.GetCurrent());
+		return ParamType(this->m_g1.GetCurrent(), tuples::get<0>(param), tuples::get<1>(param), tuples::get<2>(param), tuples::get<3>(param), tuples::get<4>(param)
+			, tuples::get<5>(param), tuples::get<6>(param) );
 	}
 };
 
 template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
 class iuCartesianProductGenerator9 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
 																			, iuCartesianProductGenerator8<T2, T3, T4, T5, T6, T7, T8, T9>
-																			, tuple::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9> >
+																			, tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9> >
 {
 	typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>
 		, iuCartesianProductGenerator8<T2, T3, T4, T5, T6, T7, T8, T9>
-		, tuple::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9> >	_Mybase;
+		, tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9> >	_Mybase;
 
 	typedef iuParamGenerator<T1> Generator1;
 	typedef iuParamGenerator<T2> Generator2;
@@ -2197,7 +2197,7 @@ class iuCartesianProductGenerator9 : public iuICartesianProductGeneratorBase<iuP
 	typedef iuParamGenerator<T8> Generator8;
 	typedef iuParamGenerator<T9> Generator9;
 public:
-	typedef tuple::tuple<T1, T2, T3, T4, T5, T6, T7, T9, T8>	ParamType;
+	typedef tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T9, T8>	ParamType;
 public:
 	iuCartesianProductGenerator9(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
 		, const Generator6& g6, const Generator7& g7, const Generator8& g8, const Generator9& g9)
@@ -2207,9 +2207,9 @@ public:
 public:
 	virtual ParamType	GetCurrent(void) const
 	{
-		tuple::tuple<T2, T3, T4, T5, T6, T7, T8, T9> param(this->m_g2.GetCurrent());
-		return ParamType(this->m_g1.GetCurrent(), tuple::get<0>(param), tuple::get<1>(param), tuple::get<2>(param), tuple::get<3>(param), tuple::get<4>(param)
-			, tuple::get<5>(param), tuple::get<6>(param), tuple::get<7>(param) );
+		tuples::tuple<T2, T3, T4, T5, T6, T7, T8, T9> param(this->m_g2.GetCurrent());
+		return ParamType(this->m_g1.GetCurrent(), tuples::get<0>(param), tuples::get<1>(param), tuples::get<2>(param), tuples::get<3>(param), tuples::get<4>(param)
+			, tuples::get<5>(param), tuples::get<6>(param), tuples::get<7>(param) );
 	}
 };
 
@@ -2225,7 +2225,7 @@ public:
 
 public:
 	template<typename T1, typename T2>
-	operator iuIParamGenerator< tuple::tuple<T1, T2> >* () const 
+	operator iuIParamGenerator< tuples::tuple<T1, T2> >* () const 
 	{
 		return new iuCartesianProductGenerator2<T1, T2>(
 			static_cast< iuIParamGenerator<T1>* >(m_g1)
@@ -2250,7 +2250,7 @@ public:
 
 public:
 	template<typename T1, typename T2, typename T3>
-	operator iuIParamGenerator< tuple::tuple<T1, T2, T3> >* () const 
+	operator iuIParamGenerator< tuples::tuple<T1, T2, T3> >* () const 
 	{
 		return new iuCartesianProductGenerator3<T1, T2, T3>(
 			static_cast< iuIParamGenerator<T1>* >(m_g1)
@@ -2277,7 +2277,7 @@ public:
 
 public:
 	template<typename T1, typename T2, typename T3, typename T4>
-	operator iuIParamGenerator< tuple::tuple<T1, T2, T3, T4> >* () const 
+	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4> >* () const 
 	{
 		return new iuCartesianProductGenerator4<T1, T2, T3, T4>(
 			static_cast< iuIParamGenerator<T1>* >(m_g1)
@@ -2306,7 +2306,7 @@ public:
 
 public:
 	template<typename T1, typename T2, typename T3, typename T4, typename T5>
-	operator iuIParamGenerator< tuple::tuple<T1, T2, T3, T4, T5> >* () const 
+	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5> >* () const 
 	{
 		return new iuCartesianProductGenerator5<T1, T2, T3, T4, T5>(
 			static_cast< iuIParamGenerator<T1>* >(m_g1)
@@ -2339,7 +2339,7 @@ public:
 
 public:
 	template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-	operator iuIParamGenerator< tuple::tuple<T1, T2, T3, T4, T5, T6> >* () const 
+	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5, T6> >* () const 
 	{
 		return new iuCartesianProductGenerator6<T1, T2, T3, T4, T5, T6>(
 			static_cast< iuIParamGenerator<T1>* >(m_g1)
@@ -2374,7 +2374,7 @@ public:
 
 public:
 	template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-	operator iuIParamGenerator< tuple::tuple<T1, T2, T3, T4, T5, T6, T7> >* () const 
+	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5, T6, T7> >* () const 
 	{
 		return new iuCartesianProductGenerator7<T1, T2, T3, T4, T5, T6, T7>(
 			static_cast< iuIParamGenerator<T1>* >(m_g1)
@@ -2411,7 +2411,7 @@ public:
 
 public:
 	template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-	operator iuIParamGenerator< tuple::tuple<T1, T2, T3, T4, T5, T6, T7, T8> >* () const 
+	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8> >* () const 
 	{
 		return new iuCartesianProductGenerator8<T1, T2, T3, T4, T5, T6, T7, T8>(
 			static_cast< iuIParamGenerator<T1>* >(m_g1)
@@ -2450,7 +2450,7 @@ public:
 
 public:
 	template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
-	operator iuIParamGenerator< tuple::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9> >* () const 
+	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9> >* () const 
 	{
 		return new iuCartesianProductGenerator9<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
 			static_cast< iuIParamGenerator<T1>* >(m_g1)

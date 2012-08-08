@@ -127,27 +127,9 @@ private:
 	// テストの作成登録
 	virtual	void	RegisterTest(TestCase* testcase, ParamType param, int index)
 	{
-		EachTest* test = new EachTest(testcase, MakeTestName(index).c_str(), param);
+		EachTest* test = new EachTest(testcase, detail::MakeIndexTestName(this->m_name.c_str(), index).c_str(), param);
 		// new オブジェクトを管理してもらう
 		detail::iuPool<EachTest>::GetInstance().push(test);
-	}
-private:
-	// テスト名の作成
-	::std::string MakeTestName(int index)
-	{
-		::std::string pname = this->m_name;
-		pname += "/";
-		detail::iuStringStream::type strm;
-		strm << index;
-		pname += strm.str().c_str();
-		return pname;
-	}
-	::std::string MakeTestNameByParam(ParamType param)
-	{
-		::std::string pname = this->m_name;
-		pname += "/";
-		pname += PrintToString(param);
-		return pname;
 	}
 };
 
@@ -192,7 +174,7 @@ inline detail::iuIParamGenerator< typename detail::IteratorTraits<Ite>::type >* 
 	return new detail::iuValueInParamsGenerator< typename detail::IteratorTraits<Ite>::type >(begin, end);
 }
 
-#if IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_STD_TUPLE
+#if IUTEST_HAS_VARIADIC_VALUES
 /**
  * @brief	値配列パラメータ
 */

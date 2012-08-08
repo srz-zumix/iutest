@@ -102,8 +102,8 @@ inline void SetUpCppUnitTest(void)
 	static VCCppUnitTestPartResultReporter fake;
 }
 
-}
-}
+}	// end of namespace VisualStudio
+}	// end of namespace iuutil
 
 
 #endif

@@ -165,20 +165,6 @@ template<template <typename T> class Tester, typename TypeParams>
 class TypeParamTestInstance
 {
 	/**
-	 * @brief	テストケース名の作成
-	 * @param [in]	testcase	= ベース名
-	 * @param [in]	index		= 型インデックス
-	*/
-	static ::std::string MakeTestCaseName(const char* testcase, int index)
-	{
-		::std::string name = testcase;
-		detail::iuStringStream::type strm; strm << index;
-		name += "/";
-		name += strm.str();
-		return name;
-	}
-
-	/**
 	 * @brief	各テストのインスタンス
 	*/
 	template<typename TT, typename DMY=void>
@@ -191,7 +177,7 @@ class TypeParamTestInstance
 		// コンストラクタ
 		EachTest(const char* testcase, const char* name, int index)
 			: m_mediator(UnitTest::instance().AddTestCase<_MyTestCase>(
-				MakeTestCaseName(testcase, index).c_str()
+				detail::MakeIndexTestName(testcase, index).c_str()
 				, internal::GetTypeId<detail::None>()	// TypeId を統一するためダミー引数を渡す
 				, TestBody::SetUpTestCase
 				, TestBody::TearDownTestCase))
@@ -234,6 +220,8 @@ public:
 
 private:
 	EachTest<TypeParams>	m_tests;
+
+	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeParamTestInstance);
 };
 
 #endif
@@ -300,6 +288,8 @@ private:
 #if IUTEST_TYPED_TEST_P_STRICT
 	::std::set<const char*>	m_list;
 #endif
+
+	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypedTestCasePState);
 };
 
 /**
@@ -374,30 +364,13 @@ public:
 		typedef typename Tests::Head	Head;
 		typedef Fixture<Head>			FixtureClass;
 		typedef TypedTestCase<TypeParam>	_MyTestCase;
-		TestCase* testcase = UnitTest::instance().AddTestCase<_MyTestCase>(MakeTestCaseName(prefix, testcase_name, index).c_str()
+		TestCase* testcase = UnitTest::instance().AddTestCase<_MyTestCase>(detail::MakeIndexTestName(prefix, testcase_name, index).c_str()
 			, internal::GetTypeId<FixtureClass>()
 			, FixtureClass::SetUpTestCase, FixtureClass::TearDownTestCase);
 
 		EachTest<TypeParam, Tests>::Register(testcase, names);
 
 		return TypeParameterizedTestCase<Fixture, Tests, typename Types::Tail>::Register(prefix, testcase_name, names, index+1);
-	}
-private:
-	// テスト名の作成
-	static ::std::string MakeTestCaseName(const char* prefix, const char* name, int index)
-	{
-		::std::string pname;
-		if( *prefix != '\0' )
-		{
-			pname += prefix;
-			pname += "/";
-		}
-		pname += name;
-		pname += "/";
-		detail::iuStringStream::type strm;
-		strm << index;
-		pname += strm.str().c_str();
-		return pname;
 	}
 };
 

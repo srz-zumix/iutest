@@ -33,5 +33,5 @@ int main(int argc, char* argv[])
 {
 	(void)argc;
 	(void)argv;
-	return IUTEST_RUN_ALL_TESTS();	// run all
+	return IUTEST_RUN_ALL_TESTS() != 0 ? 0 : 1;	// run all
 }

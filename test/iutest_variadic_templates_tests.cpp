@@ -20,8 +20,7 @@
 #include "../include/iutest.hpp"
 
 
-#if IUTEST_HAS_PARAM_TEST
-#if IUTEST_HAS_VARIADIC_TEMPLATES
+#if IUTEST_HAS_VARIADIC_VALUES
 
 class TestPValuesN : public ::iutest::TestWithParam<int>
 {
@@ -60,6 +59,5 @@ IUTEST(PredTest, Variadic)
 	IUTEST_INFORM_PRED(pred_test, 0, 0, 0, 0, 0, 0);
 }
 
-#endif
 #endif
 

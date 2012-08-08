@@ -161,6 +161,7 @@ private:
 			|| IsStringEqual(env, "xterm-color")
 			|| IsStringEqual(env, "xterm-256color")
 			|| IsStringEqual(env, "screen")
+			|| IsStringEqual(env, "screen-256color")
 			|| IsStringEqual(env, "linux")
 			|| IsStringEqual(env, "cygwin")
 			);

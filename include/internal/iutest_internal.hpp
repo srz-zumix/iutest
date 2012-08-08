@@ -58,9 +58,8 @@
 	class IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {			\
 		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_));	\
 		public:	IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
-		static ::std::string MakeTestName(void) { ::iutest::detail::iuStringStream::type strm; strm << #testname_	\
-		<< "/" << ::iutest::detail::TypeUniqueCounter<IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>::count();		\
-			return strm.str(); }																\
+		static ::std::string MakeTestName(void) { return ::iutest::detail::MakeIndexTestName(#testname_		\
+		, ::iutest::detail::GetTypeUniqueCounter<IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>()); }		\
 		protected: virtual void Body(void) { method_(__VA_ARGS__); }							\
 	};																							\
 	::iutest::detail::TestInstance<IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)>			\

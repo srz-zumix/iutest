@@ -246,12 +246,12 @@ inline void PrintTupleElemTo(const T& t, ::std::ostream* os, typename detail::en
 template<typename T, int I, int SIZE>
 inline void PrintTupleElemTo(const T& t, ::std::ostream* os, typename detail::enable_if<I == 1, void>::type*& = detail::enabler::value)
 {
-	PrintTo(tuple::get<SIZE-I>(t), os);
+	PrintTo(tuples::get<SIZE-I>(t), os);
 }
 template<typename T, int I, int SIZE>
 inline void PrintTupleElemTo(const T& t, ::std::ostream* os, typename detail::enable_if<(I&(~1)) != 0, void>::type*& = detail::enabler::value)
 {
-	PrintTo(tuple::get<SIZE-I>(t), os);
+	PrintTo(tuples::get<SIZE-I>(t), os);
 	*os << ", ";
 	PrintTupleElemTo<T, I-1, SIZE>(t, os);
 }
@@ -260,39 +260,39 @@ template<typename T>
 inline void PrintTupleTo(const T& t, ::std::ostream* os)
 {
 	*os << "(";
-	PrintTupleElemTo<T, tuple::tuple_size<T>::value, tuple::tuple_size<T>::value>(t, os);
+	PrintTupleElemTo<T, tuples::tuple_size<T>::value, tuples::tuple_size<T>::value>(t, os);
 	*os << ")";
 }
 
-#if IUTEST_HAS_VARIADIC_TEMPLATES
+#if IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
 
 template<typename ...Args>
-inline void PrintTo(const tuple::tuple<Args...>& t, ::std::ostream* os)
+inline void PrintTo(const tuples::tuple<Args...>& t, ::std::ostream* os)
 {
 	PrintTupleTo(t, os);
 }
 
 #else
 
-inline void PrintTo(const tuple::tuple<>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
+inline void PrintTo(const tuples::tuple<>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
 template<typename A1>
-inline void PrintTo(const tuple::tuple<A1>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
+inline void PrintTo(const tuples::tuple<A1>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
 template<typename A1, typename A2>
-inline void PrintTo(const tuple::tuple<A1, A2>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
+inline void PrintTo(const tuples::tuple<A1, A2>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
 template<typename A1, typename A2, typename A3>
-inline void PrintTo(const tuple::tuple<A1, A2, A3>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
+inline void PrintTo(const tuples::tuple<A1, A2, A3>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
 template<typename A1, typename A2, typename A3, typename A4>
-inline void PrintTo(const tuple::tuple<A1, A2, A3, A4>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
+inline void PrintTo(const tuples::tuple<A1, A2, A3, A4>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
 template<typename A1, typename A2, typename A3, typename A4, typename A5>
-inline void PrintTo(const tuple::tuple<A1, A2, A3, A4, A5>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
+inline void PrintTo(const tuples::tuple<A1, A2, A3, A4, A5>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
 template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
-inline void PrintTo(const tuple::tuple<A1, A2, A3, A4, A5, A6>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
+inline void PrintTo(const tuples::tuple<A1, A2, A3, A4, A5, A6>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
 template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
-inline void PrintTo(const tuple::tuple<A1, A2, A3, A4, A5, A6, A7>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
+inline void PrintTo(const tuples::tuple<A1, A2, A3, A4, A5, A6, A7>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
 template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
-inline void PrintTo(const tuple::tuple<A1, A2, A3, A4, A5, A6, A7, A8>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
+inline void PrintTo(const tuples::tuple<A1, A2, A3, A4, A5, A6, A7, A8>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
 template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-inline void PrintTo(const tuple::tuple<A1, A2, A3, A4, A5, A6, A7, A8, A9>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
+inline void PrintTo(const tuples::tuple<A1, A2, A3, A4, A5, A6, A7, A8, A9>& t, ::std::ostream* os) { PrintTupleTo(t, os); }
 
 #endif
 

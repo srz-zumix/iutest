@@ -125,7 +125,7 @@ IUTEST(PrintToTest, Overload)
 #if IUTEST_HAS_TUPLE
 IUTEST(PrintToTest, Tuple)
 {
-	::iutest::tuple::tuple<bool, int, char> t(false, 100, 'a');
+	::iutest::tuples::tuple<bool, int, char> t(false, 100, 'a');
 	
 	IUTEST_SUCCEED() << ::iutest::PrintToString(t);
 }

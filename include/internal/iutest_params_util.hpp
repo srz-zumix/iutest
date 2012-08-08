@@ -175,6 +175,9 @@ public:
 		return p;
 	}
 
+public:
+	size_t	count(void)	const { return m_testcase_infos.size(); }
+
 private:
 	struct RegisterTestsFunctor
 	{

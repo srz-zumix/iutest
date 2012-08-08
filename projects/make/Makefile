@@ -20,6 +20,17 @@ CPPFLAGS += -I$(IUTEST_DIR)/include
 CXXFLAGS += -g -Wall -Wextra
 #CXXFLAGS += -DSHOW_FAILURE
 
+ifeq ($(CXX),clang++)
+
+#
+# clang version
+#
+#
+
+#CXXFLAGS += -std=c++0x
+
+else
+
 #
 # GCC version
 #
@@ -41,6 +52,8 @@ else
 # 4.4 later
 #CXXFLAGS += -std=c++0x
 #endif
+endif
+
 endif
 
 CXXFLAGS += $(DEFS)

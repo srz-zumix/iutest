@@ -1,8 +1,8 @@
 //======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_no_test_tests.cpp
- * @brief		テストが無いときの結果 対応テスト
+ * @file		iutest_combine_tests.cpp
+ * @brief		Combine 対応テスト
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -23,10 +23,10 @@
 
 static const int tble[] = {0, 1};
 
-class CombineTest : public ::iutest::TestWithParam< ::iutest::tuple::tuple<bool, int, int> >
+class CombineTest : public ::iutest::TestWithParam< ::iutest::tuples::tuple<bool, int, int> >
 {
 public:
-	typedef ::iutest::tuple::tuple<bool, int, int> Tuple;
+	typedef ::iutest::tuples::tuple<bool, int, int> Tuple;
 	static const int TABLE_SIZE = sizeof(tble)/sizeof(tble[0]);
 
 	static int index;
@@ -60,9 +60,9 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, CombineTest
 namespace variadic_combine_test
 {
 
-typedef ::iutest::tuple::tuple<int, int, int, int, int, int, int, int, int, int> VariadicCombineTestTuple;
+typedef ::iutest::tuples::tuple<int, int, int, int, int, int, int, int, int, int> VariadicCombineTestTuple;
 
-static const int TUPLE_SIZE = ::iutest::tuple::tuple_size< VariadicCombineTestTuple >::value;
+static const int TUPLE_SIZE = ::iutest::tuples::tuple_size< VariadicCombineTestTuple >::value;
 static const int test_table[] = { 0, 1 };
 static const int TABLE_SIZE = sizeof(test_table)/sizeof(test_table[0]);
 
@@ -75,7 +75,7 @@ public:
 	
 	static VariadicCombineTestTuple count_to_tuple(int c)
 	{
-		return ::iutest::tuple::make_tuple(
+		return ::iutest::tuples::make_tuple(
 			(c>>(TUPLE_SIZE-1))&1
 			, (c>>(TUPLE_SIZE-2))&1
 			, (c>>(TUPLE_SIZE-3))&1

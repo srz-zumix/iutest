@@ -62,29 +62,6 @@ public:
 	virtual	~TestCase(void) {}
 
 public:
-	/**
-	 * @brief	テストの実行
-	 * @return	成否
-	*/
-	bool	Run(void)
-	{
-		if( !should_run() ) return true;
-
-		if( TestFlag::IsEnableFlag(TestFlag::SHUFFLE_TESTS) )
-		{
-			m_testinfos.shuffle(TestEnv::genrand());
-		}
-
-		// テスト開始
-		TestEnv::event_listeners().OnTestCaseStart(*this);
-		bool result = RunImpl();
-		// テスト終了
-		TestEnv::event_listeners().OnTestCaseEnd(*this);
-
-		return result;
-	}
-
-public:
 	/** test case 名の取得 */
 	const	char*	name(void)					const	{ return m_testcase_name.c_str(); }
 
@@ -129,6 +106,28 @@ public:
 	}
 
 private:
+	/**
+	 * @brief	テストの実行
+	 * @return	成否
+	*/
+	bool	Run(void)
+	{
+		if( !should_run() ) return true;
+
+		if( TestFlag::IsEnableFlag(TestFlag::SHUFFLE_TESTS) )
+		{
+			m_testinfos.shuffle(TestEnv::genrand());
+		}
+
+		// テスト開始
+		TestEnv::event_listeners().OnTestCaseStart(*this);
+		bool result = RunImpl();
+		// テスト終了
+		TestEnv::event_listeners().OnTestCaseEnd(*this);
+
+		return result;
+	}
+
 	/**
 	 * @brief	実行
 	 * @return	成否

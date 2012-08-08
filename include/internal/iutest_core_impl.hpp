@@ -35,7 +35,7 @@ protected:
 	typedef ::std::vector<Environment*>	iuEnvironmentList;
 protected:
 	UnitTestImpl(void) : m_total_test_num(0), m_disable_num(0), m_should_run_num(0)
-		, m_elapsedmsec(0) 
+		, m_elapsedmsec(0)
 	{
 		ptr() = this;
 	}
@@ -139,6 +139,17 @@ private:
 #endif
 
 #endif
+
+#if defined(_MSC_VER) && _MSC_VER >= 1400 && !defined(IUTEST_OS_WINDOWS_MOBILE)
+		if( !TestFlag::IsEnableFlag(TestFlag::BREAK_ON_FAILURE) )
+		{
+			_set_abort_behavior(0, _WRITE_ABORT_MSG | _CALL_REPORTFAULT);
+		}
+#endif
+
+#if (IUTEST_HAS_EXCEPTIONS && defined(_MSC_VER))  && !defined(IUTEST_OS_WINDOWS_MOBILE)
+		_set_invalid_parameter_handler(OnInvalidParameter);
+#endif
 	}
 	/**
 	 * @brief	後片付け
@@ -152,6 +163,28 @@ private:
 			delete p;
 		}
 	}
+
+private:
+#if (IUTEST_HAS_EXCEPTIONS && defined(_MSC_VER)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+	// _invalid_parameter_handler
+	static void OnInvalidParameter(const wchar_t * expression, const wchar_t * function
+		, const wchar_t * file, unsigned int line, uintptr_t pReserved)
+	{
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+		IUTEST_UNUSED_VAR(file);
+		IUTEST_UNUSED_VAR(line);
+		IUTEST_UNUSED_VAR(pReserved);
+		char func[260];
+		wcstombs(func, function, 260);
+		char expr[260];
+		wcstombs(expr, expression, 260);
+		std::string msg = func;
+		msg += expr;
+		throw std::invalid_argument(msg);
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+	}
+#endif
+
 private:
 	static UnitTestImpl*& ptr(void)
 	{
@@ -168,6 +201,39 @@ protected:
 	iuTestCases		m_testcases;		//!< テストケースリスト
 	TestResult		m_ad_hoc_testresult;	//!< テストが実行中でないときのリザルト
 };
+
+namespace detail
+{
+
+/**
+ * @brief	テスト名の作成
+ * @param [in]	basename	= ベース名
+ * @param [in]	index		= インデックス
+*/
+inline ::std::string MakeIndexTestName(const char* basename, int index)
+{
+	::std::string name = basename;
+	iuStringStream::type strm; strm << index;
+	name += "/";
+	name += strm.str();
+	return name;
+}
+
+/**
+ * @brief	テスト名の作成
+ * @param [in]	prefix		= prefix
+ * @param [in]	basename	= ベース名
+ * @param [in]	index		= インデックス
+*/
+inline ::std::string MakeIndexTestName(const char* prefix, const char* basename, int index)
+{
+	::std::string name = prefix;
+	if( !name.empty() ) name += "/";
+	name += MakeIndexTestName(basename, index);
+	return name;
+}
+
+}
 
 }	// end of namespace iutest
 

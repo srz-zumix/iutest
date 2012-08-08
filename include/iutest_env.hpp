@@ -88,6 +88,8 @@ public:
 	*/
 	class ScopedGuard
 	{
+		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(ScopedGuard);
+
 		int m_test_flags;
 	public:
 		ScopedGuard(void) 
@@ -454,11 +456,11 @@ private:
 				if( iuoption )
 				{
 					// --iutest_*
-					if( strstr(str, "output") != NULL )
+					if( strstr(str, "output") == str )
 					{
 						find = ParseOutputOption(ParseOptionSettingStr(str));
 					}
-					else if( strcmp(str, "list_tests") == 0 )
+					else if( detail::IsStringEqual(str, "list_tests") )
 					{
 						TestFlag::SetFlag(TestFlag::SHOW_TESTS_LIST);
 					}
@@ -466,7 +468,7 @@ private:
 					{
 						find = ParseColorOption(ParseOptionSettingStr(str));
 					}
-					else if( strcmp(str, "shuffle") == 0 )
+					else if( detail::IsStringEqual(str, "shuffle") )
 					{
 						TestFlag::SetFlag(TestFlag::SHUFFLE_TESTS);
 					}
@@ -484,7 +486,7 @@ private:
 							find = false;
 						}
 					}
-					else if( strcmp(str, "also_run_disabled_tests") == 0 )
+					else if( detail::IsStringEqual(str, "also_run_disabled_tests") )
 					{
 						TestFlag::SetFlag(TestFlag::RUN_DISABLED_TESTS);
 					}
@@ -536,15 +538,15 @@ private:
 						TestFlag::SetFlag(TestFlag::SHOW_HELP);
 					}
 				}
-				else if( strcmp(str, "help") == 0 )
+				else if( detail::IsStringEqual(str, "help") )
 				{
 					TestFlag::SetFlag(TestFlag::SHOW_HELP);
 				}
-				else if( strcmp(str, "version") == 0 )
+				else if( detail::IsStringEqual(str, "version") )
 				{
 					TestFlag::SetFlag(TestFlag::SHOW_VERSION);
 				}
-				else if( strcmp(str, "feature") == 0 )
+				else if( detail::IsStringEqual(str, "feature") )
 				{
 					TestFlag::SetFlag(TestFlag::SHOW_FEATURE);
 				}
