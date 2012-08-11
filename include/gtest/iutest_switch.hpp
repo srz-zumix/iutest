@@ -455,6 +455,7 @@ namespace tr1
 #undef IUTEST_ASSERT_STRCASEEQ
 #undef IUTEST_ASSERT_STRCASENE
 #undef IUTEST_ASSERT_THROW
+#undef IUTEST_ASSERT_THROW_VALUE
 #undef IUTEST_ASSERT_NO_THROW
 #undef IUTEST_ASSERT_ANY_THROW
 #undef IUTEST_ASSERT_NO_FATAL_FAILURE
@@ -489,6 +490,7 @@ namespace tr1
 #undef IUTEST_EXPECT_STRCASEEQ
 #undef IUTEST_EXPECT_STRCASENE
 #undef IUTEST_EXPECT_THROW
+#undef IUTEST_EXPECT_THROW_VALUE
 #undef IUTEST_EXPECT_NO_THROW
 #undef IUTEST_EXPECT_ANY_THROW
 #undef IUTEST_EXPECT_NO_FATAL_FAILURE
@@ -523,6 +525,7 @@ namespace tr1
 #undef IUTEST_INFORM_STRCASEEQ
 #undef IUTEST_INFORM_STRCASENE
 #undef IUTEST_INFORM_THROW
+#undef IUTEST_INFORM_THROW_VALUE
 #undef IUTEST_INFORM_NO_THROW
 #undef IUTEST_INFORM_ANY_THROW
 #undef IUTEST_INFORM_NO_FATAL_FAILURE
@@ -544,6 +547,10 @@ namespace tr1
 #undef IUTEST_ADD_FAILURE_AT
 #undef IUTEST_EXPECT_FAIL_AT
 #undef IUTEST_SCOPED_TRACE
+
+#undef IUTEST_ASSERT_FAILURE
+#undef IUTEST_EXPECT_FAILURE
+#undef IUTEST_INFORM_FAILURE
 
 #undef IUTEST_PRED_FORMAT1_
 #undef IUTEST_PRED_FORMAT2_
@@ -629,6 +636,8 @@ namespace tr1
 #undef IUTEST_TEST_CLASS_NAME_
 #undef IUTEST_TEST_
 
+#undef IUTEST_PP_CAT
+
 #endif
 
 // INFORM ëŒâûÇÃÇΩÇﬂÇ…ÅAèâä˙âªä÷êîÇåƒÇ‘
@@ -668,6 +677,7 @@ namespace tr1
 #define IUTEST_ASSERT_STRCASEEQ	ASSERT_STRCASEEQ
 #define IUTEST_ASSERT_STRCASENE	ASSERT_STRCASENE
 #define IUTEST_ASSERT_THROW(statement, expected_exception)		ASSERT_THROW((void)statement, expected_exception)
+#define IUTEST_ASSERT_THROW_VALUE(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_value, IUTEST_ASSERT_FAILURE)
 #define IUTEST_ASSERT_NO_THROW(statement)						ASSERT_NO_THROW((void)statement)
 #define IUTEST_ASSERT_ANY_THROW(statement)						ASSERT_ANY_THROW((void)statement)
 #define IUTEST_ASSERT_NO_FATAL_FAILURE		ASSERT_NO_FATAL_FAILURE
@@ -709,6 +719,7 @@ namespace tr1
 #define IUTEST_EXPECT_STRCASEEQ	EXPECT_STRCASEEQ
 #define IUTEST_EXPECT_STRCASENE	EXPECT_STRCASENE
 #define IUTEST_EXPECT_THROW(statement, expected_exception)	EXPECT_THROW((void)statement, expected_exception)
+#define IUTEST_EXPECT_THROW_VALUE(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_value, IUTEST_EXPECT_FAILURE)
 #define IUTEST_EXPECT_NO_THROW(statement)					EXPECT_NO_THROW((void)statement)
 #define IUTEST_EXPECT_ANY_THROW(statement)					EXPECT_ANY_THROW((void)statement)
 #define IUTEST_EXPECT_NO_FATAL_FAILURE		EXPECT_NO_FATAL_FAILURE
@@ -827,6 +838,7 @@ namespace tr1
 #define IUTEST_INFORM_STRCASEEQ	INFORM_STRCASEEQ
 #define IUTEST_INFORM_STRCASENE	INFORM_STRCASENE
 #define IUTEST_INFORM_THROW(statement, expected_exception)	INFORM_THROW((void)statement, expected_exception)
+#define IUTEST_INFORM_THROW_VALUE(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
 #define IUTEST_INFORM_NO_THROW(statement)					INFORM_NO_THROW((void)statement)
 #define IUTEST_INFORM_ANY_THROW(statement)					INFORM_ANY_THROW((void)statement)
 #define IUTEST_INFORM_NO_FATAL_FAILURE		INFORM_NO_FATAL_FAILURE
@@ -870,6 +882,10 @@ namespace tr1
 #define IUTEST_EXPECT_FAIL_AT	ADD_FAILURE_AT
 
 #define IUTEST_SCOPED_TRACE		SCOPED_TRACE
+
+#define IUTEST_ASSERT_FAILURE	GTEST_FATAL_FAILURE_
+#define IUTEST_EXPECT_FAILURE	GTEST_NONFATAL_FAILURE_
+#define IUTEST_INFORM_FAILURE	GTEST_INFORM_FAILURE_
 
 #define IUTEST_FLAG				GTEST_FLAG
 
@@ -933,6 +949,34 @@ namespace tr1
 #define IUTEST_INIT				testing::InitIrisUnitTest
 
 #define IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING	GTEST_SUPPRESS_UNREACHABLE_CODE_WARNING_BELOW_
+
+#ifndef IUTEST_TEST_THROW_VALUE_
+#define IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure)	\
+	IUTEST_AMBIGUOUS_ELSE_BLOCKER_													\
+	if( const char* msg = "" ) {													\
+		try {																		\
+			IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING((void)statement);				\
+			msg = "\nExpected: " #statement " throws an exception of type "			\
+				  #expected_exception ".\n  Actual: it throws nothing.";			\
+			goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);					\
+		} catch( expected_exception const& e) {										\
+			if( e == expected_exception_value ) {									\
+			} else {																\
+			msg = "\nExpected: " #statement " throws an exception of value "		\
+			#expected_exception_value ".\n  Actual: it throws a different value.";	\
+				goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);				\
+			}																		\
+		} catch( ... ) {															\
+			msg = "\nExpected: " #statement " throws an exception of type "			\
+	          #expected_exception ".\n  Actual: it throws a different type.";		\
+			goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);					\
+		}																			\
+	} else																			\
+		IUTEST_PP_CAT(iutest_label_throw_value, __LINE__):							\
+		on_failure(msg)
+#endif
+
+#define IUTEST_PP_CAT	GTEST_CONCAT_TOKEN_
 
 namespace testing
 {

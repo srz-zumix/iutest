@@ -229,6 +229,10 @@ IUTEST(AssertionTest, Exception)
 	IUTEST_ASSERT_NO_THROW(ExceptionFunction(0));
 	IUTEST_EXPECT_NO_THROW(ExceptionFunction(0));
 	IUTEST_INFORM_NO_THROW(ExceptionFunction(0));
+	
+	IUTEST_ASSERT_THROW_VALUE(ExceptionFunction(1), int, 2);
+	IUTEST_EXPECT_THROW_VALUE(ExceptionFunction(1), int, 2);
+	IUTEST_INFORM_THROW_VALUE(ExceptionFunction(1), int, 2);
 }
 
 class exception_test

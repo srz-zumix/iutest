@@ -567,6 +567,8 @@ IUTEST(AssertionTest, Exception)
 	IUTEST_EXPECT_THROW(ExceptionFunction(2), ::std::bad_exception);
 	IUTEST_EXPECT_ANY_THROW(ExceptionFunction(1));
 	IUTEST_EXPECT_NO_THROW(ExceptionFunction(0));
+
+	IUTEST_EXPECT_THROW_VALUE(ExceptionFunction(1), int, 2);
 }
 
 class exception_test

@@ -307,6 +307,15 @@ namespace iutest
 #endif
 
 /**
+ * @ingropu	IUTEST_ASSERT_
+ * @brief	throw value テスト
+*/
+#ifndef IUTEST_ASSERT_THROW_VALUE
+#  define IUTEST_ASSERT_THROW_VALUE(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_value, IUTEST_ASSERT_FAILURE)
+#endif
+
+/**
  * @ingroup	IUTEST_ASSERT_
  * @brief	any throw テスト
 */
@@ -506,6 +515,15 @@ namespace iutest
 #ifndef IUTEST_EXPECT_THROW
 #  define IUTEST_EXPECT_THROW(statement, expected_exception)	\
 													IUTEST_TEST_THROW_(statement, expected_exception, IUTEST_EXPECT_FAILURE)
+#endif
+
+/**
+ * @ingropu	IUTEST_EXPECT_
+ * @brief	throw value テスト
+*/
+#ifndef IUTEST_EXPECT_THROW_VALUE
+#  define IUTEST_EXPECT_THROW_VALUE(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_value, IUTEST_EXPECT_FAILURE)
 #endif
 
 /**
@@ -716,6 +734,15 @@ namespace iutest
 #ifndef IUTEST_INFORM_THROW
 #  define IUTEST_INFORM_THROW(statement, expected_exception)	\
 													IUTEST_TEST_THROW_(statement, expected_exception, IUTEST_INFORM_FAILURE)
+#endif
+
+/**
+ * @ingropu	IUTEST_INFORM_
+ * @brief	throw value テスト
+*/
+#ifndef IUTEST_INFORM_THROW_VALUE
+#  define IUTEST_INFORM_THROW_VALUE(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
 #endif
 
 /**
