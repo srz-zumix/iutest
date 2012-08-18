@@ -150,7 +150,6 @@ private:
 	static void OnReportTestInfo(IFile* file, const TestInfo& test_info)
 	{
 		file->Printf("    <testcase name=\"%s\" ", EscapeXmlAttribute(test_info.name()).c_str() );
-		bool should_run = test_info.should_run();
 
 		{
 			const char* type_param = test_info.type_param();
@@ -213,6 +212,7 @@ private:
 		else
 		{
 #if IUTEST_REPORT_SKIPPED
+			bool should_run = test_info.should_run();
 			if( !should_run )
 			{
 				file->Printf(">\n");

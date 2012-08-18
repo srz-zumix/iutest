@@ -106,9 +106,11 @@ inline int PutEnv(const char* expr)
 inline const char* GetCWD(char* buf, size_t length)
 {
 #if	defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_NO_GETCWD)
-	IUTEST_UNUSED_VAR(buf);
-	IUTEST_UNUSED_VAR(length);
-	return NULL;
+	if( buf == NULL || length < 3 ) return NULL;
+	buf[0] = '.';
+	buf[1] = '/';
+	buf[2] = '\0';
+	return buf;
 #elif defined(IUTEST_OS_WINDOWS)
 	return ::GetCurrentDirectoryA(static_cast<DWORD>(length), buf) == 0 ? NULL : buf;
 #else
@@ -121,19 +123,6 @@ inline ::std::string GetCWD(void)
 	char buf[260];
 	return GetCWD(buf, 260);
 }
-
-#if 0
-
-inline bool MakeDirectory(const char* path)
-{
-#if defined(IUTEST_OS_WINDOWS)
-	return CreateDirectoryA(path, NULL) != 0;
-#else
-	return ::mkdir(path, 0777) == 0 && ::chmod(path, 0777) == 0;
-#endif
-}
-
-#endif
 
 inline void SleepMillisec(unsigned int millisec)
 {
@@ -155,6 +144,8 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 namespace detail
 {
+
+namespace posix = internal::posix;
 
 /**
  * @brief	ä¬ã´ïœêîÇÃê›íË

@@ -365,6 +365,14 @@
 #  endif
 #endif
 
+// file stat
+#ifndef IUTEST_HAS_FILE_STAT
+#  if !defined(IUTEST_OS_WINDOWS_MOBILE)
+#    define	IUTEST_HAS_FILE_STAT			1
+#  endif
+#endif
+
+
 // pragma
 #include "iutest_pragma.h"
 

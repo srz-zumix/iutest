@@ -351,7 +351,7 @@ inline AssertionResult CmpHelperEQ(const char* expected_str, const char* actual_
 IUTEST_PARGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 
-	if( expected == actual ) return AssertionSuccess();
+	if( actual == expected ) return AssertionSuccess();
 
 	return EqFailure(expected_str, actual_str
 		, FormatForComparisonFailureMessage(expected, actual).c_str()

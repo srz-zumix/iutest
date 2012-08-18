@@ -379,6 +379,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\internal\iutest_filepath.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\internal\iutest_function_traits_defs.h"
 					>
 				</File>

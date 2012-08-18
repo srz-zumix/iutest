@@ -145,6 +145,10 @@
 #  define IUTEST_USE_STRSTREAM		0	//!< std::strstream が使用可能かどうか
 #endif
 
+#ifndef IUTEST_HAS_FILE_STAT
+#  define IUTEST_HAS_FILE_STAT		0	//!< stat が使用可能かどうか
+#endif
+
 #ifndef IUTEST_THROW_ON_ASSERT_FAILURE
 /**
  * @brief	ASSERT マクロで失敗時に例外を throw します。
@@ -182,6 +186,11 @@
  *			0: 指定なし iutest が自動で判断します。
 */
 #define IUTEST_USE_EXTERNAL_STD_TUPLE	0
+
+
+#define IUTEST_NO_GETENV	//!< getenv 関数がない場合は定義
+#define IUTEST_NO_PUTENV	//!< putenv 関数がない場合は定義
+#define IUTEST_NO_GETCWD	//!< getcwd 関数がない場合は定義
 
 #endif
 

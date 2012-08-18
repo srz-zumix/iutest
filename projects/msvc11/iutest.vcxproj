@@ -32,6 +32,7 @@
     <ClInclude Include="..\..\include\internal\iutest_exception.h" />
     <ClInclude Include="..\..\include\internal\iutest_factory.h" />
     <ClInclude Include="..\..\include\internal\iutest_file.h" />
+    <ClInclude Include="..\..\include\internal\iutest_filepath.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_function_traits_defs.h" />
     <ClInclude Include="..\..\include\internal\iutest_function_traits_undef.h" />
     <ClInclude Include="..\..\include\internal\iutest_genparams.hpp" />

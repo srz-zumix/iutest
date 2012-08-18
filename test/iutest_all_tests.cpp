@@ -22,6 +22,7 @@
 #include "iutest_basic_tests.cpp"
 #include "iutest_combine_tests.cpp"
 #include "iutest_compatibility_tests.cpp"
+#include "iutest_filepath_tests.cpp"
 #include "iutest_fixture_tests.cpp"
 #include "iutest_floatingpoint_tests.cpp"
 #include "iutest_no_fatalfailure_tests.cpp"

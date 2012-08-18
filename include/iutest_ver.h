@@ -22,10 +22,10 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01000200	//!< iutest version 1.0.2.0
+#define	IUTEST_VER			0x01000300	//!< iutest version 1.0.3.0
 #define IUTEST_MAJORVER		0x01		//!< Major Version
 #define IUTEST_MINORVER		0x00		//!< Minor Version
-#define IUTEST_BUILD		0x02		//!< Build
+#define IUTEST_BUILD		0x03		//!< Build
 #define IUTEST_REVISION		0x00		//!< Revision
 
 /**
@@ -92,6 +92,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	RELEASE		リリースノート
  * @par		release note
  <ul>
+  <li>v1.0.3.0
+    <ul>
+      <li>ファイルパス操作補助クラスの追加</li>
+      <li>IUTEST_*_EQ で if( expected == actual ) から if( actual == expected ) に変更</li>
+      <li>IUTEST_*_NO_FATAL_FAILURE に空の statement を与えても警告が出ないように修正</li>
+    </ul>
+  </li>
   <li>v1.0.2.0
     <ul>
       <li>例外の値を検査するアサーションを追加</li>

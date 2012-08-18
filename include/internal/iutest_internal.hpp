@@ -275,7 +275,7 @@
 		::iutest::detail::NewTestPartResultCheckHelper::Reporter<			\
 			::iutest::detail::NewTestPartResultCheckHelper::CondNe<			\
 			::iutest::TestPartResult::kSuccess> >	iutest_failure_checker;	\
-		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(statement);				\
+		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING( { (void)0; statement; } )	\
 		if( iutest_failure_checker.count() > 0 ) {							\
 			goto IUTEST_PP_CAT(iutest_label_test_no_fatalfailure_, __LINE__);		\
 		}																	\
