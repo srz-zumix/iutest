@@ -19,7 +19,7 @@
 
 //======================================================================
 // include
-#include "iutest_internal_defs.h"
+#include "iutest_internal_defs.hpp"
 #include "iutest_typelist.hpp"
 
 namespace iutest

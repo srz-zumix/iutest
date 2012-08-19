@@ -21,7 +21,7 @@
 // include
 #include "iutest_result.hpp"
 #include "iutest_printers.hpp"
-#include "internal/iutest_list.h"
+#include "internal/iutest_list.hpp"
 
 namespace iutest_report_result
 {

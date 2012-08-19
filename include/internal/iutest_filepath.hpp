@@ -19,9 +19,9 @@
 
 //======================================================================
 // include
-#include "iutest_internal_defs.h"
-#include "iutest_string.h"
-#include "iutest_os.h"
+#include "iutest_internal_defs.hpp"
+#include "iutest_string.hpp"
+#include "iutest_port.hpp"
 
 #if IUTEST_HAS_FILE_STAT
 #  include <sys/stat.h>

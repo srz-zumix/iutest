@@ -276,9 +276,7 @@ protected:
 	*/
 	TypedTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
 		: TestCase(testcase_name, id, setup, teardown)
-#if IUTEST_HAS_RTTI
 		, m_type_param(detail::GetTypeName<TypeParam>())
-#endif
 	{}
 
 public:

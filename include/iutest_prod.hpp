@@ -101,7 +101,7 @@ struct IUTEST_PEEP_TAG_NAME_(class_name, member_name) { typedef member_type type
  * @}
 */
 
-#include "internal/iutest_function_traits_defs.h"
+#include "internal/iutest_function_traits_defs.hpp"
 
 /**
  * @brief	private	メンバーアクセスオブジェクト
@@ -233,7 +233,7 @@ public:
 	typedef typename peep_impl<T, peep_type, type_traits::is_member_pointer<peep_type>::value >::type	type;	//!< private メンバーアクセスオブジェクト型
 };
 
-#include "internal/iutest_function_traits_undef.h"
+#include "internal/iutest_function_traits_undef.hpp"
 
 }
 

@@ -22,7 +22,7 @@
 #include "iutest_core.hpp"
 
 #if IUTEST_HAS_PARAM_TEST
-#include "internal/iutest_pool.h"
+#include "internal/iutest_pool.hpp"
 
 //======================================================================
 // define

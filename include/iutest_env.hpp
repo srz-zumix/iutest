@@ -19,9 +19,9 @@
 
 //======================================================================
 // include
-#include "internal/iutest_charcode.h"
-#include "internal/iutest_random.h"
-#include "internal/iutest_regex.h"
+#include "internal/iutest_charcode.hpp"
+#include "internal/iutest_random.hpp"
+#include "internal/iutest_regex.hpp"
 #include "iutest_listener.hpp"
 
 //======================================================================

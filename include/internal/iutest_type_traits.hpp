@@ -208,7 +208,7 @@ public:
 	typedef typename impl<T, !is_void<T>::value && !is_reference<T>::value >::type type;
 };
 
-#include "iutest_function_traits_defs.h"
+#include "iutest_function_traits_defs.hpp"
 
 /**
  * @brief	is function pointer
@@ -440,7 +440,7 @@ public:
 	typedef typename impl< typename remove_cv<T>::type >::type type;
 };
 
-#include "iutest_function_traits_undef.h"
+#include "iutest_function_traits_undef.hpp"
 
 }	// end of namespace iutest_type_traits
 

@@ -20,7 +20,7 @@
 //======================================================================
 // include
 #include "iutest_internal.hpp"
-#include "iutest_option_message.h"
+#include "iutest_option_message.hpp"
 #include "../iutest_case.hpp"
 
 namespace iutest

@@ -19,8 +19,8 @@
 
 //======================================================================
 // include
-#include "iutest_defs.h"
-#include "internal/iutest_string.h"
+#include "iutest_defs.hpp"
+#include "internal/iutest_string.hpp"
 
 namespace iutest
 {

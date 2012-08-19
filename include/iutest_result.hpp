@@ -20,7 +20,7 @@
 //======================================================================
 // include
 #include "iutest_env.hpp"
-#include "internal/iutest_message.h"
+#include "internal/iutest_message.hpp"
 #include "internal/iutest_console.hpp"
 
 namespace iutest

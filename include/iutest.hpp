@@ -23,7 +23,7 @@
 
 //======================================================================
 // include
-#include "iutest_ver.h"
+#include "iutest_ver.hpp"
 #include "iutest_param_tests.hpp"
 #include "iutest_typed_tests.hpp"
 #include "iutest_prod.hpp"

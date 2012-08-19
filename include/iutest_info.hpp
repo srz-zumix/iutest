@@ -20,8 +20,8 @@
 //======================================================================
 // include
 #include "iutest_body.hpp"
-#include "internal/iutest_factory.h"
-#include "internal/iutest_exception.h"
+#include "internal/iutest_factory.hpp"
+#include "internal/iutest_exception.hpp"
 
 namespace iutest
 {

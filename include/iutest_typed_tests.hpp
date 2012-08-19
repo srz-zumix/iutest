@@ -20,7 +20,7 @@
 //======================================================================
 // include
 #include "internal/iutest_typed_util.hpp"
-#include "internal/iutest_string.h"
+#include "internal/iutest_string.hpp"
 
 //======================================================================
 // define

@@ -1,0 +1,342 @@
+//======================================================================
+//-----------------------------------------------------------------------
+/**
+ * @file		iutest_ver.hpp
+ * @brief		iris unit test version 定義 ファイル
+ *
+ * @author		t.sirayanagi
+ * @version		1.0
+ *
+ * @par			copyright
+ * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * The new BSD License is applied to this software.
+ * see LICENSE
+*/
+//-----------------------------------------------------------------------
+//======================================================================
+#ifndef INCG_IRIS_iutest_ver_HPP_D65CB7A7_D2AD_40fe_8F5F_8FBF376A0010_
+#define INCG_IRIS_iutest_ver_HPP_D65CB7A7_D2AD_40fe_8F5F_8FBF376A0010_
+
+//======================================================================
+// include
+
+//======================================================================
+// define
+#define	IUTEST_VER			0x01000301	//!< iutest version 1.0.3.1
+#define IUTEST_MAJORVER		0x01		//!< Major Version
+#define IUTEST_MINORVER		0x00		//!< Minor Version
+#define IUTEST_BUILD		0x03		//!< Build
+#define IUTEST_REVISION		0x01		//!< Revision
+
+/**
+ * @mainpage
+ * @sa	@b	ProjectHome \n
+ *			sourceforge : http://sourceforge.jp/projects/iutest/ \n
+ *			github      : https://github.com/srz-zumix/iutest \n
+ *
+ * @par		copyright
+ * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * The new BSD License is applied to this software.
+ *
+ * @par		LICENSE
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:\n
+\n
+  1. Redistributions of source code must retain the above copyright notice,\n
+     this list of conditions and the following disclaimer.\n
+  2. Redistributions in binary form must reproduce the above copyright notice,\n
+     this list of conditions and the following disclaimer in the documentation \n
+     and/or other materials provided with the distribution.\n
+  3. the copyright holder's name is not used to endorse products \n
+     built using this software without specific written permission.\n
+\n
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
+PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+*/
+
+/**
+ * @page	CMDLINE		コマンドラインオプション
+ * @par		Command Line Options
+ <table>
+   <tr><td>--help, -h                        </td><td></td><td>generate help message.</td></tr>
+   <tr><td>--iutest_output                   </td><td>xml[:path]</td><td>path of xml report.</td></tr>
+   <tr><td>--iutest_list_tests               </td><td></td><td>list up tests.</td></tr>
+   <tr><td>--iutest_color                    </td><td>&lt;yes|no|auto|ansi&gt;</td><td>console color enable.</td></tr>
+   <tr><td>--iutest_filter                   </td><td>&lt;filter&gt;</td><td>Select the test run.</td></tr>
+   <tr><td>--iutest_shuffle                  </td><td></td><td>do shuffle test.</td></tr>
+   <tr><td>--iutest_random_seed              </td><td>&lt;seed&gt;</td><td>set random seed.</td></tr>
+   <tr><td>--iutest_also_run_disabled_tests  </td><td></td><td>run disabled tests.</td></tr>
+   <tr><td>--iutest_break_on_failure         </td><td>[0|1]</td><td>When that failed to break.</td></tr>
+   <tr><td>--iutest_throw_on_failure         </td><td>[0|1]</td><td>When that failed to throw.</td></tr>
+   <tr><td>--iutest_catch_exceptions         </td><td>&lt;0|1&gt;</td><td>catch exceptions enable.</td></tr>
+   <tr><td>--iutest_print_time               </td><td>&lt;0|1&gt;</td><td>Setting the display of elapsed time.</td></tr>
+   <tr><td>--iutest_repeat                   </td><td>&lt;count&gt;</td><td>Set the number of repetitions of the test.</td></tr>
+   <tr><td>--feature                         </td><td></td><td>show iutest feature.</td></tr>
+   <tr><td>--version, -v                     </td><td></td><td>show iutest version.</td></tr>
+ </table>
+  * yes or no option can use "yes|y|on|true|t|1|no|n|off|false|f|0"
+*/
+
+/**
+ * @page	RELEASE		リリースノート
+ * @par		release note
+ <ul>
+  <li>v1.0.3.1
+    <ul>
+      <li>ファイルパス操作補助クラスの追加</li>
+      <li>IUTEST_*_EQ で if( expected == actual ) から if( actual == expected ) に変更</li>
+      <li>IUTEST_*_NO_FATAL_FAILURE に空の statement を与えても警告が出ないように修正</li>
+    </ul>
+  </li>
+  <li>v1.0.2.0
+    <ul>
+      <li>例外の値を検査するアサーションを追加</li>
+    </ul>
+  </li>
+  <li>v1.0.1.0
+    <ul>
+      <li>CRT セキュリティ強化関数の失敗時ハンドラに対応</li>
+      <li>InitIrisUnitTest が呼ばれていない場合に警告を出すように修正</li>
+    </ul>
+  </li>
+  <li>v1.0.0.0
+    <ul>
+      <li>初期リリース</li>
+    </ul>
+  </li>
+  <li>v0.36.2.1
+    <ul>
+      <li>型名表記をデマングルするように修正</li>
+      <li>Google Test を使用した場合でも std::string に対応した文字列比較アサーションを使えるように修正</li>
+      <li>Google Test を使用した時に wchar_t 版の STRCASENE が使えるように修正</li>
+      <li>IUTEST_THROW_ON_ASSERT_FAILURE のデフォルト値を 0 に変更</li>
+      <li>IUTEST_THROW_ON_ASSERT_FAILURE が有効なとき IUTEST_*_FATAL_FAILURE が正しく動作しない問題を修正</li>
+      <li>spi テスト中に break_on_failure/throw_on_failure で止まらないように修正</li>
+      <li>アサーションのみの利用ができるように修正</li>
+      <li>グローバルスコープ解決演算子をつけるように修正</li>
+      <li>Google Test のバージョン判別を追加</li>
+    </ul>
+  </li>
+  <li>v0.35.0.0
+    <ul>
+      <li>IUTEST_PMZ, IUTEST_PMZ_F テスト生成マクロを追加</li>
+    </ul>
+  </li>
+  <li>v0.34.0.0
+    <ul>
+      <li>複数 IUTEST_REGISTER_TYPED_TEST_CASE_P できない不具合を修正</li>
+      <li>テストが中断した際に実行されなかったテストを notrun で XML 出力するように修正</li>
+      <li>--iutest_break_on_failure を有効にしデバッグなし実行をしたときにダイアログがでないように修正</li>
+    </ul>
+  </li>
+  <li>v0.33.1.0
+    <ul>
+      <li>UnitTest::repeat_counter 関数を追加</li>
+      <li>OnTestIterationStart/End の iteration 引数が 0 から始まるように修正</li>
+      <li>QuietResultPrinter 追加</li>
+      <li>util 修正</li>
+    </ul>
+  </li>
+  <li>v0.32.0.0
+    <ul>
+      <li>iutest::Combine を可変長に対応</li>
+      <li>IUTEST_PEEP を cv 修飾されたメンバに対応</li>
+      <li>テスト全体、テストケースの経過時間の計測方法を変更</li>
+    </ul>
+  </li>
+  <li>v0.31.2.1
+    <ul>
+      <li>IUTEST_STATIC_ASSERT 追加</li>
+      <li>IUTEST_SCOPED_TRACE で gtest と同じ記法が使えるように修正</li>
+      <li>std::chrono::high_resolution_clock に対応</li>
+      <li>iutest::PrintToString でストリーム出力できない型に対応（バイト配列を出力）</li>
+      <li>テスト用乱数のシード取得を追加</li>
+      <li>IUTEST_*_TRUE|FALSE で iutest::AssertionResult を受け取れるように修正</li>
+      <li>--feature オプションを追加</li>
+    </ul>
+  </li>
+  <li>v0.30.1.0
+    <ul>
+      <li>IUTEST_*_STREQ, IUTEST_*_STRNE を char16_t, char32_t に対応</li>
+      <li>一部の環境でワイド文字列の IUTEST_*_STRCASEEQ, IUTEST_*_STRCASENE が大文字小文字が区別されていた不具合を修正</li>
+      <li>nullptr に対応</li>
+      <li>乱数シードを指定しなかった場合に現在時刻（ミリ秒）からシードを決定するように修正</li>
+      <li>シャッフルテスト時に乱数シードをログ出力するように修正</li>
+      <li>時刻取得用のコンフィグマクロを追加</li>
+      <li>iutest::PrintToString でコンパイルが通らない型があったので修正</li>
+      <li>EQ系アサーションのメッセージを修正</li>
+    </ul>
+  </li>
+  <li>v0.29.1.0
+    <ul>
+      <li>IUTEST_INSTANTIATE_TYPED_TEST_CASE_P の型リストに単一の型(int, char...)を使用できるように修正</li>
+      <li>ASSERT マクロが例外を throw するか設定する IUTEST_THROW_ON_ASSERT_FAILURE を追加(default=1) </li>
+      <li>--iutest_throw_on_failure 時に致命的ではないエラーで失敗した場合 throw されない不具合を修正</li>
+      <li>2回 IUTEST_RUN_ALL_TESTS したときの不具合を修正</li>
+      <li>Environment の解放タイミングを修正</li>
+    </ul>
+  </li>
+  <li>v0.28.0.1
+    <ul>
+      <li>Environment::SetUp などテスト以外の場所で失敗した場合に対応</li>
+    </ul>
+  </li>
+  <li>v0.27.0.0
+    <ul>
+      <li>namespace を考慮した IUTEST_MAKE_SCOPED_PEEP, IUTEST_SCOPED_PEEP マクロを追加</li>
+      <li>AddGlobalTestEnvironment を使うとコンパイルエラーになる問題を修正</li>
+      <li>iutest::Environment は new して使うように仕様変更</li>
+      <li>Environment の TearDown の実行順序を SetUp の逆順に変更</li>
+    </ul>
+  </li>
+  <li>v0.26.2.0
+    <ul>
+      <li>RecordProperty でキーが重複した場合に上書きするように修正</li>
+      <li>IUTEST_HAS_PEEP, IUTEST_HAS_PEEP_FUNC, IUTEST_PEEP_STATIC_FUNC コンフィグマクロを追加</li>
+      <li>iutest_prod.hpp に private メンバーへのアクセス機能を追加(IUTEST_MAKE_PEEP, IUTEST_PEEP_GET etc...)</li>
+      <li>IUTEST_FRIEND_TEST 不具合修正</li>
+    </ul>
+  </li>
+  <li>v0.25.2.0
+    <ul>
+      <li>gtest との互換性がとれていなかった箇所を修正</li>
+      <li>IUTEST_FLAG に filter を追加</li>
+      <li>オプションに対応してない値を指定したときにヘルプを出力するように修正</li>
+      <li>真偽値を指定するコマンドラインオプションを yes|no に対応</li>
+      <li>xml 出力に type param, value param を出力するように修正</li>
+      <li>RTTI が有効なときに型情報が出力されていなかった問題を修正</li>
+      <li>PrintTo を tuple に対応</li>
+    </ul>
+  </li>
+  <li>v0.24.1.0
+    <ul>
+      <li>Test Anything Protocol ファイル出力リスナーを追加</li>
+      <li>DISABLE テストが xml に run として出力される問題を修正</li>
+      <li>DISABLE テスト関係の不具合を修正</li>
+      <li>IUTEST_REPORT_SKIPPED マクロでデフォルトxml出力リスナーが skip を出力するか選択できるように修正</li>
+      <li>0|1 のフラグを渡すオプションに yes|no, y|n, true|false, t|f が使えるように修正</li>
+      <li>--iutest_color に ANSI オプションを追加（エスケープシーケンスで色を出力）</li>
+      <li>--iutest_color で大文字小文字を区別しないように修正</li>
+    </ul>
+  </li>
+  <li>v0.23.3.0
+    <ul>
+      <li>IUTEST_*_SAME アサーションを追加</li>
+      <li>IUTEST_*_NULL, IUTEST_*_NOTNULL アサーションを追加</li>
+      <li>Test Anyting Protocol リスナーの追加</li>
+      <li>デフォルトリスナーを解放したときに NULL 参照する不具合を修正</li>
+      <li>テストユーティリティのテスト用に iutest_spi.hpp を追加</li>
+      <li>IUTEST_*_STR* アサーションで NULL を与えて失敗させると落ちる問題を修正</li>
+      <li>--iutest_throw_on_failure=1 でテスト全体を中断するように変更</li>
+    </ul>
+  </li>
+  <li>v0.22.0.1
+    <ul>
+      <li>Variadic Templates 対応（iutest::Types, iutest::Values）</li>
+      <li>Variadic Templates に対応した述語アサーションを追加（IUTEST_*_PRED）</li>
+      <li>IUTEST_*_PRED_FORMAT を追加</li>
+      <li>--iutest_throw_on_failure=1 としたとき、テスト中に例外が発生するとテスト側で catch されない不具合を修正</li>
+    </ul>
+  </li>
+  <li>v0.21.0.1
+    <ul>
+      <li>IUTEST_*_NO_FATAL_FAILURE を追加</li>
+      <li>STRCASEEQ, STRCASENE が ASSERT でしか使えなかった問題を修正</li>
+      <li>IUTEST_*_PRED5 がコンパイルエラーになる問題を修正</li>
+      <li>INFORM マクロが一部コンパイルエラーになる問題を修正</li>
+      <li>gcc で例外が使えるかどうかの判定が逆になっていた問題を修正</li>
+      <li>アサーションマクロに渡した式の出力を修正</li>
+      <li>Visual Studio 11 対応</li>
+      <li>clang対応</li>
+      <li>サンプルソースを修正</li>
+    </ul>
+  </li>
+  <li>v0.20.0.0
+    <ul>
+      <li>--iutest_filter を使用したときに、失敗テスト出力が出ない不具合を修正</li>
+      <li>テスト、テストケース総数の取得関数が、実行してないものを含めていなかった不具合を修正</li>
+      <li>テスト、テストケースの実行した（実行予定）総数の取得関数を追加</li>
+      <li>IUTEST_*_STREQ 等、文字列比較マクロに NULL を渡した場合に例外が発生する不具合を修正</li>
+      <li>IUTEST_RUN_ALL_TESTS の戻り値が間違っていた不具合を修正</li>
+    </ul>
+  </li>
+  <li>v0.19.0.0
+    <ul>
+      <li>イベントリスナーに RecordProperty 時のイベントを追加</li>
+      <li>google mock 対応</li>
+      <li>IUTEST_*_STRCASE* に std::string をそのまま使えるように修正</li>
+      <li>rvalue reference 対応</li>
+    </ul>
+  </li>
+  <li>v0.18.1.1
+    <ul>
+      <li>On*End イベントは、リストの後ろから実行するように変更</li>
+      <li>警告用（失敗にならない）テスト IUTEST_INFORM_*** マクロを追加</li>
+      <li>TestPartResult のインターフェイスを修正</li>
+      <li>エラー出力の Actual と Expected が逆になっていた不具合を修正</li>
+      <li>char もしくは unsigned char の 0 をメッセージ出力する際にヌル文字にならないように修正</li>
+      <li>ターミナルの色つき出力処理を修正</li>
+      <li>Visual Studio 以外でビルドした場合の環境変数に対応</li>
+      <li>IUTEST_ASSERT_EQ のエラー出力が、 Actual と Expected が逆になっていた不具合を修正</li>
+    </ul>
+  </li>
+  <li>v0.17.0.0
+    <ul>
+      <li>.h から .hpp に変更</li>
+      <li>gtest のコマンドライン引数に対応</li>
+      <li>--iutest_filter オプションで *Test*-*TestA* のように除外フィルタをかけたときに正しく動作しない不具合を修正</li>
+    </ul>
+  </li>
+  <li>v0.16.1.1
+    <ul>
+      <li>InitIrisUnitTest の vector 対応</li>
+      <li>NaCl, ARM 対応</li>
+      <li>RecordProperty の template 対応</li>
+    </ul>
+  </li>
+  <li>v0.16.0.2
+    <ul>
+      <li>型アサーション 対応</li>
+      <li>RecoredProperty 対応</li>
+      <li>Combine 対応/li>
+      <li>型をパラメータ化したテスト<に対応/li>
+      <li>googletest との切り替え対応</li>
+      <li>googletest との差異を吸収</li>
+      <li>致命的な失敗時に throw するオプション対応( --iutest_throw_on_failure=<0|1> )</li>
+      <li>経過時間の出力オプション対応( --iutest_print_time=<0|1> )</li>
+      <li>実行するテストの選択オプション対応( --iutest_filter=selection )</li>
+      <li>PrintToString 対応</li>
+      <li>IUTEST_FLAG マクロによるオプション指定に対応</li>
+      <li>繰り返しオプション対応( --iutest_repeat=count )</li>
+      <li>イベントリスナー対応</li>
+      <li>グローバル環境セットに対応(iutest::AddGlobalTestEnvironment)</li>
+      <li>複合条件テスト用に述語アサーションのヘルパーを追加(iuutil::CmpHelperOR)</li>
+      <li>型付けテスト対応</li>
+      <li>テストに乱数生成機能を追加( genrand )</li>
+      <li>環境変数でのテストオプション指定に対応</li>
+      <li>DISABLEDテスト実行オプション対応( --iutest_also_run_disabled_tests )</li>
+      <li>例外キャッチオプション対応( --iutest_catch_exceptions=<0|1> )</li>
+      <li>失敗時ブレークオプション対応( --iutest_break_on_failure )</li>
+      <li>シャッフルテスト対応</li>
+      <li>出力カラーオプション対応( --iutest_color=<yes|no|auto> )</li>
+      <li>ヘルプオプション対応( --help )</li>
+      <li>パラメータテスト対応</li>
+      <li>DISABLED_ に対応</li>
+      <li>xml 出力に対応</li>
+    </ul>
+  </li>
+</ul>
+*/
+
+#endif

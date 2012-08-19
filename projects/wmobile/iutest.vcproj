@@ -725,7 +725,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\iutest_defs.h"
+				RelativePath="..\..\include\iutest_defs.hpp"
 				>
 			</File>
 			<File
@@ -777,18 +777,18 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\iutest_ver.h"
+				RelativePath="..\..\include\iutest_ver.hpp"
 				>
 			</File>
 			<Filter
 				Name="internal"
 				>
 				<File
-					RelativePath="..\..\include\internal\iutest_charcode.h"
+					RelativePath="..\..\include\internal\iutest_charcode.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_compiler.h"
+					RelativePath="..\..\include\internal\iutest_compiler.hpp"
 					>
 				</File>
 				<File
@@ -796,7 +796,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_constant.h"
+					RelativePath="..\..\include\internal\iutest_constant.hpp"
 					>
 				</File>
 				<File
@@ -804,19 +804,19 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_debug.h"
+					RelativePath="..\..\include\internal\iutest_debug.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_exception.h"
+					RelativePath="..\..\include\internal\iutest_exception.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_factory.h"
+					RelativePath="..\..\include\internal\iutest_factory.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_file.h"
+					RelativePath="..\..\include\internal\iutest_file.hpp"
 					>
 				</File>
 				<File
@@ -824,11 +824,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_function_traits_defs.h"
+					RelativePath="..\..\include\internal\iutest_function_traits_defs.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_function_traits_undef.h"
+					RelativePath="..\..\include\internal\iutest_function_traits_undef.hpp"
 					>
 				</File>
 				<File
@@ -840,11 +840,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_internal_defs.h"
+					RelativePath="..\..\include\internal\iutest_internal_defs.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_list.h"
+					RelativePath="..\..\include\internal\iutest_list.hpp"
 					>
 				</File>
 				<File
@@ -852,15 +852,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_message.h"
+					RelativePath="..\..\include\internal\iutest_message.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_option_message.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\internal\iutest_os.h"
+					RelativePath="..\..\include\internal\iutest_option_message.hpp"
 					>
 				</File>
 				<File
@@ -868,23 +864,27 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_pool.h"
+					RelativePath="..\..\include\internal\iutest_pool.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_pp.h"
+					RelativePath="..\..\include\internal\iutest_port.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_pragma.h"
+					RelativePath="..\..\include\internal\iutest_pp.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_random.h"
+					RelativePath="..\..\include\internal\iutest_pragma.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_regex.h"
+					RelativePath="..\..\include\internal\iutest_random.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\internal\iutest_regex.hpp"
 					>
 				</File>
 				<File
@@ -892,7 +892,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_stdlib.h"
+					RelativePath="..\..\include\internal\iutest_stdlib.hpp"
 					>
 				</File>
 				<File
@@ -900,11 +900,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_string.h"
+					RelativePath="..\..\include\internal\iutest_string.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_time.h"
+					RelativePath="..\..\include\internal\iutest_time.hpp"
 					>
 				</File>
 				<File

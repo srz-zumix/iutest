@@ -419,7 +419,7 @@ namespace tr1
 
 //======================================================================
 // include
-#include "../iutest_ver.h"
+#include "../iutest_ver.hpp"
 #include <gtest/gtest.h>
 #include "iutest_gtest_ver.hpp"
 
@@ -1278,7 +1278,7 @@ namespace iusupport
 namespace iutest = testing;
 #endif
 
-#include "../internal/iutest_pragma.h"
+#include "../internal/iutest_pragma.hpp"
 #include "../iutest_util.hpp"
 
 #ifndef INCG_IRIS_iutest_HPP_
