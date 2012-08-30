@@ -1,8 +1,8 @@
 //======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_fixture_tests.cpp
- * @brief		iutest fixture test
+ * @file		iutest_param_method_tests.cpp
+ * @brief		iutest parameter method test
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -19,28 +19,21 @@
 // include
 #include "../include/iutest.hpp"
 
-class TestFixed : public ::iutest::Test
-{
-protected:
-	static int x;
-public:
-	virtual void SetUp(void)
-	{
-		++x;
-	}
-	static void SetUpTestCase(void)
-	{
-		x = 0;
-	}
-};
-int TestFixed::x = -1;
+#if IUTEST_HAS_PARAM_METHOD_TEST
 
-IUTEST_F(TestFixed, Test1)
+void TestFunction(int x, int y)
 {
-	IUTEST_ASSERT_EQ(1, x);
+	IUTEST_ASSERT_EQ(x, y);
 }
+IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 0, 0);
+IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 1, 1);
+IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 2, 2);
 
-IUTEST_F(TestFixed, Test2)
-{
-	IUTEST_ASSERT_EQ(2, x);
-}
+typedef TestFixed ParamMethodTestFixed;
+
+IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 0, 0);
+IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 1, 1);
+IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 2, 2);
+
+#endif
+

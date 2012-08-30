@@ -20,7 +20,6 @@
 //======================================================================
 // include
 #include "iutest_genparams.hpp"
-#include <string>
 
 #if IUTEST_HAS_PARAM_TEST
 

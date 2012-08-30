@@ -45,6 +45,14 @@ public:
 	virtual T		GetCurrent(void) const = 0;	// 現在のパラメータを取得
 	virtual void	Next(void)	= 0;	//!< パラメータを取得して次に移動
 	virtual bool	IsEnd(void) const = 0;	//!< パラメータリストの終端にいるかどうか
+
+public:
+	int	GetCount(void) const
+	{
+		int n=0;
+		for( Begin(); !IsEnd(); Next() ) ++n;
+		return n;
+	}
 };
 
 /**
@@ -2463,6 +2471,1006 @@ public:
 			, static_cast< iuIParamGenerator<T8>* >(m_g8)
 			, static_cast< iuIParamGenerator<T9>* >(m_g9)
 		);
+	}
+
+private:
+	void	operator = (const _Myt&) {}
+private:
+	const Generator1	m_g1;
+	const Generator2	m_g2;
+	const Generator3	m_g3;
+	const Generator4	m_g4;
+	const Generator5	m_g5;
+	const Generator6	m_g6;
+	const Generator7	m_g7;
+	const Generator8	m_g8;
+	const Generator9	m_g9;
+};
+
+#endif
+
+#endif
+
+#if IUTEST_HAS_PAIRWISE
+
+class iuPairwiseGeneratorBase
+{
+protected:
+	template<int N>
+	struct ParamIndexes
+	{ 
+		int index[N];
+		ParamIndexes(void) { for( int i=0; i < N; ++i ) index[i] = -1; }
+	};
+
+private:
+	struct PairInfo {
+		int raw1, raw2;	// 列のペア
+		int idx1, idx2;	// インデックスのペア
+	};
+protected:
+	template<typename T1>
+	static void MakeParamVector( ::std::vector<T1>& list, iuParamGenerator<T1>& g1)
+	{
+		for( g1.Begin(); !g1.IsEnd(); g1.Next() )
+		{
+			list.push_back(g1.GetCurrent());
+		}
+	}
+
+	template<typename T1, typename T2>
+	static void MakePairList( ::std::vector< std::pair<T1, T2> >& list, iuParamGenerator<T1>& g1, iuParamGenerator<T2>& g2)
+	{
+		for( g1.Begin(); !g1.IsEnd(); g1.Next() )
+		{
+			T1 t1 = g1.GetCurrent();
+			for( g2.Begin(); !g2.IsEnd(); g2.Next() )
+			{
+				list.push_back(std::pair<T1, T2>(t1, g2.GetCurrent()));
+			}
+		}
+	}
+
+	template<int N>
+	static void MakeIndexList( ::std::vector< ParamIndexes<N> >& list, int* count_list)
+	{
+		typedef typename ::std::vector< ParamIndexes<N> >::iterator list_iterator;
+		list.empty();
+
+		// ペアを列挙
+		::std::vector<PairInfo> pair_list;
+		for( int i=0; i < N; ++i )
+		{
+			int l = count_list[i];
+			for( int j=i+1; j < N; ++j )
+			{
+				int r = count_list[j];
+				for( int li=0; li < l; ++li )
+				{
+					for( int ri=0; ri < r; ++ri )
+					{
+						PairInfo info = { i, j, li, ri };
+						pair_list.push_back(info);
+					}
+				}
+			}
+		}
+
+		// シャッフル
+		std::random_shuffle(pair_list.begin(), pair_list.end(), TestEnv::genrand());
+
+		for( ::std::vector<PairInfo>::const_iterator it=pair_list.begin(); it != pair_list.end(); ++it )
+		{
+			const PairInfo& pair_info = *it;
+			list_iterator find = Find(list, pair_info, list.begin());
+			if( find == list.end() )
+			{
+				find = FindFree(list, pair_info, list.begin());
+				if( find == list.end() )
+				{
+					// 空きが無いので作る
+					ParamIndexes<N> params;
+					params.index[pair_info.raw1] = pair_info.idx1;
+					params.index[pair_info.raw2] = pair_info.idx2;
+					list.push_back(params);
+				}
+				else
+				{
+					// 埋める
+					ParamIndexes<N>& params = *find;
+					params.index[pair_info.raw1] = pair_info.idx1;
+					params.index[pair_info.raw2] = pair_info.idx2;
+				}
+			}
+		}
+
+		//for( list_iterator it=list.begin(), end=list.end(); it != end; ++it )
+		//{
+		//	for( int i=0; i < N; ++i ) printf("%2d ", it->index[i]);
+		//	printf("\n");
+		//}
+	}
+
+	template<int N, typename Fn>
+	static int GetParamIndex(const ParamIndexes<N>& indexes, int raw, size_t count, Fn& func)
+	{
+		return indexes.index[raw] == -1 ? func(count)
+			: indexes.index[raw];
+	}
+
+	template<int N, typename T>
+	static T GetParam(const ::std::vector<T>& params, const ParamIndexes<N>& indexes, int raw)
+	{
+		int index = GetParamIndex(indexes, raw, params.size(), TestEnv::genrand());
+		return params[index];
+	}
+
+private:
+	template<int N>
+	static typename ::std::vector< ParamIndexes<N> >::iterator Find( ::std::vector< ParamIndexes<N> >& list, const PairInfo& pair_info
+		, typename ::std::vector< ParamIndexes<N> >::iterator start)
+	{
+		typedef typename ::std::vector< ParamIndexes<N> >::iterator iterator;
+		for( iterator it = start, end=list.end(); it != end; ++it )
+		{
+			ParamIndexes<N>& indexes = *it;
+			if( indexes.index[pair_info.raw1] == pair_info.idx1 
+				&& indexes.index[pair_info.raw2] == pair_info.idx2 ) return it;
+		}
+		return list.end();
+	}
+
+	template<int N>
+	static typename ::std::vector< ParamIndexes<N> >::iterator FindFree( ::std::vector< ParamIndexes<N> >& list, const PairInfo& pair_info
+		, typename ::std::vector< ParamIndexes<N> >::iterator start)
+	{
+		// 入れそうなとこを探す
+		typedef typename ::std::vector< ParamIndexes<N> >::iterator iterator;
+		iterator find = list.end();
+		UInt32 max_overlap = static_cast<UInt32>(-1);
+		for( iterator it = start, end=list.end(); it != end; ++it )
+		{
+			ParamIndexes<N>& indexes = *it;
+			int free_raw = -1;
+			int free_idx = -1;
+			if( indexes.index[pair_info.raw1] == -1 && indexes.index[pair_info.raw2] == pair_info.idx2 )
+			{
+				free_raw = pair_info.raw1;
+				free_idx = pair_info.idx1;
+			}
+			if( indexes.index[pair_info.raw2] == -1 && indexes.index[pair_info.raw1] == pair_info.idx1 )
+			{
+				free_raw = pair_info.raw2;
+				free_idx = pair_info.idx2;
+			}
+			if( free_raw != -1 )
+			{
+#if 0
+				IUTEST_UNUSED_VAR(free_idx);
+				IUTEST_UNUSED_VAR(max_overlap);
+				return it;
+#else
+				// 仮に入ったとして重複がないか調べる
+				UInt32 overlap = 0;
+				for( int i=0; i < N; ++i )
+				{
+					if( indexes.index[i] == -1 || i == free_raw ) continue;
+					PairInfo tmp = { i, free_raw, indexes.index[i], free_idx };
+					iterator it2 = Find(list, tmp, list.begin());
+					while(it2 != end)
+					{
+						++overlap;
+						++it2;
+						it2 = Find(list, tmp, it2);
+					}
+				}
+				if( overlap == 0 ) return it;
+				if( find == list.end()
+					|| (overlap < max_overlap) )
+				{
+					find = it;
+					max_overlap = overlap;
+				}
+#endif
+			}
+		}
+		if( find != list.end() )
+		{
+			return find;
+		}
+
+		typedef typename ::std::vector< ParamIndexes<N> >::iterator iterator;
+		for( iterator it = start, end=list.end(); it != end; ++it )
+		{
+			ParamIndexes<N>& indexes = *it;
+			if( indexes.index[pair_info.raw1] == -1 && indexes.index[pair_info.raw2] == -1 )
+				return it;
+		}
+		return list.end();
+	}
+};
+
+#if IUTEST_HAS_VARIADIC_PAIRWISE
+
+template<typename... Args>
+class iuPairwiseGenerator : public iuPairwiseGeneratorBase
+{
+	typedef tuples::tuple< Args... > ParamType;
+	typedef tuples::tuple< iuParamGenerator<Args>... > GeneratorTuple;
+	static const int RAW_COUNT = tuples::tuple_size<ParamType>::value;
+
+	typedef ParamIndexes<RAW_COUNT>		_MyParamIndexes;
+	typedef ::std::vector< _MyParamIndexes >	ParamIndexesList;
+
+	typedef tuples::tuple< ::std::vector<Args>... > ParamsTuple;
+
+public:
+	static iuIParamGenerator< ParamType >* Create(GeneratorTuple& generators)
+	{
+		ParamIndexesList list;
+		ParamsTuple params_list;
+
+		MakeParamVecotrs<0>(params_list, generators);
+
+		int count_list[RAW_COUNT] = { 0 };
+		GetCountList<0>(params_list, count_list);
+
+		MakeIndexList(list, count_list);
+
+		::std::vector<ParamType> params;
+
+		for( typename ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
+		{
+			const _MyParamIndexes& indexes = *it;
+			params.push_back( MakeParam<0, Args...>(params_list, indexes) );
+		}
+
+		return new iuValueInParamsGenerator< ParamType >(params);
+	}
+private:
+	template<int N, typename T1, typename... TArgs>
+	static tuples::tuple<T1, TArgs...> MakeParam(ParamsTuple& list, const _MyParamIndexes& indexes, typename detail::disable_if<N == RAW_COUNT-1, void>::type*& = detail::enabler::value)
+	{
+		return ::std::tuple_cat( tuples::tuple<T1>(GetParam(tuples::get<N>(list), indexes, N))
+			, MakeParam<N+1, TArgs...>(list, indexes) );
+	}
+	template<int N, typename T1, typename... TArgs>
+	static tuples::tuple<T1> MakeParam(ParamsTuple& list, const _MyParamIndexes& indexes, typename detail::enable_if<N == RAW_COUNT-1, void>::type*& = detail::enabler::value)
+	{
+		return tuples::tuple<T1>( GetParam( tuples::get<N>(list), indexes, N) );
+	}
+
+	template<int N>
+	static void MakeParamVecotrs(ParamsTuple& list, GeneratorTuple& generators, typename detail::disable_if<N == RAW_COUNT-1, void>::type*& = detail::enabler::value)
+	{
+		MakeParamVector(tuples::get<N>(list), tuples::get<N>(generators));
+		MakeParamVecotrs<N+1>(list, generators);
+	}
+	template<int N>
+	static void MakeParamVecotrs(ParamsTuple& list, GeneratorTuple& generators, typename detail::enable_if<N == RAW_COUNT-1, void>::type*& = detail::enabler::value)
+	{
+		MakeParamVector(tuples::get<N>(list), tuples::get<N>(generators));
+	}
+
+	template<int N>
+	static void GetCountList(ParamsTuple& list, int* count_list, typename detail::disable_if<N == RAW_COUNT-1, void>::type*& = detail::enabler::value)
+	{
+		count_list[N] = static_cast<int>(tuples::get<N>(list).size());
+		GetCountList<N+1>(list, count_list);
+	}
+	template<int N>
+	static void GetCountList(ParamsTuple& list, int* count_list, typename detail::enable_if<N == RAW_COUNT-1, void>::type*& = detail::enabler::value)
+	{
+		count_list[N] = static_cast<int>(tuples::get<N>(list).size());
+	}
+};
+
+template<typename... Generator>
+class iuPairwiseHolder
+{
+	typedef iuPairwiseHolder<Generator...> _Myt;
+
+	typedef tuples::tuple<const Generator...>	_MyTuple;
+
+	template<int index, int end, typename ArgTuple, typename SrcTuple, typename DstTuple>
+	void set_foreach(SrcTuple& src, DstTuple& dst, typename detail::enable_if<index != end, void>::type*& = detail::enabler::value ) const
+	{
+		tuples::get<index>(dst) = static_cast< typename tuples::tuple_element<index, DstTuple>::type >(tuples::get<index>(src));
+		set_foreach<index+1, end, ArgTuple>(src, dst);
+	}
+	template<int index, int end, typename ArgTuple, typename SrcTuple, typename DstTuple>
+	void set_foreach(SrcTuple& , DstTuple& , typename detail::enable_if<index == end, void>::type*& = detail::enabler::value ) const
+	{
+	}
+
+public:
+	iuPairwiseHolder(const Generator&... generators)
+		: v(generators...) {}
+
+public:
+	template<typename... Args>
+	operator iuIParamGenerator< tuples::tuple<Args...> >* () const 
+	{
+		typedef tuples::tuple<Args...> ArgTuple;
+		tuples::tuple< iuParamGenerator<Args>... > generators;
+		set_foreach<0, tuples::tuple_size<ArgTuple>::value, ArgTuple>(v, generators);
+
+		return iuPairwiseGenerator<Args...>::Create(generators);
+	}
+
+private:
+	void	operator = (const _Myt&) {}
+private:
+	_MyTuple v;
+};
+
+#else
+
+template<typename T1, typename T2, typename T3>
+class iuPairwiseGenerator3 : public iuPairwiseGeneratorBase
+{
+	typedef iuParamGenerator<T1> Generator1;
+	typedef iuParamGenerator<T2> Generator2;
+	typedef iuParamGenerator<T3> Generator3;
+
+	static const int RAW_COUNT = 3;
+	typedef ParamIndexes<RAW_COUNT>		_MyParamIndexes;
+	typedef ::std::vector< _MyParamIndexes >	ParamIndexesList;
+
+public:
+	typedef tuples::tuple<T1, T2, T3>	ParamType;
+public:
+	static iuIParamGenerator< ParamType >* Create(Generator1 g1, Generator2 g2, Generator3 g3)
+	{
+		ParamIndexesList list;
+		::std::vector<T1> params1;
+		::std::vector<T2> params2;
+		::std::vector<T3> params3;
+
+		MakeParamVector(params1, g1);
+		MakeParamVector(params2, g2);
+		MakeParamVector(params3, g3);
+
+		int count_list[] = {
+			static_cast<int>(params1.size())
+			, static_cast<int>(params2.size())
+			, static_cast<int>(params3.size())
+		};
+		MakeIndexList(list, count_list);
+
+		::std::vector<ParamType> params;
+
+		for( ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
+		{
+			const _MyParamIndexes& indexes = *it;
+			params.push_back( ParamType(
+				GetParam(params1, indexes, 0)
+				, GetParam(params2, indexes, 1)
+				, GetParam(params3, indexes, 2)
+				) );
+		}
+
+		return new iuValueInParamsGenerator< ParamType >(params);
+	}
+};
+
+template<typename T1, typename T2, typename T3, typename T4>
+class iuPairwiseGenerator4 : public iuPairwiseGeneratorBase
+{
+	typedef iuParamGenerator<T1> Generator1;
+	typedef iuParamGenerator<T2> Generator2;
+	typedef iuParamGenerator<T3> Generator3;
+	typedef iuParamGenerator<T4> Generator4;
+
+	static const int RAW_COUNT = 4;
+	typedef ParamIndexes<RAW_COUNT>		_MyParamIndexes;
+	typedef ::std::vector< _MyParamIndexes >	ParamIndexesList;
+
+public:
+	typedef tuples::tuple<T1, T2, T3, T4>	ParamType;
+public:
+	static iuIParamGenerator< ParamType >* Create(Generator1 g1, Generator2 g2, Generator3 g3, Generator4 g4)
+	{
+		ParamIndexesList list;
+		::std::vector<T1> params1;
+		::std::vector<T2> params2;
+		::std::vector<T3> params3;
+		::std::vector<T4> params4;
+
+		MakeParamVector(params1, g1);
+		MakeParamVector(params2, g2);
+		MakeParamVector(params3, g3);
+		MakeParamVector(params4, g4);
+
+		int count_list[] = {
+			static_cast<int>(params1.size())
+			, static_cast<int>(params2.size())
+			, static_cast<int>(params3.size())
+			, static_cast<int>(params4.size())
+		};
+		MakeIndexList(list, count_list);
+
+		::std::vector<ParamType> params;
+
+		for( ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
+		{
+			const _MyParamIndexes& indexes = *it;
+			params.push_back( ParamType(
+				GetParam(params1, indexes, 0)
+				, GetParam(params2, indexes, 1)
+				, GetParam(params3, indexes, 2)
+				, GetParam(params4, indexes, 3)
+				) );
+		}
+
+		return new iuValueInParamsGenerator< ParamType >(params);
+	}
+};
+
+template<typename T1, typename T2, typename T3, typename T4, typename T5>
+class iuPairwiseGenerator5 : public iuPairwiseGeneratorBase
+{
+	typedef iuParamGenerator<T1> Generator1;
+	typedef iuParamGenerator<T2> Generator2;
+	typedef iuParamGenerator<T3> Generator3;
+	typedef iuParamGenerator<T4> Generator4;
+	typedef iuParamGenerator<T5> Generator5;
+
+	static const int RAW_COUNT = 5;
+	typedef ParamIndexes<RAW_COUNT>		_MyParamIndexes;
+	typedef ::std::vector< _MyParamIndexes >	ParamIndexesList;
+
+public:
+	typedef tuples::tuple<T1, T2, T3, T4, T5>	ParamType;
+public:
+	static iuIParamGenerator< ParamType >* Create(Generator1 g1, Generator2 g2, Generator3 g3, Generator4 g4, Generator5 g5)
+	{
+		ParamIndexesList list;
+		::std::vector<T1> params1;
+		::std::vector<T2> params2;
+		::std::vector<T3> params3;
+		::std::vector<T4> params4;
+		::std::vector<T5> params5;
+
+		MakeParamVector(params1, g1);
+		MakeParamVector(params2, g2);
+		MakeParamVector(params3, g3);
+		MakeParamVector(params4, g4);
+		MakeParamVector(params5, g5);
+
+		int count_list[] = {
+			static_cast<int>(params1.size())
+			, static_cast<int>(params2.size())
+			, static_cast<int>(params3.size())
+			, static_cast<int>(params4.size())
+			, static_cast<int>(params5.size())
+		};
+		MakeIndexList(list, count_list);
+
+		::std::vector<ParamType> params;
+
+		for( ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
+		{
+			const _MyParamIndexes& indexes = *it;
+			params.push_back( ParamType(
+				GetParam(params1, indexes, 0)
+				, GetParam(params2, indexes, 1)
+				, GetParam(params3, indexes, 2)
+				, GetParam(params4, indexes, 3)
+				, GetParam(params5, indexes, 4)
+				) );
+		}
+
+		return new iuValueInParamsGenerator< ParamType >(params);
+	}
+};
+
+template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
+class iuPairwiseGenerator6 : public iuPairwiseGeneratorBase
+{
+	typedef iuParamGenerator<T1> Generator1;
+	typedef iuParamGenerator<T2> Generator2;
+	typedef iuParamGenerator<T3> Generator3;
+	typedef iuParamGenerator<T4> Generator4;
+	typedef iuParamGenerator<T5> Generator5;
+	typedef iuParamGenerator<T6> Generator6;
+
+	static const int RAW_COUNT = 6;
+	typedef ParamIndexes<RAW_COUNT>		_MyParamIndexes;
+	typedef ::std::vector< _MyParamIndexes >	ParamIndexesList;
+
+public:
+	typedef tuples::tuple<T1, T2, T3, T4, T5, T6>	ParamType;
+public:
+	static iuIParamGenerator< ParamType >* Create(Generator1 g1, Generator2 g2, Generator3 g3, Generator4 g4, Generator5 g5
+		, Generator6 g6)
+	{
+		ParamIndexesList list;
+		::std::vector<T1> params1;
+		::std::vector<T2> params2;
+		::std::vector<T3> params3;
+		::std::vector<T4> params4;
+		::std::vector<T5> params5;
+		::std::vector<T6> params6;
+
+		MakeParamVector(params1, g1);
+		MakeParamVector(params2, g2);
+		MakeParamVector(params3, g3);
+		MakeParamVector(params4, g4);
+		MakeParamVector(params5, g5);
+		MakeParamVector(params6, g6);
+
+		int count_list[] = {
+			static_cast<int>(params1.size())
+			, static_cast<int>(params2.size())
+			, static_cast<int>(params3.size())
+			, static_cast<int>(params4.size())
+			, static_cast<int>(params5.size())
+			, static_cast<int>(params6.size())
+		};
+		MakeIndexList(list, count_list);
+
+		::std::vector<ParamType> params;
+
+		for( ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
+		{
+			const _MyParamIndexes& indexes = *it;
+			params.push_back( ParamType(
+				GetParam(params1, indexes, 0)
+				, GetParam(params2, indexes, 1)
+				, GetParam(params3, indexes, 2)
+				, GetParam(params4, indexes, 3)
+				, GetParam(params5, indexes, 4)
+				, GetParam(params6, indexes, 5)
+				) );
+		}
+
+		return new iuValueInParamsGenerator< ParamType >(params);
+	}
+};
+
+template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
+class iuPairwiseGenerator7 : public iuPairwiseGeneratorBase
+{
+	typedef iuParamGenerator<T1> Generator1;
+	typedef iuParamGenerator<T2> Generator2;
+	typedef iuParamGenerator<T3> Generator3;
+	typedef iuParamGenerator<T4> Generator4;
+	typedef iuParamGenerator<T5> Generator5;
+	typedef iuParamGenerator<T6> Generator6;
+	typedef iuParamGenerator<T7> Generator7;
+
+	static const int RAW_COUNT = 7;
+	typedef ParamIndexes<RAW_COUNT>		_MyParamIndexes;
+	typedef ::std::vector< _MyParamIndexes >	ParamIndexesList;
+
+public:
+	typedef tuples::tuple<T1, T2, T3, T4, T5, T6, T7>	ParamType;
+public:
+	static iuIParamGenerator< ParamType >* Create(Generator1 g1, Generator2 g2, Generator3 g3, Generator4 g4, Generator5 g5
+		, Generator6 g6, Generator7 g7)
+	{
+		ParamIndexesList list;
+		::std::vector<T1> params1;
+		::std::vector<T2> params2;
+		::std::vector<T3> params3;
+		::std::vector<T4> params4;
+		::std::vector<T5> params5;
+		::std::vector<T6> params6;
+		::std::vector<T7> params7;
+
+		MakeParamVector(params1, g1);
+		MakeParamVector(params2, g2);
+		MakeParamVector(params3, g3);
+		MakeParamVector(params4, g4);
+		MakeParamVector(params5, g5);
+		MakeParamVector(params6, g6);
+		MakeParamVector(params7, g7);
+
+		int count_list[] = {
+			static_cast<int>(params1.size())
+			, static_cast<int>(params2.size())
+			, static_cast<int>(params3.size())
+			, static_cast<int>(params4.size())
+			, static_cast<int>(params5.size())
+			, static_cast<int>(params6.size())
+			, static_cast<int>(params7.size())
+		};
+		MakeIndexList(list, count_list);
+
+		::std::vector<ParamType> params;
+
+		for( ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
+		{
+			const _MyParamIndexes& indexes = *it;
+			params.push_back( ParamType(
+				GetParam(params1, indexes, 0)
+				, GetParam(params2, indexes, 1)
+				, GetParam(params3, indexes, 2)
+				, GetParam(params4, indexes, 3)
+				, GetParam(params5, indexes, 4)
+				, GetParam(params6, indexes, 5)
+				, GetParam(params7, indexes, 6)
+				) );
+		}
+
+		return new iuValueInParamsGenerator< ParamType >(params);
+	}
+};
+
+template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
+class iuPairwiseGenerator8 : public iuPairwiseGeneratorBase
+{
+	typedef iuParamGenerator<T1> Generator1;
+	typedef iuParamGenerator<T2> Generator2;
+	typedef iuParamGenerator<T3> Generator3;
+	typedef iuParamGenerator<T4> Generator4;
+	typedef iuParamGenerator<T5> Generator5;
+	typedef iuParamGenerator<T6> Generator6;
+	typedef iuParamGenerator<T7> Generator7;
+	typedef iuParamGenerator<T8> Generator8;
+
+	static const int RAW_COUNT = 8;
+	typedef ParamIndexes<RAW_COUNT>		_MyParamIndexes;
+	typedef ::std::vector< _MyParamIndexes >	ParamIndexesList;
+
+public:
+	typedef tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8>	ParamType;
+public:
+	static iuIParamGenerator< ParamType >* Create(Generator1 g1, Generator2 g2, Generator3 g3, Generator4 g4, Generator5 g5
+		, Generator6 g6, Generator7 g7, Generator8 g8)
+	{
+		ParamIndexesList list;
+		::std::vector<T1> params1;
+		::std::vector<T2> params2;
+		::std::vector<T3> params3;
+		::std::vector<T4> params4;
+		::std::vector<T5> params5;
+		::std::vector<T6> params6;
+		::std::vector<T7> params7;
+		::std::vector<T8> params8;
+
+		MakeParamVector(params1, g1);
+		MakeParamVector(params2, g2);
+		MakeParamVector(params3, g3);
+		MakeParamVector(params4, g4);
+		MakeParamVector(params5, g5);
+		MakeParamVector(params6, g6);
+		MakeParamVector(params7, g7);
+		MakeParamVector(params8, g8);
+
+		int count_list[] = {
+			static_cast<int>(params1.size())
+			, static_cast<int>(params2.size())
+			, static_cast<int>(params3.size())
+			, static_cast<int>(params4.size())
+			, static_cast<int>(params5.size())
+			, static_cast<int>(params6.size())
+			, static_cast<int>(params7.size())
+			, static_cast<int>(params8.size())
+		};
+		MakeIndexList(list, count_list);
+
+		::std::vector<ParamType> params;
+
+		for( ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
+		{
+			const _MyParamIndexes& indexes = *it;
+			params.push_back( ParamType(
+				GetParam(params1, indexes, 0)
+				, GetParam(params2, indexes, 1)
+				, GetParam(params3, indexes, 2)
+				, GetParam(params4, indexes, 3)
+				, GetParam(params5, indexes, 4)
+				, GetParam(params6, indexes, 5)
+				, GetParam(params7, indexes, 6)
+				, GetParam(params8, indexes, 7)
+				) );
+		}
+
+		return new iuValueInParamsGenerator< ParamType >(params);
+	}
+};
+
+template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
+class iuPairwiseGenerator9 : public iuPairwiseGeneratorBase
+{
+	typedef iuParamGenerator<T1> Generator1;
+	typedef iuParamGenerator<T2> Generator2;
+	typedef iuParamGenerator<T3> Generator3;
+	typedef iuParamGenerator<T4> Generator4;
+	typedef iuParamGenerator<T5> Generator5;
+	typedef iuParamGenerator<T6> Generator6;
+	typedef iuParamGenerator<T7> Generator7;
+	typedef iuParamGenerator<T8> Generator8;
+	typedef iuParamGenerator<T9> Generator9;
+
+	static const int RAW_COUNT = 9;
+	typedef ParamIndexes<RAW_COUNT>		_MyParamIndexes;
+	typedef ::std::vector< _MyParamIndexes >	ParamIndexesList;
+
+public:
+	typedef tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9>	ParamType;
+public:
+	static iuIParamGenerator< ParamType >* Create(Generator1 g1, Generator2 g2, Generator3 g3, Generator4 g4, Generator5 g5
+		, Generator6 g6, Generator7 g7, Generator8 g8, Generator9 g9)
+	{
+		ParamIndexesList list;
+		::std::vector<T1> params1;
+		::std::vector<T2> params2;
+		::std::vector<T3> params3;
+		::std::vector<T4> params4;
+		::std::vector<T5> params5;
+		::std::vector<T6> params6;
+		::std::vector<T7> params7;
+		::std::vector<T8> params8;
+		::std::vector<T9> params9;
+
+		MakeParamVector(params1, g1);
+		MakeParamVector(params2, g2);
+		MakeParamVector(params3, g3);
+		MakeParamVector(params4, g4);
+		MakeParamVector(params5, g5);
+		MakeParamVector(params6, g6);
+		MakeParamVector(params7, g7);
+		MakeParamVector(params8, g8);
+		MakeParamVector(params9, g9);
+
+		int count_list[] = {
+			static_cast<int>(params1.size())
+			, static_cast<int>(params2.size())
+			, static_cast<int>(params3.size())
+			, static_cast<int>(params4.size())
+			, static_cast<int>(params5.size())
+			, static_cast<int>(params6.size())
+			, static_cast<int>(params7.size())
+			, static_cast<int>(params8.size())
+			, static_cast<int>(params9.size())
+		};
+		MakeIndexList(list, count_list);
+
+		::std::vector<ParamType> params;
+
+		for( ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
+		{
+			const _MyParamIndexes& indexes = *it;
+			params.push_back( ParamType(
+				GetParam(params1, indexes, 0)
+				, GetParam(params2, indexes, 1)
+				, GetParam(params3, indexes, 2)
+				, GetParam(params4, indexes, 3)
+				, GetParam(params5, indexes, 4)
+				, GetParam(params6, indexes, 5)
+				, GetParam(params7, indexes, 6)
+				, GetParam(params8, indexes, 7)
+				, GetParam(params9, indexes, 8)
+				) );
+		}
+
+		return new iuValueInParamsGenerator< ParamType >(params);
+	}
+};
+
+
+template<typename Generator1, typename Generator2, typename Generator3>
+class iuPairwiseHolder3
+{
+	typedef iuPairwiseHolder3<Generator1, Generator2, Generator3> _Myt;
+public:
+	iuPairwiseHolder3(const Generator1& g1, const Generator2& g2, const Generator3& g3)
+		: m_g1(g1), m_g2(g2), m_g3(g3) {}
+
+public:
+	template<typename T1, typename T2, typename T3>
+	operator iuIParamGenerator< tuples::tuple<T1, T2, T3> >* () const 
+	{
+		return iuPairwiseGenerator3<T1, T2, T3>::Create(
+			static_cast< iuIParamGenerator<T1>* >(m_g1)
+			, static_cast< iuIParamGenerator<T2>* >(m_g2)
+			, static_cast< iuIParamGenerator<T3>* >(m_g3)
+			);
+	}
+
+private:
+	void	operator = (const _Myt&) {}
+private:
+	const Generator1	m_g1;
+	const Generator2	m_g2;
+	const Generator3	m_g3;
+};
+
+template<typename Generator1, typename Generator2, typename Generator3, typename Generator4>
+class iuPairwiseHolder4
+{
+	typedef iuPairwiseHolder4<Generator1, Generator2, Generator3, Generator4> _Myt;
+public:
+	iuPairwiseHolder4(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4)
+		: m_g1(g1), m_g2(g2), m_g3(g3), m_g4(g4) {}
+
+public:
+	template<typename T1, typename T2, typename T3, typename T4>
+	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4> >* () const 
+	{
+		return iuPairwiseGenerator4<T1, T2, T3, T4>::Create(
+			static_cast< iuIParamGenerator<T1>* >(m_g1)
+			, static_cast< iuIParamGenerator<T2>* >(m_g2)
+			, static_cast< iuIParamGenerator<T3>* >(m_g3)
+			, static_cast< iuIParamGenerator<T4>* >(m_g4)
+			);
+	}
+
+private:
+	void	operator = (const _Myt&) {}
+private:
+	const Generator1	m_g1;
+	const Generator2	m_g2;
+	const Generator3	m_g3;
+	const Generator4	m_g4;
+};
+
+template<typename Generator1, typename Generator2, typename Generator3, typename Generator4, typename Generator5>
+class iuPairwiseHolder5
+{
+	typedef iuPairwiseHolder5<Generator1, Generator2, Generator3, Generator4, Generator5> _Myt;
+public:
+	iuPairwiseHolder5(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5)
+		: m_g1(g1), m_g2(g2), m_g3(g3), m_g4(g4), m_g5(g5) {}
+
+public:
+	template<typename T1, typename T2, typename T3, typename T4, typename T5>
+	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5> >* () const 
+	{
+		return iuPairwiseGenerator5<T1, T2, T3, T4, T5>::Create(
+			static_cast< iuIParamGenerator<T1>* >(m_g1)
+			, static_cast< iuIParamGenerator<T2>* >(m_g2)
+			, static_cast< iuIParamGenerator<T3>* >(m_g3)
+			, static_cast< iuIParamGenerator<T4>* >(m_g4)
+			, static_cast< iuIParamGenerator<T5>* >(m_g5)
+			);
+	}
+
+private:
+	void	operator = (const _Myt&) {}
+private:
+	const Generator1	m_g1;
+	const Generator2	m_g2;
+	const Generator3	m_g3;
+	const Generator4	m_g4;
+	const Generator5	m_g5;
+};
+
+template<typename Generator1, typename Generator2, typename Generator3, typename Generator4, typename Generator5, typename Generator6>
+class iuPairwiseHolder6
+{
+	typedef iuPairwiseHolder6<Generator1, Generator2, Generator3, Generator4, Generator5, Generator6> _Myt;
+public:
+	iuPairwiseHolder6(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
+		, const Generator6& g6)
+		: m_g1(g1), m_g2(g2), m_g3(g3), m_g4(g4), m_g5(g5), m_g6(g6) {}
+
+public:
+	template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
+	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5, T6> >* () const 
+	{
+		return iuPairwiseGenerator6<T1, T2, T3, T4, T5, T6>::Create(
+			static_cast< iuIParamGenerator<T1>* >(m_g1)
+			, static_cast< iuIParamGenerator<T2>* >(m_g2)
+			, static_cast< iuIParamGenerator<T3>* >(m_g3)
+			, static_cast< iuIParamGenerator<T4>* >(m_g4)
+			, static_cast< iuIParamGenerator<T5>* >(m_g5)
+			, static_cast< iuIParamGenerator<T6>* >(m_g6)
+			);
+	}
+
+private:
+	void	operator = (const _Myt&) {}
+private:
+	const Generator1	m_g1;
+	const Generator2	m_g2;
+	const Generator3	m_g3;
+	const Generator4	m_g4;
+	const Generator5	m_g5;
+	const Generator6	m_g6;
+};
+
+template<typename Generator1, typename Generator2, typename Generator3, typename Generator4, typename Generator5, typename Generator6, typename Generator7>
+class iuPairwiseHolder7
+{
+	typedef iuPairwiseHolder7<Generator1, Generator2, Generator3, Generator4, Generator5, Generator6, Generator7> _Myt;
+public:
+	iuPairwiseHolder7(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
+		, const Generator6& g6, const Generator7& g7)
+		: m_g1(g1), m_g2(g2), m_g3(g3), m_g4(g4), m_g5(g5), m_g6(g6), m_g7(g7) {}
+
+public:
+	template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
+	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5, T6, T7> >* () const 
+	{
+		return iuPairwiseGenerator7<T1, T2, T3, T4, T5, T6, T7>::Create(
+			static_cast< iuIParamGenerator<T1>* >(m_g1)
+			, static_cast< iuIParamGenerator<T2>* >(m_g2)
+			, static_cast< iuIParamGenerator<T3>* >(m_g3)
+			, static_cast< iuIParamGenerator<T4>* >(m_g4)
+			, static_cast< iuIParamGenerator<T5>* >(m_g5)
+			, static_cast< iuIParamGenerator<T6>* >(m_g6)
+			, static_cast< iuIParamGenerator<T7>* >(m_g7)
+			);
+	}
+
+private:
+	void	operator = (const _Myt&) {}
+private:
+	const Generator1	m_g1;
+	const Generator2	m_g2;
+	const Generator3	m_g3;
+	const Generator4	m_g4;
+	const Generator5	m_g5;
+	const Generator6	m_g6;
+	const Generator7	m_g7;
+};
+
+template<typename Generator1, typename Generator2, typename Generator3, typename Generator4, typename Generator5, typename Generator6, typename Generator7, typename Generator8>
+class iuPairwiseHolder8
+{
+	typedef iuPairwiseHolder8<Generator1, Generator2, Generator3, Generator4, Generator5, Generator6, Generator7, Generator8> _Myt;
+public:
+	iuPairwiseHolder8(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
+		, const Generator6& g6, const Generator7& g7, const Generator8& g8)
+		: m_g1(g1), m_g2(g2), m_g3(g3), m_g4(g4), m_g5(g5), m_g6(g6), m_g7(g7), m_g8(g8) {}
+
+public:
+	template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
+	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8> >* () const 
+	{
+		return iuPairwiseGenerator8<T1, T2, T3, T4, T5, T6, T7, T8>::Create(
+			static_cast< iuIParamGenerator<T1>* >(m_g1)
+			, static_cast< iuIParamGenerator<T2>* >(m_g2)
+			, static_cast< iuIParamGenerator<T3>* >(m_g3)
+			, static_cast< iuIParamGenerator<T4>* >(m_g4)
+			, static_cast< iuIParamGenerator<T5>* >(m_g5)
+			, static_cast< iuIParamGenerator<T6>* >(m_g6)
+			, static_cast< iuIParamGenerator<T7>* >(m_g7)
+			, static_cast< iuIParamGenerator<T8>* >(m_g8)
+			);
+	}
+
+private:
+	void	operator = (const _Myt&) {}
+private:
+	const Generator1	m_g1;
+	const Generator2	m_g2;
+	const Generator3	m_g3;
+	const Generator4	m_g4;
+	const Generator5	m_g5;
+	const Generator6	m_g6;
+	const Generator7	m_g7;
+	const Generator8	m_g8;
+};
+
+template<typename Generator1, typename Generator2, typename Generator3, typename Generator4, typename Generator5, typename Generator6, typename Generator7, typename Generator8, typename Generator9>
+class iuPairwiseHolder9
+{
+	typedef iuPairwiseHolder9<Generator1, Generator2, Generator3, Generator4, Generator5, Generator6, Generator7, Generator8, Generator9> _Myt;
+public:
+	iuPairwiseHolder9(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
+		, const Generator6& g6, const Generator7& g7, const Generator8& g8, const Generator9& g9)
+		: m_g1(g1), m_g2(g2), m_g3(g3), m_g4(g4), m_g5(g5), m_g6(g6), m_g7(g7), m_g8(g8), m_g9(g9) {}
+
+public:
+	template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
+	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9> >* () const 
+	{
+		return iuPairwiseGenerator9<T1, T2, T3, T4, T5, T6, T7, T8, T9>::Create(
+			static_cast< iuIParamGenerator<T1>* >(m_g1)
+			, static_cast< iuIParamGenerator<T2>* >(m_g2)
+			, static_cast< iuIParamGenerator<T3>* >(m_g3)
+			, static_cast< iuIParamGenerator<T4>* >(m_g4)
+			, static_cast< iuIParamGenerator<T5>* >(m_g5)
+			, static_cast< iuIParamGenerator<T6>* >(m_g6)
+			, static_cast< iuIParamGenerator<T7>* >(m_g7)
+			, static_cast< iuIParamGenerator<T8>* >(m_g8)
+			, static_cast< iuIParamGenerator<T9>* >(m_g9)
+			);
 	}
 
 private:

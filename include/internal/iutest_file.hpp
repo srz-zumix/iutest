@@ -19,8 +19,6 @@
 
 //======================================================================
 // include
-#include <stdarg.h>
-#include <string.h>
 #include "iutest_internal_defs.hpp"
 #include "iutest_stream.hpp"
 

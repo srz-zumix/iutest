@@ -19,7 +19,6 @@
 
 //======================================================================
 // include
-#include "iutest_string.hpp"
 #include "iutest_port.hpp"
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()

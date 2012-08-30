@@ -20,7 +20,6 @@
 //======================================================================
 // include
 #include "iutest_internal_defs.hpp"
-#include "iutest_string.hpp"
 #include <time.h>
 
 #if IUTEST_HAS_CXX11_HDR_CHRONO

@@ -1220,6 +1220,81 @@ detail::iuCartesianProductHolder9<G1, G2, G3, G4, G5, G6, G7, G8, G9> Combine(co
 
 #endif
 
+#if IUTEST_HAS_PAIRWISE
+
+#if IUTEST_HAS_VARIADIC_PAIRWISE
+
+template<typename ...Generator>
+detail::iuPairwiseHolder<Generator...> Pairwise(const Generator&... generators)
+{
+	return detail::iuPairwiseHolder<Generator...>(generators...);
+}
+
+#else
+
+/**
+ * @brief	複合条件パラメータ化(オールペア法)
+ * @note	3引数まで使用可能
+*/
+template<typename G1, typename G2>
+detail::iuCartesianProductHolder2<G1, G2> Pairwise(const G1& g1, const G2& g2)
+{
+	return detail::iuCartesianProductHolder2<G1, G2>(g1, g2);
+}
+
+/** @overload */
+template<typename G1, typename G2, typename G3>
+detail::iuPairwiseHolder3<G1, G2, G3> Pairwise(const G1& g1, const G2& g2, const G3& g3)
+{
+	return detail::iuPairwiseHolder3<G1, G2, G3>(g1, g2, g3);
+}
+
+/** @overload */
+template<typename G1, typename G2, typename G3, typename G4>
+detail::iuPairwiseHolder4<G1, G2, G3, G4> Pairwise(const G1& g1, const G2& g2, const G3& g3, const G4& g4)
+{
+	return detail::iuPairwiseHolder4<G1, G2, G3, G4>(g1, g2, g3, g4);
+}
+
+/** @overload */
+template<typename G1, typename G2, typename G3, typename G4, typename G5>
+detail::iuPairwiseHolder5<G1, G2, G3, G4, G5> Pairwise(const G1& g1, const G2& g2, const G3& g3, const G4& g4, const G5& g5)
+{
+	return detail::iuPairwiseHolder5<G1, G2, G3, G4, G5>(g1, g2, g3, g4, g5);
+}
+
+/** @overload */
+template<typename G1, typename G2, typename G3, typename G4, typename G5, typename G6>
+detail::iuPairwiseHolder6<G1, G2, G3, G4, G5, G6> Pairwise(const G1& g1, const G2& g2, const G3& g3, const G4& g4, const G5& g5, const G6& g6)
+{
+	return detail::iuPairwiseHolder6<G1, G2, G3, G4, G5, G6>(g1, g2, g3, g4, g5, g6);
+}
+
+/** @overload */
+template<typename G1, typename G2, typename G3, typename G4, typename G5, typename G6, typename G7>
+detail::iuPairwiseHolder7<G1, G2, G3, G4, G5, G6, G7> Pairwise(const G1& g1, const G2& g2, const G3& g3, const G4& g4, const G5& g5, const G6& g6, const G7& g7)
+{
+	return detail::iuPairwiseHolder7<G1, G2, G3, G4, G5, G6, G7>(g1, g2, g3, g4, g5, g6, g7);
+}
+
+/** @overload */
+template<typename G1, typename G2, typename G3, typename G4, typename G5, typename G6, typename G7, typename G8>
+detail::iuPairwiseHolder8<G1, G2, G3, G4, G5, G6, G7, G8> Pairwise(const G1& g1, const G2& g2, const G3& g3, const G4& g4, const G5& g5, const G6& g6, const G7& g7, const G8& g8)
+{
+	return detail::iuPairwiseHolder8<G1, G2, G3, G4, G5, G6, G7, G8>(g1, g2, g3, g4, g5, g6, g7, g8);
+}
+
+/** @overload */
+template<typename G1, typename G2, typename G3, typename G4, typename G5, typename G6, typename G7, typename G8, typename G9>
+detail::iuPairwiseHolder9<G1, G2, G3, G4, G5, G6, G7, G8, G9> Pairwise(const G1& g1, const G2& g2, const G3& g3, const G4& g4, const G5& g5, const G6& g6, const G7& g7, const G8& g8, const G9& g9)
+{
+	return detail::iuPairwiseHolder9<G1, G2, G3, G4, G5, G6, G7, G8, G9>(g1, g2, g3, g4, g5, g6, g7, g8, g9);
+}
+
+#endif
+
+#endif
+
 }	// end of namespace iutest
 
 #endif	// IUTEST_HAS_PARAM_TEST

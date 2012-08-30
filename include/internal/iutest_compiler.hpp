@@ -48,6 +48,9 @@
 #elif	defined(__APPLE__)
 #  define IUTEST_OS_MAC					1
 #  define IUTEST_PLATFORM				"Mac OS"
+#elif	defined(sun) || defined(__sun)
+#  define IUTEST_OS_SOLARIS				1
+#  define IUTEST_PLATFORM				"Solaris"
 #elif	defined(__linux__)
 #  define IUTEST_OS_LINUX				1
 #  define IUTEST_PLATFORM				"LINUX"

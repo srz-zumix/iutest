@@ -43,7 +43,6 @@ protected:
 	TestInfo*	m_test_info;
 public:
 	iuITestInfoMediator(TestInfo* p=NULL) : m_test_info(p) {}
-	virtual ~iuITestInfoMediator(void) {}
 public:
 	virtual	bool	HasFatalFailure(void) const = 0;
 	virtual	bool	HasNonfatalFailure(void) const = 0;
@@ -61,7 +60,6 @@ protected:
 	TestCase* m_test_case;
 public:
 	iuITestCaseMediator(TestCase* p=NULL) : m_test_case(p) {}
-	virtual ~iuITestCaseMediator(void) {}
 public:
 	virtual const char*	test_case_name(void) const = 0;
 	virtual const char*	type_param(void) const = 0;

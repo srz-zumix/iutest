@@ -56,8 +56,6 @@ template<class Tester>
 class iuFactory : public iuFactoryBase
 {
 public:
-	virtual ~iuFactory(void) {}
-public:
 	virtual auto_ptr<Test>	Create(void)
 	{
 		auto_ptr<Test> p = new Tester();
@@ -76,7 +74,6 @@ class iuParamTestFactoryBase : public iuFactoryBase
 public:
 	iuParamTestFactoryBase(void) {}
 	iuParamTestFactoryBase(ParamType param) : m_param(param) {}
-	virtual ~iuParamTestFactoryBase(void) {}
 public:
 	void				SetParam(ParamType param)	{ m_param = param; }
 	const ParamType&	GetParam(void)		const	{ return m_param; }
@@ -98,7 +95,6 @@ class iuParamTestFactory : public iuParamTestFactoryBase<typename Tester::ParamT
 public:
 	iuParamTestFactory(void) {}
 	iuParamTestFactory(ParamType param) : _Mybase(param) {}
-	virtual ~iuParamTestFactory(void) {}
 
 public:
 	virtual auto_ptr<Test>	Create(void)

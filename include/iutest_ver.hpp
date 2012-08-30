@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01000301	//!< iutest version 1.0.3.1
+#define	IUTEST_VER			0x01000400	//!< iutest version 1.0.4.0
 #define IUTEST_MAJORVER		0x01		//!< Major Version
 #define IUTEST_MINORVER		0x00		//!< Minor Version
-#define IUTEST_BUILD		0x03		//!< Build
-#define IUTEST_REVISION		0x01		//!< Revision
+#define IUTEST_BUILD		0x04		//!< Build
+#define IUTEST_REVISION		0x00		//!< Revision
 
 /**
  * @mainpage
@@ -92,6 +92,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	RELEASE		リリースノート
  * @par		release note
  <ul>
+  <li>v1.0.4.0
+    <ul>
+      <li>iutest::Pairwise を追加</li>
+      <li>コードサイズ削減</li>
+    </ul>
+  </li>
   <li>v1.0.3.1
     <ul>
       <li>ファイルパス操作補助クラスの追加</li>

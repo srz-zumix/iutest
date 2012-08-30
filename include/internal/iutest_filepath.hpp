@@ -299,10 +299,24 @@ public:
 	*/
 	static iuFilePath	GetExecFilePath(void)
 	{
-#if	IUTEST_OS_WINDOWS
+#if		defined(IUTEST_OS_WINDOWS)
 		char path[MAX_PATH];
 		::GetModuleFileNameA(NULL, path, sizeof(path));
 		return iuFilePath(path);
+#elif	defined(IUTEST_OS_SOLARIS)
+		return iuFilePath(getexecname());
+#elif	defined(__FreeBSD__)
+		int exe_path_mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PATHNAME, getpid() };
+		char buf[1024];
+		size_t length = 0;
+		if( sysctl(exe_path_mib, 4, buf, &length, NULL, 0) != 0 ) return iuFilePath();
+		return iuFilePath(buf);
+#elif	defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN)
+		char buf[1024];
+		ssize_t len = ::readlink("/proc/self/exe", buf, sizeof(buf)-1);
+		if( len == -1 ) return iuFilePath();
+		buf[len] = '\0';
+		return iuFilePath(buf);
 #else
 		return iuFilePath();
 #endif
