@@ -599,6 +599,7 @@ namespace tr1
 #undef IUTEST_HAS_SEH
 
 #undef IUTEST_INIT
+#undef IUTEST_SKIP
 
 #undef IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING
 
@@ -888,6 +889,9 @@ namespace tr1
 #define IUTEST_INFORM_FAILURE	GTEST_INFORM_FAILURE_
 
 #define IUTEST_FLAG				GTEST_FLAG
+
+#define IUTEST_SKIP()			GTEST_AMBIGUOUS_ELSE_BLOCKER_	\
+								if( testing::internal::AlwaysTrue() ) return
 
 #define IUTEST_TYPED_TEST_CASE		TYPED_TEST_CASE
 #define IUTEST_TYPED_TEST			TYPED_TEST

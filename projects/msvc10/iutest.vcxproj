@@ -62,6 +62,7 @@
     <ClInclude Include="..\..\include\iutest_assertion.hpp" />
     <ClInclude Include="..\..\include\iutest_body.hpp" />
     <ClInclude Include="..\..\include\iutest_case.hpp" />
+    <ClInclude Include="..\..\include\iutest_config.hpp" />
     <ClInclude Include="..\..\include\iutest_core.hpp" />
     <ClInclude Include="..\..\include\iutest_defs.hpp" />
     <ClInclude Include="..\..\include\iutest_env.hpp" />

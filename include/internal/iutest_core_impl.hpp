@@ -71,6 +71,15 @@ public:
 		++m_total_test_num;
 		pCase->push_back(pInfo);
 	}
+	/** @private */
+	static void SkipTest(void)
+	{
+		Test* test = Test::GetCurrentTest();
+		if( test != NULL && test->m_test_info->ptr() != NULL )
+		{
+			test->m_test_info->ptr()->m_skip = true;
+		}
+	}
 protected:
 	/**
 	 * @brief	テストのリストアップ

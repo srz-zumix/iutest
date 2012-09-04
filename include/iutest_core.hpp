@@ -71,7 +71,7 @@ public:
 	/** 成功テスト総数 */
 	int				successful_test_count(void)	const	{ return test_to_run_count() - failed_test_count(); }
 	/** スキップテスト総数 */
-	int				skip_test_count(void)		const	{ return total_test_count() - test_to_run_count(); }
+	int				skip_test_count(void)		const	{ return get_skipped_test_count(); }
 
 	/** テストケース数の総数 */
 	int				total_test_case_count(void)	const	{ return m_testcases.count(); }
@@ -397,6 +397,16 @@ private:
 		{
 			if( !it->should_run() ) continue;
 			count += it->failed_test_count();
+		}
+		return count;
+	}
+
+	int get_skipped_test_count(void) const
+	{
+		int count = 0;
+		for( iuTestCases::iterator it=m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
+		{
+			count += it->skip_test_count();
 		}
 		return count;
 	}

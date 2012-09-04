@@ -76,7 +76,7 @@ public:
 	/** 成功テスト総数 */
 	int				successful_test_count(void)	const	{ return test_to_run_count() - failed_test_count(); }
 	/** スキップテスト総数 */
-	int				skip_test_count(void)		const	{ return total_test_count() - test_to_run_count(); }
+	int				skip_test_count(void)		const	{ return get_skipped_test_count(); }
 	/** テストの実行ミリ秒 */
 	TimeInMillisec	elapsed_time(void)			const	{ return m_elapsedmsec; }
 
@@ -223,6 +223,17 @@ private:
 		for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
 		{
 			if( it->should_run() && it->HasFailure() ) ++count;
+		}
+		return count;
+	}
+
+	/** スキップテスト総数 */
+	int get_skipped_test_count(void) const
+	{
+		int count = 0;
+		for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
+		{
+			if( it->is_skipped() ) ++count;
 		}
 		return count;
 	}

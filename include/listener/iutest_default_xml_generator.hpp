@@ -23,16 +23,6 @@
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
-//======================================================================
-// define
-/**
- * @ingroup	IUTEST_CONFIG
- * @brief	xml o—Í‚É skipped ƒ^ƒO‚ðŠÜ‚ß‚é‚©‚Ç‚¤‚©
-*/
-#ifndef IUTEST_REPORT_SKIPPED
-#  define IUTEST_REPORT_SKIPPED		1
-#endif
-
 namespace iutest
 {
 
@@ -190,7 +180,8 @@ private:
 			}
 		}
 
-		if( test_info.HasFailure() )
+		bool notrun = test_info.should_run() && !test_info.is_ran();
+		if( test_info.HasFailure() || notrun )
 		{
 			file->Printf(">\n");
 			for( int i=0, count=test_info.result()->total_part_count(); i < count; ++i )
@@ -207,13 +198,19 @@ private:
 				OutputXmlCDataSection(file, message.c_str());
 				file->Printf("\n      </failure>\n");
 			}
+			if( notrun )
+			{
+				file->Printf("      <failure message=\"Not Run\" type=\"\">");
+				OutputXmlCDataSection(file, "Not Run");
+				file->Printf("\n      </failure>\n");
+			}
 			file->Printf("    </testcase>\n");
 		}
 		else
 		{
 #if IUTEST_REPORT_SKIPPED
-			bool should_run = test_info.should_run();
-			if( !should_run )
+			bool skipped = test_info.is_skipped();
+			if( skipped )
 			{
 				file->Printf(">\n");
 				file->Printf("      <skipped />\n");

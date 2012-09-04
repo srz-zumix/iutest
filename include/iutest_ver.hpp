@@ -22,10 +22,10 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01000400	//!< iutest version 1.0.4.0
+#define	IUTEST_VER			0x01000500	//!< iutest version 1.0.5.0
 #define IUTEST_MAJORVER		0x01		//!< Major Version
 #define IUTEST_MINORVER		0x00		//!< Minor Version
-#define IUTEST_BUILD		0x04		//!< Build
+#define IUTEST_BUILD		0x05		//!< Build
 #define IUTEST_REVISION		0x00		//!< Revision
 
 /**
@@ -92,6 +92,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	RELEASE		リリースノート
  * @par		release note
  <ul>
+  <li>v1.0.5.0
+    <ul>
+      <li>明示的なスキップとして IUTEST_SKIP を追加</li>
+      <li>コンソール出力先を動的に変更できるように修正</li>
+      <li>実行すべきテストが実行されなかった場合に失敗を出力するように修正</li>
+    </ul>
+  </li>
   <li>v1.0.4.0
     <ul>
       <li>iutest::Pairwise を追加</li>

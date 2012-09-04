@@ -26,9 +26,11 @@ IUTEST_P(ParamTest, Test)
 }
 
 int a[] = { 3, 2, 1, 0 };
+::std::vector<int> va(a, a+(sizeof(a)/sizeof(a[0])));
 IUTEST_INSTANTIATE_TEST_CASE_P(My1, ParamTest, ::iutest::Range<int>(0, 10));
 IUTEST_INSTANTIATE_TEST_CASE_P(My3, ParamTest, ::iutest::Values(0, 1, 10));
 IUTEST_INSTANTIATE_TEST_CASE_P(My4, ParamTest, ::iutest::ValuesIn(a));
+IUTEST_INSTANTIATE_TEST_CASE_P(My5, ParamTest, ::iutest::ValuesIn(va));
 
 class BoolParamTest : public ::iutest::TestWithParam<bool> {};
 

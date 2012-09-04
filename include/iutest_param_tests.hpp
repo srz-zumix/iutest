@@ -115,7 +115,6 @@ class ParamTestInstance : public IParamTestCaseInfo::ITestInfoData<typename T::P
 	};
 public:
 	ParamTestInstance(const char* testcase_name) : _Mybase(testcase_name) {}
-	virtual ~ParamTestInstance(void) {}
 
 private:
 	// テストケースの作成
@@ -125,7 +124,7 @@ private:
 	}
 
 	// テストの作成登録
-	virtual	void	RegisterTest(TestCase* testcase, ParamType param, int index)
+	virtual	void	RegisterTest(TestCase* testcase, ParamType param, int index) const
 	{
 		EachTest* test = new EachTest(testcase, detail::MakeIndexTestName(this->m_name.c_str(), index).c_str(), param);
 		// new オブジェクトを管理してもらう

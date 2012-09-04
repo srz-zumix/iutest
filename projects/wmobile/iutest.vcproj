@@ -721,6 +721,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\include\iutest_config.hpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\include\iutest_core.hpp"
 				>
 			</File>

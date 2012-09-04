@@ -47,10 +47,35 @@ namespace detail
 // class
 /**
  * @internal
+ * @brief	カスタム Logger クラス
+*/
+class iuLogger
+{
+public:
+	virtual void output(const char* fmt, ...)
+	{
+		va_list va;
+		va_start(va, fmt);
+		voutput(fmt, va);
+		va_end(va);
+	}
+	virtual void voutput(const char* fmt, va_list va) = 0;
+};
+
+/**
+ * @internal
  * @brief	コンソールクラス
 */
 class iuConsole
 {
+	template<typename T>
+	struct Variable
+	{
+		static iuLogger*	m_pLogger;
+	};
+
+	typedef Variable<void>	var;
+
 public:
 	//! コンソール文字色
 	enum Color
@@ -72,7 +97,7 @@ public:
 	{
 		va_list va;
 		va_start(va, fmt);
-		IUTEST_VPRINTF(fmt, va);
+		voutput(fmt, va);
 		va_end(va);
 	}
 	/**
@@ -90,12 +115,20 @@ public:
 		}
 		else
 		{
-			IUTEST_VPRINTF(fmt, va);
+			voutput(fmt, va);
 		}
 
 		va_end(va);
 	}
 
+public:
+	//! Logger のセット
+	static iuLogger*	SetLogger(iuLogger* logger)
+	{
+		iuLogger* pre = var::m_pLogger;
+		var::m_pLogger = logger;
+		return pre;
+	}
 private:
 	static void color_output_impl(Color color, const char* fmt, va_list va)
 	{
@@ -122,7 +155,7 @@ private:
 			fflush(stdout);
 			::SetConsoleTextAttribute(stdout_handle, attr[color] | FOREGROUND_INTENSITY);
 
-			IUTEST_VPRINTF(fmt, va);
+			voutput(fmt, va);
 
 			fflush(stdout);
 			::SetConsoleTextAttribute(stdout_handle, wAttributes);
@@ -130,12 +163,24 @@ private:
 		else
 #endif
 		{
-			IUTEST_PRINTF("\033[1;3%cm", '0' + color);
-			IUTEST_VPRINTF(fmt, va);
-			IUTEST_PRINTF("\033[m");
+			output("\033[1;3%cm", '0' + color);
+			voutput(fmt, va);
+			output("\033[m");
 		}
 	}
 
+private:
+	static void voutput(const char* fmt, va_list va)
+	{
+		if( var::m_pLogger != NULL )
+		{
+			var::m_pLogger->voutput(fmt, va);
+		}
+		else
+		{
+			IUTEST_VPRINTF(fmt, va);
+		}
+	}
 private:
 	static bool	IsShouldUseColor(bool use_color)
 	{
@@ -199,6 +244,8 @@ private:
 	}
 };
 
+template<typename T>
+iuLogger*	iuConsole::Variable<T>::m_pLogger = NULL;
 
 }	// end of namespace detail
 }	// end of namespace iutest

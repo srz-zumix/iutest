@@ -186,7 +186,7 @@ private:
 		static Test*	s_current;
 	public:
 		static		 Test*		GetCurrentTest(void)		{ return s_current; }
-		static const TestInfo*	GetCurrentTestInfo(void)	{ if( s_current == NULL ) return NULL; return s_current->m_test_info->ptr(); }
+		static const TestInfo*	GetCurrentTestInfo(void)	{ if( s_current == NULL || s_current->m_test_info == NULL ) return NULL; return s_current->m_test_info->ptr(); }
 	};
 
 	typedef Observer<void>	CurrentTestObserver;

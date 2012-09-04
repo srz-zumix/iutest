@@ -159,3 +159,29 @@ IUTEST_F(EnabledTestFixed, Count)
 }
 
 #endif
+
+#if 0
+
+#ifdef _MSC_VER
+#include <process.h>
+
+void TheadTest(void)
+{
+	IUTEST_ASSERT_EQ(0, 1);
+}
+
+unsigned int WINAPI thread_func(void*)
+{
+	TheadTest();
+	return 0;
+}
+
+IUTEST(ThreadTest, Basic)
+{
+	HANDLE hThread = (HANDLE)_beginthreadex(NULL, 0, thread_func, NULL, 0, NULL);
+	WaitForSingleObject(hThread, INFINITE);
+}
+
+#endif
+
+#endif

@@ -19,7 +19,7 @@
 
 //======================================================================
 // include
-#include "iutest_internal_defs.hpp"
+#include "iutest_random.hpp"
 
 #if IUTEST_HAS_PARAM_TEST
 
@@ -45,14 +45,6 @@ public:
 	virtual T		GetCurrent(void) const = 0;	// 現在のパラメータを取得
 	virtual void	Next(void)	= 0;	//!< パラメータを取得して次に移動
 	virtual bool	IsEnd(void) const = 0;	//!< パラメータリストの終端にいるかどうか
-
-public:
-	int	GetCount(void) const
-	{
-		int n=0;
-		for( Begin(); !IsEnd(); Next() ) ++n;
-		return n;
-	}
 };
 
 /**
@@ -139,14 +131,14 @@ class iuValueInParamsGenerator : public iuIParamGenerator<T>
 {
 	typedef ::std::vector<T>	params_t;
 	params_t	m_values;
-	typename params_t::iterator m_it;
+	typename params_t::const_iterator m_it;
 public:
 	iuValueInParamsGenerator(const params_t& values)
 		: m_values(values) {}
 	template<typename Container>
 	iuValueInParamsGenerator(const Container& values)
 	{
-		for( typename Container::iterator it = values.begin(), end=values.end(); it != end; ++it )
+		for( typename Container::const_iterator it = values.begin(), end=values.end(); it != end; ++it )
 		{
 			m_values.push_back(static_cast<T>(*it));
 		}
@@ -2557,7 +2549,13 @@ protected:
 		}
 
 		// シャッフル
-		std::random_shuffle(pair_list.begin(), pair_list.end(), TestEnv::genrand());
+		iuRandom random;
+		unsigned int seed = TestEnv::get_random_seed();
+		if( seed != 0 )
+		{
+			random.init(seed);
+		}
+		std::random_shuffle(pair_list.begin(), pair_list.end(), random);
 
 		for( ::std::vector<PairInfo>::const_iterator it=pair_list.begin(); it != pair_list.end(); ++it )
 		{

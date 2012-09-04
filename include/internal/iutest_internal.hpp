@@ -282,9 +282,13 @@
 	} else																	\
 		IUTEST_PP_CAT(iutest_label_test_no_fatalfailure_, __LINE__):		\
 		on_failure("\nExpected: " #statement " doesn't generate new failure.\n  Actual: it does.")
-/**
- * @}
-*/
+
+#define IUTEST_TEST_SKIP()		\
+	IUTEST_AMBIGUOUS_ELSE_BLOCKER_			\
+	if( ::iutest::Test::HasFailure() )		\
+		return;								\
+	else									\
+		return ::iutest::UnitTest::SkipTest()
 
 /**
  * @}

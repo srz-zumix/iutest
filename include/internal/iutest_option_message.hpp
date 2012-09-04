@@ -46,7 +46,7 @@ public:
 
 inline void	iuOptionMessage::ShowHelp(void)
 {
-	const char readme[] = 
+	const char* readme = 
 		"--------------------------------------------------\n"
 		"Name\n"
 		"    iutest - iris unit test framework\n"
@@ -96,6 +96,8 @@ inline void iuOptionMessage::ShowFeature(void)
 	SHOW_MACRO(IUTEST_HAS_COMBINE);
 	SHOW_MACRO(IUTEST_HAS_VARIADIC_COMBINE);
 	SHOW_MACRO(IUTEST_HAS_VARIADIC_VALUES);
+	SHOW_MACRO(IUTEST_HAS_PAIRWISE);
+	SHOW_MACRO(IUTEST_HAS_VARIADIC_PAIRWISE);
 	SHOW_MACRO(IUTEST_HAS_EXCEPTIONS);
 	SHOW_MACRO(IUTEST_HAS_SEH);
 	SHOW_MACRO(IUTEST_THROW_ON_ASSERT_FAILURE);

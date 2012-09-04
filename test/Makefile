@@ -68,6 +68,7 @@ TARGETS = iutest_all_tests \
           iutest_namespace_tests \
           iutest_no_test_tests \
           iutest_repeat_tests \
+          iutest_skip_tests \
           iutest_throw_on_assert_failure_tests \
           iutest_throw_on_failure_tests \
           iutest_uninitialize_tests

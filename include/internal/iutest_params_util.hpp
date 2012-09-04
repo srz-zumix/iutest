@@ -40,9 +40,8 @@ public:
 	{
 	public:
 		ITestInfoData(const char* name) : m_name(name) {}
-		virtual ~ITestInfoData(void) {}
 		virtual TestCase*	MakeTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown) const = 0;
-		virtual void RegisterTest(TestCase* , ParamType param, int index) = 0;
+		virtual void RegisterTest(TestCase* , ParamType param, int index) const = 0;
 	protected:
 		::std::string m_name;
 	};
@@ -52,7 +51,7 @@ protected:
 	IParamTestCaseInfo(const char* name)
 		: m_testcase_base_name(name) {}
 public:
-	virtual void	RegisterTests(void) = 0;
+	virtual void	RegisterTests(void) const = 0;
 
 	::std::string	GetTestCaseBaseName(void)	const	{ return m_testcase_base_name; }
 protected:
@@ -101,11 +100,11 @@ public:
 	/**
 	 * @brief	テストの作成
 	*/
-	virtual void	RegisterTests(void)
+	virtual void	RegisterTests(void) const
 	{
-		for( typename TestInfoContainer::iterator it=m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
+		for( typename TestInfoContainer::const_iterator it=m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
 		{
-			for( typename InstantiationContainer::iterator gen_it=m_instantiation.begin(), gen_end=m_instantiation.end(); gen_it != gen_end; ++gen_it )
+			for( typename InstantiationContainer::const_iterator gen_it=m_instantiation.begin(), gen_end=m_instantiation.end(); gen_it != gen_end; ++gen_it )
 			{
 				// パラメータ生成器の作成
 				detail::auto_ptr<ParamGenerator> p = (gen_it->second)();
@@ -146,10 +145,6 @@ private:
 class ParamTestCaseHolder
 {
 private:
-	ParamTestCaseHolder(void)
-	{
-	}
-
 	~ParamTestCaseHolder(void)
 	{
 		// 解放
@@ -180,7 +175,7 @@ public:
 private:
 	struct RegisterTestsFunctor
 	{
-		inline void operator ()(IParamTestCaseInfo* p)
+		inline void operator ()(const IParamTestCaseInfo* p) const
 		{
 			p->RegisterTests();
 		}

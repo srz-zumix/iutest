@@ -771,6 +771,14 @@ namespace iutest
 #  define IUTEST_INFORM_NO_FATAL_FAILURE(statement)	IUTEST_TEST_NO_FATAL_FAILURE_(statement, IUTEST_INFORM_FAILURE)
 #endif
 
+/**
+ * @ingroup	IUTEST_UTIL
+ * @brief	テストの明示的なスキップ
+*/
+#ifndef IUTEST_SKIP
+#  define IUTEST_SKIP()								IUTEST_TEST_SKIP()
+#endif
+
 
 /**
  * @brief iutest root namespace

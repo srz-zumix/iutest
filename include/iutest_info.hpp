@@ -70,7 +70,9 @@ public:
 		, m_testname(name)
 		, m_factory(factory)
 		, m_should_run(true)
+		, m_ran(false)
 		, m_disable(false)
+		, m_skip(false)
 	{
 		m_mediator.SetPointer(this);
 		if( strstr(name, "DISABLED_") == name )
@@ -90,6 +92,8 @@ public:
 	bool			is_ran(void)			const	{ return m_ran; }
 	/** disable */
 	bool			is_disabled_test(void)	const	{ return m_disable; }
+	/** is skipped */
+	bool			is_skipped(void)		const	{ return !m_should_run || m_skip; }
 	/** テストの実行ミリ秒 */
 	TimeInMillisec	elapsed_time(void)		const	{ return m_test_result.elapsed_time(); }
 	/** テスト結果の取得 */
@@ -262,6 +266,7 @@ private:
 	void	clear(void)
 	{
 		m_ran = false;
+		m_skip = false;
 		m_test_result.ClearResult();
 	}
 
@@ -303,6 +308,7 @@ private:
 	bool					m_should_run;		//!< 実行すべきかの真偽値
 	bool					m_ran;				//!< 実行したかどうか
 	bool					m_disable;			//!< 無効真偽値
+	bool					m_skip;				//!< スキップしたかどうか
 
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TestInfo);
 };
