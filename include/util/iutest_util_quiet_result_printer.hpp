@@ -39,6 +39,7 @@ public:
 		delete m_default_printer;
 	}
 
+public:
 	virtual void OnTestProgramStart(const ::iutest::UnitTest& unit_test) { m_default_printer->OnTestProgramStart(unit_test); }
 
 	virtual void OnTestIterationStart(const ::iutest::UnitTest& unit_test,

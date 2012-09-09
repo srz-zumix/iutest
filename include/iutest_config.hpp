@@ -111,25 +111,25 @@
 
 #ifndef IUTEST_HAS_VARIADIC_VALUES
 #  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
-#    define IUTEST_HAS_VARIADIC_VALUES	1	//!< 可変長引数に対応した Values が使用可能かどうか
+#    define IUTEST_HAS_VARIADIC_VALUES	1	//!< 可変長引数に対応した ::iutest::Values が使用可能かどうか
 #  else
-#    define IUTEST_HAS_VARIADIC_VALUES	0	//!< 可変長引数に対応した Values が使用可能かどうか
+#    define IUTEST_HAS_VARIADIC_VALUES	0	//!< 可変長引数に対応した ::iutest::Values が使用可能かどうか
 #  endif
 #endif
 
 #ifndef IUTEST_HAS_VARIADIC_COMBINE
 #  if IUTEST_HAS_COMBINE && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
-#    define IUTEST_HAS_VARIADIC_COMBINE	1	//!< 可変長引数に対応した Combine が使用可能かどうか
+#    define IUTEST_HAS_VARIADIC_COMBINE	1	//!< 可変長引数に対応した ::iutest::Combine が使用可能かどうか
 #  else
-#    define IUTEST_HAS_VARIADIC_COMBINE	0	//!< 可変長引数に対応した Combine が使用可能かどうか
+#    define IUTEST_HAS_VARIADIC_COMBINE	0	//!< 可変長引数に対応した ::iutest::Combine が使用可能かどうか
 #  endif
 #endif
 
 #ifndef IUTEST_HAS_VARIADIC_PAIRWISE
 #  if IUTEST_HAS_PAIRWISE && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
-#    define IUTEST_HAS_VARIADIC_PAIRWISE	1	//!< 可変長引数に対応した Pairwise が使用可能かどうか
+#    define IUTEST_HAS_VARIADIC_PAIRWISE	1	//!< 可変長引数に対応した ::iutest::Pairwise が使用可能かどうか
 #  else
-#    define IUTEST_HAS_VARIADIC_PAIRWISE	0	//!< 可変長引数に対応した Pairwise が使用可能かどうか
+#    define IUTEST_HAS_VARIADIC_PAIRWISE	0	//!< 可変長引数に対応した ::iutest::Pairwise が使用可能かどうか
 #  endif
 #endif
 

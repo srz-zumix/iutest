@@ -307,7 +307,7 @@ namespace iutest
 #endif
 
 /**
- * @ingropu	IUTEST_ASSERT_
+ * @ingroup	IUTEST_ASSERT_
  * @brief	throw value テスト
 */
 #ifndef IUTEST_ASSERT_THROW_VALUE
@@ -518,7 +518,7 @@ namespace iutest
 #endif
 
 /**
- * @ingropu	IUTEST_EXPECT_
+ * @ingroup	IUTEST_EXPECT_
  * @brief	throw value テスト
 */
 #ifndef IUTEST_EXPECT_THROW_VALUE
@@ -737,7 +737,7 @@ namespace iutest
 #endif
 
 /**
- * @ingropu	IUTEST_INFORM_
+ * @ingroup	IUTEST_INFORM_
  * @brief	throw value テスト
 */
 #ifndef IUTEST_INFORM_THROW_VALUE

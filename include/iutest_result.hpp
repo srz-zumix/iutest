@@ -155,7 +155,8 @@ class TestResult
 	typedef ::std::vector<TestPartResult>	TestPartResults;
 	typedef ::std::vector<TestProperty>		TestPropertys;
 public:
-	TestResult(void) {}
+	TestResult(void) 
+		: m_elapsedmsec(0) {}
 
 public:
 	/**

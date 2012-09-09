@@ -54,6 +54,8 @@
 	};										\
 	void className::Body() 
 
+#ifndef IUTEST_USE_GTEST
+
 #ifdef IUTEST_P
 #  undef IUTEST_P
 #endif
@@ -76,8 +78,8 @@ IUTEST_MAKE_SCOPED_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, 
 			const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->GetTestCase(i);	\
 			::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testcase);	\
 			const char* testcase_name = testcase->name();									\
-			testcase_name = strchr(testcase_name, '/');										\
-			if( testcase_name != NULL && strcmp(testcase_name, testcase_name) == 0 ) {		\
+			const char* testcase_origin_name = strchr(testcase_name, '/');					\
+			if( testcase_origin_name != NULL && strcmp(testcase_origin_name+1, #testcase_) == 0 ) {	\
 				::std::string name(#testname_);	name += "/";								\
 				int testinfo_count = testcase->total_test_count();							\
 				for( int i=0; i < testinfo_count; ++i ) {									\
@@ -90,9 +92,9 @@ IUTEST_MAKE_SCOPED_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, 
 								IUTEST_PEEP_GET(*testinfo, TestInfo, m_factory));			\
 						::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(factory);	\
 						SetParam(&factory->GetParam());										\
-						OnTestStart(#testcase_, #testname_);								\
+						OnTestStart(testcase_name, testinfo_name);							\
 						SetUp(); Body(); TearDown();										\
-						OnTestEnd(#testcase_, #testname_);									\
+						OnTestEnd(testcase_name, testinfo_name);							\
 					}																		\
 				}																			\
 			}																				\
@@ -113,6 +115,36 @@ IUTEST_MAKE_SCOPED_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, 
 	void className::Body() 
 
 
+#if 0
+#ifdef IUTEST_TYPED_TEST
+#  undef IUTEST_TYPED_TEST
+#endif
+
+#define IUTEST_TYPED_TEST(testcase_, testname_)									\
+	template<typename iutest_TypeParam>											\
+	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public testcase_<iutest_TypeParam> {		\
+	typedef testcase_<iutest_TypeParam> TestFixture;							\
+	typedef iutest_TypeParam	TypeParam;										\
+	public: virtual void Body(void);											\
+	};																			\
+	::iutest::detail::TypeParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_)						\
+			, IUTEST_TYPED_TEST_PARAMS(testcase_) >	s_##testcase_##_##testname_( #testcase_, #testname_);		\
+	IUTEST_TYPED_TEST_VCUNIT_I(testcase_, testname_, testcase_##testname_##_class, testcase_##_##testname_);	\
+	template<typename iutest_TypeParam>											\
+	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_TypeParam>::Body(void)
+
+#define IUTEST_TYPED_TEST_VCUNIT_I(testcase_, testname_, className, methodName)		\
+	IUTEST_VC_TEST_CLASS(className) {												\
+	template<typename T, typename DMY>class ForeachTest {							\
+	};																				\
+	public: TEST_METHOD(methodName) {												\
+	}																				\
+	}
+
+#endif
+
+#endif
+
 #define IUTEST_VC_TEST_CLASS(className)	\
 	ONLY_USED_AT_NAMESPACE_SCOPE class className : public ::iuutil::VisualStudio::TestClass<className>
 
@@ -122,10 +154,14 @@ namespace iuutil {
 namespace VisualStudio
 {
 
+#ifndef IUTEST_USE_GTEST
+
 typedef void (::iutest::TestEventListeners::* OnTestStartEnd)(const ::iutest::TestInfo& test_info);
 
 IUTEST_MAKE_SCOPED_PEEP(OnTestStartEnd, iutest, TestEventListeners, OnTestStart);
 IUTEST_MAKE_SCOPED_PEEP(OnTestStartEnd, iutest, TestEventListeners, OnTestEnd);
+
+#endif
 
 template<typename T>
 class TestClass : public ::Microsoft::VisualStudio::CppUnitTestFramework::TestClass<T>
@@ -134,16 +170,53 @@ class TestClass : public ::Microsoft::VisualStudio::CppUnitTestFramework::TestCl
 public:
 	void OnTestStart(const char* testcase_name, const char* testinfo_name)
 	{
+#ifndef IUTEST_USE_GTEST
 		const ::iutest::TestInfo* testinfo = iuutil::FindTestInfo(testcase_name, testinfo_name);
 		if( testinfo == NULL ) return;
 		IUTEST_PEEP_GET(::iutest::TestEnv::event_listeners(), TestEventListeners, OnTestStart)(*testinfo);
+#else
+		IUTEST_UNUSED_VAR(testcase_name);
+		IUTEST_UNUSED_VAR(testinfo_name);
+#endif
 	}
 	void OnTestEnd(const char* testcase_name, const char* testinfo_name)
 	{
+#ifndef IUTEST_USE_GTEST
 		const ::iutest::TestInfo* testinfo = iuutil::FindTestInfo(testcase_name, testinfo_name);
 		if( testinfo == NULL ) return;
 		IUTEST_PEEP_GET(::iutest::TestEnv::event_listeners(), TestEventListeners, OnTestEnd)(*testinfo);
+		IUTEST_UNUSED_VAR(testcase_name);
+		IUTEST_UNUSED_VAR(testinfo_name);
+#endif
 	}
+};
+
+/**
+ * @brief	Logger
+*/
+class VCCppUnitTestLogger : public ::iutest::detail::iuLogger
+{
+	typedef ::Microsoft::VisualStudio::CppUnitTestFramework::Logger	Logger;
+public:
+	virtual void voutput(const char* fmt, va_list va)
+	{
+		int length = _vscprintf(fmt, va);
+		if( length <= 0 ) return;
+		length += 1;
+		char* buf = new char [length];
+		vsprintf_s(buf, length, fmt, va);
+		m_log += buf;
+		delete [] buf;
+
+		int pos = m_log.find('\n');
+		while(pos >= 0) {
+			Logger::WriteMessage(m_log.substr(0, pos).c_str());
+			m_log = m_log.substr(pos+1);
+			pos = m_log.find('\n');
+		}
+	}
+private:
+	::std::string m_log;
 };
 
 /**
@@ -178,31 +251,15 @@ public:
 	}
 };
 
-/**
- * @brief	Logger
-*/
-class VCCppUnitTestLogger : public ::iutest::detail::iuLogger
-{
-	typedef ::Microsoft::VisualStudio::CppUnitTestFramework::Logger	Logger;
-public:
-	virtual void voutput(const char* fmt, va_list va)
-	{
-		int length = _vscprintf(fmt, va);
-		if( length <= 0 ) return;
-		length += 1;
-		char* buf = new char [length];
-		vsprintf_s(buf, length, fmt, va);
-		Logger::WriteMessage(buf);
-		delete [] buf;
-	}
-};
 
 inline void SetUpCppUnitTest(void)
 {
 	static VCCppUnitTestPartResultReporter fake;
+#ifndef IUTEST_USE_GTEST
 	static VCCppUnitTestLogger logger;
 	::iutest::detail::iuConsole::SetLogger(&logger);
 	::iutest::UnitTestSource::GetInstance().Initialize();
+#endif
 }
 
 }	// end of namespace VisualStudio

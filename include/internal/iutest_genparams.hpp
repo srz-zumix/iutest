@@ -1937,7 +1937,7 @@ public:
 	}
 
 private:
-	void	operator = (const _Myt&) {}
+	void	operator = (const _Myt&);
 private:
 	_MyTuple v;
 };
@@ -2797,7 +2797,7 @@ public:
 	}
 
 private:
-	void	operator = (const _Myt&) {}
+	void	operator = (const _Myt&);
 private:
 	_MyTuple v;
 };

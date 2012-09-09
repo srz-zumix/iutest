@@ -1144,6 +1144,9 @@ static detail::iuValueArray50<T1, T2, T3, T4, T5, T6, T7, T8, T9
 #if IUTEST_HAS_COMBINE
 
 #if IUTEST_HAS_VARIADIC_COMBINE
+/**
+ * @brief	複合条件パラメータ化
+*/
 template<typename ...Generator>
 detail::iuCartesianProductHolder<Generator...> Combine(const Generator&... generators)
 {
@@ -1223,6 +1226,9 @@ detail::iuCartesianProductHolder9<G1, G2, G3, G4, G5, G6, G7, G8, G9> Combine(co
 
 #if IUTEST_HAS_VARIADIC_PAIRWISE
 
+/**
+ * @brief	複合条件パラメータ化(オールペア法)
+*/
 template<typename ...Generator>
 detail::iuPairwiseHolder<Generator...> Pairwise(const Generator&... generators)
 {
@@ -1233,7 +1239,7 @@ detail::iuPairwiseHolder<Generator...> Pairwise(const Generator&... generators)
 
 /**
  * @brief	複合条件パラメータ化(オールペア法)
- * @note	3引数まで使用可能
+ * @note	9引数まで使用可能
 */
 template<typename G1, typename G2>
 detail::iuCartesianProductHolder2<G1, G2> Pairwise(const G1& g1, const G2& g2)
