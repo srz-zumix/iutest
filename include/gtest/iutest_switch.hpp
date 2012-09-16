@@ -992,7 +992,7 @@ namespace tr1
 				  #expected_exception ".\n  Actual: it throws nothing.";			\
 			goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);					\
 		} catch( expected_exception const& e) {										\
-			if( e == expected_exception_value ) {									\
+			if( pred_formatter("e", #expected_exception_value, e, expected_exception_value) ) {	\
 			} else {																\
 			msg = "\nExpected: " #statement " throws an exception of value "		\
 			#expected_exception_value ".\n  Actual: it throws a different value.";	\
