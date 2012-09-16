@@ -455,7 +455,10 @@ namespace tr1
 #undef IUTEST_ASSERT_STRCASEEQ
 #undef IUTEST_ASSERT_STRCASENE
 #undef IUTEST_ASSERT_THROW
-#undef IUTEST_ASSERT_THROW_VALUE
+#undef IUTEST_ASSERT_THROW_VALUE_EQ
+#undef IUTEST_ASSERT_THROW_VALUE_NE
+#undef IUTEST_ASSERT_THROW_VALUE_STREQ
+#undef IUTEST_ASSERT_THROW_VALUE_STRCASEEQ
 #undef IUTEST_ASSERT_NO_THROW
 #undef IUTEST_ASSERT_ANY_THROW
 #undef IUTEST_ASSERT_NO_FATAL_FAILURE
@@ -490,7 +493,10 @@ namespace tr1
 #undef IUTEST_EXPECT_STRCASEEQ
 #undef IUTEST_EXPECT_STRCASENE
 #undef IUTEST_EXPECT_THROW
-#undef IUTEST_EXPECT_THROW_VALUE
+#undef IUTEST_EXPECT_THROW_VALUE_EQ
+#undef IUTEST_EXPECT_THROW_VALUE_NE
+#undef IUTEST_EXPECT_THROW_VALUE_STREQ
+#undef IUTEST_EXPECT_THROW_VALUE_STRCASEEQ
 #undef IUTEST_EXPECT_NO_THROW
 #undef IUTEST_EXPECT_ANY_THROW
 #undef IUTEST_EXPECT_NO_FATAL_FAILURE
@@ -525,7 +531,10 @@ namespace tr1
 #undef IUTEST_INFORM_STRCASEEQ
 #undef IUTEST_INFORM_STRCASENE
 #undef IUTEST_INFORM_THROW
-#undef IUTEST_INFORM_THROW_VALUE
+#undef IUTEST_INFORM_THROW_VALUE_EQ
+#undef IUTEST_INFORM_THROW_VALUE_NE
+#undef IUTEST_INFORM_THROW_VALUE_STREQ
+#undef IUTEST_INFORM_THROW_VALUE_STRCAEEQ
 #undef IUTEST_INFORM_NO_THROW
 #undef IUTEST_INFORM_ANY_THROW
 #undef IUTEST_INFORM_NO_FATAL_FAILURE
@@ -579,6 +588,8 @@ namespace tr1
 #undef IUTEST_HAS_PARAM_TEST
 #undef IUTEST_HAS_COMBINE
 #undef IUTEST_HAS_VARIADIC_COMBINE
+#undef IUTEST_HAS_PAIRWISE
+#undef IUTEST_HAS_VARIADIC_PAIRWISE
 #undef IUTEST_HAS_TYPED_TEST
 #undef IUTEST_HAS_TYPED_TEST_P
 
@@ -637,7 +648,14 @@ namespace tr1
 #undef IUTEST_TEST_CLASS_NAME_
 #undef IUTEST_TEST_
 
+#undef IUTEST_TEST_THROW_VALUE_
+#undef IUTEST_TEST_THROW_VALUE_EQ_
+#undef IUTEST_TEST_THROW_VALUE_NE_
+#undef IUTEST_TEST_THROW_VALUE_STREQ_
+#undef IUTEST_TEST_THROW_VALUE_STRCASEEQ_
+
 #undef IUTEST_PP_CAT
+#undef IUTEST_IS_NULLLITERAL
 
 #endif
 
@@ -678,7 +696,10 @@ namespace tr1
 #define IUTEST_ASSERT_STRCASEEQ	ASSERT_STRCASEEQ
 #define IUTEST_ASSERT_STRCASENE	ASSERT_STRCASENE
 #define IUTEST_ASSERT_THROW(statement, expected_exception)		ASSERT_THROW((void)statement, expected_exception)
-#define IUTEST_ASSERT_THROW_VALUE(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_value, IUTEST_ASSERT_FAILURE)
+#define IUTEST_ASSERT_THROW_VALUE_EQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_EQ_(statement, expected_exception, expected_value, IUTEST_ASSERT_FAILURE)
+#define IUTEST_ASSERT_THROW_VALUE_NE(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, expected_value, IUTEST_ASSERT_FAILURE)
+#define IUTEST_ASSERT_THROW_VALUE_STREQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STREQ_(statement, expected_exception, expected_value, IUTEST_ASSERT_FAILURE)
+#define IUTEST_ASSERT_THROW_VALUE_STRCASEEQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STRCASEEQ_(statement, expected_exception, expected_value, IUTEST_ASSERT_FAILURE)
 #define IUTEST_ASSERT_NO_THROW(statement)						ASSERT_NO_THROW((void)statement)
 #define IUTEST_ASSERT_ANY_THROW(statement)						ASSERT_ANY_THROW((void)statement)
 #define IUTEST_ASSERT_NO_FATAL_FAILURE		ASSERT_NO_FATAL_FAILURE
@@ -720,7 +741,10 @@ namespace tr1
 #define IUTEST_EXPECT_STRCASEEQ	EXPECT_STRCASEEQ
 #define IUTEST_EXPECT_STRCASENE	EXPECT_STRCASENE
 #define IUTEST_EXPECT_THROW(statement, expected_exception)	EXPECT_THROW((void)statement, expected_exception)
-#define IUTEST_EXPECT_THROW_VALUE(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_value, IUTEST_EXPECT_FAILURE)
+#define IUTEST_EXPECT_THROW_VALUE_EQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_EQ_(statement, expected_exception, expected_value, IUTEST_EXPECT_FAILURE)
+#define IUTEST_EXPECT_THROW_VALUE_NE(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, expected_value, IUTEST_EXPECT_FAILURE)
+#define IUTEST_EXPECT_THROW_VALUE_STREQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STREQ_(statement, expected_exception, expected_value, IUTEST_EXPECT_FAILURE)
+#define IUTEST_EXPECT_THROW_VALUE_STRCASEEQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STRCASEEQ_(statement, expected_exception, expected_value, IUTEST_EXPECT_FAILURE)
 #define IUTEST_EXPECT_NO_THROW(statement)					EXPECT_NO_THROW((void)statement)
 #define IUTEST_EXPECT_ANY_THROW(statement)					EXPECT_ANY_THROW((void)statement)
 #define IUTEST_EXPECT_NO_FATAL_FAILURE		EXPECT_NO_FATAL_FAILURE
@@ -839,7 +863,10 @@ namespace tr1
 #define IUTEST_INFORM_STRCASEEQ	INFORM_STRCASEEQ
 #define IUTEST_INFORM_STRCASENE	INFORM_STRCASENE
 #define IUTEST_INFORM_THROW(statement, expected_exception)	INFORM_THROW((void)statement, expected_exception)
-#define IUTEST_INFORM_THROW_VALUE(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
+#define IUTEST_INFORM_THROW_VALUE_EQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_EQ_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
+#define IUTEST_INFORM_THROW_VALUE_NE(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
+#define IUTEST_INFORM_THROW_VALUE_STREQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STREQ_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
+#define IUTEST_INFORM_THROW_VALUE_STRCASEEQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STRCASEEQ_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
 #define IUTEST_INFORM_NO_THROW(statement)					INFORM_NO_THROW((void)statement)
 #define IUTEST_INFORM_ANY_THROW(statement)					INFORM_ANY_THROW((void)statement)
 #define IUTEST_INFORM_NO_FATAL_FAILURE		INFORM_NO_FATAL_FAILURE
@@ -903,6 +930,8 @@ namespace tr1
 #define IUTEST_HAS_PARAM_TEST		GTEST_HAS_PARAM_TEST
 #define IUTEST_HAS_COMBINE			GTEST_HAS_COMBINE
 #define IUTEST_HAS_VARIADIC_COMBINE	0
+#define IUTEST_HAS_PAIRWISE				0
+#define IUTEST_HAS_VARIADIC_PAIRWISE	0
 #define IUTEST_HAS_TYPED_TEST		GTEST_HAS_TYPED_TEST
 #define IUTEST_HAS_TYPED_TEST_P		GTEST_HAS_TYPED_TEST_P
 
@@ -954,8 +983,7 @@ namespace tr1
 
 #define IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING	GTEST_SUPPRESS_UNREACHABLE_CODE_WARNING_BELOW_
 
-#ifndef IUTEST_TEST_THROW_VALUE_
-#define IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure)	\
+#define IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure, pred_formatter)	\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_													\
 	if( const char* msg = "" ) {													\
 		try {																		\
@@ -978,9 +1006,18 @@ namespace tr1
 	} else																			\
 		IUTEST_PP_CAT(iutest_label_throw_value, __LINE__):							\
 		on_failure(msg)
-#endif
+
+#define IUTEST_TEST_THROW_VALUE_EQ_(statement, expected_exception, expected_exception_value, on_failure)	\
+	IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure, ::testing::internal::EqHelper<GTEST_IS_NULL_LITERAL_(expected_exception_value)>::Compare)
+#define IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, expected_exception_value, on_failure)	\
+	IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure, ::testing::internal::NeHelper<GTEST_IS_NULL_LITERAL_(expected_exception_value)>::Compare)
+#define IUTEST_TEST_THROW_VALUE_STREQ_(statement, expected_exception, expected_exception_value, on_failure)	\
+	IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure, ::testing::internal::CmpHelperSTREQ)
+#define IUTEST_TEST_THROW_VALUE_STRCASEEQ_(statement, expected_exception, expected_exception_value, on_failure)	\
+	IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure, ::testing::internal::CmpHelperSTRCASEEQ)
 
 #define IUTEST_PP_CAT	GTEST_CONCAT_TOKEN_
+#define IUTEST_IS_NULLLITERAL	GTEST_IS_NULL_LITERAL_
 
 namespace testing
 {

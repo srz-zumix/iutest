@@ -212,6 +212,10 @@ static void	ExceptionFunction(int i)
 	case 2:
 		throw ::std::bad_exception();
 		break;
+	case 3:
+		throw "error";
+	case 4:
+		throw ::std::string("error");
 	default:
 		break;
 	}
@@ -230,9 +234,23 @@ IUTEST(AssertionTest, Exception)
 	IUTEST_EXPECT_NO_THROW(ExceptionFunction(0));
 	IUTEST_INFORM_NO_THROW(ExceptionFunction(0));
 	
-	IUTEST_ASSERT_THROW_VALUE(ExceptionFunction(1), int, 2);
-	IUTEST_EXPECT_THROW_VALUE(ExceptionFunction(1), int, 2);
-	IUTEST_INFORM_THROW_VALUE(ExceptionFunction(1), int, 2);
+	IUTEST_ASSERT_THROW_VALUE_EQ(ExceptionFunction(1), int, 2);
+	IUTEST_EXPECT_THROW_VALUE_EQ(ExceptionFunction(1), int, 2);
+	IUTEST_INFORM_THROW_VALUE_EQ(ExceptionFunction(1), int, 2);
+	IUTEST_ASSERT_THROW_VALUE_NE(ExceptionFunction(1), int, 0);
+	IUTEST_EXPECT_THROW_VALUE_NE(ExceptionFunction(1), int, 0);
+	IUTEST_INFORM_THROW_VALUE_NE(ExceptionFunction(1), int, 0);
+	
+	IUTEST_ASSERT_THROW_VALUE_STREQ(ExceptionFunction(3), const char *, "error");
+	IUTEST_EXPECT_THROW_VALUE_STREQ(ExceptionFunction(3), const char *, "error");
+	IUTEST_INFORM_THROW_VALUE_STREQ(ExceptionFunction(3), const char *, "error");
+	IUTEST_ASSERT_THROW_VALUE_STREQ(ExceptionFunction(4), ::std::string, "error");
+	IUTEST_EXPECT_THROW_VALUE_STREQ(ExceptionFunction(4), ::std::string, "error");
+	IUTEST_INFORM_THROW_VALUE_STREQ(ExceptionFunction(4), ::std::string, "error");
+
+	IUTEST_ASSERT_THROW_VALUE_STRCASEEQ(ExceptionFunction(3), const char *, "Error");
+	IUTEST_EXPECT_THROW_VALUE_STRCASEEQ(ExceptionFunction(3), const char *, "Error");
+	IUTEST_INFORM_THROW_VALUE_STRCASEEQ(ExceptionFunction(3), const char *, "Error");
 }
 
 class exception_test

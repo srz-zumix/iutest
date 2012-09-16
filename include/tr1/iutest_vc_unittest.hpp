@@ -73,32 +73,29 @@ IUTEST_MAKE_SCOPED_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, 
 #define IUTEST_P_VCUNIT_I(testcase_, testname_, className, methodName)						\
 	IUTEST_VC_TEST_CLASS(className), public IUTEST_TEST_CLASS_NAME_(testcase_, testname_) { \
 	public: TEST_METHOD(methodName) {														\
-		int testcase_count = ::iutest::UnitTest::GetInstance()->total_test_case_count();	\
-		for( int i=0; i < testcase_count; ++i ) {											\
-			const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->GetTestCase(i);	\
-			::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testcase);	\
+		const ::iutest::TestCase* testcase = ::iuutil::FindParamTestCase(#testcase_);		\
+		::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testcase);		\
+		while( testcase != NULL ) {															\
 			const char* testcase_name = testcase->name();									\
-			const char* testcase_origin_name = strchr(testcase_name, '/');					\
-			if( testcase_origin_name != NULL && strcmp(testcase_origin_name+1, #testcase_) == 0 ) {	\
-				::std::string name(#testname_);	name += "/";								\
-				int testinfo_count = testcase->total_test_count();							\
-				for( int i=0; i < testinfo_count; ++i ) {									\
-					const ::iutest::TestInfo* testinfo = testcase->GetTestInfo(i);			\
-					::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testinfo);	\
-					const char* testinfo_name = testinfo->name();							\
-					if( strstr(testinfo_name, name.c_str()) == testinfo_name ) {			\
-						::iutest::detail::iuParamTestFactory<className>* factory =			\
-							(::iutest::detail::iuParamTestFactory<className>*)(				\
-								IUTEST_PEEP_GET(*testinfo, TestInfo, m_factory));			\
-						::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(factory);	\
-						SetParam(&factory->GetParam());										\
-						OnTestStart(testcase_name, testinfo_name);							\
-						SetUp(); Body(); TearDown();										\
-						OnTestEnd(testcase_name, testinfo_name);							\
-					}																		\
-				}																			\
-			}																				\
-		}																					\
+			::std::string name(#testname_);	name += "/";								\
+			int testinfo_count = testcase->total_test_count();							\
+			for( int i=0; i < testinfo_count; ++i ) {									\
+				const ::iutest::TestInfo* testinfo = testcase->GetTestInfo(i);			\
+				::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testinfo);	\
+				const char* testinfo_name = testinfo->name();							\
+				if( strstr(testinfo_name, name.c_str()) == testinfo_name ) {			\
+					::iutest::detail::iuParamTestFactory<className>* factory =			\
+						(::iutest::detail::iuParamTestFactory<className>*)(				\
+							IUTEST_PEEP_GET(*testinfo, TestInfo, m_factory));			\
+					::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(factory);	\
+					SetParam(&factory->GetParam());										\
+					OnTestStart(testcase_name, testinfo_name);							\
+					SetUp(); Body(); TearDown();										\
+					OnTestEnd(testcase_name, testinfo_name);							\
+				}																		\
+			}																			\
+			testcase = ::iuutil::FindParamTestCase(#testcase_, testcase);				\
+		}																				\
 	}																						\
 	TEST_CLASS_INITIALIZE(iuSetUp) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::SetUpTestCase(); }		\
 	TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::TearDownTestCase(); }	\
@@ -115,30 +112,69 @@ IUTEST_MAKE_SCOPED_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, 
 	void className::Body() 
 
 
-#if 0
+#if 1
 #ifdef IUTEST_TYPED_TEST
 #  undef IUTEST_TYPED_TEST
 #endif
 
-#define IUTEST_TYPED_TEST(testcase_, testname_)									\
-	template<typename iutest_TypeParam>											\
-	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public testcase_<iutest_TypeParam> {		\
-	typedef testcase_<iutest_TypeParam> TestFixture;							\
-	typedef iutest_TypeParam	TypeParam;										\
-	public: virtual void Body(void);											\
-	};																			\
-	::iutest::detail::TypeParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_)						\
-			, IUTEST_TYPED_TEST_PARAMS(testcase_) >	s_##testcase_##_##testname_( #testcase_, #testname_);		\
+#define IUTEST_TYPED_TEST(testcase_, testname_)											\
 	IUTEST_TYPED_TEST_VCUNIT_I(testcase_, testname_, testcase_##testname_##_class, testcase_##_##testname_);	\
-	template<typename iutest_TypeParam>											\
-	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_TypeParam>::Body(void)
+	IIUT_TYPED_TEST_(testcase_, testname_)
 
-#define IUTEST_TYPED_TEST_VCUNIT_I(testcase_, testname_, className, methodName)		\
-	IUTEST_VC_TEST_CLASS(className) {												\
-	template<typename T, typename DMY>class ForeachTest {							\
-	};																				\
-	public: TEST_METHOD(methodName) {												\
-	}																				\
+#define IUTEST_TYPED_TEST_VCUNIT_I(testcase_, testname_, className, methodName)			\
+	IUTEST_VC_TEST_CLASS(className) {													\
+	public: TEST_METHOD(methodName) {													\
+		const ::iutest::TestCase* testcase = ::iuutil::FindTypedTestCase(#testcase_);	\
+		::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testcase);	\
+		while( testcase != NULL ) {														\
+			const char* testcase_name = testcase->name();								\
+			const ::iutest::TestInfo* testinfo = ::iuutil::FindTestInfo(testcase, #testname_);	\
+			::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testinfo);	\
+			::iutest::detail::iuFactoryBase* factory =									\
+				IUTEST_PEEP_GET(*testinfo, TestInfo, m_factory);						\
+			::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(factory);	\
+			::iutest::detail::auto_ptr<::iutest::Test> p = factory->Create();			\
+			::iuutil::VisualStudio::Test* tester = static_cast<::iuutil::VisualStudio::Test*>(p.ptr());	\
+			OnTestStart(testcase_name, #testname_);										\
+			tester->SetUp(); tester->Body(); tester->TearDown();						\
+			OnTestEnd(testcase_name, #testname_);										\
+			testcase = ::iuutil::FindTypedTestCase(#testcase_, testcase);				\
+		}																				\
+	}																					\
+	}
+
+#endif
+
+#if 1
+#ifdef IUTEST_TYPED_TEST_P
+#  undef IUTEST_TYPED_TEST_P
+#endif
+
+#define IUTEST_TYPED_TEST_P(testcase_, testname_)		\
+	IUTEST_TYPED_TEST_P_VCUNIT_I(testcase_, testname_, testcase_##testname_##_class, testcase_##_##testname_);	\
+	IUTEST_TYPED_TEST_P_(testcase_, testname_)
+
+#define IUTEST_TYPED_TEST_P_VCUNIT_I(testcase_, testname_, className, methodName)			\
+	IUTEST_VC_TEST_CLASS(className) {														\
+	public: TEST_METHOD(methodName) {														\
+		const ::iutest::TestCase* testcase = ::iuutil::FindParamTypedTestCase(#testcase_);	\
+		::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testcase);		\
+		while( testcase != NULL ) {															\
+		::Microsoft::VisualStudio::CppUnitTestFramework::Logger::WriteMessage(#testcase_);	\
+			const char* testcase_name = testcase->name();									\
+			const ::iutest::TestInfo* testinfo = ::iuutil::FindTestInfo(testcase, #testname_);	\
+			::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testinfo);	\
+			::iutest::detail::iuFactoryBase* factory =										\
+				IUTEST_PEEP_GET(*testinfo, TestInfo, m_factory);							\
+			::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(factory);	\
+			::iutest::detail::auto_ptr<::iutest::Test> p = factory->Create();				\
+			::iuutil::VisualStudio::Test* tester = static_cast<::iuutil::VisualStudio::Test*>(p.ptr());	\
+			OnTestStart(testcase_name, #testname_);										\
+			tester->SetUp(); tester->Body(); tester->TearDown();						\
+			OnTestEnd(testcase_name, #testname_);										\
+			testcase = ::iuutil::FindParamTypedTestCase(#testcase_, testcase);			\
+		}																				\
+	}																					\
 	}
 
 #endif
@@ -160,6 +196,14 @@ typedef void (::iutest::TestEventListeners::* OnTestStartEnd)(const ::iutest::Te
 
 IUTEST_MAKE_SCOPED_PEEP(OnTestStartEnd, iutest, TestEventListeners, OnTestStart);
 IUTEST_MAKE_SCOPED_PEEP(OnTestStartEnd, iutest, TestEventListeners, OnTestEnd);
+
+class Test : public ::iutest::Test
+{
+public:
+	using ::iutest::Test::SetUp;
+	using ::iutest::Test::Body;
+	using ::iutest::Test::TearDown;
+};
 
 #endif
 

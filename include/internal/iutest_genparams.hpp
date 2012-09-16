@@ -2527,7 +2527,7 @@ protected:
 	static void MakeIndexList( ::std::vector< ParamIndexes<N> >& list, int* count_list)
 	{
 		typedef typename ::std::vector< ParamIndexes<N> >::iterator list_iterator;
-		list.empty();
+		list.clear();
 
 		// ƒyƒA‚ð—ñ‹“
 		::std::vector<PairInfo> pair_list;

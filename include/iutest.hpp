@@ -308,11 +308,38 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	throw value テスト
+ * @brief	throw value == テスト
 */
-#ifndef IUTEST_ASSERT_THROW_VALUE
-#  define IUTEST_ASSERT_THROW_VALUE(statement, expected_exception, expected_value)	\
-													IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_value, IUTEST_ASSERT_FAILURE)
+#ifndef IUTEST_ASSERT_THROW_VALUE_EQ
+#  define IUTEST_ASSERT_THROW_VALUE_EQ(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_EQ_(statement, expected_exception, expected_value, IUTEST_ASSERT_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSERT_
+ * @brief	throw value != テスト
+*/
+#ifndef IUTEST_ASSERT_THROW_VALUE_NE
+#  define IUTEST_ASSERT_THROW_VALUE_NE(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, expected_value, IUTEST_ASSERT_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSERT_
+ * @brief	throw value 文字列一致 テスト
+*/
+#ifndef IUTEST_ASSERT_THROW_VALUE_STREQ
+#  define IUTEST_ASSERT_THROW_VALUE_STREQ(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_STREQ_(statement, expected_exception, expected_value, IUTEST_ASSERT_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSERT_
+ * @brief	throw value 文字列一致（大文字小文字区別なし） テスト
+*/
+#ifndef IUTEST_ASSERT_THROW_VALUE_STRCASEEQ
+#  define IUTEST_ASSERT_THROW_VALUE_STRCASEEQ(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_STRCASEEQ_(statement, expected_exception, expected_value, IUTEST_ASSERT_FAILURE)
 #endif
 
 /**
@@ -519,11 +546,38 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	throw value テスト
+ * @brief	throw value == テスト
 */
-#ifndef IUTEST_EXPECT_THROW_VALUE
-#  define IUTEST_EXPECT_THROW_VALUE(statement, expected_exception, expected_value)	\
-													IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_value, IUTEST_EXPECT_FAILURE)
+#ifndef IUTEST_EXPECT_THROW_VALUE_EQ
+#  define IUTEST_EXPECT_THROW_VALUE_EQ(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_EQ_(statement, expected_exception, expected_value, IUTEST_EXPECT_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_EXPECT_
+ * @brief	throw value != テスト
+*/
+#ifndef IUTEST_EXPECT_THROW_VALUE_NE
+#  define IUTEST_EXPECT_THROW_VALUE_NE(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, expected_value, IUTEST_EXPECT_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_EXPECT_
+ * @brief	throw value 文字列一致 テスト
+*/
+#ifndef IUTEST_EXPECT_THROW_VALUE_STREQ
+#  define IUTEST_EXPECT_THROW_VALUE_STREQ(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_STREQ_(statement, expected_exception, expected_value, IUTEST_EXPECT_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_EXPECT_
+ * @brief	throw value 文字列一致（大文字小文字区別なし） テスト
+*/
+#ifndef IUTEST_EXPECT_THROW_VALUE_STRCASEEQ
+#  define IUTEST_EXPECT_THROW_VALUE_STRCASEEQ(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_STRCASEEQ_(statement, expected_exception, expected_value, IUTEST_EXPECT_FAILURE)
 #endif
 
 /**
@@ -738,11 +792,38 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	throw value テスト
+ * @brief	throw value == テスト
 */
-#ifndef IUTEST_INFORM_THROW_VALUE
-#  define IUTEST_INFORM_THROW_VALUE(statement, expected_exception, expected_value)	\
-													IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
+#ifndef IUTEST_INFORM_THROW_VALUE_EQ
+#  define IUTEST_INFORM_THROW_VALUE_EQ(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_EQ_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_INFORM_
+ * @brief	throw value != テスト
+*/
+#ifndef IUTEST_INFORM_THROW_VALUE_NE
+#  define IUTEST_INFORM_THROW_VALUE_NE(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_INFORM_
+ * @brief	throw value 文字列一致 テスト
+*/
+#ifndef IUTEST_INFORM_THROW_VALUE_STREQ
+#  define IUTEST_INFORM_THROW_VALUE_STREQ(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_STREQ_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_INFORM_
+ * @brief	throw value 文字列一致（大文字小文字区別なし） テスト
+*/
+#ifndef IUTEST_INFORM_THROW_VALUE_STRCASEEQ
+#  define IUTEST_INFORM_THROW_VALUE_STRCASEEQ(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_STRCASEEQ_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
 #endif
 
 /**

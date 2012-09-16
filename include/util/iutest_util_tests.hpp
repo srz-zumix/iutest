@@ -31,7 +31,7 @@ namespace iuutil
 inline const ::iutest::TestCase* FindTestCase(const char* testcase_name)
 {
 	if( testcase_name == NULL ) return NULL;
-	int testcase_count = ::iutest::UnitTest::GetInstance()->total_test_case_count();
+	const int testcase_count = ::iutest::UnitTest::GetInstance()->total_test_case_count();
 	for( int i=0; i < testcase_count; ++i )
 	{
 		const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->GetTestCase(i);
@@ -44,24 +44,160 @@ inline const ::iutest::TestCase* FindTestCase(const char* testcase_name)
 }
 
 /**
+ * @brief	TestCase ‚ÌŒŸõ
+*/
+inline const ::iutest::TestCase* FindParamTestCase(const char* testcase_name, const ::iutest::TestCase* begin=NULL)
+{
+	if( testcase_name == NULL ) return NULL;
+	const int testcase_count = ::iutest::UnitTest::GetInstance()->total_test_case_count();
+	int i=0;
+	if( begin != NULL )
+	{
+		for( ; i < testcase_count; ++i )
+		{
+			const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->GetTestCase(i);
+			if( testcase == begin ) break; 
+		}
+		++i;
+	}
+	for( ; i < testcase_count; ++i )
+	{
+		const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->GetTestCase(i);
+		const char* testcase_origin_name = strchr(testcase->name(), '/');
+		if( testcase_origin_name != NULL )
+		{
+			if( strcmp(testcase_origin_name+1, testcase_name) == 0 )
+			{
+				return testcase;
+			}
+		}
+	}
+	return NULL;
+}
+
+/**
+ * @brief	Typed Test ‚Ì TestCase ‚ÌŒŸõ
+*/
+inline const ::iutest::TestCase* FindTypedTestCase(const char* testcase_name, const ::iutest::TestCase* begin=NULL)
+{
+	if( testcase_name == NULL ) return NULL;
+	const int testcase_count = ::iutest::UnitTest::GetInstance()->total_test_case_count();
+	int i=0;
+	if( begin != NULL )
+	{
+		for( ; i < testcase_count; ++i )
+		{
+			const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->GetTestCase(i);
+			if( testcase == begin ) break; 
+		}
+		++i;
+	}
+	for( ; i < testcase_count; ++i )
+	{
+		const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->GetTestCase(i);
+		const char* name = testcase->name();
+		if( strstr(name, testcase_name) == name
+			&& name[strlen(testcase_name)] == '/' )
+		{
+			return testcase;
+		}
+	}
+	return NULL;
+}
+
+/**
+ * @brief	Type Parameter Test ‚Ì TestCase ‚ÌŒŸõ
+*/
+inline const ::iutest::TestCase* FindParamTypedTestCase(const char* testcase_name, const ::iutest::TestCase* begin=NULL)
+{
+	if( testcase_name == NULL ) return NULL;
+	const int testcase_count = ::iutest::UnitTest::GetInstance()->total_test_case_count();
+	int i=0;
+	if( begin != NULL )
+	{
+		for( ; i < testcase_count; ++i )
+		{
+			const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->GetTestCase(i);
+			if( testcase == begin ) break; 
+		}
+		++i;
+	}
+	for( ; i < testcase_count; ++i )
+	{
+		const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->GetTestCase(i);
+		const char* name = strchr(testcase->name(), '/');
+		if( name != NULL )
+		{
+			++name;
+			if( strstr(name, testcase_name) == name
+				&& name[strlen(testcase_name)] == '/' )
+			{
+				return testcase;
+			}
+		}
+	}
+	return NULL;
+}
+
+/**
+ * @brief	TestInfo ‚ÌŒŸõ
+*/
+inline const ::iutest::TestInfo* FindTestInfo(const ::iutest::TestCase* testcase, const char* testinfo_name)
+{
+	if( testcase == NULL || testinfo_name == NULL ) return NULL;
+
+	int testinfo_count = testcase->total_test_count();
+	for( int i=0; i < testinfo_count; ++i )
+	{
+		const ::iutest::TestInfo* testinfo = testcase->GetTestInfo(i);
+		if( strcmp(testinfo->name(), testinfo_name) == 0 )
+		{
+			return testinfo;
+		}
+	}
+	return NULL;
+}
+
+/**
  * @brief	TestInfo ‚ÌŒŸõ
 */
 inline const ::iutest::TestInfo* FindTestInfo(const char* testcase_name, const char* testinfo_name)
 {
 	if( testcase_name == NULL || testinfo_name == NULL ) return NULL;
 	const ::iutest::TestCase* testcase = FindTestCase(testcase_name);
-	if( testcase == NULL ) return NULL;
+	return FindTestInfo(testcase, testinfo_name);
+}
 
-	if( strcmp(testcase->name(), testcase_name) == 0 )
+/**
+ * @brief	TestInfo ‚ÌŒŸõ
+*/
+inline const ::iutest::TestInfo* FindParamTestInfo(const ::iutest::TestCase* testcase, const char* testinfo_name, const ::iutest::TestInfo* begin=NULL)
+{
+	if( testcase == NULL || testinfo_name == NULL ) return NULL;
+
+	const int testinfo_count = testcase->total_test_count();
+	int i=0;
+	if( begin != NULL )
 	{
-		int testinfo_count = testcase->total_test_count();
-		for( int i=0; i < testinfo_count; ++i )
+		for( ; i < testinfo_count; ++i )
 		{
 			const ::iutest::TestInfo* testinfo = testcase->GetTestInfo(i);
-			if( strcmp(testinfo->name(), testinfo_name) == 0 )
+			if( testinfo == begin )
 			{
-				return testinfo;
+				break;
 			}
+		}
+		++i;
+	}
+
+	for( ; i < testinfo_count; ++i )
+	{
+		const ::iutest::TestInfo* testinfo = testcase->GetTestInfo(i);
+		const char* name = testinfo->name();
+		if( strstr(name, testinfo_name) == name
+			&& name[strlen(testinfo_name)] == '/' )
+		{
+			return testinfo;
 		}
 	}
 	return NULL;

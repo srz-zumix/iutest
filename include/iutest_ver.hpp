@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01000501	//!< iutest version 1.0.5.1
+#define	IUTEST_VER			0x01000600	//!< iutest version 1.0.6.0
 #define IUTEST_MAJORVER		0x01		//!< Major Version
 #define IUTEST_MINORVER		0x00		//!< Minor Version
-#define IUTEST_BUILD		0x05		//!< Build
-#define IUTEST_REVISION		0x01		//!< Revision
+#define IUTEST_BUILD		0x06		//!< Build
+#define IUTEST_REVISION		0x00		//!< Revision
 
 /**
  * @mainpage
@@ -92,12 +92,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	RELEASE		リリースノート
  * @par		release note
  <ul>
-  <li>v1.0.5.1
+  <li>v1.0.6.0
+    <ul>
+      <li>例外の値を検査するアサーションを EQ/NE/STREQ/STRCASEEQ に修正</li>
+    </ul>
+  </li>
+  <li>v1.0.5.2
     <ul>
       <li>明示的なスキップとして IUTEST_SKIP を追加</li>
       <li>コンソール出力先を動的に変更できるように修正</li>
       <li>実行すべきテストが実行されなかった場合に失敗を出力するように修正</li>
-      <li>Visual Studio UnitTest Framework で IUTEST_P が使用できるように修正(tr1)</li>
+      <li>Visual Studio UnitTest Framework で IUTEST_P,IUTEST_TYPED_TEST,IUTEST_TYPED_TEST_P が使用できるように修正(tr1)</li>
     </ul>
   </li>
   <li>v1.0.4.0
@@ -121,7 +126,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <li>v1.0.1.0
     <ul>
       <li>CRT セキュリティ強化関数の失敗時ハンドラに対応</li>
-      <li>InitIrisUnitTest が呼ばれていない場合に警告を出すように修正</li>
+      <li>iutest::InitIrisUnitTest が呼ばれていない場合に警告を出すように修正</li>
     </ul>
   </li>
   <li>v1.0.0.0
@@ -156,7 +161,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   </li>
   <li>v0.33.1.0
     <ul>
-      <li>UnitTest::repeat_counter 関数を追加</li>
+      <li>iutest::UnitTest::repeat_counter 関数を追加</li>
       <li>OnTestIterationStart/End の iteration 引数が 0 から始まるように修正</li>
       <li>QuietResultPrinter 追加</li>
       <li>util 修正</li>
@@ -203,15 +208,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   </li>
   <li>v0.28.0.1
     <ul>
-      <li>Environment::SetUp などテスト以外の場所で失敗した場合に対応</li>
+      <li>iutest::Environment::SetUp などテスト以外の場所で失敗した場合に対応</li>
     </ul>
   </li>
   <li>v0.27.0.0
     <ul>
       <li>namespace を考慮した IUTEST_MAKE_SCOPED_PEEP, IUTEST_SCOPED_PEEP マクロを追加</li>
-      <li>AddGlobalTestEnvironment を使うとコンパイルエラーになる問題を修正</li>
+      <li>iutest::AddGlobalTestEnvironment を使うとコンパイルエラーになる問題を修正</li>
       <li>iutest::Environment は new して使うように仕様変更</li>
-      <li>Environment の TearDown の実行順序を SetUp の逆順に変更</li>
+      <li>iutest::Environment の TearDown の実行順序を SetUp の逆順に変更</li>
     </ul>
   </li>
   <li>v0.26.2.0
@@ -297,7 +302,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <ul>
       <li>On*End イベントは、リストの後ろから実行するように変更</li>
       <li>警告用（失敗にならない）テスト IUTEST_INFORM_*** マクロを追加</li>
-      <li>TestPartResult のインターフェイスを修正</li>
+      <li>iutest::TestPartResult のインターフェイスを修正</li>
       <li>エラー出力の Actual と Expected が逆になっていた不具合を修正</li>
       <li>char もしくは unsigned char の 0 をメッセージ出力する際にヌル文字にならないように修正</li>
       <li>ターミナルの色つき出力処理を修正</li>
@@ -314,7 +319,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   </li>
   <li>v0.16.1.1
     <ul>
-      <li>InitIrisUnitTest の vector 対応</li>
+      <li>iutest::InitIrisUnitTest の vector 対応</li>
       <li>NaCl, ARM 対応</li>
       <li>RecordProperty の template 対応</li>
     </ul>
@@ -323,14 +328,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <ul>
       <li>型アサーション 対応</li>
       <li>RecoredProperty 対応</li>
-      <li>Combine 対応/li>
+      <li>iutest::Combine 対応/li>
       <li>型をパラメータ化したテスト<に対応/li>
       <li>googletest との切り替え対応</li>
       <li>googletest との差異を吸収</li>
       <li>致命的な失敗時に throw するオプション対応( --iutest_throw_on_failure=<0|1> )</li>
       <li>経過時間の出力オプション対応( --iutest_print_time=<0|1> )</li>
       <li>実行するテストの選択オプション対応( --iutest_filter=selection )</li>
-      <li>PrintToString 対応</li>
+      <li>iutest::PrintToString 対応</li>
       <li>IUTEST_FLAG マクロによるオプション指定に対応</li>
       <li>繰り返しオプション対応( --iutest_repeat=count )</li>
       <li>イベントリスナー対応</li>

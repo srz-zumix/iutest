@@ -101,7 +101,7 @@ struct IUTEST_PEEP_TAG_NAME_(class_name, member_name) { typedef member_type type
  * @}
 */
 
-#include "internal/iutest_function_traits_defs.hpp"
+#include "internal/iutest_template_util_defs.hpp"
 
 /**
  * @brief	private	メンバーアクセスオブジェクト
@@ -128,12 +128,12 @@ private:
 #if IUTEST_HAS_VARIADIC_TEMPLATES
 	public:
 		template<typename ...Args>
-		return_type operator () (Args... args) { return ((*m_ptr).*detail::peep<peep_tag>::value)(args...); }
+		return_type operator () (Args... args) { return ((*m_ptr).*detail::peep<peep_tag>::value)( std::forward<Args>(args)...); }
 #else
 
 #define PEEP_MEMBER_FUNC_IMPL(NUMBER)	\
-	template<IUTEST_FUNCTION_TEMPLATE_TEMPLATES##NUMBER>return_type operator () (IUTEST_FUNCTION_TEMPLATE_FUNCTION_ARGS##NUMBER) { \
-		return ((*m_ptr).*detail::peep<peep_tag>::value)(IUTEST_FUNCTION_TEMPLATE_VALUES##NUMBER); }
+	template<IUTEST_TEMPLATE_UTIL_TEMPLATES##NUMBER>return_type operator () (IUTEST_TEMPLATE_UTIL_FUNCTION_ARGS##NUMBER) { \
+		return ((*m_ptr).*detail::peep<peep_tag>::value)(IUTEST_TEMPLATE_UTIL_VALUES##NUMBER); }
 
 		return_type operator () (void) { return ((*m_ptr).*detail::peep<peep_tag>::value)(); }
 
@@ -233,7 +233,7 @@ public:
 	typedef typename peep_impl<T, peep_type, type_traits::is_member_pointer<peep_type>::value >::type	type;	//!< private メンバーアクセスオブジェクト型
 };
 
-#include "internal/iutest_function_traits_undef.hpp"
+#include "internal/iutest_template_util_undef.hpp"
 
 }
 

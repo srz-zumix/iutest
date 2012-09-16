@@ -144,13 +144,14 @@ template<typename TN>
 class auto_ptr
 {
 	typedef auto_ptr<TN>	_Myt;
-	mutable TN*	ptr;
+	mutable TN*	m_ptr;
 public:
-	auto_ptr(const _Myt& o) : ptr(o.ptr)	{ o.ptr = NULL; }
-	auto_ptr(TN* p=NULL)	: ptr(p)		{}
-	~auto_ptr(void) { if( ptr != NULL ) delete ptr; }
+	auto_ptr(const _Myt& o) : m_ptr(o.m_ptr)	{ o.m_ptr = NULL; }
+	auto_ptr(TN* p=NULL)	: m_ptr(p)		{}
+	~auto_ptr(void) { if( m_ptr != NULL ) delete m_ptr; }
+	TN* ptr(void) { return m_ptr; }
 
-	TN*	operator ->(void) { return ptr; }
+	TN*	operator ->(void) { return m_ptr; }
 };
 
 /**
