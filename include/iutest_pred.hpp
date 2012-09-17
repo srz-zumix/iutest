@@ -428,6 +428,30 @@ AssertionResult	AssertPredVariadicHelper(const char* pred_str, const char* param
 
 #endif
 
+
+#define IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, on_failure)	\
+	IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure, pred_formatter)
+
+/**
+ * @ingroup	IUTEST_ASSERT_
+ * @brief	例外値 述語 ASSERTION テスト(メッセージフォーマッター指定)
+*/
+#define IUTEST_ASSERT_THROW_PRED_FORMAT2(pred_formatter, statement, expected_exception, expected_exception_value)		\
+	IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_ASSERT_FAILURE)
+/**
+ * @ingroup	IUTEST_EXPECT_
+ * @brief	例外値 述語 ASSERTION テスト(メッセージフォーマッター指定)
+*/
+#define IUTEST_EXPECT_THROW_PRED_FORMAT2(pred_formatter, statement, expected_exception, expected_exception_value)		\
+	IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_EXPECT_FAILURE)
+/**
+ * @ingroup	IUTEST_INFORM_
+ * @brief	例外値 述語 ASSERTION テスト(メッセージフォーマッター指定)
+*/
+#define IUTEST_INFORM_THROW_PRED_FORMAT2(pred_formatter, statement, expected_exception, expected_exception_value)		\
+	IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_INFORM_FAILURE)
+
+
 }
 
 #endif

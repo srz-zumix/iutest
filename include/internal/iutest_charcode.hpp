@@ -80,7 +80,7 @@ inline char* CodePointToUtf8(UInt32 code_point, char* buf)
 	{
 		buf[2] = '\0';
 		buf[1] = static_cast<char>(0x80 | ChopLowBits(&code_point, 6));
-		buf[01] = static_cast<char>(0xC0 | code_point);
+		buf[0] = static_cast<char>(0xC0 | code_point);
 	}
 	else if( code_point <= kMaxCodePoint3 )
 	{
@@ -135,13 +135,44 @@ inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const wchar_t* st
 	}
 	return ss.str();
 }
+/**
+ * @brief	マルチバイト文字からUTF8へ変換
+ * @param [in]	str	= 入力
+ * @param [in]	num = 入力バッファサイズ
+ * @return	UTF8 文字列
+*/
+inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(const char* src, int num=-1)
+{
+	if( num == -1 )
+		num = static_cast<int>(strlen(src));
+	std::string str;
+	const char* p = src;
+	//char* locale = setlocale(LC_CTYPE, "JPN");
+	for(const char* end = src + num; p < end; )
+	{
+		wchar_t wc=0;
+		int len = mbtowc(&wc, p, MB_CUR_MAX);
+		if( len > 1 )
+		{
+			str += WideStringToUTF8(&wc, 1);
+			p += len;
+		}
+		else
+		{
+			str += *p;
+			++p;
+		}
+	}
+	//setlocale(LC_CTYPE, locale);
+	return str;
+}
 
 inline ::std::string ShowWideCString(const wchar_t* wide_c_str)
 {
 	if( wide_c_str == NULL ) return "(null)";
 #if IUTEST_MBS_CODE == IUTEST_MBS_CODE_UTF8
 	return WideStringToUTF8(wide_c_str);
-#elif IUTEST_MBS_CODE == IUTEST_MBS_CODE_WINDOWS31J
+#elif IUTEST_OS_WINDOWS && IUTEST_MBS_CODE == IUTEST_MBS_CODE_WINDOWS31J
 	return win::WideStringToMultiByteString(wide_c_str);
 #else
 	::std::string str;

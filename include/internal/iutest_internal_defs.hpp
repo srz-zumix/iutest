@@ -246,17 +246,17 @@ inline std::string	GetTypeName(void)
 
 #define GeTypeNameSpecialization(type)	template<>inline std::string GetTypeName<type>(void) { return #type; }
 
-GeTypeNameSpecialization(char);
-GeTypeNameSpecialization(unsigned char);
-GeTypeNameSpecialization(short);
-GeTypeNameSpecialization(unsigned short);
-GeTypeNameSpecialization(int);
-GeTypeNameSpecialization(unsigned int);
-GeTypeNameSpecialization(long);
-GeTypeNameSpecialization(unsigned long);
-GeTypeNameSpecialization(float);
-GeTypeNameSpecialization(double);
-GeTypeNameSpecialization(bool);
+GeTypeNameSpecialization(char)
+GeTypeNameSpecialization(unsigned char)
+GeTypeNameSpecialization(short)
+GeTypeNameSpecialization(unsigned short)
+GeTypeNameSpecialization(int)
+GeTypeNameSpecialization(unsigned int)
+GeTypeNameSpecialization(long)
+GeTypeNameSpecialization(unsigned long)
+GeTypeNameSpecialization(float)
+GeTypeNameSpecialization(double)
+GeTypeNameSpecialization(bool)
 
 #undef GeTypeNameSpecialization
 

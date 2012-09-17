@@ -22,10 +22,10 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01000600	//!< iutest version 1.0.6.0
+#define	IUTEST_VER			0x01000700	//!< iutest version 1.0.7.0
 #define IUTEST_MAJORVER		0x01		//!< Major Version
 #define IUTEST_MINORVER		0x00		//!< Minor Version
-#define IUTEST_BUILD		0x06		//!< Build
+#define IUTEST_BUILD		0x07		//!< Build
 #define IUTEST_REVISION		0x00		//!< Revision
 
 /**
@@ -92,6 +92,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	RELEASE		リリースノート
  * @par		release note
  <ul>
+  <li>v1.0.7.0
+    <ul>
+      <li>2バイト文字が xml に正しく出力されない問題を修正（setlocale が必要）</li>
+      <li>例外の値を検査する述語アサーションを IUTEST_*_THROW_PRED_FORMAT2 追加</li>
+      <li>例外の値を検査するアサーションのログ出力を修正</li>
+    </ul>
+  </li>
   <li>v1.0.6.0
     <ul>
       <li>例外の値を検査するアサーションを EQ/NE/STREQ/STRCASEEQ に修正</li>

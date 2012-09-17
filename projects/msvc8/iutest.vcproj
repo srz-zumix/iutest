@@ -387,14 +387,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_function_traits_defs.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\internal\iutest_function_traits_undef.hpp"
-					>
-				</File>
-				<File
 					RelativePath="..\..\include\internal\iutest_genparams.hpp"
 					>
 				</File>
@@ -464,6 +456,14 @@
 				</File>
 				<File
 					RelativePath="..\..\include\internal\iutest_string.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\internal\iutest_template_util_defs.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\internal\iutest_template_util_undef.hpp"
 					>
 				</File>
 				<File

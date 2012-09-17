@@ -37,10 +37,6 @@
 #  define IUTEST_VPRINTF(f, a)	vprintf(f, a)	//!< vprintf 呼び出しマクロ
 #endif
 
-#ifndef IUTEST_PRINTF
-#  define IUTEST_PRINTF			printf			//!< printf 呼び出しマクロ
-#endif
-
 #ifndef IUTEST_REPORT_SKIPPED
 #  define IUTEST_REPORT_SKIPPED		1			//!< xml 出力に skipped タグを含めるかどうか
 #endif

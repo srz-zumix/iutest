@@ -118,8 +118,10 @@ public:
 private:
 	static void OnReportTestCase(IFile* file, const TestCase& test_case)
 	{
-		file->Printf("  <testsuite name=\"%s\" tests=\"%d\" failures=\"%d\" disabled=\"%d\" "
-			, EscapeXmlAttribute(test_case.name()).c_str()
+		file->Printf("  <testsuite ");
+		OutputXmlAttribute(file, "name"
+			, EscapeXmlAttribute(test_case.name()).c_str() );
+		file->Printf("tests=\"%d\" failures=\"%d\" disabled=\"%d\" "
 			, test_case.total_test_count()
 			, test_case.failed_test_count()
 			, test_case.disabled_test_count()
@@ -139,13 +141,14 @@ private:
 	}
 	static void OnReportTestInfo(IFile* file, const TestInfo& test_info)
 	{
-		file->Printf("    <testcase name=\"%s\" ", EscapeXmlAttribute(test_info.name()).c_str() );
+		file->Printf("    <testcase ");
+		OutputXmlAttribute(file, "name", EscapeXmlAttribute(test_info.name()).c_str() );
 
 		{
 			const char* type_param = test_info.type_param();
 			if( type_param != NULL )
 			{
-				file->Printf("type_param=\"%s\" "
+				OutputXmlAttribute(file, "type_param"
 					, EscapeXmlAttribute(type_param).c_str() );
 			}
 		}
@@ -153,7 +156,7 @@ private:
 			const char* value_param = test_info.value_param();
 			if( value_param != NULL )
 			{
-				file->Printf("value_param=\"%s\" "
+				OutputXmlAttribute(file, "value_param"
 					, EscapeXmlAttribute(value_param).c_str() );
 			}
 		}
@@ -165,7 +168,7 @@ private:
 		file->Printf("time=\"%s\" "
 			, detail::FormatTimeInMillisecAsSecond(test_info.elapsed_time()).c_str()
 			);
-		file->Printf("classname=\"%s\""
+		OutputXmlAttribute(file, "classname"
 			, EscapeXmlAttribute(test_info.test_case_name()).c_str() );
 
 		// propertys
@@ -189,12 +192,13 @@ private:
 				const TestPartResult& part = test_info.result()->GetTestPartResult(i);
 				if( part.passed() ) continue;
 
-				file->Printf("      <failure message=\"");
-				file->Printf(EscapeXmlAttribute(part.summary()).c_str());
-				file->Printf("\" type=\"\">");
+				file->Printf("      <failure ");
+				OutputXmlAttribute(file, "message"
+					, EscapeXmlAttribute(part.summary()).c_str());
+				file->Printf("type=\"\">");
 				::std::string message = detail::FormatCompilerIndependentFileLocation(part.file_name(), part.line_number());
 				message += "\n";
-				message += part.summary();
+				message += detail::MultiByteStringToUTF8(part.summary());
 				OutputXmlCDataSection(file, message.c_str());
 				file->Printf("\n      </failure>\n");
 			}
@@ -248,8 +252,14 @@ private:
 	static void	OutputXmlCDataSection(IFile* file, const char* data)
 	{
 		file->Printf("<![CDATA[");
-		file->Printf(data);
+		file->Write(data, strlen(data), 1);
 		file->Printf("]]>");
+	}
+	static void OutputXmlAttribute(IFile* file, const char* name, const char* value)
+	{
+		file->Printf("%s=\"", name);
+		file->Write(value, strlen(value), 1 );
+		file->Printf("\" ");
 	}
 
 private:
@@ -295,18 +305,27 @@ private:
 						msg += "\"";
 					break;
 				default:
-					if( IsValidXmlCharacter(*src) )
 					{
-						if( is_attribute
-							&& IsWhitespace(*src) )
+						wchar_t wc = 0;
+						int len = mbtowc(&wc, src, MB_CUR_MAX);
+						if( len > 1 )
 						{
-							char tmp[8];
-							sprintf(tmp, "&#x%02X;", *src);
-							msg += tmp;
+							msg += detail::WideStringToUTF8(&wc, 1);
+							src += len-1;
 						}
-						else
+						else if( IsValidXmlCharacter(*src) )
 						{
-							msg += *src;
+							if( is_attribute
+								&& IsWhitespace(*src) )
+							{
+								char tmp[8];
+								sprintf(tmp, "&#x%02X;", *src);
+								msg += tmp;
+							}
+							else
+							{
+								msg += *src;
+							}
 						}
 					}
 					break;

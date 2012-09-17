@@ -161,6 +161,15 @@ IUTEST_F(EnabledTestFixed, Count)
 #endif
 
 #if 0
+#ifdef _MSC_VER
+IUTEST(Japanese, ƒeƒXƒg)
+{
+	IUTEST_FAIL() << ::iutest::UnitTest::GetInstance()->current_test_info()->name();
+}
+#endif
+#endif
+
+#if 0
 
 #ifdef _MSC_VER
 #include <process.h>

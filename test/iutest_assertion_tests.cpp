@@ -216,6 +216,8 @@ static void	ExceptionFunction(int i)
 		throw "error";
 	case 4:
 		throw ::std::string("error");
+	case 5:
+		throw 0.1f;
 	default:
 		break;
 	}
@@ -251,6 +253,8 @@ IUTEST(AssertionTest, Exception)
 	IUTEST_ASSERT_THROW_VALUE_STRCASEEQ(ExceptionFunction(3), const char *, "Error");
 	IUTEST_EXPECT_THROW_VALUE_STRCASEEQ(ExceptionFunction(3), const char *, "Error");
 	IUTEST_INFORM_THROW_VALUE_STRCASEEQ(ExceptionFunction(3), const char *, "Error");
+	
+	IUTEST_ASSERT_THROW_PRED_FORMAT2(::iutest::internal::CmpHelperFloatingPointEQ<float>, ExceptionFunction(5), float, 0.1f);
 }
 
 class exception_test

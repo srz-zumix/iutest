@@ -31,9 +31,6 @@ namespace detail
 #ifndef IUTEST_VPRINTF
 #  define IUTEST_VPRINTF(f, a)	vprintf(f, a)
 #endif
-#ifndef IUTEST_PRINTF
-#  define IUTEST_PRINTF			printf
-#endif
 
 #ifndef IUTEST_HAS_COLORCONSOLE
 #  if defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_OS_NACL)

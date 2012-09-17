@@ -985,27 +985,26 @@ namespace tr1
 
 #define IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure, pred_formatter)	\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_													\
-	if( const char* msg = "" ) {													\
+	if( ::testing::AssertionResult ar = ::testing::AssertionSuccess() ) {			\
 		try {																		\
 			IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING((void)statement);				\
-			msg = "\nExpected: " #statement " throws an exception of type "			\
+			ar << "\nExpected: " #statement " throws an exception of type "			\
 				  #expected_exception ".\n  Actual: it throws nothing.";			\
 			goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);					\
 		} catch( expected_exception const& e) {										\
-			if( pred_formatter("e", #expected_exception_value, e, expected_exception_value) ) {	\
+			if( ::testing::AssertionResult ar2 = pred_formatter("e", #expected_exception_value, e, expected_exception_value) ) {			\
 			} else {																\
-			msg = "\nExpected: " #statement " throws an exception of value "		\
-			#expected_exception_value ".\n  Actual: it throws a different value.";	\
+				ar << "\nExpected: " #statement " throws an exception of value\n" << ar2.message();	\
 				goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);				\
 			}																		\
 		} catch( ... ) {															\
-			msg = "\nExpected: " #statement " throws an exception of type "			\
+			ar << "\nExpected: " #statement " throws an exception of type "			\
 	          #expected_exception ".\n  Actual: it throws a different type.";		\
 			goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);					\
 		}																			\
 	} else																			\
 		IUTEST_PP_CAT(iutest_label_throw_value, __LINE__):							\
-		on_failure(msg)
+		on_failure(ar.message())
 
 #define IUTEST_TEST_THROW_VALUE_EQ_(statement, expected_exception, expected_exception_value, on_failure)	\
 	IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure, ::testing::internal::EqHelper<GTEST_IS_NULL_LITERAL_(expected_exception_value)>::Compare)

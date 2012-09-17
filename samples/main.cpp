@@ -34,6 +34,7 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
+	setlocale(LC_CTYPE, "JPN");
 #if 1
 	iutest::AddGlobalTestEnvironment(new FooEnvironment());
 #endif
