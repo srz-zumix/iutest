@@ -162,6 +162,7 @@ IUTEST_F(EnabledTestFixed, Count)
 
 #if 0
 #ifdef _MSC_VER
+// cppcheck-suppress syntaxError
 IUTEST(Japanese, ƒeƒXƒg)
 {
 	IUTEST_FAIL() << ::iutest::UnitTest::GetInstance()->current_test_info()->name();
