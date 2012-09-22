@@ -695,13 +695,13 @@ namespace tr1
 #define IUTEST_ASSERT_STRLNEQ(len, v2)			ASSERT_PRED_FORMAT2(iuutil::CmpHelperSTRLNEQ, len, v2)
 #define IUTEST_ASSERT_STRCASEEQ	ASSERT_STRCASEEQ
 #define IUTEST_ASSERT_STRCASENE	ASSERT_STRCASENE
-#define IUTEST_ASSERT_THROW(statement, expected_exception)		ASSERT_THROW((void)statement, expected_exception)
+#define IUTEST_ASSERT_THROW(statement, expected_exception)		ASSERT_THROW((void)(statement), expected_exception)
 #define IUTEST_ASSERT_THROW_VALUE_EQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_EQ_(statement, expected_exception, expected_value, IUTEST_ASSERT_FAILURE)
 #define IUTEST_ASSERT_THROW_VALUE_NE(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, expected_value, IUTEST_ASSERT_FAILURE)
 #define IUTEST_ASSERT_THROW_VALUE_STREQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STREQ_(statement, expected_exception, expected_value, IUTEST_ASSERT_FAILURE)
 #define IUTEST_ASSERT_THROW_VALUE_STRCASEEQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STRCASEEQ_(statement, expected_exception, expected_value, IUTEST_ASSERT_FAILURE)
-#define IUTEST_ASSERT_NO_THROW(statement)						ASSERT_NO_THROW((void)statement)
-#define IUTEST_ASSERT_ANY_THROW(statement)						ASSERT_ANY_THROW((void)statement)
+#define IUTEST_ASSERT_NO_THROW(statement)						ASSERT_NO_THROW((void)(statement))
+#define IUTEST_ASSERT_ANY_THROW(statement)						ASSERT_ANY_THROW((void)(statement))
 #define IUTEST_ASSERT_NO_FATAL_FAILURE		ASSERT_NO_FATAL_FAILURE
 
 #ifdef GTEST_OS_WINDOWS
@@ -740,13 +740,13 @@ namespace tr1
 #define IUTEST_EXPECT_STRLNEQ(len, v2)			EXPECT_PRED_FORMAT2(iuutil::CmpHelperSTRLNEQ, len, v2)
 #define IUTEST_EXPECT_STRCASEEQ	EXPECT_STRCASEEQ
 #define IUTEST_EXPECT_STRCASENE	EXPECT_STRCASENE
-#define IUTEST_EXPECT_THROW(statement, expected_exception)	EXPECT_THROW((void)statement, expected_exception)
+#define IUTEST_EXPECT_THROW(statement, expected_exception)	EXPECT_THROW((void)(statement), expected_exception)
 #define IUTEST_EXPECT_THROW_VALUE_EQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_EQ_(statement, expected_exception, expected_value, IUTEST_EXPECT_FAILURE)
 #define IUTEST_EXPECT_THROW_VALUE_NE(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, expected_value, IUTEST_EXPECT_FAILURE)
 #define IUTEST_EXPECT_THROW_VALUE_STREQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STREQ_(statement, expected_exception, expected_value, IUTEST_EXPECT_FAILURE)
 #define IUTEST_EXPECT_THROW_VALUE_STRCASEEQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STRCASEEQ_(statement, expected_exception, expected_value, IUTEST_EXPECT_FAILURE)
-#define IUTEST_EXPECT_NO_THROW(statement)					EXPECT_NO_THROW((void)statement)
-#define IUTEST_EXPECT_ANY_THROW(statement)					EXPECT_ANY_THROW((void)statement)
+#define IUTEST_EXPECT_NO_THROW(statement)					EXPECT_NO_THROW((void)(statement))
+#define IUTEST_EXPECT_ANY_THROW(statement)					EXPECT_ANY_THROW((void)(statement))
 #define IUTEST_EXPECT_NO_FATAL_FAILURE		EXPECT_NO_FATAL_FAILURE
 
 #ifdef GTEST_OS_WINDOWS
@@ -862,13 +862,13 @@ namespace tr1
 #define IUTEST_INFORM_STRLNEQ(len, v2)			INFORM_PRED_FORMAT2(iuutil::CmpHelperSTRLNEQ, len, v2)
 #define IUTEST_INFORM_STRCASEEQ	INFORM_STRCASEEQ
 #define IUTEST_INFORM_STRCASENE	INFORM_STRCASENE
-#define IUTEST_INFORM_THROW(statement, expected_exception)	INFORM_THROW((void)statement, expected_exception)
+#define IUTEST_INFORM_THROW(statement, expected_exception)	INFORM_THROW((void)(statement), expected_exception)
 #define IUTEST_INFORM_THROW_VALUE_EQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_EQ_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
 #define IUTEST_INFORM_THROW_VALUE_NE(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
 #define IUTEST_INFORM_THROW_VALUE_STREQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STREQ_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
 #define IUTEST_INFORM_THROW_VALUE_STRCASEEQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STRCASEEQ_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
-#define IUTEST_INFORM_NO_THROW(statement)					INFORM_NO_THROW((void)statement)
-#define IUTEST_INFORM_ANY_THROW(statement)					INFORM_ANY_THROW((void)statement)
+#define IUTEST_INFORM_NO_THROW(statement)					INFORM_NO_THROW((void)(statement))
+#define IUTEST_INFORM_ANY_THROW(statement)					INFORM_ANY_THROW((void)(statement))
 #define IUTEST_INFORM_NO_FATAL_FAILURE		INFORM_NO_FATAL_FAILURE
 
 

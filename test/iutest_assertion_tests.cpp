@@ -226,30 +226,38 @@ static void	ExceptionFunction(int i)
 IUTEST(AssertionTest, Exception)
 {
 	//IUTEST_ASSERT_THROW(throw ::std::bad_exception(), ::std::bad_exception);
+	IUTEST_ASSERT_ANY_THROW(throw ::std::bad_exception());
 	IUTEST_ASSERT_THROW(ExceptionFunction(2), ::std::bad_exception);
 	IUTEST_EXPECT_THROW(ExceptionFunction(2), ::std::bad_exception);
 	IUTEST_INFORM_THROW(ExceptionFunction(2), ::std::bad_exception);
+	IUTEST_ASSERT_ANY_THROW(throw 1);
 	IUTEST_ASSERT_ANY_THROW(ExceptionFunction(1));
 	IUTEST_EXPECT_ANY_THROW(ExceptionFunction(1));
 	IUTEST_INFORM_ANY_THROW(ExceptionFunction(1));
+	IUTEST_ASSERT_NO_THROW((void)0);
 	IUTEST_ASSERT_NO_THROW(ExceptionFunction(0));
 	IUTEST_EXPECT_NO_THROW(ExceptionFunction(0));
 	IUTEST_INFORM_NO_THROW(ExceptionFunction(0));
 	
+	IUTEST_ASSERT_THROW_VALUE_EQ(throw 2, int, 2);
 	IUTEST_ASSERT_THROW_VALUE_EQ(ExceptionFunction(1), int, 2);
 	IUTEST_EXPECT_THROW_VALUE_EQ(ExceptionFunction(1), int, 2);
 	IUTEST_INFORM_THROW_VALUE_EQ(ExceptionFunction(1), int, 2);
+	IUTEST_ASSERT_THROW_VALUE_NE(throw 2, int, 0);
 	IUTEST_ASSERT_THROW_VALUE_NE(ExceptionFunction(1), int, 0);
 	IUTEST_EXPECT_THROW_VALUE_NE(ExceptionFunction(1), int, 0);
 	IUTEST_INFORM_THROW_VALUE_NE(ExceptionFunction(1), int, 0);
 	
+	IUTEST_ASSERT_THROW_VALUE_STREQ(throw "error", const char *, "error");
 	IUTEST_ASSERT_THROW_VALUE_STREQ(ExceptionFunction(3), const char *, "error");
 	IUTEST_EXPECT_THROW_VALUE_STREQ(ExceptionFunction(3), const char *, "error");
 	IUTEST_INFORM_THROW_VALUE_STREQ(ExceptionFunction(3), const char *, "error");
+	IUTEST_ASSERT_THROW_VALUE_STREQ(throw ::std::string("error"), ::std::string, "error");
 	IUTEST_ASSERT_THROW_VALUE_STREQ(ExceptionFunction(4), ::std::string, "error");
 	IUTEST_EXPECT_THROW_VALUE_STREQ(ExceptionFunction(4), ::std::string, "error");
 	IUTEST_INFORM_THROW_VALUE_STREQ(ExceptionFunction(4), ::std::string, "error");
 
+	IUTEST_ASSERT_THROW_VALUE_STRCASEEQ(throw "error", const char *, "Error");
 	IUTEST_ASSERT_THROW_VALUE_STRCASEEQ(ExceptionFunction(3), const char *, "Error");
 	IUTEST_EXPECT_THROW_VALUE_STRCASEEQ(ExceptionFunction(3), const char *, "Error");
 	IUTEST_INFORM_THROW_VALUE_STRCASEEQ(ExceptionFunction(3), const char *, "Error");

@@ -126,7 +126,7 @@
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
 	if( const char* msg = "" ) {											\
 		try {																\
-			IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING((void)statement);		\
+			IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING((void)(statement));	\
 			msg = "\nExpected: " #statement " throws an exception of type "	\
 				  #expected_exception ".\n  Actual: it throws nothing.";	\
 			goto IUTEST_PP_CAT(iutest_label_throw, __LINE__);				\
@@ -148,7 +148,7 @@
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_														\
 	if( ::iutest::AssertionResult iutest_ar = ::iutest::AssertionSuccess() ) {			\
 		try {																			\
-			IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING((void)statement);					\
+			IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING((void)(statement));				\
 			iutest_ar << "\nExpected: " #statement " throws an exception of type "		\
 				#expected_exception ".\n  Actual: it throws nothing.";					\
 			goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);						\
@@ -185,7 +185,7 @@
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
 	if( ::iutest::detail::AlwaysTrue() ) {									\
 		try {																\
-			(void)statement;												\
+			(void)(statement);												\
 			goto IUTEST_PP_CAT(iutest_label_anythrow, __LINE__);			\
 		} catch( ... ) {													\
 		}																	\
@@ -201,7 +201,7 @@
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
 	if( ::iutest::detail::AlwaysTrue() ) {									\
 		try {																\
-			(void)statement;												\
+			(void)(statement);												\
 		} catch( ... ) {													\
 			goto IUTEST_PP_CAT(iutest_label_nothrow, __LINE__);				\
 		}																	\
