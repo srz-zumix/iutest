@@ -2,7 +2,14 @@
 <head>
 <title>iutest</title>
 </head>
-<frameset frameborder=1>
-<frame src="html/index.html"></frame>
+<frameset cols="220,*" frameborder="1" border="1" name="MainFrame">
+  <frame frameborder="1" src="sidebar.html" name="west" />
+  <frame frameborder="1" src="cover.html" name="main" />
+  </frameset>
+  <body>
+  <noframes>
+  <p>このページを表示するには、フレームをサポートしているブラウザが必要です。</p>
+  </noframes>
+  </body>
 </frameset>
 </html>

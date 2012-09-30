@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01000701	//!< iutest version 1.0.7.1
+#define	IUTEST_VER			0x01010000	//!< iutest version 1.1.0.0
 #define IUTEST_MAJORVER		0x01		//!< Major Version
-#define IUTEST_MINORVER		0x00		//!< Minor Version
-#define IUTEST_BUILD		0x07		//!< Build
-#define IUTEST_REVISION		0x01		//!< Revision
+#define IUTEST_MINORVER		0x01		//!< Minor Version
+#define IUTEST_BUILD		0x00		//!< Build
+#define IUTEST_REVISION		0x00		//!< Revision
 
 /**
  * @mainpage
@@ -89,9 +89,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /**
- * @page	RELEASE		リリースノート
- * @par		release note
+ * @page	CHANGELOG		変更履歴
+ * @par		Changes
  <ul>
+  <li>v1.1.0.0
+    <ul>
+      <li>リリースバージョン</li>
+    </ul>
+  </li>
   <li>v1.0.7.1
     <ul>
       <li>2バイト文字が xml に正しく出力されない問題を修正（setlocale が必要）</li>
@@ -133,7 +138,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <li>v1.0.1.0
     <ul>
       <li>CRT セキュリティ強化関数の失敗時ハンドラに対応</li>
-      <li>iutest::InitIrisUnitTest が呼ばれていない場合に警告を出すように修正</li>
+      <li>iutest::InitIrisUnitTest が呼ばれていない場合に警告を出すように変更</li>
     </ul>
   </li>
   <li>v1.0.0.0

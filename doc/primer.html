@@ -1,0 +1,170 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=shift_jis" />
+  <meta http-equiv="content-style-type" content="text/css" />
+  <style type="text/css">
+  body {
+    font-family: Arial,'ＭＳ Ｐゴシック',sans-serif ;
+    background-color:#008080;
+    line-height:130%;
+  }
+  h1 {
+    padding:20px 10px;
+    background-color:#cccccc;
+    border-bottom: solid 1px #808080;
+  }
+  h2 {
+    padding:14px 10px;
+    background-color:#cccccc;
+    border-bottom: solid 1px #808080;
+  }
+  h3 {
+    padding:10px 10px;
+    background-color:#cccccc;
+    border-bottom: solid 1px #808080;
+  }
+  .contents {
+    padding:0px 0px 1em 0px;
+    background-color:#f8f8f8;
+    border-right: solid 5px #006400;
+    border-bottom: solid 10px #006400;
+  }
+  li {
+    padding-bottom:4px;
+  }
+  .text_block {
+    padding-left:1em;
+  }
+  </style>
+  <title>iutest - primer</title>
+</head>
+<body>
+
+<div class="contents">
+<h1>入門ガイド</h1>
+<ul>
+  <li><a href="#concept">コンセプト</a></li>
+  <li><a href="#difference">Google Test との違い</a>
+    <ul>
+      <li><a href="#diff_non">Google Test にあって iutest にない機能</a>
+      <li><a href="#diff_compat">iutest 拡張機能</a>
+      <li><a href="#diff_orig">iutest 独自機能</a>
+    </ul>
+  </li>
+  <li><a href="#switch">iutest / Google Test 切り替え</a>
+    <ul>
+      <li><a href="#switch_iutest">iutest モード</a>
+      <li><a href="#switch_gtest">Google Test モード</a>
+    </ul>
+  </li>
+</ul>
+</div> <!-- end of contents -->
+
+<div class="contents">
+<h2><a name="concept" id="concept">コンセプト</a></h2>
+<div class="text_block">
+iutest の基本コンセプトは Google Test のそれと同じです。<br />
+ここでは、iutest 独自のコンセプトを上げます。<br />
+<ul>
+<li>include オンリーで使用できる<br />
+iutest は「簡単に」「すぐに」テストが書けることを目的としています。<br />
+そのため、ライブラリを作成しなくても include するだけで使用できるように初期障壁をなくすようにしました。<br />
+ <br />
+</li>
+<li>Google Test との互換性<br />
+iutest は、Google Test のインターフェイスを踏襲しています。<br />
+iutest では、 Googlet Test のマクロに IUTEST_ プリフィックスを付けた名前にしています。<br />
+( ASSERT_EQ &gt; IUTEST_ASSERT_EQ )<br />
+また、「Google Test のコードで iutest を利用する」、「iutest のコードで Google Test を利用する」ことができるように、<br />
+iutest_switch.hpp が用意されています。<br />
+</li>
+</ul>
+</div>
+</div> <!-- end of contents -->
+
+<div class="contents">
+<h2><a name="difference" id="difference">Google Test との違い</a></h2>
+<div class="text_block">
+<h3><a name="diff_orig" id="diff_non">Google Test にあって iutest にない機能</a></h3>
+<ul>
+<li>Death Test</li>
+<li>スタックトレース</li>
+<li>スレッド対応</li>
+</ul>
+<h3><a name="diff_orig" id="diff_compat">iutest 拡張機能</a></h3>
+こちらの機能は、iutest_switch.hpp を使用することで Google Test でも使用できるようになる機能です。<br />
+<ul>
+  <li>アサーション</li>
+    <ul>
+      <li>アサーションの拡張<br />
+      IUTEST_ASSERT_NULL,IUTEST_ASSERT_NOTNULL など<br />
+      </li>
+      <li>例外の値のアサーション<br />
+      THROW,ANY_THROW,NO_THROW に加えて例外の値をテストするアサーションを追加しています。<br />
+      </li>
+      <li>警告アサーション<br />
+      Boost.Test の WARN フレーバーと同等のアサーションです。<br />
+      ログの出力はされますが、テスト失敗にはなりません。<br />
+      </li>
+    </ul>
+  </li>
+  <li>イベントリスナー
+    <ul>
+      <li>QuietResultPrinter<br />
+      成功時のテストログを出さないようにするイベントリスナーです。<br />
+      </li>
+    </ul>
+  </li>
+</ul>
+<h3><a name="diff_orig" id="diff_orig">iutest 独自機能</a></h3>
+こちらの機能は、iutest でのみ利用できる機能です。<br />
+<ul>
+  <li>テストの生成
+    <ul>
+      <li>IUTEST_PMZ/IUTEST_PMZ_F<br />
+      IUTEST_P とは違い、関数と引数を直指定するテストマクロです。<br />
+      IUTEST_P よりも直感的にテストが可能です。<br />
+      </li>
+      <li>Pairwise<br />
+      オールペア法による組み合わせの作成ができます。<br />
+      </li>
+      <li>Variadic Templates の対応<br />
+      C++11 Variadic Templates が利用可能な環境で、Variadic Templates に対応した Types,Values,Combine が利用可能<br />
+      </li>
+    </ul>
+  </li>
+  <li>Private コードのテスト
+    <ul>
+      <li>PEEP<br />
+      テンプレートの明示的な実体化を利用した private メンバーへのアクセスを簡易に行うためのマクロです。<br />
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+</div> <!-- end of contents -->
+<div class="contents">
+<h2><a name="switch" id="switch">iutest / Google Test 切り替え</a></h2>
+<div class="text_block">
+iutest と Google Test の切り替えには gtest/iutest_switch.hpp を使用します。<br />
+<pre>
+//#include "iutest.hpp"
+#include "gtest/iutest_switch.hpp" // iutest.hpp の代わりに iutest_switch.hpp を使用する
+</pre>
+
+<h3><a name="switch_iutest" id="switch_iutest">iutest モード</a></h3>
+デフォルトでは iutest モードになっています。<br />
+iutest.hpp と違うのは Google Test の記法が使えるという点です。<br />
+既存の Google Test のテストコードも iutest_switch.hpp ヘッダーをインクルードすることで、<br />
+iutest の実装に切り替わります。<br />
+
+<h3><a name="switch_gtest" id="switch_gtest">Google Test モード</a></h3>
+Google Test モードに切り替えるには iutest_switch.hpp ヘッダーをインクルードする前に、<br />
+IUTEST_USE_GTEST マクロを定義してください。<br />
+これにより、iutest のテストコードで Google Test の実装を使用するようになります。<br />
+
+</div>
+</div> <!-- end of contents -->
+
+</body>
+</html>

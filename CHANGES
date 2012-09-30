@@ -1,0 +1,22 @@
+Changes for 1.1.0:
+
+** 追加
+* オールペア法による組み合わせを作成する iutest::Pairwise を追加
+* 明示的なスキップとして IUTEST_SKIP を追加
+* 例外の値を検査するアサーションを追加
+* ファイルパス操作補助クラスの追加
+
+** 修正
+* CRT セキュリティ強化関数の失敗時ハンドラに対応
+* コンソール出力先を動的に変更できるように修正
+* Visual Studio UnitTest Framework 対応(tr1)
+* マルチバイト文字が XML 出力で出力できない問題を修正
+
+** 変更
+* iutest::InitIrisUnitTest が呼ばれていない場合に警告を出すように変更
+* IUTEST_*_EQ で if( expected == actual ) から if( actual == expected ) に変更
+
+Changes for 1.0.0:
+
+* 初期リリース
+
