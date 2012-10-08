@@ -32,6 +32,7 @@ class UnitTestImpl
 {
 protected:
 	typedef detail::iu_list<TestCase>	iuTestCases;
+	//typedef ::std::vector<TestCase*>	iuTestCases;
 	typedef ::std::vector<Environment*>	iuEnvironmentList;
 protected:
 	UnitTestImpl(void) : m_total_test_num(0), m_disable_num(0), m_should_run_num(0)
@@ -57,7 +58,7 @@ public:
 	{
 		TestCase::FindOp func = { id, testcase_name };
 		iuTestCases& list = m_testcases;
-		TestCase* p = list.find(func);
+		TestCase* p = detail::FindList(list, func);
 		if( p == NULL )
 		{
 			p = new T (testcase_name, id, setup, teardown);
@@ -86,16 +87,16 @@ protected:
 	*/
 	int		Listup(void) const
 	{
-		detail::iuConsole::output("%d tests from %d testcase\n", m_total_test_num, m_testcases.count() );
-		for( iuTestCases::iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
+		detail::iuConsole::output("%d tests from %d testcase\n", m_total_test_num, m_testcases.size() );
+		for( iuTestCases::const_iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
 		{
-			detail::iuConsole::output(it->name());
+			detail::iuConsole::output((*it)->name());
 			detail::iuConsole::output("\n");
 
-			for( TestCase::iuTestInfos::iterator it2 = it->begin(), end2=it->end(); it2 != end2; ++it2 )
+			for( TestCase::iuTestInfos::const_iterator it2 = (*it)->begin(), end2=(*it)->end(); it2 != end2; ++it2 )
 			{
 				detail::iuConsole::output("  ");
-				detail::iuConsole::output(it2->name());
+				detail::iuConsole::output((*it2)->name());
 				detail::iuConsole::output("\n");
 			}
 		}
@@ -167,8 +168,8 @@ private:
 	{
 		for( iuTestCases::iterator it = m_testcases.begin(); it != m_testcases.end(); it = m_testcases.begin())
 		{
-			TestCase* p = it.ptr();
-			m_testcases.erase(p);
+			TestCase* p = (*it);
+			m_testcases.erase(it);
 			delete p;
 		}
 	}

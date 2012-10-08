@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C++ Express 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "iutest", "iutest.vcxproj", "{13851977-F039-448D-A853-A98325BDA088}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "iutest_sample", "iutest_sample.vcxproj", "{13851977-F039-448D-A853-A98325BDA088}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest1", "gtest\gtest1\gtest1.vcxproj", "{AC9366E1-054F-4CB1-AE5A-555D6011526A}"
 EndProject
@@ -33,14 +33,6 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{13851977-F039-448D-A853-A98325BDA088}.Debug(gtest)|Win32.ActiveCfg = Debug(gtest)|Win32
-		{13851977-F039-448D-A853-A98325BDA088}.Debug(gtest)|Win32.Build.0 = Debug(gtest)|Win32
-		{13851977-F039-448D-A853-A98325BDA088}.Debug(UNICODE)|Win32.ActiveCfg = Debug(UNICODE)|Win32
-		{13851977-F039-448D-A853-A98325BDA088}.Debug(UNICODE)|Win32.Build.0 = Debug(UNICODE)|Win32
-		{13851977-F039-448D-A853-A98325BDA088}.Debug|Win32.ActiveCfg = Debug|Win32
-		{13851977-F039-448D-A853-A98325BDA088}.Debug|Win32.Build.0 = Debug|Win32
-		{13851977-F039-448D-A853-A98325BDA088}.Release|Win32.ActiveCfg = Release|Win32
-		{13851977-F039-448D-A853-A98325BDA088}.Release|Win32.Build.0 = Release|Win32
 		{AC9366E1-054F-4CB1-AE5A-555D6011526A}.Debug(gtest)|Win32.ActiveCfg = Debug(gtest)|Win32
 		{AC9366E1-054F-4CB1-AE5A-555D6011526A}.Debug(gtest)|Win32.Build.0 = Debug(gtest)|Win32
 		{AC9366E1-054F-4CB1-AE5A-555D6011526A}.Debug(UNICODE)|Win32.ActiveCfg = Debug|Win32
@@ -129,6 +121,14 @@ Global
 		{80D795EE-6B3D-4DEF-9084-F3DA618FC294}.Debug|Win32.Build.0 = Debug|Win32
 		{80D795EE-6B3D-4DEF-9084-F3DA618FC294}.Release|Win32.ActiveCfg = Release|Win32
 		{80D795EE-6B3D-4DEF-9084-F3DA618FC294}.Release|Win32.Build.0 = Release|Win32
+		{13851977-F039-448D-A853-A98325BDA088}.Debug(gtest)|Win32.ActiveCfg = Debug(gtest)|Win32
+		{13851977-F039-448D-A853-A98325BDA088}.Debug(gtest)|Win32.Build.0 = Debug(gtest)|Win32
+		{13851977-F039-448D-A853-A98325BDA088}.Debug(UNICODE)|Win32.ActiveCfg = Debug(UNICODE)|Win32
+		{13851977-F039-448D-A853-A98325BDA088}.Debug(UNICODE)|Win32.Build.0 = Debug(UNICODE)|Win32
+		{13851977-F039-448D-A853-A98325BDA088}.Debug|Win32.ActiveCfg = Debug|Win32
+		{13851977-F039-448D-A853-A98325BDA088}.Debug|Win32.Build.0 = Debug|Win32
+		{13851977-F039-448D-A853-A98325BDA088}.Release|Win32.ActiveCfg = Release|Win32
+		{13851977-F039-448D-A853-A98325BDA088}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

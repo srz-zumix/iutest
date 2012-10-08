@@ -102,12 +102,12 @@ struct Point2
 	int x,y;
 };
 
-std::ostream& operator << (::std::ostream& os, const Point1& x)
+::iutest::iu_ostream& operator << (::iutest::iu_ostream& os, const Point1& x)
 {
 	return os << x.x << ", " << x.y << "(operator overload)";
 }
 
-void PrintTo(const Point2& x, ::std::ostream* os)
+void PrintTo(const Point2& x, ::iutest::iu_ostream* os)
 {
 	*os << x.x << ", " << x.y << "(function overload)";
 }

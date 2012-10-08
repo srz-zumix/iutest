@@ -34,7 +34,10 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
+#if !defined(IUTEST_OS_WINDOWS_MOBILE)
 	setlocale(LC_CTYPE, "");
+#endif
+
 #if 1
 	iutest::AddGlobalTestEnvironment(new FooEnvironment());
 #endif

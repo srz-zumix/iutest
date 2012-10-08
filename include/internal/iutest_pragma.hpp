@@ -35,6 +35,12 @@
 #endif
 
 // pragma warning
+#if		defined(_MSC_VER)
+#  define IUTEST_PRAGMA_MSC_WARN_PUSH()			IUTEST_PRAGMA(warning (push))
+#  define IUTEST_PRAGMA_MSC_WARN_DISABLE(x)		IUTEST_PRAGMA(warning (disable: x))
+#  define IUTEST_PRAGMA_MSC_WARN_POP()			IUTEST_PRAGMA(warning (pop))
+#endif
+
 #if		defined(__GNUC__)
 #  if ((__GNUC__ > 4) || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6))
 #    define IUTEST_PRAGMA_GCC_WARN_PUSH()		IUTEST_PRAGMA(GCC diagnostic push)
@@ -61,6 +67,16 @@
 #  define IUTEST_PRAGMA_GCC_WARN_POP			IUTEST_PRAGMA_CLANG_WARN_POP
 #endif
 
+#ifndef IUTEST_PRAGMA_MSC_WARN_PUSH
+#  define IUTEST_PRAGMA_MSC_WARN_PUSH()
+#endif
+#ifndef IUTEST_PRAGMA_MSC_WARN_DISABLE
+#  define IUTEST_PRAGMA_MSC_WARN_DISABLE(x)
+#endif
+#ifndef IUTEST_PRAGMA_MSC_WARN_POP
+#  define IUTEST_PRAGMA_MSC_WARN_POP()
+#endif
+
 #ifndef IUTEST_PRAGMA_GCC_WARN_PUSH
 #  define IUTEST_PRAGMA_GCC_WARN_PUSH()
 #endif
@@ -82,8 +98,8 @@
 #endif
 
 #if		defined(_MSC_VER)
-#  define IUTEST_PARGMA_WARN_PUSH()		IUTEST_PRAGMA(warning (push))
-#  define IUTEST_PARGMA_WARN_POP()		IUTEST_PRAGMA(warning (pop))
+#  define IUTEST_PARGMA_WARN_PUSH()		IUTEST_PRAGMA_MSC_WARN_PUSH()
+#  define IUTEST_PARGMA_WARN_POP()		IUTEST_PRAGMA_MSC_WARN_POP()
 #elif	defined(__GNUC__)
 #  define IUTEST_PARGMA_WARN_PUSH()		IUTEST_PRAGMA_GCC_WARN_PUSH()
 #  define IUTEST_PARGMA_WARN_POP()		IUTEST_PRAGMA_GCC_WARN_POP()
@@ -98,9 +114,9 @@
 
 // pragma warning xxx
 #if defined(_MSC_VER) && defined(__STDC_WANT_SECURE_LIB__) && __STDC_WANT_SECURE_LIB__
-#  define IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()		IUTEST_PRAGMA(warning (push))	\
-															IUTEST_PRAGMA(warning (disable:4996))
-#  define IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()		IUTEST_PRAGMA(warning (pop))
+#  define IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()		IUTEST_PRAGMA_MSC_WARN_PUSH()	\
+															IUTEST_PRAGMA_MSC_WARN_DISABLE(4996)
+#  define IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()		IUTEST_PRAGMA_MSC_WARN_POP()
 #else
 #  define IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 #  define IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()

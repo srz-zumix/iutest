@@ -1309,6 +1309,9 @@ namespace iusupport
 
 #endif
 
+// ostream
+typedef ::std::ostream	iu_ostream;
+
 }	// end of namespace testing
 
 #ifdef INCG_IRIS_iutest_HPP_

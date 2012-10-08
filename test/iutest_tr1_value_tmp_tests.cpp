@@ -23,6 +23,8 @@
 
 #include "../include/tr1/iutest_value_tmp_tests.hpp"
 
+#if IUTEST_HAS_TYPED_TEST
+
 /**
  * @note	このようなテストがしたい場合、型付け もしくは 型をパラメータ化したテストで、
  *			要素の型に、必要な型・値の定義をすれば十分である
@@ -78,6 +80,8 @@ IUTEST_TYPED_TEST(TestValueType2, Equal)
 {
 	IUTEST_SUCCEED() << factorial<TypeParam::kValue>::value;
 }
+
+#endif
 
 #endif
 

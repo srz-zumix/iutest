@@ -112,13 +112,7 @@ public:
 	/**
 	 * @brief	リスナーの解放
 	*/
-	TestEventListener*	Release(TestEventListener* listener)
-	{
-		ListenerContainer::iterator it = ::std::find(m_listeners.begin(), m_listeners.end(), listener);
-		if( it == m_listeners.end() ) return NULL;
-		m_listeners.erase(it);
-		return listener;
-	}
+	TestEventListener*	Release(TestEventListener* listener);
 
 public:
 	/**
@@ -133,126 +127,27 @@ public:
 private:
 	// On*End は後ろから実行
 
-	void OnTestProgramStart(const UnitTest& test)
-	{
-		for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
-		{
-			(*it)->OnTestProgramStart(test);
-		}
-	}
-	void OnTestIterationStart(const UnitTest& test, int iteration)
-	{
-		for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
-		{
-			(*it)->OnTestIterationStart(test, iteration);
-		}
-	}
-	void OnEnvironmentsSetUpStart(const UnitTest& test)
-	{
-		for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
-		{
-			(*it)->OnEnvironmentsSetUpStart(test);
-		}
-	}
-	void OnEnvironmentsSetUpEnd(const UnitTest& test)
-	{
-		for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
-		{
-			(*it)->OnEnvironmentsSetUpEnd(test);
-		}
-	}
+	void OnTestProgramStart(const UnitTest& test);
+	void OnTestIterationStart(const UnitTest& test, int iteration);
+	void OnEnvironmentsSetUpStart(const UnitTest& test);
+	void OnEnvironmentsSetUpEnd(const UnitTest& test);
 
-	void OnTestCaseStart(const TestCase& test_case)
-	{
-		for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
-		{
-			(*it)->OnTestCaseStart(test_case);
-		}
-	}
-	void OnTestStart(const TestInfo& test_info)
-	{
-		for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
-		{
-			(*it)->OnTestStart(test_info);
-		}
-	}
-	void OnTestPartResult(const TestPartResult& test_part_result)
-	{
-		for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
-		{
-			(*it)->OnTestPartResult(test_part_result);
-		}
-	}
-	void OnTestRecordProperty(const TestProperty& test_property)
-	{
-		for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
-		{
-			(*it)->OnTestRecordProperty(test_property);
-		}
-	}
-	void OnTestEnd(const TestInfo& test_info)
-	{
-		for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
-		{
-			(*it)->OnTestEnd(test_info);
-		}
-	}
-	void OnTestCaseEnd(const TestCase& test_case)
-	{
-		for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
-		{
-			(*it)->OnTestCaseEnd(test_case);
-		}
-	}
+	void OnTestCaseStart(const TestCase& test_case);
+	void OnTestStart(const TestInfo& test_info);
+	void OnTestPartResult(const TestPartResult& test_part_result);
+	void OnTestRecordProperty(const TestProperty& test_property);
+	void OnTestEnd(const TestInfo& test_info);
+	void OnTestCaseEnd(const TestCase& test_case);
 
-	void OnEnvironmentsTearDownStart(const UnitTest& test)
-	{
-		for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
-		{
-			(*it)->OnEnvironmentsTearDownStart(test);
-		}
-	}
-	void OnEnvironmentsTearDownEnd(const UnitTest& test)
-	{
-		for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
-		{
-			(*it)->OnEnvironmentsTearDownEnd(test);
-		}
-	}
-	void OnTestIterationEnd(const UnitTest& test, int iteration)
-	{
-		for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
-		{
-			(*it)->OnTestIterationEnd(test, iteration);
-		}
-	}
-	void OnTestProgramEnd(const UnitTest& test)
-	{
-		for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
-		{
-			(*it)->OnTestProgramEnd(test);
-		}
-	}
+	void OnEnvironmentsTearDownStart(const UnitTest& test);
+	void OnEnvironmentsTearDownEnd(const UnitTest& test);
+	void OnTestIterationEnd(const UnitTest& test, int iteration);
+	void OnTestProgramEnd(const UnitTest& test);
 
 private:
-	void	set_default_result_printer(TestEventListener* listener)
-	{
-		Release(m_default_result_printer);
-		if( listener != NULL )
-		{
-			m_listeners.push_back(listener);
-		}
-		m_default_result_printer = listener;
-	}
-	void	set_default_xml_generator(TestEventListener* listener)
-	{
-		Release(m_default_xml_generator);
-		if( listener != NULL )
-		{
-			m_listeners.push_back(listener);
-		}
-		m_default_xml_generator = listener;
-	}
+	void	set_default_result_printer(TestEventListener* listener);
+	void	set_default_xml_generator(TestEventListener* listener);
+
 private:
 	friend class UnitTestSource;
 	friend class UnitTest;
@@ -268,6 +163,135 @@ private:
 	TestEventListener*	m_default_result_printer;
 	TestEventListener*	m_default_xml_generator;
 };
+
+
+inline TestEventListener*	TestEventListeners::Release(TestEventListener* listener)
+{
+	ListenerContainer::iterator it = ::std::find(m_listeners.begin(), m_listeners.end(), listener);
+	if( it == m_listeners.end() ) return NULL;
+	m_listeners.erase(it);
+	return listener;
+}
+
+inline void TestEventListeners::OnTestProgramStart(const UnitTest& test)
+{
+	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
+	{
+		(*it)->OnTestProgramStart(test);
+	}
+}
+inline void TestEventListeners::OnTestIterationStart(const UnitTest& test, int iteration)
+{
+	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
+	{
+		(*it)->OnTestIterationStart(test, iteration);
+	}
+}
+inline void TestEventListeners::OnEnvironmentsSetUpStart(const UnitTest& test)
+{
+	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
+	{
+		(*it)->OnEnvironmentsSetUpStart(test);
+	}
+}
+inline void TestEventListeners::OnEnvironmentsSetUpEnd(const UnitTest& test)
+{
+	for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
+	{
+		(*it)->OnEnvironmentsSetUpEnd(test);
+	}
+}
+
+inline void TestEventListeners::OnTestCaseStart(const TestCase& test_case)
+{
+	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
+	{
+		(*it)->OnTestCaseStart(test_case);
+	}
+}
+inline void TestEventListeners::OnTestStart(const TestInfo& test_info)
+{
+	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
+	{
+		(*it)->OnTestStart(test_info);
+	}
+}
+inline void TestEventListeners::OnTestPartResult(const TestPartResult& test_part_result)
+{
+	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
+	{
+		(*it)->OnTestPartResult(test_part_result);
+	}
+}
+inline void TestEventListeners::OnTestRecordProperty(const TestProperty& test_property)
+{
+	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
+	{
+		(*it)->OnTestRecordProperty(test_property);
+	}
+}
+inline void TestEventListeners::OnTestEnd(const TestInfo& test_info)
+{
+	for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
+	{
+		(*it)->OnTestEnd(test_info);
+	}
+}
+inline void TestEventListeners::OnTestCaseEnd(const TestCase& test_case)
+{
+	for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
+	{
+		(*it)->OnTestCaseEnd(test_case);
+	}
+}
+
+inline void TestEventListeners::OnEnvironmentsTearDownStart(const UnitTest& test)
+{
+	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
+	{
+		(*it)->OnEnvironmentsTearDownStart(test);
+	}
+}
+inline void TestEventListeners::OnEnvironmentsTearDownEnd(const UnitTest& test)
+{
+	for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
+	{
+		(*it)->OnEnvironmentsTearDownEnd(test);
+	}
+}
+inline void TestEventListeners::OnTestIterationEnd(const UnitTest& test, int iteration)
+{
+	for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
+	{
+		(*it)->OnTestIterationEnd(test, iteration);
+	}
+}
+inline void TestEventListeners::OnTestProgramEnd(const UnitTest& test)
+{
+	for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
+	{
+		(*it)->OnTestProgramEnd(test);
+	}
+}
+
+inline void	TestEventListeners::set_default_result_printer(TestEventListener* listener)
+{
+	Release(m_default_result_printer);
+	if( listener != NULL )
+	{
+		m_listeners.push_back(listener);
+	}
+	m_default_result_printer = listener;
+}
+inline void	TestEventListeners::set_default_xml_generator(TestEventListener* listener)
+{
+	Release(m_default_xml_generator);
+	if( listener != NULL )
+	{
+		m_listeners.push_back(listener);
+	}
+	m_default_xml_generator = listener;
+}
 
 }	// end of namespace iutest
 

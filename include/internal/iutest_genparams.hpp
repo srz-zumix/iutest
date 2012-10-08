@@ -2804,6 +2804,48 @@ private:
 
 #else
 
+template<typename T1, typename T2>
+class iuPairwiseGenerator2 : public iuIParamGenerator< tuples::tuple<T1, T2> >
+{
+	typedef iuParamGenerator<T1> Generator1;
+	typedef iuParamGenerator<T2> Generator2;
+public:
+	typedef tuples::tuple<T1, T2>	ParamType;
+
+public:
+	iuPairwiseGenerator2(const Generator1& g1, const Generator2& g2)
+		: m_g1(g1), m_g2(g2)
+	{}
+
+public:
+	virtual	void	Begin(void)
+	{
+		m_g1.Begin();
+		m_g2.Begin();
+	}
+	virtual void	Next(void)
+	{
+		if( m_g2.IsEnd() ) return;
+		m_g2.Next();
+		if( m_g2.IsEnd() )
+		{
+			m_g1.Next();
+			if( !m_g1.IsEnd() ) m_g2.Begin();
+		}
+	}
+	virtual bool	IsEnd(void) const
+	{
+		return m_g1.IsEnd() && m_g2.IsEnd();
+	}
+	virtual ParamType	GetCurrent(void) const
+	{
+		return ParamType(this->m_g1.GetCurrent(), this->m_g2.GetCurrent());
+	}
+private:
+	Generator1	m_g1;
+	Generator2	m_g2;
+};
+
 template<typename T1, typename T2, typename T3>
 class iuPairwiseGenerator3 : public iuPairwiseGeneratorBase
 {
@@ -3247,6 +3289,31 @@ public:
 
 		return new iuValueInParamsGenerator< ParamType >(params);
 	}
+};
+
+template<typename Generator1, typename Generator2>
+class iuPairwiseHolder2
+{
+	typedef iuPairwiseHolder2<Generator1, Generator2> _Myt;
+public:
+	iuPairwiseHolder2(const Generator1& g1, const Generator2& g2)
+		: m_g1(g1), m_g2(g2) {}
+
+public:
+	template<typename T1, typename T2>
+	operator iuIParamGenerator< tuples::tuple<T1, T2> >* () const 
+	{
+		return new iuPairwiseGenerator2<T1, T2>(
+			static_cast< iuIParamGenerator<T1>* >(m_g1)
+			, static_cast< iuIParamGenerator<T2>* >(m_g2)
+			);
+	}
+
+private:
+	void	operator = (const _Myt&) {}
+private:
+	const Generator1	m_g1;
+	const Generator2	m_g2;
 };
 
 

@@ -20,6 +20,8 @@
 #include "../include/iutest.hpp"
 #include <cmath>
 
+#if IUTEST_HAS_TYPED_TEST
+
 namespace floationgpoint_test
 {
 
@@ -54,3 +56,4 @@ IUTEST_TYPED_TEST(FloatingpointTest, NaN)
 
 }
 
+#endif

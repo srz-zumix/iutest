@@ -23,12 +23,12 @@ struct Bar
 	}
 };
 
-::std::ostream& operator << (::std::ostream& os, const Bar& bar) 
+::iutest::iu_ostream& operator << (::iutest::iu_ostream& os, const Bar& bar) 
 {
 	return os << "X:" << bar.x << " Y:" << bar.y << " Z:" << bar.z;
 }
 
-void PrintTo(const Bar& bar, ::std::ostream* os)
+void PrintTo(const Bar& bar, ::iutest::iu_ostream* os)
 {
 	*os << "x:" << bar.x << " y:" << bar.y << " z:" << bar.z;
 }

@@ -83,7 +83,9 @@ void CheckCount(int expected)
 	IUTEST_EXPECT_EQ(expected, g_environment_teardown);
 	IUTEST_EXPECT_EQ(expected, g_foo_bar);
 	IUTEST_EXPECT_EQ(expected, g_hoge_fuga);
+#if IUTEST_HAS_PARAM_TEST
 	IUTEST_EXPECT_EQ(expected*kNumberOfParamTests, g_param_test);
+#endif
 }
 
 bool RunTest(void)
@@ -129,7 +131,9 @@ bool RepeatTestWithFilter(int repeat)
 	IUTEST_EXPECT_EQ(repeat, g_environment_teardown);
 	IUTEST_EXPECT_EQ(repeat, g_foo_bar);
 	IUTEST_EXPECT_EQ(0, g_hoge_fuga);
+#if IUTEST_HAS_PARAM_TEST
 	IUTEST_EXPECT_EQ(repeat*kNumberOfParamTests, g_param_test);
+#endif
 	return ::iutest::UnitTest::GetInstance()->Passed();
 }
 

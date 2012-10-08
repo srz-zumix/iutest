@@ -149,7 +149,7 @@ private:
 	}
 };
 
-inline ::std::ostream& operator << (::std::ostream& os, const iuMessage& msg)
+inline iu_ostream& operator << (iu_ostream& os, const iuMessage& msg)
 {
 	return os << msg.message();
 }

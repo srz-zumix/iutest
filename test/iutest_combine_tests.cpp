@@ -19,7 +19,7 @@
 // include
 #include "../include/iutest.hpp"
 
-#if IUTEST_HAS_COMBINE
+#if DIUTEST_HAS_PARAM_TEST && IUTEST_HAS_COMBINE
 
 static const int tble[] = {0, 1};
 

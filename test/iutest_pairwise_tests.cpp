@@ -19,7 +19,40 @@
 // include
 #include "../include/iutest.hpp"
 
-#if IUTEST_HAS_PAIRWISE
+#if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_PAIRWISE
+
+typedef ::iutest::tuples::tuple<int, int> PairwiseTest2Tuple;
+
+class PairwiseTest2 : public ::iutest::TestWithParam< PairwiseTest2Tuple >
+{
+public:
+	static void SetUpTestCase(void)
+	{
+		mtx[0][0] = mtx[0][1] = mtx[1][0] = mtx[1][1] = false;
+	}
+	static void TearDownTestCase(void)
+	{
+		IUTEST_EXPECT_TRUE(mtx[0][0]);
+		IUTEST_EXPECT_TRUE(mtx[0][1]);
+		IUTEST_EXPECT_TRUE(mtx[1][0]);
+		IUTEST_EXPECT_TRUE(mtx[1][1]);
+	}
+protected:
+	static bool mtx[2][2];
+};
+
+bool PairwiseTest2::mtx[2][2];
+
+IUTEST_P(PairwiseTest2, Num)
+{
+	PairwiseTest2Tuple param = GetParam();
+	
+	mtx[::iutest::tuples::get<0>(param)][::iutest::tuples::get<1>(param)] = true;
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_P(A, PairwiseTest2
+	, ::iutest::Pairwise(::iutest::Range(0,2), ::iutest::Range(0,2)) );
+
 
 typedef ::iutest::tuples::tuple<int, int, int, int, int, int, int, int, int> PairwiseTestTuple;
 

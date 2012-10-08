@@ -31,7 +31,8 @@ namespace iutest
 /**
  * @brief	テスト情報クラス
 */
-class TestInfo : public detail::iu_list_node<TestInfo>
+class TestInfo 
+	: public detail::iu_list_node<TestInfo>
 {
 private:
 	class Mediator : public detail::iuITestInfoMediator
@@ -162,97 +163,14 @@ private:
 	/**
 	 * @brief	実行
 	*/
-	bool	Run(void)
-	{
-		if( !m_should_run ) return true;
-
-		// テスト開始
-		TestEnv::event_listeners().OnTestStart(*this);
-
-		RunImpl();
-
-		// テスト終了
-		TestEnv::event_listeners().OnTestEnd(*this);
-		return !HasFailure();
-	}
+	bool	Run(void);
 
 private:
 
-	void	RunImpl(void)
-	{
-		detail::iuStopWatch sw;
-		TimeInMillisec elapsedmsec = 0;
-
-		m_ran = true;
-
-#if IUTEST_HAS_EXCEPTIONS
-		if( TestFlag::IsEnableFlag(TestFlag::CATCH_EXCEPTION_EACH) )
-		{
-			detail::auto_ptr<Test> p = m_factory->Create();
-			try
-			{
-				sw.start();
-#if IUTEST_HAS_SEH
-				RunOnMSC(p);
-#else
-				p->Run(&m_mediator);
-#endif
-				elapsedmsec = sw.stop();
-			}
-			catch (const ::std::exception& e)
-			{
-				elapsedmsec = sw.stop();
-				iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(e.what()), TestPartResult::kFatalFailure).OnFixed(AssertionHelper::Fixed());
-				if( TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) ) throw;
-			}
-			catch (TestPartResult::Type& eType)
-			{
-				(void)eType;
-				elapsedmsec = sw.stop();
-				if( TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) ) throw;
-			}
-			catch (...)
-			{
-				elapsedmsec = sw.stop();
-				iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(NULL), TestPartResult::kFatalFailure).OnFixed(AssertionHelper::Fixed());
-				if( TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) ) throw;
-			}
-		}
-		else
-#endif
-		{
-			detail::auto_ptr<Test> p = m_factory->Create();
-			sw.start();
-			p->Run(&m_mediator);
-			elapsedmsec = sw.stop();
-		}
-
-		m_test_result.set_elapsed_time(elapsedmsec);
-
-		if( HasFailure() && TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
-		{
-#if IUTEST_HAS_EXCEPTIONS
-			throw HasFatalFailure() ? TestPartResult::kFatalFailure : TestPartResult::kNotFatalFailure;
-#else
-			exit(1);
-#endif
-		}
-	}
+	void	RunImpl(void);
 
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
-	void	RunOnMSC(detail::auto_ptr<Test>& test)
-	{
-		_EXCEPTION_POINTERS* info = NULL;
-		__try
-		{
-			test->Run(&m_mediator);
-		}
-		__except (info = GetExceptionInformation()
-			, detail::seh_exception::should_process_through_break_and_cppexceptions(GetExceptionCode()))
-		{
-			detail::seh_exception::translator(GetExceptionCode(), info);
-		}
-	}
+	void	RunOnMSC(detail::auto_ptr<Test>& test);
 #endif
 
 	void	RecordProperty(const TestProperty& prop)
@@ -263,36 +181,13 @@ private:
 	/**
 	 * @brief	テストのクリア
 	*/
-	void	clear(void)
-	{
-		m_ran = false;
-		m_skip = false;
-		m_test_result.ClearResult();
-	}
+	void	clear(void);
 
 	/*
 	 * @brief	テストのフィルタリング
 	 * @return	実行する場合は真
 	*/
-	bool	filter(void)
-	{
-		bool run = true;
-		// 無効テストなら実行しない
-		if( !TestFlag::IsEnableFlag(TestFlag::RUN_DISABLED_TESTS)
-			&& is_disabled_test() )
-		{
-			run = false;
-		}
-		if( TestFlag::IsEnableFlag(TestFlag::FILTERING_TESTS) )
-		{
-			if( !detail::iuRegex::match(TestEnv::test_filter(), test_full_name().c_str()) ) 
-			{
-				run = false;
-			}
-		}
-		m_should_run = run;
-		return m_should_run;
-	}
+	bool	filter(void);
 
 private:
 	friend class UnitTestImpl;
@@ -312,6 +207,128 @@ private:
 
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TestInfo);
 };
+
+/**
+ * @brief	実行
+*/
+inline bool	TestInfo::Run(void)
+{
+	if( !m_should_run ) return true;
+
+	// テスト開始
+	TestEnv::event_listeners().OnTestStart(*this);
+
+	RunImpl();
+
+	// テスト終了
+	TestEnv::event_listeners().OnTestEnd(*this);
+	return !HasFailure();
+}
+
+inline void	TestInfo::RunImpl(void)
+{
+	detail::iuStopWatch sw;
+	TimeInMillisec elapsedmsec = 0;
+
+	m_ran = true;
+
+#if IUTEST_HAS_EXCEPTIONS
+	if( TestFlag::IsEnableFlag(TestFlag::CATCH_EXCEPTION_EACH) )
+	{
+		detail::auto_ptr<Test> p = m_factory->Create();
+		try
+		{
+			sw.start();
+#if IUTEST_HAS_SEH
+			RunOnMSC(p);
+#else
+			p->Run(&m_mediator);
+#endif
+			elapsedmsec = sw.stop();
+		}
+		catch (const ::std::exception& e)
+		{
+			elapsedmsec = sw.stop();
+			iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(e.what()), TestPartResult::kFatalFailure).OnFixed(AssertionHelper::Fixed());
+			if( TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) ) throw;
+		}
+		catch (TestPartResult::Type& eType)
+		{
+			(void)eType;
+			elapsedmsec = sw.stop();
+			if( TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) ) throw;
+		}
+		catch (...)
+		{
+			elapsedmsec = sw.stop();
+			iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(NULL), TestPartResult::kFatalFailure).OnFixed(AssertionHelper::Fixed());
+			if( TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) ) throw;
+		}
+	}
+	else
+#endif
+	{
+		detail::auto_ptr<Test> p = m_factory->Create();
+		sw.start();
+		p->Run(&m_mediator);
+		elapsedmsec = sw.stop();
+	}
+
+	m_test_result.set_elapsed_time(elapsedmsec);
+
+	if( HasFailure() && TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
+	{
+#if IUTEST_HAS_EXCEPTIONS
+		throw HasFatalFailure() ? TestPartResult::kFatalFailure : TestPartResult::kNotFatalFailure;
+#else
+		exit(1);
+#endif
+	}
+}
+
+#if IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
+inline void	TestInfo::RunOnMSC(detail::auto_ptr<Test>& test)
+{
+	_EXCEPTION_POINTERS* info = NULL;
+	__try
+	{
+		test->Run(&m_mediator);
+	}
+	__except (info = GetExceptionInformation()
+		, detail::seh_exception::should_process_through_break_and_cppexceptions(GetExceptionCode()))
+	{
+		detail::seh_exception::translator(GetExceptionCode(), info);
+	}
+}
+#endif
+
+inline void	TestInfo::clear(void)
+{
+	m_ran = false;
+	m_skip = false;
+	m_test_result.ClearResult();
+}
+
+inline bool	TestInfo::filter(void)
+{
+	bool run = true;
+	// 無効テストなら実行しない
+	if( !TestFlag::IsEnableFlag(TestFlag::RUN_DISABLED_TESTS)
+		&& is_disabled_test() )
+	{
+		run = false;
+	}
+	if( TestFlag::IsEnableFlag(TestFlag::FILTERING_TESTS) )
+	{
+		if( !detail::iuRegex::match(TestEnv::test_filter(), test_full_name().c_str()) ) 
+		{
+			run = false;
+		}
+	}
+	m_should_run = run;
+	return m_should_run;
+}
+
 
 }	// end of namespace iutest
 

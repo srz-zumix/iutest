@@ -29,10 +29,12 @@ namespace iutest
 /**
  * @brief	テストケース
 */
-class TestCase : public detail::iu_list_node<TestCase>
+class TestCase
+	: public detail::iu_list_node<TestCase>
 {
 protected:
 	typedef detail::iu_list<TestInfo>	iuTestInfos;	//!< TestInfo リスト
+	//typedef ::std::vector<TestInfo*>	iuTestInfos;	//!< TestInfo リスト
 protected:
 	/**
 	 * @brief	コンストラクタ
@@ -66,7 +68,7 @@ public:
 	const	char*	name(void)					const	{ return m_testcase_name.c_str(); }
 
 	/** テスト総数 */
-	int				total_test_count(void)		const	{ return m_testinfos.count(); }
+	int				total_test_count(void)		const	{ return m_testinfos.size(); }
 	/** 実行したテスト総数 */
 	int				test_to_run_count(void)		const	{ return m_should_run_num; }
 	/** 失敗テスト総数 */
@@ -110,53 +112,13 @@ private:
 	 * @brief	テストの実行
 	 * @return	成否
 	*/
-	bool	Run(void)
-	{
-		if( !should_run() ) return true;
-
-		if( TestFlag::IsEnableFlag(TestFlag::SHUFFLE_TESTS) )
-		{
-			m_testinfos.shuffle(TestEnv::genrand());
-		}
-
-		// テスト開始
-		TestEnv::event_listeners().OnTestCaseStart(*this);
-		bool result = RunImpl();
-		// テスト終了
-		TestEnv::event_listeners().OnTestCaseEnd(*this);
-
-		return result;
-	}
+	bool	Run(void);
 
 	/**
 	 * @brief	実行
 	 * @return	成否
 	*/
-	bool RunImpl(void)
-	{
-		bool result=true;
-		m_elapsedmsec = 0;
-
-		m_setup();
-		{
-			detail::iuStopWatch sw;
-			sw.start();
-			for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
-			{
-				if( it->should_run() )
-				{
-					// 実行
-					if( !it->Run() )
-					{
-						result = false;
-					}
-				}
-			}
-			m_elapsedmsec = sw.stop();
-		}
-		m_teardown();
-		return result;
-	}
+	bool	RunImpl(void);
 
 public:
 	/**
@@ -181,62 +143,17 @@ private:
 	/**
 	 * @brief	テストのクリア
 	*/
-	void	clear(void)
-	{
-		for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
-		{
-			it->clear();
-		}
-	}
-
+	void	clear(void);
 	/*
 	 * @brief	テストのフィルタリング
 	 * @return	実行する場合は真
 	*/
-	bool	filter(void)
-	{
-		m_should_run_num = 0;
-		m_disable_num = 0;
-		for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
-		{
-			if( m_disable )
-			{
-				// DISABLE の伝搬
-				it->m_disable = true;
-			}
-			if( it->is_disabled_test() )
-			{
-				++m_disable_num;
-			}
-			if( it->filter() )
-			{
-				++m_should_run_num;
-			}
-		}
-		return should_run();
-	}
+	bool	filter(void);
 
 	/** 失敗テスト総数 */
-	int get_failed_test_count(void) const
-	{
-		int count = 0;
-		for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
-		{
-			if( it->should_run() && it->HasFailure() ) ++count;
-		}
-		return count;
-	}
-
+	int get_failed_test_count(void) const;
 	/** スキップテスト総数 */
-	int get_skipped_test_count(void) const
-	{
-		int count = 0;
-		for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
-		{
-			if( it->is_skipped() ) ++count;
-		}
-		return count;
-	}
+	int get_skipped_test_count(void) const;
 
 private:
 	friend bool	operator == (const TestCase& lhs, const TestCase& rhs)
@@ -247,9 +164,9 @@ private:
 	void	push_back(TestInfo* p)	{ m_testinfos.push_back(p); }
 
 private:
-	iuTestInfos::iterator	begin(void)	const		{ return m_testinfos.begin(); }
-	iuTestInfos::iterator	end(void)	const		{ return m_testinfos.end(); }
-	TestTypeId				get_typeid(void) const	{ return m_id; }
+	iuTestInfos::const_iterator	begin(void)	const		{ return m_testinfos.begin(); }
+	iuTestInfos::const_iterator	end(void)	const		{ return m_testinfos.end(); }
+	TestTypeId					get_typeid(void) const	{ return m_id; }
 
 private:
 	friend class UnitTestImpl;
@@ -316,6 +233,101 @@ public:
 };
 
 }	// end of namespace detail
+
+inline bool	TestCase::Run(void)
+{
+	if( !should_run() ) return true;
+
+	if( TestFlag::IsEnableFlag(TestFlag::SHUFFLE_TESTS) )
+	{
+		RandomShuffle(m_testinfos, TestEnv::genrand());
+	}
+
+	// テスト開始
+	TestEnv::event_listeners().OnTestCaseStart(*this);
+	bool result = RunImpl();
+	// テスト終了
+	TestEnv::event_listeners().OnTestCaseEnd(*this);
+
+	return result;
+}
+
+inline bool TestCase::RunImpl(void)
+{
+	bool result=true;
+	m_elapsedmsec = 0;
+
+	m_setup();
+	{
+		detail::iuStopWatch sw;
+		sw.start();
+		for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
+		{
+			if( (*it)->should_run() )
+			{
+				// 実行
+				if( !(*it)->Run() )
+				{
+					result = false;
+				}
+			}
+		}
+		m_elapsedmsec = sw.stop();
+	}
+	m_teardown();
+	return result;
+}
+
+inline void	TestCase::clear(void)
+{
+	for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
+	{
+		(*it)->clear();
+	}
+}
+
+inline bool	TestCase::filter(void)
+{
+	m_should_run_num = 0;
+	m_disable_num = 0;
+	for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
+	{
+		if( m_disable )
+		{
+			// DISABLE の伝搬
+			(*it)->m_disable = true;
+		}
+		if( (*it)->is_disabled_test() )
+		{
+			++m_disable_num;
+		}
+		if( (*it)->filter() )
+		{
+			++m_should_run_num;
+		}
+	}
+	return should_run();
+}
+
+inline int TestCase::get_failed_test_count(void) const
+{
+	int count = 0;
+	for( iuTestInfos::const_iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
+	{
+		if( (*it)->should_run() && (*it)->HasFailure() ) ++count;
+	}
+	return count;
+}
+
+inline int TestCase::get_skipped_test_count(void) const
+{
+	int count = 0;
+	for( iuTestInfos::const_iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
+	{
+		if( (*it)->is_skipped() ) ++count;
+	}
+	return count;
+}
 
 }	// end of namespace iutest
 

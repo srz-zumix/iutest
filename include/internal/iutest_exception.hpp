@@ -72,7 +72,11 @@ public:
 	{
 		IUTEST_UNUSED_VAR(ep);
 		iuStringStream::type strm;
+#if IUTEST_HAS_STRINGSTREAM
 		strm << "SEH exception with code 0x" << ::std::setbase(16) << code << ::std::setbase(10);
+#else
+		strm << "SEH exception with code " << code;
+#endif
 		throw seh_exception(strm.str().c_str());
 	}
 	static int should_process_through_break_and_cppexceptions(DWORD code)

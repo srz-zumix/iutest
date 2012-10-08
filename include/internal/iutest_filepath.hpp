@@ -23,6 +23,8 @@
 #include "iutest_string.hpp"
 #include "iutest_port.hpp"
 
+#if !defined(IUTEST_USE_GTEST)
+
 #if IUTEST_HAS_FILE_STAT
 #  include <sys/stat.h>
 #endif
@@ -56,9 +58,6 @@ namespace posix
 #endif
 
 #endif
-
-
-	IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 }	// end of namespace posix
 }	// end of namespace internal
@@ -386,7 +385,7 @@ private:
 	std::string	m_path;
 };
 
-inline ::std::ostream& operator << (::std::ostream& os, const iuFilePath& path)
+inline iu_ostream& operator << (iu_ostream& os, const iuFilePath& path)
 {
 	return os << path.c_str();
 }
@@ -400,5 +399,7 @@ namespace internal
 }
 
 }	// end of namespace iutest
+
+#endif
 
 #endif

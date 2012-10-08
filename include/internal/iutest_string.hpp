@@ -176,7 +176,7 @@ public:
 #  endif
 #else
 	template<class _Elem, class _Traits>class iu_basic_stream;
-	typedef iu_basic_stream<char, ::std::char_traits<char> >			iu_stream;
+	typedef iu_basic_stream<char, ::std::char_traits<char> >		iu_stream;
 	typedef iu_basic_stream<wchar_t, ::std::char_traits<wchar_t> >	iu_wstream;
 #endif
 
@@ -243,7 +243,11 @@ public:
 			}
 			static int vastring(wchar_t* dst, size_t len, const wchar_t* fmt, va_list va)
 			{
+#ifdef IUTEST_OS_WINDOWS_MINGW
+				return _vsnwprintf(dst, len, fmt, va);
+#else
 				return vswprintf(dst, len, fmt, va);
+#endif
 			}
 
 			template<typename E>
@@ -402,6 +406,13 @@ public:
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 }	// end of namespace detail
+
+#if IUTEST_HAS_STRINGSTREAM
+typedef ::std::ostream					iu_ostream;
+#else
+typedef detail::iuStringStream::type	iu_ostream;
+#endif
+
 }	// end of namespace iutest
 
 #endif

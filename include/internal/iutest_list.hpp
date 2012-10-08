@@ -121,6 +121,7 @@ protected:
 
 public:
 	typedef iu_list_iterator<NODE>	iterator;
+	typedef iu_list_iterator<NODE>	const_iterator;
 public:
 	iu_list(node_ptr p=NULL) : m_node(p) {}
 
@@ -136,6 +137,10 @@ public:
 			cur = cur->next;
 		}
 		return cnt;
+	}
+	unsigned int size(void) const
+	{
+		return count();
 	}
 public:
 	// ソートして挿入
@@ -215,7 +220,10 @@ public:
 		}
 		p->prev = p->next = NULL;
 	}
-
+	void		erase(iterator it)
+	{
+		erase(*it);
+	}
 public:
 	/**
 	 * @brief	シャッフル
@@ -288,7 +296,7 @@ public:
 	};
 public:
 	template<typename FUNC>
-	node_ptr	find(node_ptr p, FUNC& f)
+	node_ptr	find(node_ptr p, FUNC& f) const
 	{
 		node_ptr cur = m_node;
 		while( cur != NULL )
@@ -299,7 +307,7 @@ public:
 		return NULL;
 	}
 	template<typename FUNC>
-	node_ptr	find(FUNC& f)
+	node_ptr	find(FUNC& f) const
 	{
 		node_ptr cur = m_node;
 		while( cur != NULL )
@@ -348,6 +356,45 @@ private:
 	}
 #endif
 };
+
+/**
+ * @brief	vector シャッフル
+*/
+template<typename It, typename Fn>
+void RandomShuffle(It begin, It last, Fn& r)
+{
+	It next = begin;
+	for( unsigned int i=2; ++next != last; ++i )
+	{
+		std::iter_swap(next, begin + r(i) % i );
+	}
+}
+
+template<typename Node, typename Fn>
+void RandomShuffle(iu_list<Node>& list, Fn& r)
+{
+	list.shuffle(r);
+}
+template<typename List, typename Fn>
+void RandomShuffle(List& list, Fn& r)
+{
+	RandomShuffle(list.begin(), list.end(), r);
+}
+
+template<typename Node, typename Fn>
+Node* FindList(const iu_list<Node>& list, Fn& f)
+{
+	return list.find(f);
+}
+template<typename Node, typename Fn>
+Node FindList(const ::std::vector<Node>& list, Fn& f)
+{
+	for( typename ::std::vector<Node>::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
+	{
+		if( f(*it) ) return *it;
+	}
+	return NULL;
+}
 
 }	// end of namespace detail
 }	// end of namespace iutest

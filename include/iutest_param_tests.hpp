@@ -1242,9 +1242,9 @@ detail::iuPairwiseHolder<Generator...> Pairwise(const Generator&... generators)
  * @note	9ˆø”‚Ü‚Åg—p‰Â”\
 */
 template<typename G1, typename G2>
-detail::iuCartesianProductHolder2<G1, G2> Pairwise(const G1& g1, const G2& g2)
+detail::iuPairwiseHolder2<G1, G2> Pairwise(const G1& g1, const G2& g2)
 {
-	return detail::iuCartesianProductHolder2<G1, G2>(g1, g2);
+	return detail::iuPairwiseHolder2<G1, G2>(g1, g2);
 }
 
 /** @overload */

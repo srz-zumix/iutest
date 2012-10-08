@@ -290,7 +290,7 @@
 
 #if !defined(IUTEST_HAS_SEH)
 #  if	defined(_WIN32)
-#    if	_MSC_VER > 1400
+#    if	defined(_MSC_VER) && _MSC_VER > 1400
 #      define IUTEST_HAS_SEH	1
 #    endif
 #  elif	defined(__BORLANDC__)
@@ -304,7 +304,7 @@
 
 // rtti
 #if !defined(IUTEST_HAS_RTTI)
-#  if		defined(_MSC_VER)
+#  if	defined(_MSC_VER)
 #    ifdef _CPPRTTI
 #      define IUTEST_HAS_RTTI	1
 #    endif

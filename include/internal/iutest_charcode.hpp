@@ -28,11 +28,50 @@ namespace detail
 {
 
 //======================================================================
+// declare
+IUTEST_CONSTEXPR bool	IsUtf16SurrogatePair(wchar_t first, wchar_t second);
+IUTEST_CONSTEXPR UInt32 CreateCodePointFromUtf16SurrogatePair(wchar_t first, wchar_t second);
+UInt32	ChopLowBits(UInt32* bits, int n);
+char*	CodePointToUtf8(UInt32 code_point, char* buf);
+::std::string WideStringToUTF8(const wchar_t* str, int num=-1);
+::std::string MultiByteStringToUTF8(const char* src, int num=-1);
+::std::string ShowWideCString(const wchar_t* wide_c_str);
+
+//======================================================================
 // variable
 const UInt32 kMaxCodePoint1 = (static_cast<UInt32>(1) << 7) - 1;
 const UInt32 kMaxCodePoint2 = (static_cast<UInt32>(1) << (5+6)) - 1;
 const UInt32 kMaxCodePoint3 = (static_cast<UInt32>(1) << (4+2*6)) - 1;
 const UInt32 kMaxCodePoint4 = (static_cast<UInt32>(1) << (3+3*6)) - 1;
+
+//======================================================================
+// struct
+/**
+ * @brief	mbs_ptr
+*/
+template<typename CharType>
+struct mbs_ptr
+{
+	struct wcs_impl
+	{
+		::std::string m_arg;
+		const char* ptr(const wchar_t* arg) 
+		{
+			m_arg = ShowWideCString(arg);
+			return m_arg.c_str();
+		}
+	};
+	struct mbs_impl
+	{
+		const char* ptr(const char* arg) { return arg; }
+	};
+	template<typename T, typename DMY>
+	struct select { typedef mbs_impl type; };
+	template<typename DMY>
+	struct select<wchar_t, DMY> { typedef wcs_impl type; };
+
+	typedef typename select<typename remove_const<CharType>::type, void>::type	type;
+};
 
 //======================================================================
 // function
@@ -109,7 +148,7 @@ inline char* CodePointToUtf8(UInt32 code_point, char* buf)
  * @param [in]	num = 入力バッファサイズ
  * @return	UTF8 文字列
 */
-inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const wchar_t* str, int num=-1)
+inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const wchar_t* str, int num)
 {
 	if( num == -1 )
 		num = static_cast<int>(wcslen(str));
@@ -135,14 +174,16 @@ inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const wchar_t* st
 	}
 	return ss.str();
 }
+
 /**
  * @brief	マルチバイト文字からUTF8へ変換
  * @param [in]	str	= 入力
  * @param [in]	num = 入力バッファサイズ
  * @return	UTF8 文字列
 */
-inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(const char* src, int num=-1)
+inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(const char* src, int num)
 {
+#if !defined(IUTEST_OS_WINDOWS_MOBILE)
 	if( num == -1 )
 		num = static_cast<int>(strlen(src));
 	std::string str;
@@ -165,6 +206,9 @@ inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(const char* 
 	}
 	//setlocale(LC_CTYPE, locale);
 	return str;
+#else
+	return src;
+#endif
 }
 
 inline ::std::string ShowWideCString(const wchar_t* wide_c_str)
@@ -172,7 +216,7 @@ inline ::std::string ShowWideCString(const wchar_t* wide_c_str)
 	if( wide_c_str == NULL ) return "(null)";
 #if IUTEST_MBS_CODE == IUTEST_MBS_CODE_UTF8
 	return WideStringToUTF8(wide_c_str);
-#elif IUTEST_OS_WINDOWS && IUTEST_MBS_CODE == IUTEST_MBS_CODE_WINDOWS31J
+#elif defined(IUTEST_OS_WINDOWS) && IUTEST_MBS_CODE == IUTEST_MBS_CODE_WINDOWS31J
 	return win::WideStringToMultiByteString(wide_c_str);
 #else
 	::std::string str;
@@ -190,33 +234,6 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 	return str;
 #endif
 }
-
-/**
- * @brief	mbs_ptr
-*/
-template<typename CharType>
-struct mbs_ptr
-{
-	struct wcs_impl
-	{
-		::std::string m_arg;
-		const char* ptr(const wchar_t* arg) 
-		{
-			m_arg = ShowWideCString(arg);
-			return m_arg.c_str();
-		}
-	};
-	struct mbs_impl
-	{
-		const char* ptr(const char* arg) { return arg; }
-	};
-	template<typename T, typename DMY>
-	struct select { typedef mbs_impl type; };
-	template<typename DMY>
-	struct select<wchar_t, DMY> { typedef wcs_impl type; };
-
-	typedef typename select<typename remove_const<CharType>::type, void>::type	type;
-};
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 

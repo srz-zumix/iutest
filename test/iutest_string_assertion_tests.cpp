@@ -19,6 +19,8 @@
 // include
 #include "../include/gtest/iutest_switch.hpp"
 
+#if IUTEST_HAS_TYPED_TEST
+
 namespace strtest
 {
 
@@ -49,7 +51,7 @@ template<> const char32_t*	text<char32_t>::Test = U"Test";
 template<> const char32_t*	text<char32_t>::host = U"host";
 #endif
 
-	template<typename T>
+template<typename T>
 class StrTest : public ::iutest::Test
 {
 public:
@@ -181,3 +183,4 @@ IUTEST_TYPED_TEST(StrCaseTest, String)
 
 }
 
+#endif

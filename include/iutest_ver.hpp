@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01010000	//!< iutest version 1.1.0.0
-#define IUTEST_MAJORVER		0x01		//!< Major Version
-#define IUTEST_MINORVER		0x01		//!< Minor Version
-#define IUTEST_BUILD		0x00		//!< Build
-#define IUTEST_REVISION		0x00		//!< Revision
+#define	IUTEST_VER			0x01010100u	//!< iutest version 1.1.1.0
+#define IUTEST_MAJORVER		0x01u		//!< Major Version
+#define IUTEST_MINORVER		0x01u		//!< Minor Version
+#define IUTEST_BUILD		0x01u		//!< Build
+#define IUTEST_REVISION		0x00u		//!< Revision
 
 /**
  * @mainpage
@@ -92,6 +92,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
+  <li>v1.1.1.0
+    <ul>
+      <li>Windows Mobile でのビルドエラー修正</li>
+      <li>IUTEST_HAS_STRINGSTREAM=0 のときのビルドエラー修正</li>
+      <li>宣言と定義を分離</li>
+    </ul>
+  </li>
   <li>v1.1.0.0
     <ul>
       <li>リリースバージョン</li>

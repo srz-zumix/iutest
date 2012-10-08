@@ -90,33 +90,13 @@ public:
 	/**
 	 * @brief	標準出力
 	*/
-	static void	output(const char *fmt, ...)
-	{
-		va_list va;
-		va_start(va, fmt);
-		voutput(fmt, va);
-		va_end(va);
-	}
+	static void	output(const char *fmt, ...);
+
 	/**
 	 * @brief	色指定で標準出力
 	 * @param [in]	color	= 文字色
 	*/
-	static void	color_output(Color color, const char *fmt, ...)
-	{
-		va_list va;
-		va_start(va, fmt);
-
-		if( IsShouldUseColor(true) )
-		{
-			color_output_impl(color, fmt, va);
-		}
-		else
-		{
-			voutput(fmt, va);
-		}
-
-		va_end(va);
-	}
+	static void	color_output(Color color, const char *fmt, ...);
 
 public:
 	//! Logger のセット
@@ -127,91 +107,10 @@ public:
 		return pre;
 	}
 private:
-	static void color_output_impl(Color color, const char* fmt, va_list va)
-	{
-		(void)(fmt);
-		(void)(va);
-#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
-		if( !IsColorModeAnsi() )
-		{
-			const WORD attr[] = {
-				0,
-				FOREGROUND_RED,
-				FOREGROUND_GREEN,
-				FOREGROUND_GREEN | FOREGROUND_RED,
-				FOREGROUND_BLUE,
-				FOREGROUND_RED | FOREGROUND_BLUE,
-				FOREGROUND_GREEN | FOREGROUND_BLUE,
-				FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE
-			};
-			const HANDLE stdout_handle = GetStdHandle(STD_OUTPUT_HANDLE);
-			CONSOLE_SCREEN_BUFFER_INFO csbi;
-			::GetConsoleScreenBufferInfo(stdout_handle, &csbi);
-			const WORD wAttributes = csbi.wAttributes;
+	static void color_output_impl(Color color, const char* fmt, va_list va);
+	static void voutput(const char* fmt, va_list va);
+	static bool	IsShouldUseColor(bool use_color);
 
-			fflush(stdout);
-			::SetConsoleTextAttribute(stdout_handle, attr[color] | FOREGROUND_INTENSITY);
-
-			voutput(fmt, va);
-
-			fflush(stdout);
-			::SetConsoleTextAttribute(stdout_handle, wAttributes);
-		}
-		else
-#endif
-		{
-			output("\033[1;3%cm", '0' + color);
-			voutput(fmt, va);
-			output("\033[m");
-		}
-	}
-
-private:
-	static void voutput(const char* fmt, va_list va)
-	{
-		if( var::m_pLogger != NULL )
-		{
-			var::m_pLogger->voutput(fmt, va);
-		}
-		else
-		{
-			IUTEST_VPRINTF(fmt, va);
-		}
-	}
-private:
-	static bool	IsShouldUseColor(bool use_color)
-	{
-		if( IsColorModeOn() )
-		{
-			return true;
-		}
-		else if( IsColorModeOff() )
-		{
-			return false;
-		}
-
-#if !IUTEST_HAS_COLORCONSOLE
-		(void)(use_color);
-		return false;
-#else
-#if defined(IUTEST_OS_WINDOWS)
-		return use_color;
-#else
-		const char* env = internal::posix::GetEnv("TERM");
-		bool term_conf = (env != NULL) && (
-			   IsStringEqual(env, "xterm")
-			|| IsStringEqual(env, "xterm-color")
-			|| IsStringEqual(env, "xterm-256color")
-			|| IsStringEqual(env, "screen")
-			|| IsStringEqual(env, "screen-256color")
-			|| IsStringEqual(env, "linux")
-			|| IsStringEqual(env, "cygwin")
-			);
-		return use_color && term_conf;
-#endif
-
-#endif
-	}
 private:
 	static inline bool IsStringEqual(const char* str1, const char* str2) { return strcmp(str1, str2) == 0; }
 
@@ -243,6 +142,115 @@ private:
 
 template<typename T>
 iuLogger*	iuConsole::Variable<T>::m_pLogger = NULL;
+
+inline void	iuConsole::output(const char *fmt, ...)
+{
+	va_list va;
+	va_start(va, fmt);
+	voutput(fmt, va);
+	va_end(va);
+}
+inline void	iuConsole::color_output(Color color, const char *fmt, ...)
+{
+	va_list va;
+	va_start(va, fmt);
+
+	if( IsShouldUseColor(true) )
+	{
+		color_output_impl(color, fmt, va);
+	}
+	else
+	{
+		voutput(fmt, va);
+	}
+
+	va_end(va);
+}
+
+inline void iuConsole::color_output_impl(Color color, const char* fmt, va_list va)
+{
+	(void)(fmt);
+	(void)(va);
+#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+	if( !IsColorModeAnsi() )
+	{
+		const WORD attr[] = {
+			0,
+			FOREGROUND_RED,
+			FOREGROUND_GREEN,
+			FOREGROUND_GREEN | FOREGROUND_RED,
+			FOREGROUND_BLUE,
+			FOREGROUND_RED | FOREGROUND_BLUE,
+			FOREGROUND_GREEN | FOREGROUND_BLUE,
+			FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE
+		};
+		const HANDLE stdout_handle = GetStdHandle(STD_OUTPUT_HANDLE);
+		CONSOLE_SCREEN_BUFFER_INFO csbi;
+		::GetConsoleScreenBufferInfo(stdout_handle, &csbi);
+		const WORD wAttributes = csbi.wAttributes;
+
+		fflush(stdout);
+		::SetConsoleTextAttribute(stdout_handle, attr[color] | FOREGROUND_INTENSITY);
+
+		voutput(fmt, va);
+
+		fflush(stdout);
+		::SetConsoleTextAttribute(stdout_handle, wAttributes);
+	}
+	else
+#endif
+	{
+		output("\033[1;3%cm", '0' + color);
+		voutput(fmt, va);
+		output("\033[m");
+	}
+}
+
+inline void iuConsole::voutput(const char* fmt, va_list va)
+{
+	if( var::m_pLogger != NULL )
+	{
+		var::m_pLogger->voutput(fmt, va);
+	}
+	else
+	{
+		IUTEST_VPRINTF(fmt, va);
+	}
+}
+
+inline bool	iuConsole::IsShouldUseColor(bool use_color)
+{
+	if( IsColorModeOn() )
+	{
+		return true;
+	}
+	else if( IsColorModeOff() )
+	{
+		return false;
+	}
+
+#if !IUTEST_HAS_COLORCONSOLE
+	(void)(use_color);
+	return false;
+#else
+#if defined(IUTEST_OS_WINDOWS)
+	return use_color;
+#else
+	const char* env = internal::posix::GetEnv("TERM");
+	bool term_conf = (env != NULL) && (
+		IsStringEqual(env, "xterm")
+		|| IsStringEqual(env, "xterm-color")
+		|| IsStringEqual(env, "xterm-256color")
+		|| IsStringEqual(env, "screen")
+		|| IsStringEqual(env, "screen-256color")
+		|| IsStringEqual(env, "linux")
+		|| IsStringEqual(env, "cygwin")
+		);
+	return use_color && term_conf;
+#endif
+
+#endif
+}
 
 }	// end of namespace detail
 }	// end of namespace iutest

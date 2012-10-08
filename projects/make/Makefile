@@ -17,7 +17,7 @@ CPPFLAGS += -I$(IUTEST_DIR)/include
 
 #
 # Flags passed to the C++ compiler.
-CXXFLAGS += -g -Wall -Wextra
+CXXFLAGS += -g -Wall -Wextra -Wundef
 #CXXFLAGS += -DSHOW_FAILURE
 
 ifeq ($(CXX),clang++)

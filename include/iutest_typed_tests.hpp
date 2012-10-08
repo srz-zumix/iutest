@@ -21,6 +21,10 @@
 // include
 #include "internal/iutest_typed_util.hpp"
 
+#if IUTEST_HAS_TYPED_TEST_P
+#  include "internal/iutest_pool.hpp"
+#endif
+
 //======================================================================
 // define
 
@@ -75,7 +79,7 @@
  * @def		IUTEST_TYPED_TEST_CASE_P(testcase_)
  * @brief	型パラメータテストケースの登録
 */
-#define IUTEST_TYPED_TEST_CASE_P(testcase_)		IUTEST_TYPED_TEST_CASE_P_(testcase_)
+#define IUTEST_TYPED_TEST_CASE_P(testcase_)				IUTEST_TYPED_TEST_CASE_P_(testcase_)
 
 /**
  * @ingroup	TESTDEF
