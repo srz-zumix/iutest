@@ -20,7 +20,7 @@ CPPFLAGS += -I$(IUTEST_DIR)/include
 CXXFLAGS += -g -Wall -Wextra -Wundef
 #CXXFLAGS += -DSHOW_FAILURE
 
-ifeq ($(CXX),clang++)
+ifeq ($(findstring clang, $(CXX)),clang)
 
 #
 # clang version
@@ -28,6 +28,7 @@ ifeq ($(CXX),clang++)
 #
 
 #CXXFLAGS += -std=c++0x
+#CXXFLAGS += -std=c++11
 
 else
 

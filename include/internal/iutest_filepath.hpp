@@ -194,10 +194,10 @@ public:
 	*/
 	bool		CreateFolder(void) const
 	{
-#ifdef	IUTEST_OS_WINDOWS_MOBILE
-#elif	IUTEST_OS_WINDOWS_MINGW
+#if		defined(IUTEST_OS_WINDOWS_MOBILE)
+#elif	defined(IUTEST_OS_WINDOWS_MINGW)
 		if( mkdir(c_str()) == 0 ) return true;
-#elif	IUTEST_OS_WINDOWS
+#elif	defined(IUTEST_OS_WINDOWS)
 		if( _mkdir(c_str()) == 0 ) return true;
 #else
 		if( mkdir(c_str(), 0777) == 0 ) return true;
@@ -338,7 +338,7 @@ public:
 	*/
 	static char	GetPathSeparator(void)
 	{
-#if IUTEST_OS_WINDOWS
+#ifdef IUTEST_OS_WINDOWS
 		return '\\';
 #else
 		return '/';
@@ -376,7 +376,7 @@ private:
 private:
 	static bool IsPathSeparator(char c)
 	{
-#if IUTEST_OS_WINDOWS
+#ifdef IUTEST_OS_WINDOWS
 		if( c == '\\' ) return true;
 #endif
 		return c == '/';

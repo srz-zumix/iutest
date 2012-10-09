@@ -2880,7 +2880,7 @@ public:
 
 		::std::vector<ParamType> params;
 
-		for( ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
+		for( typename ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
 		{
 			const _MyParamIndexes& indexes = *it;
 			params.push_back( ParamType(
@@ -2932,7 +2932,7 @@ public:
 
 		::std::vector<ParamType> params;
 
-		for( ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
+		for( typename ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
 		{
 			const _MyParamIndexes& indexes = *it;
 			params.push_back( ParamType(
@@ -2989,7 +2989,7 @@ public:
 
 		::std::vector<ParamType> params;
 
-		for( ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
+		for( typename ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
 		{
 			const _MyParamIndexes& indexes = *it;
 			params.push_back( ParamType(
@@ -3052,7 +3052,7 @@ public:
 
 		::std::vector<ParamType> params;
 
-		for( ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
+		for( typename ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
 		{
 			const _MyParamIndexes& indexes = *it;
 			params.push_back( ParamType(
@@ -3120,7 +3120,7 @@ public:
 
 		::std::vector<ParamType> params;
 
-		for( ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
+		for( typename ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
 		{
 			const _MyParamIndexes& indexes = *it;
 			params.push_back( ParamType(
@@ -3193,7 +3193,7 @@ public:
 
 		::std::vector<ParamType> params;
 
-		for( ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
+		for( typename ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
 		{
 			const _MyParamIndexes& indexes = *it;
 			params.push_back( ParamType(
@@ -3271,7 +3271,7 @@ public:
 
 		::std::vector<ParamType> params;
 
-		for( ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
+		for( typename ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
 		{
 			const _MyParamIndexes& indexes = *it;
 			params.push_back( ParamType(
