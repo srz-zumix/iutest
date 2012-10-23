@@ -34,6 +34,7 @@
 #include "iutest_spi_tests.cpp"
 #include "iutest_string_assertion_tests.cpp"
 #include "iutest_tr1_value_tmp_tests.cpp"
+#include "iutest_pp_tests.cpp"
 #include "iutest_pairwise_tests.cpp"
 #include "iutest_type_param_tests1.cpp"
 #include "iutest_type_param_tests2.cpp"

@@ -132,8 +132,8 @@ private:
 #else
 
 #define PEEP_MEMBER_FUNC_IMPL(NUMBER)	\
-	template<IUTEST_TEMPLATE_UTIL_TEMPLATES##NUMBER>return_type operator () (IUTEST_TEMPLATE_UTIL_FUNCTION_ARGS##NUMBER) { \
-		return ((*m_ptr).*detail::peep<peep_tag>::value)(IUTEST_TEMPLATE_UTIL_VALUES##NUMBER); }
+	template<IUTEST_TEMPLATE_UTIL_TEMPLATES_TYPENAME(NUMBER)>return_type operator () (IUTEST_TEMPLATE_UTIL_FUNCTION_ARGS(NUMBER)) { \
+		return ((*m_ptr).*detail::peep<peep_tag>::value)(IUTEST_TEMPLATE_UTIL_VALUES(NUMBER)); }
 
 		return_type operator () (void) { return ((*m_ptr).*detail::peep<peep_tag>::value)(); }
 

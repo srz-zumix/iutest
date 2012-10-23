@@ -1,4 +1,7 @@
-<html>
+<?xml version="1.0" encoding="Shift_JIS"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=shift_jis" />
   <meta http-equiv="content-style-type" content="text/css" />
@@ -46,15 +49,15 @@
   <li><a href="#concept">コンセプト</a></li>
   <li><a href="#difference">Google Test との違い</a>
     <ul>
-      <li><a href="#diff_non">Google Test にあって iutest にない機能</a>
-      <li><a href="#diff_compat">iutest 拡張機能</a>
-      <li><a href="#diff_orig">iutest 独自機能</a>
+      <li><a href="#diff_non">Google Test にあって iutest にない機能</a></li>
+      <li><a href="#diff_compat">iutest 拡張機能</a></li>
+      <li><a href="#diff_orig">iutest 独自機能</a></li>
     </ul>
   </li>
   <li><a href="#switch">iutest / Google Test 切り替え</a>
     <ul>
-      <li><a href="#switch_iutest">iutest モード</a>
-      <li><a href="#switch_gtest">Google Test モード</a>
+      <li><a href="#switch_iutest">iutest モード</a></li>
+      <li><a href="#switch_gtest">Google Test モード</a></li>
     </ul>
   </li>
 </ul>
@@ -85,16 +88,16 @@ iutest_switch.hpp が用意されています。<br />
 <div class="contents">
 <h2><a name="difference" id="difference">Google Test との違い</a></h2>
 <div class="text_block">
-<h3><a name="diff_orig" id="diff_non">Google Test にあって iutest にない機能</a></h3>
+<h3><a name="diff_non" id="diff_non">Google Test にあって iutest にない機能</a></h3>
 <ul>
 <li>Death Test</li>
 <li>スタックトレース</li>
 <li>スレッド対応</li>
 </ul>
-<h3><a name="diff_orig" id="diff_compat">iutest 拡張機能</a></h3>
+<h3><a name="diff_compat" id="diff_compat">iutest 拡張機能</a></h3>
 こちらの機能は、iutest_switch.hpp を使用することで Google Test でも使用できるようになる機能です。<br />
 <ul>
-  <li>アサーション</li>
+  <li>アサーション
     <ul>
       <li>アサーションの拡張<br />
       IUTEST_ASSERT_NULL,IUTEST_ASSERT_NOTNULL など<br />

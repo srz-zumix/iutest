@@ -232,8 +232,8 @@ class is_function_pointer
 	struct impl<R (*)(...)> : public true_type {};
 
 #define IS_FUNCTION_PTR_IMPL(NUMBER)	\
-	template<typename R, IUTEST_TEMPLATE_UTIL_TEMPLATES##NUMBER>struct impl<R (*)(IUTEST_TEMPLATE_UTIL_ARGS##NUMBER)> : public true_type {};	\
-	template<typename R, IUTEST_TEMPLATE_UTIL_TEMPLATES##NUMBER>struct impl<R (*)(IUTEST_TEMPLATE_UTIL_ARGS##NUMBER, ...)> : public true_type {}
+	template<typename R, IUTEST_TEMPLATE_UTIL_TEMPLATES_TYPENAME(NUMBER)>struct impl<R (*)(IUTEST_TEMPLATE_UTIL_ARGS(NUMBER))> : public true_type {};	\
+	template<typename R, IUTEST_TEMPLATE_UTIL_TEMPLATES_TYPENAME(NUMBER)>struct impl<R (*)(IUTEST_TEMPLATE_UTIL_ARGS(NUMBER), ...)> : public true_type {}
 
 	IS_FUNCTION_PTR_IMPL(1);
 	IS_FUNCTION_PTR_IMPL(2);
@@ -309,8 +309,8 @@ class is_member_function_pointer
 	IS_MEMBER_FUNCTION_PTR_IMPL2(NUMBER, const volatile)
 
 #define IS_MEMBER_FUNCTION_PTR_IMPL2(NUMBER, CV)	\
-	template<typename R, typename U, IUTEST_TEMPLATE_UTIL_TEMPLATES##NUMBER>struct impl<R (U::*)(IUTEST_TEMPLATE_UTIL_ARGS##NUMBER) CV> : public true_type {};	\
-	template<typename R, typename U, IUTEST_TEMPLATE_UTIL_TEMPLATES##NUMBER>struct impl<R (U::*)(IUTEST_TEMPLATE_UTIL_ARGS##NUMBER, ...) CV> : public true_type {}
+	template<typename R, typename U, IUTEST_TEMPLATE_UTIL_TEMPLATES_TYPENAME(NUMBER)>struct impl<R (U::*)(IUTEST_TEMPLATE_UTIL_ARGS(NUMBER)) CV> : public true_type {};	\
+	template<typename R, typename U, IUTEST_TEMPLATE_UTIL_TEMPLATES_TYPENAME(NUMBER)>struct impl<R (U::*)(IUTEST_TEMPLATE_UTIL_ARGS(NUMBER), ...) CV> : public true_type {}
 
 	IS_MEMBER_FUNCTION_PTR_IMPL(1);
 	IS_MEMBER_FUNCTION_PTR_IMPL(2);
@@ -383,9 +383,9 @@ class function_return_type
 #else
 
 #define FUNCTION_RETURN_TYPE_IMPL(NUMBER)	\
-	template<typename R, IUTEST_TEMPLATE_UTIL_TEMPLATES##NUMBER>struct impl<R (*)(IUTEST_TEMPLATE_UTIL_ARGS##NUMBER)>	\
+	template<typename R, IUTEST_TEMPLATE_UTIL_TEMPLATES_TYPENAME(NUMBER)>struct impl<R (*)(IUTEST_TEMPLATE_UTIL_ARGS(NUMBER))>	\
 	{ typedef R type; };	\
-	template<typename R, IUTEST_TEMPLATE_UTIL_TEMPLATES##NUMBER>struct impl<R (*)(IUTEST_TEMPLATE_UTIL_ARGS##NUMBER, ...)>	\
+	template<typename R, IUTEST_TEMPLATE_UTIL_TEMPLATES_TYPENAME(NUMBER)>struct impl<R (*)(IUTEST_TEMPLATE_UTIL_ARGS(NUMBER), ...)>	\
 	{ typedef R type; };	\
 	FUNCTION_RETURN_TYPE_IMPL2(NUMBER, );	\
 	FUNCTION_RETURN_TYPE_IMPL2(NUMBER, const);	\
@@ -393,9 +393,9 @@ class function_return_type
 	FUNCTION_RETURN_TYPE_IMPL2(NUMBER, const volatile)	\
 
 #define FUNCTION_RETURN_TYPE_IMPL2(NUMBER, CV)	\
-	template<typename R, typename U, IUTEST_TEMPLATE_UTIL_TEMPLATES##NUMBER>struct impl<R (U::*)(IUTEST_TEMPLATE_UTIL_ARGS##NUMBER) CV>	\
+	template<typename R, typename U, IUTEST_TEMPLATE_UTIL_TEMPLATES_TYPENAME(NUMBER)>struct impl<R (U::*)(IUTEST_TEMPLATE_UTIL_ARGS(NUMBER)) CV>	\
 	{ typedef R type; };	\
-	template<typename R, typename U, IUTEST_TEMPLATE_UTIL_TEMPLATES##NUMBER>struct impl<R (U::*)(IUTEST_TEMPLATE_UTIL_ARGS##NUMBER, ...) CV>	\
+	template<typename R, typename U, IUTEST_TEMPLATE_UTIL_TEMPLATES_TYPENAME(NUMBER)>struct impl<R (U::*)(IUTEST_TEMPLATE_UTIL_ARGS(NUMBER), ...) CV>	\
 	{ typedef R type; }
 
 	template<typename R>struct impl<R (*)(void)>	{ typedef R type; };
