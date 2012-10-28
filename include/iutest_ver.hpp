@@ -22,10 +22,10 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01010200u	//!< iutest version 1.1.2.0
+#define	IUTEST_VER			0x01010300u	//!< iutest version 1.1.3.0
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x01u		//!< Minor Version
-#define IUTEST_BUILD		0x02u		//!< Build
+#define IUTEST_BUILD		0x03u		//!< Build
 #define IUTEST_REVISION		0x00u		//!< Revision
 
 /**
@@ -92,6 +92,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		•ÏX—š—ð
  * @par		Changes
  <ul>
+  <li>v1.1.3.0
+    <ul>
+      <li>Android NDK ‘Î‰ž</li>
+    </ul>
+  </li>
   <li>v1.1.2.0
     <ul>
       <li>IUTEST_*_NO_THROW ‚ÅŽ¸”s‚µ‚½‚Æ‚«‚É—áŠO‚Ìî•ñ‚ðo—Í‚·‚é‚æ‚¤‚ÉC³</li>

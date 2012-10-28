@@ -14,8 +14,8 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
-#ifndef INCG_IRIS_iutest_os_HPP_7893F685_A1A9_477a_82E8_BF06237697FF_
-#define INCG_IRIS_iutest_os_HPP_7893F685_A1A9_477a_82E8_BF06237697FF_
+#ifndef INCG_IRIS_iutest_port_HPP_7893F685_A1A9_477a_82E8_BF06237697FF_
+#define INCG_IRIS_iutest_port_HPP_7893F685_A1A9_477a_82E8_BF06237697FF_
 
 //======================================================================
 // include
@@ -24,7 +24,11 @@
 #endif
 
 #include "iutest_internal_defs.hpp"
-#include <stdlib.h>
+
+#if defined(IUTEST_OS_LINUX)
+#  include <unistd.h>
+#  include <locale.h>
+#endif
 
 #ifdef IUTEST_OS_NACL
 #  include <ppapi/cpp/var.h>

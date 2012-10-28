@@ -68,6 +68,10 @@
 #  define IUTEST_PLATFORM				"Google Native Client"
 #endif
 
+#if defined(IUTEST_OS_LINUX_ANDROID)
+#  include <android/api-level.h>
+#endif
+
 #if	!defined(IUTEST_HAS_CLOCK) && defined(CLOCKS_PER_SEC)
 #  define IUTEST_HAS_CLOCK			1
 #endif

@@ -71,7 +71,7 @@ inline int iu_stricmp(const char* str1, const char* str2)
 {
 #if		defined(_MSC_VER)
 	return _stricmp(str1, str2);
-#elif	defined(__ARMCC_VERSION) || (defined(IUTEST_OS_LINUX) && !defined(IUTEST_OS_LINUX_ANDROID))
+#elif	defined(__ARMCC_VERSION) || defined(IUTEST_OS_LINUX)
 	return strcasecmp(str1, str2);
 #else
 	return stricmp(str1, str2);

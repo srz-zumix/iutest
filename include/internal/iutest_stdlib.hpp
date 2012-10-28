@@ -19,6 +19,7 @@
 
 //======================================================================
 // include
+#include <stdlib.h>
 
 //======================================================================
 // define
@@ -61,6 +62,8 @@
 #ifndef IUTEST_HAS_TR1_TUPLE
 #  if defined(IUTEST_USE_EXTERNAL_TR1_TUPLE) && IUTEST_USE_EXTERNAL_TR1_TUPLE
 #    define IUTEST_HAS_TR1_TUPLE	1
+#  elif defined(IUTEST_OS_LINUX_ANDROID) && defined(_STLPORT_MAJOR)
+#    define IUTEST_HAS_TR1_TUPLE	0
 #  elif defined(_MSC_VER)
 #    if (_MSC_VER >= 1500) && (_MSC_VER < 1700)
 #      define IUTEST_HAS_TR1_TUPLE	1

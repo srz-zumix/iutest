@@ -24,10 +24,14 @@
 	TypeName( const TypeName& );						\
 	TypeName& operator = ( const TypeName& )
 
-#define IUTEST_PP_TOSTRING(z_)		IUTEST_PP_TOSTRING_(z_)
+#ifndef IUTEST_PP_TOSTRING
+#  define IUTEST_PP_TOSTRING(z_)	IUTEST_PP_TOSTRING_(z_)
+#endif
 #define IUTEST_PP_TOSTRING_(z_)		#z_
 
-#define IUTEST_PP_CAT(a_, b_)		IUTEST_PP_CAT_(a_, b_)
+#ifndef IUTEST_PP_CAT
+#  define IUTEST_PP_CAT(a_, b_)		IUTEST_PP_CAT_(a_, b_)
+#endif
 #define IUTEST_PP_CAT_(a_, b_)		a_##b_
 
 #define IUTEST_UNUSED_VAR(x)		(void)x
