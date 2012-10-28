@@ -326,6 +326,15 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(char* str, iu_ostream* 
 {
 	UniversalTersePrint(static_cast<const char*>(str), os);
 }
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t* str, iu_ostream* os)
+{
+	if( str == NULL ) *os << kStrings::Null;
+	else UniversalPrint(detail::ShowWideCString(str), os);
+}
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(wchar_t* str, iu_ostream* os)
+{
+	UniversalTersePrint(static_cast<const wchar_t*>(str), os);
+}
 
 /**
  * @brief	配列の出力
@@ -370,6 +379,11 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const T* begin, size_t 
  * @brief	配列の出力
 */
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const char* begin, size_t N, iu_ostream* os)
+{
+	IUTEST_UNUSED_VAR(N);
+	UniversalTersePrint(begin, os);
+}
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const wchar_t* begin, size_t N, iu_ostream* os)
 {
 	IUTEST_UNUSED_VAR(N);
 	UniversalTersePrint(begin, os);

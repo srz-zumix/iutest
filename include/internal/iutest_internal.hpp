@@ -199,15 +199,24 @@
 */
 #define IUTEST_TEST_NO_THROW_(statement, on_failure)						\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
-	if( ::iutest::detail::AlwaysTrue() ) {									\
+	if( ::iutest::AssertionResult iutest_ar = ::iutest::AssertionSuccess() ) {	\
 		try {																\
 			(void)(statement);												\
+		} catch( const ::std::exception& e ) {								\
+			iutest_ar << "\nExpected: " #statement " doesn't throw an exception.\n  Actual: it throws. what is \""	\
+				<< e.what() << "\"";										\
+			goto IUTEST_PP_CAT(iutest_label_nothrow, __LINE__);				\
+		} catch( const char *e ) {											\
+			iutest_ar << "\nExpected: " #statement " doesn't throw an exception.\n  Actual: it throws. \""	\
+				<< e << "\"";												\
+			goto IUTEST_PP_CAT(iutest_label_nothrow, __LINE__);				\
 		} catch( ... ) {													\
+			iutest_ar << "\nExpected: " #statement " doesn't throw an exception.\n  Actual: it throws.";	\
 			goto IUTEST_PP_CAT(iutest_label_nothrow, __LINE__);				\
 		}																	\
 	} else																	\
 		IUTEST_PP_CAT(iutest_label_nothrow, __LINE__):						\
-		on_failure("\nExpected: " #statement " doesn't throw an exception.\n  Actual: it throws.")
+		on_failure(iutest_ar.message())
 
 #endif
 

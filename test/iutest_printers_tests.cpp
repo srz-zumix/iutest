@@ -89,6 +89,11 @@ IUTEST(PrintToTest, Std)
 	IUTEST_SUCCEED() << ::iutest::PrintToString(v);
 }
 
+IUTEST(PrintToTest, WideString)
+{
+	IUTEST_SUCCEED() << ::iutest::PrintToString(L"Test");
+}
+
 struct Point0
 {
 	unsigned int x,y;

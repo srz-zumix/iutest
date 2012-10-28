@@ -46,8 +46,14 @@
 #    define IUTEST_OS_WINDOWS_DESKTOP	1
 #  endif
 #elif	defined(__APPLE__)
-#  define IUTEST_OS_MAC					1
-#  define IUTEST_PLATFORM				"Mac OS"
+#  include "TargetConditionals.h"
+#  ifdef TARGET_OS_IPHONE
+#    define IUTEST_OS_IOS				1
+#    define IUTEST_PLATFORM				"iOS"
+#  else
+#    define IUTEST_OS_MAC				1
+#    define IUTEST_PLATFORM				"Mac OS"
+#  endif
 #elif	defined(sun) || defined(__sun)
 #  define IUTEST_OS_SOLARIS				1
 #  define IUTEST_PLATFORM				"Solaris"

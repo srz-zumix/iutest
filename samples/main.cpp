@@ -734,6 +734,7 @@ IUTEST(TestExpectFailure, Exception)
 	IUTEST_EXPECT_THROW(ExceptionFunction(0), int);
 	IUTEST_EXPECT_ANY_THROW(ExceptionFunction(0));
 	IUTEST_EXPECT_NO_THROW(ExceptionFunction(2));
+	IUTEST_EXPECT_NO_THROW(throw "error");
 
 	IUTEST_EXPECT_THROW_VALUE_EQ(ExceptionFunction(1), int, 0);
 	IUTEST_EXPECT_THROW_VALUE_NE(ExceptionFunction(1), int, 2);

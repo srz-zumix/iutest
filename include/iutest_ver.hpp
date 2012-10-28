@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01010102u	//!< iutest version 1.1.1.2
+#define	IUTEST_VER			0x01010200u	//!< iutest version 1.1.2.0
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x01u		//!< Minor Version
-#define IUTEST_BUILD		0x01u		//!< Build
-#define IUTEST_REVISION		0x02u		//!< Revision
+#define IUTEST_BUILD		0x02u		//!< Build
+#define IUTEST_REVISION		0x00u		//!< Revision
 
 /**
  * @mainpage
@@ -92,7 +92,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.1.1.1
+  <li>v1.1.2.0
+    <ul>
+      <li>IUTEST_*_NO_THROW で失敗したときに例外の情報を出力するように修正</li>
+      <li>printer 修正</li>
+    </ul>
+  </li>
+  <li>v1.1.1.2
     <ul>
       <li>Windows Mobile でのビルドエラー修正</li>
       <li>IUTEST_HAS_STRINGSTREAM=0 のときのビルドエラー修正</li>
