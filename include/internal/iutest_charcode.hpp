@@ -192,7 +192,7 @@ inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(const char* 
 	for(const char* end = src + num; p < end; )
 	{
 		wchar_t wc=0;
-		int len = mbtowc(&wc, p, MB_CUR_MAX);
+		int len = iu_mbtowc(&wc, p, MB_CUR_MAX);
 		if( len > 1 )
 		{
 			str += WideStringToUTF8(&wc, 1);

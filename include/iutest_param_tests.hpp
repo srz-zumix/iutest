@@ -54,7 +54,8 @@
 		s_##prefix_##_##testcase_##_EvalGenerator_(void) { return generator_; }				\
 		int s_##prefix_##_##testcase_##_dummy =												\
 			::iutest::UnitTest::GetInstance()->parameterized_test_registry().				\
-			GetTestCasePatternHolder< testcase_ >(#testcase_)->AddTestCaseInstantiation(#prefix_, s_##prefix_##_##testcase_##_EvalGenerator_)
+			GetTestCasePatternHolder< testcase_ >(IUTEST_CONCAT_PACKAGE_(testcase_))		\
+				->AddTestCaseInstantiation(#prefix_, s_##prefix_##_##testcase_##_EvalGenerator_)
 
 /**
  * @brief	パラメータテストクラス定義
@@ -66,7 +67,7 @@
 		private: static int	AddRegister(void) {													\
 			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_) > testinfo(#testname_);	\
 			::iutest::UnitTest::GetInstance()->parameterized_test_registry().					\
-				GetTestCasePatternHolder< testcase_ >(#testcase_)->AddTestPattern(&testinfo);	\
+				GetTestCasePatternHolder< testcase_ >(IUTEST_CONCAT_PACKAGE_(testcase_))->AddTestPattern(&testinfo);	\
 			return 0;																			\
 		}																						\
 		static int dummy_;																		\

@@ -23,6 +23,17 @@ struct Bar
 	}
 };
 
+/** --------------------------------------------------
+ * パッケージ
+*//*--------------------------------------------------*/
+IUTEST_PACKAGE(TestPackage)
+{
+	IUTEST(Test, Package)
+	{
+		IUTEST_ASSERT_TRUE(true);
+	}
+}
+
 ::iutest::iu_ostream& operator << (::iutest::iu_ostream& os, const Bar& bar) 
 {
 	return os << "X:" << bar.x << " Y:" << bar.y << " Z:" << bar.z;

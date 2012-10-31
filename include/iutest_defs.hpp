@@ -221,9 +221,9 @@ public:
 
 public:
 	operator RawType (void) const	{ return m_v.fv; }	//!< cast to RawType
-	_Myt&	operator = (RawType f)	{ m_v.fv = f; return *this; }
+	_Myt&	operator = (RawType f)	{ m_v.fv = f; return *this; }	//!< ‘ã“ü
 
-	bool	operator == (const _Myt& rhs) const	{ return m_v.uv == rhs.m_v.uv; }
+	bool	operator == (const _Myt& rhs) const	{ return m_v.uv == rhs.m_v.uv; }	//!< ”äŠr
 
 private:
 	static const Int	kMaxUlps = 4;

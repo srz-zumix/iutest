@@ -26,6 +26,37 @@ namespace iuutil
 // function
 
 /**
+ * @brief	インデックスを除いたテスト名を取得
+*/
+inline ::std::string TestNameRemoveIndexName(const char* name)
+{
+	const char* const p = strrchr(name, '/');
+	if( p == NULL ) return name;
+	return ::std::string(name, p);
+}
+
+/**
+ * @brief	インデックスを除いたテストケース名を取得
+*/
+inline ::std::string TestCaseNameRemoveIndexName(const char* name)
+{
+	return TestNameRemoveIndexName(name);
+}
+
+/**
+ * @brief	インスタンス名とインデックスを除いたテストケース名を取得
+*/
+inline ::std::string TestCaseNameRemoveInstantiateAndIndexName(const char* name)
+{
+	// 先頭にインスタンス名がある
+	const char* const p1 = strchr(name, '/');
+	if( p1 == NULL ) return name;
+	const char* const p2 = strrchr(p1+1, '/');
+	if( p2 == NULL ) return p1+1;
+	return ::std::string(p1+1, p2);
+}
+
+/**
  * @brief	TestCase の検索
 */
 inline const ::iutest::TestCase* FindTestCase(const char* testcase_name)

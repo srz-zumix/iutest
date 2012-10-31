@@ -8,4 +8,4 @@ LOCAL_SRC_FILES := main.cpp \
                    
 LOCAL_CFLAGS := -Wno-psabi
 
-include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_EXECUTABLE)

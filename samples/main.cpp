@@ -83,6 +83,17 @@ IUTEST(Test, Stream)
 }
 
 /** --------------------------------------------------
+ * パッケージ
+*//*--------------------------------------------------*/
+IUTEST_PACKAGE(TestPackage)
+{
+	IUTEST(Test, Version)
+	{
+		IUTEST_ASSERT_TRUE(true);
+	}
+}
+
+/** --------------------------------------------------
  * テストフィクスチャの利用
 *//*--------------------------------------------------*/
 class TestFixed : public ::iutest::Test
@@ -632,6 +643,7 @@ IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 1, 1);
 IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 2, 2);
 
 #endif
+
 
 /** --------------------------------------------------
  * 失敗の確認

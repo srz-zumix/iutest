@@ -141,6 +141,9 @@
 #  define IUTEST_HAS_GENRAND		1	//!< テストごとの genrand 関数が使用可能かどうか
 #endif
 
+#ifndef IUTEST_HAS_PACKAGE
+#  define IUTEST_HAS_PACKAGE		1	//!< パッケージ機能があるかどうか
+#endif
 
 // peep
 #ifndef IUTEST_HAS_PEEP

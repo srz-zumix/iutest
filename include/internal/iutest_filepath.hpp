@@ -19,7 +19,6 @@
 
 //======================================================================
 // include
-#include "iutest_internal_defs.hpp"
 #include "iutest_string.hpp"
 #include "iutest_port.hpp"
 

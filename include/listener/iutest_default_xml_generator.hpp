@@ -341,7 +341,7 @@ inline ::std::string DefaultXmlGeneratorListener::EscapeXml(const char* str, boo
 				{
 #if !defined(IUTEST_OS_WINDOWS_MOBILE)
 					wchar_t wc = 0;
-					int len = mbtowc(&wc, src, MB_CUR_MAX);
+					int len = detail::iu_mbtowc(&wc, src, MB_CUR_MAX);
 					if( len > 1 )
 					{
 						msg += detail::WideStringToUTF8(&wc, 1);

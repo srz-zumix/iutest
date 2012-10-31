@@ -62,8 +62,8 @@
 		protected: virtual void Body(void);										\
 	};																			\
 	::iutest::detail::TypeParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_), IUTEST_TYPED_TEST_PARAMS(testcase_) >	\
-	s_##testcase_##_##testname_( #testcase_, #testname_);						\
-	template<typename iutest_TypeParam>											\
+	s_##testcase_##_##testname_( IUTEST_CONCAT_PACKAGE_(testcase_), #testname_);	\
+	template<typename iutest_TypeParam>												\
 	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_TypeParam>::Body(void)
 
 /**
@@ -139,7 +139,7 @@
 	bool iutest_##prefix_##_##testcase_ IUTEST_ATTRIBUTE_UNUSED_ =			\
 		::iutest::detail::TypeParameterizedTestCase< testcase_				\
 		, IUTEST_TYPED_TEST_P_NAMESPACE(testcase_)::iutest_AllTests_		\
-		, ::iutest::detail::TypeList< types_ >::type >::Register(#prefix_, #testcase_	\
+		, ::iutest::detail::TypeList< types_ >::type >::Register(#prefix_, IUTEST_CONCAT_PACKAGE_(testcase_)	\
 		, IUTEST_TYPED_TEST_CASE_PSTATE_NAME(testcase_).names())
 
 /**

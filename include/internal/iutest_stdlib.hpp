@@ -178,4 +178,27 @@ namespace iutest {
 #  define IUTEST_HAS_HDR_CXXABI			0
 #endif
 
+namespace iutest {
+namespace detail
+{
+
+//======================================================================
+// function
+/**
+ * @internal
+ * @brief	mbtowc
+*/
+inline int iu_mbtowc(wchar_t* dst, const char* src, size_t size)
+{
+#if defined(IUTEST_OS_LINUX_ANDROID)
+	// unimplimented
+	return 0;
+#else
+	return mbtowc(dst, src, size);
+#endif
+}
+
+}	// end of namespace detail
+}	// end of namespace iutest
+
 #endif

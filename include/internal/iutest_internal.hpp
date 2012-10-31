@@ -19,8 +19,8 @@
 
 //======================================================================
 // include
-#include "iutest_internal_defs.hpp"
 #include "../iutest_pred.hpp"
+#include "../iutest_package.hpp"
 
 //======================================================================
 // define
@@ -41,7 +41,7 @@
 		protected: virtual void Body(void);													\
 	};																						\
 	::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>			\
-	s_##testcase_##_##testname_( #testcase_, #testname_										\
+	s_##testcase_##_##testname_( IUTEST_CONCAT_PACKAGE_(testcase_), #testname_				\
 		, type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);			\
 	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body(void)
 
@@ -63,7 +63,7 @@
 		protected: virtual void Body(void) { method_(__VA_ARGS__); }							\
 	};																							\
 	::iutest::detail::TestInstance<IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)>			\
-	IUTEST_PP_CAT(s_##testcase_##_##testname_, __LINE__)( #testcase_							\
+	IUTEST_PP_CAT(s_##testcase_##_##testname_, __LINE__)( IUTEST_CONCAT_PACKAGE_(testcase_)		\
 	, IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)::MakeTestName().c_str(), #__VA_ARGS__	\
 		, type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase)
 

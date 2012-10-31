@@ -1,8 +1,8 @@
 //======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_util_tests.cpp
- * @brief		iutest_util test
+ * @file		iutest_pp_tests.cpp
+ * @brief		iutest_pp test
  *
  * @author		t.sirayanagi
  * @version		1.0
