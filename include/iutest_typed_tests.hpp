@@ -34,6 +34,8 @@
  * @ingroup	TESTDEF
  * @def		IUTEST_TYPED_TEST_CASE(testcase_, types_)
  * @brief	型付けテストケースの登録
+ * @param	testcase_	= テストケース名
+ * @param	types_		= タイプリスト
 */
 #define IUTEST_TYPED_TEST_CASE(testcase_, types_)	IIUT_TYPED_TEST_CASE_(testcase_, types_)
 
@@ -41,6 +43,8 @@
  * @ingroup	TESTDEF
  * @def		IUTEST_TYPED_TEST(testcase_, testname_)
  * @brief	型付けテスト関数定義マクロ
+ * @param	testcase_	= テストケース名
+ * @param	testname_	= テスト名
 */
 #define IUTEST_TYPED_TEST(testcase_, testname_)		IIUT_TYPED_TEST_(testcase_, testname_)
 
@@ -49,10 +53,10 @@
  * @private
  * @{
 */
-#define IUTEST_TYPED_TEST_PARAMS(testcase_)			iutest_types_params_##testcase_
+#define IUTEST_TYPED_TEST_PARAMS_(testcase_)			iutest_types_params_##testcase_
 
 #define IIUT_TYPED_TEST_CASE_(testcase_, types_)		\
-	typedef ::iutest::detail::TypeList< types_ >::type	IUTEST_TYPED_TEST_PARAMS(testcase_)
+	typedef ::iutest::detail::TypeList< types_ >::type	IUTEST_TYPED_TEST_PARAMS_(testcase_)
 
 #define IIUT_TYPED_TEST_(testcase_, testname_)									\
 	template<typename iutest_TypeParam>											\
@@ -61,7 +65,7 @@
 		typedef iutest_TypeParam	TypeParam;									\
 		protected: virtual void Body(void);										\
 	};																			\
-	::iutest::detail::TypeParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_), IUTEST_TYPED_TEST_PARAMS(testcase_) >	\
+	::iutest::detail::TypeParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_), IUTEST_TYPED_TEST_PARAMS_(testcase_) >	\
 	s_##testcase_##_##testname_( IUTEST_CONCAT_PACKAGE_(testcase_), #testname_);	\
 	template<typename iutest_TypeParam>												\
 	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_TypeParam>::Body(void)
@@ -78,6 +82,7 @@
  * @ingroup	TESTDEF
  * @def		IUTEST_TYPED_TEST_CASE_P(testcase_)
  * @brief	型パラメータテストケースの登録
+ * @param	testcase_	= テストケース名
 */
 #define IUTEST_TYPED_TEST_CASE_P(testcase_)				IUTEST_TYPED_TEST_CASE_P_(testcase_)
 
@@ -85,6 +90,8 @@
  * @ingroup	TESTDEF
  * @def		IUTEST_TYPED_TEST_P(testcase_, testname_)
  * @brief	型パラメータテスト関数定義マクロ
+ * @param	testcase_	= テストケース名
+ * @param	testname_	= テスト名
 */
 #define IUTEST_TYPED_TEST_P(testcase_, testname_)		IUTEST_TYPED_TEST_P_(testcase_, testname_)
 
@@ -92,6 +99,7 @@
  * @ingroup	TESTDEF
  * @def		IUTEST_REGISTER_TYPED_TEST_CASE_P(testcase_, ...)
  * @brief	型パラメータテスト関数登録マクロ
+ * @param	testcase_	= テストケース名
 */
 #define IUTEST_REGISTER_TYPED_TEST_CASE_P(testcase_, ...)	IUTEST_REGISTER_TYPED_TEST_CASE_P_(testcase_, __VA_ARGS__)
 
@@ -99,6 +107,9 @@
  * @ingroup	TESTDEF
  * @def		IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(prefix_, testcase_, types_)
  * @brief	型パラメータテスト登録マクロ
+ * @param	prefix_		= インスタンス名
+ * @param	testcase_	= テストケース名
+ * @param	types_		= タイプリスト
 */
 #define IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(prefix_, testcase_, types_)	IUTEST_INSTANTIATE_TYPED_TEST_CASE_P_(prefix_, testcase_, types_)
 
@@ -108,14 +119,14 @@
  * @{
 */
 
-#define IUTEST_TYPED_TEST_CASE_PSTATE_NAME(testcase_)	s_iutest_typed_test_case_p_state_##testcase_##_
-#define IUTEST_TYPED_TEST_P_NAMESPACE(testcase_)		iutest_typed_test_case_p_name_##testcase_##_
+#define IUTEST_TYPED_TEST_CASE_PSTATE_NAME_(testcase_)	s_iutest_typed_test_case_p_state_##testcase_##_
+#define IUTEST_TYPED_TEST_P_NAMESPACE_(testcase_)		iutest_typed_test_case_p_name_##testcase_##_
 
 #define IUTEST_TYPED_TEST_CASE_P_(testcase_)		\
-	static ::iutest::detail::TypedTestCasePState	IUTEST_TYPED_TEST_CASE_PSTATE_NAME(testcase_)
+	static ::iutest::detail::TypedTestCasePState	IUTEST_TYPED_TEST_CASE_PSTATE_NAME_(testcase_)
 
 #define IUTEST_TYPED_TEST_P_(testcase_, testname_)				\
-	namespace IUTEST_TYPED_TEST_P_NAMESPACE(testcase_) {		\
+	namespace IUTEST_TYPED_TEST_P_NAMESPACE_(testcase_) {		\
 	template<typename iutest_TypeParam>							\
 	class testname_ : public testcase_<iutest_TypeParam> {		\
 		typedef testcase_<iutest_TypeParam> TestFixture;		\
@@ -123,24 +134,24 @@
 		protected: virtual void Body(void);						\
 	};															\
 	static int s_iutest_##testname_##_defined_dummy_ IUTEST_ATTRIBUTE_UNUSED_ =	\
-	IUTEST_TYPED_TEST_CASE_PSTATE_NAME(testcase_).AddTestName(__FILE__, __LINE__, #testcase_, #testname_);		\
+	IUTEST_TYPED_TEST_CASE_PSTATE_NAME_(testcase_).AddTestName(__FILE__, __LINE__, #testcase_, #testname_);		\
 	}															\
 	template<typename iutest_TypeParam>							\
-	void IUTEST_TYPED_TEST_P_NAMESPACE(testcase_)::testname_<iutest_TypeParam>::Body(void)
+	void IUTEST_TYPED_TEST_P_NAMESPACE_(testcase_)::testname_<iutest_TypeParam>::Body(void)
 
 #define IUTEST_REGISTER_TYPED_TEST_CASE_P_(testcase_, ...)								\
-	namespace IUTEST_TYPED_TEST_P_NAMESPACE(testcase_) {								\
+	namespace IUTEST_TYPED_TEST_P_NAMESPACE_(testcase_) {								\
 		typedef ::iutest::detail::Templates< __VA_ARGS__ >::type	iutest_AllTests_;	\
 	}																					\
 	static bool s_iutest_##testcase_##_register_dummy_ IUTEST_ATTRIBUTE_UNUSED_ =		\
-	IUTEST_TYPED_TEST_CASE_PSTATE_NAME(testcase_).VerifyTestNames(__FILE__, __LINE__, #__VA_ARGS__)
+	IUTEST_TYPED_TEST_CASE_PSTATE_NAME_(testcase_).VerifyTestNames(__FILE__, __LINE__, #__VA_ARGS__)
 
 #define IUTEST_INSTANTIATE_TYPED_TEST_CASE_P_(prefix_, testcase_, types_)	\
 	bool iutest_##prefix_##_##testcase_ IUTEST_ATTRIBUTE_UNUSED_ =			\
 		::iutest::detail::TypeParameterizedTestCase< testcase_				\
-		, IUTEST_TYPED_TEST_P_NAMESPACE(testcase_)::iutest_AllTests_		\
+		, IUTEST_TYPED_TEST_P_NAMESPACE_(testcase_)::iutest_AllTests_		\
 		, ::iutest::detail::TypeList< types_ >::type >::Register(#prefix_, IUTEST_CONCAT_PACKAGE_(testcase_)	\
-		, IUTEST_TYPED_TEST_CASE_PSTATE_NAME(testcase_).names())
+		, IUTEST_TYPED_TEST_CASE_PSTATE_NAME_(testcase_).names())
 
 /**
  * @}
@@ -396,8 +407,6 @@ public:
 #endif
 
 }	// end of namespace detail
-
-
 }	// end of namespace iutest
 
 #endif

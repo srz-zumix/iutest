@@ -458,6 +458,6 @@ AssertionResult	AssertPredVariadicHelper(const char* pred_str, const char* param
 	IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_INFORM_FAILURE)
 
 
-}
+}	// end of namespace iutest
 
 #endif

@@ -141,7 +141,7 @@ public:
 	}
 };
 
-}
-}
+}	// end of namespace detail
+}	// end of namespace iutest
 
 #endif

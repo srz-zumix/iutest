@@ -329,7 +329,6 @@ inline bool	TestInfo::filter(void)
 	return m_should_run;
 }
 
-
 }	// end of namespace iutest
 
 #endif

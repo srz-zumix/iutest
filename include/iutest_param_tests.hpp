@@ -30,6 +30,9 @@
  * @ingroup	TESTDEF
  * @def		IUTEST_INSTANTIATE_TEST_CASE_P
  * @brief	パラメータテストインスタンス化マクロ
+ * @param	prefix_		= インスタンス名
+ * @param	testcase_	= テストケース名
+ * @param	generator_	= Range, Bool, Values, ValuesIn, Combine, Pairwise ...
 */
 #define IUTEST_INSTANTIATE_TEST_CASE_P(prefix_, testcase_, generator_)	\
 													IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_)
@@ -38,6 +41,12 @@
  * @ingroup	TESTDEF
  * @def		IUTEST_P(testcase_, testname_)
  * @brief	パラメータユーザー指定テスト関数定義マクロ
+ * @param	testcase_	= テストケース名
+ * @param	testname_	= テスト名
+ * @note	
+ *	class TestCaseName : public ::iutest::TestWithParam<int> {};\n
+ *  IUTEST_P(TestCaseName, TestName) {}\n
+ *  IUTEST_INSTANTIATE_TEST_CASE_P(InstantiateName, TestCaseName, ParamGenerator);\n
 */
 #define IUTEST_P(testcase_, testname_)				IIUT_TEST_P_(testcase_, testname_)
 

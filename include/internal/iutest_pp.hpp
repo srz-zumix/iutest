@@ -37,6 +37,8 @@
 #endif
 #define IUTEST_PP_CAT_(a_, b_)		a_##b_
 
+#define IUTEST_PP_EMPTY
+
 #define IUTEST_UNUSED_VAR(x)		(void)x
 
 #define IUTEST_PP_DEC(n)	IUTEST_PP_DEC_##n

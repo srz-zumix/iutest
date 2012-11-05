@@ -22,7 +22,7 @@
 
 //======================================================================
 // define
-#if defined(_MSC_VER) && _MSC_VER == 1700
+#if defined(_MSC_VER) && _MSC_VER == 1700 && _MSC_FULL_VER < 170051025
 #  ifndef _VARIADIC_MAX
 #    define _VARIADIC_MAX	10
 #  endif
@@ -199,6 +199,10 @@
 #    if defined(__VARIADIC_TEMPLATES) || (__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7) && defined(__GXX_EXPERIMENTAL_CXX0X__))
 #      define IUTEST_HAS_VARIADIC_TEMPLATES	1
 #    endif
+#  elif	defined(_MSC_VER)
+#    if _MSC_FULL_VER >= 170051025
+#      define IUTEST_HAS_VARIADIC_TEMPLATES	1
+#    endif
 #  endif
 #endif
 
@@ -215,6 +219,8 @@
 #    if defined(__VARIADIC_TEMPLATES) || (__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7) && (__GNUC_PATCHLEVEL__ >= 1) && defined(__GXX_EXPERIMENTAL_CXX0X__))
 #      define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES	1
 #    endif
+#  elif	defined(_MSC_VER)
+#    define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES	IUTEST_HAS_VARIADIC_TEMPLATES
 #  endif
 #endif
 

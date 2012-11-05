@@ -831,7 +831,6 @@ inline bool	TestEnv::ParseOutputOption(const char* option)
 	return true;
 }
 
-
 }	// end of namespace iutest
 
 #endif

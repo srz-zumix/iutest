@@ -46,6 +46,8 @@ namespace iutest
  * @ingroup	TESTDEF
  * @def		IUTEST_TEST(testcase_, testname_)
  * @brief	テスト関数定義マクロ
+ * @param	testcase_	= テストケース名
+ * @param	testname_	= テスト名
 */
 #define IUTEST_TEST(testcase_, testname_)			IUTEST_TEST_(testcase_, testname_, ::iutest::Test	\
 														, ::iutest::internal::GetTestTypeId())
@@ -54,6 +56,8 @@ namespace iutest
  * @ingroup	TESTDEF
  * @def		IUTEST(testcase_, testname_)
  * @brief	テスト関数定義マクロ
+ * @param	testcase_	= テストケース名
+ * @param	testname_	= テスト名
 */
 #define IUTEST(testcase_, testname_)				IUTEST_TEST(testcase_, testname_)
 
@@ -61,6 +65,8 @@ namespace iutest
  * @ingroup	TESTDEF
  * @def		IUTEST_F(testfixture_, testname_)
  * @brief	ユーザー指定テスト関数定義マクロ
+ * @param	testfixture_	= テストフィクスチャ名
+ * @param	testname_		= テスト名
 */
 #define IUTEST_F(testfixture_, testname_)			IUTEST_TEST_(testfixture_, testname_, testfixture_	\
 														, ::iutest::internal::GetTypeId< testfixture_ >())
@@ -70,6 +76,9 @@ namespace iutest
  * @ingroup	TESTDEF
  * @def		IUTEST_PMZ(testcase_, testname_, method_, ...)
  * @brief	パラメタライズ関数コールテスト定義マクロ
+ * @param	testcase_	= テストケース名
+ * @param	testname_	= テスト名
+ * @param	method_		= 関数
 */
 #define IUTEST_PMZ(testcase_, testname_, method_, ...)	IIUT_TEST_PMZ_(testcase_, testname_, method_, ::iutest::Test	\
 														, ::iutest::internal::GetTestTypeId(), __VA_ARGS__)
@@ -78,6 +87,9 @@ namespace iutest
  * @ingroup	TESTDEF
  * @def		IUTEST_PMZ_F(testfixture_, testname_, method_, ...)
  * @brief	パラメタライズ関数コールテスト定義マクロ
+ * @param	testfixture_	= テストフィクスチャ名
+ * @param	testname_		= テスト名
+ * @param	method_			= 関数
 */
 #define IUTEST_PMZ_F(testfixture_, testname_, method_, ...)	IIUT_TEST_PMZ_(testfixture_, testname_, method_, testfixture_	\
 														, ::iutest::internal::GetTypeId< testfixture_ >(), __VA_ARGS__)
@@ -87,6 +99,8 @@ namespace iutest
 /**
  * @ingroup	TESTDEF
  * @brief	iutest の初期化処理
+ * @param	argc_	= コマンドライン引数の総数
+ * @param	argv_	= コマンドライン引数
 */
 #define IUTEST_INIT(argc_, argv_)					::iutest::InitIrisUnitTest(argc_, argv_)
 
@@ -105,6 +119,7 @@ namespace iutest
 /**
  * @ingroup		IUTEST_UTIL
  * @brief		スコープ内のテストメッセージへのメッセージ追加
+ * @param		msg	= メッセージ
 */
 #define IUTEST_SCOPED_TRACE(msg)					IIUT_SCOPED_MESSAGE(msg)
 
@@ -135,6 +150,8 @@ namespace iutest
 /**
  * @ingroup		IUTEST_UTIL
  * @brief		明示的な失敗
+ * @param		file	= ファイルパス
+ * @param		line	= 行番号
 */
 #ifndef IUTEST_ADD_FAILURE_AT
 #  define IUTEST_ADD_FAILURE_AT(file, line)			IIUT_ADD_FAILURE_AT(file, line)

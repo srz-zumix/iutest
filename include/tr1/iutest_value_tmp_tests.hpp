@@ -48,7 +48,7 @@
 		static const iutest::BiggestInt ValueParam = iutest_ValueParam;					\
 		protected: virtual void Body(void);												\
 	};																					\
-	iutest::detail::ValueTmpParamTestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_), IUTEST_TYPED_TEST_PARAMS(testcase_)>	\
+	iutest::detail::ValueTmpParamTestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_), IUTEST_TYPED_TEST_PARAMS_(testcase_)>	\
 	s_##testcase_##_##testname_( #testcase_, #testname_);								\
 	template<iutest::BiggestInt iutest_ValueParam>										\
 	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_ValueParam>::Body(void)

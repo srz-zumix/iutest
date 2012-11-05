@@ -281,7 +281,7 @@ class is_member_function_pointer
 	template<typename R, typename U, typename ...Args>			\
 	struct impl<R (U::*)(Args..., ...) CV> : public true_type {}
 
-	IS_MEMBER_FUNCTION_PTR_CV_IMPL();
+	IS_MEMBER_FUNCTION_PTR_CV_IMPL(IUTEST_PP_EMPTY);
 	IS_MEMBER_FUNCTION_PTR_CV_IMPL(const);
 	IS_MEMBER_FUNCTION_PTR_CV_IMPL(volatile);
 	IS_MEMBER_FUNCTION_PTR_CV_IMPL(const volatile);
@@ -303,7 +303,7 @@ class is_member_function_pointer
 #undef IS_MEMBER_FUNCTION_PTR_VOID_CV_IMPL
 
 #define IS_MEMBER_FUNCTION_PTR_IMPL(NUMBER)	\
-	IS_MEMBER_FUNCTION_PTR_IMPL2(NUMBER, );	\
+	IS_MEMBER_FUNCTION_PTR_IMPL2(NUMBER, IUTEST_PP_EMPTY);	\
 	IS_MEMBER_FUNCTION_PTR_IMPL2(NUMBER, const);	\
 	IS_MEMBER_FUNCTION_PTR_IMPL2(NUMBER, volatile);	\
 	IS_MEMBER_FUNCTION_PTR_IMPL2(NUMBER, const volatile)
@@ -387,7 +387,7 @@ class function_return_type
 	{ typedef R type; };	\
 	template<typename R, IUTEST_TEMPLATE_UTIL_TEMPLATES_TYPENAME(NUMBER)>struct impl<R (*)(IUTEST_TEMPLATE_UTIL_ARGS(NUMBER), ...)>	\
 	{ typedef R type; };	\
-	FUNCTION_RETURN_TYPE_IMPL2(NUMBER, );	\
+	FUNCTION_RETURN_TYPE_IMPL2(NUMBER, IUTEST_PP_EMPTY);	\
 	FUNCTION_RETURN_TYPE_IMPL2(NUMBER, const);	\
 	FUNCTION_RETURN_TYPE_IMPL2(NUMBER, volatile);	\
 	FUNCTION_RETURN_TYPE_IMPL2(NUMBER, const volatile)	\

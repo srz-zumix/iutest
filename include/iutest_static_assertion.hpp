@@ -94,8 +94,7 @@ template<> struct StaticAssertionFailure<true> { enum { value = 1 }; };
 /** @private */
 template<int x>struct StaticAssertionTest {};
 
-}
-
+}	// end of namespace detail
 }	// end of namespace iutest
 
 #endif

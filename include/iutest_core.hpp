@@ -488,7 +488,6 @@ inline void	UnitTest::Initialize(void)
 #endif
 }
 
-
 }	// end of namespace iutest
 
 #endif

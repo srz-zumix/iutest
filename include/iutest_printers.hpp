@@ -78,7 +78,7 @@ class TypeWithoutFormatter
 public:
 	static void PrintValue(const T& value, iu_ostream* os)
 	{
-		impl<is_convertible<const T&, BiggestInt>::value, void>::Print(value, os);
+		impl<iutest_type_traits::is_convertible<const T&, BiggestInt>::value, void>::Print(value, os);
 	}
 };
 
@@ -114,7 +114,7 @@ void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
 	*os << value;
 }
 
-}
+}	// end of printer_internal2
 
 //======================================================================
 // declare
@@ -148,7 +148,7 @@ inline void	UniversalPrint(const T& value, iu_ostream* os)
 */
 template<typename T>
 inline void DefaultPrintTo(IsContainerHelper::yes_t
-						   , false_type
+						   , iutest_type_traits::false_type
 						   , const T& container, iu_ostream* os)
 {
 	const size_t kMaxCount = kValues::MaxPrintContainerCount;
@@ -161,7 +161,7 @@ inline void DefaultPrintTo(IsContainerHelper::yes_t
 			*os << ",";
 			if( count == kMaxCount )
 			{
-				*os << "... ";
+				*os << "...";
 				break;
 			}
 		}
@@ -173,7 +173,7 @@ inline void DefaultPrintTo(IsContainerHelper::yes_t
 }
 template<typename T>
 inline void DefaultPrintTo(IsContainerHelper::no_t
-						   , false_type
+						   , iutest_type_traits::false_type
 						   , const T& value, iu_ostream* os)
 {
 	printer_internal2::DefaultPrintNonContainerTo(value, os);
@@ -191,7 +191,7 @@ inline void DefaultPtrPrintTo(T* ptr, iu_ostream* os, typename disable_if_t< is_
 }
 template<typename T>
 inline void DefaultPrintTo(IsContainerHelper::no_t
-						   , true_type
+						   , iutest_type_traits::true_type
 						   , T* ptr, iu_ostream* os)
 {
 	if( ptr == NULL )
@@ -208,7 +208,7 @@ inline void DefaultPrintTo(IsContainerHelper::no_t
  * @brief	ï∂éöóÒïœä∑ä÷êî
 */
 template<typename T>
-inline void PrintTo(const T& value, iu_ostream* os)	{ DefaultPrintTo(IsContainerHelper::IsContainer<T>(0), is_pointer<T>(), value, os); }
+inline void PrintTo(const T& value, iu_ostream* os)	{ DefaultPrintTo(IsContainerHelper::IsContainer<T>(0), iutest_type_traits::is_pointer<T>(), value, os); }
 inline void PrintTo(bool b, iu_ostream* os)			{ *os << (b ? "true" : "false"); }
 inline void PrintTo(const char* c, iu_ostream* os)	{ *os << c; }
 inline void PrintTo(char* c, iu_ostream* os)		{ *os << c; }

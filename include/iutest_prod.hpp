@@ -48,6 +48,9 @@ typename Tag::type peep<Tag>::value;
 // define
 /**
  * @brief	private メンバーへのアクセス権を作成
+ * @param	member_type	= 型
+ * @param	class_name	= クラス名
+ * @param	member_name	= メンバー名
 */
 #define IUTEST_MAKE_PEEP(member_type, class_name, member_name)		\
 	IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name);	\
@@ -56,6 +59,10 @@ typename Tag::type peep<Tag>::value;
 
 /**
  * @brief	private メンバーへのアクセス権を作成
+ * @param	member_type	= 型
+ * @param	scope_name	= スコープ
+ * @param	class_name	= クラス名
+ * @param	member_name	= メンバー名
 */
 #define IUTEST_MAKE_SCOPED_PEEP(member_type, scope_name, class_name, member_name)		\
 	IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name);	\
@@ -64,21 +71,31 @@ typename Tag::type peep<Tag>::value;
 
 /**
  * @brief	private	メンバーへのアクセス
+ * @param	v			= オブジェクトインスタンス
+ * @param	class_name	= クラス名
+ * @param	member_name	= メンバー名
 */
 #define IUTEST_PEEP_GET(v, class_name, member_name)		(v.*::iutest::detail::peep< IUTEST_PEEP_TAG_NAME_(class_name, member_name) >::value)
 
 /**
  * @brief	static private	メンバーへのアクセス
+ * @param	class_name	= クラス名
+ * @param	member_name	= メンバー名
 */
 #define IUTEST_PEEP_STATIC_GET(class_name, member_name)	(*::iutest::detail::peep< IUTEST_PEEP_TAG_NAME_(class_name, member_name) >::value)
 
 /**
  * @brief	private メンバーへのアクセスクラス宣言
+ * @param	class_name	= クラス名
+ * @param	member_name	= メンバー名
 */
 #define IUTEST_PEEP(class_name, member_name)	::iutest::Peep< class_name, IUTEST_PEEP_TAG_NAME_(class_name, member_name) >::type
 
 /**
  * @brief	private メンバーへのアクセスクラス宣言
+ * @param	scope_name	= スコープ
+ * @param	class_name	= クラス名
+ * @param	member_name	= メンバー名
 */
 #define IUTEST_SCOPED_PEEP(scope_name, class_name, member_name)	::iutest::Peep< scope_name::class_name, IUTEST_PEEP_TAG_NAME_(class_name, member_name) >::type
 
@@ -235,6 +252,6 @@ public:
 
 #include "internal/iutest_template_util_undef.hpp"
 
-}
+}	// end of namespace iutest
 
 #endif

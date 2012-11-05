@@ -70,7 +70,7 @@ struct mbs_ptr
 	template<typename DMY>
 	struct select<wchar_t, DMY> { typedef wcs_impl type; };
 
-	typedef typename select<typename remove_const<CharType>::type, void>::type	type;
+	typedef typename select<typename iutest_type_traits::remove_const<CharType>::type, void>::type	type;
 };
 
 //======================================================================
