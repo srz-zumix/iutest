@@ -32,6 +32,7 @@
 #include "iutest_pred_tests.cpp"
 #include "iutest_prod_tests.cpp"
 #include "iutest_spi_tests.cpp"
+#include "iutest_static_assertion_tests.cpp"
 #include "iutest_string_assertion_tests.cpp"
 #include "iutest_tr1_value_tmp_tests.cpp"
 #include "iutest_package_tests1.cpp"

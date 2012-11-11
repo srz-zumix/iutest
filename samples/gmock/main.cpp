@@ -19,6 +19,7 @@ int main(int argc, char* argv[])
 #endif
 {
 	::testing::InitGoogleMock(&argc, argv);
+	IUTEST_INIT(&argc, argv);
 	return IUTEST_RUN_ALL_TESTS();	// run all
 }
 

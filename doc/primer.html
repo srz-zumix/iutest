@@ -134,6 +134,11 @@ iutest_switch.hpp が用意されています。<br />
       <li>Variadic Templates の対応<br />
       C++11 Variadic Templates が利用可能な環境で、Variadic Templates に対応した Types,Values,Combine が利用可能<br />
       </li>
+      <li>パッケージ<br />
+      IUTEST_PACKAGE マクロを使うことで、名前空間をパッケージとして扱うことができます。<br />
+      通常の名前空間ではテスト名が衝突してしまい、出力 XML で区別がつかなくなってしまいますが、<br />
+      IUTEST_PACKAGE マクロを使うことで、名前空間名がパッケージ名としてテストケース名に追加され、区別できるようになります。<br />
+      </li>
     </ul>
   </li>
   <li>Private コードのテスト

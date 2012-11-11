@@ -73,7 +73,8 @@ TARGETS = iutest_all_tests \
           iutest_throw_on_failure_tests \
           iutest_uninitialize_tests
           
-SRCS   = $(TARGET:%=%.cpp)
+SRCS   = $(TARGETS:%=%.cpp)
+EXES   = $(TARGETS:%=%.exe)
 
 
 # All iutest headers.  Usually you shouldn't change this
@@ -90,16 +91,16 @@ default: $(TARGETS)
 
 all : default test
 
-test :
-	@for i in $(TARGETS); do \
-		./$$i.exe; \
-	done
 clean :
-	rm -f $(TARGETS) *.o
+	rm -f $(EXES) *.o
+
+test: $(EXES)
+
+$(EXES) : $(TARGETS)
+	@echo $@
+	./$@
 
 # Builds a sample test.  
 
 $(TARGETS) : $(SRCS) $(IUTEST_HEADERS) Makefile
-	@for i in $(TARGETS); do \
-		$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $$i $$i.cpp; \
-	done
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp

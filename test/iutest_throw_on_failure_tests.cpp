@@ -72,5 +72,6 @@ int main(int argc, char* argv[])
 		assert( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
 	}
 #endif
+	printf("*** Successful ***\n");
 	return 0;
 }

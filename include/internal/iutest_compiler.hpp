@@ -22,7 +22,7 @@
 
 //======================================================================
 // define
-#if defined(_MSC_VER) && _MSC_VER == 1700 && _MSC_FULL_VER < 170051025
+#if defined(_MSC_VER) && _MSC_VER == 1700
 #  ifndef _VARIADIC_MAX
 #    define _VARIADIC_MAX	10
 #  endif

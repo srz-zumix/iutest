@@ -397,13 +397,15 @@ namespace testing = iutest;
 #else
 
 #ifdef INCG_IRIS_iutest_HPP_
-#  define GTEST_USE_OWN_TR1_TUPLE	0
+#  if IUTEST_HAS_TUPLE
+#    define GTEST_USE_OWN_TR1_TUPLE	0
+#  endif
 #  ifdef StaticAssertTypeEq
 #	 undef StaticAssertTypeEq
 #  endif
 #endif
 
-#if	defined(_MSC_VER) && _MSC_VER >= 1700
+#if	defined(_MSC_VER) && _MSC_VER == 1700
 #  ifndef _VARIADIC_MAX
 #    define _VARIADIC_MAX	10
 #  endif

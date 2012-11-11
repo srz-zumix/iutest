@@ -1,8 +1,8 @@
 //======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_uninitialize_tests.cpp
- * @brief		filter 対応テスト
+ * @file		iutest_static_assertion_tests.cpp
+ * @brief		iutest StaticAssertTypeEq アサーション test
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -17,23 +17,12 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "../include/gtest/iutest_switch.hpp"
 
-#include <assert.h>
+bool b = ::iutest::StaticAssertTypeEq<int, int>();
 
-IUTEST(Test, Dummy)
+IUTEST(StaticAssertTypeEqTest, OK)
 {
-}
-
-#ifdef UNICODE
-int wmain(int argc, wchar_t* argv[])
-#else
-int main(int argc, char* argv[])
-#endif
-{
-	(void)argc;
-	(void)argv;
-	if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
-	printf("*** Successful ***\n");
-	return 0;
+	::iutest::StaticAssertTypeEq<float, float>();
+	IUTEST_STATIC_ASSERT(true);
 }

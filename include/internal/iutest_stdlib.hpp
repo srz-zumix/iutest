@@ -64,8 +64,8 @@
 #    define IUTEST_HAS_TR1_TUPLE	1
 #  elif defined(IUTEST_OS_LINUX_ANDROID) && defined(_STLPORT_MAJOR)
 #    define IUTEST_HAS_TR1_TUPLE	0
-#  elif defined(_MSC_VER)
-#    if (_MSC_VER >= 1500) && (_MSC_VER < 1700)
+#  elif defined(_MSC_VER) && defined(_MSC_FULL_VER)
+#    if (_MSC_VER >= 1500) && (_MSC_VER < 1700) && (_MSC_FULL_VER > 150021022)
 #      define IUTEST_HAS_TR1_TUPLE	1
 #    endif
 #  elif	defined(__GNUC__)

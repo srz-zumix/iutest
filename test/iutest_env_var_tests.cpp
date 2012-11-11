@@ -31,6 +31,7 @@ int SetUpEnvironment(void)
 	::iutest::internal::posix::PutEnv("IUTEST_CATCH_EXCEPTIONS=1");
 	::iutest::internal::posix::PutEnv("IUTEST_PRINT_TIME=1");
 	::iutest::internal::posix::PutEnv("IUTEST_REPEAT=2");
+	::iutest::internal::posix::PutEnv("IUTEST_FILTER=Flag*");
 	return 0;
 }
 
@@ -45,8 +46,10 @@ IUTEST(FlagTest, Check)
 	IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(print_time) );
 	IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(shuffle) );
 	
-	IUTEST_EXPECT_EQ( 200, ::iutest::IUTEST_FLAG(random_seed) );
-	IUTEST_EXPECT_EQ(   2, ::iutest::IUTEST_FLAG(repeat) );
+	IUTEST_EXPECT_EQ( 200u, ::iutest::IUTEST_FLAG(random_seed) );
+	IUTEST_EXPECT_EQ(   2 , ::iutest::IUTEST_FLAG(repeat) );
+	
+	IUTEST_EXPECT_STREQ( "Flag*", ::iutest::IUTEST_FLAG(filter).c_str() );
 }
 
 #if IUTEST_HAS_PEEP_STATIC_FUNC
