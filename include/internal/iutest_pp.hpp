@@ -39,7 +39,7 @@
 
 #define IUTEST_PP_EMPTY
 
-#define IUTEST_UNUSED_VAR(x)		(void)x
+#define IUTEST_UNUSED_VAR(x)		(void)(x)
 
 #define IUTEST_PP_DEC(n)	IUTEST_PP_DEC_##n
 #define IUTEST_PP_DEC_1		0

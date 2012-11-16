@@ -38,6 +38,12 @@
   .text_block {
     padding-left:1em;
   }
+  .source {
+    border : solid 2px #006400;
+    background-color:#ffffff;
+    padding: 0.5em;
+    margin: 10px;
+  }
   </style>
   <title>iutest - primer</title>
 </head>
@@ -104,10 +110,23 @@ iutest_switch.hpp が用意されています。<br />
       </li>
       <li>例外の値のアサーション<br />
       THROW,ANY_THROW,NO_THROW に加えて例外の値をテストするアサーションを追加しています。<br />
+<pre class="source">
+IUTEST(Hoge, ThrowValue)
+{
+  IUTEST_ASSERT_THROW_VALUE_EQ(throw 2, int, 2);
+  IUTEST_ASSERT_THROW_VALUE_STREQ(throw "error", const char *, "error");
+}
+</pre>
       </li>
       <li>警告アサーション<br />
       Boost.Test の WARN フレーバーと同等のアサーションです。<br />
       ログの出力はされますが、テスト失敗にはなりません。<br />
+<pre class="source">
+IUTEST(Hoge, Inform)
+{
+  IUTEST_INFORM_TRUE(IsEven(2));
+}
+</pre>
       </li>
     </ul>
   </li>
@@ -127,9 +146,19 @@ iutest_switch.hpp が用意されています。<br />
       <li>IUTEST_PMZ/IUTEST_PMZ_F<br />
       IUTEST_P とは違い、関数と引数を直指定するテストマクロです。<br />
       IUTEST_P よりも直感的にテストが可能です。<br />
+<pre class="source">
+void TestFunction(int x, int y)
+{
+	IUTEST_ASSERT_EQ(x, y);
+}
+IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 0, 0);
+IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 1, 1);</pre>
       </li>
       <li>Pairwise<br />
       オールペア法による組み合わせの作成ができます。<br />
+<pre class="source">
+IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
+     , ::iutest::Pairwise( ::iutest::Bool(), ::iutest::Values(1, 2), ::iutest::Values(10, 11) ) );</pre>
       </li>
       <li>Variadic Templates の対応<br />
       C++11 Variadic Templates が利用可能な環境で、Variadic Templates に対応した Types,Values,Combine が利用可能<br />
@@ -138,6 +167,14 @@ iutest_switch.hpp が用意されています。<br />
       IUTEST_PACKAGE マクロを使うことで、名前空間をパッケージとして扱うことができます。<br />
       通常の名前空間ではテスト名が衝突してしまい、出力 XML で区別がつかなくなってしまいますが、<br />
       IUTEST_PACKAGE マクロを使うことで、名前空間名がパッケージ名としてテストケース名に追加され、区別できるようになります。<br />
+<pre class="source">
+IUTEST_PACKAGE(TestPackage)
+{
+  IUTEST(Test, Hoge)
+  {
+    IUTEST_ASSERT_TRUE(true);
+  }
+}</pre>
       </li>
     </ul>
   </li>
@@ -145,6 +182,18 @@ iutest_switch.hpp が用意されています。<br />
     <ul>
       <li>PEEP<br />
       テンプレートの明示的な実体化を利用した private メンバーへのアクセスを簡易に行うためのマクロです。<br />
+<pre class="source">
+class Hoge
+{
+  int m_x;
+};
+IUTEST_MAKE_PEEP(int Hoge::*, Hoge, m_x);
+IUTEST(ProdTest, Peep)
+{
+  Hoge hoge;
+  IUTEST_PEEP_GET(hoge, Hoge, m_x) = 4;
+  IUTEST_ASSERT_EQ(4, IUTEST_PEEP_GET(hoge, Hoge, m_x));
+}</pre>
       </li>
     </ul>
   </li>
@@ -155,7 +204,7 @@ iutest_switch.hpp が用意されています。<br />
 <h2><a name="switch" id="switch">iutest / Google Test 切り替え</a></h2>
 <div class="text_block">
 iutest と Google Test の切り替えには gtest/iutest_switch.hpp を使用します。<br />
-<pre>
+<pre class="source">
 //#include "iutest.hpp"
 #include "gtest/iutest_switch.hpp" // iutest.hpp の代わりに iutest_switch.hpp を使用する
 </pre>

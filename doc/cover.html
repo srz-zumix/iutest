@@ -39,6 +39,12 @@
   .text_block {
     padding-left:1em;
   }
+  .source {
+    border : solid 2px #006400;
+    background-color:#ffffff;
+    padding: 0.5em;
+    margin: 10px;
+  }
   </style>
 </head>
 <body>
@@ -46,7 +52,7 @@
 <div class="contents">
 <h1>IUTEST</h1>
 <div class="text_block">
-Iris Unit Test Framework : 2012 / 11 / 06<br />
+Iris Unit Test Framework : 2012 / 11 / 17<br />
 <br />
 </div>
 <h2>はじめに</h2>
@@ -73,7 +79,7 @@ IUTEST_EXPECT_ から始まるマクロは致命的ではないアサーションになります。<br />
 <h2>テストを書く</h2>
 <div class="text_block">
 最も簡単なテストの記述を以下に示します。<br />
-<pre>
+<pre class="source">
 IUTEST(CaseName, TestName)
 {
     int x = 0;
@@ -88,7 +94,7 @@ IUTEST マクロからテストの記述を開始します。<br />
 <h2>main を書く</h2>
 <div class="text_block">
 iutest を実行するには、初期化と実行のマクロを記述するだけです。<br />
-<pre>
+<pre class="source">
 int main(int argc, char** argv)
 {
     IUTEST_INIT(&argc, argv);
