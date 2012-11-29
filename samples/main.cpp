@@ -785,6 +785,15 @@ IUTEST(TestExpectFailure, Mix)
 	IUTEST_EXPECT_DOUBLE_EQ(0.0, 0.1);
 	IUTEST_EXPECT_NEAR(0, 100, 2);
 	IUTEST_EXPECT_FAIL();
+	{
+		::std::string str1 = "test";
+		::std::string str2 = "text";
+
+		IUTEST_EXPECT_STREQ("text", str1);
+		IUTEST_EXPECT_STRNE("text", str2);
+		IUTEST_EXPECT_STRCASEEQ("Text", str1);
+		IUTEST_EXPECT_STRCASENE("Text", str2);
+	}
 }
 
 // サブルーチン

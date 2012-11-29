@@ -200,8 +200,10 @@
 #      define IUTEST_HAS_VARIADIC_TEMPLATES	1
 #    endif
 #  elif	defined(_MSC_VER)
-#    if _MSC_FULL_VER >= 170051025
+#    if _MSC_FULL_VER == 170051025
 #      define IUTEST_HAS_VARIADIC_TEMPLATES	1
+#      define IUTEST_HAS_VARIADIC_COMBINE	0
+#      define IUTEST_HAS_VARIADIC_VALUES	0
 #    endif
 #  endif
 #endif

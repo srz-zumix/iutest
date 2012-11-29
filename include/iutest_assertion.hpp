@@ -270,7 +270,7 @@ inline AssertionResult EqFailure(const char* expected_expression, const char* ac
 	strm << "error: Value of " << actual_expression
 		<< "\n  Actual: " << actual
 		<< "\nExpected: " << expected_expression;
-	if( ignoring_case ) strm << "(ignoring case)";
+	if( ignoring_case ) strm << " (ignoring case)";
 	if( !detail::IsStringEqual(expected_expression, expected) ) strm << "\nWhich is: " << expected;
 	return AssertionFailure() << strm.str();
 }
@@ -568,8 +568,9 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1
 	{
 		if( strcmp(val1, val2) != 0 ) return AssertionSuccess();
 	}
-	return AssertionFailure() << "error: Value of: " << expr1 << " != " << expr2
-		<< "\n  Actual: " << FormatForComparisonFailureMessage(val2, val1) << "\nExpected: " << FormatForComparisonFailureMessage(val1, val2) ;
+	return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
+		<< "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))
+		<< " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
 }
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1, const char* expr2
 							   , const wchar_t* val1, const wchar_t* val2)
@@ -582,8 +583,9 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1
 	{
 		if( wcscmp(val1, val2) != 0 ) return AssertionSuccess();
 	}
-	return AssertionFailure() << "error: Value of: " << expr1 << " != " << expr2
-		<< "\n  Actual: " << FormatForComparisonFailureMessage(val2, val1) << "\nExpected: " << FormatForComparisonFailureMessage(val1, val2) ;
+	return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
+		<< "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))
+		<< " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
 }
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1, const char* expr2
@@ -591,8 +593,9 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1
 															   , const ::std::basic_string<Elem, Traits, Ax>& val2)
 {
 	if( val1 != val2 ) return AssertionSuccess();
-	return AssertionFailure() << "error: Value of: " << expr1 << " == " << expr2
-		<< "\n  Actual: " << FormatForComparisonFailureMessage(val2, val1) << "\nExpected: " << FormatForComparisonFailureMessage(val1, val2) ;
+	return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
+		<< "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))
+		<< " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
 }
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1, const char* expr2
@@ -600,8 +603,9 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1
 															   , const ::std::basic_string<Elem, Traits, Ax>& val2)
 {
 	if( val2 != val1 ) return AssertionSuccess();
-	return AssertionFailure() << "error: Value of: " << expr1 << " == " << expr2
-		<< "\n  Actual: " << FormatForComparisonFailureMessage(val2, val1) << "\nExpected: " << FormatForComparisonFailureMessage(val1, val2) ;
+	return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
+		<< "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))
+		<< " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
 }
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1, const char* expr2
@@ -609,8 +613,9 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1
 															   , const Elem* val2)
 {
 	if( val1 != val2 ) return AssertionSuccess();
-	return AssertionFailure() << "error: Value of: " << expr1 << " == " << expr2
-		<< "\n  Actual: " << FormatForComparisonFailureMessage(val2, val1) << "\nExpected: " << FormatForComparisonFailureMessage(val1, val2) ;
+	return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
+		<< "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))
+		<< " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
 }
 #if IUTEST_HAS_CHAR16_T
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1, const char* expr2
@@ -701,8 +706,9 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* e
 	{
 		if( detail::iu_stricmp(val1, val2) != 0 ) return AssertionSuccess();
 	}
-	return AssertionFailure() << "error: Value of: " << expr1 << " != " << expr2
-		<< "\n  Actual: " << FormatForComparisonFailureMessage(val2, val1) << "\nExpected: " << FormatForComparisonFailureMessage(val1, val2) ;
+	return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2 << " (ignoring case)"
+		<< "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))
+		<< " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
 }
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* expr1, const char* expr2
 							   , const wchar_t* val1, const wchar_t* val2)
@@ -715,8 +721,9 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* e
 	{
 		if( detail::iu_wcsicmp(val1, val2) != 0 ) return AssertionSuccess();
 	}
-	return AssertionFailure() << "error: Value of: " << expr1 << " != " << expr2
-		<< "\n  Actual: " << FormatForComparisonFailureMessage(val2, val1) << "\nExpected: " << FormatForComparisonFailureMessage(val1, val2) ;
+	return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2 << " (ignoring case)"
+		<< "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))
+		<< " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
 }
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* expr1, const char* expr2

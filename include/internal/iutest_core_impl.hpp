@@ -176,11 +176,13 @@ private:
 
 private:
 #if (IUTEST_HAS_EXCEPTIONS && defined(_MSC_VER)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+
 	// _invalid_parameter_handler
 	static void OnInvalidParameter(const wchar_t * expression, const wchar_t * function
 		, const wchar_t * file, unsigned int line, uintptr_t pReserved)
 	{
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 		IUTEST_UNUSED_VAR(file);
 		IUTEST_UNUSED_VAR(line);
 		IUTEST_UNUSED_VAR(pReserved);
@@ -191,8 +193,10 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 		std::string msg = func;
 		msg += expr;
 		throw std::invalid_argument(msg);
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 	}
+
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+
 #endif
 
 private:
