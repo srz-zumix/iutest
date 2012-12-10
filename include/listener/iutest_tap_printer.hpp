@@ -185,6 +185,16 @@ public:
 
 };
 
+//======================================================================
+// function
+//! TAPPrintListener ‚ÉØ‚è‘Ö‚¦
+inline void SetUpTAPPrintListener(void)
+{
+	::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
+	delete listeners.Release(listeners.default_result_printer());
+	listeners.Append(new TAPPrintListener);
+}
+
 }	// end of namespace iutest
 
 #endif

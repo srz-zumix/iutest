@@ -91,15 +91,11 @@ public:
 };
 
 /**
- * @brief	イベントリスナーの管理クラス
+ * @brief	イベント実行イベントリスナー
 */
-class TestEventListeners
+class TestEventRepeater : public TestEventListener
 {
 	typedef ::std::vector<TestEventListener*>	ListenerContainer;
-
-public:
-	TestEventListeners(void) : m_default_result_printer(NULL), m_default_xml_generator(NULL) {}
-
 public:
 	/**
 	 * @brief	リスナーの追加
@@ -115,6 +111,50 @@ public:
 	TestEventListener*	Release(TestEventListener* listener);
 
 public:
+	// On*End は後ろから実行
+	virtual void OnTestProgramStart(const UnitTest& test);
+	virtual void OnTestIterationStart(const UnitTest& test
+									, int iteration);
+	virtual void OnEnvironmentsSetUpStart(const UnitTest& test);
+	virtual void OnEnvironmentsSetUpEnd(const UnitTest& test);
+	virtual void OnTestCaseStart(const TestCase& test_case);
+	virtual void OnTestStart(const TestInfo& test_info);
+	virtual void OnTestPartResult(const TestPartResult& test_part_result);
+	virtual void OnTestRecordProperty(const TestProperty& test_property);
+	virtual void OnTestEnd(const TestInfo& test_info);
+	virtual void OnTestCaseEnd(const TestCase& test_case);
+	virtual void OnEnvironmentsTearDownStart(const UnitTest& test);
+	virtual void OnEnvironmentsTearDownEnd(const UnitTest& test);
+	virtual void OnTestIterationEnd(const UnitTest& test
+									, int iteration);
+	virtual void OnTestProgramEnd(const UnitTest& test);
+
+private:
+	ListenerContainer	m_listeners;
+};
+
+/**
+ * @brief	イベントリスナーの管理クラス
+*/
+class TestEventListeners
+{
+	typedef ::std::vector<TestEventListener*>	ListenerContainer;
+
+public:
+	TestEventListeners(void) : m_default_result_printer(NULL), m_default_xml_generator(NULL) {}
+
+public:
+	/**
+	 * @brief	リスナーの追加
+	*/
+	void	Append(TestEventListener* listener)	{ m_repeater.Append(listener); };
+
+	/**
+	 * @brief	リスナーの解放
+	*/
+	TestEventListener*	Release(TestEventListener* listener) { return m_repeater.Release(listener); }
+
+public:
 	/**
 	 * @brief	デフォルト出力リスナーの取得
 	*/
@@ -125,24 +165,24 @@ public:
 	TestEventListener*	default_xml_generator(void)		const	{ return m_default_xml_generator; }
 
 private:
-	// On*End は後ろから実行
+	TestEventListener*	repeater(void) { return &m_repeater; }
 
-	void OnTestProgramStart(const UnitTest& test);
-	void OnTestIterationStart(const UnitTest& test, int iteration);
-	void OnEnvironmentsSetUpStart(const UnitTest& test);
-	void OnEnvironmentsSetUpEnd(const UnitTest& test);
+	void OnTestProgramStart(const UnitTest& test)					{ m_repeater.OnTestProgramStart(test); }
+	void OnTestIterationStart(const UnitTest& test, int iteration)	{ m_repeater.OnTestIterationStart(test, iteration); }
+	void OnEnvironmentsSetUpStart(const UnitTest& test)				{ m_repeater.OnEnvironmentsSetUpStart(test); }
+	void OnEnvironmentsSetUpEnd(const UnitTest& test)				{ m_repeater.OnEnvironmentsSetUpEnd(test); }
 
-	void OnTestCaseStart(const TestCase& test_case);
-	void OnTestStart(const TestInfo& test_info);
-	void OnTestPartResult(const TestPartResult& test_part_result);
-	void OnTestRecordProperty(const TestProperty& test_property);
-	void OnTestEnd(const TestInfo& test_info);
-	void OnTestCaseEnd(const TestCase& test_case);
+	void OnTestCaseStart(const TestCase& test_case)					{ m_repeater.OnTestCaseStart(test_case); }
+	void OnTestStart(const TestInfo& test_info)						{ m_repeater.OnTestStart(test_info); }
+	void OnTestPartResult(const TestPartResult& test_part_result)	{ m_repeater.OnTestPartResult(test_part_result); }
+	void OnTestRecordProperty(const TestProperty& test_property)	{ m_repeater.OnTestRecordProperty(test_property); }
+	void OnTestEnd(const TestInfo& test_info)						{ m_repeater.OnTestEnd(test_info); }
+	void OnTestCaseEnd(const TestCase& test_case)					{ m_repeater.OnTestCaseEnd(test_case); }
 
-	void OnEnvironmentsTearDownStart(const UnitTest& test);
-	void OnEnvironmentsTearDownEnd(const UnitTest& test);
-	void OnTestIterationEnd(const UnitTest& test, int iteration);
-	void OnTestProgramEnd(const UnitTest& test);
+	void OnEnvironmentsTearDownStart(const UnitTest& test)			{ m_repeater.OnEnvironmentsTearDownStart(test); }
+	void OnEnvironmentsTearDownEnd(const UnitTest& test)			{ m_repeater.OnEnvironmentsTearDownEnd(test); }
+	void OnTestIterationEnd(const UnitTest& test, int iteration)	{ m_repeater.OnTestIterationEnd(test, iteration); }
+	void OnTestProgramEnd(const UnitTest& test)						{ m_repeater.OnTestProgramEnd(test); }
 
 private:
 	void	set_default_result_printer(TestEventListener* listener);
@@ -159,13 +199,13 @@ private:
 	friend class DefaultXmlGeneratorListener;
 	friend class DefalutResultPrintListener;
 
-	ListenerContainer	m_listeners;
+	TestEventRepeater	m_repeater;
 	TestEventListener*	m_default_result_printer;
 	TestEventListener*	m_default_xml_generator;
 };
 
 
-inline TestEventListener*	TestEventListeners::Release(TestEventListener* listener)
+inline TestEventListener*	TestEventRepeater::Release(TestEventListener* listener)
 {
 	ListenerContainer::iterator it = ::std::find(m_listeners.begin(), m_listeners.end(), listener);
 	if( it == m_listeners.end() ) return NULL;
@@ -173,28 +213,28 @@ inline TestEventListener*	TestEventListeners::Release(TestEventListener* listene
 	return listener;
 }
 
-inline void TestEventListeners::OnTestProgramStart(const UnitTest& test)
+inline void TestEventRepeater::OnTestProgramStart(const UnitTest& test)
 {
 	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
 	{
 		(*it)->OnTestProgramStart(test);
 	}
 }
-inline void TestEventListeners::OnTestIterationStart(const UnitTest& test, int iteration)
+inline void TestEventRepeater::OnTestIterationStart(const UnitTest& test, int iteration)
 {
 	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
 	{
 		(*it)->OnTestIterationStart(test, iteration);
 	}
 }
-inline void TestEventListeners::OnEnvironmentsSetUpStart(const UnitTest& test)
+inline void TestEventRepeater::OnEnvironmentsSetUpStart(const UnitTest& test)
 {
 	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
 	{
 		(*it)->OnEnvironmentsSetUpStart(test);
 	}
 }
-inline void TestEventListeners::OnEnvironmentsSetUpEnd(const UnitTest& test)
+inline void TestEventRepeater::OnEnvironmentsSetUpEnd(const UnitTest& test)
 {
 	for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
 	{
@@ -202,42 +242,42 @@ inline void TestEventListeners::OnEnvironmentsSetUpEnd(const UnitTest& test)
 	}
 }
 
-inline void TestEventListeners::OnTestCaseStart(const TestCase& test_case)
+inline void TestEventRepeater::OnTestCaseStart(const TestCase& test_case)
 {
 	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
 	{
 		(*it)->OnTestCaseStart(test_case);
 	}
 }
-inline void TestEventListeners::OnTestStart(const TestInfo& test_info)
+inline void TestEventRepeater::OnTestStart(const TestInfo& test_info)
 {
 	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
 	{
 		(*it)->OnTestStart(test_info);
 	}
 }
-inline void TestEventListeners::OnTestPartResult(const TestPartResult& test_part_result)
+inline void TestEventRepeater::OnTestPartResult(const TestPartResult& test_part_result)
 {
 	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
 	{
 		(*it)->OnTestPartResult(test_part_result);
 	}
 }
-inline void TestEventListeners::OnTestRecordProperty(const TestProperty& test_property)
+inline void TestEventRepeater::OnTestRecordProperty(const TestProperty& test_property)
 {
 	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
 	{
 		(*it)->OnTestRecordProperty(test_property);
 	}
 }
-inline void TestEventListeners::OnTestEnd(const TestInfo& test_info)
+inline void TestEventRepeater::OnTestEnd(const TestInfo& test_info)
 {
 	for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
 	{
 		(*it)->OnTestEnd(test_info);
 	}
 }
-inline void TestEventListeners::OnTestCaseEnd(const TestCase& test_case)
+inline void TestEventRepeater::OnTestCaseEnd(const TestCase& test_case)
 {
 	for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
 	{
@@ -245,28 +285,28 @@ inline void TestEventListeners::OnTestCaseEnd(const TestCase& test_case)
 	}
 }
 
-inline void TestEventListeners::OnEnvironmentsTearDownStart(const UnitTest& test)
+inline void TestEventRepeater::OnEnvironmentsTearDownStart(const UnitTest& test)
 {
 	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
 	{
 		(*it)->OnEnvironmentsTearDownStart(test);
 	}
 }
-inline void TestEventListeners::OnEnvironmentsTearDownEnd(const UnitTest& test)
+inline void TestEventRepeater::OnEnvironmentsTearDownEnd(const UnitTest& test)
 {
 	for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
 	{
 		(*it)->OnEnvironmentsTearDownEnd(test);
 	}
 }
-inline void TestEventListeners::OnTestIterationEnd(const UnitTest& test, int iteration)
+inline void TestEventRepeater::OnTestIterationEnd(const UnitTest& test, int iteration)
 {
 	for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
 	{
 		(*it)->OnTestIterationEnd(test, iteration);
 	}
 }
-inline void TestEventListeners::OnTestProgramEnd(const UnitTest& test)
+inline void TestEventRepeater::OnTestProgramEnd(const UnitTest& test)
 {
 	for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
 	{
@@ -279,7 +319,7 @@ inline void	TestEventListeners::set_default_result_printer(TestEventListener* li
 	Release(m_default_result_printer);
 	if( listener != NULL )
 	{
-		m_listeners.push_back(listener);
+		Append(listener);
 	}
 	m_default_result_printer = listener;
 }
@@ -288,7 +328,7 @@ inline void	TestEventListeners::set_default_xml_generator(TestEventListener* lis
 	Release(m_default_xml_generator);
 	if( listener != NULL )
 	{
-		m_listeners.push_back(listener);
+		Append(listener);
 	}
 	m_default_xml_generator = listener;
 }

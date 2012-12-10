@@ -27,6 +27,7 @@ class FooEnvironment : public ::iutest::Environment
 		iuutil::Console::output("FooEnvironment::TearDown\n");
 	}
 };
+#include <iostream>
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
@@ -179,6 +180,12 @@ IUTEST(AssertionTest, Base)
 
 		::std::vector<int> v1, v2;
 		IUTEST_EXPECT_EQ(v1, v2);
+	}
+	// EQ_COLLECTIONS
+	{
+		int a[] = { 0, 1, 2, 3 };
+		int b[] = { 0, 1, 2, 3 };
+		IUTEST_ASSERT_EQ_COLLECTIONS(a, a+4, b, b+4);
 	}
 
 	// NE
@@ -793,6 +800,15 @@ IUTEST(TestExpectFailure, Mix)
 		IUTEST_EXPECT_STRNE("text", str2);
 		IUTEST_EXPECT_STRCASEEQ("Text", str1);
 		IUTEST_EXPECT_STRCASENE("Text", str2);
+	}
+	// EQ_COLLECTIONS
+	{
+		int  aa[] = { 0, 1, 2, 3, 4 };
+		int  ab[] = { 0, 1, 2, 3, 4, 5 };
+		char ac[] = { 0, 0, 2, 3, 5 };
+		IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0])));
+		IUTEST_EXPECT_EQ_COLLECTIONS(ab, ab+(sizeof(ab)/sizeof(ab[0])), aa, aa+(sizeof(aa)/sizeof(aa[0])));
+		IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0])));
 	}
 }
 

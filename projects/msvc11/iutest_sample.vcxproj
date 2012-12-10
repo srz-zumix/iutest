@@ -23,6 +23,18 @@
     <ClInclude Include="..\..\include\gtest\iutest_gtest_ver.hpp" />
     <ClInclude Include="..\..\include\gtest\iutest_spi_switch.hpp" />
     <ClInclude Include="..\..\include\gtest\iutest_switch.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_assert.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_cmphelper.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_core.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_eq_collections.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_expect.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_inform.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_package.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_peep.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_pmz.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_port.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_skip.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_throw_value.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_charcode.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_compiler.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_console.hpp" />
@@ -80,6 +92,7 @@
     <ClInclude Include="..\..\include\iutest_ver.hpp" />
     <ClInclude Include="..\..\include\listener\iutest_default_printer.hpp" />
     <ClInclude Include="..\..\include\listener\iutest_default_xml_generator.hpp" />
+    <ClInclude Include="..\..\include\listener\iutest_progress_printer.hpp" />
     <ClInclude Include="..\..\include\listener\iutest_tap_printer.hpp" />
     <ClInclude Include="..\..\include\util\iutest_util_assertion.hpp" />
     <ClInclude Include="..\..\include\util\iutest_util_output.hpp" />

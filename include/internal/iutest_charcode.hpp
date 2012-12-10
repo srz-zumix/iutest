@@ -235,6 +235,13 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 #endif
 }
 
+#if IUTEST_HAS_CHAR16_T
+inline ::std::string ShowWideCString(const char16_t* wide_c_str)
+{
+	return ShowWideCString(reinterpret_cast<const wchar_t*>(wide_c_str));
+}
+#endif
+
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 }	// end of namespace detail

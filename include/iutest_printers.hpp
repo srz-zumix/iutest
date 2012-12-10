@@ -335,6 +335,17 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(wchar_t* str, iu_ostrea
 {
 	UniversalTersePrint(static_cast<const wchar_t*>(str), os);
 }
+#if IUTEST_HAS_CHAR16_T
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t* str, iu_ostream* os)
+{
+	if( str == NULL ) *os << kStrings::Null;
+	else UniversalPrint(detail::ShowWideCString(str), os);
+}
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(char16_t* str, iu_ostream* os)
+{
+	UniversalTersePrint(static_cast<const char16_t*>(str), os);
+}
+#endif
 
 /**
  * @brief	îzóÒÇÃèoóÕ

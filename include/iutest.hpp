@@ -172,6 +172,13 @@ namespace iutest
 #endif
 /**
  * @ingroup	IUTEST_ASSERT_
+ * @brief	== テスト(collection)
+*/
+#ifndef IUTEST_ASSERT_EQ_COLLECTIONS
+#  define	IUTEST_ASSERT_EQ_COLLECTIONS(b1, e1, b2, e2)	IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, IUTEST_ASSERT_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSERT_
  * @brief	!= テスト
 */
 #ifndef IUTEST_ASSERT_NE
@@ -407,6 +414,13 @@ namespace iutest
 */
 #ifndef IUTEST_EXPECT_EQ
 #  define	IUTEST_EXPECT_EQ(expected, actual)		IUTEST_TEST_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_EXPECT_
+ * @brief	== テスト(collection)
+*/
+#ifndef IUTEST_EXPECT_EQ_COLLECTIONS
+#  define	IUTEST_EXPECT_EQ_COLLECTIONS(b1, e1, b2, e2)	IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
@@ -653,6 +667,13 @@ namespace iutest
 */
 #ifndef IUTEST_INFORM_EQ
 #  define	IUTEST_INFORM_EQ(expected, actual)		IUTEST_TEST_EQ(expected, actual, IUTEST_INFORM_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_INFORM_
+ * @brief	== テスト(collection)
+*/
+#ifndef IUTEST_INFORM_EQ_COLLECTIONS
+#  define	IUTEST_INFORM_EQ_COLLECTIONS(b1, e1, b2, e2)	IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_INFORM_

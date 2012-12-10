@@ -503,6 +503,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\listener\iutest_progress_printer.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\listener\iutest_tap_printer.hpp"
 					>
 				</File>
@@ -526,6 +530,58 @@
 					RelativePath="..\..\include\gtest\iutest_switch.hpp"
 					>
 				</File>
+				<Filter
+					Name="switch"
+					>
+					<File
+						RelativePath="..\..\include\gtest\switch\iutest_switch_assert.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\include\gtest\switch\iutest_switch_cmphelper.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\include\gtest\switch\iutest_switch_core.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\include\gtest\switch\iutest_switch_eq_collections.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\include\gtest\switch\iutest_switch_expect.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\include\gtest\switch\iutest_switch_inform.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\include\gtest\switch\iutest_switch_package.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\include\gtest\switch\iutest_switch_peep.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\include\gtest\switch\iutest_switch_pmz.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\include\gtest\switch\iutest_switch_port.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\include\gtest\switch\iutest_switch_skip.hpp"
+						>
+					</File>
+					<File
+						RelativePath="..\..\include\gtest\switch\iutest_switch_throw_value.hpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="util"

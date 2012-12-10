@@ -20,6 +20,7 @@
 //======================================================================
 // include
 #include "CppUnitTest.h"
+#include "../../../include/iutest_prod.hpp"
 #include "../../../include/util/iutest_util_tests.hpp"
 
 //======================================================================
@@ -190,12 +191,13 @@ namespace iuutil {
 namespace VisualStudio
 {
 
+typedef ::testing::TestEventListener* (::testing::TestEventListeners::* pfnRepeater)(void);
+
+#define testing	iutest
+IUTEST_MAKE_SCOPED_PEEP(pfnRepeater, testing, TestEventListeners, repeater);
+#undef testing
+
 #ifndef IUTEST_USE_GTEST
-
-typedef void (::iutest::TestEventListeners::* OnTestStartEnd)(const ::iutest::TestInfo& test_info);
-
-IUTEST_MAKE_SCOPED_PEEP(OnTestStartEnd, iutest, TestEventListeners, OnTestStart);
-IUTEST_MAKE_SCOPED_PEEP(OnTestStartEnd, iutest, TestEventListeners, OnTestEnd);
 
 class Test : public ::iutest::Test
 {
@@ -214,24 +216,25 @@ class TestClass : public ::Microsoft::VisualStudio::CppUnitTestFramework::TestCl
 public:
 	void OnTestStart(const char* testcase_name, const char* testinfo_name)
 	{
-#ifndef IUTEST_USE_GTEST
 		const ::iutest::TestInfo* testinfo = iuutil::FindTestInfo(testcase_name, testinfo_name);
 		if( testinfo == NULL ) return;
-		IUTEST_PEEP_GET(::iutest::TestEnv::event_listeners(), TestEventListeners, OnTestStart)(*testinfo);
-#else
-		IUTEST_UNUSED_VAR(testcase_name);
-		IUTEST_UNUSED_VAR(testinfo_name);
-#endif
+		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
+		::iutest::TestEventListener* repeator = 
+#define testing	iutest
+			IUTEST_PEEP_GET(listeners, TestEventListeners, repeater)();
+#undef testing
+		repeator->OnTestStart(*testinfo);
 	}
 	void OnTestEnd(const char* testcase_name, const char* testinfo_name)
 	{
-#ifndef IUTEST_USE_GTEST
 		const ::iutest::TestInfo* testinfo = iuutil::FindTestInfo(testcase_name, testinfo_name);
 		if( testinfo == NULL ) return;
-		IUTEST_PEEP_GET(::iutest::TestEnv::event_listeners(), TestEventListeners, OnTestEnd)(*testinfo);
-		IUTEST_UNUSED_VAR(testcase_name);
-		IUTEST_UNUSED_VAR(testinfo_name);
-#endif
+		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
+		::iutest::TestEventListener* repeator = 
+#define testing	iutest
+			IUTEST_PEEP_GET(listeners, TestEventListeners, repeater)();
+#undef testing
+		repeator->OnTestEnd(*testinfo);
 	}
 };
 
@@ -266,20 +269,20 @@ private:
 /**
  * @brief	Hook 用リポーター
 */
-class VCCppUnitTestPartResultReporter : public iutest::EmptyTestEventListener
+class VCCppUnitTestPartResultReporter : public ::iutest::EmptyTestEventListener
 {
 public:
 	VCCppUnitTestPartResultReporter(void)
 	{
-		iutest::TestEventListeners& listeners = iutest::UnitTest::GetInstance()->listeners();
+		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
 		listeners.Append(this);
 	}
 	virtual ~VCCppUnitTestPartResultReporter(void) 
 	{
-		iutest::TestEventListeners& listeners = iutest::UnitTest::GetInstance()->listeners();
+		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
 		listeners.Release(this);
 	}
-	virtual void OnTestPartResult(const iutest::TestPartResult& result)
+	virtual void OnTestPartResult(const ::iutest::TestPartResult& result)
 	{
 		// VC にも送る
 		if( result.failed() )
@@ -298,12 +301,21 @@ public:
 
 inline void SetUpCppUnitTest(void)
 {
-	static VCCppUnitTestPartResultReporter fake;
-#ifndef IUTEST_USE_GTEST
-	static VCCppUnitTestLogger logger;
-	::iutest::detail::iuConsole::SetLogger(&logger);
-	::iutest::UnitTestSource::GetInstance().Initialize();
+#if 0
+	{
+		int argc=0;
+		char** argv = NULL;
+		IUTEST_INIT(&argc, argv);
+	}
 #endif
+	{
+		static VCCppUnitTestPartResultReporter fake;
+#ifndef IUTEST_USE_GTEST
+		static VCCppUnitTestLogger logger;
+		::iutest::detail::iuConsole::SetLogger(&logger);
+		::iutest::UnitTestSource::GetInstance().Initialize();
+#endif
+	}
 }
 
 }	// end of namespace VisualStudio

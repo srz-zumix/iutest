@@ -24,6 +24,9 @@ namespace spitest
 
 const char* null_str = NULL;
 int a=0, b=0;
+int  aa[] = { 0, 1, 2, 3, 4 };
+int  ab[] = { 0, 1, 2, 3, 4, 5 };
+char ac[] = { 0, 0, 2, 3, 5 };
 
 void SPITest_FatalFailure_Sub(int& count)
 {
@@ -77,6 +80,10 @@ void SPITest_FatalFailure_Sub(int& count)
 	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_HRESULT_FAILED(100), "" );
 #endif
 	
+	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0]))), "" );
+	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_EQ_COLLECTIONS(ab, ab+(sizeof(ab)/sizeof(ab[0])), aa, aa+(sizeof(aa)/sizeof(aa[0]))), "" );
+	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0]))), "" );
+
 	count++;
 }
 	
@@ -143,6 +150,11 @@ void SPITest_FatalFailure2_Sub(int& count)
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_HRESULT_FAILED(0), "" );
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_HRESULT_FAILED(100), "" );
 #endif
+	
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0]))), "" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_EQ_COLLECTIONS(ab, ab+(sizeof(ab)/sizeof(ab[0])), aa, aa+(sizeof(aa)/sizeof(aa[0]))), "" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0]))), "" );
+
 	count++;
 }
 	
@@ -209,6 +221,10 @@ IUTEST(SPITest, NonFatalFailure)
 	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_HRESULT_FAILED(0), "" );
 	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_HRESULT_FAILED(100), "" );
 #endif
+
+	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0]))), "" );
+	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_COLLECTIONS(ab, ab+(sizeof(ab)/sizeof(ab[0])), aa, aa+(sizeof(aa)/sizeof(aa[0]))), "" );
+	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0]))), "" );
 }
 
 IUTEST(SPITest, NonFatalFailure2)
@@ -260,6 +276,10 @@ IUTEST(SPITest, NonFatalFailure2)
 	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_HRESULT_FAILED(0), "" );
 	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_HRESULT_FAILED(100), "" );
 #endif
+
+	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0]))), "" );
+	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_COLLECTIONS(ab, ab+(sizeof(ab)/sizeof(ab[0])), aa, aa+(sizeof(aa)/sizeof(aa[0]))), "" );
+	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0]))), "" );
 }
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES

@@ -80,6 +80,47 @@ IUTEST(AssertionTest, EQ)
 #endif
 }
 
+IUTEST(AssertionTest, EQ_COLLECTIONS)
+{
+	{
+		int  a[] = { 0, 1, 2, 3, 4 };
+		int  b[] = { 0, 1, 2, 3, 4 };
+		char c[] = { 0, 1, 2, 3, 4 };
+		
+		IUTEST_ASSERT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
+		IUTEST_EXPECT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
+		IUTEST_INFORM_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
+
+		IUTEST_ASSERT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
+		IUTEST_EXPECT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
+		IUTEST_INFORM_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
+	}
+
+	{
+		int  d[] = { 0, 1, 2, 3, 4 };
+		const int COUNT=sizeof(d)/sizeof(d[0]);
+		::std::vector<int> a, b;
+		::std::vector<char> c;
+		for( int i=0; i < COUNT; ++i )
+		{
+			a.push_back(i);
+			b.push_back(i);
+			c.push_back(i);
+		}
+		IUTEST_ASSERT_EQ_COLLECTIONS(a.begin(), a.end(), b.begin(), b.end());
+		IUTEST_EXPECT_EQ_COLLECTIONS(a.begin(), a.end(), b.begin(), b.end());
+		IUTEST_INFORM_EQ_COLLECTIONS(a.begin(), a.end(), b.begin(), b.end());
+
+		IUTEST_ASSERT_EQ_COLLECTIONS(a.begin(), a.end(), c.begin(), c.end());
+		IUTEST_EXPECT_EQ_COLLECTIONS(a.begin(), a.end(), c.begin(), c.end());
+		IUTEST_INFORM_EQ_COLLECTIONS(a.begin(), a.end(), c.begin(), c.end());
+
+		IUTEST_ASSERT_EQ_COLLECTIONS(a.begin(), a.end(), d, d+(sizeof(d)/sizeof(d[0])));
+		IUTEST_EXPECT_EQ_COLLECTIONS(a.begin(), a.end(), d, d+(sizeof(d)/sizeof(d[0])));
+		IUTEST_INFORM_EQ_COLLECTIONS(a.begin(), a.end(), d, d+(sizeof(d)/sizeof(d[0])));
+	}
+}
+
 IUTEST(AssertionTest, NE)
 {
 	int x0=0, x1=1;

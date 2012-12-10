@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01019908u	//!< iutest version 1.1.99.8
+#define	IUTEST_VER			0x01019910u	//!< iutest version 1.1.99.10
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x01u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x08u		//!< Revision
+#define IUTEST_REVISION		0x10u		//!< Revision
 
 /**
  * @mainpage
@@ -92,11 +92,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.1.99.7
+  <li>v1.1.99.10
     <ul>
+      <li>IUTEST_*_EQ_COLLECTIONS アサーションを追加</li>
       <li>Android NDK 対応</li>
-	  <li>名前空間を提供する IUTEST_PACKAGE 追加</li>
+      <li>名前空間を提供する IUTEST_PACKAGE 追加</li>
       <li>IUTEST_*_STRNE, IUTEST_*_STRCASENE の失敗メッセージを改善</li>
+      <li>プログレス出力リスナーを追加</li>
     </ul>
   </li>
   <li>v1.1.2.0
@@ -114,7 +116,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   </li>
   <li>v1.1.0.0
     <ul>
-      <li>リリースバージョン</li>
+      <li>v1.1.0 リリースバージョン</li>
     </ul>
   </li>
   <li>v1.0.7.1

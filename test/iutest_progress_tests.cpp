@@ -1,0 +1,58 @@
+//======================================================================
+//-----------------------------------------------------------------------
+/**
+ * @file		iutest_progress_tests.cpp
+ * @brief		プログレス表示 テスト
+ *
+ * @author		t.sirayanagi
+ * @version		1.0
+ *
+ * @par			copyright
+ * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * The new BSD License is applied to this software.
+ * see LICENSE
+*/
+//-----------------------------------------------------------------------
+//======================================================================
+
+//======================================================================
+// include
+#include "../include/iutest.hpp"
+#include "../include/listener/iutest_progress_printer.hpp"
+
+#ifdef UNICODE
+int wmain(int argc, wchar_t* argv[])
+#else
+int main(int argc, char* argv[])
+#endif
+{
+	IUTEST_INIT(&argc, argv);
+	::iutest::SetUpProgressPrintListener();
+	return IUTEST_RUN_ALL_TESTS();
+}
+
+#define DECL_TEST(n)	IUTEST(Foo, Bar##n) {	\
+							::iutest::internal::posix::SleepMillisec(1000); }
+
+
+DECL_TEST(0)
+DECL_TEST(1)
+DECL_TEST(2)
+DECL_TEST(3)
+DECL_TEST(4)
+DECL_TEST(5)
+DECL_TEST(6)
+DECL_TEST(7)
+DECL_TEST(8)
+DECL_TEST(9)
+DECL_TEST(10)
+DECL_TEST(11)
+DECL_TEST(12)
+DECL_TEST(13)
+DECL_TEST(14)
+DECL_TEST(15)
+DECL_TEST(16)
+DECL_TEST(17)
+DECL_TEST(18)
+DECL_TEST(19)
+

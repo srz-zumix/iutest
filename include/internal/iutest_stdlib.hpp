@@ -190,7 +190,7 @@ namespace detail
 */
 inline int iu_mbtowc(wchar_t* dst, const char* src, size_t size)
 {
-#if defined(IUTEST_OS_LINUX_ANDROID)
+#if defined(IUTEST_OS_LINUX_ANDROID) || defined(IUTEST_OS_WINDOWS_MOBILE)
 	// unimplimented
 	return 0;
 #else

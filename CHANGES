@@ -1,3 +1,16 @@
+Changes for 1.2.0:
+
+** 追加
+* IUTEST_*_EQ_COLLECTIONS アサーションを追加
+* 名前空間を提供する IUTEST_PACKAGE 追加
+* プログレス出力リスナーを追加
+
+** 修正
+* Android NDK 対応
+* IUTEST_*_NO_THROW で失敗したときに例外の情報を出力するように修正
+* IUTEST_*_STRNE, IUTEST_*_STRCASENE の失敗メッセージを改善
+* デフォルト printer のワイド文字列対応
+
 Changes for 1.1.1:
 
 ** 修正

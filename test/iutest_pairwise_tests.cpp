@@ -62,6 +62,7 @@ class PairwiseTest : public ::iutest::TestWithParam< PairwiseTestTuple >
 
 IUTEST_P(PairwiseTest, Num)
 {
+#ifndef USE_PROGRESS
 	PairwiseTestTuple param = GetParam();
 	printf("%d %d %d %d %d %d %d %d %d\n"
 		, ::iutest::tuples::get<0>(param)
@@ -74,6 +75,7 @@ IUTEST_P(PairwiseTest, Num)
 		, ::iutest::tuples::get<7>(param)
 		, ::iutest::tuples::get<8>(param)
 	);
+#endif
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P(A, PairwiseTest
@@ -98,6 +100,7 @@ class VariadicPairwiseTest : public ::iutest::TestWithParam< VariadicPairwiseTes
 
 IUTEST_P(VariadicPairwiseTest, Num)
 {
+#ifndef USE_PROGRESS
 	VariadicPairwiseTestTuple param = GetParam();
 	printf("%d %d %d %d %d %d %d %d %d %d\n"
 		, ::iutest::tuples::get<0>(param)
@@ -111,6 +114,7 @@ IUTEST_P(VariadicPairwiseTest, Num)
 		, ::iutest::tuples::get<8>(param)
 		, ::iutest::tuples::get<9>(param)
 	);
+#endif
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P(A, VariadicPairwiseTest

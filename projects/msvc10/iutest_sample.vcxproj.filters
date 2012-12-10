@@ -22,6 +22,9 @@
     <Filter Include="iutest\util">
       <UniqueIdentifier>{774a6f36-c683-4fa3-ac24-725971436db1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="iutest\gtest\switch">
+      <UniqueIdentifier>{5b83bfe1-d094-4793-a4df-e852a8c34281}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\gtest\iutest_switch.hpp">
@@ -221,6 +224,45 @@
     </ClInclude>
     <ClInclude Include="..\..\include\iutest_config.hpp">
       <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\listener\iutest_progress_printer.hpp">
+      <Filter>iutest\listener</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_assert.hpp">
+      <Filter>iutest\gtest\switch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_cmphelper.hpp">
+      <Filter>iutest\gtest\switch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_core.hpp">
+      <Filter>iutest\gtest\switch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_eq_collections.hpp">
+      <Filter>iutest\gtest\switch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_expect.hpp">
+      <Filter>iutest\gtest\switch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_inform.hpp">
+      <Filter>iutest\gtest\switch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_package.hpp">
+      <Filter>iutest\gtest\switch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_peep.hpp">
+      <Filter>iutest\gtest\switch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_pmz.hpp">
+      <Filter>iutest\gtest\switch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_port.hpp">
+      <Filter>iutest\gtest\switch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_skip.hpp">
+      <Filter>iutest\gtest\switch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_throw_value.hpp">
+      <Filter>iutest\gtest\switch</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,7 @@ namespace iutest_unittest
 {
 	TEST_MODULE_INITIALIZE(iutest)
 	{
-		iuutil::VisualStudio::SetUpCppUnitTest();
+		::iuutil::VisualStudio::SetUpCppUnitTest();
 	}
 
 	TEST_CLASS(UnitTest1)

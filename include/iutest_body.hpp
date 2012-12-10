@@ -231,6 +231,7 @@ inline void Test::RecordProperty(const char* key, const char* value)
 	{
 		GetCurrentTest()->m_test_info->RecordProperty(prop);
 	}
+	
 	TestEnv::event_listeners().OnTestRecordProperty(prop);
 };
 

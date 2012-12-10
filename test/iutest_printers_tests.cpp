@@ -94,6 +94,16 @@ IUTEST(PrintToTest, WideString)
 	IUTEST_SUCCEED() << ::iutest::PrintToString(L"Test");
 }
 
+IUTEST(PrintToTest, UnicodeString)
+{
+#if IUTEST_HAS_CHAR16_T
+	IUTEST_SUCCEED() << ::iutest::PrintToString(u"Test");
+#endif
+#if IUTEST_HAS_CHAR32_T
+	IUTEST_SUCCEED() << ::iutest::PrintToString(U"Test");
+#endif
+}
+
 struct Point0
 {
 	unsigned int x,y;
