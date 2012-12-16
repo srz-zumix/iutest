@@ -405,12 +405,14 @@ AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqCollections(const char* expr
 							   , T1 b1, T1 e1, T2 b2, T2 e2)
 {
 	int elem=0;
-	AssertionResult ar = AssertionSuccess();
+	bool result = true;
+	Message ar;
 	for( elem=0; b1 != e1 && b2 != e2; ++b1, ++b2, ++elem )
 	{
 		if( !EqHelper<false>::Compare("", "", *b1, *b2) )
 		{
-			ar = AssertionFailure() << "\nMismatch in a position " << elem << ": "
+			result = false;
+			ar << "\nMismatch in a position " << elem << ": "
 				<< FormatForComparisonFailureMessage(*b1, *b2)
 				<< " vs " << FormatForComparisonFailureMessage(*b2, *b1);
 		}
@@ -420,19 +422,21 @@ AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqCollections(const char* expr
 		int elem1 = elem;
 		for( ; b1 != e1; ++b1, ++elem1 )
 			;
-		ar = AssertionFailure() << "\nMismatch element : " << elem1 << " vs " << elem;
+		result = false;
+		ar << "\nMismatch element : " << elem1 << " vs " << elem;
 	}
 	if( b2 != e2 )
 	{
 		int elem2 = elem;
 		for( ; b2 != e2; ++b2, ++elem2 )
 			;
-		ar = AssertionFailure() << "\nMismatch element : " << elem << " vs " << elem2;
+		result = false;
+		ar << "\nMismatch element : " << elem << " vs " << elem2;
 	}
-	if( !ar )
+	if( !result )
 	{
 		return AssertionFailure() << "error: Expected: { " << expr1b << ", " << expr1e << " } == { "
-			<< expr2b << ", " << expr2e << " }\n  Actual:" << ar.message();
+			<< expr2b << ", " << expr2e << " }\n  Actual:" << ar;
 	}
 	return AssertionSuccess();
 }
