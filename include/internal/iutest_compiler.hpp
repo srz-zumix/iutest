@@ -101,7 +101,7 @@
 // static_assert
 #if	!defined(IUTEST_HAS_STATIC_ASSERT)
 #  if	defined(__clang__)
-#    if !__has_feature(cxx_static_assert)
+#    if __has_feature(cxx_static_assert)
 #      define IUTEST_HAS_STATIC_ASSERT	1
 #    endif
 #  elif	defined(__GNUC__)
