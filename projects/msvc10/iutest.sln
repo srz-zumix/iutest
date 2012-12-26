@@ -2,9 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "iutest_sample", "iutest_sample.vcxproj", "{13851977-F039-448D-A853-A98325BDA088}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C46DA5A4-27B5-4A0C-97D0-F5D0B9881087} = {C46DA5A4-27B5-4A0C-97D0-F5D0B9881087}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest1", "gtest\gtest1\gtest1.vcxproj", "{AC9366E1-054F-4CB1-AE5A-555D6011526A}"
 EndProject
