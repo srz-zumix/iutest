@@ -79,14 +79,41 @@ macro(config_compiler_and_linker)
   set(cxx_no_rtti "${cxx_default} ${cxx_no_rtti_flags}")
   set(cxx_use_own_tuple "${cxx_default}")
 
-  # For building the gtest libraries.
+  # For building the iutest libraries.
   set(cxx_strict "${cxx_default} ${cxx_strict_flags}")
 endmacro()
 
+#
+# lib
+#
+function(cxx_library_with_type name type cxx_flags)
+  # type can be either STATIC or SHARED to denote a static or shared library.
+  # ARGN refers to additional arguments after 'cxx_flags'.
+  add_library(${name} ${type} ${ARGN})
+  set_target_properties(${name}
+    PROPERTIES
+    COMPILE_FLAGS "${cxx_flags}")
+  if (BUILD_SHARED_LIBS OR type STREQUAL "SHARED")
+    set_target_properties(${name}
+      PROPERTIES
+      COMPILE_DEFINITIONS)
+  endif()
+  if (CMAKE_USE_PTHREADS_INIT)
+    target_link_libraries(${name} ${CMAKE_THREAD_LIBS_INIT})
+  endif()
+endfunction()
 
 #
 # ターゲット設定
 #
+function(cxx_shared_library name cxx_flags)
+  cxx_library_with_type(${name} SHARED "${cxx_flags}" ${ARGN})
+endfunction()
+
+function(cxx_library name cxx_flags)
+  cxx_library_with_type(${name} "" "${cxx_flags}" ${ARGN})
+endfunction()
+
 function(cxx_executable_with_flags name cxx_flags libs)
   # ソースコード
   add_executable(${name} ${ARGN})

@@ -36,12 +36,14 @@
 #  define IUTEST_PLATFORM				"CYGWIN"
 #elif	defined(_WIN32) || defined(WIN32) || defined(__WIN32__)
 #  define IUTEST_OS_WINDOWS				1
-#  define IUTEST_PLATFORM				"Win32"
+#  define IUTEST_PLATFORM				"Windows"
 #  include <windows.h>
 #  if	defined(_WIN32_WCE)
 #    define IUTEST_OS_WINDOWS_MOBILE	1
 #  elif	defined(__MINGW__) || defined(__MINGW32__)
 #    define IUTEST_OS_WINDOWS_MINGW		1
+#  elif	defined(__CUDACC__)
+#    define IUTEST_OS_WINDOWS_CUDA		1
 #  else
 #    define IUTEST_OS_WINDOWS_DESKTOP	1
 #  endif
@@ -188,6 +190,12 @@
 #  define IUTEST_HAS_DELETED_FUNCTIONS		0
 #endif
 
+#if IUTEST_HAS_DELETED_FUNCTIONS
+#  define IUTEST_DECL_DELETED_FUNCTION	= delete
+#else
+#  define IUTEST_DECL_DELETED_FUNCTION
+#endif
+
 // variadic template
 #ifndef IUTEST_HAS_VARIADIC_TEMPLATES
 #  if	defined(__clang__)
@@ -269,6 +277,72 @@
 
 #ifndef IUTEST_HAS_LAMBDA
 #  define IUTEST_HAS_LAMBDA		0
+#endif
+
+// explicit conversion operator
+#ifndef IUTEST_HAS_EXPLICIT_CONVERSION
+#  if	defined(__clang__)
+#    if __has_feature(cxx_explicit_conversions)
+#      define IUTEST_HAS_EXPLICIT_CONVERSION	1
+#    endif
+#  elif	defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_EXPLICIT_CONVERSION	1
+#    endif
+#  elif	defined(_MSC_VER)
+#    if _MSC_FULL_VER == 170051025
+#      define IUTEST_HAS_EXPLICIT_CONVERSION	1
+#    endif
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_EXPLICIT_CONVERSION
+#  define IUTEST_HAS_EXPLICIT_CONVERSION		0
+#endif
+
+#ifndef IUTEST_CXX_EXPLICIT_CONVERSION
+#  if IUTEST_HAS_EXPLICIT_CONVERSION
+#    define IUTEST_CXX_EXPLICIT_CONVERSION		explicit
+#  else
+#    define IUTEST_CXX_EXPLICIT_CONVERSION			
+#  endif
+#endif
+
+// override and final
+#ifndef IUTEST_HAS_OVERRIDE_AND_FINAL
+#  if	defined(__clang__)
+#    if __has_feature(cxx_override_control)
+#      define IUTEST_HAS_OVERRIDE_AND_FINAL	1
+#    endif
+#  elif	defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_OVERRIDE_AND_FINAL	1
+#    endif
+#  elif	defined(_MSC_VER)
+#    if _MSC_VER >= 1700
+#      define IUTEST_HAS_OVERRIDE_AND_FINAL	1
+#    endif
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_OVERRIDE_AND_FINAL
+#  define IUTEST_HAS_OVERRIDE_AND_FINAL		0
+#endif
+
+#ifndef IUTEST_CXX_OVERRIDE
+#  if IUTEST_HAS_OVERRIDE_AND_FINAL
+#    define IUTEST_CXX_OVERRIDE		override
+#  else
+#    define IUTEST_CXX_OVERRIDE
+#  endif
+#endif
+
+#ifndef IUTEST_CXX_FINAL
+#  if IUTEST_HAS_OVERRIDE_AND_FINAL
+#    define IUTEST_CXX_FINAL		final
+#  else
+#    define IUTEST_CXX_FINAL
+#  endif
 #endif
 
 // attribute

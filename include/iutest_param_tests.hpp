@@ -128,13 +128,13 @@ public:
 
 private:
 	// テストケースの作成
-	virtual TestCase*	MakeTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown) const
+	virtual TestCase*	MakeTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown) const IUTEST_CXX_OVERRIDE
 	{
 		return UnitTest::instance().AddTestCase<TestCase>(testcase_name, id, setup, teardown);
 	}
 
 	// テストの作成登録
-	virtual	void	RegisterTest(TestCase* testcase, ParamType param, int index) const
+	virtual	void	RegisterTest(TestCase* testcase, ParamType param, int index) const IUTEST_CXX_OVERRIDE
 	{
 		EachTest* test = new EachTest(testcase, detail::MakeIndexTestName(this->m_name.c_str(), index).c_str(), param);
 		// new オブジェクトを管理してもらう

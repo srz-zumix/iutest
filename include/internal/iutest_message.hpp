@@ -27,34 +27,15 @@ namespace detail
 {
 
 //======================================================================
-// function
+// declare
 /**
  * @brief	ファイル名と行番号を連結した文字列を生成(コンパイラを考慮する)
 */
-inline ::std::string FormatFileLocation(const char* file, int line)
-{
-	const char* const file_name = file == NULL ? kStrings::UnkownFile : file;
-	if( line < 0 ) return file;
-	iuStringStream::type strm;
-#ifdef _MSC_VER
-	strm << file_name << "(" << line << ")";
-#else
-	strm << file_name << ":" << line;
-#endif
-	return strm.str();
-}
-
+::std::string FormatFileLocation(const char* file, int line);
 /**
  * @brief	ファイル名と行番号を連結した文字列を生成
 */
-inline ::std::string FormatCompilerIndependentFileLocation(const char* file, int line)
-{
-	const char* const file_name = file == NULL ? kStrings::UnkownFile : file;
-	if( line < 0 ) return file;
-	iuStringStream::type strm;
-	strm << file_name << ":" << line;
-	return strm.str();
-}
+::std::string FormatCompilerIndependentFileLocation(const char* file, int line);
 
 //======================================================================
 // class
@@ -131,22 +112,9 @@ public:
 	/**
 	 * @brief	メッセージの追記
 	*/
-	void	add_message(const char* str)
-	{
-		append(str);
-	}
+	void	add_message(const char* str) { append(str); }
 private:
-	void	append(const char* str)
-	{
-		if( str == NULL )
-		{
-			m_message += "(null)";
-		}
-		else
-		{
-			m_message += str;
-		}
-	}
+	void	append(const char* str);
 };
 
 inline iu_ostream& operator << (iu_ostream& os, const iuMessage& msg)
@@ -201,6 +169,42 @@ public:
 		return make_message() + "\n";
 	}
 };
+
+//======================================================================
+// function
+inline void iuMessage::append(const char* str)
+{
+	if( str == NULL )
+	{
+		m_message += "(null)";
+	}
+	else
+	{
+		m_message += str;
+	}
+}
+
+inline ::std::string FormatFileLocation(const char* file, int line)
+{
+	const char* const file_name = file == NULL ? kStrings::UnkownFile : file;
+	if( line < 0 ) return file;
+	iuStringStream::type strm;
+#ifdef _MSC_VER
+	strm << file_name << "(" << line << ")";
+#else
+	strm << file_name << ":" << line;
+#endif
+	return strm.str();
+}
+
+inline ::std::string FormatCompilerIndependentFileLocation(const char* file, int line)
+{
+	const char* const file_name = file == NULL ? kStrings::UnkownFile : file;
+	if( line < 0 ) return file;
+	iuStringStream::type strm;
+	strm << file_name << ":" << line;
+	return strm.str();
+}
 
 }	// end of namespace detail
 }	// end of namespace iutest

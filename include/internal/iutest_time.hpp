@@ -32,6 +32,47 @@ namespace detail
 {
 
 //======================================================================
+// declare
+::std::string	FormatTimeInMillisecAsSecond(TimeInMillisec msec);
+time_t			GetTime(void);
+TimeInMillisec	GetTimeInMillis(void);
+unsigned int	GetIndefiniteValue(void);
+
+//======================================================================
+// class
+/**
+ * @internal
+ * @brief	ストップウォッチクラス
+*/
+class iuStopWatch
+{
+private:
+	TimeInMillisec	m_begin;
+public:
+	iuStopWatch(void) : m_begin(0)	{}
+
+public:
+	// 現在の時間をミリ秒単位で取得
+	static TimeInMillisec	get_millisec(void)
+	{
+#if		defined(IUTEST_NOT_SUPPORT_STOPWATCH)
+		return 0;
+#else
+		return GetTimeInMillis();
+#endif
+	}
+public:
+	void			start(void)
+	{
+		m_begin = get_millisec();
+	}
+	TimeInMillisec	stop(void) const
+	{
+		return get_millisec() - m_begin;
+	}
+};
+
+//======================================================================
 // function
 /**
   * @internal
@@ -101,40 +142,6 @@ inline unsigned int GetIndefiniteValue(void)
 	return s;
 #endif
 }
-
-//======================================================================
-// class
-/**
- * @internal
- * @brief	ストップウォッチクラス
-*/
-class iuStopWatch
-{
-private:
-	TimeInMillisec	m_begin;
-public:
-	iuStopWatch(void) : m_begin(0)	{}
-
-public:
-	// 現在の時間をミリ秒単位で取得
-	static TimeInMillisec	get_millisec(void)
-	{
-#if		defined(IUTEST_NOT_SUPPORT_STOPWATCH)
-		return 0;
-#else
-		return GetTimeInMillis();
-#endif
-	}
-public:
-	void			start(void)
-	{
-		m_begin = get_millisec();
-	}
-	TimeInMillisec	stop(void) const
-	{
-		return get_millisec() - m_begin;
-	}
-};
 
 }	// end of namespace detail
 }	// end of namespace iutest

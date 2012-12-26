@@ -209,7 +209,7 @@ protected:
 
 public:
 	/** type param 文字列の取得 */
-	virtual const char*	type_param(void) const	{ return m_type_param.empty() ? NULL : m_type_param.c_str(); }
+	virtual const char*	type_param(void) const IUTEST_CXX_OVERRIDE	{ return m_type_param.empty() ? NULL : m_type_param.c_str(); }
 
 private:
 	friend class UnitTestImpl;
@@ -228,107 +228,15 @@ class TestCaseMediator : public detail::iuITestCaseMediator
 public:
 	TestCaseMediator(TestCase* p) : iuITestCaseMediator(p) {}
 public:
-	virtual const char*	test_case_name(void) const { return m_test_case->name(); }
-	virtual const char*	type_param(void) const	{ return m_test_case->type_param(); }
+	virtual const char*	test_case_name(void) const IUTEST_CXX_OVERRIDE { return m_test_case->name(); }
+	virtual const char*	type_param(void)	 const IUTEST_CXX_OVERRIDE { return m_test_case->type_param(); }
 };
 
 }	// end of namespace detail
-
-inline bool	TestCase::Run(void)
-{
-	if( !should_run() ) return true;
-
-	if( TestFlag::IsEnableFlag(TestFlag::SHUFFLE_TESTS) )
-	{
-		RandomShuffle(m_testinfos, TestEnv::genrand());
-	}
-
-	// テスト開始
-	TestEnv::event_listeners().OnTestCaseStart(*this);
-	bool result = RunImpl();
-	// テスト終了
-	TestEnv::event_listeners().OnTestCaseEnd(*this);
-
-	return result;
-}
-
-inline bool TestCase::RunImpl(void)
-{
-	bool result=true;
-	m_elapsedmsec = 0;
-
-	m_setup();
-	{
-		detail::iuStopWatch sw;
-		sw.start();
-		for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
-		{
-			if( (*it)->should_run() )
-			{
-				// 実行
-				if( !(*it)->Run() )
-				{
-					result = false;
-				}
-			}
-		}
-		m_elapsedmsec = sw.stop();
-	}
-	m_teardown();
-	return result;
-}
-
-inline void	TestCase::clear(void)
-{
-	for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
-	{
-		(*it)->clear();
-	}
-}
-
-inline bool	TestCase::filter(void)
-{
-	m_should_run_num = 0;
-	m_disable_num = 0;
-	for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
-	{
-		if( m_disable )
-		{
-			// DISABLE の伝搬
-			(*it)->m_disable = true;
-		}
-		if( (*it)->is_disabled_test() )
-		{
-			++m_disable_num;
-		}
-		if( (*it)->filter() )
-		{
-			++m_should_run_num;
-		}
-	}
-	return should_run();
-}
-
-inline int TestCase::get_failed_test_count(void) const
-{
-	int count = 0;
-	for( iuTestInfos::const_iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
-	{
-		if( (*it)->should_run() && (*it)->HasFailure() ) ++count;
-	}
-	return count;
-}
-
-inline int TestCase::get_skipped_test_count(void) const
-{
-	int count = 0;
-	for( iuTestInfos::const_iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
-	{
-		if( (*it)->is_skipped() ) ++count;
-	}
-	return count;
-}
-
 }	// end of namespace iutest
+
+#if !IUTEST_HAS_LIB
+#  include "impl/iutest_case.ipp"
+#endif
 
 #endif

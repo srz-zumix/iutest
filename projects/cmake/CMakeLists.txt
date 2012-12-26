@@ -3,7 +3,7 @@
 #
 
 # option
-option(build_gtest_samples "gtest sample build." ON)
+option(build_gtest_samples "gtest sample build." OFF)
 
 # Defines pre_project_set_up_hermetic_build() and set_up_hermetic_build().
 include(cmake/hermetic_build.cmake OPTIONAL)
@@ -38,15 +38,21 @@ include_directories(
 
 ########################################################################
 #
+# ライブラリ
+#
+cxx_library(iutest "${cxx_strict}" ../../src/iutest_all.cpp)
+
+########################################################################
+#
 # サンプル
 #
-cxx_executable_sample(iutest ../../samples/main.cpp ../../samples/sub.cpp)
+cxx_executable_sample(iutest_sample ../../samples/main.cpp ../../samples/sub.cpp)
 
 ########################################################################
 #
 # gtest サンプル
 #
-if (gtest_build_samples)
+if (build_gtest_samples)
   cxx_executable_gtest_sample(sample1_unittest  ../../samples/gtest sample1.cc)
   cxx_executable_gtest_sample(sample2_unittest  ../../samples/gtest sample2.cc)
   cxx_executable_gtest_sample(sample3_unittest  ../../samples/gtest )

@@ -122,7 +122,7 @@ class FakeTestPartResultReporter : public TestPartResultReporterInterface
 {
 public:
 	virtual ~FakeTestPartResultReporter(void) {}
-	virtual void ReportTestPartResult(const TestPartResult& result)
+	virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
 	{
 		IUTEST_UNUSED_VAR(result);
 	}

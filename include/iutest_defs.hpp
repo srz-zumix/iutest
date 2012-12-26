@@ -21,6 +21,7 @@
 // include
 #include "internal/iutest_compiler.hpp"
 #include "internal/iutest_stdlib.hpp"
+#include "internal/iutest_pp.hpp"
 #include "iutest_config.hpp"
 #include <stdio.h>
 #include <vector>

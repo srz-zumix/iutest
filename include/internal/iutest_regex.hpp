@@ -34,83 +34,11 @@ public:
 	static bool	match(const char* regex, const char* src);
 };
 
-inline bool	iuRegex::match(const char* regex, const char* src)
-{
-	const char* tp = regex;
-
-	while( *tp != '\0' )
-	{
-		const char* end = tp;
-		while( *end != '\0' && *end != ':' ) ++end;
-
-		{
-			bool match = true;
-			const char* end2 = tp;
-			while( end2 != end )
-			{
-				++end2;
-				while( *end2 != '-' && end2 != end ) ++end2;
-				if( *tp == '-' )
-				{
-					if( match_impl(tp+1, end2, src) ) match = false;
-				}
-				else
-				{
-					if( !match_impl(tp, end2, src) ) match = false;
-				}
-				tp = end2;
-			}
-			if( match ) return true;
-		}
-		tp = end;
-	}
-	return false;
-}
-
-inline bool	iuRegex::match_impl(const char* begin, const char* end, const char* src)
-{
-	const char* tp = begin;
-	if( *tp == '\0' ) return false;
-	while( tp != end )
-	{
-		if( *tp == '*' )	// 任意の文字列にマッチ
-		{
-			++tp;
-			while( *tp == '*' ) ++tp;
-			if( tp == end ) return true;
-
-			{
-				const char nc = *tp;
-				if( nc == '\0' ) return true;
-
-				for( ; ; )
-				{
-					while( *src != nc )
-					{
-						++src;
-						if( *src == '\0' ) return false;
-					}
-					// つづきを検査
-					if( match_impl(tp+1, end, ++src) ) return true;
-				}
-			}
-		}
-		else if( *tp == '?' )	// 任意の一文字にマッチ
-		{
-			if( *src == '\0' ) return false;
-		}
-		else	// 指定文字にマッチ
-		{
-			if( *tp != *src ) return false;
-		}
-		++tp;
-		++src;
-	}
-	if( *src != '\0' ) return false;
-	return true;
-}
-
 }	// end of namespace detail
 }	// end of namespace iutest
+
+#if !IUTEST_HAS_LIB
+#  include "../impl/iutest_regex.ipp"
+#endif
 
 #endif

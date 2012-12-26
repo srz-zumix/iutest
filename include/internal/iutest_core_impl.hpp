@@ -67,70 +67,20 @@ public:
 		return p;
 	}
 	/** @private */
-	void AddTestInfo(TestCase* pCase, TestInfo* pInfo)
-	{
-		++m_total_test_num;
-		pCase->push_back(pInfo);
-	}
+	void AddTestInfo(TestCase* pCase, TestInfo* pInfo);
 	/** @private */
-	static void SkipTest(void)
-	{
-		Test* test = Test::GetCurrentTest();
-		if( test != NULL && test->m_test_info->ptr() != NULL )
-		{
-			test->m_test_info->ptr()->m_skip = true;
-		}
-	}
+	static void SkipTest(void);
+
 protected:
 	/**
 	 * @brief	テストのリストアップ
 	*/
-	int		Listup(void) const
-	{
-		detail::iuConsole::output("%d tests from %d testcase\n", m_total_test_num, m_testcases.size() );
-		for( iuTestCases::const_iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
-		{
-			detail::iuConsole::output((*it)->name());
-			detail::iuConsole::output("\n");
+	int		Listup(void) const;
 
-			for( TestCase::iuTestInfos::const_iterator it2 = (*it)->begin(), end2=(*it)->end(); it2 != end2; ++it2 )
-			{
-				detail::iuConsole::output("  ");
-				detail::iuConsole::output((*it2)->name());
-				detail::iuConsole::output("\n");
-			}
-		}
-		return 0;
-	}
 	/**
 	 * @brief	事前処理
 	*/
-	bool	PreRunner(void)
-	{
-		InitializeImpl();
-
-		if( TestFlag::IsEnableFlag(TestFlag::SHOW_HELP) )
-		{
-			detail::iuOptionMessage::ShowHelp();
-		}
-		else if( TestFlag::IsEnableFlag(TestFlag::SHOW_VERSION) )
-		{
-			detail::iuOptionMessage::ShowVersion();
-		}
-		else if( TestFlag::IsEnableFlag(TestFlag::SHOW_FEATURE) )
-		{
-			detail::iuOptionMessage::ShowFeature();
-		}
-		else if( TestFlag::IsEnableFlag(TestFlag::SHOW_TESTS_LIST) )
-		{
-			Listup();
-		}
-		else
-		{
-			return true;
-		}
-		return false;
-	}
+	bool	PreRunner(void);
 
 private:
 	/**
@@ -164,15 +114,7 @@ private:
 	/**
 	 * @brief	後片付け
 	*/
-	void	TerminateImpl(void)
-	{
-		for( iuTestCases::iterator it = m_testcases.begin(); it != m_testcases.end(); it = m_testcases.begin())
-		{
-			TestCase* p = (*it);
-			m_testcases.erase(it);
-			delete p;
-		}
-	}
+	void	TerminateImpl(void);
 
 private:
 #if (IUTEST_HAS_EXCEPTIONS && defined(_MSC_VER)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
@@ -181,19 +123,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
 	// _invalid_parameter_handler
 	static void OnInvalidParameter(const wchar_t * expression, const wchar_t * function
-		, const wchar_t * file, unsigned int line, uintptr_t pReserved)
-	{
-		IUTEST_UNUSED_VAR(file);
-		IUTEST_UNUSED_VAR(line);
-		IUTEST_UNUSED_VAR(pReserved);
-		char func[260];
-		wcstombs(func, function, 260);
-		char expr[260];
-		wcstombs(expr, expression, 260);
-		std::string msg = func;
-		msg += expr;
-		throw std::invalid_argument(msg);
-	}
+		, const wchar_t * file, unsigned int line, uintptr_t pReserved);
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
@@ -224,14 +154,7 @@ namespace detail
  * @param [in]	basename	= ベース名
  * @param [in]	index		= インデックス
 */
-inline ::std::string MakeIndexTestName(const char* basename, int index)
-{
-	::std::string name = basename;
-	iuStringStream::type strm; strm << index;
-	name += "/";
-	name += strm.str();
-	return name;
-}
+::std::string MakeIndexTestName(const char* basename, int index);
 
 /**
  * @brief	テスト名の作成
@@ -239,16 +162,14 @@ inline ::std::string MakeIndexTestName(const char* basename, int index)
  * @param [in]	basename	= ベース名
  * @param [in]	index		= インデックス
 */
-inline ::std::string MakeIndexTestName(const char* prefix, const char* basename, int index)
-{
-	::std::string name = prefix;
-	if( !name.empty() ) name += "/";
-	name += MakeIndexTestName(basename, index);
-	return name;
-}
+::std::string MakeIndexTestName(const char* prefix, const char* basename, int index);
 
 }
 
 }	// end of namespace iutest
+
+#if !IUTEST_HAS_LIB
+#  include "../impl/iutest_core_impl.ipp"
+#endif
 
 #endif

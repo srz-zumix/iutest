@@ -120,58 +120,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\test\main.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\include\gtest\iutest_switch.hpp" />
-    <ClInclude Include="..\..\..\include\internal\iutest_charcode.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_compiler.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_console.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_constant.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_core_impl.hpp" />
-    <ClInclude Include="..\..\..\include\internal\iutest_debug.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_exception.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_factory.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_file.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_genparams.hpp" />
-    <ClInclude Include="..\..\..\include\internal\iutest_internal.hpp" />
-    <ClInclude Include="..\..\..\include\internal\iutest_internal_defs.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_list.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_mediator.hpp" />
-    <ClInclude Include="..\..\..\include\internal\iutest_message.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_option_message.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_os.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_params_util.hpp" />
-    <ClInclude Include="..\..\..\include\internal\iutest_pool.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_pp.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_random.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_regex.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_string.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_time.h" />
-    <ClInclude Include="..\..\..\include\internal\iutest_tuple.hpp" />
-    <ClInclude Include="..\..\..\include\internal\iutest_typed_util.hpp" />
-    <ClInclude Include="..\..\..\include\internal\iutest_typelist.hpp" />
-    <ClInclude Include="..\..\..\include\iutest.hpp" />
-    <ClInclude Include="..\..\..\include\iutest_assertion.hpp" />
-    <ClInclude Include="..\..\..\include\iutest_body.hpp" />
-    <ClInclude Include="..\..\..\include\iutest_case.hpp" />
-    <ClInclude Include="..\..\..\include\iutest_core.hpp" />
-    <ClInclude Include="..\..\..\include\iutest_defs.h" />
-    <ClInclude Include="..\..\..\include\iutest_env.hpp" />
-    <ClInclude Include="..\..\..\include\iutest_info.hpp" />
-    <ClInclude Include="..\..\..\include\iutest_listener.hpp" />
-    <ClInclude Include="..\..\..\include\iutest_param_tests.hpp" />
-    <ClInclude Include="..\..\..\include\iutest_pred.hpp" />
-    <ClInclude Include="..\..\..\include\iutest_printers.hpp" />
-    <ClInclude Include="..\..\..\include\iutest_result.hpp" />
-    <ClInclude Include="..\..\..\include\iutest_static_assertion.hpp" />
-    <ClInclude Include="..\..\..\include\iutest_typed_tests.hpp" />
-    <ClInclude Include="..\..\..\include\iutest_util.hpp" />
-    <ClInclude Include="..\..\..\include\iutest_ver.h" />
-    <ClInclude Include="..\..\..\include\listener\iutest_default_printer.hpp" />
-    <ClInclude Include="..\..\..\include\listener\iutest_default_xml_generator.hpp" />
-    <ClInclude Include="..\..\..\include\tr1\iutest_value_tmp_tests.hpp" />
-    <ClInclude Include="..\..\..\include\util\iutest_util_assertion.hpp" />
-    <ClInclude Include="..\..\..\include\util\iutest_util_output.hpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

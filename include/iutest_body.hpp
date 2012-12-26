@@ -213,48 +213,10 @@ class TestWithParam : public Test, public WithParamInterface<T>
 {
 };
 
-inline void Test::RecordProperty(const char* key, const char* value)
-{
-	// 不正なキーのチェック
-	const char* ban[] = { "name", "status", "time", "classname", "type_param", "value_param" };
-	::std::string key_ = key;
-	for( int i=0, n=sizeof(ban)/sizeof(ban[0]); i < n; ++i )
-	{
-		if( key_ == ban[i] )
-		{
-			key_ += "_";
-			break;
-		}
-	}
-	TestProperty prop(key_.c_str(), value);
-	if( GetCurrentTest() != NULL && GetCurrentTest()->m_test_info != NULL )
-	{
-		GetCurrentTest()->m_test_info->RecordProperty(prop);
-	}
-	
-	TestEnv::event_listeners().OnTestRecordProperty(prop);
-};
-
-inline 	void Test::Run(detail::iuITestInfoMediator* test_info)
-{
-	m_test_info = test_info;
-	test_info_ = test_info->ptr();
-	unsigned int seed = TestEnv::get_random_seed();
-	if( seed == 0 )
-	{
-		seed = detail::GetIndefiniteValue();
-	}
-	m_random_seed = seed;
-	m_random.init(seed);
-
-	SetUp();
-	Body();
-	TearDown();
-
-	test_info_ = NULL;
-	m_test_info = NULL;
-}
-
 }	// end of namespace iutest
+
+#if !IUTEST_HAS_LIB
+#  include "impl/iutest_body.ipp"
+#endif
 
 #endif

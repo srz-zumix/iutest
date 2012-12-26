@@ -22,7 +22,6 @@
 #include "../iutest_defs.hpp"
 #include "iutest_string.hpp"
 #include "iutest_type_traits.hpp"
-#include "iutest_pp.hpp"
 
 #if IUTEST_HAS_HDR_CXXABI
 #  include <cxxabi.h>

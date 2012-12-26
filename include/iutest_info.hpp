@@ -40,19 +40,19 @@ private:
 	public:
 		Mediator(TestInfo* p=NULL) : iuITestInfoMediator(p) {}
 	public:
-		virtual	bool	HasFatalFailure(void) const
+		virtual	bool	HasFatalFailure(void) const IUTEST_CXX_OVERRIDE
 		{
 			return ptr()->HasFatalFailure();
 		}
-		virtual	bool	HasNonfatalFailure(void) const
+		virtual	bool	HasNonfatalFailure(void) const IUTEST_CXX_OVERRIDE
 		{
 			return ptr()->HasNonfatalFailure();
 		}
-		virtual bool	HasFailure(void) const
+		virtual bool	HasFailure(void) const IUTEST_CXX_OVERRIDE
 		{
 			return ptr()->HasFailure();
 		}
-		virtual void	RecordProperty(const TestProperty& prop)
+		virtual void	RecordProperty(const TestProperty& prop) IUTEST_CXX_OVERRIDE
 		{
 			return ptr()->RecordProperty(prop);
 		}
@@ -208,127 +208,10 @@ private:
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TestInfo);
 };
 
-/**
- * @brief	実行
-*/
-inline bool	TestInfo::Run(void)
-{
-	if( !m_should_run ) return true;
-
-	// テスト開始
-	TestEnv::event_listeners().OnTestStart(*this);
-
-	RunImpl();
-
-	// テスト終了
-	TestEnv::event_listeners().OnTestEnd(*this);
-	return !HasFailure();
-}
-
-inline void	TestInfo::RunImpl(void)
-{
-	detail::iuStopWatch sw;
-	TimeInMillisec elapsedmsec = 0;
-
-	m_ran = true;
-
-#if IUTEST_HAS_EXCEPTIONS
-	if( TestFlag::IsEnableFlag(TestFlag::CATCH_EXCEPTION_EACH) )
-	{
-		detail::auto_ptr<Test> p = m_factory->Create();
-		try
-		{
-			sw.start();
-#if IUTEST_HAS_SEH
-			RunOnMSC(p);
-#else
-			p->Run(&m_mediator);
-#endif
-			elapsedmsec = sw.stop();
-		}
-		catch (const ::std::exception& e)
-		{
-			elapsedmsec = sw.stop();
-			iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(e.what()), TestPartResult::kFatalFailure).OnFixed(AssertionHelper::Fixed());
-			if( TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) ) throw;
-		}
-		catch (TestPartResult::Type& eType)
-		{
-			(void)eType;
-			elapsedmsec = sw.stop();
-			if( TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) ) throw;
-		}
-		catch (...)
-		{
-			elapsedmsec = sw.stop();
-			iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(NULL), TestPartResult::kFatalFailure).OnFixed(AssertionHelper::Fixed());
-			if( TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) ) throw;
-		}
-	}
-	else
-#endif
-	{
-		detail::auto_ptr<Test> p = m_factory->Create();
-		sw.start();
-		p->Run(&m_mediator);
-		elapsedmsec = sw.stop();
-	}
-
-	m_test_result.set_elapsed_time(elapsedmsec);
-
-	if( HasFailure() && TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
-	{
-#if IUTEST_HAS_EXCEPTIONS
-		throw HasFatalFailure() ? TestPartResult::kFatalFailure : TestPartResult::kNotFatalFailure;
-#else
-		exit(1);
-#endif
-	}
-}
-
-#if IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
-inline void	TestInfo::RunOnMSC(detail::auto_ptr<Test>& test)
-{
-	_EXCEPTION_POINTERS* info = NULL;
-	__try
-	{
-		test->Run(&m_mediator);
-	}
-	__except (info = GetExceptionInformation()
-		, detail::seh_exception::should_process_through_break_and_cppexceptions(GetExceptionCode()))
-	{
-		detail::seh_exception::translator(GetExceptionCode(), info);
-	}
-}
-#endif
-
-inline void	TestInfo::clear(void)
-{
-	m_ran = false;
-	m_skip = false;
-	m_test_result.ClearResult();
-}
-
-inline bool	TestInfo::filter(void)
-{
-	bool run = true;
-	// 無効テストなら実行しない
-	if( !TestFlag::IsEnableFlag(TestFlag::RUN_DISABLED_TESTS)
-		&& is_disabled_test() )
-	{
-		run = false;
-	}
-	if( TestFlag::IsEnableFlag(TestFlag::FILTERING_TESTS) )
-	{
-		if( !detail::iuRegex::match(TestEnv::test_filter(), test_full_name().c_str()) ) 
-		{
-			run = false;
-		}
-	}
-	m_should_run = run;
-	return m_should_run;
-}
-
 }	// end of namespace iutest
+
+#if !IUTEST_HAS_LIB
+#  include "impl/iutest_info.ipp"
+#endif
 
 #endif

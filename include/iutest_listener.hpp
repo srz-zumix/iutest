@@ -72,22 +72,22 @@ public:
 class EmptyTestEventListener : public TestEventListener
 {
 public:
-	virtual void OnTestProgramStart(const UnitTest& /*test*/)			{}
+	virtual void OnTestProgramStart(const UnitTest& /*test*/)			IUTEST_CXX_OVERRIDE	{}
 	virtual void OnTestIterationStart(const UnitTest& /*test*/
-									, int /*iteration*/)				{}
-	virtual void OnEnvironmentsSetUpStart(const UnitTest& /*test*/)		{}
-	virtual void OnEnvironmentsSetUpEnd(const UnitTest& /*test*/)		{}
-	virtual void OnTestCaseStart(const TestCase& /*test_case*/)			{}
-	virtual void OnTestStart(const TestInfo& /*test_info*/)				{}
-	virtual void OnTestPartResult(const TestPartResult& /*test_part_result*/)	{}
-	virtual void OnTestRecordProperty(const TestProperty& /*test_propterty*/)	{}
-	virtual void OnTestEnd(const TestInfo& /*test_info*/)				{}
-	virtual void OnTestCaseEnd(const TestCase& /*test_case*/)			{}
-	virtual void OnEnvironmentsTearDownStart(const UnitTest& /*test*/)	{}
-	virtual void OnEnvironmentsTearDownEnd(const UnitTest& /*test*/)	{}
+									, int /*iteration*/)				IUTEST_CXX_OVERRIDE	{}
+	virtual void OnEnvironmentsSetUpStart(const UnitTest& /*test*/)		IUTEST_CXX_OVERRIDE	{}
+	virtual void OnEnvironmentsSetUpEnd(const UnitTest& /*test*/)		IUTEST_CXX_OVERRIDE	{}
+	virtual void OnTestCaseStart(const TestCase& /*test_case*/)			IUTEST_CXX_OVERRIDE	{}
+	virtual void OnTestStart(const TestInfo& /*test_info*/)				IUTEST_CXX_OVERRIDE	{}
+	virtual void OnTestPartResult(const TestPartResult& /*test_part_result*/) IUTEST_CXX_OVERRIDE	{}
+	virtual void OnTestRecordProperty(const TestProperty& /*test_propterty*/) IUTEST_CXX_OVERRIDE	{}
+	virtual void OnTestEnd(const TestInfo& /*test_info*/)				IUTEST_CXX_OVERRIDE	{}
+	virtual void OnTestCaseEnd(const TestCase& /*test_case*/)			IUTEST_CXX_OVERRIDE	{}
+	virtual void OnEnvironmentsTearDownStart(const UnitTest& /*test*/)	IUTEST_CXX_OVERRIDE	{}
+	virtual void OnEnvironmentsTearDownEnd(const UnitTest& /*test*/)	IUTEST_CXX_OVERRIDE	{}
 	virtual void OnTestIterationEnd(const UnitTest& /*test*/
-									, int /*iteration*/)				{}
-	virtual void OnTestProgramEnd(const UnitTest& /*test*/)				{}
+									, int /*iteration*/)				IUTEST_CXX_OVERRIDE	{}
+	virtual void OnTestProgramEnd(const UnitTest& /*test*/)				IUTEST_CXX_OVERRIDE	{}
 };
 
 /**
@@ -112,22 +112,22 @@ public:
 
 public:
 	// On*End ‚ÍŒã‚ë‚©‚çÀs
-	virtual void OnTestProgramStart(const UnitTest& test);
+	virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;
 	virtual void OnTestIterationStart(const UnitTest& test
-									, int iteration);
-	virtual void OnEnvironmentsSetUpStart(const UnitTest& test);
-	virtual void OnEnvironmentsSetUpEnd(const UnitTest& test);
-	virtual void OnTestCaseStart(const TestCase& test_case);
-	virtual void OnTestStart(const TestInfo& test_info);
-	virtual void OnTestPartResult(const TestPartResult& test_part_result);
-	virtual void OnTestRecordProperty(const TestProperty& test_property);
-	virtual void OnTestEnd(const TestInfo& test_info);
-	virtual void OnTestCaseEnd(const TestCase& test_case);
-	virtual void OnEnvironmentsTearDownStart(const UnitTest& test);
-	virtual void OnEnvironmentsTearDownEnd(const UnitTest& test);
+									, int iteration) IUTEST_CXX_OVERRIDE;
+	virtual void OnEnvironmentsSetUpStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;
+	virtual void OnEnvironmentsSetUpEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
+	virtual void OnTestCaseStart(const TestCase& test_case) IUTEST_CXX_OVERRIDE;
+	virtual void OnTestStart(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;
+	virtual void OnTestPartResult(const TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE;
+	virtual void OnTestRecordProperty(const TestProperty& test_property) IUTEST_CXX_OVERRIDE;
+	virtual void OnTestEnd(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;
+	virtual void OnTestCaseEnd(const TestCase& test_case) IUTEST_CXX_OVERRIDE;
+	virtual void OnEnvironmentsTearDownStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;
+	virtual void OnEnvironmentsTearDownEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
 	virtual void OnTestIterationEnd(const UnitTest& test
-									, int iteration);
-	virtual void OnTestProgramEnd(const UnitTest& test);
+									, int iteration) IUTEST_CXX_OVERRIDE;
+	virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
 
 private:
 	ListenerContainer	m_listeners;
@@ -204,135 +204,10 @@ private:
 	TestEventListener*	m_default_xml_generator;
 };
 
-
-inline TestEventListener*	TestEventRepeater::Release(TestEventListener* listener)
-{
-	ListenerContainer::iterator it = ::std::find(m_listeners.begin(), m_listeners.end(), listener);
-	if( it == m_listeners.end() ) return NULL;
-	m_listeners.erase(it);
-	return listener;
-}
-
-inline void TestEventRepeater::OnTestProgramStart(const UnitTest& test)
-{
-	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
-	{
-		(*it)->OnTestProgramStart(test);
-	}
-}
-inline void TestEventRepeater::OnTestIterationStart(const UnitTest& test, int iteration)
-{
-	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
-	{
-		(*it)->OnTestIterationStart(test, iteration);
-	}
-}
-inline void TestEventRepeater::OnEnvironmentsSetUpStart(const UnitTest& test)
-{
-	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
-	{
-		(*it)->OnEnvironmentsSetUpStart(test);
-	}
-}
-inline void TestEventRepeater::OnEnvironmentsSetUpEnd(const UnitTest& test)
-{
-	for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
-	{
-		(*it)->OnEnvironmentsSetUpEnd(test);
-	}
-}
-
-inline void TestEventRepeater::OnTestCaseStart(const TestCase& test_case)
-{
-	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
-	{
-		(*it)->OnTestCaseStart(test_case);
-	}
-}
-inline void TestEventRepeater::OnTestStart(const TestInfo& test_info)
-{
-	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
-	{
-		(*it)->OnTestStart(test_info);
-	}
-}
-inline void TestEventRepeater::OnTestPartResult(const TestPartResult& test_part_result)
-{
-	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
-	{
-		(*it)->OnTestPartResult(test_part_result);
-	}
-}
-inline void TestEventRepeater::OnTestRecordProperty(const TestProperty& test_property)
-{
-	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
-	{
-		(*it)->OnTestRecordProperty(test_property);
-	}
-}
-inline void TestEventRepeater::OnTestEnd(const TestInfo& test_info)
-{
-	for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
-	{
-		(*it)->OnTestEnd(test_info);
-	}
-}
-inline void TestEventRepeater::OnTestCaseEnd(const TestCase& test_case)
-{
-	for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
-	{
-		(*it)->OnTestCaseEnd(test_case);
-	}
-}
-
-inline void TestEventRepeater::OnEnvironmentsTearDownStart(const UnitTest& test)
-{
-	for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
-	{
-		(*it)->OnEnvironmentsTearDownStart(test);
-	}
-}
-inline void TestEventRepeater::OnEnvironmentsTearDownEnd(const UnitTest& test)
-{
-	for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
-	{
-		(*it)->OnEnvironmentsTearDownEnd(test);
-	}
-}
-inline void TestEventRepeater::OnTestIterationEnd(const UnitTest& test, int iteration)
-{
-	for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
-	{
-		(*it)->OnTestIterationEnd(test, iteration);
-	}
-}
-inline void TestEventRepeater::OnTestProgramEnd(const UnitTest& test)
-{
-	for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
-	{
-		(*it)->OnTestProgramEnd(test);
-	}
-}
-
-inline void	TestEventListeners::set_default_result_printer(TestEventListener* listener)
-{
-	Release(m_default_result_printer);
-	if( listener != NULL )
-	{
-		Append(listener);
-	}
-	m_default_result_printer = listener;
-}
-inline void	TestEventListeners::set_default_xml_generator(TestEventListener* listener)
-{
-	Release(m_default_xml_generator);
-	if( listener != NULL )
-	{
-		Append(listener);
-	}
-	m_default_xml_generator = listener;
-}
-
 }	// end of namespace iutest
+
+#if !IUTEST_HAS_LIB
+#  include "impl/iutest_listener.ipp"
+#endif
 
 #endif

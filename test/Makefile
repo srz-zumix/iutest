@@ -16,7 +16,7 @@ CPPFLAGS += -I$(IUTEST_DIR)/include
 # Flags passed to the C++ compiler.
 CXXFLAGS += -g -Wall -Wextra
 
-ifeq ($(CXX),clang++)
+ifeq ($(findstring clang, $(CXX)),clang)
 
 #
 # clang version
@@ -26,6 +26,8 @@ ifeq ($(CXX),clang++)
 #CXXFLAGS += -std=c++0x
 
 else
+
+ifeq ($(CXX),g++)
 
 #
 # GCC version
@@ -48,6 +50,16 @@ else
 # 4.4 later
 #CXXFLAGS += -std=c++0x
 #endif
+endif
+
+else
+
+#
+# Unkown Compiler
+#
+#
+CXXFLAGS = 
+
 endif
 
 endif

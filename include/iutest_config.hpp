@@ -27,6 +27,19 @@
  * @{
 */
 
+//! Library を使うかどうか
+#ifndef IUTEST_HAS_LIB
+#  if	defined(IUTEST_NO_LIB)
+#    define IUTEST_HAS_LIB			0
+#  elif	defined(IUTEST_USE_LIB) || defined(IUTEST_AUTO_LINK)
+#    define IUTEST_HAS_LIB			1
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_LIB
+#  define IUTEST_HAS_LIB			0
+#endif
+
 /**
  * @defgroup	IUTEST_CONFIG_OUTPUT	OUTPUT
  * @brief		出力関係 CONFIG
@@ -280,6 +293,64 @@
 /**
  * @}
 */
+
+#define IUTEST_USE_LIB		//!< ライブラリ版を使用する
+#define IUTEST_AUTO_LINK	//!< ライブラリ版を使用し、自動リンクする
+
+#endif
+
+/**
+ * @}
+*/
+
+/**
+ * @private
+ * @{
+*/
+
+// include only
+#if IUTEST_HAS_LIB
+#  define IUTEST_IPP_INLINE
+#else
+#  define IUTEST_IPP_INLINE		inline
+#endif
+
+// auto link
+#if IUTEST_HAS_LIB && defined(IUTEST_AUTO_LINK)
+
+#if defined(_MSC_VER)
+
+#if defined(_MT) || defined(__MT__)
+#  if	defined(_DLL)
+#    define IUTEST_LIB_THREAD_OPT	"md"
+#  else
+#    define IUTEST_LIB_THREAD_OPT	"mt"
+#  endif
+#else
+#  define IUTEST_LIB_THREAD_OPT	""
+#endif
+
+#if		_MSC_VER == 1400
+#  define IUTEST_LIB_TOOLSET	"vc80"
+#elif	_MSC_VER == 1500
+#  define IUTEST_LIB_TOOLSET	"vc90"
+#elif	_MSC_VER == 1600
+#  define IUTEST_LIB_TOOLSET	"vc100"
+#elif	_MSC_VER >= 1700
+#  define IUTEST_LIB_TOOLSET	"vc110"
+#else
+#  error unkown _MSC_VER.
+#endif
+
+#if		defined(_DEBUG)
+#  define IUTEST_LIB_RT_OPT		"d"
+#else
+#  define IUTEST_LIB_RT_OPT		""
+#endif
+
+#pragma comment(lib, "libiutest-" IUTEST_LIB_TOOLSET "-" IUTEST_LIB_THREAD_OPT IUTEST_LIB_RT_OPT ".lib" )
+
+#endif
 
 #endif
 

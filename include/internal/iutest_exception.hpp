@@ -90,7 +90,7 @@ public:
 		return should_handle ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH;
 	}
 public:
-	static const int kCxxExceptionCode = 0xe06d7363;	//!< c++ exception コード
+	static const DWORD kCxxExceptionCode = 0xe06d7363;	//!< c++ exception コード
 };
 
 }	// end of namespace detail

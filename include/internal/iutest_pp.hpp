@@ -27,6 +27,19 @@
 	TypeName( const TypeName& );						\
 	TypeName& operator = ( const TypeName& )
 
+/**
+ * @brief	コピー/ムーブ禁止定義
+*/
+#if defined(IUTEST_HAS_RVALUE_REFS) && IUTEST_HAS_RVALUE_REFS
+#  define IUTEST_PP_DISALLOW_MOVE_AND_COPY_AND_ASSIGN(TypeName)	\
+	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName);				\
+	TypeName( TypeName&& rhs );									\
+	TypeName& operator = ( TypeName&& )
+#else
+#  define IUTEST_PP_DISALLOW_MOVE_AND_COPY_AND_ASSIGN(TypeName)	\
+	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)
+#endif
+
 #ifndef IUTEST_PP_TOSTRING
 #  define IUTEST_PP_TOSTRING(z_)	IUTEST_PP_TOSTRING_(z_)
 #endif

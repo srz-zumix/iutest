@@ -62,7 +62,7 @@ public:
 	const char* failure_message(void) const { return message(); }
 
 	/** @private */
-	operator bool (void)	const	{ return m_result; }
+	IUTEST_CXX_EXPLICIT_CONVERSION operator bool (void)	const	{ return m_result; }
 
 public:
 	/**
@@ -156,9 +156,9 @@ public:
 private:
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(AssertionHelper);
 
-#if IUTEST_HAS_RVALUE_REFS && IUTEST_HAS_DELETED_FUNCTIONS
-	AssertionHelper(AssertionHelper&& rhs) = delete;
-	AssertionHelper& operator=(AssertionHelper&&) = delete;
+#if IUTEST_HAS_RVALUE_REFS
+	AssertionHelper(AssertionHelper&& rhs) IUTEST_DECL_DELETED_FUNCTION;
+	AssertionHelper& operator=(AssertionHelper&&) IUTEST_DECL_DELETED_FUNCTION;
 #endif
 
 public:
