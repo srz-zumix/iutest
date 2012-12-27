@@ -314,5 +314,8 @@
     <None Include="..\..\doc\index.html">
       <Filter>doxygen</Filter>
     </None>
+    <None Include="..\..\include\impl\iutest_filepath.ipp">
+      <Filter>iutest\impl</Filter>
+    </None>
   </ItemGroup>
 </Project>

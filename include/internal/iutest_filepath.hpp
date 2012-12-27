@@ -106,280 +106,98 @@ public:
 	/**
 	 * @brief	フォルダパスかどうか
 	*/
-	bool	IsDirectory(void) const
-	{
-		return !m_path.empty() &&
-			IsPathSeparator(m_path.c_str()[length()-1]);
-	}
+	bool	IsDirectory(void) const;
 
 	/**
 	 * @brief	ルートディレクトリパスかどうか
 	*/
-	bool	IsRootDirectory(void) const
-	{
-#ifdef IUTEST_OS_WINDOWS
-		if( length() != 3 ) return false;
-#else
-		if( length() != 3 ) return false;
-#endif
-		return IsAbsolutePath();
-	}
+	bool	IsRootDirectory(void) const;
 
 	/**
 	 * @brief	絶対パスかどうか
 	*/
-	bool	IsAbsolutePath(void) const
-	{
-#ifdef IUTEST_OS_WINDOWS
-		if( length() < 3 ) return false;
-		const char* name = m_path.c_str();
-
-		if( IsDBCSLeadByte(name[0]) )
-		{
-			++name;
-		}
-		return (name[1] == ':' && IsPathSeparator(name[0]));
-#else
-		return IsPathSeparator(m_path.c_str()[0]);
-#endif
-	}
+	bool	IsAbsolutePath(void) const;
 
 	/**
 	 * @brief	末尾のセパレーターを削除
 	*/
-	iuFilePath	RemoveTrailingPathSeparator(void) const
-	{
-		return IsDirectory() ? iuFilePath(std::string(m_path.c_str(), length()-1)) : *this;
-	}
+	iuFilePath	RemoveTrailingPathSeparator(void) const;
 
 	/**
 	 * @brief	拡張子の削除
 	*/
-	iuFilePath	RemoveExtension(const char* extention=NULL) const
-	{
-		const char* const path = m_path.c_str();
-		const char* const ext = strrchr(path, '.');
-		if( ext == NULL ) return *this;
-		if( extention != NULL )
-		{
-			if( !IsStringCaseEqual(ext+1, extention) ) return *this;
-		}
-		const size_t length = ext - path;
-		return iuFilePath(std::string(path, length));
-	}
+	iuFilePath	RemoveExtension(const char* extention=NULL) const;
 
 	/**
 	 * @brief	ディレクトリ名の削除
 	*/
-	iuFilePath	RemoveDirectoryName(void) const
-	{
-		const char* const sep = FindLastPathSeparator();
-		return sep != NULL ? iuFilePath(sep+1) : *this;
-	}
+	iuFilePath	RemoveDirectoryName(void) const;
 
 	/**
 	 * @brief	ファイル名の削除
 	*/
-	iuFilePath	RemoveFileName(void) const
-	{
-		const char* sep = FindLastPathSeparator();
-		if( sep == NULL ) return GetRelativeCurrentDir();
-		size_t length = sep - c_str() + 1;
-		return iuFilePath(std::string(c_str(), length));
-	}
+	iuFilePath	RemoveFileName(void) const;
 
 	/**
 	 * @brief	フォルダの作成
 	*/
-	bool		CreateFolder(void) const
-	{
-#if		defined(IUTEST_OS_WINDOWS_MOBILE)
-#elif	defined(IUTEST_OS_WINDOWS_MINGW)
-		if( mkdir(c_str()) == 0 ) return true;
-#elif	defined(IUTEST_OS_WINDOWS)
-		if( _mkdir(c_str()) == 0 ) return true;
-#else
-		if( mkdir(c_str(), 0777) == 0 ) return true;
-#endif
-		return DirectoryExists();
-	}
+	bool		CreateFolder(void) const;
 
 	/**
 	 * @brief	フォルダを再帰的に作成
 	*/
-	bool		CreateDirectoriesRecursively(void) const
-	{
-		if( !IsDirectory() ) return false;
-
-		if( length() == 0 || DirectoryExists() ) return true;
-
-		iuFilePath parent = RemoveTrailingPathSeparator().RemoveFileName();
-		if( !parent.CreateDirectoriesRecursively() ) return false;
-		return CreateFolder();
-	}
+	bool		CreateDirectoriesRecursively(void) const;
 
 	/**
 	 * @brief	ファイルまたはフォルダが存在するかどうか
 	*/
-	bool		FileOrDirectoryExists(void) const
-	{
-#if IUTEST_HAS_FILE_STAT
-		posix::StatStruct file_stat;
-		return posix::Stat(c_str(), &file_stat) == 0;
-#endif
-	}
+	bool		FileOrDirectoryExists(void) const;
 
 	/**
 	 * @brief	フォルダが存在するかどうか
 	*/
-	bool		DirectoryExists(void) const
-	{
-#if IUTEST_HAS_FILE_STAT
-
-#ifdef IUTEST_OS_WINDOWS
-		const iuFilePath& path = IsRootDirectory() ? *this : RemoveTrailingPathSeparator();
-#else
-		const iuFilePath& path = *this;
-#endif
-		posix::StatStruct file_stat;
-		if( posix::Stat(path.c_str(), &file_stat) == 0 )
-		{
-			return posix::IsDir(file_stat);
-		}
-#endif
-		return false;
-	}
+	bool		DirectoryExists(void) const;
 
 	/**
 	 * @brief	一番後ろのパスセパレータのアドレスを取得
 	*/
-	const char* FindLastPathSeparator(void) const
-	{
-		const char* ps = c_str();
-		if( ps == NULL ) return NULL;
-		const char* pe = ps + length() - 1;
-		while( pe >= ps )
-		{
-			if( IsPathSeparator(*pe) )
-			{
-				if( (*(pe-1) & 0x80) == 0 )
-				{
-					return pe;
-				}
-				--pe;
-			}
-			--pe;
-		}
-		return NULL;
-	}
+	const char* FindLastPathSeparator(void) const;
 
 public:
 	/**
 	 * @brief	カレントディレクトリの取得
 	*/
-	static iuFilePath	GetCurrentDir(void)
-	{
-		return iuFilePath(internal::posix::GetCWD());
-	}
+	static iuFilePath	GetCurrentDir(void);
 
 	/**
 	 * @brief	カレントディレクトリの相対パス取得
 	*/
-	static iuFilePath	GetRelativeCurrentDir(void)
-	{
-		std::string dir(".");
-		dir += GetPathSeparator();
-		return iuFilePath(dir);
-	}
+	static iuFilePath	GetRelativeCurrentDir(void);
 
 	/**
 	 * @brief	実行ファイルのパスを取得
 	*/
-	static iuFilePath	GetExecFilePath(void)
-	{
-#if		defined(IUTEST_OS_WINDOWS)
-		char path[MAX_PATH];
-		::GetModuleFileNameA(NULL, path, sizeof(path));
-		return iuFilePath(path);
-#elif	defined(IUTEST_OS_SOLARIS)
-		return iuFilePath(getexecname());
-#elif	defined(__FreeBSD__)
-		int exe_path_mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PATHNAME, getpid() };
-		char buf[1024];
-		size_t length = 0;
-		if( sysctl(exe_path_mib, 4, buf, &length, NULL, 0) != 0 ) return iuFilePath();
-		return iuFilePath(buf);
-#elif	defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN)
-		char buf[1024];
-		ssize_t len = ::readlink("/proc/self/exe", buf, sizeof(buf)-1);
-		if( len == -1 ) return iuFilePath();
-		buf[len] = '\0';
-		return iuFilePath(buf);
-#else
-		return iuFilePath();
-#endif
-	}
+	static iuFilePath	GetExecFilePath(void);
 
 	/**
 	 * @brief	パスの結合
 	*/
-	static iuFilePath	ConcatPaths(const iuFilePath& directory, const iuFilePath& relative_path)
-	{
-		std::string path = directory.RemoveTrailingPathSeparator().c_str();
-		path += GetPathSeparator();
-		path += relative_path.c_str();
-		return iuFilePath(path);
-	}
+	static iuFilePath	ConcatPaths(const iuFilePath& directory, const iuFilePath& relative_path);
 
 public:
 	/**
 	 * @brief	パス区切り文字の取得
 	*/
-	static char	GetPathSeparator(void)
-	{
-#ifdef IUTEST_OS_WINDOWS
-		return '\\';
-#else
-		return '/';
-#endif
-	}
+	static char	GetPathSeparator(void);
 
 private:
 	/**
 	 * @biref	正規化
 	*/
-	void Normalize(void)
-	{
-		const char* src = c_str();
-		if( src == NULL )
-		{
-			m_path = "";
-			return;
-		}
-
-		char* const dst_top = new char [length()+1];
-		char* dst = dst_top;
-
-		while(*src != '\0')
-		{
-			*dst = *src;
-			++src;
-			while( IsPathSeparator(*src) )
-			{
-				++src;
-			}
-			++dst;
-		}
-	}
+	void Normalize(void);
 
 private:
-	static bool IsPathSeparator(char c)
-	{
-#ifdef IUTEST_OS_WINDOWS
-		if( c == '\\' ) return true;
-#endif
-		return c == '/';
-	}
+	static bool IsPathSeparator(char c);
 private:
 	std::string	m_path;
 };
@@ -398,6 +216,10 @@ namespace internal
 }
 
 }	// end of namespace iutest
+
+#if !IUTEST_HAS_LIB
+#  include "../impl/iutest_filepath.ipp"
+#endif
 
 #endif
 

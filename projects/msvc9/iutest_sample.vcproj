@@ -292,7 +292,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="$(ProjectDir)..\..\lib"
+				AdditionalLibraryDirectories="$(SolutionDir)..\..\lib"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"

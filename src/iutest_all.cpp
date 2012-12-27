@@ -30,6 +30,8 @@
 #include "../include/impl/iutest_listener.ipp"
 #include "../include/impl/iutest_regex.ipp"
 
+#include "../include/impl/iutest_filepath.ipp"
+
 #include "../include/impl/iutest_default_printer.ipp"
 #include "../include/impl/iutest_default_xml_generator.ipp"
 
