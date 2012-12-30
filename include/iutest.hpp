@@ -386,10 +386,18 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	no new failure テスト
+ * @brief	no new fatal failure テスト
 */
 #ifndef IUTEST_ASSERT_NO_FATAL_FAILURE
 #  define IUTEST_ASSERT_NO_FATAL_FAILURE(statement)	IUTEST_TEST_NO_FATAL_FAILURE_(statement, IUTEST_ASSERT_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSERT_
+ * @brief	no new failure テスト
+*/
+#ifndef IUTEST_ASSERT_NO_FAILURE
+#  define IUTEST_ASSERT_NO_FAILURE(statement)		IUTEST_TEST_NO_FAILURE_(statement, IUTEST_ASSERT_FAILURE)
 #endif
 
 /**
@@ -631,10 +639,18 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	no new failure テスト
+ * @brief	no new fatal failure テスト
 */
 #ifndef IUTEST_EXPECT_NO_FATAL_FAILURE
 #  define IUTEST_EXPECT_NO_FATAL_FAILURE(statement)	IUTEST_TEST_NO_FATAL_FAILURE_(statement, IUTEST_EXPECT_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_EXPECT_
+ * @brief	no new failure テスト
+*/
+#ifndef IUTEST_EXPECT_NO_FAILURE
+#  define IUTEST_EXPECT_NO_FAILURE(statement)		IUTEST_TEST_NO_FAILURE_(statement, IUTEST_EXPECT_FAILURE)
 #endif
 
 /**
@@ -880,6 +896,14 @@ namespace iutest
 #  define IUTEST_INFORM_NO_THROW(statement)			IUTEST_TEST_NO_THROW_(statement, IUTEST_INFORM_FAILURE)
 #endif
 
+#endif
+
+/**
+ * @ingroup	IUTEST_INFORM_
+ * @brief	no new fatal failure テスト
+*/
+#ifndef IUTEST_INFORM_NO_FAILURE
+#  define IUTEST_INFORM_NO_FAILURE(statement)		IUTEST_TEST_NO_FAILURE_(statement, IUTEST_INFORM_FAILURE)
 #endif
 
 /**

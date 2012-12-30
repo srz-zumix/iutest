@@ -77,6 +77,7 @@
 #include "switch/iutest_switch_pmz.hpp"
 #include "switch/iutest_switch_skip.hpp"
 #include "switch/iutest_switch_throw_value.hpp"
+#include "switch/iutest_switch_no_failure.hpp"
 
 #include "switch/iutest_switch_cmphelper.hpp"
 
@@ -230,6 +231,7 @@ namespace tr1
 #include "switch/iutest_switch_pmz.hpp"
 #include "switch/iutest_switch_skip.hpp"
 #include "switch/iutest_switch_throw_value.hpp"
+#include "switch/iutest_switch_no_failure.hpp"
 
 #include "switch/iutest_switch_cmphelper.hpp"
 

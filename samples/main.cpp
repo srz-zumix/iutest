@@ -154,7 +154,8 @@ IUTEST_F(TestFixed2, Test2)
 *//*--------------------------------------------------*/
 IUTEST(AssertionTest, NoFailure)
 {
-	IUTEST_ASSERT_NO_FATAL_FAILURE( IUTEST_EXPECT_TRUE(true) );
+	IUTEST_ASSERT_NO_FATAL_FAILURE( IUTEST_ASSERT_TRUE(true) );
+	IUTEST_ASSERT_NO_FAILURE( IUTEST_EXPECT_TRUE(true) );
 }
 
 IUTEST(AssertionTest, Base)

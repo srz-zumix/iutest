@@ -64,6 +64,9 @@ CXXFLAGS += $(DEFS)
 # created to the list.
 TESTS = sample
 
+# lib
+LIBS = iutest.a
+
 # All iutest headers.  Usually you shouldn't change this
 # definition.
 IUTEST_HEADERS = $(IUTEST_DIR)/include/*.hpp \
@@ -71,13 +74,23 @@ IUTEST_HEADERS = $(IUTEST_DIR)/include/*.hpp \
                  $(IUTEST_DIR)/include/listener/*.hpp \
                  $(IUTEST_DIR)/include/util/*.hpp \
                  $(IUTEST_DIR)/include/gtest/*.hpp
+                 
+IUTEST_SRCS    = $(IUTEST_DIR)/src/*.cpp \
+                 $(IUTEST_HEADERS)
 
 # House-keeping build targets.
 
-all : $(TESTS)
+all : $(LIBS) $(TESTS)
 
 clean :
-	rm -f $(TESTS) *.o
+	rm -f $(TESTS) iutest.a *.o
+
+# Builds a library
+iutest_all.o : $(IUTEST_SRCS)
+	$(CXX) $(CPPFLAGS) -I$(IUTEST_DIR) $(CXXFLAGS) -c $(IUTEST_DIR)/src/iutest_all.cpp
+
+$(LIBS) : iutest_all.o
+	$(AR) $(ARFLAGS) $@ $^
 
 # Builds a sample test.  
 

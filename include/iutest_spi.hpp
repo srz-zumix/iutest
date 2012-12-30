@@ -60,26 +60,43 @@
  * @{
 */
 
+#if IUTEST_HAS_LAMBDA
+#if IUTEST_HAS_EXCEPTIONS && IUTEST_THROW_ON_ASSERT_FAILURE
+#  define IIUT_STATEMENT_EXECUTER(statement)		\
+	IUTEST_AMBIGUOUS_ELSE_BLOCKER_					\
+	if( ::iutest::detail::AlwaysTrue() ) {			\
+		try { [&](){ statement; }(); } catch(...){}	\
+	} else											\
+		(void)0
+#else
+#  define IIUT_STATEMENT_EXECUTER(statement)		\
+	[&](){ statement; }()
+#endif
+
+#else
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_THROW_ON_ASSERT_FAILURE
 #  define IIUT_STATEMENT_EXECUTER(statement)	struct IUTestFatalFailureStatement {	\
 	static void Execute() { ::iutest::detail::ScopedSPITestFlag guard;					\
 	try { statement; } catch(...) {} }													\
-	}
+	};																					\
+	IUTestFatalFailureStatement::Execute()
 #else
 #  define IIUT_STATEMENT_EXECUTER(statement)	struct IUTestFatalFailureStatement {	\
 	static void Execute() { ::iutest::detail::ScopedSPITestFlag guard; statement; }		\
-	}
+	};																					\
+	IUTestFatalFailureStatement::Execute()
+#endif
+
 #endif
 
 #define IUTEST_TEST_FATAL_FAILURE_(statement, text, substr, on_failure)		\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
 	if( ::iutest::detail::AlwaysTrue() ) {									\
-		IIUT_STATEMENT_EXECUTER(statement);									\
 		::iutest::detail::NewTestPartResultCheckHelper::Reporter<			\
 			::iutest::detail::NewTestPartResultCheckHelper::CondEq<			\
 				::iutest::TestPartResult::kFatalFailure>					\
 				, ::iutest::detail::FakeTestPartResultReporter > iutest_failure_checker;	\
-		IUTestFatalFailureStatement::Execute();								\
+		IIUT_STATEMENT_EXECUTER(statement);									\
 		if( iutest_failure_checker.count() == 0 ) {							\
 			goto IUTEST_PP_CAT(iutest_label_test_fatalfailure_, __LINE__);	\
 		}																	\
@@ -90,12 +107,11 @@
 #define IUTEST_TEST_NONFATAL_FAILURE_(statement, text, substr, on_failure)	\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
 	if( ::iutest::detail::AlwaysTrue() ) {									\
-		IIUT_STATEMENT_EXECUTER(statement);									\
 		::iutest::detail::NewTestPartResultCheckHelper::Reporter<			\
 			::iutest::detail::NewTestPartResultCheckHelper::CondEq<			\
 				::iutest::TestPartResult::kNotFatalFailure>					\
 				, ::iutest::detail::FakeTestPartResultReporter > iutest_failure_checker;	\
-		IUTestFatalFailureStatement::Execute();								\
+		IIUT_STATEMENT_EXECUTER(statement);									\
 		if( iutest_failure_checker.count() == 0 ) {							\
 			goto IUTEST_PP_CAT(iutest_label_test_fatalfailure_, __LINE__);	\
 		}																	\

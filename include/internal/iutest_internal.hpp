@@ -282,7 +282,7 @@
 
 #define IUTEST_TEST_SAME(v1, v2, on_failure)			IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSame, v1, v2, on_failure )
 
-#define IUTEST_TEST_NO_FATAL_FAILURE_(statement, on_failure)				\
+#define IUTEST_TEST_NO_FAILURE_(statement, on_failure)				\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
 	if( ::iutest::detail::AlwaysTrue() ) {									\
 		::iutest::detail::NewTestPartResultCheckHelper::Reporter<			\
@@ -290,11 +290,25 @@
 			::iutest::TestPartResult::kSuccess> >	iutest_failure_checker;	\
 		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING( { (void)0; statement; } )	\
 		if( iutest_failure_checker.count() > 0 ) {							\
-			goto IUTEST_PP_CAT(iutest_label_test_no_fatalfailure_, __LINE__);		\
+			goto IUTEST_PP_CAT(iutest_label_test_no_failure_, __LINE__);	\
+		}																	\
+	} else																	\
+		IUTEST_PP_CAT(iutest_label_test_no_failure_, __LINE__):			\
+		on_failure("\nExpected: " #statement " doesn't generate new failure.\n  Actual: it does.")
+
+#define IUTEST_TEST_NO_FATAL_FAILURE_(statement, on_failure)				\
+	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
+	if( ::iutest::detail::AlwaysTrue() ) {									\
+		::iutest::detail::NewTestPartResultCheckHelper::Reporter<			\
+			::iutest::detail::NewTestPartResultCheckHelper::CondEq<			\
+			::iutest::TestPartResult::kFatalFailure> >	iutest_failure_checker;	\
+		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING( { (void)0; statement; } )	\
+		if( iutest_failure_checker.count() > 0 ) {							\
+			goto IUTEST_PP_CAT(iutest_label_test_no_fatalfailure_, __LINE__);	\
 		}																	\
 	} else																	\
 		IUTEST_PP_CAT(iutest_label_test_no_fatalfailure_, __LINE__):		\
-		on_failure("\nExpected: " #statement " doesn't generate new failure.\n  Actual: it does.")
+		on_failure("\nExpected: " #statement " doesn't generate new fatal failure.\n  Actual: it does.")
 
 #define IUTEST_TEST_SKIP()		\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_			\

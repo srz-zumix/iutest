@@ -145,6 +145,7 @@
     <ClCompile Include="..\..\src\iutest_all.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_no_failure.hpp" />
     <ClInclude Include="..\..\include\iutest.hpp" />
     <ClInclude Include="..\..\include\iutest_assertion.hpp" />
     <ClInclude Include="..\..\include\iutest_body.hpp" />
