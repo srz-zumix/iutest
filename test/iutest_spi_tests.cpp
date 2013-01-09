@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -22,13 +22,47 @@
 namespace spitest
 {
 
+class SPITest : public ::iutest::Test
+{
+public:
+#if IUTEST_SPI_LAMBDA_ENABLE
+	const char* null_str;
+	int a, b;
+	int  aa[5];
+	int  ab[6];
+	char ac[5];
+	
+	SPITest()
+		: null_str(NULL)
+		, a(0), b(0)
+	{
+		int  aa_[5] = { 0, 1, 2, 3, 4 };
+		int  ab_[6] = { 0, 1, 2, 3, 4, 5 };
+		char ac_[5] = { 0, 0, 2, 3, 5 };
+		for( int i=0; i < 5; ++i )
+		{
+			aa[i] = aa_[i];
+			ab[i] = ab_[i];
+			ac[i] = ac_[i];
+		}
+		ab[5] = 5;
+	}
+#endif
+	
+public:
+	void FatalFailure_Sub(int& count);
+	void FatalFailure2_Sub(int& count);
+};
+
+#if !IUTEST_SPI_LAMBDA_ENABLE
 const char* null_str = NULL;
 int a=0, b=0;
 int  aa[] = { 0, 1, 2, 3, 4 };
 int  ab[] = { 0, 1, 2, 3, 4, 5 };
 char ac[] = { 0, 0, 2, 3, 5 };
+#endif
 
-void SPITest_FatalFailure_Sub(int& count)
+void SPITest::FatalFailure_Sub(int& count)
 {
 	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_TRUE(false), "" );
 	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_FALSE(true), "" );
@@ -87,21 +121,21 @@ void SPITest_FatalFailure_Sub(int& count)
 	count++;
 }
 	
-IUTEST(SPITest, FatalFailure)
+IUTEST_F(SPITest, FatalFailure)
 {
 	int count=0;
 #if IUTEST_HAS_EXCEPTIONS
 	try {
-		SPITest_FatalFailure_Sub(count);
+		FatalFailure_Sub(count);
 	} catch(...) {
 	}
 #else
-	SPITest_FatalFailure_Sub(count);
+	FatalFailure_Sub(count);
 #endif
 	ASSERT_EQ(1, count);
 }
 
-void SPITest_FatalFailure2_Sub(int& count)
+void SPITest::FatalFailure2_Sub(int& count)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_TRUE(false), "" );
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_FALSE(true), "" );
@@ -158,21 +192,21 @@ void SPITest_FatalFailure2_Sub(int& count)
 	count++;
 }
 	
-IUTEST(SPITest, FatalFailure2)
+IUTEST_F(SPITest, FatalFailure2)
 {
 	int count=0;
 #if IUTEST_HAS_EXCEPTIONS
 	try {
-		SPITest_FatalFailure2_Sub(count);
+		FatalFailure2_Sub(count);
 	} catch(...) {
 	}
 #else
-	SPITest_FatalFailure2_Sub(count);
+	FatalFailure2_Sub(count);
 #endif
 	ASSERT_EQ(1, count);
 }
 
-IUTEST(SPITest, NonFatalFailure)
+IUTEST_F(SPITest, NonFatalFailure)
 {
 	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_TRUE(false), "" );
 	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_FALSE(true), "" );
@@ -227,7 +261,7 @@ IUTEST(SPITest, NonFatalFailure)
 	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0]))), "" );
 }
 
-IUTEST(SPITest, NonFatalFailure2)
+IUTEST_F(SPITest, NonFatalFailure2)
 {
 	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_TRUE(false), "" );
 	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_FALSE(true), "" );
@@ -289,7 +323,7 @@ bool pred_test(int a0, int a1, int a2, int a3, int a4, int a5)
 	return a0+a2+a4 == a1+a3+a5;
 }
 
-IUTEST(SPITest, VariadicPredTest)
+IUTEST_F(SPITest, VariadicPredTest)
 {
 	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_PRED(pred_test, 1, 0, a, a, a, 0), "");
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_PRED(pred_test, 1, 0, a, a, a, 0), "");

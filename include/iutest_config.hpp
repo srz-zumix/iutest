@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -66,10 +66,11 @@
 */
 
 #ifndef IUTEST_HAS_PARAM_METHOD_TEST
+//! パラメタライズ関数コールテストが使用可能かどうか
 #  ifndef IUTEST_NO_VARIADIC_MACROS
-#    define IUTEST_HAS_PARAM_METHOD_TEST	1	//!< パラメタライズ関数コールテストが使用可能かどうか
+#    define IUTEST_HAS_PARAM_METHOD_TEST	1
 #  else
-#    define IUTEST_HAS_PARAM_METHOD_TEST	0	//!< パラメタライズ関数コールテストが使用可能かどうか
+#    define IUTEST_HAS_PARAM_METHOD_TEST	0
 #  endif
 #endif
 
@@ -119,26 +120,29 @@
 #endif
 
 #ifndef IUTEST_HAS_VARIADIC_VALUES
+//! 可変長引数に対応した ::iutest::Values が使用可能かどうか
 #  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
-#    define IUTEST_HAS_VARIADIC_VALUES	1	//!< 可変長引数に対応した ::iutest::Values が使用可能かどうか
+#    define IUTEST_HAS_VARIADIC_VALUES	1
 #  else
-#    define IUTEST_HAS_VARIADIC_VALUES	0	//!< 可変長引数に対応した ::iutest::Values が使用可能かどうか
+#    define IUTEST_HAS_VARIADIC_VALUES	0
 #  endif
 #endif
 
 #ifndef IUTEST_HAS_VARIADIC_COMBINE
+//! 可変長引数に対応した ::iutest::Combine が使用可能かどうか
 #  if IUTEST_HAS_COMBINE && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
-#    define IUTEST_HAS_VARIADIC_COMBINE	1	//!< 可変長引数に対応した ::iutest::Combine が使用可能かどうか
+#    define IUTEST_HAS_VARIADIC_COMBINE	1
 #  else
-#    define IUTEST_HAS_VARIADIC_COMBINE	0	//!< 可変長引数に対応した ::iutest::Combine が使用可能かどうか
+#    define IUTEST_HAS_VARIADIC_COMBINE	0
 #  endif
 #endif
 
 #ifndef IUTEST_HAS_VARIADIC_PAIRWISE
+//! 可変長引数に対応した ::iutest::Pairwise が使用可能かどうか
 #  if IUTEST_HAS_PAIRWISE && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
-#    define IUTEST_HAS_VARIADIC_PAIRWISE	1	//!< 可変長引数に対応した ::iutest::Pairwise が使用可能かどうか
+#    define IUTEST_HAS_VARIADIC_PAIRWISE	1
 #  else
-#    define IUTEST_HAS_VARIADIC_PAIRWISE	0	//!< 可変長引数に対応した ::iutest::Pairwise が使用可能かどうか
+#    define IUTEST_HAS_VARIADIC_PAIRWISE	0
 #  endif
 #endif
 
@@ -148,6 +152,15 @@
  * @note	サブ関数にアサーションを記述しても、その時点でテストが中断されるようになります
 */
 #  define IUTEST_THROW_ON_ASSERT_FAILURE	0
+#endif
+
+#ifndef IUTEST_SPI_LAMBDA_ENABLE
+//! spi マクロで lambda を使って変数にアクセス可能かどうか
+#if IUTEST_HAS_LAMBDA
+#  define IUTEST_SPI_LAMBDA_ENABLE	1
+#else
+#  define IUTEST_SPI_LAMBDA_ENABLE	0
+#endif
 #endif
 
 #ifndef IUTEST_HAS_GENRAND
@@ -164,18 +177,20 @@
 #endif
 
 #ifndef IUTEST_HAS_PEEP_FUNC
+//! private メンバー関数へのアクセスが可能かどうか
 #  if IUTEST_HAS_PEEP && IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION
-#    define IUTEST_HAS_PEEP_FUNC	1	//!< private メンバー関数へのアクセスが可能かどうか
+#    define IUTEST_HAS_PEEP_FUNC	1
 #  else
-#    define IUTEST_HAS_PEEP_FUNC	0	//!< private メンバー関数へのアクセスが可能かどうか
+#    define IUTEST_HAS_PEEP_FUNC	0
 #  endif
 #endif
 
 #ifndef IUTEST_HAS_PEEP_STATIC_FUNC
+//! private static メンバー関数へのアクセスが可能かどうか
 #  if IUTEST_HAS_PEEP && IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_STATIC_MEMBER_FUNCTION
-#    define IUTEST_HAS_PEEP_STATIC_FUNC	1	//!< private static メンバー関数へのアクセスが可能かどうか
+#    define IUTEST_HAS_PEEP_STATIC_FUNC	1
 #  else
-#    define IUTEST_HAS_PEEP_STATIC_FUNC	0	//!< private static メンバー関数へのアクセスが可能かどうか
+#    define IUTEST_HAS_PEEP_STATIC_FUNC	0
 #  endif
 #endif
 
@@ -211,10 +226,11 @@
 */
 
 #ifndef IUTEST_HAS_CTIME
+//! time 関数が使用可能かどうか
 #  if	defined(IUTEST_OS_WINDOWS_MOBILE)
-#    define IUTEST_HAS_CTIME		0	//!< time 関数が使用可能かどうか
+#    define IUTEST_HAS_CTIME		0
 #  else
-#    define IUTEST_HAS_CTIME		1	//!< time 関数が使用可能かどうか
+#    define IUTEST_HAS_CTIME		1
 #  endif
 #endif
 

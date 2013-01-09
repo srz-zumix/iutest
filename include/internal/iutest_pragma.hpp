@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -16,9 +16,6 @@
 //======================================================================
 #ifndef INCG_IRIS_iutest_pragma_HPP_FBC5A1DE_3D0C_443e_84B1_5F0618DF9A6B_
 #define INCG_IRIS_iutest_pragma_HPP_FBC5A1DE_3D0C_443e_84B1_5F0618DF9A6B_
-
-//======================================================================
-// include
 
 //======================================================================
 // define

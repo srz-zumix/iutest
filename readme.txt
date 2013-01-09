@@ -43,7 +43,7 @@ Environment variable Options
 --------------------------------------------------
 License
 
-    Copyright (c) 2011-2012, Takazumi-Shirayanagi,
+    Copyright (c) 2011-2013, Takazumi-Shirayanagi,
     All rights reserved.
 
     The new(3-clause) BSD License is applied to this software, see LICENSE

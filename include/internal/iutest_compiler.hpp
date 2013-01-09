@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -458,6 +458,23 @@
 #  if	defined(_MSC_VER) && (_MSC_VER < 1500)
 #    define IUTEST_NO_VARIADIC_MACROS		1
 #  endif
+#endif
+
+// __COUNTER__ ƒ}ƒNƒ
+#ifndef IUTEST_HAS_COUNTER_MACRO
+#  if	defined(_MSC_VER) && (_MSC_VER >= 1300)
+#    define IUTEST_HAS_COUNTER_MACRO		1
+#  elif defined(__clang__)
+#    define IUTEST_HAS_COUNTER_MACRO		1
+#  elif	defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 3))
+#      define IUTEST_HAS_COUNTER_MACRO		1
+#    endif
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_COUNTER_MACRO
+#  define IUTEST_HAS_COUNTER_MACRO			0
 #endif
 
 // file stat

@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -60,20 +60,42 @@
  * @{
 */
 
-#if IUTEST_HAS_LAMBDA
+#if IUTEST_SPI_LAMBDA_ENABLE
+
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_THROW_ON_ASSERT_FAILURE
-#  define IIUT_STATEMENT_EXECUTER(statement)		\
-	IUTEST_AMBIGUOUS_ELSE_BLOCKER_					\
-	if( ::iutest::detail::AlwaysTrue() ) {			\
-		try { [&](){ statement; }(); } catch(...){}	\
-	} else											\
-		(void)0
+#  define IIUT_STATEMENT_EXECUTER(statement)	[&](){ try {	\
+	::iutest::detail::ScopedSPITestFlag guard;					\
+	statement;													\
+	} catch(...) {}												\
+	}()
 #else
-#  define IIUT_STATEMENT_EXECUTER(statement)		\
-	[&](){ statement; }()
+#  define IIUT_STATEMENT_EXECUTER(statement)	[&](){ ::iutest::detail::ScopedSPITestFlag guard; statement; }()
 #endif
 
+#define IUTEST_TEST_FATAL_FAILURE_(statement, text, substr, on_failure)		\
+	if( ![&]() -> bool {													\
+		::iutest::detail::NewTestPartResultCheckHelper::Reporter<			\
+			::iutest::detail::NewTestPartResultCheckHelper::CondEq<			\
+				::iutest::TestPartResult::kFatalFailure>					\
+				, ::iutest::detail::FakeTestPartResultReporter > iutest_failure_checker;		\
+		IIUT_STATEMENT_EXECUTER(statement);									\
+		return iutest_failure_checker.count() != 0;							\
+	}() )																	\
+		on_failure("\nExpected: " text " generate new fatal failure.\n  Actual: it does.") << substr
+
+#define IUTEST_TEST_NONFATAL_FAILURE_(statement, text, substr, on_failure)	\
+	if( ![&]() -> bool {													\
+		::iutest::detail::NewTestPartResultCheckHelper::Reporter<			\
+			::iutest::detail::NewTestPartResultCheckHelper::CondEq<			\
+				::iutest::TestPartResult::kNotFatalFailure>					\
+				, ::iutest::detail::FakeTestPartResultReporter > iutest_failure_checker;	\
+		IIUT_STATEMENT_EXECUTER(statement);									\
+		return iutest_failure_checker.count() != 0;							\
+	}() )																	\
+		on_failure("\nExpected: " text " generate new non fatal failure.\n  Actual: it does.") << substr
+
 #else
+
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_THROW_ON_ASSERT_FAILURE
 #  define IIUT_STATEMENT_EXECUTER(statement)	struct IUTestFatalFailureStatement {	\
 	static void Execute() { ::iutest::detail::ScopedSPITestFlag guard;					\
@@ -85,8 +107,6 @@
 	static void Execute() { ::iutest::detail::ScopedSPITestFlag guard; statement; }		\
 	};																					\
 	IUTestFatalFailureStatement::Execute()
-#endif
-
 #endif
 
 #define IUTEST_TEST_FATAL_FAILURE_(statement, text, substr, on_failure)		\
@@ -120,6 +140,8 @@
 		on_failure("\nExpected: " text " generate new non fatal failure.\n  Actual: it does.") << substr
 
 //		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(statement);
+
+#endif
 
 /**
  * @}

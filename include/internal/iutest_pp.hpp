@@ -52,6 +52,12 @@
 
 #define IUTEST_PP_EMPTY
 
+#ifdef IUTEST_HAS_COUNTER_MACRO
+#  define IUTEST_PP_COUNTER			__COUNTER__
+#else
+#  define IUTEST_PP_COUNTER			__LINE__
+#endif
+
 #define IUTEST_UNUSED_VAR(x)		(void)(x)
 
 #define IUTEST_PP_DEC(n)	IUTEST_PP_DEC_##n

@@ -243,7 +243,7 @@
  * @brief	メッセージロギング
 */
 #define IIUT_SCOPED_MESSAGE(msg_)			\
-	const ::iutest::AssertionHelper::ScopedMessage IUTEST_PP_CAT(scoped_message_, __LINE__) = ::iutest::detail::iuCodeMessage(__FILE__, __LINE__, ::iutest::Message() << (msg_))
+	const ::iutest::AssertionHelper::ScopedMessage IUTEST_PP_CAT(scoped_message_, IUTEST_PP_COUNTER) = ::iutest::detail::iuCodeMessage(__FILE__, __LINE__, ::iutest::Message() << (msg_))
 
 
 /**

@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01029906u	//!< iutest version 1.2.99.6
+#define	IUTEST_VER			0x01029907u	//!< iutest version 1.2.99.7
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x02u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x06u		//!< Revision
+#define IUTEST_REVISION		0x07u		//!< Revision
 
 /**
  * @mainpage
@@ -35,7 +35,7 @@
  *			github      : https://github.com/srz-zumix/iutest \n
  *
  * @par		copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  *
  * @par		LICENSE
@@ -92,8 +92,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.2.99.6
+  <li>v1.2.99.7
     <ul>
+      <li>IUTEST_*_FATAL_FAILURE, IUTEST_*_NONFATAL_FAILURE で lambda を利用して変数にアクセスできるように修正</li>
       <li>IUTEST_*_NO_FATAL_FAILURE が FATAL FAILURE のみで判断するように変更</li>
       <li>IUTEST_*_NO_FAILURE を追加</li>
       <li>ライブラリビルド対応</li>

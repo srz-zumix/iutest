@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -180,7 +180,7 @@ namespace tr1
 
 
 #undef IUTEST_THROW_ON_ASSERT_FAILURE
-
+#undef IUTEST_SPI_LAMBDA_ENABLE
 #undef IUTEST_HAS_GENRAND
 
 #undef IUTEST_HAS_VARIADIC_TEMPLATES
@@ -212,6 +212,7 @@ namespace tr1
 #define IUTEST_HAS_TYPED_TEST_P		GTEST_HAS_TYPED_TEST_P
 
 #define IUTEST_THROW_ON_ASSERT_FAILURE	0
+#define IUTEST_SPI_LAMBDA_ENABLE		0
 #define IUTEST_HAS_GENRAND				0
 
 #define IUTEST_HAS_EXCEPTIONS		GTEST_HAS_EXCEPTIONS
