@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -133,7 +133,7 @@
 		typedef iutest_TypeParam	TypeParam;					\
 		protected: virtual void Body(void);						\
 	};															\
-	static int s_iutest_##testname_##_defined_dummy_ IUTEST_ATTRIBUTE_UNUSED_ =	\
+	static const int s_iutest_##testname_##_defined_dummy_ IUTEST_ATTRIBUTE_UNUSED_ =	\
 	IUTEST_TYPED_TEST_CASE_PSTATE_NAME_(testcase_).AddTestName(__FILE__, __LINE__, #testcase_, #testname_);		\
 	}															\
 	template<typename iutest_TypeParam>							\
@@ -143,11 +143,11 @@
 	namespace IUTEST_TYPED_TEST_P_NAMESPACE_(testcase_) {								\
 		typedef ::iutest::detail::Templates< __VA_ARGS__ >::type	iutest_AllTests_;	\
 	}																					\
-	static bool s_iutest_##testcase_##_register_dummy_ IUTEST_ATTRIBUTE_UNUSED_ =		\
+	static const bool s_iutest_##testcase_##_register_dummy_ IUTEST_ATTRIBUTE_UNUSED_ =	\
 	IUTEST_TYPED_TEST_CASE_PSTATE_NAME_(testcase_).VerifyTestNames(__FILE__, __LINE__, #__VA_ARGS__)
 
 #define IUTEST_INSTANTIATE_TYPED_TEST_CASE_P_(prefix_, testcase_, types_)	\
-	bool iutest_##prefix_##_##testcase_ IUTEST_ATTRIBUTE_UNUSED_ =			\
+	const bool iutest_##prefix_##_##testcase_ IUTEST_ATTRIBUTE_UNUSED_ =	\
 		::iutest::detail::TypeParameterizedTestCase< testcase_				\
 		, IUTEST_TYPED_TEST_P_NAMESPACE_(testcase_)::iutest_AllTests_		\
 		, ::iutest::detail::TypeList< types_ >::type >::Register(#prefix_, IUTEST_CONCAT_PACKAGE_(testcase_)	\

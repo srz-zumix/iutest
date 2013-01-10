@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -39,7 +39,7 @@
 
 #include <gtest/gtest-spi.h>
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER)
 // /ZI オプションだと __LINE__ が __LINE__Var+N(Nは番号) になりコンパイルエラーになるための対応
 #  ifndef __LINE__Var
 #    define __LINE__Var	0

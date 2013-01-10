@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -195,11 +195,6 @@ inline detail::iuValueArray<Args...> IUTEST_ATTRIBUTE_UNUSED_ Values(Args... arg
 
 #else
 
-/**
- * @brief	値配列パラメータ
- * @note	50引数まで使用可能
-*/
-
 #include "internal/iutest_template_util_defs.hpp"
 
 #define IUTEST_DECL_VALUES(n)	template< IUTEST_TEMPLATE_UTIL_TEMPLATES_TYPENAME(n) >						\
@@ -208,6 +203,10 @@ inline detail::iuValueArray<Args...> IUTEST_ATTRIBUTE_UNUSED_ Values(Args... arg
 		return detail::iuValueArray##n< IUTEST_TEMPLATE_UTIL_ARGS(n) >( IUTEST_TEMPLATE_UTIL_VALUES(n) );	\
 	}
 
+/**
+ * @brief	値配列パラメータ
+ * @note	50引数まで使用可能
+*/
 IUTEST_DECL_VALUES(1)
 IUTEST_DECL_VALUES(2)
 IUTEST_DECL_VALUES(3)
@@ -279,68 +278,33 @@ detail::iuCartesianProductHolder<Generator...> Combine(const Generator&... gener
 
 #else
 
+#include "internal/iutest_template_util_defs.hpp"
+
+#define IUTEST_DECL_COMBINE_ARGS_M(param, i) IUTEST_PP_CAT(param, i)& IUTEST_PP_CAT(t,i)
+#define IUTEST_DECL_COMBINE(n)	template< IUTEST_TEMPLATE_UTIL_TEMPLATES_TYPENAME(n) >			\
+	inline IUTEST_PP_CAT(detail::iuCartesianProductHolder, n)< IUTEST_TEMPLATE_UTIL_ARGS(n) >	\
+	Combine(IUTEST_PP_ENUM_SHIFTED_PARAMS_M(n, IUTEST_DECL_COMBINE_ARGS_M, const T)) {			\
+		return IUTEST_PP_CAT(detail::iuCartesianProductHolder, n)								\
+					< IUTEST_TEMPLATE_UTIL_ARGS(n) >(IUTEST_TEMPLATE_UTIL_VALUES(n));			\
+	}
+
 /**
  * @brief	複合条件パラメータ化
  * @note	9引数まで使用可能
 */
-template<typename G1, typename G2>
-detail::iuCartesianProductHolder2<G1, G2> Combine(const G1& g1, const G2& g2)
-{
-	return detail::iuCartesianProductHolder2<G1, G2>(g1, g2);
-}
+IUTEST_DECL_COMBINE(2)
+IUTEST_DECL_COMBINE(3)
+IUTEST_DECL_COMBINE(4)
+IUTEST_DECL_COMBINE(5)
+IUTEST_DECL_COMBINE(6)
+IUTEST_DECL_COMBINE(7)
+IUTEST_DECL_COMBINE(8)
+IUTEST_DECL_COMBINE(9)
 
-/** @overload */
-template<typename G1, typename G2, typename G3>
-detail::iuCartesianProductHolder3<G1, G2, G3> Combine(const G1& g1, const G2& g2, const G3& g3)
-{
-	return detail::iuCartesianProductHolder3<G1, G2, G3>(g1, g2, g3);
-}
+#undef IUTEST_DECL_COMBINE_ARGS_M
+#undef IUTEST_DECL_COMBINE
 
-/** @overload */
-template<typename G1, typename G2, typename G3, typename G4>
-detail::iuCartesianProductHolder4<G1, G2, G3, G4> Combine(const G1& g1, const G2& g2, const G3& g3, const G4& g4)
-{
-	return detail::iuCartesianProductHolder4<G1, G2, G3, G4>(g1, g2, g3, g4);
-}
-
-/** @overload */
-template<typename G1, typename G2, typename G3, typename G4, typename G5>
-detail::iuCartesianProductHolder5<G1, G2, G3, G4, G5> Combine(const G1& g1, const G2& g2, const G3& g3, const G4& g4, const G5& g5)
-{
-	return detail::iuCartesianProductHolder5<G1, G2, G3, G4, G5>(g1, g2, g3, g4, g5);
-}
-
-/** @overload */
-template<typename G1, typename G2, typename G3, typename G4, typename G5, typename G6>
-detail::iuCartesianProductHolder6<G1, G2, G3, G4, G5, G6> Combine(const G1& g1, const G2& g2, const G3& g3, const G4& g4, const G5& g5
-															  , const G6& g6)
-{
-	return detail::iuCartesianProductHolder6<G1, G2, G3, G4, G5, G6>(g1, g2, g3, g4, g5, g6);
-}
-
-/** @overload */
-template<typename G1, typename G2, typename G3, typename G4, typename G5, typename G6, typename G7>
-detail::iuCartesianProductHolder7<G1, G2, G3, G4, G5, G6, G7> Combine(const G1& g1, const G2& g2, const G3& g3, const G4& g4, const G5& g5
-															  , const G6& g6, const G7& g7)
-{
-	return detail::iuCartesianProductHolder7<G1, G2, G3, G4, G5, G6, G7>(g1, g2, g3, g4, g5, g6, g7);
-}
-
-/** @overload */
-template<typename G1, typename G2, typename G3, typename G4, typename G5, typename G6, typename G7, typename G8>
-detail::iuCartesianProductHolder8<G1, G2, G3, G4, G5, G6, G7, G8> Combine(const G1& g1, const G2& g2, const G3& g3, const G4& g4, const G5& g5
-															  , const G6& g6, const G7& g7, const G8& g8)
-{
-	return detail::iuCartesianProductHolder8<G1, G2, G3, G4, G5, G6, G7, G8>(g1, g2, g3, g4, g5, g6, g7, g8);
-}
-
-/** @overload */
-template<typename G1, typename G2, typename G3, typename G4, typename G5, typename G6, typename G7, typename G8, typename G9>
-detail::iuCartesianProductHolder9<G1, G2, G3, G4, G5, G6, G7, G8, G9> Combine(const G1& g1, const G2& g2, const G3& g3, const G4& g4, const G5& g5
-															  , const G6& g6, const G7& g7, const G8& g8, const G9& g9)
-{
-	return detail::iuCartesianProductHolder9<G1, G2, G3, G4, G5, G6, G7, G8, G9>(g1, g2, g3, g4, g5, g6, g7, g8, g9);
-}
+#include "internal/iutest_template_util_undef.hpp"
 
 #endif
 
@@ -361,64 +325,33 @@ detail::iuPairwiseHolder<Generator...> Pairwise(const Generator&... generators)
 
 #else
 
+#include "internal/iutest_template_util_defs.hpp"
+
+#define IUTEST_DECL_PAIRWISE_ARGS_M(param, i) IUTEST_PP_CAT(param, i)& IUTEST_PP_CAT(t,i)
+#define IUTEST_DECL_PAIRWISE(n)	template< IUTEST_TEMPLATE_UTIL_TEMPLATES_TYPENAME(n) >			\
+	inline IUTEST_PP_CAT(detail::iuPairwiseHolder, n)< IUTEST_TEMPLATE_UTIL_ARGS(n) >			\
+	Pairwise(IUTEST_PP_ENUM_SHIFTED_PARAMS_M(n, IUTEST_DECL_PAIRWISE_ARGS_M, const T)) {		\
+		return IUTEST_PP_CAT(detail::iuPairwiseHolder, n)										\
+					< IUTEST_TEMPLATE_UTIL_ARGS(n) >(IUTEST_TEMPLATE_UTIL_VALUES(n));			\
+	}
+
 /**
  * @brief	複合条件パラメータ化(オールペア法)
  * @note	9引数まで使用可能
 */
-template<typename G1, typename G2>
-detail::iuPairwiseHolder2<G1, G2> Pairwise(const G1& g1, const G2& g2)
-{
-	return detail::iuPairwiseHolder2<G1, G2>(g1, g2);
-}
+IUTEST_DECL_PAIRWISE(2)
+IUTEST_DECL_PAIRWISE(3)
+IUTEST_DECL_PAIRWISE(4)
+IUTEST_DECL_PAIRWISE(5)
+IUTEST_DECL_PAIRWISE(6)
+IUTEST_DECL_PAIRWISE(7)
+IUTEST_DECL_PAIRWISE(8)
+IUTEST_DECL_PAIRWISE(9)
 
-/** @overload */
-template<typename G1, typename G2, typename G3>
-detail::iuPairwiseHolder3<G1, G2, G3> Pairwise(const G1& g1, const G2& g2, const G3& g3)
-{
-	return detail::iuPairwiseHolder3<G1, G2, G3>(g1, g2, g3);
-}
+#undef IUTEST_DECL_COMBINE_ARGS_M
+#undef IUTEST_DECL_COMBINE
 
-/** @overload */
-template<typename G1, typename G2, typename G3, typename G4>
-detail::iuPairwiseHolder4<G1, G2, G3, G4> Pairwise(const G1& g1, const G2& g2, const G3& g3, const G4& g4)
-{
-	return detail::iuPairwiseHolder4<G1, G2, G3, G4>(g1, g2, g3, g4);
-}
-
-/** @overload */
-template<typename G1, typename G2, typename G3, typename G4, typename G5>
-detail::iuPairwiseHolder5<G1, G2, G3, G4, G5> Pairwise(const G1& g1, const G2& g2, const G3& g3, const G4& g4, const G5& g5)
-{
-	return detail::iuPairwiseHolder5<G1, G2, G3, G4, G5>(g1, g2, g3, g4, g5);
-}
-
-/** @overload */
-template<typename G1, typename G2, typename G3, typename G4, typename G5, typename G6>
-detail::iuPairwiseHolder6<G1, G2, G3, G4, G5, G6> Pairwise(const G1& g1, const G2& g2, const G3& g3, const G4& g4, const G5& g5, const G6& g6)
-{
-	return detail::iuPairwiseHolder6<G1, G2, G3, G4, G5, G6>(g1, g2, g3, g4, g5, g6);
-}
-
-/** @overload */
-template<typename G1, typename G2, typename G3, typename G4, typename G5, typename G6, typename G7>
-detail::iuPairwiseHolder7<G1, G2, G3, G4, G5, G6, G7> Pairwise(const G1& g1, const G2& g2, const G3& g3, const G4& g4, const G5& g5, const G6& g6, const G7& g7)
-{
-	return detail::iuPairwiseHolder7<G1, G2, G3, G4, G5, G6, G7>(g1, g2, g3, g4, g5, g6, g7);
-}
-
-/** @overload */
-template<typename G1, typename G2, typename G3, typename G4, typename G5, typename G6, typename G7, typename G8>
-detail::iuPairwiseHolder8<G1, G2, G3, G4, G5, G6, G7, G8> Pairwise(const G1& g1, const G2& g2, const G3& g3, const G4& g4, const G5& g5, const G6& g6, const G7& g7, const G8& g8)
-{
-	return detail::iuPairwiseHolder8<G1, G2, G3, G4, G5, G6, G7, G8>(g1, g2, g3, g4, g5, g6, g7, g8);
-}
-
-/** @overload */
-template<typename G1, typename G2, typename G3, typename G4, typename G5, typename G6, typename G7, typename G8, typename G9>
-detail::iuPairwiseHolder9<G1, G2, G3, G4, G5, G6, G7, G8, G9> Pairwise(const G1& g1, const G2& g2, const G3& g3, const G4& g4, const G5& g5, const G6& g6, const G7& g7, const G8& g8, const G9& g9)
-{
-	return detail::iuPairwiseHolder9<G1, G2, G3, G4, G5, G6, G7, G8, G9>(g1, g2, g3, g4, g5, g6, g7, g8, g9);
-}
+#include "internal/iutest_template_util_undef.hpp"
 
 #endif
 

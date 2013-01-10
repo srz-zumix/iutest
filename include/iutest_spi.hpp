@@ -21,7 +21,7 @@
 // include
 #include "iutest.hpp"
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER)
 // /ZI オプションだと __LINE__ が __LINE__Var+N(Nは番号) になりコンパイルエラーになるための対応
 #  ifndef __LINE__Var
 #    define __LINE__Var	0

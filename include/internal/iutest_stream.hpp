@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -82,7 +82,6 @@ public:
 		fwrite(buf, size, cnt, m_fp);
 	}
 };
-
 
 }	// end of namespace detail
 }	// end of namespace iutest

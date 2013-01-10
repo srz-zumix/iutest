@@ -352,7 +352,7 @@
 #  define IUTEST_LIB_TOOLSET	"vc90"
 #elif	_MSC_VER == 1600
 #  define IUTEST_LIB_TOOLSET	"vc100"
-#elif	_MSC_VER >= 1700
+#elif	_MSC_VER == 1700
 #  define IUTEST_LIB_TOOLSET	"vc110"
 #else
 #  error unkown _MSC_VER.

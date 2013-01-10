@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -495,7 +495,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ DoubleNearPredFormat(const char*
 	return CmpHelperNearFloatingPoint(expr1, expr2, absc, val1, val2, abs_v);
 }
 template<typename T, typename A>
-static AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(const char* expr1, const char* expr2, const char* absc
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(const char* expr1, const char* expr2, const char* absc
 													, const T& val1, const T& val2, const A& abs_v)
 {
 	T diff = val1 > val2 ? val1 - val2 : val2 - val1;

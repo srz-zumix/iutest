@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -107,7 +107,7 @@ private:
 		}
 #endif
 
-#if (IUTEST_HAS_EXCEPTIONS && defined(_MSC_VER))  && !defined(IUTEST_OS_WINDOWS_MOBILE)
+#if IUTEST_HAS_EXCEPTIONS && (defined(_MSC_VER) && (_MSC_VER >= 1400)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 		_set_invalid_parameter_handler(OnInvalidParameter);
 #endif
 	}
