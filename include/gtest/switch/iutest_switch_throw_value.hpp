@@ -78,7 +78,7 @@
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_													\
 	if( ::testing::AssertionResult ar = ::testing::AssertionSuccess() ) {			\
 		try {																		\
-			IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING((void)statement);				\
+			IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING((void)(statement));				\
 			ar << "\nExpected: " #statement " throws an exception of type "			\
 					#expected_exception ".\n  Actual: it throws nothing.";			\
 			goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);					\
