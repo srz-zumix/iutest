@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -54,6 +54,21 @@
 
 //======================================================================
 // define
+#ifndef IUTEST_ASSERT_THROW_PRED_FORMAT2
+#  define IUTEST_ASSERT_THROW_PRED_FORMAT2(pred_formatter, statement, expected_exception, expected_exception_value)		\
+	IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_ASSERT_FAILURE)
+#endif
+
+#ifndef IUTEST_EXPECT_THROW_PRED_FORMAT2
+#  define IUTEST_EXPECT_THROW_PRED_FORMAT2(pred_formatter, statement, expected_exception, expected_exception_value)		\
+	IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_EXPECT_FAILURE)
+#endif
+
+#ifndef IUTEST_INFORM_THROW_PRED_FORMAT2
+#  define IUTEST_INFORM_THROW_PRED_FORMAT2(pred_formatter, statement, expected_exception, expected_exception_value)		\
+	IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_INFORM_FAILURE)
+#endif
+
 // ASSERT
 #define IUTEST_ASSERT_THROW_VALUE_EQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_EQ_(statement, expected_exception, expected_value, IUTEST_ASSERT_FAILURE)
 #define IUTEST_ASSERT_THROW_VALUE_NE(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, expected_value, IUTEST_ASSERT_FAILURE)
@@ -78,7 +93,7 @@
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_													\
 	if( ::testing::AssertionResult ar = ::testing::AssertionSuccess() ) {			\
 		try {																		\
-			IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING((void)(statement));				\
+			IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING((void)(statement));			\
 			ar << "\nExpected: " #statement " throws an exception of type "			\
 					#expected_exception ".\n  Actual: it throws nothing.";			\
 			goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);					\

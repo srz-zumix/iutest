@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -17,12 +17,12 @@
 #ifndef INCG_IRIS_iutest_filepath_HPP_D69E7545_BF8A_4edc_9493_9105C69F9378_
 #define INCG_IRIS_iutest_filepath_HPP_D69E7545_BF8A_4edc_9493_9105C69F9378_
 
+#if !defined(IUTEST_USE_GTEST)
+
 //======================================================================
 // include
 #include "iutest_string.hpp"
 #include "iutest_port.hpp"
-
-#if !defined(IUTEST_USE_GTEST)
 
 #if IUTEST_HAS_FILE_STAT
 #  include <sys/stat.h>

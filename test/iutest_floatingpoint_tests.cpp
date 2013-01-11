@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -20,6 +20,8 @@
 #include "../include/iutest.hpp"
 #include <cmath>
 
+#if !defined(IUTEST_USE_GTEST)
+
 #if IUTEST_HAS_TYPED_TEST
 
 namespace floationgpoint_test
@@ -29,7 +31,7 @@ template<typename T>
 class FloatingpointTest : public ::iutest::Test
 {
 public:
-	typedef iutest::floating_point<T>	ftype;
+	typedef ::iutest::floating_point<T>	ftype;
 
 	static T ONE;
 	static T ZERO;
@@ -55,5 +57,7 @@ IUTEST_TYPED_TEST(FloatingpointTest, NaN)
 }
 
 }
+
+#endif
 
 #endif

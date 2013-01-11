@@ -597,6 +597,10 @@
 						>
 					</File>
 					<File
+						RelativePath="..\..\include\gtest\switch\iutest_switch_pred.hpp"
+						>
+					</File>
+					<File
 						RelativePath="..\..\include\gtest\switch\iutest_switch_skip.hpp"
 						>
 					</File>

@@ -75,6 +75,7 @@
 #include "switch/iutest_switch_package.hpp"
 #include "switch/iutest_switch_peep.hpp"
 #include "switch/iutest_switch_pmz.hpp"
+#include "switch/iutest_switch_pred.hpp"
 #include "switch/iutest_switch_skip.hpp"
 #include "switch/iutest_switch_throw_value.hpp"
 #include "switch/iutest_switch_no_failure.hpp"
@@ -164,12 +165,6 @@ namespace tr1
 #undef IUTEST_ADD_FAILURE
 #undef IUTEST_ADD_FAILURE_AT
 
-#undef IUTEST_PRED_FORMAT1_
-#undef IUTEST_PRED_FORMAT2_
-#undef IUTEST_PRED_FORMAT3_
-#undef IUTEST_PRED_FORMAT4_
-#undef IUTEST_PRED_FORMAT5_
-
 #undef IUTEST_HAS_PARAM_TEST
 #undef IUTEST_HAS_COMBINE
 #undef IUTEST_HAS_VARIADIC_COMBINE
@@ -177,7 +172,6 @@ namespace tr1
 #undef IUTEST_HAS_VARIADIC_PAIRWISE
 #undef IUTEST_HAS_TYPED_TEST
 #undef IUTEST_HAS_TYPED_TEST_P
-
 
 #undef IUTEST_THROW_ON_ASSERT_FAILURE
 #undef IUTEST_SPI_LAMBDA_ENABLE
@@ -191,12 +185,6 @@ namespace tr1
 #undef IUTEST_HAS_SEH
 
 #endif
-
-#define IUTEST_PRED_FORMAT1_	GTEST_PRED_FORMAT1_
-#define IUTEST_PRED_FORMAT2_	GTEST_PRED_FORMAT2_
-#define IUTEST_PRED_FORMAT3_	GTEST_PRED_FORMAT3_
-#define IUTEST_PRED_FORMAT4_	GTEST_PRED_FORMAT4_
-#define IUTEST_PRED_FORMAT5_	GTEST_PRED_FORMAT5_
 
 #define IUTEST_SUCCEED			GTEST_SUCCEED
 #define IUTEST_FAIL				GTEST_FAIL
@@ -230,6 +218,7 @@ namespace tr1
 #include "switch/iutest_switch_package.hpp"
 #include "switch/iutest_switch_peep.hpp"
 #include "switch/iutest_switch_pmz.hpp"
+#include "switch/iutest_switch_pred.hpp"
 #include "switch/iutest_switch_skip.hpp"
 #include "switch/iutest_switch_throw_value.hpp"
 #include "switch/iutest_switch_no_failure.hpp"
