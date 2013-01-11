@@ -28,6 +28,7 @@
 #include "../include/impl/iutest_info.ipp"
 #include "../include/impl/iutest_env.ipp"
 #include "../include/impl/iutest_listener.ipp"
+#include "../include/impl/iutest_message.ipp"
 #include "../include/impl/iutest_regex.ipp"
 
 #include "../include/impl/iutest_filepath.ipp"

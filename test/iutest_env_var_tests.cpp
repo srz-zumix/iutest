@@ -32,6 +32,7 @@ int SetUpEnvironment(void)
 	::iutest::internal::posix::PutEnv("IUTEST_PRINT_TIME=1");
 	::iutest::internal::posix::PutEnv("IUTEST_REPEAT=2");
 	::iutest::internal::posix::PutEnv("IUTEST_FILTER=Flag*");
+	::iutest::internal::posix::PutEnv("IUTEST_FILE_LOCATION=vs");
 	return 0;
 }
 
@@ -45,6 +46,7 @@ IUTEST(FlagTest, Check)
 	IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(catch_exceptions) );
 	IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(print_time) );
 	IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(shuffle) );
+	IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(file_location_style_msvc) );
 	
 	IUTEST_EXPECT_EQ( 200u, ::iutest::IUTEST_FLAG(random_seed) );
 	IUTEST_EXPECT_EQ(   2 , ::iutest::IUTEST_FLAG(repeat) );

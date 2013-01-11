@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01029909u	//!< iutest version 1.2.99.9
+#define	IUTEST_VER			0x01029910u	//!< iutest version 1.2.99.10
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x02u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x09u		//!< Revision
+#define IUTEST_REVISION		0x10u		//!< Revision
 
 /**
  * @mainpage
@@ -82,6 +82,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    <tr><td>--iutest_catch_exceptions         </td><td>&lt;0|1&gt;</td><td>catch exceptions enable.</td></tr>
    <tr><td>--iutest_print_time               </td><td>&lt;0|1&gt;</td><td>Setting the display of elapsed time.</td></tr>
    <tr><td>--iutest_repeat                   </td><td>&lt;count&gt;</td><td>Set the number of repetitions of the test.</td></tr>
+   <tr><td>--iutest_file_location            </td><td>&lt;auto|vs|gcc&gt;</td><td>Format file location messages.</td></tr>
    <tr><td>--feature                         </td><td></td><td>show iutest feature.</td></tr>
    <tr><td>--version, -v                     </td><td></td><td>show iutest version.</td></tr>
  </table>
@@ -92,8 +93,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.2.99.9
+  <li>v1.2.99.10
     <ul>
+      <li>メッセージ出力のファイル/行のフォーマットを動的に変更できるように対応(--iutest_file_location)</li>
       <li>gtest モードでのビルドエラー修正</li>
       <li>IUTEST_*_FATAL_FAILURE, IUTEST_*_NONFATAL_FAILURE で lambda を利用して変数にアクセスできるように修正</li>
       <li>IUTEST_*_NO_FATAL_FAILURE が FATAL FAILURE のみで判断するように変更</li>

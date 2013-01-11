@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -19,7 +19,7 @@
 
 //======================================================================
 // include
-#include "iutest_charcode.hpp"
+#include "../iutest_env.hpp"
 #include "iutest_constant.hpp"
 
 namespace iutest {
@@ -53,7 +53,7 @@ public:
 	const char*		message(void)	const	{ return m_message.c_str(); }	//!< メッセージの取得
 
 public:
-	::std::string GetString(void)	const { return m_message; }
+	::std::string GetString(void)	const	{ return m_message; }
 public:
 	template<typename T>
 	iuMessage&	operator << (const T& value) 
@@ -157,56 +157,18 @@ public:
 	int				line_number(void)	const	{ return m_line; }				//!< ライン番号の取得
 public:
 	/** @private */
-	::std::string	make_message(void) const
-	{
-		::std::string str = FormatFileLocation(m_file, m_line);
-		str += ": ";
-		str += message();
-		return str;
-	}
+	::std::string	make_message(void) const;
 	::std::string	make_newline_message(void) const
 	{
 		return make_message() + "\n";
 	}
 };
 
-//======================================================================
-// function
-inline void iuMessage::append(const char* str)
-{
-	if( str == NULL )
-	{
-		m_message += "(null)";
-	}
-	else
-	{
-		m_message += str;
-	}
-}
-
-inline ::std::string FormatFileLocation(const char* file, int line)
-{
-	const char* const file_name = file == NULL ? kStrings::UnkownFile : file;
-	if( line < 0 ) return file;
-	iuStringStream::type strm;
-#ifdef _MSC_VER
-	strm << file_name << "(" << line << ")";
-#else
-	strm << file_name << ":" << line;
-#endif
-	return strm.str();
-}
-
-inline ::std::string FormatCompilerIndependentFileLocation(const char* file, int line)
-{
-	const char* const file_name = file == NULL ? kStrings::UnkownFile : file;
-	if( line < 0 ) return file;
-	iuStringStream::type strm;
-	strm << file_name << ":" << line;
-	return strm.str();
-}
-
 }	// end of namespace detail
 }	// end of namespace iutest
+
+#if !IUTEST_HAS_LIB
+#  include "../impl/iutest_message.ipp"
+#endif
 
 #endif

@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -19,7 +19,6 @@
 
 //======================================================================
 // include
-#include "iutest_env.hpp"
 #include "internal/iutest_message.hpp"
 #include "internal/iutest_console.hpp"
 

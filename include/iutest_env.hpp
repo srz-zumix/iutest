@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -41,6 +41,7 @@
  *          filter (string)\n
  *          repeat (int)\n
  *			list_tests (bool)\n
+ *			file_location_style_msvc (bool)\n
 */
 #define IUTEST_FLAG(name)	IIUT_FLAG(name)
 
@@ -116,6 +117,7 @@ public:
 		CONSOLE_COLOR_OFF		= 0x00000200,	//!< 色つき出力OFF
 		CONSOLE_COLOR_ANSI		= 0x00000400,	//!< エスケープシーケンスで出力
 		PRINT_TIME				= 0x00001000,	//!< 経過時間の出力
+		FILELOCATION_STYLE_MSVC	= 0x00002000,	//!< ファイル/行出力スタイルを Visual Studio スタイルにする
 		CATCH_EXCEPTION_EACH	= 0x00010000,	//!< 例外を catch する(TestInfo)
 		CATCH_EXCEPTION_GLOBAL	= 0x00020000,	//!< 例外を catch する(UnitTest)
 		CATCH_EXCEPTION			= 0x00030000,	//!< 例外を catch する
@@ -126,7 +128,12 @@ public:
 		SHOW_FEATURE			= 0x80000000,	//!< 機能の出力
 		MASK					= 0xFFFFFFFF,	//!< マスク
 
-		DEFAULT = CATCH_EXCEPTION|PRINT_TIME		//!< デフォルト
+		//! デフォルト
+#ifdef _MSC_VER
+		DEFAULT = CATCH_EXCEPTION|PRINT_TIME|FILELOCATION_STYLE_MSVC
+#else
+		DEFAULT = CATCH_EXCEPTION|PRINT_TIME
+#endif
 	};
 
 private:
@@ -212,6 +219,8 @@ public:
 
 	typedef TestFlag::Fragment<TestFlag::CATCH_EXCEPTION_EACH>		catch_exceptions_each;
 	typedef TestFlag::Fragment<TestFlag::CATCH_EXCEPTION_GLOBAL>	catch_exceptions_global;
+
+	typedef TestFlag::Fragment<TestFlag::FILELOCATION_STYLE_MSVC>	file_location_style_msvc;
 
 	/**
 	 * @}
@@ -485,23 +494,18 @@ private:
 	static bool	ParseOutputOption(const char* option);
 
 	/**
+	 * @brief	IUTEST_FILE_LOCATION オプションの判定
+	*/
+	static bool	ParseFileLocationOption(const char* option);
+
+	/**
 	 * @brief	yes オプションか no オプションかの判定
-	 * @param [in]	option	= オプション文字列
+	 * @param [in]	str		= コマンドライン文字列（関数ないでオプション文字列部分を取得する）
 	 * @param [in]	flag	= フラグ
 	 * @param [in]	def		= 引数なしの場合のオペレーション
 	 * @return	成否
 	*/
-	static bool ParseYesNoFlagOption(const char* option, TestFlag::Kind flag, int def)
-	{
-		const char* str = ParseOptionSettingStr(option);
-		int yesno = str != NULL ? ParseYesNoOption(str) : def;
-		if( yesno < 0 )
-		{
-			return false;
-		}
-		TestFlag::SetFlag(flag, yesno ? TestFlag::MASK : ~(flag) );
-		return true;
-	}
+	static bool ParseYesNoFlagCommandLine(const char* str, TestFlag::Kind flag, int def);
 
 	/**
 	 * @brief	yes オプションか no オプションかの判定
@@ -510,46 +514,16 @@ private:
 	 * @retval	0	= NO
 	 * @retval	> 0 = YES
 	*/
-	static int ParseYesNoOption(const char* option)
-	{
-		if( option == NULL ) return -1;
-		if( IsYes(option) ) return 1;
-		if( IsNo(option) ) return 0;
-		return -1;
-	}
+	static int ParseYesNoOption(const char* option);
 
 	/**
 	 * @brief	yes オプションか判定
 	*/
-	static bool IsYes(const char* option)
-	{
-		if( detail::IsStringCaseEqual(option, "yes")
-			|| detail::IsStringCaseEqual(option, "y")
-			|| detail::IsStringCaseEqual(option, "on")
-			|| detail::IsStringCaseEqual(option, "true")
-			|| detail::IsStringCaseEqual(option, "t")
-			|| detail::IsStringEqual(option, "1") ) 
-		{
-			return true;
-		}
-		return false;
-	}
+	static bool IsYes(const char* option);
 	/**
 	 * @brief	no オプションか判定
 	*/
-	static bool IsNo(const char* option)
-	{
-		if( detail::IsStringCaseEqual(option, "no")
-			|| detail::IsStringCaseEqual(option, "n")
-			|| detail::IsStringCaseEqual(option, "off")
-			|| detail::IsStringCaseEqual(option, "false")
-			|| detail::IsStringCaseEqual(option, "f")
-			|| detail::IsStringEqual(option, "0") ) 
-		{
-			return true;
-		}
-		return false;
-	}
+	static bool IsNo(const char* option);
 
 private:
 	friend class UnitTest;

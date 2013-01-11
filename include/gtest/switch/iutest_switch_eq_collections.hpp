@@ -36,6 +36,10 @@
 #  define	IUTEST_INFORM_EQ_COLLECTIONS(b1, e1, b2, e2)	IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, IUTEST_INFORM_FAILURE)
 #endif
 
+#ifndef IUTEST_TEST_EQ_COLLECTIONS
+#  define IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, on_failure) IUTEST_PRED_FORMAT4_( ::testing::internal::CmpHelperEqCollections, b1, e1, b2, e2, on_failure)
+#endif
+
 //======================================================================
 // function
 namespace testing

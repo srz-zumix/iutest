@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -97,19 +97,19 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 				}
 				else if( strstr(str, "break_on_failure") == str )
 				{
-					find = ParseYesNoFlagOption(str, TestFlag::BREAK_ON_FAILURE, 1);
+					find = ParseYesNoFlagCommandLine(str, TestFlag::BREAK_ON_FAILURE, 1);
 				}
 				else if( strstr(str, "catch_exceptions") == str )
 				{
-					find = ParseYesNoFlagOption(str, TestFlag::CATCH_EXCEPTION, -1);
+					find = ParseYesNoFlagCommandLine(str, TestFlag::CATCH_EXCEPTION, -1);
 				}
 				else if( strstr(str, "throw_on_failure") == str )
 				{
-					find = ParseYesNoFlagOption(str, TestFlag::THROW_ON_FAILURE, 1);
+					find = ParseYesNoFlagCommandLine(str, TestFlag::THROW_ON_FAILURE, 1);
 				}
 				else if( strstr(str, "print_time") == str )
 				{
-					find = ParseYesNoFlagOption(str, TestFlag::PRINT_TIME, -1);
+					find = ParseYesNoFlagCommandLine(str, TestFlag::PRINT_TIME, -1);
 				}
 				else if( strstr(str, "repeat") == str )
 				{
@@ -132,6 +132,11 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 					{
 						set_test_filter(opt);
 					}
+				}
+				else if( strstr(str, "file_location") == str )
+				{
+					const char* opt = ParseOptionSettingStr(str);
+					find = ParseFileLocationOption(opt);
 				}
 				else
 				{
@@ -229,6 +234,10 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnviromentVariable(void)
 		{
 			ParseColorOption(var);
 		}
+		if( detail::GetEnvironmentVariable("IUTEST_FILE_LOCATION", var) )
+		{
+			ParseFileLocationOption(var);
+		}
 	}
 	{
 		char path[260+32] = {0};
@@ -300,6 +309,80 @@ IUTEST_IPP_INLINE bool	TestEnv::ParseOutputOption(const char* option)
 		get_vars().m_report_file = file+1;
 	}
 	return true;
+}
+
+IUTEST_IPP_INLINE bool	TestEnv::ParseFileLocationOption(const char* option)
+{
+	if( option == NULL ) return false;
+	if( detail::IsStringCaseEqual(option, "auto") )
+	{
+#ifdef _MSC_VER
+		TestFlag::SetFlag(TestFlag::FILELOCATION_STYLE_MSVC);
+#else
+		TestFlag::SetFlag(0, ~TestFlag::FILELOCATION_STYLE_MSVC);
+#endif
+	}
+	else if( detail::IsStringCaseEqual(option, "vs") )
+	{
+		TestFlag::SetFlag(TestFlag::FILELOCATION_STYLE_MSVC);
+	}
+	else if( detail::IsStringCaseEqual(option, "gcc") )
+	{
+		TestFlag::SetFlag(0, ~TestFlag::FILELOCATION_STYLE_MSVC);
+	}
+	else
+	{
+		return false;
+	}
+	return true;
+}
+
+IUTEST_IPP_INLINE bool TestEnv::ParseYesNoFlagCommandLine(const char* str, TestFlag::Kind flag, int def)
+{
+	const char* option = ParseOptionSettingStr(str);
+	int yesno = option != NULL ? ParseYesNoOption(option) : def;
+	if( yesno < 0 )
+	{
+		return false;
+	}
+	TestFlag::SetFlag(flag, yesno ? TestFlag::MASK : ~(flag) );
+	return true;
+}
+
+IUTEST_IPP_INLINE int TestEnv::ParseYesNoOption(const char* option)
+{
+	if( option == NULL ) return -1;
+	if( IsYes(option) ) return 1;
+	if( IsNo(option) ) return 0;
+	return -1;
+}
+
+IUTEST_IPP_INLINE bool TestEnv::IsYes(const char* option)
+{
+	if( detail::IsStringCaseEqual(option, "yes")
+		|| detail::IsStringCaseEqual(option, "y")
+		|| detail::IsStringCaseEqual(option, "on")
+		|| detail::IsStringCaseEqual(option, "true")
+		|| detail::IsStringCaseEqual(option, "t")
+		|| detail::IsStringEqual(option, "1") ) 
+	{
+		return true;
+	}
+	return false;
+}
+
+IUTEST_IPP_INLINE bool TestEnv::IsNo(const char* option)
+{
+	if( detail::IsStringCaseEqual(option, "no")
+		|| detail::IsStringCaseEqual(option, "n")
+		|| detail::IsStringCaseEqual(option, "off")
+		|| detail::IsStringCaseEqual(option, "false")
+		|| detail::IsStringCaseEqual(option, "f")
+		|| detail::IsStringEqual(option, "0") ) 
+	{
+		return true;
+	}
+	return false;
 }
 
 }	// end of namespace iutest

@@ -70,6 +70,7 @@ LIBS = iutest.a
 # All iutest headers.  Usually you shouldn't change this
 # definition.
 IUTEST_HEADERS = $(IUTEST_DIR)/include/*.hpp \
+                 $(IUTEST_DIR)/include/impl/*.ipp \
                  $(IUTEST_DIR)/include/internal/*.hpp \
                  $(IUTEST_DIR)/include/listener/*.hpp \
                  $(IUTEST_DIR)/include/util/*.hpp \
