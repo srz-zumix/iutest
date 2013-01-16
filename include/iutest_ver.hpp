@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01029911u	//!< iutest version 1.2.99.11
+#define	IUTEST_VER			0x01029912u	//!< iutest version 1.2.99.12
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x02u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x11u		//!< Revision
+#define IUTEST_REVISION		0x12u		//!< Revision
 
 /**
  * @mainpage
@@ -93,7 +93,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.2.99.11
+  <li>v1.2.99.12
     <ul>
       <li>メッセージ出力のファイル/行のフォーマットを動的に変更できるように対応(--iutest_file_location)</li>
       <li>gtest モードでのビルドエラー修正</li>

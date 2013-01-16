@@ -225,6 +225,14 @@ namespace tr1
 
 #include "switch/iutest_switch_cmphelper.hpp"
 
+#ifndef IUTEST_STATIC_ASSERT_MSG
+#  define IUTEST_STATIC_ASSERT_MSG(B, Msg)	\
+	typedef ::testing::iusupport::StaticAssertionTest< sizeof(::testing::iusupport::StaticAssertionFailure< (bool)B >) > IUTEST_PP_CAT(iutest_static_assert_typedef_, __LINE__)
+#endif
+
+#ifndef IUTEST_STATIC_ASSERT
+#  define IUTEST_STATIC_ASSERT(...)	IUTEST_STATIC_ASSERT_MSG((__VA_ARGS__), "")
+#endif
 
 namespace testing
 {
@@ -263,6 +271,16 @@ using tuples::tuple_size;
 using tuples::tuple_element;
 using tuples::make_tuple;
 using tuples::get;
+
+namespace iusupport
+{
+	/** @private */
+	template<bool b>struct StaticAssertionFailure;
+	/** @overload */
+	template<> struct StaticAssertionFailure<true> { enum { value = 1 }; };
+	/** @private */
+	template<int x>struct StaticAssertionTest {};
+}
 
 #ifdef INCG_IRIS_iutest_HPP_
 // iutest.hpp がすでにインクルードされていた場合

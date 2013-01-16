@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -40,15 +40,24 @@
 											, iutest::internal::GetTypeId<testcase_>()	\
 											, testcase_##testname_##_class, testcase_##_##testname_)
 
+#define IUTEST_VCUNIT_CHECK_DISABLED(testcase_, testname_)				\
+	if( const char* p = #testcase_)			\
+		if(strstr(p, "DISABLED_") == p)		\
+			return;							\
+	if( const char* p = #testname_ )		\
+		if(strstr(p, "DISABLED_") == p)		\
+			return
 
 #define IUTEST_VCUNIT(testcase_, testname_, parent_, type_id_, className, methodName)		\
 	IUTEST_TEST_(testcase_, testname_, parent_, type_id_) {}								\
 	IUTEST_VCUNIT_I(testcase_, testname_, className, methodName)
 
-#define IUTEST_VCUNIT_I(testcase_, testname_, className, methodName)						\
-	IUTEST_VC_TEST_CLASS(className), public IUTEST_TEST_CLASS_NAME_(testcase_, testname_) { \
-	public: TEST_METHOD(methodName) { OnTestStart(#testcase_, #testname_); SetUp();			\
-										Body(); TearDown(); OnTestEnd(#testcase_, #testname_); }			\
+#define IUTEST_VCUNIT_I(testcase_, testname_, className, methodName)		\
+	IUTEST_VC_TEST_CLASS(className), public IUTEST_TEST_CLASS_NAME_(testcase_, testname_) {	\
+	public: TEST_METHOD(methodName) {										\
+		IUTEST_VCUNIT_CHECK_DISABLED(testcase_, testname_);					\
+		OnTestStart(#testcase_, #testname_); SetUp();						\
+		Body(); TearDown(); OnTestEnd(#testcase_, #testname_); }			\
 	TEST_CLASS_INITIALIZE(iuSetUp) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::SetUpTestCase(); }		\
 	TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::TearDownTestCase(); }	\
 	virtual void	Body(void);				\
@@ -74,6 +83,7 @@ IUTEST_MAKE_SCOPED_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, 
 #define IUTEST_P_VCUNIT_I(testcase_, testname_, className, methodName)						\
 	IUTEST_VC_TEST_CLASS(className), public IUTEST_TEST_CLASS_NAME_(testcase_, testname_) { \
 	public: TEST_METHOD(methodName) {														\
+		IUTEST_VCUNIT_CHECK_DISABLED(testcase_, testname_);									\
 		const ::iutest::TestCase* testcase = ::iuutil::FindParamTestCase(#testcase_);		\
 		::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testcase);		\
 		while( testcase != NULL ) {															\
@@ -125,6 +135,7 @@ IUTEST_MAKE_SCOPED_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, 
 #define IUTEST_TYPED_TEST_VCUNIT_I(testcase_, testname_, className, methodName)			\
 	IUTEST_VC_TEST_CLASS(className) {													\
 	public: TEST_METHOD(methodName) {													\
+		IUTEST_VCUNIT_CHECK_DISABLED(testcase_, testname_);								\
 		const ::iutest::TestCase* testcase = ::iuutil::FindTypedTestCase(#testcase_);	\
 		::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testcase);	\
 		while( testcase != NULL ) {														\

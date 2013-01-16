@@ -20,12 +20,14 @@
 #include "../include/iutest.hpp"
 #include "../include/internal/iutest_filepath.hpp"
 
+#if !defined(IUTEST_USE_GTEST)
 IUTEST(FilePath, GetExecFilePath)
 {
 	::iutest::internal::FilePath path = ::iutest::internal::FilePath::GetExecFilePath();
 	IUTEST_ASSERT_FALSE(path.IsEmpty());
 	IUTEST_ASSERT_TRUE (path.FileOrDirectoryExists());
 }
+#endif
 
 IUTEST(FilePath, IsDirectory)
 {

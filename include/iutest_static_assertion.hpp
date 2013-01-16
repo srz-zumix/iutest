@@ -43,6 +43,8 @@ static bool	StaticAssertTypeEq(void)
 */
 #define StaticAssertTypeEq	detail::StaticAssertTypeEqHelper
 
+#endif
+
 /**
  * @brief	static_assert
 */
@@ -62,8 +64,6 @@ static bool	StaticAssertTypeEq(void)
 #  else
 #    define IUTEST_STATIC_ASSERT(...)	IUTEST_STATIC_ASSERT_MSG((__VA_ARGS__), "")
 #  endif
-#endif
-
 #endif
 
 //======================================================================
