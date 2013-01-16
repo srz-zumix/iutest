@@ -40,13 +40,13 @@ IUTEST(FilePath, RemoveExtension)
 {
 	{
 		::iutest::internal::FilePath path("test.exe");
-		IUTEST_ASSERT_EQ("test", path.RemoveExtension());
+		IUTEST_ASSERT_EQ("test", path.RemoveExtension(NULL));
 		IUTEST_ASSERT_EQ("test.exe", path.RemoveExtension("bin"));
 		IUTEST_ASSERT_EQ("test", path.RemoveExtension("exe"));
 	}
 	{
 		::iutest::internal::FilePath path("test.exe.bin");
-		IUTEST_ASSERT_EQ("test.exe", path.RemoveExtension());
+		IUTEST_ASSERT_EQ("test.exe", path.RemoveExtension(NULL));
 		IUTEST_ASSERT_EQ("test.exe", path.RemoveExtension("bin"));
 		IUTEST_ASSERT_EQ("test.exe.bin", path.RemoveExtension("exe"));
 	}
@@ -54,10 +54,12 @@ IUTEST(FilePath, RemoveExtension)
 
 IUTEST(FilePath, RemoveFileName)
 {
+#if !defined(IUTEST_USE_GTEST)
 	{
 		::iutest::internal::FilePath path("test.exe");
 		IUTEST_ASSERT_EQ( ::iutest::internal::FilePath::GetRelativeCurrentDir(), path.RemoveFileName());
 	}
+#endif
 	{
 		::iutest::internal::FilePath path("test/test.exe");
 		IUTEST_ASSERT_EQ("test/", path.RemoveFileName());

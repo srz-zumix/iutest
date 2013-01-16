@@ -80,6 +80,8 @@
 #include "switch/iutest_switch_throw_value.hpp"
 #include "switch/iutest_switch_no_failure.hpp"
 
+#include "switch/iutest_switch_filepath.hpp"
+
 #include "switch/iutest_switch_cmphelper.hpp"
 
 namespace iutest
@@ -222,6 +224,8 @@ namespace tr1
 #include "switch/iutest_switch_skip.hpp"
 #include "switch/iutest_switch_throw_value.hpp"
 #include "switch/iutest_switch_no_failure.hpp"
+
+#include "switch/iutest_switch_filepath.hpp"
 
 #include "switch/iutest_switch_cmphelper.hpp"
 

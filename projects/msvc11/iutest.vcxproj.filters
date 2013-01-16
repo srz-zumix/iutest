@@ -282,6 +282,9 @@
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_pred.hpp">
       <Filter>iutest\gtest\switch</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_filepath.hpp">
+      <Filter>iutest\gtest\switch</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\impl\iutest_body.ipp">

@@ -573,6 +573,10 @@
 						>
 					</File>
 					<File
+						RelativePath="..\..\include\gtest\switch\iutest_switch_filepath.hpp"
+						>
+					</File>
+					<File
 						RelativePath="..\..\include\gtest\switch\iutest_switch_inform.hpp"
 						>
 					</File>

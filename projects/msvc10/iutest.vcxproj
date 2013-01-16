@@ -141,6 +141,7 @@
     <ClCompile Include="..\..\src\iutest_all.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_filepath.hpp" />
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_no_failure.hpp" />
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_pred.hpp" />
     <ClInclude Include="..\..\include\iutest.hpp" />

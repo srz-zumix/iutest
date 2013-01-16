@@ -345,6 +345,7 @@
 #  endif
 #endif
 
+// c++
 // attribute
 #ifndef IUTEST_ATTRIBUTE_UNUSED_
 #  if defined(__GNUC__) && !defined(COMPILER_ICC)
@@ -484,6 +485,16 @@
 #  endif
 #endif
 
+// partial template specialization
+#ifndef IUTEST_NO_PARTIAL_TEMPLATE_SPECIALIZATION
+#  if	defined(_MSC_VER) && (_MSC_VER < 1300)
+#    define IUTEST_NO_PARTIAL_TEMPLATE_SPECIALIZATION	1
+#  endif
+#endif
+
+#ifndef IUTEST_NO_PARTIAL_TEMPLATE_SPECIALIZATION
+#  define IUTEST_NO_PARTIAL_TEMPLATE_SPECIALIZATION	0
+#endif
 
 // pragma
 #include "iutest_pragma.hpp"
