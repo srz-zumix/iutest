@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -97,18 +97,6 @@ private:
 	template<typename DMY>
 	struct impl<double, DMY> { typedef detail::type_least_t<8>	type; };
 
-	template<typename T, typename DMY>
-	struct ieee 
-	{
-		static const int EXP	= 8;
-		static const int FRAC	= 23;
-	};
-	template<typename DMY>
-	struct ieee<double, DMY>
-	{
-		static const int EXP	= 11;
-		static const int FRAC	= 52;
-	};
 
 	typedef typename impl<RawType, void>::type	type;
 	typedef typename type::Int	Int;
@@ -119,9 +107,6 @@ private:
 		UInt	uv;
 		RawType	fv;
 	};
-
-	static const int EXP	= ieee<RawType, void>::EXP;
-	static const int FRAC	= ieee<RawType, void>::FRAC;
 
 public:
 	/**
@@ -227,7 +212,33 @@ public:
 	bool	operator == (const _Myt& rhs) const	{ return m_v.uv == rhs.m_v.uv; }	//!< ”äŠr
 
 private:
-	static const Int	kMaxUlps = 4;
+	template<typename T, typename DMY>
+	struct ieee 
+	{
+		enum
+		{
+			  EXP  = 8
+			, FRAC = 23
+		};
+	};
+	template<typename DMY>
+	struct ieee<double, DMY>
+	{
+		enum
+		{
+			  EXP  = 11
+			, FRAC = 52
+		};
+	};
+	enum
+	{
+		  EXP  = ieee<RawType, void>::EXP
+		, FRAC = ieee<RawType, void>::FRAC
+	};
+	enum
+	{
+		kMaxUlps = 4
+	};
 private:
 	FInt	m_v;
 };

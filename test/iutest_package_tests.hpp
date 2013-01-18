@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -42,11 +42,11 @@
 
 IUTEST_PACKAGE(pkg1)
 {
-	class TestFixed : public ::iutest::Test {};
+	class PackageTestFixed : public ::iutest::Test {};
 
 	
 #if IUTEST_HAS_PARAM_METHOD_TEST
-	void TestFunction(int x, int y)
+	inline void TestFunction(int x, int y)
 	{
 		IUTEST_ASSERT_EQ(x, y);
 		IUTEST_EXPECT_PACKAGENAME(pkg1, ParamMethodTest);
@@ -54,30 +54,30 @@ IUTEST_PACKAGE(pkg1)
 #endif
 	
 #if IUTEST_HAS_PARAM_TEST
-	class ParamTest : public ::iutest::TestWithParam<int> {};
+	class PackageParamTest : public ::iutest::TestWithParam<int> {};
 #endif
 
 #if IUTEST_HAS_TYPED_TEST
 	template<typename T>
-	class TypedTest : public ::iutest::Test {};
+	class PackageTypedTest : public ::iutest::Test {};
 
 	typedef ::iutest::Types<int, float> TypedTestTypes;
-	IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
+	IUTEST_TYPED_TEST_CASE(PackageTypedTest, TypedTestTypes);
 #endif
 
 #if IUTEST_HAS_TYPED_TEST_P
 	template<typename T>
-	class TypeParamTest : public ::iutest::Test {};
+	class PackageTypeParamTest : public ::iutest::Test {};
 
-	IUTEST_TYPED_TEST_CASE_P(TypeParamTest);
+	IUTEST_TYPED_TEST_CASE_P(PackageTypeParamTest);
 
-	IUTEST_TYPED_TEST_P(TypeParamTest, A)
+	IUTEST_TYPED_TEST_P(PackageTypeParamTest, A)
 	{
 		const char* name = ::iutest::UnitTest::GetInstance()->current_test_case()->name();
-		IUTEST_EXPECT_PACKAGENAME_(pkg1, TypeParamTest, ::iuutil::TestCaseNameRemoveInstantiateAndIndexName(name));
+		IUTEST_EXPECT_PACKAGENAME_(pkg1, PackageTypeParamTest, ::iuutil::TestCaseNameRemoveInstantiateAndIndexName(name));
 	}
 
-	IUTEST_REGISTER_TYPED_TEST_CASE_P(TypeParamTest, A);
+	IUTEST_REGISTER_TYPED_TEST_CASE_P(PackageTypeParamTest, A);
 #endif
 
 }

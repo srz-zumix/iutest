@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -144,7 +144,7 @@ namespace testing
 			const char* rhs)
 		{
 			if( lhs == NULL || rhs == NULL ) return lhs == rhs;
-			return _stricmp(lhs, rhs) == 0;
+			return internal::posix::StrCaseCmp(lhs, rhs) == 0;
 		}
 		String String::ShowCStringQuoted(const char* c_str)
 		{

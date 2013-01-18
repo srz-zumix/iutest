@@ -46,7 +46,9 @@ IUTEST(FlagTest, Check)
 	IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(catch_exceptions) );
 	IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(print_time) );
 	IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(shuffle) );
+#if !defined(IUTEST_USE_GTEST)
 	IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(file_location_style_msvc) );
+#endif
 	
 	IUTEST_EXPECT_EQ( 200u, ::iutest::IUTEST_FLAG(random_seed) );
 	IUTEST_EXPECT_EQ(   2 , ::iutest::IUTEST_FLAG(repeat) );

@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -59,7 +59,12 @@ IUTEST_IPP_INLINE 	void Test::Run(detail::iuITestInfoMediator* test_info)
 	m_random.init(seed);
 
 	SetUp();
-	Body();
+
+	if( !HasFailure() )
+	{
+		Body();
+	}
+
 	TearDown();
 
 	test_info_ = NULL;

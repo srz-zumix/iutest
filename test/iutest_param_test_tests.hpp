@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -33,13 +33,6 @@ public:
 	const int value;
 	MultiInstantiateParamTest(void) : value(0) {}
 };
-
-IUTEST_P(MultiInstantiateParamTest, Test)
-{
-	int param = GetParam();
-	IUTEST_ASSERT_EQ(0, value);
-	IUTEST_ASSERT_EQ(param, param);
-}
 
 #endif
 

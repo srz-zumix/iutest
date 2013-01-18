@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -29,7 +29,7 @@ IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 0, 0);
 IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 1, 1);
 IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 2, 2);
 
-typedef TestFixed ParamMethodTestFixed;
+class ParamMethodTestFixed : public ::iutest::Test {};
 
 IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 0, 0);
 IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 1, 1);
