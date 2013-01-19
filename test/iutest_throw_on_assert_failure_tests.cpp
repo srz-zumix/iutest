@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -18,7 +18,6 @@
 //======================================================================
 // include
 #include "../include/iutest.hpp"
-
 #include <assert.h>
 
 static int x = 0;
@@ -46,13 +45,12 @@ int main(int argc, char* argv[])
 #endif
 {
 	IUTEST_INIT(&argc, argv);
-	int ret = IUTEST_RUN_ALL_TESTS();	// run all
+	int ret = IUTEST_RUN_ALL_TESTS();
 	
-	assert( ret != 0 );
 #if IUTEST_THROW_ON_ASSERT_FAILURE
-	assert( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
+	assert( x == 0 );
 #else
-	assert( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
+	assert( x == 1 );
 #endif
 	if( ret != 0 ) 	printf("*** Successful ***\n");
 	return ret ? 0 : 1;

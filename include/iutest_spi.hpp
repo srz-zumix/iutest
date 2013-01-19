@@ -21,6 +21,8 @@
 // include
 #include "iutest.hpp"
 
+#if !defined(IUTEST_USE_GTEST)
+
 #if defined(_MSC_VER)
 // /ZI オプションだと __LINE__ が __LINE__Var+N(Nは番号) になりコンパイルエラーになるための対応
 #  ifndef __LINE__Var
@@ -181,5 +183,11 @@ public:
 
 }	// end of namespace detail
 }	// end of namespace iutest
+
+#else
+
+#include "gtest/iutest_spi_switch.hpp"
+
+#endif
 
 #endif

@@ -364,7 +364,9 @@
 #  define IUTEST_LIB_RT_OPT		""
 #endif
 
-#pragma comment(lib, "libiutest-" IUTEST_LIB_TOOLSET "-" IUTEST_LIB_THREAD_OPT IUTEST_LIB_RT_OPT ".lib" )
+#define IUTEST_LIB_NAME(name)	#name "-" IUTEST_LIB_TOOLSET "-" IUTEST_LIB_THREAD_OPT IUTEST_LIB_RT_OPT ".lib"
+
+#pragma comment(lib, IUTEST_LIB_NAME(libiutest) )
 
 #endif
 

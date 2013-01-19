@@ -65,7 +65,7 @@ CXXFLAGS += $(DEFS)
 TESTS = sample
 
 # lib
-LIBS = iutest.a
+LIBS = iutest.a iutest_main.a
 
 # All iutest headers.  Usually you shouldn't change this
 # definition.
@@ -84,14 +84,20 @@ IUTEST_SRCS    = $(IUTEST_DIR)/src/*.cpp \
 all : $(LIBS) $(TESTS)
 
 clean :
-	rm -f $(TESTS) iutest.a *.o
+	rm -f $(TESTS) $(LIBS) *.o
 
 # Builds a library
-iutest_all.o : $(IUTEST_SRCS)
+.o.a : $(IUTEST_SRCS)
+	$(AR) $(ARFLAGS) $@ $^
+
+iutest.a : iutest_all.o
+	$(AR) $(ARFLAGS) $@ $^
+
+iutest_all.o : $(IUTEST_DIR)/src/iutest_all.cpp $(IUTEST_SRCS)
 	$(CXX) $(CPPFLAGS) -I$(IUTEST_DIR) $(CXXFLAGS) -c $(IUTEST_DIR)/src/iutest_all.cpp
 
-$(LIBS) : iutest_all.o
-	$(AR) $(ARFLAGS) $@ $^
+iutest_main.o : $(IUTEST_DIR)/src/iutest_main.cpp $(IUTEST_SRCS)
+	$(CXX) $(CPPFLAGS) -I$(IUTEST_DIR) $(CXXFLAGS) -c $(IUTEST_DIR)/src/iutest_main.cpp
 
 # Builds a sample test.  
 

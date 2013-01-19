@@ -157,6 +157,7 @@ namespace tr1
 #include "../iutest_ver.hpp"
 #include <gtest/gtest.h>
 #include "iutest_gtest_ver.hpp"
+#include "../internal/iutest_pragma.hpp"
 
 //======================================================================
 // define
@@ -292,7 +293,10 @@ namespace iusupport
 namespace iusupport
 {
 	inline AssertionResult iuMakeAssertionResult(const AssertionResult& ar) { return ar; }
-	inline AssertionResult iuMakeAssertionResult(const ::iutest::AssertionResult& ar) { return AssertionResult(ar) << ar.failure_message(); }
+	inline AssertionResult iuMakeAssertionResult(const ::iutest::AssertionResult& ar)
+	{ 
+		return AssertionResult(static_cast<bool>(ar)) << ar.failure_message();
+	}
 }
 
 // ::iutest::AssertionResult -> ::testing::AssertionResult •ÏŠ·
@@ -318,7 +322,6 @@ typedef ::std::ostream	iu_ostream;
 namespace iutest = testing;
 #endif
 
-#include "../internal/iutest_pragma.hpp"
 #include "../iutest_util.hpp"
 
 #ifndef INCG_IRIS_iutest_HPP_

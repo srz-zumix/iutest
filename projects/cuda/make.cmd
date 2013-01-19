@@ -5,6 +5,8 @@ SET VCLIST= "%VS90COMNTOOLS%" %VCLIST%
 SET VCLIST= "%VS100COMNTOOLS%" %VCLIST%
 rem SET VCLIST= "%VS110COMNTOOLS%" %VCLIST%
 
+SET PATH=%CUDA_PATH%\bin;%PATH%
+
 rem VC
 for %%v in (%VCLIST%) do (
 	if not %%v == "" (
@@ -21,4 +23,4 @@ call "%~1\vsvars32.bat"
 goto :EOF
 
 :build
-make.exe %*
+call make.exe %*

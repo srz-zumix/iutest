@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -62,7 +62,9 @@ private:
 
 IUTEST(Repeat, Counter)
 {
+#if !defined(IUTEST_USE_GTEST)
 	IUTEST_ASSERT_EQ(g_environment_setup, ::iutest::UnitTest::GetInstance()->repeat_counter()+1);
+#endif
 }
 
 
@@ -91,7 +93,7 @@ void CheckCount(int expected)
 bool RunTest(void)
 {
 	ClearCounter();
-	IUTEST_RUN_ALL_TESTS();
+	(void)IUTEST_RUN_ALL_TESTS();
 	return ::iutest::UnitTest::GetInstance()->Passed();
 }
 

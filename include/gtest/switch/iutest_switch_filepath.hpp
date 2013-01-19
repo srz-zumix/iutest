@@ -43,6 +43,11 @@ inline bool operator == (const char* lhs
 	return posix::StrCaseCmp(lhs, rhs.c_str()) == 0;
 }
 
+inline ::std::ostream& operator << (::std::ostream& os, const FilePath& path)
+{
+	return os << path.c_str();
+}
+
 }	// end of namespace internal
 }	// end of namespace testing
 

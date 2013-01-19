@@ -1,3 +1,19 @@
+//======================================================================
+//-----------------------------------------------------------------------
+/**
+ * @file		main.cpp
+ * @brief		sample main ƒtƒ@ƒCƒ‹
+ *
+ * @author		t.sirayanagi
+ * @version		1.0
+ *
+ * @par			copyright
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * The new BSD License is applied to this software.
+ * see LICENSE
+*/
+//-----------------------------------------------------------------------
+//======================================================================
 
 /*
  * is not available vprintf, can be replaced.
@@ -29,6 +45,12 @@ class FooEnvironment : public ::iutest::Environment
 };
 #include <iostream>
 
+#if defined(_MSC_VER) && IUTEST_HAS_LIB
+
+#pragma comment(lib, IUTEST_LIB_NAME(libiutest_main) )
+
+#else
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
@@ -58,6 +80,8 @@ int main(int argc, char* argv[])
 
 	return IUTEST_RUN_ALL_TESTS();	// run all
 }
+
+#endif
 
 #if 1	// Success Tests
 

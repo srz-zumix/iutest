@@ -63,11 +63,12 @@ IUTEST(FilePath, RemoveFileName)
 		::iutest::internal::FilePath path("test.exe");
 		IUTEST_EXPECT_EQ( ::iutest::internal::FilePath::GetRelativeCurrentDir(), path.RemoveFileName());
 	}
-#endif
 	{
 		::iutest::internal::FilePath path("test/test.exe");
+		// TODO : gtest ÇÃèÍçáÅAê≥ãKâªÇ≥ÇÍÇΩÉpÉXÇ™ï‘ÇÈ
 		IUTEST_EXPECT_EQ("test/", path.RemoveFileName());
 	}
+#endif
 }
 
 IUTEST(FilePath, RemoveDirectoryName)

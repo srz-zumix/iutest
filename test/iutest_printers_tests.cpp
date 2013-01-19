@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -43,12 +43,16 @@ IUTEST_TYPED_TEST(TypedPrintToTest, Print)
 	TypeParam a = 0;
 	TypeParam& b = a;
 	const TypeParam c = a;
-	const volatile TypeParam d = a;
 
 	IUTEST_SUCCEED() << ::iutest::PrintToString(a);
 	IUTEST_SUCCEED() << ::iutest::PrintToString(b);
 	IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+
+#if !defined(IUTEST_USE_GTEST)
+	// TODO : gtest の場合、volatile 付きのポインタでコンパイルエラー
+	const volatile TypeParam d = a;
 	IUTEST_SUCCEED() << ::iutest::PrintToString(d);
+#endif
 }
 
 #endif

@@ -51,7 +51,12 @@
 #  include "TargetConditionals.h"
 #  ifdef TARGET_OS_IPHONE
 #    define IUTEST_OS_IOS				1
-#    define IUTEST_PLATFORM				"iOS"
+#    ifdef TARGET_IPHONE_SIMULATOR
+#      define IUTEST_OS_IOS_SIMULATOR	1
+#      define IUTEST_PLATFORM			"iOS Simulator"
+#    else
+#      define IUTEST_PLATFORM			"iOS"
+#    endif
 #  else
 #    define IUTEST_OS_MAC				1
 #    define IUTEST_PLATFORM				"Mac OS"

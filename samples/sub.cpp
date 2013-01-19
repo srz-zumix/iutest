@@ -1,3 +1,19 @@
+//======================================================================
+//-----------------------------------------------------------------------
+/**
+ * @file		sub.cpp
+ * @brief		sample sub ƒtƒ@ƒCƒ‹
+ *
+ * @author		t.sirayanagi
+ * @version		1.0
+ *
+ * @par			copyright
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * The new BSD License is applied to this software.
+ * see LICENSE
+*/
+//-----------------------------------------------------------------------
+//======================================================================
 
 /*
  * is not available vprintf, can be replaced.

@@ -1,3 +1,19 @@
+Changes for 1.3.0:
+
+** 追加
+* ライブラリビルド対応
+* メッセージ出力のファイル/行のフォーマットを動的に変更できるオプションを追加(--iutest_file_location)
+* IUTEST_*_NO_FAILURE を追加
+
+** 修正
+* gtest モードでのビルドエラー修正
+* CUDA 対応
+* *_FATAL_FAILURE, IUTEST_*_NONFATAL_FAILURE で lambda を利用して変数にアクセスできるように修正
+
+** 変更
+* IUTEST_*_NO_FATAL_FAILURE が FATAL FAILURE のみで判断するように変更
+
+--------------------------------------------------
 Changes for 1.2.0:
 
 ** 追加
@@ -11,12 +27,14 @@ Changes for 1.2.0:
 * IUTEST_*_STRNE, IUTEST_*_STRCASENE の失敗メッセージを改善
 * デフォルト printer のワイド文字列対応
 
+--------------------------------------------------
 Changes for 1.1.1:
 
 ** 修正
 * ビルドエラー修正
 * 定義と宣言を分離
 
+--------------------------------------------------
 Changes for 1.1.0:
 
 ** 追加
@@ -35,6 +53,7 @@ Changes for 1.1.0:
 * iutest::InitIrisUnitTest が呼ばれていない場合に警告を出すように変更
 * IUTEST_*_EQ で if( expected == actual ) から if( actual == expected ) に変更
 
+--------------------------------------------------
 Changes for 1.0.0:
 
 * 初期リリース

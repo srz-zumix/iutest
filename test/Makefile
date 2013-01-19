@@ -67,8 +67,7 @@ endif
 CXXFLAGS += $(DEFS)
 
 
-TARGETS = iutest_all_tests \
-          iutest_assertion_only_tests \
+TARGETS1= iutest_all_tests \
           iutest_catch_exceptions_tests \
           iutest_disabled_tests \
           iutest_env_var_tests \
@@ -87,7 +86,11 @@ TARGETS = iutest_all_tests \
           iutest_throw_on_assert_failure_tests \
           iutest_throw_on_failure_tests \
           iutest_uninitialize_tests
-          
+
+TARGETS2= iutest_assertion_only_tests \
+
+TARGETS = $(TARGETS1) $(TARGETS2)
+
 SRCS   = $(TARGETS:%=%.cpp)
 EXES   = $(TARGETS:%=%.exe)
 
@@ -114,9 +117,24 @@ test: $(EXES)
 
 $(EXES) : $(TARGETS)
 	@echo $@
-	./$@
+	./$@ $(RUN_OPTION)
 
 # Builds a sample test.  
 
+ifdef USE_GTEST
+
+GTEST_ROOT_=$(subst \,/,$(GTEST_ROOT))
+
+$(TARGETS1) : $(SRCS) $(IUTEST_HEADERS) Makefile
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp -I$(GTEST_ROOT_)/include -DIUTEST_USE_GTEST $(GTEST_ROOT_)/make/gtest-all.o
+
+$(TARGETS2) :  $(SRCS) $(IUTEST_HEADERS) Makefile
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp -I$(GTEST_ROOT_)/include -DIUTEST_USE_GTEST
+
+else
+
 $(TARGETS) : $(SRCS) $(IUTEST_HEADERS) Makefile
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp
+
+endif
+
