@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -52,24 +52,33 @@ int main(int argc, char* argv[])
 #endif
 {
 	::iutest::IUTEST_FLAG(throw_on_failure) = true;
+#if !defined(IUTEST_USE_GTEST)
+	::iutest::IUTEST_FLAG(catch_exceptions_global) = false;
+#endif
 	
 #if IUTEST_HAS_EXCEPTIONS
+	try
 	{
 		::iutest::IUTEST_FLAG(filter) = "*Expect*";
 		IUTEST_INIT(&argc, argv);
-		int ret = IUTEST_RUN_ALL_TESTS();	// run all
+		(void)IUTEST_RUN_ALL_TESTS();
 		
-		assert( ret != 0 );
-		assert( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
+		return 1;
+	}
+	catch(...)
+	{
 	}
 
+	try
 	{
 		::iutest::IUTEST_FLAG(filter) = "*Assert*";
 		IUTEST_INIT(&argc, argv);
-		int ret = IUTEST_RUN_ALL_TESTS();	// run all
+		(void)IUTEST_RUN_ALL_TESTS();
 		
-		assert( ret != 0 );
-		assert( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
+		return 1;
+	}
+	catch(...)
+	{
 	}
 #endif
 	printf("*** Successful ***\n");

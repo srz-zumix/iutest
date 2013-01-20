@@ -105,7 +105,7 @@ bool RepeatTest(int repeat)
 
 bool RepeatTestUnspecified(void)
 {
-	RunTest();
+	(void)RunTest();
 	CheckCount(1);
 	return ::iutest::UnitTest::GetInstance()->Passed();
 }

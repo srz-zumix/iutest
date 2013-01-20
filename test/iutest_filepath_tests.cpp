@@ -82,3 +82,10 @@ IUTEST(FilePath, RemoveDirectoryName)
 		IUTEST_EXPECT_EQ("test.exe", path.RemoveDirectoryName());
 	}
 }
+
+IUTEST(FilePath, PrintTo)
+{
+	::iutest::internal::FilePath path("test.exe");
+	IUTEST_ASSERT_STREQ("test.exe", ::iutest::PrintToString(path));
+}
+

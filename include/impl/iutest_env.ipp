@@ -189,48 +189,57 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnviromentVariable(void)
 {
 	{
 		int var = 0;
-		if( detail::GetEnvironmentInt("IUTEST_ALSO_RUN_DISABLED_TESTS", var) )
+		if( detail::GetEnvironmentInt("IUTEST_ALSO_RUN_DISABLED_TESTS", var)
+		||  detail::GetEnvironmentInt("GTEST_ALSO_RUN_DISABLED_TESTS", var) )
 		{
 			TestFlag::SetFlag(TestFlag::RUN_DISABLED_TESTS
 				, var ? TestFlag::MASK : ~(TestFlag::RUN_DISABLED_TESTS) );
 		}
-		if( detail::GetEnvironmentInt("IUTEST_SHUFFLE", var) )
+		if( detail::GetEnvironmentInt("IUTEST_SHUFFLE", var)
+		||  detail::GetEnvironmentInt("GTEST_SHUFFLE", var) )
 		{
 			TestFlag::SetFlag(TestFlag::SHUFFLE_TESTS
 				, var ? TestFlag::MASK : ~(TestFlag::SHUFFLE_TESTS) );
 		}
-		if( detail::GetEnvironmentInt("IUTEST_RANDOM_SEED", var) )
+		if( detail::GetEnvironmentInt("IUTEST_RANDOM_SEED", var)
+		||  detail::GetEnvironmentInt("GTEST_RANDOM_SEED", var) )
 		{
 			init_random((unsigned int)var);
 		}
-		if( detail::GetEnvironmentInt("IUTEST_CATCH_EXCEPTIONS", var) )
+		if( detail::GetEnvironmentInt("IUTEST_CATCH_EXCEPTIONS", var)
+		||  detail::GetEnvironmentInt("GTEST_CATCH_EXCEPTIONS", var) )
 		{
 			TestFlag::SetFlag(TestFlag::CATCH_EXCEPTION
 				, var ? TestFlag::MASK : ~(TestFlag::CATCH_EXCEPTION) );
 		}
-		if( detail::GetEnvironmentInt("IUTEST_BREAK_ON_FAILURE", var) )
+		if( detail::GetEnvironmentInt("IUTEST_BREAK_ON_FAILURE", var)
+		||  detail::GetEnvironmentInt("GTEST_BREAK_ON_FAILURE", var) )
 		{
 			TestFlag::SetFlag(TestFlag::BREAK_ON_FAILURE
 				, var ? TestFlag::MASK : ~(TestFlag::BREAK_ON_FAILURE) );
 		}
-		if( detail::GetEnvironmentInt("IUTEST_THROW_ON_FAILURE", var) )
+		if( detail::GetEnvironmentInt("IUTEST_THROW_ON_FAILURE", var)
+		||  detail::GetEnvironmentInt("GTEST_THROW_ON_FAILURE", var) )
 		{
 			TestFlag::SetFlag(TestFlag::THROW_ON_FAILURE
 				, var ? TestFlag::MASK : ~(TestFlag::THROW_ON_FAILURE) );
 		}
-		if( detail::GetEnvironmentInt("IUTEST_PRINT_TIME", var) )
+		if( detail::GetEnvironmentInt("IUTEST_PRINT_TIME", var)
+		||  detail::GetEnvironmentInt("GTEST_PRINT_TIME", var) )
 		{
 			TestFlag::SetFlag(TestFlag::PRINT_TIME
 				, var ? TestFlag::MASK : ~(TestFlag::PRINT_TIME) );
 		}
-		if( detail::GetEnvironmentInt("IUTEST_REPEAT", var) )
+		if( detail::GetEnvironmentInt("IUTEST_REPEAT", var)
+		||  detail::GetEnvironmentInt("GTEST_REPEAT", var) )
 		{
 			set_repeat_count(var);
 		}
 	}
 	{
 		char var[128] = {0};
-		if( detail::GetEnvironmentVariable("IUTEST_COLOR", var) )
+		if( detail::GetEnvironmentVariable("IUTEST_COLOR", var)
+		||  detail::GetEnvironmentVariable("GTEST_COLOR", var) )
 		{
 			ParseColorOption(var);
 		}
@@ -241,11 +250,13 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnviromentVariable(void)
 	}
 	{
 		char path[260+32] = {0};
-		if( detail::GetEnvironmentVariable("IUTEST_OUTPUT", path) )
+		if( detail::GetEnvironmentVariable("IUTEST_OUTPUT", path)
+		||  detail::GetEnvironmentVariable("GTEST_OUTPUT", path) )
 		{
 			ParseOutputOption(path);
 		}
-		if( detail::GetEnvironmentVariable("IUTEST_FILTER", path) )
+		if( detail::GetEnvironmentVariable("IUTEST_FILTER", path)
+		||  detail::GetEnvironmentVariable("GTEST_FILTER", path) )
 		{
 			set_test_filter(path);
 		}

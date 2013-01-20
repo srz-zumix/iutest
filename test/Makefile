@@ -70,7 +70,6 @@ CXXFLAGS += $(DEFS)
 TARGETS1= iutest_all_tests \
           iutest_catch_exceptions_tests \
           iutest_disabled_tests \
-          iutest_env_var_tests \
           iutest_environment_tests \
           iutest_filter_tests \
           iutest_help_tests \
@@ -81,15 +80,25 @@ TARGETS1= iutest_all_tests \
           iutest_printers_tests \
           iutest_repeat_tests \
           iutest_setup_failure_tests \
+          iutest_shuffle_tests \
           iutest_skip_tests \
           iutest_spi_failure_tests \
           iutest_throw_on_assert_failure_tests \
           iutest_throw_on_failure_tests \
           iutest_uninitialize_tests
 
-TARGETS2= iutest_assertion_only_tests \
+TARGETS2= \
+          iutest_assertion_only_tests
 
+TARGETS3 = \
+          iutest_env_var_tests \
+          iutest_env_var_gtest_tests \
+
+ifdef USE_GTEST
 TARGETS = $(TARGETS1) $(TARGETS2)
+else
+TARGETS = $(TARGETS1) $(TARGETS2) $(TARGETS3)
+endif
 
 SRCS   = $(TARGETS:%=%.cpp)
 EXES   = $(TARGETS:%=%.exe)

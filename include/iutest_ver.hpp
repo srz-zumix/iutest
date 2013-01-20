@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01029915u	//!< iutest version 1.2.99.15
+#define	IUTEST_VER			0x01029916u	//!< iutest version 1.2.99.16
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x02u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x15u		//!< Revision
+#define IUTEST_REVISION		0x16u		//!< Revision
 
 /**
  * @mainpage
@@ -95,6 +95,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  <ul>
   <li>v1.2.99.15
     <ul>
+      <li>GTEST で始まる環境変数に対応</li>
       <li>メッセージ出力のファイル/行のフォーマットを動的に変更できるオプションを追加(--iutest_file_location)</li>
       <li>gtest モードでのビルドエラー修正</li>
       <li>IUTEST_*_FATAL_FAILURE, IUTEST_*_NONFATAL_FAILURE で lambda を利用して変数にアクセスできるように修正</li>

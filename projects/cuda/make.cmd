@@ -23,4 +23,4 @@ call "%~1\vsvars32.bat"
 goto :EOF
 
 :build
-call make.exe %*
+call make.exe %* TARGET_X86=yes

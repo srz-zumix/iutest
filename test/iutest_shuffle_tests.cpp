@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -36,7 +36,9 @@ private:
 IUTEST(Foo, Bar)
 {
 	IUTEST_ASSERT_NE(seed, ::iutest::UnitTest::GetInstance()->random_seed());
-	::iutest::internal::posix::SleepMillisec(10);
+#if !defined(IUTEST_USE_GTEST)
+	//::iutest::internal::posix::SleepMillisec(10);
+#endif
 }
 
 #if IUTEST_HAS_PARAM_TEST

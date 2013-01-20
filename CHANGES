@@ -8,7 +8,8 @@ Changes for 1.3.0:
 ** 修正
 * gtest モードでのビルドエラー修正
 * CUDA 対応
-* *_FATAL_FAILURE, IUTEST_*_NONFATAL_FAILURE で lambda を利用して変数にアクセスできるように修正
+* IUTEST_*_FATAL_FAILURE, IUTEST_*_NONFATAL_FAILURE で lambda を利用して変数にアクセスできるように修正
+* GTEST で始まる環境変数に対応
 
 ** 変更
 * IUTEST_*_NO_FATAL_FAILURE が FATAL FAILURE のみで判断するように変更

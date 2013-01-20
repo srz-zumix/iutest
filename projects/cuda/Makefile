@@ -17,6 +17,10 @@ CPPFLAGS += -I$(IUTEST_DIR)/include
 CPPFLAGS += -I"$(CUDA_PATH)/include"
 CPPFLAGS += -L"$(CUDA_PATH)/lib" -lcudart
 
+ifdef TARGET_X86
+CPPFLAGS += --machine 32
+endif
+
 #
 # Flags passed to the C++ compiler.
 CXXFLAGS += 

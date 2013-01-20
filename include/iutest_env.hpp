@@ -35,6 +35,8 @@
  *			break_on_failure (bool)\n
  *			throw_on_failure (bool)\n
  *			catch_exceptions (bool)\n
+ *			catch_exceptions_each   (bool)\n
+ *			catch_exceptions_global (bool)\n
  *			random_seed (unsigned int)\n
  *			print_time (bool)\n
  *          color (string)\n
