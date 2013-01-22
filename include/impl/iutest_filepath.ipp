@@ -228,13 +228,27 @@ IUTEST_IPP_INLINE void iuFilePath::Normalize(void)
 	while(*src != '\0')
 	{
 		*dst = *src;
-		++src;
-		while( IsPathSeparator(*src) )
+		if( !IsPathSeparator(*src) )
 		{
 			++src;
 		}
+		else
+		{
+			if( IsAltPathSeparator(*src) )
+			{
+				*dst = GetPathSeparator();
+			}
+			++src;
+			while( IsPathSeparator(*src) )
+			{
+				++src;
+			}
+		}
 		++dst;
 	}
+	*dst = '\0';
+	m_path = dst_top;
+	delete [] dst_top;
 }
 
 IUTEST_IPP_INLINE bool iuFilePath::IsPathSeparator(char c)
@@ -243,6 +257,16 @@ IUTEST_IPP_INLINE bool iuFilePath::IsPathSeparator(char c)
 	if( c == '\\' ) return true;
 #endif
 	return c == '/';
+}
+
+IUTEST_IPP_INLINE bool iuFilePath::IsAltPathSeparator(char c)
+{
+#ifdef IUTEST_OS_WINDOWS
+	if( c == '/' ) return true;
+#else
+	IUTEST_UNUSED_VAR(c);
+#endif
+	return false;
 }
 
 }	// end of namespace detail

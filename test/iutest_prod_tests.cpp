@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -25,6 +25,13 @@ namespace prod_test
 class ProdClass
 {
 	IUTEST_FRIEND_TEST(ProdTest, Friend);
+	IUTEST_FRIEND_TEST(ProdFixtureTest, Friend);
+#if IUTEST_HAS_PARAM_TEST	
+	IUTEST_FRIEND_TEST(ProdParamTest, Friend);
+#endif
+#if IUTEST_HAS_TYPED_TEST
+	IUTEST_FRIEND_TYPED_TEST(ProdTypedTest, Friend);
+#endif
 	
 public:
 	ProdClass(void) : m_dummy(0), m_x(0), m_z(0), m_c(42) {}
@@ -62,6 +69,52 @@ IUTEST(ProdTest, Friend)
 	s_prod.m_x = 2;
 	IUTEST_ASSERT_EQ(2, s_prod.GetX());
 }
+
+class ProdFixtureTest : public ::iutest::Test {};
+
+IUTEST(ProdFixtureTest, Friend)
+{
+	s_prod.SetX(1);
+	IUTEST_ASSERT_EQ(1, s_prod.GetX());
+
+	s_prod.m_x = 2;
+	IUTEST_ASSERT_EQ(2, s_prod.GetX());
+}
+
+#if IUTEST_HAS_PARAM_TEST
+
+class ProdParamTest : public ::iutest::TestWithParam<int> {};
+
+IUTEST_INSTANTIATE_TEST_CASE_P(X, ProdParamTest, ::iutest::Values(0));
+
+IUTEST_P(ProdParamTest, Friend)
+{
+	s_prod.SetX(1);
+	IUTEST_ASSERT_EQ(1, s_prod.GetX());
+
+	s_prod.m_x = 2;
+	IUTEST_ASSERT_EQ(2, s_prod.GetX());
+}
+
+#endif
+
+#if IUTEST_HAS_TYPED_TEST
+
+template<typename T>
+class ProdTypedTest : public ::iutest::Test {};
+
+IUTEST_TYPED_TEST_CASE(ProdTypedTest, int);
+
+IUTEST_TYPED_TEST(ProdTypedTest, Friend)
+{
+	s_prod.SetX(1);
+	IUTEST_ASSERT_EQ(1, s_prod.GetX());
+
+	s_prod.m_x = 2;
+	IUTEST_ASSERT_EQ(2, s_prod.GetX());
+}
+
+#endif
 
 #if IUTEST_HAS_PEEP
 

@@ -198,6 +198,7 @@ private:
 
 private:
 	static bool IsPathSeparator(char c);
+	static bool IsAltPathSeparator(char c);
 private:
 	std::string	m_path;
 };

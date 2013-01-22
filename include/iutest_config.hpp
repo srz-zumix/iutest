@@ -234,8 +234,15 @@
 #  endif
 #endif
 
+//! gettimeofday 関数が使用可能かどうか
 #ifndef IUTEST_HAS_GETTIMEOFDAY
-#  define IUTEST_HAS_GETTIMEOFDAY	0	//!< gettimeofday 関数が使用可能かどうか
+#  if IUTEST_HAS_HDR_SYSTIME
+#  define IUTEST_HAS_GETTIMEOFDAY	1	
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_GETTIMEOFDAY
+#  define IUTEST_HAS_GETTIMEOFDAY	0
 #endif
 
 #ifndef IUTEST_HAS_CLOCK

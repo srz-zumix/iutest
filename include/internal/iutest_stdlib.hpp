@@ -178,6 +178,17 @@ namespace iutest {
 #  define IUTEST_HAS_HDR_CXXABI			0
 #endif
 
+// sys/time.h
+#ifndef IUTEST_HAS_HDR_SYSTIME
+#  if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MINGW)
+#  define IUTEST_HAS_HDR_SYSTIME		0
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_HDR_SYSTIME
+#  define IUTEST_HAS_HDR_SYSTIME		1
+#endif
+
 namespace iutest {
 namespace detail
 {

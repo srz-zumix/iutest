@@ -113,7 +113,7 @@ IUTEST(PrintToTest, RawArray)
 
 template<typename T>
 class TypedPrintToTest : public ::iutest::Test {};
-typedef ::iutest::Types<char, unsigned char, short, unsigned short, int, unsigned int, long, unsigned long> PrintStringTestTypes;
+typedef ::iutest::Types<char, unsigned char, short, unsigned short, int, unsigned int, long, unsigned long, int*> PrintStringTestTypes;
 IUTEST_TYPED_TEST_CASE(TypedPrintToTest, PrintStringTestTypes);
 
 IUTEST_TYPED_TEST(TypedPrintToTest, Print)

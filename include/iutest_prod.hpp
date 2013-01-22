@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -24,6 +24,16 @@
 */
 #define IUTEST_FRIEND_TEST(test_case_name, test_name)	\
 	friend class IUTEST_TEST_CLASS_NAME_(test_case_name, test_name)
+
+#if IUTEST_HAS_TYPED_TEST
+
+/**
+ * @brief	ƒeƒXƒg‚©‚çŒ©‚¦‚é‚æ‚¤‚É fried “o˜^(IUTEST_TYPED_TEST—p)
+*/
+#define IUTEST_FRIEND_TYPED_TEST(test_case_name, test_name)	\
+	template<typename T>IUTEST_FRIEND_TEST(test_case_name, test_name)
+
+#endif
 
 namespace iutest {
 namespace detail

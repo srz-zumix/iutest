@@ -269,6 +269,8 @@ IUTEST_IPP_INLINE void	TestEnv::SetUp(void)
 	if( seed == 0 )
 	{
 		seed = detail::GetIndefiniteValue();
+		if( get_vars().m_current_random_seed == seed )
+			seed += get_vars().m_current_random_seed;
 	}
 	get_vars().m_current_random_seed = seed;
 	genrand().init(seed);

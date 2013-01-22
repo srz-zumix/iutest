@@ -4,6 +4,7 @@ Changes for 1.3.0:
 * ライブラリビルド対応
 * メッセージ出力のファイル/行のフォーマットを動的に変更できるオプションを追加(--iutest_file_location)
 * IUTEST_*_NO_FAILURE を追加
+* IUTEST_FRIEND_TYPED_TEST を追加
 
 ** 修正
 * gtest モードでのビルドエラー修正

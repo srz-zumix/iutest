@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -94,6 +94,7 @@
 #undef IUTEST_INSTANTIATE_TEST_CASE_P
 
 #undef IUTEST_FRIEND_TEST
+#undef IUTEST_FRIEND_TYPED_TEST
 #undef IUTEST_SCOPED_TRACE
 #undef IUTEST_FLAG
 
@@ -127,9 +128,10 @@
 #define IUTEST_P	TEST_P
 #define IUTEST_INSTANTIATE_TEST_CASE_P	INSTANTIATE_TEST_CASE_P
 
-#define IUTEST_FRIEND_TEST		FRIEND_TEST
-#define IUTEST_SCOPED_TRACE		SCOPED_TRACE
-#define IUTEST_FLAG				GTEST_FLAG
+#define IUTEST_FRIEND_TEST			FRIEND_TEST
+#define IUTEST_FRIEND_TYPED_TEST	template<typename T>FRIEND_TEST
+#define IUTEST_SCOPED_TRACE			SCOPED_TRACE
+#define IUTEST_FLAG					GTEST_FLAG
 
 #define IUTEST_TYPED_TEST_CASE		TYPED_TEST_CASE
 #define IUTEST_TYPED_TEST			TYPED_TEST

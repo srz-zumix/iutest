@@ -36,9 +36,6 @@ private:
 IUTEST(Foo, Bar)
 {
 	IUTEST_ASSERT_NE(seed, ::iutest::UnitTest::GetInstance()->random_seed());
-#if !defined(IUTEST_USE_GTEST)
-	//::iutest::internal::posix::SleepMillisec(10);
-#endif
 }
 
 #if IUTEST_HAS_PARAM_TEST

@@ -31,8 +31,6 @@
 // os
 #if		defined(__CYGWIN__)
 #  define IUTEST_OS_CYGWIN				1
-#  include <sys/time.h>
-#  define IUTEST_HAS_GETTIMEOFDAY		1
 #  define IUTEST_PLATFORM				"CYGWIN"
 #elif	defined(_WIN32) || defined(WIN32) || defined(__WIN32__)
 #  define IUTEST_OS_WINDOWS				1

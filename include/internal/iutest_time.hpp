@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -26,6 +26,11 @@
 #  include <chrono>
 #endif
 
+#if		IUTEST_HAS_HDR_SYSTIME
+#  include <sys/time.h>
+#elif	IUTEST_OS_WINDOWS
+#  include <sys/timeb.h>
+#endif
 
 namespace iutest {
 namespace detail
@@ -110,9 +115,6 @@ inline TimeInMillisec	GetTimeInMillis(void)
 #elif	IUTEST_HAS_CXX11_HDR_CHRONO
 	return ::std::chrono::duration_cast< ::std::chrono::milliseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();
 
-#elif	defined(IUTEST_OS_WINDOWS)
-	return static_cast<TimeInMillisec>(GetTickCount());
-
 #elif	IUTEST_HAS_GETTIMEOFDAY
 	timeval tv;
 	gettimeofday(&tv, NULL);
@@ -120,6 +122,23 @@ inline TimeInMillisec	GetTimeInMillis(void)
 
 #elif	IUTEST_HAS_CLOCK
 	return clock() * 1000 / CLOCKS_PER_SEC;
+
+#elif	defined(IUTEST_OS_WINDOWS)
+
+#if		defined(IUTEST_OS_WINDOWS_MOBILE)
+	return static_cast<TimeInMillisec>(GetTickCount());
+#else
+
+
+	__timeb64 tb;
+
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+	_ftime64(&tb);
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+
+	return static_cast<TimeInMillisec>(tb.time * 1000 + tb.millitm);
+
+#endif
 
 #else
 

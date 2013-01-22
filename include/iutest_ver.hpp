@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01029916u	//!< iutest version 1.2.99.16
+#define	IUTEST_VER			0x01029917u	//!< iutest version 1.2.99.17
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x02u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x16u		//!< Revision
+#define IUTEST_REVISION		0x17u		//!< Revision
 
 /**
  * @mainpage
@@ -93,8 +93,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.2.99.15
+  <li>v1.2.99.17
     <ul>
+      <li>IUTEST_FRIEND_TYPED_TEST を追加</li>
+      <li>乱数シードが繰り返し毎に必ず変わるように修正</li>
       <li>GTEST で始まる環境変数に対応</li>
       <li>メッセージ出力のファイル/行のフォーマットを動的に変更できるオプションを追加(--iutest_file_location)</li>
       <li>gtest モードでのビルドエラー修正</li>

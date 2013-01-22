@@ -310,6 +310,17 @@ namespace iusupport
 
 #endif
 
+namespace internal
+{
+
+// volatile ‚Èƒ|ƒCƒ“ƒ^‚É‘Î‰ž
+template<typename T>
+inline void PrintTo(T* volatile s, ::std::ostream* os) {
+	DefaultPrintTo(IsContainerTest<T* volatile>(0), true_type(), s, os);
+}
+
+}	// end of namespace internal
+
 // ostream
 typedef ::std::ostream	iu_ostream;
 
