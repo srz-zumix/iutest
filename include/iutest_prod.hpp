@@ -128,8 +128,6 @@ struct IUTEST_PEEP_TAG_NAME_(class_name, member_name) { typedef member_type type
  * @}
 */
 
-#include "internal/iutest_template_util_defs.hpp"
-
 /**
  * @brief	private	メンバーアクセスオブジェクト
 */
@@ -158,34 +156,37 @@ private:
 		return_type operator () (Args... args) { return ((*m_ptr).*detail::peep_tag<peep_tag>::value)( std::forward<Args>(args)...); }
 #else
 
-#define PEEP_MEMBER_FUNC_IMPL(NUMBER)	\
-	template<IUTEST_TEMPLATE_UTIL_TEMPLATES_TYPENAME(NUMBER)>return_type operator () (IUTEST_TEMPLATE_UTIL_FUNCTION_ARGS(NUMBER)) { \
-		return ((*m_ptr).*detail::peep_tag<peep_tag>::value)(IUTEST_TEMPLATE_UTIL_VALUES(NUMBER)); }
+#define IUTEST_DECL_PEEP_MEMBER_FUNC_ARG_(param, i)	IUTEST_PP_CAT(param, i) IUTEST_PP_CAT(t, i)
+#define PEEP_DECL_MEMBER_FUNC_(n)	\
+	template<IUTEST_PP_ENUM_SHIFTED_PARAMS(n, typename T)>return_type operator () (		\
+		IUTEST_PP_ENUM_SHIFTED_PARAMS_M(n, IUTEST_DECL_PEEP_MEMBER_FUNC_ARG_, T)) {			\
+		return ((*m_ptr).*detail::peep_tag<peep_tag>::value)(IUTEST_PP_ENUM_SHIFTED_PARAMS(n, t)); }
 
 		return_type operator () (void) { return ((*m_ptr).*detail::peep_tag<peep_tag>::value)(); }
 
-		PEEP_MEMBER_FUNC_IMPL(1)
-		PEEP_MEMBER_FUNC_IMPL(2)
-		PEEP_MEMBER_FUNC_IMPL(3)
-		PEEP_MEMBER_FUNC_IMPL(4)
-		PEEP_MEMBER_FUNC_IMPL(5)
-		PEEP_MEMBER_FUNC_IMPL(6)
-		PEEP_MEMBER_FUNC_IMPL(7)
-		PEEP_MEMBER_FUNC_IMPL(8)
-		PEEP_MEMBER_FUNC_IMPL(9)
-		PEEP_MEMBER_FUNC_IMPL(10)
-		PEEP_MEMBER_FUNC_IMPL(11)
-		PEEP_MEMBER_FUNC_IMPL(12)
-		PEEP_MEMBER_FUNC_IMPL(13)
-		PEEP_MEMBER_FUNC_IMPL(14)
-		PEEP_MEMBER_FUNC_IMPL(15)
-		PEEP_MEMBER_FUNC_IMPL(16)
-		PEEP_MEMBER_FUNC_IMPL(17)
-		PEEP_MEMBER_FUNC_IMPL(18)
-		PEEP_MEMBER_FUNC_IMPL(19)
-		PEEP_MEMBER_FUNC_IMPL(20)
+		PEEP_DECL_MEMBER_FUNC_(1)
+		PEEP_DECL_MEMBER_FUNC_(2)
+		PEEP_DECL_MEMBER_FUNC_(3)
+		PEEP_DECL_MEMBER_FUNC_(4)
+		PEEP_DECL_MEMBER_FUNC_(5)
+		PEEP_DECL_MEMBER_FUNC_(6)
+		PEEP_DECL_MEMBER_FUNC_(7)
+		PEEP_DECL_MEMBER_FUNC_(8)
+		PEEP_DECL_MEMBER_FUNC_(9)
+		PEEP_DECL_MEMBER_FUNC_(10)
+		PEEP_DECL_MEMBER_FUNC_(11)
+		PEEP_DECL_MEMBER_FUNC_(12)
+		PEEP_DECL_MEMBER_FUNC_(13)
+		PEEP_DECL_MEMBER_FUNC_(14)
+		PEEP_DECL_MEMBER_FUNC_(15)
+		PEEP_DECL_MEMBER_FUNC_(16)
+		PEEP_DECL_MEMBER_FUNC_(17)
+		PEEP_DECL_MEMBER_FUNC_(18)
+		PEEP_DECL_MEMBER_FUNC_(19)
+		PEEP_DECL_MEMBER_FUNC_(20)
 
-#undef PEEP_MEMBER_FUNC_IMPL
+#undef IUTEST_DECL_PEEP_MEMBER_FUNC_ARG_
+#undef IUTEST_DECL_PEEP_MEMBER_FUNC_
 #endif
 	};
 	template<typename U, typename Type, bool is_const>
@@ -259,8 +260,6 @@ private:
 public:
 	typedef typename peep_impl<T, peep_type, type_traits::is_member_pointer<peep_type>::value >::type	type;	//!< private メンバーアクセスオブジェクト型
 };
-
-#include "internal/iutest_template_util_undef.hpp"
 
 }	// end of namespace iutest
 

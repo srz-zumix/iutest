@@ -28,7 +28,7 @@
 
 #if		IUTEST_HAS_HDR_SYSTIME
 #  include <sys/time.h>
-#elif	IUTEST_OS_WINDOWS
+#elif	defined(IUTEST_OS_WINDOWS)
 #  include <sys/timeb.h>
 #endif
 
@@ -128,7 +128,6 @@ inline TimeInMillisec	GetTimeInMillis(void)
 #if		defined(IUTEST_OS_WINDOWS_MOBILE)
 	return static_cast<TimeInMillisec>(GetTickCount());
 #else
-
 
 	__timeb64 tb;
 

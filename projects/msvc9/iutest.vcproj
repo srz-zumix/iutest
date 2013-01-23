@@ -483,14 +483,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_template_util_defs.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\internal\iutest_template_util_undef.hpp"
-					>
-				</File>
-				<File
 					RelativePath="..\..\include\internal\iutest_time.hpp"
 					>
 				</File>

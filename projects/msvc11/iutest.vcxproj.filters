@@ -183,12 +183,6 @@
     <ClInclude Include="..\..\include\internal\iutest_string.hpp">
       <Filter>iutest\internal</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\internal\iutest_template_util_defs.hpp">
-      <Filter>iutest\internal</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\internal\iutest_template_util_undef.hpp">
-      <Filter>iutest\internal</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\internal\iutest_time.hpp">
       <Filter>iutest\internal</Filter>
     </ClInclude>

@@ -237,7 +237,7 @@
 //! gettimeofday ä÷êîÇ™égópâ¬î\Ç©Ç«Ç§Ç©
 #ifndef IUTEST_HAS_GETTIMEOFDAY
 #  if IUTEST_HAS_HDR_SYSTIME
-#  define IUTEST_HAS_GETTIMEOFDAY	1	
+#    define IUTEST_HAS_GETTIMEOFDAY	1
 #  endif
 #endif
 

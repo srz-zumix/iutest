@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -181,7 +181,7 @@ namespace iutest {
 // sys/time.h
 #ifndef IUTEST_HAS_HDR_SYSTIME
 #  if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MINGW)
-#  define IUTEST_HAS_HDR_SYSTIME		0
+#    define IUTEST_HAS_HDR_SYSTIME		0
 #  endif
 #endif
 

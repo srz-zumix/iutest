@@ -29,17 +29,18 @@ Command Line Options
 --------------------------------------------------
 Environment variable Options
 
-    IUTEST_OUTPUT=xml[:path]        : path of xml report.
-    IUTEST_COLOR=yes|no|auto        : console color enable.
-    IUTEST_FILTER=filter            : Select the test run.
-    IUTEST_SHUFFLE                  : do shuffle test.
-    IUTEST_RANDOM_SEED=seed         : set random seed.
-    IUTEST_ALSO_RUN_DISABLED_TESTS  : run disabled tests.
-    IUTEST_BREAK_ON_FAILURE=0|1     : When that failed to break.
-    IUTEST_THROW_ON_FAILURE=0|1     : When that failed to throw.
-    IUTEST_CATCH_EXCEPTIONS=0|1     : catch exceptions enable.
-    IUTEST_PRINT_TIME=0|1           : Setting the display of elapsed time.
-    IUTEST_REPEAT=<count>           : Set the number of repetitions of the test.
+    IUTEST_OUTPUT=xml[:path]         : path of xml report.
+    IUTEST_COLOR=yes|no|auto         : console color enable.
+    IUTEST_FILTER=filter             : Select the test run.
+    IUTEST_SHUFFLE                   : do shuffle test.
+    IUTEST_RANDOM_SEED=seed          : set random seed.
+    IUTEST_ALSO_RUN_DISABLED_TESTS   : run disabled tests.
+    IUTEST_BREAK_ON_FAILURE=0|1      : When that failed to break.
+    IUTEST_THROW_ON_FAILURE=0|1      : When that failed to throw.
+    IUTEST_CATCH_EXCEPTIONS=0|1      : catch exceptions enable.
+    IUTEST_PRINT_TIME=0|1            : Setting the display of elapsed time.
+    IUTEST_REPEAT=count              : Set the number of repetitions of the test.
+    IUTEST_FILE_LOCATION=auto|vs|gcc : Format file location messages.
     
 --------------------------------------------------
 License
