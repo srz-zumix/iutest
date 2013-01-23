@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_throw_on_assert_fialure_tests.cpp
- * @brief		IUTEST_THROW_ON_ASSERT_FAILURE 対応テスト
+ * @brief		IUTEST_USE_THROW_ON_ASSERT_FAILURE 対応テスト
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
 	IUTEST_INIT(&argc, argv);
 	int ret = IUTEST_RUN_ALL_TESTS();
 	
-#if IUTEST_THROW_ON_ASSERT_FAILURE
+#if IUTEST_USE_THROW_ON_ASSERT_FAILURE
 	assert( x == 0 );
 #else
 	assert( x == 1 );

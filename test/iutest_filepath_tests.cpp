@@ -66,8 +66,11 @@ IUTEST(FilePath, RemoveFileName)
 #endif
 	{
 		::iutest::internal::FilePath path("test/test.exe");
-		char expected[] = "test/";
-		expected[sizeof(expected)/sizeof(expected[0])-2] = ::iutest::internal::FilePath::GetPathSeparator();
+#ifdef IUTEST_OS_WINDOWS
+		const char expected[] = "test\\";
+#else
+		const char expected[] = "test/";
+#endif
 		IUTEST_EXPECT_EQ(expected, path.RemoveFileName());
 	}
 }

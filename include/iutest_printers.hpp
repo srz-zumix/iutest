@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -82,7 +82,7 @@ public:
 	}
 };
 
-#if IUTEST_HAS_STRINGSTREAM
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
 template<typename Elem, typename Traits, typename T>
 ::std::basic_ostream<Elem, Traits>& operator << (::std::basic_ostream<Elem, Traits>& os, const T& value)
 {

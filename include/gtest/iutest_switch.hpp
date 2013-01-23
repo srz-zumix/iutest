@@ -176,8 +176,8 @@ namespace tr1
 #undef IUTEST_HAS_TYPED_TEST
 #undef IUTEST_HAS_TYPED_TEST_P
 
-#undef IUTEST_THROW_ON_ASSERT_FAILURE
-#undef IUTEST_SPI_LAMBDA_ENABLE
+#undef IUTEST_USE_THROW_ON_ASSERT_FAILURE
+#undef IUTEST_HAS_SPI_LAMBDA_SUPPORT
 #undef IUTEST_HAS_GENRAND
 
 #undef IUTEST_HAS_VARIADIC_TEMPLATES
@@ -202,8 +202,8 @@ namespace tr1
 #define IUTEST_HAS_TYPED_TEST		GTEST_HAS_TYPED_TEST
 #define IUTEST_HAS_TYPED_TEST_P		GTEST_HAS_TYPED_TEST_P
 
-#define IUTEST_THROW_ON_ASSERT_FAILURE	0
-#define IUTEST_SPI_LAMBDA_ENABLE		0
+#define IUTEST_USE_THROW_ON_ASSERT_FAILURE	0
+#define IUTEST_HAS_SPI_LAMBDA_SUPPORT	0
 #define IUTEST_HAS_GENRAND				0
 
 #define IUTEST_HAS_EXCEPTIONS		GTEST_HAS_EXCEPTIONS
@@ -315,9 +315,7 @@ namespace internal
 
 // volatile ‚Èƒ|ƒCƒ“ƒ^‚É‘Î‰ž
 template<typename T>
-inline void PrintTo(T* volatile s, ::std::ostream* os) {
-	DefaultPrintTo(IsContainerTest<T* volatile>(0), true_type(), s, os);
-}
+struct is_pointer<T* volatile> : public true_type {};
 
 }	// end of namespace internal
 

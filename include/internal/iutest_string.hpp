@@ -28,12 +28,10 @@
 #include <wctype.h>
 #include <stdarg.h>
 #include <string.h>
-#if IUTEST_HAS_STRINGSTREAM
-#  if IUTEST_USE_STRSTREAM
-#    include <strstream>
-#  else
-#    include <sstream>
-#  endif
+#if		IUTEST_HAS_STRINGSTREAM
+#  include <sstream>
+#elif	IUTEST_HAS_STRSTREAM
+#  include <strstream>
 #endif
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
@@ -174,8 +172,11 @@ inline ::std::string ShowStringQuoted(const ::std::string& str) { ::std::string 
 class iuStringStream
 {
 public:
-#if IUTEST_HAS_STRINGSTREAM
-#  if IUTEST_USE_STRSTREAM
+#if		IUTEST_HAS_STRINGSTREAM
+	typedef ::std::stringstream	stlstream;
+#elif	IUTEST_HAS_STRSTREAM
+IUTEST_PRAGMA_MSC_WARN_PUSH()
+IUTEST_PRAGMA_MSC_WARN_DISABLE(4250)
 	class stlstream : public ::std::strstream
 	{
 		CHAR buf[256];
@@ -184,16 +185,14 @@ public:
 			: ::std::strstream(buf, 254, ::std::ios::out)
 		{}
 	public:
-		::std::string str(void)
+		virtual ::std::string str(void)
 		{
 			*this << ::std::ends;
 			::std::string str = ::std::strstream::str();
 			return str;
 		}
 	};
-#  else
-	typedef ::std::stringstream	stlstream;
-#  endif
+IUTEST_PRAGMA_MSC_WARN_POP()
 #else
 	template<class _Elem, class _Traits>class iu_basic_stream;
 	typedef iu_basic_stream<char, ::std::char_traits<char> >		iu_stream;
@@ -202,7 +201,7 @@ public:
 
 public:
 
-#if IUTEST_HAS_STRINGSTREAM
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
 	typedef stlstream	type;
 #else
 	typedef iu_stream	type;
@@ -211,7 +210,7 @@ public:
 
 public:
 
-#if !IUTEST_HAS_STRINGSTREAM
+#if !IUTEST_HAS_STRINGSTREAM && !IUTEST_HAS_STRSTREAM
 
 	template<typename T>
 	struct xcs
@@ -427,7 +426,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 }	// end of namespace detail
 
-#if IUTEST_HAS_STRINGSTREAM
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
 typedef ::std::ostream					iu_ostream;
 #else
 typedef detail::iuStringStream::type	iu_ostream;

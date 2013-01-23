@@ -25,7 +25,7 @@ namespace spitest
 class SPITest : public ::iutest::Test
 {
 public:
-#if IUTEST_SPI_LAMBDA_ENABLE
+#if IUTEST_HAS_SPI_LAMBDA_SUPPORT
 	const char* null_str;
 	int a, b;
 	int  aa[5];
@@ -54,7 +54,7 @@ public:
 	void FatalFailure2_Sub(int& count);
 };
 
-#if !IUTEST_SPI_LAMBDA_ENABLE
+#if !IUTEST_HAS_SPI_LAMBDA_SUPPORT
 const char* null_str = NULL;
 int a=0, b=0;
 int  aa[] = { 0, 1, 2, 3, 4 };

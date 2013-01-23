@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -72,7 +72,7 @@ public:
 	{
 		IUTEST_UNUSED_VAR(ep);
 		iuStringStream::type strm;
-#if IUTEST_HAS_STRINGSTREAM
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
 		strm << "SEH exception with code 0x" << ::std::setbase(16) << code << ::std::setbase(10);
 #else
 		strm << "SEH exception with code " << code;

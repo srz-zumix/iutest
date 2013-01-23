@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01029917u	//!< iutest version 1.2.99.17
+#define	IUTEST_VER			0x01029918u	//!< iutest version 1.2.99.18
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x02u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x17u		//!< Revision
+#define IUTEST_REVISION		0x18u		//!< Revision
 
 /**
  * @mainpage
@@ -93,8 +93,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.2.99.17
+  <li>v1.2.99.18
     <ul>
+      <li>IUTEST_THROW_ON_ASSERT_FAILURE を IUTEST_USE_THROW_ON_ASSERT_FAILURE に変更</li>
       <li>IUTEST_FRIEND_TYPED_TEST を追加</li>
       <li>乱数シードが繰り返し毎に必ず変わるように修正</li>
       <li>GTEST で始まる環境変数に対応</li>

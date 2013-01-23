@@ -146,20 +146,20 @@
 #  endif
 #endif
 
-#ifndef IUTEST_THROW_ON_ASSERT_FAILURE
+#ifndef IUTEST_USE_THROW_ON_ASSERT_FAILURE
 /**
  * @brief	ASSERT マクロで失敗時に例外を throw します。
  * @note	サブ関数にアサーションを記述しても、その時点でテストが中断されるようになります
 */
-#  define IUTEST_THROW_ON_ASSERT_FAILURE	0
+#  define IUTEST_USE_THROW_ON_ASSERT_FAILURE	0
 #endif
 
-#ifndef IUTEST_SPI_LAMBDA_ENABLE
+#ifndef IUTEST_HAS_SPI_LAMBDA_SUPPORT
 //! spi マクロで lambda を使って変数にアクセス可能かどうか
 #if IUTEST_HAS_LAMBDA
-#  define IUTEST_SPI_LAMBDA_ENABLE	1
+#  define IUTEST_HAS_SPI_LAMBDA_SUPPORT		1
 #else
-#  define IUTEST_SPI_LAMBDA_ENABLE	0
+#  define IUTEST_HAS_SPI_LAMBDA_SUPPORT		0
 #endif
 #endif
 
@@ -260,13 +260,16 @@
  * @{
 */
 
-// other
 #ifndef IUTEST_HAS_STRINGSTREAM
 #  define IUTEST_HAS_STRINGSTREAM	1	//!< std::stringstream が使用可能かどうか
 #endif
 
-#ifndef IUTEST_USE_STRSTREAM
-#  define IUTEST_USE_STRSTREAM		0	//!< std::strstream が使用可能かどうか
+/**
+ * @brief	std::strstream が使用可能かどうか
+ * @note	IUTEST_HAS_STRINGSTREAM が優先されます
+*/
+#ifndef IUTEST_HAS_STRSTREAM
+#  define IUTEST_HAS_STRSTREAM		0
 #endif
 
 /**

@@ -166,7 +166,7 @@ public:
 	void	operator = (const Fixed& fixed)
 	{
 		OnFixed(fixed);
-#if IUTEST_HAS_EXCEPTIONS && IUTEST_THROW_ON_ASSERT_FAILURE
+#if IUTEST_HAS_EXCEPTIONS && IUTEST_USE_THROW_ON_ASSERT_FAILURE
 		{
 			if( m_part_result.type() == TestPartResult::kFatalFailure ) throw TestPartResult::kFatalFailure;
 		}

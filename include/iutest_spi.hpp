@@ -62,9 +62,9 @@
  * @{
 */
 
-#if IUTEST_SPI_LAMBDA_ENABLE
+#if IUTEST_HAS_SPI_LAMBDA_SUPPORT
 
-#if IUTEST_HAS_EXCEPTIONS && IUTEST_THROW_ON_ASSERT_FAILURE
+#if IUTEST_HAS_EXCEPTIONS && IUTEST_USE_THROW_ON_ASSERT_FAILURE
 #  define IIUT_STATEMENT_EXECUTER(statement)	[&](){ try {	\
 	::iutest::detail::ScopedSPITestFlag guard;					\
 	statement;													\
@@ -98,7 +98,7 @@
 
 #else
 
-#if IUTEST_HAS_EXCEPTIONS && IUTEST_THROW_ON_ASSERT_FAILURE
+#if IUTEST_HAS_EXCEPTIONS && IUTEST_USE_THROW_ON_ASSERT_FAILURE
 #  define IIUT_STATEMENT_EXECUTER(statement)	struct IUTestFatalFailureStatement {	\
 	static void Execute() { ::iutest::detail::ScopedSPITestFlag guard;					\
 	try { statement; } catch(...) {} }													\
