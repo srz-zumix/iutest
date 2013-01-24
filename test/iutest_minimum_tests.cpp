@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
 #endif
 {
 	IUTEST_INIT(&argc, argv);
-	return IUTEST_RUN_ALL_TESTS();	// run all
+	return IUTEST_RUN_ALL_TESTS();
 }
 
 IUTEST(Foo, Bar)

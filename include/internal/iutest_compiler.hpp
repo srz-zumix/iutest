@@ -499,6 +499,17 @@
 #  define IUTEST_NO_PARTIAL_TEMPLATE_SPECIALIZATION	0
 #endif
 
+// secure lib
+#if defined(_MSC_VER) 
+#  if defined(__STDC_WANT_SECURE_LIB__) && __STDC_WANT_SECURE_LIB__
+#    define IUTEST_HAS_WANT_SECURE_LIB		1
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_WANT_SECURE_LIB
+#  define IUTEST_HAS_WANT_SECURE_LIB		0
+#endif
+
 // pragma
 #include "iutest_pragma.hpp"
 

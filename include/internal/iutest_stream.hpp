@@ -46,14 +46,18 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 		va_list va;
 		va_start(va, fmt);
 #ifdef _MSC_VER
-		_vsnprintf(buf, sizeof(buf), fmt, va);
+#  if IUTEST_HAS_WANT_SECURE_LIB
+		const int len = _vsnprintf_s(buf, _TRUNCATE, fmt, va);
+#  else
+		const int len = _vsnprintf(buf, sizeof(buf)-1, fmt, va);
+#  endif
 #else
-		vsnprintf(buf, sizeof(buf), fmt, va);
+		const int len = vsnprintf(buf, sizeof(buf), fmt, va);
 #endif
 		va_end(va);
 
-		const size_t len = strlen(buf);
-		Write(buf, len, 1);
+		if( len > 0 )
+			Write(buf, static_cast<size_t>(len), 1);
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 	}

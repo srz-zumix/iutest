@@ -179,10 +179,10 @@ IUTEST_PRAGMA_MSC_WARN_PUSH()
 IUTEST_PRAGMA_MSC_WARN_DISABLE(4250)
 	class stlstream : public ::std::strstream
 	{
-		CHAR buf[256];
+		char buf[512];
 	public:
 		stlstream(void)
-			: ::std::strstream(buf, 254, ::std::ios::out)
+			: ::std::strstream(buf, sizeof(buf)-2, ::std::ios::out)
 		{}
 	public:
 		virtual ::std::string str(void)

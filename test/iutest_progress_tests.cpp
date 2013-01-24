@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -27,12 +27,16 @@ int main(int argc, char* argv[])
 #endif
 {
 	IUTEST_INIT(&argc, argv);
+#if !defined(IUTEST_USE_GTEST)
 	::iutest::SetUpProgressPrintListener();
+#endif
 	return IUTEST_RUN_ALL_TESTS();
 }
 
+#if !defined(IUTEST_USE_GTEST)
+
 #define DECL_TEST(n)	IUTEST(Foo, Bar##n) {	\
-							::iutest::internal::posix::SleepMillisec(1000); }
+							::iutest::internal::posix::SleepMillisec(100); }
 
 
 DECL_TEST(0)
@@ -56,3 +60,4 @@ DECL_TEST(17)
 DECL_TEST(18)
 DECL_TEST(19)
 
+#endif

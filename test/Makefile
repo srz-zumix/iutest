@@ -78,6 +78,7 @@ TARGETS1= iutest_all_tests \
           iutest_namespace_tests \
           iutest_no_test_tests \
           iutest_printers_tests \
+          iutest_progress_tests \
           iutest_repeat_tests \
           iutest_setup_failure_tests \
           iutest_shuffle_tests \
@@ -93,7 +94,7 @@ TARGETS2= \
 TARGETS3 = \
           iutest_env_var_tests \
           iutest_env_var_gtest_tests \
-
+          
 ifdef USE_GTEST
 TARGETS = $(TARGETS1) $(TARGETS2)
 else
@@ -101,7 +102,7 @@ TARGETS = $(TARGETS1) $(TARGETS2) $(TARGETS3)
 endif
 
 SRCS   = $(TARGETS:%=%.cpp)
-EXES   = $(TARGETS:%=%.exe)
+RUNNER = $(TARGETS:%=run_%)
 
 
 # All iutest headers.  Usually you shouldn't change this
@@ -115,18 +116,21 @@ IUTEST_HEADERS = $(IUTEST_DIR)/include/*.hpp \
 
 # House-keeping build targets.
 
-default: $(TARGETS)
+.PHONY: clean default all run test
+
+default : $(TARGETS)
 
 all : clean default test
 
 clean :
-	rm -f $(EXES) *.o
+	rm -f $(TARGETS) *.o
 
-test: $(EXES)
+run : test
+test : $(RUNNER)
 
-$(EXES) : $(TARGETS)
-	@echo $@
-	./$@ $(RUN_OPTION)
+run_% : %
+	@echo $<
+	./$< $(RUN_OPTION)
 
 # Builds a sample test.  
 
@@ -137,7 +141,7 @@ GTEST_ROOT_=$(subst \,/,$(GTEST_ROOT))
 $(TARGETS1) : $(SRCS) $(IUTEST_HEADERS) Makefile
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp -I$(GTEST_ROOT_)/include -DIUTEST_USE_GTEST $(GTEST_ROOT_)/make/gtest-all.o
 
-$(TARGETS2) :  $(SRCS) $(IUTEST_HEADERS) Makefile
+$(TARGETS2) : $(SRCS) $(IUTEST_HEADERS) Makefile
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp -I$(GTEST_ROOT_)/include -DIUTEST_USE_GTEST
 
 else

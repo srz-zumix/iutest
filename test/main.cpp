@@ -1,3 +1,19 @@
+//======================================================================
+//-----------------------------------------------------------------------
+/**
+ * @file		main.cpp
+ * @brief		test main
+ *
+ * @author		t.sirayanagi
+ * @version		1.0
+ *
+ * @par			copyright
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * The new BSD License is applied to this software.
+ * see LICENSE
+*/
+//-----------------------------------------------------------------------
+//======================================================================
 
 /*
  * is not available vprintf, can be replaced.
@@ -33,6 +49,6 @@ int main(int argc, char* argv[])
 	::iutest::SetUpProgressPrintListener();
 #endif
 	
-	return IUTEST_RUN_ALL_TESTS();	// run all
+	return IUTEST_RUN_ALL_TESTS();
 }
 

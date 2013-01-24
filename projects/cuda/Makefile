@@ -33,7 +33,7 @@ CC = gcc
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
 TESTS = sample
-BIN = $(TESTS).exe
+BIN = $(TESTS)
 
 # All iutest headers.  Usually you shouldn't change this
 # definition.
@@ -44,6 +44,8 @@ IUTEST_HEADERS = $(IUTEST_DIR)/include/*.hpp \
                  $(IUTEST_DIR)/include/gtest/*.hpp
 
 # House-keeping build targets.
+
+.PHONY: clean default all run
 
 all : $(TESTS)
 

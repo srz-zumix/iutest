@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -45,13 +45,13 @@ int main(int argc, char* argv[])
 	IUTEST_INIT(&argc, argv);
 	{
 		::iutest::IUTEST_FLAG(filter) = "-*Fail*";
-		int ret = IUTEST_RUN_ALL_TESTS();	// run all
+		int ret = IUTEST_RUN_ALL_TESTS();
 		
 		if( ret != 0 ) return 1;
 	}
 	{
 		::iutest::IUTEST_FLAG(filter) = "*Fail*";
-		int ret = IUTEST_RUN_ALL_TESTS();	// run all
+		int ret = IUTEST_RUN_ALL_TESTS();
 		
 		if( ret == 0 ) return 1;
 	}

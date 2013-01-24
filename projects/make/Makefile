@@ -81,10 +81,15 @@ IUTEST_SRCS    = $(IUTEST_DIR)/src/*.cpp \
 
 # House-keeping build targets.
 
+.PHONY: clean default all run
+
 all : $(LIBS) $(TESTS)
 
 clean :
 	rm -f $(TESTS) $(LIBS) *.o
+	
+run : $(TESTS)
+	./$(TESTS)
 
 # Builds a library
 .o.a : $(IUTEST_SRCS)
