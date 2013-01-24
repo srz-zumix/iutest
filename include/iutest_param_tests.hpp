@@ -195,11 +195,10 @@ inline detail::iuValueArray<Args...> IUTEST_ATTRIBUTE_UNUSED_ Values(Args... arg
 
 #else
 
-#define IUTEST_DECL_VALUES_ARG_(param, i)	IUTEST_PP_CAT(param, i) IUTEST_PP_CAT(t, i)
-#define IUTEST_DECL_VALUES_(n)	template< IUTEST_PP_ENUM_SHIFTED_PARAMS(n, typename T) >							\
-	inline detail::iuValueArray##n< IUTEST_PP_ENUM_SHIFTED_PARAMS(n, T) >											\
-	IUTEST_ATTRIBUTE_UNUSED_ Values( IUTEST_PP_ENUM_SHIFTED_PARAMS_M(n, IUTEST_DECL_VALUES_ARG_, T) )	{			\
-	return detail::iuValueArray##n< IUTEST_PP_ENUM_SHIFTED_PARAMS(n, T) >( IUTEST_PP_ENUM_SHIFTED_PARAMS(n, t) );	\
+#define IUTEST_DECL_VALUES_(n)	template< IUTEST_PP_ENUM_PARAMS(n, typename T) >					\
+	inline detail::iuValueArray##n< IUTEST_PP_ENUM_PARAMS(n, T) >									\
+	IUTEST_ATTRIBUTE_UNUSED_ Values( IUTEST_PP_ENUM_BINARY_PARAMS(n, T, t) )	{					\
+	return detail::iuValueArray##n< IUTEST_PP_ENUM_PARAMS(n, T) >( IUTEST_PP_ENUM_PARAMS(n, t) );	\
 	}
 
 /**
@@ -257,7 +256,6 @@ IUTEST_DECL_VALUES_(48)
 IUTEST_DECL_VALUES_(49)
 IUTEST_DECL_VALUES_(50)
 
-#undef IUTEST_DECL_VALUES_ARG_
 #undef IUTEST_DECL_VALUES_
 
 #endif
@@ -276,12 +274,11 @@ detail::iuCartesianProductHolder<Generator...> Combine(const Generator&... gener
 
 #else
 
-#define IUTEST_DECL_COMBINE_ARGS_(param, i) IUTEST_PP_CAT(param, i)& IUTEST_PP_CAT(t,i)
-#define IUTEST_DECL_COMBINE_(n)	template< IUTEST_PP_ENUM_SHIFTED_PARAMS(n, typename T) >				\
-	inline IUTEST_PP_CAT(detail::iuCartesianProductHolder, n)< IUTEST_PP_ENUM_SHIFTED_PARAMS(n, T) >	\
-	Combine(IUTEST_PP_ENUM_SHIFTED_PARAMS_M(n, IUTEST_DECL_COMBINE_ARGS_, const T)) {					\
-		return IUTEST_PP_CAT(detail::iuCartesianProductHolder, n)										\
-				< IUTEST_PP_ENUM_SHIFTED_PARAMS(n, T) >(IUTEST_PP_ENUM_SHIFTED_PARAMS(n, t));			\
+#define IUTEST_DECL_COMBINE_(n)	template< IUTEST_PP_ENUM_PARAMS(n, typename T) >				\
+	inline IUTEST_PP_CAT(detail::iuCartesianProductHolder, n)< IUTEST_PP_ENUM_PARAMS(n, T) >	\
+	Combine(IUTEST_PP_ENUM_BINARY_PARAMS(n, const T, &t)) {										\
+		return IUTEST_PP_CAT(detail::iuCartesianProductHolder, n)								\
+				< IUTEST_PP_ENUM_PARAMS(n, T) >(IUTEST_PP_ENUM_PARAMS(n, t));					\
 	}
 
 /**
@@ -297,7 +294,6 @@ IUTEST_DECL_COMBINE_(7)
 IUTEST_DECL_COMBINE_(8)
 IUTEST_DECL_COMBINE_(9)
 
-#undef IUTEST_DECL_COMBINE_ARGS_
 #undef IUTEST_DECL_COMBINE_
 
 #endif
@@ -319,12 +315,11 @@ detail::iuPairwiseHolder<Generator...> Pairwise(const Generator&... generators)
 
 #else
 
-#define IUTEST_DECL_PAIRWISE_ARGS_(param, i) IUTEST_PP_CAT(param, i)& IUTEST_PP_CAT(t,i)
-#define IUTEST_DECL_PAIRWISE(n)	template< IUTEST_PP_ENUM_SHIFTED_PARAMS(n, typename T) >			\
-	inline IUTEST_PP_CAT(detail::iuPairwiseHolder, n)< IUTEST_PP_ENUM_SHIFTED_PARAMS(n, T) >		\
-	Pairwise(IUTEST_PP_ENUM_SHIFTED_PARAMS_M(n, IUTEST_DECL_PAIRWISE_ARGS_, const T)) {				\
-		return IUTEST_PP_CAT(detail::iuPairwiseHolder, n)											\
-				< IUTEST_PP_ENUM_SHIFTED_PARAMS(n, T) >(IUTEST_PP_ENUM_SHIFTED_PARAMS(n, t));		\
+#define IUTEST_DECL_PAIRWISE(n)	template< IUTEST_PP_ENUM_PARAMS(n, typename T) >			\
+	inline IUTEST_PP_CAT(detail::iuPairwiseHolder, n)< IUTEST_PP_ENUM_PARAMS(n, T) >		\
+	Pairwise(IUTEST_PP_ENUM_BINARY_PARAMS(n, const T, &t)) {								\
+		return IUTEST_PP_CAT(detail::iuPairwiseHolder, n)									\
+				< IUTEST_PP_ENUM_PARAMS(n, T) >(IUTEST_PP_ENUM_PARAMS(n, t));				\
 	}
 
 /**
@@ -340,7 +335,6 @@ IUTEST_DECL_PAIRWISE(7)
 IUTEST_DECL_PAIRWISE(8)
 IUTEST_DECL_PAIRWISE(9)
 
-#undef IUTEST_DECL_PAIRWISE_ARGS_
 #undef IUTEST_DECL_PAIRWISE_
 
 #endif

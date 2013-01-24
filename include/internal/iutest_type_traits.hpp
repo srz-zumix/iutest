@@ -19,6 +19,7 @@
 
 //======================================================================
 // include
+#include "iutest_pp.hpp"
 
 namespace iutest_type_traits
 {
@@ -230,8 +231,8 @@ class is_function_pointer
 	struct impl<R (*)(...)> : public true_type {};
 
 #define IUTEST_DECL_IS_FUNCTION_PTR_(n)	\
-	template<typename R, IUTEST_PP_ENUM_SHIFTED_PARAMS(n, typename T)>struct impl<R (*)(IUTEST_PP_ENUM_SHIFTED_PARAMS(n, T))> : public true_type {};	\
-	template<typename R, IUTEST_PP_ENUM_SHIFTED_PARAMS(n, typename T)>struct impl<R (*)(IUTEST_PP_ENUM_SHIFTED_PARAMS(n, T), ...)> : public true_type {}
+	template<typename R, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (*)(IUTEST_PP_ENUM_PARAMS(n, T))> : public true_type {};	\
+	template<typename R, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (*)(IUTEST_PP_ENUM_PARAMS(n, T), ...)> : public true_type {}
 
 	IUTEST_DECL_IS_FUNCTION_PTR_(1);
 	IUTEST_DECL_IS_FUNCTION_PTR_(2);
@@ -307,8 +308,8 @@ class is_member_function_pointer
 	IUTEST_IS_MEMBER_FUNCTION_PTR_I(n, const volatile)
 
 #define IUTEST_IS_MEMBER_FUNCTION_PTR_I(n, CV)	\
-	template<typename R, typename U, IUTEST_PP_ENUM_SHIFTED_PARAMS(n, typename T)>struct impl<R (U::*)(IUTEST_PP_ENUM_SHIFTED_PARAMS(n, T)) CV> : public true_type {};	\
-	template<typename R, typename U, IUTEST_PP_ENUM_SHIFTED_PARAMS(n, typename T)>struct impl<R (U::*)(IUTEST_PP_ENUM_SHIFTED_PARAMS(n, T), ...) CV> : public true_type {}
+	template<typename R, typename U, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (U::*)(IUTEST_PP_ENUM_PARAMS(n, T)) CV> : public true_type {};	\
+	template<typename R, typename U, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (U::*)(IUTEST_PP_ENUM_PARAMS(n, T), ...) CV> : public true_type {}
 
 	IUTEST_IS_MEMBER_FUNCTION_PTR_(1);
 	IUTEST_IS_MEMBER_FUNCTION_PTR_(2);
@@ -381,9 +382,9 @@ class function_return_type
 #else
 
 #define IUTEST_FUNCTION_RETURN_TYPE_(n)	\
-	template<typename R, IUTEST_PP_ENUM_SHIFTED_PARAMS(n, typename T)>struct impl<R (*)(IUTEST_PP_ENUM_SHIFTED_PARAMS(n, T))>	\
+	template<typename R, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (*)(IUTEST_PP_ENUM_PARAMS(n, T))>	\
 	{ typedef R type; };	\
-	template<typename R, IUTEST_PP_ENUM_SHIFTED_PARAMS(n, typename T)>struct impl<R (*)(IUTEST_PP_ENUM_SHIFTED_PARAMS(n, T), ...)>	\
+	template<typename R, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (*)(IUTEST_PP_ENUM_PARAMS(n, T), ...)>	\
 	{ typedef R type; };	\
 	IUTEST_FUNCTION_RETURN_TYPE_I(n, IUTEST_PP_EMPTY);	\
 	IUTEST_FUNCTION_RETURN_TYPE_I(n, const);	\
@@ -391,9 +392,9 @@ class function_return_type
 	IUTEST_FUNCTION_RETURN_TYPE_I(n, const volatile)	\
 
 #define IUTEST_FUNCTION_RETURN_TYPE_I(n, CV)	\
-	template<typename R, typename U, IUTEST_PP_ENUM_SHIFTED_PARAMS(n, typename T)>struct impl<R (U::*)(IUTEST_PP_ENUM_SHIFTED_PARAMS(n, T)) CV>	\
+	template<typename R, typename U, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (U::*)(IUTEST_PP_ENUM_PARAMS(n, T)) CV>	\
 	{ typedef R type; };	\
-	template<typename R, typename U, IUTEST_PP_ENUM_SHIFTED_PARAMS(n, typename T)>struct impl<R (U::*)(IUTEST_PP_ENUM_SHIFTED_PARAMS(n, T), ...) CV>	\
+	template<typename R, typename U, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (U::*)(IUTEST_PP_ENUM_PARAMS(n, T), ...) CV>	\
 	{ typedef R type; }
 
 	template<typename R>struct impl<R (*)(void)>	{ typedef R type; };

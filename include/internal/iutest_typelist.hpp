@@ -64,8 +64,8 @@ struct VariadicTypeList<T>
 
 #define IUTEST_DECL_TYPELIST_(n)	IUTEST_DECL_TYPELIST_I(n, IUTEST_PP_DEC(n))
 #define IUTEST_DECL_TYPELIST_I(n, m)													\
-	template<typename T, IUTEST_PP_ENUM_SHIFTED_PARAMS(m, typename T)>					\
-	struct IUTEST_PP_CAT(TypeList, n) {	typedef T Head;									\
+	template<typename T0, IUTEST_PP_ENUM_SHIFTED_PARAMS(m, typename T)>					\
+	struct IUTEST_PP_CAT(TypeList, n) {	typedef T0 Head;								\
 	typedef IUTEST_PP_CAT(TypeList, m)< IUTEST_PP_ENUM_SHIFTED_PARAMS(m, T) > Tail;		\
 }
 
@@ -175,8 +175,8 @@ struct TemplateTypeList1
 
 #define IUTEST_DECL_TEMPLATETYPELIST_(n)	IUTEST_DECL_TEMPLATETYPELIST_I(n, IUTEST_PP_DEC(n))
 #define IUTEST_DECL_TEMPLATETYPELIST_I(n, m)															\
-	template< IUTEST_TEMPLATE_TPARAM1 TT, IUTEST_PP_ENUM_SHIFTED_PARAMS(m, IUTEST_TEMPLATE_TPARAM1 T) >	\
-	struct IUTEST_PP_CAT(TemplateTypeList, n) { typedef TemplateTypeSel<TT> Head;						\
+	template< IUTEST_TEMPLATE_TPARAM1 T0, IUTEST_PP_ENUM_SHIFTED_PARAMS(m, IUTEST_TEMPLATE_TPARAM1 T) >	\
+	struct IUTEST_PP_CAT(TemplateTypeList, n) { typedef TemplateTypeSel<T0> Head;						\
 	typedef IUTEST_PP_CAT(TemplateTypeList, m)< IUTEST_PP_ENUM_SHIFTED_PARAMS(m, T) > Tail;				\
 }
 

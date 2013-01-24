@@ -42,7 +42,7 @@ public:
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
 		// TODO : Fixed buffer...
-		char buf[1024];
+		char buf[1024] = {0};
 		va_list va;
 		va_start(va, fmt);
 #ifdef _MSC_VER

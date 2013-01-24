@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -89,7 +89,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const
  * @private
  * @{
 */
-#define COMPARE_HELPER_DEC(name)	struct name {											\
+#define IUTEST_COMPARE_HELPER_DEC_(name)	struct name {											\
 	template<typename T1, typename T2>														\
 	static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2, const T1& val1, const T2& val2)	{	\
 		return ::iutest::internal::CmpHelper##name(expr1, expr2, val1, val2);				\
@@ -104,14 +104,15 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const
 */
 struct CmpHelper
 {
-	COMPARE_HELPER_DEC(EQ);	//!< OR テスト用 EQ
-	COMPARE_HELPER_DEC(NE);	//!< OR テスト用 NE
-	COMPARE_HELPER_DEC(LE);	//!< OR テスト用 LE
-	COMPARE_HELPER_DEC(LT);	//!< OR テスト用 LT
-	COMPARE_HELPER_DEC(GE);	//!< OR テスト用 GE
-	COMPARE_HELPER_DEC(GT);	//!< OR テスト用 GT
-#undef COMPARE_HELPER_DEC
+	IUTEST_COMPARE_HELPER_DEC_(EQ);	//!< OR テスト用 EQ
+	IUTEST_COMPARE_HELPER_DEC_(NE);	//!< OR テスト用 NE
+	IUTEST_COMPARE_HELPER_DEC_(LE);	//!< OR テスト用 LE
+	IUTEST_COMPARE_HELPER_DEC_(LT);	//!< OR テスト用 LT
+	IUTEST_COMPARE_HELPER_DEC_(GE);	//!< OR テスト用 GE
+	IUTEST_COMPARE_HELPER_DEC_(GT);	//!< OR テスト用 GT
 };
+
+#undef IUTEST_COMPARE_HELPER_DEC_
 
 /**
  * @brief	OR テスト用比較ヘルパー

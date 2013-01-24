@@ -156,11 +156,10 @@ private:
 		return_type operator () (Args... args) { return ((*m_ptr).*detail::peep_tag<peep_tag>::value)( std::forward<Args>(args)...); }
 #else
 
-#define IUTEST_DECL_PEEP_MEMBER_FUNC_ARG_(param, i)	IUTEST_PP_CAT(param, i) IUTEST_PP_CAT(t, i)
 #define PEEP_DECL_MEMBER_FUNC_(n)	\
-	template<IUTEST_PP_ENUM_SHIFTED_PARAMS(n, typename T)>return_type operator () (		\
-		IUTEST_PP_ENUM_SHIFTED_PARAMS_M(n, IUTEST_DECL_PEEP_MEMBER_FUNC_ARG_, T)) {			\
-		return ((*m_ptr).*detail::peep_tag<peep_tag>::value)(IUTEST_PP_ENUM_SHIFTED_PARAMS(n, t)); }
+	template<IUTEST_PP_ENUM_PARAMS(n, typename T)>return_type operator () (		\
+		IUTEST_PP_ENUM_BINARY_PARAMS(n, T, t)) {				\
+		return ((*m_ptr).*detail::peep_tag<peep_tag>::value)(IUTEST_PP_ENUM_PARAMS(n, t)); }
 
 		return_type operator () (void) { return ((*m_ptr).*detail::peep_tag<peep_tag>::value)(); }
 
@@ -185,7 +184,6 @@ private:
 		PEEP_DECL_MEMBER_FUNC_(19)
 		PEEP_DECL_MEMBER_FUNC_(20)
 
-#undef IUTEST_DECL_PEEP_MEMBER_FUNC_ARG_
 #undef IUTEST_DECL_PEEP_MEMBER_FUNC_
 #endif
 	};

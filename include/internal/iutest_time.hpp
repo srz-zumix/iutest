@@ -28,7 +28,7 @@
 
 #if		IUTEST_HAS_HDR_SYSTIME
 #  include <sys/time.h>
-#elif	defined(IUTEST_OS_WINDOWS)
+#elif	defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 #  include <sys/timeb.h>
 #endif
 

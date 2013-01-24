@@ -126,11 +126,15 @@ inline const ::iutest::TestCase* FindTypedTestCase(const char* testcase_name, co
 	for( ; i < testcase_count; ++i )
 	{
 		const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->GetTestCase(i);
-		const char* name = testcase->name();
-		if( strstr(name, testcase_name) == name
-			&& name[strlen(testcase_name)] == '/' )
+		if( testcase != NULL )
 		{
-			return testcase;
+			const char* name = testcase->name();
+			if( name != NULL
+				&& strstr(name, testcase_name) == name
+				&& name[strlen(testcase_name)] == '/' )
+			{
+				return testcase;
+			}
 		}
 	}
 	return NULL;
@@ -224,11 +228,15 @@ inline const ::iutest::TestInfo* FindParamTestInfo(const ::iutest::TestCase* tes
 	for( ; i < testinfo_count; ++i )
 	{
 		const ::iutest::TestInfo* testinfo = testcase->GetTestInfo(i);
-		const char* name = testinfo->name();
-		if( strstr(name, testinfo_name) == name
-			&& name[strlen(testinfo_name)] == '/' )
+		if( testinfo != NULL )
 		{
-			return testinfo;
+			const char* name = testinfo->name();
+			if( name != NULL
+				&& strstr(name, testinfo_name) == name
+				&& name[strlen(testinfo_name)] == '/' )
+			{
+				return testinfo;
+			}
 		}
 	}
 	return NULL;

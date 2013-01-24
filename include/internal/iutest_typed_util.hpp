@@ -44,26 +44,26 @@ struct Types
 
 #define IUTEST_DECL_DEFAULT_ARG_(param, i)	IUTEST_PP_CAT(param,i)=detail::None
 
-template< IUTEST_PP_ENUM_SHIFTED_PARAMS_M(50, IUTEST_DECL_DEFAULT_ARG_, typename T) >
+template< IUTEST_PP_ENUM(50, IUTEST_DECL_DEFAULT_ARG_, typename T) >
 struct Types
 {
-	typedef detail::TypeList50< IUTEST_PP_ENUM_SHIFTED_PARAMS(50, T) > type;
+	typedef detail::TypeList50< IUTEST_PP_ENUM_PARAMS(50, T) > type;
 };
 
 #undef IUTEST_DECL_DEFAULT_ARG_
 
-#define IUTEST_DECL_SPEC_NONE_(param, i)	detail::None
-#define IUTEST_DECL_TYPES_(n, m)											\
-	template< IUTEST_PP_ENUM_SHIFTED_PARAMS(n, typename T) >				\
-	struct Types< IUTEST_PP_ENUM_SHIFTED_PARAMS(n, T)						\
-		, IUTEST_PP_ENUM_SHIFTED_PARAMS_M(m, IUTEST_DECL_SPEC_NONE_, 0) > {	\
-		typedef IUTEST_PP_CAT(detail::TypeList, n)<							\
-			IUTEST_PP_ENUM_SHIFTED_PARAMS(n, T) > type;						\
+#define IUTEST_DECL_SPEC_NONE_(param, i)	param
+#define IUTEST_DECL_TYPES_(n, m)							\
+	template< IUTEST_PP_ENUM_PARAMS(n, typename T) >		\
+	struct Types< IUTEST_PP_ENUM_PARAMS(n, T)				\
+		, IUTEST_PP_ENUM(m, IUTEST_DECL_SPEC_NONE_, detail::None) > {	\
+		typedef IUTEST_PP_CAT(detail::TypeList, n)<			\
+			IUTEST_PP_ENUM_PARAMS(n, T) > type;				\
 	}
 
 
 template<>
-struct Types< IUTEST_PP_ENUM_SHIFTED_PARAMS_M(50, IUTEST_DECL_SPEC_NONE_, 0) >
+struct Types< IUTEST_PP_ENUM(50, IUTEST_DECL_SPEC_NONE_, detail::None) >
 {
 	typedef detail::TypeList0	type;
 };
@@ -145,25 +145,25 @@ struct Templates
 
 #define IUTEST_DECL_DEFAULT_ARG_(param, i)	IUTEST_PP_CAT(param,i)=detail::NoneT1
 
-template< IUTEST_PP_ENUM_SHIFTED_PARAMS_M(50, IUTEST_DECL_DEFAULT_ARG_, IUTEST_TEMPLATE_TPARAM1 T) >
+template< IUTEST_PP_ENUM(50, IUTEST_DECL_DEFAULT_ARG_, IUTEST_TEMPLATE_TPARAM1 T) >
 struct Templates
 {
-	typedef detail::TemplateTypeList50< IUTEST_PP_ENUM_SHIFTED_PARAMS(50, T) > type;
+	typedef detail::TemplateTypeList50< IUTEST_PP_ENUM_PARAMS(50, T) > type;
 };
 
 #undef IUTEST_DECL_DEFAULT_ARG_
 
-#define IUTEST_DECL_SPEC_NONE_(param, i)	detail::NoneT1
-#define IUTEST_DECL_TEMPLATES_(n, m)										\
-	template< IUTEST_PP_ENUM_SHIFTED_PARAMS(n, IUTEST_TEMPLATE_TPARAM1 T) >	\
-	struct Templates< IUTEST_PP_ENUM_SHIFTED_PARAMS(n, T)					\
-		, IUTEST_PP_ENUM_SHIFTED_PARAMS_M(m, IUTEST_DECL_SPEC_NONE_, 0) > {	\
-		typedef IUTEST_PP_CAT(detail::TemplateTypeList, n)<					\
-			IUTEST_PP_ENUM_SHIFTED_PARAMS(n, T) > type;						\
+#define IUTEST_DECL_SPEC_NONE_(param, i)	param
+#define IUTEST_DECL_TEMPLATES_(n, m)									\
+	template< IUTEST_PP_ENUM_PARAMS(n, IUTEST_TEMPLATE_TPARAM1 T) >		\
+	struct Templates< IUTEST_PP_ENUM_PARAMS(n, T)						\
+		, IUTEST_PP_ENUM(m, IUTEST_DECL_SPEC_NONE_, detail::NoneT1) > {	\
+		typedef IUTEST_PP_CAT(detail::TemplateTypeList, n)<				\
+			IUTEST_PP_ENUM_PARAMS(n, T) > type;							\
 	}
 
 template<>
-struct Templates< IUTEST_PP_ENUM_SHIFTED_PARAMS_M(50, IUTEST_DECL_SPEC_NONE_, 0) >
+struct Templates< IUTEST_PP_ENUM(50, IUTEST_DECL_SPEC_NONE_, detail::NoneT1) >
 {
 	typedef detail::TemplateTypeList0	type;
 };
@@ -243,10 +243,10 @@ struct TypeList< Types<Args...> >
 
 #else
 
-template< IUTEST_PP_ENUM_SHIFTED_PARAMS(50, typename T) >
-struct TypeList< Types< IUTEST_PP_ENUM_SHIFTED_PARAMS(50, T) > >
+template< IUTEST_PP_ENUM_PARAMS(50, typename T) >
+struct TypeList< Types< IUTEST_PP_ENUM_PARAMS(50, T) > >
 {
-	typedef typename Types< IUTEST_PP_ENUM_SHIFTED_PARAMS(50, T) >::type type;
+	typedef typename Types< IUTEST_PP_ENUM_PARAMS(50, T) >::type type;
 };
 
 #endif

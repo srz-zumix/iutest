@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -218,7 +218,7 @@ inline bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentVariable(const char* name, ::
 inline bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentInt(const char* name, int& var)
 {
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
-	char buf[128];
+	char buf[128] = {0};
 	if( !GetEnvironmentVariable(name, buf) ) return false;
 	char* end = NULL;
 	var = static_cast<int>(strtol(buf, &end, 0));
