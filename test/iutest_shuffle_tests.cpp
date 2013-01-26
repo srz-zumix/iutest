@@ -38,20 +38,34 @@ IUTEST(Foo, Bar)
 	IUTEST_ASSERT_NE(seed, ::iutest::UnitTest::GetInstance()->random_seed());
 }
 
+static ::std::vector<int> order[3];
+
 #if IUTEST_HAS_PARAM_TEST
 const int kNumberOfParamTests = 10;
 
-static ::std::vector<int> order[3];
+class OrderTest : public ::iutest::TestWithParam<int> {};
 
+IUTEST_INSTANTIATE_TEST_CASE_P(Foo, OrderTest, ::iutest::Range<int>(0, kNumberOfParamTests));
 
-class TestP : public ::iutest::TestWithParam<int> {};
-
-IUTEST_INSTANTIATE_TEST_CASE_P(Foo, TestP, ::iutest::Range<int>(0, kNumberOfParamTests));
-
-IUTEST_P(TestP, Bar)
+IUTEST_P(OrderTest, Bar)
 {
 	order[count].push_back(GetParam());
 }
+
+#else
+
+#define DECL_ORDER_TEST(n) IUTEST(OrderTest, IUTEST_PP_CAT(Bar,n)) { order[count].push_back(n); }
+
+DECL_ORDER_TEST(0)
+DECL_ORDER_TEST(1)
+DECL_ORDER_TEST(2)
+DECL_ORDER_TEST(3)
+DECL_ORDER_TEST(4)
+DECL_ORDER_TEST(5)
+DECL_ORDER_TEST(6)
+DECL_ORDER_TEST(7)
+DECL_ORDER_TEST(8)
+DECL_ORDER_TEST(9)
 
 #endif
 

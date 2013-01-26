@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -210,24 +210,7 @@ private:
 
 #else
 
-template<typename A1>
-class iuValueArray1
-{
-public:
-	iuValueArray1(A1 a1) : v1(a1)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1	v1;
-};
-
+/*
 template<typename A1, typename A2>
 class iuValueArray2
 {
@@ -245,1572 +228,78 @@ public:
 private:
 	A1	v1;	A2	v2;
 };
-
-
-template<typename A1, typename A2, typename A3>
-class iuValueArray3
-{
-public:
-	iuValueArray3(A1 a1, A2 a2, A3 a3) : v1(a1), v2(a2), v3(a3)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3)
-		};
-		return new iuValueInParamsGenerator<T>(val);
+*/
+#define IUTEST_DECL_VALUEARRAY_CONSTRUCT_(i, p1, p2)	IUTEST_PP_CAT(p1, i)(IUTEST_PP_CAT(p2, i))
+#define IUTEST_DECL_VALUEARRAY_STATICCAST_(i, p1, p2)	static_cast<p1>(IUTEST_PP_CAT(p2, i))
+#define IUTEST_DECL_VALUEARRAY_VARIABLE_(i, p1, p2)		IUTEST_PP_CAT(p1, i) IUTEST_PP_CAT(p2, i);
+#define IUTEST_DECL_VALUEARRAY_(n)						\
+	template< IUTEST_PP_ENUM_PARAMS(n, typename A) >	\
+	class IUTEST_PP_CAT(iuValueArray, n) {				\
+	public:												\
+		IUTEST_PP_CAT(iuValueArray, n)( IUTEST_PP_ENUM_BINARY_PARAMS(n, A, a) )		\
+		: IUTEST_PP_ENUM_BINARY(n, IUTEST_DECL_VALUEARRAY_CONSTRUCT_, v, a) {}		\
+		template<typename T>operator iuIParamGenerator<T>* (void) const {			\
+			const T val[] = { IUTEST_PP_ENUM_BINARY(n, IUTEST_DECL_VALUEARRAY_STATICCAST_, T, v) };	\
+			return new iuValueInParamsGenerator<T>(val);							\
+		}																			\
+	private: IUTEST_PP_REPEAT_BINARY(n, IUTEST_DECL_VALUEARRAY_VARIABLE_, A, v)		\
 	}
-private:
-	A1	v1;	A2	v2;	A3	v3;
-};
 
-template<typename A1, typename A2, typename A3, typename A4>
-class iuValueArray4
-{
-public:
-	iuValueArray4(A1 a1, A2 a2, A3 a3, A4 a4) : v1(a1), v2(a2), v3(a3), v4(a4)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1	v1;	A2	v2;	A3	v3;	A4	v4;
-};
+IUTEST_DECL_VALUEARRAY_(1);
+IUTEST_DECL_VALUEARRAY_(2);
+IUTEST_DECL_VALUEARRAY_(3);
+IUTEST_DECL_VALUEARRAY_(4);
+IUTEST_DECL_VALUEARRAY_(5);
+IUTEST_DECL_VALUEARRAY_(6);
+IUTEST_DECL_VALUEARRAY_(7);
+IUTEST_DECL_VALUEARRAY_(8);
+IUTEST_DECL_VALUEARRAY_(9);
+IUTEST_DECL_VALUEARRAY_(10);
+IUTEST_DECL_VALUEARRAY_(11);
+IUTEST_DECL_VALUEARRAY_(12);
+IUTEST_DECL_VALUEARRAY_(13);
+IUTEST_DECL_VALUEARRAY_(14);
+IUTEST_DECL_VALUEARRAY_(15);
+IUTEST_DECL_VALUEARRAY_(16);
+IUTEST_DECL_VALUEARRAY_(17);
+IUTEST_DECL_VALUEARRAY_(18);
+IUTEST_DECL_VALUEARRAY_(19);
+IUTEST_DECL_VALUEARRAY_(20);
+IUTEST_DECL_VALUEARRAY_(21);
+IUTEST_DECL_VALUEARRAY_(22);
+IUTEST_DECL_VALUEARRAY_(23);
+IUTEST_DECL_VALUEARRAY_(24);
+IUTEST_DECL_VALUEARRAY_(25);
+IUTEST_DECL_VALUEARRAY_(26);
+IUTEST_DECL_VALUEARRAY_(27);
+IUTEST_DECL_VALUEARRAY_(28);
+IUTEST_DECL_VALUEARRAY_(29);
+IUTEST_DECL_VALUEARRAY_(30);
+IUTEST_DECL_VALUEARRAY_(31);
+IUTEST_DECL_VALUEARRAY_(32);
+IUTEST_DECL_VALUEARRAY_(33);
+IUTEST_DECL_VALUEARRAY_(34);
+IUTEST_DECL_VALUEARRAY_(35);
+IUTEST_DECL_VALUEARRAY_(36);
+IUTEST_DECL_VALUEARRAY_(37);
+IUTEST_DECL_VALUEARRAY_(38);
+IUTEST_DECL_VALUEARRAY_(39);
+IUTEST_DECL_VALUEARRAY_(40);
+IUTEST_DECL_VALUEARRAY_(41);
+IUTEST_DECL_VALUEARRAY_(42);
+IUTEST_DECL_VALUEARRAY_(43);
+IUTEST_DECL_VALUEARRAY_(44);
+IUTEST_DECL_VALUEARRAY_(45);
+IUTEST_DECL_VALUEARRAY_(46);
+IUTEST_DECL_VALUEARRAY_(47);
+IUTEST_DECL_VALUEARRAY_(48);
+IUTEST_DECL_VALUEARRAY_(49);
+IUTEST_DECL_VALUEARRAY_(50);
 
-template<typename A1, typename A2, typename A3, typename A4, typename A5>
-class iuValueArray5
-{
-public:
-	iuValueArray5(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1	v1;	A2	v2;	A3	v3;	A4	v4;	A5	v5;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
-class iuValueArray6
-{
-public:
-	iuValueArray6(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1	v1;	A2	v2;	A3	v3;	A4	v4;	A5	v5;	A6	v6;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
-class iuValueArray7
-{
-public:
-	iuValueArray7(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1	v1;	A2	v2;	A3	v3;	A4	v4;	A5	v5;	A6	v6;	A7	v7;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
-class iuValueArray8
-{
-public:
-	iuValueArray8(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1	v1;	A2	v2;	A3	v3;	A4	v4;	A5	v5;	A6	v6;	A7	v7;	A8	v8;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-class iuValueArray9
-{
-public:
-	iuValueArray9(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1	v1;	A2	v2;	A3	v3;	A4	v4;	A5	v5;	A6	v6;	A7	v7;	A8	v8;	A9	v9;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10>
-class iuValueArray10
-{
-public:
-	iuValueArray10(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1	v1;	A2	v2;	A3	v3;	A4	v4;	A5	v5;	A6	v6;	A7	v7;	A8	v8;	A9	v9;
-	A10 v10;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11>
-class iuValueArray11
-{
-public:
-	iuValueArray11(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12>
-class iuValueArray12
-{
-public:
-	iuValueArray12(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13>
-class iuValueArray13
-{
-public:
-	iuValueArray13(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14>
-class iuValueArray14
-{
-public:
-	iuValueArray14(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15>
-class iuValueArray15
-{
-public:
-	iuValueArray15(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16>
-class iuValueArray16
-{
-public:
-	iuValueArray16(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17>
-class iuValueArray17
-{
-public:
-	iuValueArray17(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; 
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18>
-class iuValueArray18
-{
-public:
-	iuValueArray18(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; 
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19>
-class iuValueArray19
-{
-public:
-	iuValueArray19(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19; 
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20>
-class iuValueArray20
-{
-public:
-	iuValueArray20(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9), v10(a10)
-		, v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21>
-class iuValueArray21
-{
-public:
-	iuValueArray21(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22>
-class iuValueArray22
-{
-public:
-	iuValueArray22(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23>
-class iuValueArray23
-{
-public:
-	iuValueArray23(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24>
-class iuValueArray24
-{
-public:
-	iuValueArray24(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25>
-class iuValueArray25
-{
-public:
-	iuValueArray25(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26>
-class iuValueArray26
-{
-public:
-	iuValueArray26(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27>
-class iuValueArray27
-{
-public:
-	iuValueArray27(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; 
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28>
-class iuValueArray28
-{
-public:
-	iuValueArray28(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; 
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29>
-class iuValueArray29
-{
-public:
-	iuValueArray29(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30>
-class iuValueArray30
-{
-public:
-	iuValueArray30(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31>
-class iuValueArray31
-{
-public:
-	iuValueArray31(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32>
-class iuValueArray32
-{
-public:
-	iuValueArray32(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32, typename A33>
-class iuValueArray33
-{
-public:
-	iuValueArray33(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32, A33 a33)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32), v33(a33)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32), static_cast<T>(v33)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32; A33 v33;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32, typename A33, typename A34>
-class iuValueArray34
-{
-public:
-	iuValueArray34(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32, A33 a33, A34 a34)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32), v33(a33), v34(a34)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32), static_cast<T>(v33), static_cast<T>(v34)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32; A33 v33; A34 v34;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32, typename A33, typename A34, typename A35>
-class iuValueArray35
-{
-public:
-	iuValueArray35(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32, A33 a33, A34 a34, A35 a35)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32), v33(a33), v34(a34), v35(a35)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32), static_cast<T>(v33), static_cast<T>(v34)
-			, static_cast<T>(v35)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32; A33 v33; A34 v34; A35 v35;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32, typename A33, typename A34, typename A35, typename A36>
-class iuValueArray36
-{
-public:
-	iuValueArray36(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32, A33 a33, A34 a34, A35 a35, A36 a36)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32), v33(a33), v34(a34), v35(a35), v36(a36)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32), static_cast<T>(v33), static_cast<T>(v34)
-			, static_cast<T>(v35), static_cast<T>(v36)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32; A33 v33; A34 v34; A35 v35; A36 v36;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32, typename A33, typename A34, typename A35, typename A36, typename A37>
-class iuValueArray37
-{
-public:
-	iuValueArray37(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32, A33 a33, A34 a34, A35 a35, A36 a36, A37 a37)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32), v33(a33), v34(a34), v35(a35), v36(a36), v37(a37)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32), static_cast<T>(v33), static_cast<T>(v34)
-			, static_cast<T>(v35), static_cast<T>(v36), static_cast<T>(v37)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32; A33 v33; A34 v34; A35 v35; A36 v36; A37 v37;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32, typename A33, typename A34, typename A35, typename A36, typename A37, typename A38>
-class iuValueArray38
-{
-public:
-	iuValueArray38(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32, A33 a33, A34 a34, A35 a35, A36 a36, A37 a37, A38 a38)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32), v33(a33), v34(a34), v35(a35), v36(a36), v37(a37), v38(a38)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32), static_cast<T>(v33), static_cast<T>(v34)
-			, static_cast<T>(v35), static_cast<T>(v36), static_cast<T>(v37), static_cast<T>(v38)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32; A33 v33; A34 v34; A35 v35; A36 v36; A37 v37; A38 v38;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32, typename A33, typename A34, typename A35, typename A36, typename A37, typename A38, typename A39>
-class iuValueArray39
-{
-public:
-	iuValueArray39(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32, A33 a33, A34 a34, A35 a35, A36 a36, A37 a37, A38 a38, A39 a39)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32), v33(a33), v34(a34), v35(a35), v36(a36), v37(a37), v38(a38), v39(a39)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32), static_cast<T>(v33), static_cast<T>(v34)
-			, static_cast<T>(v35), static_cast<T>(v36), static_cast<T>(v37), static_cast<T>(v38), static_cast<T>(v39)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32; A33 v33; A34 v34; A35 v35; A36 v36; A37 v37; A38 v38; A39 v39;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32, typename A33, typename A34, typename A35, typename A36, typename A37, typename A38, typename A39
-, typename A40>
-class iuValueArray40
-{
-public:
-	iuValueArray40(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32, A33 a33, A34 a34, A35 a35, A36 a36, A37 a37, A38 a38, A39 a39
-		, A40 a40)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32), v33(a33), v34(a34), v35(a35), v36(a36), v37(a37), v38(a38), v39(a39)
-		, v40(a40)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32), static_cast<T>(v33), static_cast<T>(v34)
-			, static_cast<T>(v35), static_cast<T>(v36), static_cast<T>(v37), static_cast<T>(v38), static_cast<T>(v39)
-			, static_cast<T>(v40)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32; A33 v33; A34 v34; A35 v35; A36 v36; A37 v37; A38 v38; A39 v39;
-	A40 v40;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32, typename A33, typename A34, typename A35, typename A36, typename A37, typename A38, typename A39
-, typename A40, typename A41>
-class iuValueArray41
-{
-public:
-	iuValueArray41(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32, A33 a33, A34 a34, A35 a35, A36 a36, A37 a37, A38 a38, A39 a39
-		, A40 a40, A41 a41)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32), v33(a33), v34(a34), v35(a35), v36(a36), v37(a37), v38(a38), v39(a39)
-		, v40(a40), v41(a41)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32), static_cast<T>(v33), static_cast<T>(v34)
-			, static_cast<T>(v35), static_cast<T>(v36), static_cast<T>(v37), static_cast<T>(v38), static_cast<T>(v39)
-			, static_cast<T>(v40), static_cast<T>(v41)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32; A33 v33; A34 v34; A35 v35; A36 v36; A37 v37; A38 v38; A39 v39;
-	A40 v40; A41 v41;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32, typename A33, typename A34, typename A35, typename A36, typename A37, typename A38, typename A39
-, typename A40, typename A41, typename A42>
-class iuValueArray42
-{
-public:
-	iuValueArray42(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32, A33 a33, A34 a34, A35 a35, A36 a36, A37 a37, A38 a38, A39 a39
-		, A40 a40, A41 a41, A42 a42)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32), v33(a33), v34(a34), v35(a35), v36(a36), v37(a37), v38(a38), v39(a39)
-		, v40(a40), v41(a41), v42(a42)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32), static_cast<T>(v33), static_cast<T>(v34)
-			, static_cast<T>(v35), static_cast<T>(v36), static_cast<T>(v37), static_cast<T>(v38), static_cast<T>(v39)
-			, static_cast<T>(v40), static_cast<T>(v41), static_cast<T>(v42)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32; A33 v33; A34 v34; A35 v35; A36 v36; A37 v37; A38 v38; A39 v39;
-	A40 v40; A41 v41; A42 v42;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32, typename A33, typename A34, typename A35, typename A36, typename A37, typename A38, typename A39
-, typename A40, typename A41, typename A42, typename A43>
-class iuValueArray43
-{
-public:
-	iuValueArray43(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32, A33 a33, A34 a34, A35 a35, A36 a36, A37 a37, A38 a38, A39 a39
-		, A40 a40, A41 a41, A42 a42, A43 a43)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32), v33(a33), v34(a34), v35(a35), v36(a36), v37(a37), v38(a38), v39(a39)
-		, v40(a40), v41(a41), v42(a42), v43(a43)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32), static_cast<T>(v33), static_cast<T>(v34)
-			, static_cast<T>(v35), static_cast<T>(v36), static_cast<T>(v37), static_cast<T>(v38), static_cast<T>(v39)
-			, static_cast<T>(v40), static_cast<T>(v41), static_cast<T>(v42), static_cast<T>(v43)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32; A33 v33; A34 v34; A35 v35; A36 v36; A37 v37; A38 v38; A39 v39;
-	A40 v40; A41 v41; A42 v42; A43 v43;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32, typename A33, typename A34, typename A35, typename A36, typename A37, typename A38, typename A39
-, typename A40, typename A41, typename A42, typename A43, typename A44>
-class iuValueArray44
-{
-public:
-	iuValueArray44(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32, A33 a33, A34 a34, A35 a35, A36 a36, A37 a37, A38 a38, A39 a39
-		, A40 a40, A41 a41, A42 a42, A43 a43, A44 a44)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32), v33(a33), v34(a34), v35(a35), v36(a36), v37(a37), v38(a38), v39(a39)
-		, v40(a40), v41(a41), v42(a42), v43(a43), v44(a44)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32), static_cast<T>(v33), static_cast<T>(v34)
-			, static_cast<T>(v35), static_cast<T>(v36), static_cast<T>(v37), static_cast<T>(v38), static_cast<T>(v39)
-			, static_cast<T>(v40), static_cast<T>(v41), static_cast<T>(v42), static_cast<T>(v43), static_cast<T>(v44)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32; A33 v33; A34 v34; A35 v35; A36 v36; A37 v37; A38 v38; A39 v39;
-	A40 v40; A41 v41; A42 v42; A43 v43; A44 v44;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32, typename A33, typename A34, typename A35, typename A36, typename A37, typename A38, typename A39
-, typename A40, typename A41, typename A42, typename A43, typename A44, typename A45>
-class iuValueArray45
-{
-public:
-	iuValueArray45(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32, A33 a33, A34 a34, A35 a35, A36 a36, A37 a37, A38 a38, A39 a39
-		, A40 a40, A41 a41, A42 a42, A43 a43, A44 a44, A45 a45)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32), v33(a33), v34(a34), v35(a35), v36(a36), v37(a37), v38(a38), v39(a39)
-		, v40(a40), v41(a41), v42(a42), v43(a43), v44(a44), v45(a45)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32), static_cast<T>(v33), static_cast<T>(v34)
-			, static_cast<T>(v35), static_cast<T>(v36), static_cast<T>(v37), static_cast<T>(v38), static_cast<T>(v39)
-			, static_cast<T>(v40), static_cast<T>(v41), static_cast<T>(v42), static_cast<T>(v43), static_cast<T>(v44)
-			, static_cast<T>(v45)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32; A33 v33; A34 v34; A35 v35; A36 v36; A37 v37; A38 v38; A39 v39;
-	A40 v40; A41 v41; A42 v42; A43 v43; A44 v44; A45 v45;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32, typename A33, typename A34, typename A35, typename A36, typename A37, typename A38, typename A39
-, typename A40, typename A41, typename A42, typename A43, typename A44, typename A45, typename A46>
-class iuValueArray46
-{
-public:
-	iuValueArray46(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32, A33 a33, A34 a34, A35 a35, A36 a36, A37 a37, A38 a38, A39 a39
-		, A40 a40, A41 a41, A42 a42, A43 a43, A44 a44, A45 a45, A46 a46)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32), v33(a33), v34(a34), v35(a35), v36(a36), v37(a37), v38(a38), v39(a39)
-		, v40(a40), v41(a41), v42(a42), v43(a43), v44(a44), v45(a45), v46(a46)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32), static_cast<T>(v33), static_cast<T>(v34)
-			, static_cast<T>(v35), static_cast<T>(v36), static_cast<T>(v37), static_cast<T>(v38), static_cast<T>(v39)
-			, static_cast<T>(v40), static_cast<T>(v41), static_cast<T>(v42), static_cast<T>(v43), static_cast<T>(v44)
-			, static_cast<T>(v45), static_cast<T>(v46)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32; A33 v33; A34 v34; A35 v35; A36 v36; A37 v37; A38 v38; A39 v39;
-	A40 v40; A41 v41; A42 v42; A43 v43; A44 v44; A45 v45; A46 v46;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32, typename A33, typename A34, typename A35, typename A36, typename A37, typename A38, typename A39
-, typename A40, typename A41, typename A42, typename A43, typename A44, typename A45, typename A46, typename A47>
-class iuValueArray47
-{
-public:
-	iuValueArray47(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32, A33 a33, A34 a34, A35 a35, A36 a36, A37 a37, A38 a38, A39 a39
-		, A40 a40, A41 a41, A42 a42, A43 a43, A44 a44, A45 a45, A46 a46, A47 a47)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32), v33(a33), v34(a34), v35(a35), v36(a36), v37(a37), v38(a38), v39(a39)
-		, v40(a40), v41(a41), v42(a42), v43(a43), v44(a44), v45(a45), v46(a46), v47(a47)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32), static_cast<T>(v33), static_cast<T>(v34)
-			, static_cast<T>(v35), static_cast<T>(v36), static_cast<T>(v37), static_cast<T>(v38), static_cast<T>(v39)
-			, static_cast<T>(v40), static_cast<T>(v41), static_cast<T>(v42), static_cast<T>(v43), static_cast<T>(v44)
-			, static_cast<T>(v45), static_cast<T>(v46), static_cast<T>(v47)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32; A33 v33; A34 v34; A35 v35; A36 v36; A37 v37; A38 v38; A39 v39;
-	A40 v40; A41 v41; A42 v42; A43 v43; A44 v44; A45 v45; A46 v46; A47 v47;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32, typename A33, typename A34, typename A35, typename A36, typename A37, typename A38, typename A39
-, typename A40, typename A41, typename A42, typename A43, typename A44, typename A45, typename A46, typename A47, typename A48>
-class iuValueArray48
-{
-public:
-	iuValueArray48(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32, A33 a33, A34 a34, A35 a35, A36 a36, A37 a37, A38 a38, A39 a39
-		, A40 a40, A41 a41, A42 a42, A43 a43, A44 a44, A45 a45, A46 a46, A47 a47, A48 a48)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32), v33(a33), v34(a34), v35(a35), v36(a36), v37(a37), v38(a38), v39(a39)
-		, v40(a40), v41(a41), v42(a42), v43(a43), v44(a44), v45(a45), v46(a46), v47(a47), v48(a48)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32), static_cast<T>(v33), static_cast<T>(v34)
-			, static_cast<T>(v35), static_cast<T>(v36), static_cast<T>(v37), static_cast<T>(v38), static_cast<T>(v39)
-			, static_cast<T>(v40), static_cast<T>(v41), static_cast<T>(v42), static_cast<T>(v43), static_cast<T>(v44)
-			, static_cast<T>(v45), static_cast<T>(v46), static_cast<T>(v47), static_cast<T>(v48)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32; A33 v33; A34 v34; A35 v35; A36 v36; A37 v37; A38 v38; A39 v39;
-	A40 v40; A41 v41; A42 v42; A43 v43; A44 v44; A45 v45; A46 v46; A47 v47; A48 v48;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32, typename A33, typename A34, typename A35, typename A36, typename A37, typename A38, typename A39
-, typename A40, typename A41, typename A42, typename A43, typename A44, typename A45, typename A46, typename A47, typename A48, typename A49>
-class iuValueArray49
-{
-public:
-	iuValueArray49(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32, A33 a33, A34 a34, A35 a35, A36 a36, A37 a37, A38 a38, A39 a39
-		, A40 a40, A41 a41, A42 a42, A43 a43, A44 a44, A45 a45, A46 a46, A47 a47, A48 a48, A49 a49)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32), v33(a33), v34(a34), v35(a35), v36(a36), v37(a37), v38(a38), v39(a39)
-		, v40(a40), v41(a41), v42(a42), v43(a43), v44(a44), v45(a45), v46(a46), v47(a47), v48(a48), v49(a49)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32), static_cast<T>(v33), static_cast<T>(v34)
-			, static_cast<T>(v35), static_cast<T>(v36), static_cast<T>(v37), static_cast<T>(v38), static_cast<T>(v39)
-			, static_cast<T>(v40), static_cast<T>(v41), static_cast<T>(v42), static_cast<T>(v43), static_cast<T>(v44)
-			, static_cast<T>(v45), static_cast<T>(v46), static_cast<T>(v47), static_cast<T>(v48), static_cast<T>(v49)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32; A33 v33; A34 v34; A35 v35; A36 v36; A37 v37; A38 v38; A39 v39;
-	A40 v40; A41 v41; A42 v42; A43 v43; A44 v44; A45 v45; A46 v46; A47 v47; A48 v48; A49 v49;
-};
-
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9
-, typename A10, typename A11, typename A12, typename A13, typename A14, typename A15, typename A16, typename A17, typename A18, typename A19
-, typename A20, typename A21, typename A22, typename A23, typename A24, typename A25, typename A26, typename A27, typename A28, typename A29
-, typename A30, typename A31, typename A32, typename A33, typename A34, typename A35, typename A36, typename A37, typename A38, typename A39
-, typename A40, typename A41, typename A42, typename A43, typename A44, typename A45, typename A46, typename A47, typename A48, typename A49
-, typename A50>
-class iuValueArray50
-{
-public:
-	iuValueArray50(A1 a1, A2 a2, A3 a3, A4 a4, A5 a5, A6 a6, A7 a7, A8 a8, A9 a9
-		, A10 a10, A11 a11, A12 a12, A13 a13, A14 a14, A15 a15, A16 a16, A17 a17, A18 a18, A19 a19
-		, A20 a20, A21 a21, A22 a22, A23 a23, A24 a24, A25 a25, A26 a26, A27 a27, A28 a28, A29 a29
-		, A30 a30, A31 a31, A32 a32, A33 a33, A34 a34, A35 a35, A36 a36, A37 a37, A38 a38, A39 a39
-		, A40 a40, A41 a41, A42 a42, A43 a43, A44 a44, A45 a45, A46 a46, A47 a47, A48 a48, A49 a49
-		, A50 a50)
-		: v1(a1), v2(a2), v3(a3), v4(a4), v5(a5), v6(a6), v7(a7), v8(a8), v9(a9)
-		, v10(a10), v11(a11), v12(a12), v13(a13), v14(a14), v15(a15), v16(a16), v17(a17), v18(a18), v19(a19)
-		, v20(a20), v21(a21), v22(a22), v23(a23), v24(a24), v25(a25), v26(a26), v27(a27), v28(a28), v29(a29)
-		, v30(a30), v31(a31), v32(a32), v33(a33), v34(a34), v35(a35), v36(a36), v37(a37), v38(a38), v39(a39)
-		, v40(a40), v41(a41), v42(a42), v43(a43), v44(a44), v45(a45), v46(a46), v47(a47), v48(a48), v49(a49)
-		, v50(a50)
-	{}
-public:
-	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2), static_cast<T>(v3), static_cast<T>(v4)
-			, static_cast<T>(v5), static_cast<T>(v6), static_cast<T>(v7), static_cast<T>(v8), static_cast<T>(v9)
-			, static_cast<T>(v10), static_cast<T>(v11), static_cast<T>(v12), static_cast<T>(v13), static_cast<T>(v14)
-			, static_cast<T>(v15), static_cast<T>(v16), static_cast<T>(v17), static_cast<T>(v18), static_cast<T>(v19)
-			, static_cast<T>(v20), static_cast<T>(v21), static_cast<T>(v22), static_cast<T>(v23), static_cast<T>(v24)
-			, static_cast<T>(v25), static_cast<T>(v26), static_cast<T>(v27), static_cast<T>(v28), static_cast<T>(v29)
-			, static_cast<T>(v30), static_cast<T>(v31), static_cast<T>(v32), static_cast<T>(v33), static_cast<T>(v34)
-			, static_cast<T>(v35), static_cast<T>(v36), static_cast<T>(v37), static_cast<T>(v38), static_cast<T>(v39)
-			, static_cast<T>(v40), static_cast<T>(v41), static_cast<T>(v42), static_cast<T>(v43), static_cast<T>(v44)
-			, static_cast<T>(v45), static_cast<T>(v46), static_cast<T>(v47), static_cast<T>(v48), static_cast<T>(v49)
-			, static_cast<T>(v50)
-		};
-		return new iuValueInParamsGenerator<T>(val);
-	}
-private:
-	A1   v1; A2   v2; A3   v3; A4   v4; A5   v5; A6   v6; A7   v7; A8   v8; A9   v9;
-	A10 v10; A11 v11; A12 v12; A13 v13; A14 v14; A15 v15; A16 v16; A17 v17; A18 v18; A19 v19;
-	A20 v20; A21 v21; A22 v22; A23 v23; A24 v24; A25 v25; A26 v26; A27 v27; A28 v28; A29 v29;
-	A30 v30; A31 v31; A32 v32; A33 v33; A34 v34; A35 v35; A36 v36; A37 v37; A38 v38; A39 v39;
-	A40 v40; A41 v41; A42 v42; A43 v43; A44 v44; A45 v45; A46 v46; A47 v47; A48 v48; A49 v49;
-	A50 v50;
-};
+#undef IUTEST_DECL_VALUEARRAY_CONSTRUCT_
+#undef IUTEST_DECL_VALUEARRAY_STATICCAST_
+#undef IUTEST_DECL_VALUEARRAY_VARIABLE_
+#undef IUTEST_DECL_VALUEARRAY_
 
 #endif
 
@@ -1988,7 +477,7 @@ public:
 	typedef tuples::tuple<T1, T2>	ParamType;
 
 public:
-	iuCartesianProductGenerator2(const Generator1& g1, const Generator2& g2)
+	iuCartesianProductGenerator2(const Generator1 &g1, const Generator2 &g2)
 		: _Mybase(g1, g2)
 	{}
 
@@ -1999,6 +488,7 @@ public:
 	}
 };
 
+/*
 template<typename T1, typename T2, typename T3>
 class iuCartesianProductGenerator3 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
 																			, iuCartesianProductGenerator2<T2, T3>
@@ -2022,199 +512,55 @@ public:
 		return ParamType(this->m_g1.GetCurrent(), tuples::get<0>(param), tuples::get<1>(param) );
 	}
 };
+*/
 
-template<typename T1, typename T2, typename T3, typename T4>
-class iuCartesianProductGenerator4 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
-																			, iuCartesianProductGenerator3<T2, T3, T4>
-																			, tuples::tuple<T1, T2, T3, T4> >
-{
-	typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>
-		, iuCartesianProductGenerator3<T2, T3, T4>
-		, tuples::tuple<T1, T2, T3, T4> >	_Mybase;
+#define IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_TYPEDEF_(i, p1, p2)		\
+	typedef iuParamGenerator<IUTEST_PP_CAT(p1, i)> IUTEST_PP_CAT(p2, i);
 
-	typedef iuParamGenerator<T1> Generator1;
-	typedef iuParamGenerator<T2> Generator2;
-	typedef iuParamGenerator<T3> Generator3;
-	typedef iuParamGenerator<T4> Generator4;
-public:
-	typedef tuples::tuple<T1, T2, T3, T4>	ParamType;
-public:
-	iuCartesianProductGenerator4(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4)
-		: _Mybase(g1, iuCartesianProductGenerator3<T2, T3, T4>(g2, g3, g4))
-	{}
+#define IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_TUPLEGET_(i, param)		\
+	tuples::get<i>(param)
 
-public:
-	virtual ParamType	GetCurrent(void) const
-	{
-		tuples::tuple<T2, T3, T4> param(this->m_g2.GetCurrent());
-		return ParamType(this->m_g1.GetCurrent(), tuples::get<0>(param), tuples::get<1>(param), tuples::get<2>(param));
+#define IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_BASE_(n)				\
+	iuICartesianProductGeneratorBase< iuParamGenerator<T0>				\
+		, IUTEST_PP_CAT(iuCartesianProductGenerator, IUTEST_PP_DEC(n))< IUTEST_PP_ENUM_SHIFTED_PARAMS(IUTEST_PP_DEC(n), T) >	\
+		, tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > >
+
+#define IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_(n)							\
+	template< IUTEST_PP_ENUM_PARAMS(n, typename T) >						\
+	class IUTEST_PP_CAT(iuCartesianProductGenerator, n)						\
+	: public IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_BASE_(n) {				\
+		typedef IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_BASE_(n) _Mybase;	\
+		IUTEST_PP_REPEAT_BINARY(n, IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_TYPEDEF_, T, Generator)			\
+	public:																	\
+		typedef tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > ParamType;		\
+		IUTEST_PP_CAT(iuCartesianProductGenerator, n)( IUTEST_PP_ENUM_BINARY_PARAMS(n, const Generator, &g) ) \
+		: _Mybase(g0, IUTEST_PP_CAT(iuCartesianProductGenerator, IUTEST_PP_DEC(n))<							\
+		IUTEST_PP_ENUM_SHIFTED_PARAMS(IUTEST_PP_DEC(n), T)>					\
+		( IUTEST_PP_ENUM_SHIFTED_PARAMS(IUTEST_PP_DEC(n), g) ) ) {}			\
+		virtual ParamType	GetCurrent(void) const {						\
+			tuples::tuple< IUTEST_PP_ENUM_SHIFTED_PARAMS(IUTEST_PP_DEC(n), T) >	\
+			params(this->m_g2.GetCurrent());								\
+			return ParamType(this->m_g1.GetCurrent(), IUTEST_PP_ENUM(IUTEST_PP_DEC(n)	\
+				, IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_TUPLEGET_, params) );			\
+		}																	\
 	}
-};
 
-template<typename T1, typename T2, typename T3, typename T4, typename T5>
-class iuCartesianProductGenerator5 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
-																			, iuCartesianProductGenerator4<T2, T3, T4, T5>
-																			, tuples::tuple<T1, T2, T3, T4, T5> >
-{
-	typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>
-		, iuCartesianProductGenerator4<T2, T3, T4, T5>
-		, tuples::tuple<T1, T2, T3, T4, T5> >	_Mybase;
+IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_(3);
+IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_(4);
+IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_(5);
+IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_(6);
+IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_(7);
+IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_(8);
+IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_(9);
 
-	typedef iuParamGenerator<T1> Generator1;
-	typedef iuParamGenerator<T2> Generator2;
-	typedef iuParamGenerator<T3> Generator3;
-	typedef iuParamGenerator<T4> Generator4;
-	typedef iuParamGenerator<T5> Generator5;
-public:
-	typedef tuples::tuple<T1, T2, T3, T4, T5>	ParamType;
-public:
-	iuCartesianProductGenerator5(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5)
-		: _Mybase(g1, iuCartesianProductGenerator4<T2, T3, T4, T5>(g2, g3, g4, g5))
-	{}
-
-public:
-	virtual ParamType	GetCurrent(void) const
-	{
-		tuples::tuple<T2, T3, T4, T5> param(this->m_g2.GetCurrent());
-		return ParamType(this->m_g1.GetCurrent(), tuples::get<0>(param), tuples::get<1>(param), tuples::get<2>(param), tuples::get<3>(param) );
-	}
-};
-
-template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-class iuCartesianProductGenerator6 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
-																			, iuCartesianProductGenerator5<T2, T3, T4, T5, T6>
-																			, tuples::tuple<T1, T2, T3, T4, T5, T6> >
-{
-	typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>
-		, iuCartesianProductGenerator5<T2, T3, T4, T5, T6>
-		, tuples::tuple<T1, T2, T3, T4, T5, T6> >	_Mybase;
-
-	typedef iuParamGenerator<T1> Generator1;
-	typedef iuParamGenerator<T2> Generator2;
-	typedef iuParamGenerator<T3> Generator3;
-	typedef iuParamGenerator<T4> Generator4;
-	typedef iuParamGenerator<T5> Generator5;
-	typedef iuParamGenerator<T6> Generator6;
-public:
-	typedef tuples::tuple<T1, T2, T3, T4, T5, T6>	ParamType;
-public:
-	iuCartesianProductGenerator6(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
-		, const Generator6& g6)
-		: _Mybase(g1, iuCartesianProductGenerator5<T2, T3, T4, T5, T6>(g2, g3, g4, g5, g6))
-	{}
-
-public:
-	virtual ParamType	GetCurrent(void) const
-	{
-		tuples::tuple<T2, T3, T4, T5, T6> param(this->m_g2.GetCurrent());
-		return ParamType(this->m_g1.GetCurrent(), tuples::get<0>(param), tuples::get<1>(param), tuples::get<2>(param), tuples::get<3>(param), tuples::get<4>(param) );
-	}
-};
-
-template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-class iuCartesianProductGenerator7 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
-																			, iuCartesianProductGenerator6<T2, T3, T4, T5, T6, T7>
-																			, tuples::tuple<T1, T2, T3, T4, T5, T6, T7> >
-{
-	typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>
-		, iuCartesianProductGenerator6<T2, T3, T4, T5, T6, T7>
-		, tuples::tuple<T1, T2, T3, T4, T5, T6, T7> >	_Mybase;
-
-	typedef iuParamGenerator<T1> Generator1;
-	typedef iuParamGenerator<T2> Generator2;
-	typedef iuParamGenerator<T3> Generator3;
-	typedef iuParamGenerator<T4> Generator4;
-	typedef iuParamGenerator<T5> Generator5;
-	typedef iuParamGenerator<T6> Generator6;
-	typedef iuParamGenerator<T7> Generator7;
-public:
-	typedef tuples::tuple<T1, T2, T3, T4, T5, T6, T7>	ParamType;
-public:
-	iuCartesianProductGenerator7(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
-		, const Generator6& g6, const Generator7& g7)
-		: _Mybase(g1, iuCartesianProductGenerator6<T2, T3, T4, T5, T6, T7>(g2, g3, g4, g5, g6, g7))
-	{}
-
-public:
-	virtual ParamType	GetCurrent(void) const
-	{
-		tuples::tuple<T2, T3, T4, T5, T6, T7> param(this->m_g2.GetCurrent());
-		return ParamType(this->m_g1.GetCurrent(), tuples::get<0>(param), tuples::get<1>(param), tuples::get<2>(param), tuples::get<3>(param), tuples::get<4>(param)
-			, tuples::get<5>(param) );
-	}
-};
-
-template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-class iuCartesianProductGenerator8 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
-																			, iuCartesianProductGenerator7<T2, T3, T4, T5, T6, T7, T8>
-																			, tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8> >
-{
-	typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>
-		, iuCartesianProductGenerator7<T2, T3, T4, T5, T6, T7, T8>
-		, tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8> >	_Mybase;
-
-	typedef iuParamGenerator<T1> Generator1;
-	typedef iuParamGenerator<T2> Generator2;
-	typedef iuParamGenerator<T3> Generator3;
-	typedef iuParamGenerator<T4> Generator4;
-	typedef iuParamGenerator<T5> Generator5;
-	typedef iuParamGenerator<T6> Generator6;
-	typedef iuParamGenerator<T7> Generator7;
-	typedef iuParamGenerator<T8> Generator8;
-public:
-	typedef tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8>	ParamType;
-public:
-	iuCartesianProductGenerator8(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
-		, const Generator6& g6, const Generator7& g7, const Generator8& g8)
-		: _Mybase(g1, iuCartesianProductGenerator7<T2, T3, T4, T5, T6, T7, T8>(g2, g3, g4, g5, g6, g7, g8))
-	{}
-
-public:
-	virtual ParamType	GetCurrent(void) const
-	{
-		tuples::tuple<T2, T3, T4, T5, T6, T7, T8> param(this->m_g2.GetCurrent());
-		return ParamType(this->m_g1.GetCurrent(), tuples::get<0>(param), tuples::get<1>(param), tuples::get<2>(param), tuples::get<3>(param), tuples::get<4>(param)
-			, tuples::get<5>(param), tuples::get<6>(param) );
-	}
-};
-
-template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
-class iuCartesianProductGenerator9 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>
-																			, iuCartesianProductGenerator8<T2, T3, T4, T5, T6, T7, T8, T9>
-																			, tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9> >
-{
-	typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>
-		, iuCartesianProductGenerator8<T2, T3, T4, T5, T6, T7, T8, T9>
-		, tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9> >	_Mybase;
-
-	typedef iuParamGenerator<T1> Generator1;
-	typedef iuParamGenerator<T2> Generator2;
-	typedef iuParamGenerator<T3> Generator3;
-	typedef iuParamGenerator<T4> Generator4;
-	typedef iuParamGenerator<T5> Generator5;
-	typedef iuParamGenerator<T6> Generator6;
-	typedef iuParamGenerator<T7> Generator7;
-	typedef iuParamGenerator<T8> Generator8;
-	typedef iuParamGenerator<T9> Generator9;
-public:
-	typedef tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T9, T8>	ParamType;
-public:
-	iuCartesianProductGenerator9(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
-		, const Generator6& g6, const Generator7& g7, const Generator8& g8, const Generator9& g9)
-		: _Mybase(g1, iuCartesianProductGenerator8<T2, T3, T4, T5, T6, T7, T8, T9>(g2, g3, g4, g5, g6, g7, g8, g9))
-	{}
-
-public:
-	virtual ParamType	GetCurrent(void) const
-	{
-		tuples::tuple<T2, T3, T4, T5, T6, T7, T8, T9> param(this->m_g2.GetCurrent());
-		return ParamType(this->m_g1.GetCurrent(), tuples::get<0>(param), tuples::get<1>(param), tuples::get<2>(param), tuples::get<3>(param), tuples::get<4>(param)
-			, tuples::get<5>(param), tuples::get<6>(param), tuples::get<7>(param) );
-	}
-};
+#undef IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_TYPEDEF_
+#undef IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_TUPLEGET_
+#undef IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_BASE_
+#undef IUTEST_DECL_CARTESIAN_PRODUCT_GENERATOR_
 
 // iuCartesianProductHolder
 
+/*
 template<typename Generator1, typename Generator2>
 class iuCartesianProductHolder2
 {
@@ -2239,245 +585,42 @@ private:
 	const Generator1	m_g1;
 	const Generator2	m_g2;
 };
+*/
 
-template<typename Generator1, typename Generator2, typename Generator3>
-class iuCartesianProductHolder3
-{
-	typedef iuCartesianProductHolder3<Generator1, Generator2, Generator3> _Myt;
-public:
-	iuCartesianProductHolder3(const Generator1& g1, const Generator2& g2, const Generator3& g3)
-		: m_g1(g1), m_g2(g2), m_g3(g3) {}
+#define IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_CONSTRUCT_(i, p1, p2)	IUTEST_PP_CAT(p1, i)(IUTEST_PP_CAT(p2, i))
+#define IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_STATICCAST_(i, p1, p2)	\
+	static_cast< iuIParamGenerator< IUTEST_PP_CAT(p1, i) >* >(IUTEST_PP_CAT(p2, i))
+#define IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_VARIABLE_(i, p1, p2)	IUTEST_PP_CAT(p1, i) IUTEST_PP_CAT(p2, i);
 
-public:
-	template<typename T1, typename T2, typename T3>
-	operator iuIParamGenerator< tuples::tuple<T1, T2, T3> >* () const 
-	{
-		return new iuCartesianProductGenerator3<T1, T2, T3>(
-			static_cast< iuIParamGenerator<T1>* >(m_g1)
-			, static_cast< iuIParamGenerator<T2>* >(m_g2)
-			, static_cast< iuIParamGenerator<T3>* >(m_g3)
-		);
+#define IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_(n)				\
+	template< IUTEST_PP_ENUM_PARAMS(n, typename Generator) >	\
+	class IUTEST_PP_CAT(iuCartesianProductHolder, n) {			\
+		typedef IUTEST_PP_CAT(iuCartesianProductHolder, n)< IUTEST_PP_ENUM_PARAMS(n, Generator) > _Myt;		\
+	public:														\
+		IUTEST_PP_CAT(iuCartesianProductHolder, n)( IUTEST_PP_ENUM_BINARY_PARAMS(n, const Generator, &g) )	\
+		: IUTEST_PP_ENUM_BINARY(n, IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_CONSTRUCT_, m_g, g) {}				\
+		template< IUTEST_PP_ENUM_PARAMS(n, typename T) >		\
+		operator iuIParamGenerator< tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > >* (void) const {			\
+			return new IUTEST_PP_CAT(iuCartesianProductGenerator, n)< IUTEST_PP_ENUM_PARAMS(n, T) >(		\
+				IUTEST_PP_ENUM_BINARY(n, IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_STATICCAST_, T, m_g) );		\
+		}														\
+	private: void operator = (const _Myt&) {}					\
+		IUTEST_PP_REPEAT_BINARY(n, IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_VARIABLE_, const Generator, m_g)	\
 	}
 
-private:
-	void	operator = (const _Myt&) {}
-private:
-	const Generator1	m_g1;
-	const Generator2	m_g2;
-	const Generator3	m_g3;
-};
+IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_(2);
+IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_(3);
+IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_(4);
+IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_(5);
+IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_(6);
+IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_(7);
+IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_(8);
+IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_(9);
 
-template<typename Generator1, typename Generator2, typename Generator3, typename Generator4>
-class iuCartesianProductHolder4
-{
-	typedef iuCartesianProductHolder4<Generator1, Generator2, Generator3, Generator4> _Myt;
-public:
-	iuCartesianProductHolder4(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4)
-		: m_g1(g1), m_g2(g2), m_g3(g3), m_g4(g4) {}
-
-public:
-	template<typename T1, typename T2, typename T3, typename T4>
-	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4> >* () const 
-	{
-		return new iuCartesianProductGenerator4<T1, T2, T3, T4>(
-			static_cast< iuIParamGenerator<T1>* >(m_g1)
-			, static_cast< iuIParamGenerator<T2>* >(m_g2)
-			, static_cast< iuIParamGenerator<T3>* >(m_g3)
-			, static_cast< iuIParamGenerator<T4>* >(m_g4)
-		);
-	}
-
-private:
-	void	operator = (const _Myt&) {}
-private:
-	const Generator1	m_g1;
-	const Generator2	m_g2;
-	const Generator3	m_g3;
-	const Generator4	m_g4;
-};
-
-template<typename Generator1, typename Generator2, typename Generator3, typename Generator4, typename Generator5>
-class iuCartesianProductHolder5
-{
-	typedef iuCartesianProductHolder5<Generator1, Generator2, Generator3, Generator4, Generator5> _Myt;
-public:
-	iuCartesianProductHolder5(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5)
-		: m_g1(g1), m_g2(g2), m_g3(g3), m_g4(g4), m_g5(g5) {}
-
-public:
-	template<typename T1, typename T2, typename T3, typename T4, typename T5>
-	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5> >* () const 
-	{
-		return new iuCartesianProductGenerator5<T1, T2, T3, T4, T5>(
-			static_cast< iuIParamGenerator<T1>* >(m_g1)
-			, static_cast< iuIParamGenerator<T2>* >(m_g2)
-			, static_cast< iuIParamGenerator<T3>* >(m_g3)
-			, static_cast< iuIParamGenerator<T4>* >(m_g4)
-			, static_cast< iuIParamGenerator<T5>* >(m_g5)
-		);
-	}
-
-private:
-	void	operator = (const _Myt&) {}
-private:
-	const Generator1	m_g1;
-	const Generator2	m_g2;
-	const Generator3	m_g3;
-	const Generator4	m_g4;
-	const Generator5	m_g5;
-};
-
-template<typename Generator1, typename Generator2, typename Generator3, typename Generator4, typename Generator5
-, typename Generator6>
-class iuCartesianProductHolder6
-{
-	typedef iuCartesianProductHolder6<Generator1, Generator2, Generator3, Generator4, Generator5, Generator6> _Myt;
-public:
-	iuCartesianProductHolder6(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
-		, const Generator6& g6)
-		: m_g1(g1), m_g2(g2), m_g3(g3), m_g4(g4), m_g5(g5), m_g6(g6) {}
-
-public:
-	template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5, T6> >* () const 
-	{
-		return new iuCartesianProductGenerator6<T1, T2, T3, T4, T5, T6>(
-			static_cast< iuIParamGenerator<T1>* >(m_g1)
-			, static_cast< iuIParamGenerator<T2>* >(m_g2)
-			, static_cast< iuIParamGenerator<T3>* >(m_g3)
-			, static_cast< iuIParamGenerator<T4>* >(m_g4)
-			, static_cast< iuIParamGenerator<T5>* >(m_g5)
-			, static_cast< iuIParamGenerator<T6>* >(m_g6)
-		);
-	}
-
-private:
-	void	operator = (const _Myt&) {}
-private:
-	const Generator1	m_g1;
-	const Generator2	m_g2;
-	const Generator3	m_g3;
-	const Generator4	m_g4;
-	const Generator5	m_g5;
-	const Generator6	m_g6;
-};
-
-template<typename Generator1, typename Generator2, typename Generator3, typename Generator4, typename Generator5
-, typename Generator6, typename Generator7>
-class iuCartesianProductHolder7
-{
-	typedef iuCartesianProductHolder7<Generator1, Generator2, Generator3, Generator4, Generator5, Generator6, Generator7> _Myt;
-public:
-	iuCartesianProductHolder7(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
-		, const Generator6& g6, const Generator7& g7)
-		: m_g1(g1), m_g2(g2), m_g3(g3), m_g4(g4), m_g5(g5), m_g6(g6), m_g7(g7) {}
-
-public:
-	template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5, T6, T7> >* () const 
-	{
-		return new iuCartesianProductGenerator7<T1, T2, T3, T4, T5, T6, T7>(
-			static_cast< iuIParamGenerator<T1>* >(m_g1)
-			, static_cast< iuIParamGenerator<T2>* >(m_g2)
-			, static_cast< iuIParamGenerator<T3>* >(m_g3)
-			, static_cast< iuIParamGenerator<T4>* >(m_g4)
-			, static_cast< iuIParamGenerator<T5>* >(m_g5)
-			, static_cast< iuIParamGenerator<T6>* >(m_g6)
-			, static_cast< iuIParamGenerator<T7>* >(m_g7)
-		);
-	}
-
-private:
-	void	operator = (const _Myt&) {}
-private:
-	const Generator1	m_g1;
-	const Generator2	m_g2;
-	const Generator3	m_g3;
-	const Generator4	m_g4;
-	const Generator5	m_g5;
-	const Generator6	m_g6;
-	const Generator7	m_g7;
-};
-
-template<typename Generator1, typename Generator2, typename Generator3, typename Generator4, typename Generator5
-, typename Generator6, typename Generator7, typename Generator8>
-class iuCartesianProductHolder8
-{
-	typedef iuCartesianProductHolder8<Generator1, Generator2, Generator3, Generator4, Generator5, Generator6, Generator7, Generator8> _Myt;
-public:
-	iuCartesianProductHolder8(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
-		, const Generator6& g6, const Generator7& g7, const Generator8& g8)
-		: m_g1(g1), m_g2(g2), m_g3(g3), m_g4(g4), m_g5(g5), m_g6(g6), m_g7(g7), m_g8(g8) {}
-
-public:
-	template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8> >* () const 
-	{
-		return new iuCartesianProductGenerator8<T1, T2, T3, T4, T5, T6, T7, T8>(
-			static_cast< iuIParamGenerator<T1>* >(m_g1)
-			, static_cast< iuIParamGenerator<T2>* >(m_g2)
-			, static_cast< iuIParamGenerator<T3>* >(m_g3)
-			, static_cast< iuIParamGenerator<T4>* >(m_g4)
-			, static_cast< iuIParamGenerator<T5>* >(m_g5)
-			, static_cast< iuIParamGenerator<T6>* >(m_g6)
-			, static_cast< iuIParamGenerator<T7>* >(m_g7)
-			, static_cast< iuIParamGenerator<T8>* >(m_g8)
-		);
-	}
-
-private:
-	void	operator = (const _Myt&) {}
-private:
-	const Generator1	m_g1;
-	const Generator2	m_g2;
-	const Generator3	m_g3;
-	const Generator4	m_g4;
-	const Generator5	m_g5;
-	const Generator6	m_g6;
-	const Generator7	m_g7;
-	const Generator8	m_g8;
-};
-
-template<typename Generator1, typename Generator2, typename Generator3, typename Generator4, typename Generator5
-, typename Generator6, typename Generator7, typename Generator8, typename Generator9>
-class iuCartesianProductHolder9
-{
-	typedef iuCartesianProductHolder9<Generator1, Generator2, Generator3, Generator4, Generator5, Generator6, Generator7, Generator8, Generator9> _Myt;
-public:
-	iuCartesianProductHolder9(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
-		, const Generator6& g6, const Generator7& g7, const Generator8& g8, const Generator9& g9)
-		: m_g1(g1), m_g2(g2), m_g3(g3), m_g4(g4), m_g5(g5), m_g6(g6), m_g7(g7), m_g8(g8), m_g9(g9) {}
-
-public:
-	template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
-	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9> >* () const 
-	{
-		return new iuCartesianProductGenerator9<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-			static_cast< iuIParamGenerator<T1>* >(m_g1)
-			, static_cast< iuIParamGenerator<T2>* >(m_g2)
-			, static_cast< iuIParamGenerator<T3>* >(m_g3)
-			, static_cast< iuIParamGenerator<T4>* >(m_g4)
-			, static_cast< iuIParamGenerator<T5>* >(m_g5)
-			, static_cast< iuIParamGenerator<T6>* >(m_g6)
-			, static_cast< iuIParamGenerator<T7>* >(m_g7)
-			, static_cast< iuIParamGenerator<T8>* >(m_g8)
-			, static_cast< iuIParamGenerator<T9>* >(m_g9)
-		);
-	}
-
-private:
-	void	operator = (const _Myt&) {}
-private:
-	const Generator1	m_g1;
-	const Generator2	m_g2;
-	const Generator3	m_g3;
-	const Generator4	m_g4;
-	const Generator5	m_g5;
-	const Generator6	m_g6;
-	const Generator7	m_g7;
-	const Generator8	m_g8;
-	const Generator9	m_g9;
-};
+#undef IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_CONSTRUCT_
+#undef IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_STATICCAST_
+#undef IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_VARIABLE_
+#undef IUTEST_DECL_CARTESIAN_PRODUCT_HOLDER_
 
 #endif
 
@@ -2599,7 +742,7 @@ protected:
 	template<int N, typename T>
 	static T GetParam(const ::std::vector<T>& params, const ParamIndexes<N>& indexes, int raw)
 	{
-		int index = GetParamIndex(indexes, raw, params.size(), TestEnv::genrand());
+		const int index = GetParamIndex(indexes, raw, params.size(), TestEnv::genrand());
 		return params[index];
 	}
 
@@ -2817,6 +960,10 @@ public:
 		: m_g1(g1), m_g2(g2)
 	{}
 
+	static iuIParamGenerator< ParamType >* Create(const Generator1& g1, const Generator2& g2)
+	{
+		return new iuPairwiseGenerator2<T1, T2>(g1, g2);
+	}
 public:
 	virtual	void	Begin(void)
 	{
@@ -2846,6 +993,7 @@ private:
 	Generator2	m_g2;
 };
 
+/*
 template<typename T1, typename T2, typename T3>
 class iuPairwiseGenerator3 : public iuPairwiseGeneratorBase
 {
@@ -2893,404 +1041,55 @@ public:
 		return new iuValueInParamsGenerator< ParamType >(params);
 	}
 };
+*/
 
-template<typename T1, typename T2, typename T3, typename T4>
-class iuPairwiseGenerator4 : public iuPairwiseGeneratorBase
-{
-	typedef iuParamGenerator<T1> Generator1;
-	typedef iuParamGenerator<T2> Generator2;
-	typedef iuParamGenerator<T3> Generator3;
-	typedef iuParamGenerator<T4> Generator4;
+#define IUTEST_DECL_PAIRWISE_GENERATOR_TEMPLATE_T_(i, p1, p2)		\
+	p1<IUTEST_PP_CAT(T, i)> IUTEST_PP_CAT(p2, i);
+#define IUTEST_DECL_PAIRWISE_GENERATOR_MAKEPARAM_VECTOR_(i, p1, p2)	\
+	MakeParamVector( IUTEST_PP_CAT(p1, i), IUTEST_PP_CAT(p2, i) );
+#define IUTEST_DECL_PAIRWISE_GENERATOR_PARAM_SIZE_(i, param)		\
+	static_cast<int>( IUTEST_PP_CAT(param, i).size() )
+#define IUTEST_DECL_PAIRWISE_GENERATOR_GETPARAM_(i, param)			\
+	GetParam( IUTEST_PP_CAT(param, i), indexes, i)
 
-	static const int RAW_COUNT = 4;
-	typedef ParamIndexes<RAW_COUNT>		_MyParamIndexes;
-	typedef ::std::vector< _MyParamIndexes >	ParamIndexesList;
-
-public:
-	typedef tuples::tuple<T1, T2, T3, T4>	ParamType;
-public:
-	static iuIParamGenerator< ParamType >* Create(Generator1 g1, Generator2 g2, Generator3 g3, Generator4 g4)
-	{
-		ParamIndexesList list;
-		::std::vector<T1> params1;
-		::std::vector<T2> params2;
-		::std::vector<T3> params3;
-		::std::vector<T4> params4;
-
-		MakeParamVector(params1, g1);
-		MakeParamVector(params2, g2);
-		MakeParamVector(params3, g3);
-		MakeParamVector(params4, g4);
-
-		int count_list[] = {
-			static_cast<int>(params1.size())
-			, static_cast<int>(params2.size())
-			, static_cast<int>(params3.size())
-			, static_cast<int>(params4.size())
-		};
-		MakeIndexList(list, count_list);
-
-		::std::vector<ParamType> params;
-
-		for( typename ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
-		{
-			const _MyParamIndexes& indexes = *it;
-			params.push_back( ParamType(
-				GetParam(params1, indexes, 0)
-				, GetParam(params2, indexes, 1)
-				, GetParam(params3, indexes, 2)
-				, GetParam(params4, indexes, 3)
-				) );
-		}
-
-		return new iuValueInParamsGenerator< ParamType >(params);
+#define IUTEST_DECL_PAIRWISE_GENERATOR_(n)				\
+	template< IUTEST_PP_ENUM_PARAMS(n, typename T) >	\
+	class IUTEST_PP_CAT(iuPairwiseGenerator, n) : public iuPairwiseGeneratorBase {	\
+		IUTEST_PP_REPEAT_BINARY(n, IUTEST_DECL_PAIRWISE_GENERATOR_TEMPLATE_T_, typedef iuParamGenerator, Generator)	\
+		typedef ParamIndexes<n> _MyParamIndexes;							\
+		typedef ::std::vector< _MyParamIndexes > ParamIndexesList;			\
+	public: typedef tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > ParamType;	\
+		static iuIParamGenerator< ParamType >* Create(						\
+			IUTEST_PP_ENUM_BINARY_PARAMS(n, Generator, g) ) {				\
+			ParamIndexesList list;											\
+			IUTEST_PP_REPEAT_BINARY(n, IUTEST_DECL_PAIRWISE_GENERATOR_TEMPLATE_T_, ::std::vector, params)	\
+			IUTEST_PP_REPEAT_BINARY(n, IUTEST_DECL_PAIRWISE_GENERATOR_MAKEPARAM_VECTOR_, params, g)			\
+			int count_list[] = { IUTEST_PP_ENUM(n, IUTEST_DECL_PAIRWISE_GENERATOR_PARAM_SIZE_, params) };	\
+			MakeIndexList(list, count_list);								\
+			::std::vector<ParamType> params;								\
+			for( typename ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it ) {		\
+				const _MyParamIndexes& indexes = *it;						\
+				params.push_back( ParamType( IUTEST_PP_ENUM(n, IUTEST_DECL_PAIRWISE_GENERATOR_GETPARAM_, params) ) );	\
+			}																\
+			return new iuValueInParamsGenerator< ParamType >(params);		\
+		}																	\
 	}
-};
 
-template<typename T1, typename T2, typename T3, typename T4, typename T5>
-class iuPairwiseGenerator5 : public iuPairwiseGeneratorBase
-{
-	typedef iuParamGenerator<T1> Generator1;
-	typedef iuParamGenerator<T2> Generator2;
-	typedef iuParamGenerator<T3> Generator3;
-	typedef iuParamGenerator<T4> Generator4;
-	typedef iuParamGenerator<T5> Generator5;
+IUTEST_DECL_PAIRWISE_GENERATOR_(3);
+IUTEST_DECL_PAIRWISE_GENERATOR_(4);
+IUTEST_DECL_PAIRWISE_GENERATOR_(5);
+IUTEST_DECL_PAIRWISE_GENERATOR_(6);
+IUTEST_DECL_PAIRWISE_GENERATOR_(7);
+IUTEST_DECL_PAIRWISE_GENERATOR_(8);
+IUTEST_DECL_PAIRWISE_GENERATOR_(9);
 
-	static const int RAW_COUNT = 5;
-	typedef ParamIndexes<RAW_COUNT>		_MyParamIndexes;
-	typedef ::std::vector< _MyParamIndexes >	ParamIndexesList;
+#undef IUTEST_DECL_PAIRWISE_GENERATOR_TEMPLATE_T_
+#undef IUTEST_DECL_PAIRWISE_GENERATOR_MAKEPARAM_VECTOR_
+#undef IUTEST_DECL_PAIRWISE_GENERATOR_PARAM_SIZE_
+#undef IUTEST_DECL_PAIRWISE_GENERATOR_GETPARAM_
+#undef IUTEST_DECL_PAIRWISE_GENERATOR_
 
-public:
-	typedef tuples::tuple<T1, T2, T3, T4, T5>	ParamType;
-public:
-	static iuIParamGenerator< ParamType >* Create(Generator1 g1, Generator2 g2, Generator3 g3, Generator4 g4, Generator5 g5)
-	{
-		ParamIndexesList list;
-		::std::vector<T1> params1;
-		::std::vector<T2> params2;
-		::std::vector<T3> params3;
-		::std::vector<T4> params4;
-		::std::vector<T5> params5;
-
-		MakeParamVector(params1, g1);
-		MakeParamVector(params2, g2);
-		MakeParamVector(params3, g3);
-		MakeParamVector(params4, g4);
-		MakeParamVector(params5, g5);
-
-		int count_list[] = {
-			static_cast<int>(params1.size())
-			, static_cast<int>(params2.size())
-			, static_cast<int>(params3.size())
-			, static_cast<int>(params4.size())
-			, static_cast<int>(params5.size())
-		};
-		MakeIndexList(list, count_list);
-
-		::std::vector<ParamType> params;
-
-		for( typename ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
-		{
-			const _MyParamIndexes& indexes = *it;
-			params.push_back( ParamType(
-				GetParam(params1, indexes, 0)
-				, GetParam(params2, indexes, 1)
-				, GetParam(params3, indexes, 2)
-				, GetParam(params4, indexes, 3)
-				, GetParam(params5, indexes, 4)
-				) );
-		}
-
-		return new iuValueInParamsGenerator< ParamType >(params);
-	}
-};
-
-template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-class iuPairwiseGenerator6 : public iuPairwiseGeneratorBase
-{
-	typedef iuParamGenerator<T1> Generator1;
-	typedef iuParamGenerator<T2> Generator2;
-	typedef iuParamGenerator<T3> Generator3;
-	typedef iuParamGenerator<T4> Generator4;
-	typedef iuParamGenerator<T5> Generator5;
-	typedef iuParamGenerator<T6> Generator6;
-
-	static const int RAW_COUNT = 6;
-	typedef ParamIndexes<RAW_COUNT>		_MyParamIndexes;
-	typedef ::std::vector< _MyParamIndexes >	ParamIndexesList;
-
-public:
-	typedef tuples::tuple<T1, T2, T3, T4, T5, T6>	ParamType;
-public:
-	static iuIParamGenerator< ParamType >* Create(Generator1 g1, Generator2 g2, Generator3 g3, Generator4 g4, Generator5 g5
-		, Generator6 g6)
-	{
-		ParamIndexesList list;
-		::std::vector<T1> params1;
-		::std::vector<T2> params2;
-		::std::vector<T3> params3;
-		::std::vector<T4> params4;
-		::std::vector<T5> params5;
-		::std::vector<T6> params6;
-
-		MakeParamVector(params1, g1);
-		MakeParamVector(params2, g2);
-		MakeParamVector(params3, g3);
-		MakeParamVector(params4, g4);
-		MakeParamVector(params5, g5);
-		MakeParamVector(params6, g6);
-
-		int count_list[] = {
-			static_cast<int>(params1.size())
-			, static_cast<int>(params2.size())
-			, static_cast<int>(params3.size())
-			, static_cast<int>(params4.size())
-			, static_cast<int>(params5.size())
-			, static_cast<int>(params6.size())
-		};
-		MakeIndexList(list, count_list);
-
-		::std::vector<ParamType> params;
-
-		for( typename ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
-		{
-			const _MyParamIndexes& indexes = *it;
-			params.push_back( ParamType(
-				GetParam(params1, indexes, 0)
-				, GetParam(params2, indexes, 1)
-				, GetParam(params3, indexes, 2)
-				, GetParam(params4, indexes, 3)
-				, GetParam(params5, indexes, 4)
-				, GetParam(params6, indexes, 5)
-				) );
-		}
-
-		return new iuValueInParamsGenerator< ParamType >(params);
-	}
-};
-
-template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-class iuPairwiseGenerator7 : public iuPairwiseGeneratorBase
-{
-	typedef iuParamGenerator<T1> Generator1;
-	typedef iuParamGenerator<T2> Generator2;
-	typedef iuParamGenerator<T3> Generator3;
-	typedef iuParamGenerator<T4> Generator4;
-	typedef iuParamGenerator<T5> Generator5;
-	typedef iuParamGenerator<T6> Generator6;
-	typedef iuParamGenerator<T7> Generator7;
-
-	static const int RAW_COUNT = 7;
-	typedef ParamIndexes<RAW_COUNT>		_MyParamIndexes;
-	typedef ::std::vector< _MyParamIndexes >	ParamIndexesList;
-
-public:
-	typedef tuples::tuple<T1, T2, T3, T4, T5, T6, T7>	ParamType;
-public:
-	static iuIParamGenerator< ParamType >* Create(Generator1 g1, Generator2 g2, Generator3 g3, Generator4 g4, Generator5 g5
-		, Generator6 g6, Generator7 g7)
-	{
-		ParamIndexesList list;
-		::std::vector<T1> params1;
-		::std::vector<T2> params2;
-		::std::vector<T3> params3;
-		::std::vector<T4> params4;
-		::std::vector<T5> params5;
-		::std::vector<T6> params6;
-		::std::vector<T7> params7;
-
-		MakeParamVector(params1, g1);
-		MakeParamVector(params2, g2);
-		MakeParamVector(params3, g3);
-		MakeParamVector(params4, g4);
-		MakeParamVector(params5, g5);
-		MakeParamVector(params6, g6);
-		MakeParamVector(params7, g7);
-
-		int count_list[] = {
-			static_cast<int>(params1.size())
-			, static_cast<int>(params2.size())
-			, static_cast<int>(params3.size())
-			, static_cast<int>(params4.size())
-			, static_cast<int>(params5.size())
-			, static_cast<int>(params6.size())
-			, static_cast<int>(params7.size())
-		};
-		MakeIndexList(list, count_list);
-
-		::std::vector<ParamType> params;
-
-		for( typename ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
-		{
-			const _MyParamIndexes& indexes = *it;
-			params.push_back( ParamType(
-				GetParam(params1, indexes, 0)
-				, GetParam(params2, indexes, 1)
-				, GetParam(params3, indexes, 2)
-				, GetParam(params4, indexes, 3)
-				, GetParam(params5, indexes, 4)
-				, GetParam(params6, indexes, 5)
-				, GetParam(params7, indexes, 6)
-				) );
-		}
-
-		return new iuValueInParamsGenerator< ParamType >(params);
-	}
-};
-
-template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-class iuPairwiseGenerator8 : public iuPairwiseGeneratorBase
-{
-	typedef iuParamGenerator<T1> Generator1;
-	typedef iuParamGenerator<T2> Generator2;
-	typedef iuParamGenerator<T3> Generator3;
-	typedef iuParamGenerator<T4> Generator4;
-	typedef iuParamGenerator<T5> Generator5;
-	typedef iuParamGenerator<T6> Generator6;
-	typedef iuParamGenerator<T7> Generator7;
-	typedef iuParamGenerator<T8> Generator8;
-
-	static const int RAW_COUNT = 8;
-	typedef ParamIndexes<RAW_COUNT>		_MyParamIndexes;
-	typedef ::std::vector< _MyParamIndexes >	ParamIndexesList;
-
-public:
-	typedef tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8>	ParamType;
-public:
-	static iuIParamGenerator< ParamType >* Create(Generator1 g1, Generator2 g2, Generator3 g3, Generator4 g4, Generator5 g5
-		, Generator6 g6, Generator7 g7, Generator8 g8)
-	{
-		ParamIndexesList list;
-		::std::vector<T1> params1;
-		::std::vector<T2> params2;
-		::std::vector<T3> params3;
-		::std::vector<T4> params4;
-		::std::vector<T5> params5;
-		::std::vector<T6> params6;
-		::std::vector<T7> params7;
-		::std::vector<T8> params8;
-
-		MakeParamVector(params1, g1);
-		MakeParamVector(params2, g2);
-		MakeParamVector(params3, g3);
-		MakeParamVector(params4, g4);
-		MakeParamVector(params5, g5);
-		MakeParamVector(params6, g6);
-		MakeParamVector(params7, g7);
-		MakeParamVector(params8, g8);
-
-		int count_list[] = {
-			static_cast<int>(params1.size())
-			, static_cast<int>(params2.size())
-			, static_cast<int>(params3.size())
-			, static_cast<int>(params4.size())
-			, static_cast<int>(params5.size())
-			, static_cast<int>(params6.size())
-			, static_cast<int>(params7.size())
-			, static_cast<int>(params8.size())
-		};
-		MakeIndexList(list, count_list);
-
-		::std::vector<ParamType> params;
-
-		for( typename ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
-		{
-			const _MyParamIndexes& indexes = *it;
-			params.push_back( ParamType(
-				GetParam(params1, indexes, 0)
-				, GetParam(params2, indexes, 1)
-				, GetParam(params3, indexes, 2)
-				, GetParam(params4, indexes, 3)
-				, GetParam(params5, indexes, 4)
-				, GetParam(params6, indexes, 5)
-				, GetParam(params7, indexes, 6)
-				, GetParam(params8, indexes, 7)
-				) );
-		}
-
-		return new iuValueInParamsGenerator< ParamType >(params);
-	}
-};
-
-template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
-class iuPairwiseGenerator9 : public iuPairwiseGeneratorBase
-{
-	typedef iuParamGenerator<T1> Generator1;
-	typedef iuParamGenerator<T2> Generator2;
-	typedef iuParamGenerator<T3> Generator3;
-	typedef iuParamGenerator<T4> Generator4;
-	typedef iuParamGenerator<T5> Generator5;
-	typedef iuParamGenerator<T6> Generator6;
-	typedef iuParamGenerator<T7> Generator7;
-	typedef iuParamGenerator<T8> Generator8;
-	typedef iuParamGenerator<T9> Generator9;
-
-	static const int RAW_COUNT = 9;
-	typedef ParamIndexes<RAW_COUNT>		_MyParamIndexes;
-	typedef ::std::vector< _MyParamIndexes >	ParamIndexesList;
-
-public:
-	typedef tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9>	ParamType;
-public:
-	static iuIParamGenerator< ParamType >* Create(Generator1 g1, Generator2 g2, Generator3 g3, Generator4 g4, Generator5 g5
-		, Generator6 g6, Generator7 g7, Generator8 g8, Generator9 g9)
-	{
-		ParamIndexesList list;
-		::std::vector<T1> params1;
-		::std::vector<T2> params2;
-		::std::vector<T3> params3;
-		::std::vector<T4> params4;
-		::std::vector<T5> params5;
-		::std::vector<T6> params6;
-		::std::vector<T7> params7;
-		::std::vector<T8> params8;
-		::std::vector<T9> params9;
-
-		MakeParamVector(params1, g1);
-		MakeParamVector(params2, g2);
-		MakeParamVector(params3, g3);
-		MakeParamVector(params4, g4);
-		MakeParamVector(params5, g5);
-		MakeParamVector(params6, g6);
-		MakeParamVector(params7, g7);
-		MakeParamVector(params8, g8);
-		MakeParamVector(params9, g9);
-
-		int count_list[] = {
-			static_cast<int>(params1.size())
-			, static_cast<int>(params2.size())
-			, static_cast<int>(params3.size())
-			, static_cast<int>(params4.size())
-			, static_cast<int>(params5.size())
-			, static_cast<int>(params6.size())
-			, static_cast<int>(params7.size())
-			, static_cast<int>(params8.size())
-			, static_cast<int>(params9.size())
-		};
-		MakeIndexList(list, count_list);
-
-		::std::vector<ParamType> params;
-
-		for( typename ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
-		{
-			const _MyParamIndexes& indexes = *it;
-			params.push_back( ParamType(
-				GetParam(params1, indexes, 0)
-				, GetParam(params2, indexes, 1)
-				, GetParam(params3, indexes, 2)
-				, GetParam(params4, indexes, 3)
-				, GetParam(params5, indexes, 4)
-				, GetParam(params6, indexes, 5)
-				, GetParam(params7, indexes, 6)
-				, GetParam(params8, indexes, 7)
-				, GetParam(params9, indexes, 8)
-				) );
-		}
-
-		return new iuValueInParamsGenerator< ParamType >(params);
-	}
-};
-
+/*
 template<typename Generator1, typename Generator2>
 class iuPairwiseHolder2
 {
@@ -3303,7 +1102,7 @@ public:
 	template<typename T1, typename T2>
 	operator iuIParamGenerator< tuples::tuple<T1, T2> >* () const 
 	{
-		return new iuPairwiseGenerator2<T1, T2>(
+		return iuPairwiseGenerator2<T1, T2>::Create(
 			static_cast< iuIParamGenerator<T1>* >(m_g1)
 			, static_cast< iuIParamGenerator<T2>* >(m_g2)
 			);
@@ -3315,247 +1114,46 @@ private:
 	const Generator1	m_g1;
 	const Generator2	m_g2;
 };
+*/
 
+#define IUTEST_DECL_PAIRWISE_HOLDER_CONSTRUCT_(i, p1, p2)	IUTEST_PP_CAT(p1, i)(IUTEST_PP_CAT(p2, i))
+#define IUTEST_DECL_PAIRWISE_HOLDER_STATICCAST_(i, p1, p2)	\
+	static_cast< iuIParamGenerator< IUTEST_PP_CAT(p1, i) >* >(IUTEST_PP_CAT(p2, i))
+#define IUTEST_DECL_PAIRWISE_HOLDER_VARIABLE_(i, p1, p2)	IUTEST_PP_CAT(p1, i) IUTEST_PP_CAT(p2, i);
 
-template<typename Generator1, typename Generator2, typename Generator3>
-class iuPairwiseHolder3
-{
-	typedef iuPairwiseHolder3<Generator1, Generator2, Generator3> _Myt;
-public:
-	iuPairwiseHolder3(const Generator1& g1, const Generator2& g2, const Generator3& g3)
-		: m_g1(g1), m_g2(g2), m_g3(g3) {}
-
-public:
-	template<typename T1, typename T2, typename T3>
-	operator iuIParamGenerator< tuples::tuple<T1, T2, T3> >* () const 
-	{
-		return iuPairwiseGenerator3<T1, T2, T3>::Create(
-			static_cast< iuIParamGenerator<T1>* >(m_g1)
-			, static_cast< iuIParamGenerator<T2>* >(m_g2)
-			, static_cast< iuIParamGenerator<T3>* >(m_g3)
-			);
+#define IUTEST_DECL_PAIRWISE_HOLDER_(n)	\
+	template< IUTEST_PP_ENUM_PARAMS(n, typename Generator) >	\
+	class IUTEST_PP_CAT(iuPairwiseHolder, n) {					\
+		typedef IUTEST_PP_CAT(iuPairwiseHolder, n)< IUTEST_PP_ENUM_PARAMS(n, Generator) > _Myt;		\
+	public: IUTEST_PP_CAT(iuPairwiseHolder, n)(					\
+		IUTEST_PP_ENUM_BINARY_PARAMS(n, const Generator, &g) )	\
+		: IUTEST_PP_ENUM_BINARY(n, IUTEST_DECL_PAIRWISE_HOLDER_CONSTRUCT_, m_g, g) {}				\
+		template< IUTEST_PP_ENUM_PARAMS(n, typename T) >		\
+		operator iuIParamGenerator< tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > >* (void) const {	\
+			return IUTEST_PP_CAT(iuPairwiseGenerator, n)< IUTEST_PP_ENUM_PARAMS(n, T) >::Create(	\
+				IUTEST_PP_ENUM_BINARY(n, IUTEST_DECL_PAIRWISE_HOLDER_STATICCAST_, T, m_g) );		\
+		}														\
+	private: void operator = (const _Myt&) {}					\
+		IUTEST_PP_REPEAT_BINARY(n, IUTEST_DECL_PAIRWISE_HOLDER_VARIABLE_, const Generator, m_g)		\
 	}
 
-private:
-	void	operator = (const _Myt&) {}
-private:
-	const Generator1	m_g1;
-	const Generator2	m_g2;
-	const Generator3	m_g3;
-};
+IUTEST_DECL_PAIRWISE_HOLDER_(2);
+IUTEST_DECL_PAIRWISE_HOLDER_(3);
+IUTEST_DECL_PAIRWISE_HOLDER_(4);
+IUTEST_DECL_PAIRWISE_HOLDER_(5);
+IUTEST_DECL_PAIRWISE_HOLDER_(6);
+IUTEST_DECL_PAIRWISE_HOLDER_(7);
+IUTEST_DECL_PAIRWISE_HOLDER_(8);
+IUTEST_DECL_PAIRWISE_HOLDER_(9);
 
-template<typename Generator1, typename Generator2, typename Generator3, typename Generator4>
-class iuPairwiseHolder4
-{
-	typedef iuPairwiseHolder4<Generator1, Generator2, Generator3, Generator4> _Myt;
-public:
-	iuPairwiseHolder4(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4)
-		: m_g1(g1), m_g2(g2), m_g3(g3), m_g4(g4) {}
-
-public:
-	template<typename T1, typename T2, typename T3, typename T4>
-	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4> >* () const 
-	{
-		return iuPairwiseGenerator4<T1, T2, T3, T4>::Create(
-			static_cast< iuIParamGenerator<T1>* >(m_g1)
-			, static_cast< iuIParamGenerator<T2>* >(m_g2)
-			, static_cast< iuIParamGenerator<T3>* >(m_g3)
-			, static_cast< iuIParamGenerator<T4>* >(m_g4)
-			);
-	}
-
-private:
-	void	operator = (const _Myt&) {}
-private:
-	const Generator1	m_g1;
-	const Generator2	m_g2;
-	const Generator3	m_g3;
-	const Generator4	m_g4;
-};
-
-template<typename Generator1, typename Generator2, typename Generator3, typename Generator4, typename Generator5>
-class iuPairwiseHolder5
-{
-	typedef iuPairwiseHolder5<Generator1, Generator2, Generator3, Generator4, Generator5> _Myt;
-public:
-	iuPairwiseHolder5(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5)
-		: m_g1(g1), m_g2(g2), m_g3(g3), m_g4(g4), m_g5(g5) {}
-
-public:
-	template<typename T1, typename T2, typename T3, typename T4, typename T5>
-	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5> >* () const 
-	{
-		return iuPairwiseGenerator5<T1, T2, T3, T4, T5>::Create(
-			static_cast< iuIParamGenerator<T1>* >(m_g1)
-			, static_cast< iuIParamGenerator<T2>* >(m_g2)
-			, static_cast< iuIParamGenerator<T3>* >(m_g3)
-			, static_cast< iuIParamGenerator<T4>* >(m_g4)
-			, static_cast< iuIParamGenerator<T5>* >(m_g5)
-			);
-	}
-
-private:
-	void	operator = (const _Myt&) {}
-private:
-	const Generator1	m_g1;
-	const Generator2	m_g2;
-	const Generator3	m_g3;
-	const Generator4	m_g4;
-	const Generator5	m_g5;
-};
-
-template<typename Generator1, typename Generator2, typename Generator3, typename Generator4, typename Generator5, typename Generator6>
-class iuPairwiseHolder6
-{
-	typedef iuPairwiseHolder6<Generator1, Generator2, Generator3, Generator4, Generator5, Generator6> _Myt;
-public:
-	iuPairwiseHolder6(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
-		, const Generator6& g6)
-		: m_g1(g1), m_g2(g2), m_g3(g3), m_g4(g4), m_g5(g5), m_g6(g6) {}
-
-public:
-	template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5, T6> >* () const 
-	{
-		return iuPairwiseGenerator6<T1, T2, T3, T4, T5, T6>::Create(
-			static_cast< iuIParamGenerator<T1>* >(m_g1)
-			, static_cast< iuIParamGenerator<T2>* >(m_g2)
-			, static_cast< iuIParamGenerator<T3>* >(m_g3)
-			, static_cast< iuIParamGenerator<T4>* >(m_g4)
-			, static_cast< iuIParamGenerator<T5>* >(m_g5)
-			, static_cast< iuIParamGenerator<T6>* >(m_g6)
-			);
-	}
-
-private:
-	void	operator = (const _Myt&) {}
-private:
-	const Generator1	m_g1;
-	const Generator2	m_g2;
-	const Generator3	m_g3;
-	const Generator4	m_g4;
-	const Generator5	m_g5;
-	const Generator6	m_g6;
-};
-
-template<typename Generator1, typename Generator2, typename Generator3, typename Generator4, typename Generator5, typename Generator6, typename Generator7>
-class iuPairwiseHolder7
-{
-	typedef iuPairwiseHolder7<Generator1, Generator2, Generator3, Generator4, Generator5, Generator6, Generator7> _Myt;
-public:
-	iuPairwiseHolder7(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
-		, const Generator6& g6, const Generator7& g7)
-		: m_g1(g1), m_g2(g2), m_g3(g3), m_g4(g4), m_g5(g5), m_g6(g6), m_g7(g7) {}
-
-public:
-	template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5, T6, T7> >* () const 
-	{
-		return iuPairwiseGenerator7<T1, T2, T3, T4, T5, T6, T7>::Create(
-			static_cast< iuIParamGenerator<T1>* >(m_g1)
-			, static_cast< iuIParamGenerator<T2>* >(m_g2)
-			, static_cast< iuIParamGenerator<T3>* >(m_g3)
-			, static_cast< iuIParamGenerator<T4>* >(m_g4)
-			, static_cast< iuIParamGenerator<T5>* >(m_g5)
-			, static_cast< iuIParamGenerator<T6>* >(m_g6)
-			, static_cast< iuIParamGenerator<T7>* >(m_g7)
-			);
-	}
-
-private:
-	void	operator = (const _Myt&) {}
-private:
-	const Generator1	m_g1;
-	const Generator2	m_g2;
-	const Generator3	m_g3;
-	const Generator4	m_g4;
-	const Generator5	m_g5;
-	const Generator6	m_g6;
-	const Generator7	m_g7;
-};
-
-template<typename Generator1, typename Generator2, typename Generator3, typename Generator4, typename Generator5, typename Generator6, typename Generator7, typename Generator8>
-class iuPairwiseHolder8
-{
-	typedef iuPairwiseHolder8<Generator1, Generator2, Generator3, Generator4, Generator5, Generator6, Generator7, Generator8> _Myt;
-public:
-	iuPairwiseHolder8(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
-		, const Generator6& g6, const Generator7& g7, const Generator8& g8)
-		: m_g1(g1), m_g2(g2), m_g3(g3), m_g4(g4), m_g5(g5), m_g6(g6), m_g7(g7), m_g8(g8) {}
-
-public:
-	template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8> >* () const 
-	{
-		return iuPairwiseGenerator8<T1, T2, T3, T4, T5, T6, T7, T8>::Create(
-			static_cast< iuIParamGenerator<T1>* >(m_g1)
-			, static_cast< iuIParamGenerator<T2>* >(m_g2)
-			, static_cast< iuIParamGenerator<T3>* >(m_g3)
-			, static_cast< iuIParamGenerator<T4>* >(m_g4)
-			, static_cast< iuIParamGenerator<T5>* >(m_g5)
-			, static_cast< iuIParamGenerator<T6>* >(m_g6)
-			, static_cast< iuIParamGenerator<T7>* >(m_g7)
-			, static_cast< iuIParamGenerator<T8>* >(m_g8)
-			);
-	}
-
-private:
-	void	operator = (const _Myt&) {}
-private:
-	const Generator1	m_g1;
-	const Generator2	m_g2;
-	const Generator3	m_g3;
-	const Generator4	m_g4;
-	const Generator5	m_g5;
-	const Generator6	m_g6;
-	const Generator7	m_g7;
-	const Generator8	m_g8;
-};
-
-template<typename Generator1, typename Generator2, typename Generator3, typename Generator4, typename Generator5, typename Generator6, typename Generator7, typename Generator8, typename Generator9>
-class iuPairwiseHolder9
-{
-	typedef iuPairwiseHolder9<Generator1, Generator2, Generator3, Generator4, Generator5, Generator6, Generator7, Generator8, Generator9> _Myt;
-public:
-	iuPairwiseHolder9(const Generator1& g1, const Generator2& g2, const Generator3& g3, const Generator4& g4, const Generator5& g5
-		, const Generator6& g6, const Generator7& g7, const Generator8& g8, const Generator9& g9)
-		: m_g1(g1), m_g2(g2), m_g3(g3), m_g4(g4), m_g5(g5), m_g6(g6), m_g7(g7), m_g8(g8), m_g9(g9) {}
-
-public:
-	template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
-	operator iuIParamGenerator< tuples::tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9> >* () const 
-	{
-		return iuPairwiseGenerator9<T1, T2, T3, T4, T5, T6, T7, T8, T9>::Create(
-			static_cast< iuIParamGenerator<T1>* >(m_g1)
-			, static_cast< iuIParamGenerator<T2>* >(m_g2)
-			, static_cast< iuIParamGenerator<T3>* >(m_g3)
-			, static_cast< iuIParamGenerator<T4>* >(m_g4)
-			, static_cast< iuIParamGenerator<T5>* >(m_g5)
-			, static_cast< iuIParamGenerator<T6>* >(m_g6)
-			, static_cast< iuIParamGenerator<T7>* >(m_g7)
-			, static_cast< iuIParamGenerator<T8>* >(m_g8)
-			, static_cast< iuIParamGenerator<T9>* >(m_g9)
-			);
-	}
-
-private:
-	void	operator = (const _Myt&) {}
-private:
-	const Generator1	m_g1;
-	const Generator2	m_g2;
-	const Generator3	m_g3;
-	const Generator4	m_g4;
-	const Generator5	m_g5;
-	const Generator6	m_g6;
-	const Generator7	m_g7;
-	const Generator8	m_g8;
-	const Generator9	m_g9;
-};
+#undef IUTEST_DECL_PAIRWISE_HOLDER_CONSTRUCT_
+#undef IUTEST_DECL_PAIRWISE_HOLDER_STATICCAST_
+#undef IUTEST_DECL_PAIRWISE_HOLDER_VARIABLE_
+#undef IUTEST_DECL_PAIRWISE_HOLDER_
 
 #endif
 
 #endif
-
 
 }	// end of namespace detail
 }	// end of namespace iutest

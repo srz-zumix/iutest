@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -44,5 +44,6 @@
 #include "iutest_type_param_tests3.cpp"
 #include "iutest_typed_test_tests.cpp"
 #include "iutest_util_tests.cpp"
+#include "iutest_values_tests.cpp"
 #include "iutest_variadic_templates_tests.cpp"
 

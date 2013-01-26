@@ -42,7 +42,7 @@ struct Types
 
 #else
 
-#define IUTEST_DECL_DEFAULT_ARG_(param, i)	IUTEST_PP_CAT(param,i)=detail::None
+#define IUTEST_DECL_DEFAULT_ARG_(i, param)	IUTEST_PP_CAT(param,i)=detail::None
 
 template< IUTEST_PP_ENUM(50, IUTEST_DECL_DEFAULT_ARG_, typename T) >
 struct Types
@@ -52,7 +52,7 @@ struct Types
 
 #undef IUTEST_DECL_DEFAULT_ARG_
 
-#define IUTEST_DECL_SPEC_NONE_(param, i)	param
+#define IUTEST_DECL_SPEC_NONE_(i, param)	param
 #define IUTEST_DECL_TYPES_(n, m)							\
 	template< IUTEST_PP_ENUM_PARAMS(n, typename T) >		\
 	struct Types< IUTEST_PP_ENUM_PARAMS(n, T)				\
@@ -143,7 +143,7 @@ struct Templates
 
 #else
 
-#define IUTEST_DECL_DEFAULT_ARG_(param, i)	IUTEST_PP_CAT(param,i)=detail::NoneT1
+#define IUTEST_DECL_DEFAULT_ARG_(i, param)	IUTEST_PP_CAT(param,i)=detail::NoneT1
 
 template< IUTEST_PP_ENUM(50, IUTEST_DECL_DEFAULT_ARG_, IUTEST_TEMPLATE_TPARAM1 T) >
 struct Templates
@@ -153,7 +153,7 @@ struct Templates
 
 #undef IUTEST_DECL_DEFAULT_ARG_
 
-#define IUTEST_DECL_SPEC_NONE_(param, i)	param
+#define IUTEST_DECL_SPEC_NONE_(i, param)	param
 #define IUTEST_DECL_TEMPLATES_(n, m)									\
 	template< IUTEST_PP_ENUM_PARAMS(n, IUTEST_TEMPLATE_TPARAM1 T) >		\
 	struct Templates< IUTEST_PP_ENUM_PARAMS(n, T)						\
