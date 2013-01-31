@@ -77,10 +77,6 @@
 #  include <android/api-level.h>
 #endif
 
-#if	!defined(IUTEST_HAS_CLOCK) && defined(CLOCKS_PER_SEC)
-#  define IUTEST_HAS_CLOCK			1
-#endif
-
 // c++11
 // nullptr
 #if !defined(IUTEST_HAS_NULLPTR)

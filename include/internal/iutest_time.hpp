@@ -120,9 +120,6 @@ inline TimeInMillisec	GetTimeInMillis(void)
 	gettimeofday(&tv, NULL);
 	return static_cast<TimeInMillisec>(tv.tv_sec) * 1000 + static_cast<TimeInMillisec>(tv.tv_usec) / 1000;
 
-#elif	IUTEST_HAS_CLOCK
-	return clock() * 1000 / CLOCKS_PER_SEC;
-
 #elif	defined(IUTEST_OS_WINDOWS)
 
 #if		defined(IUTEST_OS_WINDOWS_MOBILE)
@@ -138,6 +135,9 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 	return static_cast<TimeInMillisec>(tb.time * 1000 + tb.millitm);
 
 #endif
+
+#elif	IUTEST_HAS_CLOCK
+	return clock() * 1000 / CLOCKS_PER_SEC;
 
 #else
 

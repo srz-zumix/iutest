@@ -245,8 +245,15 @@
 #  define IUTEST_HAS_GETTIMEOFDAY	0
 #endif
 
+//! clock 関数が使用可能かどうか
 #ifndef IUTEST_HAS_CLOCK
-#  define IUTEST_HAS_CLOCK			0	//!< clock 関数が使用可能かどうか
+#  if defined(CLOCKS_PER_SEC)
+#    define IUTEST_HAS_CLOCK		1
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_CLOCK
+#  define IUTEST_HAS_CLOCK			0
 #endif
 
 /**
