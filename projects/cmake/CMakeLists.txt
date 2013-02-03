@@ -41,6 +41,7 @@ include_directories(
 # ƒ‰ƒCƒuƒ‰ƒŠ
 #
 cxx_library(iutest "${cxx_strict}" ../../src/iutest_all.cpp)
+cxx_library(iutest_main "${cxx_strict}" ../../src/iutest_main.cpp)
 
 ########################################################################
 #

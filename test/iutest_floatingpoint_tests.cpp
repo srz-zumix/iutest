@@ -44,15 +44,28 @@ T FloatingpointTest<T>::ZERO = (T)0;
 typedef ::iutest::Types<float, double> FloatingpointTestTypes;
 IUTEST_TYPED_TEST_CASE(FloatingpointTest, FloatingpointTestTypes);
 
-IUTEST_TYPED_TEST(FloatingpointTest, NaN)
+IUTEST_TYPED_TEST(FloatingpointTest, PINF)
 {
 	typedef typename TestFixture::ftype FloatType;
 	TypeParam a=TestFixture::ONE;
 	TypeParam b=TestFixture::ZERO;
 
-	IUTEST_EXPECT_EQ(FloatType(a/b)   , TestFixture::ftype::PINF());
+	IUTEST_EXPECT_EQ(FloatType(a/b), TestFixture::ftype::PINF());
+}
+
+IUTEST_TYPED_TEST(FloatingpointTest, NINF)
+{
+	typedef typename TestFixture::ftype FloatType;
+	TypeParam b=TestFixture::ZERO;
+
 	IUTEST_EXPECT_EQ(FloatType(log(b)), TestFixture::ftype::NINF());
-	
+}
+
+IUTEST_TYPED_TEST(FloatingpointTest, NQNAN)
+{
+	typedef typename TestFixture::ftype FloatType;
+	TypeParam a=TestFixture::ONE;
+
 	IUTEST_EXPECT_EQ(FloatType(sqrt(-a)), TestFixture::ftype::NQNAN());
 }
 

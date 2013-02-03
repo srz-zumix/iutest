@@ -58,17 +58,30 @@
 #define IIUT_TYPED_TEST_CASE_(testcase_, types_)		\
 	typedef ::iutest::detail::TypeList< types_ >::type	IUTEST_TYPED_TEST_PARAMS_(testcase_)
 
-#define IIUT_TYPED_TEST_(testcase_, testname_)									\
-	template<typename iutest_TypeParam>											\
+#define IIUT_TYPED_TEST_(testcase_, testname_)										\
+	template<typename iutest_TypeParam>												\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public testcase_<iutest_TypeParam> {		\
-		typedef testcase_<iutest_TypeParam> TestFixture;						\
-		typedef iutest_TypeParam	TypeParam;									\
-		protected: virtual void Body(void);										\
-	};																			\
+		typedef testcase_<iutest_TypeParam> TestFixture;							\
+		typedef iutest_TypeParam	TypeParam;										\
+		protected: virtual void Body(void);											\
+	};																				\
 	::iutest::detail::TypeParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_), IUTEST_TYPED_TEST_PARAMS_(testcase_) >	\
 	s_##testcase_##_##testname_( IUTEST_CONCAT_PACKAGE_(testcase_), #testname_);	\
 	template<typename iutest_TypeParam>												\
 	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_TypeParam>::Body(void)
+
+#define IIUT_TYPED_TEST_IGNORE_(testcase_, testname_)								\
+	template<typename iutest_TypeParam>												\
+	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public testcase_<iutest_TypeParam> {		\
+		typedef testcase_<iutest_TypeParam> TestFixture;							\
+		typedef iutest_TypeParam	TypeParam;										\
+		protected: virtual void Body(void) { IUTEST_SKIP() << "ignored test..."; }	\
+		template<typename T>void Body(void);										\
+	};																				\
+	::iutest::detail::TypeParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_), IUTEST_TYPED_TEST_PARAMS_(testcase_) >	\
+	s_##testcase_##_##testname_( IUTEST_CONCAT_PACKAGE_(testcase_), #testname_);	\
+	template<typename iutest_TypeParam>												\
+	template<typename T>void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_TypeParam>::Body(void)
 
 /**
  * @}
@@ -137,6 +150,21 @@
 	IUTEST_TYPED_TEST_CASE_PSTATE_NAME_(testcase_).AddTestName(__FILE__, __LINE__, #testcase_, #testname_);		\
 	}															\
 	template<typename iutest_TypeParam>							\
+	void IUTEST_TYPED_TEST_P_NAMESPACE_(testcase_)::testname_<iutest_TypeParam>::Body(void)
+
+#define IUTEST_TYPED_TEST_P_IGNORE_(testcase_, testname_)		\
+	namespace IUTEST_TYPED_TEST_P_NAMESPACE_(testcase_) {		\
+	template<typename iutest_TypeParam>							\
+	class testname_ : public testcase_<iutest_TypeParam> {		\
+		typedef testcase_<iutest_TypeParam> TestFixture;		\
+		typedef iutest_TypeParam	TypeParam;					\
+		protected: virtual void Body(void) { IUTEST_SKIP() << "ignored test..."; }		\
+		template<typename T>void Body(void);					\
+	};															\
+	static const int s_iutest_##testname_##_defined_dummy_ IUTEST_ATTRIBUTE_UNUSED_ =	\
+	IUTEST_TYPED_TEST_CASE_PSTATE_NAME_(testcase_).AddTestName(__FILE__, __LINE__, #testcase_, #testname_);		\
+	}															\
+	template<typename iutest_TypeParam>template<typename T>		\
 	void IUTEST_TYPED_TEST_P_NAMESPACE_(testcase_)::testname_<iutest_TypeParam>::Body(void)
 
 #define IUTEST_REGISTER_TYPED_TEST_CASE_P_(testcase_, ...)								\

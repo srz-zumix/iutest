@@ -739,6 +739,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\include\iutest_ignore.hpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\include\iutest_info.hpp"
 				>
 			</File>

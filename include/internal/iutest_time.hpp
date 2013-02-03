@@ -126,10 +126,10 @@ inline TimeInMillisec	GetTimeInMillis(void)
 	return static_cast<TimeInMillisec>(GetTickCount());
 #else
 
-	__timeb64 tb;
+	_timeb tb;
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
-	_ftime64(&tb);
+	_ftime(&tb);
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 	return static_cast<TimeInMillisec>(tb.time * 1000 + tb.millitm);

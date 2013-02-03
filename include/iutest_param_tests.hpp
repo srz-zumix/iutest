@@ -85,6 +85,23 @@
 	int IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::dummy_ IUTEST_ATTRIBUTE_UNUSED_ = IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::AddRegister(); \
 	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body(void)
 
+#define IIUT_TEST_P_IGNORE_(testcase_, testname_)												\
+	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public testcase_ {					\
+		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}							\
+		protected: virtual void Body(void) { IUTEST_SKIP() << "ignored test..."; }				\
+		template<typename T>void Body(void);													\
+		private: static int	AddRegister(void) {													\
+			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_) > testinfo(#testname_);	\
+			::iutest::UnitTest::GetInstance()->parameterized_test_registry().					\
+				GetTestCasePatternHolder< testcase_ >(IUTEST_CONCAT_PACKAGE_(testcase_))->AddTestPattern(&testinfo);	\
+			return 0;																			\
+		}																						\
+		static int dummy_;																		\
+		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));		\
+	};																							\
+	int IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::dummy_ IUTEST_ATTRIBUTE_UNUSED_ = IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::AddRegister(); \
+	template<typename T>void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body(void)
+
 /**
  * @}
 */

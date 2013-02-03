@@ -131,7 +131,7 @@ public:
 		MASK					= 0xFFFFFFFF,	//!< マスク
 
 		//! デフォルト
-#ifdef _MSC_VER
+#if defined(_MSC_VER)
 		DEFAULT = CATCH_EXCEPTION|PRINT_TIME|FILELOCATION_STYLE_MSVC
 #else
 		DEFAULT = CATCH_EXCEPTION|PRINT_TIME

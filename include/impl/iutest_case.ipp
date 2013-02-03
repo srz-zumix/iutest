@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -114,7 +114,7 @@ IUTEST_IPP_INLINE int TestCase::get_skipped_test_count(void) const
 	int count = 0;
 	for( iuTestInfos::const_iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
 	{
-		if( (*it)->is_skipped() ) ++count;
+		if( (*it)->should_run() && (*it)->is_skipped() ) ++count;
 	}
 	return count;
 }

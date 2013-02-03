@@ -491,8 +491,11 @@
 #  endif
 #endif
 
-#ifndef IUTEST_NO_PARTIAL_TEMPLATE_SPECIALIZATION
-#  define IUTEST_NO_PARTIAL_TEMPLATE_SPECIALIZATION	0
+// in class member initialization
+#ifndef IUTEST_NO_INCLASS_MEMBER_INITIALIZATION
+#  if defined(_MSC_VER) && _MSC_VER < 1300
+#    define IUTEST_NO_INCLASS_MEMBER_INITIALIZATION		1
+#  endif
 #endif
 
 // secure lib

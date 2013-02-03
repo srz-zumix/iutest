@@ -45,7 +45,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 		char buf[1024] = {0};
 		va_list va;
 		va_start(va, fmt);
-#ifdef _MSC_VER
+#if defined(_MSC_VER)
 #  if IUTEST_HAS_WANT_SECURE_LIB
 		const int len = _vsnprintf_s(buf, _TRUNCATE, fmt, va);
 #  else

@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -94,7 +94,7 @@ public:
 	/** disable */
 	bool			is_disabled_test(void)	const	{ return m_disable; }
 	/** is skipped */
-	bool			is_skipped(void)		const	{ return !m_should_run || m_skip; }
+	bool			is_skipped(void)		const	{ return m_skip; }
 	/** テストの実行ミリ秒 */
 	TimeInMillisec	elapsed_time(void)		const	{ return m_test_result.elapsed_time(); }
 	/** テスト結果の取得 */

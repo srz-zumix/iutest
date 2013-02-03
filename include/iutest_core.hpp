@@ -69,9 +69,11 @@ public:
 	/** 無効テスト総数 */
 	int				disabled_test_count(void)	const	{ return m_disable_num; }
 	/** 成功テスト総数 */
-	int				successful_test_count(void)	const	{ return test_to_run_count() - failed_test_count(); }
+	int				successful_test_count(void)	const	{ return test_to_run_count() - failed_test_count() - test_was_skipped_count(); }
 	/** スキップテスト総数 */
-	int				skip_test_count(void)		const	{ return get_skipped_test_count(); }
+	int				skip_test_count(void)		const	{ return total_test_count() - test_to_run_count() + test_was_skipped_count(); }
+	/** 明示的にスキップされたテスト総数 */
+	int				test_was_skipped_count(void) const	{ return get_skipped_test_count(); }
 
 	/** テストケース数の総数 */
 	int				total_test_case_count(void)	const	{ return m_testcases.size(); }
@@ -210,7 +212,7 @@ private:
 		int count = 0;
 		for( iuTestCases::const_iterator it=m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
 		{
-			count += (*it)->skip_test_count();
+			count += (*it)->test_was_skipped_count();
 		}
 		return count;
 	}

@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -45,6 +45,22 @@
 		, type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);			\
 	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body(void)
 
+/**
+ * @internal
+ * @brief	テストクラス定義マクロ
+ *			関数の中はコンパイルできなくてもよい
+*/
+#define IUTEST_TEST_IGNORE_(testcase_, testname_, parent_class_, type_id_)					\
+	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {			\
+		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));	\
+		public:	IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
+		protected: virtual void Body(void) { IUTEST_SKIP() << "ignored test..."; }			\
+		template<typename T>void Body(void);												\
+	};																						\
+	::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>			\
+	s_##testcase_##_##testname_( IUTEST_CONCAT_PACKAGE_(testcase_), #testname_				\
+		, type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);			\
+	template<typename T>void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body(void)
 
 #ifndef IUTEST_NO_VARIADIC_MACROS
 
@@ -312,10 +328,10 @@
 
 #define IUTEST_TEST_SKIP()		\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_			\
-	if( ::iutest::Test::HasFailure() )		\
-		return;								\
-	else									\
-		return ::iutest::UnitTest::SkipTest()
+	if( !::iutest::Test::HasFailure() )		\
+		::iutest::UnitTest::SkipTest();		\
+	if( ::iutest::detail::AlwaysTrue() )	\
+		return IUTEST_MESSAGE( ::iutest::Test::HasFailure() ? "Skipped. but already failed. " : "Skipped. ", ::iutest::TestPartResult::kSuccess)
 
 /**
  * @}

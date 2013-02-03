@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -165,7 +165,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
 	else
 	{
 #if IUTEST_REPORT_SKIPPED
-		bool skipped = test_info.is_skipped();
+		bool skipped = test_info.is_skipped() || !test_info.should_run();
 		if( skipped )
 		{
 			file->Printf(">\n");

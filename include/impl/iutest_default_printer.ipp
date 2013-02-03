@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -91,6 +91,11 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestEnd(const TestInfo& tes
 		detail::iuConsole::color_output(detail::iuConsole::red  , "[  FAILED  ] ");
 		detail::iuConsole::output("%s.%s", test_info.test_case_name(), test_info.test_name_with_where().c_str());
 	}
+	else if( test_info.is_skipped() )
+	{
+		detail::iuConsole::color_output(detail::iuConsole::yellow,"[  SKIPPED ] ");
+		detail::iuConsole::output("%s.%s", test_info.test_case_name(), test_info.name());
+	}
 	else
 	{
 		detail::iuConsole::color_output(detail::iuConsole::green, "[       OK ] ");
@@ -161,6 +166,12 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationEnd(const Unit
 			detail::iuConsole::color_output(detail::iuConsole::yellow, "[ DISABLED ] ");
 			detail::iuConsole::output("%d tests.\n", test.disabled_test_count() );
 		}
+		if( test.test_was_skipped_count() > 0 )
+		{
+			detail::iuConsole::color_output(detail::iuConsole::yellow, "[  SKIPPED ] ");
+			detail::iuConsole::output("%d tests.\n", test.test_was_skipped_count() );
+		}
+		
 		if( !test.Passed() )
 		{
 			int failed_num = test.failed_test_count();

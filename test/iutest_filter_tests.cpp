@@ -48,12 +48,18 @@ int main(int argc, char* argv[])
 		int ret = IUTEST_RUN_ALL_TESTS();
 		
 		if( ret != 0 ) return 1;
+#if !defined(IUTEST_USE_GTEST)
+		assert( ::iutest::UnitTest::GetInstance()->skip_test_count() == 2 );
+#endif
 	}
 	{
 		::iutest::IUTEST_FLAG(filter) = "*Fail*";
 		int ret = IUTEST_RUN_ALL_TESTS();
 		
 		if( ret == 0 ) return 1;
+#if !defined(IUTEST_USE_GTEST)
+		assert( ::iutest::UnitTest::GetInstance()->skip_test_count() == 1 );
+#endif
 	}
 	printf("*** Successful ***\n");
 	return 0;

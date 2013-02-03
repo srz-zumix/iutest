@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -76,9 +76,11 @@ public:
 	/** 無効テスト総数 */
 	int				disabled_test_count(void)	const	{ return m_disable_num; }
 	/** 成功テスト総数 */
-	int				successful_test_count(void)	const	{ return test_to_run_count() - failed_test_count(); }
+	int				successful_test_count(void)	const	{ return test_to_run_count() - failed_test_count() - test_was_skipped_count(); }
 	/** スキップテスト総数 */
-	int				skip_test_count(void)		const	{ return get_skipped_test_count(); }
+	int				skip_test_count(void)		const	{ return total_test_count() - test_to_run_count() + test_was_skipped_count(); }
+	/** 明示的にスキップされたテスト総数 */
+	int				test_was_skipped_count(void) const	{ return get_skipped_test_count(); }
 	/** テストの実行ミリ秒 */
 	TimeInMillisec	elapsed_time(void)			const	{ return m_elapsedmsec; }
 

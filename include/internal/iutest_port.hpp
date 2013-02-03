@@ -197,7 +197,7 @@ inline bool GetEnvironmentVariable(const char* name, T (&buf)[SIZE])
 inline bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentVariable(const char* name, ::std::string& var)
 {
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
-	char buf[128];
+	char buf[2048];
 	if( !GetEnvironmentVariable(name, buf) ) return false;
 	var = buf;
 	return true;

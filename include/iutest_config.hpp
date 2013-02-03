@@ -101,6 +101,19 @@
 #  endif
 #endif
 
+#ifndef IUTEST_HAS_IGNORE_TEST
+/**
+ * @brief	コンパイルが通らなくてもよいテスト生成マクロが使用可能かどうか
+*/
+#  if	defined(_MSC_VER) && _MSC_VER > 1200
+#    define IUTEST_HAS_IGNORE_TEST	1
+#  elif	defined(__GNUC__) || defined(__clang__)
+#    define IUTEST_HAS_IGNORE_TEST	0
+#  else
+#    define IUTEST_HAS_IGNORE_TEST	0
+#  endif
+#endif
+
 #ifndef IUTEST_HAS_COMBINE
 //! ::iutest::Combine が使用可能かどうか
 #  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TUPLE

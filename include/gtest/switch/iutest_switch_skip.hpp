@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -35,7 +35,7 @@
 //======================================================================
 // define
 #define IUTEST_SKIP()			GTEST_AMBIGUOUS_ELSE_BLOCKER_	\
-								if( ::testing::internal::AlwaysTrue() ) return
+								if( ::testing::internal::AlwaysTrue() ) return GTEST_MESSAGE_("Skipped. ", ::testing::TestPartResult::kSuccess)
 
 
 #endif

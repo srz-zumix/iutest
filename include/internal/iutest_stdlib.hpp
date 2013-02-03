@@ -203,6 +203,9 @@ inline int iu_mbtowc(wchar_t* dst, const char* src, size_t size)
 {
 #if defined(IUTEST_OS_LINUX_ANDROID) || defined(IUTEST_OS_WINDOWS_MOBILE)
 	// unimplimented
+	IUTEST_UNUSED_VAR(dst);
+	IUTEST_UNUSED_VAR(src);
+	IUTEST_UNUSED_VAR(size);
 	return 0;
 #else
 	return mbtowc(dst, src, size);
