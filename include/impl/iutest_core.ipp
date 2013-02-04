@@ -28,9 +28,9 @@ IUTEST_IPP_INLINE int UnitTest::Run(void)
 {
 	if( m_init_iutest_count == 0 )
 	{
-		//#if IUTEST_HAS_PARAM_TEST
-		//			if( m_param_testcase_holder.count() )
-		//#endif
+//#if IUTEST_HAS_PARAM_TEST
+//		if( m_param_testcase_holder.count() )
+//#endif
 		{
 			detail::iuConsole::output("This test program did NOT call ::iutest::InitIrisUnitTest before calling IUTEST_RUN_ALL_TESTS().  Please fix it.\n");
 			return 1;

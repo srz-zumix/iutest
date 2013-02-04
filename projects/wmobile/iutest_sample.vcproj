@@ -1102,6 +1102,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\impl\iutest_port.ipp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\impl\iutest_regex.ipp"
 					>
 				</File>

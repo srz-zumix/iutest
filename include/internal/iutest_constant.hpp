@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -30,7 +30,7 @@ namespace helper
 /**
  * @brief	文字列定数
 */
-template<typename DMY=void>
+template<typename DMY>
 struct kStringsT
 {
 	static const char* const DefaultXmlReportFileName;	//!< デフォルト xml 出力ファイル名
@@ -45,19 +45,45 @@ const char* const kStringsT<DMY>::UnkownFile =  "unkown file";
 template<typename DMY>
 const char* const kStringsT<DMY>::Null =  "NULL";
 
+#if IUTEST_HAS_LIB 
+
+#if IUTEST_HAS_EXTERN_TEMPLATE
+
+IUTEST_PRAGMA_EXTERN_TEMPLATE_WARN_DISABLE_BEGIN()
+
+extern template struct kStringsT<void>;
+
+IUTEST_PRAGMA_EXTERN_TEMPLATE_WARN_DISABLE_END()
+
+#else
+
+template struct kStringsT<void>;
+
+#endif
+#endif
+
 }	// end of namespace helper
 
 /** @internal */
-typedef helper::kStringsT<>	kStrings;
+typedef helper::kStringsT<void>	kStrings;
 
 /**
  * @brief	定数群
 */
 struct kValues
 {
+#if defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
+	enum
+	{
+		MaxPrintContainerCount = 32
+		, PrintArrayThreshold = 16
+		, PrintArrayChunksize = PrintArrayThreshold/2
+	};
+#else
 	static const size_t	MaxPrintContainerCount = 32;
 	static const size_t	PrintArrayThreshold = 18;
 	static const size_t	PrintArrayChunksize = PrintArrayThreshold/2;
+#endif
 };
 
 }	// end of namespace detail

@@ -146,8 +146,17 @@ $(TARGETS2) : $(SRCS) $(IUTEST_HEADERS) Makefile
 
 else
 
+ifdef USE_LIB
+CXXFLAGS += -DIUTEST_USE_LIB=1 -L../lib
+$(TARGETS) : $(SRCS) $(IUTEST_HEADERS) Makefile
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp -liutest
+
+else
+
 $(TARGETS) : $(SRCS) $(IUTEST_HEADERS) Makefile
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp
+
+endif
 
 endif
 

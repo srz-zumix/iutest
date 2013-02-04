@@ -30,12 +30,6 @@
 #  include <locale.h>
 #endif
 
-#ifdef IUTEST_OS_NACL
-#  include <ppapi/cpp/var.h>
-#  include <ppapi/cpp/instance.h>
-#  include <ppapi/cpp/module.h>
-#endif
-
 namespace iutest {
 
 #ifdef IUTEST_OS_NACL
@@ -43,37 +37,10 @@ namespace nacl
 {
 
 /**
- * @brief	PostMessage
+ * @brief	printf
 */
-inline void	PostMessage(const pp::Var& var)
-{
-	::pp::Module* module = ::pp::Module::Get();
-	if( module != NULL )
-	{
-		if( module->current_instances().size() > 0 )
-		{
-			module->current_instances().begin()->second->PostMessage(var);
-		}
-	}
-}
-inline void	vprint_message(const char *fmt, va_list va)
-{
-	char msg[1024];
-	vsnprintf(msg, sizeof(msg), fmt, va);
-	char* tp = strtok(msg, "\n");
-	while( tp != NULL )
-	{
-		PostMessage(pp::Var(tp));
-		tp = strtok(NULL, "\n");
-	}
-}
-inline void	print_message(const char *fmt, ...)
-{
-	va_list va;
-	va_start(va, fmt);
-	vprint_message(fmt, va);
-	va_end(va);
-}
+void	vprint_message(const char *fmt, va_list va);
+void	print_message(const char *fmt, ...);
 
 }
 #endif
@@ -82,68 +49,18 @@ namespace internal {
 namespace posix
 {
 
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+const char* GetEnv(const char* name);
+int PutEnv(const char* expr);
 
-inline const char* GetEnv(const char* name)
-{
-#if defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_NO_GETENV)
-	IUTEST_UNUSED_VAR(name);
-	return NULL;
-#elif defined(__BORLANDC__) || defined(__SunOS_5_8) || defined(__SunOS_5_9)
-	const char* env = getenv(name);
-	return (env != NULL && env[0] != '\0') ? env : NULL;
-#else
-	return getenv(name);
-#endif
-}
+const char* GetCWD(char* buf, size_t length);
+::std::string GetCWD(void);
 
-inline int PutEnv(const char* expr)
-{
-#if defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_NO_PUTENV)
-	IUTEST_UNUSED_VAR(expr);
-	return -1;
-#else
-	return putenv(const_cast<char*>(expr));
-#endif
-}
-
-inline const char* GetCWD(char* buf, size_t length)
-{
-#if	defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_NO_GETCWD)
-	if( buf == NULL || length < 3 ) return NULL;
-	buf[0] = '.';
-	buf[1] = '/';
-	buf[2] = '\0';
-	return buf;
-#elif defined(IUTEST_OS_WINDOWS)
-	return ::GetCurrentDirectoryA(static_cast<DWORD>(length), buf) == 0 ? NULL : buf;
-#else
-	return getcwd(buf, length);
-#endif
-}
-
-inline ::std::string GetCWD(void)
-{
-	char buf[260];
-	return GetCWD(buf, 260);
-}
-
-inline void SleepMillisec(unsigned int millisec)
-{
-#if		defined(IUTEST_OS_WINDOWS)
-	Sleep(millisec);
-#elif	defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN)
-	usleep(millisec*1000);
-#else
-	volatile int x=0;
-	for( unsigned int i=0; i < millisec; ++i ) x += 1;
-	IUTEST_UNUSED_VAR(x);
-#endif
-}
-
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+void SleepMillisec(unsigned int millisec);
 
 }	// end of namespace posix
+
+inline void SleepMilliseconds(int n)	{ posix::SleepMillisec(static_cast<unsigned int>(n)); }
+
 }	// end of namespace internal
 
 namespace detail
@@ -154,17 +71,8 @@ namespace posix = internal::posix;
 /**
  * @brief	環境変数の設定
 */
-inline bool SetEnvironmentVariable(const char* name, const char* value)
-{
-#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
-	return ::SetEnvironmentVariableA(name, value) ? true : false;
-#else
-	::std::string var = name;
-	var += "=";
-	var += value;
-	return internal::posix::PutEnv(var.c_str()) == 0 ? true : false;
-#endif
-}
+bool SetEnvironmentVariable(const char* name, const char* value);
+
 
 /**
  * @brief	環境変数の取得
@@ -172,20 +80,12 @@ inline bool SetEnvironmentVariable(const char* name, const char* value)
  * @param [out]	buf		= 出力バッファ
  * @return	成否
 */
-template<typename T, size_t SIZE>
-inline bool GetEnvironmentVariable(const char* name, T (&buf)[SIZE])
+bool GetEnvironmentVariable(const char* name, char* buf, size_t size);
+
+template<size_t SIZE>
+inline bool GetEnvironmentVariable(const char* name, char (&buf)[SIZE])
 {
-#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
-	DWORD ret = ::GetEnvironmentVariableA(name, buf, SIZE);
-	if( ret == 0 ) return false;
-	if( ret > SIZE ) return false;
-	return true;
-#else
-	const char* env = internal::posix::GetEnv(name);
-	if( env == NULL ) return false;
-	strcpy(buf, env);
-	return true;
-#endif
+	return GetEnvironmentVariable(name, buf, SIZE);
 }
 
 /**
@@ -194,20 +94,7 @@ inline bool GetEnvironmentVariable(const char* name, T (&buf)[SIZE])
  * @param [out]	var		= 出力文字列
  * @return	成否
 */
-inline bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentVariable(const char* name, ::std::string& var)
-{
-#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
-	char buf[2048];
-	if( !GetEnvironmentVariable(name, buf) ) return false;
-	var = buf;
-	return true;
-#else
-	const char* env = internal::posix::GetEnv(name);
-	if( env == NULL ) return false;
-	var = env;
-	return true;
-#endif
-}
+bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentVariable(const char* name, ::std::string& var);
 
 /**
  * @brief	環境変数の取得
@@ -215,22 +102,7 @@ inline bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentVariable(const char* name, ::
  * @param [out]	var		= 出力数値
  * @return	成否
 */
-inline bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentInt(const char* name, int& var)
-{
-#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
-	char buf[128] = {0};
-	if( !GetEnvironmentVariable(name, buf) ) return false;
-	char* end = NULL;
-	var = static_cast<int>(strtol(buf, &end, 0));
-	return true;
-#else
-	const char* env = internal::posix::GetEnv(name);
-	if( env == NULL ) return false;
-	char* end = NULL;
-	var = static_cast<int>(strtol(env, &end, 0));
-	return true;
-#endif
-}
+bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentInt(const char* name, int& var);
 
 #if defined(IUTEST_OS_WINDOWS)
 namespace win
@@ -239,58 +111,23 @@ namespace win
 /**
  * @brief	文字列変換
 */
-inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const wchar_t* wide_c_str)
-{
-	if( wide_c_str == NULL ) return "(null)";
-	::std::string str;
-	const int length = static_cast<int>(wcslen(wide_c_str)) * 2 + 1;
-	char* mbs = new char [length];
-	WideCharToMultiByte(932, 0, wide_c_str, static_cast<int>(wcslen(wide_c_str))+1, mbs, length, NULL, NULL);
-	str = mbs;
-	delete [] mbs;
-	return str;
-}
+::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const wchar_t* wide_c_str);
 
 /**
  * @brief	HRESULT のエラー文字列を取得
  * @param [in]	hr	= エラー値
  * @return	文字列
 */
-inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ GetHResultString(HRESULT hr)
-{
-#if defined(IUTEST_OS_WINDOWS_MOBILE)
-	LPWSTR buf = NULL;
-	FormatMessageW(
-		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-		NULL,
-		hr,
-		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // デフォルト ユーザー言語
-		(LPWSTR)&buf,
-		0,
-		NULL );
-
-	::std::string str = (buf == NULL) ? "" : WideStringToMultiByteString(buf);
-#else
-	LPSTR buf = NULL;
-	FormatMessageA(
-		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-		NULL,
-		hr,
-		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // デフォルト ユーザー言語
-		(LPSTR)&buf,
-		0,
-		NULL );
-
-	::std::string str = (buf == NULL) ? "" : buf;
-#endif
-	LocalFree(buf);
-	return str;
-}
+::std::string IUTEST_ATTRIBUTE_UNUSED_ GetHResultString(HRESULT hr);
 
 }	// end of namespace win
 #endif
 
 }	// end of namespace detail
 }	// end of namespace iutest
+
+#if !IUTEST_HAS_LIB
+#  include "../impl/iutest_port.ipp"
+#endif
 
 #endif

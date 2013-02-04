@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 #if !defined(IUTEST_USE_GTEST)
 
 #define DECL_TEST(n)	IUTEST(Foo, Bar##n) {	\
-							::iutest::internal::posix::SleepMillisec(100); }
+							::iutest::internal::SleepMilliseconds(100); }
 
 
 DECL_TEST(0)

@@ -18,9 +18,11 @@
 //======================================================================
 // include
 #define IUTEST_USE_LIB
+#define IUTEST_HAS_EXTERN_TEMPLATE 0
 #include "../include/iutest.hpp"
 
 // ipp
+#include "../include/impl/iutest_port.ipp"
 #include "../include/impl/iutest_body.ipp"
 #include "../include/impl/iutest_case.ipp"
 #include "../include/impl/iutest_core.ipp"
@@ -35,4 +37,3 @@
 
 #include "../include/impl/iutest_default_printer.ipp"
 #include "../include/impl/iutest_default_xml_generator.ipp"
-

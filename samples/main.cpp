@@ -25,8 +25,13 @@
 */
 #include "../include/iutest.hpp"
 
-#ifdef USE_TAP
+#define USE_TAP
+
+#if defined(USE_TAP)
 #include "../include/listener/iutest_tap_printer.hpp"
+#endif
+#if defined(USE_PROGRESS)
+#include "../include/listener/iutest_progress_printer.hpp"
 #endif
 
 /** --------------------------------------------------
@@ -69,11 +74,12 @@ int main(int argc, char* argv[])
 	//iutest::IUTEST_FLAG(throw_on_failure) = true;
 	IUTEST_INIT(&argc, argv);
 
-#ifdef USE_TAP
-	::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-	delete listeners.Release(listeners.default_result_printer());
-	//listeners.Append( new ::iutest::TAPFileGeneratorListener("./t") );
-	listeners.Append( new ::iutest::TAPPrintListener );
+#if defined(USE_TAP)
+	::iutest::SetUpTAPPrintListener();
+#endif
+
+#if defined(USE_PROGRESS)
+	::iutest::SetUpProgressPrintListener();
 #endif
 
 	//::iuutil::SetUpQuietResultPrinter();

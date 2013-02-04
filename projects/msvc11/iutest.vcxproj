@@ -244,6 +244,7 @@
     <None Include="..\..\include\impl\iutest_info.ipp" />
     <None Include="..\..\include\impl\iutest_listener.ipp" />
     <None Include="..\..\include\impl\iutest_message.ipp" />
+    <None Include="..\..\include\impl\iutest_port.ipp" />
     <None Include="..\..\include\impl\iutest_regex.ipp" />
     <None Include="..\..\doc\Doxyfile" />
     <None Include="..\..\doc\index.html" />

@@ -65,7 +65,9 @@ CXXFLAGS += $(DEFS)
 TESTS = sample
 
 # lib
-LIBS = iutest.a iutest_main.a
+LIBRARY_INSTALL_PATH=$(IUTEST_DIR)/lib
+LIBS_ = iutest.a iutest_main.a
+LIBS  = $(LIBS_:%=$(LIBRARY_INSTALL_PATH)/lib%)
 
 # All iutest headers.  Usually you shouldn't change this
 # definition.
@@ -93,16 +95,23 @@ run : $(TESTS)
 
 # Builds a library
 .o.a : $(IUTEST_SRCS)
-	$(AR) $(ARFLAGS) $@ $^
+	$(AR) $(ARFLAGS) $(LIBRARY_INSTALL_PATH)/lib$@ $^
 
 iutest.a : iutest_all.o
-	$(AR) $(ARFLAGS) $@ $^
+	$(AR) $(ARFLAGS) $(LIBRARY_INSTALL_PATH)/lib$@ $^
 
 iutest_all.o : $(IUTEST_DIR)/src/iutest_all.cpp $(IUTEST_SRCS)
 	$(CXX) $(CPPFLAGS) -I$(IUTEST_DIR) $(CXXFLAGS) -c $(IUTEST_DIR)/src/iutest_all.cpp
 
 iutest_main.o : $(IUTEST_DIR)/src/iutest_main.cpp $(IUTEST_SRCS)
 	$(CXX) $(CPPFLAGS) -I$(IUTEST_DIR) $(CXXFLAGS) -c $(IUTEST_DIR)/src/iutest_main.cpp
+
+$(LIBRARY_INSTALL_PATH):
+	@if [ ! -d $(IUTEST_DIR)/libs ]; then \
+		mkdir -p $@; \
+	fi
+
+$(LIBS) : $(LIBRARY_INSTALL_PATH) $(LIBS_)
 
 # Builds a sample test.  
 

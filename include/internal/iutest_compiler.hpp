@@ -344,6 +344,19 @@
 #  endif
 #endif
 
+// extern template
+#ifndef IUTEST_HAS_EXTERN_TEMPLATE
+#  if defined(_MSC_VER) && _MSC_VER >= 1400
+#    define IUTEST_HAS_EXTERN_TEMPLATE	1
+#  elif defined(__GNUC__) || defined(__clang__)
+#    define IUTEST_HAS_EXTERN_TEMPLATE	1
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_EXTERN_TEMPLATE
+#  define IUTEST_HAS_EXTERN_TEMPLATE	0
+#endif
+
 // c++
 // attribute
 #ifndef IUTEST_ATTRIBUTE_UNUSED_

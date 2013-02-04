@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -58,7 +58,6 @@ inline void ProgressPrintListener::OnTestIterationStart(const UnitTest& test
 
 	m_should_run_num = test.test_to_run_count();
 	m_ran_num = 0;
-	detail::iuConsole::output("\r");
 }
 inline void ProgressPrintListener::OnTestEnd(const TestInfo& test_info)
 {
@@ -66,10 +65,11 @@ inline void ProgressPrintListener::OnTestEnd(const TestInfo& test_info)
 
 	++m_ran_num;
 	const int star_count = 51;
-	const int n = (m_ran_num * star_count) / m_should_run_num;
-	char progress[52] = "\r";
-	for( int i=1; i < n+1; ++i ) progress[i] = '*';
-	progress[n+1] = '\0';
+	int n = (m_ran_num * star_count) / m_should_run_num;
+	char progress[52] = {0};
+	for( int i=0; i < n; ++i ) progress[i] = '*';
+	progress[n++] = m_ran_num == m_should_run_num ? '\n' : '\r';
+	progress[n++] = '\0';
 	detail::iuConsole::output(progress);
 }
 
