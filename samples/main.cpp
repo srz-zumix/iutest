@@ -25,8 +25,6 @@
 */
 #include "../include/iutest.hpp"
 
-#define USE_TAP
-
 #if defined(USE_TAP)
 #include "../include/listener/iutest_tap_printer.hpp"
 #endif
