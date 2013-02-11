@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -205,15 +205,18 @@ IUTEST(AssertionTest, Near)
 
 IUTEST(AssertionTest, Null)
 {
-	int* p1 = NULL;
-	IUTEST_ASSERT_NULL(p1);
-	IUTEST_EXPECT_NULL(p1);
-	IUTEST_INFORM_NULL(p1);
-	
-	void* p2 = &p1;
-	IUTEST_ASSERT_NOTNULL(p2);
-	IUTEST_EXPECT_NOTNULL(p2);
-	IUTEST_INFORM_NOTNULL(p2);
+	int* p = NULL;
+	IUTEST_ASSERT_NULL(p);
+	IUTEST_EXPECT_NULL(p);
+	IUTEST_INFORM_NULL(p);
+}
+
+IUTEST(AssertionTest, NotNull)
+{
+	void* p = this;
+	IUTEST_ASSERT_NOTNULL(p);
+	IUTEST_EXPECT_NOTNULL(p);
+	IUTEST_INFORM_NOTNULL(p);
 }
 
 IUTEST(AssertionTest, Same)
@@ -227,11 +230,15 @@ IUTEST(AssertionTest, Same)
 
 #if defined(IUTEST_OS_WINDOWS)
 
-IUTEST(AssertionTest, HResult)
+IUTEST(AssertionTest, HResultSucceeded)
 {
 	IUTEST_ASSERT_HRESULT_SUCCEEDED(0);
 	IUTEST_EXPECT_HRESULT_SUCCEEDED(0);
 	IUTEST_INFORM_HRESULT_SUCCEEDED(0);
+}
+
+IUTEST(AssertionTest, HResultFailed)
+{
 	IUTEST_ASSERT_HRESULT_FAILED(-1);
 	IUTEST_EXPECT_HRESULT_FAILED(-1);
 	IUTEST_INFORM_HRESULT_FAILED(-1);
@@ -240,6 +247,9 @@ IUTEST(AssertionTest, HResult)
 #endif
 
 #if IUTEST_HAS_EXCEPTIONS
+
+namespace assertion_test
+{
 
 static void	ExceptionFunction(int i)
 {
@@ -264,31 +274,49 @@ static void	ExceptionFunction(int i)
 	}
 }
 
-IUTEST(AssertionTest, Exception)
+IUTEST(AssertionTest, ExceptionThrow)
 {
 	//IUTEST_ASSERT_THROW(throw ::std::bad_exception(), ::std::bad_exception);
-	IUTEST_ASSERT_ANY_THROW(throw ::std::bad_exception());
 	IUTEST_ASSERT_THROW(ExceptionFunction(2), ::std::bad_exception);
 	IUTEST_EXPECT_THROW(ExceptionFunction(2), ::std::bad_exception);
 	IUTEST_INFORM_THROW(ExceptionFunction(2), ::std::bad_exception);
+}
+
+IUTEST(AssertionTest, ExceptionAnyThrow)
+{
+	IUTEST_ASSERT_ANY_THROW(throw ::std::bad_exception());
 	IUTEST_ASSERT_ANY_THROW(throw 1);
 	IUTEST_ASSERT_ANY_THROW(ExceptionFunction(1));
 	IUTEST_EXPECT_ANY_THROW(ExceptionFunction(1));
 	IUTEST_INFORM_ANY_THROW(ExceptionFunction(1));
+}
+
+IUTEST(AssertionTest, ExceptionNoThrow)
+{
 	IUTEST_ASSERT_NO_THROW((void)0);
 	IUTEST_ASSERT_NO_THROW(ExceptionFunction(0));
 	IUTEST_EXPECT_NO_THROW(ExceptionFunction(0));
 	IUTEST_INFORM_NO_THROW(ExceptionFunction(0));
-	
+}
+
+IUTEST(AssertionTest, ExceptionValueEQ)
+{
 	IUTEST_ASSERT_THROW_VALUE_EQ(throw 2, int, 2);
 	IUTEST_ASSERT_THROW_VALUE_EQ(ExceptionFunction(1), int, 2);
 	IUTEST_EXPECT_THROW_VALUE_EQ(ExceptionFunction(1), int, 2);
 	IUTEST_INFORM_THROW_VALUE_EQ(ExceptionFunction(1), int, 2);
+}
+	
+IUTEST(AssertionTest, ExceptionValueNE)
+{
 	IUTEST_ASSERT_THROW_VALUE_NE(throw 2, int, 0);
 	IUTEST_ASSERT_THROW_VALUE_NE(ExceptionFunction(1), int, 0);
 	IUTEST_EXPECT_THROW_VALUE_NE(ExceptionFunction(1), int, 0);
 	IUTEST_INFORM_THROW_VALUE_NE(ExceptionFunction(1), int, 0);
-	
+}
+
+IUTEST(AssertionTest, ExceptionValueSTREQ)
+{
 	IUTEST_ASSERT_THROW_VALUE_STREQ(throw "error", const char *, "error");
 	IUTEST_ASSERT_THROW_VALUE_STREQ(ExceptionFunction(3), const char *, "error");
 	IUTEST_EXPECT_THROW_VALUE_STREQ(ExceptionFunction(3), const char *, "error");
@@ -297,28 +325,21 @@ IUTEST(AssertionTest, Exception)
 	IUTEST_ASSERT_THROW_VALUE_STREQ(ExceptionFunction(4), ::std::string, "error");
 	IUTEST_EXPECT_THROW_VALUE_STREQ(ExceptionFunction(4), ::std::string, "error");
 	IUTEST_INFORM_THROW_VALUE_STREQ(ExceptionFunction(4), ::std::string, "error");
+}
 
+IUTEST(AssertionTest, ExceptionValueSTRCASEEQ)
+{
 	IUTEST_ASSERT_THROW_VALUE_STRCASEEQ(throw "error", const char *, "Error");
 	IUTEST_ASSERT_THROW_VALUE_STRCASEEQ(ExceptionFunction(3), const char *, "Error");
 	IUTEST_EXPECT_THROW_VALUE_STRCASEEQ(ExceptionFunction(3), const char *, "Error");
 	IUTEST_INFORM_THROW_VALUE_STRCASEEQ(ExceptionFunction(3), const char *, "Error");
-	
+}
+
+IUTEST(AssertionTest, ExceptionValueFormat)
+{
 	IUTEST_ASSERT_THROW_PRED_FORMAT2(::iutest::internal::CmpHelperFloatingPointEQ<float>, ExceptionFunction(5), float, 0.1f);
 }
 
-class exception_test
-{
-public:
-	exception_test(const ::std::vector<int>&)
-	{
-		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw ::std::exception());
-	}
-};
-
-IUTEST(AssertionTest, Exception2)
-{
-	::std::vector<int> a;
-	IUTEST_ASSERT_THROW(exception_test(a), ::std::exception);
 }
 
 #endif

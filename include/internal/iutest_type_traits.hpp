@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -33,13 +33,21 @@ namespace iutest_type_traits
 template<bool B>
 struct bool_constant
 {
+#if defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
+	enum { value = B };
+#else
 	static const bool	value = B;
+#endif
 };
+#if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
 template<bool B>const bool bool_constant<B>::value;
+#endif
 
 typedef bool_constant<true>		true_type;
 typedef bool_constant<false>	false_type;
 
+
+#if !defined(IUTEST_NO_PARTIAL_TEMPLATE_SPECIALIZATION)
 
 /**
  * @brief	remove_const
@@ -438,6 +446,8 @@ class function_return_type
 public:
 	typedef typename impl< typename remove_cv<T>::type >::type type;
 };
+
+#endif	// #if !defined(IUTEST_NO_PARTIAL_TEMPLATE_SPECIALIZATION)
 
 }	// end of namespace iutest_type_traits
 

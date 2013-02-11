@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -162,8 +162,8 @@
 #define IUTEST_ASSERT_GT		ASSERT_GT
 #define IUTEST_ASSERT_GE		ASSERT_GE
 #define IUTEST_ASSERT_NEAR		ASSERT_NEAR
-#define IUTEST_ASSERT_NULL(v)	ASSERT_EQ(NULL, v)
-#define IUTEST_ASSERT_NOTNULL(v)	ASSERT_TRUE(NULL != (v))
+#define IUTEST_ASSERT_NULL(v)		IUTEST_THROUGH_ANALYSIS_ASSUME((v) == NULL, ASSERT_EQ(NULL, v))
+#define IUTEST_ASSERT_NOTNULL(v)	IUTEST_THROUGH_ANALYSIS_ASSUME((v) != NULL, ASSERT_TRUE(NULL != (v)))
 #define IUTEST_ASSERT_SAME(v1, v2)	ASSERT_PRED_FORMAT2(::testing::internal::CmpHelperSame, v1, v2)
 #define IUTEST_ASSERT_FLOAT_EQ	ASSERT_FLOAT_EQ
 #define IUTEST_ASSERT_DOUBLE_EQ	ASSERT_DOUBLE_EQ

@@ -125,6 +125,11 @@ public:
 	 * @param [in]	max	= [0,max) ‚Ì—”‚ğ¶¬
 	*/
 	unsigned int	genrand(unsigned int max)	{ return m_random.genrand(max); }
+	/**
+	 * @overload
+	 * @param [in]	max	= [0,1] ‚Ì—”‚ğ¶¬
+	*/
+	float			genrandf(void)				{ return m_random.genrandf(); }
 	/** —”ƒV[ƒh‚Ìæ“¾ */
 	unsigned int	random_seed(void)			{ return m_random_seed; }
 

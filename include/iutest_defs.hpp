@@ -92,13 +92,7 @@ class floating_point
 private:
 	typedef floating_point<RawType>	_Myt;
 
-	template<typename T, typename DMY>
-	struct impl				 { typedef detail::type_least_t<4>	type; };
-	template<typename DMY>
-	struct impl<double, DMY> { typedef detail::type_least_t<8>	type; };
-
-
-	typedef typename impl<RawType, void>::type	type;
+	typedef typename detail::type_least_t<sizeof(RawType)>	type;
 	typedef typename type::Int	Int;
 	typedef typename type::UInt	UInt;
 	union FInt
@@ -130,8 +124,8 @@ public:
 	 * @brief	コンストラクタ
 	*/
 	floating_point(const _Myt& rhs)
+		: m_v(rhs.m_v)
 	{
-		m_v.uv = rhs.m_v.uv;
 	}
 
 public:
@@ -212,7 +206,7 @@ public:
 	bool	operator == (const _Myt& rhs) const	{ return m_v.uv == rhs.m_v.uv; }	//!< 比較
 
 private:
-	template<typename T, typename DMY>
+	template<size_t N, typename DMY>
 	struct ieee 
 	{
 		enum
@@ -222,7 +216,7 @@ private:
 		};
 	};
 	template<typename DMY>
-	struct ieee<double, DMY>
+	struct ieee<8, DMY>
 	{
 		enum
 		{
@@ -232,8 +226,8 @@ private:
 	};
 	enum
 	{
-		  EXP  = ieee<RawType, void>::EXP
-		, FRAC = ieee<RawType, void>::FRAC
+		  EXP  = ieee<sizeof(RawType), void>::EXP
+		, FRAC = ieee<sizeof(RawType), void>::FRAC
 	};
 	enum
 	{

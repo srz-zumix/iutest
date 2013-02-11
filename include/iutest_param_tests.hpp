@@ -173,9 +173,17 @@ detail::iuIParamGenerator<T>*	Range(T begin, T end, T step=1)
 /**
  * @brief	真偽値パラメータ
 */
-inline detail::iuIParamGenerator<bool> IUTEST_ATTRIBUTE_UNUSED_ * Bool(void)
+inline detail::iuIParamGenerator<bool>* IUTEST_ATTRIBUTE_UNUSED_ Bool(void)
 {
 	return new detail::iuBoolParamsGenerator<bool>();
+}
+
+/**
+ * @brief	乱数値パラメータ
+*/
+inline detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_ RandomValues(size_t num)
+{
+	return detail::iuRandomParamsHolder(num);
 }
 
 /**

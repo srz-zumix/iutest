@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -91,12 +91,35 @@ public:
 		return genrand()%max;
 	}
 
+	/**
+	 * @brief	—”‚Ì¶¬
+	 * @details	[0,1] ‚Ì—”‚ğ¶¬
+	 * @return	—”
+	*/
+	float				genrandf(void)
+	{
+		return static_cast<float>(genrand())*(1.0f/4294967295.0f);
+	}
+
+	/**
+	 * @brief	—”‚Ì¶¬
+	 * @return	—”
+	*/
+	template<typename T>
+	T genrand(void)
+	{
+		if( sizeof(T) == sizeof(unsigned int) ) return static_cast<T>(genrand());
+		return static_cast<T>(genrand( static_cast<unsigned int>( static_cast<T>(-1) ) ));
+	}
 public:
 	unsigned int operator ()(unsigned int max)
 	{
 		return genrand(max);
 	}
 };
+
+template<> inline float		iuRandom::genrand<float>(void)	{ return genrandf(); }
+template<> inline double	iuRandom::genrand<double>(void)	{ return static_cast<double>(genrandf()); }
 
 }	// end of namespace detail
 }	// end of namespace iutest

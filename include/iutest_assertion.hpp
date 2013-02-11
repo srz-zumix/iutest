@@ -86,6 +86,8 @@ public:
 	static AssertionResult	Failure(void)	{ return AssertionResult(false); }
 
 private:
+	IUTEST_PP_DISALLOW_ASSIGN(AssertionResult);
+
 	bool	m_result;
 };
 

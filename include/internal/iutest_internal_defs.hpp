@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -83,11 +83,15 @@ namespace type_traits = iutest_type_traits;
 namespace detail
 {
 
+typedef void	void_t;	// default template 引数用 (一部のコンパイラで = void だエラーになるため)
+
 //======================================================================
 // class
 
 // detail から使えるようにする
 using namespace iutest_type_traits;
+
+#if !defined(IUTEST_NO_PARTIAL_TEMPLATE_SPECIALIZATION)
 
 template<typename Ite>
 struct IteratorTraits
@@ -104,6 +108,8 @@ struct IteratorTraits<const T*>
 {
 	typedef T	type;
 };
+
+#endif
 
 /**
  * @brief	delete
@@ -190,6 +196,8 @@ struct IsContainerHelper
 /**
  * @brief	enable_if
 */
+#if !defined(IUTEST_NO_PARTIAL_TEMPLATE_SPECIALIZATION)
+
 template<bool B, typename T>
 struct enable_if
 {
@@ -198,7 +206,30 @@ struct enable_if
 template<typename T>
 struct enable_if<false, T> {};
 
-template<class COND, typename T = void>
+#else
+
+namespace helper
+{
+	template<bool B>
+	struct enable_if_impl_
+	{
+		template<typename T>struct inner { typedef T type; };
+	};
+	template<>
+	struct enable_if_impl_<false>
+	{
+		template<typename T>struct inner {};
+	};
+}
+
+template<bool B, typename T>
+struct enable_if : public helper::enable_if_impl_<B>::template inner<T>
+{
+};
+
+#endif
+
+template<class COND, typename T = void_t>
 struct enable_if_t : public enable_if<COND::value, T> {};
 
 /**
@@ -206,7 +237,7 @@ struct enable_if_t : public enable_if<COND::value, T> {};
 */
 template<bool B, typename T>
 struct disable_if : public enable_if<!B, T> {};
-template<class COND, typename T = void>
+template<class COND, typename T = void_t>
 struct disable_if_t : public disable_if<COND::value, T> {};
 
 template<typename TN>

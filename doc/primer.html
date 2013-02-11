@@ -129,6 +129,31 @@ IUTEST(Hoge, Inform)
 }
 </pre>
       </li>
+      <li>Visual Studio コード分析に対応<br />
+      コード分析では NULL ポインタ参照の可能性のあるコードに警告(C6011)が報告されます。<br />
+      下記のようなコードの場合、コード分析ツールに p が NULL でないことを __analysis_assume で教えることでより正しく分析されます。<br />
+<pre class="source">
+IUTTEST(NullCheck, Sample)
+{
+    int* p = (int*)malloc(4);
+    IUTEST_ASSERT_TRUE(p != NULL);
+    __analysis_assume(p != NULL);
+    *p = 1;
+    IUTEST_ASSERT_EQ(1, *p);
+}
+</pre>
+      しかし、このような __analysis_assume は冗長な記述です。<br />
+      iutest では、IUTEST_*_NOTNULL, IUTEST_*_NULL を使用することで、__analysis_assume の記述を省くことができます。<br />
+<pre class="source">
+IUTEST(NullCheck, Sample)
+{
+    int* p = (int*)malloc(4);
+    IUTEST_ASSERT_NOTNULL(p);
+    *p = 1;
+    IUTEST_ASSERT_EQ(1, *p);
+}
+</pre>
+      </li>
     </ul>
   </li>
   <li>イベントリスナー

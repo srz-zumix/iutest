@@ -28,6 +28,12 @@
 	TypeName& operator = ( const TypeName& )
 
 /**
+ * @brief	代入禁止定義
+*/
+#define IUTEST_PP_DISALLOW_ASSIGN(TypeName)		\
+	TypeName& operator = ( const TypeName& )
+
+/**
  * @brief	コピー/ムーブ禁止定義
 */
 #if defined(IUTEST_HAS_RVALUE_REFS) && IUTEST_HAS_RVALUE_REFS

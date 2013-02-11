@@ -127,8 +127,7 @@
 */
 #define IUTEST_TEST_ASSERT_(expression, on_failure)	\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_					\
-	if( ::iutest::detail::add_revalue_reference<	\
-		const ::iutest::AssertionResult>::type iutest_ar = IUTEST_MAKE_ASSERTIONRESULT_(expression) )	\
+	if( const ::iutest::AssertionResult iutest_ar = IUTEST_MAKE_ASSERTIONRESULT_(expression) )	\
 		;											\
 	else											\
 		on_failure(iutest_ar.message())
@@ -238,8 +237,7 @@
 
 #define IUTEST_TEST_BOOLEAN_(expression, text, actual, expected, on_failure)	\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_												\
-	if( ::iutest::detail::add_revalue_reference<const ::iutest::AssertionResult>::type	\
-		iutest_ar = ::iutest::AssertionResult((expression) ? true : false) )	\
+	if( const ::iutest::AssertionResult iutest_ar = ::iutest::AssertionResult((expression) ? true : false) )	\
 		;																		\
 	else																		\
 		on_failure(::iutest::internal::GetBooleanAssertionFailureMessage(		\
@@ -261,6 +259,26 @@
 #define IIUT_SCOPED_MESSAGE(msg_)			\
 	const ::iutest::AssertionHelper::ScopedMessage IUTEST_PP_CAT(scoped_message_, IUTEST_PP_COUNTER) = ::iutest::detail::iuCodeMessage(__FILE__, __LINE__, ::iutest::Message() << (msg_))
 
+/**
+ * @internal
+ * @brief	IUTEST_ANALYSIS_ASSUME_ ‚ð’Ê‚·
+*/
+#if defined(_MSC_VER) && _MSC_VER >= 1500
+
+#define IUTEST_THROUGH_ANALYSIS_ASSUME(expr, todo)					\
+	IUTEST_AMBIGUOUS_ELSE_BLOCKER_									\
+	if( bool b = true ) {											\
+		__analysis_assume(expr);									\
+		goto IUTEST_PP_CAT(iutest_label_analysis_assume, __LINE__);	\
+	} else															\
+		IUTEST_PP_CAT(iutest_label_analysis_assume, __LINE__):		\
+		todo
+
+#else
+
+#define IUTEST_THROUGH_ANALYSIS_ASSUME(expr, todo)	todo
+
+#endif
 
 /**
  * @internal
@@ -293,8 +311,8 @@
 #define IUTEST_TEST_HRESULT_SUCCEEDED(hr, on_failure)	IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTSuccess, hr, on_failure )
 #define IUTEST_TEST_HRESULT_FAILED(hr, on_failure)		IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTFailure, hr, on_failure )
 
-#define IUTEST_TEST_NULL(v, on_failure)					IUTEST_PRED_FORMAT1_( ::iutest::internal::CmpHelperNull, v, on_failure )
-#define IUTEST_TEST_NOTNULL(v, on_failure)				IUTEST_PRED_FORMAT1_( ::iutest::internal::CmpHelperNotNull, v, on_failure )
+#define IUTEST_TEST_NULL(v, on_failure)					IUTEST_THROUGH_ANALYSIS_ASSUME(v==NULL, IUTEST_PRED_FORMAT1_( ::iutest::internal::CmpHelperNull, v, on_failure ))
+#define IUTEST_TEST_NOTNULL(v, on_failure)				IUTEST_THROUGH_ANALYSIS_ASSUME(v!=NULL, IUTEST_PRED_FORMAT1_( ::iutest::internal::CmpHelperNotNull, v, on_failure ))
 
 #define IUTEST_TEST_SAME(v1, v2, on_failure)			IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSame, v1, v2, on_failure )
 

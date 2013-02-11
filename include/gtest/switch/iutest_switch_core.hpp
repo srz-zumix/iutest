@@ -115,6 +115,8 @@
 #undef IUTEST_PP_CAT
 #undef IUTEST_IS_NULLLITERAL
 
+#undef IUTEST_THROUGH_ANALYSIS_ASSUME
+
 #endif
 
 //======================================================================
@@ -151,6 +153,24 @@
 #define IUTEST_PP_CAT	GTEST_CONCAT_TOKEN_
 #define IUTEST_IS_NULLLITERAL	GTEST_IS_NULL_LITERAL_
 
+
+// __analysis_assume
+#if defined(_MSC_VER) && _MSC_VER >= 1500
+
+#define IUTEST_THROUGH_ANALYSIS_ASSUME(expr, todo)					\
+	IUTEST_AMBIGUOUS_ELSE_BLOCKER_									\
+	if( bool b = true ) {											\
+		__analysis_assume(expr);									\
+		goto IUTEST_PP_CAT(iutest_label_analysis_assume, __LINE__);	\
+	} else															\
+		IUTEST_PP_CAT(iutest_label_analysis_assume, __LINE__):		\
+		todo
+
+#else
+
+#define IUTEST_THROUGH_ANALYSIS_ASSUME(expr, todo)	todo
+
+#endif
 
 #endif
 

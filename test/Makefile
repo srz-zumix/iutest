@@ -71,6 +71,7 @@ TARGETS1= iutest_all_tests \
           iutest_catch_exceptions_tests \
           iutest_disabled_tests \
           iutest_environment_tests \
+          iutest_extension_tests \
           iutest_filter_tests \
           iutest_help_tests \
           iutest_listener_tests \

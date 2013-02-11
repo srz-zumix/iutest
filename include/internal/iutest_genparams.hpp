@@ -1155,6 +1155,42 @@ IUTEST_DECL_PAIRWISE_HOLDER_(9);
 
 #endif
 
+/**
+ * @breif	乱数パラメータ生成器
+ * @tparam T	= パラメータ型
+*/
+class iuRandomParamsHolder
+{
+public:
+	iuRandomParamsHolder(size_t num)
+		: m_num(num) {}
+public:
+	template<typename T>
+	operator iuIParamGenerator<T>* () const 
+	{
+		Params<T> params(m_num);
+		return new iuValueInParamsGenerator<T>( params.m_params );
+	}
+private:
+	size_t m_num;
+private:
+	template<typename T>
+	class Params
+	{
+	public:
+		::std::vector<T> m_params;
+		Params(size_t n, unsigned int seed=0)
+		{
+			iuRandom rnd;
+			if( seed != 0 ) rnd.init(seed);
+			for( size_t i=0; i < n; ++i )
+			{
+				m_params.push_back(rnd.genrand<T>());
+			}
+		}
+	};
+};
+
 }	// end of namespace detail
 }	// end of namespace iutest
 
