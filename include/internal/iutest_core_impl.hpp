@@ -158,13 +158,52 @@ namespace detail
 
 /**
  * @brief	テスト名の作成
+ * @param [in]	basename	= ベース名
+ * @param [in]	index		= インデックス
+*/
+template<typename T>
+::std::string MakeTypedTestName(const char* basename, int index)
+{
+#if IUTEST_HAS_RTTI
+	::std::string name = basename;
+	iuStringStream::type strm; strm << index;
+	name += "/";
+	name += GetTypeName<T>();
+	return name;
+#else
+	return MakeIndexTestName(basename, index);
+#endif
+}
+
+/**
+ * @brief	テスト名の作成
  * @param [in]	prefix		= prefix
  * @param [in]	basename	= ベース名
  * @param [in]	index		= インデックス
 */
 ::std::string MakeIndexTestName(const char* prefix, const char* basename, int index);
 
+/**
+ * @brief	テスト名の作成
+ * @param [in]	prefix		= prefix
+ * @param [in]	basename	= ベース名
+ * @param [in]	index		= インデックス
+*/
+template<typename T>
+::std::string MakeIndexTestName(const char* prefix, const char* basename, int index)
+{
+#if IUTEST_HAS_RTTI
+	::std::string name = basename;
+	iuStringStream::type strm; strm << index;
+	name += "/";
+	name += GetTypeName<T>();
+	return name;
+#else
+	return MakeIndexTestName(prefix, basename, index);
+#endif
 }
+
+}	// end of namespace detail
 
 }	// end of namespace iutest
 

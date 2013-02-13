@@ -44,7 +44,7 @@ IUTEST_IPP_INLINE void Test::RecordProperty(const char* key, const char* value)
 	}
 	
 	TestEnv::event_listeners().OnTestRecordProperty(prop);
-};
+}
 
 IUTEST_IPP_INLINE 	void Test::Run(detail::iuITestInfoMediator* test_info)
 {

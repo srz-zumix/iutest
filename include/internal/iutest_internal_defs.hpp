@@ -276,7 +276,9 @@ inline std::string	GetTypeName(void)
 
 #if !IUTEST_HAS_RTTI
 
-#define GeTypeNameSpecialization(type)	template<>inline std::string GetTypeName<type>(void) { return #type; }
+#define GeTypeNameSpecialization(type)	\
+	template<>inline std::string GetTypeName<type>(void) { return #type; }	\
+	template<>inline std::string GetTypeName<type*>(void) { return #type "*"; }
 
 GeTypeNameSpecialization(char)
 GeTypeNameSpecialization(unsigned char)

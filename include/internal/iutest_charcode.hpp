@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -43,35 +43,6 @@ const UInt32 kMaxCodePoint1 = (static_cast<UInt32>(1) << 7) - 1;
 const UInt32 kMaxCodePoint2 = (static_cast<UInt32>(1) << (5+6)) - 1;
 const UInt32 kMaxCodePoint3 = (static_cast<UInt32>(1) << (4+2*6)) - 1;
 const UInt32 kMaxCodePoint4 = (static_cast<UInt32>(1) << (3+3*6)) - 1;
-
-//======================================================================
-// struct
-/**
- * @brief	mbs_ptr
-*/
-template<typename CharType>
-struct mbs_ptr
-{
-	struct wcs_impl
-	{
-		::std::string m_arg;
-		const char* ptr(const wchar_t* arg) 
-		{
-			m_arg = ShowWideCString(arg);
-			return m_arg.c_str();
-		}
-	};
-	struct mbs_impl
-	{
-		const char* ptr(const char* arg) { return arg; }
-	};
-	template<typename T, typename DMY>
-	struct select { typedef mbs_impl type; };
-	template<typename DMY>
-	struct select<wchar_t, DMY> { typedef wcs_impl type; };
-
-	typedef typename select<typename iutest_type_traits::remove_const<CharType>::type, void>::type	type;
-};
 
 //======================================================================
 // function
@@ -241,6 +212,38 @@ inline ::std::string ShowWideCString(const char16_t* wide_c_str)
 	return ShowWideCString(reinterpret_cast<const wchar_t*>(wide_c_str));
 }
 #endif
+
+//======================================================================
+// struct
+namespace mbs_ptr_impl
+{
+	template<typename T>
+	struct to_mbs_ptr
+	{
+		const char* ptr(const char* arg) { return arg; }
+	};
+	struct wcs_to_mbs_ptr
+	{
+		::std::string m_arg;
+		const char* ptr(const wchar_t* arg) 
+		{
+			m_arg = ShowWideCString(arg);
+			return m_arg.c_str();
+		}
+	};
+	template<>
+	struct to_mbs_ptr<wchar_t> : public wcs_to_mbs_ptr {};
+	template<>
+	struct to_mbs_ptr<const wchar_t> : public wcs_to_mbs_ptr {};
+}	// end of namespace mbs_ptr_impl
+
+/**
+ * @brief	mbs_ptr
+*/
+template<typename CharType>
+struct mbs_ptr : public mbs_ptr_impl::to_mbs_ptr<CharType>
+{
+};
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 

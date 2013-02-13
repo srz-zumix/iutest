@@ -173,7 +173,7 @@ private:
 	};
 
 private:
-	friend	class TestEnv;
+	friend class TestEnv;
 
 	int m_test_flags;
 };
@@ -430,7 +430,7 @@ private:
 	template<typename CharType>
 	static bool	ParseCommandLineElem(CharType* argv)
 	{
-		typedef typename detail::mbs_ptr<CharType>::type formatter;
+		typedef typename detail::mbs_ptr<CharType> formatter;
 
 		formatter argv_format;
 		const char* str = argv_format.ptr(argv);

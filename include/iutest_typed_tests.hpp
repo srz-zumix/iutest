@@ -220,6 +220,7 @@ class TypeParamTestInstance
 		EachTest(const char* testcase, const char* name, int index)
 			: m_mediator(UnitTest::instance().AddTestCase<_MyTestCase>(
 				detail::MakeIndexTestName(testcase, index).c_str()
+				//detail::MakeTypedTestName<TypeParam>(testcase, index).c_str()
 				, internal::GetTypeId<detail::None>()	// TypeId ‚ğ“ˆê‚·‚é‚½‚ßƒ_ƒ~[ˆø”‚ğ“n‚·
 				, TestBody::SetUpTestCase
 				, TestBody::TearDownTestCase))
@@ -406,7 +407,9 @@ public:
 		typedef typename Tests::Head	Head;
 		typedef Fixture<Head>			FixtureClass;
 		typedef TypedTestCase<TypeParam>	_MyTestCase;
-		TestCase* testcase = UnitTest::instance().AddTestCase<_MyTestCase>(detail::MakeIndexTestName(prefix, testcase_name, index).c_str()
+		TestCase* testcase = UnitTest::instance().AddTestCase<_MyTestCase>(
+			detail::MakeIndexTestName(prefix, testcase_name, index).c_str()
+			//detail::MakeIndexTestName<TypeParam>(prefix, testcase_name, index).c_str()
 			, internal::GetTypeId<FixtureClass>()
 			, FixtureClass::SetUpTestCase, FixtureClass::TearDownTestCase);
 

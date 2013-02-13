@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -24,39 +24,6 @@
 namespace iutest {
 namespace detail
 {
-
-IUTEST_IPP_INLINE bool	iuRegex::match(const char* regex, const char* src)
-{
-	const char* tp = regex;
-
-	while( *tp != '\0' )
-	{
-		const char* end = tp;
-		while( *end != '\0' && *end != ':' ) ++end;
-
-		{
-			bool match = true;
-			const char* end2 = tp;
-			while( end2 != end )
-			{
-				++end2;
-				while( *end2 != '-' && end2 != end ) ++end2;
-				if( *tp == '-' )
-				{
-					if( match_impl(tp+1, end2, src) ) match = false;
-				}
-				else
-				{
-					if( !match_impl(tp, end2, src) ) match = false;
-				}
-				tp = end2;
-			}
-			if( match ) return true;
-		}
-		tp = end;
-	}
-	return false;
-}
 
 IUTEST_IPP_INLINE bool	iuRegex::match_impl(const char* begin, const char* end, const char* src)
 {
@@ -99,6 +66,39 @@ IUTEST_IPP_INLINE bool	iuRegex::match_impl(const char* begin, const char* end, c
 	}
 	if( *src != '\0' ) return false;
 	return true;
+}
+
+IUTEST_IPP_INLINE bool	iuRegex::match(const char* regex, const char* src)
+{
+	const char* tp = regex;
+
+	while( *tp != '\0' )
+	{
+		const char* end = tp;
+		while( *end != '\0' && *end != ':' ) ++end;
+
+		{
+			bool match = true;
+			const char* end2 = tp;
+			while( end2 != end )
+			{
+				++end2;
+				while( *end2 != '-' && end2 != end ) ++end2;
+				if( *tp == '-' )
+				{
+					if( match_impl(tp+1, end2, src) ) match = false;
+				}
+				else
+				{
+					if( !match_impl(tp, end2, src) ) match = false;
+				}
+				tp = end2;
+			}
+			if( match ) return true;
+		}
+		tp = end;
+	}
+	return false;
 }
 
 }	// end of namespace detail

@@ -238,25 +238,25 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnviromentVariable(void)
 	}
 	{
 		char var[128] = {0};
-		if( detail::GetEnvironmentVariable("IUTEST_COLOR", var)
-		||  detail::GetEnvironmentVariable("GTEST_COLOR", var) )
+		if( detail::GetEnvironmentVariable("IUTEST_COLOR", var, sizeof(var))
+		||  detail::GetEnvironmentVariable("GTEST_COLOR", var, sizeof(var)) )
 		{
 			ParseColorOption(var);
 		}
-		if( detail::GetEnvironmentVariable("IUTEST_FILE_LOCATION", var) )
+		if( detail::GetEnvironmentVariable("IUTEST_FILE_LOCATION", var, sizeof(var)) )
 		{
 			ParseFileLocationOption(var);
 		}
 	}
 	{
 		char path[260+32] = {0};
-		if( detail::GetEnvironmentVariable("IUTEST_OUTPUT", path)
-		||  detail::GetEnvironmentVariable("GTEST_OUTPUT", path) )
+		if( detail::GetEnvironmentVariable("IUTEST_OUTPUT", path, sizeof(path))
+		||  detail::GetEnvironmentVariable("GTEST_OUTPUT", path, sizeof(path)) )
 		{
 			ParseOutputOption(path);
 		}
-		if( detail::GetEnvironmentVariable("IUTEST_FILTER", path)
-		||  detail::GetEnvironmentVariable("GTEST_FILTER", path) )
+		if( detail::GetEnvironmentVariable("IUTEST_FILTER", path, sizeof(path))
+		||  detail::GetEnvironmentVariable("GTEST_FILTER", path, sizeof(path)) )
 		{
 			set_test_filter(path);
 		}

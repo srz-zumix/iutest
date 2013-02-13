@@ -122,12 +122,13 @@ public:
 	unsigned int	genrand(void)				{ return m_random.genrand(); }
 	/**
 	 * @overload
-	 * @param [in]	max	= [0,max) の乱数を生成
+	 * @param [in]	max	= 上限値
+	 * @return		[0,max) の乱数を生成
 	*/
 	unsigned int	genrand(unsigned int max)	{ return m_random.genrand(max); }
 	/**
 	 * @overload
-	 * @param [in]	max	= [0,1] の乱数を生成
+	 * @return		max	= [0,1] の乱数を生成
 	*/
 	float			genrandf(void)				{ return m_random.genrandf(); }
 	/** 乱数シードの取得 */

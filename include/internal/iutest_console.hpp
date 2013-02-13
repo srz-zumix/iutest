@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -90,13 +90,13 @@ public:
 	/**
 	 * @brief	標準出力
 	*/
-	static void	output(const char *fmt, ...);
+	static inline void	output(const char *fmt, ...);
 
 	/**
 	 * @brief	色指定で標準出力
 	 * @param [in]	color	= 文字色
 	*/
-	static void	color_output(Color color, const char *fmt, ...);
+	static inline void	color_output(Color color, const char *fmt, ...);
 
 public:
 	//! Logger のセット
@@ -107,9 +107,9 @@ public:
 		return pre;
 	}
 private:
-	static void color_output_impl(Color color, const char* fmt, va_list va);
-	static void voutput(const char* fmt, va_list va);
-	static bool	IsShouldUseColor(bool use_color);
+	static inline void color_output_impl(Color color, const char* fmt, va_list va);
+	static inline void voutput(const char* fmt, va_list va);
+	static inline bool IsShouldUseColor(bool use_color);
 
 private:
 	static inline bool IsStringEqual(const char* str1, const char* str2) { return strcmp(str1, str2) == 0; }
