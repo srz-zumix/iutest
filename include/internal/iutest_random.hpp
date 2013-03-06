@@ -108,7 +108,6 @@ public:
 	template<typename T>
 	T genrand(void)
 	{
-		if( sizeof(T) == sizeof(unsigned int) ) return static_cast<T>(genrand());
 		return static_cast<T>(genrand( static_cast<unsigned int>( static_cast<T>(-1) ) ));
 	}
 public:

@@ -127,7 +127,16 @@ IUTEST_IPP_INLINE void SleepMillisec(unsigned int millisec)
 #if		defined(IUTEST_OS_WINDOWS)
 	Sleep(millisec);
 #elif	defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN)
+
+#if	_POSIX_C_SOURCE >= 199309L
+	const timespec time = { 0, millisec * 1000 * 1000 };
+	nanosleep(&time, NULL);
+#elif _BSD_SOURCE || (_XOPEN_SOURCE >= 500 || _XOPEN_SOURCE && _XOPEN_SOURCE_EXTENDED) && !(_POSIX_C_SOURCE >= 200809L || _XOPEN_SOURCE >= 700) 
 	usleep(millisec*1000);
+#else
+	usleep(millisec*1000);
+#endif
+
 #else
 	volatile int x=0;
 	for( unsigned int i=0; i < millisec; ++i ) x += 1;

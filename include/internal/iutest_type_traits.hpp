@@ -47,7 +47,7 @@ typedef bool_constant<true>		true_type;
 typedef bool_constant<false>	false_type;
 
 
-#if !defined(IUTEST_NO_PARTIAL_TEMPLATE_SPECIALIZATION)
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 /**
  * @brief	remove_const
@@ -168,23 +168,35 @@ struct is_const : public false_type {};
 template<typename T>
 struct is_const<T const> : public true_type {};
 
-/**
- * @brief	is convertible
-*/
+#endif
+
+namespace helper
+{
+
 template<typename From, typename To>
-class is_convertible
+class is_convertible_type
 {
 	static From	MakeFrom(void);
 
 	static char	IsConvertibleHelper(To);
 	static char (&IsConvertibleHelper(...))[2];
+
+	enum { IsConvertible = sizeof(IsConvertibleHelper(is_convertible_type::MakeFrom())) == 1 ? true : false }; 
 public:
-	static const bool value = (sizeof(IsConvertibleHelper(is_convertible::MakeFrom())) == 1);
+	typedef bool_constant<IsConvertible> type;
 };
 
-template<typename From, typename To>
-const bool is_convertible<From, To>::value;
+}
 
+/**
+ * @brief	is convertible
+*/
+template<typename From, typename To>
+class is_convertible : public helper::is_convertible_type<From, To>::type
+{
+};
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 #ifndef IUTEST_HAS_RVALUE_REFS
 #  if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 2)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
@@ -216,6 +228,15 @@ class add_revalue_reference
 public:
 	typedef typename impl<T, !is_void<T>::value && !is_reference<T>::value >::type type;
 };
+
+#else
+
+template<typename T>
+struct add_revalue_reference { typedef T type; };
+
+#endif
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 /**
  * @brief	is function pointer
@@ -447,7 +468,7 @@ public:
 	typedef typename impl< typename remove_cv<T>::type >::type type;
 };
 
-#endif	// #if !defined(IUTEST_NO_PARTIAL_TEMPLATE_SPECIALIZATION)
+#endif	// #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 }	// end of namespace iutest_type_traits
 

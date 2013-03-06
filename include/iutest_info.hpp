@@ -54,7 +54,7 @@ private:
 		}
 		virtual void	RecordProperty(const TestProperty& prop) IUTEST_CXX_OVERRIDE
 		{
-			return ptr()->RecordProperty(prop);
+			ptr()->RecordProperty(prop);
 		}
 	public:
 		void SetPointer(TestInfo* p) { m_test_info = p; }
@@ -133,6 +133,15 @@ public:
 		return m_test_result.Failed();
 	}
 
+	/**
+	 * @brief	プロパティを保存
+	 * @param [in] prop = プロパティ
+	*/
+	void	RecordProperty(const TestProperty& prop)
+	{
+		m_test_result.RecordProperty(prop);
+	}
+
 public:
 	/** テストのフル名を取得 */
 	::std::string	test_full_name(void)		const
@@ -173,10 +182,6 @@ private:
 	void	RunOnMSC(detail::auto_ptr<Test>& test);
 #endif
 
-	void	RecordProperty(const TestProperty& prop)
-	{
-		m_test_result.RecordProperty(prop);
-	}
 private:
 	/**
 	 * @brief	テストのクリア

@@ -27,6 +27,7 @@ namespace iutest
 
 //======================================================================
 // struct
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 /**
  * @brief	Types
@@ -130,6 +131,8 @@ IUTEST_DECL_TYPES_(49,  1);
 namespace detail
 {
 
+#if !defined(IUTEST_NO_TEMPLATE_TEMPLATES)
+
 /**
  * @brief	Templates
  * @{
@@ -227,6 +230,8 @@ IUTEST_DECL_TEMPLATES_(49,  1);
  * @}
 */
 
+#endif	// #if !defined(IUTEST_NO_TEMPLATE_TEMPLATES)
+
 template<typename T>
 struct TypeList
 {
@@ -252,6 +257,9 @@ struct TypeList< Types< IUTEST_PP_ENUM_PARAMS(50, T) > >
 #endif
 
 }	// end of namespace detail
+
+#endif	// #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+
 }	// end of namespace iutest
 
 #endif

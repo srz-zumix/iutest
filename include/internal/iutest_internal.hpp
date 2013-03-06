@@ -98,7 +98,11 @@
 */
 #define IUTEST_ASSERT_FAILURE(msg)					IUTEST_ASSERT_FAILURE_AT(msg, __FILE__, __LINE__)
 
-#define IUTEST_ASSERT_FAILURE_AT(msg, file, line)	return IUTEST_MESSAGE_AT(file, line, msg, ::iutest::TestPartResult::kFatalFailure)
+#if !defined(IUTEST_NO_VOID_RETURNS)
+#  define IUTEST_ASSERT_FAILURE_AT(msg, file, line)	return IUTEST_MESSAGE_AT(file, line, msg, ::iutest::TestPartResult::kFatalFailure)
+#else
+#  define IUTEST_ASSERT_FAILURE_AT(msg, file, line)	IUTEST_MESSAGE_AT(file, line, msg, ::iutest::TestPartResult::kFatalFailure)
+#endif
 
 /**
  * @internal
@@ -168,8 +172,8 @@
 				#expected_exception ".\n  Actual: it throws nothing.";					\
 			goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);						\
 		} catch( expected_exception const& e) {											\
-			if( ::iutest::detail::add_revalue_reference<const ::iutest::AssertionResult>::type 				\
-				ar = pred_formatter("e", #expected_exception_value, e, expected_exception_value) ) {		\
+			if( const ::iutest::AssertionResult	ar										\
+				= pred_formatter("e", #expected_exception_value, e, expected_exception_value) ) {			\
 			} else {																	\
 				iutest_ar << "\nExpected: " #statement " throws an exception of value\n" << ar.message();	\
 				goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);					\

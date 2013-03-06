@@ -30,7 +30,7 @@ IUTEST_IPP_INLINE bool	TestCase::Run(void)
 
 	if( TestFlag::IsEnableFlag(TestFlag::SHUFFLE_TESTS) )
 	{
-		RandomShuffle(m_testinfos, TestEnv::genrand());
+		detail::RandomShuffle(m_testinfos, TestEnv::genrand());
 	}
 
 	// テスト開始

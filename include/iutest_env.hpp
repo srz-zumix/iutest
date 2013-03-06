@@ -174,6 +174,9 @@ private:
 
 private:
 	friend class TestEnv;
+#if defined(IUTEST_NO_PRIVATE_IN_AGGREGATE)
+	friend class ScopedGuard;
+#endif
 
 	int m_test_flags;
 };
@@ -306,6 +309,13 @@ public:
 			return *this;
 		}
 	} filter;
+
+#if defined(IUTEST_NO_PRIVATE_IN_AGGREGATE)
+	friend class FilterOption;
+	friend class RandomSeedSet;
+	friend class RepeatCountSet;
+	friend class ColorOptionSet;
+#endif
 
 private:
 	struct Variable

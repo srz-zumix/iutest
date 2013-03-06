@@ -174,6 +174,10 @@ private:
 	friend class UnitTestImpl;
 	friend class UnitTest;
 
+#if defined(IUTEST_NO_PRIVATE_IN_AGGREGATE)
+	friend struct FindOp;
+#endif
+
 	::std::string	m_testcase_name;	//!< テストケース名
 	iuTestInfos		m_testinfos;		//!< テスト情報リスト
 	SetUpMethod		m_setup;			//!< SetUp 関数

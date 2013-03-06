@@ -26,7 +26,9 @@ namespace detail
 
 //======================================================================
 // define
-#define IUTEST_TEMPLATE_TPARAM1	template<typename T> class
+#if !defined(IUTEST_NO_TEMPLATE_TEMPLATES)
+#  define IUTEST_TEMPLATE_TPARAM1	template<typename T> class
+#endif
 
 //======================================================================
 // struct
@@ -127,6 +129,8 @@ IUTEST_DECL_TYPELIST_(50);
  * @}
 */
 
+
+#if !defined(IUTEST_NO_TEMPLATE_TEMPLATES)
 
 /**
  * @brief	TemplateTypeListBind
@@ -237,6 +241,8 @@ IUTEST_DECL_TEMPLATETYPELIST_(50);
 /**
  * @}
 */
+
+#endif
 
 }	// end of namespace detail
 

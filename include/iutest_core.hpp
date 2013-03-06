@@ -221,6 +221,7 @@ private:
 public:
 	/** @private */
 	ParamTestCaseHolder&	parameterized_test_registry(void)	{ return m_param_testcase_holder; }
+
 private:
 	ParamTestCaseHolder	m_param_testcase_holder;
 #endif
@@ -250,20 +251,25 @@ class TestInstance
 public:
 	// コンストラクタ
 	TestInstance(const char* testcase, const char* name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
-		: m_mediator(UnitTest::instance().AddTestCase<TestCase>(testcase, id, setup, teardown))
+		: m_mediator(AddTestCase(testcase, id, setup, teardown))
 		, m_info(&m_mediator, name, &m_factory)
 	{
 		UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
 	}
 	// コンストラクタ
 	TestInstance(const char* testcase, const char* name, const char*  value_params, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
-		: m_mediator(UnitTest::instance().AddTestCase<TestCase>(testcase, id, setup, teardown))
+		: m_mediator(AddTestCase(testcase, id, setup, teardown))
 		, m_info(&m_mediator, name, &m_factory)
 	{
 		m_info.set_value_param(value_params);
 		UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
 	}
 
+private:
+	TestCase* AddTestCase(const char* testcase, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+	{
+		return UnitTest::instance().AddTestCase<TestCase>(testcase, id, setup, teardown);
+	}
 private:
 	TestCaseMediator	m_mediator;
 	TestInfo			m_info;

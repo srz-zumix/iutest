@@ -375,8 +375,8 @@ void RandomShuffle(iu_list<Node>& list, Fn& r)
 {
 	list.shuffle(r);
 }
-template<typename List, typename Fn>
-void RandomShuffle(List& list, Fn& r)
+template<typename Node, typename Fn>
+void RandomShuffle(::std::vector<Node>& list, Fn& r)
 {
 	RandomShuffle(list.begin(), list.end(), r);
 }

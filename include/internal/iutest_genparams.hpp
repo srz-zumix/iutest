@@ -143,6 +143,7 @@ public:
 			m_values.push_back(static_cast<T>(*it));
 		}
 	}
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 	template<typename TT, size_t SIZE>
 	iuValueInParamsGenerator(const TT (&values)[SIZE])
 	{
@@ -152,6 +153,7 @@ public:
 			m_values.push_back(static_cast<T>(*begin));
 		}
 	}
+#endif
 
 	template<typename Ite>
 	iuValueInParamsGenerator(Ite begin, Ite end)

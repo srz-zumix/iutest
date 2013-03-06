@@ -91,7 +91,7 @@ typedef void	void_t;	// default template à¯êîóp (àÍïîÇÃÉRÉìÉpÉCÉâÇ≈ = void ÇæÉGÉ
 // detail Ç©ÇÁégÇ¶ÇÈÇÊÇ§Ç…Ç∑ÇÈ
 using namespace iutest_type_traits;
 
-#if !defined(IUTEST_NO_PARTIAL_TEMPLATE_SPECIALIZATION)
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 template<typename Ite>
 struct IteratorTraits
@@ -127,6 +127,21 @@ inline void Delete(T* ptr)
 class None {};
 template<typename T>
 class NoneT1 {};
+
+/**
+ * @internal
+ * @brief	MSVC ópÉ_É~Å[å^
+*/
+template<typename T>
+struct type {};
+
+#if defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
+#  define IUTEST_EXPLICIT_TEMPLATE_TYPE_(t)			::iutest::detail::type<t>* = 0
+#  define IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(t)	, ::iutest::detail::type<t>* = 0
+#else
+#  define IUTEST_EXPLICIT_TEMPLATE_TYPE_(t)	
+#  define IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(t)	
+#endif
 
 /**
  * @brief	å^Ç…àÀë∂ÇµÇΩÉÜÉjÅ[ÉNÇ»ÉJÉEÉìÉ^
@@ -196,7 +211,7 @@ struct IsContainerHelper
 /**
  * @brief	enable_if
 */
-#if !defined(IUTEST_NO_PARTIAL_TEMPLATE_SPECIALIZATION)
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 template<bool B, typename T>
 struct enable_if

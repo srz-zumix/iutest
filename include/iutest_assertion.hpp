@@ -117,11 +117,16 @@ public:
 	typedef detail::iu_list<ScopedMessage> msg_list;
 
 private:
-	template<typename T=void>
+	template<typename T>
 	struct List {
 		static msg_list s_scoped_message;
 	};
-	typedef List<>	MessageList;
+	typedef List<void>	MessageList;
+
+#if defined(IUTEST_NO_PRIVATE_IN_AGGREGATE)
+	friend class ScopedMessage;
+#endif
+
 public:
 	/** @private */
 	class Fixed : public Message {
@@ -385,6 +390,7 @@ template<>
 class EqHelper<true>
 {
 public:
+#if !defined(IUTEST_NO_SFINAE) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 	template<typename T1, typename T2>
 	static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2
 		, typename detail::enable_if< !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value)
@@ -397,6 +403,13 @@ public:
 		IUTEST_UNUSED_VAR(val1);
 		return CmpHelperEQ(expr1, expr2, static_cast<T2*>(NULL), val2);
 	}
+#else
+	template<typename T1, typename T2>
+	static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
+	{
+		return CmpHelperEQ(expr1, expr2, val1, val2);
+	}
+#endif
 };
 
 /**
@@ -465,6 +478,7 @@ template<>
 class NeHelper<true>
 {
 public:
+#if !defined(IUTEST_NO_SFINAE) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 	template<typename T1, typename T2>
 	static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2
 		, typename detail::enable_if< !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value)
@@ -477,6 +491,13 @@ public:
 		IUTEST_UNUSED_VAR(val1);
 		return CmpHelperNE(expr1, expr2, static_cast<T2*>(NULL), val2);
 	}
+#else
+	template<typename T1, typename T2>
+	static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
+	{
+		return CmpHelperNE(expr1, expr2, val1, val2);
+	}
+#endif
 };
 
 template<typename RawType>
@@ -496,6 +517,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ DoubleNearPredFormat(const char*
 {
 	return CmpHelperNearFloatingPoint(expr1, expr2, absc, val1, val2, abs_v);
 }
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 template<typename T, typename A>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(const char* expr1, const char* expr2, const char* absc
 													, const T& val1, const T& val2, const A& abs_v)
@@ -511,6 +533,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(const char* expr1,
 {
 	return CmpHelperNearFloatingPoint<double>(expr1, expr2, absc, val1, val2, static_cast<double>(abs_v));
 }
+#endif
 template<typename A>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(const char* expr1, const char* expr2, const char* absc
 													, float val1, float val2, const A& abs_v)

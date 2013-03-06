@@ -949,6 +949,8 @@ private:
 #endif
 		TestEnv::event_listeners().set_default_result_printer(new DefalutResultPrintListener());
 	}
+public:
+	/** @private */
 	~UnitTestSource(void)
 	{
 		{

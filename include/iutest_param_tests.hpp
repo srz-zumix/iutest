@@ -62,9 +62,8 @@
 	static ::iutest::detail::iuIParamGenerator<testcase_::ParamType>*						\
 		s_##prefix_##_##testcase_##_EvalGenerator_(void) { return generator_; }				\
 		int s_##prefix_##_##testcase_##_dummy =												\
-			::iutest::UnitTest::GetInstance()->parameterized_test_registry().				\
-			GetTestCasePatternHolder< testcase_ >(IUTEST_CONCAT_PACKAGE_(testcase_))		\
-				->AddTestCaseInstantiation(#prefix_, s_##prefix_##_##testcase_##_EvalGenerator_)
+			::iutest::detail::TestCasePatternHolder_AddTestCaseInstantiation< testcase_ >(	\
+			IUTEST_CONCAT_PACKAGE_(testcase_), #prefix_, s_##prefix_##_##testcase_##_EvalGenerator_)
 
 /**
  * @brief	パラメータテストクラス定義
@@ -75,8 +74,8 @@
 		protected: virtual void Body(void);														\
 		private: static int	AddRegister(void) {													\
 			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_) > testinfo(#testname_);	\
-			::iutest::UnitTest::GetInstance()->parameterized_test_registry().					\
-				GetTestCasePatternHolder< testcase_ >(IUTEST_CONCAT_PACKAGE_(testcase_))->AddTestPattern(&testinfo);	\
+			::iutest::detail::TestCasePatternHolder_AddTestPattern< testcase_ >(				\
+				IUTEST_CONCAT_PACKAGE_(testcase_), &testinfo);									\
 			return 0;																			\
 		}																						\
 		static int dummy_;																		\
@@ -92,8 +91,8 @@
 		template<typename T>void Body(void);													\
 		private: static int	AddRegister(void) {													\
 			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_) > testinfo(#testname_);	\
-			::iutest::UnitTest::GetInstance()->parameterized_test_registry().					\
-				GetTestCasePatternHolder< testcase_ >(IUTEST_CONCAT_PACKAGE_(testcase_))->AddTestPattern(&testinfo);	\
+			::iutest::detail::TestCasePatternHolder_AddTestPattern< testcase_ >(				\
+				IUTEST_CONCAT_PACKAGE_(testcase_), &testinfo);									\
 			return 0;																			\
 		}																						\
 		static int dummy_;																		\
@@ -159,6 +158,23 @@ private:
 	}
 };
 
+/** @private */
+template<typename T, typename F>
+int TestCasePatternHolder_AddTestCaseInstantiation(const char* testcase
+												   , ::std::string name, F func)
+{
+	return ::iutest::UnitTest::GetInstance()->parameterized_test_registry().
+		GetTestCasePatternHolder<T>(testcase)->AddTestCaseInstantiation(name, func);
+}
+
+/** @private */
+template<typename T, typename I>
+void TestCasePatternHolder_AddTestPattern(const char* testcase, I* testinfo)
+{
+	::iutest::UnitTest::GetInstance()->parameterized_test_registry().
+		GetTestCasePatternHolder<T>(testcase)->AddTestPattern(testinfo);
+}
+
 }	// end of namespace
 
 /**
@@ -195,6 +211,7 @@ inline detail::iuIParamGenerator< typename Container::value_type >* ValuesIn(Con
 	return new detail::iuValueInParamsGenerator< typename Container::value_type >(containor);
 }
 
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 /** @overload */
 template<typename T, size_t SIZE>
 inline detail::iuIParamGenerator<T>* ValuesIn(const T (&v)[SIZE])
@@ -207,6 +224,7 @@ inline detail::iuIParamGenerator< typename detail::IteratorTraits<Ite>::type >* 
 {
 	return new detail::iuValueInParamsGenerator< typename detail::IteratorTraits<Ite>::type >(begin, end);
 }
+#endif
 
 #if IUTEST_HAS_VARIADIC_VALUES
 /**

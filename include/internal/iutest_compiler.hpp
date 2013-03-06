@@ -498,16 +498,64 @@
 #endif
 
 // partial template specialization
-#ifndef IUTEST_NO_PARTIAL_TEMPLATE_SPECIALIZATION
-#  if	defined(_MSC_VER) && (_MSC_VER < 1300)
-#    define IUTEST_NO_PARTIAL_TEMPLATE_SPECIALIZATION	1
+#ifndef IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+#  if	defined(_MSC_VER) && (_MSC_VER < 1310)
+#    define IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION	1
+#  endif
+#endif
+
+// function template ordering
+#ifndef IUTEST_NO_FUNCTION_TEMPLATE_ORDERING
+#  if	defined(_MSC_VER) && (_MSC_VER < 1310)
+#    define IUTEST_NO_FUNCTION_TEMPLATE_ORDERING		1
 #  endif
 #endif
 
 // in class member initialization
 #ifndef IUTEST_NO_INCLASS_MEMBER_INITIALIZATION
-#  if defined(_MSC_VER) && _MSC_VER < 1300
+#  if defined(_MSC_VER) && _MSC_VER < 1310
 #    define IUTEST_NO_INCLASS_MEMBER_INITIALIZATION		1
+#  endif
+#endif
+
+// explicit function template instantiation
+#ifndef IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS
+#  if defined(_MSC_VER) && _MSC_VER < 1310
+#    define IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS	1
+#  endif
+#endif
+
+// sfinae
+#ifndef IUTEST_NO_SFINAE
+#  if defined(_MSC_VER) && _MSC_VER < 1310
+#    define IUTEST_NO_SFINAE	1
+#  endif
+#endif
+
+// template template
+#ifndef IUTEST_NO_TEMPLATE_TEMPLATES
+#  if defined(_MSC_VER) && _MSC_VER < 1310
+#    define IUTEST_NO_TEMPLATE_TEMPLATES	1
+#  endif
+#endif
+
+// void return
+#ifndef IUTEST_NO_VOID_RETURNS
+#  if defined(_MSC_VER) && _MSC_VER < 1300
+#    define IUTEST_NO_VOID_RETURNS			1
+#  endif
+#endif
+
+// ADL
+#ifndef IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP
+#  if defined(_MSC_VER) && _MSC_VER < 1310
+#    define IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP	1
+#  endif
+#endif
+
+#ifndef IUTEST_NO_PRIVATE_IN_AGGREGATE
+#  if defined(_MSC_VER) && _MSC_VER < 1310
+#    define IUTEST_NO_PRIVATE_IN_AGGREGATE	1
 #  endif
 #endif
 

@@ -82,11 +82,15 @@ bool SetEnvironmentVariable(const char* name, const char* value);
 */
 bool GetEnvironmentVariable(const char* name, char* buf, size_t size);
 
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+
 template<size_t SIZE>
 inline bool GetEnvironmentVariable(const char* name, char (&buf)[SIZE])
 {
 	return GetEnvironmentVariable(name, buf, SIZE);
 }
+
+#endif
 
 /**
  * @brief	ŠÂ‹«•Ï”‚Ìæ“¾

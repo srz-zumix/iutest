@@ -59,7 +59,12 @@ public:
 	/**
 	 * @brief	Às’†‚Ì TestInfo ‚Ìæ“¾
 	*/
-	static const TestInfo*	GetCurrentTestInfo(void)		{ return CurrentTestObserver::GetCurrentTestInfo(); }
+	static const TestInfo*	GetCurrentTestInfo(void)
+	{
+		const Test* curr = GetCurrentTest();
+		if( curr == NULL || curr->m_test_info == NULL ) return NULL;
+		return curr->m_test_info->ptr();
+	}
 
 	/**
 	 * @brief	Às’†‚Ì Test ‚Ìæ“¾
@@ -152,14 +157,13 @@ private:
 	void Run(detail::iuITestInfoMediator* test_info);
 
 private:
-	template<typename DMY=void>
+	template<typename DMY>
 	class Observer
 	{
 	public:
 		static Test*	s_current;
 	public:
 		static		 Test*		GetCurrentTest(void)		{ return s_current; }
-		static const TestInfo*	GetCurrentTestInfo(void)	{ if( s_current == NULL || s_current->m_test_info == NULL ) return NULL; return s_current->m_test_info->ptr(); }
 	};
 
 	typedef Observer<void>	CurrentTestObserver;

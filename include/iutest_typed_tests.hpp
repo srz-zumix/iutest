@@ -209,7 +209,7 @@ class TypeParamTestInstance
 	/**
 	 * @brief	各テストのインスタンス
 	*/
-	template<typename TT, typename DMY=void>
+	template<typename TT, typename DMY>
 	class EachTest
 	{
 		typedef typename TT::Head			TypeParam;
@@ -241,7 +241,7 @@ class TypeParamTestInstance
 		TestInfo					m_info;
 		detail::iuFactory<TestBody>	m_factory;
 
-		EachTest<typename TT::Tail>	m_next;
+		EachTest<typename TT::Tail, void>	m_next;
 	};
 
 	// 終端
@@ -262,7 +262,7 @@ public:
 	}
 
 private:
-	EachTest<TypeParams>	m_tests;
+	EachTest<TypeParams, void>	m_tests;
 
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeParamTestInstance);
 };

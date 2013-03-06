@@ -132,6 +132,8 @@ struct IUTEST_PEEP_TAG_NAME_(class_name, member_name) { typedef member_type type
  * @}
 */
 
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+
 /**
  * @brief	private	メンバーアクセスオブジェクト
 */
@@ -262,6 +264,8 @@ private:
 public:
 	typedef typename peep_impl<T, peep_type, type_traits::is_member_pointer<peep_type>::value >::type	type;	//!< private メンバーアクセスオブジェクト型
 };
+
+#endif
 
 }	// end of namespace iutest
 

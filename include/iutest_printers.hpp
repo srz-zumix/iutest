@@ -52,33 +52,43 @@ inline void PrintBytesInObjectTo(const unsigned char* buf, size_t size, iu_ostre
 namespace printer_internal
 {
 
+namespace formatter
+{
+
+/** @private */
+template<bool convertible>
+struct Printer
+{
+	template<typename T>
+	static void Print(const T& value, iu_ostream* os)
+	{
+		const unsigned char* ptr = reinterpret_cast<const unsigned char*>(&value);
+		size_t size = sizeof(T);
+		PrintBytesInObjectTo(ptr, size, os);
+	}
+};
+
+template<>
+struct Printer<true>
+{
+	template<typename T>
+	static void Print(const T& value, iu_ostream* os)
+	{
+		const BiggestInt v = value;
+		*os << v;
+	}
+};
+
+}
+
 /** @private */
 template<typename T>
 class TypeWithoutFormatter
 {
-	template<bool convertible, typename DMY>
-	struct impl
-	{
-		static void Print(const T& value, iu_ostream* os)
-		{
-			const unsigned char* ptr = reinterpret_cast<const unsigned char*>(&value);
-			size_t size = sizeof(T);
-			PrintBytesInObjectTo(ptr, size, os);
-		}
-	};
-	template<typename DMY>
-	struct impl<true, DMY>
-	{
-		static void Print(const T& value, iu_ostream* os)
-		{
-			const BiggestInt v = value;
-			*os << v;
-		}
-	};
 public:
 	static void PrintValue(const T& value, iu_ostream* os)
 	{
-		impl<iutest_type_traits::is_convertible<const T&, BiggestInt>::value, void>::Print(value, os);
+		formatter::Printer<iutest_type_traits::is_convertible<const T&, BiggestInt>::value>::Print(value, os);
 	}
 };
 
@@ -179,6 +189,8 @@ inline void DefaultPrintTo(IsContainerHelper::no_t
 	printer_internal2::DefaultPrintNonContainerTo(value, os);
 }
 
+#if !defined(IUTEST_NO_SFINAE) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+
 template<typename T>
 inline void DefaultPtrPrintTo(T* ptr, iu_ostream* os, typename enable_if_t< is_convertible<T*, const void*> >::type*& = enabler::value)
 {
@@ -189,6 +201,9 @@ inline void DefaultPtrPrintTo(T* ptr, iu_ostream* os, typename disable_if_t< is_
 {
 	*os << reinterpret_cast<const void*>(reinterpret_cast<type_least_t<8>::UInt>(ptr));
 }
+
+#endif
+
 template<typename T>
 inline void DefaultPrintTo(IsContainerHelper::no_t
 						   , iutest_type_traits::true_type
@@ -407,6 +422,8 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const wchar_t* begin, s
 template<typename T>
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(T value, iu_ostream* os) { PrintTo(value, os); }
 
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+
 /** @private */
 template<typename T, size_t SIZE>
 class iuUniversalPrinter<T[SIZE]>
@@ -417,6 +434,8 @@ public:
 		UniversalPrintArray(a, SIZE, os);
 	}
 };
+
+#endif
 
 /**
  * @}

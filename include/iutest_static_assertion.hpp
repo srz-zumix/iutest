@@ -22,6 +22,8 @@
 
 //======================================================================
 // 
+#if IUTEST_HAS_STATIC_ASSERT_TYPEEQ
+
 #if 0
 /**
  * @ingroup	IUTEST_UTIL
@@ -42,6 +44,8 @@ static bool	StaticAssertTypeEq(void)
  *			エラーが呼び出し位置に出る
 */
 #define StaticAssertTypeEq	detail::StaticAssertTypeEqHelper
+
+#endif
 
 #endif
 
@@ -78,13 +82,14 @@ namespace detail
 template<typename T1, typename T2>
 struct StaticAssertTypeEqHelper;
 
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 /** @private */
 template<typename T>
 struct StaticAssertTypeEqHelper<T, T>
 {
 	operator bool (void) const { return true; }
 };
-
+#endif
 
 /** @private */
 template<bool b>struct StaticAssertionFailure;

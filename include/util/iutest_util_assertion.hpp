@@ -121,7 +121,7 @@ template<typename COMP>
 struct CmpHelperOR
 {
 private:
-	template<typename T, typename DMY=void>
+	template<typename T, typename DMY>
 	struct CompImpl
 	{
 		template<typename T1, typename T2>
@@ -151,7 +151,7 @@ public:
 	static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2
 		, T1 val1, T2 val2)
 	{
-		return CompImpl<COMP>::Comp(expr1, expr2, val1, val2);
+		return CompImpl<COMP, void>::Comp(expr1, expr2, val1, val2);
 	}
 	/** @overload */
 	template<typename T1, typename T2, typename T3>

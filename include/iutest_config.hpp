@@ -75,16 +75,21 @@
 #endif
 
 #ifndef IUTEST_HAS_PARAM_TEST
-#  define IUTEST_HAS_PARAM_TEST		1	//!< 値をパラメータ化したテストが使用可能かどうか
+#  define IUTEST_HAS_PARAM_TEST			1	//!< 値をパラメータ化したテストが使用可能かどうか
 #endif
 
 #ifndef IUTEST_HAS_TYPED_TEST
-#  define IUTEST_HAS_TYPED_TEST		1	//!< 型付けテストが使用可能かどうか
+//!< 型付けテストが使用可能かどうか
+#  if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#    define IUTEST_HAS_TYPED_TEST		1
+#  else
+#    define IUTEST_HAS_TYPED_TEST		0
+#  endif
 #endif
 
 #ifndef IUTEST_HAS_TYPED_TEST_P
 //! 型をパラメータ化したテストが使用可能かどうか
-#  if IUTEST_HAS_TYPED_TEST && !defined(IUTEST_NO_VARIADIC_MACROS)
+#  if IUTEST_HAS_TYPED_TEST && !defined(IUTEST_NO_VARIADIC_MACROS) && !defined(IUTEST_NO_TEMPLATE_TEMPLATES)
 #    define IUTEST_HAS_TYPED_TEST_P	1
 #  else
 #    define IUTEST_HAS_TYPED_TEST_P	0
@@ -164,7 +169,11 @@
  * @brief	ASSERT マクロで失敗時に例外を throw します。
  * @note	サブ関数にアサーションを記述しても、その時点でテストが中断されるようになります
 */
-#  define IUTEST_USE_THROW_ON_ASSERT_FAILURE	0
+#  if !defined(IUTEST_NO_VOID_RETURNS)
+#    define IUTEST_USE_THROW_ON_ASSERT_FAILURE	0
+#  else
+#    define IUTEST_USE_THROW_ON_ASSERT_FAILURE	1
+#  endif
 #endif
 
 #ifndef IUTEST_HAS_SPI_LAMBDA_SUPPORT
@@ -181,12 +190,18 @@
 #endif
 
 #ifndef IUTEST_HAS_PACKAGE
-#  define IUTEST_HAS_PACKAGE		1	//!< パッケージ機能があるかどうか
+//!< パッケージ機能があるかどうか
+#  if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+#    define IUTEST_HAS_PACKAGE		1
+#  else
+#    define IUTEST_HAS_PACKAGE		0
+#  endif
 #endif
 
 // peep
 #ifndef IUTEST_HAS_PEEP
-#  define IUTEST_HAS_PEEP			1	//!< private メンバーへのアクセスマクロが使用可能かどうか
+//!< private メンバーへのアクセスマクロが使用可能かどうか
+#  define IUTEST_HAS_PEEP			1
 #endif
 
 #ifndef IUTEST_HAS_PEEP_FUNC
@@ -204,6 +219,15 @@
 #    define IUTEST_HAS_PEEP_STATIC_FUNC	1
 #  else
 #    define IUTEST_HAS_PEEP_STATIC_FUNC	0
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_STATIC_ASSERT_TYPEEQ
+//! StaticAssertTypeEq が使用可能かどうか
+#  if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#    define IUTEST_HAS_STATIC_ASSERT_TYPEEQ		1
+#  else
+#    define IUTEST_HAS_STATIC_ASSERT_TYPEEQ		0
 #  endif
 #endif
 
