@@ -202,6 +202,14 @@ inline void DefaultPtrPrintTo(T* ptr, iu_ostream* os, typename disable_if_t< is_
 	*os << reinterpret_cast<const void*>(reinterpret_cast<type_least_t<8>::UInt>(ptr));
 }
 
+#else
+
+template<typename T>
+inline void DefaultPtrPrintTo(T* ptr, iu_ostream* os)
+{
+	*os << reinterpret_cast<const void*>(reinterpret_cast<type_least_t<8>::UInt>(ptr));
+}
+
 #endif
 
 template<typename T>
@@ -223,7 +231,15 @@ inline void DefaultPrintTo(IsContainerHelper::no_t
  * @brief	ï∂éöóÒïœä∑ä÷êî
 */
 template<typename T>
-inline void PrintTo(const T& value, iu_ostream* os)	{ DefaultPrintTo(IsContainerHelper::IsContainer<T>(0), iutest_type_traits::is_pointer<T>(), value, os); }
+inline void PrintTo(const T& value, iu_ostream* os)	{
+	DefaultPrintTo(
+#if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
+		IsContainerHelper::IsContainer<T>(0)
+#else
+		IsContainerHelper::IsContainer(0, &detail::type<T>())
+#endif
+		, iutest_type_traits::is_pointer<T>(), value, os);
+}
 inline void PrintTo(bool b, iu_ostream* os)			{ *os << (b ? "true" : "false"); }
 inline void PrintTo(const char* c, iu_ostream* os)	{ *os << c; }
 inline void PrintTo(char* c, iu_ostream* os)		{ *os << c; }

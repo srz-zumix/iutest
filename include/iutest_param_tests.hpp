@@ -55,6 +55,14 @@
  * @{
 */
 
+#if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
+#  define IIUT_GetTestCasePatternHolder(T, testcaes_)	\
+	::iutest::UnitTest::GetInstance()->parameterized_test_registry().GetTestCasePatternHolder<T>(testcaes_)
+#else
+#  define IIUT_GetTestCasePatternHolder(T, testcaes_)	\
+	::iutest::UnitTest::GetInstance()->parameterized_test_registry().GetTestCasePatternHolder(testcaes_, &::iutest::detail::type<T>())
+#endif
+
 /**
  * @brief	パラメータテスト登録
 */
@@ -62,8 +70,8 @@
 	static ::iutest::detail::iuIParamGenerator<testcase_::ParamType>*						\
 		s_##prefix_##_##testcase_##_EvalGenerator_(void) { return generator_; }				\
 		int s_##prefix_##_##testcase_##_dummy =												\
-			::iutest::detail::TestCasePatternHolder_AddTestCaseInstantiation< testcase_ >(	\
-			IUTEST_CONCAT_PACKAGE_(testcase_), #prefix_, s_##prefix_##_##testcase_##_EvalGenerator_)
+			IIUT_GetTestCasePatternHolder(testcase_, IUTEST_CONCAT_PACKAGE_(testcase_))		\
+				->AddTestCaseInstantiation(#prefix_, s_##prefix_##_##testcase_##_EvalGenerator_)
 
 /**
  * @brief	パラメータテストクラス定義
@@ -74,8 +82,7 @@
 		protected: virtual void Body(void);														\
 		private: static int	AddRegister(void) {													\
 			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_) > testinfo(#testname_);	\
-			::iutest::detail::TestCasePatternHolder_AddTestPattern< testcase_ >(				\
-				IUTEST_CONCAT_PACKAGE_(testcase_), &testinfo);									\
+			IIUT_GetTestCasePatternHolder(testcase_, IUTEST_CONCAT_PACKAGE_(testcase_))->AddTestPattern(&testinfo);	\
 			return 0;																			\
 		}																						\
 		static int dummy_;																		\
@@ -91,8 +98,7 @@
 		template<typename T>void Body(void);													\
 		private: static int	AddRegister(void) {													\
 			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_) > testinfo(#testname_);	\
-			::iutest::detail::TestCasePatternHolder_AddTestPattern< testcase_ >(				\
-				IUTEST_CONCAT_PACKAGE_(testcase_), &testinfo);									\
+			IIUT_GetTestCasePatternHolder(testcase_, IUTEST_CONCAT_PACKAGE_(testcase_))->AddTestPattern(&testinfo);	\
 			return 0;																			\
 		}																						\
 		static int dummy_;																		\
@@ -146,7 +152,11 @@ private:
 	// テストケースの作成
 	virtual TestCase*	MakeTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown) const IUTEST_CXX_OVERRIDE
 	{
+#if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
 		return UnitTest::instance().AddTestCase<TestCase>(testcase_name, id, setup, teardown);
+#else
+		return UnitTest::instance().AddTestCase(testcase_name, id, setup, teardown, &detail::type<TestCase>());
+#endif
 	}
 
 	// テストの作成登録
@@ -157,23 +167,6 @@ private:
 		detail::iuPool<EachTest>::GetInstance().push(test);
 	}
 };
-
-/** @private */
-template<typename T, typename F>
-int TestCasePatternHolder_AddTestCaseInstantiation(const char* testcase
-												   , ::std::string name, F func)
-{
-	return ::iutest::UnitTest::GetInstance()->parameterized_test_registry().
-		GetTestCasePatternHolder<T>(testcase)->AddTestCaseInstantiation(name, func);
-}
-
-/** @private */
-template<typename T, typename I>
-void TestCasePatternHolder_AddTestPattern(const char* testcase, I* testinfo)
-{
-	::iutest::UnitTest::GetInstance()->parameterized_test_registry().
-		GetTestCasePatternHolder<T>(testcase)->AddTestPattern(testinfo);
-}
 
 }	// end of namespace
 

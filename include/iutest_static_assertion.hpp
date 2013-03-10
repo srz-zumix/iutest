@@ -83,12 +83,21 @@ template<typename T1, typename T2>
 struct StaticAssertTypeEqHelper;
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-/** @private */
-template<typename T>
-struct StaticAssertTypeEqHelper<T, T>
+namespace helper
 {
-	operator bool (void) const { return true; }
-};
+
+/** @private */
+template<bool b>struct static_assert_typeeq;
+/** @overload */
+template<>struct static_assert_typeeq<true> { operator bool (void) const { return true; } };
+
+}
+
+/** @private */
+template<typename T1, typename T2>
+struct StaticAssertTypeEqHelper
+	: public helper::static_assert_typeeq< iutest_type_traits::is_same<T1, T2>::value > {};
+
 #endif
 
 /** @private */

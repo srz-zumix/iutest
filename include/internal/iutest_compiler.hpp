@@ -504,6 +504,15 @@
 #  endif
 #endif
 
+// explicit class member template specialization
+#ifndef IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION
+#  if	defined(_MSC_VER)
+#    define IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION	1
+#  else
+#    define IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION	0
+#  endif
+#endif
+
 // function template ordering
 #ifndef IUTEST_NO_FUNCTION_TEMPLATE_ORDERING
 #  if	defined(_MSC_VER) && (_MSC_VER < 1310)
@@ -572,5 +581,9 @@
 
 // pragma
 #include "iutest_pragma.hpp"
+
+#if defined(_MSC_VER) && _MSC_VER < 1300
+#  pragma warning(disable:4786)	// ident trunc to '255' chars in debug info
+#endif
 
 #endif

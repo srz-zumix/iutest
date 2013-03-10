@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -29,11 +29,11 @@ namespace iutest
 // declare
 class IFile;
 
+//======================================================================
+// class
 namespace detail
 {
 
-//======================================================================
-// class
 /**
  * @brief	ファイル処理クラスインターフェイス
 */
@@ -82,10 +82,14 @@ private:
 	virtual void	Delete(IFile*) = 0;
 };
 
-template<typename T>
-IFileSystem*	IFileSystem::Variable<T>::m_pInstance = NULL;
+}	// end of namespace detail
+}	// end of namespace iutest
 
-}
+template<typename T>
+::iutest::detail::IFileSystem* ::iutest::detail::IFileSystem::Variable<T>::m_pInstance = NULL;
+
+namespace iutest
+{
 
 /**
  * @brief	ファイルクラスインターフェイス

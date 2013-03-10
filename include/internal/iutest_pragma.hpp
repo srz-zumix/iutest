@@ -21,7 +21,7 @@
 // define
 
 // pragma
-#if		defined(_MSC_VER)
+#if		defined(_MSC_VER) && _MSC_VER >= 1310
 #  define IUTEST_PRAGMA(x)	__pragma(x)
 #elif	defined(__GNUC__)
 #  define IUTEST_PRAGMA(x)	_Pragma(#x)

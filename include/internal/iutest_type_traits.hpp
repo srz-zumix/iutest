@@ -95,18 +95,44 @@ struct remove_ptr		{ typedef T type; };
 template<typename T>
 struct remove_ptr<T*>	{ typedef T type; };
 
+#endif
+
 namespace helper
 {
 
 template<typename T>
 class is_pointer_helper
 {
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 	template<typename U, typename TMP> struct impl { typedef false_type type; };
 	template<typename U, typename TMP> struct impl<U*, TMP> { typedef true_type type; };
 	typedef typename remove_cv<T>::type	rmcv_type;
 public:
 	typedef typename impl<rmcv_type, void>::type type;
+#else
+	typedef T	rmcv_type;
+	static T& make_t();
+	static char	IsPointerHelper(const volatile void*);
+	static char (&IsPointerHelper(...))[2];
+
+	enum { IsPointer = sizeof(IsPointerHelper(make_t())) == 1 ? true : false }; 
+public:
+	typedef bool_constant<IsPointer> type;
+#endif
 };
+
+}
+
+/**
+ * @brief	is_pointer
+*/
+template<typename T>
+struct is_pointer : public helper::is_pointer_helper<T>::type {};
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+
+namespace helper
+{
 
 template<typename T>
 class is_reference_helper
@@ -121,24 +147,10 @@ public:
 }
 
 /**
- * @brief	is_pointer
-*/
-template<typename T>
-struct is_pointer : public helper::is_pointer_helper<T>::type {};
-
-/**
  * @brief	is_reference
 */
 template<typename T>
 struct is_reference : public helper::is_reference_helper<T>::type {};
-
-/**
- * @brief	is_same
-*/
-template<typename T1, typename T2>
-struct is_same : public false_type {};
-template<typename T>
-struct is_same<T, T> : public true_type {};
 
 namespace helper
 {
@@ -167,6 +179,43 @@ template<typename T>
 struct is_const : public false_type {};
 template<typename T>
 struct is_const<T const> : public true_type {};
+
+#endif // #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+
+namespace helper
+{
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+
+template<typename T1, typename T2>
+struct is_same_helper { typedef false_type type; };
+template<typename T>
+struct is_same_helper<T, T> { typedef true_type type; };
+
+#elif IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION
+
+template<typename T1, typename T2>
+class is_same_helper
+{
+	template<typename T>
+	struct impl { typedef false_type type; };
+	template<>
+	struct impl<T1> { typedef true_type type; };
+public:
+	typedef typename impl<T2>::type type;
+};
+
+#endif
+
+}
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) || IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION
+
+/**
+ * @brief	is_same
+*/
+template<typename T1, typename T2>
+struct is_same : public helper::is_same_helper<T1, T2>::type {};
 
 #endif
 

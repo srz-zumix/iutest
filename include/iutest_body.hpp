@@ -183,9 +183,6 @@ private:
 #endif
 };
 
-template<typename DMY>
-Test*	Test::Observer<DMY>::s_current = NULL;
-
 /**
  * @brief	パラメータテストインターフェース
  * @tparam	T = パラメータ型
@@ -224,6 +221,9 @@ class TestWithParam : public Test, public WithParamInterface<T>
 };
 
 }	// end of namespace iutest
+
+template<typename DMY>
+::iutest::Test*	::iutest::Test::Observer<DMY>::s_current = NULL;
 
 #if !IUTEST_HAS_LIB
 #  include "impl/iutest_body.ipp"

@@ -136,8 +136,8 @@ template<typename T>
 struct type {};
 
 #if defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-#  define IUTEST_EXPLICIT_TEMPLATE_TYPE_(t)			::iutest::detail::type<t>* = 0
-#  define IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(t)	, ::iutest::detail::type<t>* = 0
+#  define IUTEST_EXPLICIT_TEMPLATE_TYPE_(t)			::iutest::detail::type<t>*
+#  define IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(t)	, ::iutest::detail::type<t>*
 #else
 #  define IUTEST_EXPLICIT_TEMPLATE_TYPE_(t)	
 #  define IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(t)	
@@ -202,10 +202,10 @@ struct IsContainerHelper
 	typedef char	no_t;
 
 	template<typename T>
-	static IUTEST_CONSTEXPR yes_t	IsContainer(int , typename T::iterator* =NULL, typename T::const_iterator* =NULL) { return 0; }
+	static IUTEST_CONSTEXPR yes_t	IsContainer(int IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T), typename T::iterator* =NULL, typename T::const_iterator* =NULL) { return 0; }
 
 	template<typename T>
-	static IUTEST_CONSTEXPR no_t	IsContainer(long)	{ return 0; }
+	static IUTEST_CONSTEXPR no_t	IsContainer(long IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T))	{ return 0; }
 };
 
 /**

@@ -40,7 +40,7 @@ typedef detail::iuMessage	Message;
 /**
  * @brief	テスト結果
 */
-class AssertionResult : public Message
+class AssertionResult
 {
 public:
 	/**
@@ -49,7 +49,7 @@ public:
 	*/
 	AssertionResult(bool result) : m_result(result) {}
 	//! コピーコンストラクタ
-	AssertionResult(const AssertionResult& rhs) : Message(rhs), m_result(rhs.m_result) {}
+	AssertionResult(const AssertionResult& rhs) : m_message(rhs.m_message), m_result(rhs.m_result) {}
 
 	/**
 	 * @brief	成否
@@ -58,6 +58,12 @@ public:
 
 	/**
 	 * @brief	メッセージの取得
+	*/
+	const char*		message(void)	const	{ return m_message.message(); }
+
+	/**
+	 * @brief	メッセージの取得
+	 * @deprecated please use message() instead.
 	*/
 	const char* failure_message(void) const { return message(); }
 
@@ -71,7 +77,7 @@ public:
 	template<typename T>
 	AssertionResult&		operator << (T value)
 	{
-		Message::operator << (value);
+		m_message << (value);
 		return *this;
 	}
 
@@ -88,6 +94,7 @@ public:
 private:
 	IUTEST_PP_DISALLOW_ASSIGN(AssertionResult);
 
+	Message m_message;
 	bool	m_result;
 };
 
@@ -222,8 +229,13 @@ private:
 	TestPartResult m_part_result;
 };
 
+}	// end of namespace iutest
+
 template<typename T>
-AssertionHelper::msg_list AssertionHelper::List<T>::s_scoped_message;
+::iutest::AssertionHelper::msg_list iutest::AssertionHelper::List<T>::s_scoped_message;
+
+namespace iutest
+{
 
 //======================================================================
 // function
@@ -390,7 +402,7 @@ template<>
 class EqHelper<true>
 {
 public:
-#if !defined(IUTEST_NO_SFINAE) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#if !defined(IUTEST_NO_SFINAE)
 	template<typename T1, typename T2>
 	static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2
 		, typename detail::enable_if< !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value)
@@ -407,7 +419,7 @@ public:
 	template<typename T1, typename T2>
 	static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
 	{
-		return CmpHelperEQ(expr1, expr2, val1, val2);
+		return CmpHelperEQ(expr1, expr2, (T2)val1, val2);
 	}
 #endif
 };
@@ -478,7 +490,7 @@ template<>
 class NeHelper<true>
 {
 public:
-#if !defined(IUTEST_NO_SFINAE) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#if !defined(IUTEST_NO_SFINAE)
 	template<typename T1, typename T2>
 	static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2
 		, typename detail::enable_if< !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value)
@@ -495,7 +507,7 @@ public:
 	template<typename T1, typename T2>
 	static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
 	{
-		return CmpHelperNE(expr1, expr2, val1, val2);
+		return CmpHelperNE(expr1, expr2, (T2)val1, val2);
 	}
 #endif
 };
@@ -517,7 +529,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ DoubleNearPredFormat(const char*
 {
 	return CmpHelperNearFloatingPoint(expr1, expr2, absc, val1, val2, abs_v);
 }
-#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 template<typename T, typename A>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(const char* expr1, const char* expr2, const char* absc
 													, const T& val1, const T& val2, const A& abs_v)

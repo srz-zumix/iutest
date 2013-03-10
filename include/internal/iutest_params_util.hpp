@@ -155,7 +155,9 @@ private:
 	}
 public:
 	template<typename T>
-	ParamTestCaseInfo<T>*	GetTestCasePatternHolder(const char* testcase)
+	ParamTestCaseInfo<T>*	GetTestCasePatternHolder(const char* testcase
+		IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)
+		)
 	{
 		for( TestCaseInfoContainer::iterator it=m_testcase_infos.begin(), end=m_testcase_infos.end(); it != end; ++it )
 		{

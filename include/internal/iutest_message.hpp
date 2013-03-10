@@ -63,6 +63,7 @@ public:
 		m_message += strm.str();
 		return *this;
 	}
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 	template<typename T>
 	iuMessage&	operator << (T* const& value) 
 	{
@@ -78,6 +79,7 @@ public:
 		}
 		return *this;
 	}
+#endif
 	iuMessage&	operator << (bool b) 
 	{
 		m_message += b ? "true" : "false";

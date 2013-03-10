@@ -647,6 +647,7 @@ IUTEST(AssertionTest, Exception2)
 
 #endif
 
+#if IUTEST_HAS_STATIC_ASSERT_TYPEEQ
 
 /** --------------------------------------------------
  * 型の一致テスト
@@ -656,6 +657,8 @@ IUTEST(StaticTest, Eq)
 	IUTEST_ASSERT_TRUE( (::iutest::StaticAssertTypeEq<int, int>()) );
 	//iutest::StaticAssertTypeEq<bool, int>();
 }
+
+#endif
 
 /** --------------------------------------------------
  * パラメタライズ関数コール

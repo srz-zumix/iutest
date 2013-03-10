@@ -1187,7 +1187,11 @@ private:
 			if( seed != 0 ) rnd.init(seed);
 			for( size_t i=0; i < n; ++i )
 			{
-				m_params.push_back(rnd.genrand<T>());
+				m_params.push_back(rnd.genrand<T>(
+#if defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
+					&detail::type<T>()
+#endif
+					));
 			}
 		}
 	};

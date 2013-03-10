@@ -140,9 +140,6 @@ private:
 	}
 };
 
-template<typename T>
-iuLogger*	iuConsole::Variable<T>::m_pLogger = NULL;
-
 inline void	iuConsole::output(const char *fmt, ...)
 {
 	va_list va;
@@ -254,5 +251,8 @@ inline bool	iuConsole::IsShouldUseColor(bool use_color)
 
 }	// end of namespace detail
 }	// end of namespace iutest
+
+template<typename T>
+::iutest::detail::iuLogger*	::iutest::detail::iuConsole::Variable<T>::m_pLogger = NULL;
 
 #endif

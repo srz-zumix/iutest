@@ -268,7 +268,11 @@ public:
 private:
 	TestCase* AddTestCase(const char* testcase, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
 	{
+#if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
 		return UnitTest::instance().AddTestCase<TestCase>(testcase, id, setup, teardown);
+#else
+		return UnitTest::instance().AddTestCase(testcase, id, setup, teardown, &detail::type<TestCase>());
+#endif
 	}
 private:
 	TestCaseMediator	m_mediator;

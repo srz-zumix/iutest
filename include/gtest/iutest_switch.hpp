@@ -297,7 +297,7 @@ namespace iusupport
 	inline AssertionResult iuMakeAssertionResult(const AssertionResult& ar) { return ar; }
 	inline AssertionResult iuMakeAssertionResult(const ::iutest::AssertionResult& ar)
 	{ 
-		return AssertionResult(static_cast<bool>(ar)) << ar.failure_message();
+		return AssertionResult(static_cast<bool>(ar)) << ar.message();
 	}
 }
 

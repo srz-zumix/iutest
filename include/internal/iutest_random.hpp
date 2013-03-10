@@ -106,10 +106,16 @@ public:
 	 * @return	óêêî
 	*/
 	template<typename T>
-	T genrand(void)
+	T genrand(IUTEST_EXPLICIT_TEMPLATE_TYPE_(T))
 	{
 		return static_cast<T>(genrand( static_cast<unsigned int>( static_cast<T>(-1) ) ));
 	}
+
+#if IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION
+	template<>float		genrand<float>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(float))	{ return genrandf(); }
+	template<>double	genrand<double>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(double))	{ return static_cast<double>(genrandf()); }
+#endif
+
 public:
 	unsigned int operator ()(unsigned int max)
 	{
@@ -117,8 +123,14 @@ public:
 	}
 };
 
-template<> inline float		iuRandom::genrand<float>(void)	{ return genrandf(); }
-template<> inline double	iuRandom::genrand<double>(void)	{ return static_cast<double>(genrandf()); }
+#if !(defined(_MSC_VER) && _MSC_VER < 1300)
+
+template<> inline Int64		iuRandom::genrand<Int64>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(Int64))		{ return (static_cast<Int64>(genrand()) << 32) | genrand(); }
+template<> inline UInt64	iuRandom::genrand<UInt64>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(UInt64))	{ return (static_cast<UInt64>(genrand()) << 32) | genrand(); }
+template<> inline float		iuRandom::genrand<float>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(float))		{ return genrandf(); }
+template<> inline double	iuRandom::genrand<double>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(double))	{ return static_cast<double>(genrandf()); }
+
+#endif
 
 }	// end of namespace detail
 }	// end of namespace iutest

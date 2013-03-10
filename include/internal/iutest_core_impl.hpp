@@ -54,7 +54,9 @@ public:
 public:
 	/** @private */
 	template<typename T>
-	TestCase*	AddTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+	TestCase*	AddTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown
+		IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)
+		)
 	{
 		TestCase::FindOp func = { id, testcase_name };
 		iuTestCases& list = m_testcases;
