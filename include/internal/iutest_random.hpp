@@ -111,7 +111,7 @@ public:
 		return static_cast<T>(genrand( static_cast<unsigned int>( static_cast<T>(-1) ) ));
 	}
 
-#if IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION
+#if IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION && (defined(_MSC_VER) && _MSC_VER < 1300)
 	template<>float		genrand<float>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(float))	{ return genrandf(); }
 	template<>double	genrand<double>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(double))	{ return static_cast<double>(genrandf()); }
 #endif
