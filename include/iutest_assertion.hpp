@@ -171,8 +171,8 @@ private:
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(AssertionHelper);
 
 #if IUTEST_HAS_RVALUE_REFS
-	AssertionHelper(AssertionHelper&& rhs) IUTEST_DECL_DELETED_FUNCTION;
-	AssertionHelper& operator=(AssertionHelper&&) IUTEST_DECL_DELETED_FUNCTION;
+	AssertionHelper(AssertionHelper&& rhs) IUTEST_CXX_DELETED_FUNCTION;
+	AssertionHelper& operator=(AssertionHelper&&) IUTEST_CXX_DELETED_FUNCTION;
 #endif
 
 public:

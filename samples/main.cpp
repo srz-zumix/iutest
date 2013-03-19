@@ -514,6 +514,32 @@ IUTEST_INSTANTIATE_TEST_CASE_P(TestPCombineInstance, TestPCombine
 							   , ::iutest::Combine( ::iutest::Bool(), ::iutest::Values(1, 2), ::iutest::Values(10, 11) ) );
 #endif
 
+#if IUTEST_HAS_INITIALIZER_LIST
+
+class InitializerListValuesTest : public ::iutest::TestWithParam<int> {};
+
+IUTEST_P(InitializerListValuesTest, Test)
+{
+	int v = GetParam();
+	IUTEST_SUCCEED() << v;
+}
+IUTEST_INSTANTIATE_TEST_CASE_P(A, InitializerListValuesTest, ::iutest::ValuesIn({1, 9, 8, 6, 3, 9}));
+
+#endif
+
+#if IUTEST_HAS_RANDOMVALUES
+
+class RandomValuesTest : public ::iutest::TestWithParam<int> {};
+
+IUTEST_P(RandomValuesTest, Test)
+{
+	int v = GetParam();
+	IUTEST_SUCCEED() << v;
+}
+IUTEST_INSTANTIATE_TEST_CASE_P(A, RandomValuesTest, ::iutest::RandomValues(5));
+
+#endif
+
 #endif
 
 /** --------------------------------------------------

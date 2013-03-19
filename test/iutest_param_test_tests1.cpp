@@ -23,6 +23,7 @@
 
 IUTEST_P(ParamTest, Test)
 {
+	IUTEST_SUCCEED() << GetParam();
 }
 
 int param_test_array[] = { 3, 2, 1, 0 };
@@ -31,6 +32,10 @@ IUTEST_INSTANTIATE_TEST_CASE_P(My1, ParamTest, ::iutest::Range<int>(0, 10));
 IUTEST_INSTANTIATE_TEST_CASE_P(My3, ParamTest, ::iutest::Values(0, 1, 10));
 IUTEST_INSTANTIATE_TEST_CASE_P(My4, ParamTest, ::iutest::ValuesIn(param_test_array));
 IUTEST_INSTANTIATE_TEST_CASE_P(My5, ParamTest, ::iutest::ValuesIn(va));
+#if IUTEST_HAS_INITIALIZER_LIST
+IUTEST_INSTANTIATE_TEST_CASE_P(My6, ParamTest, ::iutest::ValuesIn({ 3, 2, 1, 0 }));
+//IUTEST_INSTANTIATE_TEST_CASE_P(My7, ParamTest, ({ 3, 2, 1, 0 }));
+#endif
 
 class BoolParamTest : public ::iutest::TestWithParam<bool> {};
 

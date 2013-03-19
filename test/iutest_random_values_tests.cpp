@@ -19,9 +19,7 @@
 // include
 #include "../include/iutest.hpp"
 
-#if !defined(IUTEST_USE_GTEST)
-
-#if IUTEST_HAS_PARAM_TEST
+#if IUTEST_HAS_RANDOMVALUES
 
 class RandomValuesTest1 : public ::iutest::TestWithParam<int> {};
 class RandomValuesTest2 : public ::iutest::TestWithParam<char> {};
@@ -48,7 +46,5 @@ IUTEST_P(RandomValuesTest3, Test)
 IUTEST_INSTANTIATE_TEST_CASE_P(A, RandomValuesTest1, ::iutest::RandomValues(5));
 IUTEST_INSTANTIATE_TEST_CASE_P(A, RandomValuesTest2, ::iutest::RandomValues(5));
 IUTEST_INSTANTIATE_TEST_CASE_P(A, RandomValuesTest3, ::iutest::RandomValues(5));
-
-#endif
 
 #endif

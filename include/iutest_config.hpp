@@ -79,7 +79,7 @@
 #endif
 
 #ifndef IUTEST_HAS_TYPED_TEST
-//!< 型付けテストが使用可能かどうか
+//! 型付けテストが使用可能かどうか
 #  if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 #    define IUTEST_HAS_TYPED_TEST		1
 #  else
@@ -116,6 +116,24 @@
 #    define IUTEST_HAS_IGNORE_TEST	0
 #  else
 #    define IUTEST_HAS_IGNORE_TEST	0
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_VALUESGEN
+//! ::iutest::ValuesGen が使用可能かどうか
+#  if IUTEST_HAS_PARAM_TEST
+#    define IUTEST_HAS_VALUESGEN	1
+#  else
+#    define IUTEST_HAS_VALUESGEN	0
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_RANDOMVALUES
+//! ::iutest::RandomValues が使用可能かどうか
+#  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_VALUESGEN
+#    define IUTEST_HAS_RANDOMVALUES	1
+#  else
+#    define IUTEST_HAS_RANDOMVALUES	0
 #  endif
 #endif
 
@@ -190,7 +208,7 @@
 #endif
 
 #ifndef IUTEST_HAS_PACKAGE
-//!< パッケージ機能があるかどうか
+//! パッケージ機能があるかどうか
 #  if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 #    define IUTEST_HAS_PACKAGE		1
 #  else
@@ -200,7 +218,7 @@
 
 // peep
 #ifndef IUTEST_HAS_PEEP
-//!< private メンバーへのアクセスマクロが使用可能かどうか
+//! private メンバーへのアクセスマクロが使用可能かどうか
 #  define IUTEST_HAS_PEEP			1
 #endif
 
@@ -305,7 +323,12 @@
 */
 
 #ifndef IUTEST_HAS_STRINGSTREAM
-#  define IUTEST_HAS_STRINGSTREAM	1	//!< std::stringstream が使用可能かどうか
+//! std::stringstream が使用可能かどうか
+#  if !defined(_STLP_NO_IOSTREAMS)
+#    define IUTEST_HAS_STRINGSTREAM	1	
+#  else
+#    define IUTEST_HAS_STRINGSTREAM	0
+#  endif
 #endif
 
 /**

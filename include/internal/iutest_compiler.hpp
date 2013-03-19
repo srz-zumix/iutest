@@ -190,9 +190,31 @@
 #endif
 
 #if IUTEST_HAS_DELETED_FUNCTIONS
-#  define IUTEST_DECL_DELETED_FUNCTION	= delete
+#  define IUTEST_CXX_DELETED_FUNCTION	= delete
 #else
-#  define IUTEST_DECL_DELETED_FUNCTION
+#  define IUTEST_CXX_DELETED_FUNCTION
+#endif
+
+// initializer_list
+#ifndef IUTEST_HAS_INITIALIZER_LIST
+#  if	defined(__clang__)
+#    if __has_feature(cxx_generalized_initializers)
+#      define IUTEST_HAS_INITIALIZER_LIST	1
+#    endif
+#  elif defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_INITIALIZER_LIST	1
+#    endif
+#  elif	defined(_MSC_VER)
+#    if _MSC_FULL_VER == 170051025
+#      define IUTEST_HAS_INITIALIZER_LIST	1
+#      include <initializer_list>
+#    endif
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_INITIALIZER_LIST
+#  define IUTEST_HAS_INITIALIZER_LIST		0
 #endif
 
 // variadic template

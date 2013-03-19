@@ -68,7 +68,8 @@
 */
 #define IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_)						\
 	static ::iutest::detail::iuIParamGenerator<testcase_::ParamType>*						\
-		s_##prefix_##_##testcase_##_EvalGenerator_(void) { return generator_; }				\
+		s_##prefix_##_##testcase_##_EvalGenerator_(void) {									\
+			return IUTEST_CAST_TO_PARAM_GENERATOR_(testcase_::ParamType, generator_); }		\
 		int s_##prefix_##_##testcase_##_dummy =												\
 			IIUT_GetTestCasePatternHolder(testcase_, IUTEST_CONCAT_PACKAGE_(testcase_))		\
 				->AddTestCaseInstantiation(#prefix_, s_##prefix_##_##testcase_##_EvalGenerator_)
@@ -187,6 +188,20 @@ inline detail::iuIParamGenerator<bool>* IUTEST_ATTRIBUTE_UNUSED_ Bool(void)
 	return new detail::iuBoolParamsGenerator<bool>();
 }
 
+#if IUTEST_HAS_VALUESGEN
+
+/**
+ * @brief	値配列パラメータ
+*/
+template<typename Generator>
+inline detail::iuValuesParamsGeneratorHolder<Generator> IUTEST_ATTRIBUTE_UNUSED_ ValuesGen(size_t num, const Generator& gen)
+{
+	return detail::iuValuesParamsGeneratorHolder<Generator>(num, gen);
+}
+
+#endif
+
+#if IUTEST_HAS_RANDOMVALUES
 /**
  * @brief	乱数値パラメータ
 */
@@ -194,6 +209,7 @@ inline detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_ RandomValues(size_t
 {
 	return detail::iuRandomParamsHolder(num);
 }
+#endif
 
 /**
  * @brief	値配列パラメータ
@@ -201,7 +217,7 @@ inline detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_ RandomValues(size_t
 template<typename Container>
 inline detail::iuIParamGenerator< typename Container::value_type >* ValuesIn(Container containor)
 {
-	return new detail::iuValueInParamsGenerator< typename Container::value_type >(containor);
+	return new detail::iuValuesInParamsGenerator< typename Container::value_type >(containor);
 }
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
@@ -209,14 +225,23 @@ inline detail::iuIParamGenerator< typename Container::value_type >* ValuesIn(Con
 template<typename T, size_t SIZE>
 inline detail::iuIParamGenerator<T>* ValuesIn(const T (&v)[SIZE])
 {
-	return new detail::iuValueInParamsGenerator<T>(v, v+SIZE);
+	return new detail::iuValuesInParamsGenerator<T>(v, v+SIZE);
 }
 /** @overload */
 template<typename Ite>
 inline detail::iuIParamGenerator< typename detail::IteratorTraits<Ite>::type >* ValuesIn(Ite begin, Ite end)
 {
-	return new detail::iuValueInParamsGenerator< typename detail::IteratorTraits<Ite>::type >(begin, end);
+	return new detail::iuValuesInParamsGenerator< typename detail::IteratorTraits<Ite>::type >(begin, end);
 }
+#if IUTEST_HAS_INITIALIZER_LIST
+/** @overload */
+template<typename T>
+inline detail::iuIParamGenerator<T>* ValuesIn(::std::initializer_list<T> l)
+{
+	return new detail::iuValuesInParamsGenerator<T>(l);
+}
+#endif
+
 #endif
 
 #if IUTEST_HAS_VARIADIC_VALUES

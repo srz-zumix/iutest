@@ -168,6 +168,12 @@ inline ::std::string ShowStringQuoted(const char* str) { ::std::string s = "\"";
 inline ::std::string ShowStringQuoted(const ::std::string& str) { ::std::string s = "\""; s += str; s += "\""; return s; }
 
 //======================================================================
+// declare
+#if !IUTEST_HAS_STRINGSTREAM && !IUTEST_HAS_STRSTREAM
+template<class _Elem, class _Traits>class iu_basic_stream;
+#endif
+
+//======================================================================
 // class
 class iuStringStream
 {
@@ -194,7 +200,6 @@ IUTEST_PRAGMA_MSC_WARN_DISABLE(4250)
 	};
 IUTEST_PRAGMA_MSC_WARN_POP()
 #else
-	template<class _Elem, class _Traits>class iu_basic_stream;
 	typedef iu_basic_stream<char, ::std::char_traits<char> >		iu_stream;
 	typedef iu_basic_stream<wchar_t, ::std::char_traits<wchar_t> >	iu_wstream;
 #endif
@@ -206,11 +211,18 @@ public:
 #else
 	typedef iu_stream	type;
 #endif
-
-
-public:
+};
 
 #if !IUTEST_HAS_STRINGSTREAM && !IUTEST_HAS_STRSTREAM
+
+template<class _Elem, class _Traits>
+class iu_basic_stream
+{
+	typedef iu_basic_stream<_Elem, _Traits>			_Myt;
+	//typedef ::std::basic_streambuf<_Elem, _Traits>	streambuf;
+	//typedef ::std::basic_ostream<_Elem, _Traits>	ostream;
+	typedef ::std::basic_string<_Elem, _Traits>		string;
+	string s;
 
 	template<typename T>
 	struct xcs
@@ -242,185 +254,175 @@ public:
 	};
 #define IUTEST_PP_XCS(txt_)	xcs<_Elem>::select::constant(txt_, L##txt_)
 
-	template<class _Elem, class _Traits>
-	class iu_basic_stream
+	struct impl
 	{
-		typedef iu_basic_stream<_Elem, _Traits>			_Myt;
-		//typedef ::std::basic_streambuf<_Elem, _Traits>	streambuf;
-		//typedef ::std::basic_ostream<_Elem, _Traits>	ostream;
-		typedef ::std::basic_string<_Elem, _Traits>		string;
-		string s;
-
-		struct impl
+		template<typename E>
+		static int vastring(E* dst, const E* fmt, va_list va);
+		static int vastring(char* dst, size_t len, const char* fmt, va_list va)
 		{
-			template<typename E>
-			static int vastring(E* dst, const E* fmt, va_list va);
-			static int vastring(char* dst, size_t len, const char* fmt, va_list va)
-			{
-				(void)len;
-				return vsprintf(dst, fmt, va);
-			}
-			static int vastring(wchar_t* dst, size_t len, const wchar_t* fmt, va_list va)
-			{
+			(void)len;
+			return vsprintf(dst, fmt, va);
+		}
+		static int vastring(wchar_t* dst, size_t len, const wchar_t* fmt, va_list va)
+		{
 #ifdef IUTEST_OS_WINDOWS_MINGW
-				return _vsnwprintf(dst, len, fmt, va);
+			return _vsnwprintf(dst, len, fmt, va);
 #else
-				return vswprintf(dst, len, fmt, va);
+			return vswprintf(dst, len, fmt, va);
 #endif
-			}
+		}
 
-			template<typename E>
-			static int tostring(E* dst, size_t len, const E* fmt, ...)
-			{
-				va_list va;
-				va_start(va, fmt);
-				int ret = vastring(dst, len, fmt, va);
-				va_end(va);
-				return ret;
-			}
-		};
-	public:
-		iu_basic_stream(void) {}
-	public:
-
-		inline _Myt& operator<< (char v)
+		template<typename E>
+		static int tostring(E* dst, size_t len, const E* fmt, ...)
 		{
-			s += v;
-			return *this;
+			va_list va;
+			va_start(va, fmt);
+			int ret = vastring(dst, len, fmt, va);
+			va_end(va);
+			return ret;
 		}
-		inline _Myt& operator<< (signed char v)
-		{
-			s += (char)v;
-			return *this;
-		}
-		inline _Myt& operator<< (unsigned char v)
-		{
-			s += (char)v;
-			return *this;
-		}
-		inline _Myt& operator<< (const _Elem* v)
-		{
-			s += v;
-			return *this;
-		}
-		//inline _Myt& operator<< (const signed _Elem* v)
-		//{
-		//	s += v;
-		//	return *this;
-		//}
-		//inline _Myt& operator<< (const unsigned _Elem* v)
-		//{
-		//	s += v;
-		//	return *this;
-		//}
-		inline _Myt& operator<< (bool v)
-		{
-#if 0
-			_Elem a[16];
-			impl::tostring(a, 16, IUTEST_PP_XCS("%i"), v);
-			s += a;
-#else
-			s += (v ? IUTEST_PP_XCS("true") : IUTEST_PP_XCS("false"));
-#endif
-			return *this;
-		}
-		inline _Myt& operator<< (short v)
-		{
-			_Elem a[64];
-			impl::tostring(a, 64, IUTEST_PP_XCS("%i"), v);
-			s += a;
-			return *this;
-		}
-		inline _Myt& operator<< (unsigned short v)
-		{
-			_Elem a[64];
-			impl::tostring(a, 64, IUTEST_PP_XCS("%u"), v);
-			s += a;
-			return *this;
-		}
-		inline _Myt& operator<< (int v)
-		{
-			_Elem a[64];
-			impl::tostring(a, 64, IUTEST_PP_XCS("%i"), v);
-			s += a;
-			return *this;
-		}
-		inline _Myt& operator<< (unsigned int v)
-		{
-			_Elem a[64];
-			impl::tostring(a, 64, IUTEST_PP_XCS("%u"), v);
-			s += a;
-			return *this;
-		}
-		inline _Myt& operator<< (long v)
-		{
-			_Elem a[64];
-			impl::tostring(a, 64, IUTEST_PP_XCS("%i"), v);
-			s += a;
-			return *this;
-		}
-		inline _Myt& operator<< (unsigned long v)
-		{
-			_Elem a[64];
-			impl::tostring(a, 64, IUTEST_PP_XCS("%u"), v);
-			s += a;
-			return *this;
-		}
-		inline _Myt& operator<< (long long int v)
-		{
-			_Elem a[64];
-			impl::tostring(a, 64, IUTEST_PP_XCS("%ll"), v);
-			s += a;
-			return *this;
-		}
-		inline _Myt& operator<< (unsigned long long int v)
-		{
-			_Elem a[64];
-			impl::tostring(a, 64, IUTEST_PP_XCS("%llu"), v);
-			s += a;
-			return *this;
-		}
-		inline _Myt& operator<< (float v)
-		{
-			_Elem a[64];
-			impl::tostring(a, 64, IUTEST_PP_XCS("%f"), v);
-			s += a;
-			return *this;
-		}
-		inline _Myt& operator<< (double v)
-		{
-			_Elem a[64];
-			impl::tostring(a, 64, IUTEST_PP_XCS("%l"), v);
-			s += a;
-			return *this;
-		}
-		inline _Myt& operator<< (long double v)
-		{
-			_Elem a[64];
-			impl::tostring(a, 64, IUTEST_PP_XCS("%L"), v);
-			s += a;
-			return *this;
-		}
-		inline _Myt& operator<< (const void* v)
-		{
-			_Elem a[64];
-			impl::tostring(a, 64, IUTEST_PP_XCS("%t"), v);
-			s += a;
-			return *this;
-		}
-		inline _Myt& operator<< (const ::std::string& v)
-		{
-			s += v;
-			return *this;
-		}
-	public:
-		const string& str(void) const { return s; }
 	};
+public:
+	iu_basic_stream(void) {}
+public:
+
+	inline _Myt& operator<< (char v)
+	{
+		s += v;
+		return *this;
+	}
+	inline _Myt& operator<< (signed char v)
+	{
+		s += (char)v;
+		return *this;
+	}
+	inline _Myt& operator<< (unsigned char v)
+	{
+		s += (char)v;
+		return *this;
+	}
+	inline _Myt& operator<< (const _Elem* v)
+	{
+		s += v;
+		return *this;
+	}
+	//inline _Myt& operator<< (const signed _Elem* v)
+	//{
+	//	s += v;
+	//	return *this;
+	//}
+	//inline _Myt& operator<< (const unsigned _Elem* v)
+	//{
+	//	s += v;
+	//	return *this;
+	//}
+	inline _Myt& operator<< (bool v)
+	{
+#if 0
+		_Elem a[16];
+		impl::tostring(a, 16, IUTEST_PP_XCS("%i"), v);
+		s += a;
+#else
+		s += (v ? IUTEST_PP_XCS("true") : IUTEST_PP_XCS("false"));
+#endif
+		return *this;
+	}
+	inline _Myt& operator<< (short v)
+	{
+		_Elem a[64];
+		impl::tostring(a, 64, IUTEST_PP_XCS("%i"), v);
+		s += a;
+		return *this;
+	}
+	inline _Myt& operator<< (unsigned short v)
+	{
+		_Elem a[64];
+		impl::tostring(a, 64, IUTEST_PP_XCS("%u"), v);
+		s += a;
+		return *this;
+	}
+	inline _Myt& operator<< (int v)
+	{
+		_Elem a[64];
+		impl::tostring(a, 64, IUTEST_PP_XCS("%i"), v);
+		s += a;
+		return *this;
+	}
+	inline _Myt& operator<< (unsigned int v)
+	{
+		_Elem a[64];
+		impl::tostring(a, 64, IUTEST_PP_XCS("%u"), v);
+		s += a;
+		return *this;
+	}
+	inline _Myt& operator<< (long v)
+	{
+		_Elem a[64];
+		impl::tostring(a, 64, IUTEST_PP_XCS("%i"), v);
+		s += a;
+		return *this;
+	}
+	inline _Myt& operator<< (unsigned long v)
+	{
+		_Elem a[64];
+		impl::tostring(a, 64, IUTEST_PP_XCS("%u"), v);
+		s += a;
+		return *this;
+	}
+	inline _Myt& operator<< (long long int v)
+	{
+		_Elem a[64];
+		impl::tostring(a, 64, IUTEST_PP_XCS("%ll"), v);
+		s += a;
+		return *this;
+	}
+	inline _Myt& operator<< (unsigned long long int v)
+	{
+		_Elem a[64];
+		impl::tostring(a, 64, IUTEST_PP_XCS("%llu"), v);
+		s += a;
+		return *this;
+	}
+	inline _Myt& operator<< (float v)
+	{
+		_Elem a[64];
+		impl::tostring(a, 64, IUTEST_PP_XCS("%f"), v);
+		s += a;
+		return *this;
+	}
+	inline _Myt& operator<< (double v)
+	{
+		_Elem a[64];
+		impl::tostring(a, 64, IUTEST_PP_XCS("%l"), v);
+		s += a;
+		return *this;
+	}
+	inline _Myt& operator<< (long double v)
+	{
+		_Elem a[64];
+		impl::tostring(a, 64, IUTEST_PP_XCS("%L"), v);
+		s += a;
+		return *this;
+	}
+	inline _Myt& operator<< (const void* v)
+	{
+		_Elem a[64];
+		impl::tostring(a, 64, IUTEST_PP_XCS("%t"), v);
+		s += a;
+		return *this;
+	}
+	inline _Myt& operator<< (const ::std::string& v)
+	{
+		s += v;
+		return *this;
+	}
+public:
+	const string& str(void) const { return s; }
+};
 
 #undef IUTEST_PP_XCS
 
 #endif
-};
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 

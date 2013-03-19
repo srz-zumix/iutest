@@ -127,16 +127,16 @@ public:
  * @tparam T	= パラメータ型
 */
 template<typename T>
-class iuValueInParamsGenerator : public iuIParamGenerator<T>
+class iuValuesInParamsGenerator : public iuIParamGenerator<T>
 {
 	typedef ::std::vector<T>	params_t;
 	params_t	m_values;
 	typename params_t::const_iterator m_it;
 public:
-	iuValueInParamsGenerator(const params_t& values)
+	iuValuesInParamsGenerator(const params_t& values)
 		: m_values(values) {}
 	template<typename Container>
-	iuValueInParamsGenerator(const Container& values)
+	iuValuesInParamsGenerator(const Container& values)
 	{
 		for( typename Container::const_iterator it = values.begin(), end=values.end(); it != end; ++it )
 		{
@@ -145,7 +145,7 @@ public:
 	}
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 	template<typename TT, size_t SIZE>
-	iuValueInParamsGenerator(const TT (&values)[SIZE])
+	iuValuesInParamsGenerator(const TT (&values)[SIZE])
 	{
 		const TT* begin = values;
 		for( const TT* end = values+SIZE; begin != end; ++begin )
@@ -156,13 +156,21 @@ public:
 #endif
 
 	template<typename Ite>
-	iuValueInParamsGenerator(Ite begin, Ite end)
+	iuValuesInParamsGenerator(Ite begin, Ite end)
 	{
 		for( ; begin != end; ++begin )
 		{
 			m_values.push_back(static_cast<T>(*begin));
 		}
 	}
+
+#if IUTEST_HAS_INITIALIZER_LIST
+	iuValuesInParamsGenerator(::std::initializer_list<T> l)
+	{
+		m_values.insert(m_values.end(), l.begin(), l.end());
+	}
+#endif
+
 public:
 	virtual	void	Begin(void) { m_it = m_values.begin(); }
 	virtual T		GetCurrent(void) const	{ return *m_it; }
@@ -204,7 +212,7 @@ public:
 	operator	iuIParamGenerator<T>* (void) const
 	{
 		make_array<T> ar(v);
-		return new iuValueInParamsGenerator<T>(ar.val);
+		return new iuValuesInParamsGenerator<T>(ar.val);
 	}
 private:
 	_MyTuple v;
@@ -225,7 +233,7 @@ public:
 	{
 		const T val[] = { static_cast<T>(v1), static_cast<T>(v2)
 		};
-		return new iuValueInParamsGenerator<T>(val);
+		return new iuValuesInParamsGenerator<T>(val);
 	}
 private:
 	A1	v1;	A2	v2;
@@ -242,7 +250,7 @@ private:
 		: IUTEST_PP_ENUM_BINARY(n, IUTEST_DECL_VALUEARRAY_CONSTRUCT_, v, a) {}		\
 		template<typename T>operator iuIParamGenerator<T>* (void) const {			\
 			const T val[] = { IUTEST_PP_ENUM_BINARY(n, IUTEST_DECL_VALUEARRAY_STATICCAST_, T, v) };	\
-			return new iuValueInParamsGenerator<T>(val);							\
+			return new iuValuesInParamsGenerator<T>(val);							\
 		}																			\
 	private: IUTEST_PP_REPEAT_BINARY(n, IUTEST_DECL_VALUEARRAY_VARIABLE_, A, v)		\
 	}
@@ -868,7 +876,7 @@ public:
 			params.push_back( MakeParam<0, Args...>(params_list, indexes) );
 		}
 
-		return new iuValueInParamsGenerator< ParamType >(params);
+		return new iuValuesInParamsGenerator< ParamType >(params);
 	}
 private:
 	template<int N, typename T1, typename... TArgs>
@@ -1040,7 +1048,7 @@ public:
 				) );
 		}
 
-		return new iuValueInParamsGenerator< ParamType >(params);
+		return new iuValuesInParamsGenerator< ParamType >(params);
 	}
 };
 */
@@ -1073,7 +1081,7 @@ public:
 				const _MyParamIndexes& indexes = *it;						\
 				params.push_back( ParamType( IUTEST_PP_ENUM(n, IUTEST_DECL_PAIRWISE_GENERATOR_GETPARAM_, params) ) );	\
 			}																\
-			return new iuValueInParamsGenerator< ParamType >(params);		\
+			return new iuValuesInParamsGenerator< ParamType >(params);		\
 		}																	\
 	}
 
@@ -1157,45 +1165,95 @@ IUTEST_DECL_PAIRWISE_HOLDER_(9);
 
 #endif
 
+#if IUTEST_HAS_VALUESGEN
+
 /**
- * @breif	乱数パラメータ生成器
- * @tparam T	= パラメータ型
+ * @breif	パラメータ生成器
+ * @tparam G	= パラメータ生成器
 */
-class iuRandomParamsHolder
+template<typename G>
+class iuValuesParamsGeneratorHolder
 {
 public:
-	iuRandomParamsHolder(size_t num)
-		: m_num(num) {}
+	iuValuesParamsGeneratorHolder(size_t num, const G& g)
+		: m_num(num), m_g(g)
+	{}
 public:
 	template<typename T>
 	operator iuIParamGenerator<T>* () const 
 	{
-		Params<T> params(m_num);
-		return new iuValueInParamsGenerator<T>( params.m_params );
+		::std::vector<T> params(m_num);
+		::std::generate(params.begin(), params.end(), m_g);
+		return new iuValuesInParamsGenerator<T>( params );
 	}
 private:
 	size_t m_num;
+	G m_g;
+};
+
+#endif
+
+#if IUTEST_HAS_RANDOMVALUES
+
+/**
+ * @breif	乱数パラメータ生成器
+*/
+class iuRandomParamsHolder
+{
+public:
+	iuRandomParamsHolder(size_t num, unsigned int seed=0)
+		: m_num(num), m_seed(seed) {}
+public:
+	template<typename T>
+	operator iuIParamGenerator<T>* () const 
+	{
+		iuValuesParamsGeneratorHolder< RandomGenerator<T> > gen( m_num, RandomGenerator<T>(m_seed) );
+		return gen;
+	}
+private:
+	size_t m_num;
+	unsigned int m_seed;
 private:
 	template<typename T>
-	class Params
+	class RandomGenerator
 	{
+		iuRandom rnd;
 	public:
-		::std::vector<T> m_params;
-		Params(size_t n, unsigned int seed=0)
+		RandomGenerator(unsigned int seed)
+			: rnd(seed) {}
+
+	public:
+		T operator ()(void)
 		{
-			iuRandom rnd;
-			if( seed != 0 ) rnd.init(seed);
-			for( size_t i=0; i < n; ++i )
-			{
-				m_params.push_back(rnd.genrand<T>(
+			return rnd.genrand<T>(
 #if defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-					&detail::type<T>()
+				&detail::type<T>()
 #endif
-					));
-			}
+				);
 		}
 	};
 };
+
+#endif
+
+#if IUTEST_HAS_INITIALIZER_LIST && 0
+
+/**
+ * @brief	initializer_list 対応用キャストオブジェクト
+*/
+template<typename T>
+iuIParamGenerator<T>* iuCastToParamGenerator(iuIParamGenerator<T>* g) { return g; }
+
+template<typename T>
+iuIParamGenerator<T>* iuCastToParamGenerator(::std::initializer_list<T> l) { return new iuValuesInParamsGenerator<T>(l); }
+
+#define IUTEST_CAST_TO_PARAM_GENERATOR_(type, gen)	::iutest::detail::iuCastToParamGenerator<type>(gen)
+
+#else
+
+#define IUTEST_CAST_TO_PARAM_GENERATOR_(type, gen)	gen
+
+#endif
 
 }	// end of namespace detail
 }	// end of namespace iutest
