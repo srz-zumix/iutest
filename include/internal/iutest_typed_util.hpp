@@ -39,6 +39,7 @@ template<typename ...Args>
 struct Types
 {
 	typedef detail::VariadicTypeList<Args...> type;
+	template<size_t N>struct get : public detail::typelist_get<type, N> {};
 };
 
 #else
@@ -49,6 +50,7 @@ template< IUTEST_PP_ENUM(50, IUTEST_DECL_DEFAULT_ARG_, typename T) >
 struct Types
 {
 	typedef detail::TypeList50< IUTEST_PP_ENUM_PARAMS(50, T) > type;
+	template<size_t N>struct get : public detail::typelist_get<type, N> {};
 };
 
 #undef IUTEST_DECL_DEFAULT_ARG_
@@ -60,8 +62,8 @@ struct Types
 		, IUTEST_PP_ENUM(m, IUTEST_DECL_SPEC_NONE_, detail::None) > {	\
 		typedef IUTEST_PP_CAT(detail::TypeList, n)<			\
 			IUTEST_PP_ENUM_PARAMS(n, T) > type;				\
+		template<size_t N>struct get : public detail::typelist_get<type, N> {};	\
 	}
-
 
 template<>
 struct Types< IUTEST_PP_ENUM(50, IUTEST_DECL_SPEC_NONE_, detail::None) >

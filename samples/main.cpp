@@ -111,6 +111,25 @@ IUTEST(Test, Stream)
 	IUTEST_SUCCEED() << L"OK!!";
 }
 
+#if !defined(IUTEST_USE_GTEST)
+
+/** --------------------------------------------------
+ * 戻り値のある関数での使用
+*//*--------------------------------------------------*/
+int ReturnTest(void)
+{
+	IUTEST_ASSERT_TRUE(true) << ::iutest::AssertionReturn<int>(-1);
+	return 0;
+}
+
+IUTEST(ReturnTest, Test)
+{
+	ReturnTest();
+}
+
+#endif
+
+
 /** --------------------------------------------------
  * パッケージ
 *//*--------------------------------------------------*/

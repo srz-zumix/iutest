@@ -1,0 +1,47 @@
+//======================================================================
+//-----------------------------------------------------------------------
+/**
+ * @file		iutest_tr1_param_direct_tests.cpp
+ * @brief		iutest parameter test
+ *
+ * @author		t.sirayanagi
+ * @version		1.0
+ *
+ * @par			copyright
+ * Copyright (C) 2013, Takazumi Shirayanagi\n
+ * The new BSD License is applied to this software.
+ * see LICENSE
+*/
+//-----------------------------------------------------------------------
+//======================================================================
+
+//======================================================================
+// include
+#include "iutest_param_test_tests.hpp"
+
+#if !defined(IUTEST_USE_GTEST)
+
+#include "../include/tr1/iutest_param_direct_tests.hpp"
+
+#if IUTEST_HAS_PARAM_TEST
+
+typedef ParamTest ParamDirectTest;
+IUTEST_P(ParamDirectTest, Test)
+{
+	IUTEST_SUCCEED() << GetParam();
+}
+
+int param_test_array[] = { 3, 2, 1, 0 };
+::std::vector<int> va(param_test_array, param_test_array+(sizeof(param_test_array)/sizeof(param_test_array[0])));
+IUTEST_INSTANTIATE_TEST_CASE_P(My1, ParamDirectTest, ::iutest::Range<int>(0, 10));
+IUTEST_INSTANTIATE_TEST_CASE_P(My3, ParamDirectTest, ::iutest::Values(0, 1, 10));
+IUTEST_INSTANTIATE_TEST_CASE_P(My4, ParamDirectTest, ::iutest::ValuesIn(param_test_array));
+IUTEST_INSTANTIATE_TEST_CASE_P(My5, ParamDirectTest, ::iutest::ValuesIn(va));
+#if IUTEST_HAS_INITIALIZER_LIST
+IUTEST_INSTANTIATE_TEST_CASE_P(My6, ParamDirectTest, ::iutest::ValuesIn({ 3, 2, 1, 0 }));
+IUTEST_INSTANTIATE_TEST_CASE_P(My7, ParamDirectTest, { 3, 2, 1, 0 });
+#endif
+
+#endif
+
+#endif

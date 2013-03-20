@@ -1,8 +1,8 @@
 //======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_extension_tests.cpp
- * @brief		iutest Šg’£•”•ª‚Ì test
+ * @file		iutest_tr1_tests.cpp
+ * @brief		iutest tr1 ‘S•” test
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -18,15 +18,6 @@
 //======================================================================
 // include
 #include "main.cpp"
-#include "iutest_ignore_tests.cpp"
-#include "iutest_package_tests1.cpp"
-#include "iutest_package_tests2.cpp"
-#include "iutest_pairwise_tests.cpp"
-#include "iutest_param_method_tests.cpp"
-#include "iutest_pp_tests.cpp"
-#include "iutest_pred_tests.cpp"
-#include "iutest_prod_tests.cpp"
-#include "iutest_random_values_tests.cpp"
-#include "iutest_util_tests.cpp"
-#include "iutest_variadic_templates_tests.cpp"
+#include "iutest_tr1_param_direct_tests.cpp"
+#include "iutest_tr1_value_tmp_tests.cpp"
 

@@ -99,6 +99,22 @@ private:
 };
 
 /**
+ * @brief	Assetion Return Type
+*/
+template<typename R>
+struct AssertionReturn
+{
+	R value;	//!< 戻り値
+	//! コンストラクタ
+	AssertionReturn() {}
+	/**
+	 * @brief	コンストラクタ
+	 * @param [in]	v : 戻り値の値
+	*/
+	AssertionReturn(const R& v) : value(v) {}
+};
+
+/**
  * @brief	Assertion 構築クラス
 */
 class AssertionHelper
@@ -134,6 +150,9 @@ private:
 	friend class ScopedMessage;
 #endif
 
+private:
+	template<typename R>struct ReturnTypedFixed;
+
 public:
 	/** @private */
 	class Fixed : public Message {
@@ -144,7 +163,21 @@ public:
 			Message::operator << (value);
 			return *this;
 		}
+		template<typename R>
+		ReturnTypedFixed<R> operator << (const AssertionReturn<R>& ret)
+		{
+			return ReturnTypedFixed<R>(*this, ret);
+		}
 	};
+
+private:
+	template<typename R>
+	struct ReturnTypedFixed {
+		Fixed fixed;
+		AssertionReturn<R> ret;
+		ReturnTypedFixed(const Fixed& f, const AssertionReturn<R>& r) : fixed(f), ret(r) {}
+	};
+
 public:
 	/**
 	 * @brief	コンストラクタ
@@ -186,6 +219,13 @@ public:
 		}
 #endif
 	}
+	/** @private */
+	template<typename R>
+	R	operator = (const ReturnTypedFixed<R>& fixed)
+	{
+		this->operator=(fixed.fixed);
+		return fixed.ret.value;
+	}	
 
 private:
 	void	OnFixed(const Fixed& fixed) throw()

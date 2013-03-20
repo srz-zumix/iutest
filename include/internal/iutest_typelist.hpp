@@ -37,6 +37,24 @@ namespace detail
  * @{
 */
 
+// TypeList ‚©‚ç Œ^‚ğæ“¾
+template<typename TypeList, size_t N>
+class typelist_get
+{
+	template<typename T, size_t I>
+	struct impl
+	{
+		typedef typename impl<typename T::Tail, I-1>::type type;
+	};
+	template<typename T>
+	struct impl<T, 0>
+	{
+		typedef typename T::Head type;
+	};
+public:
+	typedef typename impl<TypeList, N>::type type;
+};
+
 // type list I’[
 struct TypeList0 {};
 

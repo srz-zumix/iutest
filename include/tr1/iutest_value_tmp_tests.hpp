@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -48,7 +48,7 @@
 		static const iutest::BiggestInt ValueParam = iutest_ValueParam;					\
 		protected: virtual void Body(void);												\
 	};																					\
-	iutest::detail::ValueTmpParamTestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_), IUTEST_TYPED_TEST_PARAMS_(testcase_)>	\
+	iutest::tr1::ValueTmpParamTestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_), IUTEST_TYPED_TEST_PARAMS_(testcase_)>	\
 	s_##testcase_##_##testname_( #testcase_, #testname_);								\
 	template<iutest::BiggestInt iutest_ValueParam>										\
 	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_ValueParam>::Body(void)
@@ -56,7 +56,7 @@
 //======================================================================
 // class
 namespace iutest {
-namespace detail
+namespace tr1
 {
 
 template<typename T>
@@ -69,12 +69,12 @@ struct TypeAndValues
 	};
 };
 
-}	// end of namespace detail
+}	// end of namespace tr1
 
 template<BiggestInt V>
-struct TemplateValue : public detail::TypeAndValues<BiggestInt>::Value<V> {};
+struct TemplateValue : public tr1::TypeAndValues<BiggestInt>::Value<V> {};
 
-namespace detail
+namespace tr1
 {
 
 /**
@@ -131,7 +131,7 @@ class ValueTmpParamTestInstance
 			m_next.AddTest();
 		}
 	private:
-		TestCaseMediator			m_mediator;
+		detail::TestCaseMediator	m_mediator;
 		TestInfo					m_info;
 		detail::iuFactory<TestBody>	m_factory;
 
@@ -159,7 +159,7 @@ private:
 	EachTest<TypePrams>	m_tests;
 };
 
-}	// end of namespace detail
+}	// end of namespace tr1
 }	// end of namespace iutest
 
 #endif

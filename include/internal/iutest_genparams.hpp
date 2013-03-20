@@ -1236,25 +1236,6 @@ private:
 
 #endif
 
-#if IUTEST_HAS_INITIALIZER_LIST && 0
-
-/**
- * @brief	initializer_list 対応用キャストオブジェクト
-*/
-template<typename T>
-iuIParamGenerator<T>* iuCastToParamGenerator(iuIParamGenerator<T>* g) { return g; }
-
-template<typename T>
-iuIParamGenerator<T>* iuCastToParamGenerator(::std::initializer_list<T> l) { return new iuValuesInParamsGenerator<T>(l); }
-
-#define IUTEST_CAST_TO_PARAM_GENERATOR_(type, gen)	::iutest::detail::iuCastToParamGenerator<type>(gen)
-
-#else
-
-#define IUTEST_CAST_TO_PARAM_GENERATOR_(type, gen)	gen
-
-#endif
-
 }	// end of namespace detail
 }	// end of namespace iutest
 

@@ -68,8 +68,7 @@
 */
 #define IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_)						\
 	static ::iutest::detail::iuIParamGenerator<testcase_::ParamType>*						\
-		s_##prefix_##_##testcase_##_EvalGenerator_(void) {									\
-			return IUTEST_CAST_TO_PARAM_GENERATOR_(testcase_::ParamType, generator_); }		\
+		s_##prefix_##_##testcase_##_EvalGenerator_(void) { return generator_; }				\
 		int s_##prefix_##_##testcase_##_dummy =												\
 			IIUT_GetTestCasePatternHolder(testcase_, IUTEST_CONCAT_PACKAGE_(testcase_))		\
 				->AddTestCaseInstantiation(#prefix_, s_##prefix_##_##testcase_##_EvalGenerator_)

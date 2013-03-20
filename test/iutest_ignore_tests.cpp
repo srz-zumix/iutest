@@ -21,7 +21,6 @@
 
 #if IUTEST_HAS_IGNORE_TEST
 
-
 IUTEST_IGNORE(IgnoreTest, A)
 {
 	VedningMachine vm;

@@ -66,4 +66,26 @@ IUTEST_TYPED_TEST(TypedTest2, StaticMul2)
 	IUTEST_ASSERT_EQ(TestFixture::value+TestFixture::value, 2*TestFixture::value);
 }
 
+#if !defined(IUTEST_USE_GTEST)
+
+template<typename T>
+class MultiTypedTest : public ::iutest::Test
+{
+};
+typedef ::iutest::Types< ::iutest::Types<int, float>, ::iutest::Types<int, double> > MultiTypedTestTypes;
+
+IUTEST_TYPED_TEST_CASE(MultiTypedTest, MultiTypedTestTypes);
+
+IUTEST_TYPED_TEST(MultiTypedTest, Get)
+{
+	typedef typename TypeParam:: template get<0>::type	Type1;
+	typedef typename TypeParam:: template get<1>::type	Type2;
+	
+	::iutest::StaticAssertTypeEq< Type1, int >();
+	IUTEST_SUCCEED() << ::iutest::detail::GetTypeName< Type1 >();
+	IUTEST_SUCCEED() << ::iutest::detail::GetTypeName< Type2 >();
+}
+
+#endif
+
 #endif

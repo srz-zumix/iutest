@@ -68,6 +68,7 @@ CXXFLAGS += $(DEFS)
 
 
 TARGETS1= iutest_all_tests \
+          iutest_assertion_return_tests \
           iutest_catch_exceptions_tests \
           iutest_disabled_tests \
           iutest_environment_tests \
@@ -87,6 +88,7 @@ TARGETS1= iutest_all_tests \
           iutest_spi_failure_tests \
           iutest_throw_on_assert_failure_tests \
           iutest_throw_on_failure_tests \
+          iutest_tr1_tests \
           iutest_uninitialize_tests
 
 TARGETS2= \

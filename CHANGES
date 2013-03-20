@@ -1,10 +1,12 @@
 Changes for 1.4.0:
 
 ** 追加
+* ::iutest::Types メンバーに型を取得する get を追加
 * 値のパラメータ化テスト向けに任意のパラメータを生成する ValuesGen を追加
 * 値のパラメータ化テスト向けに乱数パラメータを生成する RandomValues を追加
 
 ** 修正
+* IUTEST_ASSERT_* で void 以外の戻り値を返せるように修正(::iutest::AssertionReturn)
 * ::iutest::ValuesIn を initializer_list に対応
 * extern template 対応
 * 古いコンパイラへの対応
