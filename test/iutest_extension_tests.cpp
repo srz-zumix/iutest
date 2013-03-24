@@ -28,5 +28,6 @@
 #include "iutest_prod_tests.cpp"
 #include "iutest_random_values_tests.cpp"
 #include "iutest_util_tests.cpp"
+#include "iutest_values_gen_tests.cpp"
 #include "iutest_variadic_templates_tests.cpp"
 

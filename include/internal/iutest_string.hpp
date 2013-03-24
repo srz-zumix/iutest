@@ -124,13 +124,13 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 #endif
 }
 
-inline IUTEST_CONSTEXPR bool IsEmpty(const char* p) { return p == NULL || *p == '\0'; }
-inline IUTEST_CONSTEXPR bool IsSpace(char ch)	{ return ch == ' ' || ch =='\t'; }
-inline IUTEST_CONSTEXPR const char*	SkipSpace(const char* p)
+inline IUTEST_CXX_CONSTEXPR bool IsEmpty(const char* p) { return p == NULL || *p == '\0'; }
+inline IUTEST_CXX_CONSTEXPR bool IsSpace(char ch)	{ return ch == ' ' || ch =='\t'; }
+inline IUTEST_CXX_CONSTEXPR const char*	SkipSpace(const char* p)
 {
 	return p == NULL ? NULL : (IsSpace(*p) ? SkipSpace(++p) : p);
 }
-inline IUTEST_CONSTEXPR const char*	FindComma(const char* p)
+inline IUTEST_CXX_CONSTEXPR const char*	FindComma(const char* p)
 {
 	return (p == NULL || *p == '\0') ? NULL : ((*p == ',') ? p : FindComma(++p));
 }
@@ -147,7 +147,7 @@ inline void StringReplace(::std::string& str, char a, const char* to)
 	}
 }
 
-inline IUTEST_CONSTEXPR char ToHex(unsigned int n) { return (n&0xF) >= 0xA ? 'A'+((n&0xF)-0xA) : '0'+(n&0xF); }
+inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n) { return (n&0xF) >= 0xA ? 'A'+((n&0xF)-0xA) : '0'+(n&0xF); }
 
 template<typename T>
 inline ::std::string ToHexString(T value)

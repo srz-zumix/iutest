@@ -145,12 +145,12 @@
 #endif
 
 #if IUTEST_HAS_CONSTEXPR
-#  define IUTEST_CONSTEXPR			constexpr
-#  define IUTEST_CONSTEXPR_OR_CONST	constexpr
+#  define IUTEST_CXX_CONSTEXPR			constexpr
+#  define IUTEST_CXX_CONSTEXPR_OR_CONST	constexpr
 #else
 #  define IUTEST_NO_CONSTEXPR
-#  define IUTEST_CONSTEXPR
-#  define IUTEST_CONSTEXPR_OR_CONST	const
+#  define IUTEST_CXX_CONSTEXPR
+#  define IUTEST_CXX_CONSTEXPR_OR_CONST	const
 #endif
 
 // rvalue reference

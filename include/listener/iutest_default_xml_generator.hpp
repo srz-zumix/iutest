@@ -102,7 +102,7 @@ private:
 	 * @brief	空白かどうか
 	 * @return	真偽値
 	*/
-	static IUTEST_CONSTEXPR bool	IsWhitespace(char c)
+	static IUTEST_CXX_CONSTEXPR bool IsWhitespace(char c)
 	{
 		return c == 0x9 || c == 0xA || c == 0xD;
 	}
@@ -110,7 +110,7 @@ private:
 	 * @brief	xml に利用可能な文字かどうか
 	 * @return	真偽値
 	*/
-	static IUTEST_CONSTEXPR bool	IsValidXmlCharacter(char c)
+	static IUTEST_CXX_CONSTEXPR bool IsValidXmlCharacter(char c)
 	{
 		return IsWhitespace(c) || c >= 0x20;
 	}

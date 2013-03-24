@@ -21,6 +21,8 @@
 // include
 #include "../iutest_param_tests.hpp"
 
+#if IUTEST_HAS_PARAM_TEST
+
 //======================================================================
 // define
 
@@ -85,5 +87,7 @@ detail::iuIParamGenerator<T>* iuCastToParamGenerator(::std::initializer_list<T> 
 
 }	// end of namespace tr1
 }	// end of namespace iutest
+
+#endif
 
 #endif

@@ -21,6 +21,10 @@
 // include
 #include "iutest_time.hpp"
 
+#if IUTEST_HAS_CXX_HDR_RANDOM
+#  include <random>
+#endif
+
 namespace iutest {
 namespace detail
 {
@@ -32,7 +36,44 @@ namespace detail
 */
 class iuRandom
 {
-	unsigned int m_v1, m_v2, m_v3, m_v4;
+#if IUTEST_HAS_CXX_HDR_RANDOM && 0
+	typedef ::std::mt19937 Engine;
+#else
+	class Engine
+	{
+	public:
+		typedef unsigned int result_type;
+	public:
+		explicit Engine(unsigned int seed=0)
+		{
+			m_v4 = seed;
+			m_v3 = 1812433253 * ((m_v4 ^ (m_v4>>30)) + 1);
+			m_v2 = 1812433253 * ((m_v3 ^ (m_v3>>30)) + 2);
+			m_v1 = 1812433253 * ((m_v2 ^ (m_v2>>30)) + 3);
+		}
+		result_type operator ()(void)
+		{
+			const unsigned int t = (m_v1 ^ (m_v1<<11));
+			m_v1 = m_v2;
+			m_v2 = m_v3;
+			m_v3 = m_v4;
+			m_v4 = (m_v4 ^ (m_v4>>19)) ^ (t ^ (t>>8));
+			return m_v4;
+		}
+		static IUTEST_CXX_CONSTEXPR result_type (min)(void) { return 0; }
+		static IUTEST_CXX_CONSTEXPR result_type (max)(void) { return static_cast<result_type>(-1); }
+	private:
+		unsigned int m_v1, m_v2, m_v3, m_v4;
+	};
+#endif
+
+	Engine m_engine;
+
+public:
+	typedef unsigned int result_type;
+
+	static IUTEST_CXX_CONSTEXPR result_type (min)(void) { return (Engine::min)(); }
+	static IUTEST_CXX_CONSTEXPR result_type (max)(void) { return (Engine::max)(); }
 public:
 	iuRandom(void)
 	{
@@ -59,10 +100,7 @@ public:
 	*/
 	void	init(unsigned int seed)
 	{
-		m_v4 = seed;
-		m_v3 = 1812433253 * ((m_v4 ^ (m_v4>>30)) + 1);
-		m_v2 = 1812433253 * ((m_v3 ^ (m_v3>>30)) + 2);
-		m_v1 = 1812433253 * ((m_v2 ^ (m_v2>>30)) + 3);
+		m_engine = Engine(seed);
 	}
 
 public:
@@ -70,14 +108,9 @@ public:
 	 * @brief	—”‚Ì¶¬
 	 * @return	—”
 	*/
-	unsigned int		genrand(void)
+	result_type genrand(void)
 	{
-		const unsigned int t = (m_v1 ^ (m_v1<<11));
-		m_v1 = m_v2;
-		m_v2 = m_v3;
-		m_v3 = m_v4;
-		m_v4 = (m_v4 ^ (m_v4>>19)) ^ (t ^ (t>>8));
-		return m_v4;
+		return m_engine();
 	}
 
 	/**
@@ -86,9 +119,13 @@ public:
 	 * @param [in]	max	= ãŒÀ’l
 	 * @return	—”
 	*/
-	unsigned int		genrand(unsigned int max)
+	result_type genrand(unsigned int max)
 	{
+#if IUTEST_HAS_CXX_HDR_RANDOM
+		return ::std::uniform_int_distribution<unsigned int>(0, max)(m_engine);
+#else
 		return genrand()%max;
+#endif
 	}
 
 	/**
@@ -98,7 +135,11 @@ public:
 	*/
 	float				genrandf(void)
 	{
+#if IUTEST_HAS_CXX_HDR_RANDOM
+		return ::std::uniform_real_distribution<float>(0.0f, 1.0f)(m_engine);
+#else
 		return static_cast<float>(genrand())*(1.0f/4294967295.0f);
+#endif
 	}
 
 	/**
@@ -117,7 +158,11 @@ public:
 #endif
 
 public:
-	unsigned int operator ()(unsigned int max)
+	result_type operator ()(void)
+	{
+		return genrand();
+	}
+	result_type operator ()(unsigned int max)
 	{
 		return genrand(max);
 	}

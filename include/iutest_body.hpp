@@ -139,6 +139,9 @@ public:
 	/** —”ƒV[ƒh‚Ìæ“¾ */
 	unsigned int	random_seed(void)			{ return m_random_seed; }
 
+	/** —”¶¬Ší‚Ìæ“¾ */
+	detail::iuRandom& random_engine(void)		{ return m_random; }
+
 #endif
 
 protected:

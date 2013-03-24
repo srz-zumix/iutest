@@ -264,7 +264,7 @@ template<typename TN>bool TestTypeIdHelper<TN>::_dummy = false;
   * @brief	TypeId Generator
 */
 template<typename TN>
-inline IUTEST_CONSTEXPR TypeId	GetTypeId(void)
+inline IUTEST_CXX_CONSTEXPR TypeId	GetTypeId(void)
 {
 	return &(helper::TestTypeIdHelper<TN>::_dummy);
 }
@@ -273,7 +273,7 @@ inline IUTEST_CONSTEXPR TypeId	GetTypeId(void)
   * @internal
   * @brief	TypeId Generator
 */
-inline IUTEST_CONSTEXPR TypeId	GetTestTypeId(void)
+inline IUTEST_CXX_CONSTEXPR TypeId	GetTestTypeId(void)
 {
 	return 0;
 }

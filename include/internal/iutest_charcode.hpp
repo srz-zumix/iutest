@@ -29,8 +29,8 @@ namespace detail
 
 //======================================================================
 // declare
-IUTEST_CONSTEXPR bool	IsUtf16SurrogatePair(wchar_t first, wchar_t second);
-IUTEST_CONSTEXPR UInt32 CreateCodePointFromUtf16SurrogatePair(wchar_t first, wchar_t second);
+IUTEST_CXX_CONSTEXPR bool	IsUtf16SurrogatePair(wchar_t first, wchar_t second);
+IUTEST_CXX_CONSTEXPR UInt32 CreateCodePointFromUtf16SurrogatePair(wchar_t first, wchar_t second);
 UInt32	ChopLowBits(UInt32* bits, int n);
 char*	CodePointToUtf8(UInt32 code_point, char* buf);
 ::std::string WideStringToUTF8(const wchar_t* str, int num=-1);
@@ -49,7 +49,7 @@ const UInt32 kMaxCodePoint4 = (static_cast<UInt32>(1) << (3+3*6)) - 1;
 /**
  * @brief	サロゲートペアかどうか
 */
-inline IUTEST_CONSTEXPR bool	IsUtf16SurrogatePair(wchar_t first, wchar_t second)
+inline IUTEST_CXX_CONSTEXPR bool	IsUtf16SurrogatePair(wchar_t first, wchar_t second)
 {
 	return (sizeof(wchar_t) == 2)
 		&& ((first & 0xFC00) == 0xD800) && ((second & 0xFC00) == 0xDC00);
@@ -57,7 +57,7 @@ inline IUTEST_CONSTEXPR bool	IsUtf16SurrogatePair(wchar_t first, wchar_t second)
 /**
  * @brief	サロゲートペアからコードポイントへ変換
 */
-inline IUTEST_CONSTEXPR UInt32 CreateCodePointFromUtf16SurrogatePair(wchar_t first, wchar_t second)
+inline IUTEST_CXX_CONSTEXPR UInt32 CreateCodePointFromUtf16SurrogatePair(wchar_t first, wchar_t second)
 {
 	//const UInt32 mask = (1<<10) -1;	// 0x3FF
 	return (sizeof(wchar_t)==2) ?

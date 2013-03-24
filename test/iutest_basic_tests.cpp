@@ -64,3 +64,20 @@ IUTEST(TestInformation, TestInfoCount)
 	IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->skip_test_count());
 #endif
 }
+
+#if IUTEST_HAS_GENRAND
+
+IUTEST(TestRandom, Genrand)
+{
+	IUTEST_ASSERT_LE(genrand(100), 100u);
+}
+
+#if IUTEST_HAS_CXX_HDR_RANDOM
+
+IUTEST(TestRandom, Engine)
+{
+	IUTEST_ASSERT_LE( ::std::uniform_int_distribution<unsigned int>(0,100)(random_engine()), 100u);
+}
+#endif
+
+#endif

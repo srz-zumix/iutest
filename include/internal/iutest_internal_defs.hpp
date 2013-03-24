@@ -202,10 +202,10 @@ struct IsContainerHelper
 	typedef char	no_t;
 
 	template<typename T>
-	static IUTEST_CONSTEXPR yes_t	IsContainer(int IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T), typename T::iterator* =NULL, typename T::const_iterator* =NULL) { return 0; }
+	static IUTEST_CXX_CONSTEXPR yes_t	IsContainer(int IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T), typename T::iterator* =NULL, typename T::const_iterator* =NULL) { return 0; }
 
 	template<typename T>
-	static IUTEST_CONSTEXPR no_t	IsContainer(long IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T))	{ return 0; }
+	static IUTEST_CXX_CONSTEXPR no_t	IsContainer(long IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T))	{ return 0; }
 };
 
 /**
@@ -317,19 +317,19 @@ GeTypeNameSpecialization(bool)
 /**
  * @brief	true Çï‘Ç∑(åxçêëŒçÙóp)
 */
-inline IUTEST_CONSTEXPR bool	AlwaysTrue(void)
+inline IUTEST_CXX_CONSTEXPR bool	AlwaysTrue(void)
 {
 	return true;
 }
 /**
  * @brief	false Çï‘Ç∑(åxçêëŒçÙóp)
 */
-inline IUTEST_CONSTEXPR bool	AlwaysFalse(void)	{ return !AlwaysTrue(); }
+inline IUTEST_CXX_CONSTEXPR bool	AlwaysFalse(void)	{ return !AlwaysTrue(); }
 
 /**
  * @brief	0 Çï‘Ç∑(åxçêëŒçÙóp)
 */
-inline IUTEST_CONSTEXPR int		AlwaysZero(void)	{ return 0; }
+inline IUTEST_CXX_CONSTEXPR int		AlwaysZero(void)	{ return 0; }
 
 }	// end of namespace detail
 }	// end of namespace iutest
