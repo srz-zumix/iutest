@@ -15,9 +15,12 @@ USER_DIR = ../../samples
 # Flags passed to the preprocessor.
 CPPFLAGS += -I$(IUTEST_DIR)/include
 
+# Optimize
+#OPTIMIZE += -O2
+
 #
 # Flags passed to the C++ compiler.
-CXXFLAGS += -g -Wall -Wextra -Wundef
+CXXFLAGS += -g -Wall -Wextra -Wundef $(OPTIMIZE)
 #CXXFLAGS += -DSHOW_FAILURE
 
 ifeq ($(findstring clang, $(CXX)),clang)

@@ -42,15 +42,18 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, ValuesGenTest, ::iutest::ValuesGen(5, ValuesGe
 
 #if IUTEST_HAS_LAMBDA && IUTEST_HAS_CXX_HDR_RANDOM
 
+#if !defined(_MSC_VER)
+
 IUTEST_INSTANTIATE_TEST_CASE_P(Random, ValuesGenTest, ::iutest::ValuesGen(5,
 	[]() {
-		struct gen {
+		struct {
 			::std::mt19937 engine;
 			int operator ()(void)
 			{
+				::std::uniform_int_distribution<int> dist(0, 1000);
 				for(;;)
 				{
-					int n = ::std::uniform_int_distribution<int>(0, 1000)(engine);
+					int n = dist(engine);
 					if( n != 10 && n != 50 && n != 100 && n != 500 ) return n;
 				}
 			}
@@ -58,6 +61,30 @@ IUTEST_INSTANTIATE_TEST_CASE_P(Random, ValuesGenTest, ::iutest::ValuesGen(5,
 		return g;
 	}()
 	));
+	
+#endif
+
+/*
+IUTEST_INSTANTIATE_TEST_CASE_P(Random, ValuesGenTest, ::iutest::ValuesIn(
+	[](int n) {
+		struct {
+			::std::mt19937 engine;
+			int operator ()(void)
+			{
+				::std::uniform_int_distribution<int> dist(0, 1000);
+				for(;;)
+				{
+					int n = dist(engine);
+					if( n != 10 && n != 50 && n != 100 && n != 500 ) return n;
+				}
+			}
+		} g;
+		::std::vector<int> v(n);
+		::std::generate(v.begin(), v.end(), g);
+		return v;
+	}(5)
+	));
+*/
 
 #endif
 

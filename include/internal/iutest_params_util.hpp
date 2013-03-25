@@ -121,12 +121,15 @@ public:
 					, Tester::SetUpTestCase
 					, Tester::TearDownTestCase);
 
-				int i=0;
-				for( p->Begin(); !p->IsEnd(); p->Next() )
+				if( p.ptr() != NULL )
 				{
-					// パラメータがなくなるまでテストを作る
-					(*it)->RegisterTest(testcase, p->GetCurrent(), i);
-					++i;
+					int i=0;
+					for( p->Begin(); !p->IsEnd(); p->Next() )
+					{
+						// パラメータがなくなるまでテストを作る
+						(*it)->RegisterTest(testcase, p->GetCurrent(), i);
+						++i;
+					}
 				}
 			}
 		}

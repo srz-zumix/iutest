@@ -122,7 +122,7 @@ public:
 	result_type genrand(unsigned int max)
 	{
 #if IUTEST_HAS_CXX_HDR_RANDOM
-		return ::std::uniform_int_distribution<unsigned int>(0, max)(m_engine);
+		return ::std::uniform_int_distribution<unsigned int>(0, max-1)(m_engine);
 #else
 		return genrand()%max;
 #endif
