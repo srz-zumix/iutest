@@ -19,6 +19,13 @@
 // include
 #include "../include/iutest.hpp"
 
+#if IUTEST_HAS_GENRAND && IUTEST_HAS_CXX_HDR_RANDOM
+IUTEST(RandomEngineTest, Test)
+{
+	IUTEST_ASSERT_LE(::std::uniform_int_distribution<unsigned int>(0, 1)(random_engine()), 1);
+}
+#endif
+
 #if IUTEST_HAS_RANDOMVALUES
 
 class RandomValuesTest1 : public ::iutest::TestWithParam<int> {};

@@ -103,4 +103,14 @@ struct RandomVMExceptMoneyGenerator
 
 IUTEST_INSTANTIATE_TEST_CASE_P(Random03, ValuesGenTest, ::iutest::ValuesGen(5, RandomVMExceptMoneyGenerator()));
 
+
+::std::vector<int> RandomVMExceptMoneyParams(int n)
+{
+    ::std::vector<int> v(n);
+    ::std::generate(v.begin(), v.end(), RandomVMExceptMoneyGenerator());
+    return v;
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_P(Random03_2, ValuesGenTest, ::iutest::ValuesIn(RandomVMExceptMoneyParams(5)));
+
 #endif
