@@ -98,6 +98,7 @@ private:
 	bool	m_result;
 };
 
+#if IUTEST_HAS_ASSERTION_RETURN
 /**
  * @brief	Assetion Return Type
 */
@@ -113,6 +114,7 @@ struct AssertionReturn
 	*/
 	AssertionReturn(const R& v) : value(v) {}
 };
+#endif
 
 /**
  * @brief	Assertion ç\ízÉNÉâÉX
@@ -150,8 +152,10 @@ private:
 	friend class ScopedMessage;
 #endif
 
+#if IUTEST_HAS_ASSERTION_RETURN
 private:
 	template<typename R>struct ReturnTypedFixed;
+#endif
 
 public:
 	/** @private */
@@ -163,13 +167,16 @@ public:
 			Message::operator << (value);
 			return *this;
 		}
+#if IUTEST_HAS_ASSERTION_RETURN
 		template<typename R>
 		ReturnTypedFixed<R> operator << (const AssertionReturn<R>& ret)
 		{
 			return ReturnTypedFixed<R>(*this, ret);
 		}
+#endif
 	};
 
+#if IUTEST_HAS_ASSERTION_RETURN
 private:
 	template<typename R>
 	struct ReturnTypedFixed {
@@ -177,6 +184,7 @@ private:
 		AssertionReturn<R> ret;
 		ReturnTypedFixed(const Fixed& f, const AssertionReturn<R>& r) : fixed(f), ret(r) {}
 	};
+#endif
 
 public:
 	/**
@@ -219,6 +227,7 @@ public:
 		}
 #endif
 	}
+#if IUTEST_HAS_ASSERTION_RETURN
 	/** @private */
 	template<typename R>
 	R	operator = (const ReturnTypedFixed<R>& fixed)
@@ -226,6 +235,7 @@ public:
 		this->operator=(fixed.fixed);
 		return fixed.ret.value;
 	}	
+#endif
 
 private:
 	void	OnFixed(const Fixed& fixed) throw()
@@ -338,10 +348,9 @@ inline AssertionResult EqFailure(const char* expected_expression, const char* ac
  * @private
  * @{
 */
-#define COMPARE_HELPER(op_name, op)															\
-	template<typename T1, typename T2>														\
-	inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelper##op_name(const char* expr1, const char* expr2		\
-													, const T1& val1, const T2& val2) {		\
+#define DECL_COMPARE_HELPER_I_(op_name, op, type1, type2)									\
+	inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelper##op_name(						\
+			const char* expr1, const char* expr2, type1 val1, type2 val2) {					\
 	if( val1 op val2 ) return AssertionSuccess();											\
 	else {																					\
 	return AssertionFailure() << "error: Expected: " << expr1 << " " #op " " << expr2		\
@@ -349,23 +358,30 @@ inline AssertionResult EqFailure(const char* expected_expression, const char* ac
 		<< " vs " << FormatForComparisonFailureMessage(val2, val1);							\
 	}																						\
 	}																						\
-	inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelper##op_name(const char* expr1, const char* expr2		\
-												, BiggestInt val1, BiggestInt val2)	{		\
-	if( val1 op val2 ) return AssertionSuccess();											\
-	else {																					\
-	return AssertionFailure() << "error: Expected: " << expr1 << " " #op " " << expr2		\
-		<< "\n  Actual: " << FormatForComparisonFailureMessage(val1, val2)					\
-		<< " vs " << FormatForComparisonFailureMessage(val2, val1);							\
-	}																						\
-}
 
-COMPARE_HELPER(NE, !=)
-COMPARE_HELPER(LE, <=)
-COMPARE_HELPER(LT, < )
-COMPARE_HELPER(GE, >=)
-COMPARE_HELPER(GT, > )
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 
-#undef COMPARE_HELPER
+#define DECL_COMPARE_HELPER_(op_name, op)							\
+	template<typename T1, typename T2>								\
+	DECL_COMPARE_HELPER_I_(op_name, op, const T1&, const T2&)		\
+	DECL_COMPARE_HELPER_I_(op_name, op, BiggestInt, BiggestInt)
+
+#else
+
+#define DECL_COMPARE_HELPER_(op_name, op)							\
+	template<typename T1, typename T2>								\
+	DECL_COMPARE_HELPER_I_(op_name, op, const T1&, const T2&)
+
+#endif
+
+DECL_COMPARE_HELPER_(NE, !=)
+DECL_COMPARE_HELPER_(LE, <=)
+DECL_COMPARE_HELPER_(LT, < )
+DECL_COMPARE_HELPER_(GE, >=)
+DECL_COMPARE_HELPER_(GT, > )
+
+#undef DECL_COMPARE_HELPER_I_
+#undef DECL_COMPARE_HELPER_
 
 /**
  * @}

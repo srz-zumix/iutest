@@ -77,7 +77,7 @@ iutest の基本コンセプトは Google Test のそれと同じです。<br />
 <ul>
 <li>include オンリーで使用できる<br />
 iutest は「簡単に」「すぐに」テストが書けることを目的としています。<br />
-そのため、ライブラリを作成しなくても include するだけで使用できるように初期障壁をなくすようにしました。<br />
+そのため、ライブラリを作成しなくても include するだけで使用できるようにし、初期障壁をなくすようにしました。<br />
  <br />
 </li>
 <li>Google Test との互換性<br />
@@ -187,21 +187,44 @@ void TestFunction(int x, int y)
 IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 0, 0);
 IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 1, 1);</pre>
       </li>
+
+      <li>戻り値のある関数での ASSERT 使用<br />
+      基本的に IUTEST_ASSERT_* マクロは return 文でテストの中断を行なっています。<br />
+      そのため、戻り値の型が void でない関数では、IUTEST_ASSERT_* は使用できませんでした。<br />
+      iutest では ::iutest::AssertionReturn を使用することで、明示的に IUTEST_ASSERT_* マクロの戻り値型を変更できます。<br />
+<pre class="source">
+int ReturnTest(void)
+{
+    IUTEST_ASSERT_TRUE(true) &lt;&lt; ::iutest::AssertionReturn&lt;int&gt;(-1);
+    return 0;
+}
+</pre>
+      </li>
+      
       <li>Pairwise<br />
       オールペア法による組み合わせの作成ができます。<br />
 <pre class="source">
 IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
      , ::iutest::Pairwise( ::iutest::Bool(), ::iutest::Values(1, 2), ::iutest::Values(10, 11) ) );</pre>
       </li>
+      
       <li>Variadic Templates の対応<br />
-      C++11 Variadic Templates が利用可能な環境で、Variadic Templates に対応した Types,Values,Combine が利用可能<br />
+      C++11 Variadic Templates が利用可能な環境で、Variadic Templates に対応した Types,Values,Combine が利用可能です。<br />
       </li>
+      
       <li>パッケージ<br />
       IUTEST_PACKAGE マクロを使うことで、名前空間をパッケージとして扱うことができます。<br />
       通常の名前空間ではテスト名が衝突してしまい、出力 XML で区別がつかなくなってしまいますが、<br />
       IUTEST_PACKAGE マクロを使うことで、名前空間名がパッケージ名としてテストケース名に追加され、区別できるようになります。<br />
 <pre class="source">
-IUTEST_PACKAGE(TestPackage)
+IUTEST_PACKAGE(TestPackageA)
+{
+  IUTEST(Test, Hoge)
+  {
+    IUTEST_ASSERT_TRUE(true);
+  }
+}
+IUTEST_PACKAGE(TestPackageB)
 {
   IUTEST(Test, Hoge)
   {

@@ -29,23 +29,25 @@ namespace iutest
 //======================================================================
 // class
 /**
+ * @brief	パラメータ単体テスト TestInfo データクラス
+*/
+template<typename ParamType>
+class IParamTestInfoData
+{
+public:
+	IParamTestInfoData(const char* name) : m_name(name) {}
+	virtual TestCase*	MakeTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown) const = 0;
+	virtual void RegisterTest(TestCase* , ParamType param, int index) const = 0;
+protected:
+	::std::string m_name;
+};
+
+/**
  * @brief	パラメータ単体テストインスタンスインターフェイス
 */
 class IParamTestCaseInfo
 {
 public:
-	// TestInfoData
-	template<typename ParamType>
-	class ITestInfoData
-	{
-	public:
-		ITestInfoData(const char* name) : m_name(name) {}
-		virtual TestCase*	MakeTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown) const = 0;
-		virtual void RegisterTest(TestCase* , ParamType param, int index) const = 0;
-	protected:
-		::std::string m_name;
-	};
-
 	virtual ~IParamTestCaseInfo(void) {}
 protected:
 	IParamTestCaseInfo(const char* name)
@@ -69,7 +71,7 @@ class ParamTestCaseInfo : public IParamTestCaseInfo
 	typedef typename Tester::ParamType				ParamType;
 	typedef detail::iuIParamGenerator<ParamType>	ParamGenerator;
 	typedef typename ParamGenerator::Generator		Generator;
-	typedef ITestInfoData<ParamType>				TestInfoData;
+	typedef IParamTestInfoData<ParamType>			TestInfoData;
 
 	typedef ParamGenerator* (pfnCreateGeneratorFunc)();
 

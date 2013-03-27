@@ -111,7 +111,7 @@ IUTEST(Test, Stream)
 	IUTEST_SUCCEED() << L"OK!!";
 }
 
-#if !defined(IUTEST_USE_GTEST)
+#if IUTEST_HAS_ASSERTION_RETURN
 
 /** --------------------------------------------------
  * –ß‚è’l‚Ì‚ ‚éŠÖ”‚Å‚ÌŽg—p

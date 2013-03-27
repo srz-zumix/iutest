@@ -408,8 +408,8 @@ public:
 		typedef Fixture<Head>			FixtureClass;
 		typedef TypedTestCase<TypeParam>	_MyTestCase;
 		TestCase* testcase = UnitTest::instance().AddTestCase<_MyTestCase>(
-			detail::MakeIndexTestName(prefix, testcase_name, index).c_str()
-			//detail::MakeIndexTestName<TypeParam>(prefix, testcase_name, index).c_str()
+			detail::MakePrefixedIndexTestName(prefix, testcase_name, index).c_str()
+			//detail::MakePrefixedIndexTypedTestName<TypeParam>(prefix, testcase_name, index).c_str()
 			, internal::GetTypeId<FixtureClass>()
 			, FixtureClass::SetUpTestCase, FixtureClass::TearDownTestCase);
 

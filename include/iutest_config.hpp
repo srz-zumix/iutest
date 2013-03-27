@@ -242,10 +242,28 @@
 
 #ifndef IUTEST_HAS_STATIC_ASSERT_TYPEEQ
 //! StaticAssertTypeEq が使用可能かどうか
-#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) || IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 #    define IUTEST_HAS_STATIC_ASSERT_TYPEEQ		1
 #  else
 #    define IUTEST_HAS_STATIC_ASSERT_TYPEEQ		0
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_PRINT_TO
+//! PrintTo が使用可能かどうか
+#  if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+#    define IUTEST_HAS_PRINT_TO		1
+#  else
+#    define IUTEST_HAS_PRINT_TO		0
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_ASSERTION_RETURN
+//! ::iutest::AssertionReturn が使用可能かどうか
+#  if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+#    define IUTEST_HAS_ASSERTION_RETURN		1
+#  else
+#    define IUTEST_HAS_ASSERTION_RETURN		0
 #  endif
 #endif
 

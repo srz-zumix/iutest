@@ -31,6 +31,32 @@ int main(int argc, char* argv[])
 	return IUTEST_RUN_ALL_TESTS();
 }
 
+struct Bar
+{
+	int x, y, z;
+	bool operator == (const Bar& rhs) const
+	{
+		return x == rhs.x && y == rhs.y && z == rhs.z;
+	}
+};
+
+::iutest::iu_ostream& operator << (::iutest::iu_ostream& os, const Bar& bar) 
+{
+	IUTEST_ADD_FAILURE();
+	return os << "X:" << bar.x << " Y:" << bar.y << " Z:" << bar.z;
+}
+
+void PrintTo(const Bar& bar, ::iutest::iu_ostream* os)
+{
+	*os << "x:" << bar.x << " y:" << bar.y << " z:" << bar.z;
+}
+
+IUTEST(PrintToTest, Bar)
+{
+	Bar bar = {0, 1, 2};
+	IUTEST_SUCCEED() << ::iutest::PrintToString(bar);
+}
+
 #if IUTEST_HAS_TYPED_TEST
 
 template<typename T>

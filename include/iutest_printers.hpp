@@ -469,10 +469,10 @@ template<typename T>
 inline ::std::string PrintToString(const T& v)
 {
 	detail::iuStringStream::type strm;
-#if 0
-	strm << v;
-#else
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 	detail::UniversalTersePrint(v, &strm);
+#else
+	strm << v;
 #endif
 	return strm.str();
 }

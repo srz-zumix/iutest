@@ -88,7 +88,11 @@ public:
 inline ::std::string	FormatTimeInMillisecAsSecond(TimeInMillisec msec)
 {
 	detail::iuStringStream::type ss;
+#if defined(_MSC_VER) && _MSC_VER < 1300
+	ss << static_cast<unsigned int>(msec)/1000.0;
+#else
 	ss << msec/1000.0;
+#endif
 	return ss.str();
 }
 

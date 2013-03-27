@@ -186,6 +186,9 @@ private:
 		// 環境変数によるテストフラグ指定をロード
 		TestEnv::LoadEnviromentVariable();
 	}
+#if defined(_MSC_VER) && _MSC_VER < 1300
+public:	// VC++6.0 bug
+#endif
 	~UnitTest(void)
 	{
 		TestEnv::ReleaseGlobalTestEnvironment();

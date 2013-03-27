@@ -183,7 +183,7 @@ template<typename T>
  * @param [in]	basename	= ベース名
  * @param [in]	index		= インデックス
 */
-::std::string MakeIndexTestName(const char* prefix, const char* basename, int index);
+::std::string MakePrefixedIndexTestName(const char* prefix, const char* basename, int index);
 
 /**
  * @brief	テスト名の作成
@@ -192,7 +192,7 @@ template<typename T>
  * @param [in]	index		= インデックス
 */
 template<typename T>
-::std::string MakeIndexTestName(const char* prefix, const char* basename, int index)
+::std::string MakePrefixedIndexTypedTestName(const char* prefix, const char* basename, int index)
 {
 #if IUTEST_HAS_RTTI
 	::std::string name = basename;
@@ -201,7 +201,7 @@ template<typename T>
 	name += GetTypeName<T>();
 	return name;
 #else
-	return MakeIndexTestName(prefix, basename, index);
+	return MakePrefixedIndexTestName(prefix, basename, index);
 #endif
 }
 

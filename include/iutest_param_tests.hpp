@@ -56,11 +56,11 @@
 */
 
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-#  define IIUT_GetTestCasePatternHolder(T, testcaes_)	\
-	::iutest::UnitTest::GetInstance()->parameterized_test_registry().GetTestCasePatternHolder<T>(testcaes_)
+#  define IIUT_GetTestCasePatternHolder(T, testcase_)	\
+	::iutest::UnitTest::GetInstance()->parameterized_test_registry().GetTestCasePatternHolder<T>(testcase_)
 #else
-#  define IIUT_GetTestCasePatternHolder(T, testcaes_)	\
-	::iutest::UnitTest::GetInstance()->parameterized_test_registry().GetTestCasePatternHolder(testcaes_, &::iutest::detail::type<T>())
+#  define IIUT_GetTestCasePatternHolder(T, testcase_)	\
+	::iutest::UnitTest::GetInstance()->parameterized_test_registry().GetTestCasePatternHolder(testcase_, &::iutest::detail::type<T>())
 #endif
 
 /**
@@ -69,9 +69,12 @@
 #define IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_)						\
 	static ::iutest::detail::iuIParamGenerator<testcase_::ParamType>*						\
 		s_##prefix_##_##testcase_##_EvalGenerator_(void) { return generator_; }				\
-		int s_##prefix_##_##testcase_##_dummy =												\
-			IIUT_GetTestCasePatternHolder(testcase_, IUTEST_CONCAT_PACKAGE_(testcase_))		\
-				->AddTestCaseInstantiation(#prefix_, s_##prefix_##_##testcase_##_EvalGenerator_)
+		int prefix_##_##testcase_##_TestCaseInstantiationRegister(void) {					\
+			::iutest::ParamTestCaseInfo<testcase_>* p =										\
+				IIUT_GetTestCasePatternHolder(testcase_, IUTEST_CONCAT_PACKAGE_(testcase_));			\
+			return p->AddTestCaseInstantiation(#prefix_, s_##prefix_##_##testcase_##_EvalGenerator_);	\
+		} int s_##prefix_##_##testcase_##_dummy = prefix_##_##testcase_##_TestCaseInstantiationRegister()
+				
 
 /**
  * @brief	パラメータテストクラス定義
@@ -121,12 +124,12 @@ namespace detail
  * @brief	パラメータ単体テスト TestInfo 情報インスタンス
 */
 template<typename T>
-class ParamTestInstance : public IParamTestCaseInfo::ITestInfoData<typename T::ParamType>
+class ParamTestInstance : public IParamTestInfoData<typename T::ParamType>
 {
 	typedef T								Tester;
 	typedef typename Tester::ParamType		ParamType;
 	typedef detail::iuParamTestFactory<T>	Factory;
-	typedef IParamTestCaseInfo::ITestInfoData<ParamType>	_Mybase;
+	typedef IParamTestInfoData<ParamType>	_Mybase;
 
 	// 各テストのインスタンス
 	class EachTest

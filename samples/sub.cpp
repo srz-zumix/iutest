@@ -28,18 +28,6 @@
 #if 1	// Success Tests
 
 /** --------------------------------------------------
- * PrintTo
-*//*--------------------------------------------------*/
-struct Bar
-{
-	int x, y, z;
-	bool operator == (const Bar& rhs) const
-	{
-		return x == rhs.x && y == rhs.y && z == rhs.z;
-	}
-};
-
-/** --------------------------------------------------
  * パッケージ
 *//*--------------------------------------------------*/
 IUTEST_PACKAGE(TestPackage)
@@ -49,6 +37,20 @@ IUTEST_PACKAGE(TestPackage)
 		IUTEST_ASSERT_TRUE(true);
 	}
 }
+
+/** --------------------------------------------------
+ * PrintTo
+*//*--------------------------------------------------*/
+#if IUTEST_HAS_PRINT_TO
+
+struct Bar
+{
+	int x, y, z;
+	bool operator == (const Bar& rhs) const
+	{
+		return x == rhs.x && y == rhs.y && z == rhs.z;
+	}
+};
 
 ::iutest::iu_ostream& operator << (::iutest::iu_ostream& os, const Bar& bar) 
 {
@@ -131,6 +133,7 @@ IUTEST_TYPED_TEST(TypedPrintToTest, Print)
 
 #endif
 
+#endif
 
 // DISABLED Test Tips.
 #define DISABLED_MacroTest	EnabledTest
