@@ -165,8 +165,9 @@ IUTEST(ProdTest, StaticPeep)
 	IUTEST_ASSERT_EQ(5, ProdClass::GetY());
 	prod_class_y *= 2;
 	IUTEST_ASSERT_EQ(10, ProdClass::GetY());
+	IUTEST_PEEP(ProdClass, m_y)(1);
 
-	IUTEST_ASSERT_EQ(10, prod_class_y);
+	IUTEST_ASSERT_EQ(1, prod_class_y);
 }
 
 #if IUTEST_HAS_PEEP_FUNC
@@ -219,21 +220,50 @@ IUTEST(ProdTest, StaticPeepFunction)
 
 // peep を使ってのアクセス
 IUTEST_MAKE_SCOPED_PEEP(int prod_test::ProdClass::*, prod_test, ProdClass, m_z);
+IUTEST_MAKE_PEEP(int prod_test::ProdClass::*, prod_test::ProdClass, m_x);
 
 IUTEST(ProdTest, ScopedPeep)
 {
 	// マクロ版
-	IUTEST_PEEP_GET(prod_test::s_prod, ProdClass, m_z) = 4;
-	IUTEST_ASSERT_EQ(4, prod_test::s_prod.GetZ());
+	{
+		// IUTEST_MAKE_SCOPED_PEEP を使用した場合は、クラス名のみでも OK.
+		IUTEST_PEEP_GET(prod_test::s_prod, ProdClass, m_z) = 4;
+		IUTEST_EXPECT_EQ(4, prod_test::s_prod.GetZ());
 
-	IUTEST_ASSERT_EQ(4, IUTEST_PEEP_GET(prod_test::s_prod, ProdClass, m_z));
+		IUTEST_EXPECT_EQ(4, IUTEST_PEEP_GET(prod_test::s_prod, prod_test::ProdClass, m_z));
+	}
+	{
+		// IUTEST_MAKE_PEEP を使用した場合は、スコープ必須
+		IUTEST_PEEP_GET(prod_test::s_prod, prod_test::ProdClass, m_x) = 4;
+		IUTEST_EXPECT_EQ(4, prod_test::s_prod.GetX());
+
+		IUTEST_EXPECT_EQ(4, IUTEST_PEEP_GET(prod_test::s_prod, prod_test::ProdClass, m_x));
+	}
 
 	// object 版
-	IUTEST_SCOPED_PEEP(prod_test, ProdClass, m_z) prod_class_z(&prod_test::s_prod);
-	prod_class_z = 5;
-	IUTEST_ASSERT_EQ(5, prod_test::s_prod.GetZ());
+	{
+		// IUTEST_MAKE_SCOPED_PEEP を使用した場合は、クラス名のみでも OK.
+		IUTEST_PEEP(ProdClass, m_z) prod_class_z(&prod_test::s_prod);
+		prod_class_z = 5;
+		IUTEST_EXPECT_EQ(5, prod_test::s_prod.GetZ());
 
-	IUTEST_ASSERT_EQ(5, prod_class_z);
+		IUTEST_EXPECT_EQ(5, prod_class_z);
+	}
+	{
+		IUTEST_PEEP(prod_test::ProdClass, m_z) prod_class_z(&prod_test::s_prod);
+		prod_class_z = 5;
+		IUTEST_EXPECT_EQ(5, prod_test::s_prod.GetZ());
+
+		IUTEST_EXPECT_EQ(5, prod_class_z);
+	}
+	{
+		// deprecated
+		IUTEST_SCOPED_PEEP(prod_test, ProdClass, m_z) prod_class_z(&prod_test::s_prod);
+		prod_class_z = 7;
+		IUTEST_EXPECT_EQ(7, prod_test::s_prod.GetZ());
+
+		IUTEST_EXPECT_EQ(7, prod_class_z);
+	}
 }
 
 #endif

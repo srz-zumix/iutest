@@ -37,7 +37,11 @@ void ReturnTestCall(void)
 IUTEST(ReturnTest, Test)
 {
 	IUTEST_ASSERT_FATAL_FAILURE(ReturnTestCall(), "");
+#if IUTEST_USE_THROW_ON_ASSERT_FAILURE
+	IUTEST_ASSERT_EQ( 0, value);
+#else
 	IUTEST_ASSERT_EQ(-1, value);
+#endif
 }
 
 #endif

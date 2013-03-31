@@ -63,13 +63,13 @@ typename Tag::type peep_tag<Tag>::value;
 /**
  * @brief	private メンバーへのアクセス権を作成
  * @param	member_type	= 型
- * @param	class_name	= クラス名
+ * @param	class_name	= クラス
  * @param	member_name	= メンバー名
 */
 #define IUTEST_MAKE_PEEP(member_type, class_name, member_name)		\
 	IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name);	\
-	template struct IUTEST_PEEP_SETTER_NAME_(class_name, member_name)<	\
-		IUTEST_PEEP_TAG_NAME_(class_name, member_name), &class_name::member_name>
+	template struct IUTEST_PEEP_SETTER_NAME_(class_name, member_name)<class_name,	\
+		IUTEST_PEEP_TAG_NAME_(class_name, member_name)<class_name>, &class_name::member_name>
 
 /**
  * @brief	private メンバーへのアクセス権を作成
@@ -77,11 +77,15 @@ typename Tag::type peep_tag<Tag>::value;
  * @param	scope_name	= スコープ
  * @param	class_name	= クラス名
  * @param	member_name	= メンバー名
+ * @deprecated	このマクロは非推奨です。 IUTEST_MAKE_PEEP を使用してください。
+ * @note	過去互換のために scope_name::class_name を using して class_name だけで参照できるようにしています。
+ *			scope_name::class_name 型を using するので使用する際には注意してください。
 */
-#define IUTEST_MAKE_SCOPED_PEEP(member_type, scope_name, class_name, member_name)		\
-	IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name);	\
-	template struct IUTEST_PEEP_SETTER_NAME_(class_name, member_name)<	\
-		IUTEST_PEEP_TAG_NAME_(class_name, member_name), &scope_name::class_name::member_name>
+#define IUTEST_MAKE_SCOPED_PEEP(member_type, scope_name, class_name, member_name)				\
+	using scope_name::class_name;																\
+	IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name);								\
+	template struct IUTEST_PEEP_SETTER_NAME_(class_name, member_name)< scope_name::class_name,	\
+		IUTEST_PEEP_TAG_NAME_(class_name, member_name)<scope_name::class_name>, &scope_name::class_name::member_name>
 
 /**
  * @brief	private	メンバーへのアクセス
@@ -89,45 +93,46 @@ typename Tag::type peep_tag<Tag>::value;
  * @param	class_name	= クラス名
  * @param	member_name	= メンバー名
 */
-#define IUTEST_PEEP_GET(v, class_name, member_name)		(v.*::iutest::detail::peep_tag< IUTEST_PEEP_TAG_NAME_(class_name, member_name) >::value)
+#define IUTEST_PEEP_GET(v, class_name, member_name)		(v.*::iutest::detail::peep_tag< IUTEST_PEEP_TAG_NAME_(class_name, member_name)<class_name> >::value)
 
 /**
  * @brief	static private	メンバーへのアクセス
  * @param	class_name	= クラス名
  * @param	member_name	= メンバー名
 */
-#define IUTEST_PEEP_STATIC_GET(class_name, member_name)	(*::iutest::detail::peep_tag< IUTEST_PEEP_TAG_NAME_(class_name, member_name) >::value)
+#define IUTEST_PEEP_STATIC_GET(class_name, member_name)	(*::iutest::detail::peep_tag< IUTEST_PEEP_TAG_NAME_(class_name, member_name)<class_name> >::value)
 
 /**
  * @brief	private メンバーへのアクセスクラス宣言
  * @param	class_name	= クラス名
  * @param	member_name	= メンバー名
 */
-#define IUTEST_PEEP(class_name, member_name)	::iutest::Peep< class_name, IUTEST_PEEP_TAG_NAME_(class_name, member_name) >::type
+#define IUTEST_PEEP(class_name, member_name)	::iutest::Peep< class_name, IUTEST_PEEP_TAG_NAME_(class_name, member_name)<class_name> >::type
 
 /**
  * @brief	private メンバーへのアクセスクラス宣言
  * @param	scope_name	= スコープ
  * @param	class_name	= クラス名
  * @param	member_name	= メンバー名
+ * @deprecated	このマクロは廃止予定です。 IUTEST_PEEP を使用してください。
 */
-#define IUTEST_SCOPED_PEEP(scope_name, class_name, member_name)	::iutest::Peep< scope_name::class_name, IUTEST_PEEP_TAG_NAME_(class_name, member_name) >::type
+#define IUTEST_SCOPED_PEEP(scope_name, class_name, member_name)	::iutest::Peep< scope_name::class_name, IUTEST_PEEP_TAG_NAME_(class_name, member_name)<scope_name::class_name> >::type
 
 /**
  * @private
  * @{
 */
 #define IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name)	\
-struct IUTEST_PEEP_TAG_NAME_(class_name, member_name) { typedef member_type type; };	\
-	template<typename Tag, typename Tag::type X>struct IUTEST_PEEP_SETTER_NAME_(class_name, member_name) {	\
-	IUTEST_PEEP_SETTER_NAME_(class_name, member_name)(void) { ::iutest::detail::peep_tag<Tag>::value = X; }		\
-	static IUTEST_PEEP_SETTER_NAME_(class_name, member_name)	instance;									\
+template<typename T>struct IUTEST_PEEP_TAG_NAME_(class_name, member_name) { typedef member_type type; };				\
+	template<typename T, typename Tag, typename Tag::type X>struct IUTEST_PEEP_SETTER_NAME_(class_name, member_name) {	\
+	IUTEST_PEEP_SETTER_NAME_(class_name, member_name)(void) { ::iutest::detail::peep_tag<Tag>::value = X; }				\
+	static IUTEST_PEEP_SETTER_NAME_(class_name, member_name)	instance;												\
 	};	\
-	template<typename Tag, typename Tag::type X>IUTEST_PEEP_SETTER_NAME_(class_name, member_name)<Tag, X>	\
-	IUTEST_PEEP_SETTER_NAME_(class_name, member_name)<Tag, X>::instance
+	template<typename T, typename Tag, typename Tag::type X>IUTEST_PEEP_SETTER_NAME_(class_name, member_name)<T, Tag, X>	\
+	IUTEST_PEEP_SETTER_NAME_(class_name, member_name)<T, Tag, X>::instance
 
-#define IUTEST_PEEP_TAG_NAME_(class_name, member_name)		iu_peep_tag_##class_name##_##member_name
-#define IUTEST_PEEP_SETTER_NAME_(class_name, member_name)	iu_peep_set_##class_name##_##member_name
+#define IUTEST_PEEP_TAG_NAME_(class_name, member_name)			iu_peep_tag_##member_name
+#define IUTEST_PEEP_SETTER_NAME_(class_name, member_name)		iu_peep_set_##member_name
 /**
  * @}
 */
@@ -154,7 +159,7 @@ private:
 	private:
 		U*	m_ptr;
 	public:
-		peep_member_function_impl(U* ptr) : m_ptr(ptr) {}
+		explicit peep_member_function_impl(U* ptr) : m_ptr(ptr) {}
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
 	public:
@@ -201,7 +206,7 @@ private:
 	private:
 		U*	m_ptr;
 	public:
-		peep_member_object_impl(U* ptr) : m_ptr(ptr) {}
+		explicit peep_member_object_impl(U* ptr) : m_ptr(ptr) {}
 	public:
 		operator value_type (void) const { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
 	};
@@ -213,7 +218,7 @@ private:
 	private:
 		U*	m_ptr;
 	public:
-		peep_member_object_impl(U* ptr) : m_ptr(ptr) {}
+		explicit peep_member_object_impl(U* ptr) : m_ptr(ptr) {}
 	public:
 		operator value_type (void) const { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
 		operator value_type& (void) { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
@@ -238,6 +243,10 @@ private:
 	{
 		typedef peep_static_impl<U, Type, Func>	_Myt;
 		typedef typename type_traits::remove_ptr<Type>::type value_type;
+	public:
+		peep_static_impl(void) {}
+		peep_static_impl(const value_type& value) { *detail::peep_tag<peep_tag>::value = value; }
+		peep_static_impl(const _Myt&) {}
 	public:
 		operator value_type (void) const { return *detail::peep_tag<peep_tag>::value; }
 		operator value_type& (void) { return *detail::peep_tag<peep_tag>::value; }
