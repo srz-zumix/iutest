@@ -329,5 +329,8 @@
     <None Include="..\..\include\impl\iutest_port.ipp">
       <Filter>iutest\impl</Filter>
     </None>
+    <None Include="..\..\include\impl\iutest_debug.ipp">
+      <Filter>iutest\impl</Filter>
+    </None>
   </ItemGroup>
 </Project>

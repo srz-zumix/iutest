@@ -26,9 +26,7 @@
 #include <stdio.h>
 #include <vector>
 #include <algorithm>
-#if defined(_IUTEST_DEBUG)
-#  include "internal/iutest_debug.hpp"
-#endif
+#include "internal/iutest_debug.hpp"
 
 namespace iutest
 {

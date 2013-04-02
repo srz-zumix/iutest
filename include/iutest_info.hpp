@@ -179,6 +179,9 @@ private:
 	void	RunImpl(void);
 
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
+#if IUTEST_HAS_MINIDUMP
+	void	MiniDump(_EXCEPTION_POINTERS* ep);
+#endif
 	void	RunOnMSC(detail::auto_ptr<Test>& test);
 #endif
 

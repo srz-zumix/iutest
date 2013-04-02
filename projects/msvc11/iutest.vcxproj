@@ -237,6 +237,7 @@
     <None Include="..\..\include\impl\iutest_case.ipp" />
     <None Include="..\..\include\impl\iutest_core.ipp" />
     <None Include="..\..\include\impl\iutest_core_impl.ipp" />
+    <None Include="..\..\include\impl\iutest_debug.ipp" />
     <None Include="..\..\include\impl\iutest_default_printer.ipp" />
     <None Include="..\..\include\impl\iutest_default_xml_generator.ipp" />
     <None Include="..\..\include\impl\iutest_env.ipp" />

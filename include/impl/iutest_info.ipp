@@ -103,6 +103,26 @@ IUTEST_IPP_INLINE void	TestInfo::RunImpl(void)
 }
 
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
+#if IUTEST_HAS_MINIDUMP
+
+IUTEST_IPP_INLINE void	TestInfo::MiniDump(_EXCEPTION_POINTERS* ep)
+{
+#if defined(_MSC_VER)
+
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+		char path[MAX_PATH];
+		strcpy(path, test_case_name());
+		strcat(path, "_");
+		strcat(path, name());
+		strcat(path, ".dump");
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+
+		detail::MiniDump::Create(path, ep);
+#endif
+}
+
+#endif
+
 IUTEST_IPP_INLINE void	TestInfo::RunOnMSC(detail::auto_ptr<Test>& test)
 {
 	_EXCEPTION_POINTERS* info = NULL;
@@ -111,6 +131,9 @@ IUTEST_IPP_INLINE void	TestInfo::RunOnMSC(detail::auto_ptr<Test>& test)
 		test->Run(&m_mediator);
 	}
 	__except (info = GetExceptionInformation()
+#if IUTEST_HAS_MINIDUMP
+		, MiniDump(info)
+#endif
 		, detail::seh_exception::should_process_through_break_and_cppexceptions(GetExceptionCode()))
 	{
 		detail::seh_exception::translator(GetExceptionCode(), info);

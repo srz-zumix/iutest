@@ -33,6 +33,7 @@
 #include "../include/impl/iutest_message.ipp"
 #include "../include/impl/iutest_regex.ipp"
 
+#include "../include/impl/iutest_debug.ipp"
 #include "../include/impl/iutest_filepath.ipp"
 
 #include "../include/impl/iutest_default_printer.ipp"

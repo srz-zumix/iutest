@@ -651,6 +651,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\impl\iutest_debug.ipp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\impl\iutest_default_printer.ipp"
 					>
 				</File>

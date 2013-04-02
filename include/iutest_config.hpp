@@ -340,6 +340,15 @@
  * @{
 */
 
+#ifndef IUTEST_HAS_MINIDUMP
+//!< MiniDump 出力が有効かどうか
+#  if defined(_MSC_VER) && IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
+#    define IUTEST_HAS_MINIDUMP		1
+#  else
+#    define IUTEST_HAS_MINIDUMP		0
+#  endif
+#endif
+
 #ifndef IUTEST_HAS_STRINGSTREAM
 //! std::stringstream が使用可能かどうか
 #  if !defined(_STLP_NO_IOSTREAMS)

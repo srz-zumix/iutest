@@ -51,6 +51,10 @@ IUTEST_IPP_INLINE int UnitTest::Run(void)
 			ret = RunImpl();
 #endif
 		}
+		//catch( ::std::exception& e )
+		//{
+		//	iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(e.what()), TestPartResult::kFatalFailure) = AssertionHelper::Fixed();
+		//}
 		catch( ... )
 		{
 		}

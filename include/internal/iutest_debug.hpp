@@ -8,7 +8,7 @@
  * @debugsion		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -62,7 +62,36 @@ static void IUTEST_ATTRIBUTE_UNUSED_ iuDebugBreakAlloc(long n)
 	(void)n;
 }
 
+#if defined(_MSC_VER) && IUTEST_HAS_MINIDUMP
+
+/**
+ * @brief	minidump çÏê¨ÉNÉâÉX
+*/
+class MiniDump
+{
+private:
+	MiniDump(void);
+	~MiniDump(void);
+
+	bool Dump(HANDLE hFile, EXCEPTION_POINTERS* ep);
+public:
+	/**
+	 @brief	minidump çÏê¨
+	*/
+	static bool Create(const char* filepath, EXCEPTION_POINTERS* ep);
+
+private:
+	HMODULE m_hModule;
+	FARPROC m_pfnMiniDumpWriteDump;
+};
+
+#endif
+
 }	// end of namespace detail
 }	// end of namespace iutest
+
+#if !IUTEST_HAS_LIB
+#  include "../impl/iutest_debug.ipp"
+#endif
 
 #endif
