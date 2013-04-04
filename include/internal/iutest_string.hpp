@@ -83,8 +83,8 @@ inline int iu_stricmp(const char* str1, const char* str2)
 	const char* r = str2;
 	while(*l)
 	{
-		char ul = toupper(*l);
-		char ur = toupper(*r);
+		int ul = toupper(*l);
+		int ur = toupper(*r);
 		if( ul < ur ) return -1;
 		if( ul > ur ) return 1;
 		++l;

@@ -1225,11 +1225,15 @@ private:
 	public:
 		T operator ()(void)
 		{
-			return rnd.genrand<T>(
-#if defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-				&detail::type<T>()
+#if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
+#if defined(__MWERKS__)
+			return rnd.template genrand<T>();
+#else
+			return rnd.genrand<T>();
 #endif
-				);
+#else
+			return rnd.genrand(&detail::type<T>());
+#endif
 		}
 	};
 };

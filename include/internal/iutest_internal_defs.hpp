@@ -331,6 +331,8 @@ inline IUTEST_CXX_CONSTEXPR bool	AlwaysFalse(void)	{ return !AlwaysTrue(); }
 */
 inline IUTEST_CXX_CONSTEXPR int		AlwaysZero(void)	{ return 0; }
 
+inline IUTEST_CXX_CONSTEXPR bool	IsTrue(bool b)		{ return b; }
+
 }	// end of namespace detail
 }	// end of namespace iutest
 

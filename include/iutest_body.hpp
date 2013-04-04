@@ -202,7 +202,11 @@ public:
 	/**
 	 * @brief	ƒpƒ‰ƒ[ƒ^‚Ìæ“¾
 	*/
-	static const ParamType&	GetParam(void)						{ return *s_params; }
+	static const ParamType&	GetParam(void)
+	{
+		IUTEST_CHECK_(s_params != NULL) << "GetParam() can only use the value-parameterized test";
+		return *s_params;
+	}
 
 	/** @private */
 	static void				SetParam(const ParamType* params)	{ s_params = params; }

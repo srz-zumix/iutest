@@ -70,16 +70,19 @@ IUTEST_IPP_INLINE int UnitTest::Run(void)
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
 IUTEST_IPP_INLINE int	UnitTest::RunOnMSC(void)
 {
-	_EXCEPTION_POINTERS* info = NULL;
+	_EXCEPTION_POINTERS* ep = NULL;
 	int ret = 1;
 	__try
 	{
 		ret = RunImpl();
 	}
-	__except (info = GetExceptionInformation()
+	__except (ep = GetExceptionInformation()
+#if IUTEST_HAS_MINIDUMP
+		, detail::MiniDump::Create("minidump.dump", ep)
+#endif
 		, detail::seh_exception::should_process_through_break_and_cppexceptions(GetExceptionCode()))
 	{
-		detail::seh_exception::translator(GetExceptionCode(), info);
+		detail::seh_exception::translator(GetExceptionCode(), ep);
 	}
 	return ret;
 }

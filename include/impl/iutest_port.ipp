@@ -144,6 +144,14 @@ IUTEST_IPP_INLINE void SleepMillisec(unsigned int millisec)
 #endif
 }
 
+#if defined(IUTEST_OS_WINDOWS_MOBILE)
+void Abort(void)
+{
+	DebugBreak();
+	TerminateProcess(GetCurrentProcess(), 1);
+}
+#endif
+
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 }	// end of namespace posix
@@ -167,7 +175,7 @@ IUTEST_IPP_INLINE bool SetEnvironmentVariable(const char* name, const char* valu
 IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, char* buf, size_t size)
 {
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
-	DWORD ret = ::GetEnvironmentVariableA(name, buf, size);
+	DWORD ret = ::GetEnvironmentVariableA(name, buf, static_cast<DWORD>(size));
 	if( ret == 0 ) return false;
 	if( ret > size ) return false;
 	return true;
@@ -261,6 +269,31 @@ IUTEST_IPP_INLINE ::std::string GetHResultString(HRESULT hr)
 
 }	// end of namespace win
 #endif
+
+// declare
+::std::string FormatFileLocation(const char* file, int line);
+
+IUTEST_IPP_INLINE IUTestLog::IUTestLog(Level level, const char* file, int line)
+	: kLevel(level)
+{
+	const char* tag = 
+		(level == LOG_INFO   ) ? "[  INFO ] ":
+		(level == LOG_WARNING) ? "[WARNING] ":
+		(level == LOG_ERROR  ) ? "[ ERROR ] ":
+								 "[ FATAL ] ";
+	GetStream() << "\r\n" << tag << FormatFileLocation(file, line).c_str() << ": ";
+}
+
+IUTEST_IPP_INLINE IUTestLog::~IUTestLog(void)
+{
+	GetStream() << "\r\n";
+	fprintf(stderr, m_stream.str().c_str());
+	if( kLevel == LOG_FATAL )
+	{
+		fflush(stderr);
+		posix::Abort();
+	}
+}
 
 }	// end of namespace detail
 }	// end of namespace iutest

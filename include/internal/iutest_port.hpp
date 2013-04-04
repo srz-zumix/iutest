@@ -57,6 +57,12 @@ const char* GetCWD(char* buf, size_t length);
 
 void SleepMillisec(unsigned int millisec);
 
+#if defined(IUTEST_OS_WINDOWS_MOBILE)
+void Abort(void);
+#else
+inline void Abort(void) { abort(); }
+#endif
+
 }	// end of namespace posix
 
 inline void SleepMilliseconds(int n)	{ posix::SleepMillisec(static_cast<unsigned int>(n)); }
@@ -126,6 +132,42 @@ namespace win
 
 }	// end of namespace win
 #endif
+
+/**
+ * @brief	ÉçÉO
+*/
+class IUTestLog
+{
+public:
+	enum Level
+	{
+		LOG_INFO
+		, LOG_WARNING
+		, LOG_ERROR
+		, LOG_FATAL
+	};
+public:
+	IUTestLog(Level level, const char* file, int line);
+
+	~IUTestLog(void);
+
+public:
+	iuStringStream::type& GetStream(void) { return m_stream; }
+private:
+	const Level kLevel;
+	iuStringStream::type m_stream;
+
+	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTestLog);
+};
+
+#define IUTEST_LOG_(level)	::iutest::detail::IUTestLog(::iutest::detail::IUTestLog::LOG_##level, __FILE__, __LINE__).GetStream()
+#define IUTEST_CHECK_(condition)	\
+	IUTEST_AMBIGUOUS_ELSE_BLOCKER_	\
+	if( ::iutest::detail::IsTrue(condition) )	\
+		;										\
+	else										\
+		IUTEST_LOG_(FATAL) << "Condition " #condition " failed. "
+
 
 }	// end of namespace detail
 }	// end of namespace iutest

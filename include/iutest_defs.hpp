@@ -248,10 +248,10 @@ namespace helper
 /**
  * @brief	TypeId Generator Implementation
 */
-template<typename TN>
+template<typename T>
 struct TestTypeIdHelper { public: static bool _dummy; };
 
-template<typename TN>bool TestTypeIdHelper<TN>::_dummy = false;
+template<typename T>bool TestTypeIdHelper<T>::_dummy = false;
 
 }
 
@@ -261,10 +261,10 @@ template<typename TN>bool TestTypeIdHelper<TN>::_dummy = false;
   * @internal
   * @brief	TypeId Generator
 */
-template<typename TN>
+template<typename T>
 inline IUTEST_CXX_CONSTEXPR TypeId	GetTypeId(void)
 {
-	return &(helper::TestTypeIdHelper<TN>::_dummy);
+	return &(helper::TestTypeIdHelper<T>::_dummy);
 }
 
 /**

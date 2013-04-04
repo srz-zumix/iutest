@@ -125,18 +125,18 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 IUTEST_IPP_INLINE void	TestInfo::RunOnMSC(detail::auto_ptr<Test>& test)
 {
-	_EXCEPTION_POINTERS* info = NULL;
+	_EXCEPTION_POINTERS* ep = NULL;
 	__try
 	{
 		test->Run(&m_mediator);
 	}
-	__except (info = GetExceptionInformation()
+	__except (ep = GetExceptionInformation()
 #if IUTEST_HAS_MINIDUMP
-		, MiniDump(info)
+		, MiniDump(ep)
 #endif
 		, detail::seh_exception::should_process_through_break_and_cppexceptions(GetExceptionCode()))
 	{
-		detail::seh_exception::translator(GetExceptionCode(), info);
+		detail::seh_exception::translator(GetExceptionCode(), ep);
 	}
 }
 #endif

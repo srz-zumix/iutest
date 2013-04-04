@@ -97,7 +97,8 @@
 #endif
 
 #ifndef IUTEST_TYPED_TEST_P_STRICT
-#  define IUTEST_TYPED_TEST_P_STRICT	1	//!< より厳しい構文チェックを行うかどうか
+//! Typed Test のより厳しい構文チェックを行うかどうか
+#  define IUTEST_TYPED_TEST_P_STRICT	1
 #endif
 
 #if IUTEST_HAS_TYPED_TEST_P
@@ -342,7 +343,7 @@
 
 #ifndef IUTEST_HAS_MINIDUMP
 //!< MiniDump 出力が有効かどうか
-#  if defined(_MSC_VER) && IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
+#  if defined(_MSC_VER) && _MSC_VER >= 1310 && IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
 #    define IUTEST_HAS_MINIDUMP		1
 #  else
 #    define IUTEST_HAS_MINIDUMP		0
