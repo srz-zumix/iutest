@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01049902u	//!< iutest version 1.4.99.2
+#define	IUTEST_VER			0x01049903u	//!< iutest version 1.4.99.3
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x04u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x02u		//!< Revision
+#define IUTEST_REVISION		0x03u		//!< Revision
 
 /**
  * @mainpage
@@ -93,8 +93,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.4.99.2
+  <li>v1.4.99.3
     <ul>
+      <li>IUTEST_TYPED_TEST_CASE,IUTEST_TYPED_TEST_CASE_P に直接 ::iutest::Types を書けるように修正/li>
       <li>誤った使い方をした場合にエラーを出力するように修正</li>
       <li>IUTEST_PEEP の仕様変更</li>
       <li>MiniDump 出力に対応</li>

@@ -37,7 +37,11 @@
  * @param	testcase_	= テストケース名
  * @param	types_		= タイプリスト
 */
-#define IUTEST_TYPED_TEST_CASE(testcase_, types_)	IIUT_TYPED_TEST_CASE_(testcase_, types_)
+#if !defined(IUTEST_NO_VARIADIC_MACROS)
+#  define IUTEST_TYPED_TEST_CASE(testcase_, ...)	IIUT_TYPED_TEST_CASE_(testcase_, __VA_ARGS__)
+#else
+#  define IUTEST_TYPED_TEST_CASE(testcase_, types_)	IIUT_TYPED_TEST_CASE_(testcase_, types_)
+#endif
 
 /**
  * @ingroup	TESTDEF
@@ -55,8 +59,13 @@
 */
 #define IUTEST_TYPED_TEST_PARAMS_(testcase_)			iutest_types_params_##testcase_
 
-#define IIUT_TYPED_TEST_CASE_(testcase_, types_)		\
+#if !defined(IUTEST_NO_VARIADIC_MACROS)
+#  define IIUT_TYPED_TEST_CASE_(testcase_, ...)		\
+	typedef ::iutest::detail::TypeList< __VA_ARGS__ >::type	IUTEST_TYPED_TEST_PARAMS_(testcase_)
+#else
+#  define IIUT_TYPED_TEST_CASE_(testcase_, types_)		\
 	typedef ::iutest::detail::TypeList< types_ >::type	IUTEST_TYPED_TEST_PARAMS_(testcase_)
+#endif
 
 #define IIUT_TYPED_TEST_(testcase_, testname_)										\
 	template<typename iutest_TypeParam>												\
@@ -122,9 +131,9 @@
  * @brief	型パラメータテスト登録マクロ
  * @param	prefix_		= インスタンス名
  * @param	testcase_	= テストケース名
- * @param	types_		= タイプリスト
+ * @param	...			= タイプリスト
 */
-#define IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(prefix_, testcase_, types_)	IUTEST_INSTANTIATE_TYPED_TEST_CASE_P_(prefix_, testcase_, types_)
+#define IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(prefix_, testcase_, ...)	IUTEST_INSTANTIATE_TYPED_TEST_CASE_P_(prefix_, testcase_, __VA_ARGS__)
 
 
 /**
@@ -174,11 +183,12 @@
 	static const bool s_iutest_##testcase_##_register_dummy_ IUTEST_ATTRIBUTE_UNUSED_ =	\
 	IUTEST_TYPED_TEST_CASE_PSTATE_NAME_(testcase_).VerifyTestNames(__FILE__, __LINE__, #__VA_ARGS__)
 
-#define IUTEST_INSTANTIATE_TYPED_TEST_CASE_P_(prefix_, testcase_, types_)	\
+#define IUTEST_INSTANTIATE_TYPED_TEST_CASE_P_(prefix_, testcase_, ...)		\
 	const bool iutest_##prefix_##_##testcase_ IUTEST_ATTRIBUTE_UNUSED_ =	\
 		::iutest::detail::TypeParameterizedTestCase< testcase_				\
 		, IUTEST_TYPED_TEST_P_NAMESPACE_(testcase_)::iutest_AllTests_		\
-		, ::iutest::detail::TypeList< types_ >::type >::Register(#prefix_, IUTEST_CONCAT_PACKAGE_(testcase_)	\
+		, ::iutest::detail::TypeList< __VA_ARGS__ >::type >::Register(		\
+			#prefix_, IUTEST_CONCAT_PACKAGE_(testcase_)						\
 		, IUTEST_TYPED_TEST_CASE_PSTATE_NAME_(testcase_).names())
 
 /**

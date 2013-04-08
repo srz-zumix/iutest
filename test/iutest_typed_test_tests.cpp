@@ -53,7 +53,6 @@ template<typename T>
 class TypedTest2 : public TypedTest<T> {};
 IUTEST_TYPED_TEST_CASE(TypedTest2, float);
 
-
 IUTEST_TYPED_TEST(TypedTest2, Mul2)
 {
 	TypeParam x = 1;
@@ -65,6 +64,20 @@ IUTEST_TYPED_TEST(TypedTest2, StaticMul2)
 	TestFixture::value = 1;
 	IUTEST_ASSERT_EQ(TestFixture::value+TestFixture::value, 2*TestFixture::value);
 }
+
+#if !defined(IUTEST_USE_GTEST)
+
+template<typename T>
+class TypedTest3 : public TypedTest<T> {};
+IUTEST_TYPED_TEST_CASE(TypedTest3, ::iutest::Types<int, float>);
+
+IUTEST_TYPED_TEST(TypedTest3, Mul2)
+{
+	TypeParam x = 1;
+	IUTEST_ASSERT_EQ(x+x, 2*x);
+}
+
+#endif
 
 #if !defined(IUTEST_USE_GTEST)
 
