@@ -128,10 +128,13 @@ IUTEST_IPP_INLINE void SleepMillisec(unsigned int millisec)
 	Sleep(millisec);
 #elif	defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN)
 
-#if	_POSIX_C_SOURCE >= 199309L
+#if	defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 199309L
 	const timespec time = { 0, millisec * 1000 * 1000 };
 	nanosleep(&time, NULL);
-#elif _BSD_SOURCE || (_XOPEN_SOURCE >= 500 || _XOPEN_SOURCE && _XOPEN_SOURCE_EXTENDED) && !(_POSIX_C_SOURCE >= 200809L || _XOPEN_SOURCE >= 700) 
+#elif (defined(_BSD_SOURCE) && _BSD_SOURCE) 
+	|| (defined(_XOPEN_SOURCE)
+		&& (_XOPEN_SOURCE >= 500 || _XOPEN_SOURCE && _XOPEN_SOURCE_EXTENDED)
+		&& (!defined(_POSIX_C_SOURCE) || !(_POSIX_C_SOURCE >= 200809L || _XOPEN_SOURCE >= 700)) )
 	usleep(millisec*1000);
 #else
 	usleep(millisec*1000);
@@ -287,7 +290,7 @@ IUTEST_IPP_INLINE IUTestLog::IUTestLog(Level level, const char* file, int line)
 IUTEST_IPP_INLINE IUTestLog::~IUTestLog(void)
 {
 	GetStream() << "\r\n";
-	fprintf(stderr, m_stream.str().c_str());
+	fprintf(stderr, "%s", m_stream.str().c_str());
 	if( kLevel == LOG_FATAL )
 	{
 		fflush(stderr);

@@ -164,7 +164,7 @@ namespace detail
  * @param [in]	index		= インデックス
 */
 template<typename T>
-::std::string MakeTypedTestName(const char* basename, int index)
+::std::string MakeIndexTypedTestName(const char* basename, int index)
 {
 #if IUTEST_HAS_RTTI
 	::std::string name = basename;
@@ -195,10 +195,9 @@ template<typename T>
 ::std::string MakePrefixedIndexTypedTestName(const char* prefix, const char* basename, int index)
 {
 #if IUTEST_HAS_RTTI
-	::std::string name = basename;
-	iuStringStream::type strm; strm << index;
-	name += "/";
-	name += GetTypeName<T>();
+	::std::string name = prefix;
+	if( !name.empty() ) name += "/";
+	name += MakeIndexTypedTestName<T>(basename, index);
 	return name;
 #else
 	return MakePrefixedIndexTestName(prefix, basename, index);

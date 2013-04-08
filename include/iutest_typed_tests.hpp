@@ -230,7 +230,7 @@ class TypeParamTestInstance
 		EachTest(const char* testcase, const char* name, int index)
 			: m_mediator(UnitTest::instance().AddTestCase<_MyTestCase>(
 				detail::MakeIndexTestName(testcase, index).c_str()
-				//detail::MakeTypedTestName<TypeParam>(testcase, index).c_str()
+				//detail::MakeIndexTypedTestName<TypeParam>(testcase, index).c_str()
 				, internal::GetTypeId<detail::None>()	// TypeId ‚ğ“ˆê‚·‚é‚½‚ßƒ_ƒ~[ˆø”‚ğ“n‚·
 				, TestBody::SetUpTestCase
 				, TestBody::TearDownTestCase))
