@@ -56,6 +56,7 @@ inline void	iuOptionMessage::ShowHelp(void)
 		"    --help, -h                       : generate help message.\n"
 		"    --iutest_output=xml[:path]       : path of xml report.\n"
 		"    --iutest_list_tests              : list up tests.\n"
+		"    --iutest_list_tests_with_where   : list up tests with where.\n"
 		"    --iutest_color=<yes|no|auto|ansi>: console color enable.\n"
 		"    --iutest_filter=<filter>         : Select the test run.\n"
 		"    --iutest_shuffle                 : do shuffle test.\n"

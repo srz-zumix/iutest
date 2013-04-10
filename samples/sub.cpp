@@ -69,8 +69,8 @@ IUTEST(PrintToTest, Test1)
 		a.push_back(i);
 	IUTEST_SUCCEED() << ::iutest::PrintToString(a);
 
-	int* pi;
-	void* p;
+	int* pi=NULL;
+	void* p=NULL;
 	IUTEST_SUCCEED() << ::iutest::PrintToString(p);
 	IUTEST_SUCCEED() << ::iutest::PrintToString(pi);
 

@@ -69,6 +69,10 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 				{
 					TestFlag::SetFlag(TestFlag::SHOW_TESTS_LIST);
 				}
+				else if( detail::IsStringEqual(str, "list_tests_with_where") )
+				{
+					TestFlag::SetFlag(TestFlag::SHOW_TESTS_LIST_WITH_WHERE);
+				}
 				else if( strstr(str, "color") == str )
 				{
 					find = ParseColorOption(ParseOptionSettingStr(str));

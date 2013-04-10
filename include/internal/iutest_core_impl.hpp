@@ -80,6 +80,11 @@ protected:
 	int		Listup(void) const;
 
 	/**
+	 * @brief	テストのリストアップ(with where)
+	*/
+	int		ListupWithWhere(void) const;
+
+	/**
 	 * @brief	事前処理
 	*/
 	bool	PreRunner(void);

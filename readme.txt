@@ -12,6 +12,7 @@ Command Line Options
     --help, -h                           : generate help message.
     --iutest_output=xml[:path]           : path of xml report.
     --iutest_list_tests                  : list up tests.
+    --iutest_list_tests_with_where       : list up tests with where.
     --iutest_color=<yes|no|auto|ansi>    : console color enable.
     --iutest_filter=<filter>             : Select the test run.
     --iutest_shuffle                     : do shuffle test.

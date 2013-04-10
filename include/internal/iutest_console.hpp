@@ -90,7 +90,13 @@ public:
 	/**
 	 * @brief	標準出力
 	*/
-	static inline void	output(const char *fmt, ...);
+	static inline void output(const char *fmt, ...);
+
+	/**
+	 * @brief	標準出力
+	 * @note	logger を通さない
+	*/
+	static inline void voutput(const char* fmt, va_list va);
 
 	/**
 	 * @brief	色指定で標準出力
@@ -108,7 +114,7 @@ public:
 	}
 private:
 	static inline void color_output_impl(Color color, const char* fmt, va_list va);
-	static inline void voutput(const char* fmt, va_list va);
+	static inline void voutput_impl(const char* fmt, va_list va);
 	static inline bool IsShouldUseColor(bool use_color);
 
 private:
@@ -144,7 +150,7 @@ inline void	iuConsole::output(const char *fmt, ...)
 {
 	va_list va;
 	va_start(va, fmt);
-	voutput(fmt, va);
+	voutput_impl(fmt, va);
 	va_end(va);
 }
 inline void	iuConsole::color_output(Color color, const char *fmt, ...)
@@ -158,10 +164,15 @@ inline void	iuConsole::color_output(Color color, const char *fmt, ...)
 	}
 	else
 	{
-		voutput(fmt, va);
+		voutput_impl(fmt, va);
 	}
 
 	va_end(va);
+}
+
+inline void iuConsole::voutput(const char* fmt, va_list va)
+{
+	IUTEST_VPRINTF(fmt, va);
 }
 
 inline void iuConsole::color_output_impl(Color color, const char* fmt, va_list va)
@@ -189,7 +200,7 @@ inline void iuConsole::color_output_impl(Color color, const char* fmt, va_list v
 		fflush(stdout);
 		::SetConsoleTextAttribute(stdout_handle, attr[color] | FOREGROUND_INTENSITY);
 
-		voutput(fmt, va);
+		voutput_impl(fmt, va);
 
 		fflush(stdout);
 		::SetConsoleTextAttribute(stdout_handle, wAttributes);
@@ -198,12 +209,12 @@ inline void iuConsole::color_output_impl(Color color, const char* fmt, va_list v
 #endif
 	{
 		output("\033[1;3%cm", '0' + color);
-		voutput(fmt, va);
+		voutput_impl(fmt, va);
 		output("\033[m");
 	}
 }
 
-inline void iuConsole::voutput(const char* fmt, va_list va)
+inline void iuConsole::voutput_impl(const char* fmt, va_list va)
 {
 	if( var::m_pLogger != NULL )
 	{
@@ -211,7 +222,7 @@ inline void iuConsole::voutput(const char* fmt, va_list va)
 	}
 	else
 	{
-		IUTEST_VPRINTF(fmt, va);
+		voutput(fmt, va);
 	}
 }
 

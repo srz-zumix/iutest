@@ -113,20 +113,28 @@ public:
 		SHUFFLE_TESTS			= 0x00000001,	//!< シャッフルテスト
 		RUN_DISABLED_TESTS		= 0x00000002,	//!< DISABLED テストも実行
 		FILTERING_TESTS			= 0x00000004,	//!< テストのフィルタリング
+
 		BREAK_ON_FAILURE		= 0x00000010,	//!< テスト失敗時にブレーク
 		THROW_ON_FAILURE		= 0x00000040,	//!< 致命的な失敗時に throw する
+
 		CONSOLE_COLOR_ON		= 0x00000100,	//!< 色つき出力ON
 		CONSOLE_COLOR_OFF		= 0x00000200,	//!< 色つき出力OFF
 		CONSOLE_COLOR_ANSI		= 0x00000400,	//!< エスケープシーケンスで出力
+
 		PRINT_TIME				= 0x00001000,	//!< 経過時間の出力
 		FILELOCATION_STYLE_MSVC	= 0x00002000,	//!< ファイル/行出力スタイルを Visual Studio スタイルにする
+
 		CATCH_EXCEPTION_EACH	= 0x00010000,	//!< 例外を catch する(TestInfo)
 		CATCH_EXCEPTION_GLOBAL	= 0x00020000,	//!< 例外を catch する(UnitTest)
 		CATCH_EXCEPTION			= 0x00030000,	//!< 例外を catch する
+
 		OUTPUT_XML_REPORT		= 0x01000000,	//!< xml 出力
+		SHOW_TESTS_LIST			= 0x02000000,	//!< テストのリスト表示
+		SHOW_TESTS_LIST_WITH_WHERE
+								= 0x04000000,	//!< テストのリスト表示(with where)
+
 		SHOW_HELP				= 0x10000000,	//!< ヘルプ表示
 		SHOW_VERSION			= 0x20000000,	//!< バージョン表示
-		SHOW_TESTS_LIST			= 0x40000000,	//!< テストのリスト表示
 		SHOW_FEATURE			= 0x80000000,	//!< 機能の出力
 		MASK					= 0xFFFFFFFF,	//!< マスク
 
@@ -221,6 +229,7 @@ public:
 	typedef TestFlag::Fragment<TestFlag::THROW_ON_FAILURE>		throw_on_failure;
 	typedef TestFlag::Fragment<TestFlag::PRINT_TIME>			print_time;
 	typedef TestFlag::Fragment<TestFlag::SHOW_TESTS_LIST>		list_tests;
+	typedef TestFlag::Fragment<TestFlag::SHOW_TESTS_LIST_WITH_WHERE> list_tests_with_where;
 
 	typedef TestFlag::Fragment<TestFlag::CATCH_EXCEPTION_EACH>		catch_exceptions_each;
 	typedef TestFlag::Fragment<TestFlag::CATCH_EXCEPTION_GLOBAL>	catch_exceptions_global;

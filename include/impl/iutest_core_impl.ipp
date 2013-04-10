@@ -57,6 +57,24 @@ IUTEST_IPP_INLINE int	UnitTestImpl::Listup(void) const
 	return 0;
 }
 
+IUTEST_IPP_INLINE int	UnitTestImpl::ListupWithWhere(void) const
+{
+	detail::iuConsole::output("%d tests from %d testcase\n", m_total_test_num, m_testcases.size() );
+	for( iuTestCases::const_iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
+	{
+		detail::iuConsole::output((*it)->testcase_name_with_where().c_str());
+		detail::iuConsole::output("\n");
+
+		for( TestCase::iuTestInfos::const_iterator it2 = (*it)->begin(), end2=(*it)->end(); it2 != end2; ++it2 )
+		{
+			detail::iuConsole::output("  ");
+			detail::iuConsole::output((*it2)->name());
+			detail::iuConsole::output("\n");
+		}
+	}
+	return 0;
+}
+
 IUTEST_IPP_INLINE bool	UnitTestImpl::PreRunner(void)
 {
 	InitializeImpl();
@@ -72,6 +90,10 @@ IUTEST_IPP_INLINE bool	UnitTestImpl::PreRunner(void)
 	else if( TestFlag::IsEnableFlag(TestFlag::SHOW_FEATURE) )
 	{
 		detail::iuOptionMessage::ShowFeature();
+	}
+	else if( TestFlag::IsEnableFlag(TestFlag::SHOW_TESTS_LIST_WITH_WHERE) )
+	{
+		ListupWithWhere();
 	}
 	else if( TestFlag::IsEnableFlag(TestFlag::SHOW_TESTS_LIST) )
 	{

@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01049903u	//!< iutest version 1.4.99.3
+#define	IUTEST_VER			0x01049905u	//!< iutest version 1.4.99.5
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x04u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x03u		//!< Revision
+#define IUTEST_REVISION		0x05u		//!< Revision
 
 /**
  * @mainpage
@@ -72,6 +72,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    <tr><td>--help, -h                        </td><td></td><td>generate help message.</td></tr>
    <tr><td>--iutest_output                   </td><td>xml[:path]</td><td>path of xml report.</td></tr>
    <tr><td>--iutest_list_tests               </td><td></td><td>list up tests.</td></tr>
+   <tr><td>--iutest_list_tests_with_where    </td><td></td><td>list up tests with where.</td></tr>
    <tr><td>--iutest_color                    </td><td>&lt;yes|no|auto|ansi&gt;</td><td>console color enable.</td></tr>
    <tr><td>--iutest_filter                   </td><td>&lt;filter&gt;</td><td>Select the test run.</td></tr>
    <tr><td>--iutest_shuffle                  </td><td></td><td>do shuffle test.</td></tr>
@@ -93,8 +94,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.4.99.3
+  <li>v1.4.99.5
     <ul>
+      <li>iutest_list_tests_with_where コマンドラインオプションを追加</li>
       <li>IUTEST_TYPED_TEST_CASE,IUTEST_TYPED_TEST_CASE_P に直接 ::iutest::Types を書けるように修正/li>
       <li>誤った使い方をした場合にエラーを出力するように修正</li>
       <li>IUTEST_PEEP の仕様変更</li>

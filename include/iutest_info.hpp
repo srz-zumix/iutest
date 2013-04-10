@@ -67,9 +67,9 @@ public:
 	 * @param [in]	factory		= テスト生成器
 	*/
 	TestInfo(detail::iuITestCaseMediator* testcase, const char* name, detail::iuFactoryBase* factory)
-		: m_testcase(testcase)
-		, m_testname(name)
+		: m_testname(name)
 		, m_factory(factory)
+		, m_testcase(testcase)
 		, m_should_run(true)
 		, m_ran(false)
 		, m_disable(false)
@@ -202,12 +202,12 @@ private:
 	friend class UnitTest;
 	friend class TestCase;
 
-	detail::iuITestCaseMediator*	m_testcase;	//!< テストケース仲介者
-	::std::string					m_testname;	//!< テスト名
+	::std::string			m_testname;			//!< テスト名
 	::std::string			m_value_param;		//!< value param string
 	TestResult				m_test_result;		//!< テスト結果
-	detail::iuFactoryBase*	m_factory;			//!< テスト生成器
 	Mediator				m_mediator;			//!< 自身の仲介インスタンス
+	detail::iuFactoryBase*			m_factory;	//!< テスト生成器
+	detail::iuITestCaseMediator*	m_testcase;	//!< テストケース仲介者
 	bool					m_should_run;		//!< 実行すべきかの真偽値
 	bool					m_ran;				//!< 実行したかどうか
 	bool					m_disable;			//!< 無効真偽値

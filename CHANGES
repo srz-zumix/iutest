@@ -1,3 +1,16 @@
+Changes for 1.5.0:
+
+** 追加
+* iutest_list_tests_with_where コマンドラインオプションを追加
+
+** 修正
+* IUTEST_TYPED_TEST_CASE,IUTEST_TYPED_TEST_CASE_P に直接 ::iutest::Types を書けるように修正
+* 誤った使い方をした場合にエラーを出力するように修正
+
+** 変更
+* IUTEST_PEEP の仕様変更
+
+--------------------------------------------------
 Changes for 1.4.0:
 
 ** 追加
