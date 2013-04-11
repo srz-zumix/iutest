@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_list_test_tests.cpp
- * @brief		list test スト
+ * @brief		list test テスト
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -56,7 +56,11 @@ IUTEST_TYPED_TEST(TypedTest, A)
 #endif
 
 const char list_test_str[] = 
+#if IUTEST_HAS_TYPED_TEST
 "2 tests from 2 testcase\n"
+#else
+"1 tests from 1 testcase\n"
+#endif
 "Test\n"
 "  A\n"
 #if IUTEST_HAS_TYPED_TEST
@@ -66,7 +70,11 @@ const char list_test_str[] =
 ;
 
 const char list_test_with_where_str[] =
+#if IUTEST_HAS_TYPED_TEST
 "2 tests from 2 testcase\n"
+#else
+"1 tests from 1 testcase\n"
+#endif
 "Test\n"
 "  A\n"
 #if IUTEST_HAS_TYPED_TEST
