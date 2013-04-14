@@ -131,7 +131,12 @@ IUTEST(ReturnTest, Test)
 
 #if IUTEST_HAS_JAPANESE_NAME
 
-IUTEST(JapaneseTest, IUTEST_JAPANESE_NAME(テスト))
+IUTEST(IUTEST_JAPANESE_NAME(テスト), IUTEST_JAPANESE_NAME(テスト))
+{
+}
+class JapaneseFixedTest : public ::iutest::Test {};
+
+IUTEST_F(IUTEST_JAPANESE_NAME_F(JapaneseFixedTest, あいうえお), IUTEST_JAPANESE_NAME(かきくけこ))
 {
 }
 

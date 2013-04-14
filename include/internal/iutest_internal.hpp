@@ -52,8 +52,8 @@
 #define IUTEST_TO_NAME_STR_(name_)				IUTEST_PP_TOSTRING( IUTEST_TO_NAME_(name_) )
 
 #if	defined(_MSC_VER)
-#  define IUTEST_JAPANESE_NAME(name_)	name_
-#  define IUTEST_JAPANESE_NAME_F(var_, name_)	name_
+#  define IUTEST_JAPANESE_NAME(name_)			name_
+#  define IUTEST_JAPANESE_NAME_F(var_, name_)	var_
 #else
 #  define IUTEST_JAPANESE_NAME(name_)			UNPAREN_(dummy, IUTEST_PP_CAT(iutest_japanese_var, __LINE__), name_)
 #  define IUTEST_JAPANESE_NAME_F(var_, name_)	UNPAREN_(dummy, var_, name_)
