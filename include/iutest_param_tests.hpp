@@ -79,35 +79,39 @@
 /**
  * @brief	パラメータテストクラス定義
 */
-#define IIUT_TEST_P_(testcase_, testname_)														\
-	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public testcase_ {					\
-		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}							\
-		protected: virtual void Body(void);														\
-		private: static int	AddRegister(void) {													\
-			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_) > testinfo(#testname_);	\
-			IIUT_GetTestCasePatternHolder(testcase_, IUTEST_CONCAT_PACKAGE_(testcase_))->AddTestPattern(&testinfo);	\
-			return 0;																			\
-		}																						\
-		static int dummy_;																		\
-		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));		\
-	};																							\
-	int IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::dummy_ IUTEST_ATTRIBUTE_UNUSED_ = IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::AddRegister(); \
+#define IIUT_TEST_P_(testcase_, testname_)															\
+	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public IUTEST_TO_VARNAME_(testcase_) {	\
+		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}								\
+		protected: virtual void Body(void);															\
+		private: static int	AddRegister(void) {														\
+			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_			\
+				, testname_) > testinfo(IUTEST_TO_NAME_STR_(testname_));							\
+			IIUT_GetTestCasePatternHolder(IUTEST_TO_VARNAME_(testcase_), IUTEST_CONCAT_PACKAGE_(IUTEST_TO_NAME_(testcase_)))	\
+				->AddTestPattern(&testinfo); return 0;												\
+		}																							\
+		static int dummy_;																			\
+		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));			\
+	};																								\
+	int IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::dummy_ IUTEST_ATTRIBUTE_UNUSED_				\
+		= IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::AddRegister();								\
 	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body(void)
 
-#define IIUT_TEST_P_IGNORE_(testcase_, testname_)												\
-	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public testcase_ {					\
-		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}							\
-		protected: virtual void Body(void) { IUTEST_SKIP() << "ignored test..."; }				\
-		template<typename T>void Body(void);													\
-		private: static int	AddRegister(void) {													\
-			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_) > testinfo(#testname_);	\
-			IIUT_GetTestCasePatternHolder(testcase_, IUTEST_CONCAT_PACKAGE_(testcase_))->AddTestPattern(&testinfo);	\
-			return 0;																			\
-		}																						\
-		static int dummy_;																		\
-		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));		\
-	};																							\
-	int IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::dummy_ IUTEST_ATTRIBUTE_UNUSED_ = IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::AddRegister(); \
+#define IIUT_TEST_P_IGNORE_(testcase_, testname_)													\
+	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public IUTEST_TO_VARNAME_(testcase_) {	\
+		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}								\
+		protected: virtual void Body(void) { IUTEST_SKIP() << "ignored test..."; }					\
+		template<typename T>void Body(void);														\
+		private: static int	AddRegister(void) {														\
+			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_			\
+				, testname_) > testinfo(IUTEST_TO_NAME_STR_(testname_));							\
+			IIUT_GetTestCasePatternHolder(IUTEST_TO_VARNAME_(testcase_), IUTEST_CONCAT_PACKAGE_(IUTEST_TO_NAME_(testcase_)))	\
+				->AddTestPattern(&testinfo); return 0;												\
+		}																							\
+		static int dummy_;																			\
+		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));			\
+	};																								\
+	int IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::dummy_ IUTEST_ATTRIBUTE_UNUSED_				\
+		= IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::AddRegister();								\
 	template<typename T>void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body(void)
 
 /**
@@ -258,7 +262,7 @@ inline detail::iuValueArray<Args...> IUTEST_ATTRIBUTE_UNUSED_ Values(Args... arg
 
 #else
 
-#define IUTEST_DECL_VALUES_(n)	template< IUTEST_PP_ENUM_PARAMS(n, typename T) >					\
+#define IIUT_DECL_VALUES_(n)	template< IUTEST_PP_ENUM_PARAMS(n, typename T) >					\
 	inline detail::iuValueArray##n< IUTEST_PP_ENUM_PARAMS(n, T) >									\
 	IUTEST_ATTRIBUTE_UNUSED_ Values( IUTEST_PP_ENUM_BINARY_PARAMS(n, T, t) )	{					\
 	return detail::iuValueArray##n< IUTEST_PP_ENUM_PARAMS(n, T) >( IUTEST_PP_ENUM_PARAMS(n, t) );	\
@@ -268,58 +272,58 @@ inline detail::iuValueArray<Args...> IUTEST_ATTRIBUTE_UNUSED_ Values(Args... arg
  * @brief	値配列パラメータ
  * @note	50引数まで使用可能
 */
-IUTEST_DECL_VALUES_(1)
-IUTEST_DECL_VALUES_(2)
-IUTEST_DECL_VALUES_(3)
-IUTEST_DECL_VALUES_(4)
-IUTEST_DECL_VALUES_(5)
-IUTEST_DECL_VALUES_(6)
-IUTEST_DECL_VALUES_(7)
-IUTEST_DECL_VALUES_(8)
-IUTEST_DECL_VALUES_(9)
-IUTEST_DECL_VALUES_(10)
-IUTEST_DECL_VALUES_(11)
-IUTEST_DECL_VALUES_(12)
-IUTEST_DECL_VALUES_(13)
-IUTEST_DECL_VALUES_(14)
-IUTEST_DECL_VALUES_(15)
-IUTEST_DECL_VALUES_(16)
-IUTEST_DECL_VALUES_(17)
-IUTEST_DECL_VALUES_(18)
-IUTEST_DECL_VALUES_(19)
-IUTEST_DECL_VALUES_(20)
-IUTEST_DECL_VALUES_(21)
-IUTEST_DECL_VALUES_(22)
-IUTEST_DECL_VALUES_(23)
-IUTEST_DECL_VALUES_(24)
-IUTEST_DECL_VALUES_(25)
-IUTEST_DECL_VALUES_(26)
-IUTEST_DECL_VALUES_(27)
-IUTEST_DECL_VALUES_(28)
-IUTEST_DECL_VALUES_(29)
-IUTEST_DECL_VALUES_(30)
-IUTEST_DECL_VALUES_(31)
-IUTEST_DECL_VALUES_(32)
-IUTEST_DECL_VALUES_(33)
-IUTEST_DECL_VALUES_(34)
-IUTEST_DECL_VALUES_(35)
-IUTEST_DECL_VALUES_(36)
-IUTEST_DECL_VALUES_(37)
-IUTEST_DECL_VALUES_(38)
-IUTEST_DECL_VALUES_(39)
-IUTEST_DECL_VALUES_(40)
-IUTEST_DECL_VALUES_(41)
-IUTEST_DECL_VALUES_(42)
-IUTEST_DECL_VALUES_(43)
-IUTEST_DECL_VALUES_(44)
-IUTEST_DECL_VALUES_(45)
-IUTEST_DECL_VALUES_(46)
-IUTEST_DECL_VALUES_(47)
-IUTEST_DECL_VALUES_(48)
-IUTEST_DECL_VALUES_(49)
-IUTEST_DECL_VALUES_(50)
+IIUT_DECL_VALUES_(1)
+IIUT_DECL_VALUES_(2)
+IIUT_DECL_VALUES_(3)
+IIUT_DECL_VALUES_(4)
+IIUT_DECL_VALUES_(5)
+IIUT_DECL_VALUES_(6)
+IIUT_DECL_VALUES_(7)
+IIUT_DECL_VALUES_(8)
+IIUT_DECL_VALUES_(9)
+IIUT_DECL_VALUES_(10)
+IIUT_DECL_VALUES_(11)
+IIUT_DECL_VALUES_(12)
+IIUT_DECL_VALUES_(13)
+IIUT_DECL_VALUES_(14)
+IIUT_DECL_VALUES_(15)
+IIUT_DECL_VALUES_(16)
+IIUT_DECL_VALUES_(17)
+IIUT_DECL_VALUES_(18)
+IIUT_DECL_VALUES_(19)
+IIUT_DECL_VALUES_(20)
+IIUT_DECL_VALUES_(21)
+IIUT_DECL_VALUES_(22)
+IIUT_DECL_VALUES_(23)
+IIUT_DECL_VALUES_(24)
+IIUT_DECL_VALUES_(25)
+IIUT_DECL_VALUES_(26)
+IIUT_DECL_VALUES_(27)
+IIUT_DECL_VALUES_(28)
+IIUT_DECL_VALUES_(29)
+IIUT_DECL_VALUES_(30)
+IIUT_DECL_VALUES_(31)
+IIUT_DECL_VALUES_(32)
+IIUT_DECL_VALUES_(33)
+IIUT_DECL_VALUES_(34)
+IIUT_DECL_VALUES_(35)
+IIUT_DECL_VALUES_(36)
+IIUT_DECL_VALUES_(37)
+IIUT_DECL_VALUES_(38)
+IIUT_DECL_VALUES_(39)
+IIUT_DECL_VALUES_(40)
+IIUT_DECL_VALUES_(41)
+IIUT_DECL_VALUES_(42)
+IIUT_DECL_VALUES_(43)
+IIUT_DECL_VALUES_(44)
+IIUT_DECL_VALUES_(45)
+IIUT_DECL_VALUES_(46)
+IIUT_DECL_VALUES_(47)
+IIUT_DECL_VALUES_(48)
+IIUT_DECL_VALUES_(49)
+IIUT_DECL_VALUES_(50)
 
-#undef IUTEST_DECL_VALUES_
+#undef IIUT_DECL_VALUES_
 
 #endif
 
@@ -337,7 +341,7 @@ detail::iuCartesianProductHolder<Generator...> Combine(const Generator&... gener
 
 #else
 
-#define IUTEST_DECL_COMBINE_(n)	template< IUTEST_PP_ENUM_PARAMS(n, typename T) >				\
+#define IIUT_DECL_COMBINE_(n)	template< IUTEST_PP_ENUM_PARAMS(n, typename T) >				\
 	inline IUTEST_PP_CAT(detail::iuCartesianProductHolder, n)< IUTEST_PP_ENUM_PARAMS(n, T) >	\
 	Combine(IUTEST_PP_ENUM_BINARY_PARAMS(n, const T, &t)) {										\
 		return IUTEST_PP_CAT(detail::iuCartesianProductHolder, n)								\
@@ -348,16 +352,16 @@ detail::iuCartesianProductHolder<Generator...> Combine(const Generator&... gener
  * @brief	複合条件パラメータ化
  * @note	9引数まで使用可能
 */
-IUTEST_DECL_COMBINE_(2)
-IUTEST_DECL_COMBINE_(3)
-IUTEST_DECL_COMBINE_(4)
-IUTEST_DECL_COMBINE_(5)
-IUTEST_DECL_COMBINE_(6)
-IUTEST_DECL_COMBINE_(7)
-IUTEST_DECL_COMBINE_(8)
-IUTEST_DECL_COMBINE_(9)
+IIUT_DECL_COMBINE_(2)
+IIUT_DECL_COMBINE_(3)
+IIUT_DECL_COMBINE_(4)
+IIUT_DECL_COMBINE_(5)
+IIUT_DECL_COMBINE_(6)
+IIUT_DECL_COMBINE_(7)
+IIUT_DECL_COMBINE_(8)
+IIUT_DECL_COMBINE_(9)
 
-#undef IUTEST_DECL_COMBINE_
+#undef IIUT_DECL_COMBINE_
 
 #endif
 
@@ -378,7 +382,7 @@ detail::iuPairwiseHolder<Generator...> Pairwise(const Generator&... generators)
 
 #else
 
-#define IUTEST_DECL_PAIRWISE(n)	template< IUTEST_PP_ENUM_PARAMS(n, typename T) >			\
+#define IIUT_DECL_PAIRWISE_(n)	template< IUTEST_PP_ENUM_PARAMS(n, typename T) >			\
 	inline IUTEST_PP_CAT(detail::iuPairwiseHolder, n)< IUTEST_PP_ENUM_PARAMS(n, T) >		\
 	Pairwise(IUTEST_PP_ENUM_BINARY_PARAMS(n, const T, &t)) {								\
 		return IUTEST_PP_CAT(detail::iuPairwiseHolder, n)									\
@@ -389,16 +393,16 @@ detail::iuPairwiseHolder<Generator...> Pairwise(const Generator&... generators)
  * @brief	複合条件パラメータ化(オールペア法)
  * @note	9引数まで使用可能
 */
-IUTEST_DECL_PAIRWISE(2)
-IUTEST_DECL_PAIRWISE(3)
-IUTEST_DECL_PAIRWISE(4)
-IUTEST_DECL_PAIRWISE(5)
-IUTEST_DECL_PAIRWISE(6)
-IUTEST_DECL_PAIRWISE(7)
-IUTEST_DECL_PAIRWISE(8)
-IUTEST_DECL_PAIRWISE(9)
+IIUT_DECL_PAIRWISE_(2)
+IIUT_DECL_PAIRWISE_(3)
+IIUT_DECL_PAIRWISE_(4)
+IIUT_DECL_PAIRWISE_(5)
+IIUT_DECL_PAIRWISE_(6)
+IIUT_DECL_PAIRWISE_(7)
+IIUT_DECL_PAIRWISE_(8)
+IIUT_DECL_PAIRWISE_(9)
 
-#undef IUTEST_DECL_PAIRWISE_
+#undef IIUT_DECL_PAIRWISE__
 
 #endif
 

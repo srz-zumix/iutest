@@ -52,8 +52,7 @@
  * @param	testname_		= テスト名
  * @note	ignore 版ではテストコードのコンパイルが通らなくても問題ない
 */
-#define IUTEST_F_IGNORE(testfixture_, testname_)	IUTEST_TEST_IGNORE_(testfixture_, testname_, testfixture_	\
-														, ::iutest::internal::GetTypeId< testfixture_ >())
+#define IUTEST_F_IGNORE(testfixture_, testname_)	IUTEST_TEST_F_IGNORE_(testfixture_, testname_)
 
 #if IUTEST_HAS_PARAM_TEST
 
@@ -93,7 +92,7 @@
  * @param	testname_	= テスト名
  * @note	ignore 版ではテストコードのコンパイルが通らなくても問題ない
 */
-#define IUTEST_TYPED_TEST_P_IGNORE(testcase_, testname_)	IUTEST_TYPED_TEST_P_IGNORE_(testcase_, testname_)
+#define IUTEST_TYPED_TEST_P_IGNORE(testcase_, testname_)	IIUT_TYPED_TEST_P_IGNORE_(testcase_, testname_)
 
 #endif
 

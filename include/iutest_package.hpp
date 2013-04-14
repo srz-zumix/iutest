@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -27,7 +27,7 @@
  * @ingroup	TESTDEF
  * @brief	パッケージ名前空間の定義
 */
-#define IUTEST_PACKAGE(name)	IUTEST_PACKAGE_(name)
+#define IUTEST_PACKAGE(name)	IIUT_PACKAGE_(name)
 
 /**
  * @private
@@ -36,12 +36,13 @@
 
 #if IUTEST_HAS_PACKAGE
 
-#define IUTEST_CONCAT_PACKAGE_(testcase_name)					\
+#define IUTEST_CONCAT_PACKAGE_(testcase_name)	IIUT_CONCAT_PACKAGE_I(testcase_name)
+#define IIUT_CONCAT_PACKAGE_I(testcase_name)					\
 	iuTest_ConcatTestCaseName( iuTest_GetTestCasePackageName(	\
 	static_cast<iuTest_TestCasePackage*>(NULL))					\
 	, #testcase_name).c_str()
 
-#define IUTEST_PACKAGE_(name)							\
+#define IIUT_PACKAGE_(name)								\
 	namespace name {									\
 	class iuTest_TestCasePackage;						\
 	static ::std::string IUTEST_ATTRIBUTE_UNUSED_		\
@@ -58,8 +59,9 @@
 
 #else
 
-#define IUTEST_CONCAT_PACKAGE_(testcase_name)	#testcase_name
-#define IUTEST_PACKAGE_(name)					namespace name
+#define IUTEST_CONCAT_PACKAGE_(testcase_name)	IIUT_CONCAT_PACKAGE_I(testcase_name)
+#define IIUT_CONCAT_PACKAGE_I(testcase_name)	#testcase_name
+#define IIUT_PACKAGE_(name)						namespace name
 
 #endif
 

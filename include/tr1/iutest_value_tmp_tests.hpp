@@ -38,10 +38,14 @@
  * @brief	型付けテスト関数定義マクロ
 */
 
-#define IUTEST_VALUETMP_TEST(testcase_, testname_)		IUTEST_VALUETMP_TEST_(testcase_, testname_)
+#define IUTEST_VALUETMP_TEST(testcase_, testname_)		IIUT_VALUETMP_TEST_(testcase_, testname_)
 
 
-#define IUTEST_VALUETMP_TEST_(testcase_, testname_)										\
+/**
+ * @private
+ * @{
+*/
+#define IIUT_VALUETMP_TEST_(testcase_, testname_)										\
 	template<iutest::BiggestInt iutest_ValueParam>										\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public testcase_<iutest_ValueParam> {		\
 		typedef testcase_<iutest_ValueParam> TestFixture;								\
@@ -52,6 +56,10 @@
 	s_##testcase_##_##testname_( #testcase_, #testname_);								\
 	template<iutest::BiggestInt iutest_ValueParam>										\
 	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_ValueParam>::Body(void)
+
+/**
+ * @}
+*/
 
 //======================================================================
 // class

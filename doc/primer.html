@@ -56,8 +56,36 @@
   <li><a href="#difference">Google Test との違い</a>
     <ul>
       <li><a href="#diff_non">Google Test にあって iutest にない機能</a></li>
-      <li><a href="#diff_compat">iutest 拡張機能</a></li>
-      <li><a href="#diff_orig">iutest 独自機能</a></li>
+      <li><a href="#diff_compat">iutest 拡張機能</a>
+        <ul>
+          <li><a href="#ext_assertion">アサーション</a>
+            <ul>
+              <li><a href="#ext_assert_ex">アサーションの拡張</a></li>
+              <li><a href="#ext_assert_except">例外の値のアサーション</a></li>
+              <li><a href="#ext_assert_warn">警告アサーション</a></li>
+              <li><a href="#ext_assert_vs_ana">Visual Studio コード分析に対応</a></li>
+            </ul>
+          </li>
+          <li><a href="#ext_listener">イベントリスナー</a></li>
+          <li><a href="#ext_prod">Private コードのテスト</a></li>
+        </ul>
+      </li>
+      <li><a href="#diff_orig">iutest 独自機能</a>
+        <ul>
+          <li><a href="#org_test">テストの生成</a>
+            <ul>
+              <li><a href="#org_test_pmz">IUTEST_PMZ/IUTEST_PMZ_F</a></li>
+              <li><a href="#org_test_return">戻り値のある関数での ASSERT 使用</a></li>
+              <li><a href="#org_test_pairwise">Pairwise</a></li>
+              <li><a href="#org_test_variadic">Variadic Templates の対応</a></li>
+              <li><a href="#org_test_package">パッケージ</a></li>
+              <li><a href="#org_test_japanese">日本語テスト名</a></li>
+            </ul>
+          </li>
+          <li><a href="#org_prod">Private コードのテスト</a></li>
+          <li><a href="#org_cmdline">コマンドラインオプション</a></li>
+        </ul>
+      </li>
     </ul>
   </li>
   <li><a href="#switch">iutest / Google Test 切り替え</a>
@@ -104,12 +132,12 @@ iutest_switch.hpp が用意されています。<br />
 <h3><a name="diff_compat" id="diff_compat">iutest 拡張機能</a></h3>
 こちらの機能は、iutest_switch.hpp を使用することで Google Test でも使用できるようになる機能です。<br />
 <ul>
-  <li>アサーション
+  <li><a name="ext_assertion" id="ext_assertion">アサーション</a>
     <ul>
-      <li>アサーションの拡張<br />
+      <li><a name="ext_assert_ex" id="ext_assert_ex">アサーションの拡張</a><br />
       IUTEST_ASSERT_EQ_COLLECTIONS,IUTEST_ASSERT_NULL,IUTEST_ASSERT_NOTNULL など<br />
       </li>
-      <li>例外の値のアサーション<br />
+      <li><a name="ext_assert_except" id="ext_assert_except">例外の値のアサーション</a><br />
       THROW,ANY_THROW,NO_THROW に加えて例外の値をテストするアサーションを追加しています。<br />
 <pre class="source">
 IUTEST(Hoge, ThrowValue)
@@ -119,7 +147,7 @@ IUTEST(Hoge, ThrowValue)
 }
 </pre>
       </li>
-      <li>警告アサーション<br />
+      <li><a name="ext_assert_warn" id="ext_assert_warn">警告アサーション</a><br />
       Boost.Test の WARN フレーバーと同等のアサーションです。<br />
       ログの出力はされますが、テスト失敗にはなりません。<br />
 <pre class="source">
@@ -129,7 +157,7 @@ IUTEST(Hoge, Inform)
 }
 </pre>
       </li>
-      <li>Visual Studio コード分析に対応<br />
+      <li><a name="ext_assert_vs_ana" id="ext_assert_vs_ana">Visual Studio コード分析に対応</a><br />
       コード分析では NULL ポインタ参照の可能性のあるコードに警告(C6011)が報告されます。<br />
       下記のようなコードの場合、コード分析ツールに p が NULL でないことを __analysis_assume で教えることでより正しく分析されます。<br />
 <pre class="source">
@@ -156,14 +184,14 @@ IUTEST(NullCheck, Sample)
       </li>
     </ul>
   </li>
-  <li>イベントリスナー
+  <li><a name="ext_listener" id="ext_listener">イベントリスナー</a>
     <ul>
       <li>QuietResultPrinter<br />
       成功時のテストログを出さないようにするイベントリスナーです。<br />
       </li>
     </ul>
   </li>
-  <li>Private コードのテスト
+  <li><a name="ext_prod" id="ext_prod">Private コードのテスト</a>
     <ul>
       <li>IUTEST_FRIEND_TYPED_TEST<br />
       TYPED_TEST に対しての friend 宣言をします。
@@ -174,9 +202,9 @@ IUTEST(NullCheck, Sample)
 <h3><a name="diff_orig" id="diff_orig">iutest 独自機能</a></h3>
 こちらの機能は、iutest でのみ利用できる機能です。<br />
 <ul>
-  <li>テストの生成
+  <li><a name="org_test" id="org_test">テストの生成</a>
     <ul>
-      <li>IUTEST_PMZ/IUTEST_PMZ_F<br />
+      <li><a name="org_test_pmz" id="org_test_pmz">IUTEST_PMZ/IUTEST_PMZ_F</a><br />
       IUTEST_P とは違い、関数と引数を直指定するテストマクロです。<br />
       IUTEST_P よりも直感的にテストが可能です。<br />
 <pre class="source">
@@ -188,7 +216,7 @@ IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 0, 0);
 IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 1, 1);</pre>
       </li>
 
-      <li>戻り値のある関数での ASSERT 使用<br />
+      <li><a name="org_test_return" id="org_test_return">戻り値のある関数での ASSERT 使用</a><br />
       基本的に IUTEST_ASSERT_* マクロは return 文でテストの中断を行なっています。<br />
       そのため、戻り値の型が void でない関数では、IUTEST_ASSERT_* は使用できませんでした。<br />
       iutest では ::iutest::AssertionReturn を使用することで、明示的に IUTEST_ASSERT_* マクロの戻り値型を変更できます。<br />
@@ -201,18 +229,18 @@ int ReturnTest(void)
 </pre>
       </li>
       
-      <li>Pairwise<br />
+      <li><a name="org_test_pairwise" id="org_test_pairwise">Pairwise</a><br />
       オールペア法による組み合わせの作成ができます。<br />
 <pre class="source">
 IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
      , ::iutest::Pairwise( ::iutest::Bool(), ::iutest::Values(1, 2), ::iutest::Values(10, 11) ) );</pre>
       </li>
       
-      <li>Variadic Templates の対応<br />
-      C++11 Variadic Templates が利用可能な環境で、Variadic Templates に対応した Types,Values,Combine が利用可能です。<br />
+      <li><a name="org_test_variadic" id="org_test_variadic">Variadic Templates の対応</a><br />
+      C++11 Variadic Templates が利用可能な環境で、Variadic Templates に対応した Types,Values,Combine,Pairwise が利用可能です。<br />
       </li>
       
-      <li>パッケージ<br />
+      <li><a name="org_test_package" id="org_test_package">パッケージ</a><br />
       IUTEST_PACKAGE マクロを使うことで、名前空間をパッケージとして扱うことができます。<br />
       通常の名前空間ではテスト名が衝突してしまい、出力 XML で区別がつかなくなってしまいますが、<br />
       IUTEST_PACKAGE マクロを使うことで、名前空間名がパッケージ名としてテストケース名に追加され、区別できるようになります。<br />
@@ -232,9 +260,25 @@ IUTEST_PACKAGE(TestPackageB)
   }
 }</pre>
       </li>
+      <li><a name="org_test_japanese" id="org_test_japanese">日本語テスト名</a><br />
+      IUTEST_JAPANESE_NAME マクロを使用することでテスト名に日本語を使用できます。<br />
+<pre class="source">
+IUTEST(IUTEST_JAPANESE_NAME(あいうえお), IUTEST_JAPANESE_NAME(かきくけこ))
+{
+}
+</pre>
+      テストフィクスチャを利用する場合は、IUTEST_JAPANESE_NAME_F マクロを使用してください。<br />
+<pre class="source">
+class FixedTest : public ::iutest::Test {};
+IUTEST_F(IUTEST_JAPANESE_NAME_F(FixedTest, あいうえお), IUTEST_JAPANESE_NAME(かきくけこ))
+{
+}
+</pre>
+      ※ IUTEST_TYPED_TEST_P は未対応です。
+      </li>
     </ul>
   </li>
-  <li>Private コードのテスト
+  <li><a name="org_prod" id="org_prod">Private コードのテスト</a>
     <ul>
       <li>PEEP<br />
       テンプレートの明示的な実体化を利用した private メンバーへのアクセスを簡易に行うためのマクロです。<br />
@@ -253,7 +297,7 @@ IUTEST(ProdTest, Peep)
       </li>
     </ul>
   </li>
-  <li>コマンドラインオプション
+  <li><a name="org_cmdline" id="org_cmdline">コマンドラインオプション</a>
     <ul>
       <li>--iutest_file_location<br />
       エラーログなどのファイル/行表記のフォーマット gcc,vs,auto から指定します。<br />

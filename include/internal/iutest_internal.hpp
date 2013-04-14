@@ -28,20 +28,64 @@
  * @internal
  * @brief	テスト名作成マクロ
 */
-#define IUTEST_TEST_CLASS_NAME_(testcase_, testname_)	iu_##testcase_##_x_##testname_##_Test
+#define IUTEST_TEST_CLASS_NAME_(testcase_, testname_)	IIUT_TEST_CLASS_NAME_I(IUTEST_TO_VARNAME_(testcase_), IUTEST_TO_VARNAME_(testname_))
+#define IIUT_TEST_CLASS_NAME_I(testcase_, testname_)	IIUT_TEST_CLASS_NAME_I_(testcase_, testname_)
+#define IIUT_TEST_CLASS_NAME_I_(testcase_, testname_)	iu_##testcase_##_x_##testname_##_Test
 
+#define IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)	IIUT_TEST_INSTANCE_NAME_I(IUTEST_TO_VARNAME_(testcase_), IUTEST_TO_VARNAME_(testname_))
+#define IIUT_TEST_INSTANCE_NAME_I(testcase_, testname_)		IIUT_TEST_INSTANCE_NAME_I_(testcase_, testname_)
+#define IIUT_TEST_INSTANCE_NAME_I_(testcase_, testname_)	s_##testcase_##_##testname_##_Instance
+
+#if IUTEST_HAS_JAPANESE_NAME
+
+#define IUTEST_TO_VARNAME_(name_)				IIUT_TO_VARNAME_I( IIUT_JAPANESE_NAME_PP_##name_, name_ )
+#define IIUT_TO_VARNAME_I(name_, name_2)		IIUT_TO_VARNAME_I_(name_, name_2)
+#define IIUT_TO_VARNAME_I_(dummy, name_, ...)	name_
+#if defined(_MSC_VER)
+#  define IUTEST_TO_NAME_(name_)				IIUT_TO_NAME_I(name_)
+#  define IIUT_TO_NAME_I(name_, ...)			name_
+#else
+#  define IUTEST_TO_NAME_(name_)				IIUT_TO_NAME_I( IIUT_JAPANESE_NAME_PP_##name_, name_ )
+#  define IIUT_TO_NAME_I(name_, name_2)			IIUT_TO_NAME_I_(name_, name_2, name_2)
+#  define IIUT_TO_NAME_I_(dummy, dummy_2, name_, ...)	name_
+#endif
+#define IUTEST_TO_NAME_STR_(name_)				IUTEST_PP_TOSTRING( IUTEST_TO_NAME_(name_) )
+
+#if	defined(_MSC_VER)
+#  define IUTEST_JAPANESE_NAME(name_)	name_
+#  define IUTEST_JAPANESE_NAME_F(var_, name_)	name_
+#else
+#  define IUTEST_JAPANESE_NAME(name_)			UNPAREN_(dummy, IUTEST_PP_CAT(iutest_japanese_var, __LINE__), name_)
+#  define IUTEST_JAPANESE_NAME_F(var_, name_)	UNPAREN_(dummy, var_, name_)
+#  define IIUT_JAPANESE_NAME_PP_UNPAREN_(...)	__VA_ARGS__
+#endif
+
+#else
+
+#define IUTEST_TO_VARNAME_(name_)				name_
+#define IUTEST_TO_NAME_(name_)					name_
+#define IUTEST_TO_NAME_STR_(name_)				#name_
+
+#endif
+
+#define IUTEST_TEST_F_(testfixture_, testname_)		IUTEST_TEST_(testfixture_, testname_, IUTEST_TO_VARNAME_(testfixture_)	\
+														, ::iutest::internal::GetTypeId< IUTEST_TO_VARNAME_(testfixture_) >())
+
+#define IUTEST_TEST_F_IGNORE_(testfixture_, testname_)	IUTEST_TEST_IGNORE_(testfixture_, testname_, IUTEST_TO_VARNAME_(testfixture_)	\
+															, ::iutest::internal::GetTypeId< IUTEST_TO_VARNAME_(testfixture_) >())
 /**
  * @internal
  * @brief	テストクラス定義マクロ
 */
 #define IUTEST_TEST_(testcase_, testname_, parent_class_, type_id_)							\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {			\
-		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));	\
+	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));		\
 		public:	IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
 		protected: virtual void Body(void);													\
 	};																						\
 	::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>			\
-	s_##testcase_##_##testname_( IUTEST_CONCAT_PACKAGE_(testcase_), #testname_				\
+	IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(										\
+		IUTEST_CONCAT_PACKAGE_(IUTEST_TO_NAME_(testcase_)), IUTEST_TO_NAME_STR_(testname_)	\
 		, type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);			\
 	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body(void)
 
@@ -52,36 +96,41 @@
 */
 #define IUTEST_TEST_IGNORE_(testcase_, testname_, parent_class_, type_id_)					\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {			\
-		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));	\
+	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(	IUTEST_TEST_CLASS_NAME_(testcase_, testname_));		\
 		public:	IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
 		protected: virtual void Body(void) { IUTEST_SKIP() << "ignored test..."; }			\
 		template<typename T>void Body(void);												\
 	};																						\
 	::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>			\
-	s_##testcase_##_##testname_( IUTEST_CONCAT_PACKAGE_(testcase_), #testname_				\
+	IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(										\
+		IUTEST_CONCAT_PACKAGE_(IUTEST_TO_NAME_(testcase_)), IUTEST_TO_NAME_STR_(testname_)	\
 		, type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);			\
-	template<typename T>void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body(void)
+	template<typename T>void IUTEST_TEST_CLASS_NAME_(testcase_, testname_ )::Body(void)
 
 #ifndef IUTEST_NO_VARIADIC_MACROS
 
-#define IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)	IUTEST_PP_CAT(iu_##testcase_##_x_##testname_##_Test, __LINE__)
+#define IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)	IIUT_PMZ_TEST_CLASS_NAME_I(IUTEST_TO_VARNAME_(testcase_), IUTEST_TO_VARNAME_(testname_))
+#define IIUT_PMZ_TEST_CLASS_NAME_I(testcase_, testname_)	IIUT_PMZ_TEST_CLASS_NAME_I_(testcase_, testname_)
+#define IIUT_PMZ_TEST_CLASS_NAME_I_(testcase_, testname_)	IUTEST_PP_CAT( IUTEST_PP_CAT(iu_##testcase_##_x_Test_, testname_), __LINE__)
 /**
  * @internal
  * @brief	パラメタライズテスト定義マクロ
 */
 #define IIUT_TEST_PMZ_(testcase_, testname_, method_, parent_class_, type_id_, ...)				\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_);										\
-	class IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {			\
-		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_));	\
+	class IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)	: public parent_class_ {			\
+	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_));		\
 		public:	IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
-		static ::std::string MakeTestName(void) { return ::iutest::detail::MakeIndexTestName(#testname_		\
-		, ::iutest::detail::GetTypeUniqueCounter<IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>()); }		\
+		static ::std::string MakeTestName(void) { return ::iutest::detail::MakeIndexTestName(	\
+			IUTEST_TO_NAME_STR_(testname_), ::iutest::detail::GetTypeUniqueCounter<				\
+				IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>()); }							\
 		protected: virtual void Body(void) { method_(__VA_ARGS__); }							\
 	};																							\
 	::iutest::detail::TestInstance<IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)>			\
-	IUTEST_PP_CAT(s_##testcase_##_##testname_, __LINE__)( IUTEST_CONCAT_PACKAGE_(testcase_)		\
-	, IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)::MakeTestName().c_str(), #__VA_ARGS__	\
-		, type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase)
+	IUTEST_PP_CAT( IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_), __LINE__)(					\
+		IUTEST_CONCAT_PACKAGE_(IUTEST_TO_NAME_(testcase_))										\
+		, IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)::MakeTestName().c_str()				\
+		, #__VA_ARGS__, type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase)
 
 #endif
 
@@ -269,7 +318,7 @@
 */
 #if defined(_MSC_VER) && _MSC_VER >= 1500
 
-#define IUTEST_THROUGH_ANALYSIS_ASSUME(expr, todo)					\
+#define IUTEST_THROUGH_ANALYSIS_ASSUME_(expr, todo)					\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_									\
 	if( bool b = true ) {											\
 		__analysis_assume(expr);									\
@@ -280,7 +329,7 @@
 
 #else
 
-#define IUTEST_THROUGH_ANALYSIS_ASSUME(expr, todo)	todo
+#define IUTEST_THROUGH_ANALYSIS_ASSUME_(expr, todo)	todo
 
 #endif
 
@@ -315,8 +364,8 @@
 #define IUTEST_TEST_HRESULT_SUCCEEDED(hr, on_failure)	IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTSuccess, hr, on_failure )
 #define IUTEST_TEST_HRESULT_FAILED(hr, on_failure)		IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTFailure, hr, on_failure )
 
-#define IUTEST_TEST_NULL(v, on_failure)					IUTEST_THROUGH_ANALYSIS_ASSUME(v==NULL, IUTEST_PRED_FORMAT1_( ::iutest::internal::CmpHelperNull, v, on_failure ))
-#define IUTEST_TEST_NOTNULL(v, on_failure)				IUTEST_THROUGH_ANALYSIS_ASSUME(v!=NULL, IUTEST_PRED_FORMAT1_( ::iutest::internal::CmpHelperNotNull, v, on_failure ))
+#define IUTEST_TEST_NULL(v, on_failure)					IUTEST_THROUGH_ANALYSIS_ASSUME_(v==NULL, IUTEST_PRED_FORMAT1_( ::iutest::internal::CmpHelperNull, v, on_failure ))
+#define IUTEST_TEST_NOTNULL(v, on_failure)				IUTEST_THROUGH_ANALYSIS_ASSUME_(v!=NULL, IUTEST_PRED_FORMAT1_( ::iutest::internal::CmpHelperNotNull, v, on_failure ))
 
 #define IUTEST_TEST_SAME(v1, v2, on_failure)			IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSame, v1, v2, on_failure )
 
@@ -348,7 +397,7 @@
 		IUTEST_PP_CAT(iutest_label_test_no_fatalfailure_, __LINE__):		\
 		on_failure("\nExpected: " #statement " doesn't generate new fatal failure.\n  Actual: it does.")
 
-#define IUTEST_TEST_SKIP()		\
+#define IUTEST_TEST_SKIP()					\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_			\
 	if( !::iutest::Test::HasFailure() )		\
 		::iutest::UnitTest::SkipTest();		\

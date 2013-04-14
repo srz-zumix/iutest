@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -34,13 +34,13 @@ namespace iuutil {}
  * @brief		ファイルシステムの設定
  * @note		ユーザー定義のファイルクラスを利用するようにするためのマクロです。
 */
-#define IUTEST_FILESYSTEM_INSTANTIATE(file_class_name)	IUTEST_FILESYSTEM_INSTANTIATE_(file_class_name)
+#define IUTEST_FILESYSTEM_INSTANTIATE(file_class_name)	IIUT_FILESYSTEM_INSTANTIATE_(file_class_name)
 
 /**
  * @private
  * @{
 */
-#define IUTEST_FILESYSTEM_INSTANTIATE_(file_class_name)	static ::iutest::FileSystem< file_class_name >	s_iutest_filesystem_
+#define IIUT_FILESYSTEM_INSTANTIATE_(file_class_name)	static ::iutest::FileSystem< file_class_name >	s_iutest_filesystem_
 
 /**
  * @}

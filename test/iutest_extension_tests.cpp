@@ -19,6 +19,7 @@
 // include
 #include "main.cpp"
 #include "iutest_ignore_tests.cpp"
+#include "iutest_japanese_tests.cpp"
 #include "iutest_package_tests1.cpp"
 #include "iutest_package_tests2.cpp"
 #include "iutest_pairwise_tests.cpp"

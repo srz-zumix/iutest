@@ -69,8 +69,7 @@ namespace iutest
  * @param	testfixture_	= テストフィクスチャ名
  * @param	testname_		= テスト名
 */
-#define IUTEST_F(testfixture_, testname_)			IUTEST_TEST_(testfixture_, testname_, testfixture_	\
-														, ::iutest::internal::GetTypeId< testfixture_ >())
+#define IUTEST_F(testfixture_, testname_)			IUTEST_TEST_F_(testfixture_, testname_)
 
 #if IUTEST_HAS_PARAM_METHOD_TEST
 /**
@@ -157,6 +156,15 @@ namespace iutest
 #ifndef IUTEST_ADD_FAILURE_AT
 #  define IUTEST_ADD_FAILURE_AT(file, line)			IIUT_ADD_FAILURE_AT(file, line)
 #endif
+
+/**
+ * @ingroup	IUTEST_UTIL
+ * @brief	テストの明示的なスキップ
+*/
+#ifndef IUTEST_SKIP
+#  define IUTEST_SKIP()								IUTEST_TEST_SKIP()
+#endif
+
 
 /**
  * @defgroup	IUTEST_ASSERT_	アサーション(ASSERT)
@@ -914,15 +922,6 @@ namespace iutest
 #ifndef IUTEST_INFORM_NO_FATAL_FAILURE
 #  define IUTEST_INFORM_NO_FATAL_FAILURE(statement)	IUTEST_TEST_NO_FATAL_FAILURE_(statement, IUTEST_INFORM_FAILURE)
 #endif
-
-/**
- * @ingroup	IUTEST_UTIL
- * @brief	テストの明示的なスキップ
-*/
-#ifndef IUTEST_SKIP
-#  define IUTEST_SKIP()								IUTEST_TEST_SKIP()
-#endif
-
 
 /**
  * @brief iutest root namespace

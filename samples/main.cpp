@@ -129,6 +129,13 @@ IUTEST(ReturnTest, Test)
 
 #endif
 
+#if IUTEST_HAS_JAPANESE_NAME
+
+IUTEST(JapaneseTest, IUTEST_JAPANESE_NAME(テスト))
+{
+}
+
+#endif
 
 /** --------------------------------------------------
  * パッケージ
