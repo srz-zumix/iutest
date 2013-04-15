@@ -52,10 +52,6 @@ private:
 		{
 			return ptr()->HasFailure();
 		}
-		virtual void	RecordProperty(const TestProperty& prop) IUTEST_CXX_OVERRIDE
-		{
-			ptr()->RecordProperty(prop);
-		}
 	public:
 		void SetPointer(TestInfo* p) { m_test_info = p; }
 	};
@@ -131,15 +127,6 @@ public:
 	bool	HasFailure(void) const
 	{
 		return m_test_result.Failed();
-	}
-
-	/**
-	 * @brief	プロパティを保存
-	 * @param [in] prop = プロパティ
-	*/
-	void	RecordProperty(const TestProperty& prop)
-	{
-		m_test_result.RecordProperty(prop);
 	}
 
 public:

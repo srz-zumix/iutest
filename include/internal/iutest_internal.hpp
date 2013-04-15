@@ -38,26 +38,24 @@
 
 #if IUTEST_HAS_JAPANESE_NAME
 
-#define IUTEST_TO_VARNAME_(name_)				IIUT_TO_VARNAME_I( IIUT_JAPANESE_NAME_PP_##name_, name_ )
-#define IIUT_TO_VARNAME_I(name_, name_2)		IIUT_TO_VARNAME_I_(name_, name_2)
+#define IUTEST_TO_VARNAME_(name_)				IIUT_TO_VARNAME_I( (IIUT_JAPANESE_NAME_PP_##name_, name_) )
+#define IIUT_TO_VARNAME_I(tuple_)				IUTEST_PP_EXPAND( IIUT_TO_VARNAME_I_ tuple_ )
 #define IIUT_TO_VARNAME_I_(dummy, name_, ...)	name_
-#if defined(_MSC_VER)
-#  define IUTEST_TO_NAME_(name_)				IIUT_TO_NAME_I(name_)
-#  define IIUT_TO_NAME_I(name_, ...)			name_
-#else
-#  define IUTEST_TO_NAME_(name_)				IIUT_TO_NAME_I( IIUT_JAPANESE_NAME_PP_##name_, name_ )
-#  define IIUT_TO_NAME_I(name_, name_2)			IIUT_TO_NAME_I_(name_, name_2, name_2)
-#  define IIUT_TO_NAME_I_(dummy, dummy_2, name_, ...)	name_
-#endif
+
+#define IUTEST_TO_NAME_(name_)					IIUT_TO_NAME_I( (IIUT_JAPANESE_NAME_PP_##name_, name_, name_) )
+#define IIUT_TO_NAME_I(tuple_)					IUTEST_PP_EXPAND( IIUT_TO_NAME_I_ tuple_ )
+#define IIUT_TO_NAME_I_(dummy, dummy_2, name_, ...)	name_
+
 #define IUTEST_TO_NAME_STR_(name_)				IUTEST_PP_TOSTRING( IUTEST_TO_NAME_(name_) )
+
+#define IIUT_JAPANESE_NAME_PP_UNPAREN_(...)		__VA_ARGS__
 
 #if	defined(_MSC_VER)
 #  define IUTEST_JAPANESE_NAME(name_)			name_
-#  define IUTEST_JAPANESE_NAME_F(var_, name_)	var_
+#  define IUTEST_JAPANESE_NAME_F(var_, name_)	UNPAREN_(dummy, var_, name_)
 #else
 #  define IUTEST_JAPANESE_NAME(name_)			UNPAREN_(dummy, IUTEST_PP_CAT(iutest_japanese_var, __LINE__), name_)
 #  define IUTEST_JAPANESE_NAME_F(var_, name_)	UNPAREN_(dummy, var_, name_)
-#  define IIUT_JAPANESE_NAME_PP_UNPAREN_(...)	__VA_ARGS__
 #endif
 
 #else

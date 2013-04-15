@@ -27,7 +27,6 @@ namespace iutest {
 class TestInfo;
 class TestCase;
 class TestPartResult;
-class TestProperty;
 
 namespace detail
 {
@@ -47,7 +46,6 @@ public:
 	virtual	bool	HasFatalFailure(void) const = 0;
 	virtual	bool	HasNonfatalFailure(void) const = 0;
 	virtual bool	HasFailure(void) const = 0;
-	virtual void	RecordProperty(const TestProperty& prop) = 0;
 	TestInfo*	ptr(void) const	{ return m_test_info; }
 };
 

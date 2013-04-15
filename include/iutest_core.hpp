@@ -179,7 +179,6 @@ private:
 	UnitTest(void)
 		: m_repeat_counter(0)
 		, m_init_iutest_count(0)
-		, m_current_testcase(NULL)
 	{
 		// デフォルトリポーターをセット
 		TestEnv::SetGlobalTestPartResultReporter(&m_default_test_part_result_reporter);
@@ -234,7 +233,6 @@ private:
 
 	int m_repeat_counter;
 	int m_init_iutest_count;
-	const TestCase*	m_current_testcase;
 	detail::DefaultGlobalTestPartResultReporter	m_default_test_part_result_reporter;
 
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(UnitTest);

@@ -106,6 +106,12 @@ IUTEST_IPP_INLINE bool	UnitTestImpl::PreRunner(void)
 	return false;
 }
 
+IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
+{
+	current_test_result()->RecordProperty(prop);
+	TestEnv::event_listeners().OnTestRecordProperty(prop);
+}
+
 IUTEST_IPP_INLINE void	UnitTestImpl::TerminateImpl(void)
 {
 	for( iuTestCases::iterator it = m_testcases.begin(); it != m_testcases.end(); it = m_testcases.begin())
@@ -143,11 +149,6 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 namespace detail
 {
 
-/**
- * @brief	テスト名の作成
- * @param [in]	basename	= ベース名
- * @param [in]	index		= インデックス
-*/
 IUTEST_IPP_INLINE ::std::string MakeIndexTestName(const char* basename, int index)
 {
 	::std::string name = basename;
@@ -157,12 +158,6 @@ IUTEST_IPP_INLINE ::std::string MakeIndexTestName(const char* basename, int inde
 	return name;
 }
 
-/**
- * @brief	テスト名の作成
- * @param [in]	prefix		= prefix
- * @param [in]	basename	= ベース名
- * @param [in]	index		= インデックス
-*/
 IUTEST_IPP_INLINE ::std::string MakePrefixedIndexTestName(const char* prefix, const char* basename, int index)
 {
 	::std::string name = prefix;
@@ -172,6 +167,12 @@ IUTEST_IPP_INLINE ::std::string MakePrefixedIndexTestName(const char* prefix, co
 }
 
 }	// end of namespace detail
+
+IUTEST_IPP_INLINE void Test::TestRecordPropertyHelper::RecordProperty(const TestProperty& prop)
+{
+	iutest::UnitTestImpl::RecordProperty(prop);
+}
+
 }	// end of namespace iutest
 
 #endif

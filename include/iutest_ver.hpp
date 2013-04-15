@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01049907u	//!< iutest version 1.4.99.7
+#define	IUTEST_VER			0x01049908u	//!< iutest version 1.4.99.8
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x04u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x07u		//!< Revision
+#define IUTEST_REVISION		0x08u		//!< Revision
 
 /**
  * @mainpage
@@ -94,7 +94,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.4.99.7
+  <li>v1.4.99.8
     <ul>
       <li>日本語テスト名に対応</li>
       <li>iutest_list_tests_with_where コマンドラインオプションを追加</li>

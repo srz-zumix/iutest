@@ -24,7 +24,7 @@
 namespace iutest
 {
 
-IUTEST_IPP_INLINE void Test::RecordProperty(const char* key, const char* value)
+IUTEST_IPP_INLINE void Test::RecordProperty(const ::std::string& key, const ::std::string& value)
 {
 	// 不正なキーのチェック
 	const char* ban[] = { "name", "status", "time", "classname", "type_param", "value_param" };
@@ -37,13 +37,8 @@ IUTEST_IPP_INLINE void Test::RecordProperty(const char* key, const char* value)
 			break;
 		}
 	}
-	TestProperty prop(key_.c_str(), value);
-	if( GetCurrentTest() != NULL && GetCurrentTest()->m_test_info != NULL )
-	{
-		GetCurrentTest()->m_test_info->RecordProperty(prop);
-	}
-	
-	TestEnv::event_listeners().OnTestRecordProperty(prop);
+	TestProperty prop(key_, value);
+	TestRecordPropertyHelper::RecordProperty(prop);
 }
 
 IUTEST_IPP_INLINE 	void Test::Run(detail::iuITestInfoMediator* test_info)

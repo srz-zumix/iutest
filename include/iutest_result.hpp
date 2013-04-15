@@ -134,9 +134,14 @@ public:
 	 * @param [in]	key		= キー
 	 * @param [in]	value	= 値
 	*/
-	TestProperty(const char* key, const char* value)
+	TestProperty(const ::std::string& key, const ::std::string& value)
 		: m_key(key), m_value(value) {}
 
+public:
+	/**
+	 * @brief	値の設定
+	*/
+	void SetValue(const ::std::string& value) { m_value = value; }
 	const char*	key(void)	const	{ return m_key.c_str(); }	//!< キーの取得
 	const char*	value(void)	const	{ return m_value.c_str(); }	//!< 値の取得
 
@@ -267,6 +272,7 @@ private:
 		return false;
 	}
 private:
+	friend class UnitTestImpl;
 	friend class TestInfo;
 	friend class detail::DefaultGlobalTestPartResultReporter;
 

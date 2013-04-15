@@ -104,7 +104,7 @@ public:
 	 * @param [in]	key		= プロパティのキー
 	 * @param [in]	value	= 値
 	*/
-	static void RecordProperty(const char* key, const char* value);
+	static void RecordProperty(const ::std::string& key, const ::std::string& value);
 
 	/**
 	 * @brief	テスト結果の情報追加
@@ -112,9 +112,9 @@ public:
 	 * @param [in]	value	= 値
 	*/
 	template<typename T>
-	static void RecordProperty(const char* key, const T& value)
+	static void RecordProperty(const ::std::string& key, const T& value)
 	{
-		RecordProperty(key, PrintToString(value).c_str());
+		RecordProperty(key, PrintToString(value));
 	}
 
 #if IUTEST_HAS_GENRAND
@@ -171,6 +171,12 @@ private:
 
 	typedef Observer<void>	CurrentTestObserver;
 
+private:
+	class TestRecordPropertyHelper
+	{
+	public:
+		static 	void RecordProperty(const TestProperty& prop);
+	};
 protected:
 	const TestInfo* test_info_;	//!< テスト中に簡単にアクセス可能なように
 
