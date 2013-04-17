@@ -24,6 +24,20 @@
 namespace iutest
 {
 
+IUTEST_IPP_INLINE TestResult* UnitTestImpl::current_test_result(void)
+{
+	UnitTestImpl* p = ptr();
+	if( Test::GetCurrentTestInfo() )
+	{
+		return &(Test::GetCurrentTest()->m_test_info->ptr()->m_test_result);
+	}
+	if( p->m_current_testcase != NULL )
+	{
+		return &p->m_current_testcase->m_ad_hoc_testresult;
+	}
+	return &p->m_ad_hoc_testresult;
+}
+
 IUTEST_IPP_INLINE void	UnitTestImpl::AddTestInfo(TestCase* pCase, TestInfo* pInfo)
 {
 	++m_total_test_num;
@@ -108,7 +122,42 @@ IUTEST_IPP_INLINE bool	UnitTestImpl::PreRunner(void)
 
 IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
 {
-	current_test_result()->RecordProperty(prop);
+	UnitTestImpl* p = ptr();
+	TestResult* tr = NULL;
+	if( Test::GetCurrentTestInfo() )
+	{
+		tr = &(Test::GetCurrentTest()->m_test_info->ptr()->m_test_result);
+		// 不正なキーのチェック
+		const char* ban[] = { "name", "status", "time", "classname", "type_param", "value_param" };
+		if( !prop.Validate(ban, IUTEST_PP_COUNTOF(ban)) )
+		{
+			IIUT_ADD_FAILURE() << "Reserved key used in RecordProperty(): " << prop.key();
+			return;
+		}
+	}
+	else if( p->m_current_testcase != NULL )
+	{
+		tr = &p->m_current_testcase->m_ad_hoc_testresult;
+		// 不正なキーのチェック
+		const char* ban[] = { "name", "tests", "failures", "disabled", "skip", "errors", "time" };
+		if( !prop.Validate(ban, IUTEST_PP_COUNTOF(ban)) )
+		{
+			IIUT_ADD_FAILURE() << "Reserved key used in RecordProperty(): " << prop.key();
+			return;
+		}
+	}
+	else
+	{
+		tr =&p->m_ad_hoc_testresult;
+		// 不正なキーのチェック
+		const char* ban[] = { "name", "tests", "failures", "disabled", "skip", "errors", "time", "random_seed" };
+		if( !prop.Validate(ban, IUTEST_PP_COUNTOF(ban)) )
+		{
+			IIUT_ADD_FAILURE() << "Reserved key used in RecordProperty(): " << prop.key();
+			return;
+		}
+	}
+	tr->RecordProperty(prop);
 	TestEnv::event_listeners().OnTestRecordProperty(prop);
 }
 

@@ -59,6 +59,8 @@
 #define IUTEST_PP_EXPAND(x)			x
 #define IUTEST_PP_EMPTY
 
+#define IUTEST_PP_COUNTOF(x)		(sizeof(x)/sizeof(x[0]))
+
 #ifdef IUTEST_HAS_COUNTER_MACRO
 #  define IUTEST_PP_COUNTER			__COUNTER__
 #else

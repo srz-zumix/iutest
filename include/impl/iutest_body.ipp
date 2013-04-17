@@ -26,18 +26,7 @@ namespace iutest
 
 IUTEST_IPP_INLINE void Test::RecordProperty(const ::std::string& key, const ::std::string& value)
 {
-	// 不正なキーのチェック
-	const char* ban[] = { "name", "status", "time", "classname", "type_param", "value_param" };
-	::std::string key_ = key;
-	for( int i=0, n=sizeof(ban)/sizeof(ban[0]); i < n; ++i )
-	{
-		if( key_ == ban[i] )
-		{
-			key_ += "_";
-			break;
-		}
-	}
-	TestProperty prop(key_, value);
+	TestProperty prop(key, value);
 	TestRecordPropertyHelper::RecordProperty(prop);
 }
 

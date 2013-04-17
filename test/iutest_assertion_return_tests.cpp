@@ -19,7 +19,7 @@
 // include
 #include "../include/gtest/iutest_spi_switch.hpp"
 
-#if !defined(IUTEST_USE_GTEST)
+#if IUTEST_HAS_ASSERTION_RETURN
 
 static int value = 0;
 

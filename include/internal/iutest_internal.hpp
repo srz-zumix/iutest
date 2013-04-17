@@ -36,7 +36,7 @@
 #define IIUT_TEST_INSTANCE_NAME_I(testcase_, testname_)		IIUT_TEST_INSTANCE_NAME_I_(testcase_, testname_)
 #define IIUT_TEST_INSTANCE_NAME_I_(testcase_, testname_)	s_##testcase_##_##testname_##_Instance
 
-#if IUTEST_HAS_JAPANESE_NAME
+#if IUTEST_HAS_TESTNAME_ALIAS
 
 #define IUTEST_TO_VARNAME_(name_)				IIUT_TO_VARNAME_I( (IIUT_JAPANESE_NAME_PP_##name_, name_) )
 #define IIUT_TO_VARNAME_I(tuple_)				IUTEST_PP_EXPAND( IIUT_TO_VARNAME_I_ tuple_ )
@@ -51,11 +51,11 @@
 #define IIUT_JAPANESE_NAME_PP_UNPAREN_(...)		__VA_ARGS__
 
 #if	defined(_MSC_VER)
-#  define IUTEST_JAPANESE_NAME(name_)			name_
-#  define IUTEST_JAPANESE_NAME_F(var_, name_)	UNPAREN_(dummy, var_, name_)
+#  define IUTEST_ALIAS_TESTNAME(name_)			name_
+#  define IUTEST_ALIAS_TESTNAME_F(var_, name_)	UNPAREN_(dummy, var_, name_)
 #else
-#  define IUTEST_JAPANESE_NAME(name_)			UNPAREN_(dummy, IUTEST_PP_CAT(iutest_japanese_var, __LINE__), name_)
-#  define IUTEST_JAPANESE_NAME_F(var_, name_)	UNPAREN_(dummy, var_, name_)
+#  define IUTEST_ALIAS_TESTNAME(name_)			UNPAREN_(dummy, IUTEST_PP_CAT(iutest_japanese_var, __LINE__), name_)
+#  define IUTEST_ALIAS_TESTNAME_F(var_, name_)	UNPAREN_(dummy, var_, name_)
 #endif
 
 #else

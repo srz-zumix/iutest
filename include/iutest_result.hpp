@@ -145,6 +145,19 @@ public:
 	const char*	key(void)	const	{ return m_key.c_str(); }	//!< ƒL[‚Ìæ“¾
 	const char*	value(void)	const	{ return m_value.c_str(); }	//!< ’l‚Ìæ“¾
 
+public:
+	bool Validate(const char** ban_list, size_t size) const
+	{
+		for( int i=0, n=size; i < n; ++i )
+		{
+			if( m_key == ban_list[i] )
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
 private:
 	friend class TestResult;
 	::std::string m_key;

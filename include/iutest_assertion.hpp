@@ -238,7 +238,7 @@ public:
 #endif
 
 private:
-	void	OnFixed(const Fixed& fixed) throw()
+	void	OnFixed(const Fixed& fixed) IUTEST_CXX_NOTHROW
 	{
 		// OnFixed で throw しないこと！テスト側の例外キャッチにかからなくなる
 

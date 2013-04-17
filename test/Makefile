@@ -49,6 +49,10 @@ GCCVERSION:=$(subst $(dot),$(space), $(GCCVERSION))
 GCCMAJOR:=$(word 1, $(GCCVERSION))
 GCCMINOR:=$(word 2, $(GCCVERSION))
 
+ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 8 \)))
+# 4.8 later
+CXXFLAGS += -std=c++1y
+else
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 7 \)))
 # 4.7 later
 CXXFLAGS += -std=c++11
@@ -57,6 +61,7 @@ else
 # 4.4 later
 #CXXFLAGS += -std=c++0x
 #endif
+endif
 endif
 
 else
@@ -89,6 +94,7 @@ TARGETS1= iutest_all_tests \
           iutest_no_test_tests \
           iutest_printers_tests \
           iutest_progress_tests \
+          iutest_record_property_tests \
           iutest_repeat_tests \
           iutest_setup_failure_tests \
           iutest_shuffle_tests \

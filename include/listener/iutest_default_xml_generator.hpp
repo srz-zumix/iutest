@@ -75,6 +75,7 @@ public:
 private:
 	static void OnReportTestCase(IFile* file, const TestCase& test_case);
 	static void OnReportTestInfo(IFile* file, const TestInfo& test_info);
+	static void OnReportTestProperty(IFile* file, const TestResult& test_result);
 
 private:
 	bool FileOpen(const char* path);

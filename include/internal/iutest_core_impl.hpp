@@ -46,14 +46,7 @@ public:
 	/**
 	 * @brief	テスト中のテストの TestResult の取得
 	*/
-	static TestResult*	current_test_result(void)
-	{
-		if( Test::GetCurrentTestInfo() )
-		{
-			return &(Test::GetCurrentTest()->m_test_info->ptr()->m_test_result);
-		}
-		return &ptr()->m_ad_hoc_testresult;
-	}
+	static TestResult*	current_test_result(void);
 
 public:
 	/** @private */
@@ -159,7 +152,7 @@ protected:
 	int				m_total_test_num;	//!< 登録されたテスト総数
 	int				m_disable_num;		//!< 無視したテスト総数
 	int				m_should_run_num;	//!< 実行すべきテスト総数
-	const TestCase*	m_current_testcase;	//!< 現在実行中のテストケース
+	TestCase*		m_current_testcase;	//!< 現在実行中のテストケース
 	TimeInMillisec	m_elapsedmsec;		//!< テストの実行時間
 	iuTestCases		m_testcases;		//!< テストケースリスト
 	TestResult		m_ad_hoc_testresult;	//!< テストが実行中でないときのリザルト

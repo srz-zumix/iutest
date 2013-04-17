@@ -56,7 +56,12 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestProgramEnd(const UnitT
 	{
 		m_fp->Printf("random_seed=\"%d\" ", test.random_seed());
 	}
-	m_fp->Printf("name=\"AllTests\">\n");
+	m_fp->Printf("name=\"AllTests\"");
+
+	// propertys
+	OnReportTestProperty(m_fp, *test.ad_hoc_testresult());
+
+	m_fp->Printf(">\n");
 
 	for( int i=0, count=test.total_test_case_count(); i < count; ++i )
 	{
@@ -80,9 +85,14 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestCase(IFile* file
 #if IUTEST_REPORT_SKIPPED
 	file->Printf("skip=\"%d\" ", test_case.skip_test_count() );
 #endif
-	file->Printf("errors=\"0\" time=\"%s\">\n"
+	file->Printf("errors=\"0\" time=\"%s\""
 		, detail::FormatTimeInMillisecAsSecond(test_case.elapsed_time()).c_str()
 	);
+
+	// propertys
+	OnReportTestProperty(file, *test_case.ad_hoc_testresult());
+
+	file->Printf(">\n");
 
 	for( int i=0, count=test_case.total_test_count(); i < count; ++i )
 	{
@@ -124,16 +134,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
 		, EscapeXmlAttribute(test_info.test_case_name()).c_str() );
 
 	// propertys
-	{
-		for( int i=0, count=test_info.result()->test_property_count(); i < count; ++i )
-		{
-			const TestProperty& prop = test_info.result()->GetTestProperty(i);
-			file->Printf(" %s=\"%s\""
-				, EscapeXmlAttribute(prop.key()).c_str()
-				, EscapeXmlAttribute(prop.value()).c_str()
-				);
-		}
-	}
+	OnReportTestProperty(file, *test_info.result());
 
 	bool notrun = test_info.should_run() && !test_info.is_ran();
 	if( test_info.HasFailure() || notrun )
@@ -177,6 +178,18 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
 		{
 			file->Printf(" />\n");
 		}
+	}
+}
+
+IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestProperty(IFile* file, const TestResult& test_result)
+{
+	for( int i=0, count=test_result.test_property_count(); i < count; ++i )
+	{
+		const TestProperty& prop = test_result.GetTestProperty(i);
+		file->Printf(" %s=\"%s\""
+			, EscapeXmlAttribute(prop.key()).c_str()
+			, EscapeXmlAttribute(prop.value()).c_str()
+			);
 	}
 }
 

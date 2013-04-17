@@ -96,6 +96,26 @@ namespace iutest
 
 #endif
 
+#if IUTEST_HAS_TESTNAME_ALIAS
+
+/**
+ * @ingroup	TESTDEF
+ * @brief	日本語テスト名
+ * @param	testname_		= テスト名
+*/
+#define IUTEST_JAPANESE_NAME(testname_)					IUTEST_ALIAS_TESTNAME(testname_)
+
+/**
+ * @ingroup	TESTDEF
+ * @brief	テストフィクスチャ用日本語テスト名
+ * @param	testfixture_	= テストフィクスチャ名
+ * @param	testname_		= テスト名
+*/
+#define IUTEST_JAPANESE_NAME_F(testfixture_, testname_)	IUTEST_ALIAS_TESTNAME_F(testfixture_, testname_)
+
+#endif
+
+
 /**
  * @ingroup	TESTDEF
  * @brief	iutest の初期化処理

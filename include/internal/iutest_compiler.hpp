@@ -247,7 +247,7 @@
 #      define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES	1
 #    endif
 #  elif	defined(__GNUC__)
-#    if defined(__VARIADIC_TEMPLATES) || (__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7) && (__GNUC_PATCHLEVEL__ >= 1) && defined(__GXX_EXPERIMENTAL_CXX0X__))
+#    if defined(__VARIADIC_TEMPLATES) || (__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ > 7)) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7) && (__GNUC_PATCHLEVEL__ >= 1) && defined(__GXX_EXPERIMENTAL_CXX0X__))
 #      define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES	1
 #    endif
 #  elif	defined(_MSC_VER)
@@ -363,6 +363,39 @@
 #    define IUTEST_CXX_FINAL		final
 #  else
 #    define IUTEST_CXX_FINAL
+#  endif
+#endif
+
+// noexcept
+#ifndef IUTEST_HAS_NOEXCEPT
+#  if	defined(__clang__)
+#    if __has_feature(cxx_noexcept)
+#      define IUTEST_HAS_NOEXCEPT	1
+#    endif
+#  elif	defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_NOEXCEPT	1
+#    endif
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_NOEXCEPT
+#  define IUTEST_HAS_NOEXCEPT	0
+#endif
+
+#ifndef IUTEST_CXX_NOEXCEPT
+#  if IUTEST_HAS_NOEXCEPT
+#    define IUTEST_CXX_NOEXCEPT(expr_)	noexcept(expr_)
+#  else
+#    define IUTEST_CXX_NOEXCEPT
+#  endif
+#endif
+
+#ifndef IUTEST_CXX_NOTHROW
+#  if IUTEST_HAS_NOEXCEPT
+#    define IUTEST_CXX_NOTHROW	noexcept
+#  else
+#    define IUTEST_CXX_NOTHROW	throw()
 #  endif
 #endif
 

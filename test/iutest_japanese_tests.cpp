@@ -19,7 +19,7 @@
 // include
 #include "../include/iutest.hpp"
 
-#if IUTEST_HAS_JAPANESE_NAME
+#if IUTEST_HAS_TESTNAME_ALIAS
 
 IUTEST_PACKAGE(japanese_test)
 {
@@ -133,6 +133,9 @@ IUTEST_PMZ(IUTEST_JAPANESE_NAME(Ç†Ç¢Ç§Ç¶Ç®), IUTEST_JAPANESE_NAME(ÉCÉRÅ[Éã), Tes
 
 #if IUTEST_HAS_IGNORE_TEST
 
+namespace ignore_test
+{
+
 IUTEST_IGNORE(IUTEST_JAPANESE_NAME(Ç†Ç¢Ç§Ç¶Ç®), IUTEST_JAPANESE_NAME(Ç†Ç¢Ç§Ç¶Ç®))
 {
 }
@@ -156,6 +159,8 @@ IUTEST_TYPED_TEST_IGNORE(IUTEST_JAPANESE_NAME_F(TypedTest, Ç†Ç¢Ç§Ç¶Ç®), IUTEST_J
 }
 
 #endif
+
+}
 
 #endif
 

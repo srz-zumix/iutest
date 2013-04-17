@@ -111,6 +111,9 @@ public:
 		return count;
 	}
 
+	/** テスト実行中じゃないときのリザルトの取得 */
+	const TestResult* ad_hoc_testresult(void) const { return &m_ad_hoc_testresult; }
+
 	/** テストの実行ミリ秒 */
 	TimeInMillisec	elapsed_time(void)		const	{ return m_elapsedmsec; }
 

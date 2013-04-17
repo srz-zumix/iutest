@@ -109,6 +109,9 @@ public:
 		return str;
 	}
 
+	/** テスト実行中じゃないときのリザルトの取得 */
+	const TestResult* ad_hoc_testresult(void) const { return &m_ad_hoc_testresult; }
+
 private:
 	/**
 	 * @brief	テストの実行
@@ -187,6 +190,7 @@ private:
 	int				m_should_run_num;	//!< 実行すべきテストの総数
 	TimeInMillisec	m_elapsedmsec;		//!< テスト時間
 	bool			m_disable;			//!< 無効真偽値
+	TestResult		m_ad_hoc_testresult;	//!< テストが実行中でないときのリザルト
 
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TestCase);
 };

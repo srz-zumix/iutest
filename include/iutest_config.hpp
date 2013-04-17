@@ -268,12 +268,12 @@
 #  endif
 #endif
 
-#ifndef IUTEST_HAS_JAPANESE_NAME
-//! IUTEST_JAPANESE_NAME を使用してテスト名に日本語が使用できるかどうか
+#ifndef IUTEST_HAS_TESTNAME_ALIAS
+//! テスト名の別名指定記法が使用できるかどうか
 #  if !defined(IUTEST_NO_VARIADIC_MACROS) || defined(_MSC_VER)
-#    define IUTEST_HAS_JAPANESE_NAME		1
+#    define IUTEST_HAS_TESTNAME_ALIAS		1
 #  else
-#    define IUTEST_HAS_JAPANESE_NAME		0
+#    define IUTEST_HAS_TESTNAME_ALIAS		0
 #  endif
 #endif
 

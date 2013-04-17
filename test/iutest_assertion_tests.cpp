@@ -377,3 +377,17 @@ IUTEST(AssertionTest, Cpp11)
 #endif
 }
 
+#if IUTEST_HAS_EXPLICIT_CONVERSION
+class ec_test
+{
+public:
+	IUTEST_CXX_EXPLICIT_CONVERSION operator bool() const { return true; }
+};
+
+IUTEST(AssertionTest, ExplicitConversoin)
+{
+	ec_test ec;
+	IUTEST_ASSERT_TRUE(ec);
+}
+
+#endif
