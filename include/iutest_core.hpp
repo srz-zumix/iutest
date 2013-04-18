@@ -121,7 +121,7 @@ public:
 	const TestCase*	GetTestCase(int index)	const	{ return m_testcases[index]; }
 
 	/** テストが成功したかどうか */
-	bool			Passed(void)			const	{ return get_failed_test_count() == 0 && m_ad_hoc_testresult.Passed(); }
+	bool			Passed(void)			const;
 	/** テストが失敗したかどうか */
 	bool			Failed(void)			const	{ return !Passed(); }
 

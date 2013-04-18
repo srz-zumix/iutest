@@ -97,6 +97,7 @@ TARGETS1= iutest_all_tests \
           iutest_record_property_tests \
           iutest_repeat_tests \
           iutest_setup_failure_tests \
+          iutest_setup_testcase_failure_tests \
           iutest_shuffle_tests \
           iutest_skip_tests \
           iutest_spi_failure_tests \

@@ -1,14 +1,14 @@
 //======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_no_test_tests.cpp
- * @brief		テストが無いときの結果 対応テスト
+ * @file		iutest_setup_testcase_failure_tests.cpp
+ * @brief		SetUpTestCase で失敗したときのテスト
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -18,6 +18,24 @@
 //======================================================================
 // include
 #include "../include/iutest.hpp"
+#include <assert.h>
+
+static int test_flag = 0;
+
+class TestSetUpFailure : public ::iutest::Test
+{
+public:
+	static void SetUpTestCase()
+	{
+		IUTEST_FAIL() << "SetUp TestCase Failed.";
+	}
+};
+
+IUTEST_F(TestSetUpFailure, Test)
+{
+	++test_flag;
+}
+
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
@@ -26,25 +44,13 @@ int main(int argc, char* argv[])
 #endif
 {
 	IUTEST_INIT(&argc, argv);
+	int ret = IUTEST_RUN_ALL_TESTS();
+	
+	if( ret == 0 ) return 1;
 
-	IUTEST_EXPECT_EQ(0, 1);
+	assert( ::iutest::UnitTest::GetInstance()->failed_test_count() == 0 );
+	assert( test_flag == 1 );
 
-	{
-		int ret = IUTEST_RUN_ALL_TESTS();
-		if( ret == 0 ) return 1;
-	}
-	{
-		int ret = IUTEST_RUN_ALL_TESTS();
-		if( ret == 0 ) return 1;
-	}
-#if !defined(IUTEST_USE_GTEST)
-	{
-		IUTEST_INIT(&argc, argv);
-		int ret = IUTEST_RUN_ALL_TESTS();
-		if( ret != 0 ) return 1;
-	}
-#endif
 	printf("*** Successful ***\n");
 	return 0;
 }
-

@@ -120,6 +120,14 @@ IUTEST_IPP_INLINE bool	UnitTestImpl::PreRunner(void)
 	return false;
 }
 
+IUTEST_IPP_INLINE void UnitTestImpl::ClearNonAdHocTestResult(void)
+{
+	for( iuTestCases::iterator it=m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
+	{
+		(*it)->clear();
+	}
+}
+
 IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
 {
 	UnitTestImpl* p = ptr();

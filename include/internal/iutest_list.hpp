@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -43,7 +43,7 @@ public:
 	value_ptr	prev;
 
 protected:
-	iu_list_node(void) : next(NULL)
+	iu_list_node(void) IUTEST_CXX_NOEXCEPT_SPEC : next(NULL)
 		, prev(NULL)
 	{}
 };
@@ -66,18 +66,18 @@ public:
 public:
 	value_ptr	m_node;
 public:
-	iu_list_iterator(value_ptr p=NULL) : m_node(p) {}
-	iu_list_iterator(const _Myt& rhs) : m_node(rhs.m_node) {}
+	iu_list_iterator(value_ptr p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_node(p) {}
+	iu_list_iterator(const _Myt& rhs) IUTEST_CXX_NOEXCEPT_SPEC : m_node(rhs.m_node) {}
 
 public:
-	int			operator == (const _Myt& it)		const { return this->m_node == it.m_node; }
-	int			operator != (const _Myt& it)		const { return this->m_node != it.m_node; }
+	int			operator == (const _Myt& it) const { return this->m_node == it.m_node; }
+	int			operator != (const _Myt& it) const { return this->m_node != it.m_node; }
 
 	_Myt&		operator ++ (void)	{ m_node = m_node->next; return *this; }
 	_Myt&		operator -- (void)	{ m_node = m_node->prev; return *this; }
-	value_ptr	operator -> (void)	{ return m_node; }
-	value_ptr	operator *  (void)	{ return m_node; }
-	value_ptr	ptr(void)	const	{ return m_node; }
+	value_ptr	operator -> (void) IUTEST_CXX_NOEXCEPT_SPEC	{ return m_node; }
+	value_ptr	operator *  (void) IUTEST_CXX_NOEXCEPT_SPEC	{ return m_node; }
+	value_ptr	ptr(void) const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_node; }
 
 	_Myt		operator + (int n)
 	{
@@ -123,11 +123,11 @@ public:
 	typedef iu_list_iterator<NODE>	iterator;
 	typedef iu_list_iterator<NODE>	const_iterator;
 public:
-	iu_list(node_ptr p=NULL) : m_node(p) {}
+	iu_list(node_ptr p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_node(p) {}
 
 public:
 	// ÉäÉXÉgÇÃëçêîéÊìæ
-	unsigned int count(void) const
+	unsigned int count(void) const IUTEST_CXX_NOEXCEPT_SPEC
 	{
 		unsigned int cnt = 0;
 		node_ptr cur = m_node;
@@ -138,7 +138,7 @@ public:
 		}
 		return cnt;
 	}
-	unsigned int size(void) const
+	unsigned int size(void) const IUTEST_CXX_NOEXCEPT_SPEC
 	{
 		return count();
 	}
@@ -279,11 +279,11 @@ public:
 	}
 
 public:
-	iterator	begin(void) const
+	iterator	begin(void) const IUTEST_CXX_NOEXCEPT_SPEC
 	{
 		return m_node;
 	}
-	iterator	end(void) const
+	iterator	end(void) const IUTEST_CXX_NOEXCEPT_SPEC
 	{
 		return iterator(NULL);
 	}

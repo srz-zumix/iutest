@@ -145,7 +145,7 @@ IUTEST_IPP_INLINE void	TestInfo::clear(void)
 {
 	m_ran = false;
 	m_skip = false;
-	m_test_result.ClearResult();
+	m_test_result.Clear();
 }
 
 IUTEST_IPP_INLINE bool	TestInfo::filter(void)

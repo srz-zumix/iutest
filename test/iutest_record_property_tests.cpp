@@ -22,8 +22,8 @@
 #if !defined(IUTEST_USE_GTEST)
 bool CheckProperty(const ::iutest::TestResult* tr, const char* key, const char* value)
 {
-	if( tr->test_property_count() != 1 ) return false;
 #if IUTEST_HAS_ASSERTION_RETURN
+	IUTEST_ASSERT_EQ(1, tr->test_property_count()) << ::iutest::AssertionReturn<bool>(false);
 	IUTEST_ASSERT_STREQ(key, tr->GetTestProperty(0).key()) << ::iutest::AssertionReturn<bool>(false);
 	IUTEST_ASSERT_STREQ(value, tr->GetTestProperty(0).value()) << ::iutest::AssertionReturn<bool>(false);
 #endif
@@ -58,11 +58,30 @@ int main(int argc, char* argv[])
 {
 	IUTEST_INIT(&argc, argv);
 	::iutest::Test::RecordProperty("bar", "C");
-	int ret = IUTEST_RUN_ALL_TESTS();
+	
+	{
+		int ret = IUTEST_RUN_ALL_TESTS();
+		if( ret != 0 ) return 1;
 #if !defined(IUTEST_USE_GTEST)
-	if( !CheckProperty(::iutest::UnitTest::GetInstance()->ad_hoc_testresult(), "bar", "C") )
-		return 1;
+		if( !CheckProperty(::iutest::UnitTest::GetInstance()->ad_hoc_testresult(), "bar", "C") )
+			return 1;
+#endif
+	}
+#if !defined(IUTEST_USE_GTEST)
+	{
+		int ret = IUTEST_RUN_ALL_TESTS();
+		if( ret != 0 ) return 1;
+		if( !CheckProperty(::iutest::UnitTest::GetInstance()->ad_hoc_testresult(), "bar", "C") )
+			return 1;
+	}
+	{
+		IUTEST_INIT(&argc, argv);
+		int ret = IUTEST_RUN_ALL_TESTS();
+		if( ret != 0 ) return 1;
+		if( CheckProperty(::iutest::UnitTest::GetInstance()->ad_hoc_testresult(), "bar", "C") )
+			return 1;
+	}
 #endif
 	printf("*** Successful ***\n");
-	return ret;
+	return 0;
 }

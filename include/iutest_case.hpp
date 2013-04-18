@@ -90,7 +90,7 @@ public:
 	bool			should_run(void)			const	{ return m_should_run_num != 0; }
 
 	/** テストが成功したかどうか */
-	bool			Passed(void)				const	{ return get_failed_test_count() == 0; }
+	bool			Passed(void)				const	{ return get_failed_test_count() == 0 && m_ad_hoc_testresult.Passed(); }
 	/** テストが失敗したかどうか */
 	bool			Failed(void)				const	{ return !Passed(); }
 
@@ -236,7 +236,7 @@ namespace detail
 class TestCaseMediator : public detail::iuITestCaseMediator
 {
 public:
-	TestCaseMediator(TestCase* p) : iuITestCaseMediator(p) {}
+	TestCaseMediator(TestCase* p) IUTEST_CXX_NOEXCEPT_SPEC : iuITestCaseMediator(p) {}
 public:
 	virtual const char*	test_case_name(void) const IUTEST_CXX_OVERRIDE { return m_test_case->name(); }
 	virtual const char*	type_param(void)	 const IUTEST_CXX_OVERRIDE { return m_test_case->type_param(); }

@@ -86,6 +86,19 @@ protected:
 	*/
 	bool	PreRunner(void);
 
+	/**
+	 * @brief	テスト結果のクリア
+	*/
+	void	ClearNonAdHocTestResult(void);
+
+	/**
+	 * @brief	ad_hoc_testresult のクリア
+	*/
+	void	ClearAdHocTestResult(void)
+	{
+		m_ad_hoc_testresult.Clear();
+	}
+
 private:
 	/**
 	 * @brief	RecordProperty

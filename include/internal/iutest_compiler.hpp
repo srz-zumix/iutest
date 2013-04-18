@@ -387,7 +387,15 @@
 #  if IUTEST_HAS_NOEXCEPT
 #    define IUTEST_CXX_NOEXCEPT(expr_)	noexcept(expr_)
 #  else
-#    define IUTEST_CXX_NOEXCEPT
+#    define IUTEST_CXX_NOEXCEPT(expr_)
+#  endif
+#endif
+
+#ifndef IUTEST_CXX_NOEXCEPT_SPEC
+#  if IUTEST_HAS_NOEXCEPT
+#    define IUTEST_CXX_NOEXCEPT_SPEC	noexcept
+#  else
+#    define IUTEST_CXX_NOEXCEPT_SPEC
 #  endif
 #endif
 

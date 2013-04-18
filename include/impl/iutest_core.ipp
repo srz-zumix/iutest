@@ -24,6 +24,16 @@
 namespace iutest
 {
 
+IUTEST_IPP_INLINE bool UnitTest::Passed(void) const
+{
+	if( m_ad_hoc_testresult.Failed() ) return false;
+	for( iuTestCases::const_iterator it=m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
+	{
+		if( (*it)->Failed() ) return false;
+	}
+	return true;
+}
+
 IUTEST_IPP_INLINE int UnitTest::Run(void)
 {
 	if( m_init_iutest_count == 0 )
@@ -121,14 +131,11 @@ IUTEST_IPP_INLINE bool	UnitTest::RunOnce(void)
 {
 	m_elapsedmsec = 0;
 
+	// テスト結果のクリア
+	ClearNonAdHocTestResult();
+
 	// 実行対象のテストがない場合は何もしない
 	if( test_to_run_count() == 0 ) return Passed();
-
-	// テスト結果のクリア
-	for( iuTestCases::iterator it=m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
-	{
-		(*it)->clear();
-	}
 
 	// シャッフル
 	if( TestFlag::IsEnableFlag(TestFlag::SHUFFLE_TESTS) )
@@ -228,6 +235,8 @@ IUTEST_IPP_INLINE void	UnitTest::TestProgramEnd(void)
 IUTEST_IPP_INLINE void	UnitTest::Initialize(void)
 {
 	m_init_iutest_count++;
+
+	ClearAdHocTestResult();
 
 	// ファイルシステムの初期化
 	if( detail::IFileSystem::GetInstance() == NULL )

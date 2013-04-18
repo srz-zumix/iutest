@@ -38,7 +38,7 @@ private:
 	class Mediator : public detail::iuITestInfoMediator
 	{
 	public:
-		Mediator(TestInfo* p=NULL) : iuITestInfoMediator(p) {}
+		Mediator(TestInfo* p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : iuITestInfoMediator(p) {}
 	public:
 		virtual	bool	HasFatalFailure(void) const IUTEST_CXX_OVERRIDE
 		{

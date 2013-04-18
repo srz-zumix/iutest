@@ -48,6 +48,14 @@ IUTEST_IPP_INLINE bool TestCase::RunImpl(void)
 	m_elapsedmsec = 0;
 
 	m_setup();
+
+#if 0	// gtest ŒÝŠ·‚Ì‚½‚ß
+	if( m_ad_hoc_testresult.HasFatalFailure() )
+	{
+		return false;
+	}
+#endif
+
 	{
 		detail::iuStopWatch sw;
 		sw.start();
@@ -70,6 +78,7 @@ IUTEST_IPP_INLINE bool TestCase::RunImpl(void)
 
 IUTEST_IPP_INLINE void	TestCase::clear(void)
 {
+	m_ad_hoc_testresult.Clear();
 	for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
 	{
 		(*it)->clear();

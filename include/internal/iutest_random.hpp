@@ -44,7 +44,7 @@ class iuRandom
 	public:
 		typedef unsigned int result_type;
 	public:
-		explicit Engine(unsigned int seed=0)
+		explicit Engine(unsigned int seed=0) IUTEST_CXX_NOEXCEPT_SPEC
 		{
 			m_v4 = seed;
 			m_v3 = 1812433253 * ((m_v4 ^ (m_v4>>30)) + 1);

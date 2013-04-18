@@ -172,7 +172,7 @@ class TestResult
 	typedef ::std::vector<TestPartResult>	TestPartResults;
 	typedef ::std::vector<TestProperty>		TestPropertys;
 public:
-	TestResult(void) 
+	TestResult(void)
 		: m_elapsedmsec(0) {}
 
 public:
@@ -274,6 +274,11 @@ private:
 	void ClearResult(void)
 	{
 		m_test_part_results.clear();
+	}
+	void Clear(void)
+	{
+		m_test_part_results.clear();
+		m_test_propertys.clear();
 		m_elapsedmsec = 0;
 	}
 	bool HasResult(TestPartResult::Type eType) const
@@ -287,6 +292,7 @@ private:
 private:
 	friend class UnitTestImpl;
 	friend class TestInfo;
+	friend class TestCase;
 	friend class detail::DefaultGlobalTestPartResultReporter;
 
 	TestPartResults	m_test_part_results;
