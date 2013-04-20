@@ -153,7 +153,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 #endif
 
 private:
-	static UnitTestImpl*& ptr(void)
+	static UnitTestImpl*& ptr(void) IUTEST_CXX_NOEXCEPT_SPEC
 	{
 		static UnitTestImpl* ptr = NULL;
 		return ptr;

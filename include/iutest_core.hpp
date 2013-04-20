@@ -57,17 +57,17 @@ public:
 	unsigned int		random_seed(void)			const	{ return TestEnv::current_random_seed(); }
 
 	/** 現在何回目のくり返しか取得 */
-	int					repeat_counter(void)		const	{ return m_repeat_counter; }
+	int					repeat_counter(void)	const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_repeat_counter; }
 
 public:
 	/** テスト総数 */
-	int				total_test_count(void)		const	{ return m_total_test_num; }
+	int				total_test_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_total_test_num; }
 	/** 実行した/するテスト総数 */
-	int				test_to_run_count(void)		const	{ return m_should_run_num; }
+	int				test_to_run_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_should_run_num; }
 	/** 失敗テスト総数 */
 	int				failed_test_count(void)		const	{ return get_failed_test_count(); }
 	/** 無効テスト総数 */
-	int				disabled_test_count(void)	const	{ return m_disable_num; }
+	int				disabled_test_count(void)	const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_disable_num; }
 	/** 成功テスト総数 */
 	int				successful_test_count(void)	const	{ return test_to_run_count() - failed_test_count() - test_was_skipped_count(); }
 	/** スキップテスト総数 */
@@ -78,7 +78,7 @@ public:
 	/** テストケース数の総数 */
 	int				total_test_case_count(void)	const	{ return m_testcases.size(); }
 	/** 実行したテストケース総数 */
-	int				test_case_to_run_count(void)	const
+	int				test_case_to_run_count(void) const
 	{
 		int count=0;
 		for( iuTestCases::const_iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
@@ -89,7 +89,7 @@ public:
 		return count;
 	}
 	/** 成功したテストケース総数 */
-	int				successful_test_case_count(void)	const
+	int				successful_test_case_count(void) const
 	{
 		int count=0;
 		for( iuTestCases::const_iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
@@ -100,7 +100,7 @@ public:
 		return count;
 	}
 	/** 失敗したテストケース総数 */
-	int				failed_test_case_count(void)	const
+	int				failed_test_case_count(void) const
 	{
 		int count=0;
 		for( iuTestCases::const_iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
@@ -112,10 +112,10 @@ public:
 	}
 
 	/** テスト実行中じゃないときのリザルトの取得 */
-	const TestResult* ad_hoc_testresult(void) const { return &m_ad_hoc_testresult; }
+	const TestResult* ad_hoc_testresult(void) const IUTEST_CXX_NOEXCEPT_SPEC { return &m_ad_hoc_testresult; }
 
 	/** テストの実行ミリ秒 */
-	TimeInMillisec	elapsed_time(void)		const	{ return m_elapsedmsec; }
+	TimeInMillisec	elapsed_time(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_elapsedmsec; }
 
 	/** テストケースの取得 */
 	const TestCase*	GetTestCase(int index)	const	{ return m_testcases[index]; }
@@ -225,7 +225,7 @@ private:
 #if IUTEST_HAS_PARAM_TEST
 public:
 	/** @private */
-	ParamTestCaseHolder&	parameterized_test_registry(void)	{ return m_param_testcase_holder; }
+	ParamTestCaseHolder&	parameterized_test_registry(void) IUTEST_CXX_NOEXCEPT_SPEC { return m_param_testcase_holder; }
 
 private:
 	ParamTestCaseHolder	m_param_testcase_holder;

@@ -41,7 +41,7 @@ class iuFactoryBase
 {
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(iuFactoryBase);
 public:
-	iuFactoryBase(void) {}
+	iuFactoryBase(void) IUTEST_CXX_NOEXCEPT_SPEC {}
 	virtual ~iuFactoryBase(void) {}
 public:
 	virtual auto_ptr<Test>	Create(void) = 0;

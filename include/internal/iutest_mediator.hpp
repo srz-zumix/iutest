@@ -46,7 +46,7 @@ public:
 	virtual	bool	HasFatalFailure(void) const = 0;
 	virtual	bool	HasNonfatalFailure(void) const = 0;
 	virtual bool	HasFailure(void) const = 0;
-	TestInfo*	ptr(void) const	{ return m_test_info; }
+	TestInfo*	ptr(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_test_info; }
 };
 
 /**
@@ -61,7 +61,7 @@ public:
 public:
 	virtual const char*	test_case_name(void) const = 0;
 	virtual const char*	type_param(void) const = 0;
-	TestCase*	ptr(void) const	{ return m_test_case; }
+	TestCase*	ptr(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_test_case; }
 };
 
 }	// end of namespace detail

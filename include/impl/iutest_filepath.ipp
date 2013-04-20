@@ -204,7 +204,7 @@ IUTEST_IPP_INLINE iuFilePath	iuFilePath::ConcatPaths(const iuFilePath& directory
 	return iuFilePath(path);
 }
 
-IUTEST_IPP_INLINE char	iuFilePath::GetPathSeparator(void)
+IUTEST_IPP_INLINE char	iuFilePath::GetPathSeparator(void) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #ifdef IUTEST_OS_WINDOWS
 	return '\\';
@@ -251,7 +251,7 @@ IUTEST_IPP_INLINE void iuFilePath::Normalize(void)
 	delete [] dst_top;
 }
 
-IUTEST_IPP_INLINE bool iuFilePath::IsPathSeparator(char c)
+IUTEST_IPP_INLINE bool iuFilePath::IsPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #ifdef IUTEST_OS_WINDOWS
 	if( c == '\\' ) return true;
@@ -259,7 +259,7 @@ IUTEST_IPP_INLINE bool iuFilePath::IsPathSeparator(char c)
 	return c == '/';
 }
 
-IUTEST_IPP_INLINE bool iuFilePath::IsAltPathSeparator(char c)
+IUTEST_IPP_INLINE bool iuFilePath::IsAltPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC
 {
 #ifdef IUTEST_OS_WINDOWS
 	if( c == '/' ) return true;

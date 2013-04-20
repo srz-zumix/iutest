@@ -147,7 +147,7 @@ public:
 	};
 
 private:
-	TestFlag(void)
+	TestFlag(void) IUTEST_CXX_NOEXCEPT_SPEC
 		: m_test_flags(DEFAULT) {}
 
 public:
@@ -174,7 +174,7 @@ private:
 	{
 		typedef Fragment<KIND>	_Myt;
 	public:
-		Fragment(void) {}
+		Fragment(void) IUTEST_CXX_NOEXCEPT_SPEC {}
 		Fragment(bool f)	{ SetFlag(KIND, f ? -1 : ~KIND); }
 		_Myt&	operator = (bool f)	{ SetFlag(KIND, f ? -1 : ~KIND); return *this; }
 		IUTEST_CXX_EXPLICIT_CONVERSION operator bool (void) const { return IsEnableFlag(KIND); }
@@ -247,7 +247,7 @@ public:
 	typedef class RandomSeedSet
 	{
 	public:
-		RandomSeedSet(void) {}
+		RandomSeedSet(void) IUTEST_CXX_NOEXCEPT_SPEC {}
 		RandomSeedSet(unsigned int seed) { init_random(seed); } 
 		RandomSeedSet&	operator = (unsigned int seed)	{ init_random(seed); return *this; }
 		operator unsigned int (void) const { return get_random_seed(); }
@@ -260,7 +260,7 @@ public:
 	typedef class RepeatCountSet
 	{
 	public:
-		RepeatCountSet(void) {}
+		RepeatCountSet(void) IUTEST_CXX_NOEXCEPT_SPEC {}
 		RepeatCountSet(int count) { set_repeat_count(count); } 
 		RepeatCountSet&	operator = (int count)	{ set_repeat_count(count); return *this; }
 		operator int (void) const { return get_repeat_count(); }

@@ -188,7 +188,7 @@ public:
 	/**
 	 * @brief	ƒpƒX‹æØ‚è•¶š‚Ìæ“¾
 	*/
-	static char	GetPathSeparator(void);
+	static char	GetPathSeparator(void) IUTEST_CXX_NOEXCEPT_SPEC;
 
 private:
 	/**
@@ -197,8 +197,8 @@ private:
 	void Normalize(void);
 
 private:
-	static bool IsPathSeparator(char c);
-	static bool IsAltPathSeparator(char c);
+	static bool IsPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC;
+	static bool IsAltPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC;
 private:
 	std::string	m_path;
 };

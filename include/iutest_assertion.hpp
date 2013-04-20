@@ -54,7 +54,7 @@ public:
 	/**
 	 * @brief	成否
 	*/
-	bool	failed(void)	const	{ return !m_result; }
+	bool	failed(void) const IUTEST_CXX_NOEXCEPT_SPEC { return !m_result; }
 
 	/**
 	 * @brief	メッセージの取得

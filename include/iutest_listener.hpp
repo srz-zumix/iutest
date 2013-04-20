@@ -158,11 +158,11 @@ public:
 	/**
 	 * @brief	デフォルト出力リスナーの取得
 	*/
-	TestEventListener*	default_result_printer(void)	const	{ return m_default_result_printer; }
+	TestEventListener*	default_result_printer(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_default_result_printer; }
 	/**
 	 * @brief	デフォルトxml出力リスナー取得
 	*/
-	TestEventListener*	default_xml_generator(void)		const	{ return m_default_xml_generator; }
+	TestEventListener*	default_xml_generator(void)  const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_default_xml_generator; }
 
 private:
 	TestEventListener*	repeater(void) { return &m_repeater; }

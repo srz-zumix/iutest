@@ -89,7 +89,7 @@ public:
 			_Mybase::ReportTestPartResult(result);
 		}
 	public:
-		int	count(void)	{ return m_count; }
+		int	count(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_count; }
 	private:
 		TestPartResultReporterInterface*	m_origin;
 		COND m_cond;

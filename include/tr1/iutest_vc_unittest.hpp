@@ -164,7 +164,7 @@ IUTEST_MAKE_SCOPED_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, 
 
 #define IUTEST_TYPED_TEST_P(testcase_, testname_)		\
 	IUTEST_TYPED_TEST_P_VCUNIT_I(testcase_, testname_, testcase_##testname_##_class, testcase_##_##testname_);	\
-	IUTEST_TYPED_TEST_P_(testcase_, testname_)
+	IIUT_TYPED_TEST_P_(testcase_, testname_)
 
 #define IUTEST_TYPED_TEST_P_VCUNIT_I(testcase_, testname_, className, methodName)			\
 	IUTEST_VC_TEST_CLASS(className) {														\

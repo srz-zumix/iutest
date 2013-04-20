@@ -155,8 +155,8 @@ public:
 		return *this;
 	}
 public:
-	const char*		file_name(void)		const	{ return m_file; }				//!< ファイル名の取得
-	int				line_number(void)	const	{ return m_line; }				//!< ライン番号の取得
+	const char*		file_name(void) const { return m_file; }				//!< ファイル名の取得
+	int				line_number(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_line; }	//!< ライン番号の取得
 public:
 	/** @private */
 	::std::string	make_message(void) const;

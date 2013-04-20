@@ -84,17 +84,17 @@ public:
 	/** test 名の取得 */
 	const	char*	name(void)				const	{ return m_testname.c_str(); }
 	/** should_run */
-	bool			should_run(void)		const	{ return m_should_run; }
+	bool			should_run(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_should_run; }
 	/** is ran */
-	bool			is_ran(void)			const	{ return m_ran; }
+	bool			is_ran(void)			const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_ran; }
 	/** disable */
-	bool			is_disabled_test(void)	const	{ return m_disable; }
+	bool			is_disabled_test(void)	const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_disable; }
 	/** is skipped */
-	bool			is_skipped(void)		const	{ return m_skip; }
+	bool			is_skipped(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_skip; }
 	/** テストの実行ミリ秒 */
 	TimeInMillisec	elapsed_time(void)		const	{ return m_test_result.elapsed_time(); }
 	/** テスト結果の取得 */
-	const TestResult*	result(void)		const	{ return &m_test_result; }
+	const TestResult*	result(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return &m_test_result; }
 
 	/** value param 文字列の取得 */
 	const	char*	value_param(void)		const	{ return m_value_param.empty() ? NULL : m_value_param.c_str(); }

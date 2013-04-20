@@ -82,35 +82,35 @@ public:
 	/**
 	 * @brief	失敗かどうか
 	*/
-	bool		failed(void)	const		{ return m_type != kSuccess && m_type != kWarning; }
+	bool		failed(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type != kSuccess && m_type != kWarning; }
 	/**
 	 * @brief	成功かどうか
 	*/
-	bool		passed(void)	const		{ return !failed(); }
+	bool		passed(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return !failed(); }
 	/**
 	 * @brief	警告かどうか
 	*/
-	bool		warning(void)	const		{ return m_type == kWarning; }
+	bool		warning(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kWarning; }
 
 	/**
 	 * @brief	致命的ではない失敗かどうか
 	*/
-	bool		nonfatally_failed(void)	const	{ return m_type == kNotFatalFailure; }
+	bool		nonfatally_failed(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kNotFatalFailure; }
 
 	/**
 	 * @brief	致命的な失敗かどうか
 	*/
-	bool		fatally_failed(void)	const	{ return m_type == kFatalFailure; }
+	bool		fatally_failed(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kFatalFailure; }
 
 	/**
 	 * @brief	理由
 	*/
-	const char*	summary(void)	const	{ return message(); }
+	const char*	summary(void) const { return message(); }
 
 	/**
 	 * @brief	結果のタイプ取得
 	*/
-	Type		type(void)	const		{ return m_type; }
+	Type		type(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_type; }
 
 private:
 	Type	m_type;
@@ -210,7 +210,7 @@ public:
 	 * @brief	テストの実行時間の取得
 	 * @return	テストの実行時間
 	*/
-	TimeInMillisec	elapsed_time(void)		const	{ return m_elapsedmsec; }
+	TimeInMillisec	elapsed_time(void)		const IUTEST_CXX_NOEXCEPT_SPEC { return m_elapsedmsec; }
 
 	/**
 	 * @brief	結果の数を取得
@@ -243,7 +243,7 @@ public:
 	 * @brief	失敗の数を取得
 	 * @return	失敗の数
 	*/
-	int			total_error_count(void)		const
+	int total_error_count(void) const
 	{
 		int count = 0;
 		for( TestPartResults::const_iterator it=m_test_part_results.begin(), end=m_test_part_results.end(); it != end; ++it )
@@ -255,7 +255,7 @@ public:
 
 private:
 	void AddTestPartResult(const TestPartResult& result)	{ m_test_part_results.push_back(result); }
-	void set_elapsed_time(TimeInMillisec time)		{ m_elapsedmsec = time; }
+	void set_elapsed_time(TimeInMillisec time) IUTEST_CXX_NOEXCEPT_SPEC { m_elapsedmsec = time; }
 
 private:
 	void RecordProperty(const TestProperty& prop)

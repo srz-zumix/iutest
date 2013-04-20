@@ -133,7 +133,7 @@ class StdioFile : public IFile
 {
 	FILE* m_fp;
 public:
-	StdioFile(void) : m_fp(NULL) {}
+	StdioFile(void) IUTEST_CXX_NOEXCEPT_SPEC : m_fp(NULL) {}
 	virtual ~StdioFile(void) { Close(); }
 public:
 	/**

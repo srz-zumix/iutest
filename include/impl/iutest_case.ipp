@@ -49,12 +49,10 @@ IUTEST_IPP_INLINE bool TestCase::RunImpl(void)
 
 	m_setup();
 
-#if 0	// gtest ŒÝŠ·‚Ì‚½‚ß
 	if( m_ad_hoc_testresult.HasFatalFailure() )
 	{
 		return false;
 	}
-#endif
 
 	{
 		detail::iuStopWatch sw;

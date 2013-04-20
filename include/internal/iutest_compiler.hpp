@@ -195,6 +195,29 @@
 #  define IUTEST_CXX_DELETED_FUNCTION
 #endif
 
+// default function
+#ifndef IUTEST_HAS_DEFAULT_FUNCTIONS
+#  if	defined(__clang__)
+#    if __has_feature(cxx_defaulted_functions)
+#      define IUTEST_HAS_DEFAULT_FUNCTIONS	1
+#    endif
+#  elif defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_DEFAULT_FUNCTIONS	1
+#    endif
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_DEFAULT_FUNCTIONS
+#  define IUTEST_HAS_DEFAULT_FUNCTIONS		0
+#endif
+
+#if IUTEST_HAS_DEFAULT_FUNCTIONS
+#  define IUTEST_CXX_DEFAULT_FUNCTION	= default;
+#else
+#  define IUTEST_CXX_DEFAULT_FUNCTION	{}
+#endif
+
 // initializer_list
 #ifndef IUTEST_HAS_INITIALIZER_LIST
 #  if	defined(__clang__)
@@ -385,7 +408,7 @@
 
 #ifndef IUTEST_CXX_NOEXCEPT
 #  if IUTEST_HAS_NOEXCEPT
-#    define IUTEST_CXX_NOEXCEPT(expr_)	noexcept(expr_)
+#    define IUTEST_CXX_NOEXCEPT(expr_)		noexcept(expr_)
 #  else
 #    define IUTEST_CXX_NOEXCEPT(expr_)
 #  endif
@@ -393,9 +416,17 @@
 
 #ifndef IUTEST_CXX_NOEXCEPT_SPEC
 #  if IUTEST_HAS_NOEXCEPT
-#    define IUTEST_CXX_NOEXCEPT_SPEC	noexcept
+#    define IUTEST_CXX_NOEXCEPT_SPEC		noexcept
 #  else
 #    define IUTEST_CXX_NOEXCEPT_SPEC
+#  endif
+#endif
+
+#ifndef IUTEST_CXX_NOEXCEPT_AS
+#  if IUTEST_HAS_NOEXCEPT
+#    define IUTEST_CXX_NOEXCEPT_AS(expr_)	noexcept( noexcept(expr_) )
+#  else
+#    define IUTEST_CXX_NOEXCEPT_AS(expr_)
 #  endif
 #endif
 

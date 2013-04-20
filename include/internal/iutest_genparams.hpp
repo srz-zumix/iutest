@@ -1202,7 +1202,7 @@ private:
 class iuRandomParamsHolder
 {
 public:
-	iuRandomParamsHolder(size_t num, unsigned int seed=0)
+	iuRandomParamsHolder(size_t num, unsigned int seed=0) IUTEST_CXX_NOEXCEPT_SPEC
 		: m_num(num), m_seed(seed) {}
 public:
 	template<typename T>

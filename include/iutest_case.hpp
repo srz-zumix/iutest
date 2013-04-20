@@ -68,13 +68,13 @@ public:
 	const	char*	name(void)					const	{ return m_testcase_name.c_str(); }
 
 	/** テスト総数 */
-	int				total_test_count(void)		const	{ return m_testinfos.size(); }
+	int				total_test_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_testinfos.size(); }
 	/** 実行したテスト総数 */
-	int				test_to_run_count(void)		const	{ return m_should_run_num; }
+	int				test_to_run_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_should_run_num; }
 	/** 失敗テスト総数 */
 	int				failed_test_count(void)		const	{ return get_failed_test_count(); }
 	/** 無効テスト総数 */
-	int				disabled_test_count(void)	const	{ return m_disable_num; }
+	int				disabled_test_count(void)	const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_disable_num; }
 	/** 成功テスト総数 */
 	int				successful_test_count(void)	const	{ return test_to_run_count() - failed_test_count() - test_was_skipped_count(); }
 	/** スキップテスト総数 */
@@ -82,12 +82,12 @@ public:
 	/** 明示的にスキップされたテスト総数 */
 	int				test_was_skipped_count(void) const	{ return get_skipped_test_count(); }
 	/** テストの実行ミリ秒 */
-	TimeInMillisec	elapsed_time(void)			const	{ return m_elapsedmsec; }
+	TimeInMillisec	elapsed_time(void)			const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_elapsedmsec; }
 
 	/** TestInfo の取得 */
 	const TestInfo*	GetTestInfo(int index)		const	{ return m_testinfos[index]; }
 	/** should_run */
-	bool			should_run(void)			const	{ return m_should_run_num != 0; }
+	bool			should_run(void)			const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_should_run_num != 0; }
 
 	/** テストが成功したかどうか */
 	bool			Passed(void)				const	{ return get_failed_test_count() == 0 && m_ad_hoc_testresult.Passed(); }
@@ -110,7 +110,7 @@ public:
 	}
 
 	/** テスト実行中じゃないときのリザルトの取得 */
-	const TestResult* ad_hoc_testresult(void) const { return &m_ad_hoc_testresult; }
+	const TestResult* ad_hoc_testresult(void) const IUTEST_CXX_NOEXCEPT_SPEC { return &m_ad_hoc_testresult; }
 
 private:
 	/**
@@ -171,7 +171,7 @@ private:
 private:
 	iuTestInfos::const_iterator	begin(void)	const		{ return m_testinfos.begin(); }
 	iuTestInfos::const_iterator	end(void)	const		{ return m_testinfos.end(); }
-	TestTypeId					get_typeid(void) const	{ return m_id; }
+	TestTypeId					get_typeid(void) const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_id; }
 
 private:
 	friend class UnitTestImpl;

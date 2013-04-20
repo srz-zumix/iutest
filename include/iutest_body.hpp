@@ -69,7 +69,7 @@ public:
 	/**
 	 * @brief	実行中の Test の取得
 	*/
-	static Test*			GetCurrentTest(void)			{ return CurrentTestObserver::GetCurrentTest(); }
+	static Test*			GetCurrentTest(void) { return CurrentTestObserver::GetCurrentTest(); }
 
 
 	/**
@@ -137,7 +137,7 @@ public:
 	*/
 	float			genrandf(void)				{ return m_random.genrandf(); }
 	/** 乱数シードの取得 */
-	unsigned int	random_seed(void)			{ return m_random_seed; }
+	unsigned int	random_seed(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_random_seed; }
 
 	/** 乱数生成器の取得 */
 	detail::iuRandom& random_engine(void)		{ return m_random; }
@@ -164,9 +164,9 @@ private:
 	class Observer
 	{
 	public:
-		static Test*	s_current;
+		static Test* s_current;
 	public:
-		static		 Test*		GetCurrentTest(void)		{ return s_current; }
+		static Test* GetCurrentTest(void) IUTEST_CXX_NOEXCEPT_SPEC { return s_current; }
 	};
 
 	typedef Observer<void>	CurrentTestObserver;
@@ -215,7 +215,7 @@ public:
 	}
 
 	/** @private */
-	static void				SetParam(const ParamType* params)	{ s_params = params; }
+	static void SetParam(const ParamType* params) IUTEST_CXX_NOEXCEPT_SPEC { s_params = params; }
 
 private:
 	static const ParamType*	s_params;
