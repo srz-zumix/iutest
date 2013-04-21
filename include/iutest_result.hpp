@@ -146,6 +146,11 @@ public:
 	const char*	value(void)	const	{ return m_value.c_str(); }	//!< 値の取得
 
 public:
+	/**
+	 * @brief	有効なキーかどうかチェック
+	 * @retval	true=有効
+	 * @retval	false=無効
+	*/
 	bool Validate(const char** ban_list, size_t size) const
 	{
 		for( int i=0, n=size; i < n; ++i )
