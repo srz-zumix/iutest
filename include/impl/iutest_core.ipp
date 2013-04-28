@@ -24,12 +24,67 @@
 namespace iutest
 {
 
+IUTEST_IPP_INLINE int UnitTest::reportable_test_count(void) const
+{
+	return detail::SumOverList(m_testcases, &TestCase::reportable_test_count);
+}
+
+IUTEST_IPP_INLINE int UnitTest::failed_test_count(void) const
+{
+	return detail::SumOverList(m_testcases, &TestCase::failed_test_count);
+}
+
+IUTEST_IPP_INLINE int UnitTest::reportable_disabled_test_count(void) const
+{
+	return detail::SumOverList(m_testcases, &TestCase::reportable_disabled_test_count);
+}
+
+IUTEST_IPP_INLINE int UnitTest::successful_test_count(void) const
+{
+	return detail::SumOverList(m_testcases, &TestCase::successful_test_count);
+}
+
+IUTEST_IPP_INLINE int UnitTest::skip_test_count(void) const
+{
+	return detail::SumOverList(m_testcases, &TestCase::skip_test_count);
+}
+
+IUTEST_IPP_INLINE int UnitTest::reportable_skip_test_count(void) const
+{
+	return detail::SumOverList(m_testcases, &TestCase::reportable_skip_test_count);
+}
+
+IUTEST_IPP_INLINE int UnitTest::test_was_skipped_count(void) const
+{
+	return detail::SumOverList(m_testcases, &TestCase::test_was_skipped_count);
+}
+
+IUTEST_IPP_INLINE int UnitTest::reportable_test_was_skipped_count(void) const
+{
+	return detail::SumOverList(m_testcases, &TestCase::reportable_test_was_skipped_count);
+}
+
+IUTEST_IPP_INLINE int UnitTest::test_case_to_run_count(void) const
+{
+	return detail::CountIfOverList(m_testcases, &TestCase::should_run);
+}
+
+IUTEST_IPP_INLINE int UnitTest::successful_test_case_count(void) const
+{
+	return detail::CountIfOverList(m_testcases, &TestCase::Passed);
+}
+
+IUTEST_IPP_INLINE int UnitTest::failed_test_case_count(void) const
+{
+	return detail::CountIfOverList(m_testcases, &TestCase::Failed);
+}
+
 IUTEST_IPP_INLINE bool UnitTest::Passed(void) const
 {
 	if( m_ad_hoc_testresult.Failed() ) return false;
 	for( iuTestCases::const_iterator it=m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
 	{
-		if( (*it)->Failed() ) return false;
+		if( (it)->Failed() ) return false;
 	}
 	return true;
 }
@@ -156,10 +211,10 @@ IUTEST_IPP_INLINE bool	UnitTest::RunOnce(void)
 		sw.start();
 		for( iuTestCases::iterator it=m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
 		{
-			if( !(*it)->should_run() ) continue;
+			if( !(it)->should_run() ) continue;
 
-			m_current_testcase = *it;
-			(*it)->Run();
+			m_current_testcase = it;
+			(it)->Run();
 			m_current_testcase = NULL;
 		}
 		m_elapsedmsec = sw.stop();
@@ -189,9 +244,9 @@ IUTEST_IPP_INLINE void	UnitTest::TestProgramStart(void)
 	m_disable_num = 0;
 	for( iuTestCases::iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
 	{
-		(*it)->filter();
-		m_should_run_num += (*it)->test_to_run_count();
-		m_disable_num += (*it)->disabled_test_count();
+		(it)->filter();
+		m_should_run_num += (it)->test_to_run_count();
+		m_disable_num += (it)->disabled_test_count();
 	}
 
 	atexit(OnExit);

@@ -91,6 +91,10 @@ public:
 	 * @brief	Œx‚©‚Ç‚¤‚©
 	*/
 	bool		warning(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kWarning; }
+	/**
+	 * @brief	¬Œ÷‚©‚Ç‚¤‚©iŒx‚ğœ‚­j
+	*/
+	bool		succeeded(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kSuccess; }
 
 	/**
 	 * @brief	’v–½“I‚Å‚Í‚È‚¢¸”s‚©‚Ç‚¤‚©

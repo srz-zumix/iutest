@@ -52,7 +52,9 @@ int main(int argc, char* argv[])
 	assert( ::iutest::UnitTest::GetInstance()->test_to_run_count() == 2 );
 #if !defined(IUTEST_USE_GTEST)
 	assert( ::iutest::UnitTest::GetInstance()->test_was_skipped_count() == 1 );
+	assert( ::iutest::UnitTest::GetInstance()->reportable_test_was_skipped_count() == 1 );
 	assert( ::iutest::UnitTest::GetInstance()->skip_test_count() == 2 );
+	assert( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 2 );
 #endif
 	assert( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
 	assert( skip_check );

@@ -129,6 +129,9 @@ IUTEST(ReturnTest, Test)
 
 #endif
 
+/** --------------------------------------------------
+ * 日本語テスト名
+*//*--------------------------------------------------*/
 #if IUTEST_HAS_TESTNAME_ALIAS
 
 IUTEST(IUTEST_JAPANESE_NAME(テスト), IUTEST_JAPANESE_NAME(テスト))
@@ -151,6 +154,14 @@ IUTEST_PACKAGE(TestPackage)
 	{
 		IUTEST_ASSERT_TRUE(true);
 	}
+}
+
+/** --------------------------------------------------
+ * スキップ
+*//*--------------------------------------------------*/
+IUTEST(SkipTest, Skip)
+{
+	IUTEST_SKIP() << "empty.";
 }
 
 /** --------------------------------------------------

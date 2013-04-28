@@ -157,13 +157,16 @@ IUTEST_IPP_INLINE bool	TestInfo::filter(void)
 	{
 		run = false;
 	}
+	bool match = true;
 	if( TestFlag::IsEnableFlag(TestFlag::FILTERING_TESTS) )
 	{
 		if( !detail::iuRegex::match(TestEnv::test_filter(), test_full_name().c_str()) ) 
 		{
+			match = false;
 			run = false;
 		}
 	}
+	m_matches_filter = match;
 	m_should_run = run;
 	return m_should_run;
 }

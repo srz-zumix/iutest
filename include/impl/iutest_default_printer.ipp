@@ -161,15 +161,21 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationEnd(const Unit
 			detail::iuConsole::color_output(detail::iuConsole::green, "[  PASSED  ] ");
 			detail::iuConsole::output("%d tests.\n", test.successful_test_count() );
 		}
-		if( !TestFlag::IsEnableFlag(TestFlag::RUN_DISABLED_TESTS) && test.disabled_test_count() > 0 )
 		{
-			detail::iuConsole::color_output(detail::iuConsole::yellow, "[ DISABLED ] ");
-			detail::iuConsole::output("%d tests.\n", test.disabled_test_count() );
+			const int count = test.reportable_disabled_test_count();
+			if( !TestFlag::IsEnableFlag(TestFlag::RUN_DISABLED_TESTS) && count > 0 )
+			{
+				detail::iuConsole::color_output(detail::iuConsole::yellow, "[ DISABLED ] ");
+				detail::iuConsole::output("%d tests.\n", count );
+			}
 		}
-		if( test.test_was_skipped_count() > 0 )
 		{
-			detail::iuConsole::color_output(detail::iuConsole::yellow, "[  SKIPPED ] ");
-			detail::iuConsole::output("%d tests.\n", test.test_was_skipped_count() );
+			const int count = test.reportable_test_was_skipped_count();
+			if( count > 0 )
+			{
+				detail::iuConsole::color_output(detail::iuConsole::yellow, "[  SKIPPED ] ");
+				detail::iuConsole::output("%d tests.\n", count );
+			}
 		}
 		
 		if( !test.Passed() )

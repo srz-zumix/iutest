@@ -69,18 +69,26 @@ public:
 
 	/** テスト総数 */
 	int				total_test_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_testinfos.size(); }
+	/** レポート対象のテスト総数 */
+	int				reportable_test_count(void)	const;
 	/** 実行したテスト総数 */
 	int				test_to_run_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_should_run_num; }
 	/** 失敗テスト総数 */
-	int				failed_test_count(void)		const	{ return get_failed_test_count(); }
+	int				failed_test_count(void)		const;
 	/** 無効テスト総数 */
 	int				disabled_test_count(void)	const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_disable_num; }
+	/** レポート対象の無効テスト総数 */
+	int				reportable_disabled_test_count(void) const;
 	/** 成功テスト総数 */
-	int				successful_test_count(void)	const	{ return test_to_run_count() - failed_test_count() - test_was_skipped_count(); }
+	int				successful_test_count(void)	const;
 	/** スキップテスト総数 */
-	int				skip_test_count(void)		const	{ return total_test_count() - test_to_run_count() + test_was_skipped_count(); }
+	int				skip_test_count(void)		const;
+	/** レポート対象のスキップテスト総数 */
+	int				reportable_skip_test_count(void) const;
 	/** 明示的にスキップされたテスト総数 */
-	int				test_was_skipped_count(void) const	{ return get_skipped_test_count(); }
+	int				test_was_skipped_count(void) const;
+	/** レポート対象の明示的にスキップされたテスト総数 */
+	int				reportable_test_was_skipped_count(void) const;
 	/** テストの実行ミリ秒 */
 	TimeInMillisec	elapsed_time(void)			const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_elapsedmsec; }
 
@@ -90,7 +98,7 @@ public:
 	bool			should_run(void)			const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_should_run_num != 0; }
 
 	/** テストが成功したかどうか */
-	bool			Passed(void)				const	{ return get_failed_test_count() == 0 && m_ad_hoc_testresult.Passed(); }
+	bool			Passed(void)				const	{ return failed_test_count() == 0 && m_ad_hoc_testresult.Passed(); }
 	/** テストが失敗したかどうか */
 	bool			Failed(void)				const	{ return !Passed(); }
 
@@ -155,11 +163,6 @@ private:
 	*/
 	bool	filter(void);
 
-	/** 失敗テスト総数 */
-	int get_failed_test_count(void) const;
-	/** スキップテスト総数 */
-	int get_skipped_test_count(void) const;
-
 private:
 	friend bool	operator == (const TestCase& lhs, const TestCase& rhs)
 	{
@@ -172,6 +175,15 @@ private:
 	iuTestInfos::const_iterator	begin(void)	const		{ return m_testinfos.begin(); }
 	iuTestInfos::const_iterator	end(void)	const		{ return m_testinfos.end(); }
 	TestTypeId					get_typeid(void) const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_id; }
+
+private:
+	static bool IsSuccessfulTest(const TestInfo* p) { return p->is_ran() && !p->HasFailure(); }
+	static bool IsFaildTest(const TestInfo* p) { return p->should_run() && p->HasFailure(); }
+	static bool IsSkipTest(const TestInfo* p) { return !p->is_ran() || p->is_skipped(); }
+	static bool IsReportableSkipTest(const TestInfo* p) { return p->is_reportable() && IsSkipTest(p); }
+	static bool IsWasSkippedTest(const TestInfo* p) { return p->should_run() && p->is_skipped(); }
+	static bool IsReportableWasSkippedTest(const TestInfo* p) { return p->is_reportable() && IsWasSkippedTest(p); }
+	static bool IsReportableDisabledTest(const TestInfo* p) { return p->is_reportable() && p->is_disabled_test(); }
 
 private:
 	friend class UnitTestImpl;

@@ -53,15 +53,26 @@ IUTEST(TestInformation, CurrentTestInfo)
 #endif
 }
 
+IUTEST(TestInformation, DISABLED_Test)
+{
+}
+
 IUTEST(TestInformation, TestInfoCount)
 {
-	IUTEST_ASSERT_EQ(3, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count());
+	IUTEST_ASSERT_EQ(4, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count());
 	IUTEST_ASSERT_EQ(3, ::iutest::UnitTest::GetInstance()->current_test_case()->test_to_run_count());
 	IUTEST_ASSERT_EQ(3, ::iutest::UnitTest::GetInstance()->current_test_case()->successful_test_count());
 	IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->failed_test_count());
-	IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->disabled_test_count());
+	IUTEST_ASSERT_EQ(1, ::iutest::UnitTest::GetInstance()->current_test_case()->disabled_test_count());
+#if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
+	IUTEST_ASSERT_EQ(1, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_disabled_test_count());
+	IUTEST_ASSERT_EQ(4, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_test_count());
+#endif
 #if !defined(IUTEST_USE_GTEST)
-	IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->skip_test_count());
+	IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->test_was_skipped_count());
+	IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_test_was_skipped_count());
+	IUTEST_ASSERT_EQ(1, ::iutest::UnitTest::GetInstance()->current_test_case()->skip_test_count());
+	IUTEST_ASSERT_EQ(1, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_skip_test_count());
 #endif
 }
 

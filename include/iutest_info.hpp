@@ -70,6 +70,7 @@ public:
 		, m_ran(false)
 		, m_disable(false)
 		, m_skip(false)
+		, m_matches_filter(true)
 	{
 		m_mediator.SetPointer(this);
 		if( strstr(name, "DISABLED_") == name )
@@ -91,6 +92,8 @@ public:
 	bool			is_disabled_test(void)	const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_disable; }
 	/** is skipped */
 	bool			is_skipped(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_skip; }
+	/** is reportable */
+	bool			is_reportable(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_matches_filter; }
 	/** テストの実行ミリ秒 */
 	TimeInMillisec	elapsed_time(void)		const	{ return m_test_result.elapsed_time(); }
 	/** テスト結果の取得 */
@@ -199,6 +202,7 @@ private:
 	bool					m_ran;				//!< 実行したかどうか
 	bool					m_disable;			//!< 無効真偽値
 	bool					m_skip;				//!< スキップしたかどうか
+	bool					m_matches_filter;	//!< フィルターにマッチしたかどうか
 
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TestInfo);
 };

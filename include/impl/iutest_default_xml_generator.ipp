@@ -170,7 +170,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
 		if( skipped )
 		{
 			file->Printf(">\n");
-			file->Printf("      <skipped />\n");
+			OnReportTestSkipped(file, test_info);
 			file->Printf("    </testcase>\n");
 		}
 		else
@@ -179,6 +179,45 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
 			file->Printf(" />\n");
 		}
 	}
+}
+
+IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestSkipped(IFile* file, const TestInfo& test_info)
+{
+	file->Printf("      <skipped type=\"iutest.skip\" ");
+	const TestResult* tr = test_info.result();
+	const int count = tr->total_part_count();
+	for( int i=0; i < count; ++i )
+	{
+		const TestPartResult& part = tr->GetTestPartResult(i);
+		if( part.succeeded() )
+		{
+#if 0
+			OutputXmlAttribute(file, "message"
+				, EscapeXmlAttribute(part.summary()).c_str());
+			::std::string message = detail::FormatCompilerIndependentFileLocation(part.file_name(), part.line_number());
+			file->Printf(">\n");
+			message += "\n";
+			message += detail::MultiByteStringToUTF8(part.summary());
+			OutputXmlCDataSection(file, message.c_str());
+			file->Printf("\n      </skipped>\n");
+#else
+			::std::string message = detail::FormatCompilerIndependentFileLocation(part.file_name(), part.line_number());
+			message += ": ";
+			message += detail::MultiByteStringToUTF8(part.summary());
+			OutputXmlAttribute(file, "message"
+				, EscapeXmlAttribute(message.c_str()).c_str());
+			file->Printf(" />\n");
+#endif
+			return;
+		}
+	}
+
+	if( test_info.is_disabled_test() )
+	{
+		OutputXmlAttribute(file, "message", "disabled test.");
+	}
+
+	file->Printf("/>\n");
 }
 
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestProperty(IFile* file, const TestResult& test_result)

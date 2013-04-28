@@ -52,15 +52,16 @@ protected:
   * @internal
   * @brief	リストイテレータ
 */
-template<typename NODE>
+template<typename NODE, typename NODE_PTR, typename NODE_REF>
 class iu_list_iterator
 {
-	typedef iu_list_iterator<NODE>	_Myt;
+	typedef iu_list_iterator<NODE, NODE_PTR, NODE_REF> _Myt;
 public:
 	typedef NODE		value_type;
-	typedef NODE		*value_ptr;
+	typedef NODE_PTR	value_ptr;
+	typedef NODE_REF	value_ref;
 	typedef value_ptr	pointer;
-	typedef value_type&	reference;
+	typedef value_ref	reference;
 	typedef int			distance_type;
 	typedef int			difference_type;
 public:
@@ -76,8 +77,10 @@ public:
 	_Myt&		operator ++ (void)	{ m_node = m_node->next; return *this; }
 	_Myt&		operator -- (void)	{ m_node = m_node->prev; return *this; }
 	value_ptr	operator -> (void) IUTEST_CXX_NOEXCEPT_SPEC	{ return m_node; }
-	value_ptr	operator *  (void) IUTEST_CXX_NOEXCEPT_SPEC	{ return m_node; }
+	value_ref	operator *  (void) IUTEST_CXX_NOEXCEPT_SPEC	{ return *m_node; }
 	value_ptr	ptr(void) const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_node; }
+
+	operator	value_ptr (void)	{ return m_node; }
 
 	_Myt		operator + (int n)
 	{
@@ -120,8 +123,8 @@ protected:
 	node_ptr	m_node;
 
 public:
-	typedef iu_list_iterator<NODE>	iterator;
-	typedef iu_list_iterator<NODE>	const_iterator;
+	typedef iu_list_iterator<NODE, NODE*, NODE&>	iterator;
+	typedef iu_list_iterator<NODE, const NODE*, const NODE&>	const_iterator;
 public:
 	iu_list(node_ptr p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_node(p) {}
 
@@ -222,7 +225,7 @@ public:
 	}
 	void		erase(iterator it)
 	{
-		erase(*it);
+		erase(it.ptr());
 	}
 public:
 	/**
@@ -279,14 +282,23 @@ public:
 	}
 
 public:
-	iterator	begin(void) const IUTEST_CXX_NOEXCEPT_SPEC
+	iterator	begin(void) IUTEST_CXX_NOEXCEPT_SPEC
 	{
 		return m_node;
 	}
-	iterator	end(void) const IUTEST_CXX_NOEXCEPT_SPEC
+	iterator	end(void) IUTEST_CXX_NOEXCEPT_SPEC
 	{
 		return iterator(NULL);
 	}
+	const_iterator	begin(void) const IUTEST_CXX_NOEXCEPT_SPEC
+	{
+		return m_node;
+	}
+	const_iterator	end(void) const IUTEST_CXX_NOEXCEPT_SPEC
+	{
+		return const_iterator(NULL);
+	}
+
 
 public:
 	struct EqualOp
@@ -394,6 +406,51 @@ Node FindList(const ::std::vector<Node>& list, Fn& f)
 		if( f(*it) ) return *it;
 	}
 	return NULL;
+}
+
+/**
+ * @brief	条件に合う要素数をカウント
+*/
+template<typename Node, typename Fn>
+int CountIf(const iu_list<Node>& list, Fn& f)
+{
+	int count = 0;
+	for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
+	{
+		if( f(it) ) ++count;
+	}
+	return count;
+}
+
+/**
+ * @brief	リストの示す値の総和
+*/
+template<typename Node, typename Fn>
+int SumOverList(const iu_list<Node>& list, Fn f)
+{
+	int count = 0;
+	for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
+	{
+		count += ((it)->*f)();
+	}
+	return count;
+}
+
+/**
+ * @brief	リストの示す真の総和
+*/
+template<typename Node, typename Fn>
+int CountIfOverList(const iu_list<Node>& list, Fn f)
+{
+	int count = 0;
+	for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
+	{
+		if( ((it)->*f)() )
+		{
+			++count;
+		}
+	}
+	return count;
 }
 
 }	// end of namespace detail
