@@ -400,7 +400,7 @@
 	if( !::iutest::Test::HasFailure() )		\
 		::iutest::UnitTest::SkipTest();		\
 	if( ::iutest::detail::AlwaysTrue() )	\
-		return IUTEST_MESSAGE( ::iutest::Test::HasFailure() ? "Skipped. but already failed. " : "Skipped. ", ::iutest::TestPartResult::kSuccess)
+		return IUTEST_MESSAGE( ::iutest::Test::HasFailure() ? "Skipped. but already failed. " : "Skipped. ", ::iutest::TestPartResult::kSkip)
 
 /**
  * @}

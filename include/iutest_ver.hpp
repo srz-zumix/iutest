@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01050001u	//!< iutest version 1.5.0.1
+#define	IUTEST_VER			0x01050002u	//!< iutest version 1.5.0.2
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x05u		//!< Minor Version
 #define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x01u		//!< Revision
+#define IUTEST_REVISION		0x02u		//!< Revision
 
 /**
  * @mainpage
@@ -94,7 +94,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.5.0.1
+  <li>v1.5.0.2
     <ul>
       <li>XML 出力の skipped にメッセージを出力するように修正</li>
       <li>--iutest_filter にマッチしたテスト数が取得できるように修正</li>

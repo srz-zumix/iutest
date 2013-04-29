@@ -189,7 +189,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestSkipped(IFile* f
 	for( int i=0; i < count; ++i )
 	{
 		const TestPartResult& part = tr->GetTestPartResult(i);
-		if( part.succeeded() )
+		if( part.skipped() )
 		{
 #if 0
 			OutputXmlAttribute(file, "message"

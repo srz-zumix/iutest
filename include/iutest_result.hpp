@@ -59,6 +59,7 @@ public:
 	*/
 	enum Type
 	{
+		kSkip = -2,				//!< スキップ
 		kWarning = -1,		//!< 警告
 		kSuccess,			//!< 成功
 		kNotFatalFailure,	//!< 致命的ではない失敗
@@ -82,7 +83,7 @@ public:
 	/**
 	 * @brief	失敗かどうか
 	*/
-	bool		failed(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type != kSuccess && m_type != kWarning; }
+	bool		failed(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type > kSuccess; }
 	/**
 	 * @brief	成功かどうか
 	*/
@@ -91,6 +92,10 @@ public:
 	 * @brief	警告かどうか
 	*/
 	bool		warning(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kWarning; }
+	/**
+	 * @brief	スキップかどうか
+	*/
+	bool		skipped(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kSkip; }
 	/**
 	 * @brief	成功かどうか（警告を除く）
 	*/
