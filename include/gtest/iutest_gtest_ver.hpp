@@ -34,7 +34,9 @@
 
 //!< Minor Version
 #ifndef GTEST_MINORVER
-#  if	defined(ADD_FAILURE_AT)
+#  if	!defined(RUN_ALL_TESTS) && !defined(GTEST_CREF_WORKAROUND_)
+#    define GTEST_MINORVER	0x07
+#  elif	defined(ADD_FAILURE_AT)
 #    define GTEST_MINORVER	0x06
 #  elif	defined(GTEST_API_)
 #    define GTEST_MINORVER	0x05

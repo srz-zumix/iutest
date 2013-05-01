@@ -123,8 +123,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* e
 		if( iu_wcsicmp(val1, val2) == 0 ) return AssertionSuccess();
 	}
 	return EqFailure(expr1, expr2
-		, String::ShowCStringQuoted(FormatForComparisonFailureMessage(val1, val2).c_str())
-		, String::ShowCStringQuoted(FormatForComparisonFailureMessage(val2, val1).c_str())
+		, FormatForComparisonFailureMessage(val1, val2).c_str()
+		, FormatForComparisonFailureMessage(val2, val1).c_str()
 		, true);
 }
 template<typename Elem, typename Traits, typename Ax>

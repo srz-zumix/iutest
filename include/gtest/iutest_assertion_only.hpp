@@ -28,10 +28,15 @@
 
 namespace testing
 {
-#if		GTEST_MINORVER == 0x06
+#if	GTEST_MINORVER == 0x07
 	typedef ::std::string				GTestAssertionResultString;
+	typedef ::std::string				GTestString;
+#elif	GTEST_MINORVER == 0x06
+	typedef ::std::string				GTestAssertionResultString;
+	typedef ::testing::internal::String	GTestString;
 #elif	GTEST_MINORVER == 0x05
 	typedef ::testing::internal::String	GTestAssertionResultString;
+	typedef ::testing::internal::String	GTestString;
 #else
 #  error sorry, google test version 1.4.0 or less is unsupported.
 #endif
@@ -91,13 +96,13 @@ namespace testing
 
 		AssertionResult EqFailure(const char* expected_expression,
 			const char* actual_expression,
-			const String& expected_value,
-			const String& actual_value,
+			const GTestString& expected_value,
+			const GTestString& actual_value,
 			bool ignoring_case)
 		{
 			Message msg;
 			msg << "Value of: " << actual_expression;
-			if (actual_value != actual_expression) {
+			if( !String::CStringEquals(actual_value.c_str(), actual_expression) ) {
 				msg << "\n  Actual: " << actual_value;
 			}
 
@@ -105,13 +110,14 @@ namespace testing
 			if (ignoring_case) {
 				msg << " (ignoring case)";
 			}
-			if (expected_value != expected_expression) {
+			if( !String::CStringEquals(expected_value.c_str(), expected_expression) ) {
 				msg << "\nWhich is: " << expected_value;
 			}
 
 			return AssertionFailure() << msg;
 		}
 
+#if GTEST_MINORVER <= 0x06
 		int String::Compare(const String& rhs) const
 		{
 			const char* const lhs_c_str = c_str();
@@ -135,6 +141,8 @@ namespace testing
 			return (length() < rhs.length()) ? -1 :
 				(length() > rhs.length()) ? 1 : 0;
 		}
+#endif
+
 		bool String::CStringEquals(const char* lhs, const char* rhs)
 		{
 			if( lhs == NULL || rhs == NULL ) return lhs == rhs;
@@ -146,15 +154,24 @@ namespace testing
 			if( lhs == NULL || rhs == NULL ) return lhs == rhs;
 			return internal::posix::StrCaseCmp(lhs, rhs) == 0;
 		}
+		namespace impl
+		{
+			GTestString ShowCStringQuoted(const char* c_str)
+			{
+				::std::string s = "\"";
+				s += c_str;
+				s += "\"";
+				return GTestString(s);
+			}
+		}
+#ifdef GTEST_CREF_WORKAROUND_
 		String String::ShowCStringQuoted(const char* c_str)
 		{
-			::std::string s = "\"";
-			s += c_str;
-			s += "\"";
-			return String(s);
+			return impl::ShowCStringQuoted(c_str);
 		}
+#endif
 
-		String GetBoolAssertionFailureMessage(const AssertionResult& assertion_result,
+		GTestString GetBoolAssertionFailureMessage(const AssertionResult& assertion_result,
 			const char* expression_text,
 			const char* actual_predicate_value,
 			const char* expected_predicate_value) {
@@ -168,7 +185,7 @@ namespace testing
 				return msg.GetString();
 		}
 
-		String StringStreamToString(::std::stringstream* ss) {
+		GTestString StringStreamToString(::std::stringstream* ss) {
 			const ::std::string& str = ss->str();
 			const char* const start = str.c_str();
 			const char* const end = start + str.length();
@@ -184,9 +201,9 @@ namespace testing
 				}
 			}
 
-			return String(helper.str().c_str());
+			return GTestString(helper.str().c_str());
 		}
-		String StrStreamToString(::std::stringstream* ss) {
+		GTestString StrStreamToString(::std::stringstream* ss) {
 			return StringStreamToString(ss);
 		}
 
@@ -200,8 +217,8 @@ namespace testing
 
 				return EqFailure(expected_expression,
 					actual_expression,
-					String::ShowCStringQuoted(expected),
-					String::ShowCStringQuoted(actual),
+					impl::ShowCStringQuoted(expected),
+					impl::ShowCStringQuoted(actual),
 					false);
 		}
 
@@ -216,8 +233,8 @@ namespace testing
 
 			return EqFailure(expected_expression,
 				actual_expression,
-				String::ShowCStringQuoted(expected),
-				String::ShowCStringQuoted(actual),
+				impl::ShowCStringQuoted(expected),
+				impl::ShowCStringQuoted(actual),
 				true);
 		}
 
@@ -249,6 +266,17 @@ namespace testing
 				}
 		}
 	}
+
+#if GTEST_MINORVER >= 0x07
+	Message::Message() : ss_(new ::std::stringstream) {
+	  *ss_ << std::setprecision(std::numeric_limits<double>::digits10 + 2);
+	}
+
+	std::string Message::GetString() const {
+		return internal::StringStreamToString(ss_.get());
+	}
+#endif
+
 }
 
 #endif
