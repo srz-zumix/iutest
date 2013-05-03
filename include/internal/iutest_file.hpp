@@ -119,8 +119,8 @@ template<typename FILE>
 class FileSystem : public detail::IFileSystem
 {
 private:
-	virtual IFile*	Create(void)		{ return new FILE; }
-	virtual void	Delete(IFile* ptr)	{ detail::Delete<FILE>(static_cast<FILE*>(ptr)); }
+	virtual IFile*	Create(void) IUTEST_CXX_OVERRIDE		{ return new FILE; }
+	virtual void	Delete(IFile* ptr) IUTEST_CXX_OVERRIDE	{ detail::Delete<FILE>(static_cast<FILE*>(ptr)); }
 };
 
 
@@ -142,7 +142,7 @@ public:
 	 * @param [in]	mode		= モード
 	 * @return	成否
 	*/
-	virtual	bool	Open(const char* filename, int mode)
+	virtual	bool	Open(const char* filename, int mode) IUTEST_CXX_OVERRIDE
 	{
 		Close();
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
@@ -164,7 +164,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 	/**
 	 * @brief	閉じる
 	*/
-	virtual	void	Close(void)
+	virtual	void	Close(void) IUTEST_CXX_OVERRIDE
 	{
 		if( m_fp != NULL )
 		{
@@ -178,10 +178,52 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 	 * @param [in]	size	= バッファサイズ
 	 * @param [in]	cnt		= 書き込み回数
 	*/
-	virtual void	Write(const void* buf, size_t size, size_t cnt)
+	virtual void	Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
 	{
 		fwrite(buf, size, cnt, m_fp);
 	}
+};
+
+#endif
+
+#if IUTEST_HAS_STRINGSTREAM
+
+class StringStreamFile : public IFile
+{
+public:
+	/**
+	 * @brief	開く
+	 * @param [in]	filename	= unused
+	 * @param [in]	mode		= unused
+	 * @return	成否
+	*/
+	virtual	bool	Open(const char* , int ) IUTEST_CXX_OVERRIDE
+	{
+		ss.clear();
+		return true;
+	}
+
+	/**
+	 * @brief	閉じる
+	*/
+	virtual	void	Close(void) IUTEST_CXX_OVERRIDE
+	{
+	}
+
+	/**
+	 * @brief	書き込み
+	 * @param [in]	buf		= 書き込みバッファ
+	 * @param [in]	size	= バッファサイズ
+	 * @param [in]	cnt		= 書き込み回数
+	*/
+	virtual void	Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
+	{
+		for( size_t i=0; i < cnt; ++i )
+			ss.write(static_cast<const char*>(buf), size);
+	}
+
+protected:
+	::std::stringstream ss;
 };
 
 #endif

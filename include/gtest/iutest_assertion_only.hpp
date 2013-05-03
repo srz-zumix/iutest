@@ -28,7 +28,7 @@
 
 namespace testing
 {
-#if	GTEST_MINORVER == 0x07
+#if		GTEST_MINORVER == 0x07
 	typedef ::std::string				GTestAssertionResultString;
 	typedef ::std::string				GTestString;
 #elif	GTEST_MINORVER == 0x06

@@ -281,10 +281,7 @@ IUTEST_IPP_INLINE void	UnitTest::EnvironmentTearDown(void)
 
 IUTEST_IPP_INLINE void	UnitTest::TestProgramEnd(void)
 {
-	static bool pass = false;
-	if( pass ) return;
 	listeners().OnTestProgramEnd(*this);
-	pass = true;
 }
 
 IUTEST_IPP_INLINE void	UnitTest::Initialize(void)

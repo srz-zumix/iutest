@@ -42,12 +42,12 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestProgramEnd(const UnitT
 
 	m_fp->Printf("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 	m_fp->Printf("<testsuites tests=\"%d\" failures=\"%d\" disabled=\"%d\" "
-		, test.total_test_count()
+		, test.reportable_test_count()
 		, test.failed_test_count()
-		, test.disabled_test_count()
+		, test.reportable_disabled_test_count()
 		);
 #if IUTEST_REPORT_SKIPPED
-	m_fp->Printf("skip=\"%d\" ", test.skip_test_count() );
+	m_fp->Printf("skip=\"%d\" ", test.reportable_skip_test_count() );
 #endif
 	m_fp->Printf("errors=\"0\" time=\"%s\" "
 		, detail::FormatTimeInMillisecAsSecond(test.elapsed_time()).c_str()
@@ -74,16 +74,18 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestProgramEnd(const UnitT
 
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestCase(IFile* file, const TestCase& test_case)
 {
+	if( test_case.reportable_test_count() == 0 ) return;
+
 	file->Printf("  <testsuite ");
 	OutputXmlAttribute(file, "name"
 		, EscapeXmlAttribute(test_case.name()).c_str() );
 	file->Printf("tests=\"%d\" failures=\"%d\" disabled=\"%d\" "
-		, test_case.total_test_count()
+		, test_case.reportable_test_count()
 		, test_case.failed_test_count()
-		, test_case.disabled_test_count()
+		, test_case.reportable_disabled_test_count()
 		);
 #if IUTEST_REPORT_SKIPPED
-	file->Printf("skip=\"%d\" ", test_case.skip_test_count() );
+	file->Printf("skip=\"%d\" ", test_case.reportable_skip_test_count() );
 #endif
 	file->Printf("errors=\"0\" time=\"%s\""
 		, detail::FormatTimeInMillisecAsSecond(test_case.elapsed_time()).c_str()
@@ -103,6 +105,8 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestCase(IFile* file
 
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file, const TestInfo& test_info)
 {
+	if( !test_info.is_reportable() ) return;
+
 	file->Printf("    <testcase ");
 	OutputXmlAttribute(file, "name", EscapeXmlAttribute(test_info.name()).c_str() );
 
