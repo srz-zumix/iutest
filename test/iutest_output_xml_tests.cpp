@@ -19,7 +19,13 @@
 // include
 #include "../include/iutest.hpp"
 
-#if !defined(IUTEST_USE_GTEST)
+#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_STRINGSTREAM
+#  define OUTPUT_XML_TEST	1
+#else
+#  define OUTPUT_XML_TEST	0
+#endif
+
+#if OUTPUT_XML_TEST
 
 class FileIO : public ::iutest::StringStreamFile
 {
@@ -61,7 +67,7 @@ int main(int argc, char* argv[])
 {
 	IUTEST_INIT(&argc, argv);
 
-#if !defined(IUTEST_USE_GTEST)
+#if OUTPUT_XML_TEST
 	{
 		::iutest::DefaultXmlGeneratorListener* listener = new ::iutest::DefaultXmlGeneratorListener();
 		listener->SetFilePath("test.xml");
@@ -75,9 +81,9 @@ int main(int argc, char* argv[])
 		int ret = IUTEST_RUN_ALL_TESTS();
 		
 		if( ret != 0 ) return 1;
-#if !defined(IUTEST_USE_GTEST)
-		IUTEST_ASSERT_EQ(-1, FileIO::s_io.find("Fail")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
-		IUTEST_ASSERT_NE(-1, FileIO::s_io.find("Foo" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+#if OUTPUT_XML_TEST
+		IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("Fail")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("Foo" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 		
 		FileIO::s_io.clear();
 #endif
@@ -87,9 +93,9 @@ int main(int argc, char* argv[])
 		int ret = IUTEST_RUN_ALL_TESTS();
 		
 		if( ret == 0 ) return 1;
-#if !defined(IUTEST_USE_GTEST)
-		IUTEST_ASSERT_NE(-1, FileIO::s_io.find("Fail")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
-		IUTEST_ASSERT_EQ(-1, FileIO::s_io.find("Foo" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+#if OUTPUT_XML_TEST
+		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("Fail")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+		IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("Foo" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 
 		FileIO::s_io.clear();
 #endif

@@ -21,7 +21,7 @@
 // include
 #include "../internal/iutest_debug.hpp"
 
-#if defined(_MSC_VER) && _MSC_VER >= 1310
+#if defined(_MSC_VER) && _MSC_VER >= 1310 && !defined(IUTEST_OS_WINDOWS_MOBILE)
 #  include <DbgHelp.h>
 //#  pragma comment (lib, "dbghelp.lib")
 #endif

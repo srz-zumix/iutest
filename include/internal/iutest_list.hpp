@@ -431,7 +431,7 @@ int SumOverList(const iu_list<Node>& list, Fn f)
 	int count = 0;
 	for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
 	{
-		count += ((it)->*f)();
+		count += ((*it).*f)();
 	}
 	return count;
 }
@@ -445,7 +445,7 @@ int CountIfOverList(const iu_list<Node>& list, Fn f)
 	int count = 0;
 	for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
 	{
-		if( ((it)->*f)() )
+		if( ((*it).*f)() )
 		{
 			++count;
 		}
