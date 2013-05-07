@@ -359,6 +359,11 @@
 #  endif
 #endif
 
+#ifndef IUTEST_HAS_SOCKET_WRITER
+//!< ソケット送信可能かどうか
+# define IUTEST_HAS_SOCKET_WRITER	1
+#endif
+
 #ifndef IUTEST_HAS_STRINGSTREAM
 //! std::stringstream が使用可能かどうか
 #  if !defined(_STLP_NO_IOSTREAMS)

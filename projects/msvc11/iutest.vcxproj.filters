@@ -282,6 +282,12 @@
     <ClInclude Include="..\..\include\iutest_ignore.hpp">
       <Filter>iutest</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\internal\iutest_socket.hpp">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\listener\iutest_stream_result.hpp">
+      <Filter>iutest\listener</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\impl\iutest_body.ipp">

@@ -474,6 +474,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\internal\iutest_socket.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\internal\iutest_stdlib.hpp"
 					>
 				</File>
@@ -519,6 +523,10 @@
 				</File>
 				<File
 					RelativePath="..\..\include\listener\iutest_progress_printer.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\listener\iutest_stream_result.hpp"
 					>
 				</File>
 				<File

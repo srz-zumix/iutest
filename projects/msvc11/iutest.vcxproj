@@ -152,6 +152,7 @@
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_filepath.hpp" />
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_no_failure.hpp" />
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_pred.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_socket.hpp" />
     <ClInclude Include="..\..\include\iutest.hpp" />
     <ClInclude Include="..\..\include\iutest_assertion.hpp" />
     <ClInclude Include="..\..\include\iutest_body.hpp" />
@@ -210,6 +211,7 @@
     <ClInclude Include="..\..\include\listener\iutest_default_printer.hpp" />
     <ClInclude Include="..\..\include\listener\iutest_default_xml_generator.hpp" />
     <ClInclude Include="..\..\include\listener\iutest_progress_printer.hpp" />
+    <ClInclude Include="..\..\include\listener\iutest_stream_result.hpp" />
     <ClInclude Include="..\..\include\listener\iutest_tap_printer.hpp" />
     <ClInclude Include="..\..\include\gtest\iutest_assertion_only.hpp" />
     <ClInclude Include="..\..\include\gtest\iutest_gtest_ver.hpp" />
