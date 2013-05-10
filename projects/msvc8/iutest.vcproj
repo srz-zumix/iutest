@@ -697,6 +697,10 @@
 					RelativePath="..\..\include\impl\iutest_regex.ipp"
 					>
 				</File>
+				<File
+					RelativePath="..\..\include\impl\iutest_stream_result.ipp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

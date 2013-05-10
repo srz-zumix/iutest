@@ -153,14 +153,12 @@ template<typename T>
 inline ::std::string ToHexString(T value)
 {
 	const size_t len = sizeof(T)*2;
-	char buf[len+3];
-	buf[0] = '0';
-	buf[1] = 'x';
+	char buf[len+1];
 	for( size_t i=0; i < len; ++i )
 	{
-		buf[i+2] = ToHex(static_cast<unsigned int>((value>>((len-i-1)*4))));
+		buf[i] = ToHex(static_cast<unsigned int>((value>>((len-i-1)*4))));
 	}
-	buf[len+2] = '\0';
+	buf[len] = '\0';
 	return buf;
 }
 

@@ -245,7 +245,7 @@ inline void PrintTo(const char* c, iu_ostream* os)	{ *os << c; }
 inline void PrintTo(char* c, iu_ostream* os)		{ *os << c; }
 inline void PrintTo(const ::std::string& str, iu_ostream* os)	{ *os << str.c_str(); }
 template<typename T>
-inline void PrintTo(const floating_point<T>& f, iu_ostream* os)	{ *os << f.raw() << "(" << ToHexString(f.bit()) << ")"; }
+inline void PrintTo(const floating_point<T>& f, iu_ostream* os)	{ *os << f.raw() << "(0x" << ToHexString(f.bit()) << ")"; }
 template<typename T1, typename T2>
 inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)
 {

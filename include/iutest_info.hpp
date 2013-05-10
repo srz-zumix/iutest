@@ -34,27 +34,6 @@ namespace iutest
 class TestInfo 
 	: public detail::iu_list_node<TestInfo>
 {
-private:
-	class Mediator : public detail::iuITestInfoMediator
-	{
-	public:
-		Mediator(TestInfo* p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : iuITestInfoMediator(p) {}
-	public:
-		virtual	bool	HasFatalFailure(void) const IUTEST_CXX_OVERRIDE
-		{
-			return ptr()->HasFatalFailure();
-		}
-		virtual	bool	HasNonfatalFailure(void) const IUTEST_CXX_OVERRIDE
-		{
-			return ptr()->HasNonfatalFailure();
-		}
-		virtual bool	HasFailure(void) const IUTEST_CXX_OVERRIDE
-		{
-			return ptr()->HasFailure();
-		}
-	public:
-		void SetPointer(TestInfo* p) { m_test_info = p; }
-	};
 public:
 	/**
 	 * @brief	コンストラクタ
@@ -132,6 +111,15 @@ public:
 		return m_test_result.Failed();
 	}
 
+	/**
+	 * @brief	成功したかどうか
+	 * @return	真偽値
+	*/
+	bool	Passed(void) const
+	{
+		return m_test_result.Passed();
+	}
+
 public:
 	/** テストのフル名を取得 */
 	::std::string	test_full_name(void)		const
@@ -187,6 +175,27 @@ private:
 	*/
 	bool	filter(void);
 
+private:
+	class Mediator : public detail::iuITestInfoMediator
+	{
+	public:
+		Mediator(TestInfo* p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : iuITestInfoMediator(p) {}
+	public:
+		virtual	bool	HasFatalFailure(void) const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+		{
+			return ptr()->HasFatalFailure();
+		}
+		virtual	bool	HasNonfatalFailure(void) const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+		{
+			return ptr()->HasNonfatalFailure();
+		}
+		virtual bool	HasFailure(void) const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+		{
+			return ptr()->HasFailure();
+		}
+	public:
+		void SetPointer(TestInfo* p) { m_test_info = p; }
+	};
 private:
 	friend class UnitTestImpl;
 	friend class UnitTest;

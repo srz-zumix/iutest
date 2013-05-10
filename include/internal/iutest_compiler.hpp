@@ -35,6 +35,7 @@
 #elif	defined(_WIN32) || defined(WIN32) || defined(__WIN32__)
 #  define IUTEST_OS_WINDOWS				1
 #  define IUTEST_PLATFORM				"Windows"
+#  define WIN32_LEAN_AND_MEAN
 #  include <windows.h>
 #  if	defined(_WIN32_WCE)
 #    define IUTEST_OS_WINDOWS_MOBILE	1

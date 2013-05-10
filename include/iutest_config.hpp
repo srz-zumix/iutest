@@ -385,6 +385,25 @@
  * @}
 */
 
+/**
+ * @defgroup	IUTEST_CONFIG_LISTENER	LISTENER
+ * @brief		その他の CONFIG
+ * @{
+*/
+
+#ifndef IUTEST_HAS_STREAM_RESULT
+//! stream result が使用可能かどうか
+#  if IUTEST_HAS_SOCKET_WRITER
+#    define IUTEST_HAS_STREAM_RESULT	1
+#  else
+#    define IUTEST_HAS_STREAM_RESULT	0
+#  endif
+#endif
+
+/**
+ * @}
+*/
+
 // Doxygen 用
 #ifdef IUTEST_BUILD_DOXYGEN
 

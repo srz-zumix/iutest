@@ -124,6 +124,12 @@ inline iu_ostream& operator << (iu_ostream& os, const iuMessage& msg)
 	return os << msg.message();
 }
 
+template<typename T>
+inline ::std::string StreamableToString(const T& value)
+{
+	return (iuMessage() << value).GetString();
+}
+
 /**
  * @brief	ファイル/ライン/メッセージクラス
 */

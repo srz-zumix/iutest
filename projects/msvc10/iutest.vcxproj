@@ -243,6 +243,7 @@
     <None Include="..\..\include\impl\iutest_regex.ipp" />
     <None Include="..\..\doc\Doxyfile" />
     <None Include="..\..\doc\index.html" />
+    <None Include="..\..\include\impl\iutest_stream_result.ipp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

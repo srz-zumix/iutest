@@ -29,6 +29,10 @@
 #  include <ws2tcpip.h>
 #endif
 
+#if defined(_MSC_VER)
+#  pragma comment(lib, "ws2_32.lib")
+#endif
+
 namespace iutest {
 namespace detail
 {
@@ -43,10 +47,10 @@ class SocketWriter : public IOutStream
 public:
 #ifdef IUTEST_OS_WINDOWS
 	typedef SOCKET descriptor_t;
-	const int INVALID_DESCRIPTOR = INVALID_SOCKET;
+	static const descriptor_t INVALID_DESCRIPTOR = INVALID_SOCKET;
 #else
 	typedef int descriptor_t;
-	const int INVALID_DESCRIPTOR = -1;
+	static const descriptor_t INVALID_DESCRIPTOR = -1;
 #endif
 public:
 	SocketWriter(void) : m_socket(INVALID_DESCRIPTOR) {}
@@ -55,7 +59,8 @@ public:
 	bool Open(const char* host, const char* port)
 	{
 		addrinfo* servinfo = NULL;
-		addrinfo hints = {0};
+		addrinfo hints;
+		memset(&hints, 0, sizeof(hints));
 		hints.ai_family = AF_UNSPEC;
 		hints.ai_socktype = SOCK_STREAM;
 		const int err_no = getaddrinfo(host, port, &hints, &servinfo);
@@ -93,19 +98,38 @@ public:
 	}
 
 public:
-	virtual void	Write(const void* buf, size_t size, size_t cnt)
+	bool IsValid(void) const
 	{
+		return m_socket != INVALID_DESCRIPTOR;
+	}
+	bool Send(const ::std::string& message)
+	{
+		return Write(message.c_str(), message.length(), 1u);
+	}
+	bool SendLn(const ::std::string& message)
+	{
+		return Send(message + "\n");
+	}
+public:
+	virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
+	{
+		if( !IsValid() ) return false;
 		for( size_t i=0; i < cnt; ++i )
 		{
 #ifdef IUTEST_OS_WINDOWS
-			send(m_socket, static_cast<const char*>(buf), size, 0);
+			if( send(m_socket, static_cast<const char*>(buf), size, 0) == SOCKET_ERROR )
+				return false;
 #else
-			write(m_socket, buf, size);
+			if( write(m_socket, buf, size) != size )
+				return false;
 #endif
 		}
+		return true;
 	}
 private:
 	descriptor_t m_socket;
+
+	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(SocketWriter);
 };
 
 }	// end of namespace detail
