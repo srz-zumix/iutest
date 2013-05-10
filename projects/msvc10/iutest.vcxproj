@@ -203,7 +203,7 @@
     <ClInclude Include="..\..\include\listener\iutest_default_printer.hpp" />
     <ClInclude Include="..\..\include\listener\iutest_default_xml_generator.hpp" />
     <ClInclude Include="..\..\include\listener\iutest_progress_printer.hpp" />
-    <ClInclude Include="..\..\include\listener\iutest_stream_result.hpp" />
+    <ClInclude Include="..\..\include\listener\iutest_streaming_listener.hpp" />
     <ClInclude Include="..\..\include\listener\iutest_tap_printer.hpp" />
     <ClInclude Include="..\..\include\gtest\iutest_assertion_only.hpp" />
     <ClInclude Include="..\..\include\gtest\iutest_gtest_ver.hpp" />
@@ -243,7 +243,7 @@
     <None Include="..\..\include\impl\iutest_regex.ipp" />
     <None Include="..\..\doc\Doxyfile" />
     <None Include="..\..\doc\index.html" />
-    <None Include="..\..\include\impl\iutest_stream_result.ipp" />
+    <None Include="..\..\include\impl\iutest_streaming_listener.ipp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

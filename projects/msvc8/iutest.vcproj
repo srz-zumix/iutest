@@ -526,7 +526,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\listener\iutest_stream_result.hpp"
+					RelativePath="..\..\include\listener\iutest_streaming_listener.hpp"
 					>
 				</File>
 				<File
@@ -698,7 +698,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\impl\iutest_stream_result.ipp"
+					RelativePath="..\..\include\impl\iutest_streaming_listener.ipp"
 					>
 				</File>
 			</Filter>
