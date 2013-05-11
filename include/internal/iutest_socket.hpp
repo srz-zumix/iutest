@@ -27,6 +27,9 @@
 #ifdef IUTEST_OS_WINDOWS
 #  include <winsock2.h>
 #  include <ws2tcpip.h>
+#else
+#  include <arpa/inet.h>
+#  include <netdb.h>
 #endif
 
 #if defined(_MSC_VER)
@@ -53,8 +56,20 @@ public:
 	static const descriptor_t INVALID_DESCRIPTOR = -1;
 #endif
 public:
-	SocketWriter(void) : m_socket(INVALID_DESCRIPTOR) {}
-	~SocketWriter(void) { Close(); }
+	SocketWriter(void) : m_socket(INVALID_DESCRIPTOR)
+	{
+#ifdef IUTEST_OS_WINDOWS
+		WSADATA wsaData;
+		WSAStartup(MAKEWORD(2, 2), &wsaData);
+#endif
+	}
+	~SocketWriter(void)
+	{
+		Close();
+#ifdef IUTEST_OS_WINDOWS
+		WSACleanup();
+#endif
+	}
 public:
 	bool Open(const char* host, const char* port)
 	{
@@ -93,7 +108,7 @@ public:
 #ifdef IUTEST_OS_WINDOWS
 		return closesocket(d);
 #else
-		return close(f);
+		return close(d);
 #endif
 	}
 
@@ -108,19 +123,24 @@ public:
 	}
 	bool SendLn(const ::std::string& message)
 	{
+#ifdef IUTEST_OS_WINDOWS
+		return Send(message + "\n\n");
+#else
 		return Send(message + "\n");
+#endif
 	}
 public:
 	virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
 	{
 		if( !IsValid() ) return false;
+		int size_ = static_cast<int>(size);
 		for( size_t i=0; i < cnt; ++i )
 		{
 #ifdef IUTEST_OS_WINDOWS
-			if( send(m_socket, static_cast<const char*>(buf), size, 0) == SOCKET_ERROR )
+			if( send(m_socket, static_cast<const char*>(buf), size_, 0) != size_ )
 				return false;
 #else
-			if( write(m_socket, buf, size) != size )
+			if( write(m_socket, buf, size_) != size_ )
 				return false;
 #endif
 		}

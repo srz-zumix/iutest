@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01059901u	//!< iutest version 1.5.99.1
+#define	IUTEST_VER			0x01059902u	//!< iutest version 1.5.99.2
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x05u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x01u		//!< Revision
+#define IUTEST_REVISION		0x02u		//!< Revision
 
 /**
  * @mainpage
@@ -83,6 +83,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    <tr><td>--iutest_catch_exceptions         </td><td>&lt;0|1&gt;</td><td>catch exceptions enable.</td></tr>
    <tr><td>--iutest_print_time               </td><td>&lt;0|1&gt;</td><td>Setting the display of elapsed time.</td></tr>
    <tr><td>--iutest_repeat                   </td><td>&lt;count&gt;</td><td>Set the number of repetitions of the test.</td></tr>
+   <tr><td>--iutest_stream_result_to         </td><td>&lt;host:port&gt;</td><td>Set stream test results server.</td></tr>
    <tr><td>--iutest_file_location            </td><td>&lt;auto|vs|gcc&gt;</td><td>Format file location messages.</td></tr>
    <tr><td>--feature                         </td><td></td><td>show iutest feature.</td></tr>
    <tr><td>--version, -v                     </td><td></td><td>show iutest version.</td></tr>
@@ -94,7 +95,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		•ÏX—š—ğ
  * @par		Changes
  <ul>
-  <li>v1.5.99.1
+  <li>v1.5.99.2
     <ul>
       <li>stream result ‘Î‰</li>
     </ul>

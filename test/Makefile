@@ -76,7 +76,9 @@ endif
 
 endif
 
+LIBS_ = $(LIBS:%=-l%)
 CXXFLAGS += $(DEFS)
+CXXFLAGS += $(LIBS_)
 
 
 TARGETS1= iutest_all_tests \
