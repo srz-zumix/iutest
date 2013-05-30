@@ -76,10 +76,9 @@ endif
 
 endif
 
-LIBS_ = $(LIBS:%=-l%)
 CXXFLAGS += $(DEFS)
-CXXFLAGS += $(LIBS_)
-
+LIBS_ = $(LIBS:%=-l%)
+LDFLAGS += $(LIBS_)
 
 TARGETS1= iutest_all_tests \
           iutest_assertion_return_tests \
@@ -170,12 +169,12 @@ else
 ifdef USE_LIB
 CXXFLAGS += -DIUTEST_USE_LIB=1 -L../lib
 $(TARGETS) : $(SRCS) $(IUTEST_HEADERS) Makefile
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp -liutest
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp -liutest $(LDFLAGS)
 
 else
 
 $(TARGETS) : $(SRCS) $(IUTEST_HEADERS) Makefile
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS)
 
 endif
 

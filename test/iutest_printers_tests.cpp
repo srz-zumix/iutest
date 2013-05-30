@@ -115,6 +115,14 @@ IUTEST(PrintToTest, Std)
 	IUTEST_SUCCEED() << ::iutest::PrintToString(v);
 }
 
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+IUTEST(PrintToTest, Iomanip)
+{
+	IUTEST_SUCCEED() << ::std::endl;
+	IUTEST_SUCCEED() << ::std::ends;
+}
+#endif
+
 IUTEST(PrintToTest, WideString)
 {
 	IUTEST_SUCCEED() << ::iutest::PrintToString(L"Test");

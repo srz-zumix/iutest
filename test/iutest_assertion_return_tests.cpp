@@ -25,13 +25,15 @@ static int value = 0;
 
 int ReturnTest(void)
 {
-	IUTEST_ASSERT_TRUE(false) << "message" << ::iutest::AssertionReturn<int>(-1);
+	IUTEST_ASSERT_TRUE(false) << "message" << ::iutest::AssertionReturnType<int>(-1);
+	IUTEST_ASSERT_TRUE(false) << "message" << ::iutest::AssertionReturn(-1);
 	return 0;
 }
 
 void ReturnTestCall(void)
 {
 	value = ReturnTest();
+	IUTEST_ASSERT_TRUE(true) << ::iutest::AssertionReturn();
 }
 
 IUTEST(ReturnTest, Test)

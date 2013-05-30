@@ -15,6 +15,11 @@ USER_DIR = ../../samples
 # Flags passed to the preprocessor.
 CPPFLAGS += -I$(IUTEST_DIR)/include
 
+# LD flags
+LIBS_ = $(LIBS:%=-l%)
+LDFLAGS += $(LIBS_)
+
+
 # Optimize
 #OPTIMIZE += -O2
 
@@ -69,8 +74,8 @@ TESTS = sample
 
 # lib
 LIBRARY_INSTALL_PATH=$(IUTEST_DIR)/lib
-LIBS_ = iutest.a iutest_main.a
-LIBS  = $(LIBS_:%=$(LIBRARY_INSTALL_PATH)/lib%)
+LIBRARYS_ = iutest.a iutest_main.a
+LIBRARYS  = $(LIBRARYS_:%=$(LIBRARY_INSTALL_PATH)/lib%)
 
 # All iutest headers.  Usually you shouldn't change this
 # definition.
@@ -88,10 +93,10 @@ IUTEST_SRCS    = $(IUTEST_DIR)/src/*.cpp \
 
 .PHONY: clean default all run
 
-all : $(LIBS) $(TESTS)
+all : $(LIBRARYS) $(TESTS)
 
 clean :
-	rm -f $(TESTS) $(LIBS) *.o
+	rm -f $(TESTS) $(LIBRARYS) *.o
 	
 run : $(TESTS)
 	./$(TESTS)
@@ -114,7 +119,7 @@ $(LIBRARY_INSTALL_PATH):
 		mkdir -p $@; \
 	fi
 
-$(LIBS) : $(LIBRARY_INSTALL_PATH) $(LIBS_)
+$(LIBRARYS) : $(LIBRARY_INSTALL_PATH) $(LIBRARYS_)
 
 # Builds a sample test.  
 
@@ -125,4 +130,4 @@ sub.o : $(USER_DIR)/sub.cpp $(IUTEST_HEADERS) Makefile
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/sub.cpp
 
 $(TESTS) : main.o sub.o
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)

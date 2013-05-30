@@ -98,14 +98,14 @@ int main(int argc, char* argv[])
 		::iutest::IUTEST_FLAG(list_tests) = true;
 		int ret = IUTEST_RUN_ALL_TESTS();
 
-#if !defined(IUTEST_USE_GTEST)
+#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_ASSERTION_RETURN
 		::iutest::detail::iuConsole::SetLogger(NULL);
 		IUTEST_ASSERT_STREQ(list_test_str, logger.c_str())
 			<< ::iutest::AssertionReturn<int>(1);
 #endif
 		if( ret != 0 ) return 1;
 	}
-#if !defined(IUTEST_USE_GTEST)
+#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_ASSERTION_RETURN
 	{
 		Logger logger;
 		::iutest::detail::iuConsole::SetLogger(&logger);

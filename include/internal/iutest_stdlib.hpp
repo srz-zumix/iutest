@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_stdlib.hpp
- * @brief		iris unit test stdlib ˆË‘¶‚Ì‹zŽû ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test stdlib
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -150,6 +150,10 @@ namespace iutest {
 #    endif
 #  else
 #  endif
+#elif	defined(__clang__)
+#  if __has_include( <chrono> )
+#    define IUTEST_HAS_CXX11_HDR_CHRONO		1
+#  endif
 #elif	defined(_MSC_VER)
 #  if _MSC_VER > 1600
 #    define IUTEST_HAS_CXX11_HDR_CHRONO		1
@@ -172,6 +176,10 @@ namespace iutest {
 #    endif
 #  else
 #  endif
+#elif	defined(__clang__)
+#  if __has_include( <random> )
+#    define IUTEST_HAS_CXX11_HDR_CHRONO		1
+#  endif
 #elif	defined(_MSC_VER)
 #  if _MSC_VER > 1600
 #    define IUTEST_HAS_CXX_HDR_RANDOM		1
@@ -187,7 +195,11 @@ namespace iutest {
 // abi
 #ifndef IUTEST_HAS_HDR_CXXABI
 
-#if defined(__GLIBCXX__) || defined(_LIBCPP_VERSION)
+#if defined(__clang__)
+#  if __has_include( <cxxabi.h> )
+#    define IUTEST_HAS_HDR_CXXABI		1
+#  endif
+#elif defined(__GLIBCXX__) || defined(_LIBCPP_VERSION)
 #  define IUTEST_HAS_HDR_CXXABI			1
 #else
 #  define IUTEST_HAS_HDR_CXXABI			0

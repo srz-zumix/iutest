@@ -25,15 +25,15 @@ namespace iutest {
 namespace detail
 {
 
-IUTEST_IPP_INLINE void iuMessage::append(const char* str)
+IUTEST_IPP_INLINE void iuStreamMessage::append(const char* str)
 {
 	if( str == NULL )
 	{
-		m_message += "(null)";
+		m_stream << "(null)";
 	}
 	else
 	{
-		m_message += str;
+		m_stream << str;
 	}
 }
 
@@ -64,6 +64,18 @@ IUTEST_IPP_INLINE ::std::string FormatCompilerIndependentFileLocation(const char
 	iuStringStream::type strm;
 	strm << file_name << ":" << line;
 	return strm.str();
+}
+
+IUTEST_IPP_INLINE void iuCodeMessage::add_message(const char* str)
+{
+	if( str == NULL )
+	{
+		m_message += "(null)";
+	}
+	else
+	{
+		m_message += str;
+	}
 }
 
 }	// end of namespace detail

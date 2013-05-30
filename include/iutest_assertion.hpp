@@ -33,7 +33,7 @@ namespace iutest
 {
 
 //! Message クラス
-typedef detail::iuMessage	Message;
+typedef detail::iuStreamMessage	Message;
 
 //======================================================================
 // class
@@ -103,17 +103,33 @@ private:
  * @brief	Assetion Return Type
 */
 template<typename R>
-struct AssertionReturn
+struct AssertionReturnType
 {
 	R value;	//!< 戻り値
 	//! コンストラクタ
-	AssertionReturn() {}
+	AssertionReturnType() {}
 	/**
 	 * @brief	コンストラクタ
 	 * @param [in]	v : 戻り値の値
 	*/
-	AssertionReturn(const R& v) : value(v) {}
+	AssertionReturnType(const R& v) : value(v) {}
 };
+template<>
+struct AssertionReturnType<void>
+{
+	//! コンストラクタ
+	AssertionReturnType() {}
+};
+
+/**
+ * @brief	Assetion Return 設定
+*/
+template<typename T>
+inline AssertionReturnType<T> AssertionReturn(const T& ret) { return AssertionReturnType<T>(ret); }
+
+/** @overload */
+inline AssertionReturnType<void> AssertionReturn(void) { return AssertionReturnType<void>(); }
+
 #endif
 
 /**
@@ -162,14 +178,23 @@ public:
 	class Fixed : public Message {
 	public:
 		template<typename T>
-		Fixed&		operator << (T value)
+		Fixed&		operator << (T val)
 		{
-			Message::operator << (value);
+			Message::operator << (val);
+			return *this;
+		}
+		Fixed&	operator << (iu_basic_iomanip val)
+		{
+			Message::operator << (val);
 			return *this;
 		}
 #if IUTEST_HAS_ASSERTION_RETURN
+		Fixed&		operator << (const AssertionReturnType<void>&)
+		{
+			return *this;
+		}
 		template<typename R>
-		ReturnTypedFixed<R> operator << (const AssertionReturn<R>& ret)
+		ReturnTypedFixed<R> operator << (const AssertionReturnType<R>& ret)
 		{
 			return ReturnTypedFixed<R>(*this, ret);
 		}
@@ -181,8 +206,8 @@ private:
 	template<typename R>
 	struct ReturnTypedFixed {
 		Fixed fixed;
-		AssertionReturn<R> ret;
-		ReturnTypedFixed(const Fixed& f, const AssertionReturn<R>& r) : fixed(f), ret(r) {}
+		AssertionReturnType<R> ret;
+		ReturnTypedFixed(const Fixed& f, const AssertionReturnType<R>& r) : fixed(f), ret(r) {}
 	};
 #endif
 

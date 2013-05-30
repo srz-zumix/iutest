@@ -42,74 +42,78 @@ namespace detail
 /**
  * @brief	メッセージクラス
 */
-class iuMessage
+class iuStreamMessage
 {
-	::std::string	m_message;	//!< メッセージ
+	detail::iuStringStream::type m_stream;
 public:
-	iuMessage(void) {}
-	explicit iuMessage(const char* message) : m_message(message) {}
-	iuMessage(const iuMessage& rhs) : m_message(rhs.m_message) {}
+	iuStreamMessage(void) {}
+	explicit iuStreamMessage(const char* message) : m_stream(message) {}
+	iuStreamMessage(const iuStreamMessage& rhs) : m_stream(rhs.GetString()) {}
 
-	const char*		message(void)	const	{ return m_message.c_str(); }	//!< メッセージの取得
+	const char*		message(void)	const	{ return m_stream.str().c_str(); }	//!< メッセージの取得
 
 public:
-	::std::string GetString(void)	const	{ return m_message; }
+	::std::string GetString(void)	const	{ return m_stream.str(); }
 public:
 	template<typename T>
-	iuMessage&	operator << (const T& value) 
+	iuStreamMessage&	operator << (const T& value) 
 	{
-		detail::iuStringStream::type strm;
-		strm << value;
-		m_message += strm.str();
+		m_stream << value;
 		return *this;
 	}
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 	template<typename T>
-	iuMessage&	operator << (T* const& value) 
+	iuStreamMessage&	operator << (T* const& value) 
 	{
 		if( value == NULL ) 
 		{
-			m_message += "(null)";
+			m_stream << "(null)";
 		}
 		else
 		{
-			detail::iuStringStream::type strm;
-			strm << value;
-			m_message += strm.str();
+			m_stream << value;
 		}
 		return *this;
 	}
 #endif
-	iuMessage&	operator << (bool b) 
+	iuStreamMessage&	operator << (bool b) 
 	{
-		m_message += b ? "true" : "false";
+		m_stream << (b ? "true" : "false");
 		return *this;
 	}
-	iuMessage&	operator << (char* str)
-	{
-		append(str);
-		return *this;
-	}
-	iuMessage&	operator << (const char* str)
+	iuStreamMessage&	operator << (char* str)
 	{
 		append(str);
 		return *this;
 	}
-	iuMessage&	operator << (wchar_t* str)
+	iuStreamMessage&	operator << (const char* str)
 	{
-		m_message += ShowWideCString(str);
+		append(str);
 		return *this;
 	}
-	iuMessage&	operator << (const wchar_t* str)
+	iuStreamMessage&	operator << (wchar_t* str)
 	{
-		m_message += ShowWideCString(str);
+		m_stream << ShowWideCString(str);
 		return *this;
 	}
-	iuMessage&	operator << (const iuMessage& message)
+	iuStreamMessage&	operator << (const wchar_t* str)
 	{
-		m_message += message.m_message;
+		m_stream << ShowWideCString(str);
 		return *this;
 	}
+	iuStreamMessage&	operator << (const iuStreamMessage& message)
+	{
+		m_stream << message.GetString();
+		return *this;
+	}
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+	iuStreamMessage&	operator << (iu_basic_iomanip val)
+	{
+		m_stream << val;
+		return *this;
+	}
+#endif
+
 public:
 	/**
 	 * @brief	メッセージの追記
@@ -117,9 +121,12 @@ public:
 	void	add_message(const char* str) { append(str); }
 private:
 	void	append(const char* str);
+
+private:
+	iuStreamMessage& operator = (const iuStreamMessage&);
 };
 
-inline iu_ostream& operator << (iu_ostream& os, const iuMessage& msg)
+inline iu_ostream& operator << (iu_ostream& os, const iuStreamMessage& msg)
 {
 	return os << msg.message();
 }
@@ -127,42 +134,48 @@ inline iu_ostream& operator << (iu_ostream& os, const iuMessage& msg)
 template<typename T>
 inline ::std::string StreamableToString(const T& value)
 {
-	return (iuMessage() << value).GetString();
+	return (iuStreamMessage() << value).GetString();
 }
 
 /**
  * @brief	ファイル/ライン/メッセージクラス
 */
-class iuCodeMessage : public iuMessage
+class iuCodeMessage
 {
-	const char*	m_file;		//!< ファイル名
-	int			m_line;		//!< ライン
+	::std::string	m_message;	//!< メッセージ
+	const char*		m_file;		//!< ファイル名
+	int				m_line;		//!< ライン
 public:
 	iuCodeMessage(const char* file, int line, const char* message)
-		: iuMessage(message)
+		: m_message(message)
 		, m_file(file ? file : kStrings::UnkownFile)
 		, m_line(line)
 	{}
-	iuCodeMessage(const char* file, int line, const iuMessage& message)
-		: iuMessage(message)
+	iuCodeMessage(const char* file, int line, const iuStreamMessage& message)
+		: m_message(message.GetString())
 		, m_file(file ? file : kStrings::UnkownFile)
 		, m_line(line)
 	{}
-	iuCodeMessage(const iuCodeMessage& rhs)
-		: iuMessage(rhs)
-		, m_file(rhs.m_file)
-		, m_line(rhs.m_line)
-	{}
+public:
+	const char*		message(void)	const { return m_message.c_str(); }		//!< メッセージの取得
+	const char*		file_name(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_file; }	//!< ファイル名の取得
+	int				line_number(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_line; }	//!< ライン番号の取得
+
+
 public:
 	template<typename T>
-	iuCodeMessage&		operator << (T value)
+	iuCodeMessage&	operator << (const T& value) 
 	{
-		iuMessage::operator << (value);
+		m_message += StreamableToString(value);
 		return *this;
 	}
+
 public:
-	const char*		file_name(void) const { return m_file; }				//!< ファイル名の取得
-	int				line_number(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_line; }	//!< ライン番号の取得
+	/**
+	 * @brief	メッセージの追記
+	*/
+	void	add_message(const char* str);
+
 public:
 	/** @private */
 	::std::string	make_message(void) const;
