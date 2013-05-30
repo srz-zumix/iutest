@@ -68,6 +68,10 @@ inline void	iuOptionMessage::ShowHelp(void)
 		"    --iutest_print_time=<0|1>        : Setting the display of elapsed time.\n"
 		"    --iutest_repeat=<count>          : Set the number of repetitions\n"
 		"                                       of the test.\n"
+#if IUTEST_HAS_STREAM_RESULT
+		"    --iutest_stream_result_to=<host:port>\n"
+		"                                     : Set stream test results server.\n"
+#endif
 		"    --iutest_file_location=<auto|vs|gcc>\n"
 		"                                     : Format file location messages.\n"
 		"    --feature                        : show iutest feature.\n"

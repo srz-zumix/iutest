@@ -198,26 +198,8 @@ class TestPartResultReporterInterface;
 class TestEnv
 {
 	typedef ::std::vector<Environment*>	iuEnvironmentList;
-private:
-	class OptionString
-	{
-	protected:
-		::std::string	m_option;
-	public:
-		bool operator == (const char* c_str_)		{ return m_option == c_str_; }
-		bool operator == (const ::std::string& str)	{ return m_option == str; }
-		bool operator != (const char* c_str_)		{ return m_option != c_str_; }
-		bool operator != (const ::std::string& str)	{ return m_option != str; }
-
-		operator ::std::string (void) const	{ return m_option; }
-	public:
-		bool empty(void) const			{ return m_option.empty(); }
-		const char* c_str(void) const	{ return m_option.c_str(); }
-		size_t	length(void) const		{ return m_option.length(); }
-	};
 
 public:
-
 	/**
 	 * @private
 	 * @{
@@ -266,64 +248,9 @@ public:
 		operator int (void) const { return get_repeat_count(); }
 	} repeat;
 
-	/**
-	 * @private
-	 * @brief	色付き出力オプション設定用オブジェクト
-	*/
-	typedef class ColorOptionSet : public OptionString
-	{
-	public:
-		ColorOptionSet(void)
-		{
-			if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_OFF) ) m_option = "no";
-			else if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ON) ) m_option = "yes";
-			else if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ANSI) ) m_option = "ansi";
-			else m_option = "auto";
-		}
-		const ColorOptionSet& operator = (const char* c_str_)
-		{
-			m_option = c_str_;
-			ParseOutputOption(c_str_);
-			return *this;
-		}
-		const ColorOptionSet& operator = (const ::std::string& str)
-		{
-			m_option = str;
-			ParseOutputOption(str.c_str());
-			return *this;
-		}
-	} color;
-
-	/**
-	 * @private
-	 * @brief	フィルターオプション設定用オブジェクト
-	*/
-	typedef class FilterOption : public OptionString
-	{
-	public:
-		FilterOption(void)
-		{
-			m_option = get_vars().m_test_filter;
-		}
-		const FilterOption& operator = (const char* c_str_)
-		{
-			m_option = c_str_;
-			set_test_filter(c_str_);
-			return *this;
-		}
-		const FilterOption& operator = (const ::std::string& str)
-		{
-			m_option = str;
-			set_test_filter(str.c_str());
-			return *this;
-		}
-	} filter;
-
 #if defined(IUTEST_NO_PRIVATE_IN_AGGREGATE)
-	friend class FilterOption;
 	friend class RandomSeedSet;
 	friend class RepeatCountSet;
-	friend class ColorOptionSet;
 #endif
 
 private:
@@ -340,6 +267,9 @@ private:
 		int					m_repeat_count;
 		::std::string		m_report_file;
 		::std::string		m_test_filter;
+#if IUTEST_HAS_STREAM_RESULT
+		::std::string		m_stream_result_to;
+#endif
 		detail::iuRandom	m_genrand;
 		iuEnvironmentList	m_environment_list;
 		TestEventListeners	m_event_listeners;
@@ -356,6 +286,9 @@ public:
 	static int					get_repeat_count(void)		{ return get_vars().m_repeat_count; }			//!< 繰り返し回数
 	static const char*			get_report_filepath(void)	{ return get_vars().m_report_file.c_str(); }	//!< 出力xmlパス
 	static const char*			test_filter(void)			{ return get_vars().m_test_filter.c_str(); }	//!< フィルター文字列
+#if IUTEST_HAS_STREAM_RESULT
+	static const char*			get_stream_result_to(void)	{ return get_vars().m_stream_result_to.c_str(); }
+#endif
 
 	/** @private */
 	static TestEventListeners&	event_listeners(void)	{ return get_vars().m_event_listeners; }
@@ -363,6 +296,117 @@ public:
 	static TestPartResultReporterInterface* GetGlobalTestPartResultReporter(void)		{ return get_vars().m_testpartresult_reporter; }
 	/** @private */
 	static void SetGlobalTestPartResultReporter(TestPartResultReporterInterface* ptr)	{ get_vars().m_testpartresult_reporter = ptr; }
+
+private:
+	/**
+	 * @brief	乱数シードの設定
+	*/
+	static void	init_random(unsigned int seed)
+	{
+		get_vars().m_random_seed = seed;
+	}
+
+	/**
+	 * @brief	繰り返し回数の設定
+	*/
+	static void	set_repeat_count(int count)
+	{
+		get_vars().m_repeat_count = count;
+	}
+
+	/**
+	 * @brief	フィルター文字列の設定
+	*/
+	static void	set_test_filter(const char* str)
+	{
+		get_vars().m_test_filter = str;
+		TestFlag::SetFlag(TestFlag::FILTERING_TESTS);
+	}
+#if IUTEST_HAS_STREAM_RESULT
+	/**
+	 * @brief	stream result の設定
+	*/
+	static void	set_stream_result_to(const char* str)
+	{
+		get_vars().m_stream_result_to = str;
+	}
+#endif
+
+	/**
+	 * @brief	color オプション文字列を取得
+	*/
+	static const char* get_color_option(void)
+	{
+		if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_OFF) ) return "no";
+		else if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ON) ) return "yes";
+		else if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ANSI) ) return "ansi";
+		return "auto";
+	}
+	/**
+	 * @brief	color オプションを設定
+	*/
+	static void set_color_option(const char* str)
+	{
+		ParseColorOption(str);
+	}
+
+private:
+	typedef const char* (*pfnOptionStringGet)();
+	typedef void (*pfnOptionStringSet)(const char*);
+	template<pfnOptionStringGet G, pfnOptionStringSet S>
+	class OptionString
+	{
+	protected:
+		::std::string	m_option;
+	public:
+		bool operator == (const char* c_str_)		{ return m_option == c_str_; }
+		bool operator == (const ::std::string& str)	{ return m_option == str; }
+		bool operator != (const char* c_str_)		{ return m_option != c_str_; }
+		bool operator != (const ::std::string& str)	{ return m_option != str; }
+
+		operator ::std::string (void) const	{ return m_option; }
+	public:
+		bool empty(void) const			{ return m_option.empty(); }
+		const char* c_str(void) const	{ return m_option.c_str(); }
+		size_t	length(void) const		{ return m_option.length(); }
+	public:
+		OptionString(void)
+			: m_option(G())
+		{
+		}
+		const OptionString& operator = (const char* c_str_)
+		{
+			m_option = c_str_;
+			S(c_str_);
+			return *this;
+		}
+		const OptionString& operator = (const ::std::string& str)
+		{
+			m_option = str;
+			S(str.c_str());
+			return *this;
+		}
+	};
+public:
+	/**
+	 * @private
+	 * @brief	色付き出力オプション設定用オブジェクト
+	*/
+	typedef OptionString<get_color_option, set_color_option> color;
+
+	/**
+	 * @private
+	 * @brief	フィルターオプション設定用オブジェクト
+	*/
+	typedef OptionString<test_filter, set_test_filter> filter;
+
+#if IUTEST_HAS_STREAM_RESULT
+	/**
+	 * @private
+	 * @brief	stream resultオプション設定用オブジェクト
+	*/
+	typedef OptionString<get_stream_result_to, set_stream_result_to> stream_result_to;
+#endif
 
 private:
 	static iuEnvironmentList&	environments(void)		{ return get_vars().m_environment_list; }
@@ -467,32 +511,6 @@ private:
 	 * @brief	セットアップ
 	*/
 	static void	SetUp(void);
-
-private:
-	/**
-	 * @brief	乱数シードの設定
-	*/
-	static void	init_random(unsigned int seed)
-	{
-		get_vars().m_random_seed = seed;
-	}
-
-	/**
-	 * @brief	繰り返し回数の設定
-	*/
-	static void	set_repeat_count(int count)
-	{
-		get_vars().m_repeat_count = count;
-	}
-
-	/**
-	 * @brief	フィルター文字列の設定
-	*/
-	static void	set_test_filter(const char* str)
-	{
-		get_vars().m_test_filter = str;
-		TestFlag::SetFlag(TestFlag::FILTERING_TESTS);
-	}
 
 private:
 	/**

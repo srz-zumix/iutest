@@ -137,6 +137,16 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 						set_test_filter(opt);
 					}
 				}
+#if IUTEST_HAS_STREAM_RESULT
+				else if( strstr(str, "stream_result_to") == str )
+				{
+					const char* opt = ParseOptionSettingStr(str);
+					if( opt != NULL )
+					{
+						set_stream_result_to(opt);
+					}
+				}
+#endif
 				else if( strstr(str, "file_location") == str )
 				{
 					const char* opt = ParseOptionSettingStr(str);
@@ -253,17 +263,24 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnviromentVariable(void)
 		}
 	}
 	{
-		char path[260+32] = {0};
-		if( detail::GetEnvironmentVariable("IUTEST_OUTPUT", path, sizeof(path))
-		||  detail::GetEnvironmentVariable("GTEST_OUTPUT", path, sizeof(path)) )
+		char str[260+32] = {0};
+		if( detail::GetEnvironmentVariable("IUTEST_OUTPUT", str, sizeof(str))
+		||  detail::GetEnvironmentVariable("GTEST_OUTPUT", str, sizeof(str)) )
 		{
-			ParseOutputOption(path);
+			ParseOutputOption(str);
 		}
-		if( detail::GetEnvironmentVariable("IUTEST_FILTER", path, sizeof(path))
-		||  detail::GetEnvironmentVariable("GTEST_FILTER", path, sizeof(path)) )
+		if( detail::GetEnvironmentVariable("IUTEST_FILTER", str, sizeof(str))
+		||  detail::GetEnvironmentVariable("GTEST_FILTER", str, sizeof(str)) )
 		{
-			set_test_filter(path);
+			set_test_filter(str);
 		}
+#if IUTEST_HAS_STREAM_RESULT
+		if( detail::GetEnvironmentVariable("IUTEST_STREAM_RESULT_TO", str, sizeof(str))
+		||  detail::GetEnvironmentVariable("GTEST_STREAM_RESULT_TO", str, sizeof(str)) )
+		{
+			set_stream_result_to(str);
+		}
+#endif
 	}
 }
 

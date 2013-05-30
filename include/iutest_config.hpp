@@ -361,7 +361,11 @@
 
 #ifndef IUTEST_HAS_SOCKET_WRITER
 //!< ソケット送信可能かどうか
-# define IUTEST_HAS_SOCKET_WRITER	1
+#  if defined(IUTEST_OS_WINDOWS) || defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_LINUX)
+#    define IUTEST_HAS_SOCKET_WRITER	1
+#  else
+#    define IUTEST_HAS_SOCKET_WRITER	0
+#  endif
 #endif
 
 #ifndef IUTEST_HAS_STRINGSTREAM

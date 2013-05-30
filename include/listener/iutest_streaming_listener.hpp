@@ -62,6 +62,25 @@ private:
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(StreamResultListener);
 };
 
+//======================================================================
+// function
+/**
+ * @brief	stream reuslt listener のセットアップ
+*/
+inline void ConfigurationStreamResultTo(void)
+{
+	::std::string addr = TestEnv::get_stream_result_to();
+	if( !addr.empty() )
+	{
+		const size_t pos = addr.find(':');
+		if( pos != ::std::string::npos )
+		{
+			UnitTest::GetInstance()->listeners().Append(
+				new StreamResultListener(addr.substr(0, pos).c_str(), addr.substr(pos+1).c_str()));
+		}
+	}
+}
+
 }	// end of namespace iutest
 
 #if !IUTEST_HAS_LIB

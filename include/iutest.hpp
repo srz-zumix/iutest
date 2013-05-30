@@ -31,6 +31,7 @@
 #include "iutest_ignore.hpp"
 #include "listener/iutest_default_printer.hpp"
 #include "listener/iutest_default_xml_generator.hpp"
+#include "listener/iutest_streaming_listener.hpp"
 
 namespace iutest
 {
@@ -994,6 +995,10 @@ public:
 			listener->SetFilePath(TestEnv::get_report_filepath());
 			TestEnv::event_listeners().set_default_xml_generator(listener);
 		}
+
+#if IUTEST_HAS_STREAM_RESULT
+		ConfigurationStreamResultTo();
+#endif
 
 		UnitTest::instance().Initialize();
 	}

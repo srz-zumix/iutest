@@ -43,9 +43,9 @@ namespace detail
 //======================================================================
 // class
 /*
- * @brief	ソケット書き込みクラス
+ * @brief	ソケットベースクラス
 */
-class SocketWriter : public IOutStream
+class BasicSocket
 {
 public:
 #ifdef IUTEST_OS_WINDOWS
@@ -56,14 +56,14 @@ public:
 	static const descriptor_t INVALID_DESCRIPTOR = -1;
 #endif
 public:
-	SocketWriter(void) : m_socket(INVALID_DESCRIPTOR)
+	BasicSocket(void) : m_socket(INVALID_DESCRIPTOR)
 	{
 #ifdef IUTEST_OS_WINDOWS
 		WSADATA wsaData;
-		WSAStartup(MAKEWORD(2, 2), &wsaData);
+		(void)WSAStartup(MAKEWORD(2, 2), &wsaData);
 #endif
 	}
-	~SocketWriter(void)
+	~BasicSocket(void)
 	{
 		Close();
 #ifdef IUTEST_OS_WINDOWS
@@ -73,6 +73,7 @@ public:
 public:
 	bool Open(const char* host, const char* port)
 	{
+		if( m_socket != INVALID_DESCRIPTOR ) return true;
 		addrinfo* servinfo = NULL;
 		addrinfo hints;
 		memset(&hints, 0, sizeof(hints));
@@ -102,6 +103,13 @@ public:
 		Close(m_socket);
 		m_socket = INVALID_DESCRIPTOR;
 	};
+	void CheckLastError(void)
+	{
+#ifdef IUTEST_OS_WINDOWS
+		const int le = WSAGetLastError();
+		IUTEST_LOG_(WARNING) << "WSAGetLastError:" << le;
+#endif
+	}
 public:
 	static int Close(descriptor_t d)
 	{
@@ -117,6 +125,21 @@ public:
 	{
 		return m_socket != INVALID_DESCRIPTOR;
 	}
+protected:
+	descriptor_t m_socket;
+
+	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(BasicSocket);
+};
+
+/*
+ * @brief	ソケット書き込みクラス
+*/
+class SocketWriter : virtual public BasicSocket
+	, public IOutStream
+{
+public:
+	SocketWriter(void) {}
+public:
 	bool Send(const ::std::string& message)
 	{
 		return Write(message.c_str(), message.length(), 1u);
@@ -124,7 +147,7 @@ public:
 	bool SendLn(const ::std::string& message)
 	{
 #ifdef IUTEST_OS_WINDOWS
-		return Send(message + "\n\n");
+		return Send(message + "\r\n");
 #else
 		return Send(message + "\n");
 #endif
@@ -137,19 +160,57 @@ public:
 		for( size_t i=0; i < cnt; ++i )
 		{
 #ifdef IUTEST_OS_WINDOWS
-			if( send(m_socket, static_cast<const char*>(buf), size_, 0) != size_ )
+			if( send(m_socket, static_cast<const char*>(buf), size_, 0) == SOCKET_ERROR )
+			{
+				CheckLastError();
 				return false;
+			}
 #else
-			if( write(m_socket, buf, size_) != size_ )
+			if( write(m_socket, buf, size_) == -1 )
 				return false;
 #endif
 		}
 		return true;
 	}
 private:
-	descriptor_t m_socket;
-
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(SocketWriter);
+};
+
+/*
+ * @brief	ソケット読み込みクラス
+*/
+class SocketReader : virtual public BasicSocket
+{
+public:
+	SocketReader(void) {}
+public:
+	bool Read(void* buf, size_t size)
+	{
+		if( !IsValid() ) return false;
+		int size_ = static_cast<int>(size);
+#ifdef IUTEST_OS_WINDOWS
+		if( recv(m_socket, static_cast<char*>(buf), size_, 0) == SOCKET_ERROR )
+		{
+			CheckLastError();
+			return false;
+		}
+#else
+		if( read(m_socket, buf, size_) == -1 )
+			return false;
+#endif
+		return true;
+	}
+private:
+	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(SocketReader);
+};
+
+/*
+ * @brief	ソケット読み込みクラス
+*/
+class Socket : public SocketWriter, public SocketReader
+{
+public:
+	Socket(void) {}
 };
 
 }	// end of namespace detail
