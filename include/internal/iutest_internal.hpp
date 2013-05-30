@@ -370,7 +370,7 @@
 #define IUTEST_TEST_NO_FAILURE_(statement, on_failure)				\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
 	if( ::iutest::detail::AlwaysTrue() ) {									\
-		::iutest::detail::NewTestPartResultCheckHelper::Reporter<			\
+		::iutest::detail::NewTestPartResultCheckHelper::Counter<			\
 			::iutest::detail::NewTestPartResultCheckHelper::CondNe<			\
 			::iutest::TestPartResult::kSuccess> >	iutest_failure_checker;	\
 		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING( { (void)0; statement; } )	\
@@ -384,7 +384,7 @@
 #define IUTEST_TEST_NO_FATAL_FAILURE_(statement, on_failure)				\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
 	if( ::iutest::detail::AlwaysTrue() ) {									\
-		::iutest::detail::NewTestPartResultCheckHelper::Reporter<			\
+		::iutest::detail::NewTestPartResultCheckHelper::Counter<			\
 			::iutest::detail::NewTestPartResultCheckHelper::CondEq<			\
 			::iutest::TestPartResult::kFatalFailure> >	iutest_failure_checker;	\
 		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING( { (void)0; statement; } )	\

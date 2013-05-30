@@ -118,13 +118,15 @@ IUTEST(Test, Stream)
 *//*--------------------------------------------------*/
 int ReturnTest(void)
 {
-	IUTEST_ASSERT_TRUE(true) << ::iutest::AssertionReturn<int>(-1);
+	IUTEST_ASSERT_TRUE(true) << ::iutest::AssertionReturn(-1);
 	return 0;
 }
 
 IUTEST(ReturnTest, Test)
 {
 	ReturnTest();
+	IUTEST_ASSERT_TRUE(true);
+	IUTEST_ASSERT_TRUE(true) << ::iutest::AssertionReturn();
 }
 
 #endif

@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -65,20 +65,31 @@ public:
 		}
 	};
 public:
-	template<typename COND, typename REPORTER=DefaultGlobalTestPartResultReporter>
+	template<typename REPORTER>
 	class Reporter : public REPORTER
 	{
-		typedef REPORTER	_Mybase;
 	public:
 		Reporter(void)
 			: m_origin(TestEnv::GetGlobalTestPartResultReporter())
-			, m_count(0)
 		{
 			TestEnv::SetGlobalTestPartResultReporter(this);
 		}
 		virtual ~Reporter(void) 
 		{
 			TestEnv::SetGlobalTestPartResultReporter(m_origin);
+		}
+	private:
+		TestPartResultReporterInterface*	m_origin;
+	};
+
+public:
+	template<typename COND, typename REPORTER=DefaultGlobalTestPartResultReporter>
+	class Counter : public Reporter<REPORTER>
+	{
+		typedef REPORTER	_Mybase;
+	public:
+		Counter(void) : m_count(0)
+		{
 		}
 		virtual void ReportTestPartResult(const TestPartResult& result)
 		{
@@ -91,11 +102,28 @@ public:
 	public:
 		int	count(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_count; }
 	private:
-		TestPartResultReporterInterface*	m_origin;
 		COND m_cond;
 		int m_count;
 
-		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(Reporter);
+		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(Counter);
+	};
+	template<typename REPORTER=DefaultGlobalTestPartResultReporter>
+	class Collector : public Reporter<REPORTER>
+	{
+		typedef REPORTER	_Mybase;
+		typedef ::std::vector<TestPartResult>	TestPartResults;
+	public:
+		virtual void ReportTestPartResult(const TestPartResult& result)
+		{
+			m_results.push_back(result);
+			_Mybase::ReportTestPartResult(result);
+		}
+	public:
+		size_t	count(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_results.size(); }
+		const TestPartResult&	GetTestPartResult(int index) const	{ return m_results[index]; }
+
+	private:
+		TestPartResults m_results;
 	};
 };
 
@@ -104,13 +132,15 @@ public:
 
 namespace iutest_report_result
 {
-	/**
-	 * @brief	TestPartResult リポーター
-	*/
-	inline void ReportTestPartResult(const ::iutest::TestPartResult& test_part_result)
-	{
-		::iutest::detail::iuConsole::output(test_part_result.make_newline_message().c_str());
-	}
+
+/**
+	* @brief	TestPartResult リポーター
+*/
+inline void ReportTestPartResult(const ::iutest::TestPartResult& test_part_result)
+{
+	::iutest::detail::iuConsole::output(test_part_result.make_newline_message().c_str());
+}
+
 }
 
 
