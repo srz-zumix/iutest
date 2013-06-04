@@ -59,7 +59,7 @@ public:
 	/**
 	 * @brief	メッセージの取得
 	*/
-	const char*		message(void)	const	{ return m_message.message(); }
+	const char* message(void)	const	{ return m_message.c_str(); }
 
 	/**
 	 * @brief	メッセージの取得
@@ -75,9 +75,11 @@ public:
 	 * @brief	メッセージ追加
 	*/
 	template<typename T>
-	AssertionResult&		operator << (T value)
+	AssertionResult& operator << (T value)
 	{
-		m_message << (value);
+		Message msg;
+		msg << value;
+		m_message += msg.GetString();
 		return *this;
 	}
 
@@ -94,7 +96,7 @@ public:
 private:
 	IUTEST_PP_DISALLOW_ASSIGN(AssertionResult);
 
-	Message m_message;
+	::std::string m_message;
 	bool	m_result;
 };
 
@@ -183,11 +185,14 @@ public:
 			Message::operator << (val);
 			return *this;
 		}
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
 		Fixed&	operator << (iu_basic_iomanip val)
 		{
 			Message::operator << (val);
 			return *this;
 		}
+#endif
+
 #if IUTEST_HAS_ASSERTION_RETURN
 		Fixed&		operator << (const AssertionReturnType<void>&)
 		{
@@ -267,7 +272,7 @@ private:
 	{
 		// OnFixed で throw しないこと！テスト側の例外キャッチにかからなくなる
 
-		m_part_result.add_message(fixed.message());
+		m_part_result.add_message(fixed.GetString());
 		if( MessageList::s_scoped_message.count() )
 		{
 			m_part_result.add_message("\niutest trace:");

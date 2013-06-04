@@ -114,15 +114,20 @@ TARGETS2= \
 TARGETS3 = \
           iutest_env_var_tests \
           iutest_env_var_gtest_tests \
+
+BUILD_ONLY = iutest_break_on_failure_tests \
+
           
 ifdef USE_GTEST
-TARGETS = $(TARGETS1) $(TARGETS2)
+RUN_TARGETS = $(TARGETS1) $(TARGETS2)
 else
-TARGETS = $(TARGETS1) $(TARGETS2) $(TARGETS3)
+RUN_TARGETS = $(TARGETS1) $(TARGETS2) $(TARGETS3)
 endif
+BUILD_TARGETS = $(RUN_TARGETS) $(BUILD_ONLY)
+TARGETS = $(BUILD_TARGETS)
 
-SRCS   = $(TARGETS:%=%.cpp)
-RUNNER = $(TARGETS:%=run_%)
+SRCS   = $(BUILD_TARGETS:%=%.cpp)
+RUNNER = $(RUN_TARGETS:%=run_%)
 
 
 # All iutest headers.  Usually you shouldn't change this
@@ -157,12 +162,13 @@ run_% : %
 ifdef USE_GTEST
 
 GTEST_ROOT_=$(subst \,/,$(GTEST_ROOT))
+CXXFLAGS += -DIUTEST_USE_GTEST -DIUTEST_HAS_SOCKET=0
 
 $(TARGETS1) : $(SRCS) $(IUTEST_HEADERS) Makefile
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp -I$(GTEST_ROOT_)/include -DIUTEST_USE_GTEST $(GTEST_ROOT_)/make/gtest-all.o
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp -I$(GTEST_ROOT_)/include $(GTEST_ROOT_)/make/gtest-all.o
 
 $(TARGETS2) : $(SRCS) $(IUTEST_HEADERS) Makefile
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp -I$(GTEST_ROOT_)/include -DIUTEST_USE_GTEST
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp -I$(GTEST_ROOT_)/include
 
 else
 

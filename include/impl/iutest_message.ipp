@@ -66,16 +66,9 @@ IUTEST_IPP_INLINE ::std::string FormatCompilerIndependentFileLocation(const char
 	return strm.str();
 }
 
-IUTEST_IPP_INLINE void iuCodeMessage::add_message(const char* str)
+IUTEST_IPP_INLINE void iuCodeMessage::add_message(const ::std::string& str)
 {
-	if( str == NULL )
-	{
-		m_message += "(null)";
-	}
-	else
-	{
-		m_message += str;
-	}
+	m_message += str;
 }
 
 }	// end of namespace detail

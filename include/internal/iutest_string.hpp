@@ -188,7 +188,21 @@ IUTEST_PRAGMA_MSC_WARN_DISABLE(4250)
 		stlstream(void)
 			: ::std::strstream(buf, sizeof(buf)-2, ::std::ios::out)
 		{}
+		stlstream(const char* str)
+			: ::std::strstream(buf, sizeof(buf)-2, ::std::ios::out)
+		{
+			*this << str;
+		}
+		stlstream(const ::std::string& str)
+			: ::std::strstream(buf, sizeof(buf)-2, ::std::ios::out)
+		{
+			*this << str;
+		}
 	public:
+		::std::string str(void) const
+		{
+			return const_cast<stlstream*>(this)->str();
+		}
 		virtual ::std::string str(void)
 		{
 			*this << ::std::ends;
@@ -282,6 +296,8 @@ class iu_basic_stream
 	};
 public:
 	iu_basic_stream(void) {}
+	explicit iu_basic_stream(const char* str) : s(str) {}
+	explicit iu_basic_stream(const ::std::string& str) : s(str) {}
 public:
 
 	inline _Myt& operator<< (char v)

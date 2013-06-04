@@ -1,14 +1,14 @@
 //======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_filter_tests.cpp
+ * @file		iutest_output_xml_tests.cpp
  * @brief		filter ‘Î‰žƒeƒXƒg
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -19,7 +19,7 @@
 // include
 #include "../include/iutest.hpp"
 
-#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_STRINGSTREAM
+#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_STRINGSTREAM && DIUTEST_HAS_ASSERTION_RETURN
 #  define OUTPUT_XML_TEST	1
 #else
 #  define OUTPUT_XML_TEST	0

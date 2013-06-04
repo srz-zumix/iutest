@@ -270,7 +270,7 @@
 
 #ifndef IUTEST_HAS_TESTNAME_ALIAS
 //! テスト名の別名指定記法が使用できるかどうか
-#  if !defined(IUTEST_NO_VARIADIC_MACROS) || defined(_MSC_VER)
+#  if !defined(IUTEST_NO_VARIADIC_MACROS)
 #    define IUTEST_HAS_TESTNAME_ALIAS		1
 #  else
 #    define IUTEST_HAS_TESTNAME_ALIAS		0
@@ -359,12 +359,16 @@
 #  endif
 #endif
 
-#ifndef IUTEST_HAS_SOCKET_WRITER
-//!< ソケット送信可能かどうか
-#  if defined(IUTEST_OS_WINDOWS) || defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_LINUX)
-#    define IUTEST_HAS_SOCKET_WRITER	1
+#ifndef IUTEST_HAS_SOCKET
+//!< ソケット通信可能かどうか
+#  if defined(IUTEST_OS_WINDOWS)
+#    if !defined(_MSC_VER) || _MSC_VER >= 1310
+#      define IUTEST_HAS_SOCKET	1
+#    endif
+#  elif defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_LINUX)
+#    define IUTEST_HAS_SOCKET	1
 #  else
-#    define IUTEST_HAS_SOCKET_WRITER	0
+#    define IUTEST_HAS_SOCKET	0
 #  endif
 #endif
 
@@ -397,7 +401,7 @@
 
 #ifndef IUTEST_HAS_STREAM_RESULT
 //! stream result が使用可能かどうか
-#  if IUTEST_HAS_SOCKET_WRITER
+#  if IUTEST_HAS_SOCKET
 #    define IUTEST_HAS_STREAM_RESULT	1
 #  else
 #    define IUTEST_HAS_STREAM_RESULT	0

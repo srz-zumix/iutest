@@ -126,7 +126,7 @@ private:
 };
 
 //! TestPartResult print o—Í
-inline ::std::ostream& operator << (::std::ostream& os, const TestPartResult& result)
+inline iu_ostream& operator << (iu_ostream& os, const TestPartResult& result)
 {
 	return os << result.make_message();
 }

@@ -44,13 +44,10 @@ namespace detail
 */
 class iuStreamMessage
 {
-	detail::iuStringStream::type m_stream;
 public:
 	iuStreamMessage(void) {}
 	explicit iuStreamMessage(const char* message) : m_stream(message) {}
 	iuStreamMessage(const iuStreamMessage& rhs) : m_stream(rhs.GetString()) {}
-
-	const char*		message(void)	const	{ return m_stream.str().c_str(); }	//!< メッセージの取得
 
 public:
 	::std::string GetString(void)	const	{ return m_stream.str(); }
@@ -124,11 +121,14 @@ private:
 
 private:
 	iuStreamMessage& operator = (const iuStreamMessage&);
+
+private:
+	detail::iuStringStream::type m_stream;
 };
 
 inline iu_ostream& operator << (iu_ostream& os, const iuStreamMessage& msg)
 {
-	return os << msg.message();
+	return os << msg.GetString();
 }
 
 template<typename T>
@@ -174,7 +174,7 @@ public:
 	/**
 	 * @brief	メッセージの追記
 	*/
-	void	add_message(const char* str);
+	void	add_message(const ::std::string& str);
 
 public:
 	/** @private */

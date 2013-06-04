@@ -143,16 +143,18 @@ namespace iutest {
 // chrono
 #ifndef IUTEST_HAS_CXX11_HDR_CHRONO
 
-#if		defined(__GLIBCXX__)
+#if		defined(__has_include)
+#  if __has_include( <chrono> )
+#    if IUTEST_HAS_CXX11
+#      define IUTEST_HAS_CXX11_HDR_CHRONO	1
+#    endif
+#  endif
+#elif	defined(__GLIBCXX__)
 #  if defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_CXX11_HDR_CHRONO	1
 #    endif
 #  else
-#  endif
-#elif	defined(__clang__)
-#  if __has_include( <chrono> )
-#    define IUTEST_HAS_CXX11_HDR_CHRONO		1
 #  endif
 #elif	defined(_MSC_VER)
 #  if _MSC_VER > 1600
@@ -169,16 +171,18 @@ namespace iutest {
 // random
 #ifndef IUTEST_HAS_CXX_HDR_RANDOM
 
-#if		defined(__GLIBCXX__)
+#if		defined(__has_include)
+#  if __has_include( <random> )
+#    if IUTEST_HAS_CXX11
+#      define IUTEST_HAS_CXX_HDR_RANDOM		1
+#    endif
+#  endif
+#elif	defined(__GLIBCXX__)
 #  if defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_CXX_HDR_RANDOM		1
 #    endif
 #  else
-#  endif
-#elif	defined(__clang__)
-#  if __has_include( <random> )
-#    define IUTEST_HAS_CXX11_HDR_CHRONO		1
 #  endif
 #elif	defined(_MSC_VER)
 #  if _MSC_VER > 1600
@@ -195,11 +199,11 @@ namespace iutest {
 // abi
 #ifndef IUTEST_HAS_HDR_CXXABI
 
-#if defined(__clang__)
+#if		defined(__has_include)
 #  if __has_include( <cxxabi.h> )
 #    define IUTEST_HAS_HDR_CXXABI		1
 #  endif
-#elif defined(__GLIBCXX__) || defined(_LIBCPP_VERSION)
+#elif	defined(__GLIBCXX__) || defined(_LIBCPP_VERSION)
 #  define IUTEST_HAS_HDR_CXXABI			1
 #else
 #  define IUTEST_HAS_HDR_CXXABI			0

@@ -22,7 +22,7 @@
 #include "iutest_internal_defs.hpp"
 #include "iutest_stream.hpp"
 
-#ifdef IUTEST_HAS_SOCKET_WRITER
+#ifdef IUTEST_HAS_SOCKET
 
 #ifdef IUTEST_OS_WINDOWS
 #  include <winsock2.h>
@@ -50,10 +50,22 @@ class BasicSocket
 public:
 #ifdef IUTEST_OS_WINDOWS
 	typedef SOCKET descriptor_t;
+
+#if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
 	static const descriptor_t INVALID_DESCRIPTOR = INVALID_SOCKET;
 #else
+	enum { INVALID_DESCRIPTOR = INVALID_SOCKET };
+#endif
+
+#else
 	typedef int descriptor_t;
+
+#if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
 	static const descriptor_t INVALID_DESCRIPTOR = -1;
+#else
+	enum { INVALID_DESCRIPTOR = -1 };
+#endif
+
 #endif
 public:
 	BasicSocket(void) : m_socket(INVALID_DESCRIPTOR)

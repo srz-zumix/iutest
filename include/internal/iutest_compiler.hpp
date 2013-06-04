@@ -79,6 +79,14 @@
 #endif
 
 // c++11
+#if (defined(__cplusplus) && __cplusplus >= 201103L) || defined(__GXX_EXPERIMENTAL_CXX0X__)
+#  define IUTEST_HAS_CXX11		1
+#endif
+
+#ifndef IUTEST_HAS_CXX11
+#  define IUTEST_HAS_CXX11		0
+#endif
+
 // nullptr
 #if !defined(IUTEST_HAS_NULLPTR)
 #  if	defined(__clang__)
