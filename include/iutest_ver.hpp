@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01059908u	//!< iutest version 1.5.99.8
+#define	IUTEST_VER			0x01059909u	//!< iutest version 1.5.99.9
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x05u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x08u		//!< Revision
+#define IUTEST_REVISION		0x09u		//!< Revision
 
 /**
  * @mainpage
@@ -95,9 +95,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.5.99.8
+  <li>v1.5.99.9
     <ul>
       <li>stream result 対応</li>
+      <li>gtest モードで AssertionReturn が使えるように対応</li>
       <li>AssertionReturn の仕様変更</li>
       <li>spi で TestPartResult 数をチェックするように変更</li>
       <li>spi で substr でメッセージをチェックするように変更</li>

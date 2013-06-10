@@ -61,6 +61,7 @@
           <li><a href="#ext_assertion">アサーション</a>
             <ul>
               <li><a href="#ext_assert_ex">アサーションの拡張</a></li>
+              <li><a href="#ext_test_return">戻り値のある関数での ASSERT 使用</a></li>
               <li><a href="#ext_assert_except">例外の値のアサーション</a></li>
               <li><a href="#ext_assert_warn">警告アサーション</a></li>
               <li><a href="#ext_assert_vs_ana">Visual Studio コード分析に対応</a></li>
@@ -75,7 +76,6 @@
           <li><a href="#org_test">テストの生成</a>
             <ul>
               <li><a href="#org_test_pmz">IUTEST_PMZ/IUTEST_PMZ_F</a></li>
-              <li><a href="#org_test_return">戻り値のある関数での ASSERT 使用</a></li>
               <li><a href="#org_test_pairwise">Pairwise</a></li>
               <li><a href="#org_test_variadic">Variadic Templates の対応</a></li>
               <li><a href="#org_test_package">パッケージ</a></li>
@@ -147,6 +147,21 @@ IUTEST(Hoge, ThrowValue)
 }
 </pre>
       </li>
+
+      <li><a name="ext_test_return" id="org_test_return">戻り値のある関数での ASSERT 使用</a><br />
+      基本的に IUTEST_ASSERT_* マクロは return 文でテストの中断を行なっています。<br />
+      そのため、戻り値の型が void でない関数では、IUTEST_ASSERT_* は使用できませんでした。<br />
+      iutest では ::iutest::AssertionReturn を使用することで、明示的に IUTEST_ASSERT_* マクロの戻り値型を変更できます。<br />
+      (gtest モードでも使用できるようになりました。)
+<pre class="source">
+int ReturnTest(void)
+{
+    IUTEST_ASSERT_TRUE(true) &lt;&lt; ::iutest::AssertionReturn&lt;int&gt;(-1);
+    return 0;
+}
+</pre>
+      </li>
+      
       <li><a name="ext_assert_warn" id="ext_assert_warn">警告アサーション</a><br />
       Boost.Test の WARN フレーバーと同等のアサーションです。<br />
       ログの出力はされますが、テスト失敗にはなりません。<br />
@@ -216,19 +231,6 @@ IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 0, 0);
 IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 1, 1);</pre>
       </li>
 
-      <li><a name="org_test_return" id="org_test_return">戻り値のある関数での ASSERT 使用</a><br />
-      基本的に IUTEST_ASSERT_* マクロは return 文でテストの中断を行なっています。<br />
-      そのため、戻り値の型が void でない関数では、IUTEST_ASSERT_* は使用できませんでした。<br />
-      iutest では ::iutest::AssertionReturn を使用することで、明示的に IUTEST_ASSERT_* マクロの戻り値型を変更できます。<br />
-<pre class="source">
-int ReturnTest(void)
-{
-    IUTEST_ASSERT_TRUE(true) &lt;&lt; ::iutest::AssertionReturn&lt;int&gt;(-1);
-    return 0;
-}
-</pre>
-      </li>
-      
       <li><a name="org_test_pairwise" id="org_test_pairwise">Pairwise</a><br />
       オールペア法による組み合わせの作成ができます。<br />
 <pre class="source">

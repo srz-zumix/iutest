@@ -75,6 +75,7 @@
 #include "switch/iutest_switch_expect.hpp"
 #include "switch/iutest_switch_inform.hpp"
 
+#include "switch/iutest_switch_assertion_return.hpp"
 #include "switch/iutest_switch_eq_collections.hpp"
 #include "switch/iutest_switch_package.hpp"
 #include "switch/iutest_switch_peep.hpp"
@@ -187,7 +188,6 @@ namespace tr1
 #undef IUTEST_HAS_SPI_LAMBDA_SUPPORT
 #undef IUTEST_HAS_GENRAND
 #undef IUTEST_HAS_PRINT_TO
-#undef IUTEST_HAS_ASSERTION_RETURN
 #undef IUTEST_HAS_TESTNAME_ALIAS
 #undef IUTEST_HAS_STREAM_RESULT
 
@@ -220,7 +220,6 @@ namespace tr1
 #define IUTEST_HAS_SPI_LAMBDA_SUPPORT	0
 #define IUTEST_HAS_GENRAND				0
 #define IUTEST_HAS_PRINT_TO				1
-#define IUTEST_HAS_ASSERTION_RETURN		0
 #define IUTEST_HAS_TESTNAME_ALIAS		0
 #define IUTEST_HAS_STREAM_RESULT		0
 
@@ -235,6 +234,7 @@ namespace tr1
 #include "switch/iutest_switch_expect.hpp"
 #include "switch/iutest_switch_inform.hpp"
 
+#include "switch/iutest_switch_assertion_return.hpp"
 #include "switch/iutest_switch_eq_collections.hpp"
 #include "switch/iutest_switch_package.hpp"
 #include "switch/iutest_switch_peep.hpp"
