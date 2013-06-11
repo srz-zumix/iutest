@@ -116,6 +116,9 @@ struct AssertionReturnType
 	*/
 	AssertionReturnType(const R& v) : value(v) {}
 };
+/**
+ * @brief	Assetion Return Type (void)
+*/
 template<>
 struct AssertionReturnType<void>
 {

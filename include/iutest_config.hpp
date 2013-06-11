@@ -308,8 +308,8 @@
  * @{
 */
 
-#ifndef IUTEST_HAS_CTIME
 //! time 関数が使用可能かどうか
+#ifndef IUTEST_HAS_CTIME
 #  if	defined(IUTEST_OS_WINDOWS_MOBILE)
 #    define IUTEST_HAS_CTIME		0
 #  else
@@ -351,7 +351,7 @@
 */
 
 #ifndef IUTEST_HAS_MINIDUMP
-//!< MiniDump 出力が有効かどうか
+//! MiniDump 出力が有効かどうか
 #  if defined(_MSC_VER) && _MSC_VER >= 1310 && IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
 #    define IUTEST_HAS_MINIDUMP		1
 #  else
@@ -360,7 +360,7 @@
 #endif
 
 #ifndef IUTEST_HAS_SOCKET
-//!< ソケット通信可能かどうか
+//! ソケット通信可能かどうか
 #  if defined(IUTEST_OS_WINDOWS)
 #    if !defined(_MSC_VER) || _MSC_VER >= 1310
 #      define IUTEST_HAS_SOCKET	1

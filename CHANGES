@@ -1,10 +1,19 @@
-Changes for 1.5.1:
+Changes for 1.6.0:
+
+** 追加
+* stream result 対応
+* gtest モードで AssertionReturn が使えるように対応
 
 ** 修正
+* ASSERT_*, EXPECT_*, INFORM_* マクロのストリームに iomanip が使用できなかった問題を修正
 * --iutest_filter にマッチしたテスト数が取得できるように修正
 * XML 出力の skipped にメッセージを出力するように修正
 
 ** 変更
+* AssertionReturn の仕様変更
+* spi で TestPartResult 数をチェックするように変更
+* spi で substr でメッセージをチェックするように変更
+* --iutest_filter でマッチしなかったテストは XML に出力しないように変更
 * デフォルトログ出力を --iutest_filter の結果を考慮した出力に変更
 
 --------------------------------------------------
