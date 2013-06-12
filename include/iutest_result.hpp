@@ -162,7 +162,7 @@ public:
 	*/
 	bool Validate(const char** ban_list, size_t size) const
 	{
-		for( int i=0, n=size; i < n; ++i )
+		for( size_t i=0, n=size; i < n; ++i )
 		{
 			if( m_key == ban_list[i] )
 			{

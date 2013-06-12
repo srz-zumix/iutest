@@ -229,7 +229,7 @@ const T* WithParamInterface<T>::s_params = NULL;
  * @tparam	T = ƒpƒ‰ƒ[ƒ^Œ^
 */
 template<typename T>
-class TestWithParam : public Test, public WithParamInterface<T>
+class TestWithParam : virtual public Test, public WithParamInterface<T>
 {
 };
 

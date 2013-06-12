@@ -33,7 +33,11 @@
 #endif
 
 #if defined(_MSC_VER)
-#  pragma comment(lib, "ws2_32.lib")
+#  if defined(IUTEST_OS_WINDOWS_MOBILE)
+#    pragma comment(lib, "ws2.lib")
+#  else
+#    pragma comment(lib, "ws2_32.lib")
+#  endif
 #endif
 
 namespace iutest {
