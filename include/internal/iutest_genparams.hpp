@@ -1192,6 +1192,30 @@ private:
 	G m_g;
 };
 
+/**
+ * @brief	乱数ジェネレータ
+*/
+template<typename T, typename F>
+class iuRandomFilterParamGenerator
+{
+	typedef T	type;
+public:
+	iuRandomFilterParamGenerator(const F& fn, unsigned int seed)
+		: m_fn(fn), m_rnd(seed) {}
+
+	type operator ()(void)
+	{
+		for(;;)
+		{
+			type val =  m_rnd.genrand();
+			if( (*m_fn)(val) ) return val;
+		}
+	}
+private:
+	F m_fn;
+	iuTypedRandom<type> m_rnd;
+};
+
 #endif
 
 #if IUTEST_HAS_RANDOMVALUES
@@ -1208,35 +1232,17 @@ public:
 	template<typename T>
 	operator iuIParamGenerator<T>* () const 
 	{
-		iuValuesParamsGeneratorHolder< RandomGenerator<T> > gen( m_num, RandomGenerator<T>(m_seed) );
+		unsigned int seed = m_seed;
+		if( seed == 0 )
+		{
+			seed = GetIndefiniteValue();
+		}
+		iuValuesParamsGeneratorHolder< iuTypedRandom<T> > gen( m_num, iuTypedRandom<T>(seed) );
 		return gen;
 	}
 private:
 	size_t m_num;
 	unsigned int m_seed;
-private:
-	template<typename T>
-	class RandomGenerator
-	{
-		iuRandom rnd;
-	public:
-		RandomGenerator(unsigned int seed)
-			: rnd(seed) {}
-
-	public:
-		T operator ()(void)
-		{
-#if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-#if defined(__MWERKS__)
-			return rnd.template genrand<T>();
-#else
-			return rnd.genrand<T>();
-#endif
-#else
-			return rnd.genrand(&detail::type<T>());
-#endif
-		}
-	};
 };
 
 #endif

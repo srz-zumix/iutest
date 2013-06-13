@@ -88,6 +88,8 @@ IUTEST_INSTANTIATE_TEST_CASE_P(Random, ValuesGenTest, ::iutest::ValuesIn(
 
 #endif
 
+bool VMExceptMoney(int n) { return n != 10 && n != 50 && n != 100 && n != 500; }
+
 struct RandomVMExceptMoneyGenerator
 {
 	::iutest::detail::iuRandom engine;
@@ -96,13 +98,17 @@ struct RandomVMExceptMoneyGenerator
 		for(;;)
 		{
 			int n =  engine() % 1000;
-			if( n != 10 && n != 50 && n != 100 && n != 500 ) return n;
+			if( VMExceptMoney(n) ) return n;
 		}
 	}
 };
 
-IUTEST_INSTANTIATE_TEST_CASE_P(Random03, ValuesGenTest, ::iutest::ValuesGen(5, RandomVMExceptMoneyGenerator()));
+#if IUTEST_HAS_LAMBDA
+IUTEST_INSTANTIATE_TEST_CASE_P(RandomGen_lambda, ValuesGenTest, ::iutest::ValuesGen(5, ::iutest::RandomGenerator<int>([](int n){ return n != 10 && n != 50 && n != 100 && n != 500; })));
+#endif
 
+IUTEST_INSTANTIATE_TEST_CASE_P(Random03_00, ValuesGenTest, ::iutest::ValuesGen(5, RandomVMExceptMoneyGenerator()));
+IUTEST_INSTANTIATE_TEST_CASE_P(Random03_01, ValuesGenTest, ::iutest::ValuesGen(5, ::iutest::RandomGenerator<int>(&VMExceptMoney)));
 
 ::std::vector<int> RandomVMExceptMoneyParams(int n)
 {

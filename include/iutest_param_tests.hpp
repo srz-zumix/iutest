@@ -205,15 +205,28 @@ inline detail::iuValuesParamsGeneratorHolder<Generator> IUTEST_ATTRIBUTE_UNUSED_
 	return detail::iuValuesParamsGeneratorHolder<Generator>(num, gen);
 }
 
+/**
+ * @brief	乱数ジェネレータ
+*/
+template<typename T, typename F>
+inline detail::iuRandomFilterParamGenerator<T, F> IUTEST_ATTRIBUTE_UNUSED_ RandomGenerator(const F& fn, unsigned int seed=0)
+{
+	if( seed == 0 )
+	{
+		seed = detail::GetIndefiniteValue();
+	}
+	return detail::iuRandomFilterParamGenerator<T, F>(fn, seed);
+}
+
 #endif
 
 #if IUTEST_HAS_RANDOMVALUES
 /**
  * @brief	乱数値パラメータ
 */
-inline detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_ RandomValues(size_t num)
+inline detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_ RandomValues(size_t num, unsigned int seed=0)
 {
-	return detail::iuRandomParamsHolder(num);
+	return detail::iuRandomParamsHolder(num, seed);
 }
 #endif
 

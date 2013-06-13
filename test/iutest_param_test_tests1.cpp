@@ -53,5 +53,18 @@ IUTEST_P(MultiInstantiateParamTest, Test)
 
 IUTEST_INSTANTIATE_TEST_CASE_P(My1, MultiInstantiateParamTest, ::iutest::Range<int>(0, 10));
 
+#if !defined(IUTEST_USE_GTEST)
+
+class InheritanceTestFixture : virtual public ::iutest::Test {};
+class InheritanceParamTest : public InheritanceTestFixture, public ::iutest::TestWithParam<int> {};
+
+IUTEST_P(InheritanceParamTest, Test)
+{
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_P(My1, InheritanceParamTest, ::iutest::Values(0));
+
+#endif
+
 #endif
 

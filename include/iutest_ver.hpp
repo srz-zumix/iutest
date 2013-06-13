@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01059910u	//!< iutest version 1.5.99.10
+#define	IUTEST_VER			0x01059911u	//!< iutest version 1.5.99.11
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x05u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x10u		//!< Revision
+#define IUTEST_REVISION		0x11u		//!< Revision
 
 /**
  * @mainpage
@@ -95,11 +95,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.5.99.10
+  <li>v1.5.99.11
     <ul>
       <li>stream result 対応</li>
       <li>gtest モードで AssertionReturn が使えるように対応</li>
       <li>AssertionReturn の仕様変更</li>
+      <li>::iutest::RandomGenerator を追加</li>
+      <li>::iutest::RandomValues で乱数シードを指定できるように修正</li>
       <li>spi で TestPartResult 数をチェックするように変更</li>
       <li>spi で substr でメッセージをチェックするように変更</li>
 	  <li>ASSERT_*, EXPECT_*, INFORM_* マクロのストリームに iomanip が使用できなかった問題を修正</li>

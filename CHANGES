@@ -3,11 +3,13 @@ Changes for 1.6.0:
 ** 追加
 * stream result 対応
 * gtest モードで AssertionReturn が使えるように対応
+* ::iutest::RandomGenerator を追加
 
 ** 修正
 * ASSERT_*, EXPECT_*, INFORM_* マクロのストリームに iomanip が使用できなかった問題を修正
 * --iutest_filter にマッチしたテスト数が取得できるように修正
 * XML 出力の skipped にメッセージを出力するように修正
+* ::iutest::RandomValues で乱数シードを指定できるように修正
 
 ** 変更
 * AssertionReturn の仕様変更

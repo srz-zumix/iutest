@@ -177,6 +177,39 @@ template<> inline double	iuRandom::genrand<double>(IUTEST_EXPLICIT_TEMPLATE_TYPE
 
 #endif
 
+/**
+ * @brief	Œ^w’è—”¶¬Ší
+*/
+template<typename T>
+class iuTypedRandom
+{
+	typedef T result_type;
+public:
+	iuTypedRandom(void) {}
+	iuTypedRandom(unsigned int seed)
+		: m_rnd(seed) {}
+
+	result_type operator ()(void)
+	{
+		return genrand();
+	}
+
+	result_type genrand(void)
+	{
+#if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
+#if defined(__MWERKS__)
+		return m_rnd.template genrand<result_type>();
+#else
+		return m_rnd.genrand<result_type>();
+#endif
+#else
+		return m_rnd.genrand(&detail::type<result_type>());
+#endif
+	}
+private:
+	iuRandom m_rnd;
+};
+
 }	// end of namespace detail
 }	// end of namespace iutest
 
