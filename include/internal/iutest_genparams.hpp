@@ -1208,7 +1208,7 @@ public:
 		for(;;)
 		{
 			type val =  m_rnd.genrand();
-			if( (*m_fn)(val) ) return val;
+			if( (m_fn)(val) ) return val;
 		}
 	}
 private:
