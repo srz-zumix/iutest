@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -18,6 +18,8 @@
 //======================================================================
 // include
 #include "../include/gtest/iutest_spi_switch.hpp"
+#include "../include/internal/iutest_filepath.hpp"
+#include <cmath>
 #include "main.cpp"
 
 namespace test
@@ -32,7 +34,9 @@ namespace iutest
 #include "iutest_basic_tests.cpp"
 #include "iutest_combine_tests.cpp"
 #include "iutest_compatibility_tests.cpp"
+#include "iutest_filepath_tests.cpp"
 #include "iutest_fixture_tests.cpp"
+#include "iutest_floatingpoint_tests.cpp"
 #include "iutest_no_fatalfailure_tests.cpp"
 #include "iutest_param_method_tests.cpp"
 #include "iutest_param_test_tests1.cpp"
@@ -40,6 +44,7 @@ namespace iutest
 #include "iutest_pred_tests.cpp"
 #include "iutest_prod_tests.cpp"
 #include "iutest_spi_tests.cpp"
+#include "iutest_static_assertion_tests.cpp"
 #include "iutest_string_assertion_tests.cpp"
 #include "iutest_type_param_tests1.cpp"
 #include "iutest_type_param_tests2.cpp"
