@@ -20,14 +20,33 @@
 #include "../include/iutest.hpp"
 
 #if !defined(IUTEST_USE_GTEST)
+#if !IUTEST_HAS_ASSERTION_RETURN
+void CheckProperty_(const ::iutest::TestResult* tr, const char* key, const char* value)
+{
+	IUTEST_ASSERT_EQ(1, tr->test_property_count());
+	IUTEST_EXPECT_STREQ(key, tr->GetTestProperty(0).key());
+	IUTEST_EXPECT_STREQ(value, tr->GetTestProperty(0).value());
+}
+#endif
+
 bool CheckProperty(const ::iutest::TestResult* tr, const char* key, const char* value)
 {
+#if IUTEST_USE_THROW_ON_ASSERT_FAILURE
+	try {
+#endif
+	
 #if IUTEST_HAS_ASSERTION_RETURN
 	IUTEST_ASSERT_EQ(1, tr->test_property_count()) << ::iutest::AssertionReturn<bool>(false);
-	IUTEST_ASSERT_STREQ(key, tr->GetTestProperty(0).key()) << ::iutest::AssertionReturn<bool>(false);
-	IUTEST_ASSERT_STREQ(value, tr->GetTestProperty(0).value()) << ::iutest::AssertionReturn<bool>(false);
+	IUTEST_EXPECT_STREQ(key, tr->GetTestProperty(0).key()) << ::iutest::AssertionReturn<bool>(false);
+	IUTEST_EXPECT_STREQ(value, tr->GetTestProperty(0).value()) << ::iutest::AssertionReturn<bool>(false);
+#else
+	CheckProperty_(tr, key, value);
 #endif
-	return true;
+
+#if IUTEST_USE_THROW_ON_ASSERT_FAILURE
+	} catch(...) {}
+#endif
+	return ::iutest::UnitTest::GetInstance()->Passed();
 }
 
 class RecordTest : public ::iutest::Test
