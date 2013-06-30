@@ -243,26 +243,32 @@ IUTEST_IPP_INLINE ::std::string GetHResultString(HRESULT hr)
 {
 #if defined(IUTEST_OS_WINDOWS_MOBILE)
 	LPWSTR buf = NULL;
-	FormatMessageW(
+	if( FormatMessageW(
 		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 		NULL,
 		hr,
 		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // デフォルト ユーザー言語
 		(LPWSTR)&buf,
 		0,
-		NULL );
+		NULL ) == 0 )
+	{
+		return "";
+	}
 
 	::std::string str = (buf == NULL) ? "" : WideStringToMultiByteString(buf);
 #else
 	LPSTR buf = NULL;
-	FormatMessageA(
+	if( FormatMessageA(
 		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 		NULL,
 		hr,
 		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // デフォルト ユーザー言語
 		(LPSTR)&buf,
 		0,
-		NULL );
+		NULL ) == 0 )
+	{
+		return "";
+	}
 
 	::std::string str = (buf == NULL) ? "" : buf;
 #endif

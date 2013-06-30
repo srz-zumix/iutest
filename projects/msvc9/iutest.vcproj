@@ -562,6 +562,10 @@
 						>
 					</File>
 					<File
+						RelativePath="..\..\include\gtest\switch\iutest_switch_assertion_return.hpp"
+						>
+					</File>
+					<File
 						RelativePath="..\..\include\gtest\switch\iutest_switch_cmphelper.hpp"
 						>
 					</File>

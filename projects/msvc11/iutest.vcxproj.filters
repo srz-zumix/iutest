@@ -288,6 +288,9 @@
     <ClInclude Include="..\..\include\listener\iutest_streaming_listener.hpp">
       <Filter>iutest\listener</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_assertion_return.hpp">
+      <Filter>iutest\gtest\switch</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\impl\iutest_body.ipp">

@@ -191,6 +191,7 @@
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_DELETED_FUNCTIONS	1
 #    endif
+#  elif defined(_MSC_VER)
 #  endif
 #endif
 
@@ -238,7 +239,9 @@
 #      define IUTEST_HAS_INITIALIZER_LIST	1
 #    endif
 #  elif	defined(_MSC_VER)
-#    if _MSC_FULL_VER == 170051025
+#    if (_MSC_VER >= 1800)
+#      define IUTEST_HAS_INITIALIZER_LIST	1
+#    elif (_MSC_FULL_VER == 170051025)
 #      define IUTEST_HAS_INITIALIZER_LIST	1
 #      include <initializer_list>
 #    endif
@@ -261,7 +264,10 @@
 #      define IUTEST_HAS_VARIADIC_TEMPLATES	1
 #    endif
 #  elif	defined(_MSC_VER)
-#    if _MSC_FULL_VER == 170051025
+#    if (_MSC_VER >= 1800)
+#      define IUTEST_HAS_VARIADIC_TEMPLATES	1
+#      define IUTEST_HAS_VARIADIC_VALUES	0
+#    elif (_MSC_FULL_VER == 170051025)
 #      define IUTEST_HAS_VARIADIC_TEMPLATES	1
 #      define IUTEST_HAS_VARIADIC_COMBINE	0
 #      define IUTEST_HAS_VARIADIC_VALUES	0
@@ -293,18 +299,28 @@
 
 // char16_t char32_t
 #ifndef IUTEST_HAS_CHAR16_T
-#  if defined(__GNUC__)
+#  if defined(__clang__)
+#    if __has_feature(cxx_unicode_literals)
+#      define IUTEST_HAS_CHAR16_T	1
+#    endif
+#  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_CHAR16_T	1
 #    endif
+#  elif defined(_MSC_VER)
 #  endif
 #endif
 
 #ifndef IUTEST_HAS_CHAR32_T
-#  if defined(__GNUC__)
+#  if defined(__clang__)
+#    if __has_feature(cxx_unicode_literals)
+#      define IUTEST_HAS_CHAR32_T	1
+#    endif
+#  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_CHAR32_T	1
 #    endif
+#  elif defined(_MSC_VER)
 #  endif
 #endif
 
@@ -343,7 +359,7 @@
 #      define IUTEST_HAS_EXPLICIT_CONVERSION	1
 #    endif
 #  elif	defined(_MSC_VER)
-#    if _MSC_FULL_VER == 170051025
+#    if (_MSC_VER >= 1800) || (_MSC_FULL_VER == 170051025)
 #      define IUTEST_HAS_EXPLICIT_CONVERSION	1
 #    endif
 #  endif
@@ -408,6 +424,7 @@
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_NOEXCEPT	1
 #    endif
+#  elif defined(_MSC_VER)
 #  endif
 #endif
 

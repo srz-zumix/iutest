@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_param_direct_tests.hpp
- * @brief		iris unit test template 値引き数クラステスト ファイル
+ * @brief		iris unit test initializer_list を使用したパラメータ設定 ファイル
  *
  * @author		t.sirayanagi
  * @version		1.0
