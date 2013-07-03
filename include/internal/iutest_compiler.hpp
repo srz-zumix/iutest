@@ -215,6 +215,7 @@
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_DEFAULT_FUNCTIONS	1
 #    endif
+#  elif defined(_MSC_VER)
 #  endif
 #endif
 
@@ -266,11 +267,9 @@
 #  elif	defined(_MSC_VER)
 #    if (_MSC_VER >= 1800)
 #      define IUTEST_HAS_VARIADIC_TEMPLATES	1
-#      define IUTEST_HAS_VARIADIC_VALUES	0
 #    elif (_MSC_FULL_VER == 170051025)
 #      define IUTEST_HAS_VARIADIC_TEMPLATES	1
 #      define IUTEST_HAS_VARIADIC_COMBINE	0
-#      define IUTEST_HAS_VARIADIC_VALUES	0
 #    endif
 #  endif
 #endif

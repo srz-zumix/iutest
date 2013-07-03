@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01060001u	//!< iutest version 1.6.0.1
+#define	IUTEST_VER			0x01060002u	//!< iutest version 1.6.0.2
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x06u		//!< Minor Version
 #define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x01u		//!< Revision
+#define IUTEST_REVISION		0x02u		//!< Revision
 
 /**
  * @mainpage
@@ -95,7 +95,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		•ÏX—š—ð
  * @par		Changes
  <ul>
-  <li>v1.6.0.1
+  <li>v1.6.0.2
     <ul>
       <li>Visual Studio 2013 Preview ‘Î‰ž</li>
     </ul>

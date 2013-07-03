@@ -190,18 +190,20 @@ class iuValueArray
 		T val[tuples::tuple_size<_MyTuple>::value];
 		make_array(const _MyTuple& t)
 		{
-			make<0>(t);
+			make<tuples::tuple_size<_MyTuple>::value, 0>(t);
 		};
 
-		template<int I>
-		void	make(const _MyTuple& t, typename detail::enable_if<(I != tuples::tuple_size<_MyTuple>::value), void>::type*& = detail::enabler::value )
+		template<int N, int I>
+		void	make(const _MyTuple& t, typename detail::enable_if<(I < N), void>::type*& = detail::enabler::value )
 		{
 			val[I] = tuples::get<I>(t);
-			make<I+1>(t);
+			make<N, I+1>(t);
 		}
-		template<int I>
-		void	make(_MyTuple, typename detail::enable_if<(I == tuples::tuple_size<_MyTuple>::value), void>::type*& = detail::enabler::value )
-		{}
+		template<int N, int I>
+		void	make(const _MyTuple& t, typename detail::disable_if<(I < N), void>::type*& = detail::enabler::value )
+		{
+			IUTEST_UNUSED_VAR(t);
+		}
 	};
 public:
 	iuValueArray(const Args&... args)
