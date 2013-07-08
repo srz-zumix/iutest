@@ -154,7 +154,7 @@ inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const wchar_t* st
 */
 inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(const char* src, int num)
 {
-#if !defined(IUTEST_OS_WINDOWS_MOBILE)
+#if (defined(__STDC_ISO_10646__) || defined(_MSC_VER)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 	if( num == -1 )
 		num = static_cast<int>(strlen(src));
 	std::string str;
