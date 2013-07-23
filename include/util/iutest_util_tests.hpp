@@ -26,6 +26,17 @@ namespace iuutil
 // function
 
 /**
+ * @brief	テスト名を取得
+*/
+inline ::std::string TestFullName(const ::iutest::TestInfo* test_info)
+{
+	::std::string fullname = test_info->test_case_name();
+	fullname += ".";
+	fullname += test_info->name();
+	return fullname;
+}
+
+/**
  * @brief	インデックスを除いたテスト名を取得
 */
 inline ::std::string TestNameRemoveIndexName(const char* name)

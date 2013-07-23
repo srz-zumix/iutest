@@ -52,7 +52,11 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 		const int len = _vsnprintf(buf, sizeof(buf)-1, fmt, va);
 #  endif
 #else
+#if defined(__STRICT_ANSI__)
+		const int len = vsprintf(buf, fmt, va);
+#else
 		const int len = vsnprintf(buf, sizeof(buf), fmt, va);
+#endif
 #endif
 		va_end(va);
 

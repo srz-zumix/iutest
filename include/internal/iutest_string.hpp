@@ -28,6 +28,9 @@
 #include <wctype.h>
 #include <stdarg.h>
 #include <string.h>
+#if defined(IUTEST_OS_CYGWIN)
+#include <strings.h>
+#endif
 #if		IUTEST_HAS_STRINGSTREAM
 #  include <sstream>
 #elif	IUTEST_HAS_STRSTREAM

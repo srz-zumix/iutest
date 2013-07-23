@@ -25,11 +25,16 @@
 */
 #include "../include/iutest.hpp"
 
+//#define USE_SSTPNOTIFIER
+
 #if defined(USE_TAP)
 #include "../include/listener/iutest_tap_printer.hpp"
 #endif
 #if defined(USE_PROGRESS)
 #include "../include/listener/iutest_progress_printer.hpp"
+#endif
+#if defined(USE_SSTPNOTIFIER)
+#include "../include/listener/iutest_sstp_notifier.hpp"
 #endif
 
 /** --------------------------------------------------
@@ -78,6 +83,10 @@ int main(int argc, char* argv[])
 
 #if defined(USE_PROGRESS)
 	::iutest::SetUpProgressPrintListener();
+#endif
+
+#if defined(USE_SSTPNOTIFIER)
+	::iutest::SetUpSSTPNotifier("localhost");
 #endif
 
 	//::iuutil::SetUpQuietResultPrinter();

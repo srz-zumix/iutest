@@ -25,7 +25,7 @@
 
 #define DECL_VALUES_PARAMS(i, param)	\
 	IUTEST_INSTANTIATE_TEST_CASE_P( IUTEST_PP_CAT(param,IUTEST_PP_INC(i)), ValuesTest	\
-			, ::iutest::Values( IUTEST_PP_ENUM_PARAMS(IUTEST_PP_INC(i), IUTEST_PP_EMPTY) ) );
+			, ::iutest::Values( IUTEST_PP_ENUM_PARAMS(IUTEST_PP_INC(i), IUTEST_PP_EMPTY()) ) );
 			
 #define DECL_VALUES_INSTANCE(n)			\
 	IUTEST_PP_REPEAT(n, DECL_VALUES_PARAMS, X)
@@ -40,7 +40,7 @@ IUTEST_P(ValuesTest, Test)
 
 IUTEST_INSTANTIATE_TEST_CASE_P( X1, ValuesTest, ::iutest::Values(1) );
 IUTEST_INSTANTIATE_TEST_CASE_P( X51, ValuesTest
-	, ::iutest::Values( IUTEST_PP_ENUM_PARAMS(51, IUTEST_PP_EMPTY) ) );
+	, ::iutest::Values( IUTEST_PP_ENUM_PARAMS(51, IUTEST_PP_EMPTY()) ) );
 
 #else
 

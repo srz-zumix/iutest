@@ -22,10 +22,10 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01060100u	//!< iutest version 1.6.1.0
+#define	IUTEST_VER			0x01069900u	//!< iutest version 1.6.99.0
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x06u		//!< Minor Version
-#define IUTEST_BUILD		0x01u		//!< Build
+#define IUTEST_BUILD		0x99u		//!< Build
 #define IUTEST_REVISION		0x00u		//!< Revision
 
 /**
@@ -95,6 +95,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
+  <li>v1.6.99.0
+    <ul>
+      <li>Windows 向けメニュー登録ユーティリティを追加</li>
+      <li>ビルドエラー修正</li>
+    </ul>
+  </li>
   <li>v1.6.1.0
     <ul>
       <li>Visual Studio 2013 Preview 対応</li>

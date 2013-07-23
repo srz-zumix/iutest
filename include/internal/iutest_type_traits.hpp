@@ -358,7 +358,7 @@ class is_member_function_pointer
 	template<typename R, typename U, typename ...Args>			\
 	struct impl<R (U::*)(Args..., ...) CV> : public true_type {}
 
-	IIUT_DECL_IS_MEMBER_FUNCTION_PTR_CV_(IUTEST_PP_EMPTY);
+	IIUT_DECL_IS_MEMBER_FUNCTION_PTR_CV_(IUTEST_PP_EMPTY());
 	IIUT_DECL_IS_MEMBER_FUNCTION_PTR_CV_(const);
 	IIUT_DECL_IS_MEMBER_FUNCTION_PTR_CV_(volatile);
 	IIUT_DECL_IS_MEMBER_FUNCTION_PTR_CV_(const volatile);
@@ -380,7 +380,7 @@ class is_member_function_pointer
 #undef IIUT_DECL_IS_MEMBER_FUNCTION_PTR_VOID_CV_
 
 #define IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(n)	\
-	IIUT_DECL_IS_MEMBER_FUNCTION_PTR_I(n, IUTEST_PP_EMPTY);	\
+	IIUT_DECL_IS_MEMBER_FUNCTION_PTR_I(n, IUTEST_PP_EMPTY());	\
 	IIUT_DECL_IS_MEMBER_FUNCTION_PTR_I(n, const);	\
 	IIUT_DECL_IS_MEMBER_FUNCTION_PTR_I(n, volatile);	\
 	IIUT_DECL_IS_MEMBER_FUNCTION_PTR_I(n, const volatile)
@@ -464,7 +464,7 @@ class function_return_type
 	{ typedef R type; };	\
 	template<typename R, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (*)(IUTEST_PP_ENUM_PARAMS(n, T), ...)>	\
 	{ typedef R type; };	\
-	IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, IUTEST_PP_EMPTY);	\
+	IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, IUTEST_PP_EMPTY());	\
 	IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, const);	\
 	IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, volatile);	\
 	IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, const volatile)	\

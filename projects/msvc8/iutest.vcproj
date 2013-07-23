@@ -630,6 +630,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\util\iutest_util_menu.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\util\iutest_util_output.hpp"
 					>
 				</File>

@@ -28,17 +28,17 @@
 
 int SetUpEnvironment(void)
 {
-	::iutest::internal::posix::PutEnv(ENV_PREFIX "SHUFFLE=1");
-	::iutest::internal::posix::PutEnv(ENV_PREFIX "RANDOM_SEED=200");
-	::iutest::internal::posix::PutEnv(ENV_PREFIX "ALSO_RUN_DISABLED_TESTS=1");
-	::iutest::internal::posix::PutEnv(ENV_PREFIX "BREAK_ON_FAILURE=1");
-	::iutest::internal::posix::PutEnv(ENV_PREFIX "THROW_ON_FAILURE=1");
-	::iutest::internal::posix::PutEnv(ENV_PREFIX "CATCH_EXCEPTIONS=1");
-	::iutest::internal::posix::PutEnv(ENV_PREFIX "PRINT_TIME=1");
-	::iutest::internal::posix::PutEnv(ENV_PREFIX "REPEAT=2");
-	::iutest::internal::posix::PutEnv(ENV_PREFIX "FILTER=Flag*");
+	if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "SHUFFLE=1") == -1 ) return -1;
+	if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "RANDOM_SEED=200") == -1 ) return -1;
+	if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "ALSO_RUN_DISABLED_TESTS=1") == -1 ) return -1;
+	if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "BREAK_ON_FAILURE=1") == -1 ) return -1;
+	if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "THROW_ON_FAILURE=1") == -1 ) return -1;
+	if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "CATCH_EXCEPTIONS=1") == -1 ) return -1;
+	if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "PRINT_TIME=1") == -1 ) return -1;
+	if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "REPEAT=2") == -1 ) return -1;
+	if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "FILTER=Flag*") == -1 ) return -1;
 	
-	::iutest::internal::posix::PutEnv("IUTEST_FILE_LOCATION=vs");
+	if( ::iutest::internal::posix::PutEnv("IUTEST_FILE_LOCATION=vs") == -1 ) return -1;
 	return 0;
 }
 
@@ -46,6 +46,7 @@ static volatile int g_dummy = SetUpEnvironment();
 
 IUTEST(FlagTest, Check)
 {
+	if( g_dummy != 0 ) return;	// putenv Ç…é∏îsÇµÇΩèÍçáÇÕÉeÉXÉgÇµÇ»Ç¢
 	IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(also_run_disabled_tests) );
 	IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(break_on_failure) );
 	IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(throw_on_failure) );

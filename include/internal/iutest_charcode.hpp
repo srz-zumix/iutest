@@ -178,6 +178,7 @@ inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(const char* 
 	//setlocale(LC_CTYPE, locale);
 	return str;
 #else
+	IUTEST_UNUSED_VAR(num);
 	return src;
 #endif
 }

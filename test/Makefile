@@ -92,6 +92,7 @@ TARGETS1= iutest_all_tests \
           iutest_listener_tests \
           iutest_minimum_tests \
           iutest_namespace_tests \
+          iutest_no_fatalfailure_tests \
           iutest_no_test_tests \
           iutest_output_xml_tests \
           iutest_printers_tests \

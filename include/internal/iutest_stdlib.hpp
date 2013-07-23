@@ -41,6 +41,10 @@
 #    if (_MSC_VER >= 1700) && _VARIADIC_MAX >= 9
 #      define IUTEST_HAS_STD_TUPLE	1
 #    endif
+#  elif defined(__clang__)
+#    if __has_include( <tuple> )
+#      define IUTEST_HAS_STD_TUPLE	1
+#    endif
 #  elif	defined(__GNUC__)
 #    if IUTEST_HAS_VARIADIC_TEMPLATES
 #      define IUTEST_HAS_STD_TUPLE	1
@@ -67,6 +71,10 @@
 #  elif defined(_MSC_VER) && defined(_MSC_FULL_VER)
 #    if (_MSC_VER >= 1500) && (_MSC_VER < 1700) && (_MSC_FULL_VER > 150021022)
 #      define IUTEST_HAS_TR1_TUPLE	1
+#    endif
+#  elif defined(__clang__)
+#    if __has_include( <tr1/tuple> )
+#      define IUTEST_HAS_STD_TUPLE	1
 #    endif
 #  elif	defined(__GNUC__)
 #    if (!defined(__CUDACC__) && !defined(__ARMCC_VERSION) && (__GNUC__ >= 4))
