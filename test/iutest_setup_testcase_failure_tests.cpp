@@ -18,7 +18,6 @@
 //======================================================================
 // include
 #include "../include/iutest.hpp"
-#include <assert.h>
 
 static int test_flag = 0;
 
@@ -48,11 +47,11 @@ int main(int argc, char* argv[])
 	
 	if( ret == 0 ) return 1;
 
-	assert( ::iutest::UnitTest::GetInstance()->failed_test_count() == 0 );
+	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 0 );
 #if !defined(IUTEST_USE_GTEST)
-	assert( test_flag == 0 );
+	IUTEST_ASSERT( test_flag == 0 );
 #else
-	assert( test_flag == 1 );
+	IUTEST_ASSERT( test_flag == 1 );
 #endif
 
 	printf("*** Successful ***\n");

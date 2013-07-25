@@ -19,10 +19,6 @@
 // include
 #include "../include/iutest.hpp"
 
-#include <vector>
-#include <assert.h>
-
-
 static unsigned int seed = 0;
 static int count = 0;
 
@@ -76,7 +72,7 @@ int main(int argc, char* argv[])
 #endif
 {
 	MyEnvironment* const env = new MyEnvironment();
-	assert( ::iutest::AddGlobalTestEnvironment(env) == env );
+	IUTEST_ASSERT( ::iutest::AddGlobalTestEnvironment(env) == env );
 	IUTEST_INIT(&argc, argv);
 	
 	::iutest::IUTEST_FLAG(repeat) = 3;

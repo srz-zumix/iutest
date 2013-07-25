@@ -18,9 +18,6 @@
 //======================================================================
 // include
 #include "../include/iutest.hpp"
-#if IUTEST_HAS_ASSERTION_RETURN
-#include <assert.h>
-#endif
 
 bool bTest = false;
 
@@ -65,9 +62,9 @@ int main(int argc, char* argv[])
 	IUTEST_ASSERT_EQ(3, ::iutest::UnitTest::GetInstance()->failed_test_count()) << ::iutest::AssertionReturn(1);
 	IUTEST_ASSERT_TRUE(bTest) << ::iutest::AssertionReturn(1);
 #else
-	assert( ::iutest::UnitTest::GetInstance()->successful_test_count() == 0 );
-	assert( ::iutest::UnitTest::GetInstance()->failed_test_count() == 3 );
-	assert( bTest );
+	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->successful_test_count() == 0 );
+	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 3 );
+	IUTEST_ASSERT( bTest );
 #endif
 	printf("*** Successful ***\n");
 	return 0;

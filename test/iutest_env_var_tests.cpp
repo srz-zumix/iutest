@@ -18,7 +18,6 @@
 //======================================================================
 // include
 #include "../include/iutest.hpp"
-#include <assert.h>
 
 #if	defined(USE_GTEST_PREFIX) || defined(IUTEST_USE_GTEST)
 #  define ENV_PREFIX	"GTEST_"

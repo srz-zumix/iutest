@@ -1,7 +1,7 @@
 //======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_throw_on_assert_fialure_tests.cpp
+ * @file		iutest_throw_on_IUTEST_ASSERT_fialure_tests.cpp
  * @brief		IUTEST_USE_THROW_ON_ASSERT_FAILURE ‘Î‰žƒeƒXƒg
  *
  * @author		t.sirayanagi
@@ -18,7 +18,6 @@
 //======================================================================
 // include
 #include "../include/iutest.hpp"
-#include <assert.h>
 
 static int x = 0;
 
@@ -48,9 +47,9 @@ int main(int argc, char* argv[])
 	int ret = IUTEST_RUN_ALL_TESTS();
 	
 #if IUTEST_USE_THROW_ON_ASSERT_FAILURE
-	assert( x == 0 );
+	IUTEST_ASSERT( x == 0 );
 #else
-	assert( x == 1 );
+	IUTEST_ASSERT( x == 1 );
 #endif
 	if( ret != 0 ) 	printf("*** Successful ***\n");
 	return ret ? 0 : 1;

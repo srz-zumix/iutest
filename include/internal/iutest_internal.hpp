@@ -298,6 +298,11 @@
  * @internal
  * @brief	–¾Ž¦“I‚ÈŽ¸”s
 */
+#define IUTEST_ASSERT(cond)					do { if( !(cond) ) {												\
+												IUTEST_MESSAGE(#cond, ::iutest::TestPartResult::kFatalFailure);	\
+												exit(1);														\
+											} } while(::iutest::detail::AlwaysFalse())
+
 #define IIUT_SUCCEED()						IUTEST_MESSAGE("Succeeded.\n", ::iutest::TestPartResult::kSuccess)
 #define IIUT_FAIL()							IUTEST_ASSERT_FAILURE("Failed.\n")
 #define IIUT_ADD_FAILURE()					IUTEST_EXPECT_FAILURE("Failed.\n")

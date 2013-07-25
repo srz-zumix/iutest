@@ -18,7 +18,6 @@
 //======================================================================
 // include
 #include "../include/iutest.hpp"
-#include <assert.h>
 
 static bool skip_check = true;
 
@@ -49,15 +48,15 @@ int main(int argc, char* argv[])
 	IUTEST_INIT(&argc, argv);
 	int ret = IUTEST_RUN_ALL_TESTS();
 	if( ret == 0 ) return 1;
-	assert( ::iutest::UnitTest::GetInstance()->test_to_run_count() == 2 );
+	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->test_to_run_count() == 2 );
 #if !defined(IUTEST_USE_GTEST)
-	assert( ::iutest::UnitTest::GetInstance()->test_was_skipped_count() == 1 );
-	assert( ::iutest::UnitTest::GetInstance()->reportable_test_was_skipped_count() == 1 );
-	assert( ::iutest::UnitTest::GetInstance()->skip_test_count() == 2 );
-	assert( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 2 );
+	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->test_was_skipped_count() == 1 );
+	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_was_skipped_count() == 1 );
+	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 2 );
+	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 2 );
 #endif
-	assert( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
-	assert( skip_check );
+	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
+	IUTEST_ASSERT( skip_check );
 	printf("*** Successful ***\n");
 	return 0;
 }

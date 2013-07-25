@@ -19,8 +19,6 @@
 // include
 #include "../include/iutest.hpp"
 
-#include <assert.h>
-
 #if IUTEST_HAS_EXCEPTIONS
 
 IUTEST(Expect, Test)

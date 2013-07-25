@@ -19,8 +19,6 @@
 // include
 #include "../include/iutest.hpp"
 
-#include <assert.h>
-
 int g_foo_bar = 0;
 int g_hoge_fuga = 0;
 
@@ -146,18 +144,18 @@ int main(int argc, char* argv[])
 #endif
 {
 	MyEnvironment* const env = new MyEnvironment();
-	assert( ::iutest::AddGlobalTestEnvironment(env) == env );
+	IUTEST_ASSERT( ::iutest::AddGlobalTestEnvironment(env) == env );
 	IUTEST_INIT(&argc, argv);
 	
-	assert( RepeatTestUnspecified() );
-	assert( RepeatTestNonFilter(0) );
-	assert( RepeatTestNonFilter(2) );
-	assert( RepeatTestNonFilter(10) );
+	IUTEST_ASSERT( RepeatTestUnspecified() );
+	IUTEST_ASSERT( RepeatTestNonFilter(0) );
+	IUTEST_ASSERT( RepeatTestNonFilter(2) );
+	IUTEST_ASSERT( RepeatTestNonFilter(10) );
 
-	assert( RepeatTestWithEmpyFilter(2) );
-	assert( RepeatTestWithEmpyFilter(3) );
+	IUTEST_ASSERT( RepeatTestWithEmpyFilter(2) );
+	IUTEST_ASSERT( RepeatTestWithEmpyFilter(3) );
 	
-	assert( RepeatTestWithFilter(3) );
+	IUTEST_ASSERT( RepeatTestWithFilter(3) );
 
 	printf("*** Successful ***\n");
 	return 0;

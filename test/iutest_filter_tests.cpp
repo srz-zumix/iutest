@@ -19,8 +19,6 @@
 // include
 #include "../include/iutest.hpp"
 
-#include <assert.h>
-
 IUTEST(Test, Fail)
 {
 	IUTEST_ASSERT_EQ(2, 3);
@@ -49,13 +47,13 @@ int main(int argc, char* argv[])
 		
 		if( ret != 0 ) return 1;
 #if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
-		assert( ::iutest::UnitTest::GetInstance()->reportable_test_count() == 1 );
-		assert( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == 0 );
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_count() == 1 );
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == 0 );
 #endif
 #if !defined(IUTEST_USE_GTEST)
-		assert( ::iutest::UnitTest::GetInstance()->skip_test_count() == 2 );
-		assert( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
-		assert( ::iutest::UnitTest::GetInstance()->reportable_test_was_skipped_count() == 0 );
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 2 );
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_was_skipped_count() == 0 );
 #endif
 	}
 	{
@@ -64,13 +62,13 @@ int main(int argc, char* argv[])
 		
 		if( ret == 0 ) return 1;
 #if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
-		assert( ::iutest::UnitTest::GetInstance()->reportable_test_count() == 2 );
-		assert( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == 0 );
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_count() == 2 );
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == 0 );
 #endif
 #if !defined(IUTEST_USE_GTEST)
-		assert( ::iutest::UnitTest::GetInstance()->skip_test_count() == 1 );
-		assert( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
-		assert( ::iutest::UnitTest::GetInstance()->reportable_test_was_skipped_count() == 0 );
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 1 );
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_was_skipped_count() == 0 );
 #endif
 	}
 	printf("*** Successful ***\n");

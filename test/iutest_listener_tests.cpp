@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -18,8 +18,6 @@
 //======================================================================
 // include
 #include "../include/iutest.hpp"
-
-#include <assert.h>
 
 class MyTestEventListener : public ::iutest::TestEventListener
 {
@@ -158,12 +156,12 @@ int main(int argc, char* argv[])
 	listeners.Append( listener );
 	int ret = IUTEST_RUN_ALL_TESTS();	// run all
 	
-	assert( listener->called_OnTestEnd );
-	assert( listener->called_OnTestCaseEnd );
-	assert( listener->called_OnEnvironmentsTearDownStart );
-	assert( listener->called_OnEnvironmentsTearDownEnd );
-	assert( listener->called_OnTestIterationEnd );
-	assert( listener->called_OnTestProgramEnd );
+	IUTEST_ASSERT( listener->called_OnTestEnd );
+	IUTEST_ASSERT( listener->called_OnTestCaseEnd );
+	IUTEST_ASSERT( listener->called_OnEnvironmentsTearDownStart );
+	IUTEST_ASSERT( listener->called_OnEnvironmentsTearDownEnd );
+	IUTEST_ASSERT( listener->called_OnTestIterationEnd );
+	IUTEST_ASSERT( listener->called_OnTestProgramEnd );
 
 	if( ret == 1 ) printf("*** Successful ***\n");
 	return ret != 0 ? 0 : 1;

@@ -19,8 +19,6 @@
 // include
 #include "../include/iutest.hpp"
 
-#include <assert.h>
-
 static int test_counter = 0;
 
 class MyEnvironment : public ::iutest::Environment
@@ -83,13 +81,13 @@ int main(int argc, char* argv[])
 {
 	IUTEST_INIT(&argc, argv);
 	MyEnvironment* const env = new MyEnvironment();
-	assert( ::iutest::AddGlobalTestEnvironment(NULL) == NULL );
-	assert( ::iutest::AddGlobalTestEnvironment(env) == env );
+	IUTEST_ASSERT( ::iutest::AddGlobalTestEnvironment(NULL) == NULL );
+	IUTEST_ASSERT( ::iutest::AddGlobalTestEnvironment(env) == env );
 	::iutest::AddGlobalTestEnvironment(new MyEnvironment2());
 	env->Reset();
 	int ret = IUTEST_RUN_ALL_TESTS();	// run all
 	
-	assert( MyEnvironment::teardown );
+	IUTEST_ASSERT( MyEnvironment::teardown );
 	
 	return ret;
 }
