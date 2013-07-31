@@ -47,7 +47,7 @@ IUTEST(SPIAssertFailureTest, NoFailure)
 
 IUTEST(SPIAssertFailureTest, Substr)
 {
-	IUTEST_ASSERT_FATAL_FAILURE(NonFatalFailure1();, "aaaa");
+	IUTEST_ASSERT_FATAL_FAILURE(FatalFailure1();, "aaaa");
 }
 
 IUTEST(SPIAssertFailureTest, Different)
@@ -70,7 +70,7 @@ IUTEST(SPIAssertNonFailureTest, NoFailure)
 
 IUTEST(SPIAssertNonFailureTest, Substr)
 {
-	IUTEST_ASSERT_NONFATAL_FAILURE(FatalFailure1();, "aaaa");
+	IUTEST_ASSERT_NONFATAL_FAILURE(NonFatalFailure1();, "aaaa");
 }
 
 IUTEST(SPIAssertNonFailureTest, Different)
@@ -91,7 +91,7 @@ IUTEST(SPIExpectFailureTest, NoFailure)
 
 IUTEST(SPIExpectFailureTest, Substr)
 {
-	IUTEST_EXPECT_FATAL_FAILURE(NonFatalFailure1();, "aaaa");
+	IUTEST_EXPECT_FATAL_FAILURE(FatalFailure1();, "aaaa");
 }
 
 IUTEST(SPIExpectFailureTest, Different)
@@ -113,7 +113,7 @@ IUTEST(SPIExpectNonFailureTest, NoFailure)
 
 IUTEST(SPIExpectNonFailureTest, Substr)
 {
-	IUTEST_EXPECT_NONFATAL_FAILURE(FatalFailure1();, "aaaa");
+	IUTEST_EXPECT_NONFATAL_FAILURE(NonFatalFailure1();, "aaaa");
 }
 
 IUTEST(SPIExpectNonFailureTest, Different)

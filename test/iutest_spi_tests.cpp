@@ -132,7 +132,7 @@ IUTEST_F(SPITest, FatalFailure)
 #else
 	FatalFailure_Sub(count);
 #endif
-	ASSERT_EQ(1, count);
+	IUTEST_ASSERT_EQ(1, count);
 }
 
 void SPITest::FatalFailure2_Sub(int& count)
@@ -203,7 +203,7 @@ IUTEST_F(SPITest, FatalFailure2)
 #else
 	FatalFailure2_Sub(count);
 #endif
-	ASSERT_EQ(1, count);
+	IUTEST_ASSERT_EQ(1, count);
 }
 
 IUTEST_F(SPITest, NonFatalFailure)
