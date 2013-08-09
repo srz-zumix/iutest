@@ -95,7 +95,7 @@ IUTEST_IPP_INLINE void	TestInfo::RunImpl(void)
 	if( HasFailure() && TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
 	{
 #if IUTEST_HAS_EXCEPTIONS
-		throw HasFatalFailure() ? TestPartResult::kFatalFailure : TestPartResult::kNotFatalFailure;
+		throw HasFatalFailure() ? TestPartResult::kFatalFailure : TestPartResult::kNonFatalFailure;
 #else
 		exit(1);
 #endif

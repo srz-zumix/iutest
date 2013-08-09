@@ -61,7 +61,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 			if( iuoption )
 			{
 				// --iutest_*
-				if( strstr(str, "output") == str )
+				if( detail::IsStringForwardMatching(str, "output") )
 				{
 					find = ParseOutputOption(ParseOptionSettingStr(str));
 				}
@@ -73,7 +73,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 				{
 					TestFlag::SetFlag(TestFlag::SHOW_TESTS_LIST_WITH_WHERE);
 				}
-				else if( strstr(str, "color") == str )
+				else if( detail::IsStringForwardMatching(str, "color") )
 				{
 					find = ParseColorOption(ParseOptionSettingStr(str));
 				}
@@ -81,7 +81,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 				{
 					TestFlag::SetFlag(TestFlag::SHUFFLE_TESTS);
 				}
-				else if( strstr(str, "random_seed") == str )
+				else if( detail::IsStringForwardMatching(str, "random_seed") )
 				{
 					const char* opt = ParseOptionSettingStr(str);
 					if( opt != NULL )
@@ -99,23 +99,23 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 				{
 					TestFlag::SetFlag(TestFlag::RUN_DISABLED_TESTS);
 				}
-				else if( strstr(str, "break_on_failure") == str )
+				else if( detail::IsStringForwardMatching(str, "break_on_failure") )
 				{
 					find = ParseYesNoFlagCommandLine(str, TestFlag::BREAK_ON_FAILURE, 1);
 				}
-				else if( strstr(str, "catch_exceptions") == str )
+				else if( detail::IsStringForwardMatching(str, "catch_exceptions") )
 				{
 					find = ParseYesNoFlagCommandLine(str, TestFlag::CATCH_EXCEPTION, -1);
 				}
-				else if( strstr(str, "throw_on_failure") == str )
+				else if( detail::IsStringForwardMatching(str, "throw_on_failure") )
 				{
 					find = ParseYesNoFlagCommandLine(str, TestFlag::THROW_ON_FAILURE, 1);
 				}
-				else if( strstr(str, "print_time") == str )
+				else if( detail::IsStringForwardMatching(str, "print_time") )
 				{
 					find = ParseYesNoFlagCommandLine(str, TestFlag::PRINT_TIME, -1);
 				}
-				else if( strstr(str, "repeat") == str )
+				else if( detail::IsStringForwardMatching(str, "repeat") )
 				{
 					const char* opt = ParseOptionSettingStr(str);
 					if( opt != NULL )
@@ -129,7 +129,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 						find = false;
 					}
 				}
-				else if( strstr(str, "filter") == str )
+				else if( detail::IsStringForwardMatching(str, "filter") )
 				{
 					const char* opt = ParseOptionSettingStr(str);
 					if( opt != NULL )
@@ -138,7 +138,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 					}
 				}
 #if IUTEST_HAS_STREAM_RESULT
-				else if( strstr(str, "stream_result_to") == str )
+				else if( detail::IsStringForwardMatching(str, "stream_result_to") )
 				{
 					const char* opt = ParseOptionSettingStr(str);
 					if( opt != NULL )
@@ -147,7 +147,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 					}
 				}
 #endif
-				else if( strstr(str, "file_location") == str )
+				else if( detail::IsStringForwardMatching(str, "file_location") )
 				{
 					const char* opt = ParseOptionSettingStr(str);
 					find = ParseFileLocationOption(opt);

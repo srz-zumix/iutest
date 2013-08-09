@@ -35,7 +35,7 @@ IUTEST_IPP_INLINE bool	TestCase::Run(void)
 
 	// テスト開始
 	TestEnv::event_listeners().OnTestCaseStart(*this);
-	bool result = RunImpl();
+	const bool result = RunImpl();
 	// テスト終了
 	TestEnv::event_listeners().OnTestCaseEnd(*this);
 
@@ -114,12 +114,14 @@ IUTEST_IPP_INLINE int TestCase::reportable_test_count(void) const
 IUTEST_IPP_INLINE int TestCase::failed_test_count(void) const
 {
 	if( !should_run() ) return 0;
+	//if( m_ad_hoc_testresult.Failed() ) return m_testinfos.count();
 	return detail::CountIf(m_testinfos, IsFaildTest);
 }
 
 IUTEST_IPP_INLINE int TestCase::successful_test_count(void) const
 {
 	if( !should_run() ) return 0;
+	//if( m_ad_hoc_testresult.Failed() ) return 0;
 	return detail::CountIf(m_testinfos, IsSuccessfulTest);
 }
 

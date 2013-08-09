@@ -62,7 +62,7 @@ public:
 		kSkip = -2,				//!< ƒXƒLƒbƒv
 		kWarning = -1,		//!< Œx
 		kSuccess,			//!< ¬Œ÷
-		kNotFatalFailure,	//!< ’v–½“I‚Å‚Í‚È‚¢Ž¸”s
+		kNonFatalFailure,	//!< ’v–½“I‚Å‚Í‚È‚¢Ž¸”s
 		kFatalFailure		//!< ’v–½“I‚ÈŽ¸”s
 	};
 public:
@@ -104,7 +104,7 @@ public:
 	/**
 	 * @brief	’v–½“I‚Å‚Í‚È‚¢Ž¸”s‚©‚Ç‚¤‚©
 	*/
-	bool		nonfatally_failed(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kNotFatalFailure; }
+	bool		nonfatally_failed(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kNonFatalFailure; }
 
 	/**
 	 * @brief	’v–½“I‚ÈŽ¸”s‚©‚Ç‚¤‚©
@@ -218,7 +218,7 @@ public:
 	 * @brief	’v–½“I‚Å‚È‚¢ƒGƒ‰[‚ª‚ ‚é‚©‚Ç‚¤‚©
 	 * @return	^‹U’l
 	*/
-	bool		HasNonfatalFailure(void)	const	{ return HasResult(TestPartResult::kNotFatalFailure); }
+	bool		HasNonfatalFailure(void)	const	{ return HasResult(TestPartResult::kNonFatalFailure); }
 
 	/**
 	 * @brief	ƒeƒXƒg‚ÌŽÀsŽžŠÔ‚ÌŽæ“¾

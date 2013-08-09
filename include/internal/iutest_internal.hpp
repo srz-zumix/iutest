@@ -157,7 +157,7 @@
 */
 #define IUTEST_EXPECT_FAILURE(msg)					IUTEST_EXPECT_FAILURE_AT(msg, __FILE__, __LINE__)
 
-#define IUTEST_EXPECT_FAILURE_AT(msg, file, line)	IUTEST_MESSAGE_AT(file, line, msg, ::iutest::TestPartResult::kNotFatalFailure)
+#define IUTEST_EXPECT_FAILURE_AT(msg, file, line)	IUTEST_MESSAGE_AT(file, line, msg, ::iutest::TestPartResult::kNonFatalFailure)
 
 /**
  * @internal

@@ -180,7 +180,7 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationEnd(const Unit
 		
 		if( !test.Passed() )
 		{
-			int failed_num = test.failed_test_count();
+			const int failed_num = test.failed_test_count();
 			detail::iuConsole::color_output(detail::iuConsole::red, "[  FAILED  ] ");
 			detail::iuConsole::output("%d %s, listed below:\n", failed_num, failed_num == 1 ? "test" : "tests" );
 
@@ -196,6 +196,17 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationEnd(const Unit
 						detail::iuConsole::output("%s.%s\n", testinfo->test_case_name(), testinfo->name());
 					}
 				}
+				if( testcase->ad_hoc_testresult()->Failed() )
+				{
+					detail::iuConsole::color_output(detail::iuConsole::red, "[  FAILED  ] ");
+					detail::iuConsole::output("%s at SetUpTestCase/TearDownTestCase\n", testcase->name());
+				}
+			}
+
+			if( test.ad_hoc_testresult()->Failed() )
+			{
+				detail::iuConsole::color_output(detail::iuConsole::red, "[  FAILED  ] ");
+				detail::iuConsole::output("other than\n");
 			}
 			detail::iuConsole::output("\n%d FAILED %s.\n", failed_num, failed_num == 1 ? "TEST" : "TESTS" );
 		}

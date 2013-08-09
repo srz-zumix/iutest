@@ -52,7 +52,7 @@ public:
 		, m_matches_filter(true)
 	{
 		m_mediator.SetPointer(this);
-		if( strstr(name, "DISABLED_") == name )
+		if( detail::IsStringForwardMatching(name, "DISABLED_") )
 		{
 			m_disable = true;
 		}

@@ -88,7 +88,7 @@
 #define IUTEST_TEST_NONFATAL_FAILURE_(statement, text, substr, on_failure)			\
 	if( ::iutest::AssertionResult iutest_ar = [&]() -> ::iutest::AssertionResult {	\
 		::iutest::detail::SPIFailureChecker<										\
-			::iutest::TestPartResult::kNotFatalFailure> iutest_failure_checker;		\
+			::iutest::TestPartResult::kNonFatalFailure> iutest_failure_checker;		\
 		IIUT_STATEMENT_EXECUTER(statement);											\
 		return iutest_failure_checker.GetResult(substr);							\
 	}() )																			\
@@ -130,7 +130,7 @@
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_												\
 	if( ::iutest::AssertionResult iutest_ar = ::iutest::AssertionSuccess() ) {	\
 		::iutest::detail::SPIFailureChecker<									\
-			::iutest::TestPartResult::kNotFatalFailure> iutest_failure_checker;	\
+			::iutest::TestPartResult::kNonFatalFailure> iutest_failure_checker;	\
 		IIUT_STATEMENT_EXECUTER(statement);										\
 		::iutest::AssertionResult ar = iutest_failure_checker.GetResult(substr);\
 		if( !ar ) {																\

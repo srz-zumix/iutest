@@ -52,29 +52,29 @@ public:
 public:
 	static void SetUpTestCase(void)
 	{
-		ASSERT_EQ(-1, x);
+		IUTEST_ASSERT_EQ(-1, x);
 		x = 0;
 	}
 	virtual void SetUp(void)
 	{
-		ASSERT_EQ(0, x);
+		IUTEST_ASSERT_EQ(0, x);
 		++x;
 	}
 	virtual void TearDown(void)
 	{
-		ASSERT_EQ(2, x);
+		IUTEST_ASSERT_EQ(2, x);
 		++x;
 	}
 	static void TearDownTestCase(void)
 	{
-		ASSERT_EQ(3, x);
-		++x;
+		IUTEST_ASSERT_EQ(3, x);
+		x = -1;
 	}
 };
 int TestFixture::x = -1;
 
 IUTEST_F(TestFixture, Test)
 {
-	ASSERT_EQ(1, x);
+	IUTEST_ASSERT_EQ(1, x);
 	++x;
 }

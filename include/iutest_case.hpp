@@ -51,7 +51,7 @@ protected:
 	, m_elapsedmsec(0)
 	, m_disable(false)
 	{
-		if( strstr(testcase_name, "DISABLED_") == testcase_name )
+		if( detail::IsStringForwardMatching(testcase_name, "DISABLED_") )
 		{
 			m_disable = true;
 		}

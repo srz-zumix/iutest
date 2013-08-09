@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01069901u	//!< iutest version 1.6.99.1
+#define	IUTEST_VER			0x01069904u	//!< iutest version 1.6.99.4
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x06u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x01u		//!< Revision
+#define IUTEST_REVISION		0x04u		//!< Revision
 
 /**
  * @mainpage
@@ -95,8 +95,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.6.99.1
+  <li>v1.6.99.4
     <ul>
+      <li>SSTP 通知リスナーを追加</li>
       <li>Windows 向けメニュー登録ユーティリティを追加</li>
       <li>ビルドエラー修正</li>
     </ul>
