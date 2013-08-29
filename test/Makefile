@@ -82,6 +82,7 @@ LDFLAGS += $(LIBS_)
 
 TARGETS1= iutest_all_tests \
           iutest_assertion_return_tests \
+          iutest_assume_tests \
           iutest_catch_exceptions_tests \
           iutest_disabled_tests \
           iutest_environment_tests \
@@ -110,7 +111,8 @@ TARGETS1= iutest_all_tests \
           iutest_uninitialize_tests
 
 TARGETS2= \
-          iutest_assertion_only_tests
+          iutest_assertion_only_tests \
+#          iutest_exception_tests
 
 TARGETS3 = \
           iutest_env_var_tests \

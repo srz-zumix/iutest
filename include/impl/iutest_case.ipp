@@ -137,16 +137,16 @@ IUTEST_IPP_INLINE int TestCase::reportable_skip_test_count(void) const
 	return detail::CountIf(m_testinfos, IsReportableSkipTest);
 }
 
-IUTEST_IPP_INLINE int TestCase::test_was_skipped_count(void) const
+IUTEST_IPP_INLINE int TestCase::test_run_skipped_count(void) const
 {
 	if( !should_run() ) return 0;
-	return detail::CountIf(m_testinfos, IsWasSkippedTest);
+	return detail::CountIf(m_testinfos, IsRunSkippedTest);
 }
 
-IUTEST_IPP_INLINE int TestCase::reportable_test_was_skipped_count(void) const
+IUTEST_IPP_INLINE int TestCase::reportable_test_run_skipped_count(void) const
 {
 	if( !should_run() ) return 0;
-	return detail::CountIf(m_testinfos, IsReportableWasSkippedTest);
+	return detail::CountIf(m_testinfos, IsReportableRunSkippedTest);
 }
 
 IUTEST_IPP_INLINE int TestCase::reportable_disabled_test_count(void) const

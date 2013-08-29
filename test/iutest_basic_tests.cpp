@@ -69,8 +69,8 @@ IUTEST(TestInformation, TestInfoCount)
 	IUTEST_ASSERT_EQ(4, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_test_count());
 #endif
 #if !defined(IUTEST_USE_GTEST)
-	IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->test_was_skipped_count());
-	IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_test_was_skipped_count());
+	IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->test_run_skipped_count());
+	IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_test_run_skipped_count());
 	IUTEST_ASSERT_EQ(1, ::iutest::UnitTest::GetInstance()->current_test_case()->skip_test_count());
 	IUTEST_ASSERT_EQ(1, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_skip_test_count());
 #endif

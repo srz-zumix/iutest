@@ -88,6 +88,7 @@ class TestFlag
 public:
 	/**
 	 * @brief	テストフラグ保存/復元クラス
+	 * @private
 	*/
 	class ScopedGuard
 	{

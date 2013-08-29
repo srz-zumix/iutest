@@ -167,6 +167,14 @@
 
 #define IUTEST_INFORM_FAILURE_AT(msg, file, line)	IUTEST_MESSAGE_AT(file, line, msg, ::iutest::TestPartResult::kWarning)
 
+/**
+ * @internal
+ * @brief	ASSUME メッセージ処理
+*/
+#define IUTEST_ASSUME_FAILURE(msg)					IUTEST_ASSUME_FAILURE_AT(msg, __FILE__, __LINE__)
+
+#define IUTEST_ASSUME_FAILURE_AT(msg, file, line)	return IUTEST_MESSAGE_AT(file, line, msg, ::iutest::TestPartResult::kAssumeFailure)
+
 
 #ifndef IUTEST_MAKE_ASSERTIONRESULT_
 #  define IUTEST_MAKE_ASSERTIONRESULT_(ar)	ar

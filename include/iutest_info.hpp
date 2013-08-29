@@ -70,7 +70,7 @@ public:
 	/** disable */
 	bool			is_disabled_test(void)	const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_disable; }
 	/** is skipped */
-	bool			is_skipped(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_skip; }
+	bool			is_skipped(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_skip || m_test_result.Skipped(); }
 	/** is reportable */
 	bool			is_reportable(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_matches_filter; }
 	/** テストの実行ミリ秒 */
@@ -117,6 +117,7 @@ public:
 	*/
 	bool	Passed(void) const
 	{
+		if( is_skipped() ) return false;
 		return m_test_result.Passed();
 	}
 

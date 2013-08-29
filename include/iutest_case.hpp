@@ -86,9 +86,9 @@ public:
 	/** レポート対象のスキップテスト総数 */
 	int				reportable_skip_test_count(void) const;
 	/** 明示的にスキップされたテスト総数 */
-	int				test_was_skipped_count(void) const;
+	int				test_run_skipped_count(void) const;
 	/** レポート対象の明示的にスキップされたテスト総数 */
-	int				reportable_test_was_skipped_count(void) const;
+	int				reportable_test_run_skipped_count(void) const;
 	/** テストの実行ミリ秒 */
 	TimeInMillisec	elapsed_time(void)			const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_elapsedmsec; }
 
@@ -177,12 +177,12 @@ private:
 	TestTypeId					get_typeid(void) const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_id; }
 
 private:
-	static bool IsSuccessfulTest(const TestInfo* p) { return p->is_ran() && !p->HasFailure(); }
+	static bool IsSuccessfulTest(const TestInfo* p) { return p->is_ran() && p->Passed(); }
 	static bool IsFaildTest(const TestInfo* p) { return p->should_run() && p->HasFailure(); }
 	static bool IsSkipTest(const TestInfo* p) { return !p->is_ran() || p->is_skipped(); }
 	static bool IsReportableSkipTest(const TestInfo* p) { return p->is_reportable() && IsSkipTest(p); }
-	static bool IsWasSkippedTest(const TestInfo* p) { return p->should_run() && p->is_skipped(); }
-	static bool IsReportableWasSkippedTest(const TestInfo* p) { return p->is_reportable() && IsWasSkippedTest(p); }
+	static bool IsRunSkippedTest(const TestInfo* p) { return p->should_run() && p->is_skipped(); }
+	static bool IsReportableRunSkippedTest(const TestInfo* p) { return p->is_reportable() && IsRunSkippedTest(p); }
 	static bool IsReportableDisabledTest(const TestInfo* p) { return p->is_reportable() && p->is_disabled_test(); }
 
 private:

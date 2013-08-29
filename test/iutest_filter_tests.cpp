@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
 #if !defined(IUTEST_USE_GTEST)
 		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 2 );
 		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_was_skipped_count() == 0 );
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 0 );
 #endif
 	}
 	{
@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
 #if !defined(IUTEST_USE_GTEST)
 		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 1 );
 		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_was_skipped_count() == 0 );
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 0 );
 #endif
 	}
 	printf("*** Successful ***\n");

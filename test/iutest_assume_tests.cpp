@@ -1,14 +1,14 @@
 //======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_skip_tests.cpp
- * @brief		IUTEST_SKIP ‘Î‰žƒeƒXƒg
+ * @file		iutest_assume_tests.cpp
+ * @brief		iutest assume test
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -17,48 +17,46 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "../include/gtest/iutest_spi_switch.hpp"
 
-static bool skip_check = true;
+#if !defined(IUTEST_USE_GTEST)
 
-IUTEST(DISABLED_SkipTest, A)
+IUTEST(AssumeTest, A)
 {
+	IUTEST_ASSUME_TRUE(false);
 }
 
-IUTEST(SkipTest, CanSkip)
+IUTEST(AssumeTest, B)
 {
-	IUTEST_SKIP() << "test";
-	IUTEST_EXPECT_EQ(2, 3);
+	IUTEST_ASSUME_EQ(0, 1);
 }
 
-IUTEST(SkipTest, Failed)
+IUTEST(AssumeTest, C)
 {
-	IUTEST_EXPECT_EQ(2, 3);
-	IUTEST_SKIP();
-	skip_check = false;
-	IUTEST_EXPECT_EQ(2, 3);
+	IUTEST_ASSERT_EQ(0, 1);
+	IUTEST_ASSUME_EQ(0, 1);
 }
+
+#endif
 
 #ifdef UNICODE
-int wmain(int argc, wchar_t* argv[])
+int wmain(int argc, wchar_t** argv)
 #else
-int main(int argc, char* argv[])
+int main(int argc, char** argv)
 #endif
 {
 	IUTEST_INIT(&argc, argv);
 	int ret = IUTEST_RUN_ALL_TESTS();
 	if( ret == 0 ) return 1;
-	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->test_to_run_count() == 2 );
 #if !defined(IUTEST_USE_GTEST)
-	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->test_run_skipped_count() == 1 );
-	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 1 );
+	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->test_run_skipped_count() == 2 );
+	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 2 );
 	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 2 );
 	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 2 );
-	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->successful_test_count() == 0 );
-	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->successful_test_case_count() == 1 );
-#endif
+	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->successful_test_case_count() == 0 );
 	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
-	IUTEST_ASSERT( skip_check );
+#endif
 	printf("*** Successful ***\n");
 	return 0;
 }
+

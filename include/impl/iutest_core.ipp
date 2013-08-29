@@ -54,14 +54,14 @@ IUTEST_IPP_INLINE int UnitTest::reportable_skip_test_count(void) const
 	return detail::SumOverList(m_testcases, &TestCase::reportable_skip_test_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::test_was_skipped_count(void) const
+IUTEST_IPP_INLINE int UnitTest::test_run_skipped_count(void) const
 {
-	return detail::SumOverList(m_testcases, &TestCase::test_was_skipped_count);
+	return detail::SumOverList(m_testcases, &TestCase::test_run_skipped_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::reportable_test_was_skipped_count(void) const
+IUTEST_IPP_INLINE int UnitTest::reportable_test_run_skipped_count(void) const
 {
-	return detail::SumOverList(m_testcases, &TestCase::reportable_test_was_skipped_count);
+	return detail::SumOverList(m_testcases, &TestCase::reportable_test_run_skipped_count);
 }
 
 IUTEST_IPP_INLINE int UnitTest::test_case_to_run_count(void) const

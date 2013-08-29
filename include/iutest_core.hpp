@@ -79,9 +79,9 @@ public:
 	/** レポート対象のスキップテスト総数 */
 	int				reportable_skip_test_count(void) const;
 	/** 明示的にスキップされたテスト総数 */
-	int				test_was_skipped_count(void) const;
+	int				test_run_skipped_count(void) const;
 	/** レポート対象の明示的にスキップされたテスト総数 */
-	int				reportable_test_was_skipped_count(void) const;
+	int				reportable_test_run_skipped_count(void) const;
 
 	/** テストケース数の総数 */
 	int				total_test_case_count(void)	const	{ return m_testcases.size(); }

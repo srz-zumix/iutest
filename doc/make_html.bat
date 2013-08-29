@@ -1,8 +1,10 @@
+@echo off
 doxygen.exe Doxyfile
 if errorlevel 1 goto error
 
-exit
+goto :EOF
 
 :error
 pause
+exit /b 1
 

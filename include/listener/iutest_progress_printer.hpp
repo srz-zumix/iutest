@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_progress_printer.hpp
- * @brief		iris unit test デフォルト出力イベントリスナー ファイル
+ * @brief		iris unit test プログレス出力イベントリスナー ファイル
  *
  * @author		t.sirayanagi
  * @version		1.0

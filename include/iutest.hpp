@@ -945,6 +945,249 @@ namespace iutest
 #endif
 
 /**
+ * @defgroup	IUTEST_ASSUME_		アサーション(ASSUME)
+ * @brief		前提テスト記述マクロ
+ * @details		テストの前提検証用マクロです。失敗した場合、以降の処理を行わずテストはスキップされます。
+*/
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	== テスト
+*/
+#ifndef IUTEST_ASSUME_EQ
+#  define	IUTEST_ASSUME_EQ(expected, actual)		IUTEST_TEST_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	== テスト(collection)
+*/
+#ifndef IUTEST_ASSUME_EQ_COLLECTIONS
+#  define	IUTEST_ASSUME_EQ_COLLECTIONS(b1, e1, b2, e2)	IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, IUTEST_ASSUME_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	!= テスト
+*/
+#ifndef IUTEST_ASSUME_NE
+#  define	IUTEST_ASSUME_NE(v1, v2)				IUTEST_TEST_NE(v1, v2, IUTEST_ASSUME_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	<= テスト
+*/
+#ifndef IUTEST_ASSUME_LE
+#  define	IUTEST_ASSUME_LE(v1, v2)				IUTEST_TEST_LE(v1, v2, IUTEST_ASSUME_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	< テスト
+*/
+#ifndef IUTEST_ASSUME_LT
+#  define	IUTEST_ASSUME_LT(v1, v2)				IUTEST_TEST_LT(v1, v2, IUTEST_ASSUME_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	>= テスト
+*/
+#ifndef IUTEST_ASSUME_GE
+#  define	IUTEST_ASSUME_GE(v1, v2)				IUTEST_TEST_GE(v1, v2, IUTEST_ASSUME_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	> テスト
+*/
+#ifndef IUTEST_ASSUME_GT
+#  define	IUTEST_ASSUME_GT(v1, v2)				IUTEST_TEST_GT(v1, v2, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	TRUE テスト
+*/
+#ifndef IUTEST_ASSUME_TRUE
+#  define	IUTEST_ASSUME_TRUE(v)					IUTEST_TEST_TRUE(v, #v, IUTEST_ASSUME_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	FALSE テスト
+*/
+#ifndef IUTEST_ASSUME_FALSE
+#  define	IUTEST_ASSUME_FALSE(v)					IUTEST_TEST_FALSE(v, #v, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	NULL テスト
+*/
+#ifndef IUTEST_ASSUME_NULL
+#  define	IUTEST_ASSUME_NULL(v)					IUTEST_TEST_NULL(v, IUTEST_ASSUME_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	NOT NULL テスト
+*/
+#ifndef IUTEST_ASSUME_NOTNULL
+#  define	IUTEST_ASSUME_NOTNULL(v)				IUTEST_TEST_NOTNULL(v, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	アドレス一致 テスト
+*/
+#ifndef IUTEST_ASSUME_SAME
+#  define	IUTEST_ASSUME_SAME(v1, v2)				IUTEST_TEST_SAME(v1, v2, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	float の比較 テスト
+*/
+#ifndef IUTEST_ASSUME_FLOAT_EQ
+#  define	IUTEST_ASSUME_FLOAT_EQ(expected, actual)	IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	double の比較 テスト
+*/
+#ifndef IUTEST_ASSUME_DOUBLE_EQ
+#  define	IUTEST_ASSUME_DOUBLE_EQ(expected, actual)	IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	２値の差の範囲 テスト
+*/
+#ifndef IUTEST_ASSUME_NEAR
+#  define	IUTEST_ASSUME_NEAR(v1, v2, abs_v)		IUTEST_TEST_NEAR(v1, v2, abs_v, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	文字列の一致 テスト
+*/
+#ifndef IUTEST_ASSUME_STREQ
+#  define	IUTEST_ASSUME_STREQ(expected_str, actual_str)	IUTEST_TEST_STREQ(expected_str, actual_str, IUTEST_ASSUME_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	文字列の不一致 テスト
+*/
+#ifndef IUTEST_ASSUME_STRNE
+#  define	IUTEST_ASSUME_STRNE(v1, v2)				IUTEST_TEST_STRNE(v1, v2, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	文字列の一致（大文字小文字区別なし） テスト
+*/
+#ifndef IUTEST_ASSUME_STRCASEEQ
+#  define	IUTEST_ASSUME_STRCASEEQ(expected_str, actual_str)	IUTEST_TEST_STRCASEEQ(expected_str, actual_str, IUTEST_ASSUME_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	文字列の不一致（大文字小文字区別なし） テスト
+*/
+#ifndef IUTEST_ASSUME_STRCASENE
+#  define	IUTEST_ASSUME_STRCASENE(v1, v2)			IUTEST_TEST_STRCASENE(v1, v2, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	HRESULT の成功 テスト
+*/
+#ifndef IUTEST_ASSUME_HRESULT_SUCCEEDED
+#  define IUTEST_ASSUME_HRESULT_SUCCEEDED(hr)		IUTEST_TEST_HRESULT_SUCCEEDED(hr, IUTEST_ASSUME_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	HRESULT の失敗 テスト
+*/
+#ifndef IUTEST_ASSUME_HRESULT_FAILED
+#  define IUTEST_ASSUME_HRESULT_FAILED(hr)			IUTEST_TEST_HRESULT_FAILED(hr, IUTEST_ASSUME_FAILURE)
+#endif
+
+#if IUTEST_HAS_EXCEPTIONS
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	throw テスト
+*/
+#ifndef IUTEST_ASSUME_THROW
+#  define IUTEST_ASSUME_THROW(statement, expected_exception)	\
+													IUTEST_TEST_THROW_(statement, expected_exception, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	throw value == テスト
+*/
+#ifndef IUTEST_ASSUME_THROW_VALUE_EQ
+#  define IUTEST_ASSUME_THROW_VALUE_EQ(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_EQ_(statement, expected_exception, expected_value, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	throw value != テスト
+*/
+#ifndef IUTEST_ASSUME_THROW_VALUE_NE
+#  define IUTEST_ASSUME_THROW_VALUE_NE(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, expected_value, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	throw value 文字列一致 テスト
+*/
+#ifndef IUTEST_ASSUME_THROW_VALUE_STREQ
+#  define IUTEST_ASSUME_THROW_VALUE_STREQ(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_STREQ_(statement, expected_exception, expected_value, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	throw value 文字列一致（大文字小文字区別なし） テスト
+*/
+#ifndef IUTEST_ASSUME_THROW_VALUE_STRCASEEQ
+#  define IUTEST_ASSUME_THROW_VALUE_STRCASEEQ(statement, expected_exception, expected_value)	\
+													IUTEST_TEST_THROW_VALUE_STRCASEEQ_(statement, expected_exception, expected_value, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	any throw テスト
+*/
+#ifndef IUTEST_ASSUME_ANY_THROW
+#  define IUTEST_ASSUME_ANY_THROW(statement)		IUTEST_TEST_ANY_THROW_(statement, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	no throw テスト
+*/
+#ifndef IUTEST_ASSUME_NO_THROW
+#  define IUTEST_ASSUME_NO_THROW(statement)			IUTEST_TEST_NO_THROW_(statement, IUTEST_ASSUME_FAILURE)
+#endif
+
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	no new fatal failure テスト
+*/
+#ifndef IUTEST_ASSUME_NO_FAILURE
+#  define IUTEST_ASSUME_NO_FAILURE(statement)		IUTEST_TEST_NO_FAILURE_(statement, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	no new failure テスト
+*/
+#ifndef IUTEST_ASSUME_NO_FATAL_FAILURE
+#  define IUTEST_ASSUME_NO_FATAL_FAILURE(statement)	IUTEST_TEST_NO_FATAL_FAILURE_(statement, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
  * @brief iutest root namespace
 */
 namespace iutest

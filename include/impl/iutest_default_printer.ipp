@@ -170,7 +170,7 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationEnd(const Unit
 			}
 		}
 		{
-			const int count = test.reportable_test_was_skipped_count();
+			const int count = test.reportable_test_run_skipped_count();
 			if( count > 0 )
 			{
 				detail::iuConsole::color_output(detail::iuConsole::yellow, "[  SKIPPED ] ");

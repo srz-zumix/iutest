@@ -59,11 +59,12 @@ public:
 	*/
 	enum Type
 	{
+		kAssumeFailure = -3,	//!< 前提条件エラー
 		kSkip = -2,				//!< スキップ
-		kWarning = -1,		//!< 警告
-		kSuccess,			//!< 成功
-		kNonFatalFailure,	//!< 致命的ではない失敗
-		kFatalFailure		//!< 致命的な失敗
+		kWarning = -1,			//!< 警告
+		kSuccess,				//!< 成功
+		kNonFatalFailure,		//!< 致命的ではない失敗
+		kFatalFailure			//!< 致命的な失敗
 	};
 public:
 	/**
@@ -96,6 +97,10 @@ public:
 	 * @brief	スキップかどうか
 	*/
 	bool		skipped(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kSkip; }
+	/**
+	 * @brief	前提条件エラーかどうか
+	*/
+	bool		assume_failed(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kAssumeFailure; }
 	/**
 	 * @brief	成功かどうか（警告を除く）
 	*/
@@ -207,6 +212,18 @@ public:
 		}
 		return false;
 	}
+	/**
+	 * @brief	スキップしたかどうか
+	 * @return	真偽値
+	*/
+	bool		Skipped(void) const
+	{
+		for( TestPartResults::const_iterator it=m_test_part_results.begin(), end=m_test_part_results.end(); it != end; ++it )
+		{
+			if( it->skipped() || it->assume_failed() ) return Passed();
+		}
+		return false;
+	}
 
 	/**
 	 * @brief	致命的なエラーがあるかどうか
@@ -219,6 +236,12 @@ public:
 	 * @return	真偽値
 	*/
 	bool		HasNonfatalFailure(void)	const	{ return HasResult(TestPartResult::kNonFatalFailure); }
+
+	/**
+	 * @brief	前提条件エラーがあるかどうか
+	 * @return	真偽値
+	*/
+	bool		HasAssumeFailure(void)	const	{ return HasResult(TestPartResult::kAssumeFailure); }
 
 	/**
 	 * @brief	テストの実行時間の取得
