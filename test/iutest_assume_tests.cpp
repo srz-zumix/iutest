@@ -19,8 +19,6 @@
 // include
 #include "../include/gtest/iutest_spi_switch.hpp"
 
-#if !defined(IUTEST_USE_GTEST)
-
 IUTEST(AssumeTest, A)
 {
 	IUTEST_ASSUME_TRUE(false);
@@ -29,6 +27,7 @@ IUTEST(AssumeTest, A)
 IUTEST(AssumeTest, B)
 {
 	IUTEST_ASSUME_EQ(0, 1);
+	IUTEST_ASSERT_EQ(0, 1);
 }
 
 IUTEST(AssumeTest, C)
@@ -36,8 +35,6 @@ IUTEST(AssumeTest, C)
 	IUTEST_ASSERT_EQ(0, 1);
 	IUTEST_ASSUME_EQ(0, 1);
 }
-
-#endif
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t** argv)

@@ -294,6 +294,9 @@
     <ClInclude Include="Y:\usr\local\shirayanagi\iutest\include\listener\iutest_sstp_notifier.hpp">
       <Filter>iutest\listener</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_assume.hpp">
+      <Filter>iutest\gtest\switch</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\impl\iutest_body.ipp">

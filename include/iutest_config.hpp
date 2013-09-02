@@ -138,6 +138,13 @@
 #  endif
 #endif
 
+#if IUTEST_HAS_RANDOMVALUES
+#  if !IUTEST_HAS_PARAM_TEST || !IUTEST_HAS_VALUESGEN
+#    undef IUTEST_HAS_RANDOMVALUES
+#    define IUTEST_HAS_RANDOMVALUES	0
+#  endif
+#endif
+
 #ifndef IUTEST_HAS_COMBINE
 //! ::iutest::Combine ‚ªŽg—p‰Â”\‚©‚Ç‚¤‚©
 #  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TUPLE

@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -191,27 +191,27 @@
 #define INFORM_NO_FATAL_FAILURE(statement) \
 	GTEST_TEST_NO_FATAL_FAILURE_(statement, GTEST_INFORM_FAILURE_)
 
-#define IUTEST_INFORM_TRUE		INFORM_TRUE
-#define IUTEST_INFORM_FALSE		INFORM_FALSE
-#define IUTEST_INFORM_EQ		INFORM_EQ
-#define IUTEST_INFORM_NE(expected, actual)		INFORM_PRED_FORMAT2(::testing::internal::NeHelper<GTEST_IS_NULL_LITERAL_(expected)>::Compare, expected, actual)
-#define IUTEST_INFORM_LT		INFORM_LT
-#define IUTEST_INFORM_LE		INFORM_LE
-#define IUTEST_INFORM_GT		INFORM_GT
-#define IUTEST_INFORM_GE		INFORM_GE
-#define IUTEST_INFORM_NULL(v)	INFORM_EQ(NULL, v)
-#define IUTEST_INFORM_NOTNULL(v)	INFORM_TRUE(NULL != (v))
-#define IUTEST_INFORM_SAME(v1, v2)	INFORM_PRED_FORMAT2(::testing::internal::CmpHelperSame, v1, v2)
-#define IUTEST_INFORM_NEAR		INFORM_NEAR
-#define IUTEST_INFORM_FLOAT_EQ	INFORM_FLOAT_EQ
-#define IUTEST_INFORM_DOUBLE_EQ	INFORM_DOUBLE_EQ
-#define IUTEST_INFORM_STREQ		INFORM_STREQ
-#define IUTEST_INFORM_STRNE		INFORM_STRNE
-#define IUTEST_INFORM_STRLNEQ(len, v2)			INFORM_PRED_FORMAT2(iuutil::CmpHelperSTRLNEQ, len, v2)
-#define IUTEST_INFORM_STRCASEEQ	INFORM_STRCASEEQ
-#define IUTEST_INFORM_STRCASENE	INFORM_STRCASENE
-#define IUTEST_INFORM_NO_THROW(statement)					INFORM_NO_THROW((void)(statement))
-#define IUTEST_INFORM_ANY_THROW(statement)					INFORM_ANY_THROW((void)(statement))
+#define IUTEST_INFORM_TRUE					INFORM_TRUE
+#define IUTEST_INFORM_FALSE					INFORM_FALSE
+#define IUTEST_INFORM_EQ					INFORM_EQ
+#define IUTEST_INFORM_NE(expected, actual)	INFORM_PRED_FORMAT2(::testing::internal::NeHelper<GTEST_IS_NULL_LITERAL_(expected)>::Compare, expected, actual)
+#define IUTEST_INFORM_LT					INFORM_LT
+#define IUTEST_INFORM_LE					INFORM_LE
+#define IUTEST_INFORM_GT					INFORM_GT
+#define IUTEST_INFORM_GE					INFORM_GE
+#define IUTEST_INFORM_NULL(v)				INFORM_EQ(NULL, v)
+#define IUTEST_INFORM_NOTNULL(v)			INFORM_TRUE(NULL != (v))
+#define IUTEST_INFORM_SAME(v1, v2)			INFORM_PRED_FORMAT2(::testing::internal::CmpHelperSame, v1, v2)
+#define IUTEST_INFORM_NEAR					INFORM_NEAR
+#define IUTEST_INFORM_FLOAT_EQ				INFORM_FLOAT_EQ
+#define IUTEST_INFORM_DOUBLE_EQ				INFORM_DOUBLE_EQ
+#define IUTEST_INFORM_STREQ					INFORM_STREQ
+#define IUTEST_INFORM_STRNE					INFORM_STRNE
+#define IUTEST_INFORM_STRLNEQ(len, v2)		INFORM_PRED_FORMAT2(iuutil::CmpHelperSTRLNEQ, len, v2)
+#define IUTEST_INFORM_STRCASEEQ				INFORM_STRCASEEQ
+#define IUTEST_INFORM_STRCASENE				INFORM_STRCASENE
+#define IUTEST_INFORM_NO_THROW(statement)	INFORM_NO_THROW((void)(statement))
+#define IUTEST_INFORM_ANY_THROW(statement)	INFORM_ANY_THROW((void)(statement))
 #define IUTEST_INFORM_NO_FATAL_FAILURE		INFORM_NO_FATAL_FAILURE
 
 #ifdef GTEST_OS_WINDOWS

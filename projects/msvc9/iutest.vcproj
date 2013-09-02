@@ -570,6 +570,10 @@
 						>
 					</File>
 					<File
+						RelativePath="..\..\include\gtest\switch\iutest_switch_assume.hpp"
+						>
+					</File>
+					<File
 						RelativePath="..\..\include\gtest\switch\iutest_switch_cmphelper.hpp"
 						>
 					</File>

@@ -64,6 +64,7 @@
               <li><a href="#ext_test_return">戻り値のある関数での ASSERT 使用</a></li>
               <li><a href="#ext_assert_except">例外の値のアサーション</a></li>
               <li><a href="#ext_assert_warn">警告アサーション</a></li>
+              <li><a href="#ext_assert_assume">前提条件アサーション</a></li>
               <li><a href="#ext_assert_vs_ana">Visual Studio コード分析に対応</a></li>
             </ul>
           </li>
@@ -174,6 +175,19 @@ int ReturnTest(void)
 IUTEST(Hoge, Inform)
 {
   IUTEST_INFORM_TRUE(IsEven(2));
+}
+</pre>
+      <br />
+      </li>
+
+      <li><a name="ext_assert_assume" id="ext_assert_assume">前提条件アサーション</a><br />
+      テストの前提条件を検証するためのアサーションです。<br />
+      この検証に失敗した場合、ログを出力してテストを即座に終了します。<br />
+      テスト失敗にはなりません。（iutest の場合はスキップになります。）<br />
+<pre class="source">
+IUTEST(Hoge, Size)
+{
+  IUTEST_ASSUME_EQ(4, sizeof(int));
 }
 </pre>
       <br />

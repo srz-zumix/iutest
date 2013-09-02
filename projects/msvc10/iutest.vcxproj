@@ -142,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_assertion_return.hpp" />
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_assume.hpp" />
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_filepath.hpp" />
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_no_failure.hpp" />
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_pred.hpp" />

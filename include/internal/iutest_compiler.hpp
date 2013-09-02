@@ -486,6 +486,14 @@
 #  endif
 #endif
 
+#ifndef IUTEST_ATTRIBUTE_PURE_
+#  if defined(__GNUC__) && !defined(COMPILER_ICC)
+#    define IUTEST_ATTRIBUTE_PURE_		__attribute__ ((pure))
+#  else
+#    define IUTEST_ATTRIBUTE_PURE_
+#  endif
+#endif
+
 // exceptions
 #if !defined(IUTEST_HAS_EXCEPTIONS)
 #  if	defined(_MSC_VER) || defined(__BORLANDC__)

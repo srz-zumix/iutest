@@ -167,6 +167,9 @@ ifdef USE_GTEST
 GTEST_ROOT_=$(subst \,/,$(GTEST_ROOT))
 CXXFLAGS += -DIUTEST_USE_GTEST -DIUTEST_HAS_SOCKET=0
 
+$(BUILD_ONLY) : $(SRCS) $(IUTEST_HEADERS) Makefile
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp -I$(GTEST_ROOT_)/include $(GTEST_ROOT_)/make/gtest-all.o
+
 $(TARGETS1) : $(SRCS) $(IUTEST_HEADERS) Makefile
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp -I$(GTEST_ROOT_)/include $(GTEST_ROOT_)/make/gtest-all.o
 

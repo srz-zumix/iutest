@@ -74,6 +74,7 @@
 #include "switch/iutest_switch_assert.hpp"
 #include "switch/iutest_switch_expect.hpp"
 #include "switch/iutest_switch_inform.hpp"
+#include "switch/iutest_switch_assume.hpp"
 
 #include "switch/iutest_switch_assertion_return.hpp"
 #include "switch/iutest_switch_eq_collections.hpp"
@@ -233,6 +234,7 @@ namespace tr1
 #include "switch/iutest_switch_assert.hpp"
 #include "switch/iutest_switch_expect.hpp"
 #include "switch/iutest_switch_inform.hpp"
+#include "switch/iutest_switch_assume.hpp"
 
 #include "switch/iutest_switch_assertion_return.hpp"
 #include "switch/iutest_switch_eq_collections.hpp"
@@ -256,6 +258,14 @@ namespace tr1
 #ifndef IUTEST_STATIC_ASSERT
 #  define IUTEST_STATIC_ASSERT(...)	IUTEST_STATIC_ASSERT_MSG((__VA_ARGS__), "")
 #endif
+
+#ifdef IUTEST_ASSERT
+#  undef IUTEST_ASSERT
+#endif
+#define IUTEST_ASSERT(cond)		do { if( !(cond) ) {													\
+									GTEST_MESSAGE_(#cond, ::testing::TestPartResult::kFatalFailure);	\
+									exit(1);															\
+								} } while(::testing::internal::AlwaysFalse())
 
 namespace testing
 {

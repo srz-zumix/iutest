@@ -242,6 +242,9 @@ IUTEST(AssertionTest, Base)
 	int x0=0, y0=0, x1=1;
 	float f0=0.0f, f1=1.0f;
 	double d0=0.0, d1=1.0;
+
+	IUTEST_ASSUME_EQ(x0, y0);
+
 	// true/false
 	{
 		IUTEST_EXPECT_TRUE(true);
