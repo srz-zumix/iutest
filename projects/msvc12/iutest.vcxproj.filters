@@ -350,5 +350,8 @@
     <None Include="..\..\include\impl\iutest_streaming_listener.ipp">
       <Filter>iutest\impl</Filter>
     </None>
+    <None Include="..\..\include\impl\iutest_time.ipp">
+      <Filter>iutest\impl</Filter>
+    </None>
   </ItemGroup>
 </Project>

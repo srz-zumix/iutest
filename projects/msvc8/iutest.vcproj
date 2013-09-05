@@ -717,6 +717,10 @@
 					RelativePath="..\..\include\impl\iutest_streaming_listener.ipp"
 					>
 				</File>
+				<File
+					RelativePath="..\..\include\impl\iutest_time.ipp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

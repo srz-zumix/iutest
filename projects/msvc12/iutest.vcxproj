@@ -255,6 +255,7 @@
     <None Include="..\..\doc\Doxyfile" />
     <None Include="..\..\doc\index.html" />
     <None Include="..\..\include\impl\iutest_streaming_listener.ipp" />
+    <None Include="..\..\include\impl\iutest_time.ipp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

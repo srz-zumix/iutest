@@ -38,9 +38,27 @@ namespace detail
 
 //======================================================================
 // declare
+/**
+  * @internal
+  * @brief	TimeInMillisec to string
+  * @param	[in]	msec	= ƒ~ƒŠ•b
+  * @return	•b”‚Ì•¶š—ñ
+*/
 ::std::string	FormatTimeInMillisecAsSecond(TimeInMillisec msec);
+
+/**
+ * @brief	Œ»İ‚Ìæ“¾
+*/
 time_t			GetTime(void);
+
+/**
+ * @brief	Œ»İ‚Ìƒ~ƒŠ•bæ“¾
+*/
 TimeInMillisec	GetTimeInMillis(void);
+
+/**
+ * @brief	•s’è‚È’l‚Ìæ“¾
+*/
 unsigned int	GetIndefiniteValue(void);
 
 //======================================================================
@@ -77,95 +95,11 @@ public:
 	}
 };
 
-//======================================================================
-// function
-/**
-  * @internal
-  * @brief	TimeInMillisec to string
-  * @param	[in]	msec	= ƒ~ƒŠ•b
-  * @return	•b”‚Ì•¶š—ñ
-*/
-inline ::std::string	FormatTimeInMillisecAsSecond(TimeInMillisec msec)
-{
-	detail::iuStringStream::type ss;
-#if defined(_MSC_VER) && _MSC_VER < 1300
-	ss << static_cast<unsigned int>(msec)/1000.0;
-#else
-	ss << msec/1000.0;
-#endif
-	return ss.str();
-}
-
-/**
- * @brief	Œ»İ‚Ìæ“¾
-*/
-inline time_t	GetTime(void)
-{
-#if IUTEST_HAS_CTIME
-	return time(NULL);
-#else
-	return 0;
-#endif
-}
-
-/**
- * @brief	Œ»İ‚Ìƒ~ƒŠ•bæ“¾
-*/
-inline TimeInMillisec	GetTimeInMillis(void)
-{
-#if		defined(IUTEST_GetMillisec)
-	return IUTEST_GetMillisec();
-
-#elif	IUTEST_HAS_CXX11_HDR_CHRONO
-	return ::std::chrono::duration_cast< ::std::chrono::milliseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();
-
-#elif	IUTEST_HAS_GETTIMEOFDAY
-	timeval tv;
-	gettimeofday(&tv, NULL);
-	return static_cast<TimeInMillisec>(tv.tv_sec) * 1000 + static_cast<TimeInMillisec>(tv.tv_usec) / 1000;
-
-#elif	defined(IUTEST_OS_WINDOWS)
-
-#if		defined(IUTEST_OS_WINDOWS_MOBILE)
-	return static_cast<TimeInMillisec>(GetTickCount());
-#else
-
-	_timeb tb;
-
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
-	_ftime(&tb);
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
-
-	return static_cast<TimeInMillisec>(tb.time * 1000 + tb.millitm);
-
-#endif
-
-#elif	IUTEST_HAS_CLOCK
-	return clock() * 1000 / CLOCKS_PER_SEC;
-
-#else
-
-#define IUTEST_NO_GETTIMEINMILLIS
-	return GetTime()*1000;
-#endif
-}
-
-/**
- * @brief	•s’è‚È’l‚Ìæ“¾
-*/
-inline unsigned int GetIndefiniteValue(void)
-{
-#if !defined(IUTEST_NO_GETTIMEINMILLIS)
-	return static_cast<unsigned int>(GetTimeInMillis());
-#else
-	// ‚È‚é‚×‚­“¯‚¶‚É‚È‚ç‚È‚¢‚æ‚¤‚É‚·‚é
-	static unsigned int s = 20120206;
-	s = s*1664525 + 1013904223;
-	return s;
-#endif
-}
-
 }	// end of namespace detail
 }	// end of namespace iutest
+
+#if !IUTEST_HAS_LIB
+#  include "../impl/iutest_time.ipp"
+#endif
 
 #endif
