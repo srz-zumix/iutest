@@ -59,6 +59,9 @@ public:
 	iuParamGenerator(_Interface* pInterface=NULL) : m_pInterface(pInterface) {}
 
 public:
+	operator iuIParamGenerator<T>* (void) const { return m_pInterface; }
+
+public:
 	virtual	void	Begin(void)	{ m_pInterface->Begin(); }	//!< パラメータリストの先頭に移動
 	virtual T		GetCurrent(void) const { return m_pInterface->GetCurrent(); }	// 現在のパラメータを取得
 	virtual void	Next(void)	{ m_pInterface->Next(); }	//!< パラメータを取得して次に移動
@@ -66,7 +69,6 @@ public:
 private:
 	_Interface*		m_pInterface;
 };
-
 
 /**
  * @brief	範囲パラメータ生成器
@@ -178,6 +180,42 @@ public:
 	virtual bool	IsEnd(void) const	{ return (m_it == m_values.end()); }
 };
 
+
+/**
+ * @brief	パラメータ生成器加算保持クラス
+*/
+template<typename G1, typename G2>
+class iuConcatParamHolder
+{
+public:
+	iuConcatParamHolder(const G1& g1, const G2& g2)
+		: m_g1(g1), m_g2(g2) {}
+
+public:
+	template<typename T>
+	operator iuIParamGenerator<T>* (void) const
+	{
+		::std::vector<T> val;
+		append_param<T>(val, m_g1);
+		append_param<T>(val, m_g2);
+		return new iuValuesInParamsGenerator<T>(val);
+	}
+
+private:
+	template<typename T>
+	static void append_param(::std::vector<T>& val, iuIParamGenerator<T>* gen)
+	{
+		for( gen->Begin(); !gen->IsEnd(); gen->Next() )
+		{
+			val.push_back(gen->GetCurrent());
+		}
+	}
+private:
+	G1 m_g1;
+	G2 m_g2;
+};
+
+
 #if IUTEST_HAS_VARIADIC_VALUES
 template<typename... Args>
 class iuValueArray
@@ -211,7 +249,7 @@ public:
 	{}
 public:
 	template<typename T>
-	operator	iuIParamGenerator<T>* (void) const
+	operator iuIParamGenerator<T>* (void) const
 	{
 		make_array<T> ar(v);
 		return new iuValuesInParamsGenerator<T>(ar.val);
@@ -429,7 +467,7 @@ public:
 
 public:
 	template<typename... Args>
-	operator iuIParamGenerator< tuples::tuple<Args...> >* () const 
+	operator iuIParamGenerator< tuples::tuple<Args...> >* (void) const 
 	{
 		typedef tuples::tuple<Args...> ArgTuple;
 		iuCartesianProductGenerator<Args...>* p = new iuCartesianProductGenerator<Args...>();
@@ -943,7 +981,7 @@ public:
 
 public:
 	template<typename... Args>
-	operator iuIParamGenerator< tuples::tuple<Args...> >* () const 
+	operator iuIParamGenerator< tuples::tuple<Args...> >* (void) const
 	{
 		typedef tuples::tuple<Args...> ArgTuple;
 		tuples::tuple< iuParamGenerator<Args>... > generators;
@@ -1183,7 +1221,7 @@ public:
 	{}
 public:
 	template<typename T>
-	operator iuIParamGenerator<T>* () const 
+	operator iuIParamGenerator<T>* (void) const
 	{
 		::std::vector<T> params(m_num);
 		::std::generate(params.begin(), params.end(), m_g);
@@ -1232,7 +1270,7 @@ public:
 		: m_num(num), m_seed(seed) {}
 public:
 	template<typename T>
-	operator iuIParamGenerator<T>* () const 
+	operator iuIParamGenerator<T>* (void) const
 	{
 		unsigned int seed = m_seed;
 		if( seed == 0 )

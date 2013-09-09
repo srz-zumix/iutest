@@ -340,6 +340,16 @@ IIUT_DECL_VALUES_(50)
 
 #endif
 
+/**
+ * @brief	ƒpƒ‰ƒ[ƒ^‚ÌŒ‹‡
+*/
+template<typename G1, typename G2>
+detail::iuConcatParamHolder<G1, G2> Concat(const G1& g1, const G2& g2)
+{
+	return detail::iuConcatParamHolder<G1, G2>(g1, g2);
+}
+
+
 #if IUTEST_HAS_COMBINE
 
 #if IUTEST_HAS_VARIADIC_COMBINE

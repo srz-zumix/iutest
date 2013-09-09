@@ -158,7 +158,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
 	{
 		tr =&p->m_ad_hoc_testresult;
 		// 不正なキーのチェック
-		const char* ban[] = { "name", "tests", "failures", "disabled", "skip", "errors", "time", "random_seed" };
+		const char* ban[] = { "name", "tests", "failures", "disabled", "skip", "errors", "time", "timestamp", "random_seed" };
 		if( !prop.Validate(ban, IUTEST_PP_COUNTOF(ban)) )
 		{
 			IIUT_ADD_FAILURE() << "Reserved key used in RecordProperty(): " << prop.key();

@@ -159,6 +159,7 @@ IUTEST_IPP_INLINE int UnitTest::RunImpl(void)
 	int repeat = TestEnv::get_repeat_count();
 	if( repeat == 0 ) return 0;
 
+	m_start_timestamp = detail::GetTimeInMillis();
 	TestProgramStart();
 
 	bool result = true;

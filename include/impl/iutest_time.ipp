@@ -38,6 +38,24 @@ IUTEST_IPP_INLINE ::std::string	FormatTimeInMillisecAsSecond(TimeInMillisec msec
 	return ss.str();
 }
 
+IUTEST_IPP_INLINE ::std::string	FormatTimeInMillisecAsIso8601(TimeInMillisec msec)
+{
+	time_t sec = static_cast<time_t>(msec / 1000);
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+	const struct tm* const t = localtime(&sec);
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+	if( t == NULL ) return "";
+
+	detail::iuStringStream::type ss;
+	ss << (t->tm_year+1900);
+	return ss.str() + "-"
+		+ FormatIntWidth2(t->tm_mon+1) + "-"
+		+ FormatIntWidth2(t->tm_mday) + "T"
+		+ FormatIntWidth2(t->tm_hour) + ":"
+		+ FormatIntWidth2(t->tm_min) + ":"
+		+ FormatIntWidth2(t->tm_sec);
+}
+
 IUTEST_IPP_INLINE time_t GetTime(void)
 {
 #if IUTEST_HAS_CTIME

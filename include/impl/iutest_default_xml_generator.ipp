@@ -49,8 +49,9 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestProgramEnd(const UnitT
 #if IUTEST_REPORT_SKIPPED
 	m_fp->Printf("skip=\"%d\" ", test.reportable_skip_test_count() );
 #endif
-	m_fp->Printf("errors=\"0\" time=\"%s\" "
+	m_fp->Printf("errors=\"0\" time=\"%s\" timestamp=\"%s\" "
 		, detail::FormatTimeInMillisecAsSecond(test.elapsed_time()).c_str()
+		, detail::FormatTimeInMillisecAsIso8601(test.start_timestamp()).c_str()
 		);
 	if( TestFlag::IsEnableFlag(TestFlag::SHUFFLE_TESTS) )
 	{

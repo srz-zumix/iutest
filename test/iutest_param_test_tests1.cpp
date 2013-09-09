@@ -35,6 +35,9 @@ IUTEST_INSTANTIATE_TEST_CASE_P(My5, ParamTest, ::iutest::ValuesIn(va));
 #if IUTEST_HAS_INITIALIZER_LIST
 IUTEST_INSTANTIATE_TEST_CASE_P(My6, ParamTest, ::iutest::ValuesIn({ 3, 2, 1, 0 }));
 #endif
+#if !defined(IUTEST_USE_GTEST)
+IUTEST_INSTANTIATE_TEST_CASE_P(My7, ParamTest, ::iutest::Concat( ::iutest::Values(100), ::iutest::Range(0,10) ));
+#endif
 
 class BoolParamTest : public ::iutest::TestWithParam<bool> {};
 

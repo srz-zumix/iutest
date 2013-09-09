@@ -166,6 +166,14 @@ inline ::std::string ToHexString(T value)
 	return buf;
 }
 
+inline ::std::string FormatIntWidth2(int value)
+{
+	char buf[3] = "00";
+	buf[0] = (value/10)%10 + '0';
+	buf[1] = (value   )%10 + '0';
+	return buf;
+}
+
 inline ::std::string ShowStringQuoted(const char* str) { ::std::string s = "\""; s += str; s += "\""; return s; }
 inline ::std::string ShowStringQuoted(const ::std::string& str) { ::std::string s = "\""; s += str; s += "\""; return s; }
 

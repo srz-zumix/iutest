@@ -98,6 +98,9 @@ public:
 	/** テストの実行ミリ秒 */
 	TimeInMillisec	elapsed_time(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_elapsedmsec; }
 
+	/** テスト開始時のタイムスタンプを取得 */
+	TimeInMillisec	start_timestamp(void)	const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_start_timestamp; }
+
 	/** テストケースの取得 */
 	const TestCase*	GetTestCase(int index)	const	{ return m_testcases[index]; }
 
@@ -163,6 +166,7 @@ private:
 	UnitTest(void)
 		: m_repeat_counter(0)
 		, m_init_iutest_count(0)
+		, m_start_timestamp(0)
 	{
 		// デフォルトリポーターをセット
 		TestEnv::SetGlobalTestPartResultReporter(&m_default_test_part_result_reporter);
@@ -196,6 +200,7 @@ private:
 
 	int m_repeat_counter;
 	int m_init_iutest_count;
+	TimeInMillisec m_start_timestamp;
 	detail::DefaultGlobalTestPartResultReporter	m_default_test_part_result_reporter;
 
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(UnitTest);

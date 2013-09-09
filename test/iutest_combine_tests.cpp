@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -19,7 +19,7 @@
 // include
 #include "../include/iutest.hpp"
 
-#if DIUTEST_HAS_PARAM_TEST && IUTEST_HAS_COMBINE
+#if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_COMBINE
 
 static const int tble[] = {0, 1};
 
@@ -53,6 +53,14 @@ IUTEST_P(CombineTest, Num)
 
 IUTEST_INSTANTIATE_TEST_CASE_P(A, CombineTest
 	, ::iutest::Combine(::iutest::Bool(), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble)));
+#if !defined(IUTEST_USE_GTEST)
+IUTEST_INSTANTIATE_TEST_CASE_P(B, CombineTest
+	, ::iutest::Concat(
+		::iutest::Combine(::iutest::Values(false), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble))
+		, ::iutest::Combine(::iutest::Values(true), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble))
+	)
+	);
+#endif
 
 
 #if IUTEST_HAS_VARIADIC_COMBINE

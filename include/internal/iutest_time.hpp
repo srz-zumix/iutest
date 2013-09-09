@@ -47,6 +47,14 @@ namespace detail
 ::std::string	FormatTimeInMillisecAsSecond(TimeInMillisec msec);
 
 /**
+  * @internal
+  * @brief	TimeInMillisec to string
+  * @param	[in]	msec	= ƒ~ƒŠ•b
+  * @return	‚Ì•¶š—ñ
+*/
+::std::string	FormatTimeInMillisecAsIso8601(TimeInMillisec msec);
+
+/**
  * @brief	Œ»İ‚Ìæ“¾
 */
 time_t			GetTime(void);
