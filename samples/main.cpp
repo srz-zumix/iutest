@@ -473,7 +473,7 @@ int TestP::a = 0;
 int TestP::b = 0;
 
 IUTEST_INSTANTIATE_TEST_CASE_P(TestPInstance, TestP, ::iutest::Range<int>(0, 10));
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPInstance2, TestP, ::iutest::Concat( ::iutest::Values(100), ::iutest::Range<int>(0, 10)));
+IUTEST_INSTANTIATE_TEST_CASE_P(TestPInstance2, TestP, ::iutest::Concat( ::iutest::Bool(), ::iutest::Range(2, 4)));
 
 IUTEST_P(TestP, TestA)
 {

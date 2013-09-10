@@ -181,7 +181,7 @@ private:
  * @brief	範囲パラメータ
 */
 template<typename T>
-detail::iuIParamGenerator<T>*	Range(T begin, T end, T step=1)
+detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ Range(T begin, T end, T step=1)
 {
 	return new detail::iuRangeParamsGenerator<T>(begin, end, step);
 }
@@ -189,7 +189,7 @@ detail::iuIParamGenerator<T>*	Range(T begin, T end, T step=1)
 /**
  * @brief	真偽値パラメータ
 */
-inline detail::iuIParamGenerator<bool>* IUTEST_ATTRIBUTE_UNUSED_ Bool(void)
+inline detail::iuParamGenerator<bool> IUTEST_ATTRIBUTE_UNUSED_ Bool(void)
 {
 	return new detail::iuBoolParamsGenerator<bool>();
 }
@@ -234,7 +234,7 @@ inline detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_ RandomValues(size_t
  * @brief	値配列パラメータ
 */
 template<typename Container>
-inline detail::iuIParamGenerator< typename Container::value_type >* ValuesIn(Container containor)
+inline detail::iuParamGenerator< typename Container::value_type > IUTEST_ATTRIBUTE_UNUSED_ ValuesIn(Container containor)
 {
 	return new detail::iuValuesInParamsGenerator< typename Container::value_type >(containor);
 }
@@ -242,20 +242,20 @@ inline detail::iuIParamGenerator< typename Container::value_type >* ValuesIn(Con
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 /** @overload */
 template<typename T, size_t SIZE>
-inline detail::iuIParamGenerator<T>* ValuesIn(const T (&v)[SIZE])
+inline detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ ValuesIn(const T (&v)[SIZE])
 {
 	return new detail::iuValuesInParamsGenerator<T>(v, v+SIZE);
 }
 /** @overload */
 template<typename Ite>
-inline detail::iuIParamGenerator< typename detail::IteratorTraits<Ite>::type >* ValuesIn(Ite begin, Ite end)
+inline detail::iuParamGenerator< typename detail::IteratorTraits<Ite>::type > IUTEST_ATTRIBUTE_UNUSED_ ValuesIn(Ite begin, Ite end)
 {
 	return new detail::iuValuesInParamsGenerator< typename detail::IteratorTraits<Ite>::type >(begin, end);
 }
 #if IUTEST_HAS_INITIALIZER_LIST
 /** @overload */
 template<typename T>
-inline detail::iuIParamGenerator<T>* ValuesIn(::std::initializer_list<T> l)
+inline detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ ValuesIn(::std::initializer_list<T> l)
 {
 	return new detail::iuValuesInParamsGenerator<T>(l);
 }
@@ -340,6 +340,7 @@ IIUT_DECL_VALUES_(50)
 
 #endif
 
+#if IUTEST_HAS_CONCAT
 /**
  * @brief	パラメータの結合
 */
@@ -348,7 +349,7 @@ detail::iuConcatParamHolder<G1, G2> Concat(const G1& g1, const G2& g2)
 {
 	return detail::iuConcatParamHolder<G1, G2>(g1, g2);
 }
-
+#endif
 
 #if IUTEST_HAS_COMBINE
 

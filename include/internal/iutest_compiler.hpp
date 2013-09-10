@@ -192,6 +192,9 @@
 #      define IUTEST_HAS_DELETED_FUNCTIONS	1
 #    endif
 #  elif defined(_MSC_VER)
+#    if defined(_MSC_FULL_VER) && (_MSC_FULL_VER >= 180020827)
+#      define IUTEST_HAS_DELETED_FUNCTIONS	1
+#    endif
 #  endif
 #endif
 
@@ -216,6 +219,9 @@
 #      define IUTEST_HAS_DEFAULT_FUNCTIONS	1
 #    endif
 #  elif defined(_MSC_VER)
+#    if defined(_MSC_FULL_VER) && (_MSC_FULL_VER >= 180020827)
+#      define IUTEST_HAS_DEFAULT_FUNCTIONS	1
+#    endif
 #  endif
 #endif
 

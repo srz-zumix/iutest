@@ -28,6 +28,12 @@ namespace detail
 {
 
 //======================================================================
+// declare
+#if IUTEST_HAS_CONCAT
+template<typename G1, typename G2>class iuConcatParamHolder;
+#endif
+
+//======================================================================
 // class
 /**
  * @brief	パラメータ生成器インターフェイス
@@ -36,6 +42,8 @@ template<typename T>
 class iuIParamGenerator
 {
 	typedef iuIParamGenerator<T>	_Myt;
+public:
+	typedef T	type;
 public:
 	typedef _Myt*	(*Generator)(void);
 public:
@@ -54,7 +62,8 @@ template<typename T>
 class iuParamGenerator : public iuIParamGenerator<T>
 {
 	typedef iuIParamGenerator<T>	_Interface;
-
+public:
+	typedef T	type;
 public:
 	iuParamGenerator(_Interface* pInterface=NULL) : m_pInterface(pInterface) {}
 
@@ -181,6 +190,7 @@ public:
 };
 
 
+#if IUTEST_HAS_CONCAT
 /**
  * @brief	パラメータ生成器加算保持クラス
 */
@@ -193,27 +203,41 @@ public:
 
 public:
 	template<typename T>
-	operator iuIParamGenerator<T>* (void) const
+	operator iuIParamGenerator<T>* (void)
 	{
-		::std::vector<T> val;
-		append_param<T>(val, m_g1);
-		append_param<T>(val, m_g2);
-		return new iuValuesInParamsGenerator<T>(val);
+		params_t<T> params;
+		params.append(m_g1);
+		params.append(m_g2);
+		return new iuValuesInParamsGenerator<T>(params.val);
 	}
 
 private:
 	template<typename T>
-	static void append_param(::std::vector<T>& val, iuIParamGenerator<T>* gen)
+	struct params_t
 	{
-		for( gen->Begin(); !gen->IsEnd(); gen->Next() )
+		::std::vector<T> val;
+
+		void append(iuIParamGenerator<T>* gen)
 		{
-			val.push_back(gen->GetCurrent());
+			for( gen->Begin(); !gen->IsEnd(); gen->Next() )
+			{
+				val.push_back(gen->GetCurrent());
+			}
 		}
-	}
+		template<typename U>
+		void append(iuParamGenerator<U>& gen)
+		{
+			for( gen.Begin(); !gen.IsEnd(); gen.Next() )
+			{
+				val.push_back(static_cast<T>(gen.GetCurrent()));
+			}
+		}
+	};
 private:
 	G1 m_g1;
 	G2 m_g2;
 };
+#endif
 
 
 #if IUTEST_HAS_VARIADIC_VALUES

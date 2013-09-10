@@ -2,6 +2,7 @@
 Changes for 1.7.0:
 
 ** 追加
+* 値のパラメータを連結する ::iutest::Concat を追加
 * xml 出力に timestamp を追加
 * 前提条件の検証用マクロ IUTEST_ASSUME_* を追加
 * Windows 向けメニュー登録ユーティリティを追加

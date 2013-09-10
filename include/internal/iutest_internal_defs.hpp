@@ -255,12 +255,12 @@ struct disable_if : public enable_if<!B, T> {};
 template<class COND, typename T = void_t>
 struct disable_if_t : public disable_if<COND::value, T> {};
 
-template<typename TN>
+template<typename T>
 struct enabler_t
 {
 	static void*	value;
 };
-template<typename TN>void*	enabler_t<TN>::value = NULL;
+template<typename T>void*	enabler_t<T>::value = NULL;
 
 typedef enabler_t<void>	enabler;
 

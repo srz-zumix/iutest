@@ -163,6 +163,11 @@
 #  endif
 #endif
 
+#ifndef IUTEST_HAS_CONCAT
+//! ::iutest::Concat が使用可能かどうか
+# define IUTEST_HAS_CONCAT			1
+#endif
+
 #ifndef IUTEST_HAS_VARIADIC_VALUES
 //! 可変長引数に対応した ::iutest::Values が使用可能かどうか
 #  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
@@ -507,6 +512,8 @@
 #  define IUTEST_LIB_TOOLSET	"vc100"
 #elif	_MSC_VER == 1700
 #  define IUTEST_LIB_TOOLSET	"vc110"
+#elif	_MSC_VER == 1800
+#  define IUTEST_LIB_TOOLSET	"vc120"
 #else
 #  error unkown _MSC_VER.
 #endif

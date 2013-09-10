@@ -74,16 +74,16 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'">$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <TargetName>lib$(ProjectName)-vc110-mtd</TargetName>
+    <TargetName>lib$(ProjectName)-vc120-mtd</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'">
-    <TargetName>lib$(ProjectName)-vc110-mdd</TargetName>
+    <TargetName>lib$(ProjectName)-vc120-mdd</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <TargetName>lib$(ProjectName)-vc110-mt</TargetName>
+    <TargetName>lib$(ProjectName)-vc120-mt</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">
-    <TargetName>lib$(ProjectName)-vc110-md</TargetName>
+    <TargetName>lib$(ProjectName)-vc120-md</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -98,7 +98,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Lib>
-      <OutputFile>$(OutDir)lib$(ProjectName)-vc110-mtd.lib</OutputFile>
+      <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -114,7 +114,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Lib>
-      <OutputFile>$(OutDir)lib$(ProjectName)-vc110-mt.lib</OutputFile>
+      <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">
@@ -130,7 +130,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Lib>
-      <OutputFile>$(OutDir)lib$(ProjectName)-vc110-md.lib</OutputFile>
+      <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'">
@@ -146,7 +146,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Lib>
-      <OutputFile>$(OutDir)lib$(ProjectName)-vc110-mdd.lib</OutputFile>
+      <OutputFile>$(OutDir)$(TargetFileName)</OutputFile>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>

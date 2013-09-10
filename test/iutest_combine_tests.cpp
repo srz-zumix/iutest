@@ -31,6 +31,9 @@ public:
 
 	static int index;
 	static Tuple list[2*2*TABLE_SIZE];
+	
+public:
+	static void SetUpTestCase(void) { index = 0; }
 };
 
 int CombineTest::index = 0;
@@ -53,7 +56,7 @@ IUTEST_P(CombineTest, Num)
 
 IUTEST_INSTANTIATE_TEST_CASE_P(A, CombineTest
 	, ::iutest::Combine(::iutest::Bool(), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble)));
-#if !defined(IUTEST_USE_GTEST)
+#if IUTEST_HAS_CONCAT
 IUTEST_INSTANTIATE_TEST_CASE_P(B, CombineTest
 	, ::iutest::Concat(
 		::iutest::Combine(::iutest::Values(false), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble))

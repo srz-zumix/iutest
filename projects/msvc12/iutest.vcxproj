@@ -72,10 +72,10 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'">$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">$(SolutionDir)\..\..\lib\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">lib$(ProjectName)-vc110-mtd</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'">lib$(ProjectName)-vc110-mdd</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">lib$(ProjectName)-vc110-mt</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">lib$(ProjectName)-vc110-md</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">lib$(ProjectName)-vc120-mtd</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'">lib$(ProjectName)-vc120-mdd</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">lib$(ProjectName)-vc120-mt</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">lib$(ProjectName)-vc120-md</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <RunCodeAnalysis>true</RunCodeAnalysis>

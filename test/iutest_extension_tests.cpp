@@ -18,6 +18,7 @@
 //======================================================================
 // include
 #include "main.cpp"
+#include "iutest_concat_tests.cpp"
 #include "iutest_ignore_tests.cpp"
 #include "iutest_japanese_tests.cpp"
 #include "iutest_package_tests1.cpp"
