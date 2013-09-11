@@ -167,14 +167,24 @@ public:
 	*/
 	bool Validate(const char** ban_list, size_t size) const
 	{
-		for( size_t i=0, n=size; i < n; ++i )
-		{
-			if( m_key == ban_list[i] )
-			{
-				return false;
-			}
-		}
+		return ValidateName(m_key, ban_list, ban_list+size);
+	}
+	/**
+	 * @brief	有効なキーかどうかチェック
+	 * @retval	true=有効
+	 * @retval	false=無効
+	*/
+	template<typename Ite>
+	static bool ValidateName(const ::std::string& name, Ite begin, Ite end)
+	{
+		if( ::std::find(begin, end, name) != end ) return false;
 		return true;
+	}
+	/** @overload */
+	template<typename T, size_t N>
+	static bool ValidateName(const ::std::string& name, T (&ar)[N])
+	{
+		return ValidateName(name, ar, ar + N);
 	}
 
 private:

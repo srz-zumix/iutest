@@ -18,6 +18,7 @@
 //======================================================================
 // include
 #include "../include/iutest.hpp"
+#include "../include/iutest_spi.hpp"
 
 #if !defined(IUTEST_USE_GTEST)
 #if !IUTEST_HAS_ASSERTION_RETURN
@@ -55,7 +56,16 @@ public:
 	static void SetUpTestCase()
 	{
 		RecordProperty("foo", "A");
-		
+#if !defined(IUTEST_USE_GTEST)
+		// ban list
+		IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("name"     , "A"), "Reserved key");
+		IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("tests"    , "A"), "Reserved key");
+		IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("failures" , "A"), "Reserved key");
+		IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("disabled" , "A"), "Reserved key");
+		IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("skip"     , "A"), "Reserved key");
+		IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("errors"   , "A"), "Reserved key");
+		IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("time"     , "A"), "Reserved key");
+#endif
 		CheckProperty(::iutest::UnitTest::GetInstance()->current_test_case()->ad_hoc_testresult(), "foo", "A");
 	}
 };
@@ -63,7 +73,15 @@ public:
 IUTEST_F(RecordTest, A)
 {
 	RecordProperty("hoge", "B");
-
+#if !defined(IUTEST_USE_GTEST)
+	// ban list
+	IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("name"       , "B"), "Reserved key");
+	IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("status"     , "B"), "Reserved key");
+	IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("time"       , "B"), "Reserved key");
+	IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("classname"  , "B"), "Reserved key");
+	IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("type_param" , "B"), "Reserved key");
+	IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("value_param", "B"), "Reserved key");
+#endif
 	CheckProperty(::iutest::UnitTest::GetInstance()->current_test_info()->result(), "hoge", "B");
 }
 
@@ -77,6 +95,18 @@ int main(int argc, char* argv[])
 {
 	IUTEST_INIT(&argc, argv);
 	::iutest::Test::RecordProperty("bar", "C");
+#if !defined(IUTEST_USE_GTEST)
+		// ban list
+	IUTEST_EXPECT_NONFATAL_FAILURE( ::iutest::Test::RecordProperty("name"       , "C"), "Reserved key");
+	IUTEST_EXPECT_NONFATAL_FAILURE( ::iutest::Test::RecordProperty("tests"      , "C"), "Reserved key");
+	IUTEST_EXPECT_NONFATAL_FAILURE( ::iutest::Test::RecordProperty("failures"   , "C"), "Reserved key");
+	IUTEST_EXPECT_NONFATAL_FAILURE( ::iutest::Test::RecordProperty("disabled"   , "C"), "Reserved key");
+	IUTEST_EXPECT_NONFATAL_FAILURE( ::iutest::Test::RecordProperty("skip"       , "C"), "Reserved key");
+	IUTEST_EXPECT_NONFATAL_FAILURE( ::iutest::Test::RecordProperty("errors"     , "C"), "Reserved key");
+	IUTEST_EXPECT_NONFATAL_FAILURE( ::iutest::Test::RecordProperty("time"       , "C"), "Reserved key");
+	IUTEST_EXPECT_NONFATAL_FAILURE( ::iutest::Test::RecordProperty("timestamp"  , "C"), "Reserved key");
+	IUTEST_EXPECT_NONFATAL_FAILURE( ::iutest::Test::RecordProperty("random_seed", "C"), "Reserved key");
+#endif
 	
 	{
 		int ret = IUTEST_RUN_ALL_TESTS();

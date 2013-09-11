@@ -120,6 +120,19 @@ public:
 	/** テスト実行中じゃないときのリザルトの取得 */
 	const TestResult* ad_hoc_testresult(void) const IUTEST_CXX_NOEXCEPT_SPEC { return &m_ad_hoc_testresult; }
 
+public:
+	/**
+	 * @brief	有効なプロパティ名かどうかチェック
+	 * @param [in] name	= プロパティ名
+	 * @retval	true=有効
+	 * @retval	false=無効
+	*/
+	static bool ValidateTestPropertyName(const ::std::string& name)
+	{
+		const char* ban[] = { "name", "tests", "failures", "disabled", "skip", "errors", "time" };
+		return TestProperty::ValidateName(name, ban);
+	}
+
 private:
 	/**
 	 * @brief	テストの実行

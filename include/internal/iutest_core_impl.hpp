@@ -49,6 +49,19 @@ public:
 	static TestResult*	current_test_result(void);
 
 public:
+	/**
+	 * @brief	有効なプロパティ名かどうかチェック
+	 * @param [in] name	= プロパティ名
+	 * @retval	true=有効
+	 * @retval	false=無効
+	*/
+	static bool ValidateTestPropertyName(const ::std::string& name)
+	{
+		const char* ban[] = { "name", "tests", "failures", "disabled", "skip", "errors", "time", "timestamp", "random_seed" };
+		return TestProperty::ValidateName(name, ban);
+	}
+
+public:
 	/** @private */
 	template<typename T>
 	TestCase*	AddTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown

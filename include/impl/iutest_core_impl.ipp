@@ -136,8 +136,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
 	{
 		tr = &(Test::GetCurrentTest()->m_test_info->ptr()->m_test_result);
 		// 不正なキーのチェック
-		const char* ban[] = { "name", "status", "time", "classname", "type_param", "value_param" };
-		if( !prop.Validate(ban, IUTEST_PP_COUNTOF(ban)) )
+		if( !TestInfo::ValidateTestPropertyName(prop.key()) )
 		{
 			IIUT_ADD_FAILURE() << "Reserved key used in RecordProperty(): " << prop.key();
 			return;
@@ -147,8 +146,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
 	{
 		tr = &p->m_current_testcase->m_ad_hoc_testresult;
 		// 不正なキーのチェック
-		const char* ban[] = { "name", "tests", "failures", "disabled", "skip", "errors", "time" };
-		if( !prop.Validate(ban, IUTEST_PP_COUNTOF(ban)) )
+		if( !TestCase::ValidateTestPropertyName(prop.key()) )
 		{
 			IIUT_ADD_FAILURE() << "Reserved key used in RecordProperty(): " << prop.key();
 			return;
@@ -158,8 +156,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
 	{
 		tr =&p->m_ad_hoc_testresult;
 		// 不正なキーのチェック
-		const char* ban[] = { "name", "tests", "failures", "disabled", "skip", "errors", "time", "timestamp", "random_seed" };
-		if( !prop.Validate(ban, IUTEST_PP_COUNTOF(ban)) )
+		if( !ValidateTestPropertyName(prop.key()) )
 		{
 			IIUT_ADD_FAILURE() << "Reserved key used in RecordProperty(): " << prop.key();
 			return;

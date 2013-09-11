@@ -60,7 +60,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestProgramEnd(const UnitT
 	m_fp->Printf("name=\"AllTests\"");
 
 	// propertys
-	OnReportTestProperty(m_fp, *test.ad_hoc_testresult());
+	OnReportTestProperty(m_fp, *test.ad_hoc_testresult(), UnitTest::ValidateTestPropertyName);
 
 	m_fp->Printf(">\n");
 
@@ -93,7 +93,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestCase(IFile* file
 	);
 
 	// propertys
-	OnReportTestProperty(file, *test_case.ad_hoc_testresult());
+	OnReportTestProperty(file, *test_case.ad_hoc_testresult(), TestCase::ValidateTestPropertyName);
 
 	file->Printf(">\n");
 
@@ -139,7 +139,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
 		, EscapeXmlAttribute(test_info.test_case_name()).c_str() );
 
 	// propertys
-	OnReportTestProperty(file, *test_info.result());
+	OnReportTestProperty(file, *test_info.result(), TestInfo::ValidateTestPropertyName);
 
 	bool notrun = test_info.should_run() && !test_info.is_ran();
 	if( test_info.HasFailure() || notrun )
@@ -225,15 +225,19 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestSkipped(IFile* f
 	file->Printf("/>\n");
 }
 
-IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestProperty(IFile* file, const TestResult& test_result)
+IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestProperty(IFile* file, const TestResult& test_result
+																		 , bool (*pfnValidate)(const ::std::string&))
 {
 	for( int i=0, count=test_result.test_property_count(); i < count; ++i )
 	{
 		const TestProperty& prop = test_result.GetTestProperty(i);
-		file->Printf(" %s=\"%s\""
-			, EscapeXmlAttribute(prop.key()).c_str()
-			, EscapeXmlAttribute(prop.value()).c_str()
-			);
+		if( (*pfnValidate)(prop.key()) )
+		{
+			file->Printf(" %s=\"%s\""
+				, EscapeXmlAttribute(prop.key()).c_str()
+				, EscapeXmlAttribute(prop.value()).c_str()
+				);
+		}
 	}
 }
 

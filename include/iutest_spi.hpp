@@ -178,7 +178,7 @@ class SPIFailureChecker
 public:
 	AssertionResult GetResult(const ::std::string& substr)
 	{
-		const char* expected = Type ? "1 fatal failure" : "1 non-fatal failure";
+		const char* expected = Type == TestPartResult::kFatalFailure ? "1 fatal failure" : "1 non-fatal failure";
 		const size_t num = count();
 		if( num != 1 )
 		{

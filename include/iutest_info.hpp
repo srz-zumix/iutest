@@ -144,6 +144,18 @@ public:
 	}
 
 public:
+	/**
+	 * @brief	有効なプロパティ名かどうかチェック
+	 * @param [in] name	= プロパティ名
+	 * @retval	true=有効
+	 * @retval	false=無効
+	*/
+	static bool ValidateTestPropertyName(const ::std::string& name)
+	{
+		const char* ban[] = { "name", "status", "time", "classname", "type_param", "value_param" };
+		return TestProperty::ValidateName(name, ban);
+	}
+public:
 	/** @private */
 	void	set_value_param(const char* str)	{ m_value_param = str; }
 
