@@ -63,6 +63,10 @@ IUTEST_INSTANTIATE_TEST_CASE_P(B, CombineTest
 		, ::iutest::Combine(::iutest::Values(true), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble))
 	)
 	);
+IUTEST_INSTANTIATE_TEST_CASE_P(C, CombineTest
+	, ::iutest::Combine(::iutest::Values(false), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble))
+		+ ::iutest::Combine(::iutest::Values(true), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble))
+	);
 #endif
 
 

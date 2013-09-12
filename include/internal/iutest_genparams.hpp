@@ -62,6 +62,7 @@ template<typename T>
 class iuParamGenerator : public iuIParamGenerator<T>
 {
 	typedef iuIParamGenerator<T>	_Interface;
+	typedef iuParamGenerator<T>		_Myt;
 public:
 	typedef T	type;
 public:
@@ -69,6 +70,13 @@ public:
 
 public:
 	operator iuIParamGenerator<T>* (void) const { return m_pInterface; }
+
+public:
+	template<typename Other>
+	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
+	{
+		return iuConcatParamHolder<_Myt, Other>(*this, g);
+	}
 
 public:
 	virtual	void	Begin(void)	{ m_pInterface->Begin(); }	//!< パラメータリストの先頭に移動
@@ -197,6 +205,7 @@ public:
 template<typename G1, typename G2>
 class iuConcatParamHolder
 {
+	typedef iuConcatParamHolder<G1, G2>	_Myt;
 public:
 	iuConcatParamHolder(const G1& g1, const G2& g2)
 		: m_g1(g1), m_g2(g2) {}
@@ -209,6 +218,12 @@ public:
 		params.append(m_g1);
 		params.append(m_g2);
 		return new iuValuesInParamsGenerator<T>(params.val);
+	}
+
+	template<typename Other>
+	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
+	{
+		return iuConcatParamHolder<_Myt, Other>(*this, g);
 	}
 
 private:
@@ -245,6 +260,7 @@ template<typename... Args>
 class iuValueArray
 {
 	typedef tuples::tuple<Args...>	_MyTuple;
+	typedef iuValueArray<Args...>	_Myt;
 
 	template<typename T>
 	struct make_array
@@ -278,6 +294,14 @@ public:
 		make_array<T> ar(v);
 		return new iuValuesInParamsGenerator<T>(ar.val);
 	}
+
+public:
+	template<typename Other>
+	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
+	{
+		return iuConcatParamHolder<_Myt, Other>(*this, g);
+	}
+
 private:
 	_MyTuple v;
 };
@@ -288,6 +312,7 @@ private:
 template<typename A1, typename A2>
 class iuValueArray2
 {
+	typedef iuValueArray2<A1, A2> _Myt;
 public:
 	iuValueArray2(A1 a1, A2 a2) : v1(a1), v2(a2)
 	{}
@@ -299,6 +324,12 @@ public:
 		};
 		return new iuValuesInParamsGenerator<T>(val);
 	}
+public:
+	template<typename Other>
+	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
+	{
+		return iuConcatParamHolder<_Myt, Other>(*this, g);
+	}
 private:
 	A1	v1;	A2	v2;
 };
@@ -309,12 +340,16 @@ private:
 #define IIUT_DECL_VALUEARRAY_(n)						\
 	template< IUTEST_PP_ENUM_PARAMS(n, typename A) >	\
 	class IUTEST_PP_CAT(iuValueArray, n) {				\
-	public:												\
+		typedef IUTEST_PP_CAT(iuValueArray, n)< IUTEST_PP_ENUM_PARAMS(n, A) > _Myt;	\
+	public:																			\
 		IUTEST_PP_CAT(iuValueArray, n)( IUTEST_PP_ENUM_BINARY_PARAMS(n, A, a) )		\
 		: IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_VALUEARRAY_CONSTRUCT_, v, a) {}		\
 		template<typename T>operator iuIParamGenerator<T>* (void) const {			\
-			const T val[] = { IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_VALUEARRAY_STATICCAST_, T, v) };	\
+			const T val[] = { IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_VALUEARRAY_STATICCAST_, T, v) };		\
 			return new iuValuesInParamsGenerator<T>(val);							\
+		}																			\
+		template<typename Other> iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const {	\
+			return iuConcatParamHolder<_Myt, Other>(*this, g);						\
 		}																			\
 	private: IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_VALUEARRAY_VARIABLE_, A, v)		\
 	}
@@ -499,6 +534,13 @@ public:
 		return p;
 	}
 
+public:
+	template<typename Other>
+	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
+	{
+		return iuConcatParamHolder<_Myt, Other>(*this, g);
+	}
+
 private:
 	void	operator = (const _Myt&);
 private:
@@ -654,6 +696,13 @@ public:
 		);
 	}
 
+public:
+	template<typename Other>
+	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
+	{
+		return iuConcatParamHolder<_Myt, Other>(*this, g);
+	}
+
 private:
 	void	operator = (const _Myt&) {}
 private:
@@ -678,6 +727,9 @@ private:
 		operator iuIParamGenerator< tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > >* (void) const {			\
 			return new IUTEST_PP_CAT(iuCartesianProductGenerator, n)< IUTEST_PP_ENUM_PARAMS(n, T) >(		\
 				IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_STATICCAST_, T, m_g) );			\
+		}														\
+		template<typename Other> iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const {		\
+			return iuConcatParamHolder<_Myt, Other>(*this, g);	\
 		}														\
 	private: void operator = (const _Myt&) {}					\
 		IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_VARIABLE_, const Generator, m_g)		\
@@ -1014,6 +1066,13 @@ public:
 		return iuPairwiseGenerator<Args...>::Create(generators);
 	}
 
+public:
+	template<typename Other>
+	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
+	{
+		return iuConcatParamHolder<_Myt, Other>(*this, g);
+	}
+
 private:
 	void	operator = (const _Myt&);
 private:
@@ -1183,6 +1242,13 @@ public:
 			);
 	}
 
+public:
+	template<typename Other>
+	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
+	{
+		return iuConcatParamHolder<_Myt, Other>(*this, g);
+	}
+
 private:
 	void	operator = (const _Myt&) {}
 private:
@@ -1207,6 +1273,9 @@ private:
 		operator iuIParamGenerator< tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > >* (void) const {	\
 			return IUTEST_PP_CAT(iuPairwiseGenerator, n)< IUTEST_PP_ENUM_PARAMS(n, T) >::Create(	\
 				IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_PAIRWISE_HOLDER_STATICCAST_, T, m_g) );			\
+		}														\
+		template<typename Other> iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const { \
+			return iuConcatParamHolder<_Myt, Other>(*this, g);	\
 		}														\
 	private: void operator = (const _Myt&) {}					\
 		IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_PAIRWISE_HOLDER_VARIABLE_, const Generator, m_g)		\
@@ -1239,6 +1308,7 @@ IIUT_DECL_PAIRWISE_HOLDER_(9);
 template<typename G>
 class iuValuesParamsGeneratorHolder
 {
+	typedef iuValuesParamsGeneratorHolder<G> _Myt;
 public:
 	iuValuesParamsGeneratorHolder(size_t num, const G& g)
 		: m_num(num), m_g(g)
@@ -1251,6 +1321,14 @@ public:
 		::std::generate(params.begin(), params.end(), m_g);
 		return new iuValuesInParamsGenerator<T>( params );
 	}
+
+public:
+	template<typename Other>
+	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
+	{
+		return iuConcatParamHolder<_Myt, Other>(*this, g);
+	}
+
 private:
 	size_t m_num;
 	G m_g;
@@ -1304,6 +1382,14 @@ public:
 		iuValuesParamsGeneratorHolder< iuTypedRandom<T> > gen( m_num, iuTypedRandom<T>(seed) );
 		return gen;
 	}
+
+public:
+	template<typename Other>
+	iuConcatParamHolder<iuRandomParamsHolder, Other> operator + (const Other& g) const
+	{
+		return iuConcatParamHolder<iuRandomParamsHolder, Other>(*this, g);
+	}
+
 private:
 	size_t m_num;
 	unsigned int m_seed;

@@ -22,6 +22,7 @@
 #if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_CONCAT
 
 static const int tble[] = {0, 1};
+static const float ftble[] = {0.0f, 1.0f};
 
 class ConcatTest : public ::iutest::TestWithParam<int>
 {
@@ -40,7 +41,49 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A3, ConcatTest
 	, ::iutest::Concat(::iutest::ValuesIn(tble), ::iutest::Range(1, 10)));
 IUTEST_INSTANTIATE_TEST_CASE_P(A4, ConcatTest
 	, ::iutest::Concat(::iutest::Values(1, 10)
-		, ::iutest::Concat(::iutest::ValuesIn(tble), ::iutest::Range(1, 10))) );
+	, ::iutest::Concat(::iutest::ValuesIn(tble), ::iutest::Range(1, 10))) );
+IUTEST_INSTANTIATE_TEST_CASE_P(A5, ConcatTest
+	, ::iutest::Concat(::iutest::ValuesIn(ftble), ::iutest::Range<char>(1, 10)));
+IUTEST_INSTANTIATE_TEST_CASE_P(A6, ConcatTest
+	, ::iutest::Concat(::iutest::ValuesIn(tble), ::iutest::RandomValues(1)));
+
+// operator +
+IUTEST_INSTANTIATE_TEST_CASE_P(P1, ConcatTest
+	, ::iutest::Bool() + ::iutest::Values(1, 10));
+IUTEST_INSTANTIATE_TEST_CASE_P(P2, ConcatTest
+	, ::iutest::Values(1, 10) + ::iutest::Bool() );
+IUTEST_INSTANTIATE_TEST_CASE_P(P3, ConcatTest
+	, ::iutest::ValuesIn(ftble) + ::iutest::ValuesIn(tble) );
+IUTEST_INSTANTIATE_TEST_CASE_P(P4, ConcatTest
+	, ::iutest::RandomValues(1) + ::iutest::Bool() );
+IUTEST_INSTANTIATE_TEST_CASE_P(P5, ConcatTest
+	, ::iutest::Range(1, 10) + ::iutest::Bool() + ::iutest::Values(1, 10));
+
+void ConcatTestCheckCount(const char* name, int num)
+{
+	const ::iutest::TestCase* p = ::iuutil::FindTestCase(name);
+	IUTEST_ASSERT_NOTNULL(p);
+	IUTEST_ASSERT_EQ(num, p->total_test_count());
+}
+
+IUTEST(ConcatTestCheck, A)
+{
+	ConcatTestCheckCount("A1/ConcatTest", 2+2);
+	ConcatTestCheckCount("A2/ConcatTest", 2+2);
+	ConcatTestCheckCount("A3/ConcatTest", 2+9);
+	ConcatTestCheckCount("A4/ConcatTest", 2+2+9);
+	ConcatTestCheckCount("A5/ConcatTest", 2+9);
+	ConcatTestCheckCount("A6/ConcatTest", 2+1);
+}
+
+IUTEST(ConcatTestCheck, P)
+{
+	ConcatTestCheckCount("P1/ConcatTest", 2+2);
+	ConcatTestCheckCount("P2/ConcatTest", 2+2);
+	ConcatTestCheckCount("P3/ConcatTest", 2+2);
+	ConcatTestCheckCount("P4/ConcatTest", 1+2);
+	ConcatTestCheckCount("P5/ConcatTest", 9+2+2);
+}
 
 #endif
 

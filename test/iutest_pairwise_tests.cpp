@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -89,6 +89,53 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, PairwiseTest
 		, ::iutest::Range(0,2)
 		, ::iutest::Range(0,2)
 	));
+#if IUTEST_HAS_CONCAT
+IUTEST_INSTANTIATE_TEST_CASE_P(B, PairwiseTest
+	, ::iutest::Concat(
+		::iutest::Pairwise(::iutest::Range(0,1)
+			, ::iutest::Range(0,2)
+			, ::iutest::Range(0,2)
+			, ::iutest::Range(0,2)
+			, ::iutest::Range(0,2)
+			, ::iutest::Range(0,2)
+			, ::iutest::Range(0,2)
+			, ::iutest::Range(0,2)
+			, ::iutest::Range(0,2)
+		),
+		::iutest::Pairwise(::iutest::Range(1,2)
+			, ::iutest::Range(0,2)
+			, ::iutest::Range(0,2)
+			, ::iutest::Range(0,2)
+			, ::iutest::Range(0,2)
+			, ::iutest::Range(0,2)
+			, ::iutest::Range(0,2)
+			, ::iutest::Range(0,2)
+			, ::iutest::Range(0,2)
+		)
+	)
+	);
+IUTEST_INSTANTIATE_TEST_CASE_P(C, PairwiseTest
+	, ::iutest::Pairwise(::iutest::Range(0,1)
+		, ::iutest::Range(0,2)
+		, ::iutest::Range(0,2)
+		, ::iutest::Range(0,2)
+		, ::iutest::Range(0,2)
+		, ::iutest::Range(0,2)
+		, ::iutest::Range(0,2)
+		, ::iutest::Range(0,2)
+		, ::iutest::Range(0,2)
+	) + ::iutest::Pairwise(::iutest::Range(1,2)
+		, ::iutest::Range(0,2)
+		, ::iutest::Range(0,2)
+		, ::iutest::Range(0,2)
+		, ::iutest::Range(0,2)
+		, ::iutest::Range(0,2)
+		, ::iutest::Range(0,2)
+		, ::iutest::Range(0,2)
+		, ::iutest::Range(0,2)
+	)
+	);
+#endif
 
 #if IUTEST_HAS_VARIADIC_PAIRWISE
 
