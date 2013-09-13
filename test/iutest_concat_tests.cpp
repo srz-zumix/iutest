@@ -44,8 +44,10 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A4, ConcatTest
 	, ::iutest::Concat(::iutest::ValuesIn(tble), ::iutest::Range(1, 10))) );
 IUTEST_INSTANTIATE_TEST_CASE_P(A5, ConcatTest
 	, ::iutest::Concat(::iutest::ValuesIn(ftble), ::iutest::Range<char>(1, 10)));
+#if IUTEST_HAS_RANDOMVALUES
 IUTEST_INSTANTIATE_TEST_CASE_P(A6, ConcatTest
 	, ::iutest::Concat(::iutest::ValuesIn(tble), ::iutest::RandomValues(1)));
+#endif
 
 // operator +
 IUTEST_INSTANTIATE_TEST_CASE_P(P1, ConcatTest
@@ -54,8 +56,10 @@ IUTEST_INSTANTIATE_TEST_CASE_P(P2, ConcatTest
 	, ::iutest::Values(1, 10) + ::iutest::Bool() );
 IUTEST_INSTANTIATE_TEST_CASE_P(P3, ConcatTest
 	, ::iutest::ValuesIn(ftble) + ::iutest::ValuesIn(tble) );
+#if IUTEST_HAS_RANDOMVALUES
 IUTEST_INSTANTIATE_TEST_CASE_P(P4, ConcatTest
 	, ::iutest::RandomValues(1) + ::iutest::Bool() );
+#endif
 IUTEST_INSTANTIATE_TEST_CASE_P(P5, ConcatTest
 	, ::iutest::Range(1, 10) + ::iutest::Bool() + ::iutest::Values(1, 10));
 
@@ -73,7 +77,9 @@ IUTEST(ConcatTestCheck, A)
 	ConcatTestCheckCount("A3/ConcatTest", 2+9);
 	ConcatTestCheckCount("A4/ConcatTest", 2+2+9);
 	ConcatTestCheckCount("A5/ConcatTest", 2+9);
+#if IUTEST_HAS_RANDOMVALUES
 	ConcatTestCheckCount("A6/ConcatTest", 2+1);
+#endif
 }
 
 IUTEST(ConcatTestCheck, P)
@@ -81,7 +87,9 @@ IUTEST(ConcatTestCheck, P)
 	ConcatTestCheckCount("P1/ConcatTest", 2+2);
 	ConcatTestCheckCount("P2/ConcatTest", 2+2);
 	ConcatTestCheckCount("P3/ConcatTest", 2+2);
+#if IUTEST_HAS_RANDOMVALUES
 	ConcatTestCheckCount("P4/ConcatTest", 1+2);
+#endif
 	ConcatTestCheckCount("P5/ConcatTest", 9+2+2);
 }
 

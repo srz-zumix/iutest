@@ -50,7 +50,11 @@ CombineTest::Tuple CombineTest::list[2*2*CombineTest::TABLE_SIZE] = {
 
 IUTEST_P(CombineTest, Num)
 {
-	EXPECT_EQ( 2*2*TABLE_SIZE, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count() );
+	EXPECT_EQ( (2*2*TABLE_SIZE) * 2, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count() );
+}
+
+IUTEST_P(CombineTest, Param)
+{
 	EXPECT_EQ( list[index++], GetParam() );
 }
 
@@ -68,6 +72,21 @@ IUTEST_INSTANTIATE_TEST_CASE_P(C, CombineTest
 		+ ::iutest::Combine(::iutest::Values(true), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble))
 	);
 #endif
+
+
+class CombineInTest : public ::iutest::TestWithParam< ::iutest::tuples::tuple< ::iutest::tuples::tuple<bool, int>, int > >
+{
+};
+
+IUTEST_P(CombineInTest, A)
+{
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_P(A, CombineInTest
+	, ::iutest::Combine( ::iutest::Combine(::iutest::Bool(), ::iutest::Values(1, 10)), ::iutest::ValuesIn(tble)) );
+IUTEST_INSTANTIATE_TEST_CASE_P(B, CombineInTest
+	, ::iutest::Combine( ::iutest::Values( ::iutest::tuples::tuple<bool, int>(false, 1), ::iutest::tuples::tuple<bool, int>(true, 10) )
+		, ::iutest::ValuesIn(tble)) );
 
 
 #if IUTEST_HAS_VARIADIC_COMBINE
