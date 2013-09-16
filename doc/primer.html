@@ -79,6 +79,7 @@
               <li><a href="#org_test_pmz">IUTEST_PMZ/IUTEST_PMZ_F</a></li>
               <li><a href="#org_test_pairwise">Pairwise</a></li>
               <li><a href="#org_test_randparam">乱数パラメータの生成</a></li>
+              <li><a href="#org_test_concatparam">パラメータの連結</a></li>
               <li><a href="#org_test_variadic">Variadic Templates の対応</a></li>
               <li><a href="#org_test_package">パッケージ</a></li>
               <li><a href="#org_test_japanese">日本語テスト名</a></li>
@@ -279,6 +280,28 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
      , ::iutest::ValuesGen( 5,  ::iutest::RandomGenerator<int>(&Filter) ) );</pre>
       <br />
       ※ これらのジェネレータは補助的なジェネレータです。ValuesIn に乱数を格納した vector などのコンテナを渡すことで実現可能です。<br />
+      <br />
+      </li>
+
+      <li><a name="org_test_concatparam" id="org_test_concatparam">パラメータの連結</a><br />
+      iutest では複数のパラメータの連結ができます。<br />
+      連結をすることにより、より複雑なパラメータでも簡単に生成することができます。<br />
+      連結をするには ::iutest::Concat もしくは operator + を使用します。<br />
+      <br />
+      ::iutest::Concat の場合<br />
+<pre class="source">
+IUTEST_INSTANTIATE_TEST_CASE_P(A1, TestP
+     , ::iutest::Concat( ::iutest::Range(1, 10), ::iutest::Range(101, 110) ) );
+IUTEST_INSTANTIATE_TEST_CASE_P(A2, TestP
+     , ::iutest::Concat( ::iutest::Range(1, 10), ::iutest::Bool() ) );
+</pre>
+      operator + の場合<br />
+<pre class="source">
+IUTEST_INSTANTIATE_TEST_CASE_P(A1, TestP
+     , ::iutest::Range(1, 10) + ::iutest::Range(101, 110) );
+IUTEST_INSTANTIATE_TEST_CASE_P(A2, TestP
+     , ::iutest::Range(1, 10) + ::iutest::Bool() + ::iutest::Values(99, 88, 77) ) );
+</pre>
       <br />
       </li>
 

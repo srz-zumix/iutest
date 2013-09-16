@@ -482,6 +482,24 @@
 #  define IUTEST_HAS_EXTERN_TEMPLATE	0
 #endif
 
+// enum class
+#ifndef IUTEST_HAS_STRONG_ENUMS
+#  if	defined(__clang__)
+#    if __has_feature(cxx_strong_enums)
+#      define IUTEST_HAS_STRONG_ENUMS	1
+#    endif
+#  elif	defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_STRONG_ENUMS	1
+#    endif
+#  elif defined(_MSC_VER)
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_STRONG_ENUMS
+#  define IUTEST_HAS_STRONG_ENUMS		0
+#endif
+
 // c++
 // attribute
 #ifndef IUTEST_ATTRIBUTE_UNUSED_

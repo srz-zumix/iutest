@@ -78,6 +78,13 @@ IUTEST(AssertionTest, EQ)
 		IUTEST_INFORM_EQ(a, b);
 	}
 #endif
+	
+#if IUTEST_HAS_STRONG_ENUMS
+	{
+		enum class eTest { Var1=1, Var2=1 };
+		IUTEST_ASSERT_EQ(eTest::Var1, eTest::Var2);
+	}
+#endif
 }
 
 IUTEST(AssertionTest, EQ_COLLECTIONS)
