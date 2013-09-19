@@ -288,6 +288,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\include\iutest_any.hpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\include\iutest_assertion.hpp"
 				>
 			</File>

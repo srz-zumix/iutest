@@ -158,7 +158,7 @@ public:
 	static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2, const char* expr3
 		, T1 val1, T2 val2, T3 val3)
 	{
-		typename ::iutest_type_traits::add_revalue_reference< ::iutest::AssertionResult >::type ar = Comp(expr1, expr2, val1, val2);
+		typename ::iutest_type_traits::add_rvalue_reference< ::iutest::AssertionResult >::type ar = Comp(expr1, expr2, val1, val2);
 		if( ar ) return ar;
 		return Comp(expr1, expr3, val1, val3) << "\n" << ar.message();
 	}
@@ -167,7 +167,7 @@ public:
 	static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2, const char* expr3, const char* expr4
 		, T1 val1, T2 val2, T3 val3, T4 val4)
 	{
-		typename ::iutest_type_traits::add_revalue_reference< ::iutest::AssertionResult >::type ar =  Comp(expr1, expr2, expr3, val1, val2, val3);
+		typename ::iutest_type_traits::add_rvalue_reference< ::iutest::AssertionResult >::type ar =  Comp(expr1, expr2, expr3, val1, val2, val3);
 		if( ar ) return ar;
 		return Comp(expr1, expr4, val1, val4) << "\n" << ar.message();
 	}
@@ -176,7 +176,7 @@ public:
 	static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2, const char* expr3, const char* expr4, const char* expr5
 		, T1 val1, T2 val2, T3 val3, T4 val4, T5 val5)
 	{
-		typename ::iutest_type_traits::add_revalue_reference< ::iutest::AssertionResult >::type ar =  Comp(expr1, expr2, expr3, expr4, val1, val2, val3, val4);
+		typename ::iutest_type_traits::add_rvalue_reference< ::iutest::AssertionResult >::type ar =  Comp(expr1, expr2, expr3, expr4, val1, val2, val3, val4);
 		if( ar ) return ar;
 		return Comp(expr1, expr5, val1, val5) << "\n" << ar.message();
 	}

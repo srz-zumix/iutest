@@ -81,6 +81,51 @@ struct type_least_t<8>
 
 }
 
+namespace internal
+{
+
+typedef void*	TypeId;		//!< テスト識別型
+
+namespace helper
+{
+
+//======================================================================
+// struct
+/**
+ * @brief	TypeId Generator Implementation
+*/
+template<typename T>
+struct TestTypeIdHelper { public: static bool _dummy; };
+
+template<typename T>bool TestTypeIdHelper<T>::_dummy = false;
+
+}
+
+//======================================================================
+// function
+/**
+  * @internal
+  * @brief	TypeId Generator
+*/
+template<typename T>
+inline IUTEST_CXX_CONSTEXPR TypeId	GetTypeId(void)
+{
+	return &(helper::TestTypeIdHelper<T>::_dummy);
+}
+
+/**
+  * @internal
+  * @brief	TypeId Generator
+*/
+inline IUTEST_CXX_CONSTEXPR TypeId	GetTestTypeId(void)
+{
+	return 0;
+}
+
+}
+
+//======================================================================
+// class
 /**
  * @brief	浮動小数点数
 */
@@ -234,49 +279,6 @@ private:
 private:
 	FInt	m_v;
 };
-
-namespace internal
-{
-
-typedef void*	TypeId;		//!< テスト識別型
-
-namespace helper
-{
-
-//======================================================================
-// struct
-/**
- * @brief	TypeId Generator Implementation
-*/
-template<typename T>
-struct TestTypeIdHelper { public: static bool _dummy; };
-
-template<typename T>bool TestTypeIdHelper<T>::_dummy = false;
-
-}
-
-//======================================================================
-// function
-/**
-  * @internal
-  * @brief	TypeId Generator
-*/
-template<typename T>
-inline IUTEST_CXX_CONSTEXPR TypeId	GetTypeId(void)
-{
-	return &(helper::TestTypeIdHelper<T>::_dummy);
-}
-
-/**
-  * @internal
-  * @brief	TypeId Generator
-*/
-inline IUTEST_CXX_CONSTEXPR TypeId	GetTestTypeId(void)
-{
-	return 0;
-}
-
-}
 
 //======================================================================
 // typedef

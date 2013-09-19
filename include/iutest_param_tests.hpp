@@ -20,6 +20,7 @@
 //======================================================================
 // include
 #include "iutest_core.hpp"
+#include "iutest_any.hpp"
 
 #if IUTEST_HAS_PARAM_TEST
 #include "internal/iutest_pool.hpp"
@@ -67,13 +68,14 @@
  * @brief	パラメータテスト登録
 */
 #define IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_)						\
-	static ::iutest::detail::iuIParamGenerator<testcase_::ParamType>*						\
-		s_##prefix_##_##testcase_##_EvalGenerator_(void) { return generator_; }				\
-		int prefix_##_##testcase_##_TestCaseInstantiationRegister(void) {					\
-			::iutest::ParamTestCaseInfo<testcase_>* p =										\
-				IIUT_GetTestCasePatternHolder(testcase_, IUTEST_CONCAT_PACKAGE_(testcase_));			\
-			return p->AddTestCaseInstantiation(#prefix_, s_##prefix_##_##testcase_##_EvalGenerator_);	\
-		} int s_##prefix_##_##testcase_##_dummy = prefix_##_##testcase_##_TestCaseInstantiationRegister()
+	static ::iutest::detail::iuIParamGenerator< IUTEST_TO_VARNAME_(testcase_)::ParamType >*	\
+		IUTEST_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)(void) { return generator_; }	\
+		int IUTEST_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)(void) {			\
+			::iutest::ParamTestCaseInfo< IUTEST_TO_VARNAME_(testcase_) >* p =				\
+				IIUT_GetTestCasePatternHolder( IUTEST_TO_VARNAME_(testcase_)				\
+					, IUTEST_CONCAT_PACKAGE_(IUTEST_TO_NAME_(testcase_)) );					\
+			return p->AddTestCaseInstantiation(#prefix_, IUTEST_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_));	\
+		} IUTEST_TEST_P_INSTANTIATIONREGISTER_(prefix_, testcase_)
 				
 
 /**
@@ -113,6 +115,18 @@
 	int IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::dummy_ IUTEST_ATTRIBUTE_UNUSED_				\
 		= IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::AddRegister();								\
 	template<typename T>void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body(void)
+
+#define IUTEST_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)	IIUT_TEST_P_EVALGENERATOR_NAME_I(prefix_, IUTEST_TO_VARNAME_(testcase_))
+#define IIUT_TEST_P_EVALGENERATOR_NAME_I(prefix_, testcase_)	IIUT_TEST_P_EVALGENERATOR_NAME_I_(prefix_, testcase_)
+#define IIUT_TEST_P_EVALGENERATOR_NAME_I_(prefix_, testcase_)	s_##prefix_##_##testcase_##_EvalGenerator_
+
+#define IUTEST_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)	IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I(prefix_, IUTEST_TO_VARNAME_(testcase_))
+#define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I(prefix_, testcase_)	IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I_(prefix_, testcase_)
+#define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I_(prefix_, testcase_)	prefix_##_##testcase_##_TestCaseInstantiationRegister
+
+#define IUTEST_TEST_P_INSTANTIATIONREGISTER_(prefix_, testcase_)			IIUT_TEST_P_INSTANTIATIONREGISTER_I(prefix_, IUTEST_TO_VARNAME_(testcase_), IUTEST_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_))
+#define IIUT_TEST_P_INSTANTIATIONREGISTER_I(prefix_, testcase_, register_)	IIUT_TEST_P_INSTANTIATIONREGISTER_I_(prefix_, testcase_, register_)
+#define IIUT_TEST_P_INSTANTIATIONREGISTER_I_(prefix_, testcase_, register_)	int s_##prefix_##_##testcase_##_dummy = register_()
 
 /**
  * @}
@@ -175,7 +189,25 @@ private:
 	}
 };
 
-}	// end of namespace
+}	// end of namespace detail
+
+/**
+ * @brief	any パラメータテストフィクスチャ
+*/
+class TestWithAny : virtual public Test, public WithParamInterface<any>
+{
+public:
+	/**
+	 * @brief	パラメータの取得
+	*/
+	static const ParamType&	GetParam(void) { return WithParamInterface<any>::GetParam(); }
+
+	/**
+	 * @brief	パラメータの取得
+	*/
+	template<typename T>
+	static T GetParam(void) { return unsafe_any_cast<T>(WithParamInterface<any>::GetParam()); }
+};
 
 /**
  * @brief	範囲パラメータ

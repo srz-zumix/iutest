@@ -71,7 +71,17 @@ IUTEST_P(IUTEST_JAPANESE_NAME_F(ParamTest, ‚ ‚¢‚¤‚¦‚¨), IUTEST_JAPANESE_NAME(‚ ‚
 	IUTEST_ASSERT_STREQ("‚ ‚¢‚¤‚¦‚¨/0", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, ParamTest, ::iutest::Values(0));
+IUTEST_P(IUTEST_JAPANESE_NAME_F(ParamTest, ‚ ‚¢‚¤‚¦‚¨), Japanese)
+{
+#if IUTEST_HAS_PACKAGE
+	IUTEST_ASSERT_STREQ("My1/japanese_test.‚ ‚¢‚¤‚¦‚¨", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+#else
+	IUTEST_ASSERT_STREQ("My1/‚ ‚¢‚¤‚¦‚¨", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+#endif
+	IUTEST_ASSERT_STREQ("Japanese/0", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_P(My1, IUTEST_JAPANESE_NAME_F(ParamTest, ‚ ‚¢‚¤‚¦‚¨), ::iutest::Values(0));
 
 #endif
 
@@ -168,3 +178,21 @@ IUTEST_TYPED_TEST_IGNORE(IUTEST_JAPANESE_NAME_F(TypedTest, ‚ ‚¢‚¤‚¦‚¨), IUTEST_J
 
 #endif
 
+#ifdef UNICODE
+int wmain(int argc, wchar_t* argv[])
+#else
+int main(int argc, char* argv[])
+#endif
+{
+	IUTEST_INIT(&argc, argv);
+	
+	int ret = IUTEST_RUN_ALL_TESTS();
+	if( ret != 0 ) return 1;
+#if IUTEST_HAS_TESTNAME_ALIAS
+	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->total_test_case_count() == 5 );
+	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->total_test_count() == 8 );
+
+#endif
+	printf("*** Successful ***\n");
+	return 0;
+}

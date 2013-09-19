@@ -300,6 +300,9 @@
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_assume.hpp">
       <Filter>iutest\gtest\switch</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\iutest_any.hpp">
+      <Filter>iutest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\impl\iutest_body.ipp">

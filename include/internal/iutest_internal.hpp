@@ -51,11 +51,11 @@
 #define IIUT_JAPANESE_NAME_PP_UNPAREN_(...)		__VA_ARGS__
 
 #if	defined(_MSC_VER)
-#  define IUTEST_ALIAS_TESTNAME(name_)			name_
-#  define IUTEST_ALIAS_TESTNAME_F(var_, name_)	UNPAREN_(dummy, var_, name_)
+#  define IUTEST_ALIAS_TESTNAME_(name_)			name_
+#  define IUTEST_ALIAS_TESTNAME_F_(var_, name_)	UNPAREN_(dummy, var_, name_)
 #else
-#  define IUTEST_ALIAS_TESTNAME(name_)			UNPAREN_(dummy, IUTEST_PP_CAT(iutest_japanese_var, __LINE__), name_)
-#  define IUTEST_ALIAS_TESTNAME_F(var_, name_)	UNPAREN_(dummy, var_, name_)
+#  define IUTEST_ALIAS_TESTNAME_(name_)			UNPAREN_(dummy, IUTEST_PP_CAT(iutest_japanese_var, __LINE__), name_)
+#  define IUTEST_ALIAS_TESTNAME_F_(var_, name_)	UNPAREN_(dummy, var_, name_)
 #endif
 
 #else

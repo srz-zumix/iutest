@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01069915u	//!< iutest version 1.6.99.15
+#define	IUTEST_VER			0x01069917u	//!< iutest version 1.6.99.17
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x06u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x15u		//!< Revision
+#define IUTEST_REVISION		0x17u		//!< Revision
 
 /**
  * @mainpage
@@ -95,13 +95,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.6.99.15
+  <li>v1.6.99.17
     <ul>
+      <li>値のパラメータを operator + で連結できるように修正</li>
       <li>値のパラメータを連結する ::iutest::Concat を追加</li>
+      <li>IUTEST_TYPED_TEST,IUTEST_TYPED_TEST_P の別名マクロを追加</li>
       <li>xml 出力に timestamp を追加</li>
       <li>前提条件の検証用マクロ IUTEST_ASSUME_* を追加</li>
       <li>SSTP 通知リスナーを追加</li>
       <li>Windows 向けメニュー登録ユーティリティを追加</li>
+      <li>値のパラメータ化テストが日本語テスト名に対応していなかった問題を修正</li>
       <li>ビルドエラー修正</li>
     </ul>
   </li>

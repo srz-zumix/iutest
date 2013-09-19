@@ -52,6 +52,15 @@
 */
 #define IUTEST_TYPED_TEST(testcase_, testname_)		IIUT_TYPED_TEST_(testcase_, testname_)
 
+/**
+ * @ingroup	TESTDEF
+ * @def		IUTEST_T(testcase_, testname_)
+ * @brief	型付けテスト関数定義マクロ
+ * @param	testcase_	= テストケース名
+ * @param	testname_	= テスト名
+*/
+#define IUTEST_T(testcase_, testname_)				IIUT_TYPED_TEST_(testcase_, testname_)
+
 
 /**
  * @private
@@ -122,6 +131,15 @@
  * @param	testname_	= テスト名
 */
 #define IUTEST_TYPED_TEST_P(testcase_, testname_)		IIUT_TYPED_TEST_P_(testcase_, testname_)
+
+/**
+ * @ingroup	TESTDEF
+ * @def		IUTEST_TP(testcase_, testname_)
+ * @brief	型パラメータテスト関数定義マクロ
+ * @param	testcase_	= テストケース名
+ * @param	testname_	= テスト名
+*/
+#define IUTEST_TP(testcase_, testname_)					IIUT_TYPED_TEST_P_(testcase_, testname_)
 
 /**
  * @ingroup	TESTDEF

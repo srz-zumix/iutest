@@ -89,6 +89,7 @@ TARGETS1= iutest_all_tests \
           iutest_extension_tests \
           iutest_filter_tests \
           iutest_help_tests \
+          iutest_japanese_tests \
           iutest_list_test_tests \
           iutest_listener_tests \
           iutest_minimum_tests \

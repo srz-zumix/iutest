@@ -78,6 +78,24 @@ public:
 };
 
 /**
+ * @brief	remove_reference
+*/
+template<typename T>
+class remove_reference
+{
+	template<typename U>
+	struct impl { typedef U type; };
+	template<typename U>
+	struct impl<U&> { typedef U type; };
+#if IUTEST_HAS_RVALUE_REFS
+	template<typename U>
+	struct impl<U&&> { typedef U type; };
+#endif
+public:
+	typedef typename impl<T>::type	type;
+};
+
+/**
  * @brief	remove_cv
 */
 template<typename T>
@@ -245,6 +263,22 @@ class is_convertible : public helper::is_convertible_type<From, To>::type
 {
 };
 
+/**
+ * @brief	add reference
+*/
+template<typename T>
+class add_reference
+{
+	template<typename U, bool b>struct impl { typedef U type; };
+	template<typename U>struct impl<U, true>
+	{
+		typedef U& type;
+	};
+
+public:
+	typedef typename impl<T, !is_void<T>::value && !is_reference<T>::value >::type type;
+};
+
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 #ifndef IUTEST_HAS_RVALUE_REFS
@@ -263,7 +297,7 @@ class is_convertible : public helper::is_convertible_type<From, To>::type
  * @brief	add rvalue reference
 */
 template<typename T>
-class add_revalue_reference
+class add_rvalue_reference
 {
 	template<typename U, bool b>struct impl { typedef U type; };
 
@@ -281,7 +315,7 @@ public:
 #else
 
 template<typename T>
-struct add_revalue_reference { typedef T type; };
+struct add_rvalue_reference { typedef T type; };
 
 #endif
 

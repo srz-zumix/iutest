@@ -211,6 +211,9 @@ public:
 	static const ParamType&	GetParam(void)
 	{
 		IUTEST_CHECK_(s_params != NULL) << "GetParam() can only use the value-parameterized test";
+#if defined(_MSC_VER) && _MSC_VER >= 1500
+		__analysis_assume(s_params != NULL);
+#endif
 		return *s_params;
 	}
 
