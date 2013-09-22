@@ -23,27 +23,25 @@
 
 #if !defined(IUTEST_USE_GTEST)
 
-class AnyParamTest : public ::iutest::TestWithParam< ::iutest::any > {};
+class WithAnyParamTest : public ::iutest::TestWithParam< ::iutest::any > {};
 
-IUTEST_P(AnyParamTest, Test)
+IUTEST_P(WithAnyParamTest, Test)
 {
 	int value = ::iutest::any_cast<int>(GetParam());
 	IUTEST_ASSERT_EQ(0, value);
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, AnyParamTest, ::iutest::Values(0));
+IUTEST_INSTANTIATE_TEST_CASE_P(My1, WithAnyParamTest, ::iutest::Values(0));
 
+#if IUTEST_HAS_ANY_PARAM_TEST
 
-#if IUTEST_HAS_TESTNAME_ALIAS
-
-typedef ::iutest::TestWithAny WithAny;
-IUTEST_P(IUTEST_ALIAS_TESTNAME_F(WithAny, WithAnyParamTest), Test)
+IUTEST_AP(AnyParamTest, Test)
 {
 	int value = GetParam<int>();
 	IUTEST_ASSERT_EQ(0, value);
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, IUTEST_ALIAS_TESTNAME_F(WithAny, WithAnyParamTest), ::iutest::Values(0));
+IUTEST_INSTANTIATE_TEST_CASE_AP(My1, AnyParamTest, ::iutest::Values(0));
 
 #endif
 

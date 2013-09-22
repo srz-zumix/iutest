@@ -311,6 +311,14 @@ GeTypeNameSpecialization(bool)
 
 #endif
 
+#if IUTEST_HAS_IF_EXISTS_
+#  define IUTEST_IF_EXISTS(identifier_, statement_)		__if_exists(identifier_) { statement }
+#  define IUTEST_IF_NOT_EXISTS(identifier_, statemen_)	__if_not_exists(identifier_) { statement }
+#else
+#  define IUTEST_IF_EXISTS(identifier_, statement)
+#  define IUTEST_IF_NOT_EXISTS(identifier, statement)
+#endif
+
 //======================================================================
 // function
 

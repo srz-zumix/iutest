@@ -551,6 +551,15 @@ IUTEST_P(TestPValuesN, TestA)
 	IUTEST_ASSERT_EQ(a++, GetParam());
 }
 
+#if IUTEST_HAS_IF_EXSITS
+IUTEST_P(TestPAutoAny, Test)
+{
+	IUTEST_ASSERT_EQ(1, GetParam<int>());
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_P(TestPValuesNInstance, TestPAutoAny, ::iutest::Values(1));
+#endif
+
 #if IUTEST_HAS_COMBINE
 
 class TestPCombine : public ::iutest::TestWithParam< ::iutest::tuples::tuple<bool, int, int> >

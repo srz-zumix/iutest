@@ -108,6 +108,27 @@
 #  define IUTEST_HAS_NULLPTR		0
 #endif
 
+// decltype
+#if !defined(IUTEST_HAS_DECLTYPE)
+#  if defined(__clang__)
+#    if __has_feature(cxx_decltype)
+#      define IUTEST_HAS_DECLTYPE	1
+#    endif
+#  elif	defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 2)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_DECLTYPE	1
+#    endif
+#  elif defined(_MSC_VER)
+#    if _MSC_VER >= 1600
+#      define IUTEST_HAS_DECLTYPE	1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_DECLTYPE)
+#  define IUTEST_HAS_DECLTYPE		0
+#endif
+
 // static_assert
 #if	!defined(IUTEST_HAS_STATIC_ASSERT)
 #  if	defined(__clang__)
@@ -720,7 +741,7 @@
 #endif
 
 // secure lib
-#if defined(_MSC_VER) 
+#if defined(_MSC_VER)
 #  if defined(__STDC_WANT_SECURE_LIB__) && __STDC_WANT_SECURE_LIB__
 #    define IUTEST_HAS_WANT_SECURE_LIB		1
 #  endif
@@ -728,6 +749,16 @@
 
 #ifndef IUTEST_HAS_WANT_SECURE_LIB
 #  define IUTEST_HAS_WANT_SECURE_LIB		0
+#endif
+
+// extension
+// __if_exists
+#ifndef IUTEST_HAS_IF_EXISTS
+#  if defined(_MSC_VER)
+#    define IUTEST_HAS_IF_EXISTS			1
+#  else
+#    define IUTEST_HAS_IF_EXISTS			0
+#  endif
 #endif
 
 // pragma

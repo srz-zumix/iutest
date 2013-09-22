@@ -31,12 +31,39 @@
  * @ingroup	TESTDEF
  * @def		IUTEST_INSTANTIATE_TEST_CASE_P
  * @brief	パラメータテストインスタンス化マクロ
+ * @param	prefix_			= インスタンス名
+ * @param	testfixture_	= テストフィクスチャ
+ * @param	generator_		= Range, Bool, Values, ValuesIn, Combine, Pairwise ...
+*/
+#define IUTEST_INSTANTIATE_TEST_CASE_P(prefix_, testfixture_, generator_)	\
+	IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testfixture_, generator_)
+
+/**
+ * @ingroup	TESTDEF
+ * @def		IUTEST_P(testcase_, testname_)
+ * @brief	パラメータユーザー指定テスト関数定義マクロ
+ * @param	testfixture_	= テストフィクスチャ
+ * @param	testname_		= テスト名
+ * @note	
+ *	class TestCaseName : public ::iutest::TestWithParam<int> {};\n
+ *  IUTEST_P(TestCaseName, TestName) {}\n
+ *  IUTEST_INSTANTIATE_TEST_CASE_P(InstantiateName, TestCaseName, ParamGenerator);\n
+*/
+#define IUTEST_P(testfixture_, testname_)		IIUT_TEST_P_(testfixture_, testname_)
+
+
+#if IUTEST_HAS_ANY_PARAM_TEST
+
+/**
+ * @ingroup	TESTDEF
+ * @def		IUTEST_INSTANTIATE_TEST_CASE_AP
+ * @brief	パラメータテストインスタンス化マクロ
  * @param	prefix_		= インスタンス名
  * @param	testcase_	= テストケース名
  * @param	generator_	= Range, Bool, Values, ValuesIn, Combine, Pairwise ...
 */
-#define IUTEST_INSTANTIATE_TEST_CASE_P(prefix_, testcase_, generator_)	\
-													IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_)
+#define IUTEST_INSTANTIATE_TEST_CASE_AP(prefix_, testcase_, generator_)	\
+	IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, IUTEST_ALIAS_TESTNAME_F(iuTestWithAny, testcase_), generator_)
 
 /**
  * @ingroup	TESTDEF
@@ -45,11 +72,14 @@
  * @param	testcase_	= テストケース名
  * @param	testname_	= テスト名
  * @note	
- *	class TestCaseName : public ::iutest::TestWithParam<int> {};\n
- *  IUTEST_P(TestCaseName, TestName) {}\n
- *  IUTEST_INSTANTIATE_TEST_CASE_P(InstantiateName, TestCaseName, ParamGenerator);\n
+ *  IUTEST_AP(TestCaseName, TestName) {}\n
+ *  IUTEST_INSTANTIATE_TEST_CASE_AP(InstantiateName, TestCaseName, ParamGenerator);\n
 */
-#define IUTEST_P(testcase_, testname_)				IIUT_TEST_P_(testcase_, testname_)
+#define IUTEST_AP(testcase_, testname_)			IIUT_TEST_P_(IUTEST_ALIAS_TESTNAME_F(iuTestWithAny, testcase_), testname_)
+
+
+#endif
+
 
 /**
  * @private
@@ -64,10 +94,19 @@
 	::iutest::UnitTest::GetInstance()->parameterized_test_registry().GetTestCasePatternHolder(testcase_, &::iutest::detail::type<T>())
 #endif
 
+#if IUTEST_HAS_IF_EXISTS
+#define IIUT_TEST_P_FIXTURE_DECL_(testcase_)	IIUT_TEST_P_FIXTURE_DECL_I(IUTEST_TO_VARNAME_(testcase_))
+#define IIUT_TEST_P_FIXTURE_DECL_I(testcase_)	IUTEST_IF_NOT_EXISTS(testcase_, typedef ::iutest::TestWithAny testcase_;)
+#else
+#define IIUT_TEST_P_FIXTURE_DECL_(testcase_)
+#endif
+
+
 /**
  * @brief	パラメータテスト登録
 */
 #define IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_)						\
+	IIUT_TEST_P_FIXTURE_DECL_(testcase_)													\
 	static ::iutest::detail::iuIParamGenerator< IUTEST_TO_VARNAME_(testcase_)::ParamType >*	\
 		IUTEST_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)(void) { return generator_; }	\
 		int IUTEST_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)(void) {			\
@@ -76,12 +115,12 @@
 					, IUTEST_CONCAT_PACKAGE_(IUTEST_TO_NAME_(testcase_)) );					\
 			return p->AddTestCaseInstantiation(#prefix_, IUTEST_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_));	\
 		} IUTEST_TEST_P_INSTANTIATIONREGISTER_(prefix_, testcase_)
-				
 
 /**
  * @brief	パラメータテストクラス定義
 */
 #define IIUT_TEST_P_(testcase_, testname_)															\
+	IIUT_TEST_P_FIXTURE_DECL_(testcase_)															\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public IUTEST_TO_VARNAME_(testcase_) {	\
 		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}								\
 		protected: virtual void Body(void);															\
@@ -465,6 +504,10 @@ IIUT_DECL_PAIRWISE_(9)
 #endif
 
 }	// end of namespace iutest
+
+#if IUTEST_HAS_ANY_PARAM_TEST
+typedef ::iutest::TestWithAny	iuTestWithAny;
+#endif
 
 #endif	// IUTEST_HAS_PARAM_TEST
 
