@@ -180,12 +180,14 @@ public:
 		if( ::std::find(begin, end, name) != end ) return false;
 		return true;
 	}
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 	/** @overload */
 	template<typename T, size_t N>
 	static bool ValidateName(const ::std::string& name, T (&ar)[N])
 	{
 		return ValidateName(name, ar, ar + N);
 	}
+#endif
 
 private:
 	friend class TestResult;

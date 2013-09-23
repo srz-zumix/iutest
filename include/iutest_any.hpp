@@ -55,12 +55,12 @@ public:
 	}
 	type_id type(void) const
 	{
-		return content == NULL ? GetTypeId<void>() : content->type();
+		return content == NULL ? internal::GetTypeId<void>() : content->type();
 	}
 	template<typename T>
 	bool type_equal(void) const
 	{
-		return type() == GetTypeId<T>();
+		return type() == internal::GetTypeId<T>();
 	}
 
 public:
@@ -97,7 +97,7 @@ private:
 	public:
 		virtual type_id type(void) const
 		{
-			return GetTypeId<T>();
+			return internal::GetTypeId<T>();
 		}
 		virtual placeholder* clone(void) const
 		{
@@ -108,12 +108,6 @@ private:
 	private:
 		holder& operator = (const holder&);
 	};
-private:
-	template<typename U>
-	static type_id GetTypeId(void)
-	{
-		return internal::GetTypeId<U>();
-	}
 private:
 	placeholder* content;
 };

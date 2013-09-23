@@ -263,6 +263,8 @@ class is_convertible : public helper::is_convertible_type<From, To>::type
 {
 };
 
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+
 /**
  * @brief	add reference
 */
@@ -278,8 +280,6 @@ class add_reference
 public:
 	typedef typename impl<T, !is_void<T>::value && !is_reference<T>::value >::type type;
 };
-
-#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 #ifndef IUTEST_HAS_RVALUE_REFS
 #  if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 2)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
