@@ -24,6 +24,10 @@
 #if IUTEST_HAS_STREAM_RESULT
 #include "../internal/iutest_socket.hpp"
 
+#ifndef IUTEST_SSTPNOTIFIER_JAPANESE
+#  define IUTEST_SSTPNOTIFIER_JAPANESE	1
+#endif
+
 namespace iutest
 {
 
@@ -404,7 +408,11 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestProgramStart(const UnitTest& test)
 {
 	IUTEST_UNUSED_VAR(test);
 	m_sstp.Notify()
+#if IUTEST_SSTPNOTIFIER_JAPANESE
 		.Script(Script("テストスタ～ト").Ln().ToString())
+#else
+		.Script(Script("Start test.").Ln().ToString())
+#endif
 		.End();
 }
 IUTEST_IPP_INLINE void SSTPNotifier::OnTestIterationStart(const UnitTest& test
@@ -412,21 +420,33 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestIterationStart(const UnitTest& test
 {
 	IUTEST_UNUSED_VAR(test);
 	m_sstp.Notify()
+#if IUTEST_SSTPNOTIFIER_JAPANESE
 		.Script(Script(detail::StreamableToString(iteration+1) + "回目のテストだよ").Concat().Ln().ToString())
+#else
+		.Script(Script(detail::StreamableToString(iteration+1) + "-th test.").Concat().Ln().ToString())
+#endif
 		.End();
 }
 IUTEST_IPP_INLINE void SSTPNotifier::OnTestCaseStart(const TestCase& test_case)
 {
 	m_sstp.Notify()
 		.Script(Script().Surface(Ghost::Normal)
+#if IUTEST_SSTPNOTIFIER_JAPANESE
 			.Append(detail::StreamableToString(test_case.name()) + " テストケースを開始").Concat().Ln().ToString())
+#else
+			.Append(detail::StreamableToString(test_case.name()) + " Start TestCase...").Concat().Ln().ToString())
+#endif
 		.End();
 }
 IUTEST_IPP_INLINE void SSTPNotifier::OnTestStart(const TestInfo& test_info)
 {
 	m_sstp.Notify()
 		.Script(Script().Surface(Ghost::Normal)
+#if IUTEST_SSTPNOTIFIER_JAPANESE
 			.Append(detail::StreamableToString(test_info.name()) + " テストを開始").Concat().Ln().ToString())
+#else
+			.Append(detail::StreamableToString(test_info.name()) + " Start Test...").Concat().Ln().ToString())
+#endif
 		.End();
 }
 IUTEST_IPP_INLINE void SSTPNotifier::OnTestPartResult(const TestPartResult& test_part_result)
@@ -440,8 +460,12 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestPartResult(const TestPartResult& test
 	else
 	{
 		m_sstp.Notify()
-			.Script(Script().Surface(Ghost::Anxiety).Append(FormatPath(filename) + "の"
-				+ detail::StreamableToString(test_part_result.line_number()) + "行目で失敗したよ\n"
+			.Script(Script().Surface(Ghost::Anxiety).Append(FormatPath(filename)
+#if IUTEST_SSTPNOTIFIER_JAPANESE
+				+ "の" + detail::StreamableToString(test_part_result.line_number()) + "行目で失敗したよ\n"
+#else
+				+ ": " + detail::StreamableToString(test_part_result.line_number()) + ": Failed\n"
+#endif
 				+ FormatMessage(test_part_result.message())).Concat().Ln().Open(FormatPath(filename)).ToString())
 			.End();
 	}
@@ -457,15 +481,22 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestEnd(const TestInfo& test_info)
 {
 	m_sstp.Notify()
 		.Script(Script().Surface(test_info.Passed() ? Ghost::Smile : Ghost::Angry)
-			.Append( FormatBool(test_info.Passed()) + "したよ"
+			.Append( FormatBool(test_info.Passed())
+#if IUTEST_SSTPNOTIFIER_JAPANESE
+			+ "したよ"
+#endif
 			+ "(" + detail::StreamableToString(test_info.elapsed_time()) + "ms)").Concat().Ln().ToString())
 		.End();
 }
 IUTEST_IPP_INLINE void SSTPNotifier::OnTestCaseEnd(const TestCase& test_case)
 {
 	m_sstp.Notify()
-		.Script(Script( detail::StreamableToString(test_case.name()) + " テストケースは"
-			+ FormatBool(test_case.Passed()) + "したよ"
+		.Script(Script( detail::StreamableToString(test_case.name())
+#if IUTEST_SSTPNOTIFIER_JAPANESE
+			+ " テストケースは"	+ FormatBool(test_case.Passed()) + "したよ"
+#else
+			+ " TestCase is"	+ FormatBool(test_case.Passed()) + "."
+#endif
 			+ "(" + detail::StreamableToString(test_case.elapsed_time()) + "ms)").Concat().Ln().ToString())
 		.End();
 }
@@ -479,7 +510,11 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestProgramEnd(const UnitTest& test)
 {
 	IUTEST_UNUSED_VAR(test);
 	m_sstp.Notify()
+#if IUTEST_SSTPNOTIFIER_JAPANESE
 		.Script(Script("おわり").Concat().Ln().ToString())
+#else
+		.Script(Script("Finish!").Concat().Ln().ToString())
+#endif
 		.End();
 	m_sstp.Close();
 }
@@ -500,8 +535,13 @@ IUTEST_IPP_INLINE ::std::string SSTPNotifier::FormatPath(const ::std::string& pa
 
 IUTEST_IPP_INLINE ::std::string SSTPNotifier::FormatBool(bool b)
 {
+#if IUTEST_SSTPNOTIFIER_JAPANESE
 	if( b ) return "成功";
 	return "失敗";
+#else
+	if( b ) return "Succeeded";
+	return "Failed";
+#endif
 }
 
 }	// end of namespace iutest

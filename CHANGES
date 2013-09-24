@@ -2,9 +2,9 @@
 Changes for 1.7.0:
 
 ** 追加
-* テストフィクスチャの定義が省ける値のパラメータ化テストを追加(IUTEST_AP,IUTEST_INSTANTIATE_TEST_CASE_AP)
 * 値のパラメータを operator + で連結できるように修正
 * 値のパラメータを連結する ::iutest::Concat を追加
+* テストフィクスチャの定義が省ける値のパラメータ化テストを追加(IUTEST_AP,IUTEST_INSTANTIATE_TEST_CASE_AP(Visual Studio では IUTEST_P,IUTEST_INSTANTIATE_TEST_CASE_P でも省略可能))
 * IUTEST_TYPED_TEST,IUTEST_TYPED_TEST_P の別名マクロを追加(IUTEST_T, IUTEST_TP)
 * xml 出力に timestamp を追加
 * 前提条件の検証用マクロ IUTEST_ASSUME_* を追加

@@ -165,7 +165,8 @@ public:
 #ifdef IUTEST_OS_WINDOWS
 		return Send(message + "\r\n");
 #else
-		return Send(message + "\n");
+		return Send(message + "\r\n");
+		//return Send(message + "\n");
 #endif
 	}
 public:

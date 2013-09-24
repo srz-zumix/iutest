@@ -473,7 +473,10 @@ int TestP::a = 0;
 int TestP::b = 0;
 
 IUTEST_INSTANTIATE_TEST_CASE_P(TestPInstance, TestP, ::iutest::Range<int>(0, 10));
+
+#if IUTEST_HAS_CONCAT
 IUTEST_INSTANTIATE_TEST_CASE_P(TestPInstance2, TestP, ::iutest::Concat( ::iutest::Bool(), ::iutest::Range(2, 4)));
+#endif
 
 IUTEST_P(TestP, TestA)
 {
@@ -551,7 +554,7 @@ IUTEST_P(TestPValuesN, TestA)
 	IUTEST_ASSERT_EQ(a++, GetParam());
 }
 
-#if IUTEST_HAS_IF_EXSITS
+#if IUTEST_HAS_IF_EXISTS
 IUTEST_P(TestPAutoAny, Test)
 {
 	IUTEST_ASSERT_EQ(1, GetParam<int>());

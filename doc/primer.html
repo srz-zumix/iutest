@@ -77,6 +77,7 @@
           <li><a href="#org_test">テストの生成</a>
             <ul>
               <li><a href="#org_test_pmz">IUTEST_PMZ/IUTEST_PMZ_F</a></li>
+              <li><a href="#org_test_anyparam">IUTEST_AP</a></li>
               <li><a href="#org_test_pairwise">Pairwise</a></li>
               <li><a href="#org_test_randparam">乱数パラメータの生成</a></li>
               <li><a href="#org_test_concatparam">パラメータの連結</a></li>
@@ -255,6 +256,28 @@ void TestFunction(int x, int y)
 IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 0, 0);
 IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 1, 1);</pre>
       <br />
+      </li>
+
+      <li><a name="org_test_anyparam" id="org_test_anyparam">IUTEST_AP</a><br />
+      IUTEST_AP は IUTEST_P とほぼ同じマクロです。<br />
+      IUTEST_P と違う点は、テストフィクスチャの定義が省略できるところです。<br >
+<pre class="source">
+//class AnyParamtest : public ::iutest::TestWithParam<int> {}; // 不要
+IUTEST_AP(AnyParamTest, Test)
+{
+    const int value = GetParam<int>();
+    IUTEST_ASSERT_EQ(0, value);
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_AP(My1, AnyParamTest, ::iutest::Values(0));
+</pre>
+      テストフィクスチャを省略した場合のパラメータ型は、::iutest::any になっています。<br />
+      パラメータの値を取り出す際は、template の GetParam を使用してください。<br />
+      ※template の GetParam は型安全でないキャストを行います。キャスト不可能な型にキャストしないよう十分に注意してください。<br />
+      型をチェックする場合は、非 template な GetParam を使用して any を取得し、 ::iutest::any_cast で目的の型にキャストしてください。<br />
+      ※Visual Studio の場合、IUTEST_P でもテストフィクスチャの省略が可能です。<br />
+      <br />
+      
       </li>
 
       <li><a name="org_test_pairwise" id="org_test_pairwise">Pairwise</a><br />
