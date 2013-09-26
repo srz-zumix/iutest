@@ -73,5 +73,12 @@ IUTEST_PACKAGE(pkg2)
 			}
 		}
 	}
+	IUTEST_PACKAGE(pkg2)
+	{
+		IUTEST(Test, A)
+		{
+			IUTEST_EXPECT_PACKAGENAME(pkg2.pkg2, Test);
+		}
+	}
 }
 

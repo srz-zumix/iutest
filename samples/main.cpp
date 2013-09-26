@@ -165,6 +165,21 @@ IUTEST_PACKAGE(TestPackage)
 	}
 }
 
+#if IUTEST_HAS_IF_EXISTS
+
+IUTEST_PACKAGE(TestPackage)
+{
+	IUTEST_PACKAGE(TestPackage)
+	{
+		IUTEST(Test, Version)
+		{
+			IUTEST_ASSERT_TRUE(true);
+		}
+	}
+}
+
+#endif
+
 /** --------------------------------------------------
  * スキップ
 *//*--------------------------------------------------*/
