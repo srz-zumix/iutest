@@ -42,7 +42,7 @@
 #      define IUTEST_HAS_STD_TUPLE	1
 #    endif
 #  elif defined(__clang__)
-#    if __has_include( <tuple> )
+#    if __has_include( <tuple> ) && IUTEST_HAS_VARIADIC_TEMPLATES
 #      define IUTEST_HAS_STD_TUPLE	1
 #    endif
 #  elif	defined(__GNUC__)
@@ -74,7 +74,7 @@
 #    endif
 #  elif defined(__clang__)
 #    if __has_include( <tr1/tuple> )
-#      define IUTEST_HAS_STD_TUPLE	1
+#      define IUTEST_HAS_TR1_TUPLE	1
 #    endif
 #  elif	defined(__GNUC__)
 #    if (!defined(__CUDACC__) && !defined(__ARMCC_VERSION) && (__GNUC__ >= 4))
