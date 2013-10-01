@@ -40,23 +40,41 @@ public:
 	any(const any& rhs) : content(rhs.content == NULL ? NULL : rhs.content->clone()) {}
 	~any(void) { delete content; }
 public:
+	/**
+	 * @brief	swap
+	*/
 	any& swap(any& rhs)
 	{
 		::std::swap(content, rhs.content);
 		return *this;
 	}
+	/**
+	 * @brief	‹ó‚©‚Ç‚¤‚©
+	 * @retval	true = ‹ó
+	*/
 	bool empty(void) const
 	{
 		return content == NULL;
 	}
+	/**
+	 * @brief	—v‘f‚ÌƒNƒŠƒA
+	*/
 	void clear(void)
 	{
 		any().swap(*this);
 	}
+	/**
+	 * @brief	Œ^ID‚Ìæ“¾
+	 * @return	Œ^ID
+	*/
 	type_id type(void) const
 	{
 		return content == NULL ? internal::GetTypeId<void>() : content->type();
 	}
+	/**
+	 * @brief	Œ^‚Ì”äŠr
+	 * @retval	true = “¯ˆê
+	*/
 	template<typename T>
 	bool type_equal(void) const
 	{
@@ -113,22 +131,30 @@ private:
 };
 
 #if IUTEST_HAS_EXCEPTIONS
+/**
+ * @brief	any_cast ‚Ì¸”s‚Ì—áŠO
+*/
 class bad_any_cast : public ::std::bad_cast {};
 #endif
 
 inline void swap(any& lhs, any& rhs) { lhs.swap(rhs); }
 
+/**
+ * @brief	Œ^‚ğl—¶‚µ‚½ƒLƒƒƒXƒg
+*/
 template<typename T>
 T* any_cast(any* p)
 {
 	return p != NULL && p->type_equal<T>() ?
 		&static_cast< any::holder<T>* >(p->content)->held : NULL;
 }
+/** @overload */
 template<typename T>
 inline const T* any_cast(const any* p)
 {
 	return any_cast<T>(const_cast<any*>(p));
 }
+/** @overload */
 template<typename T>
 inline T any_cast(any& value)
 {
@@ -142,23 +168,29 @@ inline T any_cast(any& value)
 
 	return static_cast<nonref_t&>(*p);
 }
+/** @overload */
 template<typename T>
 inline T any_cast(const any& value)
 {
 	return any_cast<T>(const_cast<any&>(value));
 }
 
+/**
+ * @brief	Œ^‚ğl—¶‚¹‚¸ƒLƒƒƒXƒg
+*/
 template<typename T>
 T* unsafe_any_cast(any* p)
 {
 	return p != NULL ?
 		&static_cast< any::holder<T>* >(p->content)->held : NULL;
 }
+/** @overload */
 template<typename T>
 inline const T* unsafe_any_cast(const any* p)
 {
 	return unsafe_any_cast<T>(const_cast<any*>(p));
 }
+/** @overload */
 template<typename T>
 inline T unsafe_any_cast(any& value)
 {
@@ -166,6 +198,7 @@ inline T unsafe_any_cast(any& value)
 	nonref_t* p = unsafe_any_cast<nonref_t>(&value);
 	return static_cast<nonref_t&>(*p);
 }
+/** @overload */
 template<typename T>
 inline T unsafe_any_cast(const any& value)
 {

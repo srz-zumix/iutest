@@ -40,7 +40,7 @@
 
 /**
  * @ingroup	TESTDEF
- * @def		IUTEST_P(testcase_, testname_)
+ * @def		IUTEST_P(testfixture_, testname_)
  * @brief	パラメータユーザー指定テスト関数定義マクロ
  * @param	testfixture_	= テストフィクスチャ
  * @param	testname_		= テスト名
@@ -67,7 +67,7 @@
 
 /**
  * @ingroup	TESTDEF
- * @def		IUTEST_P(testcase_, testname_)
+ * @def		IUTEST_AP(testcase_, testname_)
  * @brief	パラメータユーザー指定テスト関数定義マクロ
  * @param	testcase_	= テストケース名
  * @param	testname_	= テスト名
@@ -506,6 +506,7 @@ IIUT_DECL_PAIRWISE_(9)
 }	// end of namespace iutest
 
 #if IUTEST_HAS_ANY_PARAM_TEST
+/** any param test fixture */
 typedef ::iutest::TestWithAny	iuTestWithAny;
 #endif
 

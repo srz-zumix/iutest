@@ -188,7 +188,7 @@ int main(int argc, char* argv[])
 	
 	int ret = IUTEST_RUN_ALL_TESTS();
 	if( ret != 0 ) return 1;
-	int testcase_count = 2;
+	int testcase_count = 3;
 	int test_count = 4;
 #if IUTEST_HAS_PARAM_TEST
 	testcase_count+=1;
@@ -199,7 +199,6 @@ int main(int argc, char* argv[])
 	test_count += 1;
 #endif
 #if IUTEST_HAS_PARAM_METHOD_TEST
-	testcase_count+=1;
 	test_count += 1;
 #endif
 #if IUTEST_HAS_TESTNAME_ALIAS
