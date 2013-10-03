@@ -209,7 +209,7 @@
 
 #ifndef IUTEST_HAS_SPI_LAMBDA_SUPPORT
 //! spi マクロで lambda を使って変数にアクセス可能かどうか
-#if IUTEST_HAS_LAMBDA
+#if IUTEST_HAS_LAMBDA && !defined(IUTEST_NO_LAMBDA_SCOPE_RESOLUTION)
 #  define IUTEST_HAS_SPI_LAMBDA_SUPPORT		1
 #else
 #  define IUTEST_HAS_SPI_LAMBDA_SUPPORT		0
