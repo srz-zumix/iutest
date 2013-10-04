@@ -24,6 +24,7 @@
 #include "iutest_package_tests2.cpp"
 #include "iutest_pairwise_tests.cpp"
 #include "iutest_param_method_tests.cpp"
+#include "iutest_param_test_with_any_tests.cpp"
 #include "iutest_pp_tests.cpp"
 #include "iutest_pred_tests.cpp"
 #include "iutest_prod_tests.cpp"

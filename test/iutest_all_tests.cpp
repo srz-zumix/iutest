@@ -28,7 +28,6 @@
 #include "iutest_no_failure_tests.cpp"
 #include "iutest_param_test_tests1.cpp"
 #include "iutest_param_test_tests2.cpp"
-#include "iutest_param_test_with_any_tests.cpp"
 #include "iutest_pred_tests.cpp"
 #include "iutest_prod_tests.cpp"
 #include "iutest_spi_tests.cpp"
