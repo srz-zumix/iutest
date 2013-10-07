@@ -166,6 +166,7 @@ private:
 	UnitTest(void)
 		: m_repeat_counter(0)
 		, m_init_iutest_count(0)
+		, m_test_started(false)
 		, m_start_timestamp(0)
 	{
 		// デフォルトリポーターをセット
@@ -200,6 +201,7 @@ private:
 
 	int m_repeat_counter;
 	int m_init_iutest_count;
+	bool m_test_started;
 	TimeInMillisec m_start_timestamp;
 	detail::DefaultGlobalTestPartResultReporter	m_default_test_part_result_reporter;
 

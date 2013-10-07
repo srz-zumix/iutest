@@ -252,6 +252,8 @@ IUTEST_IPP_INLINE void	UnitTest::TestProgramStart(void)
 
 	atexit(OnExit);
 
+	m_test_started = true;
+
 	listeners().OnTestProgramStart(*this);
 }
 
@@ -282,7 +284,9 @@ IUTEST_IPP_INLINE void	UnitTest::EnvironmentTearDown(void)
 
 IUTEST_IPP_INLINE void	UnitTest::TestProgramEnd(void)
 {
+	if( !m_test_started ) return;
 	listeners().OnTestProgramEnd(*this);
+	m_test_started = false;
 }
 
 IUTEST_IPP_INLINE void	UnitTest::Initialize(void)

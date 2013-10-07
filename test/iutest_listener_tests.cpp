@@ -112,6 +112,7 @@ public:
 	}
 	virtual void OnTestProgramEnd(const ::iutest::UnitTest& /*test*/)
 	{
+		if( called_OnTestProgramEnd ) exit(1);
 		called_OnTestProgramEnd = true;
 	}
 };
