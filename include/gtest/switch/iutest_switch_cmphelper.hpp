@@ -87,30 +87,6 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1
 	return CmpHelperSTRNE(expr1, expr2, val1.c_str(), val2);
 }
 
-inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
-{
-#if		defined(_MSC_VER)
-	return _wcsicmp(str1, str2);
-#elif	defined(IUTEST_OS_LINUX) && !defined(IUTEST_OS_LINUX_ANDROID)
-	return wcscasecmp(str1, str2);
-#else
-	const wchar_t* l = str1;
-	const wchar_t* r = str2;
-	while(*l)
-	{
-		wchar_t ul = towupper(*l);
-		wchar_t ur = towupper(*r);
-		if( ul < ur ) return -1;
-		if( ul > ur ) return 1;
-		++l;
-		++r;
-	}
-	if( *l < *r ) return -1;
-	if( *l > *r ) return 1;
-	return 0;
-#endif
-}
-
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* expr1, const char* expr2
 	, const wchar_t* val1, const wchar_t* val2)
 {

@@ -757,7 +757,7 @@
 // extension
 // __if_exists
 #ifndef IUTEST_HAS_IF_EXISTS
-#  if defined(_MSC_VER)
+#  if defined(_MSC_VER) && _MSC_VER >= 1310
 #    define IUTEST_HAS_IF_EXISTS			1
 #  else
 #    define IUTEST_HAS_IF_EXISTS			0

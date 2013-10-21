@@ -195,6 +195,31 @@ inline int PutEnv(const char* expr)
 
 }	// end of namespace posix
 }	// end of namespace internal
+
+inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
+{
+#if		defined(_MSC_VER)
+	return _wcsicmp(str1, str2);
+#elif	defined(IUTEST_OS_LINUX) && !defined(IUTEST_OS_LINUX_ANDROID)
+	return wcscasecmp(str1, str2);
+#else
+	const wchar_t* l = str1;
+	const wchar_t* r = str2;
+	while(*l)
+	{
+		wchar_t ul = towupper(*l);
+		wchar_t ur = towupper(*r);
+		if( ul < ur ) return -1;
+		if( ul > ur ) return 1;
+		++l;
+		++r;
+	}
+	if( *l < *r ) return -1;
+	if( *l > *r ) return 1;
+	return 0;
+#endif
+}
+
 }	// end of namespace testing
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()

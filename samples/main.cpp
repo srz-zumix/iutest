@@ -569,7 +569,7 @@ IUTEST_P(TestPValuesN, TestA)
 	IUTEST_ASSERT_EQ(a++, GetParam());
 }
 
-#if IUTEST_HAS_IF_EXISTS
+#if IUTEST_HAS_IF_EXISTS && !defined(IUTEST_USE_GTEST)
 IUTEST_P(TestPAutoAny, Test)
 {
 	IUTEST_ASSERT_EQ(1, GetParam<int>());
