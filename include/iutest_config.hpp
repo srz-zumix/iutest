@@ -417,7 +417,7 @@
 
 /**
  * @defgroup	IUTEST_CONFIG_LISTENER	LISTENER
- * @brief		その他の CONFIG
+ * @brief		Listener 関係の CONFIG
  * @{
 */
 
@@ -450,6 +450,11 @@
 
 
 /**
+ * @ingroup	IUTEST_CONFIG_OTHER	OTHER
+ * @{
+*/
+
+/**
  * @brief	iutest で t1/tuple.h をインクルードするかどうか
  * @details	1: std::tr1 名前空間にある tuple を使用します。
  *			tuple.h はユーザーがインクルードします。
@@ -466,9 +471,10 @@
 #define IUTEST_USE_EXTERNAL_STD_TUPLE	0
 
 /**
- * @ingroup	IUTEST_CONFIG_OTHER	OTHER
- * @{
+ * @brief	iutest で使用する乱数エンジンを指定します
+ * @details	未定義の場合は iutest が実装しているエンジンを使用します(XorShift 128)
 */
+#define IUTEST_USE_RANDOM_ENGINE_TYPENAME	::std::default_random_engine
 
 #define IUTEST_NO_GETENV	//!< getenv 関数がない場合は定義
 #define IUTEST_NO_PUTENV	//!< putenv 関数がない場合は定義

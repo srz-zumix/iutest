@@ -133,8 +133,6 @@
     <ClInclude Include="..\..\..\include\internal\iutest_factory.hpp" />
     <ClInclude Include="..\..\..\include\internal\iutest_file.hpp" />
     <ClInclude Include="..\..\..\include\internal\iutest_filepath.hpp" />
-    <ClInclude Include="..\..\..\include\internal\iutest_function_traits_defs.hpp" />
-    <ClInclude Include="..\..\..\include\internal\iutest_function_traits_undef.hpp" />
     <ClInclude Include="..\..\..\include\internal\iutest_genparams.hpp" />
     <ClInclude Include="..\..\..\include\internal\iutest_internal.hpp" />
     <ClInclude Include="..\..\..\include\internal\iutest_internal_defs.hpp" />

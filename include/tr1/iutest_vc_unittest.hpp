@@ -88,25 +88,25 @@ IUTEST_MAKE_SCOPED_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, 
 		::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testcase);		\
 		while( testcase != NULL ) {															\
 			const char* testcase_name = testcase->name();									\
-			::std::string name(#testname_);	name += "/";								\
-			int testinfo_count = testcase->total_test_count();							\
-			for( int i=0; i < testinfo_count; ++i ) {									\
-				const ::iutest::TestInfo* testinfo = testcase->GetTestInfo(i);			\
+			::std::string name(#testname_);	name += "/";									\
+			int testinfo_count = testcase->total_test_count();								\
+			for( int i=0; i < testinfo_count; ++i ) {										\
+				const ::iutest::TestInfo* testinfo = testcase->GetTestInfo(i);				\
 				::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testinfo);	\
-				const char* testinfo_name = testinfo->name();							\
-				if( strstr(testinfo_name, name.c_str()) == testinfo_name ) {			\
-					::iutest::detail::iuParamTestFactory<className>* factory =			\
-						(::iutest::detail::iuParamTestFactory<className>*)(				\
-							IUTEST_PEEP_GET(*testinfo, TestInfo, m_factory));			\
+				const char* testinfo_name = testinfo->name();								\
+				if( strstr(testinfo_name, name.c_str()) == testinfo_name ) {				\
+					::iutest::detail::iuParamTestFactory<className>* factory =				\
+						static_cast<::iutest::detail::iuParamTestFactory<className>*>(		\
+							IUTEST_PEEP_GET(*testinfo, TestInfo, m_factory));				\
 					::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(factory);	\
-					SetParam(&factory->GetParam());										\
-					OnTestStart(testcase_name, testinfo_name);							\
-					SetUp(); Body(); TearDown();										\
-					OnTestEnd(testcase_name, testinfo_name);							\
-				}																		\
-			}																			\
-			testcase = ::iuutil::FindParamTestCase(#testcase_, testcase);				\
-		}																				\
+					SetParam(&factory->GetParam());											\
+					OnTestStart(testcase_name, testinfo_name);								\
+					SetUp(); Body(); TearDown();											\
+					OnTestEnd(testcase_name, testinfo_name);								\
+				}																			\
+			}																				\
+			testcase = ::iuutil::FindParamTestCase(#testcase_, testcase);					\
+		}																					\
 	}																						\
 	TEST_CLASS_INITIALIZE(iuSetUp) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::SetUpTestCase(); }		\
 	TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::TearDownTestCase(); }	\

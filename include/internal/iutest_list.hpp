@@ -149,7 +149,9 @@ public:
 	// ƒ\[ƒg‚µ‚Ä‘}“ü
 	void		sort_insert(node_ptr p)
 	{
-		if( m_node == NULL )
+		if(p == nullptr) return;
+
+		if(m_node == NULL)
 		{
 			m_node = p;
 			return;
@@ -188,7 +190,9 @@ public:
 	// ’Ç‰Á
 	void		push_back(node_ptr p)
 	{
-		if( m_node == NULL ) 
+		if(p == nullptr) return;
+
+		if(m_node == NULL) 
 		{
 			m_node = p;
 			return;
@@ -207,8 +211,9 @@ public:
 	// íœ
 	void		erase(node_ptr p)
 	{
+		if(p == nullptr) return;
 		if(m_node == NULL) return;
-		if( p->prev == NULL )
+		if(p->prev == NULL)
 		{
 			m_node = p->next;
 			if( m_node != NULL )

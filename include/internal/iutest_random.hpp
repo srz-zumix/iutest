@@ -36,32 +36,58 @@ namespace detail
 */
 class iuRandom
 {
-#if IUTEST_HAS_CXX_HDR_RANDOM && 0
-	typedef ::std::mt19937 Engine;
+#if defined(IUTEST_USE_RANDOM_ENGINE_TYPENAME)
+	typedef IUTEST_USE_RANDOM_ENGINE_TYPENAME Engine;
 #else
 	class Engine
 	{
 	public:
 		typedef unsigned int result_type;
 	public:
-		explicit Engine(unsigned int seed=0) IUTEST_CXX_NOEXCEPT_SPEC
+		explicit Engine(unsigned int s=0) IUTEST_CXX_NOEXCEPT_SPEC
 		{
-			m_v4 = seed;
-			m_v3 = 1812433253 * ((m_v4 ^ (m_v4>>30)) + 1);
-			m_v2 = 1812433253 * ((m_v3 ^ (m_v3>>30)) + 2);
-			m_v1 = 1812433253 * ((m_v2 ^ (m_v2>>30)) + 3);
+			seed(s);
 		}
 		result_type operator ()(void)
 		{
-			const unsigned int t = (m_v1 ^ (m_v1<<11));
+			return gen();
+		}
+		bool operator == (const Engine& rhs)
+		{
+			return m_v1 == rhs.m_v1 && m_v2 == rhs.m_v2 && m_v3 == rhs.m_v3 && m_v4 == rhs.m_v4;
+		}
+		bool operator != (const Engine& rhs)
+		{
+			return m_v1 != rhs.m_v1 || m_v2 != rhs.m_v2 || m_v3 != rhs.m_v3 || m_v4 != rhs.m_v4;
+		}
+	public:
+		void seed(unsigned int s)
+		{
+			m_v4 = s;
+			m_v3 = 1812433253 * ((m_v4 ^ (m_v4 >> 30)) + 1);
+			m_v2 = 1812433253 * ((m_v3 ^ (m_v3 >> 30)) + 2);
+			m_v1 = 1812433253 * ((m_v2 ^ (m_v2 >> 30)) + 3);
+		}
+		void discard(unsigned int z)
+		{
+			for(unsigned int i=0; i < z; ++i)
+			{
+				gen();
+			}
+		}
+	public:
+		static IUTEST_CXX_CONSTEXPR result_type (min)(void) { return 0; }
+		static IUTEST_CXX_CONSTEXPR result_type (max)(void) { return static_cast<result_type>(-1); }
+	private:
+		result_type gen(void)
+		{
+			const unsigned int t = (m_v1 ^ (m_v1 << 11));
 			m_v1 = m_v2;
 			m_v2 = m_v3;
 			m_v3 = m_v4;
-			m_v4 = (m_v4 ^ (m_v4>>19)) ^ (t ^ (t>>8));
+			m_v4 = (m_v4 ^ (m_v4 >> 19)) ^ (t ^ (t >> 8));
 			return m_v4;
 		}
-		static IUTEST_CXX_CONSTEXPR result_type (min)(void) { return 0; }
-		static IUTEST_CXX_CONSTEXPR result_type (max)(void) { return static_cast<result_type>(-1); }
 	private:
 		unsigned int m_v1, m_v2, m_v3, m_v4;
 	};
