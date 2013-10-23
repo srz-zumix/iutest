@@ -233,7 +233,7 @@ private:
 /**
  * @brief	any パラメータテストフィクスチャ
 */
-class TestWithAny : virtual public Test, public WithParamInterface<any>
+class TestWithAny : public Test, public WithParamInterface<any>
 {
 public:
 	/**
