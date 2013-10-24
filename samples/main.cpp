@@ -596,7 +596,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(TestPCombineInstance, TestPCombine
 							   , ::iutest::Combine( ::iutest::Bool(), ::iutest::Values(1, 2), ::iutest::Values(10, 11) ) );
 #endif
 
-#if IUTEST_HAS_INITIALIZER_LIST
+#if IUTEST_HAS_INITIALIZER_LIST && !defined(IUTEST_USE_GTEST)
 
 class InitializerListValuesTest : public ::iutest::TestWithParam<int> {};
 

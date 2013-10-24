@@ -80,7 +80,7 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|Win32'">$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|Win32'">true</LinkIncremental>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|Win32'">$(GTEST_ROOT)\include;$(IncludePath)</IncludePath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|Win32'">$(GTEST_VC11_LIB)\gtest\Debug;$(GTEST_ROOT)\msvc\gtest\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|Win32'">$(GTEST_VC12_LIB)\gtest\Debug;$(GTEST_ROOT)\msvc\gtest\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(GTEST_ROOT)\include;$(IncludePath)</IncludePath>
