@@ -21,7 +21,7 @@
 // include
 #include "iutest_util_tests.hpp"
 
-#if defined(IUTEST_OS_WINDOWS) || 1
+#if defined(IUTEST_OS_WINDOWS)
 #include <windows.h>
 #include <map>
 
@@ -38,10 +38,11 @@ class TestMenu
 	typedef ::std::map<WORD, const ::iutest::TestInfo*>	TestInfoMap;
 	typedef ::std::map<WORD, const ::iutest::TestCase*>	TestCaseMap;
 	WORD	m_nID;
+	const WORD m_nIDTop;
 	TestInfoMap m_TestInfoList;
 	TestCaseMap m_TestCaseList;
 public:
-	TestMenu(WORD nIDTop) : m_nID(nIDTop) {}
+	TestMenu(WORD nIDTop) : m_nIDTop(nIDTop), m_nID(nIDTop) {}
 public:
 	bool Create(HMENU hMenu)
 	{
@@ -50,6 +51,9 @@ public:
 		// テストを列挙
 		HMENU hRoot = AppendPopup(hMenu, "TestList");
 		if( hRoot == NULL ) return false;
+
+		Append(hRoot, "以下をすべて実行", m_nID);
+		++m_nID;
 
 		::iutest::UnitTest* pUnitTest = ::iutest::UnitTest::GetInstance();
 		const int testcase_count = pUnitTest->total_test_case_count();
@@ -74,6 +78,12 @@ public:
 
 	bool OnCommand(int wID)
 	{
+		if( wID == m_nIDTop )
+		{
+			::iutest::IUTEST_FLAG(filter) = "*";
+			return IUTEST_RUN_ALL_TESTS() == 0 ? true : false;
+		}
+
 		{
 			TestInfoMap::iterator it = m_TestInfoList.find(wID);
 			if( it != m_TestInfoList.end() )
