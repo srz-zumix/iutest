@@ -70,6 +70,7 @@
           </li>
           <li><a href="#ext_listener">イベントリスナー</a></li>
           <li><a href="#ext_prod">Private コードのテスト</a></li>
+          <li><a href="#win_menu">Windows メニューへの登録ユーティリティ</a></li>
         </ul>
       </li>
       <li><a href="#diff_orig">iutest 独自機能</a>
@@ -235,6 +236,16 @@ IUTEST(NullCheck, Sample)
     <ul>
       <li>IUTEST_FRIEND_TYPED_TEST<br />
       TYPED_TEST に対しての friend 宣言をします。
+      <br />
+      </li>
+    </ul>
+  </li>
+  <li><a name="win_menu" id="win_menu">Windows メニューへの登録ユーティリティ</a>
+    <ul>
+      <li>util/iutest_util_menu.hpp<br />
+      Windows のメニューバーにテストの実行メニューを生成するユーティリティです。<br />
+      コマンドラインからの実行ではなく、GUI から任意のテストを実行できます。<br />
+      テストの自動化ではなく、ランチャーとしての利用を想定しています。
       <br />
       </li>
     </ul>

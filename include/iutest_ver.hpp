@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01069930u	//!< iutest version 1.6.99.30
+#define	IUTEST_VER			0x01070000u	//!< iutest version 1.7.0.0
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
-#define IUTEST_MINORVER		0x06u		//!< Minor Version
-#define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x30u		//!< Revision
+#define IUTEST_MINORVER		0x07u		//!< Minor Version
+#define IUTEST_BUILD		0x00u		//!< Build
+#define IUTEST_REVISION		0x00u		//!< Revision
 
 /**
  * @mainpage
@@ -95,7 +95,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.6.99.30
+  <li>v1.7.0.0
     <ul>
       <li>テストフィクスチャの定義が省ける値のパラメータ化テストを追加(IUTEST_AP,IUTEST_INSTANTIATE_TEST_CASE_AP)</li>
       <li>値のパラメータを operator + で連結できるように修正</li>
