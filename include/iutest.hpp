@@ -114,6 +114,8 @@ namespace iutest
 */
 #define IUTEST_ALIAS_TESTNAME_F(testfixture_, testname_)	IUTEST_ALIAS_TESTNAME_F_(testfixture_, testname_)
 
+#if IUTEST_HAS_TESTNAME_ALIAS_JP
+
  /**
  * @ingroup	TESTDEF
  * @brief	日本語テスト名
@@ -131,6 +133,7 @@ namespace iutest
 
 #endif
 
+#endif
 
 /**
  * @ingroup	TESTDEF

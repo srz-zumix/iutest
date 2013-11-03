@@ -527,7 +527,7 @@
 // c++
 // attribute
 #ifndef IUTEST_ATTRIBUTE_UNUSED_
-#  if defined(__GNUC__) && !defined(COMPILER_ICC)
+#  if (defined(__GNUC__) && !defined(COMPILER_ICC)) || defined(__clang__)
 #    define IUTEST_ATTRIBUTE_UNUSED_	__attribute__ ((unused))
 #  else
 #    define IUTEST_ATTRIBUTE_UNUSED_
@@ -584,19 +584,7 @@
 
 // rtti
 #if !defined(IUTEST_HAS_RTTI)
-#  if	defined(_MSC_VER)
-#    ifdef _CPPRTTI
-#      define IUTEST_HAS_RTTI	1
-#    endif
-#  elif	defined(__MWERKS__)
-#    if	__option(RTTI)
-#      define IUTEST_HAS_RTTI	1
-#    endif
-#  elif	defined(__ARMCC_VERSION)
-#    ifdef __RTTI
-#      define IUTEST_HAS_RTTI	1
-#    endif
-#  elif defined(__clang__)
+#  if	defined(__clang__)
 #    if __has_feature(cxx_rtti)
 #      define IUTEST_HAS_RTTI	1
 #    endif
@@ -607,8 +595,20 @@
 #    ifdef __GXX_RTTI
 #      define IUTEST_HAS_RTTI	1
 #    endif
+#  elif	defined(__MWERKS__)
+#    if	__option(RTTI)
+#      define IUTEST_HAS_RTTI	1
+#    endif
+#  elif	defined(__ARMCC_VERSION)
+#    ifdef __RTTI
+#      define IUTEST_HAS_RTTI	1
+#    endif
 #  elif	defined(__IBMCPP__)
 #    if (__IBMCPP__ >= 900)
+#      define IUTEST_HAS_RTTI	1
+#    endif
+#  elif	defined(_MSC_VER)
+#    ifdef _CPPRTTI
 #      define IUTEST_HAS_RTTI	1
 #    endif
 #  endif

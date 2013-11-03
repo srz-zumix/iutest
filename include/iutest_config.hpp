@@ -289,6 +289,15 @@
 #  endif
 #endif
 
+#ifndef IUTEST_HAS_TESTNAME_ALIAS_JP
+//! テスト名の別名に日本語が使用できるかどうか
+#  if IUTEST_HAS_TESTNAME_ALIAS
+#    define IUTEST_HAS_TESTNAME_ALIAS_JP	1
+#  else
+#    define IUTEST_HAS_TESTNAME_ALIAS_JP	0
+#  endif
+#endif
+
 #ifndef IUTEST_HAS_ANY_PARAM_TEST
 //! any を利用した値のパラメータ化テストが使用可能かどうか
 #  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TESTNAME_ALIAS

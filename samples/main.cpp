@@ -141,7 +141,7 @@ IUTEST(ReturnTest, Test)
 /** --------------------------------------------------
  * 日本語テスト名
 *//*--------------------------------------------------*/
-#if IUTEST_HAS_TESTNAME_ALIAS
+#if IUTEST_HAS_TESTNAME_ALIAS_JP
 
 IUTEST(IUTEST_JAPANESE_NAME(テスト), IUTEST_JAPANESE_NAME(テスト))
 {

@@ -110,6 +110,9 @@ public:
 	 * @brief	フラグ
 	*/
 	enum Kind
+#if IUTEST_HAS_STRONG_ENUMS
+		: unsigned int
+#endif
 	{
 		SHUFFLE_TESTS			= 0x00000001,	//!< シャッフルテスト
 		RUN_DISABLED_TESTS		= 0x00000002,	//!< DISABLED テストも実行
@@ -136,7 +139,7 @@ public:
 
 		SHOW_HELP				= 0x10000000,	//!< ヘルプ表示
 		SHOW_VERSION			= 0x20000000,	//!< バージョン表示
-		SHOW_FEATURE			= 0x80000000,	//!< 機能の出力
+		SHOW_FEATURE			= 0x40000000,	//!< 機能の出力
 		MASK					= 0xFFFFFFFF,	//!< マスク
 
 		//! デフォルト

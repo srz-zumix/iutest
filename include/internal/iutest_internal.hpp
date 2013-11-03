@@ -332,6 +332,7 @@
 #define IUTEST_THROUGH_ANALYSIS_ASSUME_(expr, todo)					\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_									\
 	if( bool b = true ) {											\
+		IUTEST_UNUSED_VAR(b);										\
 		__analysis_assume(expr);									\
 		goto IUTEST_PP_CAT(iutest_label_analysis_assume, __LINE__);	\
 	} else															\
