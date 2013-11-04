@@ -2,14 +2,14 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_util_tests.cpp
- * @brief		iutest_util test
+ * @brief		iutest util test
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012, Takazumi Shirayanagi\n
- * The new BSD License is applied to this software.
+ * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * This software is released under the new BSD License,
  * see LICENSE
 */
 //-----------------------------------------------------------------------

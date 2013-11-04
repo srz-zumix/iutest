@@ -9,7 +9,7 @@
  *
  * @par			copyright
  * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
- * The new BSD License is applied to this software.
+ * This software is released under the new BSD License,
  * see LICENSE
 */
 //-----------------------------------------------------------------------
@@ -134,6 +134,7 @@ inline void iuOptionMessage::ShowFeature(void)
 	SHOW_MACRO(IUTEST_HAS_STATIC_ASSERT_TYPEEQ);
 	SHOW_MACRO(IUTEST_HAS_STREAM_RESULT);
 	SHOW_MACRO(IUTEST_HAS_TESTNAME_ALIAS);
+	SHOW_MACRO(IUTEST_HAS_TESTNAME_ALIAS_JP);
 	SHOW_MACRO(IUTEST_HAS_TUPLE);
 	SHOW_MACRO(IUTEST_HAS_TYPED_TEST);
 	SHOW_MACRO(IUTEST_HAS_TYPED_TEST_P);

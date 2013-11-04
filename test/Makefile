@@ -159,7 +159,11 @@ test : $(RUNNER)
 
 run_% : %
 	@echo $<
+ifdef OUTPUTXML
+	./$< $(RUN_OPTION) --iutest_output=xml:$<.xml
+else
 	./$< $(RUN_OPTION)
+endif
 
 # Builds a sample test.  
 

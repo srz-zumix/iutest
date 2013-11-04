@@ -1,7 +1,7 @@
 //======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_type_param_tests1.cpp
+ * @file		iutest_param_test_tests1.cpp
  * @brief		iutest parameter test
  *
  * @author		t.sirayanagi
@@ -9,7 +9,7 @@
  *
  * @par			copyright
  * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
- * The new BSD License is applied to this software.
+ * This software is released under the new BSD License,
  * see LICENSE
 */
 //-----------------------------------------------------------------------

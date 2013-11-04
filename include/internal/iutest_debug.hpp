@@ -5,11 +5,11 @@
  * @brief		iris unit test debug 用定義 ファイル
  *
  * @author		t.sirayanagi
- * @debugsion		1.0
+ * @debugsion	1.0
  *
  * @par			copyright
  * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
- * The new BSD License is applied to this software.
+ * This software is released under the new BSD License,
  * see LICENSE
 */
 //-----------------------------------------------------------------------

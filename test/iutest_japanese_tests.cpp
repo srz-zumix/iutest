@@ -9,7 +9,7 @@
  *
  * @par			copyright
  * Copyright (C) 2013, Takazumi Shirayanagi\n
- * The new BSD License is applied to this software.
+ * This software is released under the new BSD License,
  * see LICENSE
 */
 //-----------------------------------------------------------------------
@@ -19,7 +19,7 @@
 // include
 #include "../include/iutest.hpp"
 
-#if IUTEST_HAS_TESTNAME_ALIAS
+#if IUTEST_HAS_TESTNAME_ALIAS_JP
 
 IUTEST_PACKAGE(japanese_test)
 {
@@ -188,6 +188,9 @@ int main(int argc, char* argv[])
 	
 	int ret = IUTEST_RUN_ALL_TESTS();
 	if( ret != 0 ) return 1;
+	
+#if IUTEST_HAS_TESTNAME_ALIAS_JP
+	
 	int testcase_count = 3;
 	int test_count = 4;
 #if IUTEST_HAS_PARAM_TEST
@@ -201,7 +204,6 @@ int main(int argc, char* argv[])
 #if IUTEST_HAS_PARAM_METHOD_TEST
 	test_count += 1;
 #endif
-#if IUTEST_HAS_TESTNAME_ALIAS
 	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->total_test_case_count() == testcase_count );
 	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->total_test_count() == test_count );
 

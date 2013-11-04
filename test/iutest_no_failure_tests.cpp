@@ -2,14 +2,14 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_no_failure_tests.cpp
- * @brief		iutest_no  failure test
+ * @brief		iutest no failure test
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
  * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
- * The new BSD License is applied to this software.
+ * This software is released under the new BSD License,
  * see LICENSE
 */
 //-----------------------------------------------------------------------

@@ -2,14 +2,14 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_spi_failure_tests.cpp
- * @brief		iutest_spi failure test
+ * @brief		iutest spi failure test
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
  * Copyright (C) 2013, Takazumi Shirayanagi\n
- * The new BSD License is applied to this software.
+ * This software is released under the new BSD License,
  * see LICENSE
 */
 //-----------------------------------------------------------------------

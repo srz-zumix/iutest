@@ -9,7 +9,7 @@
  *
  * @par			copyright
  * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
- * The new BSD License is applied to this software.
+ * This software is released under the new BSD License,
  * see LICENSE
 */
 //-----------------------------------------------------------------------
