@@ -151,11 +151,15 @@ int main(int argc, char* argv[])
 #endif
 {
 	IUTEST_INIT(&argc, argv);
+#if defined(OUTPUTXML)
+	// 失敗テストを含むので xml 出力しない
+	::iutest::IUTEST_FLAG(output) = NULL;
+#endif
 
 	listener = new MyTestEventListener();
 	::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
 	listeners.Append( listener );
-	int ret = IUTEST_RUN_ALL_TESTS();	// run all
+	const int ret = IUTEST_RUN_ALL_TESTS();
 	
 	IUTEST_ASSERT( listener->called_OnTestEnd );
 	IUTEST_ASSERT( listener->called_OnTestCaseEnd );

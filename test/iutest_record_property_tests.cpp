@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
 #endif
 	
 	{
-		int ret = IUTEST_RUN_ALL_TESTS();
+		const int ret = IUTEST_RUN_ALL_TESTS();
 		if( ret != 0 ) return 1;
 #if !defined(IUTEST_USE_GTEST)
 		if( !CheckProperty(::iutest::UnitTest::GetInstance()->ad_hoc_testresult(), "bar", "C") )
@@ -118,14 +118,14 @@ int main(int argc, char* argv[])
 	}
 #if !defined(IUTEST_USE_GTEST)
 	{
-		int ret = IUTEST_RUN_ALL_TESTS();
+		const int ret = IUTEST_RUN_ALL_TESTS();
 		if( ret != 0 ) return 1;
 		if( !CheckProperty(::iutest::UnitTest::GetInstance()->ad_hoc_testresult(), "bar", "C") )
 			return 1;
 	}
 	{
 		IUTEST_INIT(&argc, argv);
-		int ret = IUTEST_RUN_ALL_TESTS();
+		const int ret = IUTEST_RUN_ALL_TESTS();
 		if( ret != 0 ) return 1;
 		if( CheckProperty(::iutest::UnitTest::GetInstance()->ad_hoc_testresult(), "bar", "C") )
 			return 1;

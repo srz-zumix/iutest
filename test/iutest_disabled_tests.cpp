@@ -46,9 +46,13 @@ int main(int argc, char* argv[])
 #endif
 {
 	IUTEST_INIT(&argc, argv);
+#if defined(OUTPUTXML)
+	// 失敗テストを含むので xml 出力しない
+	::iutest::IUTEST_FLAG(output) = NULL;
+#endif
 	
 	{
-		int ret = IUTEST_RUN_ALL_TESTS();
+		const int ret = IUTEST_RUN_ALL_TESTS();
 		if( ret != 0 ) return 1;
 		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->disabled_test_count() == 2 );
 #if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
@@ -61,7 +65,7 @@ int main(int argc, char* argv[])
 	
 	{
 		::iutest::IUTEST_FLAG(also_run_disabled_tests) = true;
-		int ret = IUTEST_RUN_ALL_TESTS();
+		const int ret = IUTEST_RUN_ALL_TESTS();
 		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->disabled_test_count() == 2 );
 #if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
 		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == 2 );

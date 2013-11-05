@@ -328,17 +328,22 @@ IUTEST_IPP_INLINE 	bool TestEnv::ParseColorOption(const char* option)
 
 IUTEST_IPP_INLINE bool	TestEnv::ParseOutputOption(const char* option)
 {
-	if( option == NULL ) return false;
-	if( strstr(option, "xml") != NULL )
+	if( option != NULL && strstr(option, "xml") != NULL )
 	{
 		TestFlag::SetFlag(TestFlag::OUTPUT_XML_REPORT);
 	}
 	else
 	{
+		TestFlag::SetFlag(0, ~TestFlag::OUTPUT_XML_REPORT);
+		get_vars().m_report_file = "";
 		return false;
 	}
 	const char* file = strchr(option+3, ':');
-	if( file != NULL )
+	if( file == NULL )
+	{
+		get_vars().m_report_file = "";
+	}
+	else
 	{
 		get_vars().m_report_file = file+1;
 	}

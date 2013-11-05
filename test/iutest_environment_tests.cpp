@@ -85,7 +85,7 @@ int main(int argc, char* argv[])
 	IUTEST_ASSERT( ::iutest::AddGlobalTestEnvironment(env) == env );
 	::iutest::AddGlobalTestEnvironment(new MyEnvironment2());
 	env->Reset();
-	int ret = IUTEST_RUN_ALL_TESTS();	// run all
+	const int ret = IUTEST_RUN_ALL_TESTS();
 	
 	IUTEST_ASSERT( MyEnvironment::teardown );
 	

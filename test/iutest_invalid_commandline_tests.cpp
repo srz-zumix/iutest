@@ -1,14 +1,14 @@
 //======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_no_test_tests.cpp
- * @brief		テストが無いときの結果 対応テスト
+ * @file		iutest_invalid_commandline_tests.cpp
+ * @brief		不正なコマンドライン引数対応テスト
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2013, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,32 +19,31 @@
 // include
 #include "../include/iutest.hpp"
 
+IUTEST(Foo, NotRun)
+{
+	IUTEST_ASSERT_EQ(0, 1);
+}
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
 int main(int argc, char* argv[])
 #endif
 {
-	IUTEST_INIT(&argc, argv);
-
-	IUTEST_EXPECT_EQ(0, 1);
-
-	{
-		const int ret = IUTEST_RUN_ALL_TESTS();
-		if( ret == 0 ) return 1;
-	}
-	{
-		const int ret = IUTEST_RUN_ALL_TESTS();
-		if( ret == 0 ) return 1;
-	}
-#if !defined(IUTEST_USE_GTEST)
-	{
-		IUTEST_INIT(&argc, argv);
-		const int ret = IUTEST_RUN_ALL_TESTS();
-		if( ret != 0 ) return 1;
-	}
+	(void)argc;
+	int targc = 2;
+#ifdef UNICODE
+	const wchar_t* targv[] = {
+		argv[0]
+		, L"--iutest_foo"
+	};
+#else
+	const char* targv[] = {
+		argv[0]
+		, "--iutest_foo"
+	};
 #endif
-	printf("*** Successful ***\n");
-	return 0;
+	IUTEST_INIT(&targc, targv);
+	return IUTEST_RUN_ALL_TESTS();
 }
 

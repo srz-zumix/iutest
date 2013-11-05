@@ -32,11 +32,18 @@ int main(int argc, char* argv[])
 {
 	(void)argc;
 	int targc = 2;
+#ifdef UNICODE
+	const wchar_t* targv[] = {
+		argv[0]
+		, L"--help"
+	};
+#else
 	const char* targv[] = {
 		argv[0]
 		, "--help"
 	};
+#endif
 	IUTEST_INIT(&targc, targv);
-	return IUTEST_RUN_ALL_TESTS();	// run all
+	return IUTEST_RUN_ALL_TESTS();
 }
 

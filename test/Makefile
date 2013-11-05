@@ -10,7 +10,7 @@
 IUTEST_DIR = ..
 
 # Flags passed to the preprocessor.
-CPPFLAGS += -I$(IUTEST_DIR)/include
+override CPPFLAGS += -I$(IUTEST_DIR)/include
 
 # Optimize
 #OPTIMIZE += -O2
@@ -76,6 +76,10 @@ endif
 
 endif
 
+ifdef OUTPUTXML
+DEFS+=-DOUTPUTXML
+endif
+
 CXXFLAGS += $(DEFS)
 LIBS_ = $(LIBS:%=-l%)
 LDFLAGS += $(LIBS_)
@@ -90,6 +94,7 @@ TARGETS1= iutest_all_tests \
           iutest_filter_tests \
           iutest_help_tests \
           iutest_japanese_tests \
+          iutest_invalid_commandline_tests \
           iutest_list_test_tests \
           iutest_listener_tests \
           iutest_minimum_tests \
@@ -153,6 +158,9 @@ all : clean default test
 
 clean :
 	rm -f $(TARGETS) *.o
+ifdef OUTPUTXML
+	rm -f *.xml
+endif
 
 run : test
 test : $(RUNNER)

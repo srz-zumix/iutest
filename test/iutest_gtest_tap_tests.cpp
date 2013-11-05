@@ -36,5 +36,5 @@ int main(int argc, char* argv[])
 	::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
 	delete listeners.Release(listeners.default_result_printer());
 	listeners.Append(new tap::TapListener());
-	return IUTEST_RUN_ALL_TESTS();	// run all
+	return IUTEST_RUN_ALL_TESTS();
 }

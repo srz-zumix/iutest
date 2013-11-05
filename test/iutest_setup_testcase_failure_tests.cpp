@@ -43,7 +43,11 @@ int main(int argc, char* argv[])
 #endif
 {
 	IUTEST_INIT(&argc, argv);
-	int ret = IUTEST_RUN_ALL_TESTS();
+#if defined(OUTPUTXML)
+	// 失敗テストを含むので xml 出力しない
+	::iutest::IUTEST_FLAG(output) = NULL;
+#endif
+	const int ret = IUTEST_RUN_ALL_TESTS();
 	
 	if( ret == 0 ) return 1;
 

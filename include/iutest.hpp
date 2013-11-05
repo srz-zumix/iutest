@@ -1253,7 +1253,6 @@ public:
 		if( TestFlag::IsEnableFlag(TestFlag::OUTPUT_XML_REPORT) )
 		{
 			DefaultXmlGeneratorListener* listener = new DefaultXmlGeneratorListener();
-			listener->SetFilePath(TestEnv::get_report_filepath());
 			TestEnv::event_listeners().set_default_xml_generator(listener);
 		}
 

@@ -42,21 +42,6 @@ int main(int argc, char* argv[])
 {
 	IUTEST_INIT(&argc, argv);
 	{
-		::iutest::IUTEST_FLAG(filter) = "-*Fail*";
-		int ret = IUTEST_RUN_ALL_TESTS();
-		
-		if( ret != 0 ) return 1;
-#if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_count() == 1 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == 0 );
-#endif
-#if !defined(IUTEST_USE_GTEST)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 2 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 0 );
-#endif
-	}
-	{
 		::iutest::IUTEST_FLAG(filter) = "*Fail*";
 		int ret = IUTEST_RUN_ALL_TESTS();
 		
@@ -67,6 +52,21 @@ int main(int argc, char* argv[])
 #endif
 #if !defined(IUTEST_USE_GTEST)
 		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 1 );
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 0 );
+#endif
+	}
+	{
+		::iutest::IUTEST_FLAG(filter) = "-*Fail*";
+		int ret = IUTEST_RUN_ALL_TESTS();
+		
+		if( ret != 0 ) return 1;
+#if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_count() == 1 );
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == 0 );
+#endif
+#if !defined(IUTEST_USE_GTEST)
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 2 );
 		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
 		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 0 );
 #endif

@@ -354,12 +354,30 @@ private:
 		ParseColorOption(str);
 	}
 
+	/**
+	* @brief	output オプション文字列を取得
+	*/
+	static ::std::string get_output_option(void)
+	{
+		if(!TestFlag::IsEnableFlag(TestFlag::OUTPUT_XML_REPORT)) return "";
+		if(get_vars().m_report_file.empty()) return "xml";
+		::std::string opt = "xml:";
+		opt += get_vars().m_report_file;
+		return opt;
+	}
+	/**
+	* @brief	output オプションを設定
+	*/
+	static void set_output_option(const char* str)
+	{
+		ParseOutputOption(str);
+	}
+
 private:
-	typedef const char* (*pfnOptionStringGet)();
-	typedef void (*pfnOptionStringSet)(const char*);
-	template<pfnOptionStringGet G, pfnOptionStringSet S>
+	template<typename pfnGet, pfnGet G, typename pfnSet, pfnSet S>
 	class OptionString
 	{
+		typedef OptionString<pfnGet, G, pfnSet, S> _Myt;
 	protected:
 		::std::string	m_option;
 	public:
@@ -378,38 +396,47 @@ private:
 			: m_option(G())
 		{
 		}
-		const OptionString& operator = (const char* c_str_)
+		const _Myt& operator = (const char* c_str_)
 		{
-			m_option = c_str_;
+			m_option = c_str_ == NULL ? "" : c_str_;
 			S(c_str_);
 			return *this;
 		}
-		const OptionString& operator = (const ::std::string& str)
+		const _Myt& operator = (const ::std::string& str)
 		{
 			m_option = str;
 			S(str.c_str());
 			return *this;
 		}
 	};
+
+	typedef const char* (*pfnOptionStringGet)();
+	typedef void(*pfnOptionStringSet)(const char*);
 public:
 	/**
 	 * @private
 	 * @brief	色付き出力オプション設定用オブジェクト
 	*/
-	typedef OptionString<get_color_option, set_color_option> color;
+	typedef OptionString<pfnOptionStringGet, get_color_option, pfnOptionStringSet, set_color_option> color;
 
 	/**
 	 * @private
 	 * @brief	フィルターオプション設定用オブジェクト
 	*/
-	typedef OptionString<test_filter, set_test_filter> filter;
+	typedef OptionString<pfnOptionStringGet, test_filter, pfnOptionStringSet, set_test_filter> filter;
+
+	/**
+	* @private
+	* @brief	出力オプション設定用オブジェクト
+	*/
+	typedef OptionString< ::std::string (*)(), get_output_option, pfnOptionStringSet, set_output_option> output;
 
 #if IUTEST_HAS_STREAM_RESULT
 	/**
 	 * @private
 	 * @brief	stream resultオプション設定用オブジェクト
 	*/
-	typedef OptionString<get_stream_result_to, set_stream_result_to> stream_result_to;
+	typedef OptionString<pfnOptionStringGet, get_stream_result_to, pfnOptionStringSet, set_stream_result_to> stream_result_to;
 #endif
 
 private:

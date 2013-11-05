@@ -32,7 +32,7 @@ IUTEST(AssumeTest, B)
 
 IUTEST(AssumeTest, C)
 {
-	IUTEST_ASSERT_EQ(0, 1);
+	IUTEST_EXPECT_EQ(0, 1);
 	IUTEST_ASSUME_EQ(0, 1);
 }
 
@@ -43,6 +43,10 @@ int main(int argc, char** argv)
 #endif
 {
 	IUTEST_INIT(&argc, argv);
+#if defined(OUTPUTXML)
+	// 失敗テストを含むので xml 出力しない
+	::iutest::IUTEST_FLAG(output) = NULL;
+#endif
 	int ret = IUTEST_RUN_ALL_TESTS();
 	if( ret == 0 ) return 1;
 #if !defined(IUTEST_USE_GTEST)

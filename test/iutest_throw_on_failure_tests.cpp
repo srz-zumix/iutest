@@ -59,6 +59,10 @@ int main(int argc, char* argv[])
 	{
 		::iutest::IUTEST_FLAG(filter) = "*Expect*";
 		IUTEST_INIT(&argc, argv);
+#if defined(OUTPUTXML)
+		// 失敗テストを含むので xml 出力しない
+		::iutest::IUTEST_FLAG(output) = NULL;
+#endif
 		(void)IUTEST_RUN_ALL_TESTS();
 		
 		return 1;
@@ -71,6 +75,10 @@ int main(int argc, char* argv[])
 	{
 		::iutest::IUTEST_FLAG(filter) = "*Assert*";
 		IUTEST_INIT(&argc, argv);
+#if defined(OUTPUTXML)
+		// 失敗テストを含むので xml 出力しない
+		::iutest::IUTEST_FLAG(output) = NULL;
+#endif
 		(void)IUTEST_RUN_ALL_TESTS();
 		
 		return 1;

@@ -78,7 +78,7 @@ int main(int argc, char* argv[])
 	::iutest::IUTEST_FLAG(repeat) = 3;
 	::iutest::IUTEST_FLAG(shuffle) = true;
 
-	int ret = IUTEST_RUN_ALL_TESTS();
+	const int ret = IUTEST_RUN_ALL_TESTS();
 	if( ret != 0 ) return ret;
 	
 	IUTEST_EXPECT_NE(order[0], order[1]);
