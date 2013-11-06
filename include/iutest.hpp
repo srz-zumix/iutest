@@ -1236,10 +1236,12 @@ public:
 	{
 		{
 			TestEventListener* listener = TestEnv::event_listeners().default_result_printer();
+			TestEnv::event_listeners().set_default_result_printer(NULL);
 			delete listener;
 		}
 		{
 			TestEventListener* listener = TestEnv::event_listeners().default_xml_generator();
+			TestEnv::event_listeners().set_default_xml_generator(NULL);
 			delete listener;
 		}
 	}
@@ -1250,16 +1252,6 @@ public:
 	*/
 	void	Initialize(void)
 	{
-		if( TestFlag::IsEnableFlag(TestFlag::OUTPUT_XML_REPORT) )
-		{
-			DefaultXmlGeneratorListener* listener = new DefaultXmlGeneratorListener();
-			TestEnv::event_listeners().set_default_xml_generator(listener);
-		}
-
-#if IUTEST_HAS_STREAM_RESULT
-		ConfigurationStreamResultTo();
-#endif
-
 		UnitTest::instance().Initialize();
 	}
 
@@ -1268,6 +1260,17 @@ public:
 	*/
 	int	Run(void)
 	{
+		if( TestFlag::IsEnableFlag(TestFlag::OUTPUT_XML_REPORT) )
+		{
+			DefaultXmlGeneratorListener* listener = new DefaultXmlGeneratorListener();
+			listener->SetFilePath(TestEnv::get_report_filepath());
+			TestEnv::event_listeners().set_default_xml_generator(listener);
+		}
+
+#if IUTEST_HAS_STREAM_RESULT
+		ConfigurationStreamResultTo();
+#endif
+
 		return UnitTest::instance().Run();
 	}
 };

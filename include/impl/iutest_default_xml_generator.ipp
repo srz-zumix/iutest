@@ -29,7 +29,6 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestProgramStart(const UnitTest& test)
 {
 	IUTEST_UNUSED_VAR(test);
-	SetFilePath(TestEnv::get_report_filepath());
 	FileOpen(m_output_path.c_str());
 }
 

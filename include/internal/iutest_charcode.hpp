@@ -21,6 +21,10 @@
 // include
 #include "iutest_port.hpp"
 
+#if IUTEST_HAS_CXX_HDR_CODECVT
+#  include <codecvt>
+#endif
+
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
 namespace iutest {
@@ -121,8 +125,26 @@ inline char* CodePointToUtf8(UInt32 code_point, char* buf)
 */
 inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const wchar_t* str, int num)
 {
-	if( num == -1 )
+	if(num == -1)
 		num = static_cast<int>(wcslen(str));
+#if IUTEST_HAS_CXX_HDR_CODECVT && 0
+	typedef ::std::codecvt_utf8<wchar_t> convert;
+	::std::locale loc("japanese");
+	const convert& conv = ::std::use_facet<convert>(loc);
+	::std::mbstate_t state=0;
+	const size_t utf8_length = num * 2 + 1;
+	char* utf8 = new char[utf8_length];
+	const wchar_t* src_next = NULL;
+	char* utf8_next = NULL;
+	convert::result res = conv.out(state, str, str + num, src_next, utf8, utf8 + utf8_length, utf8_next);
+	::std::string ret;
+	if( res == convert::ok )
+	{
+		ret = utf8;
+	}
+	delete[] utf8;
+	return ret;
+#else
 	iuStringStream::type ss;
 	for(int i=0; i < num; ++i )
 	{
@@ -144,6 +166,7 @@ inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const wchar_t* st
 		ss << CodePointToUtf8(code_point, buf);
 	}
 	return ss.str();
+#endif
 }
 
 /**
@@ -154,7 +177,26 @@ inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const wchar_t* st
 */
 inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(const char* src, int num)
 {
-#if (defined(__STDC_ISO_10646__) || defined(_MSC_VER)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+#if IUTEST_HAS_CXX_HDR_CODECVT && 0
+	if(num == -1)
+		num = static_cast<int>(strlen(src));
+	typedef ::std::codecvt_utf8<char> convert;
+	::std::locale loc("japanese");
+	const convert& conv = ::std::use_facet<convert>(loc);
+	::std::mbstate_t state=0;
+	const size_t utf8_length = num * 2 + 1;
+	char* utf8 = new char[utf8_length];
+	const char* src_next = NULL;
+	char* utf8_next = NULL;
+	convert::result res = conv.in(state, src, src + num, src_next, utf8, utf8 + utf8_length, utf8_next);
+	::std::string ret;
+	if(res == convert::ok)
+	{
+		ret = utf8;
+	}
+	delete[] utf8;
+	return ret;
+#elif (defined(__STDC_ISO_10646__) || defined(_MSC_VER)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 	if( num == -1 )
 		num = static_cast<int>(strlen(src));
 	std::string str;

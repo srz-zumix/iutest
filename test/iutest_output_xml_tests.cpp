@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_output_xml_tests.cpp
- * @brief		filter 対応テスト
+ * @brief		xml 出力対応テスト
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -65,41 +65,34 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
+#if OUTPUT_XML_TEST
 	IUTEST_INIT(&argc, argv);
 
-#if OUTPUT_XML_TEST
-	{
-		::iutest::DefaultXmlGeneratorListener* listener = new ::iutest::DefaultXmlGeneratorListener();
-		listener->SetFilePath("test.xml");
-		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-		listeners.Append(listener);
-	}
-#endif
+	::iutest::IUTEST_FLAG(output) = "xml:test.xml";
 
 	{
 		::iutest::IUTEST_FLAG(filter) = "-*Fail*";
-		int ret = IUTEST_RUN_ALL_TESTS();
+		const int ret = IUTEST_RUN_ALL_TESTS();
 		
 		if( ret != 0 ) return 1;
-#if OUTPUT_XML_TEST
 		IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("Fail")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("Foo" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 		
 		FileIO::s_io.clear();
-#endif
 	}
 	{
 		::iutest::IUTEST_FLAG(filter) = "*Fail*";
-		int ret = IUTEST_RUN_ALL_TESTS();
+		const int ret = IUTEST_RUN_ALL_TESTS();
 		
 		if( ret == 0 ) return 1;
-#if OUTPUT_XML_TEST
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("Fail")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("Foo" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 
 		FileIO::s_io.clear();
-#endif
 	}
 	printf("*** Successful ***\n");
+#else
+	printf("*** OUTPUT_XML_TEST=0 ***\n");
+#endif
 	return 0;
 }

@@ -204,6 +204,31 @@ namespace iutest {
 #  define IUTEST_HAS_CXX_HDR_RANDOM		0
 #endif
 
+// codecvt
+/*
+#ifndef IUTEST_HAS_CXX_HDR_CODECVT
+
+#if		defined(__has_include)
+#  if __has_include( <codecvt> )
+#    if IUTEST_HAS_CXX11
+#      define IUTEST_HAS_CXX_HDR_CODECVT	1
+#    endif
+#  endif
+#elif	defined(__GLIBCXX__)
+#elif	defined(_MSC_VER)
+#  if _MSC_VER > 1600
+#    define IUTEST_HAS_CXX_HDR_CODECVT		1
+#  endif
+#endif
+
+#endif
+*/
+
+#ifndef IUTEST_HAS_CXX_HDR_CODECVT
+#  define IUTEST_HAS_CXX_HDR_CODECVT		0
+#endif
+
+
 // abi
 #ifndef IUTEST_HAS_HDR_CXXABI
 
@@ -233,6 +258,7 @@ namespace iutest {
 #ifndef IUTEST_HAS_HDR_SYSTIME
 #  define IUTEST_HAS_HDR_SYSTIME		1
 #endif
+
 
 namespace iutest {
 namespace detail
