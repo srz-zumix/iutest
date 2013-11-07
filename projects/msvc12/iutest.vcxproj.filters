@@ -356,5 +356,8 @@
     <None Include="..\..\include\impl\iutest_time.ipp">
       <Filter>iutest\impl</Filter>
     </None>
+    <None Include="..\..\include\impl\iutest_charcode.ipp">
+      <Filter>iutest\impl</Filter>
+    </None>
   </ItemGroup>
 </Project>

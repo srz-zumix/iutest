@@ -1260,15 +1260,10 @@ public:
 	*/
 	int	Run(void)
 	{
-		if( TestFlag::IsEnableFlag(TestFlag::OUTPUT_XML_REPORT) )
-		{
-			DefaultXmlGeneratorListener* listener = new DefaultXmlGeneratorListener();
-			listener->SetFilePath(TestEnv::get_report_filepath());
-			TestEnv::event_listeners().set_default_xml_generator(listener);
-		}
+		DefaultXmlGeneratorListener::SetUp();
 
 #if IUTEST_HAS_STREAM_RESULT
-		ConfigurationStreamResultTo();
+		StreamResultListener::SetUp();
 #endif
 
 		return UnitTest::instance().Run();

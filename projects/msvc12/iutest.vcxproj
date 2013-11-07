@@ -241,6 +241,7 @@
   <ItemGroup>
     <None Include="..\..\include\impl\iutest_body.ipp" />
     <None Include="..\..\include\impl\iutest_case.ipp" />
+    <None Include="..\..\include\impl\iutest_charcode.ipp" />
     <None Include="..\..\include\impl\iutest_core.ipp" />
     <None Include="..\..\include\impl\iutest_core_impl.ipp" />
     <None Include="..\..\include\impl\iutest_debug.ipp" />

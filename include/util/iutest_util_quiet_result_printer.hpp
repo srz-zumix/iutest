@@ -95,14 +95,17 @@ public:
 	virtual void OnTestProgramEnd(const ::iutest::UnitTest& unit_test) { m_default_printer->OnTestProgramEnd(unit_test); }
 private:
 	::iutest::TestEventListener* m_default_printer;
-};
 
-//! QuietResultPrinter ‚ÉØ‚è‘Ö‚¦
-inline void SetUpQuietResultPrinter(void)
-{
-	::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-	listeners.Append(new QuietResultPrinter(listeners.Release(listeners.default_result_printer())));
-}
+public:
+	/**
+	 * @brief	QuietResultPrinter ‚ÉØ‚è‘Ö‚¦
+	*/
+	static void SetUp(void)
+	{
+		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
+		listeners.Append(new QuietResultPrinter(listeners.Release(listeners.default_result_printer())));
+	}
+};
 
 }	// end of namespace iuutil
 

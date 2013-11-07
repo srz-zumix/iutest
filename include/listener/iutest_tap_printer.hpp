@@ -40,6 +40,17 @@ public:
 protected:
 	/// テストケース毎の処理
 	void OnReportTestCase(detail::IOutStream* const stream, const TestCase& test_case, int top=1);
+
+public:
+	/**
+	* @brief	TAPPrintListener に切り替え
+	*/
+	static void SetUp(void)
+	{
+		TestEventListeners& listeners = UnitTest::GetInstance()->listeners();
+		delete listeners.Release(listeners.default_result_printer());
+		listeners.Append(new TAPPrintListener);
+	}
 };
 
 /**
@@ -70,18 +81,18 @@ public:
 		else
 		{
 			m_output_path = directory;
-			//if( strchr(directory, '.') != NULL )
-			//{
-			//	::std::string::size_type pos = m_output_path.rfind('\\');
-			//	if( pos == ::std::string::npos )
-			//	{
-			//		m_output_path = internal::posix::GetCWD();
-			//	}
-			//	else
-			//	{
-			//		m_output_path = m_output_path.substr(0, pos);
-			//	}
-			//}
+			if( strchr(directory, '.') != NULL )
+			{
+				::std::string::size_type pos = m_output_path.rfind('\\');
+				if( pos == ::std::string::npos )
+				{
+					m_output_path = internal::posix::GetCWD();
+				}
+				else
+				{
+					m_output_path = m_output_path.substr(0, pos);
+				}
+			}
 		}
 	}
 public:
@@ -94,18 +105,19 @@ public:
 		IUTEST_UNUSED_VAR(test_property);
 	}
 	virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
+
+public:
+	/**
+	 * @brief	TAPFileGeneratorListener に切り替え
+	*/
+	static void SetUp(void)
+	{
+		TestEventListeners& listeners = UnitTest::GetInstance()->listeners();
+		delete listeners.Release(listeners.default_result_printer());
+		const ::std::string& output =  TestEnv::get_output_option();
+		listeners.Append(new TAPFileGeneratorListener(output.c_str()));
+	}
 };
-
-//======================================================================
-// function
-//! TAPPrintListener に切り替え
-inline void SetUpTAPPrintListener(void)
-{
-	::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-	delete listeners.Release(listeners.default_result_printer());
-	listeners.Append(new TAPPrintListener);
-}
-
 
 inline void TAPPrintListener::OnTestProgramStart(const UnitTest& test)
 {

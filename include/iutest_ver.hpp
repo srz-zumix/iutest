@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01070004u	//!< iutest version 1.7.0.4
+#define	IUTEST_VER			0x01070005u	//!< iutest version 1.7.0.5
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x07u		//!< Minor Version
 #define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x04u		//!< Revision
+#define IUTEST_REVISION		0x05u		//!< Revision
 
 /**
  * @mainpage
@@ -95,7 +95,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		•ÏX—š—ð
  * @par		Changes
  <ul>
-  <li>v1.7.0.4
+  <li>v1.7.0.5
     <ul>
       <li>IUTEST_FLAG(output) ‚É‘Î‰ž</li>
     </ul>

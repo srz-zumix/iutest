@@ -42,11 +42,11 @@ int main(int argc, char* argv[])
 	IUTEST_INIT(&argc, argv);
 
 #ifdef USE_TAP
-	::iutest::SetUpTAPPrintListener();
+	::iutest::TAPPrintListener::SetUp();
 #endif
 
 #ifdef USE_PROGRESS
-	::iutest::SetUpProgressPrintListener();
+	::iutest::ProgressPrintListener::SetUp();
 #endif
 	
 	return IUTEST_RUN_ALL_TESTS();

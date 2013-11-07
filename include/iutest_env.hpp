@@ -269,7 +269,7 @@ private:
 		unsigned int		m_random_seed;
 		unsigned int		m_current_random_seed;
 		int					m_repeat_count;
-		::std::string		m_report_file;
+		::std::string		m_output_option;
 		::std::string		m_test_filter;
 #if IUTEST_HAS_STREAM_RESULT
 		::std::string		m_stream_result_to;
@@ -288,11 +288,16 @@ public:
 	static unsigned int			get_random_seed(void)		{ return get_vars().m_random_seed; }			//!< 乱数シード
 	static unsigned int			current_random_seed(void)	{ return get_vars().m_current_random_seed; }	//!< 乱数シード
 	static int					get_repeat_count(void)		{ return get_vars().m_repeat_count; }			//!< 繰り返し回数
-	static const char*			get_report_filepath(void)	{ return get_vars().m_report_file.c_str(); }	//!< 出力xmlパス
+	static const char*			get_output_option(void)		{ return get_vars().m_output_option.c_str(); }	//!< 出力オプション
 	static const char*			test_filter(void)			{ return get_vars().m_test_filter.c_str(); }	//!< フィルター文字列
 #if IUTEST_HAS_STREAM_RESULT
 	static const char*			get_stream_result_to(void)	{ return get_vars().m_stream_result_to.c_str(); }
 #endif
+
+	/**
+	* @brief	xml 出力パスを取得
+	*/
+	static ::std::string get_report_xml_filepath(void);
 
 	/** @private */
 	static TestEventListeners&	event_listeners(void)	{ return get_vars().m_event_listeners; }
@@ -323,7 +328,7 @@ private:
 	*/
 	static void	set_test_filter(const char* str)
 	{
-		get_vars().m_test_filter = str;
+		get_vars().m_test_filter = str == NULL ? "*" : str;
 		TestFlag::SetFlag(TestFlag::FILTERING_TESTS);
 	}
 #if IUTEST_HAS_STREAM_RESULT
@@ -332,7 +337,7 @@ private:
 	*/
 	static void	set_stream_result_to(const char* str)
 	{
-		get_vars().m_stream_result_to = str;
+		get_vars().m_stream_result_to = str == NULL ? "" : str;
 	}
 #endif
 
@@ -355,29 +360,20 @@ private:
 	}
 
 	/**
-	* @brief	output オプション文字列を取得
-	*/
-	static ::std::string get_output_option(void)
-	{
-		if(!TestFlag::IsEnableFlag(TestFlag::OUTPUT_XML_REPORT)) return "";
-		if(get_vars().m_report_file.empty()) return "xml";
-		::std::string opt = "xml:";
-		opt += get_vars().m_report_file;
-		return opt;
-	}
-	/**
-	* @brief	output オプションを設定
+	 * @brief	output オプションを設定
 	*/
 	static void set_output_option(const char* str)
 	{
-		ParseOutputOption(str);
+		get_vars().m_output_option = str == NULL ? "" : str;
 	}
 
 private:
-	template<typename pfnGet, pfnGet G, typename pfnSet, pfnSet S>
+	typedef const char* (*pfnOptionStringGet)();
+	typedef void(*pfnOptionStringSet)(const char*);
+	template<pfnOptionStringGet G, pfnOptionStringSet S>
 	class OptionString
 	{
-		typedef OptionString<pfnGet, G, pfnSet, S> _Myt;
+		typedef OptionString<G, S> _Myt;
 	protected:
 		::std::string	m_option;
 	public:
@@ -409,34 +405,31 @@ private:
 			return *this;
 		}
 	};
-
-	typedef const char* (*pfnOptionStringGet)();
-	typedef void(*pfnOptionStringSet)(const char*);
 public:
 	/**
 	 * @private
 	 * @brief	色付き出力オプション設定用オブジェクト
 	*/
-	typedef OptionString<pfnOptionStringGet, get_color_option, pfnOptionStringSet, set_color_option> color;
+	typedef OptionString<get_color_option, set_color_option> color;
 
 	/**
 	 * @private
 	 * @brief	フィルターオプション設定用オブジェクト
 	*/
-	typedef OptionString<pfnOptionStringGet, test_filter, pfnOptionStringSet, set_test_filter> filter;
+	typedef OptionString<test_filter, set_test_filter> filter;
 
 	/**
 	* @private
 	* @brief	出力オプション設定用オブジェクト
 	*/
-	typedef OptionString< ::std::string (*)(), get_output_option, pfnOptionStringSet, set_output_option> output;
+	typedef OptionString<get_output_option, set_output_option> output;
 
 #if IUTEST_HAS_STREAM_RESULT
 	/**
 	 * @private
 	 * @brief	stream resultオプション設定用オブジェクト
 	*/
-	typedef OptionString<pfnOptionStringGet, get_stream_result_to, pfnOptionStringSet, set_stream_result_to> stream_result_to;
+	typedef OptionString<get_stream_result_to, set_stream_result_to> stream_result_to;
 #endif
 
 private:

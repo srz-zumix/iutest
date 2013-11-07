@@ -671,6 +671,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\impl\iutest_charcode.ipp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\impl\iutest_core.ipp"
 					>
 				</File>

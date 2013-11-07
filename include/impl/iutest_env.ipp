@@ -24,6 +24,21 @@
 namespace iutest
 {
 
+IUTEST_IPP_INLINE ::std::string TestEnv::get_report_xml_filepath(void)
+{
+	const ::std::string& option = get_vars().m_output_option;
+	if(option.find("xml") != ::std::string::npos)
+	{
+		const ::std::string::size_type pos = option.find("xml:");
+		if(pos != ::std::string::npos)
+		{
+			return option.substr(pos + 4);
+		}
+	}
+	return "";
+}
+
+
 IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 {
 	bool find = false;
@@ -328,25 +343,12 @@ IUTEST_IPP_INLINE 	bool TestEnv::ParseColorOption(const char* option)
 
 IUTEST_IPP_INLINE bool	TestEnv::ParseOutputOption(const char* option)
 {
-	if( option != NULL && strstr(option, "xml") != NULL )
+	if(option == NULL)
 	{
-		TestFlag::SetFlag(TestFlag::OUTPUT_XML_REPORT);
-	}
-	else
-	{
-		TestFlag::SetFlag(0, ~TestFlag::OUTPUT_XML_REPORT);
-		get_vars().m_report_file = "";
+		get_vars().m_output_option = "";
 		return false;
 	}
-	const char* file = strchr(option+3, ':');
-	if( file == NULL )
-	{
-		get_vars().m_report_file = "";
-	}
-	else
-	{
-		get_vars().m_report_file = file+1;
-	}
+	get_vars().m_output_option = option;
 	return true;
 }
 

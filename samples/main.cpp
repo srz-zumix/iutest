@@ -76,20 +76,20 @@ int main(int argc, char* argv[])
 	IUTEST_INIT(&argc, argv);
 
 #if defined(USE_TAP)
-	::iutest::SetUpTAPPrintListener();
+	::iutest::TAPPrintListener::SetUp();
 #endif
 
 #if defined(USE_PROGRESS)
-	::iutest::SetUpProgressPrintListener();
+	::iutest::ProgressPrintListener::SetUp();
 #endif
 
 #if defined(USE_SSTPNOTIFIER)
-	::iutest::SetUpSSTPNotifier("localhost");
+	::iutest::SSTPNotifier::SetUp("localhost");
 #endif
 
-	//::iuutil::SetUpQuietResultPrinter();
+	//::iuutil::QuietResultPrinter::SetUp();
 
-	return IUTEST_RUN_ALL_TESTS();	// run all
+	return IUTEST_RUN_ALL_TESTS();
 }
 
 #endif

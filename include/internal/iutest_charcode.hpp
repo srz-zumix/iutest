@@ -33,197 +33,54 @@ namespace detail
 
 //======================================================================
 // declare
-IUTEST_CXX_CONSTEXPR bool	IsUtf16SurrogatePair(wchar_t first, wchar_t second);
-IUTEST_CXX_CONSTEXPR UInt32 CreateCodePointFromUtf16SurrogatePair(wchar_t first, wchar_t second);
-UInt32	ChopLowBits(UInt32* bits, int n);
-char*	CodePointToUtf8(UInt32 code_point, char* buf);
-::std::string WideStringToUTF8(const wchar_t* str, int num=-1);
-::std::string MultiByteStringToUTF8(const char* src, int num=-1);
-::std::string ShowWideCString(const wchar_t* wide_c_str);
-
-//======================================================================
-// variable
-const UInt32 kMaxCodePoint1 = (static_cast<UInt32>(1) << 7) - 1;
-const UInt32 kMaxCodePoint2 = (static_cast<UInt32>(1) << (5+6)) - 1;
-const UInt32 kMaxCodePoint3 = (static_cast<UInt32>(1) << (4+2*6)) - 1;
-const UInt32 kMaxCodePoint4 = (static_cast<UInt32>(1) << (3+3*6)) - 1;
-
-//======================================================================
-// function
-/**
- * @brief	サロゲートペアかどうか
-*/
-inline IUTEST_CXX_CONSTEXPR bool	IsUtf16SurrogatePair(wchar_t first, wchar_t second)
-{
-	return (sizeof(wchar_t) == 2)
-		&& ((first & 0xFC00) == 0xD800) && ((second & 0xFC00) == 0xDC00);
-}
-/**
- * @brief	サロゲートペアからコードポイントへ変換
-*/
-inline IUTEST_CXX_CONSTEXPR UInt32 CreateCodePointFromUtf16SurrogatePair(wchar_t first, wchar_t second)
-{
-	//const UInt32 mask = (1<<10) -1;	// 0x3FF
-	return (sizeof(wchar_t)==2) ?
-		(((first & 0x3FF) << 10) | (second & 0x3FF)) + 0x10000 :
-		static_cast<UInt32>(first);	// こっちは未対応
-}
-/**
- * @brief	下位から指定ビット数のビットを取得してシフトする
-*/
-inline UInt32 ChopLowBits(UInt32* bits, int n)
-{
-	const UInt32 lowbits = *bits & ((static_cast<UInt32>(1) << n) - 1);
-	*bits >>= n;
-	return lowbits;
-}
-/**
- * @brief	コードポイントからUTF8へ変換
- * @param [in]	code_point	= コードポイント
- * @param [out]	buf			= 出力バッファ(32バイト以上を要求)
- * @return	出力バッファ
-*/
-inline char* CodePointToUtf8(UInt32 code_point, char* buf)
-{
-	if( code_point <= kMaxCodePoint1 )
-	{
-		buf[1] = '\0';
-		buf[0] = static_cast<char>(code_point);
-	}
-	else if( code_point <= kMaxCodePoint2 )
-	{
-		buf[2] = '\0';
-		buf[1] = static_cast<char>(0x80 | ChopLowBits(&code_point, 6));
-		buf[0] = static_cast<char>(0xC0 | code_point);
-	}
-	else if( code_point <= kMaxCodePoint3 )
-	{
-		buf[3] = '\0';
-		buf[2] = static_cast<char>(0x80 | ChopLowBits(&code_point, 6));
-		buf[1] = static_cast<char>(0x80 | ChopLowBits(&code_point, 6));
-		buf[0] = static_cast<char>(0xE0 | code_point);
-	}
-	else if( code_point <= kMaxCodePoint4 )
-	{
-		buf[4] = '\0';
-		buf[3] = static_cast<char>(0x80 | ChopLowBits(&code_point, 6));
-		buf[2] = static_cast<char>(0x80 | ChopLowBits(&code_point, 6));
-		buf[1] = static_cast<char>(0x80 | ChopLowBits(&code_point, 6));
-		buf[0] = static_cast<char>(0xF0 | code_point);
-	}
-	else
-	{
-		sprintf(buf, "(Invalid UTF16 0x%X)", code_point);
-	}
-	return buf;
-}
 /**
  * @brief	ワイド文字列からUTF8へ変換
  * @param [in]	str	= 入力
  * @param [in]	num = 入力バッファサイズ
  * @return	UTF8 文字列
 */
-inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const wchar_t* str, int num)
-{
-	if(num == -1)
-		num = static_cast<int>(wcslen(str));
-#if IUTEST_HAS_CXX_HDR_CODECVT && 0
-	typedef ::std::codecvt_utf8<wchar_t> convert;
-	::std::locale loc("japanese");
-	const convert& conv = ::std::use_facet<convert>(loc);
-	::std::mbstate_t state=0;
-	const size_t utf8_length = num * 2 + 1;
-	char* utf8 = new char[utf8_length];
-	const wchar_t* src_next = NULL;
-	char* utf8_next = NULL;
-	convert::result res = conv.out(state, str, str + num, src_next, utf8, utf8 + utf8_length, utf8_next);
-	::std::string ret;
-	if( res == convert::ok )
-	{
-		ret = utf8;
-	}
-	delete[] utf8;
-	return ret;
-#else
-	iuStringStream::type ss;
-	for(int i=0; i < num; ++i )
-	{
-		UInt32 code_point;
-		if( str[i] == L'\0' ) 
-		{
-			break;
-		}
-		else if( i + 1 < num && IsUtf16SurrogatePair(str[i], str[i+1]) )
-		{
-			code_point = CreateCodePointFromUtf16SurrogatePair(str[i], str[i+1]);
-			++i;
-		}
-		else
-		{
-			code_point = static_cast<UInt32>(str[i]);
-		}
-		char buf[32];
-		ss << CodePointToUtf8(code_point, buf);
-	}
-	return ss.str();
-#endif
-}
+::std::string WideStringToUTF8(const wchar_t* str, int num=-1);
 
 /**
- * @brief	マルチバイト文字からUTF8へ変換
- * @param [in]	str	= 入力
- * @param [in]	num = 入力バッファサイズ
- * @return	UTF8 文字列
+* @brief	ワイド文字列からマルチバイトへ変換
+* @param [in]	str	= 入力
+* @param [in]	num = 入力バッファサイズ
+* @return	マルチバイト文字列
 */
-inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(const char* src, int num)
-{
-#if IUTEST_HAS_CXX_HDR_CODECVT && 0
-	if(num == -1)
-		num = static_cast<int>(strlen(src));
-	typedef ::std::codecvt_utf8<char> convert;
-	::std::locale loc("japanese");
-	const convert& conv = ::std::use_facet<convert>(loc);
-	::std::mbstate_t state=0;
-	const size_t utf8_length = num * 2 + 1;
-	char* utf8 = new char[utf8_length];
-	const char* src_next = NULL;
-	char* utf8_next = NULL;
-	convert::result res = conv.in(state, src, src + num, src_next, utf8, utf8 + utf8_length, utf8_next);
-	::std::string ret;
-	if(res == convert::ok)
-	{
-		ret = utf8;
-	}
-	delete[] utf8;
-	return ret;
-#elif (defined(__STDC_ISO_10646__) || defined(_MSC_VER)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
-	if( num == -1 )
-		num = static_cast<int>(strlen(src));
-	std::string str;
-	const char* p = src;
-	//char* locale = setlocale(LC_CTYPE, "JPN");
-	for(const char* end = src + num; p < end; )
-	{
-		wchar_t wc=0;
-		int len = iu_mbtowc(&wc, p, MB_CUR_MAX);
-		if( len > 1 )
-		{
-			str += WideStringToUTF8(&wc, 1);
-			p += len;
-		}
-		else
-		{
-			str += *p;
-			++p;
-		}
-	}
-	//setlocale(LC_CTYPE, locale);
-	return str;
+::std::string WideStringToMultiByteString(const wchar_t* str, int num=-1);
+
+/**
+* @brief	マルチバイト文字からUTF8へ変換
+* @param [in]	str	= 入力
+* @param [in]	num = 入力バッファサイズ
+* @return	UTF8 文字列
+*/
+::std::string MultiByteStringToUTF8(const char* src, int num=-1);
+
+/**
+* @brief	ワイド文字列から ::std::string へ変換
+* @param [in]	wide_c_str	= 入力
+* @return	string
+*/
+::std::string ShowWideCString(const wchar_t* wide_c_str);
+
+#if IUTEST_HAS_CXX_HDR_CODECVT
+/**
+* @brief	UTF16文字列からUTF8へ変換
+* @param [in]	str	= 入力
+* @param [in]	num = 入力バッファサイズ
+* @return	UTF8 文字列
+*/
+#if IUTEST_HAS_CHAR16_T
+::std::string UTF16ToUTF8(const char16_t* str, int num=-1);
 #else
-	IUTEST_UNUSED_VAR(num);
-	return src;
+::std::string UTF16ToUTF8(const wchar_t* str, int num=-1);
 #endif
-}
+
+#endif
+
+//======================================================================
+// function
 
 inline ::std::string ShowWideCString(const wchar_t* wide_c_str)
 {
@@ -233,26 +90,24 @@ inline ::std::string ShowWideCString(const wchar_t* wide_c_str)
 #elif defined(IUTEST_OS_WINDOWS) && IUTEST_MBS_CODE == IUTEST_MBS_CODE_WINDOWS31J
 	return win::WideStringToMultiByteString(wide_c_str);
 #else
-	::std::string str;
-	const size_t length = wcslen(wide_c_str) * MB_CUR_MAX + 1;
-	char* mbs = new char [length];
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
-	if( wcstombs(mbs, wide_c_str, length) == (size_t)-1 )
-	{
-		delete [] mbs;
-		return "(convert error)";
-	}
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
-	str = mbs;
-	delete [] mbs;
-	return str;
+	return WideStringToMultiByteString(wide_c_str);
 #endif
 }
 
 #if IUTEST_HAS_CHAR16_T
 inline ::std::string ShowWideCString(const char16_t* wide_c_str)
 {
+	if(wide_c_str == NULL) return "(null)";
+#if IUTEST_HAS_CXX_HDR_CODECVT
+#if IUTEST_MBS_CODE == IUTEST_MBS_CODE_UTF8
+	return UTF16ToUTF8(wide_c_str);
+#else
 	return ShowWideCString(reinterpret_cast<const wchar_t*>(wide_c_str));
+	//return UTF16ToMultiByteString(wide_c_str);
+#endif
+#else
+	return ShowWideCString(reinterpret_cast<const wchar_t*>(wide_c_str));
+#endif
 }
 #endif
 
@@ -292,5 +147,9 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 }	// end of namespace detail
 }	// end of namespace iutest
+
+#if !IUTEST_HAS_LIB
+#  include "../impl/iutest_charcode.ipp"
+#endif
 
 #endif

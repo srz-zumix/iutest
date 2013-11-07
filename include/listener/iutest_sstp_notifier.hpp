@@ -380,16 +380,17 @@ private:
 	detail::SSTP m_sstp;
 
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(SSTPNotifier);
-};
 
-//======================================================================
-// function
-//! ProgressPrintListener ‚ÉØ‚è‘Ö‚¦
-inline void SetUpSSTPNotifier(const char* host, int port=detail::SSTP::DEFAULT_PORT)
-{
-	::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-	listeners.Append(new SSTPNotifier(host, port));
-}
+public:
+	/**
+	 * @brief	SSTPNotifier ‚ð’Ç‰Á
+	*/
+	static void SetUp(const char* host, int port=detail::SSTP::DEFAULT_PORT)
+	{
+		TestEventListeners& listeners = UnitTest::GetInstance()->listeners();
+		listeners.Append(new SSTPNotifier(host, port));
+	}
+};
 
 }	// end of namespace iutest
 

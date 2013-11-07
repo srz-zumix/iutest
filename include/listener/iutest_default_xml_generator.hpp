@@ -117,6 +117,19 @@ private:
 	{
 		return IsWhitespace(c) || c >= 0x20;
 	}
+
+public:
+	/** @private */
+	static void SetUp(void)
+	{
+		::std::string xmlpath = TestEnv::get_report_xml_filepath();
+		if(!xmlpath.empty())
+		{
+			DefaultXmlGeneratorListener* listener = new DefaultXmlGeneratorListener();
+			listener->SetFilePath(xmlpath.c_str());
+			TestEnv::event_listeners().set_default_xml_generator(listener);
+		}
+	}
 };
 
 }	// end of namespace iutest

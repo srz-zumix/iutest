@@ -42,6 +42,17 @@ public:
 private:
 	int m_should_run_num;
 	int m_ran_num;
+
+public:
+	/**
+	 * @brief	ProgressPrintListener ‚ÉØ‚è‘Ö‚¦
+	*/
+	static void SetUp(void)
+	{
+		TestEventListeners& listeners = UnitTest::GetInstance()->listeners();
+		delete listeners.Release(listeners.default_result_printer());
+		listeners.Append(new ProgressPrintListener);
+	}
 };
 
 inline void ProgressPrintListener::OnTestProgramStart(const UnitTest& test)
@@ -71,16 +82,6 @@ inline void ProgressPrintListener::OnTestEnd(const TestInfo& test_info)
 	progress[n++] = m_ran_num == m_should_run_num ? '\n' : '\r';
 	progress[n++] = '\0';
 	detail::iuConsole::output(progress);
-}
-
-//======================================================================
-// function
-//! ProgressPrintListener ‚ÉØ‚è‘Ö‚¦
-inline void SetUpProgressPrintListener(void)
-{
-	::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-	delete listeners.Release(listeners.default_result_printer());
-	listeners.Append(new ProgressPrintListener);
 }
 
 }	// end of namespace iutest
