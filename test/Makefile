@@ -157,13 +157,13 @@ default : $(TARGETS)
 all : clean default test
 
 clean :
-	rm -f $(TARGETS) *.o
+	rm -f $(TARGETS) *.o *.stackdump
 ifdef OUTPUTXML
 	rm -f *.xml
 endif
 
 run : test
-test : $(RUNNER)
+test : $(BUILD_ONLY) $(RUNNER)
 
 run_% : %
 	@echo $<

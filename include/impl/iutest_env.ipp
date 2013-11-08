@@ -20,6 +20,7 @@
 //======================================================================
 // include
 #include "../iutest_env.hpp"
+#include "../internal/iutest_constant.hpp"
 
 namespace iutest
 {
@@ -34,6 +35,7 @@ IUTEST_IPP_INLINE ::std::string TestEnv::get_report_xml_filepath(void)
 		{
 			return option.substr(pos + 4);
 		}
+		return detail::kStrings::DefaultXmlReportFileName;
 	}
 	return "";
 }

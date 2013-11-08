@@ -38,7 +38,7 @@ public:
 	 * @brief	コンストラクタ
 	 * @param [in] path = 出力パス
 	*/
-	DefaultXmlGeneratorListener(const char* path=NULL)
+	DefaultXmlGeneratorListener(const ::std::string& path)
 		: m_fp(NULL)
 	{
 		SetFilePath(path);
@@ -52,22 +52,27 @@ public:
 	/**
 	 * @brief	出力ファイルの設定
 	*/
-	void	SetFilePath(const char* path)
+	void	SetFilePath(const ::std::string& path)
 	{
-		if( path == NULL || *path == '\0' )
+		if( path.empty() )
 		{
 			m_output_path = detail::kStrings::DefaultXmlReportFileName;
 		}
 		else
 		{
 			m_output_path = path;
-			if( strchr(path, '.') == NULL )
+			if( path.find('.') == ::std::string::npos )
 			{
 				m_output_path += "\\";
 				m_output_path += detail::kStrings::DefaultXmlReportFileName;
 			}
 		}
 	}
+	/**
+	 * @brief	出力ファイルパスの取得
+	*/
+	const ::std::string& GetFilePath(void) const { return m_output_path; }
+
 public:
 	virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;
 	virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
@@ -125,9 +130,13 @@ public:
 		::std::string xmlpath = TestEnv::get_report_xml_filepath();
 		if(!xmlpath.empty())
 		{
-			DefaultXmlGeneratorListener* listener = new DefaultXmlGeneratorListener();
-			listener->SetFilePath(xmlpath.c_str());
-			TestEnv::event_listeners().set_default_xml_generator(listener);
+			DefaultXmlGeneratorListener* listener = reinterpret_cast<DefaultXmlGeneratorListener*>(TestEnv::event_listeners().default_xml_generator());
+			if(listener == NULL)
+			{
+				TestEnv::event_listeners().set_default_xml_generator(new DefaultXmlGeneratorListener(xmlpath));
+				return;
+			}
+			listener->SetFilePath(xmlpath);
 		}
 	}
 };

@@ -50,14 +50,22 @@ class IParamTestCaseInfo
 public:
 	virtual ~IParamTestCaseInfo(void) {}
 protected:
-	IParamTestCaseInfo(const char* name)
-		: m_testcase_base_name(name) {}
+	IParamTestCaseInfo(const ::std::string& base_name, const ::std::string& package_name)
+		: m_testcase_base_name(base_name), m_package_name(package_name) {}
 public:
 	virtual void	RegisterTests(void) const = 0;
 
 	::std::string	GetTestCaseBaseName(void)	const	{ return m_testcase_base_name; }
+	::std::string	GetPackageName(void)		const	{ return m_package_name; }
+
+public:
+	bool is_same(const ::std::string& base_name, const ::std::string& package_name)
+	{
+		return m_testcase_base_name == base_name && m_package_name == package_name;
+	}
 protected:
 	::std::string	m_testcase_base_name;
+	::std::string	m_package_name;
 };
 
 /**
@@ -77,8 +85,8 @@ class ParamTestCaseInfo : public IParamTestCaseInfo
 
 public:
 	/// コンストラクタ
-	ParamTestCaseInfo(const char* testcase_name)
-		: IParamTestCaseInfo(testcase_name)
+	ParamTestCaseInfo(const ::std::string& testcase_name, const ::std::string& package_name)
+		: IParamTestCaseInfo(testcase_name, package_name)
 	{
 	}
 	virtual ~ParamTestCaseInfo(void) {}
@@ -111,13 +119,13 @@ public:
 				// パラメータ生成器の作成
 				detail::auto_ptr<ParamGenerator> p = (gen_it->second)();
 
-				::std::string testcase_name = m_testcase_base_name;
+				::std::string testcase_name = m_package_name;
 				if( !gen_it->first.empty() )
 				{
-					testcase_name = gen_it->first;
+					testcase_name += gen_it->first;
 					testcase_name += "/";
-					testcase_name += m_testcase_base_name;
 				}
+				testcase_name += m_testcase_base_name;
 				TestCase* testcase = (*it)->MakeTestCase(testcase_name.c_str()
 					, internal::GetTypeId<Tester>()
 					, Tester::SetUpTestCase
@@ -160,18 +168,18 @@ private:
 	}
 public:
 	template<typename T>
-	ParamTestCaseInfo<T>*	GetTestCasePatternHolder(const char* testcase
+	ParamTestCaseInfo<T>*	GetTestCasePatternHolder(const ::std::string& testcase, const ::std::string& package
 		IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)
 		)
 	{
 		for( TestCaseInfoContainer::iterator it=m_testcase_infos.begin(), end=m_testcase_infos.end(); it != end; ++it )
 		{
-			if( (*it)->GetTestCaseBaseName() == testcase )
+			if( (*it)->is_same(testcase, package) )
 			{
 				return static_cast<ParamTestCaseInfo<T>*>(*it);
 			}
 		}
-		ParamTestCaseInfo<T>* p = new ParamTestCaseInfo<T>(testcase);
+		ParamTestCaseInfo<T>* p = new ParamTestCaseInfo<T>(testcase, package);
 		m_testcase_infos.push_back(p);
 		return p;
 	}

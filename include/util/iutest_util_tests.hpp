@@ -59,12 +59,15 @@ inline ::std::string TestCaseNameRemoveIndexName(const char* name)
 */
 inline ::std::string TestCaseNameRemoveInstantiateAndIndexName(const char* name)
 {
+	// パッケージ名があれば取得
+	const char* const pkg = strrchr(name, '.');
 	// 先頭にインスタンス名がある
 	const char* const p1 = strchr(name, '/');
 	if( p1 == NULL ) return name;
-	const char* const p2 = strrchr(p1+1, '/');
-	if( p2 == NULL ) return p1+1;
-	return ::std::string(p1+1, p2);
+	if( pkg == NULL )
+		return TestCaseNameRemoveIndexName(p1+1);
+	else
+		return ::std::string(name, pkg+1) + TestCaseNameRemoveIndexName(p1+1);
 }
 
 /**

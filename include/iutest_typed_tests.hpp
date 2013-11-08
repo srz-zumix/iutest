@@ -212,7 +212,7 @@
 		::iutest::detail::TypeParameterizedTestCase< testcase_				\
 		, IUTEST_TYPED_TEST_P_NAMESPACE_(testcase_)::iutest_AllTests_		\
 		, ::iutest::detail::TypeList< __VA_ARGS__ >::type >::Register(		\
-			#prefix_, IUTEST_CONCAT_PACKAGE_(testcase_)						\
+			#prefix_, IUTEST_TO_NAME_STR_(testcase_), IUTEST_GET_PACKAGENAME_()	\
 		, IUTEST_TYPED_TEST_CASE_PSTATE_NAME_(testcase_).names())
 
 /**
@@ -289,8 +289,8 @@ class TypeParamTestInstance
 
 public:
 	// コンストラクタ
-	TypeParamTestInstance(const char* testcase, const char* name)
-		: m_tests(testcase, name, 0)
+	TypeParamTestInstance(const ::std::string& testcase, const char* name)
+		: m_tests(testcase.c_str(), name, 0)
 	{
 		m_tests.AddTest();
 	}
@@ -435,21 +435,21 @@ public:
 	/**
 	 * @brief	テストの登録
 	*/
-	static bool Register(const char* prefix, const char* testcase_name, const char* names, int index=0)
+	static bool Register(const char* prefix, const char* testcase_name, const::std::string& package_name, const char* names, int index=0)
 	{
 		typedef typename Types::Head	TypeParam;
 		typedef typename Tests::Head	Head;
 		typedef Fixture<Head>			FixtureClass;
 		typedef TypedTestCase<TypeParam>	_MyTestCase;
 		TestCase* testcase = UnitTest::instance().AddTestCase<_MyTestCase>(
-			detail::MakePrefixedIndexTestName(prefix, testcase_name, index).c_str()
+			(package_name + detail::MakePrefixedIndexTestName(prefix, testcase_name, index)).c_str()
 			//detail::MakePrefixedIndexTypedTestName<TypeParam>(prefix, testcase_name, index).c_str()
 			, internal::GetTypeId<FixtureClass>()
 			, FixtureClass::SetUpTestCase, FixtureClass::TearDownTestCase);
 
 		EachTest<TypeParam, Tests>::Register(testcase, names);
 
-		return TypeParameterizedTestCase<Fixture, Tests, typename Types::Tail>::Register(prefix, testcase_name, names, index+1);
+		return TypeParameterizedTestCase<Fixture, Tests, typename Types::Tail>::Register(prefix, testcase_name, package_name, names, index + 1);
 	}
 };
 
@@ -462,7 +462,7 @@ template<IUTEST_TEMPLATE_TPARAM1 Fixture, typename Tests>
 class TypeParameterizedTestCase<Fixture, Tests, detail::TypeList0>
 {
 public:
-	static bool Register(const char* /*prefix*/, const char* /*testcase_name*/, const char* /*names*/, int index=0)
+	static bool Register(const char* /*prefix*/, const char* /*testcase_name*/, const ::std::string& /*package_name*/, const char* /*names*/, int index=0)
 	{
 		IUTEST_UNUSED_VAR(index);
 		return true;

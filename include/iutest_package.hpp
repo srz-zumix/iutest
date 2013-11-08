@@ -40,7 +40,10 @@
 #define IIUT_CONCAT_PACKAGE_I(testcase_name)					\
 	iuTest_ConcatTestCaseName( iuTest_GetTestCasePackageName(	\
 	static_cast<iuTest_TestCasePackage*>(NULL))					\
-	, #testcase_name).c_str()
+	, #testcase_name)
+
+#define IUTEST_GET_PACKAGENAME_()	\
+	iuTest_GetTestCasePackageName( static_cast<iuTest_TestCasePackage*>(NULL))
 
 #define IIUT_PACKAGE_DECL_NAME_FUNC(name)				\
 	static ::std::string IUTEST_ATTRIBUTE_UNUSED_		\

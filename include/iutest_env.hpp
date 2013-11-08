@@ -41,6 +41,7 @@
  *			print_time (bool)\n
  *          color (string)\n
  *          filter (string)\n
+ *          output (string)\n
  *          repeat (int)\n
  *			list_tests (bool)\n
  *			file_location_style_msvc (bool)\n
@@ -132,7 +133,6 @@ public:
 		CATCH_EXCEPTION_GLOBAL	= 0x00020000,	//!< 例外を catch する(UnitTest)
 		CATCH_EXCEPTION			= 0x00030000,	//!< 例外を catch する
 
-		OUTPUT_XML_REPORT		= 0x01000000,	//!< xml 出力
 		SHOW_TESTS_LIST			= 0x02000000,	//!< テストのリスト表示
 		SHOW_TESTS_LIST_WITH_WHERE
 								= 0x04000000,	//!< テストのリスト表示(with where)

@@ -51,7 +51,7 @@
 		s_##prefix_##_##testcase_##_EvalGenerator_(void) {									\
 			return IUTEST_CAST_TO_PARAM_GENERATOR_(testcase_::ParamType, __VA_ARGS__); }	\
 		int s_##prefix_##_##testcase_##_dummy =												\
-			IIUT_GetTestCasePatternHolder(testcase_, IUTEST_CONCAT_PACKAGE_(testcase_))		\
+			IIUT_GetTestCasePatternHolder(testcase_, IUTEST_TO_NAME_STR_(testcase_), IUTEST_GET_PACKAGENAME_())		\
 				->AddTestCaseInstantiation(#prefix_, s_##prefix_##_##testcase_##_EvalGenerator_)
 
 /**

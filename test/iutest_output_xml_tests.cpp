@@ -75,16 +75,24 @@ int main(int argc, char* argv[])
 		const int ret = IUTEST_RUN_ALL_TESTS();
 		
 		if( ret != 0 ) return 1;
+		IUTEST_ASSERT_EQ( "test.xml"
+			, (reinterpret_cast< ::iutest::DefaultXmlGeneratorListener*>(::iutest::TestEnv::event_listeners().default_xml_generator())->GetFilePath()) )
+				 << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("Fail")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("Foo" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 		
 		FileIO::s_io.clear();
 	}
+
+	::iutest::IUTEST_FLAG(output) = "xml";
 	{
 		::iutest::IUTEST_FLAG(filter) = "*Fail*";
 		const int ret = IUTEST_RUN_ALL_TESTS();
 		
 		if( ret == 0 ) return 1;
+		IUTEST_ASSERT_EQ( ::iutest::detail::kStrings::DefaultXmlReportFileName
+			, (reinterpret_cast< ::iutest::DefaultXmlGeneratorListener*>(::iutest::TestEnv::event_listeners().default_xml_generator())->GetFilePath()) )
+				 << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("Fail")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("Foo" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 

@@ -64,7 +64,7 @@ class ParamTest : public ::iutest::TestWithParam<int> {};
 IUTEST_P(IUTEST_JAPANESE_NAME_F(ParamTest, ‚ ‚¢‚¤‚¦‚¨), IUTEST_JAPANESE_NAME(‚ ‚¢‚¤‚¦‚¨))
 {
 #if IUTEST_HAS_PACKAGE
-	IUTEST_ASSERT_STREQ("My1/japanese_test.‚ ‚¢‚¤‚¦‚¨", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+	IUTEST_ASSERT_STREQ("japanese_test.My1/‚ ‚¢‚¤‚¦‚¨", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
 #else
 	IUTEST_ASSERT_STREQ("My1/‚ ‚¢‚¤‚¦‚¨", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
 #endif
@@ -74,7 +74,7 @@ IUTEST_P(IUTEST_JAPANESE_NAME_F(ParamTest, ‚ ‚¢‚¤‚¦‚¨), IUTEST_JAPANESE_NAME(‚ ‚
 IUTEST_P(IUTEST_JAPANESE_NAME_F(ParamTest, ‚ ‚¢‚¤‚¦‚¨), Japanese)
 {
 #if IUTEST_HAS_PACKAGE
-	IUTEST_ASSERT_STREQ("My1/japanese_test.‚ ‚¢‚¤‚¦‚¨", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+	IUTEST_ASSERT_STREQ("japanese_test.My1/‚ ‚¢‚¤‚¦‚¨", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
 #else
 	IUTEST_ASSERT_STREQ("My1/‚ ‚¢‚¤‚¦‚¨", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
 #endif
