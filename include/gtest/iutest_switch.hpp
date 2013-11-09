@@ -77,7 +77,6 @@
 #include "switch/iutest_switch_assume.hpp"
 
 #include "switch/iutest_switch_assertion_return.hpp"
-#include "switch/iutest_switch_eq_collections.hpp"
 #include "switch/iutest_switch_package.hpp"
 #include "switch/iutest_switch_peep.hpp"
 #include "switch/iutest_switch_pmz.hpp"
@@ -192,6 +191,7 @@ namespace tr1
 #undef IUTEST_HAS_GENRAND
 #undef IUTEST_HAS_PRINT_TO
 #undef IUTEST_HAS_TESTNAME_ALIAS
+#undef IUTEST_HAS_TESTNAME_ALIAS_JP
 #undef IUTEST_HAS_STREAM_RESULT
 
 #undef IUTEST_HAS_VARIADIC_TEMPLATES
@@ -226,6 +226,7 @@ namespace tr1
 #define IUTEST_HAS_GENRAND				0
 #define IUTEST_HAS_PRINT_TO				1
 #define IUTEST_HAS_TESTNAME_ALIAS		0
+#define IUTEST_HAS_TESTNAME_ALIAS_JP	0
 #define IUTEST_HAS_STREAM_RESULT		0
 
 #define IUTEST_HAS_EXCEPTIONS		GTEST_HAS_EXCEPTIONS
@@ -241,7 +242,6 @@ namespace tr1
 #include "switch/iutest_switch_assume.hpp"
 
 #include "switch/iutest_switch_assertion_return.hpp"
-#include "switch/iutest_switch_eq_collections.hpp"
 #include "switch/iutest_switch_package.hpp"
 #include "switch/iutest_switch_peep.hpp"
 #include "switch/iutest_switch_pmz.hpp"

@@ -997,10 +997,6 @@
 						>
 					</File>
 					<File
-						RelativePath="..\..\include\gtest\switch\iutest_switch_eq_collections.hpp"
-						>
-					</File>
-					<File
 						RelativePath="..\..\include\gtest\switch\iutest_switch_expect.hpp"
 						>
 					</File>

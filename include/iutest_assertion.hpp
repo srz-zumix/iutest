@@ -514,50 +514,6 @@ public:
 };
 
 /**
- * @brief	Equal Collection Helper
-*/
-template<typename T1, typename T2>
-AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqCollections(const char* expr1b, const char* expr1e, const char* expr2b, const char* expr2e
-							   , T1 b1, T1 e1, T2 b2, T2 e2)
-{
-	int elem=0;
-	bool result = true;
-	Message ar;
-	for( elem=0; b1 != e1 && b2 != e2; ++b1, ++b2, ++elem )
-	{
-		if( !EqHelper<false>::Compare("", "", *b1, *b2) )
-		{
-			result = false;
-			ar << "\nMismatch in a position " << elem << ": "
-				<< FormatForComparisonFailureMessage(*b1, *b2)
-				<< " vs " << FormatForComparisonFailureMessage(*b2, *b1);
-		}
-	}
-	if( b1 != e1 )
-	{
-		int elem1 = elem;
-		for( ; b1 != e1; ++b1, ++elem1 )
-			;
-		result = false;
-		ar << "\nMismatch element : " << elem1 << " vs " << elem;
-	}
-	if( b2 != e2 )
-	{
-		int elem2 = elem;
-		for( ; b2 != e2; ++b2, ++elem2 )
-			;
-		result = false;
-		ar << "\nMismatch element : " << elem << " vs " << elem2;
-	}
-	if( !result )
-	{
-		return AssertionFailure() << "error: Expected: { " << expr1b << ", " << expr1e << " } == { "
-			<< expr2b << ", " << expr2e << " }\n  Actual:" << ar;
-	}
-	return AssertionSuccess();
-}
-
-/**
  * @brief	Not Equal Helper
  * @tparam	IsNullLiteral	= val1 ‚ª NULL ƒŠƒeƒ‰ƒ‹‚©‚Ç‚¤‚©
 */

@@ -224,7 +224,6 @@
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_assert.hpp" />
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_cmphelper.hpp" />
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_core.hpp" />
-    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_eq_collections.hpp" />
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_expect.hpp" />
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_inform.hpp" />
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_package.hpp" />

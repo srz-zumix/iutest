@@ -358,8 +358,6 @@
 #define	IUTEST_TEST_GE(v1, v2, on_failure)				IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperGE, v1, v2, on_failure )
 #define	IUTEST_TEST_GT(v1, v2, on_failure)				IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperGT, v1, v2, on_failure )
 
-#define IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, on_failure) IUTEST_PRED_FORMAT4_( ::iutest::internal::CmpHelperEqCollections, b1, e1, b2, e2, on_failure)
-
 #define IUTEST_TEST_TRUE(expr, text, on_failure)		IUTEST_TEST_BOOLEAN_( expr, text, false, true, on_failure)
 #define IUTEST_TEST_FALSE(expr, text, on_failure)		IUTEST_TEST_BOOLEAN_( !(expr), text, true, false, on_failure)
 

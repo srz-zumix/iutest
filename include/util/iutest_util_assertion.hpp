@@ -28,12 +28,40 @@ namespace iuutil
 // define
 /**
  * @ingroup	IUTEST_ASSERT_
+ * @brief	== テスト(collection)
+*/
+#ifndef IUTEST_ASSERT_EQ_COLLECTIONS
+#  define	IUTEST_ASSERT_EQ_COLLECTIONS(b1, e1, b2, e2)	IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, IUTEST_ASSERT_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_EXPECT_
+ * @brief	== テスト(collection)
+*/
+#ifndef IUTEST_EXPECT_EQ_COLLECTIONS
+#  define	IUTEST_EXPECT_EQ_COLLECTIONS(b1, e1, b2, e2)	IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, IUTEST_EXPECT_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_INFORM_
+ * @brief	== テスト(collection)
+*/
+#ifndef IUTEST_INFORM_EQ_COLLECTIONS
+#  define	IUTEST_INFORM_EQ_COLLECTIONS(b1, e1, b2, e2)	IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, IUTEST_INFORM_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	== テスト(collection)
+*/
+#ifndef IUTEST_ASSUME_EQ_COLLECTIONS
+#  define	IUTEST_ASSUME_EQ_COLLECTIONS(b1, e1, b2, e2)	IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
+ * @ingroup	IUTEST_ASSERT_
  * @brief	文字列長の一致 テスト
 */
 #ifndef IUTEST_ASSERT_STRLNEQ
 #  define	IUTEST_ASSERT_STRLNEQ(len, v2)			IUTEST_TEST_STRLNEQ(len, v2, IUTEST_ASSERT_FAILURE)
 #endif
-
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	文字列長の一致 テスト
@@ -41,7 +69,6 @@ namespace iuutil
 #ifndef IUTEST_EXPECT_STRLNEQ
 #  define	IUTEST_EXPECT_STRLNEQ(len, v2)			IUTEST_TEST_STRLNEQ(len, v2, IUTEST_EXPECT_FAILURE)
 #endif
-
 /**
  * @ingroup	IUTEST_INFORM
  * @brief	文字列長の一致 テスト
@@ -49,11 +76,20 @@ namespace iuutil
 #ifndef IUTEST_INFORM_STRLNEQ
 #  define	IUTEST_INFORM_STRLNEQ(len, v2)			IUTEST_TEST_STRLNEQ(len, v2, IUTEST_INFORM_FAILURE)
 #endif
+/**
+ * @ingroup	IUTEST_ASSUME
+ * @brief	文字列長の一致 テスト
+*/
+#ifndef IUTEST_ASSUME_STRLNEQ
+#  define	IUTEST_ASSUME_STRLNEQ(len, v2)			IUTEST_TEST_STRLNEQ(len, v2, IUTEST_ASSUME_FAILURE)
+#endif
 
 /**
  * @private
  * @{
 */
+#define IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, on_failure) IUTEST_PRED_FORMAT4_( ::iuutil::CmpHelperEqCollections, b1, e1, b2, e2, on_failure)
+
 #define	IUTEST_TEST_STRLNEQ(len, v2, on_failure)	IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRLNEQ, len, v2, on_failure )
 
 /**
@@ -62,6 +98,50 @@ namespace iuutil
 
 //======================================================================
 // function
+/**
+ * @brief	Equal Collection Helper
+*/
+template<typename T1, typename T2>
+::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqCollections(const char* expr1b, const char* expr1e, const char* expr2b, const char* expr2e
+							   , T1 b1, T1 e1, T2 b2, T2 e2)
+{
+	int elem=0;
+	bool result = true;
+	::iutest::Message ar;
+	for( elem=0; b1 != e1 && b2 != e2; ++b1, ++b2, ++elem )
+	{
+		if( !::iutest::internal::EqHelper<false>::Compare("", "", *b1, *b2) )
+		{
+			result = false;
+			ar << "\nMismatch in a position " << elem << ": "
+				<< ::iutest::internal::FormatForComparisonFailureMessage(*b1, *b2)
+				<< " vs " << ::iutest::internal::FormatForComparisonFailureMessage(*b2, *b1);
+		}
+	}
+	if( b1 != e1 )
+	{
+		int elem1 = elem;
+		for( ; b1 != e1; ++b1, ++elem1 )
+			;
+		result = false;
+		ar << "\nMismatch element : " << elem1 << " vs " << elem;
+	}
+	if( b2 != e2 )
+	{
+		int elem2 = elem;
+		for( ; b2 != e2; ++b2, ++elem2 )
+			;
+		result = false;
+		ar << "\nMismatch element : " << elem << " vs " << elem2;
+	}
+	if( !result )
+	{
+		return ::iutest::AssertionFailure() << "error: Expected: { " << expr1b << ", " << expr1e << " } == { "
+			<< expr2b << ", " << expr2e << " }\n  Actual:" << ar;
+	}
+	return ::iutest::AssertionSuccess();
+}
+
 /**
  * @brief	文字列長アサーションフォーマッター
 */

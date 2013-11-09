@@ -231,9 +231,6 @@
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_core.hpp">
       <Filter>iutest\gtest\switch</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_eq_collections.hpp">
-      <Filter>iutest\gtest\switch</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_expect.hpp">
       <Filter>iutest\gtest\switch</Filter>
     </ClInclude>
