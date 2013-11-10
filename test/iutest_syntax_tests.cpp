@@ -62,6 +62,19 @@ IUTEST(SyntaxTest, EQ_COLLECTIONS)
 		IUTEST_INFORM_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
 }
 
+IUTEST(SyntaxTest, EQ_RANGE)
+{
+	int  a[] = { 0, 1, 2, 3, 4 };
+	int  b[] = { 0, 1, 2, 3, 4 };
+
+	if( int size = (sizeof(a)/sizeof(a[0])) )
+		IUTEST_ASSERT_EQ_RANGE(a, b) << size;
+	if( int size = (sizeof(a)/sizeof(a[0])) )
+		IUTEST_EXPECT_EQ_RANGE(a, b) << size;
+	if( int size = (sizeof(a)/sizeof(a[0])) )
+		IUTEST_INFORM_EQ_RANGE(a, b) << size;
+}
+
 IUTEST(SyntaxTest, NE)
 {
 	if( int x = 1 )

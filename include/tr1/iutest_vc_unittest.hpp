@@ -114,8 +114,8 @@ IUTEST_MAKE_SCOPED_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, 
 	private: static int	AddRegister(void) {													\
 			static ::iutest::detail::ParamTestInstance< className > testinfo(#testname_);	\
 			::iutest::UnitTest::GetInstance()->parameterized_test_registry().				\
-			GetTestCasePatternHolder< testcase_ >(#testcase_)->AddTestPattern(&testinfo);	\
-			return 0;																		\
+			GetTestCasePatternHolder< testcase_ >(#testcase_, IUTEST_GET_PACKAGENAME_())	\
+				->AddTestPattern(&testinfo); return 0;										\
 		}																					\
 		static int dummy_;																	\
 	};																						\

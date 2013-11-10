@@ -348,6 +348,13 @@ IUTEST(AssertionTest, Base2)
 		int* p1 = &v;
 		IUTEST_EXPECT_SAME(v, *p1);
 	}
+	// EQ_COLLECTIONS/EQ_RANGE
+	{
+		int  aa[] ={ 0, 1, 2, 3, 4 };
+		int  ab[] ={ 0, 1, 2, 3, 4 };
+		IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0])));
+		IUTEST_EXPECT_EQ_RANGE(aa, ab);
+	}
 }
 
 IUTEST(AssertionTest, Cpp11)

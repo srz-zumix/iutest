@@ -118,6 +118,10 @@ void SPITest::FatalFailure_Sub(int& count)
 	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_EQ_COLLECTIONS(ab, ab+(sizeof(ab)/sizeof(ab[0])), aa, aa+(sizeof(aa)/sizeof(aa[0]))), "" );
 	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0]))), "" );
 
+	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_EQ_RANGE(aa, ab), "" );
+	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_EQ_RANGE(ab, aa), "" );
+	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_EQ_RANGE(aa, ac), "" );
+
 	count++;
 }
 	
@@ -189,6 +193,10 @@ void SPITest::FatalFailure2_Sub(int& count)
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_EQ_COLLECTIONS(ab, ab+(sizeof(ab)/sizeof(ab[0])), aa, aa+(sizeof(aa)/sizeof(aa[0]))), "" );
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0]))), "" );
 
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_EQ_RANGE(aa, ab), "" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_EQ_RANGE(ab, aa), "" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_EQ_RANGE(aa, ac), "" );
+
 	count++;
 }
 	
@@ -259,6 +267,10 @@ IUTEST_F(SPITest, NonFatalFailure)
 	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0]))), "" );
 	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_COLLECTIONS(ab, ab+(sizeof(ab)/sizeof(ab[0])), aa, aa+(sizeof(aa)/sizeof(aa[0]))), "" );
 	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0]))), "" );
+
+	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_RANGE(aa, ab), "" );
+	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_RANGE(ab, aa), "" );
+	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_RANGE(aa, ac), "" );
 }
 
 IUTEST_F(SPITest, NonFatalFailure2)
@@ -314,6 +326,10 @@ IUTEST_F(SPITest, NonFatalFailure2)
 	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0]))), "" );
 	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_COLLECTIONS(ab, ab+(sizeof(ab)/sizeof(ab[0])), aa, aa+(sizeof(aa)/sizeof(aa[0]))), "" );
 	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0]))), "" );
+
+	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_RANGE(aa, ab), "" );
+	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_RANGE(ab, aa), "" );
+	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_RANGE(aa, ac), "" );
 }
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES

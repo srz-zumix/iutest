@@ -128,6 +128,51 @@ IUTEST(AssertionTest, EQ_COLLECTIONS)
 	}
 }
 
+IUTEST(AssertionTest, EQ_RANGE)
+{
+	{
+		int  a[] = { 0, 1, 2, 3, 4 };
+		int  b[] = { 0, 1, 2, 3, 4 };
+		char c[] = { 0, 1, 2, 3, 4 };
+		
+		IUTEST_ASSERT_EQ_RANGE(a, b);
+		IUTEST_EXPECT_EQ_RANGE(a, b);
+		IUTEST_INFORM_EQ_RANGE(a, b);
+
+		IUTEST_ASSERT_EQ_RANGE(a, c);
+		IUTEST_EXPECT_EQ_RANGE(a, c);
+		IUTEST_INFORM_EQ_RANGE(a, c);
+	}
+
+	{
+		int  d[] = { 0, 1, 2, 3, 4 };
+		const int COUNT=sizeof(d)/sizeof(d[0]);
+		::std::vector<int> a, b;
+		::std::vector<char> c;
+		for( int i=0; i < COUNT; ++i )
+		{
+			a.push_back(i);
+			b.push_back(i);
+			c.push_back(i);
+		}
+		IUTEST_ASSERT_EQ_RANGE(a, b);
+		IUTEST_EXPECT_EQ_RANGE(a, b);
+		IUTEST_INFORM_EQ_RANGE(a, b);
+
+		IUTEST_ASSERT_EQ_RANGE(a, c);
+		IUTEST_EXPECT_EQ_RANGE(a, c);
+		IUTEST_INFORM_EQ_RANGE(a, c);
+
+		IUTEST_ASSERT_EQ_RANGE(a, d);
+		IUTEST_EXPECT_EQ_RANGE(a, d);
+		IUTEST_INFORM_EQ_RANGE(a, d);
+
+		IUTEST_ASSERT_EQ_RANGE(d, c);
+		IUTEST_EXPECT_EQ_RANGE(d, c);
+		IUTEST_INFORM_EQ_RANGE(d, c);
+	}
+}
+
 IUTEST(AssertionTest, NE)
 {
 	int x0=0, x1=1;
