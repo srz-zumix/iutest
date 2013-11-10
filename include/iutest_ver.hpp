@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01070008u	//!< iutest version 1.7.0.8
+#define	IUTEST_VER			0x01070009u	//!< iutest version 1.7.0.9
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x07u		//!< Minor Version
 #define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x08u		//!< Revision
+#define IUTEST_REVISION		0x09u		//!< Revision
 
 /**
  * @mainpage
@@ -95,7 +95,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.7.0.8
+  <li>v1.7.0.9
     <ul>
       <li>IUTEST_*_EQ_RANGE を追加</li>
       <li>パッケージ内の値のパラメータ化テストのテストケース名が pkg.prefix/testcase となるように修正</li>
