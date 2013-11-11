@@ -288,7 +288,7 @@
 #    endif
 #  elif	defined(__GNUC__)
 	// http://gcc.gnu.org/bugzilla/show_bug.cgi?id=35722
-#    if defined(__VARIADIC_TEMPLATES) || (__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7) && defined(__GXX_EXPERIMENTAL_CXX0X__))
+#    if defined(__VARIADIC_TEMPLATES) || ( ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7))) && defined(__GXX_EXPERIMENTAL_CXX0X__) )
 #      define IUTEST_HAS_VARIADIC_TEMPLATES	1
 #    endif
 #  elif	defined(_MSC_VER)
@@ -311,7 +311,7 @@
 #      define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES	1
 #    endif
 #  elif	defined(__GNUC__)
-#    if defined(__VARIADIC_TEMPLATES) || (__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ > 7)) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7) && (__GNUC_PATCHLEVEL__ >= 1) && defined(__GXX_EXPERIMENTAL_CXX0X__))
+#    if defined(__VARIADIC_TEMPLATES) || ( ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ > 7)) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7) && (__GNUC_PATCHLEVEL__ >= 1))) && defined(__GXX_EXPERIMENTAL_CXX0X__) )
 #      define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES	1
 #    endif
 #  elif	defined(_MSC_VER)
