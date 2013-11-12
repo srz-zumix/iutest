@@ -64,6 +64,15 @@ public:
 			return result.type() != Type;
 		}
 	};
+
+	template<TestPartResult::Type Type>
+	struct CondGt
+	{
+		bool operator ()(const TestPartResult& result)
+		{
+			return result.type() > Type;
+		}
+	};
 public:
 	template<typename REPORTER>
 	class Reporter : public REPORTER

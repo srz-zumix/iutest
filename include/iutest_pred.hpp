@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2012, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -53,24 +53,32 @@ AssertionResult	AssertPred1Helper(const char* pred_str, const char* expr1
 /**
  * @ingroup	IUTEST_ASSERT_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
 */
 #define IUTEST_ASSERT_PRED1(pred, v1)		\
 	IUTEST_PRED1_(pred, v1, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
 */
 #define IUTEST_EXPECT_PRED1(pred, v1)		\
 	IUTEST_PRED1_(pred, v1, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
 */
 #define IUTEST_INFORM_PRED1(pred, v1)		\
 	IUTEST_PRED1_(pred, v1, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
 */
 #define IUTEST_ASSUME_PRED1(pred, v1)		\
 	IUTEST_PRED1_(pred, v1, IUTEST_ASSUME_FAILURE)
@@ -78,24 +86,32 @@ AssertionResult	AssertPred1Helper(const char* pred_str, const char* expr1
 /**
  * @ingroup	IUTEST_ASSERT_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
 */
 #define IUTEST_ASSERT_PRED_FORMAT1(pred_formatter, v1)		\
 	IUTEST_PRED_FORMAT1_(pred_formatter, v1, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
 */
 #define IUTEST_EXPECT_PRED_FORMAT1(pred_formatter, v1)		\
 	IUTEST_PRED_FORMAT1_(pred_formatter, v1, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
 */
 #define IUTEST_INFORM_PRED_FORMAT1(pred_formatter, v1)		\
 	IUTEST_PRED_FORMAT1_(pred_formatter, v1, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
 */
 #define IUTEST_ASSUME_PRED_FORMAT1(pred_formatter, v1)		\
 	IUTEST_PRED_FORMAT1_(pred_formatter, v1, IUTEST_ASSUME_FAILURE)
@@ -130,24 +146,36 @@ AssertionResult	AssertPred2Helper(const char* pred_str, const char* expr1, const
 /**
  * @ingroup	IUTEST_ASSERT_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
+ * @param	v2		= 引数2
 */
 #define IUTEST_ASSERT_PRED2(pred, v1, v2)		\
 	IUTEST_PRED2_(pred, v1, v2, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
+ * @param	v2		= 引数2
 */
 #define IUTEST_EXPECT_PRED2(pred, v1, v2)		\
 	IUTEST_PRED2_(pred, v1, v2, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
+ * @param	v2		= 引数2
 */
 #define IUTEST_INFORM_PRED2(pred, v1, v2)		\
 	IUTEST_PRED2_(pred, v1, v2, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
+ * @param	v2		= 引数2
 */
 #define IUTEST_ASSUME_PRED2(pred, v1, v2)		\
 	IUTEST_PRED2_(pred, v1, v2, IUTEST_ASSUME_FAILURE)
@@ -155,24 +183,36 @@ AssertionResult	AssertPred2Helper(const char* pred_str, const char* expr1, const
 /**
  * @ingroup	IUTEST_ASSERT_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
+ * @param	v2				= 引数2
 */
 #define IUTEST_ASSERT_PRED_FORMAT2(pred_formatter, v1, v2)		\
 	IUTEST_PRED_FORMAT2_(pred_formatter, v1, v2, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
+ * @param	v2				= 引数2
 */
 #define IUTEST_EXPECT_PRED_FORMAT2(pred_formatter, v1, v2)		\
 	IUTEST_PRED_FORMAT2_(pred_formatter, v1, v2, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
+ * @param	v2				= 引数2
 */
 #define IUTEST_INFORM_PRED_FORMAT2(pred_formatter, v1, v2)		\
 	IUTEST_PRED_FORMAT2_(pred_formatter, v1, v2, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
+ * @param	v2				= 引数2
 */
 #define IUTEST_ASSUME_PRED_FORMAT2(pred_formatter, v1, v2)		\
 	IUTEST_PRED_FORMAT2_(pred_formatter, v1, v2, IUTEST_ASSUME_FAILURE)
@@ -207,24 +247,40 @@ AssertionResult	AssertPred3Helper(const char* pred_str, const char* expr1, const
 /**
  * @ingroup	IUTEST_ASSERT_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
+ * @param	v2		= 引数2
+ * @param	v3		= 引数3
 */
 #define IUTEST_ASSERT_PRED3(pred, v1, v2, v3)		\
 	IUTEST_PRED3_(pred, v1, v2, v3, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
+ * @param	v2		= 引数2
+ * @param	v3		= 引数3
 */
 #define IUTEST_EXPECT_PRED3(pred, v1, v2, v3)		\
 	IUTEST_PRED3_(pred, v1, v2, v3, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
+ * @param	v2		= 引数2
+ * @param	v3		= 引数3
 */
 #define IUTEST_INFORM_PRED3(pred, v1, v2, v3)		\
 	IUTEST_PRED3_(pred, v1, v2, v3, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
+ * @param	v2		= 引数2
+ * @param	v3		= 引数3
 */
 #define IUTEST_ASSUME_PRED3(pred, v1, v2, v3)		\
 	IUTEST_PRED3_(pred, v1, v2, v3, IUTEST_ASSUME_FAILURE)
@@ -232,24 +288,40 @@ AssertionResult	AssertPred3Helper(const char* pred_str, const char* expr1, const
 /**
  * @ingroup	IUTEST_ASSERT_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
+ * @param	v2				= 引数2
+ * @param	v3				= 引数3
 */
 #define IUTEST_ASSERT_PRED_FORMAT3(pred_formatter, v1, v2, v3)		\
 	IUTEST_PRED_FORMAT3_(pred_formatter, v1, v2, v3, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
+ * @param	v2				= 引数2
+ * @param	v3				= 引数3
 */
 #define IUTEST_EXPECT_PRED_FORMAT3(pred_formatter, v1, v2, v3)		\
 	IUTEST_PRED_FORMAT3_(pred_formatter, v1, v2, v3, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
+ * @param	v2				= 引数2
+ * @param	v3				= 引数3
 */
 #define IUTEST_INFORM_PRED_FORMAT3(pred_formatter, v1, v2, v3)		\
 	IUTEST_PRED_FORMAT3_(pred_formatter, v1, v2, v3, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
+ * @param	v2				= 引数2
+ * @param	v3				= 引数3
 */
 #define IUTEST_ASSUME_PRED_FORMAT3(pred_formatter, v1, v2, v3)		\
 	IUTEST_PRED_FORMAT3_(pred_formatter, v1, v2, v3, IUTEST_ASSUME_FAILURE)
@@ -285,24 +357,44 @@ AssertionResult	AssertPred4Helper(const char* pred_str, const char* expr1, const
 /**
  * @ingroup	IUTEST_ASSERT_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
+ * @param	v2		= 引数2
+ * @param	v3		= 引数3
+ * @param	v4		= 引数4
 */
 #define IUTEST_ASSERT_PRED4(pred, v1, v2, v3, v4)		\
 	IUTEST_PRED4_(pred, v1, v2, v3, v4, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
+ * @param	v2		= 引数2
+ * @param	v3		= 引数3
+ * @param	v4		= 引数4
 */
 #define IUTEST_EXPECT_PRED4(pred, v1, v2, v3, v4)		\
 	IUTEST_PRED4_(pred, v1, v2, v3, v4, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
+ * @param	v2		= 引数2
+ * @param	v3		= 引数3
+ * @param	v4		= 引数4
 */
 #define IUTEST_INFORM_PRED4(pred, v1, v2, v3, v4)		\
 	IUTEST_PRED4_(pred, v1, v2, v3, v4, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
+ * @param	v2		= 引数2
+ * @param	v3		= 引数3
+ * @param	v4		= 引数4
 */
 #define IUTEST_ASSUME_PRED4(pred, v1, v2, v3, v4)		\
 	IUTEST_PRED4_(pred, v1, v2, v3, v4, IUTEST_ASSUME_FAILURE)
@@ -310,24 +402,44 @@ AssertionResult	AssertPred4Helper(const char* pred_str, const char* expr1, const
 /**
  * @ingroup	IUTEST_ASSERT_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
+ * @param	v2				= 引数2
+ * @param	v3				= 引数3
+ * @param	v4				= 引数4
 */
 #define IUTEST_ASSERT_PRED_FORMAT4(pred_formatter, v1, v2, v3, v4)		\
 	IUTEST_PRED_FORMAT4_(pred_formatter, v1, v2, v3, v4, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
+ * @param	v2				= 引数2
+ * @param	v3				= 引数3
+ * @param	v4				= 引数4
 */
 #define IUTEST_EXPECT_PRED_FORMAT4(pred_formatter, v1, v2, v3, v4)		\
 	IUTEST_PRED_FORMAT4_(pred_formatter, v1, v2, v3, v4, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
+ * @param	v2				= 引数2
+ * @param	v3				= 引数3
+ * @param	v4				= 引数4
 */
 #define IUTEST_INFORM_PRED_FORMAT4(pred_formatter, v1, v2, v3, v4)		\
 	IUTEST_PRED_FORMAT4_(pred_formatter, v1, v2, v3, v4, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
+ * @param	v2				= 引数2
+ * @param	v3				= 引数3
+ * @param	v4				= 引数4
 */
 #define IUTEST_ASSUME_PRED_FORMAT4(pred_formatter, v1, v2, v3, v4)		\
 	IUTEST_PRED_FORMAT4_(pred_formatter, v1, v2, v3, v4, IUTEST_ASSUME_FAILURE)
@@ -365,24 +477,48 @@ AssertionResult	AssertPred5Helper(const char* pred_str, const char* expr1, const
 /**
  * @ingroup	IUTEST_ASSERT_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
+ * @param	v2		= 引数2
+ * @param	v3		= 引数3
+ * @param	v4		= 引数4
+ * @param	v5		= 引数5
 */
 #define IUTEST_ASSERT_PRED5(pred, v1, v2, v3, v4, v5)		\
 	IUTEST_PRED5_(pred, v1, v2, v3, v4, v5, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
+ * @param	v2		= 引数2
+ * @param	v3		= 引数3
+ * @param	v4		= 引数4
+ * @param	v5		= 引数5
 */
 #define IUTEST_EXPECT_PRED5(pred, v1, v2, v3, v4, v5)		\
 	IUTEST_PRED5_(pred, v1, v2, v3, v4, v5, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
+ * @param	v2		= 引数2
+ * @param	v3		= 引数3
+ * @param	v4		= 引数4
+ * @param	v5		= 引数5
 */
 #define IUTEST_INFORM_PRED5(pred, v1, v2, v3, v4, v5)		\
 	IUTEST_PRED5_(pred, v1, v2, v3, v4, v5, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	v1		= 引数1
+ * @param	v2		= 引数2
+ * @param	v3		= 引数3
+ * @param	v4		= 引数4
+ * @param	v5		= 引数5
 */
 #define IUTEST_ASSUME_PRED5(pred, v1, v2, v3, v4, v5)		\
 	IUTEST_PRED5_(pred, v1, v2, v3, v4, v5, IUTEST_ASSUME_FAILURE)
@@ -390,24 +526,48 @@ AssertionResult	AssertPred5Helper(const char* pred_str, const char* expr1, const
 /**
  * @ingroup	IUTEST_ASSERT_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
+ * @param	v2				= 引数2
+ * @param	v3				= 引数3
+ * @param	v4				= 引数4
+ * @param	v5				= 引数5
 */
 #define IUTEST_ASSERT_PRED_FORMAT5(pred_formatter, v1, v2, v3, v4, v5)		\
 	IUTEST_PRED_FORMAT5_(pred_formatter, v1, v2, v3, v4, v5, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
+ * @param	v2				= 引数2
+ * @param	v3				= 引数3
+ * @param	v4				= 引数4
+ * @param	v5				= 引数5
 */
 #define IUTEST_EXPECT_PRED_FORMAT5(pred_formatter, v1, v2, v3, v4, v5)		\
 	IUTEST_PRED_FORMAT5_(pred_formatter, v1, v2, v3, v4, v5, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
+ * @param	v2				= 引数2
+ * @param	v3				= 引数3
+ * @param	v4				= 引数4
+ * @param	v5				= 引数5
 */
 #define IUTEST_INFORM_PRED_FORMAT5(pred_formatter, v1, v2, v3, v4, v5)		\
 	IUTEST_PRED_FORMAT5_(pred_formatter, v1, v2, v3, v4, v5, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	v1				= 引数1
+ * @param	v2				= 引数2
+ * @param	v3				= 引数3
+ * @param	v4				= 引数4
+ * @param	v5				= 引数5
 */
 #define IUTEST_ASSUME_PRED_FORMAT5(pred_formatter, v1, v2, v3, v4, v5)		\
 	IUTEST_PRED_FORMAT5_(pred_formatter, v1, v2, v3, v4, v5, IUTEST_ASSUME_FAILURE)
@@ -437,24 +597,32 @@ AssertionResult	AssertPredVariadicHelper(const char* pred_str, const char* param
 /**
  * @ingroup	IUTEST_ASSERT_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	...		= 引数
 */
 #define IUTEST_ASSERT_PRED(pred, ...)		\
 	IUTEST_PRED_(pred, IUTEST_ASSERT_FAILURE, __VA_ARGS__)
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	...		= 引数
 */
 #define IUTEST_EXPECT_PRED(pred, ...)		\
 	IUTEST_PRED_(pred, IUTEST_EXPECT_FAILURE, __VA_ARGS__)
 /**
  * @ingroup	IUTEST_INFORM_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	...		= 引数
 */
 #define IUTEST_INFORM_PRED(pred, ...)		\
 	IUTEST_PRED_(pred, IUTEST_INFORM_FAILURE, __VA_ARGS__)
 /**
  * @ingroup	IUTEST_ASSUME_
  * @brief	述語 ASSERTION テスト
+ * @param	pred	= 述語
+ * @param	...		= 引数
 */
 #define IUTEST_ASSUME_PRED(pred, ...)		\
 	IUTEST_PRED_(pred, IUTEST_ASSUME_FAILURE, __VA_ARGS__)
@@ -476,24 +644,32 @@ AssertionResult	AssertPredVariadicHelper(const char* pred_str, const char* param
 /**
  * @ingroup	IUTEST_ASSERT_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	...				= 引数
 */
 #define IUTEST_ASSERT_PRED_FORMAT(pred_formatter, ...)		\
 	IUTEST_PRED_FORMAT_(pred_formatter, IUTEST_ASSERT_FAILURE, __VA_ARGS__)
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	...				= 引数
 */
 #define IUTEST_EXPECT_PRED_FORMAT(pred_formatter, ...)		\
 	IUTEST_PRED_FORMAT_(pred_formatter, IUTEST_EXPECT_FAILURE, __VA_ARGS__)
 /**
  * @ingroup	IUTEST_INFORM_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	...				= 引数
 */
 #define IUTEST_INFORM_PRED_FORMAT(pred_formatter, ...)		\
 	IUTEST_PRED_FORMAT_(pred_formatter, IUTEST_INFORM_FAILURE, __VA_ARGS__)
 /**
  * @ingroup	IUTEST_ASSUME_
  * @brief	述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter	= 述語フォーマッター
+ * @param	...				= 引数
 */
 #define IUTEST_ASSUME_PRED_FORMAT(pred_formatter, ...)		\
 	IUTEST_PRED_FORMAT_(pred_formatter, IUTEST_ASSUME_FAILURE, __VA_ARGS__)
@@ -513,24 +689,40 @@ AssertionResult	AssertPredVariadicHelper(const char* pred_str, const char* param
 /**
  * @ingroup	IUTEST_ASSERT_
  * @brief	例外値 述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter			= 述語フォーマッター
+ * @param	statement				= ステートメント
+ * @param	expected_exception		= 期待する例外
+ * @param	expected_exception_value= 期待値
 */
 #define IUTEST_ASSERT_THROW_PRED_FORMAT2(pred_formatter, statement, expected_exception, expected_exception_value)		\
 	IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	例外値 述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter			= 述語フォーマッター
+ * @param	statement				= ステートメント
+ * @param	expected_exception		= 期待する例外
+ * @param	expected_exception_value= 期待値
 */
 #define IUTEST_EXPECT_THROW_PRED_FORMAT2(pred_formatter, statement, expected_exception, expected_exception_value)		\
 	IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
  * @brief	例外値 述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter			= 述語フォーマッター
+ * @param	statement				= ステートメント
+ * @param	expected_exception		= 期待する例外
+ * @param	expected_exception_value= 期待値
 */
 #define IUTEST_INFORM_THROW_PRED_FORMAT2(pred_formatter, statement, expected_exception, expected_exception_value)		\
 	IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
  * @brief	例外値 述語 ASSERTION テスト(メッセージフォーマッター指定)
+ * @param	pred_formatter			= 述語フォーマッター
+ * @param	statement				= ステートメント
+ * @param	expected_exception		= 期待する例外
+ * @param	expected_exception_value= 期待値
 */
 #define IUTEST_ASSUME_THROW_PRED_FORMAT2(pred_formatter, statement, expected_exception, expected_exception_value)		\
 	IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_ASSUME_FAILURE)

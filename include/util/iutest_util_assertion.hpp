@@ -29,6 +29,10 @@ namespace iuutil
 /**
  * @ingroup	IUTEST_ASSERT_
  * @brief	== テスト(collection)
+ * @param	b1	= 期待値の先頭
+ * @param	e1	= 期待値の終端
+ * @param	b2	= 検査対象の先頭
+ * @param	e2	= 検査対象の終端
 */
 #ifndef IUTEST_ASSERT_EQ_COLLECTIONS
 #  define	IUTEST_ASSERT_EQ_COLLECTIONS(b1, e1, b2, e2)	IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, IUTEST_ASSERT_FAILURE)
@@ -36,6 +40,10 @@ namespace iuutil
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	== テスト(collection)
+ * @param	b1	= 期待値の先頭
+ * @param	e1	= 期待値の終端
+ * @param	b2	= 検査対象の先頭
+ * @param	e2	= 検査対象の終端
 */
 #ifndef IUTEST_EXPECT_EQ_COLLECTIONS
 #  define	IUTEST_EXPECT_EQ_COLLECTIONS(b1, e1, b2, e2)	IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, IUTEST_EXPECT_FAILURE)
@@ -43,6 +51,10 @@ namespace iuutil
 /**
  * @ingroup	IUTEST_INFORM_
  * @brief	== テスト(collection)
+ * @param	b1	= 期待値の先頭
+ * @param	e1	= 期待値の終端
+ * @param	b2	= 検査対象の先頭
+ * @param	e2	= 検査対象の終端
 */
 #ifndef IUTEST_INFORM_EQ_COLLECTIONS
 #  define	IUTEST_INFORM_EQ_COLLECTIONS(b1, e1, b2, e2)	IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, IUTEST_INFORM_FAILURE)
@@ -50,6 +62,10 @@ namespace iuutil
 /**
  * @ingroup	IUTEST_ASSUME_
  * @brief	== テスト(collection)
+ * @param	b1	= 期待値の先頭
+ * @param	e1	= 期待値の終端
+ * @param	b2	= 検査対象の先頭
+ * @param	e2	= 検査対象の終端
 */
 #ifndef IUTEST_ASSUME_EQ_COLLECTIONS
 #  define	IUTEST_ASSUME_EQ_COLLECTIONS(b1, e1, b2, e2)	IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, IUTEST_ASSUME_FAILURE)
@@ -57,28 +73,36 @@ namespace iuutil
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	== テスト(collection)
+ * @brief	== テスト(range)
+ * @param	expected	= 期待値
+ * @param	actual		= 検査対象
 */
 #ifndef IUTEST_ASSERT_EQ_RANGE
 #  define	IUTEST_ASSERT_EQ_RANGE(expected, actual)	IUTEST_TEST_EQ_RANGE(expected, actual, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	== テスト(collection)
+ * @brief	== テスト(range)
+ * @param	expected	= 期待値
+ * @param	actual		= 検査対象
 */
 #ifndef IUTEST_EXPECT_EQ_RANGE
 #  define	IUTEST_EXPECT_EQ_RANGE(expected, actual)	IUTEST_TEST_EQ_RANGE(expected, actual, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	== テスト(collection)
+ * @brief	== テスト(range)
+ * @param	expected	= 期待値
+ * @param	actual		= 検査対象
 */
 #ifndef IUTEST_INFORM_EQ_RANGE
 #  define	IUTEST_INFORM_EQ_RANGE(expected, actual)	IUTEST_TEST_EQ_RANGE(expected, actual, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	== テスト(collection)
+ * @brief	== テスト(range)
+ * @param	expected	= 期待値
+ * @param	actual		= 検査対象
 */
 #ifndef IUTEST_ASSUME_EQ_RANGE
 #  define	IUTEST_ASSUME_EQ_RANGE(expected, actual)	IUTEST_TEST_EQ_RANGE(expected, actual, IUTEST_ASSUME_FAILURE)
@@ -87,6 +111,8 @@ namespace iuutil
 /**
  * @ingroup	IUTEST_ASSERT_
  * @brief	文字列長の一致 テスト
+ * @param	len		= 期待文字列長
+ * @param	v2		= 検査対象
 */
 #ifndef IUTEST_ASSERT_STRLNEQ
 #  define	IUTEST_ASSERT_STRLNEQ(len, v2)			IUTEST_TEST_STRLNEQ(len, v2, IUTEST_ASSERT_FAILURE)
@@ -94,6 +120,8 @@ namespace iuutil
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	文字列長の一致 テスト
+ * @param	len		= 期待文字列長
+ * @param	v2		= 検査対象
 */
 #ifndef IUTEST_EXPECT_STRLNEQ
 #  define	IUTEST_EXPECT_STRLNEQ(len, v2)			IUTEST_TEST_STRLNEQ(len, v2, IUTEST_EXPECT_FAILURE)
@@ -101,6 +129,8 @@ namespace iuutil
 /**
  * @ingroup	IUTEST_INFORM
  * @brief	文字列長の一致 テスト
+ * @param	len		= 期待文字列長
+ * @param	v2		= 検査対象
 */
 #ifndef IUTEST_INFORM_STRLNEQ
 #  define	IUTEST_INFORM_STRLNEQ(len, v2)			IUTEST_TEST_STRLNEQ(len, v2, IUTEST_INFORM_FAILURE)
@@ -108,6 +138,8 @@ namespace iuutil
 /**
  * @ingroup	IUTEST_ASSUME
  * @brief	文字列長の一致 テスト
+ * @param	len		= 期待文字列長
+ * @param	v2		= 検査対象
 */
 #ifndef IUTEST_ASSUME_STRLNEQ
 #  define	IUTEST_ASSUME_STRLNEQ(len, v2)			IUTEST_TEST_STRLNEQ(len, v2, IUTEST_ASSUME_FAILURE)
@@ -212,6 +244,8 @@ template<typename T1, typename T2>
 	return detail::CmpHelperEqRange(expected_expr, actual_expr, expected.begin(), expected.end()
 		, actual.begin(), actual.end());
 }
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+/** @overload */
 template<typename T1, size_t SIZE1, typename T2, size_t SIZE2>
 ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqRange(const char* expected_expr, const char* actual_expr
 	, T1 (&expected)[SIZE1], T2 (&actual)[SIZE2])
@@ -219,6 +253,7 @@ template<typename T1, size_t SIZE1, typename T2, size_t SIZE2>
 	return detail::CmpHelperEqRange(expected_expr, actual_expr, expected, expected+SIZE1
 		, actual, actual+SIZE2);
 }
+/** @overload */
 template<typename T1, typename T2, size_t SIZE2>
 ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqRange(const char* expected_expr, const char* actual_expr
 	, T1 expected, T2(&actual)[SIZE2])
@@ -226,6 +261,7 @@ template<typename T1, typename T2, size_t SIZE2>
 	return detail::CmpHelperEqRange(expected_expr, actual_expr, expected.begin(), expected.end()
 		, actual, actual+SIZE2);
 }
+/** @overload */
 template<typename T1, size_t SIZE1, typename T2>
 ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqRange(const char* expected_expr, const char* actual_expr
 	, T1(&expected)[SIZE1], T2 actual)
@@ -233,6 +269,8 @@ template<typename T1, size_t SIZE1, typename T2>
 	return detail::CmpHelperEqRange(expected_expr, actual_expr, expected, expected+SIZE1
 		, actual.begin(), actual.end());
 }
+
+#endif
 
 /**
  * @brief	文字列長アサーションフォーマッター

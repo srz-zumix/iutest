@@ -220,14 +220,14 @@ template<class Tester>
 class TestInstance
 {
 public:
-	// コンストラクタ
+	/** コンストラクタ */
 	TestInstance(const char* testcase, const char* name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
 		: m_mediator(AddTestCase(testcase, id, setup, teardown))
 		, m_info(&m_mediator, name, &m_factory)
 	{
 		UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
 	}
-	// コンストラクタ
+	/** コンストラクタ */
 	TestInstance(const char* testcase, const char* name, const char*  value_params, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
 		: m_mediator(AddTestCase(testcase, id, setup, teardown))
 		, m_info(&m_mediator, name, &m_factory)

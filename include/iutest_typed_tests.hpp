@@ -289,8 +289,8 @@ class TypeParamTestInstance
 
 public:
 	// コンストラクタ
-	TypeParamTestInstance(const ::std::string& testcase, const char* name)
-		: m_tests(testcase.c_str(), name, 0)
+	TypeParamTestInstance(const char* testcase, const char* name)
+		: m_tests(testcase, name, 0)
 	{
 		m_tests.AddTest();
 	}
