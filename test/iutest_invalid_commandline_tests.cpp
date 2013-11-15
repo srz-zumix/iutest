@@ -31,16 +31,18 @@ int main(int argc, char* argv[])
 #endif
 {
 	(void)argc;
-	int targc = 2;
+	int targc = 3;
 #ifdef UNICODE
 	const wchar_t* targv[] = {
 		argv[0]
 		, L"--iutest_foo"
+		, L"--gtest_foo"
 	};
 #else
 	const char* targv[] = {
 		argv[0]
 		, "--iutest_foo"
+		, "--gtest_foo"
 	};
 #endif
 	IUTEST_INIT(&targc, targv);
