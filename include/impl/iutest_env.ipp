@@ -306,9 +306,12 @@ IUTEST_IPP_INLINE void	TestEnv::SetUp(void)
 	unsigned int seed = get_random_seed();
 	if( seed == 0 )
 	{
-		seed = detail::GetIndefiniteValue();
-		if( get_vars().m_current_random_seed == seed )
-			seed += get_vars().m_current_random_seed;
+		const unsigned int gen_seeed = detail::GetIndefiniteValue();
+		if( get_vars().m_current_random_seed == gen_seeed
+			|| get_vars().m_before_origin_random_seed == gen_seeed )
+			seed = get_vars().m_current_random_seed;
+		seed += gen_seeed;
+		get_vars().m_before_origin_random_seed = gen_seeed;
 	}
 	get_vars().m_current_random_seed = seed;
 	genrand().init(seed);

@@ -263,11 +263,13 @@ private:
 		Variable(void)
 			: m_random_seed(0)
 			, m_current_random_seed(0)
+			, m_before_origin_random_seed(0)
 			, m_repeat_count(1)
 			, m_testpartresult_reporter(NULL)
 		{}
 		unsigned int		m_random_seed;
 		unsigned int		m_current_random_seed;
+		unsigned int		m_before_origin_random_seed;
 		int					m_repeat_count;
 		::std::string		m_output_option;
 		::std::string		m_test_filter;
