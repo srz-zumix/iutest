@@ -278,6 +278,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OutputXmlAttribute(IFile* fi
 
 IUTEST_IPP_INLINE ::std::string DefaultXmlGeneratorListener::EscapeXml(const char* str, bool is_attribute)
 {
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 	::std::string msg;
 	if( str != NULL )
 	{
@@ -339,6 +340,7 @@ IUTEST_IPP_INLINE ::std::string DefaultXmlGeneratorListener::EscapeXml(const cha
 		}
 	}
 	return msg;
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 }
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()

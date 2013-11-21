@@ -120,7 +120,9 @@ private:
 	*/
 	static IUTEST_CXX_CONSTEXPR bool IsValidXmlCharacter(char c)
 	{
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 		return IsWhitespace(c) || c >= 0x20;
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 	}
 
 public:

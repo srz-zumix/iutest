@@ -148,6 +148,10 @@ inline void iuOptionMessage::ShowFeature(void)
 	SHOW_MACRO(IUTEST_REPORT_SKIPPED);
 	SHOW_MACRO(IUTEST_USE_THROW_ON_ASSERT_FAILURE);
 
+#ifdef _MSC_FULL_VER
+	SHOW_MACRO(_MSC_FULL_VER);
+#endif
+
 #undef SHOW_MACRO
 }
 

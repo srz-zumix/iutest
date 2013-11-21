@@ -107,6 +107,7 @@ IUTEST_IPP_INLINE char* CodePointToUtf8(UInt32 code_point, char* buf)
 
 IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const wchar_t* str, int num)
 {
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 	if(num == -1)
 		num = static_cast<int>(wcslen(str));
 #if IUTEST_HAS_CXX_HDR_CODECVT && 0
@@ -149,6 +150,7 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const 
 	}
 	return ss.str();
 #endif
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 }
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const wchar_t* str, int num)

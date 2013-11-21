@@ -108,7 +108,7 @@ template<typename T>bool TestTypeIdHelper<T>::_dummy = false;
   * @brief	TypeId Generator
 */
 template<typename T>
-inline IUTEST_CXX_CONSTEXPR TypeId	GetTypeId(void)
+inline TypeId	GetTypeId(void)
 {
 	return &(helper::TestTypeIdHelper<T>::_dummy);
 }

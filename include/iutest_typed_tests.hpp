@@ -342,6 +342,7 @@ public:
 private:
 	bool	Verify(const char* names)
 	{
+		IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 #if IUTEST_TYPED_TEST_P_STRICT
 		if( names == NULL ) return true;
 		const char* comma = FindComma(names);
@@ -355,8 +356,10 @@ private:
 		if( m_list.find(name.c_str()) == m_list.end() ) return false;
 		return Verify(SkipSpace(comma));
 #else
+		IUTEST_UNUSED_VAR(names);
 		return true;
 #endif
+		IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 	}
 
 private:
@@ -400,6 +403,7 @@ class TypeParameterizedTestCase
 		// ƒeƒXƒg‚Ì“o˜^
 		static void Register(TestCase* testcase, const char* test_names)
 		{
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 			const char* str = detail::SkipSpace(test_names);
 			const char* comma = strchr(str, ',');
 			::std::string test_name;
@@ -417,6 +421,7 @@ class TypeParameterizedTestCase
 			detail::iuPool<IEachTest>::GetInstance().push(test);
 
 			EachTest<TypeParam, typename TestsList::Tail>::Register(testcase, detail::SkipSpace(comma));
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 		}
 	private:
 		TestCaseMediator	m_mediator;

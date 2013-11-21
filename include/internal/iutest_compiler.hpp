@@ -162,7 +162,11 @@
 #      define IUTEST_HAS_CONSTEXPR	0
 #    endif
 #  elif	defined(_MSC_VER)
-#    define IUTEST_HAS_CONSTEXPR	0
+#    if _MSC_FULL_VER == 180021114
+#      define IUTEST_HAS_CONSTEXPR	1
+#    else
+#      define IUTEST_HAS_CONSTEXPR	0
+#    endif
 #  elif	defined(__MWERKS__)
 #    define IUTEST_HAS_CONSTEXPR	0
 #  else
@@ -454,6 +458,9 @@
 #      define IUTEST_HAS_NOEXCEPT	1
 #    endif
 #  elif defined(_MSC_VER)
+#    if _MSC_FULL_VER == 180021114
+//#      define IUTEST_HAS_NOEXCEPT	1	// build fail
+#    endif
 #  endif
 #endif
 

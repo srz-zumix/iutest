@@ -127,11 +127,13 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 #endif
 }
 
-inline IUTEST_CXX_CONSTEXPR bool IsEmpty(const char* p) { return p == NULL || *p == '\0'; }
+inline bool IsEmpty(const char* p) { return p == NULL || *p == '\0'; }
 inline IUTEST_CXX_CONSTEXPR bool IsSpace(char ch)	{ return ch == ' ' || ch =='\t'; }
 inline IUTEST_CXX_CONSTEXPR const char*	SkipSpace(const char* p)
 {
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 	return p == NULL ? NULL : (IsSpace(*p) ? SkipSpace(++p) : p);
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 }
 inline IUTEST_CXX_CONSTEXPR const char*	FindComma(const char* p)
 {
@@ -156,6 +158,7 @@ inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n) { return (n&0xF) >= 0xA ?
 template<typename T>
 inline ::std::string ToHexString(T value)
 {
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 	const size_t len = sizeof(T)*2;
 	char buf[len+1];
 	for( size_t i=0; i < len; ++i )
@@ -164,6 +167,7 @@ inline ::std::string ToHexString(T value)
 	}
 	buf[len] = '\0';
 	return buf;
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 }
 
 inline ::std::string FormatIntWidth2(int value)

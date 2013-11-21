@@ -325,21 +325,24 @@ GeTypeNameSpecialization(bool)
 /**
  * @brief	true ‚ğ•Ô‚·(Œx‘Îô—p)
 */
-inline IUTEST_CXX_CONSTEXPR bool	AlwaysTrue(void)
+inline bool	AlwaysTrue(void)
 {
 	return true;
 }
 /**
  * @brief	false ‚ğ•Ô‚·(Œx‘Îô—p)
 */
-inline IUTEST_CXX_CONSTEXPR bool	AlwaysFalse(void)	{ return !AlwaysTrue(); }
+inline bool	AlwaysFalse(void)	{ return !AlwaysTrue(); }
 
 /**
  * @brief	0 ‚ğ•Ô‚·(Œx‘Îô—p)
 */
-inline IUTEST_CXX_CONSTEXPR int		AlwaysZero(void)	{ return 0; }
+inline int	AlwaysZero(void)	{ return 0; }
 
-inline IUTEST_CXX_CONSTEXPR bool	IsTrue(bool b)		{ return b; }
+/**
+* @brief	^‹U’l‚ğ•Ô‚·(Œx‘Îô—p)
+*/
+inline bool	IsTrue(bool b)		{ return b; }
 
 }	// end of namespace detail
 }	// end of namespace iutest

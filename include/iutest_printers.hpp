@@ -35,6 +35,7 @@ namespace detail
 
 inline void PrintBytesInObjectTo(const unsigned char* buf, size_t size, iu_ostream* os)
 {
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 	const size_t kMaxCount = detail::kValues::MaxPrintContainerCount;
 	*os << size << "-Byte object < ";
 	for( size_t i=0; i < size; ++i )
@@ -47,6 +48,7 @@ inline void PrintBytesInObjectTo(const unsigned char* buf, size_t size, iu_ostre
 		}
 	}
 	*os << ">";
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 }
 
 namespace printer_internal
