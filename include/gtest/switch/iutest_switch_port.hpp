@@ -185,8 +185,8 @@ namespace posix
 
 inline int PutEnv(const char* expr)
 {
-#if defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_NO_PUTENV)
-	IUTEST_UNUSED_VAR(expr);
+#if defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_NO_PUTENV) || defined(__STRICT_ANSI__)
+	(void)(expr);
 	return -1;
 #else
 	return putenv(const_cast<char*>(expr));
