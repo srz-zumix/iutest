@@ -7,6 +7,7 @@ Changes for 1.7.1:
 
 ** 修正
 * パッケージ内の値のパラメータ化テストのテストケース名が pkg.prefix/testcase となるように修正
+* Visual C++ Compiler November 2013 CTP 対応
 
 ** 変更
 * IUTEST_*_NO_FAILURE が警告やスキップを失敗と判断しないように変更

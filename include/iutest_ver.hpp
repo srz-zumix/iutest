@@ -103,6 +103,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>IUTEST_*_NO_FAILURE の gtest モード対応</li>
       <li>IUTEST_*_NO_FAILURE が警告やスキップを失敗と判断しないように変更</li>
       <li>リスナーのセットアップ関数を変更</li>
+      <li>Visual C++ Compiler November 2013 CTP 対応</li>
     </ul>
   </li>
   <li>v1.7.0.0
