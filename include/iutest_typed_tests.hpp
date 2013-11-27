@@ -14,8 +14,8 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
-#ifndef INCG_IRIS_iutest_typed_tests_HPP_DA9562C6_8CAB_4242_9E9E_22FFB490DE30_
-#define INCG_IRIS_iutest_typed_tests_HPP_DA9562C6_8CAB_4242_9E9E_22FFB490DE30_
+#ifndef INCG_IRIS_IUTEST_TYPED_TESTS_HPP_DA9562C6_8CAB_4242_9E9E_22FFB490DE30_
+#define INCG_IRIS_IUTEST_TYPED_TESTS_HPP_DA9562C6_8CAB_4242_9E9E_22FFB490DE30_
 
 //======================================================================
 // include

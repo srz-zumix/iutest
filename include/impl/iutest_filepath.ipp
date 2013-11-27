@@ -14,8 +14,8 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
-#ifndef INCG_IRIS_iutest_filepath_IPP_D69E7545_BF8A_4edc_9493_9105C69F9378_
-#define INCG_IRIS_iutest_filepath_IPP_D69E7545_BF8A_4edc_9493_9105C69F9378_
+#ifndef INCG_IRIS_IUTEST_FILEPATH_IPP_D69E7545_BF8A_4EDC_9493_9105C69F9378_
+#define INCG_IRIS_IUTEST_FILEPATH_IPP_D69E7545_BF8A_4EDC_9493_9105C69F9378_
 
 //======================================================================
 // include

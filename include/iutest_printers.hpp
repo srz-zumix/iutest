@@ -14,8 +14,8 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
-#ifndef INCG_IRIS_iutest_printers_HPP_A6A321C9_9279_4336_8167_058C59EC0FD0_
-#define INCG_IRIS_iutest_printers_HPP_A6A321C9_9279_4336_8167_058C59EC0FD0_
+#ifndef INCG_IRIS_IUTEST_PRINTERS_HPP_A6A321C9_9279_4336_8167_058C59EC0FD0_
+#define INCG_IRIS_IUTEST_PRINTERS_HPP_A6A321C9_9279_4336_8167_058C59EC0FD0_
 
 //======================================================================
 // include

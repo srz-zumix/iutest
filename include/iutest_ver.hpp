@@ -14,19 +14,19 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
-#ifndef INCG_IRIS_iutest_ver_HPP_D65CB7A7_D2AD_40fe_8F5F_8FBF376A0010_
-#define INCG_IRIS_iutest_ver_HPP_D65CB7A7_D2AD_40fe_8F5F_8FBF376A0010_
+#ifndef INCG_IRIS_IUTEST_VER_HPP_D65CB7A7_D2AD_40FE_8F5F_8FBF376A0010_
+#define INCG_IRIS_IUTEST_VER_HPP_D65CB7A7_D2AD_40FE_8F5F_8FBF376A0010_
 
 //======================================================================
 // include
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01070015u	//!< iutest version 1.7.0.15
+#define	IUTEST_VER			0x01070016u	//!< iutest version 1.7.0.16
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x07u		//!< Minor Version
 #define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x15u		//!< Revision
+#define IUTEST_REVISION		0x16u		//!< Revision
 
 /**
  * @mainpage
@@ -95,7 +95,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.7.0.15
+  <li>v1.7.0.16
     <ul>
       <li>IUTEST_*_EQ_RANGE を追加</li>
       <li>パッケージ内の値のパラメータ化テストのテストケース名が pkg.prefix/testcase となるように修正</li>

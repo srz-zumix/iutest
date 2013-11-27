@@ -14,8 +14,8 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
-#ifndef INCG_IRIS_iutest_switch_no_failure_HPP_5D6B75EE_F445_4730_8FEA_FB6249BCBD9C_
-#define INCG_IRIS_iutest_switch_no_failure_HPP_5D6B75EE_F445_4730_8FEA_FB6249BCBD9C_
+#ifndef INCG_IRIS_IUTEST_SWITCH_NO_FAILURE_HPP_5D6B75EE_F445_4730_8FEA_FB6249BCBD9C_
+#define INCG_IRIS_IUTEST_SWITCH_NO_FAILURE_HPP_5D6B75EE_F445_4730_8FEA_FB6249BCBD9C_
 
 #if !defined(IUTEST_USE_GTEST)
 
@@ -30,7 +30,7 @@
 
 //======================================================================
 // undef
-#ifdef INCG_IRIS_iutest_HPP_
+#ifdef INCG_IRIS_IUTEST_HPP_
 
 #undef IUTEST_ASSERT_NO_FAILURE
 #undef IUTEST_EXPECT_NO_FAILURE

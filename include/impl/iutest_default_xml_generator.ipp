@@ -14,8 +14,8 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
-#ifndef INCG_IRIS_iutest_default_xml_generator_IPP_791DCB98_05CC_49ba_8518_0EC9CA2B5450_
-#define INCG_IRIS_iutest_default_xml_generator_IPP_791DCB98_05CC_49ba_8518_0EC9CA2B5450_
+#ifndef INCG_IRIS_IUTEST_DEFAULT_XML_GENERATOR_IPP_791DCB98_05CC_49BA_8518_0EC9CA2B5450_
+#define INCG_IRIS_IUTEST_DEFAULT_XML_GENERATOR_IPP_791DCB98_05CC_49BA_8518_0EC9CA2B5450_
 
 //======================================================================
 // include

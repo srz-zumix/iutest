@@ -14,8 +14,8 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
-#ifndef INCG_IRIS_iutest_charcode_IPP_D444FB3E_3AFA_46d0_AD69_33FAAF5615E3_
-#define INCG_IRIS_iutest_charcode_IPP_D444FB3E_3AFA_46d0_AD69_33FAAF5615E3_
+#ifndef INCG_IRIS_IUTEST_CHARCODE_IPP_D444FB3E_3AFA_46D0_AD69_33FAAF5615E3_
+#define INCG_IRIS_IUTEST_CHARCODE_IPP_D444FB3E_3AFA_46D0_AD69_33FAAF5615E3_
 
 //======================================================================
 // include

@@ -14,8 +14,8 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
-#ifndef INCG_IRIS_iutest_env_IPP_F4017EAB_6CA3_4e6e_8983_059393DADD04_
-#define INCG_IRIS_iutest_env_IPP_F4017EAB_6CA3_4e6e_8983_059393DADD04_
+#ifndef INCG_IRIS_IUTEST_ENV_IPP_F4017EAB_6CA3_4E6E_8983_059393DADD04_
+#define INCG_IRIS_IUTEST_ENV_IPP_F4017EAB_6CA3_4E6E_8983_059393DADD04_
 
 //======================================================================
 // include

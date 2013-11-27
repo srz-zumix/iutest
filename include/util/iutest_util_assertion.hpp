@@ -14,8 +14,8 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
-#ifndef INCG_IRIS_iutest_util_assertion_HPP_A45F8265_40E0_44f2_91C6_090B1778657C_
-#define INCG_IRIS_iutest_util_assertion_HPP_A45F8265_40E0_44f2_91C6_090B1778657C_
+#ifndef INCG_IRIS_IUTEST_UTIL_ASSERTION_HPP_A45F8265_40E0_44F2_91C6_090B1778657C_
+#define INCG_IRIS_IUTEST_UTIL_ASSERTION_HPP_A45F8265_40E0_44F2_91C6_090B1778657C_
 
 //======================================================================
 // include

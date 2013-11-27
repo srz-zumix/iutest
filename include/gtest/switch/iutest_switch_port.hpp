@@ -14,8 +14,8 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
-#ifndef INCG_IRIS_iutest_switch_port_HPP_2B432CD6_18CE_4d0c_B0CD_4E4D5B8E34F4_
-#define INCG_IRIS_iutest_switch_port_HPP_2B432CD6_18CE_4d0c_B0CD_4E4D5B8E34F4_
+#ifndef INCG_IRIS_IUTEST_SWITCH_PORT_HPP_2B432CD6_18CE_4D0C_B0CD_4E4D5B8E34F4_
+#define INCG_IRIS_IUTEST_SWITCH_PORT_HPP_2B432CD6_18CE_4D0C_B0CD_4E4D5B8E34F4_
 
 #if !defined(IUTEST_USE_GTEST)
 
@@ -99,7 +99,7 @@
 
 //======================================================================
 // undef
-#ifdef INCG_IRIS_iutest_HPP_
+#ifdef INCG_IRIS_IUTEST_HPP_
 
 #ifdef IUTEST_OS_CYGWIN
 #  undef IUTEST_OS_CYGWIN
