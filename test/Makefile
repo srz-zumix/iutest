@@ -107,6 +107,7 @@ TARGETS1= iutest_all_tests \
           iutest_progress_tests \
           iutest_record_property_tests \
           iutest_repeat_tests \
+          iutest_scoped_trace_tests \
           iutest_setup_failure_tests \
           iutest_setup_testcase_failure_tests \
           iutest_shuffle_tests \

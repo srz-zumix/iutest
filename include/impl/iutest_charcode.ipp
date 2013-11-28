@@ -109,7 +109,9 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const 
 {
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 	if(num == -1)
+	{
 		num = static_cast<int>(wcslen(str));
+	}
 #if IUTEST_HAS_CXX_HDR_CODECVT && 0
 	typedef ::std::codecvt_utf8<wchar_t> convert;
 	::std::locale loc("japanese");
@@ -178,7 +180,9 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(c
 {
 #if (defined(__STDC_ISO_10646__) || defined(_MSC_VER)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 	if( num == -1 )
+	{
 		num = static_cast<int>(strlen(src));
+	}
 	std::string str;
 	const char* p = src;
 	//char* locale = setlocale(LC_CTYPE, "JPN");
@@ -214,7 +218,9 @@ IUTEST_IPP_INLINE ::std::string UTF16ToUTF8(const wchar_t* str, int num)
 #endif
 {
 	if(num == -1)
+	{
 		num = static_cast<int>(wcslen(str));
+	}
 #if IUTEST_HAS_CHAR16_T
 	typedef ::std::codecvt_utf8<char16_t> convert;
 #else

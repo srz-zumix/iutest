@@ -146,6 +146,43 @@ namespace iuutil
 #endif
 
 /**
+* @ingroup	IUTEST_ASSERT_
+* @brief	文字列部分一致 テスト
+* @param	substr	= 部分文字列
+* @param	actual	= 検査対象文字列
+*/
+#ifndef IUTEST_ASSERT_STRIN
+#  define	IUTEST_ASSERT_STRIN(substr, actual)		IUTEST_TEST_STRIN(substr, actual, IUTEST_ASSERT_FAILURE)
+#endif
+/**
+* @ingroup	IUTEST_EXPECT_
+* @brief	文字列部分一致 テスト
+* @param	substr	= 部分文字列
+* @param	actual	= 検査対象文字列
+*/
+#ifndef IUTEST_EXPECT_STRIN
+#  define	IUTEST_EXPECT_STRIN(substr, actual)		IUTEST_TEST_STRIN(substr, actual, IUTEST_EXPECT_FAILURE)
+#endif
+/**
+* @ingroup	IUTEST_INFORM
+* @brief	文字列部分一致 テスト
+* @param	substr	= 部分文字列
+* @param	actual	= 検査対象文字列
+*/
+#ifndef IUTEST_INFORM_STRIN
+#  define	IUTEST_INFORM_STRIN(substr, actual)		IUTEST_TEST_STRIN(substr, actual, IUTEST_INFORM_FAILURE)
+#endif
+/**
+* @ingroup	IUTEST_ASSUME
+* @brief	文字列部分一致 テスト
+* @param	substr	= 部分文字列
+* @param	actual	= 検査対象文字列
+*/
+#ifndef IUTEST_ASSUME_STRIN
+#  define	IUTEST_ASSUME_STRIN(substr, actual)		IUTEST_TEST_STRIN(substr, actual, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
  * @private
  * @{
 */
@@ -153,6 +190,7 @@ namespace iuutil
 #define IUTEST_TEST_EQ_RANGE(expected, actual, on_failure) IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperEqRange, expected, actual, on_failure)
 
 #define	IUTEST_TEST_STRLNEQ(len, v2, on_failure)	IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRLNEQ, len, v2, on_failure )
+#define IUTEST_TEST_STRIN(substr, actual, on_failure)	IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRIN, substr, actual, on_failure )
 
 /**
  * @}
@@ -195,8 +233,10 @@ template<typename T1, typename T2>
 		result = false;
 		ar << "\nMismatch element : " << elem << " vs " << elem2;
 	}
-	if(!result)
+	if( !result )
+	{
 		return ::iutest::AssertionFailure() << ar;
+	}
 	return ::iutest::AssertionSuccess();
 }
 
@@ -207,7 +247,7 @@ template<typename T1, typename T2>
 ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqCollections(const char* expr1b, const char* expr1e, const char* expr2b, const char* expr2e
 							   , T1 b1, T1 e1, T2 b2, T2 e2)
 {
-	if(::iutest::AssertionResult ar = CmpHelperEqIterator(b1, e1, b2, e2))
+	if( ::iutest::AssertionResult ar = CmpHelperEqIterator(b1, e1, b2, e2) )
 		;
 	else
 		return ::iutest::AssertionFailure() << "error: Expected: { " << expr1b << ", " << expr1e << " } == { "
@@ -222,7 +262,7 @@ template<typename T1, typename T2>
 ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqRange(const char* expected_expr, const char* actual_expr
 	, T1 b1, T1 e1, T2 b2, T2 e2)
 {
-	if(::iutest::AssertionResult ar = CmpHelperEqIterator(b1, e1, b2, e2))
+	if( ::iutest::AssertionResult ar = CmpHelperEqIterator(b1, e1, b2, e2) )
 		;
 	else
 		return ::iutest::AssertionFailure() << "error: Expected: " << expected_expr << " == " << actual_expr
@@ -278,8 +318,11 @@ template<typename T1, size_t SIZE1, typename T2>
 inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const char* expr1, const char* expr2
 										 , size_t len1, const char* val2)
 {
-	size_t	len2 = strlen(val2);
-	if( len2 == len1 ) return ::iutest::AssertionSuccess();
+	const size_t len2 = strlen(val2);
+	if( len2 == len1 )
+	{
+		return ::iutest::AssertionSuccess();
+	}
 	return ::iutest::AssertionFailure() << "error: Value of: " << expr1 << " == strlen(" << expr2 << ")"
 		<< "\n  Actual: " << val2 << " : " << len2 << "\nExpected: " << len1 ;
 }
@@ -289,10 +332,55 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const
 inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const char* expr1, const char* expr2
 										 , size_t len1, const wchar_t* val2)
 {
-	size_t	len2 = wcslen(val2);
-	if( len2 == len1 ) return ::iutest::AssertionSuccess();
+	const size_t len2 = wcslen(val2);
+	if( len2 == len1 )
+	{
+		return ::iutest::AssertionSuccess();
+	}
 	return ::iutest::AssertionFailure() << "error: Value of: " << expr1 << " == wcslen(" << expr2 << ")"
 		<< "\n  Actual: " << val2 << " : " << len2 << "\nExpected: " << len1 ;
+}
+
+/**
+* @brief	文字列部分一致アサーションフォーマッター
+*/
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const char* substr_str, const char* actual_str
+	, const char* substr, const char* actual)
+{
+	if( substr == NULL || actual == NULL )
+	{
+		if( substr == actual )
+		{
+			return ::iutest::AssertionSuccess();
+		}
+	}
+	else if( strstr(actual, substr) != NULL )
+	{
+		return ::iutest::AssertionSuccess();
+	}
+	return ::iutest::AssertionFailure() << "error: Expected: " << "strstr(" << actual_str << ", " << substr_str << ") != NULL"
+		<< "\n  Actual: " << "strstr(" << actual << ", " << substr << ") == NULL";
+}
+
+/**
+* @brief	文字列部分一致アサーションフォーマッター
+*/
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const char* substr_str, const char* actual_str
+	, const wchar_t* substr, const wchar_t* actual)
+{
+	if( substr == NULL || actual == NULL )
+	{
+		if( substr == actual )
+		{
+			return ::iutest::AssertionSuccess();
+		}
+	}
+	else if( wcsstr(actual, substr) != NULL )
+	{
+		return ::iutest::AssertionSuccess();
+	}
+	return ::iutest::AssertionFailure() << "error: Expected: " << "strstr(" << actual_str << ", " << substr_str << ") != NULL"
+		<< "\n  Actual: " << "strstr(" << actual << ", " << substr << ") == NULL";
 }
 
 /**

@@ -181,7 +181,10 @@ public:
 		const Int v1 = m_v.iv < 0 ? ~m_v.iv + 1 : m_v.iv;
 		const Int v2 = rhs.m_v.iv < 0 ? ~rhs.m_v.iv + 1 : rhs.m_v.iv;
 		const Int diff = (v1 > v2) ? v1 - v2 : v2 - v1;
-		if( diff <= kMaxUlps ) return true;
+		if( diff <= kMaxUlps )
+		{
+			return true;
+		}
 		return false;
 	}
 

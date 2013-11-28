@@ -66,7 +66,12 @@ namespace iutest
 /**
  * @brief	ä¬ã´ïœêîÇÃéÊìæ
 */
-inline ::std::string EnvironmentString(const char* name) { ::std::string var; detail::GetEnvironmentVariable(name, var); return var; }
+inline ::std::string EnvironmentString(const char* name)
+{
+	::std::string var;
+	detail::GetEnvironmentVariable(name, var);
+	return var;
+}
 
 //======================================================================
 // class
@@ -348,9 +353,18 @@ private:
 	*/
 	static const char* get_color_option(void)
 	{
-		if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_OFF) ) return "no";
-		else if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ON) ) return "yes";
-		else if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ANSI) ) return "ansi";
+		if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_OFF) )
+		{
+			return "no";
+		}
+		else if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ON) )
+		{
+			return "yes";
+		}
+		else if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ANSI) )
+		{
+			return "ansi";
+		}
 		return "auto";
 	}
 	/**
@@ -445,7 +459,10 @@ public:
 	*/
 	static Environment* AddGlobalTestEnvironment(Environment* env)
 	{
-		if( env == NULL ) return NULL;
+		if( env == NULL )
+		{
+			return NULL;
+		}
 		environments().push_back(env);
 		return env;
 	}
@@ -545,7 +562,10 @@ private:
 	static inline const char* ParseOptionSettingStr(const char* opt)
 	{
 		const char* eq = strchr(opt, '=');
-		if( eq == NULL ) return eq;
+		if( eq == NULL )
+		{
+			return eq;
+		}
 		return eq+1;
 	}
 	/**

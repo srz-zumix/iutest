@@ -309,7 +309,9 @@ IUTEST_IPP_INLINE void	TestEnv::SetUp(void)
 		const unsigned int gen_seeed = detail::GetIndefiniteValue();
 		if( get_vars().m_current_random_seed == gen_seeed
 			|| get_vars().m_before_origin_random_seed == gen_seeed )
+		{
 			seed = get_vars().m_current_random_seed;
+		}
 		seed += gen_seeed;
 		get_vars().m_before_origin_random_seed = gen_seeed;
 	}
@@ -319,7 +321,10 @@ IUTEST_IPP_INLINE void	TestEnv::SetUp(void)
 
 IUTEST_IPP_INLINE 	bool TestEnv::ParseColorOption(const char* option)
 {
-	if( option == NULL ) return false;
+	if( option == NULL )
+	{
+		return false;
+	}
 
 	if( IsYes(option) )
 	{
@@ -359,7 +364,11 @@ IUTEST_IPP_INLINE bool	TestEnv::ParseOutputOption(const char* option)
 
 IUTEST_IPP_INLINE bool	TestEnv::ParseFileLocationOption(const char* option)
 {
-	if( option == NULL ) return false;
+	if( option == NULL )
+	{
+		return false;
+	}
+
 	if( detail::IsStringCaseEqual(option, "auto") )
 	{
 #ifdef _MSC_VER
@@ -386,7 +395,7 @@ IUTEST_IPP_INLINE bool	TestEnv::ParseFileLocationOption(const char* option)
 IUTEST_IPP_INLINE bool TestEnv::ParseYesNoFlagCommandLine(const char* str, TestFlag::Kind flag, int def)
 {
 	const char* option = ParseOptionSettingStr(str);
-	int yesno = option != NULL ? ParseYesNoOption(option) : def;
+	const int yesno = option != NULL ? ParseYesNoOption(option) : def;
 	if( yesno < 0 )
 	{
 		return false;
@@ -397,9 +406,18 @@ IUTEST_IPP_INLINE bool TestEnv::ParseYesNoFlagCommandLine(const char* str, TestF
 
 IUTEST_IPP_INLINE int TestEnv::ParseYesNoOption(const char* option)
 {
-	if( option == NULL ) return -1;
-	if( IsYes(option) ) return 1;
-	if( IsNo(option) ) return 0;
+	if( option != NULL )
+	{
+		if( IsYes(option) )
+		{
+			return 1;
+		}
+		if( IsNo(option) )
+		{
+			return 0;
+		}
+	}
+
 	return -1;
 }
 

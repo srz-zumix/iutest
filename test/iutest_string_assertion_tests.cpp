@@ -129,6 +129,23 @@ IUTEST_TYPED_TEST(StrTest, String)
 	IUTEST_INFORM_STRNE(test1, TestFixture::Text::Test);
 }
 
+IUTEST_TYPED_TEST(StrCaseTest, Null)
+{
+	TypeParam* p=NULL;
+	
+	IUTEST_ASSERT_STRCASEEQ(NULL, p);
+	IUTEST_EXPECT_STRCASEEQ(NULL, p);
+	IUTEST_INFORM_STRCASEEQ(NULL, p);
+
+	IUTEST_ASSERT_STRCASENE(TestFixture::Text::test, NULL);
+	IUTEST_EXPECT_STRCASENE(TestFixture::Text::test, NULL);
+	IUTEST_INFORM_STRCASENE(TestFixture::Text::test, NULL);
+
+	IUTEST_ASSERT_STRCASENE(NULL, TestFixture::Text::test);
+	IUTEST_EXPECT_STRCASENE(NULL, TestFixture::Text::test);
+	IUTEST_INFORM_STRCASENE(NULL, TestFixture::Text::test);
+}
+
 IUTEST_TYPED_TEST(StrCaseTest, Raw)
 {
 	const TypeParam* p = TestFixture::Text::test;

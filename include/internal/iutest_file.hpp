@@ -66,14 +66,20 @@ public:
 	static IFile*	New(void)
 	{
 		IFileSystem* fs = GetInstance();
-		if( fs == NULL ) return NULL;
+		if( fs == NULL )
+		{
+			return NULL;
+		}
 		IFile* p = fs->Create();
 		return p;
 	}
 	static void		Free(IFile* ptr)
 	{
 		IFileSystem* fs = GetInstance();
-		if( fs == NULL ) return;
+		if( fs == NULL )
+		{
+			return;
+		}
 		fs->Delete(ptr);
 	}
 
@@ -142,7 +148,7 @@ public:
 	 * @param [in]	mode		= ÉÇÅ[Éh
 	 * @return	ê¨î€
 	*/
-	virtual	bool	Open(const char* filename, int mode) IUTEST_CXX_OVERRIDE
+	virtual	bool Open(const char* filename, int mode) IUTEST_CXX_OVERRIDE
 	{
 		Close();
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
@@ -164,7 +170,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 	/**
 	 * @brief	ï¬Ç∂ÇÈ
 	*/
-	virtual	void	Close(void) IUTEST_CXX_OVERRIDE
+	virtual	void Close(void) IUTEST_CXX_OVERRIDE
 	{
 		if( m_fp != NULL )
 		{
@@ -180,7 +186,10 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 	*/
 	virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
 	{
-		if( fwrite(buf, size, cnt, m_fp) < cnt ) return false;
+		if( fwrite(buf, size, cnt, m_fp) < cnt )
+		{
+			return false;
+		}
 		return true;
 	}
 };
@@ -198,7 +207,7 @@ public:
 	 * @param [in]	mode		= unused
 	 * @return	ê¨î€
 	*/
-	virtual	bool	Open(const char* , int ) IUTEST_CXX_OVERRIDE
+	virtual	bool Open(const char* , int ) IUTEST_CXX_OVERRIDE
 	{
 		ss.clear();
 		return true;
@@ -207,7 +216,7 @@ public:
 	/**
 	 * @brief	ï¬Ç∂ÇÈ
 	*/
-	virtual	void	Close(void) IUTEST_CXX_OVERRIDE
+	virtual	void Close(void) IUTEST_CXX_OVERRIDE
 	{
 	}
 
@@ -220,7 +229,9 @@ public:
 	virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
 	{
 		for( size_t i=0; i < cnt; ++i )
+		{
 			ss.write(static_cast<const char*>(buf), size);
+		}
 		return true;
 	}
 

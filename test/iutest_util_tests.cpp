@@ -39,10 +39,12 @@ IUTEST(AssertionTest, EQ_COLLECTIONS)
 		IUTEST_ASSERT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
 		IUTEST_EXPECT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
 		IUTEST_INFORM_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
+		IUTEST_ASSUME_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
 
 		IUTEST_ASSERT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
 		IUTEST_EXPECT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
 		IUTEST_INFORM_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
+		IUTEST_ASSUME_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
 	}
 
 	{
@@ -59,14 +61,17 @@ IUTEST(AssertionTest, EQ_COLLECTIONS)
 		IUTEST_ASSERT_EQ_COLLECTIONS(a.begin(), a.end(), b.begin(), b.end());
 		IUTEST_EXPECT_EQ_COLLECTIONS(a.begin(), a.end(), b.begin(), b.end());
 		IUTEST_INFORM_EQ_COLLECTIONS(a.begin(), a.end(), b.begin(), b.end());
+		IUTEST_ASSUME_EQ_COLLECTIONS(a.begin(), a.end(), b.begin(), b.end());
 
 		IUTEST_ASSERT_EQ_COLLECTIONS(a.begin(), a.end(), c.begin(), c.end());
 		IUTEST_EXPECT_EQ_COLLECTIONS(a.begin(), a.end(), c.begin(), c.end());
 		IUTEST_INFORM_EQ_COLLECTIONS(a.begin(), a.end(), c.begin(), c.end());
+		IUTEST_ASSUME_EQ_COLLECTIONS(a.begin(), a.end(), c.begin(), c.end());
 
 		IUTEST_ASSERT_EQ_COLLECTIONS(a.begin(), a.end(), d, d+(sizeof(d)/sizeof(d[0])));
 		IUTEST_EXPECT_EQ_COLLECTIONS(a.begin(), a.end(), d, d+(sizeof(d)/sizeof(d[0])));
 		IUTEST_INFORM_EQ_COLLECTIONS(a.begin(), a.end(), d, d+(sizeof(d)/sizeof(d[0])));
+		IUTEST_ASSUME_EQ_COLLECTIONS(a.begin(), a.end(), d, d+(sizeof(d)/sizeof(d[0])));
 	}
 }
 
@@ -80,10 +85,12 @@ IUTEST(AssertionTest, EQ_RANGE)
 		IUTEST_ASSERT_EQ_RANGE(a, b);
 		IUTEST_EXPECT_EQ_RANGE(a, b);
 		IUTEST_INFORM_EQ_RANGE(a, b);
+		IUTEST_ASSUME_EQ_RANGE(a, b);
 
 		IUTEST_ASSERT_EQ_RANGE(a, c);
 		IUTEST_EXPECT_EQ_RANGE(a, c);
 		IUTEST_INFORM_EQ_RANGE(a, c);
+		IUTEST_ASSUME_EQ_RANGE(a, c);
 	}
 
 	{
@@ -100,19 +107,37 @@ IUTEST(AssertionTest, EQ_RANGE)
 		IUTEST_ASSERT_EQ_RANGE(a, b);
 		IUTEST_EXPECT_EQ_RANGE(a, b);
 		IUTEST_INFORM_EQ_RANGE(a, b);
+		IUTEST_ASSUME_EQ_RANGE(a, b);
 
 		IUTEST_ASSERT_EQ_RANGE(a, c);
 		IUTEST_EXPECT_EQ_RANGE(a, c);
 		IUTEST_INFORM_EQ_RANGE(a, c);
+		IUTEST_ASSUME_EQ_RANGE(a, c);
 
 		IUTEST_ASSERT_EQ_RANGE(a, d);
 		IUTEST_EXPECT_EQ_RANGE(a, d);
 		IUTEST_INFORM_EQ_RANGE(a, d);
+		IUTEST_ASSUME_EQ_RANGE(a, d);
 
 		IUTEST_ASSERT_EQ_RANGE(d, c);
 		IUTEST_EXPECT_EQ_RANGE(d, c);
 		IUTEST_INFORM_EQ_RANGE(d, c);
+		IUTEST_ASSUME_EQ_RANGE(d, c);
 	}
+}
+
+IUTEST(AssertionTest, STRIN)
+{
+	const char test[] = "test";
+	IUTEST_ASSERT_STRIN("tes", test);
+	IUTEST_EXPECT_STRIN("tes", test);
+	IUTEST_INFORM_STRIN("tes", test);
+	IUTEST_ASSUME_STRIN("tes", test);
+
+	IUTEST_ASSERT_STRIN("test", test);
+	IUTEST_EXPECT_STRIN("test", test);
+	IUTEST_INFORM_STRIN("test", test);
+	IUTEST_ASSUME_STRIN("test", test);
 }
 
 IUTEST(AssertionTest, STRLNEQ)
@@ -121,6 +146,7 @@ IUTEST(AssertionTest, STRLNEQ)
 	IUTEST_ASSERT_STRLNEQ(4, test);
 	IUTEST_EXPECT_STRLNEQ(4, test);
 	IUTEST_INFORM_STRLNEQ(4, test);
+	IUTEST_ASSUME_STRLNEQ(4, test);
 }
 
 IUTEST(AssertionTest, OREQ)

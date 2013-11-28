@@ -117,7 +117,10 @@ public:
 	*/
 	bool	Passed(void) const
 	{
-		if( is_skipped() ) return false;
+		if( is_skipped() )
+		{
+			return false;
+		}
 		return m_test_result.Passed();
 	}
 

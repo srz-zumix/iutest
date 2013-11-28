@@ -344,16 +344,25 @@ private:
 	{
 		IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 #if IUTEST_TYPED_TEST_P_STRICT
-		if( names == NULL ) return true;
+		if( names == NULL )
+		{
+			return true;
+		}
 		const char* comma = FindComma(names);
 		::std::string name;
-		if( comma == NULL ) name = names;
+		if( comma == NULL )
+		{
+			name = names;
+		}
 		else
 		{
 			name.append(names, comma - names);
 			++comma;
 		}
-		if( m_list.find(name.c_str()) == m_list.end() ) return false;
+		if( m_list.find(name.c_str()) == m_list.end() )
+		{
+			return false;
+		}
 		return Verify(SkipSpace(comma));
 #else
 		IUTEST_UNUSED_VAR(names);

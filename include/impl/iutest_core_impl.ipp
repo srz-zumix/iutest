@@ -215,7 +215,10 @@ IUTEST_IPP_INLINE ::std::string MakeIndexTestName(const char* basename, int inde
 IUTEST_IPP_INLINE ::std::string MakePrefixedIndexTestName(const char* prefix, const char* basename, int index)
 {
 	::std::string name = prefix;
-	if( !name.empty() ) name += "/";
+	if( !name.empty() )
+	{
+		name += "/";
+	}
 	name += MakeIndexTestName(basename, index);
 	return name;
 }

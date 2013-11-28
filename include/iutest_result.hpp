@@ -177,8 +177,7 @@ public:
 	template<typename Ite>
 	static bool ValidateName(const ::std::string& name, Ite begin, Ite end)
 	{
-		if( ::std::find(begin, end, name) != end ) return false;
-		return true;
+		return ::std::find(begin, end, name) == end;
 	}
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 	/** @overload */
@@ -220,7 +219,10 @@ public:
 	{
 		for( TestPartResults::const_iterator it=m_test_part_results.begin(), end=m_test_part_results.end(); it != end; ++it )
 		{
-			if( it->failed() ) return true;
+			if( it->failed() )
+			{
+				return true;
+			}
 		}
 		return false;
 	}
@@ -232,7 +234,10 @@ public:
 	{
 		for( TestPartResults::const_iterator it=m_test_part_results.begin(), end=m_test_part_results.end(); it != end; ++it )
 		{
-			if( it->skipped() || it->assume_failed() ) return Passed();
+			if( it->skipped() || it->assume_failed() )
+			{
+				return Passed();
+			}
 		}
 		return false;
 	}
@@ -297,7 +302,10 @@ public:
 		int count = 0;
 		for( TestPartResults::const_iterator it=m_test_part_results.begin(), end=m_test_part_results.end(); it != end; ++it )
 		{
-			if( it->failed() ) ++count;
+			if( it->failed() )
+			{
+				++count;
+			}
 		}
 		return count;
 	}
