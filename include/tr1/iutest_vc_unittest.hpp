@@ -229,7 +229,10 @@ public:
 	void OnTestStart(const char* testcase_name, const char* testinfo_name)
 	{
 		const ::iutest::TestInfo* testinfo = iuutil::FindTestInfo(testcase_name, testinfo_name);
-		if( testinfo == NULL ) return;
+		if( testinfo == NULL )
+		{
+			return;
+		}
 		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
 		::iutest::TestEventListener* repeator = 
 #define testing	iutest
@@ -240,7 +243,10 @@ public:
 	void OnTestEnd(const char* testcase_name, const char* testinfo_name)
 	{
 		const ::iutest::TestInfo* testinfo = iuutil::FindTestInfo(testcase_name, testinfo_name);
-		if( testinfo == NULL ) return;
+		if( testinfo == NULL )
+		{
+			return;
+		}
 		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
 		::iutest::TestEventListener* repeator = 
 #define testing	iutest
@@ -260,7 +266,10 @@ public:
 	virtual void voutput(const char* fmt, va_list va)
 	{
 		int length = _vscprintf(fmt, va);
-		if( length <= 0 ) return;
+		if( length <= 0 )
+		{
+			return;
+		}
 		length += 1;
 		char* buf = new char [length];
 		vsprintf_s(buf, length, fmt, va);

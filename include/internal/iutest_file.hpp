@@ -163,6 +163,8 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 		case IFile::OpenReadWrite:
 			m_fp = fopen(filename, "ab");
 			break;
+		default:
+			break;
 		}
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 		return m_fp != NULL;

@@ -188,7 +188,10 @@ inline void TAPFileGeneratorListener::OnTestProgramEnd(const UnitTest& test)
 
 		IUTEST_UNUSED_VAR(test);
 		IFile* fp = detail::IFileSystem::New();
-		if( fp == NULL ) return;
+		if( fp == NULL )
+		{
+			return;
+		}
 
 		::std::string filepath = m_output_path;
 		::std::string name = test_case.name();

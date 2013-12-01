@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01070017u	//!< iutest version 1.7.0.17
+#define	IUTEST_VER			0x01070018u	//!< iutest version 1.7.0.18
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x07u		//!< Minor Version
 #define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x17u		//!< Revision
+#define IUTEST_REVISION		0x18u		//!< Revision
 
 /**
  * @mainpage
@@ -95,7 +95,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.7.0.17
+  <li>v1.7.0.18
     <ul>
       <li>IUTEST_*_STRIN を追加</li>
       <li>IUTEST_*_EQ_RANGE を追加</li>
@@ -105,6 +105,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>IUTEST_*_NO_FAILURE が警告やスキップを失敗と判断しないように変更</li>
       <li>リスナーのセットアップ関数を変更</li>
       <li>Visual C++ Compiler November 2013 CTP 対応</li>
+      <li>バグ修正</li>
     </ul>
   </li>
   <li>v1.7.0.0
