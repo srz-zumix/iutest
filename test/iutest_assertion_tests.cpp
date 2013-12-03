@@ -169,22 +169,6 @@ IUTEST(AssertionTest, Near)
 	IUTEST_INFORM_NEAR(2.0, 1.0, 2);
 }
 
-IUTEST(AssertionTest, Null)
-{
-	int* p = NULL;
-	IUTEST_ASSERT_NULL(p);
-	IUTEST_EXPECT_NULL(p);
-	IUTEST_INFORM_NULL(p);
-}
-
-IUTEST(AssertionTest, NotNull)
-{
-	void* p = this;
-	IUTEST_ASSERT_NOTNULL(p);
-	IUTEST_EXPECT_NOTNULL(p);
-	IUTEST_INFORM_NOTNULL(p);
-}
-
 IUTEST(AssertionTest, Same)
 {
 	int v = 0;

@@ -374,7 +374,7 @@
 #define IUTEST_TEST_HRESULT_SUCCEEDED(hr, on_failure)	IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTSuccess, hr, on_failure )
 #define IUTEST_TEST_HRESULT_FAILED(hr, on_failure)		IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTFailure, hr, on_failure )
 
-#define IUTEST_TEST_NULL(v, on_failure)					IUTEST_THROUGH_ANALYSIS_ASSUME_(v==NULL, IUTEST_PRED_FORMAT1_( ::iutest::internal::CmpHelperNull, v, on_failure ))
+#define IUTEST_TEST_NULL(v, on_failure)					IUTEST_THROUGH_ANALYSIS_ASSUME_(v==NULL, IUTEST_PRED_FORMAT1_( ::iutest::internal::NullHelper<IUTEST_IS_NULLLITERAL(v)>::Compare, v, on_failure ))
 #define IUTEST_TEST_NOTNULL(v, on_failure)				IUTEST_THROUGH_ANALYSIS_ASSUME_(v!=NULL, IUTEST_PRED_FORMAT1_( ::iutest::internal::CmpHelperNotNull, v, on_failure ))
 
 #define IUTEST_TEST_SAME(v1, v2, on_failure)			IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSame, v1, v2, on_failure )

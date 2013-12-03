@@ -1482,7 +1482,8 @@ inline void	IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const wchar_t*
 template<typename CharType>
 inline void	IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(::std::vector< ::std::basic_string<CharType> >& argv)
 {
-	TestEnv::ParseCommandLine(argv); UnitTestSource::GetInstance().Initialize();
+	TestEnv::ParseCommandLine(argv);
+	UnitTestSource::GetInstance().Initialize();
 }
 
 /**

@@ -427,18 +427,41 @@ DECL_COMPARE_HELPER_(GT, > )
  * @}
 */
 
-template<typename T>
-inline AssertionResult	CmpHelperNull(const char* expr, const T* val)
+/**
+* @brief	Null Helper
+* @tparam	IsNullLiteral	= val ‚ª NULL ƒŠƒeƒ‰ƒ‹‚©‚Ç‚¤‚©
+*/
+template<bool IsNullLiteral>
+class NullHelper
 {
-	if( NULL == val )
+public:
+	template<typename T>
+	static AssertionResult Compare(const char* expr, const T* val)
+	{
+		if( NULL == val )
+		{
+			return AssertionSuccess();
+		}
+
+		return AssertionFailure() << "error: Value of " << expr
+			<< "\n  Actual: " << val
+			<< "\nExpected: NULL";
+	}
+};
+
+/**
+* @brief	NullHelper “ÁŽê‰»
+*/
+template<>
+class NullHelper<true>
+{
+public:
+	template<typename T>
+	static AssertionResult Compare(const char*, T)
 	{
 		return AssertionSuccess();
 	}
-
-	return AssertionFailure() << "error: Value of " << expr
-		<< "\n  Actual: " << val
-		<< "\nExpected: NULL";
-}
+};
 
 template<typename T>
 inline AssertionResult	CmpHelperNotNull(const char* expr, const T* val)
