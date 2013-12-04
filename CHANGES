@@ -3,7 +3,9 @@ Changes for 1.7.1:
 
 ** 追加
 * IUTEST_*_EQ_RANGE を追加
+* IUTEST_*_STRIN を追加
 * IUTEST_FLAG(output) に対応
+* IUTEST_*_NO_FAILURE の gtest モード対応
 
 ** 修正
 * パッケージ内の値のパラメータ化テストのテストケース名が pkg.prefix/testcase となるように修正

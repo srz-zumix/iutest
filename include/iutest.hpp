@@ -1492,7 +1492,7 @@ inline void	IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(::std::vector< ::std::basi
  * @return	登録されたクラスアドレス
  * @note	メモリ管理はしない。new した Environment はユーザーが解放する
 */
-inline Environment IUTEST_ATTRIBUTE_UNUSED_ * AddGlobalTestEnvironment(Environment* env)
+inline Environment* IUTEST_ATTRIBUTE_UNUSED_ AddGlobalTestEnvironment(Environment* env)
 {
 	return TestEnv::AddGlobalTestEnvironment(env);
 }
