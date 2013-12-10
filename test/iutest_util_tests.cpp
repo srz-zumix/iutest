@@ -140,6 +140,20 @@ IUTEST(AssertionTest, STRIN)
 	IUTEST_ASSUME_STRIN("test", test);
 }
 
+IUTEST(AssertionTest, STRNOTIN)
+{
+	const char test[] = "test";
+	IUTEST_ASSERT_STRNOTIN("Tes", test);
+	IUTEST_EXPECT_STRNOTIN("Tes", test);
+	IUTEST_INFORM_STRNOTIN("Tes", test);
+	IUTEST_ASSUME_STRNOTIN("Tes", test);
+
+	IUTEST_ASSERT_STRNOTIN(NULL, test);
+	IUTEST_EXPECT_STRNOTIN(NULL, test);
+	IUTEST_INFORM_STRNOTIN(NULL, test);
+	IUTEST_ASSUME_STRNOTIN(NULL, test);
+}
+
 IUTEST(AssertionTest, STRLNEQ)
 {
 	const char test[] = "test";
