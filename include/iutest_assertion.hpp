@@ -456,8 +456,7 @@ template<>
 class NullHelper<true>
 {
 public:
-	template<typename T>
-	static AssertionResult Compare(const char*, T)
+	static AssertionResult Compare(const char*, void*)
 	{
 		return AssertionSuccess();
 	}

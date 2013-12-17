@@ -3,7 +3,7 @@ Changes for 1.7.1:
 
 ** ’Ç‰Á
 * IUTEST_*_EQ_RANGE ‚ð’Ç‰Á
-* IUTEST_*_STRIN ‚ð’Ç‰Á
+* IUTEST_*_STRIN,IUTEST_*_STRNOTIN ‚ð’Ç‰Á
 * IUTEST_FLAG(output) ‚É‘Î‰ž
 * IUTEST_*_NO_FAILURE ‚Ì gtest ƒ‚[ƒh‘Î‰ž
 
