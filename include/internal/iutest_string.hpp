@@ -467,4 +467,4 @@ typedef detail::iuStringStream::type	iu_ostream;
 
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_STRING_HPP_E22B02D7_E9E7_412C_B609_DC3D9C66895D_

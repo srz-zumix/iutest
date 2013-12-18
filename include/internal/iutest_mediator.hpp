@@ -67,4 +67,4 @@ public:
 }	// end of namespace detail
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_MEDIATOR_HPP_BFBE202B_0E60_4E44_8BDA_CB801D264F3E_

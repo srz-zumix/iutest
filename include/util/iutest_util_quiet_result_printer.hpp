@@ -109,4 +109,4 @@ public:
 
 }	// end of namespace iuutil
 
-#endif
+#endif	// INCG_IRIS_IUTEST_UTIL_QUIET_RESULT_PRINTER_HPP_0DF65DD7_C97C_44BA_940D_D22ED6AF9494_

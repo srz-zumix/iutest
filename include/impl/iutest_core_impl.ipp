@@ -233,4 +233,4 @@ IUTEST_IPP_INLINE void Test::TestRecordPropertyHelper::RecordProperty(const Test
 
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_CORE_IMPL_IPP_D5ABC7DE_C751_4AC0_922F_547880163891_

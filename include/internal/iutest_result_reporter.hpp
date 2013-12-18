@@ -152,5 +152,4 @@ inline void ReportTestPartResult(const ::iutest::TestPartResult& test_part_resul
 
 }
 
-
-#endif
+#endif	// INCG_IRIS_IUTEST_RESULT_REPORTER_HPP_803FD1F7_1FD2_4D1E_9AFC_A5851284316F_

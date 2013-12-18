@@ -26,7 +26,7 @@
 #define INFORM_NO_FAILURE	IUTEST_INFORM_NO_FAILURE
 #define ASSUME_NO_FAILURE	IUTEST_ASSUME_NO_FAILURE
 
-#else
+#else	// !defined(IUTEST_USE_GTEST)
 
 //======================================================================
 // undef
@@ -99,6 +99,6 @@ private:
 }	// end of namespace internal
 }	// end of namespace testing
 
-#endif
+#endif	// !defined(IUTEST_USE_GTEST)
 
-#endif
+#endif	// INCG_IRIS_IUTEST_SWITCH_NO_FAILURE_HPP_5D6B75EE_F445_4730_8FEA_FB6249BCBD9C_

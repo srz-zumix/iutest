@@ -1505,4 +1505,4 @@ inline Environment* IUTEST_ATTRIBUTE_UNUSED_ AddGlobalTestEnvironment(Environmen
 
 #include "iutest_util.hpp"
 
-#endif
+#endif	// INCG_IRIS_IUTEST_HPP_

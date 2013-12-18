@@ -250,4 +250,4 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 }	// end of namespace detail
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_CHARCODE_IPP_D444FB3E_3AFA_46D0_AD69_33FAAF5615E3_

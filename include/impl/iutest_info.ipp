@@ -185,4 +185,4 @@ IUTEST_IPP_INLINE bool	TestInfo::filter(void)
 
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_INFO_IPP_764A79A8_E822_4C0F_8CB7_82C635BA28BA_

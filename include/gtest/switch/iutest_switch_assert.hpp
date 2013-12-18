@@ -62,7 +62,6 @@
 
 //======================================================================
 // define
-// ASSERT
 #define ASSERT_TRUE		IUTEST_ASSERT_TRUE
 #define ASSERT_FALSE	IUTEST_ASSERT_FALSE
 #define ASSERT_EQ		IUTEST_ASSERT_EQ
@@ -100,7 +99,7 @@
 #define ASSERT_PRED_FORMAT4	IUTEST_ASSERT_PRED_FORMAT4
 #define ASSERT_PRED_FORMAT5	IUTEST_ASSERT_PRED_FORMAT5
 
-#else
+#else	// !defined(IUTEST_USE_GTEST)
 
 //======================================================================
 // undef
@@ -196,6 +195,6 @@
 
 #define IUTEST_ASSERT_FAILURE	GTEST_FATAL_FAILURE_
 
-#endif
+#endif	// !defined(IUTEST_USE_GTEST)
 
-#endif
+#endif	// INCG_IRIS_IUTEST_SWITCH_ASSERT_HPP_F4AD6E1B_4B1F_40EE_A0CC_D454587B2C39_

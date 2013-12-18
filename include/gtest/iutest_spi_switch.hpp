@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_spi_switch.hpp
- * @brief		gtest から iutest への切り替え用 ファイル
+ * @brief		switching to iutest from gtest / gtest from iutest (spi)
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -35,7 +35,7 @@
 #define EXPECT_NONFATAL_FAILURE					IUTEST_EXPECT_NONFATAL_FAILURE
 #define EXPECT_NONFATAL_FAILURE_ON_ALL_THREADS	IUTEST_EXPECT_NONFATAL_FAILURE
 
-#else
+#else	// !defined(IUTEST_USE_GTEST)
 
 #include <gtest/gtest-spi.h>
 
@@ -58,6 +58,6 @@
 #define IUTEST_ASSERT_NONFATAL_FAILURE			EXPECT_NONFATAL_FAILURE
 #define IUTEST_EXPECT_NONFATAL_FAILURE			EXPECT_NONFATAL_FAILURE
 
-#endif
+#endif	// !defined(IUTEST_USE_GTEST)
 
-#endif
+#endif	// INCG_IRIS_IUTEST_SPI_SWITCH_HPP_673AE7AC_6F80_4BE0_9209_581E3A568525_

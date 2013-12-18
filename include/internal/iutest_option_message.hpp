@@ -158,4 +158,4 @@ inline void iuOptionMessage::ShowFeature(void)
 }	// end of namespace detail
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_OPTION_MESSAGE_HPP_00EB9B17_0615_4678_9AD0_1F5B295B404F_

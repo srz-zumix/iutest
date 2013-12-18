@@ -266,4 +266,4 @@ inline bool	iuConsole::IsShouldUseColor(bool use_color)
 template<typename T>
 ::iutest::detail::iuLogger*	::iutest::detail::iuConsole::Variable<T>::m_pLogger = NULL;
 
-#endif
+#endif	// INCG_IRIS_IUTEST_CONSOLE_HPP_DCAC5025_B7BB_424E_A849_9E6FE0A3B460_

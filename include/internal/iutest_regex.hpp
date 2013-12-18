@@ -41,4 +41,4 @@ public:
 #  include "../impl/iutest_regex.ipp"
 #endif
 
-#endif
+#endif	// INCG_IRIS_IUTEST_REGEX_HPP_1575CB44_189A_4248_B305_DB4882E3BFC2_

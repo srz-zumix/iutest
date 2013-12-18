@@ -139,4 +139,4 @@ IUTEST_IPP_INLINE void StreamResultListener::SendLn(const ::std::string& message
 
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_IUTEST_STREAMING_LISTENER_IPP_1187A63F_E99B_4289_A562_3C87B9739B7D_

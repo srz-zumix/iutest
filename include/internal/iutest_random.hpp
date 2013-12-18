@@ -239,4 +239,4 @@ private:
 }	// end of namespace detail
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_RANDOM_HPP_89F260D7_9145_4B50_A8F0_B7A2696121B6_

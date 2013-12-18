@@ -344,4 +344,4 @@ IUTEST_IPP_INLINE void	UnitTest::Initialize(void)
 
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_CORE_IPP_33560431_783B_4AE7_8FC8_6E78355CAF87_

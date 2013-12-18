@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_switch.hpp
- * @brief		gtest から iutest への切り替え用 ファイル
+ * @brief		switching to iutest from gtest / gtest from iutest
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -132,7 +132,7 @@ namespace testing = iutest;
 #  define GTEST_INCLUDE_GTEST_GTEST_H_	// 以降で、gtest が include されないようにする
 #endif
 
-#else
+#else	// !defined(IUTEST_USE_GTEST)
 
 #ifdef INCG_IRIS_IUTEST_HPP_
 #  if IUTEST_HAS_TUPLE
@@ -320,7 +320,6 @@ namespace iusupport
 }
 
 #ifdef INCG_IRIS_IUTEST_HPP_
-// iutest.hpp がすでにインクルードされていた場合
 
 namespace iusupport
 {
@@ -331,7 +330,7 @@ namespace iusupport
 	}
 }
 
-// ::iutest::AssertionResult -> ::testing::AssertionResult 変換
+// ::iutest::AssertionResult -> ::testing::AssertionResult
 #undef GTEST_ASSERT_
 #define GTEST_ASSERT_(expression, on_failure) \
   GTEST_AMBIGUOUS_ELSE_BLOCKER_ \
@@ -345,7 +344,6 @@ namespace iusupport
 namespace internal
 {
 
-// volatile なポインタに対応
 template<typename T>
 struct is_pointer<T* volatile> : public true_type {};
 
@@ -371,4 +369,4 @@ namespace iutest = testing;
 
 #endif
 
-#endif
+#endif	// INCG_IRIS_IUTEST_SWITCH_HPP_

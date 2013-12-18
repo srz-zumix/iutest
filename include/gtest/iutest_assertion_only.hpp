@@ -19,7 +19,7 @@
 
 #if !defined(IUTEST_USE_GTEST)
 
-#else
+#else	// !defined(IUTEST_USE_GTEST)
 
 #include "iutest_gtest_ver.hpp"
 #if GTEST_OS_WINDOWS
@@ -279,6 +279,6 @@ namespace testing
 
 }
 
-#endif
+#endif	// !defined(IUTEST_USE_GTEST)
 
-#endif
+#endif	// INCG_IRIS_IUTEST_ASSERTION_ONLY_HPP_9E5FA1C8_EFB5_40A9_A3AD_971584ECAE56_

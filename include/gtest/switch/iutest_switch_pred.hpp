@@ -22,7 +22,7 @@
 //======================================================================
 // define
 
-#else
+#else	// !defined(IUTEST_USE_GTEST)
 
 //======================================================================
 // undef
@@ -49,6 +49,6 @@
 	IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure, pred_formatter)
 #endif
 
-#endif
+#endif	// !defined(IUTEST_USE_GTEST)
 
-#endif
+#endif	// INCG_IRIS_IUTEST_SWITCH_PRED_HPP_B00F77FE_0772_48EC_B182_DAB0AA3EA2DC_

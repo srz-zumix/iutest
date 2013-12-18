@@ -300,4 +300,4 @@ typedef detail::type_least_t<8>::Int	BiggestInt;		//!< Biggest Int
 
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_DEFS_HPP_839F06DB_E0B6_4E6A_84F2_D99C0A44E06C_

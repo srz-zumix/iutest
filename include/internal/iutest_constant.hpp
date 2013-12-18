@@ -89,4 +89,4 @@ struct kValues
 }	// end of namespace detail
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_CONSTANT_HPP_37DDDC13_3259_42E0_A648_47B064DED4BA_

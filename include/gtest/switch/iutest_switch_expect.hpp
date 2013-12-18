@@ -62,7 +62,6 @@
 
 //======================================================================
 // define
-// EXPECT
 #define EXPECT_TRUE		IUTEST_EXPECT_TRUE
 #define EXPECT_FALSE	IUTEST_EXPECT_FALSE
 #define EXPECT_EQ		IUTEST_EXPECT_EQ
@@ -101,7 +100,7 @@
 #define EXPECT_PRED_FORMAT5	IUTEST_EXPECT_PRED_FORMAT5
 
 
-#else
+#else	// !defined(IUTEST_USE_GTEST)
 
 //======================================================================
 // undef
@@ -199,6 +198,6 @@
 
 #define IUTEST_EXPECT_FAILURE	GTEST_NONFATAL_FAILURE_
 
-#endif
+#endif	// !defined(IUTEST_USE_GTEST)
 
-#endif
+#endif	// INCG_IRIS_IUTEST_SWITCH_EXPECT_HPP_F4AD6E1B_4B1F_40EE_A0CC_D454587B2C39_

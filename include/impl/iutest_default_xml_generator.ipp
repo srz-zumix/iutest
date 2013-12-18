@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_default_xml_generator.ipp
- * @brief		iris unit test xml 出力イベントリスナー ファイル
+ * @brief		output xml event listener implementation
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -363,4 +363,4 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_DEFAULT_XML_GENERATOR_IPP_791DCB98_05CC_49BA_8518_0EC9CA2B5450_

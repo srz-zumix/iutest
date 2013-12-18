@@ -264,4 +264,4 @@ struct TypeList< Types< IUTEST_PP_ENUM_PARAMS(50, T) > >
 
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_TYPED_UTIL_HPP_32A6F7CF_36C6_4EDE_AD19_04965FBFBB37_

@@ -556,4 +556,4 @@ public:
 }	// end of namespace iutest_type_traits
 
 
-#endif
+#endif	// INCG_IRIS_IUTEST_TYPE_TRAITS_HPP_6F091F15_784A_4F50_BD18_B8F67C5AF0CF_

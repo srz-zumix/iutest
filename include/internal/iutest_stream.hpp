@@ -95,4 +95,4 @@ public:
 }	// end of namespace detail
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_STREAM_HPP_3A4AF139_9F24_4730_81D0_DADFCE6DCF99_

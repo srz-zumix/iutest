@@ -563,4 +563,4 @@ public:
 
 }	// end of namespace iuutil
 
-#endif
+#endif	// INCG_IRIS_IUTEST_UTIL_ASSERTION_HPP_A45F8265_40E0_44F2_91C6_090B1778657C_

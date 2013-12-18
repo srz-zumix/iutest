@@ -1047,4 +1047,4 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ IsHRESULTFailure(const char* exp
 
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_ASSERTION_HPP_E6AF3476_DA81_46F7_A961_ACCEF7363932_

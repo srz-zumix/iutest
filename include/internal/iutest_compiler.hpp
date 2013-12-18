@@ -778,4 +778,4 @@
 #  pragma warning(disable:4786)	// ident trunc to '255' chars in debug info
 #endif
 
-#endif
+#endif	// INCG_IRIS_IUTEST_COMPILER_HPP_6DDB27E8_E2FF_4754_80B0_F500025820C4_

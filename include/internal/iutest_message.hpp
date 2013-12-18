@@ -192,4 +192,4 @@ public:
 #  include "../impl/iutest_message.ipp"
 #endif
 
-#endif
+#endif	// INCG_IRIS_IUTEST_MESSAGE_HPP_0A05C876_F204_41F5_895F_F8454AB283B1_

@@ -245,4 +245,4 @@ protected:
 
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_FILE_HPP_77D2C2B9_F504_4BB5_BA56_D97A2EB37DC6_

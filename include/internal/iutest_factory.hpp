@@ -108,4 +108,4 @@ public:
 }	// end of namespace detail
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_FACTORY_HPP_9C2B4B94_95A0_479A_9C9D_43FB31845A73_

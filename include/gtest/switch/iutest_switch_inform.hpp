@@ -21,7 +21,6 @@
 
 //======================================================================
 // define
-// INFORM
 #define INFORM_TRUE		IUTEST_INFORM_TRUE
 #define INFORM_FALSE	IUTEST_INFORM_FALSE
 #define INFORM_EQ		IUTEST_INFORM_EQ
@@ -59,7 +58,7 @@
 #define INFORM_PRED_FORMAT4	IUTEST_INFORM_PRED_FORMAT4
 #define INFORM_PRED_FORMAT5	IUTEST_INFORM_PRED_FORMAT5
 
-#else
+#else	// !defined(IUTEST_USE_GTEST)
 
 //======================================================================
 // undef
@@ -110,7 +109,9 @@
 //======================================================================
 // define
 // INFORM ‘Î‰ž‚Ì‚½‚ß‚ÉA‰Šú‰»ŠÖ”‚ðŒÄ‚Ô
-#undef RUN_ALL_TESTS
+#ifdef RUN_ALL_TESTS
+#  undef RUN_ALL_TESTS
+#endif
 #define RUN_ALL_TESTS()			(::testing::inform_support::AppendInformSupportPrinter(), (::testing::UnitTest::GetInstance()->Run()))
 
 //	INFORM ‘Î‰ž
@@ -270,6 +271,6 @@ namespace inform_support
 
 }
 
-#endif
+#endif	// !defined(IUTEST_USE_GTEST)
 
-#endif
+#endif	// INCG_IRIS_IUTEST_SWITCH_INFORM_HPP_F4AD6E1B_4B1F_40EE_A0CC_D454587B2C39_

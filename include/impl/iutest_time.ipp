@@ -122,4 +122,4 @@ IUTEST_IPP_INLINE unsigned int GetIndefiniteValue(void)
 }	// end of namespace detail
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_TIME_IPP_C6B9E65B_4059_4175_A6DB_397DBF338AA8_

@@ -549,4 +549,4 @@ IUTEST_IPP_INLINE ::std::string SSTPNotifier::FormatBool(bool b)
 
 #endif
 
-#endif
+#endif	// INCG_IRIS_IUTEST_SSTP_NOTIFIER_HPP_1187A63F_E99B_4289_A562_3C87B9739B7D_

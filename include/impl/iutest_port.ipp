@@ -331,4 +331,4 @@ IUTEST_IPP_INLINE IUTestLog::~IUTestLog(void)
 }	// end of namespace detail
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_PORT_IPP_7893F685_A1A9_477A_82E8_BF06237697FF_

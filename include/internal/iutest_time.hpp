@@ -110,4 +110,4 @@ public:
 #  include "../impl/iutest_time.ipp"
 #endif
 
-#endif
+#endif	// INCG_IRIS_IUTEST_TIME_HPP_C6B9E65B_4059_4175_A6DB_397DBF338AA8_

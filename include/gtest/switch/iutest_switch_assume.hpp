@@ -21,7 +21,6 @@
 
 //======================================================================
 // define
-// ASSUME
 #define ASSUME_TRUE		IUTEST_ASSUME_TRUE
 #define ASSUME_FALSE	IUTEST_ASSUME_FALSE
 #define ASSUME_EQ		IUTEST_ASSUME_EQ
@@ -59,7 +58,7 @@
 #define ASSUME_PRED_FORMAT4	IUTEST_ASSUME_PRED_FORMAT4
 #define ASSUME_PRED_FORMAT5	IUTEST_ASSUME_PRED_FORMAT5
 
-#else
+#else	// !defined(IUTEST_USE_GTEST)
 
 //======================================================================
 // undef
@@ -109,11 +108,6 @@
 
 //======================================================================
 // define
-// ASSUME ‘Î‰ž‚Ì‚½‚ß‚ÉA‰Šú‰»ŠÖ”‚ðŒÄ‚Ô
-#undef RUN_ALL_TESTS
-#define RUN_ALL_TESTS()			(::testing::inform_support::AppendInformSupportPrinter(), (::testing::UnitTest::GetInstance()->Run()))
-
-//	ASSUME ‘Î‰ž
 #define GTEST_ASSUME_FAILURE_(message) \
 	return GTEST_MESSAGE_(message, ::testing::TestPartResult::kSuccess)
 
@@ -236,6 +230,6 @@
 
 #define IUTEST_ASSUME_FAILURE	GTEST_ASSUME_FAILURE_
 
-#endif
+#endif	// !defined(IUTEST_USE_GTEST)
 
-#endif
+#endif	// INCG_IRIS_IUTEST_SWITCH_ASSUME_HPP_E22A3162_D581_4F4F_A344_F5D701B21F53_

@@ -214,4 +214,4 @@ inline void TAPFileGeneratorListener::OnTestProgramEnd(const UnitTest& test)
 
 }	// end of namespace iutest
 
-#endif
+#endif	// INCG_IRIS_IUTEST_TAP_PRINTER_HPP_77055C2B_AAE1_4944_A61C_26C58B04B37B_

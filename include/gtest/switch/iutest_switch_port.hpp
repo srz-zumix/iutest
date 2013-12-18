@@ -95,7 +95,7 @@
 #  define GTEST_OS_NACL	IUTEST_OS_NACL
 #endif
 
-#else
+#else	// !defined(IUTEST_USE_GTEST)
 
 //======================================================================
 // undef
@@ -224,6 +224,6 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
-#endif
+#endif	// !defined(IUTEST_USE_GTEST)
 
-#endif
+#endif	// INCG_IRIS_IUTEST_SWITCH_PORT_HPP_2B432CD6_18CE_4D0C_B0CD_4E4D5B8E34F4_
