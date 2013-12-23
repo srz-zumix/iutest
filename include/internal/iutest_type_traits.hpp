@@ -115,11 +115,11 @@ struct remove_ptr<T*>	{ typedef T type; };
 
 #endif
 
-namespace helper
+namespace is_pointer_helper
 {
 
 template<typename T>
-class is_pointer_helper
+class is_pointer
 {
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 	template<typename U, typename TMP> struct impl { typedef false_type type; };
@@ -145,15 +145,15 @@ public:
  * @brief	is_pointer
 */
 template<typename T>
-struct is_pointer : public helper::is_pointer_helper<T>::type {};
+struct is_pointer : public is_pointer_helper::is_pointer<T>::type {};
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
-namespace helper
+namespace is_reference_helper
 {
 
 template<typename T>
-class is_reference_helper
+class is_reference
 {
 	template<typename U, typename TMP> struct impl { typedef false_type type; };
 	template<typename U, typename TMP> struct impl<U&, TMP> { typedef true_type type; };
@@ -168,12 +168,12 @@ public:
  * @brief	is_reference
 */
 template<typename T>
-struct is_reference : public helper::is_reference_helper<T>::type {};
+struct is_reference : public is_reference_helper::is_reference<T>::type {};
 
-namespace helper
+namespace is_void_helper
 {
 template<typename T>
-class is_void_helper
+class is_void
 {
 	template<typename U, typename TMP> struct impl { typedef false_type type; };
 	template<typename TMP> struct impl<void, TMP> { typedef true_type type; };
@@ -188,7 +188,7 @@ public:
  * @brief	is_void
 */
 template<typename T>
-class is_void : public helper::is_void_helper<T>::type {};
+class is_void : public is_void_helper::is_void<T>::type {};
 
 /**
  * @brief	is_const
@@ -200,20 +200,20 @@ struct is_const<T const> : public true_type {};
 
 #endif // #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
-namespace helper
+namespace is_same_helper
 {
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 template<typename T1, typename T2>
-struct is_same_helper { typedef false_type type; };
+struct is_same { typedef false_type type; };
 template<typename T>
-struct is_same_helper<T, T> { typedef true_type type; };
+struct is_same<T, T> { typedef true_type type; };
 
 #elif IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION
 
 template<typename T1, typename T2>
-class is_same_helper
+class is_same
 {
 	template<typename T>
 	struct impl { typedef false_type type; };
@@ -233,11 +233,37 @@ public:
  * @brief	is_same
 */
 template<typename T1, typename T2>
-struct is_same : public helper::is_same_helper<T1, T2>::type {};
+struct is_same : public is_same_helper::is_same<T1, T2>::type {};
 
 #endif
 
-namespace helper
+namespace is_class_helper
+{
+
+	template<typename T>
+	class is_class
+	{
+		template<typename U>
+		static char	IsClassHelper(int U::*);
+		template<typename U>
+		static char(&IsClassHelper(...))[2];
+
+		enum { IsClass = sizeof(IsClassHelper<T>(0)) == 1 ? true : false };
+	public:
+		typedef bool_constant<IsClass> type;
+	};
+
+}
+
+/**
+* @brief	is class
+*/
+template<typename T>
+class is_class : public is_class_helper::is_class<T>::type
+{
+};
+
+namespace is_convertible_helper
 {
 
 template<typename From, typename To>
@@ -259,9 +285,68 @@ public:
  * @brief	is convertible
 */
 template<typename From, typename To>
-class is_convertible : public helper::is_convertible_type<From, To>::type
+class is_convertible : public is_convertible_helper::is_convertible_type<From, To>::type
 {
 };
+
+namespace is_base_of_helper
+{
+	template<typename Base, typename Derived>
+	class is_base_of_check
+	{
+		struct no_t { char a[2]; };
+		template<typename T>
+		static char CheckSig(Derived const volatile *, T);
+		static no_t CheckSig(Base const volatile *, int);
+		struct host
+		{
+			operator Base const volatile * () const;
+			operator Derived const volatile * ();
+		};
+		enum { IsBaseAndDerived = sizeof(CheckSig(host(), 0)) == 1 ? true : false };
+	public:
+		typedef bool_constant<IsBaseAndDerived> type;
+	};
+
+	template<bool is_class_b, bool is_class_d, bool is_same>
+	struct is_base_of_select
+	{
+		template<typename T, typename U>struct rebind { typedef false_type type;  };
+	};
+	template<>
+	struct is_base_of_select<true, true, false>
+	{
+		template<typename T, typename U>struct rebind
+		{
+			typedef typename is_base_of_check<T, U>::type type;
+		};
+	};
+
+	template<typename Base, typename Derived>
+	class is_base_of
+	{
+		typedef typename remove_cv<Base>::type B;
+		typedef typename remove_cv<Derived>::type D;
+		typedef is_base_of_select<
+		is_class<Base>::value
+		, is_class<Derived>::value
+		, is_same<Base, Derived>::value
+		> selector;
+		typedef typename selector::template rebind<B, D> binder;
+	public:
+		typedef typename binder::type type;
+	};
+
+}
+
+/**
+* @brief	is base of
+*/
+template<typename Base, typename Derived>
+class is_base_of : public is_base_of_helper::is_base_of<Base, Derived>::type
+{
+};
+
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 

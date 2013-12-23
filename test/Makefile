@@ -116,15 +116,16 @@ TARGETS1= iutest_all_tests \
           iutest_throw_on_assert_failure_tests \
           iutest_throw_on_failure_tests \
           iutest_tr1_tests \
-          iutest_uninitialize_tests
+          iutest_uninitialize_tests \
+#          iutest_exception_tests
 
 TARGETS2= \
           iutest_assertion_only_tests \
-#          iutest_exception_tests
 
-TARGETS3 = \
+TARGETS_IUTEST_ONLY = \
           iutest_env_var_tests \
           iutest_env_var_gtest_tests \
+          iutest_unit_tests \
 
 BUILD_ONLY = iutest_break_on_failure_tests \
 
@@ -132,7 +133,7 @@ BUILD_ONLY = iutest_break_on_failure_tests \
 ifdef USE_GTEST
 RUN_TARGETS = $(TARGETS1) $(TARGETS2)
 else
-RUN_TARGETS = $(TARGETS1) $(TARGETS2) $(TARGETS3)
+RUN_TARGETS = $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY)
 endif
 BUILD_TARGETS = $(RUN_TARGETS) $(BUILD_ONLY)
 TARGETS = $(BUILD_TARGETS)

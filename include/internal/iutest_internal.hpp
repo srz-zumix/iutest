@@ -66,6 +66,21 @@
 
 #endif
 
+#if IUTEST_HAS_IF_EXISTS
+#  define IIUT_CHECK_TESTFIXTURE(testfixture_)		\
+	IUTEST_IF_EXISTS(testfixture_) {				\
+		IUTEST_STATIC_ASSERT_MSG(					\
+			!::iutest_type_traits::is_base_of<::iutest::Test, testfixture_>::value	\
+			, #testfixture_ " is fixture class, mistake the IUTEST_F?");			\
+	}
+#else
+#  define IIUT_CHECK_TESTFIXTURE(testfixture_)
+#endif
+
+#define IUTEST_TEST_STRICT_(testcase_, testname_, parent_class_, type_id_)	\
+	IIUT_CHECK_TESTFIXTURE(testcase_)										\
+	IUTEST_TEST_(testcase_, testname_, parent_class, type_id_)
+
 #define IUTEST_TEST_F_(testfixture_, testname_)		IUTEST_TEST_(testfixture_, testname_, IUTEST_TO_VARNAME_(testfixture_)	\
 														, ::iutest::internal::GetTypeId< IUTEST_TO_VARNAME_(testfixture_) >())
 
