@@ -19,6 +19,9 @@
 // include
 #include "../include/iutest.hpp"
 
+template<int A, int B>
+struct add_t { enum { value = A + B }; };
+
 ::iutest::AssertionResult IsEven(int n)
 {
 	if( n%2 == 0 ) return ::iutest::AssertionSuccess();
@@ -33,6 +36,12 @@ IUTEST(AssertionTest, True)
 	IUTEST_EXPECT_TRUE(1);
 	IUTEST_EXPECT_TRUE(100==100);
 	IUTEST_EXPECT_TRUE(IsEven(2));
+#ifndef IUTEST_NO_VARIADIC_MACROS
+	IUTEST_ASSERT_TRUE(add_t<0,1>::value);
+	IUTEST_EXPECT_TRUE(add_t<0,1>::value);
+	IUTEST_INFORM_TRUE(add_t<0,1>::value);
+	IUTEST_ASSUME_TRUE(add_t<0,1>::value);
+#endif
 }
 
 IUTEST(AssertionTest, False)
@@ -42,6 +51,12 @@ IUTEST(AssertionTest, False)
 	IUTEST_INFORM_FALSE(false);
 	IUTEST_EXPECT_FALSE(0);
 	IUTEST_EXPECT_FALSE(100!=100);
+#ifndef IUTEST_NO_VARIADIC_MACROS
+	IUTEST_ASSERT_FALSE(add_t<0,0>::value);
+	IUTEST_EXPECT_FALSE(add_t<0,0>::value);
+	IUTEST_INFORM_FALSE(add_t<0,0>::value);
+	IUTEST_ASSUME_FALSE(add_t<0,0>::value);
+#endif
 }
 
 struct Point

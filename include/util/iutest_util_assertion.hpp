@@ -324,6 +324,7 @@ template<typename T1, typename T2>
 		, actual.begin(), actual.end());
 }
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+
 /** @overload */
 template<typename T1, size_t SIZE1, typename T2, size_t SIZE2>
 ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqRange(const char* expected_expr, const char* actual_expr

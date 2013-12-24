@@ -51,7 +51,7 @@ namespace iutest
  * @param	testcase_	= テストケース名
  * @param	testname_	= テスト名
 */
-#define IUTEST_TEST(testcase_, testname_)			IUTEST_TEST_(testcase_, testname_, ::iutest::Test	\
+#define IUTEST_TEST(testcase_, testname_)			IUTEST_TEST_STRICT_(testcase_, testname_, ::iutest::Test	\
 														, ::iutest::internal::GetTestTypeId())
 
 /**
@@ -272,7 +272,11 @@ namespace iutest
  * @details	v が真であることを検証します
 */
 #ifndef IUTEST_ASSERT_TRUE
-#  define	IUTEST_ASSERT_TRUE(v)					IUTEST_TEST_TRUE(v, #v, IUTEST_ASSERT_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define	IUTEST_ASSERT_TRUE(...)					IUTEST_TEST_TRUE((__VA_ARGS__), #__VA_ARGS__, IUTEST_ASSERT_FAILURE)
+#  else
+#    define	IUTEST_ASSERT_TRUE(v)					IUTEST_TEST_TRUE(v, #v, IUTEST_ASSERT_FAILURE)
+#  endif
 #endif
 /**
  * @ingroup	IUTEST_ASSERT_
@@ -280,7 +284,11 @@ namespace iutest
  * @details	v が偽であることを検証します
 */
 #ifndef IUTEST_ASSERT_FALSE
-#  define	IUTEST_ASSERT_FALSE(v)					IUTEST_TEST_FALSE(v, #v, IUTEST_ASSERT_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define	IUTEST_ASSERT_FALSE(...)				IUTEST_TEST_FALSE((__VA_ARGS__), #__VA_ARGS__, IUTEST_ASSERT_FAILURE)
+#  else
+#    define	IUTEST_ASSERT_FALSE(v)					IUTEST_TEST_FALSE(v, #v, IUTEST_ASSERT_FAILURE)
+#  endif
 #endif
 
 /**
@@ -573,7 +581,11 @@ namespace iutest
  * @details	v が真であることを検証します
 */
 #ifndef IUTEST_EXPECT_TRUE
-#  define	IUTEST_EXPECT_TRUE(v)					IUTEST_TEST_TRUE(v, #v, IUTEST_EXPECT_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define	IUTEST_EXPECT_TRUE(...)					IUTEST_TEST_TRUE((__VA_ARGS__), #__VA_ARGS__, IUTEST_EXPECT_FAILURE)
+#  else
+#    define	IUTEST_EXPECT_TRUE(v)					IUTEST_TEST_TRUE(v, #v, IUTEST_EXPECT_FAILURE)
+#  endif
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
@@ -581,7 +593,11 @@ namespace iutest
  * @details	v が偽であることを検証します
 */
 #ifndef IUTEST_EXPECT_FALSE
-#  define	IUTEST_EXPECT_FALSE(v)					IUTEST_TEST_FALSE(v, #v, IUTEST_EXPECT_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define	IUTEST_EXPECT_FALSE(...)				IUTEST_TEST_FALSE((__VA_ARGS__), #__VA_ARGS__, IUTEST_EXPECT_FAILURE)
+#  else
+#    define	IUTEST_EXPECT_FALSE(v)					IUTEST_TEST_FALSE(v, #v, IUTEST_EXPECT_FAILURE)
+#  endif
 #endif
 
 /**
@@ -883,7 +899,11 @@ namespace iutest
  * @details	v が真であることを検証します
 */
 #ifndef IUTEST_INFORM_TRUE
-#  define	IUTEST_INFORM_TRUE(v)					IUTEST_TEST_TRUE(v, #v, IUTEST_INFORM_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define	IUTEST_INFORM_TRUE(...)					IUTEST_TEST_TRUE((__VA_ARGS__), #__VA_ARGS__, IUTEST_INFORM_FAILURE)
+#  else
+#    define	IUTEST_INFORM_TRUE(v)					IUTEST_TEST_TRUE(v, #v, IUTEST_INFORM_FAILURE)
+#  endif
 #endif
 /**
  * @ingroup	IUTEST_INFORM_
@@ -891,7 +911,11 @@ namespace iutest
  * @details	v が偽であることを検証します
 */
 #ifndef IUTEST_INFORM_FALSE
-#  define	IUTEST_INFORM_FALSE(v)					IUTEST_TEST_FALSE(v, #v, IUTEST_INFORM_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define	IUTEST_INFORM_FALSE(...)				IUTEST_TEST_FALSE((__VA_ARGS__), #__VA_ARGS__, IUTEST_INFORM_FAILURE)
+#  else
+#    define	IUTEST_INFORM_FALSE(v)					IUTEST_TEST_FALSE(v, #v, IUTEST_INFORM_FAILURE)
+#  endif
 #endif
 
 /**
@@ -1173,7 +1197,11 @@ namespace iutest
  * @details	v が真であることを検証します
 */
 #ifndef IUTEST_ASSUME_TRUE
-#  define	IUTEST_ASSUME_TRUE(v)					IUTEST_TEST_TRUE(v, #v, IUTEST_ASSUME_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define	IUTEST_ASSUME_TRUE(...)					IUTEST_TEST_TRUE((__VA_ARGS__), #__VA_ARGS__, IUTEST_ASSUME_FAILURE)
+#  else
+#    define	IUTEST_ASSUME_TRUE(v)					IUTEST_TEST_TRUE(v, #v, IUTEST_ASSUME_FAILURE)
+#  endif
 #endif
 /**
  * @ingroup	IUTEST_ASSUME_
@@ -1181,7 +1209,11 @@ namespace iutest
  * @details	v が偽であることを検証します
 */
 #ifndef IUTEST_ASSUME_FALSE
-#  define	IUTEST_ASSUME_FALSE(v)					IUTEST_TEST_FALSE(v, #v, IUTEST_ASSUME_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define	IUTEST_ASSUME_FALSE(...)				IUTEST_TEST_FALSE((__VA_ARGS__), #__VA_ARGS__, IUTEST_ASSUME_FAILURE)
+#  else
+#    define	IUTEST_ASSUME_FALSE(v)					IUTEST_TEST_FALSE(v, #v, IUTEST_ASSUME_FAILURE)
+#  endif
 #endif
 
 /**

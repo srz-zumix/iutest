@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01070023u	//!< iutest version 1.7.0.23
+#define	IUTEST_VER			0x01079900u	//!< iutest version 1.7.99.0
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x07u		//!< Minor Version
-#define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x23u		//!< Revision
+#define IUTEST_BUILD		0x99u		//!< Build
+#define IUTEST_REVISION		0x00u		//!< Revision
 
 /**
  * @mainpage
@@ -95,14 +95,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.7.0.23
+  <li>v1.7.99.0
     <ul>
       <li>IUTEST_*_EQ_RANGE を追加</li>
       <li>IUTEST_*_STRIN,IUTEST_*_STRNOTIN を追加</li>
       <li>IUTEST_FLAG(output) に対応</li>
       <li>IUTEST_*_NO_FAILURE の gtest モード対応</li>
       <li>IUTEST_*_NO_FAILURE が警告やスキップを失敗と判断しないように変更</li>
-      <li>パッケージ内の値のパラメータ化テストのテストケース名が pkg.prefix/testcase となるように修正</li>
+	  <li>IUTEST_*_TRUE/FALSE を可変長対応</li>
+	  <li>フィクスチャークラス名を IUTEST_TEST マクロのテストケース名に使用した場合にエラーになるように修正(MSVC)</li>
+	  <li>パッケージ内の値のパラメータ化テストのテストケース名が pkg.prefix/testcase となるように修正</li>
       <li>Visual C++ Compiler November 2013 CTP 対応</li>
       <li>リスナーのセットアップ関数を変更</li>
       <li>バグ修正</li>
