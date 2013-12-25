@@ -30,7 +30,7 @@ ifeq ($(findstring clang, $(CXX)),clang)
 #
 #
 
-#CXXFLAGS += -std=c++0x
+#STDFLAG += -std=c++0x
 
 else
 
@@ -51,15 +51,15 @@ GCCMINOR:=$(word 2, $(GCCVERSION))
 
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 8 \)))
 # 4.8 later
-CXXFLAGS += -std=c++1y
+STDFLAG += -std=c++1y
 else
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 7 \)))
 # 4.7 later
-CXXFLAGS += -std=c++11
+STDFLAG += -std=c++11
 else
 #ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 4 \)))
 # 4.4 later
-#CXXFLAGS += -std=c++0x
+#STDFLAG += -std=c++0x
 #endif
 endif
 endif
@@ -70,7 +70,7 @@ else
 # Unkown Compiler
 #
 #
-CXXFLAGS = 
+STDFLAG = 
 
 endif
 
@@ -80,7 +80,7 @@ ifdef OUTPUTXML
 DEFS+=-DOUTPUTXML
 endif
 
-CXXFLAGS += $(DEFS)
+CXXFLAGS += $(DEFS) $(STDFLAG)
 LIBS_ = $(LIBS:%=-l%)
 LDFLAGS += $(LIBS_)
 
