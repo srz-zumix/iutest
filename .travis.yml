@@ -2,18 +2,12 @@ language: cpp
 
 compiler:
  - clang
- - gcc-4.8
+ - gcc
  
-before_script:
- - g++ --version
- - clang++ --version
-
 script:
+ - $CXX --version
  - cd ./test
- - make
- - make STDFLAG=-std=c++98
- - make CC=clang CXX=clang++ STDFLAG=-std=c++98
- - make CC=clang CXX=clang++ STDFLAG=-std=c++1y
+ - make clean test
  
 
 install:
@@ -23,5 +17,9 @@ install:
  - sudo apt-get -qq update
  - sudo apt-get -qq install g++-4.8
  - sudo apt-get -qq install clang-3.5
- 
+
+env:
+ - STDFLAG=-std=c++98
+ - STDFLAG=-std=c++1y
+
 

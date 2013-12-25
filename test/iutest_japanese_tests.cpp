@@ -1,8 +1,8 @@
-//======================================================================
+Ôªø//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_japanese_tests.cpp
- * @brief		IUTEST_JAPANESE_NAME ëŒâûÉeÉXÉg
+ * @brief		IUTEST_JAPANESE_NAME ÂØæÂøú„ÉÜ„Çπ„Éà
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -24,64 +24,64 @@
 IUTEST_PACKAGE(japanese_test)
 {
 
-IUTEST(JapaneseTest, IUTEST_JAPANESE_NAME(Ç†Ç¢Ç§Ç¶Ç®))
+IUTEST(JapaneseTest, IUTEST_JAPANESE_NAME(„ÅÇ„ÅÑ„ÅÜ„Åà„Åä))
 {
-//	IUTEST_SUCCEED() << "Ç†Ç¢Ç§Ç¶Ç®";
+//	IUTEST_SUCCEED() << "„ÅÇ„ÅÑ„ÅÜ„Åà„Åä";
 	IUTEST_SUCCEED() << ::iutest::UnitTest::GetInstance()->current_test_info()->name();
-	IUTEST_ASSERT_STREQ("Ç†Ç¢Ç§Ç¶Ç®", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
+	IUTEST_ASSERT_STREQ("„ÅÇ„ÅÑ„ÅÜ„Åà„Åä", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
 
-IUTEST(JapaneseTest, IUTEST_JAPANESE_NAME(Ç©Ç´Ç≠ÇØÇ±))
+IUTEST(JapaneseTest, IUTEST_JAPANESE_NAME(„Åã„Åç„Åè„Åë„Åì))
 {
-	IUTEST_ASSERT_STREQ("Ç©Ç´Ç≠ÇØÇ±", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
+	IUTEST_ASSERT_STREQ("„Åã„Åç„Åè„Åë„Åì", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
 
-IUTEST(IUTEST_JAPANESE_NAME(Ç†Ç¢Ç§Ç¶Ç®), IUTEST_JAPANESE_NAME(Ç©Ç´Ç≠ÇØÇ±))
+IUTEST(IUTEST_JAPANESE_NAME(„ÅÇ„ÅÑ„ÅÜ„Åà„Åä), IUTEST_JAPANESE_NAME(„Åã„Åç„Åè„Åë„Åì))
 {
 #if IUTEST_HAS_PACKAGE
-	IUTEST_ASSERT_STREQ("japanese_test.Ç†Ç¢Ç§Ç¶Ç®", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+	IUTEST_ASSERT_STREQ("japanese_test.„ÅÇ„ÅÑ„ÅÜ„Åà„Åä", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
 #else
-	IUTEST_ASSERT_STREQ("Ç†Ç¢Ç§Ç¶Ç®", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+	IUTEST_ASSERT_STREQ("„ÅÇ„ÅÑ„ÅÜ„Åà„Åä", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
 #endif
-	IUTEST_ASSERT_STREQ("Ç©Ç´Ç≠ÇØÇ±", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
+	IUTEST_ASSERT_STREQ("„Åã„Åç„Åè„Åë„Åì", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
 
 class FixedTest : public ::iutest::Test {};
 
-IUTEST_F(IUTEST_JAPANESE_NAME_F(FixedTest, Ç†Ç¢Ç§Ç¶Ç®), IUTEST_JAPANESE_NAME(Ç©Ç´Ç≠ÇØÇ±))
+IUTEST_F(IUTEST_JAPANESE_NAME_F(FixedTest, „ÅÇ„ÅÑ„ÅÜ„Åà„Åä), IUTEST_JAPANESE_NAME(„Åã„Åç„Åè„Åë„Åì))
 {
 #if IUTEST_HAS_PACKAGE
-	IUTEST_ASSERT_STREQ("japanese_test.Ç†Ç¢Ç§Ç¶Ç®", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+	IUTEST_ASSERT_STREQ("japanese_test.„ÅÇ„ÅÑ„ÅÜ„Åà„Åä", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
 #else
-	IUTEST_ASSERT_STREQ("Ç†Ç¢Ç§Ç¶Ç®", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+	IUTEST_ASSERT_STREQ("„ÅÇ„ÅÑ„ÅÜ„Åà„Åä", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
 #endif
-	IUTEST_ASSERT_STREQ("Ç©Ç´Ç≠ÇØÇ±", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
+	IUTEST_ASSERT_STREQ("„Åã„Åç„Åè„Åë„Åì", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
 
 #if IUTEST_HAS_PARAM_TEST
 class ParamTest : public ::iutest::TestWithParam<int> {};
 
-IUTEST_P(IUTEST_JAPANESE_NAME_F(ParamTest, Ç†Ç¢Ç§Ç¶Ç®), IUTEST_JAPANESE_NAME(Ç†Ç¢Ç§Ç¶Ç®))
+IUTEST_P(IUTEST_JAPANESE_NAME_F(ParamTest, „ÅÇ„ÅÑ„ÅÜ„Åà„Åä), IUTEST_JAPANESE_NAME(„ÅÇ„ÅÑ„ÅÜ„Åà„Åä))
 {
 #if IUTEST_HAS_PACKAGE
-	IUTEST_ASSERT_STREQ("japanese_test.My1/Ç†Ç¢Ç§Ç¶Ç®", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+	IUTEST_ASSERT_STREQ("japanese_test.My1/„ÅÇ„ÅÑ„ÅÜ„Åà„Åä", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
 #else
-	IUTEST_ASSERT_STREQ("My1/Ç†Ç¢Ç§Ç¶Ç®", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+	IUTEST_ASSERT_STREQ("My1/„ÅÇ„ÅÑ„ÅÜ„Åà„Åä", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
 #endif
-	IUTEST_ASSERT_STREQ("Ç†Ç¢Ç§Ç¶Ç®/0", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
+	IUTEST_ASSERT_STREQ("„ÅÇ„ÅÑ„ÅÜ„Åà„Åä/0", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
 
-IUTEST_P(IUTEST_JAPANESE_NAME_F(ParamTest, Ç†Ç¢Ç§Ç¶Ç®), Japanese)
+IUTEST_P(IUTEST_JAPANESE_NAME_F(ParamTest, „ÅÇ„ÅÑ„ÅÜ„Åà„Åä), Japanese)
 {
 #if IUTEST_HAS_PACKAGE
-	IUTEST_ASSERT_STREQ("japanese_test.My1/Ç†Ç¢Ç§Ç¶Ç®", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+	IUTEST_ASSERT_STREQ("japanese_test.My1/„ÅÇ„ÅÑ„ÅÜ„Åà„Åä", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
 #else
-	IUTEST_ASSERT_STREQ("My1/Ç†Ç¢Ç§Ç¶Ç®", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+	IUTEST_ASSERT_STREQ("My1/„ÅÇ„ÅÑ„ÅÜ„Åà„Åä", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
 #endif
 	IUTEST_ASSERT_STREQ("Japanese/0", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, IUTEST_JAPANESE_NAME_F(ParamTest, Ç†Ç¢Ç§Ç¶Ç®), ::iutest::Values(0));
+IUTEST_INSTANTIATE_TEST_CASE_P(My1, IUTEST_JAPANESE_NAME_F(ParamTest, „ÅÇ„ÅÑ„ÅÜ„Åà„Åä), ::iutest::Values(0));
 
 #endif
 
@@ -92,19 +92,19 @@ class TypedTest : public ::iutest::Test {};
 
 IUTEST_TYPED_TEST_CASE(TypedTest, int);
 
-IUTEST_TYPED_TEST(IUTEST_JAPANESE_NAME_F(TypedTest, Ç†Ç¢Ç§Ç¶Ç®), IUTEST_JAPANESE_NAME(Ç†Ç¢Ç§Ç¶Ç®))
+IUTEST_TYPED_TEST(IUTEST_JAPANESE_NAME_F(TypedTest, „ÅÇ„ÅÑ„ÅÜ„Åà„Åä), IUTEST_JAPANESE_NAME(„ÅÇ„ÅÑ„ÅÜ„Åà„Åä))
 {
 #if IUTEST_HAS_PACKAGE
-	IUTEST_ASSERT_STREQ("japanese_test.Ç†Ç¢Ç§Ç¶Ç®/0", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+	IUTEST_ASSERT_STREQ("japanese_test.„ÅÇ„ÅÑ„ÅÜ„Åà„Åä/0", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
 #else
-	IUTEST_ASSERT_STREQ("Ç†Ç¢Ç§Ç¶Ç®/0", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+	IUTEST_ASSERT_STREQ("„ÅÇ„ÅÑ„ÅÜ„Åà„Åä/0", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
 #endif
-	IUTEST_ASSERT_STREQ("Ç†Ç¢Ç§Ç¶Ç®", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
+	IUTEST_ASSERT_STREQ("„ÅÇ„ÅÑ„ÅÜ„Åà„Åä", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
 
 #endif
 
-#if 0	// ñ¢ÉTÉ|Å[Ég
+#if 0	// Êú™„Çµ„Éù„Éº„Éà
 #if IUTEST_HAS_TYPED_TEST_P
 
 template<typename T>
@@ -112,9 +112,9 @@ class TypeParamTest : public ::iutest::Test {};
 
 IUTEST_TYPED_TEST_CASE_P(TypeParamTest);
 
-IUTEST_TYPED_TEST_P(TypeParamTest, IUTEST_JAPANESE_NAME_F(aiueo, Ç†Ç¢Ç§Ç¶Ç®))
+IUTEST_TYPED_TEST_P(TypeParamTest, IUTEST_JAPANESE_NAME_F(aiueo, „ÅÇ„ÅÑ„ÅÜ„Åà„Åä))
 {
-	IUTEST_ASSERT_STREQ("Ç†Ç¢Ç§Ç¶Ç®", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
+	IUTEST_ASSERT_STREQ("„ÅÇ„ÅÑ„ÅÜ„Åà„Åä", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
 
 IUTEST_REGISTER_TYPED_TEST_CASE_P(TypeParamTest, aiueo);
@@ -131,13 +131,13 @@ void TestFunction(int x, int y)
 {
 	IUTEST_ASSERT_EQ(x, y);
 #if IUTEST_HAS_PACKAGE
-	IUTEST_ASSERT_STREQ("japanese_test.Ç†Ç¢Ç§Ç¶Ç®", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+	IUTEST_ASSERT_STREQ("japanese_test.„ÅÇ„ÅÑ„ÅÜ„Åà„Åä", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
 #else
-	IUTEST_ASSERT_STREQ("Ç†Ç¢Ç§Ç¶Ç®", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+	IUTEST_ASSERT_STREQ("„ÅÇ„ÅÑ„ÅÜ„Åà„Åä", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
 #endif
-	IUTEST_ASSERT_STREQ("ÉCÉRÅ[Éã/0", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
+	IUTEST_ASSERT_STREQ("„Ç§„Ç≥„Éº„É´/0", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
-IUTEST_PMZ(IUTEST_JAPANESE_NAME(Ç†Ç¢Ç§Ç¶Ç®), IUTEST_JAPANESE_NAME(ÉCÉRÅ[Éã), TestFunction, 0, 0);
+IUTEST_PMZ(IUTEST_JAPANESE_NAME(„ÅÇ„ÅÑ„ÅÜ„Åà„Åä), IUTEST_JAPANESE_NAME(„Ç§„Ç≥„Éº„É´), TestFunction, 0, 0);
 
 #endif
 
@@ -146,17 +146,17 @@ IUTEST_PMZ(IUTEST_JAPANESE_NAME(Ç†Ç¢Ç§Ç¶Ç®), IUTEST_JAPANESE_NAME(ÉCÉRÅ[Éã), Tes
 namespace ignore_test
 {
 
-IUTEST_IGNORE(IUTEST_JAPANESE_NAME(Ç†Ç¢Ç§Ç¶Ç®), IUTEST_JAPANESE_NAME(Ç†Ç¢Ç§Ç¶Ç®))
+IUTEST_IGNORE(IUTEST_JAPANESE_NAME(„ÅÇ„ÅÑ„ÅÜ„Åà„Åä), IUTEST_JAPANESE_NAME(„ÅÇ„ÅÑ„ÅÜ„Åà„Åä))
 {
 }
 
-IUTEST_F_IGNORE(IUTEST_JAPANESE_NAME_F(FixedTest, Ç†Ç¢Ç§Ç¶Ç®), IUTEST_JAPANESE_NAME(Ç©Ç´Ç≠ÇØÇ±))
+IUTEST_F_IGNORE(IUTEST_JAPANESE_NAME_F(FixedTest, „ÅÇ„ÅÑ„ÅÜ„Åà„Åä), IUTEST_JAPANESE_NAME(„Åã„Åç„Åè„Åë„Åì))
 {
 }
 
 #if IUTEST_HAS_PARAM_TEST
 
-IUTEST_P_IGNORE(IUTEST_JAPANESE_NAME_F(ParamTest, Ç†Ç¢Ç§Ç¶Ç®), IUTEST_JAPANESE_NAME(Ç©Ç´Ç≠ÇØÇ±))
+IUTEST_P_IGNORE(IUTEST_JAPANESE_NAME_F(ParamTest, „ÅÇ„ÅÑ„ÅÜ„Åà„Åä), IUTEST_JAPANESE_NAME(„Åã„Åç„Åè„Åë„Åì))
 {
 }
 
@@ -164,7 +164,7 @@ IUTEST_P_IGNORE(IUTEST_JAPANESE_NAME_F(ParamTest, Ç†Ç¢Ç§Ç¶Ç®), IUTEST_JAPANESE_N
 
 #if IUTEST_HAS_TYPED_TEST
 
-IUTEST_TYPED_TEST_IGNORE(IUTEST_JAPANESE_NAME_F(TypedTest, Ç†Ç¢Ç§Ç¶Ç®), IUTEST_JAPANESE_NAME(Ç†Ç¢Ç§Ç¶Ç®))
+IUTEST_TYPED_TEST_IGNORE(IUTEST_JAPANESE_NAME_F(TypedTest, „ÅÇ„ÅÑ„ÅÜ„Åà„Åä), IUTEST_JAPANESE_NAME(„ÅÇ„ÅÑ„ÅÜ„Åà„Åä))
 {
 }
 
