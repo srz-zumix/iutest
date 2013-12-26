@@ -1,11 +1,10 @@
 language: cpp
 
 compiler:
-  - clang
+  - clang-3.5
   - gcc
  
 script:
-  - clang++ --version
   - cd ./test
   - make showcxxversion all
  
