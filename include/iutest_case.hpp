@@ -262,13 +262,13 @@ namespace detail
 /**
  * @brief	テストケース仲介者
 */
-class TestCaseMediator : public detail::iuITestCaseMediator
+class TestCaseMediator IUTEST_CXX_FINAL : public detail::iuITestCaseMediator
 {
 public:
 	TestCaseMediator(TestCase* p) IUTEST_CXX_NOEXCEPT_SPEC : iuITestCaseMediator(p) {}
 public:
-	virtual const char*	test_case_name(void) const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return m_test_case->name(); }
-	virtual const char*	type_param(void)	 const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL { return m_test_case->type_param(); }
+	virtual const char*	test_case_name(void) const IUTEST_CXX_OVERRIDE { return m_test_case->name(); }
+	virtual const char*	type_param(void)	 const IUTEST_CXX_OVERRIDE { return m_test_case->type_param(); }
 };
 
 }	// end of namespace detail

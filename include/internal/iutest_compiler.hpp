@@ -764,11 +764,17 @@
 // extension
 // __if_exists
 #ifndef IUTEST_HAS_IF_EXISTS
-#  if defined(_MSC_VER) && _MSC_VER >= 1310
+#  if defined(__clang__)
+#    if (__clang_major__ > 3 || (__clang_major == 3 && __clang_minor__ >= 5) )
+#      define IUTEST_HAS_IF_EXISTS			1
+#    endif
+#  elif defined(_MSC_VER) && _MSC_VER >= 1310
 #    define IUTEST_HAS_IF_EXISTS			1
-#  else
-#    define IUTEST_HAS_IF_EXISTS			0
 #  endif
+#endif
+
+#ifndef IUTEST_HAS_IF_EXISTS
+#  define IUTEST_HAS_IF_EXISTS		0
 #endif
 
 // pragma

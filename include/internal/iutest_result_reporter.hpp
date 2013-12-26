@@ -100,7 +100,7 @@ public:
 		Counter(void) : m_count(0)
 		{
 		}
-		virtual void ReportTestPartResult(const TestPartResult& result)
+		virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
 		{
 			if( m_cond(result) )
 			{
@@ -122,7 +122,7 @@ public:
 		typedef REPORTER	_Mybase;
 		typedef ::std::vector<TestPartResult>	TestPartResults;
 	public:
-		virtual void ReportTestPartResult(const TestPartResult& result)
+		virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
 		{
 			m_results.push_back(result);
 			_Mybase::ReportTestPartResult(result);

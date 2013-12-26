@@ -113,11 +113,11 @@ private:
 	public:
 		holder(const T& v) : held(v) {}
 	public:
-		virtual type_id type(void) const
+		virtual type_id type(void) const IUTEST_CXX_OVERRIDE
 		{
 			return internal::GetTypeId<T>();
 		}
-		virtual placeholder* clone(void) const
+		virtual placeholder* clone(void) const IUTEST_CXX_OVERRIDE
 		{
 			return new holder<T>(held);
 		}

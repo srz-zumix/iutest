@@ -31,7 +31,7 @@ namespace iutest
 /**
  * @brief	テスト情報クラス
 */
-class TestInfo 
+class TestInfo
 	: public detail::iu_list_node<TestInfo>
 {
 public:
@@ -196,20 +196,20 @@ private:
 	bool	filter(void);
 
 private:
-	class Mediator : public detail::iuITestInfoMediator
+	class Mediator IUTEST_CXX_FINAL : public detail::iuITestInfoMediator
 	{
 	public:
 		Mediator(TestInfo* p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : iuITestInfoMediator(p) {}
 	public:
-		virtual	bool	HasFatalFailure(void) const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+		virtual	bool	HasFatalFailure(void) const IUTEST_CXX_OVERRIDE
 		{
 			return ptr()->HasFatalFailure();
 		}
-		virtual	bool	HasNonfatalFailure(void) const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+		virtual	bool	HasNonfatalFailure(void) const IUTEST_CXX_OVERRIDE
 		{
 			return ptr()->HasNonfatalFailure();
 		}
-		virtual bool	HasFailure(void) const IUTEST_CXX_OVERRIDE IUTEST_CXX_FINAL
+		virtual bool	HasFailure(void) const IUTEST_CXX_OVERRIDE
 		{
 			return ptr()->HasFailure();
 		}

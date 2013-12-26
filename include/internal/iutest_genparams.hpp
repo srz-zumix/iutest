@@ -79,10 +79,10 @@ public:
 	}
 
 public:
-	virtual	void	Begin(void)	{ m_pInterface->Begin(); }	//!< パラメータリストの先頭に移動
-	virtual T		GetCurrent(void) const { return m_pInterface->GetCurrent(); }	// 現在のパラメータを取得
-	virtual void	Next(void)	{ m_pInterface->Next(); }	//!< パラメータを取得して次に移動
-	virtual bool	IsEnd(void) const { return m_pInterface->IsEnd(); }	//!< パラメータリストの終端にいるかどうか
+	virtual	void	Begin(void)	IUTEST_CXX_OVERRIDE { m_pInterface->Begin(); }	//!< パラメータリストの先頭に移動
+	virtual T		GetCurrent(void) const IUTEST_CXX_OVERRIDE { return m_pInterface->GetCurrent(); }	// 現在のパラメータを取得
+	virtual void	Next(void)	IUTEST_CXX_OVERRIDE { m_pInterface->Next(); }	//!< パラメータを取得して次に移動
+	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE { return m_pInterface->IsEnd(); }	//!< パラメータリストの終端にいるかどうか
 private:
 	_Interface*		m_pInterface;
 };
@@ -114,10 +114,10 @@ public:
 	}
 
 public:
-	virtual	void	Begin(void) { m_cur = m_begin; }
-	virtual T		GetCurrent(void) const	{ return m_cur; }
-	virtual void	Next(void)	{ m_cur += m_step; }
-	virtual bool	IsEnd(void) const	{ return !( m_cur < m_end ); }
+	virtual	void	Begin(void) IUTEST_CXX_OVERRIDE{ m_cur = m_begin; }
+	virtual T		GetCurrent(void) const IUTEST_CXX_OVERRIDE { return m_cur; }
+	virtual void	Next(void) IUTEST_CXX_OVERRIDE { m_cur += m_step; }
+	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE { return !(m_cur < m_end); }
 };
 
 /**
@@ -135,10 +135,10 @@ public:
 	{}
 
 public:
-	virtual	void	Begin(void) { m_cur = 0; m_n = 0; }
-	virtual T		GetCurrent(void) const	{ return m_cur; }
-	virtual void	Next(void)	{ ++m_n; m_cur = !m_cur; }
-	virtual bool	IsEnd(void) const	{ return (m_n >= 2); }
+	virtual	void	Begin(void) IUTEST_CXX_OVERRIDE { m_cur = 0; m_n = 0; }
+	virtual T		GetCurrent(void) const IUTEST_CXX_OVERRIDE { return m_cur; }
+	virtual void	Next(void) IUTEST_CXX_OVERRIDE { ++m_n; m_cur = !m_cur; }
+	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE { return (m_n >= 2); }
 };
 
 /**
@@ -191,10 +191,10 @@ public:
 #endif
 
 public:
-	virtual	void	Begin(void) { m_it = m_values.begin(); }
-	virtual T		GetCurrent(void) const	{ return *m_it; }
-	virtual void	Next(void)	{ ++m_it; }
-	virtual bool	IsEnd(void) const	{ return (m_it == m_values.end()); }
+	virtual	void	Begin(void) IUTEST_CXX_OVERRIDE{ m_it = m_values.begin(); }
+	virtual T		GetCurrent(void) const IUTEST_CXX_OVERRIDE { return *m_it; }
+	virtual void	Next(void) IUTEST_CXX_OVERRIDE { ++m_it; }
+	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE { return (m_it == m_values.end()); }
 };
 
 
@@ -479,20 +479,20 @@ public:
 	{}
 
 public:
-	virtual	void	Begin(void)
+	virtual	void	Begin(void) IUTEST_CXX_OVERRIDE
 	{
 		begin_foreach<0, count>(v);
 	}
-	virtual void	Next(void)
+	virtual void	Next(void) IUTEST_CXX_OVERRIDE
 	{
 		if( IsEnd() ) return;
 		next_foreach<0, count>(v);
 	}
-	virtual bool	IsEnd(void) const
+	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE
 	{
 		return is_end_foreach<0, count>(v);
 	}
-	virtual ParamType	GetCurrent(void) const
+	virtual ParamType	GetCurrent(void) const IUTEST_CXX_OVERRIDE
 	{
 		return current_foreach<0, count, Args...>();
 	}
@@ -558,12 +558,12 @@ public:
 		: m_g1(g1), m_g2(g2)
 	{}
 public:
-	virtual	void	Begin(void)
+	virtual	void	Begin(void) IUTEST_CXX_OVERRIDE
 	{
 		m_g1.Begin();
 		m_g2.Begin();
 	}
-	virtual void	Next(void)
+	virtual void	Next(void) IUTEST_CXX_OVERRIDE
 	{
 		if( m_g2.IsEnd() ) return;
 		m_g2.Next();
@@ -573,7 +573,7 @@ public:
 			if( !m_g1.IsEnd() ) m_g2.Begin();
 		}
 	}
-	virtual bool	IsEnd(void) const
+	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE
 	{
 		return m_g1.IsEnd() && m_g2.IsEnd();
 	}
@@ -598,7 +598,7 @@ public:
 	{}
 
 public:
-	virtual ParamType	GetCurrent(void) const
+	virtual ParamType	GetCurrent(void) const IUTEST_CXX_OVERRIDE
 	{
 		return ParamType(this->m_g1.GetCurrent(), this->m_g2.GetCurrent());
 	}
@@ -622,7 +622,7 @@ public:
 	{}
 
 public:
-	virtual ParamType	GetCurrent(void) const
+	virtual ParamType	GetCurrent(void) const IUTEST_CXX_OVERRIDE
 	{
 		tuples::tuple<T2, T3> param(this->m_g2.GetCurrent());
 		return ParamType(this->m_g1.GetCurrent(), tuples::get<0>(param), tuples::get<1>(param) );
@@ -654,7 +654,7 @@ public:
 		: _Mybase(g0, IUTEST_PP_CAT(iuCartesianProductGenerator, IUTEST_PP_DEC(n))<							\
 		IUTEST_PP_ENUM_SHIFTED_PARAMS(IUTEST_PP_DEC(n), T)>					\
 		( IUTEST_PP_ENUM_SHIFTED_PARAMS(IUTEST_PP_DEC(n), g) ) ) {}			\
-		virtual ParamType	GetCurrent(void) const {						\
+		virtual ParamType	GetCurrent(void) const IUTEST_CXX_OVERRIDE {	\
 			tuples::tuple< IUTEST_PP_ENUM_SHIFTED_PARAMS(IUTEST_PP_DEC(n), T) >	\
 			params(this->m_g2.GetCurrent());								\
 			return ParamType(this->m_g1.GetCurrent(), IUTEST_PP_ENUM(IUTEST_PP_DEC(n)	\
@@ -1110,12 +1110,12 @@ public:
 		return new iuPairwiseGenerator2<T1, T2>(g1, g2);
 	}
 public:
-	virtual	void	Begin(void)
+	virtual	void	Begin(void) IUTEST_CXX_OVERRIDE
 	{
 		m_g1.Begin();
 		m_g2.Begin();
 	}
-	virtual void	Next(void)
+	virtual void	Next(void) IUTEST_CXX_OVERRIDE
 	{
 		if( m_g2.IsEnd() ) 
 		{
@@ -1131,11 +1131,11 @@ public:
 			}
 		}
 	}
-	virtual bool	IsEnd(void) const
+	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE
 	{
 		return m_g1.IsEnd() && m_g2.IsEnd();
 	}
-	virtual ParamType	GetCurrent(void) const
+	virtual ParamType	GetCurrent(void) const IUTEST_CXX_OVERRIDE
 	{
 		return ParamType(this->m_g1.GetCurrent(), this->m_g2.GetCurrent());
 	}
