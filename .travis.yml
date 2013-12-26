@@ -1,7 +1,7 @@
 language: cpp
 
 compiler:
-  - clang
+  - clang-3.5
   - gcc
  
 script:
@@ -9,12 +9,12 @@ script:
   - make showcxxversion all
  
 
-#install:
-# - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
-# - wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -
-# - sudo add-apt-repository --yes 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise main'
-# - sudo apt-get -qq update
-# - sudo apt-get -qq install clang-3.5
+install:
+ - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
+ - wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -
+ - sudo add-apt-repository --yes 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise main'
+ - sudo apt-get -qq update
+ - sudo apt-get -qq install clang-3.5
 
 env:
  - STDFLAG=-std=c++98
