@@ -1,14 +1,12 @@
 language: cpp
 
 compiler:
- - clang
- - gcc
+  - clang
+  - gcc
  
 script:
- - g++ --version
- - clang++ --version
- - cd ./test
- - make clean test
+  - cd ./test
+  - make showcxxversion all
  
 
 install:
@@ -16,11 +14,10 @@ install:
  - wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -
  - sudo add-apt-repository --yes 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise main'
  - sudo apt-get -qq update
- - sudo apt-get -qq install g++-4.8
  - sudo apt-get -qq install clang-3.5
 
 env:
  - STDFLAG=-std=c++98
- - STDFLAG=-std=c++1y
+ - STDFLAG=-std=c++11
 
 

@@ -168,6 +168,9 @@ endif
 run : test
 test : $(BUILD_ONLY) $(RUNNER)
 
+showcxxversion:
+	$(CXX) --version
+
 run_% : %
 	@echo $<
 ifdef OUTPUTXML
