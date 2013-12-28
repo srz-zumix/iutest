@@ -42,7 +42,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, ValuesGenTest, ::iutest::ValuesGen(5, ValuesGe
 
 #if IUTEST_HAS_LAMBDA && IUTEST_HAS_CXX_HDR_RANDOM
 
-#if !defined(_MSC_VER)
+#if !defined(IUTEST_NO_LAMBDA_LOCAL_OBJECT_TEMPLATE_PARAMETERS)
 
 IUTEST_INSTANTIATE_TEST_CASE_P(Random, ValuesGenTest, ::iutest::ValuesGen(5,
 	[]() {

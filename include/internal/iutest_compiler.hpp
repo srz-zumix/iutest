@@ -381,6 +381,16 @@
 #  define IUTEST_HAS_LAMBDA		0
 #endif
 
+#ifndef IUTEST_HAS_LAMBDA
+#  if defined(__GNUC__)
+#    if (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 7))
+#      define IUTEST_NO_LAMBDA_LOCAL_OBJECT_TEMPLATE_PARAMETERS
+#    endif
+#  elif defined(_MSC_VER)
+#    define IUTEST_NO_LAMBDA_LOCAL_OBJECT_TEMPLATE_PARAMETERS
+#  endif
+#endif
+
 // explicit conversion operator
 #ifndef IUTEST_HAS_EXPLICIT_CONVERSION
 #  if	defined(__clang__)

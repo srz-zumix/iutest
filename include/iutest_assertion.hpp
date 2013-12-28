@@ -59,7 +59,7 @@ public:
 	/**
 	 * @brief	メッセージの取得
 	*/
-	const char* message(void)	const	{ return m_message.c_str(); }
+	const char* message(void) const { return m_message.c_str(); }
 
 	/**
 	 * @brief	メッセージの取得
@@ -68,7 +68,7 @@ public:
 	const char* failure_message(void) const { return message(); }
 
 	/** @private */
-	IUTEST_CXX_EXPLICIT_CONVERSION operator bool (void)	const	{ return m_result; }
+	IUTEST_CXX_EXPLICIT_CONVERSION operator bool (void)	const { return m_result; }
 
 public:
 	/**
@@ -87,11 +87,11 @@ public:
 	/**
 	 * @brief	成功結果の作成
 	*/
-	static AssertionResult	Success(void)	{ return AssertionResult(true); }
+	static AssertionResult	Success(void) { return AssertionResult(true); }
 	/**
 	 * @brief	失敗結果の作成
 	*/
-	static AssertionResult	Failure(void)	{ return AssertionResult(false); }
+	static AssertionResult	Failure(void) { return AssertionResult(false); }
 
 private:
 	IUTEST_PP_DISALLOW_ASSIGN(AssertionResult);
@@ -183,13 +183,13 @@ public:
 	class Fixed : public Message {
 	public:
 		template<typename T>
-		Fixed&		operator << (T val)
+		Fixed& operator << (T val)
 		{
 			Message::operator << (val);
 			return *this;
 		}
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
-		Fixed&	operator << (iu_basic_iomanip val)
+		Fixed& operator << (iu_basic_iomanip val)
 		{
 			Message::operator << (val);
 			return *this;
@@ -197,7 +197,7 @@ public:
 #endif
 
 #if IUTEST_HAS_ASSERTION_RETURN
-		Fixed&		operator << (const AssertionReturnType<void>&)
+		Fixed& operator << (const AssertionReturnType<void>&)
 		{
 			return *this;
 		}
@@ -326,11 +326,11 @@ namespace iutest
 /**
  * @brief	テスト成功を示す AssertionResult オブジェクトの取得
 */
-inline AssertionResult	AssertionSuccess(void)	{ return AssertionResult::Success(); }
+inline AssertionResult AssertionSuccess(void) { return AssertionResult::Success(); }
 /**
  * @brief	テスト失敗を示す AssertionResult オブジェクトの取得
 */
-inline AssertionResult	AssertionFailure(void)	{ return AssertionResult::Failure(); }
+inline AssertionResult AssertionFailure(void) { return AssertionResult::Failure(); }
 
 namespace internal
 {

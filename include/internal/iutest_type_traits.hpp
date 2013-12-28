@@ -325,8 +325,13 @@ namespace is_base_of_helper
 	template<typename Base, typename Derived>
 	class is_base_of
 	{
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 		typedef typename remove_cv<Base>::type B;
 		typedef typename remove_cv<Derived>::type D;
+#else
+		typedef Base B;
+		typedef Derived D;
+#endif
 		typedef is_base_of_select<
 		is_class<Base>::value
 		, is_class<Derived>::value
