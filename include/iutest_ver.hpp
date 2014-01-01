@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01079903u	//!< iutest version 1.7.99.3
+#define	IUTEST_VER			0x01079904u	//!< iutest version 1.7.99.4
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x07u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x03u		//!< Revision
+#define IUTEST_REVISION		0x04u		//!< Revision
 
 /**
  * @mainpage
@@ -95,16 +95,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.7.99.3
+  <li>v1.7.99.4
     <ul>
       <li>IUTEST_*_EQ_RANGE を追加</li>
       <li>IUTEST_*_STRIN,IUTEST_*_STRNOTIN を追加</li>
       <li>IUTEST_FLAG(output) に対応</li>
       <li>IUTEST_*_NO_FAILURE の gtest モード対応</li>
       <li>IUTEST_*_NO_FAILURE が警告やスキップを失敗と判断しないように変更</li>
-	  <li>IUTEST_*_TRUE/FALSE を可変長対応</li>
-	  <li>フィクスチャークラス名を IUTEST_TEST マクロのテストケース名に使用した場合にエラーになるように修正(MSVC)</li>
-	  <li>パッケージ内の値のパラメータ化テストのテストケース名が pkg.prefix/testcase となるように修正</li>
+      <li>IUTEST_*_TRUE/FALSE を可変長対応</li>
+      <li>フィクスチャークラス名を IUTEST_TEST マクロのテストケース名に使用した場合にエラーになるように修正(MSVC)</li>
+      <li>パッケージ内の値のパラメータ化テストのテストケース名が pkg.prefix/testcase となるように修正</li>
       <li>Visual C++ Compiler November 2013 CTP 対応</li>
       <li>リスナーのセットアップ関数を変更</li>
       <li>バグ修正</li>
@@ -138,7 +138,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>::iutest::RandomValues で乱数シードを指定できるように修正</li>
       <li>spi で TestPartResult 数をチェックするように変更</li>
       <li>spi で substr でメッセージをチェックするように変更</li>
-	  <li>ASSERT_*, EXPECT_*, INFORM_* マクロのストリームに iomanip が使用できなかった問題を修正</li>
+      <li>ASSERT_*, EXPECT_*, INFORM_* マクロのストリームに iomanip が使用できなかった問題を修正</li>
     </ul>
   </li>
   <li>v1.5.0.4
@@ -171,7 +171,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>extern template 対応</li>
       <li>C++11 random ヘッダーが使用できるとき distribution を使うように変更</li>
       <li>コード分析ツールのためのコードの追加情報(__analysis_assume) を IUTEST_*_NULL と IUTEST_*_NOTNULL に追加(MSVC)</li>
-	  <li>古いコンパイラへの対応</li>
+      <li>古いコンパイラへの対応</li>
     </ul>
   </li>
   <li>v1.3.1.0

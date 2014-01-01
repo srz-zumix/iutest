@@ -132,7 +132,7 @@ IUTEST_IPP_INLINE void SleepMillisec(unsigned int millisec)
 #elif	defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN)
 
 #if	defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 199309L
-	const timespec time = { 0, millisec * 1000 * 1000 };
+	const timespec time = { 0, static_cast<long>(millisec) * 1000 * 1000 };
 	nanosleep(&time, NULL);
 #elif (defined(_BSD_SOURCE) && _BSD_SOURCE) 
 	|| (defined(_XOPEN_SOURCE)
