@@ -775,7 +775,7 @@
 // __if_exists
 #ifndef IUTEST_HAS_IF_EXISTS
 #  if defined(__clang__)
-#    if (__clang_major__ > 3 || (__clang_major == 3 && __clang_minor__ >= 5) )
+#    if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 5) )
 #      define IUTEST_HAS_IF_EXISTS			1
 #    endif
 #  elif defined(_MSC_VER) && _MSC_VER >= 1310
