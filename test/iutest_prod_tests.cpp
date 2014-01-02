@@ -72,7 +72,7 @@ IUTEST(ProdTest, Friend)
 
 class ProdFixtureTest : public ::iutest::Test {};
 
-IUTEST(ProdFixtureTest, Friend)
+IUTEST_F(ProdFixtureTest, Friend)
 {
 	s_prod.SetX(1);
 	IUTEST_ASSERT_EQ(1, s_prod.GetX());

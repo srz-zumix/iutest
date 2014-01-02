@@ -772,10 +772,20 @@
 #endif
 
 // extension
+#ifndef IUTEST_HAS_MS_EXTENSIONS
+#  if defined(__clang__)
+//#    if defined(_MSC_VER)
+//#      define IUTEST_HAS_MS_EXTENSIONS		1
+//#    endif
+#  elif defined(_MSC_VER)
+#    define IUTEST_HAS_MS_EXTENSIONS		1
+#  endif
+#endif
+
 // __if_exists
 #ifndef IUTEST_HAS_IF_EXISTS
 #  if defined(__clang__)
-#    if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 5) )
+#    if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 5) ) && IUTEST_HAS_MS_EXTENSIONS
 #      define IUTEST_HAS_IF_EXISTS			1
 #    endif
 #  elif defined(_MSC_VER) && _MSC_VER >= 1310

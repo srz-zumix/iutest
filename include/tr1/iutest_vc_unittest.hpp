@@ -97,7 +97,7 @@ IUTEST_MAKE_SCOPED_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, 
 				const char* testinfo_name = testinfo->name();								\
 				if( strstr(testinfo_name, name.c_str()) == testinfo_name ) {				\
 					::iutest::detail::iuParamTestFactory<className>* factory =				\
-						static_cast<::iutest::detail::iuParamTestFactory<className>*>(		\
+						static_cast< ::iutest::detail::iuParamTestFactory<className>*>(		\
 							IUTEST_PEEP_GET(*testinfo, TestInfo, m_factory));				\
 					::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(factory);	\
 					SetParam(&factory->GetParam());											\
@@ -146,8 +146,8 @@ IUTEST_MAKE_SCOPED_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, 
 			::iutest::detail::iuFactoryBase* factory =									\
 				IUTEST_PEEP_GET(*testinfo, TestInfo, m_factory);						\
 			::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(factory);	\
-			::iutest::detail::auto_ptr<::iutest::Test> p = factory->Create();			\
-			::iuutil::VisualStudio::Test* tester = static_cast<::iuutil::VisualStudio::Test*>(p.ptr());	\
+			::iutest::detail::auto_ptr< ::iutest::Test > p = factory->Create();			\
+			::iuutil::VisualStudio::Test* tester = static_cast< ::iuutil::VisualStudio::Test*>(p.ptr());	\
 			OnTestStart(testcase_name, #testname_);										\
 			tester->SetUp(); tester->Body(); tester->TearDown();						\
 			OnTestEnd(testcase_name, #testname_);										\
@@ -180,8 +180,8 @@ IUTEST_MAKE_SCOPED_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, 
 			::iutest::detail::iuFactoryBase* factory =										\
 				IUTEST_PEEP_GET(*testinfo, TestInfo, m_factory);							\
 			::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(factory);	\
-			::iutest::detail::auto_ptr<::iutest::Test> p = factory->Create();				\
-			::iuutil::VisualStudio::Test* tester = static_cast<::iuutil::VisualStudio::Test*>(p.ptr());	\
+			::iutest::detail::auto_ptr< ::iutest::Test > p = factory->Create();				\
+			::iuutil::VisualStudio::Test* tester = static_cast< ::iuutil::VisualStudio::Test*>(p.ptr());	\
 			OnTestStart(testcase_name, #testname_);										\
 			tester->SetUp(); tester->Body(); tester->TearDown();						\
 			OnTestEnd(testcase_name, #testname_);										\

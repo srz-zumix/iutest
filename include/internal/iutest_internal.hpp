@@ -70,7 +70,7 @@
 #  define IIUT_CHECK_TESTFIXTURE(testfixture_)		\
 	IUTEST_IF_EXISTS(testfixture_, IUTEST_IF_EXISTS(testfixture_::SetUp,				\
 		IUTEST_STATIC_ASSERT_MSG(														\
-			(!::iutest_type_traits::is_base_of<::iutest::Test, testfixture_>::value)	\
+			(!::iutest_type_traits::is_base_of< ::iutest::Test, testfixture_ >::value)	\
 			, #testfixture_ " is fixture class, mistake the IUTEST_F?");				\
 	) )
 #else
