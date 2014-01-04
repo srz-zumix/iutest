@@ -19,6 +19,13 @@
 
 //======================================================================
 // include
+#if defined(IUTEST_USE_GTEST) && defined(__STRICT_ANSI__)
+#  undef __STRICT_ANSI__
+#  include <cstdio>
+#  include <string.h>
+#  include <stdlib.h>
+#  define __STRICT_ANSI__
+#endif
 #include <stdlib.h>
 
 //======================================================================

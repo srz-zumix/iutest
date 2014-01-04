@@ -157,6 +157,14 @@ namespace tr1
 }
 #endif
 
+#ifdef __STRICT_ANSI__
+#  undef __STRICT_ANSI__
+#  include <cstdio>
+#  include <string.h>
+#  include <stdlib.h>
+#  define __STRICT_ANSI__
+#endif
+
 //======================================================================
 // include
 #include "../iutest_ver.hpp"

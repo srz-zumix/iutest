@@ -184,8 +184,8 @@
 #define ASSUME_NO_FATAL_FAILURE(statement) \
 	GTEST_TEST_NO_FATAL_FAILURE_(statement, GTEST_ASSUME_FAILURE_)
 
-#define IUTEST_ASSUME_TRUE					ASSUME_TRUE
-#define IUTEST_ASSUME_FALSE					ASSUME_FALSE
+#define IUTEST_ASSUME_TRUE(...)				ASSUME_TRUE((__VA_ARGS__))
+#define IUTEST_ASSUME_FALSE(...)			ASSUME_FALSE((__VA_ARGS__))
 #define IUTEST_ASSUME_EQ					ASSUME_EQ
 #define IUTEST_ASSUME_NE(expected, actual)	ASSUME_PRED_FORMAT2(::testing::internal::NeHelper<GTEST_IS_NULL_LITERAL_(expected)>::Compare, expected, actual)
 #define IUTEST_ASSUME_LT					ASSUME_LT
