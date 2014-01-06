@@ -21,6 +21,20 @@
 // include
 #include "iutest_pp.hpp"
 
+//======================================================================
+// define
+#ifndef IUTEST_HAS_RVALUE_REFS
+#  if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 2)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#    define IUTEST_HAS_RVALUE_REFS	1
+#  elif	defined(_MSC_VER) && (_MSC_VER >= 1700)
+#    define IUTEST_HAS_RVALUE_REFS	1
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_RVALUE_REFS
+#  define IUTEST_HAS_RVALUE_REFS	0
+#endif
+
 namespace iutest_type_traits
 {
 
@@ -172,6 +186,7 @@ struct is_reference : public is_reference_helper::is_reference<T>::type {};
 
 namespace is_void_helper
 {
+
 template<typename T>
 class is_void
 {
@@ -370,18 +385,6 @@ class add_reference
 public:
 	typedef typename impl<T, !is_void<T>::value && !is_reference<T>::value >::type type;
 };
-
-#ifndef IUTEST_HAS_RVALUE_REFS
-#  if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 2)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
-#    define IUTEST_HAS_RVALUE_REFS	1
-#  elif	defined(_MSC_VER) && (_MSC_VER >= 1700)
-#    define IUTEST_HAS_RVALUE_REFS	1
-#  endif
-#endif
-
-#ifndef IUTEST_HAS_RVALUE_REFS
-#  define IUTEST_HAS_RVALUE_REFS	0
-#endif
 
 /**
  * @brief	add rvalue reference

@@ -204,15 +204,15 @@ public:
 	static _Myt	PINF(void)
 	{
 		_Myt f;
-		f.m_v.uv = ((1<<EXP)-1);
-		f.m_v.uv <<= FRAC;
+		f.m_v.uv = ((1 << kEXP) - 1);
+		f.m_v.uv <<= kFRAC;
 		return f;
 	}
 	//! | inf
 	static _Myt	NINF(void)
 	{
 		_Myt f = PINF();
-		f.m_v.uv |= static_cast<UInt>(1u) << (EXP+FRAC);
+		f.m_v.uv |= static_cast<UInt>(1u) << (kEXP + kFRAC);
 		return f;
 	}
 	//! { nan
@@ -233,15 +233,15 @@ public:
 	static _Myt	PQNAN(void)
 	{
 		_Myt f;
-		f.m_v.uv = ((1<<(EXP+1))-1);
-		f.m_v.uv <<= FRAC-1;
+		f.m_v.uv = ((1 << (kEXP + 1)) - 1);
+		f.m_v.uv <<= kFRAC - 1;
 		return f;
 	}
 	//! | qnan
 	static _Myt	NQNAN(void)
 	{
 		_Myt f = PQNAN();
-		f.m_v.uv |= static_cast<UInt>(1u) << (EXP+FRAC);
+		f.m_v.uv |= static_cast<UInt>(1u) << (kEXP + kFRAC);
 		return f;
 	}
 
@@ -252,29 +252,9 @@ public:
 	bool	operator == (const _Myt& rhs) const	{ return m_v.uv == rhs.m_v.uv; }	//!< ”äŠr
 
 private:
-	template<size_t N, typename DMY>
-	struct ieee 
-	{
-		enum
-		{
-			  EXP  = 8
-			, FRAC = 23
-		};
-	};
-	template<typename DMY>
-	struct ieee<8, DMY>
-	{
-		enum
-		{
-			  EXP  = 11
-			, FRAC = 52
-		};
-	};
-	enum
-	{
-		  EXP  = ieee<sizeof(RawType), void>::EXP
-		, FRAC = ieee<sizeof(RawType), void>::FRAC
-	};
+	static const size_t kEXP;
+	static const size_t kFRAC;
+
 	enum
 	{
 		kMaxUlps = 4
@@ -282,6 +262,16 @@ private:
 private:
 	FInt	m_v;
 };
+
+template<>
+const size_t floating_point<float>::kEXP = 8;
+template<>
+const size_t floating_point<float>::kFRAC = 23;
+
+template<>
+const size_t floating_point<double>::kEXP = 11;
+template<>
+const size_t floating_point<double>::kFRAC = 52;
 
 //======================================================================
 // typedef
