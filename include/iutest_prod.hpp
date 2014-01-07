@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -242,7 +242,7 @@ private:
 	class peep_static_impl
 	{
 		typedef peep_static_impl<U, Type, Func>	_Myt;
-		typedef typename type_traits::remove_ptr<Type>::type value_type;
+		typedef typename type_traits::remove_pointer<Type>::type value_type;
 	public:
 		peep_static_impl(void) {}
 		peep_static_impl(const value_type& value) { *detail::peep_tag<peep_tag>::value = value; }

@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -23,6 +23,24 @@
 
 //======================================================================
 // define
+#ifndef IUTEST_HAS_HDR_TYPETARITS
+#  if defined(__clang__)
+#    if __has_include( <type_traits> ) && IUTEST_HAS_CXX11
+#      define IUTEST_HAS_HDR_TYPETARITS		1
+#    endif
+#  elif (defined(__GLIBCXX__) || defined(_LIBCPP_VERSION)) && IUTEST_HAS_CXX11
+#    define IUTEST_HAS_HDR_TYPETARITS		1
+#  elif defined(_MSC_VER)
+#    if _MSC_VER >= 1600
+#      define IUTEST_HAS_HDR_TYPETARITS		1
+#    endif
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_HDR_TYPETARITS
+#  define IUTEST_HAS_HDR_TYPETARITS			0
+#endif
+
 #ifndef IUTEST_HAS_RVALUE_REFS
 #  if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 2)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #    define IUTEST_HAS_RVALUE_REFS	1
@@ -35,8 +53,45 @@
 #  define IUTEST_HAS_RVALUE_REFS	0
 #endif
 
+#if IUTEST_HAS_HDR_TYPETARITS
+#  include <type_traits>
+#endif
+
 namespace iutest_type_traits
 {
+
+#if IUTEST_HAS_HDR_TYPETARITS
+
+using ::std::true_type;
+using ::std::false_type;
+using ::std::remove_const;
+using ::std::remove_volatile;
+using ::std::remove_reference;
+using ::std::remove_cv;
+using ::std::remove_pointer;
+using ::std::is_pointer;
+using ::std::is_void;
+using ::std::is_const;
+using ::std::is_same;
+using ::std::is_class;
+using ::std::is_convertible;
+using ::std::is_base_of;
+using ::std::add_lvalue_reference;
+#if IUTEST_HAS_RVALUE_REFS
+using ::std::add_rvalue_reference;
+#else
+template<typename T>
+struct add_rvalue_reference { typedef T type; };
+#endif
+using ::std::is_function;
+using ::std::is_member_function_pointer;
+using ::std::is_member_pointer;
+
+template<typename F>
+struct is_function_pointer : public ::std::integral_constant<bool
+	, ::std::is_pointer<F>::value && ::std::is_function< typename ::std::remove_pointer<F>::type >::value > {};
+
+#else
 
 //======================================================================
 // struct
@@ -59,7 +114,6 @@ template<bool B>const bool bool_constant<B>::value;
 
 typedef bool_constant<true>		true_type;
 typedef bool_constant<false>	false_type;
-
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
@@ -113,19 +167,18 @@ public:
  * @brief	remove_cv
 */
 template<typename T>
-class remove_cv
+struct remove_cv
 {
-public:
 	typedef typename remove_const< typename remove_volatile<T>::type >::type	type;
 };
 
 /**
- * @brief	remove_ptr
+ * @brief	remove_pointer
 */
 template<typename T>
-struct remove_ptr		{ typedef T type; };
+struct remove_pointer		{ typedef T type; };
 template<typename T>
-struct remove_ptr<T*>	{ typedef T type; };
+struct remove_pointer<T*>	{ typedef T type; };
 
 #endif
 
@@ -203,7 +256,7 @@ public:
  * @brief	is_void
 */
 template<typename T>
-class is_void : public is_void_helper::is_void<T>::type {};
+struct is_void : public is_void_helper::is_void<T>::type {};
 
 /**
  * @brief	is_const
@@ -274,7 +327,7 @@ namespace is_class_helper
 * @brief	is class
 */
 template<typename T>
-class is_class : public is_class_helper::is_class<T>::type
+struct is_class : public is_class_helper::is_class<T>::type
 {
 };
 
@@ -300,7 +353,7 @@ public:
  * @brief	is convertible
 */
 template<typename From, typename To>
-class is_convertible : public is_convertible_helper::is_convertible_type<From, To>::type
+struct is_convertible : public is_convertible_helper::is_convertible_type<From, To>::type
 {
 };
 
@@ -327,6 +380,11 @@ namespace is_base_of_helper
 	struct is_base_of_select
 	{
 		template<typename T, typename U>struct rebind { typedef false_type type;  };
+	};
+	template<>
+	struct is_base_of_select<true, true, true>
+	{
+		template<typename T, typename U>struct rebind { typedef true_type type;  };
 	};
 	template<>
 	struct is_base_of_select<true, true, false>
@@ -363,7 +421,7 @@ namespace is_base_of_helper
 * @brief	is base of
 */
 template<typename Base, typename Derived>
-class is_base_of : public is_base_of_helper::is_base_of<Base, Derived>::type
+struct is_base_of : public is_base_of_helper::is_base_of<Base, Derived>::type
 {
 };
 
@@ -371,10 +429,10 @@ class is_base_of : public is_base_of_helper::is_base_of<Base, Derived>::type
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 /**
- * @brief	add reference
+ * @brief	add lvalue reference
 */
 template<typename T>
-class add_reference
+class add_lvalue_reference
 {
 	template<typename U, bool b>struct impl { typedef U type; };
 	template<typename U>struct impl<U, true>
@@ -414,63 +472,72 @@ struct add_rvalue_reference { typedef T type; };
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
-/**
- * @brief	is function pointer
-*/
-template<typename T>
-class is_function_pointer
+namespace is_function_pointer_helper
 {
-	template<typename U>
-	struct impl : public false_type {};
+	template<typename T>
+	class is_function_pointer
+	{
+		template<typename U>
+		struct impl : public false_type {};
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
-	template<typename R, typename ...Args>
-	struct impl<R (*)(Args...)> : public true_type {};
-	template<typename R, typename ...Args>
-	struct impl<R (*)(Args..., ...)> : public true_type {};
+		template<typename R, typename ...Args>
+		struct impl<R (*)(Args...)> : public true_type {};
+		template<typename R, typename ...Args>
+		struct impl<R (*)(Args..., ...)> : public true_type {};
 
 #else
-	template<typename R>
-	struct impl<R (*)()> : public true_type {};
-	template<typename R>
-	struct impl<R (*)(...)> : public true_type {};
+		template<typename R>
+		struct impl<R (*)()> : public true_type {};
+		template<typename R>
+		struct impl<R (*)(...)> : public true_type {};
 
 #define IIUT_DECL_IS_FUNCTION_PTR_(n)	\
 	template<typename R, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (*)(IUTEST_PP_ENUM_PARAMS(n, T))> : public true_type {};	\
 	template<typename R, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (*)(IUTEST_PP_ENUM_PARAMS(n, T), ...)> : public true_type {}
 
-	IIUT_DECL_IS_FUNCTION_PTR_(1);
-	IIUT_DECL_IS_FUNCTION_PTR_(2);
-	IIUT_DECL_IS_FUNCTION_PTR_(3);
-	IIUT_DECL_IS_FUNCTION_PTR_(4);
-	IIUT_DECL_IS_FUNCTION_PTR_(5);
-	IIUT_DECL_IS_FUNCTION_PTR_(6);
-	IIUT_DECL_IS_FUNCTION_PTR_(7);
-	IIUT_DECL_IS_FUNCTION_PTR_(8);
-	IIUT_DECL_IS_FUNCTION_PTR_(9);
-	IIUT_DECL_IS_FUNCTION_PTR_(10);
-	IIUT_DECL_IS_FUNCTION_PTR_(11);
-	IIUT_DECL_IS_FUNCTION_PTR_(12);
-	IIUT_DECL_IS_FUNCTION_PTR_(13);
-	IIUT_DECL_IS_FUNCTION_PTR_(14);
-	IIUT_DECL_IS_FUNCTION_PTR_(15);
-	IIUT_DECL_IS_FUNCTION_PTR_(16);
-	IIUT_DECL_IS_FUNCTION_PTR_(17);
-	IIUT_DECL_IS_FUNCTION_PTR_(18);
-	IIUT_DECL_IS_FUNCTION_PTR_(19);
-	IIUT_DECL_IS_FUNCTION_PTR_(20);
+		IIUT_DECL_IS_FUNCTION_PTR_(1);
+		IIUT_DECL_IS_FUNCTION_PTR_(2);
+		IIUT_DECL_IS_FUNCTION_PTR_(3);
+		IIUT_DECL_IS_FUNCTION_PTR_(4);
+		IIUT_DECL_IS_FUNCTION_PTR_(5);
+		IIUT_DECL_IS_FUNCTION_PTR_(6);
+		IIUT_DECL_IS_FUNCTION_PTR_(7);
+		IIUT_DECL_IS_FUNCTION_PTR_(8);
+		IIUT_DECL_IS_FUNCTION_PTR_(9);
+		IIUT_DECL_IS_FUNCTION_PTR_(10);
+		IIUT_DECL_IS_FUNCTION_PTR_(11);
+		IIUT_DECL_IS_FUNCTION_PTR_(12);
+		IIUT_DECL_IS_FUNCTION_PTR_(13);
+		IIUT_DECL_IS_FUNCTION_PTR_(14);
+		IIUT_DECL_IS_FUNCTION_PTR_(15);
+		IIUT_DECL_IS_FUNCTION_PTR_(16);
+		IIUT_DECL_IS_FUNCTION_PTR_(17);
+		IIUT_DECL_IS_FUNCTION_PTR_(18);
+		IIUT_DECL_IS_FUNCTION_PTR_(19);
+		IIUT_DECL_IS_FUNCTION_PTR_(20);
 
 #undef IIUT_DECL_IS_FUNCTION_PTR_
 
 #endif
 
-public:
-	enum { value = impl< typename remove_cv<T>::type >::value };
-};
+		enum { value = impl< typename remove_cv<T>::type >::value };
+	public:
+		typedef bool_constant<value> type;
+	};
+}
 
 /**
- * @brief	is member function pointer
+ * @brief	is function pointer
 */
+template<typename T>
+struct is_function_pointer : public is_function_pointer_helper::is_function_pointer<T>::type
+{
+};
+
+namespace is_member_function_pointer_helper
+{
+
 template<typename T>
 class is_member_function_pointer
 {
@@ -543,12 +610,22 @@ class is_member_function_pointer
 #endif
 
 public:
-	enum { value = impl< typename remove_cv<T>::type >::value };
+	typedef bool_constant< impl< typename remove_cv<T>::type >::value > type;
 };
 
+}
+
 /**
- * @brief	is member pointer
+* @brief	is member function pointer
 */
+template<typename T>
+struct is_member_function_pointer : public is_member_function_pointer_helper::is_member_function_pointer<T>::type
+{
+};
+
+namespace is_member_pointer_helper
+{
+
 template<typename T>
 class is_member_pointer
 {
@@ -558,8 +635,25 @@ class is_member_pointer
 	struct impl<U C::*> : public true_type {};
 
 public:
-	enum { value = impl< typename remove_cv<T>::type >::value || is_member_function_pointer<T>::value ? true : false };
+	typedef bool_constant< impl< typename remove_cv<T>::type >::value || is_member_function_pointer<T>::value > type;
 };
+
+}
+
+/**
+ * @brief	is member pointer
+*/
+template<typename T>
+struct is_member_pointer : public is_member_pointer_helper::is_member_pointer<T>::type
+{
+};
+
+#endif	// #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+
+#endif	// #if IUTEST_HAS_HDR_TYPETRAITS
+
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 /**
  * @brief	function return type

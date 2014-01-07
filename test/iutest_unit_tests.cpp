@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -56,7 +56,7 @@ IUTEST(UnitTest, is_base_of)
 	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::is_base_of<const volatile Base, Derived>::value );
 	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::is_base_of<volatile Base, volatile Derived const>::value );
 	IUTEST_STATIC_ASSERT( !::iutest_type_traits::is_base_of<Base, Hoge>::value );
-	IUTEST_STATIC_ASSERT( !::iutest_type_traits::is_base_of<Derived, Derived>::value );
+	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::is_base_of<Derived, Derived>::value );
 }
 
 #ifdef UNICODE

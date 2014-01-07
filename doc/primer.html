@@ -295,7 +295,7 @@ IUTEST_INSTANTIATE_TEST_CASE_AP(My1, AnyParamTest, ::iutest::Values(0));
       パラメータの値を取り出す際は、template の GetParam を使用してください。<br />
       ※template の GetParam は型安全でないキャストを行います。キャスト不可能な型にキャストしないよう十分に注意してください。<br />
       型をチェックする場合は、非 template な GetParam を使用して any を取得し、 ::iutest::any_cast で目的の型にキャストしてください。<br />
-      ※Visual Studio の場合、IUTEST_P でもテストフィクスチャの省略が可能です。<br />
+      ※Visual Studio および MSVC 拡張が使用可能なコンパイラでは、IUTEST_P でもテストフィクスチャの省略が可能です。<br />
       <br />
       
       </li>

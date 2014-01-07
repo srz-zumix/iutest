@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -198,6 +198,10 @@ namespace iutest {
 #      define IUTEST_HAS_CXX_HDR_RANDOM		1
 #    endif
 #  else
+#  endif
+#elif	defined(_LIBCPP_VERSION)
+#  if IUTEST_HAS_CXX11
+#    define IUTEST_HAS_CXX_HDR_RANDOM		1
 #  endif
 #elif	defined(_MSC_VER)
 #  if _MSC_VER > 1600

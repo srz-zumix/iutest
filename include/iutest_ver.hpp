@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -22,11 +22,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01079908u	//!< iutest version 1.7.99.8
+#define	IUTEST_VER			0x01079909u	//!< iutest version 1.7.99.9
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x07u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x08u		//!< Revision
+#define IUTEST_REVISION		0x09u		//!< Revision
 
 /**
  * @mainpage
@@ -35,7 +35,7 @@
  *			github      : https://github.com/srz-zumix/iutest \n
  *
  * @par		copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License.
  *
  * @par		LICENSE
