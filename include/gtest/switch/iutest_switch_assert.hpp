@@ -99,6 +99,7 @@
 #define ASSERT_PRED_FORMAT4	IUTEST_ASSERT_PRED_FORMAT4
 #define ASSERT_PRED_FORMAT5	IUTEST_ASSERT_PRED_FORMAT5
 
+
 #else	// !defined(IUTEST_USE_GTEST)
 
 //======================================================================
@@ -151,7 +152,7 @@
 
 //======================================================================
 // define
-#define IUTEST_ASSERT_TRUE(...)				ASSERT_TRUE((__VA_ARGS__))
+#define IUTEST_ASSERT_TRUE(...)				ASSERT_TRUE(!!(__VA_ARGS__))
 #define IUTEST_ASSERT_FALSE(...)			ASSERT_FALSE((__VA_ARGS__))
 #define IUTEST_ASSERT_EQ					ASSERT_EQ
 #define IUTEST_ASSERT_NE(expected, actual)	ASSERT_PRED_FORMAT2(::testing::internal::NeHelper<GTEST_IS_NULL_LITERAL_(expected)>::Compare, expected, actual)
@@ -196,5 +197,9 @@
 #define IUTEST_ASSERT_FAILURE	GTEST_FATAL_FAILURE_
 
 #endif	// !defined(IUTEST_USE_GTEST)
+
+#define ASSERT_NULL		IUTEST_ASSERT_NULL
+#define ASSERT_NOTNULL	IUTEST_ASSERT_NOTNULL
+#define ASSERT_SAME		IUTEST_ASSERT_SAME
 
 #endif	// INCG_IRIS_IUTEST_SWITCH_ASSERT_HPP_F4AD6E1B_4B1F_40EE_A0CC_D454587B2C39_

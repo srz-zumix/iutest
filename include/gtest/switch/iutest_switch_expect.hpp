@@ -153,7 +153,7 @@
 
 //======================================================================
 // define
-#define IUTEST_EXPECT_TRUE(...)				EXPECT_TRUE((__VA_ARGS__))
+#define IUTEST_EXPECT_TRUE(...)				EXPECT_TRUE(!!(__VA_ARGS__))
 #define IUTEST_EXPECT_FALSE(...)			EXPECT_FALSE((__VA_ARGS__))
 #define IUTEST_EXPECT_EQ					EXPECT_EQ
 #define IUTEST_EXPECT_NE(expected, actual)	EXPECT_PRED_FORMAT2(::testing::internal::NeHelper<GTEST_IS_NULL_LITERAL_(expected)>::Compare, expected, actual)
@@ -199,5 +199,9 @@
 #define IUTEST_EXPECT_FAILURE	GTEST_NONFATAL_FAILURE_
 
 #endif	// !defined(IUTEST_USE_GTEST)
+
+#define EXPECT_NULL		IUTEST_EXPECT_NULL
+#define EXPECT_NOTNULL	IUTEST_EXPECT_NOTNULL
+#define EXPECT_SAME		IUTEST_EXPECT_SAME
 
 #endif	// INCG_IRIS_IUTEST_SWITCH_EXPECT_HPP_F4AD6E1B_4B1F_40EE_A0CC_D454587B2C39_

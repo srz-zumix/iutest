@@ -353,6 +353,9 @@ IUTEST(AssertionTest, ExplicitConversoin)
 {
 	ec_test ec;
 	IUTEST_ASSERT_TRUE(ec);
+	IUTEST_EXPECT_TRUE(ec);
+	IUTEST_INFORM_TRUE(ec);
+	IUTEST_ASSUME_TRUE(ec);
 }
 
 #endif

@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -50,12 +50,12 @@ CombineTest::Tuple CombineTest::list[2*2*CombineTest::TABLE_SIZE] = {
 
 IUTEST_P(CombineTest, Num)
 {
-	EXPECT_EQ( (2*2*TABLE_SIZE) * 2, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count() );
+	IUTEST_EXPECT_EQ( (2*2*TABLE_SIZE) * 2, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count() );
 }
 
 IUTEST_P(CombineTest, Param)
 {
-	EXPECT_EQ( list[index++], GetParam() );
+	IUTEST_EXPECT_EQ( list[index++], GetParam() );
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P(A, CombineTest
@@ -128,8 +128,8 @@ int VariadicCombineTest::count = 0;
 
 IUTEST_P(VariadicCombineTest, Num)
 {
-	EXPECT_EQ( num, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count() );
-	EXPECT_EQ( count_to_tuple(count++), GetParam() );
+	IUTEST_EXPECT_EQ( num, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count() );
+	IUTEST_EXPECT_EQ( count_to_tuple(count++), GetParam() );
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P(A, VariadicCombineTest

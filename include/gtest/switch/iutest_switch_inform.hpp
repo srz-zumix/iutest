@@ -58,6 +58,7 @@
 #define INFORM_PRED_FORMAT4	IUTEST_INFORM_PRED_FORMAT4
 #define INFORM_PRED_FORMAT5	IUTEST_INFORM_PRED_FORMAT5
 
+
 #else	// !defined(IUTEST_USE_GTEST)
 
 //======================================================================
@@ -191,7 +192,7 @@
 #define INFORM_NO_FATAL_FAILURE(statement) \
 	GTEST_TEST_NO_FATAL_FAILURE_(statement, GTEST_INFORM_FAILURE_)
 
-#define IUTEST_INFORM_TRUE(...)				INFORM_TRUE((__VA_ARGS__))
+#define IUTEST_INFORM_TRUE(...)				INFORM_TRUE(!!(__VA_ARGS__))
 #define IUTEST_INFORM_FALSE(...)			INFORM_FALSE((__VA_ARGS__))
 #define IUTEST_INFORM_EQ					INFORM_EQ
 #define IUTEST_INFORM_NE(expected, actual)	INFORM_PRED_FORMAT2(::testing::internal::NeHelper<GTEST_IS_NULL_LITERAL_(expected)>::Compare, expected, actual)
@@ -272,5 +273,9 @@ namespace inform_support
 }
 
 #endif	// !defined(IUTEST_USE_GTEST)
+
+#define INFORM_NULL		IUTEST_INFORM_NULL
+#define INFORM_NOTNULL	IUTEST_INFORM_NOTNULL
+#define INFORM_SAME		IUTEST_INFORM_SAME
 
 #endif	// INCG_IRIS_IUTEST_SWITCH_INFORM_HPP_F4AD6E1B_4B1F_40EE_A0CC_D454587B2C39_

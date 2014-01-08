@@ -126,6 +126,36 @@ inline IUTEST_CXX_CONSTEXPR TypeId	GetTestTypeId(void)
 
 //======================================================================
 // class
+namespace detail
+{
+
+/**
+  * @internal
+  * @brief	IEEE754 floating point bits
+*/
+template<typename T>
+struct ieee754_bits {};
+
+template<>
+struct ieee754_bits<float>
+{
+	enum {
+		  EXP = 8
+		, FRAC = 23
+	};
+};
+
+template<>
+struct ieee754_bits<double>
+{
+	enum {
+		  EXP = 11
+		, FRAC = 52
+	};
+};
+
+}
+
 /**
  * @brief	ïÇìÆè¨êîì_êî
 */
@@ -252,26 +282,15 @@ public:
 	bool	operator == (const _Myt& rhs) const	{ return m_v.uv == rhs.m_v.uv; }	//!< î‰är
 
 private:
-	static const size_t kEXP;
-	static const size_t kFRAC;
-
 	enum
 	{
-		kMaxUlps = 4
+		  kEXP = detail::ieee754_bits<RawType>::EXP
+		, kFRAC = detail::ieee754_bits<RawType>::FRAC
+		, kMaxUlps = 4
 	};
 private:
 	FInt	m_v;
 };
-
-template<>
-const size_t floating_point<float>::kEXP = 8;
-template<>
-const size_t floating_point<float>::kFRAC = 23;
-
-template<>
-const size_t floating_point<double>::kEXP = 11;
-template<>
-const size_t floating_point<double>::kFRAC = 52;
 
 //======================================================================
 // typedef

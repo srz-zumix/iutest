@@ -84,7 +84,34 @@ CXXFLAGS += $(DEFS) $(STDFLAG)
 LIBS_ = $(LIBS:%=-l%)
 LDFLAGS += $(LIBS_)
 
-TARGETS1= iutest_all_tests \
+ALLTESTS_SRCS= main.cpp \
+               iutest_assertion_tests.cpp \
+               iutest_basic_tests.cpp \
+               iutest_combine_tests.cpp \
+               iutest_compatibility_tests.cpp \
+               iutest_filepath_tests.cpp \
+               iutest_fixture_tests.cpp \
+               iutest_floatingpoint_tests.cpp \
+               iutest_no_failure_tests.cpp \
+               iutest_nullptr_tests.cpp \
+               iutest_param_test_tests1.cpp \
+               iutest_param_test_tests2.cpp \
+               iutest_pred_tests.cpp \
+               iutest_prod_tests.cpp \
+               iutest_spi_tests.cpp \
+               iutest_static_assertion_tests.cpp \
+               iutest_string_assertion_tests.cpp \
+               iutest_syntax_tests.cpp \
+               iutest_syntax_gtest_tests.cpp \
+               iutest_type_param_tests1.cpp \
+               iutest_type_param_tests2.cpp \
+               iutest_type_param_tests3.cpp \
+               iutest_typed_test_tests.cpp \
+               iutest_values_tests.cpp \
+
+TARGET_ALLTESTS=iutest_all_tests
+
+TARGETS1= \
           iutest_assertion_return_tests \
           iutest_assume_tests \
           iutest_catch_exceptions_tests \
@@ -131,9 +158,9 @@ BUILD_ONLY = iutest_break_on_failure_tests \
 
           
 ifdef USE_GTEST
-RUN_TARGETS = $(TARGETS1) $(TARGETS2)
+RUN_TARGETS = $(TARGET_ALLTESTS) $(TARGETS1) $(TARGETS2)
 else
-RUN_TARGETS = $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY)
+RUN_TARGETS = $(TARGET_ALLTESTS) $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY)
 endif
 BUILD_TARGETS = $(RUN_TARGETS) $(BUILD_ONLY)
 TARGETS = $(BUILD_TARGETS)
@@ -149,7 +176,8 @@ IUTEST_HEADERS = $(IUTEST_DIR)/include/*.hpp \
                  $(IUTEST_DIR)/include/internal/*.hpp \
                  $(IUTEST_DIR)/include/listener/*.hpp \
                  $(IUTEST_DIR)/include/util/*.hpp \
-                 $(IUTEST_DIR)/include/gtest/*.hpp
+                 $(IUTEST_DIR)/include/gtest/*.hpp \
+                 $(IUTEST_DIR)/include/gtest/switch/*.hpp
 
 # House-keeping build targets.
 
@@ -189,6 +217,9 @@ CXXFLAGS += -DIUTEST_USE_GTEST -DIUTEST_HAS_SOCKET=0
 $(BUILD_ONLY) : $(SRCS) $(IUTEST_HEADERS) Makefile
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp -I$(GTEST_ROOT_)/include $(GTEST_ROOT_)/make/gtest-all.o
 
+$(TARGET_ALLTESTS) : $(ALLTESTS_SRCS) $(IUTEST_HEADERS) Makefile
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $(ALLTESTS_SRCS) -I$(GTEST_ROOT_)/include $(GTEST_ROOT_)/make/gtest-all.o
+
 $(TARGETS1) : $(SRCS) $(IUTEST_HEADERS) Makefile
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp -I$(GTEST_ROOT_)/include $(GTEST_ROOT_)/make/gtest-all.o
 
@@ -197,14 +228,22 @@ $(TARGETS2) : $(SRCS) $(IUTEST_HEADERS) Makefile
 
 else
 
+TARGETS_EXCLUDE_ALLTESTS= $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY)
+
 ifdef USE_LIB
 CXXFLAGS += -DIUTEST_USE_LIB=1 -L../lib
-$(TARGETS) : $(SRCS) $(IUTEST_HEADERS) Makefile
+$(TARGET_ALLTESTS) : $(ALLTESTS_SRCS) $(IUTEST_HEADERS) Makefile
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $(ALLTESTS_SRCS) -liutest $(LDFLAGS)
+
+$(TARGETS_EXCLUDE_ALLTESTS) : $(SRCS) $(IUTEST_HEADERS) Makefile
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp -liutest $(LDFLAGS)
 
 else
 
-$(TARGETS) : $(SRCS) $(IUTEST_HEADERS) Makefile
+$(TARGET_ALLTESTS) : $(ALLTESTS_SRCS) $(IUTEST_HEADERS) Makefile
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $(ALLTESTS_SRCS) $(LDFLAGS)
+
+$(TARGETS_EXCLUDE_ALLTESTS) : $(SRCS) $(IUTEST_HEADERS) Makefile
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS)
 
 endif
