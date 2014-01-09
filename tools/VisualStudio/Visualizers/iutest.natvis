@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+
+  <Type Name="iutest::Test">
+    <DisplayString>{{ name={test_info_-&gt;m_testname}}}</DisplayString>
+    <Expand>
+      <Item Name="TestName">test_info_-&gt;m_testname</Item>
+      <Item Name="TestCaseName">test_info_-&gt;m_testcase-&gt;m_test_case-&gt;m_testcase_name</Item>
+      <Item Name="Results">test_info_-&gt;m_test_result</Item>
+    </Expand>
+  </Type>
+
+</AutoVisualizer>

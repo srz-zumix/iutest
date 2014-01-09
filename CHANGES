@@ -6,6 +6,7 @@ Changes for 1.8.0:
 * IUTEST_*_STRIN,IUTEST_*_STRNOTIN を追加
 * IUTEST_FLAG(output) に対応
 * IUTEST_*_NO_FAILURE の gtest モード対応
+* Visual Studio Type Visualizer 用 .natvis ファイルを追加
 
 ** 修正
 * IUTEST_*_TRUE/FALSE を可変長対応

@@ -45,7 +45,7 @@
 #  if defined(IUTEST_USE_EXTERNAL_STD_TUPLE) && IUTEST_USE_EXTERNAL_STD_TUPLE
 #    define IUTEST_HAS_STD_TUPLE	1
 #  elif defined(_MSC_VER)
-#    if (_MSC_VER >= 1700) && _VARIADIC_MAX >= 9
+#    if (_MSC_VER > 1700) || (_MSC_VER == 1700 && _VARIADIC_MAX >= 9)
 #      define IUTEST_HAS_STD_TUPLE	1
 #    endif
 #  elif defined(__clang__)
