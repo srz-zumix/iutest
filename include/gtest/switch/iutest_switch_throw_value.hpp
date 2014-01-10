@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -92,18 +92,16 @@
 #define IUTEST_EXPECT_THROW_VALUE_STRCASEEQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STRCASEEQ_(statement, expected_exception, expected_value, IUTEST_EXPECT_FAILURE)
 
 // INFORM
-#define IUTEST_INFORM_THROW(statement, expected_exception)	INFORM_THROW((void)(statement), expected_exception)
 #define IUTEST_INFORM_THROW_VALUE_EQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_EQ_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
 #define IUTEST_INFORM_THROW_VALUE_NE(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
 #define IUTEST_INFORM_THROW_VALUE_STREQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STREQ_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
 #define IUTEST_INFORM_THROW_VALUE_STRCASEEQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STRCASEEQ_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
 
 // ASSUME
-#define IUTEST_ASSUME_THROW(statement, expected_exception)	INFORM_THROW((void)(statement), expected_exception)
-#define IUTEST_ASSUME_THROW_VALUE_EQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_EQ_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
-#define IUTEST_ASSUME_THROW_VALUE_NE(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
-#define IUTEST_ASSUME_THROW_VALUE_STREQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STREQ_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
-#define IUTEST_ASSUME_THROW_VALUE_STRCASEEQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STRCASEEQ_(statement, expected_exception, expected_value, IUTEST_INFORM_FAILURE)
+#define IUTEST_ASSUME_THROW_VALUE_EQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_EQ_(statement, expected_exception, expected_value, IUTEST_ASSUME_FAILURE)
+#define IUTEST_ASSUME_THROW_VALUE_NE(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, expected_value, IUTEST_ASSUME_FAILURE)
+#define IUTEST_ASSUME_THROW_VALUE_STREQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STREQ_(statement, expected_exception, expected_value, IUTEST_ASSUME_FAILURE)
+#define IUTEST_ASSUME_THROW_VALUE_STRCASEEQ(statement, expected_exception, expected_value)	IUTEST_TEST_THROW_VALUE_STRCASEEQ_(statement, expected_exception, expected_value, IUTEST_ASSUME_FAILURE)
 
 
 #define IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure, pred_formatter)	\
@@ -139,5 +137,33 @@
 	IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure, ::testing::internal::CmpHelperSTRCASEEQ)
 
 #endif	// !defined(IUTEST_USE_GTEST)
+
+// ASSERT
+#define ASSERT_THROW_PRED_FORMAT2		IUTEST_ASSERT_THROW_PRED_FORMAT2
+#define ASSERT_THROW_VALUE_EQ			IUTEST_ASSERT_THROW_VALUE_EQ
+#define ASSERT_THROW_VALUE_NE			IUTEST_ASSERT_THROW_VALUE_NE
+#define ASSERT_THROW_VALUE_STREQ		IUTEST_ASSERT_THROW_VALUE_STREQ
+#define ASSERT_THROW_VALUE_STRCASEEQ	IUTEST_ASSERT_THROW_VALUE_STRCASEEQ
+
+// EXPECT
+#define EXPECT_THROW_PRED_FORMAT2		IUTEST_EXPECT_THROW_PRED_FORMAT2
+#define EXPECT_THROW_VALUE_EQ			IUTEST_EXPECT_THROW_VALUE_EQ
+#define EXPECT_THROW_VALUE_NE			IUTEST_EXPECT_THROW_VALUE_NE
+#define EXPECT_THROW_VALUE_STREQ		IUTEST_EXPECT_THROW_VALUE_STREQ
+#define EXPECT_THROW_VALUE_STRCASEEQ	IUTEST_EXPECT_THROW_VALUE_STRCASEEQ
+
+// INFORM
+#define INFORM_THROW_PRED_FORMAT2		IUTEST_INFORM_THROW_PRED_FORMAT2
+#define INFORM_THROW_VALUE_EQ			IUTEST_INFORM_THROW_VALUE_EQ
+#define INFORM_THROW_VALUE_NE			IUTEST_INFORM_THROW_VALUE_NE
+#define INFORM_THROW_VALUE_STREQ		IUTEST_INFORM_THROW_VALUE_STREQ
+#define INFORM_THROW_VALUE_STRCASEEQ	IUTEST_INFORM_THROW_VALUE_STRCASEEQ
+
+// ASSUME
+#define ASSUME_THROW_PRED_FORMAT2		IUTEST_ASSUME_THROW_PRED_FORMAT2
+#define ASSUME_THROW_VALUE_EQ			IUTEST_ASSUME_THROW_VALUE_EQ
+#define ASSUME_THROW_VALUE_NE			IUTEST_ASSUME_THROW_VALUE_NE
+#define ASSUME_THROW_VALUE_STREQ		IUTEST_ASSUME_THROW_VALUE_STREQ
+#define ASSUME_THROW_VALUE_STRCASEEQ	IUTEST_ASSUME_THROW_VALUE_STRCASEEQ
 
 #endif	// INCG_IRIS_IUTEST_SWITCH_THROW_VALUE_HPP_5D6B75EE_F445_4730_8FEA_FB6249BCBD9C_

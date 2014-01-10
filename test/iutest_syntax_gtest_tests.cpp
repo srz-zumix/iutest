@@ -284,7 +284,7 @@ TEST(GTestSyntaxTest, StrLn)
 		ASSUME_STRLNEQ(len, test) << len;
 }
 
-#if defined(OS_WINDOWS)
+#if defined(IUTEST_OS_WINDOWS)
 
 TEST(GTestSyntaxTest, HResultSucceeded)
 {
@@ -312,7 +312,7 @@ TEST(GTestSyntaxTest, HResultFailed)
 
 #endif
 
-#if HAS_EXCEPTIONS
+#if IUTEST_HAS_EXCEPTIONS
 
 namespace syntax_test
 {
@@ -442,12 +442,14 @@ TEST(GTestSyntaxTest, ExceptionValueFormat)
 
 }
 
+#if !defined(IUTEST_USE_GTEST)
+
 class exception_test
 {
 public:
 	exception_test(const ::std::vector<int>&)
 	{
-		SUPPRESS_UNREACHABLE_CODE_WARNING(throw ::std::exception());
+		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw ::std::exception());
 	}
 };
 
@@ -456,6 +458,8 @@ TEST(GTestSyntaxTest, ExceptionVectorConstructor)
 	::std::vector<int> a;
 	ASSERT_THROW(exception_test(a), ::std::exception);
 }
+
+#endif
 
 #endif
 

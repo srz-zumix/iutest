@@ -210,6 +210,7 @@
 #define IUTEST_INFORM_STRNE					INFORM_STRNE
 #define IUTEST_INFORM_STRCASEEQ				INFORM_STRCASEEQ
 #define IUTEST_INFORM_STRCASENE				INFORM_STRCASENE
+#define IUTEST_INFORM_THROW(statement, expected_exception)	INFORM_THROW((void)(statement), expected_exception)
 #define IUTEST_INFORM_NO_THROW(statement)	INFORM_NO_THROW((void)(statement))
 #define IUTEST_INFORM_ANY_THROW(statement)	INFORM_ANY_THROW((void)(statement))
 #define IUTEST_INFORM_NO_FATAL_FAILURE		INFORM_NO_FATAL_FAILURE

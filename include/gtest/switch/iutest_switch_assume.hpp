@@ -203,6 +203,7 @@
 #define IUTEST_ASSUME_STRNE					ASSUME_STRNE
 #define IUTEST_ASSUME_STRCASEEQ				ASSUME_STRCASEEQ
 #define IUTEST_ASSUME_STRCASENE				ASSUME_STRCASENE
+#define IUTEST_ASSUME_THROW(statement, expected_exception)	ASSUME_THROW((void)(statement), expected_exception)
 #define IUTEST_ASSUME_NO_THROW(statement)	ASSUME_NO_THROW((void)(statement))
 #define IUTEST_ASSUME_ANY_THROW(statement)	ASSUME_ANY_THROW((void)(statement))
 #define IUTEST_ASSUME_NO_FATAL_FAILURE		ASSUME_NO_FATAL_FAILURE
