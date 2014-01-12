@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -39,7 +39,7 @@ void ReturnTestCall(void)
 IUTEST(ReturnTest, Test)
 {
 	IUTEST_ASSERT_FATAL_FAILURE(ReturnTestCall(), "");
-#if IUTEST_USE_THROW_ON_ASSERT_FAILURE
+#if IUTEST_USE_THROW_ON_ASSERTION_FAILURE
 	IUTEST_ASSERT_EQ( 0, value);
 #else
 	IUTEST_ASSERT_EQ(-1, value);
