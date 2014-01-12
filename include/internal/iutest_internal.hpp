@@ -24,10 +24,6 @@
 
 //======================================================================
 // define
-/**
- * @internal
- * @brief	テスト名作成マクロ
-*/
 #define IUTEST_TEST_CLASS_NAME_(testcase_, testname_)	IIUT_TEST_CLASS_NAME_I(IUTEST_TO_VARNAME_(testcase_), IUTEST_TO_VARNAME_(testname_))
 #define IIUT_TEST_CLASS_NAME_I(testcase_, testname_)	IIUT_TEST_CLASS_NAME_I_(testcase_, testname_)
 #define IIUT_TEST_CLASS_NAME_I_(testcase_, testname_)	iu_##testcase_##_x_##testname_##_Test
@@ -188,8 +184,23 @@
 */
 #define IUTEST_ASSUME_FAILURE(msg)					IUTEST_ASSUME_FAILURE_AT(msg, __FILE__, __LINE__)
 
-#define IUTEST_ASSUME_FAILURE_AT(msg, file, line)	return IUTEST_MESSAGE_AT(file, line, msg, ::iutest::TestPartResult::kAssumeFailure)
+#if !defined(IUTEST_NO_VOID_RETURNS)
+#  define IUTEST_ASSUME_FAILURE_AT(msg, file, line)	return IUTEST_MESSAGE_AT(file, line, msg, ::iutest::TestPartResult::kAssumeFailure)
+#else
+#  define IUTEST_ASSUME_FAILURE_AT(msg, file, line)	IUTEST_MESSAGE_AT(file, line, msg, ::iutest::TestPartResult::kAssumeFailure)
+#endif
 
+/**
+* @internal
+* @brief	SKIP メッセージ処理
+*/
+#define IUTEST_SKIP_MESSAGE(msg)					IUTEST_SKIP_MESSAGE_AT(msg, __FILE__, __LINE__)
+
+#if !defined(IUTEST_NO_VOID_RETURNS)
+#  define IUTEST_SKIP_MESSAGE_AT(msg, file, line)	return IUTEST_MESSAGE_AT(file, line, msg, ::iutest::TestPartResult::kSkip)
+#else
+#  define IUTEST_SKIP_MESSAGE_AT(msg, file, line)	IUTEST_MESSAGE_AT(file, line, msg, ::iutest::TestPartResult::kSkip)
+#endif
 
 #ifndef IUTEST_MAKE_ASSERTIONRESULT_
 #  define IUTEST_MAKE_ASSERTIONRESULT_(ar)	ar
@@ -389,8 +400,8 @@
 #define IUTEST_TEST_HRESULT_SUCCEEDED(hr, on_failure)	IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTSuccess, hr, on_failure )
 #define IUTEST_TEST_HRESULT_FAILED(hr, on_failure)		IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTFailure, hr, on_failure )
 
-#define IUTEST_TEST_NULL(v, on_failure)					IUTEST_THROUGH_ANALYSIS_ASSUME_(v==NULL, IUTEST_PRED_FORMAT1_( ::iutest::internal::NullHelper<IUTEST_IS_NULLLITERAL(v)>::Compare, v, on_failure ))
-#define IUTEST_TEST_NOTNULL(v, on_failure)				IUTEST_THROUGH_ANALYSIS_ASSUME_(v!=NULL, IUTEST_PRED_FORMAT1_( ::iutest::internal::CmpHelperNotNull, v, on_failure ))
+#define IUTEST_TEST_NULL(v, on_failure)					IUTEST_THROUGH_ANALYSIS_ASSUME_(v==NULL, IUTEST_PRED_FORMAT1_( ::iutest::internal::NullHelper<IUTEST_IS_NULLLITERAL(v)>::CompareEq, v, on_failure ))
+#define IUTEST_TEST_NOTNULL(v, on_failure)				IUTEST_THROUGH_ANALYSIS_ASSUME_(v!=NULL, IUTEST_PRED_FORMAT1_( ::iutest::internal::NullHelper<IUTEST_IS_NULLLITERAL(v)>::CompareNe, v, on_failure ))
 
 #define IUTEST_TEST_SAME(v1, v2, on_failure)			IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSame, v1, v2, on_failure )
 
@@ -427,7 +438,7 @@
 	if( !::iutest::Test::HasFailure() )		\
 		::iutest::UnitTest::SkipTest();		\
 	if( ::iutest::detail::AlwaysTrue() )	\
-		return IUTEST_MESSAGE( ::iutest::Test::HasFailure() ? "Skipped. but already failed. " : "Skipped. ", ::iutest::TestPartResult::kSkip)
+		IUTEST_SKIP_MESSAGE(::iutest::Test::HasFailure() ? "Skipped. but already failed. " : "Skipped. ")
 
 /**
  * @}

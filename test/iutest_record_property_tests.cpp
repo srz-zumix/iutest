@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -32,7 +32,7 @@ void CheckProperty_(const ::iutest::TestResult* tr, const char* key, const char*
 
 bool CheckProperty(const ::iutest::TestResult* tr, const char* key, const char* value)
 {
-#if IUTEST_USE_THROW_ON_ASSERT_FAILURE
+#if IUTEST_USE_THROW_ON_ASSERTION_FAILURE
 	try {
 #endif
 	
@@ -44,7 +44,7 @@ bool CheckProperty(const ::iutest::TestResult* tr, const char* key, const char* 
 	CheckProperty_(tr, key, value);
 #endif
 
-#if IUTEST_USE_THROW_ON_ASSERT_FAILURE
+#if IUTEST_USE_THROW_ON_ASSERTION_FAILURE
 	} catch(...) {}
 #endif
 	return ::iutest::UnitTest::GetInstance()->Passed();

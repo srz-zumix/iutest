@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -254,11 +254,16 @@ public:
 	void operator = (const Fixed& fixed)
 	{
 		OnFixed(fixed);
-#if IUTEST_HAS_EXCEPTIONS && IUTEST_USE_THROW_ON_ASSERT_FAILURE
+#if IUTEST_HAS_EXCEPTIONS && IUTEST_USE_THROW_ON_ASSERTION_FAILURE
 		{
-			if( m_part_result.type() == TestPartResult::kFatalFailure )
+			switch( m_part_result.type() )
 			{
-				throw TestPartResult::kFatalFailure;
+			case TestPartResult::kSkip:
+			case TestPartResult::kAssumeFailure:
+			case TestPartResult::kFatalFailure:
+				throw m_part_result.type();
+			default:
+				break;
 			}
 		}
 #endif
@@ -436,7 +441,7 @@ class NullHelper
 {
 public:
 	template<typename T>
-	static AssertionResult Compare(const char* expr, const T* val)
+	static AssertionResult CompareEq(const char* expr, const T* val)
 	{
 		if( NULL == val )
 		{
@@ -447,6 +452,17 @@ public:
 			<< "\n  Actual: " << val
 			<< "\nExpected: NULL";
 	}
+	template<typename T>
+	static AssertionResult	CompareNe(const char* expr, const T* val)
+	{
+		if( NULL != val )
+		{
+			return AssertionSuccess();
+		}
+
+		return AssertionFailure() << "error: Value of " << expr
+			<< "\n  Actual: NULL\nExpected: not NULL";
+	}
 };
 
 /**
@@ -456,23 +472,16 @@ template<>
 class NullHelper<true>
 {
 public:
-	static AssertionResult Compare(const char*, void*)
+	static AssertionResult CompareEq(const char*, void*)
 	{
 		return AssertionSuccess();
+	}
+	static AssertionResult CompareNe(const char* expr, void*)
+	{
+		return AssertionFailure() << "error: Value of " << expr
+			<< "\n  Actual: NULL\nExpected: not NULL";
 	}
 };
-
-template<typename T>
-inline AssertionResult	CmpHelperNotNull(const char* expr, const T* val)
-{
-	if( NULL != val )
-	{
-		return AssertionSuccess();
-	}
-
-	return AssertionFailure() << "error: Value of " << expr
-		<< "\n  Actual: NULL\nExpected: not NULL";
-}
 
 template<typename T1, typename T2>
 inline AssertionResult	CmpHelperSame(const char* expected_str, const char* actual_str

@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -195,17 +195,22 @@
 #  endif
 #endif
 
-#ifndef IUTEST_USE_THROW_ON_ASSERT_FAILURE
+#ifndef IUTEST_USE_THROW_ON_ASSERTION_FAILURE
 /**
- * @brief	ASSERT マクロで失敗時に例外を throw します。
+ * @brief	失敗時に例外を throw します。
  * @note	サブ関数にアサーションを記述しても、その時点でテストが中断されるようになります
 */
-#  if !defined(IUTEST_NO_VOID_RETURNS)
-#    define IUTEST_USE_THROW_ON_ASSERT_FAILURE	0
+#  ifdef IUTEST_USE_THROW_ON_ASSERT_FAILURE
+#    define IUTEST_USE_THROW_ON_ASSERTION_FAILURE		IUTEST_USE_THROW_ON_ASSERT_FAILURE
 #  else
-#    define IUTEST_USE_THROW_ON_ASSERT_FAILURE	1
+#    if !defined(IUTEST_NO_VOID_RETURNS)
+#      define IUTEST_USE_THROW_ON_ASSERTION_FAILURE		0
+#    else
+#      define IUTEST_USE_THROW_ON_ASSERTION_FAILURE		1
+#    endif
 #  endif
 #endif
+
 
 #ifndef IUTEST_HAS_SPI_LAMBDA_SUPPORT
 //! spi マクロで lambda を使って変数にアクセス可能かどうか

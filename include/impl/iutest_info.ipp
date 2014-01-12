@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -76,9 +76,8 @@ IUTEST_IPP_INLINE void	TestInfo::RunImpl(void)
 		}
 		catch (TestPartResult::Type& eType)
 		{
-			IUTEST_UNUSED_VAR(eType);
 			elapsedmsec = sw.stop();
-			if( TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
+			if( TestPartResult::type_is_failed(eType) && TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
 			{
 				throw;
 			}

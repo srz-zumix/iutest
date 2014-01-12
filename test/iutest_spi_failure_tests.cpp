@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -55,7 +55,7 @@ IUTEST(SPIAssertFailureTest, Different)
 	IUTEST_ASSERT_FATAL_FAILURE(NonFatalFailure1();, "");
 }
 
-#if !IUTEST_USE_THROW_ON_ASSERT_FAILURE
+#if !IUTEST_USE_THROW_ON_ASSERTION_FAILURE
 IUTEST(SPIAssertFailureTest, Over)
 {
 	IUTEST_ASSERT_FATAL_FAILURE(FatalFailure2();, "");
@@ -99,7 +99,7 @@ IUTEST(SPIExpectFailureTest, Different)
 	IUTEST_EXPECT_FATAL_FAILURE(NonFatalFailure1();, "");
 }
 
-#if !IUTEST_USE_THROW_ON_ASSERT_FAILURE
+#if !IUTEST_USE_THROW_ON_ASSERTION_FAILURE
 IUTEST(SPIExpectFailureTest, Over)
 {
 	IUTEST_EXPECT_FATAL_FAILURE(FatalFailure2();, "");

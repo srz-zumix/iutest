@@ -641,7 +641,7 @@
 
 // explicit instantiation access checking
 #ifndef IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION
-#  if defined(_MSC_VER) && (_MSC_VER <= 1500)
+#  if defined(_MSC_VER) && (_MSC_VER < 1600)
      // VS2008 以前では、private なメンバー関数に explicit instantiation でもアクセスできない
 #    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION	0
 #  else

@@ -15,6 +15,8 @@ Changes for 1.8.0:
 * Visual C++ Compiler November 2013 CTP 対応
 
 ** 変更
+* IUTEST_USE_THROW_ON_ASSERT_FAILURE を IUTEST_USE_THROW_ON_ASSERTION_FAILURE に変更
+* IUTEST_USE_THROW_ON_ASSERTION_FAILURE を指定した場合 SKIP や ASSUME も例外を投げるように変更
 * IUTEST_*_NO_FAILURE が警告やスキップを失敗と判断しないように変更
 * リスナーのセットアップ関数を変更
 

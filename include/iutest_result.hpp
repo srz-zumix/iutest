@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -79,6 +79,12 @@ public:
 	//! コピーコンストラクタ
 	TestPartResult(const TestPartResult& rhs) : detail::iuCodeMessage(rhs)
 		, m_type(rhs.m_type) {}
+
+public:
+	/**
+	* @brief	失敗かどうか
+	*/
+	static bool type_is_failed(Type type) IUTEST_CXX_NOEXCEPT_SPEC { return type > kSuccess; }
 
 public:
 	/**

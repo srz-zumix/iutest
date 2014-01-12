@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -146,7 +146,7 @@ inline void iuOptionMessage::ShowFeature(void)
 	SHOW_MACRO(IUTEST_HAS_VARIADIC_VALUES);
 	SHOW_MACRO(IUTEST_PLATFORM);
 	SHOW_MACRO(IUTEST_REPORT_SKIPPED);
-	SHOW_MACRO(IUTEST_USE_THROW_ON_ASSERT_FAILURE);
+	SHOW_MACRO(IUTEST_USE_THROW_ON_ASSERTION_FAILURE);
 
 #ifdef _MSC_FULL_VER
 	SHOW_MACRO(_MSC_FULL_VER);

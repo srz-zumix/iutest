@@ -2,13 +2,13 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_genparams.hpp
- * @brief		iris unit test parameter generator 定義 ファイル
+ * @brief		iris unit test parameter generator
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -49,10 +49,10 @@ public:
 public:
 	virtual	~iuIParamGenerator(void) {}
 public:
-	virtual	void	Begin(void) = 0;	//!< パラメータリストの先頭に移動
-	virtual T		GetCurrent(void) const = 0;	// 現在のパラメータを取得
-	virtual void	Next(void)	= 0;	//!< パラメータを取得して次に移動
-	virtual bool	IsEnd(void) const = 0;	//!< パラメータリストの終端にいるかどうか
+	virtual	void	Begin(void) = 0;			//!< パラメータリストの先頭に移動
+	virtual T		GetCurrent(void) const = 0;	//!< 現在のパラメータを取得
+	virtual void	Next(void)	= 0;			//!< パラメータを取得して次に移動
+	virtual bool	IsEnd(void) const = 0;		//!< パラメータリストの終端にいるかどうか
 };
 
 /**
@@ -79,10 +79,10 @@ public:
 	}
 
 public:
-	virtual	void	Begin(void)	IUTEST_CXX_OVERRIDE { m_pInterface->Begin(); }	//!< パラメータリストの先頭に移動
-	virtual T		GetCurrent(void) const IUTEST_CXX_OVERRIDE { return m_pInterface->GetCurrent(); }	// 現在のパラメータを取得
-	virtual void	Next(void)	IUTEST_CXX_OVERRIDE { m_pInterface->Next(); }	//!< パラメータを取得して次に移動
-	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE { return m_pInterface->IsEnd(); }	//!< パラメータリストの終端にいるかどうか
+	virtual	void	Begin(void)	IUTEST_CXX_OVERRIDE { m_pInterface->Begin(); }
+	virtual T		GetCurrent(void) const IUTEST_CXX_OVERRIDE { return m_pInterface->GetCurrent(); }
+	virtual void	Next(void)	IUTEST_CXX_OVERRIDE { m_pInterface->Next(); }
+	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE { return m_pInterface->IsEnd(); }
 private:
 	_Interface*		m_pInterface;
 };
@@ -479,25 +479,25 @@ public:
 	{}
 
 public:
-	virtual	void	Begin(void) IUTEST_CXX_OVERRIDE
+	virtual	void Begin(void) IUTEST_CXX_OVERRIDE
 	{
 		begin_foreach<0, count>(v);
 	}
-	virtual void	Next(void) IUTEST_CXX_OVERRIDE
+	virtual void Next(void) IUTEST_CXX_OVERRIDE
 	{
 		if( IsEnd() ) return;
 		next_foreach<0, count>(v);
 	}
-	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE
+	virtual bool IsEnd(void) const IUTEST_CXX_OVERRIDE
 	{
 		return is_end_foreach<0, count>(v);
 	}
-	virtual ParamType	GetCurrent(void) const IUTEST_CXX_OVERRIDE
+	virtual ParamType GetCurrent(void) const IUTEST_CXX_OVERRIDE
 	{
 		return current_foreach<0, count, Args...>();
 	}
 
-	_MyTuple&	generators(void) { return v; }
+	_MyTuple& generators(void) { return v; }
 private:
 	_MyTuple v;
 };
@@ -542,7 +542,7 @@ public:
 	}
 
 private:
-	void	operator = (const _Myt&);
+	void operator = (const _Myt&);
 private:
 	_MyTuple v;
 };
@@ -558,12 +558,12 @@ public:
 		: m_g1(g1), m_g2(g2)
 	{}
 public:
-	virtual	void	Begin(void) IUTEST_CXX_OVERRIDE
+	virtual	void Begin(void) IUTEST_CXX_OVERRIDE
 	{
 		m_g1.Begin();
 		m_g2.Begin();
 	}
-	virtual void	Next(void) IUTEST_CXX_OVERRIDE
+	virtual void Next(void) IUTEST_CXX_OVERRIDE
 	{
 		if( m_g2.IsEnd() ) return;
 		m_g2.Next();
@@ -573,7 +573,7 @@ public:
 			if( !m_g1.IsEnd() ) m_g2.Begin();
 		}
 	}
-	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE
+	virtual bool IsEnd(void) const IUTEST_CXX_OVERRIDE
 	{
 		return m_g1.IsEnd() && m_g2.IsEnd();
 	}
@@ -598,7 +598,7 @@ public:
 	{}
 
 public:
-	virtual ParamType	GetCurrent(void) const IUTEST_CXX_OVERRIDE
+	virtual ParamType GetCurrent(void) const IUTEST_CXX_OVERRIDE
 	{
 		return ParamType(this->m_g1.GetCurrent(), this->m_g2.GetCurrent());
 	}

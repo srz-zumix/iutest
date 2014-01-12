@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -64,7 +64,7 @@
 
 #if IUTEST_HAS_SPI_LAMBDA_SUPPORT
 
-#if IUTEST_HAS_EXCEPTIONS && IUTEST_USE_THROW_ON_ASSERT_FAILURE
+#if IUTEST_HAS_EXCEPTIONS && IUTEST_USE_THROW_ON_ASSERTION_FAILURE
 #  define IIUT_STATEMENT_EXECUTER(statement)	[&](){ try {	\
 	::iutest::detail::ScopedSPITestFlag guard;					\
 	statement;													\
@@ -98,7 +98,7 @@
 
 #else
 
-#if IUTEST_HAS_EXCEPTIONS && IUTEST_USE_THROW_ON_ASSERT_FAILURE
+#if IUTEST_HAS_EXCEPTIONS && IUTEST_USE_THROW_ON_ASSERTION_FAILURE
 #  define IIUT_STATEMENT_EXECUTER(statement)	struct IUTestFatalFailureStatement {	\
 	static void Execute() { ::iutest::detail::ScopedSPITestFlag guard;					\
 	try { statement; } catch(...) {} }													\
