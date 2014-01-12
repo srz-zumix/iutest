@@ -442,24 +442,5 @@ TEST(GTestSyntaxTest, ExceptionValueFormat)
 
 }
 
-#if !defined(IUTEST_USE_GTEST)
-
-class exception_test
-{
-public:
-	exception_test(const ::std::vector<int>&)
-	{
-		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw ::std::exception());
-	}
-};
-
-TEST(GTestSyntaxTest, ExceptionVectorConstructor)
-{
-	::std::vector<int> a;
-	ASSERT_THROW(exception_test(a), ::std::exception);
-}
-
-#endif
-
 #endif
 
