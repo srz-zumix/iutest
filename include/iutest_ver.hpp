@@ -92,6 +92,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /**
+ * @page	ENVIRONMENT_OPTIONS	環境変数オプション
+ * @par		Environment variable Options
+ <table>
+   <tr><td>IUTEST_OUTPUT=xml[:path]        </td><td>Path of xml report.</td></tr>
+   <tr><td>IUTEST_COLOR=yes|no|auto        </td><td>Console color enable.</td></tr>
+   <tr><td>IUTEST_FILTER=filter            </td><td>Select the test run.</td></tr>
+   <tr><td>IUTEST_SHUFFLE                  </td><td>Do shuffle test.</td></tr>
+   <tr><td>IUTEST_RANDOM_SEED=seed         </td><td>Set random seed.</td></tr>
+   <tr><td>IUTEST_ALSO_RUN_DISABLED_TESTS  </td><td>Run disabled tests.</td></tr>
+   <tr><td>IUTEST_BREAK_ON_FAILURE=0|1     </td><td>When that failed to break.</td></tr>
+   <tr><td>IUTEST_THROW_ON_FAILURE=0|1     </td><td>When that failed to throw.</td></tr>
+   <tr><td>IUTEST_CATCH_EXCEPTIONS=0|1     </td><td>Catch exceptions enable.</td></tr>
+   <tr><td>IUTEST_PRINT_TIME=0|1           </td><td>Setting the display of elapsed time.</td></tr>
+   <tr><td>IUTEST_REPEAT=count             </td><td>Set the number of repetitions of the test.</td></tr>
+   <tr><td>IUTEST_FILE_LOCATION=auto|vs|gcc</td><td>Format file location messages.</td></tr>
+ </table>
+*/
+
+/**
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
