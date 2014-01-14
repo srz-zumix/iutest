@@ -157,30 +157,20 @@ public:
 	template<typename Container>
 	iuValuesInParamsGenerator(const Container& values)
 	{
-		for( typename Container::const_iterator it = values.begin(), end=values.end(); it != end; ++it )
-		{
-			m_values.push_back(static_cast<T>(*it));
-		}
+		m_values.insert(m_values.end(), values.begin(), values.end());
 	}
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 	template<typename TT, size_t SIZE>
 	iuValuesInParamsGenerator(const TT (&values)[SIZE])
 	{
-		const TT* begin = values;
-		for( const TT* end = values+SIZE; begin != end; ++begin )
-		{
-			m_values.push_back(static_cast<T>(*begin));
-		}
+		m_values.insert(m_values.end(), values, values + SIZE);
 	}
 #endif
 
 	template<typename Ite>
 	iuValuesInParamsGenerator(Ite begin, Ite end)
 	{
-		for( ; begin != end; ++begin )
-		{
-			m_values.push_back(static_cast<T>(*begin));
-		}
+		m_values.insert(m_values.end(), begin, end);
 	}
 
 #if IUTEST_HAS_INITIALIZER_LIST

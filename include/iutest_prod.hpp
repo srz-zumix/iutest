@@ -39,27 +39,6 @@
 
 #endif
 
-namespace iutest {
-namespace detail
-{
-
-//======================================================================
-// struct
-/** 
- * @brief	private メンバー保持構造体
-*/
-template<typename Tag>
-struct peep_tag
-{
-	static typename Tag::type	value;
-};
-template<typename Tag>
-typename Tag::type peep_tag<Tag>::value;
-
-}	// end of namespace detail
-
-//======================================================================
-// define
 /**
  * @brief	private メンバーへのアクセス権を作成
  * @param	member_type	= 型
@@ -67,25 +46,7 @@ typename Tag::type peep_tag<Tag>::value;
  * @param	member_name	= メンバー名
 */
 #define IUTEST_MAKE_PEEP(member_type, class_name, member_name)		\
-	IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name);	\
-	template struct IUTEST_PEEP_SETTER_NAME_(class_name, member_name)<class_name,	\
-		IUTEST_PEEP_TAG_NAME_(class_name, member_name)<class_name>, &class_name::member_name>
-
-/**
- * @brief	private メンバーへのアクセス権を作成
- * @param	member_type	= 型
- * @param	scope_name	= スコープ
- * @param	class_name	= クラス名
- * @param	member_name	= メンバー名
- * @deprecated	このマクロは非推奨です。 IUTEST_MAKE_PEEP を使用してください。
- * @note	過去互換のために scope_name::class_name を using して class_name だけで参照できるようにしています。
- *			scope_name::class_name 型を using するので使用する際には注意してください。
-*/
-#define IUTEST_MAKE_SCOPED_PEEP(member_type, scope_name, class_name, member_name)				\
-	using scope_name::class_name;																\
-	IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name);								\
-	template struct IUTEST_PEEP_SETTER_NAME_(class_name, member_name)< scope_name::class_name,	\
-		IUTEST_PEEP_TAG_NAME_(class_name, member_name)<scope_name::class_name>, &scope_name::class_name::member_name>
+	IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name)
 
 /**
  * @brief	private	メンバーへのアクセス
@@ -109,33 +70,48 @@ typename Tag::type peep_tag<Tag>::value;
 */
 #define IUTEST_PEEP(class_name, member_name)	::iutest::Peep< class_name, IUTEST_PEEP_TAG_NAME_(class_name, member_name)<class_name> >::type
 
-/**
- * @brief	private メンバーへのアクセスクラス宣言
- * @param	scope_name	= スコープ
- * @param	class_name	= クラス名
- * @param	member_name	= メンバー名
- * @deprecated	このマクロは廃止予定です。 IUTEST_PEEP を使用してください。
-*/
-#define IUTEST_SCOPED_PEEP(scope_name, class_name, member_name)	::iutest::Peep< scope_name::class_name, IUTEST_PEEP_TAG_NAME_(class_name, member_name)<scope_name::class_name> >::type
 
 /**
  * @private
  * @{
 */
 #define IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name)															\
-	template<typename T>struct IUTEST_PEEP_TAG_NAME_(class_name, member_name) { typedef member_type type; };				\
+	template<typename T>struct IUTEST_PEEP_TAG_NAME_(class_name, member_name);												\
+	template<>struct IUTEST_PEEP_TAG_NAME_(class_name, member_name)<class_name> { typedef member_type type; };				\
 	template<typename T, typename Tag, typename Tag::type X>struct IUTEST_PEEP_SETTER_NAME_(class_name, member_name) {		\
 	IUTEST_PEEP_SETTER_NAME_(class_name, member_name)(void) { ::iutest::detail::peep_tag<Tag>::value = X; }					\
 	static IUTEST_PEEP_SETTER_NAME_(class_name, member_name)	instance;													\
 	};																														\
 	template<typename T, typename Tag, typename Tag::type X>IUTEST_PEEP_SETTER_NAME_(class_name, member_name)<T, Tag, X>	\
-	IUTEST_PEEP_SETTER_NAME_(class_name, member_name)<T, Tag, X>::instance
+	IUTEST_PEEP_SETTER_NAME_(class_name, member_name)<T, Tag, X>::instance;													\
+	template struct IUTEST_PEEP_SETTER_NAME_(class_name, member_name)<class_name											\
+		, IUTEST_PEEP_TAG_NAME_(class_name, member_name)<class_name>, &class_name::member_name>
 
 #define IUTEST_PEEP_TAG_NAME_(class_name, member_name)			iu_peep_tag_##member_name
-#define IUTEST_PEEP_SETTER_NAME_(class_name, member_name)		iu_peep_set_##member_name
+#define IUTEST_PEEP_SETTER_NAME_(class_name, member_name)		IUTEST_PP_CAT(IUTEST_PP_CAT(iu_peep_set_, member_name), __LINE__)
+
 /**
  * @}
 */
+
+namespace iutest {
+
+//======================================================================
+// struct
+namespace detail
+{
+/**
+* @brief	private メンバー保持構造体
+*/
+template<typename Tag>
+struct peep_tag
+{
+	static typename Tag::type	value;
+};
+template<typename Tag>
+typename Tag::type peep_tag<Tag>::value;
+
+}	// end of namespace detail
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 

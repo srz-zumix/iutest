@@ -266,6 +266,10 @@
 #    if __has_feature(cxx_generalized_initializers)
 #      define IUTEST_HAS_INITIALIZER_LIST	1
 #    endif
+#  elif defined(__GLIBC__)
+#    if IUTEST_HAS_CXX11 && (__GLIBCXX__ > 20110325)
+#      define IUTEST_HAS_INITIALIZER_LIST	1
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_INITIALIZER_LIST	1

@@ -97,7 +97,8 @@ ALLTESTS_SRCS= main.cpp \
                iutest_param_test_tests1.cpp \
                iutest_param_test_tests2.cpp \
                iutest_pred_tests.cpp \
-               iutest_prod_tests.cpp \
+               iutest_prod_tests1.cpp \
+               iutest_prod_tests2.cpp \
                iutest_spi_tests.cpp \
                iutest_static_assertion_tests.cpp \
                iutest_string_assertion_tests.cpp \

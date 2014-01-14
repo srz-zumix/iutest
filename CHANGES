@@ -8,17 +8,19 @@ Changes for 1.8.0:
 * IUTEST_*_NO_FAILURE の gtest モード対応
 * Visual Studio Type Visualizer 用 .natvis ファイルを追加
 
-** 修正
-* IUTEST_*_TRUE/FALSE を可変長対応
-* フィクスチャークラス名を IUTEST_TEST マクロのテストケース名に使用した場合にエラーになるように修正(MSVC拡張)
-* パッケージ内の値のパラメータ化テストのテストケース名が pkg.prefix/testcase となるように修正
-* Visual C++ Compiler November 2013 CTP 対応
-
 ** 変更
 * IUTEST_USE_THROW_ON_ASSERT_FAILURE を IUTEST_USE_THROW_ON_ASSERTION_FAILURE に変更
 * IUTEST_USE_THROW_ON_ASSERTION_FAILURE を指定した場合 SKIP や ASSUME も例外を投げるように変更
 * IUTEST_*_NO_FAILURE が警告やスキップを失敗と判断しないように変更
 * リスナーのセットアップ関数を変更
+* IUTEST_SCOPED_PEEP,IUTEST_MAKE_SCOPED_PEEP を廃止
+
+** 修正
+* IUTEST_*_TRUE/FALSE を可変長対応
+* フィクスチャークラス名を IUTEST_TEST マクロのテストケース名に使用した場合にエラーになるように修正(MSVC拡張)
+* パッケージ内の値のパラメータ化テストのテストケース名が pkg.prefix/testcase となるように修正
+* Visual C++ Compiler November 2013 CTP 対応
+* バグ修正
 
 --------------------------------------------------
 Changes for 1.7.0:
