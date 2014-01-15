@@ -2,7 +2,7 @@ iutest
 ==========
 iutest - iris unit test framework
 
-Welcom to the iutest
+Welcome to the iutest
 --------------------------------------------------
 iutest  framework for writeing C++ tests.
 
