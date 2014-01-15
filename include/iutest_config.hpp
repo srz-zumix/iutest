@@ -111,10 +111,8 @@
 /**
  * @brief	コンパイルが通らなくてもよいテスト生成マクロが使用可能かどうか
 */
-#  if	defined(_MSC_VER) && _MSC_VER > 1200
+#  if	defined(IUTEST_NO_TWO_PHASE_NAME_LOOKUP)
 #    define IUTEST_HAS_IGNORE_TEST	1
-#  elif	defined(__GNUC__) || defined(__clang__)
-#    define IUTEST_HAS_IGNORE_TEST	0
 #  else
 #    define IUTEST_HAS_IGNORE_TEST	0
 #  endif

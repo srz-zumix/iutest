@@ -709,6 +709,13 @@
 #  endif
 #endif
 
+// Two pahse name lookup
+#ifndef IUTEST_NO_TWO_PHASE_NAME_LOOKUP
+#  if defined(_MSC_VER)
+#    define IUTEST_NO_TWO_PHASE_NAME_LOOKUP				1
+#  endif
+#endif
+
 // function template ordering
 #ifndef IUTEST_NO_FUNCTION_TEMPLATE_ORDERING
 #  if	defined(_MSC_VER) && (_MSC_VER < 1310)
