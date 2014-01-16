@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_info.ipp
- * @brief		iris unit test î•ñ ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test æƒ…å ± ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -25,7 +25,7 @@ namespace iutest
 {
 
 /**
- * @brief	Às
+ * @brief	å®Ÿè¡Œ
 */
 IUTEST_IPP_INLINE bool	TestInfo::Run(void)
 {
@@ -34,12 +34,12 @@ IUTEST_IPP_INLINE bool	TestInfo::Run(void)
 		return true;
 	}
 
-	// ƒeƒXƒgŠJn
+	// ãƒ†ã‚¹ãƒˆé–‹å§‹
 	TestEnv::event_listeners().OnTestStart(*this);
 
 	RunImpl();
 
-	// ƒeƒXƒgI—¹
+	// ãƒ†ã‚¹ãƒˆçµ‚äº†
 	TestEnv::event_listeners().OnTestEnd(*this);
 	return !HasFailure();
 }
@@ -162,7 +162,7 @@ IUTEST_IPP_INLINE void	TestInfo::clear(void)
 IUTEST_IPP_INLINE bool	TestInfo::filter(void)
 {
 	bool run = true;
-	// –³ŒøƒeƒXƒg‚È‚çÀs‚µ‚È‚¢
+	// ç„¡åŠ¹ãƒ†ã‚¹ãƒˆãªã‚‰å®Ÿè¡Œã—ãªã„
 	if( !TestFlag::IsEnableFlag(TestFlag::RUN_DISABLED_TESTS)
 		&& is_disabled_test() )
 	{

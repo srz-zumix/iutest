@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_util_quiet_result_printer.hpp
- * @brief		iris unit test quiet result printer ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test quiet result printer ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,7 +27,7 @@ namespace iuutil
 // class
 
 /**
- * @brief	ƒRƒ“ƒpƒNƒg‚ÈƒfƒtƒHƒ‹ƒgƒRƒ“ƒ\[ƒ‹o—ÍƒCƒxƒ“ƒgƒŠƒXƒi[
+ * @brief	ã‚³ãƒ³ãƒ‘ã‚¯ãƒˆãªãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚½ãƒ¼ãƒ«å‡ºåŠ›ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼
 */
 class QuietResultPrinter : public ::iutest::TestEventListener
 {
@@ -78,7 +78,7 @@ public:
 	{
 		if( test_info.result()->Failed() )
 		{
-			// ¸”s‚µ‚½‚Æ‚«‚Ì‚İo—Í‚·‚é
+			// å¤±æ•—ã—ãŸã¨ãã®ã¿å‡ºåŠ›ã™ã‚‹
 			m_default_printer->OnTestEnd(test_info);
 		}
 	}
@@ -98,7 +98,7 @@ private:
 
 public:
 	/**
-	 * @brief	QuietResultPrinter ‚ÉØ‚è‘Ö‚¦
+	 * @brief	QuietResultPrinter ã«åˆ‡ã‚Šæ›¿ãˆ
 	*/
 	static void SetUp(void)
 	{

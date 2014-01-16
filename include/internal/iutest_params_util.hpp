@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_params_util.hpp
- * @brief		iris unit test parameter ’è‹` ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test parameter å®šç¾© ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -29,7 +29,7 @@ namespace iutest
 //======================================================================
 // class
 /**
- * @brief	ƒpƒ‰ƒ[ƒ^’P‘ÌƒeƒXƒg TestInfo ƒf[ƒ^ƒNƒ‰ƒX
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å˜ä½“ãƒ†ã‚¹ãƒˆ TestInfo ãƒ‡ãƒ¼ã‚¿ã‚¯ãƒ©ã‚¹
 */
 template<typename ParamType>
 class IParamTestInfoData
@@ -43,7 +43,7 @@ protected:
 };
 
 /**
- * @brief	ƒpƒ‰ƒ[ƒ^’P‘ÌƒeƒXƒgƒCƒ“ƒXƒ^ƒ“ƒXƒCƒ“ƒ^[ƒtƒFƒCƒX
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å˜ä½“ãƒ†ã‚¹ãƒˆã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 */
 class IParamTestCaseInfo
 {
@@ -69,8 +69,8 @@ protected:
 };
 
 /**
- * @brief	ƒpƒ‰ƒ[ƒ^’P‘ÌƒeƒXƒgƒCƒ“ƒXƒ^ƒ“ƒX
- * @tparam	T	= ƒeƒXƒgƒNƒ‰ƒX
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å˜ä½“ãƒ†ã‚¹ãƒˆã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+ * @tparam	T	= ãƒ†ã‚¹ãƒˆã‚¯ãƒ©ã‚¹
 */
 template<class T>
 class ParamTestCaseInfo : public IParamTestCaseInfo
@@ -84,7 +84,7 @@ class ParamTestCaseInfo : public IParamTestCaseInfo
 	typedef ParamGenerator* (pfnCreateGeneratorFunc)();
 
 public:
-	/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	/// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	ParamTestCaseInfo(const ::std::string& testcase_name, const ::std::string& package_name)
 		: IParamTestCaseInfo(testcase_name, package_name)
 	{
@@ -92,14 +92,14 @@ public:
 	virtual ~ParamTestCaseInfo(void) {}
 
 	/**
-	 * @brief	ƒeƒXƒgƒpƒ^[ƒ“‚Ì“o˜^
+	 * @brief	ãƒ†ã‚¹ãƒˆãƒ‘ã‚¿ãƒ¼ãƒ³ã®ç™»éŒ²
 	*/
 	void	AddTestPattern(TestInfoData* testinfo)
 	{
 		m_testinfos.push_back(testinfo);
 	};
 	/**
-	 * @brief	ƒCƒ“ƒXƒ^ƒ“ƒX‚Ì“o˜^
+	 * @brief	ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ç™»éŒ²
 	*/
 	int	AddTestCaseInstantiation(::std::string name, pfnCreateGeneratorFunc* func)
 	{
@@ -108,7 +108,7 @@ public:
 	}
 
 	/**
-	 * @brief	ƒeƒXƒg‚Ìì¬
+	 * @brief	ãƒ†ã‚¹ãƒˆã®ä½œæˆ
 	*/
 	virtual void	RegisterTests(void) const
 	{
@@ -116,7 +116,7 @@ public:
 		{
 			for( typename InstantiationContainer::const_iterator gen_it=m_instantiation.begin(), gen_end=m_instantiation.end(); gen_it != gen_end; ++gen_it )
 			{
-				// ƒpƒ‰ƒ[ƒ^¶¬Ší‚Ìì¬
+				// ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç”Ÿæˆå™¨ã®ä½œæˆ
 				detail::auto_ptr<ParamGenerator> p = (gen_it->second)();
 
 				::std::string testcase_name = m_package_name;
@@ -136,7 +136,7 @@ public:
 					int i=0;
 					for( p->Begin(); !p->IsEnd(); p->Next() )
 					{
-						// ƒpƒ‰ƒ[ƒ^‚ª‚È‚­‚È‚é‚Ü‚ÅƒeƒXƒg‚ğì‚é
+						// ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãŒãªããªã‚‹ã¾ã§ãƒ†ã‚¹ãƒˆã‚’ä½œã‚‹
 						(*it)->RegisterTest(testcase, p->GetCurrent(), i);
 						++i;
 					}
@@ -153,14 +153,14 @@ private:
 };
 
 /**
- * @brief	ƒpƒ‰ƒ[ƒ^ƒeƒXƒgƒpƒ^[ƒ“•ÛŠÇŒÉ
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ†ã‚¹ãƒˆãƒ‘ã‚¿ãƒ¼ãƒ³ä¿ç®¡åº«
 */
 class ParamTestCaseHolder
 {
 private:
 	~ParamTestCaseHolder(void)
 	{
-		// ‰ğ•ú
+		// è§£æ”¾
 		for( TestCaseInfoContainer::const_iterator it=m_testcase_infos.begin(), end=m_testcase_infos.end(); it != end; ++it )
 		{
 			delete *it;
@@ -196,7 +196,7 @@ private:
 		}
 	};
 
-	// ƒeƒXƒg‚ğ“o˜^
+	// ãƒ†ã‚¹ãƒˆã‚’ç™»éŒ²
 	void	RegisterTests(void)
 	{
 		::std::for_each(m_testcase_infos.begin(), m_testcase_infos.end(), RegisterTestsFunctor());

@@ -1,4 +1,4 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_switch.hpp
@@ -20,7 +20,7 @@
 #if !defined(IUTEST_USE_GTEST)
 
 #ifdef GTEST_USE_OWN_TR1_TUPLE
-#  define IUTEST_USE_EXTERNAL_TR1_TUPLE	1	// gtest ‚Ì tuple ‚ğg—p‚·‚é
+#  define IUTEST_USE_EXTERNAL_TR1_TUPLE	1	// gtest ã® tuple ã‚’ä½¿ç”¨ã™ã‚‹
 #endif
 
 //======================================================================
@@ -119,17 +119,17 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleMock(int* argc, wchar_t** argv)
 #ifndef GMOCK_INCLUDE_GMOCK_GMOCK_H_
 
 #ifdef GTEST_INCLUDE_GTEST_GTEST_H_
-// ‚·‚Å‚É testing namespace ‚ª‘¶İ‚·‚é‚Ì‚ÅAdefine ‚Å’u‚«Š·‚¦
+// ã™ã§ã« testing namespace ãŒå­˜åœ¨ã™ã‚‹ã®ã§ã€define ã§ç½®ãæ›ãˆ
 #  define testing	iutest
 #else
-// ‚»‚êˆÈŠO‚Í namespace ‚Ì’u‚«Š·‚¦‚Å‘Î‰
+// ãã‚Œä»¥å¤–ã¯ namespace ã®ç½®ãæ›ãˆã§å¯¾å¿œ
 namespace testing = iutest;
 #endif
 
 #endif
 
 #ifndef GTEST_INCLUDE_GTEST_GTEST_H_
-#  define GTEST_INCLUDE_GTEST_GTEST_H_	// ˆÈ~‚ÅAgtest ‚ª include ‚³‚ê‚È‚¢‚æ‚¤‚É‚·‚é
+#  define GTEST_INCLUDE_GTEST_GTEST_H_	// ä»¥é™ã§ã€gtest ãŒ include ã•ã‚Œãªã„ã‚ˆã†ã«ã™ã‚‹
 #endif
 
 #else	// !defined(IUTEST_USE_GTEST)
@@ -369,7 +369,7 @@ typedef ::std::ostream	iu_ostream;
 }	// end of namespace testing
 
 #ifdef INCG_IRIS_IUTEST_HPP_
-// ‚·‚Å‚É iutest namespace ‚ª‘¶İ‚·‚é‚Ì‚ÅAdefine ‚Å‘Î‰
+// ã™ã§ã« iutest namespace ãŒå­˜åœ¨ã™ã‚‹ã®ã§ã€define ã§å¯¾å¿œ
 #  define iutest testing
 #else
 namespace iutest = testing;
@@ -378,7 +378,7 @@ namespace iutest = testing;
 #include "../iutest_util.hpp"
 
 #ifndef INCG_IRIS_IUTEST_HPP_
-#  define INCG_IRIS_IUTEST_HPP_	// ˆÈ~‚ÅAiutest ‚ª include ‚³‚ê‚È‚¢‚æ‚¤‚É‚·‚é
+#  define INCG_IRIS_IUTEST_HPP_	// ä»¥é™ã§ã€iutest ãŒ include ã•ã‚Œãªã„ã‚ˆã†ã«ã™ã‚‹
 #endif
 
 #endif

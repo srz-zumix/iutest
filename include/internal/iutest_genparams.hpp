@@ -1,4 +1,4 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_genparams.hpp
@@ -36,7 +36,7 @@ template<typename G1, typename G2>class iuConcatParamHolder;
 //======================================================================
 // class
 /**
- * @brief	ƒpƒ‰ƒ[ƒ^¶¬ŠíƒCƒ“ƒ^[ƒtƒFƒCƒX
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç”Ÿæˆå™¨ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 */
 template<typename T>
 class iuIParamGenerator
@@ -49,14 +49,14 @@ public:
 public:
 	virtual	~iuIParamGenerator(void) {}
 public:
-	virtual	void	Begin(void) = 0;			//!< ƒpƒ‰ƒ[ƒ^ƒŠƒXƒg‚Ìæ“ª‚ÉˆÚ“®
-	virtual T		GetCurrent(void) const = 0;	//!< Œ»İ‚Ìƒpƒ‰ƒ[ƒ^‚ğæ“¾
-	virtual void	Next(void)	= 0;			//!< ƒpƒ‰ƒ[ƒ^‚ğæ“¾‚µ‚ÄŸ‚ÉˆÚ“®
-	virtual bool	IsEnd(void) const = 0;		//!< ƒpƒ‰ƒ[ƒ^ƒŠƒXƒg‚ÌI’[‚É‚¢‚é‚©‚Ç‚¤‚©
+	virtual	void	Begin(void) = 0;			//!< ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒªã‚¹ãƒˆã®å…ˆé ­ã«ç§»å‹•
+	virtual T		GetCurrent(void) const = 0;	//!< ç¾åœ¨ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’å–å¾—
+	virtual void	Next(void)	= 0;			//!< ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’å–å¾—ã—ã¦æ¬¡ã«ç§»å‹•
+	virtual bool	IsEnd(void) const = 0;		//!< ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒªã‚¹ãƒˆã®çµ‚ç«¯ã«ã„ã‚‹ã‹ã©ã†ã‹
 };
 
 /**
- * @brief	ƒpƒ‰ƒ[ƒ^¶¬Ší•ÛƒNƒ‰ƒX
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç”Ÿæˆå™¨ä¿æŒã‚¯ãƒ©ã‚¹
 */
 template<typename T>
 class iuParamGenerator : public iuIParamGenerator<T>
@@ -88,8 +88,8 @@ private:
 };
 
 /**
- * @brief	”ÍˆÍƒpƒ‰ƒ[ƒ^¶¬Ší
- * @tparam T	= ƒpƒ‰ƒ[ƒ^Œ^
+ * @brief	ç¯„å›²ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç”Ÿæˆå™¨
+ * @tparam T	= ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å‹
 */
 template<typename T>
 class iuRangeParamsGenerator : public iuIParamGenerator<T>
@@ -100,10 +100,10 @@ class iuRangeParamsGenerator : public iuIParamGenerator<T>
 	T	m_cur;
 public:
 	/**
-	 * @brief	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param [in]	begin	= ŠJn’l
-	 * @param [in]	end		= I—¹’l
-	 * @param [in]	step	= ‘’l
+	 * @brief	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param [in]	begin	= é–‹å§‹å€¤
+	 * @param [in]	end		= çµ‚äº†å€¤
+	 * @param [in]	step	= å¢—å€¤
 	*/
 	iuRangeParamsGenerator(T begin, T end, T step=1)
 		: m_begin(begin)
@@ -121,8 +121,8 @@ public:
 };
 
 /**
- * @breif	^‹U’lƒpƒ‰ƒ[ƒ^¶¬Ší
- * @tparam T	= ƒpƒ‰ƒ[ƒ^Œ^
+ * @breif	çœŸå½å€¤ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç”Ÿæˆå™¨
+ * @tparam T	= ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å‹
 */
 template<typename T>
 class iuBoolParamsGenerator : public iuIParamGenerator<T>
@@ -142,8 +142,8 @@ public:
 };
 
 /**
- * @brief	’l”z—ñƒpƒ‰ƒ[ƒ^¶¬Ší
- * @tparam T	= ƒpƒ‰ƒ[ƒ^Œ^
+ * @brief	å€¤é…åˆ—ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç”Ÿæˆå™¨
+ * @tparam T	= ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å‹
 */
 template<typename T>
 class iuValuesInParamsGenerator : public iuIParamGenerator<T>
@@ -190,7 +190,7 @@ public:
 
 #if IUTEST_HAS_CONCAT
 /**
- * @brief	ƒpƒ‰ƒ[ƒ^¶¬Ší‰ÁZ•ÛƒNƒ‰ƒX
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç”Ÿæˆå™¨åŠ ç®—ä¿æŒã‚¯ãƒ©ã‚¹
 */
 template<typename G1, typename G2>
 class iuConcatParamHolder
@@ -757,8 +757,8 @@ protected:
 
 private:
 	struct PairInfo {
-		int raw1, raw2;	// —ñ‚ÌƒyƒA
-		int idx1, idx2;	// ƒCƒ“ƒfƒbƒNƒX‚ÌƒyƒA
+		int raw1, raw2;	// åˆ—ã®ãƒšã‚¢
+		int idx1, idx2;	// ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®ãƒšã‚¢
 	};
 protected:
 	template<typename T1>
@@ -789,7 +789,7 @@ protected:
 		typedef typename ::std::vector< ParamIndexes<N> >::iterator list_iterator;
 		list.clear();
 
-		// ƒyƒA‚ğ—ñ‹“
+		// ãƒšã‚¢ã‚’åˆ—æŒ™
 		::std::vector<PairInfo> pair_list;
 		for( int i=0; i < N; ++i )
 		{
@@ -808,7 +808,7 @@ protected:
 			}
 		}
 
-		// ƒVƒƒƒbƒtƒ‹
+		// ã‚·ãƒ£ãƒƒãƒ•ãƒ«
 		iuRandom random;
 		unsigned int seed = TestEnv::get_random_seed();
 		if( seed != 0 )
@@ -826,7 +826,7 @@ protected:
 				find = FindFree(list, pair_info, list.begin());
 				if( find == list.end() )
 				{
-					// ‹ó‚«‚ª–³‚¢‚Ì‚Åì‚é
+					// ç©ºããŒç„¡ã„ã®ã§ä½œã‚‹
 					ParamIndexes<N> params;
 					params.index[pair_info.raw1] = pair_info.idx1;
 					params.index[pair_info.raw2] = pair_info.idx2;
@@ -834,7 +834,7 @@ protected:
 				}
 				else
 				{
-					// –„‚ß‚é
+					// åŸ‹ã‚ã‚‹
 					ParamIndexes<N>& params = *find;
 					params.index[pair_info.raw1] = pair_info.idx1;
 					params.index[pair_info.raw2] = pair_info.idx2;
@@ -885,7 +885,7 @@ private:
 	static typename ::std::vector< ParamIndexes<N> >::iterator FindFree( ::std::vector< ParamIndexes<N> >& list, const PairInfo& pair_info
 		, typename ::std::vector< ParamIndexes<N> >::iterator start)
 	{
-		// “ü‚ê‚»‚¤‚È‚Æ‚±‚ğ’T‚·
+		// å…¥ã‚Œãã†ãªã¨ã“ã‚’æ¢ã™
 		typedef typename ::std::vector< ParamIndexes<N> >::iterator iterator;
 		iterator find = list.end();
 		UInt32 max_overlap = static_cast<UInt32>(-1);
@@ -911,7 +911,7 @@ private:
 				IUTEST_UNUSED_VAR(max_overlap);
 				return it;
 #else
-				// ‰¼‚É“ü‚Á‚½‚Æ‚µ‚Äd•¡‚ª‚È‚¢‚©’²‚×‚é
+				// ä»®ã«å…¥ã£ãŸã¨ã—ã¦é‡è¤‡ãŒãªã„ã‹èª¿ã¹ã‚‹
 				UInt32 overlap = 0;
 				for( int i=0; i < N; ++i )
 				{
@@ -1309,8 +1309,8 @@ IIUT_DECL_PAIRWISE_HOLDER_(9);
 #if IUTEST_HAS_VALUESGEN
 
 /**
- * @breif	ƒpƒ‰ƒ[ƒ^¶¬Ší
- * @tparam G	= ƒpƒ‰ƒ[ƒ^¶¬Ší
+ * @breif	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç”Ÿæˆå™¨
+ * @tparam G	= ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç”Ÿæˆå™¨
 */
 template<typename G>
 class iuValuesParamsGeneratorHolder
@@ -1342,7 +1342,7 @@ private:
 };
 
 /**
- * @brief	—”ƒWƒFƒlƒŒ[ƒ^
+ * @brief	ä¹±æ•°ã‚¸ã‚§ãƒãƒ¬ãƒ¼ã‚¿
 */
 template<typename T, typename F>
 class iuRandomFilterParamGenerator
@@ -1373,7 +1373,7 @@ private:
 #if IUTEST_HAS_RANDOMVALUES
 
 /**
- * @breif	—”ƒpƒ‰ƒ[ƒ^¶¬Ší
+ * @breif	ä¹±æ•°ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç”Ÿæˆå™¨
 */
 class iuRandomParamsHolder
 {

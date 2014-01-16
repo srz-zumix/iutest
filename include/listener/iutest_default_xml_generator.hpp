@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_default_xml_generator.hpp
- * @brief		iris unit test xml o—ÍƒCƒxƒ“ƒgƒŠƒXƒi[ ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test xml å‡ºåŠ›ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,7 +27,7 @@ namespace iutest
 //======================================================================
 // class
 /**
- * @brief	xmlo—ÍƒCƒxƒ“ƒgƒŠƒXƒi[
+ * @brief	xmlå‡ºåŠ›ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼
 */
 class DefaultXmlGeneratorListener : public EmptyTestEventListener
 {
@@ -35,8 +35,8 @@ class DefaultXmlGeneratorListener : public EmptyTestEventListener
 	IFile*	m_fp;
 public:
 	/**
-	 * @brief	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param [in] path = o—ÍƒpƒX
+	 * @brief	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param [in] path = å‡ºåŠ›ãƒ‘ã‚¹
 	*/
 	DefaultXmlGeneratorListener(const ::std::string& path)
 		: m_fp(NULL)
@@ -50,7 +50,7 @@ public:
 	}
 public:
 	/**
-	 * @brief	o—Íƒtƒ@ƒCƒ‹‚Ìİ’è
+	 * @brief	å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã®è¨­å®š
 	*/
 	void	SetFilePath(const ::std::string& path)
 	{
@@ -69,7 +69,7 @@ public:
 		}
 	}
 	/**
-	 * @brief	o—Íƒtƒ@ƒCƒ‹ƒpƒX‚Ìæ“¾
+	 * @brief	å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã®å–å¾—
 	*/
 	const ::std::string& GetFilePath(void) const { return m_output_path; }
 
@@ -102,21 +102,21 @@ private:
 		return EscapeXml(str, false);
 	}
 	/**
-	 * @brief	xml ‚Åg‚¦‚È‚¢•¶š‚ğ’u‚«Š·‚¦
+	 * @brief	xml ã§ä½¿ãˆãªã„æ–‡å­—ã‚’ç½®ãæ›ãˆ
 	*/
 	static ::std::string EscapeXml(const char* str, bool is_attribute);
 
 	/**
-	 * @brief	‹ó”’‚©‚Ç‚¤‚©
-	 * @return	^‹U’l
+	 * @brief	ç©ºç™½ã‹ã©ã†ã‹
+	 * @return	çœŸå½å€¤
 	*/
 	static IUTEST_CXX_CONSTEXPR bool IsWhitespace(char c)
 	{
 		return c == 0x9 || c == 0xA || c == 0xD;
 	}
 	/**
-	 * @brief	xml ‚É—˜—p‰Â”\‚È•¶š‚©‚Ç‚¤‚©
-	 * @return	^‹U’l
+	 * @brief	xml ã«åˆ©ç”¨å¯èƒ½ãªæ–‡å­—ã‹ã©ã†ã‹
+	 * @return	çœŸå½å€¤
 	*/
 	static IUTEST_CXX_CONSTEXPR bool IsValidXmlCharacter(char c)
 	{

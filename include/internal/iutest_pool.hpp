@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_pool.hpp
- * @brief		iris unit test memory pool ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test memory pool ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,7 +26,7 @@ namespace detail
 {
 
 /**
- * @brief	new ‚µ‚½ƒIƒuƒWƒFƒNƒg‚ğŠÇ—
+ * @brief	new ã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç®¡ç†
 */
 template<typename T>
 class iuPool
@@ -41,7 +41,7 @@ public:
 public:
 	~iuPool(void)
 	{
-		// ‚·‚×‚Ä‰ğ•ú‚·‚é
+		// ã™ã¹ã¦è§£æ”¾ã™ã‚‹
 		for( typename pool::iterator it=m_pool.begin(); it != m_pool.end(); )
 		{
 			value_ptr p = *it;

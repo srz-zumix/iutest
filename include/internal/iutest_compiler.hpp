@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_compiler.hpp
- * @brief		iris unit test compiler ˆË‘¶‚Ì‹zû ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test compiler ä¾å­˜ã®å¸å ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -646,7 +646,7 @@
 // explicit instantiation access checking
 #ifndef IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION
 #  if defined(_MSC_VER) && (_MSC_VER < 1600)
-     // VS2008 ˆÈ‘O‚Å‚ÍAprivate ‚Èƒƒ“ƒo[ŠÖ”‚É explicit instantiation ‚Å‚àƒAƒNƒZƒX‚Å‚«‚È‚¢
+     // VS2008 ä»¥å‰ã§ã¯ã€private ãªãƒ¡ãƒ³ãƒãƒ¼é–¢æ•°ã« explicit instantiation ã§ã‚‚ã‚¢ã‚¯ã‚»ã‚¹ã§ããªã„
 #    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION	0
 #  else
 #    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION	1
@@ -655,21 +655,21 @@
 
 #ifndef IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_STATIC_MEMBER_FUNCTION
 #  if defined(_MSC_VER)
-// Visual Studio ‚Å‚ÍAprivate ‚È static ƒƒ“ƒo[ŠÖ”‚É explicit instantiation ‚Å‚àƒAƒNƒZƒX‚Å‚«‚È‚¢
+// Visual Studio ã§ã¯ã€private ãª static ãƒ¡ãƒ³ãƒãƒ¼é–¢æ•°ã« explicit instantiation ã§ã‚‚ã‚¢ã‚¯ã‚»ã‚¹ã§ããªã„
 #    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_STATIC_MEMBER_FUNCTION	0
 #  else
 #    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_STATIC_MEMBER_FUNCTION	1
 #  endif
 #endif
 
-// ‰Â•Ï’·ˆø”ƒ}ƒNƒ
+// å¯å¤‰é•·å¼•æ•°ãƒã‚¯ãƒ­
 #ifndef IUTEST_NO_VARIADIC_MACROS
 #  if	defined(_MSC_VER) && (_MSC_VER < 1500)
 #    define IUTEST_NO_VARIADIC_MACROS		1
 #  endif
 #endif
 
-// __COUNTER__ ƒ}ƒNƒ
+// __COUNTER__ ãƒã‚¯ãƒ­
 #ifndef IUTEST_HAS_COUNTER_MACRO
 #  if	defined(_MSC_VER) && (_MSC_VER >= 1300)
 #    define IUTEST_HAS_COUNTER_MACRO		1

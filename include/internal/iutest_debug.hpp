@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_debug.hpp
- * @brief		iris unit test debug —p’è‹` ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test debug ç”¨å®šç¾© ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @debugsion	1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -21,7 +21,7 @@
 // include
 
 #ifdef _IUTEST_DEBUG
-// iutest ©‘Ì‚ÌƒfƒoƒbƒO—p’è‹`
+// iutest è‡ªä½“ã®ãƒ‡ãƒãƒƒã‚°ç”¨å®šç¾©
 
 #if	defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 #  include <streambuf>
@@ -65,7 +65,7 @@ static void IUTEST_ATTRIBUTE_UNUSED_ iuDebugBreakAlloc(long n)
 #if defined(_MSC_VER) && IUTEST_HAS_MINIDUMP
 
 /**
- * @brief	minidump ì¬ƒNƒ‰ƒX
+ * @brief	minidump ä½œæˆã‚¯ãƒ©ã‚¹
 */
 class MiniDump
 {
@@ -76,7 +76,7 @@ private:
 	bool Dump(HANDLE hFile, EXCEPTION_POINTERS* ep);
 public:
 	/**
-	 @brief	minidump ì¬
+	 @brief	minidump ä½œæˆ
 	*/
 	static bool Create(const char* filepath, EXCEPTION_POINTERS* ep);
 

@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_filepath.hpp
- * @brief		iris unit test ƒtƒ@ƒCƒ‹ƒpƒXƒNƒ‰ƒX ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚¯ãƒ©ã‚¹ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -67,7 +67,7 @@ namespace detail
 //======================================================================
 // class
 /**
- * @brief	ƒtƒ@ƒCƒ‹ƒpƒXƒNƒ‰ƒX
+ * @brief	ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚¯ãƒ©ã‚¹
 */
 class iuFilePath
 {
@@ -104,95 +104,95 @@ public:
 public:
 
 	/**
-	 * @brief	ƒtƒHƒ‹ƒ_ƒpƒX‚©‚Ç‚¤‚©
+	 * @brief	ãƒ•ã‚©ãƒ«ãƒ€ãƒ‘ã‚¹ã‹ã©ã†ã‹
 	*/
 	bool	IsDirectory(void) const;
 
 	/**
-	 * @brief	ƒ‹[ƒgƒfƒBƒŒƒNƒgƒŠƒpƒX‚©‚Ç‚¤‚©
+	 * @brief	ãƒ«ãƒ¼ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãƒ‘ã‚¹ã‹ã©ã†ã‹
 	*/
 	bool	IsRootDirectory(void) const;
 
 	/**
-	 * @brief	â‘ÎƒpƒX‚©‚Ç‚¤‚©
+	 * @brief	çµ¶å¯¾ãƒ‘ã‚¹ã‹ã©ã†ã‹
 	*/
 	bool	IsAbsolutePath(void) const;
 
 	/**
-	 * @brief	––”ö‚ÌƒZƒpƒŒ[ƒ^[‚ğíœ
+	 * @brief	æœ«å°¾ã®ã‚»ãƒ‘ãƒ¬ãƒ¼ã‚¿ãƒ¼ã‚’å‰Šé™¤
 	*/
 	iuFilePath	RemoveTrailingPathSeparator(void) const;
 
 	/**
-	 * @brief	Šg’£q‚Ìíœ
+	 * @brief	æ‹¡å¼µå­ã®å‰Šé™¤
 	*/
 	iuFilePath	RemoveExtension(const char* extention=NULL) const;
 
 	/**
-	 * @brief	ƒfƒBƒŒƒNƒgƒŠ–¼‚Ìíœ
+	 * @brief	ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªåã®å‰Šé™¤
 	*/
 	iuFilePath	RemoveDirectoryName(void) const;
 
 	/**
-	 * @brief	ƒtƒ@ƒCƒ‹–¼‚Ìíœ
+	 * @brief	ãƒ•ã‚¡ã‚¤ãƒ«åã®å‰Šé™¤
 	*/
 	iuFilePath	RemoveFileName(void) const;
 
 	/**
-	 * @brief	ƒtƒHƒ‹ƒ_‚Ìì¬
+	 * @brief	ãƒ•ã‚©ãƒ«ãƒ€ã®ä½œæˆ
 	*/
 	bool		CreateFolder(void) const;
 
 	/**
-	 * @brief	ƒtƒHƒ‹ƒ_‚ğÄ‹A“I‚Éì¬
+	 * @brief	ãƒ•ã‚©ãƒ«ãƒ€ã‚’å†å¸°çš„ã«ä½œæˆ
 	*/
 	bool		CreateDirectoriesRecursively(void) const;
 
 	/**
-	 * @brief	ƒtƒ@ƒCƒ‹‚Ü‚½‚ÍƒtƒHƒ‹ƒ_‚ª‘¶İ‚·‚é‚©‚Ç‚¤‚©
+	 * @brief	ãƒ•ã‚¡ã‚¤ãƒ«ã¾ãŸã¯ãƒ•ã‚©ãƒ«ãƒ€ãŒå­˜åœ¨ã™ã‚‹ã‹ã©ã†ã‹
 	*/
 	bool		FileOrDirectoryExists(void) const;
 
 	/**
-	 * @brief	ƒtƒHƒ‹ƒ_‚ª‘¶İ‚·‚é‚©‚Ç‚¤‚©
+	 * @brief	ãƒ•ã‚©ãƒ«ãƒ€ãŒå­˜åœ¨ã™ã‚‹ã‹ã©ã†ã‹
 	*/
 	bool		DirectoryExists(void) const;
 
 	/**
-	 * @brief	ˆê”ÔŒã‚ë‚ÌƒpƒXƒZƒpƒŒ[ƒ^‚ÌƒAƒhƒŒƒX‚ğæ“¾
+	 * @brief	ä¸€ç•ªå¾Œã‚ã®ãƒ‘ã‚¹ã‚»ãƒ‘ãƒ¬ãƒ¼ã‚¿ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å–å¾—
 	*/
 	const char* FindLastPathSeparator(void) const;
 
 public:
 	/**
-	 * @brief	ƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚Ìæ“¾
+	 * @brief	ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®å–å¾—
 	*/
 	static iuFilePath	GetCurrentDir(void);
 
 	/**
-	 * @brief	ƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚Ì‘Š‘ÎƒpƒXæ“¾
+	 * @brief	ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®ç›¸å¯¾ãƒ‘ã‚¹å–å¾—
 	*/
 	static iuFilePath	GetRelativeCurrentDir(void);
 
 	/**
-	 * @brief	Àsƒtƒ@ƒCƒ‹‚ÌƒpƒX‚ğæ“¾
+	 * @brief	å®Ÿè¡Œãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ã‚¹ã‚’å–å¾—
 	*/
 	static iuFilePath	GetExecFilePath(void);
 
 	/**
-	 * @brief	ƒpƒX‚ÌŒ‹‡
+	 * @brief	ãƒ‘ã‚¹ã®çµåˆ
 	*/
 	static iuFilePath	ConcatPaths(const iuFilePath& directory, const iuFilePath& relative_path);
 
 public:
 	/**
-	 * @brief	ƒpƒX‹æØ‚è•¶š‚Ìæ“¾
+	 * @brief	ãƒ‘ã‚¹åŒºåˆ‡ã‚Šæ–‡å­—ã®å–å¾—
 	*/
 	static char	GetPathSeparator(void) IUTEST_CXX_NOEXCEPT_SPEC;
 
 private:
 	/**
-	 * @biref	³‹K‰»
+	 * @biref	æ­£è¦åŒ–
 	*/
 	void Normalize(void);
 
@@ -212,7 +212,7 @@ inline iu_ostream& operator << (iu_ostream& os, const iuFilePath& path)
 
 namespace internal
 {
-	// google test ‚Æ‚ÌŒİŠ·«‚Ì‚½‚ß
+	// google test ã¨ã®äº’æ›æ€§ã®ãŸã‚
 	typedef detail::iuFilePath FilePath;
 }
 

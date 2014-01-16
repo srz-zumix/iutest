@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_sstp_notifier.hpp
- * @brief		iris unit test SSTP ’Ê’m ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test SSTP é€šçŸ¥ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -263,7 +263,7 @@ public:
 public:
 	const ::std::string& ToString(void) 
 	{
-		// ‰üs‚Í‰üsƒ^ƒO‚É•ÏX‚·‚é
+		// æ”¹è¡Œã¯æ”¹è¡Œã‚¿ã‚°ã«å¤‰æ›´ã™ã‚‹
 		detail::StringReplace(m_script, '\n', "\\n");
 		return m_script;
 	}
@@ -293,34 +293,34 @@ struct Emily4
 {
 	enum 
 	{
-		  Normal = 0		//!< ’Êí
-		, Shy				//!< Æ‚ê
-		, Surprise			//!< ‹Á‚«
-		, Anxiety			//!< •sˆÀ
-		, Shocke			//!< ‚Í‚¤[
-		, Smile				//!< Î
-		, EyesClose			//!< –Ú•Â‚¶
-		, Angry				//!< “{‚é
-		, BitterSmile		//!< ‹êÎ‚¢
-		, AngerToCoverEmbarrassment	//!< Æ‚ê“{‚è
-		, Fidget = 21		//!< ‚à‚¶‚à‚¶
-		//, Exhilarated = 25	//!< ‚í‚Í[
-		, Question			//!< ‹^–â
-		, Derision			//!< —âÎ
-		, ShyEyesClose = 31	//!< Æ‚ê–Ú•Â‚¶
-		, Blubber = 34		//!< ‹ƒ‚«‚¶‚á‚­‚é
-		, Explosion = 40	//!< ”š”­
-		, Thoughtful = 127	//!< l‚¦‚±‚Ş
+		  Normal = 0		//!< é€šå¸¸
+		, Shy				//!< ç…§ã‚Œ
+		, Surprise			//!< é©šã
+		, Anxiety			//!< ä¸å®‰
+		, Shocke			//!< ã¯ã†ãƒ¼
+		, Smile				//!< ç¬‘
+		, EyesClose			//!< ç›®é–‰ã˜
+		, Angry				//!< æ€’ã‚‹
+		, BitterSmile		//!< è‹¦ç¬‘ã„
+		, AngerToCoverEmbarrassment	//!< ç…§ã‚Œæ€’ã‚Š
+		, Fidget = 21		//!< ã‚‚ã˜ã‚‚ã˜
+		//, Exhilarated = 25	//!< ã‚ã¯ãƒ¼
+		, Question			//!< ç–‘å•
+		, Derision			//!< å†·ç¬‘
+		, ShyEyesClose = 31	//!< ç…§ã‚Œç›®é–‰ã˜
+		, Blubber = 34		//!< æ³£ãã˜ã‚ƒãã‚‹
+		, Explosion = 40	//!< çˆ†ç™º
+		, Thoughtful = 127	//!< è€ƒãˆã“ã‚€
 	};
 
 	struct Skill
 	{
 		enum
 		{
-			  TypeA = 24	//!< –‚–@”­“®
-			, TypeB = 124	//!< –‚–@”­“®/–Ú•Â‚¶
-			, TypeC = 1024	//!< –‚–@”­“®/–‚–@w‚È‚µ
-			, TypeD = 1124	//!< –‚–@”­“®/–‚–@w‚È‚µ/–Ú•Â‚¶
+			  TypeA = 24	//!< é­”æ³•ç™ºå‹•
+			, TypeB = 124	//!< é­”æ³•ç™ºå‹•/ç›®é–‰ã˜
+			, TypeC = 1024	//!< é­”æ³•ç™ºå‹•/é­”æ³•é™£ãªã—
+			, TypeD = 1124	//!< é­”æ³•ç™ºå‹•/é­”æ³•é™£ãªã—/ç›®é–‰ã˜
 		};
 	};
 
@@ -328,7 +328,7 @@ struct Emily4
 	{
 		enum
 		{
-			Todo = 20		//!< TODOlŒ`
+			Todo = 20		//!< TODOäººå½¢
 		};
 	};
 
@@ -336,10 +336,10 @@ struct Emily4
 	{
 		enum
 		{
-			  Shy = 51		//!< Æ‚ê
-			, Anxiety = 53	//!< •sˆÀ
-			, Smile = 55	//!< Î
-			, EyesClose		//!< –Ú•Â‚¶
+			  Shy = 51		//!< ç…§ã‚Œ
+			, Anxiety = 53	//!< ä¸å®‰
+			, Smile = 55	//!< ç¬‘
+			, EyesClose		//!< ç›®é–‰ã˜
 		};
 	};
 };
@@ -383,7 +383,7 @@ private:
 
 public:
 	/**
-	 * @brief	SSTPNotifier ‚ğ’Ç‰Á
+	 * @brief	SSTPNotifier ã‚’è¿½åŠ 
 	*/
 	static void SetUp(const char* host, int port=detail::SSTP::DEFAULT_PORT)
 	{
@@ -410,7 +410,7 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestProgramStart(const UnitTest& test)
 	IUTEST_UNUSED_VAR(test);
 	m_sstp.Notify()
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-		.Script(Script("ƒeƒXƒgƒXƒ^`ƒg").Ln().ToString())
+		.Script(Script("ãƒ†ã‚¹ãƒˆã‚¹ã‚¿ç¸²æ€g").Ln().ToString())
 #else
 		.Script(Script("Start test.").Ln().ToString())
 #endif
@@ -422,7 +422,7 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestIterationStart(const UnitTest& test
 	IUTEST_UNUSED_VAR(test);
 	m_sstp.Notify()
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-		.Script(Script(detail::StreamableToString(iteration+1) + "‰ñ–Ú‚ÌƒeƒXƒg‚¾‚æ").Concat().Ln().ToString())
+		.Script(Script(detail::StreamableToString(iteration+1) + "å›ç›®ã®ãƒ†ã‚¹ãƒˆã ã‚ˆ").Concat().Ln().ToString())
 #else
 		.Script(Script(detail::StreamableToString(iteration+1) + "-th test.").Concat().Ln().ToString())
 #endif
@@ -433,7 +433,7 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestCaseStart(const TestCase& test_case)
 	m_sstp.Notify()
 		.Script(Script().Surface(Ghost::Normal)
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-			.Append(detail::StreamableToString(test_case.name()) + " ƒeƒXƒgƒP[ƒX‚ğŠJn").Concat().Ln().ToString())
+			.Append(detail::StreamableToString(test_case.name()) + " ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹ã‚’é–‹å§‹").Concat().Ln().ToString())
 #else
 			.Append(detail::StreamableToString(test_case.name()) + " Start TestCase...").Concat().Ln().ToString())
 #endif
@@ -444,7 +444,7 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestStart(const TestInfo& test_info)
 	m_sstp.Notify()
 		.Script(Script().Surface(Ghost::Normal)
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-			.Append(detail::StreamableToString(test_info.name()) + " ƒeƒXƒg‚ğŠJn").Concat().Ln().ToString())
+			.Append(detail::StreamableToString(test_info.name()) + " ãƒ†ã‚¹ãƒˆã‚’é–‹å§‹").Concat().Ln().ToString())
 #else
 			.Append(detail::StreamableToString(test_info.name()) + " Start Test...").Concat().Ln().ToString())
 #endif
@@ -463,7 +463,7 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestPartResult(const TestPartResult& test
 		m_sstp.Notify()
 			.Script(Script().Surface(Ghost::Anxiety).Append(FormatPath(filename)
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-				+ "‚Ì" + detail::StreamableToString(test_part_result.line_number()) + "s–Ú‚Å¸”s‚µ‚½‚æ\n"
+				+ "ã®" + detail::StreamableToString(test_part_result.line_number()) + "è¡Œç›®ã§å¤±æ•—ã—ãŸã‚ˆ\n"
 #else
 				+ ": " + detail::StreamableToString(test_part_result.line_number()) + ": Failed\n"
 #endif
@@ -484,7 +484,7 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestEnd(const TestInfo& test_info)
 		.Script(Script().Surface(test_info.Passed() ? Ghost::Smile : Ghost::Angry)
 			.Append( FormatBool(test_info.Passed())
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-			+ "‚µ‚½‚æ"
+			+ "ã—ãŸã‚ˆ"
 #endif
 			+ "(" + detail::StreamableToString(test_info.elapsed_time()) + "ms)").Concat().Ln().ToString())
 		.End();
@@ -494,7 +494,7 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestCaseEnd(const TestCase& test_case)
 	m_sstp.Notify()
 		.Script(Script( detail::StreamableToString(test_case.name())
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-			+ " ƒeƒXƒgƒP[ƒX‚Í"	+ FormatBool(test_case.Passed()) + "‚µ‚½‚æ"
+			+ " ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹ã¯"	+ FormatBool(test_case.Passed()) + "ã—ãŸã‚ˆ"
 #else
 			+ " TestCase is"	+ FormatBool(test_case.Passed()) + "."
 #endif
@@ -512,7 +512,7 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestProgramEnd(const UnitTest& test)
 	IUTEST_UNUSED_VAR(test);
 	m_sstp.Notify()
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-		.Script(Script("‚¨‚í‚è").Concat().Ln().ToString())
+		.Script(Script("ãŠã‚ã‚Š").Concat().Ln().ToString())
 #else
 		.Script(Script("Finish!").Concat().Ln().ToString())
 #endif
@@ -537,8 +537,8 @@ IUTEST_IPP_INLINE ::std::string SSTPNotifier::FormatPath(const ::std::string& pa
 IUTEST_IPP_INLINE ::std::string SSTPNotifier::FormatBool(bool b)
 {
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-	if( b ) return "¬Œ÷";
-	return "¸”s";
+	if( b ) return "æˆåŠŸ";
+	return "å¤±æ•—";
 #else
 	if( b ) return "Succeeded";
 	return "Failed";

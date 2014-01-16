@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_regex.hpp
- * @brief		iris unit test —p regex ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ç”¨ regex ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -25,7 +25,7 @@ namespace detail
 {
 
 /**
- * @brief	regex ƒNƒ‰ƒX
+ * @brief	regex ã‚¯ãƒ©ã‚¹
 */
 class iuRegex
 {

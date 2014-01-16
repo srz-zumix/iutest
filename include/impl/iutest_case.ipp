@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_case.ipp
- * @brief		iris unit test testcase ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test testcase ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -36,10 +36,10 @@ IUTEST_IPP_INLINE bool	TestCase::Run(void)
 		detail::RandomShuffle(m_testinfos, TestEnv::genrand());
 	}
 
-	// ƒeƒXƒgŠJn
+	// ãƒ†ã‚¹ãƒˆé–‹å§‹
 	TestEnv::event_listeners().OnTestCaseStart(*this);
 	const bool result = RunImpl();
-	// ƒeƒXƒgI—¹
+	// ãƒ†ã‚¹ãƒˆçµ‚äº†
 	TestEnv::event_listeners().OnTestCaseEnd(*this);
 
 	return result;
@@ -62,7 +62,7 @@ IUTEST_IPP_INLINE bool TestCase::RunImpl(void)
 		sw.start();
 		for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
 		{
-			// Às
+			// å®Ÿè¡Œ
 			if( (it)->should_run()
 				&& !(it)->Run() )
 			{
@@ -92,7 +92,7 @@ IUTEST_IPP_INLINE bool	TestCase::filter(void)
 	{
 		if( m_disable )
 		{
-			// DISABLE ‚Ì“`”À
+			// DISABLE ã®ä¼æ¬
 			(it)->m_disable = true;
 		}
 		if( (it)->is_disabled_test() )

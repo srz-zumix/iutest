@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_regex.ipp
- * @brief		iris unit test —p regex ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ç”¨ regex ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,7 +31,7 @@ IUTEST_IPP_INLINE bool	iuRegex::match_impl(const char* begin, const char* end, c
 	if( *tp == '\0' ) return false;
 	while( tp != end )
 	{
-		if( *tp == '*' )	// ”CˆÓ‚Ì•¶š—ñ‚Éƒ}ƒbƒ`
+		if( *tp == '*' )	// ä»»æ„ã®æ–‡å­—åˆ—ã«ãƒãƒƒãƒ
 		{
 			++tp;
 			while( *tp == '*' ) ++tp;
@@ -48,16 +48,16 @@ IUTEST_IPP_INLINE bool	iuRegex::match_impl(const char* begin, const char* end, c
 						++src;
 						if( *src == '\0' ) return false;
 					}
-					// ‚Â‚Ã‚«‚ğŒŸ¸
+					// ã¤ã¥ãã‚’æ¤œæŸ»
 					if( match_impl(tp+1, end, ++src) ) return true;
 				}
 			}
 		}
-		else if( *tp == '?' )	// ”CˆÓ‚Ìˆê•¶š‚Éƒ}ƒbƒ`
+		else if( *tp == '?' )	// ä»»æ„ã®ä¸€æ–‡å­—ã«ãƒãƒƒãƒ
 		{
 			if( *src == '\0' ) return false;
 		}
-		else	// w’è•¶š‚Éƒ}ƒbƒ`
+		else	// æŒ‡å®šæ–‡å­—ã«ãƒãƒƒãƒ
 		{
 			if( *tp != *src ) return false;
 		}

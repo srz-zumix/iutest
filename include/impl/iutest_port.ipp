@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_port.ipp
- * @brief		iris unit test ˆË‘¶ŠÖ” ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ä¾å­˜é–¢æ•° ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -271,7 +271,7 @@ IUTEST_IPP_INLINE ::std::string GetHResultString(HRESULT hr)
 		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 		NULL,
 		hr,
-		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // ƒfƒtƒHƒ‹ƒg ƒ†[ƒU[Œ¾Œê
+		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ ãƒ¦ãƒ¼ã‚¶ãƒ¼è¨€èªž
 		(LPWSTR)&buf,
 		0,
 		NULL ) == 0 )
@@ -286,7 +286,7 @@ IUTEST_IPP_INLINE ::std::string GetHResultString(HRESULT hr)
 		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 		NULL,
 		hr,
-		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // ƒfƒtƒHƒ‹ƒg ƒ†[ƒU[Œ¾Œê
+		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ ãƒ¦ãƒ¼ã‚¶ãƒ¼è¨€èªž
 		(LPSTR)&buf,
 		0,
 		NULL ) == 0 )

@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_info.hpp
- * @brief		iris unit test î•ñ ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test æƒ…å ± ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -29,17 +29,17 @@ namespace iutest
 //======================================================================
 // class
 /**
- * @brief	ƒeƒXƒgî•ñƒNƒ‰ƒX
+ * @brief	ãƒ†ã‚¹ãƒˆæƒ…å ±ã‚¯ãƒ©ã‚¹
 */
 class TestInfo
 	: public detail::iu_list_node<TestInfo>
 {
 public:
 	/**
-	 * @brief	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param [in]	testcase	= ƒeƒXƒgƒP[ƒX’‡‰îÒ
-	 * @param [in]	name		= ƒeƒXƒg–¼
-	 * @param [in]	factory		= ƒeƒXƒg¶¬Ší
+	 * @brief	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param [in]	testcase	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹ä»²ä»‹è€…
+	 * @param [in]	name		= ãƒ†ã‚¹ãƒˆå
+	 * @param [in]	factory		= ãƒ†ã‚¹ãƒˆç”Ÿæˆå™¨
 	*/
 	TestInfo(detail::iuITestCaseMediator* testcase, const char* name, detail::iuFactoryBase* factory)
 		: m_testname(name)
@@ -59,9 +59,9 @@ public:
 	}
 
 public:
-	/** test case –¼‚Ìæ“¾ */
+	/** test case åã®å–å¾— */
 	const	char*	test_case_name(void)	const	{ return m_testcase->test_case_name(); }
-	/** test –¼‚Ìæ“¾ */
+	/** test åã®å–å¾— */
 	const	char*	name(void)				const	{ return m_testname.c_str(); }
 	/** should_run */
 	bool			should_run(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_should_run; }
@@ -73,20 +73,20 @@ public:
 	bool			is_skipped(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_skip || m_test_result.Skipped(); }
 	/** is reportable */
 	bool			is_reportable(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_matches_filter; }
-	/** ƒeƒXƒg‚ÌÀsƒ~ƒŠ•b */
+	/** ãƒ†ã‚¹ãƒˆã®å®Ÿè¡ŒãƒŸãƒªç§’ */
 	TimeInMillisec	elapsed_time(void)		const	{ return m_test_result.elapsed_time(); }
-	/** ƒeƒXƒgŒ‹‰Ê‚Ìæ“¾ */
+	/** ãƒ†ã‚¹ãƒˆçµæœã®å–å¾— */
 	const TestResult*	result(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return &m_test_result; }
 
-	/** value param •¶š—ñ‚Ìæ“¾ */
+	/** value param æ–‡å­—åˆ—ã®å–å¾— */
 	const	char*	value_param(void)		const	{ return m_value_param.empty() ? NULL : m_value_param.c_str(); }
-	/** type param •¶š—ñ‚Ìæ“¾ */
+	/** type param æ–‡å­—åˆ—ã®å–å¾— */
 	const	char*	type_param(void)		const	{ return m_testcase->type_param(); }
 
 public:
 	/**
-	 * @brief	’v–½“I‚ÈƒGƒ‰[‚ªo‚½‚©‚Ç‚¤‚©
-	 * @return	^‹U’l
+	 * @brief	è‡´å‘½çš„ãªã‚¨ãƒ©ãƒ¼ãŒå‡ºãŸã‹ã©ã†ã‹
+	 * @return	çœŸå½å€¤
 	*/
 	bool	HasFatalFailure(void) const
 	{
@@ -94,8 +94,8 @@ public:
 	}
 
 	/**
-	 * @brief	’v–½“I‚Å‚Í‚È‚¢ƒGƒ‰[‚ªo‚½‚©‚Ç‚¤‚©
-	 * @return	^‹U’l
+	 * @brief	è‡´å‘½çš„ã§ã¯ãªã„ã‚¨ãƒ©ãƒ¼ãŒå‡ºãŸã‹ã©ã†ã‹
+	 * @return	çœŸå½å€¤
 	*/
 	bool	HasNonfatalFailure(void) const
 	{
@@ -103,8 +103,8 @@ public:
 	}
 
 	/**
-	 * @brief	ƒGƒ‰[‚ªo‚½‚©‚Ç‚¤‚©
-	 * @return	^‹U’l
+	 * @brief	ã‚¨ãƒ©ãƒ¼ãŒå‡ºãŸã‹ã©ã†ã‹
+	 * @return	çœŸå½å€¤
 	*/
 	bool	HasFailure(void) const
 	{
@@ -112,8 +112,8 @@ public:
 	}
 
 	/**
-	 * @brief	¬Œ÷‚µ‚½‚©‚Ç‚¤‚©
-	 * @return	^‹U’l
+	 * @brief	æˆåŠŸã—ãŸã‹ã©ã†ã‹
+	 * @return	çœŸå½å€¤
 	*/
 	bool	Passed(void) const
 	{
@@ -125,7 +125,7 @@ public:
 	}
 
 public:
-	/** ƒeƒXƒg‚Ìƒtƒ‹–¼‚ğæ“¾ */
+	/** ãƒ†ã‚¹ãƒˆã®ãƒ•ãƒ«åã‚’å–å¾— */
 	::std::string	test_full_name(void)		const
 	{
 		::std::string fullname = test_case_name();
@@ -134,7 +134,7 @@ public:
 		return fullname;
 	}
 
-	/** ƒeƒXƒg–¼ + where ‚Ìæ“¾ */
+	/** ãƒ†ã‚¹ãƒˆå + where ã®å–å¾— */
 	::std::string test_name_with_where(void)	const
 	{
 		::std::string str = m_testname;
@@ -148,10 +148,10 @@ public:
 
 public:
 	/**
-	 * @brief	—LŒø‚ÈƒvƒƒpƒeƒB–¼‚©‚Ç‚¤‚©ƒ`ƒFƒbƒN
-	 * @param [in] name	= ƒvƒƒpƒeƒB–¼
-	 * @retval	true=—LŒø
-	 * @retval	false=–³Œø
+	 * @brief	æœ‰åŠ¹ãªãƒ—ãƒ­ãƒ‘ãƒ†ã‚£åã‹ã©ã†ã‹ãƒã‚§ãƒƒã‚¯
+	 * @param [in] name	= ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£å
+	 * @retval	true=æœ‰åŠ¹
+	 * @retval	false=ç„¡åŠ¹
 	*/
 	static bool ValidateTestPropertyName(const ::std::string& name)
 	{
@@ -168,7 +168,7 @@ public:
 
 private:
 	/**
-	 * @brief	Às
+	 * @brief	å®Ÿè¡Œ
 	*/
 	bool	Run(void);
 
@@ -185,13 +185,13 @@ private:
 
 private:
 	/**
-	 * @brief	ƒeƒXƒg‚ÌƒNƒŠƒA
+	 * @brief	ãƒ†ã‚¹ãƒˆã®ã‚¯ãƒªã‚¢
 	*/
 	void	clear(void);
 
 	/*
-	 * @brief	ƒeƒXƒg‚ÌƒtƒBƒ‹ƒ^ƒŠƒ“ƒO
-	 * @return	Às‚·‚éê‡‚Í^
+	 * @brief	ãƒ†ã‚¹ãƒˆã®ãƒ•ã‚£ãƒ«ã‚¿ãƒªãƒ³ã‚°
+	 * @return	å®Ÿè¡Œã™ã‚‹å ´åˆã¯çœŸ
 	*/
 	bool	filter(void);
 
@@ -221,17 +221,17 @@ private:
 	friend class UnitTest;
 	friend class TestCase;
 
-	::std::string			m_testname;			//!< ƒeƒXƒg–¼
+	::std::string			m_testname;			//!< ãƒ†ã‚¹ãƒˆå
 	::std::string			m_value_param;		//!< value param string
-	TestResult				m_test_result;		//!< ƒeƒXƒgŒ‹‰Ê
-	Mediator				m_mediator;			//!< ©g‚Ì’‡‰îƒCƒ“ƒXƒ^ƒ“ƒX
-	detail::iuFactoryBase*			m_factory;	//!< ƒeƒXƒg¶¬Ší
-	detail::iuITestCaseMediator*	m_testcase;	//!< ƒeƒXƒgƒP[ƒX’‡‰îÒ
-	bool					m_should_run;		//!< Às‚·‚×‚«‚©‚Ì^‹U’l
-	bool					m_ran;				//!< Às‚µ‚½‚©‚Ç‚¤‚©
-	bool					m_disable;			//!< –³Œø^‹U’l
-	bool					m_skip;				//!< ƒXƒLƒbƒv‚µ‚½‚©‚Ç‚¤‚©
-	bool					m_matches_filter;	//!< ƒtƒBƒ‹ƒ^[‚Éƒ}ƒbƒ`‚µ‚½‚©‚Ç‚¤‚©
+	TestResult				m_test_result;		//!< ãƒ†ã‚¹ãƒˆçµæœ
+	Mediator				m_mediator;			//!< è‡ªèº«ã®ä»²ä»‹ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+	detail::iuFactoryBase*			m_factory;	//!< ãƒ†ã‚¹ãƒˆç”Ÿæˆå™¨
+	detail::iuITestCaseMediator*	m_testcase;	//!< ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹ä»²ä»‹è€…
+	bool					m_should_run;		//!< å®Ÿè¡Œã™ã¹ãã‹ã®çœŸå½å€¤
+	bool					m_ran;				//!< å®Ÿè¡Œã—ãŸã‹ã©ã†ã‹
+	bool					m_disable;			//!< ç„¡åŠ¹çœŸå½å€¤
+	bool					m_skip;				//!< ã‚¹ã‚­ãƒƒãƒ—ã—ãŸã‹ã©ã†ã‹
+	bool					m_matches_filter;	//!< ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼ã«ãƒãƒƒãƒã—ãŸã‹ã©ã†ã‹
 
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TestInfo);
 };

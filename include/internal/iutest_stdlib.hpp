@@ -1,4 +1,4 @@
-//======================================================================
+﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_stdlib.hpp
@@ -100,6 +100,19 @@
 #  define IUTEST_USE_OWN_TR1_TUPLE	0
 #endif
 
+#if IUTEST_HAS_STD_TUPLE || IUTEST_HAS_TR1_TUPLE
+#  ifndef IUTEST_HAS_TUPLE
+#    define IUTEST_HAS_TUPLE	1
+#  endif
+#else
+#  ifdef IUTEST_HAS_TUPLE
+#    undef IUTEST_HAS_TUPLE
+#  endif
+#  define IUTEST_HAS_TUPLE		0
+#endif
+
+#if IUTEST_HAS_TUPLE
+
 #if IUTEST_HAS_STD_TUPLE
 #  if !IUTEST_USE_EXTERNAL_STD_TUPLE
 #    include <tuple>
@@ -117,17 +130,6 @@
 #    endif
 #  endif
 #endif
-
-#ifdef IUTEST_HAS_TUPLE
-#  undef IUTEST_HAS_TUPLE
-#endif
-#if IUTEST_HAS_STD_TUPLE || IUTEST_HAS_TR1_TUPLE
-#  define IUTEST_HAS_TUPLE	1
-#else
-#  define IUTEST_HAS_TUPLE	0
-#endif
-
-#if IUTEST_HAS_TUPLE
 
 namespace iutest {
 	namespace tuples

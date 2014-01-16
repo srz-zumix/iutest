@@ -1,14 +1,14 @@
-//======================================================================
+Ôªø//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_case.hpp
- * @brief		iris unit test testcase ÉtÉ@ÉCÉã
+ * @brief		iris unit test testcase „Éï„Ç°„Ç§„É´
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,21 +27,21 @@ namespace iutest
 //======================================================================
 // class
 /**
- * @brief	ÉeÉXÉgÉPÅ[ÉX
+ * @brief	„ÉÜ„Çπ„Éà„Ç±„Éº„Çπ
 */
 class TestCase
 	: public detail::iu_list_node<TestCase>
 {
 protected:
-	typedef detail::iu_list<TestInfo>	iuTestInfos;	//!< TestInfo ÉäÉXÉg
-	//typedef ::std::vector<TestInfo*>	iuTestInfos;	//!< TestInfo ÉäÉXÉg
+	typedef detail::iu_list<TestInfo>	iuTestInfos;	//!< TestInfo „É™„Çπ„Éà
+	//typedef ::std::vector<TestInfo*>	iuTestInfos;	//!< TestInfo „É™„Çπ„Éà
 protected:
 	/**
-	 * @brief	ÉRÉìÉXÉgÉâÉNÉ^
-	 * @param [in]	testcase_name	= ÉeÉXÉgÉPÅ[ÉXñº
-	 * @param [in]	id				= ÉeÉXÉgÉPÅ[ÉXID
-	 * @param [in]	setup			= ÉeÉXÉgéñëOé¿çsä÷êî
-	 * @param [in]	teardown		= ÉeÉXÉgéñå„é¿çsä÷êî
+	 * @brief	„Ç≥„É≥„Çπ„Éà„É©„ÇØ„Çø
+	 * @param [in]	testcase_name	= „ÉÜ„Çπ„Éà„Ç±„Éº„ÇπÂêç
+	 * @param [in]	id				= „ÉÜ„Çπ„Éà„Ç±„Éº„ÇπID
+	 * @param [in]	setup			= „ÉÜ„Çπ„Éà‰∫ãÂâçÂÆüË°åÈñ¢Êï∞
+	 * @param [in]	teardown		= „ÉÜ„Çπ„Éà‰∫ãÂæåÂÆüË°åÈñ¢Êï∞
 	*/
 	TestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
 	: m_testcase_name(testcase_name)
@@ -59,53 +59,53 @@ protected:
 
 public:
 	/**
-	 * @brief	ÉfÉXÉgÉâÉNÉ^
+	 * @brief	„Éá„Çπ„Éà„É©„ÇØ„Çø
 	*/
 	virtual	~TestCase(void) {}
 
 public:
-	/** test case ñºÇÃéÊìæ */
+	/** test case Âêç„ÅÆÂèñÂæó */
 	const	char*	name(void)					const	{ return m_testcase_name.c_str(); }
 
-	/** ÉeÉXÉgëçêî */
+	/** „ÉÜ„Çπ„ÉàÁ∑èÊï∞ */
 	int				total_test_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_testinfos.size(); }
-	/** ÉåÉ|Å[ÉgëŒè€ÇÃÉeÉXÉgëçêî */
+	/** „É¨„Éù„Éº„ÉàÂØæË±°„ÅÆ„ÉÜ„Çπ„ÉàÁ∑èÊï∞ */
 	int				reportable_test_count(void)	const;
-	/** é¿çsÇµÇΩÉeÉXÉgëçêî */
+	/** ÂÆüË°å„Åó„Åü„ÉÜ„Çπ„ÉàÁ∑èÊï∞ */
 	int				test_to_run_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_should_run_num; }
-	/** é∏îsÉeÉXÉgëçêî */
+	/** Â§±Êïó„ÉÜ„Çπ„ÉàÁ∑èÊï∞ */
 	int				failed_test_count(void)		const;
-	/** ñ≥å¯ÉeÉXÉgëçêî */
+	/** ÁÑ°Âäπ„ÉÜ„Çπ„ÉàÁ∑èÊï∞ */
 	int				disabled_test_count(void)	const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_disable_num; }
-	/** ÉåÉ|Å[ÉgëŒè€ÇÃñ≥å¯ÉeÉXÉgëçêî */
+	/** „É¨„Éù„Éº„ÉàÂØæË±°„ÅÆÁÑ°Âäπ„ÉÜ„Çπ„ÉàÁ∑èÊï∞ */
 	int				reportable_disabled_test_count(void) const;
-	/** ê¨å˜ÉeÉXÉgëçêî */
+	/** ÊàêÂäü„ÉÜ„Çπ„ÉàÁ∑èÊï∞ */
 	int				successful_test_count(void)	const;
-	/** ÉXÉLÉbÉvÉeÉXÉgëçêî */
+	/** „Çπ„Ç≠„ÉÉ„Éó„ÉÜ„Çπ„ÉàÁ∑èÊï∞ */
 	int				skip_test_count(void)		const;
-	/** ÉåÉ|Å[ÉgëŒè€ÇÃÉXÉLÉbÉvÉeÉXÉgëçêî */
+	/** „É¨„Éù„Éº„ÉàÂØæË±°„ÅÆ„Çπ„Ç≠„ÉÉ„Éó„ÉÜ„Çπ„ÉàÁ∑èÊï∞ */
 	int				reportable_skip_test_count(void) const;
-	/** ñæé¶ìIÇ…ÉXÉLÉbÉvÇ≥ÇÍÇΩÉeÉXÉgëçêî */
+	/** ÊòéÁ§∫ÁöÑ„Å´„Çπ„Ç≠„ÉÉ„Éó„Åï„Çå„Åü„ÉÜ„Çπ„ÉàÁ∑èÊï∞ */
 	int				test_run_skipped_count(void) const;
-	/** ÉåÉ|Å[ÉgëŒè€ÇÃñæé¶ìIÇ…ÉXÉLÉbÉvÇ≥ÇÍÇΩÉeÉXÉgëçêî */
+	/** „É¨„Éù„Éº„ÉàÂØæË±°„ÅÆÊòéÁ§∫ÁöÑ„Å´„Çπ„Ç≠„ÉÉ„Éó„Åï„Çå„Åü„ÉÜ„Çπ„ÉàÁ∑èÊï∞ */
 	int				reportable_test_run_skipped_count(void) const;
-	/** ÉeÉXÉgÇÃé¿çsÉ~Éäïb */
+	/** „ÉÜ„Çπ„Éà„ÅÆÂÆüË°å„Éü„É™Áßí */
 	TimeInMillisec	elapsed_time(void)			const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_elapsedmsec; }
 
-	/** TestInfo ÇÃéÊìæ */
+	/** TestInfo „ÅÆÂèñÂæó */
 	const TestInfo*	GetTestInfo(int index)		const	{ return m_testinfos[index]; }
 	/** should_run */
 	bool			should_run(void)			const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_should_run_num != 0; }
 
-	/** ÉeÉXÉgÇ™ê¨å˜ÇµÇΩÇ©Ç«Ç§Ç© */
+	/** „ÉÜ„Çπ„Éà„ÅåÊàêÂäü„Åó„Åü„Åã„Å©„ÅÜ„Åã */
 	bool			Passed(void)				const	{ return failed_test_count() == 0 && m_ad_hoc_testresult.Passed(); }
-	/** ÉeÉXÉgÇ™é∏îsÇµÇΩÇ©Ç«Ç§Ç© */
+	/** „ÉÜ„Çπ„Éà„ÅåÂ§±Êïó„Åó„Åü„Åã„Å©„ÅÜ„Åã */
 	bool			Failed(void)				const	{ return !Passed(); }
 
-	/** type param ï∂éöóÒÇÃéÊìæ */
+	/** type param ÊñáÂ≠óÂàó„ÅÆÂèñÂæó */
 	virtual const char*	type_param(void)		const	{ return NULL; }
 
-	/** TestCase èoóÕèÓïÒÇÃéÊìæ */
+	/** TestCase Âá∫ÂäõÊÉÖÂ†±„ÅÆÂèñÂæó */
 	::std::string testcase_name_with_where(void) const
 	{
 		::std::string str = m_testcase_name;
@@ -117,15 +117,15 @@ public:
 		return str;
 	}
 
-	/** ÉeÉXÉgé¿çsíÜÇ∂Ç·Ç»Ç¢Ç∆Ç´ÇÃÉäÉUÉãÉgÇÃéÊìæ */
+	/** „ÉÜ„Çπ„ÉàÂÆüË°å‰∏≠„Åò„ÇÉ„Å™„ÅÑ„Å®„Åç„ÅÆ„É™„Ç∂„É´„Éà„ÅÆÂèñÂæó */
 	const TestResult* ad_hoc_testresult(void) const IUTEST_CXX_NOEXCEPT_SPEC { return &m_ad_hoc_testresult; }
 
 public:
 	/**
-	 * @brief	óLå¯Ç»ÉvÉçÉpÉeÉBñºÇ©Ç«Ç§Ç©É`ÉFÉbÉN
-	 * @param [in] name	= ÉvÉçÉpÉeÉBñº
-	 * @retval	true=óLå¯
-	 * @retval	false=ñ≥å¯
+	 * @brief	ÊúâÂäπ„Å™„Éó„É≠„Éë„ÉÜ„Ç£Âêç„Åã„Å©„ÅÜ„Åã„ÉÅ„Çß„ÉÉ„ÇØ
+	 * @param [in] name	= „Éó„É≠„Éë„ÉÜ„Ç£Âêç
+	 * @retval	true=ÊúâÂäπ
+	 * @retval	false=ÁÑ°Âäπ
 	*/
 	static bool ValidateTestPropertyName(const ::std::string& name)
 	{
@@ -139,21 +139,21 @@ public:
 
 private:
 	/**
-	 * @brief	ÉeÉXÉgÇÃé¿çs
-	 * @return	ê¨î€
+	 * @brief	„ÉÜ„Çπ„Éà„ÅÆÂÆüË°å
+	 * @return	ÊàêÂê¶
 	*/
 	bool	Run(void);
 
 	/**
-	 * @brief	é¿çs
-	 * @return	ê¨î€
+	 * @brief	ÂÆüË°å
+	 * @return	ÊàêÂê¶
 	*/
 	bool	RunImpl(void);
 
 public:
 	/**
 	 * @private
-	 * @brief	ÉeÉXÉgÉPÅ[ÉXî‰ärópÉIÉuÉWÉFÉNÉg
+	 * @brief	„ÉÜ„Çπ„Éà„Ç±„Éº„ÇπÊØîËºÉÁî®„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà
 	*/
 	struct FindOp
 	{
@@ -171,12 +171,12 @@ public:
 	};
 private:
 	/**
-	 * @brief	ÉeÉXÉgÇÃÉNÉäÉA
+	 * @brief	„ÉÜ„Çπ„Éà„ÅÆ„ÇØ„É™„Ç¢
 	*/
 	void	clear(void);
 	/*
-	 * @brief	ÉeÉXÉgÇÃÉtÉBÉãÉ^ÉäÉìÉO
-	 * @return	é¿çsÇ∑ÇÈèÍçáÇÕê^
+	 * @brief	„ÉÜ„Çπ„Éà„ÅÆ„Éï„Ç£„É´„Çø„É™„É≥„Ç∞
+	 * @return	ÂÆüË°å„Åô„ÇãÂ†¥Âêà„ÅØÁúü
 	*/
 	bool	filter(void);
 
@@ -210,36 +210,36 @@ private:
 	friend struct FindOp;
 #endif
 
-	::std::string	m_testcase_name;	//!< ÉeÉXÉgÉPÅ[ÉXñº
-	iuTestInfos		m_testinfos;		//!< ÉeÉXÉgèÓïÒÉäÉXÉg
-	SetUpMethod		m_setup;			//!< SetUp ä÷êî
-	TearDownMethod	m_teardown;			//!< TearDown ä÷êî
+	::std::string	m_testcase_name;	//!< „ÉÜ„Çπ„Éà„Ç±„Éº„ÇπÂêç
+	iuTestInfos		m_testinfos;		//!< „ÉÜ„Çπ„ÉàÊÉÖÂ†±„É™„Çπ„Éà
+	SetUpMethod		m_setup;			//!< SetUp Èñ¢Êï∞
+	TearDownMethod	m_teardown;			//!< TearDown Èñ¢Êï∞
 	TestTypeId		m_id;				//!< TypeID
-	int				m_disable_num;		//!< ñ≥éãÇµÇΩÉeÉXÉgÇÃëçêî
-	int				m_should_run_num;	//!< é¿çsÇ∑Ç◊Ç´ÉeÉXÉgÇÃëçêî
-	TimeInMillisec	m_elapsedmsec;		//!< ÉeÉXÉgéûä‘
-	bool			m_disable;			//!< ñ≥å¯ê^ãUíl
-	TestResult		m_ad_hoc_testresult;	//!< ÉeÉXÉgÇ™é¿çsíÜÇ≈Ç»Ç¢Ç∆Ç´ÇÃÉäÉUÉãÉg
+	int				m_disable_num;		//!< ÁÑ°Ë¶ñ„Åó„Åü„ÉÜ„Çπ„Éà„ÅÆÁ∑èÊï∞
+	int				m_should_run_num;	//!< ÂÆüË°å„Åô„Åπ„Åç„ÉÜ„Çπ„Éà„ÅÆÁ∑èÊï∞
+	TimeInMillisec	m_elapsedmsec;		//!< „ÉÜ„Çπ„ÉàÊôÇÈñì
+	bool			m_disable;			//!< ÁÑ°ÂäπÁúüÂÅΩÂÄ§
+	TestResult		m_ad_hoc_testresult;	//!< „ÉÜ„Çπ„Éà„ÅåÂÆüË°å‰∏≠„Åß„Å™„ÅÑ„Å®„Åç„ÅÆ„É™„Ç∂„É´„Éà
 
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TestCase);
 };
 
 /**
- * @brief	å^Ç¬Ç´ÉeÉXÉgÉPÅ[ÉX
+ * @brief	Âûã„Å§„Åç„ÉÜ„Çπ„Éà„Ç±„Éº„Çπ
 */
 template<typename T>
 class TypedTestCase : public TestCase
 {
 public:
-	typedef T	TypeParam;	//!< å^
+	typedef T	TypeParam;	//!< Âûã
 
 protected:
 	/**
-	 * @brief	ÉRÉìÉXÉgÉâÉNÉ^
-	 * @param [in]	testcase_name	= ÉeÉXÉgÉPÅ[ÉXñº
-	 * @param [in]	id				= ÉeÉXÉgÉPÅ[ÉXID
-	 * @param [in]	setup			= ÉeÉXÉgéñëOé¿çsä÷êî
-	 * @param [in]	teardown		= ÉeÉXÉgéñå„é¿çsä÷êî
+	 * @brief	„Ç≥„É≥„Çπ„Éà„É©„ÇØ„Çø
+	 * @param [in]	testcase_name	= „ÉÜ„Çπ„Éà„Ç±„Éº„ÇπÂêç
+	 * @param [in]	id				= „ÉÜ„Çπ„Éà„Ç±„Éº„ÇπID
+	 * @param [in]	setup			= „ÉÜ„Çπ„Éà‰∫ãÂâçÂÆüË°åÈñ¢Êï∞
+	 * @param [in]	teardown		= „ÉÜ„Çπ„Éà‰∫ãÂæåÂÆüË°åÈñ¢Êï∞
 	*/
 	TypedTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
 		: TestCase(testcase_name, id, setup, teardown)
@@ -247,7 +247,7 @@ protected:
 	{}
 
 public:
-	/** type param ï∂éöóÒÇÃéÊìæ */
+	/** type param ÊñáÂ≠óÂàó„ÅÆÂèñÂæó */
 	virtual const char*	type_param(void) const IUTEST_CXX_OVERRIDE	{ return m_type_param.empty() ? NULL : m_type_param.c_str(); }
 
 private:
@@ -260,7 +260,7 @@ namespace detail
 {
 
 /**
- * @brief	ÉeÉXÉgÉPÅ[ÉXíáâÓé“
+ * @brief	„ÉÜ„Çπ„Éà„Ç±„Éº„Çπ‰ª≤‰ªãËÄÖ
 */
 class TestCaseMediator IUTEST_CXX_FINAL : public detail::iuITestCaseMediator
 {

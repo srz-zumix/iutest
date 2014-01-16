@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_assertion.hpp
- * @brief		iris unit test assertion ’è‹` ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test assertion å®šç¾© ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -25,44 +25,44 @@
 
 namespace iutest_report_result
 {
-	//! TestPartResultReporter ‚ª‚È‚¢ê‡‚Ìˆ—ŠÖ”
+	//! TestPartResultReporter ãŒãªã„å ´åˆã®å‡¦ç†é–¢æ•°
 	void ReportTestPartResult(const ::iutest::TestPartResult& test_part_result);
 }
 
 namespace iutest
 {
 
-//! Message ƒNƒ‰ƒX
+//! Message ã‚¯ãƒ©ã‚¹
 typedef detail::iuStreamMessage	Message;
 
 //======================================================================
 // class
 /**
- * @brief	ƒeƒXƒgŒ‹‰Ê
+ * @brief	ãƒ†ã‚¹ãƒˆçµæœ
 */
 class AssertionResult
 {
 public:
 	/**
-	 * @brief	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param [in] result = ƒeƒXƒgŒ‹‰Ê^‹U’l
+	 * @brief	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param [in] result = ãƒ†ã‚¹ãƒˆçµæœçœŸå½å€¤
 	*/
 	AssertionResult(bool result) : m_result(result) {}
-	//! ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//! ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	AssertionResult(const AssertionResult& rhs) : m_message(rhs.m_message), m_result(rhs.m_result) {}
 
 	/**
-	 * @brief	¬”Û
+	 * @brief	æˆå¦
 	*/
 	bool	failed(void) const IUTEST_CXX_NOEXCEPT_SPEC { return !m_result; }
 
 	/**
-	 * @brief	ƒƒbƒZ[ƒW‚Ìæ“¾
+	 * @brief	ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®å–å¾—
 	*/
 	const char* message(void) const { return m_message.c_str(); }
 
 	/**
-	 * @brief	ƒƒbƒZ[ƒW‚Ìæ“¾
+	 * @brief	ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®å–å¾—
 	 * @deprecated please use message() instead.
 	*/
 	const char* failure_message(void) const { return message(); }
@@ -72,7 +72,7 @@ public:
 
 public:
 	/**
-	 * @brief	ƒƒbƒZ[ƒW’Ç‰Á
+	 * @brief	ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¿½åŠ 
 	*/
 	template<typename T>
 	AssertionResult& operator << (T value)
@@ -85,11 +85,11 @@ public:
 
 public:
 	/**
-	 * @brief	¬Œ÷Œ‹‰Ê‚Ìì¬
+	 * @brief	æˆåŠŸçµæœã®ä½œæˆ
 	*/
 	static AssertionResult	Success(void) { return AssertionResult(true); }
 	/**
-	 * @brief	¸”sŒ‹‰Ê‚Ìì¬
+	 * @brief	å¤±æ•—çµæœã®ä½œæˆ
 	*/
 	static AssertionResult	Failure(void) { return AssertionResult(false); }
 
@@ -107,12 +107,12 @@ private:
 template<typename R>
 struct AssertionReturnType
 {
-	R value;	//!< –ß‚è’l
-	//! ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	R value;	//!< æˆ»ã‚Šå€¤
+	//! ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	AssertionReturnType() {}
 	/**
-	 * @brief	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param [in]	v : –ß‚è’l‚Ì’l
+	 * @brief	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param [in]	v : æˆ»ã‚Šå€¤ã®å€¤
 	*/
 	AssertionReturnType(const R& v) : value(v) {}
 };
@@ -122,12 +122,12 @@ struct AssertionReturnType
 template<>
 struct AssertionReturnType<void>
 {
-	//! ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//! ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	AssertionReturnType() {}
 };
 
 /**
- * @brief	Assetion Return İ’è
+ * @brief	Assetion Return è¨­å®š
 */
 template<typename T>
 inline AssertionReturnType<T> AssertionReturn(const T& ret) { return AssertionReturnType<T>(ret); }
@@ -138,7 +138,7 @@ inline AssertionReturnType<void> AssertionReturn(void) { return AssertionReturnT
 #endif
 
 /**
- * @brief	Assertion \’zƒNƒ‰ƒX
+ * @brief	Assertion æ§‹ç¯‰ã‚¯ãƒ©ã‚¹
 */
 class AssertionHelper
 {
@@ -221,21 +221,21 @@ private:
 
 public:
 	/**
-	 * @brief	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param [in]	file	= ƒtƒ@ƒCƒ‹–¼
-	 * @param [in]	line	= s”Ô†
-	 * @param [in]	message	= ƒƒbƒZ[ƒW
-	 * @param [in]	type	= ƒeƒXƒgŒ‹‰Ê‚Ìƒ^ƒCƒv
+	 * @brief	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param [in]	file	= ãƒ•ã‚¡ã‚¤ãƒ«å
+	 * @param [in]	line	= è¡Œç•ªå·
+	 * @param [in]	message	= ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+	 * @param [in]	type	= ãƒ†ã‚¹ãƒˆçµæœã®ã‚¿ã‚¤ãƒ—
 	*/
 	AssertionHelper(const char* file, int line, const char* message, TestPartResult::Type type)
 		: m_part_result(file, line, message, type)
 	{}
 	/**
-	 * @brief	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param [in]	file	= ƒtƒ@ƒCƒ‹–¼
-	 * @param [in]	line	= s”Ô†
-	 * @param [in]	message	= ƒƒbƒZ[ƒW
-	 * @param [in]	type	= ƒeƒXƒgŒ‹‰Ê‚Ìƒ^ƒCƒv
+	 * @brief	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param [in]	file	= ãƒ•ã‚¡ã‚¤ãƒ«å
+	 * @param [in]	line	= è¡Œç•ªå·
+	 * @param [in]	message	= ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+	 * @param [in]	type	= ãƒ†ã‚¹ãƒˆçµæœã®ã‚¿ã‚¤ãƒ—
 	*/
 	AssertionHelper(const char* file, int line, const ::std::string& message, TestPartResult::Type type)
 		: m_part_result(file, line, message.c_str(), type)
@@ -281,7 +281,7 @@ public:
 private:
 	void OnFixed(const Fixed& fixed)
 	{
-		// OnFixed ‚Å throw ‚µ‚È‚¢‚±‚ÆIƒeƒXƒg‘¤‚Ì—áŠOƒLƒƒƒbƒ`‚É‚©‚©‚ç‚È‚­‚È‚é
+		// OnFixed ã§ throw ã—ãªã„ã“ã¨ï¼ãƒ†ã‚¹ãƒˆå´ã®ä¾‹å¤–ã‚­ãƒ£ãƒƒãƒã«ã‹ã‹ã‚‰ãªããªã‚‹
 
 		m_part_result.add_message(fixed.GetString());
 		if( MessageList::s_scoped_message.count() )
@@ -289,8 +289,8 @@ private:
 			m_part_result.add_message("\niutest trace:");
 			for( msg_list::iterator it = MessageList::s_scoped_message.begin(), end=MessageList::s_scoped_message.end(); it != end; ++it )
 			{
-				// TODO : ’Ç‰ÁƒƒbƒZ[ƒW‚Æ‚µ‚Ä•Û‘¶‚·‚é‚×‚«
-				// Œ»ó‚ÍƒeƒXƒgŒ‹‰Ê‚ÌƒƒbƒZ[ƒW‚É’Ç‰Á‚µ‚Ä‚¢‚éB
+				// TODO : è¿½åŠ ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¨ã—ã¦ä¿å­˜ã™ã‚‹ã¹ã
+				// ç¾çŠ¶ã¯ãƒ†ã‚¹ãƒˆçµæœã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã«è¿½åŠ ã—ã¦ã„ã‚‹ã€‚
 				m_part_result.add_message("\n");
 				m_part_result.add_message(it->make_message().c_str());
 			}
@@ -329,11 +329,11 @@ namespace iutest
 //======================================================================
 // function
 /**
- * @brief	ƒeƒXƒg¬Œ÷‚ğ¦‚· AssertionResult ƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+ * @brief	ãƒ†ã‚¹ãƒˆæˆåŠŸã‚’ç¤ºã™ AssertionResult ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
 */
 inline AssertionResult AssertionSuccess(void) { return AssertionResult::Success(); }
 /**
- * @brief	ƒeƒXƒg¸”s‚ğ¦‚· AssertionResult ƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+ * @brief	ãƒ†ã‚¹ãƒˆå¤±æ•—ã‚’ç¤ºã™ AssertionResult ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
 */
 inline AssertionResult AssertionFailure(void) { return AssertionResult::Failure(); }
 
@@ -341,7 +341,7 @@ namespace internal
 {
 
 /**
- * @brief	”äŠrƒeƒXƒg‚Ì’l‚ğ•¶š—ñ‚ÉƒtƒH[ƒ}ƒbƒg
+ * @brief	æ¯”è¼ƒãƒ†ã‚¹ãƒˆã®å€¤ã‚’æ–‡å­—åˆ—ã«ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
 */
 template<typename T1, typename T2>
 inline ::std::string FormatForComparisonFailureMessage(const T1& value, const T2& /*other_operand*/)
@@ -350,7 +350,7 @@ inline ::std::string FormatForComparisonFailureMessage(const T1& value, const T2
 }
 
 /**
- * @brief	boolean ƒeƒXƒg‚Ì¸”sƒƒbƒZ[ƒW‚Ìo—Í
+ * @brief	boolean ãƒ†ã‚¹ãƒˆã®å¤±æ•—ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®å‡ºåŠ›
 */
 inline ::std::string GetBooleanAssertionFailureMessage(const AssertionResult& ar, const char* expr, const char* actual, const char* expected)
 {
@@ -370,7 +370,7 @@ inline ::std::string GetBooleanAssertionFailureMessage(const AssertionResult& ar
 }
 
 /**
- * @brief	Eq ŒnƒAƒT[ƒVƒ‡ƒ“
+ * @brief	Eq ç³»ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³
 */
 inline AssertionResult EqFailure(const char* expected_expression, const char* actual_expression, const char* expected, const char* actual, bool ignoring_case=false)
 {
@@ -434,7 +434,7 @@ DECL_COMPARE_HELPER_(GT, > )
 
 /**
 * @brief	Null Helper
-* @tparam	IsNullLiteral	= val ‚ª NULL ƒŠƒeƒ‰ƒ‹‚©‚Ç‚¤‚©
+* @tparam	IsNullLiteral	= val ãŒ NULL ãƒªãƒ†ãƒ©ãƒ«ã‹ã©ã†ã‹
 */
 template<bool IsNullLiteral>
 class NullHelper
@@ -466,7 +466,7 @@ public:
 };
 
 /**
-* @brief	NullHelper “Áê‰»
+* @brief	NullHelper ç‰¹æ®ŠåŒ–
 */
 template<>
 class NullHelper<true>
@@ -521,7 +521,7 @@ IUTEST_PARGMA_WARN_POP()
 
 /**
  * @brief	Equal Helper
- * @tparam	IsNullLiteral	= val1 ‚ª NULL ƒŠƒeƒ‰ƒ‹‚©‚Ç‚¤‚©
+ * @tparam	IsNullLiteral	= val1 ãŒ NULL ãƒªãƒ†ãƒ©ãƒ«ã‹ã©ã†ã‹
 */
 template<bool IsNullLiteral>
 class EqHelper
@@ -535,7 +535,7 @@ public:
 };
 
 /**
- * @brief	EqHelper “Áê‰»
+ * @brief	EqHelper ç‰¹æ®ŠåŒ–
 */
 template<>
 class EqHelper<true>
@@ -565,7 +565,7 @@ public:
 
 /**
  * @brief	Not Equal Helper
- * @tparam	IsNullLiteral	= val1 ‚ª NULL ƒŠƒeƒ‰ƒ‹‚©‚Ç‚¤‚©
+ * @tparam	IsNullLiteral	= val1 ãŒ NULL ãƒªãƒ†ãƒ©ãƒ«ã‹ã©ã†ã‹
 */
 template<bool IsNullLiteral>
 class NeHelper
@@ -579,7 +579,7 @@ public:
 };
 
 /**
- * @brief	NeHelper “Áê‰»
+ * @brief	NeHelper ç‰¹æ®ŠåŒ–
 */
 template<>
 class NeHelper<true>

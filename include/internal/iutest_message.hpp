@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_message.hpp
- * @brief		iris unit test ƒƒbƒZ[ƒW ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -29,18 +29,18 @@ namespace detail
 //======================================================================
 // declare
 /**
- * @brief	ƒtƒ@ƒCƒ‹–¼‚Æs”Ô†‚ğ˜AŒ‹‚µ‚½•¶š—ñ‚ğ¶¬(ƒRƒ“ƒpƒCƒ‰‚ğl—¶‚·‚é)
+ * @brief	ãƒ•ã‚¡ã‚¤ãƒ«åã¨è¡Œç•ªå·ã‚’é€£çµã—ãŸæ–‡å­—åˆ—ã‚’ç”Ÿæˆ(ã‚³ãƒ³ãƒ‘ã‚¤ãƒ©ã‚’è€ƒæ…®ã™ã‚‹)
 */
 ::std::string FormatFileLocation(const char* file, int line);
 /**
- * @brief	ƒtƒ@ƒCƒ‹–¼‚Æs”Ô†‚ğ˜AŒ‹‚µ‚½•¶š—ñ‚ğ¶¬
+ * @brief	ãƒ•ã‚¡ã‚¤ãƒ«åã¨è¡Œç•ªå·ã‚’é€£çµã—ãŸæ–‡å­—åˆ—ã‚’ç”Ÿæˆ
 */
 ::std::string FormatCompilerIndependentFileLocation(const char* file, int line);
 
 //======================================================================
 // class
 /**
- * @brief	ƒƒbƒZ[ƒWƒNƒ‰ƒX
+ * @brief	ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚¯ãƒ©ã‚¹
 */
 class iuStreamMessage
 {
@@ -113,7 +113,7 @@ public:
 
 public:
 	/**
-	 * @brief	ƒƒbƒZ[ƒW‚Ì’Ç‹L
+	 * @brief	ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è¿½è¨˜
 	*/
 	void	add_message(const char* str) { append(str); }
 private:
@@ -138,13 +138,13 @@ inline ::std::string StreamableToString(const T& value)
 }
 
 /**
- * @brief	ƒtƒ@ƒCƒ‹/ƒ‰ƒCƒ“/ƒƒbƒZ[ƒWƒNƒ‰ƒX
+ * @brief	ãƒ•ã‚¡ã‚¤ãƒ«/ãƒ©ã‚¤ãƒ³/ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚¯ãƒ©ã‚¹
 */
 class iuCodeMessage
 {
-	::std::string	m_message;	//!< ƒƒbƒZ[ƒW
-	const char*		m_file;		//!< ƒtƒ@ƒCƒ‹–¼
-	int				m_line;		//!< ƒ‰ƒCƒ“
+	::std::string	m_message;	//!< ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+	const char*		m_file;		//!< ãƒ•ã‚¡ã‚¤ãƒ«å
+	int				m_line;		//!< ãƒ©ã‚¤ãƒ³
 public:
 	iuCodeMessage(const char* file, int line, const char* message)
 		: m_message(message)
@@ -157,9 +157,9 @@ public:
 		, m_line(line)
 	{}
 public:
-	const char*		message(void)	const { return m_message.c_str(); }		//!< ƒƒbƒZ[ƒW‚Ìæ“¾
-	const char*		file_name(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_file; }	//!< ƒtƒ@ƒCƒ‹–¼‚Ìæ“¾
-	int				line_number(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_line; }	//!< ƒ‰ƒCƒ“”Ô†‚Ìæ“¾
+	const char*		message(void)	const { return m_message.c_str(); }		//!< ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®å–å¾—
+	const char*		file_name(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_file; }	//!< ãƒ•ã‚¡ã‚¤ãƒ«åã®å–å¾—
+	int				line_number(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_line; }	//!< ãƒ©ã‚¤ãƒ³ç•ªå·ã®å–å¾—
 
 
 public:
@@ -172,7 +172,7 @@ public:
 
 public:
 	/**
-	 * @brief	ƒƒbƒZ[ƒW‚Ì’Ç‹L
+	 * @brief	ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è¿½è¨˜
 	*/
 	void	add_message(const ::std::string& str);
 

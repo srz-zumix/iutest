@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_param_tests.hpp
- * @brief		iris unit test parameter ’è‹` ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test parameter å®šç¾© ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -30,9 +30,9 @@
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_INSTANTIATE_TEST_CASE_P
- * @brief	ƒpƒ‰ƒ[ƒ^ƒeƒXƒgƒCƒ“ƒXƒ^ƒ“ƒX‰»ƒ}ƒNƒ
- * @param	prefix_			= ƒCƒ“ƒXƒ^ƒ“ƒX–¼
- * @param	testfixture_	= ƒeƒXƒgƒtƒBƒNƒXƒ`ƒƒ
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ†ã‚¹ãƒˆã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ãƒã‚¯ãƒ­
+ * @param	prefix_			= ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å
+ * @param	testfixture_	= ãƒ†ã‚¹ãƒˆãƒ•ã‚£ã‚¯ã‚¹ãƒãƒ£
  * @param	generator_		= Range, Bool, Values, ValuesIn, Combine, Pairwise ...
 */
 #define IUTEST_INSTANTIATE_TEST_CASE_P(prefix_, testfixture_, generator_)	\
@@ -41,9 +41,9 @@
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_P(testfixture_, testname_)
- * @brief	ƒpƒ‰ƒ[ƒ^ƒ†[ƒU[w’èƒeƒXƒgŠÖ”’è‹`ƒ}ƒNƒ
- * @param	testfixture_	= ƒeƒXƒgƒtƒBƒNƒXƒ`ƒƒ
- * @param	testname_		= ƒeƒXƒg–¼
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¦ãƒ¼ã‚¶ãƒ¼æŒ‡å®šãƒ†ã‚¹ãƒˆé–¢æ•°å®šç¾©ãƒã‚¯ãƒ­
+ * @param	testfixture_	= ãƒ†ã‚¹ãƒˆãƒ•ã‚£ã‚¯ã‚¹ãƒãƒ£
+ * @param	testname_		= ãƒ†ã‚¹ãƒˆå
  * @note	
  *	class TestCaseName : public ::iutest::TestWithParam<int> {};\n
  *  IUTEST_P(TestCaseName, TestName) {}\n
@@ -57,9 +57,9 @@
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_INSTANTIATE_TEST_CASE_AP
- * @brief	ƒpƒ‰ƒ[ƒ^ƒeƒXƒgƒCƒ“ƒXƒ^ƒ“ƒX‰»ƒ}ƒNƒ
- * @param	prefix_		= ƒCƒ“ƒXƒ^ƒ“ƒX–¼
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ†ã‚¹ãƒˆã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ãƒã‚¯ãƒ­
+ * @param	prefix_		= ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
  * @param	generator_	= Range, Bool, Values, ValuesIn, Combine, Pairwise ...
 */
 #define IUTEST_INSTANTIATE_TEST_CASE_AP(prefix_, testcase_, generator_)	\
@@ -68,9 +68,9 @@
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_AP(testcase_, testname_)
- * @brief	ƒpƒ‰ƒ[ƒ^ƒ†[ƒU[w’èƒeƒXƒgŠÖ”’è‹`ƒ}ƒNƒ
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
- * @param	testname_	= ƒeƒXƒg–¼
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¦ãƒ¼ã‚¶ãƒ¼æŒ‡å®šãƒ†ã‚¹ãƒˆé–¢æ•°å®šç¾©ãƒã‚¯ãƒ­
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
+ * @param	testname_	= ãƒ†ã‚¹ãƒˆå
  * @note	
  *  IUTEST_AP(TestCaseName, TestName) {}\n
  *  IUTEST_INSTANTIATE_TEST_CASE_AP(InstantiateName, TestCaseName, ParamGenerator);\n
@@ -103,7 +103,7 @@
 
 
 /**
- * @brief	ƒpƒ‰ƒ[ƒ^ƒeƒXƒg“o˜^
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ†ã‚¹ãƒˆç™»éŒ²
 */
 #define IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_)						\
 	IIUT_TEST_P_FIXTURE_DECL_(testcase_)													\
@@ -117,7 +117,7 @@
 		} IUTEST_TEST_P_INSTANTIATIONREGISTER_(prefix_, testcase_)
 
 /**
- * @brief	ƒpƒ‰ƒ[ƒ^ƒeƒXƒgƒNƒ‰ƒX’è‹`
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ†ã‚¹ãƒˆã‚¯ãƒ©ã‚¹å®šç¾©
 */
 #define IIUT_TEST_P_(testcase_, testname_)															\
 	IIUT_TEST_P_FIXTURE_DECL_(testcase_)															\
@@ -178,7 +178,7 @@ namespace detail
 //======================================================================
 // class
 /**
- * @brief	ƒpƒ‰ƒ[ƒ^’P‘ÌƒeƒXƒg TestInfo î•ñƒCƒ“ƒXƒ^ƒ“ƒX
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å˜ä½“ãƒ†ã‚¹ãƒˆ TestInfo æƒ…å ±ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 */
 template<typename T>
 class ParamTestInstance : public IParamTestInfoData<typename T::ParamType>
@@ -188,7 +188,7 @@ class ParamTestInstance : public IParamTestInfoData<typename T::ParamType>
 	typedef detail::iuParamTestFactory<T>	Factory;
 	typedef IParamTestInfoData<ParamType>	_Mybase;
 
-	// ŠeƒeƒXƒg‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+	// å„ãƒ†ã‚¹ãƒˆã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	class EachTest
 	{
 	public:
@@ -209,7 +209,7 @@ public:
 	ParamTestInstance(const char* testcase_name) : _Mybase(testcase_name) {}
 
 private:
-	// ƒeƒXƒgƒP[ƒX‚Ìì¬
+	// ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹ã®ä½œæˆ
 	virtual TestCase*	MakeTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown) const IUTEST_CXX_OVERRIDE
 	{
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
@@ -219,11 +219,11 @@ private:
 #endif
 	}
 
-	// ƒeƒXƒg‚Ìì¬“o˜^
+	// ãƒ†ã‚¹ãƒˆã®ä½œæˆç™»éŒ²
 	virtual	void	RegisterTest(TestCase* testcase, ParamType param, int index) const IUTEST_CXX_OVERRIDE
 	{
 		EachTest* test = new EachTest(testcase, detail::MakeIndexTestName(this->m_name.c_str(), index).c_str(), param);
-		// new ƒIƒuƒWƒFƒNƒg‚ğŠÇ—‚µ‚Ä‚à‚ç‚¤
+		// new ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç®¡ç†ã—ã¦ã‚‚ã‚‰ã†
 		detail::iuPool<EachTest>::GetInstance().push(test);
 	}
 };
@@ -231,18 +231,18 @@ private:
 }	// end of namespace detail
 
 /**
- * @brief	any ƒpƒ‰ƒ[ƒ^ƒeƒXƒgƒtƒBƒNƒXƒ`ƒƒ
+ * @brief	any ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ†ã‚¹ãƒˆãƒ•ã‚£ã‚¯ã‚¹ãƒãƒ£
 */
 class TestWithAny : public Test, public WithParamInterface<any>
 {
 public:
 	/**
-	 * @brief	ƒpƒ‰ƒ[ƒ^‚Ìæ“¾
+	 * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®å–å¾—
 	*/
 	static const ParamType&	GetParam(void) { return WithParamInterface<any>::GetParam(); }
 
 	/**
-	 * @brief	ƒpƒ‰ƒ[ƒ^‚Ìæ“¾
+	 * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®å–å¾—
 	*/
 	template<typename T>
 	static T GetParam(void) { return unsafe_any_cast<T>(WithParamInterface<any>::GetParam()); }
@@ -252,7 +252,7 @@ public:
 // function
 
 /**
- * @brief	”ÍˆÍƒpƒ‰ƒ[ƒ^
+ * @brief	ç¯„å›²ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 */
 template<typename T>
 detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ Range(T begin, T end, T step=1)
@@ -261,7 +261,7 @@ detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ Range(T begin, T end, T ste
 }
 
 /**
- * @brief	^‹U’lƒpƒ‰ƒ[ƒ^
+ * @brief	çœŸå½å€¤ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 */
 inline detail::iuParamGenerator<bool> IUTEST_ATTRIBUTE_UNUSED_ Bool(void)
 {
@@ -271,7 +271,7 @@ inline detail::iuParamGenerator<bool> IUTEST_ATTRIBUTE_UNUSED_ Bool(void)
 #if IUTEST_HAS_VALUESGEN
 
 /**
- * @brief	’l”z—ñƒpƒ‰ƒ[ƒ^
+ * @brief	å€¤é…åˆ—ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 */
 template<typename Generator>
 inline detail::iuValuesParamsGeneratorHolder<Generator> IUTEST_ATTRIBUTE_UNUSED_ ValuesGen(size_t num, const Generator& gen)
@@ -280,7 +280,7 @@ inline detail::iuValuesParamsGeneratorHolder<Generator> IUTEST_ATTRIBUTE_UNUSED_
 }
 
 /**
- * @brief	—”ƒWƒFƒlƒŒ[ƒ^
+ * @brief	ä¹±æ•°ã‚¸ã‚§ãƒãƒ¬ãƒ¼ã‚¿
 */
 template<typename T, typename F>
 inline detail::iuRandomFilterParamGenerator<T, F> IUTEST_ATTRIBUTE_UNUSED_ RandomGenerator(const F& fn, unsigned int seed=0)
@@ -296,7 +296,7 @@ inline detail::iuRandomFilterParamGenerator<T, F> IUTEST_ATTRIBUTE_UNUSED_ Rando
 
 #if IUTEST_HAS_RANDOMVALUES
 /**
- * @brief	—”’lƒpƒ‰ƒ[ƒ^
+ * @brief	ä¹±æ•°å€¤ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 */
 inline detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_ RandomValues(size_t num, unsigned int seed=0)
 {
@@ -305,7 +305,7 @@ inline detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_ RandomValues(size_t
 #endif
 
 /**
- * @brief	’l”z—ñƒpƒ‰ƒ[ƒ^
+ * @brief	å€¤é…åˆ—ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 */
 template<typename Container>
 inline detail::iuParamGenerator< typename Container::value_type > IUTEST_ATTRIBUTE_UNUSED_ ValuesIn(Container containor)
@@ -339,7 +339,7 @@ inline detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ ValuesIn(::std::init
 
 #if IUTEST_HAS_VARIADIC_VALUES
 /**
- * @brief	’l”z—ñƒpƒ‰ƒ[ƒ^
+ * @brief	å€¤é…åˆ—ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
 */
 template<typename ...Args>
 inline detail::iuValueArray<Args...> IUTEST_ATTRIBUTE_UNUSED_ Values(Args... args)
@@ -356,8 +356,8 @@ inline detail::iuValueArray<Args...> IUTEST_ATTRIBUTE_UNUSED_ Values(Args... arg
 	}
 
 /**
- * @brief	’l”z—ñƒpƒ‰ƒ[ƒ^
- * @note	50ˆø”‚Ü‚Åg—p‰Â”\
+ * @brief	å€¤é…åˆ—ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
+ * @note	50å¼•æ•°ã¾ã§ä½¿ç”¨å¯èƒ½
 */
 IIUT_DECL_VALUES_(1)
 IIUT_DECL_VALUES_(2)
@@ -416,7 +416,7 @@ IIUT_DECL_VALUES_(50)
 
 #if IUTEST_HAS_CONCAT
 /**
- * @brief	ƒpƒ‰ƒ[ƒ^‚ÌŒ‹‡
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®çµåˆ
 */
 template<typename G1, typename G2>
 detail::iuConcatParamHolder<G1, G2> Concat(const G1& g1, const G2& g2)
@@ -429,7 +429,7 @@ detail::iuConcatParamHolder<G1, G2> Concat(const G1& g1, const G2& g2)
 
 #if IUTEST_HAS_VARIADIC_COMBINE
 /**
- * @brief	•¡‡ğŒƒpƒ‰ƒ[ƒ^‰»
+ * @brief	è¤‡åˆæ¡ä»¶ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿åŒ–
 */
 template<typename ...Generator>
 detail::iuCartesianProductHolder<Generator...> Combine(const Generator&... generators)
@@ -447,8 +447,8 @@ detail::iuCartesianProductHolder<Generator...> Combine(const Generator&... gener
 	}
 
 /**
- * @brief	•¡‡ğŒƒpƒ‰ƒ[ƒ^‰»
- * @note	9ˆø”‚Ü‚Åg—p‰Â”\
+ * @brief	è¤‡åˆæ¡ä»¶ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿åŒ–
+ * @note	9å¼•æ•°ã¾ã§ä½¿ç”¨å¯èƒ½
 */
 IIUT_DECL_COMBINE_(2)
 IIUT_DECL_COMBINE_(3)
@@ -470,7 +470,7 @@ IIUT_DECL_COMBINE_(9)
 #if IUTEST_HAS_VARIADIC_PAIRWISE
 
 /**
- * @brief	•¡‡ğŒƒpƒ‰ƒ[ƒ^‰»(ƒI[ƒ‹ƒyƒA–@)
+ * @brief	è¤‡åˆæ¡ä»¶ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿åŒ–(ã‚ªãƒ¼ãƒ«ãƒšã‚¢æ³•)
 */
 template<typename ...Generator>
 detail::iuPairwiseHolder<Generator...> Pairwise(const Generator&... generators)
@@ -488,8 +488,8 @@ detail::iuPairwiseHolder<Generator...> Pairwise(const Generator&... generators)
 	}
 
 /**
- * @brief	•¡‡ğŒƒpƒ‰ƒ[ƒ^‰»(ƒI[ƒ‹ƒyƒA–@)
- * @note	9ˆø”‚Ü‚Åg—p‰Â”\
+ * @brief	è¤‡åˆæ¡ä»¶ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿åŒ–(ã‚ªãƒ¼ãƒ«ãƒšã‚¢æ³•)
+ * @note	9å¼•æ•°ã¾ã§ä½¿ç”¨å¯èƒ½
 */
 IIUT_DECL_PAIRWISE_(2)
 IIUT_DECL_PAIRWISE_(3)

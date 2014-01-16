@@ -14,6 +14,7 @@ Changes for 1.8.0:
 * IUTEST_*_NO_FAILURE が警告やスキップを失敗と判断しないように変更
 * リスナーのセットアップ関数を変更
 * IUTEST_SCOPED_PEEP,IUTEST_MAKE_SCOPED_PEEP を廃止
+* ソースコードのエンコーディングを UTF8 BOM 有りに変更
 
 ** 修正
 * IUTEST_*_TRUE/FALSE を可変長対応

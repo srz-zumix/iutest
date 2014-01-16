@@ -1,8 +1,8 @@
-//======================================================================
+Ôªø//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		sub.cpp
- * @brief		sample sub ÉtÉ@ÉCÉã
+ * @brief		sample sub „Éï„Ç°„Ç§„É´
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -28,7 +28,7 @@
 #if 1	// Success Tests
 
 /** --------------------------------------------------
- * ÉpÉbÉPÅ[ÉW
+ * „Éë„ÉÉ„Ç±„Éº„Ç∏
 *//*--------------------------------------------------*/
 IUTEST_PACKAGE(TestPackage)
 {
@@ -193,7 +193,7 @@ IUTEST_F(EnabledTestFixed, Count)
 #if 0
 #ifdef _MSC_VER
 // cppcheck-suppress syntaxError
-IUTEST(Japanese, ÉeÉXÉg)
+IUTEST(Japanese, „ÉÜ„Çπ„Éà)
 {
 	IUTEST_FAIL() << ::iutest::UnitTest::GetInstance()->current_test_info()->name();
 }

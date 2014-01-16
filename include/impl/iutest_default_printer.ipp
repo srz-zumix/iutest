@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_default_printer.ipp
- * @brief		iris unit test ƒfƒtƒHƒ‹ƒgo—ÍƒCƒxƒ“ƒgƒŠƒXƒi[ ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå‡ºåŠ›ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,7 +27,7 @@ namespace iutest
 IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestProgramStart(const UnitTest& test)
 {
 	IUTEST_UNUSED_VAR(test);
-	// ƒtƒBƒ‹ƒ^ƒŠƒ“ƒO
+	// ãƒ•ã‚£ãƒ«ã‚¿ãƒªãƒ³ã‚°
 	if( TestFlag::IsEnableFlag(TestFlag::FILTERING_TESTS) )
 	{
 		detail::iuConsole::color_output(detail::iuConsole::yellow, "Note: iutest filter = %s\n", TestEnv::test_filter());
@@ -40,7 +40,7 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationStart(const Un
 	{
 		detail::iuConsole::output("\nRepeating all tests (iteration %d) . . .\n\n", iteration+1);
 	}
-	// ƒVƒƒƒbƒtƒ‹ƒeƒXƒg
+	// ã‚·ãƒ£ãƒƒãƒ•ãƒ«ãƒ†ã‚¹ãƒˆ
 	if( TestFlag::IsEnableFlag(TestFlag::SHUFFLE_TESTS) )
 	{
 		detail::iuConsole::color_output(detail::iuConsole::yellow, "Note: Randomizing tests' orders with a seed of %u\n", test.random_seed());

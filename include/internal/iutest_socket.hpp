@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_socket.hpp
- * @brief		iris unit test soket ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test soket
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -47,7 +47,7 @@ namespace detail
 //======================================================================
 // class
 /*
- * @brief	ƒ\ƒPƒbƒgƒx[ƒXƒNƒ‰ƒX
+ * @brief	ã‚½ã‚±ãƒƒãƒˆãƒ™ãƒ¼ã‚¹ã‚¯ãƒ©ã‚¹
 */
 class BasicSocket
 {
@@ -154,7 +154,7 @@ protected:
 };
 
 /*
- * @brief	ƒ\ƒPƒbƒg‘‚«‚İƒNƒ‰ƒX
+ * @brief	ã‚½ã‚±ãƒƒãƒˆæ›¸ãè¾¼ã¿ã‚¯ãƒ©ã‚¹
 */
 class SocketWriter : virtual public BasicSocket
 	, public IOutStream
@@ -205,7 +205,7 @@ private:
 };
 
 /*
- * @brief	ƒ\ƒPƒbƒg“Ç‚İ‚İƒNƒ‰ƒX
+ * @brief	ã‚½ã‚±ãƒƒãƒˆèª­ã¿è¾¼ã¿ã‚¯ãƒ©ã‚¹
 */
 class SocketReader : virtual public BasicSocket
 {
@@ -238,7 +238,7 @@ private:
 };
 
 /*
- * @brief	ƒ\ƒPƒbƒg“Ç‚İ‚İƒNƒ‰ƒX
+ * @brief	ã‚½ã‚±ãƒƒãƒˆèª­ã¿è¾¼ã¿ã‚¯ãƒ©ã‚¹
 */
 class Socket : public SocketWriter, public SocketReader
 {

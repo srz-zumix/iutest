@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_string.hpp
- * @brief		iris unit test •¶š—ñ‘€ì ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test æ–‡å­—åˆ—æ“ä½œ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -46,7 +46,7 @@ namespace detail
 //======================================================================
 // function
 /*
- * ¡‚Ì‚Æ‚±‚ëg‚Á‚Ä‚¢‚È‚¢
+ * ä»Šã®ã¨ã“ã‚ä½¿ã£ã¦ã„ãªã„
 
 static char*			xcsstr(char* src, const char* substr)				{ return strstr(src, substr); }
 static const char*		xcsstr(const char* src, const char* substr)			{ return strstr(src, substr); }

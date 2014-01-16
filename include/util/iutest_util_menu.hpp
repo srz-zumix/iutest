@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_util_menu.hpp
- * @brief		iris unit test ƒeƒXƒg ƒƒjƒ…[¶¬ ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ãƒ†ã‚¹ãƒˆ ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”Ÿæˆ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,7 +31,7 @@ namespace iuutil
 //======================================================================
 // class
 /**
- * @brief	ƒƒjƒ…[ƒNƒ‰ƒX
+ * @brief	ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚¯ãƒ©ã‚¹
 */
 class TestMenu
 {
@@ -51,14 +51,14 @@ public:
 			return false;
 		}
 
-		// ƒeƒXƒg‚ğ—ñ‹“
+		// ãƒ†ã‚¹ãƒˆã‚’åˆ—æŒ™
 		HMENU hRoot = AppendPopup(hMenu, "TestList");
 		if( hRoot == NULL )
 		{
 			return false;
 		}
 
-		Append(hRoot, "ˆÈ‰º‚ğ‚·‚×‚ÄÀs", m_nID);
+		Append(hRoot, "ä»¥ä¸‹ã‚’ã™ã¹ã¦å®Ÿè¡Œ", m_nID);
 		++m_nID;
 
 		::iutest::UnitTest* pUnitTest = ::iutest::UnitTest::GetInstance();
@@ -68,7 +68,7 @@ public:
 			const ::iutest::TestCase* pTestCase = pUnitTest->GetTestCase(i);
 			const int test_count = pTestCase->total_test_count();
 			HMENU hTestCase = AppendPopup(hRoot, pTestCase->name());
-			Append(hTestCase, "ˆÈ‰º‚ğ‚·‚×‚ÄÀs", m_nID);
+			Append(hTestCase, "ä»¥ä¸‹ã‚’ã™ã¹ã¦å®Ÿè¡Œ", m_nID);
 			m_TestCaseList.insert( ::std::pair<WORD, const ::iutest::TestCase*>(m_nID, pTestCase) );
 			++m_nID;
 			for( int j=0; j < test_count; ++j )

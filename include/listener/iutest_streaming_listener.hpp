@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_streaming_listener.hpp
- * @brief		iris unit test stream result ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test stream result
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -63,7 +63,7 @@ private:
 
 public:
 	/**
-	* @brief	stream reuslt listener ‚ÌƒZƒbƒgƒAƒbƒv
+	* @brief	stream reuslt listener ã®ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—
 	*/
 	static void SetUp(void)
 	{

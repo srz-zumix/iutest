@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_pred.hpp
- * @brief		iris unit test qŒê Assertion ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test è¿°èª Assertion ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,66 +26,66 @@
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
 */
 #define IUTEST_ASSERT_PRED1(pred, v1)		\
 	IUTEST_PRED1_(pred, v1, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
 */
 #define IUTEST_EXPECT_PRED1(pred, v1)		\
 	IUTEST_PRED1_(pred, v1, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
 */
 #define IUTEST_INFORM_PRED1(pred, v1)		\
 	IUTEST_PRED1_(pred, v1, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
 */
 #define IUTEST_ASSUME_PRED1(pred, v1)		\
 	IUTEST_PRED1_(pred, v1, IUTEST_ASSUME_FAILURE)
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
 */
 #define IUTEST_ASSERT_PRED_FORMAT1(pred_formatter, v1)		\
 	IUTEST_PRED_FORMAT1_(pred_formatter, v1, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
 */
 #define IUTEST_EXPECT_PRED_FORMAT1(pred_formatter, v1)		\
 	IUTEST_PRED_FORMAT1_(pred_formatter, v1, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
 */
 #define IUTEST_INFORM_PRED_FORMAT1(pred_formatter, v1)		\
 	IUTEST_PRED_FORMAT1_(pred_formatter, v1, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
 */
 #define IUTEST_ASSUME_PRED_FORMAT1(pred_formatter, v1)		\
 	IUTEST_PRED_FORMAT1_(pred_formatter, v1, IUTEST_ASSUME_FAILURE)
@@ -93,74 +93,74 @@
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
- * @param	v2		= ˆø”2
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
+ * @param	v2		= å¼•æ•°2
 */
 #define IUTEST_ASSERT_PRED2(pred, v1, v2)		\
 	IUTEST_PRED2_(pred, v1, v2, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
- * @param	v2		= ˆø”2
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
+ * @param	v2		= å¼•æ•°2
 */
 #define IUTEST_EXPECT_PRED2(pred, v1, v2)		\
 	IUTEST_PRED2_(pred, v1, v2, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
- * @param	v2		= ˆø”2
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
+ * @param	v2		= å¼•æ•°2
 */
 #define IUTEST_INFORM_PRED2(pred, v1, v2)		\
 	IUTEST_PRED2_(pred, v1, v2, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
- * @param	v2		= ˆø”2
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
+ * @param	v2		= å¼•æ•°2
 */
 #define IUTEST_ASSUME_PRED2(pred, v1, v2)		\
 	IUTEST_PRED2_(pred, v1, v2, IUTEST_ASSUME_FAILURE)
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
- * @param	v2				= ˆø”2
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
+ * @param	v2				= å¼•æ•°2
 */
 #define IUTEST_ASSERT_PRED_FORMAT2(pred_formatter, v1, v2)		\
 	IUTEST_PRED_FORMAT2_(pred_formatter, v1, v2, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
- * @param	v2				= ˆø”2
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
+ * @param	v2				= å¼•æ•°2
 */
 #define IUTEST_EXPECT_PRED_FORMAT2(pred_formatter, v1, v2)		\
 	IUTEST_PRED_FORMAT2_(pred_formatter, v1, v2, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
- * @param	v2				= ˆø”2
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
+ * @param	v2				= å¼•æ•°2
 */
 #define IUTEST_INFORM_PRED_FORMAT2(pred_formatter, v1, v2)		\
 	IUTEST_PRED_FORMAT2_(pred_formatter, v1, v2, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
- * @param	v2				= ˆø”2
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
+ * @param	v2				= å¼•æ•°2
 */
 #define IUTEST_ASSUME_PRED_FORMAT2(pred_formatter, v1, v2)		\
 	IUTEST_PRED_FORMAT2_(pred_formatter, v1, v2, IUTEST_ASSUME_FAILURE)
@@ -168,82 +168,82 @@
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
- * @param	v2		= ˆø”2
- * @param	v3		= ˆø”3
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
+ * @param	v2		= å¼•æ•°2
+ * @param	v3		= å¼•æ•°3
 */
 #define IUTEST_ASSERT_PRED3(pred, v1, v2, v3)		\
 	IUTEST_PRED3_(pred, v1, v2, v3, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
- * @param	v2		= ˆø”2
- * @param	v3		= ˆø”3
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
+ * @param	v2		= å¼•æ•°2
+ * @param	v3		= å¼•æ•°3
 */
 #define IUTEST_EXPECT_PRED3(pred, v1, v2, v3)		\
 	IUTEST_PRED3_(pred, v1, v2, v3, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
- * @param	v2		= ˆø”2
- * @param	v3		= ˆø”3
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
+ * @param	v2		= å¼•æ•°2
+ * @param	v3		= å¼•æ•°3
 */
 #define IUTEST_INFORM_PRED3(pred, v1, v2, v3)		\
 	IUTEST_PRED3_(pred, v1, v2, v3, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
- * @param	v2		= ˆø”2
- * @param	v3		= ˆø”3
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
+ * @param	v2		= å¼•æ•°2
+ * @param	v3		= å¼•æ•°3
 */
 #define IUTEST_ASSUME_PRED3(pred, v1, v2, v3)		\
 	IUTEST_PRED3_(pred, v1, v2, v3, IUTEST_ASSUME_FAILURE)
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
- * @param	v2				= ˆø”2
- * @param	v3				= ˆø”3
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
+ * @param	v2				= å¼•æ•°2
+ * @param	v3				= å¼•æ•°3
 */
 #define IUTEST_ASSERT_PRED_FORMAT3(pred_formatter, v1, v2, v3)		\
 	IUTEST_PRED_FORMAT3_(pred_formatter, v1, v2, v3, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
- * @param	v2				= ˆø”2
- * @param	v3				= ˆø”3
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
+ * @param	v2				= å¼•æ•°2
+ * @param	v3				= å¼•æ•°3
 */
 #define IUTEST_EXPECT_PRED_FORMAT3(pred_formatter, v1, v2, v3)		\
 	IUTEST_PRED_FORMAT3_(pred_formatter, v1, v2, v3, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
- * @param	v2				= ˆø”2
- * @param	v3				= ˆø”3
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
+ * @param	v2				= å¼•æ•°2
+ * @param	v3				= å¼•æ•°3
 */
 #define IUTEST_INFORM_PRED_FORMAT3(pred_formatter, v1, v2, v3)		\
 	IUTEST_PRED_FORMAT3_(pred_formatter, v1, v2, v3, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
- * @param	v2				= ˆø”2
- * @param	v3				= ˆø”3
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
+ * @param	v2				= å¼•æ•°2
+ * @param	v3				= å¼•æ•°3
 */
 #define IUTEST_ASSUME_PRED_FORMAT3(pred_formatter, v1, v2, v3)		\
 	IUTEST_PRED_FORMAT3_(pred_formatter, v1, v2, v3, IUTEST_ASSUME_FAILURE)
@@ -251,90 +251,90 @@
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
- * @param	v2		= ˆø”2
- * @param	v3		= ˆø”3
- * @param	v4		= ˆø”4
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
+ * @param	v2		= å¼•æ•°2
+ * @param	v3		= å¼•æ•°3
+ * @param	v4		= å¼•æ•°4
 */
 #define IUTEST_ASSERT_PRED4(pred, v1, v2, v3, v4)		\
 	IUTEST_PRED4_(pred, v1, v2, v3, v4, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
- * @param	v2		= ˆø”2
- * @param	v3		= ˆø”3
- * @param	v4		= ˆø”4
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
+ * @param	v2		= å¼•æ•°2
+ * @param	v3		= å¼•æ•°3
+ * @param	v4		= å¼•æ•°4
 */
 #define IUTEST_EXPECT_PRED4(pred, v1, v2, v3, v4)		\
 	IUTEST_PRED4_(pred, v1, v2, v3, v4, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
- * @param	v2		= ˆø”2
- * @param	v3		= ˆø”3
- * @param	v4		= ˆø”4
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
+ * @param	v2		= å¼•æ•°2
+ * @param	v3		= å¼•æ•°3
+ * @param	v4		= å¼•æ•°4
 */
 #define IUTEST_INFORM_PRED4(pred, v1, v2, v3, v4)		\
 	IUTEST_PRED4_(pred, v1, v2, v3, v4, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
- * @param	v2		= ˆø”2
- * @param	v3		= ˆø”3
- * @param	v4		= ˆø”4
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
+ * @param	v2		= å¼•æ•°2
+ * @param	v3		= å¼•æ•°3
+ * @param	v4		= å¼•æ•°4
 */
 #define IUTEST_ASSUME_PRED4(pred, v1, v2, v3, v4)		\
 	IUTEST_PRED4_(pred, v1, v2, v3, v4, IUTEST_ASSUME_FAILURE)
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
- * @param	v2				= ˆø”2
- * @param	v3				= ˆø”3
- * @param	v4				= ˆø”4
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
+ * @param	v2				= å¼•æ•°2
+ * @param	v3				= å¼•æ•°3
+ * @param	v4				= å¼•æ•°4
 */
 #define IUTEST_ASSERT_PRED_FORMAT4(pred_formatter, v1, v2, v3, v4)		\
 	IUTEST_PRED_FORMAT4_(pred_formatter, v1, v2, v3, v4, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
- * @param	v2				= ˆø”2
- * @param	v3				= ˆø”3
- * @param	v4				= ˆø”4
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
+ * @param	v2				= å¼•æ•°2
+ * @param	v3				= å¼•æ•°3
+ * @param	v4				= å¼•æ•°4
 */
 #define IUTEST_EXPECT_PRED_FORMAT4(pred_formatter, v1, v2, v3, v4)		\
 	IUTEST_PRED_FORMAT4_(pred_formatter, v1, v2, v3, v4, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
- * @param	v2				= ˆø”2
- * @param	v3				= ˆø”3
- * @param	v4				= ˆø”4
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
+ * @param	v2				= å¼•æ•°2
+ * @param	v3				= å¼•æ•°3
+ * @param	v4				= å¼•æ•°4
 */
 #define IUTEST_INFORM_PRED_FORMAT4(pred_formatter, v1, v2, v3, v4)		\
 	IUTEST_PRED_FORMAT4_(pred_formatter, v1, v2, v3, v4, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
- * @param	v2				= ˆø”2
- * @param	v3				= ˆø”3
- * @param	v4				= ˆø”4
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
+ * @param	v2				= å¼•æ•°2
+ * @param	v3				= å¼•æ•°3
+ * @param	v4				= å¼•æ•°4
 */
 #define IUTEST_ASSUME_PRED_FORMAT4(pred_formatter, v1, v2, v3, v4)		\
 	IUTEST_PRED_FORMAT4_(pred_formatter, v1, v2, v3, v4, IUTEST_ASSUME_FAILURE)
@@ -343,98 +343,98 @@
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
- * @param	v2		= ˆø”2
- * @param	v3		= ˆø”3
- * @param	v4		= ˆø”4
- * @param	v5		= ˆø”5
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
+ * @param	v2		= å¼•æ•°2
+ * @param	v3		= å¼•æ•°3
+ * @param	v4		= å¼•æ•°4
+ * @param	v5		= å¼•æ•°5
 */
 #define IUTEST_ASSERT_PRED5(pred, v1, v2, v3, v4, v5)		\
 	IUTEST_PRED5_(pred, v1, v2, v3, v4, v5, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
- * @param	v2		= ˆø”2
- * @param	v3		= ˆø”3
- * @param	v4		= ˆø”4
- * @param	v5		= ˆø”5
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
+ * @param	v2		= å¼•æ•°2
+ * @param	v3		= å¼•æ•°3
+ * @param	v4		= å¼•æ•°4
+ * @param	v5		= å¼•æ•°5
 */
 #define IUTEST_EXPECT_PRED5(pred, v1, v2, v3, v4, v5)		\
 	IUTEST_PRED5_(pred, v1, v2, v3, v4, v5, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
- * @param	v2		= ˆø”2
- * @param	v3		= ˆø”3
- * @param	v4		= ˆø”4
- * @param	v5		= ˆø”5
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
+ * @param	v2		= å¼•æ•°2
+ * @param	v3		= å¼•æ•°3
+ * @param	v4		= å¼•æ•°4
+ * @param	v5		= å¼•æ•°5
 */
 #define IUTEST_INFORM_PRED5(pred, v1, v2, v3, v4, v5)		\
 	IUTEST_PRED5_(pred, v1, v2, v3, v4, v5, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	v1		= ˆø”1
- * @param	v2		= ˆø”2
- * @param	v3		= ˆø”3
- * @param	v4		= ˆø”4
- * @param	v5		= ˆø”5
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	v1		= å¼•æ•°1
+ * @param	v2		= å¼•æ•°2
+ * @param	v3		= å¼•æ•°3
+ * @param	v4		= å¼•æ•°4
+ * @param	v5		= å¼•æ•°5
 */
 #define IUTEST_ASSUME_PRED5(pred, v1, v2, v3, v4, v5)		\
 	IUTEST_PRED5_(pred, v1, v2, v3, v4, v5, IUTEST_ASSUME_FAILURE)
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
- * @param	v2				= ˆø”2
- * @param	v3				= ˆø”3
- * @param	v4				= ˆø”4
- * @param	v5				= ˆø”5
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
+ * @param	v2				= å¼•æ•°2
+ * @param	v3				= å¼•æ•°3
+ * @param	v4				= å¼•æ•°4
+ * @param	v5				= å¼•æ•°5
 */
 #define IUTEST_ASSERT_PRED_FORMAT5(pred_formatter, v1, v2, v3, v4, v5)		\
 	IUTEST_PRED_FORMAT5_(pred_formatter, v1, v2, v3, v4, v5, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
- * @param	v2				= ˆø”2
- * @param	v3				= ˆø”3
- * @param	v4				= ˆø”4
- * @param	v5				= ˆø”5
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
+ * @param	v2				= å¼•æ•°2
+ * @param	v3				= å¼•æ•°3
+ * @param	v4				= å¼•æ•°4
+ * @param	v5				= å¼•æ•°5
 */
 #define IUTEST_EXPECT_PRED_FORMAT5(pred_formatter, v1, v2, v3, v4, v5)		\
 	IUTEST_PRED_FORMAT5_(pred_formatter, v1, v2, v3, v4, v5, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
- * @param	v2				= ˆø”2
- * @param	v3				= ˆø”3
- * @param	v4				= ˆø”4
- * @param	v5				= ˆø”5
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
+ * @param	v2				= å¼•æ•°2
+ * @param	v3				= å¼•æ•°3
+ * @param	v4				= å¼•æ•°4
+ * @param	v5				= å¼•æ•°5
 */
 #define IUTEST_INFORM_PRED_FORMAT5(pred_formatter, v1, v2, v3, v4, v5)		\
 	IUTEST_PRED_FORMAT5_(pred_formatter, v1, v2, v3, v4, v5, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	v1				= ˆø”1
- * @param	v2				= ˆø”2
- * @param	v3				= ˆø”3
- * @param	v4				= ˆø”4
- * @param	v5				= ˆø”5
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	v1				= å¼•æ•°1
+ * @param	v2				= å¼•æ•°2
+ * @param	v3				= å¼•æ•°3
+ * @param	v4				= å¼•æ•°4
+ * @param	v5				= å¼•æ•°5
 */
 #define IUTEST_ASSUME_PRED_FORMAT5(pred_formatter, v1, v2, v3, v4, v5)		\
 	IUTEST_PRED_FORMAT5_(pred_formatter, v1, v2, v3, v4, v5, IUTEST_ASSUME_FAILURE)
@@ -444,33 +444,33 @@
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	...		= ˆø”
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	...		= å¼•æ•°
 */
 #define IUTEST_ASSERT_PRED(pred, ...)		\
 	IUTEST_PRED_(pred, IUTEST_ASSERT_FAILURE, __VA_ARGS__)
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	...		= ˆø”
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	...		= å¼•æ•°
 */
 #define IUTEST_EXPECT_PRED(pred, ...)		\
 	IUTEST_PRED_(pred, IUTEST_EXPECT_FAILURE, __VA_ARGS__)
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	...		= ˆø”
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	...		= å¼•æ•°
 */
 #define IUTEST_INFORM_PRED(pred, ...)		\
 	IUTEST_PRED_(pred, IUTEST_INFORM_FAILURE, __VA_ARGS__)
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	qŒê ASSERTION ƒeƒXƒg
- * @param	pred	= qŒê
- * @param	...		= ˆø”
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ
+ * @param	pred	= è¿°èª
+ * @param	...		= å¼•æ•°
 */
 #define IUTEST_ASSUME_PRED(pred, ...)		\
 	IUTEST_PRED_(pred, IUTEST_ASSUME_FAILURE, __VA_ARGS__)
@@ -481,33 +481,33 @@
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	...				= ˆø”
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	...				= å¼•æ•°
 */
 #define IUTEST_ASSERT_PRED_FORMAT(pred_formatter, ...)		\
 	IUTEST_PRED_FORMAT_(pred_formatter, IUTEST_ASSERT_FAILURE, __VA_ARGS__)
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	...				= ˆø”
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	...				= å¼•æ•°
 */
 #define IUTEST_EXPECT_PRED_FORMAT(pred_formatter, ...)		\
 	IUTEST_PRED_FORMAT_(pred_formatter, IUTEST_EXPECT_FAILURE, __VA_ARGS__)
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	...				= ˆø”
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	...				= å¼•æ•°
 */
 #define IUTEST_INFORM_PRED_FORMAT(pred_formatter, ...)		\
 	IUTEST_PRED_FORMAT_(pred_formatter, IUTEST_INFORM_FAILURE, __VA_ARGS__)
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter	= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	...				= ˆø”
+ * @brief	è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter	= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	...				= å¼•æ•°
 */
 #define IUTEST_ASSUME_PRED_FORMAT(pred_formatter, ...)		\
 	IUTEST_PRED_FORMAT_(pred_formatter, IUTEST_ASSUME_FAILURE, __VA_ARGS__)
@@ -517,41 +517,41 @@
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	—áŠO’l qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter			= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	statement				= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception		= Šú‘Ò‚·‚é—áŠO
- * @param	expected_exception_value= Šú‘Ò’l
+ * @brief	ä¾‹å¤–å€¤ è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter			= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	statement				= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception		= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	expected_exception_value= æœŸå¾…å€¤
 */
 #define IUTEST_ASSERT_THROW_PRED_FORMAT2(pred_formatter, statement, expected_exception, expected_exception_value)		\
 	IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_ASSERT_FAILURE)
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	—áŠO’l qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter			= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	statement				= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception		= Šú‘Ò‚·‚é—áŠO
- * @param	expected_exception_value= Šú‘Ò’l
+ * @brief	ä¾‹å¤–å€¤ è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter			= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	statement				= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception		= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	expected_exception_value= æœŸå¾…å€¤
 */
 #define IUTEST_EXPECT_THROW_PRED_FORMAT2(pred_formatter, statement, expected_exception, expected_exception_value)		\
 	IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_EXPECT_FAILURE)
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	—áŠO’l qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter			= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	statement				= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception		= Šú‘Ò‚·‚é—áŠO
- * @param	expected_exception_value= Šú‘Ò’l
+ * @brief	ä¾‹å¤–å€¤ è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter			= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	statement				= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception		= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	expected_exception_value= æœŸå¾…å€¤
 */
 #define IUTEST_INFORM_THROW_PRED_FORMAT2(pred_formatter, statement, expected_exception, expected_exception_value)		\
 	IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_INFORM_FAILURE)
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	—áŠO’l qŒê ASSERTION ƒeƒXƒg(ƒƒbƒZ[ƒWƒtƒH[ƒ}ƒbƒ^[w’è)
- * @param	pred_formatter			= qŒêƒtƒH[ƒ}ƒbƒ^[
- * @param	statement				= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception		= Šú‘Ò‚·‚é—áŠO
- * @param	expected_exception_value= Šú‘Ò’l
+ * @brief	ä¾‹å¤–å€¤ è¿°èª ASSERTION ãƒ†ã‚¹ãƒˆ(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼æŒ‡å®š)
+ * @param	pred_formatter			= è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
+ * @param	statement				= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception		= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	expected_exception_value= æœŸå¾…å€¤
 */
 #define IUTEST_ASSUME_THROW_PRED_FORMAT2(pred_formatter, statement, expected_exception, expected_exception_value)		\
 	IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, IUTEST_ASSUME_FAILURE)

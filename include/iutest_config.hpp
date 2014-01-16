@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_config.hpp
- * @brief		iris unit test config ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test config ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -22,12 +22,12 @@
 
 /**
  * @defgroup	IUTEST_CONFIG	IUTEST_CONFIG
- * @brief		İ’èƒ}ƒNƒ
- * @note		ƒ†[ƒU[‚ª–‘O’è‹`‚·‚é‚±‚Æ‚Å•ÏX‰Â”\
+ * @brief		è¨­å®šãƒã‚¯ãƒ­
+ * @note		ãƒ¦ãƒ¼ã‚¶ãƒ¼ãŒäº‹å‰å®šç¾©ã™ã‚‹ã“ã¨ã§å¤‰æ›´å¯èƒ½
  * @{
 */
 
-//! Library ‚ğg‚¤‚©‚Ç‚¤‚©
+//! Library ã‚’ä½¿ã†ã‹ã©ã†ã‹
 #ifndef IUTEST_HAS_LIB
 #  if	defined(IUTEST_NO_LIB)
 #    define IUTEST_HAS_LIB			0
@@ -42,16 +42,16 @@
 
 /**
  * @defgroup	IUTEST_CONFIG_OUTPUT	OUTPUT
- * @brief		o—ÍŠÖŒW CONFIG
+ * @brief		å‡ºåŠ›é–¢ä¿‚ CONFIG
  * @{
 */
 
 #ifndef IUTEST_VPRINTF
-#  define IUTEST_VPRINTF(f, a)	vprintf(f, a)	//!< vprintf ŒÄ‚Ño‚µƒ}ƒNƒ
+#  define IUTEST_VPRINTF(f, a)	vprintf(f, a)	//!< vprintf å‘¼ã³å‡ºã—ãƒã‚¯ãƒ­
 #endif
 
 #ifndef IUTEST_REPORT_SKIPPED
-#  define IUTEST_REPORT_SKIPPED		1			//!< xml o—Í‚É skipped ƒ^ƒO‚ğŠÜ‚ß‚é‚©‚Ç‚¤‚©
+#  define IUTEST_REPORT_SKIPPED		1			//!< xml å‡ºåŠ›ã« skipped ã‚¿ã‚°ã‚’å«ã‚ã‚‹ã‹ã©ã†ã‹
 #endif
 
 /**
@@ -61,12 +61,12 @@
 
 /**
  * @defgroup	IUTEST_CONFIG_TEST	TEST
- * @brief		ƒeƒXƒgŠÖŒW CONFIG
+ * @brief		ãƒ†ã‚¹ãƒˆé–¢ä¿‚ CONFIG
  * @{
 */
 
 #ifndef IUTEST_HAS_PARAM_METHOD_TEST
-//! ƒpƒ‰ƒƒ^ƒ‰ƒCƒYŠÖ”ƒR[ƒ‹ƒeƒXƒg‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! ãƒ‘ãƒ©ãƒ¡ã‚¿ãƒ©ã‚¤ã‚ºé–¢æ•°ã‚³ãƒ¼ãƒ«ãƒ†ã‚¹ãƒˆãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #  ifndef IUTEST_NO_VARIADIC_MACROS
 #    define IUTEST_HAS_PARAM_METHOD_TEST	1
 #  else
@@ -75,11 +75,11 @@
 #endif
 
 #ifndef IUTEST_HAS_PARAM_TEST
-#  define IUTEST_HAS_PARAM_TEST			1	//!< ’l‚ğƒpƒ‰ƒ[ƒ^‰»‚µ‚½ƒeƒXƒg‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+#  define IUTEST_HAS_PARAM_TEST			1	//!< å€¤ã‚’ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿åŒ–ã—ãŸãƒ†ã‚¹ãƒˆãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #endif
 
 #ifndef IUTEST_HAS_TYPED_TEST
-//! Œ^•t‚¯ƒeƒXƒg‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! å‹ä»˜ã‘ãƒ†ã‚¹ãƒˆãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #  if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 #    define IUTEST_HAS_TYPED_TEST		1
 #  else
@@ -88,7 +88,7 @@
 #endif
 
 #ifndef IUTEST_HAS_TYPED_TEST_P
-//! Œ^‚ğƒpƒ‰ƒ[ƒ^‰»‚µ‚½ƒeƒXƒg‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! å‹ã‚’ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿åŒ–ã—ãŸãƒ†ã‚¹ãƒˆãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #  if IUTEST_HAS_TYPED_TEST && !defined(IUTEST_NO_VARIADIC_MACROS) && !defined(IUTEST_NO_TEMPLATE_TEMPLATES)
 #    define IUTEST_HAS_TYPED_TEST_P	1
 #  else
@@ -97,7 +97,7 @@
 #endif
 
 #ifndef IUTEST_TYPED_TEST_P_STRICT
-//! Typed Test ‚Ì‚æ‚èŒµ‚µ‚¢\•¶ƒ`ƒFƒbƒN‚ğs‚¤‚©‚Ç‚¤‚©
+//! Typed Test ã®ã‚ˆã‚Šå³ã—ã„æ§‹æ–‡ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†ã‹ã©ã†ã‹
 #  define IUTEST_TYPED_TEST_P_STRICT	1
 #endif
 
@@ -109,7 +109,7 @@
 
 #ifndef IUTEST_HAS_IGNORE_TEST
 /**
- * @brief	ƒRƒ“ƒpƒCƒ‹‚ª’Ê‚ç‚È‚­‚Ä‚à‚æ‚¢ƒeƒXƒg¶¬ƒ}ƒNƒ‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+ * @brief	ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ãŒé€šã‚‰ãªãã¦ã‚‚ã‚ˆã„ãƒ†ã‚¹ãƒˆç”Ÿæˆãƒã‚¯ãƒ­ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 */
 #  if	defined(IUTEST_NO_TWO_PHASE_NAME_LOOKUP)
 #    define IUTEST_HAS_IGNORE_TEST	1
@@ -119,7 +119,7 @@
 #endif
 
 #ifndef IUTEST_HAS_VALUESGEN
-//! ::iutest::ValuesGen ‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! ::iutest::ValuesGen ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #  if IUTEST_HAS_PARAM_TEST
 #    define IUTEST_HAS_VALUESGEN	1
 #  else
@@ -128,7 +128,7 @@
 #endif
 
 #ifndef IUTEST_HAS_RANDOMVALUES
-//! ::iutest::RandomValues ‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! ::iutest::RandomValues ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_VALUESGEN
 #    define IUTEST_HAS_RANDOMVALUES	1
 #  else
@@ -144,7 +144,7 @@
 #endif
 
 #ifndef IUTEST_HAS_COMBINE
-//! ::iutest::Combine ‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! ::iutest::Combine ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TUPLE
 #    define IUTEST_HAS_COMBINE		1
 #  else
@@ -153,7 +153,7 @@
 #endif
 
 #ifndef IUTEST_HAS_PAIRWISE
-//! ::iutest::Pairwise ‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! ::iutest::Pairwise ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #  if IUTEST_HAS_COMBINE
 #    define IUTEST_HAS_PAIRWISE		1
 #  else
@@ -162,12 +162,12 @@
 #endif
 
 #ifndef IUTEST_HAS_CONCAT
-//! ::iutest::Concat ‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! ::iutest::Concat ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 # define IUTEST_HAS_CONCAT			1
 #endif
 
 #ifndef IUTEST_HAS_VARIADIC_VALUES
-//! ‰Â•Ï’·ˆø”‚É‘Î‰‚µ‚½ ::iutest::Values ‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! å¯å¤‰é•·å¼•æ•°ã«å¯¾å¿œã—ãŸ ::iutest::Values ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
 #    define IUTEST_HAS_VARIADIC_VALUES	1
 #  else
@@ -176,7 +176,7 @@
 #endif
 
 #ifndef IUTEST_HAS_VARIADIC_COMBINE
-//! ‰Â•Ï’·ˆø”‚É‘Î‰‚µ‚½ ::iutest::Combine ‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! å¯å¤‰é•·å¼•æ•°ã«å¯¾å¿œã—ãŸ ::iutest::Combine ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #  if IUTEST_HAS_COMBINE && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
 #    define IUTEST_HAS_VARIADIC_COMBINE	1
 #  else
@@ -185,7 +185,7 @@
 #endif
 
 #ifndef IUTEST_HAS_VARIADIC_PAIRWISE
-//! ‰Â•Ï’·ˆø”‚É‘Î‰‚µ‚½ ::iutest::Pairwise ‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! å¯å¤‰é•·å¼•æ•°ã«å¯¾å¿œã—ãŸ ::iutest::Pairwise ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #  if IUTEST_HAS_PAIRWISE && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
 #    define IUTEST_HAS_VARIADIC_PAIRWISE	1
 #  else
@@ -195,8 +195,8 @@
 
 #ifndef IUTEST_USE_THROW_ON_ASSERTION_FAILURE
 /**
- * @brief	¸”s‚É—áŠO‚ğ throw ‚µ‚Ü‚·B
- * @note	ƒTƒuŠÖ”‚ÉƒAƒT[ƒVƒ‡ƒ“‚ğ‹Lq‚µ‚Ä‚àA‚»‚Ì“_‚ÅƒeƒXƒg‚ª’†’f‚³‚ê‚é‚æ‚¤‚É‚È‚è‚Ü‚·
+ * @brief	å¤±æ•—æ™‚ã«ä¾‹å¤–ã‚’ throw ã—ã¾ã™ã€‚
+ * @note	ã‚µãƒ–é–¢æ•°ã«ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³ã‚’è¨˜è¿°ã—ã¦ã‚‚ã€ãã®æ™‚ç‚¹ã§ãƒ†ã‚¹ãƒˆãŒä¸­æ–­ã•ã‚Œã‚‹ã‚ˆã†ã«ãªã‚Šã¾ã™
 */
 #  ifdef IUTEST_USE_THROW_ON_ASSERT_FAILURE
 #    define IUTEST_USE_THROW_ON_ASSERTION_FAILURE		IUTEST_USE_THROW_ON_ASSERT_FAILURE
@@ -211,7 +211,7 @@
 
 
 #ifndef IUTEST_HAS_SPI_LAMBDA_SUPPORT
-//! spi ƒ}ƒNƒ‚Å lambda ‚ğg‚Á‚Ä•Ï”‚ÉƒAƒNƒZƒX‰Â”\‚©‚Ç‚¤‚©
+//! spi ãƒã‚¯ãƒ­ã§ lambda ã‚’ä½¿ã£ã¦å¤‰æ•°ã«ã‚¢ã‚¯ã‚»ã‚¹å¯èƒ½ã‹ã©ã†ã‹
 #if IUTEST_HAS_LAMBDA && !defined(IUTEST_NO_LAMBDA_SCOPE_RESOLUTION)
 #  define IUTEST_HAS_SPI_LAMBDA_SUPPORT		1
 #else
@@ -220,11 +220,11 @@
 #endif
 
 #ifndef IUTEST_HAS_GENRAND
-#  define IUTEST_HAS_GENRAND		1	//!< ƒeƒXƒg‚²‚Æ‚Ì genrand ŠÖ”‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+#  define IUTEST_HAS_GENRAND		1	//!< ãƒ†ã‚¹ãƒˆã”ã¨ã® genrand é–¢æ•°ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #endif
 
 #ifndef IUTEST_HAS_PACKAGE
-//! ƒpƒbƒP[ƒW‹@”\‚ª‚ ‚é‚©‚Ç‚¤‚©
+//! ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸æ©Ÿèƒ½ãŒã‚ã‚‹ã‹ã©ã†ã‹
 #  if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 #    define IUTEST_HAS_PACKAGE		1
 #  else
@@ -234,12 +234,12 @@
 
 // peep
 #ifndef IUTEST_HAS_PEEP
-//! private ƒƒ“ƒo[‚Ö‚ÌƒAƒNƒZƒXƒ}ƒNƒ‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! private ãƒ¡ãƒ³ãƒãƒ¼ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ãƒã‚¯ãƒ­ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #  define IUTEST_HAS_PEEP			1
 #endif
 
 #ifndef IUTEST_HAS_PEEP_FUNC
-//! private ƒƒ“ƒo[ŠÖ”‚Ö‚ÌƒAƒNƒZƒX‚ª‰Â”\‚©‚Ç‚¤‚©
+//! private ãƒ¡ãƒ³ãƒãƒ¼é–¢æ•°ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ãŒå¯èƒ½ã‹ã©ã†ã‹
 #  if IUTEST_HAS_PEEP && IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION
 #    define IUTEST_HAS_PEEP_FUNC	1
 #  else
@@ -248,7 +248,7 @@
 #endif
 
 #ifndef IUTEST_HAS_PEEP_STATIC_FUNC
-//! private static ƒƒ“ƒo[ŠÖ”‚Ö‚ÌƒAƒNƒZƒX‚ª‰Â”\‚©‚Ç‚¤‚©
+//! private static ãƒ¡ãƒ³ãƒãƒ¼é–¢æ•°ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ãŒå¯èƒ½ã‹ã©ã†ã‹
 #  if IUTEST_HAS_PEEP && IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_STATIC_MEMBER_FUNCTION
 #    define IUTEST_HAS_PEEP_STATIC_FUNC	1
 #  else
@@ -257,7 +257,7 @@
 #endif
 
 #ifndef IUTEST_HAS_STATIC_ASSERT_TYPEEQ
-//! StaticAssertTypeEq ‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! StaticAssertTypeEq ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 #    define IUTEST_HAS_STATIC_ASSERT_TYPEEQ		1
 #  else
@@ -266,7 +266,7 @@
 #endif
 
 #ifndef IUTEST_HAS_PRINT_TO
-//! PrintTo ‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! PrintTo ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #  if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 #    define IUTEST_HAS_PRINT_TO		1
 #  else
@@ -275,7 +275,7 @@
 #endif
 
 #ifndef IUTEST_HAS_ASSERTION_RETURN
-//! ::iutest::AssertionReturn ‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! ::iutest::AssertionReturn ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #  if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 #    define IUTEST_HAS_ASSERTION_RETURN		1
 #  else
@@ -284,7 +284,7 @@
 #endif
 
 #ifndef IUTEST_HAS_TESTNAME_ALIAS
-//! ƒeƒXƒg–¼‚Ì•Ê–¼w’è‹L–@‚ªg—p‚Å‚«‚é‚©‚Ç‚¤‚©
+//! ãƒ†ã‚¹ãƒˆåã®åˆ¥åæŒ‡å®šè¨˜æ³•ãŒä½¿ç”¨ã§ãã‚‹ã‹ã©ã†ã‹
 #  if !defined(IUTEST_NO_VARIADIC_MACROS)
 #    define IUTEST_HAS_TESTNAME_ALIAS		1
 #  else
@@ -293,7 +293,7 @@
 #endif
 
 #ifndef IUTEST_HAS_TESTNAME_ALIAS_JP
-//! ƒeƒXƒg–¼‚Ì•Ê–¼‚É“ú–{Œê‚ªg—p‚Å‚«‚é‚©‚Ç‚¤‚©
+//! ãƒ†ã‚¹ãƒˆåã®åˆ¥åã«æ—¥æœ¬èªãŒä½¿ç”¨ã§ãã‚‹ã‹ã©ã†ã‹
 #  if IUTEST_HAS_TESTNAME_ALIAS
 #    define IUTEST_HAS_TESTNAME_ALIAS_JP	1
 #  else
@@ -302,7 +302,7 @@
 #endif
 
 #ifndef IUTEST_HAS_ANY_PARAM_TEST
-//! any ‚ğ—˜—p‚µ‚½’l‚Ìƒpƒ‰ƒ[ƒ^‰»ƒeƒXƒg‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! any ã‚’åˆ©ç”¨ã—ãŸå€¤ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿åŒ–ãƒ†ã‚¹ãƒˆãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TESTNAME_ALIAS
 #    define IUTEST_HAS_ANY_PARAM_TEST		1
 #  else
@@ -318,17 +318,17 @@
 
 /**
  * @defgroup	IUTEST_CONFIG_FILE	FILE
- * @brief		ƒtƒ@ƒCƒ‹ŠÖŒW CONFIG
+ * @brief		ãƒ•ã‚¡ã‚¤ãƒ«é–¢ä¿‚ CONFIG
  * @{
 */
 
 // file
 #ifndef IUTEST_HAS_FOPEN
-#  define IUTEST_HAS_FOPEN			1	//!< fopen ‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+#  define IUTEST_HAS_FOPEN			1	//!< fopen ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #endif
 
 #ifndef IUTEST_HAS_FILE_STAT
-#  define IUTEST_HAS_FILE_STAT		0	//!< stat ‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+#  define IUTEST_HAS_FILE_STAT		0	//!< stat ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #endif
 
 /**
@@ -338,11 +338,11 @@
 
 /**
  * @defgroup	IUTEST_CONFIG_TIME	TIME
- * @brief		TIMEŠÖŒW CONFIG
+ * @brief		TIMEé–¢ä¿‚ CONFIG
  * @{
 */
 
-//! time ŠÖ”‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! time é–¢æ•°ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #ifndef IUTEST_HAS_CTIME
 #  if	defined(IUTEST_OS_WINDOWS_MOBILE)
 #    define IUTEST_HAS_CTIME		0
@@ -351,7 +351,7 @@
 #  endif
 #endif
 
-//! gettimeofday ŠÖ”‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! gettimeofday é–¢æ•°ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #ifndef IUTEST_HAS_GETTIMEOFDAY
 #  if IUTEST_HAS_HDR_SYSTIME
 #    define IUTEST_HAS_GETTIMEOFDAY	1
@@ -362,7 +362,7 @@
 #  define IUTEST_HAS_GETTIMEOFDAY	0
 #endif
 
-//! clock ŠÖ”‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! clock é–¢æ•°ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #ifndef IUTEST_HAS_CLOCK
 #  if defined(CLOCKS_PER_SEC)
 #    define IUTEST_HAS_CLOCK		1
@@ -380,12 +380,12 @@
 
 /**
  * @defgroup	IUTEST_CONFIG_OTHER	OTHER
- * @brief		‚»‚Ì‘¼‚Ì CONFIG
+ * @brief		ãã®ä»–ã® CONFIG
  * @{
 */
 
 #ifndef IUTEST_HAS_MINIDUMP
-//! MiniDump o—Í‚ª—LŒø‚©‚Ç‚¤‚©
+//! MiniDump å‡ºåŠ›ãŒæœ‰åŠ¹ã‹ã©ã†ã‹
 #  if defined(_MSC_VER) && _MSC_VER >= 1310 && IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
 #    define IUTEST_HAS_MINIDUMP		1
 #  else
@@ -394,7 +394,7 @@
 #endif
 
 #ifndef IUTEST_HAS_SOCKET
-//! ƒ\ƒPƒbƒg’ÊM‰Â”\‚©‚Ç‚¤‚©
+//! ã‚½ã‚±ãƒƒãƒˆé€šä¿¡å¯èƒ½ã‹ã©ã†ã‹
 #  if defined(IUTEST_OS_WINDOWS)
 #    if !defined(_MSC_VER) || _MSC_VER >= 1310
 #      define IUTEST_HAS_SOCKET	1
@@ -407,7 +407,7 @@
 #endif
 
 #ifndef IUTEST_HAS_STRINGSTREAM
-//! std::stringstream ‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! std::stringstream ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #  if !defined(_STLP_NO_IOSTREAMS)
 #    define IUTEST_HAS_STRINGSTREAM	1	
 #  else
@@ -416,8 +416,8 @@
 #endif
 
 /**
- * @brief	std::strstream ‚ªg—p‰Â”\‚©‚Ç‚¤‚©
- * @note	IUTEST_HAS_STRINGSTREAM ‚ª—Dæ‚³‚ê‚Ü‚·
+ * @brief	std::strstream ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
+ * @note	IUTEST_HAS_STRINGSTREAM ãŒå„ªå…ˆã•ã‚Œã¾ã™
 */
 #ifndef IUTEST_HAS_STRSTREAM
 #  define IUTEST_HAS_STRSTREAM		0
@@ -429,12 +429,12 @@
 
 /**
  * @defgroup	IUTEST_CONFIG_LISTENER	LISTENER
- * @brief		Listener ŠÖŒW‚Ì CONFIG
+ * @brief		Listener é–¢ä¿‚ã® CONFIG
  * @{
 */
 
 #ifndef IUTEST_HAS_STREAM_RESULT
-//! stream result ‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+//! stream result ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #  if IUTEST_HAS_SOCKET
 #    define IUTEST_HAS_STREAM_RESULT	1
 #  else
@@ -446,7 +446,7 @@
  * @}
 */
 
-// Doxygen —p
+// Doxygen ç”¨
 #ifdef IUTEST_BUILD_DOXYGEN
 
 /**
@@ -454,7 +454,7 @@
  * @{
 */
 
-#define IUTEST_GetMillisec()	//!< Œ»İ‚Ìƒ~ƒŠ•bæ“¾ŠÖ”‚ğ“Æ©’è‹`
+#define IUTEST_GetMillisec()	//!< ç¾åœ¨æ™‚åˆ»ã®ãƒŸãƒªç§’å–å¾—é–¢æ•°ã‚’ç‹¬è‡ªå®šç¾©
 
 /**
 * @}
@@ -467,37 +467,37 @@
 */
 
 /**
- * @brief	iutest ‚Å t1/tuple.h ‚ğƒCƒ“ƒNƒ‹[ƒh‚·‚é‚©‚Ç‚¤‚©
- * @details	1: std::tr1 –¼‘O‹óŠÔ‚É‚ ‚é tuple ‚ğg—p‚µ‚Ü‚·B
- *			tuple.h ‚Íƒ†[ƒU[‚ªƒCƒ“ƒNƒ‹[ƒh‚µ‚Ü‚·B
- *			0: w’è‚È‚µ iutest ‚ª©“®‚Å”»’f‚µ‚Ü‚·B
+ * @brief	iutest ã§ t1/tuple.h ã‚’ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ã™ã‚‹ã‹ã©ã†ã‹
+ * @details	1: std::tr1 åå‰ç©ºé–“ã«ã‚ã‚‹ tuple ã‚’ä½¿ç”¨ã—ã¾ã™ã€‚
+ *			tuple.h ã¯ãƒ¦ãƒ¼ã‚¶ãƒ¼ãŒã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ã—ã¾ã™ã€‚
+ *			0: æŒ‡å®šãªã— iutest ãŒè‡ªå‹•ã§åˆ¤æ–­ã—ã¾ã™ã€‚
 */
 #define IUTEST_USE_EXTERNAL_TR1_TUPLE	0
 
 /**
- * @brief	iutest ‚Å tuple.h ‚ğƒCƒ“ƒNƒ‹[ƒh‚·‚é‚©‚Ç‚¤‚©
- * @details	1: std –¼‘O‹óŠÔ‚É‚ ‚é tuple ‚ğg—p‚µ‚Ü‚·B
- *			tuple.h ‚Íƒ†[ƒU[‚ªƒCƒ“ƒNƒ‹[ƒh‚µ‚Ü‚·B
- *			0: w’è‚È‚µ iutest ‚ª©“®‚Å”»’f‚µ‚Ü‚·B
+ * @brief	iutest ã§ tuple.h ã‚’ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ã™ã‚‹ã‹ã©ã†ã‹
+ * @details	1: std åå‰ç©ºé–“ã«ã‚ã‚‹ tuple ã‚’ä½¿ç”¨ã—ã¾ã™ã€‚
+ *			tuple.h ã¯ãƒ¦ãƒ¼ã‚¶ãƒ¼ãŒã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ã—ã¾ã™ã€‚
+ *			0: æŒ‡å®šãªã— iutest ãŒè‡ªå‹•ã§åˆ¤æ–­ã—ã¾ã™ã€‚
 */
 #define IUTEST_USE_EXTERNAL_STD_TUPLE	0
 
 /**
- * @brief	iutest ‚Åg—p‚·‚é—”ƒGƒ“ƒWƒ“‚ğw’è‚µ‚Ü‚·
- * @details	–¢’è‹`‚Ìê‡‚Í iutest ‚ªÀ‘•‚µ‚Ä‚¢‚éƒGƒ“ƒWƒ“‚ğg—p‚µ‚Ü‚·(XorShift 128)
+ * @brief	iutest ã§ä½¿ç”¨ã™ã‚‹ä¹±æ•°ã‚¨ãƒ³ã‚¸ãƒ³ã‚’æŒ‡å®šã—ã¾ã™
+ * @details	æœªå®šç¾©ã®å ´åˆã¯ iutest ãŒå®Ÿè£…ã—ã¦ã„ã‚‹ã‚¨ãƒ³ã‚¸ãƒ³ã‚’ä½¿ç”¨ã—ã¾ã™(XorShift 128)
 */
 #define IUTEST_USE_RANDOM_ENGINE_TYPENAME	::std::default_random_engine
 
-#define IUTEST_NO_GETENV	//!< getenv ŠÖ”‚ª‚È‚¢ê‡‚Í’è‹`
-#define IUTEST_NO_PUTENV	//!< putenv ŠÖ”‚ª‚È‚¢ê‡‚Í’è‹`
-#define IUTEST_NO_GETCWD	//!< getcwd ŠÖ”‚ª‚È‚¢ê‡‚Í’è‹`
+#define IUTEST_NO_GETENV	//!< getenv é–¢æ•°ãŒãªã„å ´åˆã¯å®šç¾©
+#define IUTEST_NO_PUTENV	//!< putenv é–¢æ•°ãŒãªã„å ´åˆã¯å®šç¾©
+#define IUTEST_NO_GETCWD	//!< getcwd é–¢æ•°ãŒãªã„å ´åˆã¯å®šç¾©
 
 /**
  * @}
 */
 
-#define IUTEST_USE_LIB		//!< ƒ‰ƒCƒuƒ‰ƒŠ”Å‚ğg—p‚·‚é
-#define IUTEST_AUTO_LINK	//!< ƒ‰ƒCƒuƒ‰ƒŠ”Å‚ğg—p‚µA©“®ƒŠƒ“ƒN‚·‚é
+#define IUTEST_USE_LIB		//!< ãƒ©ã‚¤ãƒ–ãƒ©ãƒªç‰ˆã‚’ä½¿ç”¨ã™ã‚‹
+#define IUTEST_AUTO_LINK	//!< ãƒ©ã‚¤ãƒ–ãƒ©ãƒªç‰ˆã‚’ä½¿ç”¨ã—ã€è‡ªå‹•ãƒªãƒ³ã‚¯ã™ã‚‹
 
 #endif
 

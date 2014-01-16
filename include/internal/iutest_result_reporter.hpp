@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_result_reporter.hpp
- * @brief		iris unit test TestPartResult ƒŠƒ|[ƒ^[ ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test TestPartResult ãƒªãƒãƒ¼ã‚¿ãƒ¼ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -28,7 +28,7 @@ namespace detail
 //======================================================================
 // class
 /**
- * @brief	ƒfƒtƒHƒ‹ƒg TestPartResult ƒŠƒ|[ƒ^[
+ * @brief	ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ TestPartResult ãƒªãƒãƒ¼ã‚¿ãƒ¼
 */
 class DefaultGlobalTestPartResultReporter : public TestPartResultReporterInterface
 {
@@ -42,7 +42,7 @@ public:
 };
 
 /**
- * @brief	TestPartResult ‚Ìî•ñûWƒwƒ‹ƒp[
+ * @brief	TestPartResult ã®æƒ…å ±åé›†ãƒ˜ãƒ«ãƒ‘ãƒ¼
 */
 class NewTestPartResultCheckHelper
 {
@@ -143,7 +143,7 @@ namespace iutest_report_result
 {
 
 /**
-	* @brief	TestPartResult ƒŠƒ|[ƒ^[
+	* @brief	TestPartResult ãƒªãƒãƒ¼ã‚¿ãƒ¼
 */
 inline void ReportTestPartResult(const ::iutest::TestPartResult& test_part_result)
 {

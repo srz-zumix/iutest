@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_progress_printer.hpp
- * @brief		iris unit test ƒvƒƒOƒŒƒXo—ÍƒCƒxƒ“ƒgƒŠƒXƒi[ ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ãƒ—ãƒ­ã‚°ãƒ¬ã‚¹å‡ºåŠ›ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,7 +27,7 @@ namespace iutest
 //======================================================================
 // class
 /**
- * @brief	ƒvƒƒOƒŒƒXo—ÍƒCƒxƒ“ƒgƒŠƒXƒi[
+ * @brief	ãƒ—ãƒ­ã‚°ãƒ¬ã‚¹å‡ºåŠ›ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼
 */
 class ProgressPrintListener : public EmptyTestEventListener
 {
@@ -45,7 +45,7 @@ private:
 
 public:
 	/**
-	 * @brief	ProgressPrintListener ‚ÉØ‚è‘Ö‚¦
+	 * @brief	ProgressPrintListener ã«åˆ‡ã‚Šæ›¿ãˆ
 	*/
 	static void SetUp(void)
 	{

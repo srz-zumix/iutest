@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_assertion_only.hpp
- * @brief		assertion ‚Ì‚İ—˜—p‚·‚é‚½‚ß‚Ìƒtƒ@ƒCƒ‹
+ * @brief		assertion ã®ã¿åˆ©ç”¨ã™ã‚‹ãŸã‚ã®ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */

@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_random.hpp
- * @brief		iris unit test —”¶¬Ší ’è‹` ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ä¹±æ•°ç”Ÿæˆå™¨ å®šç¾© ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -32,7 +32,7 @@ namespace detail
 //======================================================================
 // class
 /**
- * @brief	—”¶¬ŠíƒNƒ‰ƒX
+ * @brief	ä¹±æ•°ç”Ÿæˆå™¨ã‚¯ãƒ©ã‚¹
 */
 class iuRandom
 {
@@ -113,16 +113,16 @@ public:
 
 public:
 	/**
-	 * @brief	‰Šú‰»
-	 * @details	ŠÔ‚ÅƒV[ƒh‚ğŒˆ’è
+	 * @brief	åˆæœŸåŒ–
+	 * @details	æ™‚é–“ã§ã‚·ãƒ¼ãƒ‰ã‚’æ±ºå®š
 	*/
 	void	init(void)
 	{
 		init(GetIndefiniteValue());
 	}
 	/**
-	 * @brief	‰Šú‰»
-	 * @param [in]	seed	= ƒV[ƒh
+	 * @brief	åˆæœŸåŒ–
+	 * @param [in]	seed	= ã‚·ãƒ¼ãƒ‰
 	*/
 	void	init(unsigned int seed)
 	{
@@ -131,8 +131,8 @@ public:
 
 public:
 	/**
-	 * @brief	—”‚Ì¶¬
-	 * @return	—”
+	 * @brief	ä¹±æ•°ã®ç”Ÿæˆ
+	 * @return	ä¹±æ•°
 	*/
 	result_type genrand(void)
 	{
@@ -140,10 +140,10 @@ public:
 	}
 
 	/**
-	 * @brief	—”‚Ì¶¬
-	 * @details	[0,max) ‚Ì—”‚ğ¶¬
-	 * @param [in]	max	= ãŒÀ’l
-	 * @return	—”
+	 * @brief	ä¹±æ•°ã®ç”Ÿæˆ
+	 * @details	[0,max) ã®ä¹±æ•°ã‚’ç”Ÿæˆ
+	 * @param [in]	max	= ä¸Šé™å€¤
+	 * @return	ä¹±æ•°
 	*/
 	result_type genrand(unsigned int max)
 	{
@@ -155,9 +155,9 @@ public:
 	}
 
 	/**
-	 * @brief	—”‚Ì¶¬
-	 * @details	[0,1] ‚Ì—”‚ğ¶¬
-	 * @return	—”
+	 * @brief	ä¹±æ•°ã®ç”Ÿæˆ
+	 * @details	[0,1] ã®ä¹±æ•°ã‚’ç”Ÿæˆ
+	 * @return	ä¹±æ•°
 	*/
 	float				genrandf(void)
 	{
@@ -169,8 +169,8 @@ public:
 	}
 
 	/**
-	 * @brief	—”‚Ì¶¬
-	 * @return	—”
+	 * @brief	ä¹±æ•°ã®ç”Ÿæˆ
+	 * @return	ä¹±æ•°
 	*/
 	template<typename T>
 	T genrand(IUTEST_EXPLICIT_TEMPLATE_TYPE_(T))
@@ -204,7 +204,7 @@ template<> inline double	iuRandom::genrand<double>(IUTEST_EXPLICIT_TEMPLATE_TYPE
 #endif
 
 /**
- * @brief	Œ^w’è—”¶¬Ší
+ * @brief	å‹æŒ‡å®šä¹±æ•°ç”Ÿæˆå™¨
 */
 template<typename T>
 class iuTypedRandom

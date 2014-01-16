@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_ignore.hpp
- * @brief		iris unit test ignore test ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ignore test ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -25,10 +25,10 @@
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_TEST_IGNORE(testcase_, testname_)
- * @brief	ƒeƒXƒgŠÖ”’è‹`ƒ}ƒNƒ
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
- * @param	testname_	= ƒeƒXƒg–¼
- * @note	ignore ”Å‚Å‚ÍƒeƒXƒgƒR[ƒh‚ÌƒRƒ“ƒpƒCƒ‹‚ª’Ê‚ç‚È‚­‚Ä‚à–â‘è‚È‚¢
+ * @brief	ãƒ†ã‚¹ãƒˆé–¢æ•°å®šç¾©ãƒã‚¯ãƒ­
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
+ * @param	testname_	= ãƒ†ã‚¹ãƒˆå
+ * @note	ignore ç‰ˆã§ã¯ãƒ†ã‚¹ãƒˆã‚³ãƒ¼ãƒ‰ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ãŒé€šã‚‰ãªãã¦ã‚‚å•é¡Œãªã„
 */
 #define IUTEST_TEST_IGNORE(testcase_, testname_)	IUTEST_TEST_IGNORE_(testcase_, testname_, ::iutest::Test	\
 														, ::iutest::internal::GetTestTypeId())
@@ -36,10 +36,10 @@
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_TEST_IGNORE(testcase_, testname_)
- * @brief	ƒeƒXƒgŠÖ”’è‹`ƒ}ƒNƒ
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
- * @param	testname_	= ƒeƒXƒg–¼
- * @note	ignore ”Å‚Å‚ÍƒeƒXƒgƒR[ƒh‚ÌƒRƒ“ƒpƒCƒ‹‚ª’Ê‚ç‚È‚­‚Ä‚à–â‘è‚È‚¢
+ * @brief	ãƒ†ã‚¹ãƒˆé–¢æ•°å®šç¾©ãƒã‚¯ãƒ­
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
+ * @param	testname_	= ãƒ†ã‚¹ãƒˆå
+ * @note	ignore ç‰ˆã§ã¯ãƒ†ã‚¹ãƒˆã‚³ãƒ¼ãƒ‰ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ãŒé€šã‚‰ãªãã¦ã‚‚å•é¡Œãªã„
 */
 #define IUTEST_IGNORE(testcase_, testname_)			IUTEST_TEST_IGNORE(testcase_, testname_)
 
@@ -47,10 +47,10 @@
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_F_IGNORE(testfixture_, testname_)
- * @brief	ƒ†[ƒU[w’èƒeƒXƒgŠÖ”’è‹`ƒ}ƒNƒ
- * @param	testfixture_	= ƒeƒXƒgƒtƒBƒNƒXƒ`ƒƒ–¼
- * @param	testname_		= ƒeƒXƒg–¼
- * @note	ignore ”Å‚Å‚ÍƒeƒXƒgƒR[ƒh‚ÌƒRƒ“ƒpƒCƒ‹‚ª’Ê‚ç‚È‚­‚Ä‚à–â‘è‚È‚¢
+ * @brief	ãƒ¦ãƒ¼ã‚¶ãƒ¼æŒ‡å®šãƒ†ã‚¹ãƒˆé–¢æ•°å®šç¾©ãƒã‚¯ãƒ­
+ * @param	testfixture_	= ãƒ†ã‚¹ãƒˆãƒ•ã‚£ã‚¯ã‚¹ãƒãƒ£å
+ * @param	testname_		= ãƒ†ã‚¹ãƒˆå
+ * @note	ignore ç‰ˆã§ã¯ãƒ†ã‚¹ãƒˆã‚³ãƒ¼ãƒ‰ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ãŒé€šã‚‰ãªãã¦ã‚‚å•é¡Œãªã„
 */
 #define IUTEST_F_IGNORE(testfixture_, testname_)	IUTEST_TEST_F_IGNORE_(testfixture_, testname_)
 
@@ -59,10 +59,10 @@
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_P_IGNORE(testcase_, testname_)
- * @brief	ƒpƒ‰ƒ[ƒ^ƒ†[ƒU[w’èƒeƒXƒgŠÖ”’è‹`ƒ}ƒNƒ
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
- * @param	testname_	= ƒeƒXƒg–¼
- * @note	ignore ”Å‚Å‚ÍƒeƒXƒgƒR[ƒh‚ÌƒRƒ“ƒpƒCƒ‹‚ª’Ê‚ç‚È‚­‚Ä‚à–â‘è‚È‚¢
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¦ãƒ¼ã‚¶ãƒ¼æŒ‡å®šãƒ†ã‚¹ãƒˆé–¢æ•°å®šç¾©ãƒã‚¯ãƒ­
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
+ * @param	testname_	= ãƒ†ã‚¹ãƒˆå
+ * @note	ignore ç‰ˆã§ã¯ãƒ†ã‚¹ãƒˆã‚³ãƒ¼ãƒ‰ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ãŒé€šã‚‰ãªãã¦ã‚‚å•é¡Œãªã„
 */
 #define IUTEST_P_IGNORE(testcase_, testname_)				IIUT_TEST_P_IGNORE_(testcase_, testname_)
 
@@ -73,10 +73,10 @@
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_TYPED_TEST(testcase_, testname_)
- * @brief	Œ^•t‚¯ƒeƒXƒgŠÖ”’è‹`ƒ}ƒNƒ
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
- * @param	testname_	= ƒeƒXƒg–¼
- * @note	ignore ”Å‚Å‚ÍƒeƒXƒgƒR[ƒh‚ÌƒRƒ“ƒpƒCƒ‹‚ª’Ê‚ç‚È‚­‚Ä‚à–â‘è‚È‚¢
+ * @brief	å‹ä»˜ã‘ãƒ†ã‚¹ãƒˆé–¢æ•°å®šç¾©ãƒã‚¯ãƒ­
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
+ * @param	testname_	= ãƒ†ã‚¹ãƒˆå
+ * @note	ignore ç‰ˆã§ã¯ãƒ†ã‚¹ãƒˆã‚³ãƒ¼ãƒ‰ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ãŒé€šã‚‰ãªãã¦ã‚‚å•é¡Œãªã„
 */
 #define IUTEST_TYPED_TEST_IGNORE(testcase_, testname_)		IIUT_TYPED_TEST_IGNORE_(testcase_, testname_)
 
@@ -87,10 +87,10 @@
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_TYPED_TEST_P(testcase_, testname_)
- * @brief	Œ^ƒpƒ‰ƒ[ƒ^ƒeƒXƒgŠÖ”’è‹`ƒ}ƒNƒ
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
- * @param	testname_	= ƒeƒXƒg–¼
- * @note	ignore ”Å‚Å‚ÍƒeƒXƒgƒR[ƒh‚ÌƒRƒ“ƒpƒCƒ‹‚ª’Ê‚ç‚È‚­‚Ä‚à–â‘è‚È‚¢
+ * @brief	å‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ†ã‚¹ãƒˆé–¢æ•°å®šç¾©ãƒã‚¯ãƒ­
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
+ * @param	testname_	= ãƒ†ã‚¹ãƒˆå
+ * @note	ignore ç‰ˆã§ã¯ãƒ†ã‚¹ãƒˆã‚³ãƒ¼ãƒ‰ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ãŒé€šã‚‰ãªãã¦ã‚‚å•é¡Œãªã„
 */
 #define IUTEST_TYPED_TEST_P_IGNORE(testcase_, testname_)	IIUT_TYPED_TEST_P_IGNORE_(testcase_, testname_)
 

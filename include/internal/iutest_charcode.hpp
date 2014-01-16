@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_charcode.hpp
- * @brief		iris unit test •¶šƒR[ƒh‘Î‰ ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test æ–‡å­—ã‚³ãƒ¼ãƒ‰å¯¾å¿œ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -34,42 +34,42 @@ namespace detail
 //======================================================================
 // declare
 /**
- * @brief	ƒƒCƒh•¶š—ñ‚©‚çUTF8‚Ö•ÏŠ·
- * @param [in]	str	= “ü—Í
- * @param [in]	num = “ü—Íƒoƒbƒtƒ@ƒTƒCƒY
- * @return	UTF8 •¶š—ñ
+ * @brief	ãƒ¯ã‚¤ãƒ‰æ–‡å­—åˆ—ã‹ã‚‰UTF8ã¸å¤‰æ›
+ * @param [in]	str	= å…¥åŠ›
+ * @param [in]	num = å…¥åŠ›ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
+ * @return	UTF8 æ–‡å­—åˆ—
 */
 ::std::string WideStringToUTF8(const wchar_t* str, int num=-1);
 
 /**
-* @brief	ƒƒCƒh•¶š—ñ‚©‚çƒ}ƒ‹ƒ`ƒoƒCƒg‚Ö•ÏŠ·
-* @param [in]	str	= “ü—Í
-* @param [in]	num = “ü—Íƒoƒbƒtƒ@ƒTƒCƒY
-* @return	ƒ}ƒ‹ƒ`ƒoƒCƒg•¶š—ñ
+* @brief	ãƒ¯ã‚¤ãƒ‰æ–‡å­—åˆ—ã‹ã‚‰ãƒãƒ«ãƒãƒã‚¤ãƒˆã¸å¤‰æ›
+* @param [in]	str	= å…¥åŠ›
+* @param [in]	num = å…¥åŠ›ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
+* @return	ãƒãƒ«ãƒãƒã‚¤ãƒˆæ–‡å­—åˆ—
 */
 ::std::string WideStringToMultiByteString(const wchar_t* str, int num=-1);
 
 /**
-* @brief	ƒ}ƒ‹ƒ`ƒoƒCƒg•¶š‚©‚çUTF8‚Ö•ÏŠ·
-* @param [in]	str	= “ü—Í
-* @param [in]	num = “ü—Íƒoƒbƒtƒ@ƒTƒCƒY
-* @return	UTF8 •¶š—ñ
+* @brief	ãƒãƒ«ãƒãƒã‚¤ãƒˆæ–‡å­—ã‹ã‚‰UTF8ã¸å¤‰æ›
+* @param [in]	str	= å…¥åŠ›
+* @param [in]	num = å…¥åŠ›ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
+* @return	UTF8 æ–‡å­—åˆ—
 */
 ::std::string MultiByteStringToUTF8(const char* src, int num=-1);
 
 /**
-* @brief	ƒƒCƒh•¶š—ñ‚©‚ç ::std::string ‚Ö•ÏŠ·
-* @param [in]	wide_c_str	= “ü—Í
+* @brief	ãƒ¯ã‚¤ãƒ‰æ–‡å­—åˆ—ã‹ã‚‰ ::std::string ã¸å¤‰æ›
+* @param [in]	wide_c_str	= å…¥åŠ›
 * @return	string
 */
 ::std::string ShowWideCString(const wchar_t* wide_c_str);
 
 #if IUTEST_HAS_CXX_HDR_CODECVT
 /**
-* @brief	UTF16•¶š—ñ‚©‚çUTF8‚Ö•ÏŠ·
-* @param [in]	str	= “ü—Í
-* @param [in]	num = “ü—Íƒoƒbƒtƒ@ƒTƒCƒY
-* @return	UTF8 •¶š—ñ
+* @brief	UTF16æ–‡å­—åˆ—ã‹ã‚‰UTF8ã¸å¤‰æ›
+* @param [in]	str	= å…¥åŠ›
+* @param [in]	num = å…¥åŠ›ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
+* @return	UTF8 æ–‡å­—åˆ—
 */
 #if IUTEST_HAS_CHAR16_T
 ::std::string UTF16ToUTF8(const char16_t* str, int num=-1);

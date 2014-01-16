@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_switch_inform.hpp
- * @brief		INFORM ƒtƒŒ[ƒo[Ø‚è‘Ö‚¦ ƒtƒ@ƒCƒ‹
+ * @brief		INFORM ãƒ•ãƒ¬ãƒ¼ãƒãƒ¼åˆ‡ã‚Šæ›¿ãˆ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -109,13 +109,13 @@
 
 //======================================================================
 // define
-// INFORM ‘Î‰‚Ì‚½‚ß‚ÉA‰Šú‰»ŠÖ”‚ğŒÄ‚Ô
+// INFORM å¯¾å¿œã®ãŸã‚ã«ã€åˆæœŸåŒ–é–¢æ•°ã‚’å‘¼ã¶
 #ifdef RUN_ALL_TESTS
 #  undef RUN_ALL_TESTS
 #endif
 #define RUN_ALL_TESTS()			(::testing::inform_support::AppendInformSupportPrinter(), (::testing::UnitTest::GetInstance()->Run()))
 
-//	INFORM ‘Î‰
+//	INFORM å¯¾å¿œ
 #define GTEST_INFORM_FAILURE_(message) \
 	GTEST_MESSAGE_(message, ::testing::TestPartResult::kSuccess)
 
@@ -255,7 +255,7 @@ namespace inform_support
 
 			if( test_part_result.type() == TestPartResult::kSuccess )
 			{
-				// ¬Œ÷‚Ì‚Æ‚«‚Éo—Í
+				// æˆåŠŸã®ã¨ãã«å‡ºåŠ›
 				TestPartResult tmp(TestPartResult::kNonFatalFailure
 					, test_part_result.file_name()
 					, test_part_result.line_number()
@@ -266,7 +266,7 @@ namespace inform_support
 	};
 	inline void	AppendInformSupportPrinter(void)
 	{
-		// INFORM —p‚É printer ‚ğ’Ç‰Á
+		// INFORM ç”¨ã« printer ã‚’è¿½åŠ 
 		::testing::UnitTest::GetInstance()->listeners().Append( new DefaultPrinter() );
 	}
 }

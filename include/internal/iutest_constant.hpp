@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_constant.hpp
- * @brief		iris unit test ’è” ’è‹` ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test å®šæ•° å®šç¾© ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -28,12 +28,12 @@ namespace helper
 {
 
 /**
- * @brief	•¶š—ñ’è”
+ * @brief	æ–‡å­—åˆ—å®šæ•°
 */
 template<typename DMY>
 struct kStringsT
 {
-	static const char* const DefaultXmlReportFileName;	//!< ƒfƒtƒHƒ‹ƒg xml o—Íƒtƒ@ƒCƒ‹–¼
+	static const char* const DefaultXmlReportFileName;	//!< ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ xml å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«å
 	static const char* const UnkownFile;				//!< unkown file
 	static const char* const Null;						//!< NULL
 };
@@ -68,7 +68,7 @@ template struct kStringsT<void>;
 typedef helper::kStringsT<void>	kStrings;
 
 /**
- * @brief	’è”ŒQ
+ * @brief	å®šæ•°ç¾¤
 */
 struct kValues
 {

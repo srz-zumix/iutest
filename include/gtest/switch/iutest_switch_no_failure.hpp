@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_switch_no_failure.hpp
- * @brief		IUTEST_*_no_failure ƒAƒT[ƒVƒ‡ƒ“Ø‚è‘Ö‚¦ ƒtƒ@ƒCƒ‹
+ * @brief		IUTEST_*_no_failure ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³åˆ‡ã‚Šæ›¿ãˆ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */

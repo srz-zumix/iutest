@@ -1,4 +1,4 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_spi_switch.hpp
@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -40,7 +40,7 @@
 #include <gtest/gtest-spi.h>
 
 #if defined(_MSC_VER)
-// /ZI ƒIƒvƒVƒ‡ƒ“‚¾‚Æ __LINE__ ‚ª __LINE__Var+N(N‚Í”Ô†) ‚É‚È‚èƒRƒ“ƒpƒCƒ‹ƒGƒ‰[‚É‚È‚é‚½‚ß‚Ì‘Î‰
+// /ZI ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã ã¨ __LINE__ ãŒ __LINE__Var+N(Nã¯ç•ªå·) ã«ãªã‚Šã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã‚¨ãƒ©ãƒ¼ã«ãªã‚‹ãŸã‚ã®å¯¾å¿œ
 #  ifndef __LINE__Var
 #    define __LINE__Var	0
 #  endif

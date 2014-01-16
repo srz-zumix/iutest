@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_exception.hpp
- * @brief		iris unit test exception ’è‹` ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test exception
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,9 +31,9 @@ namespace detail
 {
 
 /**
- * @brief	C++—áŠOƒƒbƒZ[ƒW‚ÌƒtƒH[ƒ}ƒbƒg
- * @param [in]	description	= à–¾
- * @return	ƒƒbƒZ[ƒW
+ * @brief	C++ä¾‹å¤–ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+ * @param [in]	description	= èª¬æ˜
+ * @return	ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
 */
 inline ::std::string FormatCxxException(const char* description)
 {
@@ -60,7 +60,7 @@ namespace detail
 {
 
 /**
- * @brief	SEH —áŠO
+ * @brief	SEH ä¾‹å¤–
 */
 class seh_exception : public ::std::exception
 {
@@ -82,7 +82,7 @@ public:
 	static int should_process_through_break_and_cppexceptions(DWORD code)
 	{
 		bool should_handle = true;
-		// break point ‚Æ C++ —áŠO‚Íƒnƒ“ƒhƒŠƒ“ƒO‚µ‚È‚¢
+		// break point ã¨ C++ ä¾‹å¤–ã¯ãƒãƒ³ãƒ‰ãƒªãƒ³ã‚°ã—ãªã„
 		if( code == EXCEPTION_BREAKPOINT )
 			should_handle = false;
 		if( code == kCxxExceptionCode )
@@ -90,7 +90,7 @@ public:
 		return should_handle ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH;
 	}
 public:
-	static const DWORD kCxxExceptionCode = 0xe06d7363;	//!< c++ exception ƒR[ƒh
+	static const DWORD kCxxExceptionCode = 0xe06d7363;	//!< c++ exception ã‚³ãƒ¼ãƒ‰
 };
 
 }	// end of namespace detail

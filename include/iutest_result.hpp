@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_result.hpp
- * @brief		iris unit test result ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test result ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -35,100 +35,100 @@ namespace detail
 //======================================================================
 // class
 /**
- * @brief	ƒeƒXƒgŒ‹‰Ê‚Ì’Ê’mˆ—ƒCƒ“ƒ^[ƒtƒFƒCƒX
+ * @brief	ãƒ†ã‚¹ãƒˆçµæœã®é€šçŸ¥å‡¦ç†ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 */
 class TestPartResultReporterInterface
 {
 public:
 	virtual ~TestPartResultReporterInterface(void) {}
 	/**
-	 * @brief	ƒeƒXƒgŒ‹‰Ê’Ê’mó‚¯æ‚èŠÖ”
-	 * @param [in] result	= ƒeƒXƒgŒ‹‰Ê
+	 * @brief	ãƒ†ã‚¹ãƒˆçµæœé€šçŸ¥å—ã‘å–ã‚Šé–¢æ•°
+	 * @param [in] result	= ãƒ†ã‚¹ãƒˆçµæœ
 	*/
 	virtual void ReportTestPartResult(const TestPartResult& result)	= 0;
 };
 
 /**
- * @brief	ƒeƒXƒgŒ‹‰Ê‚ğ¦‚·ƒNƒ‰ƒX
+ * @brief	ãƒ†ã‚¹ãƒˆçµæœã‚’ç¤ºã™ã‚¯ãƒ©ã‚¹
 */
 class TestPartResult : public detail::iuCodeMessage
 {
 public:
 	/**
-	 * @brief	Œ‹‰Ê‚Ìƒ^ƒCƒv
+	 * @brief	çµæœã®ã‚¿ã‚¤ãƒ—
 	*/
 	enum Type
 	{
-		kAssumeFailure = -3,	//!< ‘O’ñğŒƒGƒ‰[
-		kSkip = -2,				//!< ƒXƒLƒbƒv
-		kWarning = -1,			//!< Œx
-		kSuccess,				//!< ¬Œ÷
-		kNonFatalFailure,		//!< ’v–½“I‚Å‚Í‚È‚¢¸”s
-		kFatalFailure			//!< ’v–½“I‚È¸”s
+		kAssumeFailure = -3,	//!< å‰ææ¡ä»¶ã‚¨ãƒ©ãƒ¼
+		kSkip = -2,				//!< ã‚¹ã‚­ãƒƒãƒ—
+		kWarning = -1,			//!< è­¦å‘Š
+		kSuccess,				//!< æˆåŠŸ
+		kNonFatalFailure,		//!< è‡´å‘½çš„ã§ã¯ãªã„å¤±æ•—
+		kFatalFailure			//!< è‡´å‘½çš„ãªå¤±æ•—
 	};
 public:
 	/**
-	 * @brief	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param [in]	file	= ƒtƒ@ƒCƒ‹–¼
-	 * @param [in]	line	= s”Ô†
-	 * @param [in]	message	= ƒƒbƒZ[ƒW
-	 * @param [in]	type	= Œ‹‰Ê‚Ìƒ^ƒCƒv
+	 * @brief	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param [in]	file	= ãƒ•ã‚¡ã‚¤ãƒ«å
+	 * @param [in]	line	= è¡Œç•ªå·
+	 * @param [in]	message	= ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+	 * @param [in]	type	= çµæœã®ã‚¿ã‚¤ãƒ—
 	*/
 	TestPartResult(const char* file, int line, const char* message, Type type)
 		: detail::iuCodeMessage(file, line, message), m_type(type) {}
-	//! ƒRƒs[ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//! ã‚³ãƒ”ãƒ¼ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	TestPartResult(const TestPartResult& rhs) : detail::iuCodeMessage(rhs)
 		, m_type(rhs.m_type) {}
 
 public:
 	/**
-	* @brief	¸”s‚©‚Ç‚¤‚©
+	* @brief	å¤±æ•—ã‹ã©ã†ã‹
 	*/
 	static bool type_is_failed(Type type) IUTEST_CXX_NOEXCEPT_SPEC { return type > kSuccess; }
 
 public:
 	/**
-	 * @brief	¸”s‚©‚Ç‚¤‚©
+	 * @brief	å¤±æ•—ã‹ã©ã†ã‹
 	*/
 	bool		failed(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type > kSuccess; }
 	/**
-	 * @brief	¬Œ÷‚©‚Ç‚¤‚©
+	 * @brief	æˆåŠŸã‹ã©ã†ã‹
 	*/
 	bool		passed(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return !failed(); }
 	/**
-	 * @brief	Œx‚©‚Ç‚¤‚©
+	 * @brief	è­¦å‘Šã‹ã©ã†ã‹
 	*/
 	bool		warning(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kWarning; }
 	/**
-	 * @brief	ƒXƒLƒbƒv‚©‚Ç‚¤‚©
+	 * @brief	ã‚¹ã‚­ãƒƒãƒ—ã‹ã©ã†ã‹
 	*/
 	bool		skipped(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kSkip; }
 	/**
-	 * @brief	‘O’ñğŒƒGƒ‰[‚©‚Ç‚¤‚©
+	 * @brief	å‰ææ¡ä»¶ã‚¨ãƒ©ãƒ¼ã‹ã©ã†ã‹
 	*/
 	bool		assume_failed(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kAssumeFailure; }
 	/**
-	 * @brief	¬Œ÷‚©‚Ç‚¤‚©iŒx‚ğœ‚­j
+	 * @brief	æˆåŠŸã‹ã©ã†ã‹ï¼ˆè­¦å‘Šã‚’é™¤ãï¼‰
 	*/
 	bool		succeeded(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kSuccess; }
 
 	/**
-	 * @brief	’v–½“I‚Å‚Í‚È‚¢¸”s‚©‚Ç‚¤‚©
+	 * @brief	è‡´å‘½çš„ã§ã¯ãªã„å¤±æ•—ã‹ã©ã†ã‹
 	*/
 	bool		nonfatally_failed(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kNonFatalFailure; }
 
 	/**
-	 * @brief	’v–½“I‚È¸”s‚©‚Ç‚¤‚©
+	 * @brief	è‡´å‘½çš„ãªå¤±æ•—ã‹ã©ã†ã‹
 	*/
 	bool		fatally_failed(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kFatalFailure; }
 
 	/**
-	 * @brief	——R
+	 * @brief	ç†ç”±
 	*/
 	const char*	summary(void) const { return message(); }
 
 	/**
-	 * @brief	Œ‹‰Ê‚Ìƒ^ƒCƒvæ“¾
+	 * @brief	çµæœã®ã‚¿ã‚¤ãƒ—å–å¾—
 	*/
 	Type		type(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_type; }
 
@@ -136,49 +136,49 @@ private:
 	Type	m_type;
 };
 
-//! TestPartResult print o—Í
+//! TestPartResult print å‡ºåŠ›
 inline iu_ostream& operator << (iu_ostream& os, const TestPartResult& result)
 {
 	return os << result.make_message();
 }
 
 /**
- * @brief	ƒeƒXƒgƒvƒƒpƒeƒB
- * @note	XML ‘®«
+ * @brief	ãƒ†ã‚¹ãƒˆãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
+ * @note	XML å±æ€§
 */
 class TestProperty
 {
 public:
 	/**
-	 * @brief	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param [in]	key		= ƒL[
-	 * @param [in]	value	= ’l
+	 * @brief	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param [in]	key		= ã‚­ãƒ¼
+	 * @param [in]	value	= å€¤
 	*/
 	TestProperty(const ::std::string& key, const ::std::string& value)
 		: m_key(key), m_value(value) {}
 
 public:
 	/**
-	 * @brief	’l‚Ìİ’è
+	 * @brief	å€¤ã®è¨­å®š
 	*/
 	void SetValue(const ::std::string& value) { m_value = value; }
-	const char*	key(void)	const	{ return m_key.c_str(); }	//!< ƒL[‚Ìæ“¾
-	const char*	value(void)	const	{ return m_value.c_str(); }	//!< ’l‚Ìæ“¾
+	const char*	key(void)	const	{ return m_key.c_str(); }	//!< ã‚­ãƒ¼ã®å–å¾—
+	const char*	value(void)	const	{ return m_value.c_str(); }	//!< å€¤ã®å–å¾—
 
 public:
 	/**
-	 * @brief	—LŒø‚ÈƒL[‚©‚Ç‚¤‚©ƒ`ƒFƒbƒN
-	 * @retval	true=—LŒø
-	 * @retval	false=–³Œø
+	 * @brief	æœ‰åŠ¹ãªã‚­ãƒ¼ã‹ã©ã†ã‹ãƒã‚§ãƒƒã‚¯
+	 * @retval	true=æœ‰åŠ¹
+	 * @retval	false=ç„¡åŠ¹
 	*/
 	bool Validate(const char** ban_list, size_t size) const
 	{
 		return ValidateName(m_key, ban_list, ban_list+size);
 	}
 	/**
-	 * @brief	—LŒø‚ÈƒL[‚©‚Ç‚¤‚©ƒ`ƒFƒbƒN
-	 * @retval	true=—LŒø
-	 * @retval	false=–³Œø
+	 * @brief	æœ‰åŠ¹ãªã‚­ãƒ¼ã‹ã©ã†ã‹ãƒã‚§ãƒƒã‚¯
+	 * @retval	true=æœ‰åŠ¹
+	 * @retval	false=ç„¡åŠ¹
 	*/
 	template<typename Ite>
 	static bool ValidateName(const ::std::string& name, Ite begin, Ite end)
@@ -201,7 +201,7 @@ private:
 };
 
 /**
- * @brief	ƒeƒXƒgŒ‹‰Ê‚ğ¦‚·ƒNƒ‰ƒX
+ * @brief	ãƒ†ã‚¹ãƒˆçµæœã‚’ç¤ºã™ã‚¯ãƒ©ã‚¹
 */
 class TestResult
 {
@@ -213,13 +213,13 @@ public:
 
 public:
 	/**
-	 * @brief	¬Œ÷‚µ‚½‚©‚Ç‚¤‚©
-	 * @return	^‹U’l
+	 * @brief	æˆåŠŸã—ãŸã‹ã©ã†ã‹
+	 * @return	çœŸå½å€¤
 	*/
 	bool		Passed(void) const		{ return !Failed(); }
 	/**
-	 * @brief	¸”s‚µ‚½‚©‚Ç‚¤‚©
-	 * @return	^‹U’l
+	 * @brief	å¤±æ•—ã—ãŸã‹ã©ã†ã‹
+	 * @return	çœŸå½å€¤
 	*/
 	bool		Failed(void) const
 	{
@@ -233,8 +233,8 @@ public:
 		return false;
 	}
 	/**
-	 * @brief	ƒXƒLƒbƒv‚µ‚½‚©‚Ç‚¤‚©
-	 * @return	^‹U’l
+	 * @brief	ã‚¹ã‚­ãƒƒãƒ—ã—ãŸã‹ã©ã†ã‹
+	 * @return	çœŸå½å€¤
 	*/
 	bool		Skipped(void) const
 	{
@@ -249,59 +249,59 @@ public:
 	}
 
 	/**
-	 * @brief	’v–½“I‚ÈƒGƒ‰[‚ª‚ ‚é‚©‚Ç‚¤‚©
-	 * @return	^‹U’l
+	 * @brief	è‡´å‘½çš„ãªã‚¨ãƒ©ãƒ¼ãŒã‚ã‚‹ã‹ã©ã†ã‹
+	 * @return	çœŸå½å€¤
 	*/
 	bool		HasFatalFailure(void)	const	{ return HasResult(TestPartResult::kFatalFailure); }
 
 	/**
-	 * @brief	’v–½“I‚Å‚È‚¢ƒGƒ‰[‚ª‚ ‚é‚©‚Ç‚¤‚©
-	 * @return	^‹U’l
+	 * @brief	è‡´å‘½çš„ã§ãªã„ã‚¨ãƒ©ãƒ¼ãŒã‚ã‚‹ã‹ã©ã†ã‹
+	 * @return	çœŸå½å€¤
 	*/
 	bool		HasNonfatalFailure(void)	const	{ return HasResult(TestPartResult::kNonFatalFailure); }
 
 	/**
-	 * @brief	‘O’ñğŒƒGƒ‰[‚ª‚ ‚é‚©‚Ç‚¤‚©
-	 * @return	^‹U’l
+	 * @brief	å‰ææ¡ä»¶ã‚¨ãƒ©ãƒ¼ãŒã‚ã‚‹ã‹ã©ã†ã‹
+	 * @return	çœŸå½å€¤
 	*/
 	bool		HasAssumeFailure(void)	const	{ return HasResult(TestPartResult::kAssumeFailure); }
 
 	/**
-	 * @brief	ƒeƒXƒg‚ÌÀsŠÔ‚Ìæ“¾
-	 * @return	ƒeƒXƒg‚ÌÀsŠÔ
+	 * @brief	ãƒ†ã‚¹ãƒˆã®å®Ÿè¡Œæ™‚é–“ã®å–å¾—
+	 * @return	ãƒ†ã‚¹ãƒˆã®å®Ÿè¡Œæ™‚é–“
 	*/
 	TimeInMillisec	elapsed_time(void)		const IUTEST_CXX_NOEXCEPT_SPEC { return m_elapsedmsec; }
 
 	/**
-	 * @brief	Œ‹‰Ê‚Ì”‚ğæ“¾
-	 * @return	Œ‹‰Ê‚Ì”
+	 * @brief	çµæœã®æ•°ã‚’å–å¾—
+	 * @return	çµæœã®æ•°
 	*/
 	int			total_part_count(void)		const	{ return static_cast<int>(m_test_part_results.size()); }
 
 	/**
-	 * @brief	ƒvƒƒpƒeƒB‘”‚Ìæ“¾
-	 * @return	‘”
+	 * @brief	ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ç·æ•°ã®å–å¾—
+	 * @return	ç·æ•°
 	*/
 	int			test_property_count(void)	const	{ return static_cast<int>(m_test_propertys.size()); }
 
 	/**
-	 * @brief	ƒeƒXƒgŒ‹‰Ê‚Ìæ“¾
-	 * @param [in]	index	= ƒCƒ“ƒfƒbƒNƒX
-	 * @return	ƒeƒXƒgŒ‹‰Ê
+	 * @brief	ãƒ†ã‚¹ãƒˆçµæœã®å–å¾—
+	 * @param [in]	index	= ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
+	 * @return	ãƒ†ã‚¹ãƒˆçµæœ
 	*/
 	const TestPartResult&	GetTestPartResult(int index) const	{ return m_test_part_results[index]; }
 
 	/**
-	 * @brief	ƒvƒƒpƒeƒB‚Ìæ“¾
-	 * @param [in]	index	= ƒCƒ“ƒfƒbƒNƒX
-	 * @return	ƒvƒƒpƒeƒB‚Ì
+	 * @brief	ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®å–å¾—
+	 * @param [in]	index	= ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
+	 * @return	ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®
 	*/
 	const TestProperty&		GetTestProperty(int index) const	{ return m_test_propertys[index]; }
 
 public:
 	/**
-	 * @brief	¸”s‚Ì”‚ğæ“¾
-	 * @return	¸”s‚Ì”
+	 * @brief	å¤±æ•—ã®æ•°ã‚’å–å¾—
+	 * @return	å¤±æ•—ã®æ•°
 	*/
 	int total_error_count(void) const
 	{

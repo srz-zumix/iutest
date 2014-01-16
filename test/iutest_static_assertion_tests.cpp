@@ -1,8 +1,8 @@
-//======================================================================
+Ôªø//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_static_assertion_tests.cpp
- * @brief		iutest StaticAssertTypeEq ÉAÉTÅ[ÉVÉáÉì test
+ * @brief		iutest StaticAssertTypeEq „Ç¢„Çµ„Éº„Ç∑„Éß„É≥ test
  *
  * @author		t.sirayanagi
  * @version		1.0

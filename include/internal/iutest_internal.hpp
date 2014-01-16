@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_internal.hpp
- * @brief		iris unit test “à•”’è‹` ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test å†…éƒ¨å®šç¾© ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -84,7 +84,7 @@
 															, ::iutest::internal::GetTypeId< IUTEST_TO_VARNAME_(testfixture_) >())
 /**
  * @internal
- * @brief	ƒeƒXƒgƒNƒ‰ƒX’è‹`ƒ}ƒNƒ
+ * @brief	ãƒ†ã‚¹ãƒˆã‚¯ãƒ©ã‚¹å®šç¾©ãƒã‚¯ãƒ­
 */
 #define IUTEST_TEST_(testcase_, testname_, parent_class_, type_id_)							\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {			\
@@ -100,8 +100,8 @@
 
 /**
  * @internal
- * @brief	ƒeƒXƒgƒNƒ‰ƒX’è‹`ƒ}ƒNƒ
- *			ŠÖ”‚Ì’†‚ÍƒRƒ“ƒpƒCƒ‹‚Å‚«‚È‚­‚Ä‚à‚æ‚¢
+ * @brief	ãƒ†ã‚¹ãƒˆã‚¯ãƒ©ã‚¹å®šç¾©ãƒã‚¯ãƒ­
+ *			é–¢æ•°ã®ä¸­ã¯ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã§ããªãã¦ã‚‚ã‚ˆã„
 */
 #define IUTEST_TEST_IGNORE_(testcase_, testname_, parent_class_, type_id_)					\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {			\
@@ -123,7 +123,7 @@
 #define IIUT_PMZ_TEST_CLASS_NAME_I_(testcase_, testname_)	IUTEST_PP_CAT( IUTEST_PP_CAT(iu_##testcase_##_x_Test_, testname_), __LINE__)
 /**
  * @internal
- * @brief	ƒpƒ‰ƒƒ^ƒ‰ƒCƒYƒeƒXƒg’è‹`ƒ}ƒNƒ
+ * @brief	ãƒ‘ãƒ©ãƒ¡ã‚¿ãƒ©ã‚¤ã‚ºãƒ†ã‚¹ãƒˆå®šç¾©ãƒã‚¯ãƒ­
 */
 #define IIUT_TEST_PMZ_(testcase_, testname_, method_, parent_class_, type_id_, ...)				\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_);										\
@@ -145,14 +145,14 @@
 
 /**
  * @internal
- * @brief	ASSERTION ƒƒbƒZ[ƒWˆ—
+ * @brief	ASSERTION ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡¦ç†
 */
 #define IUTEST_MESSAGE_AT(file_, line_, msg_, result_type_)	::iutest::AssertionHelper(file_, line_, msg_, result_type_) = ::iutest::AssertionHelper::Fixed()
 #define IUTEST_MESSAGE(msg_, result_type_)					IUTEST_MESSAGE_AT(__FILE__, __LINE__, msg_, result_type_)
 
 /**
  * @internal
- * @brief	ASSERT ƒƒbƒZ[ƒWˆ—
+ * @brief	ASSERT ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡¦ç†
 */
 #define IUTEST_ASSERT_FAILURE(msg)					IUTEST_ASSERT_FAILURE_AT(msg, __FILE__, __LINE__)
 
@@ -164,7 +164,7 @@
 
 /**
  * @internal
- * @brief	EXPECT ƒƒbƒZ[ƒWˆ—
+ * @brief	EXPECT ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡¦ç†
 */
 #define IUTEST_EXPECT_FAILURE(msg)					IUTEST_EXPECT_FAILURE_AT(msg, __FILE__, __LINE__)
 
@@ -172,7 +172,7 @@
 
 /**
  * @internal
- * @brief	INFORM ƒƒbƒZ[ƒWˆ—
+ * @brief	INFORM ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡¦ç†
 */
 #define IUTEST_INFORM_FAILURE(msg)					IUTEST_INFORM_FAILURE_AT(msg, __FILE__, __LINE__)
 
@@ -180,7 +180,7 @@
 
 /**
  * @internal
- * @brief	ASSUME ƒƒbƒZ[ƒWˆ—
+ * @brief	ASSUME ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡¦ç†
 */
 #define IUTEST_ASSUME_FAILURE(msg)					IUTEST_ASSUME_FAILURE_AT(msg, __FILE__, __LINE__)
 
@@ -192,7 +192,7 @@
 
 /**
 * @internal
-* @brief	SKIP ƒƒbƒZ[ƒWˆ—
+* @brief	SKIP ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡¦ç†
 */
 #define IUTEST_SKIP_MESSAGE(msg)					IUTEST_SKIP_MESSAGE_AT(msg, __FILE__, __LINE__)
 
@@ -208,7 +208,7 @@
 
 /**
  * @internal
- * @biref	”äŠrŒŸØƒ}ƒNƒ
+ * @biref	æ¯”è¼ƒæ¤œè¨¼ãƒã‚¯ãƒ­
 */
 #define IUTEST_TEST_ASSERT_(expression, on_failure)	\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_					\
@@ -220,7 +220,7 @@
 #if IUTEST_HAS_EXCEPTIONS
 /**
  * @internal
- * @brief	throw ƒeƒXƒg—pƒ}ƒNƒ
+ * @brief	throw ãƒ†ã‚¹ãƒˆç”¨ãƒã‚¯ãƒ­
 */
 #define IUTEST_TEST_THROW_(statement, expected_exception, on_failure)		\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
@@ -242,7 +242,7 @@
 
 /**
  * @internal
- * @brief	throw ƒeƒXƒg—pƒ}ƒNƒ
+ * @brief	throw ãƒ†ã‚¹ãƒˆç”¨ãƒã‚¯ãƒ­
 */
 #define IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure, pred_formatter)	\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_														\
@@ -279,7 +279,7 @@
 
 /**
  * @internal
- * @brief	any throw ƒeƒXƒg—pƒ}ƒNƒ
+ * @brief	any throw ãƒ†ã‚¹ãƒˆç”¨ãƒã‚¯ãƒ­
 */
 #define IUTEST_TEST_ANY_THROW_(statement, on_failure)						\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
@@ -295,7 +295,7 @@
 
 /**
  * @internal
- * @brief	no throw ƒeƒXƒg—pƒ}ƒNƒ
+ * @brief	no throw ãƒ†ã‚¹ãƒˆç”¨ãƒã‚¯ãƒ­
 */
 #define IUTEST_TEST_NO_THROW_(statement, on_failure)						\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
@@ -330,7 +330,7 @@
 
 /**
  * @internal
- * @brief	–¾¦“I‚È¸”s
+ * @brief	æ˜ç¤ºçš„ãªå¤±æ•—
 */
 #define IUTEST_ASSERT(cond)					do { if( !(cond) ) {												\
 												IUTEST_MESSAGE(#cond, ::iutest::TestPartResult::kFatalFailure);	\
@@ -344,14 +344,14 @@
 
 /**
  * @internal
- * @brief	ƒƒbƒZ[ƒWƒƒMƒ“ƒO
+ * @brief	ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ­ã‚®ãƒ³ã‚°
 */
 #define IIUT_SCOPED_MESSAGE(msg_)			\
 	const ::iutest::AssertionHelper::ScopedMessage IUTEST_PP_CAT(scoped_message_, IUTEST_PP_COUNTER) = ::iutest::detail::iuCodeMessage(__FILE__, __LINE__, ::iutest::Message() << (msg_))
 
 /**
  * @internal
- * @brief	IUTEST_ANALYSIS_ASSUME_ ‚ğ’Ê‚·
+ * @brief	IUTEST_ANALYSIS_ASSUME_ ã‚’é€šã™
 */
 #if defined(_MSC_VER) && _MSC_VER >= 1500
 
@@ -373,7 +373,7 @@
 
 /**
  * @internal
- * @brief	ƒeƒXƒgƒ}ƒNƒ
+ * @brief	ãƒ†ã‚¹ãƒˆãƒã‚¯ãƒ­
  * @{
 */
 #define	IUTEST_TEST_EQ(expected, actual, on_failure)	IUTEST_PRED_FORMAT2_( ::iutest::internal::EqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare, expected, actual, on_failure )

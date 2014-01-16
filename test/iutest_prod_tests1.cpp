@@ -1,4 +1,4 @@
-//======================================================================
+Ôªø//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_prod_tests1.cpp
@@ -32,7 +32,7 @@ namespace prod_test
 static ProdClass s_prod;
 static ProdClass2 s_prod2;
 
-// IUTEST_FRIEND_TEST ÇégÇ¡ÇƒÇÃÉAÉNÉZÉX
+// IUTEST_FRIEND_TEST „Çí‰Ωø„Å£„Å¶„ÅÆ„Ç¢„ÇØ„Çª„Çπ
 IUTEST(ProdTest, Friend)
 {
 	s_prod.SetX(1);
@@ -90,7 +90,7 @@ IUTEST_TYPED_TEST(ProdTypedTest, Friend)
 
 #if IUTEST_HAS_PEEP
 
-// peep ÇégÇ¡ÇƒÇÃÉAÉNÉZÉX
+// peep „Çí‰Ωø„Å£„Å¶„ÅÆ„Ç¢„ÇØ„Çª„Çπ
 IUTEST_MAKE_PEEP(int ProdClass::*, ProdClass, m_x);
 IUTEST_MAKE_PEEP(const int ProdClass::*, ProdClass, m_c);
 
@@ -138,10 +138,10 @@ IUTEST(ProdTest, PeepA1)
 
 IUTEST(ProdTest, PeepConst)
 {
-	// É}ÉNÉçî≈
+	// „Éû„ÇØ„É≠Áâà
 	IUTEST_EXPECT_EQ(42, IUTEST_PEEP_GET(s_prod, ProdClass, m_c));
 
-	// object î≈
+	// object Áâà
 	IUTEST_PEEP(ProdClass, m_c) prod_class_c(&s_prod);
 	IUTEST_EXPECT_EQ(42, prod_class_c);
 }
@@ -155,7 +155,7 @@ IUTEST(ProdTest, StaticPeep)
 
 	IUTEST_EXPECT_EQ(4, IUTEST_PEEP_STATIC_GET(ProdClass, m_y));
 
-	// object î≈
+	// object Áâà
 	IUTEST_PEEP(ProdClass, m_y) prod_class_y;
 	prod_class_y = 5;
 	IUTEST_EXPECT_EQ(5, ProdClass::GetY());
@@ -199,7 +199,7 @@ IUTEST(ProdTest, StaticPeepFunction)
 	IUTEST_PEEP_STATIC_GET(ProdClass, SetY)(100);
 	IUTEST_EXPECT_EQ(100, ProdClass::GetY());
 
-	// object î≈
+	// object Áâà
 	IUTEST_PEEP(ProdClass, SetY) peep;
 	peep(101);
 	IUTEST_EXPECT_EQ(101, ProdClass::GetY());
@@ -214,13 +214,13 @@ IUTEST(ProdTest, StaticPeepFunction)
 
 #if IUTEST_HAS_PEEP
 
-// peep ÇégÇ¡ÇƒÇÃÉAÉNÉZÉX
+// peep „Çí‰Ωø„Å£„Å¶„ÅÆ„Ç¢„ÇØ„Çª„Çπ
 IUTEST_MAKE_PEEP(int prod_test::ProdClass::*, prod_test::ProdClass, m_z);
 IUTEST_MAKE_PEEP(int prod_test::ProdClass::*, prod_test::ProdClass, m_x);
 
 IUTEST(ProdTest, ScopedPeep)
 {
-	// É}ÉNÉçî≈
+	// „Éû„ÇØ„É≠Áâà
 	{
 		IUTEST_PEEP_GET(prod_test::s_prod, prod_test::ProdClass, m_z) = 4;
 		IUTEST_EXPECT_EQ(4, prod_test::s_prod.GetZ());
@@ -234,7 +234,7 @@ IUTEST(ProdTest, ScopedPeep)
 		IUTEST_EXPECT_EQ(4, IUTEST_PEEP_GET(prod_test::s_prod, prod_test::ProdClass, m_x));
 	}
 
-	// object î≈
+	// object Áâà
 	{
 		IUTEST_PEEP(prod_test::ProdClass, m_z) prod_class_z(&prod_test::s_prod);
 		prod_class_z = 5;

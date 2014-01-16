@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest.hpp
- * @brief		iris unit test ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
  * 
@@ -40,16 +40,16 @@ namespace iutest
 //======================================================================
 // define
 /**
- * @defgroup	TESTDEF		ƒeƒXƒg’è‹`ƒ}ƒNƒ
- * @brief		ƒeƒXƒg’è‹`ƒ}ƒNƒ
+ * @defgroup	TESTDEF		ãƒ†ã‚¹ãƒˆå®šç¾©ãƒã‚¯ãƒ­
+ * @brief		ãƒ†ã‚¹ãƒˆå®šç¾©ãƒã‚¯ãƒ­
 */
 
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_TEST(testcase_, testname_)
- * @brief	ƒeƒXƒgŠÖ”’è‹`ƒ}ƒNƒ
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
- * @param	testname_	= ƒeƒXƒg–¼
+ * @brief	ãƒ†ã‚¹ãƒˆé–¢æ•°å®šç¾©ãƒã‚¯ãƒ­
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
+ * @param	testname_	= ãƒ†ã‚¹ãƒˆå
 */
 #define IUTEST_TEST(testcase_, testname_)			IUTEST_TEST_STRICT_(testcase_, testname_, ::iutest::Test	\
 														, ::iutest::internal::GetTestTypeId())
@@ -57,18 +57,18 @@ namespace iutest
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST(testcase_, testname_)
- * @brief	ƒeƒXƒgŠÖ”’è‹`ƒ}ƒNƒ
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
- * @param	testname_	= ƒeƒXƒg–¼
+ * @brief	ãƒ†ã‚¹ãƒˆé–¢æ•°å®šç¾©ãƒã‚¯ãƒ­
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
+ * @param	testname_	= ãƒ†ã‚¹ãƒˆå
 */
 #define IUTEST(testcase_, testname_)				IUTEST_TEST(testcase_, testname_)
 
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_F(testfixture_, testname_)
- * @brief	ƒ†[ƒU[w’èƒeƒXƒgŠÖ”’è‹`ƒ}ƒNƒ
- * @param	testfixture_	= ƒeƒXƒgƒtƒBƒNƒXƒ`ƒƒ–¼
- * @param	testname_		= ƒeƒXƒg–¼
+ * @brief	ãƒ¦ãƒ¼ã‚¶ãƒ¼æŒ‡å®šãƒ†ã‚¹ãƒˆé–¢æ•°å®šç¾©ãƒã‚¯ãƒ­
+ * @param	testfixture_	= ãƒ†ã‚¹ãƒˆãƒ•ã‚£ã‚¯ã‚¹ãƒãƒ£å
+ * @param	testname_		= ãƒ†ã‚¹ãƒˆå
 */
 #define IUTEST_F(testfixture_, testname_)			IUTEST_TEST_F_(testfixture_, testname_)
 
@@ -76,10 +76,10 @@ namespace iutest
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_PMZ(testcase_, testname_, method_, ...)
- * @brief	ƒpƒ‰ƒƒ^ƒ‰ƒCƒYŠÖ”ƒR[ƒ‹ƒeƒXƒg’è‹`ƒ}ƒNƒ
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
- * @param	testname_	= ƒeƒXƒg–¼
- * @param	method_		= ŠÖ”
+ * @brief	ãƒ‘ãƒ©ãƒ¡ã‚¿ãƒ©ã‚¤ã‚ºé–¢æ•°ã‚³ãƒ¼ãƒ«ãƒ†ã‚¹ãƒˆå®šç¾©ãƒã‚¯ãƒ­
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
+ * @param	testname_	= ãƒ†ã‚¹ãƒˆå
+ * @param	method_		= é–¢æ•°
 */
 #define IUTEST_PMZ(testcase_, testname_, method_, ...)	IIUT_TEST_PMZ_(testcase_, testname_, method_, ::iutest::Test	\
 														, ::iutest::internal::GetTestTypeId(), __VA_ARGS__)
@@ -87,10 +87,10 @@ namespace iutest
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_PMZ_F(testfixture_, testname_, method_, ...)
- * @brief	ƒpƒ‰ƒƒ^ƒ‰ƒCƒYŠÖ”ƒR[ƒ‹ƒeƒXƒg’è‹`ƒ}ƒNƒ
- * @param	testfixture_	= ƒeƒXƒgƒtƒBƒNƒXƒ`ƒƒ–¼
- * @param	testname_		= ƒeƒXƒg–¼
- * @param	method_			= ŠÖ”
+ * @brief	ãƒ‘ãƒ©ãƒ¡ã‚¿ãƒ©ã‚¤ã‚ºé–¢æ•°ã‚³ãƒ¼ãƒ«ãƒ†ã‚¹ãƒˆå®šç¾©ãƒã‚¯ãƒ­
+ * @param	testfixture_	= ãƒ†ã‚¹ãƒˆãƒ•ã‚£ã‚¯ã‚¹ãƒãƒ£å
+ * @param	testname_		= ãƒ†ã‚¹ãƒˆå
+ * @param	method_			= é–¢æ•°
 */
 #define IUTEST_PMZ_F(testfixture_, testname_, method_, ...)	IIUT_TEST_PMZ_(testfixture_, testname_, method_, testfixture_	\
 														, ::iutest::internal::GetTypeId< testfixture_ >(), __VA_ARGS__)
@@ -101,16 +101,16 @@ namespace iutest
 
 /**
  * @ingroup	TESTDEF
- * @brief	ƒeƒXƒg‚Ì•Ê–¼i“ú–{Œê‰Â”\j
- * @param	testname_		= ƒeƒXƒg–¼
+ * @brief	ãƒ†ã‚¹ãƒˆã®åˆ¥åï¼ˆæ—¥æœ¬èªå¯èƒ½ï¼‰
+ * @param	testname_		= ãƒ†ã‚¹ãƒˆå
 */
 #define IUTEST_ALIAS_TESTNAME(testname_)					IUTEST_ALIAS_TESTNAME_(testname_)
 
 /**
  * @ingroup	TESTDEF
- * @brief	ƒeƒXƒgƒtƒBƒNƒXƒ`ƒƒ—pƒeƒXƒg‚Ì•Ê–¼i“ú–{Œê‰Â”\j
- * @param	testfixture_	= ƒeƒXƒgƒtƒBƒNƒXƒ`ƒƒ–¼
- * @param	testname_		= ƒeƒXƒg–¼
+ * @brief	ãƒ†ã‚¹ãƒˆãƒ•ã‚£ã‚¯ã‚¹ãƒãƒ£ç”¨ãƒ†ã‚¹ãƒˆã®åˆ¥åï¼ˆæ—¥æœ¬èªå¯èƒ½ï¼‰
+ * @param	testfixture_	= ãƒ†ã‚¹ãƒˆãƒ•ã‚£ã‚¯ã‚¹ãƒãƒ£å
+ * @param	testname_		= ãƒ†ã‚¹ãƒˆå
 */
 #define IUTEST_ALIAS_TESTNAME_F(testfixture_, testname_)	IUTEST_ALIAS_TESTNAME_F_(testfixture_, testname_)
 
@@ -118,16 +118,16 @@ namespace iutest
 
  /**
  * @ingroup	TESTDEF
- * @brief	“ú–{ŒêƒeƒXƒg–¼
- * @param	testname_		= ƒeƒXƒg–¼
+ * @brief	æ—¥æœ¬èªãƒ†ã‚¹ãƒˆå
+ * @param	testname_		= ãƒ†ã‚¹ãƒˆå
 */
 #define IUTEST_JAPANESE_NAME(testname_)						IUTEST_ALIAS_TESTNAME(testname_)
 
 /**
  * @ingroup	TESTDEF
- * @brief	ƒeƒXƒgƒtƒBƒNƒXƒ`ƒƒ—p“ú–{ŒêƒeƒXƒg–¼
- * @param	testfixture_	= ƒeƒXƒgƒtƒBƒNƒXƒ`ƒƒ–¼
- * @param	testname_		= ƒeƒXƒg–¼
+ * @brief	ãƒ†ã‚¹ãƒˆãƒ•ã‚£ã‚¯ã‚¹ãƒãƒ£ç”¨æ—¥æœ¬èªãƒ†ã‚¹ãƒˆå
+ * @param	testfixture_	= ãƒ†ã‚¹ãƒˆãƒ•ã‚£ã‚¯ã‚¹ãƒãƒ£å
+ * @param	testname_		= ãƒ†ã‚¹ãƒˆå
 */
 #define IUTEST_JAPANESE_NAME_F(testfixture_, testname_)		IUTEST_ALIAS_TESTNAME_F(testfixture_, testname_)
 
@@ -137,35 +137,35 @@ namespace iutest
 
 /**
  * @ingroup	TESTDEF
- * @brief	iutest ‚Ì‰Šú‰»ˆ—
- * @param	argc_	= ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”‚Ì‘”
- * @param	argv_	= ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”
+ * @brief	iutest ã®åˆæœŸåŒ–å‡¦ç†
+ * @param	argc_	= ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³å¼•æ•°ã®ç·æ•°
+ * @param	argv_	= ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³å¼•æ•°
 */
 #define IUTEST_INIT(argc_, argv_)					::iutest::InitIrisUnitTest(argc_, argv_)
 
 /**
  * @ingroup	TESTDEF
- * @brief	‚·‚×‚Ä‚ÌƒeƒXƒg‚ğÀs‚·‚é
+ * @brief	ã™ã¹ã¦ã®ãƒ†ã‚¹ãƒˆã‚’å®Ÿè¡Œã™ã‚‹
 */
 #define IUTEST_RUN_ALL_TESTS()						::iutest::UnitTestSource::GetInstance().Run()
 
 
 /**
- * @defgroup	IUTEST_UTIL		ƒeƒXƒg‹Lq•â•
- * @brief		ƒeƒXƒg‹Lq•â•ƒ}ƒNƒ
+ * @defgroup	IUTEST_UTIL		ãƒ†ã‚¹ãƒˆè¨˜è¿°è£œåŠ©
+ * @brief		ãƒ†ã‚¹ãƒˆè¨˜è¿°è£œåŠ©ãƒã‚¯ãƒ­
 */
 
 /**
  * @ingroup		IUTEST_UTIL
- * @brief		ƒXƒR[ƒv“à‚ÌƒeƒXƒgƒƒbƒZ[ƒW‚Ö‚ÌƒƒbƒZ[ƒW’Ç‰Á
- * @param		msg	= ƒƒbƒZ[ƒW
+ * @brief		ã‚¹ã‚³ãƒ¼ãƒ—å†…ã®ãƒ†ã‚¹ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¸ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¿½åŠ 
+ * @param		msg	= ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
 */
 #define IUTEST_SCOPED_TRACE(msg)					IIUT_SCOPED_MESSAGE(msg)
 
 /**
  * @ingroup		IUTEST_UTIL
- * @brief		–¾¦“I‚È¬Œ÷
- * @details		–¾¦“I‚É¬Œ÷‚ğ•ñ‚µ‚Ü‚·
+ * @brief		æ˜ç¤ºçš„ãªæˆåŠŸ
+ * @details		æ˜ç¤ºçš„ã«æˆåŠŸã‚’å ±å‘Šã—ã¾ã™
 */
 #ifndef IUTEST_SUCCEED
 #  define IUTEST_SUCCEED()							IIUT_SUCCEED()
@@ -173,8 +173,8 @@ namespace iutest
 
 /**
  * @ingroup		IUTEST_UTIL
- * @brief		–¾¦“I‚È¸”s
- * @details		–¾¦“I‚É’v–½“I‚È¸”s‚ğ•ñ‚µ‚Ü‚·
+ * @brief		æ˜ç¤ºçš„ãªå¤±æ•—
+ * @details		æ˜ç¤ºçš„ã«è‡´å‘½çš„ãªå¤±æ•—ã‚’å ±å‘Šã—ã¾ã™
 */
 #ifndef IUTEST_FAIL
 #  define IUTEST_FAIL()								IIUT_FAIL()
@@ -182,8 +182,8 @@ namespace iutest
 
 /**
  * @ingroup		IUTEST_UTIL
- * @brief		–¾¦“I‚È¸”s
- * @details		–¾¦“I‚É’v–½“I‚Å‚È‚¢¸”s‚ğ•ñ‚µ‚Ü‚·
+ * @brief		æ˜ç¤ºçš„ãªå¤±æ•—
+ * @details		æ˜ç¤ºçš„ã«è‡´å‘½çš„ã§ãªã„å¤±æ•—ã‚’å ±å‘Šã—ã¾ã™
 */
 #ifndef IUTEST_ADD_FAILURE
 #  define IUTEST_ADD_FAILURE()						IIUT_ADD_FAILURE()
@@ -191,10 +191,10 @@ namespace iutest
 
 /**
  * @ingroup		IUTEST_UTIL
- * @brief		–¾¦“I‚È¸”s
- * @details		–¾¦“I‚É’v–½“I‚Å‚È‚¢¸”s‚ğ•ñ‚µ‚Ü‚·
- * @param		file	= ƒtƒ@ƒCƒ‹ƒpƒX
- * @param		line	= s”Ô†
+ * @brief		æ˜ç¤ºçš„ãªå¤±æ•—
+ * @details		æ˜ç¤ºçš„ã«è‡´å‘½çš„ã§ãªã„å¤±æ•—ã‚’å ±å‘Šã—ã¾ã™
+ * @param		file	= ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+ * @param		line	= è¡Œç•ªå·
 */
 #ifndef IUTEST_ADD_FAILURE_AT
 #  define IUTEST_ADD_FAILURE_AT(file, line)			IIUT_ADD_FAILURE_AT(file, line)
@@ -202,8 +202,8 @@ namespace iutest
 
 /**
  * @ingroup		IUTEST_UTIL
- * @brief		ƒeƒXƒg‚Ì–¾¦“I‚ÈƒXƒLƒbƒv
- * @details		–¾¦“I‚ÉƒXƒLƒbƒv‚ğ•ñ‚µ‚Ü‚·
+ * @brief		ãƒ†ã‚¹ãƒˆã®æ˜ç¤ºçš„ãªã‚¹ã‚­ãƒƒãƒ—
+ * @details		æ˜ç¤ºçš„ã«ã‚¹ã‚­ãƒƒãƒ—ã‚’å ±å‘Šã—ã¾ã™
 */
 #ifndef IUTEST_SKIP
 #  define IUTEST_SKIP()								IUTEST_TEST_SKIP()
@@ -211,56 +211,56 @@ namespace iutest
 
 
 /**
- * @defgroup	IUTEST_ASSERT_	ƒAƒT[ƒVƒ‡ƒ“(ASSERT)
- * @brief		ƒeƒXƒg‹Lqƒ}ƒNƒ
- * @details		¸”s‚µ‚½ê‡A‚»‚Ì“_‚ÅƒeƒXƒg‚©‚ç”²‚¯‚Ü‚·B
+ * @defgroup	IUTEST_ASSERT_	ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³(ASSERT)
+ * @brief		ãƒ†ã‚¹ãƒˆè¨˜è¿°ãƒã‚¯ãƒ­
+ * @details		å¤±æ•—ã—ãŸå ´åˆã€ãã®æ™‚ç‚¹ã§ãƒ†ã‚¹ãƒˆã‹ã‚‰æŠœã‘ã¾ã™ã€‚
 */
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	== ƒeƒXƒg
- * @param	expected	= Šú‘Ò’l
- * @param	actual		= ŒŸ¸‘ÎÛ
+ * @brief	== ãƒ†ã‚¹ãƒˆ
+ * @param	expected	= æœŸå¾…å€¤
+ * @param	actual		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_ASSERT_EQ
 #  define	IUTEST_ASSERT_EQ(expected, actual)		IUTEST_TEST_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	!= ƒeƒXƒg
- * @details	v1 ‚Æ v2 ‚ª“™‚µ‚­‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	!= ãƒ†ã‚¹ãƒˆ
+ * @details	v1 ã¨ v2 ãŒç­‰ã—ããªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSERT_NE
 #  define	IUTEST_ASSERT_NE(v1, v2)				IUTEST_TEST_NE(v1, v2, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	<= ƒeƒXƒg
- * @details	v1 <= v2 ‚ª¬‚è—§‚Â‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	<= ãƒ†ã‚¹ãƒˆ
+ * @details	v1 <= v2 ãŒæˆã‚Šç«‹ã¤ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSERT_LE
 #  define	IUTEST_ASSERT_LE(v1, v2)				IUTEST_TEST_LE(v1, v2, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	< ƒeƒXƒg
- * @details	v1 < v2 ‚ª¬‚è—§‚Â‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	< ãƒ†ã‚¹ãƒˆ
+ * @details	v1 < v2 ãŒæˆã‚Šç«‹ã¤ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSERT_LT
 #  define	IUTEST_ASSERT_LT(v1, v2)				IUTEST_TEST_LT(v1, v2, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	>= ƒeƒXƒg
- * @details	v1 >= v2 ‚ª¬‚è—§‚Â‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	>= ãƒ†ã‚¹ãƒˆ
+ * @details	v1 >= v2 ãŒæˆã‚Šç«‹ã¤ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSERT_GE
 #  define	IUTEST_ASSERT_GE(v1, v2)				IUTEST_TEST_GE(v1, v2, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	\> ƒeƒXƒg
- * @details	v1 > v2 ‚ª¬‚è—§‚Â‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	\> ãƒ†ã‚¹ãƒˆ
+ * @details	v1 > v2 ãŒæˆã‚Šç«‹ã¤ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSERT_GT
 #  define	IUTEST_ASSERT_GT(v1, v2)				IUTEST_TEST_GT(v1, v2, IUTEST_ASSERT_FAILURE)
@@ -268,8 +268,8 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	TRUE ƒeƒXƒg
- * @details	v ‚ª^‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	TRUE ãƒ†ã‚¹ãƒˆ
+ * @details	v ãŒçœŸã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSERT_TRUE
 #  ifndef IUTEST_NO_VARIADIC_MACROS
@@ -280,8 +280,8 @@ namespace iutest
 #endif
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	FALSE ƒeƒXƒg
- * @details	v ‚ª‹U‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	FALSE ãƒ†ã‚¹ãƒˆ
+ * @details	v ãŒå½ã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSERT_FALSE
 #  ifndef IUTEST_NO_VARIADIC_MACROS
@@ -293,16 +293,16 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	NULL ƒeƒXƒg
- * @details	v ‚ª NULL ‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	NULL ãƒ†ã‚¹ãƒˆ
+ * @details	v ãŒ NULL ã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSERT_NULL
 #  define	IUTEST_ASSERT_NULL(v)					IUTEST_TEST_NULL(v, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	NOT NULL ƒeƒXƒg
- * @details	v ‚ª NULL ‚Å‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	NOT NULL ãƒ†ã‚¹ãƒˆ
+ * @details	v ãŒ NULL ã§ãªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSERT_NOTNULL
 #  define	IUTEST_ASSERT_NOTNULL(v)				IUTEST_TEST_NOTNULL(v, IUTEST_ASSERT_FAILURE)
@@ -310,8 +310,8 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	ƒAƒhƒŒƒXˆê’v ƒeƒXƒg
- * @details	v1 ‚Æ v2 ‚ÌƒAƒhƒŒƒX‚ª“¯‚¶‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	ã‚¢ãƒ‰ãƒ¬ã‚¹ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @details	v1 ã¨ v2 ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ãŒåŒã˜ã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSERT_SAME
 #  define	IUTEST_ASSERT_SAME(v1, v2)				IUTEST_TEST_SAME(v1, v2, IUTEST_ASSERT_FAILURE)
@@ -319,18 +319,18 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	float ‚Ì”äŠr ƒeƒXƒg
- * @param	expected	= Šú‘Ò’l
- * @param	actual		= ŒŸ¸‘ÎÛ
+ * @brief	float ã®æ¯”è¼ƒ ãƒ†ã‚¹ãƒˆ
+ * @param	expected	= æœŸå¾…å€¤
+ * @param	actual		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_ASSERT_FLOAT_EQ
 #  define	IUTEST_ASSERT_FLOAT_EQ(expected, actual)	IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	double ‚Ì”äŠr ƒeƒXƒg
- * @param	expected	= Šú‘Ò’l
- * @param	actual		= ŒŸ¸‘ÎÛ
+ * @brief	double ã®æ¯”è¼ƒ ãƒ†ã‚¹ãƒˆ
+ * @param	expected	= æœŸå¾…å€¤
+ * @param	actual		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_ASSERT_DOUBLE_EQ
 #  define	IUTEST_ASSERT_DOUBLE_EQ(expected, actual)	IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
@@ -338,10 +338,10 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	‚Q’l‚Ì·‚Ì”ÍˆÍ ƒeƒXƒg
- * @param	v1		= ’l1
- * @param	v2		= ’l2
- * @param	abs_v	= v1 ‚Æ v2 ‚Ì·•ª‚ÌŠú‘Ò’l
+ * @brief	ï¼’å€¤ã®å·®ã®ç¯„å›² ãƒ†ã‚¹ãƒˆ
+ * @param	v1		= å€¤1
+ * @param	v2		= å€¤2
+ * @param	abs_v	= v1 ã¨ v2 ã®å·®åˆ†ã®æœŸå¾…å€¤
 */
 #ifndef IUTEST_ASSERT_NEAR
 #  define	IUTEST_ASSERT_NEAR(v1, v2, abs_v)		IUTEST_TEST_NEAR(v1, v2, abs_v, IUTEST_ASSERT_FAILURE)
@@ -349,17 +349,17 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	•¶š—ñ‚Ìˆê’v ƒeƒXƒg
- * @param	expected_str	= Šú‘Ò’l
- * @param	actual_str		= ŒŸ¸‘ÎÛ
+ * @brief	æ–‡å­—åˆ—ã®ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @param	expected_str	= æœŸå¾…å€¤
+ * @param	actual_str		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_ASSERT_STREQ
 #  define	IUTEST_ASSERT_STREQ(expected_str, actual_str)	IUTEST_TEST_STREQ(expected_str, actual_str, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	•¶š—ñ‚Ì•sˆê’v ƒeƒXƒg
- * @details	v1 ‚Æ v2 •¶š—ñ‚ªˆÙ‚È‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	æ–‡å­—åˆ—ã®ä¸ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @details	v1 ã¨ v2 æ–‡å­—åˆ—ãŒç•°ãªã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSERT_STRNE
 #  define	IUTEST_ASSERT_STRNE(v1, v2)				IUTEST_TEST_STRNE(v1, v2, IUTEST_ASSERT_FAILURE)
@@ -367,17 +367,17 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	•¶š—ñ‚Ìˆê’vi‘å•¶š¬•¶š‹æ•Ê‚È‚µj ƒeƒXƒg
- * @param	expected_str	= Šú‘Ò’l
- * @param	actual_str		= ŒŸ¸‘ÎÛ
+ * @brief	æ–‡å­—åˆ—ã®ä¸€è‡´ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰ ãƒ†ã‚¹ãƒˆ
+ * @param	expected_str	= æœŸå¾…å€¤
+ * @param	actual_str		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_ASSERT_STRCASEEQ
 #  define	IUTEST_ASSERT_STRCASEEQ(expected_str, actual_str)	IUTEST_TEST_STRCASEEQ(expected_str, actual_str, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	•¶š—ñ‚Ì•sˆê’vi‘å•¶š¬•¶š‹æ•Ê‚È‚µj ƒeƒXƒg
- * @details	v1 ‚Æ v2 •¶š—ñ‚ªˆÙ‚È‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·i‘å•¶š¬•¶š‹æ•Ê‚È‚µj
+ * @brief	æ–‡å­—åˆ—ã®ä¸ä¸€è‡´ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰ ãƒ†ã‚¹ãƒˆ
+ * @details	v1 ã¨ v2 æ–‡å­—åˆ—ãŒç•°ãªã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰
 */
 #ifndef IUTEST_ASSERT_STRCASENE
 #  define	IUTEST_ASSERT_STRCASENE(v1, v2)			IUTEST_TEST_STRCASENE(v1, v2, IUTEST_ASSERT_FAILURE)
@@ -385,16 +385,16 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	HRESULT ‚Ì¬Œ÷ ƒeƒXƒg
- * @details	HRESULT ‚ª¬Œ÷‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	HRESULT ã®æˆåŠŸ ãƒ†ã‚¹ãƒˆ
+ * @details	HRESULT ãŒæˆåŠŸã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSERT_HRESULT_SUCCEEDED
 #  define IUTEST_ASSERT_HRESULT_SUCCEEDED(hr)		IUTEST_TEST_HRESULT_SUCCEEDED(hr, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	HRESULT ‚Ì¸”s ƒeƒXƒg
- * @details	HRESULT ‚ª¸”s‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	HRESULT ã®å¤±æ•— ãƒ†ã‚¹ãƒˆ
+ * @details	HRESULT ãŒå¤±æ•—ã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSERT_HRESULT_FAILED
 #  define IUTEST_ASSERT_HRESULT_FAILED(hr)			IUTEST_TEST_HRESULT_FAILED(hr, IUTEST_ASSERT_FAILURE)
@@ -404,10 +404,10 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	throw ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚·‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement	= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception = Šú‘Ò‚·‚é—áŠO
+ * @brief	throw ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã™ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement	= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception = æœŸå¾…ã™ã‚‹ä¾‹å¤–
 */
 #ifndef IUTEST_ASSERT_THROW
 #  define IUTEST_ASSERT_THROW(statement, expected_exception)	\
@@ -416,11 +416,11 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	throw value == ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚µA‚»‚Ì’l‚ª expected_value ‚Æ“™‚µ‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement			= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception	= Šú‘Ò‚·‚é—áŠO
- * @param	expected_value		= Šú‘Ò’l
+ * @brief	throw value == ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã—ã€ãã®å€¤ãŒ expected_value ã¨ç­‰ã—ã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement			= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception	= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	expected_value		= æœŸå¾…å€¤
 */
 #ifndef IUTEST_ASSERT_THROW_VALUE_EQ
 #  define IUTEST_ASSERT_THROW_VALUE_EQ(statement, expected_exception, expected_value)	\
@@ -429,11 +429,11 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	throw value != ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚µA‚»‚Ì’l‚ª v ‚Æ“™‚µ‚­‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement			= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception	= Šú‘Ò‚·‚é—áŠO
- * @param	v					= ’l
+ * @brief	throw value != ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã—ã€ãã®å€¤ãŒ v ã¨ç­‰ã—ããªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement			= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception	= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	v					= å€¤
 */
 #ifndef IUTEST_ASSERT_THROW_VALUE_NE
 #  define IUTEST_ASSERT_THROW_VALUE_NE(statement, expected_exception, v)	\
@@ -442,11 +442,11 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	throw value •¶š—ñˆê’v ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚µA‚»‚Ì•¶š—ñ‚ª expected_str ‚Æ“™‚µ‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement			= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception	= Šú‘Ò‚·‚é—áŠO
- * @param	expected_str		= Šú‘Ò•¶š—ñ
+ * @brief	throw value æ–‡å­—åˆ—ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã—ã€ãã®æ–‡å­—åˆ—ãŒ expected_str ã¨ç­‰ã—ã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement			= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception	= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	expected_str		= æœŸå¾…æ–‡å­—åˆ—
 */
 #ifndef IUTEST_ASSERT_THROW_VALUE_STREQ
 #  define IUTEST_ASSERT_THROW_VALUE_STREQ(statement, expected_exception, expected_str)	\
@@ -455,11 +455,11 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	throw value •¶š—ñˆê’vi‘å•¶š¬•¶š‹æ•Ê‚È‚µj ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚µA‚»‚Ì•¶š—ñ‚ª expected_str ‚Æ“™‚µ‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·i‘å•¶š¬•¶š‹æ•Ê‚È‚µj
- * @param	statement			= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception	= Šú‘Ò‚·‚é—áŠO
- * @param	expected_str		= Šú‘Ò•¶š—ñ
+ * @brief	throw value æ–‡å­—åˆ—ä¸€è‡´ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰ ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã—ã€ãã®æ–‡å­—åˆ—ãŒ expected_str ã¨ç­‰ã—ã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰
+ * @param	statement			= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception	= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	expected_str		= æœŸå¾…æ–‡å­—åˆ—
 */
 #ifndef IUTEST_ASSERT_THROW_VALUE_STRCASEEQ
 #  define IUTEST_ASSERT_THROW_VALUE_STRCASEEQ(statement, expected_exception, expected_str)	\
@@ -468,9 +468,9 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	any throw ƒeƒXƒg
- * @details	statement ‚ª‰½‚ç‚©‚Ì—áŠO‚ğ“Š‚°‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement = ƒXƒe[ƒgƒƒ“ƒg
+ * @brief	any throw ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒä½•ã‚‰ã‹ã®ä¾‹å¤–ã‚’æŠ•ã’ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement = ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
 */
 #ifndef IUTEST_ASSERT_ANY_THROW
 #  define IUTEST_ASSERT_ANY_THROW(statement)		IUTEST_TEST_ANY_THROW_(statement, IUTEST_ASSERT_FAILURE)
@@ -478,9 +478,9 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	no throw ƒeƒXƒg
- * @details	statement ‚ª—áŠO‚ğ“Š‚°‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement = ƒXƒe[ƒgƒƒ“ƒg
+ * @brief	no throw ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒä¾‹å¤–ã‚’æŠ•ã’ãªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement = ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
 */
 #ifndef IUTEST_ASSERT_NO_THROW
 #  define IUTEST_ASSERT_NO_THROW(statement)			IUTEST_TEST_NO_THROW_(statement, IUTEST_ASSERT_FAILURE)
@@ -490,9 +490,9 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	no new failure ƒeƒXƒg
- * @details	statement ‚Å¸”s‚ª‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement = ƒXƒe[ƒgƒƒ“ƒg
+ * @brief	no new failure ãƒ†ã‚¹ãƒˆ
+ * @details	statement ã§å¤±æ•—ãŒãªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement = ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
 */
 #ifndef IUTEST_ASSERT_NO_FAILURE
 #  define IUTEST_ASSERT_NO_FAILURE(statement)		IUTEST_TEST_NO_FAILURE_(statement, IUTEST_ASSERT_FAILURE)
@@ -500,9 +500,9 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	no new fatal failure ƒeƒXƒg
- * @details	statement ‚Å’v–½“I‚È¸”s‚ª‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement = ƒXƒe[ƒgƒƒ“ƒg
+ * @brief	no new fatal failure ãƒ†ã‚¹ãƒˆ
+ * @details	statement ã§è‡´å‘½çš„ãªå¤±æ•—ãŒãªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement = ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
 */
 #ifndef IUTEST_ASSERT_NO_FATAL_FAILURE
 #  define IUTEST_ASSERT_NO_FATAL_FAILURE(statement)	IUTEST_TEST_NO_FATAL_FAILURE_(statement, IUTEST_ASSERT_FAILURE)
@@ -510,8 +510,8 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	–¾¦“I‚È¸”s
- * @details		–¾¦“I‚É’v–½“I‚È¸”s‚ğ•ñ‚µ‚Ü‚·
+ * @brief	æ˜ç¤ºçš„ãªå¤±æ•—
+ * @details		æ˜ç¤ºçš„ã«è‡´å‘½çš„ãªå¤±æ•—ã‚’å ±å‘Šã—ã¾ã™
 */
 #ifndef IUTEST_ASSERT_FAIL
 #  define IUTEST_ASSERT_FAIL()						IIUT_FAIL()
@@ -520,56 +520,56 @@ namespace iutest
 
 
 /**
- * @defgroup	IUTEST_EXPECT_		ƒAƒT[ƒVƒ‡ƒ“(EXPECT)
- * @brief		ƒeƒXƒg‹Lqƒ}ƒNƒ
- * @details		¸”s‚µ‚½ê‡‚Å‚àAƒeƒXƒg‚ğ‘±s‚µ‚Ü‚·B
+ * @defgroup	IUTEST_EXPECT_		ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³(EXPECT)
+ * @brief		ãƒ†ã‚¹ãƒˆè¨˜è¿°ãƒã‚¯ãƒ­
+ * @details		å¤±æ•—ã—ãŸå ´åˆã§ã‚‚ã€ãƒ†ã‚¹ãƒˆã‚’ç¶šè¡Œã—ã¾ã™ã€‚
 */
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	== ƒeƒXƒg
- * @param	expected	= Šú‘Ò’l
- * @param	actual		= ŒŸ¸‘ÎÛ
+ * @brief	== ãƒ†ã‚¹ãƒˆ
+ * @param	expected	= æœŸå¾…å€¤
+ * @param	actual		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_EXPECT_EQ
 #  define	IUTEST_EXPECT_EQ(expected, actual)		IUTEST_TEST_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	!= ƒeƒXƒg
- * @details	v1 ‚Æ v2 ‚ª“™‚µ‚­‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	!= ãƒ†ã‚¹ãƒˆ
+ * @details	v1 ã¨ v2 ãŒç­‰ã—ããªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_EXPECT_NE
 #  define	IUTEST_EXPECT_NE(v1, v2)				IUTEST_TEST_NE(v1, v2, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	<= ƒeƒXƒg
- * @details	v1 <= v2 ‚ª¬‚è—§‚Â‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	<= ãƒ†ã‚¹ãƒˆ
+ * @details	v1 <= v2 ãŒæˆã‚Šç«‹ã¤ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_EXPECT_LE
 #  define	IUTEST_EXPECT_LE(v1, v2)				IUTEST_TEST_LE(v1, v2, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	< ƒeƒXƒg
- * @details	v1 < v2 ‚ª¬‚è—§‚Â‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	< ãƒ†ã‚¹ãƒˆ
+ * @details	v1 < v2 ãŒæˆã‚Šç«‹ã¤ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_EXPECT_LT
 #  define	IUTEST_EXPECT_LT(v1, v2)				IUTEST_TEST_LT(v1, v2, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	>= ƒeƒXƒg
- * @details	v1 >= v2 ‚ª¬‚è—§‚Â‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	>= ãƒ†ã‚¹ãƒˆ
+ * @details	v1 >= v2 ãŒæˆã‚Šç«‹ã¤ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_EXPECT_GE
 #  define	IUTEST_EXPECT_GE(v1, v2)				IUTEST_TEST_GE(v1, v2, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	\> ƒeƒXƒg
- * @details	v1 > v2 ‚ª¬‚è—§‚Â‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	\> ãƒ†ã‚¹ãƒˆ
+ * @details	v1 > v2 ãŒæˆã‚Šç«‹ã¤ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_EXPECT_GT
 #  define	IUTEST_EXPECT_GT(v1, v2)				IUTEST_TEST_GT(v1, v2, IUTEST_EXPECT_FAILURE)
@@ -577,8 +577,8 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	TRUE ƒeƒXƒg
- * @details	v ‚ª^‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	TRUE ãƒ†ã‚¹ãƒˆ
+ * @details	v ãŒçœŸã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_EXPECT_TRUE
 #  ifndef IUTEST_NO_VARIADIC_MACROS
@@ -589,8 +589,8 @@ namespace iutest
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	FALSE ƒeƒXƒg
- * @details	v ‚ª‹U‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	FALSE ãƒ†ã‚¹ãƒˆ
+ * @details	v ãŒå½ã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_EXPECT_FALSE
 #  ifndef IUTEST_NO_VARIADIC_MACROS
@@ -602,16 +602,16 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	NULL ƒeƒXƒg
- * @details	v ‚ª NULL ‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	NULL ãƒ†ã‚¹ãƒˆ
+ * @details	v ãŒ NULL ã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_EXPECT_NULL
 #  define	IUTEST_EXPECT_NULL(v)					IUTEST_TEST_NULL(v, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	NOT NULL ƒeƒXƒg
- * @details	v ‚ª NULL ‚Å‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	NOT NULL ãƒ†ã‚¹ãƒˆ
+ * @details	v ãŒ NULL ã§ãªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_EXPECT_NOTNULL
 #  define	IUTEST_EXPECT_NOTNULL(v)				IUTEST_TEST_NOTNULL(v, IUTEST_EXPECT_FAILURE)
@@ -619,8 +619,8 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	ƒAƒhƒŒƒXˆê’v ƒeƒXƒg
- * @details	v1 ‚Æ v2 ‚ÌƒAƒhƒŒƒX‚ª“¯‚¶‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	ã‚¢ãƒ‰ãƒ¬ã‚¹ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @details	v1 ã¨ v2 ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ãŒåŒã˜ã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_EXPECT_SAME
 #  define	IUTEST_EXPECT_SAME(v1, v2)				IUTEST_TEST_SAME(v1, v2, IUTEST_EXPECT_FAILURE)
@@ -628,18 +628,18 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	float ‚Ì”äŠr ƒeƒXƒg
- * @param	expected	= Šú‘Ò’l
- * @param	actual		= ŒŸ¸‘ÎÛ
+ * @brief	float ã®æ¯”è¼ƒ ãƒ†ã‚¹ãƒˆ
+ * @param	expected	= æœŸå¾…å€¤
+ * @param	actual		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_EXPECT_FLOAT_EQ
 #  define	IUTEST_EXPECT_FLOAT_EQ(expected, actual)	IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	double ‚Ì”äŠr ƒeƒXƒg
- * @param	expected	= Šú‘Ò’l
- * @param	actual		= ŒŸ¸‘ÎÛ
+ * @brief	double ã®æ¯”è¼ƒ ãƒ†ã‚¹ãƒˆ
+ * @param	expected	= æœŸå¾…å€¤
+ * @param	actual		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_EXPECT_DOUBLE_EQ
 #  define	IUTEST_EXPECT_DOUBLE_EQ(expected, actual)	IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
@@ -647,10 +647,10 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	‚Q’l‚Ì·‚Ì”ÍˆÍ ƒeƒXƒg
- * @param	v1		= ’l1
- * @param	v2		= ’l2
- * @param	abs_v	= v1 ‚Æ v2 ‚Ì·•ª‚ÌŠú‘Ò’l
+ * @brief	ï¼’å€¤ã®å·®ã®ç¯„å›² ãƒ†ã‚¹ãƒˆ
+ * @param	v1		= å€¤1
+ * @param	v2		= å€¤2
+ * @param	abs_v	= v1 ã¨ v2 ã®å·®åˆ†ã®æœŸå¾…å€¤
 */
 #ifndef IUTEST_EXPECT_NEAR
 #  define	IUTEST_EXPECT_NEAR(v1, v2, abs_v)		IUTEST_TEST_NEAR(v1, v2, abs_v, IUTEST_EXPECT_FAILURE)
@@ -658,17 +658,17 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	•¶š—ñ‚Ìˆê’v ƒeƒXƒg
- * @param	expected_str	= Šú‘Ò’l
- * @param	actual_str		= ŒŸ¸‘ÎÛ
+ * @brief	æ–‡å­—åˆ—ã®ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @param	expected_str	= æœŸå¾…å€¤
+ * @param	actual_str		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_EXPECT_STREQ
 #  define	IUTEST_EXPECT_STREQ(expected_str, actual_str)	IUTEST_TEST_STREQ(expected_str, actual_str, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	•¶š—ñ‚Ì•sˆê’v ƒeƒXƒg
- * @details	v1 ‚Æ v2 •¶š—ñ‚ªˆÙ‚È‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	æ–‡å­—åˆ—ã®ä¸ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @details	v1 ã¨ v2 æ–‡å­—åˆ—ãŒç•°ãªã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_EXPECT_STRNE
 #  define	IUTEST_EXPECT_STRNE(v1, v2)				IUTEST_TEST_STRNE(v1, v2, IUTEST_EXPECT_FAILURE)
@@ -676,17 +676,17 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	•¶š—ñ‚Ìˆê’vi‘å•¶š¬•¶š‹æ•Ê‚È‚µj ƒeƒXƒg
- * @param	expected_str	= Šú‘Ò’l
- * @param	actual_str		= ŒŸ¸‘ÎÛ
+ * @brief	æ–‡å­—åˆ—ã®ä¸€è‡´ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰ ãƒ†ã‚¹ãƒˆ
+ * @param	expected_str	= æœŸå¾…å€¤
+ * @param	actual_str		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_EXPECT_STRCASEEQ
 #  define	IUTEST_EXPECT_STRCASEEQ(expected_str, actual_str)	IUTEST_TEST_STRCASEEQ(expected_str, actual_str, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	•¶š—ñ‚Ì•sˆê’vi‘å•¶š¬•¶š‹æ•Ê‚È‚µj ƒeƒXƒg
- * @details	v1 ‚Æ v2 •¶š—ñ‚ªˆÙ‚È‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·i‘å•¶š¬•¶š‹æ•Ê‚È‚µj
+ * @brief	æ–‡å­—åˆ—ã®ä¸ä¸€è‡´ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰ ãƒ†ã‚¹ãƒˆ
+ * @details	v1 ã¨ v2 æ–‡å­—åˆ—ãŒç•°ãªã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰
 */
 #ifndef IUTEST_EXPECT_STRCASENE
 #  define	IUTEST_EXPECT_STRCASENE(v1, v2)			IUTEST_TEST_STRCASENE(v1, v2, IUTEST_EXPECT_FAILURE)
@@ -694,16 +694,16 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	HRESULT ‚Ì¬Œ÷ ƒeƒXƒg
- * @details	HRESULT ‚ª¬Œ÷‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	HRESULT ã®æˆåŠŸ ãƒ†ã‚¹ãƒˆ
+ * @details	HRESULT ãŒæˆåŠŸã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_EXPECT_HRESULT_SUCCEEDED
 #  define IUTEST_EXPECT_HRESULT_SUCCEEDED(hr)		IUTEST_TEST_HRESULT_SUCCEEDED(hr, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	HRESULT ‚Ì¸”s ƒeƒXƒg
- * @details	HRESULT ‚ª¸”s‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	HRESULT ã®å¤±æ•— ãƒ†ã‚¹ãƒˆ
+ * @details	HRESULT ãŒå¤±æ•—ã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_EXPECT_HRESULT_FAILED
 #  define IUTEST_EXPECT_HRESULT_FAILED(hr)			IUTEST_TEST_HRESULT_FAILED(hr, IUTEST_EXPECT_FAILURE)
@@ -713,10 +713,10 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	throw ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚·‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement	= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception = Šú‘Ò‚·‚é—áŠO
+ * @brief	throw ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã™ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement	= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception = æœŸå¾…ã™ã‚‹ä¾‹å¤–
 */
 #ifndef IUTEST_EXPECT_THROW
 #  define IUTEST_EXPECT_THROW(statement, expected_exception)	\
@@ -725,11 +725,11 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	throw value == ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚µA‚»‚Ì’l‚ª expected_value ‚Æ“™‚µ‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement			= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception	= Šú‘Ò‚·‚é—áŠO
- * @param	expected_value		= Šú‘Ò’l
+ * @brief	throw value == ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã—ã€ãã®å€¤ãŒ expected_value ã¨ç­‰ã—ã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement			= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception	= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	expected_value		= æœŸå¾…å€¤
 */
 #ifndef IUTEST_EXPECT_THROW_VALUE_EQ
 #  define IUTEST_EXPECT_THROW_VALUE_EQ(statement, expected_exception, expected_value)	\
@@ -738,11 +738,11 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	throw value != ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚µA‚»‚Ì’l‚ª v ‚Æ“™‚µ‚­‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement			= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception	= Šú‘Ò‚·‚é—áŠO
- * @param	v					= ’l
+ * @brief	throw value != ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã—ã€ãã®å€¤ãŒ v ã¨ç­‰ã—ããªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement			= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception	= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	v					= å€¤
 */
 #ifndef IUTEST_EXPECT_THROW_VALUE_NE
 #  define IUTEST_EXPECT_THROW_VALUE_NE(statement, expected_exception, v)	\
@@ -751,11 +751,11 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	throw value •¶š—ñˆê’v ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚µA‚»‚Ì•¶š—ñ‚ª expected_str ‚Æ“™‚µ‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement			= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception	= Šú‘Ò‚·‚é—áŠO
- * @param	expected_str		= Šú‘Ò•¶š—ñ
+ * @brief	throw value æ–‡å­—åˆ—ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã—ã€ãã®æ–‡å­—åˆ—ãŒ expected_str ã¨ç­‰ã—ã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement			= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception	= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	expected_str		= æœŸå¾…æ–‡å­—åˆ—
 */
 #ifndef IUTEST_EXPECT_THROW_VALUE_STREQ
 #  define IUTEST_EXPECT_THROW_VALUE_STREQ(statement, expected_exception, expected_str)	\
@@ -764,11 +764,11 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	throw value •¶š—ñˆê’vi‘å•¶š¬•¶š‹æ•Ê‚È‚µj ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚µA‚»‚Ì•¶š—ñ‚ª expected_str ‚Æ“™‚µ‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·i‘å•¶š¬•¶š‹æ•Ê‚È‚µj
- * @param	statement			= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception	= Šú‘Ò‚·‚é—áŠO
- * @param	expected_str		= Šú‘Ò•¶š—ñ
+ * @brief	throw value æ–‡å­—åˆ—ä¸€è‡´ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰ ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã—ã€ãã®æ–‡å­—åˆ—ãŒ expected_str ã¨ç­‰ã—ã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰
+ * @param	statement			= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception	= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	expected_str		= æœŸå¾…æ–‡å­—åˆ—
 */
 #ifndef IUTEST_EXPECT_THROW_VALUE_STRCASEEQ
 #  define IUTEST_EXPECT_THROW_VALUE_STRCASEEQ(statement, expected_exception, expected_str)	\
@@ -777,9 +777,9 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	any throw ƒeƒXƒg
- * @details	statement ‚ª‰½‚ç‚©‚Ì—áŠO‚ğ“Š‚°‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement = ƒXƒe[ƒgƒƒ“ƒg
+ * @brief	any throw ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒä½•ã‚‰ã‹ã®ä¾‹å¤–ã‚’æŠ•ã’ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement = ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
 */
 #ifndef IUTEST_EXPECT_ANY_THROW
 #  define IUTEST_EXPECT_ANY_THROW(statement)		IUTEST_TEST_ANY_THROW_(statement, IUTEST_EXPECT_FAILURE)
@@ -787,9 +787,9 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	no throw ƒeƒXƒg
- * @details	statement ‚ª—áŠO‚ğ“Š‚°‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement = ƒXƒe[ƒgƒƒ“ƒg
+ * @brief	no throw ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒä¾‹å¤–ã‚’æŠ•ã’ãªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement = ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
 */
 #ifndef IUTEST_EXPECT_NO_THROW
 #  define IUTEST_EXPECT_NO_THROW(statement)			IUTEST_TEST_NO_THROW_(statement, IUTEST_EXPECT_FAILURE)
@@ -799,9 +799,9 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	no new failure ƒeƒXƒg
- * @details	statement ‚Å¸”s‚ª‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement = ƒXƒe[ƒgƒƒ“ƒg
+ * @brief	no new failure ãƒ†ã‚¹ãƒˆ
+ * @details	statement ã§å¤±æ•—ãŒãªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement = ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
 */
 #ifndef IUTEST_EXPECT_NO_FAILURE
 #  define IUTEST_EXPECT_NO_FAILURE(statement)		IUTEST_TEST_NO_FAILURE_(statement, IUTEST_EXPECT_FAILURE)
@@ -809,9 +809,9 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	no new fatal failure ƒeƒXƒg
- * @details	statement ‚Å’v–½“I‚È¸”s‚ª‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement = ƒXƒe[ƒgƒƒ“ƒg
+ * @brief	no new fatal failure ãƒ†ã‚¹ãƒˆ
+ * @details	statement ã§è‡´å‘½çš„ãªå¤±æ•—ãŒãªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement = ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
 */
 #ifndef IUTEST_EXPECT_NO_FATAL_FAILURE
 #  define IUTEST_EXPECT_NO_FATAL_FAILURE(statement)	IUTEST_TEST_NO_FATAL_FAILURE_(statement, IUTEST_EXPECT_FAILURE)
@@ -819,8 +819,8 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	–¾¦“I‚È¸”s
- * @details	–¾¦“I‚É’v–½“I‚Å‚È‚¢¸”s‚ğ•ñ‚µ‚Ü‚·
+ * @brief	æ˜ç¤ºçš„ãªå¤±æ•—
+ * @details	æ˜ç¤ºçš„ã«è‡´å‘½çš„ã§ãªã„å¤±æ•—ã‚’å ±å‘Šã—ã¾ã™
 */
 #ifndef IUTEST_EXPECT_FAIL
 #  define IUTEST_EXPECT_FAIL()						IIUT_ADD_FAILURE()
@@ -828,8 +828,8 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	–¾¦“I‚È¸”s
- * @details	–¾¦“I‚É’v–½“I‚Å‚È‚¢¸”s‚ğ•ñ‚µ‚Ü‚·
+ * @brief	æ˜ç¤ºçš„ãªå¤±æ•—
+ * @details	æ˜ç¤ºçš„ã«è‡´å‘½çš„ã§ãªã„å¤±æ•—ã‚’å ±å‘Šã—ã¾ã™
 */
 #ifndef IUTEST_EXPECT_FAIL_AT
 #  define IUTEST_EXPECT_FAIL_AT(file, line)			IIUT_ADD_FAILURE_AT(file, line)
@@ -838,56 +838,56 @@ namespace iutest
 
 
 /**
- * @defgroup	IUTEST_INFORM_		ƒAƒT[ƒVƒ‡ƒ“(INFORM)
- * @brief		ƒeƒXƒg‹Lqƒ}ƒNƒ
- * @details		¸”s‚µ‚½ê‡‚Å‚àAƒeƒXƒg¸”s‚Æ‚µ‚Ä‹L˜^‚µ‚Ü‚¹‚ñB‚Ü‚½AƒeƒXƒg‚Í‘±s‚µ‚Ü‚·B
+ * @defgroup	IUTEST_INFORM_		ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³(INFORM)
+ * @brief		ãƒ†ã‚¹ãƒˆè¨˜è¿°ãƒã‚¯ãƒ­
+ * @details		å¤±æ•—ã—ãŸå ´åˆã§ã‚‚ã€ãƒ†ã‚¹ãƒˆå¤±æ•—ã¨ã—ã¦è¨˜éŒ²ã—ã¾ã›ã‚“ã€‚ã¾ãŸã€ãƒ†ã‚¹ãƒˆã¯ç¶šè¡Œã—ã¾ã™ã€‚
 */
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	== ƒeƒXƒg
- * @param	expected	= Šú‘Ò’l
- * @param	actual		= ŒŸ¸‘ÎÛ
+ * @brief	== ãƒ†ã‚¹ãƒˆ
+ * @param	expected	= æœŸå¾…å€¤
+ * @param	actual		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_INFORM_EQ
 #  define	IUTEST_INFORM_EQ(expected, actual)		IUTEST_TEST_EQ(expected, actual, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	!= ƒeƒXƒg
- * @details	v1 ‚Æ v2 ‚ª“™‚µ‚­‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	!= ãƒ†ã‚¹ãƒˆ
+ * @details	v1 ã¨ v2 ãŒç­‰ã—ããªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_INFORM_NE
 #  define	IUTEST_INFORM_NE(v1, v2)				IUTEST_TEST_NE(v1, v2, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	<= ƒeƒXƒg
- * @details	v1 <= v2 ‚ª¬‚è—§‚Â‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	<= ãƒ†ã‚¹ãƒˆ
+ * @details	v1 <= v2 ãŒæˆã‚Šç«‹ã¤ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_INFORM_LE
 #  define	IUTEST_INFORM_LE(v1, v2)				IUTEST_TEST_LE(v1, v2, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	< ƒeƒXƒg
- * @details	v1 < v2 ‚ª¬‚è—§‚Â‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	< ãƒ†ã‚¹ãƒˆ
+ * @details	v1 < v2 ãŒæˆã‚Šç«‹ã¤ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_INFORM_LT
 #  define	IUTEST_INFORM_LT(v1, v2)				IUTEST_TEST_LT(v1, v2, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	>= ƒeƒXƒg
- * @details	v1 >= v2 ‚ª¬‚è—§‚Â‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	>= ãƒ†ã‚¹ãƒˆ
+ * @details	v1 >= v2 ãŒæˆã‚Šç«‹ã¤ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_INFORM_GE
 #  define	IUTEST_INFORM_GE(v1, v2)				IUTEST_TEST_GE(v1, v2, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	\> ƒeƒXƒg
- * @details	v1 > v2 ‚ª¬‚è—§‚Â‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	\> ãƒ†ã‚¹ãƒˆ
+ * @details	v1 > v2 ãŒæˆã‚Šç«‹ã¤ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_INFORM_GT
 #  define	IUTEST_INFORM_GT(v1, v2)				IUTEST_TEST_GT(v1, v2, IUTEST_INFORM_FAILURE)
@@ -895,8 +895,8 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	TRUE ƒeƒXƒg
- * @details	v ‚ª^‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	TRUE ãƒ†ã‚¹ãƒˆ
+ * @details	v ãŒçœŸã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_INFORM_TRUE
 #  ifndef IUTEST_NO_VARIADIC_MACROS
@@ -907,8 +907,8 @@ namespace iutest
 #endif
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	FALSE ƒeƒXƒg
- * @details	v ‚ª‹U‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	FALSE ãƒ†ã‚¹ãƒˆ
+ * @details	v ãŒå½ã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_INFORM_FALSE
 #  ifndef IUTEST_NO_VARIADIC_MACROS
@@ -920,16 +920,16 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	NULL ƒeƒXƒg
- * @details	v ‚ª NULL ‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	NULL ãƒ†ã‚¹ãƒˆ
+ * @details	v ãŒ NULL ã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_INFORM_NULL
 #  define	IUTEST_INFORM_NULL(v)					IUTEST_TEST_NULL(v, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	NOT NULL ƒeƒXƒg
- * @details	v ‚ª NULL ‚Å‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	NOT NULL ãƒ†ã‚¹ãƒˆ
+ * @details	v ãŒ NULL ã§ãªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_INFORM_NOTNULL
 #  define	IUTEST_INFORM_NOTNULL(v)				IUTEST_TEST_NOTNULL(v, IUTEST_INFORM_FAILURE)
@@ -937,8 +937,8 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	ƒAƒhƒŒƒXˆê’v ƒeƒXƒg
- * @details	v1 ‚Æ v2 ‚ÌƒAƒhƒŒƒX‚ª“¯‚¶‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	ã‚¢ãƒ‰ãƒ¬ã‚¹ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @details	v1 ã¨ v2 ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ãŒåŒã˜ã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_INFORM_SAME
 #  define	IUTEST_INFORM_SAME(v1, v2)				IUTEST_TEST_SAME(v1, v2, IUTEST_INFORM_FAILURE)
@@ -946,18 +946,18 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	float ‚Ì”äŠr ƒeƒXƒg
- * @param	expected	= Šú‘Ò’l
- * @param	actual		= ŒŸ¸‘ÎÛ
+ * @brief	float ã®æ¯”è¼ƒ ãƒ†ã‚¹ãƒˆ
+ * @param	expected	= æœŸå¾…å€¤
+ * @param	actual		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_INFORM_FLOAT_EQ
 #  define	IUTEST_INFORM_FLOAT_EQ(expected, actual)	IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	double ‚Ì”äŠr ƒeƒXƒg
- * @param	expected	= Šú‘Ò’l
- * @param	actual		= ŒŸ¸‘ÎÛ
+ * @brief	double ã®æ¯”è¼ƒ ãƒ†ã‚¹ãƒˆ
+ * @param	expected	= æœŸå¾…å€¤
+ * @param	actual		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_INFORM_DOUBLE_EQ
 #  define	IUTEST_INFORM_DOUBLE_EQ(expected, actual)	IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_INFORM_FAILURE)
@@ -965,10 +965,10 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	‚Q’l‚Ì·‚Ì”ÍˆÍ ƒeƒXƒg
- * @param	v1		= ’l1
- * @param	v2		= ’l2
- * @param	abs_v	= v1 ‚Æ v2 ‚Ì·•ª‚ÌŠú‘Ò’l
+ * @brief	ï¼’å€¤ã®å·®ã®ç¯„å›² ãƒ†ã‚¹ãƒˆ
+ * @param	v1		= å€¤1
+ * @param	v2		= å€¤2
+ * @param	abs_v	= v1 ã¨ v2 ã®å·®åˆ†ã®æœŸå¾…å€¤
 */
 #ifndef IUTEST_INFORM_NEAR
 #  define	IUTEST_INFORM_NEAR(v1, v2, abs_v)		IUTEST_TEST_NEAR(v1, v2, abs_v, IUTEST_INFORM_FAILURE)
@@ -976,17 +976,17 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	•¶š—ñ‚Ìˆê’v ƒeƒXƒg
- * @param	expected_str	= Šú‘Ò’l
- * @param	actual_str		= ŒŸ¸‘ÎÛ
+ * @brief	æ–‡å­—åˆ—ã®ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @param	expected_str	= æœŸå¾…å€¤
+ * @param	actual_str		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_INFORM_STREQ
 #  define	IUTEST_INFORM_STREQ(expected_str, actual_str)	IUTEST_TEST_STREQ(expected_str, actual_str, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	•¶š—ñ‚Ì•sˆê’v ƒeƒXƒg
- * @details	v1 ‚Æ v2 •¶š—ñ‚ªˆÙ‚È‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	æ–‡å­—åˆ—ã®ä¸ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @details	v1 ã¨ v2 æ–‡å­—åˆ—ãŒç•°ãªã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_INFORM_STRNE
 #  define	IUTEST_INFORM_STRNE(v1, v2)				IUTEST_TEST_STRNE(v1, v2, IUTEST_INFORM_FAILURE)
@@ -994,17 +994,17 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	•¶š—ñ‚Ìˆê’vi‘å•¶š¬•¶š‹æ•Ê‚È‚µj ƒeƒXƒg
- * @param	expected_str	= Šú‘Ò’l
- * @param	actual_str		= ŒŸ¸‘ÎÛ
+ * @brief	æ–‡å­—åˆ—ã®ä¸€è‡´ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰ ãƒ†ã‚¹ãƒˆ
+ * @param	expected_str	= æœŸå¾…å€¤
+ * @param	actual_str		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_INFORM_STRCASEEQ
 #  define	IUTEST_INFORM_STRCASEEQ(expected_str, actual_str)	IUTEST_TEST_STRCASEEQ(expected_str, actual_str, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	•¶š—ñ‚Ì•sˆê’vi‘å•¶š¬•¶š‹æ•Ê‚È‚µj ƒeƒXƒg
- * @details	v1 ‚Æ v2 •¶š—ñ‚ªˆÙ‚È‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·i‘å•¶š¬•¶š‹æ•Ê‚È‚µj
+ * @brief	æ–‡å­—åˆ—ã®ä¸ä¸€è‡´ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰ ãƒ†ã‚¹ãƒˆ
+ * @details	v1 ã¨ v2 æ–‡å­—åˆ—ãŒç•°ãªã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰
 */
 #ifndef IUTEST_INFORM_STRCASENE
 #  define	IUTEST_INFORM_STRCASENE(v1, v2)			IUTEST_TEST_STRCASENE(v1, v2, IUTEST_INFORM_FAILURE)
@@ -1012,16 +1012,16 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	HRESULT ‚Ì¬Œ÷ ƒeƒXƒg
- * @details	HRESULT ‚ª¬Œ÷‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	HRESULT ã®æˆåŠŸ ãƒ†ã‚¹ãƒˆ
+ * @details	HRESULT ãŒæˆåŠŸã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_INFORM_HRESULT_SUCCEEDED
 #  define IUTEST_INFORM_HRESULT_SUCCEEDED(hr)		IUTEST_TEST_HRESULT_SUCCEEDED(hr, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	HRESULT ‚Ì¸”s ƒeƒXƒg
- * @details	HRESULT ‚ª¸”s‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	HRESULT ã®å¤±æ•— ãƒ†ã‚¹ãƒˆ
+ * @details	HRESULT ãŒå¤±æ•—ã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_INFORM_HRESULT_FAILED
 #  define IUTEST_INFORM_HRESULT_FAILED(hr)			IUTEST_TEST_HRESULT_FAILED(hr, IUTEST_INFORM_FAILURE)
@@ -1031,10 +1031,10 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	throw ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚·‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement			= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception	= Šú‘Ò‚·‚é—áŠO
+ * @brief	throw ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã™ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement			= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception	= æœŸå¾…ã™ã‚‹ä¾‹å¤–
 */
 #ifndef IUTEST_INFORM_THROW
 #  define IUTEST_INFORM_THROW(statement, expected_exception)	\
@@ -1043,11 +1043,11 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	throw value == ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚µA‚»‚Ì’l‚ª expected_value ‚Æ“™‚µ‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement			= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception	= Šú‘Ò‚·‚é—áŠO
- * @param	expected_value		= Šú‘Ò’l
+ * @brief	throw value == ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã—ã€ãã®å€¤ãŒ expected_value ã¨ç­‰ã—ã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement			= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception	= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	expected_value		= æœŸå¾…å€¤
 */
 #ifndef IUTEST_INFORM_THROW_VALUE_EQ
 #  define IUTEST_INFORM_THROW_VALUE_EQ(statement, expected_exception, expected_value)	\
@@ -1056,11 +1056,11 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	throw value != ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚µA‚»‚Ì’l‚ª v ‚Æ“™‚µ‚­‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement			= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception	= Šú‘Ò‚·‚é—áŠO
- * @param	v					= ’l
+ * @brief	throw value != ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã—ã€ãã®å€¤ãŒ v ã¨ç­‰ã—ããªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement			= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception	= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	v					= å€¤
 */
 #ifndef IUTEST_INFORM_THROW_VALUE_NE
 #  define IUTEST_INFORM_THROW_VALUE_NE(statement, expected_exception, v)	\
@@ -1069,11 +1069,11 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	throw value •¶š—ñˆê’v ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚µA‚»‚Ì•¶š—ñ‚ª expected_str ‚Æ“™‚µ‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement			= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception	= Šú‘Ò‚·‚é—áŠO
- * @param	expected_str		= Šú‘Ò•¶š—ñ
+ * @brief	throw value æ–‡å­—åˆ—ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã—ã€ãã®æ–‡å­—åˆ—ãŒ expected_str ã¨ç­‰ã—ã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement			= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception	= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	expected_str		= æœŸå¾…æ–‡å­—åˆ—
 */
 #ifndef IUTEST_INFORM_THROW_VALUE_STREQ
 #  define IUTEST_INFORM_THROW_VALUE_STREQ(statement, expected_exception, expected_str)	\
@@ -1082,11 +1082,11 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	throw value •¶š—ñˆê’vi‘å•¶š¬•¶š‹æ•Ê‚È‚µj ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚µA‚»‚Ì•¶š—ñ‚ª expected_str ‚Æ“™‚µ‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·i‘å•¶š¬•¶š‹æ•Ê‚È‚µj
- * @param	statement			= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception	= Šú‘Ò‚·‚é—áŠO
- * @param	expected_str		= Šú‘Ò•¶š—ñ
+ * @brief	throw value æ–‡å­—åˆ—ä¸€è‡´ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰ ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã—ã€ãã®æ–‡å­—åˆ—ãŒ expected_str ã¨ç­‰ã—ã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰
+ * @param	statement			= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception	= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	expected_str		= æœŸå¾…æ–‡å­—åˆ—
 */
 #ifndef IUTEST_INFORM_THROW_VALUE_STRCASEEQ
 #  define IUTEST_INFORM_THROW_VALUE_STRCASEEQ(statement, expected_exception, expected_str)	\
@@ -1095,9 +1095,9 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	any throw ƒeƒXƒg
- * @details	statement ‚ª‰½‚ç‚©‚Ì—áŠO‚ğ“Š‚°‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement = ƒXƒe[ƒgƒƒ“ƒg
+ * @brief	any throw ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒä½•ã‚‰ã‹ã®ä¾‹å¤–ã‚’æŠ•ã’ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement = ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
 */
 #ifndef IUTEST_INFORM_ANY_THROW
 #  define IUTEST_INFORM_ANY_THROW(statement)		IUTEST_TEST_ANY_THROW_(statement, IUTEST_INFORM_FAILURE)
@@ -1105,9 +1105,9 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	no throw ƒeƒXƒg
- * @details	statement ‚ª—áŠO‚ğ“Š‚°‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement = ƒXƒe[ƒgƒƒ“ƒg
+ * @brief	no throw ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒä¾‹å¤–ã‚’æŠ•ã’ãªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement = ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
 */
 #ifndef IUTEST_INFORM_NO_THROW
 #  define IUTEST_INFORM_NO_THROW(statement)			IUTEST_TEST_NO_THROW_(statement, IUTEST_INFORM_FAILURE)
@@ -1117,9 +1117,9 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	no new failure ƒeƒXƒg
- * @details	statement ‚Å¸”s‚ª‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement = ƒXƒe[ƒgƒƒ“ƒg
+ * @brief	no new failure ãƒ†ã‚¹ãƒˆ
+ * @details	statement ã§å¤±æ•—ãŒãªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement = ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
 */
 #ifndef IUTEST_INFORM_NO_FAILURE
 #  define IUTEST_INFORM_NO_FAILURE(statement)		IUTEST_TEST_NO_FAILURE_(statement, IUTEST_INFORM_FAILURE)
@@ -1127,65 +1127,65 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	no new fatal failure ƒeƒXƒg
- * @details	statement ‚Å’v–½“I‚È¸”s‚ª‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement = ƒXƒe[ƒgƒƒ“ƒg
+ * @brief	no new fatal failure ãƒ†ã‚¹ãƒˆ
+ * @details	statement ã§è‡´å‘½çš„ãªå¤±æ•—ãŒãªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement = ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
 */
 #ifndef IUTEST_INFORM_NO_FATAL_FAILURE
 #  define IUTEST_INFORM_NO_FATAL_FAILURE(statement)	IUTEST_TEST_NO_FATAL_FAILURE_(statement, IUTEST_INFORM_FAILURE)
 #endif
 
 /**
- * @defgroup	IUTEST_ASSUME_		ƒAƒT[ƒVƒ‡ƒ“(ASSUME)
- * @brief		‘O’ñƒeƒXƒg‹Lqƒ}ƒNƒ
- * @details		ƒeƒXƒg‚Ì‘O’ñŒŸØ—pƒ}ƒNƒ‚Å‚·B¸”s‚µ‚½ê‡AˆÈ~‚Ìˆ—‚ğs‚í‚¸ƒeƒXƒg‚ÍƒXƒLƒbƒv‚³‚ê‚Ü‚·B
+ * @defgroup	IUTEST_ASSUME_		ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³(ASSUME)
+ * @brief		å‰æãƒ†ã‚¹ãƒˆè¨˜è¿°ãƒã‚¯ãƒ­
+ * @details		ãƒ†ã‚¹ãƒˆã®å‰ææ¤œè¨¼ç”¨ãƒã‚¯ãƒ­ã§ã™ã€‚å¤±æ•—ã—ãŸå ´åˆã€ä»¥é™ã®å‡¦ç†ã‚’è¡Œã‚ãšãƒ†ã‚¹ãƒˆã¯ã‚¹ã‚­ãƒƒãƒ—ã•ã‚Œã¾ã™ã€‚
 */
 
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	== ƒeƒXƒg
- * @param	expected	= Šú‘Ò’l
- * @param	actual		= ŒŸ¸‘ÎÛ
+ * @brief	== ãƒ†ã‚¹ãƒˆ
+ * @param	expected	= æœŸå¾…å€¤
+ * @param	actual		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_ASSUME_EQ
 #  define	IUTEST_ASSUME_EQ(expected, actual)		IUTEST_TEST_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	!= ƒeƒXƒg
- * @details	v1 ‚Æ v2 ‚ª“™‚µ‚­‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	!= ãƒ†ã‚¹ãƒˆ
+ * @details	v1 ã¨ v2 ãŒç­‰ã—ããªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSUME_NE
 #  define	IUTEST_ASSUME_NE(v1, v2)				IUTEST_TEST_NE(v1, v2, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	<= ƒeƒXƒg
- * @details	v1 <= v2 ‚ª¬‚è—§‚Â‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	<= ãƒ†ã‚¹ãƒˆ
+ * @details	v1 <= v2 ãŒæˆã‚Šç«‹ã¤ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSUME_LE
 #  define	IUTEST_ASSUME_LE(v1, v2)				IUTEST_TEST_LE(v1, v2, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	< ƒeƒXƒg
- * @details	v1 < v2 ‚ª¬‚è—§‚Â‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	< ãƒ†ã‚¹ãƒˆ
+ * @details	v1 < v2 ãŒæˆã‚Šç«‹ã¤ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSUME_LT
 #  define	IUTEST_ASSUME_LT(v1, v2)				IUTEST_TEST_LT(v1, v2, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	>= ƒeƒXƒg
- * @details	v1 >= v2 ‚ª¬‚è—§‚Â‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	>= ãƒ†ã‚¹ãƒˆ
+ * @details	v1 >= v2 ãŒæˆã‚Šç«‹ã¤ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSUME_GE
 #  define	IUTEST_ASSUME_GE(v1, v2)				IUTEST_TEST_GE(v1, v2, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	\> ƒeƒXƒg
- * @details	v1 > v2 ‚ª¬‚è—§‚Â‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	\> ãƒ†ã‚¹ãƒˆ
+ * @details	v1 > v2 ãŒæˆã‚Šç«‹ã¤ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSUME_GT
 #  define	IUTEST_ASSUME_GT(v1, v2)				IUTEST_TEST_GT(v1, v2, IUTEST_ASSUME_FAILURE)
@@ -1193,8 +1193,8 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	TRUE ƒeƒXƒg
- * @details	v ‚ª^‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	TRUE ãƒ†ã‚¹ãƒˆ
+ * @details	v ãŒçœŸã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSUME_TRUE
 #  ifndef IUTEST_NO_VARIADIC_MACROS
@@ -1205,8 +1205,8 @@ namespace iutest
 #endif
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	FALSE ƒeƒXƒg
- * @details	v ‚ª‹U‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	FALSE ãƒ†ã‚¹ãƒˆ
+ * @details	v ãŒå½ã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSUME_FALSE
 #  ifndef IUTEST_NO_VARIADIC_MACROS
@@ -1218,16 +1218,16 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	NULL ƒeƒXƒg
- * @details	v ‚ª NULL ‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	NULL ãƒ†ã‚¹ãƒˆ
+ * @details	v ãŒ NULL ã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSUME_NULL
 #  define	IUTEST_ASSUME_NULL(v)					IUTEST_TEST_NULL(v, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	NOT NULL ƒeƒXƒg
- * @details	v ‚ª NULL ‚Å‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	NOT NULL ãƒ†ã‚¹ãƒˆ
+ * @details	v ãŒ NULL ã§ãªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSUME_NOTNULL
 #  define	IUTEST_ASSUME_NOTNULL(v)				IUTEST_TEST_NOTNULL(v, IUTEST_ASSUME_FAILURE)
@@ -1235,8 +1235,8 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	ƒAƒhƒŒƒXˆê’v ƒeƒXƒg
- * @details	v1 ‚Æ v2 ‚ÌƒAƒhƒŒƒX‚ª“¯‚¶‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	ã‚¢ãƒ‰ãƒ¬ã‚¹ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @details	v1 ã¨ v2 ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ãŒåŒã˜ã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSUME_SAME
 #  define	IUTEST_ASSUME_SAME(v1, v2)				IUTEST_TEST_SAME(v1, v2, IUTEST_ASSUME_FAILURE)
@@ -1244,18 +1244,18 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	float ‚Ì”äŠr ƒeƒXƒg
- * @param	expected	= Šú‘Ò’l
- * @param	actual		= ŒŸ¸‘ÎÛ
+ * @brief	float ã®æ¯”è¼ƒ ãƒ†ã‚¹ãƒˆ
+ * @param	expected	= æœŸå¾…å€¤
+ * @param	actual		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_ASSUME_FLOAT_EQ
 #  define	IUTEST_ASSUME_FLOAT_EQ(expected, actual)	IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	double ‚Ì”äŠr ƒeƒXƒg
- * @param	expected	= Šú‘Ò’l
- * @param	actual		= ŒŸ¸‘ÎÛ
+ * @brief	double ã®æ¯”è¼ƒ ãƒ†ã‚¹ãƒˆ
+ * @param	expected	= æœŸå¾…å€¤
+ * @param	actual		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_ASSUME_DOUBLE_EQ
 #  define	IUTEST_ASSUME_DOUBLE_EQ(expected, actual)	IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
@@ -1263,10 +1263,10 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	‚Q’l‚Ì·‚Ì”ÍˆÍ ƒeƒXƒg
- * @param	v1		= ’l1
- * @param	v2		= ’l2
- * @param	abs_v	= v1 ‚Æ v2 ‚Ì·•ª‚ÌŠú‘Ò’l
+ * @brief	ï¼’å€¤ã®å·®ã®ç¯„å›² ãƒ†ã‚¹ãƒˆ
+ * @param	v1		= å€¤1
+ * @param	v2		= å€¤2
+ * @param	abs_v	= v1 ã¨ v2 ã®å·®åˆ†ã®æœŸå¾…å€¤
 */
 #ifndef IUTEST_ASSUME_NEAR
 #  define	IUTEST_ASSUME_NEAR(v1, v2, abs_v)		IUTEST_TEST_NEAR(v1, v2, abs_v, IUTEST_ASSUME_FAILURE)
@@ -1274,17 +1274,17 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	•¶š—ñ‚Ìˆê’v ƒeƒXƒg
- * @param	expected_str	= Šú‘Ò’l
- * @param	actual_str		= ŒŸ¸‘ÎÛ
+ * @brief	æ–‡å­—åˆ—ã®ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @param	expected_str	= æœŸå¾…å€¤
+ * @param	actual_str		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_ASSUME_STREQ
 #  define	IUTEST_ASSUME_STREQ(expected_str, actual_str)	IUTEST_TEST_STREQ(expected_str, actual_str, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	•¶š—ñ‚Ì•sˆê’v ƒeƒXƒg
- * @details	v1 ‚Æ v2 •¶š—ñ‚ªˆÙ‚È‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	æ–‡å­—åˆ—ã®ä¸ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @details	v1 ã¨ v2 æ–‡å­—åˆ—ãŒç•°ãªã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSUME_STRNE
 #  define	IUTEST_ASSUME_STRNE(v1, v2)				IUTEST_TEST_STRNE(v1, v2, IUTEST_ASSUME_FAILURE)
@@ -1292,17 +1292,17 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	•¶š—ñ‚Ìˆê’vi‘å•¶š¬•¶š‹æ•Ê‚È‚µj ƒeƒXƒg
- * @param	expected_str	= Šú‘Ò’l
- * @param	actual_str		= ŒŸ¸‘ÎÛ
+ * @brief	æ–‡å­—åˆ—ã®ä¸€è‡´ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰ ãƒ†ã‚¹ãƒˆ
+ * @param	expected_str	= æœŸå¾…å€¤
+ * @param	actual_str		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_ASSUME_STRCASEEQ
 #  define	IUTEST_ASSUME_STRCASEEQ(expected_str, actual_str)	IUTEST_TEST_STRCASEEQ(expected_str, actual_str, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	•¶š—ñ‚Ì•sˆê’vi‘å•¶š¬•¶š‹æ•Ê‚È‚µj ƒeƒXƒg
- * @details	v1 ‚Æ v2 •¶š—ñ‚ªˆÙ‚È‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·i‘å•¶š¬•¶š‹æ•Ê‚È‚µj
+ * @brief	æ–‡å­—åˆ—ã®ä¸ä¸€è‡´ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰ ãƒ†ã‚¹ãƒˆ
+ * @details	v1 ã¨ v2 æ–‡å­—åˆ—ãŒç•°ãªã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰
 */
 #ifndef IUTEST_ASSUME_STRCASENE
 #  define	IUTEST_ASSUME_STRCASENE(v1, v2)			IUTEST_TEST_STRCASENE(v1, v2, IUTEST_ASSUME_FAILURE)
@@ -1310,16 +1310,16 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	HRESULT ‚Ì¬Œ÷ ƒeƒXƒg
- * @details	HRESULT ‚ª¬Œ÷‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	HRESULT ã®æˆåŠŸ ãƒ†ã‚¹ãƒˆ
+ * @details	HRESULT ãŒæˆåŠŸã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSUME_HRESULT_SUCCEEDED
 #  define IUTEST_ASSUME_HRESULT_SUCCEEDED(hr)		IUTEST_TEST_HRESULT_SUCCEEDED(hr, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	HRESULT ‚Ì¸”s ƒeƒXƒg
- * @details	HRESULT ‚ª¸”s‚Å‚ ‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
+ * @brief	HRESULT ã®å¤±æ•— ãƒ†ã‚¹ãƒˆ
+ * @details	HRESULT ãŒå¤±æ•—ã§ã‚ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
 */
 #ifndef IUTEST_ASSUME_HRESULT_FAILED
 #  define IUTEST_ASSUME_HRESULT_FAILED(hr)			IUTEST_TEST_HRESULT_FAILED(hr, IUTEST_ASSUME_FAILURE)
@@ -1329,10 +1329,10 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	throw ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚·‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement	= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception = Šú‘Ò‚·‚é—áŠO
+ * @brief	throw ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã™ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement	= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception = æœŸå¾…ã™ã‚‹ä¾‹å¤–
 */
 #ifndef IUTEST_ASSUME_THROW
 #  define IUTEST_ASSUME_THROW(statement, expected_exception)	\
@@ -1341,11 +1341,11 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	throw value == ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚µA‚»‚Ì’l‚ª expected_value ‚Æ“™‚µ‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement	= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception	= Šú‘Ò‚·‚é—áŠO
- * @param	expected_value		= Šú‘Ò’l
+ * @brief	throw value == ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã—ã€ãã®å€¤ãŒ expected_value ã¨ç­‰ã—ã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement	= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception	= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	expected_value		= æœŸå¾…å€¤
 */
 #ifndef IUTEST_ASSUME_THROW_VALUE_EQ
 #  define IUTEST_ASSUME_THROW_VALUE_EQ(statement, expected_exception, expected_value)	\
@@ -1354,11 +1354,11 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	throw value != ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚µA‚»‚Ì’l‚ª v ‚Æ“™‚µ‚­‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement	= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception	= Šú‘Ò‚·‚é—áŠO
- * @param	v			= ’l
+ * @brief	throw value != ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã—ã€ãã®å€¤ãŒ v ã¨ç­‰ã—ããªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement	= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception	= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	v			= å€¤
 */
 #ifndef IUTEST_ASSUME_THROW_VALUE_NE
 #  define IUTEST_ASSUME_THROW_VALUE_NE(statement, expected_exception, v)	\
@@ -1367,11 +1367,11 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	throw value •¶š—ñˆê’v ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚µA‚»‚Ì•¶š—ñ‚ª expected_str ‚Æ“™‚µ‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement			= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception	= Šú‘Ò‚·‚é—áŠO
- * @param	expected_str		= Šú‘Ò•¶š—ñ
+ * @brief	throw value æ–‡å­—åˆ—ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã—ã€ãã®æ–‡å­—åˆ—ãŒ expected_str ã¨ç­‰ã—ã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement			= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception	= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	expected_str		= æœŸå¾…æ–‡å­—åˆ—
 */
 #ifndef IUTEST_ASSUME_THROW_VALUE_STREQ
 #  define IUTEST_ASSUME_THROW_VALUE_STREQ(statement, expected_exception, expected_str)	\
@@ -1380,11 +1380,11 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	throw value •¶š—ñˆê’vi‘å•¶š¬•¶š‹æ•Ê‚È‚µj ƒeƒXƒg
- * @details	statement ‚ª expected_exception ‚ğ throw ‚µA‚»‚Ì•¶š—ñ‚ª expected_str ‚Æ“™‚µ‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·i‘å•¶š¬•¶š‹æ•Ê‚È‚µj
- * @param	statement			= ƒXƒe[ƒgƒƒ“ƒg
- * @param	expected_exception	= Šú‘Ò‚·‚é—áŠO
- * @param	expected_str		= Šú‘Ò•¶š—ñ
+ * @brief	throw value æ–‡å­—åˆ—ä¸€è‡´ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰ ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒ expected_exception ã‚’ throw ã—ã€ãã®æ–‡å­—åˆ—ãŒ expected_str ã¨ç­‰ã—ã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™ï¼ˆå¤§æ–‡å­—å°æ–‡å­—åŒºåˆ¥ãªã—ï¼‰
+ * @param	statement			= ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
+ * @param	expected_exception	= æœŸå¾…ã™ã‚‹ä¾‹å¤–
+ * @param	expected_str		= æœŸå¾…æ–‡å­—åˆ—
 */
 #ifndef IUTEST_ASSUME_THROW_VALUE_STRCASEEQ
 #  define IUTEST_ASSUME_THROW_VALUE_STRCASEEQ(statement, expected_exception, expected_str)	\
@@ -1393,9 +1393,9 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	any throw ƒeƒXƒg
- * @details	statement ‚ª‰½‚ç‚©‚Ì—áŠO‚ğ“Š‚°‚é‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement = ƒXƒe[ƒgƒƒ“ƒg
+ * @brief	any throw ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒä½•ã‚‰ã‹ã®ä¾‹å¤–ã‚’æŠ•ã’ã‚‹ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement = ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
 */
 #ifndef IUTEST_ASSUME_ANY_THROW
 #  define IUTEST_ASSUME_ANY_THROW(statement)		IUTEST_TEST_ANY_THROW_(statement, IUTEST_ASSUME_FAILURE)
@@ -1403,9 +1403,9 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	no throw ƒeƒXƒg
- * @details	statement ‚ª—áŠO‚ğ“Š‚°‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement = ƒXƒe[ƒgƒƒ“ƒg
+ * @brief	no throw ãƒ†ã‚¹ãƒˆ
+ * @details	statement ãŒä¾‹å¤–ã‚’æŠ•ã’ãªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement = ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
 */
 #ifndef IUTEST_ASSUME_NO_THROW
 #  define IUTEST_ASSUME_NO_THROW(statement)			IUTEST_TEST_NO_THROW_(statement, IUTEST_ASSUME_FAILURE)
@@ -1415,9 +1415,9 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	no new failure ƒeƒXƒg
- * @details	statement ‚Å¸”s‚ª‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement = ƒXƒe[ƒgƒƒ“ƒg
+ * @brief	no new failure ãƒ†ã‚¹ãƒˆ
+ * @details	statement ã§å¤±æ•—ãŒãªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement = ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
 */
 #ifndef IUTEST_ASSUME_NO_FAILURE
 #  define IUTEST_ASSUME_NO_FAILURE(statement)		IUTEST_TEST_NO_FAILURE_(statement, IUTEST_ASSUME_FAILURE)
@@ -1425,9 +1425,9 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	no new fatal failure ƒeƒXƒg
- * @details	statement ‚Å’v–½“I‚È¸”s‚ª‚È‚¢‚±‚Æ‚ğŒŸØ‚µ‚Ü‚·
- * @param	statement = ƒXƒe[ƒgƒƒ“ƒg
+ * @brief	no new fatal failure ãƒ†ã‚¹ãƒˆ
+ * @details	statement ã§è‡´å‘½çš„ãªå¤±æ•—ãŒãªã„ã“ã¨ã‚’æ¤œè¨¼ã—ã¾ã™
+ * @param	statement = ã‚¹ãƒ†ãƒ¼ãƒˆãƒ¡ãƒ³ãƒˆ
 */
 #ifndef IUTEST_ASSUME_NO_FATAL_FAILURE
 #  define IUTEST_ASSUME_NO_FATAL_FAILURE(statement)	IUTEST_TEST_NO_FATAL_FAILURE_(statement, IUTEST_ASSUME_FAILURE)
@@ -1442,7 +1442,7 @@ namespace iutest
 //======================================================================
 // class
 /**
- * @brief	’P‘ÌƒeƒXƒg‹N“_
+ * @brief	å˜ä½“ãƒ†ã‚¹ãƒˆèµ·ç‚¹
 */
 class UnitTestSource
 {
@@ -1476,7 +1476,7 @@ public:
 
 public:
 	/**
-	 * @brief	‰Šú‰»
+	 * @brief	åˆæœŸåŒ–
 	*/
 	void	Initialize(void)
 	{
@@ -1484,7 +1484,7 @@ public:
 	}
 
 	/**
-	 * @brief	ƒeƒXƒg‚ÌÀs
+	 * @brief	ãƒ†ã‚¹ãƒˆã®å®Ÿè¡Œ
 	*/
 	int	Run(void)
 	{
@@ -1501,9 +1501,9 @@ public:
 //======================================================================
 // function
 /**
- * @brief	‰Šú‰»
- * @details	ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ƒIƒvƒVƒ‡ƒ“‚Ì‰ğÍ‚ğ‚µ‚Ü‚·B
- *			g—p‚µ‚½ˆø”‚Ííœ‚³‚ê pargc, argv ‚ğ‘‚«Š·‚¦‚Ü‚·
+ * @brief	åˆæœŸåŒ–
+ * @details	ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®è§£æã‚’ã—ã¾ã™ã€‚
+ *			ä½¿ç”¨ã—ãŸå¼•æ•°ã¯å‰Šé™¤ã•ã‚Œ pargc, argv ã‚’æ›¸ãæ›ãˆã¾ã™
 */
 inline void	IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, char** argv)		{ TestEnv::ParseCommandLine(pargc, argv); UnitTestSource::GetInstance().Initialize(); }
 inline void	IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, wchar_t** argv)	{ TestEnv::ParseCommandLine(pargc, argv); UnitTestSource::GetInstance().Initialize(); }		//!< @overload
@@ -1519,10 +1519,10 @@ inline void	IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(::std::vector< ::std::basi
 }
 
 /**
- * @brief	ƒOƒ[ƒoƒ‹ŠÂ‹«ƒZƒbƒgƒNƒ‰ƒX‚Ì’Ç‰Á
- * @param [in]	env	= ŠÂ‹«ƒZƒbƒgƒNƒ‰ƒXƒAƒhƒŒƒX
- * @return	“o˜^‚³‚ê‚½ƒNƒ‰ƒXƒAƒhƒŒƒX
- * @note	ƒƒ‚ƒŠŠÇ—‚Í‚µ‚È‚¢Bnew ‚µ‚½ Environment ‚Íƒ†[ƒU[‚ª‰ğ•ú‚·‚é
+ * @brief	ã‚°ãƒ­ãƒ¼ãƒãƒ«ç’°å¢ƒã‚»ãƒƒãƒˆã‚¯ãƒ©ã‚¹ã®è¿½åŠ 
+ * @param [in]	env	= ç’°å¢ƒã‚»ãƒƒãƒˆã‚¯ãƒ©ã‚¹ã‚¢ãƒ‰ãƒ¬ã‚¹
+ * @return	ç™»éŒ²ã•ã‚ŒãŸã‚¯ãƒ©ã‚¹ã‚¢ãƒ‰ãƒ¬ã‚¹
+ * @note	ãƒ¡ãƒ¢ãƒªç®¡ç†ã¯ã—ãªã„ã€‚new ã—ãŸ Environment ã¯ãƒ¦ãƒ¼ã‚¶ãƒ¼ãŒè§£æ”¾ã™ã‚‹
 */
 inline Environment* IUTEST_ATTRIBUTE_UNUSED_ AddGlobalTestEnvironment(Environment* env)
 {

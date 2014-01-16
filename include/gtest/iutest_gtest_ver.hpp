@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_gtest_ver.hpp
- * @brief		gtest version Ž¯•Ê ƒtƒ@ƒCƒ‹
+ * @brief		gtest version è­˜åˆ¥ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -57,7 +57,7 @@
 #  if GTEST_MINORVER == 0x02 && defined(GTEST_HAS_CLONE)
 #    define GTEST_BUILD		0x01		//!< Build
 #  elif GTEST_MINORVER == 0x00
-// ”»’f“ï‚µ‚¢
+// åˆ¤æ–­é›£ã—ã„
 #    define GTEST_BUILD		0x01		//!< Build
 #  else
 #    define GTEST_BUILD		0x00		//!< Build

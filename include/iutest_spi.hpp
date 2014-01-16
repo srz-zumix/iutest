@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_spi.hpp
- * @brief		iris unit test spi ‘Î‰—p ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test spi å¯¾å¿œç”¨ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -24,7 +24,7 @@
 #if !defined(IUTEST_USE_GTEST)
 
 #if defined(_MSC_VER)
-// /ZI ƒIƒvƒVƒ‡ƒ“‚¾‚Æ __LINE__ ‚ª __LINE__Var+N(N‚Í”Ô†) ‚É‚È‚èƒRƒ“ƒpƒCƒ‹ƒGƒ‰[‚É‚È‚é‚½‚ß‚Ì‘Î‰
+// /ZI ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã ã¨ __LINE__ ãŒ __LINE__Var+N(Nã¯ç•ªå·) ã«ãªã‚Šã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã‚¨ãƒ©ãƒ¼ã«ãªã‚‹ãŸã‚ã®å¯¾å¿œ
 #  ifndef __LINE__Var
 #    define __LINE__Var	0
 #  endif
@@ -34,25 +34,25 @@
 // define
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	Fatal Failure ”­¶Šm”FƒeƒXƒg
+ * @brief	Fatal Failure ç™ºç”Ÿç¢ºèªãƒ†ã‚¹ãƒˆ
 */
 #define IUTEST_ASSERT_FATAL_FAILURE(statement, substr)		IUTEST_TEST_FATAL_FAILURE_(statement, #statement, substr, IUTEST_ASSERT_FAILURE)
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	Non Fatal Failure ”­¶Šm”FƒeƒXƒg
+ * @brief	Non Fatal Failure ç™ºç”Ÿç¢ºèªãƒ†ã‚¹ãƒˆ
 */
 #define IUTEST_ASSERT_NONFATAL_FAILURE(statement, substr)	IUTEST_TEST_NONFATAL_FAILURE_(statement, #statement, substr, IUTEST_ASSERT_FAILURE)
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	Fatal Failure ”­¶Šm”FƒeƒXƒg
+ * @brief	Fatal Failure ç™ºç”Ÿç¢ºèªãƒ†ã‚¹ãƒˆ
 */
 #define IUTEST_EXPECT_FATAL_FAILURE(statement, substr)		IUTEST_TEST_FATAL_FAILURE_(statement, #statement, substr, IUTEST_EXPECT_FAILURE)
 
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	Non Fatal Failure ”­¶Šm”FƒeƒXƒg
+ * @brief	Non Fatal Failure ç™ºç”Ÿç¢ºèªãƒ†ã‚¹ãƒˆ
 */
 #define IUTEST_EXPECT_NONFATAL_FAILURE(statement, substr)	IUTEST_TEST_NONFATAL_FAILURE_(statement, #statement, substr, IUTEST_EXPECT_FAILURE)
 
@@ -156,7 +156,7 @@ namespace detail
 //======================================================================
 // class
 /**
- * @brief	SPI —pƒŠƒ|[ƒ^[
+ * @brief	SPI ç”¨ãƒªãƒãƒ¼ã‚¿ãƒ¼
 */
 class FakeTestPartResultReporter : public TestPartResultReporterInterface
 {
@@ -169,7 +169,7 @@ public:
 };
 
 /**
- * @brief	SPI ƒ`ƒFƒbƒJ[
+ * @brief	SPI ãƒã‚§ãƒƒã‚«ãƒ¼
 */
 template<TestPartResult::Type Type>
 class SPIFailureChecker
@@ -209,7 +209,7 @@ public:
 };
 
 /**
- * @biref	ƒtƒ‰ƒO•ÏXƒXƒR[ƒv
+ * @biref	ãƒ•ãƒ©ã‚°å¤‰æ›´ã‚¹ã‚³ãƒ¼ãƒ—
 */
 class ScopedSPITestFlag : public TestFlag::ScopedGuard
 {

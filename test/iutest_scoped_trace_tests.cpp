@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_scoped_trace_tests.cpp
- * @brief		IUTEST_SCOPED_TRACE ‘Î‰ƒeƒXƒg
+ * @brief		IUTEST_SCOPED_TRACE å¯¾å¿œãƒ†ã‚¹ãƒˆ
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -96,7 +96,7 @@ int main(int argc, char* argv[])
 {
 	IUTEST_INIT(&argc, argv);
 #if defined(OUTPUTXML)
-	// ¸”sƒeƒXƒg‚ğŠÜ‚Ş‚Ì‚Å xml o—Í‚µ‚È‚¢
+	// å¤±æ•—ãƒ†ã‚¹ãƒˆã‚’å«ã‚€ã®ã§ xml å‡ºåŠ›ã—ãªã„
 	::iutest::IUTEST_FLAG(output) = NULL;
 #endif
 	

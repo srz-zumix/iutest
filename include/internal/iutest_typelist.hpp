@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_typelist.hpp
- * @brief		iris unit test type ƒŠƒXƒg ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test type list
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -16,9 +16,6 @@
 //======================================================================
 #ifndef INCG_IRIS_IUTEST_TYPELIST_HPP_0AC27A0F_3EFF_48AD_9075_E439B4190DA5_
 #define INCG_IRIS_IUTEST_TYPELIST_HPP_0AC27A0F_3EFF_48AD_9075_E439B4190DA5_
-
-//======================================================================
-// include
 
 namespace iutest {
 namespace detail
@@ -37,7 +34,7 @@ namespace detail
  * @{
 */
 
-// TypeList ‚©‚ç Œ^‚ğæ“¾
+// TypeList ã‹ã‚‰ å‹ã‚’å–å¾—
 template<typename TypeList, size_t N>
 class typelist_get
 {
@@ -55,7 +52,7 @@ public:
 	typedef typename impl<TypeList, N>::type type;
 };
 
-// type list I’[
+// type list çµ‚ç«¯
 struct TypeList0 {};
 
 template<typename T1>
@@ -168,7 +165,7 @@ struct TemplateTypeSel
  * @{
 */
 
-// template type list I’[
+// template type list çµ‚ç«¯
 struct TemplateTypeList0 {};
 
 #if IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES

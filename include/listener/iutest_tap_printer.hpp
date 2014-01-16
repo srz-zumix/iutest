@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_tap_printer.hpp
- * @brief		iris unit test Test Anything Protocol o—ÍƒCƒxƒ“ƒgƒŠƒXƒi[ ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test Test Anything Protocol å‡ºåŠ›ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,7 +27,7 @@ namespace iutest
 //======================================================================
 // class
 /**
- * @brief	TAPo—ÍƒCƒxƒ“ƒgƒŠƒXƒi[
+ * @brief	TAPå‡ºåŠ›ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼
 */
 class TAPPrintListener : public EmptyTestEventListener
 {
@@ -38,12 +38,12 @@ public:
 	virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
 
 protected:
-	/// ƒeƒXƒgƒP[ƒX–ˆ‚Ìˆ—
+	/// ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹æ¯Žã®å‡¦ç†
 	void OnReportTestCase(detail::IOutStream* const stream, const TestCase& test_case, int top=1);
 
 public:
 	/**
-	* @brief	TAPPrintListener ‚ÉØ‚è‘Ö‚¦
+	* @brief	TAPPrintListener ã«åˆ‡ã‚Šæ›¿ãˆ
 	*/
 	static void SetUp(void)
 	{
@@ -54,15 +54,15 @@ public:
 };
 
 /**
- * @brief	TAPƒtƒ@ƒCƒ‹o—ÍƒCƒxƒ“ƒgƒŠƒXƒi[
+ * @brief	TAPãƒ•ã‚¡ã‚¤ãƒ«å‡ºåŠ›ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼
 */
 class TAPFileGeneratorListener : public TAPPrintListener
 {
 	::std::string	m_output_path;
 public:
 	/**
-	 * @brief	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param [in]	directory = o—ÍƒfƒBƒŒƒNƒgƒŠ
+	 * @brief	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param [in]	directory = å‡ºåŠ›ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
 	*/
 	TAPFileGeneratorListener(const char* directory=NULL)
 	{
@@ -70,7 +70,7 @@ public:
 	}
 public:
 	/**
-	 * @brief	o—Íƒtƒ@ƒCƒ‹‚ÌÝ’è
+	 * @brief	å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã®è¨­å®š
 	*/
 	void	SetFilePath(const char* directory)
 	{
@@ -108,7 +108,7 @@ public:
 
 public:
 	/**
-	 * @brief	TAPFileGeneratorListener ‚ÉØ‚è‘Ö‚¦
+	 * @brief	TAPFileGeneratorListener ã«åˆ‡ã‚Šæ›¿ãˆ
 	*/
 	static void SetUp(void)
 	{
@@ -122,7 +122,7 @@ public:
 inline void TAPPrintListener::OnTestProgramStart(const UnitTest& test)
 {
 	IUTEST_UNUSED_VAR(test);
-	// ƒtƒBƒ‹ƒ^ƒŠƒ“ƒO
+	// ãƒ•ã‚£ãƒ«ã‚¿ãƒªãƒ³ã‚°
 	if( TestFlag::IsEnableFlag(TestFlag::FILTERING_TESTS) )
 	{
 		detail::iuConsole::color_output(detail::iuConsole::yellow, "# Note: iutest filter = %s\n", TestEnv::test_filter());
@@ -152,7 +152,7 @@ inline void TAPPrintListener::OnReportTestCase(detail::IOutStream* const stream,
 		const TestInfo* test_info = test_case.GetTestInfo(i);
 		if( !test_info->should_run() )
 		{
-			// ƒXƒLƒbƒv
+			// ã‚¹ã‚­ãƒƒãƒ—
 			stream->Printf("ok %d # SKIP - %s\n", top+i, test_info->name());
 		}
 		else
@@ -164,7 +164,7 @@ inline void TAPPrintListener::OnReportTestCase(detail::IOutStream* const stream,
 				{
 					const TestPartResult& part = test_info->result()->GetTestPartResult(j);
 					::std::string summary = part.make_message();
-					// ‰üs‚ð’u‚«Š·‚¦
+					// æ”¹è¡Œã‚’ç½®ãæ›ãˆ
 					detail::StringReplace(summary, '\n', ", ");
 					stream->Printf("%s. ", summary.c_str() );
 				}

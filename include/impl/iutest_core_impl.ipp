@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_core_impl.ipp
- * @brief		iris unit test UnitTest À‘• ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test UnitTest å®Ÿè£… ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -135,7 +135,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
 	if( Test::GetCurrentTestInfo() )
 	{
 		tr = &(Test::GetCurrentTest()->m_test_info->ptr()->m_test_result);
-		// •s³‚ÈƒL[‚Ìƒ`ƒFƒbƒN
+		// ä¸æ­£ãªã‚­ãƒ¼ã®ãƒã‚§ãƒƒã‚¯
 		if( !TestInfo::ValidateTestPropertyName(prop.key()) )
 		{
 			IIUT_ADD_FAILURE() << "Reserved key used in RecordProperty(): " << prop.key();
@@ -145,7 +145,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
 	else if( p->m_current_testcase != NULL )
 	{
 		tr = &p->m_current_testcase->m_ad_hoc_testresult;
-		// •s³‚ÈƒL[‚Ìƒ`ƒFƒbƒN
+		// ä¸æ­£ãªã‚­ãƒ¼ã®ãƒã‚§ãƒƒã‚¯
 		if( !TestCase::ValidateTestPropertyName(prop.key()) )
 		{
 			IIUT_ADD_FAILURE() << "Reserved key used in RecordProperty(): " << prop.key();
@@ -155,7 +155,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
 	else
 	{
 		tr =&p->m_ad_hoc_testresult;
-		// •s³‚ÈƒL[‚Ìƒ`ƒFƒbƒN
+		// ä¸æ­£ãªã‚­ãƒ¼ã®ãƒã‚§ãƒƒã‚¯
 		if( !ValidateTestPropertyName(prop.key()) )
 		{
 			IIUT_ADD_FAILURE() << "Reserved key used in RecordProperty(): " << prop.key();

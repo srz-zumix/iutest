@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_default_printer.hpp
- * @brief		iris unit test ƒfƒtƒHƒ‹ƒgo—ÍƒCƒxƒ“ƒgƒŠƒXƒi[ ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå‡ºåŠ›ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,7 +27,7 @@ namespace iutest
 //======================================================================
 // class
 /**
- * @brief	ƒfƒtƒHƒ‹ƒgo—ÍƒCƒxƒ“ƒgƒŠƒXƒi[
+ * @brief	ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå‡ºåŠ›ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼
 */
 class DefalutResultPrintListener : public TestEventListener
 {

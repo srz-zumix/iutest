@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_param_direct_tests.hpp
- * @brief		iris unit test initializer_list ‚ğg—p‚µ‚½ƒpƒ‰ƒ[ƒ^İ’è ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test initializer_list ã‚’ä½¿ç”¨ã—ãŸãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿è¨­å®š ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -30,9 +30,9 @@
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_INSTANTIATE_TEST_CASE_P
- * @brief	ƒpƒ‰ƒ[ƒ^ƒeƒXƒgƒCƒ“ƒXƒ^ƒ“ƒX‰»ƒ}ƒNƒ
- * @param	prefix_		= ƒCƒ“ƒXƒ^ƒ“ƒX–¼
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ†ã‚¹ãƒˆã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ãƒã‚¯ãƒ­
+ * @param	prefix_		= ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
  * @param	generator_	= Range, Bool, Values, ValuesIn, Combine, Pairwise ...
 */
 #define IUTEST_INSTANTIATE_TEST_CASE_P(prefix_, testcase_, ...)	\
@@ -44,7 +44,7 @@
 */
 
 /**
- * @brief	ƒpƒ‰ƒ[ƒ^ƒeƒXƒg“o˜^(‰Â•Ï’·‘Î‰)
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ†ã‚¹ãƒˆç™»éŒ²(å¯å¤‰é•·å¯¾å¿œ)
 */
 #define IIUT_INSTANTIATE_TEST_CASE_PV_(prefix_, testcase_, ...)								\
 	static ::iutest::detail::iuIParamGenerator<testcase_::ParamType>*						\
@@ -74,7 +74,7 @@ namespace tr1
 #if !defined(IUTEST_NO_VARIADIC_MACROS)
 
 /**
- * @brief	initializer_list ‘Î‰—pƒLƒƒƒXƒgƒIƒuƒWƒFƒNƒg
+ * @brief	initializer_list å¯¾å¿œç”¨ã‚­ãƒ£ã‚¹ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 */
 template<typename T>
 detail::iuIParamGenerator<T>* iuCastToParamGenerator(detail::iuIParamGenerator<T>* g) { return g; }

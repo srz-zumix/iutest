@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_port.hpp
- * @brief		iris unit test ˆË‘¶ŠÖ” ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ä¾å­˜é–¢æ•° ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -75,16 +75,16 @@ namespace detail
 namespace posix = internal::posix;
 
 /**
- * @brief	ŠÂ‹«•Ï”‚Ìİ’è
+ * @brief	ç’°å¢ƒå¤‰æ•°ã®è¨­å®š
 */
 bool SetEnvironmentVariable(const char* name, const char* value);
 
 
 /**
- * @brief	ŠÂ‹«•Ï”‚Ìæ“¾
- * @param [in]	name	= ŠÂ‹«•Ï”–¼
- * @param [out]	buf		= o—Íƒoƒbƒtƒ@
- * @return	¬”Û
+ * @brief	ç’°å¢ƒå¤‰æ•°ã®å–å¾—
+ * @param [in]	name	= ç’°å¢ƒå¤‰æ•°å
+ * @param [out]	buf		= å‡ºåŠ›ãƒãƒƒãƒ•ã‚¡
+ * @return	æˆå¦
 */
 bool GetEnvironmentVariable(const char* name, char* buf, size_t size);
 
@@ -99,18 +99,18 @@ inline bool GetEnvironmentVariable(const char* name, char (&buf)[SIZE])
 #endif
 
 /**
- * @brief	ŠÂ‹«•Ï”‚Ìæ“¾
- * @param [in]	name	= ŠÂ‹«•Ï”–¼
- * @param [out]	var		= o—Í•¶š—ñ
- * @return	¬”Û
+ * @brief	ç’°å¢ƒå¤‰æ•°ã®å–å¾—
+ * @param [in]	name	= ç’°å¢ƒå¤‰æ•°å
+ * @param [out]	var		= å‡ºåŠ›æ–‡å­—åˆ—
+ * @return	æˆå¦
 */
 bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentVariable(const char* name, ::std::string& var);
 
 /**
- * @brief	ŠÂ‹«•Ï”‚Ìæ“¾
- * @param [in]	name	= ŠÂ‹«•Ï”–¼
- * @param [out]	var		= o—Í”’l
- * @return	¬”Û
+ * @brief	ç’°å¢ƒå¤‰æ•°ã®å–å¾—
+ * @param [in]	name	= ç’°å¢ƒå¤‰æ•°å
+ * @param [out]	var		= å‡ºåŠ›æ•°å€¤
+ * @return	æˆå¦
 */
 bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentInt(const char* name, int& var);
 
@@ -119,14 +119,14 @@ namespace win
 {
 
 /**
- * @brief	•¶š—ñ•ÏŠ·
+ * @brief	æ–‡å­—åˆ—å¤‰æ›
 */
 ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const wchar_t* wide_c_str);
 
 /**
- * @brief	HRESULT ‚ÌƒGƒ‰[•¶š—ñ‚ğæ“¾
- * @param [in]	hr	= ƒGƒ‰[’l
- * @return	•¶š—ñ
+ * @brief	HRESULT ã®ã‚¨ãƒ©ãƒ¼æ–‡å­—åˆ—ã‚’å–å¾—
+ * @param [in]	hr	= ã‚¨ãƒ©ãƒ¼å€¤
+ * @return	æ–‡å­—åˆ—
 */
 ::std::string IUTEST_ATTRIBUTE_UNUSED_ GetHResultString(HRESULT hr);
 
@@ -134,7 +134,7 @@ namespace win
 #endif
 
 /**
- * @brief	ƒƒO
+ * @brief	ãƒ­ã‚°
 */
 class IUTestLog
 {

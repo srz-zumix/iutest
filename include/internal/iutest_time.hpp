@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_time.hpp
- * @brief		iris unit test time utility ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test time utility ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -41,31 +41,31 @@ namespace detail
 /**
   * @internal
   * @brief	TimeInMillisec to string
-  * @param	[in]	msec	= ƒ~ƒŠ•b
-  * @return	•b”‚Ì•¶š—ñ
+  * @param	[in]	msec	= ãƒŸãƒªç§’
+  * @return	ç§’æ•°ã®æ–‡å­—åˆ—
 */
 ::std::string	FormatTimeInMillisecAsSecond(TimeInMillisec msec);
 
 /**
   * @internal
   * @brief	TimeInMillisec to string
-  * @param	[in]	msec	= ƒ~ƒŠ•b
-  * @return	‚Ì•¶š—ñ
+  * @param	[in]	msec	= ãƒŸãƒªç§’
+  * @return	æ™‚åˆ»ã®æ–‡å­—åˆ—
 */
 ::std::string	FormatTimeInMillisecAsIso8601(TimeInMillisec msec);
 
 /**
- * @brief	Œ»İ‚Ìæ“¾
+ * @brief	ç¾åœ¨æ™‚åˆ»ã®å–å¾—
 */
 time_t			GetTime(void);
 
 /**
- * @brief	Œ»İ‚Ìƒ~ƒŠ•bæ“¾
+ * @brief	ç¾åœ¨æ™‚åˆ»ã®ãƒŸãƒªç§’å–å¾—
 */
 TimeInMillisec	GetTimeInMillis(void);
 
 /**
- * @brief	•s’è‚È’l‚Ìæ“¾
+ * @brief	ä¸å®šãªå€¤ã®å–å¾—
 */
 unsigned int	GetIndefiniteValue(void);
 
@@ -73,7 +73,7 @@ unsigned int	GetIndefiniteValue(void);
 // class
 /**
  * @internal
- * @brief	ƒXƒgƒbƒvƒEƒHƒbƒ`ƒNƒ‰ƒX
+ * @brief	ã‚¹ãƒˆãƒƒãƒ—ã‚¦ã‚©ãƒƒãƒã‚¯ãƒ©ã‚¹
 */
 class iuStopWatch
 {
@@ -83,7 +83,7 @@ public:
 	iuStopWatch(void) : m_begin(0)	{}
 
 public:
-	// Œ»İ‚ÌŠÔ‚ğƒ~ƒŠ•b’PˆÊ‚Åæ“¾
+	// ç¾åœ¨ã®æ™‚é–“ã‚’ãƒŸãƒªç§’å˜ä½ã§å–å¾—
 	static TimeInMillisec	get_millisec(void)
 	{
 #if		defined(IUTEST_NOT_SUPPORT_STOPWATCH)

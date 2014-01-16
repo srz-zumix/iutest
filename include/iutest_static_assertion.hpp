@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_static_assertion.hpp
- * @brief		iris unit test static assertion ’è‹` ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test static assertion å®šç¾© ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,7 +27,7 @@
 #if 0
 /**
  * @ingroup	IUTEST_UTIL
- * @brief	Œ^ƒAƒT[ƒVƒ‡ƒ“
+ * @brief	å‹ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³
 */
 template<typename T1, typename T2>
 static bool	StaticAssertTypeEq(void)
@@ -39,9 +39,9 @@ static bool	StaticAssertTypeEq(void)
 
 /**
  * @ingroup	IUTEST_UTIL
- * @brief	Œ^ƒAƒT[ƒVƒ‡ƒ“
- * @note	ƒ}ƒNƒƒo[ƒWƒ‡ƒ“
- *			ƒGƒ‰[‚ªŒÄ‚Ño‚µˆÊ’u‚Éo‚é
+ * @brief	å‹ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³
+ * @note	ãƒã‚¯ãƒ­ãƒãƒ¼ã‚¸ãƒ§ãƒ³
+ *			ã‚¨ãƒ©ãƒ¼ãŒå‘¼ã³å‡ºã—ä½ç½®ã«å‡ºã‚‹
 */
 #define StaticAssertTypeEq	detail::StaticAssertTypeEqHelper
 

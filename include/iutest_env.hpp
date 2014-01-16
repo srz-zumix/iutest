@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_env.hpp
- * @brief		iris unit test ŠÂ‹« ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ç’°å¢ƒ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -28,8 +28,8 @@
 // define
 /**
  * @ingroup	IUTEST_UTIL
- * @brief	ƒtƒ‰ƒOƒZƒbƒg
- * @details	w’è‰Â”\‚Èƒtƒ‰ƒO\n
+ * @brief	ãƒ•ãƒ©ã‚°ã‚»ãƒƒãƒˆ
+ * @details	æŒ‡å®šå¯èƒ½ãªãƒ•ãƒ©ã‚°\n
  *			shuffle (bool)\n
  *			also_run_disabled_tests (bool)\n
  *			break_on_failure (bool)\n
@@ -64,7 +64,7 @@ namespace iutest
 //======================================================================
 // function
 /**
- * @brief	ŠÂ‹«•Ï”‚Ìæ“¾
+ * @brief	ç’°å¢ƒå¤‰æ•°ã®å–å¾—
 */
 inline ::std::string EnvironmentString(const char* name)
 {
@@ -76,24 +76,24 @@ inline ::std::string EnvironmentString(const char* name)
 //======================================================================
 // class
 /**
- * @brief	ŠÂ‹«ƒZƒbƒgƒNƒ‰ƒX
+ * @brief	ç’°å¢ƒã‚»ãƒƒãƒˆã‚¯ãƒ©ã‚¹
 */
 class Environment
 {
 public:
 	virtual ~Environment(void)	{}
-	virtual void SetUp(void)	{}	//!< –‘Oˆ—
-	virtual void TearDown(void)	{}	//!< –Œãˆ—
+	virtual void SetUp(void)	{}	//!< äº‹å‰å‡¦ç†
+	virtual void TearDown(void)	{}	//!< äº‹å¾Œå‡¦ç†
 };
 
 /**
- * @brief	ƒeƒXƒgƒtƒ‰ƒO
+ * @brief	ãƒ†ã‚¹ãƒˆãƒ•ãƒ©ã‚°
 */
 class TestFlag
 {
 public:
 	/**
-	 * @brief	ƒeƒXƒgƒtƒ‰ƒO•Û‘¶/•œŒ³ƒNƒ‰ƒX
+	 * @brief	ãƒ†ã‚¹ãƒˆãƒ•ãƒ©ã‚°ä¿å­˜/å¾©å…ƒã‚¯ãƒ©ã‚¹
 	 * @private
 	*/
 	class ScopedGuard
@@ -113,41 +113,41 @@ public:
 	};
 public:
 	/** 
-	 * @brief	ƒtƒ‰ƒO
+	 * @brief	ãƒ•ãƒ©ã‚°
 	*/
 	enum Kind
 #if IUTEST_HAS_STRONG_ENUMS
 		: unsigned int
 #endif
 	{
-		SHUFFLE_TESTS			= 0x00000001,	//!< ƒVƒƒƒbƒtƒ‹ƒeƒXƒg
-		RUN_DISABLED_TESTS		= 0x00000002,	//!< DISABLED ƒeƒXƒg‚àÀs
-		FILTERING_TESTS			= 0x00000004,	//!< ƒeƒXƒg‚ÌƒtƒBƒ‹ƒ^ƒŠƒ“ƒO
+		SHUFFLE_TESTS			= 0x00000001,	//!< ã‚·ãƒ£ãƒƒãƒ•ãƒ«ãƒ†ã‚¹ãƒˆ
+		RUN_DISABLED_TESTS		= 0x00000002,	//!< DISABLED ãƒ†ã‚¹ãƒˆã‚‚å®Ÿè¡Œ
+		FILTERING_TESTS			= 0x00000004,	//!< ãƒ†ã‚¹ãƒˆã®ãƒ•ã‚£ãƒ«ã‚¿ãƒªãƒ³ã‚°
 
-		BREAK_ON_FAILURE		= 0x00000010,	//!< ƒeƒXƒg¸”s‚ÉƒuƒŒ[ƒN
-		THROW_ON_FAILURE		= 0x00000040,	//!< ’v–½“I‚È¸”s‚É throw ‚·‚é
+		BREAK_ON_FAILURE		= 0x00000010,	//!< ãƒ†ã‚¹ãƒˆå¤±æ•—æ™‚ã«ãƒ–ãƒ¬ãƒ¼ã‚¯
+		THROW_ON_FAILURE		= 0x00000040,	//!< è‡´å‘½çš„ãªå¤±æ•—æ™‚ã« throw ã™ã‚‹
 
-		CONSOLE_COLOR_ON		= 0x00000100,	//!< F‚Â‚«o—ÍON
-		CONSOLE_COLOR_OFF		= 0x00000200,	//!< F‚Â‚«o—ÍOFF
-		CONSOLE_COLOR_ANSI		= 0x00000400,	//!< ƒGƒXƒP[ƒvƒV[ƒPƒ“ƒX‚Åo—Í
+		CONSOLE_COLOR_ON		= 0x00000100,	//!< è‰²ã¤ãå‡ºåŠ›ON
+		CONSOLE_COLOR_OFF		= 0x00000200,	//!< è‰²ã¤ãå‡ºåŠ›OFF
+		CONSOLE_COLOR_ANSI		= 0x00000400,	//!< ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—ã‚·ãƒ¼ã‚±ãƒ³ã‚¹ã§å‡ºåŠ›
 
-		PRINT_TIME				= 0x00001000,	//!< Œo‰ßŠÔ‚Ìo—Í
-		FILELOCATION_STYLE_MSVC	= 0x00002000,	//!< ƒtƒ@ƒCƒ‹/so—ÍƒXƒ^ƒCƒ‹‚ğ Visual Studio ƒXƒ^ƒCƒ‹‚É‚·‚é
+		PRINT_TIME				= 0x00001000,	//!< çµŒéæ™‚é–“ã®å‡ºåŠ›
+		FILELOCATION_STYLE_MSVC	= 0x00002000,	//!< ãƒ•ã‚¡ã‚¤ãƒ«/è¡Œå‡ºåŠ›ã‚¹ã‚¿ã‚¤ãƒ«ã‚’ Visual Studio ã‚¹ã‚¿ã‚¤ãƒ«ã«ã™ã‚‹
 
-		CATCH_EXCEPTION_EACH	= 0x00010000,	//!< —áŠO‚ğ catch ‚·‚é(TestInfo)
-		CATCH_EXCEPTION_GLOBAL	= 0x00020000,	//!< —áŠO‚ğ catch ‚·‚é(UnitTest)
-		CATCH_EXCEPTION			= 0x00030000,	//!< —áŠO‚ğ catch ‚·‚é
+		CATCH_EXCEPTION_EACH	= 0x00010000,	//!< ä¾‹å¤–ã‚’ catch ã™ã‚‹(TestInfo)
+		CATCH_EXCEPTION_GLOBAL	= 0x00020000,	//!< ä¾‹å¤–ã‚’ catch ã™ã‚‹(UnitTest)
+		CATCH_EXCEPTION			= 0x00030000,	//!< ä¾‹å¤–ã‚’ catch ã™ã‚‹
 
-		SHOW_TESTS_LIST			= 0x02000000,	//!< ƒeƒXƒg‚ÌƒŠƒXƒg•\¦
+		SHOW_TESTS_LIST			= 0x02000000,	//!< ãƒ†ã‚¹ãƒˆã®ãƒªã‚¹ãƒˆè¡¨ç¤º
 		SHOW_TESTS_LIST_WITH_WHERE
-								= 0x04000000,	//!< ƒeƒXƒg‚ÌƒŠƒXƒg•\¦(with where)
+								= 0x04000000,	//!< ãƒ†ã‚¹ãƒˆã®ãƒªã‚¹ãƒˆè¡¨ç¤º(with where)
 
-		SHOW_HELP				= 0x10000000,	//!< ƒwƒ‹ƒv•\¦
-		SHOW_VERSION			= 0x20000000,	//!< ƒo[ƒWƒ‡ƒ“•\¦
-		SHOW_FEATURE			= 0x40000000,	//!< ‹@”\‚Ìo—Í
-		MASK					= 0xFFFFFFFF,	//!< ƒ}ƒXƒN
+		SHOW_HELP				= 0x10000000,	//!< ãƒ˜ãƒ«ãƒ—è¡¨ç¤º
+		SHOW_VERSION			= 0x20000000,	//!< ãƒãƒ¼ã‚¸ãƒ§ãƒ³è¡¨ç¤º
+		SHOW_FEATURE			= 0x40000000,	//!< æ©Ÿèƒ½ã®å‡ºåŠ›
+		MASK					= 0xFFFFFFFF,	//!< ãƒã‚¹ã‚¯
 
-		//! ƒfƒtƒHƒ‹ƒg
+		//! ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ
 #if defined(_MSC_VER)
 		DEFAULT = CATCH_EXCEPTION|PRINT_TIME|FILELOCATION_STYLE_MSVC
 #else
@@ -164,16 +164,16 @@ public:
 	static TestFlag&	GetInstance(void)	{ static TestFlag flag; return flag; }
 public:
 	/**
-	 * @brief	ƒtƒ‰ƒO‚Ìƒrƒbƒg‘€ì
+	 * @brief	ãƒ•ãƒ©ã‚°ã®ãƒ“ãƒƒãƒˆæ“ä½œ
 	 * @details	flag = (flag | enable) & mask;
-	 * @param [in]	enable	= ˜_—˜a
-	 * @param [in]	mask	= ƒ}ƒXƒN’l
+	 * @param [in]	enable	= è«–ç†å’Œ
+	 * @param [in]	mask	= ãƒã‚¹ã‚¯å€¤
 	*/
 	static void		SetFlag(int enable, int mask=-1)	{ GetInstance().m_test_flags |= enable; GetInstance().m_test_flags &= mask; }
 	/**
-	 * @brief	ƒtƒ‰ƒO‚ª—§‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
-	 * @param [in]	flag	= ŒŸ¸‘ÎÛƒtƒ‰ƒO
-	 * @return	^‹U’l
+	 * @brief	ãƒ•ãƒ©ã‚°ãŒç«‹ã£ã¦ã„ã‚‹ã‹ã©ã†ã‹
+	 * @param [in]	flag	= æ¤œæŸ»å¯¾è±¡ãƒ•ãƒ©ã‚°
+	 * @return	çœŸå½å€¤
 	*/
 	static bool		IsEnableFlag(int flag)				{ return GetInstance().m_test_flags & flag ? true : false; }
 
@@ -202,7 +202,7 @@ private:
 class TestPartResultReporterInterface;
 
 /**
- * @brief	ƒeƒXƒgŠÂ‹«
+ * @brief	ãƒ†ã‚¹ãƒˆç’°å¢ƒ
 */
 class TestEnv
 {
@@ -233,7 +233,7 @@ public:
 
 	/**
 	 * @private
-	 * @brief	—”ƒV[ƒhİ’è—pƒIƒuƒWƒFƒNƒg
+	 * @brief	ä¹±æ•°ã‚·ãƒ¼ãƒ‰è¨­å®šç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	*/
 	typedef class RandomSeedSet
 	{
@@ -246,7 +246,7 @@ public:
 
 	/**
 	 * @private
-	 * @brief	ƒŠƒs[ƒg‰ñ”İ’è—pƒIƒuƒWƒFƒNƒg
+	 * @brief	ãƒªãƒ”ãƒ¼ãƒˆå›æ•°è¨­å®šç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	*/
 	typedef class RepeatCountSet
 	{
@@ -291,18 +291,18 @@ private:
 
 public:
 
-	static detail::iuRandom&	genrand(void)				{ return get_vars().m_genrand; }				//!< —”¶¬Ší
-	static unsigned int			get_random_seed(void)		{ return get_vars().m_random_seed; }			//!< —”ƒV[ƒh
-	static unsigned int			current_random_seed(void)	{ return get_vars().m_current_random_seed; }	//!< —”ƒV[ƒh
-	static int					get_repeat_count(void)		{ return get_vars().m_repeat_count; }			//!< ŒJ‚è•Ô‚µ‰ñ”
-	static const char*			get_output_option(void)		{ return get_vars().m_output_option.c_str(); }	//!< o—ÍƒIƒvƒVƒ‡ƒ“
-	static const char*			test_filter(void)			{ return get_vars().m_test_filter.c_str(); }	//!< ƒtƒBƒ‹ƒ^[•¶š—ñ
+	static detail::iuRandom&	genrand(void)				{ return get_vars().m_genrand; }				//!< ä¹±æ•°ç”Ÿæˆå™¨
+	static unsigned int			get_random_seed(void)		{ return get_vars().m_random_seed; }			//!< ä¹±æ•°ã‚·ãƒ¼ãƒ‰
+	static unsigned int			current_random_seed(void)	{ return get_vars().m_current_random_seed; }	//!< ä¹±æ•°ã‚·ãƒ¼ãƒ‰
+	static int					get_repeat_count(void)		{ return get_vars().m_repeat_count; }			//!< ç¹°ã‚Šè¿”ã—å›æ•°
+	static const char*			get_output_option(void)		{ return get_vars().m_output_option.c_str(); }	//!< å‡ºåŠ›ã‚ªãƒ—ã‚·ãƒ§ãƒ³
+	static const char*			test_filter(void)			{ return get_vars().m_test_filter.c_str(); }	//!< ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼æ–‡å­—åˆ—
 #if IUTEST_HAS_STREAM_RESULT
 	static const char*			get_stream_result_to(void)	{ return get_vars().m_stream_result_to.c_str(); }
 #endif
 
 	/**
-	* @brief	xml o—ÍƒpƒX‚ğæ“¾
+	* @brief	xml å‡ºåŠ›ãƒ‘ã‚¹ã‚’å–å¾—
 	*/
 	static ::std::string get_report_xml_filepath(void);
 
@@ -315,7 +315,7 @@ public:
 
 private:
 	/**
-	 * @brief	—”ƒV[ƒh‚Ìİ’è
+	 * @brief	ä¹±æ•°ã‚·ãƒ¼ãƒ‰ã®è¨­å®š
 	*/
 	static void	init_random(unsigned int seed)
 	{
@@ -323,7 +323,7 @@ private:
 	}
 
 	/**
-	 * @brief	ŒJ‚è•Ô‚µ‰ñ”‚Ìİ’è
+	 * @brief	ç¹°ã‚Šè¿”ã—å›æ•°ã®è¨­å®š
 	*/
 	static void	set_repeat_count(int count)
 	{
@@ -331,7 +331,7 @@ private:
 	}
 
 	/**
-	 * @brief	ƒtƒBƒ‹ƒ^[•¶š—ñ‚Ìİ’è
+	 * @brief	ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼æ–‡å­—åˆ—ã®è¨­å®š
 	*/
 	static void	set_test_filter(const char* str)
 	{
@@ -340,7 +340,7 @@ private:
 	}
 #if IUTEST_HAS_STREAM_RESULT
 	/**
-	 * @brief	stream result ‚Ìİ’è
+	 * @brief	stream result ã®è¨­å®š
 	*/
 	static void	set_stream_result_to(const char* str)
 	{
@@ -349,7 +349,7 @@ private:
 #endif
 
 	/**
-	 * @brief	color ƒIƒvƒVƒ‡ƒ“•¶š—ñ‚ğæ“¾
+	 * @brief	color ã‚ªãƒ—ã‚·ãƒ§ãƒ³æ–‡å­—åˆ—ã‚’å–å¾—
 	*/
 	static const char* get_color_option(void)
 	{
@@ -368,7 +368,7 @@ private:
 		return "auto";
 	}
 	/**
-	 * @brief	color ƒIƒvƒVƒ‡ƒ“‚ğİ’è
+	 * @brief	color ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’è¨­å®š
 	*/
 	static void set_color_option(const char* str)
 	{
@@ -376,7 +376,7 @@ private:
 	}
 
 	/**
-	 * @brief	output ƒIƒvƒVƒ‡ƒ“‚ğİ’è
+	 * @brief	output ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’è¨­å®š
 	*/
 	static void set_output_option(const char* str)
 	{
@@ -424,26 +424,26 @@ private:
 public:
 	/**
 	 * @private
-	 * @brief	F•t‚«o—ÍƒIƒvƒVƒ‡ƒ“İ’è—pƒIƒuƒWƒFƒNƒg
+	 * @brief	è‰²ä»˜ãå‡ºåŠ›ã‚ªãƒ—ã‚·ãƒ§ãƒ³è¨­å®šç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	*/
 	typedef OptionString<get_color_option, set_color_option> color;
 
 	/**
 	 * @private
-	 * @brief	ƒtƒBƒ‹ƒ^[ƒIƒvƒVƒ‡ƒ“İ’è—pƒIƒuƒWƒFƒNƒg
+	 * @brief	ãƒ•ã‚£ãƒ«ã‚¿ãƒ¼ã‚ªãƒ—ã‚·ãƒ§ãƒ³è¨­å®šç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	*/
 	typedef OptionString<test_filter, set_test_filter> filter;
 
 	/**
 	* @private
-	* @brief	o—ÍƒIƒvƒVƒ‡ƒ“İ’è—pƒIƒuƒWƒFƒNƒg
+	* @brief	å‡ºåŠ›ã‚ªãƒ—ã‚·ãƒ§ãƒ³è¨­å®šç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	*/
 	typedef OptionString<get_output_option, set_output_option> output;
 
 #if IUTEST_HAS_STREAM_RESULT
 	/**
 	 * @private
-	 * @brief	stream resultƒIƒvƒVƒ‡ƒ“İ’è—pƒIƒuƒWƒFƒNƒg
+	 * @brief	stream resultã‚ªãƒ—ã‚·ãƒ§ãƒ³è¨­å®šç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	*/
 	typedef OptionString<get_stream_result_to, set_stream_result_to> stream_result_to;
 #endif
@@ -453,9 +453,9 @@ private:
 
 public:
 	/**
-	 * @brief	ƒOƒ[ƒoƒ‹ŠÂ‹«ƒZƒbƒgƒNƒ‰ƒX‚Ì’Ç‰Á
-	 * @param [in]	env	= ŠÂ‹«ƒZƒbƒgƒNƒ‰ƒXƒAƒhƒŒƒX
-	 * @return	“o˜^‚³‚ê‚½ƒNƒ‰ƒXƒAƒhƒŒƒX
+	 * @brief	ã‚°ãƒ­ãƒ¼ãƒãƒ«ç’°å¢ƒã‚»ãƒƒãƒˆã‚¯ãƒ©ã‚¹ã®è¿½åŠ 
+	 * @param [in]	env	= ç’°å¢ƒã‚»ãƒƒãƒˆã‚¯ãƒ©ã‚¹ã‚¢ãƒ‰ãƒ¬ã‚¹
+	 * @return	ç™»éŒ²ã•ã‚ŒãŸã‚¯ãƒ©ã‚¹ã‚¢ãƒ‰ãƒ¬ã‚¹
 	*/
 	static Environment* AddGlobalTestEnvironment(Environment* env)
 	{
@@ -469,11 +469,11 @@ public:
 
 private:
 	/**
-	 * @brief	ŠÂ‹«ƒZƒbƒgƒNƒ‰ƒX‚Ì‰ğ•ú
+	 * @brief	ç’°å¢ƒã‚»ãƒƒãƒˆã‚¯ãƒ©ã‚¹ã®è§£æ”¾
 	*/
 	static void ReleaseGlobalTestEnvironment(void)
 	{
-		// ‚·‚×‚Ä‰ğ•ú‚·‚é
+		// ã™ã¹ã¦è§£æ”¾ã™ã‚‹
 		for( iuEnvironmentList::iterator it=environments().begin(); it != environments().end(); )
 		{
 			Environment* p = *it;
@@ -485,7 +485,7 @@ private:
 public:
 	/**
 	 * @private
-	 * @brief	ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”‚Ì‰ğÍ
+	 * @brief	ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³å¼•æ•°ã®è§£æ
 	*/
 	template<typename CharType>
 	static void	ParseCommandLine(int* pargc, CharType** argv)
@@ -497,7 +497,7 @@ public:
 			if( ParseCommandLineElem(argv[i]) )
 			{
 				--argc;
-				// Œ©‚Â‚©‚Á‚½ê‡AƒIƒvƒVƒ‡ƒ“‚ğ––”ö‚ÉˆÚ“®
+				// è¦‹ã¤ã‹ã£ãŸå ´åˆã€ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’æœ«å°¾ã«ç§»å‹•
 				for( int k=i; k < argc; ++k )
 				{
 					CharType* tmp = argv[k];
@@ -515,7 +515,7 @@ public:
 
 	/**
 	 * @private
-	 * @brief	ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”‚Ì‰ğÍ(vector)
+	 * @brief	ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³å¼•æ•°ã®è§£æ(vector)
 	*/
 	template<typename CharType>
 	static void	ParseCommandLine(::std::vector< ::std::basic_string<CharType> >& argv)
@@ -546,18 +546,18 @@ private:
 
 private:
 	/**
-	 * @brief	ŠÂ‹«•Ï”‚©‚çİ’è\’z
+	 * @brief	ç’°å¢ƒå¤‰æ•°ã‹ã‚‰è¨­å®šæ§‹ç¯‰
 	*/
 	static void LoadEnviromentVariable(void);
 
 	/**
-	 * @brief	ƒZƒbƒgƒAƒbƒv
+	 * @brief	ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—
 	*/
 	static void	SetUp(void);
 
 private:
 	/**
-	 * @brief	ƒIƒvƒVƒ‡ƒ“•¶š—ñ‚©‚çİ’è•¶š—ñ‚Ìæ“ªƒAƒhƒŒƒX‚ğæ“¾
+	 * @brief	ã‚ªãƒ—ã‚·ãƒ§ãƒ³æ–‡å­—åˆ—ã‹ã‚‰è¨­å®šæ–‡å­—åˆ—ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’å–å¾—
 	*/
 	static inline const char* ParseOptionSettingStr(const char* opt)
 	{
@@ -569,44 +569,44 @@ private:
 		return eq+1;
 	}
 	/**
-	 * @brief	IUTEST_COLOR ƒIƒvƒVƒ‡ƒ“‚Ì”»’è
+	 * @brief	IUTEST_COLOR ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®åˆ¤å®š
 	*/
 	static bool	ParseColorOption(const char* option);
 
 	/**
-	 * @brief	IUTEST_OUTPUT ƒIƒvƒVƒ‡ƒ“‚Ì”»’è
+	 * @brief	IUTEST_OUTPUT ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®åˆ¤å®š
 	*/
 	static bool	ParseOutputOption(const char* option);
 
 	/**
-	 * @brief	IUTEST_FILE_LOCATION ƒIƒvƒVƒ‡ƒ“‚Ì”»’è
+	 * @brief	IUTEST_FILE_LOCATION ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®åˆ¤å®š
 	*/
 	static bool	ParseFileLocationOption(const char* option);
 
 	/**
-	 * @brief	yes ƒIƒvƒVƒ‡ƒ“‚© no ƒIƒvƒVƒ‡ƒ“‚©‚Ì”»’è
-	 * @param [in]	str		= ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“•¶š—ñiŠÖ”‚È‚¢‚ÅƒIƒvƒVƒ‡ƒ“•¶š—ñ•”•ª‚ğæ“¾‚·‚éj
-	 * @param [in]	flag	= ƒtƒ‰ƒO
-	 * @param [in]	def		= ˆø”‚È‚µ‚Ìê‡‚ÌƒIƒyƒŒ[ƒVƒ‡ƒ“
-	 * @return	¬”Û
+	 * @brief	yes ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‹ no ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‹ã®åˆ¤å®š
+	 * @param [in]	str		= ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³æ–‡å­—åˆ—ï¼ˆé–¢æ•°ãªã„ã§ã‚ªãƒ—ã‚·ãƒ§ãƒ³æ–‡å­—åˆ—éƒ¨åˆ†ã‚’å–å¾—ã™ã‚‹ï¼‰
+	 * @param [in]	flag	= ãƒ•ãƒ©ã‚°
+	 * @param [in]	def		= å¼•æ•°ãªã—ã®å ´åˆã®ã‚ªãƒšãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³
+	 * @return	æˆå¦
 	*/
 	static bool ParseYesNoFlagCommandLine(const char* str, TestFlag::Kind flag, int def);
 
 	/**
-	 * @brief	yes ƒIƒvƒVƒ‡ƒ“‚© no ƒIƒvƒVƒ‡ƒ“‚©‚Ì”»’è
-	 * @param [in]	option	= ƒIƒvƒVƒ‡ƒ“•¶š—ñ
-	 * @retval	< 0	= ŠY“–‚È‚µ
+	 * @brief	yes ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‹ no ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‹ã®åˆ¤å®š
+	 * @param [in]	option	= ã‚ªãƒ—ã‚·ãƒ§ãƒ³æ–‡å­—åˆ—
+	 * @retval	< 0	= è©²å½“ãªã—
 	 * @retval	0	= NO
 	 * @retval	> 0 = YES
 	*/
 	static int ParseYesNoOption(const char* option);
 
 	/**
-	 * @brief	yes ƒIƒvƒVƒ‡ƒ“‚©”»’è
+	 * @brief	yes ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‹åˆ¤å®š
 	*/
 	static bool IsYes(const char* option);
 	/**
-	 * @brief	no ƒIƒvƒVƒ‡ƒ“‚©”»’è
+	 * @brief	no ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‹åˆ¤å®š
 	*/
 	static bool IsNo(const char* option);
 

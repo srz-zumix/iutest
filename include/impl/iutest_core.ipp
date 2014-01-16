@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_core.ipp
- * @brief		iris unit test core ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test core ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -202,22 +202,22 @@ IUTEST_IPP_INLINE bool	UnitTest::RunOnce(void)
 {
 	m_elapsedmsec = 0;
 
-	// ƒeƒXƒgŒ‹‰Ê‚ÌƒNƒŠƒA
+	// ãƒ†ã‚¹ãƒˆçµæœã®ã‚¯ãƒªã‚¢
 	ClearNonAdHocTestResult();
 
-	// Às‘ÎÛ‚ÌƒeƒXƒg‚ª‚È‚¢ê‡‚Í‰½‚à‚µ‚È‚¢
+	// å®Ÿè¡Œå¯¾è±¡ã®ãƒ†ã‚¹ãƒˆãŒãªã„å ´åˆã¯ä½•ã‚‚ã—ãªã„
 	if( test_to_run_count() == 0 )
 	{
 		return Passed();
 	}
 
-	// ƒVƒƒƒbƒtƒ‹
+	// ã‚·ãƒ£ãƒƒãƒ•ãƒ«
 	if( TestFlag::IsEnableFlag(TestFlag::SHUFFLE_TESTS) )
 	{
 		detail::RandomShuffle(m_testcases, TestEnv::genrand());
 	}
 
-	// ƒOƒ[ƒoƒ‹ŠÂ‹«ƒZƒbƒg
+	// ã‚°ãƒ­ãƒ¼ãƒãƒ«ç’°å¢ƒã‚»ãƒƒãƒˆ
 	EnvironmentSetUp();
 
 	if( m_ad_hoc_testresult.HasFatalFailure() )
@@ -242,7 +242,7 @@ IUTEST_IPP_INLINE bool	UnitTest::RunOnce(void)
 		m_elapsedmsec = sw.stop();
 	}
 
-	// ƒOƒ[ƒoƒ‹ŠÂ‹«ƒZƒbƒg
+	// ã‚°ãƒ­ãƒ¼ãƒãƒ«ç’°å¢ƒã‚»ãƒƒãƒˆ
 	EnvironmentTearDown();
 
 	return Passed();
@@ -252,16 +252,16 @@ IUTEST_IPP_INLINE void	UnitTest::TestProgramStart(void)
 {
 #if 0
 #if IUTEST_HAS_EXCEPTIONS && defined(_MSC_VER) && IUTEST_HAS_SEH
-	// /EHa ƒIƒvƒVƒ‡ƒ“‚ª•K—v
+	// /EHa ã‚ªãƒ—ã‚·ãƒ§ãƒ³ãŒå¿…è¦
 	if( TestFlag::IsEnableFlag(TestFlag::CATCH_EXCEPTION) )
 	{
-		// SEH —áŠO‚É‘Î‰‚·‚é
+		// SEH ä¾‹å¤–ã«å¯¾å¿œã™ã‚‹
 		_set_se_translator(detail::seh_exception::translator);
 	}
 #endif
 #endif
 
-	// ƒtƒBƒ‹ƒ^ƒŠƒ“ƒO
+	// ãƒ•ã‚£ãƒ«ã‚¿ãƒªãƒ³ã‚°
 	m_should_run_num = 0;
 	m_disable_num = 0;
 	for( iuTestCases::iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
@@ -319,7 +319,7 @@ IUTEST_IPP_INLINE void	UnitTest::Initialize(void)
 
 	ClearAdHocTestResult();
 
-	// ƒtƒ@ƒCƒ‹ƒVƒXƒeƒ€‚Ì‰Šú‰»
+	// ãƒ•ã‚¡ã‚¤ãƒ«ã‚·ã‚¹ãƒ†ãƒ ã®åˆæœŸåŒ–
 	if( detail::IFileSystem::GetInstance() == NULL )
 	{
 #if defined(IUTEST_FILE)
@@ -331,7 +331,7 @@ IUTEST_IPP_INLINE void	UnitTest::Initialize(void)
 #endif
 	}
 
-	// ˆÈ~‰‰ñ‚Ì‚İ
+	// ä»¥é™åˆå›ã®ã¿
 	if( m_init_iutest_count != 1 )
 	{
 		return;

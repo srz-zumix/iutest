@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_package.hpp
- * @brief		iris unit test testcase package ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test testcase package ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -25,8 +25,8 @@
 // define
 /**
  * @ingroup	TESTDEF
- * @brief	ƒpƒbƒP[ƒW–¼‘O‹óŠÔ‚Ì’è‹`
- * @param	name	= ƒpƒbƒP[ƒW–¼
+ * @brief	ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åå‰ç©ºé–“ã®å®šç¾©
+ * @param	name	= ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸å
 */
 #define IUTEST_PACKAGE(name)	IIUT_PACKAGE_(name)
 
@@ -105,26 +105,26 @@
 
 //======================================================================
 // declare
-class iuTest_TestCasePackage;			//!< ƒpƒbƒP[ƒW–¼QÆ—p’è‹`
-class iuTest_TestCaseParentPackage;		//!< eƒpƒbƒP[ƒW–¼QÆ—p’è‹`
+class iuTest_TestCasePackage;			//!< ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åå‚ç…§ç”¨å®šç¾©
+class iuTest_TestCaseParentPackage;		//!< è¦ªãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åå‚ç…§ç”¨å®šç¾©
 
 //======================================================================
 // function
 /**
- * @brief	ƒOƒ[ƒoƒ‹ƒpƒbƒP[ƒW–¼‚Ìæ“¾
- * @return	ƒpƒbƒP[ƒW–¼
+ * @brief	ã‚°ãƒ­ãƒ¼ãƒãƒ«ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åã®å–å¾—
+ * @return	ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸å
 */
 inline ::std::string IUTEST_ATTRIBUTE_UNUSED_	iuTest_GetTestCasePackageName(const iuTest_TestCasePackage*) { return ""; }
 
 /**
- * @brief	e‹óŠÔ‚ÌƒpƒbƒP[ƒW–¼‚Ìæ“¾
- * @return	ƒpƒbƒP[ƒW–¼
+ * @brief	è¦ªç©ºé–“ã®ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åã®å–å¾—
+ * @return	ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸å
 */
 inline ::std::string IUTEST_ATTRIBUTE_UNUSED_	iuTest_GetTestCaseParentPackageName(const iuTest_TestCaseParentPackage*) { return ""; }
 
 /**
- * @brief	ƒeƒXƒgƒP[ƒX–¼‚Æ‚ÌŒ‹‡
- * @return	ƒeƒXƒgƒP[ƒX–¼
+ * @brief	ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹åã¨ã®çµåˆ
+ * @return	ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
 */
 inline ::std::string IUTEST_ATTRIBUTE_UNUSED_	iuTest_ConcatTestCaseName(const ::std::string& package, const char* testcase_name) { return package + testcase_name; }
 

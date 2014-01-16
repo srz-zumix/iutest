@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_core.hpp
- * @brief		iris unit test core ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test core
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -29,7 +29,7 @@ namespace iutest
 //======================================================================
 // class
 /**
- * @brief	ƒeƒXƒg‘S‘Ì‚ÌŠÇ—Ò
+ * @brief	ãƒ†ã‚¹ãƒˆå…¨ä½“ã®ç®¡ç†è€…
 */
 class UnitTest : public UnitTestImpl
 {
@@ -37,84 +37,84 @@ public:
 	/** @private */
 	static	UnitTest&	instance(void)		{ static UnitTest inst; return inst; }
 	/** 
-	 * @brief	UnitTest ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìæ“¾
+	 * @brief	UnitTest ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å–å¾—
 	*/
 	static	UnitTest*	GetInstance(void)	{ return &instance(); }
 
 public:
 	/**
-	 * @brief	ƒeƒXƒg’†‚Ì TestCase ‚Ìæ“¾
+	 * @brief	ãƒ†ã‚¹ãƒˆä¸­ã® TestCase ã®å–å¾—
 	*/
 	const TestCase*		current_test_case(void)	const	{ return m_current_testcase; }
 
 	/**
-	 * @brief	ƒeƒXƒg’†‚Ì TestInfo ‚Ìæ“¾
-	 * @note	ŒİŠ·«‚Ì‚½‚ß ƒƒ“ƒoŠÖ” ‚É‚µ‚Ä‚¢‚Ü‚·B
+	 * @brief	ãƒ†ã‚¹ãƒˆä¸­ã® TestInfo ã®å–å¾—
+	 * @note	äº’æ›æ€§ã®ãŸã‚ ãƒ¡ãƒ³ãƒé–¢æ•° ã«ã—ã¦ã„ã¾ã™ã€‚
 	*/
 	const TestInfo*		current_test_info(void)	const	{ return Test::GetCurrentTestInfo(); }
 
-	/** —”ƒV[ƒh‚Ìæ“¾ */
+	/** ä¹±æ•°ã‚·ãƒ¼ãƒ‰ã®å–å¾— */
 	unsigned int		random_seed(void)		const	{ return TestEnv::current_random_seed(); }
 
-	/** Œ»İ‰½‰ñ–Ú‚Ì‚­‚è•Ô‚µ‚©æ“¾ */
+	/** ç¾åœ¨ä½•å›ç›®ã®ãã‚Šè¿”ã—ã‹å–å¾— */
 	int					repeat_counter(void)	const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_repeat_counter; }
 
 public:
-	/** ƒeƒXƒg‘” */
+	/** ãƒ†ã‚¹ãƒˆç·æ•° */
 	int				total_test_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_total_test_num; }
-	/** ƒŒƒ|[ƒg‘ÎÛ‚ÌƒeƒXƒg‘” */
+	/** ãƒ¬ãƒãƒ¼ãƒˆå¯¾è±¡ã®ãƒ†ã‚¹ãƒˆç·æ•° */
 	int				reportable_test_count(void)	const;
-	/** Às‚µ‚½/‚·‚éƒeƒXƒg‘” */
+	/** å®Ÿè¡Œã—ãŸ/ã™ã‚‹ãƒ†ã‚¹ãƒˆç·æ•° */
 	int				test_to_run_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_should_run_num; }
-	/** ¸”sƒeƒXƒg‘” */
+	/** å¤±æ•—ãƒ†ã‚¹ãƒˆç·æ•° */
 	int				failed_test_count(void)		const;
-	/** –³ŒøƒeƒXƒg‘” */
+	/** ç„¡åŠ¹ãƒ†ã‚¹ãƒˆç·æ•° */
 	int				disabled_test_count(void)	const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_disable_num; }
-	/** ƒŒƒ|[ƒg‘ÎÛ‚Ì–³ŒøƒeƒXƒg‘” */
+	/** ãƒ¬ãƒãƒ¼ãƒˆå¯¾è±¡ã®ç„¡åŠ¹ãƒ†ã‚¹ãƒˆç·æ•° */
 	int				reportable_disabled_test_count(void) const;
-	/** ¬Œ÷ƒeƒXƒg‘” */
+	/** æˆåŠŸãƒ†ã‚¹ãƒˆç·æ•° */
 	int				successful_test_count(void)	const;
-	/** ƒXƒLƒbƒvƒeƒXƒg‘” */
+	/** ã‚¹ã‚­ãƒƒãƒ—ãƒ†ã‚¹ãƒˆç·æ•° */
 	int				skip_test_count(void)		const;
-	/** ƒŒƒ|[ƒg‘ÎÛ‚ÌƒXƒLƒbƒvƒeƒXƒg‘” */
+	/** ãƒ¬ãƒãƒ¼ãƒˆå¯¾è±¡ã®ã‚¹ã‚­ãƒƒãƒ—ãƒ†ã‚¹ãƒˆç·æ•° */
 	int				reportable_skip_test_count(void) const;
-	/** –¾¦“I‚ÉƒXƒLƒbƒv‚³‚ê‚½ƒeƒXƒg‘” */
+	/** æ˜ç¤ºçš„ã«ã‚¹ã‚­ãƒƒãƒ—ã•ã‚ŒãŸãƒ†ã‚¹ãƒˆç·æ•° */
 	int				test_run_skipped_count(void) const;
-	/** ƒŒƒ|[ƒg‘ÎÛ‚Ì–¾¦“I‚ÉƒXƒLƒbƒv‚³‚ê‚½ƒeƒXƒg‘” */
+	/** ãƒ¬ãƒãƒ¼ãƒˆå¯¾è±¡ã®æ˜ç¤ºçš„ã«ã‚¹ã‚­ãƒƒãƒ—ã•ã‚ŒãŸãƒ†ã‚¹ãƒˆç·æ•° */
 	int				reportable_test_run_skipped_count(void) const;
 
-	/** ƒeƒXƒgƒP[ƒX”‚Ì‘” */
+	/** ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹æ•°ã®ç·æ•° */
 	int				total_test_case_count(void)	const	{ return m_testcases.size(); }
-	/** Às‚µ‚½ƒeƒXƒgƒP[ƒX‘” */
+	/** å®Ÿè¡Œã—ãŸãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹ç·æ•° */
 	int				test_case_to_run_count(void) const;
-	/** ¬Œ÷‚µ‚½ƒeƒXƒgƒP[ƒX‘” */
+	/** æˆåŠŸã—ãŸãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹ç·æ•° */
 	int				successful_test_case_count(void) const;
-	/** ¸”s‚µ‚½ƒeƒXƒgƒP[ƒX‘” */
+	/** å¤±æ•—ã—ãŸãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹ç·æ•° */
 	int				failed_test_case_count(void) const;
 
-	/** ƒeƒXƒgÀs’†‚¶‚á‚È‚¢‚Æ‚«‚ÌƒŠƒUƒ‹ƒg‚Ìæ“¾ */
+	/** ãƒ†ã‚¹ãƒˆå®Ÿè¡Œä¸­ã˜ã‚ƒãªã„ã¨ãã®ãƒªã‚¶ãƒ«ãƒˆã®å–å¾— */
 	const TestResult* ad_hoc_testresult(void) const IUTEST_CXX_NOEXCEPT_SPEC { return &m_ad_hoc_testresult; }
 
-	/** ƒeƒXƒg‚ÌÀsƒ~ƒŠ•b */
+	/** ãƒ†ã‚¹ãƒˆã®å®Ÿè¡ŒãƒŸãƒªç§’ */
 	TimeInMillisec	elapsed_time(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_elapsedmsec; }
 
-	/** ƒeƒXƒgŠJn‚Ìƒ^ƒCƒ€ƒXƒ^ƒ“ƒv‚ğæ“¾ */
+	/** ãƒ†ã‚¹ãƒˆé–‹å§‹æ™‚ã®ã‚¿ã‚¤ãƒ ã‚¹ã‚¿ãƒ³ãƒ—ã‚’å–å¾— */
 	TimeInMillisec	start_timestamp(void)	const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_start_timestamp; }
 
-	/** ƒeƒXƒgƒP[ƒX‚Ìæ“¾ */
+	/** ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹ã®å–å¾— */
 	const TestCase*	GetTestCase(int index)	const	{ return m_testcases[index]; }
 
-	/** ƒeƒXƒg‚ª¬Œ÷‚µ‚½‚©‚Ç‚¤‚© */
+	/** ãƒ†ã‚¹ãƒˆãŒæˆåŠŸã—ãŸã‹ã©ã†ã‹ */
 	bool			Passed(void)			const;
-	/** ƒeƒXƒg‚ª¸”s‚µ‚½‚©‚Ç‚¤‚© */
+	/** ãƒ†ã‚¹ãƒˆãŒå¤±æ•—ã—ãŸã‹ã©ã†ã‹ */
 	bool			Failed(void)			const	{ return !Passed(); }
 
-	/** ƒCƒxƒ“ƒgƒŠƒXƒi[‚Ìæ“¾ */
+	/** ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼ã®å–å¾— */
 	TestEventListeners&	listeners(void)		const	{ return TestEnv::event_listeners(); }
 
 protected:
 	/**
-	 * @brief	ƒeƒXƒg‚ÌÀs
+	 * @brief	ãƒ†ã‚¹ãƒˆã®å®Ÿè¡Œ
 	*/
 	int Run(void);
 
@@ -125,38 +125,38 @@ private:
 	int RunImpl(void);
 
 	/**
-	 * @brief	ƒeƒXƒg‚ÌÀsi‚Pƒ‹[ƒvj
+	 * @brief	ãƒ†ã‚¹ãƒˆã®å®Ÿè¡Œï¼ˆï¼‘ãƒ«ãƒ¼ãƒ—ï¼‰
 	*/
 	bool	RunOnce(void);
 
 private:
 	/**
-	 * @brief	ƒvƒƒOƒ‰ƒ€‚ÌŠJn
+	 * @brief	ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®é–‹å§‹
 	*/
 	void	TestProgramStart(void);
 
 	/**
-	 * @brief	ƒCƒeƒŒ[ƒVƒ‡ƒ“–ˆ‚ÌƒZƒbƒgƒAƒbƒv
+	 * @brief	ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³æ¯ã®ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—
 	*/
 	void	SetUpTestIteration(void);
 
 	/**
-	 * @brief	ŠÂ‹«ƒZƒbƒgƒAƒbƒv
+	 * @brief	ç’°å¢ƒã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—
 	*/
 	void	EnvironmentSetUp(void);
 
 	/**
-	 * @brief	ŠÂ‹«‰ğœ
+	 * @brief	ç’°å¢ƒè§£é™¤
 	*/
 	void	EnvironmentTearDown(void);
 
 	/**
-	 * @brief	ƒvƒƒOƒ‰ƒ€‚ÌI—¹
+	 * @brief	ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®çµ‚äº†
 	*/
 	void	TestProgramEnd(void);
 
 private:
-	// CŒ¾Œê‚ÌI—¹ƒR[ƒ‹ƒoƒbƒNŠÖ”
+	// Cè¨€èªã®çµ‚äº†ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•°
 	static void	OnExit(void)
 	{
 		instance().TestProgramEnd();
@@ -169,9 +169,9 @@ private:
 		, m_test_started(false)
 		, m_start_timestamp(0)
 	{
-		// ƒfƒtƒHƒ‹ƒgƒŠƒ|[ƒ^[‚ğƒZƒbƒg
+		// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆãƒªãƒãƒ¼ã‚¿ãƒ¼ã‚’ã‚»ãƒƒãƒˆ
 		TestEnv::SetGlobalTestPartResultReporter(&m_default_test_part_result_reporter);
-		// ŠÂ‹«•Ï”‚É‚æ‚éƒeƒXƒgƒtƒ‰ƒOw’è‚ğƒ[ƒh
+		// ç’°å¢ƒå¤‰æ•°ã«ã‚ˆã‚‹ãƒ†ã‚¹ãƒˆãƒ•ãƒ©ã‚°æŒ‡å®šã‚’ãƒ­ãƒ¼ãƒ‰
 		TestEnv::LoadEnviromentVariable();
 	}
 #if defined(_MSC_VER) && _MSC_VER < 1300
@@ -184,7 +184,7 @@ public:	// VC++6.0 bug
 	}
 
 private:
-	// ‰Šú‰»ˆ—
+	// åˆæœŸåŒ–å‡¦ç†
 	void	Initialize(void);
 
 #if IUTEST_HAS_PARAM_TEST
@@ -214,20 +214,20 @@ namespace detail
 /**
  * @private
  * @internal
- * @brief	’P‘ÌƒeƒXƒgƒCƒ“ƒXƒ^ƒ“ƒX
+ * @brief	å˜ä½“ãƒ†ã‚¹ãƒˆã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 */
 template<class Tester>
 class TestInstance
 {
 public:
-	/** ƒRƒ“ƒXƒgƒ‰ƒNƒ^ */
+	/** ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ */
 	TestInstance(const char* testcase, const char* name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
 		: m_mediator(AddTestCase(testcase, id, setup, teardown))
 		, m_info(&m_mediator, name, &m_factory)
 	{
 		UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
 	}
-	/** ƒRƒ“ƒXƒgƒ‰ƒNƒ^ */
+	/** ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ */
 	TestInstance(const char* testcase, const char* name, const char*  value_params, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
 		: m_mediator(AddTestCase(testcase, id, setup, teardown))
 		, m_info(&m_mediator, name, &m_factory)

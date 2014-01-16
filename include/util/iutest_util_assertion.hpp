@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_util_assertion.hpp
- * @brief		iris unit test assertion Šg’£ ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test assertion æ‹¡å¼µ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -28,44 +28,44 @@ namespace iuutil
 // define
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	== ƒeƒXƒg(collection)
- * @param	b1	= Šú‘Ò’l‚Ìæ“ª
- * @param	e1	= Šú‘Ò’l‚ÌI’[
- * @param	b2	= ŒŸ¸‘ÎÛ‚Ìæ“ª
- * @param	e2	= ŒŸ¸‘ÎÛ‚ÌI’[
+ * @brief	== ãƒ†ã‚¹ãƒˆ(collection)
+ * @param	b1	= æœŸå¾…å€¤ã®å…ˆé ­
+ * @param	e1	= æœŸå¾…å€¤ã®çµ‚ç«¯
+ * @param	b2	= æ¤œæŸ»å¯¾è±¡ã®å…ˆé ­
+ * @param	e2	= æ¤œæŸ»å¯¾è±¡ã®çµ‚ç«¯
 */
 #ifndef IUTEST_ASSERT_EQ_COLLECTIONS
 #  define	IUTEST_ASSERT_EQ_COLLECTIONS(b1, e1, b2, e2)	IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	== ƒeƒXƒg(collection)
- * @param	b1	= Šú‘Ò’l‚Ìæ“ª
- * @param	e1	= Šú‘Ò’l‚ÌI’[
- * @param	b2	= ŒŸ¸‘ÎÛ‚Ìæ“ª
- * @param	e2	= ŒŸ¸‘ÎÛ‚ÌI’[
+ * @brief	== ãƒ†ã‚¹ãƒˆ(collection)
+ * @param	b1	= æœŸå¾…å€¤ã®å…ˆé ­
+ * @param	e1	= æœŸå¾…å€¤ã®çµ‚ç«¯
+ * @param	b2	= æ¤œæŸ»å¯¾è±¡ã®å…ˆé ­
+ * @param	e2	= æ¤œæŸ»å¯¾è±¡ã®çµ‚ç«¯
 */
 #ifndef IUTEST_EXPECT_EQ_COLLECTIONS
 #  define	IUTEST_EXPECT_EQ_COLLECTIONS(b1, e1, b2, e2)	IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	== ƒeƒXƒg(collection)
- * @param	b1	= Šú‘Ò’l‚Ìæ“ª
- * @param	e1	= Šú‘Ò’l‚ÌI’[
- * @param	b2	= ŒŸ¸‘ÎÛ‚Ìæ“ª
- * @param	e2	= ŒŸ¸‘ÎÛ‚ÌI’[
+ * @brief	== ãƒ†ã‚¹ãƒˆ(collection)
+ * @param	b1	= æœŸå¾…å€¤ã®å…ˆé ­
+ * @param	e1	= æœŸå¾…å€¤ã®çµ‚ç«¯
+ * @param	b2	= æ¤œæŸ»å¯¾è±¡ã®å…ˆé ­
+ * @param	e2	= æ¤œæŸ»å¯¾è±¡ã®çµ‚ç«¯
 */
 #ifndef IUTEST_INFORM_EQ_COLLECTIONS
 #  define	IUTEST_INFORM_EQ_COLLECTIONS(b1, e1, b2, e2)	IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	== ƒeƒXƒg(collection)
- * @param	b1	= Šú‘Ò’l‚Ìæ“ª
- * @param	e1	= Šú‘Ò’l‚ÌI’[
- * @param	b2	= ŒŸ¸‘ÎÛ‚Ìæ“ª
- * @param	e2	= ŒŸ¸‘ÎÛ‚ÌI’[
+ * @brief	== ãƒ†ã‚¹ãƒˆ(collection)
+ * @param	b1	= æœŸå¾…å€¤ã®å…ˆé ­
+ * @param	e1	= æœŸå¾…å€¤ã®çµ‚ç«¯
+ * @param	b2	= æ¤œæŸ»å¯¾è±¡ã®å…ˆé ­
+ * @param	e2	= æ¤œæŸ»å¯¾è±¡ã®çµ‚ç«¯
 */
 #ifndef IUTEST_ASSUME_EQ_COLLECTIONS
 #  define	IUTEST_ASSUME_EQ_COLLECTIONS(b1, e1, b2, e2)	IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, IUTEST_ASSUME_FAILURE)
@@ -73,36 +73,36 @@ namespace iuutil
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	== ƒeƒXƒg(range)
- * @param	expected	= Šú‘Ò’l
- * @param	actual		= ŒŸ¸‘ÎÛ
+ * @brief	== ãƒ†ã‚¹ãƒˆ(range)
+ * @param	expected	= æœŸå¾…å€¤
+ * @param	actual		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_ASSERT_EQ_RANGE
 #  define	IUTEST_ASSERT_EQ_RANGE(expected, actual)	IUTEST_TEST_EQ_RANGE(expected, actual, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	== ƒeƒXƒg(range)
- * @param	expected	= Šú‘Ò’l
- * @param	actual		= ŒŸ¸‘ÎÛ
+ * @brief	== ãƒ†ã‚¹ãƒˆ(range)
+ * @param	expected	= æœŸå¾…å€¤
+ * @param	actual		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_EXPECT_EQ_RANGE
 #  define	IUTEST_EXPECT_EQ_RANGE(expected, actual)	IUTEST_TEST_EQ_RANGE(expected, actual, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_INFORM_
- * @brief	== ƒeƒXƒg(range)
- * @param	expected	= Šú‘Ò’l
- * @param	actual		= ŒŸ¸‘ÎÛ
+ * @brief	== ãƒ†ã‚¹ãƒˆ(range)
+ * @param	expected	= æœŸå¾…å€¤
+ * @param	actual		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_INFORM_EQ_RANGE
 #  define	IUTEST_INFORM_EQ_RANGE(expected, actual)	IUTEST_TEST_EQ_RANGE(expected, actual, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSUME_
- * @brief	== ƒeƒXƒg(range)
- * @param	expected	= Šú‘Ò’l
- * @param	actual		= ŒŸ¸‘ÎÛ
+ * @brief	== ãƒ†ã‚¹ãƒˆ(range)
+ * @param	expected	= æœŸå¾…å€¤
+ * @param	actual		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_ASSUME_EQ_RANGE
 #  define	IUTEST_ASSUME_EQ_RANGE(expected, actual)	IUTEST_TEST_EQ_RANGE(expected, actual, IUTEST_ASSUME_FAILURE)
@@ -110,36 +110,36 @@ namespace iuutil
 
 /**
  * @ingroup	IUTEST_ASSERT_
- * @brief	•¶š—ñ’·‚Ìˆê’v ƒeƒXƒg
- * @param	len		= Šú‘Ò•¶š—ñ’·
- * @param	v2		= ŒŸ¸‘ÎÛ
+ * @brief	æ–‡å­—åˆ—é•·ã®ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @param	len		= æœŸå¾…æ–‡å­—åˆ—é•·
+ * @param	v2		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_ASSERT_STRLNEQ
 #  define	IUTEST_ASSERT_STRLNEQ(len, v2)			IUTEST_TEST_STRLNEQ(len, v2, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
- * @brief	•¶š—ñ’·‚Ìˆê’v ƒeƒXƒg
- * @param	len		= Šú‘Ò•¶š—ñ’·
- * @param	v2		= ŒŸ¸‘ÎÛ
+ * @brief	æ–‡å­—åˆ—é•·ã®ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @param	len		= æœŸå¾…æ–‡å­—åˆ—é•·
+ * @param	v2		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_EXPECT_STRLNEQ
 #  define	IUTEST_EXPECT_STRLNEQ(len, v2)			IUTEST_TEST_STRLNEQ(len, v2, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_INFORM
- * @brief	•¶š—ñ’·‚Ìˆê’v ƒeƒXƒg
- * @param	len		= Šú‘Ò•¶š—ñ’·
- * @param	v2		= ŒŸ¸‘ÎÛ
+ * @brief	æ–‡å­—åˆ—é•·ã®ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @param	len		= æœŸå¾…æ–‡å­—åˆ—é•·
+ * @param	v2		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_INFORM_STRLNEQ
 #  define	IUTEST_INFORM_STRLNEQ(len, v2)			IUTEST_TEST_STRLNEQ(len, v2, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSUME
- * @brief	•¶š—ñ’·‚Ìˆê’v ƒeƒXƒg
- * @param	len		= Šú‘Ò•¶š—ñ’·
- * @param	v2		= ŒŸ¸‘ÎÛ
+ * @brief	æ–‡å­—åˆ—é•·ã®ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+ * @param	len		= æœŸå¾…æ–‡å­—åˆ—é•·
+ * @param	v2		= æ¤œæŸ»å¯¾è±¡
 */
 #ifndef IUTEST_ASSUME_STRLNEQ
 #  define	IUTEST_ASSUME_STRLNEQ(len, v2)			IUTEST_TEST_STRLNEQ(len, v2, IUTEST_ASSUME_FAILURE)
@@ -147,36 +147,36 @@ namespace iuutil
 
 /**
 * @ingroup	IUTEST_ASSERT_
-* @brief	•¶š—ñ•”•ªˆê’v ƒeƒXƒg
-* @param	substr	= •”•ª•¶š—ñ
-* @param	actual	= ŒŸ¸‘ÎÛ•¶š—ñ
+* @brief	æ–‡å­—åˆ—éƒ¨åˆ†ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+* @param	substr	= éƒ¨åˆ†æ–‡å­—åˆ—
+* @param	actual	= æ¤œæŸ»å¯¾è±¡æ–‡å­—åˆ—
 */
 #ifndef IUTEST_ASSERT_STRIN
 #  define	IUTEST_ASSERT_STRIN(substr, actual)		IUTEST_TEST_STRIN(substr, actual, IUTEST_ASSERT_FAILURE)
 #endif
 /**
 * @ingroup	IUTEST_EXPECT_
-* @brief	•¶š—ñ•”•ªˆê’v ƒeƒXƒg
-* @param	substr	= •”•ª•¶š—ñ
-* @param	actual	= ŒŸ¸‘ÎÛ•¶š—ñ
+* @brief	æ–‡å­—åˆ—éƒ¨åˆ†ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+* @param	substr	= éƒ¨åˆ†æ–‡å­—åˆ—
+* @param	actual	= æ¤œæŸ»å¯¾è±¡æ–‡å­—åˆ—
 */
 #ifndef IUTEST_EXPECT_STRIN
 #  define	IUTEST_EXPECT_STRIN(substr, actual)		IUTEST_TEST_STRIN(substr, actual, IUTEST_EXPECT_FAILURE)
 #endif
 /**
 * @ingroup	IUTEST_INFORM
-* @brief	•¶š—ñ•”•ªˆê’v ƒeƒXƒg
-* @param	substr	= •”•ª•¶š—ñ
-* @param	actual	= ŒŸ¸‘ÎÛ•¶š—ñ
+* @brief	æ–‡å­—åˆ—éƒ¨åˆ†ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+* @param	substr	= éƒ¨åˆ†æ–‡å­—åˆ—
+* @param	actual	= æ¤œæŸ»å¯¾è±¡æ–‡å­—åˆ—
 */
 #ifndef IUTEST_INFORM_STRIN
 #  define	IUTEST_INFORM_STRIN(substr, actual)		IUTEST_TEST_STRIN(substr, actual, IUTEST_INFORM_FAILURE)
 #endif
 /**
 * @ingroup	IUTEST_ASSUME
-* @brief	•¶š—ñ•”•ªˆê’v ƒeƒXƒg
-* @param	substr	= •”•ª•¶š—ñ
-* @param	actual	= ŒŸ¸‘ÎÛ•¶š—ñ
+* @brief	æ–‡å­—åˆ—éƒ¨åˆ†ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+* @param	substr	= éƒ¨åˆ†æ–‡å­—åˆ—
+* @param	actual	= æ¤œæŸ»å¯¾è±¡æ–‡å­—åˆ—
 */
 #ifndef IUTEST_ASSUME_STRIN
 #  define	IUTEST_ASSUME_STRIN(substr, actual)		IUTEST_TEST_STRIN(substr, actual, IUTEST_ASSUME_FAILURE)
@@ -185,36 +185,36 @@ namespace iuutil
 
 /**
 * @ingroup	IUTEST_ASSERT_
-* @brief	•¶š—ñ•”•ªˆê’v ƒeƒXƒg
-* @param	substr	= •”•ª•¶š—ñ
-* @param	actual	= ŒŸ¸‘ÎÛ•¶š—ñ
+* @brief	æ–‡å­—åˆ—éƒ¨åˆ†ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+* @param	substr	= éƒ¨åˆ†æ–‡å­—åˆ—
+* @param	actual	= æ¤œæŸ»å¯¾è±¡æ–‡å­—åˆ—
 */
 #ifndef IUTEST_ASSERT_STRNOTIN
 #  define	IUTEST_ASSERT_STRNOTIN(substr, actual)		IUTEST_TEST_STRNOTIN(substr, actual, IUTEST_ASSERT_FAILURE)
 #endif
 /**
 * @ingroup	IUTEST_EXPECT_
-* @brief	•¶š—ñ•”•ªˆê’v ƒeƒXƒg
-* @param	substr	= •”•ª•¶š—ñ
-* @param	actual	= ŒŸ¸‘ÎÛ•¶š—ñ
+* @brief	æ–‡å­—åˆ—éƒ¨åˆ†ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+* @param	substr	= éƒ¨åˆ†æ–‡å­—åˆ—
+* @param	actual	= æ¤œæŸ»å¯¾è±¡æ–‡å­—åˆ—
 */
 #ifndef IUTEST_EXPECT_STRNOTIN
 #  define	IUTEST_EXPECT_STRNOTIN(substr, actual)		IUTEST_TEST_STRNOTIN(substr, actual, IUTEST_EXPECT_FAILURE)
 #endif
 /**
 * @ingroup	IUTEST_INFORM
-* @brief	•¶š—ñ•”•ªˆê’v ƒeƒXƒg
-* @param	substr	= •”•ª•¶š—ñ
-* @param	actual	= ŒŸ¸‘ÎÛ•¶š—ñ
+* @brief	æ–‡å­—åˆ—éƒ¨åˆ†ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+* @param	substr	= éƒ¨åˆ†æ–‡å­—åˆ—
+* @param	actual	= æ¤œæŸ»å¯¾è±¡æ–‡å­—åˆ—
 */
 #ifndef IUTEST_INFORM_STRNOTIN
 #  define	IUTEST_INFORM_STRNOTIN(substr, actual)		IUTEST_TEST_STRNOTIN(substr, actual, IUTEST_INFORM_FAILURE)
 #endif
 /**
 * @ingroup	IUTEST_ASSUME
-* @brief	•¶š—ñ•”•ªˆê’v ƒeƒXƒg
-* @param	substr	= •”•ª•¶š—ñ
-* @param	actual	= ŒŸ¸‘ÎÛ•¶š—ñ
+* @brief	æ–‡å­—åˆ—éƒ¨åˆ†ä¸€è‡´ ãƒ†ã‚¹ãƒˆ
+* @param	substr	= éƒ¨åˆ†æ–‡å­—åˆ—
+* @param	actual	= æ¤œæŸ»å¯¾è±¡æ–‡å­—åˆ—
 */
 #ifndef IUTEST_ASSUME_STRNOTIN
 #  define	IUTEST_ASSUME_STRNOTIN(substr, actual)		IUTEST_TEST_STRNOTIN(substr, actual, IUTEST_ASSUME_FAILURE)
@@ -377,7 +377,7 @@ template<typename T1, size_t SIZE1, typename T2>
 #endif
 
 /**
- * @brief	•¶š—ñ’·ƒAƒT[ƒVƒ‡ƒ“ƒtƒH[ƒ}ƒbƒ^[
+ * @brief	æ–‡å­—åˆ—é•·ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
 */
 inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const char* expr1, const char* expr2
 										 , size_t len1, const char* val2)
@@ -391,7 +391,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const
 		<< "\n  Actual: " << val2 << " : " << len2 << "\nExpected: " << len1 ;
 }
 /**
- * @brief	•¶š—ñ’·ƒAƒT[ƒVƒ‡ƒ“ƒtƒH[ƒ}ƒbƒ^[
+ * @brief	æ–‡å­—åˆ—é•·ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
 */
 inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const char* expr1, const char* expr2
 										 , size_t len1, const wchar_t* val2)
@@ -406,7 +406,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const
 }
 
 /**
-* @brief	•¶š—ñ•”•ªˆê’vƒAƒT[ƒVƒ‡ƒ“ƒtƒH[ƒ}ƒbƒ^[
+* @brief	æ–‡å­—åˆ—éƒ¨åˆ†ä¸€è‡´ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
 */
 inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const char* substr_str, const char* actual_str
 	, const char* substr, const char* actual)
@@ -427,7 +427,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const c
 }
 
 /**
-* @brief	•¶š—ñ•”•ªˆê’vƒAƒT[ƒVƒ‡ƒ“ƒtƒH[ƒ}ƒbƒ^[
+* @brief	æ–‡å­—åˆ—éƒ¨åˆ†ä¸€è‡´ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
 */
 inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const char* substr_str, const char* actual_str
 	, const wchar_t* substr, const wchar_t* actual)
@@ -448,7 +448,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const c
 }
 
 /**
-* @brief	•¶š—ñ•”•ªˆê’vƒAƒT[ƒVƒ‡ƒ“ƒtƒH[ƒ}ƒbƒ^[
+* @brief	æ–‡å­—åˆ—éƒ¨åˆ†ä¸€è‡´ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
 */
 inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNOTIN(const char* substr_str, const char* actual_str
 	, const char* substr, const char* actual)
@@ -469,7 +469,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNOTIN(cons
 }
 
 /**
-* @brief	•¶š—ñ•”•ªˆê’vƒAƒT[ƒVƒ‡ƒ“ƒtƒH[ƒ}ƒbƒ^[
+* @brief	æ–‡å­—åˆ—éƒ¨åˆ†ä¸€è‡´ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
 */
 inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNOTIN(const char* substr_str, const char* actual_str
 	, const wchar_t* substr, const wchar_t* actual)
@@ -504,22 +504,22 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNOTIN(cons
 */
 
 /**
- * @brief	OR ƒeƒXƒg—pƒIƒuƒWƒFƒNƒgŒS
+ * @brief	OR ãƒ†ã‚¹ãƒˆç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆéƒ¡
 */
 struct CmpHelper
 {
-	IIUT_COMPARE_HELPER_DEC_(EQ);	//!< OR ƒeƒXƒg—p EQ
-	IIUT_COMPARE_HELPER_DEC_(NE);	//!< OR ƒeƒXƒg—p NE
-	IIUT_COMPARE_HELPER_DEC_(LE);	//!< OR ƒeƒXƒg—p LE
-	IIUT_COMPARE_HELPER_DEC_(LT);	//!< OR ƒeƒXƒg—p LT
-	IIUT_COMPARE_HELPER_DEC_(GE);	//!< OR ƒeƒXƒg—p GE
-	IIUT_COMPARE_HELPER_DEC_(GT);	//!< OR ƒeƒXƒg—p GT
+	IIUT_COMPARE_HELPER_DEC_(EQ);	//!< OR ãƒ†ã‚¹ãƒˆç”¨ EQ
+	IIUT_COMPARE_HELPER_DEC_(NE);	//!< OR ãƒ†ã‚¹ãƒˆç”¨ NE
+	IIUT_COMPARE_HELPER_DEC_(LE);	//!< OR ãƒ†ã‚¹ãƒˆç”¨ LE
+	IIUT_COMPARE_HELPER_DEC_(LT);	//!< OR ãƒ†ã‚¹ãƒˆç”¨ LT
+	IIUT_COMPARE_HELPER_DEC_(GE);	//!< OR ãƒ†ã‚¹ãƒˆç”¨ GE
+	IIUT_COMPARE_HELPER_DEC_(GT);	//!< OR ãƒ†ã‚¹ãƒˆç”¨ GT
 };
 
 #undef IIUT_COMPARE_HELPER_DEC_
 
 /**
- * @brief	OR ƒeƒXƒg—p”äŠrƒwƒ‹ƒp[
+ * @brief	OR ãƒ†ã‚¹ãƒˆç”¨æ¯”è¼ƒãƒ˜ãƒ«ãƒ‘ãƒ¼
 */
 template<typename COMP>
 struct CmpHelperOR
@@ -549,7 +549,7 @@ private:
 public:
 
 	/**
-	 * @brief	ƒtƒH[ƒ}ƒbƒ^[
+	 * @brief	ãƒ•ã‚©ãƒ¼ãƒãƒƒã‚¿ãƒ¼
 	*/
 	template<typename T1, typename T2>
 	static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2

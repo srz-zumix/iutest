@@ -1,4 +1,4 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_no_fatalfailure_tests.cpp
@@ -55,7 +55,7 @@ int main(int argc, char* argv[])
 {
 	IUTEST_INIT(&argc, argv);
 #if defined(OUTPUTXML)
-	// ¸”sƒeƒXƒg‚ğŠÜ‚Ş‚Ì‚Å xml o—Í‚µ‚È‚¢
+	// å¤±æ•—ãƒ†ã‚¹ãƒˆã‚’å«ã‚€ã®ã§ xml å‡ºåŠ›ã—ãªã„
 	::iutest::IUTEST_FLAG(output) = NULL;
 #endif
 	const int ret = IUTEST_RUN_ALL_TESTS();

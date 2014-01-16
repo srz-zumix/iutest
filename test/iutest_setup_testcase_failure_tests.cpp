@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_setup_testcase_failure_tests.cpp
- * @brief		SetUpTestCase ‚Å¸”s‚µ‚½‚Æ‚«‚ÌƒeƒXƒg
+ * @brief		SetUpTestCase ã§å¤±æ•—ã—ãŸã¨ãã®ãƒ†ã‚¹ãƒˆ
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -44,7 +44,7 @@ int main(int argc, char* argv[])
 {
 	IUTEST_INIT(&argc, argv);
 #if defined(OUTPUTXML)
-	// ¸”sƒeƒXƒg‚ğŠÜ‚Ş‚Ì‚Å xml o—Í‚µ‚È‚¢
+	// å¤±æ•—ãƒ†ã‚¹ãƒˆã‚’å«ã‚€ã®ã§ xml å‡ºåŠ›ã—ãªã„
 	::iutest::IUTEST_FLAG(output) = NULL;
 #endif
 	const int ret = IUTEST_RUN_ALL_TESTS();

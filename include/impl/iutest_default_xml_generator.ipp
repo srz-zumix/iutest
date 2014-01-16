@@ -1,4 +1,4 @@
-//======================================================================
+﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_default_xml_generator.ipp
@@ -8,7 +8,7 @@
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */

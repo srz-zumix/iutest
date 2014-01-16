@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_list.hpp
- * @brief		iris unit test list \‘¢ ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test list æ§‹é€  ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,7 +31,7 @@ namespace detail
 // class
 /**
   * @internal
-  * @brief	ƒŠƒXƒgƒm[ƒh
+  * @brief	ãƒªã‚¹ãƒˆãƒãƒ¼ãƒ‰
 */
 template<typename TN>
 class iu_list_node
@@ -50,7 +50,7 @@ protected:
 
 /**
   * @internal
-  * @brief	ƒŠƒXƒgƒCƒeƒŒ[ƒ^
+  * @brief	ãƒªã‚¹ãƒˆã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿
 */
 template<typename NODE, typename NODE_PTR, typename NODE_REF>
 class iu_list_iterator
@@ -114,8 +114,8 @@ public:
 
 /**
  * @internal
- * @brief	ƒŠƒXƒgƒNƒ‰ƒX
- * @deprecated stl ‚É•Ï‚¦‚½‚Ù‚¤‚ª‚¢‚¢‚©‚àA•Ûç‚·‚é‚Ì‚ªƒƒ“ƒhƒC
+ * @brief	ãƒªã‚¹ãƒˆã‚¯ãƒ©ã‚¹
+ * @deprecated stl ã«å¤‰ãˆãŸã»ã†ãŒã„ã„ã‹ã‚‚ã€ä¿å®ˆã™ã‚‹ã®ãŒãƒ¡ãƒ³ãƒ‰ã‚¤
 */
 template<typename NODE>
 class iu_list
@@ -132,7 +132,7 @@ public:
 	iu_list(node_ptr p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_node(p) {}
 
 public:
-	// ƒŠƒXƒg‚Ì‘”æ“¾
+	// ãƒªã‚¹ãƒˆã®ç·æ•°å–å¾—
 	unsigned int count(void) const IUTEST_CXX_NOEXCEPT_SPEC
 	{
 		unsigned int cnt = 0;
@@ -149,7 +149,7 @@ public:
 		return count();
 	}
 public:
-	// ƒ\[ƒg‚µ‚Ä‘}“ü
+	// ã‚½ãƒ¼ãƒˆã—ã¦æŒ¿å…¥
 	void sort_insert(node_ptr p)
 	{
 		if( p == NULL )
@@ -165,7 +165,7 @@ public:
 
 		if( *p < *m_node )
 		{
-			// “ü‚ê‘Ö‚¦
+			// å…¥ã‚Œæ›¿ãˆ
 			node_ptr next = m_node;
 			m_node = p;
 			p->next = next;
@@ -193,7 +193,7 @@ public:
 			}
 		}
 	}
-	// ’Ç‰Á
+	// è¿½åŠ 
 	void push_back(node_ptr p)
 	{
 		if( p == NULL )
@@ -221,7 +221,7 @@ public:
 		prev->next = p;
 		p->prev = prev;
 	}
-	// íœ
+	// å‰Šé™¤
 	void erase(node_ptr p)
 	{
 		if( p == NULL )
@@ -256,8 +256,8 @@ public:
 	}
 public:
 	/**
-	 * @brief	ƒVƒƒƒbƒtƒ‹
-	 * @tparam	F = ”äŠrƒIƒuƒWƒFƒNƒg
+	 * @brief	ã‚·ãƒ£ãƒƒãƒ•ãƒ«
+	 * @tparam	F = æ¯”è¼ƒã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	*/
 	template<typename F>
 	void shuffle(F& r)
@@ -420,7 +420,7 @@ public:
 
 private:
 #ifdef _IUTEST_DEBUG
-	// ƒm[ƒh‚Ìó‘Ôƒ`ƒFƒbƒN
+	// ãƒãƒ¼ãƒ‰ã®çŠ¶æ…‹ãƒã‚§ãƒƒã‚¯
 	bool		check_node(void)
 	{
 		if( m_node == NULL ) return true;
@@ -439,7 +439,7 @@ private:
 };
 
 /**
- * @brief	vector ƒVƒƒƒbƒtƒ‹
+ * @brief	vector ã‚·ãƒ£ãƒƒãƒ•ãƒ«
 */
 template<typename It, typename Fn>
 void RandomShuffle(It begin, It last, Fn& r)
@@ -481,7 +481,7 @@ Node FindList(const ::std::vector<Node>& list, Fn& f)
 }
 
 /**
- * @brief	ğŒ‚É‡‚¤—v‘f”‚ğƒJƒEƒ“ƒg
+ * @brief	æ¡ä»¶ã«åˆã†è¦ç´ æ•°ã‚’ã‚«ã‚¦ãƒ³ãƒˆ
 */
 template<typename Node, typename Fn>
 int CountIf(const iu_list<Node>& list, Fn& f)
@@ -498,7 +498,7 @@ int CountIf(const iu_list<Node>& list, Fn& f)
 }
 
 /**
- * @brief	ƒŠƒXƒg‚Ì¦‚·’l‚Ì‘˜a
+ * @brief	ãƒªã‚¹ãƒˆã®ç¤ºã™å€¤ã®ç·å’Œ
 */
 template<typename Node, typename Fn>
 int SumOverList(const iu_list<Node>& list, Fn f)
@@ -512,7 +512,7 @@ int SumOverList(const iu_list<Node>& list, Fn f)
 }
 
 /**
- * @brief	ƒŠƒXƒg‚Ì¦‚·^‚Ì‘˜a
+ * @brief	ãƒªã‚¹ãƒˆã®ç¤ºã™çœŸã®ç·å’Œ
 */
 template<typename Node, typename Fn>
 int CountIfOverList(const iu_list<Node>& list, Fn f)

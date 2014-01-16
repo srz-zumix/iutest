@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_switch_core.hpp
- * @brief		ƒRƒA‹@”\’è‹`Ø‚è‘Ö‚¦ ƒtƒ@ƒCƒ‹
+ * @brief		ã‚³ã‚¢æ©Ÿèƒ½å®šç¾©åˆ‡ã‚Šæ›¿ãˆ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */

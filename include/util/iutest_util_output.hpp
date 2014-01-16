@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_util_output.hpp
- * @brief		iris unit test print o—Í utility ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test print å‡ºåŠ› utility ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -35,7 +35,7 @@
 namespace iuutil
 {
 
-//! ƒRƒ“ƒ\[ƒ‹o—ÍƒNƒ‰ƒX‚ÌÄ—˜—p
+//! ã‚³ãƒ³ã‚½ãƒ¼ãƒ«å‡ºåŠ›ã‚¯ãƒ©ã‚¹ã®å†åˆ©ç”¨
 typedef ::iutest::detail::iuConsole	Console;
 
 }	// end of namespace iuutil

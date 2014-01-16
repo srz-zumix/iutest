@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_env.ipp
- * @brief		iris unit test ŠÂ‹« ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ç’°å¢ƒ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -175,7 +175,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 				}
 				if( !find )
 				{
-					// ŠY“–‚·‚éƒIƒvƒVƒ‡ƒ“‚ª‚È‚¢ê‡‚Íƒwƒ‹ƒv•\¦
+					// è©²å½“ã™ã‚‹ã‚ªãƒ—ã‚·ãƒ§ãƒ³ãŒãªã„å ´åˆã¯ãƒ˜ãƒ«ãƒ—è¡¨ç¤º
 					TestFlag::SetFlag(TestFlag::SHOW_HELP);
 				}
 			}

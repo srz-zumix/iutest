@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_pp.hpp
- * @brief		iris unit test ƒvƒŠƒvƒƒZƒbƒT ’è‹` ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ãƒ—ãƒªãƒ—ãƒ­ã‚»ãƒƒã‚µ å®šç¾© ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -21,20 +21,20 @@
 // define
 
 /**
- * @brief	ƒRƒs[‹Ö~’è‹`
+ * @brief	ã‚³ãƒ”ãƒ¼ç¦æ­¢å®šç¾©
 */
 #define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)	\
 	TypeName( const TypeName& );						\
 	TypeName& operator = ( const TypeName& )
 
 /**
- * @brief	‘ã“ü‹Ö~’è‹`
+ * @brief	ä»£å…¥ç¦æ­¢å®šç¾©
 */
 #define IUTEST_PP_DISALLOW_ASSIGN(TypeName)		\
 	TypeName& operator = ( const TypeName& )
 
 /**
- * @brief	ƒRƒs[/ƒ€[ƒu‹Ö~’è‹`
+ * @brief	ã‚³ãƒ”ãƒ¼/ãƒ ãƒ¼ãƒ–ç¦æ­¢å®šç¾©
 */
 #if defined(IUTEST_HAS_RVALUE_REFS) && IUTEST_HAS_RVALUE_REFS
 #  define IUTEST_PP_DISALLOW_MOVE_AND_COPY_AND_ASSIGN(TypeName)	\

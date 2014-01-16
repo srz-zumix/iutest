@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_value_tmp_tests.hpp
- * @brief		iris unit test template ’lˆø‚«”ƒNƒ‰ƒXƒeƒXƒg ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test template å€¤å¼•ãæ•°ã‚¯ãƒ©ã‚¹ãƒ†ã‚¹ãƒˆ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -28,14 +28,14 @@
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_VALUETMP_TEST_CASE(testcase_, types_)
- * @brief	Œ^•t‚¯ƒeƒXƒgƒP[ƒX‚Ì“o˜^
+ * @brief	å‹ä»˜ã‘ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹ã®ç™»éŒ²
 */
 #define IUTEST_VALUETMP_TEST_CASE(testcase_, types_)	IIUT_TYPED_TEST_CASE_(testcase_, types_)
 
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_VALUETMP_TEST(testcase_, testname_)
- * @brief	Œ^•t‚¯ƒeƒXƒgŠÖ”’è‹`ƒ}ƒNƒ
+ * @brief	å‹ä»˜ã‘ãƒ†ã‚¹ãƒˆé–¢æ•°å®šç¾©ãƒã‚¯ãƒ­
 */
 
 #define IUTEST_VALUETMP_TEST(testcase_, testname_)		IIUT_VALUETMP_TEST_(testcase_, testname_)
@@ -88,17 +88,17 @@ namespace tr1
 /**
  * @private
  * @internal
- * @brief	Typeƒpƒ‰ƒ[ƒ^’P‘ÌƒeƒXƒgƒCƒ“ƒXƒ^ƒ“ƒX
- * @tparam	Tester		= ƒeƒXƒgƒNƒ‰ƒX
- * @tparam	TypePrams	= Œ^
+ * @brief	Typeãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å˜ä½“ãƒ†ã‚¹ãƒˆã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+ * @tparam	Tester		= ãƒ†ã‚¹ãƒˆã‚¯ãƒ©ã‚¹
+ * @tparam	TypePrams	= å‹
 */
 template<template <BiggestInt V> class Tester, typename TypePrams>
 class ValueTmpParamTestInstance
 {
 	/**
-	 * @brief	ƒeƒXƒgƒP[ƒX–¼‚Ìì¬
-	 * @param [in]	testcase	= ƒx[ƒX–¼
-	 * @param [in]	index		= Œ^ƒCƒ“ƒfƒbƒNƒX
+	 * @brief	ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹åã®ä½œæˆ
+	 * @param [in]	testcase	= ãƒ™ãƒ¼ã‚¹å
+	 * @param [in]	index		= å‹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 	*/
 	static ::std::string MakeTestCaseName(const char* testcase, int index)
 	{
@@ -110,7 +110,7 @@ class ValueTmpParamTestInstance
 	}
 
 	/**
-	 * @brief	ŠeƒeƒXƒg‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+	 * @brief	å„ãƒ†ã‚¹ãƒˆã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	*/
 	template<typename TT, typename DMY=void>
 	class EachTest
@@ -119,11 +119,11 @@ class ValueTmpParamTestInstance
 		typedef Tester<TypeParam::kValue>	TestBody;
 		typedef TypedTestCase<TypeParam>	_MyTestCase;
 	public:
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		EachTest(const char* testcase, const char* name, int index)
 			: m_mediator(UnitTest::instance().AddTestCase<_MyTestCase>(
 				MakeTestCaseName(testcase, index).c_str()
-				, internal::GetTypeId<detail::None>()	// TypeId ‚ğ“ˆê‚·‚é‚½‚ßƒ_ƒ~[ˆø”‚ğ“n‚·
+				, internal::GetTypeId<detail::None>()	// TypeId ã‚’çµ±ä¸€ã™ã‚‹ãŸã‚ãƒ€ãƒŸãƒ¼å¼•æ•°ã‚’æ¸¡ã™
 				, TestBody::SetUpTestCase
 				, TestBody::TearDownTestCase))
 			, m_info(&m_mediator, name, &m_factory)
@@ -131,10 +131,10 @@ class ValueTmpParamTestInstance
 		{
 		}
 	public:
-		// ƒeƒXƒg‚Ì“o˜^
+		// ãƒ†ã‚¹ãƒˆã®ç™»éŒ²
 		void	AddTest(void)
 		{
-			// ‡”Ô’Ê‚è‚É‚È‚é‚æ‚¤‚É‘O‚©‚ç“o˜^
+			// é †ç•ªé€šã‚Šã«ãªã‚‹ã‚ˆã†ã«å‰ã‹ã‚‰ç™»éŒ²
 			UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
 			m_next.AddTest();
 		}
@@ -146,7 +146,7 @@ class ValueTmpParamTestInstance
 		EachTest<typename TT::Tail>	m_next;
 	};
 
-	// I’[
+	// çµ‚ç«¯
 	template<typename DMY>
 	class EachTest<detail::TypeList0, DMY>
 	{
@@ -156,7 +156,7 @@ class ValueTmpParamTestInstance
 	};
 
 public:
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	ValueTmpParamTestInstance(const char* testcase, const char* name)
 		: m_tests(testcase, name, 0)
 	{

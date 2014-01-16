@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_charcode.ipp
- * @brief		iris unit test •¶šƒR[ƒh‘Î‰ ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test æ–‡å­—ã‚³ãƒ¼ãƒ‰å¯¾å¿œ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -37,7 +37,7 @@ const UInt32 kMaxCodePoint4 = (static_cast<UInt32>(1) << (3+3*6)) - 1;
 //======================================================================
 // function
 /**
- * @brief	ƒTƒƒQ[ƒgƒyƒA‚©‚Ç‚¤‚©
+ * @brief	ã‚µãƒ­ã‚²ãƒ¼ãƒˆãƒšã‚¢ã‹ã©ã†ã‹
 */
 IUTEST_IPP_INLINE IUTEST_CXX_CONSTEXPR bool	IsUtf16SurrogatePair(wchar_t first, wchar_t second)
 {
@@ -45,17 +45,17 @@ IUTEST_IPP_INLINE IUTEST_CXX_CONSTEXPR bool	IsUtf16SurrogatePair(wchar_t first, 
 		&& ((first & 0xFC00) == 0xD800) && ((second & 0xFC00) == 0xDC00);
 }
 /**
- * @brief	ƒTƒƒQ[ƒgƒyƒA‚©‚çƒR[ƒhƒ|ƒCƒ“ƒg‚Ö•ÏŠ·
+ * @brief	ã‚µãƒ­ã‚²ãƒ¼ãƒˆãƒšã‚¢ã‹ã‚‰ã‚³ãƒ¼ãƒ‰ãƒã‚¤ãƒ³ãƒˆã¸å¤‰æ›
 */
 IUTEST_IPP_INLINE IUTEST_CXX_CONSTEXPR UInt32 CreateCodePointFromUtf16SurrogatePair(wchar_t first, wchar_t second)
 {
 	//const UInt32 mask = (1<<10) -1;	// 0x3FF
 	return (sizeof(wchar_t)==2) ?
 		(((first & 0x3FF) << 10) | (second & 0x3FF)) + 0x10000 :
-		static_cast<UInt32>(first);	// ‚±‚Á‚¿‚Í–¢‘Î‰
+		static_cast<UInt32>(first);	// ã“ã£ã¡ã¯æœªå¯¾å¿œ
 }
 /**
- * @brief	‰ºˆÊ‚©‚çw’èƒrƒbƒg”‚Ìƒrƒbƒg‚ğæ“¾‚µ‚ÄƒVƒtƒg‚·‚é
+ * @brief	ä¸‹ä½ã‹ã‚‰æŒ‡å®šãƒ“ãƒƒãƒˆæ•°ã®ãƒ“ãƒƒãƒˆã‚’å–å¾—ã—ã¦ã‚·ãƒ•ãƒˆã™ã‚‹
 */
 IUTEST_IPP_INLINE UInt32 ChopLowBits(UInt32* bits, int n)
 {
@@ -65,10 +65,10 @@ IUTEST_IPP_INLINE UInt32 ChopLowBits(UInt32* bits, int n)
 }
 
 /**
-* @brief	ƒR[ƒhƒ|ƒCƒ“ƒg‚©‚çUTF8‚Ö•ÏŠ·
-* @param [in]	code_point	= ƒR[ƒhƒ|ƒCƒ“ƒg
-* @param [out]	buf			= o—Íƒoƒbƒtƒ@(32ƒoƒCƒgˆÈã‚ğ—v‹)
-* @return	o—Íƒoƒbƒtƒ@
+* @brief	ã‚³ãƒ¼ãƒ‰ãƒã‚¤ãƒ³ãƒˆã‹ã‚‰UTF8ã¸å¤‰æ›
+* @param [in]	code_point	= ã‚³ãƒ¼ãƒ‰ãƒã‚¤ãƒ³ãƒˆ
+* @param [out]	buf			= å‡ºåŠ›ãƒãƒƒãƒ•ã‚¡(32ãƒã‚¤ãƒˆä»¥ä¸Šã‚’è¦æ±‚)
+* @return	å‡ºåŠ›ãƒãƒƒãƒ•ã‚¡
 */
 IUTEST_IPP_INLINE char* CodePointToUtf8(UInt32 code_point, char* buf)
 {

@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_defs.hpp
- * @brief		iris unit test ’è‹` ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test definition
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -84,7 +84,7 @@ struct type_least_t<8>
 namespace internal
 {
 
-typedef void*	TypeId;		//!< ƒeƒXƒg¯•ÊŒ^
+typedef void*	TypeId;		//!< ãƒ†ã‚¹ãƒˆè­˜åˆ¥å‹
 
 namespace helper
 {
@@ -157,7 +157,7 @@ struct ieee754_bits<double>
 }
 
 /**
- * @brief	•‚“®¬”“_”
+ * @brief	æµ®å‹•å°æ•°ç‚¹æ•°
 */
 template<typename RawType>
 class floating_point
@@ -177,7 +177,7 @@ private:
 
 public:
 	/**
-	 * @brief	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * @brief	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	*/
 	floating_point(void)
 	{
@@ -185,8 +185,8 @@ public:
 	}
 
 	/**
-	 * @brief	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	 * @param [in]	f	= •‚“®¬”“_”
+	 * @brief	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	 * @param [in]	f	= æµ®å‹•å°æ•°ç‚¹æ•°
 	*/
 	floating_point(RawType f)
 	{
@@ -194,7 +194,7 @@ public:
 	}
 
 	/**
-	 * @brief	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * @brief	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	*/
 	floating_point(const _Myt& rhs)
 		: m_v(rhs.m_v)
@@ -203,7 +203,7 @@ public:
 
 public:
 	/**
-	 * @brief	•‚“®¬”“_”‚ª‚Ù‚Úˆê’v‚·‚é‚©‚Ç‚¤‚©
+	 * @brief	æµ®å‹•å°æ•°ç‚¹æ•°ãŒã»ã¼ä¸€è‡´ã™ã‚‹ã‹ã©ã†ã‹
 	 * @sa		http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
 	*/
 	bool	AlmostEquals(const _Myt& rhs) const
@@ -220,17 +220,17 @@ public:
 
 public:
 	/**
-	 * @brief	ƒrƒbƒg—ñ‚Ìæ“¾
+	 * @brief	ãƒ“ãƒƒãƒˆåˆ—ã®å–å¾—
 	*/
 	UInt	bit(void) const	{ return m_v.uv; }
 
 	/**
-	 * @brief	raw ƒf[ƒ^‚Ìæ“¾
+	 * @brief	raw ãƒ‡ãƒ¼ã‚¿ã®å–å¾—
 	*/
 	RawType	raw(void) const	{ return m_v.fv; }
 
 public:
-	//! { inf
+	//! ï¼‹ inf
 	static _Myt	PINF(void)
 	{
 		_Myt f;
@@ -238,28 +238,28 @@ public:
 		f.m_v.uv <<= kFRAC;
 		return f;
 	}
-	//! | inf
+	//! ç«éˆ€ inf
 	static _Myt	NINF(void)
 	{
 		_Myt f = PINF();
 		f.m_v.uv |= static_cast<UInt>(1u) << (kEXP + kFRAC);
 		return f;
 	}
-	//! { nan
+	//! ï¼‹ nan
 	static _Myt	PNAN(void)
 	{
 		_Myt f = PINF();
 		f.m_v.uv |= 1;
 		return f;
 	}
-	//! | nan
+	//! ç«éˆ€ nan
 	static _Myt	NNAN(void)
 	{
 		_Myt f = NINF();
 		f.m_v.uv |= 1;
 		return f;
 	}
-	//! { qnan
+	//! ï¼‹ qnan
 	static _Myt	PQNAN(void)
 	{
 		_Myt f;
@@ -267,7 +267,7 @@ public:
 		f.m_v.uv <<= kFRAC - 1;
 		return f;
 	}
-	//! | qnan
+	//! ç«éˆ€ qnan
 	static _Myt	NQNAN(void)
 	{
 		_Myt f = PQNAN();
@@ -277,9 +277,9 @@ public:
 
 public:
 	operator RawType (void) const	{ return m_v.fv; }	//!< cast to RawType
-	_Myt&	operator = (RawType f)	{ m_v.fv = f; return *this; }	//!< ‘ã“ü
+	_Myt&	operator = (RawType f)	{ m_v.fv = f; return *this; }	//!< ä»£å…¥
 
-	bool	operator == (const _Myt& rhs) const	{ return m_v.uv == rhs.m_v.uv; }	//!< ”äŠr
+	bool	operator == (const _Myt& rhs) const	{ return m_v.uv == rhs.m_v.uv; }	//!< æ¯”è¼ƒ
 
 private:
 	enum
@@ -294,17 +294,17 @@ private:
 
 //======================================================================
 // typedef
-typedef detail::type_least_t<4>::Int	Int32;	//!< 32 bit •„†•t‚«®”Œ^
-typedef detail::type_least_t<4>::UInt	UInt32;	//!< 32 bit •„†‚È‚µ®”Œ^
-typedef detail::type_least_t<8>::Int	Int64;	//!< 64 bit •„†•t‚«®”Œ^
-typedef detail::type_least_t<8>::UInt	UInt64;	//!< 64 bit •„†‚È‚µ®”Œ^
+typedef detail::type_least_t<4>::Int	Int32;	//!< 32 bit ç¬¦å·ä»˜ãæ•´æ•°å‹
+typedef detail::type_least_t<4>::UInt	UInt32;	//!< 32 bit ç¬¦å·ãªã—æ•´æ•°å‹
+typedef detail::type_least_t<8>::Int	Int64;	//!< 64 bit ç¬¦å·ä»˜ãæ•´æ•°å‹
+typedef detail::type_least_t<8>::UInt	UInt64;	//!< 64 bit ç¬¦å·ãªã—æ•´æ•°å‹
 
-typedef internal::TypeId TestTypeId;	//!< ƒeƒXƒg¯•ÊŒ^
+typedef internal::TypeId TestTypeId;	//!< ãƒ†ã‚¹ãƒˆè­˜åˆ¥å‹
 
-typedef void (*SetUpMethod)(void);		//!< SetUp ŠÖ”Œ^
-typedef void (*TearDownMethod)(void);	//!< TearDown ŠÖ”Œ^
+typedef void (*SetUpMethod)(void);		//!< SetUp é–¢æ•°å‹
+typedef void (*TearDownMethod)(void);	//!< TearDown é–¢æ•°å‹
 
-typedef detail::type_least_t<8>::UInt	TimeInMillisec;	//!< ƒ~ƒŠ•b’PˆÊ‚ğˆµ‚¤Œ^
+typedef detail::type_least_t<8>::UInt	TimeInMillisec;	//!< ãƒŸãƒªç§’å˜ä½ã‚’æ‰±ã†å‹
 typedef detail::type_least_t<8>::Int	BiggestInt;		//!< Biggest Int
 
 }	// end of namespace iutest

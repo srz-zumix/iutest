@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_mediator.hpp
- * @brief		iris unit test ’‡‰îÒ ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ä»²ä»‹è€… ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -34,7 +34,7 @@ namespace detail
 //======================================================================
 // class
 /**
- * @brief	TestInfo ’‡‰îÒƒCƒ“ƒ^[ƒtƒFƒCƒX
+ * @brief	TestInfo ä»²ä»‹è€…ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 */
 class iuITestInfoMediator
 {
@@ -50,7 +50,7 @@ public:
 };
 
 /**
- * @brief	TestCase ’‡‰îÒƒCƒ“ƒ^[ƒtƒFƒCƒX
+ * @brief	TestCase ä»²ä»‹è€…ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 */
 class iuITestCaseMediator
 {

@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_util_tests.hpp
- * @brief		iris unit test ƒeƒXƒgî•ñ utility ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ãƒ†ã‚¹ãƒˆæƒ…å ± utility ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,7 +26,7 @@ namespace iuutil
 // function
 
 /**
- * @brief	ƒeƒXƒg–¼‚ğæ“¾
+ * @brief	ãƒ†ã‚¹ãƒˆåã‚’å–å¾—
 */
 inline ::std::string TestFullName(const ::iutest::TestInfo* test_info)
 {
@@ -37,7 +37,7 @@ inline ::std::string TestFullName(const ::iutest::TestInfo* test_info)
 }
 
 /**
- * @brief	ƒCƒ“ƒfƒbƒNƒX‚ğœ‚¢‚½ƒeƒXƒg–¼‚ğæ“¾
+ * @brief	ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’é™¤ã„ãŸãƒ†ã‚¹ãƒˆåã‚’å–å¾—
 */
 inline ::std::string TestNameRemoveIndexName(const char* name)
 {
@@ -50,7 +50,7 @@ inline ::std::string TestNameRemoveIndexName(const char* name)
 }
 
 /**
- * @brief	ƒCƒ“ƒfƒbƒNƒX‚ğœ‚¢‚½ƒeƒXƒgƒP[ƒX–¼‚ğæ“¾
+ * @brief	ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’é™¤ã„ãŸãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹åã‚’å–å¾—
 */
 inline ::std::string TestCaseNameRemoveIndexName(const char* name)
 {
@@ -58,13 +58,13 @@ inline ::std::string TestCaseNameRemoveIndexName(const char* name)
 }
 
 /**
- * @brief	ƒCƒ“ƒXƒ^ƒ“ƒX–¼‚ÆƒCƒ“ƒfƒbƒNƒX‚ğœ‚¢‚½ƒeƒXƒgƒP[ƒX–¼‚ğæ“¾
+ * @brief	ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åã¨ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’é™¤ã„ãŸãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹åã‚’å–å¾—
 */
 inline ::std::string TestCaseNameRemoveInstantiateAndIndexName(const char* name)
 {
-	// ƒpƒbƒP[ƒW–¼‚ª‚ ‚ê‚Îæ“¾
+	// ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åãŒã‚ã‚Œã°å–å¾—
 	const char* const pkg = strrchr(name, '.');
-	// æ“ª‚ÉƒCƒ“ƒXƒ^ƒ“ƒX–¼‚ª‚ ‚é
+	// å…ˆé ­ã«ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åãŒã‚ã‚‹
 	const char* const p1 = strchr(name, '/');
 	if( p1 == NULL )
 	{
@@ -81,7 +81,7 @@ inline ::std::string TestCaseNameRemoveInstantiateAndIndexName(const char* name)
 }
 
 /**
- * @brief	TestCase ‚ÌŒŸõ
+ * @brief	TestCase ã®æ¤œç´¢
 */
 inline const ::iutest::TestCase* FindTestCase(const char* testcase_name)
 {
@@ -102,7 +102,7 @@ inline const ::iutest::TestCase* FindTestCase(const char* testcase_name)
 }
 
 /**
- * @brief	TestCase ‚ÌŒŸõ
+ * @brief	TestCase ã®æ¤œç´¢
 */
 inline const ::iutest::TestCase* FindParamTestCase(const char* testcase_name, const ::iutest::TestCase* begin=NULL)
 {
@@ -140,7 +140,7 @@ inline const ::iutest::TestCase* FindParamTestCase(const char* testcase_name, co
 }
 
 /**
- * @brief	Typed Test ‚Ì TestCase ‚ÌŒŸõ
+ * @brief	Typed Test ã® TestCase ã®æ¤œç´¢
 */
 inline const ::iutest::TestCase* FindTypedTestCase(const char* testcase_name, const ::iutest::TestCase* begin=NULL)
 {
@@ -180,7 +180,7 @@ inline const ::iutest::TestCase* FindTypedTestCase(const char* testcase_name, co
 }
 
 /**
- * @brief	Type Parameter Test ‚Ì TestCase ‚ÌŒŸõ
+ * @brief	Type Parameter Test ã® TestCase ã®æ¤œç´¢
 */
 inline const ::iutest::TestCase* FindParamTypedTestCase(const char* testcase_name, const ::iutest::TestCase* begin=NULL)
 {
@@ -220,7 +220,7 @@ inline const ::iutest::TestCase* FindParamTypedTestCase(const char* testcase_nam
 }
 
 /**
- * @brief	TestInfo ‚ÌŒŸõ
+ * @brief	TestInfo ã®æ¤œç´¢
 */
 inline const ::iutest::TestInfo* FindTestInfo(const ::iutest::TestCase* testcase, const char* testinfo_name)
 {
@@ -242,7 +242,7 @@ inline const ::iutest::TestInfo* FindTestInfo(const ::iutest::TestCase* testcase
 }
 
 /**
- * @brief	TestInfo ‚ÌŒŸõ
+ * @brief	TestInfo ã®æ¤œç´¢
 */
 inline const ::iutest::TestInfo* FindTestInfo(const char* testcase_name, const char* testinfo_name)
 {
@@ -255,7 +255,7 @@ inline const ::iutest::TestInfo* FindTestInfo(const char* testcase_name, const c
 }
 
 /**
- * @brief	TestInfo ‚ÌŒŸõ
+ * @brief	TestInfo ã®æ¤œç´¢
 */
 inline const ::iutest::TestInfo* FindParamTestInfo(const ::iutest::TestCase* testcase, const char* testinfo_name, const ::iutest::TestInfo* begin=NULL)
 {

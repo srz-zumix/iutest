@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_gtest_tap_tests.cpp
- * @brief		https://github.com/kinow/gtest-tap-listener ‘Î‰žƒeƒXƒg
+ * @brief		https://github.com/kinow/gtest-tap-listener å¯¾å¿œãƒ†ã‚¹ãƒˆ
  *
  * @author		t.sirayanagi
  * @version		1.0

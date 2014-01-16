@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_time.ipp
- * @brief		iris unit test time utility ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test time utility
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -112,7 +112,7 @@ IUTEST_IPP_INLINE unsigned int GetIndefiniteValue(void)
 #if !defined(IUTEST_NO_GETTIMEINMILLIS)
 	return static_cast<unsigned int>(GetTimeInMillis());
 #else
-	// ‚È‚é‚×‚­“¯‚¶‚É‚È‚ç‚È‚¢‚æ‚¤‚É‚·‚é
+	// ãªã‚‹ã¹ãåŒã˜ã«ãªã‚‰ãªã„ã‚ˆã†ã«ã™ã‚‹
 	static unsigned int s = 20120206;
 	s = s*1664525 + 1013904223;
 	return s;

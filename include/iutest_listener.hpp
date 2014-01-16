@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_listener.hpp
- * @brief		iris unit test ƒCƒxƒ“ƒgƒŠƒXƒi[ ’è‹` ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼ å®šç¾© ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -39,7 +39,7 @@ namespace detail
 }
 
 /**
- * @brief	ƒCƒxƒ“ƒgƒŠƒXƒi[
+ * @brief	ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼
 */
 class TestEventListener
 {
@@ -48,26 +48,26 @@ public:
 	TestEventListener(void) {}
 	virtual ~TestEventListener(void)	{}
 public:
-	virtual void OnTestProgramStart(const UnitTest& test)			= 0;	//!< ƒeƒXƒgƒvƒƒOƒ‰ƒ€ŠJn‚ÉŒÄ‚Î‚ê‚Ü‚·
+	virtual void OnTestProgramStart(const UnitTest& test)			= 0;	//!< ãƒ†ã‚¹ãƒˆãƒ—ãƒ­ã‚°ãƒ©ãƒ é–‹å§‹æ™‚ã«å‘¼ã°ã‚Œã¾ã™
 	virtual void OnTestIterationStart(const UnitTest& test
-									, int iteration)				= 0;	//!< ’P‘ÌƒeƒXƒgŠJn‚É–ˆ‰ñŒÄ‚Î‚ê‚Ü‚·
-	virtual void OnEnvironmentsSetUpStart(const UnitTest& test)		= 0;	//!< ƒOƒ[ƒoƒ‹ŠÂ‹«İ’è SetUp ‘O‚ÉŒÄ‚Î‚ê‚Ü‚·
-	virtual void OnEnvironmentsSetUpEnd(const UnitTest& test)		= 0;	//!< ƒOƒ[ƒoƒ‹ŠÂ‹«İ’è SetUp Œã‚ÉŒÄ‚Î‚ê‚Ü‚·
-	virtual void OnTestCaseStart(const TestCase& test_case)			= 0;	//!< ƒeƒXƒgƒP[ƒXŠJn‚ÉŒÄ‚Î‚ê‚Ü‚·
-	virtual void OnTestStart(const TestInfo& test_info)				= 0;	//!< ƒeƒXƒgŠJn‚ÉŒÄ‚Î‚ê‚Ü‚·
-	virtual void OnTestPartResult(const TestPartResult& test_part_result)	= 0;	//!< ƒeƒXƒg¸”s‚ÉŒÄ‚Î‚ê‚Ü‚·
-	virtual void OnTestRecordProperty(const TestProperty& /*test_property*/) {}	//!< RecordProperty ‚ÉŒÄ‚Î‚ê‚Ü‚·
-	virtual void OnTestEnd(const TestInfo& test_info)				= 0;	//!< ƒeƒXƒgƒP[ƒXI—¹‚É‚ÉŒÄ‚Î‚ê‚Ü‚·
-	virtual void OnTestCaseEnd(const TestCase& test_case)			= 0;	//!< ƒeƒXƒgI—¹‚É‚ÉŒÄ‚Î‚ê‚Ü‚·
-	virtual void OnEnvironmentsTearDownStart(const UnitTest& test)	= 0;	//!< ƒOƒ[ƒoƒ‹ŠÂ‹«İ’è TearDown ‘O‚ÉŒÄ‚Î‚ê‚Ü‚·
-	virtual void OnEnvironmentsTearDownEnd(const UnitTest& test)	= 0;	//!< ƒOƒ[ƒoƒ‹ŠÂ‹«İ’è TearDown ‘O‚ÉŒÄ‚Î‚ê‚Ü‚·
+									, int iteration)				= 0;	//!< å˜ä½“ãƒ†ã‚¹ãƒˆé–‹å§‹æ™‚ã«æ¯å›å‘¼ã°ã‚Œã¾ã™
+	virtual void OnEnvironmentsSetUpStart(const UnitTest& test)		= 0;	//!< ã‚°ãƒ­ãƒ¼ãƒãƒ«ç’°å¢ƒè¨­å®š SetUp å‰ã«å‘¼ã°ã‚Œã¾ã™
+	virtual void OnEnvironmentsSetUpEnd(const UnitTest& test)		= 0;	//!< ã‚°ãƒ­ãƒ¼ãƒãƒ«ç’°å¢ƒè¨­å®š SetUp å¾Œã«å‘¼ã°ã‚Œã¾ã™
+	virtual void OnTestCaseStart(const TestCase& test_case)			= 0;	//!< ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹é–‹å§‹æ™‚ã«å‘¼ã°ã‚Œã¾ã™
+	virtual void OnTestStart(const TestInfo& test_info)				= 0;	//!< ãƒ†ã‚¹ãƒˆé–‹å§‹æ™‚ã«å‘¼ã°ã‚Œã¾ã™
+	virtual void OnTestPartResult(const TestPartResult& test_part_result)	= 0;	//!< ãƒ†ã‚¹ãƒˆå¤±æ•—æ™‚ã«å‘¼ã°ã‚Œã¾ã™
+	virtual void OnTestRecordProperty(const TestProperty& /*test_property*/) {}	//!< RecordProperty æ™‚ã«å‘¼ã°ã‚Œã¾ã™
+	virtual void OnTestEnd(const TestInfo& test_info)				= 0;	//!< ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹çµ‚äº†æ™‚ã«ã«å‘¼ã°ã‚Œã¾ã™
+	virtual void OnTestCaseEnd(const TestCase& test_case)			= 0;	//!< ãƒ†ã‚¹ãƒˆçµ‚äº†æ™‚ã«ã«å‘¼ã°ã‚Œã¾ã™
+	virtual void OnEnvironmentsTearDownStart(const UnitTest& test)	= 0;	//!< ã‚°ãƒ­ãƒ¼ãƒãƒ«ç’°å¢ƒè¨­å®š TearDown å‰ã«å‘¼ã°ã‚Œã¾ã™
+	virtual void OnEnvironmentsTearDownEnd(const UnitTest& test)	= 0;	//!< ã‚°ãƒ­ãƒ¼ãƒãƒ«ç’°å¢ƒè¨­å®š TearDown å‰ã«å‘¼ã°ã‚Œã¾ã™
 	virtual void OnTestIterationEnd(const UnitTest& test
-									, int iteration)				= 0;	//!< ’P‘ÌƒeƒXƒgI—¹‚É–ˆ‰ñŒÄ‚Î‚ê‚Ü‚·
-	virtual void OnTestProgramEnd(const UnitTest& test)				= 0;	//!< ƒeƒXƒgƒvƒƒOƒ‰ƒ€I—¹‚ÉŒÄ‚Î‚ê‚Ü‚·
+									, int iteration)				= 0;	//!< å˜ä½“ãƒ†ã‚¹ãƒˆçµ‚äº†æ™‚ã«æ¯å›å‘¼ã°ã‚Œã¾ã™
+	virtual void OnTestProgramEnd(const UnitTest& test)				= 0;	//!< ãƒ†ã‚¹ãƒˆãƒ—ãƒ­ã‚°ãƒ©ãƒ çµ‚äº†æ™‚ã«å‘¼ã°ã‚Œã¾ã™
 };
 
 /**
- * @brief	‹ó‚ÌƒCƒxƒ“ƒgƒŠƒXƒi[
+ * @brief	ç©ºã®ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼
 */
 class EmptyTestEventListener : public TestEventListener
 {
@@ -91,14 +91,14 @@ public:
 };
 
 /**
- * @brief	ƒCƒxƒ“ƒgÀsƒCƒxƒ“ƒgƒŠƒXƒi[
+ * @brief	ã‚¤ãƒ™ãƒ³ãƒˆå®Ÿè¡Œã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼
 */
 class TestEventRepeater : public TestEventListener
 {
 	typedef ::std::vector<TestEventListener*>	ListenerContainer;
 public:
 	/**
-	 * @brief	ƒŠƒXƒi[‚Ì’Ç‰Á
+	 * @brief	ãƒªã‚¹ãƒŠãƒ¼ã®è¿½åŠ 
 	*/
 	void	Append(TestEventListener* listener)
 	{
@@ -106,12 +106,12 @@ public:
 	};
 
 	/**
-	 * @brief	ƒŠƒXƒi[‚Ì‰ğ•ú
+	 * @brief	ãƒªã‚¹ãƒŠãƒ¼ã®è§£æ”¾
 	*/
 	TestEventListener*	Release(TestEventListener* listener);
 
 public:
-	// On*End ‚ÍŒã‚ë‚©‚çÀs
+	// On*End ã¯å¾Œã‚ã‹ã‚‰å®Ÿè¡Œ
 	virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;
 	virtual void OnTestIterationStart(const UnitTest& test
 									, int iteration) IUTEST_CXX_OVERRIDE;
@@ -134,7 +134,7 @@ private:
 };
 
 /**
- * @brief	ƒCƒxƒ“ƒgƒŠƒXƒi[‚ÌŠÇ—ƒNƒ‰ƒX
+ * @brief	ã‚¤ãƒ™ãƒ³ãƒˆãƒªã‚¹ãƒŠãƒ¼ã®ç®¡ç†ã‚¯ãƒ©ã‚¹
 */
 class TestEventListeners
 {
@@ -145,22 +145,22 @@ public:
 
 public:
 	/**
-	 * @brief	ƒŠƒXƒi[‚Ì’Ç‰Á
+	 * @brief	ãƒªã‚¹ãƒŠãƒ¼ã®è¿½åŠ 
 	*/
 	void	Append(TestEventListener* listener)	{ m_repeater.Append(listener); };
 
 	/**
-	 * @brief	ƒŠƒXƒi[‚Ì‰ğ•ú
+	 * @brief	ãƒªã‚¹ãƒŠãƒ¼ã®è§£æ”¾
 	*/
 	TestEventListener*	Release(TestEventListener* listener) { return m_repeater.Release(listener); }
 
 public:
 	/**
-	 * @brief	ƒfƒtƒHƒ‹ƒgo—ÍƒŠƒXƒi[‚Ìæ“¾
+	 * @brief	ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå‡ºåŠ›ãƒªã‚¹ãƒŠãƒ¼ã®å–å¾—
 	*/
 	TestEventListener*	default_result_printer(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_default_result_printer; }
 	/**
-	 * @brief	ƒfƒtƒHƒ‹ƒgxmlo—ÍƒŠƒXƒi[æ“¾
+	 * @brief	ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆxmlå‡ºåŠ›ãƒªã‚¹ãƒŠãƒ¼å–å¾—
 	*/
 	TestEventListener*	default_xml_generator(void)  const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_default_xml_generator; }
 

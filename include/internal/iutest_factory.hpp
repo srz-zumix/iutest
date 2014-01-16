@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_factory.hpp
- * @brief		iris unit test ƒeƒXƒgƒtƒ@ƒNƒgƒŠ[ ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ãƒ†ã‚¹ãƒˆãƒ•ã‚¡ã‚¯ãƒˆãƒªãƒ¼ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -35,7 +35,7 @@ namespace detail
 // class
 /**
  * @internal
- * @brief	ƒeƒXƒg¶¬ƒNƒ‰ƒXƒCƒ“ƒ^[ƒtƒF[ƒX
+ * @brief	ãƒ†ã‚¹ãƒˆç”Ÿæˆã‚¯ãƒ©ã‚¹ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹
 */
 class iuFactoryBase
 {
@@ -49,8 +49,8 @@ public:
 
 /**
  * @internal
- * @brief	ƒeƒXƒg¶¬ƒNƒ‰ƒX
- * @tparam	Tester	= ƒeƒXƒgƒNƒ‰ƒX
+ * @brief	ãƒ†ã‚¹ãƒˆç”Ÿæˆã‚¯ãƒ©ã‚¹
+ * @tparam	Tester	= ãƒ†ã‚¹ãƒˆã‚¯ãƒ©ã‚¹
 */
 template<class Tester>
 class iuFactory : public iuFactoryBase
@@ -65,8 +65,8 @@ public:
 
 /**
  * @internal
- * @brief	ƒpƒ‰ƒ[ƒ^ƒZƒbƒgƒeƒXƒg¶¬ƒNƒ‰ƒXƒCƒ“ƒ^[ƒtƒF[ƒX
- * @tparam	ParamType	= ƒpƒ‰ƒ[ƒ^‚ÌŒ^
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚»ãƒƒãƒˆãƒ†ã‚¹ãƒˆç”Ÿæˆã‚¯ãƒ©ã‚¹ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹
+ * @tparam	ParamType	= ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®å‹
 */
 template<typename ParamType>
 class iuParamTestFactoryBase : public iuFactoryBase
@@ -84,8 +84,8 @@ protected:
 
 /**
  * @internal
- * @brief	ƒpƒ‰ƒ[ƒ^ƒZƒbƒgƒeƒXƒg¶¬ƒNƒ‰ƒX
- * @tparam	Tester	= ƒeƒXƒgƒNƒ‰ƒX
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚»ãƒƒãƒˆãƒ†ã‚¹ãƒˆç”Ÿæˆã‚¯ãƒ©ã‚¹
+ * @tparam	Tester	= ãƒ†ã‚¹ãƒˆã‚¯ãƒ©ã‚¹
 */
 template<class Tester>
 class iuParamTestFactory : public iuParamTestFactoryBase<typename Tester::ParamType>

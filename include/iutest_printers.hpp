@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_printers.hpp
- * @brief		iris unit test print o—Íƒwƒ‹ƒp[ ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test print å‡ºåŠ›ãƒ˜ãƒ«ãƒ‘ãƒ¼ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -115,7 +115,7 @@ iu_ostream& operator << (iu_ostream& os, const T& value)
 namespace printer_internal2
 {
 
-// ‰ğŒˆ‡˜
+// è§£æ±ºé †åº
 // foo::operator <<
 // ::operator <<
 // ::iutest::detail::printer_internal::operator <<
@@ -156,7 +156,7 @@ inline void	UniversalPrint(const T& value, iu_ostream* os)
 }
 
 /**
- * @brief	ƒfƒtƒHƒ‹ƒg•¶š—ñ•ÏŠ·ŠÖ”
+ * @brief	ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆæ–‡å­—åˆ—å¤‰æ›é–¢æ•°
 */
 template<typename T>
 inline void DefaultPrintTo(IsContainerHelper::yes_t
@@ -233,7 +233,7 @@ inline void DefaultPrintTo(IsContainerHelper::no_t
 }
 
 /**
- * @brief	•¶š—ñ•ÏŠ·ŠÖ”
+ * @brief	æ–‡å­—åˆ—å¤‰æ›é–¢æ•°
 */
 template<typename T>
 inline void PrintTo(const T& value, iu_ostream* os)	{
@@ -260,7 +260,7 @@ inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)
 	iuUniversalPrinter<T2>::Print(value.second, os);
 	*os << ")";
 }
-// char or unsigned char ‚Ì‚ÉA 0 ‚ª NULL •¶š‚É‚È‚ç‚È‚¢‚æ‚¤‚ÉC³
+// char or unsigned char ã®æ™‚ã«ã€ 0 ãŒ NULL æ–‡å­—ã«ãªã‚‰ãªã„ã‚ˆã†ã«ä¿®æ­£
 inline void PrintTo(const char value, iu_ostream* os)
 {
 	if( value == 0 )
@@ -414,7 +414,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(char16_t* str, iu_ostre
 #endif
 
 /**
- * @brief	”z—ñ‚Ìo—Í
+ * @brief	é…åˆ—ã®å‡ºåŠ›
 */
 template<typename T>
 inline void PrintRawArrayTo(const T* a, size_t cnt, iu_ostream* os)
@@ -428,7 +428,7 @@ inline void PrintRawArrayTo(const T* a, size_t cnt, iu_ostream* os)
 }
 
 /**
- * @brief	”z—ñ‚Ìo—Í
+ * @brief	é…åˆ—ã®å‡ºåŠ›
 */
 template<typename T>
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const T* begin, size_t N, iu_ostream* os)
@@ -456,7 +456,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const T* begin, size_t 
 	}
 }
 /**
- * @brief	”z—ñ‚Ìo—Í
+ * @brief	é…åˆ—ã®å‡ºåŠ›
 */
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const char* begin, size_t N, iu_ostream* os)
 {
@@ -501,7 +501,7 @@ public:
 // function
 
 /**
- * @brief	•¶š—ñ‰»
+ * @brief	æ–‡å­—åˆ—åŒ–
 */
 template<typename T>
 inline ::std::string PrintToString(const T& v)
@@ -517,7 +517,7 @@ inline ::std::string PrintToString(const T& v)
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
 /**
- * @brief	•¶š—ñ‰»
+ * @brief	æ–‡å­—åˆ—åŒ–
 */
 template<typename T>
 inline ::std::string PrintToStrings(const char* separate, const T& v)
@@ -526,7 +526,7 @@ inline ::std::string PrintToStrings(const char* separate, const T& v)
 	return PrintToString(v);
 }
 /**
- * @brief	•¶š—ñ‰»
+ * @brief	æ–‡å­—åˆ—åŒ–
 */
 template<typename T, typename ...Args>
 inline ::std::string PrintToStrings(const char* separate, const T& v, Args... args)

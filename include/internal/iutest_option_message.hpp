@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_option_message.hpp
- * @brief		iris unit test ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ƒƒbƒZ[ƒW ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -31,15 +31,15 @@ class iuOptionMessage
 {
 public:
 	/**
-	 * @brief	ƒwƒ‹ƒv‚Ìo—Í
+	 * @brief	ãƒ˜ãƒ«ãƒ—ã®å‡ºåŠ›
 	*/
 	static void	ShowHelp(void);
 	/**
-	 * @brief	ƒo[ƒWƒ‡ƒ“o—Í
+	 * @brief	ãƒãƒ¼ã‚¸ãƒ§ãƒ³å‡ºåŠ›
 	*/
 	static void	ShowVersion(void);
 	/**
-	 * @brief	‹@”\o—Í
+	 * @brief	æ©Ÿèƒ½å‡ºåŠ›
 	*/
 	static void ShowFeature(void);
 };

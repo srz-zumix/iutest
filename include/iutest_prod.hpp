@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_prod.hpp
- * @brief		iris unit test production code ‘Î‰—p ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test production code å¯¾å¿œç”¨ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -20,7 +20,7 @@
 //======================================================================
 // define
 /**
- * @brief	ƒeƒXƒg‚©‚çŒ©‚¦‚é‚æ‚¤‚É fried “o˜^
+ * @brief	ãƒ†ã‚¹ãƒˆã‹ã‚‰è¦‹ãˆã‚‹ã‚ˆã†ã« fried ç™»éŒ²
 */
 #define IUTEST_FRIEND_TEST(test_case_name, test_name)	\
 	friend class IUTEST_TEST_CLASS_NAME_(test_case_name, test_name)
@@ -30,7 +30,7 @@
 #if !defined(_MSC_VER) || _MSC_VER > 1200
 
 /**
- * @brief	ƒeƒXƒg‚©‚çŒ©‚¦‚é‚æ‚¤‚É fried “o˜^(IUTEST_TYPED_TEST—p)
+ * @brief	ãƒ†ã‚¹ãƒˆã‹ã‚‰è¦‹ãˆã‚‹ã‚ˆã†ã« fried ç™»éŒ²(IUTEST_TYPED_TESTç”¨)
 */
 #define IUTEST_FRIEND_TYPED_TEST(test_case_name, test_name)	\
 	template<typename T>IUTEST_FRIEND_TEST(test_case_name, test_name)
@@ -40,33 +40,33 @@
 #endif
 
 /**
- * @brief	private ƒƒ“ƒo[‚Ö‚ÌƒAƒNƒZƒXŒ ‚ğì¬
- * @param	member_type	= Œ^
- * @param	class_name	= ƒNƒ‰ƒX
- * @param	member_name	= ƒƒ“ƒo[–¼
+ * @brief	private ãƒ¡ãƒ³ãƒãƒ¼ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹æ¨©ã‚’ä½œæˆ
+ * @param	member_type	= å‹
+ * @param	class_name	= ã‚¯ãƒ©ã‚¹
+ * @param	member_name	= ãƒ¡ãƒ³ãƒãƒ¼å
 */
 #define IUTEST_MAKE_PEEP(member_type, class_name, member_name)		\
 	IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name)
 
 /**
- * @brief	private	ƒƒ“ƒo[‚Ö‚ÌƒAƒNƒZƒX
- * @param	v			= ƒIƒuƒWƒFƒNƒgƒCƒ“ƒXƒ^ƒ“ƒX
- * @param	class_name	= ƒNƒ‰ƒX–¼
- * @param	member_name	= ƒƒ“ƒo[–¼
+ * @brief	private	ãƒ¡ãƒ³ãƒãƒ¼ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹
+ * @param	v			= ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+ * @param	class_name	= ã‚¯ãƒ©ã‚¹å
+ * @param	member_name	= ãƒ¡ãƒ³ãƒãƒ¼å
 */
 #define IUTEST_PEEP_GET(v, class_name, member_name)		(v.*::iutest::detail::peep_tag< IUTEST_PEEP_TAG_NAME_(class_name, member_name)<class_name> >::value)
 
 /**
- * @brief	static private	ƒƒ“ƒo[‚Ö‚ÌƒAƒNƒZƒX
- * @param	class_name	= ƒNƒ‰ƒX–¼
- * @param	member_name	= ƒƒ“ƒo[–¼
+ * @brief	static private	ãƒ¡ãƒ³ãƒãƒ¼ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹
+ * @param	class_name	= ã‚¯ãƒ©ã‚¹å
+ * @param	member_name	= ãƒ¡ãƒ³ãƒãƒ¼å
 */
 #define IUTEST_PEEP_STATIC_GET(class_name, member_name)	(*::iutest::detail::peep_tag< IUTEST_PEEP_TAG_NAME_(class_name, member_name)<class_name> >::value)
 
 /**
- * @brief	private ƒƒ“ƒo[‚Ö‚ÌƒAƒNƒZƒXƒNƒ‰ƒXéŒ¾
- * @param	class_name	= ƒNƒ‰ƒX–¼
- * @param	member_name	= ƒƒ“ƒo[–¼
+ * @brief	private ãƒ¡ãƒ³ãƒãƒ¼ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ã‚¯ãƒ©ã‚¹å®£è¨€
+ * @param	class_name	= ã‚¯ãƒ©ã‚¹å
+ * @param	member_name	= ãƒ¡ãƒ³ãƒãƒ¼å
 */
 #define IUTEST_PEEP(class_name, member_name)	::iutest::Peep< class_name, IUTEST_PEEP_TAG_NAME_(class_name, member_name)<class_name> >::type
 
@@ -101,7 +101,7 @@ namespace iutest {
 namespace detail
 {
 /**
-* @brief	private ƒƒ“ƒo[•Û\‘¢‘Ì
+* @brief	private ãƒ¡ãƒ³ãƒãƒ¼ä¿æŒæ§‹é€ ä½“
 */
 template<typename Tag>
 struct peep_tag
@@ -116,7 +116,7 @@ typename Tag::type peep_tag<Tag>::value;
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 /**
- * @brief	private	ƒƒ“ƒo[ƒAƒNƒZƒXƒIƒuƒWƒFƒNƒg
+ * @brief	private	ãƒ¡ãƒ³ãƒãƒ¼ã‚¢ã‚¯ã‚»ã‚¹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 */
 template<typename T, typename Tag>
 class Peep
@@ -247,7 +247,7 @@ private:
 		typedef typename peep_member_impl<U, Type, type_traits::is_member_function_pointer<Type>::value >::type type;
 	};
 public:
-	typedef typename peep_impl<T, peep_type, type_traits::is_member_pointer<peep_type>::value >::type	type;	//!< private ƒƒ“ƒo[ƒAƒNƒZƒXƒIƒuƒWƒFƒNƒgŒ^
+	typedef typename peep_impl<T, peep_type, type_traits::is_member_pointer<peep_type>::value >::type	type;	//!< private ãƒ¡ãƒ³ãƒãƒ¼ã‚¢ã‚¯ã‚»ã‚¹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå‹
 };
 
 #endif

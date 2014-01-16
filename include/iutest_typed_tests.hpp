@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_typed_tests.hpp
- * @brief		iris unit test typed test ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test typed test ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -33,9 +33,9 @@
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_TYPED_TEST_CASE(testcase_, types_)
- * @brief	Œ^•t‚¯ƒeƒXƒgƒP[ƒX‚Ì“o˜^
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
- * @param	types_		= ƒ^ƒCƒvƒŠƒXƒg
+ * @brief	å‹ä»˜ã‘ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹ã®ç™»éŒ²
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
+ * @param	types_		= ã‚¿ã‚¤ãƒ—ãƒªã‚¹ãƒˆ
 */
 #if !defined(IUTEST_NO_VARIADIC_MACROS)
 #  define IUTEST_TYPED_TEST_CASE(testcase_, ...)	IIUT_TYPED_TEST_CASE_(testcase_, __VA_ARGS__)
@@ -46,18 +46,18 @@
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_TYPED_TEST(testcase_, testname_)
- * @brief	Œ^•t‚¯ƒeƒXƒgŠÖ”’è‹`ƒ}ƒNƒ
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
- * @param	testname_	= ƒeƒXƒg–¼
+ * @brief	å‹ä»˜ã‘ãƒ†ã‚¹ãƒˆé–¢æ•°å®šç¾©ãƒã‚¯ãƒ­
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
+ * @param	testname_	= ãƒ†ã‚¹ãƒˆå
 */
 #define IUTEST_TYPED_TEST(testcase_, testname_)		IIUT_TYPED_TEST_(testcase_, testname_)
 
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_T(testcase_, testname_)
- * @brief	Œ^•t‚¯ƒeƒXƒgŠÖ”’è‹`ƒ}ƒNƒ
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
- * @param	testname_	= ƒeƒXƒg–¼
+ * @brief	å‹ä»˜ã‘ãƒ†ã‚¹ãƒˆé–¢æ•°å®šç¾©ãƒã‚¯ãƒ­
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
+ * @param	testname_	= ãƒ†ã‚¹ãƒˆå
 */
 #define IUTEST_T(testcase_, testname_)				IIUT_TYPED_TEST_(testcase_, testname_)
 
@@ -118,44 +118,44 @@
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_TYPED_TEST_CASE_P(testcase_)
- * @brief	Œ^ƒpƒ‰ƒ[ƒ^ƒeƒXƒgƒP[ƒX‚Ì“o˜^
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
+ * @brief	å‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹ã®ç™»éŒ²
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
 */
 #define IUTEST_TYPED_TEST_CASE_P(testcase_)				IIUT_TYPED_TEST_CASE_P_(testcase_)
 
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_TYPED_TEST_P(testcase_, testname_)
- * @brief	Œ^ƒpƒ‰ƒ[ƒ^ƒeƒXƒgŠÖ”’è‹`ƒ}ƒNƒ
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
- * @param	testname_	= ƒeƒXƒg–¼
+ * @brief	å‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ†ã‚¹ãƒˆé–¢æ•°å®šç¾©ãƒã‚¯ãƒ­
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
+ * @param	testname_	= ãƒ†ã‚¹ãƒˆå
 */
 #define IUTEST_TYPED_TEST_P(testcase_, testname_)		IIUT_TYPED_TEST_P_(testcase_, testname_)
 
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_TP(testcase_, testname_)
- * @brief	Œ^ƒpƒ‰ƒ[ƒ^ƒeƒXƒgŠÖ”’è‹`ƒ}ƒNƒ
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
- * @param	testname_	= ƒeƒXƒg–¼
+ * @brief	å‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ†ã‚¹ãƒˆé–¢æ•°å®šç¾©ãƒã‚¯ãƒ­
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
+ * @param	testname_	= ãƒ†ã‚¹ãƒˆå
 */
 #define IUTEST_TP(testcase_, testname_)					IIUT_TYPED_TEST_P_(testcase_, testname_)
 
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_REGISTER_TYPED_TEST_CASE_P(testcase_, ...)
- * @brief	Œ^ƒpƒ‰ƒ[ƒ^ƒeƒXƒgŠÖ”“o˜^ƒ}ƒNƒ
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
+ * @brief	å‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ†ã‚¹ãƒˆé–¢æ•°ç™»éŒ²ãƒã‚¯ãƒ­
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
 */
 #define IUTEST_REGISTER_TYPED_TEST_CASE_P(testcase_, ...)	IIUT_REGISTER_TYPED_TEST_CASE_P_(testcase_, __VA_ARGS__)
 
 /**
  * @ingroup	TESTDEF
  * @def		IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(prefix_, testcase_, types_)
- * @brief	Œ^ƒpƒ‰ƒ[ƒ^ƒeƒXƒg“o˜^ƒ}ƒNƒ
- * @param	prefix_		= ƒCƒ“ƒXƒ^ƒ“ƒX–¼
- * @param	testcase_	= ƒeƒXƒgƒP[ƒX–¼
- * @param	...			= ƒ^ƒCƒvƒŠƒXƒg
+ * @brief	å‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ†ã‚¹ãƒˆç™»éŒ²ãƒã‚¯ãƒ­
+ * @param	prefix_		= ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å
+ * @param	testcase_	= ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹å
+ * @param	...			= ã‚¿ã‚¤ãƒ—ãƒªã‚¹ãƒˆ
 */
 #define IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(prefix_, testcase_, ...)	IIUT_INSTANTIATE_TYPED_TEST_CASE_P_(prefix_, testcase_, __VA_ARGS__)
 
@@ -233,15 +233,15 @@ namespace detail
 /**
  * @private
  * @internal
- * @brief	Typeƒpƒ‰ƒ[ƒ^’P‘ÌƒeƒXƒgƒCƒ“ƒXƒ^ƒ“ƒX
- * @tparam	Tester		= ƒeƒXƒgƒNƒ‰ƒX
- * @tparam	TypeParams	= Œ^
+ * @brief	Typeãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å˜ä½“ãƒ†ã‚¹ãƒˆã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+ * @tparam	Tester		= ãƒ†ã‚¹ãƒˆã‚¯ãƒ©ã‚¹
+ * @tparam	TypeParams	= å‹
 */
 template<template <typename T> class Tester, typename TypeParams>
 class TypeParamTestInstance
 {
 	/**
-	 * @brief	ŠeƒeƒXƒg‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+	 * @brief	å„ãƒ†ã‚¹ãƒˆã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	*/
 	template<typename TT, typename DMY>
 	class EachTest
@@ -250,12 +250,12 @@ class TypeParamTestInstance
 		typedef Tester<TypeParam>			TestBody;
 		typedef TypedTestCase<TypeParam>	_MyTestCase;
 	public:
-		// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		EachTest(const char* testcase, const char* name, int index)
 			: m_mediator(UnitTest::instance().AddTestCase<_MyTestCase>(
 				detail::MakeIndexTestName(testcase, index).c_str()
 				//detail::MakeIndexTypedTestName<TypeParam>(testcase, index).c_str()
-				, internal::GetTypeId<detail::None>()	// TypeId ‚ğ“ˆê‚·‚é‚½‚ßƒ_ƒ~[ˆø”‚ğ“n‚·
+				, internal::GetTypeId<detail::None>()	// TypeId ã‚’çµ±ä¸€ã™ã‚‹ãŸã‚ãƒ€ãƒŸãƒ¼å¼•æ•°ã‚’æ¸¡ã™
 				, TestBody::SetUpTestCase
 				, TestBody::TearDownTestCase))
 			, m_info(&m_mediator, name, &m_factory)
@@ -263,10 +263,10 @@ class TypeParamTestInstance
 		{
 		}
 	public:
-		// ƒeƒXƒg‚Ì“o˜^
+		// ãƒ†ã‚¹ãƒˆã®ç™»éŒ²
 		void	AddTest(void)
 		{
-			// ‡”Ô’Ê‚è‚É‚È‚é‚æ‚¤‚É‘O‚©‚ç“o˜^
+			// é †ç•ªé€šã‚Šã«ãªã‚‹ã‚ˆã†ã«å‰ã‹ã‚‰ç™»éŒ²
 			UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
 			m_next.AddTest();
 		}
@@ -278,7 +278,7 @@ class TypeParamTestInstance
 		EachTest<typename TT::Tail, void>	m_next;
 	};
 
-	// I’[
+	// çµ‚ç«¯
 	template<typename DMY>
 	class EachTest<detail::TypeList0, DMY>
 	{
@@ -288,7 +288,7 @@ class TypeParamTestInstance
 	};
 
 public:
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	TypeParamTestInstance(const char* testcase, const char* name)
 		: m_tests(testcase, name, 0)
 	{
@@ -308,7 +308,7 @@ private:
 /**
  * @private
  * @internal
- * @brief	Typed TestCase İ’è•Û 
+ * @brief	Typed TestCase è¨­å®šä¿æŒ 
 */
 class TypedTestCasePState
 {
@@ -383,7 +383,7 @@ private:
 
 /**
  * @private
- * @brief	Œ^ƒpƒ‰ƒ[ƒ^ƒeƒXƒg‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‰»ƒNƒ‰ƒX
+ * @brief	å‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ†ã‚¹ãƒˆã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ã‚¯ãƒ©ã‚¹
 */
 template<IUTEST_TEMPLATE_TPARAM1 Fixture, typename Tests, typename Types>
 class TypeParameterizedTestCase
@@ -409,7 +409,7 @@ class TypeParameterizedTestCase
 			UnitTest::instance().AddTestInfo(testcase, &m_info);
 		}
 	public:
-		// ƒeƒXƒg‚Ì“o˜^
+		// ãƒ†ã‚¹ãƒˆã®ç™»éŒ²
 		static void Register(TestCase* testcase, const char* test_names)
 		{
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
@@ -426,7 +426,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 				++comma;
 			}
 			_Myt* test = new EachTest(testcase, test_name.c_str());
-			// new ƒIƒuƒWƒFƒNƒg‚ğŠÇ—‚µ‚Ä‚à‚ç‚¤
+			// new ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç®¡ç†ã—ã¦ã‚‚ã‚‰ã†
 			detail::iuPool<IEachTest>::GetInstance().push(test);
 
 			EachTest<TypeParam, typename TestsList::Tail>::Register(testcase, detail::SkipSpace(comma));
@@ -447,7 +447,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 
 public:
 	/**
-	 * @brief	ƒeƒXƒg‚Ì“o˜^
+	 * @brief	ãƒ†ã‚¹ãƒˆã®ç™»éŒ²
 	*/
 	static bool Register(const char* prefix, const char* testcase_name, const::std::string& package_name, const char* names, int index=0)
 	{
@@ -469,8 +469,8 @@ public:
 
 /**
  * @private
- * @brief	Œ^ƒpƒ‰ƒ[ƒ^ƒeƒXƒg‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‰»ƒNƒ‰ƒX
- *			I’[“Áê‰»
+ * @brief	å‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ†ã‚¹ãƒˆã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ã‚¯ãƒ©ã‚¹
+ *			çµ‚ç«¯ç‰¹æ®ŠåŒ–
 */
 template<IUTEST_TEMPLATE_TPARAM1 Fixture, typename Tests>
 class TypeParameterizedTestCase<Fixture, Tests, detail::TypeList0>

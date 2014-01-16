@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_switch_pred.hpp
- * @brief		qŒêƒtƒH[ƒ}ƒbƒg Ø‚è‘Ö‚¦’è‹` ƒtƒ@ƒCƒ‹
+ * @brief		è¿°èªãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ åˆ‡ã‚Šæ›¿ãˆå®šç¾© ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */

@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_any.hpp
- * @brief		iris unit test any ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test any ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -49,31 +49,31 @@ public:
 		return *this;
 	}
 	/**
-	 * @brief	‹ó‚©‚Ç‚¤‚©
-	 * @retval	true = ‹ó
+	 * @brief	ç©ºã‹ã©ã†ã‹
+	 * @retval	true = ç©º
 	*/
 	bool empty(void) const
 	{
 		return content == NULL;
 	}
 	/**
-	 * @brief	—v‘f‚ÌƒNƒŠƒA
+	 * @brief	è¦ç´ ã®ã‚¯ãƒªã‚¢
 	*/
 	void clear(void)
 	{
 		any().swap(*this);
 	}
 	/**
-	 * @brief	Œ^ID‚Ìæ“¾
-	 * @return	Œ^ID
+	 * @brief	å‹IDã®å–å¾—
+	 * @return	å‹ID
 	*/
 	type_id type(void) const
 	{
 		return content == NULL ? internal::GetTypeId<void>() : content->type();
 	}
 	/**
-	 * @brief	Œ^‚Ì”äŠr
-	 * @retval	true = “¯ˆê
+	 * @brief	å‹ã®æ¯”è¼ƒ
+	 * @retval	true = åŒä¸€
 	*/
 	template<typename T>
 	bool type_equal(void) const
@@ -132,7 +132,7 @@ private:
 
 #if IUTEST_HAS_EXCEPTIONS
 /**
- * @brief	any_cast ‚Ì¸”s‚Ì—áŠO
+ * @brief	any_cast ã®å¤±æ•—ã®ä¾‹å¤–
 */
 class bad_any_cast : public ::std::bad_cast {};
 #endif
@@ -140,7 +140,7 @@ class bad_any_cast : public ::std::bad_cast {};
 inline void swap(any& lhs, any& rhs) { lhs.swap(rhs); }
 
 /**
- * @brief	Œ^‚ğl—¶‚µ‚½ƒLƒƒƒXƒg
+ * @brief	å‹ã‚’è€ƒæ…®ã—ãŸã‚­ãƒ£ã‚¹ãƒˆ
 */
 template<typename T>
 T* any_cast(any* p)
@@ -176,7 +176,7 @@ inline T any_cast(const any& value)
 }
 
 /**
- * @brief	Œ^‚ğl—¶‚¹‚¸ƒLƒƒƒXƒg
+ * @brief	å‹ã‚’è€ƒæ…®ã›ãšã‚­ãƒ£ã‚¹ãƒˆ
 */
 template<typename T>
 T* unsafe_any_cast(any* p)

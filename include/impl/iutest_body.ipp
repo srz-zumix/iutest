@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_body.ipp
- * @brief		iris unit test ƒeƒXƒg’P‘ÌƒNƒ‰ƒX ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ãƒ†ã‚¹ãƒˆå˜ä½“ã‚¯ãƒ©ã‚¹ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */

@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_internal_defs.hpp
- * @brief		iris unit test utility ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test internal definition
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,7 +31,7 @@
 // define
 
 /**
- * @brief	B–†‚È else •¶‚ÌŒx—}§
+ * @brief	æ›–æ˜§ãª else æ–‡ã®è­¦å‘ŠæŠ‘åˆ¶
 */
 #ifdef __INTEL_COMPILER 
 #  define IUTEST_AMBIGUOUS_ELSE_BLOCKER_
@@ -83,12 +83,12 @@ namespace type_traits = iutest_type_traits;
 namespace detail
 {
 
-typedef void void_t;	// default template ˆø”—p (ˆê•”‚ÌƒRƒ“ƒpƒCƒ‰‚Å = void ‚¾ƒGƒ‰[‚É‚È‚é‚½‚ß)
+typedef void void_t;	// default template å¼•æ•°ç”¨ (ä¸€éƒ¨ã®ã‚³ãƒ³ãƒ‘ã‚¤ãƒ©ã§ = void ã ã‚¨ãƒ©ãƒ¼ã«ãªã‚‹ãŸã‚)
 
 //======================================================================
 // class
 
-// detail ‚©‚çg‚¦‚é‚æ‚¤‚É‚·‚é
+// detail ã‹ã‚‰ä½¿ãˆã‚‹ã‚ˆã†ã«ã™ã‚‹
 using namespace iutest_type_traits;
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
@@ -122,7 +122,7 @@ inline void Delete(T* ptr)
 
 /**
  * @internal
- * @brief	‹óƒIƒuƒWƒFƒNƒg
+ * @brief	ç©ºã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 */
 class None {};
 template<typename T>
@@ -130,7 +130,7 @@ class NoneT1 {};
 
 /**
  * @internal
- * @brief	MSVC —pƒ_ƒ~[Œ^
+ * @brief	MSVC ç”¨ãƒ€ãƒŸãƒ¼å‹
 */
 template<typename T>
 struct type {};
@@ -144,7 +144,7 @@ struct type {};
 #endif
 
 /**
- * @brief	Œ^‚ÉˆË‘¶‚µ‚½ƒ†ƒj[ƒN‚ÈƒJƒEƒ“ƒ^
+ * @brief	å‹ã«ä¾å­˜ã—ãŸãƒ¦ãƒ‹ãƒ¼ã‚¯ãªã‚«ã‚¦ãƒ³ã‚¿
 */
 template<typename T>
 class TypeUniqueCounter
@@ -178,7 +178,7 @@ public:
 
 /**
   * @internal
-  * @brief	NULL ƒŠƒeƒ‰ƒ‹‚©‚Ç‚¤‚©
+  * @brief	NULL ãƒªãƒ†ãƒ©ãƒ«ã‹ã©ã†ã‹
 */
 struct IsNullLiteralHelper
 {
@@ -194,7 +194,7 @@ struct IsNullLiteralHelper
 
 /**
  * @internal
- * @brief	stl ƒRƒ“ƒeƒi‚©‚Ç‚¤‚©
+ * @brief	stl ã‚³ãƒ³ãƒ†ãƒŠã‹ã©ã†ã‹
 */
 struct IsContainerHelper
 {
@@ -265,7 +265,7 @@ template<typename T>void*	enabler_t<T>::value = NULL;
 typedef enabler_t<void>	enabler;
 
 /**
- * @brief	Œ^–¼‚Ìæ“¾
+ * @brief	å‹åã®å–å¾—
 */
 template<typename T>
 inline std::string	GetTypeName(void)
@@ -323,24 +323,24 @@ GeTypeNameSpecialization(bool)
 // function
 
 /**
- * @brief	true ‚ğ•Ô‚·(Œx‘Îô—p)
+ * @brief	true ã‚’è¿”ã™(è­¦å‘Šå¯¾ç­–ç”¨)
 */
 inline bool	AlwaysTrue(void)
 {
 	return true;
 }
 /**
- * @brief	false ‚ğ•Ô‚·(Œx‘Îô—p)
+ * @brief	false ã‚’è¿”ã™(è­¦å‘Šå¯¾ç­–ç”¨)
 */
 inline bool	AlwaysFalse(void)	{ return !AlwaysTrue(); }
 
 /**
- * @brief	0 ‚ğ•Ô‚·(Œx‘Îô—p)
+ * @brief	0 ã‚’è¿”ã™(è­¦å‘Šå¯¾ç­–ç”¨)
 */
 inline int	AlwaysZero(void)	{ return 0; }
 
 /**
-* @brief	^‹U’l‚ğ•Ô‚·(Œx‘Îô—p)
+* @brief	çœŸå½å€¤ã‚’è¿”ã™(è­¦å‘Šå¯¾ç­–ç”¨)
 */
 inline bool	IsTrue(bool b)		{ return b; }
 

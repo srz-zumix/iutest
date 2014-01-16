@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_body.hpp
- * @brief		iris unit test ƒeƒXƒg’P‘ÌƒNƒ‰ƒX ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ãƒ†ã‚¹ãƒˆå˜ä½“ã‚¯ãƒ©ã‚¹ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -35,7 +35,7 @@ template<typename T>class TestWithParam;
 //======================================================================
 // class
 /**
- * @brief	ƒeƒXƒgƒx[ƒX
+ * @brief	ãƒ†ã‚¹ãƒˆãƒ™ãƒ¼ã‚¹
 */
 class Test
 {
@@ -57,7 +57,7 @@ public:
 
 public:
 	/**
-	 * @brief	Às’†‚Ì TestInfo ‚Ìæ“¾
+	 * @brief	å®Ÿè¡Œä¸­ã® TestInfo ã®å–å¾—
 	*/
 	static const TestInfo*	GetCurrentTestInfo(void)
 	{
@@ -70,14 +70,14 @@ public:
 	}
 
 	/**
-	 * @brief	Às’†‚Ì Test ‚Ìæ“¾
+	 * @brief	å®Ÿè¡Œä¸­ã® Test ã®å–å¾—
 	*/
 	static Test* GetCurrentTest(void) { return CurrentTestObserver::GetCurrentTest(); }
 
 
 	/**
-	 * @brief	’v–½“I‚ÈƒGƒ‰[‚ªo‚½‚©‚Ç‚¤‚©
-	 * @return	^‹U’l
+	 * @brief	è‡´å‘½çš„ãªã‚¨ãƒ©ãƒ¼ãŒå‡ºãŸã‹ã©ã†ã‹
+	 * @return	çœŸå½å€¤
 	*/
 	static bool	HasFatalFailure(void)
 	{
@@ -85,8 +85,8 @@ public:
 	}
 
 	/**
-	 * @brief	’v–½“I‚Å‚Í‚È‚¢ƒGƒ‰[‚ªo‚½‚©‚Ç‚¤‚©
-	 * @return	^‹U’l
+	 * @brief	è‡´å‘½çš„ã§ã¯ãªã„ã‚¨ãƒ©ãƒ¼ãŒå‡ºãŸã‹ã©ã†ã‹
+	 * @return	çœŸå½å€¤
 	*/
 	static bool	HasNonfatalFailure(void)
 	{
@@ -94,8 +94,8 @@ public:
 	}
 
 	/**
-	 * @brief	ƒGƒ‰[‚ªo‚½‚©‚Ç‚¤‚©
-	 * @return	^‹U’l
+	 * @brief	ã‚¨ãƒ©ãƒ¼ãŒå‡ºãŸã‹ã©ã†ã‹
+	 * @return	çœŸå½å€¤
 	*/
 	static bool	HasFailure(void)
 	{
@@ -103,16 +103,16 @@ public:
 	}
 
 	/**
-	 * @brief	ƒeƒXƒgŒ‹‰Ê‚Ìî•ñ’Ç‰Á
-	 * @param [in]	key		= ƒvƒƒpƒeƒB‚ÌƒL[
-	 * @param [in]	value	= ’l
+	 * @brief	ãƒ†ã‚¹ãƒˆçµæœã®æƒ…å ±è¿½åŠ 
+	 * @param [in]	key		= ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®ã‚­ãƒ¼
+	 * @param [in]	value	= å€¤
 	*/
 	static void RecordProperty(const ::std::string& key, const ::std::string& value);
 
 	/**
-	 * @brief	ƒeƒXƒgŒ‹‰Ê‚Ìî•ñ’Ç‰Á
-	 * @param [in]	key		= ƒvƒƒpƒeƒB‚ÌƒL[
-	 * @param [in]	value	= ’l
+	 * @brief	ãƒ†ã‚¹ãƒˆçµæœã®æƒ…å ±è¿½åŠ 
+	 * @param [in]	key		= ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®ã‚­ãƒ¼
+	 * @param [in]	value	= å€¤
 	*/
 	template<typename T>
 	static void RecordProperty(const ::std::string& key, const T& value)
@@ -123,34 +123,34 @@ public:
 #if IUTEST_HAS_GENRAND
 
 	/**
-	 * @brief	—”‚Ì¶¬
-	 * @note	—”ƒV[ƒh‚Í --iutest_random_seed ‚Åw’è‚µ‚½’l‚É‚È‚è‚Ü‚·B
-	 *			w’è‚µ‚È‚©‚Á‚½ê‡‚ÍÀs‚ÉŒˆ’è‚µ‚Ü‚·B
+	 * @brief	ä¹±æ•°ã®ç”Ÿæˆ
+	 * @note	ä¹±æ•°ã‚·ãƒ¼ãƒ‰ã¯ --iutest_random_seed ã§æŒ‡å®šã—ãŸå€¤ã«ãªã‚Šã¾ã™ã€‚
+	 *			æŒ‡å®šã—ãªã‹ã£ãŸå ´åˆã¯å®Ÿè¡Œæ™‚ã«æ±ºå®šã—ã¾ã™ã€‚
 	*/
 	unsigned int	genrand(void)				{ return m_random.genrand(); }
 	/**
 	 * @overload
-	 * @param [in]	max	= ãŒÀ’l
-	 * @return		[0,max) ‚Ì—”‚ğ¶¬
+	 * @param [in]	max	= ä¸Šé™å€¤
+	 * @return		[0,max) ã®ä¹±æ•°ã‚’ç”Ÿæˆ
 	*/
 	unsigned int	genrand(unsigned int max)	{ return m_random.genrand(max); }
 	/**
 	 * @overload
-	 * @return		max	= [0,1] ‚Ì—”‚ğ¶¬
+	 * @return		max	= [0,1] ã®ä¹±æ•°ã‚’ç”Ÿæˆ
 	*/
 	float			genrandf(void)				{ return m_random.genrandf(); }
-	/** —”ƒV[ƒh‚Ìæ“¾ */
+	/** ä¹±æ•°ã‚·ãƒ¼ãƒ‰ã®å–å¾— */
 	unsigned int	random_seed(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_random_seed; }
 
-	/** —”¶¬Ší‚Ìæ“¾ */
+	/** ä¹±æ•°ç”Ÿæˆå™¨ã®å–å¾— */
 	detail::iuRandom& random_engine(void)		{ return m_random; }
 
 #endif
 
 protected:
-	virtual	void	SetUp(void)		{}	//!< Às‘Oˆ—
-	virtual void	Body(void)	= 0;	//!< ƒeƒXƒgÀ‘••”
-	virtual void	TearDown(void)	{}	//!< ÀsŒãˆ—
+	virtual	void	SetUp(void)		{}	//!< å®Ÿè¡Œå‰å‡¦ç†
+	virtual void	Body(void)	= 0;	//!< ãƒ†ã‚¹ãƒˆå®Ÿè£…éƒ¨
+	virtual void	TearDown(void)	{}	//!< å®Ÿè¡Œå¾Œå‡¦ç†
 
 public:
 	static	void	SetUpTestCase(void)		{}	//!< test case setup
@@ -158,7 +158,7 @@ public:
 
 private:
 	/**
-	 * @brief	ƒeƒXƒg‚ÌÀs
+	 * @brief	ãƒ†ã‚¹ãƒˆã®å®Ÿè¡Œ
 	*/
 	void Run(detail::iuITestInfoMediator* test_info);
 
@@ -181,7 +181,7 @@ private:
 		static void RecordProperty(const TestProperty& prop);
 	};
 protected:
-	const TestInfo* test_info_;	//!< ƒeƒXƒg’†‚ÉŠÈ’P‚ÉƒAƒNƒZƒX‰Â”\‚È‚æ‚¤‚É
+	const TestInfo* test_info_;	//!< ãƒ†ã‚¹ãƒˆä¸­ã«ç°¡å˜ã«ã‚¢ã‚¯ã‚»ã‚¹å¯èƒ½ãªã‚ˆã†ã«
 
 private:
 	friend class UnitTest;
@@ -196,20 +196,20 @@ private:
 };
 
 /**
- * @brief	ƒpƒ‰ƒ[ƒ^ƒeƒXƒgƒCƒ“ƒ^[ƒtƒF[ƒX
- * @tparam	T = ƒpƒ‰ƒ[ƒ^Œ^
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ†ã‚¹ãƒˆã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹
+ * @tparam	T = ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å‹
 */
 template<typename T>
 class WithParamInterface
 {
 public:
-	typedef T	ParamType;	//!< ƒpƒ‰ƒ[ƒ^Œ^
+	typedef T	ParamType;	//!< ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å‹
 protected:
 	virtual ~WithParamInterface(void)	{}
 
 public:
 	/**
-	 * @brief	ƒpƒ‰ƒ[ƒ^‚Ìæ“¾
+	 * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®å–å¾—
 	*/
 	static const ParamType&	GetParam(void)
 	{
@@ -231,8 +231,8 @@ template<typename T>
 const T* WithParamInterface<T>::s_params = NULL;
 
 /**
- * @brief	ƒpƒ‰ƒ[ƒ^ƒeƒXƒgƒx[ƒX
- * @tparam	T = ƒpƒ‰ƒ[ƒ^Œ^
+ * @brief	ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ†ã‚¹ãƒˆãƒ™ãƒ¼ã‚¹
+ * @tparam	T = ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å‹
 */
 template<typename T>
 class TestWithParam : public Test, public WithParamInterface<T>

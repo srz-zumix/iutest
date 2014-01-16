@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_util.hpp
- * @brief		iris unit test utility ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test utility ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,8 +31,8 @@ namespace iuutil {}
 
 /**
  * @ingroup		IUTEST_UTIL
- * @brief		ƒtƒ@ƒCƒ‹ƒVƒXƒeƒ€‚Ìİ’è
- * @note		ƒ†[ƒU[’è‹`‚Ìƒtƒ@ƒCƒ‹ƒNƒ‰ƒX‚ğ—˜—p‚·‚é‚æ‚¤‚É‚·‚é‚½‚ß‚Ìƒ}ƒNƒ‚Å‚·B
+ * @brief		ãƒ•ã‚¡ã‚¤ãƒ«ã‚·ã‚¹ãƒ†ãƒ ã®è¨­å®š
+ * @note		ãƒ¦ãƒ¼ã‚¶ãƒ¼å®šç¾©ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚¯ãƒ©ã‚¹ã‚’åˆ©ç”¨ã™ã‚‹ã‚ˆã†ã«ã™ã‚‹ãŸã‚ã®ãƒã‚¯ãƒ­ã§ã™ã€‚
 */
 #define IUTEST_FILESYSTEM_INSTANTIATE(file_class_name)	IIUT_FILESYSTEM_INSTANTIATE_(file_class_name)
 

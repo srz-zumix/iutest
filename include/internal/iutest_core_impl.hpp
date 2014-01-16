@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_core_impl.hpp
- * @brief		iris unit test UnitTest À‘• ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test UnitTest å®Ÿè£… ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -44,16 +44,16 @@ protected:
 
 public:
 	/**
-	 * @brief	ƒeƒXƒg’†‚ÌƒeƒXƒg‚Ì TestResult ‚Ìæ“¾
+	 * @brief	ãƒ†ã‚¹ãƒˆä¸­ã®ãƒ†ã‚¹ãƒˆã® TestResult ã®å–å¾—
 	*/
 	static TestResult*	current_test_result(void);
 
 public:
 	/**
-	 * @brief	—LŒø‚ÈƒvƒƒpƒeƒB–¼‚©‚Ç‚¤‚©ƒ`ƒFƒbƒN
-	 * @param [in] name	= ƒvƒƒpƒeƒB–¼
-	 * @retval	true=—LŒø
-	 * @retval	false=–³Œø
+	 * @brief	æœ‰åŠ¹ãªãƒ—ãƒ­ãƒ‘ãƒ†ã‚£åã‹ã©ã†ã‹ãƒã‚§ãƒƒã‚¯
+	 * @param [in] name	= ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£å
+	 * @retval	true=æœ‰åŠ¹
+	 * @retval	false=ç„¡åŠ¹
 	*/
 	static bool ValidateTestPropertyName(const ::std::string& name)
 	{
@@ -89,27 +89,27 @@ public:
 
 protected:
 	/**
-	 * @brief	ƒeƒXƒg‚ÌƒŠƒXƒgƒAƒbƒv
+	 * @brief	ãƒ†ã‚¹ãƒˆã®ãƒªã‚¹ãƒˆã‚¢ãƒƒãƒ—
 	*/
 	int		Listup(void) const;
 
 	/**
-	 * @brief	ƒeƒXƒg‚ÌƒŠƒXƒgƒAƒbƒv(with where)
+	 * @brief	ãƒ†ã‚¹ãƒˆã®ãƒªã‚¹ãƒˆã‚¢ãƒƒãƒ—(with where)
 	*/
 	int		ListupWithWhere(void) const;
 
 	/**
-	 * @brief	–‘Oˆ—
+	 * @brief	äº‹å‰å‡¦ç†
 	*/
 	bool	PreRunner(void);
 
 	/**
-	 * @brief	ƒeƒXƒgŒ‹‰Ê‚ÌƒNƒŠƒA
+	 * @brief	ãƒ†ã‚¹ãƒˆçµæœã®ã‚¯ãƒªã‚¢
 	*/
 	void	ClearNonAdHocTestResult(void);
 
 	/**
-	 * @brief	ad_hoc_testresult ‚ÌƒNƒŠƒA
+	 * @brief	ad_hoc_testresult ã®ã‚¯ãƒªã‚¢
 	*/
 	void	ClearAdHocTestResult(void)
 	{
@@ -124,7 +124,7 @@ private:
 
 private:
 	/**
-	 * @brief	ƒZƒbƒgƒAƒbƒv
+	 * @brief	ã‚»ãƒƒãƒˆã‚¢ãƒƒãƒ—
 	*/
 	void	InitializeImpl(void)
 	{
@@ -152,7 +152,7 @@ private:
 #endif
 	}
 	/**
-	 * @brief	Œã•Ğ•t‚¯
+	 * @brief	å¾Œç‰‡ä»˜ã‘
 	*/
 	void	TerminateImpl(void);
 
@@ -179,29 +179,29 @@ protected:
 	friend class UnitTestSource;
 	friend class Test::TestRecordPropertyHelper;
 
-	int				m_total_test_num;	//!< “o˜^‚³‚ê‚½ƒeƒXƒg‘”
-	int				m_disable_num;		//!< –³‹‚µ‚½ƒeƒXƒg‘”
-	int				m_should_run_num;	//!< Às‚·‚×‚«ƒeƒXƒg‘”
-	TestCase*		m_current_testcase;	//!< Œ»İÀs’†‚ÌƒeƒXƒgƒP[ƒX
-	TimeInMillisec	m_elapsedmsec;		//!< ƒeƒXƒg‚ÌÀsŠÔ
-	iuTestCases		m_testcases;		//!< ƒeƒXƒgƒP[ƒXƒŠƒXƒg
-	TestResult		m_ad_hoc_testresult;	//!< ƒeƒXƒg‚ªÀs’†‚Å‚È‚¢‚Æ‚«‚ÌƒŠƒUƒ‹ƒg
+	int				m_total_test_num;	//!< ç™»éŒ²ã•ã‚ŒãŸãƒ†ã‚¹ãƒˆç·æ•°
+	int				m_disable_num;		//!< ç„¡è¦–ã—ãŸãƒ†ã‚¹ãƒˆç·æ•°
+	int				m_should_run_num;	//!< å®Ÿè¡Œã™ã¹ããƒ†ã‚¹ãƒˆç·æ•°
+	TestCase*		m_current_testcase;	//!< ç¾åœ¨å®Ÿè¡Œä¸­ã®ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹
+	TimeInMillisec	m_elapsedmsec;		//!< ãƒ†ã‚¹ãƒˆã®å®Ÿè¡Œæ™‚é–“
+	iuTestCases		m_testcases;		//!< ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹ãƒªã‚¹ãƒˆ
+	TestResult		m_ad_hoc_testresult;	//!< ãƒ†ã‚¹ãƒˆãŒå®Ÿè¡Œä¸­ã§ãªã„ã¨ãã®ãƒªã‚¶ãƒ«ãƒˆ
 };
 
 namespace detail
 {
 
 /**
- * @brief	ƒeƒXƒg–¼‚Ìì¬
- * @param [in]	basename	= ƒx[ƒX–¼
- * @param [in]	index		= ƒCƒ“ƒfƒbƒNƒX
+ * @brief	ãƒ†ã‚¹ãƒˆåã®ä½œæˆ
+ * @param [in]	basename	= ãƒ™ãƒ¼ã‚¹å
+ * @param [in]	index		= ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 */
 ::std::string MakeIndexTestName(const char* basename, int index);
 
 /**
- * @brief	ƒeƒXƒg–¼‚Ìì¬
- * @param [in]	basename	= ƒx[ƒX–¼
- * @param [in]	index		= ƒCƒ“ƒfƒbƒNƒX
+ * @brief	ãƒ†ã‚¹ãƒˆåã®ä½œæˆ
+ * @param [in]	basename	= ãƒ™ãƒ¼ã‚¹å
+ * @param [in]	index		= ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 */
 template<typename T>
 ::std::string MakeIndexTypedTestName(const char* basename, int index)
@@ -218,18 +218,18 @@ template<typename T>
 }
 
 /**
- * @brief	ƒeƒXƒg–¼‚Ìì¬
+ * @brief	ãƒ†ã‚¹ãƒˆåã®ä½œæˆ
  * @param [in]	prefix		= prefix
- * @param [in]	basename	= ƒx[ƒX–¼
- * @param [in]	index		= ƒCƒ“ƒfƒbƒNƒX
+ * @param [in]	basename	= ãƒ™ãƒ¼ã‚¹å
+ * @param [in]	index		= ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 */
 ::std::string MakePrefixedIndexTestName(const char* prefix, const char* basename, int index);
 
 /**
- * @brief	ƒeƒXƒg–¼‚Ìì¬
+ * @brief	ãƒ†ã‚¹ãƒˆåã®ä½œæˆ
  * @param [in]	prefix		= prefix
- * @param [in]	basename	= ƒx[ƒX–¼
- * @param [in]	index		= ƒCƒ“ƒfƒbƒNƒX
+ * @param [in]	basename	= ãƒ™ãƒ¼ã‚¹å
+ * @param [in]	index		= ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 */
 template<typename T>
 ::std::string MakePrefixedIndexTypedTestName(const char* prefix, const char* basename, int index)

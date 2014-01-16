@@ -1,8 +1,8 @@
-//======================================================================
+Ôªø//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_vc_unittest.hpp
- * @brief		iris unit test, visual studio 11 C++ Unit Test Framework ëŒâû ÉtÉ@ÉCÉã
+ * @brief		iris unit test, visual studio 11 C++ Unit Test Framework ÂØæÂøú „Éï„Ç°„Ç§„É´
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -71,7 +71,7 @@
 #  undef IUTEST_P
 #endif
 
-IUTEST_MAKE_SCOPED_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, iutest, TestInfo, m_factory);
+IUTEST_MAKE_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, ::iutest::TestInfo, m_factory);
 
 #define IUTEST_P(testcase_, testname_)														\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public testcase_ {				\
@@ -98,7 +98,7 @@ IUTEST_MAKE_SCOPED_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, 
 				if( strstr(testinfo_name, name.c_str()) == testinfo_name ) {				\
 					::iutest::detail::iuParamTestFactory<className>* factory =				\
 						static_cast< ::iutest::detail::iuParamTestFactory<className>*>(		\
-							IUTEST_PEEP_GET(*testinfo, TestInfo, m_factory));				\
+							IUTEST_PEEP_GET(*testinfo, ::iutest::TestInfo, m_factory));		\
 					::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(factory);	\
 					SetParam(&factory->GetParam());											\
 					OnTestStart(testcase_name, testinfo_name);								\
@@ -144,7 +144,7 @@ IUTEST_MAKE_SCOPED_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, 
 			const ::iutest::TestInfo* testinfo = ::iuutil::FindTestInfo(testcase, #testname_);	\
 			::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testinfo);	\
 			::iutest::detail::iuFactoryBase* factory =									\
-				IUTEST_PEEP_GET(*testinfo, TestInfo, m_factory);						\
+				IUTEST_PEEP_GET(*testinfo, ::iutest::TestInfo, m_factory);				\
 			::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(factory);	\
 			::iutest::detail::auto_ptr< ::iutest::Test > p = factory->Create();			\
 			::iuutil::VisualStudio::Test* tester = static_cast< ::iuutil::VisualStudio::Test*>(p.ptr());	\
@@ -178,7 +178,7 @@ IUTEST_MAKE_SCOPED_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, 
 			const ::iutest::TestInfo* testinfo = ::iuutil::FindTestInfo(testcase, #testname_);	\
 			::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testinfo);	\
 			::iutest::detail::iuFactoryBase* factory =										\
-				IUTEST_PEEP_GET(*testinfo, TestInfo, m_factory);							\
+				IUTEST_PEEP_GET(*testinfo, ::iutest::TestInfo, m_factory);					\
 			::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(factory);	\
 			::iutest::detail::auto_ptr< ::iutest::Test > p = factory->Create();				\
 			::iuutil::VisualStudio::Test* tester = static_cast< ::iuutil::VisualStudio::Test*>(p.ptr());	\
@@ -206,7 +206,7 @@ namespace VisualStudio
 typedef ::testing::TestEventListener* (::testing::TestEventListeners::* pfnRepeater)(void);
 
 #define testing	iutest
-IUTEST_MAKE_SCOPED_PEEP(pfnRepeater, testing, TestEventListeners, repeater);
+IUTEST_MAKE_PEEP(pfnRepeater, ::testing::TestEventListeners, repeater);
 #undef testing
 
 #ifndef IUTEST_USE_GTEST
@@ -236,7 +236,7 @@ public:
 		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
 		::iutest::TestEventListener* repeator = 
 #define testing	iutest
-			IUTEST_PEEP_GET(listeners, TestEventListeners, repeater)();
+			IUTEST_PEEP_GET(listeners, ::testing::TestEventListeners, repeater)();
 #undef testing
 		repeator->OnTestStart(*testinfo);
 	}
@@ -250,7 +250,7 @@ public:
 		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
 		::iutest::TestEventListener* repeator = 
 #define testing	iutest
-			IUTEST_PEEP_GET(listeners, TestEventListeners, repeater)();
+			IUTEST_PEEP_GET(listeners, ::testing::TestEventListeners, repeater)();
 #undef testing
 		repeator->OnTestEnd(*testinfo);
 	}
@@ -288,7 +288,7 @@ private:
 };
 
 /**
- * @brief	Hook ópÉäÉ|Å[É^Å[
+ * @brief	Hook Áî®„É™„Éù„Éº„Çø„Éº
 */
 class VCCppUnitTestPartResultReporter : public ::iutest::EmptyTestEventListener
 {
@@ -305,7 +305,7 @@ public:
 	}
 	virtual void OnTestPartResult(const ::iutest::TestPartResult& result)
 	{
-		// VC Ç…Ç‡ëóÇÈ
+		// VC „Å´„ÇÇÈÄÅ„Çã
 		if( result.failed() )
 		{
 			size_t size=0;

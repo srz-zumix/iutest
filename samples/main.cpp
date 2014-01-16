@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		main.cpp
- * @brief		sample main ƒtƒ@ƒCƒ‹
+ * @brief		sample main ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -36,7 +36,7 @@
 #endif
 
 /** --------------------------------------------------
- * Environment ƒTƒ“ƒvƒ‹
+ * Environment ã‚µãƒ³ãƒ—ãƒ«
 *//*--------------------------------------------------*/
 class FooEnvironment : public ::iutest::Environment
 {
@@ -97,7 +97,7 @@ int main(int argc, char* argv[])
 #if 1	// Success Tests
 
 /** --------------------------------------------------
- * ŠÈ’P‚ÈƒeƒXƒg
+ * ç°¡å˜ãªãƒ†ã‚¹ãƒˆ
 *//*--------------------------------------------------*/
 IUTEST(Test, Version)
 {
@@ -121,7 +121,7 @@ IUTEST(Test, Stream)
 #if IUTEST_HAS_ASSERTION_RETURN
 
 /** --------------------------------------------------
- * –ß‚è’l‚Ì‚ ‚éŠÖ”‚Å‚Ìg—p
+ * æˆ»ã‚Šå€¤ã®ã‚ã‚‹é–¢æ•°ã§ã®ä½¿ç”¨
 *//*--------------------------------------------------*/
 int ReturnTest(void)
 {
@@ -139,23 +139,23 @@ IUTEST(ReturnTest, Test)
 #endif
 
 /** --------------------------------------------------
- * “ú–{ŒêƒeƒXƒg–¼
+ * æ—¥æœ¬èªãƒ†ã‚¹ãƒˆå
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_TESTNAME_ALIAS_JP
 
-IUTEST(IUTEST_JAPANESE_NAME(ƒeƒXƒg), IUTEST_JAPANESE_NAME(ƒeƒXƒg))
+IUTEST(IUTEST_JAPANESE_NAME(ãƒ†ã‚¹ãƒˆ), IUTEST_JAPANESE_NAME(ãƒ†ã‚¹ãƒˆ))
 {
 }
 class JapaneseFixedTest : public ::iutest::Test {};
 
-IUTEST_F(IUTEST_JAPANESE_NAME_F(JapaneseFixedTest, ‚ ‚¢‚¤‚¦‚¨), IUTEST_JAPANESE_NAME(‚©‚«‚­‚¯‚±))
+IUTEST_F(IUTEST_JAPANESE_NAME_F(JapaneseFixedTest, ã‚ã„ã†ãˆãŠ), IUTEST_JAPANESE_NAME(ã‹ããã‘ã“))
 {
 }
 
 #endif
 
 /** --------------------------------------------------
- * ƒpƒbƒP[ƒW
+ * ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸
 *//*--------------------------------------------------*/
 IUTEST_PACKAGE(TestPackage)
 {
@@ -181,7 +181,7 @@ IUTEST_PACKAGE(TestPackage)
 #endif
 
 /** --------------------------------------------------
- * ƒXƒLƒbƒv
+ * ã‚¹ã‚­ãƒƒãƒ—
 *//*--------------------------------------------------*/
 IUTEST(SkipTest, Skip)
 {
@@ -189,7 +189,7 @@ IUTEST(SkipTest, Skip)
 }
 
 /** --------------------------------------------------
- * ƒeƒXƒgƒtƒBƒNƒXƒ`ƒƒ‚Ì—˜—p
+ * ãƒ†ã‚¹ãƒˆãƒ•ã‚£ã‚¯ã‚¹ãƒãƒ£ã®åˆ©ç”¨
 *//*--------------------------------------------------*/
 class TestFixed : public ::iutest::Test
 {
@@ -232,7 +232,7 @@ IUTEST_F(TestFixed2, Test1)
 	{
 		Point a = {0, 0};
 		Point b = {0, 0};
-		IUTEST_EXPECT_EQ(a, b); // operator == ‚ª‚ ‚ê‚Î‰Â”\.
+		IUTEST_EXPECT_EQ(a, b); // operator == ãŒã‚ã‚Œã°å¯èƒ½.
 	}
 }
 
@@ -244,7 +244,7 @@ IUTEST_F(TestFixed2, Test2)
 }
 
 /** --------------------------------------------------
- * ŠeíƒAƒT[ƒVƒ‡ƒ“
+ * å„ç¨®ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³
 *//*--------------------------------------------------*/
 IUTEST(AssertionTest, NoFailure)
 {
@@ -418,7 +418,7 @@ IUTEST(AssertionTest, HResult)
 #endif
 
 /** --------------------------------------------------
- * qŒêƒAƒT[ƒVƒ‡ƒ“
+ * è¿°èªã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³
 *//*--------------------------------------------------*/
 static bool IsOdd(int val)
 {
@@ -450,7 +450,7 @@ IUTEST(AssertionTest, Pred)
 }
 
 /** --------------------------------------------------
- * OR ƒTƒ|[ƒg
+ * OR ã‚µãƒãƒ¼ãƒˆ
 *//*--------------------------------------------------*/
 IUTEST(AssertionTest, OREQ)
 {
@@ -475,7 +475,7 @@ IUTEST(AssertionTest, OREQ)
 
 
 /** --------------------------------------------------
- * ’l‚ğƒpƒ‰ƒ[ƒ^‰»‚µ‚½ƒeƒXƒg
+ * å€¤ã‚’ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿åŒ–ã—ãŸãƒ†ã‚¹ãƒˆ
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_PARAM_TEST
 // Param Test Range
@@ -632,7 +632,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, RandomValuesTest, ::iutest::RandomValues(5));
 #endif
 
 /** --------------------------------------------------
- * Œ^•t‚¯ƒeƒXƒg
+ * å‹ä»˜ã‘ãƒ†ã‚¹ãƒˆ
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_TYPED_TEST
 
@@ -656,7 +656,7 @@ IUTEST_TYPED_TEST(TypedTest, Litle)
 #endif
 
 /** --------------------------------------------------
- * Œ^‚ğƒpƒ‰ƒ[ƒ^‰»‚µ‚½ƒeƒXƒg
+ * å‹ã‚’ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿åŒ–ã—ãŸãƒ†ã‚¹ãƒˆ
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_TYPED_TEST_P
 
@@ -683,9 +683,9 @@ IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(TypedTestPInstance, TypedTestP, TypedTestTy
 #endif
 
 /** --------------------------------------------------
- * Diabled ƒeƒXƒg
+ * Diabled ãƒ†ã‚¹ãƒˆ
 *//*--------------------------------------------------*/
-// ‚±‚ÌƒeƒXƒg‚Í–³ŒøƒeƒXƒg
+// ã“ã®ãƒ†ã‚¹ãƒˆã¯ç„¡åŠ¹ãƒ†ã‚¹ãƒˆ
 IUTEST(TestDisabled, DISABLED_Test1)
 {
 	IUTEST_ASSERT_TRUE(false);
@@ -696,7 +696,7 @@ IUTEST(TestDisabled, Test2)
 	IUTEST_ASSERT_TRUE(true);
 }
 
-// ƒeƒXƒgƒP[ƒX‚·‚×‚Ä‚ğ–³Œø‚É‚·‚é
+// ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹ã™ã¹ã¦ã‚’ç„¡åŠ¹ã«ã™ã‚‹
 IUTEST(DISABLED_TestCaseDisabled, Test1)
 {
 	IUTEST_ASSERT_TRUE(false);
@@ -707,7 +707,7 @@ IUTEST(DISABLED_TestCaseDisabled, Test2)
 }
 
 /** --------------------------------------------------
- * —áŠOƒAƒT[ƒVƒ‡ƒ“
+ * ä¾‹å¤–ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_EXCEPTIONS
 
@@ -765,7 +765,7 @@ IUTEST(AssertionTest, Exception2)
 #if IUTEST_HAS_STATIC_ASSERT_TYPEEQ
 
 /** --------------------------------------------------
- * Œ^‚Ìˆê’vƒeƒXƒg
+ * å‹ã®ä¸€è‡´ãƒ†ã‚¹ãƒˆ
 *//*--------------------------------------------------*/
 IUTEST(StaticTest, Eq)
 {
@@ -776,7 +776,7 @@ IUTEST(StaticTest, Eq)
 #endif
 
 /** --------------------------------------------------
- * ƒpƒ‰ƒƒ^ƒ‰ƒCƒYŠÖ”ƒR[ƒ‹
+ * ãƒ‘ãƒ©ãƒ¡ã‚¿ãƒ©ã‚¤ã‚ºé–¢æ•°ã‚³ãƒ¼ãƒ«
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_PARAM_METHOD_TEST
 
@@ -798,7 +798,7 @@ IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 2, 2);
 
 
 /** --------------------------------------------------
- * ¸”s‚ÌŠm”F
+ * å¤±æ•—ã®ç¢ºèª
 *//*--------------------------------------------------*/
 #if defined(SHOW_FAILURE)	// Failure Test
 
@@ -957,7 +957,7 @@ IUTEST(TestExpectFailure, Mix)
 	}
 }
 
-// ƒTƒuƒ‹[ƒ`ƒ“
+// ã‚µãƒ–ãƒ«ãƒ¼ãƒãƒ³
 static void Sub1(int n)
 {
 	IUTEST_EXPECT_EQ(1, n);
@@ -975,7 +975,7 @@ IUTEST(TestFailureSubroutine, Test1)
 
 		Sub1(x);
 	}
-	// ‚±‚±‚Ì¸”s‚É‚Í "routine1." ‚ÌƒƒbƒZ[ƒW‚Í•\¦‚³‚ê‚Ü‚¹‚ñB
+	// ã“ã“ã®å¤±æ•—ã«ã¯ "routine1." ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯è¡¨ç¤ºã•ã‚Œã¾ã›ã‚“ã€‚
 	Sub1(3);
 }
 
@@ -987,12 +987,12 @@ IUTEST(TestFailureSubroutine, Test2)
 
 		Sub2(2);
 	}
-	// ‚±‚±‚Ì¸”s‚É‚Í "routine2." ‚ÌƒƒbƒZ[ƒW‚Í•\¦‚³‚ê‚Ü‚¹‚ñB
+	// ã“ã“ã®å¤±æ•—ã«ã¯ "routine2." ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯è¡¨ç¤ºã•ã‚Œã¾ã›ã‚“ã€‚
 	Sub2(3);
 }
 
 /** --------------------------------------------------
- * ƒpƒ‰ƒƒ^ƒ‰ƒCƒYŠÖ”ƒR[ƒ‹
+ * ãƒ‘ãƒ©ãƒ¡ã‚¿ãƒ©ã‚¤ã‚ºé–¢æ•°ã‚³ãƒ¼ãƒ«
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_PARAM_METHOD_TEST
 

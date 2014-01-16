@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_disabled_tests.cpp
- * @brief		also_run_disabled_tests ‘Î‰ƒeƒXƒg
+ * @brief		also_run_disabled_tests å¯¾å¿œãƒ†ã‚¹ãƒˆ
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
 {
 	IUTEST_INIT(&argc, argv);
 #if defined(OUTPUTXML)
-	// ¸”sƒeƒXƒg‚ğŠÜ‚Ş‚Ì‚Å xml o—Í‚µ‚È‚¢
+	// å¤±æ•—ãƒ†ã‚¹ãƒˆã‚’å«ã‚€ã®ã§ xml å‡ºåŠ›ã—ãªã„
 	::iutest::IUTEST_FLAG(output) = NULL;
 #endif
 	

@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_file.hpp
- * @brief		iris unit test ƒtƒ@ƒCƒ‹ƒNƒ‰ƒX ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test ãƒ•ã‚¡ã‚¤ãƒ«ã‚¯ãƒ©ã‚¹ ãƒ•ã‚¡ã‚¤ãƒ«
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -35,7 +35,7 @@ namespace detail
 {
 
 /**
- * @brief	ƒtƒ@ƒCƒ‹ˆ—ƒNƒ‰ƒXƒCƒ“ƒ^[ƒtƒFƒCƒX
+ * @brief	ãƒ•ã‚¡ã‚¤ãƒ«å‡¦ç†ã‚¯ãƒ©ã‚¹ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 */
 class IFileSystem
 {
@@ -98,28 +98,28 @@ namespace iutest
 {
 
 /**
- * @brief	ƒtƒ@ƒCƒ‹ƒNƒ‰ƒXƒCƒ“ƒ^[ƒtƒFƒCƒX
+ * @brief	ãƒ•ã‚¡ã‚¤ãƒ«ã‚¯ãƒ©ã‚¹ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 */
 class IFile : public detail::IOutStream
 {
 public:
 	enum OpenFlag
 	{
-		OpenRead		= 0x00000001,	//!< “Ç‚İ‚İ
-		OpenWrite		= 0x00000002,	//!< ‘‚«‚İ
-		OpenReadWrite	= 0x00000003	//!< “Ç‚İ‘‚«
+		OpenRead		= 0x00000001,	//!< èª­ã¿è¾¼ã¿
+		OpenWrite		= 0x00000002,	//!< æ›¸ãè¾¼ã¿
+		OpenReadWrite	= 0x00000003	//!< èª­ã¿æ›¸ã
 	};
 public:
 	virtual ~IFile(void) {}
 public:
-	//! ŠJ‚­
+	//! é–‹ã
 	virtual	bool	Open(const char* filename, int mode) = 0;
-	//! •Â‚¶‚é
+	//! é–‰ã˜ã‚‹
 	virtual	void	Close(void)	= 0;
 };
 
 /**
- * @brief	ƒtƒ@ƒCƒ‹ˆ—ƒNƒ‰ƒXƒCƒ“ƒ^[ƒtƒFƒCƒX
+ * @brief	ãƒ•ã‚¡ã‚¤ãƒ«å‡¦ç†ã‚¯ãƒ©ã‚¹ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 */
 template<typename FILE>
 class FileSystem : public detail::IFileSystem
@@ -133,7 +133,7 @@ private:
 #if IUTEST_HAS_FOPEN
 
 /**
- * @brief	•W€ƒtƒ@ƒCƒ‹ƒNƒ‰ƒX
+ * @brief	æ¨™æº–ãƒ•ã‚¡ã‚¤ãƒ«ã‚¯ãƒ©ã‚¹
 */
 class StdioFile : public IFile
 {
@@ -143,10 +143,10 @@ public:
 	virtual ~StdioFile(void) { Close(); }
 public:
 	/**
-	 * @brief	ŠJ‚­
-	 * @param [in]	filename	= ƒtƒ@ƒCƒ‹ƒpƒX
-	 * @param [in]	mode		= ƒ‚[ƒh
-	 * @return	¬”Û
+	 * @brief	é–‹ã
+	 * @param [in]	filename	= ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+	 * @param [in]	mode		= ãƒ¢ãƒ¼ãƒ‰
+	 * @return	æˆå¦
 	*/
 	virtual	bool Open(const char* filename, int mode) IUTEST_CXX_OVERRIDE
 	{
@@ -170,7 +170,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 		return m_fp != NULL;
 	}
 	/**
-	 * @brief	•Â‚¶‚é
+	 * @brief	é–‰ã˜ã‚‹
 	*/
 	virtual	void Close(void) IUTEST_CXX_OVERRIDE
 	{
@@ -181,10 +181,10 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 		}
 	}
 	/**
-	 * @brief	‘‚«‚İ
-	 * @param [in]	buf		= ‘‚«‚İƒoƒbƒtƒ@
-	 * @param [in]	size	= ƒoƒbƒtƒ@ƒTƒCƒY
-	 * @param [in]	cnt		= ‘‚«‚İ‰ñ”
+	 * @brief	æ›¸ãè¾¼ã¿
+	 * @param [in]	buf		= æ›¸ãè¾¼ã¿ãƒãƒƒãƒ•ã‚¡
+	 * @param [in]	size	= ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
+	 * @param [in]	cnt		= æ›¸ãè¾¼ã¿å›æ•°
 	*/
 	virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
 	{
@@ -204,10 +204,10 @@ class StringStreamFile : public IFile
 {
 public:
 	/**
-	 * @brief	ŠJ‚­
+	 * @brief	é–‹ã
 	 * @param [in]	filename	= unused
 	 * @param [in]	mode		= unused
-	 * @return	¬”Û
+	 * @return	æˆå¦
 	*/
 	virtual	bool Open(const char* , int ) IUTEST_CXX_OVERRIDE
 	{
@@ -216,17 +216,17 @@ public:
 	}
 
 	/**
-	 * @brief	•Â‚¶‚é
+	 * @brief	é–‰ã˜ã‚‹
 	*/
 	virtual	void Close(void) IUTEST_CXX_OVERRIDE
 	{
 	}
 
 	/**
-	 * @brief	‘‚«‚İ
-	 * @param [in]	buf		= ‘‚«‚İƒoƒbƒtƒ@
-	 * @param [in]	size	= ƒoƒbƒtƒ@ƒTƒCƒY
-	 * @param [in]	cnt		= ‘‚«‚İ‰ñ”
+	 * @brief	æ›¸ãè¾¼ã¿
+	 * @param [in]	buf		= æ›¸ãè¾¼ã¿ãƒãƒƒãƒ•ã‚¡
+	 * @param [in]	size	= ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
+	 * @param [in]	cnt		= æ›¸ãè¾¼ã¿å›æ•°
 	*/
 	virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
 	{

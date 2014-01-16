@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_stream.hpp
- * @brief		iris unit test io stream ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test io stream
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2012-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,14 +27,14 @@ namespace detail
 //======================================================================
 // class
 /**
- * @brief	o—ÍƒXƒgƒŠ[ƒ€ƒCƒ“ƒ^[ƒtƒFƒCƒX
+ * @brief	å‡ºåŠ›ã‚¹ãƒˆãƒªãƒ¼ãƒ ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 */
 class IOutStream
 {
 public:
 	virtual ~IOutStream(void) {}
 public:
-	//! ‘‚«‚İ
+	//! æ›¸ãè¾¼ã¿
 	virtual bool	Write(const void* buf, size_t size, size_t cnt) = 0;
 public:
 	virtual void	Printf(const char* fmt, ...)
@@ -68,7 +68,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 };
 
 /**
- * @brief	ƒtƒ@ƒCƒ‹IOo—ÍƒXƒgƒŠ[ƒ€ƒCƒ“ƒ^[ƒtƒFƒCƒX
+ * @brief	ãƒ•ã‚¡ã‚¤ãƒ«IOå‡ºåŠ›ã‚¹ãƒˆãƒªãƒ¼ãƒ ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
 */
 class FileOutStream : public IOutStream
 {
@@ -80,10 +80,10 @@ public:
 	{}
 public:
 	/**
-	 * @brief	‘‚«‚İ
-	 * @param [in]	buf		= ‘‚«‚İƒoƒbƒtƒ@
-	 * @param [in]	size	= ƒoƒbƒtƒ@ƒTƒCƒY
-	 * @param [in]	cnt		= ‘‚«‚İ‰ñ”
+	 * @brief	æ›¸ãè¾¼ã¿
+	 * @param [in]	buf		= æ›¸ãè¾¼ã¿ãƒãƒƒãƒ•ã‚¡
+	 * @param [in]	size	= ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
+	 * @param [in]	cnt		= æ›¸ãè¾¼ã¿å›æ•°
 	*/
 	virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
 	{

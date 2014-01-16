@@ -1,8 +1,8 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_env_var_tests.cpp
- * @brief		ŠÂ‹«•Ï”‘Î‰ƒeƒXƒg
+ * @brief		ç’°å¢ƒå¤‰æ•°å¯¾å¿œãƒ†ã‚¹ãƒˆ
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -45,7 +45,7 @@ static volatile int g_dummy = SetUpEnvironment();
 
 IUTEST(FlagTest, Check)
 {
-	if( g_dummy != 0 ) return;	// putenv ‚É¸”s‚µ‚½ê‡‚ÍƒeƒXƒg‚µ‚È‚¢
+	if( g_dummy != 0 ) return;	// putenv ã«å¤±æ•—ã—ãŸå ´åˆã¯ãƒ†ã‚¹ãƒˆã—ãªã„
 	IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(also_run_disabled_tests) );
 	IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(break_on_failure) );
 	IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(throw_on_failure) );

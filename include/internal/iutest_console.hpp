@@ -1,14 +1,14 @@
-//======================================================================
+ï»¿//======================================================================
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_console.hpp
- * @brief		iris unit test console ƒtƒ@ƒCƒ‹
+ * @brief		iris unit test console
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2013, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -34,9 +34,9 @@ namespace detail
 
 #ifndef IUTEST_HAS_COLORCONSOLE
 #  if defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_OS_NACL)
-#    define IUTEST_HAS_COLORCONSOLE	0	//!< F‚Â‚«ƒ^[ƒ~ƒiƒ‹‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+#    define IUTEST_HAS_COLORCONSOLE	0	//!< è‰²ã¤ãã‚¿ãƒ¼ãƒŸãƒŠãƒ«ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #  else
-#    define IUTEST_HAS_COLORCONSOLE	1	//!< F‚Â‚«ƒ^[ƒ~ƒiƒ‹‚ªg—p‰Â”\‚©‚Ç‚¤‚©
+#    define IUTEST_HAS_COLORCONSOLE	1	//!< è‰²ã¤ãã‚¿ãƒ¼ãƒŸãƒŠãƒ«ãŒä½¿ç”¨å¯èƒ½ã‹ã©ã†ã‹
 #  endif
 #endif
 
@@ -44,7 +44,7 @@ namespace detail
 // class
 /**
  * @internal
- * @brief	ƒJƒXƒ^ƒ€ Logger ƒNƒ‰ƒX
+ * @brief	ã‚«ã‚¹ã‚¿ãƒ  Logger ã‚¯ãƒ©ã‚¹
 */
 class iuLogger
 {
@@ -61,7 +61,7 @@ public:
 
 /**
  * @internal
- * @brief	ƒRƒ“ƒ\[ƒ‹ƒNƒ‰ƒX
+ * @brief	ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã‚¯ãƒ©ã‚¹
 */
 class iuConsole
 {
@@ -74,7 +74,7 @@ class iuConsole
 	typedef Variable<void>	var;
 
 public:
-	//! ƒRƒ“ƒ\[ƒ‹•¶šF
+	//! ã‚³ãƒ³ã‚½ãƒ¼ãƒ«æ–‡å­—è‰²
 	enum Color
 	{
 		black,
@@ -88,24 +88,24 @@ public:
 	};
 public:
 	/**
-	 * @brief	•W€o—Í
+	 * @brief	æ¨™æº–å‡ºåŠ›
 	*/
 	static inline void output(const char *fmt, ...);
 
 	/**
-	 * @brief	•W€o—Í
-	 * @note	logger ‚ğ’Ê‚³‚È‚¢
+	 * @brief	æ¨™æº–å‡ºåŠ›
+	 * @note	logger ã‚’é€šã•ãªã„
 	*/
 	static inline void voutput(const char* fmt, va_list va);
 
 	/**
-	 * @brief	Fw’è‚Å•W€o—Í
-	 * @param [in]	color	= •¶šF
+	 * @brief	è‰²æŒ‡å®šã§æ¨™æº–å‡ºåŠ›
+	 * @param [in]	color	= æ–‡å­—è‰²
 	*/
 	static inline void	color_output(Color color, const char *fmt, ...);
 
 public:
-	//! Logger ‚ÌƒZƒbƒg
+	//! Logger ã®ã‚»ãƒƒãƒˆ
 	static iuLogger*	SetLogger(iuLogger* logger)
 	{
 		iuLogger* pre = var::m_pLogger;
