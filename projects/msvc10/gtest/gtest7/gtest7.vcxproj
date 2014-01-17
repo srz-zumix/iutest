@@ -1,36 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug(gtest)|NaCl32">
-      <Configuration>Debug(gtest)</Configuration>
+    <ProjectConfiguration Include="Debug_gtest|NaCl32">
+      <Configuration>Debug_gtest</Configuration>
       <Platform>NaCl32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug(gtest)|NaCl64">
-      <Configuration>Debug(gtest)</Configuration>
+    <ProjectConfiguration Include="Debug_gtest|NaCl64">
+      <Configuration>Debug_gtest</Configuration>
       <Platform>NaCl64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug(gtest)|PPAPI">
-      <Configuration>Debug(gtest)</Configuration>
+    <ProjectConfiguration Include="Debug_gtest|PPAPI">
+      <Configuration>Debug_gtest</Configuration>
       <Platform>PPAPI</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug(gtest)|Win32">
-      <Configuration>Debug(gtest)</Configuration>
+    <ProjectConfiguration Include="Debug_gtest|Win32">
+      <Configuration>Debug_gtest</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug(Lib)|NaCl32">
-      <Configuration>Debug(Lib)</Configuration>
+    <ProjectConfiguration Include="Debug_Lib|NaCl32">
+      <Configuration>Debug_Lib</Configuration>
       <Platform>NaCl32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug(Lib)|NaCl64">
-      <Configuration>Debug(Lib)</Configuration>
+    <ProjectConfiguration Include="Debug_Lib|NaCl64">
+      <Configuration>Debug_Lib</Configuration>
       <Platform>NaCl64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug(Lib)|PPAPI">
-      <Configuration>Debug(Lib)</Configuration>
+    <ProjectConfiguration Include="Debug_Lib|PPAPI">
+      <Configuration>Debug_Lib</Configuration>
       <Platform>PPAPI</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug(Lib)|Win32">
-      <Configuration>Debug(Lib)</Configuration>
+    <ProjectConfiguration Include="Debug_Lib|Win32">
+      <Configuration>Debug_Lib</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|NaCl32">
@@ -76,7 +76,7 @@
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -89,14 +89,14 @@
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|Win32'" Label="PropertySheets">
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
@@ -105,62 +105,62 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|Win32'" Label="PropertySheets">
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|Win32'">$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|Win32'">$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|Win32'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|Win32'">true</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|Win32'">$(Configuration)\</IntDir>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|Win32'">true</LinkIncremental>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|Win32'">$(GTEST_ROOT)\include;$(IncludePath)</IncludePath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|Win32'">$(GTEST_VC10_LIB)\gtest\Debug;$(GTEST_ROOT)\msvc\gtest\Debug;$(LibraryPath)</LibraryPath>
-    <NaClAddInVersion Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|NaCl32'">1</NaClAddInVersion>
-    <NaClAddInVersion Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|PPAPI'">1</NaClAddInVersion>
-    <NaClAddInVersion Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|NaCl64'">1</NaClAddInVersion>
-    <VSNaClSDKRoot Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|NaCl32'">$(NACL_SDK_ROOT)\</VSNaClSDKRoot>
-    <VSNaClSDKRoot Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|PPAPI'">$(NACL_SDK_ROOT)\</VSNaClSDKRoot>
-    <VSNaClSDKRoot Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|NaCl64'">$(NACL_SDK_ROOT)\</VSNaClSDKRoot>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|NaCl32'">$(VSNaClSDKRoot)include;</IncludePath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|PPAPI'">$(VSNaClSDKRoot)include;</IncludePath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|NaCl64'">$(VSNaClSDKRoot)include;</IncludePath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|NaCl32'">$(VSNaClSDKRoot)lib32;</LibraryPath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|PPAPI'">$(VSNaClSDKRoot)lib32;</LibraryPath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|NaCl64'">$(VSNaClSDKRoot)lib32;</LibraryPath>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|Win32'">true</LinkIncremental>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|Win32'">$(GTEST_ROOT)\include;$(IncludePath)</IncludePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|Win32'">$(GTEST_VC10_LIB)\gtest\Debug;$(GTEST_ROOT)\msvc\gtest\Debug;$(LibraryPath)</LibraryPath>
+    <NaClAddInVersion Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|NaCl32'">1</NaClAddInVersion>
+    <NaClAddInVersion Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|PPAPI'">1</NaClAddInVersion>
+    <NaClAddInVersion Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|NaCl64'">1</NaClAddInVersion>
+    <VSNaClSDKRoot Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|NaCl32'">$(NACL_SDK_ROOT)\</VSNaClSDKRoot>
+    <VSNaClSDKRoot Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|PPAPI'">$(NACL_SDK_ROOT)\</VSNaClSDKRoot>
+    <VSNaClSDKRoot Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|NaCl64'">$(NACL_SDK_ROOT)\</VSNaClSDKRoot>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|NaCl32'">$(VSNaClSDKRoot)include;</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|PPAPI'">$(VSNaClSDKRoot)include;</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|NaCl64'">$(VSNaClSDKRoot)include;</IncludePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|NaCl32'">$(VSNaClSDKRoot)lib32;</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|PPAPI'">$(VSNaClSDKRoot)lib32;</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|NaCl64'">$(VSNaClSDKRoot)lib32;</LibraryPath>
     <NaClAddInVersion Condition="'$(Configuration)|$(Platform)'=='Debug|NaCl32'">1</NaClAddInVersion>
-    <NaClAddInVersion Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|NaCl32'">1</NaClAddInVersion>
+    <NaClAddInVersion Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|NaCl32'">1</NaClAddInVersion>
     <NaClAddInVersion Condition="'$(Configuration)|$(Platform)'=='Debug|PPAPI'">1</NaClAddInVersion>
-    <NaClAddInVersion Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|PPAPI'">1</NaClAddInVersion>
+    <NaClAddInVersion Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|PPAPI'">1</NaClAddInVersion>
     <NaClAddInVersion Condition="'$(Configuration)|$(Platform)'=='Debug|NaCl64'">1</NaClAddInVersion>
-    <NaClAddInVersion Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|NaCl64'">1</NaClAddInVersion>
+    <NaClAddInVersion Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|NaCl64'">1</NaClAddInVersion>
     <VSNaClSDKRoot Condition="'$(Configuration)|$(Platform)'=='Debug|NaCl32'">$(NACL_SDK_ROOT)\</VSNaClSDKRoot>
-    <VSNaClSDKRoot Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|NaCl32'">$(NACL_SDK_ROOT)\</VSNaClSDKRoot>
+    <VSNaClSDKRoot Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|NaCl32'">$(NACL_SDK_ROOT)\</VSNaClSDKRoot>
     <VSNaClSDKRoot Condition="'$(Configuration)|$(Platform)'=='Debug|PPAPI'">$(NACL_SDK_ROOT)\</VSNaClSDKRoot>
-    <VSNaClSDKRoot Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|PPAPI'">$(NACL_SDK_ROOT)\</VSNaClSDKRoot>
+    <VSNaClSDKRoot Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|PPAPI'">$(NACL_SDK_ROOT)\</VSNaClSDKRoot>
     <VSNaClSDKRoot Condition="'$(Configuration)|$(Platform)'=='Debug|NaCl64'">$(NACL_SDK_ROOT)\</VSNaClSDKRoot>
-    <VSNaClSDKRoot Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|NaCl64'">$(NACL_SDK_ROOT)\</VSNaClSDKRoot>
+    <VSNaClSDKRoot Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|NaCl64'">$(NACL_SDK_ROOT)\</VSNaClSDKRoot>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|NaCl32'">$(VSNaClSDKRoot)include;</IncludePath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|NaCl32'">$(VSNaClSDKRoot)include;</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|NaCl32'">$(VSNaClSDKRoot)include;</IncludePath>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|PPAPI'">$(VSNaClSDKRoot)include;</IncludePath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|PPAPI'">$(VSNaClSDKRoot)include;</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|PPAPI'">$(VSNaClSDKRoot)include;</IncludePath>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|NaCl64'">$(VSNaClSDKRoot)include;</IncludePath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|NaCl64'">$(VSNaClSDKRoot)include;</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|NaCl64'">$(VSNaClSDKRoot)include;</IncludePath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|NaCl32'">$(VSNaClSDKRoot)lib32;</LibraryPath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|NaCl32'">$(VSNaClSDKRoot)lib32;</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|NaCl32'">$(VSNaClSDKRoot)lib32;</LibraryPath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|PPAPI'">$(VSNaClSDKRoot)lib32;</LibraryPath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|PPAPI'">$(VSNaClSDKRoot)lib32;</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|PPAPI'">$(VSNaClSDKRoot)lib32;</LibraryPath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|NaCl64'">$(VSNaClSDKRoot)lib32;</LibraryPath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|NaCl64'">$(VSNaClSDKRoot)lib32;</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|NaCl64'">$(VSNaClSDKRoot)lib32;</LibraryPath>
     <NaClAddInVersion Condition="'$(Configuration)|$(Platform)'=='Release|NaCl32'">1</NaClAddInVersion>
     <NaClAddInVersion Condition="'$(Configuration)|$(Platform)'=='Release|PPAPI'">1</NaClAddInVersion>
     <NaClAddInVersion Condition="'$(Configuration)|$(Platform)'=='Release|NaCl64'">1</NaClAddInVersion>
@@ -193,7 +193,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(ProjectDir)\..\..\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -234,7 +234,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(ProjectDir)\..\..\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -254,7 +254,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|NaCl32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|NaCl32'">
     <Link>
       <AdditionalDependencies>ppapi_cpp;ppapi;</AdditionalDependencies>
     </Link>
@@ -262,7 +262,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)\..\..\..\..\include</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|PPAPI'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|PPAPI'">
     <Link>
       <AdditionalDependencies>ppapi_cpp;ppapi;</AdditionalDependencies>
     </Link>
@@ -270,7 +270,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)\..\..\..\..\include</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug(gtest)|NaCl64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|NaCl64'">
     <Link>
       <AdditionalDependencies>ppapi_cpp;ppapi;</AdditionalDependencies>
     </Link>
@@ -286,7 +286,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)\..\..\..\..\include</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|NaCl32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|NaCl32'">
     <Link>
       <AdditionalDependencies>ppapi_cpp;ppapi;</AdditionalDependencies>
     </Link>
@@ -302,7 +302,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)\..\..\..\..\include</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|PPAPI'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|PPAPI'">
     <Link>
       <AdditionalDependencies>ppapi_cpp;ppapi;</AdditionalDependencies>
     </Link>
@@ -318,7 +318,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)\..\..\..\..\include</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug(Lib)|NaCl64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Lib|NaCl64'">
     <Link>
       <AdditionalDependencies>ppapi_cpp;ppapi;</AdditionalDependencies>
     </Link>

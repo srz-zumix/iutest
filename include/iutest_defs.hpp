@@ -230,7 +230,7 @@ public:
 	RawType	raw(void) const	{ return m_v.fv; }
 
 public:
-	//! ＋ inf
+	//! plus inf
 	static _Myt	PINF(void)
 	{
 		_Myt f;
@@ -238,28 +238,28 @@ public:
 		f.m_v.uv <<= kFRAC;
 		return f;
 	}
-	//! 竏鈀 inf
+	//! minus inf
 	static _Myt	NINF(void)
 	{
 		_Myt f = PINF();
 		f.m_v.uv |= static_cast<UInt>(1u) << (kEXP + kFRAC);
 		return f;
 	}
-	//! ＋ nan
+	//! plus nan
 	static _Myt	PNAN(void)
 	{
 		_Myt f = PINF();
 		f.m_v.uv |= 1;
 		return f;
 	}
-	//! 竏鈀 nan
+	//! minus nan
 	static _Myt	NNAN(void)
 	{
 		_Myt f = NINF();
 		f.m_v.uv |= 1;
 		return f;
 	}
-	//! ＋ qnan
+	//! plus qnan
 	static _Myt	PQNAN(void)
 	{
 		_Myt f;
@@ -267,7 +267,7 @@ public:
 		f.m_v.uv <<= kFRAC - 1;
 		return f;
 	}
-	//! 竏鈀 qnan
+	//! minus qnan
 	static _Myt	NQNAN(void)
 	{
 		_Myt f = PQNAN();

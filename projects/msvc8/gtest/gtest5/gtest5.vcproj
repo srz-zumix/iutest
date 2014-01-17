@@ -169,7 +169,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug(gtest)|Win32"
+			Name="Debug_gtest|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
@@ -246,7 +246,7 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Debug(Lib)|Win32"
+			Name="Debug_Lib|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
