@@ -294,7 +294,7 @@
 
 #ifndef IUTEST_HAS_TESTNAME_ALIAS_JP
 //! テスト名の別名に日本語が使用できるかどうか
-#  if IUTEST_HAS_TESTNAME_ALIAS
+#  if IUTEST_HAS_TESTNAME_ALIAS && !defined(__CUDACC__)
 #    define IUTEST_HAS_TESTNAME_ALIAS_JP	1
 #  else
 #    define IUTEST_HAS_TESTNAME_ALIAS_JP	0

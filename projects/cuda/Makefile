@@ -12,7 +12,8 @@ IUTEST_DIR = ../..
 # sample code
 USER_DIR = ../../samples
 
-# Flags passed to the preprocessor.
+#
+# Flags passed to the C++ compiler.
 CPPFLAGS += -I$(IUTEST_DIR)/include
 CPPFLAGS += -I"$(CUDA_PATH)/include"
 CPPFLAGS += -L"$(CUDA_PATH)/lib" -lcudart
@@ -21,8 +22,6 @@ ifdef TARGET_X86
 CPPFLAGS += --machine 32
 endif
 
-#
-# Flags passed to the C++ compiler.
 CXXFLAGS += 
 #CXXFLAGS += -DSHOW_FAILURE
 
@@ -38,10 +37,12 @@ BIN = $(TESTS)
 # All iutest headers.  Usually you shouldn't change this
 # definition.
 IUTEST_HEADERS = $(IUTEST_DIR)/include/*.hpp \
+                 $(IUTEST_DIR)/include/impl/*.ipp \
                  $(IUTEST_DIR)/include/internal/*.hpp \
                  $(IUTEST_DIR)/include/listener/*.hpp \
                  $(IUTEST_DIR)/include/util/*.hpp \
-                 $(IUTEST_DIR)/include/gtest/*.hpp
+                 $(IUTEST_DIR)/include/gtest/*.hpp \
+                 $(IUTEST_DIR)/include/gtest/switch/*.hpp
 
 # House-keeping build targets.
 

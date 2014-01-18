@@ -34,6 +34,13 @@
 #undef IUTEST_PRED_FORMAT4_
 #undef IUTEST_PRED_FORMAT5_
 
+#ifdef IUTEST_PRED_
+#  undef IUTEST_PRED_
+#endif
+#ifdef IUTEST_PRED_FORMAT_
+#  undef IUTEST_PRED_FORMAT_
+#endif
+
 #endif
 
 //======================================================================

@@ -440,6 +440,8 @@
 	IUTEST_PRED_FORMAT5_(pred_formatter, v1, v2, v3, v4, v5, IUTEST_ASSUME_FAILURE)
 
 
+#ifndef IUTEST_NO_VARIADIC_MACROS
+
 #if IUTEST_HAS_VARIADIC_TEMPLATES
 
 /**
@@ -476,8 +478,6 @@
 	IUTEST_PRED_(pred, IUTEST_ASSUME_FAILURE, __VA_ARGS__)
 
 #endif
-
-#ifndef IUTEST_NO_VARIADIC_MACROS
 
 /**
  * @ingroup	IUTEST_ASSERT_
@@ -591,14 +591,14 @@
 #define IUTEST_PRED_FORMAT5_(pred_formatter, v1, v2, v3, v4, v5, on_failure)	\
 	IUTEST_TEST_ASSERT_(pred_formatter(#v1, #v2, #v3, #v4, #v5, v1, v2, v3, v4, v5), on_failure)
 
+#ifndef IUTEST_NO_VARIADIC_MACROS
+
 #if IUTEST_HAS_VARIADIC_TEMPLATES
 
 #define IUTEST_PRED_(pred, on_failure, ...)	\
 	IUTEST_TEST_ASSERT_(::iutest::AssertPredVariadicHelper(#pred, #__VA_ARGS__, pred, __VA_ARGS__), on_failure)
 
 #endif
-
-#ifndef IUTEST_NO_VARIADIC_MACROS
 
 #define IUTEST_PRED_FORMAT_(pred_formatter, on_failure, ...)	\
 	IUTEST_TEST_ASSERT_(pred_formatter(#__VA_ARGS__, __VA_ARGS__), on_failure)

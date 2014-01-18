@@ -410,7 +410,7 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestProgramStart(const UnitTest& test)
 	IUTEST_UNUSED_VAR(test);
 	m_sstp.Notify()
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-		.Script(Script("テストスタ縲怎g").Ln().ToString())
+		.Script(Script("テストスタ～ト").Ln().ToString())
 #else
 		.Script(Script("Start test.").Ln().ToString())
 #endif

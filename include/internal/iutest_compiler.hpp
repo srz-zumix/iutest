@@ -65,9 +65,11 @@
 #  define IUTEST_PLATFORM				"Solaris"
 #elif	defined(__linux__)
 #  define IUTEST_OS_LINUX				1
-#  define IUTEST_PLATFORM				"LINUX"
 #  ifdef ANDROID
 #    define IUTEST_OS_LINUX_ANDROID		1
+#    define IUTEST_PLATFORM				"Android"
+#  else
+#    define IUTEST_PLATFORM				"LINUX"
 #  endif
 #elif	defined(__native_client__)
 #  define IUTEST_OS_NACL				1

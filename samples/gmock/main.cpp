@@ -1,4 +1,4 @@
-
+ï»¿
 /*
  * is not available vprintf, can be replaced.
 */
@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 }
 
 /**
- * @brief	ƒ‚ƒbƒN‘ÎÛ‚ÌƒIƒuƒWƒFƒNƒg
+ * @brief	ãƒ¢ãƒƒã‚¯å¯¾è±¡ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 */
 class Foo
 {
@@ -33,7 +33,7 @@ public:
 };
 
 /**
- * @brief	ƒ‚ƒbƒN
+ * @brief	ãƒ¢ãƒƒã‚¯
 */
 class MockFoo : public Foo
 {
@@ -42,7 +42,7 @@ public:
 };
 
 /**
- * @brief	ƒeƒXƒg‚µ‚½‚¢ƒNƒ‰ƒX
+ * @brief	ãƒ†ã‚¹ãƒˆã—ãŸã„ã‚¯ãƒ©ã‚¹
 */
 class FooTest
 {
@@ -61,7 +61,7 @@ public:
 
 TEST(FooTest, Name)
 {
-	// ƒ‚ƒbƒN
+	// ãƒ¢ãƒƒã‚¯
 	MockFoo mock;
 	EXPECT_CALL(mock, name()).WillOnce( ::testing::Return("iutest") );
 

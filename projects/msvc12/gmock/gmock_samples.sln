@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gmock1", "gmock1\gmock1.vcxproj", "{652027C2-BCD8-44E5-A987-201992407DCD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_gtest|Win32 = Debug_gtest|Win32
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{652027C2-BCD8-44E5-A987-201992407DCD}.Debug_gtest|Win32.ActiveCfg = Debug_gtest|Win32
+		{652027C2-BCD8-44E5-A987-201992407DCD}.Debug_gtest|Win32.Build.0 = Debug_gtest|Win32
+		{652027C2-BCD8-44E5-A987-201992407DCD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{652027C2-BCD8-44E5-A987-201992407DCD}.Debug|Win32.Build.0 = Debug|Win32
+		{652027C2-BCD8-44E5-A987-201992407DCD}.Release|Win32.ActiveCfg = Release|Win32
+		{652027C2-BCD8-44E5-A987-201992407DCD}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
