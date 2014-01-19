@@ -30,7 +30,6 @@ namespace prod_test
 {
 
 static ProdClass s_prod;
-static ProdClass2 s_prod2;
 
 // IUTEST_FRIEND_TEST を使ってのアクセス
 IUTEST(ProdTest, Friend)
@@ -89,6 +88,8 @@ IUTEST_TYPED_TEST(ProdTypedTest, Friend)
 #endif
 
 #if IUTEST_HAS_PEEP
+
+static ProdClass2 s_prod2;
 
 // peep を使ってのアクセス
 IUTEST_MAKE_PEEP(int ProdClass::*, ProdClass, m_x);

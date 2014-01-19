@@ -68,7 +68,11 @@ private:
 	int m_x;
 };
 
+#if IUTEST_HAS_PEEP
+
 IUTEST_MAKE_PEEP(int ProdClass::*, ProdClass, m_a);
+
+#endif
 
 }	// end of namespace prod_test
 
