@@ -47,7 +47,8 @@
 #include <limits.h>
 #include <time.h>
 #include "sample3-inl.h"
-#include "gtest/gtest.h"
+//#include "gtest/gtest.h"
+#include "gtest/iutest_switch.hpp"
 #include "sample1.h"
 
 // In this sample, we want to ensure that every test finishes within

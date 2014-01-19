@@ -45,7 +45,8 @@
 
 #include <limits.h>
 #include "sample1.h"
-#include "gtest/gtest.h"
+//#include "gtest/gtest.h"
+#include "gtest/iutest_switch.hpp"
 
 
 // Step 2. Use the TEST macro to define your tests.

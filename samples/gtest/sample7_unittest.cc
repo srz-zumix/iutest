@@ -38,7 +38,8 @@
 // The interface and its implementations are in this header.
 #include "prime_tables.h"
 
-#include "gtest/gtest.h"
+//#include "gtest/gtest.h"
+#include "gtest/iutest_switch.hpp"
 
 #if GTEST_HAS_PARAM_TEST
 

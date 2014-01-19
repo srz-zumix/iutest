@@ -36,7 +36,8 @@
 // Use class definitions to test from this header.
 #include "prime_tables.h"
 
-#include "gtest/gtest.h"
+//#include "gtest/gtest.h"
+#include "gtest/iutest_switch.hpp"
 
 #if GTEST_HAS_COMBINE
 

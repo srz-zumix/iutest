@@ -34,7 +34,8 @@
 
 #include <stdio.h>
 
-#include "gtest/gtest.h"
+//#include "gtest/gtest.h"
+#include "gtest/iutest_switch.hpp"
 
 using ::testing::EmptyTestEventListener;
 using ::testing::InitGoogleTest;
