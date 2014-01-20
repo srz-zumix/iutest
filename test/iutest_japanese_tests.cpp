@@ -204,8 +204,24 @@ int main(int argc, char* argv[])
 #if IUTEST_HAS_PARAM_METHOD_TEST
 	test_count += 1;
 #endif
+
+#if IUTEST_HAS_IGNORE_TEST
+	test_count += 2;
+#if IUTEST_HAS_PARAM_TEST
+	test_count += 1;
+#endif
+#if IUTEST_HAS_TYPED_TEST
+	test_count += 1;
+#endif
+#endif
+	
+#if IUTEST_HAS_ASSERTION_RETURN
+	IUTEST_ASSERT_EQ( testcase_count, ::iutest::UnitTest::GetInstance()->total_test_case_count()) << ::iutest::AssertionReturn(1);
+	IUTEST_ASSERT_EQ( test_count, ::iutest::UnitTest::GetInstance()->total_test_count() ) << ::iutest::AssertionReturn(1);
+#else
 	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->total_test_case_count() == testcase_count );
 	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->total_test_count() == test_count );
+#endif
 
 #endif
 	printf("*** Successful ***\n");

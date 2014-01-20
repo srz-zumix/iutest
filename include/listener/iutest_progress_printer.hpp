@@ -76,11 +76,11 @@ inline void ProgressPrintListener::OnTestEnd(const TestInfo& test_info)
 
 	++m_ran_num;
 	const int star_count = 51;
-	int n = (m_ran_num * star_count) / m_should_run_num;
-	char progress[52] = {0};
+	const int n = (m_ran_num * star_count) / m_should_run_num;
+	char progress[star_count + 2] ={ 0 };
 	for( int i=0; i < n; ++i ) progress[i] = '*';
-	progress[n++] = m_ran_num == m_should_run_num ? '\n' : '\r';
-	progress[n++] = '\0';
+	progress[n] = m_ran_num == m_should_run_num ? '\n' : '\r';
+	progress[n + 1] = '\0';
 	detail::iuConsole::output(progress);
 }
 
