@@ -7,6 +7,7 @@ Changes for 1.8.0:
 * IUTEST_FLAG(output) に対応
 * IUTEST_*_NO_FAILURE の gtest モード対応
 * Visual Studio Type Visualizer 用 .natvis ファイルを追加
+* AVR 対応
 
 ** 変更
 * IUTEST_USE_THROW_ON_ASSERT_FAILURE を IUTEST_USE_THROW_ON_ASSERTION_FAILURE に変更

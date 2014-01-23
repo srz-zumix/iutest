@@ -74,6 +74,9 @@
 #elif	defined(__native_client__)
 #  define IUTEST_OS_NACL				1
 #  define IUTEST_PLATFORM				"Google Native Client"
+#elif	defined(__AVR32__) || defined(__avr32__)
+#  define IUTEST_OS_AVR32				1
+#  define IUTEST_PLATFORM				"AVR32"
 #endif
 
 #if defined(IUTEST_OS_LINUX_ANDROID)

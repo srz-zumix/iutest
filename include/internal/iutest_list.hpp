@@ -484,7 +484,7 @@ Node FindList(const ::std::vector<Node>& list, Fn& f)
  * @brief	条件に合う要素数をカウント
 */
 template<typename Node, typename Fn>
-int CountIf(const iu_list<Node>& list, Fn& f)
+int CountIf(const iu_list<Node>& list, Fn f)
 {
 	int count = 0;
 	for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )

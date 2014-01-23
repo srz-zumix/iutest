@@ -103,7 +103,7 @@ IUTEST_IPP_INLINE int PutEnv(const char* expr)
 
 IUTEST_IPP_INLINE const char* GetCWD(char* buf, size_t length)
 {
-#if	defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_NO_GETCWD)
+#if	defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_OS_AVR32) || defined(IUTEST_NO_GETCWD)
 	if( buf == NULL || length < 3 )
 	{
 		return NULL;

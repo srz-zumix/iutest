@@ -21,6 +21,8 @@
 // include
 #include "../listener/iutest_streaming_listener.hpp"
 
+#if IUTEST_HAS_STREAM_RESULT
+
 namespace iutest
 {
 
@@ -138,5 +140,7 @@ IUTEST_IPP_INLINE void StreamResultListener::SendLn(const ::std::string& message
 }
 
 }	// end of namespace iutest
+
+#endif	// #if IUTEST_HAS_STREAM_RESULT
 
 #endif	// INCG_IRIS_IUTEST_IUTEST_STREAMING_LISTENER_IPP_1187A63F_E99B_4289_A562_3C87B9739B7D_

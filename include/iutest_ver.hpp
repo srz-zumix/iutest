@@ -19,11 +19,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01079917u	//!< iutest version 1.7.99.17
+#define	IUTEST_VER			0x01079918u	//!< iutest version 1.7.99.18
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x07u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x17u		//!< Revision
+#define IUTEST_REVISION		0x18u		//!< Revision
 
 /**
  * @mainpage
@@ -111,7 +111,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.7.99.17
+  <li>v1.7.99.18
     <ul>
       <li>IUTEST_USE_THROW_ON_ASSERT_FAILURE を IUTEST_USE_THROW_ON_ASSERTION_FAILURE に変更</li>
       <li>IUTEST_USE_THROW_ON_ASSERTION_FAILURE を指定した場合 SKIP や ASSUME も例外を投げるように変更</li>
@@ -119,6 +119,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>IUTEST_*_STRIN,IUTEST_*_STRNOTIN を追加</li>
       <li>IUTEST_FLAG(output) に対応</li>
       <li>IUTEST_*_NO_FAILURE の gtest モード対応</li>
+      <li>AVR 対応</li>
       <li>IUTEST_*_NO_FAILURE が警告やスキップを失敗と判断しないように変更</li>
       <li>IUTEST_*_TRUE/FALSE を可変長対応</li>
       <li>フィクスチャークラス名を IUTEST_TEST マクロのテストケース名に使用した場合にエラーになるように修正(MSVC拡張)</li>
