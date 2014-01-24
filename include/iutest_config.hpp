@@ -147,18 +147,30 @@
 //! ::iutest::Combine が使用可能かどうか
 #  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TUPLE
 #    define IUTEST_HAS_COMBINE		1
-#  else
-#    define IUTEST_HAS_COMBINE		0
 #  endif
+#else
+#  if IUTEST_HAS_COMBINE && !IUTEST_HAS_TUPLE
+#    undef IUTEST_HAS_COMBINE
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_COMBINE
+#  define IUTEST_HAS_COMBINE		0
 #endif
 
 #ifndef IUTEST_HAS_PAIRWISE
 //! ::iutest::Pairwise が使用可能かどうか
-#  if IUTEST_HAS_COMBINE
+#  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TUPLE
 #    define IUTEST_HAS_PAIRWISE		1
-#  else
-#    define IUTEST_HAS_PAIRWISE		0
 #  endif
+#else
+#  if IUTEST_HAS_PAIRWISE && !IUTEST_HAS_TUPLE
+#    undef IUTEST_HAS_PAIRWISE
+#  endif
+#endif
+
+#ifndef IUTEST_HAS_PAIRWISE
+#  define IUTEST_HAS_PAIRWISE		0
 #endif
 
 #ifndef IUTEST_HAS_CONCAT
