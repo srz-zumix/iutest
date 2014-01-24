@@ -24,6 +24,9 @@ RM = del
 CXXFLAGS =$(CXXFLAGS) /EHsc /nologo $(OPTIMIZE)
 CXXFLAGS =$(CXXFLAGS) $(DEFS) $(STDFLAG)
 
+!ifdef OUTPUTXML
+CXXFLAGS =$(CXXFLAGS) -DOUTPUTXML
+!endif
 
 #
 # include

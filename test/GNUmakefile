@@ -19,6 +19,10 @@ ifdef _DEBUG
 CXXFLAGS += -ggdb
 endif
 
+ifdef OUTPUTXML
+CXXFLAGS +=-DOUTPUTXML
+endif
+
 ifeq ($(findstring clang, $(CXX)),clang)
 
 #

@@ -44,6 +44,8 @@
 #ifndef IUTEST_HAS_STD_TUPLE
 #  if defined(IUTEST_USE_EXTERNAL_STD_TUPLE) && IUTEST_USE_EXTERNAL_STD_TUPLE
 #    define IUTEST_HAS_STD_TUPLE	1
+#  elif defined(_STLPORT_VERSION)
+#    define IUTEST_HAS_STD_TUPLE	0
 #  elif defined(_MSC_VER)
 #    if (_MSC_VER > 1700) || (_MSC_VER == 1700 && _VARIADIC_MAX >= 9)
 #      define IUTEST_HAS_STD_TUPLE	1
@@ -73,6 +75,8 @@
 #ifndef IUTEST_HAS_TR1_TUPLE
 #  if defined(IUTEST_USE_EXTERNAL_TR1_TUPLE) && IUTEST_USE_EXTERNAL_TR1_TUPLE
 #    define IUTEST_HAS_TR1_TUPLE	1
+#  elif defined(_STLPORT_VERSION)
+#    define IUTEST_HAS_TR1_TUPLE	0
 #  elif defined(IUTEST_OS_LINUX_ANDROID) && defined(_STLPORT_MAJOR)
 #    define IUTEST_HAS_TR1_TUPLE	0
 #  elif defined(_MSC_VER) && defined(_MSC_FULL_VER)
