@@ -19,11 +19,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01079920u	//!< iutest version 1.7.99.20
+#define	IUTEST_VER			0x01080000u	//!< iutest version 1.8.0.0
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
-#define IUTEST_MINORVER		0x07u		//!< Minor Version
-#define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x20u		//!< Revision
+#define IUTEST_MINORVER		0x08u		//!< Minor Version
+#define IUTEST_BUILD		0x00u		//!< Build
+#define IUTEST_REVISION		0x00u		//!< Revision
 
 /**
  * @mainpage
@@ -111,7 +111,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
-  <li>v1.7.99.20
+  <li>v1.8.0.0
     <ul>
       <li>IUTEST_USE_THROW_ON_ASSERT_FAILURE を IUTEST_USE_THROW_ON_ASSERTION_FAILURE に変更</li>
       <li>IUTEST_USE_THROW_ON_ASSERTION_FAILURE を指定した場合 SKIP や ASSUME も例外を投げるように変更</li>
@@ -123,7 +123,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>IUTEST_*_NO_FAILURE が警告やスキップを失敗と判断しないように変更</li>
       <li>IUTEST_*_TRUE/FALSE を可変長対応</li>
       <li>フィクスチャークラス名を IUTEST_TEST マクロのテストケース名に使用した場合にエラーになるように修正(MSVC拡張)</li>
-      <li>パッケージ内の値のパラメータ化テストのテストケース名が pkg.prefix/testcase となるように修正</li>
+      <li>パッケージ内の値のパラメータ化テストのテストケース名が pkg.prefix/testcase となるように変更</li>
       <li>Visual C++ Compiler November 2013 CTP 対応</li>
       <li>リスナーのセットアップ関数を変更</li>
       <li>IUTEST_SCOPED_PEEP,IUTEST_MAKE_SCOPED_PEEP を廃止</li>

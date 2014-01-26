@@ -7,7 +7,7 @@ Welcome to the iutest
 iutest  framework for writeing C++ tests.
 
 Supports automatic tests discovery, include only, value- and type- parameterized tests,
-XML test report, inform- and assume- flavor, and japanese test name., etc...
+XML test report, inform- and assume- flavor, and japanese test name, etc...
 
 Documentation
 --------------------------------------------------
