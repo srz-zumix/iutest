@@ -49,7 +49,7 @@ IUTEST_IPP_INLINE void	UnitTestImpl::SkipTest(void)
 	Test* test = Test::GetCurrentTest();
 	if( test != NULL && test->m_test_info->ptr() != NULL )
 	{
-		test->m_test_info->ptr()->m_skip = true;
+		test->m_test_info->ptr()->skip();
 	}
 }
 

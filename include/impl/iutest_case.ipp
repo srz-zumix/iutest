@@ -57,6 +57,15 @@ IUTEST_IPP_INLINE bool TestCase::RunImpl(void)
 		return false;
 	}
 
+	if( m_ad_hoc_testresult.Skipped() )
+	{
+		for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
+		{
+			(it)->skip();
+		}
+		return true;
+	}
+
 	{
 		detail::iuStopWatch sw;
 		sw.start();

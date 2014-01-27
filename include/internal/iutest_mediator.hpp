@@ -46,6 +46,7 @@ public:
 	virtual	bool	HasFatalFailure(void) const = 0;
 	virtual	bool	HasNonfatalFailure(void) const = 0;
 	virtual bool	HasFailure(void) const = 0;
+	virtual bool	Skipped(void) const = 0;
 	TestInfo*	ptr(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_test_info; }
 };
 

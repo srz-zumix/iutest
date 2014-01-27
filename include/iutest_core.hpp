@@ -78,9 +78,9 @@ public:
 	int				skip_test_count(void)		const;
 	/** レポート対象のスキップテスト総数 */
 	int				reportable_skip_test_count(void) const;
-	/** 明示的にスキップされたテスト総数 */
+	/** 明示的にスキップされたテスト総数 (SKIP, ASSUME) */
 	int				test_run_skipped_count(void) const;
-	/** レポート対象の明示的にスキップされたテスト総数 */
+	/** レポート対象の明示的にスキップされたテスト総数 (SKIP, ASSUME) */
 	int				reportable_test_run_skipped_count(void) const;
 
 	/** テストケース数の総数 */

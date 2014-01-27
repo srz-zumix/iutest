@@ -195,6 +195,11 @@ private:
 	*/
 	bool	filter(void);
 
+	/**
+	* @brief	テストのスキップ
+	*/
+	void	skip(void) { m_skip = true; }
+
 private:
 	class Mediator IUTEST_CXX_FINAL : public detail::iuITestInfoMediator
 	{
@@ -212,6 +217,10 @@ private:
 		virtual bool	HasFailure(void) const IUTEST_CXX_OVERRIDE
 		{
 			return ptr()->HasFailure();
+		}
+		virtual bool	Skipped(void) const IUTEST_CXX_OVERRIDE
+		{
+			return ptr()->is_skipped();
 		}
 	public:
 		void SetPointer(TestInfo* p) { m_test_info = p; }
