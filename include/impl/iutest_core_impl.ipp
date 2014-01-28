@@ -38,13 +38,13 @@ IUTEST_IPP_INLINE TestResult* UnitTestImpl::current_test_result(void)
 	return &p->m_ad_hoc_testresult;
 }
 
-IUTEST_IPP_INLINE void	UnitTestImpl::AddTestInfo(TestCase* pCase, TestInfo* pInfo)
+IUTEST_IPP_INLINE void UnitTestImpl::AddTestInfo(TestCase* pCase, TestInfo* pInfo)
 {
 	++m_total_test_num;
 	pCase->push_back(pInfo);
 }
 
-IUTEST_IPP_INLINE void	UnitTestImpl::SkipTest(void)
+IUTEST_IPP_INLINE void UnitTestImpl::SkipTest(void)
 {
 	Test* test = Test::GetCurrentTest();
 	if( test != NULL && test->m_test_info->ptr() != NULL )
@@ -53,7 +53,7 @@ IUTEST_IPP_INLINE void	UnitTestImpl::SkipTest(void)
 	}
 }
 
-IUTEST_IPP_INLINE int	UnitTestImpl::Listup(void) const
+IUTEST_IPP_INLINE int UnitTestImpl::Listup(void) const
 {
 	detail::iuConsole::output("%d tests from %d testcase\n", m_total_test_num, m_testcases.size() );
 	for( iuTestCases::const_iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
@@ -71,7 +71,7 @@ IUTEST_IPP_INLINE int	UnitTestImpl::Listup(void) const
 	return 0;
 }
 
-IUTEST_IPP_INLINE int	UnitTestImpl::ListupWithWhere(void) const
+IUTEST_IPP_INLINE int UnitTestImpl::ListupWithWhere(void) const
 {
 	detail::iuConsole::output("%d tests from %d testcase\n", m_total_test_num, m_testcases.size() );
 	for( iuTestCases::const_iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
@@ -89,7 +89,7 @@ IUTEST_IPP_INLINE int	UnitTestImpl::ListupWithWhere(void) const
 	return 0;
 }
 
-IUTEST_IPP_INLINE bool	UnitTestImpl::PreRunner(void)
+IUTEST_IPP_INLINE bool UnitTestImpl::PreRunner(void)
 {
 	InitializeImpl();
 
@@ -166,7 +166,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
 	TestEnv::event_listeners().OnTestRecordProperty(prop);
 }
 
-IUTEST_IPP_INLINE void	UnitTestImpl::TerminateImpl(void)
+IUTEST_IPP_INLINE void UnitTestImpl::TerminateImpl(void)
 {
 	for( iuTestCases::iterator it = m_testcases.begin(); it != m_testcases.end(); it = m_testcases.begin())
 	{

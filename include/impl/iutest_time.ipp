@@ -27,7 +27,7 @@ namespace detail
 
 //======================================================================
 // function
-IUTEST_IPP_INLINE ::std::string	FormatTimeInMillisecAsSecond(TimeInMillisec msec)
+IUTEST_IPP_INLINE ::std::string FormatTimeInMillisecAsSecond(TimeInMillisec msec)
 {
 	detail::iuStringStream::type ss;
 #if defined(_MSC_VER) && _MSC_VER < 1300
@@ -38,7 +38,7 @@ IUTEST_IPP_INLINE ::std::string	FormatTimeInMillisecAsSecond(TimeInMillisec msec
 	return ss.str();
 }
 
-IUTEST_IPP_INLINE ::std::string	FormatTimeInMillisecAsIso8601(TimeInMillisec msec)
+IUTEST_IPP_INLINE ::std::string FormatTimeInMillisecAsIso8601(TimeInMillisec msec)
 {
 	time_t sec = static_cast<time_t>(msec / 1000);
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()

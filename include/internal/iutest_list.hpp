@@ -36,11 +36,11 @@ namespace detail
 template<typename TN>
 class iu_list_node
 {
-	typedef TN	*value_ptr;
-	typedef iu_list_node<TN>	_Myt;
+	typedef TN *value_ptr;
+	typedef iu_list_node<TN> _Myt;
 public:
-	value_ptr	next;
-	value_ptr	prev;
+	value_ptr next;
+	value_ptr prev;
 
 protected:
 	iu_list_node(void) IUTEST_CXX_NOEXCEPT_SPEC : next(NULL)
@@ -65,7 +65,7 @@ public:
 	typedef int			distance_type;
 	typedef int			difference_type;
 public:
-	value_ptr	m_node;
+	value_ptr m_node;
 public:
 	iu_list_iterator(value_ptr p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_node(p) {}
 	iu_list_iterator(const _Myt& rhs) IUTEST_CXX_NOEXCEPT_SPEC : m_node(rhs.m_node) {}
@@ -82,7 +82,7 @@ public:
 
 	operator	value_ptr (void)	{ return m_node; }
 
-	_Myt		operator + (int n)
+	_Myt operator + (int n)
 	{
 		if( n == 0 )
 		{
@@ -101,7 +101,7 @@ public:
 		return ret;
 	}
 
-	_Myt		operator + (unsigned int n)
+	_Myt operator + (unsigned int n)
 	{
 		_Myt ret(*this);
 		for( unsigned int i=0; i < n && ret.m_node != NULL; ++i )
@@ -120,14 +120,14 @@ public:
 template<typename NODE>
 class iu_list
 {
-	typedef NODE	*node_ptr;
-	typedef iu_list<NODE>	_Myt;
+	typedef NODE *node_ptr;
+	typedef iu_list<NODE> _Myt;
 protected:
-	node_ptr	m_node;
+	node_ptr m_node;
 
 public:
-	typedef iu_list_iterator<NODE, NODE*, NODE&>	iterator;
-	typedef iu_list_iterator<NODE, const NODE*, const NODE&>	const_iterator;
+	typedef iu_list_iterator<NODE, NODE*, NODE&> iterator;
+	typedef iu_list_iterator<NODE, const NODE*, const NODE&> const_iterator;
 public:
 	iu_list(node_ptr p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_node(p) {}
 
@@ -415,13 +415,13 @@ public:
 		return cur;
 	}
 
-	bool		operator == (node_ptr p)	const	{ return m_node == p; }
-	bool		operator != (node_ptr p)	const	{ return m_node != p; }
+	bool operator == (node_ptr p) const { return m_node == p; }
+	bool operator != (node_ptr p) const { return m_node != p; }
 
 private:
 #ifdef _IUTEST_DEBUG
 	// ノードの状態チェック
-	bool		check_node(void)
+	bool check_node(void)
 	{
 		if( m_node == NULL ) return true;
 		node_ptr prev = m_node;

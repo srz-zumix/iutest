@@ -41,15 +41,15 @@ template<typename G1, typename G2>class iuConcatParamHolder;
 template<typename T>
 class iuIParamGenerator
 {
-	typedef iuIParamGenerator<T>	_Myt;
+	typedef iuIParamGenerator<T> _Myt;
 public:
-	typedef T	type;
+	typedef T type;
 public:
-	typedef _Myt*	(*Generator)(void);
+	typedef _Myt* (*Generator)(void);
 public:
-	virtual	~iuIParamGenerator(void) {}
+	virtual ~iuIParamGenerator(void) {}
 public:
-	virtual	void	Begin(void) = 0;			//!< パラメータリストの先頭に移動
+	virtual void	Begin(void) = 0;			//!< パラメータリストの先頭に移動
 	virtual T		GetCurrent(void) const = 0;	//!< 現在のパラメータを取得
 	virtual void	Next(void)	= 0;			//!< パラメータを取得して次に移動
 	virtual bool	IsEnd(void) const = 0;		//!< パラメータリストの終端にいるかどうか
@@ -61,10 +61,10 @@ public:
 template<typename T>
 class iuParamGenerator : public iuIParamGenerator<T>
 {
-	typedef iuIParamGenerator<T>	_Interface;
-	typedef iuParamGenerator<T>		_Myt;
+	typedef iuIParamGenerator<T> _Interface;
+	typedef iuParamGenerator<T>  _Myt;
 public:
-	typedef T	type;
+	typedef T type;
 public:
 	iuParamGenerator(_Interface* pInterface=NULL) : m_pInterface(pInterface) {}
 
@@ -79,12 +79,12 @@ public:
 	}
 
 public:
-	virtual	void	Begin(void)	IUTEST_CXX_OVERRIDE { m_pInterface->Begin(); }
+	virtual void	Begin(void)	IUTEST_CXX_OVERRIDE { m_pInterface->Begin(); }
 	virtual T		GetCurrent(void) const IUTEST_CXX_OVERRIDE { return m_pInterface->GetCurrent(); }
 	virtual void	Next(void)	IUTEST_CXX_OVERRIDE { m_pInterface->Next(); }
 	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE { return m_pInterface->IsEnd(); }
 private:
-	_Interface*		m_pInterface;
+	_Interface* m_pInterface;
 };
 
 /**
@@ -94,10 +94,10 @@ private:
 template<typename T>
 class iuRangeParamsGenerator : public iuIParamGenerator<T>
 {
-	T	m_begin;
-	T	m_end;
-	T	m_step;
-	T	m_cur;
+	T m_begin;
+	T m_end;
+	T m_step;
+	T m_cur;
 public:
 	/**
 	 * @brief	コンストラクタ
@@ -114,7 +114,7 @@ public:
 	}
 
 public:
-	virtual	void	Begin(void) IUTEST_CXX_OVERRIDE{ m_cur = m_begin; }
+	virtual void	Begin(void) IUTEST_CXX_OVERRIDE{ m_cur = m_begin; }
 	virtual T		GetCurrent(void) const IUTEST_CXX_OVERRIDE { return m_cur; }
 	virtual void	Next(void) IUTEST_CXX_OVERRIDE { m_cur += m_step; }
 	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE { return !(m_cur < m_end); }
@@ -127,7 +127,7 @@ public:
 template<typename T>
 class iuBoolParamsGenerator : public iuIParamGenerator<T>
 {
-	T	m_cur;
+	T m_cur;
 	int m_n;
 public:
 	iuBoolParamsGenerator(void)
@@ -135,7 +135,7 @@ public:
 	{}
 
 public:
-	virtual	void	Begin(void) IUTEST_CXX_OVERRIDE { m_cur = 0; m_n = 0; }
+	virtual void	Begin(void) IUTEST_CXX_OVERRIDE { m_cur = 0; m_n = 0; }
 	virtual T		GetCurrent(void) const IUTEST_CXX_OVERRIDE { return m_cur; }
 	virtual void	Next(void) IUTEST_CXX_OVERRIDE { ++m_n; m_cur = !m_cur; }
 	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE { return (m_n >= 2); }
@@ -148,8 +148,8 @@ public:
 template<typename T>
 class iuValuesInParamsGenerator : public iuIParamGenerator<T>
 {
-	typedef ::std::vector<T>	params_t;
-	params_t	m_values;
+	typedef ::std::vector<T> params_t;
+	params_t m_values;
 	typename params_t::const_iterator m_it;
 public:
 	iuValuesInParamsGenerator(const params_t& values)
@@ -181,7 +181,7 @@ public:
 #endif
 
 public:
-	virtual	void	Begin(void) IUTEST_CXX_OVERRIDE{ m_it = m_values.begin(); }
+	virtual void	Begin(void) IUTEST_CXX_OVERRIDE{ m_it = m_values.begin(); }
 	virtual T		GetCurrent(void) const IUTEST_CXX_OVERRIDE { return *m_it; }
 	virtual void	Next(void) IUTEST_CXX_OVERRIDE { ++m_it; }
 	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE { return (m_it == m_values.end()); }
@@ -249,8 +249,8 @@ private:
 template<typename... Args>
 class iuValueArray
 {
-	typedef tuples::tuple<Args...>	_MyTuple;
-	typedef iuValueArray<Args...>	_Myt;
+	typedef tuples::tuple<Args...> _MyTuple;
+	typedef iuValueArray<Args...>  _Myt;
 
 	template<typename T>
 	struct make_array
@@ -262,13 +262,13 @@ class iuValueArray
 		};
 
 		template<int N, int I>
-		void	make(const _MyTuple& t, typename detail::enable_if<(I < N), void>::type*& = detail::enabler::value )
+		void make(const _MyTuple& t, typename detail::enable_if<(I < N), void>::type*& = detail::enabler::value )
 		{
 			val[I] = tuples::get<I>(t);
 			make<N, I+1>(t);
 		}
 		template<int N, int I>
-		void	make(const _MyTuple& t, typename detail::disable_if<(I < N), void>::type*& = detail::enabler::value )
+		void make(const _MyTuple& t, typename detail::disable_if<(I < N), void>::type*& = detail::enabler::value )
 		{
 			IUTEST_UNUSED_VAR(t);
 		}
@@ -457,19 +457,19 @@ class iuCartesianProductGenerator : public iuIParamGenerator< tuples::tuple<Args
 			, current_foreach<index+1, end, TArgs...>());
 	}
 	template<int index, int end, typename T1, typename ...TArgs>
-	tuples::tuple<T1>  current_foreach(typename detail::enable_if<index == end-1, void>::type*& = detail::enabler::value ) const
+	tuples::tuple<T1> current_foreach(typename detail::enable_if<index == end-1, void>::type*& = detail::enabler::value ) const
 	{
 		return tuples::tuple<T1>(tuples::get<index>(v).GetCurrent());
 	}
 
 public:
-	typedef tuples::tuple<Args...>	ParamType;
+	typedef tuples::tuple<Args...> ParamType;
 public:
 	iuCartesianProductGenerator(void)
 	{}
 
 public:
-	virtual	void Begin(void) IUTEST_CXX_OVERRIDE
+	virtual void Begin(void) IUTEST_CXX_OVERRIDE
 	{
 		begin_foreach<0, count>(v);
 	}
@@ -516,7 +516,7 @@ public:
 
 public:
 	template<typename... Args>
-	operator iuIParamGenerator< tuples::tuple<Args...> >* (void) const 
+	operator iuIParamGenerator< tuples::tuple<Args...> >* (void) const
 	{
 		typedef tuples::tuple<Args...> ArgTuple;
 		iuCartesianProductGenerator<Args...>* p = new iuCartesianProductGenerator<Args...>();
@@ -548,7 +548,7 @@ public:
 		: m_g1(g1), m_g2(g2)
 	{}
 public:
-	virtual	void Begin(void) IUTEST_CXX_OVERRIDE
+	virtual void Begin(void) IUTEST_CXX_OVERRIDE
 	{
 		m_g1.Begin();
 		m_g2.Begin();
@@ -569,8 +569,8 @@ public:
 	}
 
 protected:
-	Generator1	m_g1;
-	Generator2	m_g2;
+	Generator1 m_g1;
+	Generator2 m_g2;
 };
 
 template<typename T1, typename T2>
@@ -968,8 +968,8 @@ class iuPairwiseGenerator : public iuPairwiseGeneratorBase
 	typedef tuples::tuple< iuParamGenerator<Args>... > GeneratorTuple;
 	static const int RAW_COUNT = tuples::tuple_size<ParamType>::value;
 
-	typedef ParamIndexes<RAW_COUNT>		_MyParamIndexes;
-	typedef ::std::vector< _MyParamIndexes >	ParamIndexesList;
+	typedef ParamIndexes<RAW_COUNT> _MyParamIndexes;
+	typedef ::std::vector< _MyParamIndexes > ParamIndexesList;
 
 	typedef tuples::tuple< ::std::vector<Args>... > ParamsTuple;
 
@@ -1038,8 +1038,7 @@ template<typename... Generator>
 class iuPairwiseHolder
 {
 	typedef iuPairwiseHolder<Generator...> _Myt;
-
-	typedef tuples::tuple<const Generator...>	_MyTuple;
+	typedef tuples::tuple<const Generator...> _MyTuple;
 
 	template<int index, int end, typename ArgTuple, typename SrcTuple, typename DstTuple>
 	void set_foreach(SrcTuple& src, DstTuple& dst, typename detail::enable_if<index != end, void>::type*& = detail::enabler::value ) const

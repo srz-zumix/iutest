@@ -43,7 +43,7 @@ namespace detail
 
 //======================================================================
 // function
-static void	IUTEST_ATTRIBUTE_UNUSED_ iuDebugInitialize(void)
+static void IUTEST_ATTRIBUTE_UNUSED_ iuDebugInitialize(void)
 {
 #ifdef _IUTEST_DEBUG
 #  if	defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)

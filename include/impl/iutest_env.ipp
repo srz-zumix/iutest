@@ -301,7 +301,7 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnviromentVariable(void)
 	}
 }
 
-IUTEST_IPP_INLINE void	TestEnv::SetUp(void)
+IUTEST_IPP_INLINE void TestEnv::SetUp(void)
 {
 	unsigned int seed = get_random_seed();
 	if( seed == 0 )
@@ -319,7 +319,7 @@ IUTEST_IPP_INLINE void	TestEnv::SetUp(void)
 	genrand().init(seed);
 }
 
-IUTEST_IPP_INLINE 	bool TestEnv::ParseColorOption(const char* option)
+IUTEST_IPP_INLINE bool TestEnv::ParseColorOption(const char* option)
 {
 	if( option == NULL )
 	{
@@ -351,7 +351,7 @@ IUTEST_IPP_INLINE 	bool TestEnv::ParseColorOption(const char* option)
 	return true;
 }
 
-IUTEST_IPP_INLINE bool	TestEnv::ParseOutputOption(const char* option)
+IUTEST_IPP_INLINE bool TestEnv::ParseOutputOption(const char* option)
 {
 	if(option == NULL)
 	{
@@ -362,7 +362,7 @@ IUTEST_IPP_INLINE bool	TestEnv::ParseOutputOption(const char* option)
 	return true;
 }
 
-IUTEST_IPP_INLINE bool	TestEnv::ParseFileLocationOption(const char* option)
+IUTEST_IPP_INLINE bool TestEnv::ParseFileLocationOption(const char* option)
 {
 	if( option == NULL )
 	{

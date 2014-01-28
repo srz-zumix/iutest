@@ -105,15 +105,15 @@ struct bool_constant
 #if defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
 	enum { value = B };
 #else
-	static const bool	value = B;
+	static const bool value = B;
 #endif
 };
 #if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
 template<bool B>const bool bool_constant<B>::value;
 #endif
 
-typedef bool_constant<true>		true_type;
-typedef bool_constant<false>	false_type;
+typedef bool_constant<true>  true_type;
+typedef bool_constant<false> false_type;
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
@@ -142,7 +142,7 @@ class remove_volatile
 	template<typename U>
 	struct impl<volatile U> { typedef U type; };
 public:
-	typedef typename impl<T>::type	type;
+	typedef typename impl<T>::type type;
 };
 
 /**
@@ -160,7 +160,7 @@ class remove_reference
 	struct impl<U&&> { typedef U type; };
 #endif
 public:
-	typedef typename impl<T>::type	type;
+	typedef typename impl<T>::type type;
 };
 
 /**
@@ -169,7 +169,7 @@ public:
 template<typename T>
 struct remove_cv
 {
-	typedef typename remove_const< typename remove_volatile<T>::type >::type	type;
+	typedef typename remove_const< typename remove_volatile<T>::type >::type type;
 };
 
 /**
@@ -191,11 +191,11 @@ class is_pointer
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 	template<typename U, typename TMP> struct impl { typedef false_type type; };
 	template<typename U, typename TMP> struct impl<U*, TMP> { typedef true_type type; };
-	typedef typename remove_cv<T>::type	rmcv_type;
+	typedef typename remove_cv<T>::type rmcv_type;
 public:
 	typedef typename impl<rmcv_type, void>::type type;
 #else
-	typedef T	rmcv_type;
+	typedef T rmcv_type;
 	static T& make_t();
 	static char	IsPointerHelper(const volatile void*);
 	static char (&IsPointerHelper(...))[2];
@@ -224,7 +224,7 @@ class is_reference
 {
 	template<typename U, typename TMP> struct impl { typedef false_type type; };
 	template<typename U, typename TMP> struct impl<U&, TMP> { typedef true_type type; };
-	typedef typename remove_cv<T>::type	rmcv_type;
+	typedef typename remove_cv<T>::type rmcv_type;
 public:
 	typedef typename impl<rmcv_type, void>::type type;
 };
@@ -245,7 +245,7 @@ class is_void
 {
 	template<typename U, typename TMP> struct impl { typedef false_type type; };
 	template<typename TMP> struct impl<void, TMP> { typedef true_type type; };
-	typedef typename remove_cv<T>::type	rmcv_type;
+	typedef typename remove_cv<T>::type rmcv_type;
 public:
 	typedef typename impl<rmcv_type, void>::type type;
 };

@@ -619,7 +619,7 @@ namespace iutest
 // function
 /** @private */
 template<typename PRED, typename T1>
-AssertionResult	AssertPred1Helper(const char* pred_str, const char* expr1
+AssertionResult AssertPred1Helper(const char* pred_str, const char* expr1
 							  , PRED pred, T1 val1)
 {
 	if( (*pred)(val1) )
@@ -632,7 +632,7 @@ AssertionResult	AssertPred1Helper(const char* pred_str, const char* expr1
 
 /** @private */
 template<typename PRED, typename T1, typename T2>
-AssertionResult	AssertPred2Helper(const char* pred_str, const char* expr1, const char* expr2
+AssertionResult AssertPred2Helper(const char* pred_str, const char* expr1, const char* expr2
 							  , PRED pred, T1 val1, T2 val2)
 {
 	if( (*pred)(val1, val2) )
@@ -648,7 +648,7 @@ AssertionResult	AssertPred2Helper(const char* pred_str, const char* expr1, const
 
 /** @private */
 template<typename PRED, typename T1, typename T2, typename T3>
-AssertionResult	AssertPred3Helper(const char* pred_str, const char* expr1, const char* expr2, const char* expr3
+AssertionResult AssertPred3Helper(const char* pred_str, const char* expr1, const char* expr2, const char* expr3
 							  , PRED pred, T1 val1, T2 val2, T3 val3)
 {
 	if( (*pred)(val1, val2, val3) )
@@ -665,7 +665,7 @@ AssertionResult	AssertPred3Helper(const char* pred_str, const char* expr1, const
 
 /** @private */
 template<typename PRED, typename T1, typename T2, typename T3, typename T4>
-AssertionResult	AssertPred4Helper(const char* pred_str, const char* expr1, const char* expr2, const char* expr3, const char* expr4
+AssertionResult AssertPred4Helper(const char* pred_str, const char* expr1, const char* expr2, const char* expr3, const char* expr4
 							  , PRED pred, T1 val1, T2 val2, T3 val3, T4 val4)
 {
 	if( (*pred)(val1, val2, val3, val4) )
@@ -683,7 +683,7 @@ AssertionResult	AssertPred4Helper(const char* pred_str, const char* expr1, const
 
 /** @private */
 template<typename PRED, typename T1, typename T2, typename T3, typename T4, typename T5>
-AssertionResult	AssertPred5Helper(const char* pred_str, const char* expr1, const char* expr2, const char* expr3, const char* expr4, const char* expr5
+AssertionResult AssertPred5Helper(const char* pred_str, const char* expr1, const char* expr2, const char* expr3, const char* expr4, const char* expr5
 							  , PRED pred, T1 val1, T2 val2, T3 val3, T4 val4, T5 val5)
 {
 	if( (*pred)(val1, val2, val3, val4, val5) )
@@ -704,7 +704,7 @@ AssertionResult	AssertPred5Helper(const char* pred_str, const char* expr1, const
 
 /** @private */
 template<typename PRED, typename ...Args>
-AssertionResult	AssertPredVariadicHelper(const char* pred_str, const char* params, PRED pred, Args... args)
+AssertionResult AssertPredVariadicHelper(const char* pred_str, const char* params, PRED pred, Args... args)
 {
 	if( (*pred)(args...) )
 	{

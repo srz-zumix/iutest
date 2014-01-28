@@ -37,7 +37,7 @@ IUTEST_IPP_INLINE void iuStreamMessage::append(const char* str)
 	}
 }
 
-IUTEST_IPP_INLINE ::std::string	iuCodeMessage::make_message(void) const
+IUTEST_IPP_INLINE ::std::string iuCodeMessage::make_message(void) const
 {
 	::std::string str = FormatFileLocation(m_file, m_line);
 	str += ": ";

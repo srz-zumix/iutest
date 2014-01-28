@@ -35,9 +35,9 @@ public:
 	virtual ~IOutStream(void) {}
 public:
 	//! 書き込み
-	virtual bool	Write(const void* buf, size_t size, size_t cnt) = 0;
+	virtual bool Write(const void* buf, size_t size, size_t cnt) = 0;
 public:
-	virtual void	Printf(const char* fmt, ...)
+	virtual void Printf(const char* fmt, ...)
 	{
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 

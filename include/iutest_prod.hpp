@@ -106,7 +106,7 @@ namespace detail
 template<typename Tag>
 struct peep_tag
 {
-	static typename Tag::type	value;
+	static typename Tag::type value;
 };
 template<typename Tag>
 typename Tag::type peep_tag<Tag>::value;
@@ -123,7 +123,7 @@ class Peep
 {
 private:
 	typedef Tag	peep_tag;
-	typedef typename Tag::type	peep_type;
+	typedef typename Tag::type peep_type;
 
 private:
 	template<typename U, typename Type>
@@ -177,10 +177,10 @@ private:
 	template<typename U, typename Type, bool is_const>
 	class peep_member_object_impl
 	{
-		typedef peep_member_object_impl<U, Type, false>	_Myt;
+		typedef peep_member_object_impl<U, Type, false> _Myt;
 		typedef Type value_type;
 	private:
-		U*	m_ptr;
+		U* m_ptr;
 	public:
 		explicit peep_member_object_impl(U* ptr) : m_ptr(ptr) {}
 	public:
@@ -189,16 +189,16 @@ private:
 	template<typename U, typename Type>
 	class peep_member_object_impl<U, Type, false>
 	{
-		typedef peep_member_object_impl<U, Type, false>	_Myt;
+		typedef peep_member_object_impl<U, Type, false> _Myt;
 		typedef Type value_type;
 	private:
-		U*	m_ptr;
+		U* m_ptr;
 	public:
 		explicit peep_member_object_impl(U* ptr) : m_ptr(ptr) {}
 	public:
 		operator value_type (void) const { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
 		operator value_type& (void) { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
-		_Myt&	operator = (const value_type& value) { (*m_ptr).*detail::peep_tag<peep_tag>::value = value; return *this; }
+		_Myt& operator = (const value_type& value) { (*m_ptr).*detail::peep_tag<peep_tag>::value = value; return *this; }
 	};
 
 
@@ -217,7 +217,7 @@ private:
 	template<typename U, typename Type, bool Func>
 	class peep_static_impl
 	{
-		typedef peep_static_impl<U, Type, Func>	_Myt;
+		typedef peep_static_impl<U, Type, Func> _Myt;
 		typedef typename type_traits::remove_pointer<Type>::type value_type;
 	public:
 		peep_static_impl(void) {}
@@ -226,14 +226,14 @@ private:
 	public:
 		operator value_type (void) const { return *detail::peep_tag<peep_tag>::value; }
 		operator value_type& (void) { return *detail::peep_tag<peep_tag>::value; }
-		_Myt&	operator = (const value_type& value) { *detail::peep_tag<peep_tag>::value = value; return *this; }
+		_Myt& operator = (const value_type& value) { *detail::peep_tag<peep_tag>::value = value; return *this; }
 	};
 
 	template<typename U, typename Type>
 	class peep_static_impl<U, Type, true>
 	{
 	public:
-		operator Type (void)	{ return *detail::peep_tag<peep_tag>::value; }
+		operator Type (void) { return *detail::peep_tag<peep_tag>::value; }
 	};
 private:
 	template<typename U, typename Type, bool is_member_ptr>
@@ -247,7 +247,7 @@ private:
 		typedef typename peep_member_impl<U, Type, type_traits::is_member_function_pointer<Type>::value >::type type;
 	};
 public:
-	typedef typename peep_impl<T, peep_type, type_traits::is_member_pointer<peep_type>::value >::type	type;	//!< private メンバーアクセスオブジェクト型
+	typedef typename peep_impl<T, peep_type, type_traits::is_member_pointer<peep_type>::value >::type type;	//!< private メンバーアクセスオブジェクト型
 };
 
 #endif

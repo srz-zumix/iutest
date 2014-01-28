@@ -154,7 +154,7 @@ public:
 // function
 /** @private */
 template<typename T>
-inline void	UniversalPrint(const T& value, iu_ostream* os)
+inline void UniversalPrint(const T& value, iu_ostream* os)
 {
 	iuUniversalPrinter<T>::Print(value, os);
 }
@@ -364,7 +364,7 @@ inline void PrintTo(const tuples::tuple<A1, A2, A3, A4, A5, A6, A7, A8, A9>& t, 
 
 /** @private */
 template<typename T>
-inline void	IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const T& value, iu_ostream* os)
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const T& value, iu_ostream* os)
 {
 	UniversalPrint(value, os);
 }

@@ -210,7 +210,7 @@ public:
 
 private:
 	// テストケースの作成
-	virtual TestCase*	MakeTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown) const IUTEST_CXX_OVERRIDE
+	virtual TestCase* MakeTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown) const IUTEST_CXX_OVERRIDE
 	{
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
 		return UnitTest::instance().AddTestCase<TestCase>(testcase_name, id, setup, teardown);
@@ -220,7 +220,7 @@ private:
 	}
 
 	// テストの作成登録
-	virtual	void	RegisterTest(TestCase* testcase, ParamType param, int index) const IUTEST_CXX_OVERRIDE
+	virtual	void RegisterTest(TestCase* testcase, ParamType param, int index) const IUTEST_CXX_OVERRIDE
 	{
 		EachTest* test = new EachTest(testcase, detail::MakeIndexTestName(this->m_name.c_str(), index).c_str(), param);
 		// new オブジェクトを管理してもらう

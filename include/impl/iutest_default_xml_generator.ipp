@@ -285,7 +285,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::FileClose(void)
 	m_fp = NULL;
 }
 
-IUTEST_IPP_INLINE void	DefaultXmlGeneratorListener::OutputXmlCDataSection(IFile* file, const char* data)
+IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OutputXmlCDataSection(IFile* file, const char* data)
 {
 	file->Printf("<![CDATA[");
 	file->Write(data, strlen(data), 1);

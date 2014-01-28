@@ -39,7 +39,7 @@ const UInt32 kMaxCodePoint4 = (static_cast<UInt32>(1) << (3+3*6)) - 1;
 /**
  * @brief	サロゲートペアかどうか
 */
-IUTEST_IPP_INLINE IUTEST_CXX_CONSTEXPR bool	IsUtf16SurrogatePair(wchar_t first, wchar_t second)
+IUTEST_IPP_INLINE IUTEST_CXX_CONSTEXPR bool IsUtf16SurrogatePair(wchar_t first, wchar_t second)
 {
 	return (sizeof(wchar_t) == 2)
 		&& ((first & 0xFC00) == 0xD800) && ((second & 0xFC00) == 0xDC00);

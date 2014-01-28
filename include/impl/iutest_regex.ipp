@@ -25,7 +25,7 @@ namespace iutest {
 namespace detail
 {
 
-IUTEST_IPP_INLINE bool	iuRegex::match_impl(const char* begin, const char* end, const char* src)
+IUTEST_IPP_INLINE bool iuRegex::match_impl(const char* begin, const char* end, const char* src)
 {
 	const char* tp = begin;
 	if( *tp == '\0' ) return false;
@@ -68,7 +68,7 @@ IUTEST_IPP_INLINE bool	iuRegex::match_impl(const char* begin, const char* end, c
 	return true;
 }
 
-IUTEST_IPP_INLINE bool	iuRegex::match(const char* regex, const char* src)
+IUTEST_IPP_INLINE bool iuRegex::match(const char* regex, const char* src)
 {
 	const char* tp = regex;
 

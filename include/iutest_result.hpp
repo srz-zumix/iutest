@@ -133,7 +133,7 @@ public:
 	Type		type(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_type; }
 
 private:
-	Type	m_type;
+	Type m_type;
 };
 
 //! TestPartResult print 出力
@@ -317,7 +317,7 @@ public:
 	}
 
 private:
-	void AddTestPartResult(const TestPartResult& result)	{ m_test_part_results.push_back(result); }
+	void AddTestPartResult(const TestPartResult& result) { m_test_part_results.push_back(result); }
 	void set_elapsed_time(TimeInMillisec time) IUTEST_CXX_NOEXCEPT_SPEC { m_elapsedmsec = time; }
 
 private:

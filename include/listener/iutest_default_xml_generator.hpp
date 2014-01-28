@@ -52,7 +52,7 @@ public:
 	/**
 	 * @brief	出力ファイルの設定
 	*/
-	void	SetFilePath(const ::std::string& path)
+	void SetFilePath(const ::std::string& path)
 	{
 		if( path.empty() )
 		{

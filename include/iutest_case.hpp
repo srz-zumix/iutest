@@ -142,13 +142,13 @@ private:
 	 * @brief	テストの実行
 	 * @return	成否
 	*/
-	bool	Run(void);
+	bool Run(void);
 
 	/**
 	 * @brief	実行
 	 * @return	成否
 	*/
-	bool	RunImpl(void);
+	bool RunImpl(void);
 
 public:
 	/**
@@ -173,20 +173,20 @@ private:
 	/**
 	 * @brief	テストのクリア
 	*/
-	void	clear(void);
+	void clear(void);
 	/*
 	 * @brief	テストのフィルタリング
 	 * @return	実行する場合は真
 	*/
-	bool	filter(void);
+	bool filter(void);
 
 private:
-	friend bool	operator == (const TestCase& lhs, const TestCase& rhs)
+	friend bool operator == (const TestCase& lhs, const TestCase& rhs)
 	{
 		return (lhs.m_id == rhs.m_id) && (strcmp(lhs.name(), rhs.name()) == 0);
 	}
 
-	void	push_back(TestInfo* p)	{ m_testinfos.push_back(p); }
+	void push_back(TestInfo* p) { m_testinfos.push_back(p); }
 
 private:
 	iuTestInfos::const_iterator	begin(void)	const		{ return m_testinfos.begin(); }
@@ -253,7 +253,7 @@ public:
 private:
 	friend class UnitTestImpl;
 
-	::std::string	m_type_param;		//!< type param string
+	::std::string m_type_param;		//!< type param string
 };
 
 namespace detail
@@ -267,8 +267,8 @@ class TestCaseMediator IUTEST_CXX_FINAL : public detail::iuITestCaseMediator
 public:
 	TestCaseMediator(TestCase* p) IUTEST_CXX_NOEXCEPT_SPEC : iuITestCaseMediator(p) {}
 public:
-	virtual const char*	test_case_name(void) const IUTEST_CXX_OVERRIDE { return m_test_case->name(); }
-	virtual const char*	type_param(void)	 const IUTEST_CXX_OVERRIDE { return m_test_case->type_param(); }
+	virtual const char* test_case_name(void) const IUTEST_CXX_OVERRIDE { return m_test_case->name(); }
+	virtual const char* type_param(void)	 const IUTEST_CXX_OVERRIDE { return m_test_case->type_param(); }
 };
 
 }	// end of namespace detail

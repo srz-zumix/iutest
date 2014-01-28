@@ -96,17 +96,17 @@ using namespace iutest_type_traits;
 template<typename Ite>
 struct IteratorTraits
 {
-	typedef typename Ite::value_type	type;
+	typedef typename Ite::value_type type;
 };
 template<typename T>
 struct IteratorTraits<T*>
 {
-	typedef T	type;
+	typedef T type;
 };
 template<typename T>
 struct IteratorTraits<const T*>
 {
-	typedef T	type;
+	typedef T type;
 };
 
 #endif
@@ -165,11 +165,11 @@ inline int GetTypeUniqueCounter(void) { return TypeUniqueCounter<T>::count(); }
 template<typename TN>
 class auto_ptr
 {
-	typedef auto_ptr<TN>	_Myt;
+	typedef auto_ptr<TN> _Myt;
 	mutable TN*	m_ptr;
 public:
-	auto_ptr(const _Myt& o) : m_ptr(o.m_ptr)	{ o.m_ptr = NULL; }
-	auto_ptr(TN* p=NULL)	: m_ptr(p)		{}
+	auto_ptr(const _Myt& o) : m_ptr(o.m_ptr) { o.m_ptr = NULL; }
+	auto_ptr(TN* p=NULL)	: m_ptr(p) {}
 	~auto_ptr(void) { if( m_ptr != NULL ) delete m_ptr; }
 	TN* ptr(void) { return m_ptr; }
 
@@ -202,10 +202,10 @@ struct IsContainerHelper
 	typedef char	no_t;
 
 	template<typename T>
-	static IUTEST_CXX_CONSTEXPR yes_t	IsContainer(int IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T), typename T::iterator* =NULL, typename T::const_iterator* =NULL) { return 0; }
+	static IUTEST_CXX_CONSTEXPR yes_t IsContainer(int IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T), typename T::iterator* =NULL, typename T::const_iterator* =NULL) { return 0; }
 
 	template<typename T>
-	static IUTEST_CXX_CONSTEXPR no_t	IsContainer(long IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T))	{ return 0; }
+	static IUTEST_CXX_CONSTEXPR no_t  IsContainer(long IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)) { return 0; }
 };
 
 /**
@@ -216,7 +216,7 @@ struct IsContainerHelper
 template<bool B, typename T>
 struct enable_if
 {
-	typedef T	type;
+	typedef T type;
 };
 template<typename T>
 struct enable_if<false, T> {};
@@ -258,17 +258,17 @@ struct disable_if_t : public disable_if<COND::value, T> {};
 template<typename T>
 struct enabler_t
 {
-	static void*	value;
+	static void* value;
 };
-template<typename T>void*	enabler_t<T>::value = NULL;
+template<typename T>void* enabler_t<T>::value = NULL;
 
-typedef enabler_t<void>	enabler;
+typedef enabler_t<void> enabler;
 
 /**
  * @brief	型名の取得
 */
 template<typename T>
-inline std::string	GetTypeName(void)
+inline std::string GetTypeName(void)
 {
 #if IUTEST_HAS_RTTI
 	const char* const name = typeid(T).name();
@@ -325,24 +325,22 @@ GeTypeNameSpecialization(bool)
 /**
  * @brief	true を返す(警告対策用)
 */
-inline bool	AlwaysTrue(void)
-{
-	return true;
-}
+inline bool	AlwaysTrue(void) { return true; }
+
 /**
  * @brief	false を返す(警告対策用)
 */
-inline bool	AlwaysFalse(void)	{ return !AlwaysTrue(); }
+inline bool	AlwaysFalse(void) { return !AlwaysTrue(); }
 
 /**
  * @brief	0 を返す(警告対策用)
 */
-inline int	AlwaysZero(void)	{ return 0; }
+inline int	AlwaysZero(void) { return 0; }
 
 /**
 * @brief	真偽値を返す(警告対策用)
 */
-inline bool	IsTrue(bool b)		{ return b; }
+inline bool	IsTrue(bool b) { return b; }
 
 }	// end of namespace detail
 }	// end of namespace iutest

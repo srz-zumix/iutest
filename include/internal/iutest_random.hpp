@@ -116,7 +116,7 @@ public:
 	 * @brief	初期化
 	 * @details	時間でシードを決定
 	*/
-	void	init(void)
+	void init(void)
 	{
 		init(GetIndefiniteValue());
 	}
@@ -124,7 +124,7 @@ public:
 	 * @brief	初期化
 	 * @param [in]	seed	= シード
 	*/
-	void	init(unsigned int seed)
+	void init(unsigned int seed)
 	{
 		m_engine = Engine(seed);
 	}
@@ -159,7 +159,7 @@ public:
 	 * @details	[0,1] の乱数を生成
 	 * @return	乱数
 	*/
-	float				genrandf(void)
+	float genrandf(void)
 	{
 #if IUTEST_HAS_CXX_HDR_RANDOM
 		return ::std::uniform_real_distribution<float>(0.0f, 1.0f)(m_engine);
@@ -179,8 +179,8 @@ public:
 	}
 
 #if IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION && (defined(_MSC_VER) && _MSC_VER < 1300)
-	template<>float		genrand<float>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(float))	{ return genrandf(); }
-	template<>double	genrand<double>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(double))	{ return static_cast<double>(genrandf()); }
+	template<>float  genrand<float>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(float)) { return genrandf(); }
+	template<>double genrand<double>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(double)) { return static_cast<double>(genrandf()); }
 #endif
 
 public:
@@ -196,10 +196,10 @@ public:
 
 #if !(defined(_MSC_VER) && _MSC_VER < 1300)
 
-template<> inline Int64		iuRandom::genrand<Int64>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(Int64))		{ return (static_cast<Int64>(genrand()) << 32) | genrand(); }
-template<> inline UInt64	iuRandom::genrand<UInt64>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(UInt64))	{ return (static_cast<UInt64>(genrand()) << 32) | genrand(); }
-template<> inline float		iuRandom::genrand<float>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(float))		{ return genrandf(); }
-template<> inline double	iuRandom::genrand<double>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(double))	{ return static_cast<double>(genrandf()); }
+template<> inline Int64  iuRandom::genrand<Int64>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(Int64))   { return (static_cast<Int64>(genrand()) << 32) | genrand(); }
+template<> inline UInt64 iuRandom::genrand<UInt64>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(UInt64)) { return (static_cast<UInt64>(genrand()) << 32) | genrand(); }
+template<> inline float  iuRandom::genrand<float>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(float))   { return genrandf(); }
+template<> inline double iuRandom::genrand<double>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(double)) { return static_cast<double>(genrandf()); }
 
 #endif
 

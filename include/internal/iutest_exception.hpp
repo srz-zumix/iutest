@@ -68,7 +68,7 @@ public:
 	seh_exception(const char *const& _What) : ::std::exception(_What) {}
 	seh_exception(void) : ::std::exception() {}
 public:
-	static void	translator(DWORD code, _EXCEPTION_POINTERS* ep)
+	static void translator(DWORD code, _EXCEPTION_POINTERS* ep)
 	{
 		IUTEST_UNUSED_VAR(ep);
 		iuStringStream::type strm;

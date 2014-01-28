@@ -106,57 +106,57 @@ public:
 	/**
 	 * @brief	フォルダパスかどうか
 	*/
-	bool	IsDirectory(void) const;
+	bool IsDirectory(void) const;
 
 	/**
 	 * @brief	ルートディレクトリパスかどうか
 	*/
-	bool	IsRootDirectory(void) const;
+	bool IsRootDirectory(void) const;
 
 	/**
 	 * @brief	絶対パスかどうか
 	*/
-	bool	IsAbsolutePath(void) const;
+	bool IsAbsolutePath(void) const;
 
 	/**
 	 * @brief	末尾のセパレーターを削除
 	*/
-	iuFilePath	RemoveTrailingPathSeparator(void) const;
+	iuFilePath RemoveTrailingPathSeparator(void) const;
 
 	/**
 	 * @brief	拡張子の削除
 	*/
-	iuFilePath	RemoveExtension(const char* extention=NULL) const;
+	iuFilePath RemoveExtension(const char* extention=NULL) const;
 
 	/**
 	 * @brief	ディレクトリ名の削除
 	*/
-	iuFilePath	RemoveDirectoryName(void) const;
+	iuFilePath RemoveDirectoryName(void) const;
 
 	/**
 	 * @brief	ファイル名の削除
 	*/
-	iuFilePath	RemoveFileName(void) const;
+	iuFilePath RemoveFileName(void) const;
 
 	/**
 	 * @brief	フォルダの作成
 	*/
-	bool		CreateFolder(void) const;
+	bool CreateFolder(void) const;
 
 	/**
 	 * @brief	フォルダを再帰的に作成
 	*/
-	bool		CreateDirectoriesRecursively(void) const;
+	bool CreateDirectoriesRecursively(void) const;
 
 	/**
 	 * @brief	ファイルまたはフォルダが存在するかどうか
 	*/
-	bool		FileOrDirectoryExists(void) const;
+	bool FileOrDirectoryExists(void) const;
 
 	/**
 	 * @brief	フォルダが存在するかどうか
 	*/
-	bool		DirectoryExists(void) const;
+	bool DirectoryExists(void) const;
 
 	/**
 	 * @brief	一番後ろのパスセパレータのアドレスを取得
@@ -167,28 +167,28 @@ public:
 	/**
 	 * @brief	カレントディレクトリの取得
 	*/
-	static iuFilePath	GetCurrentDir(void);
+	static iuFilePath GetCurrentDir(void);
 
 	/**
 	 * @brief	カレントディレクトリの相対パス取得
 	*/
-	static iuFilePath	GetRelativeCurrentDir(void);
+	static iuFilePath GetRelativeCurrentDir(void);
 
 	/**
 	 * @brief	実行ファイルのパスを取得
 	*/
-	static iuFilePath	GetExecFilePath(void);
+	static iuFilePath GetExecFilePath(void);
 
 	/**
 	 * @brief	パスの結合
 	*/
-	static iuFilePath	ConcatPaths(const iuFilePath& directory, const iuFilePath& relative_path);
+	static iuFilePath ConcatPaths(const iuFilePath& directory, const iuFilePath& relative_path);
 
 public:
 	/**
 	 * @brief	パス区切り文字の取得
 	*/
-	static char	GetPathSeparator(void) IUTEST_CXX_NOEXCEPT_SPEC;
+	static char GetPathSeparator(void) IUTEST_CXX_NOEXCEPT_SPEC;
 
 private:
 	/**

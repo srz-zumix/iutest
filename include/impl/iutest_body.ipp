@@ -30,7 +30,7 @@ IUTEST_IPP_INLINE void Test::RecordProperty(const ::std::string& key, const ::st
 	TestRecordPropertyHelper::RecordProperty(prop);
 }
 
-IUTEST_IPP_INLINE 	void Test::Run(detail::iuITestInfoMediator* test_info)
+IUTEST_IPP_INLINE void Test::Run(detail::iuITestInfoMediator* test_info)
 {
 	m_test_info = test_info;
 	test_info_ = test_info->ptr();
@@ -44,7 +44,7 @@ IUTEST_IPP_INLINE 	void Test::Run(detail::iuITestInfoMediator* test_info)
 
 	SetUp();
 
-	if( !HasFailure() && !GetCurrentTest()->m_test_info->Skipped() )
+	if( !HasFailure() && !IsSkipped() )
 	{
 		Body();
 	}

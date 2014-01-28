@@ -36,7 +36,7 @@ namespace nacl
 namespace detail
 {
 
-IUTEST_IPP_INLINE void	PostMessage(const pp::Var& var)
+IUTEST_IPP_INLINE void PostMessage(const pp::Var& var)
 {
 	::pp::Module* module = ::pp::Module::Get();
 	if( module != NULL )
@@ -50,7 +50,7 @@ IUTEST_IPP_INLINE void	PostMessage(const pp::Var& var)
 
 }	// end of namespace detail
 
-IUTEST_IPP_INLINE void	vprint_message(const char *fmt, va_list va)
+IUTEST_IPP_INLINE void vprint_message(const char *fmt, va_list va)
 {
 	char msg[1024];
 	vsnprintf(msg, sizeof(msg), fmt, va);
@@ -61,7 +61,7 @@ IUTEST_IPP_INLINE void	vprint_message(const char *fmt, va_list va)
 		tp = strtok(NULL, "\n");
 	}
 }
-IUTEST_IPP_INLINE void	print_message(const char *fmt, ...)
+IUTEST_IPP_INLINE void print_message(const char *fmt, ...)
 {
 	va_list va;
 	va_start(va, fmt);

@@ -68,10 +68,10 @@ class iuConsole
 	template<typename T>
 	struct Variable
 	{
-		static iuLogger*	m_pLogger;
+		static iuLogger* m_pLogger;
 	};
 
-	typedef Variable<void>	var;
+	typedef Variable<void> var;
 
 public:
 	//! コンソール文字色
@@ -102,11 +102,11 @@ public:
 	 * @brief	色指定で標準出力
 	 * @param [in]	color	= 文字色
 	*/
-	static inline void	color_output(Color color, const char *fmt, ...);
+	static inline void color_output(Color color, const char *fmt, ...);
 
 public:
 	//! Logger のセット
-	static iuLogger*	SetLogger(iuLogger* logger)
+	static iuLogger* SetLogger(iuLogger* logger)
 	{
 		iuLogger* pre = var::m_pLogger;
 		var::m_pLogger = logger;
@@ -146,14 +146,14 @@ private:
 	}
 };
 
-inline void	iuConsole::output(const char *fmt, ...)
+inline void iuConsole::output(const char *fmt, ...)
 {
 	va_list va;
 	va_start(va, fmt);
 	voutput_impl(fmt, va);
 	va_end(va);
 }
-inline void	iuConsole::color_output(Color color, const char *fmt, ...)
+inline void iuConsole::color_output(Color color, const char *fmt, ...)
 {
 	va_list va;
 	va_start(va, fmt);
@@ -226,7 +226,7 @@ inline void iuConsole::voutput_impl(const char* fmt, va_list va)
 	}
 }
 
-inline bool	iuConsole::IsShouldUseColor(bool use_color)
+inline bool iuConsole::IsShouldUseColor(bool use_color)
 {
 	if( IsColorModeOn() )
 	{

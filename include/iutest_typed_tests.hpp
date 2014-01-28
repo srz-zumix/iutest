@@ -264,7 +264,7 @@ class TypeParamTestInstance
 		}
 	public:
 		// テストの登録
-		void	AddTest(void)
+		void AddTest(void)
 		{
 			// 順番通りになるように前から登録
 			UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
@@ -315,10 +315,10 @@ class TypedTestCasePState
 public:
 	TypedTestCasePState(void) : m_names(NULL) {}
 public:
-	const char*	names(void) const { return m_names; }
+	const char* names(void) const { return m_names; }
 
 public:
-	bool	AddTestName(const char* file, int line, const char* testcase_name, const char* test_name)
+	bool AddTestName(const char* file, int line, const char* testcase_name, const char* test_name)
 	{
 		if( m_names != NULL )
 		{
@@ -331,7 +331,7 @@ public:
 #endif
 		return true;
 	}
-	bool	VerifyTestNames(const char* file, int line, const char* test_names)
+	bool VerifyTestNames(const char* file, int line, const char* test_names)
 	{
 		m_names = test_names;
 		IUTEST_UNUSED_VAR(file);
@@ -340,7 +340,7 @@ public:
 	}
 
 private:
-	bool	Verify(const char* names)
+	bool Verify(const char* names)
 	{
 		IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 #if IUTEST_TYPED_TEST_P_STRICT
@@ -375,7 +375,7 @@ private:
 	const char* m_names;
 
 #if IUTEST_TYPED_TEST_P_STRICT
-	::std::set<const char*>	m_list;
+	::std::set<const char*> m_list;
 #endif
 
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypedTestCasePState);

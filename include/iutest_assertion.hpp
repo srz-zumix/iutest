@@ -54,7 +54,7 @@ public:
 	/**
 	 * @brief	成否
 	*/
-	bool	failed(void) const IUTEST_CXX_NOEXCEPT_SPEC { return !m_result; }
+	bool failed(void) const IUTEST_CXX_NOEXCEPT_SPEC { return !m_result; }
 
 	/**
 	 * @brief	メッセージの取得
@@ -87,17 +87,17 @@ public:
 	/**
 	 * @brief	成功結果の作成
 	*/
-	static AssertionResult	Success(void) { return AssertionResult(true); }
+	static AssertionResult Success(void) { return AssertionResult(true); }
 	/**
 	 * @brief	失敗結果の作成
 	*/
-	static AssertionResult	Failure(void) { return AssertionResult(false); }
+	static AssertionResult Failure(void) { return AssertionResult(false); }
 
 private:
 	IUTEST_PP_DISALLOW_ASSIGN(AssertionResult);
 
 	::std::string m_message;
-	bool	m_result;
+	bool m_result;
 };
 
 #if IUTEST_HAS_ASSERTION_RETURN
@@ -271,7 +271,7 @@ public:
 #if IUTEST_HAS_ASSERTION_RETURN
 	/** @private */
 	template<typename R>
-	R	operator = (const ReturnTypedFixed<R>& fixed)
+	R operator = (const ReturnTypedFixed<R>& fixed)
 	{
 		this->operator=(fixed.fixed);
 		return fixed.ret.value;
@@ -453,7 +453,7 @@ public:
 			<< "\nExpected: NULL";
 	}
 	template<typename T>
-	static AssertionResult	CompareNe(const char* expr, const T* val)
+	static AssertionResult CompareNe(const char* expr, const T* val)
 	{
 		if( NULL != val )
 		{
@@ -484,7 +484,7 @@ public:
 };
 
 template<typename T1, typename T2>
-inline AssertionResult	CmpHelperSame(const char* expected_str, const char* actual_str
+inline AssertionResult CmpHelperSame(const char* expected_str, const char* actual_str
 									  , const T1& expected, const T2& actual)
 {
 	if( &expected == &actual )
@@ -1000,7 +1000,7 @@ static AssertionResult CmpHelperFloatingPointEQ(const char* expr1, const char* e
 }
 
 template<typename RawType>
-static AssertionResult	CmpHelperFloatingPointLE(const char* expr1, const char* expr2
+static AssertionResult CmpHelperFloatingPointLE(const char* expr1, const char* expr2
 							   , RawType val1, RawType val2)
 {
 	if( val1 < val2 )

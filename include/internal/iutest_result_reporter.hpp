@@ -95,7 +95,7 @@ public:
 	template<typename COND, typename REPORTER=DefaultGlobalTestPartResultReporter>
 	class Counter : public Reporter<REPORTER>
 	{
-		typedef REPORTER	_Mybase;
+		typedef REPORTER _Mybase;
 	public:
 		Counter(void) : m_count(0)
 		{
@@ -128,7 +128,7 @@ public:
 			_Mybase::ReportTestPartResult(result);
 		}
 	public:
-		size_t	count(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_results.size(); }
+		size_t count(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_results.size(); }
 		const TestPartResult&	GetTestPartResult(int index) const	{ return m_results[index]; }
 
 	private:

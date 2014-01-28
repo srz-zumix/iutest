@@ -67,14 +67,14 @@ struct TypeList1
 template<typename T, typename ...Args>
 struct VariadicTypeList
 {
-	typedef T	Head;
-	typedef VariadicTypeList<Args...>	Tail;
+	typedef T Head;
+	typedef VariadicTypeList<Args...> Tail;
 };
 template<typename T>
 struct VariadicTypeList<T>
 {
-	typedef T	Head;
-	typedef TypeList0	Tail;
+	typedef T Head;
+	typedef TypeList0 Tail;
 };
 
 #else
@@ -156,7 +156,7 @@ struct TemplateTypeSel
 	template<typename T>
 	struct bind
 	{
-		typedef U<T>	type;
+		typedef U<T> type;
 	};
 };
 
@@ -173,14 +173,14 @@ struct TemplateTypeList0 {};
 template<IUTEST_TEMPLATE_TPARAM1 T1, IUTEST_TEMPLATE_TPARAM1 ...Types>
 struct VariadicTemplateTypeList
 {
-	typedef TemplateTypeSel<T1>	Head;
-	typedef VariadicTemplateTypeList<Types...>	Tail;
+	typedef TemplateTypeSel<T1> Head;
+	typedef VariadicTemplateTypeList<Types...> Tail;
 };
 template<IUTEST_TEMPLATE_TPARAM1 T1>
 struct VariadicTemplateTypeList<T1>
 {
-	typedef TemplateTypeSel<T1>	Head;
-	typedef TemplateTypeList0	Tail;
+	typedef TemplateTypeSel<T1> Head;
+	typedef TemplateTypeList0 Tail;
 };
 
 #else
@@ -189,7 +189,7 @@ template<IUTEST_TEMPLATE_TPARAM1 T1>
 struct TemplateTypeList1
 {
 	typedef TemplateTypeSel<T1> Head;
-	typedef TemplateTypeList0	Tail;
+	typedef TemplateTypeList0 Tail;
 };
 
 #define IIUT_DECL_TEMPLATETYPELIST_(n)	IIUT_DECL_TEMPLATETYPELIST_I(n, IUTEST_PP_DEC(n))

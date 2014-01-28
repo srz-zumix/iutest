@@ -46,7 +46,7 @@ public:
 	/**
 	 * @brief	テスト中のテストの TestResult の取得
 	*/
-	static TestResult*	current_test_result(void);
+	static TestResult* current_test_result(void);
 
 public:
 	/**
@@ -68,7 +68,7 @@ public:
 public:
 	/** @private */
 	template<typename T>
-	TestCase*	AddTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown
+	TestCase* AddTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown
 		IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)
 		)
 	{
@@ -91,27 +91,27 @@ protected:
 	/**
 	 * @brief	テストのリストアップ
 	*/
-	int		Listup(void) const;
+	int Listup(void) const;
 
 	/**
 	 * @brief	テストのリストアップ(with where)
 	*/
-	int		ListupWithWhere(void) const;
+	int ListupWithWhere(void) const;
 
 	/**
 	 * @brief	事前処理
 	*/
-	bool	PreRunner(void);
+	bool PreRunner(void);
 
 	/**
 	 * @brief	テスト結果のクリア
 	*/
-	void	ClearNonAdHocTestResult(void);
+	void ClearNonAdHocTestResult(void);
 
 	/**
 	 * @brief	ad_hoc_testresult のクリア
 	*/
-	void	ClearAdHocTestResult(void)
+	void ClearAdHocTestResult(void)
 	{
 		m_ad_hoc_testresult.Clear();
 	}
@@ -120,13 +120,13 @@ private:
 	/**
 	 * @brief	RecordProperty
 	*/
-	static 	void RecordProperty(const TestProperty& prop);
+	static void RecordProperty(const TestProperty& prop);
 
 private:
 	/**
 	 * @brief	セットアップ
 	*/
-	void	InitializeImpl(void)
+	void InitializeImpl(void)
 	{
 #if IUTEST_HAS_SEH
 
@@ -154,7 +154,7 @@ private:
 	/**
 	 * @brief	後片付け
 	*/
-	void	TerminateImpl(void);
+	void TerminateImpl(void);
 
 private:
 #if IUTEST_HAS_EXCEPTIONS && (defined(_MSC_VER) && (_MSC_VER >= 1400)) && !defined(IUTEST_OS_WINDOWS_MOBILE)

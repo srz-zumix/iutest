@@ -218,7 +218,7 @@ private:
 		{
 			return ptr()->HasFailure();
 		}
-		virtual bool	Skipped(void) const IUTEST_CXX_OVERRIDE
+		virtual bool	IsSkipped(void) const IUTEST_CXX_OVERRIDE
 		{
 			return ptr()->is_skipped();
 		}

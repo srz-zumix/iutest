@@ -24,7 +24,7 @@
 namespace iutest
 {
 
-IUTEST_IPP_INLINE bool	TestCase::Run(void)
+IUTEST_IPP_INLINE bool TestCase::Run(void)
 {
 	if( !should_run() )
 	{
@@ -50,7 +50,30 @@ IUTEST_IPP_INLINE bool TestCase::RunImpl(void)
 	bool result=true;
 	m_elapsedmsec = 0;
 
-	m_setup();
+#if IUTEST_HAS_EXCEPTIONS
+	if( TestFlag::IsEnableFlag(TestFlag::CATCH_EXCEPTION_EACH) )
+	{
+		try
+		{
+			m_setup();
+		}
+		catch( TestPartResult::Type& eType )
+		{
+			if( TestPartResult::type_is_failed(eType) && TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
+			{
+				throw;
+			}
+		}
+		catch( ... )
+		{
+			throw;
+		}
+	}
+	else
+#endif
+	{
+		m_setup();
+	}
 
 	if( m_ad_hoc_testresult.HasFatalFailure() )
 	{
@@ -84,7 +107,7 @@ IUTEST_IPP_INLINE bool TestCase::RunImpl(void)
 	return result;
 }
 
-IUTEST_IPP_INLINE void	TestCase::clear(void)
+IUTEST_IPP_INLINE void TestCase::clear(void)
 {
 	m_ad_hoc_testresult.Clear();
 	for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
@@ -93,7 +116,7 @@ IUTEST_IPP_INLINE void	TestCase::clear(void)
 	}
 }
 
-IUTEST_IPP_INLINE bool	TestCase::filter(void)
+IUTEST_IPP_INLINE bool TestCase::filter(void)
 {
 	m_should_run_num = 0;
 	m_disable_num = 0;

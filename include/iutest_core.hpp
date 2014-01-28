@@ -35,11 +35,11 @@ class UnitTest : public UnitTestImpl
 {
 public:
 	/** @private */
-	static	UnitTest&	instance(void)		{ static UnitTest inst; return inst; }
+	static UnitTest& instance(void)		{ static UnitTest inst; return inst; }
 	/** 
 	 * @brief	UnitTest インスタンスの取得
 	*/
-	static	UnitTest*	GetInstance(void)	{ return &instance(); }
+	static UnitTest* GetInstance(void)	{ return &instance(); }
 
 public:
 	/**
@@ -127,37 +127,37 @@ private:
 	/**
 	 * @brief	テストの実行（１ループ）
 	*/
-	bool	RunOnce(void);
+	bool RunOnce(void);
 
 private:
 	/**
 	 * @brief	プログラムの開始
 	*/
-	void	TestProgramStart(void);
+	void TestProgramStart(void);
 
 	/**
 	 * @brief	イテレーション毎のセットアップ
 	*/
-	void	SetUpTestIteration(void);
+	void SetUpTestIteration(void);
 
 	/**
 	 * @brief	環境セットアップ
 	*/
-	void	EnvironmentSetUp(void);
+	void EnvironmentSetUp(void);
 
 	/**
 	 * @brief	環境解除
 	*/
-	void	EnvironmentTearDown(void);
+	void EnvironmentTearDown(void);
 
 	/**
 	 * @brief	プログラムの終了
 	*/
-	void	TestProgramEnd(void);
+	void TestProgramEnd(void);
 
 private:
 	// C言語の終了コールバック関数
-	static void	OnExit(void)
+	static void OnExit(void)
 	{
 		instance().TestProgramEnd();
 	}
@@ -185,7 +185,7 @@ public:	// VC++6.0 bug
 
 private:
 	// 初期化処理
-	void	Initialize(void);
+	void Initialize(void);
 
 #if IUTEST_HAS_PARAM_TEST
 public:
@@ -203,7 +203,7 @@ private:
 	int m_init_iutest_count;
 	bool m_test_started;
 	TimeInMillisec m_start_timestamp;
-	detail::DefaultGlobalTestPartResultReporter	m_default_test_part_result_reporter;
+	detail::DefaultGlobalTestPartResultReporter m_default_test_part_result_reporter;
 
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(UnitTest);
 };

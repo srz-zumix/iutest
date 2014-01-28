@@ -132,7 +132,7 @@ class ValueTmpParamTestInstance
 		}
 	public:
 		// テストの登録
-		void	AddTest(void)
+		void AddTest(void)
 		{
 			// 順番通りになるように前から登録
 			UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);

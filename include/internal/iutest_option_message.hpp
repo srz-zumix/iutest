@@ -33,18 +33,18 @@ public:
 	/**
 	 * @brief	ヘルプの出力
 	*/
-	static void	ShowHelp(void);
+	static void ShowHelp(void);
 	/**
 	 * @brief	バージョン出力
 	*/
-	static void	ShowVersion(void);
+	static void ShowVersion(void);
 	/**
 	 * @brief	機能出力
 	*/
 	static void ShowFeature(void);
 };
 
-inline void	iuOptionMessage::ShowHelp(void)
+inline void iuOptionMessage::ShowHelp(void)
 {
 	const char* readme = 
 		"--------------------------------------------------\n"
