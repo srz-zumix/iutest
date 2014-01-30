@@ -63,7 +63,7 @@ inline void ProgressPrintListener::OnTestProgramStart(const UnitTest& test)
 	detail::iuConsole::output("|----|----|----|----|----|----|----|----|----|----|   \n");
 }
 inline void ProgressPrintListener::OnTestIterationStart(const UnitTest& test
-								  , int iteration)
+								, int iteration)
 {
 	IUTEST_UNUSED_VAR(iteration);
 

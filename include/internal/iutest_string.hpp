@@ -128,14 +128,14 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 }
 
 inline bool IsEmpty(const char* p) { return p == NULL || *p == '\0'; }
-inline IUTEST_CXX_CONSTEXPR bool IsSpace(char ch)	{ return ch == ' ' || ch =='\t'; }
-inline IUTEST_CXX_CONSTEXPR const char*	SkipSpace(const char* p)
+inline IUTEST_CXX_CONSTEXPR bool IsSpace(char ch) { return ch == ' ' || ch =='\t'; }
+inline IUTEST_CXX_CONSTEXPR const char* SkipSpace(const char* p)
 {
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 	return p == NULL ? NULL : (IsSpace(*p) ? SkipSpace(++p) : p);
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 }
-inline IUTEST_CXX_CONSTEXPR const char*	FindComma(const char* p)
+inline IUTEST_CXX_CONSTEXPR const char* FindComma(const char* p)
 {
 	return (p == NULL || *p == '\0') ? NULL : ((*p == ',') ? p : FindComma(++p));
 }
@@ -193,7 +193,7 @@ class iuStringStream
 {
 public:
 #if		IUTEST_HAS_STRINGSTREAM
-	typedef ::std::stringstream	stlstream;
+	typedef ::std::stringstream stlstream;
 #elif	IUTEST_HAS_STRSTREAM
 IUTEST_PRAGMA_MSC_WARN_PUSH()
 IUTEST_PRAGMA_MSC_WARN_DISABLE(4250)
@@ -235,9 +235,9 @@ IUTEST_PRAGMA_MSC_WARN_POP()
 public:
 
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
-	typedef stlstream	type;
+	typedef stlstream type;
 #else
-	typedef iu_stream	type;
+	typedef iu_stream type;
 #endif
 };
 
@@ -260,7 +260,7 @@ class iu_basic_stream
 		struct impl_select
 		{
 			template<typename TA, typename TB>
-			static const TA	constant(const TA a, const TB b)
+			static const TA constant(const TA a, const TB b)
 			{
 				(void)b;
 				return a;
@@ -270,7 +270,7 @@ class iu_basic_stream
 		struct impl_select<TMP, wchar_t>
 		{
 			template<typename TA, typename TB>
-			static const TB	constant(const TA a, const TB b)
+			static const TB constant(const TA a, const TB b)
 			{
 				(void)a;
 				return b;
@@ -278,7 +278,7 @@ class iu_basic_stream
 		};
 
 	public:
-		typedef impl_select<void, T>	select;
+		typedef impl_select<void, T> select;
 	};
 #define IUTEST_PP_XCS(txt_)	xcs<_Elem>::select::constant(txt_, L##txt_)
 
@@ -460,7 +460,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
 typedef ::std::ostream					iu_ostream;
-typedef std::ostream& (*iu_basic_iomanip)(std::ostream&);
+typedef ::std::ostream& (*iu_basic_iomanip)(::std::ostream&);
 #else
 typedef detail::iuStringStream::type	iu_ostream;
 #endif

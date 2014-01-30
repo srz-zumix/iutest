@@ -79,16 +79,16 @@ public:
 	{
 		Normalize();
 	}
-	explicit iuFilePath(const std::string& path) : m_path(path)
+	explicit iuFilePath(const ::std::string& path) : m_path(path)
 	{
 		Normalize();
 	}
 
 public:
-	std::string	ToString(void)	const	{ return m_path; }
-	const char* c_str(void)		const	{ return m_path.c_str(); }
-	bool		IsEmpty(void)	const	{ return c_str() == NULL || *c_str() == '\0'; }
-	size_t		length(void)	const	{ return m_path.length(); }
+	::std::string	ToString(void)	const { return m_path; }
+	const char*		c_str(void)		const { return m_path.c_str(); }
+	bool			IsEmpty(void)	const { return c_str() == NULL || *c_str() == '\0'; }
+	size_t			length(void)	const { return m_path.length(); }
 
 public:
 	bool operator == (const iuFilePath& rhs) const
@@ -99,7 +99,7 @@ public:
 	{
 		return IsStringCaseEqual(c_str(), rhs);
 	}
-	//operator const char* (void) const	{ return c_str(); }
+	//operator const char* (void) const { return c_str(); }
 
 public:
 
@@ -200,7 +200,7 @@ private:
 	static bool IsPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC;
 	static bool IsAltPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC;
 private:
-	std::string	m_path;
+	::std::string m_path;
 };
 
 inline iu_ostream& operator << (iu_ostream& os, const iuFilePath& path)

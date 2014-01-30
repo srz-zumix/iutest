@@ -191,9 +191,9 @@ IUTEST_IPP_INLINE void UnitTestImpl::OnInvalidParameter(const wchar_t * expressi
 	wcstombs(func, function, 260);
 	char expr[260];
 	wcstombs(expr, expression, 260);
-	std::string msg = func;
+	::std::string msg = func;
 	msg += expr;
-	throw std::invalid_argument(msg);
+	throw ::std::invalid_argument(msg);
 }
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()

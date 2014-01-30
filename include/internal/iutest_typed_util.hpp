@@ -68,7 +68,7 @@ struct Types
 template<>
 struct Types< IUTEST_PP_ENUM(50, IIUT_DECL_SPEC_NONE_, detail::None) >
 {
-	typedef detail::TypeList0	type;
+	typedef detail::TypeList0 type;
 };
 
 IIUT_DECL_TYPES_( 1, 49);
@@ -170,7 +170,7 @@ struct Templates
 template<>
 struct Templates< IUTEST_PP_ENUM(50, IIUT_DECL_SPEC_NONE_, detail::NoneT1) >
 {
-	typedef detail::TemplateTypeList0	type;
+	typedef detail::TemplateTypeList0 type;
 };
 
 IIUT_DECL_TEMPLATES_( 1, 49);
@@ -237,7 +237,7 @@ IIUT_DECL_TEMPLATES_(49,  1);
 template<typename T>
 struct TypeList
 {
-	typedef detail::TypeList1<T>	type;
+	typedef detail::TypeList1<T> type;
 };
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES

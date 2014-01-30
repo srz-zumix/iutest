@@ -41,7 +41,7 @@ IUTEST_IPP_INLINE void StreamResultListener::OnTestProgramStart(const UnitTest& 
 	SendLn("event=TestProgramStart");
 }
 IUTEST_IPP_INLINE void StreamResultListener::OnTestIterationStart(const UnitTest& test
-								  , int iteration)
+								, int iteration)
 {
 	IUTEST_UNUSED_VAR(test);
 	SendLn("event=TestIterationStart&iteration=" + detail::StreamableToString(iteration));

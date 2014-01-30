@@ -80,7 +80,7 @@
 	template<>struct IUTEST_PEEP_TAG_NAME_(class_name, member_name)<class_name> { typedef member_type type; };				\
 	template<typename T, typename Tag, typename Tag::type X>struct IUTEST_PEEP_SETTER_NAME_(class_name, member_name) {		\
 	IUTEST_PEEP_SETTER_NAME_(class_name, member_name)(void) { ::iutest::detail::peep_tag<Tag>::value = X; }					\
-	static IUTEST_PEEP_SETTER_NAME_(class_name, member_name)	instance;													\
+	static IUTEST_PEEP_SETTER_NAME_(class_name, member_name) instance;														\
 	};																														\
 	template<typename T, typename Tag, typename Tag::type X>IUTEST_PEEP_SETTER_NAME_(class_name, member_name)<T, Tag, X>	\
 	IUTEST_PEEP_SETTER_NAME_(class_name, member_name)<T, Tag, X>::instance;													\
@@ -122,7 +122,7 @@ template<typename T, typename Tag>
 class Peep
 {
 private:
-	typedef Tag	peep_tag;
+	typedef Tag peep_tag;
 	typedef typename Tag::type peep_type;
 
 private:
@@ -133,14 +133,14 @@ private:
 		typedef typename type_traits::function_return_type<Type>::type return_type;
 
 	private:
-		U*	m_ptr;
+		U* m_ptr;
 	public:
 		explicit peep_member_function_impl(U* ptr) : m_ptr(ptr) {}
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
 	public:
 		template<typename ...Args>
-		return_type operator () (Args... args) { return ((*m_ptr).*detail::peep_tag<peep_tag>::value)( std::forward<Args>(args)...); }
+		return_type operator () (Args... args) { return ((*m_ptr).*detail::peep_tag<peep_tag>::value)( ::std::forward<Args>(args)...); }
 #else
 
 #define PEEP_DECL_MEMBER_FUNC_(n)	\

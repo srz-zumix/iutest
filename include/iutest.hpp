@@ -1448,7 +1448,7 @@ class UnitTestSource
 {
 public:
 	/** @private */
-	static UnitTestSource&	GetInstance(void)	{ static UnitTestSource inst; return inst; }
+	static UnitTestSource& GetInstance(void) { static UnitTestSource inst; return inst; }
 
 private:
 	UnitTestSource(void)
@@ -1478,7 +1478,7 @@ public:
 	/**
 	 * @brief	初期化
 	*/
-	void	Initialize(void)
+	void Initialize(void)
 	{
 		UnitTest::instance().Initialize();
 	}
@@ -1505,14 +1505,14 @@ public:
  * @details	コマンドラインオプションの解析をします。
  *			使用した引数は削除され pargc, argv を書き換えます
 */
-inline void	IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, char** argv)		{ TestEnv::ParseCommandLine(pargc, argv); UnitTestSource::GetInstance().Initialize(); }
-inline void	IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, wchar_t** argv)	{ TestEnv::ParseCommandLine(pargc, argv); UnitTestSource::GetInstance().Initialize(); }		//!< @overload
-inline void	IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const char** argv)	{ TestEnv::ParseCommandLine(pargc, argv); UnitTestSource::GetInstance().Initialize(); }	//!< @overload
-inline void	IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const wchar_t** argv)	{ TestEnv::ParseCommandLine(pargc, argv); UnitTestSource::GetInstance().Initialize(); }	//!< @overload
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, char** argv)		{ TestEnv::ParseCommandLine(pargc, argv); UnitTestSource::GetInstance().Initialize(); }
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, wchar_t** argv)	{ TestEnv::ParseCommandLine(pargc, argv); UnitTestSource::GetInstance().Initialize(); }		//!< @overload
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const char** argv)	{ TestEnv::ParseCommandLine(pargc, argv); UnitTestSource::GetInstance().Initialize(); }	//!< @overload
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const wchar_t** argv)	{ TestEnv::ParseCommandLine(pargc, argv); UnitTestSource::GetInstance().Initialize(); }	//!< @overload
 
 /** @overload */
 template<typename CharType>
-inline void	IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(::std::vector< ::std::basic_string<CharType> >& argv)
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(::std::vector< ::std::basic_string<CharType> >& argv)
 {
 	TestEnv::ParseCommandLine(argv);
 	UnitTestSource::GetInstance().Initialize();

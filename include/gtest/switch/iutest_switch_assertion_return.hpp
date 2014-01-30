@@ -76,7 +76,7 @@ struct AssertionFixed
 
 class AssertionMessage : public Message
 {
-	typedef std::ostream& (*BasicNarrowIoManip)(std::ostream&);
+	typedef ::std::ostream& (*BasicNarrowIoManip)(::std::ostream&);
 public:
 	template<typename T>
 	AssertionMessage& operator << (T val)

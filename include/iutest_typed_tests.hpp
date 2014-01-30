@@ -83,7 +83,7 @@
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_)								\
 	: public IUTEST_TO_VARNAME_(testcase_)<iutest_TypeParam> {						\
 		typedef IUTEST_TO_VARNAME_(testcase_)<iutest_TypeParam> TestFixture;		\
-		typedef iutest_TypeParam	TypeParam;										\
+		typedef iutest_TypeParam TypeParam;											\
 		protected: virtual void Body(void);											\
 	};																				\
 	::iutest::detail::TypeParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_)			\
@@ -97,7 +97,7 @@
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_)								\
 	: public IUTEST_TO_VARNAME_(testcase_)<iutest_TypeParam> {						\
 		typedef IUTEST_TO_VARNAME_(testcase_)<iutest_TypeParam> TestFixture;		\
-		typedef iutest_TypeParam	TypeParam;										\
+		typedef iutest_TypeParam TypeParam;											\
 		protected: virtual void Body(void) { IUTEST_SKIP() << "ignored test..."; }	\
 		template<typename T>void Body(void);										\
 	};																				\
@@ -176,7 +176,7 @@
 	template<typename iutest_TypeParam>							\
 	class testname_ : public testcase_<iutest_TypeParam> {		\
 		typedef testcase_<iutest_TypeParam> TestFixture;		\
-		typedef iutest_TypeParam	TypeParam;					\
+		typedef iutest_TypeParam TypeParam;						\
 		protected: virtual void Body(void);						\
 	};															\
 	static const int s_iutest_##testname_##_defined_dummy_ IUTEST_ATTRIBUTE_UNUSED_ =	\
@@ -190,7 +190,7 @@
 	template<typename iutest_TypeParam>							\
 	class testname_ : public testcase_<iutest_TypeParam> {		\
 		typedef testcase_<iutest_TypeParam> TestFixture;		\
-		typedef iutest_TypeParam	TypeParam;					\
+		typedef iutest_TypeParam TypeParam;						\
 		protected: virtual void Body(void) { IUTEST_SKIP() << "ignored test..."; }		\
 		template<typename T>void Body(void);					\
 	};															\
@@ -275,7 +275,7 @@ class TypeParamTestInstance
 		TestInfo					m_info;
 		detail::iuFactory<TestBody>	m_factory;
 
-		EachTest<typename TT::Tail, void>	m_next;
+		EachTest<typename TT::Tail, void> m_next;
 	};
 
 	// 終端
@@ -283,8 +283,8 @@ class TypeParamTestInstance
 	class EachTest<detail::TypeList0, DMY>
 	{
 	public:
-		EachTest(const char* /*testcase*/, const char* /*name*/, int /*index*/)	{}
-		void	AddTest(void) {}
+		EachTest(const char* /*testcase*/, const char* /*name*/, int /*index*/) {}
+		void AddTest(void) {}
 	};
 
 public:
@@ -296,7 +296,7 @@ public:
 	}
 
 private:
-	EachTest<TypeParams, void>	m_tests;
+	EachTest<TypeParams, void> m_tests;
 
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeParamTestInstance);
 };
@@ -397,9 +397,9 @@ class TypeParameterizedTestCase
 	template<typename TypeParam, typename TestsList>
 	class EachTest : public IEachTest
 	{
-		typedef typename TestsList::Head	TypeSel;
+		typedef typename TestsList::Head 		TypeSel;
 		typedef typename TypeSel::template bind<TypeParam>::type	TestBody;
-		typedef detail::iuFactory<TestBody>	Factory;
+		typedef detail::iuFactory<TestBody>		Factory;
 		typedef EachTest<TypeParam, TestsList>	_Myt;
 
 		EachTest(TestCase* testcase, const char* name)
@@ -449,7 +449,7 @@ public:
 	/**
 	 * @brief	テストの登録
 	*/
-	static bool Register(const char* prefix, const char* testcase_name, const::std::string& package_name, const char* names, int index=0)
+	static bool Register(const char* prefix, const char* testcase_name, const ::std::string& package_name, const char* names, int index=0)
 	{
 		typedef typename Types::Head	TypeParam;
 		typedef typename Tests::Head	Head;

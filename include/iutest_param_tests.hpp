@@ -124,7 +124,7 @@
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public IUTEST_TO_VARNAME_(testcase_) {	\
 		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}								\
 		protected: virtual void Body(void);															\
-		private: static int	AddRegister(void) {														\
+		private: static int AddRegister(void) {														\
 			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_			\
 				, testname_) > testinfo(IUTEST_TO_NAME_STR_(testname_));							\
 			IIUT_GETTESTCASEPATTERNHOLDER(IUTEST_TO_VARNAME_(testcase_), IUTEST_TO_NAME_STR_(testcase_)	\
@@ -142,7 +142,7 @@
 		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}								\
 		protected: virtual void Body(void) { IUTEST_SKIP() << "ignored test..."; }					\
 		template<typename T>void Body(void);														\
-		private: static int	AddRegister(void) {														\
+		private: static int AddRegister(void) {														\
 			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_			\
 				, testname_) > testinfo(IUTEST_TO_NAME_STR_(testname_));							\
 			IIUT_GETTESTCASEPATTERNHOLDER(IUTEST_TO_VARNAME_(testcase_), IUTEST_TO_NAME_STR_(testcase_)	\
@@ -220,7 +220,7 @@ private:
 	}
 
 	// テストの作成登録
-	virtual	void RegisterTest(TestCase* testcase, ParamType param, int index) const IUTEST_CXX_OVERRIDE
+	virtual void RegisterTest(TestCase* testcase, ParamType param, int index) const IUTEST_CXX_OVERRIDE
 	{
 		EachTest* test = new EachTest(testcase, detail::MakeIndexTestName(this->m_name.c_str(), index).c_str(), param);
 		// new オブジェクトを管理してもらう
@@ -239,7 +239,7 @@ public:
 	/**
 	 * @brief	パラメータの取得
 	*/
-	static const ParamType&	GetParam(void) { return WithParamInterface<any>::GetParam(); }
+	static const ParamType& GetParam(void) { return WithParamInterface<any>::GetParam(); }
 
 	/**
 	 * @brief	パラメータの取得
@@ -510,7 +510,7 @@ IIUT_DECL_PAIRWISE_(9)
 
 #if IUTEST_HAS_ANY_PARAM_TEST
 /** any param test fixture */
-typedef ::iutest::TestWithAny	iuTestWithAny;
+typedef ::iutest::TestWithAny iuTestWithAny;
 #endif
 
 #endif	// IUTEST_HAS_PARAM_TEST

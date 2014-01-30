@@ -61,7 +61,7 @@
 		Body(); TearDown(); OnTestEnd(#testcase_, #testname_); }			\
 	TEST_CLASS_INITIALIZE(iuSetUp) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::SetUpTestCase(); }		\
 	TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::TearDownTestCase(); }	\
-	virtual void	Body(void);				\
+	virtual void Body(void);				\
 	};										\
 	void className::Body() 
 
@@ -111,7 +111,7 @@ IUTEST_MAKE_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, ::iutes
 	}																						\
 	TEST_CLASS_INITIALIZE(iuSetUp) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::SetUpTestCase(); }		\
 	TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::TearDownTestCase(); }	\
-	virtual void	Body(void);																\
+	virtual void Body(void);																\
 	private: static int	AddRegister(void) {													\
 			static ::iutest::detail::ParamTestInstance< className > testinfo(#testname_);	\
 			::iutest::UnitTest::GetInstance()->parameterized_test_registry().				\
@@ -261,7 +261,7 @@ public:
 */
 class VCCppUnitTestLogger : public ::iutest::detail::iuLogger
 {
-	typedef ::Microsoft::VisualStudio::CppUnitTestFramework::Logger	Logger;
+	typedef ::Microsoft::VisualStudio::CppUnitTestFramework::Logger Logger;
 public:
 	virtual void voutput(const char* fmt, va_list va)
 	{

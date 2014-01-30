@@ -60,7 +60,7 @@ public:
 	virtual void Initialize(void) {}
 
 public:
-	static IFileSystem*	GetInstance(void) { return var::m_pInstance; }
+	static IFileSystem* GetInstance(void) { return var::m_pInstance; }
 
 public:
 	static IFile* New(void)
@@ -113,9 +113,9 @@ public:
 	virtual ~IFile(void) {}
 public:
 	//! 開く
-	virtual	bool	Open(const char* filename, int mode) = 0;
+	virtual bool Open(const char* filename, int mode) = 0;
 	//! 閉じる
-	virtual	void	Close(void)	= 0;
+	virtual void Close(void) = 0;
 };
 
 /**

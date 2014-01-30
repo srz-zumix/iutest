@@ -34,7 +34,7 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestProgramStart(const Unit
 	}
 }
 IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationStart(const UnitTest& test
-								  , int iteration)
+								, int iteration)
 {
 	if( IUTEST_FLAG(repeat) != 1 )
 	{

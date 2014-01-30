@@ -128,7 +128,7 @@ class remove_const
 	template<typename U>
 	struct impl<const U> { typedef U type; };
 public:
-	typedef typename impl<T>::type	type;
+	typedef typename impl<T>::type type;
 };
 
 /**
@@ -197,7 +197,7 @@ public:
 #else
 	typedef T rmcv_type;
 	static T& make_t();
-	static char	IsPointerHelper(const volatile void*);
+	static char IsPointerHelper(const volatile void*);
 	static char (&IsPointerHelper(...))[2];
 
 	enum { IsPointer = sizeof(IsPointerHelper(make_t())) == 1 ? true : false }; 
@@ -312,7 +312,7 @@ namespace is_class_helper
 	class is_class
 	{
 		template<typename U>
-		static char	IsClassHelper(int U::*);
+		static char IsClassHelper(int U::*);
 		template<typename U>
 		static char(&IsClassHelper(...))[2];
 
@@ -337,9 +337,9 @@ namespace is_convertible_helper
 template<typename From, typename To>
 class is_convertible_type
 {
-	static From	MakeFrom(void);
+	static From MakeFrom(void);
 
-	static char	IsConvertibleHelper(To);
+	static char IsConvertibleHelper(To);
 	static char (&IsConvertibleHelper(...))[2];
 
 	enum { IsConvertible = sizeof(IsConvertibleHelper(is_convertible_type::MakeFrom())) == 1 ? true : false }; 

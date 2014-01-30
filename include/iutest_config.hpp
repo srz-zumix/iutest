@@ -101,12 +101,6 @@
 #  define IUTEST_TYPED_TEST_P_STRICT	1
 #endif
 
-#if IUTEST_HAS_TYPED_TEST_P
-#  if IUTEST_TYPED_TEST_P_STRICT
-#    include <set>
-#  endif
-#endif
-
 #ifndef IUTEST_HAS_IGNORE_TEST
 /**
  * @brief	コンパイルが通らなくてもよいテスト生成マクロが使用可能かどうか

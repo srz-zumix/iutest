@@ -105,8 +105,8 @@
 */
 #define IUTEST_TEST_IGNORE_(testcase_, testname_, parent_class_, type_id_)					\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {			\
-	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(	IUTEST_TEST_CLASS_NAME_(testcase_, testname_));		\
-		public:	IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
+	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN( IUTEST_TEST_CLASS_NAME_(testcase_, testname_) );	\
+		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
 		protected: virtual void Body(void) { IUTEST_SKIP() << "ignored test..."; }			\
 		template<typename T>void Body(void);												\
 	};																						\
@@ -127,9 +127,9 @@
 */
 #define IIUT_TEST_PMZ_(testcase_, testname_, method_, parent_class_, type_id_, ...)				\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_);										\
-	class IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)	: public parent_class_ {			\
+	class IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {			\
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_));		\
-		public:	IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
+		public: IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
 		static ::std::string MakeTestName(void) { return ::iutest::detail::MakeIndexTestName(	\
 			IUTEST_TO_NAME_STR_(testname_), ::iutest::detail::GetTypeUniqueCounter<				\
 				IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>()); }							\
@@ -410,7 +410,7 @@
 	if( ::iutest::detail::AlwaysTrue() ) {									\
 		::iutest::detail::NewTestPartResultCheckHelper::Counter<			\
 			::iutest::detail::NewTestPartResultCheckHelper::CondGt<			\
-			::iutest::TestPartResult::kSuccess> >	iutest_failure_checker;	\
+			::iutest::TestPartResult::kSuccess> > iutest_failure_checker;	\
 		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING( { (void)0; statement; } )	\
 		if( iutest_failure_checker.count() > 0 ) {							\
 			goto IUTEST_PP_CAT(iutest_label_test_no_failure_, __LINE__);	\
@@ -424,7 +424,7 @@
 	if( ::iutest::detail::AlwaysTrue() ) {									\
 		::iutest::detail::NewTestPartResultCheckHelper::Counter<			\
 			::iutest::detail::NewTestPartResultCheckHelper::CondEq<			\
-			::iutest::TestPartResult::kFatalFailure> >	iutest_failure_checker;	\
+			::iutest::TestPartResult::kFatalFailure> > iutest_failure_checker;	\
 		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING( { (void)0; statement; } )	\
 		if( iutest_failure_checker.count() > 0 ) {							\
 			goto IUTEST_PP_CAT(iutest_label_test_no_fatalfailure_, __LINE__);	\

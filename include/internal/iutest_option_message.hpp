@@ -88,7 +88,7 @@ inline void iuOptionMessage::ShowHelp(void)
 	detail::iuConsole::color_output(detail::iuConsole::cyan, readme);
 }
 
-inline void	iuOptionMessage::ShowVersion(void)
+inline void iuOptionMessage::ShowVersion(void)
 {
 	detail::iuConsole::output("iutest version %x.%x.%x.%x\n"
 		, IUTEST_MAJORVER, IUTEST_MINORVER, IUTEST_BUILD, IUTEST_REVISION);

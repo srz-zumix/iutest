@@ -155,7 +155,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 }
 
-IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const wchar_t* str, int num)
+IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const wchar_t* str, int num)
 {
 	IUTEST_UNUSED_VAR(num);
 #if defined(IUTEST_OS_WINDOWS) && IUTEST_MBS_CODE == IUTEST_MBS_CODE_WINDOWS31J
@@ -183,7 +183,7 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(c
 	{
 		num = static_cast<int>(strlen(src));
 	}
-	std::string str;
+	::std::string str;
 	const char* p = src;
 	//char* locale = setlocale(LC_CTYPE, "JPN");
 	for(const char* end = src + num; p < end; )

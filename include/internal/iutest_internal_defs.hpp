@@ -44,7 +44,7 @@
 // console
 #define IUTEST_MBS_CODE_UNKOWN		0
 #define IUTEST_MBS_CODE_UTF8		1
-#define	IUTEST_MBS_CODE_WINDOWS31J	2
+#define IUTEST_MBS_CODE_WINDOWS31J	2
 #ifndef IUTEST_MBS_CODE
 #  if	defined(IUTEST_OS_WINDOWS)
 #    define IUTEST_MBS_CODE	IUTEST_MBS_CODE_WINDOWS31J
@@ -166,14 +166,14 @@ template<typename TN>
 class auto_ptr
 {
 	typedef auto_ptr<TN> _Myt;
-	mutable TN*	m_ptr;
+	mutable TN* m_ptr;
 public:
 	auto_ptr(const _Myt& o) : m_ptr(o.m_ptr) { o.m_ptr = NULL; }
-	auto_ptr(TN* p=NULL)	: m_ptr(p) {}
+	auto_ptr(TN* p=NULL) : m_ptr(p) {}
 	~auto_ptr(void) { if( m_ptr != NULL ) delete m_ptr; }
 	TN* ptr(void) { return m_ptr; }
 
-	TN*	operator ->(void) { return m_ptr; }
+	TN* operator ->(void) { return m_ptr; }
 };
 
 /**
@@ -184,7 +184,7 @@ struct IsNullLiteralHelper
 {
 	class Object;
 
-	static char	IsNullLiteral(Object*);
+	static char IsNullLiteral(Object*);
 	static char (&IsNullLiteral(...))[2];
 };
 
@@ -198,8 +198,8 @@ struct IsNullLiteralHelper
 */
 struct IsContainerHelper
 {
-	typedef int		yes_t;
-	typedef char	no_t;
+	typedef int  yes_t;
+	typedef char no_t;
 
 	template<typename T>
 	static IUTEST_CXX_CONSTEXPR yes_t IsContainer(int IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T), typename T::iterator* =NULL, typename T::const_iterator* =NULL) { return 0; }
@@ -268,7 +268,7 @@ typedef enabler_t<void> enabler;
  * @brief	型名の取得
 */
 template<typename T>
-inline std::string GetTypeName(void)
+inline ::std::string GetTypeName(void)
 {
 #if IUTEST_HAS_RTTI
 	const char* const name = typeid(T).name();
@@ -277,7 +277,7 @@ inline std::string GetTypeName(void)
 	using abi::__cxa_demangle;
 	int status=1;
 	char* const read_name = __cxa_demangle(name, 0, 0, &status);
-	std::string str = status == 0 ? read_name : name;
+	::std::string str = status == 0 ? read_name : name;
 	free(read_name);
 	return str;
 #else
@@ -292,8 +292,8 @@ inline std::string GetTypeName(void)
 #if !IUTEST_HAS_RTTI
 
 #define GeTypeNameSpecialization(type)	\
-	template<>inline std::string GetTypeName<type>(void) { return #type; }	\
-	template<>inline std::string GetTypeName<type*>(void) { return #type "*"; }
+	template<>inline ::std::string GetTypeName<type>(void) { return #type; }	\
+	template<>inline ::std::string GetTypeName<type*>(void) { return #type "*"; }
 
 GeTypeNameSpecialization(char)
 GeTypeNameSpecialization(unsigned char)
@@ -325,22 +325,22 @@ GeTypeNameSpecialization(bool)
 /**
  * @brief	true を返す(警告対策用)
 */
-inline bool	AlwaysTrue(void) { return true; }
+inline bool AlwaysTrue(void) { return true; }
 
 /**
  * @brief	false を返す(警告対策用)
 */
-inline bool	AlwaysFalse(void) { return !AlwaysTrue(); }
+inline bool AlwaysFalse(void) { return !AlwaysTrue(); }
 
 /**
  * @brief	0 を返す(警告対策用)
 */
-inline int	AlwaysZero(void) { return 0; }
+inline int  AlwaysZero(void) { return 0; }
 
 /**
 * @brief	真偽値を返す(警告対策用)
 */
-inline bool	IsTrue(bool b) { return b; }
+inline bool IsTrue(bool b) { return b; }
 
 }	// end of namespace detail
 }	// end of namespace iutest

@@ -398,11 +398,11 @@ private:
 		bool operator != (const char* c_str_)		{ return m_option != c_str_; }
 		bool operator != (const ::std::string& str)	{ return m_option != str; }
 
-		operator ::std::string (void) const	{ return m_option; }
+		operator ::std::string (void) const { return m_option; }
 	public:
 		bool empty(void) const			{ return m_option.empty(); }
 		const char* c_str(void) const	{ return m_option.c_str(); }
-		size_t	length(void) const		{ return m_option.length(); }
+		size_t length(void) const		{ return m_option.length(); }
 	public:
 		OptionString(void)
 			: m_option(G())

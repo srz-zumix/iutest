@@ -58,8 +58,8 @@ struct TypeList0 {};
 template<typename T1>
 struct TypeList1
 {
-	typedef T1	Head;
-	typedef TypeList0	Tail;
+	typedef T1 Head;
+	typedef TypeList0 Tail;
 };
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
@@ -82,7 +82,7 @@ struct VariadicTypeList<T>
 #define IIUT_DECL_TYPELIST_(n)	IIUT_DECL_TYPELIST_I(n, IUTEST_PP_DEC(n))
 #define IIUT_DECL_TYPELIST_I(n, m)													\
 	template<typename T0, IUTEST_PP_ENUM_SHIFTED_PARAMS(m, typename T)>				\
-	struct IUTEST_PP_CAT(TypeList, n) {	typedef T0 Head;							\
+	struct IUTEST_PP_CAT(TypeList, n) { typedef T0 Head;							\
 	typedef IUTEST_PP_CAT(TypeList, m)< IUTEST_PP_ENUM_SHIFTED_PARAMS(m, T) > Tail;	\
 }
 

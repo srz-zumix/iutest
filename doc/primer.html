@@ -87,6 +87,7 @@
               <li><a href="#org_test_japanese">“ú–{ŒêƒeƒXƒg–¼</a></li>
             </ul>
           </li>
+          <li><a href="#org_skip">ƒeƒXƒg‚ÌƒXƒLƒbƒv</a></li>
           <li><a href="#org_prod">Private ƒR[ƒh‚ÌƒeƒXƒg</a></li>
           <li><a href="#org_cmdline">ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ƒIƒvƒVƒ‡ƒ“</a></li>
         </ul>
@@ -390,6 +391,22 @@ IUTEST_F(IUTEST_JAPANESE_NAME_F(FixedTest, ‚ ‚¢‚¤‚¦‚¨), IUTEST_JAPANESE_NAME(‚©‚
 }
 </pre>
       ¦ IUTEST_TYPED_TEST_P ‚Í–¢‘Î‰ž‚Å‚·B
+      <br />
+      </li>
+    </ul>
+  </li>
+  
+  <li><a name="org_skip" id="org_skip">ƒeƒXƒg‚ÌƒXƒLƒbƒv</a>
+    <ul>
+      <li>IUTEST_SKIP<br />
+      ƒeƒXƒg‚ð–¾Ž¦“I‚ÉƒXƒLƒbƒv‚µ‚Ü‚·B<br />
+      ASSUME ‚Æ“¯“™‚Ì‹@”\‚Å‚·‚ªAIUTEST_SKIP ‚É‚ÍðŒŽ®‚ª‚ ‚è‚Ü‚¹‚ñB<br />
+      ƒ†[ƒU[‚ª“KØ‚ÈêŠ‚ÅŒÄ‚Ño‚µ‚Ä‚­‚¾‚³‚¢B<br />
+<pre class="source">
+IUTEST(SkipTest, Skip)
+{
+    if(sizeof(int) != 4 ) IUTEST_SKIP() &lt;&lt; "sizeof(int) != 4";
+}</pre>
       <br />
       </li>
     </ul>

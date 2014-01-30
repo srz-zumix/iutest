@@ -158,7 +158,7 @@ public:
 
 protected:
 	virtual void SetUp(void)	{}	//!< 実行前処理
-	virtual void Body(void)	= 0;	//!< テスト実装部
+	virtual void Body(void) = 0;	//!< テスト実装部
 	virtual void TearDown(void)	{}	//!< 実行後処理
 
 public:
@@ -220,7 +220,7 @@ public:
 	/**
 	 * @brief	パラメータの取得
 	*/
-	static const ParamType&	GetParam(void)
+	static const ParamType& GetParam(void)
 	{
 		IUTEST_CHECK_(s_params != NULL) << "GetParam() can only use the value-parameterized test";
 #if defined(_MSC_VER) && _MSC_VER >= 1500
@@ -233,7 +233,7 @@ public:
 	static void SetParam(const ParamType* params) IUTEST_CXX_NOEXCEPT_SPEC { s_params = params; }
 
 private:
-	static const ParamType*	s_params;
+	static const ParamType* s_params;
 };
 
 template<typename T>
@@ -251,7 +251,7 @@ class TestWithParam : public Test, public WithParamInterface<T>
 }	// end of namespace iutest
 
 template<typename DMY>
-::iutest::Test*	::iutest::Test::Observer<DMY>::s_current = NULL;
+::iutest::Test* ::iutest::Test::Observer<DMY>::s_current = NULL;
 
 #if !IUTEST_HAS_LIB
 #  include "impl/iutest_body.ipp"

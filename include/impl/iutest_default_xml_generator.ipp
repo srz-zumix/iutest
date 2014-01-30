@@ -242,7 +242,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestSkipped(IFile* f
 }
 
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestProperty(IFile* file, const TestResult& test_result
-																		 , bool (*pfnValidate)(const ::std::string&))
+																		, bool (*pfnValidate)(const ::std::string&))
 {
 	for( int i=0, count=test_result.test_property_count(); i < count; ++i )
 	{

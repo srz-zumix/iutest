@@ -447,7 +447,7 @@ void RandomShuffle(It begin, It last, Fn& r)
 	It next = begin;
 	for( unsigned int i=2; ++next != last; ++i )
 	{
-		std::iter_swap(next, begin + r(i) % i );
+		::std::iter_swap(next, begin + r(i) % i );
 	}
 }
 

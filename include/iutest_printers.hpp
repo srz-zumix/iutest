@@ -192,8 +192,8 @@ inline void DefaultPrintTo(IsContainerHelper::yes_t
 }
 template<typename T>
 inline void DefaultPrintTo(IsContainerHelper::no_t
-						   , iutest_type_traits::false_type
-						   , const T& value, iu_ostream* os)
+						, iutest_type_traits::false_type
+						, const T& value, iu_ostream* os)
 {
 	printer_internal2::DefaultPrintNonContainerTo(value, os);
 }
@@ -223,8 +223,8 @@ inline void DefaultPtrPrintTo(T* ptr, iu_ostream* os)
 
 template<typename T>
 inline void DefaultPrintTo(IsContainerHelper::no_t
-						   , iutest_type_traits::true_type
-						   , T* ptr, iu_ostream* os)
+						, iutest_type_traits::true_type
+						, T* ptr, iu_ostream* os)
 {
 	if( ptr == NULL )
 	{

@@ -120,7 +120,7 @@ protected:
 
 private:
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
-	int	RunOnMSC(void);
+	int RunOnMSC(void);
 #endif
 	int RunImpl(void);
 

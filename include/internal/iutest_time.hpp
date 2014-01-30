@@ -80,7 +80,7 @@ class iuStopWatch
 private:
 	TimeInMillisec m_begin;
 public:
-	iuStopWatch(void) : m_begin(0)	{}
+	iuStopWatch(void) : m_begin(0) {}
 
 public:
 	// 現在の時間をミリ秒単位で取得

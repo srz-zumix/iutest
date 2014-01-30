@@ -164,41 +164,41 @@ public:
 	}
 public:
 	/** @private */
-	void	set_value_param(const char* str)	{ m_value_param = str; }
+	void set_value_param(const char* str) { m_value_param = str; }
 
 private:
 	/**
 	 * @brief	実行
 	*/
-	bool	Run(void);
+	bool Run(void);
 
 private:
 
-	void	RunImpl(void);
+	void RunImpl(void);
 
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
 #if IUTEST_HAS_MINIDUMP
-	void	MiniDump(_EXCEPTION_POINTERS* ep);
+	void MiniDump(_EXCEPTION_POINTERS* ep);
 #endif
-	void	RunOnMSC(detail::auto_ptr<Test>& test);
+	void RunOnMSC(detail::auto_ptr<Test>& test);
 #endif
 
 private:
 	/**
 	 * @brief	テストのクリア
 	*/
-	void	clear(void);
+	void clear(void);
 
 	/*
 	 * @brief	テストのフィルタリング
 	 * @return	実行する場合は真
 	*/
-	bool	filter(void);
+	bool filter(void);
 
 	/**
 	* @brief	テストのスキップ
 	*/
-	void	skip(void) { m_skip = true; }
+	void skip(void) { m_skip = true; }
 
 private:
 	class Mediator IUTEST_CXX_FINAL : public detail::iuITestInfoMediator
@@ -206,19 +206,19 @@ private:
 	public:
 		Mediator(TestInfo* p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : iuITestInfoMediator(p) {}
 	public:
-		virtual	bool	HasFatalFailure(void) const IUTEST_CXX_OVERRIDE
+		virtual	bool HasFatalFailure(void) const IUTEST_CXX_OVERRIDE
 		{
 			return ptr()->HasFatalFailure();
 		}
-		virtual	bool	HasNonfatalFailure(void) const IUTEST_CXX_OVERRIDE
+		virtual	bool HasNonfatalFailure(void) const IUTEST_CXX_OVERRIDE
 		{
 			return ptr()->HasNonfatalFailure();
 		}
-		virtual bool	HasFailure(void) const IUTEST_CXX_OVERRIDE
+		virtual bool HasFailure(void) const IUTEST_CXX_OVERRIDE
 		{
 			return ptr()->HasFailure();
 		}
-		virtual bool	IsSkipped(void) const IUTEST_CXX_OVERRIDE
+		virtual bool IsSkipped(void) const IUTEST_CXX_OVERRIDE
 		{
 			return ptr()->is_skipped();
 		}

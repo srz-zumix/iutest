@@ -93,7 +93,7 @@ public:
 		m_stream << ShowWideCString(str);
 		return *this;
 	}
-	iuStreamMessage&	operator << (const wchar_t* str)
+	iuStreamMessage& operator << (const wchar_t* str)
 	{
 		m_stream << ShowWideCString(str);
 		return *this;

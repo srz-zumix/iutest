@@ -65,7 +65,7 @@ template struct kStringsT<void>;
 }	// end of namespace helper
 
 /** @internal */
-typedef helper::kStringsT<void>	kStrings;
+typedef helper::kStringsT<void> kStrings;
 
 /**
  * @brief	定数群
@@ -80,9 +80,9 @@ struct kValues
 		, PrintArrayChunksize = PrintArrayThreshold/2
 	};
 #else
-	static const size_t	MaxPrintContainerCount = 32;
-	static const size_t	PrintArrayThreshold = 18;
-	static const size_t	PrintArrayChunksize = PrintArrayThreshold/2;
+	static const size_t MaxPrintContainerCount = 32;
+	static const size_t PrintArrayThreshold = 18;
+	static const size_t PrintArrayChunksize = PrintArrayThreshold/2;
 #endif
 };
 

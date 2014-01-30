@@ -61,22 +61,22 @@ public:
 	/**
 	 * @brief	デストラクタ
 	*/
-	virtual	~TestCase(void) {}
+	virtual ~TestCase(void) {}
 
 public:
 	/** test case 名の取得 */
-	const	char*	name(void)					const	{ return m_testcase_name.c_str(); }
+	const char*		name(void)					const { return m_testcase_name.c_str(); }
 
 	/** テスト総数 */
-	int				total_test_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_testinfos.size(); }
+	int				total_test_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC { return m_testinfos.size(); }
 	/** レポート対象のテスト総数 */
 	int				reportable_test_count(void)	const;
 	/** 実行したテスト総数 */
-	int				test_to_run_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_should_run_num; }
+	int				test_to_run_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC { return m_should_run_num; }
 	/** 失敗テスト総数 */
 	int				failed_test_count(void)		const;
 	/** 無効テスト総数 */
-	int				disabled_test_count(void)	const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_disable_num; }
+	int				disabled_test_count(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_disable_num; }
 	/** レポート対象の無効テスト総数 */
 	int				reportable_disabled_test_count(void) const;
 	/** 成功テスト総数 */
@@ -90,20 +90,20 @@ public:
 	/** レポート対象の明示的にスキップされたテスト総数 */
 	int				reportable_test_run_skipped_count(void) const;
 	/** テストの実行ミリ秒 */
-	TimeInMillisec	elapsed_time(void)			const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_elapsedmsec; }
+	TimeInMillisec	elapsed_time(void)			const IUTEST_CXX_NOEXCEPT_SPEC { return m_elapsedmsec; }
 
 	/** TestInfo の取得 */
-	const TestInfo*	GetTestInfo(int index)		const	{ return m_testinfos[index]; }
+	const TestInfo*	GetTestInfo(int index)		const { return m_testinfos[index]; }
 	/** should_run */
-	bool			should_run(void)			const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_should_run_num != 0; }
+	bool			should_run(void)			const IUTEST_CXX_NOEXCEPT_SPEC { return m_should_run_num != 0; }
 
 	/** テストが成功したかどうか */
-	bool			Passed(void)				const	{ return failed_test_count() == 0 && m_ad_hoc_testresult.Passed(); }
+	bool			Passed(void)				const { return failed_test_count() == 0 && m_ad_hoc_testresult.Passed(); }
 	/** テストが失敗したかどうか */
-	bool			Failed(void)				const	{ return !Passed(); }
+	bool			Failed(void)				const { return !Passed(); }
 
 	/** type param 文字列の取得 */
-	virtual const char*	type_param(void)		const	{ return NULL; }
+	virtual const char*	type_param(void)		const { return NULL; }
 
 	/** TestCase 出力情報の取得 */
 	::std::string testcase_name_with_where(void) const
@@ -248,7 +248,7 @@ protected:
 
 public:
 	/** type param 文字列の取得 */
-	virtual const char*	type_param(void) const IUTEST_CXX_OVERRIDE	{ return m_type_param.empty() ? NULL : m_type_param.c_str(); }
+	virtual const char* type_param(void) const IUTEST_CXX_OVERRIDE { return m_type_param.empty() ? NULL : m_type_param.c_str(); }
 
 private:
 	friend class UnitTestImpl;

@@ -236,7 +236,7 @@ public:
 	SakuraScript(const char* script) : m_script(script) {}
 	SakuraScript(const ::std::string& script) : m_script(script) {}
 public:
-	SakuraScript& Append(const std::string& str)
+	SakuraScript& Append(const ::std::string& str)
 	{
 		m_script.append(str);
 		return *this;
@@ -417,7 +417,7 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestProgramStart(const UnitTest& test)
 		.End();
 }
 IUTEST_IPP_INLINE void SSTPNotifier::OnTestIterationStart(const UnitTest& test
-								  , int iteration)
+								, int iteration)
 {
 	IUTEST_UNUSED_VAR(test);
 	m_sstp.Notify()
@@ -494,9 +494,9 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestCaseEnd(const TestCase& test_case)
 	m_sstp.Notify()
 		.Script(Script( detail::StreamableToString(test_case.name())
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-			+ " テストケースは"	+ FormatBool(test_case.Passed()) + "したよ"
+			+ " テストケースは" + FormatBool(test_case.Passed()) + "したよ"
 #else
-			+ " TestCase is"	+ FormatBool(test_case.Passed()) + "."
+			+ " TestCase is"    + FormatBool(test_case.Passed()) + "."
 #endif
 			+ "(" + detail::StreamableToString(test_case.elapsed_time()) + "ms)").Concat().Ln().ToString())
 		.End();

@@ -33,7 +33,7 @@ class iuPool
 {
 	typedef iuPool<T> _Myt;
 	typedef ::std::vector<T*> pool;
-	pool	m_pool;
+	pool m_pool;
 public:
 	typedef T value_type;
 	typedef T *value_ptr;

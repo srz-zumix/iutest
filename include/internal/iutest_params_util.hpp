@@ -94,7 +94,7 @@ public:
 	/**
 	 * @brief	テストパターンの登録
 	*/
-	void	AddTestPattern(TestInfoData* testinfo)
+	void AddTestPattern(TestInfoData* testinfo)
 	{
 		m_testinfos.push_back(testinfo);
 	};

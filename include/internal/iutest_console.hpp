@@ -120,7 +120,7 @@ private:
 private:
 	static inline bool IsStringEqual(const char* str1, const char* str2) { return strcmp(str1, str2) == 0; }
 
-	static bool	IsColorModeOff(void)
+	static bool IsColorModeOff(void)
 	{
 #if	defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
 		return TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_OFF);
@@ -128,7 +128,7 @@ private:
 		return IUTEST_FLAG(color) == "no";
 #endif
 	}
-	static bool	IsColorModeOn(void)
+	static bool IsColorModeOn(void)
 	{
 #if	defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
 		return TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ON);
@@ -264,6 +264,6 @@ inline bool iuConsole::IsShouldUseColor(bool use_color)
 }	// end of namespace iutest
 
 template<typename T>
-::iutest::detail::iuLogger*	::iutest::detail::iuConsole::Variable<T>::m_pLogger = NULL;
+::iutest::detail::iuLogger* ::iutest::detail::iuConsole::Variable<T>::m_pLogger = NULL;
 
 #endif	// INCG_IRIS_IUTEST_CONSOLE_HPP_DCAC5025_B7BB_424E_A849_9E6FE0A3B460_

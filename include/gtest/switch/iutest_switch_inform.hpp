@@ -264,7 +264,7 @@ namespace inform_support
 			}
 		}
 	};
-	inline void	AppendInformSupportPrinter(void)
+	inline void AppendInformSupportPrinter(void)
 	{
 		// INFORM 用に printer を追加
 		::testing::UnitTest::GetInstance()->listeners().Append( new DefaultPrinter() );

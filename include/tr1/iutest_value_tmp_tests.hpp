@@ -151,8 +151,8 @@ class ValueTmpParamTestInstance
 	class EachTest<detail::TypeList0, DMY>
 	{
 	public:
-		EachTest(const char* /*testcase*/, const char* /*name*/, int /*index*/)	{}
-		void	AddTest(void) {}
+		EachTest(const char* /*testcase*/, const char* /*name*/, int /*index*/) {}
+		void AddTest(void) {}
 	};
 
 public:
@@ -164,7 +164,7 @@ public:
 	}
 
 private:
-	EachTest<TypePrams>	m_tests;
+	EachTest<TypePrams> m_tests;
 };
 
 }	// end of namespace tr1

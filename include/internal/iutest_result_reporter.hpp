@@ -88,7 +88,7 @@ public:
 			TestEnv::SetGlobalTestPartResultReporter(m_origin);
 		}
 	private:
-		TestPartResultReporterInterface*	m_origin;
+		TestPartResultReporterInterface* m_origin;
 	};
 
 public:
@@ -109,7 +109,7 @@ public:
 			_Mybase::ReportTestPartResult(result);
 		}
 	public:
-		int	count(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_count; }
+		int count(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_count; }
 	private:
 		COND m_cond;
 		int m_count;
@@ -119,8 +119,8 @@ public:
 	template<typename REPORTER=DefaultGlobalTestPartResultReporter>
 	class Collector : public Reporter<REPORTER>
 	{
-		typedef REPORTER	_Mybase;
-		typedef ::std::vector<TestPartResult>	TestPartResults;
+		typedef REPORTER _Mybase;
+		typedef ::std::vector<TestPartResult> TestPartResults;
 	public:
 		virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
 		{
@@ -129,7 +129,7 @@ public:
 		}
 	public:
 		size_t count(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_results.size(); }
-		const TestPartResult&	GetTestPartResult(int index) const	{ return m_results[index]; }
+		const TestPartResult& GetTestPartResult(int index) const { return m_results[index]; }
 
 	private:
 		TestPartResults m_results;

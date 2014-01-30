@@ -31,8 +31,8 @@ namespace iutest
 */
 class DefaultXmlGeneratorListener : public EmptyTestEventListener
 {
-	::std::string	m_output_path;
-	IFile*	m_fp;
+	::std::string m_output_path;
+	IFile* m_fp;
 public:
 	/**
 	 * @brief	コンストラクタ
@@ -89,7 +89,7 @@ private:
 	void FileClose(void);
 
 private:
-	static void	OutputXmlCDataSection(IFile* file, const char* data);
+	static void OutputXmlCDataSection(IFile* file, const char* data);
 	static void OutputXmlAttribute(IFile* file, const char* name, const char* value);
 
 private:

@@ -202,7 +202,7 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::GetCurrentDir(void)
 
 IUTEST_IPP_INLINE iuFilePath iuFilePath::GetRelativeCurrentDir(void)
 {
-	std::string dir(".");
+	::std::string dir(".");
 	dir += GetPathSeparator();
 	return iuFilePath(dir);
 }
@@ -240,7 +240,7 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::GetExecFilePath(void)
 
 IUTEST_IPP_INLINE iuFilePath iuFilePath::ConcatPaths(const iuFilePath& directory, const iuFilePath& relative_path)
 {
-	std::string path = directory.RemoveTrailingPathSeparator().c_str();
+	::std::string path = directory.RemoveTrailingPathSeparator().c_str();
 	path += GetPathSeparator();
 	path += relative_path.c_str();
 	return iuFilePath(path);

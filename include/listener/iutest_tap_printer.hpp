@@ -58,7 +58,7 @@ public:
 */
 class TAPFileGeneratorListener : public TAPPrintListener
 {
-	::std::string	m_output_path;
+	::std::string m_output_path;
 public:
 	/**
 	 * @brief	コンストラクタ
