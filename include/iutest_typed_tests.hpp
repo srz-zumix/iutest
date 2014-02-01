@@ -29,9 +29,12 @@
 // define
 
 #if IUTEST_HAS_TYPED_TEST
+/**
+ * @defgroup	TYPED_TEST	型付けテスト
+*/
 
 /**
- * @ingroup	TESTDEF
+ * @ingroup	TYPED_TEST
  * @def		IUTEST_TYPED_TEST_CASE(testcase_, types_)
  * @brief	型付けテストケースの登録
  * @param	testcase_	= テストケース名
@@ -44,7 +47,7 @@
 #endif
 
 /**
- * @ingroup	TESTDEF
+ * @ingroup	TYPED_TEST
  * @def		IUTEST_TYPED_TEST(testcase_, testname_)
  * @brief	型付けテスト関数定義マクロ
  * @param	testcase_	= テストケース名
@@ -53,7 +56,7 @@
 #define IUTEST_TYPED_TEST(testcase_, testname_)		IIUT_TYPED_TEST_(testcase_, testname_)
 
 /**
- * @ingroup	TESTDEF
+ * @ingroup	TYPED_TEST
  * @def		IUTEST_T(testcase_, testname_)
  * @brief	型付けテスト関数定義マクロ
  * @param	testcase_	= テストケース名
@@ -114,9 +117,12 @@
 #endif
 
 #if IUTEST_HAS_TYPED_TEST_P
+/**
+ * @defgroup	TYPE_PARAMETERIZED_TEST	型のパラメータ化テスト
+*/
 
 /**
- * @ingroup	TESTDEF
+ * @ingroup	TYPE_PARAMETERIZED_TEST
  * @def		IUTEST_TYPED_TEST_CASE_P(testcase_)
  * @brief	型パラメータテストケースの登録
  * @param	testcase_	= テストケース名
@@ -124,7 +130,7 @@
 #define IUTEST_TYPED_TEST_CASE_P(testcase_)				IIUT_TYPED_TEST_CASE_P_(testcase_)
 
 /**
- * @ingroup	TESTDEF
+ * @ingroup	TYPE_PARAMETERIZED_TEST
  * @def		IUTEST_TYPED_TEST_P(testcase_, testname_)
  * @brief	型パラメータテスト関数定義マクロ
  * @param	testcase_	= テストケース名
@@ -133,7 +139,7 @@
 #define IUTEST_TYPED_TEST_P(testcase_, testname_)		IIUT_TYPED_TEST_P_(testcase_, testname_)
 
 /**
- * @ingroup	TESTDEF
+ * @ingroup	TYPE_PARAMETERIZED_TEST
  * @def		IUTEST_TP(testcase_, testname_)
  * @brief	型パラメータテスト関数定義マクロ
  * @param	testcase_	= テストケース名
@@ -142,7 +148,7 @@
 #define IUTEST_TP(testcase_, testname_)					IIUT_TYPED_TEST_P_(testcase_, testname_)
 
 /**
- * @ingroup	TESTDEF
+ * @ingroup	TYPE_PARAMETERIZED_TEST
  * @def		IUTEST_REGISTER_TYPED_TEST_CASE_P(testcase_, ...)
  * @brief	型パラメータテスト関数登録マクロ
  * @param	testcase_	= テストケース名
@@ -150,7 +156,7 @@
 #define IUTEST_REGISTER_TYPED_TEST_CASE_P(testcase_, ...)	IIUT_REGISTER_TYPED_TEST_CASE_P_(testcase_, __VA_ARGS__)
 
 /**
- * @ingroup	TESTDEF
+ * @ingroup	TYPE_PARAMETERIZED_TEST
  * @def		IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(prefix_, testcase_, types_)
  * @brief	型パラメータテスト登録マクロ
  * @param	prefix_		= インスタンス名

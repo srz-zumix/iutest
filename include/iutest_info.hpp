@@ -180,7 +180,7 @@ private:
 #if IUTEST_HAS_MINIDUMP
 	void MiniDump(_EXCEPTION_POINTERS* ep);
 #endif
-	void RunOnMSC(detail::auto_ptr<Test>& test);
+	void RunOnMSC(Test* test);
 #endif
 
 private:

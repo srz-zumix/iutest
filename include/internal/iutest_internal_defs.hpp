@@ -162,18 +162,55 @@ inline int GetTypeUniqueCounter(void) { return TypeUniqueCounter<T>::count(); }
  * @internal
  * @brief	auto_ptr
 */
-template<typename TN>
+template<typename T>
 class auto_ptr
 {
-	typedef auto_ptr<TN> _Myt;
-	mutable TN* m_ptr;
+	typedef auto_ptr<T> _Myt;
+	mutable T* m_ptr;
 public:
-	auto_ptr(const _Myt& o) : m_ptr(o.m_ptr) { o.m_ptr = NULL; }
-	auto_ptr(TN* p=NULL) : m_ptr(p) {}
+	auto_ptr(const _Myt& rhs) : m_ptr(rhs.m_ptr) { rhs.m_ptr = NULL; }
+	auto_ptr(T* p=NULL) : m_ptr(p) {}
 	~auto_ptr(void) { if( m_ptr != NULL ) delete m_ptr; }
-	TN* ptr(void) { return m_ptr; }
 
-	TN* operator ->(void) { return m_ptr; }
+	T& operator *  (void) const { return *m_ptr; }
+	T* operator -> (void) const { return m_ptr; }
+
+	T* get(void) { return m_ptr; }
+};
+
+/**
+* @internal
+* @brief	scoped_ptr
+*/
+template<typename T>
+class scoped_ptr
+{
+	T* m_ptr;
+public:
+	scoped_ptr(T* p=NULL) : m_ptr(p) {}
+	~scoped_ptr(void) { reset(); }
+
+	T& operator *  (void) const { return *m_ptr; }
+	T* operator -> (void) const { return m_ptr; }
+
+	T* get(void) const { return m_ptr; }
+	T* release(void)
+	{
+		T* const p = m_ptr;
+		m_ptr = NULL;
+		return p;
+	}
+
+	void reset(T* p=NULL)
+	{
+		if( m_ptr != p )
+		{
+			if( IsTrue(sizeof(T) > 0) ) delete m_ptr;
+			m_ptr = p;
+		}
+	}
+private:
+	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(scoped_ptr);
 };
 
 /**

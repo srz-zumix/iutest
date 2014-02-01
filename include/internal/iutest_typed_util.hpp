@@ -30,7 +30,9 @@ namespace iutest
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 /**
- * @brief	Types
+ * @ingroup	TYPED_TEST TYPE_PARAMETERIZED_TEST
+ * @brief	Type List
+ * @tparam	Args	= 型リスト
  * @{
 */
 #if IUTEST_HAS_VARIADIC_TEMPLATES

@@ -28,7 +28,12 @@
 //======================================================================
 // define
 /**
- * @ingroup	TESTDEF
+ * @defgroup	VALUE_PARAMETERIZED_TEST	値のパラメータ化テスト
+ * @brief		値のパラメータ化テスト
+*/
+
+/**
+ * @ingroup	VALUE_PARAMETERIZED_TEST
  * @def		IUTEST_INSTANTIATE_TEST_CASE_P
  * @brief	パラメータテストインスタンス化マクロ
  * @param	prefix_			= インスタンス名
@@ -39,7 +44,7 @@
 	IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testfixture_, generator_)
 
 /**
- * @ingroup	TESTDEF
+ * @ingroup	VALUE_PARAMETERIZED_TEST
  * @def		IUTEST_P(testfixture_, testname_)
  * @brief	パラメータユーザー指定テスト関数定義マクロ
  * @param	testfixture_	= テストフィクスチャ
@@ -55,7 +60,7 @@
 #if IUTEST_HAS_ANY_PARAM_TEST
 
 /**
- * @ingroup	TESTDEF
+ * @ingroup	VALUE_PARAMETERIZED_TEST
  * @def		IUTEST_INSTANTIATE_TEST_CASE_AP
  * @brief	パラメータテストインスタンス化マクロ
  * @param	prefix_		= インスタンス名
@@ -66,7 +71,7 @@
 	IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, IUTEST_ALIAS_TESTNAME_F(iuTestWithAny, testcase_), generator_)
 
 /**
- * @ingroup	TESTDEF
+ * @ingroup	VALUE_PARAMETERIZED_TEST
  * @def		IUTEST_AP(testcase_, testname_)
  * @brief	パラメータユーザー指定テスト関数定義マクロ
  * @param	testcase_	= テストケース名
@@ -110,7 +115,7 @@
 	static ::iutest::detail::iuIParamGenerator< IUTEST_TO_VARNAME_(testcase_)::ParamType >*	\
 		IUTEST_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)(void) { return generator_; }	\
 		int IUTEST_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)(void) {			\
-			::iutest::ParamTestCaseInfo< IUTEST_TO_VARNAME_(testcase_) >* p =				\
+			::iutest::detail::ParamTestCaseInfo< IUTEST_TO_VARNAME_(testcase_) >* p =		\
 				IIUT_GETTESTCASEPATTERNHOLDER( IUTEST_TO_VARNAME_(testcase_)				\
 					, IUTEST_TO_NAME_STR_(testcase_), IUTEST_GET_PACKAGENAME_());			\
 			return p->AddTestCaseInstantiation(#prefix_, IUTEST_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_));	\
@@ -178,6 +183,7 @@ namespace detail
 //======================================================================
 // class
 /**
+ * @private
  * @brief	パラメータ単体テスト TestInfo 情報インスタンス
 */
 template<typename T>
@@ -231,6 +237,7 @@ private:
 }	// end of namespace detail
 
 /**
+ * @ingroup	PARAMETERIZED_TEST
  * @brief	any パラメータテストフィクスチャ
 */
 class TestWithAny : public Test, public WithParamInterface<any>
@@ -250,6 +257,13 @@ public:
 
 //======================================================================
 // function
+/**
+ * @ingroup		VALUE_PARAMETERIZED_TEST
+ * @defgroup	PARAM_GENERATOR	Parameter Generator
+ * @brief		パラメータ生成器
+ * @detail		IUTEST_INSTANTIATE_TEST_CASE_P に使用可能なパラメータ生成器
+ * @{
+*/
 
 /**
  * @brief	範囲パラメータ
@@ -271,7 +285,7 @@ inline detail::iuParamGenerator<bool> IUTEST_ATTRIBUTE_UNUSED_ Bool(void)
 #if IUTEST_HAS_VALUESGEN
 
 /**
- * @brief	値配列パラメータ
+ * @brief	ユーザー定義ジェネレータ利用パラメータ
 */
 template<typename Generator>
 inline detail::iuValuesParamsGeneratorHolder<Generator> IUTEST_ATTRIBUTE_UNUSED_ ValuesGen(size_t num, const Generator& gen)
@@ -506,10 +520,17 @@ IIUT_DECL_PAIRWISE_(9)
 
 #endif
 
+/**
+ * @}
+*/
+
 }	// end of namespace iutest
 
 #if IUTEST_HAS_ANY_PARAM_TEST
-/** any param test fixture */
+/** 
+ * @ingroup	VALUE_PARAMETERIZED_TEST
+ * @brief	any param test fixture
+*/
 typedef ::iutest::TestWithAny iuTestWithAny;
 #endif
 

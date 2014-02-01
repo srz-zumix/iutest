@@ -132,7 +132,7 @@ private:
 
 #if IUTEST_HAS_EXCEPTIONS
 /**
- * @brief	any_cast の失敗の例外
+ * @brief	any_cast の失敗例外
 */
 class bad_any_cast : public ::std::bad_cast {};
 #endif

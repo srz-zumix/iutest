@@ -190,10 +190,10 @@ private:
 #if IUTEST_HAS_PARAM_TEST
 public:
 	/** @private */
-	ParamTestCaseHolder&	parameterized_test_registry(void) IUTEST_CXX_NOEXCEPT_SPEC { return m_param_testcase_holder; }
+	detail::ParamTestCaseHolder& parameterized_test_registry(void) IUTEST_CXX_NOEXCEPT_SPEC{ return m_param_testcase_holder; }
 
 private:
-	ParamTestCaseHolder	m_param_testcase_holder;
+	detail::ParamTestCaseHolder	m_param_testcase_holder;
 #endif
 
 private:

@@ -59,7 +59,7 @@ IUTEST_IPP_INLINE void TestInfo::RunImpl(void)
 		{
 			sw.start();
 #if IUTEST_HAS_SEH
-			RunOnMSC(p);
+			RunOnMSC(p.get());
 #else
 			p->Run(&m_mediator);
 #endif
@@ -134,7 +134,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 #endif
 
-IUTEST_IPP_INLINE void TestInfo::RunOnMSC(detail::auto_ptr<Test>& test)
+IUTEST_IPP_INLINE void TestInfo::RunOnMSC(Test* test)
 {
 	_EXCEPTION_POINTERS* ep = NULL;
 	__try

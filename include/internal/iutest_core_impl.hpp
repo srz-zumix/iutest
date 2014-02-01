@@ -28,6 +28,7 @@ namespace iutest
 
 //======================================================================
 // class
+/** @private */
 class UnitTestImpl
 {
 protected:

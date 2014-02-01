@@ -23,7 +23,8 @@
 
 #if IUTEST_HAS_PARAM_TEST
 
-namespace iutest
+namespace iutest {
+namespace detail
 {
 
 //======================================================================
@@ -117,7 +118,7 @@ public:
 			for( typename InstantiationContainer::const_iterator gen_it=m_instantiation.begin(), gen_end=m_instantiation.end(); gen_it != gen_end; ++gen_it )
 			{
 				// パラメータ生成器の作成
-				detail::auto_ptr<ParamGenerator> p = (gen_it->second)();
+				detail::scoped_ptr<ParamGenerator> p = (gen_it->second)();
 
 				::std::string testcase_name = m_package_name;
 				if( !gen_it->first.empty() )
@@ -131,7 +132,7 @@ public:
 					, Tester::SetUpTestCase
 					, Tester::TearDownTestCase);
 
-				if( p.ptr() != NULL )
+				if( p.get() != NULL )
 				{
 					int i=0;
 					for( p->Begin(); !p->IsEnd(); p->Next() )
@@ -207,6 +208,7 @@ private:
 	TestCaseInfoContainer m_testcase_infos;
 };
 
+}	// end of namespace detail
 }	// end of namespace iutest
 
 #endif

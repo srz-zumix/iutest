@@ -459,10 +459,10 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 }	// end of namespace detail
 
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
-typedef ::std::ostream					iu_ostream;
+typedef ::std::ostream iu_ostream;
 typedef ::std::ostream& (*iu_basic_iomanip)(::std::ostream&);
 #else
-typedef detail::iuStringStream::type	iu_ostream;
+typedef detail::iuStringStream::type iu_ostream;
 #endif
 
 }	// end of namespace iutest
