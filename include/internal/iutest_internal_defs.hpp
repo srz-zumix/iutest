@@ -86,6 +86,29 @@ namespace detail
 typedef void void_t;	// default template 引数用 (一部のコンパイラで = void だエラーになるため)
 
 //======================================================================
+// function
+
+/**
+ * @brief	true を返す(警告対策用)
+*/
+inline bool AlwaysTrue(void) { return true; }
+
+/**
+ * @brief	false を返す(警告対策用)
+*/
+inline bool AlwaysFalse(void) { return !AlwaysTrue(); }
+
+/**
+ * @brief	0 を返す(警告対策用)
+*/
+inline int  AlwaysZero(void) { return 0; }
+
+/**
+* @brief	真偽値を返す(警告対策用)
+*/
+inline bool IsTrue(bool b) { return b; }
+
+//======================================================================
 // class
 
 // detail から使えるようにする
@@ -355,29 +378,6 @@ GeTypeNameSpecialization(bool)
 #  define IUTEST_IF_EXISTS(identifier_, statement_)
 #  define IUTEST_IF_NOT_EXISTS(identifier_, statement_)
 #endif
-
-//======================================================================
-// function
-
-/**
- * @brief	true を返す(警告対策用)
-*/
-inline bool AlwaysTrue(void) { return true; }
-
-/**
- * @brief	false を返す(警告対策用)
-*/
-inline bool AlwaysFalse(void) { return !AlwaysTrue(); }
-
-/**
- * @brief	0 を返す(警告対策用)
-*/
-inline int  AlwaysZero(void) { return 0; }
-
-/**
-* @brief	真偽値を返す(警告対策用)
-*/
-inline bool IsTrue(bool b) { return b; }
 
 }	// end of namespace detail
 }	// end of namespace iutest

@@ -118,7 +118,7 @@ public:
 			for( typename InstantiationContainer::const_iterator gen_it=m_instantiation.begin(), gen_end=m_instantiation.end(); gen_it != gen_end; ++gen_it )
 			{
 				// パラメータ生成器の作成
-				detail::scoped_ptr<ParamGenerator> p = (gen_it->second)();
+				detail::scoped_ptr<ParamGenerator> p((gen_it->second)());
 
 				::std::string testcase_name = m_package_name;
 				if( !gen_it->first.empty() )
@@ -203,7 +203,7 @@ private:
 		::std::for_each(m_testcase_infos.begin(), m_testcase_infos.end(), RegisterTestsFunctor());
 	}
 private:
-	friend class UnitTest;
+	friend class ::iutest::UnitTest;
 	typedef ::std::vector<IParamTestCaseInfo*> TestCaseInfoContainer;
 	TestCaseInfoContainer m_testcase_infos;
 };
