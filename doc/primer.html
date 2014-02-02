@@ -166,7 +166,7 @@ IUTEST(Hoge, ThrowValue)
       <br />
       </li>
 
-      <li><a name="ext_test_return" id="org_test_return">戻り値のある関数での ASSERT 使用</a><br />
+      <li><a name="ext_test_return" id="ext_test_return">戻り値のある関数での ASSERT 使用</a><br />
       基本的に IUTEST_ASSERT_* マクロは return 文でテストの中断を行なっています。<br />
       そのため、戻り値の型が void でない関数では、IUTEST_ASSERT_* は使用できませんでした。<br />
       iutest では ::iutest::AssertionReturn を使用することで、明示的に IUTEST_ASSERT_* マクロの戻り値型を変更できます。<br />
@@ -272,7 +272,7 @@ IUTEST(NullCheck, Sample)
 <pre class="source">
 void TestFunction(int x, int y)
 {
-	IUTEST_ASSERT_EQ(x, y);
+    IUTEST_ASSERT_EQ(x, y);
 }
 IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 0, 0);
 IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 1, 1);</pre>
@@ -281,12 +281,12 @@ IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 1, 1);</pre>
 
       <li><a name="org_test_anyparam" id="org_test_anyparam">IUTEST_AP</a><br />
       IUTEST_AP は IUTEST_P とほぼ同じマクロです。<br />
-      IUTEST_P と違う点は、テストフィクスチャの定義が省略できるところです。<br >
+      IUTEST_P と違う点は、テストフィクスチャの定義が省略できるところです。<br />
 <pre class="source">
-//class AnyParamtest : public ::iutest::TestWithParam<int> {}; // 不要
+//class AnyParamtest : public ::iutest::TestWithParam&lt;int&gt; {}; // 不要
 IUTEST_AP(AnyParamTest, Test)
 {
-    const int value = GetParam<int>();
+    const int value = GetParam&lt;int&gt;();
     IUTEST_ASSERT_EQ(0, value);
 }
 
@@ -319,9 +319,9 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
       また、特定の値を除いた乱数をパラメータにするなどフィルタリングにも対応しています。<br />
       この場合、::iutest::ValuesGen と ::iutest::RandomGenerator を使用します。<br />
 <pre class="source">
-bool Filter(int n) { return n != 100 && n != 500 && n != 1000; }
+bool Filter(int n) { return n != 100 &amp;&amp; n != 500 &amp;&amp; n != 1000; }
 IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
-     , ::iutest::ValuesGen( 5,  ::iutest::RandomGenerator<int>(&Filter) ) );</pre>
+     , ::iutest::ValuesGen( 5,  ::iutest::RandomGenerator&lt;int&gt;(&amp;Filter) ) );</pre>
       <br />
       ※ これらのジェネレータは補助的なジェネレータです。ValuesIn に乱数を格納した vector などのコンテナを渡すことで実現可能です。<br />
       <br />

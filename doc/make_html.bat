@@ -1,5 +1,6 @@
 @echo off
-doxygen.exe Doxyfile
+
+make
 if errorlevel 1 goto error
 
 goto :EOF
