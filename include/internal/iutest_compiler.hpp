@@ -48,9 +48,9 @@
 #  endif
 #elif	defined(__APPLE__)
 #  include "TargetConditionals.h"
-#  ifdef TARGET_OS_IPHONE
+#  if TARGET_OS_IPHONE
 #    define IUTEST_OS_IOS				1
-#    ifdef TARGET_IPHONE_SIMULATOR
+#    if TARGET_IPHONE_SIMULATOR
 #      define IUTEST_OS_IOS_SIMULATOR	1
 #      define IUTEST_PLATFORM			"iOS Simulator"
 #    else

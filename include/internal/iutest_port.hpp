@@ -25,7 +25,7 @@
 
 #include "iutest_internal_defs.hpp"
 
-#if defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN)
+#if defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_MAC)
 #  include <unistd.h>
 #  include <locale.h>
 #endif
