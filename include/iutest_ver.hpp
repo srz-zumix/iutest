@@ -19,11 +19,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01080005u	//!< iutest version 1.8.0.5
+#define	IUTEST_VER			0x01080006u	//!< iutest version 1.8.0.6
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x08u		//!< Minor Version
 #define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x05u		//!< Revision
+#define IUTEST_REVISION		0x06u		//!< Revision
 
 /**
  * @mainpage
@@ -115,6 +115,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <li>v1.8.1.0
     <ul>
       <li>SetUp/SetUpTestCase での SKIP/ASSUME に対応</li>
+      <li>MAC OS 判定、ビルドエラー修正</li>
       <li>バグ修正</li>
     </ul>
   </li>
