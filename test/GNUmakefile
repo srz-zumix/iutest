@@ -18,7 +18,6 @@ CXXFLAGS += -g -Wall -Wextra $(OPTIMIZE)
 ifdef _DEBUG
 CXXFLAGS += -ggdb
 endif
-
 ifdef OUTPUTXML
 CXXFLAGS +=-DOUTPUTXML
 endif
@@ -35,6 +34,11 @@ ifeq ($(findstring clang, $(CXX)),clang)
 else
 
 ifeq ($(CXX),g++)
+
+ifdef USE_COVERAGE
+COVERAGE = coveralls
+CXXFLAGS += -coverage
+endif
 
 #
 # GCC version
@@ -98,8 +102,9 @@ TARGETS = $(BUILD_TARGETS)
 SRCS   = $(BUILD_TARGETS:%=%.cpp)
 RUNNER = $(RUN_TARGETS:%=run_%)
 
-
+#
 # build targets.
+#
 
 .PHONY: clean default all run test
 
@@ -111,6 +116,9 @@ clean :
 	$(RM) $(TARGETS) *.o *.stackdump
 ifdef OUTPUTXML
 	$(RM) *.xml
+endif
+ifdef COVERAGE
+	$(RM) *.gcov *.gcno *.gcda
 endif
 
 run : test
@@ -125,6 +133,12 @@ ifdef OUTPUTXML
 	./$< $(RUN_OPTION) --iutest_output=xml:$<.xml
 else
 	./$< $(RUN_OPTION)
+endif
+
+# coverage
+send-coverage:
+ifdef COVERAGE
+	$(COVERAGE) -e test
 endif
 
 # Builds a sample test.  
