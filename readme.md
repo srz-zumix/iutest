@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/srz-zumix/iutest.png?branch=master)](https://travis-ci.org/srz-zumix/iutest)
+
 iutest
 ==========
 iutest - iris unit test framework
