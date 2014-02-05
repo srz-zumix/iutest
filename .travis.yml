@@ -40,7 +40,7 @@ env:
     - STDFLAG=-std=c++98
     - STDFLAG=-std=c++0x
     - USE_COVERAGE=1
-    - COVERITY_SCAN=1
+    #- COVERITY_SCAN=1
 
 matrix:
   exclude:

@@ -139,7 +139,7 @@ endif
 send-coverage:
 ifdef COVERAGE
 	gcov *.gcda
-	$(COVERAGE) -n -e test
+	$(COVERAGE) -n
 #	$(COVERAGE) --gcov-options=-l -e test
 endif
 
