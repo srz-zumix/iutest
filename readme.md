@@ -14,19 +14,16 @@ XML test report, inform- and assume- flavor, and japanese test name, etc...
 Documentation
 --------------------------------------------------
 
-doc/index.html
-
-[online document](http://iutest.sourceforge.jp/doc/index.html)
+doc/index.html  
+[online document](http://iutest.sourceforge.jp/doc/index.html)  
 
 
 Project page
 --------------------------------------------------
 
-[Project page](http://iutest.sourceforge.jp/)
-
-[Github](https://github.com/srz-zumix/iutest)
-
-[Google Group](https://groups.google.com/forum/?fromgroups#!forum/g-iutest)
+[Project page](http://iutest.sourceforge.jp/)  
+[Github](https://github.com/srz-zumix/iutest)  
+[Google Group](https://groups.google.com/forum/?fromgroups#!forum/g-iutest)  
 
     
 License
