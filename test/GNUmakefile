@@ -138,7 +138,7 @@ endif
 # coverage
 send-coverage:
 ifdef COVERAGE
-	$(COVERAGE) -e test
+	cd ../; $(COVERAGE) -e test
 endif
 
 # Builds a sample test.  

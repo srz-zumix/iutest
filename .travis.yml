@@ -20,7 +20,7 @@ script:
 
 after_success:
   # Coverage
-  - if [ "${USE_COVERAGE}" = '1' ]; then cd ./test; make send-coverage; fi
+  - if [ "${USE_COVERAGE}" = '1' ]; then make send-coverage; fi
 
 env:
   global:
@@ -28,7 +28,7 @@ env:
     - STANDARD_BUILD_COMMAND="cd ./test; make showcxxversion all;"
     # Coverity Env
     - COVERITY_SCAN_BUILD_COMMAND_PREPEND="cd ./test"
-    - COVERITY_SCAN_BUILD_COMMAND="make;"
+    - COVERITY_SCAN_BUILD_COMMAND="make"
     - COVERITY_SCAN_BRANCH_PATTERN="master"
     - COVERITY_SCAN_BUILD_URL="https://scan.coverity.com/scripts/travisci_build_coverity_scan.sh"
     - COVERITY_SCAN_BUILD="curl -s $COVERITY_SCAN_BUILD_URL | bash"
