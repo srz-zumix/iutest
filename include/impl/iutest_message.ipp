@@ -50,7 +50,7 @@ IUTEST_IPP_INLINE ::std::string FormatFileLocation(const char* file, int line)
 	const char* const file_name = file == NULL ? kStrings::UnkownFile : file;
 	if( line < 0 )
 	{
-		return file;
+		return file_name;
 	}
 	iuStringStream::type strm;
 	if( TestFlag::IsEnableFlag(TestFlag::FILELOCATION_STYLE_MSVC) )
@@ -69,7 +69,7 @@ IUTEST_IPP_INLINE ::std::string FormatCompilerIndependentFileLocation(const char
 	const char* const file_name = file == NULL ? kStrings::UnkownFile : file;
 	if( line < 0 )
 	{
-		return file;
+		return file_name;
 	}
 	iuStringStream::type strm;
 	strm << file_name << ":" << line;
