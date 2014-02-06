@@ -1,4 +1,4 @@
-//{{NO_DEPENDENCIES}}
+ï»¿//{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
 // Used by iutest_windows_sample.rc
 //
@@ -17,7 +17,7 @@
 #ifndef IDC_STATIC
 #define IDC_STATIC				-1
 #endif
-// V‚µ‚¢ƒIƒuƒWƒFƒNƒg‚ÌŸ‚ÌŠù’è’l
+// æ–°ã—ã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æ¬¡ã®æ—¢å®šå€¤
 //
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS

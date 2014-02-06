@@ -138,9 +138,7 @@ endif
 # coverage
 send-coverage:
 ifdef COVERAGE
-	gcov *.gcda
-	$(COVERAGE) -n
-#	$(COVERAGE) --gcov-options=-l -e test
+	gcov -r *.gcda; cd ../; $(COVERAGE) -n -r ./ -E ".*/test/.*" -e doc -e projects
 endif
 
 # Builds a sample test.  

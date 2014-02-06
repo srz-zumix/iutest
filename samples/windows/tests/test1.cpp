@@ -1,4 +1,4 @@
-#include <stdafx.h>
+﻿#include <stdafx.h>
 
 IUTEST_TEST(TestCase1, Test1)
 {

@@ -75,7 +75,7 @@ public:
 	 * @brief	メッセージ追加
 	*/
 	template<typename T>
-	AssertionResult& operator << (T value)
+	AssertionResult& operator << (const T& value)
 	{
 		Message msg;
 		msg << value;
