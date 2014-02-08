@@ -49,5 +49,5 @@ addons:
       description: "iutest c++ testing framework"
     notification_email: zumix.cpp@gmail.com
     build_command_prepend: cd ./test
-    build_command:make
+    build_command: make
     branch_pattern: master
