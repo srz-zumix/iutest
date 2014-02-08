@@ -16,7 +16,8 @@ before_install:
 # - sudo apt-get -qq install clang-3.5
 
 script:
-  - if [ "${COVERITY_SCAN}" = '1' ]; then eval "$COVERITY_SCAN_BUILD"; else eval "$STANDARD_BUILD_COMMAND"; fi
+  cd ./test
+  make showcxxversion all
 
 after_success:
   # Coverage
@@ -30,11 +31,9 @@ env:
     - STDFLAG=-std=c++98
     - STDFLAG=-std=c++0x
     - USE_COVERAGE=1
-    - COVERITY_SCAN=1
 
   allow_failures:
     - USE_COVERAGE=1
-    - COVERITY_SCAN=1
 
 matrix:
   exclude:
@@ -49,6 +48,6 @@ addons:
       name: "srz-zumix/iutest"
       description: "iutest c++ testing framework"
     notification_email: zumix.cpp@gmail.com
-    build_command_prepend: "cd ./test"
+    build_command_prepend: cd ./test
     build_command:make
     branch_pattern: master
