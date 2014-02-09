@@ -54,4 +54,4 @@ matrix:
           notification_email: zumix.cpp@gmail.com
           build_command_prepend: cd ./test
           build_command: make
-          branch_pattern: master
+          branch_pattern: coverity_scan
