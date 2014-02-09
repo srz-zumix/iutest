@@ -44,7 +44,7 @@ matrix:
       env: USE_COVERAGE=1
     - compiler: clang
       env: COVERITY_SCAN=1
-  include
+  include:
     - compiler: gcc
       env: COVERITY_SCAN=1
       addons:
