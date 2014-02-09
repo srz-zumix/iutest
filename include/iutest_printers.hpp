@@ -135,7 +135,7 @@ void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
 //======================================================================
 // declare
 template<typename T>
-inline void UniversalPrintTo(T value, iu_ostream* os);
+inline void UniversalPrintTo(const T& value, iu_ostream* os);
 
 //======================================================================
 // class
@@ -478,7 +478,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const wchar_t* begin, s
 
 /** @private */
 template<typename T>
-inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(T value, iu_ostream* os) { PrintTo(value, os); }
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(const T& value, iu_ostream* os) { PrintTo(value, os); }
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 

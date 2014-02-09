@@ -183,6 +183,8 @@ private:
 		U* m_ptr;
 	public:
 		explicit peep_member_object_impl(U* ptr) : m_ptr(ptr) {}
+	private:
+		peep_member_object_impl(const _Myt&);
 	public:
 		operator value_type (void) const { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
 	};
@@ -195,6 +197,8 @@ private:
 		U* m_ptr;
 	public:
 		explicit peep_member_object_impl(U* ptr) : m_ptr(ptr) {}
+	private:
+		peep_member_object_impl(const _Myt&);
 	public:
 		operator value_type (void) const { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
 		operator value_type& (void) { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }

@@ -1,8 +1,8 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_help_tests.cpp
- * @brief		help 対応テスト
+ * @file		iutest_commandline_tests.cpp
+ * @brief		CommandLine 対応テスト
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -25,6 +25,13 @@ IUTEST(Foo, NotRun)
 }
 
 #ifdef UNICODE
+#  define DECAL_ARGV(cmd) const wchar_t* targv[] = { argv[0], L cmd }
+#else
+#  define DECAL_ARGV(cmd) const char*    targv[] = { argv[0],   cmd }
+#endif
+
+
+#ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
 int main(int argc, char* argv[])
@@ -32,18 +39,29 @@ int main(int argc, char* argv[])
 {
 	(void)argc;
 	int targc = 2;
-#ifdef UNICODE
-	const wchar_t* targv[] = {
-		argv[0]
-		, L"--help"
-	};
-#else
-	const char* targv[] = {
-		argv[0]
-		, "--help"
-	};
+	{
+		DECAL_ARGV("--help");
+		IUTEST_INIT(&targc, targv);
+		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
+	}
+	{
+		DECAL_ARGV("--version");
+		IUTEST_INIT(&targc, targv);
+		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
+	}
+#if !defined(USE_GTEST)
+	{
+		DECAL_ARGV("--feature");
+		IUTEST_INIT(&targc, targv);
+		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
+	}
+	{
+		::std::vector< ::std::string > argv;
+		argv.push_back("--feature");
+		::iutest::InitIrisUnitTest(argv);
+		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
+	}
 #endif
-	IUTEST_INIT(&targc, targv);
-	return IUTEST_RUN_ALL_TESTS();
+	return 0;
 }
 

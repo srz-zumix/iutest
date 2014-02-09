@@ -162,9 +162,12 @@ IUTEST(ProdTest, StaticPeep)
 	IUTEST_EXPECT_EQ(5, ProdClass::GetY());
 	prod_class_y *= 2;
 	IUTEST_EXPECT_EQ(10, ProdClass::GetY());
-	IUTEST_PEEP(ProdClass, m_y)(1);
 
+	IUTEST_PEEP(ProdClass, m_y)(1);
 	IUTEST_EXPECT_EQ(1, prod_class_y);
+
+	IUTEST_PEEP(ProdClass, m_y) prod_class_y2 = 2;
+	IUTEST_EXPECT_EQ(2, prod_class_y2);
 }
 
 #if IUTEST_HAS_PEEP_FUNC
