@@ -16,8 +16,7 @@ before_install:
 # - sudo apt-get -qq install clang-3.5
 
 script:
-  cd ./test
-  make showcxxversion all
+  - if [ "${COVERITY_SCAN}" = '1' ]; then eval "$COVERITY_SCAN_BUILD"; else eval "$STANDARD_BUILD_COMMAND"; fi
 
 after_success:
   # Coverage
@@ -25,15 +24,28 @@ after_success:
 
 env:
   global:
+    # Default Build Command
+    - STANDARD_BUILD_COMMAND="cd ./test; make showcxxversion all;"
+    # Coverity Env
+    - COVERITY_SCAN_BUILD_COMMAND_PREPEND="cd ./test"
+    - COVERITY_SCAN_BUILD_COMMAND="make"
+    - COVERITY_SCAN_BRANCH_PATTERN="master"
+    - COVERITY_SCAN_BUILD_URL="https://scan.coverity.com/scripts/travisci_build_coverity_scan.sh"
+    - COVERITY_SCAN_BUILD="curl -s $COVERITY_SCAN_BUILD_URL | bash"
+    - PROJECT_NAME="srz-zumix/iutest"
+    - OWNER_EMAIL="zumix.cpp@gmail.com"
+    # COVERITY_SCAN_TOKEN
     - secure: "p7jyD2o54mCPQg+3ZSo03/P9G5HJdgZWZ80LQG6Dt4PfNzxBcJWTM4eSZUX+HCe5jTICC7FsDLbucwJUKb5EsXyqvny3QlGp4bvB8OWN8IbroaqpR8s4qVJLzpR9UOGhn+St3dVRZ0y9g9Vjr2/8gknwzqexAwslpGaOLohHZ/0="
 
   matrix:
     - STDFLAG=-std=c++98
     - STDFLAG=-std=c++0x
     - USE_COVERAGE=1
+    - COVERITY_SCAN=1
 
   allow_failures:
     - USE_COVERAGE=1
+    - COVERITY_SCAN=1
 
 matrix:
   exclude:
@@ -42,12 +54,13 @@ matrix:
     - compiler: clang
       env: COVERITY_SCAN=1
 
-addons:
-  coverity_scan:
-    project:
-      name: "srz-zumix/iutest"
-      description: "iutest c++ testing framework"
-    notification_email: zumix.cpp@gmail.com
-    build_command_prepend: cd ./test
-    build_command: make
-    branch_pattern: master
+#addons:
+#  coverity_scan:
+#    project:
+#      name: "srz-zumix/iutest"
+#      description: "iutest c++ testing framework"
+#    notification_email: zumix.cpp@gmail.com
+#    build_command_prepend: cd ./test
+#    build_command: make
+#    branch_pattern: master
+#
