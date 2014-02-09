@@ -18,9 +18,6 @@ CXXFLAGS += -g -Wall -Wextra $(OPTIMIZE)
 ifdef _DEBUG
 CXXFLAGS += -ggdb
 endif
-ifdef OUTPUTXML
-CXXFLAGS +=-DOUTPUTXML
-endif
 
 ifeq ($(findstring clang, $(CXX)),clang)
 
@@ -37,6 +34,7 @@ ifeq ($(CXX),g++)
 
 ifdef USE_COVERAGE
 COVERAGE = coveralls
+OUTPUTXML = yes
 CXXFLAGS += -coverage
 endif
 
@@ -78,6 +76,10 @@ STDFLAG =
 
 endif
 
+endif
+
+ifdef OUTPUTXML
+CXXFLAGS +=-DOUTPUTXML
 endif
 
 CXXFLAGS += $(DEFS) $(STDFLAG)
@@ -139,7 +141,7 @@ endif
 send-coverage:
 ifdef COVERAGE
 	gcov -v
-	gcov *.gcda; cd ../; $(COVERAGE) --verbose -n -r ./ -E ".*/test/.*" -e doc -e projects -e samples -e tools
+	gcov *.gcda; cd ../; $(COVERAGE) --verbose -n -r ./ -E ".*/test/.*" -E ".*/include/tr1/.*" -E ".*/include/gtest/.*" -E ".*/include/iutest_ver.hpp" -e doc -e projects -e samples -e tools
 endif
 
 # Builds a sample test.  

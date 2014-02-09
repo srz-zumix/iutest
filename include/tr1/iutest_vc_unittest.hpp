@@ -147,7 +147,7 @@ IUTEST_MAKE_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, ::iutes
 				IUTEST_PEEP_GET(*testinfo, ::iutest::TestInfo, m_factory);				\
 			::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(factory);	\
 			::iutest::detail::auto_ptr< ::iutest::Test > p = factory->Create();			\
-			::iuutil::VisualStudio::Test* tester = static_cast< ::iuutil::VisualStudio::Test*>(p.ptr());	\
+			::iuutil::VisualStudio::Test* tester = static_cast< ::iuutil::VisualStudio::Test*>(p.get());	\
 			OnTestStart(testcase_name, #testname_);										\
 			tester->SetUp(); tester->Body(); tester->TearDown();						\
 			OnTestEnd(testcase_name, #testname_);										\
@@ -181,7 +181,7 @@ IUTEST_MAKE_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, ::iutes
 				IUTEST_PEEP_GET(*testinfo, ::iutest::TestInfo, m_factory);					\
 			::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(factory);	\
 			::iutest::detail::auto_ptr< ::iutest::Test > p = factory->Create();				\
-			::iuutil::VisualStudio::Test* tester = static_cast< ::iuutil::VisualStudio::Test*>(p.ptr());	\
+			::iuutil::VisualStudio::Test* tester = static_cast< ::iuutil::VisualStudio::Test*>(p.get());	\
 			OnTestStart(testcase_name, #testname_);										\
 			tester->SetUp(); tester->Body(); tester->TearDown();						\
 			OnTestEnd(testcase_name, #testname_);										\
