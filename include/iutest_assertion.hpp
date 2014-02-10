@@ -23,17 +23,21 @@
 #include "iutest_printers.hpp"
 #include "internal/iutest_list.hpp"
 
-namespace iutest_report_result
-{
-	//! TestPartResultReporter がない場合の処理関数
-	void ReportTestPartResult(const ::iutest::TestPartResult& test_part_result);
-}
-
 namespace iutest
 {
 
+//======================================================================
+// typedef
 //! Message クラス
 typedef detail::iuStreamMessage	Message;
+
+//======================================================================
+// declare
+namespace detail
+{
+	//! TestPartResultReporter がない場合の処理関数
+	void DefaultReportTestPartResult(const TestPartResult& test_part_result);
+}
 
 //======================================================================
 // class
@@ -302,8 +306,7 @@ private:
 		}
 		else
 		{
-			using namespace iutest_report_result;
-			ReportTestPartResult(m_part_result);
+			detail::DefaultReportTestPartResult(m_part_result);
 		}
 
 		if( m_part_result.type() != TestPartResult::kSuccess

@@ -36,7 +36,19 @@ public:
 	virtual ~DefaultGlobalTestPartResultReporter(void) {}
 	virtual void ReportTestPartResult(const TestPartResult& test_part_result)
 	{
-		UnitTestImpl::current_test_result()->AddTestPartResult(test_part_result);
+		DefaultReportTestPartResult(test_part_result);
+	}
+	static void DefaultReportTestPartResult(const TestPartResult& test_part_result)
+	{
+		TestResult* result = UnitTestImpl::current_test_result();
+		if( result )
+		{
+			result->AddTestPartResult(test_part_result);
+		}
+		else
+		{
+			iuConsole::output(test_part_result.make_newline_message().c_str());
+		}
 		TestEnv::event_listeners().OnTestPartResult(test_part_result);
 	}
 };
@@ -136,20 +148,17 @@ public:
 	};
 };
 
+//======================================================================
+// function
+/**
+* @brief	TestPartResult リポーター
+*/
+inline void DefaultReportTestPartResult(const TestPartResult& test_part_result)
+{
+	DefaultGlobalTestPartResultReporter::DefaultReportTestPartResult(test_part_result);
+}
+
 }	// end of namespace detail
 }	// end of namespace iutest
-
-namespace iutest_report_result
-{
-
-/**
-	* @brief	TestPartResult リポーター
-*/
-inline void ReportTestPartResult(const ::iutest::TestPartResult& test_part_result)
-{
-	::iutest::detail::iuConsole::output(test_part_result.make_newline_message().c_str());
-}
-
-}
 
 #endif	// INCG_IRIS_IUTEST_RESULT_REPORTER_HPP_803FD1F7_1FD2_4D1E_9AFC_A5851284316F_

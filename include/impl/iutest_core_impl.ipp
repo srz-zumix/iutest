@@ -26,10 +26,14 @@ namespace iutest
 
 IUTEST_IPP_INLINE TestResult* UnitTestImpl::current_test_result(void)
 {
-	UnitTestImpl* p = ptr();
 	if( Test::GetCurrentTestInfo() )
 	{
 		return &(Test::GetCurrentTest()->m_test_info->ptr()->m_test_result);
+	}
+	UnitTestImpl* p = ptr();
+	if( p == NULL )
+	{
+		return NULL;
 	}
 	if( p->m_current_testcase != NULL )
 	{

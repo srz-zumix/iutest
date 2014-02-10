@@ -230,11 +230,6 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce(void)
 		sw.start();
 		for( iuTestCases::iterator it=m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
 		{
-			if( !(it)->should_run() )
-			{
-				continue;
-			}
-
 			m_current_testcase = it;
 			(it)->Run();
 			m_current_testcase = NULL;

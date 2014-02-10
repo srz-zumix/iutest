@@ -29,7 +29,7 @@ namespace iutest
 */
 IUTEST_IPP_INLINE bool TestInfo::Run(void)
 {
-	if( !m_should_run )
+	if( !should_run() )
 	{
 		return true;
 	}

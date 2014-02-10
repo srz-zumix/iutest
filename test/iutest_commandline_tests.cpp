@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
 		IUTEST_INIT(&targc, targv);
 		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
 	}
-#if !defined(USE_GTEST)
+#if !defined(IUTEST_USE_GTEST)
 	{
 		DECAL_ARGV("--feature");
 		IUTEST_INIT(&targc, targv);

@@ -304,7 +304,8 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnviromentVariable(void)
 IUTEST_IPP_INLINE void TestEnv::SetUp(void)
 {
 	unsigned int seed = get_random_seed();
-	if( seed == 0 )
+	if( (seed == 0)
+		|| (get_vars().m_current_random_seed != 0 && TestFlag::IsEnableFlag(TestFlag::SHUFFLE_TESTS)) )
 	{
 		const unsigned int gen_seeed = detail::GetIndefiniteValue();
 		if( get_vars().m_current_random_seed == gen_seeed

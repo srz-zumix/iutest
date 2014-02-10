@@ -37,6 +37,10 @@ int main(int argc, char* argv[])
 {
 	IUTEST_INIT(&argc, argv);
 #if IUTEST_HAS_EXCEPTIONS
+#if defined(OUTPUTXML)
+	// 失敗テストを含むので xml 出力しない
+	::iutest::IUTEST_FLAG(output) = NULL;
+#endif
 	if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
 #else
 	if( IUTEST_RUN_ALL_TESTS() ) return 1;

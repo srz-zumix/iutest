@@ -95,8 +95,7 @@ IUTEST_IPP_INLINE bool TestCase::RunImpl(void)
 		for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
 		{
 			// 実行
-			if( (it)->should_run()
-				&& !(it)->Run() )
+			if( !(it)->Run() )
 			{
 				result = false;
 			}
