@@ -353,17 +353,17 @@ private:
 	*/
 	static const char* get_color_option(void)
 	{
-		if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_OFF) )
+		if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ANSI) )
 		{
-			return "no";
+			return "ansi";
 		}
 		else if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ON) )
 		{
 			return "yes";
 		}
-		else if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ANSI) )
+		else if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_OFF) )
 		{
-			return "ansi";
+			return "no";
 		}
 		return "auto";
 	}
