@@ -329,16 +329,16 @@ IUTEST_IPP_INLINE bool TestEnv::ParseColorOption(const char* option)
 
 	if( IsYes(option) )
 	{
-		TestFlag::SetFlag(TestFlag::CONSOLE_COLOR_ON, ~TestFlag::CONSOLE_COLOR_OFF);
+		TestFlag::SetFlag(TestFlag::CONSOLE_COLOR_ON, ~(TestFlag::CONSOLE_COLOR_OFF|TestFlag::CONSOLE_COLOR_ANSI));
 	}
 	else if( IsNo(option) )
 	{
-		TestFlag::SetFlag(TestFlag::CONSOLE_COLOR_OFF, ~TestFlag::CONSOLE_COLOR_ON);
+		TestFlag::SetFlag(TestFlag::CONSOLE_COLOR_OFF, ~(TestFlag::CONSOLE_COLOR_ON|TestFlag::CONSOLE_COLOR_ANSI));
 	}
 	else if( detail::IsStringCaseEqual(option, "auto") )
 	{
 		// auto
-		TestFlag::SetFlag(0, ~(TestFlag::CONSOLE_COLOR_ON|TestFlag::CONSOLE_COLOR_OFF));
+		TestFlag::SetFlag(0, ~(TestFlag::CONSOLE_COLOR_ON|TestFlag::CONSOLE_COLOR_OFF|TestFlag::CONSOLE_COLOR_ANSI));
 	}
 	else if( detail::IsStringCaseEqual(option, "ansi") )
 	{

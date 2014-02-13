@@ -38,31 +38,55 @@ int main(int argc, char* argv[])
 #endif
 {
 	(void)argc;
-	int targc = 2;
+#if defined(OUTPUTXML)
+	// 実行対象テストがないので xml 出力しない
+	::iutest::IUTEST_FLAG(output) = NULL;
+#endif
+
 	{
+		int targc = 2;
 		DECAL_ARGV("--help");
 		IUTEST_INIT(&targc, targv);
-		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
-	}
-	{
-		DECAL_ARGV("--version");
-		IUTEST_INIT(&targc, targv);
+		IUTEST_EXPECT_EQ(1, targc);
 		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
 	}
 #if !defined(IUTEST_USE_GTEST)
 	{
-		DECAL_ARGV("--feature");
+		IUTEST_EXPECT_FALSE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_HELP));
+
+		int targc = 2;
+		DECAL_ARGV("--version");
 		IUTEST_INIT(&targc, targv);
+		IUTEST_EXPECT_EQ(1, targc);
 		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
 	}
 	{
+		IUTEST_EXPECT_FALSE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_VERSION));
+
+		int targc = 2;
+		DECAL_ARGV("--feature");
+		IUTEST_INIT(&targc, targv);
+		IUTEST_EXPECT_EQ(1, targc);
+		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
+	}
+	{
+		IUTEST_EXPECT_FALSE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_FEATURE));
 		::std::vector< ::std::string > argv;
+		argv.push_back("test1");
 		argv.push_back("--feature");
+		argv.push_back("test2");
 		::iutest::InitIrisUnitTest(argv);
+		IUTEST_EXPECT_EQ(2, argv.size());
+		IUTEST_EXPECT_STREQ("test1", argv[0]);
+		IUTEST_EXPECT_STREQ("test2", argv[1]);
 		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
 	}
 
 	{
+		IUTEST_EXPECT_FALSE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_HELP));
+		IUTEST_EXPECT_FALSE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_FEATURE));
+		IUTEST_EXPECT_FALSE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_VERSION));
+
 		::std::vector< ::std::string > argv;
 		argv.push_back("--iutest_break_on_failure=1");
 		argv.push_back("--iutest_throw_on_failure=t");
@@ -76,6 +100,7 @@ int main(int argc, char* argv[])
 		argv.push_back("--iutest_repeat=2");
 		argv.push_back("--iutest_filter=Flag*");
 		::iutest::InitIrisUnitTest(argv);
+		IUTEST_EXPECT_EQ(0, argv.size());
 		
 		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(also_run_disabled_tests) );
 		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(break_on_failure) );
@@ -91,7 +116,7 @@ int main(int argc, char* argv[])
 		IUTEST_EXPECT_STREQ( "ansi", ::iutest::IUTEST_FLAG(color).c_str() );
 		IUTEST_EXPECT_STREQ( "Flag*", ::iutest::IUTEST_FLAG(filter).c_str() );
 		
-		if( !::iutest::UnitTest::GetInstance()->Passed() ) return 1;
+		if( ::iutest::UnitTest::GetInstance()->Failed() ) return 1;
 	}
 
 	{
@@ -108,6 +133,7 @@ int main(int argc, char* argv[])
 		argv.push_back("--gtest_repeat=2");
 		argv.push_back("--gtest_filter=Flag*");
 		::iutest::InitIrisUnitTest(argv);
+		IUTEST_EXPECT_EQ(0, argv.size());
 		
 		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(also_run_disabled_tests) );
 		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(break_on_failure) );
@@ -123,9 +149,39 @@ int main(int argc, char* argv[])
 		IUTEST_EXPECT_STREQ( "ansi", ::iutest::IUTEST_FLAG(color).c_str() );
 		IUTEST_EXPECT_STREQ( "Flag*", ::iutest::IUTEST_FLAG(filter).c_str() );
 		
-		if( !::iutest::UnitTest::GetInstance()->Passed() ) return 1;
+		if( ::iutest::UnitTest::GetInstance()->Failed() ) return 1;
+		
+		::iutest::IUTEST_FLAG(repeat) = 1;
+	}
+	{
+		::std::vector< ::std::string > argv;
+		argv.push_back("--iutest_color=off");
+		::iutest::InitIrisUnitTest(argv);
+		IUTEST_EXPECT_EQ(0, argv.size());
+		IUTEST_EXPECT_STREQ( "no", ::iutest::IUTEST_FLAG(color).c_str() );
+		
+		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
+	}
+	{
+		::std::vector< ::std::string > argv;
+		argv.push_back("--iutest_color=1");
+		::iutest::InitIrisUnitTest(argv);
+		IUTEST_EXPECT_EQ(0, argv.size());
+		IUTEST_EXPECT_STREQ( "yes", ::iutest::IUTEST_FLAG(color).c_str() );
+		
+		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
+	}
+	{
+		::std::vector< ::std::string > argv;
+		argv.push_back("--iutest_color=auto");
+		::iutest::InitIrisUnitTest(argv);
+		IUTEST_EXPECT_EQ(0, argv.size());
+		IUTEST_EXPECT_STREQ( "auto", ::iutest::IUTEST_FLAG(color).c_str() );
+		
+		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
 	}
 #endif
+	printf("*** Successful ***\n");
 	return 0;
 }
 

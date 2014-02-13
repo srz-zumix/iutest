@@ -711,7 +711,7 @@ AssertionResult AssertPredVariadicHelper(const char* pred_str, const char* param
 		return AssertionSuccess();
 	}
 	return AssertionFailure() << "error: " << pred_str << "("
-		<< params << ") evaluates to false: "
+		<< params << ") evaluates to false, where "
 		<< "\n" << PrintToStrings("\n", args...);
 }
 

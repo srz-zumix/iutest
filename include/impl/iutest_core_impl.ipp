@@ -121,6 +121,7 @@ IUTEST_IPP_INLINE bool UnitTestImpl::PreRunner(void)
 	{
 		return true;
 	}
+	TestFlag::SetFlag(0, ~TestFlag::SHOW_MASK);
 	return false;
 }
 

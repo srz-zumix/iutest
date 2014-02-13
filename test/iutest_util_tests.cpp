@@ -21,12 +21,34 @@
 
 IUTEST(UtilTest, Find)
 {
-	IUTEST_ASSERT_NOTNULL(::iuutil::FindTestCase("UtilTest"));
-	IUTEST_ASSERT_NOTNULL(::iuutil::FindTestInfo("UtilTest", "Find"));
+	const ::iutest::TestCase* testcase = ::iuutil::FindTestCase("UtilTest");
+	IUTEST_EXPECT_NOTNULL(testcase);
+	IUTEST_EXPECT_NOTNULL(::iuutil::FindTestInfo("UtilTest", "Find"));
 
-	IUTEST_ASSERT_NULL(::iuutil::FindTestCase("UtilTestXXX"));
-	IUTEST_ASSERT_NULL(::iuutil::FindTestInfo("UtilTest", "FindXXX"));
-	IUTEST_ASSERT_NULL(::iuutil::FindTestInfo("UtilTestXXX", "Find"));
+	const ::iutest::TestCase* null_testcase = NULL;
+	const char* null_testcase_name = NULL;
+	IUTEST_EXPECT_NULL(::iuutil::FindTestCase(NULL));
+	IUTEST_EXPECT_NULL(::iuutil::FindTestCase("UtilTestXXX"));
+	IUTEST_EXPECT_NULL(::iuutil::FindTestInfo(null_testcase, "Find"));
+	IUTEST_EXPECT_NULL(::iuutil::FindTestInfo(null_testcase_name, "Find"));
+	IUTEST_EXPECT_NULL(::iuutil::FindTestInfo(testcase, NULL));
+	IUTEST_EXPECT_NULL(::iuutil::FindTestInfo("UtilTest", NULL));
+	IUTEST_EXPECT_NULL(::iuutil::FindTestInfo("UtilTest", "FindXXX"));
+	IUTEST_EXPECT_NULL(::iuutil::FindTestInfo("UtilTestXXX", "Find"));
+}
+
+IUTEST(UtilTest, TestCaseNameRemoveIndexName)
+{
+	IUTEST_EXPECT_STREQ( "pkg.TestCase" , ::iuutil::TestCaseNameRemoveIndexName("pkg.TestCase") );
+	IUTEST_EXPECT_STREQ( "pkg.TestCase" , ::iuutil::TestCaseNameRemoveIndexName("pkg.TestCase/0") );
+}
+
+IUTEST(UtilTest, TestCaseNameRemoveInstantiateAndIndexName)
+{
+	IUTEST_EXPECT_STREQ( "pkg.TestCase" , ::iuutil::TestCaseNameRemoveInstantiateAndIndexName("pkg.prefix/TestCase") );
+	IUTEST_EXPECT_STREQ( "pkg.TestCase" , ::iuutil::TestCaseNameRemoveInstantiateAndIndexName("pkg.prefix/TestCase/0") );
+	IUTEST_EXPECT_STREQ( "TestCase" , ::iuutil::TestCaseNameRemoveInstantiateAndIndexName("prefix/TestCase") );
+	IUTEST_EXPECT_STREQ( "TestCase" , ::iuutil::TestCaseNameRemoveInstantiateAndIndexName("prefix/TestCase/0") );
 }
 
 IUTEST(AssertionTest, EQ_COLLECTIONS)

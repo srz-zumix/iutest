@@ -18,6 +18,7 @@
 //======================================================================
 // include
 #include "../include/gtest/iutest_spi_switch.hpp"
+#include "iutest_pred_tests.hpp"
 
 namespace spitest
 {
@@ -95,6 +96,15 @@ void SPITest::FatalFailure_Sub(int& count)
 	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_STRIN("b", "a"), "strstr" );
 	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_STRIN("b", null_str), "strstr" );
 	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_STRIN(null_str, "a"), "strstr" );
+	
+	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_PRED1(IsOdd, 2), "evaluates to false, where" );
+	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_PRED2(IsGreater, 0, 1), "evaluates to false, where" );
+	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_PRED3(PredTest3, 0, 1, 3), "evaluates to false, where" );
+	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_PRED4(PredTest4, 0, 1, 2, 4), "evaluates to false, where" );
+	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_PRED5(PredTest5, 0, 1, 2, 3, 5), "evaluates to false, where" );
+#if !defined(IUTEST_USE_GTEST) && !defined(IUTEST_NO_VARIADIC_MACROS) && IUTEST_HAS_VARIADIC_TEMPLATES
+	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_PRED(PredTest6, 0, 1, 2, 3, 4, 6), "evaluates to false, where" );
+#endif
 
 #if IUTEST_HAS_EXCEPTIONS
 	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_THROW(throw "test", int), "" );
@@ -177,6 +187,15 @@ void SPITest::FatalFailure2_Sub(int& count)
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_STRIN("b", null_str), "strstr" );
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_STRIN(null_str, "a"), "strstr" );
 
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_PRED1(IsOdd, 2), "evaluates to false, where" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_PRED2(IsGreater, 0, 1), "evaluates to false, where" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_PRED3(PredTest3, 0, 1, 3), "evaluates to false, where" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_PRED4(PredTest4, 0, 1, 2, 4), "evaluates to false, where" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_PRED5(PredTest5, 0, 1, 2, 3, 5), "evaluates to false, where" );
+#if !defined(IUTEST_USE_GTEST) && !defined(IUTEST_NO_VARIADIC_MACROS) && IUTEST_HAS_VARIADIC_TEMPLATES
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_PRED(PredTest6, 0, 1, 2, 3, 4, 6), "evaluates to false, where" );
+#endif
+
 #if IUTEST_HAS_EXCEPTIONS
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THROW(throw "test", int), "" );
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_ANY_THROW((void)0), "" );
@@ -256,6 +275,15 @@ IUTEST_F(SPITest, NonFatalFailure)
 	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_STRIN("b", null_str), "strstr" );
 	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_STRIN(null_str, "a"), "strstr" );
 
+	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_PRED1(IsOdd, 2), "evaluates to false, where" );
+	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_PRED2(IsGreater, 0, 1), "evaluates to false, where" );
+	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_PRED3(PredTest3, 0, 1, 3), "evaluates to false, where" );
+	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_PRED4(PredTest4, 0, 1, 2, 4), "evaluates to false, where" );
+	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_PRED5(PredTest5, 0, 1, 2, 3, 5), "evaluates to false, where" );
+#if !defined(IUTEST_USE_GTEST) && !defined(IUTEST_NO_VARIADIC_MACROS) && IUTEST_HAS_VARIADIC_TEMPLATES
+	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_PRED(PredTest6, 0, 1, 2, 3, 4, 6), "evaluates to false, where" );
+#endif
+
 #if IUTEST_HAS_EXCEPTIONS
 	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_THROW(throw "test", int), "" );
 	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_ANY_THROW((void)0), "" );
@@ -319,6 +347,15 @@ IUTEST_F(SPITest, NonFatalFailure2)
 	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_STRIN("b", null_str), "strstr" );
 	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_STRIN(null_str, "a"), "strstr" );
 
+	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_PRED1(IsOdd, 2), "evaluates to false, where" );
+	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_PRED2(IsGreater, 0, 1), "evaluates to false, where" );
+	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_PRED3(PredTest3, 0, 1, 3), "evaluates to false, where" );
+	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_PRED4(PredTest4, 0, 1, 2, 4), "evaluates to false, where" );
+	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_PRED5(PredTest5, 0, 1, 2, 3, 5), "evaluates to false, where" );
+#if !defined(IUTEST_USE_GTEST) && !defined(IUTEST_NO_VARIADIC_MACROS) && IUTEST_HAS_VARIADIC_TEMPLATES
+	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_PRED(PredTest6, 0, 1, 2, 3, 4, 6), "evaluates to false, where" );
+#endif
+
 #if IUTEST_HAS_EXCEPTIONS
 	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_THROW(throw "test", int), "" );
 	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_ANY_THROW((void)0), "" );
@@ -347,24 +384,6 @@ IUTEST_F(SPITest, NonFatalFailure2)
 	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_RANGE(ab, aa), "Mismatch element" );
 	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_EQ_RANGE(aa, ac), "Mismatch in a position" );
 }
-
-#if IUTEST_HAS_VARIADIC_TEMPLATES
-
-bool pred_test(int a0, int a1, int a2, int a3, int a4, int a5)
-{
-	return a0+a2+a4 == a1+a3+a5;
-}
-
-IUTEST_F(SPITest, VariadicPredTest)
-{
-	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT_PRED(pred_test, 1, 0, a, a, a, 0), "");
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_PRED(pred_test, 1, 0, a, a, a, 0), "");
-
-	IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_PRED(pred_test, 1, 0, a, a, a, 0), "");
-	IUTEST_EXPECT_NONFATAL_FAILURE( IUTEST_EXPECT_PRED(pred_test, 1, 0, a, a, a, 0), "");
-}
-
-#endif
 
 }
 

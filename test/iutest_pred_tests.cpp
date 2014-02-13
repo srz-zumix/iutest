@@ -18,27 +18,7 @@
 //======================================================================
 // include
 #include "../include/iutest.hpp"
-
-static bool IsOdd(int val)
-{
-	return (val & 1) != 0;
-}
-static bool IsGreater(int a, int b)
-{
-	return a > b;
-}
-static bool PredTest3(int v0, int v1, int v2)
-{
-	return v0 == 0 && v1 == 1 && v2 == 2;
-}
-static bool PredTest4(int v0, int v1, int v2, int v3)
-{
-	return PredTest3(v0, v1, v2) && v3 == 3;
-}
-static bool PredTest5(int v0, int v1, int v2, int v3, int v4)
-{
-	return PredTest4(v0, v1, v2, v3) && v4 == 4;
-}
+#include "iutest_pred_tests.hpp"
 
 IUTEST(AssertionTest, Pred1)
 {
@@ -83,11 +63,6 @@ IUTEST(AssertionTest, Pred5)
 #if !defined(IUTEST_USE_GTEST)
 
 #ifndef IUTEST_NO_VARIADIC_MACROS
-
-static bool PredTest6(int v0, int v1, int v2, int v3, int v4, int v5)
-{
-	return PredTest5(v0, v1, v2, v3, v4) && v5 == 5;
-}
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
 
