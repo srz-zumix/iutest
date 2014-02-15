@@ -63,7 +63,7 @@
 	TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::TearDownTestCase(); }	\
 	virtual void Body(void);				\
 	};										\
-	void className::Body() 
+	void className::Body()
 
 #ifndef IUTEST_USE_GTEST
 
@@ -121,7 +121,7 @@ IUTEST_MAKE_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, ::iutes
 		static int dummy_;																	\
 	};																						\
 	int className::dummy_ IUTEST_ATTRIBUTE_UNUSED_ = className::AddRegister();				\
-	void className::Body() 
+	void className::Body()
 
 
 #if 1
@@ -234,7 +234,7 @@ public:
 			return;
 		}
 		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-		::iutest::TestEventListener* repeator = 
+		::iutest::TestEventListener* repeator =
 #define testing	iutest
 			IUTEST_PEEP_GET(listeners, ::testing::TestEventListeners, repeater)();
 #undef testing
@@ -248,7 +248,7 @@ public:
 			return;
 		}
 		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-		::iutest::TestEventListener* repeator = 
+		::iutest::TestEventListener* repeator =
 #define testing	iutest
 			IUTEST_PEEP_GET(listeners, ::testing::TestEventListeners, repeater)();
 #undef testing
@@ -298,7 +298,7 @@ public:
 		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
 		listeners.Append(this);
 	}
-	virtual ~VCCppUnitTestPartResultReporter(void) 
+	virtual ~VCCppUnitTestPartResultReporter(void)
 	{
 		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
 		listeners.Release(this);

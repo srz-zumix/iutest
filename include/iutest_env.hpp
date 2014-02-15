@@ -112,7 +112,7 @@ public:
 		}
 	};
 public:
-	/** 
+	/**
 	 * @brief	フラグ
 	*/
 	enum Kind

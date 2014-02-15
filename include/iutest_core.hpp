@@ -36,7 +36,7 @@ class UnitTest : public UnitTestImpl
 public:
 	/** @private */
 	static UnitTest& instance(void)		{ static UnitTest inst; return inst; }
-	/** 
+	/**
 	 * @brief	UnitTest インスタンスの取得
 	*/
 	static UnitTest* GetInstance(void)	{ return &instance(); }
@@ -45,31 +45,31 @@ public:
 	/**
 	 * @brief	テスト中の TestCase の取得
 	*/
-	const TestCase*		current_test_case(void)	const	{ return m_current_testcase; }
+	const TestCase*		current_test_case(void)	const { return m_current_testcase; }
 
 	/**
 	 * @brief	テスト中の TestInfo の取得
 	 * @note	互換性のため メンバ関数 にしています。
 	*/
-	const TestInfo*		current_test_info(void)	const	{ return Test::GetCurrentTestInfo(); }
+	const TestInfo*		current_test_info(void)	const { return Test::GetCurrentTestInfo(); }
 
 	/** 乱数シードの取得 */
-	unsigned int		random_seed(void)		const	{ return TestEnv::current_random_seed(); }
+	unsigned int		random_seed(void)		const { return TestEnv::current_random_seed(); }
 
 	/** 現在何回目のくり返しか取得 */
-	int					repeat_counter(void)	const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_repeat_counter; }
+	int					repeat_counter(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_repeat_counter; }
 
 public:
 	/** テスト総数 */
-	int				total_test_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_total_test_num; }
+	int				total_test_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC { return m_total_test_num; }
 	/** レポート対象のテスト総数 */
 	int				reportable_test_count(void)	const;
 	/** 実行した/するテスト総数 */
-	int				test_to_run_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_should_run_num; }
+	int				test_to_run_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC { return m_should_run_num; }
 	/** 失敗テスト総数 */
 	int				failed_test_count(void)		const;
 	/** 無効テスト総数 */
-	int				disabled_test_count(void)	const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_disable_num; }
+	int				disabled_test_count(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_disable_num; }
 	/** レポート対象の無効テスト総数 */
 	int				reportable_disabled_test_count(void) const;
 	/** 成功テスト総数 */
@@ -84,7 +84,7 @@ public:
 	int				reportable_test_run_skipped_count(void) const;
 
 	/** テストケース数の総数 */
-	int				total_test_case_count(void)	const	{ return m_testcases.size(); }
+	int				total_test_case_count(void)	const { return m_testcases.size(); }
 	/** 実行したテストケース総数 */
 	int				test_case_to_run_count(void) const;
 	/** 成功したテストケース総数 */
@@ -96,21 +96,21 @@ public:
 	const TestResult* ad_hoc_testresult(void) const IUTEST_CXX_NOEXCEPT_SPEC { return &m_ad_hoc_testresult; }
 
 	/** テストの実行ミリ秒 */
-	TimeInMillisec	elapsed_time(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_elapsedmsec; }
+	TimeInMillisec	elapsed_time(void)		const IUTEST_CXX_NOEXCEPT_SPEC { return m_elapsedmsec; }
 
 	/** テスト開始時のタイムスタンプを取得 */
-	TimeInMillisec	start_timestamp(void)	const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_start_timestamp; }
+	TimeInMillisec	start_timestamp(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_start_timestamp; }
 
 	/** テストケースの取得 */
-	const TestCase*	GetTestCase(int index)	const	{ return m_testcases[index]; }
+	const TestCase*	GetTestCase(int index)	const { return m_testcases[index]; }
 
 	/** テストが成功したかどうか */
 	bool			Passed(void)			const;
 	/** テストが失敗したかどうか */
-	bool			Failed(void)			const	{ return !Passed(); }
+	bool			Failed(void)			const { return !Passed(); }
 
 	/** イベントリスナーの取得 */
-	TestEventListeners&	listeners(void)		const	{ return TestEnv::event_listeners(); }
+	TestEventListeners&	listeners(void)		const { return TestEnv::event_listeners(); }
 
 protected:
 	/**

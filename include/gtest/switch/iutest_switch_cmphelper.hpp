@@ -90,7 +90,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* expr1, const char* expr2
 	, const wchar_t* val1, const wchar_t* val2)
 {
-	if( val1 == NULL || val2 == NULL ) 
+	if( val1 == NULL || val2 == NULL )
 	{
 		if( val1 == val2 ) return AssertionSuccess();
 	}
@@ -128,7 +128,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* e
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* expr1, const char* expr2
 	, const wchar_t* val1, const wchar_t* val2)
 {
-	if( val1 == NULL || val2 == NULL ) 
+	if( val1 == NULL || val2 == NULL )
 	{
 		if( val1 != val2 ) return AssertionSuccess();
 	}

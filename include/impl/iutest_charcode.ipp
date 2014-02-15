@@ -134,7 +134,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 	for(int i=0; i < num; ++i )
 	{
 		UInt32 code_point;
-		if( str[i] == L'\0' ) 
+		if( str[i] == L'\0' )
 		{
 			break;
 		}

@@ -84,19 +84,30 @@ const char list_test_with_where_str[] =
 ;
 
 #ifdef UNICODE
+#  define DECAL_ARGV(cmd) const wchar_t* targv[] = { argv[0], L cmd }
+#else
+#  define DECAL_ARGV(cmd) const char*    targv[] = { argv[0],   cmd }
+#endif
+
+#ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
 int main(int argc, char* argv[])
 #endif
 {
-	IUTEST_INIT(&argc, argv);
+	(void)argc;
+	(void)argv;
 	{
+		int targc = 2;
+		DECAL_ARGV("--gtest_list_tests");
+		IUTEST_INIT(&targc, targv);
+
 #if !defined(IUTEST_USE_GTEST)
 		Logger logger;
 		::iutest::detail::iuConsole::SetLogger(&logger);
 #endif
-		::iutest::IUTEST_FLAG(list_tests) = true;
-		int ret = IUTEST_RUN_ALL_TESTS();
+		IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(list_tests) );
+		const int ret = IUTEST_RUN_ALL_TESTS();
 
 #if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_ASSERTION_RETURN
 		::iutest::detail::iuConsole::SetLogger(NULL);
@@ -107,12 +118,16 @@ int main(int argc, char* argv[])
 	}
 #if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_ASSERTION_RETURN
 	{
+		int targc = 2;
+		DECAL_ARGV("--iutest_list_tests_with_where");
+		IUTEST_INIT(&targc, targv);
+
 		Logger logger;
 		::iutest::detail::iuConsole::SetLogger(&logger);
 
-		::iutest::IUTEST_FLAG(list_tests) = false;
-		::iutest::IUTEST_FLAG(list_tests_with_where) = true;
-		int ret = IUTEST_RUN_ALL_TESTS();
+		IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(list_tests) );
+		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(list_tests_with_where) );
+		const int ret = IUTEST_RUN_ALL_TESTS();
 
 		::iutest::detail::iuConsole::SetLogger(NULL);
 		IUTEST_ASSERT_STREQ(list_test_with_where_str, logger.c_str())

@@ -76,7 +76,7 @@ namespace internal
 class HasNewFailureHelper : public HasNewFatalFailureHelper
 {
 public:
-	HasNewFailureHelper(void) : m_has_new_failure(false) 
+	HasNewFailureHelper(void) : m_has_new_failure(false)
 	{
 	}
 	virtual ~HasNewFailureHelper(void)

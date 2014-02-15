@@ -71,15 +71,49 @@ int main(int argc, char* argv[])
 	}
 	{
 		IUTEST_EXPECT_FALSE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_FEATURE));
-		::std::vector< ::std::string > argv;
-		argv.push_back("test1");
-		argv.push_back("--feature");
-		argv.push_back("test2");
-		::iutest::InitIrisUnitTest(argv);
-		IUTEST_EXPECT_EQ(2, argv.size());
-		IUTEST_EXPECT_STREQ("test1", argv[0]);
-		IUTEST_EXPECT_STREQ("test2", argv[1]);
+		::std::vector< ::std::string > vargv;
+		vargv.push_back("test1");
+		vargv.push_back("-v");
+		vargv.push_back("test2");
+		::iutest::InitIrisUnitTest(vargv);
+		IUTEST_EXPECT_EQ(2, vargv.size());
+		IUTEST_EXPECT_STREQ("test1", vargv[0]);
+		IUTEST_EXPECT_STREQ("test2", vargv[1]);
 		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
+	}
+
+	{
+		IUTEST_EXPECT_FALSE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_VERSION));
+
+		int targc = 2;
+		DECAL_ARGV("-h");
+		IUTEST_INIT(&targc, targv);
+		IUTEST_EXPECT_EQ(1, targc);
+		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
+	}
+	{
+		IUTEST_EXPECT_FALSE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_HELP));
+
+		int targc = 2;
+		DECAL_ARGV("-?");
+		IUTEST_INIT(&targc, targv);
+		IUTEST_EXPECT_EQ(1, targc);
+		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
+	}
+
+	{
+		::std::vector< ::std::string > vargv;
+		vargv.push_back("--iutest_break_on_failure");
+		vargv.push_back("--iutest_throw_on_failure");
+		vargv.push_back("--iutest_filter");
+		::iutest::InitIrisUnitTest(vargv);
+		IUTEST_EXPECT_EQ(0, vargv.size());
+		
+		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(break_on_failure) );
+		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(throw_on_failure) );
+		IUTEST_EXPECT_STREQ( "*", ::iutest::IUTEST_FLAG(filter).c_str() );
+		
+		if( ::iutest::UnitTest::GetInstance()->Failed() ) return 1;
 	}
 
 	{
@@ -87,20 +121,20 @@ int main(int argc, char* argv[])
 		IUTEST_EXPECT_FALSE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_FEATURE));
 		IUTEST_EXPECT_FALSE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_VERSION));
 
-		::std::vector< ::std::string > argv;
-		argv.push_back("--iutest_break_on_failure=1");
-		argv.push_back("--iutest_throw_on_failure=t");
-		argv.push_back("--iutest_also_run_disabled_tests");
-		argv.push_back("--iutest_catch_exceptions=yes");
-		argv.push_back("--iutest_print_time=n");
-		argv.push_back("--iutest_shuffle");
-		argv.push_back("--iutest_color=ansi");
-		argv.push_back("--iutest_file_location=vs");
-		argv.push_back("--iutest_random_seed=200");
-		argv.push_back("--iutest_repeat=2");
-		argv.push_back("--iutest_filter=Flag*");
-		::iutest::InitIrisUnitTest(argv);
-		IUTEST_EXPECT_EQ(0, argv.size());
+		::std::vector< ::std::string > vargv;
+		vargv.push_back("--iutest_break_on_failure=1");
+		vargv.push_back("--iutest_throw_on_failure=t");
+		vargv.push_back("--iutest_also_run_disabled_tests");
+		vargv.push_back("--iutest_catch_exceptions=yes");
+		vargv.push_back("--iutest_print_time=n");
+		vargv.push_back("--iutest_shuffle");
+		vargv.push_back("--iutest_color=ansi");
+		vargv.push_back("--iutest_file_location=vs");
+		vargv.push_back("--iutest_random_seed=200");
+		vargv.push_back("--iutest_repeat=2");
+		vargv.push_back("--iutest_filter=Flag*");
+		::iutest::InitIrisUnitTest(vargv);
+		IUTEST_EXPECT_EQ(0, vargv.size());
 		
 		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(also_run_disabled_tests) );
 		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(break_on_failure) );
@@ -120,20 +154,20 @@ int main(int argc, char* argv[])
 	}
 
 	{
-		::std::vector< ::std::string > argv;
-		argv.push_back("--gtest_break_on_failure=1");
-		argv.push_back("--gtest_throw_on_failure=t");
-		argv.push_back("--gtest_also_run_disabled_tests");
-		argv.push_back("--gtest_catch_exceptions=yes");
-		argv.push_back("--gtest_print_time=n");
-		argv.push_back("--gtest_shuffle");
-		argv.push_back("--gtest_color=ansi");
-		argv.push_back("--gtest_file_location=vs");
-		argv.push_back("--gtest_random_seed=200");
-		argv.push_back("--gtest_repeat=2");
-		argv.push_back("--gtest_filter=Flag*");
-		::iutest::InitIrisUnitTest(argv);
-		IUTEST_EXPECT_EQ(0, argv.size());
+		::std::vector< ::std::string > vargv;
+		vargv.push_back("--gtest_break_on_failure=1");
+		vargv.push_back("--gtest_throw_on_failure=t");
+		vargv.push_back("--gtest_also_run_disabled_tests");
+		vargv.push_back("--gtest_catch_exceptions=yes");
+		vargv.push_back("--gtest_print_time=n");
+		vargv.push_back("--gtest_shuffle");
+		vargv.push_back("--gtest_color=ansi");
+		vargv.push_back("--gtest_file_location=vs");
+		vargv.push_back("--gtest_random_seed=200");
+		vargv.push_back("--gtest_repeat=2");
+		vargv.push_back("--gtest_filter=Flag*");
+		::iutest::InitIrisUnitTest(vargv);
+		IUTEST_EXPECT_EQ(0, vargv.size());
 		
 		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(also_run_disabled_tests) );
 		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(break_on_failure) );
@@ -153,29 +187,30 @@ int main(int argc, char* argv[])
 		
 		::iutest::IUTEST_FLAG(repeat) = 1;
 	}
+	
 	{
-		::std::vector< ::std::string > argv;
-		argv.push_back("--iutest_color=off");
-		::iutest::InitIrisUnitTest(argv);
-		IUTEST_EXPECT_EQ(0, argv.size());
+		::std::vector< ::std::string > vargv;
+		vargv.push_back("--iutest_color=off");
+		::iutest::InitIrisUnitTest(vargv);
+		IUTEST_EXPECT_EQ(0, vargv.size());
 		IUTEST_EXPECT_STREQ( "no", ::iutest::IUTEST_FLAG(color).c_str() );
 		
 		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
 	}
 	{
-		::std::vector< ::std::string > argv;
-		argv.push_back("--iutest_color=1");
-		::iutest::InitIrisUnitTest(argv);
-		IUTEST_EXPECT_EQ(0, argv.size());
+		::std::vector< ::std::string > vargv;
+		vargv.push_back("--iutest_color=1");
+		::iutest::InitIrisUnitTest(vargv);
+		IUTEST_EXPECT_EQ(0, vargv.size());
 		IUTEST_EXPECT_STREQ( "yes", ::iutest::IUTEST_FLAG(color).c_str() );
 		
 		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
 	}
 	{
-		::std::vector< ::std::string > argv;
-		argv.push_back("--iutest_color=auto");
-		::iutest::InitIrisUnitTest(argv);
-		IUTEST_EXPECT_EQ(0, argv.size());
+		::std::vector< ::std::string > vargv;
+		vargv.push_back("--iutest_color=auto");
+		::iutest::InitIrisUnitTest(vargv);
+		IUTEST_EXPECT_EQ(0, vargv.size());
 		IUTEST_EXPECT_STREQ( "auto", ::iutest::IUTEST_FLAG(color).c_str() );
 		
 		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;

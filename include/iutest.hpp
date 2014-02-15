@@ -11,7 +11,7 @@
  * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
- * 
+ *
  * @see			iutest_ver.h
  * @example		main.cpp
  * @example		sub.cpp

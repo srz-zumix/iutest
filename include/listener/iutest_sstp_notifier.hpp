@@ -261,7 +261,7 @@ public:
 	SakuraScript& Open(const ::std::string& file) { Append("\\![open,file," + file + "]"); return *this; }
 
 public:
-	const ::std::string& ToString(void) 
+	const ::std::string& ToString(void)
 	{
 		// 改行は改行タグに変更する
 		detail::StringReplace(m_script, '\n', "\\n");
@@ -291,7 +291,7 @@ namespace ghost
 */
 struct Emily4
 {
-	enum 
+	enum
 	{
 		  Normal = 0		//!< 通常
 		, Shy				//!< 照れ

@@ -134,7 +134,7 @@ IUTEST_IPP_INLINE void SleepMillisec(unsigned int millisec)
 #if	defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 199309L
 	const timespec time = { 0, static_cast<long>(millisec) * 1000 * 1000 };
 	nanosleep(&time, NULL);
-#elif (defined(_BSD_SOURCE) && _BSD_SOURCE) 
+#elif (defined(_BSD_SOURCE) && _BSD_SOURCE)
 	|| (defined(_XOPEN_SOURCE)
 		&& (_XOPEN_SOURCE >= 500 || _XOPEN_SOURCE && _XOPEN_SOURCE_EXTENDED)
 		&& (!defined(_POSIX_C_SOURCE) || !(_POSIX_C_SOURCE >= 200809L || _XOPEN_SOURCE >= 700)) )
@@ -309,7 +309,7 @@ IUTEST_IPP_INLINE ::std::string GetHResultString(HRESULT hr)
 IUTEST_IPP_INLINE IUTestLog::IUTestLog(Level level, const char* file, int line)
 	: kLevel(level)
 {
-	const char* const tag = 
+	const char* const tag =
 		(level == LOG_INFO   ) ? "[  INFO ] ":
 		(level == LOG_WARNING) ? "[WARNING] ":
 		(level == LOG_ERROR  ) ? "[ ERROR ] ":

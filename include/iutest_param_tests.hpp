@@ -527,7 +527,7 @@ IIUT_DECL_PAIRWISE_(9)
 }	// end of namespace iutest
 
 #if IUTEST_HAS_ANY_PARAM_TEST
-/** 
+/**
  * @ingroup	VALUE_PARAMETERIZED_TEST
  * @brief	any param test fixture
 */

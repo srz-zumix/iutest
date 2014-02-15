@@ -663,7 +663,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(const char* expr1,
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(const char* expr1, const char* expr2
 							   , const char* val1, const char* val2)
 {
-	if( val1 == NULL || val2 == NULL ) 
+	if( val1 == NULL || val2 == NULL )
 	{
 		if( val1 == val2 )
 		{
@@ -682,7 +682,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(const char* expr1
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(const char* expr1, const char* expr2
 							   , const wchar_t* val1, const wchar_t* val2)
 {
-	if( val1 == NULL || val2 == NULL ) 
+	if( val1 == NULL || val2 == NULL )
 	{
 		if( val1 == val2 )
 		{
@@ -741,7 +741,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(const char* expr1
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(const char* expr1, const char* expr2
 															, const char16_t* val1, const char16_t* val2)
 {
-	if( val1 == NULL && val2 == NULL ) 
+	if( val1 == NULL && val2 == NULL )
 	{
 		return AssertionSuccess();
 	}
@@ -753,7 +753,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(const char* expr1
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(const char* expr1, const char* expr2
 															, const char32_t* val1, const char32_t* val2)
 {
-	if( val1 == NULL && val2 == NULL ) 
+	if( val1 == NULL && val2 == NULL )
 	{
 		return AssertionSuccess();
 	}
@@ -765,7 +765,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(const char* expr1
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1, const char* expr2
 							, const char* val1, const char* val2)
 {
-	if( val1 == NULL || val2 == NULL ) 
+	if( val1 == NULL || val2 == NULL )
 	{
 		if( val1 != val2 )
 		{
@@ -784,7 +784,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1, const char* expr2
 							, const wchar_t* val1, const wchar_t* val2)
 {
-	if( val1 == NULL || val2 == NULL ) 
+	if( val1 == NULL || val2 == NULL )
 	{
 		if( val1 != val2 )
 		{
@@ -869,7 +869,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* expr1, const char* expr2
 							, const char* val1, const char* val2)
 {
-	if( val1 == NULL || val2 == NULL ) 
+	if( val1 == NULL || val2 == NULL )
 	{
 		if( val1 == val2 )
 		{
@@ -889,7 +889,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* e
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* expr1, const char* expr2
 							, const wchar_t* val1, const wchar_t* val2)
 {
-	if( val1 == NULL || val2 == NULL ) 
+	if( val1 == NULL || val2 == NULL )
 	{
 		if( val1 == val2 )
 		{
@@ -930,7 +930,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* e
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* expr1, const char* expr2
 							, const char* val1, const char* val2)
 {
-	if( val1 == NULL || val2 == NULL ) 
+	if( val1 == NULL || val2 == NULL )
 	{
 		if( val1 != val2 )
 		{
@@ -949,7 +949,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* e
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* expr1, const char* expr2
 							, const wchar_t* val1, const wchar_t* val2)
 {
-	if( val1 == NULL || val2 == NULL ) 
+	if( val1 == NULL || val2 == NULL )
 	{
 		if( val1 != val2 )
 		{

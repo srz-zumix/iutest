@@ -678,7 +678,7 @@ public:
 
 public:
 	template<typename T1, typename T2>
-	operator iuIParamGenerator< tuples::tuple<T1, T2> >* () const 
+	operator iuIParamGenerator< tuples::tuple<T1, T2> >* () const
 	{
 		return new iuCartesianProductGenerator2<T1, T2>(
 			static_cast< iuIParamGenerator<T1>* >(m_g1)
@@ -750,7 +750,7 @@ class iuPairwiseGeneratorBase
 protected:
 	template<int N>
 	struct ParamIndexes
-	{ 
+	{
 		int index[N];
 		ParamIndexes(void) { for( int i=0; i < N; ++i ) index[i] = -1; }
 	};
@@ -872,7 +872,7 @@ private:
 		for( iterator it = start, end=list.end(); it != end; ++it )
 		{
 			ParamIndexes<N>& indexes = *it;
-			if( indexes.index[pair_info.raw1] == pair_info.idx1 
+			if( indexes.index[pair_info.raw1] == pair_info.idx1
 				&& indexes.index[pair_info.raw2] == pair_info.idx2 )
 			{
 				return it;
@@ -1106,7 +1106,7 @@ public:
 	}
 	virtual void Next(void) IUTEST_CXX_OVERRIDE
 	{
-		if( m_g2.IsEnd() ) 
+		if( m_g2.IsEnd() )
 		{
 			return;
 		}
@@ -1240,7 +1240,7 @@ public:
 
 public:
 	template<typename T1, typename T2>
-	operator iuIParamGenerator< tuples::tuple<T1, T2> >* () const 
+	operator iuIParamGenerator< tuples::tuple<T1, T2> >* () const
 	{
 		return iuPairwiseGenerator2<T1, T2>::Create(
 			static_cast< iuIParamGenerator<T1>* >(m_g1)

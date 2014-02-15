@@ -171,7 +171,7 @@ IUTEST_IPP_INLINE bool TestInfo::filter(void)
 	bool match = true;
 	if( TestFlag::IsEnableFlag(TestFlag::FILTERING_TESTS) )
 	{
-		if( !detail::iuRegex::match(TestEnv::test_filter(), test_full_name().c_str()) ) 
+		if( !detail::iuRegex::match(TestEnv::test_filter(), test_full_name().c_str()) )
 		{
 			match = false;
 			run = false;

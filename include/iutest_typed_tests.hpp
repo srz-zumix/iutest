@@ -314,7 +314,7 @@ private:
 /**
  * @private
  * @internal
- * @brief	Typed TestCase 設定保持 
+ * @brief	Typed TestCase 設定保持
 */
 class TypedTestCasePState
 {
@@ -422,7 +422,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 			const char* str = detail::SkipSpace(test_names);
 			const char* comma = strchr(str, ',');
 			::std::string test_name;
-			if( comma == NULL ) 
+			if( comma == NULL )
 			{
 				test_name = str;
 			}

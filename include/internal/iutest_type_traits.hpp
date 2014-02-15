@@ -202,7 +202,7 @@ public:
 	static char IsPointerHelper(const volatile void*);
 	static char (&IsPointerHelper(...))[2];
 
-	enum { IsPointer = sizeof(IsPointerHelper(make_t())) == 1 ? true : false }; 
+	enum { IsPointer = sizeof(IsPointerHelper(make_t())) == 1 ? true : false };
 public:
 	typedef bool_constant<IsPointer> type;
 #endif
@@ -351,7 +351,7 @@ class is_convertible_type
 	static char IsConvertibleHelper(To);
 	static char (&IsConvertibleHelper(...))[2];
 
-	enum { IsConvertible = sizeof(IsConvertibleHelper(is_convertible_type::MakeFrom())) == 1 ? true : false }; 
+	enum { IsConvertible = sizeof(IsConvertibleHelper(is_convertible_type::MakeFrom())) == 1 ? true : false };
 public:
 	typedef bool_constant<IsConvertible> type;
 };

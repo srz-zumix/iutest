@@ -33,7 +33,7 @@
 /**
  * @brief	曖昧な else 文の警告抑制
 */
-#ifdef __INTEL_COMPILER 
+#ifdef __INTEL_COMPILER
 #  define IUTEST_AMBIGUOUS_ELSE_BLOCKER_
 #else
 #  define IUTEST_AMBIGUOUS_ELSE_BLOCKER_	switch(::iutest::detail::AlwaysZero()) case 0: default:

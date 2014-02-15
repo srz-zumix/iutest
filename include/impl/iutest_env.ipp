@@ -54,7 +54,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 			bool iuoption = false;
 			{
 				const char* const base_str = str;
-				if( *str == 'g' ) 
+				if( *str == 'g' )
 				{
 					++str;
 					iuoption = true;
@@ -148,11 +148,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 				}
 				else if( detail::IsStringForwardMatching(str, "filter") )
 				{
-					const char* opt = ParseOptionSettingStr(str);
-					if( opt != NULL )
-					{
-						set_test_filter(opt);
-					}
+					set_test_filter(ParseOptionSettingStr(str));
 				}
 #if IUTEST_HAS_STREAM_RESULT
 				else if( detail::IsStringForwardMatching(str, "stream_result_to") )
@@ -162,12 +158,15 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 					{
 						set_stream_result_to(opt);
 					}
+					else
+					{
+						find = false;
+					}
 				}
 #endif
 				else if( detail::IsStringForwardMatching(str, "file_location") )
 				{
-					const char* opt = ParseOptionSettingStr(str);
-					find = ParseFileLocationOption(opt);
+					find = ParseFileLocationOption(ParseOptionSettingStr(str));
 				}
 				else
 				{
@@ -345,7 +344,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseColorOption(const char* option)
 		// ansi
 		TestFlag::SetFlag(TestFlag::CONSOLE_COLOR_ON|TestFlag::CONSOLE_COLOR_ANSI, ~TestFlag::CONSOLE_COLOR_OFF);
 	}
-	else 
+	else
 	{
 		return false;
 	}
@@ -429,7 +428,7 @@ IUTEST_IPP_INLINE bool TestEnv::IsYes(const char* option)
 		|| detail::IsStringCaseEqual(option, "on")
 		|| detail::IsStringCaseEqual(option, "true")
 		|| detail::IsStringCaseEqual(option, "t")
-		|| detail::IsStringEqual(option, "1") ) 
+		|| detail::IsStringEqual(option, "1") )
 	{
 		return true;
 	}
@@ -443,7 +442,7 @@ IUTEST_IPP_INLINE bool TestEnv::IsNo(const char* option)
 		|| detail::IsStringCaseEqual(option, "off")
 		|| detail::IsStringCaseEqual(option, "false")
 		|| detail::IsStringCaseEqual(option, "f")
-		|| detail::IsStringEqual(option, "0") ) 
+		|| detail::IsStringEqual(option, "0") )
 	{
 		return true;
 	}

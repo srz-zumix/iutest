@@ -46,7 +46,7 @@ public:
 
 inline void iuOptionMessage::ShowHelp(void)
 {
-	const char* readme = 
+	const char* readme =
 		"--------------------------------------------------\n"
 		"Name\n"
 		"    iutest - iris unit test framework\n"

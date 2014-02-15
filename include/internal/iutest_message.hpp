@@ -53,16 +53,16 @@ public:
 	::std::string GetString(void) const { return m_stream.str(); }
 public:
 	template<typename T>
-	iuStreamMessage& operator << (const T& value) 
+	iuStreamMessage& operator << (const T& value)
 	{
 		m_stream << value;
 		return *this;
 	}
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 	template<typename T>
-	iuStreamMessage& operator << (T* const& value) 
+	iuStreamMessage& operator << (T* const& value)
 	{
-		if( value == NULL ) 
+		if( value == NULL )
 		{
 			m_stream << "(null)";
 		}
@@ -73,7 +73,7 @@ public:
 		return *this;
 	}
 #endif
-	iuStreamMessage& operator << (bool b) 
+	iuStreamMessage& operator << (bool b)
 	{
 		m_stream << (b ? "true" : "false");
 		return *this;
@@ -164,7 +164,7 @@ public:
 
 public:
 	template<typename T>
-	iuCodeMessage& operator << (const T& value) 
+	iuCodeMessage& operator << (const T& value)
 	{
 		m_message += StreamableToString(value);
 		return *this;

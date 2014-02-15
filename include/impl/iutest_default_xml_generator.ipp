@@ -34,7 +34,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestProgramStart(const Uni
 
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestProgramEnd(const UnitTest& test)
 {
-	if( m_fp == NULL ) 
+	if( m_fp == NULL )
 	{
 		FileOpen(m_output_path.c_str());
 		if( m_fp == NULL )

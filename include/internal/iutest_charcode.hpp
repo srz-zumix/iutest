@@ -129,7 +129,7 @@ namespace mbs_ptr_impl
 	struct wcs_to_mbs_ptr
 	{
 		::std::string m_arg;
-		const char* ptr(const wchar_t* arg) 
+		const char* ptr(const wchar_t* arg)
 		{
 			m_arg = ShowWideCString(arg);
 			return m_arg.c_str();

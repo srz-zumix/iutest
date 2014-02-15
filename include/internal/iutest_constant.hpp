@@ -45,7 +45,7 @@ const char* const kStringsT<DMY>::UnkownFile =  "unkown file";
 template<typename DMY>
 const char* const kStringsT<DMY>::Null =  "NULL";
 
-#if IUTEST_HAS_LIB 
+#if IUTEST_HAS_LIB
 
 #if IUTEST_HAS_EXTERN_TEMPLATE
 

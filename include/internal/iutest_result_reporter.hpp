@@ -95,7 +95,7 @@ public:
 		{
 			TestEnv::SetGlobalTestPartResultReporter(this);
 		}
-		virtual ~Reporter(void) 
+		virtual ~Reporter(void)
 		{
 			TestEnv::SetGlobalTestPartResultReporter(m_origin);
 		}

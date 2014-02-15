@@ -126,7 +126,7 @@ public:
 
 public:
 	/** テストのフル名を取得 */
-	::std::string	test_full_name(void)		const
+	::std::string test_full_name(void) const
 	{
 		::std::string fullname = test_case_name();
 		fullname += ".";
@@ -135,7 +135,7 @@ public:
 	}
 
 	/** テスト名 + where の取得 */
-	::std::string test_name_with_where(void)	const
+	::std::string test_name_with_where(void) const
 	{
 		::std::string str = m_testname;
 		if( value_param() != NULL )
