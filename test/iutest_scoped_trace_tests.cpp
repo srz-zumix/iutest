@@ -18,25 +18,7 @@
 //======================================================================
 // include
 #include "../include/iutest.hpp"
-
-#if !defined(IUTEST_USE_GTEST)
-
-class Logger : public ::iutest::detail::iuLogger
-{
-	::std::string m_log;
-public:
-	virtual void voutput(const char* fmt, va_list va)
-	{
-		char buf[256];
-		vsprintf(buf, fmt, va);
-		m_log += buf;
-		::iutest::detail::iuConsole::voutput(fmt, va);
-	}
-public:
-	const char* c_str(void) const { return m_log.c_str(); }
-};
-
-#endif
+#include "iutest_logger_tests.hpp"
 
 IUTEST(ScopedTraceTest, Dummy)
 {
@@ -55,7 +37,7 @@ IUTEST(ScopedTraceTest, Failed)
 IUTEST(ScopedTraceTest, Test)
 {
 #if !defined(IUTEST_USE_GTEST)
-	Logger logger1, logger2, logger3;
+	TestLogger logger1, logger2, logger3;
 	::iutest::detail::iuConsole::SetLogger(&logger1);
 #endif
 

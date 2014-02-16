@@ -133,6 +133,9 @@ int main(int argc, char* argv[])
 		vargv.push_back("--iutest_random_seed=200");
 		vargv.push_back("--iutest_repeat=2");
 		vargv.push_back("--iutest_filter=Flag*");
+#if IUTEST_HAS_STREAM_RESULT
+		vargv.push_back("--iutest_stream_result_to=test");
+#endif
 		::iutest::InitIrisUnitTest(vargv);
 		IUTEST_EXPECT_EQ(0, vargv.size());
 		
@@ -149,6 +152,9 @@ int main(int argc, char* argv[])
 		
 		IUTEST_EXPECT_STREQ( "ansi", ::iutest::IUTEST_FLAG(color).c_str() );
 		IUTEST_EXPECT_STREQ( "Flag*", ::iutest::IUTEST_FLAG(filter).c_str() );
+#if IUTEST_HAS_STREAM_RESULT
+		IUTEST_EXPECT_STREQ( "test", ::iutest::IUTEST_FLAG(stream_result_to).c_str() );
+#endif
 		
 		if( ::iutest::UnitTest::GetInstance()->Failed() ) return 1;
 	}

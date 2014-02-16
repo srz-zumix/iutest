@@ -18,25 +18,7 @@
 //======================================================================
 // include
 #include "../include/iutest.hpp"
-
-#if !defined(IUTEST_USE_GTEST)
-
-class Logger : public ::iutest::detail::iuLogger
-{
-	::std::string m_log;
-public:
-	virtual void voutput(const char* fmt, va_list va)
-	{
-		char buf[256];
-		vsprintf(buf, fmt, va);
-		m_log += buf;
-		::iutest::detail::iuConsole::voutput(fmt, va);
-	}
-public:
-	const char* c_str(void) const { return m_log.c_str(); }
-};
-
-#endif
+#include "iutest_logger_tests.hpp"
 
 IUTEST(Test, A)
 {
@@ -103,7 +85,7 @@ int main(int argc, char* argv[])
 		IUTEST_INIT(&targc, targv);
 
 #if !defined(IUTEST_USE_GTEST)
-		Logger logger;
+		TestLogger logger;
 		::iutest::detail::iuConsole::SetLogger(&logger);
 #endif
 		IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(list_tests) );
@@ -122,7 +104,7 @@ int main(int argc, char* argv[])
 		DECAL_ARGV("--iutest_list_tests_with_where");
 		IUTEST_INIT(&targc, targv);
 
-		Logger logger;
+		TestLogger logger;
 		::iutest::detail::iuConsole::SetLogger(&logger);
 
 		IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(list_tests) );

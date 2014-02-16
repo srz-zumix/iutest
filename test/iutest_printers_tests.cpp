@@ -18,8 +18,35 @@
 //======================================================================
 // include
 #include "../include/iutest.hpp"
+#include "iutest_logger_tests.hpp"
 
 #include <vector>
+
+#if !defined(IUTEST_USE_GTEST)
+TestLogger printer_logger;
+
+class LogChecker
+{
+	::std::string m_str;
+public:
+	LogChecker(const char* str) : m_str(str)
+	{
+		::iutest::detail::iuConsole::SetLogger(&printer_logger);
+	}
+	~LogChecker(void)
+	{
+		::iutest::detail::iuConsole::SetLogger(NULL);
+		IUTEST_EXPECT_STRIN(m_str.c_str(), printer_logger.c_str());
+		printer_logger.clear();
+	}
+};
+#else
+class LogChecker
+{
+public:
+	LogChecker(const char*) {}
+};
+#endif
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
@@ -54,6 +81,7 @@ void PrintTo(const Bar& bar, ::iutest::iu_ostream* os)
 IUTEST(PrintToTest, Bar)
 {
 	Bar bar = {0, 1, 2};
+	LogChecker ck("x:0 y:1 z:2");
 	IUTEST_SUCCEED() << ::iutest::PrintToString(bar);
 }
 
@@ -111,8 +139,28 @@ IUTEST(PrintToTest, Std)
 	::std::pair<int, int> p(0, 1);
 	::std::vector<int> v(a, a+(sizeof(a)/sizeof(a[0])));
 
-	IUTEST_SUCCEED() << ::iutest::PrintToString(p);
-	IUTEST_SUCCEED() << ::iutest::PrintToString(v);
+	{
+		LogChecker ck("0, 1");
+		IUTEST_SUCCEED() << ::iutest::PrintToString(p);
+	}
+	{
+		LogChecker ck("{ 0, 1, 2 }");
+		IUTEST_SUCCEED() << ::iutest::PrintToString(v);
+	}
+}
+
+IUTEST(PrintToTest, Null)
+{
+	{
+		LogChecker ck("NULL");
+		void* p = NULL;
+		IUTEST_SUCCEED() << ::iutest::PrintToString(p);
+	}
+	{
+		LogChecker ck("(null)");
+		void* p = NULL;
+		IUTEST_SUCCEED() << p;
+	}
 }
 
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
@@ -166,9 +214,18 @@ IUTEST(PrintToTest, Overload)
 	Point0 p0 = { 0x12345678, 0x9ABCDEF0 };
 	Point1 p1 = {0, 0};
 	Point2 p2 = {1, 1};
-	IUTEST_SUCCEED() << ::iutest::PrintToString(p0);
-	IUTEST_SUCCEED() << ::iutest::PrintToString(p1);
-	IUTEST_SUCCEED() << ::iutest::PrintToString(p2);
+	{
+		LogChecker ck("8-Byte object <");
+		IUTEST_SUCCEED() << ::iutest::PrintToString(p0);
+	}
+	{
+		LogChecker ck("(operator overload)");
+		IUTEST_SUCCEED() << ::iutest::PrintToString(p1);
+	}
+	{
+		LogChecker ck("(function overload)");
+		IUTEST_SUCCEED() << ::iutest::PrintToString(p2);
+	}
 }
 
 #if IUTEST_HAS_TUPLE
