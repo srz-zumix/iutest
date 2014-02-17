@@ -31,6 +31,15 @@ IUTEST_P(WithAnyParamTest, Test)
 	IUTEST_ASSERT_EQ(0, value);
 }
 
+#if IUTEST_HAS_EXCEPTIONS
+static ::iutest::any bad_any_cast_test_value;
+IUTEST_P(WithAnyParamTest, BadCast)
+{
+	bad_any_cast_test_value = GetParam();
+	IUTEST_ASSERT_THROW(::iutest::any_cast<float>(bad_any_cast_test_value), ::iutest::bad_any_cast);
+}
+#endif
+
 IUTEST_INSTANTIATE_TEST_CASE_P(My1, WithAnyParamTest, ::iutest::Values(0));
 
 #if IUTEST_HAS_ANY_PARAM_TEST

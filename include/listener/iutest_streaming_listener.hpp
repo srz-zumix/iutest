@@ -65,7 +65,7 @@ public:
 	/**
 	* @brief	stream reuslt listener のセットアップ
 	*/
-	static void SetUp(void)
+	static bool SetUp(void)
 	{
 		::std::string addr = TestEnv::get_stream_result_to();
 		if( !addr.empty() )
@@ -75,8 +75,10 @@ public:
 			{
 				UnitTest::GetInstance()->listeners().Append(
 					new StreamResultListener(addr.substr(0, pos).c_str(), addr.substr(pos+1).c_str()));
+				return true;
 			}
 		}
+		return false;
 	}
 };
 

@@ -43,7 +43,7 @@ const char* const kStringsT<DMY>::DefaultXmlReportFileName =  "test_detail.xml";
 template<typename DMY>
 const char* const kStringsT<DMY>::UnkownFile =  "unkown file";
 template<typename DMY>
-const char* const kStringsT<DMY>::Null =  "NULL";
+const char* const kStringsT<DMY>::Null =  "(null)";
 
 #if IUTEST_HAS_LIB
 

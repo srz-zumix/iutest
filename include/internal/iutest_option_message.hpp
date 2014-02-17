@@ -80,7 +80,7 @@ inline void iuOptionMessage::ShowHelp(void)
 		"--------------------------------------------------\n"
 		"License\n"
 		"\n"
-		"    Copyright (c) 2011-2013, Takazumi-Shirayanagi\n"
+		"    Copyright (c) 2011-2014, Takazumi-Shirayanagi\n"
 		"\n"
 		"    The new(3-clause) BSD License is applied to this software, see LICENSE\n"
 		"\n"

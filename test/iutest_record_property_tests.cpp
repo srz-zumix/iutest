@@ -83,6 +83,10 @@ IUTEST_F(RecordTest, A)
 	IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("value_param", "B"), "Reserved key");
 #endif
 	CheckProperty(::iutest::UnitTest::GetInstance()->current_test_info()->result(), "hoge", "B");
+	
+	// overwirte
+	RecordProperty("hoge", "b");
+	CheckProperty(::iutest::UnitTest::GetInstance()->current_test_info()->result(), "hoge", "b");
 }
 
 #endif

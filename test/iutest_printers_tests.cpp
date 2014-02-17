@@ -152,7 +152,7 @@ IUTEST(PrintToTest, Std)
 IUTEST(PrintToTest, Null)
 {
 	{
-		LogChecker ck("NULL");
+		LogChecker ck("(null)");
 		void* p = NULL;
 		IUTEST_SUCCEED() << ::iutest::PrintToString(p);
 	}

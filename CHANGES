@@ -3,7 +3,7 @@ Changes for 1.8.1:
 
 ** 修正
 * SetUp/SetUpTestCase での SKIP/ASSUME に対応
-* MAC OS 判定、ビルドエラー修正
+* MAC OS 判定、ビルドエラー修正(thanks to mogemimi for the pull request)
 * バグ修正
 
 --------------------------------------------------

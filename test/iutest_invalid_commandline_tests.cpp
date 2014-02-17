@@ -48,7 +48,9 @@ int main(int argc, char* argv[])
 		DECAL_ARGV("--gtest_foo");
 		IUTEST_INIT(&targc, targv);
 		IUTEST_EXPECT_EQ(2, targc);
+#if !defined(IUTEST_USE_GTEST)
 		IUTEST_EXPECT_TRUE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_HELP));
+#endif
 		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
 	}
 #if !defined(IUTEST_USE_GTEST)

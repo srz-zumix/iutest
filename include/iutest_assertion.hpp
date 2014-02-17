@@ -998,8 +998,8 @@ static AssertionResult CmpHelperFloatingPointEQ(const char* expr1, const char* e
 		return AssertionSuccess();
 	}
 	return EqFailure(expr1, expr2
-		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2)).c_str()
-		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1)).c_str() );
+		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(f1, f2)).c_str()
+		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(f2, f1)).c_str());
 }
 
 template<typename RawType>
@@ -1016,8 +1016,8 @@ static AssertionResult CmpHelperFloatingPointLE(const char* expr1, const char* e
 		return AssertionSuccess();
 	}
 	return EqFailure(expr1, expr2
-		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2)).c_str()
-		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1)).c_str() );
+		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(f1, f2)).c_str()
+		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(f2, f1)).c_str());
 }
 
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ FloatLE(const char* expr1, const char* expr2
