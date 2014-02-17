@@ -82,7 +82,6 @@ TARGETS1= \
           iutest_throw_on_failure_tests \
           iutest_tr1_tests \
           iutest_uninitialize_tests \
-#          iutest_exception_tests
 
 TARGETS2= \
           iutest_assertion_only_tests \
