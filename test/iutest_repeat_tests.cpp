@@ -91,7 +91,7 @@ void CheckCount(int expected)
 bool RunTest(void)
 {
 	ClearCounter();
-	(void)IUTEST_RUN_ALL_TESTS();
+	if( IUTEST_RUN_ALL_TESTS() != 0 ) return false;
 	return ::iutest::UnitTest::GetInstance()->Passed();
 }
 

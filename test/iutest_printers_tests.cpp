@@ -228,6 +228,34 @@ IUTEST(PrintToTest, Overload)
 	}
 }
 
+IUTEST(PrintToTest, MaxElem)
+{
+	struct {
+		int a[256];
+	} hoge;
+	{
+		LogChecker ck(" ...");
+		IUTEST_SUCCEED() << ::iutest::PrintToString(hoge);
+	}
+	{
+		LogChecker ck(", ...");
+		IUTEST_SUCCEED() << ::iutest::PrintToString(hoge.a);
+	}
+	{
+		::std::vector<int> v(hoge.a, hoge.a+256);
+		LogChecker ck(", ...");
+		IUTEST_SUCCEED() << ::iutest::PrintToString(v);
+	}
+}
+
+#if IUTEST_HAS_NULLPTR
+IUTEST(PrintToTest, Nullptr)
+{
+	LogChecker ck("nullptr");
+	IUTEST_SUCCEED() << ::iutest::PrintToString(nullptr);
+}
+#endif
+
 #if IUTEST_HAS_TUPLE
 IUTEST(PrintToTest, Tuple)
 {

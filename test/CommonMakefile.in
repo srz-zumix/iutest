@@ -68,6 +68,7 @@ TARGETS1= \
           iutest_output_xml_tests \
           iutest_printers_tests \
           iutest_progress_tests \
+          iutest_quiet_result_printer_tests \
           iutest_random_seed_tests \
           iutest_record_property_tests \
           iutest_repeat_tests \
@@ -77,6 +78,7 @@ TARGETS1= \
           iutest_shuffle_tests \
           iutest_skip_tests \
           iutest_spi_failure_tests \
+          iutest_streaming_listener_tests \
           iutest_throw_on_assertion_failure_tests \
           iutest_throw_on_failure_tests \
           iutest_tr1_tests \

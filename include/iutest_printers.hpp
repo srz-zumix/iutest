@@ -177,7 +177,7 @@ inline void DefaultPrintTo(IsContainerHelper::yes_t
 			*os << ",";
 			if( count == kMaxCount )
 			{
-				*os << "...";
+				*os << " ...";
 				break;
 			}
 		}

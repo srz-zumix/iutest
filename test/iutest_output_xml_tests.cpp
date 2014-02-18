@@ -100,6 +100,8 @@ int main(int argc, char* argv[])
 	}
 	printf("*** Successful ***\n");
 #else
+	(void)argc;
+	(void)argv;
 	printf("*** OUTPUT_XML_TEST=0 ***\n");
 #endif
 	return 0;

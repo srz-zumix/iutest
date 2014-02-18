@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
 		// 失敗テストを含むので xml 出力しない
 		::iutest::IUTEST_FLAG(output) = NULL;
 #endif
-		(void)IUTEST_RUN_ALL_TESTS();
+		if( IUTEST_RUN_ALL_TESTS() == 0 ) return 2;
 		
 		return 1;
 	}
@@ -79,7 +79,7 @@ int main(int argc, char* argv[])
 		// 失敗テストを含むので xml 出力しない
 		::iutest::IUTEST_FLAG(output) = NULL;
 #endif
-		(void)IUTEST_RUN_ALL_TESTS();
+		if( IUTEST_RUN_ALL_TESTS() == 0 ) return 2;
 		
 		return 1;
 	}

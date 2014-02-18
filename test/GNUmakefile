@@ -142,11 +142,11 @@ ifdef COVERAGE
 COVARALLS_EXCLUDE=-e doc -e projects -e samples -e tools
 COVARALLS_EXCLUDE_PATTERN  =-E ".*/test/.*" -E ".*/include/tr1/.*" -E ".*/include/gtest/.*"
 # define and constant only header
-COVARALLS_EXCLUDE_PATTERN +=-E ".*iutest_ver\.hpp" -E ".*iutest_config\.hpp" -E ".*iutest_ignore\.hpp"
-COVARALLS_EXCLUDE_PATTERN +=-E ".*iutest_compiler\.hpp" -E ".*iutest_constant\.hpp" -E ".*iutest_util\.hpp"
-COVARALLS_EXCLUDE_PATTERN +=-E ".*iutest_internal\.hpp" -E ".*iutest_pp\.hpp" -E ".*iutest_pragma\.hpp"
-COVARALLS_EXCLUDE_PATTERN +=-E ".*iutest_typelist\.hpp" -E ".*iutest_type_traits\.hpp" -E ".*iutest_tuple\.hpp"
-COVARALLS_EXCLUDE_PATTERN +=-E ".*iutest_all\.cpp" -E ".*iutest_util_output\.hpp"
+#COVARALLS_EXCLUDE_PATTERN +=-E ".*iutest_ver\.hpp" -E ".*iutest_config\.hpp" -E ".*iutest_ignore\.hpp"
+#COVARALLS_EXCLUDE_PATTERN +=-E ".*iutest_compiler\.hpp" -E ".*iutest_constant\.hpp" -E ".*iutest_util\.hpp"
+#COVARALLS_EXCLUDE_PATTERN +=-E ".*iutest_internal\.hpp" -E ".*iutest_pp\.hpp" -E ".*iutest_pragma\.hpp"
+#COVARALLS_EXCLUDE_PATTERN +=-E ".*iutest_typelist\.hpp" -E ".*iutest_type_traits\.hpp" -E ".*iutest_typed_util\.hpp"
+#COVARALLS_EXCLUDE_PATTERN +=-E ".*iutest_all\.cpp" -E ".*iutest_util_output\.hpp" -E ".*iutest_tuple\.hpp"
 COVARALLS_SRCEXT=-x .h -x .hpp -x .cpp -x .ipp
 endif
 

@@ -1,8 +1,8 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_logger_tests.cpp
- * @brief		logger テスト
+ * @file		iutest_quiet_result_printer_tests.cpp
+ * @brief		QuietResultPrinter test
  *
  * @author		t.sirayanagi
  * @version		1.0
@@ -19,22 +19,23 @@
 // include
 #include "../include/iutest.hpp"
 
-#if !defined(IUTEST_USE_GTEST)
-
-class TestLogger : public ::iutest::detail::iuLogger
+IUTEST(Test, Ok)
 {
-	::std::string m_log;
-public:
-	virtual void voutput(const char* fmt, va_list va)
-	{
-		char buf[4096];
-		vsprintf(buf, fmt, va);
-		m_log += buf;
-		::iutest::detail::iuConsole::voutput(fmt, va);
-	}
-	void clear(void) { m_log.clear(); }
-public:
-	const char* c_str(void) const { return m_log.c_str(); }
-};
+}
 
+#ifdef UNICODE
+int wmain(int argc, wchar_t* argv[])
+#else
+int main(int argc, char* argv[])
 #endif
+{
+	IUTEST_INIT(&argc, argv);
+#if IUTEST_HAS_STREAM_RESULT
+	::iutest::IUTEST_FLAG(stream_result_to) = "localhost:80";
+	if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;	
+	printf("*** Successful ***\n");
+	return 0;
+#else
+	return IUTEST_RUN_ALL_TESTS();
+#endif
+}
