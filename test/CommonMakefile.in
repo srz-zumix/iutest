@@ -68,7 +68,6 @@ TARGETS1= \
           iutest_output_xml_tests \
           iutest_printers_tests \
           iutest_progress_tests \
-          iutest_quiet_result_printer_tests \
           iutest_random_seed_tests \
           iutest_record_property_tests \
           iutest_repeat_tests \
