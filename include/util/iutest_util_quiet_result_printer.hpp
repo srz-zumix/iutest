@@ -100,10 +100,16 @@ public:
 	/**
 	 * @brief	QuietResultPrinter に切り替え
 	*/
-	static void SetUp(void)
+	static bool SetUp(void)
 	{
 		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-		listeners.Append(new QuietResultPrinter(listeners.Release(listeners.default_result_printer())));
+		::iutest::TestEventListener* default_printer = listeners.Release(listeners.default_result_printer());
+		if( default_printer == NULL )
+		{
+			return false;
+		}
+		listeners.Append(new QuietResultPrinter(default_printer));
+		return true;
 	}
 };
 

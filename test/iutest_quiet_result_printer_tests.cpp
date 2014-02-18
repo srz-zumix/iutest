@@ -46,7 +46,13 @@ int main(int argc, char* argv[])
 	::iutest::detail::iuConsole::SetLogger(&logger);
 #endif
 	
-	::iuutil::QuietResultPrinter::SetUp();
+#if !defined(IUTEST_USE_GTEST)
+#if IUTEST_HAS_ASSERTION_RETURN
+	IUTEST_ASSERT_TRUE( ::iuutil::QuietResultPrinter::SetUp() ) << ::iutest::AssertionReturn<int>(1);
+#else
+	if( !::iuutil::QuietResultPrinter::SetUp() ) return 1;
+#endif
+#endif
 
 	if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
 #if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_ASSERTION_RETURN
