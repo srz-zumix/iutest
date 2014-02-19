@@ -27,17 +27,20 @@ class TestLogger : public ::iutest::detail::iuLogger
 public:
 	virtual void voutput(const char* fmt, va_list va)
 	{
+#ifdef va_copy
 		va_list va2;
-#ifndef va_copy
-		va2 = va;
-#else
 		va_copy(va2, va);
-#endif
 		char buf[4096];
 		vsprintf(buf, fmt, va2);
 		va_end(va2);
 		m_log += buf;
 		::iutest::detail::iuConsole::voutput(fmt, va);
+#else
+		char buf[4096];
+		vsprintf(buf, fmt, va);
+		m_log += buf;
+		::iutest::detail::iuConsole::output(buf);
+#endif
 	}
 	void clear(void) { m_log.clear(); }
 public:
