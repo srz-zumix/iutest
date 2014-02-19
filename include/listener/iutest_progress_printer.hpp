@@ -47,11 +47,13 @@ public:
 	/**
 	 * @brief	ProgressPrintListener に切り替え
 	*/
-	static void SetUp(void)
+	static TestEventListener* SetUp(void)
 	{
 		TestEventListeners& listeners = UnitTest::GetInstance()->listeners();
 		delete listeners.Release(listeners.default_result_printer());
-		listeners.Append(new ProgressPrintListener);
+		TestEventListener* p = new ProgressPrintListener;
+		listeners.Append(p);
+		return p;
 	}
 };
 

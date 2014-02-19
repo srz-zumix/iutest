@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 {
 	IUTEST_INIT(&argc, argv);
 #if !defined(IUTEST_USE_GTEST)
-	::iutest::ProgressPrintListener::SetUp();
+	IUTEST_EXPECT_NOTNULL( ::iutest::ProgressPrintListener::SetUp() );
 #endif
 	return IUTEST_RUN_ALL_TESTS();
 }

@@ -45,11 +45,13 @@ public:
 	/**
 	* @brief	TAPPrintListener に切り替え
 	*/
-	static void SetUp(void)
+	static TestEventListener* SetUp(void)
 	{
 		TestEventListeners& listeners = UnitTest::GetInstance()->listeners();
 		delete listeners.Release(listeners.default_result_printer());
-		listeners.Append(new TAPPrintListener);
+		TestEventListener* p = new TAPPrintListener;
+		listeners.Append(p);
+		return p;
 	}
 };
 
@@ -110,12 +112,14 @@ public:
 	/**
 	 * @brief	TAPFileGeneratorListener に切り替え
 	*/
-	static void SetUp(void)
+	static TestEventListener* SetUp(void)
 	{
 		TestEventListeners& listeners = UnitTest::GetInstance()->listeners();
 		delete listeners.Release(listeners.default_result_printer());
 		const ::std::string& output =  TestEnv::get_output_option();
-		listeners.Append(new TAPFileGeneratorListener(output.c_str()));
+		TestEventListener* p = new TAPFileGeneratorListener(output.c_str();)
+		listeners.Append(p);
+		return p;
 	}
 };
 

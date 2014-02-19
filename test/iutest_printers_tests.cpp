@@ -174,17 +174,36 @@ IUTEST(PrintToTest, Iomanip)
 IUTEST(PrintToTest, WideString)
 {
 	IUTEST_SUCCEED() << ::iutest::PrintToString(L"Test");
+	{
+		LogChecker ck("(null)");
+		wchar_t* p = NULL;
+		IUTEST_SUCCEED() << ::iutest::PrintToString(p);
+	}
 }
 
-IUTEST(PrintToTest, UnicodeString)
-{
 #if IUTEST_HAS_CHAR16_T
+IUTEST(PrintToTest, Unicode16String)
+{
 	IUTEST_SUCCEED() << ::iutest::PrintToString(u"Test");
-#endif
-#if IUTEST_HAS_CHAR32_T
-	IUTEST_SUCCEED() << ::iutest::PrintToString(U"Test");
-#endif
+	{
+		LogChecker ck("(null)");
+		char16_t* p = NULL;
+		IUTEST_SUCCEED() << ::iutest::PrintToString(p);
+	}
 }
+#endif
+
+#if IUTEST_HAS_CHAR32_T
+IUTEST(PrintToTest, Unicode32String)
+{
+	IUTEST_SUCCEED() << ::iutest::PrintToString(U"Test");
+	{
+		LogChecker ck("(null)");
+		char32_t* p = NULL;
+		IUTEST_SUCCEED() << ::iutest::PrintToString(p);
+	}
+}
+#endif
 
 struct Point0
 {

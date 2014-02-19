@@ -385,10 +385,12 @@ public:
 	/**
 	 * @brief	SSTPNotifier を追加
 	*/
-	static void SetUp(const char* host, int port=detail::SSTP::DEFAULT_PORT)
+	static TestEventListener* SetUp(const char* host, int port=detail::SSTP::DEFAULT_PORT)
 	{
 		TestEventListeners& listeners = UnitTest::GetInstance()->listeners();
-		listeners.Append(new SSTPNotifier(host, port));
+		TestEventListener* p = new SSTPNotifier(host, port);
+		listeners.Append(p);
+		return p;
 	}
 };
 

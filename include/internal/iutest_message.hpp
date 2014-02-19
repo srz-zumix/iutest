@@ -64,7 +64,7 @@ public:
 	{
 		if( value == NULL )
 		{
-			m_stream << "(null)";
+			m_stream << kStrings::Null;
 		}
 		else
 		{

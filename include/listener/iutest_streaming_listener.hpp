@@ -65,7 +65,7 @@ public:
 	/**
 	* @brief	stream reuslt listener のセットアップ
 	*/
-	static bool SetUp(void)
+	static TestEventListener* SetUp(void)
 	{
 		::std::string addr = TestEnv::get_stream_result_to();
 		if( !addr.empty() )
@@ -73,12 +73,12 @@ public:
 			const size_t pos = addr.find(':');
 			if( pos != ::std::string::npos )
 			{
-				UnitTest::GetInstance()->listeners().Append(
-					new StreamResultListener(addr.substr(0, pos).c_str(), addr.substr(pos+1).c_str()));
-				return true;
+				TestEventListener* p = new StreamResultListener(addr.substr(0, pos).c_str(), addr.substr(pos+1).c_str());
+				UnitTest::GetInstance()->listeners().Append(p);
+				return p;
 			}
 		}
-		return false;
+		return NULL;
 	}
 };
 

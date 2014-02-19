@@ -20,6 +20,7 @@
 //======================================================================
 // include
 #include "iutest_port.hpp"
+#include "iutest_constant.hpp"
 
 #if IUTEST_HAS_CXX_HDR_CODECVT
 #  include <codecvt>
@@ -86,7 +87,7 @@ inline ::std::string ShowWideCString(const wchar_t* wide_c_str)
 {
 	if( wide_c_str == NULL )
 	{
-		return "(null)";
+		return kStrings::Null;
 	}
 #if IUTEST_MBS_CODE == IUTEST_MBS_CODE_UTF8
 	return WideStringToUTF8(wide_c_str);
@@ -102,7 +103,7 @@ inline ::std::string ShowWideCString(const char16_t* wide_c_str)
 {
 	if(wide_c_str == NULL)
 	{
-		return "(null)";
+		return kStrings::Null;
 	}
 #if IUTEST_HAS_CXX_HDR_CODECVT
 #if IUTEST_MBS_CODE == IUTEST_MBS_CODE_UTF8
