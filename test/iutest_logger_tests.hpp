@@ -34,12 +34,12 @@ public:
 		vsprintf(buf, fmt, va2);
 		va_end(va2);
 		m_log += buf;
-		::iutest::detail::iuConsole::voutput(fmt, va);
+		::iutest::detail::iuConsole::nl_voutput(fmt, va);
 #else
 		char buf[4096];
 		vsprintf(buf, fmt, va);
 		m_log += buf;
-		::iutest::detail::iuConsole::output(buf);
+		::iutest::detail::iuConsole::nl_output(buf);
 #endif
 	}
 	void clear(void) { m_log.clear(); }

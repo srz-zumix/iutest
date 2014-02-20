@@ -94,7 +94,6 @@ public:
 
 	/**
 	 * @brief	標準出力
-	 * @note	logger を通さない
 	*/
 	static inline void voutput(const char* fmt, va_list va);
 
@@ -103,6 +102,19 @@ public:
 	 * @param [in]	color	= 文字色
 	*/
 	static inline void color_output(Color color, const char *fmt, ...);
+
+public:
+	/**
+	 * @brief	標準出力
+	 * @note	no logger
+	*/
+	static inline void nl_output(const char *fmt, ...);
+
+	/**
+	 * @brief	標準出力
+	 * @note	no logger
+	*/
+	static inline void nl_voutput(const char* fmt, va_list va);
 
 public:
 	//! Logger のセット
@@ -114,7 +126,6 @@ public:
 	}
 private:
 	static inline void color_output_impl(Color color, const char* fmt, va_list va);
-	static inline void voutput_impl(const char* fmt, va_list va);
 	static inline bool IsShouldUseColor(bool use_color);
 
 private:
@@ -150,8 +161,19 @@ inline void iuConsole::output(const char *fmt, ...)
 {
 	va_list va;
 	va_start(va, fmt);
-	voutput_impl(fmt, va);
+	voutput(fmt, va);
 	va_end(va);
+}
+inline void iuConsole::voutput(const char* fmt, va_list va)
+{
+	if( var::m_pLogger != NULL )
+	{
+		var::m_pLogger->voutput(fmt, va);
+	}
+	else
+	{
+		nl_voutput(fmt, va);
+	}
 }
 inline void iuConsole::color_output(Color color, const char *fmt, ...)
 {
@@ -164,13 +186,19 @@ inline void iuConsole::color_output(Color color, const char *fmt, ...)
 	}
 	else
 	{
-		voutput_impl(fmt, va);
+		voutput(fmt, va);
 	}
 
 	va_end(va);
 }
-
-inline void iuConsole::voutput(const char* fmt, va_list va)
+inline void iuConsole::nl_output(const char *fmt, ...)
+{
+	va_list va;
+	va_start(va, fmt);
+	nl_voutput(fmt, va);
+	va_end(va);
+}
+inline void iuConsole::nl_voutput(const char* fmt, va_list va)
 {
 	IUTEST_VPRINTF(fmt, va);
 }
@@ -200,7 +228,7 @@ inline void iuConsole::color_output_impl(Color color, const char* fmt, va_list v
 		fflush(stdout);
 		::SetConsoleTextAttribute(stdout_handle, attr[color] | FOREGROUND_INTENSITY);
 
-		voutput_impl(fmt, va);
+		voutput(fmt, va);
 
 		fflush(stdout);
 		::SetConsoleTextAttribute(stdout_handle, wAttributes);
@@ -209,20 +237,8 @@ inline void iuConsole::color_output_impl(Color color, const char* fmt, va_list v
 #endif
 	{
 		output("\033[1;3%cm", '0' + color);
-		voutput_impl(fmt, va);
-		output("\033[m");
-	}
-}
-
-inline void iuConsole::voutput_impl(const char* fmt, va_list va)
-{
-	if( var::m_pLogger != NULL )
-	{
-		var::m_pLogger->voutput(fmt, va);
-	}
-	else
-	{
 		voutput(fmt, va);
+		output("\033[m");
 	}
 }
 

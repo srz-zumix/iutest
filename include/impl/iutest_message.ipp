@@ -29,7 +29,7 @@ IUTEST_IPP_INLINE void iuStreamMessage::append(const char* str)
 {
 	if( str == NULL )
 	{
-		m_stream << "(null)";
+		m_stream << kStrings::Null;
 	}
 	else
 	{

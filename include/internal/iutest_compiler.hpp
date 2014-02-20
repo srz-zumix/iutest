@@ -798,6 +798,10 @@
 #  endif
 #endif
 
+#ifndef IUTEST_HAS_MS_EXTENSIONS
+#  define IUTEST_HAS_MS_EXTENSIONS			0
+#endif
+
 // __if_exists
 #ifndef IUTEST_HAS_IF_EXISTS
 #  if defined(__clang__)

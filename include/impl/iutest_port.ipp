@@ -253,7 +253,7 @@ namespace win
 
 IUTEST_IPP_INLINE ::std::string WideStringToMultiByteString(const wchar_t* wide_c_str)
 {
-	if( wide_c_str == NULL ) return "(null)";
+	if( wide_c_str == NULL ) return "";
 	::std::string str;
 	const int length = static_cast<int>(wcslen(wide_c_str)) * 2 + 1;
 	char* mbs = new char [length];
