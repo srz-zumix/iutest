@@ -117,7 +117,7 @@ public:
 		TestEventListeners& listeners = UnitTest::GetInstance()->listeners();
 		delete listeners.Release(listeners.default_result_printer());
 		const ::std::string& output =  TestEnv::get_output_option();
-		TestEventListener* p = new TAPFileGeneratorListener(output.c_str();)
+		TestEventListener* p = new TAPFileGeneratorListener(output.c_str());
 		listeners.Append(p);
 		return p;
 	}
