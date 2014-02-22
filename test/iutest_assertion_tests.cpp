@@ -179,8 +179,8 @@ IUTEST(AssertionTest, Double)
 
 IUTEST(AssertionTest, Near)
 {
-	IUTEST_ASSERT_NEAR(0, 1, 2);
-	IUTEST_EXPECT_NEAR(1.0f, 4.0f, 4);
+	IUTEST_ASSERT_NEAR(0, 1, 1.5);
+	IUTEST_EXPECT_NEAR(1.0f, 4.0f, 3);
 	IUTEST_INFORM_NEAR(2.0, 1.0, 2);
 }
 

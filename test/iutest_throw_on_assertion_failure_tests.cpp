@@ -59,6 +59,20 @@ IUTEST(Foo, Test)
 	IUTEST_EXPECT_EQ(0, x);
 }
 
+class TestFix : public ::iutest::Test
+{
+public:
+	static void SetUpTestCase(void)
+	{
+		Sub1();
+		++x;
+	}
+};
+
+IUTEST_F(TestFix, Foo)
+{
+}
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
@@ -75,7 +89,7 @@ int main(int argc, char* argv[])
 #if IUTEST_USE_THROW_ON_ASSERTION_FAILURE
 	IUTEST_ASSERT( x == 0 );
 #else
-	IUTEST_ASSERT( x == 3 );
+	IUTEST_ASSERT( x == 4 );
 #endif
 	if( ret != 0 ) 	printf("*** Successful ***\n");
 	return ret ? 0 : 1;

@@ -173,10 +173,46 @@ IUTEST(PrintToTest, Iomanip)
 
 IUTEST(PrintToTest, WideString)
 {
-	IUTEST_SUCCEED() << ::iutest::PrintToString(L"Test");
+	{
+		LogChecker ck("Test");
+		IUTEST_SUCCEED() << ::iutest::PrintToString(L"Test");
+	}
+	{
+		LogChecker ck("\\0");
+		wchar_t c = 0;
+		IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+	}
+//	{
+//		LogChecker ck("\'A\'");
+//		wchar_t c = L'A';
+//		IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+//	}
 	{
 		LogChecker ck("(null)");
 		wchar_t* p = NULL;
+		IUTEST_SUCCEED() << ::iutest::PrintToString(p);
+	}
+}
+
+IUTEST(PrintToTest, String)
+{
+	{
+		LogChecker ck("Test");
+		IUTEST_SUCCEED() << ::iutest::PrintToString("Test");
+	}
+	{
+		LogChecker ck("\\0");
+		char c = 0;
+		IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+	}
+	{
+		LogChecker ck("\'A\'");
+		char c = 'A';
+		IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+	}
+	{
+		LogChecker ck("(null)");
+		char* p = NULL;
 		IUTEST_SUCCEED() << ::iutest::PrintToString(p);
 	}
 }
@@ -247,11 +283,12 @@ IUTEST(PrintToTest, Overload)
 	}
 }
 
+struct Hoge {
+	int a[256];
+};
 IUTEST(PrintToTest, MaxElem)
 {
-	struct {
-		int a[256];
-	} hoge;
+	Hoge hoge;
 	{
 		LogChecker ck(" ...");
 		IUTEST_SUCCEED() << ::iutest::PrintToString(hoge);
