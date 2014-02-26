@@ -146,6 +146,7 @@ int main(int argc, char* argv[])
 		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 0 );
 #endif
 	}
+#if !defined(IUTEST_USE_GTEST)
 	{
 		::iutest::IUTEST_FLAG(filter) = "Foo.Ba*:-*Fail*";
 		const int ret = IUTEST_RUN_ALL_TESTS();
@@ -161,6 +162,7 @@ int main(int argc, char* argv[])
 		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 0 );
 #endif
 	}
+#endif
 	{
 		::iutest::IUTEST_FLAG(filter) = "*Baz*:*Qux*";
 		const int ret = IUTEST_RUN_ALL_TESTS();
