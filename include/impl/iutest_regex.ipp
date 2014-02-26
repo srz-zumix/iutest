@@ -77,6 +77,7 @@ IUTEST_IPP_INLINE bool iuRegex::match(const char* regex, const char* src)
 		const char* end = tp;
 		while( *end != '\0' && *end != ':' ) ++end;
 
+		if( tp != end )
 		{
 			bool match = true;
 			const char* end2 = tp;
@@ -95,8 +96,9 @@ IUTEST_IPP_INLINE bool iuRegex::match(const char* regex, const char* src)
 				tp = end2;
 			}
 			if( match ) return true;
+			tp = end;
 		}
-		tp = end;
+		if( *tp == ':' ) ++tp;
 	}
 	return false;
 }
