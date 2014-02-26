@@ -28,7 +28,6 @@ IUTEST(Expect, Test)
 
 IUTEST(Expect, Dummy)
 {
-	IUTEST_EXPECT_EQ(2, 1);
 }
 
 IUTEST(Assert, Test)
@@ -38,7 +37,15 @@ IUTEST(Assert, Test)
 
 IUTEST(Assert, Dummy)
 {
-	IUTEST_ASSERT_EQ(2, 1);
+}
+
+IUTEST(Throw, Test)
+{
+	throw 2;
+}
+
+IUTEST(Throw, Dummy)
+{
 }
 
 #endif
@@ -74,6 +81,22 @@ int main(int argc, char* argv[])
 	try
 	{
 		::iutest::IUTEST_FLAG(filter) = "*Assert*";
+		IUTEST_INIT(&argc, argv);
+#if defined(OUTPUTXML)
+		// 失敗テストを含むので xml 出力しない
+		::iutest::IUTEST_FLAG(output) = NULL;
+#endif
+		if( IUTEST_RUN_ALL_TESTS() == 0 ) return 2;
+		
+		return 1;
+	}
+	catch(...)
+	{
+	}
+
+	try
+	{
+		::iutest::IUTEST_FLAG(filter) = "*Throw*";
 		IUTEST_INIT(&argc, argv);
 #if defined(OUTPUTXML)
 		// 失敗テストを含むので xml 出力しない

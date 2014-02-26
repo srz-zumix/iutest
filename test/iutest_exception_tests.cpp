@@ -22,9 +22,14 @@
 #if IUTEST_HAS_EXCEPTIONS
 #include <stdexcept>
 
+IUTEST(ExceptionTest, StdExceptionThrow)
+{
+	throw std::runtime_error("ExceptionTest");
+}
+
 IUTEST(ExceptionTest, Throw)
 {
-	throw std::runtime_error("ParamExceptionTest");
+	throw "ExceptionTest";
 }
 
 #endif
@@ -42,6 +47,7 @@ int main(int argc, char* argv[])
 	::iutest::IUTEST_FLAG(output) = NULL;
 #endif
 	if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
+	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
 #else
 	if( IUTEST_RUN_ALL_TESTS() ) return 1;
 #endif
