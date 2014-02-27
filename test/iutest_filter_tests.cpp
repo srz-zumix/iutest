@@ -19,34 +19,76 @@
 // include
 #include "../include/iutest.hpp"
 
-IUTEST(Test, Fail)
-{
-	IUTEST_ASSERT_EQ(2, 3);
-}
+#define MAKE_TEST(TestCase, TestName)									\
+	namespace TestCase##TestName { enum STATE { NOT_RAN, RAN };			\
+		void PrintTo(const STATE& state, ::iutest::iu_ostream* os) {	\
+			*os << ((state) ? "RAN" : "NOT_RAN");						\
+		}																\
+		static STATE state;												\
+	}																	\
+	IUTEST(TestCase, TestName) {										\
+		TestCase##TestName::state = TestCase##TestName::RAN;			\
+	}																	\
 
-IUTEST(Fail, Test)
-{
-	IUTEST_ASSERT_EQ(2, 3);
-}
+MAKE_TEST(Test, Hoge)
+MAKE_TEST(Hoge, Test)
+MAKE_TEST(Foo, Bar)
+MAKE_TEST(Foo, Baz)
+MAKE_TEST(Foo, BarTest)
+MAKE_TEST(Foo, Qux)
 
-IUTEST(Foo, Bar)
+bool FilterTest(const char* filter
+	, TestHoge::STATE ranTestHoge
+	, HogeTest::STATE ranHogeTest
+	, FooBar::STATE ranFooBar
+	, FooBaz::STATE ranFooBaz
+	, FooBarTest::STATE ranFooBarTest
+	, FooQux::STATE ranFooQux
+)
 {
-	IUTEST_ASSERT_EQ(3, 3);
-}
+	TestHoge::state = TestHoge::NOT_RAN;
+	HogeTest::state = HogeTest::NOT_RAN;
+	FooBar::state = FooBar::NOT_RAN;
+	FooBaz::state = FooBaz::NOT_RAN;
+	FooBarTest::state = FooBarTest::NOT_RAN;
+	FooQux::state = FooQux::NOT_RAN;
 
-IUTEST(Foo, Baz)
-{
-	IUTEST_ASSERT_EQ(3, 3);
-}
+	::iutest::IUTEST_FLAG(filter) = filter;
+	const int ret = IUTEST_RUN_ALL_TESTS();
+	
+	if( ret != 0 ) return false;
+	
+	{
+		IUTEST_SCOPED_TRACE(filter);
 
-IUTEST(Foo, BarFail)
-{
-	IUTEST_ASSERT_EQ(2, 3);
-}
-
-IUTEST(Foo, Qux)
-{
-	IUTEST_ASSERT_EQ(3, 3);
+		IUTEST_EXPECT_EQ( ranTestHoge  , TestHoge::state );
+		IUTEST_EXPECT_EQ( ranHogeTest  , HogeTest::state );
+		IUTEST_EXPECT_EQ( ranFooBar    , FooBar::state );
+		IUTEST_EXPECT_EQ( ranFooBaz    , FooBaz::state );
+		IUTEST_EXPECT_EQ( ranFooBarTest, FooBarTest::state );
+		IUTEST_EXPECT_EQ( ranFooQux    , FooQux::state );
+		
+		int nRan = 0;
+		
+		if( ranTestHoge ) ++nRan;
+		if( ranHogeTest ) ++nRan;
+		if( ranFooBar ) ++nRan;
+		if( ranFooBaz ) ++nRan;
+		if( ranFooBarTest ) ++nRan;
+		if( ranFooQux ) ++nRan;
+		
+#if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_count() == nRan );
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == 0 );
+#endif
+#if !defined(IUTEST_USE_GTEST)
+		const int kTotal = 6;
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == kTotal-nRan );
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
+		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 0 );
+#endif
+	}
+	return ::iutest::UnitTest::GetInstance()->Passed();
 }
 
 #ifdef UNICODE
@@ -56,143 +98,153 @@ int main(int argc, char* argv[])
 #endif
 {
 	IUTEST_INIT(&argc, argv);
-	{
-		::iutest::IUTEST_FLAG(filter) = "*Fail*";
-		const int ret = IUTEST_RUN_ALL_TESTS();
-		
-		if( ret == 0 ) return 1;
-#if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_count() == 3 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == 0 );
-#endif
-#if !defined(IUTEST_USE_GTEST)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 3 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 0 );
-#endif
+
+	if( !FilterTest("*Test*"
+		, TestHoge::RAN
+		, HogeTest::RAN
+		, FooBar::NOT_RAN
+		, FooBaz::NOT_RAN
+		, FooBarTest::RAN
+		, FooQux::NOT_RAN
+	) ) {
+		return 1;
 	}
-	{
-		::iutest::IUTEST_FLAG(filter) = "-*Fail*";
-		const int ret = IUTEST_RUN_ALL_TESTS();
-		
-		if( ret != 0 ) return 1;
-#if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_count() == 3 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == 0 );
-#endif
-#if !defined(IUTEST_USE_GTEST)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 3 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 0 );
-#endif
+
+	if( !FilterTest("-*Test*"
+		, TestHoge::NOT_RAN
+		, HogeTest::NOT_RAN
+		, FooBar::RAN
+		, FooBaz::RAN
+		, FooBarTest::NOT_RAN
+		, FooQux::RAN
+	) ) {
+		return 1;
 	}
-	{
-		::iutest::IUTEST_FLAG(filter) = "Foo.Bar";
-		const int ret = IUTEST_RUN_ALL_TESTS();
-		
-		if( ret != 0 ) return 1;
-#if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_count() == 1 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == 0 );
-#endif
-#if !defined(IUTEST_USE_GTEST)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 5 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 0 );
-#endif
+
+	if( !FilterTest("Foo.Bar"
+		, TestHoge::NOT_RAN
+		, HogeTest::NOT_RAN
+		, FooBar::RAN
+		, FooBaz::NOT_RAN
+		, FooBarTest::NOT_RAN
+		, FooQux::NOT_RAN
+	) ) {
+		return 1;
 	}
-	{
-		::iutest::IUTEST_FLAG(filter) = "***.Bar";
-		const int ret = IUTEST_RUN_ALL_TESTS();
-		
-		if( ret != 0 ) return 1;
-#if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_count() == 1 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == 0 );
-#endif
-#if !defined(IUTEST_USE_GTEST)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 5 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 0 );
-#endif
+
+	if( !FilterTest("***.Bar"
+		, TestHoge::NOT_RAN
+		, HogeTest::NOT_RAN
+		, FooBar::RAN
+		, FooBaz::NOT_RAN
+		, FooBarTest::NOT_RAN
+		, FooQux::NOT_RAN
+	) ) {
+		return 1;
 	}
-	{
-		::iutest::IUTEST_FLAG(filter) = "???.Ba?";
-		const int ret = IUTEST_RUN_ALL_TESTS();
-		
-		if( ret != 0 ) return 1;
-#if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_count() == 2 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == 0 );
-#endif
-#if !defined(IUTEST_USE_GTEST)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 4 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 0 );
-#endif
+
+	if( !FilterTest("???.Ba?"
+		, TestHoge::NOT_RAN
+		, HogeTest::NOT_RAN
+		, FooBar::RAN
+		, FooBaz::RAN
+		, FooBarTest::NOT_RAN
+		, FooQux::NOT_RAN
+	) ) {
+		return 1;
 	}
-	{
-		::iutest::IUTEST_FLAG(filter) = "Foo.Ba*-*Fail*";
-		const int ret = IUTEST_RUN_ALL_TESTS();
-		
-		if( ret != 0 ) return 1;
-#if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_count() == 2 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == 0 );
-#endif
-#if !defined(IUTEST_USE_GTEST)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 4 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 0 );
-#endif
+
+	if( !FilterTest("???.Ba?"
+		, TestHoge::NOT_RAN
+		, HogeTest::NOT_RAN
+		, FooBar::RAN
+		, FooBaz::RAN
+		, FooBarTest::NOT_RAN
+		, FooQux::NOT_RAN
+	) ) {
+		return 1;
 	}
+
+	if( !FilterTest("Foo.Ba*-*Test*"
+		, TestHoge::NOT_RAN
+		, HogeTest::NOT_RAN
+		, FooBar::RAN
+		, FooBaz::RAN
+		, FooBarTest::NOT_RAN
+		, FooQux::NOT_RAN
+	) ) {
+		return 1;
+	}
+
 #if !defined(IUTEST_USE_GTEST)
-	{
-		::iutest::IUTEST_FLAG(filter) = "Foo.Ba*:-*Fail*";
-		const int ret = IUTEST_RUN_ALL_TESTS();
-		
-		if( ret == 0 ) return 1;
-#if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_count() == 4 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == 0 );
-#endif
-#if !defined(IUTEST_USE_GTEST)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 2 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 0 );
-#endif
+	// gtest は negative filter は１つまで
+	if( !FilterTest("Foo.Ba*-*Test*-*Baz*"
+		, TestHoge::NOT_RAN
+		, HogeTest::NOT_RAN
+		, FooBar::RAN
+		, FooBaz::NOT_RAN
+		, FooBarTest::NOT_RAN
+		, FooQux::NOT_RAN
+	) ) {
+		return 1;
+	}
+
+	if( !FilterTest("Foo.Ba*:-*Test*:-*Baz*"
+		, TestHoge::NOT_RAN
+		, HogeTest::NOT_RAN
+		, FooBar::RAN
+		, FooBaz::NOT_RAN
+		, FooBarTest::NOT_RAN
+		, FooQux::NOT_RAN
+	) ) {
+		return 1;
+	}
+
+	if( !FilterTest("Foo.Ba*-*Test*:-*Baz*"
+		, TestHoge::NOT_RAN
+		, HogeTest::NOT_RAN
+		, FooBar::RAN
+		, FooBaz::NOT_RAN
+		, FooBarTest::NOT_RAN
+		, FooQux::NOT_RAN
+	) ) {
+		return 1;
 	}
 #endif
-	{
-		::iutest::IUTEST_FLAG(filter) = "*Baz*:*Qux*";
-		const int ret = IUTEST_RUN_ALL_TESTS();
-		
-		if( ret != 0 ) return 1;
-#if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_count() == 2 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == 0 );
-#endif
-#if !defined(IUTEST_USE_GTEST)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 4 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 0 );
-#endif
+
+	if( !FilterTest("Foo.Ba*:-*Test*"
+		, TestHoge::NOT_RAN
+		, HogeTest::NOT_RAN
+		, FooBar::RAN
+		, FooBaz::RAN
+		, FooBarTest::NOT_RAN
+		, FooQux::NOT_RAN
+	) ) {
+		return 1;
 	}
-	{
-		::iutest::IUTEST_FLAG(filter) = ":::*Baz*:::::*Qux*:::";
-		const int ret = IUTEST_RUN_ALL_TESTS();
-		
-		if( ret != 0 ) return 1;
-#if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_count() == 2 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == 0 );
-#endif
-#if !defined(IUTEST_USE_GTEST)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 4 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 0 );
-#endif
+
+	if( !FilterTest("*Baz*:*Qux*"
+		, TestHoge::NOT_RAN
+		, HogeTest::NOT_RAN
+		, FooBar::NOT_RAN
+		, FooBaz::RAN
+		, FooBarTest::NOT_RAN
+		, FooQux::RAN
+	) ) {
+		return 1;
 	}
+
+	if( !FilterTest(":::*Baz*:::::*Qux*:::"
+		, TestHoge::NOT_RAN
+		, HogeTest::NOT_RAN
+		, FooBar::NOT_RAN
+		, FooBaz::RAN
+		, FooBarTest::NOT_RAN
+		, FooQux::RAN
+	) ) {
+		return 1;
+	}
+
 	printf("*** Successful ***\n");
 	return 0;
 }

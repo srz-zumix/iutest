@@ -30,6 +30,7 @@ namespace detail
 class iuRegex
 {
 	static bool match_impl(const char* begin, const char* end, const char* src);
+	static bool match_impl_group(const char* begin, const char* end, const char* src);
 public:
 	static bool match(const char* regex, const char* src);
 };
