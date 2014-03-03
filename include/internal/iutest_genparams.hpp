@@ -815,7 +815,7 @@ protected:
 		{
 			random.init(seed);
 		}
-		std::random_shuffle(pair_list.begin(), pair_list.end(), random);
+		random.shuffle(pair_list.begin(), pair_list.end());
 
 		for( ::std::vector<PairInfo>::const_iterator it=pair_list.begin(); it != pair_list.end(); ++it )
 		{

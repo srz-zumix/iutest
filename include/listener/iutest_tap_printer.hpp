@@ -134,7 +134,7 @@ inline void TAPPrintListener::OnTestProgramStart(const UnitTest& test)
 }
 inline void TAPPrintListener::OnTestProgramEnd(const UnitTest& test)
 {
-	detail::FileOutStream stream(stdout);
+	detail::LogStream stream;
 
 	int number = 1;
 	for( int k=0, count=test.total_test_case_count(); k < count; ++k )

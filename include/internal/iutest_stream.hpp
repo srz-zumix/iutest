@@ -61,7 +61,9 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 		va_end(va);
 
 		if( len > 0 )
+		{
 			Write(buf, static_cast<size_t>(len), 1);
+		}
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 	}
@@ -89,6 +91,37 @@ public:
 	{
 		if( fwrite(buf, size, cnt, m_fp) < cnt ) return false;
 		return true;
+	}
+};
+
+/**
+ * @brief	ログ出力ストリームインターフェイス
+*/
+class LogStream : public IOutStream
+{
+public:
+	/**
+	 * @brief	書き込み
+	 * @param [in]	buf		= 書き込みバッファ
+	 * @param [in]	size	= バッファサイズ
+	 * @param [in]	cnt		= 書き込み回数
+	*/
+	virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
+	{
+		IUTEST_UNUSED_VAR(size);
+		const char* str = static_cast<const char*>(buf);
+		for( size_t i=0; i < cnt; ++i )
+		{
+			iuConsole::output(str);
+		}
+		return true;
+	}
+	virtual void Printf(const char* fmt, ...)
+	{
+		va_list va;
+		va_start(va, fmt);
+		iuConsole::voutput(fmt, va);
+		va_end(va);
 	}
 };
 

@@ -192,6 +192,17 @@ public:
 	{
 		return genrand(max);
 	}
+
+public:
+	template<typename It>
+	void shuffle(It first, It last)
+	{
+#if IUTEST_HAS_CXX_HDR_RANDOM
+		std::shuffle(first, last, m_engine);
+#else
+		std::random_shuffle(first, last, *this);
+#endif
+	}
 };
 
 #if !(defined(_MSC_VER) && _MSC_VER < 1300)

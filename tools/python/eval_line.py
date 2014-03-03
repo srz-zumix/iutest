@@ -35,11 +35,29 @@ def parse_command_line():
 		, help = 'Set eval repeat start no.'
 		, default = 0
 	)
+	parser.add_option(
+		'-o'
+		, '--output'
+		, type = 'str'
+		, dest = 'output'
+		, help = 'output file path.'
+		, default = None
+	)
 	if len(sys.argv) <= 1:
 		parser.error('invalid number arguments')
 
 	options, args = parser.parse_args(sys.argv)
 	return options, args
+
+def eval_line(r, define, line):
+	m = r.finditer(define)
+	if m == None:
+		return define
+	else:
+		out = define
+		for e in m:
+			out = out.replace( e.group(0), str(eval(e.group(1))) )
+		return out
 
 def main():
 	re_eval = re.compile(r'\${([^}]+)}')
@@ -47,15 +65,17 @@ def main():
 	define = args[1]
 	for a in args[2:]:
 		define += ' ' + a
-	for line in range(options.start, options.repeat):
-		m = re_eval.finditer(define)
-		if m == None:
-			print define
-		else:
-			out = define
-			for e in m:
-				out = out.replace( e.group(0), str(eval(e.group(1))) )
-			print out
+
+	output = options.output
+	if output == None:
+		for line in range(options.start, options.repeat):
+			print eval_line(re_eval, define, line)
+	else:
+		file = open(output, 'w')
+		for line in range(options.start, options.repeat):
+			file.write( eval_line(re_eval, define, line) )
+			file.write( '\n' )
+		file.close()
 
 
 if __name__ == '__main__':
