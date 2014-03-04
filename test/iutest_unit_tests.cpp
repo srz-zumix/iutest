@@ -59,6 +59,13 @@ IUTEST(UnitTest, is_base_of)
 	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::is_base_of<Derived, Derived>::value );
 }
 
+IUTEST(UnitTest, StringReplace)
+{
+	::std::string str = "a1a2a3a4b5";
+	::iutest::detail::StringReplace(str, 'a', "ii");
+	IUTEST_EXPECT_STREQ("ii1ii2ii3ii4b5", str);
+}
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else

@@ -71,16 +71,16 @@ public:
 	iu_list_iterator(const _Myt& rhs) IUTEST_CXX_NOEXCEPT_SPEC : m_node(rhs.m_node) {}
 
 public:
-	int			operator == (const _Myt& it) const { return this->m_node == it.m_node; }
-	int			operator != (const _Myt& it) const { return this->m_node != it.m_node; }
+	bool operator == (const _Myt& it) const { return this->m_node == it.m_node; }
+	bool operator != (const _Myt& it) const { return this->m_node != it.m_node; }
 
-	_Myt&		operator ++ (void)	{ m_node = m_node->next; return *this; }
-	_Myt&		operator -- (void)	{ m_node = m_node->prev; return *this; }
-	value_ptr	operator -> (void) IUTEST_CXX_NOEXCEPT_SPEC	{ return m_node; }
-	value_ref	operator *  (void) IUTEST_CXX_NOEXCEPT_SPEC	{ return *m_node; }
-	value_ptr	ptr(void) const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_node; }
+	_Myt&		operator ++ (void) { m_node = m_node->next; return *this; }
+	_Myt&		operator -- (void) { m_node = m_node->prev; return *this; }
+	value_ptr	operator -> (void) IUTEST_CXX_NOEXCEPT_SPEC { return ptr(); }
+	value_ref	operator *  (void) IUTEST_CXX_NOEXCEPT_SPEC { return *m_node; }
+	value_ptr	ptr(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_node; }
 
-	operator	value_ptr (void)	{ return m_node; }
+	operator	value_ptr (void)	{ return ptr(); }
 
 	_Myt operator + (int n)
 	{
@@ -441,14 +441,10 @@ private:
 /**
  * @brief	vector シャッフル
 */
-template<typename It, typename Fn>
-void RandomShuffle(It begin, It last, Fn& r)
+template<typename It>
+void RandomShuffle(It begin, It last, iuRandom& r)
 {
-	It next = begin;
-	for( unsigned int i=2; ++next != last; ++i )
-	{
-		::std::iter_swap(next, begin + r(i) % i );
-	}
+	r.shuffle(begin, last);
 }
 
 template<typename Node, typename Fn>
