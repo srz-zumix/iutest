@@ -21,28 +21,37 @@
 
 #if IUTEST_HAS_ASSERTION_RETURN
 
-static int value = 0;
+static int value1 = 1;
+static int value2 = 1;
 
-int ReturnTest(void)
+int ReturnTest1(void)
 {
 	IUTEST_ASSERT_TRUE(false) << "message" << ::iutest::AssertionReturnType<int>(-1);
+	return 0;
+}
+
+int ReturnTest2(void)
+{
 	IUTEST_ASSERT_TRUE(false) << "message" << ::iutest::AssertionReturn(-1);
 	return 0;
 }
 
 void ReturnTestCall(void)
 {
-	value = ReturnTest();
-	IUTEST_ASSERT_TRUE(true) << ::iutest::AssertionReturn();
+	IUTEST_ASSERT_FATAL_FAILURE(value1 = ReturnTest1(), "message");
+	IUTEST_ASSERT_FATAL_FAILURE(value2 = ReturnTest2(), "message");
+	IUTEST_ASSERT_TRUE(false) << ::iutest::AssertionReturn();
 }
 
 IUTEST(ReturnTest, Test)
 {
 	IUTEST_ASSERT_FATAL_FAILURE(ReturnTestCall(), "");
 #if IUTEST_USE_THROW_ON_ASSERTION_FAILURE
-	IUTEST_ASSERT_EQ( 0, value);
+	IUTEST_EXPECT_EQ( 0, value1);
+	IUTEST_EXPECT_EQ( 1, value2);
 #else
-	IUTEST_ASSERT_EQ(-1, value);
+	IUTEST_EXPECT_EQ(-1, value1);
+	IUTEST_EXPECT_EQ(-1, value2);
 #endif
 }
 

@@ -60,28 +60,28 @@ public:
 
 public:
 	/** test case 名の取得 */
-	const	char*	test_case_name(void)	const	{ return m_testcase->test_case_name(); }
+	const	char*	test_case_name(void)	const { return m_testcase->test_case_name(); }
 	/** test 名の取得 */
-	const	char*	name(void)				const	{ return m_testname.c_str(); }
+	const	char*	name(void)				const { return m_testname.c_str(); }
 	/** should_run */
-	bool			should_run(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_should_run; }
+	bool			should_run(void)		const IUTEST_CXX_NOEXCEPT_SPEC { return m_should_run; }
 	/** is ran */
-	bool			is_ran(void)			const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_ran; }
+	bool			is_ran(void)			const IUTEST_CXX_NOEXCEPT_SPEC { return m_ran; }
 	/** disable */
-	bool			is_disabled_test(void)	const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_disable; }
+	bool			is_disabled_test(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_disable; }
 	/** is skipped */
-	bool			is_skipped(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_skip || m_test_result.Skipped(); }
+	bool			is_skipped(void)		const IUTEST_CXX_NOEXCEPT_SPEC { return m_skip || m_test_result.Skipped(); }
 	/** is reportable */
-	bool			is_reportable(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_matches_filter; }
+	bool			is_reportable(void)		const IUTEST_CXX_NOEXCEPT_SPEC { return m_matches_filter; }
 	/** テストの実行ミリ秒 */
-	TimeInMillisec	elapsed_time(void)		const	{ return m_test_result.elapsed_time(); }
+	TimeInMillisec	elapsed_time(void)		const { return m_test_result.elapsed_time(); }
 	/** テスト結果の取得 */
-	const TestResult*	result(void)		const IUTEST_CXX_NOEXCEPT_SPEC	{ return &m_test_result; }
+	const TestResult*	result(void)		const IUTEST_CXX_NOEXCEPT_SPEC { return &m_test_result; }
 
 	/** value param 文字列の取得 */
-	const	char*	value_param(void)		const	{ return m_value_param.empty() ? NULL : m_value_param.c_str(); }
+	const	char*	value_param(void)		const { return m_value_param.empty() ? NULL : m_value_param.c_str(); }
 	/** type param 文字列の取得 */
-	const	char*	type_param(void)		const	{ return m_testcase->type_param(); }
+	const	char*	type_param(void)		const { return m_testcase->type_param(); }
 
 public:
 	/**

@@ -169,12 +169,28 @@ IUTEST(AssertionTest, Float)
 	IUTEST_INFORM_FLOAT_EQ(-1.0f, -2.0f/2.0f);
 }
 
+IUTEST(AssertionTest, FloatLE)
+{
+	float f0=0.0f, f1=1.0f;
+	IUTEST_ASSERT_PRED_FORMAT2(::iutest::FloatLE, 1.0f, f1);
+	IUTEST_EXPECT_PRED_FORMAT2(::iutest::FloatLE, f0, f1);
+	IUTEST_INFORM_PRED_FORMAT2(::iutest::FloatLE, -1.0f, -2.0f/2.0f);
+}
+
 IUTEST(AssertionTest, Double)
 {
 	double d0=0.0, d1=1.0;
 	IUTEST_ASSERT_DOUBLE_EQ(1.0, d1);
 	IUTEST_EXPECT_DOUBLE_EQ(0.0, d0);
 	IUTEST_INFORM_DOUBLE_EQ(-1.0, -2.0/2.0);
+}
+
+IUTEST(AssertionTest, DoubleLE)
+{
+	double d0=0.0, d1=1.0;
+	IUTEST_ASSERT_PRED_FORMAT2(::iutest::DoubleLE, 1.0, d1);
+	IUTEST_EXPECT_PRED_FORMAT2(::iutest::DoubleLE, d0, d1);
+	IUTEST_INFORM_PRED_FORMAT2(::iutest::DoubleLE, -1.0, -2.0/2.0);
 }
 
 IUTEST(AssertionTest, Near)

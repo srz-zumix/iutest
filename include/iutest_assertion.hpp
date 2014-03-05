@@ -1020,18 +1020,6 @@ static AssertionResult CmpHelperFloatingPointLE(const char* expr1, const char* e
 		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(f2, f1)).c_str());
 }
 
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ FloatLE(const char* expr1, const char* expr2
-														, float val1, float val2)
-{
-	return CmpHelperFloatingPointLE<float>(expr1, expr2, val1, val2);
-}
-
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ DoubleLE(const char* expr1, const char* expr2
-														, double val1, double val2)
-{
-	return CmpHelperFloatingPointLE<double>(expr1, expr2, val1, val2);
-}
-
 #if defined(IUTEST_OS_WINDOWS)
 
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ IsHRESULTSuccess(const char* expr, HRESULT hr)
@@ -1056,6 +1044,27 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ IsHRESULTFailure(const char* exp
 #endif
 
 }	// end of namespace internal
+
+/**
+ * @brief	Float LE Formatter
+ * @note	IUTEST_ASSERT_PRED_FORMAT2(::iutest::FloatLE , 0, 1);
+*/
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ FloatLE(const char* expr1, const char* expr2
+	, float val1, float val2)
+{
+	return internal::CmpHelperFloatingPointLE<float>(expr1, expr2, val1, val2);
+}
+
+/**
+ * @brief	Double LE Formatter
+ * @note	IUTEST_ASSERT_PRED_FORMAT2(::iutest::DoubleLE , 0, 1);
+*/
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ DoubleLE(const char* expr1, const char* expr2
+	, double val1, double val2)
+{
+	return internal::CmpHelperFloatingPointLE<double>(expr1, expr2, val1, val2);
+}
+
 
 }	// end of namespace iutest
 

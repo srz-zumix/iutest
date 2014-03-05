@@ -68,12 +68,12 @@ def main():
 
 	output = options.output
 	if output == None:
-		for line in range(options.start, options.repeat):
-			print eval_line(re_eval, define, line)
+		for line in range(options.repeat):
+			print eval_line(re_eval, define, line+options.start)
 	else:
 		file = open(output, 'w')
-		for line in range(options.start, options.repeat):
-			file.write( eval_line(re_eval, define, line) )
+		for line in range(options.repeat):
+			file.write( eval_line(re_eval, define, line+options.start) )
 			file.write( '\n' )
 		file.close()
 

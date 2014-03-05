@@ -79,6 +79,10 @@ IUTEST(Compatibility, TestInfo)
 	(void)testinfo->type_param();
 	(void)testinfo->value_param();
 #endif
+#if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
+	(void)testinfo->is_reportable();
+#endif
+	(void)testinfo->should_run();
 	(void)testinfo->result();
 }
 
@@ -111,4 +115,10 @@ IUTEST(Compatibility, TestPartResult)
 	(void)&::iutest::TestPartResult::failed;
 	(void)&::iutest::TestPartResult::nonfatally_failed;
 	(void)&::iutest::TestPartResult::fatally_failed;
+}
+
+IUTEST(Compatibility, TestBody)
+{
+	HasFatalFailure();
+	HasNonfatalFailure();
 }

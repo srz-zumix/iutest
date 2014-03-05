@@ -24,6 +24,17 @@ IUTEST(Test, A)
 {
 }
 
+#if IUTEST_HAS_PARAM_TEST
+
+class ParamTest : public ::iutest::TestWithParam<int> {};
+
+IUTEST_P(ParamTest, A)
+{
+}
+IUTEST_INSTANTIATE_TEST_CASE_P(Test, ParamTest, ::iutest::Values(42));
+
+#endif
+
 #if IUTEST_HAS_TYPED_TEST
 
 template<typename T>
@@ -38,7 +49,9 @@ IUTEST_TYPED_TEST(TypedTest, A)
 #endif
 
 const char list_test_str[] = 
-#if IUTEST_HAS_TYPED_TEST
+#if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TYPED_TEST
+"3 tests from 3 testcase\n"
+#elif IUTEST_HAS_TYPED_TEST || IUTEST_HAS_PARAM_TEST
 "2 tests from 2 testcase\n"
 #else
 "1 tests from 1 testcase\n"
@@ -49,10 +62,16 @@ const char list_test_str[] =
 "TypedTest/0\n"
 "  A\n"
 #endif
+#if IUTEST_HAS_PARAM_TEST
+"Test/ParamTest\n"
+"  A/0\n"
+#endif
 ;
 
 const char list_test_with_where_str[] =
-#if IUTEST_HAS_TYPED_TEST
+#if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TYPED_TEST
+"3 tests from 3 testcase\n"
+#elif IUTEST_HAS_TYPED_TEST || IUTEST_HAS_PARAM_TEST
 "2 tests from 2 testcase\n"
 #else
 "1 tests from 1 testcase\n"
@@ -62,6 +81,10 @@ const char list_test_with_where_str[] =
 #if IUTEST_HAS_TYPED_TEST
 "TypedTest/0, where TypeParam = int\n"
 "  A\n"
+#endif
+#if IUTEST_HAS_PARAM_TEST
+"Test/ParamTest\n"
+"  A/0, where GetParam() = 42\n"
 #endif
 ;
 

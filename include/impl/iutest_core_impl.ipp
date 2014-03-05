@@ -86,7 +86,7 @@ IUTEST_IPP_INLINE int UnitTestImpl::ListupWithWhere(void) const
 		for( TestCase::iuTestInfos::const_iterator it2 = (it)->begin(), end2=(it)->end(); it2 != end2; ++it2 )
 		{
 			detail::iuConsole::output("  ");
-			detail::iuConsole::output((it2)->name());
+			detail::iuConsole::output((it2)->test_name_with_where().c_str());
 			detail::iuConsole::output("\n");
 		}
 	}
