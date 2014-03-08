@@ -34,7 +34,6 @@ ifeq ($(CXX),g++)
 
 ifdef USE_COVERAGE
 COVERAGE = coveralls
-OUTPUTXML = yes
 CXXFLAGS += -coverage
 endif
 
@@ -131,10 +130,14 @@ showcxxversion:
 
 run_% : %
 	@echo $<
+ifdef USE_COVERAGE
+	./$< $(RUN_OPTION) --iutest_output=xml:$<.xml > /dev/null
+else
 ifdef OUTPUTXML
 	./$< $(RUN_OPTION) --iutest_output=xml:$<.xml
 else
 	./$< $(RUN_OPTION)
+endif
 endif
 
 # coverage

@@ -54,6 +54,11 @@ IUTEST(FilePath, RemoveExtension)
 		IUTEST_EXPECT_EQ("test.exe", path.RemoveExtension());
 #endif
 	}
+	{
+		::iutest::internal::FilePath path("test");
+		IUTEST_EXPECT_EQ("test", path.RemoveExtension("test"));
+		IUTEST_EXPECT_EQ("test", path.RemoveExtension("exe"));
+	}
 }
 
 IUTEST(FilePath, RemoveFileName)
