@@ -69,7 +69,7 @@
  * @private
  * @{
 */
-#define IUTEST_TYPED_TEST_PARAMS_(testcase_)		IIUT_TYPED_TEST_PARAMS_I(IUTEST_TO_VARNAME_(testcase_))
+#define IUTEST_TYPED_TEST_PARAMS_(testcase_)		IIUT_TYPED_TEST_PARAMS_I(IIUT_TO_VARNAME_(testcase_))
 #define IIUT_TYPED_TEST_PARAMS_I(testcase_)			IIUT_TYPED_TEST_PARAMS_I_(testcase_)
 #define IIUT_TYPED_TEST_PARAMS_I_(testcase_)		iutest_types_params_##testcase_
 
@@ -84,29 +84,29 @@
 #define IIUT_TYPED_TEST_(testcase_, testname_)										\
 	template<typename iutest_TypeParam>												\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_)								\
-	: public IUTEST_TO_VARNAME_(testcase_)<iutest_TypeParam> {						\
-		typedef IUTEST_TO_VARNAME_(testcase_)<iutest_TypeParam> TestFixture;		\
+	: public IIUT_TO_VARNAME_(testcase_)<iutest_TypeParam> {						\
+		typedef IIUT_TO_VARNAME_(testcase_)<iutest_TypeParam> TestFixture;			\
 		typedef iutest_TypeParam TypeParam;											\
 		protected: virtual void Body(void);											\
 	};																				\
 	::iutest::detail::TypeParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_)			\
 		, IUTEST_TYPED_TEST_PARAMS_(testcase_) > IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(	\
-		IUTEST_CONCAT_PACKAGE_(IUTEST_TO_NAME_(testcase_)), IUTEST_TO_NAME_STR_(testname_));		\
+		IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_));		\
 	template<typename iutest_TypeParam>												\
 	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_TypeParam>::Body(void)
 
 #define IIUT_TYPED_TEST_IGNORE_(testcase_, testname_)								\
 	template<typename iutest_TypeParam>												\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_)								\
-	: public IUTEST_TO_VARNAME_(testcase_)<iutest_TypeParam> {						\
-		typedef IUTEST_TO_VARNAME_(testcase_)<iutest_TypeParam> TestFixture;		\
+	: public IIUT_TO_VARNAME_(testcase_)<iutest_TypeParam> {						\
+		typedef IIUT_TO_VARNAME_(testcase_)<iutest_TypeParam> TestFixture;			\
 		typedef iutest_TypeParam TypeParam;											\
 		protected: virtual void Body(void) { IUTEST_SKIP() << "ignored test..."; }	\
 		template<typename T>void Body(void);										\
 	};																				\
 	::iutest::detail::TypeParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_)			\
 		, IUTEST_TYPED_TEST_PARAMS_(testcase_) > IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(	\
-		IUTEST_CONCAT_PACKAGE_(IUTEST_TO_NAME_(testcase_)), IUTEST_TO_NAME_STR_(testname_) );		\
+		IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_));		\
 	template<typename iutest_TypeParam>												\
 	template<typename T>void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_TypeParam>::Body(void)
 
@@ -218,7 +218,7 @@
 		::iutest::detail::TypeParameterizedTestCase< testcase_				\
 		, IUTEST_TYPED_TEST_P_NAMESPACE_(testcase_)::iutest_AllTests_		\
 		, ::iutest::detail::TypeList< __VA_ARGS__ >::type >::Register(		\
-			#prefix_, IUTEST_TO_NAME_STR_(testcase_), IUTEST_GET_PACKAGENAME_()	\
+			#prefix_, IIUT_TO_NAME_STR_(testcase_), IUTEST_GET_PACKAGENAME_()	\
 		, IUTEST_TYPED_TEST_CASE_PSTATE_NAME_(testcase_).names())
 
 /**

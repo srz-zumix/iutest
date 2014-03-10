@@ -19,11 +19,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01080025u	//!< iutest version 1.8.0.25
+#define	IUTEST_VER			0x01080026u	//!< iutest version 1.8.0.26
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x08u		//!< Minor Version
 #define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x25u		//!< Revision
+#define IUTEST_REVISION		0x26u		//!< Revision
 
 /**
  * @mainpage
@@ -117,6 +117,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>SetUp/SetUpTestCase での SKIP/ASSUME に対応</li>
       <li>MAC OS 判定、ビルドエラー修正 (thanks to mogemimi for the pull request)</li>
       <li>--iutest_filter で : 区切りの複数条件指定が正しく動作しない不具合を修正</li>
+      <li>--iutest_list_tests_with_where で値のパラメータも出力するように修正</li>
       <li>バグ修正</li>
     </ul>
   </li>

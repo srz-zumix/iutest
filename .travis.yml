@@ -27,6 +27,7 @@ script:
 
 after_success:
   # Coverage
+  - echo ${TRAVIS_JOB_ID}
   - if [ "${USE_COVERAGE}" = '1' ]; then make send-coverage; fi
 
 env:
