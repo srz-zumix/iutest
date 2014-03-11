@@ -36,7 +36,7 @@ namespace detail
 */
 class iuRandom
 {
-#if defined(IUTEST_USE_RANDOM_ENGINE_TYPENAME)
+#if IUTEST_HAS_CXX_HDR_RANDOM && defined(IUTEST_USE_RANDOM_ENGINE_TYPENAME)
 	typedef IUTEST_USE_RANDOM_ENGINE_TYPENAME Engine;
 #else
 	class Engine
