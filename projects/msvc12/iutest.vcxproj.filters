@@ -300,6 +300,9 @@
     <ClInclude Include="..\..\include\util\iutest_util_menu.hpp">
       <Filter>iutest\util</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\internal\iutest_log_stream.hpp">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\impl\iutest_body.ipp">

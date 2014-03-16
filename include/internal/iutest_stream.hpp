@@ -17,9 +17,6 @@
 #ifndef INCG_IRIS_IUTEST_STREAM_HPP_3A4AF139_9F24_4730_81D0_DADFCE6DCF99_
 #define INCG_IRIS_IUTEST_STREAM_HPP_3A4AF139_9F24_4730_81D0_DADFCE6DCF99_
 
-//======================================================================
-// include
-
 namespace iutest {
 namespace detail
 {
@@ -94,38 +91,7 @@ public:
 	}
 };
 
-/**
- * @brief	ログ出力ストリームインターフェイス
-*/
-class LogStream : public IOutStream
-{
-public:
-	/**
-	 * @brief	書き込み
-	 * @param [in]	buf		= 書き込みバッファ
-	 * @param [in]	size	= バッファサイズ
-	 * @param [in]	cnt		= 書き込み回数
-	*/
-	virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
-	{
-		IUTEST_UNUSED_VAR(size);
-		const char* str = static_cast<const char*>(buf);
-		for( size_t i=0; i < cnt; ++i )
-		{
-			iuConsole::output(str);
-		}
-		return true;
-	}
-	virtual void Printf(const char* fmt, ...)
-	{
-		va_list va;
-		va_start(va, fmt);
-		iuConsole::voutput(fmt, va);
-		va_end(va);
-	}
-};
-
 }	// end of namespace detail
 }	// end of namespace iutest
 
-#endif	// INCG_IRIS_IUTEST_STREAM_HPP_3A4AF139_9F24_4730_81D0_DADFCE6DCF99_
+#endif // INCG_IRIS_IUTEST_STREAM_HPP_3A4AF139_9F24_4730_81D0_DADFCE6DCF99_
