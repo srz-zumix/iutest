@@ -46,7 +46,7 @@
 #define IUTEST_MBS_CODE_UTF8		1
 #define IUTEST_MBS_CODE_WINDOWS31J	2
 #ifndef IUTEST_MBS_CODE
-#  if	defined(IUTEST_OS_WINDOWS)
+#  if defined(IUTEST_OS_WINDOWS)
 #    define IUTEST_MBS_CODE	IUTEST_MBS_CODE_WINDOWS31J
 #  else
 #    define IUTEST_MBS_CODE	IUTEST_MBS_CODE_UTF8
@@ -63,11 +63,11 @@
 #endif
 
 #ifndef IUTEST_BREAK
-#  if	defined(_MSC_VER)
+#  if   defined(_MSC_VER)
 #    define IUTEST_BREAK()	DebugBreak()
 #  elif defined(__GUNC__) && (defined (__i386__) || defined (__x86_64__))
 #    define IUTEST_BREAK()	do { __asm{ int 3 } } while(::iutest::detail::AlwaysFalse())
-#  elif	defined(__ARMCC_VERSION)
+#  elif defined(__ARMCC_VERSION)
 #    define IUTEST_BREAK()	do { __breakpoint(0xF02C); } while(::iutest::detail::AlwaysFalse())
 #  else
 #    define IUTEST_BREAK()	*static_cast<volatile int*>(NULL) = 1;
@@ -237,8 +237,8 @@ private:
 };
 
 /**
-  * @internal
-  * @brief	NULL リテラルかどうか
+ * @internal
+ * @brief	NULL リテラルかどうか
 */
 struct IsNullLiteralHelper
 {
@@ -383,4 +383,4 @@ GeTypeNameSpecialization(bool)
 }	// end of namespace iutest
 
 
-#endif	// INCG_IRIS_IUTEST_INTERNAL_DEFS_HPP_4B0AF5C2_8E8D_43EF_BFC5_F385E68F18DB_
+#endif // INCG_IRIS_IUTEST_INTERNAL_DEFS_HPP_4B0AF5C2_8E8D_43EF_BFC5_F385E68F18DB_

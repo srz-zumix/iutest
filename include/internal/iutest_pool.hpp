@@ -58,4 +58,4 @@ public:
 }	// end of namespace detail
 }	// end of namespace iutest
 
-#endif	// INCG_IRIS_IUTEST_POOL_HPP_60F7CC27_EA15_4AC7_BCA6_80FFDCBC890E_
+#endif // INCG_IRIS_IUTEST_POOL_HPP_60F7CC27_EA15_4AC7_BCA6_80FFDCBC890E_

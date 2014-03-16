@@ -210,7 +210,7 @@ namespace iutest
 #endif
 
 /**
- * @addtogroup	IUTEST_ASSERT	アサーション
+ * @addtogroup	IUTEST_ASSERTION	アサーション
  * @{
 */
 
@@ -527,7 +527,7 @@ namespace iutest
 
 
 /**
- * @addtogroup	IUTEST_ASSERT	アサーション
+ * @addtogroup	IUTEST_ASSERTION	アサーション
  * @{
 */
 
@@ -853,7 +853,7 @@ namespace iutest
 
 
 /**
- * @addtogroup	IUTEST_ASSERT	アサーション
+ * @addtogroup	IUTEST_ASSERTION	アサーション
  * @{
 */
 
@@ -1160,7 +1160,7 @@ namespace iutest
 #endif
 
 /**
- * @addtogroup	IUTEST_ASSERT	アサーション
+ * @addtogroup	IUTEST_ASSERTION	アサーション
  * @{
 */
 
@@ -1569,4 +1569,4 @@ inline Environment* IUTEST_ATTRIBUTE_UNUSED_ AddGlobalTestEnvironment(Environmen
 
 #include "iutest_util.hpp"
 
-#endif	// INCG_IRIS_IUTEST_HPP_
+#endif // INCG_IRIS_IUTEST_HPP_

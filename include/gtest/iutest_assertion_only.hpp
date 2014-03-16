@@ -19,7 +19,7 @@
 
 #if !defined(IUTEST_USE_GTEST)
 
-#else	// !defined(IUTEST_USE_GTEST)
+#else // !defined(IUTEST_USE_GTEST)
 
 #include "iutest_gtest_ver.hpp"
 #if GTEST_OS_WINDOWS
@@ -28,13 +28,13 @@
 
 namespace testing
 {
-#if		GTEST_MINORVER == 0x07
+#if   GTEST_MINORVER == 0x07
 	typedef ::std::string				GTestAssertionResultString;
 	typedef ::std::string				GTestString;
-#elif	GTEST_MINORVER == 0x06
+#elif GTEST_MINORVER == 0x06
 	typedef ::std::string				GTestAssertionResultString;
 	typedef ::testing::internal::String	GTestString;
-#elif	GTEST_MINORVER == 0x05
+#elif GTEST_MINORVER == 0x05
 	typedef ::testing::internal::String	GTestAssertionResultString;
 	typedef ::testing::internal::String	GTestString;
 #else
@@ -279,6 +279,6 @@ namespace testing
 
 }
 
-#endif	// !defined(IUTEST_USE_GTEST)
+#endif // !defined(IUTEST_USE_GTEST)
 
-#endif	// INCG_IRIS_IUTEST_ASSERTION_ONLY_HPP_9E5FA1C8_EFB5_40A9_A3AD_971584ECAE56_
+#endif // INCG_IRIS_IUTEST_ASSERTION_ONLY_HPP_9E5FA1C8_EFB5_40A9_A3AD_971584ECAE56_

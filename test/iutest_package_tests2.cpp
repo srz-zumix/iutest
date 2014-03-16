@@ -17,7 +17,6 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
 #include "iutest_package_tests.hpp"
 
 namespace pkg1

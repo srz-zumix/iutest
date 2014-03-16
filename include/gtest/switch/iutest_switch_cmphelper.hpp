@@ -22,7 +22,7 @@
 //======================================================================
 // define
 
-#else	// !defined(IUTEST_USE_GTEST)
+#else // !defined(IUTEST_USE_GTEST)
 
 namespace testing
 {
@@ -211,6 +211,6 @@ public:
 }	// end of namespace internal
 }	// end of namespace testing
 
-#endif	// !defined(IUTEST_USE_GTEST)
+#endif // !defined(IUTEST_USE_GTEST)
 
-#endif	// INCG_IRIS_IUTEST_SWITCH_CMPHELPER_HPP_0378DF29_2DE7_4C60_8E12_32FEA8BEAA7C_
+#endif // INCG_IRIS_IUTEST_SWITCH_CMPHELPER_HPP_0378DF29_2DE7_4C60_8E12_32FEA8BEAA7C_

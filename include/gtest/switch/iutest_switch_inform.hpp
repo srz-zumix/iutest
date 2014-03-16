@@ -59,7 +59,7 @@
 #define INFORM_PRED_FORMAT5	IUTEST_INFORM_PRED_FORMAT5
 
 
-#else	// !defined(IUTEST_USE_GTEST)
+#else // !defined(IUTEST_USE_GTEST)
 
 //======================================================================
 // undef
@@ -273,10 +273,10 @@ namespace inform_support
 
 }
 
-#endif	// !defined(IUTEST_USE_GTEST)
+#endif // !defined(IUTEST_USE_GTEST)
 
 #define INFORM_NULL		IUTEST_INFORM_NULL
 #define INFORM_NOTNULL	IUTEST_INFORM_NOTNULL
 #define INFORM_SAME		IUTEST_INFORM_SAME
 
-#endif	// INCG_IRIS_IUTEST_SWITCH_INFORM_HPP_F4AD6E1B_4B1F_40EE_A0CC_D454587B2C39_
+#endif // INCG_IRIS_IUTEST_SWITCH_INFORM_HPP_F4AD6E1B_4B1F_40EE_A0CC_D454587B2C39_

@@ -110,8 +110,8 @@ template<typename T>bool TestTypeIdHelper<T>::_dummy = false;
 //======================================================================
 // function
 /**
-  * @internal
-  * @brief	TypeId Generator
+ * @internal
+ * @brief	TypeId Generator
 */
 template<typename T>
 inline TypeId GetTypeId(void)
@@ -120,8 +120,8 @@ inline TypeId GetTypeId(void)
 }
 
 /**
-  * @internal
-  * @brief	TypeId Generator
+ * @internal
+ * @brief	TypeId Generator
 */
 inline IUTEST_CXX_CONSTEXPR TypeId GetTestTypeId(void)
 {
@@ -136,8 +136,8 @@ namespace detail
 {
 
 /**
-  * @internal
-  * @brief	IEEE754 floating point bits
+ * @internal
+ * @brief	IEEE754 floating point bits
 */
 template<typename T>
 struct ieee754_bits {};
@@ -315,4 +315,4 @@ typedef detail::type_least_t<8>::Int	BiggestInt;		//!< Biggest Int
 
 }	// end of namespace iutest
 
-#endif	// INCG_IRIS_IUTEST_DEFS_HPP_839F06DB_E0B6_4E6A_84F2_D99C0A44E06C_
+#endif // INCG_IRIS_IUTEST_DEFS_HPP_839F06DB_E0B6_4E6A_84F2_D99C0A44E06C_

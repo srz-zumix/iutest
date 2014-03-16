@@ -26,9 +26,9 @@
 #  include <chrono>
 #endif
 
-#if		IUTEST_HAS_HDR_SYSTIME
+#if   IUTEST_HAS_HDR_SYSTIME
 #  include <sys/time.h>
-#elif	defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+#elif defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 #  include <sys/timeb.h>
 #endif
 
@@ -39,18 +39,18 @@ namespace detail
 //======================================================================
 // declare
 /**
-  * @internal
-  * @brief	TimeInMillisec to string
-  * @param	[in]	msec	= ミリ秒
-  * @return	秒数の文字列
+ * @internal
+ * @brief	TimeInMillisec to string
+ * @param	[in]	msec	= ミリ秒
+ * @return	秒数の文字列
 */
 ::std::string FormatTimeInMillisecAsSecond(TimeInMillisec msec);
 
 /**
-  * @internal
-  * @brief	TimeInMillisec to string
-  * @param	[in]	msec	= ミリ秒
-  * @return	時刻の文字列
+ * @internal
+ * @brief	TimeInMillisec to string
+ * @param	[in]	msec	= ミリ秒
+ * @return	時刻の文字列
 */
 ::std::string FormatTimeInMillisecAsIso8601(TimeInMillisec msec);
 
@@ -86,7 +86,7 @@ public:
 	// 現在の時間をミリ秒単位で取得
 	static TimeInMillisec get_millisec(void)
 	{
-#if		defined(IUTEST_NOT_SUPPORT_STOPWATCH)
+#if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
 		return 0;
 #else
 		return GetTimeInMillis();
@@ -110,4 +110,4 @@ public:
 #  include "../impl/iutest_time.ipp"
 #endif
 
-#endif	// INCG_IRIS_IUTEST_TIME_HPP_C6B9E65B_4059_4175_A6DB_397DBF338AA8_
+#endif // INCG_IRIS_IUTEST_TIME_HPP_C6B9E65B_4059_4175_A6DB_397DBF338AA8_

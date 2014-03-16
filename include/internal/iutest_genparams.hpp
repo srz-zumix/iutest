@@ -121,7 +121,7 @@ public:
 };
 
 /**
- * @breif	真偽値パラメータ生成器
+ * @brief	真偽値パラメータ生成器
  * @tparam T	= パラメータ型
 */
 template<typename T>
@@ -1308,7 +1308,7 @@ IIUT_DECL_PAIRWISE_HOLDER_(9);
 #if IUTEST_HAS_VALUESGEN
 
 /**
- * @breif	パラメータ生成器
+ * @brief	パラメータ生成器
  * @tparam G	= パラメータ生成器
 */
 template<typename G>
@@ -1372,7 +1372,7 @@ private:
 #if IUTEST_HAS_RANDOMVALUES
 
 /**
- * @breif	乱数パラメータ生成器
+ * @brief	乱数パラメータ生成器
 */
 class iuRandomParamsHolder
 {
@@ -1411,4 +1411,4 @@ private:
 
 #endif
 
-#endif	// INCG_IRIS_IUTEST_GENPARAMS_HPP_7845F59A_825C_426A_B451_573245408998_
+#endif // INCG_IRIS_IUTEST_GENPARAMS_HPP_7845F59A_825C_426A_B451_573245408998_

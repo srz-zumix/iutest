@@ -17,7 +17,6 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
 #include "../include/iutest_spi.hpp"
 
 void FatalFailure1(void)

@@ -719,4 +719,4 @@ AssertionResult AssertPredVariadicHelper(const char* pred_str, const char* param
 
 }	// end of namespace iutest
 
-#endif	// INCG_IRIS_IUTEST_PRED_HPP_ADF851F3_C89B_4CA4_B9A0_A2B2229945C6_
+#endif // INCG_IRIS_IUTEST_PRED_HPP_ADF851F3_C89B_4CA4_B9A0_A2B2229945C6_

@@ -84,4 +84,4 @@ IUTEST_IPP_INLINE void iuCodeMessage::add_message(const ::std::string& str)
 }	// end of namespace detail
 }	// end of namespace iutest
 
-#endif	// INCG_IRIS_IUTEST_MESSAGE_IPP_0A05C876_F204_41F5_895F_F8454AB283B1_
+#endif // INCG_IRIS_IUTEST_MESSAGE_IPP_0A05C876_F204_41F5_895F_F8454AB283B1_

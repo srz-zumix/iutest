@@ -106,13 +106,13 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveFileName(void) const
 
 IUTEST_IPP_INLINE bool iuFilePath::CreateFolder(void) const
 {
-#if		defined(IUTEST_OS_WINDOWS_MOBILE)
-#elif	defined(IUTEST_OS_WINDOWS_MINGW)
+#if   defined(IUTEST_OS_WINDOWS_MOBILE)
+#elif defined(IUTEST_OS_WINDOWS_MINGW)
 	if( mkdir(c_str()) == 0 )
 	{
 		return true;
 	}
-#elif	defined(IUTEST_OS_WINDOWS)
+#elif defined(IUTEST_OS_WINDOWS)
 	if( _mkdir(c_str()) == 0 )
 	{
 		return true;
@@ -209,13 +209,13 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::GetRelativeCurrentDir(void)
 
 IUTEST_IPP_INLINE iuFilePath iuFilePath::GetExecFilePath(void)
 {
-#if		defined(IUTEST_OS_WINDOWS)
+#if   defined(IUTEST_OS_WINDOWS)
 	char path[MAX_PATH];
 	::GetModuleFileNameA(NULL, path, sizeof(path));
 	return iuFilePath(path);
-#elif	defined(IUTEST_OS_SOLARIS)
+#elif defined(IUTEST_OS_SOLARIS)
 	return iuFilePath(getexecname());
-#elif	defined(__FreeBSD__)
+#elif defined(__FreeBSD__)
 	int exe_path_mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PATHNAME, getpid() };
 	char buf[1024];
 	size_t length = 0;
@@ -224,7 +224,7 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::GetExecFilePath(void)
 		return iuFilePath();
 	}
 	return iuFilePath(buf);
-#elif	defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN)
+#elif defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN)
 	char buf[1024];
 	const ssize_t len = ::readlink("/proc/self/exe", buf, sizeof(buf)-1);
 	if( len == -1 )
@@ -320,4 +320,4 @@ IUTEST_IPP_INLINE bool iuFilePath::IsAltPathSeparator(char c) IUTEST_CXX_NOEXCEP
 }	// end of namespace detail
 }	// end of namespace iutest
 
-#endif	// INCG_IRIS_IUTEST_FILEPATH_IPP_D69E7545_BF8A_4EDC_9493_9105C69F9378_
+#endif // INCG_IRIS_IUTEST_FILEPATH_IPP_D69E7545_BF8A_4EDC_9493_9105C69F9378_

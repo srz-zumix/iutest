@@ -234,7 +234,7 @@ IIUT_DECL_TEMPLATES_(49,  1);
  * @}
 */
 
-#endif	// #if !defined(IUTEST_NO_TEMPLATE_TEMPLATES)
+#endif // #if !defined(IUTEST_NO_TEMPLATE_TEMPLATES)
 
 template<typename T>
 struct TypeList
@@ -262,8 +262,8 @@ struct TypeList< Types< IUTEST_PP_ENUM_PARAMS(50, T) > >
 
 }	// end of namespace detail
 
-#endif	// #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#endif // #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 }	// end of namespace iutest
 
-#endif	// INCG_IRIS_IUTEST_TYPED_UTIL_HPP_32A6F7CF_36C6_4EDE_AD19_04965FBFBB37_
+#endif // INCG_IRIS_IUTEST_TYPED_UTIL_HPP_32A6F7CF_36C6_4EDE_AD19_04965FBFBB37_

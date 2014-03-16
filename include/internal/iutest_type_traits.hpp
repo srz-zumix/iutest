@@ -42,9 +42,9 @@
 #endif
 
 #ifndef IUTEST_HAS_RVALUE_REFS
-#  if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 2)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#  if   (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 2)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #    define IUTEST_HAS_RVALUE_REFS	1
-#  elif	defined(_MSC_VER) && (_MSC_VER >= 1700)
+#  elif defined(_MSC_VER) && (_MSC_VER >= 1700)
 #    define IUTEST_HAS_RVALUE_REFS	1
 #  endif
 #endif
@@ -668,9 +668,9 @@ struct is_member_pointer : public is_member_pointer_helper::is_member_pointer<T>
 {
 };
 
-#endif	// #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#endif // #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
-#endif	// #if IUTEST_HAS_HDR_TYPETRAITS
+#endif // #if IUTEST_HAS_HDR_TYPETRAITS
 
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
@@ -758,9 +758,9 @@ public:
 	typedef typename impl< typename remove_cv<T>::type >::type type;
 };
 
-#endif	// #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#endif // #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 }	// end of namespace iutest_type_traits
 
 
-#endif	// INCG_IRIS_IUTEST_TYPE_TRAITS_HPP_6F091F15_784A_4F50_BD18_B8F67C5AF0CF_
+#endif // INCG_IRIS_IUTEST_TYPE_TRAITS_HPP_6F091F15_784A_4F50_BD18_B8F67C5AF0CF_

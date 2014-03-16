@@ -132,7 +132,7 @@ namespace testing = iutest;
 #  define GTEST_INCLUDE_GTEST_GTEST_H_	// 以降で、gtest が include されないようにする
 #endif
 
-#else	// !defined(IUTEST_USE_GTEST)
+#else // !defined(IUTEST_USE_GTEST)
 
 #ifdef INCG_IRIS_IUTEST_HPP_
 #  if IUTEST_HAS_TUPLE
@@ -143,7 +143,7 @@ namespace testing = iutest;
 #  endif
 #endif
 
-#if	defined(_MSC_VER) && _MSC_VER == 1700
+#if defined(_MSC_VER) && _MSC_VER == 1700
 #  ifndef _VARIADIC_MAX
 #    define _VARIADIC_MAX	10
 #  endif
@@ -383,4 +383,4 @@ namespace iutest = testing;
 
 #endif
 
-#endif	// INCG_IRIS_IUTEST_SWITCH_HPP_
+#endif // INCG_IRIS_IUTEST_SWITCH_HPP_

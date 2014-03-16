@@ -30,8 +30,8 @@ namespace detail
 //======================================================================
 // class
 /**
-  * @internal
-  * @brief	リストノード
+ * @internal
+ * @brief	リストノード
 */
 template<typename TN>
 class iu_list_node
@@ -49,8 +49,8 @@ protected:
 };
 
 /**
-  * @internal
-  * @brief	リストイテレータ
+ * @internal
+ * @brief	リストイテレータ
 */
 template<typename NODE, typename NODE_PTR, typename NODE_REF>
 class iu_list_iterator
@@ -528,4 +528,4 @@ int CountIfOverList(const iu_list<Node>& list, Fn f)
 }	// end of namespace iutest
 
 
-#endif	// INCG_IRIS_IUTEST_LIST_HPP_CB5AECEA_6147_4A89_BB97_236338CA177E_
+#endif // INCG_IRIS_IUTEST_LIST_HPP_CB5AECEA_6147_4A89_BB97_236338CA177E_

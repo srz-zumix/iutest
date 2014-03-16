@@ -31,9 +31,9 @@
 #if defined(IUTEST_OS_CYGWIN)
 #include <strings.h>
 #endif
-#if		IUTEST_HAS_STRINGSTREAM
+#if   IUTEST_HAS_STRINGSTREAM
 #  include <sstream>
-#elif	IUTEST_HAS_STRSTREAM
+#elif IUTEST_HAS_STRSTREAM
 #  include <strstream>
 #endif
 
@@ -70,9 +70,9 @@ static long				xcstol(const wchar_t* src, wchar_t** end, int radix){ return wcst
 */
 inline int iu_stricmp(const char* str1, const char* str2)
 {
-#if	defined(IUTEST_OS_WINDOWS)
+#if defined(IUTEST_OS_WINDOWS)
 
-#if	defined(__BORLANDC__)
+#if defined(__BORLANDC__)
 	return stricmp(str1, str2);
 #else
 	return _stricmp(str1, str2);
@@ -105,9 +105,9 @@ inline int iu_stricmp(const char* str1, const char* str2)
 */
 inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 {
-#if		defined(_MSC_VER)
+#if   defined(_MSC_VER)
 	return _wcsicmp(str1, str2);
-#elif	defined(IUTEST_OS_LINUX) && !defined(IUTEST_OS_LINUX_ANDROID)
+#elif defined(IUTEST_OS_LINUX) && !defined(IUTEST_OS_LINUX_ANDROID)
 	return wcscasecmp(str1, str2);
 #else
 	const wchar_t* l = str1;
@@ -192,9 +192,9 @@ template<class _Elem, class _Traits>class iu_basic_stream;
 class iuStringStream
 {
 public:
-#if		IUTEST_HAS_STRINGSTREAM
+#if   IUTEST_HAS_STRINGSTREAM
 	typedef ::std::stringstream stlstream;
-#elif	IUTEST_HAS_STRSTREAM
+#elif IUTEST_HAS_STRSTREAM
 IUTEST_PRAGMA_MSC_WARN_PUSH()
 IUTEST_PRAGMA_MSC_WARN_DISABLE(4250)
 	class stlstream : public ::std::strstream
@@ -467,4 +467,4 @@ typedef detail::iuStringStream::type iu_ostream;
 
 }	// end of namespace iutest
 
-#endif	// INCG_IRIS_IUTEST_STRING_HPP_E22B02D7_E9E7_412C_B609_DC3D9C66895D_
+#endif // INCG_IRIS_IUTEST_STRING_HPP_E22B02D7_E9E7_412C_B609_DC3D9C66895D_

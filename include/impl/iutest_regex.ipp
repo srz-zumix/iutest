@@ -134,4 +134,4 @@ IUTEST_IPP_INLINE bool iuRegex::match(const char* regex, const char* src)
 }	// end of namespace detail
 }	// end of namespace iutest
 
-#endif	// INCG_IRIS_IUTEST_REGEX_IPP_1575CB44_189A_4248_B305_DB4882E3BFC2_
+#endif // INCG_IRIS_IUTEST_REGEX_IPP_1575CB44_189A_4248_B305_DB4882E3BFC2_

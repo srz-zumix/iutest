@@ -103,7 +103,7 @@ IUTEST_IPP_INLINE int PutEnv(const char* expr)
 
 IUTEST_IPP_INLINE const char* GetCWD(char* buf, size_t length)
 {
-#if	defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_OS_AVR32) || defined(IUTEST_NO_GETCWD)
+#if   defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_OS_AVR32) || defined(IUTEST_NO_GETCWD)
 	if( buf == NULL || length < 3 )
 	{
 		return NULL;
@@ -127,11 +127,11 @@ IUTEST_IPP_INLINE ::std::string GetCWD(void)
 
 IUTEST_IPP_INLINE void SleepMillisec(unsigned int millisec)
 {
-#if		defined(IUTEST_OS_WINDOWS)
+#if   defined(IUTEST_OS_WINDOWS)
 	Sleep(millisec);
-#elif	defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN)
+#elif defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN)
 
-#if	defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 199309L
+#if   defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 199309L
 	const timespec time = { 0, static_cast<long>(millisec) * 1000 * 1000 };
 	nanosleep(&time, NULL);
 #elif (defined(_BSD_SOURCE) && _BSD_SOURCE)
@@ -331,4 +331,4 @@ IUTEST_IPP_INLINE IUTestLog::~IUTestLog(void)
 }	// end of namespace detail
 }	// end of namespace iutest
 
-#endif	// INCG_IRIS_IUTEST_PORT_IPP_7893F685_A1A9_477A_82E8_BF06237697FF_
+#endif // INCG_IRIS_IUTEST_PORT_IPP_7893F685_A1A9_477A_82E8_BF06237697FF_

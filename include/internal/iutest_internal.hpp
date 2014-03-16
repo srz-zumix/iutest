@@ -46,7 +46,7 @@
 
 #define IIUT_ALIAS_TESTNAME_PP_UNPAREN_(...)	__VA_ARGS__
 
-#if	defined(_MSC_VER)
+#if defined(_MSC_VER)
 #  define IUTEST_ALIAS_TESTNAME_(name_)			name_
 #  define IUTEST_ALIAS_TESTNAME_F_(var_, name_)	UNPAREN_(dummy, var_, name_)
 #else
@@ -443,4 +443,4 @@
  * @}
 */
 
-#endif	// INCG_IRIS_IUTEST_INTERNAL_HPP_A5BD9FBB_B57A_4C1D_B205_0ADB7798DBF9_
+#endif // INCG_IRIS_IUTEST_INTERNAL_HPP_A5BD9FBB_B57A_4C1D_B205_0ADB7798DBF9_

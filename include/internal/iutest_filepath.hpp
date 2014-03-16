@@ -28,7 +28,7 @@
 #  include <sys/stat.h>
 #endif
 
-#if	defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+#if defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 #  include <direct.h>
 #endif
 
@@ -224,4 +224,4 @@ namespace internal
 
 #endif
 
-#endif	// INCG_IRIS_IUTEST_FILEPATH_HPP_D69E7545_BF8A_4EDC_9493_9105C69F9378_
+#endif // INCG_IRIS_IUTEST_FILEPATH_HPP_D69E7545_BF8A_4EDC_9493_9105C69F9378_

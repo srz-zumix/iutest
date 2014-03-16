@@ -133,7 +133,7 @@ private:
 
 	static bool IsColorModeOff(void)
 	{
-#if	defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
+#if defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
 		return TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_OFF);
 #else
 		return IUTEST_FLAG(color) == "no";
@@ -141,7 +141,7 @@ private:
 	}
 	static bool IsColorModeOn(void)
 	{
-#if	defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
+#if defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
 		return TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ON);
 #else
 		return IUTEST_FLAG(color) == "yes";
@@ -149,7 +149,7 @@ private:
 	}
 	static bool IsColorModeAnsi(void)
 	{
-#if	defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
+#if defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
 		return TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ANSI);
 #else
 		return false;
@@ -282,4 +282,4 @@ inline bool iuConsole::IsShouldUseColor(bool use_color)
 template<typename T>
 ::iutest::detail::iuLogger* ::iutest::detail::iuConsole::Variable<T>::m_pLogger = NULL;
 
-#endif	// INCG_IRIS_IUTEST_CONSOLE_HPP_DCAC5025_B7BB_424E_A849_9E6FE0A3B460_
+#endif // INCG_IRIS_IUTEST_CONSOLE_HPP_DCAC5025_B7BB_424E_A849_9E6FE0A3B460_

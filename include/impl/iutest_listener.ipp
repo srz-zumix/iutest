@@ -154,4 +154,4 @@ IUTEST_IPP_INLINE void TestEventListeners::set_default_xml_generator(TestEventLi
 
 }	// end of namespace iutest
 
-#endif	// INCG_IRIS_IUTEST_LISTENER_IPP_C94B8142_F8B3_413F_B479_8AA2B78604CE_
+#endif // INCG_IRIS_IUTEST_LISTENER_IPP_C94B8142_F8B3_413F_B479_8AA2B78604CE_
