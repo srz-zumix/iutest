@@ -47,7 +47,7 @@ IUTEST(ReturnTest, Test)
 {
 	IUTEST_ASSERT_FATAL_FAILURE(ReturnTestCall(), "");
 #if IUTEST_USE_THROW_ON_ASSERTION_FAILURE
-	IUTEST_EXPECT_EQ( 0, value1);
+	IUTEST_EXPECT_EQ( 1, value1);
 	IUTEST_EXPECT_EQ( 1, value2);
 #else
 	IUTEST_EXPECT_EQ(-1, value1);
