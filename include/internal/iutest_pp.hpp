@@ -46,12 +46,12 @@
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)
 #endif
 
-#ifndef IUTEST_PP_TOSTRING
+#if !defined(IUTEST_PP_TOSTRING)
 #  define IUTEST_PP_TOSTRING(z_)	IUTEST_PP_TOSTRING_(z_)
 #endif
 #define IUTEST_PP_TOSTRING_(z_)		#z_
 
-#ifndef IUTEST_PP_CAT
+#if !defined(IUTEST_PP_CAT)
 #  define IUTEST_PP_CAT(a_, b_)		IUTEST_PP_CAT_(a_, b_)
 #endif
 #define IUTEST_PP_CAT_(a_, b_)		a_##b_
@@ -60,7 +60,7 @@
 
 #define IUTEST_PP_COUNTOF(x)		(sizeof(x)/sizeof(x[0]))
 
-#ifdef IUTEST_HAS_COUNTER_MACRO
+#if !defined(IUTEST_HAS_COUNTER_MACRO)
 #  define IUTEST_PP_COUNTER			__COUNTER__
 #else
 #  define IUTEST_PP_COUNTER			__LINE__

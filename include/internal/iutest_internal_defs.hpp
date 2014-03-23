@@ -64,9 +64,20 @@
 
 #ifndef IUTEST_BREAK
 #  if   defined(_MSC_VER)
+#    define IUTEST_BREAK()	__debugbreak()
+#  elif defined(__MINGW32__)
 #    define IUTEST_BREAK()	DebugBreak()
+#  elif defined(IUTEST_OS_MAC)
+// http://www.cocoawithlove.com/2008/03/break-into-debugger.html
+#    if defined(__ppc64__) || defined(__ppc__)
+#    define IUTEST_BREAK()	__asm__("li r0, 20\nsc\nnop\nli r0, 37\nli r4, 2\nsc\nnop\n" : : : "memory","r0","r3","r4" )
+#    else
+#    define IUTEST_BREAK()	__asm__("int $3\n" : : )
+#    endif
 #  elif defined(__GUNC__) && (defined (__i386__) || defined (__x86_64__))
 #    define IUTEST_BREAK()	do { __asm{ int 3 } } while(::iutest::detail::AlwaysFalse())
+#  elif defined(__clang__) || defined(__GNUC__)
+#    define IUTEST_BREAK()	__builtin_trap()
 #  elif defined(__ARMCC_VERSION)
 #    define IUTEST_BREAK()	do { __breakpoint(0xF02C); } while(::iutest::detail::AlwaysFalse())
 #  else

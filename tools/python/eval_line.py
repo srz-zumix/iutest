@@ -7,47 +7,62 @@
 #
 
 import sys
-import optparse
+import argparse
 import re
 
-from optparse import OptionParser
+from argparse import ArgumentParser
 
-usage = u'%prog [Args] [Options]\nDetailed options -h or --help\n\nArgs: eval expression'
-version = u'%prog 0.1'
+# EvalIntAction
+class EvalIntAction(argparse.Action):
+	def __call__(self, parser, namespace, values, options_string=None):
+		setattr(namespace, self.dest, int(eval(values[0])))
 
 #
 # command line option
 def parse_command_line():
-	parser = OptionParser(usage=usage, version=version)
-	parser.add_option(
+	parser = ArgumentParser()
+	parser.add_argument(
+		'-v'
+		, '--version'
+		, action='version'
+		, version=u'%(prog)s version 0.2'
+	)
+	parser.add_argument(
 		'-r'
 		, '--repeat'
-		, type = 'int'
+		, action=EvalIntAction
 		, dest = 'repeat'
+		, nargs=1
 		, help = 'Set eval repeat count.'
 		, default = 1
 	)
-	parser.add_option(
+	parser.add_argument(
 		'-s'
 		, '--start'
-		, type = 'int'
+		, action=EvalIntAction
 		, dest = 'start'
+		, nargs=1
 		, help = 'Set eval repeat start no.'
 		, default = 0
 	)
-	parser.add_option(
+	parser.add_argument(
 		'-o'
 		, '--output'
-		, type = 'str'
 		, dest = 'output'
 		, help = 'output file path.'
 		, default = None
 	)
+	parser.add_argument(
+		'expression'
+		, metavar='EXP'
+		, help = 'eval expressions'
+		, nargs='+'
+	)
 	if len(sys.argv) <= 1:
 		parser.error('invalid number arguments')
 
-	options, args = parser.parse_args(sys.argv)
-	return options, args
+	options = parser.parse_args(sys.argv)
+	return options
 
 def eval_line(r, define, line):
 	m = r.finditer(define)
@@ -61,9 +76,9 @@ def eval_line(r, define, line):
 
 def main():
 	re_eval = re.compile(r'\${([^}]+)}')
-	options, args = parse_command_line()
-	define = args[1]
-	for a in args[2:]:
+	options = parse_command_line()
+	define = options.expression[1]
+	for a in options.expression[2:]:
 		define += ' ' + a
 
 	output = options.output

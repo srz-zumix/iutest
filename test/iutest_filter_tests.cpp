@@ -210,6 +210,17 @@ int main(int argc, char* argv[])
 	) ) {
 		return 1;
 	}
+
+	if( !FilterTest("Foo.Ba*-*Test*:*Test*-Foo.Ba*"
+		, TestHoge::RAN
+		, HogeTest::RAN
+		, FooBar::RAN
+		, FooBaz::RAN
+		, FooBarTest::NOT_RAN
+		, FooQux::NOT_RAN
+	) ) {
+		return 1;
+	}
 #endif
 
 	if( !FilterTest("Foo.Ba*:-*Test*"
