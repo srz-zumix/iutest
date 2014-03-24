@@ -78,14 +78,14 @@ bool FilterTest(const char* filter
 		if( ranFooQux ) ++nRan;
 		
 #if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_count() == nRan );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() == 0 );
+		IUTEST_EXPECT_EQ( nRan, ::iutest::UnitTest::GetInstance()->reportable_test_count() );
+		IUTEST_EXPECT_EQ( 0, ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() );
 #endif
 #if !defined(IUTEST_USE_GTEST)
 		const int kTotal = 6;
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->skip_test_count() == kTotal-nRan );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 0 );
-		IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == 0 );
+		IUTEST_EXPECT_EQ( kTotal-nRan, ::iutest::UnitTest::GetInstance()->skip_test_count() );
+		IUTEST_EXPECT_EQ( 0, ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() );
+		IUTEST_EXPECT_EQ( 0, ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() );
 #endif
 	}
 	return ::iutest::UnitTest::GetInstance()->Passed();

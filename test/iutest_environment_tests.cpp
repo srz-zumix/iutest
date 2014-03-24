@@ -81,13 +81,14 @@ int main(int argc, char* argv[])
 {
 	IUTEST_INIT(&argc, argv);
 	MyEnvironment* const env = new MyEnvironment();
-	IUTEST_ASSERT( ::iutest::AddGlobalTestEnvironment(NULL) == NULL );
-	IUTEST_ASSERT( ::iutest::AddGlobalTestEnvironment(env) == env );
+	IUTEST_EXPECT_NULL( ::iutest::AddGlobalTestEnvironment(NULL) );
+	IUTEST_EXPECT_EQ( env, ::iutest::AddGlobalTestEnvironment(env) );
 	::iutest::AddGlobalTestEnvironment(new MyEnvironment2());
 	env->Reset();
 	const int ret = IUTEST_RUN_ALL_TESTS();
+	if( ret != 0 ) return 1;
 	
-	IUTEST_ASSERT( MyEnvironment::teardown );
+	IUTEST_EXPECT_TRUE( MyEnvironment::teardown );
 	
-	return ret;
+	return ::iutest::UnitTest::GetInstance()->Passed() ? 0 : 1;
 }

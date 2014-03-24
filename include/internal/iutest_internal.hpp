@@ -330,14 +330,22 @@
 
 /**
  * @internal
- * @brief	明示的な失敗
+ * @brief	assert
 */
-#define IUTEST_ASSERT(cond)					do { if( !(cond) ) {												\
+#define IUTEST_ASSERT_EXIT(cond)			do { if( !(cond) ) {												\
 												IUTEST_MESSAGE(#cond, ::iutest::TestPartResult::kFatalFailure);	\
 												exit(1);														\
 											} } while(::iutest::detail::AlwaysFalse())
 
+/**
+ * @internal
+ * @brief	明示的な成功
+*/
 #define IIUT_SUCCEED()						IUTEST_MESSAGE("Succeeded.\n", ::iutest::TestPartResult::kSuccess)
+/**
+ * @internal
+ * @brief	明示的な失敗
+*/
 #define IIUT_FAIL()							IUTEST_ASSERT_FAILURE("Failed.\n")
 #define IIUT_ADD_FAILURE()					IUTEST_EXPECT_FAILURE("Failed.\n")
 #define IIUT_ADD_FAILURE_AT(file_, line_)	IUTEST_EXPECT_FAILURE_AT("Failed.\n", file_, line_)

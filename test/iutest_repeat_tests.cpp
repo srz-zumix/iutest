@@ -144,18 +144,18 @@ int main(int argc, char* argv[])
 #endif
 {
 	MyEnvironment* const env = new MyEnvironment();
-	IUTEST_ASSERT( ::iutest::AddGlobalTestEnvironment(env) == env );
+	IUTEST_ASSERT_EXIT( ::iutest::AddGlobalTestEnvironment(env) == env );
 	IUTEST_INIT(&argc, argv);
 	
-	IUTEST_ASSERT( RepeatTestUnspecified() );
-	IUTEST_ASSERT( RepeatTestNonFilter(0) );
-	IUTEST_ASSERT( RepeatTestNonFilter(2) );
-	IUTEST_ASSERT( RepeatTestNonFilter(10) );
+	IUTEST_ASSERT_EXIT( RepeatTestUnspecified() );
+	IUTEST_ASSERT_EXIT( RepeatTestNonFilter(0) );
+	IUTEST_ASSERT_EXIT( RepeatTestNonFilter(2) );
+	IUTEST_ASSERT_EXIT( RepeatTestNonFilter(10) );
 
-	IUTEST_ASSERT( RepeatTestWithEmpyFilter(2) );
-	IUTEST_ASSERT( RepeatTestWithEmpyFilter(3) );
+	IUTEST_ASSERT_EXIT( RepeatTestWithEmpyFilter(2) );
+	IUTEST_ASSERT_EXIT( RepeatTestWithEmpyFilter(3) );
 	
-	IUTEST_ASSERT( RepeatTestWithFilter(3) );
+	IUTEST_ASSERT_EXIT( RepeatTestWithFilter(3) );
 
 	printf("*** Successful ***\n");
 	return 0;

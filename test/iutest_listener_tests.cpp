@@ -161,13 +161,14 @@ int main(int argc, char* argv[])
 	listeners.Append( listener );
 	const int ret = IUTEST_RUN_ALL_TESTS();
 	
-	IUTEST_ASSERT( listener->called_OnTestEnd );
-	IUTEST_ASSERT( listener->called_OnTestCaseEnd );
-	IUTEST_ASSERT( listener->called_OnEnvironmentsTearDownStart );
-	IUTEST_ASSERT( listener->called_OnEnvironmentsTearDownEnd );
-	IUTEST_ASSERT( listener->called_OnTestIterationEnd );
-	IUTEST_ASSERT( listener->called_OnTestProgramEnd );
+	IUTEST_ASSERT_EXIT( listener->called_OnTestEnd );
+	IUTEST_ASSERT_EXIT( listener->called_OnTestCaseEnd );
+	IUTEST_ASSERT_EXIT( listener->called_OnEnvironmentsTearDownStart );
+	IUTEST_ASSERT_EXIT( listener->called_OnEnvironmentsTearDownEnd );
+	IUTEST_ASSERT_EXIT( listener->called_OnTestIterationEnd );
+	IUTEST_ASSERT_EXIT( listener->called_OnTestProgramEnd );
 
-	if( ret == 1 ) printf("*** Successful ***\n");
-	return ret != 0 ? 0 : 1;
+	if( ret == 0 ) return 1;
+	printf("*** Successful ***\n");
+	return 0;
 }

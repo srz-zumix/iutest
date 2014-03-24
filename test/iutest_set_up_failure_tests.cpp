@@ -49,9 +49,9 @@ int main(int argc, char* argv[])
 #endif
 	const int ret = IUTEST_RUN_ALL_TESTS();
 	
-	IUTEST_ASSERT( ret != 0 );
-	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
-	IUTEST_ASSERT( test_flag == 0);
+	IUTEST_ASSERT_EXIT( ret != 0 );
+	IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
+	IUTEST_ASSERT_EXIT( test_flag == 0);
 
 	printf("*** Successful ***\n");
 	return 0;

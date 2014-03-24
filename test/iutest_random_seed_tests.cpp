@@ -81,7 +81,7 @@ int main(int argc, char* argv[])
 #endif
 {
 	MyEnvironment* const env = new MyEnvironment();
-	IUTEST_ASSERT( ::iutest::AddGlobalTestEnvironment(env) == env );
+	IUTEST_ASSERT_EXIT( ::iutest::AddGlobalTestEnvironment(env) == env );
 	IUTEST_INIT(&argc, argv);
 	
 	::iutest::IUTEST_FLAG(repeat) = kRepeatCount;

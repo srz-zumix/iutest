@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
 	::iutest::IUTEST_FLAG(output) = NULL;
 #endif
 	if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
-	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
+	IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
 #else
 	if( IUTEST_RUN_ALL_TESTS() ) return 1;
 #endif

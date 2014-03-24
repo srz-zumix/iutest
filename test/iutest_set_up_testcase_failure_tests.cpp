@@ -51,11 +51,11 @@ int main(int argc, char* argv[])
 	
 	if( ret == 0 ) return 1;
 
-	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 0 );
+	IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 0 );
 #if !defined(IUTEST_USE_GTEST)
-	IUTEST_ASSERT( test_flag == 0 );
+	IUTEST_ASSERT_EXIT( test_flag == 0 );
 #else
-	IUTEST_ASSERT( test_flag == 1 );
+	IUTEST_ASSERT_EXIT( test_flag == 1 );
 #endif
 
 	printf("*** Successful ***\n");
