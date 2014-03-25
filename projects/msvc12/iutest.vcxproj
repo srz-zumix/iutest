@@ -236,6 +236,7 @@
     <ClInclude Include="..\..\include\iutest_core.hpp" />
     <ClInclude Include="..\..\include\iutest_defs.hpp" />
     <ClInclude Include="..\..\include\iutest_env.hpp" />
+    <ClInclude Include="..\..\include\iutest_expression_assertion.hpp" />
     <ClInclude Include="..\..\include\iutest_ignore.hpp" />
     <ClInclude Include="..\..\include\iutest_info.hpp" />
     <ClInclude Include="..\..\include\iutest_listener.hpp" />

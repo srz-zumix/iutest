@@ -20,7 +20,7 @@
 #include "../include/iutest.hpp"
 
 template<int A, int B>
-struct add_t { enum { value = A + B }; };
+struct add_t { enum result { value = A + B }; };
 
 ::iutest::AssertionResult IsEven(int n)
 {

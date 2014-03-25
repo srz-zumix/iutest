@@ -27,6 +27,7 @@
 #include "iutest_param_tests.hpp"
 #include "iutest_typed_tests.hpp"
 #include "iutest_prod.hpp"
+#include "iutest_expression_assertion.hpp"
 #include "iutest_static_assertion.hpp"
 #include "iutest_ignore.hpp"
 #include "listener/iutest_default_printer.hpp"

@@ -82,7 +82,7 @@ public:
 		return true;
 	}
 
-	bool OnCommand(int wID)
+	bool OnCommand(WORD wID)
 	{
 		if( wID == m_nIDTop )
 		{

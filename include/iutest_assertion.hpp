@@ -96,6 +96,13 @@ public:
 	 * @brief	失敗結果の作成
 	*/
 	static AssertionResult Failure(void) { return AssertionResult(false); }
+	/**
+	 * @brief	成否の取得
+	*/
+	template<typename T>
+	static AssertionResult Is(const T& b) { return AssertionResult(b ? true : false); }
+	/** @override */
+	static AssertionResult Is(const AssertionResult& ar) { return AssertionResult(ar); }
 
 private:
 	IUTEST_PP_DISALLOW_ASSIGN(AssertionResult);
