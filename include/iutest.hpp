@@ -227,6 +227,14 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_ASSERT_
+ * @brief	式アサーション
+ * @param	expression	= 式
+*/
+#ifndef IUTEST_ASSERT
+#  define	IUTEST_ASSERT(expression)				IUTEST_TEST_EXPRESSION_(expression, IUTEST_ASSERT_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSERT_
  * @brief	== テスト
  * @param	expected	= 期待値
  * @param	actual		= 検査対象
@@ -542,6 +550,14 @@ namespace iutest
 * @}
 */
 
+/**
+ * @ingroup	IUTEST_EXPECT_
+ * @brief	式アサーション
+ * @param	expression	= 式
+*/
+#ifndef IUTEST_EXPECT
+#  define	IUTEST_EXPECT(expression)				IUTEST_TEST_EXPRESSION_(expression, IUTEST_EXPECT_FAILURE)
+#endif
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	== テスト
@@ -870,6 +886,14 @@ namespace iutest
 
 /**
  * @ingroup	IUTEST_INFORM_
+ * @brief	式アサーション
+ * @param	expression	= 式
+*/
+#ifndef IUTEST_INFORM
+#  define	IUTEST_INFORM(expression)				IUTEST_TEST_EXPRESSION_(expression, IUTEST_INFORM_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_INFORM_
  * @brief	== テスト
  * @param	expected	= 期待値
  * @param	actual		= 検査対象
@@ -1174,6 +1198,15 @@ namespace iutest
 /**
  * @}
 */
+
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	式アサーション
+ * @param	expression	= 式
+*/
+#ifndef IUTEST_ASSUME
+#  define	IUTEST_ASSUME(expression)				IUTEST_TEST_EXPRESSION_(expression, IUTEST_ASSUME_FAILURE)
+#endif
 /**
  * @ingroup	IUTEST_ASSUME_
  * @brief	== テスト

@@ -53,6 +53,7 @@ TARGETS1= \
           iutest_disabled_tests \
           iutest_environment_tests \
           iutest_exception_tests \
+          iutest_expression_assertion_tests \
           iutest_extension_tests \
           iutest_file_system_tests \
           iutest_filter_tests \
@@ -90,7 +91,6 @@ TARGETS2= \
 TARGETS_IUTEST_ONLY = \
           iutest_env_var_tests \
           iutest_env_var_gtest_tests \
-          iutest_expression_assertion_tests \
           iutest_tap_printer_listener_tests \
           iutest_unit_tests \
 

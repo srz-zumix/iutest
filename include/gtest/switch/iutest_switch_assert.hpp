@@ -106,6 +106,7 @@
 // undef
 #ifdef INCG_IRIS_IUTEST_HPP_
 
+#undef IUTEST_ASSERT
 #undef IUTEST_ASSERT_TRUE
 #undef IUTEST_ASSERT_FALSE
 #undef IUTEST_ASSERT_EQ
@@ -152,6 +153,7 @@
 
 //======================================================================
 // define
+#define IUTEST_ASSERT(...)					ASSERT_TRUE(__VA_ARGS__)
 #define IUTEST_ASSERT_TRUE(...)				ASSERT_TRUE(!!(__VA_ARGS__))
 #define IUTEST_ASSERT_FALSE(...)			ASSERT_FALSE((__VA_ARGS__))
 #define IUTEST_ASSERT_EQ					ASSERT_EQ

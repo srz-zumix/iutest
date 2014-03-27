@@ -27,8 +27,6 @@ namespace detail
 
 //======================================================================
 // define
-#define IUTEST_ASSERT(expr)	IUTEST_TEST_EXPRESSION_(expr, IUTEST_ASSERT_FAILURE)
-
 /**
  * @private
  * @{

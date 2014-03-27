@@ -45,21 +45,27 @@ IUTEST(Expression, Success)
 	IUTEST_ASSERT(f() != 42 || g() == false );
 }
 
+#if !defined(IUTEST_USE_GTEST)
+#  define CHECK_FATAL_FAILURE(expr, str)	IUTEST_ASSERT_FATAL_FAILURE(expr, str)
+#else
+#  define CHECK_FATAL_FAILURE(expr, str)	IUTEST_ASSERT_FATAL_FAILURE(expr, "")
+#endif
+
 IUTEST(Expression, Fail)
 {
-	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT(false), "expansion: false");
-	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT(!f()) , "expansion: false");
-	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT(f() == 41), "expansion: 42 == 41");
-	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT(f() != 42), "expansion: 42 != 42");
-	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT(f() <  41), "expansion: 42 < 41");
-	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT(f() <= 41), "expansion: 42 <= 41");
-	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT(f() >  43), "expansion: 42 > 43");
-	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT(f() >= 43), "expansion: 42 >= 43");
-	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT(f() &   1), "expansion: 42 & 1");
-	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT(g() |   0), "expansion: false | 0");
-	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT(g() &&  0), "expansion: false && 0");
-	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT(g() ||  0), "expansion: false || 0");
-	IUTEST_ASSERT_FATAL_FAILURE( IUTEST_ASSERT(f() != 42 || f() == 32 ), "expansion: 42 != 42 || false");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(false), "expansion: false");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(!f()) , "expansion: false");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() == 41), "expansion: 42 == 41");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() != 42), "expansion: 42 != 42");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() <  41), "expansion: 42 < 41");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() <= 41), "expansion: 42 <= 41");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() >  43), "expansion: 42 > 43");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() >= 43), "expansion: 42 >= 43");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() &   1), "expansion: 42 & 1");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(g() |   0), "expansion: false | 0");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(g() &&  0), "expansion: false && 0");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(g() ||  0), "expansion: false || 0");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() != 42 || f() == 32 ), "expansion: 42 != 42 || false");
 }
 
 #ifdef UNICODE
