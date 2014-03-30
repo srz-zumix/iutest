@@ -231,7 +231,15 @@ namespace iutest
  * @param	expression	= 式
 */
 #ifndef IUTEST_ASSERT
-#  define	IUTEST_ASSERT(expression)				IUTEST_TEST_EXPRESSION_(expression, IUTEST_ASSERT_FAILURE)
+#  define	IUTEST_ASSERT(expression)				IUTEST_TEST_EXPRESSION_(expression, true, IUTEST_ASSERT_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSERT_
+ * @brief	式アサーション
+ * @param	expression	= 式
+*/
+#ifndef IUTEST_ASSERT_NOT
+#  define	IUTEST_ASSERT_NOT(expression)			IUTEST_TEST_EXPRESSION_(expression, false, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSERT_
@@ -556,7 +564,15 @@ namespace iutest
  * @param	expression	= 式
 */
 #ifndef IUTEST_EXPECT
-#  define	IUTEST_EXPECT(expression)				IUTEST_TEST_EXPRESSION_(expression, IUTEST_EXPECT_FAILURE)
+#  define	IUTEST_EXPECT(expression)				IUTEST_TEST_EXPRESSION_(expression, true, IUTEST_EXPECT_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_EXPECT_
+ * @brief	式アサーション
+ * @param	expression	= 式
+*/
+#ifndef IUTEST_EXPECT_NOT
+#  define	IUTEST_EXPECT_NOT(expression)			IUTEST_TEST_EXPRESSION_(expression, false, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
@@ -890,7 +906,15 @@ namespace iutest
  * @param	expression	= 式
 */
 #ifndef IUTEST_INFORM
-#  define	IUTEST_INFORM(expression)				IUTEST_TEST_EXPRESSION_(expression, IUTEST_INFORM_FAILURE)
+#  define	IUTEST_INFORM(expression)				IUTEST_TEST_EXPRESSION_(expression, true, IUTEST_INFORM_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_INFORM_
+ * @brief	式アサーション
+ * @param	expression	= 式
+*/
+#ifndef IUTEST_INFORM_NOT
+#  define	IUTEST_INFORM_NOT(expression)			IUTEST_TEST_EXPRESSION_(expression, false, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_INFORM_
@@ -1205,7 +1229,15 @@ namespace iutest
  * @param	expression	= 式
 */
 #ifndef IUTEST_ASSUME
-#  define	IUTEST_ASSUME(expression)				IUTEST_TEST_EXPRESSION_(expression, IUTEST_ASSUME_FAILURE)
+#  define	IUTEST_ASSUME(expression)				IUTEST_TEST_EXPRESSION_(expression, true, IUTEST_ASSUME_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	式アサーション
+ * @param	expression	= 式
+*/
+#ifndef IUTEST_ASSUME_NOT
+#  define	IUTEST_ASSUME_NOT(expression)			IUTEST_TEST_EXPRESSION_(expression, false, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSUME_

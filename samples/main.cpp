@@ -94,6 +94,11 @@ int main(int argc, char* argv[])
 
 #endif
 
+int f(void)
+{
+	return 42;
+}
+
 #if 1	// Success Tests
 
 /** --------------------------------------------------
@@ -103,6 +108,8 @@ IUTEST(Test, Version)
 {
 	unsigned long v = (IUTEST_MAJORVER << 24) | (IUTEST_MINORVER << 16) | (IUTEST_BUILD << 8) | IUTEST_REVISION;
 	IUTEST_ASSERT_EQ( IUTEST_VER, v );
+	IUTEST_EXPECT_NOT(true && false);
+
 }
 
 IUTEST(Test, GetName)
@@ -186,6 +193,18 @@ IUTEST_PACKAGE(TestPackage)
 IUTEST(SkipTest, Skip)
 {
 	IUTEST_SKIP() << "empty.";
+}
+
+/** --------------------------------------------------
+ * 式アサーション
+*//*--------------------------------------------------*/
+IUTEST(ExpressionTest, Test)
+{
+	IUTEST_EXPECT(f());
+	IUTEST_EXPECT(f() == 42);
+	IUTEST_EXPECT(f() + f() == 84);
+	IUTEST_EXPECT(f() == 42 && true);
+	IUTEST_EXPECT_NOT(f() != 42);
 }
 
 /** --------------------------------------------------

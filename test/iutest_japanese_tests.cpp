@@ -219,8 +219,8 @@ int main(int argc, char* argv[])
 	IUTEST_ASSERT_EQ( testcase_count, ::iutest::UnitTest::GetInstance()->total_test_case_count()) << ::iutest::AssertionReturn(1);
 	IUTEST_ASSERT_EQ( test_count, ::iutest::UnitTest::GetInstance()->total_test_count() ) << ::iutest::AssertionReturn(1);
 #else
-	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->total_test_case_count() == testcase_count );
-	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->total_test_count() == test_count );
+	IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->total_test_case_count() == testcase_count );
+	IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->total_test_count() == test_count );
 #endif
 
 #endif

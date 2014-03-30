@@ -107,6 +107,7 @@
 #ifdef INCG_IRIS_IUTEST_HPP_
 
 #undef IUTEST_EXPECT
+#undef IUTEST_EXPECT_NOT
 #undef IUTEST_EXPECT_TRUE
 #undef IUTEST_EXPECT_FALSE
 #undef IUTEST_EXPECT_EQ
@@ -155,6 +156,7 @@
 //======================================================================
 // define
 #define IUTEST_EXPECT(...)					EXPECT_TRUE(__VA_ARGS__)
+#define IUTEST_EXPECT_NOT(...)				EXPECT_FALSE(__VA_ARGS__)
 #define IUTEST_EXPECT_TRUE(...)				EXPECT_TRUE(!!(__VA_ARGS__))
 #define IUTEST_EXPECT_FALSE(...)			EXPECT_FALSE((__VA_ARGS__))
 #define IUTEST_EXPECT_EQ					EXPECT_EQ

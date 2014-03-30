@@ -112,6 +112,28 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE)
+/**
+ * @brief	式アサーションで算術演算子の展開をサポートするかどうか
+*/
+#  if IUTEST_HAS_DECLTYPE
+#    define IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE	1
+#  else
+#    define IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE	0
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE)
+/**
+* @brief	式アサーションでビット演算子の展開をサポートするかどうか
+*/
+#  if IUTEST_HAS_DECLTYPE
+#    define IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE		1
+#  else
+#    define IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE		0
+#  endif
+#endif
+
 #if !defined(IUTEST_HAS_VALUESGEN)
 //! ::iutest::ValuesGen が使用可能かどうか
 #  if IUTEST_HAS_PARAM_TEST

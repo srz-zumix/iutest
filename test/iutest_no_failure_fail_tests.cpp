@@ -62,9 +62,9 @@ int main(int argc, char* argv[])
 	IUTEST_ASSERT_EQ(2, ::iutest::UnitTest::GetInstance()->failed_test_count()) << ::iutest::AssertionReturn(1);
 	IUTEST_ASSERT_EQ(0, nCount) << ::iutest::AssertionReturn(1);
 #else
-	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->successful_test_count() == 0 );
-	IUTEST_ASSERT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
-	IUTEST_ASSERT( nCount == 0 );
+	IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->successful_test_count() == 0 );
+	IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
+	IUTEST_ASSERT_EXIT( nCount == 0 );
 #endif
 	printf("*** Successful ***\n");
 	return 0;

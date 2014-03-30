@@ -27,46 +27,243 @@ bool g(void)
 {
 	return false;
 }
-
-IUTEST(Expression, Success)
+int z(void)
 {
-	IUTEST_ASSERT(true);
-	IUTEST_ASSERT(f());
-	IUTEST_ASSERT(f() == 42);
-	IUTEST_ASSERT(f() != 41);
-	IUTEST_ASSERT(f() <= 42);
-	IUTEST_ASSERT(f() >= 42);
-	IUTEST_ASSERT(f() <  50);
-	IUTEST_ASSERT(f() >  40);
-	IUTEST_ASSERT(f() &   2);
-	IUTEST_ASSERT(f() |   1);
-	IUTEST_ASSERT(f() &&  1);
-	IUTEST_ASSERT(f() ||  0);
-	IUTEST_ASSERT(f() != 42 || g() == false );
+	return 0;
+}
+
+IUTEST(Expression, Monadic)
+{
+	IUTEST_EXPECT(true);
+	IUTEST_EXPECT(f());
+}
+
+IUTEST(Expression, Comparison)
+{
+	IUTEST_EXPECT(true);
+	IUTEST_EXPECT(f());
+	IUTEST_EXPECT(f() == 42);
+	IUTEST_EXPECT(f() != 41);
+	IUTEST_EXPECT(f() <= 42);
+	IUTEST_EXPECT(f() >= 42);
+	IUTEST_EXPECT(f() <  50);
+	IUTEST_EXPECT(f() >  40);
+	IUTEST_EXPECT(f() &&  1);
+	IUTEST_EXPECT(f() ||  0);
+}
+
+IUTEST(Expression, Arithmetic)
+{
+	IUTEST_EXPECT(f() + 2 == 44);
+	IUTEST_EXPECT(f() - 2 == 40);
+	IUTEST_EXPECT(f() * 2 == 84);
+	IUTEST_EXPECT(f() / 2 == 21);
+	IUTEST_EXPECT(f() % 4 == 2);
+	IUTEST_EXPECT(f() + f() + f() == 126);
+}
+
+#if IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE
+IUTEST(Expression, Bitwise)
+{
+	IUTEST_EXPECT(f() & 2);
+	IUTEST_EXPECT(z() | 1);
+}
+#endif
+
+IUTEST(Expression, Logical)
+{
+	IUTEST_EXPECT(f() == 42 && g() == false );
+	IUTEST_EXPECT(f() != 42 || g() == false );
+}
+
+IUTEST(ExpressionNot, Monadic)
+{
+	IUTEST_EXPECT_NOT(false);
+	IUTEST_EXPECT_NOT(!f());
+}
+
+IUTEST(ExpressionNot, Comparison)
+{
+	IUTEST_EXPECT_NOT(f() == 41);
+	IUTEST_EXPECT_NOT(f() != 42);
+	IUTEST_EXPECT_NOT(f() <= 41);
+	IUTEST_EXPECT_NOT(f() >= 43);
+	IUTEST_EXPECT_NOT(f() <  40);
+	IUTEST_EXPECT_NOT(f() >  50);
+	IUTEST_EXPECT_NOT(g() &&  true);
+	IUTEST_EXPECT_NOT(g() ||  false);
+}
+
+IUTEST(ExpressionNot, Arithmetic)
+{
+	IUTEST_EXPECT_NOT(f() + 2 == 1);
+	IUTEST_EXPECT_NOT(f() - 2 == 1);
+	IUTEST_EXPECT_NOT(f() * 2 == 1);
+	IUTEST_EXPECT_NOT(f() / 2 == 1);
+	IUTEST_EXPECT_NOT(f() % 4 == 1);
+	IUTEST_EXPECT_NOT(f() + f() + f() == 1);
+}
+
+#if IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE
+IUTEST(ExpressionNot, Bitwise)
+{
+	IUTEST_EXPECT_NOT(f() & 1);
+	IUTEST_EXPECT_NOT(z() | 0);
+}
+#endif
+
+IUTEST(ExpressionNot, Logical)
+{
+	IUTEST_EXPECT_NOT(f() == 42 && g() );
+	IUTEST_EXPECT_NOT(f() != 42 || g() );
 }
 
 #if !defined(IUTEST_USE_GTEST)
-#  define CHECK_FATAL_FAILURE(expr, str)	IUTEST_ASSERT_FATAL_FAILURE(expr, str)
+#  define CHECK_FATAL_FAILURE(expr, str)	IUTEST_EXPECT_FATAL_FAILURE(expr, str)
 #else
-#  define CHECK_FATAL_FAILURE(expr, str)	IUTEST_ASSERT_FATAL_FAILURE(expr, "")
+#  define CHECK_FATAL_FAILURE(expr, str)	IUTEST_EXPECT_FATAL_FAILURE(expr, "")
 #endif
 
-IUTEST(Expression, Fail)
+IUTEST(ExpressionFail, Monadic)
 {
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT(false), "expansion: false");
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT(!f()) , "expansion: false");
+}
+
+IUTEST(ExpressionFail, Comparison)
+{
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() == 41), "expansion: 42 == 41");
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() != 42), "expansion: 42 != 42");
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() <  41), "expansion: 42 < 41");
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() <= 41), "expansion: 42 <= 41");
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() >  43), "expansion: 42 > 43");
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() >= 43), "expansion: 42 >= 43");
-	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() &   1), "expansion: 42 & 1");
-	CHECK_FATAL_FAILURE( IUTEST_ASSERT(g() |   0), "expansion: false | 0");
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT(g() &&  0), "expansion: false && 0");
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT(g() ||  0), "expansion: false || 0");
+}
+
+IUTEST(ExpressionFail, Arithmetic)
+{
+#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() + 2 == 1), "expansion: 42 + 2 == 1");
+#else
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() + 2 == 1), "expansion: 44 == 1");
+#endif
+
+#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() - 2 == 1), "expansion: 42 - 2 == 1");
+#else
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() - 2 == 1), "expansion: 40 == 1");
+#endif
+
+#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() * 2 == 1), "expansion: 42 * 2 == 1");
+#else
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() * 2 == 1), "expansion: 84 == 1");
+#endif
+
+#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() / 2 == 1), "expansion: 42 / 2 == 1");
+#else
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() / 2 == 1), "expansion: 21 == 1");
+#endif
+
+#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
+	CHECK_FATAL_FAILURE(IUTEST_ASSERT(f() % 4 == 1), "expansion: 42 % 4 == 1");
+#else
+	CHECK_FATAL_FAILURE(IUTEST_ASSERT(f() % 4 == 1), "expansion: 2 == 1");
+#endif
+
+#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
+	CHECK_FATAL_FAILURE(IUTEST_ASSERT(f() + f() + f() == 1), "expansion: 42 + 42 + 42 == 1");
+#else
+	CHECK_FATAL_FAILURE(IUTEST_ASSERT(f() + f() + f() == 1), "expansion: 126 == 1");
+#endif
+}
+
+IUTEST(ExpressionFail, Logical)
+{
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() != 42 || f() == 32 ), "expansion: 42 != 42 || false");
 }
+
+#if IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE
+IUTEST(ExpressionFail, Bitwise)
+{
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() & 1), "expansion: 42 & 1");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(z() | 0), "expansion: 0 | 0");
+}
+#endif
+
+
+IUTEST(ExpressionNotFail, Monadic)
+{
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(true), "expansion: true");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(f()) , "expansion: 42");
+}
+
+IUTEST(ExpressionNotFail, Comparison)
+{
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(f() == 42), "expansion: 42 == 42");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(f() != 41), "expansion: 42 != 41");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(f() <  43), "expansion: 42 < 43");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(f() <= 43), "expansion: 42 <= 43");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(f() >  41), "expansion: 42 > 41");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(f() >= 41), "expansion: 42 >= 41");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(f() &&  1), "expansion: 42 && 1");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(g() ||  1), "expansion: false || 1");
+}
+
+IUTEST(ExpressionNotFail, Arithmetic)
+{
+#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
+	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() + 2 == 44), "expansion: 42 + 2 == 44");
+#else
+	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() + 2 == 44), "expansion: 44 == 44");
+#endif
+
+#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
+	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() - 2 == 40), "expansion: 42 - 2 == 40");
+#else
+	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() - 2 == 40), "expansion: 40 == 40");
+#endif
+
+#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
+	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() * 2 == 84), "expansion: 42 * 2 == 84");
+#else
+	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() * 2 == 84), "expansion: 84 == 84");
+#endif
+
+#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
+	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() / 2 == 21), "expansion: 42 / 2 == 21");
+#else
+	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() / 2 == 21), "expansion: 21 == 21");
+#endif
+
+#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
+	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() % 4 == 2), "expansion: 42 % 4 == 2");
+#else
+	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() % 4 == 2), "expansion: 2 == 2");
+#endif
+
+#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
+	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() + f() + f() == 126), "expansion: 42 + 42 + 42 == 126");
+#else
+	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() + f() + f() == 126), "expansion: 126 == 126");
+#endif
+}
+
+IUTEST(ExpressionNotFail, Logical)
+{
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(f() != 42 || f() == 42 ), "expansion: 42 != 42 || true");
+}
+
+#if IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE
+IUTEST(ExpressionNotFail, Bitwise)
+{
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(f() & 2), "expansion: 42 & 2");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(z() | 1), "expansion: 0 | 1");
+}
+#endif
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
