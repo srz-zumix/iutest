@@ -218,6 +218,8 @@ namespace tr1
 #undef IUTEST_HAS_RTTI
 #undef IUTEST_HAS_SEH
 
+#undef IUTEST_OPERAND
+
 #endif
 
 #define IUTEST_SUCCEED			GTEST_SUCCEED
@@ -290,6 +292,8 @@ namespace tr1
 										GTEST_MESSAGE_(#cond, ::testing::TestPartResult::kFatalFailure);	\
 										exit(1);															\
 									} } while(::testing::internal::AlwaysFalse())
+
+#define IUTEST_OPERAND(op) op
 
 namespace testing
 {

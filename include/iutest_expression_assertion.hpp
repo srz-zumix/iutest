@@ -33,34 +33,39 @@ namespace detail
 */
 
 #if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
-#  define IIUT_EXPRESSION_DECOMPOSE(expected)	::iutest::detail::ExpressionDecomposer<expected>()->*
+#  define IIUT_EXPRESSION_DECOMPOSE()	::iutest::detail::ExpressionDecomposer()->*
 #else
-#  define IIUT_EXPRESSION_DECOMPOSE(expected)	::iutest::detail::ExpressionDecomposer<expected>()>>
+#  define IIUT_EXPRESSION_DECOMPOSE()	::iutest::detail::ExpressionDecomposer()>>
 #endif
 
 #define IUTEST_TEST_EXPRESSION_(expr, expected, on_failure)	\
-	IUTEST_TEST_TRUE( ( IIUT_EXPRESSION_DECOMPOSE(expected) expr ).GetResult(), #expr, on_failure )
+	IUTEST_TEST_TRUE( ( IIUT_EXPRESSION_DECOMPOSE() expr ).GetResult(expected), #expr, on_failure )
 
 /**
  * @}
 */
+
+#define IUTEST_OPERAND(op)	op IIUT_EXPRESSION_DECOMPOSE()
 
 //======================================================================
 // class
 
 /** @private */
 #define IIUT_DECL_EXPRESSION_RESULT_OP(op)	\
-	template<typename RHS>ExpressionResult<Expected> operator op (const RHS& rhs) const {		\
-		const bool lhs = raw_result();															\
-		const bool b = lhs op rhs ? true : false;												\
-		return ExpressionResult<Expected>(AssertionResult(b == Expected) << m_result.message() << " " #op " " << rhs);	\
+	template<typename RHS>ExpressionResult operator op (const RHS& rhs) const {	\
+		const bool b = result() op rhs ? true : false;							\
+		return ExpressionResult(AssertionResult(b)								\
+					<< m_result.message() << " " #op " " << rhs);				\
+	}																			\
+	ExpressionResult operator op (const ExpressionResult& rhs) const {			\
+		const bool b = result() op rhs.result() ? true : false;					\
+		return ExpressionResult(AssertionResult(b)								\
+					<< m_result.message() << " " #op " " << rhs.message());		\
 	}
 
 /**
  * @brief	expression result
- * @tparam	Expected=expected result
 */
-template<bool Expected>
 class ExpressionResult
 {
 public:
@@ -72,13 +77,13 @@ public:
 	IIUT_DECL_EXPRESSION_RESULT_OP(&&)
 
 public:
-	AssertionResult GetResult(void) const 
+	AssertionResult GetResult(bool expected) const 
 	{
-		return AssertionResult(static_cast<bool>(m_result))
-			<< "expansion: " << m_result.message();
+		return AssertionResult(result() == expected) << "expansion: " << m_result.message();
 	}
 private:
-	bool raw_result(void) const { return Expected ? static_cast<bool>(m_result) : m_result.failed(); }
+	bool result(void) const { return static_cast<bool>(m_result); }
+	const char* message(void) const { return m_result.message(); }
 private:
 	AssertionResult m_result;
 };
@@ -87,16 +92,16 @@ private:
 
 /** @private */
 #define IIUT_DECL_EXPRESSION_OP(op)	\
-	template<typename RHS>ExpressionResult<Expected> operator op (const RHS& rhs) const {		\
-		const bool b = (m_lhs op rhs) ? true : false;											\
-		return ExpressionResult<Expected>(AssertionResult(b == Expected) << m_message << " " #op " " << rhs);	\
+	template<typename RHS>ExpressionResult operator op (const RHS& rhs) const {			\
+		const bool b = (m_lhs op rhs) ? true : false;									\
+		return ExpressionResult(AssertionResult(b) << m_message << " " #op " " << rhs);	\
 	}
 
 #if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 
 #define IIUT_DECL_EXPRESSION_OP_LHS(op)	\
 	template<typename RHS>auto operator op (const RHS& rhs) const	\
-	-> ExpressionLHS< decltype( expression_op_helper::operand_result( ::std::declval<T>() op rhs) ), Expected> {	\
+	-> ExpressionLHS< decltype( expression_op_helper::operand_result( ::std::declval<T>() op rhs) )> {	\
 		return OperandResult(m_lhs op rhs) << " " #op " " << rhs;	\
 	}
 
@@ -111,12 +116,11 @@ namespace expression_op_helper
 /**
  * @brief	expression lhs
  * @tparam	T=type
- * @tparam	Expected=expected result
 */
-template<typename T, bool Expected>
+template<typename T>
 class ExpressionLHS
 {
-	typedef ExpressionLHS<T, Expected> _Myt;
+	typedef ExpressionLHS<T> _Myt;
 public:
 	ExpressionLHS(T lhs) : m_lhs(lhs)
 	{
@@ -152,9 +156,9 @@ public:
 
 private:
 	template<typename U>
-	ExpressionLHS<U, Expected> OperandResult(const U& lhs) const
+	ExpressionLHS<U> OperandResult(const U& lhs) const
 	{
-		return ExpressionLHS<U, Expected>(lhs, m_message);
+		return ExpressionLHS<U>(lhs, m_message);
 	}
 
 public:
@@ -170,10 +174,10 @@ public:
 
 public:
 	/** @private */
-	AssertionResult GetResult(void) const
+	AssertionResult GetResult(bool expected) const
 	{
 		const bool b = m_lhs ? true : false;
-		if( b == Expected )
+		if( b == expected )
 		{
 			return AssertionSuccess();
 		}
@@ -203,23 +207,21 @@ private:
 
 /**
  * @brief	expression decomposer
- * @tparam	Expected=expected result
 */
-template<bool Expected>
 class ExpressionDecomposer
 {
 public:
 #if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 	template<typename T>
-	ExpressionLHS<const T&, Expected> operator ->*(const T& expr)
+	ExpressionLHS<const T&> operator ->*(const T& expr)
 	{
-		return ExpressionLHS<const T&, Expected>(expr);
+		return ExpressionLHS<const T&>(expr);
 	}
 #else
 	template<typename T>
-	ExpressionLHS<const T&, Expected> operator >>(const T& expr)
+	ExpressionLHS<const T&> operator >>(const T& expr)
 	{
-		return ExpressionLHS<const T&, Expected>(expr);
+		return ExpressionLHS<const T&>(expr);
 	}
 #endif
 };

@@ -184,6 +184,8 @@ IUTEST(ExpressionFail, Arithmetic)
 IUTEST(ExpressionFail, Logical)
 {
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() != 42 || f() == 32 ), "expansion: 42 != 42 || false");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() != 42 IUTEST_OPERAND(||) f() == 32 ), "expansion: 42 != 42 || 42 == 32");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() != 42 IUTEST_OPERAND(&&) f() == 32 ), "expansion: 42 != 42 && 42 == 32");
 }
 
 #if IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE
@@ -255,6 +257,7 @@ IUTEST(ExpressionNotFail, Arithmetic)
 IUTEST(ExpressionNotFail, Logical)
 {
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(f() != 42 || f() == 42 ), "expansion: 42 != 42 || true");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(f() != 42 IUTEST_OPERAND(||) f() == 42 ), "expansion: 42 != 42 || 42 == 42");
 }
 
 #if IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE

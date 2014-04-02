@@ -518,6 +518,7 @@ struct CmpHelper
 
 /**
  * @brief	OR テスト用比較ヘルパー
+ * @deprecated please use IUTEST_ASSERT( expr1 || expr2 )
 */
 template<typename COMP>
 struct CmpHelperOR
