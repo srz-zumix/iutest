@@ -258,6 +258,7 @@ IUTEST(ExpressionNotFail, Logical)
 {
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(f() != 42 || f() == 42 ), "expansion: 42 != 42 || true");
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(f() != 42 IUTEST_OPERAND(||) f() == 42 ), "expansion: 42 != 42 || 42 == 42");
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(f() != 42 || IUTEST_EXPRESSION(f() == 42) ), "expansion: 42 != 42 || 42 == 42");
 }
 
 #if IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE
@@ -267,6 +268,15 @@ IUTEST(ExpressionNotFail, Bitwise)
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(z() | 1), "expansion: 0 | 1");
 }
 #endif
+
+IUTEST(ExpressionMacro, True)
+{
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT_TRUE(IUTEST_EXPRESSION(f() != 42)), "42 != 42");
+}
+IUTEST(ExpressionMacro, False)
+{
+	CHECK_FATAL_FAILURE( IUTEST_ASSERT_FALSE(IUTEST_EXPRESSION(f() == 42)), "42 == 42");
+}
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])

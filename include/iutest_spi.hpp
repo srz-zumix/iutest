@@ -201,7 +201,7 @@ public:
 		if( strstr(tr.message(), substr.c_str()) == NULL )
 		{
 			return AssertionFailure() << "error: Expected: " << expected
-				<< "containing \"" << substr
+				<< " containing \"" << substr
 				<< "\"\n  Actual:\n" << tr;
 		}
 		return AssertionSuccess();

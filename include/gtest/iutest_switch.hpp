@@ -219,6 +219,7 @@ namespace tr1
 #undef IUTEST_HAS_SEH
 
 #undef IUTEST_OPERAND
+#undef IUTEST_EXPRESSION
 
 #endif
 
@@ -293,7 +294,8 @@ namespace tr1
 										exit(1);															\
 									} } while(::testing::internal::AlwaysFalse())
 
-#define IUTEST_OPERAND(op) op
+#define IUTEST_OPERAND(op)			op
+#define IUTEST_EXPRESSION(expr)		expr
 
 namespace testing
 {

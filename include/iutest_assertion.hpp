@@ -86,6 +86,10 @@ public:
 		m_message += msg.GetString();
 		return *this;
 	}
+	AssertionResult operator ! (void) const
+	{
+		return AssertionResult(failed()) << message();
+	}
 
 public:
 	/**

@@ -45,7 +45,8 @@ namespace detail
  * @}
 */
 
-#define IUTEST_OPERAND(op)	op IIUT_EXPRESSION_DECOMPOSE()
+#define IUTEST_OPERAND(op)		op IIUT_EXPRESSION_DECOMPOSE()
+#define IUTEST_EXPRESSION(expr)	(IIUT_EXPRESSION_DECOMPOSE() expr).GetResult()
 
 //======================================================================
 // class
@@ -59,6 +60,11 @@ namespace detail
 	}																			\
 	ExpressionResult operator op (const ExpressionResult& rhs) const {			\
 		const bool b = result() op rhs.result() ? true : false;					\
+		return ExpressionResult(AssertionResult(b)								\
+					<< m_result.message() << " " #op " " << rhs.message());		\
+	}																			\
+	ExpressionResult operator op (const AssertionResult& rhs) const {			\
+		const bool b = result() op static_cast<bool>(rhs) ? true : false;		\
 		return ExpressionResult(AssertionResult(b)								\
 					<< m_result.message() << " " #op " " << rhs.message());		\
 	}
@@ -80,6 +86,10 @@ public:
 	AssertionResult GetResult(bool expected) const 
 	{
 		return AssertionResult(result() == expected) << "expansion: " << m_result.message();
+	}
+	AssertionResult GetResult(void) const
+	{
+		return AssertionResult(result()) << m_result.message();
 	}
 private:
 	bool result(void) const { return static_cast<bool>(m_result); }
@@ -177,11 +187,12 @@ public:
 	AssertionResult GetResult(bool expected) const
 	{
 		const bool b = m_lhs ? true : false;
-		if( b == expected )
-		{
-			return AssertionSuccess();
-		}
-		return AssertionFailure() << "expansion: " << m_message;
+		return AssertionResult(b == expected) << "expansion: " << m_message;
+	}
+	AssertionResult GetResult(void) const
+	{
+		const bool b = m_lhs ? true : false;
+		return AssertionResult(b) << m_message;
 	}
 
 private:
