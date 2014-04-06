@@ -205,6 +205,7 @@ IUTEST(ExpressionTest, Test)
 	IUTEST_EXPECT(f() + f() == 84);
 	IUTEST_EXPECT(f() == 42 && true);
 	IUTEST_EXPECT_NOT(f() != 42);
+	IUTEST_ASSERT_TRUE(IUTEST_EXPRESSION(f() != 42) || IUTEST_EXPRESSION(f() != 10));
 }
 
 /** --------------------------------------------------

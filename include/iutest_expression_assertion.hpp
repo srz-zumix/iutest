@@ -64,7 +64,7 @@ namespace detail
 					<< m_result.message() << " " #op " " << rhs.message());		\
 	}																			\
 	ExpressionResult operator op (const AssertionResult& rhs) const {			\
-		const bool b = result() op static_cast<bool>(rhs) ? true : false;		\
+		const bool b = result() op rhs.passed() ? true : false;					\
 		return ExpressionResult(AssertionResult(b)								\
 					<< m_result.message() << " " #op " " << rhs.message());		\
 	}
@@ -92,7 +92,7 @@ public:
 		return AssertionResult(result()) << m_result.message();
 	}
 private:
-	bool result(void) const { return static_cast<bool>(m_result); }
+	bool result(void) const { return m_result.passed(); }
 	const char* message(void) const { return m_result.message(); }
 private:
 	AssertionResult m_result;

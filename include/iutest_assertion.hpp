@@ -61,6 +61,11 @@ public:
 	bool failed(void) const IUTEST_CXX_NOEXCEPT_SPEC { return !m_result; }
 
 	/**
+	 * @brief	成否
+	*/
+	bool passed(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_result; }
+
+	/**
 	 * @brief	メッセージの取得
 	*/
 	const char* message(void) const { return m_message.c_str(); }
@@ -86,9 +91,18 @@ public:
 		m_message += msg.GetString();
 		return *this;
 	}
+public:
 	AssertionResult operator ! (void) const
 	{
 		return AssertionResult(failed()) << message();
+	}
+	AssertionResult operator && (const AssertionResult& rhs) const
+	{
+		return AssertionResult(m_result && rhs.passed()) << message() << " && " << rhs.message();
+	}
+	AssertionResult operator || (const AssertionResult& rhs) const
+	{
+		return AssertionResult(m_result || rhs.passed()) << message() << " || " << rhs.message();
 	}
 
 public:
