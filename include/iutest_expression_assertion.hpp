@@ -21,12 +21,12 @@
 // include
 #include "iutest_assertion.hpp"
 
-namespace iutest {
-namespace detail
-{
-
 //======================================================================
 // define
+#define IUTEST_OPERAND(op)		op IIUT_EXPRESSION_DECOMPOSE()
+#define IUTEST_EXPRESSION(expr)	(IIUT_EXPRESSION_DECOMPOSE() expr).GetResult()
+
+
 /**
  * @private
  * @{
@@ -41,17 +41,6 @@ namespace detail
 #define IUTEST_TEST_EXPRESSION_(expr, expected, on_failure)	\
 	IUTEST_TEST_TRUE( ( IIUT_EXPRESSION_DECOMPOSE() expr ).GetResult(expected), #expr, on_failure )
 
-/**
- * @}
-*/
-
-#define IUTEST_OPERAND(op)		op IIUT_EXPRESSION_DECOMPOSE()
-#define IUTEST_EXPRESSION(expr)	(IIUT_EXPRESSION_DECOMPOSE() expr).GetResult()
-
-//======================================================================
-// class
-
-/** @private */
 #define IIUT_DECL_EXPRESSION_RESULT_OP(op)	\
 	template<typename RHS>ExpressionResult operator op (const RHS& rhs) const {	\
 		const bool b = result() op rhs ? true : false;							\
@@ -68,6 +57,33 @@ namespace detail
 		return ExpressionResult(AssertionResult(b)								\
 					<< m_result.message() << " " #op " " << rhs.message());		\
 	}
+
+#define IIUT_DECL_EXPRESSION_OP(op)	\
+	template<typename RHS>ExpressionResult operator op (const RHS& rhs) const {			\
+		const bool b = (m_lhs op rhs) ? true : false;									\
+		return ExpressionResult(AssertionResult(b) << m_message << " " #op " " << rhs);	\
+	}
+
+#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
+
+#define IIUT_DECL_EXPRESSION_OP_LHS(op)	\
+	template<typename RHS>auto operator op (const RHS& rhs) const	\
+	-> ExpressionLHS< decltype( expression_op_helper::operand_result( ::std::declval<T>() op rhs) )> {	\
+		return OperandResult(m_lhs op rhs) << " " #op " " << rhs;	\
+	}
+
+#endif
+
+/**
+ * @}
+*/
+
+namespace iutest {
+namespace detail
+{
+
+//======================================================================
+// class
 
 /**
  * @brief	expression result
@@ -97,25 +113,6 @@ private:
 private:
 	AssertionResult m_result;
 };
-
-#undef IIUT_DECL_EXPRESSION_RESULT_OP
-
-/** @private */
-#define IIUT_DECL_EXPRESSION_OP(op)	\
-	template<typename RHS>ExpressionResult operator op (const RHS& rhs) const {			\
-		const bool b = (m_lhs op rhs) ? true : false;									\
-		return ExpressionResult(AssertionResult(b) << m_message << " " #op " " << rhs);	\
-	}
-
-#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
-
-#define IIUT_DECL_EXPRESSION_OP_LHS(op)	\
-	template<typename RHS>auto operator op (const RHS& rhs) const	\
-	-> ExpressionLHS< decltype( expression_op_helper::operand_result( ::std::declval<T>() op rhs) )> {	\
-		return OperandResult(m_lhs op rhs) << " " #op " " << rhs;	\
-	}
-
-#endif
 
 namespace expression_op_helper
 {
@@ -211,6 +208,7 @@ private:
 	::std::string m_message;
 };
 
+#undef IIUT_DECL_EXPRESSION_RESULT_OP
 #undef IIUT_DECL_EXPRESSION_OP
 #ifdef IIUT_DECL_EXPRESSION_OP_LHS
 #  undef IIUT_DECL_EXPRESSION_OP_LHS

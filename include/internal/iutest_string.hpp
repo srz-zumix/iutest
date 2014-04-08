@@ -43,27 +43,6 @@ namespace iutest {
 namespace detail
 {
 
-//======================================================================
-// function
-/*
- * 今のところ使っていない
-
-static char*			xcsstr(char* src, const char* substr)				{ return strstr(src, substr); }
-static const char*		xcsstr(const char* src, const char* substr)			{ return strstr(src, substr); }
-static char*			xcschr(char* src, char ch)							{ return strchr(src, ch); }
-static const char*		xcschr(const char* src, char ch)					{ return strchr(src, ch); }
-static int				xcscmp(const char* str1, const char* str2)			{ return strcmp(str1, str2); }
-static long				xcstol(const char* src, char** end, int radix)		{ return strtol(src, end, radix); }
-
-static wchar_t*			xcsstr(wchar_t* src, const wchar_t* substr)			{ return wcsstr(src, substr); }
-static const wchar_t*	xcsstr(const wchar_t* src, const wchar_t* substr)	{ return wcsstr(src, substr); }
-static wchar_t*			xcschr(wchar_t* src, wchar_t ch)					{ return wcschr(src, ch); }
-static const wchar_t*	xcschr(const wchar_t* src, wchar_t ch)				{ return wcschr(src, ch); }
-static int				xcscmp(const wchar_t* str1, const wchar_t* str2)	{ return wcscmp(str1, str2); }
-static long				xcstol(const wchar_t* src, wchar_t** end, int radix){ return wcstol(src, end, radix); }
-
-*/
-
 /**
  * @internal
  * @brief	stricmp
