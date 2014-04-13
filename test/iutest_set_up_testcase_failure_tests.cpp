@@ -1,7 +1,7 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_setup_testcase_failure_tests.cpp
+ * @file		iutest_set_up_testcase_failure_tests.cpp
  * @brief		SetUpTestCase で失敗したときのテスト
  *
  * @author		t.sirayanagi

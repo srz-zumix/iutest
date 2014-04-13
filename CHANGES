@@ -2,6 +2,7 @@
 Changes for 1.9.0:
 
 ** 追加
+* IUTEST_*_THAR 追加
 * 式アサーション追加（IUTEST_ASSERT, IUTEST_EXPECT, IUTEST_INFORM, IUTEST_ASSUME）
 * 式アサーション追加（IUTEST_*_NOT）
 

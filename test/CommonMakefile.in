@@ -75,6 +75,7 @@ TARGETS1= \
           iutest_repeat_tests \
           iutest_scoped_trace_tests \
           iutest_set_up_failure_tests \
+          iutest_set_up_global_failure_tests \
           iutest_set_up_testcase_failure_tests \
           iutest_shuffle_tests \
           iutest_skip_tests \
@@ -91,6 +92,7 @@ TARGETS2= \
 TARGETS_IUTEST_ONLY = \
           iutest_env_var_tests \
           iutest_env_var_gtest_tests \
+          iutest_matcher_tests \
           iutest_tap_printer_listener_tests \
           iutest_unit_tests \
 

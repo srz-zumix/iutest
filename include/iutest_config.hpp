@@ -221,6 +221,15 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF)
+//! ::iutest::AllOf, ::iutest::AnyOf matcher が使用可能かどうか
+#  if IUTEST_HAS_TUPLE
+#    define IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF	1
+#  else
+#    define IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF	0
+#  endif
+#endif
+
 #if !defined(IUTEST_USE_THROW_ON_ASSERTION_FAILURE)
 /**
  * @brief	失敗時に例外を throw します。

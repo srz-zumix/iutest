@@ -23,7 +23,16 @@
 
 //======================================================================
 // define
+/**
+ * @brief	式展開用 operand マクロ
+ * @note	IUTEST_ASSERT(f() != 42 IUTEST_OPERAND(||) f() == 32 )
+*/
 #define IUTEST_OPERAND(op)		op IIUT_EXPRESSION_DECOMPOSE()
+
+/**
+ * @brief	式展開用マクロ
+ * @note	IUTEST_ASSERT_TRUE(IUTEST_EXPRESSION(f() != 42) || IUTEST_EXPRESSION(f() == 10))
+*/
 #define IUTEST_EXPRESSION(expr)	(IIUT_EXPRESSION_DECOMPOSE() expr).GetResult()
 
 

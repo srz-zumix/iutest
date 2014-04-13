@@ -28,6 +28,7 @@
 #include "iutest_typed_tests.hpp"
 #include "iutest_prod.hpp"
 #include "iutest_expression_assertion.hpp"
+#include "iutest_matcher.hpp"
 #include "iutest_static_assertion.hpp"
 #include "iutest_ignore.hpp"
 #include "listener/iutest_default_printer.hpp"
@@ -240,6 +241,15 @@ namespace iutest
 */
 #ifndef IUTEST_ASSERT_NOT
 #  define	IUTEST_ASSERT_NOT(expression)			IUTEST_TEST_EXPRESSION_(expression, false, IUTEST_ASSERT_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSERT_
+ * @brief	matcher テスト
+ * @param	actual	= 検査対象
+ * @param	matcher	= matcher
+*/
+#ifndef IUTEST_ASSERT_THAT
+#  define IUTEST_ASSERT_THAT(actual, matcher)		IUTEST_TEST_THAT(actual, matcher, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSERT_
@@ -573,6 +583,15 @@ namespace iutest
 */
 #ifndef IUTEST_EXPECT_NOT
 #  define	IUTEST_EXPECT_NOT(expression)			IUTEST_TEST_EXPRESSION_(expression, false, IUTEST_EXPECT_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_EXPECT_
+ * @brief	matcher テスト
+ * @param	actual	= 検査対象
+ * @param	matcher	= matcher
+*/
+#ifndef IUTEST_EXPECT_THAT
+#  define IUTEST_EXPECT_THAT(actual, matcher)		IUTEST_TEST_THAT(actual, matcher, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_EXPECT_
@@ -918,6 +937,15 @@ namespace iutest
 #endif
 /**
  * @ingroup	IUTEST_INFORM_
+ * @brief	matcher テスト
+ * @param	actual	= 検査対象
+ * @param	matcher	= matcher
+*/
+#ifndef IUTEST_INFORM_THAT
+#  define IUTEST_INFORM_THAT(actual, matcher)		IUTEST_TEST_THAT(actual, matcher, IUTEST_INFORM_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_INFORM_
  * @brief	== テスト
  * @param	expected	= 期待値
  * @param	actual		= 検査対象
@@ -1238,6 +1266,15 @@ namespace iutest
 */
 #ifndef IUTEST_ASSUME_NOT
 #  define	IUTEST_ASSUME_NOT(expression)			IUTEST_TEST_EXPRESSION_(expression, false, IUTEST_ASSUME_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSUME_
+ * @brief	matcher テスト
+ * @param	actual	= 検査対象
+ * @param	matcher	= matcher
+*/
+#ifndef IUTEST_ASSUME_THAT
+#  define IUTEST_ASSUME_THAT(actual, matcher)		IUTEST_TEST_THAT(actual, matcher, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup	IUTEST_ASSUME_

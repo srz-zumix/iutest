@@ -81,3 +81,15 @@ IUTEST_PACKAGE(pkg2)
 	}
 }
 
+#if IUTEST_HAS_IF_EXISTS
+IUTEST_PACKAGE(pkg2)
+{
+	IUTEST_PACKAGE(pkg3)
+	{
+		IUTEST(Test, A)
+		{
+			IUTEST_EXPECT_PACKAGENAME(pkg2.pkg3, Test);
+		}
+	}
+}
+#endif

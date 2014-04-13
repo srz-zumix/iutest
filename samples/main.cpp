@@ -209,6 +209,22 @@ IUTEST(ExpressionTest, Test)
 }
 
 /** --------------------------------------------------
+ * matcher
+*//*--------------------------------------------------*/
+IUTEST(MatcherTest, Test)
+{
+	IUTEST_EXPECT_THAT("hoge", ::iutest::StartsWith("ho"));
+	IUTEST_EXPECT_THAT("hoge", ::iutest::Contains("ho"));
+	IUTEST_EXPECT_THAT("hoge", ::iutest::EndsWith("ge"));
+	IUTEST_EXPECT_THAT(0, ::iutest::Equals(0));
+	IUTEST_EXPECT_THAT("hoge", ::iutest::Equals("hoge"));
+#if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
+	IUTEST_EXPECT_THAT("hoge", ::iutest::AllOf(::iutest::StartsWith("ho"), ::iutest::EndsWith("ge")));
+	IUTEST_EXPECT_THAT("hoge", ::iutest::AnyOf(::iutest::StartsWith("ho"), ::iutest::EndsWith("ge")));
+#endif
+}
+
+/** --------------------------------------------------
  * テストフィクスチャの利用
 *//*--------------------------------------------------*/
 class TestFixed : public ::iutest::Test

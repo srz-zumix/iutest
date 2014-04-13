@@ -306,6 +306,9 @@
     <ClInclude Include="..\..\include\iutest_expression_assertion.hpp">
       <Filter>iutest</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\iutest_matcher.hpp">
+      <Filter>iutest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\impl\iutest_body.ipp">

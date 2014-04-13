@@ -161,6 +161,7 @@
     <ClInclude Include="..\..\include\iutest_ignore.hpp" />
     <ClInclude Include="..\..\include\iutest_info.hpp" />
     <ClInclude Include="..\..\include\iutest_listener.hpp" />
+    <ClInclude Include="..\..\include\iutest_matcher.hpp" />
     <ClInclude Include="..\..\include\iutest_package.hpp" />
     <ClInclude Include="..\..\include\iutest_param_tests.hpp" />
     <ClInclude Include="..\..\include\iutest_pred.hpp" />

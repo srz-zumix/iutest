@@ -48,7 +48,7 @@ default : $(TARGETS)
 all : clean default test
 
 clean :
-	$(RM) *.exe *.obj
+	$(RM) *.exe *.obj *.dump
 !ifdef OUTPUTXML
 	$(RM) *.xml
 !endif

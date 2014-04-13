@@ -336,6 +336,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\include\iutest_matcher.hpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\include\iutest_package.hpp"
 				>
 			</File>
