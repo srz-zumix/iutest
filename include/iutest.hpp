@@ -212,7 +212,11 @@ namespace iutest
 #endif
 
 /**
- * @addtogroup	IUTEST_ASSERTION	アサーション
+ * @defgroup	IUTEST_ASSERTION_	アサーション
+*/
+
+/**
+ * @ingroup		IUTEST_ASSERTION_
  * @{
 */
 
@@ -552,9 +556,8 @@ namespace iutest
 #  define IUTEST_ASSERT_FAIL()						IIUT_FAIL()
 #endif
 
-
 /**
- * @addtogroup	IUTEST_ASSERTION	アサーション
+ * @ingroup		IUTEST_ASSERTION_
  * @{
 */
 
@@ -905,7 +908,7 @@ namespace iutest
 
 
 /**
- * @addtogroup	IUTEST_ASSERTION	アサーション
+ * @ingroup		IUTEST_ASSERTION_
  * @{
 */
 
@@ -1237,7 +1240,7 @@ namespace iutest
 #endif
 
 /**
- * @addtogroup	IUTEST_ASSERTION	アサーション
+ * @ingroup		IUTEST_ASSERTION_
  * @{
 */
 

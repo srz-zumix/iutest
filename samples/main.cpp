@@ -208,6 +208,8 @@ IUTEST(ExpressionTest, Test)
 	IUTEST_ASSERT_TRUE(IUTEST_EXPRESSION(f() != 42) || IUTEST_EXPRESSION(f() != 10));
 }
 
+#if IUTEST_HAS_MATCHERS
+
 /** --------------------------------------------------
  * matcher
 *//*--------------------------------------------------*/
@@ -223,6 +225,8 @@ IUTEST(MatcherTest, Test)
 	IUTEST_EXPECT_THAT("hoge", ::iutest::AnyOf(::iutest::StartsWith("ho"), ::iutest::EndsWith("ge")));
 #endif
 }
+
+#endif
 
 /** --------------------------------------------------
  * テストフィクスチャの利用

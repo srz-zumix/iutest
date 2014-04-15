@@ -13,3 +13,5 @@ target: Doxyfile
 lint:
 	(find ../ -maxdepth 1 -type f -name "*.html" -print0 | xargs -0 perl $(HTMLLINT_PATH)/htmllint)
 
+clean:
+	$(RM) -rf html

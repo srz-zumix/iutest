@@ -1,7 +1,7 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_throw_on_fialure_tests.cpp
+ * @file		iutest_throw_on_failure_tests.cpp
  * @brief		throw_on_fialure 対応テスト
  *
  * @author		t.sirayanagi

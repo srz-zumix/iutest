@@ -112,6 +112,10 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_MATCHERS)
+#  define IUTEST_HAS_MATCHERS		1
+#endif
+
 #if !defined(IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE)
 /**
  * @brief	式アサーションで算術演算子の展開をサポートするかどうか

@@ -61,6 +61,7 @@ TARGETS1= \
           iutest_invalid_commandline_tests \
           iutest_list_test_tests \
           iutest_listener_tests \
+          iutest_matcher_tests \
           iutest_minimum_tests \
           iutest_namespace_tests \
           iutest_no_failure_fail_tests \
@@ -92,7 +93,6 @@ TARGETS2= \
 TARGETS_IUTEST_ONLY = \
           iutest_env_var_tests \
           iutest_env_var_gtest_tests \
-          iutest_matcher_tests \
           iutest_tap_printer_listener_tests \
           iutest_unit_tests \
 

@@ -1,7 +1,7 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_throw_on_assertion_fialure_tests.cpp
+ * @file		iutest_throw_on_assertion_failure_tests.cpp
  * @brief		IUTEST_USE_THROW_ON_ASSERTION_FAILURE 対応テスト
  *
  * @author		t.sirayanagi

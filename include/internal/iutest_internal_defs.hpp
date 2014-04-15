@@ -127,6 +127,9 @@ using namespace iutest_type_traits;
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
+/**
+ * @brief	iterator traits
+*/
 template<typename Ite>
 struct IteratorTraits
 {

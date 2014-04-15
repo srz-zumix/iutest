@@ -63,15 +63,15 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|Win32'">
     <LibraryWPath>$(LibraryWPath)</LibraryWPath>
-    <LibraryPath>$(GMOCK_ROOT)\msvc\2012\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(GMOCK_ROOT)\msvc\2013\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryWPath>$(LibraryWPath)</LibraryWPath>
-    <LibraryPath>$(GMOCK_ROOT)\msvc\2012\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(GMOCK_ROOT)\msvc\2013\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LibraryWPath>$(LibraryWPath)</LibraryWPath>
-    <LibraryPath>$(GMOCK_ROOT)\msvc\2012\Release;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(GMOCK_ROOT)\msvc\2013\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

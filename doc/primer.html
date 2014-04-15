@@ -284,39 +284,39 @@ IUTEST(Test, Sample)
     <strong>IUTEST_ASSERT( f() == 42 );</strong>
     
     IUTEST_ASSERT_LE( f(), 0 );
-    IUTEST_ASSERT_TRUE( f() <= 0 );
-    <strong>IUTEST_ASSERT( f() <= 0 );</strong>
+    IUTEST_ASSERT_TRUE( f() &lt;= 0 );
+    <strong>IUTEST_ASSERT( f() &lt;= 0 );</strong>
 }
 </pre>
         IUTEST_ASSERT_TRUE を使用した場合と違い、式アサーションでは式を分解して値を出力します。<br />
-        IUTEST_ASSERT( f() <= 0 ); は通常の出力に加えて "expansion: 42 <= 0" と出力されます。<br />
+        IUTEST_ASSERT( f() &lt;= 0 ); は通常の出力に加えて "expansion: 42 &lt;= 0" と出力されます。<br />
         <br />
         </li>
         <li>IUTEST_*_NOT マクロ<br />
         式アサーションの偽条件マクロです。<br />
         <br />
         </li>
-        <li>||, && による複合条件<br />
-        式アサーションの式の分解には制限があり、|| や && で連結した以降の式は分解されません。<br />
+        <li>||, &amp;&amp; による複合条件<br />
+        式アサーションの式の分解には制限があり、|| や &amp;&amp; で連結した以降の式は分解されません。<br />
         iutest では式の展開を補助する２つのマクロを用意しています。<br />
         IUTEST_OPERAND: <br />
 <pre class="source">
 IUTEST(Test, Sample)
 {
-    IUTEST_ASSERT(f() <= 0 IUTEST_OPERAND(||) f() >= 100 );
+    IUTEST_ASSERT(f() &lt;= 0 IUTEST_OPERAND(||) f() &gt;= 100 );
 }
 </pre>
         IUTEST_EXPRESSION: <br />
 <pre class="source">
 IUTEST(Test, Sample)
 {
-    IUTEST_ASSERT(f() <= 0 || IUTEST_EXPRESSION(f() >= 100) );
-    IUTEST_ASSERT(IUTEST_EXPRESSION(f() <= 0) || IUTEST_EXPRESSION(f() >= 100) );
+    IUTEST_ASSERT(f() &lt;= 0 || IUTEST_EXPRESSION(f() &gt;= 100) );
+    IUTEST_ASSERT(IUTEST_EXPRESSION(f() &lt;= 0) || IUTEST_EXPRESSION(f() &gt;= 100) );
     
-    IUTEST_ASSERT_TRUE(IUTEST_EXPRESSION(f() <= 0) || IUTEST_EXPRESSION(f() >= 100) );
+    IUTEST_ASSERT_TRUE(IUTEST_EXPRESSION(f() &lt;= 0) || IUTEST_EXPRESSION(f() &gt;= 100) );
 }
 </pre>
-        IUTEST_OPERAND は || , && を補助します。これは式アサーション専用のマクロになります。<br />
+        IUTEST_OPERAND は || , &amp;&amp; を補助します。これは式アサーション専用のマクロになります。<br />
         IUTEST_EXPRESSION は式を補助します。こちらは式アサーション以外（例えば IUTEST_ASSERT_TRUE）でも利用可能です。<br />
         <br />
         </li>

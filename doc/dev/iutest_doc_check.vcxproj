@@ -51,12 +51,14 @@
     <NMakeOutput>iutest_doc_check.exe</NMakeOutput>
     <NMakeReBuildCommandLine>build.bat lint</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeCleanCommandLine>build.bat clean</NMakeCleanCommandLine>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <NMakeBuildCommandLine>build.bat lint</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine>build.bat all</NMakeBuildCommandLine>
     <NMakeOutput>iutest_doc_check.exe</NMakeOutput>
-    <NMakeReBuildCommandLine>build.bat lint</NMakeReBuildCommandLine>
+    <NMakeReBuildCommandLine>build.bat all</NMakeReBuildCommandLine>
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeCleanCommandLine>build.bat clean</NMakeCleanCommandLine>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>

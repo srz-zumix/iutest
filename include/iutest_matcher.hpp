@@ -336,6 +336,9 @@ private:
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
 
+/**
+ * @brief	AllOf matcher
+*/
 template<typename ...T>
 class AllOfMatcher : public AllOfMatcherBase
 {
@@ -446,6 +449,9 @@ private:
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
 
+/**
+ * @brief	AnyOf matcher
+*/
 template<typename ...T>
 class AnyOfMatcher : public AnyOfMatcherBase
 {
@@ -513,12 +519,27 @@ IIUT_DECL_ANYOF_MATCHER(9);
 
 }	// end of namespace detail
 
+/**
+ * @brief	Make StartsWith matcher
+*/
 template<typename T>
 detail::StartsWithMatcher<const T&> StartsWith(const T& str) { return detail::StartsWithMatcher<const T&>(str); }
+
+/**
+ * @brief	Make Contains matcher
+*/
 template<typename T>
 detail::ContainsMatcher<const T&> Contains(const T& expected) { return detail::ContainsMatcher<const T&>(expected); }
+
+/**
+ * @brief	Make EndsWith matcher
+*/
 template<typename T>
 detail::EndsWithMatcher<const T&> EndsWith(const T& str) { return detail::EndsWithMatcher<const T&>(str); }
+
+/**
+ * @brief	Make Equals matcher
+*/
 template<typename T>
 detail::EqualsMatcher<const T&> Equals(const T& expected) { return detail::EqualsMatcher<const T&>(expected); }
 
@@ -526,8 +547,15 @@ detail::EqualsMatcher<const T&> Equals(const T& expected) { return detail::Equal
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
 
+/**
+ * @brief	Make AllOf matcher
+*/
 template<typename ...T>
 detail::AllOfMatcher<T...> AllOf(const T&... m) { return detail::AllOfMatcher<T...>(m...); }
+
+/**
+ * @brief	Make AnyOf matcher
+*/
 template<typename ...T>
 detail::AnyOfMatcher<T...> AnyOf(const T&... m) { return detail::AnyOfMatcher<T...>(m...); }
 

@@ -46,6 +46,11 @@
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)
 #endif
 
+/**
+ * @private
+ * @{
+*/
+
 #if !defined(IUTEST_PP_TOSTRING)
 #  define IUTEST_PP_TOSTRING(z_)	IUTEST_PP_TOSTRING_(z_)
 #endif
@@ -694,5 +699,9 @@
 #define IUTEST_PP_EMPTY()		
 #define IUTEST_PP_EMPTY_TAG()	, 0
 #define IUTEST_PP_EMPTY_TAG_IUTEST_PP_EMPTY_TAG	1, 1 IUTEST_PP_EMPTY
+
+/**
+ * @}
+*/
 
 #endif // INCG_IRIS_IUTEST_PP_HPP_E8F72184_9C72_4E74_B581_A1F51F291F3A_

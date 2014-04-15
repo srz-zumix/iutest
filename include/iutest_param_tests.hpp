@@ -261,7 +261,7 @@ public:
  * @ingroup		VALUE_PARAMETERIZED_TEST
  * @defgroup	PARAM_GENERATOR	Parameter Generator
  * @brief		パラメータ生成器
- * @detail		IUTEST_INSTANTIATE_TEST_CASE_P に使用可能なパラメータ生成器
+ * @details		IUTEST_INSTANTIATE_TEST_CASE_P に使用可能なパラメータ生成器
  * @{
 */
 
