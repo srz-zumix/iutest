@@ -110,7 +110,7 @@ IUTEST_IPP_INLINE int UnitTest::Run(void)
 
 	if( !PreRunner() )
 	{
-		return 0;
+		return Passed() ? 0 : 1;
 	}
 
 	int ret = 1;

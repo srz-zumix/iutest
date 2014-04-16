@@ -187,6 +187,7 @@ private:
 		peep_member_object_impl(const _Myt&);
 	public:
 		operator value_type (void) const { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
+		_Myt& operator = (const value_type& value);
 	};
 	template<typename U, typename Type>
 	class peep_member_object_impl<U, Type, false>

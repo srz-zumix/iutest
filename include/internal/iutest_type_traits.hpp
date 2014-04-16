@@ -177,9 +177,15 @@ struct remove_cv
  * @brief	remove_pointer
 */
 template<typename T>
-struct remove_pointer		{ typedef T type; };
-template<typename T>
-struct remove_pointer<T*>	{ typedef T type; };
+class remove_pointer
+{
+	template<typename U>
+	struct impl { typedef U type; };
+	template<typename U>
+	struct impl<U*> { typedef U type; };
+public:
+	typedef typename impl<T>::type type;
+};
 
 #endif
 
@@ -262,13 +268,26 @@ public:
 template<typename T>
 struct is_void : public is_void_helper::is_void<T>::type {};
 
+namespace is_const_helper
+{
+
+/** @private */
+template<typename T>
+class is_const
+{
+	template<typename U> struct impl { typedef false_type type; };
+	template<typename U> struct impl<U const> { typedef true_type type; };
+public:
+	typedef typename impl<T>::type type;
+};
+
+}
+
 /**
  * @brief	is_const
 */
 template<typename T>
-struct is_const : public false_type {};
-template<typename T>
-struct is_const<T const> : public true_type {};
+struct is_const : public is_const_helper::is_const<T>::type {};
 
 #endif // #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 

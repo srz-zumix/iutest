@@ -80,7 +80,7 @@ int main(int argc, char* argv[])
 		vargv.push_back("--x");
 		vargv.push_back("-x");
 		::iutest::InitIrisUnitTest(vargv);
-		IUTEST_EXPECT_EQ(15, vargv.size());
+		IUTEST_EXPECT_EQ(14, vargv.size()) << ::iutest::PrintToString(vargv);
 		IUTEST_EXPECT_TRUE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_HELP));
 		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
 	}

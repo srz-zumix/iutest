@@ -68,7 +68,16 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	IUTEST_INIT(&argc, argv);
+	(void)argc;
+	(void)argv;
+
+#ifdef UNICODE
+	wchar_t** targv = NULL;
+#else
+	char** targv = NULL;
+#endif
+	int targc = 0;
+	IUTEST_INIT(&targc, targv);
 	return IUTEST_RUN_ALL_TESTS();
 }
 

@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Test|Win32">
+      <Configuration>Test</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\test\iutest_all_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_assertion_only_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_assertion_return_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_assertion_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_assume_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_basic_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_break_on_failure_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_catch_exceptions_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_combine_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_commandline_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_compatibility_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_concat_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_disabled_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_environment_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_env_var_gtest_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_env_var_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_exception_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_expression_assertion_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_extension_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_filepath_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_file_system_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_filter_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_fixture_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_floatingpoint_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_gtest_tap_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_ignore_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_invalid_commandline_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_japanese_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_listener_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_list_test_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_matcher_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_minimum_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_namespace_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_no_failure_fail_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_no_failure_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_no_fatalfailure_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_no_test_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_nullptr_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_output_xml_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_package_tests1.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_package_tests2.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_pairwise_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_param_method_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_param_test_tests1.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_param_test_tests2.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_param_test_with_any_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_pp_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_pred_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_printers_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_prod_tests1.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_prod_tests2.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_progress_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_quiet_result_printer_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_random_seed_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_random_values_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_record_property_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_repeat_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_scoped_trace_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_set_up_failure_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_set_up_global_failure_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_set_up_testcase_failure_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_shuffle_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_skip_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_spi_failure_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_spi_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_static_assertion_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_streaming_listener_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_string_assertion_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_syntax_gtest_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_syntax_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_tap_printer_listener_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_throw_on_assertion_failure_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_throw_on_failure_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_tr1_param_direct_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_tr1_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_tr1_value_tmp_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_typed_test_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_type_param_tests1.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_type_param_tests2.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_type_param_tests3.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_uninitialize_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_unit_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_util_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_values_gen_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_values_tests.cpp" />
+    <ClCompile Include="..\..\..\test\iutest_variadic_templates_tests.cpp" />
+    <ClCompile Include="..\..\..\test\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\test\iutest_logger_tests.hpp" />
+    <ClInclude Include="..\..\..\test\iutest_package_tests.hpp" />
+    <ClInclude Include="..\..\..\test\iutest_param_test_tests.hpp" />
+    <ClInclude Include="..\..\..\test\iutest_pred_tests.hpp" />
+    <ClInclude Include="..\..\..\test\iutest_prod_tests.hpp" />
+    <ClInclude Include="..\..\..\test\iutest_type_param_tests.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\test\Makefile" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{BCDA426B-C12B-49E9-B8D3-5B32E4D14A54}</ProjectGuid>
+    <Keyword>MakeFileProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Test|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Test|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <NMakeBuildCommandLine>cd ../../../test &amp; nmake</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>cd ../../../test &amp; nmake clean</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>cd ../../../test &amp; nmake all RUN_OPTION="--iutest_file_location=gcc"</NMakeReBuildCommandLine>
+    <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Test|Win32'">
+    <NMakeBuildCommandLine>cd ../../../test &amp; nmake test RUN_OPTION="--iutest_file_location=gcc"</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>cd ../../../test &amp; nmake clean</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>cd ../../../test &amp; nmake all RUN_OPTION="--iutest_file_location=gcc"</NMakeReBuildCommandLine>
+    <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <NMakeBuildCommandLine>cd ../../../test &amp; nmake</NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>cd ../../../test &amp; nmake clean</NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>cd ../../../test &amp; nmake all RUN_OPTION="--iutest_file_location=gcc"</NMakeReBuildCommandLine>
+    <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

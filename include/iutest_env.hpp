@@ -491,6 +491,7 @@ public:
 	template<typename CharType>
 	static void ParseCommandLine(int* pargc, CharType** argv)
 	{
+		if( argv == NULL ) return;
 		int argc = *pargc;
 
 		for( int i=0; i < argc; )

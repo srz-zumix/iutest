@@ -19,11 +19,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01089910u	//!< iutest version 1.8.99.10
+#define	IUTEST_VER			0x01089911u	//!< iutest version 1.8.99.11
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x08u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x10u		//!< Revision
+#define IUTEST_REVISION		0x11u		//!< Revision
 
 /**
  * @mainpage
@@ -114,7 +114,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  <ul>
   <li>v1.9.0.0
     <ul>
-      <li>IUTEST_*_THAR 追加</li>
+      <li>IUTEST_*_THAT 追加</li>
       <li>式アサーション追加（IUTEST_ASSERT, IUTEST_EXPECT, IUTEST_INFORM, IUTEST_ASSUME）</li>
       <li>式アサーション追加（IUTEST_*_NOT）</li>
       <li>IUTEST_ASSERT を IUTEST_ASSERT_EXIT に変更</li>
