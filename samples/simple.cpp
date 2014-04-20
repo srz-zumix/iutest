@@ -16,7 +16,7 @@
 //======================================================================
 #include "../include/iutest.hpp"
 
-/** --------------------------------------------------
+/* ---------------------------------------------------
  * 簡単なテスト
 *//*--------------------------------------------------*/
 IUTEST(Test, Version)
@@ -38,7 +38,7 @@ IUTEST(Test, Stream)
 	IUTEST_SUCCEED() << L"OK!!";
 }
 
-/** --------------------------------------------------
+/* ---------------------------------------------------
  * スキップ
 *//*--------------------------------------------------*/
 IUTEST(SkipTest, Skip)
@@ -46,7 +46,7 @@ IUTEST(SkipTest, Skip)
 	IUTEST_SKIP() << "empty.";
 }
 
-/** --------------------------------------------------
+/* ---------------------------------------------------
  * 日本語テスト名
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_TESTNAME_ALIAS_JP
@@ -64,7 +64,7 @@ IUTEST_F(IUTEST_JAPANESE_NAME_F(JapaneseFixedTest, あいうえお), IUTEST_JAPA
 
 #if IUTEST_HAS_ASSERTION_RETURN
 
-/** --------------------------------------------------
+/* ---------------------------------------------------
  * 戻り値のある関数での使用
 *//*--------------------------------------------------*/
 int ReturnTest(void)
@@ -82,7 +82,7 @@ IUTEST(ReturnTest, Test)
 
 #endif
 
-/** --------------------------------------------------
+/* ---------------------------------------------------
  * パッケージ
 *//*--------------------------------------------------*/
 IUTEST_PACKAGE(TestPackage)
@@ -108,3 +108,57 @@ IUTEST_PACKAGE(TestPackage)
 
 #endif
 
+/* ---------------------------------------------------
+ * 失敗の確認
+*//*--------------------------------------------------*/
+#if defined(SHOW_FAILURE)	// Failure Test
+
+#if IUTEST_HAS_GENRAND
+
+IUTEST(TestExpectFailure, Random)
+{
+	IUTEST_EXPECT_EQ( genrand(), genrand() );
+	IUTEST_EXPECT_EQ( genrand(), genrand() );
+	IUTEST_EXPECT_EQ( genrand(), genrand() );
+	IUTEST_EXPECT_EQ( genrand(), genrand() );
+	IUTEST_EXPECT_EQ( genrand(), genrand() );
+	IUTEST_EXPECT_EQ( genrand(), genrand() );
+}
+
+#endif
+
+// サブルーチン
+static void Sub1(int n)
+{
+	IUTEST_EXPECT_EQ(1, n);
+}
+static void Sub2(int n)
+{
+	IUTEST_ASSERT_EQ(1, n);
+}
+
+IUTEST(TestFailureSubroutine, Test1)
+{
+	{
+		int x=100;
+		IUTEST_SCOPED_TRACE(::iutest::Message() << "routine1. x=" << x);
+
+		Sub1(x);
+	}
+	// ここの失敗には "routine1." のメッセージは表示されません。
+	Sub1(3);
+}
+
+IUTEST(TestFailureSubroutine, Test2)
+{
+	{
+		IUTEST_SCOPED_TRACE("routine2.");
+		//IUTEST_SCOPED_TRACE("routine2.") << "iutest can do." ;
+
+		Sub2(2);
+	}
+	// ここの失敗には "routine2." のメッセージは表示されません。
+	Sub2(3);
+}
+
+#endif

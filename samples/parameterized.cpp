@@ -16,7 +16,7 @@
 //======================================================================
 #include "../include/iutest.hpp"
 
-/** --------------------------------------------------
+/* ---------------------------------------------------
  * 値をパラメータ化したテスト
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_PARAM_TEST
@@ -173,7 +173,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, RandomValuesTest, ::iutest::RandomValues(5));
 
 #endif
 
-/** --------------------------------------------------
+/* ---------------------------------------------------
  * パラメタライズ関数コール
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_PARAM_METHOD_TEST
@@ -191,5 +191,29 @@ class ParamMethodTestFixed : public ::iutest::Test {};
 IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 0, 0);
 IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 1, 1);
 IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 2, 2);
+
+#endif
+
+/* ---------------------------------------------------
+ * 失敗の確認
+*//*--------------------------------------------------*/
+#if defined(SHOW_FAILURE)	// Failure Test
+
+/* ---------------------------------------------------
+ * パラメタライズ関数コール
+*//*--------------------------------------------------*/
+#if IUTEST_HAS_PARAM_METHOD_TEST
+
+IUTEST_PMZ(TestFailureParamMethod, EQ, TestFunction, 0, 0);
+IUTEST_PMZ(TestFailureParamMethod, EQ, TestFunction, 1, 2);
+IUTEST_PMZ(TestFailureParamMethod, EQ, TestFunction, 2, 2);
+
+typedef ParamMethodTestFixed TestFailureParamMethodFixed;
+
+IUTEST_PMZ_F(TestFailureParamMethodFixed, EQ, TestFunction, 0, 0);
+IUTEST_PMZ_F(TestFailureParamMethodFixed, EQ, TestFunction, 1, 1);
+IUTEST_PMZ_F(TestFailureParamMethodFixed, EQ, TestFunction, 2, 3);
+
+#endif
 
 #endif

@@ -21,11 +21,11 @@ int f(void)
 	return 42;
 }
 
-/** --------------------------------------------------
+/* ---------------------------------------------------
  * 各種アサーション
 *//*--------------------------------------------------*/
 
-/** --------------------------------------------------
+/* ---------------------------------------------------
  * 式アサーション
 *//*--------------------------------------------------*/
 IUTEST(ExpressionTest, Test)
@@ -40,7 +40,7 @@ IUTEST(ExpressionTest, Test)
 
 #if IUTEST_HAS_MATCHERS
 
-/** --------------------------------------------------
+/* ---------------------------------------------------
  * matcher
 *//*--------------------------------------------------*/
 IUTEST(MatcherTest, Test)
@@ -230,7 +230,7 @@ IUTEST(AssertionTest, HResult)
 #endif
 
 
-/** --------------------------------------------------
+/* ---------------------------------------------------
  * 述語アサーション
 *//*--------------------------------------------------*/
 static bool IsOdd(int val)
@@ -264,7 +264,7 @@ IUTEST(AssertionTest, Pred)
 
 #if IUTEST_HAS_STATIC_ASSERT_TYPEEQ
 
-/** --------------------------------------------------
+/* ---------------------------------------------------
  * 型の一致テスト
 *//*--------------------------------------------------*/
 IUTEST(StaticTest, Eq)
@@ -275,3 +275,105 @@ IUTEST(StaticTest, Eq)
 
 #endif
 
+/* ---------------------------------------------------
+ * 失敗の確認
+*//*--------------------------------------------------*/
+#if defined(SHOW_FAILURE)	// Failure Test
+
+IUTEST(TestFailure, EQ)
+{
+	IUTEST_ASSERT_EQ(0, 1);
+}
+
+IUTEST(TestFailure, NE)
+{
+	int x=1, y=1;
+	IUTEST_ASSERT_NE(x, y);
+}
+
+IUTEST(TestFailure, GE)
+{
+	float a = 0.1f, b = 1.0f;
+	IUTEST_ASSERT_GE(a, b);
+}
+
+IUTEST(TestFailure, TRUE)
+{
+	IUTEST_ASSERT_TRUE(0);
+	IUTEST_ASSERT_TRUE(false);
+}
+
+IUTEST(TestFailure, FALSE)
+{
+	IUTEST_ASSERT_FALSE(true);
+	IUTEST_ASSERT_FALSE(2);
+}
+
+IUTEST(TestFailure, Fail)
+{
+	IUTEST_FAIL() << "add messages.\n";
+}
+
+#if defined(IUTEST_OS_WINDOWS)
+
+IUTEST(TestFailure, HRESULT)
+{
+	IUTEST_ASSERT_HRESULT_SUCCEEDED(E_OUTOFMEMORY);
+}
+
+#endif
+
+void AssertFunc(void)
+{
+	IUTEST_ASSERT_TRUE(FALSE);
+}
+
+IUTEST(TestFailure, NoFailure)
+{
+	IUTEST_INFORM_NO_FATAL_FAILURE( AssertFunc() );
+	IUTEST_EXPECT_NO_FATAL_FAILURE( AssertFunc() );
+	IUTEST_ASSERT_NO_FATAL_FAILURE( AssertFunc() );
+}
+
+IUTEST(TestExpectFailure, Pred)
+{
+	int x=4, y=5;
+	IUTEST_EXPECT_PRED1(IsOdd, x);
+	IUTEST_EXPECT_PRED2(IsGreater, x, y);
+}
+
+IUTEST(TestExpectFailure, Mix)
+{
+	IUTEST_EXPECT_EQ(0.1, 1);
+	IUTEST_EXPECT_NE(0, 0);
+	IUTEST_EXPECT_LE(2, 0);
+	IUTEST_EXPECT_LT(0, 0);
+	IUTEST_EXPECT_GE(0, 2);
+	IUTEST_EXPECT_GT(0, 0);
+	IUTEST_EXPECT_TRUE(0);
+	IUTEST_EXPECT_FALSE(1);
+	IUTEST_EXPECT_FLOAT_EQ(0.0f, 0.1f);
+	IUTEST_EXPECT_DOUBLE_EQ(0.0, 0.1);
+	IUTEST_EXPECT_NEAR(0, 100, 2);
+	IUTEST_EXPECT_FAIL();
+	{
+		::std::string str1 = "test";
+		::std::string str2 = "text";
+
+		IUTEST_EXPECT_STREQ("text", str1);
+		IUTEST_EXPECT_STRNE("text", str2);
+		IUTEST_EXPECT_STRCASEEQ("Text", str1);
+		IUTEST_EXPECT_STRCASENE("Text", str2);
+	}
+	// EQ_COLLECTIONS
+	{
+		int  aa[] = { 0, 1, 2, 3, 4 };
+		int  ab[] = { 0, 1, 2, 3, 4, 5 };
+		char ac[] = { 0, 0, 2, 3, 5 };
+		IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0])));
+		IUTEST_EXPECT_EQ_COLLECTIONS(ab, ab+(sizeof(ab)/sizeof(ab[0])), aa, aa+(sizeof(aa)/sizeof(aa[0])));
+		IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0])));
+	}
+}
+
+#endif
