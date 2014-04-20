@@ -329,11 +329,39 @@
 			Name="src"
 			>
 			<File
+				RelativePath="..\..\samples\assertion.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\samples\disabledtest.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\samples\exception.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\samples\fixture.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\samples\main.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\samples\sub.cpp"
+				RelativePath="..\..\samples\parameterized.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\samples\printto.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\samples\simple.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\samples\typed.cpp"
 				>
 			</File>
 		</Filter>

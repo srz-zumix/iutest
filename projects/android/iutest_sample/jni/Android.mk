@@ -4,7 +4,14 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE    := iutest_sample
 LOCAL_SRC_FILES := main.cpp \
-                   sub.cpp
+                   assertion.cpp \
+                   disabledtest.cpp \
+                   exception.cpp \
+                   fixture.cpp \
+                   parameterized.cpp \
+                   printto.cpp \
+                   simple.cpp \
+                   typed.cpp
                    
 LOCAL_CFLAGS := -Wno-psabi
 

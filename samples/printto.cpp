@@ -1,42 +1,21 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		sub.cpp
- * @brief		sample sub ファイル
+ * @file		printto.cpp
+ * @brief		sample
  *
  * @author		t.sirayanagi
  * @version		1.0
  *
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
 //-----------------------------------------------------------------------
 //======================================================================
-
-/*
- * is not available vprintf, can be replaced.
-*/
-//#define IUTEST_VPRINTF
-
-/*
- * include testing framework
-*/
 #include "../include/iutest.hpp"
 
-#if 1	// Success Tests
-
-/** --------------------------------------------------
- * パッケージ
-*//*--------------------------------------------------*/
-IUTEST_PACKAGE(TestPackage)
-{
-	IUTEST(Test, Package)
-	{
-		IUTEST_ASSERT_TRUE(true);
-	}
-}
 
 /** --------------------------------------------------
  * PrintTo
@@ -129,97 +108,6 @@ IUTEST_TYPED_TEST(TypedPrintToTest, Print)
 	IUTEST_SUCCEED() << ::iutest::PrintToString(b);
 	IUTEST_SUCCEED() << ::iutest::PrintToString(c);
 	IUTEST_SUCCEED() << ::iutest::PrintToString(d);
-}
-
-#endif
-
-#endif
-
-// DISABLED Test Tips.
-#define DISABLED_MacroTest	EnabledTest
-#define MacroTest			DISABLED_Test
-
-IUTEST(DISABLED_MacroTest, Enable)
-{
-	IUTEST_ASSERT_EQ(0, 0);
-}
-
-IUTEST(EnabledTest, Count)
-{
-	const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->current_test_case();
-	IUTEST_ASSERT_NOTNULL(testcase);
-	IUTEST_ASSERT_EQ(2, testcase->total_test_count());
-	IUTEST_ASSERT_EQ(2, testcase->test_to_run_count());
-	IUTEST_ASSERT_EQ(0, testcase->disabled_test_count());
-	IUTEST_ASSERT_TRUE(testcase->Passed());
-	IUTEST_ASSERT_FALSE(testcase->Failed());
-}
-
-IUTEST(MacroTest, NotRun)
-{
-	IUTEST_ASSERT_EQ(2, 3);
-}
-
-class EnabledTestFixed : public ::iutest::Test {};
-
-typedef EnabledTestFixed	DISABLED_TestFixed;
-
-#define MacroTestF	DISABLED_TestFixed
-#define DISABLED_MacroTestF	EnabledTestFixed
-
-IUTEST_F(MacroTestF, NotRun)
-{
-	IUTEST_ASSERT_EQ(2, 3);
-}
-
-IUTEST_F(DISABLED_MacroTestF, Run)
-{
-	IUTEST_ASSERT_EQ(0, 0);
-}
-
-IUTEST_F(EnabledTestFixed, Count)
-{
-	const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->current_test_case();
-	IUTEST_ASSERT_NOTNULL(testcase);
-	IUTEST_ASSERT_EQ(2, testcase->total_test_count());
-	IUTEST_ASSERT_EQ(2, testcase->test_to_run_count());
-	IUTEST_ASSERT_EQ(0, testcase->disabled_test_count());
-	IUTEST_ASSERT_TRUE(testcase->Passed());
-	IUTEST_ASSERT_FALSE(testcase->Failed());
-}
-
-#endif
-
-#if 0
-#ifdef _MSC_VER
-// cppcheck-suppress syntaxError
-IUTEST(Japanese, テスト)
-{
-	IUTEST_FAIL() << ::iutest::UnitTest::GetInstance()->current_test_info()->name();
-}
-#endif
-#endif
-
-#if 0
-
-#ifdef _MSC_VER
-#include <process.h>
-
-void TheadTest(void)
-{
-	IUTEST_ASSERT_EQ(0, 1);
-}
-
-unsigned int WINAPI thread_func(void*)
-{
-	TheadTest();
-	return 0;
-}
-
-IUTEST(ThreadTest, Basic)
-{
-	HANDLE hThread = (HANDLE)_beginthreadex(NULL, 0, thread_func, NULL, 0, NULL);
-	WaitForSingleObject(hThread, INFINITE);
 }
 
 #endif

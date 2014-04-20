@@ -35,7 +35,9 @@
 #elif defined(_WIN32) || defined(WIN32) || defined(__WIN32__)
 #  define IUTEST_OS_WINDOWS				1
 #  define IUTEST_PLATFORM				"Windows"
-#  define WIN32_LEAN_AND_MEAN
+#  if !defined(WIN32_LEAN_AND_MEAN)
+#    define WIN32_LEAN_AND_MEAN
+#  endif
 #  include <windows.h>
 #  if   defined(_WIN32_WCE)
 #    define IUTEST_OS_WINDOWS_MOBILE	1
@@ -836,6 +838,17 @@
 
 #if !defined(IUTEST_HAS_IF_EXISTS)
 #  define IUTEST_HAS_IF_EXISTS		0
+#endif
+
+//! has __analysis_assume
+#if !defined(IUTEST_HAS_ANALYSIS_ASSUME)
+#  if defined(_MSC_VER) && (_MSC_VER >= 1500) && !defined(__CUDACC__)
+#    define IUTEST_HAS_ANALYSIS_ASSUME		1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_ANALYSIS_ASSUME)
+#  define IUTEST_HAS_ANALYSIS_ASSUME		0
 #endif
 
 // pragma

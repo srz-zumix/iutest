@@ -10,7 +10,18 @@
 IUTEST_DIR = ../..
 
 # sample code
-USER_DIR = ../../samples
+SAMPLE_DIR = ../../samples
+SAMPLE_SRCS = main.cpp \
+              assertion.cpp \
+              disabledtest.cpp \
+              exception.cpp \
+              fixture.cpp \
+              parameterized.cpp \
+              printto.cpp \
+              simple.cpp \
+              typed.cpp
+              
+SAMPLE_OBJS = $(SAMPLE_SRCS:%.cpp=%.o)
 
 # Flags passed to the preprocessor.
 CPPFLAGS += -I$(IUTEST_DIR)/include
@@ -18,7 +29,6 @@ CPPFLAGS += -I$(IUTEST_DIR)/include
 # LD flags
 LIBS_ = $(LIBS:%=-l%)
 LDFLAGS += $(LIBS_)
-
 
 # Optimize
 #OPTIMIZE += -O2
@@ -123,11 +133,8 @@ $(LIBRARYS) : $(LIBRARY_INSTALL_PATH) $(LIBRARYS_)
 
 # Builds a sample test.  
 
-main.o : $(USER_DIR)/main.cpp $(IUTEST_HEADERS) Makefile
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/main.cpp
+%.o : $(SAMPLE_DIR)/%.cpp $(IUTEST_HEADERS) Makefile
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $<
 
-sub.o : $(USER_DIR)/sub.cpp $(IUTEST_HEADERS) Makefile
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/sub.cpp
-
-$(TESTS) : main.o sub.o
+$(TESTS) : $(SAMPLE_OBJS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)

@@ -167,7 +167,7 @@
 
 
 // __analysis_assume
-#if defined(_MSC_VER) && _MSC_VER >= 1500
+#if defined(_MSC_VER) && (_MSC_VER >= 1500) && !defined(__CUDACC__)
 
 #define IUTEST_THROUGH_ANALYSIS_ASSUME(expr, todo)					\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_									\

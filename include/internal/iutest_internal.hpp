@@ -361,7 +361,7 @@
  * @internal
  * @brief	IUTEST_ANALYSIS_ASSUME_ を通す
 */
-#if defined(_MSC_VER) && _MSC_VER >= 1500
+#if IUTEST_HAS_ANALYSIS_ASSUME
 
 #define IUTEST_THROUGH_ANALYSIS_ASSUME_(expr, todo)					\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_									\

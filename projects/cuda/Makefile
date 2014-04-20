@@ -10,7 +10,7 @@
 IUTEST_DIR = ../..
 
 # sample code
-USER_DIR = ../../samples
+SAMPLE_DIR = ../../samples
 
 #
 # Flags passed to the C++ compiler.
@@ -60,13 +60,10 @@ NVCC              := nvcc
 
 # Builds a sample test.  
 
-main.obj : $(USER_DIR)/main.cpp $(IUTEST_HEADERS) Makefile
-	$(NVCC) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/main.cu -o main.obj
+main.obj : $(SAMPLE_DIR)/main.cpp $(IUTEST_HEADERS) Makefile
+	$(NVCC) $(CPPFLAGS) $(CXXFLAGS) -c $(SAMPLE_DIR)/main.cu -o main.obj
 
-sub.obj : $(USER_DIR)/sub.cpp $(IUTEST_HEADERS) Makefile
-	$(NVCC) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/sub.cu -o sub.obj
-
-$(TESTS) : main.obj sub.obj
+$(TESTS) : main.obj
 	$(NVCC) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@
 	
 run: $(TESTS)

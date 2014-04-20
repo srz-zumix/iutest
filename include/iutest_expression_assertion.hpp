@@ -75,11 +75,22 @@
 
 #if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 
+#if IUTEST_HAS_DECLTYPE
+
 #define IIUT_DECL_EXPRESSION_OP_LHS(op)	\
 	template<typename RHS>auto operator op (const RHS& rhs) const	\
 	-> ExpressionLHS< decltype( expression_op_helper::operand_result( ::std::declval<T>() op rhs) )> {	\
 		return OperandResult(m_lhs op rhs) << " " #op " " << rhs;	\
 	}
+
+#else
+
+#define IIUT_DECL_EXPRESSION_OP_LHS(op)	\
+	template<typename RHS>ExpressionLHS<RHS> operator op (const RHS& rhs) const {	\
+	return OperandResult(m_lhs op rhs) << " " #op " " << rhs;	\
+	}
+
+#endif
 
 #endif
 

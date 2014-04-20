@@ -41,7 +41,18 @@ IUTEST_DIR = ../../
 endif
 
 # sample code
-USER_DIR = $(IUTEST_DIR)/samples
+SAMPLE_DIR = $(IUTEST_DIR)/samples
+SAMPLE_SRCS = main.cpp \
+              assertion.cpp \
+              disabledtest.cpp \
+              exception.cpp \
+              fixture.cpp \
+              parameterized.cpp \
+              printto.cpp \
+              simple.cpp \
+              typed.cpp
+              
+SAMPLE_OBJS = $(SAMPLE_SRCS:%.cpp=%.o)
 
 # Flags passed to the preprocessor.
 CPPFLAGS += -I$(IUTEST_DIR)/include
@@ -122,16 +133,13 @@ $(LIBRARYS) : $(LIBRARY_INSTALL_PATH) $(LIBRARYS_)
 
 # Builds a sample test.  
 
-main.o : $(USER_DIR)/main.cpp $(IUTEST_HEADERS) Makefile
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/main.cpp
-
-sub.o : $(USER_DIR)/sub.cpp $(IUTEST_HEADERS) Makefile
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/sub.cpp
+%.o : $(SAMPLE_DIR)/%.cpp $(IUTEST_HEADERS) Makefile
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $<
 
 %.hex : %.elf
 	$(OBJCOPY) -O ihex $< $@
 
-sample.elf : main.o sub.o
+sample.elf : $(SAMPLE_OBJS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 $(TESTS) : sample.hex

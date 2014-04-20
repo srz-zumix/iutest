@@ -19,11 +19,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01089911u	//!< iutest version 1.8.99.11
+#define	IUTEST_VER			0x01089912u	//!< iutest version 1.8.99.12
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x08u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x11u		//!< Revision
+#define IUTEST_REVISION		0x12u		//!< Revision
 
 /**
  * @mainpage
@@ -535,6 +535,18 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     </ul>
   </li>
 </ul>
+*/
+
+/**
+ * @example		main.cpp
+ * @example		assertion.cpp
+ * @example		disabledtest.cpp
+ * @example		exception.cpp
+ * @example		fixture.cpp
+ * @example		parameterized.cpp
+ * @example		printto.cpp
+ * @example		simple.cpp
+ * @example		typed.cpp
 */
 
 #endif // INCG_IRIS_IUTEST_VER_HPP_D65CB7A7_D2AD_40FE_8F5F_8FBF376A0010_

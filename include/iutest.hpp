@@ -12,9 +12,7 @@
  * This software is released under the new BSD License,
  * see LICENSE
  *
- * @see			iutest_ver.h
- * @example		main.cpp
- * @example		sub.cpp
+ * @see			iutest_ver.hpp
 */
 //-----------------------------------------------------------------------
 //======================================================================

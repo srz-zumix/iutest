@@ -23,8 +23,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\samples\assertion.cpp" />
+    <ClCompile Include="..\..\samples\disabledtest.cpp" />
+    <ClCompile Include="..\..\samples\exception.cpp" />
+    <ClCompile Include="..\..\samples\fixture.cpp" />
     <ClCompile Include="..\..\samples\main.cpp" />
-    <ClCompile Include="..\..\samples\sub.cpp" />
+    <ClCompile Include="..\..\samples\parameterized.cpp" />
+    <ClCompile Include="..\..\samples\printto.cpp" />
+    <ClCompile Include="..\..\samples\simple.cpp" />
+    <ClCompile Include="..\..\samples\typed.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{13851977-F039-448D-A853-A98325BDA088}</ProjectGuid>

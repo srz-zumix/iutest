@@ -47,7 +47,17 @@ cxx_library(iutest_main "${cxx_strict}" ../../src/iutest_main.cpp)
 #
 # ƒTƒ“ƒvƒ‹
 #
-cxx_executable_sample(iutest_sample ../../samples/main.cpp ../../samples/sub.cpp)
+cxx_executable_sample(iutest_sample
+ ../../samples/main.cpp
+ ../../samples/assertion.cpp
+ ../../samples/disabledtest.cpp
+ ../../samples/exception.cpp
+ ../../samples/fixture.cpp
+ ../../samples/parameterized.cpp
+ ../../samples/printto.cpp
+ ../../samples/simple.cpp
+ ../../samples/typed.cpp
+ )
 
 ########################################################################
 #

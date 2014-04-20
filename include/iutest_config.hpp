@@ -120,7 +120,7 @@
 /**
  * @brief	式アサーションで算術演算子の展開をサポートするかどうか
 */
-#  if IUTEST_HAS_DECLTYPE
+#  if 1	// IUTEST_HAS_DECLTYPE
 #    define IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE	1
 #  else
 #    define IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE	0
@@ -335,7 +335,7 @@
 
 #if !defined(IUTEST_HAS_TESTNAME_ALIAS_JP)
 //! テスト名の別名に日本語が使用できるかどうか
-#  if IUTEST_HAS_TESTNAME_ALIAS && !defined(__CUDACC__)
+#  if IUTEST_HAS_TESTNAME_ALIAS && !defined(__CUDACC__) && !defined(IUTEST_OS_NACL)
 #    define IUTEST_HAS_TESTNAME_ALIAS_JP	1
 #  else
 #    define IUTEST_HAS_TESTNAME_ALIAS_JP	0
