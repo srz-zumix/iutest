@@ -4,9 +4,7 @@
  * @file		iutest_throw_on_assertion_failure_tests.cpp
  * @brief		IUTEST_USE_THROW_ON_ASSERTION_FAILURE 対応テスト
  *
- * @author		t.sirayanagi
- * @version		1.0
- *
+ * @author		t.shirayanagi
  * @par			copyright
  * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,

@@ -4,9 +4,7 @@
  * @file		iutest_invalid_commandline_tests.cpp
  * @brief		不正なコマンドライン引数対応テスト
  *
- * @author		t.sirayanagi
- * @version		1.0
- *
+ * @author		t.shirayanagi
  * @par			copyright
  * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,

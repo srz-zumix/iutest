@@ -1,12 +1,10 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		exception.cpp
- * @brief		sample
+ * @file		disabledtest.cpp
+ * @brief		disabled test sample
  *
- * @author		t.sirayanagi
- * @version		1.0
- *
+ * @author		t.shirayanagi
  * @par			copyright
  * Copyright (C) 2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,

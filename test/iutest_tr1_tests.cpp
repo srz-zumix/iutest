@@ -2,11 +2,9 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_tr1_tests.cpp
- * @brief		iutest tr1 全部 test
+ * @brief		tr1 all test
  *
- * @author		t.sirayanagi
- * @version		1.0
- *
+ * @author		t.shirayanagi
  * @par			copyright
  * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,

@@ -2,11 +2,9 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_syntax_gtest_tests.cpp
- * @brief		iutest gtest mode syntax test
+ * @brief		gtest mode syntax test
  *
- * @author		t.sirayanagi
- * @version		1.0
- *
+ * @author		t.shirayanagi
  * @par			copyright
  * Copyright (C) 2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,

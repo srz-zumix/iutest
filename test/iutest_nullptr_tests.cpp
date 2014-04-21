@@ -2,11 +2,9 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_nullptr_tests.cpp
- * @brief		iutest nullptr test
+ * @brief		nullptr test
  *
- * @author		t.sirayanagi
- * @version		1.0
- *
+ * @author		t.shirayanagi
  * @par			copyright
  * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,

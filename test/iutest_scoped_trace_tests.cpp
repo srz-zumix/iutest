@@ -4,9 +4,7 @@
  * @file		iutest_scoped_trace_tests.cpp
  * @brief		IUTEST_SCOPED_TRACE 対応テスト
  *
- * @author		t.sirayanagi
- * @version		1.0
- *
+ * @author		t.shirayanagi
  * @par			copyright
  * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,

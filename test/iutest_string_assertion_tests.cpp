@@ -2,11 +2,9 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_string_assertion_tests.cpp
- * @brief		iutest 文字列比較 アサーション test
+ * @brief		文字列比較 アサーション test
  *
- * @author		t.sirayanagi
- * @version		1.0
- *
+ * @author		t.shirayanagi
  * @par			copyright
  * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,

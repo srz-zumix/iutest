@@ -2,11 +2,9 @@
 //-----------------------------------------------------------------------
 /**
  * @file		typed.cpp
- * @brief		sample
+ * @brief		typed and type parameterized test sample
  *
- * @author		t.sirayanagi
- * @version		1.0
- *
+ * @author		t.shirayanagi
  * @par			copyright
  * Copyright (C) 2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,

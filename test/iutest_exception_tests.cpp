@@ -4,9 +4,7 @@
  * @file		iutest_exception_tests.cpp
  * @brief		iutest test 例外テスト
  *
- * @author		t.sirayanagi
- * @version		1.0
- *
+ * @author		t.shirayanagi
  * @par			copyright
  * Copyright (C) 2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,

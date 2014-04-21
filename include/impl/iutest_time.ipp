@@ -4,9 +4,7 @@
  * @file		iutest_time.ipp
  * @brief		iris unit test time utility
  *
- * @author		t.sirayanagi
- * @version		1.0
- *
+ * @author		t.shirayanagi
  * @par			copyright
  * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,

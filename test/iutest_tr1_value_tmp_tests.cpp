@@ -4,9 +4,7 @@
  * @file		iutest_tr1_value_tmp_tests.cpp
  * @brief		実験場
  *
- * @author		t.sirayanagi
- * @version		1.0
- *
+ * @author		t.shirayanagi
  * @par			copyright
  * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,

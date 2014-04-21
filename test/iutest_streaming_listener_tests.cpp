@@ -4,9 +4,7 @@
  * @file		iutest_streaming_listener_tests.cpp
  * @brief		StreamResultListener test
  *
- * @author		t.sirayanagi
- * @version		1.0
- *
+ * @author		t.shirayanagi
  * @par			copyright
  * Copyright (C) 2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,

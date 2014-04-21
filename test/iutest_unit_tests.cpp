@@ -4,9 +4,7 @@
  * @file		iutest_unit_tests.cpp
  * @brief		iutest test
  *
- * @author		t.sirayanagi
- * @version		1.0
- *
+ * @author		t.shirayanagi
  * @par			copyright
  * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.

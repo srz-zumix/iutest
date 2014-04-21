@@ -4,9 +4,7 @@
  * @file		iutest_quiet_result_printer_tests.cpp
  * @brief		QuietResultPrinter test
  *
- * @author		t.sirayanagi
- * @version		1.0
- *
+ * @author		t.shirayanagi
  * @par			copyright
  * Copyright (C) 2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,

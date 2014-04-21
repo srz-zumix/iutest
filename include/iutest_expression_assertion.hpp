@@ -4,9 +4,7 @@
  * @file		iutest_expression_assertion.hpp
  * @brief		iris unit test 式アサーション 定義 ファイル
  *
- * @author		t.sirayanagi
- * @version		1.0
- *
+ * @author		t.shirayanagi
  * @par			copyright
  * Copyright (C) 2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
