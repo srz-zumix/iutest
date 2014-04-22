@@ -31,10 +31,6 @@
 #include "listener/iutest_default_xml_generator.hpp"
 #include "listener/iutest_streaming_listener.hpp"
 
-namespace iutest
-{
-}	// end of namespace iutest
-
 //======================================================================
 // define
 /**
@@ -1670,5 +1666,9 @@ inline Environment* IUTEST_ATTRIBUTE_UNUSED_ AddGlobalTestEnvironment(Environmen
 #endif
 
 #include "iutest_util.hpp"
+
+#ifdef IUTEST_USE_MAIN
+#  include "internal/iutest_default_main.hpp"
+#endif
 
 #endif // INCG_IRIS_IUTEST_HPP_

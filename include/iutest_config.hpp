@@ -536,6 +536,7 @@
 
 #define IUTEST_USE_LIB		//!< ライブラリ版を使用する
 #define IUTEST_AUTO_LINK	//!< ライブラリ版を使用し、自動リンクする
+#define IUTEST_USE_MAIN		//!< main 関数定義を iutest に任せる
 
 #endif
 

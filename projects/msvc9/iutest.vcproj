@@ -411,6 +411,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\internal\iutest_default_main.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\internal\iutest_exception.hpp"
 					>
 				</File>

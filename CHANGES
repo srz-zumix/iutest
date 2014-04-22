@@ -5,6 +5,7 @@ Changes for 1.9.0:
 * IUTEST_*_THAT 追加
 * 式アサーション追加（IUTEST_ASSERT, IUTEST_EXPECT, IUTEST_INFORM, IUTEST_ASSUME）
 * 式アサーション追加（IUTEST_*_NOT）
+* IUTEST_USE_MAIN 追加(main 関数定義 config)
 
 ** 変更
 * IUTEST_ASSERT を IUTEST_ASSERT_EXIT に変更

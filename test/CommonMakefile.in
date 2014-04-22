@@ -92,6 +92,7 @@ TARGETS2= \
           iutest_assertion_only_tests \
 
 TARGETS_IUTEST_ONLY = \
+          iutest_default_main_tests \
           iutest_env_var_tests \
           iutest_env_var_gtest_tests \
           iutest_tap_printer_listener_tests \
