@@ -78,7 +78,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
 IUTEST_IPP_INLINE const char* GetEnv(const char* name)
 {
-#if defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_NO_GETENV)
+#if defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_NO_GETENV)
 	IUTEST_UNUSED_VAR(name);
 	return NULL;
 #elif defined(__BORLANDC__) || defined(__SunOS_5_8) || defined(__SunOS_5_9)
@@ -91,7 +91,7 @@ IUTEST_IPP_INLINE const char* GetEnv(const char* name)
 
 IUTEST_IPP_INLINE int PutEnv(const char* expr)
 {
-#if defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_NO_PUTENV) || defined(__STRICT_ANSI__)
+#if defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_NO_PUTENV) || defined(__STRICT_ANSI__)
 	IUTEST_UNUSED_VAR(expr);
 	return -1;
 #else
@@ -101,7 +101,7 @@ IUTEST_IPP_INLINE int PutEnv(const char* expr)
 
 IUTEST_IPP_INLINE const char* GetCWD(char* buf, size_t length)
 {
-#if   defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_OS_AVR32) || defined(IUTEST_NO_GETCWD)
+#if   defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_OS_AVR32) || defined(IUTEST_NO_GETCWD)
 	if( buf == NULL || length < 3 )
 	{
 		return NULL;
@@ -166,7 +166,7 @@ namespace detail
 
 IUTEST_IPP_INLINE bool SetEnvironmentVariable(const char* name, const char* value)
 {
-#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE)
 	return ::SetEnvironmentVariableA(name, value) ? true : false;
 #else
 	::std::string var = name;
@@ -178,7 +178,7 @@ IUTEST_IPP_INLINE bool SetEnvironmentVariable(const char* name, const char* valu
 
 IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, char* buf, size_t size)
 {
-#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE)
 	const DWORD ret = ::GetEnvironmentVariableA(name, buf, static_cast<DWORD>(size));
 	if( ret == 0 )
 	{
@@ -263,7 +263,7 @@ IUTEST_IPP_INLINE ::std::string WideStringToMultiByteString(const wchar_t* wide_
 
 IUTEST_IPP_INLINE ::std::string GetHResultString(HRESULT hr)
 {
-#if defined(IUTEST_OS_WINDOWS_MOBILE)
+#if defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_OS_WINDOWS_PHONE)
 	LPWSTR buf = NULL;
 	if( FormatMessageW(
 		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,

@@ -424,11 +424,15 @@
 
 #if !defined(IUTEST_HAS_MINIDUMP)
 //! MiniDump 出力が有効かどうか
-#  if defined(_MSC_VER) && _MSC_VER >= 1310 && IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
-#    define IUTEST_HAS_MINIDUMP		1
-#  else
-#    define IUTEST_HAS_MINIDUMP		0
+#  if defined(_MSC_VER) && _MSC_VER >= 1310
+#    if IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH && !defined(IUTEST_OS_WINDOWS_PHONE)
+#      define IUTEST_HAS_MINIDUMP	1
+#    endif
 #  endif
+#endif
+
+#if !defined(IUTEST_HAS_MINIDUMP)
+#  define IUTEST_HAS_MINIDUMP		0
 #endif
 
 #if !defined(IUTEST_HAS_SOCKET)

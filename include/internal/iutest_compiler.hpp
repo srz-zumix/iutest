@@ -30,21 +30,29 @@
 #if   defined(__CYGWIN__)
 #  define IUTEST_OS_CYGWIN				1
 #  define IUTEST_PLATFORM				"CYGWIN"
-#elif defined(_WIN32) || defined(WIN32) || defined(__WIN32__)
+#elif defined(_WIN32) || defined(WIN32) || defined(__WIN32__) || defined(WINAPI_FAMILY)
 #  define IUTEST_OS_WINDOWS				1
-#  define IUTEST_PLATFORM				"Windows"
 #  if !defined(WIN32_LEAN_AND_MEAN)
 #    define WIN32_LEAN_AND_MEAN
 #  endif
 #  include <windows.h>
-#  if   defined(_WIN32_WCE)
+#  if   defined(WINAPI_FAMILY)
+#    if WINAPI_FAMILY==WINAPI_FAMILY_PHONE_APP
+#      define IUTEST_OS_WINDOWS_PHONE	1
+#      define IUTEST_PLATFORM			"Windows Phone"
+#    endif
+#  elif defined(_WIN32_WCE)
 #    define IUTEST_OS_WINDOWS_MOBILE	1
+#    define IUTEST_PLATFORM				"Windows CE"
 #  elif defined(__MINGW__) || defined(__MINGW32__)
 #    define IUTEST_OS_WINDOWS_MINGW		1
 #  elif defined(__CUDACC__)
 #    define IUTEST_OS_WINDOWS_CUDA		1
 #  else
 #    define IUTEST_OS_WINDOWS_DESKTOP	1
+#  endif
+#  if !defined(IUTEST_PLATFORM)
+#    define IUTEST_PLATFORM				"Windows"
 #  endif
 #elif defined(__APPLE__)
 #  include "TargetConditionals.h"
