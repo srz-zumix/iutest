@@ -104,6 +104,9 @@
 #endif
 #ifdef IUTEST_OS_WINDOWS
 #  undef IUTEST_OS_WINDOWS
+#  ifdef IUTEST_OS_WINDOWS_PHONE
+#	 undef IUTEST_OS_WINDOWS_PHONE
+#  endif
 #  ifdef IUTEST_OS_WINDOWS_MOBILE
 #	 undef IUTEST_OS_WINDOWS_MOBILE
 #  endif

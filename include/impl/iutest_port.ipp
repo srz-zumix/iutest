@@ -101,7 +101,8 @@ IUTEST_IPP_INLINE int PutEnv(const char* expr)
 
 IUTEST_IPP_INLINE const char* GetCWD(char* buf, size_t length)
 {
-#if   defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_OS_AVR32) || defined(IUTEST_NO_GETCWD)
+#if   defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_OS_AVR32) \
+		|| defined(IUTEST_NO_GETCWD)
 	if( buf == NULL || length < 3 )
 	{
 		return NULL;
@@ -125,7 +126,7 @@ IUTEST_IPP_INLINE ::std::string GetCWD(void)
 
 IUTEST_IPP_INLINE void SleepMillisec(unsigned int millisec)
 {
-#if   defined(IUTEST_OS_WINDOWS)
+#if   defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_PHONE)
 	Sleep(millisec);
 #elif defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN)
 
@@ -196,7 +197,9 @@ IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, char* buf, size_
 	{
 		return false;
 	}
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 	strcpy(buf, env);
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 	return true;
 #endif
 }
@@ -263,38 +266,54 @@ IUTEST_IPP_INLINE ::std::string WideStringToMultiByteString(const wchar_t* wide_
 
 IUTEST_IPP_INLINE ::std::string GetHResultString(HRESULT hr)
 {
-#if defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_OS_WINDOWS_PHONE)
-	LPWSTR buf = NULL;
-	if( FormatMessageW(
-		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-		NULL,
-		hr,
-		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // デフォルト ユーザー言語
-		(LPWSTR)&buf,
-		0,
-		NULL ) == 0 )
-	{
-		return "";
-	}
+#if !defined(IUTEST_OS_WINDOWS_MOBILE)
 
-	::std::string str = (buf == NULL) ? "" : WideStringToMultiByteString(buf);
-#else
+#if defined(FORMAT_MESSAGE_ALLOCATE_BUFFER)
 	LPSTR buf = NULL;
+#else
+	CHAR buf[4096];
+#endif
 	if( FormatMessageA(
-		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-		NULL,
-		hr,
-		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // デフォルト ユーザー言語
-		(LPSTR)&buf,
-		0,
-		NULL ) == 0 )
+#if defined(FORMAT_MESSAGE_ALLOCATE_BUFFER)
+		FORMAT_MESSAGE_ALLOCATE_BUFFER |
+#endif
+		FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS
+		, NULL
+		, hr
+		, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT) // デフォルト ユーザー言語
+#if defined(FORMAT_MESSAGE_ALLOCATE_BUFFER)
+		, (LPSTR)&buf
+		, 0
+#else
+		, buf
+		, IUTEST_PP_COUNTOF(buf)
+#endif
+		, NULL ) == 0 )
 	{
 		return "";
 	}
 
 	::std::string str = (buf == NULL) ? "" : buf;
-#endif
+#if defined(FORMAT_MESSAGE_ALLOCATE_BUFFER)
 	LocalFree(buf);
+#endif
+#else
+	LPWSTR buf = NULL;
+	if( FormatMessageW(
+		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS
+		, NULL
+		, hr
+		, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT) // デフォルト ユーザー言語
+		, (LPWSTR)&buf
+		, 0
+		, NULL ) == 0 )
+	{
+		return "";
+	}
+
+	::std::string str = (buf == NULL) ? "" : WideStringToMultiByteString(buf);
+	LocalFree(buf);
+#endif
 	return str;
 }
 
