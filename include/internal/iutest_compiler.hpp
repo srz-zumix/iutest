@@ -36,18 +36,20 @@
 #    define WIN32_LEAN_AND_MEAN
 #  endif
 #  include <windows.h>
-#  if   defined(WINAPI_FAMILY)
-#    if WINAPI_FAMILY==WINAPI_FAMILY_PHONE_APP
-#      define IUTEST_OS_WINDOWS_PHONE	1
-#      define IUTEST_PLATFORM			"Windows Phone"
-#    endif
-#  elif defined(_WIN32_WCE)
+#  if defined(_WIN32_WCE)
 #    define IUTEST_OS_WINDOWS_MOBILE	1
 #    define IUTEST_PLATFORM				"Windows CE"
 #  elif defined(__MINGW__) || defined(__MINGW32__)
 #    define IUTEST_OS_WINDOWS_MINGW		1
 #  elif defined(__CUDACC__)
 #    define IUTEST_OS_WINDOWS_CUDA		1
+#  elif defined(WINAPI_FAMILY)
+#    if defined(WINAPI_FAMILY_PHONE_APP) && (WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
+#      define IUTEST_OS_WINDOWS_PHONE	1
+#      define IUTEST_PLATFORM			"Windows Phone"
+#    else
+#      define IUTEST_OS_WINDOWS_DESKTOP	1
+#    endif
 #  else
 #    define IUTEST_OS_WINDOWS_DESKTOP	1
 #  endif
