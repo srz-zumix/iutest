@@ -4,6 +4,7 @@
  * @file		iutest_main.cpp
  * @brief		iris unit test main
  *
+ * @author		t.shirayanagi
  * @par			copyright
  * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,

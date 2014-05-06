@@ -66,7 +66,9 @@ int main(int argc, char* argv[])
 		vargv.push_back("--iutest_repeat");
 		vargv.push_back("--iutest_stream_result_to");
 		vargv.push_back("--iutest_file_location");
+		vargv.push_back("--iutest_file_location=xxx");
 		vargv.push_back("--iutest_print_time");
+		vargv.push_back("--iutest_print_time=");
 		vargv.push_back("--iutest_catch_exceptions");
 		vargv.push_back("--iutest_color");
 		vargv.push_back("--iutest_color=hoge");
@@ -78,7 +80,7 @@ int main(int argc, char* argv[])
 		vargv.push_back("--x");
 		vargv.push_back("-x");
 		::iutest::InitIrisUnitTest(vargv);
-		IUTEST_EXPECT_EQ(14, vargv.size()) << ::iutest::PrintToString(vargv);
+		IUTEST_EXPECT_EQ(16, vargv.size()) << ::iutest::PrintToString(vargv);
 		IUTEST_EXPECT_TRUE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_HELP));
 		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
 	}

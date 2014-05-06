@@ -166,7 +166,7 @@ int main(int argc, char* argv[])
 		vargv.push_back("--gtest_print_time=n");
 		vargv.push_back("--gtest_shuffle");
 		vargv.push_back("--gtest_color=ansi");
-		vargv.push_back("--gtest_file_location=vs");
+		vargv.push_back("--gtest_file_location=gcc");
 		vargv.push_back("--gtest_random_seed=200");
 		vargv.push_back("--gtest_repeat=2");
 		vargv.push_back("--gtest_filter=Flag*");
@@ -179,7 +179,7 @@ int main(int argc, char* argv[])
 		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(catch_exceptions) );
 		IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(print_time) );
 		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(shuffle) );
-		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(file_location_style_msvc) );
+		IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(file_location_style_msvc) );
 		
 		IUTEST_EXPECT_EQ( 200u, ::iutest::IUTEST_FLAG(random_seed) );
 		IUTEST_EXPECT_EQ(   2 , ::iutest::IUTEST_FLAG(repeat) );
