@@ -22,11 +22,18 @@
 namespace iutest
 {
 
-IUTEST_IPP_INLINE void Test::RecordProperty(const ::std::string& key, const ::std::string& value)
+IUTEST_IPP_INLINE void Test::RecordPropertyString(const ::std::string& key, const ::std::string& value)
 {
 	TestProperty prop(key, value);
 	TestRecordPropertyHelper::RecordProperty(prop);
 }
+
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+IUTEST_IPP_INLINE void Test::RecordProperty(const ::std::string& key, const ::std::string& value)
+{
+	RecordPropertyString(key, value);
+}
+#endif
 
 IUTEST_IPP_INLINE void Test::Run(detail::iuITestInfoMediator* test_info)
 {

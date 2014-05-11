@@ -74,7 +74,7 @@ struct Printer<true>
 	template<typename T>
 	static void Print(const T& value, iu_ostream* os)
 	{
-#if defined(_STLPORT_VERSION) && !defined(_STLP_LONG_LONG)
+#if (defined(_STLPORT_VERSION) && !defined(_STLP_LONG_LONG)) || (defined(_MSC_VER) && _MSC_VER < 1310)
 		const Int32 v = value;
 #else
 		const BiggestInt v = value;
@@ -86,30 +86,34 @@ struct Printer<true>
 }
 
 /** @private */
-template<typename T>
 class TypeWithoutFormatter
 {
 public:
+	template<typename T>
 	static void PrintValue(const T& value, iu_ostream* os)
 	{
 		formatter::Printer<iutest_type_traits::is_convertible<const T&, BiggestInt>::value>::Print(value, os);
 	}
 };
 
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
 template<typename Elem, typename Traits, typename T>
 ::std::basic_ostream<Elem, Traits>& operator << (::std::basic_ostream<Elem, Traits>& os, const T& value)
 {
-	TypeWithoutFormatter<T>::PrintValue(value, &os);
+	TypeWithoutFormatter::PrintValue(value, &os);
 	return os;
 }
 #else
 template<typename T>
 iu_ostream& operator << (iu_ostream& os, const T& value)
 {
-	TypeWithoutFormatter<T>::PrintValue(value, &os);
+	TypeWithoutFormatter::PrintValue(value, &os);
 	return os;
 }
+#endif
+
 #endif
 
 }	// end of printer_internal
@@ -133,30 +137,10 @@ void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
 //======================================================================
 // declare
 template<typename T>
-inline void UniversalPrintTo(const T& value, iu_ostream* os);
-
-//======================================================================
-// class
-/** @private */
-template<typename T>
-class iuUniversalPrinter
-{
-public:
-	static void Print(const T& value, iu_ostream* os)
-	{
-		UniversalPrintTo(value, os);
-	}
-};
+void UniversalPrint(const T& value, iu_ostream* os);
 
 //======================================================================
 // function
-/** @private */
-template<typename T>
-inline void UniversalPrint(const T& value, iu_ostream* os)
-{
-	iuUniversalPrinter<T>::Print(value, os);
-}
-
 /**
  * @brief	デフォルト文字列変換関数
 */
@@ -193,7 +177,11 @@ inline void DefaultPrintTo(IsContainerHelper::no_t
 						, iutest_type_traits::false_type
 						, const T& value, iu_ostream* os)
 {
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 	printer_internal2::DefaultPrintNonContainerTo(value, os);
+#else
+	printer_internal::TypeWithoutFormatter::PrintValue(value, os);
+#endif
 }
 
 #if !defined(IUTEST_NO_SFINAE) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
@@ -251,17 +239,19 @@ inline void PrintTo(bool b, iu_ostream* os)			{ *os << (b ? "true" : "false"); }
 inline void PrintTo(const char* c, iu_ostream* os)	{ *os << c; }
 inline void PrintTo(char* c, iu_ostream* os)		{ *os << c; }
 inline void PrintTo(const ::std::string& str, iu_ostream* os)	{ *os << str.c_str(); }
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 template<typename T>
 inline void PrintTo(const floating_point<T>& f, iu_ostream* os)	{ *os << f.raw() << "(0x" << ToHexString(f.bit()) << ")"; }
 template<typename T1, typename T2>
 inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)
 {
 	*os << "(";
-	iuUniversalPrinter<T1>::Print(value.first, os);
+	UniversalPrint(value.first, os);
 	*os << ", ";
-	iuUniversalPrinter<T2>::Print(value.second, os);
+	UniversalPrint(value.second, os);
 	*os << ")";
 }
+#endif
 // char or unsigned char の時に、 0 が NULL 文字にならないように修正
 inline void PrintTo(const char value, iu_ostream* os)
 {
@@ -356,9 +346,6 @@ inline void PrintTo(const tuples::tuple<A1, A2, A3, A4, A5, A6, A7, A8, A9>& t, 
 #endif
 
 #endif
-
-//======================================================================
-// function
 
 /** @private */
 template<typename T>
@@ -471,12 +458,25 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const wchar_t* begin, s
 	UniversalTersePrint(begin, os);
 }
 
-//======================================================================
-// class
-
 /** @private */
 template<typename T>
-inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(const T& value, iu_ostream* os) { PrintTo(value, os); }
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(const T& value, iu_ostream* os)
+{
+	PrintTo(value, os);
+}
+
+//======================================================================
+// class
+/** @private */
+template<typename T>
+class iuUniversalPrinter
+{
+public:
+	static void Print(const T& value, iu_ostream* os)
+	{
+		UniversalPrintTo(value, os);
+	}
+};
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
@@ -485,7 +485,7 @@ template<typename T, size_t SIZE>
 class iuUniversalPrinter<T[SIZE]>
 {
 public:
-	static void Print(const T (&a)[SIZE], iu_ostream* os)
+	static void Print(const T(&a)[SIZE], iu_ostream* os)
 	{
 		UniversalPrintArray(a, SIZE, os);
 	}
@@ -493,9 +493,18 @@ public:
 
 #endif
 
-/**
- * @}
-*/
+//======================================================================
+// function
+/** @private */
+template<typename T>
+inline void UniversalPrint(const T& value, iu_ostream* os)
+{
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+	iuUniversalPrinter<T>::Print(value, os);
+#else
+	UniversalPrintTo(value, os);
+#endif
+}
 
 }	// end of namespace detail
 
@@ -509,11 +518,7 @@ template<typename T>
 inline ::std::string PrintToString(const T& v)
 {
 	detail::iuStringStream::type strm;
-#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 	detail::UniversalTersePrint(v, &strm);
-#else
-	strm << v;
-#endif
 	return strm.str();
 }
 

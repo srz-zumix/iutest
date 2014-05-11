@@ -109,12 +109,14 @@ public:
 		return GetCurrentTest()->m_test_info->IsSkipped();
 	}
 
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 	/**
 	 * @brief	テスト結果の情報追加
 	 * @param [in]	key		= プロパティのキー
 	 * @param [in]	value	= 値
 	*/
 	static void RecordProperty(const ::std::string& key, const ::std::string& value);
+#endif
 
 	/**
 	 * @brief	テスト結果の情報追加
@@ -124,7 +126,7 @@ public:
 	template<typename T>
 	static void RecordProperty(const ::std::string& key, const T& value)
 	{
-		RecordProperty(key, PrintToString(value));
+		RecordPropertyString(key, PrintToString(value));
 	}
 
 #if IUTEST_HAS_GENRAND
@@ -168,6 +170,13 @@ private:
 	 * @brief	テストの実行
 	*/
 	void Run(detail::iuITestInfoMediator* test_info);
+
+	/**
+	 * @brief	テスト結果の情報追加
+	 * @param [in]	key		= プロパティのキー
+	 * @param [in]	value	= 値
+	*/
+	static void RecordPropertyString(const ::std::string& key, const ::std::string& value);
 
 private:
 	template<typename DMY>

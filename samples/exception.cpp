@@ -52,6 +52,8 @@ IUTEST(AssertionTest, Exception)
 	IUTEST_ASSERT_THROW_VALUE_STRCASEEQ(ExceptionFunction(3), const char *, "Error");
 }
 
+#if !defined(_MSC_VER) || _MSC_VER >= 1310
+
 class exception_test
 {
 public:
@@ -66,6 +68,8 @@ IUTEST(AssertionTest, Exception2)
 	::std::vector<int> a;
 	IUTEST_ASSERT_THROW(exception_test(a), ::std::exception);
 }
+
+#endif
 
 #endif
 

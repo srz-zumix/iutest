@@ -61,10 +61,14 @@
 #endif
 
 #ifndef IUTEST_BREAK
-#  if   defined(_MSC_VER)
-#    define IUTEST_BREAK()	__debugbreak()
-#  elif defined(__MINGW32__)
+#  if   defined(__MINGW32__)
 #    define IUTEST_BREAK()	DebugBreak()
+#  elif defined(_MSC_VER)
+#    if _MSC_VER >= 1310
+#      define IUTEST_BREAK()	__debugbreak()
+#    else
+#      define IUTEST_BREAK()	DebugBreak()
+#    endif
 #  elif defined(IUTEST_OS_MAC)
 // http://www.cocoawithlove.com/2008/03/break-into-debugger.html
 #    if defined(__ppc64__) || defined(__ppc__)

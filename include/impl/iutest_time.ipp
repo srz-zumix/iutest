@@ -38,6 +38,7 @@ IUTEST_IPP_INLINE ::std::string FormatTimeInMillisecAsSecond(TimeInMillisec msec
 
 IUTEST_IPP_INLINE ::std::string FormatTimeInMillisecAsIso8601(TimeInMillisec msec)
 {
+#if IUTEST_HAS_CTIME
 	time_t sec = static_cast<time_t>(msec / 1000);
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 	const struct tm* const t = localtime(&sec);
@@ -55,6 +56,9 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 		+ FormatIntWidth2(t->tm_hour) + ":"
 		+ FormatIntWidth2(t->tm_min) + ":"
 		+ FormatIntWidth2(t->tm_sec);
+#else
+	return FormatTimeInMillisecAsSecond(msec);
+#endif
 }
 
 IUTEST_IPP_INLINE time_t GetTime(void)
