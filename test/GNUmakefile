@@ -119,7 +119,7 @@ ifdef OUTPUTXML
 	$(RM) *.xml
 endif
 ifdef COVERAGE
-	$(RM) *.gcov *.gcno *.gcda
+	$(RM) *.xml *.gcov *.gcno *.gcda
 endif
 
 run : test
