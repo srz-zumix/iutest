@@ -74,10 +74,10 @@ struct Printer<true>
 	template<typename T>
 	static void Print(const T& value, iu_ostream* os)
 	{
-#if (defined(_STLPORT_VERSION) && !defined(_STLP_LONG_LONG)) || (defined(_MSC_VER) && _MSC_VER < 1310)
-		const Int32 v = value;
-#else
+#if IUTEST_HAS_BIGGESTINT_OSTREAM
 		const BiggestInt v = value;
+#else
+		const Int32 v = value;
 #endif
 		*os << v;
 	}

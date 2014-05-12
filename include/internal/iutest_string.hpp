@@ -438,8 +438,21 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
 typedef ::std::ostream iu_ostream;
 typedef ::std::ostream& (*iu_basic_iomanip)(::std::ostream&);
+
 #else
 typedef detail::iuStringStream::type iu_ostream;
+#endif
+
+#if !defined(IUTEST_HAS_BIGGESTINT_OSTREAM)
+#  if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+#    if (defined(_STLPORT_VERSION) && !defined(_STLP_LONG_LONG)) || (defined(_MSC_VER) && _MSC_VER < 1310)
+#      define IUTEST_HAS_BIGGESTINT_OSTREAM		0
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_BIGGESTINT_OSTREAM)
+#  define IUTEST_HAS_BIGGESTINT_OSTREAM			1
 #endif
 
 }	// end of namespace iutest

@@ -217,8 +217,16 @@ public:
 /**
  * @brief	is_pointer
 */
+#if !defined(_MSC_VER) || _MSC_VER >= 1310
 template<typename T>
 struct is_pointer : public is_pointer_helper::is_pointer<T>::type {};
+#else
+template<typename T>
+struct is_pointer_impl : public is_pointer_helper::is_pointer<T> {};
+
+template<typename T>
+struct is_pointer : public is_pointer_impl<T>::type {};
+#endif
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
