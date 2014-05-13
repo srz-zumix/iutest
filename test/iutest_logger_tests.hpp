@@ -12,6 +12,8 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
+#ifndef INCG_IUTEST_LOGGER_TESTS_HPP_
+#define INCG_IUTEST_LOGGER_TESTS_HPP_
 
 //======================================================================
 // include
@@ -44,5 +46,7 @@ public:
 public:
 	const char* c_str(void) const { return m_log.c_str(); }
 };
+
+#endif
 
 #endif

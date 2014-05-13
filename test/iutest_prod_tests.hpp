@@ -12,8 +12,8 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
-#ifndef INCG_iutest_prod_tests_HPP_
-#define INCG_iutest_prod_tests_HPP_
+#ifndef INCG_IUTEST_PROD_TESTS_HPP_
+#define INCG_IUTEST_PROD_TESTS_HPP_
 
 //======================================================================
 // include

@@ -12,8 +12,8 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
-#ifndef INCG_iutest_param_test_tests_HPP_
-#define INCG_iutest_param_test_tests_HPP_
+#ifndef INCG_IUTEST_PARAM_TEST_TESTS_HPP_
+#define INCG_IUTEST_PARAM_TEST_TESTS_HPP_
 
 //======================================================================
 // include

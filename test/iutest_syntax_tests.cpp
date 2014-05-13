@@ -16,6 +16,7 @@
 //======================================================================
 // include
 #include "../include/iutest.hpp"
+#include "iutest_pred_tests.hpp"
 
 IUTEST(SyntaxTest, True)
 {
@@ -307,6 +308,102 @@ IUTEST(SyntaxTest, HResultFailed)
 	if( int x=1 )
 		IUTEST_ASSUME_HRESULT_FAILED(-1) << x;
 }
+
+#endif
+
+IUTEST(SyntaxTest, Pred1)
+{
+	if( int x=1 )
+		IUTEST_ASSERT_PRED1(IsOdd, x) << x;
+	if( int x=1 )
+		IUTEST_EXPECT_PRED1(IsOdd, x) << x;
+	if( int x=1 )
+		IUTEST_INFORM_PRED1(IsOdd, x) << x;
+	if( int x=1 )
+		IUTEST_ASSUME_PRED1(IsOdd, x) << x;
+}
+
+IUTEST(SyntaxTest, Pred2)
+{
+	if( int x=1 )
+		IUTEST_ASSERT_PRED2(IsGreater, 3, x) << x;
+	if( int x=1 )
+		IUTEST_EXPECT_PRED2(IsGreater, 3, x) << x;
+	if( int x=1 )
+		IUTEST_INFORM_PRED2(IsGreater, 3, x) << x;
+	if( int x=1 )
+		IUTEST_ASSUME_PRED2(IsGreater, 3, x) << x;
+}
+
+IUTEST(SyntaxTest, Pred3)
+{
+	if( int x=1 )
+		IUTEST_ASSERT_PRED3(PredTest3, 0, x, 2) << x;
+	if( int x=1 )
+		IUTEST_EXPECT_PRED3(PredTest3, 0, x, 2) << x;
+	if( int x=1 )
+		IUTEST_INFORM_PRED3(PredTest3, 0, x, 2) << x;
+	if( int x=1 )
+		IUTEST_ASSUME_PRED3(PredTest3, 0, x, 2) << x;
+}
+
+IUTEST(SyntaxTest, Pred4)
+{
+	if( int x=1 )
+		IUTEST_ASSERT_PRED4(PredTest4, 0, x, 2, 3) << x;
+	if( int x=1 )
+		IUTEST_EXPECT_PRED4(PredTest4, 0, x, 2, 3) << x;
+	if( int x=1 )
+		IUTEST_INFORM_PRED4(PredTest4, 0, x, 2, 3) << x;
+	if( int x=1 )
+		IUTEST_ASSUME_PRED4(PredTest4, 0, x, 2, 3) << x;
+}
+
+IUTEST(SyntaxTest, Pred5)
+{
+	if( int x=1 )
+		IUTEST_ASSERT_PRED5(PredTest5, 0, x, 2, 3, 4) << x;
+	if( int x=1 )
+		IUTEST_EXPECT_PRED5(PredTest5, 0, x, 2, 3, 4) << x;
+	if( int x=1 )
+		IUTEST_INFORM_PRED5(PredTest5, 0, x, 2, 3, 4) << x;
+	if( int x=1 )
+		IUTEST_ASSUME_PRED5(PredTest5, 0, x, 2, 3, 4) << x;
+}
+
+#if !defined(IUTEST_USE_GTEST)
+
+#if !defined(IUTEST_NO_VARIADIC_MACROS)
+
+#if IUTEST_HAS_VARIADIC_TEMPLATES
+
+IUTEST(SyntaxTest, VariadicPred)
+{
+	if( int x=1 )
+		IUTEST_ASSERT_PRED(PredTest6, 0, x, 2, 3, 4, 5) << x;
+	if( int x=1 )
+		IUTEST_EXPECT_PRED(PredTest6, 0, x, 2, 3, 4, 5) << x;
+	if( int x=1 )
+		IUTEST_INFORM_PRED(PredTest6, 0, x, 2, 3, 4, 5) << x;
+	if( int x=1 )
+		IUTEST_ASSUME_PRED(PredTest6, 0, x, 2, 3, 4, 5) << x;
+}
+
+#endif
+
+IUTEST(SyntaxTest, VariadicPredFormat)
+{
+	if( int x=1 )
+		IUTEST_ASSERT_PRED_FORMAT(Pred6Formater, 0, x, 2, 3, 4, 5) << x;
+	if( int x=1 )
+		IUTEST_EXPECT_PRED_FORMAT(Pred6Formater, 0, x, 2, 3, 4, 5) << x;
+	if( int x=1 )
+		IUTEST_INFORM_PRED_FORMAT(Pred6Formater, 0, x, 2, 3, 4, 5) << x;
+	if( int x=1 )
+		IUTEST_ASSUME_PRED_FORMAT(Pred6Formater, 0, x, 2, 3, 4, 5) << x;
+}
+
+#endif
 
 #endif
 

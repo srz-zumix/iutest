@@ -60,7 +60,7 @@ IUTEST(AssertionTest, Pred5)
 
 #if !defined(IUTEST_USE_GTEST)
 
-#ifndef IUTEST_NO_VARIADIC_MACROS
+#if !defined(IUTEST_NO_VARIADIC_MACROS)
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
 
@@ -73,12 +73,6 @@ IUTEST(AssertionTest, VariadicPred)
 }
 
 #endif
-
-template<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
-bool Pred6Formater(const char* , T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5)
-{
-	return PredTest6(t0, t1, t2, t3, t4, t5);
-}
 
 IUTEST(AssertionTest, VariadicPredFormat)
 {

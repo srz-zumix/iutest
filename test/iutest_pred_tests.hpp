@@ -12,8 +12,8 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
-#ifndef INCG_iutest_pred_tests_HPP_
-#define INCG_iutest_pred_tests_HPP_
+#ifndef INCG_IUTEST_PRED_TESTS_HPP_
+#define INCG_IUTEST_PRED_TESTS_HPP_
 
 //======================================================================
 // function
@@ -41,6 +41,11 @@ inline bool PredTest5(int v0, int v1, int v2, int v3, int v4)
 inline bool PredTest6(int v0, int v1, int v2, int v3, int v4, int v5)
 {
 	return PredTest5(v0, v1, v2, v3, v4) && v5 == 5;
+}
+template<typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
+bool Pred6Formater(const char* , T0 t0, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5)
+{
+	return PredTest6(t0, t1, t2, t3, t4, t5);
 }
 #endif
 
