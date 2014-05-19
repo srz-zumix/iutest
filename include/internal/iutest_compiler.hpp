@@ -201,7 +201,6 @@
 #  define IUTEST_CXX_CONSTEXPR			constexpr
 #  define IUTEST_CXX_CONSTEXPR_OR_CONST	constexpr
 #else
-#  define IUTEST_NO_CONSTEXPR
 #  define IUTEST_CXX_CONSTEXPR
 #  define IUTEST_CXX_CONSTEXPR_OR_CONST	const
 #endif

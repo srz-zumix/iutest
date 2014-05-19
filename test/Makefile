@@ -53,6 +53,7 @@ clean :
 	$(RM) *.xml
 !endif
 
+check: test
 run : test
 test : $(BUILD_ONLY) $(RUNNER)
 

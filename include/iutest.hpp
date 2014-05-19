@@ -20,6 +20,7 @@
 //======================================================================
 // include
 #include "iutest_ver.hpp"
+#include "iutest_core.hpp"
 #include "iutest_param_tests.hpp"
 #include "iutest_typed_tests.hpp"
 #include "iutest_prod.hpp"

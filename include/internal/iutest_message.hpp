@@ -18,7 +18,6 @@
 //======================================================================
 // include
 #include "../iutest_env.hpp"
-#include "iutest_constant.hpp"
 
 namespace iutest {
 namespace detail

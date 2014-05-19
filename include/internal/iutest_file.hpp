@@ -203,8 +203,6 @@ class StringStreamFile : public IFile
 public:
 	/**
 	 * @brief	開く
-	 * @param [in]	filename	= unused
-	 * @param [in]	mode		= unused
 	 * @return	成否
 	*/
 	virtual bool Open(const char* , int ) IUTEST_CXX_OVERRIDE

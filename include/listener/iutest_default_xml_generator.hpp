@@ -15,10 +15,6 @@
 #ifndef INCG_IRIS_IUTEST_DEFAULT_XML_GENERATOR_HPP_791DCB98_05CC_49BA_8518_0EC9CA2B5450_
 #define INCG_IRIS_IUTEST_DEFAULT_XML_GENERATOR_HPP_791DCB98_05CC_49BA_8518_0EC9CA2B5450_
 
-//======================================================================
-// include
-#include "../iutest_core.hpp"
-
 namespace iutest
 {
 

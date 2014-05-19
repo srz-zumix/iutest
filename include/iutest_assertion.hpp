@@ -117,7 +117,7 @@ public:
 	*/
 	template<typename T>
 	static AssertionResult Is(const T& b) { return AssertionResult(b ? true : false); }
-	/** @override */
+	/** @overload */
 	static AssertionResult Is(const AssertionResult& ar) { return AssertionResult(ar); }
 
 private:

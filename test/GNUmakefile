@@ -122,6 +122,7 @@ ifdef COVERAGE
 	$(RM) *.xml *.gcov *.gcno *.gcda
 endif
 
+check : test
 run : test
 test : $(BUILD_ONLY) $(RUNNER)
 
