@@ -205,7 +205,7 @@ inline void iuConsole::color_output_impl(Color color, const char* fmt, va_list v
 {
 	(void)(fmt);
 	(void)(va);
-#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE)
+#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
 	if( !IsColorModeAnsi() )
 	{
 		const WORD attr[] = {

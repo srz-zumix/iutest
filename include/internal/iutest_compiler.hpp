@@ -47,6 +47,9 @@
 #    if defined(WINAPI_FAMILY_PHONE_APP) && (WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
 #      define IUTEST_OS_WINDOWS_PHONE	1
 #      define IUTEST_PLATFORM			"Windows Phone"
+#    elif defined(WINAPI_FAMILY_APP) && (WINAPI_FAMILY == WINAPI_FAMILY_APP)
+#      define IUTEST_OS_WINDOWS_RT		1
+#      define IUTEST_PLATFORM			"Windows RT"
 #    else
 #      define IUTEST_OS_WINDOWS_DESKTOP	1
 #    endif

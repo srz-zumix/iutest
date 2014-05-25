@@ -17,6 +17,14 @@
 // include
 #include "../include/iutest.hpp"
 
+#if !defined(IUTEST_USE_GTEST)
+IUTEST(VersionTest, Check)
+{
+	unsigned long v = (IUTEST_MAJORVER << 24) | (IUTEST_MINORVER << 16) | (IUTEST_BUILD << 8) | IUTEST_REVISION;
+	IUTEST_ASSERT_EQ( IUTEST_VER, v );
+}
+#endif
+
 IUTEST(CommandLineFlagTest, CanBeAccessed)
 {
 	bool dummy = ::iutest::IUTEST_FLAG(also_run_disabled_tests)

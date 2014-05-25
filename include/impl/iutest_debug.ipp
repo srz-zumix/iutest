@@ -20,7 +20,7 @@
 #include "../internal/iutest_debug.hpp"
 
 #if defined(_MSC_VER) && _MSC_VER >= 1310
-#  if !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE)
+#  if !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
 #    include <DbgHelp.h>
 //#  pragma comment (lib, "dbghelp.lib")
 #  endif

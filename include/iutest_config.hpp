@@ -340,6 +340,15 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_AUTOFIXTURE_PARAM_TEST)
+//! fixture の自動定義に対応したパラメータ化テストが使用可能かどうか
+#  if IUTEST_HAS_PARAM_TEST && (IUTEST_HAS_IF_EXISTS || !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION))
+#    define IUTEST_HAS_AUTOFIXTURE_PARAM_TEST	1
+#  else
+#    define IUTEST_HAS_AUTOFIXTURE_PARAM_TEST	0
+#  endif
+#endif
+
 #if !defined(IUTEST_HAS_ANY_PARAM_TEST)
 //! any を利用した値のパラメータ化テストが使用可能かどうか
 #  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TESTNAME_ALIAS
@@ -425,7 +434,7 @@
 #if !defined(IUTEST_HAS_MINIDUMP)
 //! MiniDump 出力が有効かどうか
 #  if defined(_MSC_VER) && _MSC_VER >= 1310
-#    if IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH && !defined(IUTEST_OS_WINDOWS_PHONE)
+#    if IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
 #      define IUTEST_HAS_MINIDUMP	1
 #    endif
 #  endif
@@ -437,7 +446,7 @@
 
 #if !defined(IUTEST_HAS_SOCKET)
 //! ソケット通信可能かどうか
-#  if defined(IUTEST_OS_WINDOWS)
+#  if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_RT)
 #    if !defined(_MSC_VER) || _MSC_VER >= 1310
 #      define IUTEST_HAS_SOCKET	1
 #    endif

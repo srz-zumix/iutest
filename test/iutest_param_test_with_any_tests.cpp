@@ -52,7 +52,7 @@ IUTEST_INSTANTIATE_TEST_CASE_AP(My1, AnyParamTest, ::iutest::Values(0));
 
 #endif
 
-#if IUTEST_HAS_IF_EXISTS
+#if IUTEST_HAS_AUTOFIXTURE_PARAM_TEST
 
 IUTEST_P(NoFixtureAnyParamTest, Test)
 {
@@ -61,6 +61,16 @@ IUTEST_P(NoFixtureAnyParamTest, Test)
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P(My1, NoFixtureAnyParamTest, ::iutest::Values(0));
+
+#if IUTEST_HAS_IGNORE_TEST
+IUTEST_P(NoFixtureAnyParamIgnoreTest, Test)
+{
+	const int value = GetParam<int>();
+	IUTEST_ASSERT_EQ(0, value);
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_P(My1, NoFixtureAnyParamIgnoreTest, ::iutest::Values(0));
+#endif
 
 #endif
 

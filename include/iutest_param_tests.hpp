@@ -17,7 +17,6 @@
 
 //======================================================================
 // include
-#include "iutest_core.hpp"
 #include "iutest_any.hpp"
 
 #if IUTEST_HAS_PARAM_TEST
@@ -97,25 +96,35 @@
 	::iutest::UnitTest::GetInstance()->parameterized_test_registry().GetTestCasePatternHolder(testcase_, package_, &::iutest::detail::type<T>())
 #endif
 
-#if IUTEST_HAS_IF_EXISTS
-#define IIUT_TEST_P_FIXTURE_DECL_(testcase_)	IIUT_TEST_P_FIXTURE_DECL_I(IIUT_TO_VARNAME_(testcase_))
-#define IIUT_TEST_P_FIXTURE_DECL_I(testcase_)	IUTEST_IF_NOT_EXISTS(testcase_, typedef ::iutest::TestWithAny testcase_;)
+#if IUTEST_HAS_AUTOFIXTURE_PARAM_TEST
+#  if IUTEST_HAS_IF_EXISTS
+#    define IIUT_TEST_P_FIXTURE_DECL_(testcase_)	IIUT_TEST_P_FIXTURE_DECL_I(IIUT_TO_VARNAME_(testcase_))
+#    define IIUT_TEST_P_FIXTURE_DECL_I(testcase_)	IUTEST_IF_NOT_EXISTS(testcase_, typedef ::iutest::TestWithAny testcase_;)
+#    define IIUT_TEST_P_BASE_FIXTURE(testcase_)		IIUT_TO_VARNAME_(testcase_)
+#  else
+#    define IIUT_TEST_P_FIXTURE_DECL_(testcase_)
+#    if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#      define IIUT_TEST_P_BASE_FIXTURE(testcase_)	::iutest::detail::paramtest_select_base_testcase< void (int (IIUT_TO_VARNAME_(testcase_))) >::type
+#    else
+#      define IIUT_TEST_P_BASE_FIXTURE(testcase_)	IIUT_TO_VARNAME_(testcase_)
+#    endif
+#  endif
 #else
-#define IIUT_TEST_P_FIXTURE_DECL_(testcase_)
+#  define IIUT_TEST_P_FIXTURE_DECL_(testcase_)
+#  define IIUT_TEST_P_BASE_FIXTURE(testcase_)		IIUT_TO_VARNAME_(testcase_)
 #endif
-
 
 /**
  * @brief	パラメータテスト登録
 */
-#define IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_)						\
-	IIUT_TEST_P_FIXTURE_DECL_(testcase_)													\
-	static ::iutest::detail::iuIParamGenerator< IIUT_TO_VARNAME_(testcase_)::ParamType >*	\
-		IUTEST_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)(void) { return generator_; }	\
-		int IUTEST_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)(void) {			\
-			::iutest::detail::ParamTestCaseInfo< IIUT_TO_VARNAME_(testcase_) >* p =			\
-				IIUT_GETTESTCASEPATTERNHOLDER( IIUT_TO_VARNAME_(testcase_)					\
-					, IIUT_TO_NAME_STR_(testcase_), IUTEST_GET_PACKAGENAME_());				\
+#define IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_)								\
+	IIUT_TEST_P_FIXTURE_DECL_(testcase_)															\
+	static ::iutest::detail::iuIParamGenerator< IIUT_TEST_P_BASE_FIXTURE(testcase_)::ParamType >*	\
+		IUTEST_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)(void) { return generator_; }			\
+		int IUTEST_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)(void) {					\
+			::iutest::detail::ParamTestCaseInfo< IIUT_TEST_P_BASE_FIXTURE(testcase_) >* p =			\
+				IIUT_GETTESTCASEPATTERNHOLDER( IIUT_TEST_P_BASE_FIXTURE(testcase_)					\
+					, IIUT_TO_NAME_STR_(testcase_), IUTEST_GET_PACKAGENAME_());						\
 			return p->AddTestCaseInstantiation(#prefix_, IUTEST_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_));	\
 		} IUTEST_TEST_P_INSTANTIATIONREGISTER_(prefix_, testcase_)
 
@@ -124,13 +133,13 @@
 */
 #define IIUT_TEST_P_(testcase_, testname_)															\
 	IIUT_TEST_P_FIXTURE_DECL_(testcase_)															\
-	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public IIUT_TO_VARNAME_(testcase_) {		\
+	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public IIUT_TEST_P_BASE_FIXTURE(testcase_) {		\
 		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}								\
 		protected: virtual void Body(void);															\
 		private: static int AddRegister(void) {														\
 			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_			\
 				, testname_) > testinfo(IIUT_TO_NAME_STR_(testname_));								\
-			IIUT_GETTESTCASEPATTERNHOLDER(IIUT_TO_VARNAME_(testcase_), IIUT_TO_NAME_STR_(testcase_)	\
+			IIUT_GETTESTCASEPATTERNHOLDER(IIUT_TEST_P_BASE_FIXTURE(testcase_), IIUT_TO_NAME_STR_(testcase_)	\
 					, IUTEST_GET_PACKAGENAME_())->AddTestPattern(&testinfo); return 0;				\
 		}																							\
 		static int dummy_;																			\
@@ -141,14 +150,14 @@
 	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body(void)
 
 #define IIUT_TEST_P_IGNORE_(testcase_, testname_)													\
-	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public IIUT_TO_VARNAME_(testcase_) {		\
+	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public IIUT_TEST_P_BASE_FIXTURE(testcase_) {		\
 		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}								\
 		protected: virtual void Body(void) { IUTEST_SKIP() << "ignored test..."; }					\
 		template<typename T>void Body(void);														\
 		private: static int AddRegister(void) {														\
 			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_			\
 				, testname_) > testinfo(IIUT_TO_NAME_STR_(testname_));								\
-			IIUT_GETTESTCASEPATTERNHOLDER(IIUT_TO_VARNAME_(testcase_), IIUT_TO_NAME_STR_(testcase_)	\
+			IIUT_GETTESTCASEPATTERNHOLDER(IIUT_TEST_P_BASE_FIXTURE(testcase_), IIUT_TO_NAME_STR_(testcase_)	\
 				, IUTEST_GET_PACKAGENAME_())->AddTestPattern(&testinfo); return 0;					\
 		}																							\
 		static int dummy_;																			\
@@ -252,6 +261,30 @@ public:
 	template<typename T>
 	static T GetParam(void) { return unsafe_any_cast<T>(WithParamInterface<any>::GetParam()); }
 };
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+namespace detail
+{
+
+/**
+ * @brief	クラス選択
+*/
+template<typename T>
+struct paramtest_select_base_testcase;
+
+template<>
+struct paramtest_select_base_testcase< void(int) >
+{
+	typedef TestWithAny type;
+};
+template<typename T>
+struct paramtest_select_base_testcase< void(int (T)) >
+{
+	typedef T type;
+};
+
+}	// end of namespace detail
+#endif
 
 //======================================================================
 // function

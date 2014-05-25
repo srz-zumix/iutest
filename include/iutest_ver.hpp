@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01090001u	//!< iutest version 1.9.0.1
+#define	IUTEST_VER			0x01090002u	//!< iutest version 1.9.0.2
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x09u		//!< Minor Version
 #define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x01u		//!< Revision
+#define IUTEST_REVISION		0x02u		//!< Revision
 
 /**
  * @mainpage
@@ -110,6 +110,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
+  <li>v1.9.1.0
+    <ul>
+      <li>TestFixutre を定義しなくても IUTEST_P が使えるように修正</li>
+    </ul>
+  </li>
   <li>v1.9.0.0
     <ul>
       <li>IUTEST_*_THAT 追加</li>
