@@ -197,6 +197,17 @@ IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 2, 2);
 *//*--------------------------------------------------*/
 #if defined(SHOW_FAILURE)	// Failure Test
 
+class TestPFailure : public ::iutest::TestWithParam < int >
+{
+};
+
+IUTEST_P(TestPFailure, Test)
+{
+	int v = GetParam();
+	IUTEST_FAIL() << v;
+}
+IUTEST_INSTANTIATE_TEST_CASE_P(A, TestPFailure, ::iutest::Values(0, 1, 2, 3));
+
 /* ---------------------------------------------------
  * パラメタライズ関数コール
 *//*--------------------------------------------------*/

@@ -387,19 +387,23 @@ private:
 
 /**
  * @private
+ * @brief	型パラメータテストのインスタンスベースクラス
+*/
+class ITypedParameEachTestBase
+{
+public:
+	virtual ~ITypedParameEachTestBase(void) {}
+};
+
+/**
+ * @private
  * @brief	型パラメータテストのインスタンス化クラス
 */
 template<IUTEST_TEMPLATE_TPARAM1 Fixture, typename Tests, typename Types>
 class TypeParameterizedTestCase
 {
-	class IEachTest
-	{
-	public:
-		virtual ~IEachTest(void) {}
-	};
-
 	template<typename TypeParam, typename TestsList>
-	class EachTest : public IEachTest
+	class EachTest : public ITypedParameEachTestBase
 	{
 		typedef typename TestsList::Head 		TypeSel;
 		typedef typename TypeSel::template bind<TypeParam>::type	TestBody;
@@ -431,7 +435,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 			}
 			_Myt* test = new EachTest(testcase, test_name.c_str());
 			// new オブジェクトを管理してもらう
-			detail::iuPool<IEachTest>::GetInstance().push(test);
+			detail::iuPool<ITypedParameEachTestBase>::GetInstance().push(test);
 
 			EachTest<TypeParam, typename TestsList::Tail>::Register(testcase, detail::SkipSpace(comma));
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()

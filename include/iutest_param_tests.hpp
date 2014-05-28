@@ -202,7 +202,7 @@ class ParamTestInstance : public IParamTestInfoData<typename T::ParamType>
 	typedef IParamTestInfoData<ParamType>	_Mybase;
 
 	// 各テストのインスタンス
-	class EachTest
+	class EachTest : public IParamEachTestBase
 	{
 	public:
 		EachTest(TestCase* testcase, const char* name, ParamType param)
@@ -213,6 +213,7 @@ class ParamTestInstance : public IParamTestInfoData<typename T::ParamType>
 			UnitTest::instance().AddTestInfo(testcase, &m_info);
 			m_info.set_value_param(PrintToString(param).c_str());
 		}
+		~EachTest(void) {}
 	private:
 		TestCaseMediator	m_mediator;
 		Factory				m_factory;
@@ -237,7 +238,7 @@ private:
 	{
 		EachTest* test = new EachTest(testcase, detail::MakeIndexTestName(this->m_name.c_str(), index).c_str(), param);
 		// new オブジェクトを管理してもらう
-		detail::iuPool<EachTest>::GetInstance().push(test);
+		detail::iuPool<IParamEachTestBase>::GetInstance().push(test);
 	}
 };
 
