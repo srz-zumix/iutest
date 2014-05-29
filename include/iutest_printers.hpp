@@ -259,6 +259,10 @@ inline void PrintTo(const char value, iu_ostream* os)
 	{
 		*os << "\\0";
 	}
+	else if( value < 0x20 )
+	{
+		*os << static_cast<int>(value);
+	}
 	else
 	{
 		*os << "\'" << value << "\'";
@@ -269,6 +273,10 @@ inline void PrintTo(const wchar_t value, iu_ostream* os)
 	if( value == 0 )
 	{
 		*os << "\\0";
+	}
+	else if( value < 0x20 )
+	{
+		*os << static_cast<int>(value);
 	}
 	else
 	{

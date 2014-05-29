@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01090004u	//!< iutest version 1.9.0.4
+#define	IUTEST_VER			0x01090005u	//!< iutest version 1.9.0.5
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x09u		//!< Minor Version
 #define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x04u		//!< Revision
+#define IUTEST_REVISION		0x05u		//!< Revision
 
 /**
  * @mainpage
@@ -66,7 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @par		Command Line Options
  <table>
    <tr><td>--help, -h                        </td><td></td><td>Generate help message.</td></tr>
-   <tr><td>--iutest_output                   </td><td>xml[:path]</td><td>Path of xml report.</td></tr>
+   <tr><td>--iutest_output                   </td><td>xml|junit[:path]</td><td>Path of xml report.</td></tr>
    <tr><td>--iutest_list_tests               </td><td></td><td>List up tests.</td></tr>
    <tr><td>--iutest_list_tests_with_where    </td><td></td><td>List up tests with where.</td></tr>
    <tr><td>--iutest_color                    </td><td>&lt;yes|no|auto|ansi&gt;</td><td>Console color enable.</td></tr>
@@ -91,7 +91,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	ENVIRONMENT_OPTIONS	環境変数オプション
  * @par		Environment variable Options
  <table>
-   <tr><td>IUTEST_OUTPUT=xml[:path]        </td><td>Path of xml report.</td></tr>
+   <tr><td>IUTEST_OUTPUT=xml|junit[:path]  </td><td>Path of xml report.</td></tr>
    <tr><td>IUTEST_COLOR=yes|no|auto        </td><td>Console color enable.</td></tr>
    <tr><td>IUTEST_FILTER=filter            </td><td>Select the test run.</td></tr>
    <tr><td>IUTEST_SHUFFLE                  </td><td>Do shuffle test.</td></tr>
