@@ -278,45 +278,43 @@ IUTEST(StaticTest, Eq)
 /* ---------------------------------------------------
  * 失敗の確認
 *//*--------------------------------------------------*/
-#if defined(SHOW_FAILURE)	// Failure Test
-
-IUTEST(TestFailure, EQ)
+IUTEST(DISABLED_TestFailure, EQ)
 {
 	IUTEST_ASSERT_EQ(0, 1);
 }
 
-IUTEST(TestFailure, NE)
+IUTEST(DISABLED_TestFailure, NE)
 {
 	int x=1, y=1;
 	IUTEST_ASSERT_NE(x, y);
 }
 
-IUTEST(TestFailure, GE)
+IUTEST(DISABLED_TestFailure, GE)
 {
 	float a = 0.1f, b = 1.0f;
 	IUTEST_ASSERT_GE(a, b);
 }
 
-IUTEST(TestFailure, TRUE)
+IUTEST(DISABLED_TestFailure, TRUE)
 {
 	IUTEST_ASSERT_TRUE(0);
 	IUTEST_ASSERT_TRUE(false);
 }
 
-IUTEST(TestFailure, FALSE)
+IUTEST(DISABLED_TestFailure, FALSE)
 {
 	IUTEST_ASSERT_FALSE(true);
 	IUTEST_ASSERT_FALSE(2);
 }
 
-IUTEST(TestFailure, Fail)
+IUTEST(DISABLED_TestFailure, Fail)
 {
 	IUTEST_FAIL() << "add messages.\n";
 }
 
 #if defined(IUTEST_OS_WINDOWS)
 
-IUTEST(TestFailure, HRESULT)
+IUTEST(DISABLED_TestFailure, HRESULT)
 {
 	IUTEST_ASSERT_HRESULT_SUCCEEDED(E_OUTOFMEMORY);
 }
@@ -325,24 +323,24 @@ IUTEST(TestFailure, HRESULT)
 
 void AssertFunc(void)
 {
-	IUTEST_ASSERT_TRUE(FALSE);
+	IUTEST_ASSERT_TRUE(false);
 }
 
-IUTEST(TestFailure, NoFailure)
+IUTEST(DISABLED_TestFailure, NoFailure)
 {
 	IUTEST_INFORM_NO_FATAL_FAILURE( AssertFunc() );
 	IUTEST_EXPECT_NO_FATAL_FAILURE( AssertFunc() );
 	IUTEST_ASSERT_NO_FATAL_FAILURE( AssertFunc() );
 }
 
-IUTEST(TestExpectFailure, Pred)
+IUTEST(DISABLED_TestFailure, Pred)
 {
 	int x=4, y=5;
 	IUTEST_EXPECT_PRED1(IsOdd, x);
 	IUTEST_EXPECT_PRED2(IsGreater, x, y);
 }
 
-IUTEST(TestExpectFailure, Mix)
+IUTEST(DISABLED_TestFailure, Mix)
 {
 	IUTEST_EXPECT_EQ(0.1, 1);
 	IUTEST_EXPECT_NE(0, 0);
@@ -375,5 +373,3 @@ IUTEST(TestExpectFailure, Mix)
 		IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0])));
 	}
 }
-
-#endif

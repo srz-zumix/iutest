@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01090005u	//!< iutest version 1.9.0.5
+#define	IUTEST_VER			0x01090006u	//!< iutest version 1.9.0.6
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x09u		//!< Minor Version
 #define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x05u		//!< Revision
+#define IUTEST_REVISION		0x06u		//!< Revision
 
 /**
  * @mainpage
@@ -112,6 +112,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  <ul>
   <li>v1.9.1.0
     <ul>
+      <li>IUTEST_P,IUTEST_TYPED_TEST_P で DISABLED_ 指定が機能しない問題を修正</li>
       <li>TestFixutre を定義しなくても IUTEST_P が使えるように修正</li>
     </ul>
   </li>

@@ -109,11 +109,9 @@ IUTEST_PACKAGE(TestPackage)
 /* ---------------------------------------------------
  * 失敗の確認
 *//*--------------------------------------------------*/
-#if defined(SHOW_FAILURE)	// Failure Test
-
 #if IUTEST_HAS_GENRAND
 
-IUTEST(TestExpectFailure, Random)
+IUTEST(DISABLED_TestFailure, Random)
 {
 	IUTEST_EXPECT_EQ( genrand(), genrand() );
 	IUTEST_EXPECT_EQ( genrand(), genrand() );
@@ -135,7 +133,7 @@ static void Sub2(int n)
 	IUTEST_ASSERT_EQ(1, n);
 }
 
-IUTEST(TestFailureSubroutine, Test1)
+IUTEST(DISABLED_TestFailure, Subroutine1)
 {
 	{
 		int x=100;
@@ -147,7 +145,7 @@ IUTEST(TestFailureSubroutine, Test1)
 	Sub1(3);
 }
 
-IUTEST(TestFailureSubroutine, Test2)
+IUTEST(DISABLED_TestFailure, Subroutine2)
 {
 	{
 		IUTEST_SCOPED_TRACE("routine2.");
@@ -158,5 +156,3 @@ IUTEST(TestFailureSubroutine, Test2)
 	// ここの失敗には "routine2." のメッセージは表示されません。
 	Sub2(3);
 }
-
-#endif

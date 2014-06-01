@@ -180,6 +180,11 @@ IUTEST(PrintToTest, WideString)
 		wchar_t c = 0;
 		IUTEST_SUCCEED() << ::iutest::PrintToString(c);
 	}
+	{
+		LogChecker ck("10");
+		wchar_t c = L'\n';
+		IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+	}
 //	{
 //		LogChecker ck("\'A\'");
 //		wchar_t c = L'A';
@@ -201,6 +206,11 @@ IUTEST(PrintToTest, String)
 	{
 		LogChecker ck("\\0");
 		char c = 0;
+		IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+	}
+	{
+		LogChecker ck("10");
+		char c = '\n';
 		IUTEST_SUCCEED() << ::iutest::PrintToString(c);
 	}
 	{

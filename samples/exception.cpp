@@ -76,10 +76,8 @@ IUTEST(AssertionTest, Exception2)
 /* ---------------------------------------------------
  * 失敗の確認
 *//*--------------------------------------------------*/
-#if defined(SHOW_FAILURE)	// Failure Test
-
 #if IUTEST_HAS_EXCEPTIONS
-IUTEST(TestExpectFailure, Exception)
+IUTEST(DISABLED_TestFailure, Exception)
 {
 	IUTEST_EXPECT_THROW(ExceptionFunction(0), int);
 	IUTEST_EXPECT_ANY_THROW(ExceptionFunction(0));
@@ -92,11 +90,13 @@ IUTEST(TestExpectFailure, Exception)
 	IUTEST_EXPECT_THROW_VALUE_STREQ(ExceptionFunction(3), const char *, "Error");
 	IUTEST_EXPECT_THROW_VALUE_STRCASEEQ(ExceptionFunction(3), const char *, "rror");
 }
-IUTEST(TestExpectFailure, UnexpectedException1)
+
+IUTEST(DISABLED_TestFailure, UnexpectedException1)
 {
 	throw "fail";
 }
-IUTEST(TestExpectFailure, UnexpectedException2)
+
+IUTEST(DISABLED_TestFailure, UnexpectedException2)
 {
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 IUTEST_PRAGMA_GCC_WARN_PUSH()
@@ -107,6 +107,4 @@ IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wnonnull")
 IUTEST_PRAGMA_GCC_WARN_POP()
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 }
-#endif
-
 #endif

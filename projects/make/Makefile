@@ -109,7 +109,7 @@ clean :
 	rm -f $(TESTS) $(LIBRARYS) *.o
 	
 run : $(TESTS)
-	./$(TESTS)
+	./$(TESTS) $(RUN_OPTION)
 
 # Builds a library
 .o.a : $(IUTEST_SRCS)

@@ -195,34 +195,32 @@ IUTEST_PMZ_F(ParamMethodTestFixed, EQ, TestFunction, 2, 2);
 /* ---------------------------------------------------
  * 失敗の確認
 *//*--------------------------------------------------*/
-#if defined(SHOW_FAILURE)	// Failure Test
 
-class TestPFailure : public ::iutest::TestWithParam < int >
+class TestPFailure : public ::iutest::TestWithParam< int >
 {
 };
 
-IUTEST_P(TestPFailure, Test)
+typedef TestPFailure DISABLED_TestPFailure;
+IUTEST_P(DISABLED_TestPFailure, Test)
 {
 	int v = GetParam();
 	IUTEST_FAIL() << v;
 }
-IUTEST_INSTANTIATE_TEST_CASE_P(A, TestPFailure, ::iutest::Values(0, 1, 2, 3));
+IUTEST_INSTANTIATE_TEST_CASE_P(A, DISABLED_TestPFailure, ::iutest::Values(0, 1, 2, 3));
 
 /* ---------------------------------------------------
  * パラメタライズ関数コール
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_PARAM_METHOD_TEST
 
-IUTEST_PMZ(TestFailureParamMethod, EQ, TestFunction, 0, 0);
-IUTEST_PMZ(TestFailureParamMethod, EQ, TestFunction, 1, 2);
-IUTEST_PMZ(TestFailureParamMethod, EQ, TestFunction, 2, 2);
+IUTEST_PMZ(DISABLED_TestFailureParamMethod, EQ, TestFunction, 0, 0);
+IUTEST_PMZ(DISABLED_TestFailureParamMethod, EQ, TestFunction, 1, 2);
+IUTEST_PMZ(DISABLED_TestFailureParamMethod, EQ, TestFunction, 2, 2);
 
-typedef ParamMethodTestFixed TestFailureParamMethodFixed;
+typedef ParamMethodTestFixed DISABLED_TestFailureParamMethodFixed;
 
-IUTEST_PMZ_F(TestFailureParamMethodFixed, EQ, TestFunction, 0, 0);
-IUTEST_PMZ_F(TestFailureParamMethodFixed, EQ, TestFunction, 1, 1);
-IUTEST_PMZ_F(TestFailureParamMethodFixed, EQ, TestFunction, 2, 3);
-
-#endif
+IUTEST_PMZ_F(DISABLED_TestFailureParamMethodFixed, EQ, TestFunction, 0, 0);
+IUTEST_PMZ_F(DISABLED_TestFailureParamMethodFixed, EQ, TestFunction, 1, 1);
+IUTEST_PMZ_F(DISABLED_TestFailureParamMethodFixed, EQ, TestFunction, 2, 3);
 
 #endif

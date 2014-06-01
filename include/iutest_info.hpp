@@ -50,7 +50,8 @@ public:
 		, m_matches_filter(true)
 	{
 		m_mediator.SetPointer(this);
-		if( detail::IsStringForwardMatching(name, "DISABLED_") )
+		if( detail::IsStringForwardMatching(name, "DISABLED_")
+			|| (strstr(name, "/DISABLED_") != NULL) )
 		{
 			m_disable = true;
 		}
