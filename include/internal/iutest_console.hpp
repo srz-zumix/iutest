@@ -27,7 +27,7 @@ namespace detail
 //======================================================================
 // define
 #ifndef IUTEST_VPRINTF
-#  define IUTEST_VPRINTF(f, a)	vprintf(f, a)
+#  define IUTEST_VPRINTF(f, a)	vprintf(f, a)	//!< vprintf 呼び出しマクロ
 #endif
 
 #ifndef IUTEST_HAS_COLORCONSOLE

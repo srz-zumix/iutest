@@ -94,6 +94,7 @@ inline void iuOptionMessage::ShowVersion(void)
 
 inline void iuOptionMessage::ShowFeature(void)
 {
+/** @private */
 #define SHOW_MACRO(macro)	detail::iuConsole::output("#define %s  %s\n", #macro, IUTEST_PP_TOSTRING(macro))
 	SHOW_MACRO(IUTEST_HAS_ANY_PARAM_TEST);
 	SHOW_MACRO(IUTEST_HAS_ASSERTION_RETURN);

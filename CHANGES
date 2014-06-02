@@ -2,7 +2,7 @@
 Changes for 1.9.1:
 
 ** 変更
-* TestFixutre を定義しなくても IUTEST_P が使えるように修正
+* TestFixutre を定義しなくても IUTEST_P が使えるように対応
 
 ** 修正
 * IUTEST_P,IUTEST_TYPED_TEST_P で DISABLED_ 指定が機能しない問題を修正

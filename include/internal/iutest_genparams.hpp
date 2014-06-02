@@ -322,6 +322,11 @@ private:
 	A1 v1;	A2 v2;
 };
 */
+
+/**
+ * @private
+ * @{
+*/
 #define IIUT_DECL_VALUEARRAY_CONSTRUCT_(i, p1, p2)		IUTEST_PP_CAT(p1, i)(IUTEST_PP_CAT(p2, i))
 #define IIUT_DECL_VALUEARRAY_STATICCAST_(i, p1, p2)		static_cast<p1>(IUTEST_PP_CAT(p2, i))
 #define IIUT_DECL_VALUEARRAY_VARIABLE_(i, p1, p2)		IUTEST_PP_CAT(p1, i) IUTEST_PP_CAT(p2, i);
@@ -341,6 +346,9 @@ private:
 		}																			\
 	private: IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_VALUEARRAY_VARIABLE_, A, v)		\
 	}
+/**
+ * @}
+*/
 
 IIUT_DECL_VALUEARRAY_(1);
 IIUT_DECL_VALUEARRAY_(2);
@@ -618,6 +626,10 @@ public:
 };
 */
 
+/**
+ * @private
+ * @{
+*/
 #define IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_TYPEDEF_(i, p1, p2)		\
 	typedef iuParamGenerator<IUTEST_PP_CAT(p1, i)> IUTEST_PP_CAT(p2, i);
 
@@ -649,6 +661,10 @@ public:
 				, IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_TUPLEGET_, params) );			\
 		}																	\
 	}
+/**
+ * @}
+*/
+
 
 IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_(3);
 IIUT_DECL_CARTESIAN_PRODUCT_GENERATOR_(4);
@@ -699,6 +715,10 @@ private:
 };
 */
 
+/**
+ * @private
+ * @{
+*/
 #define IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_CONSTRUCT_(i, p1, p2)	IUTEST_PP_CAT(p1, i)(IUTEST_PP_CAT(p2, i))
 #define IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_STATICCAST_(i, p1, p2)	\
 	static_cast< iuIParamGenerator< IUTEST_PP_CAT(p1, i) >* >(IUTEST_PP_CAT(p2, i))
@@ -722,6 +742,10 @@ private:
 	private: void operator = (const _Myt&) {}					\
 		IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_VARIABLE_, const Generator, m_g)		\
 	}
+
+/**
+ * @}
+*/
 
 IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_(2);
 IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_(3);
@@ -1181,6 +1205,10 @@ public:
 };
 */
 
+/**
+ * @private
+ * @{
+*/
 #define IIUT_DECL_PAIRWISE_GENERATOR_TEMPLATE_T_(i, p1, p2)			\
 	p1<IUTEST_PP_CAT(T, i)> IUTEST_PP_CAT(p2, i);
 #define IIUT_DECL_PAIRWISE_GENERATOR_MAKEPARAM_VECTOR_(i, p1, p2)	\
@@ -1212,6 +1240,10 @@ public:
 			return new iuValuesInParamsGenerator< ParamType >(params);		\
 		}																	\
 	}
+
+/**
+ * @}
+*/
 
 IIUT_DECL_PAIRWISE_GENERATOR_(3);
 IIUT_DECL_PAIRWISE_GENERATOR_(4);

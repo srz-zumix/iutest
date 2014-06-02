@@ -113,7 +113,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <li>v1.9.1.0
     <ul>
       <li>IUTEST_P,IUTEST_TYPED_TEST_P で DISABLED_ 指定が機能しない問題を修正</li>
-      <li>TestFixutre を定義しなくても IUTEST_P が使えるように修正</li>
+      <li>TestFixutre を定義しなくても IUTEST_P が使えるように対応</li>
     </ul>
   </li>
   <li>v1.9.0.0

@@ -689,6 +689,7 @@
 #  endif
 #endif
 
+// explicit instantiation access checking (static member function)
 #if !defined(IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_STATIC_MEMBER_FUNCTION)
 #  if defined(_MSC_VER)
 // Visual Studio では、private な static メンバー関数に explicit instantiation でもアクセスできない
@@ -705,7 +706,7 @@
 #  endif
 #endif
 
-// has __COUNTER__
+//! has __COUNTER__
 #if !defined(IUTEST_HAS_COUNTER_MACRO)
 #  if   defined(_MSC_VER) && (_MSC_VER >= 1300)
 #    define IUTEST_HAS_COUNTER_MACRO		1
@@ -736,7 +737,7 @@
 #  endif
 #endif
 
-// explicit class member template specialization
+//! explicit class member template specialization
 #if !defined(IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION)
 #  if defined(_MSC_VER)
 #    define IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION	1
