@@ -6,6 +6,7 @@ Changes for 1.9.1:
 
 ** 修正
 * IUTEST_P,IUTEST_TYPED_TEST_P で DISABLED_ 指定が機能しない問題を修正
+* Visual Studio 14 CTP 対応
 
 --------------------------------------------------
 Changes for 1.9.0:

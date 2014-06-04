@@ -184,7 +184,7 @@
 #      define IUTEST_HAS_CONSTEXPR	0
 #    endif
 #  elif defined(_MSC_VER)
-#    if _MSC_FULL_VER == 180021114
+#    if _MSC_VER >= 1900 || _MSC_FULL_VER == 180021114
 #      define IUTEST_HAS_CONSTEXPR	1
 #    else
 #      define IUTEST_HAS_CONSTEXPR	0
@@ -570,6 +570,9 @@
 #      define IUTEST_HAS_STRONG_ENUMS	1
 #    endif
 #  elif defined(_MSC_VER)
+#    if _MSC_VER >= 1700
+#      define IUTEST_HAS_STRONG_ENUMS	1
+#    endif
 #  endif
 #endif
 
@@ -681,7 +684,7 @@
 
 // explicit instantiation access checking
 #if !defined(IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION)
-#  if defined(_MSC_VER) && (_MSC_VER < 1600)
+#  if defined(_MSC_VER) && ((_MSC_VER < 1600) || (_MSC_VER == 1900))
      // VS2008 以前では、private なメンバー関数に explicit instantiation でもアクセスできない
 #    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION	0
 #  else
@@ -812,7 +815,7 @@
 #if !defined(IUTEST_HAS_WANT_SECURE_LIB)
 #  if defined(_MSC_VER)
 #    if defined(__STDC_WANT_SECURE_LIB__) && __STDC_WANT_SECURE_LIB__
-#      define IUTEST_HAS_WANT_SECURE_LIB		1
+#      define IUTEST_HAS_WANT_SECURE_LIB	1
 #    endif
 #  endif
 #endif
