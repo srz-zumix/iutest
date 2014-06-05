@@ -21,7 +21,14 @@
 
 #if defined(_MSC_VER) && _MSC_VER >= 1310
 #  if !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
-#    include <DbgHelp.h>
+#    if defined(_MSC_FULL_VER) && (_MSC_FULL_VER == 190021730)
+IUTEST_PRAGMA_MSC_WARN_PUSH()
+IUTEST_PRAGMA_MSC_WARN_DISABLE(4091)
+#      include <DbgHelp.h>
+IUTEST_PRAGMA_MSC_WARN_POP()
+#    else
+#      include <DbgHelp.h>
+#    endif
 //#  pragma comment (lib, "dbghelp.lib")
 #  endif
 #endif
