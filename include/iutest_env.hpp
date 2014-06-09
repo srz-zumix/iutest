@@ -304,6 +304,7 @@ public:
 	* @brief	xml 出力パスを取得
 	*/
 	static ::std::string get_report_xml_filepath(void);
+	static ::std::string get_report_junit_xml_filepath(void);
 
 	/** @private */
 	static TestEventListeners& event_listeners(void) { return get_vars().m_event_listeners; }
