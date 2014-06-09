@@ -68,6 +68,7 @@ TARGETS1= \
           iutest_no_failure_fail_tests \
           iutest_no_fatalfailure_tests \
           iutest_no_test_tests \
+          iutest_output_junit_xml_tests \
           iutest_output_xml_tests \
           iutest_printers_tests \
           iutest_progress_tests \

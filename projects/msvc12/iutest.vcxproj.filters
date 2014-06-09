@@ -312,6 +312,9 @@
     <ClInclude Include="..\..\include\internal\iutest_default_main.hpp">
       <Filter>iutest\internal</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\listener\iutest_junit_xml_generator.hpp">
+      <Filter>iutest\listener</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\impl\iutest_body.ipp">
@@ -369,6 +372,9 @@
       <Filter>iutest\impl</Filter>
     </None>
     <None Include="..\..\include\impl\iutest_charcode.ipp">
+      <Filter>iutest\impl</Filter>
+    </None>
+    <None Include="..\..\include\impl\iutest_junit_xml_generator.ipp">
       <Filter>iutest\impl</Filter>
     </None>
   </ItemGroup>

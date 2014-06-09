@@ -71,11 +71,8 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestPartResult(const TestPa
 {
 	//if( test_part_result.type() == TestPartResult::kSuccess ) return;
 	detail::iuConsole::output(test_part_result.make_newline_message().c_str());
-#ifdef _MSC_VER
-#ifdef IUTEST_OS_WINDOWS_MOBILE
-#else
+#if defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 	OutputDebugStringA(test_part_result.make_newline_message().c_str());
-#endif
 #endif
 }
 IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestRecordProperty(const TestProperty& test_property)

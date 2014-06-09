@@ -37,6 +37,20 @@ IUTEST_IPP_INLINE ::std::string TestEnv::get_report_xml_filepath(void)
 	return "";
 }
 
+IUTEST_IPP_INLINE::std::string TestEnv::get_report_junit_xml_filepath(void)
+{
+	const ::std::string& option = get_vars().m_output_option;
+	if( option.find("junit") != ::std::string::npos )
+	{
+		const ::std::string::size_type pos = option.find("junit:");
+		if( pos != ::std::string::npos )
+		{
+			return option.substr(pos + 6);
+		}
+		return detail::kStrings::DefaultXmlReportFileName;
+	}
+	return "";
+}
 
 IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 {
@@ -368,7 +382,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseFileLocationOption(const char* option)
 
 	if( detail::IsStringCaseEqual(option, "auto") )
 	{
-#ifdef _MSC_VER
+#if defined(_MSC_VER)
 		TestFlag::SetFlag(TestFlag::FILELOCATION_STYLE_MSVC);
 #else
 		TestFlag::SetFlag(0, ~TestFlag::FILELOCATION_STYLE_MSVC);

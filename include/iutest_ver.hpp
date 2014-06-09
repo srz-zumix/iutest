@@ -17,10 +17,10 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01090100u	//!< iutest version 1.9.1.0
+#define	IUTEST_VER			0x01099900u	//!< iutest version 1.9.99.0
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x09u		//!< Minor Version
-#define IUTEST_BUILD		0x01u		//!< Build
+#define IUTEST_BUILD		0x99u		//!< Build
 #define IUTEST_REVISION		0x00u		//!< Revision
 
 /**
@@ -110,6 +110,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
+  <li>v1.10.0.0
+    <ul>
+      <li>junit xml 出力に対応（--iutest_output=junit）</li>
+    </ul>
+  </li>
   <li>v1.9.1.0
     <ul>
       <li>IUTEST_P,IUTEST_TYPED_TEST_P で DISABLED_ 指定が機能しない問題を修正</li>

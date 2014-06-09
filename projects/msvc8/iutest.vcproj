@@ -542,6 +542,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\listener\iutest_junit_xml_generator.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\listener\iutest_progress_printer.hpp"
 					>
 				</File>
@@ -715,6 +719,10 @@
 				</File>
 				<File
 					RelativePath="..\..\include\impl\iutest_info.ipp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\impl\iutest_junit_xml_generator.ipp"
 					>
 				</File>
 				<File
