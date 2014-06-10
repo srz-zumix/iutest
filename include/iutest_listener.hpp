@@ -196,6 +196,7 @@ private:
 
 	friend class detail::DefaultGlobalTestPartResultReporter;
 	friend class DefaultXmlGeneratorListener;
+	friend class JunitXmlGeneratorListener;
 	friend class DefalutResultPrintListener;
 
 	TestEventRepeater	m_repeater;

@@ -301,9 +301,12 @@ public:
 #endif
 
 	/**
-	* @brief	xml 出力パスを取得
+	 * @brief	xml 出力パスを取得
 	*/
 	static ::std::string get_report_xml_filepath(void);
+	/**
+	 * @brief	junit xml 出力パスを取得
+	*/
 	static ::std::string get_report_junit_xml_filepath(void);
 
 	/** @private */

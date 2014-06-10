@@ -29,7 +29,7 @@
 #include "iutest_static_assertion.hpp"
 #include "iutest_ignore.hpp"
 #include "listener/iutest_default_printer.hpp"
-#include "listener/iutest_default_xml_generator.hpp"
+#include "listener/iutest_junit_xml_generator.hpp"
 #include "listener/iutest_streaming_listener.hpp"
 
 //======================================================================
@@ -1593,16 +1593,8 @@ public:
 	/** @private */
 	~UnitTestSource(void)
 	{
-		{
-			TestEventListener* listener = TestEnv::event_listeners().default_result_printer();
-			TestEnv::event_listeners().set_default_result_printer(NULL);
-			delete listener;
-		}
-		{
-			TestEventListener* listener = TestEnv::event_listeners().default_xml_generator();
-			TestEnv::event_listeners().set_default_xml_generator(NULL);
-			delete listener;
-		}
+		TestEnv::event_listeners().set_default_result_printer(NULL);
+		TestEnv::event_listeners().set_default_xml_generator(NULL);
 	}
 
 public:
@@ -1620,6 +1612,7 @@ public:
 	int	Run(void)
 	{
 		DefaultXmlGeneratorListener::SetUp();
+		JunitXmlGeneratorListener::SetUp();
 
 #if IUTEST_HAS_STREAM_RESULT
 		StreamResultListener::SetUp();
