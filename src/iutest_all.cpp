@@ -38,4 +38,5 @@
 
 #include "../include/impl/iutest_default_printer.ipp"
 #include "../include/impl/iutest_default_xml_generator.ipp"
+#include "../include/impl/iutest_junit_xml_generator.ipp"
 #include "../include/impl/iutest_streaming_listener.ipp"

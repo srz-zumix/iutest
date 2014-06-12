@@ -169,6 +169,22 @@ IUTEST(AssertionTest, Base2)
 	}
 }
 
+#if !defined(IUTEST_USE_GTEST)
+
+struct TestObjectX
+{
+	int a, b, c;
+};
+
+IUTEST(AssertionTest, MemCmpEQ)
+{
+	TestObjectX x={ 0, 1, 2 };
+	TestObjectX y={ 0, 1, 2 };
+	IUTEST_ASSERT_EQ(x, y);
+}
+
+#endif
+
 IUTEST(AssertionTest, Cpp11)
 {
 #if IUTEST_HAS_CHAR16_T

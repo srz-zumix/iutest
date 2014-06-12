@@ -545,6 +545,28 @@ IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 IUTEST_PARGMA_WARN_POP()
 }
 
+template<typename T>
+inline AssertionResult CmpHelperMemCmpEQ(const char* expected_str, const char* actual_str
+	, const T& expected, const T& actual)
+{
+	IUTEST_UNUSED_VAR(expected_str);
+
+IUTEST_PARGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
+
+	if( memcmp(&actual, &expected, sizeof(T)) == 0 )
+	{
+		return AssertionSuccess();
+	}
+
+	return EqFailure(expected_str, actual_str
+		, FormatForComparisonFailureMessage(expected, actual).c_str()
+		, FormatForComparisonFailureMessage(actual, expected).c_str()
+		);
+
+IUTEST_PARGMA_WARN_POP()
+}
+
 /**
  * @brief	Equal Helper
  * @tparam	IsNullLiteral	= val1 が NULL リテラルかどうか
@@ -552,6 +574,33 @@ IUTEST_PARGMA_WARN_POP()
 template<bool IsNullLiteral>
 class EqHelper
 {
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+	template<typename T, bool has_equal_operator>
+	struct CmpHelper
+	{
+		static AssertionResult Compare(const char* expr1, const char* expr2, const T& val1, const T& val2)
+		{
+			return CmpHelperEQ(expr1, expr2, val1, val2);
+		}
+	};
+	template<typename T>
+	struct CmpHelper<T, false>
+	{
+		static AssertionResult Compare(const char* expr1, const char* expr2, const T& val1, const T& val2)
+		{
+			return CmpHelperMemCmpEQ(expr1, expr2, val1, val2);
+		}
+	};
+
+public:
+	template<typename T>
+	static AssertionResult Compare(const char* expr1, const char* expr2, const T& val1, const T& val2)
+	{
+		return CmpHelper<T, detail::has_equal_operator<T>::value>::Compare(expr1, expr2, val1, val2);
+	}
+
+#endif
+
 public:
 	template<typename T1, typename T2>
 	static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)

@@ -57,6 +57,36 @@ IUTEST(UnitTest, is_base_of)
 	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::is_base_of<Derived, Derived>::value );
 }
 
+struct X
+{
+	int a,b,c;
+};
+struct Y
+{
+	int a,b,c;
+	bool operator == (const Y&) { return true; }
+};
+
+struct Z
+{
+	int a,b,c;
+};
+
+bool operator == (const Z&, const Z&) { return true; }
+
+typedef ::iutest::tuples::tuple<bool, int, int> Tuple;
+
+IUTEST(UnitTest, has_equal_operator)
+{
+	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_operator<int>::value );
+	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_operator<float>::value );
+	IUTEST_STATIC_ASSERT( !::iutest_type_traits::has_equal_operator<X>::value );
+	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_operator<Y>::value );
+	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_operator<Z>::value );
+	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_operator<Tuple>::value );
+	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_operator< ::std::vector<int> >::value );
+}
+
 IUTEST(UnitTest, StringReplace)
 {
 	::std::string str = "a1a2a3a4b5";

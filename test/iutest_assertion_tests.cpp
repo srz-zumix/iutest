@@ -100,6 +100,22 @@ IUTEST(AssertionTest, EQ)
 #endif
 }
 
+#if !defined(IUTEST_USE_GTEST)
+
+struct TestObjectX
+{
+	int a,b,c;
+};
+
+IUTEST(AssertionTest, MemCmpEQ)
+{
+	TestObjectX x={0,1,2};
+	TestObjectX y={0,1,2};
+	IUTEST_ASSERT_EQ(x, y);
+}
+
+#endif
+
 IUTEST(AssertionTest, NE)
 {
 	int x0=0, x1=1;

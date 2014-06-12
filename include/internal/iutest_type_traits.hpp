@@ -90,6 +90,9 @@ template<typename F>
 struct is_function_pointer : public ::std::integral_constant<bool
 	, ::std::is_pointer<F>::value && ::std::is_function< typename ::std::remove_pointer<F>::type >::value > {};
 
+template<bool B>
+struct bool_constant : ::std::integral_constant<bool, B> {};
+
 #else
 
 //======================================================================
@@ -697,6 +700,35 @@ struct is_member_pointer : public is_member_pointer_helper::is_member_pointer<T>
 
 #endif // #if IUTEST_HAS_HDR_TYPETRAITS
 
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+
+namespace has_equal_operator_helper
+{
+	typedef char no_t[7];
+	template<typename T1, typename T2>
+	no_t& operator == (const T1& lhs, const T2& rhs);
+}
+
+namespace has_equal_operator_impl
+{
+	using namespace has_equal_operator_helper;
+	/** @private */
+	template<typename T>
+	struct has_equal_operator
+	{
+		typedef bool_constant< (sizeof(*(T*)0 == *(T*)0) != sizeof(no_t) ) > type;
+	};
+}
+
+/**
+ * @brief	has equal operator
+*/
+template<typename T>
+struct has_equal_operator : public has_equal_operator_impl::has_equal_operator<T>::type
+{
+};
+
+#endif
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
@@ -786,6 +818,5 @@ public:
 #endif // #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 }	// end of namespace iutest_type_traits
-
 
 #endif // INCG_IRIS_IUTEST_TYPE_TRAITS_HPP_6F091F15_784A_4F50_BD18_B8F67C5AF0CF_
