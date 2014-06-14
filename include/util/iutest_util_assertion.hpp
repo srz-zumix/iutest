@@ -343,7 +343,7 @@ template<typename T1, typename T2>
 	return detail::CmpHelperEqRange(expected_expr, actual_expr, expected.begin(), expected.end()
 		, actual.begin(), actual.end());
 }
-#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 
 /** @overload */
 template<typename T1, size_t SIZE1, typename T2, size_t SIZE2>

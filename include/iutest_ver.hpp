@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01099902u	//!< iutest version 1.9.99.2
+#define	IUTEST_VER			0x01099903u	//!< iutest version 1.9.99.3
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x09u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x02u		//!< Revision
+#define IUTEST_REVISION		0x03u		//!< Revision
 
 /**
  * @mainpage
@@ -112,6 +112,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  <ul>
   <li>v1.10.0.0
     <ul>
+      <li>operatoer == のないオブジェクトの IUTEST_*_EQ 対応</li>
       <li>junit xml 出力に対応（--iutest_output=junit）</li>
     </ul>
   </li>

@@ -359,19 +359,23 @@ inline detail::iuParamGenerator< typename Container::value_type > IUTEST_ATTRIBU
 	return new detail::iuValuesInParamsGenerator< typename Container::value_type >(containor);
 }
 
-#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 /** @overload */
 template<typename T, size_t SIZE>
 inline detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ ValuesIn(const T (&v)[SIZE])
 {
 	return new detail::iuValuesInParamsGenerator<T>(v, v+SIZE);
 }
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 /** @overload */
 template<typename Ite>
 inline detail::iuParamGenerator< typename detail::IteratorTraits<Ite>::type > IUTEST_ATTRIBUTE_UNUSED_ ValuesIn(Ite begin, Ite end)
 {
 	return new detail::iuValuesInParamsGenerator< typename detail::IteratorTraits<Ite>::type >(begin, end);
 }
+#endif
+
 #if IUTEST_HAS_INITIALIZER_LIST
 /** @overload */
 template<typename T>

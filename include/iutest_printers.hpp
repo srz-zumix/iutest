@@ -486,7 +486,7 @@ public:
 	}
 };
 
-#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 
 /** @private */
 template<typename T, size_t SIZE>
@@ -507,7 +507,7 @@ public:
 template<typename T>
 inline void UniversalPrint(const T& value, iu_ostream* os)
 {
-#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 	iuUniversalPrinter<T>::Print(value, os);
 #else
 	UniversalPrintTo(value, os);

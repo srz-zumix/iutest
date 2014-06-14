@@ -157,7 +157,7 @@ public:
 	{
 		m_values.insert(m_values.end(), values.begin(), values.end());
 	}
-#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 	template<typename TT, size_t SIZE>
 	iuValuesInParamsGenerator(const TT (&values)[SIZE])
 	{

@@ -43,7 +43,7 @@ ALLTESTS_SRCS= main.cpp \
                iutest_typed_test_tests.cpp \
                iutest_values_tests.cpp \
 
-TARGET_ALLTESTS=iutest_all_tests
+ALLTESTS_TARGET=iutest_all_tests
 
 TARGETS1= \
           iutest_assertion_return_tests \

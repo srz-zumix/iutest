@@ -574,7 +574,7 @@ IUTEST_PARGMA_WARN_POP()
 template<bool IsNullLiteral>
 class EqHelper
 {
-#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 	template<typename T, bool has_equal_operator>
 	struct CmpHelper
 	{

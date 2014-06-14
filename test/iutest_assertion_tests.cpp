@@ -66,9 +66,10 @@ struct Point
 IUTEST(AssertionTest, EQ)
 {
 	int x0=0, y0=0;
+	char z0=0;
 	IUTEST_ASSERT_EQ(x0, y0);
-	IUTEST_EXPECT_EQ(x0, y0);
-	IUTEST_INFORM_EQ(x0, y0);
+	IUTEST_EXPECT_EQ(x0, z0);
+	IUTEST_INFORM_EQ(z0, y0);
 	int* zero=NULL;
 	IUTEST_ASSERT_EQ(NULL, zero);
 #if IUTEST_HAS_NULLPTR

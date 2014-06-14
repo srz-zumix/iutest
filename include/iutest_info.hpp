@@ -155,7 +155,7 @@ public:
 	static bool ValidateTestPropertyName(const ::std::string& name)
 	{
 		const char* ban[] = { "name", "status", "time", "classname", "type_param", "value_param" };
-#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 		return TestProperty::ValidateName(name, ban);
 #else
 		return TestProperty::ValidateName(name, ban, ban+IUTEST_PP_COUNTOF(ban));

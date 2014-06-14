@@ -132,7 +132,7 @@ private:
 	{
 		return Contains<typename Container::value_type>(actual.begin(), actual.end(), expected);
 	}
-#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 	template<typename TT, typename U, size_t SIZE>
 	static bool Contains(const U(&actual)[SIZE], TT expected)
 	{

@@ -111,6 +111,9 @@
 #endif
 
 #if !defined(IUTEST_HAS_MATCHERS)
+/**
+ * @brief	IUTEST_*_THAT が使用可能かどうか
+*/
 #  define IUTEST_HAS_MATCHERS		1
 #endif
 
