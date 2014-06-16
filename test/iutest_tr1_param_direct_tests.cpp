@@ -21,7 +21,7 @@
 
 #include "../include/tr1/iutest_param_direct_tests.hpp"
 
-#if IUTEST_HAS_PARAM_TEST
+#if IUTEST_HAS_PARAM_TEST && !defined(IUTEST_NO_VARIADIC_MACROS)
 
 typedef ParamTest ParamDirectTest;
 IUTEST_P(ParamDirectTest, Test)

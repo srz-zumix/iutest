@@ -272,6 +272,8 @@ void PrintTo(const Point2& x, ::iutest::iu_ostream* os)
 	*os << x.x << ", " << x.y << "(function overload)";
 }
 
+#if IUTEST_HAS_PRINT_TO
+
 IUTEST(PrintToTest, Overload)
 {
 	Point0 p0 = { 0x12345678, 0x9ABCDEF0 };
@@ -290,6 +292,8 @@ IUTEST(PrintToTest, Overload)
 		IUTEST_SUCCEED() << ::iutest::PrintToString(p2);
 	}
 }
+
+#endif
 
 struct Hoge {
 	int a[256];

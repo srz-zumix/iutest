@@ -101,7 +101,7 @@ IUTEST(AssertionTest, EQ)
 #endif
 }
 
-#if !defined(IUTEST_USE_GTEST)
+#if IUTEST_HAS_NOEQUALTO_ASSERTION
 
 struct TestObjectX
 {

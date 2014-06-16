@@ -90,9 +90,12 @@ IUTEST(FilePath, RemoveDirectoryName)
 	}
 }
 
+#if IUTEST_HAS_PRINT_TO
+
 IUTEST(FilePath, PrintTo)
 {
 	::iutest::internal::FilePath path("test.exe");
 	IUTEST_ASSERT_STREQ("test.exe", ::iutest::PrintToString(path));
 }
 
+#endif

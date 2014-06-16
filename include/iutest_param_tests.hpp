@@ -93,7 +93,7 @@
 	::iutest::UnitTest::GetInstance()->parameterized_test_registry().GetTestCasePatternHolder<T>(testcase_, package_)
 #else
 #  define IIUT_GETTESTCASEPATTERNHOLDER(T, testcase_, package_)	\
-	::iutest::UnitTest::GetInstance()->parameterized_test_registry().GetTestCasePatternHolder(testcase_, package_, &::iutest::detail::type<T>())
+	::iutest::UnitTest::GetInstance()->parameterized_test_registry().GetTestCasePatternHolder(testcase_, package_, ::iutest::detail::explicit_type<T>())
 #endif
 
 #if IUTEST_HAS_AUTOFIXTURE_PARAM_TEST
@@ -229,7 +229,7 @@ private:
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
 		return UnitTest::instance().AddTestCase<TestCase>(testcase_name, id, setup, teardown);
 #else
-		return UnitTest::instance().AddTestCase(testcase_name, id, setup, teardown, &detail::type<TestCase>());
+		return UnitTest::instance().AddTestCase(testcase_name, id, setup, teardown, detail::explicit_type<TestCase>());
 #endif
 	}
 

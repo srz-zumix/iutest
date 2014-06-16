@@ -575,7 +575,7 @@ template<bool IsNullLiteral>
 class EqHelper
 {
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-	template<typename T, bool has_equal_operator>
+	template<typename T, bool has_equal_to_operator>
 	struct CmpHelper
 	{
 		static AssertionResult Compare(const char* expr1, const char* expr2, const T& val1, const T& val2)
@@ -596,7 +596,7 @@ public:
 	template<typename T>
 	static AssertionResult Compare(const char* expr1, const char* expr2, const T& val1, const T& val2)
 	{
-		return CmpHelper<T, detail::has_equal_operator<T>::value>::Compare(expr1, expr2, val1, val2);
+		return CmpHelper<T, detail::has_equal_to<T>::value>::Compare(expr1, expr2, val1, val2);
 	}
 
 #endif

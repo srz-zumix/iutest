@@ -63,7 +63,7 @@ IUTEST_TYPED_TEST(TypedTest2, StaticMul2)
 	IUTEST_ASSERT_EQ(TestFixture::value+TestFixture::value, 2*TestFixture::value);
 }
 
-#if !defined(IUTEST_USE_GTEST)
+#if !defined(IUTEST_USE_GTEST) && !defined(IUTEST_NO_VARIADIC_MACROS)
 
 template<typename T>
 class TypedTest3 : public TypedTest<T> {};

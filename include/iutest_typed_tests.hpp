@@ -256,15 +256,29 @@ class TypeParamTestInstance
 	public:
 		// コンストラクタ
 		EachTest(const char* testcase, const char* name, int index)
-			: m_mediator(UnitTest::instance().AddTestCase<_MyTestCase>(
+			: m_mediator(AddTestCase(testcase, index))
+			, m_info(&m_mediator, name, &m_factory)
+			, m_next(testcase, name, index+1)
+		{
+		}
+
+	private:
+		static TestCase* AddTestCase(const char* testcase, int index)
+		{
+#if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
+			return UnitTest::instance().AddTestCase<_MyTestCase>(
+#else
+			return UnitTest::instance().AddTestCase(
+#endif
 				detail::MakeIndexTestName(testcase, index).c_str()
 				//detail::MakeIndexTypedTestName<TypeParam>(testcase, index).c_str()
 				, internal::GetTypeId<detail::None>()	// TypeId を統一するためダミー引数を渡す
 				, TestBody::SetUpTestCase
-				, TestBody::TearDownTestCase))
-			, m_info(&m_mediator, name, &m_factory)
-			, m_next(testcase, name, index+1)
-		{
+				, TestBody::TearDownTestCase
+#if defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
+				, detail::explicit_type<_MyTestCase>()
+#endif
+				);
 		}
 	public:
 		// テストの登録
@@ -463,11 +477,20 @@ public:
 		typedef typename Tests::Head	Head;
 		typedef Fixture<Head>			FixtureClass;
 		typedef TypedTestCase<TypeParam>	_MyTestCase;
-		TestCase* testcase = UnitTest::instance().AddTestCase<_MyTestCase>(
+		TestCase* testcase = 
+#if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
+			UnitTest::instance().AddTestCase<_MyTestCase>(
+#else
+			UnitTest::instance().AddTestCase(
+#endif
 			(package_name + detail::MakePrefixedIndexTestName(prefix, testcase_name, index)).c_str()
 			//detail::MakePrefixedIndexTypedTestName<TypeParam>(prefix, testcase_name, index).c_str()
 			, internal::GetTypeId<FixtureClass>()
-			, FixtureClass::SetUpTestCase, FixtureClass::TearDownTestCase);
+			, FixtureClass::SetUpTestCase, FixtureClass::TearDownTestCase
+#if defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
+			, detail::explicit_type<_MyTestCase>()
+#endif
+			);
 
 		EachTest<TypeParam, Tests>::Register(testcase, names);
 

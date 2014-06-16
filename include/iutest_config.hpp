@@ -309,10 +309,19 @@
 
 #if !defined(IUTEST_HAS_PRINT_TO)
 //! PrintTo が使用可能かどうか
-#  if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+#  if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING) && !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 #    define IUTEST_HAS_PRINT_TO		1
 #  else
 #    define IUTEST_HAS_PRINT_TO		0
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_VARIADIC_PRED)
+//! 可変長述語アサーションが使用可能かどうか
+#  if IUTEST_HAS_VARIADIC_TEMPLATES && !defined(IUTEST_NO_VARIADIC_MACROS)
+#    define IUTEST_HAS_VARIADIC_PRED		1
+#  else
+#    define IUTEST_HAS_VARIADIC_PRED		0
 #  endif
 #endif
 
@@ -322,6 +331,15 @@
 #    define IUTEST_HAS_ASSERTION_RETURN		1
 #  else
 #    define IUTEST_HAS_ASSERTION_RETURN		0
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_NOEQUALTO_ASSERTION)
+//! IUTEST_*_EQ で operator == がないオブジェクトの検証が可能かどうか
+#  if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING) && !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+#    define IUTEST_HAS_NOEQUALTO_ASSERTION	1
+#  else
+#    define IUTEST_HAS_NOEQUALTO_ASSERTION	0
 #  endif
 #endif
 

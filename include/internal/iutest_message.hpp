@@ -55,7 +55,7 @@ public:
 		m_stream << value;
 		return *this;
 	}
-#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 	template<typename T>
 	iuStreamMessage& operator << (T* const& value)
 	{

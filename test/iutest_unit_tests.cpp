@@ -34,9 +34,9 @@ IUTEST(UnitTest, is_class)
 
 IUTEST(UnitTest, is_same)
 {
-	IUTEST_STATIC_ASSERT( !::iutest_type_traits::is_same<int, char>::value );
-	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::is_same<int, int>::value );
-	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::is_same<int, inttype>::value );
+	IUTEST_STATIC_ASSERT( !(::iutest_type_traits::is_same<int, char>::value) );
+	IUTEST_STATIC_ASSERT(  (::iutest_type_traits::is_same<int, int>::value) );
+	IUTEST_STATIC_ASSERT(  (::iutest_type_traits::is_same<int, inttype>::value) );
 }
 
 IUTEST(UnitTest, is_void)
@@ -48,14 +48,16 @@ IUTEST(UnitTest, is_void)
 
 IUTEST(UnitTest, is_base_of)
 {
-	IUTEST_STATIC_ASSERT( !::iutest_type_traits::is_base_of<int, Base>::value );
-	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::is_base_of<Base, Derived>::value );
-	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::is_base_of<Base, const Derived>::value );
-	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::is_base_of<const volatile Base, Derived>::value );
-	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::is_base_of<volatile Base, volatile Derived const>::value );
-	IUTEST_STATIC_ASSERT( !::iutest_type_traits::is_base_of<Base, Hoge>::value );
-	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::is_base_of<Derived, Derived>::value );
+	IUTEST_STATIC_ASSERT( !(::iutest_type_traits::is_base_of<int, Base>::value) );
+	IUTEST_STATIC_ASSERT(  (::iutest_type_traits::is_base_of<Base, Derived>::value) );
+	IUTEST_STATIC_ASSERT(  (::iutest_type_traits::is_base_of<Base, const Derived>::value) );
+	IUTEST_STATIC_ASSERT(  (::iutest_type_traits::is_base_of<const volatile Base, Derived>::value) );
+	IUTEST_STATIC_ASSERT(  (::iutest_type_traits::is_base_of<volatile Base, volatile Derived const>::value) );
+	IUTEST_STATIC_ASSERT( !(::iutest_type_traits::is_base_of<Base, Hoge>::value) );
+	IUTEST_STATIC_ASSERT(  (::iutest_type_traits::is_base_of<Derived, Derived>::value) );
 }
+
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 
 struct X
 {
@@ -76,16 +78,18 @@ bool operator == (const Z&, const Z&) { return true; }
 
 typedef ::iutest::tuples::tuple<bool, int, int> Tuple;
 
-IUTEST(UnitTest, has_equal_operator)
+IUTEST(UnitTest, has_equal_to)
 {
-	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_operator<int>::value );
-	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_operator<float>::value );
-	IUTEST_STATIC_ASSERT( !::iutest_type_traits::has_equal_operator<X>::value );
-	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_operator<Y>::value );
-	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_operator<Z>::value );
-	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_operator<Tuple>::value );
-	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_operator< ::std::vector<int> >::value );
+	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_to<int>::value );
+	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_to<float>::value );
+	IUTEST_STATIC_ASSERT( !::iutest_type_traits::has_equal_to<X>::value );
+	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_to<Y>::value );
+	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_to<Z>::value );
+	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_to<Tuple>::value );
+	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_to< ::std::vector<int> >::value );
 }
+
+#endif
 
 IUTEST(UnitTest, StringReplace)
 {

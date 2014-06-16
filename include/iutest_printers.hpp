@@ -231,7 +231,7 @@ inline void PrintTo(const T& value, iu_ostream* os)	{
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
 		IsContainerHelper::IsContainer<T>(0)
 #else
-		IsContainerHelper::IsContainer(0, &detail::type<T>())
+		IsContainerHelper::IsContainer(0, detail::explicit_type<T>())
 #endif
 		, iutest_type_traits::is_pointer<T>(), value, os);
 }

@@ -172,15 +172,18 @@ class NoneT1 {};
  * @brief	MSVC 用ダミー型
 */
 template<typename T>
-struct type {};
+struct explicit_type_t {};
 
 #if defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-#  define IUTEST_EXPLICIT_TEMPLATE_TYPE_(t)			::iutest::detail::type<t>*
-#  define IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(t)	, ::iutest::detail::type<t>*
+#  define IUTEST_EXPLICIT_TEMPLATE_TYPE_(t)			::iutest::detail::explicit_type_t<t>*
+#  define IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(t)	, ::iutest::detail::explicit_type_t<t>*
 #else
 #  define IUTEST_EXPLICIT_TEMPLATE_TYPE_(t)	
 #  define IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(t)	
 #endif
+
+template<typename T>
+inline explicit_type_t<T>* explicit_type(void) { return NULL; }
 
 /**
  * @brief	型に依存したユニークなカウンタ
