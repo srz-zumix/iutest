@@ -201,6 +201,10 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 			{
 				TestFlag::SetFlag(TestFlag::SHOW_FEATURE);
 			}
+			else if( detail::IsStringEqual(str, "spec") )
+			{
+				TestFlag::SetFlag(TestFlag::SHOW_SPEC);
+			}
 			else
 			{
 				find = false;

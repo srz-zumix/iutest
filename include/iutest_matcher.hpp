@@ -15,6 +15,8 @@
 #ifndef INCG_IRIS_IUTEST_MATCHER_HPP_23746E00_1A4B_4778_91AD_45C6DEFEEFA7_
 #define INCG_IRIS_IUTEST_MATCHER_HPP_23746E00_1A4B_4778_91AD_45C6DEFEEFA7_
 
+#if IUTEST_HAS_MATCHERS
+
 //======================================================================
 // define
 /**
@@ -590,5 +592,7 @@ IIUT_DECL_ANYOF_AND_ALLOF(AnyOf, 9)
 #endif
 
 }	// end of namespace iutest
+
+#endif	// IUTEST_HAS_MATCHERS
 
 #endif // INCG_IRIS_IUTEST_MATCHER_HPP_23746E00_1A4B_4778_91AD_45C6DEFEEFA7_

@@ -107,6 +107,10 @@ IUTEST_IPP_INLINE bool UnitTestImpl::PreRunner(void)
 	{
 		detail::iuOptionMessage::ShowFeature();
 	}
+	else if( TestFlag::IsEnableFlag(TestFlag::SHOW_SPEC) )
+	{
+		detail::iuOptionMessage::ShowSpec();
+	}
 	else if( TestFlag::IsEnableFlag(TestFlag::SHOW_TESTS_LIST_WITH_WHERE) )
 	{
 		ListupWithWhere();

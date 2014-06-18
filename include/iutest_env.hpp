@@ -143,6 +143,7 @@ public:
 		SHOW_HELP				= 0x10000000,	//!< ヘルプ表示
 		SHOW_VERSION			= 0x20000000,	//!< バージョン表示
 		SHOW_FEATURE			= 0x40000000,	//!< 機能の出力
+		SHOW_SPEC				= 0x80000000,	//!< Specの出力
 		SHOW_MASK				= 0xFF000000,	//!< 機能表示系マスク
 		MASK					= 0xFFFFFFFF,	//!< マスク
 
