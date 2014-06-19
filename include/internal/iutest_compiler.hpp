@@ -123,6 +123,10 @@
 #    if _MSC_VER > 1500
 #      define IUTEST_HAS_NULLPTR	1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if __INTEL_COMPILER > 1200
+#      define IUTEST_HAS_NULLPTR	1
+#    endif
 #  endif
 #endif
 
@@ -142,6 +146,10 @@
 #    endif
 #  elif defined(_MSC_VER)
 #    if _MSC_VER >= 1600
+#      define IUTEST_HAS_DECLTYPE	1
+#    endif
+#  elif defined(__INTEL_COMPILER)
+#    if __INTEL_COMPILER >= 1200
 #      define IUTEST_HAS_DECLTYPE	1
 #    endif
 #  endif
@@ -165,6 +173,10 @@
 #    if _MSC_VER >= 1600
 #      define IUTEST_HAS_STATIC_ASSERT	1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if __INTEL_COMPILER > 1100
+#      define IUTEST_HAS_STATIC_ASSERT	1
+#    endif
 #  endif
 #endif
 
@@ -176,28 +188,26 @@
 //! has constexpr
 #if !defined(IUTEST_HAS_CONSTEXPR)
 #  if   defined(__clang__)
-#    if !__has_feature(cxx_constexpr)
-#      define IUTEST_HAS_CONSTEXPR	0
+#    if __has_feature(cxx_constexpr)
+#      define IUTEST_HAS_CONSTEXPR	1
 #    endif
 #  elif defined(__GNUC__)
-#    if (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)) || !defined(__GXX_EXPERIMENTAL_CXX0X__)
-#      define IUTEST_HAS_CONSTEXPR	0
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 5)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_CONSTEXPR	1
 #    endif
 #  elif defined(_MSC_VER)
 #    if _MSC_VER >= 1900 || _MSC_FULL_VER == 180021114
 #      define IUTEST_HAS_CONSTEXPR	1
-#    else
-#      define IUTEST_HAS_CONSTEXPR	0
 #    endif
-#  elif defined(__MWERKS__)
-#    define IUTEST_HAS_CONSTEXPR	0
-#  else
-#    define IUTEST_HAS_CONSTEXPR	0
+#  elif defined(__INTEL_COMPILER)
+#    if __INTEL_COMPILER >= 1400
+#      define IUTEST_HAS_CONSTEXPR	1
+#    endif
 #  endif
 #endif
 
 #if !defined(IUTEST_HAS_CONSTEXPR)
-#  define IUTEST_HAS_CONSTEXPR		1
+#  define IUTEST_HAS_CONSTEXPR		0
 #endif
 
 #if IUTEST_HAS_CONSTEXPR
@@ -218,8 +228,14 @@
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 2)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_RVALUE_REFS	1
 #    endif
-#  elif defined(_MSC_VER) && (_MSC_VER >= 1700)
-#    define IUTEST_HAS_RVALUE_REFS	1
+#  elif defined(_MSC_VER)
+#    if (_MSC_VER >= 1700)
+#      define IUTEST_HAS_RVALUE_REFS	1
+#    endif
+#  elif defined(__INTEL_COMPILER)
+#    if __INTEL_COMPILER >= 1200
+#      define IUTEST_HAS_RVALUE_REFS	1
+#    endif
 #  endif
 #endif
 
@@ -239,6 +255,10 @@
 #    endif
 #  elif defined(_MSC_VER)
 #    if defined(_MSC_FULL_VER) && (_MSC_FULL_VER >= 180020827)
+#      define IUTEST_HAS_DELETED_FUNCTIONS	1
+#    endif
+#  elif defined(__INTEL_COMPILER)
+#    if __INTEL_COMPILER >= 1200
 #      define IUTEST_HAS_DELETED_FUNCTIONS	1
 #    endif
 #  endif
@@ -267,6 +287,10 @@
 #    endif
 #  elif defined(_MSC_VER)
 #    if defined(_MSC_FULL_VER) && (_MSC_FULL_VER >= 180020827)
+#      define IUTEST_HAS_DEFAULT_FUNCTIONS	1
+#    endif
+#  elif defined(__INTEL_COMPILER)
+#    if __INTEL_COMPILER >= 1200
 #      define IUTEST_HAS_DEFAULT_FUNCTIONS	1
 #    endif
 #  endif
@@ -304,6 +328,10 @@
 #      define IUTEST_HAS_INITIALIZER_LIST	1
 #      include <initializer_list>
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if __INTEL_COMPILER >= 1400
+#      define IUTEST_HAS_INITIALIZER_LIST	1
+#    endif
 #  endif
 #endif
 
@@ -329,6 +357,10 @@
 #      define IUTEST_HAS_VARIADIC_TEMPLATES	1
 #      define IUTEST_HAS_VARIADIC_COMBINE	0
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if __INTEL_COMPILER > 1200
+#      define IUTEST_HAS_VARIADIC_TEMPLATES	1
+#    endif
 #  endif
 #endif
 
@@ -348,6 +380,8 @@
 #    endif
 #  elif defined(_MSC_VER)
 #    define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES	IUTEST_HAS_VARIADIC_TEMPLATES
+#  elif defined(__INTEL_COMPILER)
+#    define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES	IUTEST_HAS_VARIADIC_TEMPLATES
 #  endif
 #endif
 
@@ -366,6 +400,10 @@
 #      define IUTEST_HAS_CHAR16_T	1
 #    endif
 #  elif defined(_MSC_VER)
+#  elif defined(__INTEL_COMPILER)
+#    if __INTEL_COMPILER >= 1400
+#      define IUTEST_HAS_CHAR16_T	1
+#    endif
 #  endif
 #endif
 
@@ -384,6 +422,10 @@
 #      define IUTEST_HAS_CHAR32_T	1
 #    endif
 #  elif defined(_MSC_VER)
+#  elif defined(__INTEL_COMPILER)
+#    if __INTEL_COMPILER >= 1400
+#      define IUTEST_HAS_CHAR32_T	1
+#    endif
 #  endif
 #endif
 
@@ -403,6 +445,10 @@
 #    elif _MSC_VER == 1600
 #      define IUTEST_HAS_LAMBDA		1
 #      define IUTEST_NO_LAMBDA_SCOPE_RESOLUTION	// VC++10 lambda v1.0 is not supported.
+#    endif
+#  elif defined(__INTEL_COMPILER)
+#    if __INTEL_COMPILER >= 1200
+#      define IUTEST_HAS_LAMBDA		1
 #    endif
 #  endif
 #endif
@@ -435,6 +481,10 @@
 #    if (_MSC_VER >= 1800) || (_MSC_FULL_VER == 170051025)
 #      define IUTEST_HAS_EXPLICIT_CONVERSION	1
 #    endif
+#  elif defined(__INTEL_COMPILER)
+#    if __INTEL_COMPILER >= 1300
+#      define IUTEST_HAS_EXPLICIT_CONVERSION	1
+#    endif
 #  endif
 #endif
 
@@ -463,6 +513,10 @@
 #    endif
 #  elif defined(_MSC_VER)
 #    if _MSC_VER >= 1700
+#      define IUTEST_HAS_OVERRIDE_AND_FINAL	1
+#    endif
+#  elif defined(__INTEL_COMPILER)
+#    if __INTEL_COMPILER >= 1400
 #      define IUTEST_HAS_OVERRIDE_AND_FINAL	1
 #    endif
 #  endif
@@ -503,6 +557,10 @@
 #  elif defined(_MSC_VER)
 #    if _MSC_FULL_VER == 180021114
 //#      define IUTEST_HAS_NOEXCEPT	1	// build fail
+#    endif
+#  elif defined(__INTEL_COMPILER)
+#    if __INTEL_COMPILER >= 1400
+#      define IUTEST_HAS_NOEXCEPT	1
 #    endif
 #  endif
 #endif
@@ -549,9 +607,13 @@
 //! has extern template
 #if !defined(IUTEST_HAS_EXTERN_TEMPLATE)
 #  if defined(_MSC_VER) && _MSC_VER >= 1400
-#    define IUTEST_HAS_EXTERN_TEMPLATE	1
+#    define IUTEST_HAS_EXTERN_TEMPLATE		1
 #  elif defined(__GNUC__) || defined(__clang__)
-#    define IUTEST_HAS_EXTERN_TEMPLATE	1
+#    define IUTEST_HAS_EXTERN_TEMPLATE		1
+#  elif defined(__INTEL_COMPILER)
+#    if __INTEL_COMPILER > 1100
+#      define IUTEST_HAS_EXTERN_TEMPLATE	1
+#    endif
 #  endif
 #endif
 
@@ -571,6 +633,10 @@
 #    endif
 #  elif defined(_MSC_VER)
 #    if _MSC_VER >= 1700
+#      define IUTEST_HAS_STRONG_ENUMS	1
+#    endif
+#  elif defined(__INTEL_COMPILER)
+#    if __INTEL_COMPILER >= 1400
 #      define IUTEST_HAS_STRONG_ENUMS	1
 #    endif
 #  endif

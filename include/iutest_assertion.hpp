@@ -705,7 +705,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ DoubleNearPredFormat(const char*
 {
 	return CmpHelperNearFloatingPoint(expr1, expr2, absc, val1, val2, abs_v);
 }
-#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 template<typename T, typename A>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(const char* expr1, const char* expr2, const char* absc
 													, const T& val1, const T& val2, const A& abs_v)

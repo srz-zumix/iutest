@@ -69,6 +69,15 @@ int main(int argc, char* argv[])
 	}
 	{
 		IUTEST_EXPECT_FALSE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_FEATURE));
+
+		int targc = 2;
+		DECAL_ARGV("--spec");
+		IUTEST_INIT(&targc, targv);
+		IUTEST_EXPECT_EQ(1, targc);
+		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
+	}
+	{
+		IUTEST_EXPECT_FALSE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_SPEC));
 		::std::vector< ::std::string > vargv;
 		vargv.push_back("test1");
 		vargv.push_back("-v");
