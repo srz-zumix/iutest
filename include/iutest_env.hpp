@@ -281,6 +281,7 @@ private:
 #if IUTEST_HAS_STREAM_RESULT
 		::std::string		m_stream_result_to;
 #endif
+		::std::string		m_root_package_name;
 		detail::iuRandom	m_genrand;
 		iuEnvironmentList	m_environment_list;
 		TestEventListeners	m_event_listeners;
@@ -296,6 +297,7 @@ public:
 	static unsigned int			current_random_seed(void)	{ return get_vars().m_current_random_seed; }	//!< 乱数シード
 	static int					get_repeat_count(void)		{ return get_vars().m_repeat_count; }			//!< 繰り返し回数
 	static const char*			get_output_option(void)		{ return get_vars().m_output_option.c_str(); }	//!< 出力オプション
+	static const char*			get_root_package_name(void)	{ return get_vars().m_root_package_name.c_str(); }	//!< root package オプション
 	static const char*			test_filter(void)			{ return get_vars().m_test_filter.c_str(); }	//!< フィルター文字列
 #if IUTEST_HAS_STREAM_RESULT
 	static const char*			get_stream_result_to(void)	{ return get_vars().m_stream_result_to.c_str(); }
@@ -387,6 +389,14 @@ private:
 		get_vars().m_output_option = str == NULL ? "" : str;
 	}
 
+	/**
+	* @brief	root_package_name オプションを設定
+	*/
+	static void set_root_package_name(const char* str)
+	{
+		get_vars().m_root_package_name = str == NULL ? "" : str;
+	}
+
 private:
 	typedef const char* (*pfnOptionStringGet)();
 	typedef void(*pfnOptionStringSet)(const char*);
@@ -452,6 +462,8 @@ public:
 	typedef OptionString<get_stream_result_to, set_stream_result_to> stream_result_to;
 #endif
 
+	typedef OptionString<get_root_package_name, set_root_package_name> root_package_name;
+
 private:
 	static iuEnvironmentList& environments(void) { return get_vars().m_environment_list; }
 
@@ -470,6 +482,11 @@ public:
 		environments().push_back(env);
 		return env;
 	}
+	
+	/**
+	 * @brief	root package name を追加
+	*/
+	static ::std::string AddRootPackageName(const char* testcase_name);
 
 private:
 	/**

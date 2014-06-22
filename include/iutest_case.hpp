@@ -104,7 +104,7 @@ public:
 	/** type param 文字列の取得 */
 	virtual const char*	type_param(void)		const { return NULL; }
 
-	/** TestCase 出力情報の取得 */
+	/** TestCase 名の取得 */
 	::std::string testcase_name_with_where(void) const
 	{
 		::std::string str = m_testcase_name;
@@ -115,6 +115,9 @@ public:
 		}
 		return str;
 	}
+
+	/** root 名を含む TestCase 名の取得 */
+	::std::string testcase_name_with_root_package_name(void) const { return TestEnv::AddRootPackageName(name()); }
 
 	/** テスト実行中じゃないときのリザルトの取得 */
 	const TestResult* ad_hoc_testresult(void) const IUTEST_CXX_NOEXCEPT_SPEC { return &m_ad_hoc_testresult; }

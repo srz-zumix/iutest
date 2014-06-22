@@ -52,6 +52,15 @@ IUTEST_IPP_INLINE::std::string TestEnv::get_report_junit_xml_filepath(void)
 	return "";
 }
 
+IUTEST_IPP_INLINE ::std::string TestEnv::AddRootPackageName(const char* testcase_name)
+{
+	::std::string str = TestEnv::get_root_package_name();
+	if( str.empty() ) return testcase_name;
+	str += ".";
+	str += testcase_name;
+	return str;
+}
+
 IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 {
 	bool find = false;
@@ -179,6 +188,10 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 				{
 					find = ParseFileLocationOption(ParseOptionSettingStr(str));
 				}
+				else if( detail::IsStringForwardMatching(str, "root_package_name") )
+				{
+					set_root_package_name(ParseOptionSettingStr(str));
+				}
 				else
 				{
 					find = false;
@@ -304,6 +317,10 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnviromentVariable(void)
 		||  detail::GetEnvironmentVariable("GTEST_FILTER", str, sizeof(str)) )
 		{
 			set_test_filter(str);
+		}
+		if( detail::GetEnvironmentVariable("IUTEST_ROOT_PACKAGE_NAME", str, sizeof(str)) )
+		{
+			set_root_package_name(str);
 		}
 #if IUTEST_HAS_STREAM_RESULT
 		if( detail::GetEnvironmentVariable("IUTEST_STREAM_RESULT_TO", str, sizeof(str))

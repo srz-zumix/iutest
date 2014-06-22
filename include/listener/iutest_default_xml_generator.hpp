@@ -88,11 +88,15 @@ private:
 protected:
 	static void OutputXmlCDataSection(IFile* file, const char* data);
 	static void OutputXmlAttribute(IFile* file, const char* name, const char* value);
-
+	
 protected:
 	static ::std::string EscapeXmlAttribute(const char* str)
 	{
 		return EscapeXml(str, true);
+	}
+	static ::std::string EscapeXmlAttribute(const ::std::string str)
+	{
+		return EscapeXml(str.c_str(), true);
 	}
 	static ::std::string EscapeXmlText(const char* str)
 	{

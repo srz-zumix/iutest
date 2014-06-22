@@ -87,7 +87,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestCase(IFile* file
 
 	file->Printf("  <testsuite ");
 	OutputXmlAttribute(file, "name"
-		, EscapeXmlAttribute(test_case.name()).c_str() );
+		, EscapeXmlAttribute(test_case.testcase_name_with_root_package_name()).c_str() );
 	file->Printf("tests=\"%d\" failures=\"%d\" disabled=\"%d\" "
 		, test_case.reportable_test_count()
 		, test_case.failed_test_count()
@@ -151,7 +151,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
 		, detail::FormatTimeInMillisecAsSecond(test_info.elapsed_time()).c_str()
 		);
 	OutputXmlAttribute(file, "classname"
-		, EscapeXmlAttribute(test_info.test_case_name()).c_str() );
+		, EscapeXmlAttribute(test_info.testcase_name_with_root_package_name()).c_str() );
 
 	// propertys
 	OnReportTestProperty(file, *test_info.result(), TestInfo::ValidateTestPropertyName);
