@@ -567,6 +567,24 @@ IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 IUTEST_PARGMA_WARN_POP()
 }
 
+template<typename T>
+inline AssertionResult CmpHelperMemCmpNE(const char* expected_str, const char* actual_str
+	, const T& expected, const T& actual)
+{
+IUTEST_PARGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
+
+	if( memcmp(&actual, &expected, sizeof(T)) != 0 )
+	{
+		return AssertionSuccess();
+	}
+
+	return AssertionFailure() << "error: Expected: " << expected_str << " != " << actual_str
+		<< "\n  Actual: " << FormatForComparisonFailureMessage(expected, actual);
+
+IUTEST_PARGMA_WARN_POP()
+}
+
 /**
  * @brief	Equal Helper
  * @tparam	IsNullLiteral	= val1 が NULL リテラルかどうか
@@ -574,7 +592,7 @@ IUTEST_PARGMA_WARN_POP()
 template<bool IsNullLiteral>
 class EqHelper
 {
-#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+#if IUTEST_HAS_ASSERTION_NOEQUALTO_OBJECT
 	template<typename T, bool has_equal_to_operator>
 	struct CmpHelper
 	{
@@ -645,6 +663,33 @@ public:
 template<bool IsNullLiteral>
 class NeHelper
 {
+#if IUTEST_HAS_ASSERTION_NOEQUALTO_OBJECT
+	template<typename T, bool has_not_equal_to_operator>
+	struct CmpHelper
+	{
+		static AssertionResult Compare(const char* expr1, const char* expr2, const T& val1, const T& val2)
+		{
+			return CmpHelperNE(expr1, expr2, val1, val2);
+		}
+	};
+	template<typename T>
+	struct CmpHelper<T, false>
+	{
+		static AssertionResult Compare(const char* expr1, const char* expr2, const T& val1, const T& val2)
+		{
+			return CmpHelperMemCmpNE(expr1, expr2, val1, val2);
+		}
+	};
+
+public:
+	template<typename T>
+	static AssertionResult Compare(const char* expr1, const char* expr2, const T& val1, const T& val2)
+	{
+		return CmpHelper<T, detail::has_not_equal_to<T>::value>::Compare(expr1, expr2, val1, val2);
+	}
+
+#endif
+
 public:
 	template<typename T1, typename T2>
 	static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)

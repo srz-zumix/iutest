@@ -101,7 +101,7 @@ IUTEST(AssertionTest, EQ)
 #endif
 }
 
-#if IUTEST_HAS_NOEQUALTO_ASSERTION
+#if IUTEST_HAS_ASSERTION_NOEQUALTO_OBJECT
 
 struct TestObjectX
 {
@@ -113,6 +113,13 @@ IUTEST(AssertionTest, MemCmpEQ)
 	TestObjectX x={0,1,2};
 	TestObjectX y={0,1,2};
 	IUTEST_ASSERT_EQ(x, y);
+}
+
+IUTEST(AssertionTest, MemCmpNE)
+{
+	TestObjectX x={0,1,2};
+	TestObjectX y={0,1,3};
+	IUTEST_ASSERT_NE(x, y);
 }
 
 #endif

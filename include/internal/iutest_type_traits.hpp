@@ -728,6 +728,32 @@ struct has_equal_to : public has_equal_to_operator_impl::has_equal_to_operator<T
 {
 };
 
+namespace has_not_equal_to_operator_helper
+{
+	typedef char no_t[7];
+	template<typename T1, typename T2>
+	no_t& operator != (const T1& lhs, const T2& rhs);
+}
+
+namespace has_not_equal_to_operator_impl
+{
+	using namespace has_not_equal_to_operator_helper;
+	/** @private */
+	template<typename T>
+	struct has_not_equal_to_operator
+	{
+		typedef bool_constant< (sizeof(*(T*)0 != *(T*)0) != sizeof(no_t)) > type;
+	};
+}
+
+/**
+* @brief	has not equal to operator
+*/
+template<typename T>
+struct has_not_equal_to : public has_not_equal_to_operator_impl::has_not_equal_to_operator<T>::type
+{
+};
+
 #endif
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
