@@ -41,6 +41,13 @@ int main(int argc, char* argv[])
 	::iutest::IUTEST_FLAG(output) = NULL;
 #endif
 
+#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_NULLPTR
+	{
+		int targc = 0;
+		IUTEST_INIT(&targc, nullptr);
+	}
+#endif
+
 	{
 		int targc = 2;
 		DECAL_ARGV("--help");

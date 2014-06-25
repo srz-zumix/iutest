@@ -57,6 +57,29 @@ IUTEST(Foo, Bar)
 	IUTEST_ASSERT_EQ(3, 3);
 }
 
+IUTEST(Foo, Skip)
+{
+	IUTEST_SKIP();
+}
+
+IUTEST(Foo, DISABLED_Test)
+{
+}
+
+#if IUTEST_HAS_TYPED_TEST
+
+template<typename T>
+class TypedTest : public ::iutest::Test {};
+
+typedef ::iutest::Types<int> TypedTestTypes;
+IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
+
+IUTEST_TYPED_TEST(TypedTest, Test)
+{
+}
+
+#endif
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
@@ -78,6 +101,11 @@ int main(int argc, char* argv[])
 				 << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("Fail")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("Foo" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("<skipped type=\"iutest.skip\"" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("disabled test" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+#if IUTEST_HAS_TYPED_TEST
+		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("<property name=\"type_param\" value=" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+#endif
 		
 		FileIO::s_io.clear();
 	}
