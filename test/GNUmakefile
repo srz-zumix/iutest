@@ -154,7 +154,15 @@ COVARALLS_EXCLUDE_PATTERN  =-E ".*/test/[^\.].*" -E ".*/include/tr1/.*" -E ".*/i
 COVARALLS_SRCEXT=-x .h -x .hpp -x .cpp -x .ipp
 endif
 
-send-coverage:
+send-coverage: send-lcoverage
+
+send-lcoverage:
+ifdef COVERAGE
+	lcov -v
+	lcov -c -d . -o coverage.info; lcoveralls --retry-count 3 coverage.info
+endif
+
+send-gcoverage:
 ifdef COVERAGE
 	gcov -v
 	gcov -r *.gcda; cd ../; $(COVERAGE) -n -r ./ -b ./test $(COVARALLS_EXCLUDE_PATTERN) $(COVARALLS_EXCLUDE)
