@@ -5,9 +5,9 @@ compiler:
   - gcc
 
 before_install:
-  - sudo easy_install cpp-coveralls
-  - if [ "${USE_COVERAGE}" = '1' ]; then sudo apt-get install lcov rubygems
-  - if [ "${USE_COVERAGE}" = '1' ]; then gem install lcoveralls
+  - if [ "${USE_COVERAGE}" = '1' ]; then sudo easy_install cpp-coveralls; fi
+  - if [ "${USE_COVERAGE}" = '1' ]; then sudo apt-get install lcov rubygems; fi
+  - if [ "${USE_COVERAGE}" = '1' ]; then gem install lcoveralls; fi
 
 install:
   # gcc 4.8
