@@ -159,7 +159,7 @@ send-coverage: send-lcoverage
 send-lcoverage:
 ifdef COVERAGE
 	lcoveralls -v
-	lcoveralls --retry-count 3 --root ../
+	lcoveralls --retry-count 3
 endif
 
 send-gcoverage:
