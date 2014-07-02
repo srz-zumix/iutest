@@ -158,8 +158,10 @@ send-coverage: send-lcoverage
 
 send-lcoverage:
 ifdef COVERAGE
+	lcov -v
+	lcov -c -d . -o coverage.info && lcov -r coverage.info *gcc* -o coverage.info && lcov -r coverage.info */test/* -o coverage.info
 	lcoveralls -v
-	lcoveralls --retry-count 3
+	cd ../; lcoveralls --retry-count 3 ./test/coverage.info
 endif
 
 send-gcoverage:
