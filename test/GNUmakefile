@@ -159,7 +159,7 @@ send-coverage: send-lcoverage
 send-lcoverage:
 ifdef COVERAGE
 	lcov -v
-	lcov -c -d . --compat split_crc=on -o coverage.info && lcov -r coverage.info *gcc* -o coverage.info && lcov -r coverage.info */test/* -o coverage.info
+	lcov -c -d . -o coverage.info && lcov -r coverage.info *gcc* -o coverage.info && lcov -r coverage.info */test/* -o coverage.info
 	lcoveralls -v
 	cd ../; lcoveralls --retry-count 3 ./test/coverage.info
 endif
