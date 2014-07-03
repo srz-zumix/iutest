@@ -165,7 +165,6 @@ send-coverage: send-lcoverage
 send-lcoverage:
 ifdef COVERAGE
 	lcov -v
-	lcov -z -d .
 	lcov --no-checksum -c -d . -o coverage.info
 	lcov -r coverage.info *gcc* -o coverage.info && lcov -r coverage.info */test/* -o coverage.info
 	lcoveralls -v
