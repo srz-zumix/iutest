@@ -21,7 +21,7 @@ install:
   #- if [ "${CXX}" = 'clang++' ]; then sudo apt-get -qq install clang-3.5; fi
   #- if [ "${CXX}" = 'clang++' ]; then export CXX="clang++-3.5";  fi
   # lcov
-  - if [ "${USE_COVERAGE}" = '1' ]; then sudo apt-cache search lcov; fi
+  - if [ "${USE_COVERAGE}" = '1' ]; then sudo apt-cache policy lcov; fi
   - if [ "${USE_COVERAGE}" = '1' ]; then sudo easy_install cpp-coveralls; fi
   - if [ "${USE_COVERAGE}" = '1' ]; then sudo apt-get install lcov rubygems; fi
   - if [ "${USE_COVERAGE}" = '1' ]; then gem install lcoveralls; fi
