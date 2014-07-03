@@ -5,7 +5,8 @@ compiler:
   - gcc
 
 before_install:
-  - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
+  - if [ "${CXX}" = 'g++' ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
+  - if [ "${CXX}" = 'clang++' ]; then sudo add-apt-repository -y ppa:h-rayflood/llvm; fi
   - sudo apt-get -qq update
 
 install:
@@ -14,11 +15,9 @@ install:
   - if [ "${CXX}" = 'g++' ]; then sudo update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-4.8 90; fi
   - if [ "${CXX}" = 'g++' ]; then sudo update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-4.8 90; fi
   - if [ "${CXX}" = 'g++' ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.8 90;  fi
-#  # clang 3.5
-#  - wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -
-#  - sudo add-apt-repository --yes 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise main'
-#  - sudo apt-get -qq update
-#  - sudo apt-get -qq install clang-3.5
+  #  # clang 3.5
+  - if [ "${CXX}" = 'clang++' ]; then sudo apt-get --allow-unauthenticated -qq install clang-3.5; fi
+  - if [ "${CXX}" = 'clang++' ]; then sudo export CXX="clang++-3.5";  fi
   # lcov
   - if [ "${USE_COVERAGE}" = '1' ]; then sudo easy_install cpp-coveralls; fi
   - if [ "${USE_COVERAGE}" = '1' ]; then sudo apt-get install lcov rubygems; fi
