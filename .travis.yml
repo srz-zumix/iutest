@@ -6,8 +6,7 @@ compiler:
 
 before_install:
   - if [ "${USE_COVERAGE}" = '1' ]; then sudo easy_install cpp-coveralls; fi
-  - if [ "${USE_COVERAGE}" = '1' ]; then sudo apt-get install lcov-1.11; fi
-  - if [ "${USE_COVERAGE}" = '1' ]; then sudo apt-get install rubygems; fi
+  - if [ "${USE_COVERAGE}" = '1' ]; then sudo apt-get install lcov rubygems; fi
   - if [ "${USE_COVERAGE}" = '1' ]; then gem install lcoveralls; fi
 
 install:
