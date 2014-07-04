@@ -58,7 +58,6 @@ matrix:
   include:
     - compiler: gcc
       env: USE_COVERAGE=lcov
-  include:
     - compiler: gcc
       env: COVERITY_SCAN=1
       addons:
