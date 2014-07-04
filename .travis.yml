@@ -16,14 +16,18 @@ install:
   - if [ "${CXX}" = 'g++' ]; then sudo apt-get -qq install g++-4.8; fi
   - if [ "${CXX}" = 'g++' ]; then sudo update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-4.8 90; fi
   - if [ "${CXX}" = 'g++' ]; then sudo update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-4.8 90; fi
-  #- if [ "${CXX}" = 'g++' ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.8 90;  fi
+  - if [ "${CXX}" = 'g++' ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.8 90;  fi
   #  # clang 3.5
   #- if [ "${CXX}" = 'clang++' ]; then sudo apt-get -qq install clang-3.5; fi
   #- if [ "${CXX}" = 'clang++' ]; then export CXX="clang++-3.5";  fi
+  # gcov
+  - if [ "${USE_COVERAGE}" = 'gcov' ]; then sudo easy_install cpp-coveralls; fi
   # lcov
-  - if [ "${USE_COVERAGE}" = '1' ]; then sudo easy_install cpp-coveralls; fi
-  - if [ "${USE_COVERAGE}" = '1' ]; then sudo apt-get install lcov rubygems; fi
-  - if [ "${USE_COVERAGE}" = '1' ]; then gem install lcoveralls; fi
+  - if [ "${USE_COVERAGE}" = 'lcov' ]; then sudo update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-4.8 1; fi
+  - if [ "${USE_COVERAGE}" = 'lcov' ]; then sudo update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-4.8 1; fi
+  - if [ "${USE_COVERAGE}" = 'lcov' ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.8 1;  fi
+  - if [ "${USE_COVERAGE}" = 'lcov' ]; then sudo apt-get install lcov rubygems; fi
+  - if [ "${USE_COVERAGE}" = 'lcov' ]; then gem install lcoveralls; fi
 
 script:
   - cd ./test
@@ -31,8 +35,9 @@ script:
 
 after_success:
   # Coverage
-  - echo ${TRAVIS_JOB_ID}
-  - if [ "${USE_COVERAGE}" = '1' ]; then make send-coverage; fi
+  #- echo ${TRAVIS_JOB_ID}
+  - if [ "${USE_COVERAGE}" = 'gcov' ]; then make send-gcoverage; fi
+  - if [ "${USE_COVERAGE}" = 'lcov' ]; then make send-lcoverage; fi
 
 env:
   global:
@@ -42,18 +47,17 @@ env:
   matrix:
     - STDFLAG=-std=c++98
     - STDFLAG=-std=c++0x
-    - USE_COVERAGE=1
 
   allow_failures:
-    #- USE_COVERAGE=1
     - COVERITY_SCAN=1
 
 matrix:
   exclude:
     - compiler: clang
-      env: USE_COVERAGE=1
-    - compiler: clang
       env: COVERITY_SCAN=1
+  include:
+    - compiler: gcc
+      env: USE_COVERAGE=lcov
   include:
     - compiler: gcc
       env: COVERITY_SCAN=1

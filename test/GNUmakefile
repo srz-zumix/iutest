@@ -27,9 +27,6 @@ ifeq ($(findstring clang, $(CXX)),clang)
 #
 
 #STDFLAG += -std=c++0x
-ifdef USE_ASAN
-CXXFLAGS += -fsanitize=address
-endif
 
 else
 
@@ -56,9 +53,6 @@ GCCMINOR:=$(word 2, $(GCCVERSION))
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 8 \)))
 # 4.8 later
 STDFLAG += -std=c++1y
-ifdef USE_ASAN
-CXXFLAGS += -fsanitize=address
-endif
 else
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 7 \)))
 # 4.7 later
@@ -160,13 +154,12 @@ COVARALLS_EXCLUDE_PATTERN  =-E ".*/test/[^\.].*" -E ".*/include/tr1/.*" -E ".*/i
 COVARALLS_SRCEXT=-x .h -x .hpp -x .cpp -x .ipp
 endif
 
-send-coverage: send-lcoverage
+send-coverage: send-gcoverage
 
 send-lcoverage:
 ifdef COVERAGE
 	lcov -v
-	lcov --no-checksum -c -d . -o coverage.info
-	lcov -r coverage.info *gcc* -o coverage.info && lcov -r coverage.info */test/* -o coverage.info
+	lcov -c -d . -o coverage.info && lcov -r coverage.info *gcc* -o coverage.info && lcov -r coverage.info */test/* -o coverage.info
 	lcoveralls -v
 	cd ../; lcoveralls --retry-count 3 ./test/coverage.info
 endif
