@@ -13,19 +13,16 @@ before_install:
 
 install:
   # gcc 4.8
-  - if [ "${CXX}" = 'g++' ]; then sudo apt-get -qq install g++-4.8; fi
-  - if [ "${CXX}" = 'g++' ]; then sudo update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-4.8 90; fi
-  - if [ "${CXX}" = 'g++' ]; then sudo update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-4.8 90; fi
-  - if [ "${CXX}" = 'g++' ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.8 90;  fi
+  #- if [ "${CXX}" = 'g++' ]; then sudo apt-get -qq install g++-4.8; fi
+  #- if [ "${CXX}" = 'g++' ]; then sudo update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-4.8 90; fi
+  #- if [ "${CXX}" = 'g++' ]; then sudo update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-4.8 90; fi
+  #- if [ "${CXX}" = 'g++' ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.8 90;  fi
   #  # clang 3.5
   #- if [ "${CXX}" = 'clang++' ]; then sudo apt-get -qq install clang-3.5; fi
   #- if [ "${CXX}" = 'clang++' ]; then export CXX="clang++-3.5";  fi
   # gcov
   - if [ "${USE_COVERAGE}" = 'gcov' ]; then sudo easy_install cpp-coveralls; fi
   # lcov
-  - if [ "${USE_COVERAGE}" = 'lcov' ]; then sudo update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-4.8 1; fi
-  - if [ "${USE_COVERAGE}" = 'lcov' ]; then sudo update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-4.8 1; fi
-  - if [ "${USE_COVERAGE}" = 'lcov' ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.8 1;  fi
   - if [ "${USE_COVERAGE}" = 'lcov' ]; then sudo apt-get install lcov rubygems; fi
   - if [ "${USE_COVERAGE}" = 'lcov' ]; then gem install lcoveralls; fi
 
