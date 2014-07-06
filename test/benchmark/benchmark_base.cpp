@@ -13,7 +13,6 @@
 //-----------------------------------------------------------------------
 //======================================================================
 
-
 #include "iutest.hpp"
 
 IUTEST_PACKAGE(PACKAGENAME)
@@ -50,4 +49,32 @@ IUTEST_PACKAGE(PACKAGENAME)
 	IUTEST_INSTANTIATE_TEST_CASE_P(B, ParamTest, ::iutest::Values(IUTEST_PP_ENUM_PARAMS(IUTEST_PP_LIMIT_ENUM, IUTEST_PP_EMPTY())));
 	IUTEST_INSTANTIATE_TEST_CASE_P(C, ParamTest, ::iutest::ValuesIn(make_param(1000, 0)));
 
+	template<typename T>
+	class TypedTest : public ::iutest::Test {};
+	
+	typedef ::iutest::Types<char, signed char, unsigned char
+		, short, signed short, unsigned short
+		, int, signed int, unsigned int
+		, long, signed long, unsigned long
+		, float, double> TypedTestTypes;
+	IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
+
+	IUTEST_TYPED_TEST(TypedTest, Mul2)
+	{
+		TypeParam x = 1;
+		IUTEST_ASSERT_EQ(x+x, 2*x);
+	}
+
+	template<typename T>
+	class TypeParamTest : public ::iutest::Test {};
+	IUTEST_TYPED_TEST_CASE_P(TypeParamTest);
+
+	IUTEST_TYPED_TEST_P(TypeParamTest, Mul2)
+	{
+		TypeParam x = 1;
+		IUTEST_ASSERT_EQ(x+x, 2*x);
+	}
+
+	IUTEST_REGISTER_TYPED_TEST_CASE_P(TypeParamTest, Mul2);
+	IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, TypeParamTest, TypedTestTypes);
 }

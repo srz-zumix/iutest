@@ -125,7 +125,7 @@ ifdef OUTPUTXML
 	$(RM) *.xml
 endif
 ifdef COVERAGE
-	$(RM) *.xml *.gcov *.gcno *.gcda
+	$(RM) *.xml *.gcov *.gcno *.gcda coverage.info
 endif
 
 check : test
@@ -185,8 +185,15 @@ endif
 #
 bench: benchmark
 benchmark:
-	make -C benchmark clean
-	time make -C benchmark build;
+	-rm _time.log
+	num=1; while [[ $$num -le 5 ]]; do \
+		make -C benchmark clean; \
+		{ time -p make -C benchmark build 2>&1; } 2>> _time.log; \
+		((num = num + 1)); \
+	done
+	@awk 'BEGIN{ sum=0; max=0; min=-1; num=0; } \
+		{ if($$1=="user") { num+=1; if(min==-1){ min=$$2; } sum+=$$2; if($$2>max){max=$$2}; if(min>$$2){min=$$2}; } }\
+		END{ print("Total:", sum, "(",num,")" ); print("Min:", min); print("Max:", max); print("Avg:", sum/num); }' _time.log
 
 #
 #
