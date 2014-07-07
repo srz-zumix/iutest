@@ -98,12 +98,6 @@ BENCH_SRCS = benchmark_n0.cpp \
              benchmark_n2.cpp \
              benchmark_n3.cpp \
              benchmark_n4.cpp \
-             benchmark_n5.cpp \
-             benchmark_n6.cpp \
-             benchmark_n7.cpp \
-             benchmark_n8.cpp \
-             benchmark_n9.cpp \
-             benchmark_n10.cpp \
 
 OBJS   = $(SRCS:%.cpp=%.o) $(BENCH_SRCS:%.cpp=%.o)
 TARGET = benchmark
@@ -121,7 +115,7 @@ build: $(TARGET)
 all : clean build test
 
 clean :
-	$(RM) $(TARGET) $(BENCH_SRCS) *.o *.stackdump
+	$(RM) $(TARGET) benchmark_n*.cpp *.o *.stackdump
 
 check : test
 run : test

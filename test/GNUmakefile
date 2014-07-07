@@ -185,8 +185,8 @@ endif
 #
 bench: benchmark
 benchmark:
-	-rm _time.log
-	num=1; while [[ $$num -le 5 ]]; do \
+	@if [ -a _time.log ]; then rm _time.log; fi
+	num=1; while [[ $$num -le 10 ]]; do \
 		make -C benchmark clean; \
 		{ time -p make -C benchmark build 2>&1; } 2>> _time.log; \
 		((num = num + 1)); \
