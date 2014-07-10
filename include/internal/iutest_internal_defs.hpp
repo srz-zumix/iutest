@@ -83,7 +83,7 @@
 #  elif defined(__ARMCC_VERSION)
 #    define IUTEST_BREAK()	do { __breakpoint(0xF02C); } while(::iutest::detail::AlwaysFalse())
 #  else
-#    define IUTEST_BREAK()	*static_cast<volatile int*>(NULL) = 1;
+#    define IUTEST_BREAK()	*static_cast<volatile int*>(NULL) = 1
 //#    define IUTEST_BREAK()	(void)0
 #  endif
 #endif
