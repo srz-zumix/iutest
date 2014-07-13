@@ -1,0 +1,6 @@
+*.exe
+*.gcda
+*.gcno
+coverage.info
+test/*.xml
+

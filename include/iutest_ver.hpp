@@ -118,6 +118,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>operatoer == のないオブジェクトの IUTEST_*_EQ 対応</li>
       <li>operatoer != のないオブジェクトの IUTEST_*_NE 対応</li>
       <li>junit xml 出力に対応（--iutest_output=junit）</li>
+      <li>ARM対応</li>
     </ul>
   </li>
   <li>v1.9.1.0
