@@ -101,6 +101,7 @@ BENCH_SRCS = benchmark_n0.cpp \
 
 OBJS   = $(SRCS:%.cpp=%.o) $(BENCH_SRCS:%.cpp=%.o)
 TARGET = benchmark
+BASIS = basis
 
 #
 # build targets.
@@ -109,18 +110,23 @@ TARGET = benchmark
 .PHONY: clean default all run test build
 
 default : build
+benchmark_main_: build
+benchmark_basis_: $(BASIS)
 
 build: $(TARGET)
 
 all : clean build test
 
 clean :
-	$(RM) $(TARGET) benchmark_n*.cpp *.o *.stackdump
+	$(RM) $(TARGET) $(BASIS) benchmark_n*.cpp *.o *.stackdump
 
 check : test
 run : test
 test : $(TARGET)
 	./$<
+
+$(BASIS): test.o
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 benchmark_n%.cpp: benchmark_base.cpp
 	@echo '#define PACKAGENAME benchmark_n$*' | cat - benchmark_base.cpp > $@

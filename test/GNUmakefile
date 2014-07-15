@@ -184,16 +184,23 @@ endif
 # benchmark
 #
 bench: benchmark
-benchmark:
-	@if [ -a _time.log ]; then rm _time.log; fi
-	num=1; while [[ $$num -le 10 ]]; do \
-		make -C benchmark clean; \
-		{ time -p make -C benchmark build 2>&1; } 2>> _time.log; \
-		((num = num + 1)); \
-	done
+benchmark: benchmark_basis_ benchmark_main_
 	@awk 'BEGIN{ sum=0; max=0; min=-1; num=0; } \
 		{ if($$1=="user") { num+=1; if(min==-1){ min=$$2; } sum+=$$2; if($$2>max){max=$$2}; if(min>$$2){min=$$2}; } }\
-		END{ print("Total:", sum, "(",num,")" ); print("Min:", min); print("Max:", max); print("Avg:", sum/num); }' _time.log
+		END{ num-=2; sum-=min; sum-=max; print("basis", sum/num); }' benchmark_basis_time.log >> benchmark_main_time.log
+	@awk 'BEGIN{ sum=0; max=0; min=-1; num=0; basis=0; } \
+		{ if($$1=="user") { num+=1; if(min==-1){ min=$$2; } sum+=$$2; if($$2>max){max=$$2}; if(min>$$2){min=$$2}; } }\
+		{ if($$1=="basis") { basis=$$2; } } \
+		END{ print("Total:", sum, "(",num,")" ); num-=2; sum-=min; sum-=max; print("Min:", min); print("Max:", max); \
+		print("Avg:", sum/num); print("per basis:", (sum/num)/basis); }' benchmark_main_time.log
+
+benchmark_main_ benchmark_basis_:
+	@if [ -a $@time.log ]; then rm $@time.log; fi
+	@num=1; while [[ $$num -le 10 ]]; do \
+		make -C benchmark clean; \
+		{ time -p make -C benchmark $@ 2>&1; } 2>> $@time.log; \
+		((num = num + 1)); \
+	done
 
 #
 #
