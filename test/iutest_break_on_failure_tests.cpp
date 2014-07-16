@@ -1,7 +1,7 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_break_on_fialure_tests.cpp
+ * @file		iutest_break_on_failure_tests.cpp
  * @brief		break_on_fialure 対応テスト
  *
  * @author		t.shirayanagi
