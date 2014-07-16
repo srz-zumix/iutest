@@ -49,7 +49,7 @@ struct type_select<false, YES_T, NO_T>
 template<intmax_t V>
 class is_prime_number
 {
-	static const intmax_t	RECURSIVE_MAX=200;	//!< template ‚ÌÄ‹AãŒÀ’l
+	static const intmax_t	RECURSIVE_MAX=200;
 
 	template<intmax_t N, intmax_t D1, intmax_t D2, intmax_t Cnt, intmax_t Max>
 	struct is_prime_calc_recursive0
@@ -197,7 +197,27 @@ public:
 };
 
 
-#define STATIC_ASSERT( B )	static_assert( B, #B )
+namespace detail {
+template<bool x>struct static_assert_failer;
+template<>struct static_assert_failer<true> { enum { value=1 }; };
+template<int x>struct static_assert_test {};
+}
+#define STATIC_ASSERT(B) typedef detail::static_assert_test< sizeof(detail::static_assert_failer<(bool)B>) > PP_CAT(static_assert_typedef_, __LINE__) 
+
+STATIC_ASSERT( is_prime_number<2>::value );
+STATIC_ASSERT( is_prime_number<3>::value );
+STATIC_ASSERT( is_prime_number<5>::value );
+STATIC_ASSERT( is_prime_number<7>::value );
+STATIC_ASSERT( is_prime_number<13>::value );
+STATIC_ASSERT( is_prime_number<17>::value );
+STATIC_ASSERT( is_prime_number<65497>::value );
+STATIC_ASSERT( is_prime_number<65491>::value == false );
+//STATIC_ASSERT( is_prime_number<16776989>::value );
+//STATIC_ASSERT( is_prime_number<37329287>::value );
+STATIC_ASSERT( is_prime_number<74746003>::value );
+//STATIC_ASSERT( is_prime_number<106591073>::value );
+//STATIC_ASSERT( is_prime_number<268435399>::value );
+//STATIC_ASSERT( is_prime_number<1073741789>::value );
 
 #ifdef UNICODE
 int wmain(int , wchar_t* [])
@@ -205,21 +225,6 @@ int wmain(int , wchar_t* [])
 int main(int , char* [])
 #endif
 {
-	STATIC_ASSERT( is_prime_number<2>::value );
-	STATIC_ASSERT( is_prime_number<3>::value );
-	STATIC_ASSERT( is_prime_number<5>::value );
-	STATIC_ASSERT( is_prime_number<7>::value );
-	STATIC_ASSERT( is_prime_number<13>::value );
-	STATIC_ASSERT( is_prime_number<17>::value );
-	STATIC_ASSERT( is_prime_number<65497>::value );
-	STATIC_ASSERT( is_prime_number<65491>::value == false );
-//	STATIC_ASSERT( is_prime_number<16776989>::value );
-//	STATIC_ASSERT( is_prime_number<37329287>::value );
-	STATIC_ASSERT( is_prime_number<74746003>::value );
-//	STATIC_ASSERT( is_prime_number<106591073>::value );
-//	STATIC_ASSERT( is_prime_number<268435399>::value );
-//	STATIC_ASSERT( is_prime_number<1073741789>::value );
-	
 	return 0;
 }
 

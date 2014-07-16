@@ -192,7 +192,7 @@ benchmark: benchmark_basis_ benchmark_main_
 		{ if($$1=="user") { num+=1; if(min==-1){ min=$$2; } sum+=$$2; if($$2>max){max=$$2}; if(min>$$2){min=$$2}; } }\
 		{ if($$1=="basis") { basis=$$2; } } \
 		END{ print("Total:", sum, "(",num,")" ); num-=2; sum-=min; sum-=max; print("Min:", min); print("Max:", max); \
-		print("Avg:", sum/num); print("per basis:", (sum/num)/basis); }' benchmark_main_time.log
+		print("Avg:", sum/num); print("per basis:", (sum/num)/basis); print("Basis:", basis); }' benchmark_main_time.log
 
 benchmark_main_ benchmark_basis_:
 	@if [ -a $@time.log ]; then rm $@time.log; fi
