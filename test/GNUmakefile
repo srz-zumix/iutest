@@ -120,7 +120,7 @@ default : $(TARGETS)
 all : clean default test
 
 clean :
-	$(RM) $(TARGETS) *.o *.stackdump
+	$(RM) $(TARGETS) *.o *.stackdump *.log
 ifdef OUTPUTXML
 	$(RM) *.xml
 endif
@@ -184,21 +184,24 @@ endif
 # benchmark
 #
 bench: benchmark
-benchmark: benchmark_basis_ benchmark_main_
+benchmark: build_benchmark
 	@awk 'BEGIN{ sum=0; max=0; min=-1; num=0; } \
 		{ if($$1=="user") { num+=1; if(min==-1){ min=$$2; } sum+=$$2; if($$2>max){max=$$2}; if(min>$$2){min=$$2}; } }\
-		END{ num-=2; sum-=min; sum-=max; print("basis", sum/num); }' benchmark_basis_time.log >> benchmark_main_time.log
+		END{ num-=2; sum-=min; sum-=max; print("basis", sum/num); }' benchmark_basis_time.log >> benchmark_build_time.log
 	@awk 'BEGIN{ sum=0; max=0; min=-1; num=0; basis=0; } \
 		{ if($$1=="user") { num+=1; if(min==-1){ min=$$2; } sum+=$$2; if($$2>max){max=$$2}; if(min>$$2){min=$$2}; } }\
 		{ if($$1=="basis") { basis=$$2; } } \
 		END{ print("Total:", sum, "(",num,")" ); num-=2; sum-=min; sum-=max; print("Min:", min); print("Max:", max); \
-		print("Avg:", sum/num); print("per basis:", (sum/num)/basis); print("Basis:", basis); }' benchmark_main_time.log
+		avg=sum/num; print("Avg:", avg); print("Score:", basis/avg*100); print("Basis:", basis); }' benchmark_build_time.log
 
-benchmark_main_ benchmark_basis_:
-	@if [ -a $@time.log ]; then rm $@time.log; fi
+build_benchmark:
+	@if [ -a benchmark_basis_time.log ]; then rm benchmark_basis_time.log; fi
+	@if [ -a benchmark_build_time.log ]; then rm benchmark_build_time.log; fi
 	@num=1; while [[ $$num -le 10 ]]; do \
 		make -C benchmark clean; \
-		{ time -p make -C benchmark $@ 2>&1; } 2>> $@time.log; \
+		{ time -p make -j 1 -C benchmark basis 2>&1; } 2>> benchmark_basis_time.log; \
+		make -C benchmark clean; \
+		{ time -p make -j 1 -C benchmark build 2>&1; } 2>> benchmark_build_time.log; \
 		((num = num + 1)); \
 	done
 

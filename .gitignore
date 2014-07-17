@@ -1,6 +1,8 @@
 *.exe
+*.stackdump
 *.gcda
 *.gcno
+*.log
 coverage.info
 test/*.xml
 

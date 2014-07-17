@@ -110,8 +110,6 @@ BASIS = basis
 .PHONY: clean default all run test build
 
 default : build
-benchmark_main_: build
-benchmark_basis_: $(BASIS)
 
 build: $(TARGET)
 
