@@ -111,6 +111,7 @@ BASIS = basis
 
 default : build
 
+prebuild: $(BENCH_SRCS)
 build: $(TARGET)
 
 all : clean build test

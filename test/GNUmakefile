@@ -200,7 +200,7 @@ build_benchmark:
 	@num=1; while [[ $$num -le 10 ]]; do \
 		make -C benchmark clean; \
 		{ time -p make -j 1 -C benchmark basis 2>&1; } 2>> benchmark_basis_time.log; \
-		make -C benchmark clean; \
+		make -C benchmark clean prebuild; \
 		{ time -p make -j 1 -C benchmark build 2>&1; } 2>> benchmark_build_time.log; \
 		((num = num + 1)); \
 	done
