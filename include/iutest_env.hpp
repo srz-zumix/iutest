@@ -586,7 +586,7 @@ private:
 		const char* eq = strchr(opt, '=');
 		if( eq == NULL )
 		{
-			return eq;
+			return NULL;
 		}
 		return eq+1;
 	}

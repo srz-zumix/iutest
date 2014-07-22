@@ -24,23 +24,29 @@ namespace detail
 {
 
 /**
+ * @brief	pool で管理するオブジェクトのベースクラス
+*/
+class iuIObject
+{
+public:
+	virtual ~iuIObject() {}
+};
+
+/**
  * @brief	new したオブジェクトを管理
 */
-template<typename T>
 class iuPool
 {
-	typedef iuPool<T> _Myt;
-	typedef ::std::vector<T*> pool;
+	typedef ::std::vector<iuIObject*> pool;
 	pool m_pool;
 public:
-	typedef T value_type;
-	typedef T *value_ptr;
+	typedef iuIObject *value_ptr;
 
 public:
 	~iuPool(void)
 	{
 		// すべて解放する
-		for( typename pool::iterator it=m_pool.begin(); it != m_pool.end(); )
+		for( pool::iterator it=m_pool.begin(); it != m_pool.end(); )
 		{
 			value_ptr p = *it;
 			it = m_pool.erase(it);
@@ -50,7 +56,7 @@ public:
 public:
 	void push(value_ptr ptr) { m_pool.push_back(ptr); }
 public:
-	static _Myt& GetInstance(void) { static _Myt inst; return inst; }
+	static iuPool& GetInstance(void) { static iuPool inst; return inst; }
 };
 
 }	// end of namespace detail
