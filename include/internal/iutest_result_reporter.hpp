@@ -84,16 +84,15 @@ public:
 		}
 	};
 public:
-	template<typename REPORTER>
-	class Reporter : public REPORTER
+	class ReporterHolder
 	{
 	public:
-		Reporter(void)
+		ReporterHolder(TestPartResultReporterInterface* p)
 			: m_origin(TestEnv::GetGlobalTestPartResultReporter())
 		{
-			TestEnv::SetGlobalTestPartResultReporter(this);
+			TestEnv::SetGlobalTestPartResultReporter(p);
 		}
-		virtual ~Reporter(void)
+		virtual ~ReporterHolder(void)
 		{
 			TestEnv::SetGlobalTestPartResultReporter(m_origin);
 		}
@@ -103,11 +102,11 @@ public:
 
 public:
 	template<typename COND, typename REPORTER=DefaultGlobalTestPartResultReporter>
-	class Counter : public Reporter<REPORTER>
+	class Counter : public REPORTER
 	{
 		typedef REPORTER _Mybase;
 	public:
-		Counter(void) : m_count(0)
+		Counter(void) : m_holder(this), m_count(0)
 		{
 		}
 		virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
@@ -121,16 +120,19 @@ public:
 	public:
 		int count(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_count; }
 	private:
+		ReporterHolder m_holder;
 		COND m_cond;
 		int m_count;
 
 		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(Counter);
 	};
 	template<typename REPORTER=DefaultGlobalTestPartResultReporter>
-	class Collector : public Reporter<REPORTER>
+	class Collector : public REPORTER
 	{
 		typedef REPORTER _Mybase;
 		typedef ::std::vector<TestPartResult> TestPartResults;
+	public:
+		Collector(void) : m_holder(this) {}
 	public:
 		virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
 		{
@@ -142,6 +144,7 @@ public:
 		const TestPartResult& GetTestPartResult(int index) const { return m_results[index]; }
 
 	private:
+		ReporterHolder m_holder;
 		TestPartResults m_results;
 	};
 };

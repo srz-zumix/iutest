@@ -84,7 +84,7 @@ inline void iuOptionMessage::ShowHelp(void)
 		"\n"
 		"    Copyright (c) 2011-2014, Takazumi-Shirayanagi\n"
 		"\n"
-		"    The new(3-clause) BSD License is applied to this software, see LICENSE\n"
+		"    This software is released under the new BSD License, see LICENSE\n"
 		"\n"
 		;
 	detail::iuConsole::color_output(detail::iuConsole::cyan, readme);

@@ -48,6 +48,7 @@ ALLTESTS_TARGET=iutest_all_tests
 TARGETS1= \
           iutest_assertion_return_tests \
           iutest_assume_tests \
+          iutest_break_on_failure_nobreak_tests \
           iutest_catch_exceptions_tests \
           iutest_commandline_tests \
           iutest_disabled_tests \

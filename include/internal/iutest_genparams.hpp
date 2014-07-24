@@ -141,7 +141,7 @@ public:
 
 /**
  * @brief	値配列パラメータ生成器
- * @tparam T	= パラメータ型
+ * @tparam T = パラメータ型
 */
 template<typename T>
 class iuValuesInParamsGenerator : public iuIParamGenerator<T>
@@ -254,22 +254,14 @@ class iuValueArray
 	struct make_array
 	{
 		T val[tuples::tuple_size<_MyTuple>::value];
+
+		template<typename U>
+		void operator ()(int index, const U& value) { val[index] = value; }
+
 		make_array(const _MyTuple& t)
 		{
-			make<tuples::tuple_size<_MyTuple>::value, 0>(t);
+			tuples::tuple_foreach(t, *this);
 		};
-
-		template<int N, int I>
-		void make(const _MyTuple& t, typename detail::enable_if<(I < N), void>::type*& = detail::enabler::value )
-		{
-			val[I] = tuples::get<I>(t);
-			make<N, I+1>(t);
-		}
-		template<int N, int I>
-		void make(const _MyTuple& t, typename detail::disable_if<(I < N), void>::type*& = detail::enabler::value )
-		{
-			IUTEST_UNUSED_VAR(t);
-		}
 	};
 public:
 	iuValueArray(const Args&... args)
@@ -418,16 +410,11 @@ class iuCartesianProductGenerator : public iuIParamGenerator< tuples::tuple<Args
 	typedef tuples::tuple< iuParamGenerator<Args>... > _MyTuple;
 	static const int count = tuples::tuple_size<_MyTuple>::value;
 
-	template<int index, int end, typename Tuple>
-	void begin_foreach(Tuple& t, typename detail::enable_if<index != end, void>::type*& = detail::enabler::value )
+	struct begin_func
 	{
-		tuples::get<index>(t).Begin();
-		begin_foreach<index+1, end>(t);
-	}
-	template<int index, int end, typename Tuple>
-	void begin_foreach(Tuple& , typename detail::enable_if<index == end, void>::type*& = detail::enabler::value )
-	{
-	}
+		template<typename T>
+		void operator ()(int, T& value) const { value.Begin(); }
+	};
 
 	template<int index, int end, typename Tuple>
 	bool is_end_foreach(Tuple& t, typename detail::enable_if<index != end, void>::type*& = detail::enabler::value ) const
@@ -448,7 +435,10 @@ class iuCartesianProductGenerator : public iuIParamGenerator< tuples::tuple<Args
 		if( is_end_foreach<index+1, end>(t) )
 		{
 			tuples::get<index>(t).Next();
-			if( !tuples::get<index>(t).IsEnd() ) begin_foreach<index+1, end>(t);
+			if( !tuples::get<index>(t).IsEnd() )
+			{
+				tuples::tuple_foreach<index + 1>(t, begin_func());
+			}
 		}
 	}
 	template<int index, int end, typename Tuple>
@@ -477,7 +467,7 @@ public:
 public:
 	virtual void Begin(void) IUTEST_CXX_OVERRIDE
 	{
-		begin_foreach<0, count>(v);
+		tuples::tuple_foreach(v, begin_func());
 	}
 	virtual void Next(void) IUTEST_CXX_OVERRIDE
 	{
@@ -502,19 +492,7 @@ template<typename... Generator>
 class iuCartesianProductHolder
 {
 	typedef iuCartesianProductHolder<Generator...> _Myt;
-
 	typedef tuples::tuple<const Generator...> _MyTuple;
-
-	template<int index, int end, typename ArgTuple, typename SrcTuple, typename DstTuple>
-	void set_foreach(SrcTuple& src, DstTuple& dst, typename detail::enable_if<index != end, void>::type*& = detail::enabler::value ) const
-	{
-		tuples::get<index>(dst) = static_cast< typename tuples::tuple_element<index, DstTuple>::type >(tuples::get<index>(src));
-		set_foreach<index+1, end, ArgTuple>(src, dst);
-	}
-	template<int index, int end, typename ArgTuple, typename SrcTuple, typename DstTuple>
-	void set_foreach(SrcTuple& , DstTuple& , typename detail::enable_if<index == end, void>::type*& = detail::enabler::value ) const
-	{
-	}
 
 public:
 	iuCartesianProductHolder(const Generator&... generators)
@@ -524,9 +502,8 @@ public:
 	template<typename... Args>
 	operator iuIParamGenerator< tuples::tuple<Args...> >* (void) const
 	{
-		typedef tuples::tuple<Args...> ArgTuple;
 		iuCartesianProductGenerator<Args...>* p = new iuCartesianProductGenerator<Args...>();
-		set_foreach<0, tuples::tuple_size<ArgTuple>::value, ArgTuple>(v, p->generators());
+		tuples::tuple_cast_copy(p->generators(), v);
 		return p;
 	}
 
@@ -999,21 +976,15 @@ public:
 	static iuIParamGenerator< ParamType >* Create(GeneratorTuple& generators)
 	{
 		ParamIndexesList list;
-		ParamsTuple params_list;
+		ParamVecotrs param_vectors(generators);
 
-		MakeParamVecotrs<0>(params_list, generators);
-
-		int count_list[RAW_COUNT] = { 0 };
-		GetCountList<0>(params_list, count_list);
-
-		MakeIndexList(list, count_list);
+		MakeIndexList(list, param_vectors.count_list);
 
 		::std::vector<ParamType> params;
-
 		for( typename ParamIndexesList::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
 		{
 			const _MyParamIndexes& indexes = *it;
-			params.push_back( MakeParam<0, Args...>(params_list, indexes) );
+			params.push_back(MakeParam<0, Args...>(param_vectors.params_list, indexes));
 		}
 
 		return new iuValuesInParamsGenerator< ParamType >(params);
@@ -1031,29 +1002,30 @@ private:
 		return tuples::tuple<T1>( GetParam( tuples::get<N>(list), indexes, N) );
 	}
 
-	template<int N>
-	static void MakeParamVecotrs(ParamsTuple& list, GeneratorTuple& generators, typename detail::disable_if<N == RAW_COUNT-1, void>::type*& = detail::enabler::value)
+	struct ParamVecotrs
 	{
-		MakeParamVector(tuples::get<N>(list), tuples::get<N>(generators));
-		MakeParamVecotrs<N+1>(list, generators);
-	}
-	template<int N>
-	static void MakeParamVecotrs(ParamsTuple& list, GeneratorTuple& generators, typename detail::enable_if<N == RAW_COUNT-1, void>::type*& = detail::enabler::value)
-	{
-		MakeParamVector(tuples::get<N>(list), tuples::get<N>(generators));
-	}
+		ParamsTuple params_list;
+		int count_list[RAW_COUNT];
 
-	template<int N>
-	static void GetCountList(ParamsTuple& list, int* count_list, typename detail::disable_if<N == RAW_COUNT-1, void>::type*& = detail::enabler::value)
-	{
-		count_list[N] = static_cast<int>(tuples::get<N>(list).size());
-		GetCountList<N+1>(list, count_list);
-	}
-	template<int N>
-	static void GetCountList(ParamsTuple& list, int* count_list, typename detail::enable_if<N == RAW_COUNT-1, void>::type*& = detail::enabler::value)
-	{
-		count_list[N] = static_cast<int>(tuples::get<N>(list).size());
-	}
+		template<int N>
+		void MakeParamVecotrs(GeneratorTuple& generators, typename detail::disable_if<N == RAW_COUNT-1, void>::type*& = detail::enabler::value)
+		{
+			MakeParamVector(tuples::get<N>(params_list), tuples::get<N>(generators));
+			count_list[N] = static_cast<int>(tuples::get<N>(params_list).size());
+			MakeParamVecotrs<N+1>(generators);
+		}
+		template<int N>
+		void MakeParamVecotrs(GeneratorTuple& generators, typename detail::enable_if<N == RAW_COUNT-1, void>::type*& = detail::enabler::value)
+		{
+			MakeParamVector(tuples::get<N>(params_list), tuples::get<N>(generators));
+			count_list[N] = static_cast<int>(tuples::get<N>(params_list).size());
+		}
+
+		ParamVecotrs(GeneratorTuple& generators)
+		{
+			MakeParamVecotrs<0>(generators);
+		}
+	};
 };
 
 template<typename... Generator>
@@ -1061,17 +1033,6 @@ class iuPairwiseHolder
 {
 	typedef iuPairwiseHolder<Generator...> _Myt;
 	typedef tuples::tuple<const Generator...> _MyTuple;
-
-	template<int index, int end, typename ArgTuple, typename SrcTuple, typename DstTuple>
-	void set_foreach(SrcTuple& src, DstTuple& dst, typename detail::enable_if<index != end, void>::type*& = detail::enabler::value ) const
-	{
-		tuples::get<index>(dst) = static_cast< typename tuples::tuple_element<index, DstTuple>::type >(tuples::get<index>(src));
-		set_foreach<index+1, end, ArgTuple>(src, dst);
-	}
-	template<int index, int end, typename ArgTuple, typename SrcTuple, typename DstTuple>
-	void set_foreach(SrcTuple& , DstTuple& , typename detail::enable_if<index == end, void>::type*& = detail::enabler::value ) const
-	{
-	}
 
 public:
 	iuPairwiseHolder(const Generator&... generators)
@@ -1081,10 +1042,8 @@ public:
 	template<typename... Args>
 	operator iuIParamGenerator< tuples::tuple<Args...> >* (void) const
 	{
-		typedef tuples::tuple<Args...> ArgTuple;
 		tuples::tuple< iuParamGenerator<Args>... > generators;
-		set_foreach<0, tuples::tuple_size<ArgTuple>::value, ArgTuple>(v, generators);
-
+		tuples::tuple_cast_copy(generators, v);
 		return iuPairwiseGenerator<Args...>::Create(generators);
 	}
 
