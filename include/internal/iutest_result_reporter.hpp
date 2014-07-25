@@ -87,12 +87,17 @@ public:
 	class ReporterHolder
 	{
 	public:
-		ReporterHolder(TestPartResultReporterInterface* p)
-			: m_origin(TestEnv::GetGlobalTestPartResultReporter())
+		ReporterHolder() : m_origin(NULL) {}
+		virtual ~ReporterHolder(void)
 		{
+			Detach();
+		}
+		void Attach(TestPartResultReporterInterface* p)
+		{
+			m_origin = TestEnv::GetGlobalTestPartResultReporter();
 			TestEnv::SetGlobalTestPartResultReporter(p);
 		}
-		virtual ~ReporterHolder(void)
+		void Detach(void)
 		{
 			TestEnv::SetGlobalTestPartResultReporter(m_origin);
 		}
@@ -106,8 +111,9 @@ public:
 	{
 		typedef REPORTER _Mybase;
 	public:
-		Counter(void) : m_holder(this), m_count(0)
+		Counter(void) : m_count(0)
 		{
+			m_holder.Attach(this);
 		}
 		virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
 		{
@@ -132,7 +138,10 @@ public:
 		typedef REPORTER _Mybase;
 		typedef ::std::vector<TestPartResult> TestPartResults;
 	public:
-		Collector(void) : m_holder(this) {}
+		Collector(void)
+		{
+			m_holder.Attach(this);
+		}
 	public:
 		virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
 		{

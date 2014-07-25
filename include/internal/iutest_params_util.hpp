@@ -42,15 +42,6 @@ protected:
 };
 
 /**
- * @brief	パラメータテストインスタンスベースクラス
-*/
-class IParamEachTestBase
-{
-public:
-	virtual ~IParamEachTestBase(void) {}
-};
-
-/**
  * @brief	パラメータ単体テストインスタンスインターフェイス
 */
 class IParamTestCaseInfo

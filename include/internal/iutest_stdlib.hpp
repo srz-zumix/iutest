@@ -137,18 +137,20 @@ namespace iutest {
 namespace tuples
 {
 #if IUTEST_HAS_STD_TUPLE
-	using ::std::tuple;
-	using ::std::tuple_size;
-	using ::std::tuple_element;
-	using ::std::make_tuple;
-	using ::std::get;
+	namespace alias = ::std;
 #elif IUTEST_HAS_TR1_TUPLE
-	using ::std::tr1::tuple;
-	using ::std::tr1::tuple_size;
-	using ::std::tr1::tuple_element;
-	using ::std::tr1::make_tuple;
-	using ::std::tr1::get;
+	namespace alias = ::std::tr1;
 #endif
+
+	using alias::tuple;
+	using alias::tuple_element;
+	using alias::make_tuple;
+	using alias::get;
+
+	template<typename T>struct tuple_size : public alias::tuple_size<T> {};
+	template<typename T>struct tuple_size<const T> : public alias::tuple_size<T> {};
+	template<typename T>struct tuple_size<volatile T> : public alias::tuple_size<T>{};
+	template<typename T>struct tuple_size<const volatile T> : public alias::tuple_size<T>{};
 
 	namespace detail
 	{

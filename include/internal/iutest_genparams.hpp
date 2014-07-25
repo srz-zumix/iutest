@@ -300,8 +300,7 @@ public:
 	template<typename T>
 	operator iuIParamGenerator<T>* (void) const
 	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2)
-		};
+		const T val[] = { static_cast<T>(v1), static_cast<T>(v2) };
 		return new iuValuesInParamsGenerator<T>(val);
 	}
 public:
