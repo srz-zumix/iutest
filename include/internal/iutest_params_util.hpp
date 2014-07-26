@@ -20,7 +20,7 @@
 #include "iutest_genparams.hpp"
 
 #if IUTEST_HAS_PARAM_TEST
-#include "internal/iutest_pool.hpp"
+#include "iutest_pool.hpp"
 
 namespace iutest {
 namespace detail
