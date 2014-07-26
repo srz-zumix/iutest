@@ -20,7 +20,6 @@
 #include "iutest_any.hpp"
 
 #if IUTEST_HAS_PARAM_TEST
-#include "internal/iutest_pool.hpp"
 
 //======================================================================
 // define
@@ -194,33 +193,35 @@ namespace detail
  * @brief	パラメータ単体テスト TestInfo 情報インスタンス
 */
 template<typename T>
-class ParamTestInstance : public IParamTestInfoData<typename T::ParamType>
+class ParamTestInstance : public IParamTestInfoData
 {
-	typedef T								Tester;
-	typedef typename Tester::ParamType		ParamType;
-	typedef detail::iuParamTestFactory<T>	Factory;
-	typedef IParamTestInfoData<ParamType>	_Mybase;
+	typedef T Tester;
+	typedef typename Tester::ParamType ParamType;
+	typedef detail::iuParamTestFactory<T> Factory;
 
 	// 各テストのインスタンス
-	class EachTest : public iuIObject
+	class EachTest IUTEST_CXX_FINAL : public IParamTestInfoData::ParamEachTestBase<ParamType>
 	{
 	public:
-		EachTest(TestCase* testcase, const char* name, ParamType param)
+		EachTest(TestCase* testcase, const char* name)
 			: m_mediator(testcase)
-			, m_factory(param)
 			, m_info(&m_mediator, name, &m_factory)
 		{
 			UnitTest::instance().AddTestInfo(testcase, &m_info);
+		}
+	private:
+		virtual void SetParam(const ParamType& param) IUTEST_CXX_OVERRIDE
+		{
+			m_factory.SetParam(param);
 			m_info.set_value_param(PrintToString(param).c_str());
 		}
-		~EachTest(void) {}
 	private:
 		TestCaseMediator	m_mediator;
 		Factory				m_factory;
 		TestInfo			m_info;
 	};
 public:
-	ParamTestInstance(const char* testcase_name) : _Mybase(testcase_name) {}
+	ParamTestInstance(const char* testcase_name) : IParamTestInfoData(testcase_name) {}
 
 private:
 	// テストケースの作成
@@ -234,11 +235,12 @@ private:
 	}
 
 	// テストの作成登録
-	virtual void RegisterTest(TestCase* testcase, ParamType param, int index) const IUTEST_CXX_OVERRIDE
+	virtual IParamTestInfoData::EachTestBase* RegisterTest(TestCase* testcase, int index) const IUTEST_CXX_OVERRIDE
 	{
-		EachTest* test = new EachTest(testcase, detail::MakeIndexTestName(this->m_name.c_str(), index).c_str(), param);
+		EachTest* test = new EachTest(testcase, detail::MakeIndexTestName(GetName(), index).c_str());
 		// new オブジェクトを管理してもらう
 		detail::iuPool::GetInstance().push(test);
+		return test;
 	}
 };
 
