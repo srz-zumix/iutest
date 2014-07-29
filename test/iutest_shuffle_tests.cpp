@@ -81,6 +81,7 @@ int main(int argc, char* argv[])
 	
 	IUTEST_EXPECT_NE(order[0], order[1]);
 	IUTEST_EXPECT_NE(order[0], order[2]);
+	IUTEST_EXPECT_NE(order[1], order[2]);
 	
 	return ::iutest::UnitTest::GetInstance()->Passed() ? 0 : 1;
 }
