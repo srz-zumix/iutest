@@ -242,31 +242,31 @@ using tuples::get;
 #endif
 
 // chrono
-#if !defined(IUTEST_HAS_CXX11_HDR_CHRONO)
+#if !defined(IUTEST_HAS_CXX_HDR_CHRONO)
 
 #if   defined(__has_include)
 #  if __has_include( <chrono> )
 #    if IUTEST_HAS_CXX11
-#      define IUTEST_HAS_CXX11_HDR_CHRONO	1
+#      define IUTEST_HAS_CXX_HDR_CHRONO		1
 #    endif
 #  endif
 #elif defined(__GLIBCXX__)
 #  if defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
-#      define IUTEST_HAS_CXX11_HDR_CHRONO	1
+#      define IUTEST_HAS_CXX_HDR_CHRONO		1
 #    endif
 #  else
 #  endif
 #elif defined(_MSC_VER)
 #  if _MSC_VER > 1600
-#    define IUTEST_HAS_CXX11_HDR_CHRONO		1
+#    define IUTEST_HAS_CXX_HDR_CHRONO		1
 #  endif
 #endif
 
 #endif
 
-#if !defined(IUTEST_HAS_CXX11_HDR_CHRONO)
-#  define IUTEST_HAS_CXX11_HDR_CHRONO	0
+#if !defined(IUTEST_HAS_CXX_HDR_CHRONO)
+#  define IUTEST_HAS_CXX_HDR_CHRONO			0
 #endif
 
 // random
@@ -325,6 +325,24 @@ using tuples::get;
 #  define IUTEST_HAS_CXX_HDR_CODECVT		0
 #endif
 
+// emplace
+#if !defined(IUTEST_HAS_STD_EMPLACE)
+#  if defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_STD_EMPLACE		1
+#    endif
+#  elif defined(__clang__)
+#    define IUTEST_HAS_STD_EMPLACE			1
+#  elif defined(_MSC_VER)
+#    if (_MSC_VER > 1700)
+#      define IUTEST_HAS_STD_EMPLACE		1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_STD_EMPLACE)
+#  define IUTEST_HAS_STD_EMPLACE			0
+#endif
 
 // abi
 #if !defined(IUTEST_HAS_HDR_CXXABI)

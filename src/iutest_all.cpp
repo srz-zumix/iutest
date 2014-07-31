@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#define IUTEST_USE_LIB
+#define IUTEST_USE_LIB 1
 #define IUTEST_HAS_EXTERN_TEMPLATE 0
 #include "../include/iutest.hpp"
 

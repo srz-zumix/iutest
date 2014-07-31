@@ -75,7 +75,7 @@ IUTEST_IPP_INLINE TimeInMillisec GetTimeInMillis(void)
 #if   defined(IUTEST_GetMillisec)
 	return IUTEST_GetMillisec();
 
-#elif IUTEST_HAS_CXX11_HDR_CHRONO
+#elif IUTEST_HAS_CXX_HDR_CHRONO
 	return ::std::chrono::duration_cast< ::std::chrono::milliseconds>(::std::chrono::high_resolution_clock::now().time_since_epoch()).count();
 
 #elif IUTEST_HAS_GETTIMEOFDAY

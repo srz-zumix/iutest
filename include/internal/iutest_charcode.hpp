@@ -148,6 +148,25 @@ struct mbs_ptr : public mbs_ptr_impl::to_mbs_ptr<CharType>
 {
 };
 
+#if IUTEST_HAS_LIB
+
+#if IUTEST_HAS_EXTERN_TEMPLATE
+
+IUTEST_PRAGMA_EXTERN_TEMPLATE_WARN_DISABLE_BEGIN()
+
+extern template struct mbs_ptr_impl::to_mbs_ptr<char>;
+extern template struct mbs_ptr_impl::to_mbs_ptr<wchar_t>;
+
+IUTEST_PRAGMA_EXTERN_TEMPLATE_WARN_DISABLE_END()
+
+#else
+
+template struct mbs_ptr_impl::to_mbs_ptr<char>;
+template struct mbs_ptr_impl::to_mbs_ptr<wchar_t>;
+
+#endif
+#endif
+
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 }	// end of namespace detail

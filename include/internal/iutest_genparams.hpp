@@ -755,6 +755,8 @@ protected:
 
 private:
 	struct PairInfo {
+		PairInfo(int r1, int r2, int i1, int i2)
+			: raw1(r1), raw2(r2), idx1(i1), idx2(i2) {}
 		int raw1, raw2;	// 列のペア
 		int idx1, idx2;	// インデックスのペア
 	};
@@ -776,7 +778,11 @@ protected:
 			T1 t1 = g1.GetCurrent();
 			for( g2.Begin(); !g2.IsEnd(); g2.Next() )
 			{
+#if IUTEST_HAS_STD_EMPLACE
+				list.emplace_back(t1, g2.GetCurrent());
+#else
 				list.push_back(::std::pair<T1, T2>(t1, g2.GetCurrent()));
+#endif
 			}
 		}
 	}
@@ -799,8 +805,12 @@ protected:
 				{
 					for( int ri=0; ri < r; ++ri )
 					{
-						PairInfo info = { i, j, li, ri };
+#if IUTEST_HAS_STD_EMPLACE
+						pair_list.emplace_back(i, j, li, ri);
+#else
+						PairInfo info( i, j, li, ri );
 						pair_list.push_back(info);
+#endif
 					}
 				}
 			}
@@ -917,7 +927,7 @@ private:
 					{
 						continue;
 					}
-					PairInfo tmp = { i, free_raw, indexes.index[i], free_idx };
+					PairInfo tmp(i, free_raw, indexes.index[i], free_idx);
 					iterator it2 = Find(list, tmp, list.begin());
 					while(it2 != end)
 					{

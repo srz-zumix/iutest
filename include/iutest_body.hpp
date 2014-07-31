@@ -26,7 +26,6 @@ namespace iutest
 
 //======================================================================
 // declare
-class Test;
 template<typename T>class WithParamInterface;
 template<typename T>class TestWithParam;
 

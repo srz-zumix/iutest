@@ -128,7 +128,11 @@ public:
 	*/
 	int	AddTestCaseInstantiation(::std::string name, pfnCreateGeneratorFunc* func)
 	{
+#if IUTEST_HAS_STD_EMPLACE
+		m_instantiation.emplace_back(name, func);
+#else
 		m_instantiation.push_back(InstantiationPair(name, func));
+#endif
 		return 0;
 	}
 

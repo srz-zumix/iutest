@@ -170,31 +170,74 @@ inline AssertionReturnType<void> AssertionReturn(void) { return AssertionReturnT
 class AssertionHelper
 {
 public:
+	/**
+	 * @brief	コンストラクタ
+	 * @param [in]	file	= ファイル名
+	 * @param [in]	line	= 行番号
+	 * @param [in]	message	= メッセージ
+	 * @param [in]	type	= テスト結果のタイプ
+	*/
+	AssertionHelper(const char* file, int line, const char* message, TestPartResult::Type type)
+		: m_part_result(file, line, message, type)
+	{}
+	/**
+	 * @brief	コンストラクタ
+	 * @param [in]	file	= ファイル名
+	 * @param [in]	line	= 行番号
+	 * @param [in]	message	= メッセージ
+	 * @param [in]	type	= テスト結果のタイプ
+	*/
+	AssertionHelper(const char* file, int line, const ::std::string& message, TestPartResult::Type type)
+		: m_part_result(file, line, message.c_str(), type)
+	{}
+
+private:
+	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(AssertionHelper);
+
+#if IUTEST_HAS_RVALUE_REFS
+	AssertionHelper(AssertionHelper&& rhs) IUTEST_CXX_DELETED_FUNCTION;
+	AssertionHelper& operator=(AssertionHelper&&) IUTEST_CXX_DELETED_FUNCTION;
+#endif
+
+public:
 	/** @private */
 	class ScopedMessage : public detail::iu_list_node<ScopedMessage>
-		,  public detail::iuCodeMessage
+		, public detail::iuCodeMessage
 	{
 	public:
 		ScopedMessage(const detail::iuCodeMessage& msg)
 			: detail::iuCodeMessage(msg)
 		{
-			MessageList::s_scoped_message.push_back(this);
+			ScopedTrace::GetInstance().list.push_back(this);
 		}
 		~ScopedMessage(void)
 		{
-			MessageList::s_scoped_message.erase(this);
+			ScopedTrace::GetInstance().list.erase(this);
 		}
 	};
-public:
-	/** @private */
-	typedef detail::iu_list<ScopedMessage> msg_list;
-
 private:
-	template<typename T>
-	struct List {
-		static msg_list s_scoped_message;
+	class ScopedTrace
+	{
+	public:
+		typedef detail::iu_list<ScopedMessage> msg_list;
+		msg_list list;
+		static ScopedTrace GetInstance(void) { static ScopedTrace inst; return inst; }
+	public:
+		void append_message(TestPartResult& part_result)
+		{
+			if( list.count() )
+			{
+				part_result.add_message("\niutest trace:");
+				for( msg_list::iterator it = list.begin(), end=list.end(); it != end; ++it )
+				{
+					// TODO : 追加メッセージとして保存するべき
+					// 現状はテスト結果のメッセージに追加している。
+					part_result.add_message("\n");
+					part_result.add_message(it->make_message().c_str());
+				}
+			}
+		}
 	};
-	typedef List<void> MessageList;
 
 #if defined(IUTEST_NO_PRIVATE_IN_AGGREGATE)
 	friend class ScopedMessage;
@@ -247,36 +290,6 @@ private:
 #endif
 
 public:
-	/**
-	 * @brief	コンストラクタ
-	 * @param [in]	file	= ファイル名
-	 * @param [in]	line	= 行番号
-	 * @param [in]	message	= メッセージ
-	 * @param [in]	type	= テスト結果のタイプ
-	*/
-	AssertionHelper(const char* file, int line, const char* message, TestPartResult::Type type)
-		: m_part_result(file, line, message, type)
-	{}
-	/**
-	 * @brief	コンストラクタ
-	 * @param [in]	file	= ファイル名
-	 * @param [in]	line	= 行番号
-	 * @param [in]	message	= メッセージ
-	 * @param [in]	type	= テスト結果のタイプ
-	*/
-	AssertionHelper(const char* file, int line, const ::std::string& message, TestPartResult::Type type)
-		: m_part_result(file, line, message.c_str(), type)
-	{}
-
-private:
-	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(AssertionHelper);
-
-#if IUTEST_HAS_RVALUE_REFS
-	AssertionHelper(AssertionHelper&& rhs) IUTEST_CXX_DELETED_FUNCTION;
-	AssertionHelper& operator=(AssertionHelper&&) IUTEST_CXX_DELETED_FUNCTION;
-#endif
-
-public:
 	/** @private */
 	void operator = (const Fixed& fixed)
 	{
@@ -309,19 +322,8 @@ private:
 	void OnFixed(const Fixed& fixed)
 	{
 		// OnFixed で throw しないこと！テスト側の例外キャッチにかからなくなる
-
 		m_part_result.add_message(fixed.GetString());
-		if( MessageList::s_scoped_message.count() )
-		{
-			m_part_result.add_message("\niutest trace:");
-			for( msg_list::iterator it = MessageList::s_scoped_message.begin(), end=MessageList::s_scoped_message.end(); it != end; ++it )
-			{
-				// TODO : 追加メッセージとして保存するべき
-				// 現状はテスト結果のメッセージに追加している。
-				m_part_result.add_message("\n");
-				m_part_result.add_message(it->make_message().c_str());
-			}
-		}
+		ScopedTrace::GetInstance().append_message(m_part_result);
 
 		if( TestEnv::GetGlobalTestPartResultReporter() != NULL )
 		{
@@ -345,9 +347,6 @@ private:
 };
 
 }	// end of namespace iutest
-
-template<typename T>
-::iutest::AssertionHelper::msg_list iutest::AssertionHelper::List<T>::s_scoped_message;
 
 namespace iutest
 {
