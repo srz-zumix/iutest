@@ -277,7 +277,19 @@ inline bool iuConsole::IsShouldUseColor(bool use_color)
 }	// end of namespace detail
 }	// end of namespace iutest
 
+#if IUTEST_HAS_LIB && IUTEST_HAS_EXTERN_TEMPLATE
+
+IUTEST_PRAGMA_EXTERN_TEMPLATE_WARN_DISABLE_BEGIN()
+
+extern template struct ::iutest::detail::iuConsole::Variable<void>;
+
+IUTEST_PRAGMA_EXTERN_TEMPLATE_WARN_DISABLE_END()
+
+#else
+
 template<typename T>
 ::iutest::detail::iuLogger* ::iutest::detail::iuConsole::Variable<T>::m_pLogger = NULL;
+
+#endif
 
 #endif // INCG_IRIS_IUTEST_CONSOLE_HPP_DCAC5025_B7BB_424E_A849_9E6FE0A3B460_

@@ -154,15 +154,15 @@ struct mbs_ptr : public mbs_ptr_impl::to_mbs_ptr<CharType>
 
 IUTEST_PRAGMA_EXTERN_TEMPLATE_WARN_DISABLE_BEGIN()
 
-extern template struct mbs_ptr_impl::to_mbs_ptr<char>;
-extern template struct mbs_ptr_impl::to_mbs_ptr<wchar_t>;
+extern template struct mbs_ptr<char>;
+extern template struct mbs_ptr<wchar_t>;
 
 IUTEST_PRAGMA_EXTERN_TEMPLATE_WARN_DISABLE_END()
 
 #else
 
-template struct mbs_ptr_impl::to_mbs_ptr<char>;
-template struct mbs_ptr_impl::to_mbs_ptr<wchar_t>;
+template struct mbs_ptr<char>;
+template struct mbs_ptr<wchar_t>;
 
 #endif
 #endif

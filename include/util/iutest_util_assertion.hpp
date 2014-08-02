@@ -419,7 +419,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const c
 		return ::iutest::AssertionSuccess();
 	}
 	return ::iutest::AssertionFailure() << "error: Expected: " << "strstr(" << actual_str << ", " << substr_str << ") != NULL"
-		<< "\n  Actual: " << "strstr(" << actual << ", " << substr << ") == NULL";
+		<< "\n  Actual: " << "strstr(\"" << actual << "\", " << substr << ") == NULL";
 }
 
 /**
@@ -440,7 +440,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const c
 		return ::iutest::AssertionSuccess();
 	}
 	return ::iutest::AssertionFailure() << "error: Expected: " << "strstr(" << actual_str << ", " << substr_str << ") != NULL"
-		<< "\n  Actual: " << "strstr(" << actual << ", " << substr << ") == NULL";
+		<< "\n  Actual: " << "strstr(L\"" << actual << "\", " << substr << ") == NULL";
 }
 
 /**
@@ -461,7 +461,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNOTIN(cons
 		return ::iutest::AssertionSuccess();
 	}
 	return ::iutest::AssertionFailure() << "error: Expected: " << "strstr(" << actual_str << ", " << substr_str << ") == NULL"
-		<< "\n  Actual: " << "strstr(" << actual << ", " << substr << ") != NULL";
+		<< "\n  Actual: " << "strstr(\"" << actual << "\", " << substr << ") != NULL";
 }
 
 /**
@@ -482,7 +482,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNOTIN(cons
 		return ::iutest::AssertionSuccess();
 	}
 	return ::iutest::AssertionFailure() << "error: Expected: " << "strstr(" << actual_str << ", " << substr_str << ") == NULL"
-		<< "\n  Actual: " << "strstr(" << actual << ", " << substr << ") != NULL";
+		<< "\n  Actual: " << "strstr(L\"" << actual << "\", " << substr << ") != NULL";
 }
 
 /**

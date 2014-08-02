@@ -221,7 +221,7 @@ private:
 	public:
 		typedef detail::iu_list<ScopedMessage> msg_list;
 		msg_list list;
-		static ScopedTrace GetInstance(void) { static ScopedTrace inst; return inst; }
+		static ScopedTrace& GetInstance(void) { static ScopedTrace inst; return inst; }
 	public:
 		void append_message(TestPartResult& part_result)
 		{
