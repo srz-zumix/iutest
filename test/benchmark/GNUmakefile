@@ -89,6 +89,11 @@ CXXFLAGS += -Werror=undef
 LIBS_ = $(LIBS:%=-l%)
 LDFLAGS += $(LIBS_)
 
+ifdef USE_LIB
+CXXFLAGS += -DIUTEST_USE_LIB=1 -L../../lib
+LDFLAGS += -liutest
+endif
+
 MAKEFILE=GNUmakefile
 
 SRCS   = main.cpp

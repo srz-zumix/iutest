@@ -88,6 +88,18 @@
 #  endif
 #endif
 
+
+#if IUTEST_HAS_LIB && IUTEST_HAS_EXTERN_TEMPLATE
+
+IUTEST_PRAGMA_EXTERN_TEMPLATE_WARN_DISABLE_BEGIN()
+
+extern template class ::std::vector< ::std::basic_string<char> >;
+extern template class ::std::vector< ::std::basic_string<wchar_t> >;
+
+IUTEST_PRAGMA_EXTERN_TEMPLATE_WARN_DISABLE_END()
+
+#endif
+
 namespace iutest
 {
 

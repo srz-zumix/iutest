@@ -19,6 +19,18 @@
 // include
 #include <vector>
 
+#if IUTEST_HAS_LIB && IUTEST_HAS_EXTERN_TEMPLATE
+
+namespace iutest { namespace detail { class iuIObject; } }
+
+IUTEST_PRAGMA_EXTERN_TEMPLATE_WARN_DISABLE_BEGIN()
+
+extern template class ::std::vector< ::iutest::detail::iuIObject* >;
+
+IUTEST_PRAGMA_EXTERN_TEMPLATE_WARN_DISABLE_END()
+
+#endif
+
 namespace iutest {
 namespace detail
 {

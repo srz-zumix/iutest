@@ -19,6 +19,12 @@
 #define IUTEST_HAS_EXTERN_TEMPLATE 0
 #include "../include/iutest.hpp"
 
+template class ::std::vector< ::iutest::detail::iuIObject* >;
+template class ::std::vector< ::iutest::Environment* >;
+template class ::std::vector< ::iutest::TestEventListener* >;
+template class ::std::vector< ::std::basic_string<char> >;
+template class ::std::vector< ::std::basic_string<wchar_t> >;
+
 // ipp
 #include "../include/impl/iutest_port.ipp"
 #include "../include/impl/iutest_body.ipp"
