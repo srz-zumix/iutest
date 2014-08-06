@@ -21,6 +21,9 @@
     <ClCompile Include="..\..\..\test\iutest_tr1_param_direct_tests.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\test\iutest_tr1_failurecount_assertion_tests.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\tr1\iutest_value_tmp_tests.hpp">
@@ -30,6 +33,9 @@
       <Filter>iutest\tr1</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\tr1\iutest_param_direct_tests.hpp">
+      <Filter>iutest\tr1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\tr1\iutest_failurecount_assertion.hpp">
       <Filter>iutest\tr1</Filter>
     </ClInclude>
   </ItemGroup>

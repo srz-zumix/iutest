@@ -31,8 +31,8 @@ namespace detail
 class DefaultGlobalTestPartResultReporter : public TestPartResultReporterInterface
 {
 public:
-	virtual ~DefaultGlobalTestPartResultReporter(void) {}
-	virtual void ReportTestPartResult(const TestPartResult& test_part_result)
+	virtual ~DefaultGlobalTestPartResultReporter(void) IUTEST_CXX_OVERRIDE {}
+	virtual void ReportTestPartResult(const TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE
 	{
 		DefaultReportTestPartResult(test_part_result);
 	}
@@ -48,6 +48,19 @@ public:
 			iuConsole::output(test_part_result.make_newline_message().c_str());
 		}
 		TestEnv::event_listeners().OnTestPartResult(test_part_result);
+	}
+};
+
+/**
+ * @brief	Not report
+*/
+class NoTestPartResultReporter : public TestPartResultReporterInterface
+{
+public:
+	virtual ~NoTestPartResultReporter(void) IUTEST_CXX_OVERRIDE {}
+	virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
+	{
+		IUTEST_UNUSED_VAR(result);
 	}
 };
 
@@ -101,6 +114,14 @@ public:
 		{
 			TestEnv::SetGlobalTestPartResultReporter(m_origin);
 		}
+	public:
+		void ReportTestPartResultOrigin(const TestPartResult& result)
+		{
+			if( m_origin )
+			{
+				m_origin->ReportTestPartResult(result);
+			}
+		}
 	private:
 		TestPartResultReporterInterface* m_origin;
 	};
@@ -152,6 +173,13 @@ public:
 		size_t count(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_results.size(); }
 		const TestPartResult& GetTestPartResult(int index) const { return m_results[index]; }
 
+		void ReportTestPartResult(void)
+		{
+			for( TestPartResults::iterator it=m_results.begin(); it != m_results.end(); ++it )
+			{
+				m_holder.ReportTestPartResultOrigin(*it);
+			}
+		}
 	private:
 		ReporterHolder m_holder;
 		TestPartResults m_results;

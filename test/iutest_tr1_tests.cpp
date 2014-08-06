@@ -16,6 +16,7 @@
 //======================================================================
 // include
 #include "main.cpp"
+#include "iutest_tr1_failurecount_assertion_tests.cpp"
 #include "iutest_tr1_param_direct_tests.cpp"
 #include "iutest_tr1_value_tmp_tests.cpp"
 

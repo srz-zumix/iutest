@@ -251,10 +251,18 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_LAMBDA_STATEMENTS)
+//! lambda を使った statements 展開が可能かどうか
+#  if IUTEST_HAS_LAMBDA && !defined(IUTEST_NO_LAMBDA_SCOPE_RESOLUTION)
+#    define IUTEST_HAS_LAMBDA_STATEMENTS		1
+#  else
+#    define IUTEST_HAS_LAMBDA_STATEMENTS		0
+#  endif
+#endif
 
 #if !defined(IUTEST_HAS_SPI_LAMBDA_SUPPORT)
 //! spi マクロで lambda を使って変数にアクセス可能かどうか
-#  if IUTEST_HAS_LAMBDA && !defined(IUTEST_NO_LAMBDA_SCOPE_RESOLUTION)
+#  if IUTEST_HAS_LAMBDA_STATEMENTS
 #    define IUTEST_HAS_SPI_LAMBDA_SUPPORT		1
 #  else
 #    define IUTEST_HAS_SPI_LAMBDA_SUPPORT		0

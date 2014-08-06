@@ -63,20 +63,21 @@
 #if IUTEST_HAS_SPI_LAMBDA_SUPPORT
 
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_USE_THROW_ON_ASSERTION_FAILURE
-#  define IIUT_STATEMENT_EXECUTER(statement)	[&](){ try {	\
+#  define IIUT_SPI_STATEMENT_EXECUTER(statement) [&](){ try {	\
 	::iutest::detail::ScopedSPITestFlag guard;					\
 	statement;													\
 	} catch(...) {}												\
 	}()
 #else
-#  define IIUT_STATEMENT_EXECUTER(statement)	[&](){ ::iutest::detail::ScopedSPITestFlag guard; statement; }()
+#  define IIUT_SPI_STATEMENT_EXECUTER(statement) [&](){ ::iutest::detail::ScopedSPITestFlag guard; statement; }()
 #endif
 
 #define IUTEST_TEST_FATAL_FAILURE_(statement, text, substr, on_failure)				\
+	IUTEST_AMBIGUOUS_ELSE_BLOCKER_													\
 	if( ::iutest::AssertionResult iutest_ar = [&]() -> ::iutest::AssertionResult {	\
 		::iutest::detail::SPIFailureChecker<										\
 			::iutest::TestPartResult::kFatalFailure> iutest_failure_checker;		\
-		IIUT_STATEMENT_EXECUTER(statement);											\
+		IIUT_SPI_STATEMENT_EXECUTER(statement);										\
 		return iutest_failure_checker.GetResult(substr);							\
 	}() )																			\
 		;																			\
@@ -84,10 +85,11 @@
 		on_failure(iutest_ar.message())
 
 #define IUTEST_TEST_NONFATAL_FAILURE_(statement, text, substr, on_failure)			\
+	IUTEST_AMBIGUOUS_ELSE_BLOCKER_													\
 	if( ::iutest::AssertionResult iutest_ar = [&]() -> ::iutest::AssertionResult {	\
 		::iutest::detail::SPIFailureChecker<										\
 			::iutest::TestPartResult::kNonFatalFailure> iutest_failure_checker;		\
-		IIUT_STATEMENT_EXECUTER(statement);											\
+		IIUT_SPI_STATEMENT_EXECUTER(statement);										\
 		return iutest_failure_checker.GetResult(substr);							\
 	}() )																			\
 		;																			\
@@ -97,13 +99,13 @@
 #else
 
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_USE_THROW_ON_ASSERTION_FAILURE
-#  define IIUT_STATEMENT_EXECUTER(statement)	struct IUTestFatalFailureStatement {	\
+#  define IIUT_SPI_STATEMENT_EXECUTER(statement) struct IUTestFatalFailureStatement {	\
 	static void Execute() { ::iutest::detail::ScopedSPITestFlag guard;					\
 	try { statement; } catch(...) {} }													\
 	};																					\
 	IUTestFatalFailureStatement::Execute()
 #else
-#  define IIUT_STATEMENT_EXECUTER(statement)	struct IUTestFatalFailureStatement {	\
+#  define IIUT_SPI_STATEMENT_EXECUTER(statement) struct IUTestFatalFailureStatement {	\
 	static void Execute() { ::iutest::detail::ScopedSPITestFlag guard; statement; }		\
 	};																					\
 	IUTestFatalFailureStatement::Execute()
@@ -114,7 +116,7 @@
 	if( ::iutest::AssertionResult iutest_ar = ::iutest::AssertionSuccess() ) {	\
 		::iutest::detail::SPIFailureChecker<									\
 			::iutest::TestPartResult::kFatalFailure> iutest_failure_checker;	\
-		IIUT_STATEMENT_EXECUTER(statement);										\
+		IIUT_SPI_STATEMENT_EXECUTER(statement);									\
 		::iutest::AssertionResult ar = iutest_failure_checker.GetResult(substr);\
 		if( !ar ) {																\
 			iutest_ar << ar.message();											\
@@ -129,7 +131,7 @@
 	if( ::iutest::AssertionResult iutest_ar = ::iutest::AssertionSuccess() ) {	\
 		::iutest::detail::SPIFailureChecker<									\
 			::iutest::TestPartResult::kNonFatalFailure> iutest_failure_checker;	\
-		IIUT_STATEMENT_EXECUTER(statement);										\
+		IIUT_SPI_STATEMENT_EXECUTER(statement);									\
 		::iutest::AssertionResult ar = iutest_failure_checker.GetResult(substr);\
 		if( !ar ) {																\
 			iutest_ar << ar.message();											\
@@ -153,25 +155,13 @@ namespace detail
 
 //======================================================================
 // class
-/**
- * @brief	SPI 用リポーター
-*/
-class FakeTestPartResultReporter : public TestPartResultReporterInterface
-{
-public:
-	virtual ~FakeTestPartResultReporter(void) {}
-	virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
-	{
-		IUTEST_UNUSED_VAR(result);
-	}
-};
 
 /**
  * @brief	SPI チェッカー
 */
 template<TestPartResult::Type Type>
 class SPIFailureChecker
-	: public NewTestPartResultCheckHelper::Collector<FakeTestPartResultReporter>
+	: public NewTestPartResultCheckHelper::Collector<NoTestPartResultReporter>
 {
 public:
 	AssertionResult GetResult(const ::std::string& substr)
