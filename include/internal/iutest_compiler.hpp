@@ -751,7 +751,7 @@
 #  include <typeinfo>
 #endif
 
-// explicit instantiation access checking
+//! explicit instantiation access checking
 #if !defined(IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION)
 #  if defined(_MSC_VER) && ((_MSC_VER < 1600) || (_MSC_VER == 1900))
      // VS2008 以前では、private なメンバー関数に explicit instantiation でもアクセスできない
@@ -761,7 +761,7 @@
 #  endif
 #endif
 
-// explicit instantiation access checking (static member function)
+//! explicit instantiation access checking (static member function)
 #if !defined(IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_STATIC_MEMBER_FUNCTION)
 #  if defined(_MSC_VER)
 // Visual Studio では、private な static メンバー関数に explicit instantiation でもアクセスできない
@@ -802,19 +802,19 @@
 #  endif
 #endif
 
-// partial template specialization
-#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-#  if defined(_MSC_VER) && (_MSC_VER < 1310)
-#    define IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION	1
-#  endif
-#endif
-
 //! explicit class member template specialization
 #if !defined(IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION)
 #  if defined(_MSC_VER)
 #    define IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION	1
 #  else
 #    define IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION	0
+#  endif
+#endif
+
+//! partial template specialization
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#  if defined(_MSC_VER) && (_MSC_VER < 1310)
+#    define IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION	1
 #  endif
 #endif
 
@@ -825,49 +825,49 @@
 #  endif
 #endif
 
-// function template ordering
+//! function template ordering
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 #  if defined(_MSC_VER) && (_MSC_VER < 1310)
 #    define IUTEST_NO_FUNCTION_TEMPLATE_ORDERING		1
 #  endif
 #endif
 
-// in class member initialization
+//! in class member initialization
 #if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
 #  if defined(_MSC_VER) && _MSC_VER < 1310
 #    define IUTEST_NO_INCLASS_MEMBER_INITIALIZATION		1
 #  endif
 #endif
 
-// explicit function template instantiation
+//! explicit function template instantiation
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
 #  if defined(_MSC_VER) && _MSC_VER < 1310
 #    define IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS	1
 #  endif
 #endif
 
-// SFINAE
+//! SFINAE
 #if !defined(IUTEST_NO_SFINAE)
 #  if defined(_MSC_VER) && _MSC_VER < 1310
 #    define IUTEST_NO_SFINAE	1
 #  endif
 #endif
 
-// template template
+//! template template
 #if !defined(IUTEST_NO_TEMPLATE_TEMPLATES)
 #  if defined(_MSC_VER) && _MSC_VER < 1310
 #    define IUTEST_NO_TEMPLATE_TEMPLATES	1
 #  endif
 #endif
 
-// void return
+//! void return
 #if !defined(IUTEST_NO_VOID_RETURNS)
 #  if defined(_MSC_VER) && _MSC_VER < 1300
 #    define IUTEST_NO_VOID_RETURNS			1
 #  endif
 #endif
 
-// ADL
+//! ADL
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 #  if defined(_MSC_VER) && _MSC_VER < 1310
 #    define IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP	1
@@ -880,7 +880,7 @@
 #  endif
 #endif
 
-// secure lib
+//! secure lib
 #if !defined(IUTEST_HAS_WANT_SECURE_LIB)
 #  if defined(_MSC_VER)
 #    if defined(__STDC_WANT_SECURE_LIB__) && __STDC_WANT_SECURE_LIB__

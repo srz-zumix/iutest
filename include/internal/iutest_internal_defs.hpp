@@ -129,7 +129,7 @@ inline bool AlwaysFalse(void) { return !AlwaysTrue(); }
 inline int  AlwaysZero(void) { return 0; }
 
 /**
-* @brief	真偽値を返す(警告対策用)
+ * @brief	真偽値を返す(警告対策用)
 */
 inline bool IsTrue(bool b) { return b; }
 
@@ -233,8 +233,8 @@ public:
 };
 
 /**
-* @internal
-* @brief	scoped_ptr
+ * @internal
+ * @brief	scoped_ptr
 */
 template<typename T>
 class scoped_ptr

@@ -182,6 +182,10 @@ private:
 	static void RecordPropertyString(const ::std::string& key, const ::std::string& value);
 
 private:
+	struct should_be_SetUp {};
+	virtual should_be_SetUp* Setup(void) IUTEST_CXX_FINAL { return NULL; }
+
+private:
 	template<typename DMY>
 	class Observer
 	{

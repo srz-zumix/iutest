@@ -206,8 +206,8 @@
 #endif
 
 /**
-* @internal
-* @brief	SKIP メッセージ処理
+ * @internal
+ * @brief	SKIP メッセージ処理
 */
 #define IUTEST_SKIP_MESSAGE(msg)					IUTEST_SKIP_MESSAGE_AT(msg, __FILE__, __LINE__)
 

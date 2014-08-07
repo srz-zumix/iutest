@@ -360,7 +360,7 @@ public:
 }
 
 /**
-* @brief	is class
+ * @brief	is class
 */
 template<typename T>
 struct is_class : public is_class_helper::is_class<T>::type
@@ -461,7 +461,7 @@ public:
 }
 
 /**
-* @brief	is base of
+ * @brief	is base of
 */
 template<typename Base, typename Derived>
 struct is_base_of : public is_base_of_helper::is_base_of<Base, Derived>::type
@@ -663,7 +663,7 @@ public:
 }
 
 /**
-* @brief	is member function pointer
+ * @brief	is member function pointer
 */
 template<typename T>
 struct is_member_function_pointer : public is_member_function_pointer_helper::is_member_function_pointer<T>::type
@@ -747,7 +747,7 @@ namespace has_not_equal_to_operator_impl
 }
 
 /**
-* @brief	has not equal to operator
+ * @brief	has not equal to operator
 */
 template<typename T>
 struct has_not_equal_to : public has_not_equal_to_operator_impl::has_not_equal_to_operator<T>::type

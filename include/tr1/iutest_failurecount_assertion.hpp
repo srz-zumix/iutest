@@ -145,8 +145,13 @@ public:
 			}
 		}
 		if( n < cnt ) return AssertionSuccess();
-		ReportTestPartResult();
-		return AssertionFailure() << stetements_str << "\nExpected: failure count less than " << cnt << "\n  Actual: " << n;
+		AssertionResult ar = AssertionFailure() << stetements_str << "\nExpected: failure count less than " << cnt << "\n  Actual: " << n;
+		ar << "\nReported results:";
+		for( size_t i=0; i < num; ++i )
+		{
+			ar << "\n" << GetTestPartResult(i).message();
+		}
+		return ar;
 	}
 };
 

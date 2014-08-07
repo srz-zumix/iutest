@@ -96,14 +96,14 @@
 
 /**
  * @ingroup	TESTDEF
- * @brief	テストの別名（日本語可能）
+ * @brief	テストの別名
  * @param	testname_		= テスト名
 */
 #define IUTEST_ALIAS_TESTNAME(testname_)					IUTEST_ALIAS_TESTNAME_(testname_)
 
 /**
  * @ingroup	TESTDEF
- * @brief	テストフィクスチャ用テストの別名（日本語可能）
+ * @brief	テストフィクスチャ用テストの別名
  * @param	testfixture_	= テストフィクスチャ名
  * @param	testname_		= テスト名
 */
@@ -111,7 +111,7 @@
 
 #if IUTEST_HAS_TESTNAME_ALIAS_JP
 
- /**
+/**
  * @ingroup	TESTDEF
  * @brief	日本語テスト名
  * @param	testname_		= テスト名
@@ -566,7 +566,7 @@
 */
 
 /**
-* @}
+ * @}
 */
 
 /**

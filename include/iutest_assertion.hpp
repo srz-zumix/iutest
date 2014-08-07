@@ -458,8 +458,8 @@ DECL_COMPARE_HELPER_(GT, > )
 */
 
 /**
-* @brief	Null Helper
-* @tparam	IsNullLiteral	= val が NULL リテラルかどうか
+ * @brief	Null Helper
+ * @tparam	IsNullLiteral	= val が NULL リテラルかどうか
 */
 template<bool IsNullLiteral>
 class NullHelper
@@ -491,7 +491,7 @@ public:
 };
 
 /**
-* @brief	NullHelper 特殊化
+ * @brief	NullHelper 特殊化
 */
 template<>
 class NullHelper<true>

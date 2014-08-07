@@ -130,7 +130,7 @@
 
 #if !defined(IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE)
 /**
-* @brief	式アサーションでビット演算子の展開をサポートするかどうか
+ * @brief	式アサーションでビット演算子の展開をサポートするかどうか
 */
 #  if IUTEST_HAS_DECLTYPE
 #    define IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE		1
@@ -537,7 +537,7 @@
 #define IUTEST_GetMillisec()	//!< 現在時刻のミリ秒取得関数を独自定義
 
 /**
-* @}
+ * @}
 */
 
 

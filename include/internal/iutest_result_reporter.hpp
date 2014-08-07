@@ -189,7 +189,7 @@ public:
 //======================================================================
 // function
 /**
-* @brief	TestPartResult リポーター
+ * @brief	TestPartResult リポーター
 */
 inline void DefaultReportTestPartResult(const TestPartResult& test_part_result)
 {
