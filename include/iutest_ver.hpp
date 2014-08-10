@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01099921u	//!< iutest version 1.9.99.21
+#define	IUTEST_VER			0x01099922u	//!< iutest version 1.9.99.22
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x09u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x21u		//!< Revision
+#define IUTEST_REVISION		0x22u		//!< Revision
 
 /**
  * @mainpage
@@ -82,6 +82,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    <tr><td>--iutest_stream_result_to         </td><td>&lt;host:port&gt;</td><td>Set stream test results server.</td></tr>
    <tr><td>--iutest_file_location            </td><td>&lt;auto|vs|gcc&gt;</td><td>Format file location messages.</td></tr>
    <tr><td>--iutest_root_package_name        </td><td>[name]</td><td>Set root package name.</td></tr>
+   <tr><td>--verbose                         </td><td></td><td>Verbose option.</td></tr>
    <tr><td>--feature                         </td><td></td><td>Show iutest feature.</td></tr>
    <tr><td>--version, -v                     </td><td></td><td>Show iutest version.</td></tr>
  </table>
@@ -114,6 +115,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  <ul>
   <li>v1.10.0.0
     <ul>
+      <li>--verbose コマンドラインオプションを追加</li>
       <li>--iutest_root_package_name コマンドラインオプションを追加</li>
       <li>operatoer == のないオブジェクトの IUTEST_*_EQ 対応</li>
       <li>operatoer != のないオブジェクトの IUTEST_*_NE 対応</li>

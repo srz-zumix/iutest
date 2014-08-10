@@ -95,6 +95,7 @@ TARGETS2= \
 
 TARGETS_IUTEST_ONLY = \
           iutest_default_main_tests \
+          iutest_default_printer_listener_tests \
           iutest_env_var_tests \
           iutest_env_var_gtest_tests \
           iutest_tap_printer_listener_tests \

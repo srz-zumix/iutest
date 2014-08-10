@@ -151,6 +151,8 @@ int main(int argc, char* argv[])
 #if IUTEST_HAS_STREAM_RESULT
 		vargv.push_back("--iutest_stream_result_to=test");
 #endif
+		vargv.push_back("--verbose");
+		
 		::iutest::InitIrisUnitTest(vargv);
 		IUTEST_EXPECT_EQ(0, vargv.size());
 		
@@ -171,6 +173,7 @@ int main(int argc, char* argv[])
 #if IUTEST_HAS_STREAM_RESULT
 		IUTEST_EXPECT_STREQ( "test", ::iutest::IUTEST_FLAG(stream_result_to).c_str() );
 #endif
+		IUTEST_EXPECT_TRUE (::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::VERBOSE));
 		
 		if( ::iutest::UnitTest::GetInstance()->Failed() ) return 1;
 	}

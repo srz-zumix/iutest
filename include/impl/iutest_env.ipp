@@ -218,6 +218,10 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 			{
 				TestFlag::SetFlag(TestFlag::SHOW_SPEC);
 			}
+			else if( detail::IsStringEqual(str, "verbose") )
+			{
+				TestFlag::SetFlag(TestFlag::VERBOSE);
+			}
 			else
 			{
 				find = false;

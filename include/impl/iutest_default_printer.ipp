@@ -162,6 +162,22 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationEnd(const Unit
 			{
 				detail::iuConsole::color_output(detail::iuConsole::yellow, "[ DISABLED ] ");
 				detail::iuConsole::output("%d tests.\n", count );
+				if( TestFlag::IsEnableFlag(TestFlag::VERBOSE) )
+				{
+					for( int i=0, count=test.total_test_case_count(); i < count; ++i )
+					{
+						const TestCase* testcase = test.GetTestCase(i);
+						for( int j=0, info_count=testcase->total_test_count(); j < info_count; ++j )
+						{
+							const TestInfo* testinfo = testcase->GetTestInfo(j);
+							if( testinfo->is_disabled_test() )
+							{
+								detail::iuConsole::color_output(detail::iuConsole::yellow, "[ DISABLED ] ");
+								detail::iuConsole::output("%s.%s\n", testinfo->test_case_name(), testinfo->name());
+							}
+						}
+					}
+				}
 			}
 		}
 		{
@@ -170,6 +186,22 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationEnd(const Unit
 			{
 				detail::iuConsole::color_output(detail::iuConsole::yellow, "[  SKIPPED ] ");
 				detail::iuConsole::output("%d tests.\n", count );
+				if( TestFlag::IsEnableFlag(TestFlag::VERBOSE) )
+				{
+					for( int i=0, count=test.total_test_case_count(); i < count; ++i )
+					{
+						const TestCase* testcase = test.GetTestCase(i);
+						for( int j=0, info_count=testcase->total_test_count(); j < info_count; ++j )
+						{
+							const TestInfo* testinfo = testcase->GetTestInfo(j);
+							if( testinfo->is_skipped() )
+							{
+								detail::iuConsole::color_output(detail::iuConsole::yellow, "[  SKIPPED ] ");
+								detail::iuConsole::output("%s.%s\n", testinfo->test_case_name(), testinfo->name());
+							}
+						}
+					}
+				}
 			}
 		}
 		

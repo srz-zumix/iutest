@@ -94,6 +94,9 @@ public:
 	virtual ~Environment(void)	{}
 	virtual void SetUp(void)	{}	//!< 事前処理
 	virtual void TearDown(void)	{}	//!< 事後処理
+private:
+	struct should_be_SetUp {};
+	virtual should_be_SetUp* Setup(void) IUTEST_CXX_FINAL { return NULL; }
 };
 
 /**
@@ -143,6 +146,7 @@ public:
 
 		PRINT_TIME				= 0x00001000,	//!< 経過時間の出力
 		FILELOCATION_STYLE_MSVC	= 0x00002000,	//!< ファイル/行出力スタイルを Visual Studio スタイルにする
+		VERBOSE					= 0x00004000,	//!< verbose
 
 		CATCH_EXCEPTION_EACH	= 0x00010000,	//!< 例外を catch する(TestInfo)
 		CATCH_EXCEPTION_GLOBAL	= 0x00020000,	//!< 例外を catch する(UnitTest)
