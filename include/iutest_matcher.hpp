@@ -45,7 +45,7 @@ namespace detail
 */
 inline ::std::string MatcherAssertionFailureMessage(const char* actual, const char* matcher_str, const AssertionResult& ar)
 {
-	detail::iuStringStream::type strm;
+	iu_global_format_stringstream strm;
 	strm << "error: Expected: " << matcher_str
 		<< "\n  Actual: " << actual
 		<< "\nWhich is: " << ar.message();
@@ -74,7 +74,7 @@ public:
 public:
 	::std::string WitchIs(void) const
 	{
-		detail::iuStringStream::type strm;
+		iu_global_format_stringstream strm;
 		strm << "StartsWith: " << m_str;
 		return strm.str();
 	}
@@ -124,7 +124,7 @@ public:
 public:
 	::std::string WitchIs(void) const
 	{
-		detail::iuStringStream::type strm;
+		iu_global_format_stringstream strm;
 		strm << "Contains: " << m_expected;
 		return strm.str();
 	}
@@ -194,7 +194,7 @@ public:
 public:
 	::std::string WitchIs(void) const
 	{
-		detail::iuStringStream::type strm;
+		iu_global_format_stringstream strm;
 		strm << "EndsWith: " << m_str;
 		return strm.str();
 	}
@@ -253,7 +253,7 @@ public:
 public:
 	::std::string WitchIs(void) const
 	{
-		detail::iuStringStream::type strm;
+		iu_global_format_stringstream strm;
 		strm << "Equals: " << m_expected;
 		return strm.str();
 	}

@@ -399,7 +399,7 @@ inline ::std::string GetBooleanAssertionFailureMessage(const AssertionResult& ar
 */
 inline AssertionResult EqFailure(const char* expected_expression, const char* actual_expression, const char* expected, const char* actual, bool ignoring_case=false)
 {
-	detail::iuStringStream::type strm;
+	iu_global_format_stringstream strm;
 	strm << "error: Value of " << actual_expression
 		<< "\n  Actual: " << actual
 		<< "\nExpected: " << expected_expression;

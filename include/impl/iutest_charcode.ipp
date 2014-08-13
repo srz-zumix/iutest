@@ -128,7 +128,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 	delete[] utf8;
 	return ret;
 #else
-	iuStringStream::type ss;
+	iu_stringstream ss;
 	for(int i=0; i < num; ++i )
 	{
 		UInt32 code_point;

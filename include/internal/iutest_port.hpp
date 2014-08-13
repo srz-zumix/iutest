@@ -150,10 +150,10 @@ public:
 	~IUTestLog(void);
 
 public:
-	iuStringStream::type& GetStream(void) { return m_stream; }
+	iu_stringstream& GetStream(void) { return m_stream; }
 private:
 	const Level kLevel;
-	iuStringStream::type m_stream;
+	iu_stringstream m_stream;
 
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTestLog);
 };

@@ -120,7 +120,7 @@ private:
 	iuStreamMessage& operator = (const iuStreamMessage&);
 
 private:
-	detail::iuStringStream::type m_stream;
+	iu_global_format_stringstream m_stream;
 };
 
 inline iu_ostream& operator << (iu_ostream& os, const iuStreamMessage& msg)

@@ -149,7 +149,9 @@ IUTEST(DISABLED_TestFailure, Subroutine2)
 {
 	{
 		IUTEST_SCOPED_TRACE("routine2.");
-		//IUTEST_SCOPED_TRACE("routine2.") << "iutest can do." ;
+#if !defined(IUTEST_USE_GTEST)
+		IUTEST_SCOPED_TRACE("routine2.") << "iutest can do." ;
+#endif
 
 		Sub2(2);
 	}

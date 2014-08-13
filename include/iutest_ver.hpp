@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01099922u	//!< iutest version 1.9.99.22
+#define	IUTEST_VER			0x01099923u	//!< iutest version 1.9.99.23
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x09u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x22u		//!< Revision
+#define IUTEST_REVISION		0x23u		//!< Revision
 
 /**
  * @mainpage
@@ -120,6 +120,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>operatoer == のないオブジェクトの IUTEST_*_EQ 対応</li>
       <li>operatoer != のないオブジェクトの IUTEST_*_NE 対応</li>
       <li>junit xml 出力に対応（--iutest_output=junit）</li>
+      <li>IUTEST_FLAG(ostream_formatter) を追加</li>
       <li>ARM対応</li>
       <li>--iutest_break_on_failure でスキップや警告でも停止していた不具合を修正</li>
     </ul>

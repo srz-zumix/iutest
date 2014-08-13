@@ -186,7 +186,7 @@ template<typename T>
 {
 #if IUTEST_HAS_RTTI
 	::std::string name = basename;
-	iuStringStream::type strm; strm << index;
+	iu_stringstream strm; strm << index;
 	name += "/";
 	name += GetTypeName<T>();
 	return name;

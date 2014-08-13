@@ -101,7 +101,7 @@ class ValueTmpParamTestInstance
 	static ::std::string MakeTestCaseName(const char* testcase, int index)
 	{
 		::std::string name = testcase;
-		detail::iuStringStream::type strm; strm << index;
+		iu_stringstream strm; strm << index;
 		name += "/";
 		name += strm.str();
 		return name;

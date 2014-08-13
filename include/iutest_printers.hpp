@@ -525,7 +525,7 @@ inline void UniversalPrint(const T& value, iu_ostream* os)
 template<typename T>
 inline ::std::string PrintToString(const T& v)
 {
-	detail::iuStringStream::type strm;
+	iu_global_format_stringstream strm;
 	detail::UniversalTersePrint(v, &strm);
 	return strm.str();
 }

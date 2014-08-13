@@ -36,7 +36,7 @@ void test_printf(const char* fmt, ...);
 #ifdef IUTEST_USE_GTEST
 static ::std::stringstream s_outstream;
 #else
-static ::iutest::detail::iuStringStream::type s_outstream;
+static ::iutest::iu_stringstream s_outstream;
 #endif
 
 void test_vprintf(const char* fmt, va_list va)

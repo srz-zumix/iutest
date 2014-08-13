@@ -245,7 +245,7 @@ namespace detail
 IUTEST_IPP_INLINE ::std::string MakeIndexTestName(const char* basename, int index)
 {
 	::std::string name = basename;
-	iuStringStream::type strm;
+	iu_stringstream strm;
 	strm << index;
 	name += "/";
 	name += strm.str();

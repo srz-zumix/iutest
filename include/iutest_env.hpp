@@ -43,6 +43,7 @@
  *          repeat (int)\n
  *			list_tests (bool)\n
  *			file_location_style_msvc (bool)\n
+ *			ostream_formatter (ostream)\n
 */
 #define IUTEST_FLAG(name)	IIUT_FLAG(name)
 
@@ -302,6 +303,9 @@ private:
 		iuEnvironmentList	m_environment_list;
 		TestEventListeners	m_event_listeners;
 		TestPartResultReporterInterface*	m_testpartresult_reporter;
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+		iu_stringstream		m_ostream_formatter;
+#endif
 	};
 
 	static Variable& get_vars(void) { static Variable v; return v; }
@@ -317,6 +321,9 @@ public:
 	static const char*			test_filter(void)			{ return get_vars().m_test_filter.c_str(); }	//!< フィルター文字列
 #if IUTEST_HAS_STREAM_RESULT
 	static const char*			get_stream_result_to(void)	{ return get_vars().m_stream_result_to.c_str(); }
+#endif
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+	static void					global_ostream_copyfmt(iu_ostream& os) { os.copyfmt(get_vars().m_ostream_formatter); }
 #endif
 
 	/**
@@ -451,6 +458,7 @@ private:
 			return *this;
 		}
 	};
+
 public:
 	/**
 	 * @private
@@ -479,6 +487,22 @@ public:
 #endif
 
 	typedef OptionString<get_root_package_name, set_root_package_name> root_package_name;
+
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+	typedef class OStreamFormatter : public iu_stringstream
+	{
+	public:
+		OStreamFormatter(void)
+		{
+			copyfmt(get_vars().m_ostream_formatter);
+		}
+		~OStreamFormatter(void)
+		{
+			get_vars().m_ostream_formatter.copyfmt(*this);
+		}
+	} ostream_formatter;
+
+#endif
 
 private:
 	static iuEnvironmentList& environments(void) { return get_vars().m_environment_list; }
@@ -650,6 +674,31 @@ private:
 
 private:
 	friend class UnitTest;
+};
+
+class iu_global_format_stringstream : public iu_stringstream
+{
+public:
+	iu_global_format_stringstream()
+	{
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+		TestEnv::global_ostream_copyfmt(*this);
+#endif
+	}
+	iu_global_format_stringstream(const char* str)
+		: iu_stringstream(str)
+	{
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+		TestEnv::global_ostream_copyfmt(*this);
+#endif
+	}
+	iu_global_format_stringstream(const ::std::string& str)
+		: iu_stringstream(str)
+	{
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+		TestEnv::global_ostream_copyfmt(*this);
+#endif
+	}
 };
 
 }	// end of namespace iutest
