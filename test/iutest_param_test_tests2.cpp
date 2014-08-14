@@ -21,5 +21,22 @@
 
 IUTEST_INSTANTIATE_TEST_CASE_P(My2, MultiInstantiateParamTest, ::iutest::Values(0, 1, 10));
 
+#if IUTEST_HAS_TUPLE && !defined(IUTEST_USE_GTEST)
+
+class TupleGetTest : public ::iutest::TestWithParam< ::iutest::tuples::tuple<bool, int> >
+{
+};
+
+IUTEST_P(TupleGetTest, Test)
+{
+	IUTEST_ASSERT_TRUE(GetParam<0>());
+	IUTEST_ASSERT_EQ(10, GetParam<1>());
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_P(A, TupleGetTest
+	, ::iutest::Values( ::iutest::tuples::tuple<bool, int>(true, 10) ) );
+
+#endif
+
 #endif
 

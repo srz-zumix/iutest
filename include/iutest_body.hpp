@@ -243,6 +243,17 @@ public:
 		return *s_params;
 	}
 
+#if IUTEST_HAS_TUPLE
+	/**
+	 * @brief	パラメータの取得
+	*/
+	template<int N>
+	static const typename tuples::tuple_element<N, ParamType>::type& GetParam(void)
+	{
+		return tuples::get<N>(GetParam());
+	}
+#endif
+
 	/** @private */
 	static void SetParam(const ParamType* params) IUTEST_CXX_NOEXCEPT_SPEC { s_params = params; }
 

@@ -137,6 +137,12 @@ IUTEST_P(TestPCombine, TestA)
 	int i1 = ::iutest::tuples::get<1>(GetParam());
 	int i2 = ::iutest::tuples::get<2>(GetParam());
 	IUTEST_SUCCEED() << b << ", " << i1 << ", " << i2;
+
+#if !defined(IUTEST_USE_GTEST)
+	IUTEST_EXPECT_EQ( b, GetParam<0>());
+	IUTEST_EXPECT_EQ(i1, GetParam<1>());
+	IUTEST_EXPECT_EQ(i2, GetParam<2>());
+#endif
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P(TestPCombineInstance, TestPCombine
