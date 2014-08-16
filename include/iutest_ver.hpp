@@ -121,6 +121,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>operatoer != のないオブジェクトの IUTEST_*_NE 対応</li>
       <li>junit xml 出力に対応（--iutest_output=junit）</li>
       <li>IUTEST_FLAG(ostream_formatter) を追加</li>
+      <li>tuple 要素を取得する GetParam tempalate 関数を追加</li>
       <li>ARM対応</li>
       <li>--iutest_break_on_failure でスキップや警告でも停止していた不具合を修正</li>
     </ul>
