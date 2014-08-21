@@ -164,7 +164,7 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationEnd(const Unit
 				detail::iuConsole::output("%d tests.\n", count );
 				if( TestFlag::IsEnableFlag(TestFlag::VERBOSE) )
 				{
-					for( int i=0, count=test.total_test_case_count(); i < count; ++i )
+					for( int i=0, case_count=test.total_test_case_count(); i < case_count; ++i )
 					{
 						const TestCase* testcase = test.GetTestCase(i);
 						for( int j=0, info_count=testcase->total_test_count(); j < info_count; ++j )
@@ -188,7 +188,7 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationEnd(const Unit
 				detail::iuConsole::output("%d tests.\n", count );
 				if( TestFlag::IsEnableFlag(TestFlag::VERBOSE) )
 				{
-					for( int i=0, count=test.total_test_case_count(); i < count; ++i )
+					for( int i=0, case_count=test.total_test_case_count(); i < case_count; ++i )
 					{
 						const TestCase* testcase = test.GetTestCase(i);
 						for( int j=0, info_count=testcase->total_test_count(); j < info_count; ++j )
