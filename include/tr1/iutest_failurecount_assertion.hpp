@@ -103,7 +103,7 @@
 
 #define IUTEST_TEST_FAILURECOUNT_LT(statements, count, statements_str, on_failure)	\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_													\
-	if( const ::iutest::AssertionResult statemnets_ar = ::iutest::AssertionSuccess() ) {\
+	if( ::iutest::AssertionResult statemnets_ar = ::iutest::AssertionSuccess() ) {\
 		::iutest::detail::StatementsFailureCount statement_failure_checker;			\
 		IIUT_STATEMENTS_EXECUTER(statements);										\
 		::iutest::AssertionResult ar = statement_failure_checker.GetResult(count, statements_str);	\
