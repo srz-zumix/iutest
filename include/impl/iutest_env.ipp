@@ -52,10 +52,12 @@ IUTEST_IPP_INLINE::std::string TestEnv::get_report_junit_xml_filepath(void)
 	return "";
 }
 
-IUTEST_IPP_INLINE ::std::string TestEnv::AddRootPackageName(const char* testcase_name)
+IUTEST_IPP_INLINE::std::string TestEnv::AddDefaultPackageName(const char* testcase_name)
 {
-	::std::string str = TestEnv::get_root_package_name();
+	::std::string str = TestEnv::get_default_package_name();
 	if( str.empty() ) return testcase_name;
+	if( strchr(testcase_name, '.') != NULL ) return testcase_name;
+
 	str += ".";
 	str += testcase_name;
 	return str;
@@ -188,9 +190,9 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 				{
 					find = ParseFileLocationOption(ParseOptionSettingStr(str));
 				}
-				else if( detail::IsStringForwardMatching(str, "root_package_name") )
+				else if( detail::IsStringForwardMatching(str, "default_package_name") )
 				{
-					set_root_package_name(ParseOptionSettingStr(str));
+					set_default_package_name(ParseOptionSettingStr(str));
 				}
 				else
 				{
@@ -322,9 +324,9 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnviromentVariable(void)
 		{
 			set_test_filter(str);
 		}
-		if( detail::GetEnvironmentVariable("IUTEST_ROOT_PACKAGE_NAME", str, sizeof(str)) )
+		if( detail::GetEnvironmentVariable("IUTEST_DEFAULT_PACKAGE_NAME", str, sizeof(str)) )
 		{
-			set_root_package_name(str);
+			set_default_package_name(str);
 		}
 #if IUTEST_HAS_STREAM_RESULT
 		if( detail::GetEnvironmentVariable("IUTEST_STREAM_RESULT_TO", str, sizeof(str))

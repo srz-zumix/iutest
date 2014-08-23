@@ -3,7 +3,7 @@ Changes for 1.10.0:
 
 ** 追加
 * --verbose コマンドラインオプションを追加
-* --iutest_root_package_name コマンドラインオプションを追加
+* --iutest_default_package_name コマンドラインオプションを追加
 * operatoer == のないオブジェクトの IUTEST_*_EQ 対応
 * operatoer != のないオブジェクトの IUTEST_*_NE 対応
 * junit xml 出力に対応（--iutest_output=junit）

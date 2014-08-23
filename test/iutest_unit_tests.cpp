@@ -98,6 +98,12 @@ IUTEST(UnitTest, StringReplace)
 	IUTEST_EXPECT_STREQ("ii1ii2ii3ii4b5", str);
 }
 
+IUTEST(UnitTest, AddDefaultPackageName)
+{
+	IUTEST_EXPECT_STREQ("Test.a1a2a3a4b5", ::iutest::TestEnv::AddDefaultPackageName("a1a2a3a4b5"));
+	IUTEST_EXPECT_STREQ("Hoge.a1a2a3a4b5", ::iutest::TestEnv::AddDefaultPackageName("Hoge.a1a2a3a4b5"));
+}
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
@@ -105,6 +111,7 @@ int main(int argc, char* argv[])
 #endif
 {
 	IUTEST_INIT(&argc, argv);
+	::iutest::IUTEST_FLAG(default_package_name) = "Test";
 	return IUTEST_RUN_ALL_TESTS();
 }
 

@@ -53,7 +53,7 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestCase(IFile* file, 
 
 	file->Printf("  <testsuite ");
 	OutputXmlAttribute(file, "name"
-		, EscapeXmlAttribute(test_case.testcase_name_with_root_package_name()).c_str() );
+		, EscapeXmlAttribute(test_case.testcase_name_with_default_package_name()).c_str());
 	file->Printf("tests=\"%d\" failures=\"%d\" disabled=\"%d\" "
 		, test_case.reportable_test_count()
 		, test_case.failed_test_count()
@@ -123,7 +123,7 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestInfo(IFile* file, 
 		, detail::FormatTimeInMillisecAsSecond(test_info.elapsed_time()).c_str()
 		);
 	OutputXmlAttribute(file, "classname"
-		, EscapeXmlAttribute(test_info.testcase_name_with_root_package_name()).c_str() );
+		, EscapeXmlAttribute(test_info.testcase_name_with_default_package_name()).c_str());
 	file->Printf(">\n");
 
 	// propertys

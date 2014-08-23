@@ -82,8 +82,8 @@ public:
 	/** type param 文字列の取得 */
 	const	char*	type_param(void)		const { return m_testcase->type_param(); }
 
-	/** root 名を含む TestCase 名の取得 */
-	::std::string testcase_name_with_root_package_name(void) const { return TestEnv::AddRootPackageName(test_case_name()); }
+	/** default package 名を含む TestCase 名の取得 */
+	::std::string testcase_name_with_default_package_name(void) const { return TestEnv::AddDefaultPackageName(test_case_name()); }
 public:
 	/**
 	 * @brief	致命的なエラーが出たかどうか

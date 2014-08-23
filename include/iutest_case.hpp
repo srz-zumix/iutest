@@ -116,8 +116,8 @@ public:
 		return str;
 	}
 
-	/** root 名を含む TestCase 名の取得 */
-	::std::string testcase_name_with_root_package_name(void) const { return TestEnv::AddRootPackageName(name()); }
+	/** default package 名を含む TestCase 名の取得 */
+	::std::string testcase_name_with_default_package_name(void) const { return TestEnv::AddDefaultPackageName(name()); }
 
 	/** テスト実行中じゃないときのリザルトの取得 */
 	const TestResult* ad_hoc_testresult(void) const IUTEST_CXX_NOEXCEPT_SPEC { return &m_ad_hoc_testresult; }

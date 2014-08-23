@@ -57,6 +57,20 @@ IUTEST(Foo, Bar)
 	IUTEST_ASSERT_EQ(3, 3);
 }
 
+#if IUTEST_HAS_PACKAGE
+
+IUTEST_PACKAGE(test)
+{
+
+IUTEST(Foo, Bar)
+{
+	IUTEST_ASSERT_EQ(3, 3);
+}
+
+}
+
+#endif
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
@@ -96,8 +110,8 @@ int main(int argc, char* argv[])
 
 		FileIO::s_io.clear();
 	}
-	::iutest::IUTEST_FLAG(root_package_name) = "root";
 	{
+		::iutest::IUTEST_FLAG(default_package_name) = "root";
 		::iutest::IUTEST_FLAG(filter) = NULL;
 		const int ret = IUTEST_RUN_ALL_TESTS();
 		
@@ -109,6 +123,9 @@ int main(int argc, char* argv[])
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("root.Fail")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("root.Foo" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("root.Bar" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+#if IUTEST_HAS_PACKAGE
+		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("test.Foo" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+#endif
 
 		FileIO::s_io.clear();
 	}

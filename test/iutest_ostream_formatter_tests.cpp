@@ -46,15 +46,21 @@ int main(int argc, char* argv[])
 	::iutest::detail::iuConsole::SetLogger(&logger);
 
 	::iutest::IUTEST_FLAG(color) = "no";
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
 	::iutest::IUTEST_FLAG(ostream_formatter) << ::std::hex << ::std::setw(8) << ::std::setfill('0') << std::setprecision(5);
+#endif
 	
 	{
 		if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+
 #if IUTEST_HAS_ASSERTION_RETURN
 		IUTEST_ASSERT_STRIN("  Actual: 00000401", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_STRIN("Which is: 00000400", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_STRIN("  Actual: 00.33333", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_STRIN("Which is: 00000.33", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
+#endif
+
 #endif
 	}
 	printf("*** Successful ***\n");

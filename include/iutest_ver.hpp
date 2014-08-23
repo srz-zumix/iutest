@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01099926u	//!< iutest version 1.9.99.26
+#define	IUTEST_VER			0x01099927u	//!< iutest version 1.9.99.27
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x09u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x26u		//!< Revision
+#define IUTEST_REVISION		0x27u		//!< Revision
 
 /**
  * @mainpage
@@ -81,7 +81,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    <tr><td>--iutest_repeat                   </td><td>&lt;count&gt;</td><td>Set the number of repetitions of the test.</td></tr>
    <tr><td>--iutest_stream_result_to         </td><td>&lt;host:port&gt;</td><td>Set stream test results server.</td></tr>
    <tr><td>--iutest_file_location            </td><td>&lt;auto|vs|gcc&gt;</td><td>Format file location messages.</td></tr>
-   <tr><td>--iutest_root_package_name        </td><td>[name]</td><td>Set root package name.</td></tr>
+   <tr><td>--iutest_default_package_name     </td><td>[name]</td><td>Set default root package name.</td></tr>
    <tr><td>--verbose                         </td><td></td><td>Verbose option.</td></tr>
    <tr><td>--feature                         </td><td></td><td>Show iutest feature.</td></tr>
    <tr><td>--version, -v                     </td><td></td><td>Show iutest version.</td></tr>
@@ -116,7 +116,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <li>v1.10.0.0
     <ul>
       <li>--verbose コマンドラインオプションを追加</li>
-      <li>--iutest_root_package_name コマンドラインオプションを追加</li>
+      <li>--iutest_default_package_name コマンドラインオプションを追加</li>
       <li>operatoer == のないオブジェクトの IUTEST_*_EQ 対応</li>
       <li>operatoer != のないオブジェクトの IUTEST_*_NE 対応</li>
       <li>junit xml 出力に対応（--iutest_output=junit）</li>
