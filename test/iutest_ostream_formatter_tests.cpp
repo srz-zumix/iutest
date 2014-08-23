@@ -47,7 +47,8 @@ int main(int argc, char* argv[])
 
 	::iutest::IUTEST_FLAG(color) = "no";
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
-	::iutest::IUTEST_FLAG(ostream_formatter) << ::std::hex << ::std::setw(8) << ::std::setfill('0') << std::setprecision(5);
+	::iutest::IUTEST_FLAG(ostream_formatter) << ::std::hex << ::std::setw(8) << ::std::setfill('0');
+	::iutest::IUTEST_FLAG(ostream_formatter) << ::std::setprecision(5);
 #endif
 	
 	{
