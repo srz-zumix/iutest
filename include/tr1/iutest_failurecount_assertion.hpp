@@ -65,24 +65,25 @@
 
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_USE_THROW_ON_ASSERTION_FAILURE
 #  define IIUT_STATEMENTS_EXECUTER(statements)	[&](){ try {	\
-	::iutest::detail::ScopedDisableTestFailureBreak guard;		\
+	::iutest::detail::ScopedDisableTestFailureBreak statements_failure_count_testflag_guard;	\
 	statements;													\
 	} catch(...) {}												\
 	}()
 #else
-#  define IIUT_STATEMENTS_EXECUTER(statements)	[&](){ ::iutest::detail::ScopedDisableTestFailureBreak guard; statements; }()
+#  define IIUT_STATEMENTS_EXECUTER(statements)					\
+	[&](){ ::iutest::detail::ScopedDisableTestFailureBreak statements_failure_count_testflag_guard; statements; }()
 #endif
 
 #define IUTEST_TEST_FAILURECOUNT_LT(statements, count, statements_str, on_failure)	\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_													\
-	if( ::iutest::AssertionResult iutest_ar = [&]() -> ::iutest::AssertionResult {	\
-		::iutest::detail::StatementsFailureCount iutest_failure_checker;			\
+	if( const ::iutest::AssertionResult statemnets_ar = [&]() -> ::iutest::AssertionResult {	\
+		::iutest::detail::StatementsFailureCount statement_failure_checker;			\
 		IIUT_STATEMENTS_EXECUTER(statements);										\
-		return iutest_failure_checker.GetResult(count, statements_str);				\
+		return statement_failure_checker.GetResult(count, statements_str);			\
 	}() )																			\
 		;																			\
 	else																			\
-		on_failure(iutest_ar.message())
+		on_failure(statemnets_ar.message())
 
 #else
 
@@ -102,17 +103,17 @@
 
 #define IUTEST_TEST_FAILURECOUNT_LT(statements, count, statements_str, on_failure)	\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_													\
-	if( ::iutest::AssertionResult iutest_ar = ::iutest::AssertionSuccess() ) {		\
-		::iutest::detail::StatementsFailureCount iutest_failure_checker;			\
+	if( const ::iutest::AssertionResult statemnets_ar = ::iutest::AssertionSuccess() ) {\
+		::iutest::detail::StatementsFailureCount statement_failure_checker;			\
 		IIUT_STATEMENTS_EXECUTER(statements);										\
-		::iutest::AssertionResult ar = iutest_failure_checker.GetResult(count, statements_str);	\
+		::iutest::AssertionResult ar = statement_failure_checker.GetResult(count, statements_str);	\
 		if( !ar ) {																	\
-			iutest_ar << ar.message();												\
+			statemnets_ar << ar.message();											\
 			goto IUTEST_PP_CAT(iutest_label_test_failurecount_lt_, __LINE__);		\
 		}																			\
 	} else																			\
 		IUTEST_PP_CAT(iutest_label_test_failurecount_lt_, __LINE__):				\
-		on_failure(iutest_ar.message())
+		on_failure(statemnets_ar.message())
 
 #endif
 

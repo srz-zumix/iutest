@@ -72,29 +72,29 @@
 #  define IIUT_SPI_STATEMENT_EXECUTER(statement) [&](){ ::iutest::detail::ScopedSPITestFlag guard; statement; }()
 #endif
 
-#define IUTEST_TEST_FATAL_FAILURE_(statement, text, substr, on_failure)				\
-	IUTEST_AMBIGUOUS_ELSE_BLOCKER_													\
-	if( ::iutest::AssertionResult iutest_ar = [&]() -> ::iutest::AssertionResult {	\
-		::iutest::detail::SPIFailureChecker<										\
-			::iutest::TestPartResult::kFatalFailure> iutest_failure_checker;		\
-		IIUT_SPI_STATEMENT_EXECUTER(statement);										\
-		return iutest_failure_checker.GetResult(substr);							\
-	}() )																			\
-		;																			\
-	else																			\
-		on_failure(iutest_ar.message())
+#define IUTEST_TEST_FATAL_FAILURE_(statement, text, substr, on_failure)					\
+	IUTEST_AMBIGUOUS_ELSE_BLOCKER_														\
+	if( ::iutest::AssertionResult iutest_spi_ar = [&]() -> ::iutest::AssertionResult {	\
+		::iutest::detail::SPIFailureChecker<											\
+			::iutest::TestPartResult::kFatalFailure> iutest_failure_checker;			\
+		IIUT_SPI_STATEMENT_EXECUTER(statement);											\
+		return iutest_failure_checker.GetResult(substr);								\
+	}() )																				\
+		;																				\
+	else																				\
+		on_failure(iutest_spi_ar.message())
 
-#define IUTEST_TEST_NONFATAL_FAILURE_(statement, text, substr, on_failure)			\
-	IUTEST_AMBIGUOUS_ELSE_BLOCKER_													\
-	if( ::iutest::AssertionResult iutest_ar = [&]() -> ::iutest::AssertionResult {	\
-		::iutest::detail::SPIFailureChecker<										\
-			::iutest::TestPartResult::kNonFatalFailure> iutest_failure_checker;		\
-		IIUT_SPI_STATEMENT_EXECUTER(statement);										\
-		return iutest_failure_checker.GetResult(substr);							\
-	}() )																			\
-		;																			\
-	else																			\
-		on_failure(iutest_ar.message())
+#define IUTEST_TEST_NONFATAL_FAILURE_(statement, text, substr, on_failure)				\
+	IUTEST_AMBIGUOUS_ELSE_BLOCKER_														\
+	if( ::iutest::AssertionResult iutest_spi_ar = [&]() -> ::iutest::AssertionResult {	\
+		::iutest::detail::SPIFailureChecker<											\
+			::iutest::TestPartResult::kNonFatalFailure> iutest_failure_checker;			\
+		IIUT_SPI_STATEMENT_EXECUTER(statement);											\
+		return iutest_failure_checker.GetResult(substr);								\
+	}() )																				\
+		;																				\
+	else																				\
+		on_failure(iutest_spi_ar.message())
 
 #else
 
@@ -111,35 +111,35 @@
 	IUTestFatalFailureStatement::Execute()
 #endif
 
-#define IUTEST_TEST_FATAL_FAILURE_(statement, text, substr, on_failure)			\
-	IUTEST_AMBIGUOUS_ELSE_BLOCKER_												\
-	if( ::iutest::AssertionResult iutest_ar = ::iutest::AssertionSuccess() ) {	\
-		::iutest::detail::SPIFailureChecker<									\
-			::iutest::TestPartResult::kFatalFailure> iutest_failure_checker;	\
-		IIUT_SPI_STATEMENT_EXECUTER(statement);									\
-		::iutest::AssertionResult ar = iutest_failure_checker.GetResult(substr);\
-		if( !ar ) {																\
-			iutest_ar << ar.message();											\
-			goto IUTEST_PP_CAT(iutest_label_test_fatalfailure_, __LINE__);		\
-		}																		\
-	} else																		\
-		IUTEST_PP_CAT(iutest_label_test_fatalfailure_, __LINE__):				\
-		on_failure(iutest_ar.message())
+#define IUTEST_TEST_FATAL_FAILURE_(statement, text, substr, on_failure)				\
+	IUTEST_AMBIGUOUS_ELSE_BLOCKER_													\
+	if( ::iutest::AssertionResult iutest_spi_ar = ::iutest::AssertionSuccess() ) {	\
+		::iutest::detail::SPIFailureChecker<										\
+			::iutest::TestPartResult::kFatalFailure> iutest_failure_checker;		\
+		IIUT_SPI_STATEMENT_EXECUTER(statement);										\
+		::iutest::AssertionResult ar = iutest_failure_checker.GetResult(substr);	\
+		if( !ar ) {																	\
+			iutest_spi_ar << ar.message();											\
+			goto IUTEST_PP_CAT(iutest_label_test_fatalfailure_, __LINE__);			\
+		}																			\
+	} else																			\
+		IUTEST_PP_CAT(iutest_label_test_fatalfailure_, __LINE__):					\
+		on_failure(iutest_spi_ar.message())
 
-#define IUTEST_TEST_NONFATAL_FAILURE_(statement, text, substr, on_failure)		\
-	IUTEST_AMBIGUOUS_ELSE_BLOCKER_												\
-	if( ::iutest::AssertionResult iutest_ar = ::iutest::AssertionSuccess() ) {	\
-		::iutest::detail::SPIFailureChecker<									\
-			::iutest::TestPartResult::kNonFatalFailure> iutest_failure_checker;	\
-		IIUT_SPI_STATEMENT_EXECUTER(statement);									\
-		::iutest::AssertionResult ar = iutest_failure_checker.GetResult(substr);\
-		if( !ar ) {																\
-			iutest_ar << ar.message();											\
-			goto IUTEST_PP_CAT(iutest_label_test_fatalfailure_, __LINE__);		\
-		}																		\
-	} else																		\
-		IUTEST_PP_CAT(iutest_label_test_fatalfailure_, __LINE__):				\
-		on_failure(iutest_ar.message())
+#define IUTEST_TEST_NONFATAL_FAILURE_(statement, text, substr, on_failure)			\
+	IUTEST_AMBIGUOUS_ELSE_BLOCKER_													\
+	if( ::iutest::AssertionResult iutest_spi_ar = ::iutest::AssertionSuccess() ) {	\
+		::iutest::detail::SPIFailureChecker<										\
+			::iutest::TestPartResult::kNonFatalFailure> iutest_failure_checker;		\
+		IIUT_SPI_STATEMENT_EXECUTER(statement);										\
+		::iutest::AssertionResult ar = iutest_failure_checker.GetResult(substr);	\
+		if( !ar ) {																	\
+			iutest_spi_ar << ar.message();											\
+			goto IUTEST_PP_CAT(iutest_label_test_fatalfailure_, __LINE__);			\
+		}																			\
+	} else																			\
+		IUTEST_PP_CAT(iutest_label_test_fatalfailure_, __LINE__):					\
+		on_failure(iutest_spi_ar.message())
 
 //		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(statement);
 
