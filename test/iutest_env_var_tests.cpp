@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 
 #if	defined(USE_GTEST_PREFIX) || defined(IUTEST_USE_GTEST)
 #  define ENV_PREFIX	"GTEST_"

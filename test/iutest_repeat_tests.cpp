@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 
 int g_foo_bar = 0;
 int g_hoge_fuga = 0;

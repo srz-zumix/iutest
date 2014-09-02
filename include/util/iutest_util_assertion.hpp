@@ -19,9 +19,6 @@
 // include
 #include "../internal/iutest_type_traits.hpp"
 
-namespace iuutil
-{
-
 //======================================================================
 // define
 /**
@@ -266,6 +263,9 @@ namespace iuutil
 /**
  * @}
 */
+
+namespace iuutil
+{
 
 //======================================================================
 // function

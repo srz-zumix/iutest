@@ -17,7 +17,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 
 #if IUTEST_HAS_TYPED_TEST_P
 

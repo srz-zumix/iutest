@@ -97,7 +97,7 @@
 
 //======================================================================
 // undef
-#ifdef INCG_IRIS_IUTEST_HPP_
+#if defined(INCG_IRIS_IUTEST_HPP_)
 
 #ifdef IUTEST_OS_CYGWIN
 #  undef IUTEST_OS_CYGWIN

@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/gtest/iutest_switch.hpp"
+#include "iutest.hpp"
 #define GTEST_TAP_PRINT_TO_STDOUT
 #include "tap.h"
 

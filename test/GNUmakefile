@@ -108,6 +108,10 @@ TARGETS = $(BUILD_TARGETS)
 SRCS   = $(BUILD_TARGETS:%=%.cpp)
 RUNNER = $(RUN_TARGETS:%=run_%)
 
+ifdef USE_FUSED
+IUTEST_INCLUDE=-I$(IUTEST_DIR)/fused-src
+endif
+
 #
 #
 # build targets.
@@ -131,6 +135,9 @@ endif
 check : test
 run : test
 test : $(BUILD_ONLY) $(RUNNER)
+
+fuse:
+	make -C ../tools/fuse
 
 showcxxversion:
 	$(CXX) --version

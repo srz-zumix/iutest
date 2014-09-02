@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 
 class MyEnvironment : public ::iutest::Environment
 {

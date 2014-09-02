@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])

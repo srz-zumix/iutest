@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 
 #define MAKE_TEST(TestCase, TestName)									\
 	namespace TestCase##TestName { enum STATE { NOT_RAN, RAN };			\

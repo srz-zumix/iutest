@@ -21,7 +21,7 @@
 /*
  * include testing framework
 */
-#include "../include/gtest/iutest_switch.hpp"
+#include "iutest.hpp"
 
 #ifdef USE_TAP
 #  include "../include/listener/iutest_tap_printer.hpp"

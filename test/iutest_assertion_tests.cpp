@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 
 template<int A, int B>
 struct add_t { enum result { value = A + B }; };

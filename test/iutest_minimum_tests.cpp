@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_minimum_tests.cpp
- * @brief		最小テスト
+ * @brief		minimum test
  *
  * @author		t.shirayanagi
  * @par			copyright
@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])

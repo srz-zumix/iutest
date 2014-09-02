@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 
 #define PPTEST_DEC(n)	IUTEST_STATIC_ASSERT(n-1 == IUTEST_PP_DEC(n))
 

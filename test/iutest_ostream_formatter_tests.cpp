@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 #include "iutest_logger_tests.hpp"
 #include <iomanip>
 

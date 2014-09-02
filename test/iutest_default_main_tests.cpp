@@ -16,7 +16,7 @@
 //======================================================================
 // include
 #define IUTEST_USE_MAIN
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 
 IUTEST(Foo, Bar)
 {

@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 #include <cmath>
 
 #if !defined(IUTEST_USE_GTEST)

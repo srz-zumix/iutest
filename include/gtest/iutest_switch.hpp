@@ -28,7 +28,7 @@
 //======================================================================
 // define
 
-#ifdef GTEST_INCLUDE_GTEST_GTEST_H_
+#if defined(GTEST_INCLUDE_GTEST_GTEST_H_)
 
 #undef SUCCEED
 #undef FAIL
@@ -101,7 +101,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleTest(int* argc, wchar_t** argv)
 	InitIrisUnitTest(argc, argv);
 }
 
-#ifdef GMOCK_INCLUDE_GMOCK_GMOCK_H_
+#if defined(GMOCK_INCLUDE_GMOCK_GMOCK_H_)
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleMock(int* argc, char** argv)
 {
 	testing::InitGoogleMock(argc, argv);
@@ -116,7 +116,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleMock(int* argc, wchar_t** argv)
 
 #ifndef GMOCK_INCLUDE_GMOCK_GMOCK_H_
 
-#ifdef GTEST_INCLUDE_GTEST_GTEST_H_
+#if defined(GTEST_INCLUDE_GTEST_GTEST_H_)
 // すでに testing namespace が存在するので、define で置き換え
 #  define testing	iutest
 #else
@@ -132,7 +132,7 @@ namespace testing = iutest;
 
 #else // !defined(IUTEST_USE_GTEST)
 
-#ifdef INCG_IRIS_IUTEST_HPP_
+#if defined(INCG_IRIS_IUTEST_HPP_)
 #  if IUTEST_HAS_TUPLE
 #    define GTEST_USE_OWN_TR1_TUPLE	0
 #  endif
@@ -173,7 +173,7 @@ namespace tr1
 //======================================================================
 // define
 
-#ifdef INCG_IRIS_IUTEST_HPP_
+#if defined(INCG_IRIS_IUTEST_HPP_)
 #undef IUTEST_SUCCEED
 #undef IUTEST_FAIL
 #undef IUTEST_ADD_FAILURE
@@ -355,7 +355,7 @@ namespace iusupport
 	template<int x>struct StaticAssertionTest {};
 }
 
-#ifdef INCG_IRIS_IUTEST_HPP_
+#if defined(INCG_IRIS_IUTEST_HPP_)
 
 namespace iusupport
 {
@@ -390,7 +390,7 @@ typedef ::std::ostream	iu_ostream;
 
 }	// end of namespace testing
 
-#ifdef INCG_IRIS_IUTEST_HPP_
+#if defined(INCG_IRIS_IUTEST_HPP_)
 // すでに iutest namespace が存在するので、define で対応
 #  define iutest testing
 #else

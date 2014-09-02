@@ -1680,13 +1680,13 @@ inline Environment* IUTEST_ATTRIBUTE_UNUSED_ AddGlobalTestEnvironment(Environmen
 
 }
 
-#ifdef IUTEST_USE_GTEST
+#if defined(IUTEST_USE_GTEST)
 #  include "gtest/iutest_switch.hpp"
 #endif
 
 #include "iutest_util.hpp"
 
-#ifdef IUTEST_USE_MAIN
+#if defined(IUTEST_USE_MAIN)
 #  include "internal/iutest_default_main.hpp"
 #endif
 

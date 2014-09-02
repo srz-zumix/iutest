@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 
 #ifdef UNICODE
 #  define DECAL_ARGV(cmd) const wchar_t* targv[] = { argv[0], L cmd }

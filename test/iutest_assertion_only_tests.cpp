@@ -30,7 +30,7 @@ void test_printf(const char* fmt, ...);
 
 //======================================================================
 // include
-#include "../include/gtest/iutest_switch.hpp"
+#include "iutest.hpp"
 #include "../include/gtest/iutest_assertion_only.hpp"
 
 #ifdef IUTEST_USE_GTEST

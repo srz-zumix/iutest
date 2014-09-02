@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 #include "iutest_pred_tests.hpp"
 
 IUTEST(SyntaxTest, True)

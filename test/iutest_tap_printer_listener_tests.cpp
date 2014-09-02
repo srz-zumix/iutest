@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 #include "../include/listener/iutest_tap_printer.hpp"
 #include "iutest_logger_tests.hpp"
 

@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/gtest/iutest_switch.hpp"
+#include "iutest.hpp"
 
 #if IUTEST_HAS_TYPED_TEST
 

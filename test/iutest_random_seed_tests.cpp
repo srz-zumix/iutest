@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 
 static unsigned int kSeed = 9876;
 static unsigned int seed = 0;

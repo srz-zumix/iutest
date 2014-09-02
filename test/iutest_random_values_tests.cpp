@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 
 #if IUTEST_HAS_GENRAND && IUTEST_HAS_CXX_HDR_RANDOM
 IUTEST(RandomEngineTest, Test)

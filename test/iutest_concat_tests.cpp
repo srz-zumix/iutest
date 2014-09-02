@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 
 #if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_CONCAT
 

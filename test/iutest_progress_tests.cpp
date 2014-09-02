@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/iutest.hpp"
+#include "iutest.hpp"
 #include "../include/listener/iutest_progress_printer.hpp"
 
 #ifdef UNICODE
