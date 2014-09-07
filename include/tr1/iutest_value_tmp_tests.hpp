@@ -45,7 +45,7 @@
 */
 #define IIUT_VALUETMP_TEST_(testcase_, testname_)										\
 	template<iutest::BiggestInt iutest_ValueParam>										\
-	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public testcase_<iutest_ValueParam> {		\
+	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public testcase_<iutest_ValueParam> {	\
 		typedef testcase_<iutest_ValueParam> TestFixture;								\
 		static const iutest::BiggestInt ValueParam = iutest_ValueParam;					\
 		protected: virtual void Body(void);												\

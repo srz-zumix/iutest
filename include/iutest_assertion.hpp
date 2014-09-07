@@ -427,7 +427,7 @@ inline AssertionResult EqFailure(const char* expected_expression, const char* ac
 		<< "\n  Actual: " << FormatForComparisonFailureMessage(val1, val2)					\
 		<< " vs " << FormatForComparisonFailureMessage(val2, val1);							\
 	}																						\
-	}																						\
+	}
 
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 
