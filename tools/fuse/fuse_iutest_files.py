@@ -81,6 +81,7 @@ def Fuse(root, filename, output, output_dir, minimum):
 									line = re.sub('\s+([&|\+\-<>]+)[ \t]+', '\\1', line)
 									line = re.sub('\s*([{\+\-\*/%=<>&|]+=)[ \t]*', '\\1', line)
 									#line = re.sub('\w\s*([{\+\-\*/%=<>&|!]+)[ \t]*', '\\1', line)
+									line = re.sub('\s+:[ \t]+(\w)', ':\\1', line)
 									line = re.sub('\s*,[ \t]*', ',', line)
 									line = re.sub('\s*\)', ')', line)
 									line = re.sub('\)\s+{', '){', line)

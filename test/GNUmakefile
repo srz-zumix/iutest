@@ -110,6 +110,7 @@ RUNNER = $(RUN_TARGETS:%=run_%)
 
 ifdef USE_FUSED
 IUTEST_INCLUDE=-I$(IUTEST_DIR)/fused-src
+IUTEST_HEADERS+=$(IUTEST_DIR)/fused-src/iutest.hpp
 endif
 
 #

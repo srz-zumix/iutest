@@ -24,6 +24,9 @@ FUSED_DIR = $(IUTEST_DIR)/fused-src
 default: $(FUSED_DIR) $(IUTEST_HEADERS) fuse_iutest_files.py Makefile
 	python fuse_iutest_files.py $(FUSED_DIR)
 
+min: default
+	mv $(FUSED_DIR)/iutest.min.hpp $(FUSED_DIR)/iutest.hpp
+
 clean:
 	$(RM) -rf $(FUSED_DIR)
 
