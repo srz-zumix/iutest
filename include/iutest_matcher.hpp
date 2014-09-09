@@ -54,6 +54,40 @@ inline ::std::string MatcherAssertionFailureMessage(const char* actual, const ch
 	
 //======================================================================
 // class
+
+/**
+ * @private
+ * @{
+*/
+
+#define DECL_COMPARE_MATCHER(name, op)	\
+	template<typename T>class IUTEST_PP_CAT(name, Matcher) { public:		\
+	IUTEST_PP_CAT(name, Matcher)(const T& v) : m_expected(v) {}				\
+	::std::string WitchIs(void) const { iu_global_format_stringstream strm;	\
+		strm << #name ": " << m_expected; return strm.str();				\
+	}																		\
+	template<typename U>AssertionResult operator ()(const U& actual) const {\
+		if( actual op m_expected ) return AssertionSuccess();				\
+		return AssertionFailure() << WitchIs();								\
+	}																		\
+	private: IUTEST_PP_DISALLOW_ASSIGN(IUTEST_PP_CAT(name, Matcher));		\
+	T m_expected;															\
+	}
+
+
+DECL_COMPARE_MATCHER(Eq, ==);
+DECL_COMPARE_MATCHER(Ne, !=);
+DECL_COMPARE_MATCHER(Le, <=);
+DECL_COMPARE_MATCHER(Lt, < );
+DECL_COMPARE_MATCHER(Ge, >=);
+DECL_COMPARE_MATCHER(Gt, > );
+
+#undef DECL_COMPARE_MATCHER
+
+/**
+ * @}
+*/
+
 /**
  * @brief	StartsWith matcher
 */
@@ -514,6 +548,42 @@ IIUT_DECL_ANYOF_MATCHER(9);
 #endif
 
 }	// end of namespace detail
+
+/**
+ * @brief	Make Eq matcher
+*/
+template<typename T>
+detail::EqMatcher<T> Eq(const T& value) { return detail::EqMatcher<T>(value); }
+
+/**
+ * @brief	Make Ne matcher
+*/
+template<typename T>
+detail::NeMatcher<T> Ne(const T& value) { return detail::NeMatcher<T>(value); }
+
+/**
+ * @brief	Make Le matcher
+*/
+template<typename T>
+detail::LeMatcher<T> Le(const T& value) { return detail::LeMatcher<T>(value); }
+
+/**
+ * @brief	Make Lt matcher
+*/
+template<typename T>
+detail::LtMatcher<T> Lt(const T& value) { return detail::LtMatcher<T>(value); }
+
+/**
+ * @brief	Make Ge matcher
+*/
+template<typename T>
+detail::GeMatcher<T> Ge(const T& value) { return detail::GeMatcher<T>(value); }
+
+/**
+ * @brief	Make Gt matcher
+*/
+template<typename T>
+detail::GtMatcher<T> Gt(const T& value) { return detail::GtMatcher<T>(value); }
 
 /**
  * @brief	Make StartsWith matcher

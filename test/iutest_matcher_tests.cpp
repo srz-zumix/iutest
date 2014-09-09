@@ -25,6 +25,38 @@
 ::std::vector<int> a;
 int b[3] = { 1, 2, 3 };
 
+IUTEST(Matcher, Eq)
+{
+	IUTEST_EXPECT_THAT(1, ::iutest::Eq(1));
+}
+
+IUTEST(Matcher, Ne)
+{
+	IUTEST_EXPECT_THAT(0, ::iutest::Ne(1));
+}
+
+IUTEST(Matcher, Le)
+{
+	IUTEST_EXPECT_THAT(1, ::iutest::Le(1));
+	IUTEST_EXPECT_THAT(0, ::iutest::Le(1));
+}
+
+IUTEST(Matcher, Lt)
+{
+	IUTEST_EXPECT_THAT(0, ::iutest::Lt(1));
+}
+
+IUTEST(Matcher, Ge)
+{
+	IUTEST_EXPECT_THAT(1, ::iutest::Ge(0));
+	IUTEST_EXPECT_THAT(0, ::iutest::Ge(0));
+}
+
+IUTEST(Matcher, Gt)
+{
+	IUTEST_EXPECT_THAT(1, ::iutest::Gt(0));
+}
+
 IUTEST(Matcher, StartsWith)
 {
 	IUTEST_EXPECT_THAT("hoge", ::iutest::StartsWith("ho"));
@@ -64,6 +96,38 @@ IUTEST(Matcher, Equals)
 	IUTEST_EXPECT_THAT(hoge, ::iutest::Equals(hoge));
 }
 
+
+IUTEST(MatcherFailure, Eq)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, ::iutest::Eq(0)), "Eq: 0" );
+}
+
+IUTEST(MatcherFailure, Ne)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, ::iutest::Ne(0)), "Ne: 0" );
+}
+
+IUTEST(MatcherFailure, Le)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, ::iutest::Le(0)), "Le: 0" );
+}
+
+IUTEST(MatcherFailure, Lt)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, ::iutest::Lt(0)), "Lt: 0" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, ::iutest::Lt(0)), "Lt: 0" );
+}
+
+IUTEST(MatcherFailure, Ge)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, ::iutest::Ge(1)), "Ge: 1" );
+}
+
+IUTEST(MatcherFailure, Gt)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, ::iutest::Gt(1)), "Gt: 1" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, ::iutest::Gt(1)), "Gt: 1" );
+}
 
 IUTEST(MatcherFailure, StartsWith)
 {

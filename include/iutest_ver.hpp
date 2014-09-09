@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01100003u	//!< iutest version 1.10.0.3
+#define	IUTEST_VER			0x01109900u	//!< iutest version 1.10.99.0
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x10u		//!< Minor Version
-#define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x03u		//!< Revision
+#define IUTEST_BUILD		0x99u		//!< Build
+#define IUTEST_REVISION		0x00u		//!< Revision
 
 /**
  * @mainpage
@@ -113,6 +113,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG		変更履歴
  * @par		Changes
  <ul>
+  <li>v1.11.0.0
+    <ul>
+      <li>Matcher に Eq,Ne,Le,Lt,Ge,Gt を追加</li>
+    </ul>
+  </li>
   <li>v1.10.0.0
     <ul>
       <li>--verbose コマンドラインオプションを追加</li>
@@ -132,7 +137,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <ul>
       <li>IUTEST_P,IUTEST_TYPED_TEST_P で DISABLED_ 指定が機能しない問題を修正</li>
       <li>TestFixutre を定義しなくても IUTEST_P が使えるように対応</li>
-	  <li>Visual Studio 14 CTP 対応</li>
 	  <li>Visual Studio 14 CTP 対応</li>
     </ul>
   </li>
