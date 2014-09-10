@@ -89,6 +89,116 @@ DECL_COMPARE_MATCHER(Gt, > );
 */
 
 /**
+ * @brief	IsNull matcher
+*/
+class IsNullMatcher
+{
+public:
+	IsNullMatcher() {}
+public:
+	template<typename U>
+	AssertionResult operator ()(const U* actual) const
+	{
+		if( actual == NULL ) return AssertionSuccess();
+		return AssertionFailure() << WitchIs();
+	}
+	::std::string WitchIs(void) const
+	{
+		return "Is Null";
+	}
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(IsNullMatcher);
+};
+
+/**
+ * @brief	NotNull matcher
+*/
+class NotNullMatcher
+{
+public:
+	NotNullMatcher() {}
+public:
+	template<typename U>
+	AssertionResult operator ()(const U* actual) const
+	{
+		if( actual != NULL ) return AssertionSuccess();
+		return AssertionFailure() << WitchIs();
+	}
+	::std::string WitchIs(void) const
+	{
+		return "Not Null";
+	}
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(NotNullMatcher);
+};
+
+/**
+ * @brief	Floating point Eq matcher
+*/
+template<typename T>
+class FloatingPointEqMatcher
+{
+public:
+	FloatingPointEqMatcher(const T& value) : m_expected(value) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual) const
+	{
+		floating_point<T> f2(actual);
+		if( m_expected.AlmostEquals(f2) )
+		{
+			return AssertionSuccess();
+		}
+		return AssertionFailure() << WitchIs();
+	}
+
+	::std::string WitchIs(void) const
+	{
+		iu_global_format_stringstream strm;
+		strm << "Eq: " << m_expected;
+		return strm.str();
+	}
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(FloatingPointEqMatcher);
+
+	floating_point<T> m_expected;
+};
+
+/**
+ * @brief	Floating point Eq matcher (NanSensitive)
+*/
+template<typename T>
+class NanSensitiveFloatingPointEqMatcher
+{
+public:
+	NanSensitiveFloatingPointEqMatcher(const T& value) : m_expected(value) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual) const
+	{
+		floating_point<T> f2(actual);
+		if( m_expected.NanSensitiveAlmostEquals(f2) )
+		{
+			return AssertionSuccess();
+		}
+		return AssertionFailure() << WitchIs();
+	}
+
+	::std::string WitchIs(void) const
+	{
+		iu_global_format_stringstream strm;
+		strm << "NanSensitive Eq: " << m_expected;
+		return strm.str();
+	}
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(NanSensitiveFloatingPointEqMatcher);
+
+	floating_point<T> m_expected;
+};
+
+/**
  * @brief	StartsWith matcher
 */
 template<typename T>
@@ -584,6 +694,16 @@ detail::GeMatcher<T> Ge(const T& value) { return detail::GeMatcher<T>(value); }
 */
 template<typename T>
 detail::GtMatcher<T> Gt(const T& value) { return detail::GtMatcher<T>(value); }
+
+/**
+ * @brief	Make IsNull matcher
+*/
+inline detail::IsNullMatcher IsNull() { return detail::IsNullMatcher(); }
+
+/**
+ * @brief	Make NotNull matcher
+*/
+inline detail::NotNullMatcher NotNull() { return detail::NotNullMatcher(); }
 
 /**
  * @brief	Make StartsWith matcher

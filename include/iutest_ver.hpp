@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01109900u	//!< iutest version 1.10.99.0
+#define	IUTEST_VER			0x01109901u	//!< iutest version 1.10.99.1
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x10u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x00u		//!< Revision
+#define IUTEST_REVISION		0x01u		//!< Revision
 
 /**
  * @mainpage
@@ -115,7 +115,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  <ul>
   <li>v1.11.0.0
     <ul>
-      <li>Matcher に Eq,Ne,Le,Lt,Ge,Gt を追加</li>
+      <li>Matcher に Eq,Ne,Le,Lt,Ge,Gt,IsNull,NotNull を追加</li>
+      <li>IUTEST_*_FLOAT_EQ,DOUBLE_EQ で NAN の比較が真を返す不具合を修正</li>
     </ul>
   </li>
   <li>v1.10.0.0

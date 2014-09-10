@@ -19,11 +19,17 @@
 
 #if IUTEST_HAS_MATCHERS
 
+namespace {
+
 ::std::string hoge = "hoge";
 ::std::string hog = "hog";
 ::std::string oge = "oge";
 ::std::vector<int> a;
 int b[3] = { 1, 2, 3 };
+void* p1 = NULL;
+void* p2 = &p1;
+
+}
 
 IUTEST(Matcher, Eq)
 {
@@ -55,6 +61,16 @@ IUTEST(Matcher, Ge)
 IUTEST(Matcher, Gt)
 {
 	IUTEST_EXPECT_THAT(1, ::iutest::Gt(0));
+}
+
+IUTEST(Matcher, IsNull)
+{
+	IUTEST_EXPECT_THAT(p1, ::iutest::IsNull());
+}
+
+IUTEST(Matcher, NotNull)
+{
+	IUTEST_EXPECT_THAT(p2, ::iutest::NotNull());
 }
 
 IUTEST(Matcher, StartsWith)
@@ -127,6 +143,16 @@ IUTEST(MatcherFailure, Gt)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, ::iutest::Gt(1)), "Gt: 1" );
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, ::iutest::Gt(1)), "Gt: 1" );
+}
+
+IUTEST(MatcherFailure, IsNull)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(p2, ::iutest::IsNull()), "Is Null");
+}
+
+IUTEST(MatcherFailure, NotNull)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(p1, ::iutest::NotNull()), "Not Null");
 }
 
 IUTEST(MatcherFailure, StartsWith)

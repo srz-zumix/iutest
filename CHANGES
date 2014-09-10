@@ -2,7 +2,7 @@
 Changes for 1.11.0:
 
 ** 追加
-* Matcher に Eq,Ne,Le,Lt,Ge,Gt を追加
+* Matcher に Eq,Ne,Le,Lt,Ge,Gt,IsNull,NotNull を追加
 
 --------------------------------------------------
 Changes for 1.10.0:
