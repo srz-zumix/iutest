@@ -137,9 +137,6 @@ check : test
 run : test
 test : $(BUILD_ONLY) $(RUNNER)
 
-fuse:
-	make -C ../tools/fuse
-
 showcxxversion:
 	$(CXX) --version
 
@@ -154,6 +151,19 @@ else
 	./$< $(RUN_OPTION)
 endif
 endif
+
+#
+#
+# fuse
+#
+
+FUSE_PY= ../tools/fuse/*.py 
+
+fuse: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fuse/Makefile $(FUSE_PY)
+	make -C ../tools/fuse
+
+fuse_min: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fuse/Makefile $(FUSE_PY)
+	make -C ../tools/fuse min
 
 #
 #

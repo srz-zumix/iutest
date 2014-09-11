@@ -28,7 +28,7 @@ install:
 
 script:
   - cd ./test
-  - make showcxxversion all
+  - make showcxxversion ${USE_FUSE} all
 
 after_success:
   # Coverage
@@ -55,6 +55,10 @@ matrix:
   include:
     - compiler: gcc
       env: USE_COVERAGE=lcov
+    - compiler: gcc
+      env: USE_FUSE=fuse
+    - compiler: gcc
+      env: USE_FUSE=fuse_min
     - compiler: gcc
       env: COVERITY_SCAN=1
       addons:

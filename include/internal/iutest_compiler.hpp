@@ -717,6 +717,11 @@
 #    if __has_feature(cxx_rtti)
 #      define IUTEST_HAS_RTTI	1
 #    endif
+#    if defined(_MSC_VER)	// clang for windows
+#      if !defined(_CPPRTTI)
+#        include <exception>
+#      endif
+#    endif
 #  elif defined(__GNUC__)
 #    ifdef __RTTI
 #      define IUTEST_HAS_RTTI	1
