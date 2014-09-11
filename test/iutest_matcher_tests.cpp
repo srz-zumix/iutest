@@ -28,6 +28,8 @@ namespace {
 int b[3] = { 1, 2, 3 };
 void* p1 = NULL;
 void* p2 = &p1;
+float f0 = 0.0f;
+double d0 = 0.0;
 
 }
 
@@ -71,6 +73,28 @@ IUTEST(Matcher, IsNull)
 IUTEST(Matcher, NotNull)
 {
 	IUTEST_EXPECT_THAT(p2, ::iutest::NotNull());
+}
+
+IUTEST(Matcher, FloatEq)
+{
+	IUTEST_EXPECT_THAT(f0, ::iutest::FloatEq(0.0f));
+}
+
+IUTEST(Matcher, DoubleEq)
+{
+	IUTEST_EXPECT_THAT(d0, ::iutest::DoubleEq(0.0));
+}
+
+IUTEST(Matcher, NanSensitiveFloatEq)
+{
+	IUTEST_EXPECT_THAT(f0, ::iutest::NanSensitiveFloatEq(0.0f));
+	IUTEST_EXPECT_THAT(0.0f/f0, ::iutest::NanSensitiveFloatEq(0.0f/f0));
+}
+
+IUTEST(Matcher, NanSensitiveDoubleEq)
+{
+	IUTEST_EXPECT_THAT(d0, ::iutest::NanSensitiveDoubleEq(0.0));
+	IUTEST_EXPECT_THAT(0.0/d0, ::iutest::NanSensitiveDoubleEq(0.0/d0));
 }
 
 IUTEST(Matcher, StartsWith)
@@ -153,6 +177,28 @@ IUTEST(MatcherFailure, IsNull)
 IUTEST(MatcherFailure, NotNull)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(p1, ::iutest::NotNull()), "Not Null");
+}
+
+IUTEST(MatcherFailure, FloatEq)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(f0, ::iutest::FloatEq(1.0f)), "Eq: 1" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0/f0, ::iutest::FloatEq(0/f0)), "Eq: " );
+}
+
+IUTEST(MatcherFailure, DoubleEq)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(d0, ::iutest::DoubleEq(1.0)), "Eq: 1" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0/d0, ::iutest::DoubleEq(0/d0)), "Eq: " );
+}
+
+IUTEST(MatcherFailure, NanSensitiveFloatEq)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(f0, ::iutest::NanSensitiveFloatEq(1.0f)), "Eq: 1" );
+}
+
+IUTEST(MatcherFailure, NanSensitiveDoubleEq)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(d0, ::iutest::NanSensitiveDoubleEq(1.0)), "Eq: 1" );
 }
 
 IUTEST(MatcherFailure, StartsWith)

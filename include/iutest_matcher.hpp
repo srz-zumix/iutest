@@ -156,7 +156,7 @@ public:
 	::std::string WitchIs(void) const
 	{
 		iu_global_format_stringstream strm;
-		strm << "Eq: " << m_expected;
+		strm << "Eq: " << PrintToString(m_expected);
 		return strm.str();
 	}
 private:
@@ -189,7 +189,7 @@ public:
 	::std::string WitchIs(void) const
 	{
 		iu_global_format_stringstream strm;
-		strm << "NanSensitive Eq: " << m_expected;
+		strm << "NanSensitive Eq: " << PrintToString(m_expected);
 		return strm.str();
 	}
 private:
@@ -706,6 +706,26 @@ inline detail::IsNullMatcher IsNull() { return detail::IsNullMatcher(); }
 inline detail::NotNullMatcher NotNull() { return detail::NotNullMatcher(); }
 
 /**
+ * @brief	Make Float Eq matcher
+*/
+inline detail::FloatingPointEqMatcher<float> FloatEq(float value) { return detail::FloatingPointEqMatcher<float>(value); }
+
+/**
+ * @brief	Make Double Eq matcher
+*/
+inline detail::FloatingPointEqMatcher<double> DoubleEq(double value) { return detail::FloatingPointEqMatcher<double>(value); }
+
+/**
+ * @brief	Make NanSensitive Float Eq matcher
+*/
+inline detail::NanSensitiveFloatingPointEqMatcher<float> NanSensitiveFloatEq(float value) { return detail::NanSensitiveFloatingPointEqMatcher<float>(value); }
+
+/**
+ * @brief	Make NanSensitive Double Eq matcher
+*/
+inline detail::NanSensitiveFloatingPointEqMatcher<double> NanSensitiveDoubleEq(double value) { return detail::NanSensitiveFloatingPointEqMatcher<double>(value); }
+
+/**
  * @brief	Make StartsWith matcher
 */
 template<typename T>
@@ -716,6 +736,12 @@ detail::StartsWithMatcher<const T&> StartsWith(const T& str) { return detail::St
 */
 template<typename T>
 detail::ContainsMatcher<const T&> Contains(const T& expected) { return detail::ContainsMatcher<const T&>(expected); }
+
+/**
+ * @brief	Make Contains matcher
+*/
+template<typename T>
+detail::ContainsMatcher<const T&> HasSubstr(const T& expected) { return detail::ContainsMatcher<const T&>(expected); }
 
 /**
  * @brief	Make EndsWith matcher

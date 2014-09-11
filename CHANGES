@@ -3,6 +3,11 @@ Changes for 1.11.0:
 
 ** 追加
 * Matcher に Eq,Ne,Le,Lt,Ge,Gt,IsNull,NotNull を追加
+* Matcher に FloatEq,DoubleEq,NanSensitiveFloatEq,NanSensitiveDoubleEq を追加
+
+** 修正
+* IUTEST_*_FLOAT_EQ,DOUBLE_EQ で NAN の比較が真を返す不具合を修正
+* バグ修正
 
 --------------------------------------------------
 Changes for 1.10.0:
