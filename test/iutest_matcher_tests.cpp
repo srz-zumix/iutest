@@ -21,6 +21,7 @@
 
 namespace {
 
+::std::string Hoge = "Hoge";
 ::std::string hoge = "hoge";
 ::std::string hog = "hog";
 ::std::string oge = "oge";
@@ -95,6 +96,38 @@ IUTEST(Matcher, NanSensitiveDoubleEq)
 {
 	IUTEST_EXPECT_THAT(d0, ::iutest::NanSensitiveDoubleEq(0.0));
 	IUTEST_EXPECT_THAT(0.0/d0, ::iutest::NanSensitiveDoubleEq(0.0/d0));
+}
+
+IUTEST(Matcher, StrEq)
+{
+	IUTEST_EXPECT_THAT("hoge", ::iutest::StrEq("hoge"));
+	IUTEST_EXPECT_THAT("hoge", ::iutest::StrEq(hoge));
+	IUTEST_EXPECT_THAT(hoge, ::iutest::StrEq("hoge"));
+	IUTEST_EXPECT_THAT(hoge, ::iutest::StrEq(hoge));
+}
+
+IUTEST(Matcher, StrNe)
+{
+	IUTEST_EXPECT_THAT("hoga", ::iutest::StrNe("hoge"));
+	IUTEST_EXPECT_THAT("hoga", ::iutest::StrNe(hoge));
+	IUTEST_EXPECT_THAT(hoge, ::iutest::StrNe("Hoge"));
+	IUTEST_EXPECT_THAT(hoge, ::iutest::StrNe(Hoge));
+}
+
+IUTEST(Matcher, StrCaseEq)
+{
+	IUTEST_EXPECT_THAT("hoge", ::iutest::StrCaseEq("Hoge"));
+	IUTEST_EXPECT_THAT("hoGe", ::iutest::StrCaseEq(hoge));
+	IUTEST_EXPECT_THAT(hoge, ::iutest::StrCaseEq("hOge"));
+	IUTEST_EXPECT_THAT(hoge, ::iutest::StrCaseEq(Hoge));
+}
+
+IUTEST(Matcher, StrCaseNe)
+{
+	IUTEST_EXPECT_THAT("hoga", ::iutest::StrCaseNe("hoge"));
+	IUTEST_EXPECT_THAT("hoga", ::iutest::StrCaseNe(hoge));
+	IUTEST_EXPECT_THAT(hoge, ::iutest::StrCaseNe("hoga"));
+	IUTEST_EXPECT_THAT(hoge, ::iutest::StrCaseNe(hog));
 }
 
 IUTEST(Matcher, StartsWith)
@@ -201,6 +234,27 @@ IUTEST(MatcherFailure, NanSensitiveDoubleEq)
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(d0, ::iutest::NanSensitiveDoubleEq(1.0)), "Eq: 1" );
 }
 
+IUTEST(MatcherFailure, StrEq)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::StrEq("Hoge")), "StrEq: Hoge");
+}
+
+IUTEST(MatcherFailure, StrNe)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::StrNe("hoge")), "StrNe: hoge");
+}
+
+IUTEST(MatcherFailure, StrCaseEq)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::StrCaseEq("hoga")), "StrCaseEq: hoga");
+}
+
+IUTEST(MatcherFailure, StrCaseNe)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::StrCaseNe("hoge")), "StrCaseNe: hoge");
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::StrCaseNe("hoGe")), "StrCaseNe: hoGe");
+}
+
 IUTEST(MatcherFailure, StartsWith)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::StartsWith("Ho")) , "StartsWith: Ho" );
@@ -227,8 +281,8 @@ IUTEST(MatcherFailure, EndsWith)
 
 IUTEST(MatcherFailure, Equals)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::Equals("Hoge")) , "Equals: Hoge" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, ::iutest::Equals(1)), "Equals: 1" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::Equals("Hoge")) , "Eq: Hoge" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, ::iutest::Equals(1)), "Eq: 1" );
 }
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF

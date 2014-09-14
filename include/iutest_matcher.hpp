@@ -71,16 +71,36 @@ inline ::std::string MatcherAssertionFailureMessage(const char* actual, const ch
 		return AssertionFailure() << WitchIs();								\
 	}																		\
 	private: IUTEST_PP_DISALLOW_ASSIGN(IUTEST_PP_CAT(name, Matcher));		\
-	T m_expected;															\
+	const T& m_expected;													\
 	}
 
 
-DECL_COMPARE_MATCHER(Eq, ==);
 DECL_COMPARE_MATCHER(Ne, !=);
 DECL_COMPARE_MATCHER(Le, <=);
 DECL_COMPARE_MATCHER(Lt, < );
 DECL_COMPARE_MATCHER(Ge, >=);
 DECL_COMPARE_MATCHER(Gt, > );
+
+#undef DECL_COMPARE_MATCHER
+
+#define DECL_STR_COMPARE_MATCHER(name)	\
+	template<typename T>class IUTEST_PP_CAT(name, Matcher) { public:		\
+	IUTEST_PP_CAT(name, Matcher)(const T& value) : m_expected(value) {}		\
+	template<typename U>AssertionResult operator ()(const U& actual) const {\
+		if( internal::IUTEST_PP_CAT(name, Helper)::Compare(					\
+			actual, m_expected) ) {	return AssertionSuccess(); }			\
+		return AssertionFailure() << WitchIs();								\
+	}																		\
+	::std::string WitchIs(void) const { iu_global_format_stringstream strm;	\
+		strm << #name ": " << m_expected; return strm.str(); }			\
+	private: IUTEST_PP_DISALLOW_ASSIGN(IUTEST_PP_CAT(name, Matcher));		\
+	const T& m_expected;													\
+	}
+
+DECL_STR_COMPARE_MATCHER(StrEq);
+DECL_STR_COMPARE_MATCHER(StrNe);
+DECL_STR_COMPARE_MATCHER(StrCaseEq);
+DECL_STR_COMPARE_MATCHER(StrCaseNe);
 
 #undef DECL_COMPARE_MATCHER
 
@@ -381,10 +401,10 @@ private:
  * @brief	Equals matcher
 */
 template<typename T>
-class EqualsMatcher
+class EqMatcher
 {
 public:
-	EqualsMatcher(T expected) : m_expected(expected) {}
+	EqMatcher(const T& expected) : m_expected(expected) {}
 
 public:
 	template<typename U>
@@ -398,7 +418,7 @@ public:
 	::std::string WitchIs(void) const
 	{
 		iu_global_format_stringstream strm;
-		strm << "Equals: " << m_expected;
+		strm << "Eq: " << m_expected;
 		return strm.str();
 	}
 private:
@@ -422,9 +442,9 @@ private:
 		return Equals(actual, p);
 	}
 private:
-	IUTEST_PP_DISALLOW_ASSIGN(EqualsMatcher);
+	IUTEST_PP_DISALLOW_ASSIGN(EqMatcher);
 
-	T m_expected;
+	const T& m_expected;
 };
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
@@ -660,40 +680,46 @@ IIUT_DECL_ANYOF_MATCHER(9);
 }	// end of namespace detail
 
 /**
+ * @brief	Make Equals matcher
+*/
+template<typename T>
+detail::EqMatcher<T> Equals(const T& expected) { return detail::EqMatcher<T>(expected); }
+
+/**
  * @brief	Make Eq matcher
 */
 template<typename T>
-detail::EqMatcher<T> Eq(const T& value) { return detail::EqMatcher<T>(value); }
+detail::EqMatcher<T> Eq(const T& expected) { return detail::EqMatcher<T>(expected); }
 
 /**
  * @brief	Make Ne matcher
 */
 template<typename T>
-detail::NeMatcher<T> Ne(const T& value) { return detail::NeMatcher<T>(value); }
+detail::NeMatcher<T> Ne(const T& expected) { return detail::NeMatcher<T>(expected); }
 
 /**
  * @brief	Make Le matcher
 */
 template<typename T>
-detail::LeMatcher<T> Le(const T& value) { return detail::LeMatcher<T>(value); }
+detail::LeMatcher<T> Le(const T& expected) { return detail::LeMatcher<T>(expected); }
 
 /**
  * @brief	Make Lt matcher
 */
 template<typename T>
-detail::LtMatcher<T> Lt(const T& value) { return detail::LtMatcher<T>(value); }
+detail::LtMatcher<T> Lt(const T& expected) { return detail::LtMatcher<T>(expected); }
 
 /**
  * @brief	Make Ge matcher
 */
 template<typename T>
-detail::GeMatcher<T> Ge(const T& value) { return detail::GeMatcher<T>(value); }
+detail::GeMatcher<T> Ge(const T& expected) { return detail::GeMatcher<T>(expected); }
 
 /**
  * @brief	Make Gt matcher
 */
 template<typename T>
-detail::GtMatcher<T> Gt(const T& value) { return detail::GtMatcher<T>(value); }
+detail::GtMatcher<T> Gt(const T& expected) { return detail::GtMatcher<T>(expected); }
 
 /**
  * @brief	Make IsNull matcher
@@ -708,22 +734,46 @@ inline detail::NotNullMatcher NotNull() { return detail::NotNullMatcher(); }
 /**
  * @brief	Make Float Eq matcher
 */
-inline detail::FloatingPointEqMatcher<float> FloatEq(float value) { return detail::FloatingPointEqMatcher<float>(value); }
+inline detail::FloatingPointEqMatcher<float> FloatEq(float expected) { return detail::FloatingPointEqMatcher<float>(expected); }
 
 /**
  * @brief	Make Double Eq matcher
 */
-inline detail::FloatingPointEqMatcher<double> DoubleEq(double value) { return detail::FloatingPointEqMatcher<double>(value); }
+inline detail::FloatingPointEqMatcher<double> DoubleEq(double expected) { return detail::FloatingPointEqMatcher<double>(expected); }
 
 /**
  * @brief	Make NanSensitive Float Eq matcher
 */
-inline detail::NanSensitiveFloatingPointEqMatcher<float> NanSensitiveFloatEq(float value) { return detail::NanSensitiveFloatingPointEqMatcher<float>(value); }
+inline detail::NanSensitiveFloatingPointEqMatcher<float> NanSensitiveFloatEq(float expected) { return detail::NanSensitiveFloatingPointEqMatcher<float>(expected); }
 
 /**
  * @brief	Make NanSensitive Double Eq matcher
 */
-inline detail::NanSensitiveFloatingPointEqMatcher<double> NanSensitiveDoubleEq(double value) { return detail::NanSensitiveFloatingPointEqMatcher<double>(value); }
+inline detail::NanSensitiveFloatingPointEqMatcher<double> NanSensitiveDoubleEq(double expected) { return detail::NanSensitiveFloatingPointEqMatcher<double>(expected); }
+
+/**
+ * @brief	Make StrEq matcher
+*/
+template<typename T>
+detail::StrEqMatcher<T> StrEq(const T& expected) { return detail::StrEqMatcher<T>(expected); }
+
+/**
+ * @brief	Make StrNe matcher
+*/
+template<typename T>
+detail::StrNeMatcher<T> StrNe(const T& expected) { return detail::StrNeMatcher<T>(expected); }
+
+/**
+ * @brief	Make StrCaseEq matcher
+*/
+template<typename T>
+detail::StrCaseEqMatcher<T> StrCaseEq(const T& expected) { return detail::StrCaseEqMatcher<T>(expected); }
+
+/**
+ * @brief	Make StrCaseNe matcher
+*/
+template<typename T>
+detail::StrCaseNeMatcher<T> StrCaseNe(const T& expected) { return detail::StrCaseNeMatcher<T>(expected); }
 
 /**
  * @brief	Make StartsWith matcher
@@ -748,12 +798,6 @@ detail::ContainsMatcher<const T&> HasSubstr(const T& expected) { return detail::
 */
 template<typename T>
 detail::EndsWithMatcher<const T&> EndsWith(const T& str) { return detail::EndsWithMatcher<const T&>(str); }
-
-/**
- * @brief	Make Equals matcher
-*/
-template<typename T>
-detail::EqualsMatcher<const T&> Equals(const T& expected) { return detail::EqualsMatcher<const T&>(expected); }
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 
