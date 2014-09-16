@@ -269,19 +269,19 @@ private:
 };
 
 /**
- * @brief	Contains matcher
+ * @brief	Has substr matcher
 */
 template<typename T>
-class ContainsMatcher
+class HasSubstrMatcher
 {
 public:
-	ContainsMatcher(T expected) : m_expected(expected) {}
+	HasSubstrMatcher(T expected) : m_expected(expected) {}
 
 public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual) const
 	{
-		if( Contains(actual, m_expected) ) return AssertionSuccess();
+		if( HasSubstr(actual, m_expected) ) return AssertionSuccess();
 		return AssertionFailure() << WitchIs();
 	}
 
@@ -289,51 +289,32 @@ public:
 	::std::string WitchIs(void) const
 	{
 		iu_global_format_stringstream strm;
-		strm << "Contains: " << m_expected;
+		strm << "HasSubstr: " << m_expected;
 		return strm.str();
 	}
 private:
-	template<typename TT, typename Container>
-	static bool Contains(const Container& actual, TT expected)
-	{
-		return Contains<typename Container::value_type>(actual.begin(), actual.end(), expected);
-	}
-#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-	template<typename TT, typename U, size_t SIZE>
-	static bool Contains(const U(&actual)[SIZE], TT expected)
-	{
-		return Contains<U>(actual, actual+SIZE, expected);
-	}
-#endif
-
-	template<typename TT, typename Ite>
-	static bool Contains(Ite begin, Ite end, TT expected)
-	{
-		return ::std::find(begin, end, expected) != end;
-	}
-
-	static bool Contains(const char* actual, const char* expected)
+	static bool HasSubstr(const char* actual, const char* expected)
 	{
 		return strstr(actual, expected) != NULL;
 	}
-	static bool Contains(const ::std::string& actual, const char* expected)
+	static bool HasSubstr(const ::std::string& actual, const char* expected)
 	{
 		const char* p = actual.c_str();
-		return Contains(p, expected);
+		return HasSubstr(p, expected);
 	}
-	static bool Contains(const char* actual, const ::std::string& expected)
+	static bool HasSubstr(const char* actual, const ::std::string& expected)
 	{
 		const char* p = expected.c_str();
-		return Contains(actual, p);
+		return HasSubstr(actual, p);
 	}
-	static bool Contains(const ::std::string& actual, const ::std::string& expected)
+	static bool HasSubstr(const ::std::string& actual, const ::std::string& expected)
 	{
 		const char* p = expected.c_str();
-		return Contains(actual, p);
+		return HasSubstr(actual, p);
 	}
 
 private:
-	IUTEST_PP_DISALLOW_ASSIGN(ContainsMatcher);
+	IUTEST_PP_DISALLOW_ASSIGN(HasSubstrMatcher);
 
 	T m_expected;
 };
@@ -445,6 +426,76 @@ private:
 	IUTEST_PP_DISALLOW_ASSIGN(EqMatcher);
 
 	const T& m_expected;
+};
+
+/**
+ * @brief	Contains matcher
+*/
+template<typename T>
+class ContainsMatcher
+{
+public:
+	ContainsMatcher(T expected) : m_expected(expected) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual) const
+	{
+		if( Contains(actual, m_expected) ) return AssertionSuccess();
+		return AssertionFailure() << WitchIs();
+	}
+
+public:
+	::std::string WitchIs(void) const
+	{
+		iu_global_format_stringstream strm;
+		strm << "Contains: " << m_expected;
+		return strm.str();
+	}
+private:
+	template<typename TT, typename Container>
+	static bool Contains(const Container& actual, TT expected)
+	{
+		return Contains<typename Container::value_type>(actual.begin(), actual.end(), expected);
+	}
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+	template<typename TT, typename U, size_t SIZE>
+	static bool Contains(const U(&actual)[SIZE], TT expected)
+	{
+		return Contains<U>(actual, actual+SIZE, expected);
+	}
+#endif
+
+	template<typename TT, typename Ite>
+	static bool Contains(Ite begin, Ite end, TT expected)
+	{
+		return ::std::find(begin, end, expected) != end;
+	}
+
+	static bool Contains(const char* actual, const char* expected)
+	{
+		return strstr(actual, expected) != NULL;
+	}
+	static bool Contains(const ::std::string& actual, const char* expected)
+	{
+		const char* p = actual.c_str();
+		return Contains(p, expected);
+	}
+	static bool Contains(const char* actual, const ::std::string& expected)
+	{
+		const char* p = expected.c_str();
+		return Contains(actual, p);
+	}
+	static bool Contains(const ::std::string& actual, const ::std::string& expected)
+	{
+		const char* p = expected.c_str();
+		return Contains(actual, p);
+	}
+
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(ContainsMatcher);
+
+	T m_expected;
 };
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
@@ -782,22 +833,22 @@ template<typename T>
 detail::StartsWithMatcher<const T&> StartsWith(const T& str) { return detail::StartsWithMatcher<const T&>(str); }
 
 /**
- * @brief	Make Contains matcher
+ * @brief	Make HasSubstr matcher
 */
 template<typename T>
-detail::ContainsMatcher<const T&> Contains(const T& expected) { return detail::ContainsMatcher<const T&>(expected); }
-
-/**
- * @brief	Make Contains matcher
-*/
-template<typename T>
-detail::ContainsMatcher<const T&> HasSubstr(const T& expected) { return detail::ContainsMatcher<const T&>(expected); }
+detail::HasSubstrMatcher<const T&> HasSubstr(const T& expected) { return detail::HasSubstrMatcher<const T&>(expected); }
 
 /**
  * @brief	Make EndsWith matcher
 */
 template<typename T>
 detail::EndsWithMatcher<const T&> EndsWith(const T& str) { return detail::EndsWithMatcher<const T&>(str); }
+
+/**
+ * @brief	Make Contains matcher
+*/
+template<typename T>
+detail::ContainsMatcher<const T&> Contains(const T& expected) { return detail::ContainsMatcher<const T&>(expected); }
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 

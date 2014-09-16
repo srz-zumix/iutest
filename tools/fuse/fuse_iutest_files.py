@@ -78,7 +78,7 @@ def Fuse(root, filename, output, output_dir, minimum):
 								line = re.sub('\s+(".*?")', ' \\1', line)
 								if not STRING_REGEX.match(line):
 									line = re.sub('[ \t]+', ' ', line)
-									line = re.sub('\s+([&|\+\-<>]+)[ \t]+', '\\1', line)
+									line = re.sub('(\w)\s+([&|\+\-<>]+)[ \t]+', '\\1 \\2', line)
 									line = re.sub('\s*([{\+\-\*/%=<>&|]+=)[ \t]*', '\\1', line)
 									#line = re.sub('\w\s*([{\+\-\*/%=<>&|!]+)[ \t]*', '\\1', line)
 									line = re.sub('\s+:[ \t]+(\w)', ':\\1', line)

@@ -138,18 +138,12 @@ IUTEST(Matcher, StartsWith)
 	IUTEST_EXPECT_THAT(hoge, ::iutest::StartsWith(hog));
 }
 
-IUTEST(Matcher, Contains)
+IUTEST(Matcher, HasSubstr)
 {
-	IUTEST_EXPECT_THAT("hoge", ::iutest::Contains("ho"));
-	IUTEST_EXPECT_THAT("hoge", ::iutest::Contains(oge));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::Contains("ge"));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::Contains(hog));
-}
-
-IUTEST(Matcher, ContainsContainer)
-{
-	IUTEST_EXPECT_THAT(a, ::iutest::Contains(1));
-	IUTEST_EXPECT_THAT(b, ::iutest::Contains(1));
+	IUTEST_EXPECT_THAT("hoge", ::iutest::HasSubstr("ho"));
+	IUTEST_EXPECT_THAT("hoge", ::iutest::HasSubstr(oge));
+	IUTEST_EXPECT_THAT(hoge, ::iutest::HasSubstr("ge"));
+	IUTEST_EXPECT_THAT(hoge, ::iutest::HasSubstr(hog));
 }
 
 IUTEST(Matcher, EndsWith)
@@ -167,6 +161,20 @@ IUTEST(Matcher, Equals)
 	IUTEST_EXPECT_THAT("hoge", ::iutest::Equals(hoge));
 	IUTEST_EXPECT_THAT(hoge, ::iutest::Equals("hoge"));
 	IUTEST_EXPECT_THAT(hoge, ::iutest::Equals(hoge));
+}
+
+IUTEST(Matcher, ContainsString)
+{
+	IUTEST_EXPECT_THAT("hoge", ::iutest::Contains("ho"));
+	IUTEST_EXPECT_THAT("hoge", ::iutest::Contains(oge));
+	IUTEST_EXPECT_THAT(hoge, ::iutest::Contains("ge"));
+	IUTEST_EXPECT_THAT(hoge, ::iutest::Contains(hog));
+}
+
+IUTEST(Matcher, ContainsContainer)
+{
+	IUTEST_EXPECT_THAT(a, ::iutest::Contains(1));
+	IUTEST_EXPECT_THAT(b, ::iutest::Contains(1));
 }
 
 
@@ -261,16 +269,10 @@ IUTEST(MatcherFailure, StartsWith)
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::StartsWith("oge")), "StartsWith: oge" );
 }
 
-IUTEST(MatcherFailure, Contains)
+IUTEST(MatcherFailure, HasSubstr)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::Contains("Ho")), "Contains: Ho" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::Contains("oe")), "Contains: oe" );
-}
-
-IUTEST(MatcherFailure, ContainsContainer)
-{
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(a, ::iutest::Contains(42)), "Contains: 42" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(b, ::iutest::Contains(42)), "Contains: 42" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::HasSubstr("Ho")), "HasSubstr: Ho" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::HasSubstr("oe")), "HasSubstr: oe" );
 }
 
 IUTEST(MatcherFailure, EndsWith)
@@ -283,6 +285,18 @@ IUTEST(MatcherFailure, Equals)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::Equals("Hoge")) , "Eq: Hoge" );
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, ::iutest::Equals(1)), "Eq: 1" );
+}
+
+IUTEST(MatcherFailure, ContainsString)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::Contains("Ho")), "Contains: Ho" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::Contains("oe")), "Contains: oe" );
+}
+
+IUTEST(MatcherFailure, ContainsContainer)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(a, ::iutest::Contains(42)), "Contains: 42" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(b, ::iutest::Contains(42)), "Contains: 42" );
 }
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF

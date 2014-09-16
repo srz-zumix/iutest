@@ -791,7 +791,7 @@ class function_return_type
 	IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, IUTEST_PP_EMPTY());	\
 	IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, const);	\
 	IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, volatile);	\
-	IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, const volatile)	\
+	IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, const volatile)
 
 #define IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, CV)	\
 	template<typename R, typename U, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (U::*)(IUTEST_PP_ENUM_PARAMS(n, T)) CV>	\
