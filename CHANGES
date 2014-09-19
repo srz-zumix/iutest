@@ -2,6 +2,8 @@
 Changes for 1.11.0:
 
 ** 追加
+* fused-src 対応
+* Wandbox 対応
 * Matcher に Eq,Ne,Le,Lt,Ge,Gt,IsNull,NotNull を追加
 * Matcher に StrEq,StrNe,StrCaseEq,StrCaseNe,HasSubstr を追加
 * Matcher に FloatEq,DoubleEq,NanSensitiveFloatEq,NanSensitiveDoubleEq を追加

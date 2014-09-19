@@ -503,6 +503,10 @@ public:
 		}
 	} ostream_formatter;
 
+#if defined(IUTEST_NO_PRIVATE_IN_AGGREGATE)
+	friend class OStreamFormatter;
+#endif
+
 #endif
 
 private:

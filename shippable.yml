@@ -2,6 +2,9 @@ language: python
 
 python: 2.7
 
+before_script:
+  - export PYTHONDONTWRITEBYTECODE=1
+
 script:
   - cd tools/wandbox
   - ./iuwandbox.py sample.cpp
