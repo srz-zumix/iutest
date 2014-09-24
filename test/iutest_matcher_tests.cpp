@@ -175,6 +175,7 @@ IUTEST(Matcher, ContainsContainer)
 {
 	IUTEST_EXPECT_THAT(a, ::iutest::Contains(1));
 	IUTEST_EXPECT_THAT(b, ::iutest::Contains(1));
+	IUTEST_EXPECT_THAT(a, ::iutest::Contains(::iutest::Lt(4)));
 }
 
 
@@ -297,6 +298,7 @@ IUTEST(MatcherFailure, ContainsContainer)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(a, ::iutest::Contains(42)), "Contains: 42" );
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(b, ::iutest::Contains(42)), "Contains: 42" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(a, ::iutest::Contains(::iutest::Lt(0))), "Contains: Lt: 0" );
 }
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF

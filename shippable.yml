@@ -7,5 +7,5 @@ before_script:
 
 script:
   - cd tools/wandbox
-  - ./iuwandbox.py sample.cpp
+  - python ./iuwandbox.py sample.cpp
 
