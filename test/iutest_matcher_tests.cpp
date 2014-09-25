@@ -26,7 +26,9 @@ namespace {
 ::std::string hog = "hog";
 ::std::string oge = "oge";
 ::std::vector<int> a;
+::std::vector< ::std::vector<int> > vv;
 int b[3] = { 1, 2, 3 };
+int c[3] = { 1, 1, 1 };
 void* p1 = NULL;
 void* p2 = &p1;
 float f0 = 0.0f;
@@ -173,9 +175,17 @@ IUTEST(Matcher, ContainsString)
 
 IUTEST(Matcher, ContainsContainer)
 {
-	IUTEST_EXPECT_THAT(a, ::iutest::Contains(1));
-	IUTEST_EXPECT_THAT(b, ::iutest::Contains(1));
-	IUTEST_EXPECT_THAT(a, ::iutest::Contains(::iutest::Lt(4)));
+	IUTEST_EXPECT_THAT( a, ::iutest::Contains(1));
+	IUTEST_EXPECT_THAT( b, ::iutest::Contains(1));
+	IUTEST_EXPECT_THAT( a, ::iutest::Contains(::iutest::Lt(4)));
+	IUTEST_EXPECT_THAT(vv, ::iutest::Contains(::iutest::Contains(::iutest::Lt(4))));
+}
+
+IUTEST(Matcher, Each)
+{
+	IUTEST_EXPECT_THAT( c, ::iutest::Each(1));
+	IUTEST_EXPECT_THAT( a, ::iutest::Each(::iutest::Le(10)));
+	IUTEST_EXPECT_THAT(vv, ::iutest::Each(::iutest::Each(::iutest::Le(10))));
 }
 
 
@@ -296,9 +306,18 @@ IUTEST(MatcherFailure, ContainsString)
 
 IUTEST(MatcherFailure, ContainsContainer)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(a, ::iutest::Contains(42)), "Contains: 42" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(b, ::iutest::Contains(42)), "Contains: 42" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(a, ::iutest::Contains(::iutest::Lt(0))), "Contains: Lt: 0" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( a, ::iutest::Contains(42)), "Contains: 42" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( b, ::iutest::Contains(42)), "Contains: 42" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( a, ::iutest::Contains(::iutest::Lt(0))), "Contains: Lt: 0" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(vv, ::iutest::Contains(::iutest::Contains(::iutest::Lt(0)))), "Contains: Contains: Lt: 0" );
+}
+
+IUTEST(MatcherFailure, Each)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( a, ::iutest::Each(42)), "Each: 42" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( b, ::iutest::Each(42)), "Each: 42" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( a, ::iutest::Each(::iutest::Ne(9))), "Each: Ne: 9" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(vv, ::iutest::Each(::iutest::Each(::iutest::Gt(5)))), "Each: Each: Gt: 5" );
 }
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
@@ -307,7 +326,7 @@ IUTEST(Matcher, AllOf)
 {
 	IUTEST_EXPECT_THAT("hoge", ::iutest::AllOf( ::iutest::StartsWith("ho"), ::iutest::EndsWith("ge")));
 	IUTEST_EXPECT_THAT("9347812650", ::iutest::AllOf(
-		::iutest::Contains("0")
+		  ::iutest::Contains("0")
 		, ::iutest::Contains("1")
 		, ::iutest::Contains("2")
 		, ::iutest::Contains("3")
@@ -325,7 +344,7 @@ IUTEST(Matcher, AnyOf)
 	IUTEST_EXPECT_THAT("hoge", ::iutest::AnyOf( ::iutest::StartsWith("ho"), ::iutest::EndsWith("Ge")));
 	IUTEST_EXPECT_THAT("hoge", ::iutest::AnyOf( ::iutest::StartsWith("Ho"), ::iutest::EndsWith("ge")));
 	IUTEST_EXPECT_THAT("hoge7", ::iutest::AnyOf(
-		::iutest::Contains("0")
+		  ::iutest::Contains("0")
 		, ::iutest::Contains("1")
 		, ::iutest::Contains("2")
 		, ::iutest::Contains("3")
@@ -364,6 +383,7 @@ int main(int argc, char* argv[])
 {
 #if IUTEST_HAS_MATCHERS
 	for( int i=0; i < 10; ++i ) a.push_back(i);
+	for( int i=0; i < 10; ++i ) vv.push_back(a);
 #endif
 
 	IUTEST_INIT(&argc, argv);

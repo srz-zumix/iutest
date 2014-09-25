@@ -534,6 +534,71 @@ private:
 	const T& m_expected;
 };
 
+/**
+ * @brief	Each matcher
+*/
+template<typename T>
+class EachMatcher : public IMatcher
+{
+public:
+	EachMatcher(const T& expected) : m_expected(expected) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual) const
+	{
+		if( Each(actual, m_expected) ) return AssertionSuccess();
+		return AssertionFailure() << WitchIs();
+	}
+
+public:
+	::std::string WitchIs(void) const IUTEST_CXX_OVERRIDE
+	{
+		iu_global_format_stringstream strm;
+		strm << "Each: " << m_expected;
+		return strm.str();
+	}
+private:
+	template<typename TT, typename Container>
+	static bool Each(const Container& actual, const TT& expected)
+	{
+		return EachContainer(actual.begin(), actual.end(), expected);
+	}
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+	template<typename TT, typename U, size_t SIZE>
+	static bool Each(const U(&actual)[SIZE], const TT& expected)
+	{
+		return EachContainer(actual, actual + SIZE, expected);
+	}
+#endif
+
+	template<typename TT, typename Ite>
+	static bool EachContainer(Ite begin, Ite end, const TT& expected
+		, typename detail::enable_if_t< is_matcher<TT> >::type*& = detail::enabler::value)
+	{
+		for( Ite it = begin; it != end; ++it )
+		{
+			if( !expected(*it) )
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	template<typename TT, typename Ite>
+	static bool EachContainer(Ite begin, Ite end, const TT& expected
+		, typename detail::disable_if_t< is_matcher<TT> >::type*& = detail::enabler::value)
+	{
+		return EachContainer(begin, end, EqMatcher<TT>(expected));
+	}
+
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(EachMatcher);
+
+	const T& m_expected;
+};
+
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 
 /**
@@ -915,6 +980,12 @@ detail::EndsWithMatcher<const T&> EndsWith(const T& str) { return detail::EndsWi
 */
 template<typename T>
 detail::ContainsMatcher<T> Contains(const T& expected) { return detail::ContainsMatcher<T>(expected); }
+
+/**
+ * @brief	Make Each matcher
+*/
+template<typename T>
+detail::EachMatcher<T> Each(const T& expected) { return detail::EachMatcher<T>(expected); }
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 
