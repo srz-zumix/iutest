@@ -145,12 +145,12 @@ class iuCodeMessage
 public:
 	iuCodeMessage(const char* file, int line, const char* message)
 		: m_message(message)
-		, m_file(file ? file : kStrings::UnkownFile)
+		, m_file(file ? file : kStrings::UnknownFile)
 		, m_line(line)
 	{}
 	iuCodeMessage(const char* file, int line, const iuStreamMessage& message)
 		: m_message(message.GetString())
-		, m_file(file ? file : kStrings::UnkownFile)
+		, m_file(file ? file : kStrings::UnknownFile)
 		, m_line(line)
 	{}
 public:
