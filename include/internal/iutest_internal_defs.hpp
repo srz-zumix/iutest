@@ -40,7 +40,7 @@
 #define IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(statement)	if( ::iutest::detail::AlwaysTrue() ) statement
 
 // console
-#define IUTEST_MBS_CODE_UNKOWN		0
+#define IUTEST_MBS_CODE_UNKNOWN		0
 #define IUTEST_MBS_CODE_UTF8		1
 #define IUTEST_MBS_CODE_WINDOWS31J	2
 #ifndef IUTEST_MBS_CODE

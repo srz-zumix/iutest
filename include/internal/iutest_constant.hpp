@@ -32,7 +32,7 @@ template<typename DMY>
 struct kStringsT
 {
 	static const char* const DefaultXmlReportFileName;	//!< デフォルト xml 出力ファイル名
-	static const char* const UnkownFile;				//!< unkown file
+	static const char* const UnknownFile;				//!< unknown file
 	static const char* const Null;						//!< NULL
 };
 
@@ -49,7 +49,7 @@ IUTEST_PRAGMA_EXTERN_TEMPLATE_WARN_DISABLE_END()
 template<typename DMY>
 const char* const kStringsT<DMY>::DefaultXmlReportFileName = "test_detail.xml";
 template<typename DMY>
-const char* const kStringsT<DMY>::UnkownFile = "unkown file";
+const char* const kStringsT<DMY>::UnknownFile = "unknown file";
 template<typename DMY>
 const char* const kStringsT<DMY>::Null = "(null)";
 

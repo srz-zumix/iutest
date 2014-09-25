@@ -45,7 +45,7 @@ IUTEST_IPP_INLINE ::std::string iuCodeMessage::make_message(void) const
 
 IUTEST_IPP_INLINE ::std::string FormatFileLocation(const char* file, int line)
 {
-	const char* const file_name = file == NULL ? kStrings::UnkownFile : file;
+	const char* const file_name = file == NULL ? kStrings::UnknownFile : file;
 	if( line < 0 )
 	{
 		return file_name;
@@ -64,7 +64,7 @@ IUTEST_IPP_INLINE ::std::string FormatFileLocation(const char* file, int line)
 
 IUTEST_IPP_INLINE ::std::string FormatCompilerIndependentFileLocation(const char* file, int line)
 {
-	const char* const file_name = file == NULL ? kStrings::UnkownFile : file;
+	const char* const file_name = file == NULL ? kStrings::UnknownFile : file;
 	if( line < 0 )
 	{
 		return file_name;

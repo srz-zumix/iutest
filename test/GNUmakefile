@@ -73,7 +73,7 @@ endif
 else
 
 #
-# Unkown Compiler
+# Unknown Compiler
 #
 STDFLAG = 
 

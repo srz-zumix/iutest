@@ -36,8 +36,8 @@ IUTEST(CommandLineFlagTest, CanBeAccessed)
 	|| ::iutest::IUTEST_FLAG(repeat) > 0
 	|| ::iutest::IUTEST_FLAG(shuffle)
 	|| ::iutest::IUTEST_FLAG(throw_on_failure)
-	|| ::iutest::IUTEST_FLAG(color) != "unkown"
-	|| ::iutest::IUTEST_FLAG(filter) != "unkown"
+	|| ::iutest::IUTEST_FLAG(color) != "unknown"
+	|| ::iutest::IUTEST_FLAG(filter) != "unknown"
 	;
 	IUTEST_EXPECT_TRUE(dummy || !dummy);
 }
