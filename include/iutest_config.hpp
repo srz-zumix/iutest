@@ -226,9 +226,18 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_MATCHER_ELEMENTSARE)
+//! ::iutest::ElementsAre matcher が使用可能かどうか
+#  if IUTEST_HAS_TUPLE && IUTEST_HAS_MATCHERS
+#    define IUTEST_HAS_MATCHER_ELEMENTSARE		1
+#  else
+#    define IUTEST_HAS_MATCHER_ELEMENTSARE		0
+#  endif
+#endif
+
 #if !defined(IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF)
 //! ::iutest::AllOf, ::iutest::AnyOf matcher が使用可能かどうか
-#  if IUTEST_HAS_TUPLE
+#  if IUTEST_HAS_TUPLE && IUTEST_HAS_MATCHERS
 #    define IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF	1
 #  else
 #    define IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF	0

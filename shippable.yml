@@ -7,6 +7,7 @@ install:
 
 before_script:
   - export PYTHONDONTWRITEBYTECODE=1
+  - make -C tools/fuse
 
 script:
   - cd tools/wandbox

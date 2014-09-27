@@ -599,6 +599,162 @@ private:
 	const T& m_expected;
 };
 
+#if IUTEST_HAS_MATCHER_ELEMENTSARE
+
+/**
+ * @brief	ElementsAre matcher base class
+*/
+class ElementsAreMatcherBase : public IMatcher
+{
+protected:
+	template<typename T, typename U>
+	static AssertionResult Check(const T& matchers, const U& actual)
+	{
+		return Check_<T, U, 0, tuples::tuple_size<T>::value-1>(matchers, actual);
+	}
+	template<int N, typename T>
+	static ::std::string WitchIs(const T& matchers)
+	{
+		return WitchIs_<T, N, tuples::tuple_size<T>::value-1>(matchers);
+	}
+private:
+	template<typename T, typename U>
+	static AssertionResult CallMatcher(const T& actual, const U& expected
+		, typename detail::enable_if_t< is_matcher<U> >::type*& = detail::enabler::value)
+	{
+		return expected(actual);
+	}
+	template<typename T, typename U>
+	static AssertionResult CallMatcher(const T& actual, const U& expected
+		, typename detail::disable_if_t< is_matcher<U> >::type*& = detail::enabler::value)
+	{
+		return EqMatcher<T>(expected)(actual);
+	}
+
+	template<typename T, typename U, int N, int LAST>
+	static AssertionResult Check_(const T& matchers, const U& actual, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
+	{
+		AssertionResult ar = CallMatcher(actual[N], tuples::get<N>(matchers));
+		if( ar )
+		{
+			return ar;
+		}
+		return AssertionFailure() << WitchIsElem<N>(matchers);
+	}
+	template<typename T, typename U, int N, int LAST>
+	static AssertionResult Check_(const T& matchers, const U& actual, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
+	{
+		AssertionResult ar = CallMatcher(actual[N], tuples::get<N>(matchers));
+		if( ar )
+		{
+			return Check_<T, U, N + 1, LAST>(matchers, actual);
+		}
+		return AssertionFailure() << WitchIsElem<N>(matchers);
+	}
+
+	template<int N, typename T>
+	static ::std::string WitchIsElem(const T& matchers)
+	{
+		iu_global_format_stringstream strm;
+		strm << "ElementsAre(" << N << "): " << tuples::get<N>(matchers);
+		return strm.str();
+	}
+
+	template<typename T, int N, int LAST>
+	static ::std::string WitchIs_(const T& matchers, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
+	{
+		return StreamableToString(tuples::get<N>(matchers));
+	}
+	template<typename T, int N, int LAST>
+	static ::std::string WitchIs_(const T& matchers, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
+	{
+		return StreamableToString(tuples::get<N>(matchers)) + " , " + WitchIs_<T, N + 1, LAST>(matchers);
+	}
+	IUTEST_PP_DISALLOW_ASSIGN(ElementsAreMatcherBase);
+};
+
+#if IUTEST_HAS_VARIADIC_TEMPLATES
+
+/**
+* @brief	ElementsAre matcher
+*/
+template<typename ...T>
+class ElementsAreMatcher : public ElementsAreMatcherBase
+{
+public:
+	ElementsAreMatcher(T... t) : m_matchers(t...) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual) const
+	{
+		return Check(m_matchers, actual);
+	}
+	::std::string WitchIs(void) const IUTEST_CXX_OVERRIDE
+	{
+		return ElementsAreMatcherBase::WitchIs<0>(m_matchers);
+	}
+
+private:
+	tuples::tuple<T...> m_matchers;
+};
+
+#else
+
+/*
+template<typename T0, typename T1>
+class ElementsAreMatcher : public ElementsAreMatcherBase
+{
+public:
+	ElementsAreMatcher(T0 m0, T1 m1) : m_matchers(m0, m1) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual) const
+	{
+		return Check(m_matchers, actual);
+	}
+	::std::string WitchIs(void) const IUTEST_CXX_OVERRIDE
+	{
+		return ElementsAreMatcherBase::WitchIs<0>(m_matchers);
+	}
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(ElementsAreMatcher);
+
+	tuples::tuple<T0, T1> m_matchers;
+};
+*/
+
+#define IIUT_DECL_ELEMENTSARE_MATCHER(n)												\
+	template< IUTEST_PP_ENUM_PARAMS(n, typename T) >									\
+	class IUTEST_PP_CAT(ElementsAreMatcher, n) : public ElementsAreMatcherBase {		\
+	public: IUTEST_PP_CAT(ElementsAreMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m))	\
+		: m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}									\
+	template<typename U>AssertionResult operator ()(const U& actual) const {			\
+		return Check(m_matchers, actual); }												\
+	::std::string WitchIs(void) const IUTEST_CXX_OVERRIDE {								\
+		return ElementsAreMatcherBase::WitchIs<0>(m_matchers); }						\
+	private: IUTEST_PP_DISALLOW_ASSIGN(IUTEST_PP_CAT(ElementsAreMatcher, n));			\
+	tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > m_matchers;							\
+	}
+
+IIUT_DECL_ELEMENTSARE_MATCHER(1);
+IIUT_DECL_ELEMENTSARE_MATCHER(2);
+IIUT_DECL_ELEMENTSARE_MATCHER(3);
+IIUT_DECL_ELEMENTSARE_MATCHER(4);
+IIUT_DECL_ELEMENTSARE_MATCHER(5);
+IIUT_DECL_ELEMENTSARE_MATCHER(6);
+IIUT_DECL_ELEMENTSARE_MATCHER(7);
+IIUT_DECL_ELEMENTSARE_MATCHER(8);
+IIUT_DECL_ELEMENTSARE_MATCHER(9);
+IIUT_DECL_ELEMENTSARE_MATCHER(10);
+
+#undef IIUT_DECL_ELEMENTSARE_MATCHER
+
+#endif
+
+#endif
+
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 
 /**
@@ -649,6 +805,7 @@ private:
 	{
 		return tuples::get<N>(matchers).WitchIs() + " and " + WitchIs_<T, N + 1, LAST>(matchers);
 	}
+	IUTEST_PP_DISALLOW_ASSIGN(AllOfMatcherBase);
 };
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
@@ -724,6 +881,7 @@ IIUT_DECL_ALLOF_MATCHER(6);
 IIUT_DECL_ALLOF_MATCHER(7);
 IIUT_DECL_ALLOF_MATCHER(8);
 IIUT_DECL_ALLOF_MATCHER(9);
+IIUT_DECL_ALLOF_MATCHER(10);
 
 #undef IIUT_DECL_ALLOF_MATCHER
 
@@ -777,6 +935,8 @@ private:
 	{
 		return tuples::get<N>(matchers).WitchIs() + " or " + WitchIs_<T, N + 1, LAST>(matchers);
 	}
+
+	IUTEST_PP_DISALLOW_ASSIGN(AnyOfMatcherBase);
 };
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
@@ -852,6 +1012,7 @@ IIUT_DECL_ANYOF_MATCHER(6);
 IIUT_DECL_ANYOF_MATCHER(7);
 IIUT_DECL_ANYOF_MATCHER(8);
 IIUT_DECL_ANYOF_MATCHER(9);
+IIUT_DECL_ANYOF_MATCHER(10);
 
 #undef IIUT_DECL_ANYOF_MATCHER
 
@@ -987,6 +1148,44 @@ detail::ContainsMatcher<T> Contains(const T& expected) { return detail::Contains
 template<typename T>
 detail::EachMatcher<T> Each(const T& expected) { return detail::EachMatcher<T>(expected); }
 
+#if IUTEST_HAS_MATCHER_ELEMENTSARE
+
+#if IUTEST_HAS_VARIADIC_TEMPLATES
+
+/**
+ * @brief	Make ElementsAre matcher
+*/
+template<typename ...T>
+detail::ElementsAreMatcher<T...> ElementsAre(const T&... m) { return detail::ElementsAreMatcher<T...>(m...); }
+
+#else
+
+#define IIUT_ELEMENTSARE_MATCHER_NAME(n)	IUTEST_PP_CAT(ElementsAreMatcher, n)
+#define IIUT_DECL_ELEMENTSARE(n)												\
+	template< IUTEST_PP_ENUM_PARAMS(n, typename T) >							\
+	detail:: IIUT_ELEMENTSARE_MATCHER_NAME(n)< IUTEST_PP_ENUM_PARAMS(n, T) >	\
+	ElementsAre( IUTEST_PP_ENUM_BINARY_PARAMS(n, const T, &m) ) { return		\
+	detail:: IIUT_ELEMENTSARE_MATCHER_NAME(n)< IUTEST_PP_ENUM_PARAMS(n, T) >	\
+		( IUTEST_PP_ENUM_PARAMS(n, m) ); }
+
+
+IIUT_DECL_ELEMENTSARE(1)
+IIUT_DECL_ELEMENTSARE(2)
+IIUT_DECL_ELEMENTSARE(3)
+IIUT_DECL_ELEMENTSARE(4)
+IIUT_DECL_ELEMENTSARE(5)
+IIUT_DECL_ELEMENTSARE(6)
+IIUT_DECL_ELEMENTSARE(7)
+IIUT_DECL_ELEMENTSARE(8)
+IIUT_DECL_ELEMENTSARE(9)
+IIUT_DECL_ELEMENTSARE(10)
+
+#undef IIUT_ELEMENTSARE_MATCHER_NAME
+#undef IIUT_DECL_ELEMENTSARE
+#endif
+
+#endif
+
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
@@ -1022,6 +1221,7 @@ IIUT_DECL_ANYOF_AND_ALLOF(AllOf, 6)
 IIUT_DECL_ANYOF_AND_ALLOF(AllOf, 7)
 IIUT_DECL_ANYOF_AND_ALLOF(AllOf, 8)
 IIUT_DECL_ANYOF_AND_ALLOF(AllOf, 9)
+IIUT_DECL_ANYOF_AND_ALLOF(AllOf, 10)
 
 IIUT_DECL_ANYOF_AND_ALLOF(AnyOf, 2)
 IIUT_DECL_ANYOF_AND_ALLOF(AnyOf, 3)
@@ -1031,6 +1231,7 @@ IIUT_DECL_ANYOF_AND_ALLOF(AnyOf, 6)
 IIUT_DECL_ANYOF_AND_ALLOF(AnyOf, 7)
 IIUT_DECL_ANYOF_AND_ALLOF(AnyOf, 8)
 IIUT_DECL_ANYOF_AND_ALLOF(AnyOf, 9)
+IIUT_DECL_ANYOF_AND_ALLOF(AnyOf, 10)
 
 #undef IIUT_ANYOF_AND_ALLOF_MATCHER_NAME
 #undef IIUT_DECL_ANYOF_AND_ALLOF

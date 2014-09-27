@@ -320,6 +320,25 @@ IUTEST(MatcherFailure, Each)
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(vv, ::iutest::Each(::iutest::Each(::iutest::Gt(5)))), "Each: Each: Gt: 5" );
 }
 
+#if IUTEST_HAS_MATCHER_ELEMENTSARE
+
+IUTEST(Matcher, ElementsAre)
+{
+	IUTEST_EXPECT_THAT("hoge", ::iutest::ElementsAre('h', 'o', 'g', 'e', '\0'));
+	IUTEST_EXPECT_THAT(a, ::iutest::ElementsAre(::iutest::Ge(0), ::iutest::Gt(0)));
+}
+
+IUTEST(MatcherFailure, ElementsAre)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge"
+		, ::iutest::ElementsAre( 'h', 'o', 'G', 'e', '\0')), "ElementsAre(2): G");
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(a
+		, ::iutest::ElementsAre(::iutest::Ge(0), ::iutest::Gt(0), ::iutest::Lt(1))), "ElementsAre(2): Lt: 1");
+}
+
+#endif
+
+
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 
 IUTEST(Matcher, AllOf)

@@ -371,6 +371,65 @@ IUTEST(SyntaxTest, Pred5)
 		IUTEST_ASSUME_PRED5(PredTest5, 0, x, 2, 3, 4) << x;
 }
 
+#if IUTEST_HAS_MATCHERS
+
+IUTEST(SyntaxTest, That)
+{
+	if( int x=1 )
+		IUTEST_ASSERT_THAT(x, ::iutest::Eq(1)) << x;
+	if( int x=1 )
+		IUTEST_EXPECT_THAT(x, ::iutest::Eq(1)) << x;
+	if( int x=1 )
+		IUTEST_INFORM_THAT(x, ::iutest::Eq(1)) << x;
+	if( int x=1 )
+		IUTEST_ASSUME_THAT(x, ::iutest::Eq(1)) << x;
+}
+
+IUTEST(SyntaxTest, Matcher)
+{
+	int a[3] = { 0, 1, 2 };
+	IUTEST_EXPECT_THAT(a, ::iutest::Contains(0));
+	IUTEST_EXPECT_THAT(a, ::iutest::Contains(::iutest::Lt(10)));
+	IUTEST_EXPECT_THAT(a, ::iutest::Each(::iutest::Le(10)));
+}
+
+#if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
+
+IUTEST(SyntaxTest, AllOf)
+{
+	IUTEST_EXPECT_THAT("9347812650", ::iutest::AllOf(
+		  ::iutest::Contains("0")
+		, ::iutest::Contains("1")
+		, ::iutest::Contains("2")
+		, ::iutest::Contains("3")
+		, ::iutest::Contains("4")
+		, ::iutest::Contains("5")
+		, ::iutest::Contains("6")
+		, ::iutest::Contains("7")
+		, ::iutest::Contains("8")
+	));
+}
+
+IUTEST(SyntaxTest, AnyOf)
+{
+	IUTEST_EXPECT_THAT("hoge7", ::iutest::AnyOf(
+		  ::iutest::Contains("0")
+		, ::iutest::Contains("1")
+		, ::iutest::Contains("2")
+		, ::iutest::Contains("3")
+		, ::iutest::Contains("4")
+		, ::iutest::Contains("5")
+		, ::iutest::Contains("6")
+		, ::iutest::Contains("7")
+		, ::iutest::Contains("8")
+	));
+}
+
+#endif
+
+#endif
+
+
 #if !defined(IUTEST_USE_GTEST)
 
 #if !defined(IUTEST_NO_VARIADIC_MACROS)
