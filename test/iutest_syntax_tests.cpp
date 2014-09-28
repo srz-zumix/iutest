@@ -387,10 +387,18 @@ IUTEST(SyntaxTest, That)
 
 IUTEST(SyntaxTest, Matcher)
 {
+	::std::vector<int> v;
+	v.push_back(0);
+	v.push_back(1);
+	v.push_back(2);
 	int a[3] = { 0, 1, 2 };
 	IUTEST_EXPECT_THAT(a, ::iutest::Contains(0));
 	IUTEST_EXPECT_THAT(a, ::iutest::Contains(::iutest::Lt(10)));
 	IUTEST_EXPECT_THAT(a, ::iutest::Each(::iutest::Le(10)));
+	IUTEST_EXPECT_THAT(a, ::iutest::ElementsAreArray(a));
+	IUTEST_EXPECT_THAT(v, ::iutest::ElementsAreArray(a));
+	IUTEST_EXPECT_THAT(a, ::iutest::ElementsAreArray(v));
+	IUTEST_EXPECT_THAT(v, ::iutest::ElementsAreArray(v));
 }
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF

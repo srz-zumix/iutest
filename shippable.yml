@@ -11,5 +11,5 @@ before_script:
 
 script:
   - cd tools/wandbox
-  - python ./iuwandbox.py sample.cpp
+  - python ./iuwandbox.py ../../test/iutest_syntax_tests.cpp
 

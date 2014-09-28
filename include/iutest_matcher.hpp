@@ -599,6 +599,77 @@ private:
 	const T& m_expected;
 };
 
+
+/**
+ * @brief	ElementsAreArray matcher
+*/
+template<typename T>
+class ElementsAreArrayMatcher : public IMatcher
+{
+public:
+	ElementsAreArrayMatcher(const T& expected) : m_expected(expected) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual) const
+	{
+		if( Check(actual, m_expected) ) return AssertionSuccess();
+		return AssertionFailure() << WitchIs();
+	}
+
+public:
+	::std::string WitchIs(void) const IUTEST_CXX_OVERRIDE
+	{
+		iu_global_format_stringstream strm;
+		strm << "ElementsAreArray: " << PrintToString(m_expected);
+		return strm.str();
+	}
+private:
+	template<typename TT, typename Container>
+	static bool Check(const Container& actual, const TT& expected)
+	{
+		return Check(actual.begin(), actual.end(), expected);
+	}
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+	template<typename TT, typename U, size_t SIZE>
+	static bool Check(const U(&actual)[SIZE], const TT& expected)
+	{
+		return Check(actual, actual + SIZE, expected);
+	}
+#endif
+
+	template<typename Container, typename Ite>
+	static bool Check(Ite begin, Ite end, const Container& expected)
+	{
+		return Check(begin, end, expected.begin(), expected.end());
+	}
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+	template<typename U, size_t SIZE, typename Ite>
+	static bool Check(Ite begin, Ite end, const  U(&expected)[SIZE])
+	{
+		return Check(begin, end, expected, expected + SIZE);
+	}
+#endif
+
+	template<typename Ite1, typename Ite2>
+	static bool Check(Ite1 actual_begin, Ite1 actual_end, Ite2 expected_begin, Ite2 expected_end)
+	{
+		Ite1 a=actual_begin;
+		Ite2 e=expected_begin;
+		for( ; e != expected_end; ++e, ++a )
+		{
+			if( a == actual_end ) return false;
+			if( *a != *e ) return false;
+		}
+		return true;
+	}
+
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(ElementsAreArrayMatcher);
+
+	const T& m_expected;
+};
+
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
 
 /**
@@ -1147,6 +1218,12 @@ detail::ContainsMatcher<T> Contains(const T& expected) { return detail::Contains
 */
 template<typename T>
 detail::EachMatcher<T> Each(const T& expected) { return detail::EachMatcher<T>(expected); }
+
+/**
+ * @brief	Make ElementsAreArray matcher
+*/
+template<typename T>
+detail::ElementsAreArrayMatcher<T> ElementsAreArray(const T& a) { return detail::ElementsAreArrayMatcher<T>(a); }
 
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
 
