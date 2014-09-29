@@ -607,13 +607,13 @@ template<typename T>
 class ElementsAreArrayMatcher : public IMatcher
 {
 public:
-	ElementsAreArrayMatcher(const T& expected) : m_expected(expected) {}
+	ElementsAreArrayMatcher(const T& expected, int count=-1) : m_expected(expected), m_count(count){}
 
 public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual) const
 	{
-		if( Check(actual, m_expected) ) return AssertionSuccess();
+		if( Check(actual, m_expected, m_count) ) return AssertionSuccess();
 		return AssertionFailure() << WitchIs();
 	}
 
@@ -626,37 +626,38 @@ public:
 	}
 private:
 	template<typename TT, typename Container>
-	static bool Check(const Container& actual, const TT& expected)
+	static bool Check(const Container& actual, const TT& expected, int count)
 	{
-		return Check(actual.begin(), actual.end(), expected);
+		return Check(actual.begin(), actual.end(), expected, count);
 	}
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 	template<typename TT, typename U, size_t SIZE>
-	static bool Check(const U(&actual)[SIZE], const TT& expected)
+	static bool Check(const U(&actual)[SIZE], const TT& expected, int count)
 	{
-		return Check(actual, actual + SIZE, expected);
+		return Check(actual, actual + SIZE, expected, count);
 	}
 #endif
 
 	template<typename Container, typename Ite>
-	static bool Check(Ite begin, Ite end, const Container& expected)
+	static bool Check(Ite begin, Ite end, const Container& expected, int count)
 	{
-		return Check(begin, end, expected.begin(), expected.end());
+		return Check(begin, end, expected.begin(), expected.end(), count);
 	}
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 	template<typename U, size_t SIZE, typename Ite>
-	static bool Check(Ite begin, Ite end, const  U(&expected)[SIZE])
+	static bool Check(Ite begin, Ite end, const  U(&expected)[SIZE], int count)
 	{
-		return Check(begin, end, expected, expected + SIZE);
+		return Check(begin, end, expected, expected + SIZE, count);
 	}
 #endif
 
 	template<typename Ite1, typename Ite2>
-	static bool Check(Ite1 actual_begin, Ite1 actual_end, Ite2 expected_begin, Ite2 expected_end)
+	static bool Check(Ite1 actual_begin, Ite1 actual_end, Ite2 expected_begin, Ite2 expected_end, int count)
 	{
 		Ite1 a=actual_begin;
 		Ite2 e=expected_begin;
-		for( ; e != expected_end; ++e, ++a )
+		const int n = count >= 0 ? count : ::std::distance(expected_begin, expected_end);
+		for( int i=0; i < n && e != expected_end; ++e, ++a, ++i )
 		{
 			if( a == actual_end ) return false;
 			if( *a != *e ) return false;
@@ -668,6 +669,7 @@ private:
 	IUTEST_PP_DISALLOW_ASSIGN(ElementsAreArrayMatcher);
 
 	const T& m_expected;
+	int m_count;
 };
 
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
@@ -825,6 +827,59 @@ IIUT_DECL_ELEMENTSARE_MATCHER(10);
 #endif
 
 #endif
+
+
+/**
+ * @brief	Pair matcher
+*/
+template<typename T1, typename T2>
+class PairMatcher : public IMatcher
+{
+public:
+	PairMatcher(const T1& m1, const T2& m2) : m_m1(m1), m_m2(m2) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual) const
+	{
+		if( !CheckElem(actual.first, m_m1) )
+		{
+			return AssertionFailure() << WitchIs();
+		}
+		if( !CheckElem(actual.second, m_m2) )
+		{
+			return AssertionFailure() << WitchIs();
+		}
+		return AssertionSuccess();
+	}
+
+public:
+	::std::string WitchIs(void) const IUTEST_CXX_OVERRIDE
+	{
+		iu_global_format_stringstream strm;
+		strm << "Pair: (" << m_m1 << ", " << m_m2 << ")";
+		return strm.str();
+	}
+private:
+	template<typename T, typename U>
+	static bool CheckElem(const T& actual, const U& matcher
+		, typename detail::enable_if_t< is_matcher<U> >::type*& = detail::enabler::value)
+	{
+		return static_cast<bool>(matcher(actual));
+	}
+	template<typename T, typename U>
+	static bool CheckElem(const T& actual, const U& matcher
+		, typename detail::disable_if_t< is_matcher<U> >::type*& = detail::enabler::value)
+	{
+		return CheckElem(actual, EqMatcher<U>(matcher));
+	}
+
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(PairMatcher);
+
+	const T1& m_m1;
+	const T2& m_m2;
+};
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 
@@ -1225,6 +1280,12 @@ detail::EachMatcher<T> Each(const T& expected) { return detail::EachMatcher<T>(e
 template<typename T>
 detail::ElementsAreArrayMatcher<T> ElementsAreArray(const T& a) { return detail::ElementsAreArrayMatcher<T>(a); }
 
+/**
+ * @brief	Make ElementsAreArray matcher
+*/
+template<typename T>
+detail::ElementsAreArrayMatcher<T> ElementsAreArray(const T& a, int count) { return detail::ElementsAreArrayMatcher<T>(a, count); }
+
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
@@ -1262,6 +1323,13 @@ IIUT_DECL_ELEMENTSARE(10)
 #endif
 
 #endif
+
+/**
+ * @brief	Make Pair matcher
+*/
+template<typename T1, typename T2>
+detail::PairMatcher<T1, T2> Pair(const T1& m1, const T2& m2) { return detail::PairMatcher<T1, T2>(m1, m2); }
+
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 

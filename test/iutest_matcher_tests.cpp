@@ -16,6 +16,7 @@
 //======================================================================
 // include
 #include "../include/gtest/iutest_spi_switch.hpp"
+#include <map>
 
 #if IUTEST_HAS_MATCHERS
 
@@ -30,6 +31,7 @@ namespace {
 int a[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 int b[3] = { 1, 2, 3 };
 int c[3] = { 1, 1, 1 };
+::std::map<int, int> m;
 void* p1 = NULL;
 void* p2 = &p1;
 float f0 = 0.0f;
@@ -189,12 +191,18 @@ IUTEST(Matcher, Each)
 	IUTEST_EXPECT_THAT(vv, ::iutest::Each(::iutest::Each(::iutest::Le(10))));
 }
 
+IUTEST(Matcher, Pair)
+{
+	IUTEST_EXPECT_THAT( m, ::iutest::Each(::iutest::Pair(::iutest::Le(10), 100)));
+}
+
 IUTEST(Matcher, ElementsAreArray)
 {
 	IUTEST_EXPECT_THAT( a, ::iutest::ElementsAreArray(va));
 	IUTEST_EXPECT_THAT(va, ::iutest::ElementsAreArray(a));
 	IUTEST_EXPECT_THAT(va, ::iutest::ElementsAreArray(va));
 	IUTEST_EXPECT_THAT( c, ::iutest::ElementsAreArray(c));
+	IUTEST_EXPECT_THAT( c, ::iutest::ElementsAreArray(b, 1));
 }
 
 IUTEST(MatcherFailure, Eq)
@@ -328,6 +336,11 @@ IUTEST(MatcherFailure, Each)
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(vv, ::iutest::Each(::iutest::Each(::iutest::Gt(5)))), "Each: Each: Gt: 5" );
 }
 
+IUTEST(MatcherFailure, Pair)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( m, ::iutest::Each(::iutest::Pair(::iutest::Gt(5), 100))), "Each: Pair: (Gt: 5, 100)" );
+}
+
 IUTEST(MatcherFailure, ElementsAreArray)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(b, ::iutest::ElementsAreArray(c)), "ElementsAreArray: " );
@@ -422,6 +435,7 @@ int main(int argc, char* argv[])
 #if IUTEST_HAS_MATCHERS
 	for( int i=0; i < 10; ++i ) va.push_back(i);
 	for( int i=0; i < 10; ++i ) vv.push_back(va);
+	for( int i=0; i < 10; ++i ) m.insert( ::std::pair<int,int>(i, 100) );
 #endif
 
 	IUTEST_INIT(&argc, argv);
