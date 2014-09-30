@@ -36,6 +36,9 @@ void* p1 = NULL;
 void* p2 = &p1;
 float f0 = 0.0f;
 double d0 = 0.0;
+struct X { int a, b; X(int _a, int _b) : a(_a), b(_b) {} int GetA() { return a; } };
+X x(1,1);
+::std::map<int, X> mx;
 
 }
 
@@ -196,6 +199,14 @@ IUTEST(Matcher, Pair)
 	IUTEST_EXPECT_THAT( m, ::iutest::Each(::iutest::Pair(::iutest::Le(10), 100)));
 }
 
+IUTEST(Matcher, Field)
+{
+	IUTEST_EXPECT_THAT( x, ::iutest::Field(&X::a, 1));
+	IUTEST_EXPECT_THAT(&x, ::iutest::Field(&X::a, 1));
+	IUTEST_EXPECT_THAT(mx, ::iutest::Each(
+		::iutest::Pair(::iutest::Le(10), ::iutest::Field(&X::b, ::iutest::Ge(0))) ));
+}
+
 IUTEST(Matcher, ElementsAreArray)
 {
 	IUTEST_EXPECT_THAT( a, ::iutest::ElementsAreArray(va));
@@ -341,6 +352,12 @@ IUTEST(MatcherFailure, Pair)
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( m, ::iutest::Each(::iutest::Pair(::iutest::Gt(5), 100))), "Each: Pair: (Gt: 5, 100)" );
 }
 
+IUTEST(MatcherFailure, Field)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( x, ::iutest::Field(&X::a, 100)), "Field: 100" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( x, ::iutest::Field(&X::a, ::iutest::Ne(1))), "Field: Ne: 1" );
+}
+
 IUTEST(MatcherFailure, ElementsAreArray)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(b, ::iutest::ElementsAreArray(c)), "ElementsAreArray: " );
@@ -436,6 +453,7 @@ int main(int argc, char* argv[])
 	for( int i=0; i < 10; ++i ) va.push_back(i);
 	for( int i=0; i < 10; ++i ) vv.push_back(va);
 	for( int i=0; i < 10; ++i ) m.insert( ::std::pair<int,int>(i, 100) );
+	for( int i=0; i < 10; ++i ) mx.insert( ::std::pair<int,X>(i, X(i, i)) );
 #endif
 
 	IUTEST_INIT(&argc, argv);

@@ -60,7 +60,7 @@ inline ::std::string MatcherAssertionFailureMessage(const char* actual, const ch
 */
 class IMatcher
 {
-protected:
+public:
 	template<typename T>
 	struct is_matcher : public iutest_type_traits::is_base_of<IMatcher, T> {};
 public:
@@ -450,6 +450,24 @@ private:
 };
 
 /**
+ * @brief	Cast to matcher
+*/
+template<typename T>
+const T& CastToMatcher(const T& matcher
+	, typename detail::enable_if_t< IMatcher::is_matcher<T> >::type*& = detail::enabler::value)
+{
+	return matcher;
+}
+/** @overload */
+template<typename T>
+EqMatcher<T> CastToMatcher(const T& value
+	, typename detail::disable_if_t< IMatcher::is_matcher<T> >::type*& = detail::enabler::value)
+{
+	return EqMatcher<T>(value);
+}
+
+
+/**
  * @brief	Contains matcher
 */
 template<typename T>
@@ -573,24 +591,16 @@ private:
 #endif
 
 	template<typename TT, typename Ite>
-	static bool EachContainer(Ite begin, Ite end, const TT& expected
-		, typename detail::enable_if_t< is_matcher<TT> >::type*& = detail::enabler::value)
+	static bool EachContainer(Ite begin, Ite end, const TT& expected)
 	{
 		for( Ite it = begin; it != end; ++it )
 		{
-			if( !expected(*it) )
+			if( !CastToMatcher(expected)(*it) )
 			{
 				return false;
 			}
 		}
 		return true;
-	}
-
-	template<typename TT, typename Ite>
-	static bool EachContainer(Ite begin, Ite end, const TT& expected
-		, typename detail::disable_if_t< is_matcher<TT> >::type*& = detail::enabler::value)
-	{
-		return EachContainer(begin, end, EqMatcher<TT>(expected));
 	}
 
 private:
@@ -692,16 +702,9 @@ protected:
 	}
 private:
 	template<typename T, typename U>
-	static AssertionResult CallMatcher(const T& actual, const U& expected
-		, typename detail::enable_if_t< is_matcher<U> >::type*& = detail::enabler::value)
+	static AssertionResult CallMatcher(const T& actual, const U& expected)
 	{
-		return expected(actual);
-	}
-	template<typename T, typename U>
-	static AssertionResult CallMatcher(const T& actual, const U& expected
-		, typename detail::disable_if_t< is_matcher<U> >::type*& = detail::enabler::value)
-	{
-		return EqMatcher<T>(expected)(actual);
+		return CastToMatcher(expected)(actual);
 	}
 
 	template<typename T, typename U, int N, int LAST>
@@ -828,6 +831,50 @@ IIUT_DECL_ELEMENTSARE_MATCHER(10);
 
 #endif
 
+/**
+ * @brief	Field matcher
+*/
+template<typename F, typename T>
+class FieldMatcher : public IMatcher
+{
+public:
+	FieldMatcher(const F& field, const T& expected) : m_field(field), m_expected(expected) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual) const
+	{
+		if( Check(actual) ) return AssertionSuccess();
+		return AssertionFailure() << WitchIs();
+	}
+
+public:
+	::std::string WitchIs(void) const IUTEST_CXX_OVERRIDE
+	{
+		iu_global_format_stringstream strm;
+		strm << "Field: " << m_expected;
+		//strm << "Field: (" << detail::GetTypeName<F>() << ") " << m_expected;
+		return strm.str();
+	}
+private:
+	template<typename U>
+	bool Check(const U& actual
+		, typename detail::disable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value) const
+	{
+		return static_cast<bool>(CastToMatcher(m_expected)(actual.*m_field));
+	}
+	template<typename U>
+	bool Check(const U& actual
+		, typename detail::enable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value) const
+	{
+		return static_cast<bool>(CastToMatcher(m_expected)(actual->*m_field));
+	}
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(FieldMatcher);
+
+	const F& m_field;
+	const T& m_expected;
+};
 
 /**
  * @brief	Pair matcher
@@ -862,16 +909,9 @@ public:
 	}
 private:
 	template<typename T, typename U>
-	static bool CheckElem(const T& actual, const U& matcher
-		, typename detail::enable_if_t< is_matcher<U> >::type*& = detail::enabler::value)
+	static bool CheckElem(const T& actual, const U& matcher)
 	{
-		return static_cast<bool>(matcher(actual));
-	}
-	template<typename T, typename U>
-	static bool CheckElem(const T& actual, const U& matcher
-		, typename detail::disable_if_t< is_matcher<U> >::type*& = detail::enabler::value)
-	{
-		return CheckElem(actual, EqMatcher<U>(matcher));
+		return static_cast<bool>(CastToMatcher(matcher)(actual));
 	}
 
 private:
@@ -1329,6 +1369,12 @@ IIUT_DECL_ELEMENTSARE(10)
 */
 template<typename T1, typename T2>
 detail::PairMatcher<T1, T2> Pair(const T1& m1, const T2& m2) { return detail::PairMatcher<T1, T2>(m1, m2); }
+
+/**
+ * @brief	Make Field matcher
+*/
+template<typename F, typename T>
+detail::FieldMatcher<F, T> Field(const F& field, const T& expected) { return detail::FieldMatcher<F, T>(field, expected); }
 
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
