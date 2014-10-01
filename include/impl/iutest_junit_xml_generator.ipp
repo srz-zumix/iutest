@@ -70,7 +70,7 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestCase(IFile* file, 
 		const char* type_param = test_case.type_param();
 		if( type_param != NULL )
 		{
-			OnReportTestProperty(file, "type_param", EscapeXmlAttribute(type_param).c_str());
+			OnReportProperty(file, "type_param", EscapeXmlAttribute(type_param).c_str());
 		}
 	}
 	{
@@ -80,7 +80,7 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestCase(IFile* file, 
 			const char* value_param = test_info.value_param();
 			if( value_param != NULL )
 			{
-				OnReportTestProperty(file, test_info.name(), EscapeXmlAttribute(value_param).c_str());
+				OnReportProperty(file, test_info.name(), EscapeXmlAttribute(value_param).c_str());
 			}
 		}
 	}
@@ -169,7 +169,7 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestInfo(IFile* file, 
 }
 
 
-IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestProperty(IFile* file, const char* name, const char* value)
+IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportProperty(IFile* file, const char* name, const char* value)
 {
 	file->Printf("      <property name=\"%s\" value=\"%s\" />\n", name, value);
 }
@@ -179,7 +179,7 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestProperty(IFile* fi
 	for( int i=0, count=test_result.test_property_count(); i < count; ++i )
 	{
 		const TestProperty& prop = test_result.GetTestProperty(i);
-		OnReportTestProperty(file
+		OnReportProperty(file
 			, EscapeXmlAttribute(prop.key()).c_str()
 			, EscapeXmlAttribute(prop.value()).c_str()
 			);

@@ -22,6 +22,11 @@
 namespace iutest
 {
 
+IUTEST_IPP_INLINE void Environment::Release()
+{
+	TestEnv::ReleaseGlobalTestEnvironment(this);
+}
+
 IUTEST_IPP_INLINE ::std::string TestEnv::get_report_xml_filepath(void)
 {
 	const ::std::string& option = get_vars().m_output_option;

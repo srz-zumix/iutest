@@ -17,7 +17,8 @@
 // include
 #include "iutest.hpp"
 
-static int test_flag = 0;
+static int setup_flag = 0;
+static int teardown_flag = 0;
 
 class TestSetUpFailure : public ::iutest::Test
 {
@@ -30,7 +31,21 @@ public:
 
 IUTEST_F(TestSetUpFailure, Test)
 {
-	++test_flag;
+	++setup_flag;
+}
+
+class TestTearDownFailure : public ::iutest::Test
+{
+public:
+	static void TearDownTestCase()
+	{
+		IUTEST_FAIL() << "TearDown TestCase Failed.";
+	}
+};
+
+IUTEST_F(TestTearDownFailure, Test)
+{
+	++teardown_flag;
 }
 
 
@@ -51,10 +66,11 @@ int main(int argc, char* argv[])
 
 	IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 0 );
 #if !defined(IUTEST_USE_GTEST)
-	IUTEST_ASSERT_EXIT( test_flag == 0 );
+	IUTEST_ASSERT_EXIT( setup_flag == 0 );
 #else
-	IUTEST_ASSERT_EXIT( test_flag == 1 );
+	IUTEST_ASSERT_EXIT( setup_flag == 1 );
 #endif
+	IUTEST_ASSERT_EXIT( teardown_flag == 1);
 
 	printf("*** Successful ***\n");
 	return 0;

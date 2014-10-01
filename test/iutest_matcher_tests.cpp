@@ -20,6 +20,8 @@
 
 #if IUTEST_HAS_MATCHERS
 
+using namespace ::iutest::matchers;
+
 namespace {
 
 ::std::string Hoge = "Hoge";
@@ -31,6 +33,7 @@ namespace {
 int a[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 int b[3] = { 1, 2, 3 };
 int c[3] = { 1, 1, 1 };
+int n[2][2] = { {0,1}, {2,3} };
 ::std::map<int, int> m;
 void* p1 = NULL;
 void* p2 = &p1;
@@ -44,339 +47,340 @@ X x(1,1);
 
 IUTEST(Matcher, Eq)
 {
-	IUTEST_EXPECT_THAT(1, ::iutest::Eq(1));
+	IUTEST_EXPECT_THAT(1, Eq(1));
 }
 
 IUTEST(Matcher, Ne)
 {
-	IUTEST_EXPECT_THAT(0, ::iutest::Ne(1));
+	IUTEST_EXPECT_THAT(0, Ne(1));
 }
 
 IUTEST(Matcher, Le)
 {
-	IUTEST_EXPECT_THAT(1, ::iutest::Le(1));
-	IUTEST_EXPECT_THAT(0, ::iutest::Le(1));
+	IUTEST_EXPECT_THAT(1, Le(1));
+	IUTEST_EXPECT_THAT(0, Le(1));
 }
 
 IUTEST(Matcher, Lt)
 {
-	IUTEST_EXPECT_THAT(0, ::iutest::Lt(1));
+	IUTEST_EXPECT_THAT(0, Lt(1));
 }
 
 IUTEST(Matcher, Ge)
 {
-	IUTEST_EXPECT_THAT(1, ::iutest::Ge(0));
-	IUTEST_EXPECT_THAT(0, ::iutest::Ge(0));
+	IUTEST_EXPECT_THAT(1, Ge(0));
+	IUTEST_EXPECT_THAT(0, Ge(0));
 }
 
 IUTEST(Matcher, Gt)
 {
-	IUTEST_EXPECT_THAT(1, ::iutest::Gt(0));
+	IUTEST_EXPECT_THAT(1, Gt(0));
 }
 
 IUTEST(Matcher, IsNull)
 {
-	IUTEST_EXPECT_THAT(p1, ::iutest::IsNull());
+	IUTEST_EXPECT_THAT(p1, IsNull());
 }
 
 IUTEST(Matcher, NotNull)
 {
-	IUTEST_EXPECT_THAT(p2, ::iutest::NotNull());
+	IUTEST_EXPECT_THAT(p2, NotNull());
 }
 
 IUTEST(Matcher, FloatEq)
 {
-	IUTEST_EXPECT_THAT(f0, ::iutest::FloatEq(0.0f));
+	IUTEST_EXPECT_THAT(f0, FloatEq(0.0f));
 }
 
 IUTEST(Matcher, DoubleEq)
 {
-	IUTEST_EXPECT_THAT(d0, ::iutest::DoubleEq(0.0));
+	IUTEST_EXPECT_THAT(d0, DoubleEq(0.0));
 }
 
 IUTEST(Matcher, NanSensitiveFloatEq)
 {
-	IUTEST_EXPECT_THAT(f0, ::iutest::NanSensitiveFloatEq(0.0f));
-	IUTEST_EXPECT_THAT(0.0f/f0, ::iutest::NanSensitiveFloatEq(0.0f/f0));
+	IUTEST_EXPECT_THAT(f0, NanSensitiveFloatEq(0.0f));
+	IUTEST_EXPECT_THAT(0.0f/f0, NanSensitiveFloatEq(0.0f/f0));
 }
 
 IUTEST(Matcher, NanSensitiveDoubleEq)
 {
-	IUTEST_EXPECT_THAT(d0, ::iutest::NanSensitiveDoubleEq(0.0));
-	IUTEST_EXPECT_THAT(0.0/d0, ::iutest::NanSensitiveDoubleEq(0.0/d0));
+	IUTEST_EXPECT_THAT(d0, NanSensitiveDoubleEq(0.0));
+	IUTEST_EXPECT_THAT(0.0/d0, NanSensitiveDoubleEq(0.0/d0));
 }
 
 IUTEST(Matcher, StrEq)
 {
-	IUTEST_EXPECT_THAT("hoge", ::iutest::StrEq("hoge"));
-	IUTEST_EXPECT_THAT("hoge", ::iutest::StrEq(hoge));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::StrEq("hoge"));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::StrEq(hoge));
+	IUTEST_EXPECT_THAT("hoge", StrEq("hoge"));
+	IUTEST_EXPECT_THAT("hoge", StrEq(hoge));
+	IUTEST_EXPECT_THAT(hoge, StrEq("hoge"));
+	IUTEST_EXPECT_THAT(hoge, StrEq(hoge));
 }
 
 IUTEST(Matcher, StrNe)
 {
-	IUTEST_EXPECT_THAT("hoga", ::iutest::StrNe("hoge"));
-	IUTEST_EXPECT_THAT("hoga", ::iutest::StrNe(hoge));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::StrNe("Hoge"));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::StrNe(Hoge));
+	IUTEST_EXPECT_THAT("hoga", StrNe("hoge"));
+	IUTEST_EXPECT_THAT("hoga", StrNe(hoge));
+	IUTEST_EXPECT_THAT(hoge, StrNe("Hoge"));
+	IUTEST_EXPECT_THAT(hoge, StrNe(Hoge));
 }
 
 IUTEST(Matcher, StrCaseEq)
 {
-	IUTEST_EXPECT_THAT("hoge", ::iutest::StrCaseEq("Hoge"));
-	IUTEST_EXPECT_THAT("hoGe", ::iutest::StrCaseEq(hoge));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::StrCaseEq("hOge"));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::StrCaseEq(Hoge));
+	IUTEST_EXPECT_THAT("hoge", StrCaseEq("Hoge"));
+	IUTEST_EXPECT_THAT("hoGe", StrCaseEq(hoge));
+	IUTEST_EXPECT_THAT(hoge, StrCaseEq("hOge"));
+	IUTEST_EXPECT_THAT(hoge, StrCaseEq(Hoge));
 }
 
 IUTEST(Matcher, StrCaseNe)
 {
-	IUTEST_EXPECT_THAT("hoga", ::iutest::StrCaseNe("hoge"));
-	IUTEST_EXPECT_THAT("hoga", ::iutest::StrCaseNe(hoge));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::StrCaseNe("hoga"));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::StrCaseNe(hog));
+	IUTEST_EXPECT_THAT("hoga", StrCaseNe("hoge"));
+	IUTEST_EXPECT_THAT("hoga", StrCaseNe(hoge));
+	IUTEST_EXPECT_THAT(hoge, StrCaseNe("hoga"));
+	IUTEST_EXPECT_THAT(hoge, StrCaseNe(hog));
 }
 
 IUTEST(Matcher, StartsWith)
 {
-	IUTEST_EXPECT_THAT("hoge", ::iutest::StartsWith("ho"));
-	IUTEST_EXPECT_THAT("hoge", ::iutest::StartsWith(hog));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::StartsWith("ho"));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::StartsWith(hog));
+	IUTEST_EXPECT_THAT("hoge", StartsWith("ho"));
+	IUTEST_EXPECT_THAT("hoge", StartsWith(hog));
+	IUTEST_EXPECT_THAT(hoge, StartsWith("ho"));
+	IUTEST_EXPECT_THAT(hoge, StartsWith(hog));
 }
 
 IUTEST(Matcher, HasSubstr)
 {
-	IUTEST_EXPECT_THAT("hoge", ::iutest::HasSubstr("ho"));
-	IUTEST_EXPECT_THAT("hoge", ::iutest::HasSubstr(oge));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::HasSubstr("ge"));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::HasSubstr(hog));
+	IUTEST_EXPECT_THAT("hoge", HasSubstr("ho"));
+	IUTEST_EXPECT_THAT("hoge", HasSubstr(oge));
+	IUTEST_EXPECT_THAT(hoge, HasSubstr("ge"));
+	IUTEST_EXPECT_THAT(hoge, HasSubstr(hog));
 }
 
 IUTEST(Matcher, EndsWith)
 {
-	IUTEST_EXPECT_THAT("hoge", ::iutest::EndsWith("ge"));
-	IUTEST_EXPECT_THAT("hoge", ::iutest::EndsWith(oge));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::EndsWith("ge"));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::EndsWith(oge));
+	IUTEST_EXPECT_THAT("hoge", EndsWith("ge"));
+	IUTEST_EXPECT_THAT("hoge", EndsWith(oge));
+	IUTEST_EXPECT_THAT(hoge, EndsWith("ge"));
+	IUTEST_EXPECT_THAT(hoge, EndsWith(oge));
 }
 
 IUTEST(Matcher, Equals)
 {
-	IUTEST_EXPECT_THAT(0, ::iutest::Equals(0));
-	IUTEST_EXPECT_THAT("hoge", ::iutest::Equals("hoge"));
-	IUTEST_EXPECT_THAT("hoge", ::iutest::Equals(hoge));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::Equals("hoge"));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::Equals(hoge));
+	IUTEST_EXPECT_THAT(0, Equals(0));
+	IUTEST_EXPECT_THAT("hoge", Equals("hoge"));
+	IUTEST_EXPECT_THAT("hoge", Equals(hoge));
+	IUTEST_EXPECT_THAT(hoge, Equals("hoge"));
+	IUTEST_EXPECT_THAT(hoge, Equals(hoge));
 }
 
 IUTEST(Matcher, ContainsString)
 {
-	IUTEST_EXPECT_THAT("hoge", ::iutest::Contains("ho"));
-	IUTEST_EXPECT_THAT("hoge", ::iutest::Contains(oge));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::Contains("ge"));
-	IUTEST_EXPECT_THAT(hoge, ::iutest::Contains(hog));
+	IUTEST_EXPECT_THAT("hoge", Contains("ho"));
+	IUTEST_EXPECT_THAT("hoge", Contains(oge));
+	IUTEST_EXPECT_THAT(hoge, Contains("ge"));
+	IUTEST_EXPECT_THAT(hoge, Contains(hog));
 }
 
 IUTEST(Matcher, ContainsContainer)
 {
-	IUTEST_EXPECT_THAT(va, ::iutest::Contains(1));
-	IUTEST_EXPECT_THAT( b, ::iutest::Contains(1));
-	IUTEST_EXPECT_THAT(va, ::iutest::Contains(::iutest::Lt(4)));
-	IUTEST_EXPECT_THAT(vv, ::iutest::Contains(::iutest::Contains(::iutest::Lt(4))));
+	IUTEST_EXPECT_THAT(va, Contains(1));
+	IUTEST_EXPECT_THAT( b, Contains(1));
+	IUTEST_EXPECT_THAT(va, Contains(Lt(4)));
+	IUTEST_EXPECT_THAT(vv, Contains(Contains(Lt(4))));
 }
 
 IUTEST(Matcher, Each)
 {
-	IUTEST_EXPECT_THAT( c, ::iutest::Each(1));
-	IUTEST_EXPECT_THAT(va, ::iutest::Each(::iutest::Le(10)));
-	IUTEST_EXPECT_THAT(vv, ::iutest::Each(::iutest::Each(::iutest::Le(10))));
+	IUTEST_EXPECT_THAT( c, Each(1));
+	IUTEST_EXPECT_THAT(va, Each(Le(10)));
+	IUTEST_EXPECT_THAT(vv, Each(Each(Le(10))));
 }
 
 IUTEST(Matcher, Pair)
 {
-	IUTEST_EXPECT_THAT( m, ::iutest::Each(::iutest::Pair(::iutest::Le(10), 100)));
+	IUTEST_EXPECT_THAT( m, Each(Pair(Le(10), 100)));
 }
 
 IUTEST(Matcher, Field)
 {
-	IUTEST_EXPECT_THAT( x, ::iutest::Field(&X::a, 1));
-	IUTEST_EXPECT_THAT(&x, ::iutest::Field(&X::a, 1));
-	IUTEST_EXPECT_THAT(mx, ::iutest::Each(
-		::iutest::Pair(::iutest::Le(10), ::iutest::Field(&X::b, ::iutest::Ge(0))) ));
+	IUTEST_EXPECT_THAT( x, Field(&X::a, 1));
+	IUTEST_EXPECT_THAT(&x, Field(&X::a, 1));
+	IUTEST_EXPECT_THAT(mx, Each(Pair(Le(10), Field(&X::b, Ge(0)))));
 }
 
 IUTEST(Matcher, ElementsAreArray)
 {
-	IUTEST_EXPECT_THAT( a, ::iutest::ElementsAreArray(va));
-	IUTEST_EXPECT_THAT(va, ::iutest::ElementsAreArray(a));
-	IUTEST_EXPECT_THAT(va, ::iutest::ElementsAreArray(va));
-	IUTEST_EXPECT_THAT( c, ::iutest::ElementsAreArray(c));
-	IUTEST_EXPECT_THAT( c, ::iutest::ElementsAreArray(b, 1));
+	IUTEST_EXPECT_THAT( a, ElementsAreArray(va));
+	IUTEST_EXPECT_THAT(va, ElementsAreArray(a));
+	IUTEST_EXPECT_THAT(va, ElementsAreArray(va));
+	IUTEST_EXPECT_THAT( c, ElementsAreArray(c));
+	IUTEST_EXPECT_THAT( c, ElementsAreArray(b, 1));
 }
 
 IUTEST(MatcherFailure, Eq)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, ::iutest::Eq(0)), "Eq: 0" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, Eq(0)), "Eq: 0" );
 }
 
 IUTEST(MatcherFailure, Ne)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, ::iutest::Ne(0)), "Ne: 0" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, Ne(0)), "Ne: 0" );
 }
 
 IUTEST(MatcherFailure, Le)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, ::iutest::Le(0)), "Le: 0" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, Le(0)), "Le: 0" );
 }
 
 IUTEST(MatcherFailure, Lt)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, ::iutest::Lt(0)), "Lt: 0" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, ::iutest::Lt(0)), "Lt: 0" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, Lt(0)), "Lt: 0" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, Lt(0)), "Lt: 0" );
 }
 
 IUTEST(MatcherFailure, Ge)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, ::iutest::Ge(1)), "Ge: 1" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, Ge(1)), "Ge: 1" );
 }
 
 IUTEST(MatcherFailure, Gt)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, ::iutest::Gt(1)), "Gt: 1" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, ::iutest::Gt(1)), "Gt: 1" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, Gt(1)), "Gt: 1" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, Gt(1)), "Gt: 1" );
 }
 
 IUTEST(MatcherFailure, IsNull)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(p2, ::iutest::IsNull()), "Is Null");
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(p2, IsNull()), "Is Null");
 }
 
 IUTEST(MatcherFailure, NotNull)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(p1, ::iutest::NotNull()), "Not Null");
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(p1, NotNull()), "Not Null");
 }
 
 IUTEST(MatcherFailure, FloatEq)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(f0, ::iutest::FloatEq(1.0f)), "Eq: 1" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0/f0, ::iutest::FloatEq(0/f0)), "Eq: " );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(f0, FloatEq(1.0f)), "Eq: 1" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0/f0, FloatEq(0/f0)), "Eq: " );
 }
 
 IUTEST(MatcherFailure, DoubleEq)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(d0, ::iutest::DoubleEq(1.0)), "Eq: 1" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0/d0, ::iutest::DoubleEq(0/d0)), "Eq: " );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(d0, DoubleEq(1.0)), "Eq: 1" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0/d0, DoubleEq(0/d0)), "Eq: " );
 }
 
 IUTEST(MatcherFailure, NanSensitiveFloatEq)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(f0, ::iutest::NanSensitiveFloatEq(1.0f)), "Eq: 1" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(f0, NanSensitiveFloatEq(1.0f)), "Eq: 1" );
 }
 
 IUTEST(MatcherFailure, NanSensitiveDoubleEq)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(d0, ::iutest::NanSensitiveDoubleEq(1.0)), "Eq: 1" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(d0, NanSensitiveDoubleEq(1.0)), "Eq: 1" );
 }
 
 IUTEST(MatcherFailure, StrEq)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::StrEq("Hoge")), "StrEq: Hoge");
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", StrEq("Hoge")), "StrEq: Hoge");
 }
 
 IUTEST(MatcherFailure, StrNe)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::StrNe("hoge")), "StrNe: hoge");
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", StrNe("hoge")), "StrNe: hoge");
 }
 
 IUTEST(MatcherFailure, StrCaseEq)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::StrCaseEq("hoga")), "StrCaseEq: hoga");
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", StrCaseEq("hoga")), "StrCaseEq: hoga");
 }
 
 IUTEST(MatcherFailure, StrCaseNe)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::StrCaseNe("hoge")), "StrCaseNe: hoge");
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::StrCaseNe("hoGe")), "StrCaseNe: hoGe");
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", StrCaseNe("hoge")), "StrCaseNe: hoge");
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", StrCaseNe("hoGe")), "StrCaseNe: hoGe");
 }
 
 IUTEST(MatcherFailure, StartsWith)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::StartsWith("Ho")) , "StartsWith: Ho" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::StartsWith("oge")), "StartsWith: oge" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", StartsWith("Ho")) , "StartsWith: Ho" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", StartsWith("oge")), "StartsWith: oge" );
 }
 
 IUTEST(MatcherFailure, HasSubstr)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::HasSubstr("Ho")), "HasSubstr: Ho" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::HasSubstr("oe")), "HasSubstr: oe" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", HasSubstr("Ho")), "HasSubstr: Ho" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", HasSubstr("oe")), "HasSubstr: oe" );
 }
 
 IUTEST(MatcherFailure, EndsWith)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::EndsWith("Ge")) , "EndsWith: Ge" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::EndsWith("gee")), "EndsWith: gee" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", EndsWith("Ge")) , "EndsWith: Ge" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", EndsWith("gee")), "EndsWith: gee" );
 }
 
 IUTEST(MatcherFailure, Equals)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::Equals("Hoge")) , "Eq: Hoge" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, ::iutest::Equals(1)), "Eq: 1" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", Equals("Hoge")) , "Eq: Hoge" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, Equals(1)), "Eq: 1" );
 }
 
 IUTEST(MatcherFailure, ContainsString)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::Contains("Ho")), "Contains: Ho" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", ::iutest::Contains("oe")), "Contains: oe" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", Contains("Ho")), "Contains: Ho" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", Contains("oe")), "Contains: oe" );
 }
 
 IUTEST(MatcherFailure, ContainsContainer)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va, ::iutest::Contains(42)), "Contains: 42" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( b, ::iutest::Contains(42)), "Contains: 42" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va, ::iutest::Contains(::iutest::Lt(0))), "Contains: Lt: 0" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(vv, ::iutest::Contains(::iutest::Contains(::iutest::Lt(0)))), "Contains: Contains: Lt: 0" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va, Contains(42)), "Contains: 42" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( b, Contains(42)), "Contains: 42" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va, Contains(Lt(0))), "Contains: Lt: 0" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(vv, Contains(Contains(Lt(0)))), "Contains: Contains: Lt: 0" );
 }
 
 IUTEST(MatcherFailure, Each)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va, ::iutest::Each(42)), "Each: 42" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( b, ::iutest::Each(42)), "Each: 42" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va, ::iutest::Each(::iutest::Ne(9))), "Each: Ne: 9" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(vv, ::iutest::Each(::iutest::Each(::iutest::Gt(5)))), "Each: Each: Gt: 5" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va, Each(42)), "Each: 42" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( b, Each(42)), "Each: 42" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va, Each(Ne(9))), "Each: Ne: 9" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(vv, Each(Each(Gt(5)))), "Each: Each: Gt: 5" );
 }
 
 IUTEST(MatcherFailure, Pair)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( m, ::iutest::Each(::iutest::Pair(::iutest::Gt(5), 100))), "Each: Pair: (Gt: 5, 100)" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( m, Each(Pair(Gt(5), 100))), "Each: Pair: (Gt: 5, 100)" );
 }
 
 IUTEST(MatcherFailure, Field)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( x, ::iutest::Field(&X::a, 100)), "Field: 100" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( x, ::iutest::Field(&X::a, ::iutest::Ne(1))), "Field: Ne: 1" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( x, Field(&X::a, 100)), "Field: 100" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( x, Field(&X::a, Ne(1))), "Field: Ne: 1" );
 }
 
 IUTEST(MatcherFailure, ElementsAreArray)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(b, ::iutest::ElementsAreArray(c)), "ElementsAreArray: " );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(b, ElementsAreArray(c)), "ElementsAreArray: " );
 }
 
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
 
 IUTEST(Matcher, ElementsAre)
 {
-	IUTEST_EXPECT_THAT("hoge", ::iutest::ElementsAre('h', 'o', 'g', 'e', '\0'));
-	IUTEST_EXPECT_THAT(va, ::iutest::ElementsAre(::iutest::Ge(0), ::iutest::Gt(0)));
+	IUTEST_EXPECT_THAT("hoge", ElementsAre('h', 'o', 'g', 'e', '\0'));
+	IUTEST_EXPECT_THAT(va, ElementsAre(Ge(0), Gt(0)));
 }
 
 IUTEST(MatcherFailure, ElementsAre)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge"
-		, ::iutest::ElementsAre( 'h', 'o', 'G', 'e', '\0')), "ElementsAre(2): G");
+		, ElementsAre( 'h', 'o', 'G', 'e', '\0')), "ElementsAre(2): G");
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va
-		, ::iutest::ElementsAre(::iutest::Ge(0), ::iutest::Gt(0), ::iutest::Lt(1))), "ElementsAre(2): Lt: 1");
+		, ElementsAre(Ge(0), Gt(0), Lt(1))), "ElementsAre(2): Lt: 1");
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(n, Each(
+		ElementsAre(Lt(3), Lt(3)))), "Each: ElementsAre: {Lt: 3, Lt: 3}");
 }
 
 #endif
@@ -386,57 +390,57 @@ IUTEST(MatcherFailure, ElementsAre)
 
 IUTEST(Matcher, AllOf)
 {
-	IUTEST_EXPECT_THAT("hoge", ::iutest::AllOf( ::iutest::StartsWith("ho"), ::iutest::EndsWith("ge")));
-	IUTEST_EXPECT_THAT("9347812650", ::iutest::AllOf(
-		  ::iutest::Contains("0")
-		, ::iutest::Contains("1")
-		, ::iutest::Contains("2")
-		, ::iutest::Contains("3")
-		, ::iutest::Contains("4")
-		, ::iutest::Contains("5")
-		, ::iutest::Contains("6")
-		, ::iutest::Contains("7")
-		, ::iutest::Contains("8")
+	IUTEST_EXPECT_THAT("hoge", AllOf( StartsWith("ho"), EndsWith("ge")));
+	IUTEST_EXPECT_THAT("9347812650", AllOf(
+		  Contains("0")
+		, Contains("1")
+		, Contains("2")
+		, Contains("3")
+		, Contains("4")
+		, Contains("5")
+		, Contains("6")
+		, Contains("7")
+		, Contains("8")
 	));
-	IUTEST_EXPECT_THAT(va, ::iutest::Each(::iutest::AllOf( ::iutest::Ge(0), ::iutest::Le(10) )));
+	IUTEST_EXPECT_THAT(va, Each(AllOf( Ge(0), Le(10) )));
 }
 
 IUTEST(Matcher, AnyOf)
 {
-	IUTEST_EXPECT_THAT("hoge", ::iutest::AnyOf( ::iutest::StartsWith("ho"), ::iutest::EndsWith("ge")));
-	IUTEST_EXPECT_THAT("hoge", ::iutest::AnyOf( ::iutest::StartsWith("ho"), ::iutest::EndsWith("Ge")));
-	IUTEST_EXPECT_THAT("hoge", ::iutest::AnyOf( ::iutest::StartsWith("Ho"), ::iutest::EndsWith("ge")));
-	IUTEST_EXPECT_THAT("hoge7", ::iutest::AnyOf(
-		  ::iutest::Contains("0")
-		, ::iutest::Contains("1")
-		, ::iutest::Contains("2")
-		, ::iutest::Contains("3")
-		, ::iutest::Contains("4")
-		, ::iutest::Contains("5")
-		, ::iutest::Contains("6")
-		, ::iutest::Contains("7")
-		, ::iutest::Contains("8")
+	IUTEST_EXPECT_THAT("hoge", AnyOf( StartsWith("ho"), EndsWith("ge")));
+	IUTEST_EXPECT_THAT("hoge", AnyOf( StartsWith("ho"), EndsWith("Ge")));
+	IUTEST_EXPECT_THAT("hoge", AnyOf( StartsWith("Ho"), EndsWith("ge")));
+	IUTEST_EXPECT_THAT("hoge7", AnyOf(
+		  Contains("0")
+		, Contains("1")
+		, Contains("2")
+		, Contains("3")
+		, Contains("4")
+		, Contains("5")
+		, Contains("6")
+		, Contains("7")
+		, Contains("8")
 	));
-	IUTEST_EXPECT_THAT(va, ::iutest::Each(::iutest::AnyOf( ::iutest::Ge(0), ::iutest::Le(10) )));
+	IUTEST_EXPECT_THAT(va, Each(AnyOf( Ge(0), Le(10) )));
 }
 
 
 IUTEST(MatcherFailure, AllOf)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge"
-		, ::iutest::AllOf( ::iutest::StartsWith("ho"), ::iutest::EndsWith("gE"))), "StartsWith: ho and EndsWith: gE");
+		, AllOf( StartsWith("ho"), EndsWith("gE"))), "StartsWith: ho and EndsWith: gE");
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge"
-		, ::iutest::AllOf( ::iutest::StartsWith("Ho"), ::iutest::EndsWith("ge"))), "StartsWith: Ho");
+		, AllOf( StartsWith("Ho"), EndsWith("ge"))), "StartsWith: Ho");
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va
-		, ::iutest::Each(::iutest::AllOf( ::iutest::Ge(0), ::iutest::Le(5) ))), "Each: Ge: 0 and Le: 5");
+		, Each(AllOf( Ge(0), Le(5) ))), "Each: Ge: 0 and Le: 5");
 }
 
 IUTEST(MatcherFailure, AnyOf)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge"
-		, ::iutest::AnyOf( ::iutest::StartsWith("Ho"), ::iutest::EndsWith("gE"))), "StartsWith: Ho or EndsWith: gE");
+		, AnyOf( StartsWith("Ho"), EndsWith("gE"))), "StartsWith: Ho or EndsWith: gE");
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va
-		, ::iutest::Each(::iutest::AnyOf( ::iutest::Gt(5), ::iutest::Lt(5) ))), "Each: Gt: 5 or Lt: 5");
+		, Each(AnyOf( Gt(5), Lt(5) ))), "Each: Gt: 5 or Lt: 5");
 }
 
 #endif

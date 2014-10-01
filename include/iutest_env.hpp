@@ -93,9 +93,11 @@ inline ::std::string EnvironmentString(const char* name)
 class Environment
 {
 public:
-	virtual ~Environment(void)	{}
+	virtual ~Environment(void)	{ Release(); }
 	virtual void SetUp(void)	{}	//!< 事前処理
 	virtual void TearDown(void)	{}	//!< 事後処理
+private:
+	void Release(void);
 private:
 	struct should_be_SetUp {};
 	virtual should_be_SetUp* Setup(void) IUTEST_CXX_FINAL { return NULL; }
@@ -528,6 +530,24 @@ public:
 		return env;
 	}
 	
+	/**
+	 * @brief	グローバル環境セットクラスの削除
+	 * @param [in]	env	= 環境セットクラスアドレス
+	 * @return	削除されたクラスアドレス
+	*/
+	static Environment* ReleaseGlobalTestEnvironment(Environment* env)
+	{
+		if( env == NULL )
+		{
+			return NULL;
+		}
+		iuEnvironmentList& list = environments();
+		iuEnvironmentList::iterator it = ::std::find(list.begin(), list.end(), env);
+		if( it == list.end() ) return NULL;
+		list.erase(it);
+		return env;
+	}
+
 	/**
 	 * @brief	default package name を追加
 	*/

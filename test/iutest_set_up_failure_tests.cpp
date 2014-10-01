@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_set_up_failure_tests.cpp
- * @brief		SetUp で失敗したときのテスト
+ * @brief		SetUp/TearDown で失敗したときのテスト
  *
  * @author		t.shirayanagi
  * @par			copyright
@@ -17,7 +17,8 @@
 // include
 #include "iutest.hpp"
 
-static int test_flag = 0;
+static int setup_flag = 0;
+static int teardown_flag = 0;
 
 class TestSetUpFailure : public ::iutest::Test
 {
@@ -30,9 +31,22 @@ public:
 
 IUTEST_F(TestSetUpFailure, Test)
 {
-	++test_flag;
+	++setup_flag;
 }
 
+class TestTearDownFailure : public ::iutest::Test
+{
+public:
+	virtual void TearDown()
+	{
+		IUTEST_FAIL() << "TearDown Failed.";
+	}
+};
+
+IUTEST_F(TestTearDownFailure, Test)
+{
+	++teardown_flag;
+}
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
@@ -48,8 +62,9 @@ int main(int argc, char* argv[])
 	const int ret = IUTEST_RUN_ALL_TESTS();
 	
 	IUTEST_ASSERT_EXIT( ret != 0 );
-	IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
-	IUTEST_ASSERT_EXIT( test_flag == 0);
+	IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
+	IUTEST_ASSERT_EXIT( setup_flag == 0 );
+	IUTEST_ASSERT_EXIT( teardown_flag == 1 );
 
 	printf("*** Successful ***\n");
 	return 0;

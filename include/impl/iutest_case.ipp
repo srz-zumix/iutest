@@ -35,25 +35,14 @@ IUTEST_IPP_INLINE bool TestCase::Run(void)
 	}
 
 	// テスト開始
+	bool result=false;
 	TestEnv::event_listeners().OnTestCaseStart(*this);
-	const bool result = RunImpl();
-	// テスト終了
-	TestEnv::event_listeners().OnTestCaseEnd(*this);
-
-	return result;
-}
-
-IUTEST_IPP_INLINE bool TestCase::RunImpl(void)
-{
-	bool result=true;
-	m_elapsedmsec = 0;
-
 #if IUTEST_HAS_EXCEPTIONS
 	if( TestFlag::IsEnableFlag(TestFlag::CATCH_EXCEPTION_EACH) )
 	{
 		try
 		{
-			m_setup();
+			result = RunImpl();
 		}
 		catch( TestPartResult::Type& eType )
 		{
@@ -70,8 +59,20 @@ IUTEST_IPP_INLINE bool TestCase::RunImpl(void)
 	else
 #endif
 	{
-		m_setup();
+		result = RunImpl();
 	}
+	// テスト終了
+	TestEnv::event_listeners().OnTestCaseEnd(*this);
+
+	return result;
+}
+
+IUTEST_IPP_INLINE bool TestCase::RunImpl(void)
+{
+	bool result=true;
+	m_elapsedmsec = 0;
+
+	m_setup();
 
 	if( m_ad_hoc_testresult.HasFatalFailure() )
 	{
@@ -100,7 +101,12 @@ IUTEST_IPP_INLINE bool TestCase::RunImpl(void)
 		}
 		m_elapsedmsec = sw.stop();
 	}
+
 	m_teardown();
+	if( m_ad_hoc_testresult.HasFatalFailure() )
+	{
+		return false;
+	}
 	return result;
 }
 

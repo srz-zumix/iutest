@@ -698,7 +698,10 @@ protected:
 	template<int N, typename T>
 	static ::std::string WitchIs(const T& matchers)
 	{
-		return WitchIs_<T, N, tuples::tuple_size<T>::value-1>(matchers);
+		::std::string str = "ElementsAre: {";
+		str += WitchIs_<T, N, tuples::tuple_size<T>::value-1>(matchers);
+		str += "}";
+		return str;
 	}
 private:
 	template<typename T, typename U>
@@ -744,7 +747,7 @@ private:
 	template<typename T, int N, int LAST>
 	static ::std::string WitchIs_(const T& matchers, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
 	{
-		return StreamableToString(tuples::get<N>(matchers)) + " , " + WitchIs_<T, N + 1, LAST>(matchers);
+		return StreamableToString(tuples::get<N>(matchers)) + ", " + WitchIs_<T, N + 1, LAST>(matchers);
 	}
 	IUTEST_PP_DISALLOW_ASSIGN(ElementsAreMatcherBase);
 };
@@ -1188,6 +1191,9 @@ IIUT_DECL_ANYOF_MATCHER(10);
 
 }	// end of namespace detail
 
+namespace matchers
+{
+
 /**
  * @brief	Make Equals matcher
 */
@@ -1430,6 +1436,10 @@ IIUT_DECL_ANYOF_AND_ALLOF(AnyOf, 10)
 #endif
 
 #endif
+
+}	// end of namespace matchers
+
+using namespace matchers;
 
 }	// end of namespace iutest
 

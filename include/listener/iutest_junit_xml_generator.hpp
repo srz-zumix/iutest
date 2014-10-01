@@ -47,7 +47,7 @@ public:
 private:
 	static void OnReportTestCase(IFile* file, const TestCase& test_case);
 	static void OnReportTestInfo(IFile* file, const TestInfo& test_info);
-	static void OnReportTestProperty(IFile* file, const char* name, const char* value);
+	static void OnReportProperty(IFile* file, const char* name, const char* value);
 	static void OnReportTestProperty(IFile* file, const TestResult& test_result);
 	static void OnReportTestSkipped(IFile* file, const TestInfo& test_info);
 public:

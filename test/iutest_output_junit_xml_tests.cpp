@@ -66,6 +66,31 @@ IUTEST(Foo, DISABLED_Test)
 {
 }
 
+class Fixture : public ::iutest::Test
+{
+public:
+	static void SetUpTestCase()
+	{
+		RecordProperty("fixture", 1);
+	}
+};
+
+IUTEST_F(Fixture, Test)
+{
+}
+
+#if IUTEST_HAS_PARAM_TEST
+
+class ParamTest : public ::iutest::TestWithParam<int> {};
+
+IUTEST_P(ParamTest, Test)
+{
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_P(My1, ParamTest, ::iutest::Values(0, 10));
+
+#endif
+
 #if IUTEST_HAS_TYPED_TEST
 
 template<typename T>
@@ -117,8 +142,13 @@ int main(int argc, char* argv[])
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("Foo" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("<skipped type=\"iutest.skip\"" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("disabled test" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("<property name=\"fixture\" value=\"1\"" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 #if IUTEST_HAS_TYPED_TEST
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("<property name=\"type_param\" value=" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+#endif
+#if IUTEST_HAS_PARAM_TEST
+		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("<property name=\"Test/0\" value=\"0\""  )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("<property name=\"Test/1\" value=\"10\"" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 #endif
 		
 		FileIO::s_io.clear();

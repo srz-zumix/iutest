@@ -1351,14 +1351,11 @@ public:
 
 	type operator ()(void)
 	{
-		for(;;)
+		type val =  m_rnd.genrand();
+		for( ; !(m_fn)(val); val = m_rnd.genrand() )
 		{
-			type val =  m_rnd.genrand();
-			if( (m_fn)(val) )
-			{
-				return val;
-			}
 		}
+		return val;
 	}
 private:
 	F m_fn;
