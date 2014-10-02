@@ -880,6 +880,37 @@ private:
 };
 
 /**
+ * @brief	Key matcher
+*/
+template<typename T>
+class KeyMatcher : public IMatcher
+{
+public:
+	KeyMatcher(const T& expected) : m_expected(expected) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual) const
+	{
+		if( CastToMatcher(m_expected)(actual.first) ) return AssertionSuccess();
+		return AssertionFailure() << WitchIs();
+	}
+
+public:
+	::std::string WitchIs(void) const IUTEST_CXX_OVERRIDE
+	{
+		iu_global_format_stringstream strm;
+		strm << "Key: " << m_expected;
+		return strm.str();
+	}
+
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(KeyMatcher);
+
+	const T& m_expected;
+};
+
+/**
  * @brief	Pair matcher
 */
 template<typename T1, typename T2>
@@ -1369,6 +1400,12 @@ IIUT_DECL_ELEMENTSARE(10)
 #endif
 
 #endif
+
+/**
+ * @brief	Make Key matcher
+*/
+template<typename T>
+detail::KeyMatcher<T> Key(const T& expected) { return detail::KeyMatcher<T>(expected); }
 
 /**
  * @brief	Make Pair matcher

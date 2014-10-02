@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01109914u	//!< iutest version 1.10.99.14
+#define	IUTEST_VER			0x01109915u	//!< iutest version 1.10.99.15
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x10u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x14u		//!< Revision
+#define IUTEST_REVISION		0x15u		//!< Revision
 
 /**
  * @mainpage
@@ -122,7 +122,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>Matcher に FloatEq,DoubleEq,NanSensitiveFloatEq,NanSensitiveDoubleEq を追加</li>
 	  <li>コンテナMatcher に Each,ElementsAre,ElementsAreArray を追加</li>
 	  <li>コンテナMatcher の条件に Matcher を使えるように修正</li>
-	  <li>メンバーMatcher に Pair,Field を追加</li>
+	  <li>メンバーMatcher に Key,Pair,Field を追加</li>
       <li>IUTEST_*_FLOAT_EQ,DOUBLE_EQ で NAN の比較が真を返す不具合を修正</li>
     </ul>
   </li>

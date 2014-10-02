@@ -197,6 +197,11 @@ IUTEST(Matcher, Each)
 	IUTEST_EXPECT_THAT(vv, Each(Each(Le(10))));
 }
 
+IUTEST(Matcher, Key)
+{
+	IUTEST_EXPECT_THAT( m, Each(Key(Le(10))));
+}
+
 IUTEST(Matcher, Pair)
 {
 	IUTEST_EXPECT_THAT( m, Each(Pair(Le(10), 100)));
@@ -347,6 +352,11 @@ IUTEST(MatcherFailure, Each)
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( b, Each(42)), "Each: 42" );
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va, Each(Ne(9))), "Each: Ne: 9" );
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(vv, Each(Each(Gt(5)))), "Each: Each: Gt: 5" );
+}
+
+IUTEST(MatcherFailure, Key)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( m, Each(Key(0))), "Each: Key: 0" );
 }
 
 IUTEST(MatcherFailure, Pair)
