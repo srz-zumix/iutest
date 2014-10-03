@@ -880,6 +880,51 @@ private:
 };
 
 /**
+ * @brief	Property matcher
+*/
+template<typename F, typename T>
+class PropertyMatcher : public IMatcher
+{
+public:
+	PropertyMatcher(const F& prop, const T& expected) : m_property(prop), m_expected(expected) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual) const
+	{
+		if( Check(actual) ) return AssertionSuccess();
+		return AssertionFailure() << WitchIs();
+	}
+
+public:
+	::std::string WitchIs(void) const IUTEST_CXX_OVERRIDE
+	{
+		iu_global_format_stringstream strm;
+		strm << "Property: " << m_expected;
+		//strm << "Property: (" << detail::GetTypeName<F>() << ") " << m_expected;
+		return strm.str();
+	}
+private:
+	template<typename U>
+	bool Check(const U& actual
+		, typename detail::disable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value) const
+	{
+		return static_cast<bool>(CastToMatcher(m_expected)((actual.*m_property)()));
+	}
+	template<typename U>
+	bool Check(const U& actual
+		, typename detail::enable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value) const
+	{
+		return static_cast<bool>(CastToMatcher(m_expected)((actual->*m_property)()));
+	}
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(PropertyMatcher);
+
+	const F& m_property;
+	const T& m_expected;
+};
+
+/**
  * @brief	Key matcher
 */
 template<typename T>
@@ -1418,6 +1463,12 @@ detail::PairMatcher<T1, T2> Pair(const T1& m1, const T2& m2) { return detail::Pa
 */
 template<typename F, typename T>
 detail::FieldMatcher<F, T> Field(const F& field, const T& expected) { return detail::FieldMatcher<F, T>(field, expected); }
+
+/**
+ * @brief	Make Field matcher
+*/
+template<typename P, typename T>
+detail::PropertyMatcher<P, T> Property(const P& prop, const T& expected) { return detail::PropertyMatcher<P, T>(prop, expected); }
 
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF

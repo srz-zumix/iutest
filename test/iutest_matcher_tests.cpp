@@ -39,7 +39,7 @@ void* p1 = NULL;
 void* p2 = &p1;
 float f0 = 0.0f;
 double d0 = 0.0;
-struct X { int a, b; X(int _a, int _b) : a(_a), b(_b) {} int GetA() { return a; } };
+struct X { int a, b; X(int _a, int _b) : a(_a), b(_b) {} int GetA() const { return a; } };
 X x(1,1);
 ::std::map<int, X> mx;
 
@@ -214,6 +214,13 @@ IUTEST(Matcher, Field)
 	IUTEST_EXPECT_THAT(mx, Each(Pair(Le(10), Field(&X::b, Ge(0)))));
 }
 
+IUTEST(Matcher, Propetry)
+{
+	IUTEST_EXPECT_THAT( x, Property(&X::GetA, 1));
+	IUTEST_EXPECT_THAT(&x, Property(&X::GetA, 1));
+	IUTEST_EXPECT_THAT(mx, Each(Pair(Le(10), Property(&X::GetA, Ge(0)))));
+}
+
 IUTEST(Matcher, ElementsAreArray)
 {
 	IUTEST_EXPECT_THAT( a, ElementsAreArray(va));
@@ -368,6 +375,12 @@ IUTEST(MatcherFailure, Field)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( x, Field(&X::a, 100)), "Field: 100" );
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( x, Field(&X::a, Ne(1))), "Field: Ne: 1" );
+}
+
+IUTEST(MatcherFailure, Property)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( x, Property(&X::GetA, 100)), "Property: 100" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( x, Property(&X::GetA, Ne(1))), "Property: Ne: 1" );
 }
 
 IUTEST(MatcherFailure, ElementsAreArray)

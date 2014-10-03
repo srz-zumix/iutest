@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
+  <title>iutest - 入門</title>
   <meta http-equiv="Content-Type" content="text/html; charset=shift_jis" />
   <meta http-equiv="content-style-type" content="text/css" />
   <style type="text/css">
@@ -43,6 +44,11 @@
     background-color:#ffffff;
     padding: 0.5em;
     margin: 10px;
+  }
+  table.ruled {
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+    width: 90%;
   }
   </style>
   <title>iutest - primer</title>
@@ -103,6 +109,23 @@
     <ul>
       <li><a href="#switch_iutest">iutest モード</a></li>
       <li><a href="#switch_gtest">Google Test モード</a></li>
+    </ul>
+  </li>
+  <li><a href="#matcher">Matcher</a>
+    <ul>
+      <li><a href="#matcher_summary">Mathcer の概要</a></li>
+      <li><a href="#matcher_assertion">アサーション</a></li>
+      <li><a href="#matcher_matchers">Matcher の種類</a>
+      <!--
+        <ul>
+          <li><a href="#matcher_gernal">一般的な比較</a></li>
+          <li><a href="#matcher_float">浮動小数点 Matcher</a></li>
+          <li><a href="#matcher_string">文字列 Matcher</a></li>
+          <li><a href="#matcher_container">コンテナ Matcher</a></li>
+          <li><a href="#matcher_member">メンバー Matcher</a></li>
+        </ul>
+      -->
+      </li>
     </ul>
   </li>
 </ul>
@@ -502,6 +525,7 @@ IUTEST(ProdTest, Peep)
 </ul>
 </div>
 </div> <!-- end of contents -->
+
 <div class="contents">
 <h2><a name="switch" id="switch">iutest / Google Test 切り替え</a></h2>
 <div class="text_block">
@@ -523,6 +547,27 @@ IUTEST_USE_GTEST マクロを定義してください。<br />
 これにより、iutest のテストコードで Google Test の実装を使用するようになります。<br />
 
 </div>
+</div> <!-- end of contents -->
+
+<div class="contents">
+<h2><a name="matcher" id="matcher">Matcher</a></h2>
+<div class="text_block">
+<h3><a name="matcher_summary" id="matcher_summary">Matcher の概要</a></h3>
+<p>iutest では Matcher を提供しています。iutest の Matcher は Google Mock のそれとほぼ同じ使い方をします。<br />
+ただし、Google Mock との互換性対応はしていませんのでご注意ください。
+</p>
+<h3><a name="matcher_assertion" id="matcher_assertion">アサーション</a></h3>
+<p>
+Matcher は IUTEST_*_THAT アサーションで利用します。
+<table class="ruled" >
+<tr><td>IUTEST_*_THAT(expression, m)</td><td>expression の値が Mathcer m にマッチするか検証します</td></tr>
+</table>
+</p>
+
+<h3><a name="matcher_matchers" id="matcher_matchers">Matcher の種類</a></h3>
+Matcher の種類については Doxygen 生成のドキュメントを確認してください。
+
+</div> <!-- end of text_block --
 </div> <!-- end of contents -->
 
 <br />

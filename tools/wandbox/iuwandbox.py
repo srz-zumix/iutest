@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 #
 # iuwandbox.py
 #
@@ -25,7 +24,7 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 0.1'
+		, version=u'%(prog)s version 0.2'
 	)
 	parser.add_argument(
 		'--list_compiler'
@@ -79,6 +78,10 @@ def parse_command_line():
 		, help = 'Get permanent link code.'
 	)
 	parser.add_argument(
+		  '--encoding'
+		, help = 'Set encoding.'
+	)
+	parser.add_argument(
 		'code'
 		, metavar='CODE'
 		, help = 'Source code file'
@@ -92,9 +95,12 @@ def parse_command_line():
 
 #
 # make code
-def make_code(path):
+def make_code(path, encoding):
 	code = ''
-	file = open(path, 'r')
+	if encoding:
+		file = codecs.open(path, 'r', encoding)
+	else:
+		file = open(path, 'r')
 	for line in file:
 		m = IUTEST_INCLUDE_REGEX.match(line)
 		if m:
@@ -171,7 +177,7 @@ def run(options):
 	filepath = options.code
 	if not os.path.exists(filepath):
 		sys.exit(1)
-	code = make_code(filepath)
+	code = make_code(filepath,options.encoding)
 	r = run_wandbox(code, options)
 	b = show_result(r)
 	sys.exit(b)

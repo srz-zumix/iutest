@@ -11,8 +11,8 @@ before_script:
 
 script:
   - cd tools/wandbox
-#  - python ./iuwandbox.py ../../test/iutest_syntax_tests.cpp -c ${WANDBOX_COMPILER}
-  - python ./iuwandbox.py sample.cpp -c ${WANDBOX_COMPILER}
+  - python ./iuwandbox.py ../../test/iutest_syntax_tests.cpp -c ${WANDBOX_COMPILER} --encoding utf-8-sig
+#  - python ./iuwandbox.py sample.cpp -c ${WANDBOX_COMPILER}
 
 env:
   - WANDBOX_COMPILER=gcc-head
