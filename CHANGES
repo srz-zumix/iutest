@@ -9,6 +9,7 @@ Changes for 1.11.0:
 * Matcher に FloatEq,DoubleEq,NanSensitiveFloatEq,NanSensitiveDoubleEq を追加
 * コンテナMatcher に Each,ElementsAre,ElementsAreArray を追加
 * メンバーMatcher に Key,Pair,Field,Property を追加
+* ワイルドカードMatcher A,_ を追加
 
 ** 修正
 * IUTEST_*_FLOAT_EQ,DOUBLE_EQ で NAN の比較が真を返す不具合を修正

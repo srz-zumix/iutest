@@ -385,6 +385,8 @@ IUTEST(SyntaxTest, That)
 		IUTEST_ASSUME_THAT(x, ::iutest::Eq(1)) << x;
 }
 
+struct X { int a, b; X(int _a, int _b) : a(_a), b(_b) {} int GetA() const { return a; } };
+
 IUTEST(SyntaxTest, Matcher)
 {
 	::std::vector<int> v;
@@ -392,9 +394,16 @@ IUTEST(SyntaxTest, Matcher)
 	v.push_back(1);
 	v.push_back(2);
 	int a[3] = { 0, 1, 2 };
+	X x(0, 1);
 	IUTEST_EXPECT_THAT(a, ::iutest::Contains(0));
 	IUTEST_EXPECT_THAT(a, ::iutest::Contains(::iutest::Lt(10)));
 	IUTEST_EXPECT_THAT(a, ::iutest::Each(::iutest::Le(10)));
+	IUTEST_EXPECT_THAT(a, ::iutest::Each(::iutest::_));
+	IUTEST_EXPECT_THAT(a, ::iutest::Each(::iutest::A<int>()));
+	IUTEST_EXPECT_THAT(x, ::iutest::Field(&X::a, 0));
+	IUTEST_EXPECT_THAT(&x, ::iutest::Field(&X::a, 0));
+	IUTEST_EXPECT_THAT(x, ::iutest::Property(&X::GetA, 0));
+	IUTEST_EXPECT_THAT(&x, ::iutest::Property(&X::GetA, 0));
 	IUTEST_EXPECT_THAT(a, ::iutest::ElementsAreArray(a));
 	IUTEST_EXPECT_THAT(v, ::iutest::ElementsAreArray(a));
 	IUTEST_EXPECT_THAT(a, ::iutest::ElementsAreArray(v));

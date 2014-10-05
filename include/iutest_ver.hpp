@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_ver.hpp
- * @brief		iris unit test version 定義 ファイル
+ * @file        iutest_ver.hpp
+ * @brief       iris unit test version 定義 ファイル
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -17,24 +17,24 @@
 
 //======================================================================
 // define
-#define	IUTEST_VER			0x01109916u	//!< iutest version 1.10.99.16
-#define IUTEST_MAJORVER		0x01u		//!< Major Version
-#define IUTEST_MINORVER		0x10u		//!< Minor Version
-#define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x16u		//!< Revision
+#define IUTEST_VER          0x01109917u //!< iutest version 1.10.99.17
+#define IUTEST_MAJORVER     0x01u       //!< Major Version
+#define IUTEST_MINORVER     0x10u       //!< Minor Version
+#define IUTEST_BUILD        0x99u       //!< Build
+#define IUTEST_REVISION     0x17u       //!< Revision
 
 /**
  * @mainpage
- * @sa	@b	ProjectHome \n
- *			sourceforge : http://sourceforge.jp/projects/iutest/ \n
- *			github      : https://github.com/srz-zumix/iutest \n
+ * @sa  @b  ProjectHome \n
+ *          sourceforge : http://sourceforge.jp/projects/iutest/ \n
+ *          github      : https://github.com/srz-zumix/iutest \n
  *          google group: https://groups.google.com/forum/?fromgroups#!forum/g-iutest \n
  *
- * @par		copyright
+ * @par     copyright
  * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
  * This software is released under the new BSD License.
  *
- * @par		LICENSE
+ * @par     LICENSE
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:\n
@@ -62,8 +62,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /**
- * @page	CMDLINE		コマンドラインオプション
- * @par		Command Line Options
+ * @page    CMDLINE     コマンドラインオプション
+ * @par     Command Line Options
  <table>
    <tr><td>--help, -h                        </td><td></td><td>Generate help message.</td></tr>
    <tr><td>--iutest_output                   </td><td>xml|junit[:path]</td><td>Path of xml report.</td></tr>
@@ -90,8 +90,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /**
- * @page	ENVIRONMENT_OPTIONS	環境変数オプション
- * @par		Environment variable Options
+ * @page    ENVIRONMENT_OPTIONS 環境変数オプション
+ * @par     Environment variable Options
  <table>
    <tr><td>IUTEST_OUTPUT=xml|junit[:path]  </td><td>Path of xml report.</td></tr>
    <tr><td>IUTEST_COLOR=yes|no|auto        </td><td>Console color enable.</td></tr>
@@ -110,8 +110,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /**
- * @page	CHANGELOG		変更履歴
- * @par		Changes
+ * @page    CHANGELOG       変更履歴
+ * @par     Changes
  <ul>
   <li>v1.11.0.0
     <ul>
@@ -120,9 +120,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>Matcher に Eq,Ne,Le,Lt,Ge,Gt,IsNull,NotNull を追加</li>
       <li>Matcher に StrEq,StrNe,StrCaseEq,StrCaseNe,HasSubstr を追加</li>
       <li>Matcher に FloatEq,DoubleEq,NanSensitiveFloatEq,NanSensitiveDoubleEq を追加</li>
-	  <li>コンテナMatcher に Each,ElementsAre,ElementsAreArray を追加</li>
-	  <li>コンテナMatcher の条件に Matcher を使えるように修正</li>
-	  <li>メンバーMatcher に Key,Pair,Field を追加</li>
+      <li>コンテナMatcher に Each,ElementsAre,ElementsAreArray を追加</li>
+      <li>コンテナMatcher の条件に Matcher を使えるように修正</li>
+      <li>メンバーMatcher に Key,Pair,Field を追加</li>
+      <li>ワイルドカードMatcher A,_ を追加</li>
       <li>IUTEST_*_FLOAT_EQ,DOUBLE_EQ で NAN の比較が真を返す不具合を修正</li>
     </ul>
   </li>
@@ -145,7 +146,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <ul>
       <li>IUTEST_P,IUTEST_TYPED_TEST_P で DISABLED_ 指定が機能しない問題を修正</li>
       <li>TestFixutre を定義しなくても IUTEST_P が使えるように対応</li>
-	  <li>Visual Studio 14 CTP 対応</li>
+      <li>Visual Studio 14 CTP 対応</li>
     </ul>
   </li>
   <li>v1.9.0.0
@@ -575,15 +576,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /**
- * @example		main.cpp
- * @example		assertion.cpp
- * @example		disabledtest.cpp
- * @example		exception.cpp
- * @example		fixture.cpp
- * @example		parameterized.cpp
- * @example		printto.cpp
- * @example		simple.cpp
- * @example		typed.cpp
+ * @example     main.cpp
+ * @example     assertion.cpp
+ * @example     disabledtest.cpp
+ * @example     exception.cpp
+ * @example     fixture.cpp
+ * @example     parameterized.cpp
+ * @example     printto.cpp
+ * @example     simple.cpp
+ * @example     typed.cpp
 */
 
 #endif // INCG_IRIS_IUTEST_VER_HPP_D65CB7A7_D2AD_40FE_8F5F_8FBF376A0010_

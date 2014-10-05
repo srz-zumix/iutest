@@ -15,6 +15,7 @@ from pywandbox import Wandbox
 
 IUTEST_FUSED_SRC = os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.min.hpp')
 IUTEST_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*".*iutest\.hpp"')
+EXPAND_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*"(.*?)"')
 
 #
 # command line option
@@ -24,7 +25,7 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 0.2'
+		, version=u'%(prog)s version 0.3'
 	)
 	parser.add_argument(
 		'--list_compiler'
@@ -82,9 +83,14 @@ def parse_command_line():
 		, help = 'Set encoding.'
 	)
 	parser.add_argument(
+		  '--expand_include'
+		, action='store_true'
+		, help = 'Expand include file.'
+	)
+	parser.add_argument(
 		'code'
 		, metavar='CODE'
-		, help = 'Source code file'
+			, help = 'Source code file'
 		, nargs='?'
 	)
 	if len(sys.argv) <= 1:
@@ -94,13 +100,19 @@ def parse_command_line():
 	return options
 
 #
-# make code
-def make_code(path, encoding):
-	code = ''
+# file open
+def file_open(path, encoding):
 	if encoding:
 		file = codecs.open(path, 'r', encoding)
 	else:
 		file = open(path, 'r')
+	return file
+
+#
+# make code
+def make_code(path, encoding, expand):
+	code = ''
+	file = file_open(path, encoding)
 	for line in file:
 		m = IUTEST_INCLUDE_REGEX.match(line)
 		if m:
@@ -110,6 +122,12 @@ def make_code(path, encoding):
 			code += f.read()
 			code += '//==================================================================<<<< ' + line
 		else:
+			if expand:
+				m = EXPAND_INCLUDE_REGEX.match(line)
+				if m:
+					f = file_open(os.path.join(os.path.dirname(path), m.group(1)), encoding)
+					code += f.read()
+					code += '// '
 			code += line
 	file.close()
 	return code
@@ -177,7 +195,7 @@ def run(options):
 	filepath = options.code
 	if not os.path.exists(filepath):
 		sys.exit(1)
-	code = make_code(filepath,options.encoding)
+	code = make_code(filepath, options.encoding, options.expand_include)
 	r = run_wandbox(code, options)
 	b = show_result(r)
 	sys.exit(b)
