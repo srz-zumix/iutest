@@ -33,5 +33,8 @@
     <ClCompile Include="..\..\samples\assertion.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\samples\matcher.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

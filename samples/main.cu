@@ -3,6 +3,7 @@
 #include "disabledtest.cpp"
 #include "exception.cpp"
 #include "fixture.cpp"
+#include "matcher.cpp"
 #include "parameterized.cpp"
 #include "printto.cpp"
 #include "simple.cpp"

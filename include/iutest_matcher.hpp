@@ -1014,12 +1014,12 @@ class AnyMatcher : public IMatcher
 public:
 	AnyMatcher(void) {}
 public:
-	AssertionResult operator ()(const T& actual) const
+	AssertionResult operator ()(const T&) const
 	{
 		return AssertionSuccess();
 	}
 	template<typename U>
-	AssertionResult operator ()(const U& actual) const
+	AssertionResult operator ()(const U&) const
 	{
 		return AssertionFailure() << WitchIs();
 	}
@@ -1044,7 +1044,7 @@ public:
 	AnythingMatcher(void) {}
 public:
 	template<typename U>
-	AssertionResult operator ()(const U& actual) const
+	AssertionResult operator ()(const U&) const
 	{
 		return AssertionSuccess();
 	}

@@ -13,6 +13,7 @@ SAMPLE_SRCS = $(SAMPLE_DIR)/main.cpp \
               $(SAMPLE_DIR)/disabledtest.cpp \
               $(SAMPLE_DIR)/exception.cpp \
               $(SAMPLE_DIR)/fixture.cpp \
+              $(SAMPLE_DIR)/matcher.cpp \
               $(SAMPLE_DIR)/parameterized.cpp \
               $(SAMPLE_DIR)/printto.cpp \
               $(SAMPLE_DIR)/simple.cpp \

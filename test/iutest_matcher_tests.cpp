@@ -466,7 +466,6 @@ IUTEST(Matcher, AnyOf)
 	IUTEST_EXPECT_THAT(va, Each(AnyOf( Ge(0), Le(10) )));
 }
 
-
 IUTEST(MatcherFailure, AllOf)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge"

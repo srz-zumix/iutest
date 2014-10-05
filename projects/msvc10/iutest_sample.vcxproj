@@ -68,6 +68,7 @@
     <ClCompile Include="..\..\samples\exception.cpp" />
     <ClCompile Include="..\..\samples\fixture.cpp" />
     <ClCompile Include="..\..\samples\main.cpp" />
+    <ClCompile Include="..\..\samples\matcher.cpp" />
     <ClCompile Include="..\..\samples\parameterized.cpp" />
     <ClCompile Include="..\..\samples\printto.cpp" />
     <ClCompile Include="..\..\samples\simple.cpp" />

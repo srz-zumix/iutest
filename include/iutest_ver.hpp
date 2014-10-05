@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01109917u //!< iutest version 1.10.99.17
+#define IUTEST_VER          0x01109918u //!< iutest version 1.10.99.18
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x10u       //!< Minor Version
 #define IUTEST_BUILD        0x99u       //!< Build
-#define IUTEST_REVISION     0x17u       //!< Revision
+#define IUTEST_REVISION     0x18u       //!< Revision
 
 /**
  * @mainpage
@@ -581,6 +581,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @example     disabledtest.cpp
  * @example     exception.cpp
  * @example     fixture.cpp
+ * @example     matcher.cpp
  * @example     parameterized.cpp
  * @example     printto.cpp
  * @example     simple.cpp

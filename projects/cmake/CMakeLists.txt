@@ -53,6 +53,7 @@ cxx_executable_sample(iutest_sample
  ../../samples/disabledtest.cpp
  ../../samples/exception.cpp
  ../../samples/fixture.cpp
+ ../../samples/matcher.cpp
  ../../samples/parameterized.cpp
  ../../samples/printto.cpp
  ../../samples/simple.cpp

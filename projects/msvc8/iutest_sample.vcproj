@@ -349,6 +349,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\samples\matcher.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\samples\parameterized.cpp"
 				>
 			</File>
