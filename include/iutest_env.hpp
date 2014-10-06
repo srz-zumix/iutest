@@ -494,6 +494,7 @@ public:
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
 	typedef class OStreamFormatter : public iu_stringstream
 	{
+		IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()
 	public:
 		OStreamFormatter(void)
 		{
@@ -703,6 +704,7 @@ private:
 
 class iu_global_format_stringstream : public iu_stringstream
 {
+	IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()
 public:
 	iu_global_format_stringstream()
 	{

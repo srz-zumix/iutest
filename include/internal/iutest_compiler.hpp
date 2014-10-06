@@ -939,6 +939,16 @@
 #  define IUTEST_HAS_ANALYSIS_ASSUME		0
 #endif
 
+// workaround
+#if defined(_MSC_VER)
+// http://stackoverflow.com/questions/14487241/avoiding-an-inheritance-by-dominance-warning-for-a-mocked-stdfstream-class
+#  define IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()	\
+	void _Add_vtordisp1() {}	\
+	void _Add_vtordisp2() {}
+#else
+#  define IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()	
+#endif
+
 // pragma
 #include "iutest_pragma.hpp"
 

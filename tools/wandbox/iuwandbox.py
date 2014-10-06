@@ -126,8 +126,9 @@ def make_code(path, encoding, expand):
 				m = EXPAND_INCLUDE_REGEX.match(line)
 				if m:
 					f = file_open(os.path.join(os.path.dirname(path), m.group(1)), encoding)
-					code += f.read()
-					code += '// '
+					if f:
+						code += f.read()
+						code += '// '
 			code += line
 	file.close()
 	return code
