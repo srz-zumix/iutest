@@ -383,6 +383,7 @@ IUTEST(MatcherFailure, Key)
 IUTEST(MatcherFailure, Pair)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( m, Each(Pair(Gt(5), 100))), "Each: Pair: (Gt: 5, 100)" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( m, Each(Pair(_, Ne(100)))), "Each: Pair: (_, Ne: 100)" );
 }
 
 IUTEST(MatcherFailure, Field)

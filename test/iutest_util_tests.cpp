@@ -39,12 +39,14 @@ IUTEST(UtilTest, TestCaseNameRemoveIndexName)
 {
 	IUTEST_EXPECT_STREQ( "pkg.TestCase" , ::iuutil::TestCaseNameRemoveIndexName("pkg.TestCase") );
 	IUTEST_EXPECT_STREQ( "pkg.TestCase" , ::iuutil::TestCaseNameRemoveIndexName("pkg.TestCase/0") );
+	IUTEST_EXPECT_STREQ( "TestCase" , ::iuutil::TestCaseNameRemoveIndexName("TestCase") );
 }
 
 IUTEST(UtilTest, TestCaseNameRemoveInstantiateAndIndexName)
 {
 	IUTEST_EXPECT_STREQ( "pkg.TestCase" , ::iuutil::TestCaseNameRemoveInstantiateAndIndexName("pkg.prefix/TestCase") );
 	IUTEST_EXPECT_STREQ( "pkg.TestCase" , ::iuutil::TestCaseNameRemoveInstantiateAndIndexName("pkg.prefix/TestCase/0") );
+	IUTEST_EXPECT_STREQ( "TestCase" , ::iuutil::TestCaseNameRemoveInstantiateAndIndexName("TestCase") );
 	IUTEST_EXPECT_STREQ( "TestCase" , ::iuutil::TestCaseNameRemoveInstantiateAndIndexName("prefix/TestCase") );
 	IUTEST_EXPECT_STREQ( "TestCase" , ::iuutil::TestCaseNameRemoveInstantiateAndIndexName("prefix/TestCase/0") );
 }

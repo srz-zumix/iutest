@@ -25,7 +25,7 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 0.3'
+		, version=u'%(prog)s version 0.4'
 	)
 	parser.add_argument(
 		'--list_compiler'
@@ -125,9 +125,9 @@ def make_code(path, encoding, expand):
 			if expand:
 				m = EXPAND_INCLUDE_REGEX.match(line)
 				if m:
-					f = file_open(os.path.join(os.path.dirname(path), m.group(1)), encoding)
-					if f:
-						code += f.read()
+					include_path = os.path.join(os.path.dirname(path), m.group(1))
+					if os.path.exists(include_path):
+						code += make_code(include_path, encoding, expand)
 						code += '// '
 			code += line
 	file.close()
@@ -174,7 +174,9 @@ def show_result(r):
 	if 'url' in r:
 		print 'permlink: ' + r['permlink']
 		print 'url: ' + r['url']
-	return int(r['status'])
+	if 'status' in r:
+		return int(r['status'])
+	return 1
 
 #
 # show parameter

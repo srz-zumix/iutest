@@ -32,6 +32,28 @@ IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(My12, TypeParamTest, ::iutest::Types<int, s
 
 #endif
 
+#if !IUTEST_TYPED_TEST_P_STRICT
+
+template<typename T>
+class VerifyFailTypeParamTest : public ::iutest::Test {};
+
+IUTEST_TYPED_TEST_CASE_P(VerifyFailTypeParamTest);
+
+IUTEST_TYPED_TEST_P(VerifyFailTypeParamTest, A)
+{
+}
+IUTEST_TYPED_TEST_P(VerifyFailTypeParamTest, B)
+{
+	IUTEST_FAIL();
+}
+
+IUTEST_REGISTER_TYPED_TEST_CASE_P(VerifyFailTypeParamTest, A);
+
+IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, VerifyFailTypeParamTest, ::iutest::Types<int>);
+
+
+#endif
+
 }
 
 #endif
