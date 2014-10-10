@@ -25,11 +25,6 @@
 #  include <ppapi/cpp/module.h>
 #endif
 
-#if IUTEST_HAS_STREAMCAPTURE
-#  include <io.h>
-#  include <sys/stat.h>
-#endif
-
 namespace iutest {
 
 #ifdef IUTEST_OS_NACL
