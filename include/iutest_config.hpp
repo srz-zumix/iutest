@@ -513,6 +513,14 @@
 #endif
 
 /**
+ * @brief	stdout/stderr の StreamCapture が使用可能かどうか
+*/
+#if !defined(IUTEST_HAS_STREAMCAPTURE)
+#  define IUTEST_HAS_STREAMCAPTURE	1
+#endif
+
+
+/**
  * @}
 */
 

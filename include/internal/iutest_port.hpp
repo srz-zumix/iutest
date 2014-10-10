@@ -91,7 +91,7 @@ bool GetEnvironmentVariable(const char* name, char* buf, size_t size);
 template<size_t SIZE>
 inline bool GetEnvironmentVariable(const char* name, char (&buf)[SIZE])
 {
-	return GetEnvironmentVariable(name, buf, SIZE);
+return GetEnvironmentVariable(name, buf, SIZE);
 }
 
 #endif
@@ -101,7 +101,7 @@ inline bool GetEnvironmentVariable(const char* name, char (&buf)[SIZE])
  * @param [in]	name	= 環境変数名
  * @param [out]	var		= 出力文字列
  * @return	成否
-*/
+ */
 bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentVariable(const char* name, ::std::string& var);
 
 /**
@@ -109,37 +109,37 @@ bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentVariable(const char* name, ::std::st
  * @param [in]	name	= 環境変数名
  * @param [out]	var		= 出力数値
  * @return	成否
-*/
+ */
 bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentInt(const char* name, int& var);
 
 #if defined(IUTEST_OS_WINDOWS)
 namespace win
 {
 
-/**
- * @brief	文字列変換
-*/
-::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const wchar_t* wide_c_str);
+	/**
+	 * @brief	文字列変換
+	 */
+	::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const wchar_t* wide_c_str);
 
-/**
- * @brief	HRESULT のエラー文字列を取得
- * @param [in]	hr	= エラー値
- * @return	文字列
-*/
-::std::string IUTEST_ATTRIBUTE_UNUSED_ GetHResultString(HRESULT hr);
+	/**
+	 * @brief	HRESULT のエラー文字列を取得
+	 * @param [in]	hr	= エラー値
+	 * @return	文字列
+	 */
+	::std::string IUTEST_ATTRIBUTE_UNUSED_ GetHResultString(HRESULT hr);
 
 }	// end of namespace win
 #endif
 
 /**
  * @brief	ログ
-*/
+ */
 class IUTestLog
 {
 public:
 	enum Level
 	{
-		  LOG_INFO
+		LOG_INFO
 		, LOG_WARNING
 		, LOG_ERROR
 		, LOG_FATAL
@@ -163,9 +163,30 @@ private:
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_	\
 	if( ::iutest::detail::IsTrue(condition) )	\
 		;										\
-	else										\
+		else										\
 		IUTEST_LOG_(FATAL) << "Condition " #condition " failed. "
 
+
+#if IUTEST_HAS_STREAMCAPTURE
+
+/**
+ * @brief	stream capture
+ */
+class IUStreamCapture
+{
+public:
+	IUStreamCapture(FILE* fp);
+	~IUStreamCapture(void);
+
+public:
+	::std::string GetStreamString(void) { return m_buf; }
+
+private:
+	FILE* m_fp;
+	char m_buf[BUFSIZ];
+};
+
+#endif
 
 }	// end of namespace detail
 }	// end of namespace iutest

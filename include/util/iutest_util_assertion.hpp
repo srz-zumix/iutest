@@ -411,46 +411,120 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const
 		<< "\n  Actual: " << val2 << " : " << len2 << "\nExpected: " << len1 ;
 }
 
-/**
- * @brief	文字列部分一致アサーションフォーマッター
-*/
-inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const char* substr_str, const char* actual_str
-	, const char* substr, const char* actual)
+namespace StrInHelper
+{
+
+inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const char* substr, const char* actual)
 {
 	if( substr == NULL || actual == NULL )
 	{
-		if( substr == actual )
-		{
-			return ::iutest::AssertionSuccess();
-		}
+		return substr == actual;
 	}
-	else if( strstr(actual, substr) != NULL )
+	return strstr(actual, substr) != NULL;
+}
+
+inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const wchar_t* substr, const wchar_t* actual)
+{
+	if( substr == NULL || actual == NULL )
+	{
+		return substr == actual;
+	}
+	return wcsstr(actual, substr) != NULL;
+}
+
+template<typename Elem, typename Traits, typename Ax>
+inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const ::std::basic_string<Elem, Traits, Ax>& substr
+	, const ::std::basic_string<Elem, Traits, Ax>& actual)
+{
+	return Compare(substr.c_str(), actual.c_str());
+}
+template<typename Elem, typename Traits, typename Ax>
+inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const Elem* substr
+	, const ::std::basic_string<Elem, Traits, Ax>& actual)
+{
+	return Compare(substr, actual.c_str());
+}
+template<typename Elem, typename Traits, typename Ax>
+inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const ::std::basic_string<Elem, Traits, Ax>& substr
+	, const Elem* actual)
+{
+	return Compare(substr.c_str(), actual);
+}
+
+template<typename T1, typename T2>
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* substr_str, const char* actual_str
+	, const T1& substr, const T2& actual)
+{
+	if( Compare(substr, actual) )
 	{
 		return ::iutest::AssertionSuccess();
 	}
+
 	return ::iutest::AssertionFailure() << "error: Expected: " << "strstr(" << actual_str << ", " << substr_str << ") != NULL"
 		<< "\n  Actual: " << "strstr(\"" << actual << "\", " << substr << ") == NULL";
 }
 
+}
+
 /**
  * @brief	文字列部分一致アサーションフォーマッター
 */
 inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const char* substr_str, const char* actual_str
+	, const char* substr, const char* actual)
+{
+	return StrInHelper::Assertion(substr_str, actual_str, substr, actual);
+}
+
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const char* substr_str, const char* actual_str
 	, const wchar_t* substr, const wchar_t* actual)
 {
-	if( substr == NULL || actual == NULL )
-	{
-		if( substr == actual )
-		{
-			return ::iutest::AssertionSuccess();
-		}
-	}
-	else if( wcsstr(actual, substr) != NULL )
+	return StrInHelper::Assertion(substr_str, actual_str, substr, actual);
+}
+
+template<typename Elem, typename Traits, typename Ax>
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const char* substr_str, const char* actual_str
+																, const ::std::basic_string<Elem, Traits, Ax>& substr
+																, const ::std::basic_string<Elem, Traits, Ax>& actual)
+{
+	return StrInHelper::Assertion(substr_str, actual_str, substr, actual);
+}
+template<typename Elem, typename Traits, typename Ax>
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const char* substr_str, const char* actual_str
+																, const Elem* substr
+																, const ::std::basic_string<Elem, Traits, Ax>& actual)
+{
+	return StrInHelper::Assertion(substr_str, actual_str, substr, actual);
+}
+template<typename Elem, typename Traits, typename Ax>
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const char* substr_str, const char* actual_str
+																, const ::std::basic_string<Elem, Traits, Ax>& substr
+																, const Elem* actual)
+{
+	return StrInHelper::Assertion(substr_str, actual_str, substr, actual);
+}
+
+namespace StrNotInHelper
+{
+
+template<typename T1, typename T2>
+inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T1& substr, const T2& actual)
+{
+	return !StrInHelper::Compare(substr, actual);
+}
+
+template<typename T1, typename T2>
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* substr_str, const char* actual_str
+	, const T1& substr, const T2& actual)
+{
+	if( Compare(substr, actual) )
 	{
 		return ::iutest::AssertionSuccess();
 	}
-	return ::iutest::AssertionFailure() << "error: Expected: " << "strstr(" << actual_str << ", " << substr_str << ") != NULL"
-		<< "\n  Actual: " << "strstr(L\"" << actual << "\", " << substr << ") == NULL";
+
+	return ::iutest::AssertionFailure() << "error: Expected: " << "strstr(" << actual_str << ", " << substr_str << ") == NULL"
+		<< "\n  Actual: " << "strstr(\"" << actual << "\", " << substr << ") != NULL";
+}
+
 }
 
 /**
@@ -459,19 +533,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const c
 inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNOTIN(const char* substr_str, const char* actual_str
 	, const char* substr, const char* actual)
 {
-	if( substr == NULL || actual == NULL )
-	{
-		if( substr != actual )
-		{
-			return ::iutest::AssertionSuccess();
-		}
-	}
-	else if( strstr(actual, substr) == NULL )
-	{
-		return ::iutest::AssertionSuccess();
-	}
-	return ::iutest::AssertionFailure() << "error: Expected: " << "strstr(" << actual_str << ", " << substr_str << ") == NULL"
-		<< "\n  Actual: " << "strstr(\"" << actual << "\", " << substr << ") != NULL";
+	return StrNotInHelper::Assertion(substr_str, actual_str, substr, actual);
 }
 
 /**
@@ -480,19 +542,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNOTIN(cons
 inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNOTIN(const char* substr_str, const char* actual_str
 	, const wchar_t* substr, const wchar_t* actual)
 {
-	if( substr == NULL || actual == NULL )
-	{
-		if( substr != actual )
-		{
-			return ::iutest::AssertionSuccess();
-		}
-	}
-	else if( wcsstr(actual, substr) == NULL )
-	{
-		return ::iutest::AssertionSuccess();
-	}
-	return ::iutest::AssertionFailure() << "error: Expected: " << "strstr(" << actual_str << ", " << substr_str << ") == NULL"
-		<< "\n  Actual: " << "strstr(L\"" << actual << "\", " << substr << ") != NULL";
+	return StrNotInHelper::Assertion(substr_str, actual_str, substr, actual);
 }
 
 /**
@@ -508,90 +558,6 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNOTIN(cons
 /**
  * @}
 */
-
-/**
- * @brief	OR テスト用オブジェクト郡
-*/
-struct CmpHelper
-{
-	IIUT_COMPARE_HELPER_DEC_(EQ);	//!< OR テスト用 EQ
-	IIUT_COMPARE_HELPER_DEC_(NE);	//!< OR テスト用 NE
-	IIUT_COMPARE_HELPER_DEC_(LE);	//!< OR テスト用 LE
-	IIUT_COMPARE_HELPER_DEC_(LT);	//!< OR テスト用 LT
-	IIUT_COMPARE_HELPER_DEC_(GE);	//!< OR テスト用 GE
-	IIUT_COMPARE_HELPER_DEC_(GT);	//!< OR テスト用 GT
-};
-
-#undef IIUT_COMPARE_HELPER_DEC_
-
-/**
- * @brief	OR テスト用比較ヘルパー
- * @deprecated please use IUTEST_ASSERT( expr1 || expr2 )
-*/
-template<typename COMP>
-struct CmpHelperOR
-{
-private:
-	template<typename T, typename DMY>
-	struct CompImpl
-	{
-		template<typename T1, typename T2>
-		static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2
-			, T1 val1, T2 val2)
-		{
-			return T::Comp(expr1, expr2, val1, val2);
-		}
-	};
-	template<typename DMY>
-	struct CompImpl<CmpHelper::EQ, DMY>
-	{
-		template<typename T1, typename T2>
-		static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2
-			, T1 val1, T2 val2)
-		{
-			// val1 == actual
-			return CmpHelper::EQ::Comp(expr2, expr1, val2, val1);
-		}
-	};
-public:
-
-	/**
-	 * @brief	フォーマッター
-	*/
-	template<typename T1, typename T2>
-	static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2
-		, T1 val1, T2 val2)
-	{
-		return CompImpl<COMP, void>::Comp(expr1, expr2, val1, val2);
-	}
-	/** @overload */
-	template<typename T1, typename T2, typename T3>
-	static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2, const char* expr3
-		, T1 val1, T2 val2, T3 val3)
-	{
-		typename ::iutest_type_traits::add_rvalue_reference< ::iutest::AssertionResult >::type ar = Comp(expr1, expr2, val1, val2);
-		if( ar ) return ar;
-		return Comp(expr1, expr3, val1, val3) << "\n" << ar.message();
-	}
-	/** @overload */
-	template<typename T1, typename T2, typename T3, typename T4>
-	static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2, const char* expr3, const char* expr4
-		, T1 val1, T2 val2, T3 val3, T4 val4)
-	{
-		typename ::iutest_type_traits::add_rvalue_reference< ::iutest::AssertionResult >::type ar =  Comp(expr1, expr2, expr3, val1, val2, val3);
-		if( ar ) return ar;
-		return Comp(expr1, expr4, val1, val4) << "\n" << ar.message();
-	}
-	/** @overload */
-	template<typename T1, typename T2, typename T3, typename T4, typename T5>
-	static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2, const char* expr3, const char* expr4, const char* expr5
-		, T1 val1, T2 val2, T3 val3, T4 val4, T5 val5)
-	{
-		typename ::iutest_type_traits::add_rvalue_reference< ::iutest::AssertionResult >::type ar =  Comp(expr1, expr2, expr3, expr4, val1, val2, val3, val4);
-		if( ar ) return ar;
-		return Comp(expr1, expr5, val1, val5) << "\n" << ar.message();
-	}
-};
 
 }	// end of namespace iuutil
 

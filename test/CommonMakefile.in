@@ -100,6 +100,7 @@ TARGETS_IUTEST_ONLY = \
           iutest_env_var_gtest_tests \
           iutest_ostream_formatter_tests \
           iutest_tap_printer_listener_tests \
+          iutest_type_param_tests_strict \
           iutest_unit_tests \
 
 BUILD_ONLY = iutest_break_on_failure_tests \

@@ -341,9 +341,9 @@ public:
 	{
 		if( m_names != NULL )
 		{
-			fprintf(stderr, "%s Test %s must be defined before IUTEST_REGISTER_TYPED_TEST_CASE_P(%s, ...).\n"
-				, detail::FormatCompilerIndependentFileLocation(file, line).c_str(), test_name, testcase_name);
-			fflush(stderr);
+			IUTEST_LOG_(WARNING) << detail::FormatCompilerIndependentFileLocation(file, line)
+				<< " Test " << test_name << " must be defined before IUTEST_REGISTER_TYPED_TEST_CASE_P("
+				<< testcase_name << ", ...).\n";
 		}
 #if IUTEST_TYPED_TEST_P_STRICT
 		m_list.insert(test_name);
@@ -368,9 +368,8 @@ public:
 					continue;
 				}
 			}
-			fprintf(stderr, "%s: %s Test has not been registered.\n"
-				, detail::FormatCompilerIndependentFileLocation(file, line).c_str(), test_name);
-			fflush(stderr);
+			IUTEST_LOG_(WARNING) << detail::FormatCompilerIndependentFileLocation(file, line)
+				<< ": " << test_name << " Test has not been registered.\n";
 			ret = false;
 		}
 		return ret;
