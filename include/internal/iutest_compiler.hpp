@@ -650,26 +650,6 @@
 #endif
 
 // c++
-// attribute
-
-//! unused attribute
-#if !defined(IUTEST_ATTRIBUTE_UNUSED_)
-#  if (defined(__GNUC__) && !defined(COMPILER_ICC)) || defined(__clang__)
-#    define IUTEST_ATTRIBUTE_UNUSED_	__attribute__ ((unused))
-#  else
-#    define IUTEST_ATTRIBUTE_UNUSED_
-#  endif
-#endif
-
-//! pure attribute
-#if !defined(IUTEST_ATTRIBUTE_PURE_)
-#  if defined(__GNUC__) && !defined(COMPILER_ICC)
-#    define IUTEST_ATTRIBUTE_PURE_		__attribute__ ((pure))
-#  else
-#    define IUTEST_ATTRIBUTE_PURE_
-#  endif
-#endif
-
 //! has exceptions
 #if !defined(IUTEST_HAS_EXCEPTIONS)
 #  if   defined(_MSC_VER) || defined(__BORLANDC__)
@@ -937,6 +917,45 @@
 
 #if !defined(IUTEST_HAS_ANALYSIS_ASSUME)
 #  define IUTEST_HAS_ANALYSIS_ASSUME		0
+#endif
+
+// attribute
+
+//! unused attribute
+#if !defined(IUTEST_ATTRIBUTE_UNUSED_)
+#  if (defined(__GNUC__) && !defined(COMPILER_ICC)) || defined(__clang__)
+#    define IUTEST_ATTRIBUTE_UNUSED_	__attribute__ ((unused))
+#  else
+#    define IUTEST_ATTRIBUTE_UNUSED_
+#  endif
+#endif
+
+//! pure attribute
+#if !defined(IUTEST_ATTRIBUTE_PURE_)
+#  if defined(__GNUC__) && !defined(COMPILER_ICC)
+#    define IUTEST_ATTRIBUTE_PURE_		__attribute__ ((pure))
+#  else
+#    define IUTEST_ATTRIBUTE_PURE_
+#  endif
+#endif
+
+//! noreturn
+#if !defined(IUTEST_ATTRIBUTE_NORETURN_)
+#  if   defined(__clang__)
+#    if __has_feature(cxx_attributes)
+#      define IUTEST_ATTRIBUTE_NORETURN_	[[noreturn]]
+#    elif __has_attribute(noreturn)
+#      define IUTEST_ATTRIBUTE_NORETURN_	__attribute__ ((noreturn))
+#    endif
+#  elif defined(__GNUC__) && !defined(COMPILER_ICC)
+#    define IUTEST_ATTRIBUTE_NORETURN_		__attribute__ ((noreturn))
+#  elif defined(_MSC_VER)
+#    define IUTEST_ATTRIBUTE_NORETURN_		__declspec(noreturn)
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_NORETURN_)
+#  define IUTEST_ATTRIBUTE_NORETURN_
 #endif
 
 // workaround

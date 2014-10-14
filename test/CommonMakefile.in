@@ -53,6 +53,7 @@ TARGETS1= \
           iutest_commandline_tests \
           iutest_disabled_tests \
           iutest_environment_tests \
+          iutest_exception_assertion_tests \
           iutest_exception_tests \
           iutest_expression_assertion_tests \
           iutest_extension_tests \

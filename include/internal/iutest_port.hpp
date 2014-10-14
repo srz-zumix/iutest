@@ -58,6 +58,7 @@ void SleepMillisec(unsigned int millisec);
 #if defined(IUTEST_OS_WINDOWS_MOBILE)
 void Abort(void);
 #else
+IUTEST_ATTRIBUTE_NORETURN_ void Abort(void);
 inline void Abort(void) { abort(); }
 #endif
 
