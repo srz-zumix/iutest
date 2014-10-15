@@ -221,6 +221,12 @@ IUTEST(Matcher, Propetry)
 	IUTEST_EXPECT_THAT(mx, Each(Pair(Le(10), Property(&X::GetA, Ge(0)))));
 }
 
+IUTEST(Matcher, Pointee)
+{
+	IUTEST_EXPECT_THAT(a, Pointee(0));
+	IUTEST_EXPECT_THAT(a, Pointee(Ge(0)));
+}
+
 IUTEST(Matcher, _)
 {
 	IUTEST_EXPECT_THAT(42, _);
@@ -396,6 +402,12 @@ IUTEST(MatcherFailure, Property)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( x, Property(&X::GetA, 100)), "Property: 100" );
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( x, Property(&X::GetA, Ne(1))), "Property: Ne: 1" );
+}
+
+IUTEST(MatcherFailure, Pointee)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(a, Pointee(1)), "Pointee: 1");
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(a, Pointee(Gt(0))), "Pointee: Gt: 0");
 }
 
 IUTEST(MatcherFailure, A)

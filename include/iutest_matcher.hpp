@@ -1006,6 +1006,42 @@ private:
 };
 
 /**
+ * @brief	Pointee matcher
+*/
+template<typename T>
+class PointeeMatcher : public IMatcher
+{
+public:
+	PointeeMatcher(const T& expected) : m_expected(expected) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual) const
+	{
+		if( Check(actual) ) return AssertionSuccess();
+		return AssertionFailure() << WitchIs();
+	}
+
+public:
+	::std::string WitchIs(void) const IUTEST_CXX_OVERRIDE
+	{
+		iu_global_format_stringstream strm;
+		strm << "Pointee: " << m_expected;
+		return strm.str();
+	}
+private:
+	template<typename U>
+	bool Check(const U& actual) const
+	{
+		return static_cast<bool>(CastToMatcher(m_expected)(*actual));
+	}
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(PointeeMatcher);
+
+	const T& m_expected;
+};
+
+/**
  * @brief	Any matcher
 */
 template<typename T>
@@ -1584,6 +1620,13 @@ detail::FieldMatcher<F, T> Field(const F& field, const T& expected) { return det
 */
 template<typename P, typename T>
 detail::PropertyMatcher<P, T> Property(const P& prop, const T& expected) { return detail::PropertyMatcher<P, T>(prop, expected); }
+
+/**
+ * @ingroup	MATCHERS
+ * @brief	Make Pointee matcher
+*/
+template<typename T>
+detail::PointeeMatcher<T> Pointee(const T& expected) { return detail::PointeeMatcher<T>(expected); }
 
 /**
  * @ingroup	MATCHERS
