@@ -458,7 +458,7 @@ private:
  * @brief	Cast to matcher
 */
 template<typename T>
-const T& CastToMatcher(const T& matcher
+T& CastToMatcher(T& matcher
 	, typename detail::enable_if_t< IMatcher::is_matcher<T> >::type*& = detail::enabler::value)
 {
 	return matcher;
@@ -483,7 +483,7 @@ public:
 
 public:
 	template<typename U>
-	AssertionResult operator ()(const U& actual) const
+	AssertionResult operator ()(const U& actual)
 	{
 		if( Contains(actual, m_expected) ) return AssertionSuccess();
 		return AssertionFailure() << WitchIs();
@@ -498,37 +498,29 @@ public:
 	}
 private:
 	template<typename TT, typename Container>
-	static bool Contains(const Container& actual, const TT& expected)
+	bool Contains(const Container& actual, const TT& expected)
 	{
 		return ContainsContainer(actual.begin(), actual.end(), expected);
 	}
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 	template<typename TT, typename U, size_t SIZE>
-	static bool Contains(const U(&actual)[SIZE], const TT& expected)
+	bool Contains(const U(&actual)[SIZE], const TT& expected)
 	{
 		return ContainsContainer(actual, actual + SIZE, expected);
 	}
 #endif
 
 	template<typename TT, typename Ite>
-	static bool ContainsContainer(Ite begin, Ite end, const TT& expected
-		, typename detail::enable_if_t< is_matcher<TT> >::type*& = detail::enabler::value)
+	bool ContainsContainer(Ite begin, Ite end, const TT& expected)
 	{
 		for( Ite it = begin; it != end; ++it )
 		{
-			if( expected(*it) )
+			if( CastToMatcher(expected)(*it) )
 			{
 				return true;
 			}
 		}
 		return false;
-	}
-
-	template<typename TT, typename Ite>
-	static bool ContainsContainer(Ite begin, Ite end, const TT& expected
-		, typename detail::disable_if_t< is_matcher<TT> >::type*& = detail::enabler::value)
-	{
-		return ::std::find(begin, end, expected) != end;
 	}
 
 	static bool Contains(const char* actual, const char* expected)
@@ -554,7 +546,7 @@ private:
 private:
 	IUTEST_PP_DISALLOW_ASSIGN(ContainsMatcher);
 
-	const T& m_expected;
+	T m_expected;
 };
 
 /**
@@ -568,9 +560,9 @@ public:
 
 public:
 	template<typename U>
-	AssertionResult operator ()(const U& actual) const
+	AssertionResult operator ()(const U& actual)
 	{
-		if( Each(actual, m_expected) ) return AssertionSuccess();
+		if( Each(actual) ) return AssertionSuccess();
 		return AssertionFailure() << WitchIs();
 	}
 
@@ -582,25 +574,25 @@ public:
 		return strm.str();
 	}
 private:
-	template<typename TT, typename Container>
-	static bool Each(const Container& actual, const TT& expected)
+	template<typename Container>
+	bool Each(const Container& actual)
 	{
-		return EachContainer(actual.begin(), actual.end(), expected);
+		return EachContainer(actual.begin(), actual.end());
 	}
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-	template<typename TT, typename U, size_t SIZE>
-	static bool Each(const U(&actual)[SIZE], const TT& expected)
+	template<typename U, size_t SIZE>
+	bool Each(const U(&actual)[SIZE])
 	{
-		return EachContainer(actual, actual + SIZE, expected);
+		return EachContainer(actual, actual + SIZE);
 	}
 #endif
 
-	template<typename TT, typename Ite>
-	static bool EachContainer(Ite begin, Ite end, const TT& expected)
+	template<typename Ite>
+	bool EachContainer(Ite begin, Ite end)
 	{
 		for( Ite it = begin; it != end; ++it )
 		{
-			if( !CastToMatcher(expected)(*it) )
+			if( !CastToMatcher(m_expected)(*it) )
 			{
 				return false;
 			}
@@ -611,7 +603,7 @@ private:
 private:
 	IUTEST_PP_DISALLOW_ASSIGN(EachMatcher);
 
-	const T& m_expected;
+	T m_expected;
 };
 
 
@@ -696,7 +688,7 @@ class ElementsAreMatcherBase : public IMatcher
 {
 protected:
 	template<typename T, typename U>
-	static AssertionResult Check(const T& matchers, const U& actual)
+	static AssertionResult Check(T& matchers, const U& actual)
 	{
 		return Check_<T, U, 0, tuples::tuple_size<T>::value-1>(matchers, actual);
 	}
@@ -709,16 +701,10 @@ protected:
 		return str;
 	}
 private:
-	template<typename T, typename U>
-	static AssertionResult CallMatcher(const T& actual, const U& expected)
-	{
-		return CastToMatcher(expected)(actual);
-	}
-
 	template<typename T, typename U, int N, int LAST>
-	static AssertionResult Check_(const T& matchers, const U& actual, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
+	static AssertionResult Check_(T& matchers, const U& actual, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
 	{
-		AssertionResult ar = CallMatcher(actual[N], tuples::get<N>(matchers));
+		AssertionResult ar = CastToMatcher(tuples::get<N>(matchers))(actual[N]);
 		if( ar )
 		{
 			return ar;
@@ -726,9 +712,9 @@ private:
 		return AssertionFailure() << WitchIsElem<N>(matchers);
 	}
 	template<typename T, typename U, int N, int LAST>
-	static AssertionResult Check_(const T& matchers, const U& actual, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
+	static AssertionResult Check_(T& matchers, const U& actual, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
 	{
-		AssertionResult ar = CallMatcher(actual[N], tuples::get<N>(matchers));
+		AssertionResult ar = CastToMatcher(tuples::get<N>(matchers))(actual[N]);
 		if( ar )
 		{
 			return Check_<T, U, N + 1, LAST>(matchers, actual);
@@ -770,7 +756,7 @@ public:
 
 public:
 	template<typename U>
-	AssertionResult operator ()(const U& actual) const
+	AssertionResult operator ()(const U& actual)
 	{
 		return Check(m_matchers, actual);
 	}
@@ -794,7 +780,7 @@ public:
 
 public:
 	template<typename U>
-	AssertionResult operator ()(const U& actual) const
+	AssertionResult operator ()(const U& actual)
 	{
 		return Check(m_matchers, actual);
 	}
@@ -814,7 +800,7 @@ private:
 	class IUTEST_PP_CAT(ElementsAreMatcher, n) : public ElementsAreMatcherBase {		\
 	public: IUTEST_PP_CAT(ElementsAreMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m))	\
 		: m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}									\
-	template<typename U>AssertionResult operator ()(const U& actual) const {			\
+	template<typename U>AssertionResult operator ()(const U& actual) {					\
 		return Check(m_matchers, actual); }												\
 	::std::string WitchIs(void) const IUTEST_CXX_OVERRIDE {								\
 		return ElementsAreMatcherBase::WitchIs<0>(m_matchers); }						\
@@ -850,7 +836,7 @@ public:
 
 public:
 	template<typename U>
-	AssertionResult operator ()(const U& actual) const
+	AssertionResult operator ()(const U& actual)
 	{
 		if( Check(actual) ) return AssertionSuccess();
 		return AssertionFailure() << WitchIs();
@@ -867,13 +853,13 @@ public:
 private:
 	template<typename U>
 	bool Check(const U& actual
-		, typename detail::disable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value) const
+		, typename detail::disable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
 	{
 		return static_cast<bool>(CastToMatcher(m_expected)(actual.*m_field));
 	}
 	template<typename U>
 	bool Check(const U& actual
-		, typename detail::enable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value) const
+		, typename detail::enable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
 	{
 		return static_cast<bool>(CastToMatcher(m_expected)(actual->*m_field));
 	}
@@ -881,7 +867,7 @@ private:
 	IUTEST_PP_DISALLOW_ASSIGN(FieldMatcher);
 
 	const F& m_field;
-	const T& m_expected;
+	T m_expected;
 };
 
 /**
@@ -895,7 +881,7 @@ public:
 
 public:
 	template<typename U>
-	AssertionResult operator ()(const U& actual) const
+	AssertionResult operator ()(const U& actual)
 	{
 		if( Check(actual) ) return AssertionSuccess();
 		return AssertionFailure() << WitchIs();
@@ -912,13 +898,13 @@ public:
 private:
 	template<typename U>
 	bool Check(const U& actual
-		, typename detail::disable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value) const
+		, typename detail::disable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
 	{
 		return static_cast<bool>(CastToMatcher(m_expected)((actual.*m_property)()));
 	}
 	template<typename U>
 	bool Check(const U& actual
-		, typename detail::enable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value) const
+		, typename detail::enable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
 	{
 		return static_cast<bool>(CastToMatcher(m_expected)((actual->*m_property)()));
 	}
@@ -926,7 +912,7 @@ private:
 	IUTEST_PP_DISALLOW_ASSIGN(PropertyMatcher);
 
 	const F& m_property;
-	const T& m_expected;
+	T m_expected;
 };
 
 /**
@@ -971,7 +957,7 @@ public:
 
 public:
 	template<typename U>
-	AssertionResult operator ()(const U& actual) const
+	AssertionResult operator ()(const U& actual)
 	{
 		if( !CheckElem(actual.first, m_m1) )
 		{
@@ -993,7 +979,7 @@ public:
 	}
 private:
 	template<typename T, typename U>
-	static bool CheckElem(const T& actual, const U& matcher)
+	bool CheckElem(const T& actual, U& matcher)
 	{
 		return static_cast<bool>(CastToMatcher(matcher)(actual));
 	}
@@ -1001,8 +987,8 @@ private:
 private:
 	IUTEST_PP_DISALLOW_ASSIGN(PairMatcher);
 
-	const T1& m_m1;
-	const T2& m_m2;
+	T1 m_m1;
+	T2 m_m2;
 };
 
 /**
@@ -1016,7 +1002,7 @@ public:
 
 public:
 	template<typename U>
-	AssertionResult operator ()(const U& actual) const
+	AssertionResult operator ()(const U& actual)
 	{
 		if( Check(actual) ) return AssertionSuccess();
 		return AssertionFailure() << WitchIs();
@@ -1026,19 +1012,19 @@ public:
 	::std::string WitchIs(void) const IUTEST_CXX_OVERRIDE
 	{
 		iu_global_format_stringstream strm;
-		strm << "Pointee: " << m_expected;
+		strm << "Points To: " << m_expected;
 		return strm.str();
 	}
 private:
 	template<typename U>
-	bool Check(const U& actual) const
+	bool Check(const U& actual)
 	{
 		return static_cast<bool>(CastToMatcher(m_expected)(*actual));
 	}
 private:
 	IUTEST_PP_DISALLOW_ASSIGN(PointeeMatcher);
 
-	const T& m_expected;
+	T m_expected;
 };
 
 /**
@@ -1103,7 +1089,7 @@ class AllOfMatcherBase : public IMatcher
 {
 protected:
 	template<typename T, typename U>
-	static AssertionResult Check(const T& matchers, const U& actual)
+	static AssertionResult Check(T& matchers, const U& actual)
 	{
 		return Check_<T, U, 0, tuples::tuple_size<T>::value-1>(matchers, actual);
 	}
@@ -1114,7 +1100,7 @@ protected:
 	}
 private:
 	template<typename T, typename U, int N, int LAST>
-	static AssertionResult Check_(const T& matchers, const U& actual, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
+	static AssertionResult Check_(T& matchers, const U& actual, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
 	{
 		AssertionResult ar = tuples::get<N>(matchers)(actual);
 		if( ar )
@@ -1124,7 +1110,7 @@ private:
 		return AssertionFailure() << WitchIs_<T, 0, N>(matchers);
 	}
 	template<typename T, typename U, int N, int LAST>
-	static AssertionResult Check_(const T& matchers, const U& actual, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
+	static AssertionResult Check_(T& matchers, const U& actual, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
 	{
 		AssertionResult ar = tuples::get<N>(matchers)(actual);
 		if( ar )
@@ -1160,7 +1146,7 @@ public:
 
 public:
 	template<typename U>
-	AssertionResult operator ()(const U& actual) const
+	AssertionResult operator ()(const U& actual)
 	{
 		return Check(m_matchers, actual);
 	}
@@ -1184,7 +1170,7 @@ public:
 
 public:
 	template<typename U>
-	AssertionResult operator ()(const U& actual) const
+	AssertionResult operator ()(const U& actual)
 	{
 		return Check(m_matchers, actual);
 	}
@@ -1204,7 +1190,7 @@ private:
 	class IUTEST_PP_CAT(AllOfMatcher, n) : public AllOfMatcherBase {				\
 	public: IUTEST_PP_CAT(AllOfMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m))	\
 		: m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}								\
-	template<typename U>AssertionResult operator ()(const U& actual) const {		\
+	template<typename U>AssertionResult operator ()(const U& actual) {				\
 		return Check(m_matchers, actual); }											\
 	::std::string WitchIs(void) const IUTEST_CXX_OVERRIDE {							\
 		return AllOfMatcherBase::WitchIs<0>(m_matchers); }							\
@@ -1233,7 +1219,7 @@ class AnyOfMatcherBase : public IMatcher
 {
 protected:
 	template<typename T, typename U>
-	static AssertionResult Check(const T& matchers, const U& actual)
+	static AssertionResult Check(T& matchers, const U& actual)
 	{
 		return Check_<T, U, 0, tuples::tuple_size<T>::value-1>(matchers, actual);
 	}
@@ -1244,7 +1230,7 @@ protected:
 	}
 private:
 	template<typename T, typename U, int N, int LAST>
-	static AssertionResult Check_(const T& matchers, const U& actual, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
+	static AssertionResult Check_(T& matchers, const U& actual, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
 	{
 		AssertionResult ar = tuples::get<N>(matchers)(actual);
 		if( ar )
@@ -1254,7 +1240,7 @@ private:
 		return AssertionFailure() << WitchIs_<T, 0, N>(matchers);
 	}
 	template<typename T, typename U, int N, int LAST>
-	static AssertionResult Check_(const T& matchers, const U& actual, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
+	static AssertionResult Check_(T& matchers, const U& actual, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
 	{
 		AssertionResult ar = tuples::get<N>(matchers)(actual);
 		if( ar )
@@ -1291,7 +1277,7 @@ public:
 
 public:
 	template<typename U>
-	AssertionResult operator ()(const U& actual) const
+	AssertionResult operator ()(const U& actual)
 	{
 		return Check(m_matchers, actual);
 	}
@@ -1315,7 +1301,7 @@ public:
 
 public:
 	template<typename U>
-	AssertionResult operator ()(const U& actual) const
+	AssertionResult operator ()(const U& actual)
 	{
 		return Check(m_matchers, actual);
 	}
@@ -1335,7 +1321,7 @@ private:
 	class IUTEST_PP_CAT(AnyOfMatcher, n) : public AnyOfMatcherBase {				\
 	public: IUTEST_PP_CAT(AnyOfMatcher, n)(IUTEST_PP_ENUM_BINARY_PARAMS(n, T, m))	\
 		: m_matchers(IUTEST_PP_ENUM_PARAMS(n, m)) {}								\
-	template<typename U>AssertionResult operator ()(const U& actual) const {		\
+	template<typename U>AssertionResult operator ()(const U& actual) {				\
 		return Check(m_matchers, actual); }											\
 	::std::string WitchIs(void) const IUTEST_CXX_OVERRIDE {							\
 		return AnyOfMatcherBase::WitchIs<0>(m_matchers); }							\
@@ -1525,6 +1511,9 @@ detail::EndsWithMatcher<const T&> EndsWith(const T& str) { return detail::EndsWi
 */
 template<typename T>
 detail::ContainsMatcher<T> Contains(const T& expected) { return detail::ContainsMatcher<T>(expected); }
+
+/** @overload */
+inline detail::ContainsMatcher<const char*> Contains(const char* expected) { return detail::ContainsMatcher<const char*>(expected); }
 
 /**
  * @ingroup	MATCHERS

@@ -406,8 +406,8 @@ IUTEST(MatcherFailure, Property)
 
 IUTEST(MatcherFailure, Pointee)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(a, Pointee(1)), "Pointee: 1");
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(a, Pointee(Gt(0))), "Pointee: Gt: 0");
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(a, Pointee(1)), "Points To: 1");
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(a, Pointee(Gt(0))), "Points To: Gt: 0");
 }
 
 IUTEST(MatcherFailure, A)

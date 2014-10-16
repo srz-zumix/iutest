@@ -36,26 +36,6 @@ IUTEST(ExpressionTest, Test)
 	IUTEST_ASSERT_TRUE(IUTEST_EXPRESSION(f() != 42) || IUTEST_EXPRESSION(f() != 10));
 }
 
-#if IUTEST_HAS_MATCHERS
-
-/* ---------------------------------------------------
- * matcher
-*//*--------------------------------------------------*/
-IUTEST(MatcherTest, Test)
-{
-	IUTEST_EXPECT_THAT("hoge", ::iutest::StartsWith("ho"));
-	IUTEST_EXPECT_THAT("hoge", ::iutest::Contains("ho"));
-	IUTEST_EXPECT_THAT("hoge", ::iutest::EndsWith("ge"));
-	IUTEST_EXPECT_THAT(0, ::iutest::Equals(0));
-	IUTEST_EXPECT_THAT("hoge", ::iutest::Equals("hoge"));
-#if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
-	IUTEST_EXPECT_THAT("hoge", ::iutest::AllOf(::iutest::StartsWith("ho"), ::iutest::EndsWith("ge")));
-	IUTEST_EXPECT_THAT("hoge", ::iutest::AnyOf(::iutest::StartsWith("ho"), ::iutest::EndsWith("ge")));
-#endif
-}
-
-#endif
-
 IUTEST(AssertionTest, NoFailure)
 {
 	IUTEST_ASSERT_NO_FATAL_FAILURE( IUTEST_ASSERT_TRUE(true) );

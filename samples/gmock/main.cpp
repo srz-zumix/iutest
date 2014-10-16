@@ -73,6 +73,8 @@ using testing::Pointwise;
 using testing::Lt;
 using testing::Gt;
 using testing::Not;
+using testing::Contains;
+using testing::Each;
 
 TEST(PointwiseTest, WorksForLhsNativeArray)
 {
@@ -83,4 +85,5 @@ TEST(PointwiseTest, WorksForLhsNativeArray)
   rhs.push_back(6);
   EXPECT_THAT(lhs, Pointwise(Lt(), rhs));
   EXPECT_THAT(lhs, Not(Pointwise(Gt(), rhs)));
+  EXPECT_THAT(lhs, Each(Lt(0)));
 }
