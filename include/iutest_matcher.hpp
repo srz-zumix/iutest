@@ -511,7 +511,7 @@ private:
 #endif
 
 	template<typename TT, typename Ite>
-	bool ContainsContainer(Ite begin, Ite end, const TT& expected)
+	bool ContainsContainer(Ite begin, Ite end, TT& expected)
 	{
 		for( Ite it = begin; it != end; ++it )
 		{
