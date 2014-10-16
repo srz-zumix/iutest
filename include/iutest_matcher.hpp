@@ -498,13 +498,13 @@ public:
 	}
 private:
 	template<typename TT, typename Container>
-	bool Contains(const Container& actual, const TT& expected)
+	bool Contains(const Container& actual, TT& expected)
 	{
 		return ContainsContainer(actual.begin(), actual.end(), expected);
 	}
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 	template<typename TT, typename U, size_t SIZE>
-	bool Contains(const U(&actual)[SIZE], const TT& expected)
+	bool Contains(const U(&actual)[SIZE], TT& expected)
 	{
 		return ContainsContainer(actual, actual + SIZE, expected);
 	}
