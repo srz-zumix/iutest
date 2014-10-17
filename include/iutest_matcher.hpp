@@ -523,26 +523,6 @@ private:
 		return false;
 	}
 
-	static bool Contains(const char* actual, const char* expected)
-	{
-		return strstr(actual, expected) != NULL;
-	}
-	static bool Contains(const ::std::string& actual, const char* expected)
-	{
-		const char* p = actual.c_str();
-		return Contains(p, expected);
-	}
-	static bool Contains(const char* actual, const ::std::string& expected)
-	{
-		const char* p = expected.c_str();
-		return Contains(actual, p);
-	}
-	static bool Contains(const ::std::string& actual, const ::std::string& expected)
-	{
-		const char* p = expected.c_str();
-		return Contains(actual, p);
-	}
-
 private:
 	IUTEST_PP_DISALLOW_ASSIGN(ContainsMatcher);
 
@@ -1511,9 +1491,6 @@ detail::EndsWithMatcher<const T&> EndsWith(const T& str) { return detail::EndsWi
 */
 template<typename T>
 detail::ContainsMatcher<T> Contains(const T& expected) { return detail::ContainsMatcher<T>(expected); }
-
-/** @overload */
-inline detail::ContainsMatcher<const char*> Contains(const char* expected) { return detail::ContainsMatcher<const char*>(expected); }
 
 /**
  * @ingroup	MATCHERS

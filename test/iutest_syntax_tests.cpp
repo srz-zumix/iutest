@@ -415,30 +415,30 @@ IUTEST(SyntaxTest, Matcher)
 IUTEST(SyntaxTest, AllOf)
 {
 	IUTEST_EXPECT_THAT("9347812650", ::iutest::AllOf(
-		  ::iutest::Contains("0")
-		, ::iutest::Contains("1")
-		, ::iutest::Contains("2")
-		, ::iutest::Contains("3")
-		, ::iutest::Contains("4")
-		, ::iutest::Contains("5")
-		, ::iutest::Contains("6")
-		, ::iutest::Contains("7")
-		, ::iutest::Contains("8")
+		  ::iutest::HasSubstr("0")
+		, ::iutest::HasSubstr("1")
+		, ::iutest::HasSubstr("2")
+		, ::iutest::HasSubstr("3")
+		, ::iutest::HasSubstr("4")
+		, ::iutest::HasSubstr("5")
+		, ::iutest::HasSubstr("6")
+		, ::iutest::HasSubstr("7")
+		, ::iutest::HasSubstr("8")
 	));
 }
 
 IUTEST(SyntaxTest, AnyOf)
 {
 	IUTEST_EXPECT_THAT("hoge7", ::iutest::AnyOf(
-		  ::iutest::Contains("0")
-		, ::iutest::Contains("1")
-		, ::iutest::Contains("2")
-		, ::iutest::Contains("3")
-		, ::iutest::Contains("4")
-		, ::iutest::Contains("5")
-		, ::iutest::Contains("6")
-		, ::iutest::Contains("7")
-		, ::iutest::Contains("8")
+		  ::iutest::HasSubstr("0")
+		, ::iutest::HasSubstr("1")
+		, ::iutest::HasSubstr("2")
+		, ::iutest::HasSubstr("3")
+		, ::iutest::HasSubstr("4")
+		, ::iutest::HasSubstr("5")
+		, ::iutest::HasSubstr("6")
+		, ::iutest::HasSubstr("7")
+		, ::iutest::HasSubstr("8")
 	));
 }
 

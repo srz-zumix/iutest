@@ -174,15 +174,7 @@ IUTEST(Matcher, Equals)
 	IUTEST_EXPECT_THAT(hoge, Equals(hoge));
 }
 
-IUTEST(Matcher, ContainsString)
-{
-	IUTEST_EXPECT_THAT("hoge", Contains("ho"));
-	IUTEST_EXPECT_THAT("hoge", Contains(oge));
-	IUTEST_EXPECT_THAT(hoge, Contains("ge"));
-	IUTEST_EXPECT_THAT(hoge, Contains(hog));
-}
-
-IUTEST(Matcher, ContainsContainer)
+IUTEST(Matcher, Contains)
 {
 	IUTEST_EXPECT_THAT(va, Contains(1));
 	IUTEST_EXPECT_THAT( b, Contains(1));
@@ -359,13 +351,7 @@ IUTEST(MatcherFailure, Equals)
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, Equals(1)), "Eq: 1" );
 }
 
-IUTEST(MatcherFailure, ContainsString)
-{
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", Contains("Ho")), "Contains: Ho" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", Contains("oe")), "Contains: oe" );
-}
-
-IUTEST(MatcherFailure, ContainsContainer)
+IUTEST(MatcherFailure, Contains)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va, Contains(42)), "Contains: 42" );
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( b, Contains(42)), "Contains: 42" );
@@ -447,15 +433,15 @@ IUTEST(Matcher, AllOf)
 {
 	IUTEST_EXPECT_THAT("hoge", AllOf( StartsWith("ho"), EndsWith("ge")));
 	IUTEST_EXPECT_THAT("9347812650", AllOf(
-		  Contains("0")
-		, Contains("1")
-		, Contains("2")
-		, Contains("3")
-		, Contains("4")
-		, Contains("5")
-		, Contains("6")
-		, Contains("7")
-		, Contains("8")
+		  HasSubstr("0")
+		, HasSubstr("1")
+		, HasSubstr("2")
+		, HasSubstr("3")
+		, HasSubstr("4")
+		, HasSubstr("5")
+		, HasSubstr("6")
+		, HasSubstr("7")
+		, HasSubstr("8")
 	));
 	IUTEST_EXPECT_THAT(va, Each(AllOf( Ge(0), Le(10) )));
 }
@@ -466,15 +452,15 @@ IUTEST(Matcher, AnyOf)
 	IUTEST_EXPECT_THAT("hoge", AnyOf( StartsWith("ho"), EndsWith("Ge")));
 	IUTEST_EXPECT_THAT("hoge", AnyOf( StartsWith("Ho"), EndsWith("ge")));
 	IUTEST_EXPECT_THAT("hoge7", AnyOf(
-		  Contains("0")
-		, Contains("1")
-		, Contains("2")
-		, Contains("3")
-		, Contains("4")
-		, Contains("5")
-		, Contains("6")
-		, Contains("7")
-		, Contains("8")
+		  HasSubstr("0")
+		, HasSubstr("1")
+		, HasSubstr("2")
+		, HasSubstr("3")
+		, HasSubstr("4")
+		, HasSubstr("5")
+		, HasSubstr("6")
+		, HasSubstr("7")
+		, HasSubstr("8")
 	));
 	IUTEST_EXPECT_THAT(va, Each(AnyOf( Ge(0), Le(10) )));
 }
