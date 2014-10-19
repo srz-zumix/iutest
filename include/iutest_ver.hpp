@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01109925u //!< iutest version 1.10.99.25
+#define IUTEST_VER			0x01109926u //!< iutest version 1.10.99.26
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x10u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x25u		//!< Revision
+#define IUTEST_REVISION		0x26u		//!< Revision
 
 /**
  * @mainpage
@@ -120,9 +120,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>Matcher に Eq,Ne,Le,Lt,Ge,Gt,IsNull,NotNull を追加</li>
       <li>Matcher に StrEq,StrNe,StrCaseEq,StrCaseNe,HasSubstr を追加</li>
       <li>Matcher に FloatEq,DoubleEq,NanSensitiveFloatEq,NanSensitiveDoubleEq を追加</li>
-      <li>Matcher に Pointee を追加</li>
-      <li>コンテナMatcher に Each,ElementsAre,ElementsAreArray を追加</li>
-      <li>コンテナMatcher の条件に Matcher を使えるように修正</li>
+      <li>Matcher に ResultOf,Pointee を追加</li>
+      <li>コンテナMatcher に Each,At,ElementsAre,ElementsAreArray を追加</li>
+	  <li>コンテナMatcher の Contains から HasSubstr 機能を削除</li>
+	  <li>コンテナMatcher の条件に Matcher を使えるように修正</li>
       <li>メンバーMatcher に Key,Pair,Field を追加</li>
       <li>ワイルドカードMatcher A,_ を追加</li>
       <li>IUTEST_*_FLOAT_EQ,DOUBLE_EQ で NAN の比較が真を返す不具合を修正</li>

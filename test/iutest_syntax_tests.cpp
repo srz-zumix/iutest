@@ -378,14 +378,15 @@ IUTEST(SyntaxTest, That)
 	if( int x=1 )
 		IUTEST_ASSERT_THAT(x, ::iutest::Eq(1)) << x;
 	if( int x=1 )
-		IUTEST_EXPECT_THAT(x, ::iutest::Eq(1)) << x;
+		IUTEST_EXPECT_THAT(x, ::iutest::Le(1)) << x;
 	if( int x=1 )
-		IUTEST_INFORM_THAT(x, ::iutest::Eq(1)) << x;
+		IUTEST_INFORM_THAT(x, ::iutest::Ge(1)) << x;
 	if( int x=1 )
-		IUTEST_ASSUME_THAT(x, ::iutest::Eq(1)) << x;
+		IUTEST_ASSUME_THAT(x, ::iutest::Ne(0)) << x;
 }
 
 struct X { int a, b; X(int _a, int _b) : a(_a), b(_b) {} int GetA() const { return a; } };
+int X2(int value) { return value*2; }
 
 IUTEST(SyntaxTest, Matcher)
 {
@@ -408,6 +409,8 @@ IUTEST(SyntaxTest, Matcher)
 	IUTEST_EXPECT_THAT(v, ::iutest::ElementsAreArray(a));
 	IUTEST_EXPECT_THAT(a, ::iutest::ElementsAreArray(v));
 	IUTEST_EXPECT_THAT(v, ::iutest::ElementsAreArray(v));
+	IUTEST_EXPECT_THAT(1, ::iutest::ResultOf(X2, 2));
+	IUTEST_EXPECT_THAT(1, ::iutest::ResultOf(X2, ::iutest::Gt(1)));
 }
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF

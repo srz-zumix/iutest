@@ -586,6 +586,37 @@ private:
 	T m_expected;
 };
 
+/**
+ * @brief	At matcher
+*/
+template<typename T>
+class AtMatcher : public IMatcher
+{
+public:
+	AtMatcher(const size_t index, const T& expected) : m_index(index), m_expected(expected) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual)
+	{
+		if( CastToMatcher(m_expected)(actual[m_index]) ) return AssertionSuccess();
+		return AssertionFailure() << WitchIs();
+	}
+
+public:
+	::std::string WitchIs(void) const IUTEST_CXX_OVERRIDE
+	{
+		iu_global_format_stringstream strm;
+		strm << "At " << m_index << ": " << m_expected;
+		return strm.str();
+	}
+
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(AtMatcher);
+
+	size_t m_index;
+	T m_expected;
+};
 
 /**
  * @brief	ElementsAreArray matcher
@@ -969,6 +1000,45 @@ private:
 
 	T1 m_m1;
 	T2 m_m2;
+};
+
+
+/**
+ * @brief	ResultOf matcher
+*/
+template<typename F, typename T>
+class ResultOfMatcher : public IMatcher
+{
+public:
+	ResultOfMatcher(const F& func, const T& expected) : m_func(func), m_expected(expected) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual)
+	{
+		if( Check(actual) ) return AssertionSuccess();
+		return AssertionFailure() << WitchIs();
+	}
+
+public:
+	::std::string WitchIs(void) const IUTEST_CXX_OVERRIDE
+	{
+		iu_global_format_stringstream strm;
+		strm << "Result of: " << m_expected;
+		//strm << "Result of " << detail::GetTypeName<F>() << "(): " << m_expected;
+		return strm.str();
+	}
+private:
+	template<typename U>
+	bool Check(const U& actual)
+	{
+		return static_cast<bool>(CastToMatcher(m_expected)((*m_func)(actual)));
+	}
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(ResultOfMatcher);
+
+	const F& m_func;
+	T m_expected;
 };
 
 /**
@@ -1502,6 +1572,14 @@ detail::EachMatcher<T> Each(const T& expected) { return detail::EachMatcher<T>(e
 
 /**
  * @ingroup	MATCHERS
+ * @brief	Make At matcher
+ * @details	argument[index] は expected にマッチする
+*/
+template<typename T>
+detail::AtMatcher<T> At(size_t index, const T& expected) { return detail::AtMatcher<T>(index, expected); }
+
+/**
+ * @ingroup	MATCHERS
  * @brief	Make ElementsAreArray matcher
  * @details	argument はの各要素が a の要素とマッチする
 */
@@ -1586,6 +1664,14 @@ detail::FieldMatcher<F, T> Field(const F& field, const T& expected) { return det
 */
 template<typename P, typename T>
 detail::PropertyMatcher<P, T> Property(const P& prop, const T& expected) { return detail::PropertyMatcher<P, T>(prop, expected); }
+
+/**
+ * @ingroup	MATCHERS
+ * @brief	Make ResultOf matcher
+ * @details	func(argument) の戻り値は expedted にマッチする 
+*/
+template<typename F, typename T>
+detail::ResultOfMatcher<F, T> ResultOf(const F& func, const T& expected) { return detail::ResultOfMatcher<F, T>(func, expected); }
 
 /**
  * @ingroup	MATCHERS

@@ -42,6 +42,7 @@ double d0 = 0.0;
 struct X { int a, b; X(int _a, int _b) : a(_a), b(_b) {} int GetA() const { return a; } };
 X x(1,1);
 ::std::map<int, X> mx;
+int X2(int v) { return v*2; }
 
 }
 
@@ -189,6 +190,12 @@ IUTEST(Matcher, Each)
 	IUTEST_EXPECT_THAT(vv, Each(Each(Le(10))));
 }
 
+IUTEST(Matcher, At)
+{
+	IUTEST_EXPECT_THAT( b, At(1, 2));
+	IUTEST_EXPECT_THAT(va, At(1, Gt(0)));
+}
+
 IUTEST(Matcher, Key)
 {
 	IUTEST_EXPECT_THAT( m, Each(Key(Le(10))));
@@ -211,6 +218,12 @@ IUTEST(Matcher, Propetry)
 	IUTEST_EXPECT_THAT( x, Property(&X::GetA, 1));
 	IUTEST_EXPECT_THAT(&x, Property(&X::GetA, 1));
 	IUTEST_EXPECT_THAT(mx, Each(Pair(Le(10), Property(&X::GetA, Ge(0)))));
+}
+
+IUTEST(Matcher, ResultOf)
+{
+	IUTEST_EXPECT_THAT(1, ResultOf(X2, 2));
+	IUTEST_EXPECT_THAT(1, ResultOf(X2, Gt(1)));
 }
 
 IUTEST(Matcher, Pointee)
@@ -367,6 +380,12 @@ IUTEST(MatcherFailure, Each)
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(vv, Each(Each(Gt(5)))), "Each: Each: Gt: 5" );
 }
 
+IUTEST(MatcherFailure, At)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( b, At(2, 2)), "At 2: 2" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va, At(1, Gt(1))), "At 1: Gt: 1" );
+}
+
 IUTEST(MatcherFailure, Key)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( m, Each(Key(0))), "Each: Key: 0" );
@@ -388,6 +407,12 @@ IUTEST(MatcherFailure, Property)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( x, Property(&X::GetA, 100)), "Property: 100" );
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( x, Property(&X::GetA, Ne(1))), "Property: Ne: 1" );
+}
+
+IUTEST(MatcherFailure, ResultOf)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( 1, ResultOf(X2, 1)), "Result of: 1" );
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( 1, ResultOf(X2, Le(1))), "Result of: Le: 1" );
 }
 
 IUTEST(MatcherFailure, Pointee)
