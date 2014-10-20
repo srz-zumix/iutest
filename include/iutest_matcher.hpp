@@ -1002,7 +1002,6 @@ private:
 	T2 m_m2;
 };
 
-
 /**
  * @brief	ResultOf matcher
 */
@@ -1075,6 +1074,37 @@ private:
 	IUTEST_PP_DISALLOW_ASSIGN(PointeeMatcher);
 
 	T m_expected;
+};
+
+/**
+ * @brief	Not matcher
+*/
+template<typename T>
+class NotMatcher : public IMatcher
+{
+public:
+	NotMatcher(const T& unexpected) : m_unexpected(unexpected) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual)
+	{
+		if( !CastToMatcher(m_unexpected)(actual) ) return AssertionSuccess();
+		return AssertionFailure() << WitchIs();
+	}
+
+public:
+	::std::string WitchIs(void) const IUTEST_CXX_OVERRIDE
+	{
+		iu_global_format_stringstream strm;
+		strm << "Not: (" << m_unexpected << ")";
+		return strm.str();
+	}
+
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(NotMatcher);
+
+	T m_unexpected;
 };
 
 /**
@@ -1679,6 +1709,13 @@ detail::ResultOfMatcher<F, T> ResultOf(const F& func, const T& expected) { retur
 */
 template<typename T>
 detail::PointeeMatcher<T> Pointee(const T& expected) { return detail::PointeeMatcher<T>(expected); }
+
+/**
+ * @ingroup	MATCHERS
+ * @brief	Make Not matcher
+*/
+template<typename T>
+detail::NotMatcher<T> Not(const T& unexpected) { return detail::NotMatcher<T>(unexpected); }
 
 /**
  * @ingroup	MATCHERS

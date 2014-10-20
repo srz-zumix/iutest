@@ -239,6 +239,12 @@ IUTEST(Matcher, _)
 	IUTEST_EXPECT_THAT(&x, _);
 }
 
+IUTEST(Matcher, Not)
+{
+	IUTEST_EXPECT_THAT(42, Not(1));
+	IUTEST_EXPECT_THAT(42, Not(Ne(42)));
+}
+
 IUTEST(Matcher, A)
 {
 	IUTEST_EXPECT_THAT(42, A<int>());
@@ -419,6 +425,12 @@ IUTEST(MatcherFailure, Pointee)
 {
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(a, Pointee(1)), "Points To: 1");
 	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(a, Pointee(Gt(0))), "Points To: Gt: 0");
+}
+
+IUTEST(MatcherFailure, Not)
+{
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, Not(1)), "Not: (1)");
+	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, Not(Eq(1))), "Not: (Eq: 1)");
 }
 
 IUTEST(MatcherFailure, A)
