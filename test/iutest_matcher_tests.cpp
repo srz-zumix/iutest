@@ -35,8 +35,8 @@ int b[3] = { 1, 2, 3 };
 int c[3] = { 1, 1, 1 };
 int n[2][2] = { {0,1}, {2,3} };
 ::std::map<int, int> m;
-void* p1 = NULL;
-void* p2 = &p1;
+int* p1 = NULL;
+int** p2 = &p1;
 float f0 = 0.0f;
 double d0 = 0.0;
 struct X { int a, b; X(int _a, int _b) : a(_a), b(_b) {} int GetA() const { return a; } };
@@ -190,11 +190,13 @@ IUTEST(Matcher, Each)
 	IUTEST_EXPECT_THAT(vv, Each(Each(Le(10))));
 }
 
+#if !defined(IUTEST_USE_GMOCK)
 IUTEST(Matcher, At)
 {
 	IUTEST_EXPECT_THAT( b, At(1, 2));
 	IUTEST_EXPECT_THAT(va, At(1, Gt(0)));
 }
+#endif
 
 IUTEST(Matcher, Key)
 {
@@ -228,8 +230,11 @@ IUTEST(Matcher, ResultOf)
 
 IUTEST(Matcher, Pointee)
 {
+#if !defined(IUTEST_USE_GMOCK)
 	IUTEST_EXPECT_THAT(a, Pointee(0));
 	IUTEST_EXPECT_THAT(a, Pointee(Ge(0)));
+#endif
+	IUTEST_EXPECT_THAT(p2, Pointee(IsNull()));
 }
 
 IUTEST(Matcher, _)
@@ -258,189 +263,208 @@ IUTEST(Matcher, ElementsAreArray)
 	IUTEST_EXPECT_THAT(va, ElementsAreArray(a));
 	IUTEST_EXPECT_THAT(va, ElementsAreArray(va));
 	IUTEST_EXPECT_THAT( c, ElementsAreArray(c));
+#if !defined(IUTEST_USE_GMOCK)
 	IUTEST_EXPECT_THAT( c, ElementsAreArray(b, 1));
+#endif
+#if IUTEST_HAS_INITIALIZER_LIST
+	//IUTEST_EXPECT_THAT( c, ElementsAreArray({1, 1, 1}));
+#endif
 }
+
+#if !defined(IUTEST_USE_GMOCK)
+#  define CHECK_FAILURE(x, str)	IUTEST_EXPECT_FATAL_FAILURE( x, str )
+#else
+#  define CHECK_FAILURE(x, str)	IUTEST_EXPECT_FATAL_FAILURE( x, "" )
+#endif
 
 IUTEST(MatcherFailure, Eq)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, Eq(0)), "Eq: 0" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(1, Eq(0)), "Eq: 0" );
 }
 
 IUTEST(MatcherFailure, Ne)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, Ne(0)), "Ne: 0" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(0, Ne(0)), "Ne: 0" );
 }
 
 IUTEST(MatcherFailure, Le)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, Le(0)), "Le: 0" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(1, Le(0)), "Le: 0" );
 }
 
 IUTEST(MatcherFailure, Lt)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, Lt(0)), "Lt: 0" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, Lt(0)), "Lt: 0" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(0, Lt(0)), "Lt: 0" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(1, Lt(0)), "Lt: 0" );
 }
 
 IUTEST(MatcherFailure, Ge)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, Ge(1)), "Ge: 1" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(0, Ge(1)), "Ge: 1" );
 }
 
 IUTEST(MatcherFailure, Gt)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, Gt(1)), "Gt: 1" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, Gt(1)), "Gt: 1" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(0, Gt(1)), "Gt: 1" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(1, Gt(1)), "Gt: 1" );
 }
 
 IUTEST(MatcherFailure, IsNull)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(p2, IsNull()), "Is Null");
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(p2, IsNull()), "Is Null");
 }
 
 IUTEST(MatcherFailure, NotNull)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(p1, NotNull()), "Not Null");
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(p1, NotNull()), "Not Null");
 }
 
 IUTEST(MatcherFailure, FloatEq)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(f0, FloatEq(1.0f)), "Eq: 1" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0/f0, FloatEq(0/f0)), "Eq: " );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(f0, FloatEq(1.0f)), "Eq: 1" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(0/f0, FloatEq(0/f0)), "Eq: " );
 }
 
 IUTEST(MatcherFailure, DoubleEq)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(d0, DoubleEq(1.0)), "Eq: 1" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0/d0, DoubleEq(0/d0)), "Eq: " );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(d0, DoubleEq(1.0)), "Eq: 1" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(0/d0, DoubleEq(0/d0)), "Eq: " );
 }
 
 IUTEST(MatcherFailure, NanSensitiveFloatEq)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(f0, NanSensitiveFloatEq(1.0f)), "Eq: 1" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(f0, NanSensitiveFloatEq(1.0f)), "Eq: 1" );
 }
 
 IUTEST(MatcherFailure, NanSensitiveDoubleEq)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(d0, NanSensitiveDoubleEq(1.0)), "Eq: 1" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(d0, NanSensitiveDoubleEq(1.0)), "Eq: 1" );
 }
 
 IUTEST(MatcherFailure, StrEq)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", StrEq("Hoge")), "StrEq: Hoge");
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", StrEq("Hoge")), "StrEq: Hoge");
 }
 
 IUTEST(MatcherFailure, StrNe)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", StrNe("hoge")), "StrNe: hoge");
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", StrNe("hoge")), "StrNe: hoge");
 }
 
 IUTEST(MatcherFailure, StrCaseEq)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", StrCaseEq("hoga")), "StrCaseEq: hoga");
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", StrCaseEq("hoga")), "StrCaseEq: hoga");
 }
 
 IUTEST(MatcherFailure, StrCaseNe)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", StrCaseNe("hoge")), "StrCaseNe: hoge");
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", StrCaseNe("hoGe")), "StrCaseNe: hoGe");
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", StrCaseNe("hoge")), "StrCaseNe: hoge");
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", StrCaseNe("hoGe")), "StrCaseNe: hoGe");
 }
 
 IUTEST(MatcherFailure, StartsWith)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", StartsWith("Ho")) , "StartsWith: Ho" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", StartsWith("oge")), "StartsWith: oge" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", StartsWith("Ho")) , "StartsWith: Ho" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", StartsWith("oge")), "StartsWith: oge" );
 }
 
 IUTEST(MatcherFailure, HasSubstr)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", HasSubstr("Ho")), "HasSubstr: Ho" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", HasSubstr("oe")), "HasSubstr: oe" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", HasSubstr("Ho")), "HasSubstr: Ho" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", HasSubstr("oe")), "HasSubstr: oe" );
 }
 
 IUTEST(MatcherFailure, EndsWith)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", EndsWith("Ge")) , "EndsWith: Ge" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", EndsWith("gee")), "EndsWith: gee" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", EndsWith("Ge")) , "EndsWith: Ge" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", EndsWith("gee")), "EndsWith: gee" );
 }
 
 IUTEST(MatcherFailure, Equals)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", Equals("Hoge")) , "Eq: Hoge" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(0, Equals(1)), "Eq: 1" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", Equals("Hoge")) , "Eq: Hoge" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(0, Equals(1)), "Eq: 1" );
 }
 
 IUTEST(MatcherFailure, Contains)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va, Contains(42)), "Contains: 42" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( b, Contains(42)), "Contains: 42" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va, Contains(Lt(0))), "Contains: Lt: 0" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(vv, Contains(Contains(Lt(0)))), "Contains: Contains: Lt: 0" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(va, Contains(42)), "Contains: 42" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( b, Contains(42)), "Contains: 42" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(va, Contains(Lt(0))), "Contains: Lt: 0" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(vv, Contains(Contains(Lt(0)))), "Contains: Contains: Lt: 0" );
 }
 
 IUTEST(MatcherFailure, Each)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va, Each(42)), "Each: 42" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( b, Each(42)), "Each: 42" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va, Each(Ne(9))), "Each: Ne: 9" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(vv, Each(Each(Gt(5)))), "Each: Each: Gt: 5" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(va, Each(42)), "Each: 42" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( b, Each(42)), "Each: 42" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(va, Each(Ne(9))), "Each: Ne: 9" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(vv, Each(Each(Gt(5)))), "Each: Each: Gt: 5" );
 }
 
+#if !defined(IUTEST_USE_GMOCK)
 IUTEST(MatcherFailure, At)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( b, At(2, 2)), "At 2: 2" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va, At(1, Gt(1))), "At 1: Gt: 1" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( b, At(2, 2)), "At 2: 2" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(va, At(1, Gt(1))), "At 1: Gt: 1" );
 }
+#endif
 
 IUTEST(MatcherFailure, Key)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( m, Each(Key(0))), "Each: Key: 0" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( m, Each(Key(0))), "Each: Key: 0" );
 }
 
 IUTEST(MatcherFailure, Pair)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( m, Each(Pair(Gt(5), 100))), "Each: Pair: (Gt: 5, 100)" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( m, Each(Pair(_, Ne(100)))), "Each: Pair: (_, Ne: 100)" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( m, Each(Pair(Gt(5), 100))), "Each: Pair: (Gt: 5, 100)" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( m, Each(Pair(_, Ne(100)))), "Each: Pair: (_, Ne: 100)" );
 }
 
 IUTEST(MatcherFailure, Field)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( x, Field(&X::a, 100)), "Field: 100" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( x, Field(&X::a, Ne(1))), "Field: Ne: 1" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( x, Field(&X::a, 100)), "Field: 100" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( x, Field(&X::a, Ne(1))), "Field: Ne: 1" );
 }
 
 IUTEST(MatcherFailure, Property)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( x, Property(&X::GetA, 100)), "Property: 100" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( x, Property(&X::GetA, Ne(1))), "Property: Ne: 1" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( x, Property(&X::GetA, 100)), "Property: 100" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( x, Property(&X::GetA, Ne(1))), "Property: Ne: 1" );
 }
 
 IUTEST(MatcherFailure, ResultOf)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( 1, ResultOf(X2, 1)), "Result of: 1" );
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT( 1, ResultOf(X2, Le(1))), "Result of: Le: 1" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( 1, ResultOf(X2, 1)), "Result of: 1" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( 1, ResultOf(X2, Le(1))), "Result of: Le: 1" );
 }
 
 IUTEST(MatcherFailure, Pointee)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(a, Pointee(1)), "Points To: 1");
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(a, Pointee(Gt(0))), "Points To: Gt: 0");
+#if !defined(IUTEST_USE_GMOCK)
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(a, Pointee(1)), "Points To: 1");
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(a, Pointee(Gt(0))), "Points To: Gt: 0");
+#endif
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(p2, Pointee(NotNull())), "Points To: Not Null");
 }
 
 IUTEST(MatcherFailure, Not)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, Not(1)), "Not: (1)");
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(1, Not(Eq(1))), "Not: (Eq: 1)");
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(1, Not(1)), "Not: (1)");
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(1, Not(Eq(1))), "Not: (Eq: 1)");
 }
 
+#if !defined(IUTEST_USE_GMOCK)
 IUTEST(MatcherFailure, A)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge", A<int>()), "A: ");
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(0.1, A<int>()), "A: ");
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", A<int>()), "A: ");
 }
+#endif
 
 IUTEST(MatcherFailure, ElementsAreArray)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(b, ElementsAreArray(c)), "ElementsAreArray: " );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(b, ElementsAreArray(c)), "ElementsAreArray: " );
 }
 
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
@@ -448,16 +472,18 @@ IUTEST(MatcherFailure, ElementsAreArray)
 IUTEST(Matcher, ElementsAre)
 {
 	IUTEST_EXPECT_THAT("hoge", ElementsAre('h', 'o', 'g', 'e', '\0'));
+#if !defined(IUTEST_USE_GMOCK)
 	IUTEST_EXPECT_THAT(va, ElementsAre(Ge(0), Gt(0)));
+#endif
 }
 
 IUTEST(MatcherFailure, ElementsAre)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge"
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge"
 		, ElementsAre( 'h', 'o', 'G', 'e', '\0')), "ElementsAre(2): G");
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(va
 		, ElementsAre(Ge(0), Gt(0), Lt(1))), "ElementsAre(2): Lt: 1");
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(n, Each(
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(n, Each(
 		ElementsAre(Lt(3), Lt(3)))), "Each: ElementsAre: {Lt: 3, Lt: 3}");
 }
 
@@ -504,19 +530,19 @@ IUTEST(Matcher, AnyOf)
 
 IUTEST(MatcherFailure, AllOf)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge"
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge"
 		, AllOf( StartsWith("ho"), EndsWith("gE"))), "StartsWith: ho and EndsWith: gE");
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge"
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge"
 		, AllOf( StartsWith("Ho"), EndsWith("ge"))), "StartsWith: Ho");
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(va
 		, Each(AllOf( Ge(0), Le(5) ))), "Each: Ge: 0 and Le: 5");
 }
 
 IUTEST(MatcherFailure, AnyOf)
 {
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT("hoge"
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge"
 		, AnyOf( StartsWith("Ho"), EndsWith("gE"))), "StartsWith: Ho or EndsWith: gE");
-	IUTEST_EXPECT_FATAL_FAILURE( IUTEST_ASSERT_THAT(va
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(va
 		, Each(AnyOf( Gt(5), Lt(5) ))), "Each: Gt: 5 or Lt: 5");
 }
 

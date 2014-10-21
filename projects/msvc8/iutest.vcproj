@@ -613,6 +613,10 @@
 						>
 					</File>
 					<File
+						RelativePath="..\..\include\gtest\switch\iutest_switch_gmock.hpp"
+						>
+					</File>
+					<File
 						RelativePath="..\..\include\gtest\switch\iutest_switch_inform.hpp"
 						>
 					</File>

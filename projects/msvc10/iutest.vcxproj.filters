@@ -315,6 +315,9 @@
     <ClInclude Include="..\..\include\listener\iutest_junit_xml_generator.hpp">
       <Filter>iutest\listener</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\gtest\switch\iutest_switch_gmock.hpp">
+      <Filter>iutest\gtest\switch</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\impl\iutest_body.ipp">

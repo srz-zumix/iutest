@@ -21,6 +21,7 @@ using namespace ::iutest::matchers;
 
 namespace {
 	struct X { int a, b; X(int _a, int _b) : a(_a), b(_b) {} int GetA() const { return a; } };
+	int X2(int v) { return v * 2; }
 }
 
 IUTEST(Matcher, Gernal)
@@ -36,10 +37,11 @@ IUTEST(Matcher, Gernal)
 
 IUTEST(Matcher, Null)
 {
-	void* p1 = NULL;
-	void* p2 = &p1;
+	int* p1 = NULL;
+	int** p2 = &p1;
 	IUTEST_EXPECT_THAT(p1, IsNull());
 	IUTEST_EXPECT_THAT(p2, NotNull());
+	IUTEST_EXPECT_THAT(p2, Pointee(IsNull()));
 }
 
 IUTEST(Matcher, FloatingPoint)
@@ -88,6 +90,16 @@ IUTEST(Matcher, Member)
 	IUTEST_EXPECT_THAT(m, Each(Pair(Le(10), Field(&X::b, Ge(0)))));
 	IUTEST_EXPECT_THAT(x, Property(&X::GetA, 0));
 	IUTEST_EXPECT_THAT(&x, Property(&X::GetA, 0));
+}
+
+IUTEST(Matcher, Function)
+{
+	IUTEST_EXPECT_THAT(1, ResultOf(X2, 2));
+}
+
+IUTEST(Matcher, Not)
+{
+	IUTEST_EXPECT_THAT(1, Not(2));
 }
 
 IUTEST(Matcher, Wildcard)
