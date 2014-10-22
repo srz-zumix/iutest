@@ -267,7 +267,7 @@ IUTEST(Matcher, ElementsAreArray)
 	IUTEST_EXPECT_THAT( c, ElementsAreArray(b, 1));
 #endif
 #if IUTEST_HAS_INITIALIZER_LIST
-	//IUTEST_EXPECT_THAT( c, ElementsAreArray({1, 1, 1}));
+	IUTEST_EXPECT_THAT( c, ElementsAreArray({1, 1, 1}));
 #endif
 }
 
@@ -454,17 +454,11 @@ IUTEST(MatcherFailure, Not)
 	CHECK_FAILURE( IUTEST_ASSERT_THAT(1, Not(Eq(1))), "Not: (Eq: 1)");
 }
 
-#if !defined(IUTEST_USE_GMOCK)
-IUTEST(MatcherFailure, A)
-{
-	CHECK_FAILURE( IUTEST_ASSERT_THAT(0.1, A<int>()), "A: ");
-	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", A<int>()), "A: ");
-}
-#endif
-
 IUTEST(MatcherFailure, ElementsAreArray)
 {
 	CHECK_FAILURE( IUTEST_ASSERT_THAT(b, ElementsAreArray(c)), "ElementsAreArray: " );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(b, ElementsAreArray(a))
+		, "ElementsAreArray: argument[3] is less than 10");
 }
 
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
@@ -485,6 +479,8 @@ IUTEST(MatcherFailure, ElementsAre)
 		, ElementsAre(Ge(0), Gt(0), Lt(1))), "ElementsAre(2): Lt: 1");
 	CHECK_FAILURE( IUTEST_ASSERT_THAT(n, Each(
 		ElementsAre(Lt(3), Lt(3)))), "Each: ElementsAre: {Lt: 3, Lt: 3}");
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(c
+		, ElementsAre( Ge(0), Gt(0), Ne(0), Eq(0) ) ), "ElementsAre: argument[3] is less than 4");
 }
 
 #endif
