@@ -395,6 +395,7 @@ IUTEST(SyntaxTest, Matcher)
 	v.push_back(1);
 	v.push_back(2);
 	int a[3] = { 0, 1, 2 };
+	int b[4] = { 0, 1, 2, 3 };
 	X x(0, 1);
 	IUTEST_EXPECT_THAT(a, ::iutest::Contains(0));
 	IUTEST_EXPECT_THAT(a, ::iutest::Contains(::iutest::Lt(10)));
@@ -409,6 +410,10 @@ IUTEST(SyntaxTest, Matcher)
 	IUTEST_EXPECT_THAT(v, ::iutest::ElementsAreArray(a));
 	IUTEST_EXPECT_THAT(a, ::iutest::ElementsAreArray(v));
 	IUTEST_EXPECT_THAT(v, ::iutest::ElementsAreArray(v));
+	IUTEST_EXPECT_THAT(a, ::iutest::ElementsAreArray(b, 3));
+#if IUTEST_HAS_INITIALIZER_LIST
+	IUTEST_EXPECT_THAT(a, ::iutest::ElementsAreArray({0, 1, 2}));
+#endif
 	IUTEST_EXPECT_THAT(1, ::iutest::ResultOf(X2, 2));
 	IUTEST_EXPECT_THAT(1, ::iutest::ResultOf(X2, ::iutest::Gt(1)));
 }

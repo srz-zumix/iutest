@@ -171,6 +171,7 @@ namespace tr1
 #include <gtest/gtest.h>
 #if defined(IUTEST_USE_GMOCK)
 #include <gmock/gmock.h>
+#include "iutest_gmock_ver.hpp"
 #endif
 #include "iutest_gtest_ver.hpp"
 #include "../internal/iutest_pragma.hpp"

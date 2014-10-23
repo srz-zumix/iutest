@@ -5,6 +5,9 @@
 
 TOOLS=pywandbox.py iuwandbox.py
 
+fuse:
+	make -C ../fuse
+
 help: $(TOOLS)
 	python iuwandbox.py -h
 	

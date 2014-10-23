@@ -570,6 +570,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\gtest\iutest_gmock_ver.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\gtest\iutest_gtest_ver.hpp"
 					>
 				</File>

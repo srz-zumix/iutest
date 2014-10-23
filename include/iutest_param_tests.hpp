@@ -356,9 +356,9 @@ inline detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_ RandomValues(size_t
  * @brief	値配列パラメータ
 */
 template<typename Container>
-inline detail::iuParamGenerator< typename Container::value_type > IUTEST_ATTRIBUTE_UNUSED_ ValuesIn(Container containor)
+inline detail::iuParamGenerator< typename Container::value_type > IUTEST_ATTRIBUTE_UNUSED_ ValuesIn(Container container)
 {
-	return new detail::iuValuesInParamsGenerator< typename Container::value_type >(containor);
+	return new detail::iuValuesInParamsGenerator< typename Container::value_type >(container);
 }
 
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)

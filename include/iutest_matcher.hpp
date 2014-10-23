@@ -625,13 +625,17 @@ template<typename T>
 class ElementsAreArrayMatcher : public IMatcher
 {
 public:
-	ElementsAreArrayMatcher(const T& expected, int count=-1) : m_expected(expected), m_count(count){}
+	template<typename It>
+	ElementsAreArrayMatcher(It begin, It end)
+	{
+		m_expected.insert(m_expected.end(), begin, end);
+	}
 
 public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual)
 	{
-		return Check(actual, m_expected, m_count);
+		return Check(actual);
 	}
 
 public:
@@ -642,47 +646,32 @@ public:
 		return strm.str();
 	}
 private:
-	template<typename TT, typename Container>
-	AssertionResult Check(const Container& actual, const TT& expected, int count)
+	template<typename Container>
+	AssertionResult Check(const Container& actual)
 	{
-		return Check(actual.begin(), actual.end(), expected, count);
+		return Check(actual.begin(), actual.end());
 	}
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-	template<typename TT, typename U, size_t SIZE>
-	AssertionResult Check(const U(&actual)[SIZE], const TT& expected, int count)
+	template<typename U, size_t SIZE>
+	AssertionResult Check(const U(&actual)[SIZE])
 	{
-		return Check(actual, actual + SIZE, expected, count);
+		return Check(actual, actual + SIZE);
 	}
 #endif
 
-	template<typename Container, typename Ite>
-	AssertionResult Check(Ite begin, Ite end, const Container& expected, int count)
-	{
-		return Check(begin, end, expected.begin(), expected.end(), count);
-	}
-#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-	template<typename U, size_t SIZE, typename Ite>
-	AssertionResult Check(Ite begin, Ite end, const  U(&expected)[SIZE], int count)
-	{
-		return Check(begin, end, expected, expected + SIZE, count);
-	}
-#endif
-
-	template<typename Ite1, typename Ite2>
-	AssertionResult Check(Ite1 actual_begin, Ite1 actual_end
-		, Ite2 expected_begin, Ite2 expected_end, int count)
+	template<typename Ite>
+	AssertionResult Check(Ite actual_begin, Ite actual_end)
 	{
 		const size_t actual_cnt = ::std::distance(actual_begin, actual_end);
-		const size_t expected_cnt = ::std::distance(expected_begin, expected_end);
+		const size_t expected_cnt = m_expected.size();
 		if( actual_cnt < expected_cnt )
 		{
 			return AssertionFailure() << "ElementsAreArray: argument[" << actual_cnt << "] is less than " << expected_cnt;
 		}
 
-		Ite1 a=actual_begin;
-		Ite2 e=expected_begin;
-		const int n = count >= 0 ? count : expected_cnt;
-		for( int i=0; i < n && e != expected_end; ++e, ++a, ++i )
+		Ite a=actual_begin;
+		typename ::std::vector<T>::iterator e=m_expected.begin();
+		for( int i=0; e != m_expected.end(); ++e, ++a, ++i )
 		{
 			if( *a != *e )
 			{
@@ -695,8 +684,7 @@ private:
 private:
 	IUTEST_PP_DISALLOW_ASSIGN(ElementsAreArrayMatcher);
 
-	const T& m_expected;
-	int m_count;
+	::std::vector<T> m_expected;
 };
 
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
@@ -1048,7 +1036,7 @@ template<typename F, typename T>
 class ResultOfMatcher : public IMatcher
 {
 public:
-	ResultOfMatcher(const F& func, const T& expected) : m_func(func), m_expected(expected) {}
+	ResultOfMatcher(F& func, const T& expected) : m_func(func), m_expected(expected) {}
 
 public:
 	template<typename U>
@@ -1075,7 +1063,7 @@ private:
 private:
 	IUTEST_PP_DISALLOW_ASSIGN(ResultOfMatcher);
 
-	const F& m_func;
+	F& m_func;
 	T m_expected;
 };
 
@@ -1649,18 +1637,38 @@ detail::AtMatcher<T> At(size_t index, const T& expected) { return detail::AtMatc
  * @brief	Make ElementsAreArray matcher
  * @details	argument はの各要素が a の要素とマッチする
 */
-template<typename T>
-detail::ElementsAreArrayMatcher<T> ElementsAreArray(const T& a) { return detail::ElementsAreArrayMatcher<T>(a); }
+template<typename Container>
+detail::ElementsAreArrayMatcher< typename Container::value_type > ElementsAreArray(Container container)
+{
+	return detail::ElementsAreArrayMatcher<typename Container::value_type>(container.begin(), container.end());
+}
+
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+/** @overload */
+template<typename T, size_t SIZE>
+detail::ElementsAreArrayMatcher<T> ElementsAreArray(const T(&v)[SIZE])
+{
+	return detail::ElementsAreArrayMatcher<T>(v, v + SIZE);
+}
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+/** @overload */
+template<typename Ite>
+detail::ElementsAreArrayMatcher< typename detail::IteratorTraits<Ite>::type > ElementsAreArray(Ite begin, Ite end)
+{
+	return new detail::ElementsAreArrayMatcher< typename detail::IteratorTraits<Ite>::type >(begin, end);
+}
+#endif
 
 #if IUTEST_HAS_INITIALIZER_LIST
 /** @overload */
 template<typename T>
-detail::ElementsAreArrayMatcher< ::std::vector<T> > ElementsAreArray(::std::initializer_list<T> l)
+detail::ElementsAreArrayMatcher<T> ElementsAreArray(::std::initializer_list<T> l)
 {
-	::std::vector<T> v;
-	v.insert(v.end(), l.begin(), l.end());
-	return detail::ElementsAreArrayMatcher< ::std::vector<T> >( v );
+	return detail::ElementsAreArrayMatcher<T>(l.begin(), l.end());
 }
+#endif
+
 #endif
 
 /**
@@ -1669,7 +1677,10 @@ detail::ElementsAreArrayMatcher< ::std::vector<T> > ElementsAreArray(::std::init
  * @details	argument はの要素 count 個が a の要素とマッチする
 */
 template<typename T>
-detail::ElementsAreArrayMatcher<T> ElementsAreArray(const T& a, int count) { return detail::ElementsAreArrayMatcher<T>(a, count); }
+detail::ElementsAreArrayMatcher<T> ElementsAreArray(const T* a, int count)
+{
+	return detail::ElementsAreArrayMatcher<T>(a, a+count);
+}
 
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
 

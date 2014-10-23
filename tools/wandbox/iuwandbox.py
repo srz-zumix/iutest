@@ -25,7 +25,7 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 0.4'
+		, version=u'%(prog)s version 0.5'
 	)
 	parser.add_argument(
 		'--list_compiler'
@@ -46,6 +46,7 @@ def parse_command_line():
 		'-x'
 		, '--options'
 		, help = 'Used options for a compiler.'
+		, default = 'warning,gnu++11'
 	)
 	parser.add_argument(
 		'--stdin'
@@ -101,18 +102,18 @@ def parse_command_line():
 
 #
 # file open
-def file_open(path, encoding):
+def file_open(path, mode, encoding):
 	if encoding:
-		file = codecs.open(path, 'r', encoding)
+		file = codecs.open(path, mode, encoding)
 	else:
-		file = open(path, 'r')
+		file = open(path, mode)
 	return file
 
 #
 # make code
 def make_code(path, encoding, expand):
 	code = ''
-	file = file_open(path, encoding)
+	file = file_open(path, 'r', encoding)
 	for line in file:
 		m = IUTEST_INCLUDE_REGEX.match(line)
 		if m:
@@ -199,6 +200,10 @@ def run(options):
 	if not os.path.exists(filepath):
 		sys.exit(1)
 	code = make_code(filepath, options.encoding, options.expand_include)
+	if options.output:
+		f = file_open(options.output, 'w', options.encoding)
+		f.write(code)
+		f.close()
 	r = run_wandbox(code, options)
 	b = show_result(r)
 	sys.exit(b)
