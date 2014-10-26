@@ -29,6 +29,7 @@ namespace {
 ::std::string hog = "hog";
 ::std::string oge = "oge";
 ::std::vector<int> va;
+::std::vector<int> ve;
 ::std::vector< ::std::vector<int> > vv;
 int a[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 int b[3] = { 1, 2, 3 };
@@ -189,6 +190,13 @@ IUTEST(Matcher, Each)
 	IUTEST_EXPECT_THAT(va, Each(Le(10)));
 	IUTEST_EXPECT_THAT(vv, Each(Each(Le(10))));
 }
+
+#if !defined(IUTEST_USE_GMOCK) || (defined(GMOCK_VER) && GMOCK_VER >= 0x01070000)
+IUTEST(Matcher, IsEmpty)
+{
+	IUTEST_ASSERT_THAT(ve, IsEmpty());
+}
+#endif
 
 #if !defined(IUTEST_USE_GMOCK)
 IUTEST(Matcher, At)
@@ -401,6 +409,13 @@ IUTEST(MatcherFailure, Each)
 	CHECK_FAILURE( IUTEST_ASSERT_THAT(va, Each(Ne(9))), "Each: Ne: 9" );
 	CHECK_FAILURE( IUTEST_ASSERT_THAT(vv, Each(Each(Gt(5)))), "Each: Each: Gt: 5" );
 }
+
+#if !defined(IUTEST_USE_GMOCK) || (defined(GMOCK_VER) && GMOCK_VER >= 0x01070000)
+IUTEST(MatcherFailure, IsEmpty)
+{
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(va, IsEmpty()), "Is Empty" );
+}
+#endif
 
 #if !defined(IUTEST_USE_GMOCK)
 IUTEST(MatcherFailure, At)

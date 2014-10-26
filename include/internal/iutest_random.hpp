@@ -74,8 +74,12 @@ class iuRandom
 			}
 		}
 	public:
-		static IUTEST_CXX_CONSTEXPR result_type (min)(void) { return 0; }
-		static IUTEST_CXX_CONSTEXPR result_type (max)(void) { return static_cast<result_type>(-1); }
+		static IUTEST_CXX_CONSTEXPR_OR_CONST result_type _Min = 0;
+		static IUTEST_CXX_CONSTEXPR_OR_CONST result_type _Max = static_cast<result_type>(-1);
+
+		static IUTEST_CXX_CONSTEXPR result_type (min)(void) { return _Min; }
+		static IUTEST_CXX_CONSTEXPR result_type (max)(void) { return _Max; }
+
 	private:
 		result_type gen(void)
 		{
@@ -98,6 +102,12 @@ public:
 
 	static IUTEST_CXX_CONSTEXPR result_type (min)(void) { return (Engine::min)(); }
 	static IUTEST_CXX_CONSTEXPR result_type (max)(void) { return (Engine::max)(); }
+
+#if defined(__clang__) && (__clang_major__ < 3 || (__clang_major__ == 3 && __clang_minor__ < 3))
+	static IUTEST_CXX_CONSTEXPR_OR_CONST result_type _Min = Engine::_Min;
+	static IUTEST_CXX_CONSTEXPR_OR_CONST result_type _Max = Engine::_Max;
+#endif
+
 public:
 	iuRandom(void)
 	{

@@ -418,6 +418,12 @@ IUTEST(SyntaxTest, Matcher)
 	IUTEST_EXPECT_THAT(1, ::iutest::ResultOf(X2, ::iutest::Gt(1)));
 }
 
+IUTEST(SyntaxTest, MatcherPredicate)
+{
+	IUTEST_EXPECT_TRUE(::iutest::Value(2, 2));
+	IUTEST_EXPECT_TRUE(::iutest::Value(2, ::iutest::Eq(2)));
+}
+
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 
 IUTEST(SyntaxTest, AllOf)

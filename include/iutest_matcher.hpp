@@ -586,6 +586,32 @@ private:
 	T m_expected;
 };
 
+
+/**
+ * @brief	IsEmpty matcher
+*/
+class IsEmptyMatcher : public IMatcher
+{
+public:
+	IsEmptyMatcher(void) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual)
+	{
+		if( (actual).empty() ) return AssertionSuccess();
+		return AssertionFailure() << WhichIs();
+	}
+
+public:
+	::std::string WhichIs(void) const IUTEST_CXX_OVERRIDE
+	{
+		return "Is Empty";
+	}
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(IsEmptyMatcher);
+};
+
 /**
  * @brief	At matcher
 */
@@ -1626,6 +1652,13 @@ detail::EachMatcher<T> Each(const T& expected) { return detail::EachMatcher<T>(e
 
 /**
  * @ingroup	MATCHERS
+ * @brief	Make IsEmpty matcher
+ * @details	argument.empty()
+*/
+inline detail::IsEmptyMatcher IsEmpty() { return detail::IsEmptyMatcher(); }
+
+/**
+ * @ingroup	MATCHERS
  * @brief	Make At matcher
  * @details	argument[index] は expected にマッチする
 */
@@ -1846,6 +1879,14 @@ IIUT_DECL_ANYOF_AND_ALLOF(AnyOf, 10)
 #endif
 
 #endif
+
+/**
+ * @ingroup	MATCHERS
+ * @brief	Value predicate
+*/
+template<typename T, typename M>
+bool Value(const T& value, const M& expected) { return static_cast<bool>(detail::CastToMatcher(expected)(value)); }
+
 
 }	// end of namespace matchers
 

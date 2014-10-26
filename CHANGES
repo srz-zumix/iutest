@@ -8,7 +8,7 @@ Changes for 1.11.0:
 * Matcher に StrEq,StrNe,StrCaseEq,StrCaseNe,HasSubstr を追加
 * Matcher に FloatEq,DoubleEq,NanSensitiveFloatEq,NanSensitiveDoubleEq を追加
 * Matcher に Not,ResultOf,Pointee を追加
-* コンテナMatcher に Each,At,ElementsAre,ElementsAreArray を追加
+* コンテナMatcher に Each,At,IsEmpty,ElementsAre,ElementsAreArray を追加
 * メンバーMatcher に Key,Pair,Field,Property を追加
 * ワイルドカードMatcher A,_ を追加	
 

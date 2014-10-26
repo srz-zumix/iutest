@@ -114,8 +114,15 @@ namespace matchers
 	using ::testing::A;
 	using ::testing::_;
 	
+	using ::testing::Value;
+
 	template<typename T>
 	inline internal::EqMatcher<T> Equals(T x) { return Eq(x); }
+
+#if GMOCK_VER >= 0x01070000
+	// gmock 1.7 later
+	using ::testing::IsEmpty;
+#endif
 
 }	// end of namespace matcher
 }	// end of namespace testing
