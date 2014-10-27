@@ -122,6 +122,7 @@ namespace matchers
 #if GMOCK_VER >= 0x01070000
 	// gmock 1.7 later
 	using ::testing::IsEmpty;
+	using ::testing::SizeIs;
 #endif
 
 }	// end of namespace matcher

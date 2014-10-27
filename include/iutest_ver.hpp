@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01109931u //!< iutest version 1.10.99.31
+#define IUTEST_VER			0x01109932u //!< iutest version 1.10.99.32
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x10u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x31u		//!< Revision
+#define IUTEST_REVISION		0x32u		//!< Revision
 
 /**
  * @mainpage
@@ -121,7 +121,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>Matcher に StrEq,StrNe,StrCaseEq,StrCaseNe,HasSubstr を追加</li>
       <li>Matcher に FloatEq,DoubleEq,NanSensitiveFloatEq,NanSensitiveDoubleEq を追加</li>
       <li>Matcher に Not,ResultOf,Pointee を追加</li>
-      <li>コンテナMatcher に Each,At,IsEmpty,ElementsAre,ElementsAreArray を追加</li>
+      <li>コンテナMatcher に Each,At,IsEmpty,SizeIs,ElementsAre,ElementsAreArray を追加</li>
 	  <li>コンテナMatcher の Contains から HasSubstr 機能を削除</li>
 	  <li>コンテナMatcher の条件に Matcher を使えるように修正</li>
       <li>メンバーMatcher に Key,Pair,Field を追加</li>

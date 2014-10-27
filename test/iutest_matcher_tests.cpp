@@ -196,6 +196,13 @@ IUTEST(Matcher, IsEmpty)
 {
 	IUTEST_ASSERT_THAT(ve, IsEmpty());
 }
+
+IUTEST(Matcher, SizeIs)
+{
+	IUTEST_ASSERT_THAT(ve, SizeIs(0));
+	IUTEST_ASSERT_THAT(va, SizeIs(Ge(10)));
+	IUTEST_ASSERT_THAT( c, SizeIs(3));
+}
 #endif
 
 #if !defined(IUTEST_USE_GMOCK)
@@ -414,6 +421,12 @@ IUTEST(MatcherFailure, Each)
 IUTEST(MatcherFailure, IsEmpty)
 {
 	CHECK_FAILURE( IUTEST_ASSERT_THAT(va, IsEmpty()), "Is Empty" );
+}
+
+IUTEST(MatcherFailure, SizeIs)
+{
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(va, SizeIs(0)), "Size is: 0" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( c, SizeIs(Lt(0))), "Size is: Lt: 0" );
 }
 #endif
 

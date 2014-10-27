@@ -612,6 +612,51 @@ private:
 	IUTEST_PP_DISALLOW_ASSIGN(IsEmptyMatcher);
 };
 
+
+/**
+ * @brief	SizeIs matcher
+*/
+template<typename T>
+class SizeIsMatcher : public IMatcher
+{
+public:
+	SizeIsMatcher(const T& expected) : m_expected(expected) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual)
+	{
+		if( Check(actual) ) return AssertionSuccess();
+		return AssertionFailure() << WhichIs();
+	}
+
+public:
+	::std::string WhichIs(void) const IUTEST_CXX_OVERRIDE
+	{
+		iu_global_format_stringstream strm;
+		strm << "Size is: " << m_expected;
+		return strm.str();
+	}
+private:
+	template<typename Container>
+	bool Check(const Container& actual)
+	{
+		return static_cast<bool>(CastToMatcher(m_expected)(actual.size()));
+	}
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+	template<typename U, size_t SIZE>
+	bool Check(const U(&)[SIZE])
+	{
+		return static_cast<bool>(CastToMatcher(m_expected)(SIZE));
+	}
+#endif
+
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(SizeIsMatcher);
+
+	T m_expected;
+};
+
 /**
  * @brief	At matcher
 */
@@ -1656,6 +1701,14 @@ detail::EachMatcher<T> Each(const T& expected) { return detail::EachMatcher<T>(e
  * @details	argument.empty()
 */
 inline detail::IsEmptyMatcher IsEmpty() { return detail::IsEmptyMatcher(); }
+
+/**
+ * @ingroup	MATCHERS
+ * @brief	Make SizeIs matcher
+ * @details	argument の要素数が expected にマッチする
+*/
+template<typename T>
+detail::SizeIsMatcher<T> SizeIs(const T& expected) { return detail::SizeIsMatcher<T>(expected); }
 
 /**
  * @ingroup	MATCHERS
