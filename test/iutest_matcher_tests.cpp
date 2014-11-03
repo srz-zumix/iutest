@@ -89,6 +89,11 @@ IUTEST(Matcher, NotNull)
 	IUTEST_EXPECT_THAT(p2, NotNull());
 }
 
+IUTEST(Matcher, TypedEq)
+{
+	IUTEST_EXPECT_THAT(1, TypedEq<int>(1));
+}
+
 IUTEST(Matcher, FloatEq)
 {
 	IUTEST_EXPECT_THAT(f0, FloatEq(0.0f));
@@ -201,7 +206,9 @@ IUTEST(Matcher, SizeIs)
 {
 	IUTEST_ASSERT_THAT(ve, SizeIs(0));
 	IUTEST_ASSERT_THAT(va, SizeIs(Ge(10)));
+#if !defined(IUTEST_USE_GMOCK)
 	IUTEST_ASSERT_THAT( c, SizeIs(3));
+#endif
 }
 #endif
 
@@ -334,6 +341,11 @@ IUTEST(MatcherFailure, NotNull)
 	CHECK_FAILURE( IUTEST_ASSERT_THAT(p1, NotNull()), "Not Null");
 }
 
+IUTEST(MatcherFailure, TypedEq)
+{
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(1, TypedEq<int>(0)), "Eq: 0" );
+}
+
 IUTEST(MatcherFailure, FloatEq)
 {
 	CHECK_FAILURE( IUTEST_ASSERT_THAT(f0, FloatEq(1.0f)), "Eq: 1" );
@@ -426,7 +438,10 @@ IUTEST(MatcherFailure, IsEmpty)
 IUTEST(MatcherFailure, SizeIs)
 {
 	CHECK_FAILURE( IUTEST_ASSERT_THAT(va, SizeIs(0)), "Size is: 0" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(va, SizeIs(Lt(0))), "Size is: Lt: 0" );
+#if !defined(IUTEST_USE_GMOCK)
 	CHECK_FAILURE( IUTEST_ASSERT_THAT( c, SizeIs(Lt(0))), "Size is: Lt: 0" );
+#endif
 }
 #endif
 

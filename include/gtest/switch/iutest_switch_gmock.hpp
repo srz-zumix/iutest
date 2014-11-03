@@ -113,6 +113,7 @@ namespace matchers
 
 	using ::testing::A;
 	using ::testing::_;
+	using ::testing::TypedEq;
 	
 	using ::testing::Value;
 

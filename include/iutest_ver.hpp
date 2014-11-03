@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01109933u //!< iutest version 1.10.99.33
+#define IUTEST_VER			0x01109934u //!< iutest version 1.10.99.34
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x10u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x33u		//!< Revision
+#define IUTEST_REVISION		0x34u		//!< Revision
 
 /**
  * @mainpage
@@ -117,7 +117,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <ul>
       <li>fused-src 対応</li>
       <li>Wandbox 対応</li>
-      <li>Matcher に Eq,Ne,Le,Lt,Ge,Gt,IsNull,NotNull を追加</li>
+      <li>Matcher に Eq,Ne,Le,Lt,Ge,Gt,IsNull,NotNull,TypeEq を追加</li>
       <li>Matcher に StrEq,StrNe,StrCaseEq,StrCaseNe,HasSubstr を追加</li>
       <li>Matcher に FloatEq,DoubleEq,NanSensitiveFloatEq,NanSensitiveDoubleEq を追加</li>
       <li>Matcher に Not,ResultOf,Pointee を追加</li>

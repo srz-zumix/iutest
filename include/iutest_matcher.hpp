@@ -455,6 +455,28 @@ private:
 };
 
 /**
+ * @brief	TypedEq matcher
+*/
+template<typename T>
+class TypedEqMatcher : public EqMatcher<T>
+{
+public:
+	TypedEqMatcher(T expected) : m_expected(expected), EqMatcher<T>(m_expected) {}
+public:
+	AssertionResult operator ()(const T& actual)
+	{
+		return EqMatcher<T>::operator ()(actual);
+	}
+	template<typename U>
+	AssertionResult operator ()(const U&) const;
+
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(TypedEqMatcher);
+
+	T m_expected;
+};
+
+/**
  * @brief	Cast to matcher
 */
 template<typename T>
@@ -1594,6 +1616,14 @@ inline detail::IsNullMatcher IsNull() { return detail::IsNullMatcher(); }
  * @details	argument != nullptr
 */
 inline detail::NotNullMatcher NotNull() { return detail::NotNullMatcher(); }
+
+/**
+ * @ingroup	MATCHERS
+ * @brief	Make TypedEq matcher
+ * @details	argument == expected
+*/
+template<typename T, typename U>
+detail::TypedEqMatcher<T> TypedEq(const U& expected) { return detail::TypedEqMatcher<T>(expected); }
 
 /**
  * @ingroup	MATCHERS

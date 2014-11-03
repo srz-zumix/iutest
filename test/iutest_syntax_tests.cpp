@@ -397,6 +397,7 @@ IUTEST(SyntaxTest, Matcher)
 	int a[3] = { 0, 1, 2 };
 	int b[4] = { 0, 1, 2, 3 };
 	X x(0, 1);
+	int z=1;
 	IUTEST_EXPECT_THAT(a, ::iutest::Contains(0));
 	IUTEST_EXPECT_THAT(a, ::iutest::Contains(::iutest::Lt(10)));
 	IUTEST_EXPECT_THAT(a, ::iutest::Each(::iutest::Le(10)));
@@ -416,6 +417,7 @@ IUTEST(SyntaxTest, Matcher)
 #endif
 	IUTEST_EXPECT_THAT(1, ::iutest::ResultOf(X2, 2));
 	IUTEST_EXPECT_THAT(1, ::iutest::ResultOf(X2, ::iutest::Gt(1)));
+	IUTEST_EXPECT_THAT(z, ::iutest::TypedEq<int>(1.0));
 }
 
 IUTEST(SyntaxTest, MatcherPredicate)
