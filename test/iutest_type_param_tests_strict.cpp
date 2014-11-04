@@ -21,7 +21,9 @@
 
 #endif
 
-#if IUTEST_HAS_TYPED_TEST_P && IUTEST_TYPED_TEST_P_STRICT
+#if IUTEST_HAS_TYPED_TEST_P 
+
+#if IUTEST_TYPED_TEST_P_STRICT
 
 template<typename T>
 class VerifyFailTypeParamTest : public ::iutest::Test {};
@@ -40,6 +42,20 @@ IUTEST_REGISTER_TYPED_TEST_CASE_P(VerifyFailTypeParamTest, A);
 
 IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, VerifyFailTypeParamTest, ::iutest::Types<int>);
 
+#endif
+
+template<typename T>
+class RegisterFailTypeParamTest : public ::iutest::Test {};
+
+IUTEST_TYPED_TEST_CASE_P(RegisterFailTypeParamTest);
+IUTEST_TYPED_TEST_P(RegisterFailTypeParamTest, A)
+{
+}
+IUTEST_REGISTER_TYPED_TEST_CASE_P(RegisterFailTypeParamTest, A);
+
+IUTEST_TYPED_TEST_P(RegisterFailTypeParamTest, B)
+{
+}
 
 #endif
 
@@ -50,11 +66,15 @@ int main(int argc, char* argv[])
 #endif
 {
 	IUTEST_INIT(&argc, argv);
-#if IUTEST_HAS_TYPED_TEST_P && IUTEST_TYPED_TEST_P_STRICT && IUTEST_HAS_STREAMCAPTURE
-	IUTEST_EXPECT_STRIN("B Test has not been registered.", stderr_capture.GetStreamString());
+#if IUTEST_HAS_TYPED_TEST_P && IUTEST_HAS_STREAMCAPTURE
+#if IUTEST_TYPED_TEST_P_STRICT
+	IUTEST_EXPECT_STRIN("Test B has not been registered.", stderr_capture.GetStreamString());
+#endif
+	IUTEST_EXPECT_STRIN("Test B must be defined before IUTEST_REGISTER_TYPED_TEST_CASE_P(RegisterFailTypeParamTest, ...).", stderr_capture.GetStreamString());
 #endif
 	if( IUTEST_RUN_ALL_TESTS() ) return 1;
 	
+	printf("*** Successful ***\n");
 	return 0;
 }
 

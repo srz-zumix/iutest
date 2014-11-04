@@ -342,7 +342,7 @@ public:
 		if( m_names != NULL )
 		{
 			IUTEST_LOG_(WARNING) << detail::FormatCompilerIndependentFileLocation(file, line)
-				<< " Test " << test_name << " must be defined before IUTEST_REGISTER_TYPED_TEST_CASE_P("
+				<< ": Test " << test_name << " must be defined before IUTEST_REGISTER_TYPED_TEST_CASE_P("
 				<< testcase_name << ", ...).\n";
 		}
 #if IUTEST_TYPED_TEST_P_STRICT
@@ -369,7 +369,7 @@ public:
 				}
 			}
 			IUTEST_LOG_(WARNING) << detail::FormatCompilerIndependentFileLocation(file, line)
-				<< ": " << test_name << " Test has not been registered.\n";
+				<< ": Test " << test_name << " has not been registered.\n";
 			ret = false;
 		}
 		return ret;
