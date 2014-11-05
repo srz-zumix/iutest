@@ -99,11 +99,16 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& msg)
 	}
 
 
+IUTEST_PARGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
+
 DECL_COMPARE_MATCHER(Ne, !=);
 DECL_COMPARE_MATCHER(Le, <=);
 DECL_COMPARE_MATCHER(Lt, < );
 DECL_COMPARE_MATCHER(Ge, >=);
 DECL_COMPARE_MATCHER(Gt, > );
+
+IUTEST_PARGMA_WARN_POP()
 
 #undef DECL_COMPARE_MATCHER
 
@@ -429,10 +434,14 @@ public:
 		return strm.str();
 	}
 private:
+
 	template<typename A, typename B>
 	static bool Equals(const A& actual, const B& expected)
 	{
+IUTEST_PARGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 		return actual == expected;
+IUTEST_PARGMA_WARN_POP()
 	}
 	static bool Equals(const char* actual, const char* expected)
 	{
@@ -461,7 +470,7 @@ template<typename T>
 class TypedEqMatcher : public EqMatcher<T>
 {
 public:
-	TypedEqMatcher(T expected) : m_expected(expected), EqMatcher<T>(m_expected) {}
+	TypedEqMatcher(T expected) : EqMatcher<T>(m_expected), m_expected(expected) {}
 public:
 	AssertionResult operator ()(const T& actual)
 	{

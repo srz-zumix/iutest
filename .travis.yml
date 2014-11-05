@@ -25,10 +25,6 @@ install:
   # lcov
   - if [ "${USE_COVERAGE}" = 'lcov' ]; then sudo apt-get install lcov rubygems; fi
   - if [ "${USE_COVERAGE}" = 'lcov' ]; then gem install lcoveralls; fi
-  # gtest
-  - if [ "${USE_GTEST}" = '1' ]; then sudo apt-get -qq install cmake; fi
-  - if [ "${USE_GTEST}" = '1' ]; then sudo apt-get -qq install libgtest-dev; fi
-  - if [ "${USE_GTEST}" = '1' ]; then "cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/ ; cd -"; fi
 
 script:
   - cd ./test
@@ -65,8 +61,6 @@ matrix:
       env: USE_FUSE=fuse_min
     - compiler: gcc
       env: USE_FUSE=fuse_min STDFLAG=-std=c++98
-    - compiler: gcc
-      env: USE_GTEST=1
     - compiler: gcc
       env: COVERITY_SCAN=1
       addons:

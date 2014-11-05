@@ -205,6 +205,8 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 class StringStreamFile : public IFile
 {
 public:
+	virtual ~StringStreamFile(void) { Close(); }
+public:
 	/**
 	 * @brief	開く
 	 * @return	成否

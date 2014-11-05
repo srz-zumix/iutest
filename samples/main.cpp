@@ -38,11 +38,11 @@
 *//*--------------------------------------------------*/
 class FooEnvironment : public ::iutest::Environment
 {
-	virtual void	SetUp(void)
+	virtual void SetUp(void)
 	{
 		iuutil::Console::output("FooEnvironment::SetUp\n");
 	}
-	virtual void	TearDown(void)
+	virtual void TearDown(void)
 	{
 		iuutil::Console::output("FooEnvironment::TearDown\n");
 	}

@@ -44,10 +44,11 @@ int main(int argc, char* argv[])
 	::iutest::detail::iuConsole::SetLogger(&logger);
 #endif
 	
+	::iutest::TestEventListener* listener = ::iuutil::QuietResultPrinter::SetUp();
 #if IUTEST_HAS_ASSERTION_RETURN
-	IUTEST_ASSERT_NOTNULL( ::iuutil::QuietResultPrinter::SetUp() ) << ::iutest::AssertionReturn<int>(1);
+	IUTEST_ASSERT_NOTNULL( listener ) << ::iutest::AssertionReturn<int>(1);
 #else
-	if( ::iuutil::QuietResultPrinter::SetUp() == NULL ) return 1;
+	if( listener == NULL ) return 1;
 #endif
 
 	if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
@@ -55,6 +56,19 @@ int main(int argc, char* argv[])
 	IUTEST_ASSERT_STRNOTIN("[       OK ]", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
 	IUTEST_ASSERT_STRIN   ("[  FAILED  ]", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
 #endif
+
+	{
+		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
+		delete listeners.Release(listener);
+	}
+	
+	listener = ::iuutil::QuietResultPrinter::SetUp();
+#if IUTEST_HAS_ASSERTION_RETURN
+	IUTEST_ASSERT_NULL( listener ) << ::iutest::AssertionReturn<int>(1);
+#else
+	if( listener != NULL ) return 1;
+#endif
+	
 	printf("*** Successful ***\n");
 	return 0;
 }

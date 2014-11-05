@@ -137,8 +137,6 @@ IUTEST(Matcher, AllOf)
 IUTEST(Matcher, AnyOf)
 {
 	int a[3] ={ 0, -1, 10 };
-	int b=1;
-	int c=1;
 	IUTEST_EXPECT_THAT("hoge", AnyOf(StartsWith("Ho"), EndsWith("ge")));
 	IUTEST_EXPECT_THAT(a, Each(AnyOf(Le(0), Ge(10))));
 }
