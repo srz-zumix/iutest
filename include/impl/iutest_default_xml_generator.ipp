@@ -270,6 +270,8 @@ IUTEST_IPP_INLINE bool DefaultXmlGeneratorListener::FileOpen(const char* path)
 	{
 		fprintf(stderr, "Unable to open file \"%s\".\n", m_output_path.c_str());
 		fflush(stderr);
+		detail::IFileSystem::Free(m_fp);
+		m_fp = NULL;
 		return false;
 	}
 	return true;
