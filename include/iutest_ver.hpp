@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01109937u //!< iutest version 1.10.99.37
+#define IUTEST_VER			0x01109938u //!< iutest version 1.10.99.38
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x10u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x37u		//!< Revision
+#define IUTEST_REVISION		0x38u		//!< Revision
 
 /**
  * @mainpage
@@ -127,7 +127,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>メンバーMatcher に Key,Pair,Field を追加</li>
       <li>ワイルドカードMatcher A,_ を追加</li>
       <li>IUTEST_*_FLOAT_EQ,DOUBLE_EQ で NAN の比較が真を返す不具合を修正</li>
-    </ul>
+	  <li>Visual Studio 2015 Preview 対応</li>
+	  </ul>
   </li>
   <li>v1.10.0.0
     <ul>

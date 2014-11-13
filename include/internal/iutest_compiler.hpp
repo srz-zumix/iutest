@@ -558,8 +558,8 @@
 #      define IUTEST_HAS_NOEXCEPT	1
 #    endif
 #  elif defined(_MSC_VER)
-#    if _MSC_FULL_VER == 180021114
-//#      define IUTEST_HAS_NOEXCEPT	1	// build fail
+#    if _MSC_FULL_VER >= 190022310
+//#      define IUTEST_HAS_NOEXCEPT	1 // https://connect.microsoft.com/VisualStudio/feedback/details/809079/torino-compile-error-template-noexcept
 #    endif
 #  elif defined(__INTEL_COMPILER)
 #    if __INTEL_COMPILER >= 1400
