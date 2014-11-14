@@ -55,9 +55,11 @@ public:
 		else
 		{
 			m_output_path = path;
-			if( path.find('.') == ::std::string::npos )
+			const ::std::string::size_type pos = path.find('.');
+			if( pos == ::std::string::npos
+				|| pos == path.length()-1 )
 			{
-				m_output_path += "\\";
+				m_output_path += detail::GetPathSeparator();
 				m_output_path += detail::kStrings::DefaultXmlReportFileName;
 			}
 		}

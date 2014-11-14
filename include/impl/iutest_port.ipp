@@ -166,6 +166,15 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 namespace detail
 {
 
+IUTEST_IPP_INLINE char GetPathSeparator(void) IUTEST_CXX_NOEXCEPT_SPEC
+{
+#ifdef IUTEST_OS_WINDOWS
+	return '\\';
+#else
+	return '/';
+#endif
+}
+
 IUTEST_IPP_INLINE bool SetEnvironmentVariable(const char* name, const char* value)
 {
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)

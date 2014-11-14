@@ -55,6 +55,7 @@ IUTEST(Fail, Test)
 IUTEST(Foo, Bar)
 {
 	IUTEST_ASSERT_EQ(3, 3);
+	IUTEST_SUCCEED();
 }
 
 IUTEST(Foo, Skip)

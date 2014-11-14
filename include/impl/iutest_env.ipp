@@ -33,7 +33,8 @@ IUTEST_IPP_INLINE ::std::string TestEnv::get_report_xml_filepath(void)
 	if(option.find("xml") != ::std::string::npos)
 	{
 		const ::std::string::size_type pos = option.find("xml:");
-		if(pos != ::std::string::npos)
+		if(pos != ::std::string::npos
+			&& option.length() > pos + 4)
 		{
 			return option.substr(pos + 4);
 		}

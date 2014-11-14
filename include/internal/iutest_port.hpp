@@ -74,6 +74,11 @@ namespace detail
 namespace posix = internal::posix;
 
 /**
+ * @brief	パス区切り文字の取得
+*/
+char GetPathSeparator(void) IUTEST_CXX_NOEXCEPT_SPEC;
+
+/**
  * @brief	環境変数の設定
 */
 bool SetEnvironmentVariable(const char* name, const char* value);

@@ -182,12 +182,6 @@ public:
 	*/
 	static iuFilePath ConcatPaths(const iuFilePath& directory, const iuFilePath& relative_path);
 
-public:
-	/**
-	 * @brief	パス区切り文字の取得
-	*/
-	static char GetPathSeparator(void) IUTEST_CXX_NOEXCEPT_SPEC;
-
 private:
 	/**
 	 * @biref	正規化

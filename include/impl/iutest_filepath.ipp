@@ -244,15 +244,6 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::ConcatPaths(const iuFilePath& directory
 	return iuFilePath(path);
 }
 
-IUTEST_IPP_INLINE char iuFilePath::GetPathSeparator(void) IUTEST_CXX_NOEXCEPT_SPEC
-{
-#ifdef IUTEST_OS_WINDOWS
-	return '\\';
-#else
-	return '/';
-#endif
-}
-
 IUTEST_IPP_INLINE void iuFilePath::Normalize(void)
 {
 	const char* src = c_str();
