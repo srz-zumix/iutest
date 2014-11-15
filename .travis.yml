@@ -62,8 +62,6 @@ matrix:
     - compiler: gcc
       env: USE_FUSE=fuse
     - compiler: gcc
-      env: USE_FUSE=fuse_min
-    - compiler: gcc
       env: USE_FUSE=fuse_min STDFLAG=-std=c++98
     - compiler: gcc
       env: USE_GTEST=1
