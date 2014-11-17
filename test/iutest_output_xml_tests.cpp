@@ -52,6 +52,11 @@ IUTEST(Fail, Test)
 	IUTEST_ASSERT_EQ(2, 3);
 }
 
+IUTEST(Fail, TestEscape)
+{
+	IUTEST_ASSERT_EQ(2, 3) << "<>&";
+}
+
 IUTEST(Foo, Bar)
 {
 	IUTEST_ASSERT_EQ(3, 3);
@@ -113,7 +118,7 @@ int main(int argc, char* argv[])
 
 	::iutest::IUTEST_FLAG(output) = "xml:.";
 	{
-		::iutest::IUTEST_FLAG(filter) = "*Fail*";
+		::iutest::IUTEST_FLAG(filter) = "*TestEscape*";
 		const int ret = IUTEST_RUN_ALL_TESTS();
 		
 		if( ret == 0 ) return 1;
@@ -125,6 +130,9 @@ int main(int argc, char* argv[])
 				 << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("Fail")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("Foo" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("&lt;")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("&gt;")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("&amp;")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 
 		FileIO::s_io.clear();
 	}

@@ -44,6 +44,12 @@ public:
 	}
 public:
 	/**
+	 * @brief	出力ファイルパスの取得
+	*/
+	const ::std::string& GetFilePath(void) const { return m_output_path; }
+
+private:
+	/**
 	 * @brief	出力ファイルの設定
 	*/
 	void SetFilePath(const ::std::string& path)
@@ -64,10 +70,6 @@ public:
 			}
 		}
 	}
-	/**
-	 * @brief	出力ファイルパスの取得
-	*/
-	const ::std::string& GetFilePath(void) const { return m_output_path; }
 
 public:
 	virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;

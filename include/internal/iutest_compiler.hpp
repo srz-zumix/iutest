@@ -403,6 +403,9 @@
 #      define IUTEST_HAS_CHAR16_T	1
 #    endif
 #  elif defined(_MSC_VER)
+#    if _MSC_VER >= 1900
+#      define IUTEST_HAS_CHAR16_T	1
+#    endif
 #  elif defined(__INTEL_COMPILER)
 #    if __INTEL_COMPILER >= 1400
 #      define IUTEST_HAS_CHAR16_T	1
@@ -425,6 +428,9 @@
 #      define IUTEST_HAS_CHAR32_T	1
 #    endif
 #  elif defined(_MSC_VER)
+#    if _MSC_VER >= 1900
+#      define IUTEST_HAS_CHAR32_T	1
+#    endif
 #  elif defined(__INTEL_COMPILER)
 #    if __INTEL_COMPILER >= 1400
 #      define IUTEST_HAS_CHAR32_T	1
