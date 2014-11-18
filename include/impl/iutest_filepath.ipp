@@ -173,10 +173,6 @@ IUTEST_IPP_INLINE bool iuFilePath::DirectoryExists(void) const
 IUTEST_IPP_INLINE const char* iuFilePath::FindLastPathSeparator(void) const
 {
 	const char* ps = c_str();
-	if( ps == NULL )
-	{
-		return NULL;
-	}
 	const char* pe = ps + length() - 1;
 	while( pe >= ps )
 	{
@@ -247,12 +243,6 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::ConcatPaths(const iuFilePath& directory
 IUTEST_IPP_INLINE void iuFilePath::Normalize(void)
 {
 	const char* src = c_str();
-	if( src == NULL )
-	{
-		m_path = "";
-		return;
-	}
-
 	char* const dst_top = new char [length()+1];
 	char* dst = dst_top;
 

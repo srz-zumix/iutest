@@ -37,12 +37,14 @@ private:
 	{
 		setup = true;
 		++test_counter;
+		Environment::SetUp();
 	}
 	
 	virtual void TearDown(void)
 	{
 		teardown = true;
 		--test_counter;
+		Environment::TearDown();
 	}
 };
 

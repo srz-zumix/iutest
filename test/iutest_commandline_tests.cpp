@@ -63,6 +63,7 @@ int main(int argc, char* argv[])
 		DECAL_ARGV("--version");
 		IUTEST_INIT(&targc, targv);
 		IUTEST_EXPECT_EQ(1, targc);
+		IUTEST_EXPECT_NE( "no", ::iutest::IUTEST_FLAG(color) );
 		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
 	}
 	{

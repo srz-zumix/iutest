@@ -433,10 +433,14 @@ private:
 	protected:
 		::std::string m_option;
 	public:
-		bool operator == (const char* c_str_)		{ return m_option == c_str_; }
-		bool operator == (const ::std::string& str)	{ return m_option == str; }
-		bool operator != (const char* c_str_)		{ return m_option != c_str_; }
-		bool operator != (const ::std::string& str)	{ return m_option != str; }
+		friend bool operator == (const char* c_str_, const _Myt& rhs)		{ return rhs.m_option == c_str_; }
+		friend bool operator == (const ::std::string& str, const _Myt& rhs)	{ return rhs.m_option == str; }
+		friend bool operator == (const _Myt& lhs, const char* c_str_)		{ return lhs.m_option == c_str_; }
+		friend bool operator == (const _Myt& lhs, const::std::string& str)	{ return lhs.m_option == str; }
+		friend bool operator != (const char* c_str_, const _Myt& rhs)		{ return rhs.m_option != c_str_; }
+		friend bool operator != (const ::std::string& str, const _Myt& rhs)	{ return rhs.m_option != str; }
+		friend bool operator != (const _Myt& lhs, const char* c_str_)		{ return lhs.m_option != c_str_; }
+		friend bool operator != (const _Myt& lhs, const ::std::string& str)	{ return lhs.m_option != str; }
 
 		operator ::std::string (void) const { return m_option; }
 	public:
