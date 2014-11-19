@@ -196,6 +196,16 @@ IUTEST(Matcher, Each)
 	IUTEST_EXPECT_THAT(vv, Each(Each(Le(10))));
 }
 
+IUTEST(Matcher, ContainerEq)
+{
+	IUTEST_EXPECT_THAT( a, ContainerEq( a));
+	IUTEST_EXPECT_THAT(va, ContainerEq(va));
+#if !defined(IUTEST_USE_GTEST)
+	IUTEST_EXPECT_THAT( a, ContainerEq(va));
+	IUTEST_EXPECT_THAT(va, ContainerEq( a));
+#endif
+}
+
 #if !defined(IUTEST_USE_GMOCK) || (defined(GMOCK_VER) && GMOCK_VER >= 0x01070000)
 IUTEST(Matcher, IsEmpty)
 {
@@ -427,6 +437,14 @@ IUTEST(MatcherFailure, Each)
 	CHECK_FAILURE( IUTEST_ASSERT_THAT( b, Each(42)), "Each: 42" );
 	CHECK_FAILURE( IUTEST_ASSERT_THAT(va, Each(Ne(9))), "Each: Ne: 9" );
 	CHECK_FAILURE( IUTEST_ASSERT_THAT(vv, Each(Each(Gt(5)))), "Each: Each: Gt: 5" );
+}
+
+IUTEST(MatcherFailure, ContainerEq)
+{
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "ContainerEq: {1, 1, 1}" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "Mismatch in a position 1: 1 vs 2" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "Mismatch in a position 2: 1 vs 3" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( a, ContainerEq(c)), "Mismatch element : 3 vs 10" );
 }
 
 #if !defined(IUTEST_USE_GMOCK) || (defined(GMOCK_VER) && GMOCK_VER >= 0x01070000)

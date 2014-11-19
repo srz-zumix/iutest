@@ -97,6 +97,7 @@ namespace matchers
 
 	using ::testing::Contains;
 	using ::testing::Each;
+	using ::testing::ContainerEq;
 	using ::testing::Key;
 	using ::testing::Pair;
 	using ::testing::Field;
@@ -115,8 +116,6 @@ namespace matchers
 	using ::testing::_;
 	using ::testing::TypedEq;
 	
-	using ::testing::Value;
-
 	template<typename T>
 	inline internal::EqMatcher<T> Equals(T x) { return Eq(x); }
 

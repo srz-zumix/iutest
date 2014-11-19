@@ -83,9 +83,14 @@ public:
 	{
 		called_OnTestPartResult = true;
 	}
-	virtual void OnTestRecordProperty(const ::iutest::TestProperty& /*test_propterty*/)
+	virtual void OnTestRecordProperty(const ::iutest::TestProperty& test_propterty)
 	{
 		called_OnTestRecordProperty = true;
+#if !defined(IUTEST_USE_GTEST)
+		TestEventListener::OnTestRecordProperty(test_propterty);
+#else
+		IUTEST_UNUSED_VAR(test_propterty);
+#endif
 	}
 	virtual void OnTestEnd(const ::iutest::TestInfo& /*test_info*/)
 	{
@@ -154,9 +159,10 @@ int main(int argc, char* argv[])
 	::iutest::IUTEST_FLAG(output) = NULL;
 #endif
 
-	listener = new MyTestEventListener();
 	::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
+	listener = new MyTestEventListener();
 	listeners.Append( listener );
+	listeners.Append( new ::iutest::EmptyTestEventListener() );
 	const int ret = IUTEST_RUN_ALL_TESTS();
 	
 	IUTEST_ASSERT_EXIT( listener->called_OnTestEnd );

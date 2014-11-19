@@ -617,6 +617,101 @@ private:
 	T m_expected;
 };
 
+/**
+ * @brief	ContainerEq matcher
+*/
+template<typename T>
+class ContainerEqMatcher : public IMatcher
+{
+public:
+	ContainerEqMatcher(const T& expected) : m_expected(expected) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual)
+	{
+		if( Check(actual) ) return AssertionSuccess();
+		return AssertionFailure() << WhichIs();
+	}
+
+public:
+	::std::string WhichIs(void) const IUTEST_CXX_OVERRIDE
+	{
+		iu_global_format_stringstream strm;
+		strm << "ContainerEq: " << PrintToString(m_expected);
+		strm << " (" << m_whichIs << ")";
+		return strm.str();
+	}
+private:
+	template<typename Container>
+	bool Check(const Container& actual)
+	{
+		return Check(m_expected, actual.begin(), actual.end());
+	}
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+	template<typename U, size_t SIZE>
+	bool Check(const U(&actual)[SIZE])
+	{
+		return Check(m_expected, actual, actual + SIZE);
+	}
+#endif
+
+	template<typename Container, typename Ite>
+	bool Check(const Container& expected, Ite b2, Ite e2)
+	{
+		return CheckContainer(expected.begin(), expected.end(), b2, e2);
+	}
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+	template<typename U, size_t SIZE, typename Ite>
+	bool Check(const U(&expected)[SIZE], Ite b2, Ite e2)
+	{
+		return CheckContainer(expected, expected + SIZE, b2, e2);
+	}
+#endif
+
+	template<typename Ite1, typename Ite2>
+	bool CheckContainer(Ite1 b1, Ite1 e1, Ite2 b2, Ite2 e2)
+	{
+		int elem=0;
+		bool result = true;
+		Message ar;
+		for( elem=0; b1 != e1 && b2 != e2; ++b1, ++b2, ++elem )
+		{
+			if( !internal::EqHelper<false>::Compare("", "", *b1, *b2) )
+			{
+				result = false;
+				ar << "\nMismatch in a position " << elem << ": "
+					<< ::iutest::internal::FormatForComparisonFailureMessage(*b1, *b2)
+					<< " vs " << ::iutest::internal::FormatForComparisonFailureMessage(*b2, *b1);
+			}
+		}
+		if( b1 != e1 )
+		{
+			int elem1 = elem;
+			for( ; b1 != e1; ++b1, ++elem1 )
+				;
+			result = false;
+			ar << "\nMismatch element : " << elem1 << " vs " << elem;
+		}
+		if( b2 != e2 )
+		{
+			int elem2 = elem;
+			for( ; b2 != e2; ++b2, ++elem2 )
+				;
+			result = false;
+			ar << "\nMismatch element : " << elem << " vs " << elem2;
+		}
+		m_whichIs = ar.GetString();
+		return result;
+	}
+
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(ContainerEqMatcher);
+
+	const T& m_expected;
+	::std::string m_whichIs;
+};
+
 
 /**
  * @brief	IsEmpty matcher
@@ -1733,6 +1828,14 @@ detail::ContainsMatcher<T> Contains(const T& expected) { return detail::Contains
 */
 template<typename T>
 detail::EachMatcher<T> Each(const T& expected) { return detail::EachMatcher<T>(expected); }
+
+/**
+ * @ingroup	MATCHERS
+ * @brief	Make ContainerEq matcher
+ * @details	argument コンテナは expected コンテナにマッチする
+*/
+template<typename T>
+detail::ContainerEqMatcher<T> ContainerEq(const T& expected) { return detail::ContainerEqMatcher<T>(expected); }
 
 /**
  * @ingroup	MATCHERS
