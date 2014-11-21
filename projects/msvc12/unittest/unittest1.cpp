@@ -252,31 +252,6 @@ IUTEST(AssertionTest, Pred)
 }
 
 /** --------------------------------------------------
- * OR サポート
-*//*--------------------------------------------------*/
-IUTEST(AssertionTest, OREQ)
-{
-	int x=1;
-	IUTEST_ASSERT_PRED_FORMAT2(iuutil::CmpHelperOR<iuutil::CmpHelper::EQ>::Comp, x, 1);
-	IUTEST_ASSERT_PRED_FORMAT2(iuutil::CmpHelperOR<iuutil::CmpHelper::NE>::Comp, x, 0);
-	IUTEST_ASSERT_PRED_FORMAT2(iuutil::CmpHelperOR<iuutil::CmpHelper::LE>::Comp, x, 1);
-	IUTEST_ASSERT_PRED_FORMAT2(iuutil::CmpHelperOR<iuutil::CmpHelper::LT>::Comp, x, 2);
-	IUTEST_EXPECT_PRED_FORMAT2(iuutil::CmpHelperOR<iuutil::CmpHelper::GE>::Comp, x, 1);
-	IUTEST_INFORM_PRED_FORMAT2(iuutil::CmpHelperOR<iuutil::CmpHelper::GT>::Comp, x, 0);
-	IUTEST_ASSERT_PRED_FORMAT3(iuutil::CmpHelperOR<iuutil::CmpHelper::EQ>::Comp, x, 1, 0);
-	IUTEST_EXPECT_PRED_FORMAT3(iuutil::CmpHelperOR<iuutil::CmpHelper::EQ>::Comp, x, 0, 1);
-	IUTEST_INFORM_PRED_FORMAT3(iuutil::CmpHelperOR<iuutil::CmpHelper::EQ>::Comp, x, x, 1);
-	IUTEST_ASSERT_PRED_FORMAT4(iuutil::CmpHelperOR<iuutil::CmpHelper::EQ>::Comp, x, 1, 2, 0);
-	IUTEST_EXPECT_PRED_FORMAT4(iuutil::CmpHelperOR<iuutil::CmpHelper::EQ>::Comp, x, 0, 1, 2);
-	IUTEST_INFORM_PRED_FORMAT4(iuutil::CmpHelperOR<iuutil::CmpHelper::EQ>::Comp, x, 2, 0, 1);
-	IUTEST_ASSERT_PRED_FORMAT5(iuutil::CmpHelperOR<iuutil::CmpHelper::EQ>::Comp, x, 1, 2, 3, 0);
-	IUTEST_ASSERT_PRED_FORMAT5(iuutil::CmpHelperOR<iuutil::CmpHelper::EQ>::Comp, x, 0, 1, 2, 3);
-	IUTEST_EXPECT_PRED_FORMAT5(iuutil::CmpHelperOR<iuutil::CmpHelper::EQ>::Comp, x, 3, 0, 1, 2);
-	IUTEST_INFORM_PRED_FORMAT5(iuutil::CmpHelperOR<iuutil::CmpHelper::EQ>::Comp, x, 2, 3, 0, 1);
-}
-
-
-/** --------------------------------------------------
  * 値をパラメータ化したテスト
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_PARAM_TEST

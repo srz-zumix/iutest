@@ -206,6 +206,19 @@ IUTEST(Matcher, ContainerEq)
 #endif
 }
 
+IUTEST(Matcher, Pointwise)
+{
+	IUTEST_EXPECT_THAT(n[0], Pointwise(Ne(), n[1]));
+	IUTEST_EXPECT_THAT(n[0], Pointwise(Lt(), n[1]));
+	IUTEST_EXPECT_THAT(n[0], Pointwise(Le(), n[1]));
+	IUTEST_EXPECT_THAT(n[1], Pointwise(Gt(), n[0]));
+	IUTEST_EXPECT_THAT( b, Pointwise(Ge(), c));
+	IUTEST_EXPECT_THAT(va, Pointwise(Eq(),va));
+	IUTEST_EXPECT_THAT( a, Pointwise(Eq(),va));
+	IUTEST_EXPECT_THAT(va, Pointwise(Eq(), a));
+}
+
+
 #if !defined(IUTEST_USE_GMOCK) || (defined(GMOCK_VER) && GMOCK_VER >= 0x01070000)
 IUTEST(Matcher, IsEmpty)
 {
@@ -445,6 +458,14 @@ IUTEST(MatcherFailure, ContainerEq)
 	CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "Mismatch in a position 1: 1 vs 2" );
 	CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "Mismatch in a position 2: 1 vs 3" );
 	CHECK_FAILURE( IUTEST_ASSERT_THAT( a, ContainerEq(c)), "Mismatch element : 3 vs 10" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( c, ContainerEq(a)), "Mismatch element : 10 vs 3" );
+}
+
+IUTEST(MatcherFailure, Pointwise)
+{
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( b, Pointwise(Eq(), c)), "Pointwise: Eq: {1, 1, 1}" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( a, Pointwise(Eq(), c)), "Mismatch element : 3 vs 10" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( c, Pointwise(Eq(), a)), "Mismatch element : 10 vs 3" );
 }
 
 #if !defined(IUTEST_USE_GMOCK) || (defined(GMOCK_VER) && GMOCK_VER >= 0x01070000)

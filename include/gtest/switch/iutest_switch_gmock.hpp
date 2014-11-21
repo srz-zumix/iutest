@@ -98,6 +98,7 @@ namespace matchers
 	using ::testing::Contains;
 	using ::testing::Each;
 	using ::testing::ContainerEq;
+	using ::testing::Pointwise;
 	using ::testing::Key;
 	using ::testing::Pair;
 	using ::testing::Field;

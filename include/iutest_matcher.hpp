@@ -81,7 +81,7 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& msg)
 /**
  * @private
  * @{
-*/
+ */
 
 #define DECL_COMPARE_MATCHER(name, op)	\
 	template<typename T>class IUTEST_PP_CAT(name, Matcher): public IMatcher{\
@@ -98,6 +98,18 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& msg)
 	const T& m_expected;													\
 	}
 
+#define DECL_COMPARE_MATCHER2(name, op)	\
+	class IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher)): public IMatcher{		\
+	public:	IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher))() {}					\
+	::std::string WhichIs(void) const IUTEST_CXX_OVERRIDE { return #name; }				\
+	template<typename T, typename U>AssertionResult operator ()							\
+		(const T& actual, const U& expected) const {									\
+		if( actual op expected ) return AssertionSuccess();								\
+		return AssertionFailure() << WhichIs() << ": " << actual << " vs " << expected;	\
+	} private:																			\
+		IUTEST_PP_DISALLOW_ASSIGN(IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher)));\
+	}
+
 
 IUTEST_PARGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
@@ -108,9 +120,17 @@ DECL_COMPARE_MATCHER(Lt, < );
 DECL_COMPARE_MATCHER(Ge, >=);
 DECL_COMPARE_MATCHER(Gt, > );
 
+DECL_COMPARE_MATCHER2(Eq, ==);
+DECL_COMPARE_MATCHER2(Ne, !=);
+DECL_COMPARE_MATCHER2(Le, <=);
+DECL_COMPARE_MATCHER2(Lt, < );
+DECL_COMPARE_MATCHER2(Ge, >=);
+DECL_COMPARE_MATCHER2(Gt, > );
+
 IUTEST_PARGMA_WARN_POP()
 
 #undef DECL_COMPARE_MATCHER
+#undef DECL_COMPARE_MATCHER2
 
 #define DECL_STR_COMPARE_MATCHER(name)	\
 	template<typename T>class IUTEST_PP_CAT(name, Matcher): public IMatcher {	\
@@ -712,6 +732,101 @@ private:
 	::std::string m_whichIs;
 };
 
+
+/**
+ * @brief	Pointwise matcher
+*/
+template<typename M, typename T>
+class PointwiseMatcher : public IMatcher
+{
+public:
+	PointwiseMatcher(const M& matcher, const T& expected) : m_matcher(matcher), m_expected(expected) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual)
+	{
+		if( Check(actual) ) return AssertionSuccess();
+		return AssertionFailure() << WhichIs();
+	}
+
+public:
+	::std::string WhichIs(void) const IUTEST_CXX_OVERRIDE
+	{
+		iu_global_format_stringstream strm;
+		strm << "Pointwise: " << m_matcher << ": " << PrintToString(m_expected);
+		strm << " (" << m_whichIs << ")";
+		return strm.str();
+	}
+private:
+	template<typename Container>
+	bool Check(const Container& actual)
+	{
+		return Check(m_expected, actual.begin(), actual.end());
+	}
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+	template<typename U, size_t SIZE>
+	bool Check(const U(&actual)[SIZE])
+	{
+		return Check(m_expected, actual, actual + SIZE);
+	}
+#endif
+
+	template<typename Container, typename Ite>
+	bool Check(const Container& expected, Ite b2, Ite e2)
+	{
+		return CheckContainer(expected.begin(), expected.end(), b2, e2);
+	}
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+	template<typename U, size_t SIZE, typename Ite>
+	bool Check(const U(&expected)[SIZE], Ite b2, Ite e2)
+	{
+		return CheckContainer(expected, expected + SIZE, b2, e2);
+	}
+#endif
+
+	template<typename Ite1, typename Ite2>
+	bool CheckContainer(Ite1 b1, Ite1 e1, Ite2 b2, Ite2 e2)
+	{
+		int elem=0;
+		bool result = true;
+		Message ar;
+		for( elem=0; b1 != e1 && b2 != e2; ++b1, ++b2, ++elem )
+		{
+			const AssertionResult r = m_matcher(*b2, *b1);
+			if( r.failed() )
+			{
+				result = false;
+				ar << "\nMismatch in a position " << elem << ": " << r.message();
+			}
+		}
+		if( b1 != e1 )
+		{
+			int elem1 = elem;
+			for( ; b1 != e1; ++b1, ++elem1 )
+				;
+			result = false;
+			ar << "\nMismatch element : " << elem1 << " vs " << elem;
+		}
+		if( b2 != e2 )
+		{
+			int elem2 = elem;
+			for( ; b2 != e2; ++b2, ++elem2 )
+				;
+			result = false;
+			ar << "\nMismatch element : " << elem << " vs " << elem2;
+		}
+		m_whichIs = ar.GetString();
+		return result;
+	}
+
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(PointwiseMatcher);
+
+	M m_matcher;
+	const T& m_expected;
+	::std::string m_whichIs;
+};
 
 /**
  * @brief	IsEmpty matcher
@@ -1707,6 +1822,49 @@ detail::GeMatcher<T> Ge(const T& expected) { return detail::GeMatcher<T>(expecte
 template<typename T>
 detail::GtMatcher<T> Gt(const T& expected) { return detail::GtMatcher<T>(expected); }
 
+
+/**
+ * @ingroup	MATCHERS
+ * @brief	Make Twofold Eq matcher
+ * @details	argument == expected
+*/
+inline detail::TwofoldEqMatcher Eq(void) { return detail::TwofoldEqMatcher(); }
+
+/**
+ * @ingroup	MATCHERS
+ * @brief	Make Twofold Ne matcher
+ * @details	argument != expected
+*/
+inline detail::TwofoldNeMatcher Ne(void) { return detail::TwofoldNeMatcher(); }
+
+/**
+ * @ingroup	MATCHERS
+ * @brief	Make Twofold Le matcher
+ * @details	argument <= expected
+*/
+inline detail::TwofoldLeMatcher Le(void) { return detail::TwofoldLeMatcher(); }
+
+/**
+ * @ingroup	MATCHERS
+ * @brief	Make Twofold Lt matcher
+ * @details	argument < expected
+*/
+inline detail::TwofoldLtMatcher Lt(void) { return detail::TwofoldLtMatcher(); }
+
+/**
+ * @ingroup	MATCHERS
+ * @brief	Make Twofold Ge matcher
+ * @details	argument >= expected
+*/
+inline detail::TwofoldGeMatcher Ge(void) { return detail::TwofoldGeMatcher(); }
+
+/**
+ * @ingroup	MATCHERS
+ * @brief	Make Twofold Gt matcher
+ * @details	argument > expected
+*/
+inline detail::TwofoldGtMatcher Gt(void) { return detail::TwofoldGtMatcher(); }
+
 /**
  * @ingroup	MATCHERS
  * @brief	Make IsNull matcher
@@ -1836,6 +1994,14 @@ detail::EachMatcher<T> Each(const T& expected) { return detail::EachMatcher<T>(e
 */
 template<typename T>
 detail::ContainerEqMatcher<T> ContainerEq(const T& expected) { return detail::ContainerEqMatcher<T>(expected); }
+
+/**
+ * @ingroup	MATCHERS
+ * @brief	Make Pointwise matcher
+ * @details	argument コンテナは expected コンテナの各要素と matcher にマッチする
+*/
+template<typename M, typename T>
+detail::PointwiseMatcher<M, T> Pointwise(const M& matcher, const T& expected) { return detail::PointwiseMatcher<M, T>(matcher, expected); }
 
 /**
  * @ingroup	MATCHERS
