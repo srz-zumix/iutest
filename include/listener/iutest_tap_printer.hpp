@@ -114,7 +114,6 @@ public:
 	static TestEventListener* SetUp(void)
 	{
 		TestEventListeners& listeners = UnitTest::GetInstance()->listeners();
-		delete listeners.Release(listeners.default_result_printer());
 		const ::std::string& output =  TestEnv::get_output_option();
 		TestEventListener* p = new TAPFileGeneratorListener(output.c_str());
 		listeners.Append(p);
@@ -212,6 +211,9 @@ inline void TAPFileGeneratorListener::OnTestProgramEnd(const UnitTest& test)
 		OnReportTestCase(fp, test_case);
 
 		fp->Printf("1..%d\n", test_case.total_test_count());
+
+		fp->Close();
+		detail::IFileSystem::Free(fp);
 	}
 }
 

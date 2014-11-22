@@ -25,68 +25,68 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 0.5'
+		, version=u'%(prog)s version 1.0'
 	)
 	parser.add_argument(
 		'--list_compiler'
 		, action='store_true'
-		, help = 'Listup compiler.'
+		, help = 'listup compiler.'
 	)
 	parser.add_argument(
 		'--list_options'
-		, help = 'Listup compiler options.'
+		, help = 'listup compiler options.'
 	)
 	parser.add_argument(
 		'-c'
 		, '--compiler'
-		, help = 'Compiler select.'
+		, help = 'compiler select. default=gcc-head'
 		, default = 'gcc-head'
 	)
 	parser.add_argument(
 		'-x'
 		, '--options'
-		, help = 'Used options for a compiler.'
+		, help = 'used options for a compiler. default=warning,gnu++11'
 		, default = 'warning,gnu++11'
 	)
 	parser.add_argument(
 		'--stdin'
-		, help = 'Set stdin.'
+		, help = 'set stdin.'
 	)
 	parser.add_argument(
 		'-f'
 		, '--compiler_option_raw'
 		, action='append'
-		, help = 'Compile-time any additional options.'
+		, help = 'compile-time any additional options.'
 	)
 	parser.add_argument(
 		'-r'
 		, '--runtime_option_raw'
 		, action='append'
-		, help = 'Runtime-time any additional options.'
+		, help = 'runtime-time any additional options.'
 	)
 	parser.add_argument(
 		'-s'
 		, '--save'
 		, action='store_true'
-		, help = 'Generate permanent link.'
+		, help = 'generate permanent link.'
 	)
 	parser.add_argument(
 		'--permlink'
-		, help = 'Get permanent link.'
+		, help = 'get permanent link.'
 	)
 	parser.add_argument(
 		'-o'
 		, '--output'
-		, help = 'Get permanent link code.'
+		, help = 'output source code.'
 	)
 	parser.add_argument(
 		  '--encoding'
-		, help = 'Set encoding.'
+		, help = 'set encoding.'
 	)
 	parser.add_argument(
 		  '--expand_include'
 		, action='store_true'
-		, help = 'Expand include file.'
+		, help = 'expand include file.'
 	)
 	parser.add_argument(
 		'code'
