@@ -76,10 +76,8 @@ int main(int argc, char* argv[])
 #if TAP_TEST
 
 	IUTEST_INIT(&argc, argv);
-#if defined(OUTPUTXML)
-	// 失敗テストを含むので xml 出力しない
+	// xml 出力しない
 	::iutest::IUTEST_FLAG(output) = NULL;
-#endif
 
 #if !defined(IUTEST_USE_GTEST)
 	::iutest::TAPFileGeneratorListener::SetUp();
