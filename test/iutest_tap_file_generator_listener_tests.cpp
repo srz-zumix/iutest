@@ -57,6 +57,7 @@ const char tap_test_str[] =
 IUTEST(Foo, Ok)
 {
 	IUTEST_SUCCEED() << "not show.";
+	RecordProperty("foo", "A");
 }
 
 IUTEST(Bar, DISABLED_Ng)
