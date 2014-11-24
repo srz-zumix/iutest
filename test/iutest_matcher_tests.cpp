@@ -371,24 +371,24 @@ IUTEST(MatcherFailure, TypedEq)
 
 IUTEST(MatcherFailure, FloatEq)
 {
-	CHECK_FAILURE( IUTEST_ASSERT_THAT(f0, FloatEq(1.0f)), "Eq: 1" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(f0, FloatEq(1.0f)), "Eq: " );
 	CHECK_FAILURE( IUTEST_ASSERT_THAT(0/f0, FloatEq(0/f0)), "Eq: " );
 }
 
 IUTEST(MatcherFailure, DoubleEq)
 {
-	CHECK_FAILURE( IUTEST_ASSERT_THAT(d0, DoubleEq(1.0)), "Eq: 1" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(d0, DoubleEq(1.0)), "Eq: " );
 	CHECK_FAILURE( IUTEST_ASSERT_THAT(0/d0, DoubleEq(0/d0)), "Eq: " );
 }
 
 IUTEST(MatcherFailure, NanSensitiveFloatEq)
 {
-	CHECK_FAILURE( IUTEST_ASSERT_THAT(f0, NanSensitiveFloatEq(1.0f)), "Eq: 1" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(f0, NanSensitiveFloatEq(1.0f)), "Eq: " );
 }
 
 IUTEST(MatcherFailure, NanSensitiveDoubleEq)
 {
-	CHECK_FAILURE( IUTEST_ASSERT_THAT(d0, NanSensitiveDoubleEq(1.0)), "Eq: 1" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(d0, NanSensitiveDoubleEq(1.0)), "Eq: " );
 }
 
 IUTEST(MatcherFailure, StrEq)
