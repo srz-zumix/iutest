@@ -25,8 +25,9 @@ namespace detail
 
 IUTEST_IPP_INLINE bool iuFilePath::IsDirectory(void) const
 {
+	const char last = m_path.c_str()[length() - 1];
 	return !m_path.empty() &&
-		IsPathSeparator(m_path.c_str()[length()-1]);
+		(IsPathSeparator(last) || last == '.');
 }
 
 IUTEST_IPP_INLINE bool iuFilePath::IsRootDirectory(void) const
@@ -270,30 +271,6 @@ IUTEST_IPP_INLINE void iuFilePath::Normalize(void)
 	*dst = '\0';
 	m_path = dst_top;
 	delete [] dst_top;
-}
-
-IUTEST_IPP_INLINE bool iuFilePath::IsPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC
-{
-#ifdef IUTEST_OS_WINDOWS
-	if( c == '\\' )
-	{
-		return true;
-	}
-#endif
-	return c == '/';
-}
-
-IUTEST_IPP_INLINE bool iuFilePath::IsAltPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC
-{
-#ifdef IUTEST_OS_WINDOWS
-	if( c == '/' )
-	{
-		return true;
-	}
-#else
-	IUTEST_UNUSED_VAR(c);
-#endif
-	return false;
 }
 
 }	// end of namespace detail

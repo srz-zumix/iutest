@@ -175,6 +175,30 @@ IUTEST_IPP_INLINE char GetPathSeparator(void) IUTEST_CXX_NOEXCEPT_SPEC
 #endif
 }
 
+IUTEST_IPP_INLINE bool IsPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC
+{
+#ifdef IUTEST_OS_WINDOWS
+	if( c == '\\' )
+	{
+		return true;
+	}
+#endif
+	return c == '/';
+}
+
+IUTEST_IPP_INLINE bool IsAltPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC
+{
+#ifdef IUTEST_OS_WINDOWS
+	if( c == '/' )
+	{
+		return true;
+	}
+#else
+	IUTEST_UNUSED_VAR(c);
+#endif
+	return false;
+}
+
 IUTEST_IPP_INLINE bool SetEnvironmentVariable(const char* name, const char* value)
 {
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)

@@ -330,7 +330,10 @@ private:
 */
 class TypedTestCasePState
 {
+#if IUTEST_TYPED_TEST_P_STRICT
 	typedef ::std::set<const char*> nameset_t;
+#endif
+
 public:
 	TypedTestCasePState(void) : m_names(NULL) {}
 public:
@@ -384,7 +387,7 @@ private:
 	const char* m_names;
 
 #if IUTEST_TYPED_TEST_P_STRICT
-	::std::set<const char*> m_list;
+	nameset_t m_list;
 #endif
 
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypedTestCasePState);

@@ -23,7 +23,7 @@
 
 #endif
 
-#if !defined(IUTEST_USE_GTEST)
+#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_FOPEN
 #  define OUTPUT_XML_TEST	1
 #else
 #  define OUTPUT_XML_TEST	0

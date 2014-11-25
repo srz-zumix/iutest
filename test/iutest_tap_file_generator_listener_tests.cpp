@@ -77,9 +77,32 @@ int main(int argc, char* argv[])
 #if TAP_TEST
 
 	IUTEST_INIT(&argc, argv);
+#if !defined(IUTEST_USE_GTEST)
+	{
+		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
+		{
+			::iutest::IUTEST_FLAG(output) = "test/";
+			::iutest::TAPFileGeneratorListener* listener = reinterpret_cast< ::iutest::TAPFileGeneratorListener*>( ::iutest::TAPFileGeneratorListener::SetUp() );
+			IUTEST_ASSERT_EQ("test/", listener->GetFilePath() ) << ::iutest::AssertionReturn<int>(1);
+			delete listeners.Release(listener);
+		}
+		{
+			::iutest::IUTEST_FLAG(output) = ".";
+			::iutest::TAPFileGeneratorListener* listener = reinterpret_cast< ::iutest::TAPFileGeneratorListener*>( ::iutest::TAPFileGeneratorListener::SetUp() );
+			IUTEST_ASSERT_EQ(".", listener->GetFilePath() ) << ::iutest::AssertionReturn<int>(1);
+			delete listeners.Release(listener);
+		}
+		{
+			::iutest::IUTEST_FLAG(output) = "hoge/test.tap";
+			::iutest::TAPFileGeneratorListener* listener = reinterpret_cast< ::iutest::TAPFileGeneratorListener*>( ::iutest::TAPFileGeneratorListener::SetUp() );
+			IUTEST_ASSERT_EQ("hoge/", listener->GetFilePath() ) << ::iutest::AssertionReturn<int>(1);
+			delete listeners.Release(listener);
+		}
+	}
+#endif
+
 	// xml 出力しない
 	::iutest::IUTEST_FLAG(output) = NULL;
-
 #if !defined(IUTEST_USE_GTEST)
 	::iutest::TAPFileGeneratorListener::SetUp();
 #endif

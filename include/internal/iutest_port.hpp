@@ -79,6 +79,16 @@ namespace posix = internal::posix;
 char GetPathSeparator(void) IUTEST_CXX_NOEXCEPT_SPEC;
 
 /**
+ * @brief	パス区切り文字かどうか
+*/
+bool IsPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC;
+
+/**
+ * @brief	パス区切り文字かどうか
+*/
+bool IsAltPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC;
+
+/**
  * @brief	環境変数の設定
 */
 bool SetEnvironmentVariable(const char* name, const char* value);

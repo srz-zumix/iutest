@@ -189,9 +189,6 @@ private:
 	void Normalize(void);
 
 private:
-	static bool IsPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC;
-	static bool IsAltPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC;
-private:
 	::std::string m_path;
 };
 

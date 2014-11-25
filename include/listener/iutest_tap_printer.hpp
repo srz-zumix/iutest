@@ -19,6 +19,7 @@
 // include
 #include "../iutest_core.hpp"
 #include "../internal/iutest_log_stream.hpp"
+#include "../internal/iutest_filepath.hpp"
 
 namespace iutest
 {
@@ -71,7 +72,12 @@ public:
 	}
 public:
 	/**
-	 * @brief	出力ファイルの設定
+	 * @brief	出力パスの取得
+	*/
+	const ::std::string& GetFilePath(void) const { return m_output_path; }
+private:
+	/**
+	 * @brief	出力パスの設定
 	*/
 	void SetFilePath(const char* directory)
 	{
@@ -81,18 +87,14 @@ public:
 		}
 		else
 		{
-			m_output_path = directory;
-			if( strchr(directory, '.') != NULL )
+			detail::iuFilePath path(directory);
+			if( path.IsDirectory() )
 			{
-				::std::string::size_type pos = m_output_path.rfind('\\');
-				if( pos == ::std::string::npos )
-				{
-					m_output_path = internal::posix::GetCWD();
-				}
-				else
-				{
-					m_output_path = m_output_path.substr(0, pos);
-				}
+				m_output_path = directory;
+			}
+			else
+			{
+				m_output_path = path.RemoveFileName().ToString();
 			}
 		}
 	}
@@ -198,7 +200,7 @@ inline void TAPFileGeneratorListener::OnTestProgramEnd(const UnitTest& test)
 		::std::string filepath = m_output_path;
 		::std::string name = test_case.name();
 		detail::StringReplace(name, '/', "_");
-		filepath += "\\";
+		filepath += detail::GetPathSeparator();
 		filepath += name;
 		filepath += ".tap";
 
