@@ -94,8 +94,9 @@ int main(int argc, char* argv[])
 		}
 		{
 			::iutest::IUTEST_FLAG(output) = "hoge/test.tap";
+			::iutest::detail::iuFilePath path("hoge/");
 			::iutest::TAPFileGeneratorListener* listener = reinterpret_cast< ::iutest::TAPFileGeneratorListener*>( ::iutest::TAPFileGeneratorListener::SetUp() );
-			IUTEST_ASSERT_EQ("hoge/", listener->GetFilePath() ) << ::iutest::AssertionReturn<int>(1);
+			IUTEST_ASSERT_EQ(path.ToString(), listener->GetFilePath() ) << ::iutest::AssertionReturn<int>(1);
 			delete listeners.Release(listener);
 		}
 	}
