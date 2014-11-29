@@ -31,4 +31,8 @@ env:
   - WANDBOX_COMPILER=clang-3.2
   - WANDBOX_COMPILER=clang-3.1
   - WANDBOX_COMPILER=clang-3.0
-  
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
