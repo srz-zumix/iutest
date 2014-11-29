@@ -77,7 +77,7 @@ iuwandbox.py sample.cpp
 重要なのは iutest.hpp を include することです。このとき、iutest.hpp にパスが通っていなくても問題ありません。<br />
 <pre class="source">
 #include "../../include/iutest.hpp"
-#include <iostream>
+#include &lt;iostream&gt;
 
 int main(int argc, char** argv)
 {
@@ -95,6 +95,10 @@ IUTEST(Foo, Bar)
 </pre>
 
 サンプルの実行結果はこちらになります。<br />
+<image src="./images/iuwandbox_sample.png" />
+<a href="http://melpon.org/wandbox/permlink/ASSmVgckBKb1HxFF" target="_blank">http://melpon.org/wandbox/permlink/ASSmVgckBKb1HxFF</a><br />
+※ 生成されるコードが長いため、ページを開くのに非常に時間がかかります。ご注意ください。<br />
+
 <br />
 コンパイラーの選択などは後述のコマンドラインオプションの項をご覧ください。<br />
 </div>
