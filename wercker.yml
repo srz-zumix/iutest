@@ -2,7 +2,7 @@ box: wercker/python
 
 build:
   steps:
-    - script
+    - script:
       name: iuwandbox
       code: |
         cd tools/wandbox
