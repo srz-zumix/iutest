@@ -1,0 +1,10 @@
+box: wercker/python
+
+build:
+  steps:
+    - script
+      name: iuwandbox
+      code: |
+        cd tools/wandbox
+        python ./iuwandbox.py ../../test/iutest_syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" --encoding utf-8-sig --expand_include
+    
