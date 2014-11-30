@@ -3,6 +3,7 @@ box: wercker/python
 build:
   steps:
     - pip-install:
+        requirements_file: ""
         packages_list: "requests"
 
     - script:
