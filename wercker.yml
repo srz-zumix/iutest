@@ -2,6 +2,9 @@ box: wercker/python
 
 build:
   steps:
+    - pip-install:
+        packages_list: "requests"
+
     - script:
         name: iuwandbox
         code: |
