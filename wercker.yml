@@ -6,9 +6,14 @@ build:
         requirements_file: ""
         packages_list: "requests"
 
+    - script: 
+        name: make fuse
+        code: make -C tools/fuse
+
     - script:
         name: iuwandbox
         code: |
+          export PYTHONDONTWRITEBYTECODE=1
           cd tools/wandbox
           python ./iuwandbox.py ../../test/iutest_syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" --encoding utf-8-sig --expand_include
     
