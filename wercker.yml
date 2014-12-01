@@ -14,41 +14,47 @@ build:
         name: setup
         code: |
           export PYTHONDONTWRITEBYTECODE=1
-          export IUWANDBOX_COMMANDLINE_OPTION="./iuwandbox.py ../../test/iutest_syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" --encoding utf-8-sig --expand_include"
-          cd tools/wandbox
+          export IUWANDBOX_COMMANDLINE_OPTION="../../test/iutest_syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" --encoding utf-8-sig --expand_include"
 
     - script:
         name: gcc-head
         code: |
-          python ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-head
+          cd tools/wandbox
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-head
 
     - script:
         name: clang-head
         code: |
-          python ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-head
+          cd tools/wandbox
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-head
 
     - script:
         name: gcc-4.9.0
         code: |
-          python ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.9.0
+          cd tools/wandbox
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.9.0
 
     - script:
         name: gcc-4.4.7
         code: |
-          python ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.4.7
+          cd tools/wandbox
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.4.7
 
     - script:
         name: gcc-4.3.6
         code: |
-          python ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.3.6
+          cd tools/wandbox
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.3.6
 
     - script:
         name: clang-3.2
         code: |
-          python ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.2
+          cd tools/wandbox
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.2
 
     - script:
         name: clang-3.1
         code: |
-          python ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.1
+          cd tools/wandbox
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.1
 
