@@ -1,0 +1,24 @@
+#
+# Makefile
+
+.PHONY: sample
+
+TOOLS=pypaiza.py iupaiza.py
+
+WANDBOX_COMPILER?=gcc-head
+
+fuse:
+	make -C ../fuse
+
+help: $(TOOLS)
+	python iupaiza.py -h
+	
+sample: sample.cpp $(TOOLS) Makefile
+	python iupaiza.py sample.cpp
+
+save: sample.cpp $(TOOLS) Makefile
+	python iupaiza.py sample.cpp
+
+test: ../../test/iutest_syntax_tests.cpp Makefile
+	python iupaiza.py $< -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --expand_include --encoding utf-8-sig
+	
