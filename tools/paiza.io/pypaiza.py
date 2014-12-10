@@ -59,8 +59,9 @@ class PaizaIO:
 			r = self.get_status()
 
 	def run(self):
-		self.create()
-		self.wait_complete();
+		r = self.create()
+		while not self.is_completed(r):
+			r = self.get_status()
 		return self.get_details()
 
 	def language(language, str):
@@ -73,6 +74,10 @@ class PaizaIO:
 		self.parameter.update({'input':str})
 	def stdin(self, str):
 		self.parameter.update({'input':str})
+	def longpoll(self, b):
+		self.parameter.update({'longpoll':b})
+	def longpoll_timeout(self, t):
+		self.parameter.update({'longpoll_timeout':t})
 		
 	def dump(self):
 		print self.parameter

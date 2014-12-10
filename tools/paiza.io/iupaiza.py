@@ -95,6 +95,7 @@ def make_code(path, encoding, expand):
 # run paiza
 def run_paiza(code, options):
 	paiza = PaizaIO()
+	paiza.longpoll(True)
 	paiza.code(code)
 	return paiza.run()
 
