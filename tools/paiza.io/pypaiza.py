@@ -22,10 +22,12 @@ class PaizaIO:
 		r.raise_for_status()
 		result = r.json()
 		if 'error' in result:
-			print result['error']
-			print result
-			raise
-		elif 'id' in result:
+			if not 'longpoll timeout' in result['error']:
+				print result['error']
+				print result
+				raise
+		
+		if 'id' in result:
 			self.session_id = result['id']
 		else:
 			print result
