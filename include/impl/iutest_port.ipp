@@ -379,26 +379,6 @@ IUTEST_IPP_INLINE IUTestLog::~IUTestLog(void)
 	}
 }
 
-#if IUTEST_HAS_STREAMCAPTURE
-
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
-
-IUTEST_IPP_INLINE IUStreamCapture::IUStreamCapture(FILE* fp)
-	: m_fp(fp)
-{
-	m_buf[0] = '\0';
-	setbuf(fp, m_buf);
-}
-
-IUTEST_IPP_INLINE IUStreamCapture::~IUStreamCapture(void)
-{
-	setbuf(m_fp, NULL);
-}
-
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
-
-#endif
-
 }	// end of namespace detail
 }	// end of namespace iutest
 

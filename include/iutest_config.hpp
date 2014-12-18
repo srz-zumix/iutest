@@ -228,7 +228,7 @@
 
 #if !defined(IUTEST_HAS_MATCHER_ELEMENTSARE)
 //! ::iutest::ElementsAre matcher が使用可能かどうか
-#  if IUTEST_HAS_TUPLE && IUTEST_HAS_MATCHERS
+#  if IUTEST_HAS_TUPLE && IUTEST_HAS_MATCHERS && !defined(IUTEST_NO_SFINAE)
 #    define IUTEST_HAS_MATCHER_ELEMENTSARE		1
 #  else
 #    define IUTEST_HAS_MATCHER_ELEMENTSARE		0

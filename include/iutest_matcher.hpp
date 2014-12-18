@@ -508,6 +508,8 @@ private:
 /**
  * @brief	Cast to matcher
 */
+#if !defined(IUTEST_NO_SFINAE)
+
 template<typename T>
 T& CastToMatcher(T& matcher
 	, typename detail::enable_if_t< IMatcher::is_matcher<T> >::type*& = detail::enabler::value)
@@ -521,6 +523,16 @@ EqMatcher<T> CastToMatcher(const T& value
 {
 	return EqMatcher<T>(value);
 }
+
+#else
+
+template<typename T>
+T& CastToMatcher(T& matcher)
+{
+	return matcher;
+}
+
+#endif
 
 
 /**
@@ -1201,6 +1213,8 @@ public:
 		return strm.str();
 	}
 private:
+
+#if !defined(IUTEST_NO_SFINAE)
 	template<typename U>
 	bool Check(const U& actual
 		, typename detail::disable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
@@ -1213,6 +1227,14 @@ private:
 	{
 		return static_cast<bool>(CastToMatcher(m_expected)(actual->*m_field));
 	}
+#else
+	template<typename U>
+	bool Check(const U& actual)
+	{
+		return static_cast<bool>(CastToMatcher(m_expected)(actual->*m_field));
+	}
+#endif
+
 private:
 	IUTEST_PP_DISALLOW_ASSIGN(FieldMatcher);
 
@@ -1246,6 +1268,7 @@ public:
 		return strm.str();
 	}
 private:
+#if !defined(IUTEST_NO_SFINAE)
 	template<typename U>
 	bool Check(const U& actual
 		, typename detail::disable_if_t< detail::is_pointer<U> >::type*& = detail::enabler::value)
@@ -1258,6 +1281,14 @@ private:
 	{
 		return static_cast<bool>(CastToMatcher(m_expected)((actual->*m_property)()));
 	}
+#else
+	template<typename U>
+	bool Check(const U& actual)
+	{
+		return static_cast<bool>(CastToMatcher(m_expected)((actual->*m_property)()));
+	}
+#endif
+
 private:
 	IUTEST_PP_DISALLOW_ASSIGN(PropertyMatcher);
 

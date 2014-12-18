@@ -151,6 +151,8 @@ IUTEST(AssertionTest, Base2)
 
 #if !defined(IUTEST_USE_GTEST)
 
+#if IUTEST_HAS_ASSERTION_NOEQUALTO_OBJECT
+
 struct TestObjectX
 {
 	int a, b, c;
@@ -162,6 +164,8 @@ IUTEST(AssertionTest, MemCmpEQ)
 	TestObjectX y={ 0, 1, 2 };
 	IUTEST_ASSERT_EQ(x, y);
 }
+
+#endif
 
 #endif
 

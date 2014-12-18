@@ -188,18 +188,32 @@ private:
 /**
  * @brief	stream capture
  */
+template<int SIZE=BUFSIZ>
 class IUStreamCapture
 {
 public:
-	IUStreamCapture(FILE* fp);
-	~IUStreamCapture(void);
+	IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+
+	IUStreamCapture(FILE* fp)
+		: m_fp(fp)
+	{
+		m_buf[0] = '\0';
+		setvbuf(fp, m_buf, _IOFBF, SIZE);
+	}
+
+	~IUStreamCapture(void)
+	{
+		setbuf(m_fp, NULL);
+	}
+
+	IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 public:
 	::std::string GetStreamString(void) { return m_buf; }
 
 private:
 	FILE* m_fp;
-	char m_buf[BUFSIZ];
+	char m_buf[SIZE];
 };
 
 #endif

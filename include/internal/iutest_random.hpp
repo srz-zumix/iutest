@@ -74,11 +74,13 @@ class iuRandom
 			}
 		}
 	public:
+#if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
 		static IUTEST_CXX_CONSTEXPR_OR_CONST result_type _Min = 0;
 		static IUTEST_CXX_CONSTEXPR_OR_CONST result_type _Max = static_cast<result_type>(-1);
+#endif
 
-		static IUTEST_CXX_CONSTEXPR result_type (min)(void) { return _Min; }
-		static IUTEST_CXX_CONSTEXPR result_type (max)(void) { return _Max; }
+		static IUTEST_CXX_CONSTEXPR result_type (min)(void) { return 0; }
+		static IUTEST_CXX_CONSTEXPR result_type (max)(void) { return static_cast<result_type>(-1); }
 
 	private:
 		result_type gen(void)
