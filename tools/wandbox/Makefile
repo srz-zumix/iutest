@@ -3,7 +3,7 @@
 
 .PHONY: sample
 
-TOOLS=pywandbox.py iuwandbox.py
+TOOLS=wandbox.py iuwandbox.py
 
 WANDBOX_COMPILER?=gcc-head
 

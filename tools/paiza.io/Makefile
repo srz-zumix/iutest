@@ -3,7 +3,7 @@
 
 .PHONY: sample
 
-TOOLS=pypaiza.py iupaiza.py
+TOOLS=paiza.py iupaiza.py
 
 WANDBOX_COMPILER?=gcc-head
 

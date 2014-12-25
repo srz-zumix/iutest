@@ -8,10 +8,10 @@ import sys
 import re
 import codecs
 import argparse
-import pypaiza
+import paiza
 
 from argparse import ArgumentParser
-from pypaiza import PaizaIO
+from paiza import PaizaIO
 
 IUTEST_FUSED_SRC = os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.min.hpp')
 IUTEST_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*".*iutest\.hpp"')
@@ -48,7 +48,7 @@ def parse_command_line():
 	parser.add_argument(
 		'code'
 		, metavar='CODE'
-			, help = 'Source code file'
+			, help = 'source code file'
 		, nargs='?'
 	)
 	if len(sys.argv) <= 1:
