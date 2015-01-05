@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# pypaiza.py
+# paizaio.py
 #
 
 import requests

@@ -32,7 +32,7 @@ Project page
 License
 --------------------------------------------------
 
-    Copyright (c) 2011-2014, Takazumi-Shirayanagi,
+    Copyright (c) 2011-2015, Takazumi Shirayanagi,
     All rights reserved.
 
     This software is released under the new(3-clause) BSD License, see LICENSE

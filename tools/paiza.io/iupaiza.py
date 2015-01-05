@@ -8,10 +8,10 @@ import sys
 import re
 import codecs
 import argparse
-import paiza
+import paizaio
 
 from argparse import ArgumentParser
-from paiza import PaizaIO
+from paizaio import PaizaIO
 
 IUTEST_FUSED_SRC = os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.min.hpp')
 IUTEST_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*".*iutest\.hpp"')
