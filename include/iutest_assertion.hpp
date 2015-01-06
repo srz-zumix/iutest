@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -414,19 +414,24 @@ inline AssertionResult EqFailure(const char* expected_expression, const char* ac
 	return AssertionFailure() << strm.str();
 }
 
+template<typename T1, typename T2>
+inline AssertionResult CmpHelperOpFailure(const char* expr1, const char* expr2, const char* op
+	, const T1& val1, const T2& val2)
+{
+	return AssertionFailure() << "error: Expected: " << expr1 << " " << op << " " << expr2
+		<< "\n  Actual: " << FormatForComparisonFailureMessage(val1, val2)
+		<< " vs " << FormatForComparisonFailureMessage(val2, val1);
+}
+
 /**
  * @private
  * @{
-*/
-#define DECL_COMPARE_HELPER_I_(op_name, op, type1, type2)									\
-	inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelper##op_name(						\
-			const char* expr1, const char* expr2, type1 val1, type2 val2) {					\
-	if( val1 op val2 ) { return AssertionSuccess();											\
-	} else {																				\
-	return AssertionFailure() << "error: Expected: " << expr1 << " " #op " " << expr2		\
-		<< "\n  Actual: " << FormatForComparisonFailureMessage(val1, val2)					\
-		<< " vs " << FormatForComparisonFailureMessage(val2, val1);							\
-	}																						\
+ */
+#define DECL_COMPARE_HELPER_I_(op_name, op, type1, type2)						\
+	inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelper##op_name(			\
+			const char* expr1, const char* expr2, type1 val1, type2 val2) {		\
+		if( val1 op val2 ) { return AssertionSuccess();							\
+		} else { return CmpHelperOpFailure(expr1, expr2, #op, val1, val2); }	\
 	}
 
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)

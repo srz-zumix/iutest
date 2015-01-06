@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -115,13 +115,30 @@ IUTEST_IPP_INLINE const char* GetCWD(char* buf, size_t length)
 #elif defined(IUTEST_OS_WINDOWS)
 	return ::GetCurrentDirectoryA(static_cast<DWORD>(length), buf) == 0 ? NULL : buf;
 #else
-	return getcwd(buf, length);
+	const char* result = getcwd(buf, length);
+	if( result == NULL && buf != NULL && length >= 1 )
+	{
+#if defined(IUTEST_OS_NACL)
+		if( length < 3 )
+		{
+			return NULL;
+		}
+		buf[0] = '.';
+		buf[1] = '/';
+		buf[2] = '\0';
+		return buf;
+#else
+		buf[0] = '\0';
+		return buf;
+#endif
+	}
+	return result;
 #endif
 }
 
 IUTEST_IPP_INLINE ::std::string GetCWD(void)
 {
-	char buf[260];
+	char buf[260] = { 0 };
 	return GetCWD(buf, sizeof(buf));
 }
 

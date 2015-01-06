@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -929,11 +929,17 @@
 
 //! unused attribute
 #if !defined(IUTEST_ATTRIBUTE_UNUSED_)
-#  if (defined(__GNUC__) && !defined(COMPILER_ICC)) || defined(__clang__)
+#  if (defined(__GNUC__) && !defined(COMPILER_ICC))
 #    define IUTEST_ATTRIBUTE_UNUSED_	__attribute__ ((unused))
-#  else
-#    define IUTEST_ATTRIBUTE_UNUSED_
+#  elif defined(__clang__)
+#    if __has_attribute(unused))
+#      define IUTEST_ATTRIBUTE_UNUSED_	__attribute__ ((unused))
+#    endif
 #  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_UNUSED_)
+#  define IUTEST_ATTRIBUTE_UNUSED_
 #endif
 
 //! pure attribute
