@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -127,6 +127,14 @@ inline void StringReplace(::std::string& str, char a, const char* to)
 	{
 		str.replace(pos, 1, to);
 		++pos;
+	}
+}
+inline void StripTrailingSpace(::std::string& str)
+{
+	::std::string::iterator it = str.end();
+	while(it != str.begin() && IsSpace(*--it))
+	{
+		it = str.erase(it);
 	}
 }
 

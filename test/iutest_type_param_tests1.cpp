@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -51,6 +51,26 @@ IUTEST_REGISTER_TYPED_TEST_CASE_P(VerifyFailTypeParamTest, A);
 
 IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, VerifyFailTypeParamTest, ::iutest::Types<int>);
 
+
+#endif
+
+#if !defined(IUTEST_USE_GTEST) || (defined(GTEST_VER) && GTEST_VER > 0x01070000)
+
+template<typename T>
+class RegisterVerboseSpaceTypeParamTest : public ::iutest::Test {};
+
+IUTEST_TYPED_TEST_CASE_P(RegisterVerboseSpaceTypeParamTest);
+IUTEST_TYPED_TEST_P(RegisterVerboseSpaceTypeParamTest, A)
+{
+	IUTEST_ASSERT_STREQ("A", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
+}
+IUTEST_TYPED_TEST_P(RegisterVerboseSpaceTypeParamTest, B)
+{
+	IUTEST_ASSERT_STREQ("B", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
+}
+
+IUTEST_REGISTER_TYPED_TEST_CASE_P(RegisterVerboseSpaceTypeParamTest, A	  	   , B  	  );
+IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, RegisterVerboseSpaceTypeParamTest, ::iutest::Types<int>);
 
 #endif
 

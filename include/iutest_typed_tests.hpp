@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -431,6 +431,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 				test_name.append(str, comma - str);
 				++comma;
 			}
+			StripTrailingSpace(test_name);
 			_Myt* test = new EachTest(testcase, test_name.c_str());
 			// new オブジェクトを管理してもらう
 			detail::iuPool::GetInstance().push(test);
