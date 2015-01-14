@@ -72,11 +72,9 @@ matrix:
     - compiler: gcc
       env: USE_GTEST=1
     - compiler: gcc
-      env: CXX=i686-w64-mingw32-g++
-      USE_WINE=1
+      env: CXX=i686-w64-mingw32-g++ USE_WINE=1
     #- compiler: gcc
-    #  env: CXX=winegcc
-    #  USE_WINE=1
+    #  env: CXX=winegcc USE_WINE=1
     - compiler: gcc
       env: COVERITY_SCAN=1
       addons:
