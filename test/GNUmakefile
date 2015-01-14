@@ -29,7 +29,7 @@ endif
 ifeq ($(findstring clang, $(CXX)),clang)
 
 #
-# clang version
+# clang
 #
 
 #STDFLAG += -std=c++0x
@@ -44,7 +44,7 @@ CXXFLAGS += -coverage
 endif
 
 #
-# GCC version
+# GCC
 #
 GCCVERSION:=$(shell $(CXX) -dumpversion)
 
@@ -72,6 +72,17 @@ endif
 
 else
 
+ifeq ($(findstring mingw, $(CXX)),mingw)
+
+#
+# MINGW
+#
+
+LIBS+=ws2_32
+CXXFLAGS += -static-libgcc -static-libstdc++
+
+else
+
 #
 # Unknown Compiler
 #
@@ -81,8 +92,16 @@ endif
 
 endif
 
+endif
+
 ifdef OUTPUTXML
 CXXFLAGS +=-DOUTPUTXML
+endif
+
+ifdef USE_WINE
+WINE_ =wine
+else
+WINE_ =
 endif
 
 CXXFLAGS += $(DEFS) $(STDFLAG)
@@ -143,12 +162,12 @@ showcxxversion:
 run_% : %
 	@echo $<
 ifdef USE_COVERAGE
-	./$< $(RUN_OPTION) --iutest_output=xml:$<.xml > /dev/null
+	${WINE_} ./$< $(RUN_OPTION) --iutest_output=xml:$<.xml > /dev/null
 else
 ifdef OUTPUTXML
-	./$< $(RUN_OPTION) --iutest_output=xml:$<.xml
+	${WINE_} ./$< $(RUN_OPTION) --iutest_output=xml:$<.xml
 else
-	./$< $(RUN_OPTION)
+	${WINE_} ./$< $(RUN_OPTION)
 endif
 endif
 
