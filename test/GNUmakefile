@@ -98,7 +98,7 @@ ifdef OUTPUTXML
 CXXFLAGS +=-DOUTPUTXML
 endif
 
-ifdef USE_WINE
+ifeq ($(HOST),WINE)
 WINE_ =wine
 else
 WINE_ =
