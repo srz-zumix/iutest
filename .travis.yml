@@ -26,7 +26,7 @@ install:
   - if [ "${WINEGCC}" == '1' ]; then sudo apt-get -qq install wine-dev; fi
   - if [ "${WINEGCC}" == '1' ]; then sudo apt-get -qq install g++-4.5; fi
   # mingw
-  - if [ "${MINGW}" == '1' ]; then sudo apt-get -qq install g++-mingw-w64; fi
+  #- if [ "${MINGW}" == '1' ]; then sudo apt-get -qq install g++-mingw-w64; fi
   - if [ "${MINGW}" == '1' ]; then sudo apt-get -qq install mingw-w64; fi
   # gcov
   - if [ "${USE_COVERAGE}" = 'gcov' ]; then sudo easy_install cpp-coveralls; fi
