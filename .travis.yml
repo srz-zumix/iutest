@@ -81,7 +81,7 @@ matrix:
     - compiler: gcc
       env: USE_GTEST=1
     - compiler: gcc
-      env: MINGW=1 HOST=WINE
+      env: MINGW=1 HOST=WINE DEFS="IUTEST_HAS_STREAMCAPTURE=0"
     #- compiler: gcc
     #  env: WINEGCC=1 HOST=WINE
     - compiler: gcc

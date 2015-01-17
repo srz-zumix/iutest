@@ -47,7 +47,7 @@ namespace detail
 */
 inline int iu_stricmp(const char* str1, const char* str2)
 {
-#if defined(IUTEST_OS_WINDOWS)
+#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_WINE)
 
 #if defined(__BORLANDC__)
 	return stricmp(str1, str2);

@@ -41,6 +41,9 @@
 #    define IUTEST_PLATFORM				"Windows CE"
 #  elif defined(__MINGW__) || defined(__MINGW32__)
 #    define IUTEST_OS_WINDOWS_MINGW		1
+#  elif defined(__WINE__)
+#    define IUTEST_OS_WINDOWS_WINE		1
+#    define IUTEST_PLATFORM				"WINE"
 #  elif defined(__CUDACC__)
 #    define IUTEST_OS_WINDOWS_CUDA		1
 #  elif defined(WINAPI_FAMILY)
