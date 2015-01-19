@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -21,7 +21,7 @@
 
 #if defined(_MSC_VER) && _MSC_VER >= 1310
 #  if !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
-#    if defined(_MSC_FULL_VER) && (_MSC_FULL_VER <= 190022310)
+#    if defined(_MSC_FULL_VER) && (_MSC_FULL_VER <= 190022512)
 IUTEST_PRAGMA_MSC_WARN_PUSH()
 IUTEST_PRAGMA_MSC_WARN_DISABLE(4091)
 #      include <DbgHelp.h>

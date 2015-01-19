@@ -374,6 +374,10 @@ using tuples::get;
 #  define IUTEST_HAS_HDR_SYSTIME		1
 #endif
 
+// socklen_t
+#if defined(IUTEST_OS_WINDOWS_WINE)
+#  define __socklen_t_defined
+#endif
 
 namespace iutest {
 namespace detail

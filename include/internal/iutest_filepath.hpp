@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,7 +19,6 @@
 
 //======================================================================
 // include
-#include "iutest_string.hpp"
 #include "iutest_port.hpp"
 
 #if IUTEST_HAS_FILE_STAT
