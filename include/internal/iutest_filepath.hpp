@@ -37,7 +37,7 @@ namespace posix
 
 #if IUTEST_HAS_FILE_STAT
 
-#if defined(IUTEST_OS_WINDOWS)
+#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_WINE)
 
 	typedef struct _stat StatStruct;
 

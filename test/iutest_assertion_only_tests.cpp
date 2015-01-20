@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -16,7 +16,6 @@
 //======================================================================
 // include
 #include <stdarg.h>
-#include <iostream>
 
 //======================================================================
 // define
@@ -32,6 +31,7 @@ void test_printf(const char* fmt, ...);
 // include
 #include "iutest.hpp"
 #include "../include/gtest/iutest_assertion_only.hpp"
+#include <iostream>
 
 #ifdef IUTEST_USE_GTEST
 static ::std::stringstream s_outstream;

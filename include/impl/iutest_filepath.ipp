@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -111,7 +111,7 @@ IUTEST_IPP_INLINE bool iuFilePath::CreateFolder(void) const
 	{
 		return true;
 	}
-#elif defined(IUTEST_OS_WINDOWS)
+#elif defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_WINE)
 	if( _mkdir(c_str()) == 0 )
 	{
 		return true;

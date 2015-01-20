@@ -26,16 +26,18 @@ endif
 # compiler
 #
 
-ifeq ($(findstring clang, $(CXX)),clang)
 
 #
 # clang
 #
-
+ifeq ($(findstring clang, $(CXX)),clang)
 #STDFLAG += -std=c++0x
+endif
 
-else
 
+#
+# GCC
+#
 ifeq ($(CXX),g++)
 
 ifdef USE_COVERAGE
@@ -43,9 +45,6 @@ COVERAGE = coveralls
 CXXFLAGS += -coverage
 endif
 
-#
-# GCC
-#
 GCCVERSION:=$(shell $(CXX) -dumpversion)
 
 dot:=.
@@ -70,29 +69,23 @@ else
 endif
 endif
 
-else
-
-ifeq ($(findstring mingw, $(CXX)),mingw)
+endif
 
 #
 # MINGW
 #
-
+ifeq ($(findstring mingw, $(CXX)),mingw)
 LIBS+=ws2_32
 CXXFLAGS += -static-libgcc -static-libstdc++
-
-else
+endif
 
 #
-# Unknown Compiler
+# Wine g++
 #
-STDFLAG = 
-
+ifeq ($(CXX),wineg++)
+LIBS+=ws2_32
 endif
 
-endif
-
-endif
 
 ifdef OUTPUTXML
 CXXFLAGS +=-DOUTPUTXML
