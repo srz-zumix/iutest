@@ -84,6 +84,7 @@ endif
 #
 ifeq ($(CXX),wineg++)
 LIBS+=ws2_32
+CXXFLAGS += -static-libgcc -static-libstdc++
 endif
 
 
