@@ -667,7 +667,7 @@
 #    endif
 #    define IUTEST_HAS_EXCEPTIONS	_HAS_EXCEPTIONS
 #  elif defined(__clang__)
-#    if __has_feature(cxx_exceptions)
+#    if __EXCEPTIONS && __has_feature(cxx_exceptions)
 #      define IUTEST_HAS_EXCEPTIONS	1
 #    endif
 #  elif defined(__GNUC__)

@@ -82,8 +82,8 @@ matrix:
       env: USE_GTEST=1
     - compiler: gcc
       env: MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAMCAPTURE=0"
-    - compiler: gcc
-      env: WINEGCC=1 HOST=WINE
+    #- compiler: gcc
+    #  env: WINEGCC=1 HOST=WINE
     - compiler: gcc
       env: COVERITY_SCAN=1
       addons:
