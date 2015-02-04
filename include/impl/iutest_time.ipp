@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -25,6 +25,28 @@ namespace detail
 
 //======================================================================
 // function
+IUTEST_IPP_INLINE bool Localtime(time_t sec, struct tm* dst)
+{
+#if IUTEST_HAS_CTIME
+
+#if defined(_MSC_VER)
+	return localtime_s(dst, &sec) == 0;
+#elif defined(__MINGW32__) || defined(__MINGW64__)
+	const struct tm* const t = localtime(&sec);
+	if( t == NULL || dst == NULL ) return false;
+	*dst = *t;
+	return true;
+#else
+	return localtime_r(&sec, dst) != NULL;
+#endif
+
+#else
+	IUTEST_UNUSED_VAR(sec);
+	IUTEST_UNUSED_VAR(dst);
+	return false;
+#endif
+}
+
 IUTEST_IPP_INLINE ::std::string FormatTimeInMillisecAsSecond(TimeInMillisec msec)
 {
 	iu_stringstream ss;
@@ -40,22 +62,20 @@ IUTEST_IPP_INLINE ::std::string FormatTimeInMillisecAsIso8601(TimeInMillisec mse
 {
 #if IUTEST_HAS_CTIME
 	time_t sec = static_cast<time_t>(msec / 1000);
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
-	const struct tm* const t = localtime(&sec);
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
-	if( t == NULL )
+	struct tm t;
+	if( !Localtime(sec, &t) )
 	{
-		return "";
+		return FormatTimeInMillisecAsSecond(msec);
 	}
 
 	iu_stringstream ss;
-	ss << (t->tm_year+1900);
+	ss << (t.tm_year+1900);
 	return ss.str() + "-"
-		+ FormatIntWidth2(t->tm_mon+1) + "-"
-		+ FormatIntWidth2(t->tm_mday) + "T"
-		+ FormatIntWidth2(t->tm_hour) + ":"
-		+ FormatIntWidth2(t->tm_min) + ":"
-		+ FormatIntWidth2(t->tm_sec);
+		+ FormatIntWidth2(t.tm_mon+1) + "-"
+		+ FormatIntWidth2(t.tm_mday) + "T"
+		+ FormatIntWidth2(t.tm_hour) + ":"
+		+ FormatIntWidth2(t.tm_min) + ":"
+		+ FormatIntWidth2(t.tm_sec);
 #else
 	return FormatTimeInMillisecAsSecond(msec);
 #endif

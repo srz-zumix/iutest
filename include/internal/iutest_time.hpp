@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -36,6 +36,15 @@ namespace detail
 
 //======================================================================
 // declare
+/**
+ * @internal
+ * @brief	localtime
+ * @param	[in]	sec	= 秒
+ * @param	[out]	dst	= 時刻
+ * @return	成否
+*/
+bool Localtime(time_t sec, struct tm* dst);
+
 /**
  * @internal
  * @brief	TimeInMillisec to string
