@@ -40,10 +40,13 @@
 #  undef GTEST_OS_MAC
 #  ifdef GTEST_OS_IOS
 #    undef GTEST_OS_IOS
-#    ifdef GTEST_OS_IOS_SIMULATOR
-#      undef GTEST_OS_IOS_SIMULATOR
-#    endif
 #  endif
+#endif
+#ifdef GTEST_OS_FREEBSD
+#  undef GTEST_OS_FREEBSD
+#endif
+#ifdef GTEST_OS_SOLARIS
+#  undef GTEST_OS_SOLARIS
 #endif
 #ifdef GTEST_OS_LINUX
 #  undef GTEST_OS_LINUX
@@ -60,7 +63,7 @@
 //======================================================================
 // define
 #ifdef IUTEST_OS_CYGWIN
-#  define GTEST_OS_CYGWIN		IUTEST_OS_CYGWIN
+#  define GTEST_OS_CYGWIN				IUTEST_OS_CYGWIN
 #endif
 #ifdef IUTEST_OS_WINDOWS
 #  define GTEST_OS_WINDOWS				IUTEST_OS_WINDOWS
@@ -73,24 +76,36 @@
 #  ifdef IUTEST_OS_WINDOWS_DESKTOP
 #	 define GTEST_OS_WINDOWS_DESKTOP	IUTEST_OS_WINDOWS_DESKTOP
 #  endif
+#  ifdef IUTEST_OS_WINDOWS_PHONE
+#	 define GTEST_OS_WINDOWS_PHONE		IUTEST_OS_WINDOWS_PHONE
+#  endif
+#  ifdef IUTEST_OS_WINDOWS_RT
+#	 define GTEST_OS_WINDOWS_RT			IUTEST_OS_WINDOWS_RT
+#  endif
+#  ifdef IUTEST_OS_WINDOWS_WINE
+#	 define GTEST_OS_WINDOWS_WINE		IUTEST_OS_WINDOWS_WINE
+#  endif
 #endif
 #ifdef IUTEST_OS_MAC
 #  define GTEST_OS_MAC					IUTEST_OS_MAC
 #  ifdef IUTEST_OS_IOS
 #    define GTEST_OS_IOS				IUTEST_OS_IOS
-#    ifdef IUTEST_OS_IOS_SIMULATOR
-#      define GTEST_OS_IOS_SIMULATOR	IUTEST_OS_IOS_SIMULATOR
-#    endif
 #  endif
 #endif
+#ifdef IUTEST_OS_FREEBSD
+#  define GTEST_OS_FREEBSD				IUTEST_OS_FREEBSD
+#endif
+#ifdef IUTEST_OS_SOLARIS
+#  define GTEST_OS_SOLARIS				IUTEST_OS_SOLARIS
+#endif
 #ifdef IUTEST_OS_LINUX
-#  define GTEST_OS_LINUX			IUTEST_OS_LINUX
+#  define GTEST_OS_LINUX				IUTEST_OS_LINUX
 #  ifdef IUTEST_OS_LINUX_ANDROID
-#	 define GTEST_OS_LINUX_ANDROID	IUTEST_OS_LINUX_ANDROID
+#	 define GTEST_OS_LINUX_ANDROID		IUTEST_OS_LINUX_ANDROID
 #  endif
 #endif
 #ifdef IUTEST_OS_NACL
-#  define GTEST_OS_NACL	IUTEST_OS_NACL
+#  define GTEST_OS_NACL					IUTEST_OS_NACL
 #endif
 
 #else // !defined(IUTEST_USE_GTEST)
@@ -124,10 +139,13 @@
 #  undef IUTEST_OS_MAC
 #  ifdef IUTEST_OS_IOS
 #    undef IUTEST_OS_IOS
-#    ifdef IUTEST_OS_IOS_SIMULATOR
-#      undef IUTEST_OS_IOS_SIMULATOR
-#    endif
 #  endif
+#endif
+#ifdef IUTEST_OS_FREEBSD
+#  undef IUTEST_OS_FREEBSD
+#endif
+#ifdef IUTEST_OS_SOLARIS
+#  undef IUTEST_OS_SOLARIS
 #endif
 #ifdef IUTEST_OS_LINUX
 #  undef IUTEST_OS_LINUX
@@ -164,15 +182,24 @@
 #  ifdef GTEST_OS_WINDOWS_DESKTOP
 #	 define IUTEST_OS_WINDOWS_DESKTOP	GTEST_OS_WINDOWS_DESKTOP
 #  endif
+#  ifdef GTEST_OS_WINDOWS_PHONE
+#	 define IUTEST_OS_WINDOWS_PHONE		GTEST_OS_WINDOWS_PHONE
+#  endif
+#  ifdef GTEST_OS_WINDOWS_RT
+#	 define IUTEST_OS_WINDOWS_RT		GTEST_OS_WINDOWS_RT
+#  endif
 #endif
 #ifdef GTEST_OS_MAC
 #  define IUTEST_OS_MAC					GTEST_OS_MAC
 #  ifdef GTEST_OS_IOS
 #    define IUTEST_OS_IOS				GTEST_OS_IOS
-#    ifdef GTEST_OS_IOS_SIMULATOR
-#      define IUTEST_OS_IOS_SIMULATOR	GTEST_OS_IOS_SIMULATOR
-#    endif
 #  endif
+#endif
+#ifdef GTEST_OS_FREEBSD
+#  define IUTEST_OS_FREEBSD				GTEST_OS_FREEBSD
+#endif
+#ifdef GTEST_OS_SOLARIS
+#  define IUTEST_OS_SOLARIS				GTEST_OS_SOLARIS
 #endif
 #ifdef GTEST_OS_LINUX
 #  define IUTEST_OS_LINUX				GTEST_OS_LINUX
@@ -181,7 +208,7 @@
 #  endif
 #endif
 #ifdef GTEST_OS_NACL
-#  define IUTEST_OS_NACL	GTEST_OS_NACL
+#  define IUTEST_OS_NACL				GTEST_OS_NACL
 #endif
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()

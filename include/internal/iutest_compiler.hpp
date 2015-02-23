@@ -66,16 +66,14 @@
 #  include "TargetConditionals.h"
 #  if TARGET_OS_IPHONE
 #    define IUTEST_OS_IOS				1
-#    if TARGET_IPHONE_SIMULATOR
-#      define IUTEST_OS_IOS_SIMULATOR	1
-#      define IUTEST_PLATFORM			"iOS Simulator"
-#    else
-#      define IUTEST_PLATFORM			"iOS"
-#    endif
+#    define IUTEST_PLATFORM				"iOS"
 #  else
 #    define IUTEST_OS_MAC				1
 #    define IUTEST_PLATFORM				"Mac OS"
 #  endif
+#elif defined(__FreeBSD__)
+#  define IUTEST_OS_FREEBSD				1
+#  define IUTEST_PLATFORM				"FreeBSD"
 #elif defined(sun) || defined(__sun)
 #  define IUTEST_OS_SOLARIS				1
 #  define IUTEST_PLATFORM				"Solaris"
