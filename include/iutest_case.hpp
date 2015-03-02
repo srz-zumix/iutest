@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -151,6 +151,12 @@ private:
 	 * @return	成否
 	*/
 	bool RunImpl(void);
+
+private:
+	/**
+	 * @brief	セットアップのスキップチェック
+	*/
+	bool CheckSetUpSkipped(void);
 
 public:
 	/**

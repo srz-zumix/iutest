@@ -377,7 +377,8 @@ public:
 		}
 		return ret;
 #else
-		IUTEST_UNUSED_VAR(names);
+		IUTEST_UNUSED_VAR(file);
+		IUTEST_UNUSED_VAR(line);
 		return true;
 #endif
 		IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()

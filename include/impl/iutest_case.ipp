@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -46,6 +46,8 @@ IUTEST_IPP_INLINE bool TestCase::Run(void)
 		}
 		catch( TestPartResult::Type& eType )
 		{
+			CheckSetUpSkipped();
+
 			if( TestPartResult::type_is_failed(eType) && TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
 			{
 				throw;
@@ -79,12 +81,8 @@ IUTEST_IPP_INLINE bool TestCase::RunImpl(void)
 		return false;
 	}
 
-	if( m_ad_hoc_testresult.Skipped() )
+	if( CheckSetUpSkipped() )
 	{
-		for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
-		{
-			(it)->skip();
-		}
 		return true;
 	}
 
@@ -108,6 +106,19 @@ IUTEST_IPP_INLINE bool TestCase::RunImpl(void)
 		return false;
 	}
 	return result;
+}
+
+IUTEST_IPP_INLINE bool TestCase::CheckSetUpSkipped(void)
+{
+	if(m_ad_hoc_testresult.Skipped())
+	{
+		for(iuTestInfos::iterator it = m_testinfos.begin(), end = m_testinfos.end(); it != end; ++it)
+		{
+			(it)->skip();
+		}
+		return true;
+	}
+	return false;
 }
 
 IUTEST_IPP_INLINE void TestCase::clear(void)
