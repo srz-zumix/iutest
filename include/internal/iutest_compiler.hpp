@@ -933,7 +933,7 @@
 #  if (defined(__GNUC__) && !defined(COMPILER_ICC))
 #    define IUTEST_ATTRIBUTE_UNUSED_	__attribute__ ((unused))
 #  elif defined(__clang__)
-#    if __has_attribute(unused))
+#    if __has_attribute(unused)
 #      define IUTEST_ATTRIBUTE_UNUSED_	__attribute__ ((unused))
 #    endif
 #  endif
