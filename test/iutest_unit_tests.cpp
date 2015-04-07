@@ -104,6 +104,22 @@ IUTEST(UnitTest, AddDefaultPackageName)
 	IUTEST_EXPECT_STREQ("Hoge.a1a2a3a4b5", ::iutest::TestEnv::AddDefaultPackageName("Hoge.a1a2a3a4b5"));
 }
 
+class HackXmlGeneratorListener : public ::iutest::DefaultXmlGeneratorListener
+{
+public:
+	using DefaultXmlGeneratorListener::EscapeXmlAttribute;
+	using DefaultXmlGeneratorListener::EscapeXmlText;
+};
+
+IUTEST(UnitTest, XmlEscape)
+{
+	IUTEST_EXPECT_STREQ("a&lt;&gt;&#x09;b&amp; &apos;&quot;c&#x0D;&#x0A;"
+		, HackXmlGeneratorListener::EscapeXmlAttribute("a<>	b& \'\"c\r\n"));
+	IUTEST_EXPECT_STREQ("a&lt;&gt;	b&amp; \'\"c\r\n"
+		, HackXmlGeneratorListener::EscapeXmlText("a<>	b& \'\"c\r\n"));
+}
+
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
