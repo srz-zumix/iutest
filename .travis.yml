@@ -9,6 +9,7 @@ before_install:
   #- if [ "${CXX}" = 'clang++' ]; then wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -; fi
   #- if [ "${CXX}" = 'clang++' ]; then sudo add-apt-repository --yes 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise main'; fi
   #- if [ "${CXX}" = 'clang++' ]; then sudo add-apt-repository -y ppa:h-rayflood/llvm; fi
+  - if [ "${HOST}" == 'WINE' ]; then sudo add-apt-repository -y ppa:ubuntu-wine/ppa; fi
   - sudo apt-get -qq update
 
 install:
@@ -21,7 +22,6 @@ install:
   #- if [ "${CXX}" = 'clang++' ]; then sudo apt-get -qq install clang-3.5; fi
   #- if [ "${CXX}" = 'clang++' ]; then export CXX="clang++-3.5";  fi
   # wine
-  - if [ "${HOST}" == 'WINE' ]; then sudo apt-get autoremove; fi
   - if [ "${HOST}" == 'WINE' ]; then sudo apt-get -qq -y install wine; fi
   # winegcc
   - if [ "${WINEGCC}" == '1' ]; then sudo apt-get -qq install wine-dev; fi
