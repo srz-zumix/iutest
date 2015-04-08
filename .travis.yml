@@ -5,7 +5,7 @@ compiler:
   - gcc
 
 before_install:
-  - if [ "${CXX}" = 'g++' ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
+  - if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
   #- if [ "${CXX}" = 'clang++' ]; then wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -; fi
   #- if [ "${CXX}" = 'clang++' ]; then sudo add-apt-repository --yes 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise main'; fi
   #- if [ "${CXX}" = 'clang++' ]; then sudo add-apt-repository -y ppa:h-rayflood/llvm; fi
