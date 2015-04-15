@@ -38,6 +38,18 @@ def parse_command_line():
 		, help = 'call to number.'
 	)
 	parser.add_argument(
+		'--account_sid'
+		, help = 'account sid.'
+	)
+	parser.add_argument(
+		'--auth_token'
+		, help = 'auth token.'
+	)
+	parser.add_argument(
+		'--number'
+		, help = 'twilio phone number.'
+	)
+	parser.add_argument(
 		'--dump'
 		, action = 'store_true'
 		, help = 'dump setting.'
@@ -69,6 +81,19 @@ def parse_command_line():
 	return options
 
 #
+# setup
+def setup(options):
+	global account_sid
+	global auth_token
+	global my_number
+	if options.account_sid:
+		account_sid = options.account_sid
+	if options.auth_token:
+		auth_token = options.auth_token
+	if options.number:
+		my_number = options.number
+
+#
 # parse ini
 def parse_ini(path):
 	ini = ConfigParser.SafeConfigParser()
@@ -80,9 +105,13 @@ def parse_ini(path):
 	global account_sid
 	global auth_token
 	global my_number
-	account_sid = ini.get('Twilio', 'account_sid')
-	auth_token = ini.get('Twilio', 'auth_token')
-	my_number = ini.get('Twilio', 'my_number')
+	try:
+		account_sid = ini.get('Twilio', 'account_sid')
+		auth_token = ini.get('Twilio', 'auth_token')
+		my_number = ini.get('Twilio', 'my_number')
+	except:
+		pass
+		
 #	for section in ini.sections():
 #		print '[%s]' % (section)
 #		for key in ini.options(section):
@@ -145,6 +174,7 @@ def dump():
 def main():
 	options = parse_command_line()
 	parse_ini(options.ini)
+	setup(options)
 	if options.dump:
 		dump()
 	else:
