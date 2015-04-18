@@ -17,10 +17,10 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01110100u //!< iutest version 1.11.1.0
+#define IUTEST_VER			0x01119900u //!< iutest version 1.11.99.0
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x11u		//!< Minor Version
-#define IUTEST_BUILD		0x01u		//!< Build
+#define IUTEST_BUILD		0x99u		//!< Build
 #define IUTEST_REVISION		0x00u		//!< Revision
 
 /**
@@ -113,6 +113,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG	変更履歴
  * @par		Changes
  <ul>
+  <li>v1.12.0.0
+    <ul>
+	  <li>--iutest_filter=@filter.txt のようにファイルからフィルター指定できるように対応</li>
+	  <li>twilio 対応</li>
+	</ul>
+  </li>
   <li>v1.11.1.0
     <ul>
 	  <li>IUTEST_REGISTER_TYPED_TEST_CASE_P でテスト名の後ろの空白が名前に含まれてしまう不具合を修正</li>

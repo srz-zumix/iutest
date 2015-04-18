@@ -52,15 +52,12 @@
 <div class="contents">
 <h1>Wandbox の利用</h1>
 
-<div class="contents">
 <h2>iuwandbox</h2>
 <div class="text_block">
 <a href="">Wandbox</a> で iutest を使ったテストコードを書けるように対応しました。<br />
 様々なコンパイラー・バージョンでビルド・テストができるため、あなたのプログラムのコンパイラー対応を助けます。<br />
 </div>
-</div> <!-- end of contents -->
 
-<div class="contents">
 <h2>使い方</h2>
 <div class="text_block">
 tools/wandbox/iuwandbox.py を使用します。<br />
@@ -82,9 +79,9 @@ iuwandbox.py sample.cpp
 int main(int argc, char** argv)
 {
     int x = 0;
-    std::cout << "hoge" << std::endl;
+    std::cout &lt;&lt; "hoge" &lt;&lt; std::endl;
     
-    IUTEST_INIT(&argc, argv);
+    IUTEST_INIT(&amp;argc, argv);
     return IUTEST_RUN_ALL_TESTS();
 }
 
@@ -119,7 +116,7 @@ IUTEST(Foo, Bar)
 <tr><td>-s, --save</td>     <td>permarnent link を生成します。</td></tr>
 <tr><td>--permlink ID</td>  <td>ID の permarnent link の情報を取得します。--output オプションを指定すると、ソースコードをファイルに書き出します。</td></tr>
 <tr><td>-v,--version</td>   <td>バージョンを表示します</td></tr>
-<tr><td width="200px">-h,--help</td>      <td>ヘルプを表示します</td></tr>
+<tr><td width="200">-h,--help</td>      <td>ヘルプを表示します</td></tr>
 </table>
 </div>
 

@@ -137,6 +137,16 @@ inline void StripTrailingSpace(::std::string& str)
 		it = str.erase(it);
 	}
 }
+inline void StringReplaceToLF(::std::string& str)
+{
+	::std::string::size_type pos = 0;
+	while( pos = str.find("\r\n", pos), pos != ::std::string::npos )
+	{
+		str.replace(pos, 2, "\n");
+		++pos;
+	}
+	StringReplace(str, '\r', "\n");
+}
 
 inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n) { return (n&0xF) >= 0xA ? 'A'+((n&0xF)-0xA) : '0'+(n&0xF); }
 

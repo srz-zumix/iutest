@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -98,7 +98,7 @@ namespace iutest
 /**
  * @brief	ファイルクラスインターフェイス
 */
-class IFile : public detail::IOutStream
+class IFile : public detail::IOutStream, public detail::IInStream
 {
 public:
 	//! ファイルオープンモードフラグ
@@ -193,6 +193,28 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 		}
 		return true;
 	}
+
+	/**
+	 * @brief	読み込み
+	 * @param [in]	buf		= 読み込みバッファ
+	 * @param [in]	size	= 読み込みデータサイズ
+	 * @param [in]	cnt		= 読み込み回数
+	*/
+	virtual bool Read(void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
+	{
+		if( fread(buf, size, cnt, m_fp) < cnt ) return false;
+		return true;
+	}
+
+	//! サイズ取得
+	virtual size_t GetSize(void) IUTEST_CXX_OVERRIDE
+	{
+		long pre = ftell(m_fp);
+		fseek(m_fp, 0, SEEK_END);
+		size_t size = static_cast<size_t>(ftell(m_fp));
+		fseek(m_fp, pre, SEEK_SET);
+		return size;
+	}
 };
 
 #endif
@@ -239,6 +261,38 @@ public:
 		return true;
 	}
 
+	/**
+	 * @brief	読み込み
+	 * @param [in]	buf		= 読み込みバッファ
+	 * @param [in]	size	= 読み込みデータサイズ
+	 * @param [in]	cnt		= 読み込み回数
+	*/
+	virtual bool Read(void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
+	{
+		char* p = static_cast<char*>(buf);
+		for( size_t i = 0; i < cnt; ++i )
+		{
+			ss.read(p, size);
+			p += size;
+		}
+		return true;
+	}
+
+	//! サイズ取得
+	virtual size_t GetSize(void) IUTEST_CXX_OVERRIDE
+	{
+		::std::stringstream::pos_type pre = ss.tellg();
+		ss.seekg(0, ::std::ios::end);
+		::std::stringstream::pos_type size = ss.tellg();
+		ss.seekg(pre, ::std::ios::beg);
+		return static_cast<size_t>(size);
+	}
+
+	//! 全読み込み
+	virtual ::std::string ReadAll(void)
+	{
+		return ss.str();
+	}
 protected:
 	::std::stringstream ss;
 };

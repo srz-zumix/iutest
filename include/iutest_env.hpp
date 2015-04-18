@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -674,6 +674,11 @@ private:
 	 * @brief	IUTEST_FILE_LOCATION オプションの判定
 	*/
 	static bool ParseFileLocationOption(const char* option);
+
+	/**
+	 * @brief	IUTEST_FILTER オプションの判定
+	*/
+	static bool ParseFilterOption(const char* option);
 
 	/**
 	 * @brief	yes オプションか no オプションかの判定

@@ -99,6 +99,7 @@ TARGETS_IUTEST_ONLY = \
           iutest_default_printer_listener_tests \
           iutest_env_var_tests \
           iutest_env_var_gtest_tests \
+          iutest_filter_file_tests \
           iutest_ostream_formatter_tests \
           iutest_output_xml_invalid_path_tests \
           iutest_tap_file_generator_listener_tests \

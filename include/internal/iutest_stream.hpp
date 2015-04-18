@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -61,6 +61,40 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 		}
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+	}
+};
+
+/**
+ * @brief	入力ストリームインターフェイス
+*/
+class IInStream
+{
+public:
+	virtual ~IInStream(void) {}
+public:
+	//! 読み込み
+	virtual bool Read(void* buf, size_t size, size_t cnt) = 0;
+
+	//! サイズ取得
+	virtual size_t GetSize(void) = 0;
+
+public:
+	//! 全読み込み
+	virtual ::std::string ReadAll(void)
+	{
+		::std::string str;
+		const size_t size = GetSize();
+		if( size != 0 )
+		{
+			char* buf = new char[size+1];
+			buf[size] = '\0';
+			if( Read(buf, size, 1) )
+			{
+				str = buf;
+			}
+			delete [] buf;
+		}
+		return str;
 	}
 };
 

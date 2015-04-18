@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
  *
@@ -1645,26 +1645,38 @@ public:
 
 //======================================================================
 // function
+namespace detail
+{
+
+template<typename T>
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, T argv)
+{
+	UnitTestSource::GetInstance().Initialize();
+	TestEnv::ParseCommandLine(pargc, argv);
+}
+
+}
+
 /**
  * @brief	初期化
  * @details	コマンドラインオプションの解析をします。
  *			使用した引数は削除され pargc, argv を書き換えます
 */
-inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, char** argv)		{ TestEnv::ParseCommandLine(pargc, argv); UnitTestSource::GetInstance().Initialize(); }
-inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, wchar_t** argv)	{ TestEnv::ParseCommandLine(pargc, argv); UnitTestSource::GetInstance().Initialize(); }		//!< @overload
-inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const char** argv)	{ TestEnv::ParseCommandLine(pargc, argv); UnitTestSource::GetInstance().Initialize(); }	//!< @overload
-inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const wchar_t** argv)	{ TestEnv::ParseCommandLine(pargc, argv); UnitTestSource::GetInstance().Initialize(); }	//!< @overload
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, char** argv)		{ detail::InitIrisUnitTest(pargc, argv); }
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, wchar_t** argv)	{ detail::InitIrisUnitTest(pargc, argv); }		//!< @overload
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const char** argv)	{ detail::InitIrisUnitTest(pargc, argv); }	//!< @overload
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const wchar_t** argv)	{ detail::InitIrisUnitTest(pargc, argv); }	//!< @overload
 
 #if IUTEST_HAS_NULLPTR
-inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, ::std::nullptr_t)	{ TestEnv::ParseCommandLine(pargc, static_cast<char**>(NULL)); UnitTestSource::GetInstance().Initialize(); }	//!< @overload
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, ::std::nullptr_t)	{ detail::InitIrisUnitTest<char**>(pargc, NULL); }	//!< @overload
 #endif
 
 /** @overload */
 template<typename CharType>
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(::std::vector< ::std::basic_string<CharType> >& argv)
 {
-	TestEnv::ParseCommandLine(argv);
 	UnitTestSource::GetInstance().Initialize();
+	TestEnv::ParseCommandLine(argv);
 }
 
 /**

@@ -98,6 +98,13 @@ IUTEST(UnitTest, StringReplace)
 	IUTEST_EXPECT_STREQ("ii1ii2ii3ii4b5", str);
 }
 
+IUTEST(UnitTest, StringReplaceToLF)
+{
+	::std::string str = "a\r\nb\r\rc\r\n\nd";
+	::iutest::detail::StringReplaceToLF(str);
+	IUTEST_EXPECT_STREQ("a\nb\n\nc\n\nd", str);
+}
+
 IUTEST(UnitTest, AddDefaultPackageName)
 {
 	IUTEST_EXPECT_STREQ("Test.a1a2a3a4b5", ::iutest::TestEnv::AddDefaultPackageName("a1a2a3a4b5"));

@@ -111,6 +111,13 @@
       <li><a href="#switch_gtest">Google Test モード</a></li>
     </ul>
   </li>
+  <li><a href="#filter">テストのフィルタリング</a>
+    <ul>
+      <li><a href="#filter_format">フォーマット</a></li>
+      <li><a href="#filter_exsample">例</a></li>
+      <li><a href="#filter_file">ファイルから指定</a></li>
+    </ul>
+  </li>
   <li><a href="#matcher">Matcher</a>
     <ul>
       <li><a href="#matcher_summary">Mathcer の概要</a></li>
@@ -550,6 +557,41 @@ IUTEST_USE_GTEST マクロを定義してください。<br />
 </div> <!-- end of contents -->
 
 <div class="contents">
+<h2><a name="filter" id="filter">テストのフィルタリング</a></h2>
+<div class="text_block">
+--iutest_filter コマンドラインオプションでフィルタを指定できます。
+ここでは、フィルタのフォーマットについて説明をします。
+
+<h3><a name="filter_format" id="filter_format">フォーマット</a></h3>
+<p>フィルタのフォーマットは、':' で区切られたワイルドカードパターン（ポジティブパターン）になります。<br />
+また、先頭に '-' を付けることで、マッチしたテストを除外するネガティブパターンも指定できます。<br />
+（iutest のテスト名は、TestCaseName.TestName です）<br />
+</p>
+<table class="ruled" >
+<tr><td>*</td><td>任意の文字列にマッチ</td></tr>
+<tr><td>?</td><td>任意の1文字にマッチ</td></tr>
+</table>
+
+<h3><a name="filter_exsample" id="filter_exsample">例</a></h3>
+<table class="ruled" >
+<tr><td>./foo_test</td><td rowspan="2">全てのテストを実行します</td></tr>
+<tr><td>./foo_test --iutest_filter=*</td></tr>
+<tr><td>./foo_test --iutest_filter=FooTest.*</td><td>テストケース FooTest 内のテストを全て実行します</td></tr>
+<tr><td>./foo_test --iutest_filter=*Null*:*Init*</td><td>名前に "Null" または "Init" を含むテストを実行します</td></tr>
+<tr><td>./foo_test --iutest_filter=-*Foo*</td><td>名前に "Foo" を含むテスト 以外 を全て実行します</td></tr>
+<tr><td>./foo_test --iutest_filter=FooTest.*:-FooTest.Bar</td><td>テストケース FooTest 内のテストで FooTest.Bar を除く<br />全てのテストを実行します</td></tr>
+<tr><td>./foo_test --iutest_filter=FooTest.*:-FooTest.Bar:-FooTest.Baz</td><td>テストケース FooTest 内のテストで FooTest.Bar と<br /> FooTest.Baz を除く全てのテストを実行します</td></tr>
+</table>
+
+<h3><a name="filter_file" id="filter_file">ファイルから指定</a></h3>
+<p>iutest ではフィルターをファイルから読み込むことができます。<br />
+--iutest_filter=@filter.txt のように先頭に @ を付け、その後にファイル名を指定することで読み込みできます。<br />
+フォーマットはコマンドラインと同じです。（改行は ':' に置き換えられます）
+</p>
+</div> <!-- end of text_block --
+</div> <!-- end of contents -->
+
+<div class="contents">
 <h2><a name="matcher" id="matcher">Matcher</a></h2>
 <div class="text_block">
 <h3><a name="matcher_summary" id="matcher_summary">Matcher の概要</a></h3>
@@ -571,7 +613,7 @@ Matcher の種類については Doxygen 生成のドキュメントを確認してください。
 </div> <!-- end of contents -->
 
 <br />
-<div align="right">Copyright (c) 2011-2014, Takazumi-Shirayanagi, All rights reserved.</div>
+<div align="right">Copyright (c) 2011-2015, Takazumi-Shirayanagi, All rights reserved.</div>
 
 </body>
 </html>

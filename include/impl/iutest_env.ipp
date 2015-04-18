@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -18,6 +18,7 @@
 //======================================================================
 // include
 #include "../iutest_env.hpp"
+#include "../internal/iutest_file.hpp"
 
 namespace iutest
 {
@@ -176,7 +177,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 				}
 				else if( detail::IsStringForwardMatching(str, "filter") )
 				{
-					set_test_filter(ParseOptionSettingStr(str));
+					ParseFilterOption(ParseOptionSettingStr(str));
 				}
 #if IUTEST_HAS_STREAM_RESULT
 				else if( detail::IsStringForwardMatching(str, "stream_result_to") )
@@ -328,7 +329,7 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnviromentVariable(void)
 		if( detail::GetEnvironmentVariable("IUTEST_FILTER", str, sizeof(str))
 		||  detail::GetEnvironmentVariable("GTEST_FILTER", str, sizeof(str)) )
 		{
-			set_test_filter(str);
+			ParseFilterOption(str);
 		}
 		if( detail::GetEnvironmentVariable("IUTEST_DEFAULT_PACKAGE_NAME", str, sizeof(str)) )
 		{
@@ -433,6 +434,39 @@ IUTEST_IPP_INLINE bool TestEnv::ParseFileLocationOption(const char* option)
 	{
 		return false;
 	}
+	return true;
+}
+
+IUTEST_IPP_INLINE bool TestEnv::ParseFilterOption(const char* option)
+{
+	if( option != NULL && *option == '@' )
+	{
+		// file
+		const char* path = option + 1;
+		IFile* fp = detail::IFileSystem::New();
+		if( fp == NULL )
+		{
+			return false;
+		}
+
+		if( !fp->Open(path, IFile::OpenRead) )
+		{
+			fprintf(stderr, "Unable to open filter file \"%s\".\n", path);
+			fflush(stderr);
+			detail::IFileSystem::Free(fp);
+			return false;
+		}
+
+		::std::string filter = fp->ReadAll();
+		detail::IFileSystem::Free(fp);
+
+		detail::StringReplaceToLF(filter);
+		detail::StringReplace(filter, '\n', ":");
+		set_test_filter(filter.c_str());
+		return true;
+	}
+
+	set_test_filter(option);
 	return true;
 }
 
