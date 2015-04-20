@@ -25,7 +25,7 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 1.0'
+		, version=u'%(prog)s version 2.0'
 	)
 	parser.add_argument(
 		'--list_compiler'
@@ -89,6 +89,11 @@ def parse_command_line():
 		, help = 'expand include file.'
 	)
 	parser.add_argument(
+		  '--check_config'
+		, action='store_true'
+		, help = 'check config.'
+	)
+	parser.add_argument(
 		'code'
 		, metavar='CODE'
 			, help = 'source code file'
@@ -133,6 +138,14 @@ def make_code(path, encoding, expand):
 			code += line
 	file.close()
 	return code
+
+#
+# check config
+def check_config(options):
+	if not find_compiler(options.compiler):
+		print 'Wandbox is not supported compiler [' + options.compiler + ']'
+		listup_compiler()
+		sys.exit(1)
 
 #
 # run wandbox
@@ -218,6 +231,16 @@ def listup_compiler():
 			print d['name'] + ' (' + d['version'] + ')' 
 
 #
+# find compiler
+def find_compiler(c):
+	w = Wandbox()
+	r = w.get_compiler_list()
+	for d in r:
+		if d['language'] == 'C++' and d['name'] == c:
+			return True
+	return False
+
+#
 # listup options
 def listup_options(compiler):
 	w = Wandbox()
@@ -263,6 +286,8 @@ def main():
 	elif options.permlink:
 		get_permlink(options.permlink, options.output)
 	else:
+		if options.check_config:
+			check_config(options)
 		run(options)
 
 if __name__ == '__main__':
