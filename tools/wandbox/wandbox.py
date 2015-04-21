@@ -6,6 +6,8 @@
 import requests
 import json
 
+from collections import OrderedDict
+
 #
 #
 #
@@ -30,6 +32,11 @@ class Wandbox:
 
 	def code(self, str):
 		self.parameter.update({'code':str})
+	def add_file(self, filename, str):
+		if 'codes' in self.parameter:
+			self.parameter['codes'].append({'file': filename, 'code': str})
+		else:
+			self.parameter.update({'codes': [{'file': filename, 'code': str}]})
 	def compiler(self, str):
 		self.parameter.update({'compiler':str})
 	def options(self, str):

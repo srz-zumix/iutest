@@ -116,25 +116,23 @@ def file_open(path, mode, encoding):
 
 #
 # make code
-def make_code(path, encoding, expand):
+def make_code(path, encoding, expand, includes):
 	code = ''
 	file = file_open(path, 'r', encoding)
 	for line in file:
 		m = IUTEST_INCLUDE_REGEX.match(line)
 		if m:
-			f = codecs.open(IUTEST_FUSED_SRC, 'r', 'utf-8-sig')
-			
-			code += '//==================================================================>>>> ' + line
-			code += f.read()
-			code += '//==================================================================<<<< ' + line
+			code += '#include "iutest.hpp"\n'
 		else:
-			if expand:
-				m = EXPAND_INCLUDE_REGEX.match(line)
-				if m:
-					include_path = os.path.join(os.path.dirname(path), m.group(1))
-					if os.path.exists(include_path):
-						code += make_code(include_path, encoding, expand)
+			m = EXPAND_INCLUDE_REGEX.match(line)
+			if m:
+				include_path = os.path.join(os.path.dirname(path), m.group(1))
+				if os.path.exists(include_path):
+					if expand:
+						code += make_code(include_path, encoding, expand, includes)
 						code += '// '
+					else:
+						includes.append(include_path)
 			code += line
 	file.close()
 	return code
@@ -148,10 +146,20 @@ def check_config(options):
 		sys.exit(1)
 
 #
+# setup includes
+def setup_includes(w, includes, encoding):
+	iutest = codecs.open(IUTEST_FUSED_SRC, 'r', 'utf-8-sig')
+	w.add_file('iutest.hpp', iutest.read())
+	for filepath in includes:
+		f = codecs.open(filepath, 'r', encoding)
+		w.add_file(filepath, f.read())
+
+#
 # run wandbox
-def run_wandbox(code, options):
+def run_wandbox(code, includes, options):
 	w = Wandbox()
 	w.code(code)
+	setup_includes(w, includes, options.encoding)
 	w.compiler(options.compiler)
 	if options.options:
 		w.options(options.options)
@@ -212,12 +220,13 @@ def run(options):
 	filepath = options.code
 	if not os.path.exists(filepath):
 		sys.exit(1)
-	code = make_code(filepath, options.encoding, options.expand_include)
+	includes = []
+	code = make_code(filepath, options.encoding, options.expand_include, includes)
 	if options.output:
 		f = file_open(options.output, 'w', options.encoding)
 		f.write(code)
 		f.close()
-	r = run_wandbox(code, options)
+	r = run_wandbox(code, includes, options)
 	b = show_result(r)
 	sys.exit(b)
 	
