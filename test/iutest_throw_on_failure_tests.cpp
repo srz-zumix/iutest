@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -40,6 +40,11 @@ IUTEST(Assert, Dummy)
 IUTEST(Throw, Test)
 {
 	throw 2;
+}
+
+IUTEST(Throw, Test2)
+{
+	throw ::std::bad_exception();
 }
 
 IUTEST(Throw, Dummy)
@@ -158,6 +163,21 @@ int main(int argc, char* argv[])
 	catch(...)
 	{
 	}
+	
+#if !defined(IUTEST_USE_GTEST)
+	try
+	{
+		::iutest::IUTEST_FLAG(catch_exceptions_global) = true;
+		::iutest::IUTEST_FLAG(filter) = "Throw*";
+		IUTEST_INIT(&argc, argv);
+		if( IUTEST_RUN_ALL_TESTS() == 0 ) return 2;
+	}
+	catch(...)
+	{
+		return 1;
+	}
+#endif
+	
 
 #endif
 	printf("*** Successful ***\n");

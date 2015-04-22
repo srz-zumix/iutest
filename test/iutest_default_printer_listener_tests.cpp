@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,12 +19,18 @@
 #include "iutest_logger_tests.hpp"
 
 TestLogger logger;
+static ::std::string s_log_testcases;
 
 class LoggerClear : public ::iutest::Environment
 {
 private:
+	virtual void SetUp(void)
+	{
+		logger.clear();
+	}
 	virtual void TearDown(void)
 	{
+		s_log_testcases = logger.c_str();
 		logger.clear();
 	}
 };
@@ -65,7 +71,8 @@ int main(int argc, char* argv[])
 	::iutest::IUTEST_FLAG(color) = "no";
 	
 	{
-		::iutest::TestFlag::SetFlag(0, ~::iutest::TestFlag::VERBOSE);
+		::iutest::IUTEST_FLAG(verbose) = false;
+		::iutest::IUTEST_FLAG(print_time) = true;
 		
 		if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
 #if IUTEST_HAS_ASSERTION_RETURN
@@ -78,10 +85,14 @@ int main(int argc, char* argv[])
 		IUTEST_ASSERT_STRNOTIN("[  SKIPPED ] Test.Skip", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
 
 		IUTEST_ASSERT_STRNOTIN("[       OK ]", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
+		
+		IUTEST_ASSERT_STRIN("ms total)", s_log_testcases.c_str()) << ::iutest::AssertionReturn<int>(1);
+		IUTEST_ASSERT_STRIN("ms)", s_log_testcases.c_str()) << ::iutest::AssertionReturn<int>(1);
 #endif
 	}
 	{
-		::iutest::TestFlag::SetFlag(::iutest::TestFlag::VERBOSE);
+		::iutest::IUTEST_FLAG(verbose) = true;
+		::iutest::IUTEST_FLAG(print_time) = false;
 		
 		if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
 #if IUTEST_HAS_ASSERTION_RETURN
@@ -94,8 +105,12 @@ int main(int argc, char* argv[])
 		IUTEST_ASSERT_STRIN("[  SKIPPED ] Test.Skip", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
 
 		IUTEST_ASSERT_STRNOTIN("[       OK ]", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
+
+		IUTEST_ASSERT_STRNOTIN("ms total)", s_log_testcases.c_str()) << ::iutest::AssertionReturn<int>(1);
+		IUTEST_ASSERT_STRNOTIN("ms)", s_log_testcases.c_str()) << ::iutest::AssertionReturn<int>(1);
 #endif
 	}
+	
 	printf("*** Successful ***\n");
 	
 	return 0;

@@ -1,2 +1,4 @@
+# iutest_filter_file_tests testdata
 *Run*
+# comment
 *OK*
