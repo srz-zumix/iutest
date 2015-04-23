@@ -126,6 +126,25 @@ IUTEST(UnitTest, XmlEscape)
 		, HackXmlGeneratorListener::EscapeXmlText("a<>	b& \'\"c\r\n"));
 }
 
+IUTEST(UnitTest, FileLocqtion)
+{
+	::iutest::IUTEST_FLAG(file_location_style_msvc) = false;
+	IUTEST_EXPECT_STREQ("main.cpp:1"
+		, ::iutest::detail::FormatFileLocation("main.cpp", 1) );
+	IUTEST_EXPECT_STREQ("unknown file:1"
+		, ::iutest::detail::FormatFileLocation(NULL, 1) );
+	IUTEST_EXPECT_STREQ("main.cpp"
+		, ::iutest::detail::FormatFileLocation("main.cpp", -1) );
+
+	::iutest::IUTEST_FLAG(file_location_style_msvc) = true;
+	IUTEST_EXPECT_STREQ("main.cpp(1)"
+		, ::iutest::detail::FormatFileLocation("main.cpp", 1) );
+	IUTEST_EXPECT_STREQ("unknown file(1)"
+		, ::iutest::detail::FormatFileLocation(NULL, 1) );
+	IUTEST_EXPECT_STREQ("main.cpp"
+		, ::iutest::detail::FormatFileLocation("main.cpp", -1) );
+}
+
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
