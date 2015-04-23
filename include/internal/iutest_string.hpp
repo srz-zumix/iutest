@@ -147,6 +147,25 @@ inline void StringReplaceToLF(::std::string& str)
 	}
 	StringReplace(str, '\r', "\n");
 }
+inline ::std::string StringRemoveComment(const ::std::string& str)
+{
+	::std::string r;
+	::std::string::size_type prev = 0;
+	::std::string::size_type pos = str.find('\n', 0);
+	while( pos != ::std::string::npos )
+	{
+		++pos;
+		if( str[prev] != '#' ) {
+			r += str.substr(prev, pos-prev);
+		}
+		prev = pos;
+		pos = str.find('\n', pos);
+	}
+	if( str[prev] != '#' ) {
+		r += str.substr(prev);
+	}
+	return r;
+}
 
 inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n) { return (n&0xF) >= 0xA ? 'A'+((n&0xF)-0xA) : '0'+(n&0xF); }
 

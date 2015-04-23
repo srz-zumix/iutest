@@ -459,8 +459,8 @@ IUTEST_IPP_INLINE bool TestEnv::ParseFilterOption(const char* option)
 
 		::std::string filter = fp->ReadAll();
 		detail::IFileSystem::Free(fp);
-
 		detail::StringReplaceToLF(filter);
+		filter = detail::StringRemoveComment(filter);
 		detail::StringReplace(filter, '\n', ":");
 		set_test_filter(filter.c_str());
 		return true;

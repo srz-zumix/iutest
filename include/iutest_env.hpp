@@ -42,6 +42,7 @@
  *          output (string)\n
  *          repeat (int)\n
  *			list_tests (bool)\n
+ *			verbose (bool)\n
  *			file_location_style_msvc (bool)\n
  *			default_package_name (string)\n
  *			ostream_formatter (ostream)\n
@@ -246,6 +247,7 @@ public:
 	typedef TestFlag::Fragment<TestFlag::CATCH_EXCEPTION_GLOBAL>	catch_exceptions_global;
 
 	typedef TestFlag::Fragment<TestFlag::FILELOCATION_STYLE_MSVC>	file_location_style_msvc;
+	typedef TestFlag::Fragment<TestFlag::VERBOSE>	verbose;
 
 	/**
 	 * @}
