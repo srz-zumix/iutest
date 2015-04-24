@@ -83,6 +83,22 @@ IUTEST(PrintToTest, Bar)
 	IUTEST_SUCCEED() << ::iutest::PrintToString(bar);
 }
 
+struct BigVar
+{
+	int big[10];
+	operator ::iutest::BiggestInt () const
+	{
+		return 42;
+	}
+};
+
+IUTEST(PrintToTest, BigVar)
+{
+	BigVar bigvar;
+	LogChecker ck("42");
+	IUTEST_SUCCEED() << ::iutest::PrintToString(bigvar);
+}
+
 #if IUTEST_HAS_TYPED_TEST
 
 template<typename T>
