@@ -83,6 +83,7 @@ IUTEST(PrintToTest, Bar)
 	IUTEST_SUCCEED() << ::iutest::PrintToString(bar);
 }
 
+#if !defined(IUTEST_USE_GTEST)
 struct BigVar
 {
 	int big[10];
@@ -98,6 +99,7 @@ IUTEST(PrintToTest, BigVar)
 	LogChecker ck("42");
 	IUTEST_SUCCEED() << ::iutest::PrintToString(bigvar);
 }
+#endif
 
 #if IUTEST_HAS_TYPED_TEST
 
