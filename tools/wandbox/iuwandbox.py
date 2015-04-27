@@ -45,8 +45,8 @@ def parse_command_line():
 	parser.add_argument(
 		'-x'
 		, '--options'
-		, help = 'used options for a compiler. default=warning,gnu++11'
-		, default = 'warning,gnu++11'
+		, help = 'used options for a compiler. default=warning'
+		, default = 'warning'
 	)
 	parser.add_argument(
 		'--stdin'

@@ -39,6 +39,17 @@ IUTEST(LogStreamTest, Write)
 	IUTEST_EXPECT_STREQ(text, logger.c_str());
 }
 
+IUTEST(CharCodeTest, ShowWideCString)
+{
+	wchar_t* p1 = NULL;
+	IUTEST_EXPECT_STREQ("(null)", ::iutest::detail::ShowWideCString(p1));
+#if IUTEST_HAS_CHAR16_T
+	char16_t* p2 = NULL;
+	IUTEST_EXPECT_STREQ("(null)", ::iutest::detail::ShowWideCString(p2));
+#endif
+}
+
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
