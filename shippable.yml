@@ -20,7 +20,7 @@ env:
   - WANDBOX_COMPILER=gcc-4.9.2
 #  - WANDBOX_COMPILER=gcc-4.9.1 # wercker
 #  - WANDBOX_COMPILER=gcc-4.9.0 # wercker
-  - WANDBOX_COMPILER=gcc-4.8.2
+#  - WANDBOX_COMPILER=gcc-4.8.2 # wercker
 #  - WANDBOX_COMPILER=gcc-4.8.1 # travis
   - WANDBOX_COMPILER=gcc-4.7.3
 #  - WANDBOX_COMPILER=gcc-4.6.4 # drone

@@ -29,6 +29,12 @@ build:
           python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-head
 
     - script:
+        name: gcc-4.9.2
+        code: |
+          cd tools/wandbox
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.9.2
+
+    - script:
         name: gcc-4.9.1
         code: |
           cd tools/wandbox
@@ -39,6 +45,12 @@ build:
         code: |
           cd tools/wandbox
           python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.9.0
+
+    - script:
+        name: gcc-4.8.2
+        code: |
+          cd tools/wandbox
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.8.2
 
     - script:
         name: gcc-4.4.7

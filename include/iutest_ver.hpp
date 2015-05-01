@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01119901u //!< iutest version 1.11.99.1
+#define IUTEST_VER			0x01119902u //!< iutest version 1.11.99.2
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x11u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x01u		//!< Revision
+#define IUTEST_REVISION		0x02u		//!< Revision
 
 /**
  * @mainpage
@@ -115,14 +115,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  <ul>
   <li>v1.12.0.0
     <ul>
-	  <li>--iutest_filter=@filter.txt のようにファイルからフィルター指定できるように対応</li>
-	  <li>twilio 対応</li>
-	</ul>
+      <li>--iutest_filter=@filter.txt のようにファイルからフィルター指定できるように対応</li>
+      <li>Visual Studio 2015 Preview 対応</li>
+      <li>twilio 対応</li>
+    </ul>
   </li>
   <li>v1.11.1.0
     <ul>
-	  <li>IUTEST_REGISTER_TYPED_TEST_CASE_P でテスト名の後ろの空白が名前に含まれてしまう不具合を修正</li>
-	</ul>
+      <li>IUTEST_REGISTER_TYPED_TEST_CASE_P でテスト名の後ろの空白が名前に含まれてしまう不具合を修正</li>
+    </ul>
   </li>
   <li>v1.11.0.0
     <ul>
@@ -133,13 +134,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>Matcher に FloatEq,DoubleEq,NanSensitiveFloatEq,NanSensitiveDoubleEq を追加</li>
       <li>Matcher に Not,ResultOf,Pointee を追加</li>
       <li>コンテナMatcher に Each,ContainerEq,Pointwise,At,IsEmpty,SizeIs,ElementsAre,ElementsAreArray を追加</li>
-	  <li>コンテナMatcher の Contains から HasSubstr 機能を削除</li>
-	  <li>コンテナMatcher の条件に Matcher を使えるように修正</li>
+      <li>コンテナMatcher の Contains から HasSubstr 機能を削除</li>
+      <li>コンテナMatcher の条件に Matcher を使えるように修正</li>
       <li>メンバーMatcher に Key,Pair,Field を追加</li>
       <li>ワイルドカードMatcher A,_ を追加</li>
       <li>IUTEST_*_FLOAT_EQ,DOUBLE_EQ で NAN の比較が真を返す不具合を修正</li>
-	  <li>Visual Studio 2015 Preview 対応</li>
-	</ul>
+      <li>Visual Studio 2015 Preview 対応</li>
+    </ul>
   </li>
   <li>v1.10.0.0
     <ul>

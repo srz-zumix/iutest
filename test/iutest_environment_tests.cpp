@@ -84,6 +84,7 @@ int main(int argc, char* argv[])
 	IUTEST_EXPECT_NULL( ::iutest::AddGlobalTestEnvironment(NULL) );
 	IUTEST_EXPECT_EQ( env, ::iutest::AddGlobalTestEnvironment(env) );
 	::iutest::AddGlobalTestEnvironment(new MyEnvironment2());
+	IUTEST_EXPECT_NULL( ::iutest::TestEnv::ReleaseGlobalTestEnvironment(NULL) );
 	env->Reset();
 	const int ret = IUTEST_RUN_ALL_TESTS();
 	if( ret != 0 ) return 1;
