@@ -30,7 +30,14 @@ IUTEST_IPP_INLINE bool Localtime(time_t sec, struct tm* dst)
 #if IUTEST_HAS_CTIME
 
 #if defined(_MSC_VER)
+#  if defined(__STDC_WANT_SECURE_LIB__) && __STDC_WANT_SECURE_LIB__
 	return localtime_s(dst, &sec) == 0;
+#  else
+	struct tm* t = localtime(&sec);
+	if( t == NULL ) return false;
+	if( dst != NULL ) *dst = *t;
+	return true;
+#  endif
 #elif defined(__MINGW32__) || defined(__MINGW64__)
 	const struct tm* const t = localtime(&sec);
 	if( t == NULL || dst == NULL ) return false;
@@ -53,7 +60,7 @@ IUTEST_IPP_INLINE ::std::string FormatTimeInMillisecAsSecond(TimeInMillisec msec
 #if defined(_MSC_VER) && _MSC_VER < 1300
 	ss << static_cast<unsigned int>(msec)/1000.0;
 #else
-	ss << msec/1000.0;
+	ss << static_cast<double>(msec)*1e-3;
 #endif
 	return ss.str();
 }

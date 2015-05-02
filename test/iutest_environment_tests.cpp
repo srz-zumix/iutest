@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -84,7 +84,9 @@ int main(int argc, char* argv[])
 	IUTEST_EXPECT_NULL( ::iutest::AddGlobalTestEnvironment(NULL) );
 	IUTEST_EXPECT_EQ( env, ::iutest::AddGlobalTestEnvironment(env) );
 	::iutest::AddGlobalTestEnvironment(new MyEnvironment2());
+#if !defined(IUTEST_USE_GTEST)
 	IUTEST_EXPECT_NULL( ::iutest::TestEnv::ReleaseGlobalTestEnvironment(NULL) );
+#endif
 	env->Reset();
 	const int ret = IUTEST_RUN_ALL_TESTS();
 	if( ret != 0 ) return 1;
