@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -169,7 +169,7 @@ IUTEST_IPP_INLINE bool TestInfo::filter(void)
 	bool match = true;
 	if( TestFlag::IsEnableFlag(TestFlag::FILTERING_TESTS) )
 	{
-		if( !detail::iuRegex::match(TestEnv::test_filter(), test_full_name().c_str()) )
+		if( !detail::iuFilterRegex::match(TestEnv::test_filter(), test_full_name().c_str()) )
 		{
 			match = false;
 			run = false;

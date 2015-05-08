@@ -656,6 +656,21 @@
 #  define IUTEST_HAS_STRONG_ENUMS		0
 #endif
 
+//! quick_exit
+#if !defined(IUTEST_HAS_QUICK_EXIT)
+#  if   (defined(_GLIBCXX_HAVE_QUICK_EXIT) && defined(_GLIBCXX_HAVE_AT_QUICK_EXIT)) || defined(_LIBCPP_HAS_QUICK_EXIT)
+#    define IUTEST_HAS_QUICK_EXIT	1
+#  elif defined(_MSC_VER)
+#    if _MSC_VER > 1800
+#      define IUTEST_HAS_QUICK_EXIT	1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_QUICK_EXIT)
+#  define IUTEST_HAS_QUICK_EXIT		0
+#endif
+
 // c++
 //! has exceptions
 #if !defined(IUTEST_HAS_EXCEPTIONS)

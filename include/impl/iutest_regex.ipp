@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_regex.ipp
- * @brief		iris unit test 用 regex ファイル
+ * @brief		regex
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -23,7 +23,7 @@ namespace iutest {
 namespace detail
 {
 
-IUTEST_IPP_INLINE bool iuRegex::match_impl(const char* begin, const char* end, const char* src)
+IUTEST_IPP_INLINE bool iuFilterRegex::match_impl(const char* begin, const char* end, const char* src)
 {
 	const char* tp = begin;
 	if( *tp == '\0' ) return false;
@@ -66,7 +66,7 @@ IUTEST_IPP_INLINE bool iuRegex::match_impl(const char* begin, const char* end, c
 	return true;
 }
 
-IUTEST_IPP_INLINE bool iuRegex::match_impl_group(const char* begin, const char* end, const char* src)
+IUTEST_IPP_INLINE bool iuFilterRegex::match_impl_group(const char* begin, const char* end, const char* src)
 {
 	bool match = true;
 	const char* tp = begin;
@@ -88,7 +88,7 @@ IUTEST_IPP_INLINE bool iuRegex::match_impl_group(const char* begin, const char* 
 	return match;
 }
 
-IUTEST_IPP_INLINE bool iuRegex::match(const char* regex, const char* src)
+IUTEST_IPP_INLINE bool iuFilterRegex::match(const char* regex, const char* src)
 {
 	const char* tp = regex;
 	bool positive = false;
@@ -128,6 +128,26 @@ IUTEST_IPP_INLINE bool iuRegex::match(const char* regex, const char* src)
 	}
 	return positive;
 }
+
+#if IUTEST_HAS_CXX_HDR_REGEX
+
+IUTEST_IPP_INLINE bool iuRegex::FullMatch(const char* str) const
+{
+	return ::std::regex_match(str, m_re);
+}
+
+IUTEST_IPP_INLINE bool iuRegex::PartialMatch(const char* str) const
+{
+	return ::std::regex_search(str, m_re);
+}
+
+IUTEST_IPP_INLINE void iuRegex::Init(const char* str)
+{
+	m_re.assign(str);
+	m_pattern = str;
+}
+
+#endif
 
 }	// end of namespace detail
 }	// end of namespace iutest

@@ -24,7 +24,7 @@
 #  include <stdlib.h>
 #  define __STRICT_ANSI__
 #endif
-#include <stdlib.h>
+#include <cstdlib>
 
 //======================================================================
 // define
@@ -239,6 +239,34 @@ using tuples::get;
 
 }
 
+#endif
+
+// regex
+#if !defined(IUTEST_HAS_CXX_HDR_REGEX)
+
+#if   defined(__has_include)
+#  if __has_include( <regex> )
+#    if IUTEST_HAS_CXX11
+#      define IUTEST_HAS_CXX_HDR_REGEX		1
+#    endif
+#  endif
+#elif defined(__GLIBCXX__)
+#  if defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 9)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_CXX_HDR_REGEX		1
+#    endif
+#  else
+#  endif
+#elif defined(_MSC_VER)
+#  if _MSC_VER > 1600
+#    define IUTEST_HAS_CXX_HDR_REGEX		1
+#  endif
+#endif
+
+#endif
+
+#if !defined(IUTEST_HAS_CXX_HDR_REGEX)
+#  define IUTEST_HAS_CXX_HDR_REGEX			0
 #endif
 
 // chrono

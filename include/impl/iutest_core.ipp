@@ -265,6 +265,9 @@ IUTEST_IPP_INLINE void UnitTest::TestProgramStart(void)
 	}
 
 	atexit(OnExit);
+#if IUTEST_HAS_QUICK_EXIT
+	::std::at_quick_exit(OnExit);
+#endif
 
 	m_test_started = true;
 
