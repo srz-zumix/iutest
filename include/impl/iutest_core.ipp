@@ -305,6 +305,10 @@ IUTEST_IPP_INLINE void UnitTest::TestProgramEnd(void)
 	{
 		return;
 	}
+	if( current_test_info() != NULL )
+	{
+		IUTEST_EXPECT_FAILURE("program exit.");
+	}
 	listeners().OnTestProgramEnd(*this);
 	m_test_started = false;
 }

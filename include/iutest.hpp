@@ -1607,6 +1607,9 @@ private:
 	{
 #if defined(_IUTEST_DEBUG)
 		detail::iuDebugInitialize();
+#else
+		IUTEST_UNUSED_VAR(&detail::iuDebugInitialize);
+		IUTEST_UNUSED_VAR(&detail::iuDebugBreakAlloc);
 #endif
 		TestEnv::event_listeners().set_default_result_printer(new DefalutResultPrintListener());
 	}

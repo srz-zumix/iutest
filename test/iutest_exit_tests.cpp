@@ -25,6 +25,8 @@ class ExitCheckEventListener : public ::iutest::EmptyTestEventListener
 	{
 		if( test.current_test_info() == NULL ) throw "current_test_info() == NULL";
 		if( test.current_test_case() == NULL ) throw "current_test_case() == NULL";
+		if( !test.current_test_info()->is_ran() ) throw "is_ran()";
+		if( !test.current_test_info()->HasFailure() ) throw "HasFailure()";
 	}
 };
 

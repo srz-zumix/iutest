@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01119904u //!< iutest version 1.11.99.4
+#define IUTEST_VER			0x01119905u //!< iutest version 1.11.99.5
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x11u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x04u		//!< Revision
+#define IUTEST_REVISION		0x05u		//!< Revision
 
 /**
  * @mainpage
@@ -118,6 +118,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>--iutest_filter=@filter.txt のようにファイルからフィルター指定できるように対応</li>
       <li>Visual Studio 2015 Preview 対応</li>
       <li>twilio 対応</li>
+      <li>quick_exit 対応</li>
     </ul>
   </li>
   <li>v1.11.1.0

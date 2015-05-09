@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -22,6 +22,8 @@ using namespace ::iutest::matchers;
 namespace {
 	struct X { int a, b; X(int _a, int _b) : a(_a), b(_b) {} int GetA() const { return a; } };
 	int X2(int v) { return v * 2; }
+	float f0 = 0.0f;
+	double d0 = 0.0;
 }
 
 IUTEST(Matcher, Gernal)
@@ -46,9 +48,6 @@ IUTEST(Matcher, Null)
 
 IUTEST(Matcher, FloatingPoint)
 {
-	float f0 = 0.0f;
-	double d0 = 0.0;
-
 	IUTEST_EXPECT_THAT(f0, FloatEq(0.0f));
 	IUTEST_EXPECT_THAT(d0, DoubleEq(0.0));
 	IUTEST_EXPECT_THAT(f0, NanSensitiveFloatEq(0.0f));
