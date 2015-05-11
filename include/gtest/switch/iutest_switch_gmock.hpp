@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_switch_skip.hpp
- * @brief		IUTEST_SKIP 切り替え定義 ファイル
+ * @file		iutest_switch_gmock.hpp
+ * @brief		gmock 切り替え定義 ファイル
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -34,6 +34,7 @@
 #undef IUTEST_HAS_MATCHERS
 #undef IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 #undef IUTEST_HAS_MATCHER_ELEMENTSARE
+#undef IUTEST_HAS_MATCHER_REGEX
 
 #endif
 
@@ -45,6 +46,7 @@
 #define IUTEST_HAS_MATCHERS							1
 #define IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF			1
 #define IUTEST_HAS_MATCHER_ELEMENTSARE				1
+#define IUTEST_HAS_MATCHER_REGEX					1
 
 #define IUTEST_ASSERT_THAT		ASSERT_THAT
 #define IUTEST_EXPECT_THAT		EXPECT_THAT
@@ -61,6 +63,7 @@
 #define IUTEST_HAS_MATCHERS							0
 #define IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF			0
 #define IUTEST_HAS_MATCHER_ELEMENTSARE				0
+#define IUTEST_HAS_MATCHER_REGEX					0
 
 #endif
 
@@ -109,6 +112,9 @@ namespace matchers
 
 	using ::testing::ElementsAre;
 	using ::testing::ElementsAreArray;
+
+	using ::testing::MatchesRegex;
+	using ::testing::ContainsRegex;
 
 	using ::testing::AllOf;
 	using ::testing::AnyOf;

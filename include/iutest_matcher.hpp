@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -1527,6 +1527,59 @@ private:
 	IUTEST_PP_DISALLOW_ASSIGN(AnythingMatcher);
 };
 
+#if IUTEST_HAS_MATCHER_REGEX
+
+/**
+ * @brief	Regex matcher
+*/
+class RegexMatcher : public IMatcher
+{
+public:
+	RegexMatcher(const detail::iuRegex& expected, bool full_match) : m_expected(expected), m_full_match(full_match) {}
+
+public:
+	template<typename U>
+	AssertionResult operator ()(const U& actual) const
+	{
+		if( Regex(actual) ) return AssertionSuccess();
+		return AssertionFailure() << WhichIs();
+	}
+
+public:
+	::std::string WhichIs(void) const IUTEST_CXX_OVERRIDE
+	{
+		iu_global_format_stringstream strm;
+		if( m_full_match )
+		{
+			strm << "MatchesRegex: " << m_expected.pattern();
+		}
+		else 
+		{
+			strm << "ContainsRegex: " << m_expected.pattern();
+		}
+		return strm.str();
+	}
+private:
+	bool Regex(const char* actual)
+	{
+		return m_full_match ? m_expected.FullMatch(actual)
+			: m_expected.PartialMatch(actual);
+	}
+	bool Regex(const ::std::string& actual)
+	{
+		return m_full_match ? m_expected.FullMatch(actual.c_str())
+			: m_expected.PartialMatch(actual.c_str());
+	}
+
+private:
+	IUTEST_PP_DISALLOW_ASSIGN(RegexMatcher);
+
+	detail::iuRegex m_expected;
+	bool m_full_match;
+};
+
+#endif
+
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 
 /**
@@ -2213,6 +2266,28 @@ detail::AnyMatcher<T> A(void) { return detail::AnyMatcher<T>(); }
  * @brief	Anything matcher
 */
 const detail::AnythingMatcher _;
+
+#if IUTEST_HAS_MATCHER_REGEX
+
+/**
+ * @ingroup	MATCHERS
+ * @brief	Make MatchesRegex matcher
+*/
+inline detail::RegexMatcher MatchesRegex(const ::std::string& str)
+{
+	return detail::RegexMatcher(detail::iuRegex(str), true);
+}
+
+/**
+ * @ingroup	MATCHERS
+ * @brief	Make ContainsRegex matcher
+*/
+inline detail::RegexMatcher ContainsRegex(const ::std::string& str)
+{
+	return detail::RegexMatcher(detail::iuRegex(str), false);
+}
+
+#endif
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 

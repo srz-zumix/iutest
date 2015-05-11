@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -563,6 +563,36 @@ IUTEST(MatcherFailure, ElementsAre)
 		ElementsAre(Lt(3), Lt(3)))), "Each: ElementsAre: {Lt: 3, Lt: 3}");
 	CHECK_FAILURE( IUTEST_ASSERT_THAT(c
 		, ElementsAre( Ge(0), Gt(0), Ne(0), Eq(0) ) ), "ElementsAre: argument[3] is less than 4");
+}
+
+#endif
+
+#if IUTEST_HAS_MATCHER_REGEX
+
+IUTEST(Matcher, MatchesRegex)
+{
+	::std::string s = "greeeeeen";
+	IUTEST_EXPECT_THAT(s, MatchesRegex("gre+n"));
+	IUTEST_EXPECT_THAT("hogeeeeeet", MatchesRegex("hoge+t"));
+}
+
+IUTEST(Matcher, ContainsRegex)
+{
+	::std::string s = "greeeeeen";
+	IUTEST_EXPECT_THAT(s, MatchesRegex("e"));
+	IUTEST_EXPECT_THAT("hogeeeeeet", ContainsRegex("hoge+"));
+}
+
+IUTEST(MatcherFailure, MatchesRegex)
+{
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hogeeeeeet"
+		, MatchesRegex("hoge+"), "MatchesRegex: hoge+");
+}
+
+IUTEST(MatcherFailure, ContainsRegex)
+{
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge"
+		, MatchesRegex("hoge+"), "ContainsRegex: hoge+");
 }
 
 #endif

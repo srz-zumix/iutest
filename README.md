@@ -19,13 +19,13 @@ Documentation
 --------------------------------------------------
 
 doc/index.html  
-[online document](http://iutest.sourceforge.jp/doc/index.html)  
+[online document](http://iutest.osdn.jp/doc/index.html)  
 
 
 Project page
 --------------------------------------------------
 
-[Project page](http://iutest.sourceforge.jp/)  
+[Project page](http://iutest.osdn.jp/)  
 [Github](https://github.com/srz-zumix/iutest)  
 [Google Group](https://groups.google.com/forum/?fromgroups#!forum/g-iutest)  
 

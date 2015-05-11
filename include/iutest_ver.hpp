@@ -17,16 +17,16 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01119905u //!< iutest version 1.11.99.5
+#define IUTEST_VER			0x01119906u //!< iutest version 1.11.99.6
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x11u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x05u		//!< Revision
+#define IUTEST_REVISION		0x06u		//!< Revision
 
 /**
  * @mainpage
  * @sa	@b	ProjectHome \n
- *			sourceforge : http://sourceforge.jp/projects/iutest/ \n
+ *			OSDN        : http://osdn.jp/projects/iutest/ \n
  *			github		: https://github.com/srz-zumix/iutest \n
  *			google group: https://groups.google.com/forum/?fromgroups#!forum/g-iutest \n
  *
@@ -115,6 +115,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  <ul>
   <li>v1.12.0.0
     <ul>
+      <li>Matcher に MatchesRegex,ContainsRegex を追加</li>
       <li>--iutest_filter=@filter.txt のようにファイルからフィルター指定できるように対応</li>
       <li>Visual Studio 2015 Preview 対応</li>
       <li>twilio 対応</li>

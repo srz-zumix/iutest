@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -232,6 +232,15 @@
 #    define IUTEST_HAS_MATCHER_ELEMENTSARE		1
 #  else
 #    define IUTEST_HAS_MATCHER_ELEMENTSARE		0
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_MATCHER_REGEX)
+//! ::iutest::MatchesRegex, ::iutest::ContainsRegex matcher が使用可能かどうか
+#  if IUTEST_HAS_CXX_HDR_REGEX && IUTEST_HAS_MATCHERS
+#    define IUTEST_HAS_MATCHER_REGEX	1
+#  else
+#    define IUTEST_HAS_MATCHER_REGEX	0
 #  endif
 #endif
 
