@@ -579,7 +579,7 @@ IUTEST(Matcher, MatchesRegex)
 IUTEST(Matcher, ContainsRegex)
 {
 	::std::string s = "greeeeeen";
-	IUTEST_EXPECT_THAT(s, MatchesRegex("e"));
+	IUTEST_EXPECT_THAT(s, ContainsRegex("e"));
 	IUTEST_EXPECT_THAT("hogeeeeeet", ContainsRegex("hoge+"));
 }
 
@@ -591,8 +591,8 @@ IUTEST(MatcherFailure, MatchesRegex)
 
 IUTEST(MatcherFailure, ContainsRegex)
 {
-	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", MatchesRegex("hoge+"))
-		, "ContainsRegex: hoge+");
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", ContainsRegex("[0-9]"))
+		, "ContainsRegex: [0-9]");
 }
 
 #endif

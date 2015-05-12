@@ -96,15 +96,17 @@ def setup(options):
 #
 # parse ini
 def parse_ini(path):
+	global account_sid
+	global auth_token
+	global my_number
+	if account_sid and auth_token and my_number:
+		return
 	ini = ConfigParser.SafeConfigParser()
 	if not os.path.exists(path):
 		sys.stderr.write('%s not found...' % path)
 		sys.exit(2)
 	ini.read(path)
 	
-	global account_sid
-	global auth_token
-	global my_number
 	try:
 		account_sid = ini.get('Twilio', 'account_sid')
 		auth_token = ini.get('Twilio', 'auth_token')
@@ -173,8 +175,8 @@ def dump():
 #
 def main():
 	options = parse_command_line()
-	parse_ini(options.ini)
 	setup(options)
+	parse_ini(options.ini)
 	if options.dump:
 		dump()
 	else:

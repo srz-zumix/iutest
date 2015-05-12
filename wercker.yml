@@ -59,6 +59,12 @@ build:
           python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.4.7
 
     - script:
+        name: clang-3.3
+        code: |
+          cd tools/wandbox
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.3
+
+    - script:
         name: clang-3.2
         code: |
           cd tools/wandbox

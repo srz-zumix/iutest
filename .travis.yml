@@ -5,8 +5,8 @@ compiler:
   - gcc
 
 before_install:
-  - if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then export USE_GCC48=1; fi
-  - if [ "${USE_GCC48}" = '1' ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
+  - if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then export USE_NEWEST_GCC=1; fi
+  - if [ "${USE_NEWEST_GCC}" = '1' ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
   #- if [ "${CXX}" = 'clang++' ]; then wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -; fi
   #- if [ "${CXX}" = 'clang++' ]; then sudo add-apt-repository --yes 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise main'; fi
   #- if [ "${CXX}" = 'clang++' ]; then sudo add-apt-repository -y ppa:h-rayflood/llvm; fi
@@ -14,11 +14,11 @@ before_install:
   - sudo apt-get -qq update
 
 install:
-  # gcc 4.8
-  - if [ "${USE_GCC48}" = '1' ]; then sudo apt-get -qq install g++-4.8; fi
-  - if [ "${USE_GCC48}" = '1' ]; then sudo update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-4.8 90; fi
-  - if [ "${USE_GCC48}" = '1' ]; then sudo update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-4.8 90; fi
-  - if [ "${USE_GCC48}" = '1' ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-4.8 90;  fi
+  # gcc 5.1
+  - if [ "${USE_NEWEST_GCC}" = '1' ]; then sudo apt-get -qq install g++-5.1; fi
+  - if [ "${USE_NEWEST_GCC}" = '1' ]; then sudo update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-5.1 90; fi
+  - if [ "${USE_NEWEST_GCC}" = '1' ]; then sudo update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-5.1 90; fi
+  - if [ "${USE_NEWEST_GCC}" = '1' ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5.1 90;  fi
   # clang 3.5
   #- if [ "${CXX}" = 'clang++' ]; then sudo apt-get -qq install clang-3.5; fi
   #- if [ "${CXX}" = 'clang++' ]; then export CXX="clang++-3.5";  fi
