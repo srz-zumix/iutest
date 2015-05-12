@@ -585,14 +585,14 @@ IUTEST(Matcher, ContainsRegex)
 
 IUTEST(MatcherFailure, MatchesRegex)
 {
-	CHECK_FAILURE( IUTEST_ASSERT_THAT("hogeeeeeet"
-		, MatchesRegex("hoge+"), "MatchesRegex: hoge+");
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hogeeeeeet", MatchesRegex("hoge+"))
+		, "MatchesRegex: hoge+");
 }
 
 IUTEST(MatcherFailure, ContainsRegex)
 {
-	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge"
-		, MatchesRegex("hoge+"), "ContainsRegex: hoge+");
+	CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", MatchesRegex("hoge+"))
+		, "ContainsRegex: hoge+");
 }
 
 #endif
