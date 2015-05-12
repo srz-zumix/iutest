@@ -51,7 +51,7 @@ public:
 	bool FullMatch(const char* str) const;
 	bool PartialMatch(const char* str) const;
 
-	const char* pattern() const { m_pattern.c_str(); }
+	const char* pattern() const { return m_pattern.c_str(); }
 
 private:
 	void Init(const char* pattern);

@@ -1560,12 +1560,12 @@ public:
 		return strm.str();
 	}
 private:
-	bool Regex(const char* actual)
+	bool Regex(const char* actual) const
 	{
 		return m_full_match ? m_expected.FullMatch(actual)
 			: m_expected.PartialMatch(actual);
 	}
-	bool Regex(const ::std::string& actual)
+	bool Regex(const ::std::string& actual) const
 	{
 		return m_full_match ? m_expected.FullMatch(actual.c_str())
 			: m_expected.PartialMatch(actual.c_str());
