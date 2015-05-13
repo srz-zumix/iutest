@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -419,6 +419,17 @@ IUTEST(SyntaxTest, Matcher)
 	IUTEST_EXPECT_THAT(1, ::iutest::ResultOf(X2, ::iutest::Gt(1)));
 	IUTEST_EXPECT_THAT(z, ::iutest::TypedEq<int>(1.0));
 }
+
+#if IUTEST_HAS_MATCHER_REGEX
+IUTEST(SyntaxTest, MatcherRegex)
+{
+	::std::string s = "greeeeeen";
+	IUTEST_EXPECT_THAT(s, ::iutest::MatchesRegex("gre+n"));
+	IUTEST_EXPECT_THAT("hogeeeeeet", ::iutest::MatchesRegex("hoge+t"));
+	IUTEST_EXPECT_THAT(s, ::iutest::ContainsRegex("e"));
+	IUTEST_EXPECT_THAT("hogeeeeeet", ::iutest::ContainsRegex("hoge+"));
+}
+#endif
 
 IUTEST(SyntaxTest, MatcherPredicate)
 {

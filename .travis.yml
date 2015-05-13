@@ -15,10 +15,10 @@ before_install:
 
 install:
   # gcc 5.1
-  - if [ "${USE_NEWEST_GCC}" = '1' ]; then sudo apt-get -qq install g++-5.1; fi
-  - if [ "${USE_NEWEST_GCC}" = '1' ]; then sudo update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-5.1 90; fi
-  - if [ "${USE_NEWEST_GCC}" = '1' ]; then sudo update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-5.1 90; fi
-  - if [ "${USE_NEWEST_GCC}" = '1' ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5.1 90;  fi
+  - if [ "${USE_NEWEST_GCC}" = '1' ]; then sudo apt-get -qq install g++-5; fi
+  - if [ "${USE_NEWEST_GCC}" = '1' ]; then sudo update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-5 90; fi
+  - if [ "${USE_NEWEST_GCC}" = '1' ]; then sudo update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-5 90; fi
+  - if [ "${USE_NEWEST_GCC}" = '1' ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90;  fi
   # clang 3.5
   #- if [ "${CXX}" = 'clang++' ]; then sudo apt-get -qq install clang-3.5; fi
   #- if [ "${CXX}" = 'clang++' ]; then export CXX="clang++-3.5";  fi
@@ -64,7 +64,7 @@ env:
 
   matrix:
     - STDFLAG=-std=c++98
-    - STDFLAG=-std=c++0x
+    - STDFLAG=-std=c++11
 
   allow_failures:
     - COVERITY_SCAN=1

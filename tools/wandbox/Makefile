@@ -25,4 +25,10 @@ local:
 	
 test: ../../test/iutest_syntax_tests.cpp Makefile
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --expand_include --encoding utf-8-sig
+
+test-gcc: ../../test/iutest_syntax_tests.cpp Makefile
+	python iuwandbox.py $< -c gcc-head -f"-DIUTEST_USE_MAIN" -x "warning,gnu++1y" --expand_include --encoding utf-8-sig
+
+test-clang: ../../test/iutest_syntax_tests.cpp Makefile
+	python iuwandbox.py $< -c clang-head -f"-DIUTEST_USE_MAIN" -x "warning,gnu++1y" --expand_include --encoding utf-8-sig
 	
