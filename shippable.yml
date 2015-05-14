@@ -29,7 +29,7 @@ env:
   - WANDBOX_COMPILER=gcc-4.3.6
   - WANDBOX_COMPILER=clang-head
   - WANDBOX_COMPILER=clang-3.6
-  - WANDBOX_COMPILER=clang-3.5
+  - WANDBOX_COMPILER=clang-3.5 # c++config.h not found
 #  - WANDBOX_COMPILER=clang-3.4 # travis
 #  - WANDBOX_COMPILER=clang-3.3 # wercker
 #  - WANDBOX_COMPILER=clang-3.2 # wercker

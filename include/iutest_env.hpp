@@ -42,6 +42,7 @@
  *          output (string)\n
  *          repeat (int)\n
  *			list_tests (bool)\n
+ *			list_tests_with_where (bool)\n
  *			verbose (bool)\n
  *			file_location_style_msvc (bool)\n
  *			default_package_name (string)\n

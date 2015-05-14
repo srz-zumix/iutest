@@ -375,11 +375,11 @@ using tuples::get;
 // abi
 #if !defined(IUTEST_HAS_HDR_CXXABI)
 
-#if   defined(__has_include)
+#if   defined(__clang__) && defined(__has_include)
 #  if __has_include( <cxxabi.h> )
 #    define IUTEST_HAS_HDR_CXXABI		1
 #  endif
-#elif defined(__GLIBCXX__) || defined(_LIBCPP_VERSION)
+#elif defined(__GLIBCXX__) || defined(__GLIBCPP__)
 #  define IUTEST_HAS_HDR_CXXABI			1
 #else
 #  define IUTEST_HAS_HDR_CXXABI			0
