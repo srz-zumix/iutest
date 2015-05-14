@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_basic_tests.cpp
- * @brief		iutest 基本 test
+ * @brief		iutest basic test
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -38,6 +38,12 @@ IUTEST(CommandLineFlagTest, CanBeAccessed)
 	|| ::iutest::IUTEST_FLAG(throw_on_failure)
 	|| ::iutest::IUTEST_FLAG(color) != "unknown"
 	|| ::iutest::IUTEST_FLAG(filter) != "unknown"
+#if !defined(IUTEST_USE_GTEST)
+	|| ::iutest::IUTEST_FLAG(verbose)
+	|| ::iutest::IUTEST_FLAG(file_location_style_msvc)
+	|| ::iutest::IUTEST_FLAG(list_tests_with_where)
+	|| ::iutest::IUTEST_FLAG(default_package_name) != "unknown"
+#endif
 	;
 	IUTEST_EXPECT_TRUE(dummy || !dummy);
 }
@@ -98,3 +104,14 @@ IUTEST(TestRandom, Engine)
 #endif
 
 #endif
+
+IUTEST(Config, Check)
+{
+#ifdef _MSC_FULL_VER
+	SHOW_MACRO(_MSC_FULL_VER);
+#endif
+#ifdef _LIBCPP_VERSION
+	SHOW_MACRO(_LIBCPP_VERSION);
+#endif
+}
+
