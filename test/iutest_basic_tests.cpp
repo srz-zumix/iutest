@@ -105,6 +105,8 @@ IUTEST(TestRandom, Engine)
 
 #endif
 
+#define SHOW_MACRO(macro)	::iutest::detail::iuConsole::output("#define %s  %s\n", #macro, IUTEST_PP_TOSTRING(macro))
+
 IUTEST(Config, Check)
 {
 #ifdef _MSC_FULL_VER
