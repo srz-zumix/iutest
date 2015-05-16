@@ -40,6 +40,10 @@ install:
   - if [ "${USE_GTEST}" = '1' ]; then sudo apt-get -qq install cmake; fi
   - if [ "${USE_GTEST}" = '1' ]; then sudo apt-get -qq install libgtest-dev; fi
   - if [ "${USE_GTEST}" = '1' ]; then cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/; cd -; fi
+  # gmock
+  - if [ "${USE_GMOCK}" = '1' ]; then sudo apt-get -qq install cmake; fi
+  - if [ "${USE_GMOCK}" = '1' ]; then sudo apt-get -qq install google-mock; fi
+  - if [ "${USE_GMOCK}" = '1' ]; then cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/; cd -; fi
 
 before_script:
   # mingw
@@ -82,6 +86,8 @@ matrix:
       env: USE_FUSE=fuse_min STDFLAG=-std=c++98
     - compiler: gcc
       env: USE_GTEST=1
+    - compiler: gcc
+      env: USE_GMOCK=1
     - compiler: gcc
       env: MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAMCAPTURE=0"
     #- compiler: gcc
