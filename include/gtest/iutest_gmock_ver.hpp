@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -32,7 +32,7 @@
 
 //!< Minor Version
 #ifndef GMOCK_MINORVER
-#  if   defined(GMOCK_INCLUDE_GMOCK_GMOCK_GENERATED_NICE_STRICT_H_)
+#  if   defined(GMOCK_GMOCK_MORE_MATCHERS_H_)
 #    define GMOCK_MINORVER	0x07
 #  else
 // v1.6.0 以前は未対応
