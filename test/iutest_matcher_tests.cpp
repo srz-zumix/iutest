@@ -304,11 +304,13 @@ IUTEST(Matcher, A)
 
 IUTEST(Matcher, ElementsAreArray)
 {
-	IUTEST_EXPECT_THAT( a, ElementsAreArray(va));
 	IUTEST_EXPECT_THAT(va, ElementsAreArray(a));
-	IUTEST_EXPECT_THAT(va, ElementsAreArray(va));
 	IUTEST_EXPECT_THAT( c, ElementsAreArray(c));
-#if !defined(IUTEST_USE_GMOCK)
+#if !defined(IUTEST_USE_GMOCK) || (GMOCK_VER >= 0x01070000)
+	IUTEST_EXPECT_THAT( a, ElementsAreArray(va));
+	IUTEST_EXPECT_THAT(va, ElementsAreArray(va));
+#endif
+#if !defined(IUTEST_USE_GMOCK) || (GMOCK_VER < 0x01070000)
 	IUTEST_EXPECT_THAT( c, ElementsAreArray(b, 1));
 #endif
 #if IUTEST_HAS_INITIALIZER_LIST

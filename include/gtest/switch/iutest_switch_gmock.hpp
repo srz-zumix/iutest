@@ -72,17 +72,6 @@
 #if defined(IUTEST_USE_GMOCK)
 
 namespace testing {
-
-#if GMOCK_VER < 0x01070000
-
-template <typename T, typename A>
-inline internal::ElementsAreArrayMatcher<T> ElementsAreArray(const ::std::vector<T, A>& vec)
-{
-	return ElementsAreArray(vec.begin(), vec.size());
-}
-
-#endif
-
 namespace matchers
 {
 
