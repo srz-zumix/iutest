@@ -3,9 +3,13 @@ Changes for 1.12.0:
 
 ** 追加
 * Matcher に MatchesRegex,ContainsRegex を追加
+* Matcher に ElementsAreArrayForward を追加
 * --iutest_filter=@filter.txt のようにファイルからフィルター指定できるように対応
 * Visual Studio 2015 RC 対応
 * twilio 対応
+
+* 変更
+** ElementsAreArray で要素数の一致チェックを行うように変更（以前までの ElementsAreArray は ElementsAreArrayForward に変更）
 
 ** 修正
 * バグ修正

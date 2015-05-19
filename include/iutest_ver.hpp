@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01119912u //!< iutest version 1.11.99.12
+#define IUTEST_VER			0x01119913u //!< iutest version 1.11.99.13
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x11u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x12u		//!< Revision
+#define IUTEST_REVISION		0x13u		//!< Revision
 
 /**
  * @mainpage
@@ -116,6 +116,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <li>v1.12.0.0
     <ul>
       <li>Matcher に MatchesRegex,ContainsRegex を追加</li>
+      <li>Matcher に ElementsAreArrayForward を追加</li>
+      <li>ElementsAreArray で要素数の一致チェックを行うように変更（以前までの ElementsAreArray は ElementsAreArrayForward に変更）</li>
       <li>--iutest_filter=@filter.txt のようにファイルからフィルター指定できるように対応</li>
       <li>Visual Studio 2015 Preview 対応</li>
       <li>twilio 対応</li>

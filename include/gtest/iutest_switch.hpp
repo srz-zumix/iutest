@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -319,6 +319,15 @@ namespace tr1
 
 #define IUTEST_OPERAND(op)			op
 #define IUTEST_EXPRESSION(expr)		expr
+
+#if GTEST_VER < 0x01070000
+
+#undef GTEST_COMPILE_ASSERT_
+#define GTEST_COMPILE_ASSERT_(expr, msg) \
+  typedef ::testing::internal::CompileAssert<(static_cast<bool>(expr))> \
+      msg[static_cast<bool>(expr) ? 1 : -1] GTEST_ATTRIBUTE_UNUSED_
+
+#endif
 
 namespace testing
 {

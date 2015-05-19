@@ -34,6 +34,7 @@ namespace {
 int a[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 int b[3] = { 1, 2, 3 };
 int c[3] = { 1, 1, 1 };
+int d[4] = { 1, 2, 3, 4 };
 int n[2][2] = { {0,1}, {2,3} };
 ::std::map<int, int> m;
 int* p1 = NULL;
@@ -306,12 +307,11 @@ IUTEST(Matcher, ElementsAreArray)
 {
 	IUTEST_EXPECT_THAT(va, ElementsAreArray(a));
 	IUTEST_EXPECT_THAT( c, ElementsAreArray(c));
+	IUTEST_EXPECT_THAT( b, ElementsAreArray(d, 3));
 #if !defined(IUTEST_USE_GMOCK) || (GMOCK_VER >= 0x01070000)
+	IUTEST_EXPECT_THAT( a, ElementsAreArray(va.begin(), va.end()));
 	IUTEST_EXPECT_THAT( a, ElementsAreArray(va));
 	IUTEST_EXPECT_THAT(va, ElementsAreArray(va));
-#endif
-#if !defined(IUTEST_USE_GMOCK) || (GMOCK_VER < 0x01070000)
-	IUTEST_EXPECT_THAT( c, ElementsAreArray(b, 1));
 #endif
 #if IUTEST_HAS_INITIALIZER_LIST
 	IUTEST_EXPECT_THAT( c, ElementsAreArray({1, 1, 1}));
@@ -542,8 +542,33 @@ IUTEST(MatcherFailure, ElementsAreArray)
 {
 	CHECK_FAILURE( IUTEST_ASSERT_THAT(b, ElementsAreArray(c)), "ElementsAreArray: " );
 	CHECK_FAILURE( IUTEST_ASSERT_THAT(b, ElementsAreArray(a))
-		, "ElementsAreArray: argument[3] is less than 10");
+		, "ElementsAreArray: actual argument[3] is less than 10");
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(a, ElementsAreArray(b))
+		, "ElementsAreArray: actual argument[10] is greater than 3");
 }
+
+#if IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD
+
+IUTEST(Matcher, ElementsAreArrayForward)
+{
+	IUTEST_EXPECT_THAT(va, ElementsAreArrayForward(a));
+	IUTEST_EXPECT_THAT( c, ElementsAreArrayForward(c));
+	IUTEST_EXPECT_THAT( a, ElementsAreArrayForward(va.begin(), va.begin()+1));
+	IUTEST_EXPECT_THAT(va, ElementsAreArrayForward(va));
+#if IUTEST_HAS_INITIALIZER_LIST
+	IUTEST_EXPECT_THAT( c, ElementsAreArrayForward({1, 1}));
+#endif
+	IUTEST_EXPECT_THAT( c, ElementsAreArrayForward(b, 1));
+}
+
+IUTEST(MatcherFailure, ElementsAreArrayForward)
+{
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(b, ElementsAreArrayForward(c)), "ElementsAreArrayForward: " );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(b, ElementsAreArrayForward(a))
+		, "ElementsAreArrayForward: actual argument[3] is less than 10");
+}
+
+#endif
 
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
 

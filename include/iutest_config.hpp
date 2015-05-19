@@ -235,6 +235,11 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD)
+//! ::iutest::ElementsAreArrayHead matcher が使用可能かどうか
+#  define IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD	1
+#endif
+
 #if !defined(IUTEST_HAS_MATCHER_REGEX)
 //! ::iutest::MatchesRegex, ::iutest::ContainsRegex matcher が使用可能かどうか
 #  if IUTEST_HAS_CXX_HDR_REGEX && IUTEST_HAS_MATCHERS

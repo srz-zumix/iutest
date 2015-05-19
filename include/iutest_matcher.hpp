@@ -950,7 +950,8 @@ class ElementsAreArrayMatcher : public IMatcher
 {
 public:
 	template<typename It>
-	ElementsAreArrayMatcher(It begin, It end)
+	ElementsAreArrayMatcher(It begin, It end, bool expected_elem_count=true)
+		: m_expected_elem_count(expected_elem_count)
 	{
 		m_expected.insert(m_expected.end(), begin, end);
 	}
@@ -965,8 +966,20 @@ public:
 public:
 	::std::string WhichIs(void) const IUTEST_CXX_OVERRIDE
 	{
+		return WhichIs(PrintToString(m_expected));
+	}
+	::std::string WhichIs(const ::std::string& msg) const
+	{
 		iu_global_format_stringstream strm;
-		strm << "ElementsAreArray: " << PrintToString(m_expected);
+		if( m_expected_elem_count )
+		{
+			strm << "ElementsAreArray: ";
+		}
+		else
+		{
+			strm << "ElementsAreArrayForward: ";
+		}
+		strm << msg;
 		return strm.str();
 	}
 private:
@@ -990,7 +1003,15 @@ private:
 		const size_t expected_cnt = m_expected.size();
 		if( actual_cnt < expected_cnt )
 		{
-			return AssertionFailure() << "ElementsAreArray: argument[" << actual_cnt << "] is less than " << expected_cnt;
+			iu_global_format_stringstream stream;
+			stream << "actual argument[" << actual_cnt << "] is less than " << expected_cnt;
+			return AssertionFailure() << WhichIs(stream.str());
+		}
+		if( m_expected_elem_count && actual_cnt > expected_cnt )
+		{
+			iu_global_format_stringstream stream;
+			stream << "actual argument[" << actual_cnt << "] is greater than " << expected_cnt;
+			return AssertionFailure() << WhichIs(stream.str());
 		}
 
 		Ite a=actual_begin;
@@ -1009,6 +1030,7 @@ private:
 	IUTEST_PP_DISALLOW_ASSIGN(ElementsAreArrayMatcher);
 
 	::std::vector<T> m_expected;
+	bool m_expected_elem_count;
 };
 
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
@@ -2134,7 +2156,7 @@ detail::ElementsAreArrayMatcher<T> ElementsAreArray(const T(&v)[SIZE])
 template<typename Ite>
 detail::ElementsAreArrayMatcher< typename detail::IteratorTraits<Ite>::type > ElementsAreArray(Ite begin, Ite end)
 {
-	return new detail::ElementsAreArrayMatcher< typename detail::IteratorTraits<Ite>::type >(begin, end);
+	return detail::ElementsAreArrayMatcher< typename detail::IteratorTraits<Ite>::type >(begin, end);
 }
 #endif
 
@@ -2152,13 +2174,67 @@ detail::ElementsAreArrayMatcher<T> ElementsAreArray(::std::initializer_list<T> l
 /**
  * @ingroup	MATCHERS
  * @brief	Make ElementsAreArray matcher
- * @details	argument はの要素 count 個が a の要素とマッチする
+ * @details	argument は count 個の要素があり、 a の要素とマッチする
 */
 template<typename T>
 detail::ElementsAreArrayMatcher<T> ElementsAreArray(const T* a, int count)
 {
-	return detail::ElementsAreArrayMatcher<T>(a, a+count);
+	return detail::ElementsAreArrayMatcher<T>(a, a + count);
 }
+
+#if IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD
+
+/**
+ * @ingroup	MATCHERS
+ * @brief	Make ElementsAreArrayForward matcher
+ * @details	argument はの各要素が a の要素とマッチする
+*/
+template<typename Container>
+detail::ElementsAreArrayMatcher< typename Container::value_type > ElementsAreArrayForward(Container container)
+{
+	return detail::ElementsAreArrayMatcher<typename Container::value_type>(container.begin(), container.end(), false);
+}
+
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+/** @overload */
+template<typename T, size_t SIZE>
+detail::ElementsAreArrayMatcher<T> ElementsAreArrayForward(const T(&v)[SIZE])
+{
+	return detail::ElementsAreArrayMatcher<T>(v, v + SIZE, false);
+}
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+/** @overload */
+template<typename Ite>
+detail::ElementsAreArrayMatcher< typename detail::IteratorTraits<Ite>::type > ElementsAreArrayForward(Ite begin, Ite end)
+{
+	return detail::ElementsAreArrayMatcher< typename detail::IteratorTraits<Ite>::type >(begin, end, false);
+}
+#endif
+
+#if IUTEST_HAS_INITIALIZER_LIST
+/** @overload */
+template<typename T>
+detail::ElementsAreArrayMatcher<T> ElementsAreArrayForward(::std::initializer_list<T> l)
+{
+	return detail::ElementsAreArrayMatcher<T>(l.begin(), l.end(), false);
+}
+#endif
+
+#endif
+
+/**
+ * @ingroup	MATCHERS
+ * @brief	Make ElementsAreArrayForward matcher
+ * @details	argument は count 個の以上の要素があり、 a の要素とマッチする
+*/
+template<typename T>
+detail::ElementsAreArrayMatcher<T> ElementsAreArrayForward(const T* a, int count)
+{
+	return detail::ElementsAreArrayMatcher<T>(a, a + count, false);
+}
+
+#endif
 
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
 

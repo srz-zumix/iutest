@@ -409,8 +409,10 @@ IUTEST(SyntaxTest, Matcher)
 	IUTEST_EXPECT_THAT(&x, ::iutest::Property(&X::GetA, 0));
 	IUTEST_EXPECT_THAT(a, ::iutest::ElementsAreArray(a));
 	IUTEST_EXPECT_THAT(v, ::iutest::ElementsAreArray(a));
+#if !defined(IUTEST_USE_GMOCK) || (GMOCK_VER >= 0x01070000)
 	IUTEST_EXPECT_THAT(a, ::iutest::ElementsAreArray(v));
 	IUTEST_EXPECT_THAT(v, ::iutest::ElementsAreArray(v));
+#endif
 	IUTEST_EXPECT_THAT(a, ::iutest::ElementsAreArray(b, 3));
 #if IUTEST_HAS_INITIALIZER_LIST
 	IUTEST_EXPECT_THAT(a, ::iutest::ElementsAreArray({0, 1, 2}));
@@ -419,6 +421,27 @@ IUTEST(SyntaxTest, Matcher)
 	IUTEST_EXPECT_THAT(1, ::iutest::ResultOf(X2, ::iutest::Gt(1)));
 	IUTEST_EXPECT_THAT(z, ::iutest::TypedEq<int>(1.0));
 }
+
+#if IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD
+IUTEST(SyntaxTest, ElementsAreArrayForward)
+{
+	::std::vector<int> v;
+	v.push_back(0);
+	v.push_back(1);
+	v.push_back(2);
+	int a[3] = { 0, 1, 2 };
+	int b[4] = { 0, 1, 2, 3 };
+
+	IUTEST_EXPECT_THAT(a, ::iutest::ElementsAreArrayForward(a));
+	IUTEST_EXPECT_THAT(v, ::iutest::ElementsAreArrayForward(a));
+	IUTEST_EXPECT_THAT(a, ::iutest::ElementsAreArrayForward(v));
+	IUTEST_EXPECT_THAT(v, ::iutest::ElementsAreArrayForward(v));
+	IUTEST_EXPECT_THAT(a, ::iutest::ElementsAreArrayForward(b, 1));
+#if IUTEST_HAS_INITIALIZER_LIST
+	IUTEST_EXPECT_THAT(a, ::iutest::ElementsAreArrayForward({0, 1, 2}));
+#endif
+}
+#endif
 
 #if IUTEST_HAS_MATCHER_REGEX
 IUTEST(SyntaxTest, MatcherRegex)
