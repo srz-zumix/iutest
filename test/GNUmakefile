@@ -34,6 +34,10 @@ ifeq ($(findstring clang, $(CXX)),clang)
 #STDFLAG += -std=c++0x
 endif
 
+ifdef USE_COVERAGE
+CXXFLAGS += -coverage
+endif
+
 
 #
 # GCC
@@ -41,8 +45,8 @@ endif
 ifeq ($(CXX),g++)
 
 ifdef USE_COVERAGE
-COVERAGE = coveralls
 CXXFLAGS += -coverage
+#OPTIMIZE += -O0
 endif
 
 GCCVERSION:=$(shell $(CXX) -dumpversion)
@@ -142,7 +146,7 @@ clean :
 ifdef OUTPUTXML
 	$(RM) *.xml
 endif
-ifdef COVERAGE
+ifdef USE_COVERAGE
 	$(RM) *.xml *.gcov *.gcno *.gcda coverage.info
 endif
 
@@ -183,7 +187,6 @@ fuse_min: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fuse/Makefile $(FUSE_PY)
 # coverage
 #
 
-ifdef COVERAGE
 COVARALLS_EXCLUDE=-e doc -e projects -e samples -e tools
 COVARALLS_EXCLUDE_PATTERN  =-E ".*/test/[^\.].*" -E ".*/include/tr1/.*" -E ".*/include/gtest/.*"
 # define and constant only header
@@ -193,22 +196,27 @@ COVARALLS_EXCLUDE_PATTERN  =-E ".*/test/[^\.].*" -E ".*/include/tr1/.*" -E ".*/i
 #COVARALLS_EXCLUDE_PATTERN +=-E ".*iutest_typelist\.hpp" -E ".*iutest_type_traits\.hpp" -E ".*iutest_typed_util\.hpp"
 #COVARALLS_EXCLUDE_PATTERN +=-E ".*iutest_all\.cpp" -E ".*iutest_util_output\.hpp" -E ".*iutest_tuple\.hpp"
 COVARALLS_SRCEXT=-x .h -x .hpp -x .cpp -x .ipp
-endif
 
-send-coverage: send-gcoverage
-
-send-lcoverage:
-ifdef COVERAGE
+coverage:
+ifeq ($(USE_COVERAGE),lcov)
 	lcov -v
 	lcov -c -d . -o coverage.info && lcov -r coverage.info *gcc* -o coverage.info && lcov -r coverage.info */test/* -o coverage.info
-	cd ../; lcoveralls --retry-count 3 ./test/coverage.info
+endif
+ifeq ($(USE_COVERAGE),gcov)
+	gcov -v
+	gcov -r *.gcda;
 endif
 
-send-gcoverage:
-ifdef COVERAGE
-	gcov -v
-	gcov -r *.gcda; cd ../; $(COVERAGE) -n -r ./ -b ./test $(COVARALLS_EXCLUDE_PATTERN) $(COVARALLS_EXCLUDE)
+send-coveralls: coverage
+ifeq ($(USE_COVERAGE),lcov)
+	cd ../; lcoveralls --retry-count 3 ./test/coverage.info
 endif
+ifeq ($(USE_COVERAGE),gcov)
+	cd ../; coveralls -n -r ./ -b ./test $(COVARALLS_EXCLUDE_PATTERN) $(COVARALLS_EXCLUDE)
+endif
+
+send-codecov: coverage
+	curl -s https://codecov.io/bash | bash /dev/stdin
 
 #
 #
