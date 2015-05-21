@@ -197,6 +197,20 @@ COVARALLS_EXCLUDE_PATTERN  =-E ".*/test/[^\.].*" -E ".*/include/tr1/.*" -E ".*/i
 #COVARALLS_EXCLUDE_PATTERN +=-E ".*iutest_all\.cpp" -E ".*iutest_util_output\.hpp" -E ".*iutest_tuple\.hpp"
 COVARALLS_SRCEXT=-x .h -x .hpp -x .cpp -x .ipp
 
+ifeq ($(USE_COVERAGE),gcov)
+
+dot:=.
+empty:=
+space:=$(empty) $(empty)
+
+GCOVVERSION:=$(shell gcov --version)
+GCOVVERSION:=$(word 3, $(GCOVVERSION))
+GCOVVERSION:=$(subst $(dot),$(space), $(GCOVVERSION))
+GCOVMAJOR:=$(word 1, $(GCOVVERSION))
+GCOVMINOR:=$(word 2, $(GCOVVERSION))
+
+endif
+
 coverage:
 ifeq ($(USE_COVERAGE),lcov)
 	lcov -v
@@ -204,7 +218,11 @@ ifeq ($(USE_COVERAGE),lcov)
 endif
 ifeq ($(USE_COVERAGE),gcov)
 	gcov -v
+ifeq ($(findstring relative-only, $(shell gcov --help)), relative-only)
 	gcov -r *.gcda;
+else
+	gcov *.gcda;
+endif
 endif
 
 send-coveralls: coverage

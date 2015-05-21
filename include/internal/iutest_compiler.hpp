@@ -941,6 +941,25 @@
 #  define IUTEST_HAS_ANALYSIS_ASSUME		0
 #endif
 
+// C11
+
+//! has _Generic
+#if !defined(IUTEST_HAS_GENERIC)
+#  if   defined(__clang__)
+#    if __has_feature(c_generic_selections)
+#      define IUTEST_HAS_GENERIC	1
+#    endif
+#  elif defined(__GNUC__)
+//#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 9))
+//#      define IUTEST_HAS_GENERIC	1
+//#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_GENERIC)
+#  define IUTEST_HAS_GENERIC		0
+#endif
+
 // attribute
 
 //! unused attribute
