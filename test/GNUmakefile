@@ -142,7 +142,7 @@ default : $(TARGETS)
 all : clean default test
 
 clean :
-	$(RM) $(TARGETS) *.o *.stackdump *.log
+	$(RM) $(TARGETS) *.o *.stackdump *.core *.log
 ifdef OUTPUTXML
 	$(RM) *.xml
 endif

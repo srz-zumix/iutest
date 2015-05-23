@@ -42,7 +42,10 @@
 	, #testcase_name)
 
 #define IUTEST_GET_PACKAGENAME_()	\
-	iuTest_GetTestCasePackageName( static_cast<iuTest_TestCasePackage*>(NULL))
+	iuTest_GetTestCasePackageName( static_cast<iuTest_TestCasePackage*>(NULL) )
+
+
+#if IUTEST_HAS_IF_EXISTS
 
 #define IIUT_PACKAGE_DECL_NAME_FUNC(name)				\
 	static ::std::string IUTEST_ATTRIBUTE_UNUSED_		\
@@ -57,8 +60,6 @@
 		return iuTest_GetTestCasePackageName(static_cast<iuTest_TestCasePackage*>(NULL));	\
 	}
 
-
-#if IUTEST_HAS_IF_EXISTS
 
 #define IIUT_PACKAGE_(name)									\
 	namespace name {										\
@@ -78,9 +79,13 @@
 #define IIUT_PACKAGE_(name)								\
 	namespace name {									\
 	class iuTest_TestCasePackage;						\
-	IIUT_PACKAGE_DECL_NAME_FUNC(name)					\
+	namespace { const int IUTEST_PP_CAT( k_iutest_package_##name##_dummy_, IUTEST_PP_UNIQUEID)	\
+		IUTEST_ATTRIBUTE_UNUSED_ = package_name_server<iuTest_TestCasePackage>::setname(		\
+			iuTest_GetTestCaseParentPackageName(static_cast<iuTest_TestCaseParentPackage*>(NULL)) + #name ".");	}	\
 	class iuTest_TestCaseParentPackage;					\
-	IIUT_PACKAGE_DECL_PARENT_NAME_FUNC(name)			\
+	namespace { const int IUTEST_PP_CAT( k_iutest_package_##name##_parent_dummy_, IUTEST_PP_UNIQUEID)	\
+		IUTEST_ATTRIBUTE_UNUSED_ = package_name_server<iuTest_TestCaseParentPackage>					\
+		::setname(iuTest_GetTestCasePackageName(static_cast<iuTest_TestCasePackage*>(NULL))); }			\
 	}													\
 	namespace name
 
@@ -101,13 +106,11 @@
 
 #if IUTEST_HAS_PACKAGE
 
-//======================================================================
-// declare
 class iuTest_TestCasePackage;			//!< パッケージ名参照用定義
 class iuTest_TestCaseParentPackage;		//!< 親パッケージ名参照用定義
 
-//======================================================================
-// function
+#if IUTEST_HAS_IF_EXISTS
+
 /**
  * @brief	グローバルパッケージ名の取得
  * @return	パッケージ名
@@ -119,6 +122,47 @@ inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_GetTestCasePackageName(cons
  * @return	パッケージ名
 */
 inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_GetTestCaseParentPackageName(const iuTest_TestCaseParentPackage*) { return ""; }
+
+#else
+
+/**
+ * @brief	パッケージ名のサーバー
+*/
+template<typename T>
+class package_name_server
+{
+	static ::std::string& getname_(void) { static ::std::string s; return s; }
+public:
+	static ::std::string getname(void) { return getname_(); }
+	static int setname(const ::std::string& s)
+	{
+		::std::string& name = getname_();
+		if( name.empty() ) name = s;
+		return 0;
+	}
+};
+
+/**
+ * @brief	パッケージ名の取得
+ * @return	パッケージ名
+*/
+template<typename T>
+::std::string iuTest_GetTestCasePackageName(T*)
+{
+	return package_name_server<T>::getname();
+}
+
+/**
+ * @brief	親空間のパッケージ名の取得
+ * @return	パッケージ名
+*/
+template<typename T>
+::std::string iuTest_GetTestCaseParentPackageName(T*)
+{
+	return package_name_server<T>::getname();
+}
+
+#endif
 
 /**
  * @brief	テストケース名との結合

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -63,10 +63,16 @@
 
 #define IUTEST_PP_COUNTOF(x)		(sizeof(x)/sizeof(x[0]))
 
-#if !defined(IUTEST_HAS_COUNTER_MACRO)
+#if IUTEST_HAS_COUNTER_MACRO
 #  define IUTEST_PP_COUNTER			__COUNTER__
 #else
 #  define IUTEST_PP_COUNTER			__LINE__
+#endif
+
+#if IUTEST_HAS_COUNTER_MACRO
+#  define IUTEST_PP_UNIQUEID		IUTEST_PP_CAT(__LINE__, __COUNTER__)
+#else
+#  define IUTEST_PP_UNIQUEID		__LINE__
 #endif
 
 #define IUTEST_UNUSED_VAR(x)		(void)(x)

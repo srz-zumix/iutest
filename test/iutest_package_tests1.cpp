@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,7 +17,7 @@
 // include
 #include "iutest_package_tests.hpp"
 
-namespace pkg1
+IUTEST_PACKAGE(pkg1)
 {
 	IUTEST(Test, A)
 	{

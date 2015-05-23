@@ -9,6 +9,7 @@ Changes for 1.12.0:
 * twilio 対応
 
 * 変更
+** IUTEST_PACKAGE v2 (多重定義制限の撤廃)
 ** ElementsAreArray で要素数の一致チェックを行うように変更（以前までの ElementsAreArray は ElementsAreArrayForward に変更）
 
 ** 修正

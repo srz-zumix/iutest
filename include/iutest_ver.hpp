@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01119914u //!< iutest version 1.11.99.14
+#define IUTEST_VER			0x01119915u //!< iutest version 1.11.99.15
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x11u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x14u		//!< Revision
+#define IUTEST_REVISION		0x15u		//!< Revision
 
 /**
  * @mainpage
@@ -115,6 +115,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  <ul>
   <li>v1.12.0.0
     <ul>
+      <li>IUTEST_PACKAGE v2 (多重定義制限の撤廃)</li>
       <li>Matcher に MatchesRegex,ContainsRegex を追加</li>
       <li>Matcher に ElementsAreArrayForward を追加</li>
       <li>ElementsAreArray で要素数の一致チェックを行うように変更（以前までの ElementsAreArray は ElementsAreArrayForward に変更）</li>

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -249,3 +249,11 @@ IUTEST(PPTest, If)
 	IUTEST_STATIC_ASSERT( IUTEST_PP_IF(128, VALUE_A, VALUE_B) == VALUE_A );
 }
 
+IUTEST(PPTest, Counter)
+{
+#if IUTEST_HAS_COUNTER_MACRO
+	IUTEST_STATIC_ASSERT( IUTEST_PP_COUNTER != __LINE__ );
+#else
+	IUTEST_STATIC_ASSERT( IUTEST_PP_COUNTER == __LINE__ );
+#endif
+}
