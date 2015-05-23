@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -14,6 +14,7 @@
 //======================================================================
 #include <inttypes.h>
 
+#include "../../include/internal/iutest_compiler.hpp"
 #include "../../include/internal/iutest_pp.hpp"
 
 #define PP_CAT	IUTEST_PP_CAT

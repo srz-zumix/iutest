@@ -135,7 +135,7 @@ $(BASIS): test.o
 benchmark_n%.cpp: benchmark_base.cpp
 	@echo '#define PACKAGENAME benchmark_n$*' | cat - benchmark_base.cpp > $@
 
-%.o : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
+.cpp.o : $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(CPPFLAGS) $(IUTEST_INCLUDE) $(CXXFLAGS) -c $<
 
 $(TARGET): $(OBJS)

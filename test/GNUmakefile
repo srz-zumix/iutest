@@ -251,14 +251,16 @@ benchmark: build_benchmark
 		END{ print("Total:", sum, "(",num,")" ); num-=2; sum-=min; sum-=max; print("Min:", min); print("Max:", max); \
 		avg=sum/num; print("Avg:", avg); print("Score:", basis/avg*100); print("Basis:", basis); }' benchmark_build_time.log
 
+BENCHMARK_MAKE_OPTION=--no-print-directory -C benchmark
+
 build_benchmark:
 	@if [ -a benchmark_basis_time.log ]; then rm benchmark_basis_time.log; fi
 	@if [ -a benchmark_build_time.log ]; then rm benchmark_build_time.log; fi
 	@num=1; while [[ $$num -le 10 ]]; do \
-		make -C benchmark clean; \
-		{ time -p make -j 1 -C benchmark basis 2>&1; } 2>> benchmark_basis_time.log; \
-		make -C benchmark clean prebuild; \
-		{ time -p make -j 1 -C benchmark build 2>&1; } 2>> benchmark_build_time.log; \
+		make $(BENCHMARK_MAKE_OPTION) clean; \
+		{ time -p make $(BENCHMARK_MAKE_OPTION) -j 1 basis 2>&1; } 2>> benchmark_basis_time.log; \
+		make $(BENCHMARK_MAKE_OPTION) clean prebuild; \
+		{ time -p make $(BENCHMARK_MAKE_OPTION) -j 1 build 2>&1; } 2>> benchmark_build_time.log; \
 		((num = num + 1)); \
 	done
 
