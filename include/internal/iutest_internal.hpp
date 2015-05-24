@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -65,19 +65,25 @@
 #endif
 
 #if IUTEST_HAS_IF_EXISTS
-#  define IIUT_CHECK_TESTFIXTURE(testfixture_)		\
+#  define IIUT_CHECK_TESTFIXTURE_(testfixture_)		\
 	IUTEST_IF_EXISTS(testfixture_, IUTEST_IF_EXISTS(testfixture_::SetUp,				\
 		IUTEST_STATIC_ASSERT_MSG(														\
 			(!::iutest_type_traits::is_base_of< ::iutest::Test, testfixture_ >::value)	\
 			, #testfixture_ " is fixture class, mistake the IUTEST_F?");				\
 	) )
 #else
-#  define IIUT_CHECK_TESTFIXTURE(testfixture_)
+#  define IIUT_CHECK_TESTFIXTURE_(testfixture_)		\
+	IUTEST_STATIC_ASSERT_MSG(						\
+			(! ::iutest::detail::is_useful_testfixture< void (int (testfixture_)) >::value) \
+			, #testfixture_ " is fixture class, mistake the IUTEST_F?");
 #endif
+#define IIUT_CHECK_TESTFIXTURE(testfixture_)	IIUT_CHECK_TESTFIXTURE_(IIUT_TO_VARNAME_(testfixture_))
 
+#if !defined(IUTEST_TEST_STRICT_)
 #define IUTEST_TEST_STRICT_(testcase_, testname_, parent_class_, type_id_)	\
 	IIUT_CHECK_TESTFIXTURE(testcase_)										\
 	IUTEST_TEST_(testcase_, testname_, parent_class_, type_id_)
+#endif
 
 #define IUTEST_TEST_F_(testfixture_, testname_)		IUTEST_TEST_(testfixture_, testname_, IIUT_TO_VARNAME_(testfixture_)	\
 														, ::iutest::internal::GetTypeId< IIUT_TO_VARNAME_(testfixture_) >())
@@ -91,7 +97,7 @@
 
 /**
  * @internal
- * @brief	テストクラス定義マクロ
+ * @brief	Test class defined macro
 */
 #define IUTEST_TEST_(testcase_, testname_, parent_class_, type_id_)							\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {			\
@@ -107,7 +113,7 @@
 
 /**
  * @internal
- * @brief	テストクラス定義マクロ
+ * @brief	Test class defined macro
  *			関数の中はコンパイルできなくてもよい
 */
 #define IUTEST_TEST_IGNORE_(testcase_, testname_, parent_class_, type_id_)					\
@@ -138,7 +144,7 @@
 
 /**
  * @internal
- * @brief	パラメタライズテスト定義マクロ
+ * @brief	Parameterized test class defined macro
 */
 #define IIUT_TEST_PMZ_(testcase_, testname_, method_, parent_class_, type_id_, ...)				\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_);										\
@@ -160,14 +166,14 @@
 
 /**
  * @internal
- * @brief	ASSERTION メッセージ処理
+ * @brief	Assertion message
 */
 #define IUTEST_MESSAGE_AT(file_, line_, msg_, result_type_)	::iutest::AssertionHelper(file_, line_, msg_, result_type_) = ::iutest::AssertionHelper::Fixed()
 #define IUTEST_MESSAGE(msg_, result_type_)					IUTEST_MESSAGE_AT(__FILE__, __LINE__, msg_, result_type_)
 
 /**
  * @internal
- * @brief	ASSERT メッセージ処理
+ * @brief	ASSERT message
 */
 #define IUTEST_ASSERT_FAILURE(msg)					IUTEST_ASSERT_FAILURE_AT(msg, __FILE__, __LINE__)
 
@@ -179,7 +185,7 @@
 
 /**
  * @internal
- * @brief	EXPECT メッセージ処理
+ * @brief	EXPECT message
 */
 #define IUTEST_EXPECT_FAILURE(msg)					IUTEST_EXPECT_FAILURE_AT(msg, __FILE__, __LINE__)
 
@@ -187,7 +193,7 @@
 
 /**
  * @internal
- * @brief	INFORM メッセージ処理
+ * @brief	INFORM message
 */
 #define IUTEST_INFORM_FAILURE(msg)					IUTEST_INFORM_FAILURE_AT(msg, __FILE__, __LINE__)
 
@@ -195,7 +201,7 @@
 
 /**
  * @internal
- * @brief	ASSUME メッセージ処理
+ * @brief	ASSUME message
 */
 #define IUTEST_ASSUME_FAILURE(msg)					IUTEST_ASSUME_FAILURE_AT(msg, __FILE__, __LINE__)
 
@@ -207,7 +213,7 @@
 
 /**
  * @internal
- * @brief	SKIP メッセージ処理
+ * @brief	SKIP message
 */
 #define IUTEST_SKIP_MESSAGE(msg)					IUTEST_SKIP_MESSAGE_AT(msg, __FILE__, __LINE__)
 
@@ -235,7 +241,7 @@
 #if IUTEST_HAS_EXCEPTIONS
 /**
  * @internal
- * @brief	throw テスト用マクロ
+ * @brief	throw assertion defined macro
 */
 #define IUTEST_TEST_THROW_(statement, expected_exception, on_failure)		\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
@@ -257,7 +263,7 @@
 
 /**
  * @internal
- * @brief	throw テスト用マクロ
+ * @brief	throw value assertion defined macro
 */
 #define IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure, pred_formatter)	\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_														\
@@ -294,7 +300,7 @@
 
 /**
  * @internal
- * @brief	any throw テスト用マクロ
+ * @brief	any throw assertion defined macro
 */
 #define IUTEST_TEST_ANY_THROW_(statement, on_failure)						\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
@@ -310,7 +316,7 @@
 
 /**
  * @internal
- * @brief	no throw テスト用マクロ
+ * @brief	no throw assertion defined macro
 */
 #define IUTEST_TEST_NO_THROW_(statement, on_failure)						\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
@@ -396,7 +402,7 @@
 
 /**
  * @internal
- * @brief	テストマクロ
+ * @brief	all flavor assertion macro
  * @{
 */
 #define	IUTEST_TEST_EQ(expected, actual, on_failure)	IUTEST_PRED_FORMAT2_( ::iutest::internal::EqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare, expected, actual, on_failure )

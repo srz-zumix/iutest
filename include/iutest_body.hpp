@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -272,6 +272,46 @@ template<typename T>
 class TestWithParam : public Test, public WithParamInterface<T>
 {
 };
+
+namespace detail
+{
+
+/**
+ * @brief	有益な TestFixture が定義されているかどうか
+*/
+template<typename T>
+class is_useful_testfixture : public iutest_type_traits::false_type {};
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+
+namespace is_useful_testfixture_helper
+{
+
+template<typename T>
+class is_override_setup {
+	template<bool b, typename U>struct impl { typedef iutest_type_traits::false_type type; };
+	template<typename U>struct impl<true, U>
+	{
+		typedef int  yes_t;
+		typedef char no_t;
+		static no_t check(void(Test::*)());
+		static yes_t check(...);
+		typedef iutest_type_traits::bool_constant< sizeof(&U::SetUp) == sizeof(yes_t) > type;
+	};
+public:
+	typedef typename impl< iutest_type_traits::is_base_of<Test, T>::value, T>::type type;
+};
+
+}
+
+template<typename T>
+class is_useful_testfixture<void(int(T))> : public is_useful_testfixture_helper::is_override_setup<T>::type
+{
+};
+
+#endif
+
+}
 
 }	// end of namespace iutest
 
