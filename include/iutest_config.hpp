@@ -483,6 +483,11 @@
  * @{
 */
 
+//! テストのチェック機能の有無
+#if !defined(IUTEST_CHECK_STRICT)
+#  define IUTEST_CHECK_STRICT		1
+#endif
+
 #if !defined(IUTEST_HAS_MINIDUMP)
 //! MiniDump 出力が有効かどうか
 #  if defined(_MSC_VER) && _MSC_VER >= 1310

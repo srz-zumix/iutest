@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -35,6 +35,18 @@ IUTEST_P(TupleGetTest, Test)
 
 IUTEST_INSTANTIATE_TEST_CASE_P(A, TupleGetTest
 	, ::iutest::Values( ::iutest::tuples::tuple<bool, int>(true, 10) ) );
+
+#if !defined(IUTEST_USE_GTEST)
+
+class TypeConversionParamTest : public ::iutest::TestWithParam<double> {};
+
+IUTEST_P(TypeConversionParamTest, Test)
+{
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_P(My1, TypeConversionParamTest, ::iutest::Values(4));
+
+#endif
 
 #endif
 

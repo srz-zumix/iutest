@@ -89,6 +89,10 @@ CXXFLAGS += -Werror=undef
 LIBS_ = $(LIBS:%=-l%)
 LDFLAGS += $(LIBS_)
 
+ifdef NO_CHECK_STRICT
+CXXFLAGS += -DIUTEST_CHECK_STRICT=0
+endif
+
 ifdef USE_LIB
 CXXFLAGS += -DIUTEST_USE_LIB=1 -L../../lib
 LDFLAGS += -liutest

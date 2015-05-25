@@ -80,9 +80,13 @@
 #define IIUT_CHECK_TESTFIXTURE(testfixture_)	IIUT_CHECK_TESTFIXTURE_(IIUT_TO_VARNAME_(testfixture_))
 
 #if !defined(IUTEST_TEST_STRICT_)
-#define IUTEST_TEST_STRICT_(testcase_, testname_, parent_class_, type_id_)	\
-	IIUT_CHECK_TESTFIXTURE(testcase_)										\
-	IUTEST_TEST_(testcase_, testname_, parent_class_, type_id_)
+#if IUTEST_CHECK_STRICT
+#  define IUTEST_TEST_STRICT_(testcase_, testname_, parent_class_, type_id_)	\
+			IIUT_CHECK_TESTFIXTURE(testcase_)									\
+			IUTEST_TEST_(testcase_, testname_, parent_class_, type_id_)
+#else
+#  define IUTEST_TEST_STRICT_	IUTEST_TEST_
+#endif
 #endif
 
 #define IUTEST_TEST_F_(testfixture_, testname_)		IUTEST_TEST_(testfixture_, testname_, IIUT_TO_VARNAME_(testfixture_)	\

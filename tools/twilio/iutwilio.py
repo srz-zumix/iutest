@@ -26,7 +26,7 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 0.1'
+		, version=u'%(prog)s version 0.2'
 	)
 	parser.add_argument(
 		'--ini'
@@ -36,6 +36,10 @@ def parse_command_line():
 	parser.add_argument(
 		'--call'
 		, help = 'call to number.'
+	)
+	parser.add_argument(
+		'--sms'
+		, help = 'send message number.'
 	)
 	parser.add_argument(
 		'--account_sid'
@@ -137,13 +141,68 @@ def make_twilio():
 # call twilio
 def call(client, options):
 	if options.dryrun:
-		print 'twilio call to ' + options.call + ' from ' + my_number
+		print 'twilio call to ' + options.call
+		print body
 	else:
 		call = client.calls.create(url=options.url,
 			to=options.call,
 			from_=my_number)
 		print call.sid
 
+
+#
+# make_message
+def make_message(options):
+	body = ""
+	filepath = options.xml
+	if filepath and os.path.exists(filepath):
+		tree = ET.parse(filepath)
+		root = tree.getroot()
+		tests = int(root.get('tests'))
+		testcases = len(root.findall('testsuite'))
+		failures = int(root.get('failures'))
+		disabled = int(root.get('disabled'))
+		skipped = int(root.get('skip'))
+		passed = tests - failures - skipped
+		time = root.get('time')
+		timestamp = root.get('timestamp')
+
+		if timestamp:
+			body += "%s\n" % (timestamp)
+		
+		body += "%d tests from %s testcase ran. (%sms total)\n" % (tests, testcases, time)
+		body += "[  PASSED  ] %d\n" % (passed)
+		if disabled:
+			body += "[ DISABLED ] %d\n" % (disabled)
+		if skipped:
+			body += "[  SKIPPED ] %d\n" % (skipped)
+		body += "[  FAILED  ] %d\n" % (failures)
+		failure_testsuites = root.findall('testsuite')
+		for suite in failure_testsuites:
+			if int(suite.get('failures')):
+				for test in suite:
+					if test.find('.//failure') != None:
+						name = "%s.%s\n" % ( suite.get('name'), test.get('name') )
+						if len(body) + len(name) < 155:
+							body += name;
+						else:
+							body += "..."
+							return body
+	return body
+
+
+#
+# message
+def message(client, options):
+	m = make_message(options)
+	if options.dryrun:
+		print 'twilio call to ' + options.sms
+		print m
+	else:
+		call = client.messages.create(body=m,
+			to=options.sms,
+			from_=my_number)
+		print call.sid
 
 #
 # run
@@ -154,7 +213,9 @@ def run(options):
 			sys.exit(1)
 		else:
 			if parse_xml(filepath) > 0:
-				if options.call:
+				if options.sms:
+					message(make_twilio(), options)
+				elif options.call:
 					call(make_twilio(), options)
 				else:
 					print 'was failed ' + filepath
@@ -166,10 +227,14 @@ def run(options):
 
 #
 # dump
-def dump():
+def dump(options):
 	print 'account_sid: %s' % (account_sid)
 	print 'auth_token : %s' % (auth_token)
 	print 'my_number  : %s' % (my_number)
+	if options.call:
+		print 'call       : %s' % (options.call)
+	if options.sms:
+		print 'sms        : %s' % (options.sms)
 
 #
 #
@@ -178,7 +243,7 @@ def main():
 	setup(options)
 	parse_ini(options.ini)
 	if options.dump:
-		dump()
+		dump(options)
 	else:
 		run(options)
 
