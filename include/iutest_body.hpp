@@ -296,7 +296,7 @@ class is_override_setup {
 		typedef char no_t;
 		static no_t check(void(Test::*)());
 		static yes_t check(...);
-		typedef iutest_type_traits::bool_constant< sizeof(&U::SetUp) == sizeof(yes_t) > type;
+		typedef iutest_type_traits::bool_constant< sizeof(check(&U::SetUp)) == sizeof(yes_t) > type;
 	};
 public:
 	typedef typename impl< iutest_type_traits::is_base_of<Test, T>::value, T>::type type;

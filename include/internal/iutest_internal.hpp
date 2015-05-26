@@ -65,18 +65,19 @@
 #endif
 
 #if IUTEST_HAS_IF_EXISTS
-#  define IIUT_CHECK_TESTFIXTURE_(testfixture_)		\
+#  define IIUT_CHECK_TESTFIXTURE_I(testfixture_)		\
 	IUTEST_IF_EXISTS(testfixture_, IUTEST_IF_EXISTS(testfixture_::SetUp,				\
 		IUTEST_STATIC_ASSERT_MSG(														\
 			(!::iutest_type_traits::is_base_of< ::iutest::Test, testfixture_ >::value)	\
 			, #testfixture_ " is fixture class, mistake the IUTEST_F?");				\
 	) )
 #else
-#  define IIUT_CHECK_TESTFIXTURE_(testfixture_)		\
+#  define IIUT_CHECK_TESTFIXTURE_I(testfixture_)		\
 	IUTEST_STATIC_ASSERT_MSG(						\
 			(! ::iutest::detail::is_useful_testfixture< void (int (testfixture_)) >::value) \
 			, #testfixture_ " is fixture class, mistake the IUTEST_F?");
 #endif
+#define IIUT_CHECK_TESTFIXTURE_(testfixture_)	IIUT_CHECK_TESTFIXTURE_I(testfixture_)
 #define IIUT_CHECK_TESTFIXTURE(testfixture_)	IIUT_CHECK_TESTFIXTURE_(IIUT_TO_VARNAME_(testfixture_))
 
 #if !defined(IUTEST_TEST_STRICT_)
@@ -475,5 +476,10 @@
 /**
  * @}
 */
+
+/**
+ * @brief	コンパイルエラーチェックタグ
+*/
+#define IUTEST_TEST_COMPILEERROR(e)	IUTEST_PRAGMA_MESSAGE("IUTEST_TEST_COMPILEERROR( " #e " )")
 
 #endif // INCG_IRIS_IUTEST_INTERNAL_HPP_A5BD9FBB_B57A_4C1D_B205_0ADB7798DBF9_

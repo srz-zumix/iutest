@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -28,6 +28,8 @@
 #else
 #  define IUTEST_PRAGMA(x)
 #endif
+
+#define IUTEST_PRAGMA_MESSAGE(m)	IUTEST_PRAGMA(message (m))
 
 // pragma warning
 #if defined(_MSC_VER)
