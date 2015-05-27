@@ -190,7 +190,7 @@ def iutest(l):
 	re_m = None
 	check = None
 	for msg in l:
-		if not msg.message:
+		if not msg:
 			continue
 
 		mm = re_iutest.search(msg.message)
