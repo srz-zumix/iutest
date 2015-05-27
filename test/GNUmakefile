@@ -351,8 +351,8 @@ $(TARGETS_EXCLUDE_ALLTESTS) : $(SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(IUTEST_LIB_) $(LDFLAGS)
 
 $(ERR_TARGETS) : $(SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
-#	-$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(IUTEST_LIB_) $(LDFLAGS)
-	-$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(IUTEST_LIB_) $(LDFLAGS) 2>&1 | python ../tools/python/iutest_compile_error_test.py -c $(CXX)
+	#-$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(IUTEST_LIB_) $(LDFLAGS)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(IUTEST_LIB_) $(LDFLAGS) 2>&1 | python ../tools/python/iutest_compile_error_test.py -c $(CXX)
 
 endif
 

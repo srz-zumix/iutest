@@ -31,4 +31,8 @@ test-gcc: ../../test/iutest_syntax_tests.cpp Makefile
 
 test-clang: ../../test/iutest_syntax_tests.cpp Makefile
 	python iuwandbox.py $< -c clang-head -f"-DIUTEST_USE_MAIN" -x "warning,gnu++1y" --expand_include --encoding utf-8-sig
-	
+
+check-strict: ../../test/iutest_check_strict_tests.cpp Makefile
+#	-python iuwandbox.py $< -c clang-head -x "warning,gnu++1y" --expand_include --encoding utf-8-sig
+	python iuwandbox.py $< -c clang-head -x "warning,gnu++1y" --expand_include --encoding utf-8-sig | python ../python/iutest_compile_error_test.py -c clang
+#	python iuwandbox.py $< -c gcc-head -x "warning,gnu++1y" --expand_include --encoding utf-8-sig | python ../python/iutest_compile_error_test.py -c gcc

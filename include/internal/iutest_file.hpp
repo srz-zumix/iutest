@@ -289,7 +289,7 @@ public:
 	}
 
 	//! 全読み込み
-	virtual ::std::string ReadAll(void)
+	virtual ::std::string ReadAll(void) IUTEST_CXX_OVERRIDE
 	{
 		return ss.str();
 	}
