@@ -9,6 +9,7 @@
 # see LICENSE
 #
 
+import os
 import sys
 import argparse
 import re
@@ -73,6 +74,9 @@ class ErrorMessage:
 		elif self.parent:
 			return self.parent.get_error()
 		return None
+
+format_gcc=True
+color_prompt=False
 
 #
 # command line option
@@ -150,9 +154,43 @@ def parse_clang(options, f):
 	return parse_gcc_clang(options, f, r'expanded from macro', True)
 
 #
+# parse_vc
+def parse_vc(options, f):
+	re_file = re.compile(r'(\S+)\((\d+)\):')
+	re_message = re.compile(r'.*\(\d+\): (\S*) (\S*: .*)')
+	msg_list = []
+	msg = None
+	prev = None
+	for line in f:
+		m = re_file.match(line)
+
+		if m:
+			if msg:
+				msg_list.append(msg)
+				prev = msg
+			msg = ErrorMessage()
+			msg.file = m.group(1)
+			msg.line = int(m.group(2))
+			msg.type = ""
+			n = re_message.match(line)
+			if n:
+				msg.set_type(n.group(1))
+				msg.message += n.group(2)
+		else:
+			if msg:
+				msg.message += '\n'
+				msg.message += line
+	msg_list.append(msg)
+	return msg_list
+
+#
 # dump
 def dump_msg(m):
-	print "%s:%d: %s: %s" % (m.file, m.line, m.type, m.message)
+	if format_gcc:
+		print "%s:%d: %s: %s" % (m.file, m.line, m.type, m.message)
+	else:
+		print "%s(%d): %s %s" % (m.file, m.line, m.type, m.message)
+
 	
 def dump_msgs(m):
 	if m.parent:
@@ -178,9 +216,15 @@ def test_result(result, str):
 	ENDC    = '\033[0m'
 
 	if result:
-		print OKGREEN + '[OK] ' + ENDC + str
+		if color_prompt:
+			print OKGREEN + '[OK] ' + ENDC + str
+		else:
+			print '[OK] ' + str
 	else:
-		print FAIL + '[NG] ' + ENDC + str
+		if color_prompt:
+			print FAIL + '[NG] ' + ENDC + str
+		else:
+			print '[NG] ' + str
 
 #
 # iutest
@@ -209,7 +253,7 @@ def iutest(l):
 			if check and msg.file in check.file and msg.line == check.line+1:
 				actual = msg.get_error()
 				expect = re_m.group(1).strip('"')
-				if actual.message.find(expect):
+				if actual.message.find(expect) != -1:
 					check = None
 					e = None
 					msg.checked = True
@@ -227,14 +271,18 @@ def iutest(l):
 #
 # parse_output
 def parse_output(options):
+	global format_gcc
 	l = None
 	if not options.infile:
 		raise Exception("infile null")
 		
-	if options.compiler == 'gcc' or options.compiler == 'g++':
-		l = parse_gcc(options, options.infile)
-	elif options.compiler == 'clang' or options.compiler == 'clang++':
+	if any(options.compiler.find(s) != -1 for s in ('clang', 'clang++')):
 		l = parse_clang(options, options.infile)
+	elif any(options.compiler.find(s) != -1 for s in ('gcc', 'g++')):
+		l = parse_gcc(options, options.infile)
+	elif options.compiler == 'cl':
+		format_gcc = False
+		l = parse_vc(options, options.infile)
 	else:
 		raise Exception("sorry, %s compiler is not supported", (options.compiler))
 	
@@ -242,9 +290,19 @@ def parse_output(options):
 	return iutest(l)
 
 #
+# setup
+def setup():
+	global color_prompt
+	term = os.environ.get('TERM')
+	if term:
+		if any( term.find(s) for s in ('xterm', 'screen', 'rxvt', 'linux', 'cygwin' ) ):
+			color_prompt = True
+
+#
 # main
 def main():
 	options = parse_command_line()
+	setup()
 	if not parse_output(options):
 		sys.exit(1)
 
