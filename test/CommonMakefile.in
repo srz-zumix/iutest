@@ -112,7 +112,8 @@ TARGETS_IUTEST_ONLY = \
           iutest_unit_tests \
 
 COMPILEERROR_TARGETS=\
-          iutest_check_strict_tests
+          iutest_check_strict_tests \
+          iutest_static_assertion_failure_tests
 
 BUILD_ONLY = iutest_break_on_failure_tests \
 

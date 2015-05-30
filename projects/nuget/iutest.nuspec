@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>iutest</id>
+    <title>iutest</title>
+    <version>1.12.0</version>
+    <authors>Takazumi Shirayanagi</authors>
+    <copyright>Copyright (c) 2011-2015</copyright>
+    <summary>C++ testing framework.</summary>
+    <description>iutest is framework for writing C++ tests.
+    Supports automatic tests discovery, include only, value- and type- parameterized tests,
+    XML test report, inform- and assume- flavor, and japanese test name, matchers, etc...
+    </description>
+    <projectUrl>https://github.com/srz-zumix/iutest</projectUrl>
+    <licenseUrl>http://opensource.org/licenses/BSD-3-Clause</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>native, iutest, test, nativepackage</tags>
+  </metadata>
+  <files>
+    <file src="..\..\README.md" target="\build\native\README.md" />
+    <file src="..\..\LICENSE" target="\build\native\LICENSE" />
+    <file src="..\..\CHANGES" target="\build\native\CHANGES" />
+    <file src="..\..\include\**\*.*" target="\build\native\include" />
+    <file src="iutest.targets" target="\build\native\iutest.targets" />
+  </files>
+</package>
