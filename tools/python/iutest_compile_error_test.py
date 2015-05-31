@@ -217,7 +217,7 @@ def parse_gcc(options, f):
 #
 # parse_clang
 def parse_clang(options, f):
-	return parse_gcc_clang(options, f, r'expanded from macro', True)
+	return parse_gcc_clang(options, f, r'expanded from ', True)
 
 #
 # parse_vc
@@ -329,6 +329,7 @@ def iutest(l):
 				continue
 			if check and not check.checked:
 				dump_msg(check)
+				dump_msg(msg)
 				test_result(False, re_m.group(0), check)
 				check = None
 				result = False

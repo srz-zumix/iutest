@@ -28,10 +28,16 @@ IUTEST(StaticAssertTypeEqTest, Fail)
 {
 	IUTEST_TEST_COMPILEERROR("static_assert_typeeq")
 	::iutest::StaticAssertTypeEq<float, int>();
-	
+}
+
+IUTEST(StaticAssertTypeEqTest, Fail2)
+{	
 	IUTEST_TEST_STATICASSERT("static_assert")
 	IUTEST_STATIC_ASSERT(false);
+}
 
+IUTEST(StaticAssertTypeEqTest, Fail3)
+{
 	IUTEST_TEST_STATICASSERT("static_assert")
 	IUTEST_STATIC_ASSERT(test_struct<false, false>::value);
 }
