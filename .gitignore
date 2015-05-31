@@ -16,6 +16,7 @@
 *.sdf
 *.opensdf
 *.user
+*.nupkg
 coverage.info
 test/*.xml
 lib

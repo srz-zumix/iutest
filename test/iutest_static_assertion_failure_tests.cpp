@@ -19,16 +19,21 @@
 
 #if IUTEST_HAS_STATIC_ASSERT_TYPEEQ
 
-IUTEST_TEST_COMPILEERROR("false")
+template<bool a, bool b>struct test_struct : public iutest_type_traits::bool_constant<a> {};
+
+IUTEST_TEST_COMPILEERROR("static_assert_typeeq")
 bool b = ::iutest::StaticAssertTypeEq<int, float>();
 
 IUTEST(StaticAssertTypeEqTest, Fail)
 {
-	IUTEST_TEST_COMPILEERROR("false")
+	IUTEST_TEST_COMPILEERROR("static_assert_typeeq")
 	::iutest::StaticAssertTypeEq<float, int>();
 	
-	IUTEST_TEST_COMPILEERROR("false")
+	IUTEST_TEST_STATICASSERT("static_assert")
 	IUTEST_STATIC_ASSERT(false);
+
+	IUTEST_TEST_STATICASSERT("static_assert")
+	IUTEST_STATIC_ASSERT(test_struct<false, false>::value);
 }
 
 #endif

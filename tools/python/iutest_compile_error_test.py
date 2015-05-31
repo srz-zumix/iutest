@@ -59,17 +59,17 @@ class ErrorMessage:
 	def has_error(self):
 		if self.type == "error":
 			return True
-		elif self.parent:
-			return self.parent.has_error()
+		elif self.parent and self.parent.has_error_parent():
+			return True
+		elif self.child and self.child.has_error_child():
+			return True
 		return False
 	
 	def has_error_parent(self):
 		if self.type == "error":
 			return True
-		elif self.parent and self.parent.has_error_parent():
-			return True
-		elif self.child and self.child.has_error_child():
-			return True
+		elif self.parent:
+			return self.parent.has_error()
 		return False
 
 	def has_error_parent(self):
@@ -164,6 +164,7 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
 	re_infile = re.compile(r'In file included from (\S+):(\d+):(\d+)(.*)')
 	re_message = re.compile(r'.*:\d+:\d+: (\S*): (.*)')
 	re_expansion = re.compile(r_expansion)
+	re_declaration = re.compile(r'.*declaration of\s*(.*)')
 	msg_list = []
 	msg = None
 	prev = None
@@ -193,7 +194,12 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
 
 			is_child = note_is_child and msg.is_note()
 			is_type_none = prev and prev.is_type_none()
-			if is_child or is_type_none or re_expansion.search(msg.message):
+			is_declaration = False
+			n = re_declaration.match(line)
+			if n and prev and prev.message.find(n.group(1)) != -1:
+				is_declaration = True
+				
+			if is_child or is_type_none or is_declaration or re_expansion.search(msg.message):
 				prev.child = msg
 				msg.parent = prev
 		else:
@@ -217,7 +223,7 @@ def parse_clang(options, f):
 # parse_vc
 def parse_vc(options, f):
 	re_fatal = re.compile(r'(\S+)\s*:\s*fatal\s*error\s*.*')
-	re_file = re.compile(r'(\S+)\((\d+)\)\s*:')
+	re_file = re.compile(r'(\s*)(\S+)\((\d+)\)\s*:\s*(.*)')
 	re_message = re.compile(r'.*\(\d+\)\s*: (\S*) (\S*: .*)')
 	msg_list = []
 	msg = None
@@ -233,13 +239,20 @@ def parse_vc(options, f):
 				msg_list.append(msg)
 				prev = msg
 			msg = ErrorMessage()
-			msg.file = m.group(1)
-			msg.line = int(m.group(2))
+			msg.file = m.group(2)
+			msg.line = int(m.group(3))
 			msg.type = ""
 			n = re_message.match(line)
 			if n:
 				msg.set_type(n.group(1))
 				msg.message += n.group(2)
+			else:
+				msg.set_type('')
+				msg.message += m.group(4)
+				
+			if m.group(1) and prev:
+				prev.child = msg
+				msg.parent = prev
 		else:
 			if msg:
 				msg.message += '\n'
@@ -256,7 +269,10 @@ def dump_msg(m):
 		else:
 			print "%s:%d: %s: %s" % (m.file, m.line, m.type, m.message)
 	else:
-		print "%s(%d): %s %s" % (m.file, m.line, m.type, m.message)
+		if m.parent:
+			print "\t%s(%d): %s %s" % (m.file, m.line, m.type, m.message)
+		else:
+			print "%s(%d): %s %s" % (m.file, m.line, m.type, m.message)
 
 	
 def dump_msgs(m):
@@ -311,7 +327,7 @@ def iutest(l):
 		if mm:
 			if msg.parent:
 				continue
-			if check:
+			if check and not check.checked:
 				dump_msg(check)
 				test_result(False, re_m.group(0), check)
 				check = None
@@ -320,14 +336,14 @@ def iutest(l):
 				check = msg
 				re_m = mm
 		elif msg.has_error():
-			#print '%s - %d' % (msg.file, msg.line) 
+			#print '%s - %d' % (msg.file, msg.line)
 			if check and msg.file in check.file and msg.line == check.line+1:
 				actual = msg.get_error()
 				expect = re_m.group(1).strip('"')
-				if actual.message.find(expect) != -1:
-					check = None
-					e = None
+				if not expect or actual.message.find(expect) != -1:
+					check.checked = True
 					msg.checked = True
+					e = None
 					test_result(True, re_m.group(0), check)
 			elif msg.is_tail() and not msg.is_checked():
 				dump_msgs(msg)
@@ -335,7 +351,7 @@ def iutest(l):
 		elif msg.is_warning():
 			dump_msg(msg)
 
-	if check:
+	if check and not check.checked:
 		test_result(False, re_m.group(0), check)
 		result = False
 	return result

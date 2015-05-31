@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -48,10 +48,14 @@ static bool	StaticAssertTypeEq(void)
  * @brief	static_assert
 */
 #if IUTEST_HAS_STATIC_ASSERT
+#if defined(_MSC_VER)
+#  define IUTEST_STATIC_ASSERT_MSG(B, Msg)	static_assert(B, "static_assert: " Msg)
+#else
 #  define IUTEST_STATIC_ASSERT_MSG(B, Msg)	static_assert(B, Msg)
+#endif
 #else
 #  define IUTEST_STATIC_ASSERT_MSG(B, Msg)	\
-	typedef ::iutest::detail::StaticAssertionTest< sizeof(::iutest::detail::StaticAssertionFailure< (bool)B >) > IUTEST_PP_CAT(iutest_static_assert_typedef_, IUTEST_PP_COUNTER)
+	typedef ::iutest::detail::static_assert_failure< sizeof(::iutest::detail::static_assert_failure< (bool)B >) > IUTEST_PP_CAT(iutest_static_assert_typedef_, IUTEST_PP_COUNTER)
 #endif
 
 /**
@@ -59,9 +63,9 @@ static bool	StaticAssertTypeEq(void)
 */
 #ifdef IUTEST_STATIC_ASSERT_MSG
 #  ifdef IUTEST_NO_VARIADIC_MACROS
-#    define IUTEST_STATIC_ASSERT(B)		IUTEST_STATIC_ASSERT_MSG(B, "")
+#    define IUTEST_STATIC_ASSERT(B)		IUTEST_STATIC_ASSERT_MSG(B, #B)
 #  else
-#    define IUTEST_STATIC_ASSERT(...)	IUTEST_STATIC_ASSERT_MSG((__VA_ARGS__), "")
+#    define IUTEST_STATIC_ASSERT(...)	IUTEST_STATIC_ASSERT_MSG((__VA_ARGS__), #__VA_ARGS__)
 #  endif
 #endif
 
@@ -120,9 +124,9 @@ struct StaticAssertTypeEqHelper
 #endif
 
 /** @private */
-template<bool b>struct StaticAssertionFailure;
+template<bool b>struct static_assert_failure;
 /** @overload */
-template<> struct StaticAssertionFailure<true> { enum { value = 1 }; };
+template<> struct static_assert_failure<true> { enum { value = 1 }; };
 
 /** @private */
 template<int x>struct StaticAssertionTest {};

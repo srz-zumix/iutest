@@ -29,7 +29,7 @@ public:
 	virtual void SetUp() {}
 };
 
-IUTEST_TEST_COMPILEERROR("TestFixture is fixture class, mistake the IUTEST_F?")
+IUTEST_TEST_STATICASSERT("TestFixture is fixture class, mistake the IUTEST_F?")
 IUTEST(TestFixture, Test)
 {
 }
