@@ -66,6 +66,42 @@ private:
 #endif
 
 }	// end of namespace detail
+
+namespace internal
+{
+
+#if IUTEST_HAS_CXX_HDR_REGEX
+
+class RE : public detail::iuRegex
+{
+public:
+	RE(const char* pattern) : detail::iuRegex(pattern) {}
+	RE(const ::std::string& pattern) : detail::iuRegex(pattern) {}
+public:
+	static bool FullMatch(const ::std::string& str, const RE& re)
+	{
+		return FullMatch(str.c_str(), re);
+	}
+	static bool PartialMatch(const ::std::string& str, const RE& re)
+	{
+		return PartialMatch(str.c_str(), re);
+	}
+	static bool FullMatch(const char* str, const RE& re)
+	{
+		const detail::iuRegex& r = re;
+		return r.FullMatch(str);
+	}
+	static bool PartialMatch(const char* str, const RE& re)
+	{
+		const detail::iuRegex& r = re;
+		return r.PartialMatch(str);
+	}
+};
+
+#endif
+
+}
+
 }	// end of namespace iutest
 
 #if !IUTEST_HAS_LIB

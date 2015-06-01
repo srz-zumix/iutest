@@ -227,6 +227,7 @@ namespace tr1
 
 #undef IUTEST_HAS_EXCEPTIONS
 #undef IUTEST_HAS_RTTI
+#undef IUTEST_HAS_REGEX
 #undef IUTEST_HAS_SEH
 
 #undef IUTEST_HAS_STREAMCAPTURE
@@ -275,6 +276,7 @@ namespace tr1
 
 #define IUTEST_HAS_EXCEPTIONS		GTEST_HAS_EXCEPTIONS
 #define IUTEST_HAS_RTTI				GTEST_HAS_RTTI
+#define IUTEST_HAS_REGEX			GTEST_USES_POSIX_RE
 #define IUTEST_HAS_SEH				GTEST_HAS_SEH
 
 #include "switch/iutest_switch_port.hpp"

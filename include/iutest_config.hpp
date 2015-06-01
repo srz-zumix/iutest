@@ -240,9 +240,18 @@
 #  define IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD	1
 #endif
 
+#if !defined(IUTEST_HAS_REGEX)
+//! regex が使用可能かどうか
+#  if IUTEST_HAS_CXX_HDR_REGEX
+#    define IUTEST_HAS_REGEX	1
+#  else
+#    define IUTEST_HAS_REGEX	0
+#  endif
+#endif
+
 #if !defined(IUTEST_HAS_MATCHER_REGEX)
 //! ::iutest::MatchesRegex, ::iutest::ContainsRegex matcher が使用可能かどうか
-#  if IUTEST_HAS_CXX_HDR_REGEX && IUTEST_HAS_MATCHERS
+#  if IUTEST_HAS_CXX_HDR_REGEX && IUTEST_HAS_MATCHERS && IUTEST_HAS_REGEX
 #    define IUTEST_HAS_MATCHER_REGEX	1
 #  else
 #    define IUTEST_HAS_MATCHER_REGEX	0

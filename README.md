@@ -3,7 +3,8 @@
 [![codecov.io](http://codecov.io/github/srz-zumix/iutest/coverage.svg?branch=master)](http://codecov.io/github/srz-zumix/iutest?branch=master)  
 [![Shippable Build Status](https://api.shippable.com/projects/541904d2ac22859af743f867/badge?branchName=master)](https://app.shippable.com/projects/541904d2ac22859af743f867/builds/latest)
 [![wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/master "wercker status")](https://app.wercker.com/project/bykey/d385156052aa4118a7f24affe4a8f851)
-[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/2gdmgo8ce8m0iy0e?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest)
+[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/2gdmgo8ce8m0iy0e?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest)  
+[![New(3-clause) BSD License](https://img.shields.io/badge/license-New_BSD-blue.svg)](http://opensource.org/licenses/BSD-3-Clause)
 
 iutest
 ==========
@@ -37,6 +38,6 @@ License
     Copyright (c) 2011-2015, Takazumi Shirayanagi,
     All rights reserved.
 
-    This software is released under the [new(3-clause) BSD License](http://opensource.org/licenses/BSD-3-Clause), see LICENSE
+    This software is released under the New(3-clause) BSD License, see LICENSE
 
 

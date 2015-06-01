@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -187,4 +187,17 @@ IUTEST(AssertionTest, STRLNEQ)
 	IUTEST_INFORM_STRLNEQ(4, test);
 	IUTEST_ASSUME_STRLNEQ(4, test);
 }
+
+#if IUTEST_HAS_REGEX
+
+IUTEST(AssertionTest, MATCHES_REGEXEQ)
+{
+	const char test[] = "te0123st";
+	IUTEST_ASSERT_MATCHES_REGEXEQ("te[0-9]*st", test);
+	IUTEST_EXPECT_MATCHES_REGEXEQ("te[0-9]*st", test);
+	IUTEST_INFORM_MATCHES_REGEXEQ("te[0-9]*st", test);
+	IUTEST_ASSUME_MATCHES_REGEXEQ("te[0-9]*st", test);
+}
+
+#endif
 

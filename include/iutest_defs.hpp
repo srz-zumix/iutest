@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -126,7 +126,7 @@ inline IUTEST_CXX_CONSTEXPR TypeId GetTestTypeId(void)
 	return 0;
 }
 
-}
+} // end of namespace internal
 
 //======================================================================
 // class

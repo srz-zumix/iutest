@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -215,6 +215,51 @@
 #  define	IUTEST_ASSUME_STRNOTIN(substr, actual)		IUTEST_TEST_STRNOTIN(substr, actual, IUTEST_ASSUME_FAILURE)
 #endif
 
+#if IUTEST_HAS_REGEX
+
+/**
+ * @ingroup	IUTEST_ASSERT_
+ * @brief	文字列正規表現一致 テスト
+ * @param	regex_str	= 正規表現文字列
+ * @param	actual		= 検査対象文字列
+*/
+#ifndef IUTEST_ASSERT_MATCHES_REGEXEQ
+#  define	IUTEST_ASSERT_MATCHES_REGEXEQ(regex_str, actual)		\
+	IUTEST_TEST_MATCHES_REGEXEQ(regex_str, actual, IUTEST_ASSERT_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_EXPECT_
+ * @brief	文字列正規表現一致 テスト
+ * @param	regex_str	= 正規表現文字列
+ * @param	actual		= 検査対象文字列
+ */
+#ifndef IUTEST_EXPECT_MATCHES_REGEXEQ
+#  define	IUTEST_EXPECT_MATCHES_REGEXEQ(regex_str, actual)		\
+	IUTEST_TEST_MATCHES_REGEXEQ(regex_str, actual, IUTEST_EXPECT_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_INFORM
+ * @brief	文字列正規表現一致 テスト
+ * @param	regex_str	= 正規表現文字列
+ * @param	actual		= 検査対象文字列
+ */
+#ifndef IUTEST_INFORM_MATCHES_REGEXEQ
+#  define	IUTEST_INFORM_MATCHES_REGEXEQ(regex_str, actual)		\
+	IUTEST_TEST_MATCHES_REGEXEQ(regex_str, actual, IUTEST_INFORM_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSUME
+ * @brief	文字列正規表現一致 テスト
+ * @param	regex_str	= 正規表現文字列
+ * @param	actual		= 検査対象文字列
+ */
+#ifndef IUTEST_ASSUME_MATCHES_REGEXEQ
+#  define	IUTEST_ASSUME_MATCHES_REGEXEQ(regex_str, actual)		\
+	IUTEST_TEST_MATCHES_REGEXEQ(regex_str, actual, IUTEST_ASSUME_FAILURE)
+#endif
+
+#endif
+
 /**
  * @private
  * @brief	for gtest
@@ -245,6 +290,15 @@
 #define ASSUME_STRIN			IUTEST_ASSUME_STRIN
 #define ASSUME_STRNOTIN			IUTEST_ASSUME_STRNOTIN
 
+#if IUTEST_HAS_REGEX
+
+#define ASSERT_MATCHES_REGEXEQ	IUTEST_ASSERT_MATCHES_REGEXEQ
+#define EXPECT_MATCHES_REGEXEQ	IUTEST_EXPECT_MATCHES_REGEXEQ
+#define INFORM_MATCHES_REGEXEQ	IUTEST_INFORM_MATCHES_REGEXEQ
+#define ASSUME_MATCHES_REGEXEQ	IUTEST_ASSUME_MATCHES_REGEXEQ
+
+#endif
+
 /**
  * @}
 */
@@ -259,6 +313,12 @@
 #define	IUTEST_TEST_STRLNEQ(len, v2, on_failure)	IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRLNEQ, len, v2, on_failure )
 #define IUTEST_TEST_STRIN(substr, actual, on_failure)		IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRIN, substr, actual, on_failure )
 #define IUTEST_TEST_STRNOTIN(substr, actual, on_failure)	IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRNOTIN, substr, actual, on_failure )
+
+#if IUTEST_HAS_REGEX
+
+#define IUTEST_TEST_MATCHES_REGEXEQ(regex_str, actual, on_failure) IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperMatchesRegexEq, regex_str, actual, on_failure )
+
+#endif
 
 /**
  * @}
@@ -544,6 +604,45 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNOTIN(cons
 {
 	return StrNotInHelper::Assertion(substr_str, actual_str, substr, actual);
 }
+
+#if IUTEST_HAS_REGEX
+
+namespace MatchesRegexEqHelper
+{
+
+template<typename T1, typename T2>
+inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T1& regex_str, const T2& actual)
+{
+	::iutest::internal::RE m(regex_str);
+	return ::iutest::internal::RE::FullMatch(actual, m);
+}
+
+template<typename T1, typename T2>
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* regex_str, const char* actual_str
+	, const T1& regex, const T2& actual)
+{
+	if( Compare(regex, actual) )
+	{
+		return ::iutest::AssertionSuccess();
+	}
+	return ::iutest::internal::EqFailure(regex_str, actual_str
+		, ::iutest::PrintToString(regex)
+		, ::iutest::PrintToString(actual)
+		, false);
+}
+
+}
+
+/**
+ * @brief	文字列正規表現一致アサーションフォーマッター
+*/
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperMatchesRegexEq(const char* regex, const char* actual_str
+	, const char* regex_str, const char* actual)
+{
+	return MatchesRegexEqHelper::Assertion(regex, actual_str, regex_str, actual);
+}
+
+#endif
 
 /**
  * @private

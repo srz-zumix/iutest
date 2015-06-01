@@ -397,7 +397,8 @@ inline ::std::string GetBooleanAssertionFailureMessage(const AssertionResult& ar
 /**
  * @brief	Eq 系アサーション
 */
-inline AssertionResult EqFailure(const char* expected_expression, const char* actual_expression, const char* expected, const char* actual, bool ignoring_case=false)
+inline AssertionResult EqFailure(const char* expected_expression, const char* actual_expression
+	, const std::string& expected, const std::string& actual, bool ignoring_case = false)
 {
 	iu_global_format_stringstream strm;
 	strm << "error: Value of " << actual_expression
@@ -407,7 +408,7 @@ inline AssertionResult EqFailure(const char* expected_expression, const char* ac
 	{
 		strm << " (ignoring case)";
 	}
-	if( !detail::IsStringEqual(expected_expression, expected) )
+	if( !detail::IsStringEqual(expected_expression, expected.c_str()) )
 	{
 		strm << "\nWhich is: " << expected;
 	}
@@ -542,8 +543,8 @@ IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 	}
 
 	return EqFailure(expected_str, actual_str
-		, FormatForComparisonFailureMessage(expected, actual).c_str()
-		, FormatForComparisonFailureMessage(actual, expected).c_str()
+		, FormatForComparisonFailureMessage(expected, actual)
+		, FormatForComparisonFailureMessage(actual, expected)
 		);
 
 IUTEST_PARGMA_WARN_POP()
@@ -564,8 +565,8 @@ IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 	}
 
 	return EqFailure(expected_str, actual_str
-		, FormatForComparisonFailureMessage(expected, actual).c_str()
-		, FormatForComparisonFailureMessage(actual, expected).c_str()
+		, FormatForComparisonFailureMessage(expected, actual)
+		, FormatForComparisonFailureMessage(actual, expected)
 		);
 
 IUTEST_PARGMA_WARN_POP()
@@ -854,8 +855,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* expr1, con
 	}
 
 	return EqFailure(expr1, expr2
-		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2)).c_str()
-		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1)).c_str());
+		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2))
+		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1)));
 }
 
 }
@@ -1028,8 +1029,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* expr1, con
 	}
 
 	return EqFailure(expr1, expr2
-		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2)).c_str()
-		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1)).c_str()
+		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2))
+		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))
 		, true);
 }
 
@@ -1135,8 +1136,8 @@ static AssertionResult CmpHelperFloatingPointEQ(const char* expr1, const char* e
 		return AssertionSuccess();
 	}
 	return EqFailure(expr1, expr2
-		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(f1, f2)).c_str()
-		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(f2, f1)).c_str());
+		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(f1, f2))
+		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(f2, f1)));
 }
 
 template<typename RawType>
@@ -1153,8 +1154,8 @@ static AssertionResult CmpHelperFloatingPointLE(const char* expr1, const char* e
 		return AssertionSuccess();
 	}
 	return EqFailure(expr1, expr2
-		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(f1, f2)).c_str()
-		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(f2, f1)).c_str());
+		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(f1, f2))
+		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(f2, f1)));
 }
 
 #if defined(IUTEST_OS_WINDOWS)
