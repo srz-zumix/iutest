@@ -275,6 +275,17 @@ IUTEST(StaticTest, Eq)
 
 #endif
 
+#if IUTEST_HAS_REGEX
+
+IUTEST(AssertionTest, Regex)
+{
+	const char test [] = "te0123st";
+	IUTEST_ASSERT_MATCHES_REGEXEQ("te[0-9]*st", test);
+}
+
+#endif
+
+
 /* ---------------------------------------------------
  * 失敗の確認
 *//*--------------------------------------------------*/

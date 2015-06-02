@@ -133,11 +133,13 @@ IUTEST_IPP_INLINE bool iuFilterRegex::match(const char* regex, const char* src)
 
 IUTEST_IPP_INLINE bool iuRegex::FullMatch(const char* str) const
 {
+	if( str == NULL ) return false;
 	return ::std::regex_match(str, m_re);
 }
 
 IUTEST_IPP_INLINE bool iuRegex::PartialMatch(const char* str) const
 {
+	if( str == NULL ) return false;
 	return ::std::regex_search(str, m_re);
 }
 

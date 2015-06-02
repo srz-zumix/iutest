@@ -607,6 +607,21 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNOTIN(cons
 
 #if IUTEST_HAS_REGEX
 
+namespace RegexHelper
+{
+
+inline bool FullMatch(const ::std::string& str, ::iutest::internal::RE& re)
+{
+	return ::iutest::internal::RE::FullMatch(str, re);
+}
+inline bool FullMatch(const char* str, ::iutest::internal::RE& re)
+{
+	if( str == NULL ) return false;
+	return ::iutest::internal::RE::FullMatch(str, re);
+}
+
+}
+
 namespace MatchesRegexEqHelper
 {
 
@@ -614,7 +629,7 @@ template<typename T1, typename T2>
 inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T1& regex_str, const T2& actual)
 {
 	::iutest::internal::RE m(regex_str);
-	return ::iutest::internal::RE::FullMatch(actual, m);
+	return RegexHelper::FullMatch(actual, m);
 }
 
 template<typename T1, typename T2>
@@ -625,7 +640,11 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* 
 	{
 		return ::iutest::AssertionSuccess();
 	}
-	return ::iutest::internal::EqFailure(regex_str, actual_str
+	::std::string expected_str = "Matches Regex (";
+	expected_str += regex_str;
+	expected_str += ")";
+
+	return ::iutest::internal::EqFailure(expected_str.c_str(), actual_str
 		, ::iutest::PrintToString(regex)
 		, ::iutest::PrintToString(actual)
 		, false);
