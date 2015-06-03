@@ -258,6 +258,47 @@
 	IUTEST_TEST_MATCHES_REGEXEQ(regex_str, actual, IUTEST_ASSUME_FAILURE)
 #endif
 
+/**
+ * @ingroup	IUTEST_ASSERT_
+ * @brief	文字列正規表現不一致 テスト
+ * @param	regex_str	= 正規表現文字列
+ * @param	actual		= 検査対象文字列
+*/
+#ifndef IUTEST_ASSERT_MATCHES_REGEXNE
+#  define	IUTEST_ASSERT_MATCHES_REGEXNE(regex_str, actual)		\
+	IUTEST_TEST_MATCHES_REGEXNE(regex_str, actual, IUTEST_ASSERT_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_EXPECT_
+ * @brief	文字列正規表現不一致 テスト
+ * @param	regex_str	= 正規表現文字列
+ * @param	actual		= 検査対象文字列
+ */
+#ifndef IUTEST_EXPECT_MATCHES_REGEXNE
+#  define	IUTEST_EXPECT_MATCHES_REGEXNE(regex_str, actual)		\
+	IUTEST_TEST_MATCHES_REGEXNE(regex_str, actual, IUTEST_EXPECT_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_INFORM
+ * @brief	文字列正規表現不一致 テスト
+ * @param	regex_str	= 正規表現文字列
+ * @param	actual		= 検査対象文字列
+ */
+#ifndef IUTEST_INFORM_MATCHES_REGEXNE
+#  define	IUTEST_INFORM_MATCHES_REGEXNE(regex_str, actual)		\
+	IUTEST_TEST_MATCHES_REGEXNE(regex_str, actual, IUTEST_INFORM_FAILURE)
+#endif
+/**
+ * @ingroup	IUTEST_ASSUME
+ * @brief	文字列正規表現不一致 テスト
+ * @param	regex_str	= 正規表現文字列
+ * @param	actual		= 検査対象文字列
+ */
+#ifndef IUTEST_ASSUME_MATCHES_REGEXNE
+#  define	IUTEST_ASSUME_MATCHES_REGEXNE(regex_str, actual)		\
+	IUTEST_TEST_MATCHES_REGEXNE(regex_str, actual, IUTEST_ASSUME_FAILURE)
+#endif
+
 #endif
 
 /**
@@ -297,6 +338,11 @@
 #define INFORM_MATCHES_REGEXEQ	IUTEST_INFORM_MATCHES_REGEXEQ
 #define ASSUME_MATCHES_REGEXEQ	IUTEST_ASSUME_MATCHES_REGEXEQ
 
+#define ASSERT_MATCHES_REGEXNE	IUTEST_ASSERT_MATCHES_REGEXNE
+#define EXPECT_MATCHES_REGEXNE	IUTEST_EXPECT_MATCHES_REGEXNE
+#define INFORM_MATCHES_REGEXNE	IUTEST_INFORM_MATCHES_REGEXNE
+#define ASSUME_MATCHES_REGEXNE	IUTEST_ASSUME_MATCHES_REGEXNE
+
 #endif
 
 /**
@@ -317,6 +363,7 @@
 #if IUTEST_HAS_REGEX
 
 #define IUTEST_TEST_MATCHES_REGEXEQ(regex_str, actual, on_failure) IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperMatchesRegexEq, regex_str, actual, on_failure )
+#define IUTEST_TEST_MATCHES_REGEXNE(regex_str, actual, on_failure) IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperMatchesRegexNe, regex_str, actual, on_failure )
 
 #endif
 
@@ -659,6 +706,38 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperMatchesRegexE
 	, const char* regex_str, const char* actual)
 {
 	return MatchesRegexEqHelper::Assertion(regex, actual_str, regex_str, actual);
+}
+
+namespace MatchesRegexNeHelper
+{
+
+template<typename T1, typename T2>
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* regex_str, const char* actual_str
+	, const T1& regex, const T2& actual)
+{
+	if( !MatchesRegexEqHelper::Compare(regex, actual) )
+	{
+		return ::iutest::AssertionSuccess();
+	}
+	::std::string expected_str = "Not Matches Regex (";
+	expected_str += regex_str;
+	expected_str += ")";
+
+	return ::iutest::internal::EqFailure(expected_str.c_str(), actual_str
+		, ::iutest::PrintToString(regex)
+		, ::iutest::PrintToString(actual)
+		, false);
+}
+
+}
+
+/**
+ * @brief	文字列正規表現一致アサーションフォーマッター
+*/
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperMatchesRegexNe(const char* regex, const char* actual_str
+	, const char* regex_str, const char* actual)
+{
+	return MatchesRegexNeHelper::Assertion(regex, actual_str, regex_str, actual);
 }
 
 #endif

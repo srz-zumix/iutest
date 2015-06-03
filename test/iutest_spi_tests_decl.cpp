@@ -110,6 +110,7 @@
 #if IUTEST_HAS_REGEX
 	FAILURE_MACRO( FLAVOR(_MATCHES_REGEXEQ)("te[0-9]*st", "a"), "Matches Regex (\"te[0-9]*st\")" );
 	FAILURE_MACRO( FLAVOR(_MATCHES_REGEXEQ)("te[0-9]*st", null_str), "Matches Regex (\"te[0-9]*st\")" );
+	FAILURE_MACRO( FLAVOR(_MATCHES_REGEXNE)("te[0-9]*st", "te0123st"), "Not Matches Regex (\"te[0-9]*st\")" );
 #endif
 
 #undef FLAVOR

@@ -199,5 +199,14 @@ IUTEST(AssertionTest, MATCHES_REGEXEQ)
 	IUTEST_ASSUME_MATCHES_REGEXEQ("te[0-9]*st", test);
 }
 
+IUTEST(AssertionTest, MATCHES_REGEXNE)
+{
+	const char test[] = "te01q23st";
+	IUTEST_ASSERT_MATCHES_REGEXNE("te[0-9]*st", test);
+	IUTEST_EXPECT_MATCHES_REGEXNE("te[0-9]*st", test);
+	IUTEST_INFORM_MATCHES_REGEXNE("te[0-9]*st", test);
+	IUTEST_ASSUME_MATCHES_REGEXNE("te[0-9]*st", test);
+}
+
 #endif
 

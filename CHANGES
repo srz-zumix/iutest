@@ -4,7 +4,7 @@ Changes for 1.12.0:
 ** 追加
 * Matcher に MatchesRegex,ContainsRegex を追加
 * Matcher に ElementsAreArrayForward を追加
-* IUTEST_*_MATCHES_REGEXEQ 追加
+* IUTEST_*_MATCHES_REGEXEQ,NE 追加
 * --iutest_filter=@filter.txt のようにファイルからフィルター指定できるように対応
 * Visual Studio 2015 RC 対応
 * twilio 対応
