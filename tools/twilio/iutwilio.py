@@ -16,6 +16,7 @@ from twilio.rest import TwilioRestClient
 account_sid= ''
 auth_token = ''
 my_number  = ''
+sms_number  = ''
 
 
 #
@@ -26,7 +27,7 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 0.2'
+		, version=u'%(prog)s version 0.3'
 	)
 	parser.add_argument(
 		'--ini'
@@ -90,12 +91,14 @@ def setup(options):
 	global account_sid
 	global auth_token
 	global my_number
+	global sms_number
 	if options.account_sid:
 		account_sid = options.account_sid
 	if options.auth_token:
 		auth_token = options.auth_token
 	if options.number:
 		my_number = options.number
+		sms_number = options.number
 
 #
 # parse ini
@@ -103,6 +106,7 @@ def parse_ini(path):
 	global account_sid
 	global auth_token
 	global my_number
+	global sms_number
 	if account_sid and auth_token and my_number:
 		return
 	ini = ConfigParser.SafeConfigParser()
@@ -115,6 +119,7 @@ def parse_ini(path):
 		account_sid = ini.get('Twilio', 'account_sid')
 		auth_token = ini.get('Twilio', 'auth_token')
 		my_number = ini.get('Twilio', 'my_number')
+		sms_number = ini.get('Twilio', 'sms_number')
 	except:
 		pass
 		
@@ -169,25 +174,38 @@ def make_message(options):
 
 		if timestamp:
 			body += "%s\n" % (timestamp)
+		first_failure = None
 		
 		body += "%d tests from %s testcase ran. (%sms total)\n" % (tests, testcases, time)
-		body += "[  PASSED  ] %d\n" % (passed)
+		if passed:
+			body += "PASSED  : %d\n" % (passed)
 		if disabled:
-			body += "[ DISABLED ] %d\n" % (disabled)
+			body += "DISABLED: %d\n" % (disabled)
 		if skipped:
-			body += "[  SKIPPED ] %d\n" % (skipped)
-		body += "[  FAILED  ] %d\n" % (failures)
+			body += "SKIPPED : %d\n" % (skipped)
+		if failures:
+			body += "FAILED  : %d\n" % (failures)
 		failure_testsuites = root.findall('testsuite')
 		for suite in failure_testsuites:
 			if int(suite.get('failures')):
 				for test in suite:
-					if test.find('.//failure') != None:
+					failure_node = test.find('.//failure')
+					if failure_node != None:
+						if not first_failure:
+							first_failure = failure_node
 						name = "%s.%s\n" % ( suite.get('name'), test.get('name') )
 						if len(body) + len(name) < 155:
 							body += name;
 						else:
 							body += "..."
 							return body
+		if first_failure != None:
+			for s in first_failure.text.split('\n'):
+				if len(body) + len(s) < 155:
+					body += "%s\n" % s
+				else:
+					body += "..."
+					return body
 	return body
 
 
@@ -201,7 +219,7 @@ def message(client, options):
 	else:
 		call = client.messages.create(body=m,
 			to=options.sms,
-			from_=my_number)
+			from_=sms_number)
 		print call.sid
 
 #

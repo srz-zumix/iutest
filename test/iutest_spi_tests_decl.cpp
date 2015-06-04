@@ -108,9 +108,13 @@
 	FAILURE_MACRO( FLAVOR(_EQ_RANGE)(aa, ac), "Mismatch in a position" );
 		
 #if IUTEST_HAS_REGEX
-	FAILURE_MACRO( FLAVOR(_MATCHES_REGEXEQ)("te[0-9]*st", "a"), "Matches Regex (\"te[0-9]*st\")" );
+	FAILURE_MACRO( FLAVOR(_MATCHES_REGEXEQ)("te[0-9]*st", "te0123sta"), "Matches Regex (\"te[0-9]*st\")" );
 	FAILURE_MACRO( FLAVOR(_MATCHES_REGEXEQ)("te[0-9]*st", null_str), "Matches Regex (\"te[0-9]*st\")" );
 	FAILURE_MACRO( FLAVOR(_MATCHES_REGEXNE)("te[0-9]*st", "te0123st"), "Not Matches Regex (\"te[0-9]*st\")" );
+	FAILURE_MACRO( FLAVOR(_CONTAINS_REGEXEQ)("te[0-9]*st", "a"), "Contains Regex (\"te[0-9]*st\")" );
+	FAILURE_MACRO( FLAVOR(_CONTAINS_REGEXEQ)("te[0-9]*st", null_str), "Contains Regex (\"te[0-9]*st\")" );
+	FAILURE_MACRO( FLAVOR(_CONTAINS_REGEXNE)("te[0-9]*st", "te0123sta"), "Contains Regex (\"te[0-9]*st\")" );
+	FAILURE_MACRO( FLAVOR(_CONTAINS_REGEXNE)("te[0-9]*st", "te0123st"), "Contains Regex (\"te[0-9]*st\")" );
 #endif
 
 #undef FLAVOR
