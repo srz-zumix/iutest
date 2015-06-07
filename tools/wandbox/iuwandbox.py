@@ -34,6 +34,7 @@ def parse_command_line():
 	)
 	parser.add_argument(
 		'--list_options'
+		, metavar='COMPILER'
 		, help = 'listup compiler options.'
 	)
 	parser.add_argument(
@@ -55,12 +56,14 @@ def parse_command_line():
 	parser.add_argument(
 		'-f'
 		, '--compiler_option_raw'
+		, metavar='OPTIONS'
 		, action='append'
 		, help = 'compile-time any additional options.'
 	)
 	parser.add_argument(
 		'-r'
 		, '--runtime_option_raw'
+		, metavar='OPTIONS'
 		, action='append'
 		, help = 'runtime-time any additional options.'
 	)
@@ -72,11 +75,13 @@ def parse_command_line():
 	)
 	parser.add_argument(
 		'--permlink'
+		, metavar='ID'
 		, help = 'get permanent link.'
 	)
 	parser.add_argument(
 		'-o'
 		, '--output'
+		, metavar='FILE'
 		, help = 'output source code.'
 	)
 	parser.add_argument(

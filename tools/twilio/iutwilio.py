@@ -31,23 +31,27 @@ def parse_command_line():
 	)
 	parser.add_argument(
 		'--ini'
-		, help = 'ini file path.'
+		, help = 'ini file path. (inifile section [Twilio] account_sid,auth_token,number,sms_number)'
 		, default = 'config.ini'
 	)
 	parser.add_argument(
 		'--call'
+		, metavar = 'NUMBER'
 		, help = 'call to number.'
 	)
 	parser.add_argument(
 		'--sms'
+		, metavar = 'NUMBER'
 		, help = 'send message number.'
 	)
 	parser.add_argument(
 		'--account_sid'
+		, metavar = 'SID'
 		, help = 'account sid.'
 	)
 	parser.add_argument(
 		'--auth_token'
+		, metavar = 'TOKEN'
 		, help = 'auth token.'
 	)
 	parser.add_argument(
@@ -101,6 +105,14 @@ def setup(options):
 		sms_number = options.number
 
 #
+# get ini
+def get_ini(ini, s, n):
+	try:
+		return ini.get(s, n)
+	except:
+		return None
+
+#
 # parse ini
 def parse_ini(path):
 	global account_sid
@@ -115,13 +127,10 @@ def parse_ini(path):
 		sys.exit(2)
 	ini.read(path)
 	
-	try:
-		account_sid = ini.get('Twilio', 'account_sid')
-		auth_token = ini.get('Twilio', 'auth_token')
-		my_number = ini.get('Twilio', 'my_number')
-		sms_number = ini.get('Twilio', 'sms_number')
-	except:
-		pass
+	account_sid = get_ini(ini, 'Twilio', 'account_sid')
+	auth_token = get_ini(ini, 'Twilio', 'auth_token')
+	my_number = get_ini(ini, 'Twilio', 'number')
+	sms_number = get_ini(ini, 'Twilio', 'sms_number')
 		
 #	for section in ini.sections():
 #		print '[%s]' % (section)
@@ -147,7 +156,6 @@ def make_twilio():
 def call(client, options):
 	if options.dryrun:
 		print 'twilio call to ' + options.call
-		print body
 	else:
 		call = client.calls.create(url=options.url,
 			to=options.call,

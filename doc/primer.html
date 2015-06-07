@@ -99,7 +99,9 @@
             </ul>
           </li>
           <li><a href="#org_skip">テストのスキップ</a></li>
+          <li><a href="#org_listener">イベントリスナー</a></li>
           <li><a href="#org_prod">Private コードのテスト</a></li>
+          <li><a href="#org_junitxml">junit 形式での出力</a></li>
           <li><a href="#org_cmdline">コマンドラインオプション</a></li>
         </ul>
       </li>
@@ -120,7 +122,7 @@
   </li>
   <li><a href="#matcher">Matcher</a>
     <ul>
-      <li><a href="#matcher_summary">Mathcer の概要</a></li>
+      <li><a href="#matcher_summary">Matcher の概要</a></li>
       <li><a href="#matcher_assertion">アサーション</a></li>
       <li><a href="#matcher_matchers">Matcher の種類</a>
       <!--
@@ -500,6 +502,20 @@ IUTEST(SkipTest, Skip)
       </li>
     </ul>
   </li>
+  
+  <li><a name="org_listener" id="org_listener">イベントリスナー</a>
+    <ul>
+      <li>ProgressPrintListener<br />
+      テストの実行状況をプログレス表示するイベントリスナーです。<br />
+      <br />
+      </li>
+      <li>SSTPNotifier<br />
+      伺かにテスト結果を通知するイベントリスナーです。<br />
+      <br />
+      </li>
+    </ul>
+  </li>
+  
   <li><a name="org_prod" id="org_prod">Private コードのテスト</a>
     <ul>
       <li>PEEP<br />
@@ -520,12 +536,34 @@ IUTEST(ProdTest, Peep)
       </li>
     </ul>
   </li>
+
+  <li><a name="org_junitxml" id="org_junitxml">junit 形式での出力</a><br />
+    iutest では、junit 形式の XML 出力に対応しています。<br />
+    コマンドラインオプションに --iutest_output=junit[:path] と指定すると junit 形式で XML 出力を行います。<br />
+    <br />
+  </li>
+
   <li><a name="org_cmdline" id="org_cmdline">コマンドラインオプション</a>
     <ul>
       <li>--iutest_file_location<br />
       エラーログなどのファイル/行表記のフォーマット gcc,vs,auto から指定します。<br />
       例えば、ビルドエラーと区別を付けるために別のフォーマットで出力するという使い方が考えられます。
       <br />
+      </li>
+      <li>--iutest_output=junit[:path]<br />
+      junit 形式で XML 出力を行います。
+      </li>
+      <li>--iutest_default_package_name<br />
+      トップのパッケージ名を指定できます。
+      </li>
+      <li>--iutest_list_tests_with_where<br />
+      パラメータの情報を含んだテストリストを出力します。
+      </li>
+      <li>--verbose<br />
+      冗長出力を有効にします。
+      </li>
+      <li>--feature<br />
+      iutest の機能をリストアップします。
       </li>
     </ul>
   </li>

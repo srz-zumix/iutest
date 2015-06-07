@@ -118,8 +118,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>IUTEST_PACKAGE v2 (多重定義制限の撤廃)</li>
       <li>Matcher に MatchesRegex,ContainsRegex を追加</li>
       <li>Matcher に ElementsAreArrayForward を追加</li>
-      <li>IUTEST_*_MATCHES_REGEXEQ,NE、IUTEST_*_CONTAINS_REGEXEQ,NE 追加</li>
       <li>ElementsAreArray で要素数の一致チェックを行うように変更（以前までの ElementsAreArray は ElementsAreArrayForward に変更）</li>
+      <li>IUTEST_*_MATCHES_REGEXEQ,NE、IUTEST_*_CONTAINS_REGEXEQ,NE 追加</li>
       <li>--iutest_filter=@filter.txt のようにファイルからフィルター指定できるように対応</li>
       <li>Visual Studio 2015 Preview 対応</li>
       <li>twilio 対応</li>
