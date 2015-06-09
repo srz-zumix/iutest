@@ -1,0 +1,41 @@
+MAKE_OPTION=--no-print-directory -C ../
+
+DISABLE_CONFIG= \
+	IUTEST_HAS_CONCAT \
+#	IUTEST_HAS_VARIADIC_VALUES \
+#	IUTEST_HAS_PAIRWISE \
+#	IUTEST_HAS_COMBINE \
+#	IUTEST_HAS_MATCHERS \
+#	IUTEST_HAS_TYPED_TEST_P \
+#	IUTEST_HAS_TYPED_TEST \
+#	IUTEST_HAS_PARAM_TEST \
+#	IUTEST_HAS_REPORT_SKIPPED \
+#	IUTEST_HAS_TUPLE \
+#	IUTEST_TYPED_TEST_P_STRICT \
+
+
+DISABLE_TARGETS= $(DISABLE_CONFIG:%=%.dis)
+
+TARGETS= $(DISABLE_TARGETS)
+
+
+#
+#
+# build targets.
+#
+
+.PHONY: clean default all
+
+default : $(TARGETS)
+
+all : clean default test
+
+clean :
+	make $(MAKE_OPTION) clean
+
+%.dis :
+	
+	@echo $(DISABLE_CONFIG:%.dis=%)
+	make $(MAKE_OPTION) clean
+	make $(MAKE_OPTION) test DEFS=-D$(DISABLE_CONFIG:%.dis=%)=0
+

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2015, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -76,8 +76,6 @@ struct Z
 
 bool operator == (const Z&, const Z&) { return true; }
 
-typedef ::iutest::tuples::tuple<bool, int, int> Tuple;
-
 IUTEST(UnitTest, has_equal_to)
 {
 	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_to<int>::value );
@@ -85,9 +83,17 @@ IUTEST(UnitTest, has_equal_to)
 	IUTEST_STATIC_ASSERT( !::iutest_type_traits::has_equal_to<X>::value );
 	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_to<Y>::value );
 	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_to<Z>::value );
-	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_to<Tuple>::value );
 	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_to< ::std::vector<int> >::value );
 }
+
+#if IUTEST_HAS_TUPLE
+typedef ::iutest::tuples::tuple<bool, int, int> Tuple;
+
+IUTEST(UnitTest, has_equal_to_tuple)
+{
+	IUTEST_STATIC_ASSERT(  ::iutest_type_traits::has_equal_to<Tuple>::value );
+}
+#endif
 
 #endif
 

@@ -6,13 +6,15 @@ Changes for 1.12.0:
 * Matcher に ElementsAreArrayForward を追加
 * IUTEST_*_MATCHES_REGEXEQ,NE、IUTEST_*_CONTAINS_REGEXEQ,NE 追加
 * --iutest_filter=@filter.txt のようにファイルからフィルター指定できるように対応
+* quick_exit 対応
 * Visual Studio 2015 RC 対応
 * twilio 対応
 * Nuget パッケージ公開
 
-* 変更
-** IUTEST_PACKAGE v2 (多重定義制限の撤廃)
-** ElementsAreArray で要素数の一致チェックを行うように変更（以前までの ElementsAreArray は ElementsAreArrayForward に変更）
+** 変更
+* IUTEST_PACKAGE v2 (多重定義制限の撤廃)
+* ElementsAreArray で要素数の一致チェックを行うように変更（以前までの ElementsAreArray は ElementsAreArrayForward に変更）
+* IUTEST_REPORT_SKIPPED を IUTEST_HAS_REPORT_SKIPPED に変更
 
 ** 修正
 * バグ修正

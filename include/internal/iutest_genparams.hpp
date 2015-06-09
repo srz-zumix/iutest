@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -70,11 +70,14 @@ public:
 	operator iuIParamGenerator<T>* (void) const { return m_pInterface; }
 
 public:
+
+#if IUTEST_HAS_CONCAT
 	template<typename Other>
 	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
 	{
 		return iuConcatParamHolder<_Myt, Other>(*this, g);
 	}
+#endif
 
 public:
 	virtual void	Begin(void) IUTEST_CXX_OVERRIDE { m_pInterface->Begin(); }
@@ -276,11 +279,14 @@ public:
 	}
 
 public:
+
+#if IUTEST_HAS_CONCAT
 	template<typename Other>
 	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
 	{
 		return iuConcatParamHolder<_Myt, Other>(*this, g);
 	}
+#endif
 
 private:
 	_MyTuple v;
@@ -292,35 +298,44 @@ private:
 template<typename A1, typename A2>
 class iuValueArray2
 {
-	typedef iuValueArray2<A1, A2> _Myt;
+typedef iuValueArray2<A1, A2> _Myt;
 public:
-	iuValueArray2(A1 a1, A2 a2) : v1(a1), v2(a2)
-	{}
+iuValueArray2(A1 a1, A2 a2) : v1(a1), v2(a2)
+{}
 public:
-	template<typename T>
-	operator iuIParamGenerator<T>* (void) const
-	{
-		const T val[] = { static_cast<T>(v1), static_cast<T>(v2) };
-		return new iuValuesInParamsGenerator<T>(val);
-	}
+template<typename T>
+operator iuIParamGenerator<T>* (void) const
+{
+const T val[] = { static_cast<T>(v1), static_cast<T>(v2) };
+return new iuValuesInParamsGenerator<T>(val);
+}
 public:
-	template<typename Other>
-	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
-	{
-		return iuConcatParamHolder<_Myt, Other>(*this, g);
-	}
+template<typename Other>
+iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
+{
+return iuConcatParamHolder<_Myt, Other>(*this, g);
+}
 private:
-	A1 v1;	A2 v2;
+A1 v1;	A2 v2;
 };
 */
 
 /**
  * @private
  * @{
-*/
+ */
 #define IIUT_DECL_VALUEARRAY_CONSTRUCT_(i, p1, p2)		IUTEST_PP_CAT(p1, i)(IUTEST_PP_CAT(p2, i))
 #define IIUT_DECL_VALUEARRAY_STATICCAST_(i, p1, p2)		static_cast<p1>(IUTEST_PP_CAT(p2, i))
 #define IIUT_DECL_VALUEARRAY_VARIABLE_(i, p1, p2)		IUTEST_PP_CAT(p1, i) IUTEST_PP_CAT(p2, i);
+#if IUTEST_HAS_CONCAT
+#  define IIUT_DECL_VALUEARRAY_CONCAT_()				\
+	template<typename Other> iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const {	\
+		return iuConcatParamHolder<_Myt, Other>(*this, g);
+#else
+#  define IIUT_DECL_VALUEARRAY_CONCAT_()
+#endif
+
+
 #define IIUT_DECL_VALUEARRAY_(n)						\
 	template< IUTEST_PP_ENUM_PARAMS(n, typename A) >	\
 	class IUTEST_PP_CAT(iuValueArray, n) {				\
@@ -332,8 +347,7 @@ private:
 			const T val[] = { IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_VALUEARRAY_STATICCAST_, T, v) };		\
 			return new iuValuesInParamsGenerator<T>(val);							\
 		}																			\
-		template<typename Other> iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const {	\
-			return iuConcatParamHolder<_Myt, Other>(*this, g);						\
+		IIUT_DECL_VALUEARRAY_CONCAT_()												\
 		}																			\
 	private: IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_VALUEARRAY_VARIABLE_, A, v)		\
 	}
@@ -395,6 +409,7 @@ IIUT_DECL_VALUEARRAY_(50);
 #undef IIUT_DECL_VALUEARRAY_CONSTRUCT_
 #undef IIUT_DECL_VALUEARRAY_STATICCAST_
 #undef IIUT_DECL_VALUEARRAY_VARIABLE_
+#undef IIUT_DECL_VALUEARRAY_CONCAT_
 #undef IIUT_DECL_VALUEARRAY_
 
 #endif
@@ -507,11 +522,14 @@ public:
 	}
 
 public:
+
+#if IUTEST_HAS_CONCAT
 	template<typename Other>
 	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
 	{
 		return iuConcatParamHolder<_Myt, Other>(*this, g);
 	}
+#endif
 
 private:
 	void operator = (const _Myt&);
@@ -699,6 +717,13 @@ private:
 #define IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_STATICCAST_(i, p1, p2)	\
 	static_cast< iuIParamGenerator< IUTEST_PP_CAT(p1, i) >* >(IUTEST_PP_CAT(p2, i))
 #define IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_VARIABLE_(i, p1, p2)	IUTEST_PP_CAT(p1, i) IUTEST_PP_CAT(p2, i);
+#if IUTEST_HAS_CONCAT
+#define IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_CONCAT_()	\
+		template<typename Other> iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const {		\
+			return iuConcatParamHolder<_Myt, Other>(*this, g);
+#else
+#define IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_CONCAT_()
+#endif
 
 #define IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_(n)					\
 	template< IUTEST_PP_ENUM_PARAMS(n, typename Generator) >	\
@@ -712,8 +737,7 @@ private:
 			return new IUTEST_PP_CAT(iuCartesianProductGenerator, n)< IUTEST_PP_ENUM_PARAMS(n, T) >(		\
 				IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_STATICCAST_, T, m_g) );			\
 		}														\
-		template<typename Other> iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const {		\
-			return iuConcatParamHolder<_Myt, Other>(*this, g);	\
+		IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_CONCAT_()			\
 		}														\
 	private: void operator = (const _Myt&) {}					\
 		IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_VARIABLE_, const Generator, m_g)		\
@@ -735,6 +759,7 @@ IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_(9);
 #undef IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_CONSTRUCT_
 #undef IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_STATICCAST_
 #undef IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_VARIABLE_
+#undef IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_CONCAT_
 #undef IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_
 
 #endif
@@ -1057,11 +1082,14 @@ public:
 	}
 
 public:
+
+#if IUTEST_HAS_CONCAT
 	template<typename Other>
 	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
 	{
 		return iuConcatParamHolder<_Myt, Other>(*this, g);
 	}
+#endif
 
 private:
 	void operator = (const _Myt&);
@@ -1265,6 +1293,13 @@ private:
 #define IIUT_DECL_PAIRWISE_HOLDER_STATICCAST_(i, p1, p2)	\
 	static_cast< iuIParamGenerator< IUTEST_PP_CAT(p1, i) >* >(IUTEST_PP_CAT(p2, i))
 #define IIUT_DECL_PAIRWISE_HOLDER_VARIABLE_(i, p1, p2)	IUTEST_PP_CAT(p1, i) IUTEST_PP_CAT(p2, i);
+#if IUTEST_HAS_CONCAT
+#  define IIUT_DECL_PAIRWISE_HOLDER_CONCAT_()	\
+		template<typename Other> iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const { \
+			return iuConcatParamHolder<_Myt, Other>(*this, g);
+#else
+#  define IIUT_DECL_PAIRWISE_HOLDER_CONCAT_()
+#endif
 
 #define IIUT_DECL_PAIRWISE_HOLDER_(n)	\
 	template< IUTEST_PP_ENUM_PARAMS(n, typename Generator) >	\
@@ -1278,8 +1313,7 @@ private:
 			return IUTEST_PP_CAT(iuPairwiseGenerator, n)< IUTEST_PP_ENUM_PARAMS(n, T) >::Create(	\
 				IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_PAIRWISE_HOLDER_STATICCAST_, T, m_g) );			\
 		}														\
-		template<typename Other> iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const { \
-			return iuConcatParamHolder<_Myt, Other>(*this, g);	\
+		IIUT_DECL_PAIRWISE_HOLDER_CONCAT_()						\
 		}														\
 	private: void operator = (const _Myt&) {}					\
 		IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_PAIRWISE_HOLDER_VARIABLE_, const Generator, m_g)		\
@@ -1297,6 +1331,7 @@ IIUT_DECL_PAIRWISE_HOLDER_(9);
 #undef IIUT_DECL_PAIRWISE_HOLDER_CONSTRUCT_
 #undef IIUT_DECL_PAIRWISE_HOLDER_STATICCAST_
 #undef IIUT_DECL_PAIRWISE_HOLDER_VARIABLE_
+#undef IIUT_DECL_PAIRWISE_HOLDER_CONCAT_
 #undef IIUT_DECL_PAIRWISE_HOLDER_
 
 #endif
@@ -1327,11 +1362,14 @@ public:
 	}
 
 public:
+
+#if IUTEST_HAS_CONCAT
 	template<typename Other>
 	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
 	{
 		return iuConcatParamHolder<_Myt, Other>(*this, g);
 	}
+#endif
 
 private:
 	size_t m_num;
@@ -1388,11 +1426,14 @@ public:
 	}
 
 public:
+
+#if IUTEST_HAS_CONCAT
 	template<typename Other>
 	iuConcatParamHolder<iuRandomParamsHolder, Other> operator + (const Other& g) const
 	{
 		return iuConcatParamHolder<iuRandomParamsHolder, Other>(*this, g);
 	}
+#endif
 
 private:
 	size_t m_num;

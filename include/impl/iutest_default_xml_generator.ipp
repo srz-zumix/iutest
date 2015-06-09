@@ -53,7 +53,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTest(IFile* file, co
 		, test.failed_test_count()
 		, test.reportable_disabled_test_count()
 		);
-#if IUTEST_REPORT_SKIPPED
+#if IUTEST_HAS_REPORT_SKIPPED
 	file->Printf("skip=\"%d\" ", test.reportable_skip_test_count());
 #endif
 	file->Printf("errors=\"0\" time=\"%s\" timestamp=\"%s\" "
@@ -93,7 +93,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestCase(IFile* file
 		, test_case.failed_test_count()
 		, test_case.reportable_disabled_test_count()
 		);
-#if IUTEST_REPORT_SKIPPED
+#if IUTEST_HAS_REPORT_SKIPPED
 	file->Printf("skip=\"%d\" ", test_case.reportable_skip_test_count() );
 #endif
 	file->Printf("errors=\"0\" time=\"%s\""
@@ -188,7 +188,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
 	}
 	else
 	{
-#if IUTEST_REPORT_SKIPPED
+#if IUTEST_HAS_REPORT_SKIPPED
 		const bool skipped = test_info.is_skipped() || !test_info.should_run();
 		if( skipped )
 		{

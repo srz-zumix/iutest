@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01119925u //!< iutest version 1.11.99.25
+#define IUTEST_VER			0x01119926u //!< iutest version 1.11.99.26
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x11u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x25u		//!< Revision
+#define IUTEST_REVISION		0x26u		//!< Revision
 
 /**
  * @mainpage
@@ -121,9 +121,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>ElementsAreArray で要素数の一致チェックを行うように変更（以前までの ElementsAreArray は ElementsAreArrayForward に変更）</li>
       <li>IUTEST_*_MATCHES_REGEXEQ,NE、IUTEST_*_CONTAINS_REGEXEQ,NE 追加</li>
       <li>--iutest_filter=@filter.txt のようにファイルからフィルター指定できるように対応</li>
+      <li>quick_exit 対応</li>
+      <li>IUTEST_REPORT_SKIPPED を IUTEST_HAS_REPORT_SKIPPED に変更</li>
       <li>Visual Studio 2015 Preview 対応</li>
       <li>twilio 対応</li>
-      <li>quick_exit 対応</li>
     </ul>
   </li>
   <li>v1.11.1.0
