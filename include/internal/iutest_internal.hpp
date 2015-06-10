@@ -71,11 +71,13 @@
 			(!::iutest_type_traits::is_base_of< ::iutest::Test, testfixture_ >::value)	\
 			, #testfixture_ " is fixture class, mistake the IUTEST_F?");				\
 	) )
-#else
+#elif !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 #  define IIUT_CHECK_TESTFIXTURE_I(testfixture_)		\
 	IUTEST_STATIC_ASSERT_MSG(						\
 			(! ::iutest::detail::is_useful_testfixture< void (int (testfixture_)) >::value) \
 			, #testfixture_ " is fixture class, mistake the IUTEST_F?");
+#else
+#  define IIUT_CHECK_TESTFIXTURE_I(testfixture_)
 #endif
 #define IIUT_CHECK_TESTFIXTURE_(testfixture_)	IIUT_CHECK_TESTFIXTURE_I(testfixture_)
 #define IIUT_CHECK_TESTFIXTURE(testfixture_)	IIUT_CHECK_TESTFIXTURE_(IIUT_TO_VARNAME_(testfixture_))

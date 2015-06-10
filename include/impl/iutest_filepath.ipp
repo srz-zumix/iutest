@@ -105,6 +105,8 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveFileName(void) const
 
 IUTEST_IPP_INLINE bool iuFilePath::CreateFolder(void) const
 {
+#if IUTEST_HAS_FILE_STAT
+
 #if   defined(IUTEST_OS_WINDOWS_MOBILE)
 #elif defined(IUTEST_OS_WINDOWS_MINGW)
 	if( mkdir(c_str()) == 0 )
@@ -121,6 +123,8 @@ IUTEST_IPP_INLINE bool iuFilePath::CreateFolder(void) const
 	{
 		return true;
 	}
+#endif
+
 #endif
 	return DirectoryExists();
 }
@@ -150,6 +154,8 @@ IUTEST_IPP_INLINE bool iuFilePath::FileOrDirectoryExists(void) const
 #if IUTEST_HAS_FILE_STAT
 	posix::StatStruct file_stat;
 	return posix::Stat(c_str(), &file_stat) == 0;
+#else
+	return false;
 #endif
 }
 
@@ -167,6 +173,7 @@ IUTEST_IPP_INLINE bool iuFilePath::DirectoryExists(void) const
 	{
 		return posix::IsDir(file_stat);
 	}
+
 #endif
 	return false;
 }

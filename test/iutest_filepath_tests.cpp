@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -23,9 +23,13 @@ IUTEST(FilePath, GetExecFilePath)
 {
 	::iutest::internal::FilePath path = ::iutest::internal::FilePath::GetExecFilePath();
 	IUTEST_EXPECT_FALSE(path.IsEmpty());
+#if IUTEST_HAS_FILE_STAT
 	IUTEST_EXPECT_TRUE (path.FileOrDirectoryExists());
+#endif
 }
 #endif
+
+#if defined(IUTEST_USE_GTEST) || IUTEST_HAS_FILE_STAT
 
 IUTEST(FilePath, IsDirectory)
 {
@@ -33,6 +37,8 @@ IUTEST(FilePath, IsDirectory)
 	IUTEST_EXPECT_FALSE(path.IsEmpty());
 	IUTEST_EXPECT_TRUE (path.DirectoryExists());
 }
+
+#endif
 
 IUTEST(FilePath, RemoveExtension)
 {

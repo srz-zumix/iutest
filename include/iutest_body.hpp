@@ -42,7 +42,9 @@ public:
 	Test(void)
 		: test_info_(NULL)
 		, m_test_info(NULL)
+#if IUTEST_HAS_GENRAND
 		, m_random_seed(0)
+#endif
 	{
 		CurrentTestObserver::s_current = this;
 	}
@@ -276,13 +278,13 @@ class TestWithParam : public Test, public WithParamInterface<T>
 namespace detail
 {
 
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+
 /**
  * @brief	有益な TestFixture が定義されているかどうか
 */
 template<typename T>
 class is_useful_testfixture : public iutest_type_traits::false_type {};
-
-#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 
 namespace is_useful_testfixture_helper
 {
@@ -305,7 +307,7 @@ public:
 }
 
 template<typename T>
-class is_useful_testfixture<void(int(T))> : public is_useful_testfixture_helper::is_override_setup<T>::type
+class is_useful_testfixture<void (int(T))> : public is_useful_testfixture_helper::is_override_setup<T>::type
 {
 };
 

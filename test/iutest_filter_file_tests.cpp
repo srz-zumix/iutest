@@ -17,7 +17,7 @@
 // include
 #include "iutest.hpp"
 
-#if !defined(IUTEST_USE_GTEST)
+#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_FOPEN
 #  define FILTER_FILE_TEST	1
 #else
 #  define FILTER_FILE_TEST	0

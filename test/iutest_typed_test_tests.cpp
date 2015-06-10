@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -91,8 +91,10 @@ IUTEST_TYPED_TEST(MultiTypedTest, Get)
 {
 	typedef typename TypeParam:: template get<0>::type	Type1;
 	typedef typename TypeParam:: template get<1>::type	Type2;
-	
+
+#if IUTEST_HAS_STATIC_ASSERT_TYPEEQ
 	::iutest::StaticAssertTypeEq< Type1, int >();
+#endif
 	IUTEST_SUCCEED() << ::iutest::detail::GetTypeName< Type1 >();
 	IUTEST_SUCCEED() << ::iutest::detail::GetTypeName< Type2 >();
 }

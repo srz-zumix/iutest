@@ -67,7 +67,7 @@
 		return ExpressionResult(AssertionResult(b) << m_message << " " #op " " << rhs);	\
 	}
 
-#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
+#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE || IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE
 
 #if IUTEST_HAS_DECLTYPE
 

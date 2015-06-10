@@ -410,7 +410,7 @@ public:
 	inline _Myt& operator<< (long long int v)
 	{
 		_Elem a[64];
-		impl::tostring(a, 64, IUTEST_PP_XCS("%ll"), v);
+		impl::tostring(a, 64, IUTEST_PP_XCS("%lld"), v);
 		s += a;
 		return *this;
 	}
