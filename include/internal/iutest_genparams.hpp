@@ -275,7 +275,11 @@ public:
 	operator iuIParamGenerator<T>* (void) const
 	{
 		make_array<T> ar(v);
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 		return new iuValuesInParamsGenerator<T>(ar.val);
+#else
+		return new iuValuesInParamsGenerator<T>(ar.val, ar.val + IUTEST_PP_COUNTOF(ar.val));
+#endif
 	}
 
 public:

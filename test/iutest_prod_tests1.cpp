@@ -95,7 +95,7 @@ IUTEST_MAKE_PEEP(const int ProdClass::*, ProdClass, m_c);
 
 IUTEST_MAKE_PEEP(int ProdClass2::*, ProdClass2, m_x);
 
-IUTEST(ProdTest, PeepMacro)
+IUTEST(PeepTest, PeepMacro)
 {
 	IUTEST_PEEP_GET(s_prod, ProdClass, m_x) = 4;
 	IUTEST_EXPECT_EQ(4, s_prod.GetX());
@@ -107,8 +107,10 @@ IUTEST(ProdTest, PeepMacro)
 	
 	IUTEST_EXPECT_EQ(42, IUTEST_PEEP_GET(s_prod2, ProdClass2, m_x));
 }
-	
-IUTEST(ProdTest, PeepObject)
+
+#if IUTEST_HAS_PEEP_CLASS
+
+IUTEST(PeepClassTest, PeepObject)
 {
 	IUTEST_PEEP(ProdClass, m_x) prod_class_x(&s_prod);
 	prod_class_x = 5;
@@ -127,7 +129,9 @@ IUTEST(ProdTest, PeepObject)
 	IUTEST_EXPECT_EQ(108, prod_class2_x);
 }
 
-IUTEST(ProdTest, PeepA1)
+#endif
+
+IUTEST(PeepTest, A1)
 {
 	IUTEST_PEEP_GET(s_prod, ProdClass, m_a) = 1;
 	IUTEST_EXPECT_EQ(1, s_prod.GetA());
@@ -135,25 +139,34 @@ IUTEST(ProdTest, PeepA1)
 	IUTEST_EXPECT_EQ(1, IUTEST_PEEP_GET(s_prod, ProdClass, m_a));
 }
 
-IUTEST(ProdTest, PeepConst)
+IUTEST(PeepTest, Const)
 {
 	// マクロ版
 	IUTEST_EXPECT_EQ(42, IUTEST_PEEP_GET(s_prod, ProdClass, m_c));
-
+}
+	
+#if IUTEST_HAS_PEEP_CLASS
+IUTEST(PeepClassTest, Const)
+{
 	// object 版
 	IUTEST_PEEP(ProdClass, m_c) prod_class_c(&s_prod);
 	IUTEST_EXPECT_EQ(42, prod_class_c);
 }
+#endif
 
 IUTEST_MAKE_PEEP(int *, ProdClass, m_y);
 
-IUTEST(ProdTest, StaticPeep)
+IUTEST(PeepTest, StaticPeep)
 {
 	IUTEST_PEEP_STATIC_GET(ProdClass, m_y) = 4;
 	IUTEST_EXPECT_EQ(4, ProdClass::GetY());
 
 	IUTEST_EXPECT_EQ(4, IUTEST_PEEP_STATIC_GET(ProdClass, m_y));
-
+}
+	
+#if IUTEST_HAS_PEEP_CLASS
+IUTEST(PeepClassTest, StaticPeep)
+{
 	// object 版
 	IUTEST_PEEP(ProdClass, m_y) prod_class_y;
 	prod_class_y = 5;
@@ -167,6 +180,7 @@ IUTEST(ProdTest, StaticPeep)
 	IUTEST_PEEP(ProdClass, m_y) prod_class_y2 = 2;
 	IUTEST_EXPECT_EQ(2, prod_class_y2);
 }
+#endif
 
 #if IUTEST_HAS_PEEP_FUNC
 
@@ -175,12 +189,16 @@ typedef int (ProdClass::* ProdClassGetX)() const;
 IUTEST_MAKE_PEEP(ProdClassSetX, ProdClass, SetX);
 IUTEST_MAKE_PEEP(ProdClassGetX, ProdClass, ConstGetX);
 
-IUTEST(ProdTest, PeepFunction)
+IUTEST(PeepTest, Function)
 {
 	IUTEST_PEEP_GET(s_prod, ProdClass, SetX)(100);
 	IUTEST_EXPECT_EQ(100, s_prod.GetX());
 	IUTEST_EXPECT_EQ(100, IUTEST_PEEP_GET(s_prod, ProdClass, ConstGetX)());
-
+}
+	
+#if IUTEST_HAS_PEEP_CLASS
+IUTEST(PeepClassTest, Function)
+{
 	IUTEST_PEEP(ProdClass, SetX) peep_set(&s_prod);
 	peep_set(101);
 	IUTEST_EXPECT_EQ(101, s_prod.GetX());
@@ -188,6 +206,7 @@ IUTEST(ProdTest, PeepFunction)
 	IUTEST_PEEP(ProdClass, ConstGetX) peep_get(&s_prod);
 	IUTEST_EXPECT_EQ(101, peep_get());
 }
+#endif
 
 #endif
 
@@ -196,16 +215,21 @@ IUTEST(ProdTest, PeepFunction)
 typedef void (* ProdClassSetY)(int);
 IUTEST_MAKE_PEEP(ProdClassSetY, ProdClass, SetY);
 
-IUTEST(ProdTest, StaticPeepFunction)
+IUTEST(PeepTest, StaticFunction)
 {
 	IUTEST_PEEP_STATIC_GET(ProdClass, SetY)(100);
 	IUTEST_EXPECT_EQ(100, ProdClass::GetY());
-
+}
+	
 	// object 版
+#if IUTEST_HAS_PEEP_CLASS
+IUTEST(PeepClassTest, StaticFunction)
+{
 	IUTEST_PEEP(ProdClass, SetY) peep;
 	peep(101);
 	IUTEST_EXPECT_EQ(101, ProdClass::GetY());
 }
+#endif
 
 #endif
 
@@ -220,7 +244,7 @@ IUTEST(ProdTest, StaticPeepFunction)
 IUTEST_MAKE_PEEP(int prod_test::ProdClass::*, prod_test::ProdClass, m_z);
 IUTEST_MAKE_PEEP(int prod_test::ProdClass::*, prod_test::ProdClass, m_x);
 
-IUTEST(ProdTest, ScopedPeep)
+IUTEST(PeepTest, ScopedPeep)
 {
 	// マクロ版
 	{
@@ -235,8 +259,12 @@ IUTEST(ProdTest, ScopedPeep)
 
 		IUTEST_EXPECT_EQ(4, IUTEST_PEEP_GET(prod_test::s_prod, prod_test::ProdClass, m_x));
 	}
+}
 
-	// object 版
+#if IUTEST_HAS_PEEP_CLASS
+
+IUTEST(PeepClassTest, ScopedPeep)
+{
 	{
 		IUTEST_PEEP(prod_test::ProdClass, m_z) prod_class_z(&prod_test::s_prod);
 		prod_class_z = 5;
@@ -252,5 +280,6 @@ IUTEST(ProdTest, ScopedPeep)
 		IUTEST_EXPECT_EQ(5, prod_class_z);
 	}
 }
+#endif
 
 #endif

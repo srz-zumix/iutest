@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -61,6 +61,8 @@
 */
 #define IUTEST_PEEP_STATIC_GET(class_name, member_name)	(*::iutest::detail::peep_tag< IUTEST_PEEP_TAG_NAME_(class_name, member_name)<class_name> >::value)
 
+#if IUTEST_HAS_PEEP_CLASS
+
 /**
  * @brief	private メンバーへのアクセスクラス宣言
  * @param	class_name	= クラス名
@@ -68,6 +70,7 @@
 */
 #define IUTEST_PEEP(class_name, member_name)	::iutest::Peep< class_name, IUTEST_PEEP_TAG_NAME_(class_name, member_name)<class_name> >::type
 
+#endif
 
 /**
  * @private
@@ -112,7 +115,7 @@ typename Tag::type peep_tag<Tag>::value;
 
 }	// end of namespace detail
 
-#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#if IUTEST_HAS_PEEP_CLASS
 
 /**
  * @brief	private	メンバーアクセスオブジェクト

@@ -114,7 +114,11 @@
 /**
  * @brief	IUTEST_*_THAT が使用可能かどうか
 */
-#  define IUTEST_HAS_MATCHERS		1
+#  if !defined(IUTEST_NO_SFINAE) && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#    define IUTEST_HAS_MATCHERS		1
+#  else
+#    define IUTEST_HAS_MATCHERS		0
+#  endif
 #endif
 
 #if !defined(IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE)
@@ -339,6 +343,15 @@
 #    define IUTEST_HAS_PEEP_STATIC_FUNC	1
 #  else
 #    define IUTEST_HAS_PEEP_STATIC_FUNC	0
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_PEEP_CLASS)
+//! private メンバー関数へのアクセスが可能かどうか
+#  if IUTEST_HAS_PEEP && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+#    define IUTEST_HAS_PEEP_CLASS	1
+#  else
+#    define IUTEST_HAS_PEEP_CLASS	0
 #  endif
 #endif
 

@@ -403,10 +403,10 @@ IUTEST(SyntaxTest, Matcher)
 	IUTEST_EXPECT_THAT(a, ::iutest::Each(::iutest::Le(10)));
 	IUTEST_EXPECT_THAT(a, ::iutest::Each(::iutest::_));
 	IUTEST_EXPECT_THAT(a, ::iutest::Each(::iutest::A<int>()));
-	IUTEST_EXPECT_THAT(x, ::iutest::Field(&X::a, 0));
 	IUTEST_EXPECT_THAT(&x, ::iutest::Field(&X::a, 0));
-	IUTEST_EXPECT_THAT(x, ::iutest::Property(&X::GetA, 0));
+	IUTEST_EXPECT_THAT(x, ::iutest::Field(&X::a, 0));
 	IUTEST_EXPECT_THAT(&x, ::iutest::Property(&X::GetA, 0));
+	IUTEST_EXPECT_THAT(x, ::iutest::Property(&X::GetA, 0));
 	IUTEST_EXPECT_THAT(a, ::iutest::ElementsAreArray(a));
 	IUTEST_EXPECT_THAT(v, ::iutest::ElementsAreArray(a));
 #if !defined(IUTEST_USE_GMOCK) || (GMOCK_VER >= 0x01070000)
