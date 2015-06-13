@@ -143,6 +143,7 @@ int main(int argc, char* argv[])
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("Foo" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("<skipped type=\"iutest.skip\"" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("disabled test" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("<property name=\"fixture\" value=\"1\"" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 #if IUTEST_HAS_TYPED_TEST
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("<property name=\"type_param\" value=" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
@@ -151,7 +152,8 @@ int main(int argc, char* argv[])
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("<property name=\"Test/0\" value=\"0\""  )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 		IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("<property name=\"Test/1\" value=\"10\"" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 #endif
-		
+#endif
+
 		FileIO::s_io.clear();
 	}
 

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -62,7 +62,8 @@ struct Printer
 	template<typename T>
 	static void Print(const T& value, iu_ostream* os)
 	{
-		const unsigned char* ptr = reinterpret_cast<const unsigned char*>(&value);
+		const unsigned char* ptr = const_cast<const unsigned char*>(
+			reinterpret_cast<const volatile unsigned char*>(&value));
 		const size_t size = sizeof(T);
 		PrintBytesInObjectTo(ptr, size, os);
 	}
@@ -180,7 +181,7 @@ inline void DefaultPrintTo(IsContainerHelper::no_t
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 	printer_internal2::DefaultPrintNonContainerTo(value, os);
 #else
-	printer_internal::TypeWithoutFormatter::PrintValue(value, os);
+	printer_internal::formatter::Printer<false>::Print(value, os);
 #endif
 }
 

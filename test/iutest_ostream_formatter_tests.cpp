@@ -19,6 +19,10 @@
 #include "iutest_logger_tests.hpp"
 #include <iomanip>
 
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP) && (IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM)
+#  define OSTREAM_FORMATTER_TESTS_ENABLE
+#endif
+
 TestLogger logger;
 
 IUTEST(Test, Hex)
@@ -46,14 +50,14 @@ int main(int argc, char* argv[])
 	::iutest::detail::iuConsole::SetLogger(&logger);
 
 	::iutest::IUTEST_FLAG(color) = "no";
-#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+#if defined(OSTREAM_FORMATTER_TESTS_ENABLE)
 	::iutest::IUTEST_FLAG(ostream_formatter) << ::std::hex
 		<< ::std::setw(8) << ::std::setfill('0') << ::std::setprecision(5);
 #endif
 	
 	{
 		if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
-#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+#if defined(OSTREAM_FORMATTER_TESTS_ENABLE)
 
 #if IUTEST_HAS_ASSERTION_RETURN
 		IUTEST_ASSERT_STRIN("  Actual: 00000401", logger.c_str()) << ::iutest::AssertionReturn<int>(1);

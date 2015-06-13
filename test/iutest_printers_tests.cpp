@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -156,11 +156,19 @@ IUTEST(PrintToTest, Std)
 	::std::vector<int> v(a, a+(sizeof(a)/sizeof(a[0])));
 
 	{
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 		LogChecker ck("0, 1");
+#else
+		LogChecker ck("4-Byte object < 00 00 00 00 >, 4-Byte object < 01 00 00 00 >");
+#endif
 		IUTEST_SUCCEED() << ::iutest::PrintToString(p);
 	}
 	{
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 		LogChecker ck("{ 0, 1, 2 }");
+#else
+		LogChecker ck("{ 4-Byte object < 00 00 00 00 >, 4-Byte object < 01 00 00 00 >, 4-Byte object < 02 00 00 00 > }");
+#endif
 		IUTEST_SUCCEED() << ::iutest::PrintToString(v);
 	}
 }

@@ -456,16 +456,26 @@ IUTEST(MatcherFailure, Each)
 
 IUTEST(MatcherFailure, ContainerEq)
 {
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 	CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "ContainerEq: {1, 1, 1}" );
 	CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "Mismatch in a position 1: 1 vs 2" );
 	CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "Mismatch in a position 2: 1 vs 3" );
+#else
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "ContainerEq: {4-Byte" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "Mismatch in a position 1: 4-Byte object < 01 00 00 00 > vs 4-Byte object < 02 00 00 00 >" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "Mismatch in a position 2: 4-Byte object < 01 00 00 00 > vs 4-Byte object < 03 00 00 00 >" );
+#endif
 	CHECK_FAILURE( IUTEST_ASSERT_THAT( a, ContainerEq(c)), "Mismatch element : 3 vs 10" );
 	CHECK_FAILURE( IUTEST_ASSERT_THAT( c, ContainerEq(a)), "Mismatch element : 10 vs 3" );
 }
 
 IUTEST(MatcherFailure, Pointwise)
 {
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 	CHECK_FAILURE( IUTEST_ASSERT_THAT( b, Pointwise(Eq(), c)), "Pointwise: Eq: {1, 1, 1}" );
+#else
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( b, Pointwise(Eq(), c)), "Pointwise: Eq: {4-Byte" );
+#endif
 	CHECK_FAILURE( IUTEST_ASSERT_THAT( a, Pointwise(Eq(), c)), "Mismatch element : 3 vs 10" );
 	CHECK_FAILURE( IUTEST_ASSERT_THAT( c, Pointwise(Eq(), a)), "Mismatch element : 10 vs 3" );
 }
