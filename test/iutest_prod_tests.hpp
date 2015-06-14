@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,6 +31,9 @@ class ProdClass
 #endif
 #if IUTEST_HAS_TYPED_TEST
 	IUTEST_FRIEND_TYPED_TEST(ProdTypedTest, Friend);
+#endif
+#if IUTEST_HAS_TYPED_TEST_P
+	IUTEST_FRIEND_TYPED_TEST(ProdTypeParamTest, Friend);
 #endif
 	
 public:

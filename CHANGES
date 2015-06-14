@@ -17,6 +17,7 @@ Changes for 1.12.0:
 * IUTEST_REPORT_SKIPPED を IUTEST_HAS_REPORT_SKIPPED に変更
 
 ** 修正
+* IUTEST_MAKE_PEEP で関数ポインターの typedef をしなくてもいいように修正
 * バグ修正
 
 --------------------------------------------------

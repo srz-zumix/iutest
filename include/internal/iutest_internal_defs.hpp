@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -354,6 +354,11 @@ struct enabler_t
 template<typename T>void* enabler_t<T>::value = NULL;
 
 typedef enabler_t<void> enabler;
+
+/**
+ * @brief	identity
+*/
+template<typename T>struct identity { typedef T type; };
 
 /**
  * @brief	型名の取得

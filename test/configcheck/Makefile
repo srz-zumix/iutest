@@ -85,16 +85,19 @@ all : clean default test
 
 clean :
 	make $(MAKE_OPTION) clean
+	$(RM) $(TARGETS)
 
 %.dis :
 	@echo $(@:%.dis=%)
 	make $(MAKE_OPTION) clean
 	make $(MAKE_OPTION) test DEFS=-D$(@:%.dis=%)=0
+	@echo ok > $@
 
 %.no :
 	@echo $(@:%.no=%)
 	make $(MAKE_OPTION) clean
 	make $(MAKE_OPTION) test DEFS=-D$(@:%.no=%)
+	@echo ok > $@
 
 no_parame_and_type_test:
 	make $(MAKE_OPTION) clean

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -84,6 +84,30 @@ IUTEST_TYPED_TEST(ProdTypedTest, Friend)
 }
 
 #endif
+
+#if IUTEST_HAS_TYPED_TEST_P
+
+typedef ::iutest::Types<int, float> ProdTypeParams;
+
+template<typename T>
+class ProdTypeParamTest : public ::iutest::Test {};
+
+IUTEST_TYPED_TEST_CASE_P(ProdTypeParamTest);
+
+IUTEST_TYPED_TEST_P(ProdTypeParamTest, Friend)
+{
+	s_prod.SetX(1);
+	IUTEST_ASSERT_EQ(1, s_prod.GetX());
+
+	s_prod.m_x = 2;
+	IUTEST_ASSERT_EQ(2, s_prod.GetX());
+}
+
+IUTEST_REGISTER_TYPED_TEST_CASE_P(ProdTypeParamTest, Friend);
+
+
+#endif
+
 
 #if IUTEST_HAS_PEEP
 
@@ -184,10 +208,8 @@ IUTEST(PeepClassTest, StaticPeep)
 
 #if IUTEST_HAS_PEEP_FUNC
 
-typedef void (ProdClass::* ProdClassSetX)(int);
-typedef int (ProdClass::* ProdClassGetX)() const;
-IUTEST_MAKE_PEEP(ProdClassSetX, ProdClass, SetX);
-IUTEST_MAKE_PEEP(ProdClassGetX, ProdClass, ConstGetX);
+IUTEST_MAKE_PEEP(void (ProdClass::*)(int), ProdClass, SetX);
+IUTEST_MAKE_PEEP(int (ProdClass::*)() const, ProdClass, ConstGetX);
 
 IUTEST(PeepTest, Function)
 {
@@ -212,8 +234,7 @@ IUTEST(PeepClassTest, Function)
 
 #if IUTEST_HAS_PEEP_STATIC_FUNC
 
-typedef void (* ProdClassSetY)(int);
-IUTEST_MAKE_PEEP(ProdClassSetY, ProdClass, SetY);
+IUTEST_MAKE_PEEP(void (*)(int), ProdClass, SetY);
 
 IUTEST(PeepTest, StaticFunction)
 {
