@@ -79,7 +79,7 @@
 #define IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name)															\
 	template<typename T>struct IUTEST_PEEP_TAG_NAME_(class_name, member_name);												\
 	template<>struct IUTEST_PEEP_TAG_NAME_(class_name, member_name)<class_name> {											\
-						 typedef ::iutest::detail::identity<member_type>::type type; };										\
+						 typedef ::iutest_type_traits::identity<member_type>::type type; };										\
 	template<typename T, typename Tag, typename Tag::type X>struct IUTEST_PEEP_SETTER_NAME_(class_name, member_name) {		\
 	IUTEST_PEEP_SETTER_NAME_(class_name, member_name)(void) { ::iutest::detail::peep_tag<Tag>::value = X; }					\
 	static IUTEST_PEEP_SETTER_NAME_(class_name, member_name) instance;														\
