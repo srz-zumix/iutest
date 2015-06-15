@@ -83,7 +83,7 @@ inline void iuOptionMessage::ShowHelp(void)
 		"--------------------------------------------------\n"
 		"License\n"
 		"\n"
-		"    Copyright (c) 2011-2014, Takazumi-Shirayanagi\n"
+		"    Copyright (c) 2011-2015, Takazumi-Shirayanagi\n"
 		"\n"
 		"    This software is released under the new BSD License, see LICENSE\n"
 		"\n"
@@ -155,6 +155,7 @@ inline void iuOptionMessage::ShowFeature(void)
 
 inline void iuOptionMessage::ShowSpec(void)
 {
+	SHOW_MACRO(IUTEST_HAS_ANALYSIS_ASSUME);
 	SHOW_MACRO(IUTEST_HAS_CHAR16_T);
 	SHOW_MACRO(IUTEST_HAS_CHAR32_T);
 	SHOW_MACRO(IUTEST_HAS_CLOCK);

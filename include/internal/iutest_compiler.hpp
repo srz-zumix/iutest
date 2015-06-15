@@ -934,11 +934,20 @@
 #if !defined(IUTEST_HAS_ANALYSIS_ASSUME)
 #  if defined(_MSC_VER) && (_MSC_VER >= 1500) && !defined(__CUDACC__)
 #    define IUTEST_HAS_ANALYSIS_ASSUME		1
+#    define IUTEST_ANALYSIS_ASSUME			__analysis_assume
+#  elif defined(__clang__)
+#    if __has_builtin(__builtin_assume)
+#      define IUTEST_HAS_ANALYSIS_ASSUME	1
+#      define IUTEST_ANALYSIS_ASSUME		__builtin_assume
+#    endif
 #  endif
 #endif
 
 #if !defined(IUTEST_HAS_ANALYSIS_ASSUME)
 #  define IUTEST_HAS_ANALYSIS_ASSUME		0
+#endif
+#if !defined(IUTEST_ANALYSIS_ASSUME)
+#  define IUTEST_ANALYSIS_ASSUME(...)		(void)0
 #endif
 
 // C11

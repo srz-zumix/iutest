@@ -356,6 +356,11 @@ template<typename T>void* enabler_t<T>::value = NULL;
 typedef enabler_t<void> enabler;
 
 /**
+ * @brief	identity
+*/
+template<typename T>struct identity { typedef T type; };
+
+/**
  * @brief	型名の取得
 */
 template<typename T>

@@ -395,7 +395,7 @@
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_									\
 	if( bool b = true ) {											\
 		IUTEST_UNUSED_VAR(b);										\
-		__analysis_assume(expr);									\
+		IUTEST_ANALYSIS_ASSUME(expr);								\
 		goto IUTEST_PP_CAT(iutest_label_analysis_assume, __LINE__);	\
 	} else															\
 		IUTEST_PP_CAT(iutest_label_analysis_assume, __LINE__):		\

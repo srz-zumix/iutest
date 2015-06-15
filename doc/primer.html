@@ -6,6 +6,16 @@
   <title>iutest - 入門</title>
   <meta http-equiv="Content-Type" content="text/html; charset=shift_jis" />
   <meta http-equiv="content-style-type" content="text/css" />
+  
+  <link href='http://alexgorbatchev.com/pub/sh/current/styles/shCore.css' rel='stylesheet' type='text/css'/>
+  <link href='http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css' rel='stylesheet' type='text/css'/>
+
+  <script src='http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js' type='text/javascript'></script>
+  <script src='http://alexgorbatchev.com/pub/sh/current/scripts/shBrushCpp.js' type='text/javascript'></script>
+  <script>
+    SyntaxHighlighter.all();
+  </script>
+
   <style type="text/css">
   body {
     font-family: Arial,'ＭＳ Ｐゴシック',sans-serif ;
@@ -51,7 +61,6 @@
     width: 90%;
   }
   </style>
-  <title>iutest - primer</title>
 </head>
 <body>
 
@@ -193,13 +202,15 @@ iutest_switch.hpp が用意されています。<br />
       
       <li><a name="ext_assert_except" id="ext_assert_except">例外の値のアサーション</a><br />
       THROW,ANY_THROW,NO_THROW に加えて例外の値をテストするアサーションを追加しています。<br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 IUTEST(Hoge, ThrowValue)
 {
   IUTEST_ASSERT_THROW_VALUE_EQ(throw 2, int, 2);
   IUTEST_ASSERT_THROW_VALUE_STREQ(throw "error", const char *, "error");
 }
 </pre>
+</div>
       <br />
       </li>
 
@@ -208,25 +219,29 @@ IUTEST(Hoge, ThrowValue)
       そのため、戻り値の型が void でない関数では、IUTEST_ASSERT_* は使用できませんでした。<br />
       iutest では ::iutest::AssertionReturn を使用することで、明示的に IUTEST_ASSERT_* マクロの戻り値型を変更できます。<br />
       (gtest モードでも使用できるようになりました。)
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 int ReturnTest(void)
 {
     IUTEST_ASSERT_TRUE(true) &lt;&lt; ::iutest::AssertionReturn&lt;int&gt;(-1);
     return 0;
 }
 </pre>
+</div>
       <br />
       </li>
       
       <li><a name="ext_assert_warn" id="ext_assert_warn">警告アサーション</a><br />
       Boost.Test の WARN フレーバーと同等のアサーションです。<br />
       ログの出力はされますが、テスト失敗にはなりません。<br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 IUTEST(Hoge, Inform)
 {
   IUTEST_INFORM_TRUE(IsEven(2));
 }
 </pre>
+</div>
       <br />
       </li>
 
@@ -234,19 +249,22 @@ IUTEST(Hoge, Inform)
       テストの前提条件を検証するためのアサーションです。<br />
       この検証に失敗した場合、ログを出力してテストを即座に終了します。<br />
       テスト失敗にはなりません。（iutest の場合はスキップになります。）<br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 IUTEST(Hoge, Size)
 {
   IUTEST_ASSUME_EQ(4, sizeof(int));
 }
 </pre>
+</div>
       <br />
       </li>
 
       <li><a name="ext_assert_vs_ana" id="ext_assert_vs_ana">Visual Studio コード分析に対応</a><br />
       コード分析では NULL ポインタ参照の可能性のあるコードに警告(C6011)が報告されます。<br />
       下記のようなコードの場合、コード分析ツールに p が NULL でないことを __analysis_assume で教えることでより正しく分析されます。<br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 IUTTEST(NullCheck, Sample)
 {
     int* p = (int*)malloc(4);
@@ -256,9 +274,11 @@ IUTTEST(NullCheck, Sample)
     IUTEST_ASSERT_EQ(1, *p);
 }
 </pre>
+</div>
       しかし、このような __analysis_assume は冗長な記述です。<br />
       iutest では、IUTEST_*_NOTNULL, IUTEST_*_NULL を使用することで、__analysis_assume の記述を省くことができます。<br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 IUTEST(NullCheck, Sample)
 {
     int* p = (int*)malloc(4);
@@ -267,6 +287,7 @@ IUTEST(NullCheck, Sample)
     IUTEST_ASSERT_EQ(1, *p);
 }
 </pre>
+</div>
       <br />
       </li>
     </ul>
@@ -307,7 +328,8 @@ IUTEST(NullCheck, Sample)
       <ul>
         <li>IUTEST_(ASSERT|EXPECT|INFORM|ASSUME) マクロ<br />
         通常のアサーションではオペランドに合わせてマクロを変える必要がありましたが、式アサーションでは１つのマクロで記述できます。<br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 int f() { return 42; }
 IUTEST(Test, Sample)
 {
@@ -320,6 +342,7 @@ IUTEST(Test, Sample)
     <strong>IUTEST_ASSERT( f() &lt;= 0 );</strong>
 }
 </pre>
+</div>
         IUTEST_ASSERT_TRUE を使用した場合と違い、式アサーションでは式を分解して値を出力します。<br />
         IUTEST_ASSERT( f() &lt;= 0 ); は通常の出力に加えて "expansion: 42 &lt;= 0" と出力されます。<br />
         <br />
@@ -332,14 +355,17 @@ IUTEST(Test, Sample)
         式アサーションの式の分解には制限があり、|| や &amp;&amp; で連結した以降の式は分解されません。<br />
         iutest では式の展開を補助する２つのマクロを用意しています。<br />
         IUTEST_OPERAND: <br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 IUTEST(Test, Sample)
 {
     IUTEST_ASSERT(f() &lt;= 0 IUTEST_OPERAND(||) f() &gt;= 100 );
 }
 </pre>
+</div>
         IUTEST_EXPRESSION: <br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 IUTEST(Test, Sample)
 {
     IUTEST_ASSERT(f() &lt;= 0 || IUTEST_EXPRESSION(f() &gt;= 100) );
@@ -348,6 +374,7 @@ IUTEST(Test, Sample)
     IUTEST_ASSERT_TRUE(IUTEST_EXPRESSION(f() &lt;= 0) || IUTEST_EXPRESSION(f() &gt;= 100) );
 }
 </pre>
+</div>
         IUTEST_OPERAND は || , &amp;&amp; を補助します。これは式アサーション専用のマクロになります。<br />
         IUTEST_EXPRESSION は式を補助します。こちらは式アサーション以外（例えば IUTEST_ASSERT_TRUE）でも利用可能です。<br />
         <br />
@@ -361,19 +388,23 @@ IUTEST(Test, Sample)
       <li><a name="org_test_pmz" id="org_test_pmz">IUTEST_PMZ/IUTEST_PMZ_F</a><br />
       IUTEST_P とは違い、関数と引数を直指定するテストマクロです。<br />
       IUTEST_P よりも直感的にテストが可能です。<br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 void TestFunction(int x, int y)
 {
     IUTEST_ASSERT_EQ(x, y);
 }
 IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 0, 0);
-IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 1, 1);</pre>
+IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 1, 1);
+</pre>
+</div>
       <br />
       </li>
 
       <li><a name="org_test_anyparam" id="org_test_anyparam">テストフィクスチャの省略（IUTEST_P）</a><br />
       iutest の値のパラメータ化テストでは、テストフィクスチャの定義が省略できます。<br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 //class AnyParamtest : public ::iutest::TestWithParam&lt;int&gt; {}; // 不要
 IUTEST_P(AnyParamTest, Test)
 {
@@ -383,6 +414,7 @@ IUTEST_P(AnyParamTest, Test)
 
 IUTEST_INSTANTIATE_TEST_CASE_P(My1, AnyParamTest, ::iutest::Values(0));
 </pre>
+</div>
       テストフィクスチャを省略した場合のパラメータ型は、::iutest::any になっています。<br />
       パラメータの値を取り出す際は、template 版の GetParam を使用してください。<br />
       ※template 版の GetParam は型安全でないキャストを行います。キャスト不可能な型にキャストしないよう十分に注意してください。<br />
@@ -393,25 +425,36 @@ IUTEST_INSTANTIATE_TEST_CASE_P(My1, AnyParamTest, ::iutest::Values(0));
 
       <li><a name="org_test_pairwise" id="org_test_pairwise">Pairwise</a><br />
       オールペア法による組み合わせの作成ができます。<br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
-     , ::iutest::Pairwise( ::iutest::Bool(), ::iutest::Values(1, 2), ::iutest::Values(10, 11) ) );</pre>
+     , ::iutest::Pairwise( ::iutest::Bool()
+        , ::iutest::Values(1, 2)
+        , ::iutest::Values(10, 11) ) );
+</pre>
+</div>
       <br />
       </li>
       
       <li><a name="org_test_randparam" id="org_test_randparam">乱数パラメータの生成</a><br />
       iutest ではランダムなパラメータを生成するためのジェネレータを用意しています。<br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
-     , ::iutest::RandomValues( 5 ) );</pre>
+     , ::iutest::RandomValues( 5 ) );
+</pre>
+</div>
       RandomValues の第一引数にパラメータの総数を指定します。（第二引数に乱数シードを指定可能）<br />
       <br />
       また、特定の値を除いた乱数をパラメータにするなどフィルタリングにも対応しています。<br />
       この場合、::iutest::ValuesGen と ::iutest::RandomGenerator を使用します。<br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 bool Filter(int n) { return n != 100 &amp;&amp; n != 500 &amp;&amp; n != 1000; }
 IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
-     , ::iutest::ValuesGen( 5,  ::iutest::RandomGenerator&lt;int&gt;(&amp;Filter) ) );</pre>
+     , ::iutest::ValuesGen( 5,  ::iutest::RandomGenerator&lt;int&gt;(&amp;Filter) ) );
+</pre>
+</div>
       <br />
       ※ これらのジェネレータは補助的なジェネレータです。ValuesIn に乱数を格納した vector などのコンテナを渡すことで実現可能です。<br />
       <br />
@@ -423,19 +466,26 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
       連結をするには ::iutest::Concat もしくは operator + を使用します。<br />
       <br />
       ::iutest::Concat の場合<br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 IUTEST_INSTANTIATE_TEST_CASE_P(A1, TestP
      , ::iutest::Concat( ::iutest::Range(1, 10), ::iutest::Range(101, 110) ) );
 IUTEST_INSTANTIATE_TEST_CASE_P(A2, TestP
      , ::iutest::Concat( ::iutest::Range(1, 10), ::iutest::Bool() ) );
 </pre>
+</div>
       operator + の場合<br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 IUTEST_INSTANTIATE_TEST_CASE_P(A1, TestP
-     , ::iutest::Range(1, 10) + ::iutest::Range(101, 110) );
+     , ::iutest::Range(1, 10)
+        + ::iutest::Range(101, 110) );
 IUTEST_INSTANTIATE_TEST_CASE_P(A2, TestP
-     , ::iutest::Range(1, 10) + ::iutest::Bool() + ::iutest::Values(99, 88, 77) ) );
+     , ::iutest::Range(1, 10)
+        + ::iutest::Bool()
+        + ::iutest::Values(99, 88, 77) ) );
 </pre>
+</div>
       <br />
       </li>
 
@@ -448,7 +498,8 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A2, TestP
       IUTEST_PACKAGE マクロを使うことで、名前空間をパッケージとして扱うことができます。<br />
       通常の名前空間ではテスト名が衝突してしまい、出力 XML で区別がつかなくなってしまいますが、<br />
       IUTEST_PACKAGE マクロを使うことで、名前空間名がパッケージ名としてテストケース名に追加され、区別できるようになります。<br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 IUTEST_PACKAGE(TestPackageA)
 {
   IUTEST(Test, Hoge)
@@ -462,25 +513,33 @@ IUTEST_PACKAGE(TestPackageB)
   {
     IUTEST_ASSERT_TRUE(true);
   }
-}</pre>
+}
+</pre>
+</div>
       また、--iutest_default_package_name コマンドラインオプションでデフォルトのパッケージ名を設定できます。<br />
       <br />
       </li>
 
       <li><a name="org_test_japanese" id="org_test_japanese">日本語テスト名</a><br />
       IUTEST_JAPANESE_NAME マクロを使用することでテスト名に日本語を使用できます。<br />
-<pre class="source">
-IUTEST(IUTEST_JAPANESE_NAME(あいうえお), IUTEST_JAPANESE_NAME(かきくけこ))
+<div class="source">
+<pre class="brush:cpp">
+IUTEST(IUTEST_JAPANESE_NAME(あいうえお)
+                    , IUTEST_JAPANESE_NAME(かきくけこ))
 {
 }
 </pre>
+</div>
       テストフィクスチャを利用する場合は、IUTEST_JAPANESE_NAME_F マクロを使用してください。<br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 class FixedTest : public ::iutest::Test {};
-IUTEST_F(IUTEST_JAPANESE_NAME_F(FixedTest, あいうえお), IUTEST_JAPANESE_NAME(かきくけこ))
+IUTEST_F(IUTEST_JAPANESE_NAME_F(FixedTest, あいうえお)
+                    , IUTEST_JAPANESE_NAME(かきくけこ))
 {
 }
 </pre>
+</div>
       ※ IUTEST_TYPED_TEST_P は未対応です。
       <br />
       </li>
@@ -493,11 +552,14 @@ IUTEST_F(IUTEST_JAPANESE_NAME_F(FixedTest, あいうえお), IUTEST_JAPANESE_NAME(か�
       テストを明示的にスキップします。<br />
       ASSUME と同等の機能ですが、IUTEST_SKIP には条件式がありません。<br />
       ユーザーが適切な場所で呼び出してください。<br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 IUTEST(SkipTest, Skip)
 {
     if(sizeof(int) != 4 ) IUTEST_SKIP() &lt;&lt; "sizeof(int) != 4";
-}</pre>
+}
+</pre>
+</div>
       <br />
       </li>
     </ul>
@@ -520,18 +582,31 @@ IUTEST(SkipTest, Skip)
     <ul>
       <li>PEEP<br />
       テンプレートの明示的な実体化を利用した private メンバーへのアクセスを簡易に行うためのマクロです。<br />
-<pre class="source">
+      メンバーにアクセスするには、IUTEST_PEEP_GET マクロを使用するかクラスオブジェクト版の IUTEST_PEEP マクロを使用します。<br />
+<div class="source">
+<pre class="brush:cpp">
 class Hoge
 {
   int m_x;
+  int GetX() { return m_x; }
 };
+
 IUTEST_MAKE_PEEP(int Hoge::*, Hoge, m_x);
+IUTEST_MAKE_PEEP(int (Hoge::*)(), Hoge, GetX);
+
 IUTEST(ProdTest, Peep)
 {
   Hoge hoge;
   IUTEST_PEEP_GET(hoge, Hoge, m_x) = 4;
   IUTEST_ASSERT_EQ(4, IUTEST_PEEP_GET(hoge, Hoge, m_x));
-}</pre>
+  IUTEST_ASSERT_EQ(4, IUTEST_PEEP_GET(hoge, Hoge, GetX)());
+  
+  IUTEST_PEEP(Hoge, m_x) hoge_x(&hoge);
+  hoge_x = 5;
+  IUTEST_ASSERT_EQ(5, hoge_x);
+}
+</pre>
+</div>
       <br />
       </li>
     </ul>
@@ -575,10 +650,12 @@ IUTEST(ProdTest, Peep)
 <h2><a name="switch" id="switch">iutest / Google Test 切り替え</a></h2>
 <div class="text_block">
 iutest と Google Test の切り替えには gtest/iutest_switch.hpp を使用します。<br />
-<pre class="source">
+<div class="source">
+<pre class="brush:cpp">
 //#include "iutest.hpp"
 #include "gtest/iutest_switch.hpp" // iutest.hpp の代わりに iutest_switch.hpp を使用する
 </pre>
+</div>
 
 <h3><a name="switch_iutest" id="switch_iutest">iutest モード</a></h3>
 デフォルトでは iutest モードになっています。<br />

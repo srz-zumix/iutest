@@ -239,9 +239,7 @@ public:
 	static const ParamType& GetParam(void)
 	{
 		IUTEST_CHECK_(s_params != NULL) << "GetParam() can only use the value-parameterized test";
-#if IUTEST_HAS_ANALYSIS_ASSUME
-		__analysis_assume(s_params != NULL);
-#endif
+		IUTEST_ANALYSIS_ASSUME(s_params != NULL);
 		return *s_params;
 	}
 
