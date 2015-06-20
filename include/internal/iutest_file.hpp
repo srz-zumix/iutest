@@ -209,9 +209,11 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 	//! サイズ取得
 	virtual size_t GetSize(void) IUTEST_CXX_OVERRIDE
 	{
-		long pre = ftell(m_fp);
-		fseek(m_fp, 0, SEEK_END);
-		size_t size = static_cast<size_t>(ftell(m_fp));
+		if(m_fp == nullptr) return 0;
+		const long pre = ftell(m_fp);
+		if(pre == -1) return 0;
+		if(fseek(m_fp, 0, SEEK_END) != 0) return 0;
+		const size_t size = static_cast<size_t>(ftell(m_fp));
 		fseek(m_fp, pre, SEEK_SET);
 		return size;
 	}

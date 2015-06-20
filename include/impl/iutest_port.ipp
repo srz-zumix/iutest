@@ -242,9 +242,12 @@ IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, char* buf, size_
 	}
 	return true;
 #else
-	IUTEST_UNUSED_VAR(size);
 	const char* env = internal::posix::GetEnv(name);
 	if( env == NULL )
+	{
+		return false;
+	}
+	if( size <= strlen(env) )
 	{
 		return false;
 	}
