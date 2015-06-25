@@ -673,36 +673,9 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* 
 /**
  * @brief	文字列部分一致アサーションフォーマッター
 */
+template<typename T1, typename T2>
 inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const char* substr_str, const char* actual_str
-	, const char* substr, const char* actual)
-{
-	return StrInHelper::Assertion(substr_str, actual_str, substr, actual);
-}
-
-inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const char* substr_str, const char* actual_str
-	, const wchar_t* substr, const wchar_t* actual)
-{
-	return StrInHelper::Assertion(substr_str, actual_str, substr, actual);
-}
-
-template<typename Elem, typename Traits, typename Ax>
-inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const char* substr_str, const char* actual_str
-																, const ::std::basic_string<Elem, Traits, Ax>& substr
-																, const ::std::basic_string<Elem, Traits, Ax>& actual)
-{
-	return StrInHelper::Assertion(substr_str, actual_str, substr, actual);
-}
-template<typename Elem, typename Traits, typename Ax>
-inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const char* substr_str, const char* actual_str
-																, const Elem* substr
-																, const ::std::basic_string<Elem, Traits, Ax>& actual)
-{
-	return StrInHelper::Assertion(substr_str, actual_str, substr, actual);
-}
-template<typename Elem, typename Traits, typename Ax>
-inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const char* substr_str, const char* actual_str
-																, const ::std::basic_string<Elem, Traits, Ax>& substr
-																, const Elem* actual)
+	, const T1& substr, const T2& actual)
 {
 	return StrInHelper::Assertion(substr_str, actual_str, substr, actual);
 }
@@ -734,17 +707,9 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* 
 /**
  * @brief	文字列部分一致アサーションフォーマッター
 */
+template<typename T1, typename T2>
 inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNOTIN(const char* substr_str, const char* actual_str
-	, const char* substr, const char* actual)
-{
-	return StrNotInHelper::Assertion(substr_str, actual_str, substr, actual);
-}
-
-/**
- * @brief	文字列部分一致アサーションフォーマッター
-*/
-inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNOTIN(const char* substr_str, const char* actual_str
-	, const wchar_t* substr, const wchar_t* actual)
+	, const T1& substr, const T2& actual)
 {
 	return StrNotInHelper::Assertion(substr_str, actual_str, substr, actual);
 }

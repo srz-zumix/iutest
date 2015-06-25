@@ -154,6 +154,7 @@ IUTEST(AssertionTest, EQ_RANGE)
 IUTEST(AssertionTest, STRIN)
 {
 	const char test[] = "test";
+	::std::string str = test;
 	IUTEST_ASSERT_STRIN("tes", test);
 	IUTEST_EXPECT_STRIN("tes", test);
 	IUTEST_INFORM_STRIN("tes", test);
@@ -163,20 +164,32 @@ IUTEST(AssertionTest, STRIN)
 	IUTEST_EXPECT_STRIN("test", test);
 	IUTEST_INFORM_STRIN("test", test);
 	IUTEST_ASSUME_STRIN("test", test);
+
+	IUTEST_ASSERT_STRIN("tes", str);
+	IUTEST_EXPECT_STRIN("tes", str);
+	IUTEST_INFORM_STRIN("tes", str);
+	IUTEST_ASSUME_STRIN("tes", str);
 }
 
 IUTEST(AssertionTest, STRNOTIN)
 {
 	const char test[] = "test";
+	const char* null = NULL;
+	::std::string str = test;
 	IUTEST_ASSERT_STRNOTIN("Tes", test);
 	IUTEST_EXPECT_STRNOTIN("Tes", test);
 	IUTEST_INFORM_STRNOTIN("Tes", test);
 	IUTEST_ASSUME_STRNOTIN("Tes", test);
 
-	IUTEST_ASSERT_STRNOTIN(NULL, test);
-	IUTEST_EXPECT_STRNOTIN(NULL, test);
-	IUTEST_INFORM_STRNOTIN(NULL, test);
-	IUTEST_ASSUME_STRNOTIN(NULL, test);
+	IUTEST_ASSERT_STRNOTIN("Tes", str);
+	IUTEST_EXPECT_STRNOTIN("Tes", str);
+	IUTEST_INFORM_STRNOTIN("Tes", str);
+	IUTEST_ASSUME_STRNOTIN("Tes", str);
+
+	IUTEST_ASSERT_STRNOTIN(null, test);
+	IUTEST_EXPECT_STRNOTIN(null, test);
+	IUTEST_INFORM_STRNOTIN(null, test);
+	IUTEST_ASSUME_STRNOTIN(null, test);
 }
 
 IUTEST(AssertionTest, STRLNEQ)
