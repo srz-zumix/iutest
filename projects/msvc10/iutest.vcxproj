@@ -233,6 +233,7 @@
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_throw_value.hpp" />
     <ClInclude Include="..\..\include\util\iutest_util_assertion.hpp" />
     <ClInclude Include="..\..\include\util\iutest_util_menu.hpp" />
+    <ClInclude Include="..\..\include\util\iutest_util_no_yoda.hpp" />
     <ClInclude Include="..\..\include\util\iutest_util_output.hpp" />
     <ClInclude Include="..\..\include\util\iutest_util_quiet_result_printer.hpp" />
     <ClInclude Include="..\..\include\util\iutest_util_tests.hpp" />
