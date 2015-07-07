@@ -35,19 +35,19 @@
 
 #ifdef IUTEST_ASSERT_FLOAT_EQ
 #  undef IUTEST_ASSERT_FLOAT_EQ
-#  define	IUTEST_ASSERT_FLOAT_EQ(actual, expected)			IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
+#  define	IUTEST_ASSERT_FLOAT_EQ(actual, expected)		IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
 #endif
 #ifdef IUTEST_EXPECT_FLOAT_EQ
 #  undef IUTEST_EXPECT_FLOAT_EQ
-#  define	IUTEST_EXPECT_FLOAT_EQ(actual, expected)			IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
+#  define	IUTEST_EXPECT_FLOAT_EQ(actual, expected)		IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
 #endif
 #ifdef IUTEST_INFORM_FLOAT_EQ
 #  undef IUTEST_INFORM_FLOAT_EQ
-#  define	IUTEST_INFORM_FLOAT_EQ(actual, expected)			IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_INFORM_FAILURE)
+#  define	IUTEST_INFORM_FLOAT_EQ(actual, expected)		IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_INFORM_FAILURE)
 #endif
 #ifdef IUTEST_ASSUME_FLOAT_EQ
 #  undef IUTEST_ASSUME_FLOAT_EQ
-#  define	IUTEST_ASSUME_FLOAT_EQ(actual, expected)			IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
+#  define	IUTEST_ASSUME_FLOAT_EQ(actual, expected)		IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
 #endif
 
 
