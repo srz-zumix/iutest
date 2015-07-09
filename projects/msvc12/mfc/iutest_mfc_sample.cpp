@@ -73,5 +73,69 @@ IUTEST(MFC, List)
 		a[i] = i;
 		list.AddTail(i);
 	}
-	//IUTEST_ASSERT_EQ_COLLECTIONS(list.GetHeadPosition(), list.GetTailPosition(), ::std::begin(a), ::std::end(b));
+	IUTEST_ASSERT_EQ_COLLECTIONS(
+		  ::iutest::mfc::begin(list)
+		, ::iutest::mfc::end(list)
+		, ::std::begin(a)
+		, ::std::end(a)
+	);
 }
+
+IUTEST(MFC, Array)
+{
+	int a[10];
+	CArray<int> ar;
+	ar.SetSize(IUTEST_PP_COUNTOF(a));
+	for(int i = 0; i < IUTEST_PP_COUNTOF(a); ++i)
+	{
+		a[i] = i;
+		ar[i] = i;
+	}
+	IUTEST_ASSERT_EQ_COLLECTIONS(
+		  ::iutest::mfc::begin(ar)
+		, ::iutest::mfc::end(ar)
+		, ::std::begin(a)
+		, ::std::end(a)
+		);
+}
+
+IUTEST(MFC, Map)
+{
+	CMap<int, int, int, int> map;
+	CMapStringToOb ms;
+}
+
+template<typename T>
+class MFCArrayTypedTest : public ::iutest::Test {};
+IUTEST_TYPED_TEST_CASE(MFCArrayTypedTest, ::iutest::Types<CByteArray, CWordArray, CDWordArray, CUIntArray, CPtrArray, CObArray>);
+
+template<typename T>
+struct test_value
+{
+	static T get(int index) { return index; }
+};
+template<typename T>
+struct test_value< T* >
+{
+	static T* get(int index) { return NULL; }
+};
+
+IUTEST_TYPED_TEST(MFCArrayTypedTest, EqCollections)
+{
+	struct X : public TypeParam { using TypeParam::BASE_TYPE; };
+	typename X::BASE_TYPE a[10];
+	TypeParam ar;
+	ar.SetSize(IUTEST_PP_COUNTOF(a));
+	for(int i = 0; i < IUTEST_PP_COUNTOF(a); ++i)
+	{
+		a[i] = test_value<X::BASE_TYPE>::get(i);
+		ar[i] = test_value<X::BASE_TYPE>::get(i);
+	}
+	IUTEST_ASSERT_EQ_COLLECTIONS(
+		  ::iutest::mfc::begin(ar)
+		, ::iutest::mfc::end(ar)
+		, ::std::begin(a)
+		, ::std::end(a)
+		);
+}
+

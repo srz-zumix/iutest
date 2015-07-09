@@ -410,9 +410,11 @@ GeTypeNameSpecialization(bool)
 #if IUTEST_HAS_IF_EXISTS
 #  define IUTEST_IF_EXISTS(identifier_, statement_)		__if_exists(identifier_) { statement_ }
 #  define IUTEST_IF_NOT_EXISTS(identifier_, statement_)	__if_not_exists(identifier_) { statement_ }
+#  define IUTEST_STATIC_EXISTS(identifier_)				IUTEST_IF_EXISTS(identifier_, true) IUTEST_IF_NOT_EXISTS(identifier_, false)
 #else
 #  define IUTEST_IF_EXISTS(identifier_, statement_)
 #  define IUTEST_IF_NOT_EXISTS(identifier_, statement_)
+#  define IUTEST_STATIC_EXISTS(identifier_)
 #endif
 
 }	// end of namespace detail

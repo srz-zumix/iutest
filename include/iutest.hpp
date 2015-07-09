@@ -32,6 +32,10 @@
 #include "listener/iutest_junit_xml_generator.hpp"
 #include "listener/iutest_streaming_listener.hpp"
 
+#if defined(__AFX_H__)
+#include "internal/iutest_mfc.hpp"
+#endif
+
 //======================================================================
 // define
 /**
