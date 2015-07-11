@@ -106,10 +106,6 @@ IUTEST(MFC, Map)
 }
 
 template<typename T>
-class MFCArrayTypedTest : public ::iutest::Test {};
-IUTEST_TYPED_TEST_CASE(MFCArrayTypedTest, ::iutest::Types<CByteArray, CWordArray, CDWordArray, CUIntArray, CPtrArray, CObArray>);
-
-template<typename T>
 struct test_value
 {
 	static T get(int index) { return index; }
@@ -119,6 +115,10 @@ struct test_value< T* >
 {
 	static T* get(int index) { return NULL; }
 };
+
+template<typename T>
+class MFCArrayTypedTest : public ::iutest::Test {};
+IUTEST_TYPED_TEST_CASE(MFCArrayTypedTest, ::iutest::Types<CByteArray, CWordArray, CDWordArray, CUIntArray, CPtrArray, CObArray>);
 
 IUTEST_TYPED_TEST(MFCArrayTypedTest, EqCollections)
 {
@@ -138,4 +138,27 @@ IUTEST_TYPED_TEST(MFCArrayTypedTest, EqCollections)
 		, ::std::end(a)
 		);
 }
+
+template<typename T>
+class MFCListTypedTest : public ::iutest::Test {};
+IUTEST_TYPED_TEST_CASE(MFCListTypedTest, ::iutest::Types<CPtrList, CObList>);
+
+IUTEST_TYPED_TEST(MFCListTypedTest, EqCollections)
+{
+	struct X : public TypeParam { using TypeParam::BASE_TYPE; };
+	typename X::BASE_TYPE a[10];
+	TypeParam list;
+	for(int i = 0; i < IUTEST_PP_COUNTOF(a); ++i)
+	{
+		a[i] = test_value<X::BASE_TYPE>::get(i);
+		list.AddTail(test_value<X::BASE_TYPE>::get(i));
+	}
+	IUTEST_ASSERT_EQ_COLLECTIONS(
+		  ::iutest::mfc::begin(list)
+		, ::iutest::mfc::end(list)
+		, ::std::begin(a)
+		, ::std::end(a)
+		);
+}
+
 

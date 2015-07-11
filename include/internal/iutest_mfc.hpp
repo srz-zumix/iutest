@@ -26,7 +26,7 @@ namespace mfc
 template<typename T, typename U>
 class mfc_iterator : public ::std::iterator < ::std::input_iterator_tag, U >
 {
-	typedef U Item;
+	typedef typename iutest_type_traits::add_const_to_pointer<U>::type Item;
 public:
 	mfc_iterator(const T& container, POSITION pos) : m_container(container), m_pos(pos) {}
 	mfc_iterator(const mfc_iterator& rhs) : m_container(rhs.m_container), m_pos(rhs.m_pos) {}
@@ -34,8 +34,8 @@ public:
 	mfc_iterator& operator ++ ()    { advance(); return *this; }
 	mfc_iterator& operator ++ (int) { mfc_iterator r(*this); advance(); return r; }
 
-	Item operator *  () { return m_container.GetAt(m_pos); }
-	Item operator -> () { return m_container.GetAt(m_pos); }
+	Item operator *  () const { return m_container.GetAt(m_pos); }
+	Item operator -> () const { return m_container.GetAt(m_pos); }
 
 	bool operator == (mfc_iterator& rhs) { return rhs.m_pos == m_pos; }
 	bool operator != (mfc_iterator& rhs) { return rhs.m_pos != m_pos; }
@@ -98,6 +98,19 @@ typename peep::base_type<T>::BASE_TYPE* end(T& ar
 	, typename detail::enable_if< IUTEST_STATIC_EXISTS(T::GetData), void>::type*& = detail::enabler::value)
 {
 	return ar.GetData() + ar.GetCount();
+}
+
+template<typename T>
+mfc_iterator<T, typename peep::base_type<T>::BASE_TYPE> begin(T& list
+	, typename detail::enable_if< IUTEST_STATIC_EXISTS(T::GetHeadPosition), void>::type*& = detail::enabler::value)
+{
+	return mfc_iterator<T, peep::base_type<T>::BASE_TYPE>(list, list.GetHeadPosition());
+}
+template<typename T>
+mfc_iterator<T, typename peep::base_type<T>::BASE_TYPE> end(T& list
+	, typename detail::enable_if< IUTEST_STATIC_EXISTS(T::GetHeadPosition), void>::type*& = detail::enabler::value)
+{
+	return mfc_iterator<T, peep::base_type<T>::BASE_TYPE>(list, NULL);
 }
 
 }	// end of namespace mfc

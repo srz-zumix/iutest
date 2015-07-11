@@ -64,6 +64,27 @@ namespace iutest_type_traits
 */
 template<typename T>struct identity { typedef T type; };
 
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+
+/**
+* @brief	add const to pointer
+*/
+template<typename T>
+class add_const_to_pointer
+{
+	template<typename U, typename DMY>struct impl { typedef const U type; };
+	template<typename U, typename DMY>struct impl<U*, DMY>
+	{
+		typedef const U* type;
+	};
+
+public:
+	typedef typename impl<T, void>::type type;
+};
+
+#endif
+
+
 #if IUTEST_HAS_HDR_TYPETARITS
 
 using ::std::true_type;
