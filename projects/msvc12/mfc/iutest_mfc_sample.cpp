@@ -115,10 +115,15 @@ struct test_value< T* >
 {
 	static T* get(int index) { return NULL; }
 };
+template<>
+struct test_value < CString >
+{
+	static CString get(int index) { CString s; s.Format(_T("%d"), index); return s; }
+};
 
 template<typename T>
 class MFCArrayTypedTest : public ::iutest::Test {};
-IUTEST_TYPED_TEST_CASE(MFCArrayTypedTest, ::iutest::Types<CByteArray, CWordArray, CDWordArray, CUIntArray, CPtrArray, CObArray>);
+IUTEST_TYPED_TEST_CASE(MFCArrayTypedTest, ::iutest::Types<CByteArray, CWordArray, CDWordArray, CUIntArray, CStringArray, CPtrArray, CObArray>);
 
 IUTEST_TYPED_TEST(MFCArrayTypedTest, EqCollections)
 {
@@ -141,7 +146,7 @@ IUTEST_TYPED_TEST(MFCArrayTypedTest, EqCollections)
 
 template<typename T>
 class MFCListTypedTest : public ::iutest::Test {};
-IUTEST_TYPED_TEST_CASE(MFCListTypedTest, ::iutest::Types<CPtrList, CObList>);
+IUTEST_TYPED_TEST_CASE(MFCListTypedTest, ::iutest::Types<CStringList, CPtrList, CObList>);
 
 IUTEST_TYPED_TEST(MFCListTypedTest, EqCollections)
 {
