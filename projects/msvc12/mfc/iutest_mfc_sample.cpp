@@ -64,47 +64,6 @@ IUTEST(MFC, Rect)
 	IUTEST_ASSERT_EQ(r, r);
 }
 
-IUTEST(MFC, List)
-{
-	int a[10];
-	CList<int> list;
-	for(int i = 0; i < IUTEST_PP_COUNTOF(a); ++i)
-	{
-		a[i] = i;
-		list.AddTail(i);
-	}
-	IUTEST_ASSERT_EQ_COLLECTIONS(
-		  ::iutest::mfc::begin(list)
-		, ::iutest::mfc::end(list)
-		, ::std::begin(a)
-		, ::std::end(a)
-	);
-}
-
-IUTEST(MFC, Array)
-{
-	int a[10];
-	CArray<int> ar;
-	ar.SetSize(IUTEST_PP_COUNTOF(a));
-	for(int i = 0; i < IUTEST_PP_COUNTOF(a); ++i)
-	{
-		a[i] = i;
-		ar[i] = i;
-	}
-	IUTEST_ASSERT_EQ_COLLECTIONS(
-		  ::iutest::mfc::begin(ar)
-		, ::iutest::mfc::end(ar)
-		, ::std::begin(a)
-		, ::std::end(a)
-		);
-}
-
-IUTEST(MFC, Map)
-{
-	CMap<int, int, int, int> map;
-	CMapStringToOb ms;
-}
-
 template<typename T>
 struct test_value
 {
@@ -123,18 +82,17 @@ struct test_value < CString >
 
 template<typename T>
 class MFCArrayTypedTest : public ::iutest::Test {};
-IUTEST_TYPED_TEST_CASE(MFCArrayTypedTest, ::iutest::Types<CByteArray, CWordArray, CDWordArray, CUIntArray, CStringArray, CPtrArray, CObArray>);
+IUTEST_TYPED_TEST_CASE(MFCArrayTypedTest, ::iutest::Types<CArray<int>, CByteArray, CWordArray, CDWordArray, CUIntArray, CStringArray, CPtrArray, CObArray>);
 
 IUTEST_TYPED_TEST(MFCArrayTypedTest, EqCollections)
 {
-	struct X : public TypeParam { using TypeParam::BASE_TYPE; };
-	typename X::BASE_TYPE a[10];
+	typename iutest::mfc::CContainer<TypeParam>::BASE_TYPE a[10];
 	TypeParam ar;
 	ar.SetSize(IUTEST_PP_COUNTOF(a));
 	for(int i = 0; i < IUTEST_PP_COUNTOF(a); ++i)
 	{
-		a[i] = test_value<X::BASE_TYPE>::get(i);
-		ar[i] = test_value<X::BASE_TYPE>::get(i);
+		a[i] = test_value<iutest::mfc::CContainer<TypeParam>::BASE_TYPE>::get(i);
+		ar[i] = test_value<iutest::mfc::CContainer<TypeParam>::BASE_TYPE>::get(i);
 	}
 	IUTEST_ASSERT_EQ_COLLECTIONS(
 		  ::iutest::mfc::begin(ar)
@@ -146,17 +104,16 @@ IUTEST_TYPED_TEST(MFCArrayTypedTest, EqCollections)
 
 template<typename T>
 class MFCListTypedTest : public ::iutest::Test {};
-IUTEST_TYPED_TEST_CASE(MFCListTypedTest, ::iutest::Types<CStringList, CPtrList, CObList>);
+IUTEST_TYPED_TEST_CASE(MFCListTypedTest, ::iutest::Types<CList<int>, CStringList, CPtrList, CObList>);
 
 IUTEST_TYPED_TEST(MFCListTypedTest, EqCollections)
 {
-	struct X : public TypeParam { using TypeParam::BASE_TYPE; };
-	typename X::BASE_TYPE a[10];
+	typename iutest::mfc::CContainer<TypeParam>::BASE_TYPE a[10];
 	TypeParam list;
 	for(int i = 0; i < IUTEST_PP_COUNTOF(a); ++i)
 	{
-		a[i] = test_value<X::BASE_TYPE>::get(i);
-		list.AddTail(test_value<X::BASE_TYPE>::get(i));
+		a[i] = test_value<iutest::mfc::CContainer<TypeParam>::BASE_TYPE>::get(i);
+		list.AddTail(test_value<iutest::mfc::CContainer<TypeParam>::BASE_TYPE>::get(i));
 	}
 	IUTEST_ASSERT_EQ_COLLECTIONS(
 		  ::iutest::mfc::begin(list)
@@ -166,4 +123,43 @@ IUTEST_TYPED_TEST(MFCListTypedTest, EqCollections)
 		);
 }
 
+#if IUTEST_HAS_MATCHERS
+
+using namespace ::iutest::matchers;
+
+IUTEST_TYPED_TEST(MFCArrayTypedTest, Matcher)
+{
+	TypeParam ar;
+	ar.SetSize(10);
+	for(int i = 0; i < 10; ++i)
+	{
+		ar[i] = test_value<iutest::mfc::CContainer<TypeParam>::BASE_TYPE>::get(i);
+	}
+	IUTEST_EXPECT_THAT(::iutest::mfc::make_container(ar), Each(_));
+}
+
+IUTEST_TYPED_TEST(MFCListTypedTest, Matcher)
+{
+	TypeParam list;
+	for(int i = 0; i < 10; ++i)
+	{
+		list.AddTail(test_value<iutest::mfc::CContainer<TypeParam>::BASE_TYPE>::get(i));
+	}
+	IUTEST_EXPECT_THAT(::iutest::mfc::make_container(list), Each(_));
+}
+
+template<typename T>
+class MFCMapTypedTest : public ::iutest::Test {};
+IUTEST_TYPED_TEST_CASE(MFCMapTypedTest, ::iutest::Types< CMap<int, int, int, int> >);
+
+IUTEST_TYPED_TEST(MFCMapTypedTest, Matcher)
+{
+	TypeParam m;
+	for(int i = 0; i < 10; ++i) {
+		m.SetAt(i, i);
+	}
+	//IUTEST_EXPECT_THAT(m, Each(Key(Le(10))));
+}
+
+#endif
 

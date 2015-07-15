@@ -47,6 +47,7 @@ protected:
 	, m_id(id), m_disable_num(0)
 	, m_should_run_num(0)
 	, m_elapsedmsec(0)
+	, m_start_timestamp(0)
 	, m_disable(false)
 	{
 		if( detail::IsStringForwardMatching(testcase_name, "DISABLED_")
@@ -90,6 +91,8 @@ public:
 	int				reportable_test_run_skipped_count(void) const;
 	/** テストの実行ミリ秒 */
 	TimeInMillisec	elapsed_time(void)			const IUTEST_CXX_NOEXCEPT_SPEC { return m_elapsedmsec; }
+	/** テスト開始時刻 */
+	TimeInMillisec	start_timestamp(void)		const IUTEST_CXX_NOEXCEPT_SPEC{ return m_start_timestamp; }
 
 	/** TestInfo の取得 */
 	const TestInfo*	GetTestInfo(int index)		const { return m_testinfos[index]; }
@@ -226,6 +229,7 @@ private:
 	int				m_disable_num;		//!< 無視したテストの総数
 	int				m_should_run_num;	//!< 実行すべきテストの総数
 	TimeInMillisec	m_elapsedmsec;		//!< テスト時間
+	TimeInMillisec	m_start_timestamp;	//!< テスト開始時刻
 	bool			m_disable;			//!< 無効真偽値
 	TestResult		m_ad_hoc_testresult;	//!< テストが実行中でないときのリザルト
 

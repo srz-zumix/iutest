@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -96,9 +96,10 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestCase(IFile* file
 #if IUTEST_HAS_REPORT_SKIPPED
 	file->Printf("skip=\"%d\" ", test_case.reportable_skip_test_count() );
 #endif
-	file->Printf("errors=\"0\" time=\"%s\""
+	file->Printf("errors=\"0\" time=\"%s\" timestamp=\"%s\""
 		, detail::FormatTimeInMillisecAsSecond(test_case.elapsed_time()).c_str()
-	);
+		, detail::FormatTimeInMillisecAsIso8601(test_case.start_timestamp()).c_str()
+		);
 
 	// propertys
 	OnReportTestProperty(file, *test_case.ad_hoc_testresult(), TestCase::ValidateTestPropertyName);

@@ -82,7 +82,17 @@ namespace peep
 template<typename T>
 struct base_type : public T
 { 
-	__if_exists(T::BASE_TYPE) { using T::BASE_TYPE; } 
+	__if_exists(T::BASE_TYPE) { using T::BASE_TYPE; }
+};
+template<typename T, typename U>
+struct base_type< CList<T, U> >
+{
+	typedef T BASE_TYPE;
+};
+template<typename T, typename U>
+struct base_type< CArray<T, U> >
+{
+	typedef T BASE_TYPE;
 };
 
 }
@@ -112,6 +122,42 @@ mfc_iterator<T, typename peep::base_type<T>::BASE_TYPE> end(T& list
 {
 	return mfc_iterator<T, peep::base_type<T>::BASE_TYPE>(list, NULL);
 }
+
+template<typename T>
+struct mfc_iterator_traits
+{
+	typedef typename peep::base_type<T>::BASE_TYPE BASE_TYPE;
+	template<typename U, bool isArray>
+	struct type_select
+	{
+		typedef U* type;
+	};
+	template<typename U>
+	struct type_select<U, false>
+	{
+		typedef mfc_iterator<T, U> type;
+	};
+	typedef typename type_select<BASE_TYPE, IUTEST_STATIC_EXISTS(T::GetData)>::type type;
+};
+
+template<typename T>
+class CContainer
+{
+public:
+	typedef typename peep::base_type<T>::BASE_TYPE BASE_TYPE;
+	typedef typename mfc_iterator_traits<T>::type iterator_type;
+public:
+	CContainer(T& container) : m_container(container) {}
+
+	iterator_type begin() const { return mfc::begin(m_container); }
+	iterator_type end() const { return mfc::end(m_container); }
+
+private:
+	T& m_container;
+};
+
+template<typename T>
+CContainer<T> make_container(T& obj) { return CContainer<T>(obj); }
 
 }	// end of namespace mfc
 }	// end of namespace iutest

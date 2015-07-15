@@ -36,6 +36,8 @@ IUTEST_IPP_INLINE bool TestCase::Run(void)
 
 	// テスト開始
 	bool result=false;
+
+	m_start_timestamp = detail::GetTimeInMillis();
 	TestEnv::event_listeners().OnTestCaseStart(*this);
 #if IUTEST_HAS_EXCEPTIONS
 	if( TestFlag::IsEnableFlag(TestFlag::CATCH_EXCEPTION_EACH) )

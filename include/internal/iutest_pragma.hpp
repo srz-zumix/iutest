@@ -139,7 +139,7 @@
 
 
 #if   defined(_MSC_VER)
-#  define IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()	IUTEST_PRAGMA(warning (disable:4389))
+#  define IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()	IUTEST_PRAGMA(warning (disable:4389 4018))
 #elif defined(__clang__)
 #  define IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()	IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wsign-compare")
 #elif defined(__GNUC__)
