@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "iutest_mfc_sample.h"
 #include "iutest.hpp"
+#include <map>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -123,6 +124,26 @@ IUTEST_TYPED_TEST(MFCListTypedTest, EqCollections)
 		);
 }
 
+template<typename T>
+class MFCMapTypedTest : public ::iutest::Test {};
+IUTEST_TYPED_TEST_CASE(MFCMapTypedTest, ::iutest::Types< CMap<int, int, int, int> >);
+
+IUTEST_TYPED_TEST(MFCMapTypedTest, EqCollections)
+{
+	TypeParam map;
+	for(int i = 0; i < 10; ++i)
+	{
+		map.SetAt(i, i);
+	}
+	IUTEST_ASSERT_EQ_COLLECTIONS(
+		  ::iutest::mfc::begin(map)
+		, ::iutest::mfc::end(map)
+		, ::iutest::mfc::begin(map)
+		, ::iutest::mfc::end(map)
+		);
+}
+
+
 #if IUTEST_HAS_MATCHERS
 
 using namespace ::iutest::matchers;
@@ -148,17 +169,13 @@ IUTEST_TYPED_TEST(MFCListTypedTest, Matcher)
 	IUTEST_EXPECT_THAT(::iutest::mfc::make_container(list), Each(_));
 }
 
-template<typename T>
-class MFCMapTypedTest : public ::iutest::Test {};
-IUTEST_TYPED_TEST_CASE(MFCMapTypedTest, ::iutest::Types< CMap<int, int, int, int> >);
-
 IUTEST_TYPED_TEST(MFCMapTypedTest, Matcher)
 {
 	TypeParam m;
 	for(int i = 0; i < 10; ++i) {
 		m.SetAt(i, i);
 	}
-	//IUTEST_EXPECT_THAT(m, Each(Key(Le(10))));
+	IUTEST_EXPECT_THAT(::iutest::mfc::make_container(m), Each(Key(Le(10))));
 }
 
 #endif

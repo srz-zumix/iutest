@@ -54,6 +54,36 @@ private:
 	POSITION m_pos;
 };
 
+template<typename T, typename Key, typename Value>
+class mfc_map_iterator : public ::std::iterator < ::std::input_iterator_tag, ::std::pair<Key, Value> >
+{
+	typedef ::std::pair<Key, Value> Item;
+public:
+	mfc_map_iterator(const T& container, POSITION pos) : m_container(container), m_pos(pos) {}
+	mfc_map_iterator(const mfc_map_iterator& rhs) : m_container(rhs.m_container), m_pos(rhs.m_pos) {}
+
+	mfc_map_iterator& operator ++ ()    { advance(); return *this; }
+	mfc_map_iterator& operator ++ (int) { mfc_iterator r(*this); advance(); return r; }
+
+	Item operator *  () const { return m_pair; }
+	Item operator -> () const { return m_pair; }
+
+	bool operator == (mfc_map_iterator& rhs) { return rhs.m_pos == m_pos; }
+	bool operator != (mfc_map_iterator& rhs) { return rhs.m_pos != m_pos; }
+private:
+	void advance()
+	{
+		__if_exists(T::GetNextAssoc) {
+			m_container.GetNextAssoc(m_pos, m_pair.first, m_pair.second);
+		}
+	}
+
+private:
+	const T& m_container;
+	POSITION m_pos;
+	::std::pair<Key, Value> m_pair;
+};
+
 template<typename T, typename U>
 mfc_iterator<CList<T, U>, T> begin(CList<T, U>& list)
 {
@@ -76,6 +106,18 @@ T* end(CArray<T, U>& ar)
 	return ar.GetData() + ar.GetCount();
 }
 
+template<typename T, typename TA, typename U, typename UA>
+mfc_map_iterator< CMap<T, TA, U, UA>, T, U > begin(CMap<T, TA, U, UA>& map)
+{
+	return mfc_map_iterator< CMap<T, TA, U, UA>, T, U >(map, map.GetStartPosition());
+}
+
+template<typename T, typename TA, typename U, typename UA>
+mfc_map_iterator< CMap<T, TA, U, UA>, T, U > end(CMap<T, TA, U, UA>& map)
+{
+	return mfc_map_iterator< CMap<T, TA, U, UA>, T, U >(map, NULL);
+}
+
 namespace peep
 {
 
@@ -83,16 +125,33 @@ template<typename T>
 struct base_type : public T
 { 
 	__if_exists(T::BASE_TYPE) { using T::BASE_TYPE; }
+
+	__if_exists(T::BASE_KEY) { using T::BASE_KEY; }
+	__if_not_exists(T::BASE_KEY) { typedef T::BASE_TYPE BASE_KEY; }
+
+	__if_exists(T::BASE_VALUE) { using T::BASE_VALUE; }
+	__if_not_exists(T::BASE_VALUE) { typedef T::BASE_TYPE BASE_VALUE; }
 };
 template<typename T, typename U>
 struct base_type< CList<T, U> >
 {
 	typedef T BASE_TYPE;
+	typedef T BASE_KEY;
+	typedef T BASE_VALUE;
 };
 template<typename T, typename U>
 struct base_type< CArray<T, U> >
 {
 	typedef T BASE_TYPE;
+	typedef T BASE_KEY;
+	typedef T BASE_VALUE;
+};
+template<typename T, typename TA, typename U, typename UA>
+struct base_type< CMap<T, TA, U, UA> >
+{
+	typedef ::std::pair<T, U> BASE_TYPE;
+	typedef T BASE_KEY;
+	typedef U BASE_VALUE;
 };
 
 }
@@ -127,17 +186,27 @@ template<typename T>
 struct mfc_iterator_traits
 {
 	typedef typename peep::base_type<T>::BASE_TYPE BASE_TYPE;
-	template<typename U, bool isArray>
+	typedef typename peep::base_type<T>::BASE_KEY BASE_KEY;
+	typedef typename peep::base_type<T>::BASE_VALUE BASE_VALUE;
+	template<typename U, bool isArray, bool isList>
 	struct type_select
+	{
+		typedef mfc_map_iterator<T, BASE_KEY, BASE_VALUE> type;
+	};
+	template<typename U>
+	struct type_select<U, true, false>
 	{
 		typedef U* type;
 	};
 	template<typename U>
-	struct type_select<U, false>
+	struct type_select<U, false, true>
 	{
 		typedef mfc_iterator<T, U> type;
 	};
-	typedef typename type_select<BASE_TYPE, IUTEST_STATIC_EXISTS(T::GetData)>::type type;
+	typedef typename type_select<BASE_TYPE
+		, IUTEST_STATIC_EXISTS(T::GetData)
+		, IUTEST_STATIC_EXISTS(T::GetHeadPosition)
+	>::type type;
 };
 
 template<typename T>
@@ -145,6 +214,8 @@ class CContainer
 {
 public:
 	typedef typename peep::base_type<T>::BASE_TYPE BASE_TYPE;
+	typedef typename peep::base_type<T>::BASE_KEY BASE_KEY;
+	typedef typename peep::base_type<T>::BASE_VALUE BASE_VALUE;
 	typedef typename mfc_iterator_traits<T>::type iterator_type;
 public:
 	CContainer(T& container) : m_container(container) {}
