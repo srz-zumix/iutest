@@ -126,14 +126,16 @@ IUTEST_TYPED_TEST(MFCListTypedTest, EqCollections)
 
 template<typename T>
 class MFCMapTypedTest : public ::iutest::Test {};
-IUTEST_TYPED_TEST_CASE(MFCMapTypedTest, ::iutest::Types< CMap<int, int, int, int> >);
+IUTEST_TYPED_TEST_CASE(MFCMapTypedTest, ::iutest::Types< CMap<int, int, int, int>, CMapWordToPtr, CMapWordToOb
+	, CMapPtrToPtr, CMapPtrToWord, CMapStringToPtr, CMapStringToOb, CMapStringToString >);
 
 IUTEST_TYPED_TEST(MFCMapTypedTest, EqCollections)
 {
 	TypeParam map;
 	for(int i = 0; i < 10; ++i)
 	{
-		map.SetAt(i, i);
+		map.SetAt(test_value<iutest::mfc::CContainer<TypeParam>::BASE_KEY>::get(i)
+			, test_value<iutest::mfc::CContainer<TypeParam>::BASE_VALUE>::get(i) );
 	}
 	IUTEST_ASSERT_EQ_COLLECTIONS(
 		  ::iutest::mfc::begin(map)
@@ -171,11 +173,13 @@ IUTEST_TYPED_TEST(MFCListTypedTest, Matcher)
 
 IUTEST_TYPED_TEST(MFCMapTypedTest, Matcher)
 {
-	TypeParam m;
+	TypeParam map;
 	for(int i = 0; i < 10; ++i) {
-		m.SetAt(i, i);
+		map.SetAt(test_value<iutest::mfc::CContainer<TypeParam>::BASE_KEY>::get(i)
+			, test_value<iutest::mfc::CContainer<TypeParam>::BASE_VALUE>::get(i));
 	}
-	IUTEST_EXPECT_THAT(::iutest::mfc::make_container(m), Each(Key(Le(10))));
+	IUTEST_EXPECT_THAT(::iutest::mfc::make_container(map), Each(Key(_)));
+	IUTEST_EXPECT_THAT(::iutest::mfc::make_container(map), Each(Pair(_, _)));
 }
 
 #endif

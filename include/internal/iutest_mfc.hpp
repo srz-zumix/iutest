@@ -124,13 +124,25 @@ namespace peep
 template<typename T>
 struct base_type : public T
 { 
-	__if_exists(T::BASE_TYPE) { using T::BASE_TYPE; }
+	__if_exists(T::BASE_TYPE)
+	{
+		using T::BASE_TYPE;
+		typedef typename T::BASE_TYPE BASE_KEY;
+		typedef typename T::BASE_TYPE BASE_VALUE;
+	}
 
-	__if_exists(T::BASE_KEY) { using T::BASE_KEY; }
-	__if_not_exists(T::BASE_KEY) { typedef T::BASE_TYPE BASE_KEY; }
-
-	__if_exists(T::BASE_VALUE) { using T::BASE_VALUE; }
-	__if_not_exists(T::BASE_VALUE) { typedef T::BASE_TYPE BASE_VALUE; }
+	__if_not_exists(T::BASE_TYPE)
+	{
+		__if_exists(T::BASE_KEY)
+		{
+			__if_exists(T::BASE_VALUE)
+			{
+				using T::BASE_KEY;
+				using T::BASE_VALUE;
+				typedef ::std::pair<T::BASE_KEY, T::BASE_VALUE> BASE_TYPE;
+			}
+		}
+	}
 };
 template<typename T, typename U>
 struct base_type< CList<T, U> >
@@ -154,32 +166,6 @@ struct base_type< CMap<T, TA, U, UA> >
 	typedef U BASE_VALUE;
 };
 
-}
-
-template<typename T>
-typename peep::base_type<T>::BASE_TYPE* begin(T& ar
-	, typename detail::enable_if< IUTEST_STATIC_EXISTS(T::GetData), void>::type*& = detail::enabler::value)
-{
-	return ar.GetData();
-}
-template<typename T>
-typename peep::base_type<T>::BASE_TYPE* end(T& ar
-	, typename detail::enable_if< IUTEST_STATIC_EXISTS(T::GetData), void>::type*& = detail::enabler::value)
-{
-	return ar.GetData() + ar.GetCount();
-}
-
-template<typename T>
-mfc_iterator<T, typename peep::base_type<T>::BASE_TYPE> begin(T& list
-	, typename detail::enable_if< IUTEST_STATIC_EXISTS(T::GetHeadPosition), void>::type*& = detail::enabler::value)
-{
-	return mfc_iterator<T, peep::base_type<T>::BASE_TYPE>(list, list.GetHeadPosition());
-}
-template<typename T>
-mfc_iterator<T, typename peep::base_type<T>::BASE_TYPE> end(T& list
-	, typename detail::enable_if< IUTEST_STATIC_EXISTS(T::GetHeadPosition), void>::type*& = detail::enabler::value)
-{
-	return mfc_iterator<T, peep::base_type<T>::BASE_TYPE>(list, NULL);
 }
 
 template<typename T>
@@ -208,6 +194,45 @@ struct mfc_iterator_traits
 		, IUTEST_STATIC_EXISTS(T::GetHeadPosition)
 	>::type type;
 };
+
+template<typename T>
+typename peep::base_type<T>::BASE_TYPE* begin(T& ar
+	, typename detail::enable_if< IUTEST_STATIC_EXISTS(T::GetData), void>::type*& = detail::enabler::value)
+{
+	return ar.GetData();
+}
+template<typename T>
+typename peep::base_type<T>::BASE_TYPE* end(T& ar
+	, typename detail::enable_if< IUTEST_STATIC_EXISTS(T::GetData), void>::type*& = detail::enabler::value)
+{
+	return ar.GetData() + ar.GetCount();
+}
+
+template<typename T>
+mfc_iterator<T, typename peep::base_type<T>::BASE_TYPE> begin(T& list
+	, typename detail::enable_if< IUTEST_STATIC_EXISTS(T::GetHeadPosition), void>::type*& = detail::enabler::value)
+{
+	return mfc_iterator<T, peep::base_type<T>::BASE_TYPE>(list, list.GetHeadPosition());
+}
+template<typename T>
+mfc_iterator<T, typename peep::base_type<T>::BASE_TYPE> end(T& list
+	, typename detail::enable_if< IUTEST_STATIC_EXISTS(T::GetHeadPosition), void>::type*& = detail::enabler::value)
+{
+	return mfc_iterator<T, peep::base_type<T>::BASE_TYPE>(list, NULL);
+}
+
+template<typename T>
+typename mfc_iterator_traits<T>::type begin(T& map
+	, typename detail::enable_if< IUTEST_STATIC_EXISTS(T::GetStartPosition), void>::type*& = detail::enabler::value)
+{
+	return typename mfc_iterator_traits<T>::type(map, map.GetStartPosition());
+}
+template<typename T>
+typename mfc_iterator_traits<T>::type end(T& map
+	, typename detail::enable_if< IUTEST_STATIC_EXISTS(T::GetStartPosition), void>::type*& = detail::enabler::value)
+{
+	return typename mfc_iterator_traits<T>::type(map, NULL);
+}
 
 template<typename T>
 class CContainer
