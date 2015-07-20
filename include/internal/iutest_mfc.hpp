@@ -165,12 +165,26 @@ struct base_type< CList<T, U> >
 	typedef T BASE_KEY;
 	typedef T BASE_VALUE;
 };
+template<typename BASE_CLASS, typename T>
+struct base_type< CTypedPtrList<BASE_CLASS, T> >
+{
+	typedef T BASE_TYPE;
+	typedef T BASE_KEY;
+	typedef T BASE_VALUE;
+};
 template<typename T, typename TA, typename U, typename UA>
 struct base_type< CMap<T, TA, U, UA> >
 {
 	typedef ::std::pair<T, U> BASE_TYPE;
 	typedef T BASE_KEY;
 	typedef U BASE_VALUE;
+};
+template<typename BASE_CLASS, typename KEY, typename VALUE>
+struct base_type< CTypedPtrMap<BASE_CLASS, KEY, VALUE> >
+{
+	typedef ::std::pair<KEY, VALUE> BASE_TYPE;
+	typedef KEY BASE_KEY;
+	typedef VALUE BASE_VALUE;
 };
 
 }

@@ -106,7 +106,7 @@ IUTEST_TYPED_TEST(MFCArrayTypedTest, EqCollections)
 
 template<typename T>
 class MFCListTypedTest : public ::iutest::Test {};
-IUTEST_TYPED_TEST_CASE(MFCListTypedTest, ::iutest::Types<CList<int>
+IUTEST_TYPED_TEST_CASE(MFCListTypedTest, ::iutest::Types<CList<int>, CTypedPtrList<CPtrList, int*>
 	, CStringList, CPtrList, CObList>);
 
 IUTEST_TYPED_TEST(MFCListTypedTest, EqCollections)
@@ -128,8 +128,11 @@ IUTEST_TYPED_TEST(MFCListTypedTest, EqCollections)
 
 template<typename T>
 class MFCMapTypedTest : public ::iutest::Test {};
-IUTEST_TYPED_TEST_CASE(MFCMapTypedTest, ::iutest::Types< CMap<int, int, int, int>, CMapWordToPtr, CMapWordToOb
-	, CMapPtrToPtr, CMapPtrToWord, CMapStringToPtr, CMapStringToOb, CMapStringToString >);
+IUTEST_TYPED_TEST_CASE(MFCMapTypedTest, ::iutest::Types< CMap<int, int, int, int>
+	, CTypedPtrMap<CMapPtrToPtr, int*, int*>, CTypedPtrMap<CMapPtrToWord, int*, WORD>
+	, CTypedPtrMap<CMapWordToPtr, WORD, int*>, CTypedPtrMap<CMapStringToPtr, CString, int*>
+	, CMapWordToPtr, CMapWordToOb, CMapPtrToPtr, CMapPtrToWord
+	, CMapStringToPtr, CMapStringToOb, CMapStringToString >);
 
 IUTEST_TYPED_TEST(MFCMapTypedTest, EqCollections)
 {
