@@ -145,14 +145,21 @@ struct base_type : public T
 	}
 };
 template<typename T, typename U>
-struct base_type< CList<T, U> >
+struct base_type< CArray<T, U> >
+{
+	typedef T BASE_TYPE;
+	typedef T BASE_KEY;
+	typedef T BASE_VALUE;
+};
+template<typename BASE_CLASS, typename T>
+struct base_type< CTypedPtrArray<BASE_CLASS, T> >
 {
 	typedef T BASE_TYPE;
 	typedef T BASE_KEY;
 	typedef T BASE_VALUE;
 };
 template<typename T, typename U>
-struct base_type< CArray<T, U> >
+struct base_type< CList<T, U> >
 {
 	typedef T BASE_TYPE;
 	typedef T BASE_KEY;
@@ -199,13 +206,13 @@ template<typename T>
 typename peep::base_type<T>::BASE_TYPE* begin(T& ar
 	, typename detail::enable_if< IUTEST_STATIC_EXISTS(T::GetData), void>::type*& = detail::enabler::value)
 {
-	return ar.GetData();
+	return reinterpret_cast<typename peep::base_type<T>::BASE_TYPE*>(ar.GetData());
 }
 template<typename T>
 typename peep::base_type<T>::BASE_TYPE* end(T& ar
 	, typename detail::enable_if< IUTEST_STATIC_EXISTS(T::GetData), void>::type*& = detail::enabler::value)
 {
-	return ar.GetData() + ar.GetCount();
+	return reinterpret_cast<typename peep::base_type<T>::BASE_TYPE*>(ar.GetData() + ar.GetCount());
 }
 
 template<typename T>

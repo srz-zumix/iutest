@@ -83,7 +83,8 @@ struct test_value < CString >
 
 template<typename T>
 class MFCArrayTypedTest : public ::iutest::Test {};
-IUTEST_TYPED_TEST_CASE(MFCArrayTypedTest, ::iutest::Types<CArray<int>, CByteArray, CWordArray, CDWordArray, CUIntArray, CStringArray, CPtrArray, CObArray>);
+IUTEST_TYPED_TEST_CASE(MFCArrayTypedTest, ::iutest::Types<CArray<int>, CTypedPtrArray<CPtrArray, int*>
+	, CByteArray, CWordArray, CDWordArray, CUIntArray, CStringArray, CPtrArray, CObArray>);
 
 IUTEST_TYPED_TEST(MFCArrayTypedTest, EqCollections)
 {
@@ -105,7 +106,8 @@ IUTEST_TYPED_TEST(MFCArrayTypedTest, EqCollections)
 
 template<typename T>
 class MFCListTypedTest : public ::iutest::Test {};
-IUTEST_TYPED_TEST_CASE(MFCListTypedTest, ::iutest::Types<CList<int>, CStringList, CPtrList, CObList>);
+IUTEST_TYPED_TEST_CASE(MFCListTypedTest, ::iutest::Types<CList<int>
+	, CStringList, CPtrList, CObList>);
 
 IUTEST_TYPED_TEST(MFCListTypedTest, EqCollections)
 {
