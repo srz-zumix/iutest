@@ -21,7 +21,7 @@
 
 #if defined(_MSC_VER) && _MSC_VER >= 1310
 #  if !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
-#    if defined(_MSC_FULL_VER) && (_MSC_FULL_VER <= 190022816)
+#    if _MSC_VER >= 1900
 IUTEST_PRAGMA_MSC_WARN_PUSH()
 IUTEST_PRAGMA_MSC_WARN_DISABLE(4091)
 #      include <DbgHelp.h>
