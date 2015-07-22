@@ -16,6 +16,7 @@ script:
 
 env:
   - WANDBOX_COMPILER=gcc-head
+  - WANDBOX_COMPILER=gcc-5.2.0
 #  - WANDBOX_COMPILER=gcc-5.1.0 # travis
   - WANDBOX_COMPILER=gcc-4.9.2
 #  - WANDBOX_COMPILER=gcc-4.9.1 # wercker

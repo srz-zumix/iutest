@@ -1673,6 +1673,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, char** argv)		
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, wchar_t** argv)	{ detail::InitIrisUnitTest(pargc, argv); }		//!< @overload
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const char** argv)	{ detail::InitIrisUnitTest(pargc, argv); }	//!< @overload
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const wchar_t** argv)	{ detail::InitIrisUnitTest(pargc, argv); }	//!< @overload
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(void) { detail::InitIrisUnitTest<char**>(NULL, NULL); }	//!< @overload
 
 #if IUTEST_HAS_NULLPTR
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, ::std::nullptr_t)	{ detail::InitIrisUnitTest<char**>(pargc, NULL); }	//!< @overload

@@ -79,7 +79,7 @@
 #  define IUTEST_PLATFORM				"Solaris"
 #elif defined(__linux__)
 #  define IUTEST_OS_LINUX				1
-#  ifdef ANDROID
+#  if defined(ANDROID) || defined(__ANDROID__)
 #    define IUTEST_OS_LINUX_ANDROID		1
 #    define IUTEST_PLATFORM				"Android"
 #  else
