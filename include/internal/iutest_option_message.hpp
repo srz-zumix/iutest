@@ -60,6 +60,7 @@ inline void iuOptionMessage::ShowHelp(void)
 		"    --iutest_list_tests              : List up tests.\n"
 		"    --iutest_list_tests_with_where   : List up tests with where.\n"
 		"    --iutest_color=<yes|no|auto|ansi>: Console color enable.\n"
+		"    --iutest_flagfile=<file>         : Set the flag from the file.\n"
 		"    --iutest_filter=<filter>         : Select the test run.\n"
 		"    --iutest_shuffle                 : Do shuffle test.\n"
 		"    --iutest_random_seed=<seed>      : Set random seed.\n"

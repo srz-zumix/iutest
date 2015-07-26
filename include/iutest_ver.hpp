@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01120010u //!< iutest version 1.12.0.10
+#define IUTEST_VER			0x01120012u //!< iutest version 1.12.0.12
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x12u		//!< Minor Version
 #define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x10u		//!< Revision
+#define IUTEST_REVISION		0x12u		//!< Revision
 
 /**
  * @mainpage
@@ -70,6 +70,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
    <tr><td>--iutest_list_tests               </td><td></td><td>List up tests.</td></tr>
    <tr><td>--iutest_list_tests_with_where    </td><td></td><td>List up tests with where.</td></tr>
    <tr><td>--iutest_color                    </td><td>&lt;yes|no|auto|ansi&gt;</td><td>Console color enable.</td></tr>
+   <tr><td>--iutest_flagfile                 </td><td>&lt;file&gt;</td><td>Set the flag from the file.</td></tr>
    <tr><td>--iutest_filter                   </td><td>&lt;filter&gt;</td><td>Select the test run.</td></tr>
    <tr><td>--iutest_shuffle                  </td><td></td><td>Do shuffle test.</td></tr>
    <tr><td>--iutest_random_seed              </td><td>&lt;seed&gt;</td><td>Set random seed.</td></tr>
@@ -95,6 +96,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  <table>
    <tr><td>IUTEST_OUTPUT=xml|junit[:path]  </td><td>Path of xml report.</td></tr>
    <tr><td>IUTEST_COLOR=yes|no|auto        </td><td>Console color enable.</td></tr>
+   <tr><td>IUTEST_FLAGFILE=file            </td><td>Set the flag from the file.</td></tr>
    <tr><td>IUTEST_FILTER=filter            </td><td>Select the test run.</td></tr>
    <tr><td>IUTEST_SHUFFLE                  </td><td>Do shuffle test.</td></tr>
    <tr><td>IUTEST_RANDOM_SEED=seed         </td><td>Set random seed.</td></tr>
@@ -113,6 +115,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG	変更履歴
  * @par		Changes
  <ul>
+  <li>v1.13.0.0
+    <ul>
+      <li>--iutest_flagfile コマンドラインオプションに対応</li>
+      <li>MFC コンテナ対応</li>
+	  <li>非ヨーダ記法を提供するヘッダーを追加</li>
+      <li>Visual Studio 2015 対応</li>
+    </ul>
+  </li>
   <li>v1.12.0.0
     <ul>
       <li>IUTEST_PACKAGE v2 (多重定義制限の撤廃)</li>

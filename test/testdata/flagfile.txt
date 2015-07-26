@@ -1,0 +1,4 @@
+# iutest_flagfile_tests testdata
+--iutest_filter=@testdata/filter.txt
+--iutest_color=off
+

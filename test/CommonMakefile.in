@@ -103,6 +103,7 @@ TARGETS_IUTEST_ONLY = \
           iutest_filter_file_invalid_path_tests \
           iutest_filter_file_syntax_tests \
           iutest_filter_file_tests \
+          iutest_flagfile_tests \
           iutest_ostream_formatter_tests \
           iutest_output_tests \
           iutest_output_xml_invalid_path_tests \

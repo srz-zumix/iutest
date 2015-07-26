@@ -39,6 +39,7 @@
  *			print_time (bool)\n
  *          color (string)\n
  *          filter (string)\n
+ *          flagfile (string)\n
  *          output (string)\n
  *          repeat (int)\n
  *			list_tests (bool)\n
@@ -301,6 +302,7 @@ private:
 		int					m_repeat_count;
 		::std::string		m_output_option;
 		::std::string		m_test_filter;
+		::std::string		m_flagfile;
 #if IUTEST_HAS_STREAM_RESULT
 		::std::string		m_stream_result_to;
 #endif
@@ -325,6 +327,7 @@ public:
 	static const char*			get_output_option(void)		{ return get_vars().m_output_option.c_str(); }	//!< 出力オプション
 	static const char*			get_default_package_name(void) { return get_vars().m_default_package_name.c_str(); }	//!< root package オプション
 	static const char*			test_filter(void)			{ return get_vars().m_test_filter.c_str(); }	//!< フィルター文字列
+	static const char*			get_flagfile(void)			{ return get_vars().m_flagfile.c_str(); }		//!< flag file
 #if IUTEST_HAS_STREAM_RESULT
 	static const char*			get_stream_result_to(void)	{ return get_vars().m_stream_result_to.c_str(); }
 #endif
@@ -373,6 +376,15 @@ private:
 		get_vars().m_test_filter = str == NULL ? "*" : str;
 		TestFlag::SetFlag(TestFlag::FILTERING_TESTS);
 	}
+
+	/**
+	 * @brief	flagfile の設定
+	*/
+	static void set_flagfile(const char* str)
+	{
+		ParseFlagFileOption(str);
+	}
+
 #if IUTEST_HAS_STREAM_RESULT
 	/**
 	 * @brief	stream result の設定
@@ -483,8 +495,14 @@ public:
 	typedef OptionString<test_filter, set_test_filter> filter;
 
 	/**
-	* @private
-	* @brief	出力オプション設定用オブジェクト
+	 * @private
+	 * @brief	フィルターオプション設定用オブジェクト
+	*/
+	typedef OptionString<get_flagfile, set_flagfile> flagfile;
+
+	/**
+	 * @private
+	 * @brief	出力オプション設定用オブジェクト
 	*/
 	typedef OptionString<get_output_option, set_output_option> output;
 
@@ -682,6 +700,11 @@ private:
 	 * @brief	IUTEST_FILTER オプションの判定
 	*/
 	static bool ParseFilterOption(const char* option);
+
+	/**
+	 * @brief	IUTEST_FLAGFILE オプションの判定
+	*/
+	static bool ParseFlagFileOption(const char* option);
 
 	/**
 	 * @brief	yes オプションか no オプションかの判定

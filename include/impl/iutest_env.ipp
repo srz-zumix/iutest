@@ -175,9 +175,13 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 						find = false;
 					}
 				}
-				else if( detail::IsStringForwardMatching(str, "filter") )
+				else if(detail::IsStringForwardMatching(str, "filter"))
 				{
 					ParseFilterOption(ParseOptionSettingStr(str));
+				}
+				else if(detail::IsStringForwardMatching(str, "flagfile"))
+				{
+					ParseFlagFileOption(ParseOptionSettingStr(str));
 				}
 #if IUTEST_HAS_STREAM_RESULT
 				else if( detail::IsStringForwardMatching(str, "stream_result_to") )
@@ -331,7 +335,12 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnviromentVariable(void)
 		{
 			ParseFilterOption(str);
 		}
-		if( detail::GetEnvironmentVariable("IUTEST_DEFAULT_PACKAGE_NAME", str, sizeof(str)) )
+		if(detail::GetEnvironmentVariable("IUTEST_FLAGFILE", str, sizeof(str))
+			|| detail::GetEnvironmentVariable("GTEST_FLAGFILE", str, sizeof(str)))
+		{
+			ParseFlagFileOption(str);
+		}
+		if(detail::GetEnvironmentVariable("IUTEST_DEFAULT_PACKAGE_NAME", str, sizeof(str)))
 		{
 			set_default_package_name(str);
 		}
@@ -443,22 +452,14 @@ IUTEST_IPP_INLINE bool TestEnv::ParseFilterOption(const char* option)
 	{
 		// file
 		const char* path = option + 1;
-		IFile* fp = detail::IFileSystem::New();
-		if( fp == NULL )
-		{
-			return false;
-		}
-
-		if( !fp->Open(path, IFile::OpenRead) )
+		::std::string filter;
+		if(!detail::IFileSystem::ReadAll(path, filter))
 		{
 			fprintf(stderr, "Unable to open filter file \"%s\".\n", path);
 			fflush(stderr);
-			detail::IFileSystem::Free(fp);
 			return false;
 		}
 
-		::std::string filter = fp->ReadAll();
-		detail::IFileSystem::Free(fp);
 		detail::StringReplaceToLF(filter);
 		filter = detail::StringRemoveComment(filter);
 		detail::StringReplace(filter, '\n', ":");
@@ -467,6 +468,25 @@ IUTEST_IPP_INLINE bool TestEnv::ParseFilterOption(const char* option)
 	}
 
 	set_test_filter(option);
+	return true;
+}
+
+IUTEST_IPP_INLINE bool TestEnv::ParseFlagFileOption(const char* option)
+{
+	if(option == NULL ) return false;
+	const char* path = option;
+	::std::string flags;
+	if(!detail::IFileSystem::ReadAll(path, flags))
+	{
+		fprintf(stderr, "Unable to open flag file \"%s\".\n", path);
+		fflush(stderr);
+		return false;
+	}
+	detail::StringReplaceToLF(flags);
+	::std::vector< ::std::string > argv;
+	detail::StringSplit(flags, '\n', argv);
+	ParseCommandLine(argv);
+	set_flagfile(path);
 	return true;
 }
 

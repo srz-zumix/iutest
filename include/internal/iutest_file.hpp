@@ -24,11 +24,29 @@ namespace iutest
 {
 
 //======================================================================
-// declare
-class IFile;
-
-//======================================================================
 // class
+/**
+ * @brief	ファイルクラスインターフェイス
+*/
+class IFile : public detail::IOutStream, public detail::IInStream
+{
+public:
+	//! ファイルオープンモードフラグ
+	enum OpenFlag
+	{
+		OpenRead		= 0x00000001,	//!< 読み込み
+		OpenWrite		= 0x00000002,	//!< 書き込み
+		OpenReadWrite	= 0x00000003	//!< 読み書き
+	};
+public:
+	virtual ~IFile(void) {}
+public:
+	//! 開く
+	virtual bool Open(const char* filename, int mode) = 0;
+	//! 閉じる
+	virtual void Close(void) = 0;
+};
+
 namespace detail
 {
 
@@ -81,6 +99,25 @@ public:
 		fs->Delete(ptr);
 	}
 
+	static bool ReadAll(const char* filename, ::std::string& dst)
+	{
+		IFile* fp = detail::IFileSystem::New();
+		if(fp == NULL)
+		{
+			return false;
+		}
+
+		if(!fp->Open(filename, IFile::OpenRead))
+		{
+			detail::IFileSystem::Free(fp);
+			return false;
+		}
+
+		dst = fp->ReadAll();
+		detail::IFileSystem::Free(fp);
+		return true;
+	}
+
 private:
 	virtual IFile*	Create(void) = 0;
 	virtual void	Delete(IFile*) = 0;
@@ -94,28 +131,6 @@ template<typename T>
 
 namespace iutest
 {
-
-/**
- * @brief	ファイルクラスインターフェイス
-*/
-class IFile : public detail::IOutStream, public detail::IInStream
-{
-public:
-	//! ファイルオープンモードフラグ
-	enum OpenFlag
-	{
-		OpenRead		= 0x00000001,	//!< 読み込み
-		OpenWrite		= 0x00000002,	//!< 書き込み
-		OpenReadWrite	= 0x00000003	//!< 読み書き
-	};
-public:
-	virtual ~IFile(void) {}
-public:
-	//! 開く
-	virtual bool Open(const char* filename, int mode) = 0;
-	//! 閉じる
-	virtual void Close(void) = 0;
-};
 
 /**
  * @brief	ファイル処理クラスインターフェイス

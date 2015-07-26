@@ -167,6 +167,21 @@ inline ::std::string StringRemoveComment(const ::std::string& str)
 	return r;
 }
 
+inline void StringSplit(const ::std::string& str, char delimiter, ::std::vector< ::std::string >& dst)
+{
+	::std::string::size_type prev = 0;
+	::std::string::size_type pos = 0;
+	::std::vector< ::std::string > parsed;
+	while(pos = str.find(delimiter, prev), pos != ::std::string::npos)
+	{
+		parsed.push_back(str.substr(prev, pos - prev));
+		++pos;
+		prev = pos;
+	}
+	parsed.push_back(str.substr(prev));
+	dst.swap(parsed);
+}
+
 inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n) { return (n&0xF) >= 0xA ? 'A'+((n&0xF)-0xA) : '0'+(n&0xF); }
 
 template<typename T>
