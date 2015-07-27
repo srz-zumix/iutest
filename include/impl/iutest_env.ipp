@@ -486,7 +486,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseFlagFileOption(const char* option)
 	::std::vector< ::std::string > argv;
 	detail::StringSplit(flags, '\n', argv);
 	ParseCommandLine(argv);
-	set_flagfile(path);
+	set_flagfile_path(path);
 	return true;
 }
 

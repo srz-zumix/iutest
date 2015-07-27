@@ -380,6 +380,14 @@ private:
 	/**
 	 * @brief	flagfile の設定
 	*/
+	static void set_flagfile_path(const char* str)
+	{
+		get_vars().m_flagfile = str;
+	}
+
+	/**
+	 * @brief	flagfile の設定
+	*/
 	static void set_flagfile(const char* str)
 	{
 		ParseFlagFileOption(str);
