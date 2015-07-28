@@ -29,6 +29,13 @@ namespace iutest
 template<typename T>class WithParamInterface;
 template<typename T>class TestWithParam;
 
+namespace detail
+{
+
+::std::string MakeIndexTestName(const char* basename, int index);
+
+}
+
 //======================================================================
 // class
 /**
@@ -253,6 +260,15 @@ public:
 		return tuples::get<N>(GetParam());
 	}
 #endif
+
+	/**
+	 * @brief	テスト名の生成
+	*/
+	template<typename U>
+	static const ::std::string MakeTestName(const char* basename, int index, const U&)
+	{
+		return detail::MakeIndexTestName(basename, index);
+	}
 
 	/** @private */
 	static void SetParam(const ParamType* params) IUTEST_CXX_NOEXCEPT_SPEC { s_params = params; }

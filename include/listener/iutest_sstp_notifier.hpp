@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -124,7 +124,7 @@ public:
 	}
 	SSTP& Reference(int index, const ::std::string& info)
 	{
-		SendLn("Reference" + detail::StreamableToString(index) + ": " + info);
+		SendLn("Reference" + StreamableToString(index) + ": " + info);
 		return *this;
 	}
 	SSTP& Script(const ::std::string& script)
@@ -154,7 +154,7 @@ public:
 	}
 	SSTP& Hwnd(UInt32 hWnd)
 	{
-		SendLn("HWnd: " + detail::StreamableToString(hWnd));
+		SendLn("HWnd: " + StreamableToString(hWnd));
 		return *this;
 	}
 	SSTP& IfGhost(const ::std::string& ghost)
@@ -242,18 +242,18 @@ public:
 	template<typename T>
 	SakuraScript& Append(const T& v)
 	{
-		m_script.append(detail::StreamableToString(v));
+		m_script.append(StreamableToString(v));
 		return *this;
 	}
 
 public:
-	SakuraScript& Surface(int id) { Append("\\s[" + detail::StreamableToString(id) + "]"); return *this; }
-	SakuraScript& Animate(int id) { Append("\\i[" + detail::StreamableToString(id) + "]"); return *this; }
+	SakuraScript& Surface(int id) { Append("\\s[" + StreamableToString(id) + "]"); return *this; }
+	SakuraScript& Animate(int id) { Append("\\i[" + StreamableToString(id) + "]"); return *this; }
 	SakuraScript& Concat(void) { m_script.insert(0, "\\C"); return *this; }
 	SakuraScript& Ln(void) { Append("\\n"); return *this; }
 	SakuraScript& Home(void) { Append("\\h"); return *this; }
 	SakuraScript& You(void) { Append("\\u"); return *this; }
-	SakuraScript& Scope(int id) { Append("\\p[" + detail::StreamableToString(id) + "]"); return *this; }
+	SakuraScript& Scope(int id) { Append("\\p[" + StreamableToString(id) + "]"); return *this; }
 	SakuraScript& Quick(void) { Append("\\_q"); return *this; }
 
 	SakuraScript& Open(const ::std::string& file) { Append("\\![open,file," + file + "]"); return *this; }
@@ -400,7 +400,7 @@ namespace iutest
 IUTEST_IPP_INLINE SSTPNotifier::SSTPNotifier(const char* host, int port)
 	: m_sstp("iutest", detail::SSTP::CHARSET_UTF8)
 {
-	if( !m_sstp.Open(host, detail::StreamableToString(port).c_str()) )
+	if( !m_sstp.Open(host, StreamableToString(port).c_str()) )
 		IUTEST_LOG_(WARNING) << "SSTPNotifier: failed connect to " << host << ":" << port;
 }
 
@@ -422,9 +422,9 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestIterationStart(const UnitTest& test
 	IUTEST_UNUSED_VAR(test);
 	m_sstp.Notify()
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-		.Script(Script(detail::StreamableToString(iteration+1) + "回目のテストだよ").Concat().Ln().ToString())
+		.Script(Script(StreamableToString(iteration + 1) + "回目のテストだよ").Concat().Ln().ToString())
 #else
-		.Script(Script(detail::StreamableToString(iteration+1) + "-th test.").Concat().Ln().ToString())
+		.Script(Script(StreamableToString(iteration+1) + "-th test.").Concat().Ln().ToString())
 #endif
 		.End();
 }
@@ -433,9 +433,9 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestCaseStart(const TestCase& test_case)
 	m_sstp.Notify()
 		.Script(Script().Surface(Ghost::Normal)
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-			.Append(detail::StreamableToString(test_case.name()) + " テストケースを開始").Concat().Ln().ToString())
+			.Append(StreamableToString(test_case.name()) + " テストケースを開始").Concat().Ln().ToString())
 #else
-			.Append(detail::StreamableToString(test_case.name()) + " Start TestCase...").Concat().Ln().ToString())
+			.Append(StreamableToString(test_case.name()) + " Start TestCase...").Concat().Ln().ToString())
 #endif
 		.End();
 }
@@ -444,9 +444,9 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestStart(const TestInfo& test_info)
 	m_sstp.Notify()
 		.Script(Script().Surface(Ghost::Normal)
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-			.Append(detail::StreamableToString(test_info.name()) + " テストを開始").Concat().Ln().ToString())
+			.Append(StreamableToString(test_info.name()) + " テストを開始").Concat().Ln().ToString())
 #else
-			.Append(detail::StreamableToString(test_info.name()) + " Start Test...").Concat().Ln().ToString())
+			.Append(StreamableToString(test_info.name()) + " Start Test...").Concat().Ln().ToString())
 #endif
 		.End();
 }
@@ -463,9 +463,9 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestPartResult(const TestPartResult& test
 		m_sstp.Notify()
 			.Script(Script().Surface(Ghost::Anxiety).Append(FormatPath(filename)
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-				+ "の" + detail::StreamableToString(test_part_result.line_number()) + "行目で失敗したよ\n"
+				+ "の" + StreamableToString(test_part_result.line_number()) + "行目で失敗したよ\n"
 #else
-				+ ": " + detail::StreamableToString(test_part_result.line_number()) + ": Failed\n"
+				+ ": " + StreamableToString(test_part_result.line_number()) + ": Failed\n"
 #endif
 				+ FormatMessage(test_part_result.message())).Concat().Ln().Open(FormatPath(filename)).ToString())
 			.End();
@@ -474,7 +474,7 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestPartResult(const TestPartResult& test
 IUTEST_IPP_INLINE void SSTPNotifier::OnTestRecordProperty(const TestProperty& test_property)
 {
 	m_sstp.Notify()
-		.Script(Script("TestRecordProperty:" + detail::StreamableToString(test_property.key())
+		.Script(Script("TestRecordProperty:" + StreamableToString(test_property.key())
 			+ "=" + test_property.value()).Concat().Ln().ToString())
 		.End();
 }
@@ -486,19 +486,19 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestEnd(const TestInfo& test_info)
 #if IUTEST_SSTPNOTIFIER_JAPANESE
 			+ "したよ"
 #endif
-			+ "(" + detail::StreamableToString(test_info.elapsed_time()) + "ms)").Concat().Ln().ToString())
+			+ "(" + StreamableToString(test_info.elapsed_time()) + "ms)").Concat().Ln().ToString())
 		.End();
 }
 IUTEST_IPP_INLINE void SSTPNotifier::OnTestCaseEnd(const TestCase& test_case)
 {
 	m_sstp.Notify()
-		.Script(Script( detail::StreamableToString(test_case.name())
+		.Script(Script(StreamableToString(test_case.name())
 #if IUTEST_SSTPNOTIFIER_JAPANESE
 			+ " テストケースは" + FormatBool(test_case.Passed()) + "したよ"
 #else
 			+ " TestCase is"    + FormatBool(test_case.Passed()) + "."
 #endif
-			+ "(" + detail::StreamableToString(test_case.elapsed_time()) + "ms)").Concat().Ln().ToString())
+			+ "(" + StreamableToString(test_case.elapsed_time()) + "ms)").Concat().Ln().ToString())
 		.End();
 }
 IUTEST_IPP_INLINE void SSTPNotifier::OnTestIterationEnd(const UnitTest& test

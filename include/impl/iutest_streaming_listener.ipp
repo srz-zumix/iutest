@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -42,15 +42,15 @@ IUTEST_IPP_INLINE void StreamResultListener::OnTestIterationStart(const UnitTest
 								, int iteration)
 {
 	IUTEST_UNUSED_VAR(test);
-	SendLn("event=TestIterationStart&iteration=" + detail::StreamableToString(iteration));
+	SendLn("event=TestIterationStart&iteration=" + StreamableToString(iteration));
 }
 IUTEST_IPP_INLINE void StreamResultListener::OnTestCaseStart(const TestCase& test_case)
 {
-	SendLn("event=TestCaseStart&name=" + detail::StreamableToString(test_case.name()));
+	SendLn("event=TestCaseStart&name=" + StreamableToString(test_case.name()));
 }
 IUTEST_IPP_INLINE void StreamResultListener::OnTestStart(const TestInfo& test_info)
 {
-	SendLn("event=TestStart&name=" + detail::StreamableToString(test_info.name()));
+	SendLn("event=TestStart&name=" + StreamableToString(test_info.name()));
 }
 IUTEST_IPP_INLINE void StreamResultListener::OnTestPartResult(const TestPartResult& test_part_result)
 {
@@ -60,7 +60,7 @@ IUTEST_IPP_INLINE void StreamResultListener::OnTestPartResult(const TestPartResu
 		filename = "";
 	}
 	SendLn("event=TestPartResult&file=" + UrlEncode(filename)
-		+ "&line=" + detail::StreamableToString(test_part_result.line_number())
+		+ "&line=" + StreamableToString(test_part_result.line_number())
 		+ "&message=" + UrlEncode(test_part_result.message()));
 }
 IUTEST_IPP_INLINE void StreamResultListener::OnTestRecordProperty(const TestProperty& test_property)
@@ -72,14 +72,14 @@ IUTEST_IPP_INLINE void StreamResultListener::OnTestEnd(const TestInfo& test_info
 {
 	SendLn("event=TestEnd&passed="
 		+ FormatBool(test_info.Passed())
-		+ "&elapsed_time=" + detail::StreamableToString(test_info.elapsed_time()) + "ms"
+		+ "&elapsed_time=" + StreamableToString(test_info.elapsed_time()) + "ms"
 		);
 }
 IUTEST_IPP_INLINE void StreamResultListener::OnTestCaseEnd(const TestCase& test_case)
 {
 	SendLn("event=TestCaseEnd&passed="
 		+ FormatBool(test_case.Passed())
-		+ "&elapsed_time=" + detail::StreamableToString(test_case.elapsed_time()) + "ms"
+		+ "&elapsed_time=" + StreamableToString(test_case.elapsed_time()) + "ms"
 		);
 }
 IUTEST_IPP_INLINE void StreamResultListener::OnTestIterationEnd(const UnitTest& test
@@ -88,7 +88,7 @@ IUTEST_IPP_INLINE void StreamResultListener::OnTestIterationEnd(const UnitTest& 
 	IUTEST_UNUSED_VAR(iteration);
 	SendLn("event=TestIterationEnd&passed="
 		+ FormatBool(test.Passed())
-		+ "&elapsed_time=" + detail::StreamableToString(test.elapsed_time()) + "ms"
+		+ "&elapsed_time=" + StreamableToString(test.elapsed_time()) + "ms"
 		);
 }
 IUTEST_IPP_INLINE void StreamResultListener::OnTestProgramEnd(const UnitTest& test)

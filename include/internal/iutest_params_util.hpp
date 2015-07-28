@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -44,7 +44,7 @@ public:
 public:
 	IParamTestInfoData(const char* name) : m_name(name) {}
 	virtual TestCase* MakeTestCase(const char* , TestTypeId , SetUpMethod , TearDownMethod ) const = 0;
-	virtual EachTestBase* RegisterTest(TestCase* , int ) const = 0;
+	virtual EachTestBase* RegisterTest(TestCase* , const char* ) const = 0;
 	const char* GetName(void) const { return m_name.c_str(); }
 protected:
 	::std::string m_name;
@@ -163,12 +163,33 @@ public:
 				int i=0;
 				for( p->Begin(); !p->IsEnd(); p->Next() )
 				{
-					EachTest* test = static_cast<EachTest*>(infodata->RegisterTest(testcase, i));
+					const ::std::string name = Tester::MakeTestName(infodata->GetName(), i, p->GetCurrent());
+#if IUTEST_CHECK_STRICT
+					if( !CheckTestName(testcase, name) )
+					{
+						IUTEST_LOG_(WARNING) << "Test name (" << testcase_name << "." << name << ") is already exist.";
+					}
+#endif
+					EachTest* test = static_cast<EachTest*>(infodata->RegisterTest(testcase, name.c_str()));
 					test->SetParam(p->GetCurrent());
 					++i;
 				}
 			}
 		}
+	}
+
+private:
+	static bool CheckTestName(TestCase* testcase, const::std::string& name)
+	{
+		const int count = testcase->total_test_count();
+		for(int i = 0; i < count; ++i )
+		{
+			if( detail::IsStringEqual(name.c_str(), testcase->GetTestInfo(i)->name()) )
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 private:
 	typedef ::std::pair< ::std::string, pfnCreateGeneratorFunc* > InstantiationPair;

@@ -30,6 +30,14 @@ namespace iutest
 typedef detail::iuStreamMessage	Message;
 
 //======================================================================
+// function
+template<typename T>
+inline ::std::string StreamableToString(const T& value)
+{
+	return (Message() << value).GetString();
+}
+
+//======================================================================
 // declare
 namespace detail
 {

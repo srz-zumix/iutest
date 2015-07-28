@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -227,7 +227,7 @@ inline const ::iutest::TestInfo* FindTestInfo(const ::iutest::TestCase* testcase
 		return NULL;
 	}
 
-	int testinfo_count = testcase->total_test_count();
+	const int testinfo_count = testcase->total_test_count();
 	for( int i=0; i < testinfo_count; ++i )
 	{
 		const ::iutest::TestInfo* testinfo = testcase->GetTestInfo(i);

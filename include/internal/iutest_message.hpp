@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -128,12 +128,6 @@ inline iu_ostream& operator << (iu_ostream& os, const iuStreamMessage& msg)
 	return os << msg.GetString();
 }
 
-template<typename T>
-inline ::std::string StreamableToString(const T& value)
-{
-	return (iuStreamMessage() << value).GetString();
-}
-
 /**
  * @brief	ファイル/ライン/メッセージクラス
 */
@@ -163,7 +157,7 @@ public:
 	template<typename T>
 	iuCodeMessage& operator << (const T& value)
 	{
-		m_message += StreamableToString(value);
+		m_message += (iuStreamMessage() << value).GetString();
 		return *this;
 	}
 
