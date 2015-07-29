@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01120014u //!< iutest version 1.12.0.14
+#define IUTEST_VER			0x01120015u //!< iutest version 1.12.0.15
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x12u		//!< Minor Version
 #define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x14u		//!< Revision
+#define IUTEST_REVISION		0x15u		//!< Revision
 
 /**
  * @mainpage
@@ -119,7 +119,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <ul>
       <li>--iutest_flagfile コマンドラインオプションに対応</li>
       <li>MFC コンテナ対応</li>
-	  <li>非ヨーダ記法を提供するヘッダーを追加</li>
+      <li>値のパラメータ化テストのテスト名指定に対応</li>
+      <li>型付けテストのテスト名に型名をつけるオプションマクロ (IUTEST_TYPED_TEST_APPEND_TYPENAME) を追加</li>
+      <li>非ヨーダ記法を提供するヘッダーを追加</li>
       <li>Visual Studio 2015 対応</li>
     </ul>
   </li>

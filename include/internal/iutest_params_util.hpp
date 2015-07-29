@@ -167,7 +167,7 @@ public:
 #if IUTEST_CHECK_STRICT
 					if( !CheckTestName(testcase, name) )
 					{
-						IUTEST_LOG_(WARNING) << "Test name (" << testcase_name << "." << name << ") is already exist.";
+						IUTEST_LOG_(WARNING) << testcase_name << "." << name << " is already exist.";
 					}
 #endif
 					EachTest* test = static_cast<EachTest*>(infodata->RegisterTest(testcase, name.c_str()));

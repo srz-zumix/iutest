@@ -270,8 +270,11 @@ class TypeParamTestInstance
 #else
 			return UnitTest::instance().AddTestCase(
 #endif
+#if IUTEST_TYPED_TEST_APPEND_TYPENAME
+				detail::MakeIndexTypedTestName<TypeParam>(testcase, index).c_str()
+#else
 				detail::MakeIndexTestName(testcase, index).c_str()
-				//detail::MakeIndexTypedTestName<TypeParam>(testcase, index).c_str()
+#endif
 				, internal::GetTypeId<detail::None>()	// TypeId を統一するためダミー引数を渡す
 				, TestBody::SetUpTestCase
 				, TestBody::TearDownTestCase
@@ -280,6 +283,7 @@ class TypeParamTestInstance
 #endif
 				);
 		}
+
 	public:
 		// テストの登録
 		void AddTest(void)
@@ -469,8 +473,11 @@ public:
 #else
 			UnitTest::instance().AddTestCase(
 #endif
+#if IUTEST_TYPED_TEST_APPEND_TYPENAME
+			(package_name + detail::MakePrefixedIndexTypedTestName<TypeParam>(prefix, testcase_name, index)).c_str()
+#else
 			(package_name + detail::MakePrefixedIndexTestName(prefix, testcase_name, index)).c_str()
-			//detail::MakePrefixedIndexTypedTestName<TypeParam>(prefix, testcase_name, index).c_str()
+#endif
 			, internal::GetTypeId<FixtureClass>()
 			, FixtureClass::SetUpTestCase, FixtureClass::TearDownTestCase
 #if defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)

@@ -108,6 +108,7 @@ TARGETS_IUTEST_ONLY = \
           iutest_ostream_formatter_tests \
           iutest_output_tests \
           iutest_output_xml_invalid_path_tests \
+          iutest_param_test_name_invalid_tests \
           iutest_param_test_name_tests \
           iutest_no_yoda_tests \
           iutest_tap_file_generator_listener_tests \

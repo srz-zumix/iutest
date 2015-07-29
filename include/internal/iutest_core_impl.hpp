@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -185,8 +185,7 @@ template<typename T>
 ::std::string MakeIndexTypedTestName(const char* basename, int index)
 {
 #if IUTEST_HAS_RTTI
-	::std::string name = basename;
-	iu_stringstream strm; strm << index;
+	::std::string name = MakeIndexTestName(basename, index);
 	name += "/";
 	name += GetTypeName<T>();
 	return name;

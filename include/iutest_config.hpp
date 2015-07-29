@@ -436,6 +436,10 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_TYPED_TEST_APPEND_TYPENAME)
+//! 型付けテスト名に型名を付けるかどうか
+#  define IUTEST_TYPED_TEST_APPEND_TYPENAME	0
+#endif
 
 /**
  * @}
