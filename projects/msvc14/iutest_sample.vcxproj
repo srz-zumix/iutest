@@ -47,6 +47,7 @@
     <RootNamespace>iutest</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <ProjectName>iutest_sample</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -59,6 +60,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v140</PlatformToolset>
+    <WindowsAppContainer>true</WindowsAppContainer>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_LLVM|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
