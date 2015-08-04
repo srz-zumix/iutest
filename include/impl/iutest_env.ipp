@@ -335,11 +335,6 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnviromentVariable(void)
 		{
 			ParseFilterOption(str);
 		}
-		if(detail::GetEnvironmentVariable("IUTEST_FLAGFILE", str, sizeof(str))
-			|| detail::GetEnvironmentVariable("GTEST_FLAGFILE", str, sizeof(str)))
-		{
-			ParseFlagFileOption(str);
-		}
 		if(detail::GetEnvironmentVariable("IUTEST_DEFAULT_PACKAGE_NAME", str, sizeof(str)))
 		{
 			set_default_package_name(str);
@@ -351,6 +346,11 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnviromentVariable(void)
 			set_stream_result_to(str);
 		}
 #endif
+		if(detail::GetEnvironmentVariable("IUTEST_FLAGFILE", str, sizeof(str))
+			|| detail::GetEnvironmentVariable("GTEST_FLAGFILE", str, sizeof(str)))
+		{
+			ParseFlagFileOption(str);
+		}
 	}
 }
 
@@ -473,8 +473,16 @@ IUTEST_IPP_INLINE bool TestEnv::ParseFilterOption(const char* option)
 
 IUTEST_IPP_INLINE bool TestEnv::ParseFlagFileOption(const char* option)
 {
-	if(option == NULL ) return false;
-	const char* path = option;
+	if(option == NULL || option[0] == '\0' ) return false;
+	set_flagfile_path(option);
+	return true;
+}
+
+IUTEST_IPP_INLINE bool TestEnv::LoadFlagFile()
+{
+	const char* path = get_flagfile();
+	if(path == NULL || path[0] == '\0') return true;
+
 	::std::string flags;
 	if(!detail::IFileSystem::ReadAll(path, flags))
 	{
@@ -486,7 +494,6 @@ IUTEST_IPP_INLINE bool TestEnv::ParseFlagFileOption(const char* option)
 	::std::vector< ::std::string > argv;
 	detail::StringSplit(flags, '\n', argv);
 	ParseCommandLine(argv);
-	set_flagfile_path(path);
 	return true;
 }
 

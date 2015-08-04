@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "iutest_sample", "iutest_sample.vcxproj", "{13851977-F039-448D-A853-A98325BDA088}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -366,8 +366,8 @@ Global
 		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_CTP|Win32.Build.0 = Debug|Win32
 		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_gmock|Win32.ActiveCfg = Debug|Win32
 		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_gmock|Win32.Build.0 = Debug|Win32
-		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_gtest|Win32.ActiveCfg = Debug_gtest|Win32
-		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_gtest|Win32.Build.0 = Debug_gtest|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_gtest|Win32.ActiveCfg = Debug|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_gtest|Win32.Build.0 = Debug|Win32
 		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_Lib|Win32.ActiveCfg = Debug|Win32
 		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_Lib|Win32.Build.0 = Debug|Win32
 		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_LLVM|Win32.ActiveCfg = Debug|Win32

@@ -1660,6 +1660,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, T argv)
 {
 	UnitTestSource::GetInstance().Initialize();
 	TestEnv::ParseCommandLine(pargc, argv);
+	TestEnv::LoadFlagFile();
 }
 
 }
@@ -1685,6 +1686,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(::std::vector< ::std::basi
 {
 	UnitTestSource::GetInstance().Initialize();
 	TestEnv::ParseCommandLine(argv);
+	TestEnv::LoadFlagFile();
 }
 
 /**

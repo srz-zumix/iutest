@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -23,9 +23,9 @@ IUTEST(Foo, NotRun)
 }
 
 #ifdef UNICODE
-#  define DECAL_ARGV(cmd) const wchar_t* targv[] = { argv[0], L cmd }
+#  define DECAL_ARGV(...) const wchar_t* targv[] = { argv[0], L ##__VA_ARGS__ }
 #else
-#  define DECAL_ARGV(cmd) const char*    targv[] = { argv[0],   cmd }
+#  define DECAL_ARGV(...) const char*    targv[] = { argv[0],     __VA_ARGS__ }
 #endif
 
 
@@ -86,6 +86,15 @@ int main(int argc, char* argv[])
 	}
 	{
 		IUTEST_EXPECT_FALSE(::iutest::TestFlag::IsEnableFlag(::iutest::TestFlag::SHOW_SPEC));
+		int targc = 4;
+		DECAL_ARGV("test1", "-v", "test2");
+		IUTEST_INIT(&targc, targv);
+		IUTEST_EXPECT_EQ(3, targc);
+		IUTEST_EXPECT_STREQ("test1", targv[1]);
+		IUTEST_EXPECT_STREQ("test2", targv[2]);
+		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
+	}
+	{
 		::std::vector< ::std::string > vargv;
 		vargv.push_back("test1");
 		vargv.push_back("-v");
@@ -117,16 +126,21 @@ int main(int argc, char* argv[])
 	}
 
 	{
+		const bool file_location_msvc = ::iutest::IUTEST_FLAG(file_location_style_msvc);
+		::iutest::IUTEST_FLAG(file_location_style_msvc) = !file_location_msvc;
+		
 		::std::vector< ::std::string > vargv;
 		vargv.push_back("--iutest_break_on_failure");
 		vargv.push_back("--iutest_throw_on_failure");
 		vargv.push_back("--iutest_filter");
+		vargv.push_back("--iutest_file_location=auto");
 		::iutest::InitIrisUnitTest(vargv);
 		IUTEST_EXPECT_EQ(0, vargv.size());
 		
 		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(break_on_failure) );
 		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(throw_on_failure) );
 		IUTEST_EXPECT_STREQ( "*", ::iutest::IUTEST_FLAG(filter).c_str() );
+		IUTEST_EXPECT_EQ   ( file_location_msvc, ::iutest::IUTEST_FLAG(file_location_style_msvc) );
 		
 		if( ::iutest::UnitTest::GetInstance()->Failed() ) return 1;
 	}

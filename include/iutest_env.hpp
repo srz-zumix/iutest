@@ -209,7 +209,7 @@ private:
 		Fragment(void) IUTEST_CXX_NOEXCEPT_SPEC {}
 		Fragment(bool f) { SetFlag(KIND, f ? -1 : ~KIND); }
 		_Myt& operator = (bool f) { SetFlag(KIND, f ? -1 : ~KIND); return *this; }
-		IUTEST_CXX_EXPLICIT_CONVERSION operator bool (void) const { return IsEnableFlag(KIND); }
+		operator bool (void) const { return IsEnableFlag(KIND); }
 	};
 
 private:
@@ -391,6 +391,7 @@ private:
 	static void set_flagfile(const char* str)
 	{
 		ParseFlagFileOption(str);
+		LoadFlagFile();
 	}
 
 #if IUTEST_HAS_STREAM_RESULT
@@ -653,6 +654,10 @@ public:
 			}
 		}
 	}
+
+	/** @brief	フラグファイルをロード */
+	static bool LoadFlagFile(void);
+
 private:
 	template<typename CharType>
 	static bool ParseCommandLineElem(CharType* argv)

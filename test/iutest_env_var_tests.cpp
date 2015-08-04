@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -34,6 +34,7 @@ int SetUpEnvironment(void)
 	if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "PRINT_TIME=1") == -1 ) return -1;
 	if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "REPEAT=2") == -1 ) return -1;
 	if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "FILTER=Flag*") == -1 ) return -1;
+	if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "OUTPUT=test") == -1 ) return -1;
 	
 	if( ::iutest::internal::posix::PutEnv("IUTEST_DEFAULT_PACKAGE_NAME=env_var") == -1 ) return -1;
 	if( ::iutest::internal::posix::PutEnv("IUTEST_FILE_LOCATION=vs") == -1 ) return -1;
@@ -60,6 +61,7 @@ IUTEST(FlagTest, Check)
 	IUTEST_EXPECT_EQ(   2 , ::iutest::IUTEST_FLAG(repeat) );
 	
 	IUTEST_EXPECT_STREQ( "Flag*", ::iutest::IUTEST_FLAG(filter).c_str() );
+	IUTEST_EXPECT_STREQ( "test", ::iutest::IUTEST_FLAG(output).c_str() );
 }
 
 #ifdef UNICODE
@@ -72,11 +74,11 @@ int main(int argc, char* argv[])
 	(void)argv;
 
 #ifdef UNICODE
-	wchar_t** targv = NULL;
+	wchar_t* targv[] = { L"" };
 #else
-	char** targv = NULL;
+	char* targv[] =  { "" };
 #endif
-	int targc = 0;
+	int targc = 1;
 	IUTEST_INIT(&targc, targv);
 	return IUTEST_RUN_ALL_TESTS();
 }
