@@ -162,7 +162,7 @@ test : $(BUILD_ONLY) $(RUNNER)
 showcxxversion:
 	$(CXX) --version
 
-run_% : %
+%_run : %
 	@echo $<
 ifdef USE_COVERAGE
 	${WINE_} ./$< $(RUN_OPTION) --iutest_output=xml:$<.xml > /dev/null
@@ -173,6 +173,9 @@ else
 	${WINE_} ./$< $(RUN_OPTION)
 endif
 endif
+
+run_% : %_run
+	@echo $< >NUL
 
 #
 #

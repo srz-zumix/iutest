@@ -60,6 +60,7 @@ TARGETS1= \
           iutest_extension_tests \
           iutest_file_system_tests \
           iutest_filter_tests \
+          iutest_flagfile_gtest_tests \
           iutest_help_tests \
           iutest_invalid_commandline_tests \
           iutest_japanese_tests \
