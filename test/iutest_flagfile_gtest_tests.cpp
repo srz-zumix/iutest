@@ -21,7 +21,7 @@
 #  define FLAG_FILE_TEST	IUTEST_HAS_FOPEN
 #else
 #  if GTEST_VER >= 0x01080000
-#    define FLAG_FILE_TEST	1
+#    define FLAG_FILE_TEST	GTEST_USE_OWN_FLAGFILE_FLAG_
 #  else
 #    define FLAG_FILE_TEST	0
 #  endif
