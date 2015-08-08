@@ -38,7 +38,7 @@ BUILD_TARGETS = $(RUN_TARGETS) $(BUILD_ONLY) $(COMPILEERROR_TARGETS)
 TARGETS = $(BUILD_TARGETS)
 
 SRCS   = $(BUILD_TARGETS:_tests=_tests.cpp)
-RUNNER = $(RUN_TARGETS:iutest=run_iutest)
+RUNNER = $(RUN_TARGETS:_tests=_tests_run)
 
 
 # build targets.
@@ -60,7 +60,7 @@ test : $(BUILD_ONLY) $(RUNNER)
 showcxxversion:
 	-$(CXX)
 
-$(RUNNER) : $(@:run_=)
+$(RUNNER) : $(@:_run=)
 	@echo $@
 !ifdef OUTPUTXML
 	$(@:run_=) $(RUN_OPTION) --iutest_output=xml:$<.xml
