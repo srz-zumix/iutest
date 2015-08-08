@@ -15,13 +15,13 @@
     <ClCompile Include="..\..\..\test\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\test\iutest_tr1_value_tmp_tests.cpp">
+    <ClCompile Include="..\..\..\test\tr1_value_tmp_tests.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\test\iutest_tr1_param_direct_tests.cpp">
+    <ClCompile Include="..\..\..\test\tr1_param_direct_tests.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\test\iutest_tr1_failurecount_assertion_tests.cpp">
+    <ClCompile Include="..\..\..\test\tr1_failurecount_assertion_tests.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

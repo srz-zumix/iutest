@@ -146,8 +146,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\test\iutest_tr1_param_direct_tests.cpp" />
-    <ClCompile Include="..\..\..\test\iutest_tr1_value_tmp_tests.cpp">
+    <ClCompile Include="..\..\..\test\tr1_param_direct_tests.cpp" />
+    <ClCompile Include="..\..\..\test\tr1_value_tmp_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\test\main.cpp" />

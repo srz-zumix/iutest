@@ -9,7 +9,7 @@
     <ClCompile Include="..\..\..\test\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\test\iutest_tr1_value_tmp_tests.cpp">
+    <ClCompile Include="..\..\..\test\tr1_value_tmp_tests.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

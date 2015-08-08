@@ -244,9 +244,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\test\iutest_tr1_failurecount_assertion_tests.cpp" />
-    <ClCompile Include="..\..\..\test\iutest_tr1_param_direct_tests.cpp" />
-    <ClCompile Include="..\..\..\test\iutest_tr1_value_tmp_tests.cpp">
+    <ClCompile Include="..\..\..\test\tr1_failurecount_assertion_tests.cpp" />
+    <ClCompile Include="..\..\..\test\tr1_param_direct_tests.cpp" />
+    <ClCompile Include="..\..\..\test\tr1_value_tmp_tests.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug_gmock|Win32'">false</ExcludedFromBuild>
     </ClCompile>
