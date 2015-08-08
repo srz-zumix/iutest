@@ -175,7 +175,7 @@ endif
 endif
 
 run_% : %_run
-	@echo $< >NUL
+	@echo $< > /dev/null
 
 #
 #

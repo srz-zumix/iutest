@@ -11,7 +11,7 @@ before_script:
 
 script:
   - cd tools/wandbox
-  - python ./iuwandbox.py ../../test/iutest_syntax_tests.cpp -c ${WANDBOX_COMPILER} -f"-DIUTEST_USE_MAIN=1" --encoding utf-8-sig --expand_include
+  - python ./iuwandbox.py ../../test/syntax_tests.cpp -c ${WANDBOX_COMPILER} -f"-DIUTEST_USE_MAIN=1" --encoding utf-8-sig --expand_include
 #  - python ./iuwandbox.py sample.cpp -c ${WANDBOX_COMPILER}
 
 env:

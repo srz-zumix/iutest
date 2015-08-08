@@ -63,9 +63,9 @@ showcxxversion:
 $(RUNNER) : $(@:_run=)
 	@echo $@
 !ifdef OUTPUTXML
-	$(@:run_=) $(RUN_OPTION) --iutest_output=xml:$<.xml
+	$(@:_run=) $(RUN_OPTION) --iutest_output=xml:$<.xml
 !else
-	$(@:run_=) $(RUN_OPTION)
+	$(@:_run=) $(RUN_OPTION)
 !endif
 
 # Builds a sample test.  
