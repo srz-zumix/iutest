@@ -79,6 +79,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "iutest", "iutest.vcxproj", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "iutest_main", "iutest_main.vcxproj", "{264A677C-4EA1-4898-94F2-D6352788FB36}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "iutest_mfc_sample", "D:\usr\local\shirayanagi\iutest\projects\msvc14\mfc\iutest_mfc_sample.vcxproj", "{288EAA97-2940-4454-A6CD-BAE06FE35CDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_CTP|Win32 = Debug_CTP|Win32
@@ -300,6 +302,7 @@ Global
 		{C46DA5A4-27B5-4A0C-97D0-F5D0B9881087}.Debug_CTP|Win32.ActiveCfg = Debug_CTP|Win32
 		{C46DA5A4-27B5-4A0C-97D0-F5D0B9881087}.Debug_CTP|Win32.Build.0 = Debug_CTP|Win32
 		{C46DA5A4-27B5-4A0C-97D0-F5D0B9881087}.Debug_gtest|Win32.ActiveCfg = Debug_MD|Win32
+		{C46DA5A4-27B5-4A0C-97D0-F5D0B9881087}.Debug_gtest|Win32.Build.0 = Debug_MD|Win32
 		{C46DA5A4-27B5-4A0C-97D0-F5D0B9881087}.Debug_Lib|Win32.ActiveCfg = Debug_MD|Win32
 		{C46DA5A4-27B5-4A0C-97D0-F5D0B9881087}.Debug_Lib|Win32.Build.0 = Debug_MD|Win32
 		{C46DA5A4-27B5-4A0C-97D0-F5D0B9881087}.Debug_LLVM|Win32.ActiveCfg = Debug_LLVM|Win32
@@ -332,6 +335,24 @@ Global
 		{264A677C-4EA1-4898-94F2-D6352788FB36}.Release_MD|Win32.Build.0 = Release_MD|Win32
 		{264A677C-4EA1-4898-94F2-D6352788FB36}.Release|Win32.ActiveCfg = Release|Win32
 		{264A677C-4EA1-4898-94F2-D6352788FB36}.Release|Win32.Build.0 = Release|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_CTP|Win32.ActiveCfg = Debug|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_CTP|Win32.Build.0 = Debug|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_gtest|Win32.ActiveCfg = Debug|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_gtest|Win32.Build.0 = Debug|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_Lib|Win32.ActiveCfg = Debug|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_Lib|Win32.Build.0 = Debug|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_LLVM|Win32.ActiveCfg = Debug|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_LLVM|Win32.Build.0 = Debug|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_MD|Win32.ActiveCfg = Debug|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_MD|Win32.Build.0 = Debug|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_UNICODE|Win32.ActiveCfg = Debug|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug_UNICODE|Win32.Build.0 = Debug|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Debug|Win32.Build.0 = Debug|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Release_MD|Win32.ActiveCfg = Release|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Release_MD|Win32.Build.0 = Release|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Release|Win32.ActiveCfg = Release|Win32
+		{288EAA97-2940-4454-A6CD-BAE06FE35CDC}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

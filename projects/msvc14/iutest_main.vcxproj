@@ -30,6 +30,7 @@
     <ProjectGuid>{264A677C-4EA1-4898-94F2-D6352788FB36}</ProjectGuid>
     <RootNamespace>iutest_main</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'" Label="Configuration">
@@ -102,22 +103,22 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'">$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <TargetName>lib$(ProjectName)-vc120-mtd</TargetName>
+    <TargetName>lib$(ProjectName)-vc140-mtd</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_LLVM|Win32'">
-    <TargetName>lib$(ProjectName)-vc120-mtd</TargetName>
+    <TargetName>lib$(ProjectName)-vc140-mtd</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CTP|Win32'">
-    <TargetName>lib$(ProjectName)-vc120-mtd</TargetName>
+    <TargetName>lib$(ProjectName)-vc140-mtd</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_MD|Win32'">
-    <TargetName>lib$(ProjectName)-vc120-mdd</TargetName>
+    <TargetName>lib$(ProjectName)-vc140-mdd</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <TargetName>lib$(ProjectName)-vc120-mt</TargetName>
+    <TargetName>lib$(ProjectName)-vc140-mt</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'">
-    <TargetName>lib$(ProjectName)-vc120-md</TargetName>
+    <TargetName>lib$(ProjectName)-vc140-md</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
