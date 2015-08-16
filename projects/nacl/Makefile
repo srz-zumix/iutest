@@ -1,6 +1,5 @@
-VALID_TOOLCHAINS := pnacl newlib glibc
+VALID_TOOLCHAINS := pnacl newlib glibc clang-newlib win
 
-#NACL_SDK_ROOT=/cygdrive/c/nacl_sdk/pepper_33
 include $(NACL_SDK_ROOT)/tools/common.mk
 
 TARGET = sample
