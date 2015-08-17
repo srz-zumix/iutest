@@ -1,5 +1,7 @@
 VALID_TOOLCHAINS := pnacl newlib glibc clang-newlib win
 
+NACL_SDK_ROOT:=$(subst \,/,${NACL_SDK_ROOT})
+
 include $(NACL_SDK_ROOT)/tools/common.mk
 
 TARGET = sample
