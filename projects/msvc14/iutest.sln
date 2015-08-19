@@ -79,7 +79,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "iutest", "iutest.vcxproj", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "iutest_main", "iutest_main.vcxproj", "{264A677C-4EA1-4898-94F2-D6352788FB36}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "iutest_mfc_sample", "D:\usr\local\shirayanagi\iutest\projects\msvc14\mfc\iutest_mfc_sample.vcxproj", "{288EAA97-2940-4454-A6CD-BAE06FE35CDC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "iutest_mfc_sample", "mfc\iutest_mfc_sample.vcxproj", "{288EAA97-2940-4454-A6CD-BAE06FE35CDC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
