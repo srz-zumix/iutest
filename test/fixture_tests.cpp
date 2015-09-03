@@ -76,3 +76,49 @@ IUTEST_F(TestFixture, Test)
 	IUTEST_ASSERT_EQ(1, x);
 	++x;
 }
+
+
+#if !defined(IUTEST_USE_GTEST)
+
+class TestFixtureLikeVCUnit : public ::iutest::Test
+{
+public:
+	static int x;
+	
+	~TestFixtureLikeVCUnit()
+	{
+		IUTEST_EXPECT_EQ(3, x);
+	}
+public:
+	IUTEST_CLASS_INITIALIZE(a)
+	{
+		IUTEST_ASSERT_EQ(-1, x);
+		x = 0;
+	}
+	IUTEST_METHOD_INITIALIZE(b)
+	{
+		IUTEST_ASSERT_EQ(0, x);
+		++x;
+	}
+	IUTEST_METHOD_CLEANUP(c)
+	{
+		IUTEST_ASSERT_EQ(2, x);
+		++x;
+	}
+	IUTEST_CLASS_CLEANUP(d)
+	{
+		IUTEST_ASSERT_EQ(3, x);
+		x = -x;
+		IUTEST_SUCCEED() << x;
+	}
+};
+int TestFixtureLikeVCUnit::x = -1;
+
+IUTEST_F(TestFixtureLikeVCUnit, Test)
+{
+	IUTEST_ASSERT_EQ(1, x);
+	++x;
+}
+
+#endif
+

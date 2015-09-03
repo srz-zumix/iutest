@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -289,6 +289,14 @@ IUTEST(AssertionTest, Regex)
 /* ---------------------------------------------------
  * 失敗の確認
 *//*--------------------------------------------------*/
+IUTEST(DISABLED_TestFailure, Expression)
+{
+	IUTEST_EXPECT(f() > f() + 1 );
+	IUTEST_EXPECT_NOT(f() == 42);
+	IUTEST_EXPECT(f() && 0);
+	IUTEST_EXPECT(true && false);
+}
+
 IUTEST(DISABLED_TestFailure, EQ)
 {
 	IUTEST_ASSERT_EQ(0, 1);
