@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -162,7 +162,7 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteSt
 	const size_t length = wcslen(str) * MB_CUR_MAX + 1;
 	char* mbs = new char [length];
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
-	if( wcstombs(mbs, str, length) == (size_t)-1 )
+	if( wcstombs(mbs, str, length) == static_cast<size_t>(-1))
 	{
 		delete [] mbs;
 		return "(convert error)";
@@ -172,6 +172,26 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 	delete [] mbs;
 	return ret;
 #endif
+}
+
+IUTEST_IPP_INLINE ::std::wstring IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToWideString(const char* str)
+{
+	if(str == NULL)
+	{
+		return L"";
+	}
+	const size_t length = strlen(str) + 1;
+	wchar_t* wcs = new wchar_t[length];
+	IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+	if(mbstowcs(wcs, str, length) == static_cast<size_t>(-1))
+	{
+		delete[] wcs;
+		return L"(convert error)";
+	}
+	IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+	::std::wstring ret = wcs;
+	delete[] wcs;
+	return ret;
 }
 
 IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(const char* src, int num)

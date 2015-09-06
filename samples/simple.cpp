@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -158,3 +158,19 @@ IUTEST(DISABLED_TestFailure, Subroutine2)
 	// ここの失敗には "routine2." のメッセージは表示されません。
 	Sub2(3);
 }
+
+class ProdClass
+{
+	int m_x;
+public:
+	ProdClass() : m_x(100) {}
+};
+
+IUTEST_MAKE_PEEP(int ProdClass::*, ProdClass, m_x);
+
+IUTEST(ProdTest, Peep)
+{
+	ProdClass c;
+	IUTEST_ASSERT_EQ(100, IUTEST_PEEP_GET(c, ProdClass, m_x));
+}
+

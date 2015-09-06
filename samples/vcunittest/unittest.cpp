@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 
-#include "../../../include/iutest.hpp"
-#include "../../../include/gtest/iutest_switch.hpp"
-#include "../../../include/tr1/iutest_vc_unittest.hpp"
+#include "../../include/iutest.hpp"
+#include "../../include/gtest/iutest_switch.hpp"
+#include "../../include/tr1/iutest_vc_unittest.hpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -17,8 +17,14 @@ namespace iutest_unittest
 	TEST_CLASS(UnitTest1)
 	{
 	public:
-		
+		TEST_CLASS_INITIALIZE(a) { Logger::WriteMessage(__FUNCTION__); }
+		TEST_METHOD_INITIALIZE(b) { Logger::WriteMessage(__FUNCTION__); }
+
 		TEST_METHOD(TestMethod1)
+		{
+			Assert::AreEqual(0, 1);
+		}
+		TEST_METHOD(TestMethod2)
 		{
 			Assert::AreEqual(0, 1);
 		}

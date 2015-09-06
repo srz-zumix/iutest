@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -49,6 +49,13 @@ namespace detail
 ::std::string WideStringToMultiByteString(const wchar_t* str, int num=-1);
 
 /**
+ * @brief	文字列から ::std::wstring へ変換
+ * @param [in]	c_str	= 入力
+ * @return	wstring
+*/
+::std::wstring MultiByteStringToWideString(const char* str);
+
+/**
  * @brief	マルチバイト文字からUTF8へ変換
  * @param [in]	str	= 入力
  * @param [in]	num = 入力バッファサイズ
@@ -62,6 +69,7 @@ namespace detail
  * @return	string
 */
 ::std::string ShowWideCString(const wchar_t* wide_c_str);
+
 
 #if IUTEST_HAS_CXX_HDR_CODECVT
 /**

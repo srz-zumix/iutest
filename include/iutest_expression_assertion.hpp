@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -143,10 +143,17 @@ class ExpressionLHS
 {
 	typedef ExpressionLHS<T> _Myt;
 public:
+#if IUTEST_HAS_RVALUE_REFS
+	ExpressionLHS(T&& lhs) : m_lhs( ::std::forward<T>(lhs) )
+	{
+		AppendMessage(m_lhs);
+	}
+#else
 	ExpressionLHS(T lhs) : m_lhs(lhs)
 	{
 		AppendMessage(lhs);
 	}
+#endif
 	ExpressionLHS(T lhs, const ::std::string& msg) : m_lhs(lhs), m_message(msg) {}
 
 public:
@@ -235,11 +242,19 @@ class ExpressionDecomposer
 {
 public:
 #if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
+#if IUTEST_HAS_RVALUE_REFS
+	template<typename T>
+	ExpressionLHS<T> operator ->*(T&& expr)
+	{
+		return ExpressionLHS<T>(::std::forward<T>(expr));
+	}
+#else
 	template<typename T>
 	ExpressionLHS<const T&> operator ->*(const T& expr)
 	{
 		return ExpressionLHS<const T&>(expr);
 	}
+#endif
 #else
 	template<typename T>
 	ExpressionLHS<const T&> operator >>(const T& expr)

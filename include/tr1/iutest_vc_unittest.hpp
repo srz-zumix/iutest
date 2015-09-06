@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,8 +19,8 @@
 //======================================================================
 // include
 #include "CppUnitTest.h"
-#include "../../../include/iutest_prod.hpp"
-#include "../../../include/util/iutest_util_tests.hpp"
+#include "../../include/iutest_prod.hpp"
+#include "../../include/util/iutest_util_tests.hpp"
 
 //======================================================================
 // define
@@ -59,9 +59,25 @@
 		Body(); TearDown(); OnTestEnd(#testcase_, #testname_); }			\
 	TEST_CLASS_INITIALIZE(iuSetUp) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::SetUpTestCase(); }		\
 	TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::TearDownTestCase(); }	\
-	virtual void Body(void);				\
-	};										\
+	IIUT_VCUNIT_METHOD_ATTRIBUTE(testcase_, methodName)	\
+	virtual void Body(void);								\
+	};														\
 	void className::Body()
+
+//#define IIUT_VCUNIT_PACKAGENAME_GETTER()		\
+//	static constexpr wchar_t* GetPackageNameW() {	\
+//		static const ::std::wstring ws = ::iutest::detail::MultiByteStringToWideString(IUTEST_GET_PACKAGENAME_().c_str()).c_str();	\
+//		static wchar_t package_name[256];		\
+//		wcscpy(package_name, ws.c_str());		\
+//		return package_name;					\
+//	}
+//
+//	TEST_METHOD_ATTRIBUTE(L"Package", GetPackageNameW() )	\
+
+#define IIUT_VCUNIT_METHOD_ATTRIBUTE(testcase_, methodName)		\
+	BEGIN_TEST_METHOD_ATTRIBUTE(methodName)						\
+		TEST_METHOD_ATTRIBUTE(L"TestCase", L#testcase_)			\
+	END_TEST_METHOD_ATTRIBUTE()
 
 #ifndef IUTEST_USE_GTEST
 
@@ -109,6 +125,7 @@ IUTEST_MAKE_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, ::iutes
 	}																						\
 	TEST_CLASS_INITIALIZE(iuSetUp) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::SetUpTestCase(); }		\
 	TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::TearDownTestCase(); }	\
+	IIUT_VCUNIT_METHOD_ATTRIBUTE(testcase_, methodName)										\
 	virtual void Body(void);																\
 	private: static int	AddRegister(void) {													\
 			static ::iutest::detail::ParamTestInstance< className > testinfo(#testname_);	\
@@ -152,6 +169,7 @@ IUTEST_MAKE_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, ::iutes
 			testcase = ::iuutil::FindTypedTestCase(#testcase_, testcase);				\
 		}																				\
 	}																					\
+	IIUT_VCUNIT_METHOD_ATTRIBUTE(testcase_, methodName)									\
 	}
 
 #endif
@@ -186,6 +204,7 @@ IUTEST_MAKE_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, ::iutes
 			testcase = ::iuutil::FindParamTypedTestCase(#testcase_, testcase);			\
 		}																				\
 	}																					\
+	IIUT_VCUNIT_METHOD_ATTRIBUTE(testcase_, methodName)									\
 	}
 
 #endif
@@ -201,11 +220,39 @@ namespace iuutil {
 namespace VisualStudio
 {
 
+#if IUTEST_HAS_PEEP_FUNC
+
 typedef ::testing::TestEventListener* (::testing::TestEventListeners::* pfnRepeater)(void);
 
 #define testing	iutest
 IUTEST_MAKE_PEEP(pfnRepeater, ::testing::TestEventListeners, repeater);
 #undef testing
+
+::testing::TestEventListener* GetTestEventListenerRepeater(::testing::TestEventListeners& listeners)
+{
+#define testing	iutest
+	return IUTEST_PEEP_GET(listeners, ::testing::TestEventListeners, repeater)();
+#undef testing
+}
+
+#else
+
+#if defined(IUTEST_USE_GTEST)
+	IUTEST_MAKE_PEEP(::testing::internal::TestEventRepeater* testing::TestEventListeners::*, ::testing::TestEventListeners, repeater_);
+#else
+	IUTEST_MAKE_PEEP(::iutest::TestEventRepeater iutest::TestEventListeners::*, ::iutest::TestEventListeners, m_repeater);
+#endif
+
+::testing::TestEventListener* GetTestEventListenerRepeater(::testing::TestEventListeners& listeners)
+{
+#if defined(IUTEST_USE_GTEST)
+	return reinterpret_cast<::testing::TestEventListener*>( IUTEST_PEEP_GET(listeners, ::testing::TestEventListeners, repeater_) );
+#else
+	return &(IUTEST_PEEP_GET(listeners, ::iutest::TestEventListeners, m_repeater));
+#endif
+}
+
+#endif
 
 #ifndef IUTEST_USE_GTEST
 
@@ -232,10 +279,7 @@ public:
 			return;
 		}
 		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-		::iutest::TestEventListener* repeator =
-#define testing	iutest
-			IUTEST_PEEP_GET(listeners, ::testing::TestEventListeners, repeater)();
-#undef testing
+		::iutest::TestEventListener* repeator = GetTestEventListenerRepeater(listeners);
 		repeator->OnTestStart(*testinfo);
 	}
 	void OnTestEnd(const char* testcase_name, const char* testinfo_name)
@@ -246,10 +290,7 @@ public:
 			return;
 		}
 		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-		::iutest::TestEventListener* repeator =
-#define testing	iutest
-			IUTEST_PEEP_GET(listeners, ::testing::TestEventListeners, repeater)();
-#undef testing
+		::iutest::TestEventListener* repeator = GetTestEventListenerRepeater(listeners);
 		repeator->OnTestEnd(*testinfo);
 	}
 };
