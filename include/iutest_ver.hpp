@@ -123,6 +123,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <li>型付けテストのテスト名に型名をつけるオプションマクロ (IUTEST_TYPED_TEST_APPEND_TYPENAME) を追加</li>
       <li>非ヨーダ記法を提供するヘッダーを追加</li>
       <li>Visual Studio 2015 対応</li>
+      <li>tr1/iutest_vc_unittest.hpp を修正</li>
     </ul>
   </li>
   <li>v1.12.0.0

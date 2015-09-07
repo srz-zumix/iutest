@@ -10,6 +10,7 @@ Changes for 1.13.0:
 * Visual Studio 2015 対応
 
 ** 修正
+* tr1/iutest_vc_unittest.hpp を修正
 * バグ修正
 
 --------------------------------------------------
