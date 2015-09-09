@@ -151,6 +151,13 @@ IUTEST(UnitTest, FileLocqtion)
 		, ::iutest::detail::FormatFileLocation("main.cpp", -1) );
 }
 
+IUTEST(UnitTest, GetEnvironmentVariable)
+{
+	char buf[2];
+	IUTEST_EXPECT_FALSE( ::iutest::detail::GetEnvironmentVariable("PATH", buf, sizeof(buf)) );
+	IUTEST_EXPECT_FALSE( ::iutest::detail::GetEnvironmentVariable("PATH", NULL, 0) );
+}
+
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
