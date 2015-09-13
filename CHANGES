@@ -6,7 +6,7 @@ Changes for 1.13.0:
 * MFC コンテナ対応
 * 値のパラメータ化テストのテスト名指定に対応
 * 型付けテストのテスト名に型名をつけるオプションマクロ (IUTEST_TYPED_TEST_APPEND_TYPENAME) を追加
-* 非ヨーダ記法を提供するヘッダーを追加
+* 非ヨーダ記法を提供するヘッダー（iutest_util_no_yoda.hpp）を追加
 * Visual Studio 2015 対応
 
 ** 修正
