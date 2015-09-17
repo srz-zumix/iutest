@@ -54,16 +54,17 @@ before_script:
   - if [ "${WINEGCC}" = '1' ]; then export CXX=wineg++; fi
 
 script:
-  - cd ./test
-  - make showcxxversion ${USE_FUSE} all
+  - if [ "${CPPCHECK}" = '1' ]; then
+      cppcheck test;
+    else
+      cd ./test; make showcxxversion ${USE_FUSE} all;
+    fi
 
 after_success:
   # Coverage
   #- echo ${TRAVIS_JOB_ID}
   - if [ "${USE_COVERALLS}" = '1' ]; then make send-coveralls; fi
   - if [ "${USE_CODECOV}" = '1' ]; then make send-codecov; fi
-  # cppcheck
-  - if [ "${CPPCHECK}" = '1' ]; then cppcheck test; fi
   
 env:
   global:
@@ -86,6 +87,7 @@ matrix:
       env: USE_COVERAGE=gcov USE_CODECOV=1 STDFLAG=-std=c++11
     - compiler: gcc
       env: USE_COVERAGE=lcov USE_COVERALLS=1
+    - compiler: gcc
       env: CPPCHECK=1
     - compiler: gcc
       env: USE_FUSE=fuse
