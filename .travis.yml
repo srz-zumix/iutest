@@ -55,7 +55,7 @@ before_script:
 
 script:
   - if [ "${CPPCHECK}" = '1' ]; then
-      cppcheck test;
+      cppcheck samples --enable=all -f --suppress=syntaxError -i gmock -i gtest -i vcunittest -i windows;
     else
       cd ./test; make showcxxversion ${USE_FUSE} all;
     fi
