@@ -44,6 +44,8 @@ install:
   - if [ "${USE_GMOCK}" = '1' ]; then sudo apt-get -qq install cmake; fi
   - if [ "${USE_GMOCK}" = '1' ]; then sudo apt-get -qq install google-mock; fi
   - if [ "${USE_GMOCK}" = '1' ]; then cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/; cd -; fi
+  # cppcheck
+  - if [ "${CPPCHECK}" = '1' ]; then sudo apt-get install -y cppcheck; fi
 
 before_script:
   # mingw
@@ -60,6 +62,9 @@ after_success:
   #- echo ${TRAVIS_JOB_ID}
   - if [ "${USE_COVERALLS}" = '1' ]; then make send-coveralls; fi
   - if [ "${USE_CODECOV}" = '1' ]; then make send-codecov; fi
+  # cppcheck
+  - if [ "${CPPCHECK}" = '1' ]; then cppcheck test; fi
+  
 env:
   global:
     # COVERITY_SCAN_TOKEN
@@ -81,6 +86,7 @@ matrix:
       env: USE_COVERAGE=gcov USE_CODECOV=1 STDFLAG=-std=c++11
     - compiler: gcc
       env: USE_COVERAGE=lcov USE_COVERALLS=1
+      env: CPPCHECK=1
     - compiler: gcc
       env: USE_FUSE=fuse
     - compiler: gcc
