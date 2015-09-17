@@ -55,7 +55,7 @@ before_script:
 
 script:
   - if [ "${CPPCHECK}" = '1' ]; then
-      cppcheck samples --enable=all -f -j 4 --suppress=syntaxError -i gmock -i gtest -i vcunittest -i windows;
+      cppcheck samples --enable=all -f -j 4 --suppress=syntaxError -i gmock -i gtest -i vcunittest -i windows -UGTEST_HIDE_UNREACHABLE_CODE_ -UGTEST_API_ -UGTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS_ -UGTEST_HAS_STD_TUPLE_ -UGTEST_MESSAGE_AT_ -UGTEST_INCLUDE_GTEST_GTEST_TYPED_TEST_H_ -UGMOCK_INCLUDE_GMOCK_GMOCK_H_ -U__STDC_WANT_SECURE_LIB__ -UIUTEST_USE_GTEST -UIUTEST_DEBUG;
     else
       cd ./test; make showcxxversion ${USE_FUSE} all;
     fi
