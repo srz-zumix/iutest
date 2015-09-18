@@ -88,8 +88,8 @@ matrix:
       env: USE_COVERAGE=gcov USE_CODECOV=1 STDFLAG=-std=c++11
     - compiler: gcc
       env: USE_COVERAGE=lcov USE_COVERALLS=1
-    - compiler: gcc
-      env: CPPCHECK=1
+    #- compiler: gcc
+    #  env: CPPCHECK=1
     - compiler: gcc
       env: USE_FUSE=fuse
     - compiler: gcc
