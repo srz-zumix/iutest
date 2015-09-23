@@ -3,9 +3,10 @@
 
 #include "../../include/iutest.hpp"
 #include "../../include/gtest/iutest_switch.hpp"
-#include "../../include/tr1/iutest_vc_unittest.hpp"
-
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
+#ifdef USE_IUTEST_TR1
+#include "../../include/tr1/iutest_vc_unittest.hpp"
 
 namespace iutest_unittest
 {
@@ -31,6 +32,7 @@ namespace iutest_unittest
 
 	};
 }
+#endif
 
 /** --------------------------------------------------
  * 簡単なテスト
@@ -80,7 +82,7 @@ IUTEST_F(TestFixed, Test1)
 
 IUTEST_F(TestFixed, Test2)
 {
-	IUTEST_ASSERT_EQ(2, x);
+	IUTEST_ASSERT_EQ(1, x);
 }
 
 typedef TestFixed TestFixed2;
@@ -92,7 +94,7 @@ IUTEST_F(TestFixed2, Test1)
 
 IUTEST_F(TestFixed2, Test2)
 {
-	IUTEST_ASSERT_EQ(2, x);
+	IUTEST_ASSERT_EQ(1, x);
 }
 
 /** --------------------------------------------------
@@ -272,6 +274,11 @@ public:
 	{
 		a = 0;
 		b = 0;
+		IUTEST_SUCCEED() << "SetUpTestCase";
+	}
+	static void TearDownTestCase(void)
+	{
+		IUTEST_SUCCEED() << "TearDownTestCase";
 	}
 };
 int TestP::a = 0;
@@ -381,7 +388,18 @@ IUTEST_INSTANTIATE_TEST_CASE_P(TestPCombineInstance, TestPCombine
 #if IUTEST_HAS_TYPED_TEST
 
 template<typename T>
-class TypedTest : public iutest::Test {};
+class TypedTest : public iutest::Test 
+{
+public:
+	static void SetUpTestCase(void)
+	{
+		IUTEST_SUCCEED() << "SetUpTestCase";
+	}
+	static void TearDownTestCase(void)
+	{
+		IUTEST_SUCCEED() << "TearDownTestCase";
+	}
+};
 typedef iutest::Types<int, long, short> TypedTestTypes;
 IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
 

@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01130000u //!< iutest version 1.13.0.0
+#define IUTEST_VER			0x01130001u //!< iutest version 1.13.0.1
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x13u		//!< Minor Version
 #define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x00u		//!< Revision
+#define IUTEST_REVISION		0x01u		//!< Revision
 
 /**
  * @mainpage
@@ -115,6 +115,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * @page	CHANGELOG	変更履歴
  * @par		Changes
  <ul>
+  <li>v1.13.1.0
+    <ul>
+      <li>iutest_util_vc_unittest.hpp を追加</li>
+    </ul>
+  </li>
   <li>v1.13.0.0
     <ul>
       <li>--iutest_flagfile コマンドラインオプションに対応</li>

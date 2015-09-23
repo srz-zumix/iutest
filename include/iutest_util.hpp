@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -21,6 +21,10 @@
 #include "util/iutest_util_output.hpp"
 #include "util/iutest_util_quiet_result_printer.hpp"
 #include "util/iutest_util_tests.hpp"
+
+#if defined(MS_CPP_UNITTESTFRAMEWORK)
+#include "util/iutest_util_vc_unittest.hpp"
+#endif
 
 /**
  * @brief iutest utility namespace
