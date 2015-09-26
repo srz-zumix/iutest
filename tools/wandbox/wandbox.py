@@ -50,7 +50,7 @@ class Wandbox:
 	def permanent_link(self, b):
 		self.parameter.update({'save':b})
 	def dump(self):
-		print self.parameter
+		print(self.parameter)
 
 if __name__ == '__main__':
 	w = Wandbox()
@@ -58,5 +58,5 @@ if __name__ == '__main__':
 	w.options('warning,gnu++1y')
 	w.compiler_options('-Dx=hogefuga\n-O3')
 	w.code('#include <iostream>\nint main() { int x = 0; std::cout << "hoge" << std::endl; }')
-	print w.run()
+	print(w.run())
 

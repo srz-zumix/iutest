@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 #
 # iutest_compiler_error_test.py
 #
@@ -13,6 +12,7 @@ import os
 import sys
 import argparse
 import re
+import codecs
 
 from argparse import ArgumentParser
 
@@ -27,6 +27,12 @@ class ErrorMessage:
 	
 	def set_type(self,str):
 		s = str.strip()
+		if s in {"error", u"エラー"}:
+			self.type = "error"
+		elif s in {"note", u"備考"}:
+			self.type = "note"
+		elif s in {"warning", u"警告"}:
+			self.type = "warning"
 		if s in {"error", "エラー"}:
 			self.type = "error"
 		elif s in {"note", "備考"}:
@@ -137,7 +143,7 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 0.1'
+		, version=u'%(prog)s version 0.2'
 	)
 	parser.add_argument(
 		'-c'
@@ -145,12 +151,22 @@ def parse_command_line():
 		, help = 'set compiler.'
 		, default='gcc'
 	)
-	parser.add_argument(
-		'-i'
-		, '--infile'
-		, help = 'compiler stdout.'
-		, default=sys.stdin
-	)
+	if sys.version_info[0] >= 3:
+		parser.add_argument(
+			'-i'
+			, '--infile'
+			, type=argparse.FileType('r', encoding='UTF-8')
+			, help = 'compiler stdout.'
+			, default=sys.stdin
+		)
+	else:
+		parser.add_argument(
+			'-i'
+			, '--infile'
+			, type=argparse.FileType('r')
+			, help = 'compiler stdout.'
+			, default=sys.stdin
+		)
 
 	del sys.argv[0]
 	options = parser.parse_args(sys.argv)
@@ -265,14 +281,14 @@ def parse_vc(options, f):
 def dump_msg(m):
 	if format_gcc:
 		if m.is_type_none():
-			print "%s:%d: %s" % (m.file, m.line, m.message)
+			print("%s:%d: %s" % (m.file, m.line, m.message))
 		else:
-			print "%s:%d: %s: %s" % (m.file, m.line, m.type, m.message)
+			print("%s:%d: %s: %s" % (m.file, m.line, m.type, m.message))
 	else:
 		if m.parent:
-			print "\t%s(%d): %s %s" % (m.file, m.line, m.type, m.message)
+			print("\t%s(%d): %s %s" % (m.file, m.line, m.type, m.message))
 		else:
-			print "%s(%d): %s %s" % (m.file, m.line, m.type, m.message)
+			print("%s(%d): %s %s" % (m.file, m.line, m.type, m.message))
 
 	
 def dump_msgs(m):
@@ -283,10 +299,10 @@ def dump_msgs(m):
 def dump_list(l):
 	for m in l:
 		if not m.parent:
-			print '------------------------------'
+			print('------------------------------')
 		dump_msg(m)
 		if not m.child:
-			print '------------------------------'
+			print('------------------------------')
 
 	return True
 
@@ -303,14 +319,14 @@ def test_result(result, msg, e):
 
 	if result:
 		if color_prompt:
-			print OKGREEN + '[OK] ' + ENDC + msg
+			print(OKGREEN + '[OK] ' + ENDC + msg)
 		else:
-			print '[OK] ' + msg
+			print('[OK] ' + msg)
 	else:
 		if color_prompt:
-			print FAIL + '[NG] ' + ENDC + msg
+			print(FAIL + '[NG] ' + ENDC + msg)
 		else:
-			print '[NG] ' + msg
+			print('[NG] ' + msg)
 
 #
 # iutest
@@ -363,14 +379,17 @@ def parse_output(options):
 	l = None
 	if not options.infile:
 		raise Exception("infile null")
+	#print(options.infile.encoding)
+	f = options.infile
+	#f = codecs.getreader('utf-8')(options.infile)
 		
 	if any(options.compiler.find(s) != -1 for s in ('clang', 'clang++')):
-		l = parse_clang(options, options.infile)
+		l = parse_clang(options, f)
 	elif any(options.compiler.find(s) != -1 for s in ('gcc', 'g++')):
-		l = parse_gcc(options, options.infile)
+		l = parse_gcc(options, f)
 	elif options.compiler == 'cl':
 		format_gcc = False
-		l = parse_vc(options, options.infile)
+		l = parse_vc(options, f)
 	else:
 		raise Exception("sorry, %s compiler is not supported", (options.compiler))
 	

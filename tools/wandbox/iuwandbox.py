@@ -2,6 +2,10 @@
 #
 # iuwandbox.py
 #
+# Copyright (C) 2014-2015, Takazumi Shirayanagi
+# This software is released under the new BSD License,
+# see LICENSE
+#
 
 import os
 import sys
@@ -146,7 +150,7 @@ def make_code(path, encoding, expand, includes):
 # check config
 def check_config(options):
 	if not find_compiler(options.compiler):
-		print 'Wandbox is not supported compiler [' + options.compiler + ']'
+		print('Wandbox is not supported compiler [' + options.compiler + ']')
 		listup_compiler()
 		sys.exit(1)
 
@@ -190,17 +194,17 @@ def run_wandbox(code, includes, options):
 # show result
 def show_result(r):
 	if 'error' in r:
-		print r['error']
+		print(r['error'])
 		sys.exit(1)
 	if 'compiler_message' in r:
-		print 'compiler_message:'
-		print r['compiler_message']
+		print('compiler_message:')
+		print(r['compiler_message'])
 	if 'program_message' in r:
-		print 'program_message:'
-		print r['program_message']
+		print('program_message:')
+		print(r['program_message'])
 	if 'url' in r:
-		print 'permlink: ' + r['permlink']
-		print 'url: ' + r['url']
+		print('permlink: ' + r['permlink'])
+		print('url: ' + r['url'])
 	if 'status' in r:
 		return int(r['status'])
 	return 1
@@ -209,15 +213,15 @@ def show_result(r):
 # show parameter
 def show_parameter(r):
 	if 'compiler' in r:
-		print 'compiler:' + r['compiler']
+		print('compiler:' + r['compiler'])
 	if 'options' in r:
-		print 'options:' + r['options']
+		print('options:' + r['options'])
 	if 'compiler-option-raw' in r:
-		print 'compiler-option-raw:' + r['compiler-option-raw']
+		print('compiler-option-raw:' + r['compiler-option-raw'])
 	if 'runtime-option-raw' in r:
-		print 'runtime-option-raw' + r['runtime-option-raw']
+		print('runtime-option-raw' + r['runtime-option-raw'])
 	if 'created-at' in r:
-		print r['created-at']
+		print(r['created-at'])
 
 #
 # run
@@ -242,7 +246,7 @@ def listup_compiler():
 	r = w.get_compiler_list()
 	for d in r:
 		if d['language'] == 'C++':
-			print d['name'] + ' (' + d['version'] + ')' 
+			print(d['name'] + ' (' + d['version'] + ')')
 
 #
 # find compiler
@@ -266,13 +270,13 @@ def listup_options(compiler):
 				for s in switches:
 					if 'name' in s:
 						if s['default']:
-							print s['name'] + ' (default)'
+							print(s['name'] + ' (default)')
 						else:
-							print s['name']
+							print(s['name'])
 					elif 'options' in s:
-						print s['default'] + ' (default)'
+						print(s['default'] + ' (default)')
 						for o in s['options']:
-							print '  ' + o['name']
+							print('  ' + o['name'])
 							
 #
 # get permlink
@@ -281,7 +285,7 @@ def get_permlink(link, output):
 	r = w.get_permlink(link)
 	p = r['parameter']
 	show_parameter(p)
-	print 'result:'
+	print('result:')
 	b = show_result(r['result'])
 	if output:
 		f = open(output, 'w')

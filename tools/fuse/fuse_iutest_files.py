@@ -1,19 +1,19 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 #
 # fuse_iutest_files.py
 #
-# Copyright (C) 2014, Takazumi Shirayanagi
+# Copyright (C) 2014-2015, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
 
 """ fuse_iutest_files.py
-fuse_iutest_files.py.py [IUTEST_ROOT_DIR] OUTPUT_DIR
+fuse_iutest_files.py [IUTEST_ROOT_DIR] OUTPUT_DIR
 """
 
 import os
 import sys
-import sets
 import re
 import codecs
 
@@ -28,7 +28,7 @@ EMPTYLINE_REGEX = re.compile(r'^\s*$')
 
 def Fuse(root, filename, output, output_dir, minimum):
 	output_file = codecs.open(os.path.join(output_dir, output), 'w', 'utf-8-sig')
-	processed_files = sets.Set();
+	processed_files = set();
 	def ProcessFile(curr, filename, fileset, minimum):
 		path = os.path.join(root, filename)
 		if not os.path.exists(path):
@@ -46,7 +46,7 @@ def Fuse(root, filename, output, output_dir, minimum):
 			m = INCLUDE_REGEX.match(line)
 			if m:
 				if find_ifdef:
-					s = sets.Set()
+					s = set()
 					s.add(path)
 					ProcessFile(os.path.dirname(path), m.group(1), s, minimum)
 				else:
@@ -102,7 +102,7 @@ def main():
 	elif argc == 3:
 		FuseAll(os.path.join(sys.argv[1], "include"), sys.argv[2])
 	else:
-		print __doc__
+		print(__doc__)
 		sys.exit(1)
 
 if __name__ == '__main__':
