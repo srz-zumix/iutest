@@ -85,11 +85,11 @@
 	: public IIUT_TO_VARNAME_(testcase_)<iutest_TypeParam> {						\
 		typedef IIUT_TO_VARNAME_(testcase_)<iutest_TypeParam> TestFixture;			\
 		typedef iutest_TypeParam TypeParam;											\
-		protected: virtual void Body(void);											\
+		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE;						\
 	};																				\
 	::iutest::detail::TypeParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_)			\
 		, IUTEST_TYPED_TEST_PARAMS_(testcase_) > IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(	\
-		IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_));		\
+		IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_));			\
 	template<typename iutest_TypeParam>												\
 	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_TypeParam>::Body(void)
 
@@ -99,12 +99,12 @@
 	: public IIUT_TO_VARNAME_(testcase_)<iutest_TypeParam> {						\
 		typedef IIUT_TO_VARNAME_(testcase_)<iutest_TypeParam> TestFixture;			\
 		typedef iutest_TypeParam TypeParam;											\
-		protected: virtual void Body(void) { IUTEST_SKIP() << "ignored test..."; }	\
+		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }	\
 		template<typename T>void Body(void);										\
 	};																				\
 	::iutest::detail::TypeParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_)			\
 		, IUTEST_TYPED_TEST_PARAMS_(testcase_) > IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(	\
-		IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_));		\
+		IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_));			\
 	template<typename iutest_TypeParam>												\
 	template<typename T>void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_TypeParam>::Body(void)
 
@@ -181,7 +181,7 @@
 	class testname_ : public testcase_<iutest_TypeParam> {		\
 		typedef testcase_<iutest_TypeParam> TestFixture;		\
 		typedef iutest_TypeParam TypeParam;						\
-		protected: virtual void Body(void);						\
+		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE;	\
 	};															\
 	static const int s_iutest_##testname_##_defined_dummy_ IUTEST_ATTRIBUTE_UNUSED_ =	\
 	IUTEST_TYPED_TEST_CASE_PSTATE_NAME_(testcase_).AddTestName(__FILE__, __LINE__, #testcase_, #testname_);		\
@@ -195,11 +195,11 @@
 	class testname_ : public testcase_<iutest_TypeParam> {		\
 		typedef testcase_<iutest_TypeParam> TestFixture;		\
 		typedef iutest_TypeParam TypeParam;						\
-		protected: virtual void Body(void) { IUTEST_SKIP() << "ignored test..."; }		\
+		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }		\
 		template<typename T>void Body(void);					\
 	};															\
 	static const int s_iutest_##testname_##_defined_dummy_ IUTEST_ATTRIBUTE_UNUSED_ =	\
-	IUTEST_TYPED_TEST_CASE_PSTATE_NAME_(testcase_).AddTestName(__FILE__, __LINE__, #testcase_, #testname_);		\
+	IUTEST_TYPED_TEST_CASE_PSTATE_NAME_(testcase_).AddTestName(__FILE__, __LINE__, #testcase_, #testname_);	\
 	}															\
 	template<typename iutest_TypeParam>template<typename T>		\
 	void IUTEST_TYPED_TEST_P_NAMESPACE_(testcase_)::testname_<iutest_TypeParam>::Body(void)

@@ -134,7 +134,7 @@
 	IIUT_TEST_P_FIXTURE_DECL_(testcase_)															\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public IIUT_TEST_P_BASE_FIXTURE(testcase_) {		\
 		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}								\
-		protected: virtual void Body(void);															\
+		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE;										\
 		private: static int AddRegister(void) {														\
 			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_			\
 				, testname_) > testinfo(IIUT_TO_NAME_STR_(testname_));								\
@@ -151,7 +151,7 @@
 #define IIUT_TEST_P_IGNORE_(testcase_, testname_)													\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public IIUT_TEST_P_BASE_FIXTURE(testcase_) {		\
 		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}								\
-		protected: virtual void Body(void) { IUTEST_SKIP() << "ignored test..."; }					\
+		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }		\
 		template<typename T>void Body(void);														\
 		private: static int AddRegister(void) {														\
 			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_			\

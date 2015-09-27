@@ -73,6 +73,9 @@ else
 endif
 endif
 
+#CXXFLAGS += -Wdelete-non-virtual-dtor -Wreorder -Wnoexcept
+#CXXFLAGS += -Wsuggest-override
+
 endif
 
 #

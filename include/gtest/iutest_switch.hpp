@@ -279,6 +279,10 @@ namespace tr1
 #define IUTEST_HAS_REGEX			GTEST_USES_POSIX_RE
 #define IUTEST_HAS_SEH				GTEST_HAS_SEH
 
+#ifndef IUTEST_CXX_OVERRIDE
+#  define IUTEST_CXX_OVERRIDE
+#endif
+
 #include "switch/iutest_switch_port.hpp"
 #include "switch/iutest_switch_core.hpp"
 

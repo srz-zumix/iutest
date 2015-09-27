@@ -110,7 +110,7 @@
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {			\
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));		\
 		public:	IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
-		protected: virtual void Body(void);													\
+		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE;								\
 	};																						\
 	::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>			\
 	IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(										\
@@ -127,7 +127,7 @@
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {			\
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN( IUTEST_TEST_CLASS_NAME_(testcase_, testname_) );	\
 		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
-		protected: virtual void Body(void) { IUTEST_SKIP() << "ignored test..."; }			\
+		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }			\
 		template<typename T>void Body(void);												\
 	};																						\
 	::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>			\
@@ -161,7 +161,7 @@
 		static ::std::string MakeTestName(void) { return ::iutest::detail::MakeIndexTestName(	\
 			IIUT_TO_NAME_STR_(testname_), ::iutest::detail::GetTypeUniqueCounter<				\
 				IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>()); }							\
-		protected: virtual void Body(void) { method_(__VA_ARGS__); }							\
+		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE { method_(__VA_ARGS__); }		\
 	};																							\
 	::iutest::detail::TestInstance<IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)>			\
 	IUTEST_PP_CAT( IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_), __LINE__)(					\
