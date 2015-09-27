@@ -6,9 +6,13 @@
 import os
 import sys
 import argparse
-import ConfigParser
 import twilio
 import xml.etree.ElementTree as ET
+
+try:
+	import configparser
+except ImportError:
+	import ConfigParser as configparser
 
 from argparse import ArgumentParser
 from twilio.rest import TwilioRestClient
@@ -27,7 +31,7 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 0.3'
+		, version=u'%(prog)s version 0.4'
 	)
 	parser.add_argument(
 		'--ini'
@@ -121,7 +125,7 @@ def parse_ini(path):
 	global sms_number
 	if account_sid and auth_token and my_number:
 		return
-	ini = ConfigParser.SafeConfigParser()
+	ini = configparser.SafeConfigParser()
 	if not os.path.exists(path):
 		sys.stderr.write('%s not found...' % path)
 		sys.exit(2)
@@ -133,9 +137,9 @@ def parse_ini(path):
 	sms_number = get_ini(ini, 'Twilio', 'sms_number')
 		
 #	for section in ini.sections():
-#		print '[%s]' % (section)
+#		print('[%s]' % (section))
 #		for key in ini.options(section):
-#			print '%s.%s =%s' % (section, key, ini.get(section, key))
+#			print('%s.%s =%s' % (section, key, ini.get(section, key)))
 
 #
 # parse xml
@@ -155,12 +159,12 @@ def make_twilio():
 # call twilio
 def call(client, options):
 	if options.dryrun:
-		print 'twilio call to ' + options.call
+		print('twilio call to ' + options.call)
 	else:
 		call = client.calls.create(url=options.url,
 			to=options.call,
 			from_=my_number)
-		print call.sid
+		print(call.sid)
 
 
 #
@@ -222,13 +226,13 @@ def make_message(options):
 def message(client, options):
 	m = make_message(options)
 	if options.dryrun:
-		print 'twilio call to ' + options.sms
-		print m
+		print('twilio call to ' + options.sms)
+		print(m)
 	else:
 		call = client.messages.create(body=m,
 			to=options.sms,
 			from_=sms_number)
-		print call.sid
+		print(call.sid)
 
 #
 # run
@@ -238,13 +242,13 @@ def run(options):
 		if not os.path.exists(filepath):
 			sys.exit(1)
 		else:
-			if parse_xml(filepath) > 0:
+			if int(parse_xml(filepath)) > 0:
 				if options.sms:
 					message(make_twilio(), options)
 				elif options.call:
 					call(make_twilio(), options)
 				else:
-					print 'was failed ' + filepath
+					print('was failed ' + filepath)
 	else:
 		if options.call:
 			call(make_twilio(), options)
@@ -254,13 +258,13 @@ def run(options):
 #
 # dump
 def dump(options):
-	print 'account_sid: %s' % (account_sid)
-	print 'auth_token : %s' % (auth_token)
-	print 'my_number  : %s' % (my_number)
+	print('account_sid: %s' % (account_sid))
+	print('auth_token : %s' % (auth_token))
+	print('my_number  : %s' % (my_number))
 	if options.call:
-		print 'call       : %s' % (options.call)
+		print('call       : %s' % (options.call))
 	if options.sms:
-		print 'sms        : %s' % (options.sms)
+		print('sms        : %s' % (options.sms))
 
 #
 #

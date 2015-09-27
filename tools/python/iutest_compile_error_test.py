@@ -214,10 +214,11 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
 			n = re_declaration.match(line)
 			if n and prev and prev.message.find(n.group(1)) != -1:
 				is_declaration = True
-				
-			if is_child or is_type_none or is_declaration or re_expansion.search(msg.message):
-				prev.child = msg
-				msg.parent = prev
+
+			if prev:
+				if is_child or is_type_none or is_declaration or re_expansion.search(msg.message):
+					prev.child = msg
+					msg.parent = prev
 		else:
 			if msg:
 				msg.message += '\n'

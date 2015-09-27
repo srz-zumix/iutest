@@ -19,7 +19,7 @@ sample: sample.cpp $(TOOLS) Makefile
 save: sample.cpp $(TOOLS) Makefile
 	python iupaiza.py sample.cpp
 
-test: ../../test/iutest_syntax_tests.cpp Makefile
+test: ../../test/syntax_tests.cpp Makefile
 	#python iupaiza.py $< -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --expand_include --encoding utf-8-sig
 	
 lentest: Makefile
