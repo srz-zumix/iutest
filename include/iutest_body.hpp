@@ -17,8 +17,6 @@
 
 //======================================================================
 // include
-#include "iutest_result.hpp"
-#include "iutest_printers.hpp"
 #include "internal/iutest_mediator.hpp"
 
 namespace iutest

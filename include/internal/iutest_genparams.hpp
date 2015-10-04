@@ -15,10 +15,6 @@
 #ifndef INCG_IRIS_IUTEST_GENPARAMS_HPP_7845F59A_825C_426A_B451_573245408998_
 #define INCG_IRIS_IUTEST_GENPARAMS_HPP_7845F59A_825C_426A_B451_573245408998_
 
-//======================================================================
-// include
-#include "iutest_random.hpp"
-
 #if IUTEST_HAS_PARAM_TEST
 
 namespace iutest {

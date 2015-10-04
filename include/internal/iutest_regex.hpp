@@ -17,7 +17,6 @@
 
 //======================================================================
 // include
-#include "iutest_stdlib.hpp"
 #if IUTEST_HAS_CXX_HDR_REGEX
 #  include <regex>
 #endif
