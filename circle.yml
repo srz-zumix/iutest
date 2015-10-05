@@ -9,6 +9,5 @@ dependencies:
 test:
   override:
     - cd tools/fused; make;
-    - cd tools/fused; make min;
     - cd tools/wandbox; make test;
     - cd tools/twilio; make dryrun CALL_NUMBER=+819012345678
