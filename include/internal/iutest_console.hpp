@@ -47,6 +47,7 @@ namespace detail
 class iuLogger
 {
 public:
+	virtual ~iuLogger() IUTEST_CXX_DEFAULT_FUNCTION
 	virtual void output(const char* fmt, ...)
 	{
 		va_list va;

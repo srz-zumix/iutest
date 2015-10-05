@@ -38,6 +38,7 @@ protected:
 public:
 	iuITestInfoMediator(TestInfo* p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_test_info(p) {}
 public:
+	virtual ~iuITestInfoMediator() IUTEST_CXX_DEFAULT_FUNCTION
 	virtual bool HasFatalFailure(void) const = 0;
 	virtual bool HasNonfatalFailure(void) const = 0;
 	virtual bool HasFailure(void) const = 0;
@@ -55,6 +56,7 @@ protected:
 public:
 	iuITestCaseMediator(TestCase* p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_test_case(p) {}
 public:
+	virtual ~iuITestCaseMediator() IUTEST_CXX_DEFAULT_FUNCTION
 	virtual const char* test_case_name(void) const = 0;
 	virtual const char* type_param(void) const = 0;
 	TestCase* ptr(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_test_case; }
