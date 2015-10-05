@@ -11,20 +11,20 @@ exec_sample: sample
 	
 dryrun: exec_sample iutwilio.py
 ifdef SMS
-	./iutwilio.py result.xml --dryrun --sms ${CALL_NUMBER}
+	python ./iutwilio.py result.xml --dryrun --sms ${CALL_NUMBER}
 else
-	./iutwilio.py result.xml --dryrun --call ${CALL_NUMBER}
+	python ./iutwilio.py result.xml --dryrun --call ${CALL_NUMBER}
 endif
 
 run: exec_sample iutwilio.py
 ifdef SMS
-	./iutwilio.py result.xml --sms ${CALL_NUMBER}
+	python ./iutwilio.py result.xml --sms ${CALL_NUMBER}
 else
-	./iutwilio.py result.xml --call ${CALL_NUMBER}
+	python ./iutwilio.py result.xml --call ${CALL_NUMBER}
 endif
 
 help: iutwilio.py
-	./iutwilio.py -h
+	python ./iutwilio.py -h
 
 setup:
 	#pip install twilio

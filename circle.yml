@@ -5,6 +5,7 @@ machine:
 dependencies:
   pre:
     - pip install requests
+    - pip install twilio
 
 test:
   override:
