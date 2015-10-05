@@ -9,6 +9,5 @@ dependencies:
 test:
   override:
     - cd tools/fuse; make;
-    - ls
-    - make min
+    - cd tools/fuse; make min;
     
