@@ -133,7 +133,7 @@ TARGETS = $(BUILD_TARGETS) $(ERR_TARGETS)
 SRCS   = $(BUILD_TARGETS:%=%.cpp)
 RUNNER = $(RUN_TARGETS:%=run_%)
 
-ifdef USE_FUSED
+ifdef USE_FUSEDD
 IUTEST_INCLUDE=-I$(IUTEST_DIR)/fused-src
 IUTEST_HEADERS+=$(IUTEST_DIR)/fused-src/iutest.hpp
 endif
@@ -182,16 +182,16 @@ run_% : %_run
 
 #
 #
-# fuse
+# fused
 #
 
-FUSE_PY= ../tools/fuse/*.py 
+FUSED_PY= ../tools/fused/*.py 
 
-fuse: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fuse/Makefile $(FUSE_PY)
-	make -C ../tools/fuse
+fused: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fused/Makefile $(FUSED_PY)
+	make -C ../tools/fused
 
-fuse_min: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fuse/Makefile $(FUSE_PY)
-	make -C ../tools/fuse min
+fused_min: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fused/Makefile $(FUSED_PY)
+	make -C ../tools/fused min
 
 #
 #

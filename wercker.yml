@@ -7,8 +7,8 @@ build:
         packages_list: "requests"
 
     - script: 
-        name: make fuse
-        code: make -C tools/fuse
+        name: make fused
+        code: make -C tools/fused
 
     - script:
         name: setup

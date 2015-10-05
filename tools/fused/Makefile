@@ -21,8 +21,8 @@ IUTEST_HEADERS = $(IUTEST_DIR)/include/*.hpp \
 FUSED_DIR = $(IUTEST_DIR)/fused-src
 
 
-default: $(FUSED_DIR) $(IUTEST_HEADERS) fuse_iutest_files.py Makefile
-	python fuse_iutest_files.py $(FUSED_DIR)
+default: $(FUSED_DIR) $(IUTEST_HEADERS) fused_iutest_files.py Makefile
+	python fused_iutest_files.py $(FUSED_DIR)
 
 min: default
 	mv $(FUSED_DIR)/iutest.min.hpp $(FUSED_DIR)/iutest.hpp

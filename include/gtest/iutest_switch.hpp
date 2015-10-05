@@ -282,6 +282,9 @@ namespace tr1
 #ifndef IUTEST_CXX_OVERRIDE
 #  define IUTEST_CXX_OVERRIDE
 #endif
+#ifndef IUTEST_CXX_DEFAULT_FUNCTION
+#  define IUTEST_CXX_DEFAULT_FUNCTION	{}
+#endif
 
 #include "switch/iutest_switch_port.hpp"
 #include "switch/iutest_switch_core.hpp"

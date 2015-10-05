@@ -7,8 +7,8 @@ TOOLS=paiza.py iupaiza.py
 
 WANDBOX_COMPILER?=gcc-head
 
-fuse:
-	make -C ../fuse
+fused:
+	make -C ../fused
 
 help: $(TOOLS)
 	python iupaiza.py -h

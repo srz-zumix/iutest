@@ -31,7 +31,19 @@ Project page
 [Github](https://github.com/srz-zumix/iutest)  
 [Google Group](https://groups.google.com/forum/?fromgroups#!forum/g-iutest)  
 
-    
+Tools
+--------------------------------------------------
+
+[![Circle CI](https://circleci.com/gh/srz-zumix/iutest.svg?style=svg)](https://circleci.com/gh/srz-zumix/iutest)
+
+* fused  
+make fused-src.
+* twilio  
+notifies the test results using twilio
+* wandbox  
+tools to make use of the iutest in wandbox
+
+
 License
 --------------------------------------------------
 
