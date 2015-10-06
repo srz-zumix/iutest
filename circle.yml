@@ -11,4 +11,4 @@ test:
   override:
     - cd tools/fused; make;
     - cd tools/wandbox; make test;
-    - cd tools/twilio; make dryrun CALL_NUMBER=+819012345678
+    - cd tools/twilio; make test CALL_NUMBER=+819012345678

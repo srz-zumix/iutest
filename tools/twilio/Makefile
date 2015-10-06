@@ -26,6 +26,11 @@ endif
 help: iutwilio.py
 	python ./iutwilio.py -h
 
+test: iutwilio.py
+	python ./iutwilio.py -h
+	- python ./iutwilio.py result.xml --dryrun --sms ${CALL_NUMBER}
+	- python ./iutwilio.py result.xml --dryrun --call ${CALL_NUMBER}
+
 setup:
 	#pip install twilio
 	easy_install twilio
