@@ -102,7 +102,7 @@ public:
 	 * @param [in]	end		= 終了値
 	 * @param [in]	step	= 増値
 	*/
-	iuRangeParamsGenerator(T begin, T end, T step=1)
+	iuRangeParamsGenerator(T begin, T end, T step)
 		: m_begin(begin)
 		, m_end(end)
 		, m_step(step)
@@ -113,7 +113,7 @@ public:
 public:
 	virtual void	Begin(void) IUTEST_CXX_OVERRIDE { m_cur = m_begin; }
 	virtual T		GetCurrent(void) const IUTEST_CXX_OVERRIDE { return m_cur; }
-	virtual void	Next(void) IUTEST_CXX_OVERRIDE { m_cur += m_step; }
+	virtual void	Next(void) IUTEST_CXX_OVERRIDE { m_cur = static_cast<T>(m_cur + m_step); }
 	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE { return !(m_cur < m_end); }
 };
 

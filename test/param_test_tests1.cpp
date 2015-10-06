@@ -26,12 +26,34 @@ IUTEST_P(ParamTest, Test)
 
 int param_test_array[] = { 3, 2, 1, 0 };
 ::std::vector<int> va(param_test_array, param_test_array+(sizeof(param_test_array)/sizeof(param_test_array[0])));
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, ParamTest, ::iutest::Range<int>(0, 10));
-IUTEST_INSTANTIATE_TEST_CASE_P(My3, ParamTest, ::iutest::Values(0, 1, 10));
-IUTEST_INSTANTIATE_TEST_CASE_P(My4, ParamTest, ::iutest::ValuesIn(param_test_array));
-IUTEST_INSTANTIATE_TEST_CASE_P(My5, ParamTest, ::iutest::ValuesIn(va));
+IUTEST_INSTANTIATE_TEST_CASE_P(Range, ParamTest, ::iutest::Range<int>(0, 10));
+IUTEST_INSTANTIATE_TEST_CASE_P(Values, ParamTest, ::iutest::Values(0, 1, 10));
+IUTEST_INSTANTIATE_TEST_CASE_P(ValuesInArray, ParamTest, ::iutest::ValuesIn(param_test_array));
+IUTEST_INSTANTIATE_TEST_CASE_P(ValuesInVector, ParamTest, ::iutest::ValuesIn(va));
 #if IUTEST_HAS_INITIALIZER_LIST
-IUTEST_INSTANTIATE_TEST_CASE_P(My6, ParamTest, ::iutest::ValuesIn({ 3, 2, 1, 0 }));
+IUTEST_INSTANTIATE_TEST_CASE_P(ValuesInInitializerList, ParamTest, ::iutest::ValuesIn({ 3, 2, 1, 0 }));
+#endif
+
+#if !defined(IUTEST_USE_GTEST)
+
+enum TestEnum
+{
+	  TestEnum_0
+	, TestEnum_1
+	, TestEnum_2
+	, TestEnum_3
+	, TestEnum_4
+	, TestEnum_5
+};
+
+class EnumParamTest : public ::iutest::TestWithParam<TestEnum> {};
+
+IUTEST_P(EnumParamTest, Test)
+{
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_P(Range, EnumParamTest, ::iutest::Range<TestEnum>(TestEnum_0, TestEnum_5));
+
 #endif
 
 class BoolParamTest : public ::iutest::TestWithParam<bool> {};

@@ -303,7 +303,7 @@ struct paramtest_select_base_testcase< void(int (T)) >
  * @brief	範囲パラメータ
 */
 template<typename T>
-detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ Range(T begin, T end, T step=1)
+detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ Range(T begin, T end, T step=static_cast<T>(1))
 {
 	return new detail::iuRangeParamsGenerator<T>(begin, end, step);
 }
