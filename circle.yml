@@ -5,11 +5,10 @@ dependencies:
 
   pre:
     - mkdir -p .pip-cache
-    - pyenv install -ks 2.7.10
-    - pyenv shell 2.7.10
-    - pip install requests twilio
-    - pyenv install -ks 3.5.0
-    - pyenv shell 3.5.0
+    - pyenv install 2.7.10
+    - pyenv install 3.5.0
+    - pip install requests
+    - pip install twilio
 
 test:
   override:
