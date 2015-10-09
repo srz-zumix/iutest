@@ -7,7 +7,7 @@ dependencies:
     - mkdir -p .pip-cache
     - pyenv install -ks 2.7.10
     - pyenv shell 2.7.10
-    - pip install --download-cache .pip-cache requests twilio
+    - pip install requests twilio
     - pyenv install -ks 3.5.0
     - pyenv shell 3.5.0
 
