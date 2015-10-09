@@ -1,14 +1,23 @@
-machine:
-  python:
-    version: 3.5.0
-
 dependencies:
+  cache_directories:
+    - .pip-cache
+    - .pyenv
+
   pre:
-    - pip install requests
-    - pip install twilio
+    - mkdir -p .pip-cache
+    - pyenv install -ks 2.7.10
+    - pyenv shell 2.7.10
+    - pip install --download-cache .pip-cache requests twilio
+    - pyenv install -ks 3.5.0
+    - pyenv shell 3.5.0
 
 test:
   override:
+    - pyenv shell 2.7.10
+    - cd tools/fused; make;
+    - cd tools/wandbox; make test;
+    - cd tools/twilio; make test CALL_NUMBER=+819012345678
+    - pyenv shell 3.5.0
     - cd tools/fused; make;
     - cd tools/wandbox; make test;
     - cd tools/twilio; make test CALL_NUMBER=+819012345678
