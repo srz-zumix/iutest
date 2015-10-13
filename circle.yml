@@ -16,12 +16,16 @@ dependencies:
     - pip install twilio
 
 test:
+  pre:
+    - case $CIRCLE_NODE_INDEX in 0) pyenv shell 2.7.10 ;; 1) pyenv shell 3.5.0 ;; esac:
+        parallel: true
+
   override:
-    - pyenv shell 2.7.10
+    - python --version
+        parallel: true
     - cd tools/fused; make;
+        parallel: true
     - cd tools/wandbox; make test;
+        parallel: true
     - cd tools/twilio; make test CALL_NUMBER=+819012345678
-    - pyenv shell 3.5.0
-    - cd tools/fused; make;
-    - cd tools/wandbox; make test;
-    - cd tools/twilio; make test CALL_NUMBER=+819012345678
+        parallel: true
