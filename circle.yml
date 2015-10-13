@@ -21,6 +21,7 @@ test:
         parallel: true
 
   override:
+    - pyenv shell 2.7.10
     - python --version:
         parallel: true
     - cd tools/fused; make; :
