@@ -21,7 +21,7 @@ test:
         parallel: true
 
   override:
-    - python --version
+    - python --version:
         parallel: true
     - cd tools/fused; make;
         parallel: true
