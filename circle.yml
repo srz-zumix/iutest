@@ -17,12 +17,11 @@ dependencies:
 
 test:
   pre:
-    - case $CIRCLE_NODE_INDEX in 0) pyenv shell 2.7.10 ;; 1) pyenv shell 3.5.0 ;; esac:
+    - case $CIRCLE_NODE_INDEX in 0) pyenv shell 2.7.10 ;; 1) pyenv shell 3.5.0 ;; esac; :
         parallel: true
 
   override:
-    - pyenv shell 2.7.10
-    - python --version:
+    - pyenv shell 2.7.10; python --version:
         parallel: true
     - cd tools/fused; make; :
         parallel: true
