@@ -17,7 +17,8 @@ dependencies:
 
 test:
   override:
-    - case $CIRCLE_NODE_INDEX in 0) pyenv shell 2.7.10 ;; 1) pyenv shell 3.3.0 ;; esac; :
+    - case $CIRCLE_NODE_INDEX in 0) pyenv shell 2.7.10 ;; 1) pyenv shell 3.3.0 ;; esac
+      $(pyenv which python) --version:
         parallel: true
     - $(pyenv which python) --version:
         parallel: true
