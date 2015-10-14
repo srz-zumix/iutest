@@ -16,13 +16,10 @@ dependencies:
     - pyenv shell 3.3.0; $(pyenv which pip) install requests twilio
 
 test:
-  pre:
-    - case $CIRCLE_NODE_INDEX in 0) pyenv global 2.7.10 ;; 1) pyenv global 3.3.0 ;; esac; :
-        parallel: true
-
   override:
-    - pyenv shell 2.7.10; $(pyenv which python) --version
-    - python --version:
+    - case $CIRCLE_NODE_INDEX in 0) pyenv shell 2.7.10 ;; 1) pyenv shell 3.3.0 ;; esac; :
+        parallel: true
+    - $(pyenv which python) --version:
         parallel: true
     - cd tools/fused; make; :
         parallel: true
