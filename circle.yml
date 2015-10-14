@@ -12,8 +12,8 @@ dependencies:
     - pyenv install -ks 2.7.10
     - pyenv install -ks 3.3.0
     - pip install requests twilio
-    - pyenv shell 2.7.10; $(pyenv witch pip) install requests twilio
-    - pyenv shell 3.3.0; $(pyenv witch pip) install requests twilio
+    - pyenv shell 2.7.10; $(pyenv which pip) install requests twilio
+    - pyenv shell 3.3.0; $(pyenv which pip) install requests twilio
 
 test:
   pre:
@@ -21,7 +21,7 @@ test:
         parallel: true
 
   override:
-    - pyenv shell 2.7.10; $(pyenv witch python) --version
+    - pyenv shell 2.7.10; $(pyenv which python) --version
     - python --version:
         parallel: true
     - cd tools/fused; make; :
