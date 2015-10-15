@@ -14,12 +14,12 @@ dependencies:
     - pip install requests twilio
     - pyenv shell 2.7.10; $(pyenv which pip) install requests twilio
     - pyenv shell 3.3.0; $(pyenv which pip) install requests twilio
-    - case $CIRCLE_NODE_INDEX in 0) pyenv local 2.7.10 ;; 1) pyenv local 3.3.0 ;; esac:
+    - case $CIRCLE_NODE_INDEX in 0) pyenv global 2.7.10 ;; 1) pyenv global 3.3.0 ;; esac:
         parallel: true
 
 test:
   override:
-    - pyenv --version:
+    - python --version:
         parallel: true
     - $(pyenv which python) --version:
         parallel: true
