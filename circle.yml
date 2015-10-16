@@ -5,15 +5,15 @@ dependencies:
   pre:
     - |
       case $CIRCLE_NODE_INDEX in
-        0) pyenv install -ks 2.7.10; pyenv global 2.7.10; $(pyenv which pip) install requests twilio; python --version ;;
-        1) pyenv install -ks 3.3.0;  pyenv global 3.3.0;  $(pyenv which pip) install requests twilio; python --version ;;
+        0) pyenv install -ks 2.7.10; pyenv global 2.7.10; $(pyenv which pip) install requests twilio; ;;
+        1) pyenv install -ks 3.5.0;  pyenv global 3.5.0;  $(pyenv which pip) install requests twilio; ;;
+        2) pyenv install -ks 3.4.3;  pyenv global 3.4.3;  $(pyenv which pip) install requests twilio; ;;
+        3) pyenv install -ks 3.3.3;  pyenv global 3.3.3;  $(pyenv which pip) install requests twilio; ;;
       esac
 
 test:
   override:
     - pyenv version; python --version:
-        parallel: true
-    - $(pyenv which python) --version:
         parallel: true
     - make :
         parallel: true
