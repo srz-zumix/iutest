@@ -1,7 +1,3 @@
-machine:
-  python:
-    version: 3.5.0
-    
 dependencies:
 #  cache_directories:
 #    - .pyenv
