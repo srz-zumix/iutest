@@ -3,29 +3,28 @@ machine:
     version: 3.5.0
     
 dependencies:
-  cache_directories:
-    - .pip-cache
-    - .pyenv
+#  cache_directories:
+#    - .pyenv
 
   pre:
-    - mkdir -p .pip-cache
-    - pyenv install -ks 2.7.10
-    - pyenv install -ks 3.3.0
-    - pip install requests twilio
-    - pyenv shell 2.7.10; $(pyenv which pip) install requests twilio
-    - pyenv shell 3.3.0; $(pyenv which pip) install requests twilio
-    - case $CIRCLE_NODE_INDEX in 0) pyenv global 2.7.10 ;; 1) pyenv global 3.3.0 ;; esac:
-        parallel: true
+    - |
+      case $CIRCLE_NODE_INDEX in
+        0) pyenv install -ks 2.7.10; pyenv global 2.7.10; $(pyenv which pip) install requests twilio; python --version ;;
+        1) pyenv install -ks 3.3.0;  pyenv global 3.3.0;  $(pyenv which pip) install requests twilio; python --version ;;
+      esac
 
 test:
   override:
-    - python --version:
+    - pyenv version; python --version:
         parallel: true
     - $(pyenv which python) --version:
         parallel: true
-    - cd tools/fused; make; :
+    - make :
         parallel: true
-    - cd tools/wandbox; make test; :
+        pwd: tools/fused
+    - make test :
         parallel: true
-    - cd tools/twilio; make test CALL_NUMBER=+819012345678 :
+        pwd: tools/wandbox
+    - make test CALL_NUMBER=+819012345678 :
         parallel: true
+        pwd: tools/twilio
