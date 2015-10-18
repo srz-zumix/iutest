@@ -214,11 +214,17 @@
 #  define IUTEST_HAS_CONSTEXPR		0
 #endif
 
+//! constexpr
 #if IUTEST_HAS_CONSTEXPR
 #  define IUTEST_CXX_CONSTEXPR			constexpr
-#  define IUTEST_CXX_CONSTEXPR_OR_CONST	constexpr
 #else
 #  define IUTEST_CXX_CONSTEXPR
+#endif
+
+//! constexpr or const
+#if IUTEST_HAS_CONSTEXPR
+#  define IUTEST_CXX_CONSTEXPR_OR_CONST	constexpr
+#else
 #  define IUTEST_CXX_CONSTEXPR_OR_CONST	const
 #endif
 
@@ -1015,6 +1021,11 @@
 #endif
 
 // workaround
+/**
+ * @private
+ * @{
+*/
+
 #if defined(_MSC_VER)
 // http://stackoverflow.com/questions/14487241/avoiding-an-inheritance-by-dominance-warning-for-a-mocked-stdfstream-class
 #  define IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()	\
@@ -1023,6 +1034,10 @@
 #else
 #  define IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()	
 #endif
+
+/**
+ * @}
+*/
 
 // pragma
 #include "iutest_pragma.hpp"
