@@ -3,16 +3,16 @@
 
 .PHONY: sample
 
-TOOLS=paiza.py iupaiza.py
+TOOLS=paizaio.py iupaiza.py
 
 WANDBOX_COMPILER?=gcc-head
-
-fused:
-	make -C ../fused
 
 help: $(TOOLS)
 	python iupaiza.py -h
 	
+fused:
+	make -C ../fused
+
 sample: sample.cpp $(TOOLS) Makefile
 	python iupaiza.py sample.cpp
 

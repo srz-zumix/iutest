@@ -21,6 +21,9 @@ test:
     - make test :
         parallel: true
         pwd: tools/wandbox
+    - make sample :
+        parallel: true
+        pwd: tools/paiza.io
     - make test CALL_NUMBER=+819012345678 :
         parallel: true
         pwd: tools/twilio

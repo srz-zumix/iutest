@@ -23,14 +23,14 @@ class PaizaIO:
 		result = r.json()
 		if 'error' in result:
 			if not 'longpoll timeout' in result['error']:
-				print result['error']
-				print result
+				print(result['error'])
+				print(result)
 				raise
 		
 		if 'id' in result:
 			self.session_id = result['id']
 		else:
-			print result
+			print(result)
 			raise
 		return result
 	
@@ -82,10 +82,10 @@ class PaizaIO:
 		self.parameter.update({'longpoll_timeout':t})
 		
 	def dump(self):
-		print self.parameter
+		print(self.parameter)
 
 if __name__ == '__main__':
 	paiza = PaizaIO()
 	paiza.code('#include <iostream>\nint main() { int x = 0; std::cout << "hoge" << std::endl; }')
-	print paiza.run()
+	print(paiza.run())
 

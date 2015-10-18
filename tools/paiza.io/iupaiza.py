@@ -103,27 +103,27 @@ def run_paiza(code, options):
 # show result
 def show_result(r):
 	if 'error' in r:
-		print r['error']
+		print(r['error'])
 		sys.exit(1)
 	build_result = r['build_result']
 	if 'success' in build_result:
 		if 'stdout' in r:
-			print 'stdout:'
-			print r['stdout']
+			print('stdout:')
+			print(r['stdout'])
 		if 'stderr' in r:
-			print 'stderr:'
-			print r['stderr']
+			print('stderr:')
+			print(r['stderr'])
 		if 'time' in r:
-			print 'time:'
-			print r['time']
+			print('time:')
+			print(r['time'])
 		if 'memory' in r:
-			print 'memory:'
-			print r['memory']
+			print('memory:')
+			print(r['memory'])
 		if 'exit_code' in r:
 			return int(r['exit_code'])
 	else:
 		if 'build_stderr' in r:
-			print r['build_stderr']
+			print(r['build_stderr'])
 		if 'build_exit_code' in r:
 			return int(r['build_exit_code'])
 
