@@ -23,6 +23,9 @@ namespace iutest {
 namespace mfc
 {
 
+/**
+ * @brief mfc container iterator
+*/
 template<typename T, typename U>
 class mfc_iterator : public ::std::iterator < ::std::input_iterator_tag, U >
 {
@@ -54,6 +57,9 @@ private:
 	POSITION m_pos;
 };
 
+/**
+ * @brief mfc map container iterator
+*/
 template<typename T, typename Key, typename Value>
 class mfc_map_iterator : public ::std::iterator < ::std::input_iterator_tag, ::std::pair<Key, Value> >
 {

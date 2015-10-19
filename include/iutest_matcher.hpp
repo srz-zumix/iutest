@@ -17,11 +17,6 @@
 
 #if IUTEST_HAS_MATCHERS
 
-/**
- * @defgroup	MATCHERS 	MATCHERS
- * @brief		Matchers
-*/
-
 //======================================================================
 // define
 /**
@@ -1869,11 +1864,19 @@ IIUT_DECL_ANYOF_MATCHER(10);
 
 }	// end of namespace detail
 
+/** 
+ * @brief iutest matchers namespace
+*/
 namespace matchers
 {
 
 /**
- * @ingroup	MATCHERS
+ * @defgroup	MATCHERS	Matchers
+ * @brief		Matchers
+ * @{
+*/
+
+/**
  * @brief	Make Equals matcher
  * @details	argument == expected
 */
@@ -1881,7 +1884,6 @@ template<typename T>
 detail::EqMatcher<T> Equals(const T& expected) { return detail::EqMatcher<T>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Eq matcher
  * @details	argument == expected
 */
@@ -1889,7 +1891,6 @@ template<typename T>
 detail::EqMatcher<T> Eq(const T& expected) { return detail::EqMatcher<T>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Ne matcher
  * @details	argument != expected
 */
@@ -1897,7 +1898,6 @@ template<typename T>
 detail::NeMatcher<T> Ne(const T& expected) { return detail::NeMatcher<T>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Le matcher
  * @details	argument <= expected
 */
@@ -1905,7 +1905,6 @@ template<typename T>
 detail::LeMatcher<T> Le(const T& expected) { return detail::LeMatcher<T>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Lt matcher
  * @details	argument < expected
 */
@@ -1913,7 +1912,6 @@ template<typename T>
 detail::LtMatcher<T> Lt(const T& expected) { return detail::LtMatcher<T>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Ge matcher
  * @details	argument >= expected
 */
@@ -1921,7 +1919,6 @@ template<typename T>
 detail::GeMatcher<T> Ge(const T& expected) { return detail::GeMatcher<T>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Gt matcher
  * @details	argument > expected
 */
@@ -1930,63 +1927,54 @@ detail::GtMatcher<T> Gt(const T& expected) { return detail::GtMatcher<T>(expecte
 
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Twofold Eq matcher
  * @details	argument == expected
 */
 inline detail::TwofoldEqMatcher Eq(void) { return detail::TwofoldEqMatcher(); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Twofold Ne matcher
  * @details	argument != expected
 */
 inline detail::TwofoldNeMatcher Ne(void) { return detail::TwofoldNeMatcher(); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Twofold Le matcher
  * @details	argument <= expected
 */
 inline detail::TwofoldLeMatcher Le(void) { return detail::TwofoldLeMatcher(); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Twofold Lt matcher
  * @details	argument < expected
 */
 inline detail::TwofoldLtMatcher Lt(void) { return detail::TwofoldLtMatcher(); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Twofold Ge matcher
  * @details	argument >= expected
 */
 inline detail::TwofoldGeMatcher Ge(void) { return detail::TwofoldGeMatcher(); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Twofold Gt matcher
  * @details	argument > expected
 */
 inline detail::TwofoldGtMatcher Gt(void) { return detail::TwofoldGtMatcher(); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make IsNull matcher
  * @details	argument == nullptr
 */
 inline detail::IsNullMatcher IsNull() { return detail::IsNullMatcher(); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make NotNull matcher
  * @details	argument != nullptr
 */
 inline detail::NotNullMatcher NotNull() { return detail::NotNullMatcher(); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make TypedEq matcher
  * @details	argument == expected
 */
@@ -1994,35 +1982,30 @@ template<typename T, typename U>
 detail::TypedEqMatcher<T> TypedEq(const U& expected) { return detail::TypedEqMatcher<T>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Float Eq matcher
  * @details	argument は expected とおよそ等しい
 */
 inline detail::FloatingPointEqMatcher<float> FloatEq(float expected) { return detail::FloatingPointEqMatcher<float>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Double Eq matcher
  * @details	argument は expected とおよそ等しい
 */
 inline detail::FloatingPointEqMatcher<double> DoubleEq(double expected) { return detail::FloatingPointEqMatcher<double>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make NanSensitive Float Eq matcher
  * @details	argument は expected とおよそ等しい（NaN 同士は等しいとされる）
 */
 inline detail::NanSensitiveFloatingPointEqMatcher<float> NanSensitiveFloatEq(float expected) { return detail::NanSensitiveFloatingPointEqMatcher<float>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make NanSensitive Double Eq matcher
  * @details	argument は expected とおよそ等しい（NaN 同士は等しいとされる）
 */
 inline detail::NanSensitiveFloatingPointEqMatcher<double> NanSensitiveDoubleEq(double expected) { return detail::NanSensitiveFloatingPointEqMatcher<double>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make StrEq matcher
  * @details	argument == expected
 */
@@ -2030,7 +2013,6 @@ template<typename T>
 detail::StrEqMatcher<T> StrEq(const T& expected) { return detail::StrEqMatcher<T>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make StrNe matcher
  * @details	argument != expected
 */
@@ -2038,7 +2020,6 @@ template<typename T>
 detail::StrNeMatcher<T> StrNe(const T& expected) { return detail::StrNeMatcher<T>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make StrCaseEq matcher
  * @details	argument == expected (ignore case)
 */
@@ -2046,7 +2027,6 @@ template<typename T>
 detail::StrCaseEqMatcher<T> StrCaseEq(const T& expected) { return detail::StrCaseEqMatcher<T>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make StrCaseNe matcher
  * @details	argument != expected (ignore case)
 */
@@ -2054,7 +2034,6 @@ template<typename T>
 detail::StrCaseNeMatcher<T> StrCaseNe(const T& expected) { return detail::StrCaseNeMatcher<T>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make StartsWith matcher
  * @details	argument の先頭が str である
 */
@@ -2062,7 +2041,6 @@ template<typename T>
 detail::StartsWithMatcher<const T&> StartsWith(const T& str) { return detail::StartsWithMatcher<const T&>(str); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make HasSubstr matcher
  * @details	argument が str を含む
 */
@@ -2070,7 +2048,6 @@ template<typename T>
 detail::HasSubstrMatcher<const T&> HasSubstr(const T& str) { return detail::HasSubstrMatcher<const T&>(str); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make EndsWith matcher
  * @details	argument の末尾が str である
 */
@@ -2078,7 +2055,6 @@ template<typename T>
 detail::EndsWithMatcher<const T&> EndsWith(const T& str) { return detail::EndsWithMatcher<const T&>(str); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Contains matcher
  * @details	argument は expected にマッチする要素を含む
 */
@@ -2086,7 +2062,6 @@ template<typename T>
 detail::ContainsMatcher<T> Contains(const T& expected) { return detail::ContainsMatcher<T>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Each matcher
  * @details	argument はすべての要素が expected にマッチする
 */
@@ -2094,7 +2069,6 @@ template<typename T>
 detail::EachMatcher<T> Each(const T& expected) { return detail::EachMatcher<T>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make ContainerEq matcher
  * @details	argument コンテナは expected コンテナにマッチする
 */
@@ -2102,7 +2076,6 @@ template<typename T>
 detail::ContainerEqMatcher<T> ContainerEq(const T& expected) { return detail::ContainerEqMatcher<T>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Pointwise matcher
  * @details	argument コンテナは expected コンテナの各要素と matcher にマッチする
 */
@@ -2110,14 +2083,12 @@ template<typename M, typename T>
 detail::PointwiseMatcher<M, T> Pointwise(const M& matcher, const T& expected) { return detail::PointwiseMatcher<M, T>(matcher, expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make IsEmpty matcher
  * @details	argument.empty()
 */
 inline detail::IsEmptyMatcher IsEmpty() { return detail::IsEmptyMatcher(); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make SizeIs matcher
  * @details	argument の要素数が expected にマッチする
 */
@@ -2125,7 +2096,6 @@ template<typename T>
 detail::SizeIsMatcher<T> SizeIs(const T& expected) { return detail::SizeIsMatcher<T>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make At matcher
  * @details	argument[index] は expected にマッチする
 */
@@ -2133,7 +2103,6 @@ template<typename T>
 detail::AtMatcher<T> At(size_t index, const T& expected) { return detail::AtMatcher<T>(index, expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make ElementsAreArray matcher
  * @details	argument はの各要素が a の要素とマッチする
 */
@@ -2172,7 +2141,6 @@ detail::ElementsAreArrayMatcher<T> ElementsAreArray(::std::initializer_list<T> l
 #endif
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make ElementsAreArray matcher
  * @details	argument は count 個の要素があり、 a の要素とマッチする
 */
@@ -2185,7 +2153,6 @@ detail::ElementsAreArrayMatcher<T> ElementsAreArray(const T* a, int count)
 #if IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make ElementsAreArrayForward matcher
  * @details	argument はの各要素が a の要素とマッチする
 */
@@ -2224,7 +2191,6 @@ detail::ElementsAreArrayMatcher<T> ElementsAreArrayForward(::std::initializer_li
 #endif
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make ElementsAreArrayForward matcher
  * @details	argument は count 個の以上の要素があり、 a の要素とマッチする
 */
@@ -2241,7 +2207,6 @@ detail::ElementsAreArrayMatcher<T> ElementsAreArrayForward(const T* a, int count
 #if IUTEST_HAS_VARIADIC_TEMPLATES
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make ElementsAre matcher
 */
 template<typename ...T>
@@ -2276,7 +2241,6 @@ IIUT_DECL_ELEMENTSARE(10)
 #endif
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Key matcher
  * @details	argument.first は expedted にマッチする 
 */
@@ -2284,7 +2248,6 @@ template<typename T>
 detail::KeyMatcher<T> Key(const T& expected) { return detail::KeyMatcher<T>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Pair matcher
  * @details	argument.first は m1 にマッチし、arugment.second が m2 にマッチする 
 */
@@ -2292,7 +2255,6 @@ template<typename T1, typename T2>
 detail::PairMatcher<T1, T2> Pair(const T1& m1, const T2& m2) { return detail::PairMatcher<T1, T2>(m1, m2); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Field matcher
  * @details	argument.*field は expedted にマッチする 
 */
@@ -2300,7 +2262,6 @@ template<typename F, typename T>
 detail::FieldMatcher<F, T> Field(const F& field, const T& expected) { return detail::FieldMatcher<F, T>(field, expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Property matcher
  * @details	argument.*property() は expedted にマッチする 
 */
@@ -2308,7 +2269,6 @@ template<typename P, typename T>
 detail::PropertyMatcher<P, T> Property(const P& prop, const T& expected) { return detail::PropertyMatcher<P, T>(prop, expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make ResultOf matcher
  * @details	func(argument) の戻り値は expedted にマッチする 
 */
@@ -2316,21 +2276,18 @@ template<typename F, typename T>
 detail::ResultOfMatcher<F, T> ResultOf(const F& func, const T& expected) { return detail::ResultOfMatcher<F, T>(func, expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Pointee matcher
 */
 template<typename T>
 detail::PointeeMatcher<T> Pointee(const T& expected) { return detail::PointeeMatcher<T>(expected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Not matcher
 */
 template<typename T>
 detail::NotMatcher<T> Not(const T& unexpected) { return detail::NotMatcher<T>(unexpected); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make Any matcher
 */
 template<typename T>
@@ -2338,7 +2295,6 @@ detail::AnyMatcher<T> A(void) { return detail::AnyMatcher<T>(); }
 
 
 /**
- * @ingroup	MATCHERS
  * @brief	Anything matcher
 */
 const detail::AnythingMatcher _;
@@ -2346,7 +2302,6 @@ const detail::AnythingMatcher _;
 #if IUTEST_HAS_MATCHER_REGEX
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make MatchesRegex matcher
 */
 inline detail::RegexMatcher MatchesRegex(const ::std::string& str)
@@ -2355,7 +2310,6 @@ inline detail::RegexMatcher MatchesRegex(const ::std::string& str)
 }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make ContainsRegex matcher
 */
 inline detail::RegexMatcher ContainsRegex(const ::std::string& str)
@@ -2370,7 +2324,6 @@ inline detail::RegexMatcher ContainsRegex(const ::std::string& str)
 #if IUTEST_HAS_VARIADIC_TEMPLATES
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make AllOf matcher
  * @details	argument が全ての matcher にマッチする
 */
@@ -2378,7 +2331,6 @@ template<typename ...T>
 detail::AllOfMatcher<T...> AllOf(const T&... m) { return detail::AllOfMatcher<T...>(m...); }
 
 /**
- * @ingroup	MATCHERS
  * @brief	Make AnyOf matcher
  * @details	argument がいずれかの matcher にマッチする
 */
@@ -2424,12 +2376,14 @@ IIUT_DECL_ANYOF_AND_ALLOF(AnyOf, 10)
 #endif
 
 /**
- * @ingroup	MATCHERS
  * @brief	Value predicate
 */
 template<typename T, typename M>
 bool Value(const T& value, const M& expected) { return static_cast<bool>(detail::CastToMatcher(expected)(value)); }
 
+/**
+ * @}
+*/
 
 }	// end of namespace matchers
 

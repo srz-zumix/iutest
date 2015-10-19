@@ -231,7 +231,7 @@
 #endif
 
 #if !defined(IUTEST_HAS_MATCHER_ELEMENTSARE)
-//! ::iutest::ElementsAre matcher が使用可能かどうか
+//! ::iutest::matchers::ElementsAre matcher が使用可能かどうか
 #  if IUTEST_HAS_TUPLE && IUTEST_HAS_MATCHERS && !defined(IUTEST_NO_SFINAE)
 #    define IUTEST_HAS_MATCHER_ELEMENTSARE		1
 #  else
@@ -240,7 +240,7 @@
 #endif
 
 #if !defined(IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD)
-//! ::iutest::ElementsAreArrayHead matcher が使用可能かどうか
+//! ::iutest::matchers::ElementsAreArrayForward matcher が使用可能かどうか
 #  if IUTEST_HAS_TUPLE && IUTEST_HAS_MATCHERS && !defined(IUTEST_NO_SFINAE)
 #    define IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD	1
 #  else
@@ -258,7 +258,7 @@
 #endif
 
 #if !defined(IUTEST_HAS_MATCHER_REGEX)
-//! ::iutest::MatchesRegex, ::iutest::ContainsRegex matcher が使用可能かどうか
+//! ::iutest::matchers::MatchesRegex, ::iutest::matchers::ContainsRegex matcher が使用可能かどうか
 #  if IUTEST_HAS_CXX_HDR_REGEX && IUTEST_HAS_MATCHERS && IUTEST_HAS_REGEX
 #    define IUTEST_HAS_MATCHER_REGEX	1
 #  else
@@ -267,7 +267,7 @@
 #endif
 
 #if !defined(IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF)
-//! ::iutest::AllOf, ::iutest::AnyOf matcher が使用可能かどうか
+//! ::iutest::matchers::AllOf, ::iutest::matchers::AnyOf matcher が使用可能かどうか
 #  if IUTEST_HAS_TUPLE && IUTEST_HAS_MATCHERS
 #    define IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF	1
 #  else

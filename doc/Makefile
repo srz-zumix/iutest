@@ -3,9 +3,12 @@
 LANG=ja_JP.SJIS
 HTMLLINT_PATH=$(subst \,/, $(HTMLLINT_ROOT))
 
-default: target
+default: upgrade target
 
-all: target lint
+all: upgrade target lint
+
+upgrade:
+	doxygen -u
 
 target: Doxyfile
 	doxygen Doxyfile
