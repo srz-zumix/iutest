@@ -15,35 +15,59 @@ before_install:
 
 install:
   # gcc 5.1
-  - if [ "${USE_NEWEST_GCC}" = '1' ]; then sudo apt-get -qq install g++-5; fi
-  - if [ "${USE_NEWEST_GCC}" = '1' ]; then sudo update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-5 90; fi
-  - if [ "${USE_NEWEST_GCC}" = '1' ]; then sudo update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-5 90; fi
-  - if [ "${USE_NEWEST_GCC}" = '1' ]; then sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90;  fi
+  - |
+    if [ "${USE_NEWEST_GCC}" = '1' ]; then
+      sudo apt-get -qq install g++-5;
+      sudo update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-5 90;
+      sudo update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-5 90;
+      sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90;
+    fi
   # clang 3.5
-  #- if [ "${CXX}" = 'clang++' ]; then sudo apt-get -qq install clang-3.5; fi
-  #- if [ "${CXX}" = 'clang++' ]; then export CXX="clang++-3.5";  fi
+  #- |
+  #  if [ "${CXX}" = 'clang++' ]; then 
+  #    sudo apt-get -qq install clang-3.5;
+  #    export CXX="clang++-3.5";
+  #  fi
   # wine
   - if [ "${HOST}" = 'WINE' ]; then sudo apt-get -qq -y install wine; fi
   # winegcc
-  - if [ "${WINEGCC}" = '1' ]; then sudo apt-get -qq install wine-dev; fi
-  - if [ "${WINEGCC}" = '1' ]; then sudo apt-get -qq install g++-4.5; fi
+  - |
+    if [ "${WINEGCC}" = '1' ]; then
+      sudo apt-get -qq install wine-dev;
+      sudo apt-get -qq install g++-4.5;
+    fi
   # mingw
-  - if [ "${MINGW}" = '1' ]; then sudo apt-get -qq install binutils-mingw-w64-i686; fi
-  - if [ "${MINGW}" = '1' ]; then sudo apt-get -qq install gcc-mingw-w64-i686; fi
-  - if [ "${MINGW}" = '1' ]; then sudo apt-get -qq install g++-mingw-w64-i686; fi
-  # gcov
-  - if [ "${USE_COVERALLS}" = '1' ] && [ "${USE_COVERAGE}" = 'gcov' ]; then sudo easy_install cpp-coveralls; fi
-  # lcov
-  - if [ "${USE_COVERAGE}" = 'lcov' ]; then sudo apt-get install lcov rubygems; fi
-  - if [ "${USE_COVERALLS}" = '1' ] && [ "${USE_COVERAGE}" = 'lcov' ]; then gem install lcoveralls; fi
+  - |
+    if [ "${MINGW}" = '1' ]; then
+      sudo apt-get -qq install binutils-mingw-w64-i686;
+      sudo apt-get -qq install gcc-mingw-w64-i686;
+      sudo apt-get -qq install g++-mingw-w64-i686;
+    fi
+  # gcov/lcov
+  - |
+    if [ "${USE_COVERALLS}" = '1' ]; then
+      if [ "${USE_COVERAGE}" = 'gcov' ]; then
+        sudo easy_install cpp-coveralls;
+      fi
+      if [ "${USE_COVERAGE}" = 'lcov' ]; then
+        sudo apt-get install lcov rubygems;
+        gem install lcoveralls;
+      fi
+    fi
   # gtest
-  - if [ "${USE_GTEST}" = '1' ]; then sudo apt-get -qq install cmake; fi
-  - if [ "${USE_GTEST}" = '1' ]; then sudo apt-get -qq install libgtest-dev; fi
-  - if [ "${USE_GTEST}" = '1' ]; then cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/; cd -; fi
+  - |
+    if [ "${USE_GTEST}" = '1' ]; then
+      sudo apt-get -qq install cmake;
+      sudo apt-get -qq install libgtest-dev;
+      cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/; cd -;
+    fi
   # gmock
-  - if [ "${USE_GMOCK}" = '1' ]; then sudo apt-get -qq install cmake; fi
-  - if [ "${USE_GMOCK}" = '1' ]; then sudo apt-get -qq install google-mock; fi
-  - if [ "${USE_GMOCK}" = '1' ]; then cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/; cd -; fi
+  - |
+    if [ "${USE_GMOCK}" = '1' ]; then
+      sudo apt-get -qq install cmake;
+      sudo apt-get -qq install google-mock;
+      cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/; cd -;
+    fi
   # cppcheck
   - if [ "${CPPCHECK}" = '1' ]; then sudo apt-get install -y cppcheck; fi
 

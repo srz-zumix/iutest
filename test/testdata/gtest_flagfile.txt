@@ -1,2 +1,2 @@
 --gtest_filter=*Run*:*OK*
---gtest_color=off
+--gtest_color=no
