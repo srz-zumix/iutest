@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -18,12 +18,6 @@
 namespace iutest {
 namespace detail
 {
-
-//======================================================================
-// define
-#if !defined(IUTEST_NO_TEMPLATE_TEMPLATES)
-#  define IUTEST_TEMPLATE_TPARAM1	template<typename T> class
-#endif
 
 //======================================================================
 // struct
@@ -145,10 +139,12 @@ IIUT_DECL_TYPELIST_(50);
 
 #if !defined(IUTEST_NO_TEMPLATE_TEMPLATES)
 
+#define IIUT_TEMPLATE_TPARAM1	template<typename XXX> class
+
 /**
  * @brief	TemplateTypeListBind
 */
-template<IUTEST_TEMPLATE_TPARAM1 U>
+template<IIUT_TEMPLATE_TPARAM1 U>
 struct TemplateTypeSel
 {
 	template<typename T>
@@ -168,13 +164,13 @@ struct TemplateTypeList0 {};
 
 #if IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES
 
-template<IUTEST_TEMPLATE_TPARAM1 T1, IUTEST_TEMPLATE_TPARAM1 ...Types>
+template<IIUT_TEMPLATE_TPARAM1 T1, IIUT_TEMPLATE_TPARAM1 ...Types>
 struct VariadicTemplateTypeList
 {
 	typedef TemplateTypeSel<T1> Head;
 	typedef VariadicTemplateTypeList<Types...> Tail;
 };
-template<IUTEST_TEMPLATE_TPARAM1 T1>
+template<IIUT_TEMPLATE_TPARAM1 T1>
 struct VariadicTemplateTypeList<T1>
 {
 	typedef TemplateTypeSel<T1> Head;
@@ -183,7 +179,7 @@ struct VariadicTemplateTypeList<T1>
 
 #else
 
-template<IUTEST_TEMPLATE_TPARAM1 T1>
+template<IIUT_TEMPLATE_TPARAM1 T1>
 struct TemplateTypeList1
 {
 	typedef TemplateTypeSel<T1> Head;
@@ -191,10 +187,10 @@ struct TemplateTypeList1
 };
 
 #define IIUT_DECL_TEMPLATETYPELIST_(n)	IIUT_DECL_TEMPLATETYPELIST_I(n, IUTEST_PP_DEC(n))
-#define IIUT_DECL_TEMPLATETYPELIST_I(n, m)																\
-	template< IUTEST_TEMPLATE_TPARAM1 T0, IUTEST_PP_ENUM_SHIFTED_PARAMS(m, IUTEST_TEMPLATE_TPARAM1 T) >	\
-	struct IUTEST_PP_CAT(TemplateTypeList, n) { typedef TemplateTypeSel<T0> Head;						\
-	typedef IUTEST_PP_CAT(TemplateTypeList, m)< IUTEST_PP_ENUM_SHIFTED_PARAMS(m, T) > Tail;				\
+#define IIUT_DECL_TEMPLATETYPELIST_I(n, m)															\
+	template< IIUT_TEMPLATE_TPARAM1 T0, IUTEST_PP_ENUM_SHIFTED_PARAMS(m, IIUT_TEMPLATE_TPARAM1 T) >	\
+	struct IUTEST_PP_CAT(TemplateTypeList, n) { typedef TemplateTypeSel<T0> Head;					\
+	typedef IUTEST_PP_CAT(TemplateTypeList, m)< IUTEST_PP_ENUM_SHIFTED_PARAMS(m, T) > Tail;			\
 }
 
 IIUT_DECL_TEMPLATETYPELIST_(2);

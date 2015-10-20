@@ -30,10 +30,12 @@
 // define
 
 // tuple
+
 #if defined(IUTEST_USE_EXTERNAL_TR1_TUPLE) && IUTEST_USE_EXTERNAL_TR1_TUPLE
 # define IUTEST_HAS_STD_TUPLE	0
 #endif
 
+//! use tr1::tuple
 #if !defined(IUTEST_USE_EXTERNAL_TR1_TUPLE)
 #  define IUTEST_USE_EXTERNAL_TR1_TUPLE	0
 #endif
@@ -69,7 +71,7 @@
 
 #if !IUTEST_HAS_STD_TUPLE
 
-// ::std::tr1::tuple
+//! has ::std::tr1::tuple
 #if !defined(IUTEST_HAS_TR1_TUPLE)
 #  if   defined(IUTEST_USE_EXTERNAL_TR1_TUPLE) && IUTEST_USE_EXTERNAL_TR1_TUPLE
 #    define IUTEST_HAS_TR1_TUPLE	1
@@ -94,6 +96,7 @@
 
 #endif
 
+//! has ::std::tr1::tuple
 #if !defined(IUTEST_HAS_TR1_TUPLE)
 #  define IUTEST_HAS_TR1_TUPLE		0
 #endif
@@ -102,6 +105,7 @@
 #  define IUTEST_USE_OWN_TR1_TUPLE	0
 #endif
 
+//! has tuple
 #if IUTEST_HAS_STD_TUPLE || IUTEST_HAS_TR1_TUPLE
 #  if !defined(IUTEST_HAS_TUPLE)
 #    define IUTEST_HAS_TUPLE	1
@@ -241,7 +245,7 @@ using tuples::get;
 
 #endif
 
-// regex
+//! has regex header
 #if !defined(IUTEST_HAS_CXX_HDR_REGEX)
 
 #if   defined(__has_include)
@@ -269,7 +273,7 @@ using tuples::get;
 #  define IUTEST_HAS_CXX_HDR_REGEX			0
 #endif
 
-// chrono
+//! has chrono header
 #if !defined(IUTEST_HAS_CXX_HDR_CHRONO)
 
 #if   defined(__has_include)
@@ -297,7 +301,7 @@ using tuples::get;
 #  define IUTEST_HAS_CXX_HDR_CHRONO			0
 #endif
 
-// random
+//! has random header
 #if !defined(IUTEST_HAS_CXX_HDR_RANDOM)
 
 #if   defined(__has_include)
@@ -329,7 +333,7 @@ using tuples::get;
 #  define IUTEST_HAS_CXX_HDR_RANDOM		0
 #endif
 
-// codecvt
+//! has codecvt header
 /*
 #if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
 
@@ -353,7 +357,7 @@ using tuples::get;
 #  define IUTEST_HAS_CXX_HDR_CODECVT		0
 #endif
 
-// emplace
+//! has emplace
 #if !defined(IUTEST_HAS_STD_EMPLACE)
 #  if defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
@@ -372,7 +376,7 @@ using tuples::get;
 #  define IUTEST_HAS_STD_EMPLACE			0
 #endif
 
-// abi
+//! has cxxabi header
 #if !defined(IUTEST_HAS_HDR_CXXABI)
 
 #if   defined(__clang__) && defined(__has_include)
@@ -391,7 +395,7 @@ using tuples::get;
 #  define IUTEST_HAS_HDR_CXXABI			0
 #endif
 
-// sys/time.h
+//! has sys/time.h header
 #if !defined(IUTEST_HAS_HDR_SYSTIME)
 #  if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MINGW) && !defined(IUTEST_OS_WINDOWS_WINE)
 #    define IUTEST_HAS_HDR_SYSTIME		0

@@ -388,23 +388,23 @@ inline ::std::string GetTypeName(void)
 
 #if !IUTEST_HAS_RTTI
 
-#define GeTypeNameSpecialization(type)	\
+#define IIUT_GeTypeNameSpecialization(type)	\
 	template<>inline ::std::string GetTypeName<type>(void) { return #type; }	\
 	template<>inline ::std::string GetTypeName<type*>(void) { return #type "*"; }
 
-GeTypeNameSpecialization(char)
-GeTypeNameSpecialization(unsigned char)
-GeTypeNameSpecialization(short)
-GeTypeNameSpecialization(unsigned short)
-GeTypeNameSpecialization(int)
-GeTypeNameSpecialization(unsigned int)
-GeTypeNameSpecialization(long)
-GeTypeNameSpecialization(unsigned long)
-GeTypeNameSpecialization(float)
-GeTypeNameSpecialization(double)
-GeTypeNameSpecialization(bool)
+IIUT_GeTypeNameSpecialization(char)
+IIUT_GeTypeNameSpecialization(unsigned char)
+IIUT_GeTypeNameSpecialization(short)
+IIUT_GeTypeNameSpecialization(unsigned short)
+IIUT_GeTypeNameSpecialization(int)
+IIUT_GeTypeNameSpecialization(unsigned int)
+IIUT_GeTypeNameSpecialization(long)
+IIUT_GeTypeNameSpecialization(unsigned long)
+IIUT_GeTypeNameSpecialization(float)
+IIUT_GeTypeNameSpecialization(double)
+IIUT_GeTypeNameSpecialization(bool)
 
-#undef GeTypeNameSpecialization
+#undef IIUT_GeTypeNameSpecialization
 
 #endif
 

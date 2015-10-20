@@ -139,7 +139,7 @@ namespace detail
  * @{
 */
 #if IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES
-template<IUTEST_TEMPLATE_TPARAM1 ...Types>
+template<IIUT_TEMPLATE_TPARAM1 ...Types>
 struct Templates
 {
 	typedef VariadicTemplateTypeList<Types...> type;
@@ -149,7 +149,7 @@ struct Templates
 
 #define IIUT_DECL_DEFAULT_ARG_(i, param)	IUTEST_PP_CAT(param,i)=detail::NoneT1
 
-template< IUTEST_PP_ENUM(50, IIUT_DECL_DEFAULT_ARG_, IUTEST_TEMPLATE_TPARAM1 T) >
+template< IUTEST_PP_ENUM(50, IIUT_DECL_DEFAULT_ARG_, IIUT_TEMPLATE_TPARAM1 T) >
 struct Templates
 {
 	typedef detail::TemplateTypeList50< IUTEST_PP_ENUM_PARAMS(50, T) > type;
@@ -159,7 +159,7 @@ struct Templates
 
 #define IIUT_DECL_SPEC_NONE_(i, param)	param
 #define IIUT_DECL_TEMPLATES_(n, m)										\
-	template< IUTEST_PP_ENUM_PARAMS(n, IUTEST_TEMPLATE_TPARAM1 T) >		\
+	template< IUTEST_PP_ENUM_PARAMS(n, IIUT_TEMPLATE_TPARAM1 T) >		\
 	struct Templates< IUTEST_PP_ENUM_PARAMS(n, T)						\
 		, IUTEST_PP_ENUM(m, IIUT_DECL_SPEC_NONE_, detail::NoneT1) > {	\
 		typedef IUTEST_PP_CAT(detail::TemplateTypeList, n)<				\

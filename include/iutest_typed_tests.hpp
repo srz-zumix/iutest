@@ -36,7 +36,7 @@
  * @def		IUTEST_TYPED_TEST_CASE(testcase_, types_)
  * @brief	型付けテストケースの登録
  * @param	testcase_	= テストケース名
- * @param	types_		= タイプリスト
+ * @param	...			= タイプリスト
 */
 #if !defined(IUTEST_NO_VARIADIC_MACROS)
 #  define IUTEST_TYPED_TEST_CASE(testcase_, ...)	IIUT_TYPED_TEST_CASE_(testcase_, __VA_ARGS__)
@@ -402,7 +402,7 @@ private:
  * @private
  * @brief	型パラメータテストのインスタンス化クラス
 */
-template<IUTEST_TEMPLATE_TPARAM1 Fixture, typename Tests, typename Types>
+template<template<typename T> class Fixture, typename Tests, typename Types>
 class TypeParameterizedTestCase
 {
 	template<typename TypeParam, typename TestsList>
@@ -496,7 +496,7 @@ public:
  * @brief	型パラメータテストのインスタンス化クラス
  *			終端特殊化
 */
-template<IUTEST_TEMPLATE_TPARAM1 Fixture, typename Tests>
+template<template<typename T> class Fixture, typename Tests>
 class TypeParameterizedTestCase<Fixture, Tests, detail::TypeList0>
 {
 public:

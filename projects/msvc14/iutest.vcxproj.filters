@@ -327,6 +327,9 @@
     <ClInclude Include="..\..\include\internal\iutest_mfc.hpp">
       <Filter>iutest\internal</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\util\iutest_util_vc_unittest.hpp">
+      <Filter>iutest\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\impl\iutest_body.ipp">

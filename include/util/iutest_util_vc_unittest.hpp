@@ -43,6 +43,10 @@
 
 #endif
 
+/**
+ * @private
+ * @{
+*/
 
 #ifdef IUTEST
 #  undef IUTEST
@@ -79,10 +83,6 @@
 	IUTEST_VCUNIT_I(testfixture_, testname_, testfixture_##testname_##_class, testfixture_##_##testname_);	\
 	IIUT_TYPED_TEST_P_(testfixture_, testname_)
 
-/**
- * @private
- * @{
-*/
 
 #define IUTEST_VCUNIT_I(testcase_, testname_, className, methodName)	\
 	IUTEST_VCUNIT_TEST_CLASS(className) {								\
@@ -110,10 +110,6 @@
 
 #define IUTEST_VCUNIT_TEST_CLASS(className)	\
 	ONLY_USED_AT_NAMESPACE_SCOPE class className : public ::iuutil::VisualStudio::TestClass<className>
-
-/**
- * @}
-*/
 
 //======================================================================
 // class
@@ -283,6 +279,10 @@ inline void SetUpCppUnitTest(void)
 
 }	// end of namespace VisualStudio
 }	// end of namespace iuutil
+
+/**
+ * @}
+*/
 
 
 #endif

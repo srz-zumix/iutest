@@ -440,7 +440,7 @@ private:
 	}
 
 	/**
-	* @brief	default_package_name オプションを設定
+	 * @brief	default_package_name オプションを設定
 	*/
 	static void set_default_package_name(const char* str)
 	{
@@ -523,9 +523,17 @@ public:
 	typedef OptionString<get_stream_result_to, set_stream_result_to> stream_result_to;
 #endif
 
+	/**
+	 * @private
+	 * @brief	default_package_name オプション設定用オブジェクト
+	*/
 	typedef OptionString<get_default_package_name, set_default_package_name> default_package_name;
 
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+	/**
+	 * @private
+	 * @brief	ostream_formatter オプション設定用オブジェクト
+	*/
 	typedef class OStreamFormatter : public iu_stringstream
 	{
 		IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()
@@ -750,6 +758,9 @@ private:
 	friend class UnitTest;
 };
 
+/**
+ * @brief	ostream_formatter オプションが適用されてた stringstream
+*/
 class iu_global_format_stringstream : public iu_stringstream
 {
 	IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()

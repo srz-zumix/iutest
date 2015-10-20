@@ -76,11 +76,11 @@
 	namespace name {									\
 	class iuTest_TestCasePackage;						\
 	namespace { const int IUTEST_PP_CAT( k_iutest_package_##name##_dummy_, IUTEST_PP_UNIQUEID)	\
-		IUTEST_ATTRIBUTE_UNUSED_ = package_name_server<iuTest_TestCasePackage>::setname(		\
+		IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::package_name_server<iuTest_TestCasePackage>::setname(			\
 			iuTest_GetTestCaseParentPackageName(static_cast<iuTest_TestCaseParentPackage*>(NULL)) + #name ".");	}	\
 	class iuTest_TestCaseParentPackage;					\
 	namespace { const int IUTEST_PP_CAT( k_iutest_package_##name##_parent_dummy_, IUTEST_PP_UNIQUEID)	\
-		IUTEST_ATTRIBUTE_UNUSED_ = package_name_server<iuTest_TestCaseParentPackage>					\
+		IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::package_name_server<iuTest_TestCaseParentPackage>	\
 		::setname(iuTest_GetTestCasePackageName(static_cast<iuTest_TestCasePackage*>(NULL))); }			\
 	}													\
 	namespace name
@@ -121,7 +121,12 @@ inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_GetTestCaseParentPackageNam
 
 #else
 
+namespace iutest {
+namespace detail
+{
+
 /**
+ * @private
  * @brief	パッケージ名のサーバー
 */
 template<typename T>
@@ -138,6 +143,9 @@ public:
 	}
 };
 
+}	// end of namespace detail
+}	// end of namespace iutest
+
 /**
  * @brief	パッケージ名の取得
  * @return	パッケージ名
@@ -145,7 +153,7 @@ public:
 template<typename T>
 ::std::string iuTest_GetTestCasePackageName(T*)
 {
-	return package_name_server<T>::getname();
+	return ::iutest::detail::package_name_server<T>::getname();
 }
 
 /**
@@ -155,7 +163,7 @@ template<typename T>
 template<typename T>
 ::std::string iuTest_GetTestCaseParentPackageName(T*)
 {
-	return package_name_server<T>::getname();
+	return ::iutest::detail::package_name_server<T>::getname();
 }
 
 #endif

@@ -193,14 +193,12 @@ struct base_type< CTypedPtrMap<BASE_CLASS, KEY, VALUE> >
 	typedef VALUE BASE_VALUE;
 };
 
-}
-
 template<typename T>
 struct mfc_iterator_traits
 {
-	typedef typename peep::base_type<T>::BASE_TYPE BASE_TYPE;
-	typedef typename peep::base_type<T>::BASE_KEY BASE_KEY;
-	typedef typename peep::base_type<T>::BASE_VALUE BASE_VALUE;
+	typedef typename base_type<T>::BASE_TYPE BASE_TYPE;
+	typedef typename base_type<T>::BASE_KEY BASE_KEY;
+	typedef typename base_type<T>::BASE_VALUE BASE_VALUE;
 	template<typename U, bool isArray, bool isList>
 	struct type_select
 	{
@@ -221,6 +219,8 @@ struct mfc_iterator_traits
 		, IUTEST_STATIC_EXISTS(T::GetHeadPosition)
 	>::type type;
 };
+
+}
 
 template<typename T>
 typename peep::base_type<T>::BASE_TYPE* begin(T& ar
@@ -249,26 +249,36 @@ mfc_iterator<T, typename peep::base_type<T>::BASE_TYPE> end(T& list
 }
 
 template<typename T>
-typename mfc_iterator_traits<T>::type begin(T& map
+typename peep::mfc_iterator_traits<T>::type begin(T& map
 	, typename detail::enable_if< IUTEST_STATIC_EXISTS(T::GetStartPosition), void>::type*& = detail::enabler::value)
 {
-	return typename mfc_iterator_traits<T>::type(map, map.GetStartPosition());
+	return typename peep::mfc_iterator_traits<T>::type(map, map.GetStartPosition());
 }
 template<typename T>
-typename mfc_iterator_traits<T>::type end(T& map
+typename peep::mfc_iterator_traits<T>::type end(T& map
 	, typename detail::enable_if< IUTEST_STATIC_EXISTS(T::GetStartPosition), void>::type*& = detail::enabler::value)
 {
-	return typename mfc_iterator_traits<T>::type(map, NULL);
+	return typename peep::mfc_iterator_traits<T>::type(map, NULL);
 }
 
+/**
+ * @brief	provide begin/end in mfc container
+*/
 template<typename T>
 class CContainer
 {
 public:
+	/**
+	 * @private
+	 * @{
+	*/
 	typedef typename peep::base_type<T>::BASE_TYPE BASE_TYPE;
 	typedef typename peep::base_type<T>::BASE_KEY BASE_KEY;
 	typedef typename peep::base_type<T>::BASE_VALUE BASE_VALUE;
-	typedef typename mfc_iterator_traits<T>::type iterator_type;
+	typedef typename peep::mfc_iterator_traits<T>::type iterator_type;
+	/**
+	 * @}
+	*/
 public:
 	CContainer(T& container) : m_container(container) {}
 
@@ -279,6 +289,9 @@ private:
 	T& m_container;
 };
 
+/** 
+ * @brief	make mfc container
+*/
 template<typename T>
 CContainer<T> make_container(T& obj) { return CContainer<T>(obj); }
 

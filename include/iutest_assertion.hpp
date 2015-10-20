@@ -48,7 +48,7 @@ namespace detail
 //======================================================================
 // class
 /**
- * @brief	テスト結果
+ * @brief	Assertion Result
 */
 class AssertionResult
 {
@@ -173,7 +173,8 @@ inline AssertionReturnType<void> AssertionReturn(void) { return AssertionReturnT
 #endif
 
 /**
- * @brief	Assertion 構築クラス
+ * @private
+ * @brief	Assertion Helper
 */
 class AssertionHelper
 {
