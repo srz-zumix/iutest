@@ -46,9 +46,7 @@ install:
   # gcov/lcov
   - |
     if [ "${USE_COVERALLS}" = '1' ]; then
-      if [ "${USE_COVERAGE}" = 'gcov' ]; then
-        sudo easy_install cpp-coveralls;
-      fi
+      if [ "${USE_COVERAGE}" = 'gcov' ]; then sudo easy_install cpp-coveralls; fi
       if [ "${USE_COVERAGE}" = 'lcov' ]; then
         sudo apt-get install lcov rubygems;
         gem install lcoveralls;
@@ -58,8 +56,16 @@ install:
   - |
     if [ "${USE_GTEST}" = '1' ]; then
       sudo apt-get -qq install cmake;
-      sudo apt-get -qq install libgtest-dev;
-      cd /usr/src/gtest && sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/; cd -;
+      if [ "${USE_GTEST_HEAD}" == '1' ]; then
+        git clone https://github.com/google/googletest.git googletest
+        cd googletest/googletest
+        sudo cp -r include/gtest /usr/local/include/
+      else
+        sudo apt-get -qq install libgtest-dev;
+        cd /usr/src/gtest
+      fi
+      sudo cmake . && sudo cmake --build . && sudo mv libg* /usr/local/lib/;
+      cd -
     fi
   # gmock
   - |
@@ -120,6 +126,8 @@ matrix:
       env: USE_FUSED=fused_min STDFLAG=-std=c++98
     - compiler: gcc
       env: USE_GTEST=1
+    - compiler: gcc
+      env: USE_GTEST=1 USE_GTEST_HEAD=1
     - compiler: gcc
       env: USE_GMOCK=1
     - compiler: gcc
