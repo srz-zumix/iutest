@@ -32,12 +32,13 @@ endif
 #
 ifeq ($(findstring clang, $(CXX)),clang)
 #STDFLAG += -std=c++0x
-endif
+NO_UNUSED_LOCAL_TYPEDEFS=-Wno-unused-local-typedefs
 
 ifdef USE_COVERAGE
 CXXFLAGS += -coverage
 endif
 
+endif
 
 #
 # GCC
@@ -61,10 +62,12 @@ GCCMINOR:=$(word 2, $(GCCVERSION))
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 8 \)))
 # 4.8 later
 STDFLAG += -std=c++1y
+NO_UNUSED_LOCAL_TYPEDEFS=-Wno-unused-local-typedefs
 else
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 7 \)))
 # 4.7 later
 STDFLAG += -std=c++11
+NO_UNUSED_LOCAL_TYPEDEFS=-Wno-unused-local-typedefs
 else
 #ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 4 \)))
 # 4.4 later
@@ -296,7 +299,7 @@ GTEST_LIB_=-lgtest -lpthread
 
 endif
 
-CXXFLAGS += -DIUTEST_USE_GTEST -DIUTEST_HAS_SOCKET=0
+CXXFLAGS += -DIUTEST_USE_GTEST -DIUTEST_HAS_SOCKET=0 $(NO_UNUSED_LOCAL_TYPEDEFS)
 GTESTFLAGS=$(GTEST_INC_) $(GTEST_LIB_)
 
 
@@ -329,7 +332,7 @@ GMOCK_LIB_=-lgmock -lgtest -lpthread
 
 endif
 
-CXXFLAGS += -DIUTEST_USE_GTEST -DIUTEST_USE_GMOCK -DIUTEST_HAS_SOCKET=0
+CXXFLAGS += -DIUTEST_USE_GTEST -DIUTEST_USE_GMOCK -DIUTEST_HAS_SOCKET=0 $(NO_UNUSED_LOCAL_TYPEDEFS)
 GMOCKFLAGS=$(GMOCK_INC_) $(GMOCK_LIB_)
 
 $(BUILD_ONLY) : $(SRCS) $(IUTEST_HEADERS) $(MAKEFILE)

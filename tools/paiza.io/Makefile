@@ -5,7 +5,7 @@
 
 TOOLS=paizaio.py iupaiza.py
 
-WANDBOX_COMPILER?=gcc-head
+PAIZA_COMPILER?=gcc-head
 
 help: $(TOOLS)
 	python iupaiza.py -h
@@ -20,7 +20,7 @@ save: sample.cpp $(TOOLS) Makefile
 	python iupaiza.py sample.cpp
 
 test: ../../test/syntax_tests.cpp Makefile
-	#python iupaiza.py $< -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --expand_include --encoding utf-8-sig
+	#python iupaiza.py $< -c $(PAIZA_COMPILER) -f"-DIUTEST_USE_MAIN" --expand_include --encoding utf-8-sig
 	
 lentest: Makefile
 	dd if=/dev/zero of=lentest.cpp bs=100001 count=1

@@ -105,13 +105,9 @@ def parse_command_line():
 	parser.add_argument(
 		'code'
 		, metavar='CODE'
-			, help = 'source code file'
-		, nargs='?'
+		, help = 'source code file'
 	)
-	if len(sys.argv) <= 1:
-		parser.error('invalid number arguments')
-	del sys.argv[0]
-	options = parser.parse_args(sys.argv)
+	options, unknown = parser.parse_known_args()
 	return options
 
 #

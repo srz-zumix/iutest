@@ -8,7 +8,6 @@
 # see LICENSE
 #
 
-import os
 import sys
 
 #

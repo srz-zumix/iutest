@@ -7,12 +7,12 @@ TOOLS=wandbox.py iuwandbox.py
 
 WANDBOX_COMPILER?=gcc-head
 
-fused:
-	make -C ../fused
-
 help: $(TOOLS)
 	python iuwandbox.py -h
 	
+fused:
+	make -C ../fused
+
 sample: sample.cpp $(TOOLS) Makefile
 	python iuwandbox.py sample.cpp -f"-Dx=hogefuga\n-O3" --check_config
 

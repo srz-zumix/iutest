@@ -3,6 +3,9 @@
 
 .PHONY: setup sample dryrun run
 
+help: iutwilio.py
+	python ./iutwilio.py -h
+
 sample: sample.cpp Makefile
 	${CXX} sample.cpp -o sample
 
@@ -22,9 +25,6 @@ ifdef SMS
 else
 	python ./iutwilio.py result.xml --call ${CALL_NUMBER}
 endif
-
-help: iutwilio.py
-	python ./iutwilio.py -h
 
 test: iutwilio.py
 	python ./iutwilio.py -h

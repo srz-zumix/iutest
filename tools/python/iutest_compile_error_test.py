@@ -168,8 +168,7 @@ def parse_command_line():
 			, default=sys.stdin
 		)
 
-	del sys.argv[0]
-	options = parser.parse_args(sys.argv)
+	options = parser.parse_args()
 	return options
 
 #

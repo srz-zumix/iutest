@@ -83,8 +83,7 @@ def parse_command_line():
 		, help = 'test result xml file'
 		, nargs='?'
 	)
-	del sys.argv[0]
-	options = parser.parse_args(sys.argv)
+	options = parser.parse_args()
 	
 	if not options.dump:
 		if not options.xml:
