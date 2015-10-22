@@ -83,7 +83,7 @@ struct type_least_t<8>
 #endif
 };
 
-}
+}	// end of namespace detail
 
 namespace internal
 {
@@ -103,7 +103,7 @@ struct TestTypeIdHelper { public: static bool _dummy; };
 
 template<typename T>bool TestTypeIdHelper<T>::_dummy = false;
 
-}
+}	// end of namespace helper
 
 //======================================================================
 // function
@@ -126,7 +126,7 @@ inline IUTEST_CXX_CONSTEXPR TypeId GetTestTypeId(void)
 	return 0;
 }
 
-} // end of namespace internal
+}	// end of namespace internal
 
 //======================================================================
 // class
@@ -158,7 +158,7 @@ struct ieee754_bits<double>
 	};
 };
 
-}
+}	// end of namespace detail
 
 /**
  * @brief	浮動小数点数
@@ -351,7 +351,8 @@ const typename floating_point<T>::UInt floating_point<T>::kSignMask
 	= static_cast<typename floating_point<T>::UInt>(1u) << (kEXP + kFRAC);
 template<typename T>
 const typename floating_point<T>::UInt floating_point<T>::kExpMask
-	= ((static_cast<typename floating_point<T>::UInt>(1u) << floating_point<T>::kEXP) - 1) << floating_point<T>::kFRAC;
+	= ((static_cast<typename floating_point<T>::UInt>(1u)
+		<< floating_point<T>::kEXP) - 1) << floating_point<T>::kFRAC;
 template<typename T>
 const typename floating_point<T>::UInt floating_point<T>::kFracMask
 	= ((static_cast<typename floating_point<T>::UInt>(1u) << floating_point<T>::kFRAC) - 1);

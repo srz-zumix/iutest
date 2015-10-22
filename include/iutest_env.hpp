@@ -192,7 +192,11 @@ public:
 	 * @param [in]	enable	= 論理和
 	 * @param [in]	mask	= マスク値
 	*/
-	static void SetFlag(int enable, int mask=-1) { GetInstance().m_test_flags |= enable; GetInstance().m_test_flags &= mask; }
+	static void SetFlag(int enable, int mask=-1)
+	{
+		GetInstance().m_test_flags |= enable;
+		GetInstance().m_test_flags &= mask;
+	}
 	/**
 	 * @brief	フラグが立っているかどうか
 	 * @param [in]	flag	= 検査対象フラグ
@@ -347,9 +351,15 @@ public:
 	/** @private */
 	static TestEventListeners& event_listeners(void) { return get_vars().m_event_listeners; }
 	/** @private */
-	static TestPartResultReporterInterface* GetGlobalTestPartResultReporter(void) { return get_vars().m_testpartresult_reporter; }
+	static TestPartResultReporterInterface* GetGlobalTestPartResultReporter(void)
+	{
+		return get_vars().m_testpartresult_reporter;
+	}
 	/** @private */
-	static void SetGlobalTestPartResultReporter(TestPartResultReporterInterface* ptr) { get_vars().m_testpartresult_reporter = ptr; }
+	static void SetGlobalTestPartResultReporter(TestPartResultReporterInterface* ptr)
+	{
+		get_vars().m_testpartresult_reporter = ptr;
+	}
 
 private:
 	/**
@@ -454,17 +464,18 @@ private:
 	class OptionString
 	{
 		typedef OptionString<G, S> _Myt;
+		typedef const _Myt& _Argt;
 	protected:
 		::std::string m_option;
 	public:
-		friend bool operator == (const char* c_str_, const _Myt& rhs)		{ return rhs.m_option == c_str_; }
-		friend bool operator == (const ::std::string& str, const _Myt& rhs)	{ return rhs.m_option == str; }
-		friend bool operator == (const _Myt& lhs, const char* c_str_)		{ return lhs.m_option == c_str_; }
-		friend bool operator == (const _Myt& lhs, const::std::string& str)	{ return lhs.m_option == str; }
-		friend bool operator != (const char* c_str_, const _Myt& rhs)		{ return rhs.m_option != c_str_; }
-		friend bool operator != (const ::std::string& str, const _Myt& rhs)	{ return rhs.m_option != str; }
-		friend bool operator != (const _Myt& lhs, const char* c_str_)		{ return lhs.m_option != c_str_; }
-		friend bool operator != (const _Myt& lhs, const ::std::string& str)	{ return lhs.m_option != str; }
+		friend bool operator == (const char* c_str_, _Argt rhs)			{ return rhs.m_option == c_str_; }
+		friend bool operator == (const ::std::string& str, _Argt rhs)	{ return rhs.m_option == str; }
+		friend bool operator == (_Argt lhs, const char* c_str_)			{ return lhs.m_option == c_str_; }
+		friend bool operator == (_Argt lhs, const::std::string& str)	{ return lhs.m_option == str; }
+		friend bool operator != (const char* c_str_, _Argt rhs)			{ return rhs.m_option != c_str_; }
+		friend bool operator != (const ::std::string& str, _Argt rhs)	{ return rhs.m_option != str; }
+		friend bool operator != (_Argt lhs, const char* c_str_)			{ return lhs.m_option != c_str_; }
+		friend bool operator != (_Argt lhs, const ::std::string& str)	{ return lhs.m_option != str; }
 
 		operator ::std::string (void) const { return m_option; }
 	public:
@@ -572,7 +583,7 @@ public:
 		environments().push_back(env);
 		return env;
 	}
-	
+
 	/**
 	 * @brief	グローバル環境セットクラスの削除
 	 * @param [in]	env	= 環境セットクラスアドレス
@@ -650,7 +661,8 @@ public:
 	template<typename CharType>
 	static void ParseCommandLine(::std::vector< ::std::basic_string<CharType> >& argv)
 	{
-		for( typename ::std::vector< ::std::basic_string<CharType> >::iterator it = argv.begin(); it != argv.end(); )
+		typedef ::std::vector< ::std::basic_string<CharType> > argv_t;
+		for( typename argv_t::iterator it = argv.begin(); it != argv.end(); )
 		{
 			if( ParseCommandLineElem(it->c_str()) )
 			{
@@ -771,14 +783,14 @@ public:
 		TestEnv::global_ostream_copyfmt(*this);
 #endif
 	}
-	iu_global_format_stringstream(const char* str)
+	explicit iu_global_format_stringstream(const char* str)
 		: iu_stringstream(str)
 	{
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
 		TestEnv::global_ostream_copyfmt(*this);
 #endif
 	}
-	iu_global_format_stringstream(const ::std::string& str)
+	explicit iu_global_format_stringstream(const ::std::string& str)
 		: iu_stringstream(str)
 	{
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM

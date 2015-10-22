@@ -34,25 +34,29 @@
  * @ingroup	IUTEST_ASSERT_
  * @brief	Fatal Failure 発生確認テスト
 */
-#define IUTEST_ASSERT_FATAL_FAILURE(statement, substr)		IUTEST_TEST_FATAL_FAILURE_(statement, #statement, substr, IUTEST_ASSERT_FAILURE)
+#define IUTEST_ASSERT_FATAL_FAILURE(statement, substr)		\
+	IUTEST_TEST_FATAL_FAILURE_(statement, #statement, substr, IUTEST_ASSERT_FAILURE)
 
 /**
  * @ingroup	IUTEST_ASSERT_
  * @brief	Non Fatal Failure 発生確認テスト
 */
-#define IUTEST_ASSERT_NONFATAL_FAILURE(statement, substr)	IUTEST_TEST_NONFATAL_FAILURE_(statement, #statement, substr, IUTEST_ASSERT_FAILURE)
+#define IUTEST_ASSERT_NONFATAL_FAILURE(statement, substr)	\
+	IUTEST_TEST_NONFATAL_FAILURE_(statement, #statement, substr, IUTEST_ASSERT_FAILURE)
 
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	Fatal Failure 発生確認テスト
 */
-#define IUTEST_EXPECT_FATAL_FAILURE(statement, substr)		IUTEST_TEST_FATAL_FAILURE_(statement, #statement, substr, IUTEST_EXPECT_FAILURE)
+#define IUTEST_EXPECT_FATAL_FAILURE(statement, substr)		\
+	IUTEST_TEST_FATAL_FAILURE_(statement, #statement, substr, IUTEST_EXPECT_FAILURE)
 
 /**
  * @ingroup	IUTEST_EXPECT_
  * @brief	Non Fatal Failure 発生確認テスト
 */
-#define IUTEST_EXPECT_NONFATAL_FAILURE(statement, substr)	IUTEST_TEST_NONFATAL_FAILURE_(statement, #statement, substr, IUTEST_EXPECT_FAILURE)
+#define IUTEST_EXPECT_NONFATAL_FAILURE(statement, substr)	\
+	IUTEST_TEST_NONFATAL_FAILURE_(statement, #statement, substr, IUTEST_EXPECT_FAILURE)
 
 
 /**
@@ -69,7 +73,8 @@
 	} catch(...) {}												\
 	}()
 #else
-#  define IIUT_SPI_STATEMENT_EXECUTER(statement) [&](){ ::iutest::detail::ScopedSPITestFlag guard; statement; }()
+#  define IIUT_SPI_STATEMENT_EXECUTER(statement)	\
+	[&](){ ::iutest::detail::ScopedSPITestFlag guard; statement; }()
 #endif
 
 #define IUTEST_TEST_FATAL_FAILURE_(statement, text, substr, on_failure)					\
@@ -166,7 +171,8 @@ class SPIFailureChecker
 public:
 	AssertionResult GetResult(const ::std::string& substr)
 	{
-		const char* expected = Type == TestPartResult::kFatalFailure ? "1 fatal failure" : "1 non-fatal failure";
+		const char* expected =
+			(Type == TestPartResult::kFatalFailure) ? "1 fatal failure" : "1 non-fatal failure";
 		const size_t num = count();
 		if( num != 1 )
 		{

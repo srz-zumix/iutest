@@ -42,7 +42,8 @@ namespace iuutil {}
  * @private
  * @{
 */
-#define IIUT_FILESYSTEM_INSTANTIATE_(file_class_name)	static ::iutest::FileSystem< file_class_name > IUTEST_ATTRIBUTE_UNUSED_ s_iutest_filesystem_
+#define IIUT_FILESYSTEM_INSTANTIATE_(file_class_name)	\
+	static ::iutest::FileSystem< file_class_name > IUTEST_ATTRIBUTE_UNUSED_ s_iutest_filesystem_
 
 /**
  * @}

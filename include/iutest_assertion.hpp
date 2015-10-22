@@ -868,7 +868,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* expr1, con
 		, detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1)));
 }
 
-}
+}	// end of namespace StrEqHelper
 
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(const char* expr1, const char* expr2
 							   , const char* val1, const char* val2)
@@ -940,7 +940,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* expr1, con
 		<< " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
 }
 
-}
+}	// end of namespace StrNeHelper
 
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(const char* expr1, const char* expr2
 							, const char* val1, const char* val2)
@@ -1043,7 +1043,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* expr1, con
 		, true);
 }
 
-}
+}	// end of namespace StrCaseEqHelper
 
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* expr1, const char* expr2
 							, const char* val1, const char* val2)
@@ -1087,7 +1087,8 @@ inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T1& val1, const T2& val2)
 }
 
 template<typename T1, typename T2>
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* expr1, const char* expr2
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(
+	  const char* expr1, const char* expr2
 	, const T1& val1, const T2& val2)
 {
 	if( Compare(val1, val2) )
@@ -1100,36 +1101,41 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* expr1, con
 		<< " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
 }
 
-}
+}	// end of namespace StrCaseNeHelper
 
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* expr1, const char* expr2
-							, const char* val1, const char* val2)
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(
+	  const char* expr1, const char* expr2
+	, const char* val1, const char* val2)
 {
 	return StrCaseNeHelper::Assertion(expr1, expr2, val1, val2);
 }
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* expr1, const char* expr2
-							, const wchar_t* val1, const wchar_t* val2)
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(
+	  const char* expr1, const char* expr2
+	, const wchar_t* val1, const wchar_t* val2)
 {
 	return StrCaseNeHelper::Assertion(expr1, expr2, val1, val2);
 }
 template<typename Elem, typename Traits, typename Ax>
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* expr1, const char* expr2
-																, const ::std::basic_string<Elem, Traits, Ax>& val1
-																, const ::std::basic_string<Elem, Traits, Ax>& val2)
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(
+	  const char* expr1, const char* expr2
+	, const ::std::basic_string<Elem, Traits, Ax>& val1
+	, const ::std::basic_string<Elem, Traits, Ax>& val2)
 {
 	return CmpHelperSTRCASENE(expr1, expr2, val1.c_str(), val2.c_str());
 }
 template<typename Elem, typename Traits, typename Ax>
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* expr1, const char* expr2
-																, const Elem* val1
-																, const ::std::basic_string<Elem, Traits, Ax>& val2)
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(
+	  const char* expr1, const char* expr2
+	, const Elem* val1
+	, const ::std::basic_string<Elem, Traits, Ax>& val2)
 {
 	return CmpHelperSTRCASENE(expr1, expr2, val1, val2.c_str());
 }
 template<typename Elem, typename Traits, typename Ax>
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* expr1, const char* expr2
-																, const ::std::basic_string<Elem, Traits, Ax>& val1
-																, const Elem* val2)
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(
+	  const char* expr1, const char* expr2
+	, const ::std::basic_string<Elem, Traits, Ax>& val1
+	, const Elem* val2)
 {
 	return CmpHelperSTRCASENE(expr1, expr2, val1.c_str(), val2);
 }

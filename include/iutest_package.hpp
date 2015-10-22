@@ -76,8 +76,9 @@
 	namespace name {									\
 	class iuTest_TestCasePackage;						\
 	namespace { const int IUTEST_PP_CAT( k_iutest_package_##name##_dummy_, IUTEST_PP_UNIQUEID)	\
-		IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::package_name_server<iuTest_TestCasePackage>::setname(			\
-			iuTest_GetTestCaseParentPackageName(static_cast<iuTest_TestCaseParentPackage*>(NULL)) + #name ".");	}	\
+		IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::package_name_server<						\
+				iuTest_TestCasePackage>::setname(iuTest_GetTestCaseParentPackageName(			\
+					static_cast<iuTest_TestCaseParentPackage*>(NULL)) + #name ".");	}			\
 	class iuTest_TestCaseParentPackage;					\
 	namespace { const int IUTEST_PP_CAT( k_iutest_package_##name##_parent_dummy_, IUTEST_PP_UNIQUEID)	\
 		IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::package_name_server<iuTest_TestCaseParentPackage>	\
