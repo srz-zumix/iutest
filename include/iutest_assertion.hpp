@@ -757,7 +757,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNearFloatingPoint(const
 	}
 	return AssertionFailure() << "error: Value of: abs(" << expr1 << " - " << expr2 << ") <= " << absc
 		<< "\n  Actual: abs(" << val1 << " - " << val2 << ") : " << diff
-		<< "\nExpected: " << FormatForComparisonFailureMessage(abs_v, diff) ;
+		<< "\nExpected: " << FormatForComparisonFailureMessage(abs_v, diff);
 }
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ DoubleNearPredFormat(const char* expr1, const char* expr2, const char* absc
 													, double val1, double val2, double abs_v)
@@ -775,7 +775,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(const char* expr1,
 		return AssertionSuccess();
 	}
 	return AssertionFailure() << "error: Value of: abs(" << expr1 << " - " << expr2 << ") <= " << absc
-		<< "\n  Actual: abs(" << val1 << " - " << val2 << ") : " << diff << "\nExpected: " << FormatForComparisonFailureMessage(abs_v, diff) ;
+		<< "\n  Actual: abs(" << val1 << " - " << val2 << ") : " << diff
+		<< "\nExpected: " << FormatForComparisonFailureMessage(abs_v, diff);
 }
 template<typename A>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(const char* expr1, const char* expr2, const char* absc

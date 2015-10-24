@@ -316,7 +316,7 @@ public:
 	typedef typename impl< iutest_type_traits::is_base_of<Test, T>::value, T>::type type;
 };
 
-}
+}	// end of namespace is_useful_testfixture_helper
 
 template<typename T>
 class is_useful_testfixture<void (int(T))> : public is_useful_testfixture_helper::is_override_setup<T>::type
@@ -325,7 +325,7 @@ class is_useful_testfixture<void (int(T))> : public is_useful_testfixture_helper
 
 #endif
 
-}
+}	// end of namespace detail
 
 }	// end of namespace iutest
 

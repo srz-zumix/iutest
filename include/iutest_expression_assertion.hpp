@@ -44,7 +44,7 @@
 #define IUTEST_TEST_EXPRESSION_(expr, expected, on_failure)	\
 	IUTEST_TEST_TRUE( ( IIUT_EXPRESSION_DECOMPOSE() expr ).GetResult(expected), #expr, on_failure )
 
-#define IIUT_DECL_EXPRESSION_RESULT_OP(op)	\
+#define IIUT_DECL_EXPRESSION_RESULT_OP(op)										\
 	template<typename RHS>ExpressionResult operator op (const RHS& rhs) const {	\
 		const bool b = result() op rhs ? true : false;							\
 		return ExpressionResult(AssertionResult(b)								\
@@ -61,7 +61,7 @@
 					<< m_result.message() << " " #op " " << rhs.message());		\
 	}
 
-#define IIUT_DECL_EXPRESSION_OP(op)	\
+#define IIUT_DECL_EXPRESSION_OP(op)														\
 	template<typename RHS>ExpressionResult operator op (const RHS& rhs) const {			\
 		const bool b = (m_lhs op rhs) ? true : false;									\
 		return ExpressionResult(AssertionResult(b) << m_message << " " #op " " << rhs);	\
@@ -71,10 +71,11 @@
 
 #if IUTEST_HAS_DECLTYPE
 
-#define IIUT_DECL_EXPRESSION_OP_LHS(op)	\
-	template<typename RHS>auto operator op (const RHS& rhs) const	\
-	-> ExpressionLHS< decltype( expression_op_helper::operand_result( ( ::std::declval<T>() op rhs) ) )> {	\
-		return OperandResult(m_lhs op rhs) << " " #op " " << rhs;	\
+#define IIUT_DECL_EXPRESSION_OP_LHS(op)									\
+	template<typename RHS>auto operator op (const RHS& rhs) const		\
+	-> ExpressionLHS< decltype( expression_op_helper::operand_result(	\
+		( ::std::declval<T>() op rhs ) ) )> {							\
+		return OperandResult(m_lhs op rhs) << " " #op " " << rhs;		\
 	}
 
 #else
@@ -113,7 +114,7 @@ public:
 	IIUT_DECL_EXPRESSION_RESULT_OP(&&)
 
 public:
-	AssertionResult GetResult(bool expected) const 
+	AssertionResult GetResult(bool expected) const
 	{
 		return AssertionResult(result() == expected) << "expansion: " << m_result.message();
 	}
@@ -144,12 +145,12 @@ class ExpressionLHS
 	typedef ExpressionLHS<T> _Myt;
 public:
 #if IUTEST_HAS_RVALUE_REFS
-	ExpressionLHS(T&& lhs) : m_lhs( ::std::forward<T>(lhs) )
+	explicit ExpressionLHS(T&& lhs) : m_lhs( ::std::forward<T>(lhs) )
 	{
 		AppendMessage(m_lhs);
 	}
 #else
-	ExpressionLHS(T lhs) : m_lhs(lhs)
+	explicit ExpressionLHS(T lhs) : m_lhs(lhs)
 	{
 		AppendMessage(lhs);
 	}

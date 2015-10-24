@@ -84,7 +84,7 @@ struct Printer<true>
 	}
 };
 
-}
+}	// end of namespace formatter
 
 /** @private */
 class TypeWithoutFormatter
@@ -93,7 +93,8 @@ public:
 	template<typename T>
 	static void PrintValue(const T& value, iu_ostream* os)
 	{
-		formatter::Printer<iutest_type_traits::is_convertible<const T&, BiggestInt>::value>::Print(value, os);
+		formatter::Printer<
+			iutest_type_traits::is_convertible<const T&, BiggestInt>::value>::Print(value, os);
 	}
 };
 
@@ -117,7 +118,7 @@ iu_ostream& operator << (iu_ostream& os, const T& value)
 
 #endif
 
-}	// end of printer_internal
+}	// end of namespace printer_internal
 
 namespace printer_internal2
 {
@@ -133,7 +134,7 @@ void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
 	*os << value;
 }
 
-}	// end of printer_internal2
+}	// end of namespace printer_internal2
 
 //======================================================================
 // declare
@@ -188,12 +189,14 @@ inline void DefaultPrintTo(IsContainerHelper::no_t
 #if !defined(IUTEST_NO_SFINAE) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 template<typename T>
-inline void DefaultPtrPrintTo(T* ptr, iu_ostream* os, typename enable_if_t< is_convertible<T*, const void*> >::type*& = enabler::value)
+inline void DefaultPtrPrintTo(T* ptr, iu_ostream* os
+	, typename enable_if_t< is_convertible<T*, const void*> >::type*& = enabler::value)
 {
 	*os << ptr;
 }
 template<typename T>
-inline void DefaultPtrPrintTo(T* ptr, iu_ostream* os, typename disable_if_t< is_convertible<T*, const void*> >::type*& = enabler::value)
+inline void DefaultPtrPrintTo(T* ptr, iu_ostream* os
+	, typename disable_if_t< is_convertible<T*, const void*> >::type*& = enabler::value)
 {
 	*os << reinterpret_cast<const void*>(reinterpret_cast<type_least_t<8>::UInt>(ptr));
 }
@@ -242,7 +245,10 @@ inline void PrintTo(char* c, iu_ostream* os)		{ *os << c; }
 inline void PrintTo(const ::std::string& str, iu_ostream* os)	{ *os << str.c_str(); }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 template<typename T>
-inline void PrintTo(const floating_point<T>& f, iu_ostream* os)	{ *os << f.raw() << "(0x" << ToHexString(f.bits()) << ")"; }
+inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
+{
+	*os << f.raw() << "(0x" << ToHexString(f.bits()) << ")";
+}
 template<typename T1, typename T2>
 inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)
 {
@@ -296,18 +302,21 @@ inline void PrintTo(const ::std::nullptr_t&, iu_ostream* os) { *os << "nullptr";
 #if IUTEST_HAS_TUPLE
 
 template<typename T, int I, int SIZE>
-inline void PrintTupleElemTo(const T& t, iu_ostream* os, typename detail::enable_if<I == 0, void>::type*& = detail::enabler::value)
+inline void PrintTupleElemTo(const T& t, iu_ostream* os
+	, typename detail::enable_if<I == 0, void>::type*& = detail::enabler::value)
 {
 	IUTEST_UNUSED_VAR(t);
 	IUTEST_UNUSED_VAR(os);
 }
 template<typename T, int I, int SIZE>
-inline void PrintTupleElemTo(const T& t, iu_ostream* os, typename detail::enable_if<I == 1, void>::type*& = detail::enabler::value)
+inline void PrintTupleElemTo(const T& t, iu_ostream* os
+	, typename detail::enable_if<I == 1, void>::type*& = detail::enabler::value)
 {
 	PrintTo(tuples::get<SIZE-I>(t), os);
 }
 template<typename T, int I, int SIZE>
-inline void PrintTupleElemTo(const T& t, iu_ostream* os, typename detail::enable_if<(I&(~1)) != 0, void>::type*& = detail::enabler::value)
+inline void PrintTupleElemTo(const T& t, iu_ostream* os
+	, typename detail::enable_if<(I&(~1)) != 0, void>::type*& = detail::enabler::value)
 {
 	PrintTo(tuples::get<SIZE-I>(t), os);
 	*os << ", ";
@@ -332,25 +341,24 @@ inline void PrintTo(const tuples::tuple<Args...>& t, iu_ostream* os)
 
 #else
 
+#define IIUT_DECL_TUPLE_PRINTTO(n)												\
+	template<IUTEST_PP_ENUM_PARAMS(n, typename A)>inline void PrintTo(			\
+		const tuples::tuple<IUTEST_PP_ENUM_PARAMS(n, A)>& t, iu_ostream* os) {	\
+			PrintTupleTo(t, os); }
+
 inline void PrintTo(const tuples::tuple<>& t, iu_ostream* os) { PrintTupleTo(t, os); }
-template<typename A1>
-inline void PrintTo(const tuples::tuple<A1>& t, iu_ostream* os) { PrintTupleTo(t, os); }
-template<typename A1, typename A2>
-inline void PrintTo(const tuples::tuple<A1, A2>& t, iu_ostream* os) { PrintTupleTo(t, os); }
-template<typename A1, typename A2, typename A3>
-inline void PrintTo(const tuples::tuple<A1, A2, A3>& t, iu_ostream* os) { PrintTupleTo(t, os); }
-template<typename A1, typename A2, typename A3, typename A4>
-inline void PrintTo(const tuples::tuple<A1, A2, A3, A4>& t, iu_ostream* os) { PrintTupleTo(t, os); }
-template<typename A1, typename A2, typename A3, typename A4, typename A5>
-inline void PrintTo(const tuples::tuple<A1, A2, A3, A4, A5>& t, iu_ostream* os) { PrintTupleTo(t, os); }
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6>
-inline void PrintTo(const tuples::tuple<A1, A2, A3, A4, A5, A6>& t, iu_ostream* os) { PrintTupleTo(t, os); }
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7>
-inline void PrintTo(const tuples::tuple<A1, A2, A3, A4, A5, A6, A7>& t, iu_ostream* os) { PrintTupleTo(t, os); }
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8>
-inline void PrintTo(const tuples::tuple<A1, A2, A3, A4, A5, A6, A7, A8>& t, iu_ostream* os) { PrintTupleTo(t, os); }
-template<typename A1, typename A2, typename A3, typename A4, typename A5, typename A6, typename A7, typename A8, typename A9>
-inline void PrintTo(const tuples::tuple<A1, A2, A3, A4, A5, A6, A7, A8, A9>& t, iu_ostream* os) { PrintTupleTo(t, os); }
+
+IIUT_DECL_TUPLE_PRINTTO(1)
+IIUT_DECL_TUPLE_PRINTTO(2)
+IIUT_DECL_TUPLE_PRINTTO(3)
+IIUT_DECL_TUPLE_PRINTTO(4)
+IIUT_DECL_TUPLE_PRINTTO(5)
+IIUT_DECL_TUPLE_PRINTTO(6)
+IIUT_DECL_TUPLE_PRINTTO(7)
+IIUT_DECL_TUPLE_PRINTTO(8)
+IIUT_DECL_TUPLE_PRINTTO(9)
+
+#undef IIUT_DECL_TUPLE_PRINTTO
 
 #endif
 

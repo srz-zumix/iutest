@@ -100,7 +100,7 @@ private:
 	class placeholder
 	{
 	public:
-		virtual ~placeholder() {};
+		virtual ~placeholder() {}
 		virtual type_id type(void) const = 0;
 		virtual placeholder* clone(void) const = 0;
 	};
@@ -108,7 +108,7 @@ private:
 	class holder : public placeholder
 	{
 	public:
-		holder(const T& v) : held(v) {}
+		explicit holder(const T& v) : held(v) {}
 	public:
 		virtual type_id type(void) const IUTEST_CXX_OVERRIDE
 		{
@@ -179,7 +179,7 @@ template<typename T>
 T* unsafe_any_cast(any* p)
 {
 	return p != NULL ?
-		&static_cast< any::holder<T>* >(p->content)->held : NULL;
+		&(static_cast< any::holder<T>* >(p->content)->held) : NULL;
 }
 /** @overload */
 template<typename T>

@@ -625,7 +625,7 @@ AssertionResult AssertPred1Helper(const char* pred_str, const char* expr1
 		return AssertionSuccess();
 	}
 	return AssertionFailure() << "error: " << pred_str << "(" << expr1 << ") evaluates to false, where "
-		<< "\n" << expr1 << " : " << val1 ;
+		<< "\n" << expr1 << " : " << val1;
 }
 
 /** @private */
@@ -641,7 +641,7 @@ AssertionResult AssertPred2Helper(const char* pred_str, const char* expr1, const
 		<< expr1 << ", " << expr2
 		<< ") evaluates to false, where "
 		<< "\n" << expr1 << " : " << val1
-		<< "\n" << expr2 << " : " << val2 ;
+		<< "\n" << expr2 << " : " << val2;
 }
 
 /** @private */
@@ -659,7 +659,7 @@ AssertionResult AssertPred3Helper(const char* pred_str
 		<< ") evaluates to false, where "
 		<< "\n" << expr1 << " : " << val1
 		<< "\n" << expr2 << " : " << val2
-		<< "\n" << expr3 << " : " << val3 ;
+		<< "\n" << expr3 << " : " << val3;
 }
 
 /** @private */
@@ -678,7 +678,7 @@ AssertionResult AssertPred4Helper(const char* pred_str
 		<< "\n" << expr1 << " : " << val1
 		<< "\n" << expr2 << " : " << val2
 		<< "\n" << expr3 << " : " << val3
-		<< "\n" << expr4 << " : " << val4 ;
+		<< "\n" << expr4 << " : " << val4;
 }
 
 /** @private */
@@ -698,7 +698,7 @@ AssertionResult AssertPred5Helper(const char* pred_str
 		<< "\n" << expr2 << " : " << val2
 		<< "\n" << expr3 << " : " << val3
 		<< "\n" << expr4 << " : " << val4
-		<< "\n" << expr5 << " : " << val5 ;
+		<< "\n" << expr5 << " : " << val5;
 }
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES

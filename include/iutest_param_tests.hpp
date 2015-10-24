@@ -76,7 +76,8 @@
  *  IUTEST_AP(TestCaseName, TestName) {}\n
  *  IUTEST_INSTANTIATE_TEST_CASE_AP(InstantiateName, TestCaseName, ParamGenerator);\n
 */
-#define IUTEST_AP(testcase_, testname_)			IIUT_TEST_P_(IUTEST_ALIAS_TESTNAME_F(iuTestWithAny, testcase_), testname_)
+#define IUTEST_AP(testcase_, testname_)	\
+	IIUT_TEST_P_(IUTEST_ALIAS_TESTNAME_F(iuTestWithAny, testcase_), testname_)
 
 
 #endif
@@ -88,11 +89,13 @@
 */
 
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-#  define IIUT_GETTESTCASEPATTERNHOLDER(T, testcase_, package_)	\
-	::iutest::UnitTest::GetInstance()->parameterized_test_registry().GetTestCasePatternHolder<T>(testcase_, package_)
+#  define IIUT_GETTESTCASEPATTERNHOLDER(T, testcase_, package_)		\
+	::iutest::UnitTest::GetInstance()->parameterized_test_registry(	\
+		).GetTestCasePatternHolder<T>(testcase_, package_)
 #else
-#  define IIUT_GETTESTCASEPATTERNHOLDER(T, testcase_, package_)	\
-	::iutest::UnitTest::GetInstance()->parameterized_test_registry().GetTestCasePatternHolder(testcase_, package_, ::iutest::detail::explicit_type<T>())
+#  define IIUT_GETTESTCASEPATTERNHOLDER(T, testcase_, package_)		\
+	::iutest::UnitTest::GetInstance()->parameterized_test_registry(	\
+		).GetTestCasePatternHolder(testcase_, package_, ::iutest::detail::explicit_type<T>())
 #endif
 
 #if IUTEST_HAS_AUTOFIXTURE_PARAM_TEST
@@ -119,62 +122,65 @@
 #define IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_)								\
 	IIUT_TEST_P_FIXTURE_DECL_(testcase_)															\
 	static ::iutest::detail::iuIParamGenerator< IIUT_TEST_P_BASE_FIXTURE(testcase_)::ParamType >*	\
-		IUTEST_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)(void) { return generator_; }			\
-		int IUTEST_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)(void) {					\
+		IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)(void) { return generator_; }			\
+		int IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)(void) {						\
 			::iutest::detail::ParamTestCaseInfo< IIUT_TEST_P_BASE_FIXTURE(testcase_) >* p =			\
 				IIUT_GETTESTCASEPATTERNHOLDER( IIUT_TEST_P_BASE_FIXTURE(testcase_)					\
 					, IIUT_TO_NAME_STR_(testcase_), IUTEST_GET_PACKAGENAME_());						\
-			return p->AddTestCaseInstantiation(#prefix_, IUTEST_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_));	\
-		} IUTEST_TEST_P_INSTANTIATIONREGISTER_(prefix_, testcase_)
+			return p->AddTestCaseInstantiation(#prefix_												\
+						, IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_));						\
+		} IIUT_TEST_P_INSTANTIATIONREGISTER_(prefix_, testcase_)
 
 /**
  * @brief	パラメータテストクラス定義
 */
-#define IIUT_TEST_P_(testcase_, testname_)															\
-	IIUT_TEST_P_FIXTURE_DECL_(testcase_)															\
-	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public IIUT_TEST_P_BASE_FIXTURE(testcase_) {		\
-		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}								\
-		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE;										\
-		private: static int AddRegister(void) {														\
-			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_			\
-				, testname_) > testinfo(IIUT_TO_NAME_STR_(testname_));								\
+#define IIUT_TEST_P_(testcase_, testname_)													\
+	IIUT_TEST_P_FIXTURE_DECL_(testcase_)													\
+	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_)										\
+			: public IIUT_TEST_P_BASE_FIXTURE(testcase_) {									\
+		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
+		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE;								\
+		private: static int AddRegister(void) {												\
+			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_	\
+				, testname_) > testinfo(IIUT_TO_NAME_STR_(testname_));						\
 			IIUT_GETTESTCASEPATTERNHOLDER(IIUT_TEST_P_BASE_FIXTURE(testcase_), IIUT_TO_NAME_STR_(testcase_)	\
-					, IUTEST_GET_PACKAGENAME_())->AddTestPattern(&testinfo); return 0;				\
-		}																							\
-		static int dummy_;																			\
-		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));			\
-	};																								\
-	int IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::dummy_ IUTEST_ATTRIBUTE_UNUSED_				\
-		= IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::AddRegister();								\
+					, IUTEST_GET_PACKAGENAME_())->AddTestPattern(&testinfo); return 0;		\
+		}																					\
+		static int dummy_;																	\
+		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));	\
+	};																						\
+	int IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::dummy_ IUTEST_ATTRIBUTE_UNUSED_		\
+		= IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::AddRegister();						\
 	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body(void)
 
-#define IIUT_TEST_P_IGNORE_(testcase_, testname_)													\
-	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public IIUT_TEST_P_BASE_FIXTURE(testcase_) {		\
-		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}								\
+#define IIUT_TEST_P_IGNORE_(testcase_, testname_)											\
+	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_)										\
+			: public IIUT_TEST_P_BASE_FIXTURE(testcase_) {									\
+		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
 		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }		\
-		template<typename T>void Body(void);														\
-		private: static int AddRegister(void) {														\
-			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_			\
-				, testname_) > testinfo(IIUT_TO_NAME_STR_(testname_));								\
+		template<typename T>void Body(void);												\
+		private: static int AddRegister(void) {												\
+			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_	\
+				, testname_) > testinfo(IIUT_TO_NAME_STR_(testname_));						\
 			IIUT_GETTESTCASEPATTERNHOLDER(IIUT_TEST_P_BASE_FIXTURE(testcase_), IIUT_TO_NAME_STR_(testcase_)	\
-				, IUTEST_GET_PACKAGENAME_())->AddTestPattern(&testinfo); return 0;					\
-		}																							\
-		static int dummy_;																			\
-		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));			\
-	};																								\
-	int IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::dummy_ IUTEST_ATTRIBUTE_UNUSED_				\
-		= IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::AddRegister();								\
+				, IUTEST_GET_PACKAGENAME_())->AddTestPattern(&testinfo); return 0;			\
+		}																					\
+		static int dummy_;																	\
+		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));	\
+	};																						\
+	int IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::dummy_ IUTEST_ATTRIBUTE_UNUSED_		\
+		= IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::AddRegister();						\
 	template<typename T>void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body(void)
 
-#define IUTEST_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)	IIUT_TEST_P_EVALGENERATOR_NAME_I(prefix_, IIUT_TO_VARNAME_(testcase_))
+#define IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)		IIUT_TEST_P_EVALGENERATOR_NAME_I(prefix_, IIUT_TO_VARNAME_(testcase_))
 #define IIUT_TEST_P_EVALGENERATOR_NAME_I(prefix_, testcase_)	IIUT_TEST_P_EVALGENERATOR_NAME_I_(prefix_, testcase_)
 #define IIUT_TEST_P_EVALGENERATOR_NAME_I_(prefix_, testcase_)	s_##prefix_##_##testcase_##_EvalGenerator_
 
-#define IUTEST_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)	IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I(prefix_, IIUT_TO_VARNAME_(testcase_))
+#define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)		IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I(prefix_, IIUT_TO_VARNAME_(testcase_))
 #define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I(prefix_, testcase_)	IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I_(prefix_, testcase_)
 #define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I_(prefix_, testcase_)	prefix_##_##testcase_##_TestCaseInstantiationRegister
 
-#define IUTEST_TEST_P_INSTANTIATIONREGISTER_(prefix_, testcase_)			IIUT_TEST_P_INSTANTIATIONREGISTER_I(prefix_, IIUT_TO_VARNAME_(testcase_), IUTEST_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_))
+#define IIUT_TEST_P_INSTANTIATIONREGISTER_(prefix_, testcase_)				IIUT_TEST_P_INSTANTIATIONREGISTER_I(prefix_, IIUT_TO_VARNAME_(testcase_), IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_))
 #define IIUT_TEST_P_INSTANTIATIONREGISTER_I(prefix_, testcase_, register_)	IIUT_TEST_P_INSTANTIATIONREGISTER_I_(prefix_, testcase_, register_)
 #define IIUT_TEST_P_INSTANTIATIONREGISTER_I_(prefix_, testcase_, register_)	int s_##prefix_##_##testcase_##_dummy = register_()
 
@@ -221,7 +227,7 @@ class ParamTestInstance : public IParamTestInfoData
 		TestInfo			m_info;
 	};
 public:
-	ParamTestInstance(const char* testcase_name) : IParamTestInfoData(testcase_name) {}
+	explicit ParamTestInstance(const char* testcase_name) : IParamTestInfoData(testcase_name) {}
 
 private:
 	// テストケースの作成
@@ -230,12 +236,14 @@ private:
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
 		return UnitTest::instance().AddTestCase<TestCase>(testcase_name, id, setup, teardown);
 #else
-		return UnitTest::instance().AddTestCase(testcase_name, id, setup, teardown, detail::explicit_type<TestCase>());
+		return UnitTest::instance().AddTestCase(
+			testcase_name, id, setup, teardown, detail::explicit_type<TestCase>());
 #endif
 	}
 
 	// テストの作成登録
-	virtual IParamTestInfoData::EachTestBase* RegisterTest(TestCase* testcase, const char* name) const IUTEST_CXX_OVERRIDE
+	virtual IParamTestInfoData::EachTestBase* RegisterTest(TestCase* testcase
+														, const char* name) const IUTEST_CXX_OVERRIDE
 	{
 		EachTest* test = new EachTest(testcase, name);
 		// new オブジェクトを管理してもらう
@@ -374,7 +382,8 @@ inline detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ ValuesIn(const T (&v
 template<typename Ite>
 inline detail::iuParamGenerator< typename detail::IteratorTraits<Ite>::type > IUTEST_ATTRIBUTE_UNUSED_ ValuesIn(Ite begin, Ite end)
 {
-	return new detail::iuValuesInParamsGenerator< typename detail::IteratorTraits<Ite>::type >(begin, end);
+	return new detail::iuValuesInParamsGenerator<
+		typename detail::IteratorTraits<Ite>::type >(begin, end);
 }
 #endif
 

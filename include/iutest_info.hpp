@@ -82,7 +82,10 @@ public:
 	const	char*	type_param(void)		const { return m_testcase->type_param(); }
 
 	/** default package 名を含む TestCase 名の取得 */
-	::std::string testcase_name_with_default_package_name(void) const { return TestEnv::AddDefaultPackageName(test_case_name()); }
+	::std::string testcase_name_with_default_package_name(void) const
+	{
+		return TestEnv::AddDefaultPackageName(test_case_name());
+	}
 public:
 	/**
 	 * @brief	致命的なエラーが出たかどうか
@@ -173,7 +176,6 @@ private:
 	bool Run(void);
 
 private:
-
 	void RunImpl(void);
 
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
@@ -204,7 +206,7 @@ private:
 	class Mediator IUTEST_CXX_FINAL : public detail::iuITestInfoMediator
 	{
 	public:
-		Mediator(TestInfo* p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : iuITestInfoMediator(p) {}
+		explicit Mediator(TestInfo* p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : iuITestInfoMediator(p) {}
 	public:
 		virtual	bool HasFatalFailure(void) const IUTEST_CXX_OVERRIDE
 		{

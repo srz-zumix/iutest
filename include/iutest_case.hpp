@@ -120,10 +120,16 @@ public:
 	}
 
 	/** default package 名を含む TestCase 名の取得 */
-	::std::string testcase_name_with_default_package_name(void) const { return TestEnv::AddDefaultPackageName(name()); }
+	::std::string testcase_name_with_default_package_name(void) const
+	{
+		return TestEnv::AddDefaultPackageName(name());
+	}
 
 	/** テスト実行中じゃないときのリザルトの取得 */
-	const TestResult* ad_hoc_testresult(void) const IUTEST_CXX_NOEXCEPT_SPEC { return &m_ad_hoc_testresult; }
+	const TestResult* ad_hoc_testresult(void) const IUTEST_CXX_NOEXCEPT_SPEC
+	{
+		return &m_ad_hoc_testresult;
+	}
 
 public:
 	/**
@@ -260,7 +266,10 @@ protected:
 
 public:
 	/** type param 文字列の取得 */
-	virtual const char* type_param(void) const IUTEST_CXX_OVERRIDE { return m_type_param.empty() ? NULL : m_type_param.c_str(); }
+	virtual const char* type_param(void) const IUTEST_CXX_OVERRIDE
+	{
+		return m_type_param.empty() ? NULL : m_type_param.c_str();
+	}
 
 private:
 	friend class UnitTestImpl;
@@ -277,7 +286,7 @@ namespace detail
 class TestCaseMediator IUTEST_CXX_FINAL : public detail::iuITestCaseMediator
 {
 public:
-	TestCaseMediator(TestCase* p) IUTEST_CXX_NOEXCEPT_SPEC : iuITestCaseMediator(p) {}
+	explicit TestCaseMediator(TestCase* p) IUTEST_CXX_NOEXCEPT_SPEC : iuITestCaseMediator(p) {}
 public:
 	virtual const char* test_case_name(void) const IUTEST_CXX_OVERRIDE { return m_test_case->name(); }
 	virtual const char* type_param(void)	 const IUTEST_CXX_OVERRIDE { return m_test_case->type_param(); }

@@ -323,7 +323,6 @@ private:
 	static Variable& get_vars(void) { static Variable v; return v; }
 
 public:
-
 	static detail::iuRandom&	genrand(void)				{ return get_vars().m_genrand; }				//!< 乱数生成器
 	static unsigned int			get_random_seed(void)		{ return get_vars().m_random_seed; }			//!< 乱数シード
 	static unsigned int			current_random_seed(void)	{ return get_vars().m_current_random_seed; }	//!< 乱数シード
@@ -471,7 +470,7 @@ private:
 		friend bool operator == (const char* c_str_, _Argt rhs)			{ return rhs.m_option == c_str_; }
 		friend bool operator == (const ::std::string& str, _Argt rhs)	{ return rhs.m_option == str; }
 		friend bool operator == (_Argt lhs, const char* c_str_)			{ return lhs.m_option == c_str_; }
-		friend bool operator == (_Argt lhs, const::std::string& str)	{ return lhs.m_option == str; }
+		friend bool operator == (_Argt lhs, const ::std::string& str)	{ return lhs.m_option == str; }
 		friend bool operator != (const char* c_str_, _Argt rhs)			{ return rhs.m_option != c_str_; }
 		friend bool operator != (const ::std::string& str, _Argt rhs)	{ return rhs.m_option != str; }
 		friend bool operator != (_Argt lhs, const char* c_str_)			{ return lhs.m_option != c_str_; }

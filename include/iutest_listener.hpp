@@ -161,7 +161,7 @@ public:
 	/**
 	 * @brief	リスナーの追加
 	*/
-	void Append(TestEventListener* listener) { m_repeater.Append(listener); };
+	void Append(TestEventListener* listener) { m_repeater.Append(listener); }
 
 	/**
 	 * @brief	リスナーの解放
