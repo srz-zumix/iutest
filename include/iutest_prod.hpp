@@ -243,7 +243,7 @@ private:
 		typedef typename type_traits::remove_pointer<Type>::type value_type;
 	public:
 		peep_static_impl(void) {}
-		peep_static_impl(const value_type& value) { *detail::peep_tag<peep_tag>::value = value; }
+		peep_static_impl(const value_type& value) { *detail::peep_tag<peep_tag>::value = value; }	// NOLINT
 		peep_static_impl(const peep_static_impl&) {}
 	public:
 		operator value_type (void) const { return *detail::peep_tag<peep_tag>::value; }

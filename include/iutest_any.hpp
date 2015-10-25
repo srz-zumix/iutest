@@ -33,7 +33,7 @@ class any
 public:
 	any(void) : content(NULL) {}
 	template<typename T>
-	any(const T& rhs) : content(new holder<T>(rhs)) {}
+	any(const T& rhs) : content(new holder<T>(rhs)) {}	// NOLINT
 	any(const any& rhs) : content(rhs.content == NULL ? NULL : rhs.content->clone()) {}
 	~any(void) { delete content; }
 public:
@@ -143,7 +143,7 @@ template<typename T>
 T* any_cast(any* p)
 {
 	return p != NULL && p->type_equal<T>() ?
-		&static_cast< any::holder<T>* >(p->content)->held : NULL;
+		&(static_cast< any::holder<T>* >(p->content)->held) : NULL;
 }
 /** @overload */
 template<typename T>

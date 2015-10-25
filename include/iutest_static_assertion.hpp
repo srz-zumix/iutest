@@ -56,8 +56,7 @@ static bool	StaticAssertTypeEq(void)
 #else
 #  define IUTEST_STATIC_ASSERT_MSG(B, Msg)								\
 	typedef ::iutest::detail::static_assert_failure<					\
-		sizeof(::iutest::detail::static_assert_failure< (bool)B >) >	\
-	IUTEST_PP_CAT(iutest_static_assert_typedef_, IUTEST_PP_COUNTER)
+		sizeof(::iutest::detail::static_assert_failure< (bool)B >) > IUTEST_PP_CAT(iutest_static_assert_typedef_, IUTEST_PP_COUNTER)	// NOLINT
 #endif
 
 /**

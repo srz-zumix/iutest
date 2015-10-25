@@ -57,7 +57,7 @@ public:
 	 * @brief	コンストラクタ
 	 * @param [in] result = テスト結果真偽値
 	*/
-	AssertionResult(bool result) : m_result(result) {}
+	AssertionResult(bool result) : m_result(result) {}	// NOLINT
 	//! コピーコンストラクタ
 	AssertionResult(const AssertionResult& rhs) : m_message(rhs.m_message), m_result(rhs.m_result) {}
 
@@ -149,7 +149,7 @@ struct AssertionReturnType
 	 * @brief	コンストラクタ
 	 * @param [in]	v : 戻り値の値
 	*/
-	AssertionReturnType(const R& v) : value(v) {}
+	AssertionReturnType(const R& v) : value(v) {}	// NOLINT
 };
 /**
  * @brief	Assetion Return Type (void)
@@ -214,7 +214,7 @@ public:
 		, public detail::iuCodeMessage
 	{
 	public:
-		ScopedMessage(const detail::iuCodeMessage& msg)
+		ScopedMessage(const detail::iuCodeMessage& msg)	// NOLINT
 			: detail::iuCodeMessage(msg)
 		{
 			ScopedTrace::GetInstance().list.push_back(this);

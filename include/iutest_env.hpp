@@ -211,7 +211,7 @@ private:
 		typedef Fragment<KIND> _Myt;
 	public:
 		Fragment(void) IUTEST_CXX_NOEXCEPT_SPEC {}
-		Fragment(bool f) { SetFlag(KIND, f ? -1 : ~KIND); }
+		Fragment(bool f) { SetFlag(KIND, f ? -1 : ~KIND); }	// NOLINT
 		_Myt& operator = (bool f) { SetFlag(KIND, f ? -1 : ~KIND); return *this; }
 		operator bool (void) const { return IsEnableFlag(KIND); }
 	};
@@ -335,7 +335,7 @@ public:
 	static const char*			get_stream_result_to(void)	{ return get_vars().m_stream_result_to.c_str(); }
 #endif
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
-	static void					global_ostream_copyfmt(iu_ostream& os) { os.copyfmt(get_vars().m_ostream_formatter); }
+	static void					global_ostream_copyfmt(iu_ostream& os) { os.copyfmt(get_vars().m_ostream_formatter); }	// NOLINT
 #endif
 
 	/**

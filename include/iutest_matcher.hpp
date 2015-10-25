@@ -543,7 +543,7 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual)
 	{
-		if( Contains(actual, m_expected) ) return AssertionSuccess();
+		if( Contains(actual) ) return AssertionSuccess();
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -555,25 +555,25 @@ public:
 		return strm.str();
 	}
 private:
-	template<typename TT, typename Container>
-	bool Contains(const Container& actual, TT& expected)
+	template<typename Container>
+	bool Contains(const Container& actual)
 	{
-		return ContainsContainer(actual.begin(), actual.end(), expected);
+		return ContainsContainer(actual.begin(), actual.end());
 	}
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-	template<typename TT, typename U, size_t SIZE>
-	bool Contains(const U(&actual)[SIZE], TT& expected)
+	template<typename U, size_t SIZE>
+	bool Contains(const U(&actual)[SIZE])
 	{
-		return ContainsContainer(actual, actual + SIZE, expected);
+		return ContainsContainer(actual, actual + SIZE);
 	}
 #endif
 
-	template<typename TT, typename Ite>
-	bool ContainsContainer(Ite begin, Ite end, TT& expected)
+	template<typename Ite>
+	bool ContainsContainer(Ite begin, Ite end)
 	{
 		for( Ite it = begin; it != end; ++it )
 		{
-			if( CastToMatcher(expected)(*it) )
+			if( CastToMatcher(m_expected)(*it) )
 			{
 				return true;
 			}
@@ -1092,12 +1092,14 @@ private:
 	}
 
 	template<typename T, int N, int LAST>
-	static ::std::string WhichIs_(const T& matchers, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
+	static ::std::string WhichIs_(const T& matchers
+		, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
 	{
 		return StreamableToString(tuples::get<N>(matchers));
 	}
 	template<typename T, int N, int LAST>
-	static ::std::string WhichIs_(const T& matchers, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
+	static ::std::string WhichIs_(const T& matchers
+		, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
 	{
 		return StreamableToString(tuples::get<N>(matchers)) + ", " + WhichIs_<T, N + 1, LAST>(matchers);
 	}
@@ -1862,226 +1864,327 @@ namespace matchers
  * @details	argument == expected
 */
 template<typename T>
-detail::EqMatcher<T> Equals(const T& expected) { return detail::EqMatcher<T>(expected); }
+detail::EqMatcher<T> Equals(const T& expected)
+{
+	return detail::EqMatcher<T>(expected);
+}
 
 /**
  * @brief	Make Eq matcher
  * @details	argument == expected
 */
 template<typename T>
-detail::EqMatcher<T> Eq(const T& expected) { return detail::EqMatcher<T>(expected); }
+detail::EqMatcher<T> Eq(const T& expected)
+{
+	return detail::EqMatcher<T>(expected);
+}
 
 /**
  * @brief	Make Ne matcher
  * @details	argument != expected
 */
 template<typename T>
-detail::NeMatcher<T> Ne(const T& expected) { return detail::NeMatcher<T>(expected); }
+detail::NeMatcher<T> Ne(const T& expected)
+{
+	return detail::NeMatcher<T>(expected);
+}
 
 /**
  * @brief	Make Le matcher
  * @details	argument <= expected
 */
 template<typename T>
-detail::LeMatcher<T> Le(const T& expected) { return detail::LeMatcher<T>(expected); }
+detail::LeMatcher<T> Le(const T& expected)
+{
+	return detail::LeMatcher<T>(expected);
+}
 
 /**
  * @brief	Make Lt matcher
  * @details	argument < expected
 */
 template<typename T>
-detail::LtMatcher<T> Lt(const T& expected) { return detail::LtMatcher<T>(expected); }
+detail::LtMatcher<T> Lt(const T& expected)
+{
+	return detail::LtMatcher<T>(expected);
+}
 
 /**
  * @brief	Make Ge matcher
  * @details	argument >= expected
 */
 template<typename T>
-detail::GeMatcher<T> Ge(const T& expected) { return detail::GeMatcher<T>(expected); }
+detail::GeMatcher<T> Ge(const T& expected)
+{
+	return detail::GeMatcher<T>(expected);
+}
 
 /**
  * @brief	Make Gt matcher
  * @details	argument > expected
 */
 template<typename T>
-detail::GtMatcher<T> Gt(const T& expected) { return detail::GtMatcher<T>(expected); }
-
+detail::GtMatcher<T> Gt(const T& expected)
+{
+	return detail::GtMatcher<T>(expected);
+}
 
 /**
  * @brief	Make Twofold Eq matcher
  * @details	argument == expected
 */
-inline detail::TwofoldEqMatcher Eq(void) { return detail::TwofoldEqMatcher(); }
+inline detail::TwofoldEqMatcher Eq(void)
+{
+	return detail::TwofoldEqMatcher();
+}
 
 /**
  * @brief	Make Twofold Ne matcher
  * @details	argument != expected
 */
-inline detail::TwofoldNeMatcher Ne(void) { return detail::TwofoldNeMatcher(); }
+inline detail::TwofoldNeMatcher Ne(void)
+{
+	return detail::TwofoldNeMatcher();
+}
 
 /**
  * @brief	Make Twofold Le matcher
  * @details	argument <= expected
 */
-inline detail::TwofoldLeMatcher Le(void) { return detail::TwofoldLeMatcher(); }
+inline detail::TwofoldLeMatcher Le(void)
+{
+	return detail::TwofoldLeMatcher();
+}
 
 /**
  * @brief	Make Twofold Lt matcher
  * @details	argument < expected
 */
-inline detail::TwofoldLtMatcher Lt(void) { return detail::TwofoldLtMatcher(); }
+inline detail::TwofoldLtMatcher Lt(void)
+{
+	return detail::TwofoldLtMatcher();
+}
 
 /**
  * @brief	Make Twofold Ge matcher
  * @details	argument >= expected
 */
-inline detail::TwofoldGeMatcher Ge(void) { return detail::TwofoldGeMatcher(); }
+inline detail::TwofoldGeMatcher Ge(void)
+{
+	return detail::TwofoldGeMatcher();
+}
 
 /**
  * @brief	Make Twofold Gt matcher
  * @details	argument > expected
 */
-inline detail::TwofoldGtMatcher Gt(void) { return detail::TwofoldGtMatcher(); }
+inline detail::TwofoldGtMatcher Gt(void)
+{
+	return detail::TwofoldGtMatcher();
+}
 
 /**
  * @brief	Make IsNull matcher
  * @details	argument == nullptr
 */
-inline detail::IsNullMatcher IsNull() { return detail::IsNullMatcher(); }
+inline detail::IsNullMatcher IsNull()
+{
+	return detail::IsNullMatcher();
+}
 
 /**
  * @brief	Make NotNull matcher
  * @details	argument != nullptr
 */
-inline detail::NotNullMatcher NotNull() { return detail::NotNullMatcher(); }
+inline detail::NotNullMatcher NotNull()
+{
+	return detail::NotNullMatcher();
+}
 
 /**
  * @brief	Make TypedEq matcher
  * @details	argument == expected
 */
 template<typename T, typename U>
-detail::TypedEqMatcher<T> TypedEq(const U& expected) { return detail::TypedEqMatcher<T>(expected); }
+detail::TypedEqMatcher<T> TypedEq(const U& expected)
+{
+	return detail::TypedEqMatcher<T>(expected);
+}
 
 /**
  * @brief	Make Float Eq matcher
  * @details	argument は expected とおよそ等しい
 */
-inline detail::FloatingPointEqMatcher<float> FloatEq(float expected) { return detail::FloatingPointEqMatcher<float>(expected); }
+inline detail::FloatingPointEqMatcher<float> FloatEq(float expected)
+{
+	return detail::FloatingPointEqMatcher<float>(expected);
+}
 
 /**
  * @brief	Make Double Eq matcher
  * @details	argument は expected とおよそ等しい
 */
-inline detail::FloatingPointEqMatcher<double> DoubleEq(double expected) { return detail::FloatingPointEqMatcher<double>(expected); }
+inline detail::FloatingPointEqMatcher<double> DoubleEq(double expected)
+{
+	return detail::FloatingPointEqMatcher<double>(expected);
+}
 
 /**
  * @brief	Make NanSensitive Float Eq matcher
  * @details	argument は expected とおよそ等しい（NaN 同士は等しいとされる）
 */
-inline detail::NanSensitiveFloatingPointEqMatcher<float> NanSensitiveFloatEq(float expected) { return detail::NanSensitiveFloatingPointEqMatcher<float>(expected); }
+inline detail::NanSensitiveFloatingPointEqMatcher<float> NanSensitiveFloatEq(float expected)
+{
+	return detail::NanSensitiveFloatingPointEqMatcher<float>(expected);
+}
 
 /**
  * @brief	Make NanSensitive Double Eq matcher
  * @details	argument は expected とおよそ等しい（NaN 同士は等しいとされる）
 */
-inline detail::NanSensitiveFloatingPointEqMatcher<double> NanSensitiveDoubleEq(double expected) { return detail::NanSensitiveFloatingPointEqMatcher<double>(expected); }
+inline detail::NanSensitiveFloatingPointEqMatcher<double> NanSensitiveDoubleEq(double expected)
+{
+	return detail::NanSensitiveFloatingPointEqMatcher<double>(expected);
+}
 
 /**
  * @brief	Make StrEq matcher
  * @details	argument == expected
 */
 template<typename T>
-detail::StrEqMatcher<T> StrEq(const T& expected) { return detail::StrEqMatcher<T>(expected); }
+detail::StrEqMatcher<T> StrEq(const T& expected)
+{
+	return detail::StrEqMatcher<T>(expected);
+}
 
 /**
  * @brief	Make StrNe matcher
  * @details	argument != expected
 */
 template<typename T>
-detail::StrNeMatcher<T> StrNe(const T& expected) { return detail::StrNeMatcher<T>(expected); }
+detail::StrNeMatcher<T> StrNe(const T& expected)
+{
+	return detail::StrNeMatcher<T>(expected);
+}
 
 /**
  * @brief	Make StrCaseEq matcher
  * @details	argument == expected (ignore case)
 */
 template<typename T>
-detail::StrCaseEqMatcher<T> StrCaseEq(const T& expected) { return detail::StrCaseEqMatcher<T>(expected); }
+detail::StrCaseEqMatcher<T> StrCaseEq(const T& expected)
+{
+	return detail::StrCaseEqMatcher<T>(expected);
+}
 
 /**
  * @brief	Make StrCaseNe matcher
  * @details	argument != expected (ignore case)
 */
 template<typename T>
-detail::StrCaseNeMatcher<T> StrCaseNe(const T& expected) { return detail::StrCaseNeMatcher<T>(expected); }
+detail::StrCaseNeMatcher<T> StrCaseNe(const T& expected)
+{
+	return detail::StrCaseNeMatcher<T>(expected);
+}
 
 /**
  * @brief	Make StartsWith matcher
  * @details	argument の先頭が str である
 */
 template<typename T>
-detail::StartsWithMatcher<const T&> StartsWith(const T& str) { return detail::StartsWithMatcher<const T&>(str); }
+detail::StartsWithMatcher<const T&> StartsWith(const T& str)
+{
+	return detail::StartsWithMatcher<const T&>(str);
+}
 
 /**
  * @brief	Make HasSubstr matcher
  * @details	argument が str を含む
 */
 template<typename T>
-detail::HasSubstrMatcher<const T&> HasSubstr(const T& str) { return detail::HasSubstrMatcher<const T&>(str); }
+detail::HasSubstrMatcher<const T&> HasSubstr(const T& str)
+{
+	return detail::HasSubstrMatcher<const T&>(str);
+}
 
 /**
  * @brief	Make EndsWith matcher
  * @details	argument の末尾が str である
 */
 template<typename T>
-detail::EndsWithMatcher<const T&> EndsWith(const T& str) { return detail::EndsWithMatcher<const T&>(str); }
+detail::EndsWithMatcher<const T&> EndsWith(const T& str)
+{
+	return detail::EndsWithMatcher<const T&>(str);
+}
 
 /**
  * @brief	Make Contains matcher
  * @details	argument は expected にマッチする要素を含む
 */
 template<typename T>
-detail::ContainsMatcher<T> Contains(const T& expected) { return detail::ContainsMatcher<T>(expected); }
+detail::ContainsMatcher<T> Contains(const T& expected)
+{
+	return detail::ContainsMatcher<T>(expected);
+}
 
 /**
  * @brief	Make Each matcher
  * @details	argument はすべての要素が expected にマッチする
 */
 template<typename T>
-detail::EachMatcher<T> Each(const T& expected) { return detail::EachMatcher<T>(expected); }
+detail::EachMatcher<T> Each(const T& expected)
+{
+	return detail::EachMatcher<T>(expected);
+}
 
 /**
  * @brief	Make ContainerEq matcher
  * @details	argument コンテナは expected コンテナにマッチする
 */
 template<typename T>
-detail::ContainerEqMatcher<T> ContainerEq(const T& expected) { return detail::ContainerEqMatcher<T>(expected); }
+detail::ContainerEqMatcher<T> ContainerEq(const T& expected)
+{
+	return detail::ContainerEqMatcher<T>(expected);
+}
 
 /**
  * @brief	Make Pointwise matcher
  * @details	argument コンテナは expected コンテナの各要素と matcher にマッチする
 */
 template<typename M, typename T>
-detail::PointwiseMatcher<M, T> Pointwise(const M& matcher, const T& expected) { return detail::PointwiseMatcher<M, T>(matcher, expected); }
+detail::PointwiseMatcher<M, T> Pointwise(const M& matcher, const T& expected)
+{
+	return detail::PointwiseMatcher<M, T>(matcher, expected);
+}
 
 /**
  * @brief	Make IsEmpty matcher
  * @details	argument.empty()
 */
-inline detail::IsEmptyMatcher IsEmpty() { return detail::IsEmptyMatcher(); }
+inline detail::IsEmptyMatcher IsEmpty()
+{
+	return detail::IsEmptyMatcher();
+}
 
 /**
  * @brief	Make SizeIs matcher
  * @details	argument の要素数が expected にマッチする
 */
 template<typename T>
-detail::SizeIsMatcher<T> SizeIs(const T& expected) { return detail::SizeIsMatcher<T>(expected); }
+detail::SizeIsMatcher<T> SizeIs(const T& expected)
+{
+	return detail::SizeIsMatcher<T>(expected);
+}
 
 /**
  * @brief	Make At matcher
  * @details	argument[index] は expected にマッチする
 */
 template<typename T>
-detail::AtMatcher<T> At(size_t index, const T& expected) { return detail::AtMatcher<T>(index, expected); }
+detail::AtMatcher<T> At(size_t index, const T& expected)
+{
+	return detail::AtMatcher<T>(index, expected);
+}
 
 /**
  * @brief	Make ElementsAreArray matcher
@@ -2191,7 +2294,10 @@ detail::ElementsAreArrayMatcher<T> ElementsAreArrayForward(const T* a, int count
  * @brief	Make ElementsAre matcher
 */
 template<typename ...T>
-detail::ElementsAreMatcher<T...> ElementsAre(const T&... m) { return detail::ElementsAreMatcher<T...>(m...); }
+detail::ElementsAreMatcher<T...> ElementsAre(const T&... m)
+{
+	return detail::ElementsAreMatcher<T...>(m...);
+}
 
 #else
 
@@ -2226,53 +2332,77 @@ IIUT_DECL_ELEMENTSARE(10)
  * @details	argument.first は expedted にマッチする 
 */
 template<typename T>
-detail::KeyMatcher<T> Key(const T& expected) { return detail::KeyMatcher<T>(expected); }
+detail::KeyMatcher<T> Key(const T& expected)
+{
+	return detail::KeyMatcher<T>(expected);
+}
 
 /**
  * @brief	Make Pair matcher
  * @details	argument.first は m1 にマッチし、arugment.second が m2 にマッチする 
 */
 template<typename T1, typename T2>
-detail::PairMatcher<T1, T2> Pair(const T1& m1, const T2& m2) { return detail::PairMatcher<T1, T2>(m1, m2); }
+detail::PairMatcher<T1, T2> Pair(const T1& m1, const T2& m2)
+{
+	return detail::PairMatcher<T1, T2>(m1, m2);
+}
 
 /**
  * @brief	Make Field matcher
  * @details	argument.*field は expedted にマッチする 
 */
 template<typename F, typename T>
-detail::FieldMatcher<F, T> Field(const F& field, const T& expected) { return detail::FieldMatcher<F, T>(field, expected); }
+detail::FieldMatcher<F, T> Field(const F& field, const T& expected)
+{
+	return detail::FieldMatcher<F, T>(field, expected);
+}
 
 /**
  * @brief	Make Property matcher
  * @details	argument.*property() は expedted にマッチする 
 */
 template<typename P, typename T>
-detail::PropertyMatcher<P, T> Property(const P& prop, const T& expected) { return detail::PropertyMatcher<P, T>(prop, expected); }
+detail::PropertyMatcher<P, T> Property(const P& prop, const T& expected)
+{
+	return detail::PropertyMatcher<P, T>(prop, expected);
+}
 
 /**
  * @brief	Make ResultOf matcher
  * @details	func(argument) の戻り値は expedted にマッチする 
 */
 template<typename F, typename T>
-detail::ResultOfMatcher<F, T> ResultOf(const F& func, const T& expected) { return detail::ResultOfMatcher<F, T>(func, expected); }
+detail::ResultOfMatcher<F, T> ResultOf(const F& func, const T& expected)
+{
+	return detail::ResultOfMatcher<F, T>(func, expected);
+}
 
 /**
  * @brief	Make Pointee matcher
 */
 template<typename T>
-detail::PointeeMatcher<T> Pointee(const T& expected) { return detail::PointeeMatcher<T>(expected); }
+detail::PointeeMatcher<T> Pointee(const T& expected)
+{
+	return detail::PointeeMatcher<T>(expected);
+}
 
 /**
  * @brief	Make Not matcher
 */
 template<typename T>
-detail::NotMatcher<T> Not(const T& unexpected) { return detail::NotMatcher<T>(unexpected); }
+detail::NotMatcher<T> Not(const T& unexpected)
+{
+	return detail::NotMatcher<T>(unexpected);
+}
 
 /**
  * @brief	Make Any matcher
 */
 template<typename T>
-detail::AnyMatcher<T> A(void) { return detail::AnyMatcher<T>(); }
+detail::AnyMatcher<T> A(void)
+{
+	return detail::AnyMatcher<T>();
+}
 
 
 /**
@@ -2309,14 +2439,20 @@ inline detail::RegexMatcher ContainsRegex(const ::std::string& str)
  * @details	argument が全ての matcher にマッチする
 */
 template<typename ...T>
-detail::AllOfMatcher<T...> AllOf(const T&... m) { return detail::AllOfMatcher<T...>(m...); }
+detail::AllOfMatcher<T...> AllOf(const T&... m)
+{
+	return detail::AllOfMatcher<T...>(m...);
+}
 
 /**
  * @brief	Make AnyOf matcher
  * @details	argument がいずれかの matcher にマッチする
 */
 template<typename ...T>
-detail::AnyOfMatcher<T...> AnyOf(const T&... m) { return detail::AnyOfMatcher<T...>(m...); }
+detail::AnyOfMatcher<T...> AnyOf(const T&... m)
+{
+	return detail::AnyOfMatcher<T...>(m...);
+}
 
 #else
 
@@ -2360,7 +2496,10 @@ IIUT_DECL_ANYOF_AND_ALLOF(AnyOf, 10)
  * @brief	Value predicate
 */
 template<typename T, typename M>
-bool Value(const T& value, const M& expected) { return static_cast<bool>(detail::CastToMatcher(expected)(value)); }
+bool Value(const T& value, const M& expected)
+{
+	return static_cast<bool>(detail::CastToMatcher(expected)(value));
+}
 
 /**
  * @}

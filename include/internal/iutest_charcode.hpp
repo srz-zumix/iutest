@@ -128,24 +128,26 @@ inline ::std::string ShowWideCString(const char16_t* wide_c_str)
 // struct
 namespace mbs_ptr_impl
 {
-	template<typename T>
-	struct to_mbs_ptr
+
+template<typename T>
+struct to_mbs_ptr
+{
+	const char* ptr(const char* arg) { return arg; }
+};
+struct wcs_to_mbs_ptr
+{
+	::std::string m_arg;
+	const char* ptr(const wchar_t* arg)
 	{
-		const char* ptr(const char* arg) { return arg; }
-	};
-	struct wcs_to_mbs_ptr
-	{
-		::std::string m_arg;
-		const char* ptr(const wchar_t* arg)
-		{
-			m_arg = ShowWideCString(arg);
-			return m_arg.c_str();
-		}
-	};
-	template<>
-	struct to_mbs_ptr<wchar_t> : public wcs_to_mbs_ptr {};
-	template<>
-	struct to_mbs_ptr<const wchar_t> : public wcs_to_mbs_ptr {};
+		m_arg = ShowWideCString(arg);
+		return m_arg.c_str();
+	}
+};
+template<>
+struct to_mbs_ptr<wchar_t> : public wcs_to_mbs_ptr {};
+template<>
+struct to_mbs_ptr<const wchar_t> : public wcs_to_mbs_ptr {};
+
 }	// end of namespace mbs_ptr_impl
 
 /**

@@ -192,7 +192,7 @@ public:
 	 * @brief	コンストラクタ
 	 * @param [in]	f	= 浮動小数点数
 	*/
-	floating_point(RawType f)
+	floating_point(RawType f)	// NOLINT
 	{
 		m_v.fv = f;
 	}
