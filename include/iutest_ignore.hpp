@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -28,8 +28,9 @@
  * @param	testname_	= テスト名
  * @note	ignore 版ではテストコードのコンパイルが通らなくても問題ない
 */
-#define IUTEST_TEST_IGNORE(testcase_, testname_)	IUTEST_TEST_IGNORE_(testcase_, testname_, ::iutest::Test	\
-														, ::iutest::internal::GetTestTypeId())
+#define IUTEST_TEST_IGNORE(testcase_, testname_)				\
+	IUTEST_TEST_IGNORE_(testcase_, testname_, ::iutest::Test	\
+						, ::iutest::internal::GetTestTypeId())
 
 /**
  * @ingroup	TESTDEF
@@ -39,7 +40,8 @@
  * @param	testname_	= テスト名
  * @note	ignore 版ではテストコードのコンパイルが通らなくても問題ない
 */
-#define IUTEST_IGNORE(testcase_, testname_)			IUTEST_TEST_IGNORE(testcase_, testname_)
+#define IUTEST_IGNORE(testcase_, testname_)			\
+	IUTEST_TEST_IGNORE(testcase_, testname_)
 
 
 /**
@@ -50,7 +52,8 @@
  * @param	testname_		= テスト名
  * @note	ignore 版ではテストコードのコンパイルが通らなくても問題ない
 */
-#define IUTEST_F_IGNORE(testfixture_, testname_)	IUTEST_TEST_F_IGNORE_(testfixture_, testname_)
+#define IUTEST_F_IGNORE(testfixture_, testname_)	\
+	IUTEST_TEST_F_IGNORE_(testfixture_, testname_)
 
 #if IUTEST_HAS_PARAM_TEST
 
@@ -62,7 +65,8 @@
  * @param	testname_	= テスト名
  * @note	ignore 版ではテストコードのコンパイルが通らなくても問題ない
 */
-#define IUTEST_P_IGNORE(testcase_, testname_)		IIUT_TEST_P_IGNORE_(testcase_, testname_)
+#define IUTEST_P_IGNORE(testcase_, testname_)		\
+	IIUT_TEST_P_IGNORE_(testcase_, testname_)
 
 #endif
 
@@ -76,7 +80,8 @@
  * @param	testname_	= テスト名
  * @note	ignore 版ではテストコードのコンパイルが通らなくても問題ない
 */
-#define IUTEST_TYPED_TEST_IGNORE(testcase_, testname_)		IIUT_TYPED_TEST_IGNORE_(testcase_, testname_)
+#define IUTEST_TYPED_TEST_IGNORE(testcase_, testname_)	\
+	IIUT_TYPED_TEST_IGNORE_(testcase_, testname_)
 
 #endif
 
@@ -90,7 +95,8 @@
  * @param	testname_	= テスト名
  * @note	ignore 版ではテストコードのコンパイルが通らなくても問題ない
 */
-#define IUTEST_TYPED_TEST_P_IGNORE(testcase_, testname_)	IIUT_TYPED_TEST_P_IGNORE_(testcase_, testname_)
+#define IUTEST_TYPED_TEST_P_IGNORE(testcase_, testname_)	\
+	IIUT_TYPED_TEST_P_IGNORE_(testcase_, testname_)
 
 #endif
 

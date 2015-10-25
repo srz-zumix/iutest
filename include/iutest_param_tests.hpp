@@ -106,7 +106,8 @@
 #  else
 #    define IIUT_TEST_P_FIXTURE_DECL_(testcase_)
 #    if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-#      define IIUT_TEST_P_BASE_FIXTURE(testcase_)	::iutest::detail::paramtest_select_base_testcase< void (int (IIUT_TO_VARNAME_(testcase_))) >::type
+#      define IIUT_TEST_P_BASE_FIXTURE(testcase_)	\
+ 		::iutest::detail::paramtest_select_base_testcase< void (int (IIUT_TO_VARNAME_(testcase_))) >::type
 #    else
 #      define IIUT_TEST_P_BASE_FIXTURE(testcase_)	IIUT_TO_VARNAME_(testcase_)
 #    endif
@@ -180,7 +181,8 @@
 #define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I(prefix_, testcase_)	IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I_(prefix_, testcase_)
 #define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I_(prefix_, testcase_)	prefix_##_##testcase_##_TestCaseInstantiationRegister
 
-#define IIUT_TEST_P_INSTANTIATIONREGISTER_(prefix_, testcase_)				IIUT_TEST_P_INSTANTIATIONREGISTER_I(prefix_, IIUT_TO_VARNAME_(testcase_), IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_))
+#define IIUT_TEST_P_INSTANTIATIONREGISTER_(prefix_, testcase_)				IIUT_TEST_P_INSTANTIATIONREGISTER_I(prefix_	\
+																				, IIUT_TO_VARNAME_(testcase_), IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_))
 #define IIUT_TEST_P_INSTANTIATIONREGISTER_I(prefix_, testcase_, register_)	IIUT_TEST_P_INSTANTIATIONREGISTER_I_(prefix_, testcase_, register_)
 #define IIUT_TEST_P_INSTANTIATIONREGISTER_I_(prefix_, testcase_, register_)	int s_##prefix_##_##testcase_##_dummy = register_()
 
@@ -231,7 +233,8 @@ public:
 
 private:
 	// テストケースの作成
-	virtual TestCase* MakeTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown) const IUTEST_CXX_OVERRIDE
+	virtual TestCase* MakeTestCase(const char* testcase_name, TestTypeId id
+		, SetUpMethod setup, TearDownMethod teardown) const IUTEST_CXX_OVERRIDE
 	{
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
 		return UnitTest::instance().AddTestCase<TestCase>(testcase_name, id, setup, teardown);

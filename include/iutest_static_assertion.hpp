@@ -54,8 +54,10 @@ static bool	StaticAssertTypeEq(void)
 #  define IUTEST_STATIC_ASSERT_MSG(B, Msg)	static_assert(B, Msg)
 #endif
 #else
-#  define IUTEST_STATIC_ASSERT_MSG(B, Msg)	\
-	typedef ::iutest::detail::static_assert_failure< sizeof(::iutest::detail::static_assert_failure< (bool)B >) > IUTEST_PP_CAT(iutest_static_assert_typedef_, IUTEST_PP_COUNTER)
+#  define IUTEST_STATIC_ASSERT_MSG(B, Msg)								\
+	typedef ::iutest::detail::static_assert_failure<					\
+		sizeof(::iutest::detail::static_assert_failure< (bool)B >) >	\
+	IUTEST_PP_CAT(iutest_static_assert_typedef_, IUTEST_PP_COUNTER)
 #endif
 
 /**
@@ -75,7 +77,7 @@ static bool	StaticAssertTypeEq(void)
 #ifndef IUTEST_STATIC_ASSERT_IF_EXISTS
 #  if IUTEST_HAS_IF_EXISTS
 #    define IUTEST_STATIC_ASSERT_IF_EXISTS(identifier, msg)	\
-		IUTEST_STATIC_ASSERT_MSG( IUTEST_IF_EXISTS(identifier, true) IUTEST_IF_NOT_EXISTS(identifier,false), msg)
+		IUTEST_STATIC_ASSERT_MSG( IUTEST_IF_EXISTS(identifier, true) IUTEST_IF_NOT_EXISTS(identifier, false), msg)
 #  else
 #    define IUTEST_STATIC_ASSERT_IF_EXISTS(identifier, msg)
 #  endif

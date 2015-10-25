@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -188,7 +188,10 @@ private:
 #if IUTEST_HAS_PARAM_TEST
 public:
 	/** @private */
-	detail::ParamTestCaseHolder& parameterized_test_registry(void) IUTEST_CXX_NOEXCEPT_SPEC{ return m_param_testcase_holder; }
+	detail::ParamTestCaseHolder& parameterized_test_registry(void) IUTEST_CXX_NOEXCEPT_SPEC
+	{
+		return m_param_testcase_holder;
+	}
 
 private:
 	detail::ParamTestCaseHolder	m_param_testcase_holder;
@@ -219,14 +222,16 @@ class TestInstance
 {
 public:
 	/** コンストラクタ */
-	TestInstance(const char* testcase, const char* name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+	TestInstance(const char* testcase, const char* name, TestTypeId id
+		, SetUpMethod setup, TearDownMethod teardown)
 		: m_mediator(AddTestCase(testcase, id, setup, teardown))
 		, m_info(&m_mediator, name, &m_factory)
 	{
 		UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
 	}
 	/** コンストラクタ */
-	TestInstance(const char* testcase, const char* name, const char*  value_params, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+	TestInstance(const char* testcase, const char* name, const char*  value_params, TestTypeId id
+		, SetUpMethod setup, TearDownMethod teardown)
 		: m_mediator(AddTestCase(testcase, id, setup, teardown))
 		, m_info(&m_mediator, name, &m_factory)
 	{

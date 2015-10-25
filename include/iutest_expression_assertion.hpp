@@ -106,7 +106,7 @@ namespace detail
 class ExpressionResult
 {
 public:
-	ExpressionResult(const AssertionResult& ar)
+	explicit ExpressionResult(const AssertionResult& ar)
 		: m_result(ar) {}
 
 public:

@@ -112,13 +112,19 @@ class iuTest_TestCaseParentPackage;		//!< 親パッケージ名参照用定義
  * @brief	グローバルパッケージ名の取得
  * @return	パッケージ名
 */
-inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_GetTestCasePackageName(const iuTest_TestCasePackage*) { return ""; }
+inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_GetTestCasePackageName(const iuTest_TestCasePackage*)
+{
+	return "";
+}
 
 /**
  * @brief	親空間のパッケージ名の取得
  * @return	パッケージ名
 */
-inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_GetTestCaseParentPackageName(const iuTest_TestCaseParentPackage*) { return ""; }
+inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_GetTestCaseParentPackageName(const iuTest_TestCaseParentPackage*)
+{
+	return "";
+}
 
 #else
 
@@ -173,7 +179,10 @@ template<typename T>
  * @brief	テストケース名との結合
  * @return	テストケース名
 */
-inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestCaseName(const ::std::string& package, const char* testcase_name) { return package + testcase_name; }
+inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestCaseName(const ::std::string& package, const char* testcase_name)
+{
+	return package + testcase_name;
+}
 
 #endif
 

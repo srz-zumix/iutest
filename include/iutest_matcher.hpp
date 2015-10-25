@@ -43,7 +43,8 @@ namespace detail
 /**
  * @brief	Matcher Assertion Failure Message
 */
-inline ::std::string MatcherAssertionFailureMessage(const char* actual, const char* matcher_str, const AssertionResult& ar)
+inline ::std::string MatcherAssertionFailureMessage(const char* actual, const char* matcher_str
+													, const AssertionResult& ar)
 {
 	iu_global_format_stringstream strm;
 	strm << "error: Expected: " << matcher_str
@@ -51,7 +52,7 @@ inline ::std::string MatcherAssertionFailureMessage(const char* actual, const ch
 		<< "\nWhich is: " << ar.message();
 	return strm.str();
 }
-	
+
 //======================================================================
 // class
 
@@ -79,18 +80,18 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& msg)
  */
 
 #define DECL_COMPARE_MATCHER(name, op)	\
-	template<typename T>class IUTEST_PP_CAT(name, Matcher): public IMatcher{\
-	public:	IUTEST_PP_CAT(name, Matcher)(const T& v) : m_expected(v) {}		\
-	::std::string WhichIs(void) const IUTEST_CXX_OVERRIDE {					\
-		iu_global_format_stringstream strm;									\
-		strm << #name ": " << m_expected; return strm.str();				\
-	}																		\
-	template<typename U>AssertionResult operator ()(const U& actual) const {\
-		if( actual op m_expected ) return AssertionSuccess();				\
-		return AssertionFailure() << WhichIs();								\
-	}																		\
-	private: IUTEST_PP_DISALLOW_ASSIGN(IUTEST_PP_CAT(name, Matcher));		\
-	const T& m_expected;													\
+	template<typename T>class IUTEST_PP_CAT(name, Matcher): public IMatcher{	\
+	public:	explicit IUTEST_PP_CAT(name, Matcher)(const T& v) : m_expected(v) {}\
+	::std::string WhichIs(void) const IUTEST_CXX_OVERRIDE {						\
+		iu_global_format_stringstream strm;										\
+		strm << #name ": " << m_expected; return strm.str();					\
+	}																			\
+	template<typename U>AssertionResult operator ()(const U& actual) const {	\
+		if( actual op m_expected ) return AssertionSuccess();					\
+		return AssertionFailure() << WhichIs();									\
+	}																			\
+	private: IUTEST_PP_DISALLOW_ASSIGN(IUTEST_PP_CAT(name, Matcher));			\
+	const T& m_expected;														\
 	}
 
 #define DECL_COMPARE_MATCHER2(name, op)	\
@@ -205,7 +206,7 @@ template<typename T>
 class FloatingPointEqMatcher : public IMatcher
 {
 public:
-	FloatingPointEqMatcher(const T& value) : m_expected(value) {}
+	explicit FloatingPointEqMatcher(const T& value) : m_expected(value) {}
 
 public:
 	template<typename U>
@@ -238,7 +239,7 @@ template<typename T>
 class NanSensitiveFloatingPointEqMatcher : public IMatcher
 {
 public:
-	NanSensitiveFloatingPointEqMatcher(const T& value) : m_expected(value) {}
+	explicit NanSensitiveFloatingPointEqMatcher(const T& value) : m_expected(value) {}
 
 public:
 	template<typename U>
@@ -271,7 +272,7 @@ template<typename T>
 class StartsWithMatcher : public IMatcher
 {
 public:
-	StartsWithMatcher(T str) : m_str(str) {}
+	explicit StartsWithMatcher(T str) : m_str(str) {}
 
 public:
 	template<typename U>
@@ -321,7 +322,7 @@ template<typename T>
 class HasSubstrMatcher : public IMatcher
 {
 public:
-	HasSubstrMatcher(T expected) : m_expected(expected) {}
+	explicit HasSubstrMatcher(T expected) : m_expected(expected) {}
 
 public:
 	template<typename U>
@@ -372,7 +373,7 @@ template<typename T>
 class EndsWithMatcher : public IMatcher
 {
 public:
-	EndsWithMatcher(T str) : m_str(str) {}
+	explicit EndsWithMatcher(T str) : m_str(str) {}
 
 public:
 	template<typename U>
@@ -400,7 +401,7 @@ private:
 		for( size_t i=0; i < len; ++i, --p, --q )
 		{
 			if( *p != *q ) return false;
-		}	
+		}
 		return true;
 	}
 	static bool EndsWith(const ::std::string& actual, const char* end)
@@ -431,7 +432,7 @@ template<typename T>
 class EqMatcher : public IMatcher
 {
 public:
-	EqMatcher(const T& expected) : m_expected(expected) {}
+	explicit EqMatcher(const T& expected) : m_expected(expected) {}
 
 public:
 	template<typename U>
@@ -449,7 +450,6 @@ public:
 		return strm.str();
 	}
 private:
-
 	template<typename A, typename B>
 	static bool Equals(const A& actual, const B& expected)
 	{
@@ -485,7 +485,7 @@ template<typename T>
 class TypedEqMatcher : public EqMatcher<T>
 {
 public:
-	TypedEqMatcher(T expected) : EqMatcher<T>(m_expected), m_expected(expected) {}
+	explicit TypedEqMatcher(T expected) : EqMatcher<T>(m_expected), m_expected(expected) {}
 public:
 	AssertionResult operator ()(const T& actual)
 	{
@@ -537,7 +537,7 @@ template<typename T>
 class ContainsMatcher : public IMatcher
 {
 public:
-	ContainsMatcher(const T& expected) : m_expected(expected) {}
+	explicit ContainsMatcher(const T& expected) : m_expected(expected) {}
 
 public:
 	template<typename U>
@@ -594,7 +594,7 @@ template<typename T>
 class EachMatcher : public IMatcher
 {
 public:
-	EachMatcher(const T& expected) : m_expected(expected) {}
+	explicit EachMatcher(const T& expected) : m_expected(expected) {}
 
 public:
 	template<typename U>
@@ -651,7 +651,7 @@ template<typename T>
 class ContainerEqMatcher : public IMatcher
 {
 public:
-	ContainerEqMatcher(const T& expected) : m_expected(expected) {}
+	explicit ContainerEqMatcher(const T& expected) : m_expected(expected) {}
 
 public:
 	template<typename U>
@@ -699,7 +699,7 @@ private:
 	template<typename Ite1, typename Ite2>
 	bool CheckContainer(Ite1 b1, Ite1 e1, Ite2 b2, Ite2 e2)
 	{
-		int elem=0;
+		size_t elem=0;
 		bool result = true;
 		Message ar;
 		for( elem=0; b1 != e1 && b2 != e2; ++b1, ++b2, ++elem )
@@ -712,21 +712,12 @@ private:
 					<< " vs " << ::iutest::internal::FormatForComparisonFailureMessage(*b2, *b1);
 			}
 		}
-		if( b1 != e1 )
+		if( b1 != e1 || b2 != e2 )
 		{
-			int elem1 = elem;
-			for( ; b1 != e1; ++b1, ++elem1 )
-				;
+			const size_t elem1 = elem + ::std::distance(b1, e1);
+			const size_t elem2 = elem + ::std::distance(b2, e2);
 			result = false;
-			ar << "\nMismatch element : " << elem1 << " vs " << elem;
-		}
-		if( b2 != e2 )
-		{
-			int elem2 = elem;
-			for( ; b2 != e2; ++b2, ++elem2 )
-				;
-			result = false;
-			ar << "\nMismatch element : " << elem << " vs " << elem2;
+			ar << "\nMismatch element : " << elem1 << " vs " << elem2;
 		}
 		m_whichIs = ar.GetString();
 		return result;
@@ -795,7 +786,7 @@ private:
 	template<typename Ite1, typename Ite2>
 	bool CheckContainer(Ite1 b1, Ite1 e1, Ite2 b2, Ite2 e2)
 	{
-		int elem=0;
+		size_t elem=0;
 		bool result = true;
 		Message ar;
 		for( elem=0; b1 != e1 && b2 != e2; ++b1, ++b2, ++elem )
@@ -807,21 +798,12 @@ private:
 				ar << "\nMismatch in a position " << elem << ": " << r.message();
 			}
 		}
-		if( b1 != e1 )
+		if( b1 != e1 || b2 != e2 )
 		{
-			int elem1 = elem;
-			for( ; b1 != e1; ++b1, ++elem1 )
-				;
+			const size_t elem1 = elem + ::std::distance(b1, e1);
+			const size_t elem2 = elem + ::std::distance(b2, e2);
 			result = false;
-			ar << "\nMismatch element : " << elem1 << " vs " << elem;
-		}
-		if( b2 != e2 )
-		{
-			int elem2 = elem;
-			for( ; b2 != e2; ++b2, ++elem2 )
-				;
-			result = false;
-			ar << "\nMismatch element : " << elem << " vs " << elem2;
+			ar << "\nMismatch element : " << elem1 << " vs " << elem2;
 		}
 		m_whichIs = ar.GetString();
 		return result;
@@ -868,7 +850,7 @@ template<typename T>
 class SizeIsMatcher : public IMatcher
 {
 public:
-	SizeIsMatcher(const T& expected) : m_expected(expected) {}
+	explicit SizeIsMatcher(const T& expected) : m_expected(expected) {}
 
 public:
 	template<typename U>
@@ -912,7 +894,7 @@ template<typename T>
 class AtMatcher : public IMatcher
 {
 public:
-	AtMatcher(const size_t index, const T& expected) : m_index(index), m_expected(expected) {}
+	AtMatcher(size_t index, const T& expected) : m_index(index), m_expected(expected) {}
 
 public:
 	template<typename U>
@@ -1073,7 +1055,7 @@ private:
 		}
 		return CheckElem<N, LAST>(it, end, matchers);
 	}
-	
+
 	template<int N, int LAST, typename Ite, typename M>
 	static AssertionResult CheckElem(Ite it, Ite end, M& matchers
 		, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
@@ -1131,7 +1113,7 @@ template<typename ...T>
 class ElementsAreMatcher : public ElementsAreMatcherBase
 {
 public:
-	ElementsAreMatcher(T... t) : m_matchers(t...) {}
+	explicit ElementsAreMatcher(T... t) : m_matchers(t...) {}
 
 public:
 	template<typename U>
@@ -1230,7 +1212,6 @@ public:
 		return strm.str();
 	}
 private:
-
 #if !defined(IUTEST_NO_SFINAE)
 	template<typename U>
 	bool Check(const U& actual
@@ -1320,7 +1301,7 @@ template<typename T>
 class KeyMatcher : public IMatcher
 {
 public:
-	KeyMatcher(const T& expected) : m_expected(expected) {}
+	explicit KeyMatcher(const T& expected) : m_expected(expected) {}
 
 public:
 	template<typename U>
@@ -1434,7 +1415,7 @@ template<typename T>
 class PointeeMatcher : public IMatcher
 {
 public:
-	PointeeMatcher(const T& expected) : m_expected(expected) {}
+	explicit PointeeMatcher(const T& expected) : m_expected(expected) {}
 
 public:
 	template<typename U>
@@ -1470,7 +1451,7 @@ template<typename T>
 class NotMatcher : public IMatcher
 {
 public:
-	NotMatcher(const T& unexpected) : m_unexpected(unexpected) {}
+	explicit NotMatcher(const T& unexpected) : m_unexpected(unexpected) {}
 
 public:
 	template<typename U>
@@ -1570,7 +1551,7 @@ public:
 		{
 			strm << "MatchesRegex: " << m_expected.pattern();
 		}
-		else 
+		else
 		{
 			strm << "ContainsRegex: " << m_expected.pattern();
 		}
@@ -1659,7 +1640,7 @@ template<typename ...T>
 class AllOfMatcher : public AllOfMatcherBase
 {
 public:
-	AllOfMatcher(T... t) : m_matchers(t...) {}
+	explicit AllOfMatcher(T... t) : m_matchers(t...) {}
 
 public:
 	template<typename U>
@@ -1790,7 +1771,7 @@ template<typename ...T>
 class AnyOfMatcher : public AnyOfMatcherBase
 {
 public:
-	AnyOfMatcher(T... t) : m_matchers(t...) {}
+	explicit AnyOfMatcher(T... t) : m_matchers(t...) {}
 
 public:
 	template<typename U>

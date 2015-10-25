@@ -150,7 +150,10 @@ private:
 #if IUTEST_HAS_VARIADIC_TEMPLATES
 	public:
 		template<typename ...Args>
-		return_type operator () (Args... args) { return ((*m_ptr).*detail::peep_tag<peep_tag>::value)( ::std::forward<Args>(args)...); }
+		return_type operator () (Args... args)
+		{
+			return ((*m_ptr).*detail::peep_tag<peep_tag>::value)( ::std::forward<Args>(args)... );
+		}
 #else
 
 #define PEEP_DECL_MEMBER_FUNC_(n)	\
@@ -194,7 +197,7 @@ private:
 	public:
 		explicit peep_member_object_impl(U* ptr) : m_ptr(ptr) {}
 	private:
-		peep_member_object_impl(const _Myt&);
+		peep_member_object_impl(const peep_member_object_impl&);
 	public:
 		operator value_type (void) const { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
 		_Myt& operator = (const value_type& value);
@@ -209,7 +212,7 @@ private:
 	public:
 		explicit peep_member_object_impl(U* ptr) : m_ptr(ptr) {}
 	private:
-		peep_member_object_impl(const _Myt&);
+		peep_member_object_impl(const peep_member_object_impl&);
 	public:
 		operator value_type (void) const { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
 		operator value_type& (void) { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
@@ -241,7 +244,7 @@ private:
 	public:
 		peep_static_impl(void) {}
 		peep_static_impl(const value_type& value) { *detail::peep_tag<peep_tag>::value = value; }
-		peep_static_impl(const _Myt&) {}
+		peep_static_impl(const peep_static_impl&) {}
 	public:
 		operator value_type (void) const { return *detail::peep_tag<peep_tag>::value; }
 		operator value_type& (void) { return *detail::peep_tag<peep_tag>::value; }

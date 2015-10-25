@@ -386,7 +386,8 @@ inline ::std::string FormatForComparisonFailureMessage(const T1& value, const T2
 /**
  * @brief	boolean テストの失敗メッセージの出力
 */
-inline ::std::string GetBooleanAssertionFailureMessage(const AssertionResult& ar, const char* expr, const char* actual, const char* expected)
+inline ::std::string GetBooleanAssertionFailureMessage(const AssertionResult& ar
+	, const char* expr, const char* actual, const char* expected)
 {
 	::std::string str = "error: Value of: ";
 	str += expr;
@@ -656,7 +657,8 @@ public:
 		return CmpHelperEQ(expr1, expr2, val1, val2);
 	}
 	template<typename T2>
-	static AssertionResult Compare(const char* expr1, const char* expr2, detail::IsNullLiteralHelper::Object* val1, T2* val2)
+	static AssertionResult Compare(const char* expr1, const char* expr2
+		, detail::IsNullLiteralHelper::Object* val1, T2* val2)
 	{
 		IUTEST_UNUSED_VAR(val1);
 		return CmpHelperEQ(expr1, expr2, static_cast<T2*>(NULL), val2);
@@ -727,7 +729,8 @@ public:
 		return CmpHelperNE(expr1, expr2, val1, val2);
 	}
 	template<typename T2>
-	static AssertionResult Compare(const char* expr1, const char* expr2, detail::IsNullLiteralHelper::Object* val1, T2* val2)
+	static AssertionResult Compare(const char* expr1, const char* expr2
+		, detail::IsNullLiteralHelper::Object* val1, T2* val2)
 	{
 		IUTEST_UNUSED_VAR(val1);
 		return CmpHelperNE(expr1, expr2, static_cast<T2*>(NULL), val2);
@@ -742,8 +745,9 @@ public:
 };
 
 template<typename RawType>
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNearFloatingPoint(const char* expr1, const char* expr2, const char* absc
-													, RawType val1, RawType val2, RawType abs_v)
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNearFloatingPoint(
+	  const char* expr1, const char* expr2, const char* absc
+	, RawType val1, RawType val2, RawType abs_v)
 {
 	RawType diff = val1 > val2 ? val1 - val2 : val2 - val1;
 	if( diff < abs_v )
@@ -759,15 +763,17 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNearFloatingPoint(const
 		<< "\n  Actual: abs(" << val1 << " - " << val2 << ") : " << diff
 		<< "\nExpected: " << FormatForComparisonFailureMessage(abs_v, diff);
 }
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ DoubleNearPredFormat(const char* expr1, const char* expr2, const char* absc
-													, double val1, double val2, double abs_v)
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ DoubleNearPredFormat(
+	  const char* expr1, const char* expr2, const char* absc
+	, double val1, double val2, double abs_v)
 {
 	return CmpHelperNearFloatingPoint(expr1, expr2, absc, val1, val2, abs_v);
 }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 template<typename T, typename A>
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(const char* expr1, const char* expr2, const char* absc
-													, const T& val1, const T& val2, const A& abs_v)
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(
+	  const char* expr1, const char* expr2, const char* absc
+	, const T& val1, const T& val2, const A& abs_v)
 {
 	T diff = val1 > val2 ? val1 - val2 : val2 - val1;
 	if( diff <= abs_v )
@@ -779,15 +785,17 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(const char* expr1,
 		<< "\nExpected: " << FormatForComparisonFailureMessage(abs_v, diff);
 }
 template<typename A>
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(const char* expr1, const char* expr2, const char* absc
-													, double val1, double val2, const A& abs_v)
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(
+	  const char* expr1, const char* expr2, const char* absc
+	, double val1, double val2, const A& abs_v)
 {
 	return CmpHelperNearFloatingPoint<double>(expr1, expr2, absc, val1, val2, static_cast<double>(abs_v));
 }
 #endif
 template<typename A>
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(const char* expr1, const char* expr2, const char* absc
-													, float val1, float val2, const A& abs_v)
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(
+	  const char* expr1, const char* expr2, const char* absc
+	, float val1, float val2, const A& abs_v)
 {
 	return CmpHelperNearFloatingPoint<float>(expr1, expr2, absc, val1, val2, static_cast<float>(abs_v));
 }
@@ -1058,22 +1066,19 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* e
 }
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* expr1, const char* expr2
-																, const ::std::basic_string<Elem, Traits, Ax>& val1
-																, const ::std::basic_string<Elem, Traits, Ax>& val2)
+	, const ::std::basic_string<Elem, Traits, Ax>& val1, const ::std::basic_string<Elem, Traits, Ax>& val2)
 {
 	return CmpHelperSTRCASEEQ(expr1, expr2, val1.c_str(), val2.c_str());
 }
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* expr1, const char* expr2
-																, const Elem* val1
-																, const ::std::basic_string<Elem, Traits, Ax>& val2)
+	, const Elem* val1, const ::std::basic_string<Elem, Traits, Ax>& val2)
 {
 	return CmpHelperSTRCASEEQ(expr1, expr2, val1, val2.c_str());
 }
 template<typename Elem, typename Traits, typename Ax>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* expr1, const char* expr2
-																, const ::std::basic_string<Elem, Traits, Ax>& val1
-																, const Elem* val2)
+	, const ::std::basic_string<Elem, Traits, Ax>& val1, const Elem* val2)
 {
 	return CmpHelperSTRCASEEQ(expr1, expr2, val1.c_str(), val2);
 }

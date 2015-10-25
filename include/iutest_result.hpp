@@ -26,8 +26,10 @@ namespace iutest
 // declare
 namespace detail
 {
-	class DefaultGlobalTestPartResultReporter;
-}
+
+class DefaultGlobalTestPartResultReporter;
+
+}	// end of namespace detail
 
 //======================================================================
 // class
@@ -220,7 +222,8 @@ public:
 	*/
 	bool		Failed(void) const
 	{
-		for( TestPartResults::const_iterator it=m_test_part_results.begin(), end=m_test_part_results.end(); it != end; ++it )
+		for( TestPartResults::const_iterator it=m_test_part_results.begin()
+			, end=m_test_part_results.end(); it != end; ++it )
 		{
 			if( it->failed() )
 			{
@@ -235,7 +238,8 @@ public:
 	*/
 	bool		Skipped(void) const
 	{
-		for( TestPartResults::const_iterator it=m_test_part_results.begin(), end=m_test_part_results.end(); it != end; ++it )
+		for( TestPartResults::const_iterator it=m_test_part_results.begin()
+			, end=m_test_part_results.end(); it != end; ++it )
 		{
 			if( it->skipped() || it->assume_failed() )
 			{
@@ -303,7 +307,8 @@ public:
 	int total_error_count(void) const
 	{
 		int count = 0;
-		for( TestPartResults::const_iterator it=m_test_part_results.begin(), end=m_test_part_results.end(); it != end; ++it )
+		for( TestPartResults::const_iterator it=m_test_part_results.begin()
+			, end=m_test_part_results.end(); it != end; ++it )
 		{
 			if( it->failed() )
 			{
@@ -320,7 +325,8 @@ private:
 private:
 	void RecordProperty(const TestProperty& prop)
 	{
-		for( TestPropertys::iterator it=m_test_propertys.begin(), end=m_test_propertys.end(); it != end; ++it )
+		for( TestPropertys::iterator it=m_test_propertys.begin()
+			, end=m_test_propertys.end(); it != end; ++it )
 		{
 			if( detail::IsStringEqual(it->key(), prop.key()) )
 			{
@@ -343,7 +349,8 @@ private:
 	}
 	bool HasResult(TestPartResult::Type eType) const
 	{
-		for( TestPartResults::const_iterator it=m_test_part_results.begin(), end=m_test_part_results.end(); it != end; ++it )
+		for( TestPartResults::const_iterator it=m_test_part_results.begin()
+			, end=m_test_part_results.end(); it != end; ++it )
 		{
 			if( it->type() == eType ) return true;
 		}

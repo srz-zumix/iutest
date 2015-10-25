@@ -200,7 +200,7 @@ public:
 	/**
 	 * @brief	コンストラクタ
 	*/
-	floating_point(const _Myt& rhs)
+	floating_point(const floating_point& rhs)
 		: m_v(rhs.m_v)
 	{
 	}
@@ -327,7 +327,6 @@ private:
 	};
 
 private:
-
 	static UInt norm(UInt v) { return v & kSignMask ? ~v + 1 : v | kSignMask; }
 
 #if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)

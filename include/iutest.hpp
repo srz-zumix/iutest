@@ -51,8 +51,8 @@
  * @param	testcase_	= テストケース名
  * @param	testname_	= テスト名
 */
-#define IUTEST_TEST(testcase_, testname_)			IUTEST_TEST_STRICT_(testcase_, testname_, ::iutest::Test	\
-														, ::iutest::internal::GetTestTypeId())
+#define IUTEST_TEST(testcase_, testname_)		IUTEST_TEST_STRICT_(testcase_, testname_	\
+													, ::iutest::Test, ::iutest::internal::GetTestTypeId())
 
 /**
  * @ingroup	TESTDEF
@@ -61,7 +61,7 @@
  * @param	testcase_	= テストケース名
  * @param	testname_	= テスト名
 */
-#define IUTEST(testcase_, testname_)				IUTEST_TEST(testcase_, testname_)
+#define IUTEST(testcase_, testname_)			IUTEST_TEST(testcase_, testname_)
 
 /**
  * @ingroup	TESTDEF
@@ -70,7 +70,7 @@
  * @param	testfixture_	= テストフィクスチャ名
  * @param	testname_		= テスト名
 */
-#define IUTEST_F(testfixture_, testname_)			IUTEST_TEST_F_(testfixture_, testname_)
+#define IUTEST_F(testfixture_, testname_)		IUTEST_TEST_F_(testfixture_, testname_)
 
 #if IUTEST_HAS_PARAM_METHOD_TEST
 /**
@@ -81,8 +81,9 @@
  * @param	testname_	= テスト名
  * @param	method_		= 関数
 */
-#define IUTEST_PMZ(testcase_, testname_, method_, ...)	IIUT_TEST_PMZ_(testcase_, testname_, method_, ::iutest::Test	\
-														, ::iutest::internal::GetTestTypeId(), __VA_ARGS__)
+#define IUTEST_PMZ(testcase_, testname_, method_, ...)	IIUT_TEST_PMZ_(testcase_, testname_		\
+															, method_, ::iutest::Test			\
+															, ::iutest::internal::GetTestTypeId(), __VA_ARGS__)
 
 /**
  * @ingroup	VALUE_PARAMETERIZED_TEST
@@ -92,8 +93,9 @@
  * @param	testname_		= テスト名
  * @param	method_			= 関数
 */
-#define IUTEST_PMZ_F(testfixture_, testname_, method_, ...)	IIUT_TEST_PMZ_(testfixture_, testname_, method_, testfixture_	\
-														, ::iutest::internal::GetTypeId< testfixture_ >(), __VA_ARGS__)
+#define IUTEST_PMZ_F(testfixture_, testname_, method_, ...)	IIUT_TEST_PMZ_(testfixture_, testname_	\
+																, method_, testfixture_				\
+																, ::iutest::internal::GetTypeId< testfixture_ >(), __VA_ARGS__)
 
 #endif
 
@@ -141,13 +143,13 @@
  * @param	argc_	= コマンドライン引数の総数
  * @param	argv_	= コマンドライン引数
 */
-#define IUTEST_INIT(argc_, argv_)					::iutest::InitIrisUnitTest(argc_, argv_)
+#define IUTEST_INIT(argc_, argv_)				::iutest::InitIrisUnitTest(argc_, argv_)
 
 /**
  * @ingroup	TESTDEF
  * @brief	すべてのテストを実行する
 */
-#define IUTEST_RUN_ALL_TESTS()						::iutest::UnitTestSource::GetInstance().Run()
+#define IUTEST_RUN_ALL_TESTS()					::iutest::UnitTestSource::GetInstance().Run()
 
 
 /**
@@ -160,7 +162,7 @@
  * @brief		スコープ内のテストメッセージへのメッセージ追加
  * @param		msg	= メッセージ
 */
-#define IUTEST_SCOPED_TRACE(msg)					IIUT_SCOPED_MESSAGE(msg)
+#define IUTEST_SCOPED_TRACE(msg)				IIUT_SCOPED_MESSAGE(msg)
 
 /**
  * @ingroup		IUTEST_UTIL
@@ -168,7 +170,7 @@
  * @details		明示的に成功を報告します
 */
 #ifndef IUTEST_SUCCEED
-#  define IUTEST_SUCCEED()							IIUT_SUCCEED()
+#  define IUTEST_SUCCEED()						IIUT_SUCCEED()
 #endif
 
 /**
@@ -177,7 +179,7 @@
  * @details		明示的に致命的な失敗を報告します
 */
 #ifndef IUTEST_FAIL
-#  define IUTEST_FAIL()								IIUT_FAIL()
+#  define IUTEST_FAIL()							IIUT_FAIL()
 #endif
 
 /**
@@ -186,7 +188,7 @@
  * @details		明示的に致命的でない失敗を報告します
 */
 #ifndef IUTEST_ADD_FAILURE
-#  define IUTEST_ADD_FAILURE()						IIUT_ADD_FAILURE()
+#  define IUTEST_ADD_FAILURE()					IIUT_ADD_FAILURE()
 #endif
 
 /**
@@ -197,7 +199,7 @@
  * @param		line	= 行番号
 */
 #ifndef IUTEST_ADD_FAILURE_AT
-#  define IUTEST_ADD_FAILURE_AT(file, line)			IIUT_ADD_FAILURE_AT(file, line)
+#  define IUTEST_ADD_FAILURE_AT(file, line)		IIUT_ADD_FAILURE_AT(file, line)
 #endif
 
 /**
@@ -206,7 +208,7 @@
  * @details		明示的にスキップを報告します
 */
 #ifndef IUTEST_SKIP
-#  define IUTEST_SKIP()								IUTEST_TEST_SKIP()
+#  define IUTEST_SKIP()							IUTEST_TEST_SKIP()
 #endif
 
 /**
@@ -1664,7 +1666,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, T argv)
 	TestEnv::LoadFlagFile();
 }
 
-}
+}	// end of namespace detail
 
 /**
  * @brief	初期化
@@ -1701,7 +1703,7 @@ inline Environment* IUTEST_ATTRIBUTE_UNUSED_ AddGlobalTestEnvironment(Environmen
 	return TestEnv::AddGlobalTestEnvironment(env);
 }
 
-}
+}	// end of namespace iutest
 
 #if defined(IUTEST_USE_GTEST)
 #  include "gtest/iutest_switch.hpp"

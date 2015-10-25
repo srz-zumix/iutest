@@ -472,7 +472,7 @@ public:
 		typedef typename Tests::Head	Head;
 		typedef Fixture<Head>			FixtureClass;
 		typedef TypedTestCase<TypeParam>	_MyTestCase;
-		TestCase* testcase = 
+		TestCase* testcase =
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
 			UnitTest::instance().AddTestCase<_MyTestCase>(
 #else

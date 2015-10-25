@@ -34,10 +34,12 @@ class TestEventListener;
 
 namespace detail
 {
-	class DefaultGlobalTestPartResultReporter;
-}
 
-}
+class DefaultGlobalTestPartResultReporter;
+
+}	// end of namespace detail
+
+}	// end of namespace iutest
 
 #if IUTEST_HAS_LIB && IUTEST_HAS_EXTERN_TEMPLATE
 
