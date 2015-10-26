@@ -241,7 +241,7 @@ public:
 #endif
 };
 
-}
+}	// end of namespace is_pointer_helper
 
 /**
  * @brief	is_pointer
@@ -273,13 +273,16 @@ public:
 	typedef typename impl<rmcv_type, void>::type type;
 };
 
-}
+}	// end of namespace is_reference_helper
 
 /**
  * @brief	is_reference
 */
 template<typename T>
-struct is_reference : public is_reference_helper::is_reference<T>::type {};
+struct is_reference
+	: public is_reference_helper::is_reference<T>::type
+{
+};
 
 namespace is_void_helper
 {
@@ -295,13 +298,16 @@ public:
 	typedef typename impl<rmcv_type, void>::type type;
 };
 
-}
+}	// end of namespace is_void_helper
 
 /**
  * @brief	is_void
 */
 template<typename T>
-struct is_void : public is_void_helper::is_void<T>::type {};
+struct is_void
+	: public is_void_helper::is_void<T>::type
+{
+};
 
 namespace is_const_helper
 {
@@ -316,13 +322,16 @@ public:
 	typedef typename impl<T>::type type;
 };
 
-}
+}	// end of namespace is_const_helper
 
 /**
  * @brief	is_const
 */
 template<typename T>
-struct is_const : public is_const_helper::is_const<T>::type {};
+struct is_const
+	: public is_const_helper::is_const<T>::type
+{
+};
 
 #endif // #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
@@ -354,7 +363,7 @@ public:
 
 #endif
 
-}
+}	// end of namespace is_same_helper
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) || IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION
 
@@ -362,7 +371,10 @@ public:
  * @brief	is_same
 */
 template<typename T1, typename T2>
-struct is_same : public is_same_helper::is_same<T1, T2>::type {};
+struct is_same
+	: public is_same_helper::is_same<T1, T2>::type
+{
+};
 
 #endif
 
@@ -383,13 +395,14 @@ public:
 	typedef bool_constant<IsClass> type;
 };
 
-}
+}	// end of namespace is_class_helper
 
 /**
  * @brief	is class
 */
 template<typename T>
-struct is_class : public is_class_helper::is_class<T>::type
+struct is_class
+	: public is_class_helper::is_class<T>::type
 {
 };
 
@@ -410,13 +423,14 @@ public:
 	typedef bool_constant<IsConvertible> type;
 };
 
-}
+}	// end of namespace is_convertible_helper
 
 /**
  * @brief	is convertible
 */
 template<typename From, typename To>
-struct is_convertible : public is_convertible_helper::is_convertible_type<From, To>::type
+struct is_convertible
+	: public is_convertible_helper::is_convertible_type<From, To>::type
 {
 };
 
@@ -484,13 +498,14 @@ public:
 	typedef typename binder::type type;
 };
 
-}
+}	// end of namespace is_base_of_helper
 
 /**
  * @brief	is base of
 */
 template<typename Base, typename Derived>
-struct is_base_of : public is_base_of_helper::is_base_of<Base, Derived>::type
+struct is_base_of
+	: public is_base_of_helper::is_base_of<Base, Derived>::type
 {
 };
 
@@ -563,9 +578,11 @@ class is_function_pointer
 	template<typename R>
 	struct impl<R (*)(...)> : public true_type {};
 
-#define IIUT_DECL_IS_FUNCTION_PTR_(n)	\
-template<typename R, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (*)(IUTEST_PP_ENUM_PARAMS(n, T))> : public true_type {};	\
-template<typename R, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (*)(IUTEST_PP_ENUM_PARAMS(n, T), ...)> : public true_type {}
+#define IIUT_DECL_IS_FUNCTION_PTR_(n)										\
+	template<typename R, IUTEST_PP_ENUM_PARAMS(n, typename T)>				\
+	struct impl<R (*)(IUTEST_PP_ENUM_PARAMS(n, T))> : public true_type {};	\
+	template<typename R, IUTEST_PP_ENUM_PARAMS(n, typename T)>				\
+	struct impl<R (*)(IUTEST_PP_ENUM_PARAMS(n, T), ...)> : public true_type {}
 
 	IIUT_DECL_IS_FUNCTION_PTR_(1);
 	IIUT_DECL_IS_FUNCTION_PTR_(2);
@@ -597,13 +614,14 @@ public:
 	typedef bool_constant<value> type;
 };
 
-}
+}	// end of namespace is_function_pointer_helper
 
 /**
  * @brief	is function pointer
 */
 template<typename T>
-struct is_function_pointer : public is_function_pointer_helper::is_function_pointer<T>::type
+struct is_function_pointer
+	: public is_function_pointer_helper::is_function_pointer<T>::type
 {
 };
 
@@ -686,13 +704,14 @@ public:
 	typedef bool_constant< impl< typename remove_cv<T>::type >::value > type;
 };
 
-}
+}	// end of namespace is_member_function_pointer_helper
 
 /**
  * @brief	is member function pointer
 */
 template<typename T>
-struct is_member_function_pointer : public is_member_function_pointer_helper::is_member_function_pointer<T>::type
+struct is_member_function_pointer
+	: public is_member_function_pointer_helper::is_member_function_pointer<T>::type
 {
 };
 
@@ -709,7 +728,8 @@ class is_member_pointer
 	struct impl<U C::*> : public true_type {};
 
 public:
-	typedef bool_constant< impl< typename remove_cv<T>::type >::value || is_member_function_pointer<T>::value > type;
+	typedef bool_constant< impl< typename remove_cv<T>::type >::value 
+							|| is_member_function_pointer<T>::value > type;
 };
 
 }
@@ -718,7 +738,8 @@ public:
  * @brief	is member pointer
 */
 template<typename T>
-struct is_member_pointer : public is_member_pointer_helper::is_member_pointer<T>::type
+struct is_member_pointer
+	: public is_member_pointer_helper::is_member_pointer<T>::type
 {
 };
 
@@ -730,53 +751,63 @@ struct is_member_pointer : public is_member_pointer_helper::is_member_pointer<T>
 
 namespace has_equal_to_operator_helper
 {
-	typedef char no_t[7];
-	template<typename T1, typename T2>
-	no_t& operator == (const T1& lhs, const T2& rhs);
-}
+
+typedef char no_t[7];
+template<typename T1, typename T2>
+no_t& operator == (const T1& lhs, const T2& rhs);
+
+}	// end of namespace has_equal_to_operator_helper
 
 namespace has_equal_to_operator_impl
 {
-	using namespace has_equal_to_operator_helper;
-	/** @private */
-	template<typename T>
-	struct has_equal_to_operator
-	{
-		typedef bool_constant< (sizeof(*(T*)0 == *(T*)0) != sizeof(has_equal_to_operator_helper::no_t) ) > type;
-	};
-}
+
+using namespace has_equal_to_operator_helper;	// NOLINT
+/** @private */
+template<typename T>
+struct has_equal_to_operator
+{
+	typedef bool_constant< (sizeof(*(T*)0 == *(T*)0) != sizeof(has_equal_to_operator_helper::no_t) ) > type;	// NOLINT
+};
+
+}	// end of namespace has_equal_to_operator_impl
 
 /**
  * @brief	has equal to operator
 */
 template<typename T>
-struct has_equal_to : public has_equal_to_operator_impl::has_equal_to_operator<T>::type
+struct has_equal_to
+	: public has_equal_to_operator_impl::has_equal_to_operator<T>::type
 {
 };
 
 namespace has_not_equal_to_operator_helper
 {
-	typedef char no_t[7];
-	template<typename T1, typename T2>
-	no_t& operator != (const T1& lhs, const T2& rhs);
-}
+
+typedef char no_t[7];
+template<typename T1, typename T2>
+no_t& operator != (const T1& lhs, const T2& rhs);
+
+}	// end of namespace has_not_equal_to_operator_helper
 
 namespace has_not_equal_to_operator_impl
 {
-	using namespace has_not_equal_to_operator_helper;
-	/** @private */
-	template<typename T>
-	struct has_not_equal_to_operator
-	{
-		typedef bool_constant< (sizeof(*(T*)0 != *(T*)0) != sizeof(has_not_equal_to_operator_helper::no_t)) > type;
-	};
-}
+
+using namespace has_not_equal_to_operator_helper;	// NOLINT
+/** @private */
+template<typename T>
+struct has_not_equal_to_operator
+{
+	typedef bool_constant< (sizeof(*(T*)0 != *(T*)0) != sizeof(has_not_equal_to_operator_helper::no_t)) > type;	// NOLINT
+};
+
+}	// end of namespace has_not_equal_to_operator_impl
 
 /**
  * @brief	has not equal to operator
 */
 template<typename T>
-struct has_not_equal_to : public has_not_equal_to_operator_impl::has_not_equal_to_operator<T>::type
+struct has_not_equal_to
+	: public has_not_equal_to_operator_impl::has_not_equal_to_operator<T>::type
 {
 };
 
@@ -809,20 +840,24 @@ class function_return_type
 
 #else
 
-#define IIUT_DECL_FUNCTION_RETURN_TYPE_(n)	\
-	template<typename R, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (*)(IUTEST_PP_ENUM_PARAMS(n, T))>	\
-	{ typedef R type; };	\
-	template<typename R, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (*)(IUTEST_PP_ENUM_PARAMS(n, T), ...)>	\
-	{ typedef R type; };	\
-	IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, IUTEST_PP_EMPTY());	\
-	IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, const);	\
-	IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, volatile);	\
+#define IIUT_DECL_FUNCTION_RETURN_TYPE_(n)						\
+	template<typename R, IUTEST_PP_ENUM_PARAMS(n, typename T)>	\
+	struct impl<R (*)(IUTEST_PP_ENUM_PARAMS(n, T))>				\
+	{ typedef R type; };										\
+	template<typename R, IUTEST_PP_ENUM_PARAMS(n, typename T)>	\
+	struct impl<R (*)(IUTEST_PP_ENUM_PARAMS(n, T), ...)>		\
+	{ typedef R type; };										\
+	IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, IUTEST_PP_EMPTY());		\
+	IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, const);					\
+	IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, volatile);				\
 	IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, const volatile)
 
-#define IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, CV)	\
-	template<typename R, typename U, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (U::*)(IUTEST_PP_ENUM_PARAMS(n, T)) CV>	\
-	{ typedef R type; };	\
-	template<typename R, typename U, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (U::*)(IUTEST_PP_ENUM_PARAMS(n, T), ...) CV>	\
+#define IIUT_DECL_FUNCTION_RETURN_TYPE_I(n, CV)								\
+	template<typename R, typename U, IUTEST_PP_ENUM_PARAMS(n, typename T)>	\
+	struct impl<R (U::*)(IUTEST_PP_ENUM_PARAMS(n, T)) CV>					\
+	{ typedef R type; };													\
+	template<typename R, typename U, IUTEST_PP_ENUM_PARAMS(n, typename T)>	\
+	struct impl<R (U::*)(IUTEST_PP_ENUM_PARAMS(n, T), ...) CV>				\
 	{ typedef R type; }
 
 	template<typename R>struct impl<R (*)(void)>	{ typedef R type; };

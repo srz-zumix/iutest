@@ -664,7 +664,9 @@
 
 //! quick_exit
 #if !defined(IUTEST_HAS_QUICK_EXIT)
-#  if   (defined(_GLIBCXX_HAVE_QUICK_EXIT) && defined(_GLIBCXX_HAVE_AT_QUICK_EXIT)) || defined(_LIBCPP_HAS_QUICK_EXIT)
+#  if   defined(_GLIBCXX_HAVE_QUICK_EXIT) && defined(_GLIBCXX_HAVE_AT_QUICK_EXIT)
+#    define IUTEST_HAS_QUICK_EXIT	1
+#  elif defined(_LIBCPP_HAS_QUICK_EXIT)
 #    define IUTEST_HAS_QUICK_EXIT	1
 #  elif defined(_MSC_VER)
 #    if _MSC_VER > 1800
@@ -1032,7 +1034,7 @@
 	void _Add_vtordisp1() {}	\
 	void _Add_vtordisp2() {}
 #else
-#  define IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()	
+#  define IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()
 #endif
 
 /**

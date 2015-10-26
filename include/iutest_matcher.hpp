@@ -543,7 +543,8 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual)
 	{
-		if( Contains(actual) ) return AssertionSuccess();
+		IUTEST_USING_BEGIN_END();
+		if( Contains(begin(actual), end(actual)) ) return AssertionSuccess();
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -555,21 +556,8 @@ public:
 		return strm.str();
 	}
 private:
-	template<typename Container>
-	bool Contains(const Container& actual)
-	{
-		return ContainsContainer(actual.begin(), actual.end());
-	}
-#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-	template<typename U, size_t SIZE>
-	bool Contains(const U(&actual)[SIZE])
-	{
-		return ContainsContainer(actual, actual + SIZE);
-	}
-#endif
-
 	template<typename Ite>
-	bool ContainsContainer(Ite begin, Ite end)
+	bool Contains(Ite begin, Ite end)
 	{
 		for( Ite it = begin; it != end; ++it )
 		{
@@ -600,7 +588,8 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual)
 	{
-		if( Each(actual) ) return AssertionSuccess();
+		IUTEST_USING_BEGIN_END();
+		if( Each(begin(actual), end(actual)) ) return AssertionSuccess();
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -612,21 +601,8 @@ public:
 		return strm.str();
 	}
 private:
-	template<typename Container>
-	bool Each(const Container& actual)
-	{
-		return EachContainer(actual.begin(), actual.end());
-	}
-#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-	template<typename U, size_t SIZE>
-	bool Each(const U(&actual)[SIZE])
-	{
-		return EachContainer(actual, actual + SIZE);
-	}
-#endif
-
 	template<typename Ite>
-	bool EachContainer(Ite begin, Ite end)
+	bool Each(Ite begin, Ite end)
 	{
 		for( Ite it = begin; it != end; ++it )
 		{
@@ -657,7 +633,9 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual)
 	{
-		if( Check(actual) ) return AssertionSuccess();
+		IUTEST_USING_BEGIN_END();
+		if( Check(begin(m_expected), end(m_expected)
+			, begin(actual), end(actual)) ) return AssertionSuccess();
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -670,34 +648,8 @@ public:
 		return strm.str();
 	}
 private:
-	template<typename Container>
-	bool Check(const Container& actual)
-	{
-		return Check(m_expected, actual.begin(), actual.end());
-	}
-#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-	template<typename U, size_t SIZE>
-	bool Check(const U(&actual)[SIZE])
-	{
-		return Check(m_expected, actual, actual + SIZE);
-	}
-#endif
-
-	template<typename Container, typename Ite>
-	bool Check(const Container& expected, Ite b2, Ite e2)
-	{
-		return CheckContainer(expected.begin(), expected.end(), b2, e2);
-	}
-#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-	template<typename U, size_t SIZE, typename Ite>
-	bool Check(const U(&expected)[SIZE], Ite b2, Ite e2)
-	{
-		return CheckContainer(expected, expected + SIZE, b2, e2);
-	}
-#endif
-
 	template<typename Ite1, typename Ite2>
-	bool CheckContainer(Ite1 b1, Ite1 e1, Ite2 b2, Ite2 e2)
+	bool Check(Ite1 b1, Ite1 e1, Ite2 b2, Ite2 e2)
 	{
 		size_t elem=0;
 		bool result = true;
@@ -738,13 +690,16 @@ template<typename M, typename T>
 class PointwiseMatcher : public IMatcher
 {
 public:
-	PointwiseMatcher(const M& matcher, const T& expected) : m_matcher(matcher), m_expected(expected) {}
+	PointwiseMatcher(const M& matcher, const T& expected)
+		: m_matcher(matcher), m_expected(expected) {}
 
 public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual)
 	{
-		if( Check(actual) ) return AssertionSuccess();
+		IUTEST_USING_BEGIN_END();
+		if( Check(begin(m_expected), end(m_expected)
+			, begin(actual), end(actual)) ) return AssertionSuccess();
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -757,34 +712,8 @@ public:
 		return strm.str();
 	}
 private:
-	template<typename Container>
-	bool Check(const Container& actual)
-	{
-		return Check(m_expected, actual.begin(), actual.end());
-	}
-#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-	template<typename U, size_t SIZE>
-	bool Check(const U(&actual)[SIZE])
-	{
-		return Check(m_expected, actual, actual + SIZE);
-	}
-#endif
-
-	template<typename Container, typename Ite>
-	bool Check(const Container& expected, Ite b2, Ite e2)
-	{
-		return CheckContainer(expected.begin(), expected.end(), b2, e2);
-	}
-#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-	template<typename U, size_t SIZE, typename Ite>
-	bool Check(const U(&expected)[SIZE], Ite b2, Ite e2)
-	{
-		return CheckContainer(expected, expected + SIZE, b2, e2);
-	}
-#endif
-
 	template<typename Ite1, typename Ite2>
-	bool CheckContainer(Ite1 b1, Ite1 e1, Ite2 b2, Ite2 e2)
+	bool Check(Ite1 b1, Ite1 e1, Ite2 b2, Ite2 e2)
 	{
 		size_t elem=0;
 		bool result = true;
@@ -937,7 +866,8 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual)
 	{
-		return Check(actual);
+		IUTEST_USING_BEGIN_END();
+		return Check(begin(actual), end(actual));
 	}
 
 public:
@@ -960,19 +890,6 @@ public:
 		return strm.str();
 	}
 private:
-	template<typename Container>
-	AssertionResult Check(const Container& actual)
-	{
-		return Check(actual.begin(), actual.end());
-	}
-#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-	template<typename U, size_t SIZE>
-	AssertionResult Check(const U(&actual)[SIZE])
-	{
-		return Check(actual, actual + SIZE);
-	}
-#endif
-
 	template<typename Ite>
 	AssertionResult Check(Ite actual_begin, Ite actual_end)
 	{
@@ -1021,7 +938,8 @@ protected:
 	template<typename T, typename U>
 	static AssertionResult Check(T& matchers, const U& actual)
 	{
-		return Check_<0, tuples::tuple_size<T>::value - 1>(actual, matchers);
+		IUTEST_USING_BEGIN_END();
+		return Check<0, tuples::tuple_size<T>::value - 1>(begin(actual), end(actual), matchers);
 	}
 	template<int N, typename T>
 	static ::std::string WhichIs(const T& matchers)
@@ -1032,21 +950,8 @@ protected:
 		return str;
 	}
 private:
-	template<int N, int LAST, typename Container, typename M>
-	static AssertionResult Check_(const Container& actual, M& matchers)
-	{
-		return CheckSize<N, LAST>(actual.begin(), actual.end(), matchers);
-	}
-#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-	template<int N, int LAST, typename U, size_t SIZE, typename M>
-	static AssertionResult Check_(const U(&actual)[SIZE], M& matchers)
-	{
-		return CheckSize<N, LAST>(actual, actual + SIZE, matchers);
-	}
-#endif
-
 	template<int N, int LAST, typename Ite, typename M>
-	static AssertionResult CheckSize(Ite it, Ite end, M& matchers)
+	static AssertionResult Check(Ite it, Ite end, M& matchers)
 	{
 		const size_t cnt = ::std::distance(it, end);
 		if( cnt < LAST+1 )
@@ -2191,8 +2096,9 @@ detail::AtMatcher<T> At(size_t index, const T& expected)
  * @details	argument はの各要素が a の要素とマッチする
 */
 template<typename Container>
-detail::ElementsAreArrayMatcher< typename Container::value_type > ElementsAreArray(Container container)
+detail::ElementsAreArrayMatcher< typename Container::value_type > ElementsAreArray(const Container& container)
 {
+	IUTEST_USING_BEGIN_END();
 	return detail::ElementsAreArrayMatcher<typename Container::value_type>(container.begin(), container.end());
 }
 
@@ -2241,7 +2147,7 @@ detail::ElementsAreArrayMatcher<T> ElementsAreArray(const T* a, int count)
  * @details	argument はの各要素が a の要素とマッチする
 */
 template<typename Container>
-detail::ElementsAreArrayMatcher< typename Container::value_type > ElementsAreArrayForward(Container container)
+detail::ElementsAreArrayMatcher< typename Container::value_type > ElementsAreArrayForward(const Container& container)
 {
 	return detail::ElementsAreArrayMatcher<typename Container::value_type>(container.begin(), container.end(), false);
 }
@@ -2507,7 +2413,7 @@ bool Value(const T& value, const M& expected)
 
 }	// end of namespace matchers
 
-using namespace matchers;
+using namespace matchers; // NOLINT
 
 }	// end of namespace iutest
 

@@ -182,19 +182,22 @@ inline void StringSplit(const ::std::string& str, char delimiter, ::std::vector<
 	dst.swap(parsed);
 }
 
-inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n) { return (n&0xF) >= 0xA ? 'A'+((n&0xF)-0xA) : '0'+(n&0xF); }
+inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n)
+{
+	return (n&0xF) >= 0xA ? 'A'+((n&0xF)-0xA) : '0'+(n&0xF);
+}
 
 template<typename T>
 inline ::std::string ToHexString(T value)
 {
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
-	const size_t len = sizeof(T)*2;
-	char buf[len+1];
-	for( size_t i=0; i < len; ++i )
+	const size_t kN = sizeof(T)*2;
+	char buf[kN+1];
+	for( size_t i=0; i < kN; ++i )
 	{
-		buf[i] = ToHex(static_cast<unsigned int>((value>>((len-i-1)*4))));
+		buf[i] = ToHex(static_cast<unsigned int>((value>>((kN-i-1)*4))));
 	}
-	buf[len] = '\0';
+	buf[kN] = '\0';
 	return buf;
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 }
@@ -207,8 +210,16 @@ inline ::std::string FormatIntWidth2(int value)
 	return buf;
 }
 
-inline ::std::string ShowStringQuoted(const char* str) { ::std::string s = "\""; s += str; s += "\""; return s; }
-inline ::std::string ShowStringQuoted(const ::std::string& str) { ::std::string s = "\""; s += str; s += "\""; return s; }
+inline ::std::string ShowStringQuoted(const char* str)
+{
+	::std::string s = "\""; s += str; s += "\"";
+	return s;
+}
+inline ::std::string ShowStringQuoted(const ::std::string& str)
+{
+	::std::string s = "\""; s += str; s += "\"";
+	return s;
+}
 
 //======================================================================
 // declare
@@ -337,8 +348,8 @@ public:
 	iu_basic_stream(void) {}
 	explicit iu_basic_stream(const char* str) : s(str) {}
 	explicit iu_basic_stream(const ::std::string& str) : s(str) {}
-public:
 
+public:
 	inline _Myt& operator<< (char v)
 	{
 		s += v;
@@ -346,12 +357,12 @@ public:
 	}
 	inline _Myt& operator<< (signed char v)
 	{
-		s += (char)v;
+		s += static_cast<char>(v);
 		return *this;
 	}
 	inline _Myt& operator<< (unsigned char v)
 	{
-		s += (char)v;
+		s += static_cast<char>(v);
 		return *this;
 	}
 	inline _Myt& operator<< (const _Elem* v)

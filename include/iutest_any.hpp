@@ -80,16 +80,8 @@ public:
 
 public:
 	template<typename T>
-	any& operator = (const T& rhs)
-	{
-		any(rhs).swap(*this);
-		return *this;
-	}
-	any& operator = (const any& rhs)
-	{
-		any(rhs).swap(*this);
-		return *this;
-	}
+	any& operator = (const   T& rhs) { any(rhs).swap(*this); return *this; }
+	any& operator = (const any& rhs) { any(rhs).swap(*this); return *this; }
 
 	template<typename T>
 	friend T* any_cast(any*);

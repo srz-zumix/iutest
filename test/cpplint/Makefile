@@ -8,8 +8,8 @@ INTERNAL_HPP=$(wildcard ../../include/internal/*.hpp)
 
 SUPPRESS_WHITESPACE_SUB=/tab,/indent,/braces,/comments,/newline,/labels,/operators,/parens
 SUPPRESS_WHITESPACE=$(subst /,-whitespace/,$(SUPPRESS_WHITESPACE_SUB))
-SUPPRESS_BUILD=-build/include_what_you_use,-build/c++11,-build/namespaces
-SUPPRESS_READABILITY=-readability/todo,-readability/braces
+SUPPRESS_BUILD=-build/include_what_you_use,-build/c++11
+SUPPRESS_READABILITY=-readability/todo,-readability/braces,-readability/function
 SUPPRESS_RUNTIME=-runtime/int,-runtime/references
 SUPPRESS=$(SUPPRESS_BUILD),$(SUPPRESS_WHITESPACE),$(SUPPRESS_READABILITY),$(SUPPRESS_RUNTIME)
 

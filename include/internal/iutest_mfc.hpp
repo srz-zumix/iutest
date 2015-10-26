@@ -33,7 +33,7 @@ class mfc_iterator : public ::std::iterator < ::std::input_iterator_tag, U >
 public:
 	mfc_iterator(const T& container, POSITION pos) : m_container(container), m_pos(pos) {}
 	mfc_iterator(const mfc_iterator& rhs) : m_container(rhs.m_container), m_pos(rhs.m_pos) {}
-	
+
 	mfc_iterator& operator ++ ()    { advance(); return *this; }
 	mfc_iterator& operator ++ (int) { mfc_iterator r(*this); advance(); return r; }
 
@@ -129,7 +129,7 @@ namespace peep
 
 template<typename T>
 struct base_type : public T
-{ 
+{
 	__if_exists(T::BASE_TYPE)
 	{
 		using T::BASE_TYPE;
@@ -220,7 +220,7 @@ struct mfc_iterator_traits
 	>::type type;
 };
 
-}
+}	// end of namespace peep
 
 template<typename T>
 typename peep::base_type<T>::BASE_TYPE* begin(T& ar
@@ -280,7 +280,7 @@ public:
 	 * @}
 	*/
 public:
-	CContainer(T& container) : m_container(container) {}
+	explicit CContainer(T& container) : m_container(container) {}
 
 	iterator_type begin() const { return mfc::begin(m_container); }
 	iterator_type end() const { return mfc::end(m_container); }

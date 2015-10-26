@@ -19,9 +19,9 @@
 // include
 #if defined(IUTEST_USE_GTEST) && defined(__STRICT_ANSI__)
 #  undef __STRICT_ANSI__
-#  include <cstdio>
 #  include <string.h>
 #  include <stdlib.h>
+#  include <cstdio>
 #  define __STRICT_ANSI__
 #endif
 #include <cstdlib>
@@ -29,9 +29,64 @@
 //======================================================================
 // define
 
+// iterator
+
+//! has std::begin,std::end
+#if !defined(IUTEST_HAS_STD_BEGIN_END)
+#  if   IUTEST_HAS_CXX11
+#    define IUTEST_HAS_STD_BEGIN_END	1
+#  elif defined(_MSC_VER) && (_MSC_VER >= 1700)
+#    define IUTEST_HAS_STD_BEGIN_END	1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_STD_BEGIN_END)
+#  define IUTEST_HAS_STD_BEGIN_END	0
+#endif
+
+//! using begin,end
+#if IUTEST_HAS_STD_BEGIN_END
+#  define IUTEST_USING_BEGIN_END()	\
+	using ::std::begin; using ::std::end
+#else
+#  define IUTEST_USING_BEGIN_END()	\
+	using ::iutest::detail::cxx::begin; using ::iutest::detail::cxx::end
+#endif
+
+namespace iutest {
+namespace detail {
+namespace cxx
+{
+
+#if IUTEST_HAS_STD_BEGIN_END
+
+using namespace std; // NOLINT
+
+#else
+
+template<typename T> typename T::iterator begin(T& x) { return x.begin(); }
+template<typename T> typename T::iterator end  (T& x) { return x.end(); }
+
+template<typename T> typename T::const_iterator begin(const T& x) { return x.begin(); }
+template<typename T> typename T::const_iterator end  (const T& x) { return x.end(); }
+
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+template<typename T, size_t SIZE> T* begin(T (&x)[SIZE]) { return &x[0]; }
+template<typename T, size_t SIZE> T* end  (T (&x)[SIZE]) { return begin(x) + SIZE; }
+
+template<typename T, size_t SIZE> const T* begin(const T (&x)[SIZE]) { return &x[0]; }
+template<typename T, size_t SIZE> const T* end  (const T (&x)[SIZE]) { return begin(x) + SIZE; }
+#endif
+
+#endif
+
+}	// end of namespace cxx
+}	// end of namespace detail
+}	// end of namespace iutest
+
 // tuple
 
-#if defined(IUTEST_USE_EXTERNAL_TR1_TUPLE) && IUTEST_USE_EXTERNAL_TR1_TUPLE
+#if  defined(IUTEST_USE_EXTERNAL_TR1_TUPLE) && IUTEST_USE_EXTERNAL_TR1_TUPLE
 # define IUTEST_HAS_STD_TUPLE	0
 #endif
 
@@ -140,99 +195,103 @@
 namespace iutest {
 namespace tuples
 {
+
 #if IUTEST_HAS_STD_TUPLE
-	namespace alias = ::std;
+namespace alias = ::std;
 #elif IUTEST_HAS_TR1_TUPLE
-	namespace alias = ::std::tr1;
+namespace alias = ::std::tr1;
 #endif
 
-	using alias::tuple;
-	using alias::tuple_element;
-	using alias::make_tuple;
-	using alias::get;
+using alias::tuple;
+using alias::tuple_element;
+using alias::make_tuple;
+using alias::get;
 
-	template<typename T>struct tuple_size : public alias::tuple_size<T> {};
-	template<typename T>struct tuple_size<const T> : public alias::tuple_size<T> {};
-	template<typename T>struct tuple_size<volatile T> : public alias::tuple_size<T>{};
-	template<typename T>struct tuple_size<const volatile T> : public alias::tuple_size<T>{};
+template<typename T>struct tuple_size : public alias::tuple_size<T> {};
+template<typename T>struct tuple_size<const T> : public alias::tuple_size<T> {};
+template<typename T>struct tuple_size<volatile T> : public alias::tuple_size<T>{};
+template<typename T>struct tuple_size<const volatile T> : public alias::tuple_size<T>{};
 
-	namespace detail
+namespace detail
+{
+
+template<typename T, typename F, int Begin>
+struct tuple_foreach_impl
+{
+	template<int N, int I>
+	struct impl
 	{
-		template<typename T, typename F, int Begin>
-		struct tuple_foreach_impl
+		static void do_something(T& t, F fn)
 		{
-			template<int N, int I>
-			struct impl
-			{
-				static void do_something(T& t, F fn)
-				{
-					fn(I, get<I>(t));
-					impl<N, I + 1>::do_something(t, fn);
-				}
-			};
-			template<int N>
-			struct impl<N, N>
-			{
-				static void do_something(T&, F) {}
-			};
+			fn(I, get<I>(t));
+			impl<N, I + 1>::do_something(t, fn);
+		}
+	};
+	template<int N>
+	struct impl<N, N>
+	{
+		static void do_something(T&, F) {}
+	};
 
-			static void do_something(T& t, F fn)
-			{
-				impl<tuple_size<T>::value, Begin>::do_something(t, fn);
-			}
-		};
+	static void do_something(T& t, F fn)
+	{
+		impl<tuple_size<T>::value, Begin>::do_something(t, fn);
+	}
+};
 
-		template<typename T, typename U>
-		struct tuple_cast_copy_impl
+template<typename T, typename U>
+struct tuple_cast_copy_impl
+{
+	template<int N, int I>
+	struct impl
+	{
+		static void copy(T& dst, const U& src)
 		{
-			template<int N, int I>
-			struct impl
-			{
-				static void copy(T& dst, const U& src)
-				{
-					get<I>(dst) = static_cast<typename tuple_element<I, T>::type>(get<I>(src));
-					impl<N, I + 1>::copy(dst, src);
-				}
-			};
-			template<int N>
-			struct impl<N, N>
-			{
-				static void copy(T&, const U&) {}
-			};
+			get<I>(dst) = static_cast<typename tuple_element<I, T>::type>(get<I>(src));
+			impl<N, I + 1>::copy(dst, src);
+		}
+	};
+	template<int N>
+	struct impl<N, N>
+	{
+		static void copy(T&, const U&) {}
+	};
 
-			static void copy(T& dst, const U& src)
-			{
-				impl<tuple_size<T>::value, 0>::copy(dst, src);
-			}
-		};
+	static void copy(T& dst, const U& src)
+	{
+		impl<tuple_size<T>::value, 0>::copy(dst, src);
+	}
+};
 
-	}
-	template<int I, typename tuple_t, typename F>
-	void tuple_foreach(tuple_t& t, F& fn)
-	{
-		detail::tuple_foreach_impl<tuple_t, F&, I>::do_something(t, fn);
-	}
-	template<typename tuple_t, typename F>
-	void tuple_foreach(tuple_t& t, F& fn)
-	{
-		tuple_foreach<0>(t, fn);
-	}
-	template<int I, typename tuple_t, typename F>
-	void tuple_foreach(tuple_t& t, const F& fn)
-	{
-		detail::tuple_foreach_impl<tuple_t, const F&, I>::do_something(t, fn);
-	}
-	template<typename tuple_t, typename F>
-	void tuple_foreach(tuple_t& t, const F& fn)
-	{
-		tuple_foreach<0>(t, fn);
-	}
-	template<typename T, typename U>
-	void tuple_cast_copy(T& dst, const U& src)
-	{
-		detail::tuple_cast_copy_impl<T, U>::copy(dst, src);
-	}
+}	// end of namespace detail
+
+template<int I, typename tuple_t, typename F>
+void tuple_foreach(tuple_t& t, F& fn)
+{
+	detail::tuple_foreach_impl<tuple_t, F&, I>::do_something(t, fn);
 }
+template<typename tuple_t, typename F>
+void tuple_foreach(tuple_t& t, F& fn)
+{
+	tuple_foreach<0>(t, fn);
+}
+template<int I, typename tuple_t, typename F>
+void tuple_foreach(tuple_t& t, const F& fn)
+{
+	detail::tuple_foreach_impl<tuple_t, const F&, I>::do_something(t, fn);
+}
+template<typename tuple_t, typename F>
+void tuple_foreach(tuple_t& t, const F& fn)
+{
+	tuple_foreach<0>(t, fn);
+}
+template<typename T, typename U>
+void tuple_cast_copy(T& dst, const U& src)
+{
+	detail::tuple_cast_copy_impl<T, U>::copy(dst, src);
+}
+
+}	// end of namespace tuples
 
 using tuples::tuple;
 using tuples::tuple_size;
@@ -241,7 +300,7 @@ using tuples::tuple_foreach;
 using tuples::make_tuple;
 using tuples::get;
 
-}
+}	// end of namespace iutest
 
 #endif
 
@@ -363,7 +422,7 @@ using tuples::get;
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_STD_EMPLACE		1
 #    endif
-#  elif defined(__clang__)
+#  elif defined(__clang__) && IUTEST_HAS_CXX11
 #    define IUTEST_HAS_STD_EMPLACE			1
 #  elif defined(_MSC_VER)
 #    if (_MSC_VER > 1700)

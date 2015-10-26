@@ -130,7 +130,7 @@ namespace printer_internal2
 template<typename T>
 void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
 {
-	using namespace ::iutest::detail::printer_internal;
+	using namespace ::iutest::detail::printer_internal; // NOLINT
 	*os << value;
 }
 
