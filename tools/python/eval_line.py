@@ -85,7 +85,7 @@ def main():
 	output = options.output
 	if output == None:
 		for line in range(options.repeat):
-			print eval_line(re_eval, define, line+options.start)
+			print( eval_line(re_eval, define, line+options.start) )
 	else:
 		if options.encoding:
 			file = codecs.open(output, 'w', options.encoding)
