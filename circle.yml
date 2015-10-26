@@ -13,7 +13,7 @@ dependencies:
 
 test:
   override:
-    - pyenv version; python --version:
+    - pyenv version; python --version :
         parallel: true
     - make :
         parallel: true
@@ -27,6 +27,6 @@ test:
     - make test CALL_NUMBER=+819012345678 :
         parallel: true
         pwd: tools/twilio
-    - make sample
+    - make sample :
         parallel: true
         pwd: tools/python
