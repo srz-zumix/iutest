@@ -27,3 +27,6 @@ test:
     - make test CALL_NUMBER=+819012345678 :
         parallel: true
         pwd: tools/twilio
+    - make sample
+        parallel: true
+        pwd: tools/python
