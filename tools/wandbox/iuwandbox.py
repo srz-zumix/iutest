@@ -29,7 +29,7 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 2.1'
+		, version=u'%(prog)s version 3.0'
 	)
 	parser.add_argument(
 		'--list_compiler'
@@ -50,7 +50,8 @@ def parse_command_line():
 	parser.add_argument(
 		'-x'
 		, '--options'
-		, help = 'used options for a compiler. default=warning'
+		, help = 'used options for a compiler.'
+		, default = None
 	)
 	parser.add_argument(
 		'--stdin'
@@ -100,6 +101,11 @@ def parse_command_line():
 		  '--check_config'
 		, action='store_true'
 		, help = 'check config.'
+	)
+	parser.add_argument(
+		  '--verbose'
+		, action='store_true'
+		, help = 'verbose.'
 	)
 	parser.add_argument(
 		'code'
@@ -163,8 +169,6 @@ def setup_includes(w, includes, encoding):
 # run wandbox
 def run_wandbox(code, includes, options):
 	w = Wandbox()
-	w.code(code)
-	setup_includes(w, includes, options.encoding)
 	w.compiler(options.compiler)
 	if options.options:
 		w.options(options.options)
@@ -184,6 +188,10 @@ def run_wandbox(code, includes, options):
 		w.runtime_options(ro)
 	if options.save:
 		w.permanent_link(options.save)
+	if options.verbose:
+		w.dump()
+	w.code(code)
+	setup_includes(w, includes, options.encoding)
 	return w.run()
 
 #
