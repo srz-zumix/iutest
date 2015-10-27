@@ -65,8 +65,8 @@ public:
 public:
 	value_ptr m_node;
 public:
-	iu_list_iterator(value_ptr p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_node(p) {}
-	iu_list_iterator(const _Myt& rhs) IUTEST_CXX_NOEXCEPT_SPEC : m_node(rhs.m_node) {}
+	iu_list_iterator(value_ptr p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_node(p) {}	// NOLINT
+	iu_list_iterator(const iu_list_iterator& rhs) IUTEST_CXX_NOEXCEPT_SPEC : m_node(rhs.m_node) {}
 
 public:
 	bool operator == (const _Myt& it) const { return this->m_node == it.m_node; }
@@ -127,7 +127,7 @@ public:
 	typedef iu_list_iterator<NODE, NODE*, NODE&> iterator;
 	typedef iu_list_iterator<NODE, const NODE*, const NODE&> const_iterator;
 public:
-	iu_list(node_ptr p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_node(p) {}
+	explicit iu_list(node_ptr p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_node(p) {}
 
 public:
 	// リストの総数取得

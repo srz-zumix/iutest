@@ -73,9 +73,9 @@
 #  elif defined(IUTEST_OS_MAC)
 // http://www.cocoawithlove.com/2008/03/break-into-debugger.html
 #    if defined(__ppc64__) || defined(__ppc__)
-#    define IUTEST_BREAK()	__asm__("li r0, 20\nsc\nnop\nli r0, 37\nli r4, 2\nsc\nnop\n" : : : "memory","r0","r3","r4" )
+#      define IUTEST_BREAK()	__asm__("li r0, 20\nsc\nnop\nli r0, 37\nli r4, 2\nsc\nnop\n" : : : "memory", "r0", "r3", "r4" )
 #    else
-#    define IUTEST_BREAK()	__asm__("int $3\n" : : )
+#      define IUTEST_BREAK()	__asm__("int $3\n" : : )
 #    endif
 #  elif defined(__GUNC__) && (defined (__i386__) || defined (__x86_64__))
 #    define IUTEST_BREAK()	do { __asm{ int 3 } } while(::iutest::detail::AlwaysFalse())
@@ -138,7 +138,7 @@ inline bool IsTrue(bool b) { return b; }
 // class
 
 // detail から使えるようにする
-using namespace iutest_type_traits;
+using namespace iutest_type_traits;	// NOLINT
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
@@ -191,8 +191,8 @@ struct explicit_type_t {};
 #  define IUTEST_EXPLICIT_TEMPLATE_TYPE_(t)			::iutest::detail::explicit_type_t<t>*
 #  define IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(t)	, ::iutest::detail::explicit_type_t<t>*
 #else
-#  define IUTEST_EXPLICIT_TEMPLATE_TYPE_(t)	
-#  define IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(t)	
+#  define IUTEST_EXPLICIT_TEMPLATE_TYPE_(t)
+#  define IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(t)
 #endif
 
 template<typename T>
@@ -220,11 +220,10 @@ inline int GetTypeUniqueCounter(void) { return TypeUniqueCounter<T>::count(); }
 template<typename T>
 class auto_ptr
 {
-	typedef auto_ptr<T> _Myt;
 	mutable T* m_ptr;
 public:
-	auto_ptr(const _Myt& rhs) : m_ptr(rhs.m_ptr) { rhs.m_ptr = NULL; }
-	auto_ptr(T* p=NULL) : m_ptr(p) {}
+	explicit auto_ptr(T* p = NULL) : m_ptr(p) {}
+	auto_ptr(const auto_ptr& rhs) : m_ptr(rhs.m_ptr) { rhs.m_ptr = NULL; }
 	~auto_ptr(void) { if( m_ptr != NULL ) delete m_ptr; }
 
 	T& operator *  (void) const { return *m_ptr; }
@@ -242,7 +241,7 @@ class scoped_ptr
 {
 	T* m_ptr;
 public:
-	scoped_ptr(T* p=NULL) : m_ptr(p) {}
+	explicit scoped_ptr(T* p=NULL) : m_ptr(p) {}
 	~scoped_ptr(void) { reset(); }
 
 	T& operator *  (void) const { return *m_ptr; }
@@ -294,7 +293,8 @@ struct IsContainerHelper
 	typedef char no_t;
 
 	template<typename T>
-	static IUTEST_CXX_CONSTEXPR yes_t IsContainer(int IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T), typename T::iterator* =NULL, typename T::const_iterator* =NULL) { return 0; }
+	static IUTEST_CXX_CONSTEXPR yes_t IsContainer(int IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)
+		, typename T::iterator* =NULL, typename T::const_iterator* =NULL) { return 0; }
 
 	template<typename T>
 	static IUTEST_CXX_CONSTEXPR no_t  IsContainer(long IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)) { return 0; }
@@ -317,17 +317,19 @@ struct enable_if<false, T> {};
 
 namespace helper
 {
-	template<bool B>
-	struct enable_if_impl_
-	{
-		template<typename T>struct inner { typedef T type; };
-	};
-	template<>
-	struct enable_if_impl_<false>
-	{
-		template<typename T>struct inner {};
-	};
-}
+
+template<bool B>
+struct enable_if_impl_
+{
+	template<typename T>struct inner { typedef T type; };
+};
+template<>
+struct enable_if_impl_<false>
+{
+	template<typename T>struct inner {};
+};
+
+}	// end of namespace helper
 
 template<bool B, typename T>
 struct enable_if : public helper::enable_if_impl_<B>::template inner<T>
@@ -392,19 +394,20 @@ inline ::std::string GetTypeName(void)
 	template<>inline ::std::string GetTypeName<type>(void) { return #type; }	\
 	template<>inline ::std::string GetTypeName<type*>(void) { return #type "*"; }
 
-IIUT_GeTypeNameSpecialization(char)
-IIUT_GeTypeNameSpecialization(unsigned char)
-IIUT_GeTypeNameSpecialization(short)
-IIUT_GeTypeNameSpecialization(unsigned short)
-IIUT_GeTypeNameSpecialization(int)
-IIUT_GeTypeNameSpecialization(unsigned int)
-IIUT_GeTypeNameSpecialization(long)
-IIUT_GeTypeNameSpecialization(unsigned long)
-IIUT_GeTypeNameSpecialization(float)
-IIUT_GeTypeNameSpecialization(double)
-IIUT_GeTypeNameSpecialization(bool)
+#define IIUT_GeTypeNameSpecialization2(type)	\
+	IIUT_GeTypeNameSpecialization(type)			\
+	IIUT_GeTypeNameSpecialization(unsigned type)
+
+IIUT_GeTypeNameSpecialization2(char)	// NOLINT
+IIUT_GeTypeNameSpecialization2(short)	// NOLINT
+IIUT_GeTypeNameSpecialization2(int)		// NOLINT
+IIUT_GeTypeNameSpecialization2(long)	// NOLINT
+IIUT_GeTypeNameSpecialization(float)	// NOLINT
+IIUT_GeTypeNameSpecialization(double)	// NOLINT
+IIUT_GeTypeNameSpecialization(bool)		// NOLINT
 
 #undef IIUT_GeTypeNameSpecialization
+#undef IIUT_GeTypeNameSpecialization2
 
 #endif
 

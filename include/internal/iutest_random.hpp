@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -116,7 +116,7 @@ public:
 		init();
 	}
 
-	iuRandom(unsigned int seed)
+	explicit iuRandom(unsigned int seed)
 	{
 		init(seed);
 	}
@@ -217,10 +217,15 @@ public:
 
 #if !(defined(_MSC_VER) && _MSC_VER < 1300)
 
-template<> inline Int64  iuRandom::genrand<Int64>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(Int64))   { return (static_cast<Int64>(genrand()) << 32) | genrand(); }
-template<> inline UInt64 iuRandom::genrand<UInt64>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(UInt64)) { return (static_cast<UInt64>(genrand()) << 32) | genrand(); }
-template<> inline float  iuRandom::genrand<float>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(float))   { return genrandf(); }
-template<> inline double iuRandom::genrand<double>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(double)) { return static_cast<double>(genrandf()); }
+#define IIUT_WORKAROUND_GENRAND(type)	\
+	template<> inline type  iuRandom::genrand<type>(IUTEST_EXPLICIT_TEMPLATE_TYPE_(type))
+
+IIUT_WORKAROUND_GENRAND(Int64)  { return (static_cast<Int64>(genrand()) << 32) | genrand(); }
+IIUT_WORKAROUND_GENRAND(UInt64) { return (static_cast<UInt64>(genrand()) << 32) | genrand(); }
+IIUT_WORKAROUND_GENRAND(float)  { return genrandf(); }
+IIUT_WORKAROUND_GENRAND(double) { return static_cast<double>(genrandf()); }
+
+#undef IIUT_WORKAROUND_GENRAND
 
 #endif
 
@@ -233,7 +238,7 @@ class iuTypedRandom
 	typedef T result_type;
 public:
 	iuTypedRandom(void) {}
-	iuTypedRandom(unsigned int seed)
+	explicit iuTypedRandom(unsigned int seed)
 		: m_rnd(seed) {}
 
 	result_type operator ()(void)

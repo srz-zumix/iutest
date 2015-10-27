@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -51,7 +51,7 @@ class iuFactory : public iuFactoryBase
 public:
 	virtual auto_ptr<Test> Create(void) IUTEST_CXX_OVERRIDE
 	{
-		auto_ptr<Test> p = new Tester();
+		auto_ptr<Test> p( new Tester() );
 		return p;
 	}
 };
@@ -66,7 +66,7 @@ class iuParamTestFactoryBase : public iuFactoryBase
 {
 public:
 	iuParamTestFactoryBase(void) {}
-	iuParamTestFactoryBase(ParamType param) : m_param(param) {}
+	explicit iuParamTestFactoryBase(ParamType param) : m_param(param) {}
 public:
 	void				SetParam(ParamType param) { m_param = param; }
 	const ParamType&	GetParam(void)		const { return m_param; }
@@ -87,13 +87,13 @@ class iuParamTestFactory : public iuParamTestFactoryBase<typename Tester::ParamT
 	typedef iuParamTestFactoryBase<ParamType> _Mybase;
 public:
 	iuParamTestFactory(void) {}
-	iuParamTestFactory(ParamType param) : _Mybase(param) {}
+	explicit iuParamTestFactory(ParamType param) : _Mybase(param) {}
 
 public:
 	virtual auto_ptr<Test> Create(void) IUTEST_CXX_OVERRIDE
 	{
 		Tester::SetParam(&this->m_param);
-		auto_ptr<Test> p = new Tester();
+		auto_ptr<Test> p( new Tester() );
 		return p;
 	}
 };

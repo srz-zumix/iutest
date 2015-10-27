@@ -44,8 +44,8 @@ public:
 class iuRegex
 {
 public:
-	iuRegex(const char* pattern) { Init(pattern); }
-	iuRegex(const ::std::string& pattern) { Init(pattern.c_str()); }
+	iuRegex(const char* pattern) { Init(pattern); }						// NOLINT
+	iuRegex(const ::std::string& pattern) { Init(pattern.c_str()); }	// NOLINT
 public:
 	bool FullMatch(const char* str) const;
 	bool PartialMatch(const char* str) const;
@@ -74,8 +74,8 @@ namespace internal
 class RE : public detail::iuRegex
 {
 public:
-	RE(const char* pattern) : detail::iuRegex(pattern) {}
-	RE(const ::std::string& pattern) : detail::iuRegex(pattern) {}
+	RE(const char* pattern) : detail::iuRegex(pattern) {}			// NOLINT
+	RE(const ::std::string& pattern) : detail::iuRegex(pattern) {}	// NOLINT
 public:
 	static bool FullMatch(const ::std::string& str, const RE& re)
 	{
@@ -99,8 +99,7 @@ public:
 
 #endif
 
-}
-
+}	// end of namespace internal
 }	// end of namespace iutest
 
 #if !IUTEST_HAS_LIB

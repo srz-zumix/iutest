@@ -60,13 +60,12 @@ class iuParamGenerator : public iuIParamGenerator<T>
 public:
 	typedef T type;
 public:
-	iuParamGenerator(_Interface* pInterface=NULL) : m_pInterface(pInterface) {}
+	iuParamGenerator(_Interface* pInterface=NULL) : m_pInterface(pInterface) {}	// NOLINT
 
 public:
 	operator iuIParamGenerator<T>* (void) const { return m_pInterface; }
 
 public:
-
 #if IUTEST_HAS_CONCAT
 	template<typename Other>
 	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
@@ -149,16 +148,16 @@ class iuValuesInParamsGenerator : public iuIParamGenerator<T>
 	params_t m_values;
 	typename params_t::const_iterator m_it;
 public:
-	iuValuesInParamsGenerator(const params_t& values)
+	explicit iuValuesInParamsGenerator(const params_t& values)
 		: m_values(values) {}
 	template<typename Container>
-	iuValuesInParamsGenerator(const Container& values)
+	explicit iuValuesInParamsGenerator(const Container& values)
 	{
 		m_values.insert(m_values.end(), values.begin(), values.end());
 	}
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 	template<typename TT, size_t SIZE>
-	iuValuesInParamsGenerator(const TT (&values)[SIZE])
+	explicit iuValuesInParamsGenerator(const TT (&values)[SIZE])
 	{
 		m_values.insert(m_values.end(), values, values + SIZE);
 	}
@@ -252,18 +251,18 @@ class iuValueArray
 	template<typename T>
 	struct make_array
 	{
-		T val[tuples::tuple_size<_MyTuple>::value];
+		T val[sizeof...(Args)];
 
 		template<typename U>
 		void operator ()(int index, const U& value) { val[index] = value; }
 
-		make_array(const _MyTuple& t)
+		explicit make_array(const _MyTuple& t)
 		{
 			tuples::tuple_foreach(t, *this);
 		};
 	};
 public:
-	iuValueArray(const Args&... args)
+	explicit iuValueArray(const Args&... args)
 		: v(args...)
 	{}
 public:
@@ -279,7 +278,6 @@ public:
 	}
 
 public:
-
 #if IUTEST_HAS_CONCAT
 	template<typename Other>
 	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
@@ -422,7 +420,7 @@ template<typename... Args>
 class iuCartesianProductGenerator : public iuIParamGenerator< tuples::tuple<Args...> >
 {
 	typedef tuples::tuple< iuParamGenerator<Args>... > _MyTuple;
-	static const int count = tuples::tuple_size<_MyTuple>::value;
+	static const int kCount = sizeof...(Args);
 
 	struct begin_func
 	{
@@ -431,19 +429,22 @@ class iuCartesianProductGenerator : public iuIParamGenerator< tuples::tuple<Args
 	};
 
 	template<int index, int end, typename Tuple>
-	bool is_end_foreach(Tuple& t, typename detail::enable_if<index != end, void>::type*& = detail::enabler::value ) const
+	bool is_end_foreach(Tuple& t
+		, typename detail::enable_if<index != end, void>::type*& = detail::enabler::value ) const
 	{
 		bool b = tuples::get<index>(t).IsEnd();
 		return b && is_end_foreach<index+1, end>(t);
 	}
 	template<int index, int end, typename Tuple>
-	bool is_end_foreach(Tuple& , typename detail::enable_if<index == end, void>::type*& = detail::enabler::value ) const
+	bool is_end_foreach(Tuple&
+		, typename detail::enable_if<index == end, void>::type*& = detail::enabler::value ) const
 	{
 		return true;
 	}
 
 	template<int index, int end, typename Tuple>
-	void next_foreach(Tuple& t, typename detail::enable_if<index != end, void>::type*& = detail::enabler::value )
+	void next_foreach(Tuple& t
+		, typename detail::enable_if<index != end, void>::type*& = detail::enabler::value )
 	{
 		next_foreach<index+1, end>(t);
 		if( is_end_foreach<index+1, end>(t) )
@@ -456,18 +457,21 @@ class iuCartesianProductGenerator : public iuIParamGenerator< tuples::tuple<Args
 		}
 	}
 	template<int index, int end, typename Tuple>
-	void next_foreach(Tuple& , typename detail::enable_if<index == end, void>::type*& = detail::enabler::value )
+	void next_foreach(Tuple&
+		, typename detail::enable_if<index == end, void>::type*& = detail::enabler::value )
 	{
 	}
 
 	template<int index, int end, typename T1, typename ...TArgs>
-	tuples::tuple<T1, TArgs...> current_foreach(typename detail::enable_if<index != end-1, void>::type*& = detail::enabler::value ) const
+	tuples::tuple<T1, TArgs...> current_foreach(
+		typename detail::enable_if<index != end-1, void>::type*& = detail::enabler::value ) const
 	{
 		return ::std::tuple_cat( tuples::tuple<T1>(tuples::get<index>(v).GetCurrent())
 			, current_foreach<index+1, end, TArgs...>());
 	}
 	template<int index, int end, typename T1, typename ...TArgs>
-	tuples::tuple<T1> current_foreach(typename detail::enable_if<index == end-1, void>::type*& = detail::enabler::value ) const
+	tuples::tuple<T1> current_foreach(
+		typename detail::enable_if<index == end-1, void>::type*& = detail::enabler::value ) const
 	{
 		return tuples::tuple<T1>(tuples::get<index>(v).GetCurrent());
 	}
@@ -486,15 +490,15 @@ public:
 	virtual void Next(void) IUTEST_CXX_OVERRIDE
 	{
 		if( IsEnd() ) return;
-		next_foreach<0, count>(v);
+		next_foreach<0, kCount>(v);
 	}
 	virtual bool IsEnd(void) const IUTEST_CXX_OVERRIDE
 	{
-		return is_end_foreach<0, count>(v);
+		return is_end_foreach<0, kCount>(v);
 	}
 	virtual ParamType GetCurrent(void) const IUTEST_CXX_OVERRIDE
 	{
-		return current_foreach<0, count, Args...>();
+		return current_foreach<0, kCount, Args...>();
 	}
 
 	_MyTuple& generators(void) { return v; }
@@ -509,7 +513,7 @@ class iuCartesianProductHolder
 	typedef tuples::tuple<const Generator...> _MyTuple;
 
 public:
-	iuCartesianProductHolder(const Generator&... generators)
+	explicit iuCartesianProductHolder(const Generator&... generators)
 		: v(generators...) {}
 
 public:
@@ -522,7 +526,6 @@ public:
 	}
 
 public:
-
 #if IUTEST_HAS_CONCAT
 	template<typename Other>
 	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
@@ -574,7 +577,8 @@ protected:
 };
 
 template<typename T1, typename T2>
-class iuCartesianProductGenerator2 : public iuICartesianProductGeneratorBase<iuParamGenerator<T1>, iuParamGenerator<T2>, tuples::tuple<T1, T2> >
+class iuCartesianProductGenerator2
+	: public iuICartesianProductGeneratorBase<iuParamGenerator<T1>, iuParamGenerator<T2>, tuples::tuple<T1, T2> >
 {
 	typedef iuICartesianProductGeneratorBase<iuParamGenerator<T1>, iuParamGenerator<T2>, tuples::tuple<T1, T2> > _Mybase;
 	typedef iuParamGenerator<T1> Generator1;
@@ -796,7 +800,8 @@ protected:
 	}
 
 	template<typename T1, typename T2>
-	static void MakePairList( ::std::vector< ::std::pair<T1, T2> >& list, iuParamGenerator<T1>& g1, iuParamGenerator<T2>& g2)
+	static void MakePairList( ::std::vector< ::std::pair<T1, T2> >& list
+								, iuParamGenerator<T1>& g1, iuParamGenerator<T2>& g2)
 	{
 		for( g1.Begin(); !g1.IsEnd(); g1.Next() )
 		{
@@ -898,8 +903,8 @@ protected:
 
 private:
 	template<int N>
-	static typename ::std::vector< ParamIndexes<N> >::iterator Find( ::std::vector< ParamIndexes<N> >& list, const PairInfo& pair_info
-		, typename ::std::vector< ParamIndexes<N> >::iterator start)
+	static typename ::std::vector< ParamIndexes<N> >::iterator Find( ::std::vector< ParamIndexes<N> >& list
+		, const PairInfo& pair_info, typename ::std::vector< ParamIndexes<N> >::iterator start)
 	{
 		typedef typename ::std::vector< ParamIndexes<N> >::iterator iterator;
 		for( iterator it = start, end=list.end(); it != end; ++it )
@@ -915,8 +920,8 @@ private:
 	}
 
 	template<int N>
-	static typename ::std::vector< ParamIndexes<N> >::iterator FindFree( ::std::vector< ParamIndexes<N> >& list, const PairInfo& pair_info
-		, typename ::std::vector< ParamIndexes<N> >::iterator start)
+	static typename ::std::vector< ParamIndexes<N> >::iterator FindFree( ::std::vector< ParamIndexes<N> >& list
+		, const PairInfo& pair_info, typename ::std::vector< ParamIndexes<N> >::iterator start)
 	{
 		// 入れそうなとこを探す
 		typedef typename ::std::vector< ParamIndexes<N> >::iterator iterator;
@@ -999,9 +1004,9 @@ class iuPairwiseGenerator : public iuPairwiseGeneratorBase
 {
 	typedef tuples::tuple< Args... > ParamType;
 	typedef tuples::tuple< iuParamGenerator<Args>... > GeneratorTuple;
-	static const int RAW_COUNT = tuples::tuple_size<ParamType>::value;
+	static const int kRAW_COUNT = sizeof...(Args);
 
-	typedef ParamIndexes<RAW_COUNT> _MyParamIndexes;
+	typedef ParamIndexes<kRAW_COUNT> _MyParamIndexes;
 	typedef ::std::vector< _MyParamIndexes > ParamIndexesList;
 
 	typedef tuples::tuple< ::std::vector<Args>... > ParamsTuple;
@@ -1025,13 +1030,15 @@ public:
 	}
 private:
 	template<int N, typename T1, typename... TArgs>
-	static tuples::tuple<T1, TArgs...> MakeParam(ParamsTuple& list, const _MyParamIndexes& indexes, typename detail::disable_if<N == RAW_COUNT-1, void>::type*& = detail::enabler::value)
+	static tuples::tuple<T1, TArgs...> MakeParam(ParamsTuple& list, const _MyParamIndexes& indexes
+		, typename detail::disable_if<N == kRAW_COUNT -1, void>::type*& = detail::enabler::value)
 	{
 		return ::std::tuple_cat( tuples::tuple<T1>(GetParam(tuples::get<N>(list), indexes, N))
 			, MakeParam<N+1, TArgs...>(list, indexes) );
 	}
 	template<int N, typename T1, typename... TArgs>
-	static tuples::tuple<T1> MakeParam(ParamsTuple& list, const _MyParamIndexes& indexes, typename detail::enable_if<N == RAW_COUNT-1, void>::type*& = detail::enabler::value)
+	static tuples::tuple<T1> MakeParam(ParamsTuple& list, const _MyParamIndexes& indexes
+		, typename detail::enable_if<N == kRAW_COUNT -1, void>::type*& = detail::enabler::value)
 	{
 		return tuples::tuple<T1>( GetParam( tuples::get<N>(list), indexes, N) );
 	}
@@ -1039,23 +1046,25 @@ private:
 	struct ParamVecotrs
 	{
 		ParamsTuple params_list;
-		int count_list[RAW_COUNT];
+		int count_list[kRAW_COUNT];
 
 		template<int N>
-		void MakeParamVecotrs(GeneratorTuple& generators, typename detail::disable_if<N == RAW_COUNT-1, void>::type*& = detail::enabler::value)
+		void MakeParamVecotrs(GeneratorTuple& generators
+			, typename detail::disable_if<N == kRAW_COUNT -1, void>::type*& = detail::enabler::value)
 		{
 			MakeParamVector(tuples::get<N>(params_list), tuples::get<N>(generators));
 			count_list[N] = static_cast<int>(tuples::get<N>(params_list).size());
 			MakeParamVecotrs<N+1>(generators);
 		}
 		template<int N>
-		void MakeParamVecotrs(GeneratorTuple& generators, typename detail::enable_if<N == RAW_COUNT-1, void>::type*& = detail::enabler::value)
+		void MakeParamVecotrs(GeneratorTuple& generators
+			, typename detail::enable_if<N == kRAW_COUNT -1, void>::type*& = detail::enabler::value)
 		{
 			MakeParamVector(tuples::get<N>(params_list), tuples::get<N>(generators));
 			count_list[N] = static_cast<int>(tuples::get<N>(params_list).size());
 		}
 
-		ParamVecotrs(GeneratorTuple& generators)
+		explicit ParamVecotrs(GeneratorTuple& generators)
 		{
 			MakeParamVecotrs<0>(generators);
 		}
@@ -1069,7 +1078,7 @@ class iuPairwiseHolder
 	typedef tuples::tuple<const Generator...> _MyTuple;
 
 public:
-	iuPairwiseHolder(const Generator&... generators)
+	explicit iuPairwiseHolder(const Generator&... generators)
 		: v(generators...) {}
 
 public:
@@ -1082,7 +1091,6 @@ public:
 	}
 
 public:
-
 #if IUTEST_HAS_CONCAT
 	template<typename Other>
 	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
@@ -1159,8 +1167,8 @@ class iuPairwiseGenerator3 : public iuPairwiseGeneratorBase
 	typedef iuParamGenerator<T2> Generator2;
 	typedef iuParamGenerator<T3> Generator3;
 
-	static const int RAW_COUNT = 3;
-	typedef ParamIndexes<RAW_COUNT> _MyParamIndexes;
+	static const int kRAW_COUNT = 3;
+	typedef ParamIndexes<kRAW_COUNT> _MyParamIndexes;
 	typedef ::std::vector< _MyParamIndexes > ParamIndexesList;
 
 public:
@@ -1362,7 +1370,6 @@ public:
 	}
 
 public:
-
 #if IUTEST_HAS_CONCAT
 	template<typename Other>
 	iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const
@@ -1410,7 +1417,7 @@ private:
 class iuRandomParamsHolder
 {
 public:
-	iuRandomParamsHolder(size_t num, unsigned int seed=0) IUTEST_CXX_NOEXCEPT_SPEC
+	explicit iuRandomParamsHolder(size_t num, unsigned int seed=0) IUTEST_CXX_NOEXCEPT_SPEC
 		: m_num(num), m_seed(seed) {}
 public:
 	template<typename T>
@@ -1426,7 +1433,6 @@ public:
 	}
 
 public:
-
 #if IUTEST_HAS_CONCAT
 	template<typename Other>
 	iuConcatParamHolder<iuRandomParamsHolder, Other> operator + (const Other& g) const

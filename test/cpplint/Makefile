@@ -5,6 +5,7 @@
 
 IUTEST_HPP=$(wildcard ../../include/*.hpp)
 INTERNAL_HPP=$(wildcard ../../include/internal/*.hpp)
+UTIL_HPP=$(wildcard ../../include/util/*.hpp)
 
 SUPPRESS_WHITESPACE_SUB=/tab,/indent,/braces,/comments,/newline,/labels,/operators,/parens
 SUPPRESS_WHITESPACE=$(subst /,-whitespace/,$(SUPPRESS_WHITESPACE_SUB))
@@ -19,7 +20,10 @@ iutest: $(IUTEST_HPP) cpplint.py Makefile
 	python cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS) $(IUTEST_HPP)
 
 internal: $(INTERNAL_HPP) cpplint.py Makefile
-	python cpplint.py --extensions=hpp,cpp --linelength=110 --filter=$(SUPPRESS) $(INTERNAL_HPP)
+	python cpplint.py --extensions=hpp,cpp --linelength=180 --filter=$(SUPPRESS) $(INTERNAL_HPP)
+
+util: $(UTIL_HPP) cpplint.py Makefile
+	python cpplint.py --extensions=hpp,cpp --linelength=100 --filter=$(SUPPRESS) $(UTIL_HPP)
 
 cpplint.py:
 	git clone https://github.com/google/styleguide.git cpplint

@@ -56,7 +56,9 @@ public:
 	*/
 	static bool ValidateTestPropertyName(const ::std::string& name)
 	{
-		const char* ban[] = { "name", "tests", "failures", "disabled", "skip", "errors", "time", "timestamp", "random_seed" };
+		const char* ban[] = {
+			"name", "tests", "failures", "disabled", "skip", "errors", "time", "timestamp", "random_seed"
+		};
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 		return TestProperty::ValidateName(name, ban);
 #else

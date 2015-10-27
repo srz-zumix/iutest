@@ -106,7 +106,7 @@ class FileOutStream : public IOutStream
 protected:
 	FILE* m_fp;
 public:
-	FileOutStream(FILE* fp) IUTEST_CXX_NOEXCEPT_SPEC
+	explicit FileOutStream(FILE* fp) IUTEST_CXX_NOEXCEPT_SPEC
 		: m_fp(fp)
 	{}
 public:

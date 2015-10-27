@@ -43,7 +43,7 @@ struct Types
 
 #else
 
-#define IIUT_DECL_DEFAULT_ARG_(i, param)	IUTEST_PP_CAT(param,i)=detail::None
+#define IIUT_DECL_DEFAULT_ARG_(i, param)	IUTEST_PP_CAT(param, i)=detail::None
 
 template< IUTEST_PP_ENUM(50, IIUT_DECL_DEFAULT_ARG_, typename T) >
 struct Types
@@ -147,7 +147,7 @@ struct Templates
 
 #else
 
-#define IIUT_DECL_DEFAULT_ARG_(i, param)	IUTEST_PP_CAT(param,i)=detail::NoneT1
+#define IIUT_DECL_DEFAULT_ARG_(i, param)	IUTEST_PP_CAT(param, i)=detail::NoneT1
 
 template< IUTEST_PP_ENUM(50, IIUT_DECL_DEFAULT_ARG_, IIUT_TEMPLATE_TPARAM1 T) >
 struct Templates

@@ -356,8 +356,9 @@
 #      define IUTEST_HAS_VARIADIC_TEMPLATES	1
 #    endif
 #  elif defined(__GNUC__)
-	// http://gcc.gnu.org/bugzilla/show_bug.cgi?id=35722
-#    if defined(__VARIADIC_TEMPLATES) || ( ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7))) && defined(__GXX_EXPERIMENTAL_CXX0X__) )
+     // http://gcc.gnu.org/bugzilla/show_bug.cgi?id=35722
+#    if defined(__VARIADIC_TEMPLATES)	\
+			|| ( ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7))) && defined(__GXX_EXPERIMENTAL_CXX0X__) )
 #      define IUTEST_HAS_VARIADIC_TEMPLATES	1
 #    endif
 #  elif defined(_MSC_VER)
@@ -385,7 +386,9 @@
 #      define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES	1
 #    endif
 #  elif defined(__GNUC__)
-#    if defined(__VARIADIC_TEMPLATES) || ( ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ > 7)) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7) && (__GNUC_PATCHLEVEL__ >= 1))) && defined(__GXX_EXPERIMENTAL_CXX0X__) )
+#    if defined(__VARIADIC_TEMPLATES) \
+			|| ( ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ > 7)) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7) && (__GNUC_PATCHLEVEL__ >= 1)))	\
+				&& defined(__GXX_EXPERIMENTAL_CXX0X__) )
 #      define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES	1
 #    endif
 #  elif defined(_MSC_VER)
@@ -571,8 +574,9 @@
 #      define IUTEST_HAS_NOEXCEPT	1
 #    endif
 #  elif defined(_MSC_VER)
+     // https://connect.microsoft.com/VisualStudio/feedback/details/809079/torino-compile-error-template-noexcept
 #    if _MSC_FULL_VER >= 190022816
-#      define IUTEST_HAS_NOEXCEPT	1 // https://connect.microsoft.com/VisualStudio/feedback/details/809079/torino-compile-error-template-noexcept
+#      define IUTEST_HAS_NOEXCEPT	1
 #    endif
 #  elif defined(__INTEL_COMPILER)
 #    if __INTEL_COMPILER >= 1400

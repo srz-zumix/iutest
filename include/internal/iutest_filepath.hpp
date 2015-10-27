@@ -99,7 +99,6 @@ public:
 	//operator const char* (void) const { return c_str(); }
 
 public:
-
 	/**
 	 * @brief	フォルダパスかどうか
 	*/

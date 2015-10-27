@@ -388,7 +388,7 @@ class is_class
 	template<typename U>
 	static char IsClassHelper(int U::*);
 	template<typename U>
-	static char(&IsClassHelper(...))[2];
+	static char(&IsClassHelper(...))[2];	// NOLINT
 
 	enum { IsClass = sizeof(IsClassHelper<T>(0)) == 1 ? true : false };
 public:
@@ -637,7 +637,7 @@ class is_member_function_pointer
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
 
-#define IIUT_DECL_IS_MEMBER_FUNCTION_PTR_CV_(CV)	\
+#define IIUT_DECL_IS_MEMBER_FUNCTION_PTR_CV_(CV)				\
 	template<typename R, typename U, typename ...Args>			\
 	struct impl<R (U::*)(Args...) CV> : public true_type {};	\
 	template<typename R, typename U, typename ...Args>			\
@@ -670,9 +670,11 @@ class is_member_function_pointer
 	IIUT_DECL_IS_MEMBER_FUNCTION_PTR_I(n, volatile);	\
 	IIUT_DECL_IS_MEMBER_FUNCTION_PTR_I(n, const volatile)
 
-#define IIUT_DECL_IS_MEMBER_FUNCTION_PTR_I(n, CV)	\
-	template<typename R, typename U, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (U::*)(IUTEST_PP_ENUM_PARAMS(n, T)) CV> : public true_type {};	\
-	template<typename R, typename U, IUTEST_PP_ENUM_PARAMS(n, typename T)>struct impl<R (U::*)(IUTEST_PP_ENUM_PARAMS(n, T), ...) CV> : public true_type {}
+#define IIUT_DECL_IS_MEMBER_FUNCTION_PTR_I(n, CV)									\
+	template<typename R, typename U, IUTEST_PP_ENUM_PARAMS(n, typename T)>			\
+	struct impl<R (U::*)(IUTEST_PP_ENUM_PARAMS(n, T)) CV> : public true_type {};	\
+	template<typename R, typename U, IUTEST_PP_ENUM_PARAMS(n, typename T)>			\
+	struct impl<R (U::*)(IUTEST_PP_ENUM_PARAMS(n, T), ...) CV> : public true_type {}
 
 	IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(1);
 	IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(2);
@@ -728,11 +730,11 @@ class is_member_pointer
 	struct impl<U C::*> : public true_type {};
 
 public:
-	typedef bool_constant< impl< typename remove_cv<T>::type >::value 
+	typedef bool_constant< impl< typename remove_cv<T>::type >::value
 							|| is_member_function_pointer<T>::value > type;
 };
 
-}
+}	// end of namespace is_member_pointer_helper
 
 /**
  * @brief	is member pointer

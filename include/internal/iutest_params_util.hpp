@@ -42,7 +42,7 @@ public:
 		virtual void SetParam(const T& param) = 0;
 	};
 public:
-	IParamTestInfoData(const char* name) : m_name(name) {}
+	explicit IParamTestInfoData(const char* name) : m_name(name) {}
 	virtual ~IParamTestInfoData() IUTEST_CXX_DEFAULT_FUNCTION
 	virtual TestCase* MakeTestCase(const char* , TestTypeId , SetUpMethod , TearDownMethod ) const = 0;
 	virtual EachTestBase* RegisterTest(TestCase* , const char* ) const = 0;
@@ -61,7 +61,7 @@ public:
 protected:
 	IParamTestCaseInfo(const ::std::string& base_name, const ::std::string& package_name)
 		: m_testcase_base_name(base_name), m_package_name(package_name) {}
-	
+
 public:
 	/**
 	 * @brief	テストパターンの登録
@@ -79,7 +79,7 @@ public:
 			OnRegisterTests(*it);
 		}
 	}
-	
+
 	::std::string GetTestCaseBaseName(void)	const { return m_testcase_base_name; }
 	::std::string GetPackageName(void)		const { return m_package_name; }
 
@@ -88,7 +88,7 @@ public:
 	{
 		return m_testcase_base_name == base_name && m_package_name == package_name;
 	}
-	
+
 private:
 	virtual void OnRegisterTests(IParamTestInfoData*) const = 0;
 private:

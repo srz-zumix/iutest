@@ -319,7 +319,7 @@ public:
 }	// end of namespace is_useful_testfixture_helper
 
 template<typename T>
-class is_useful_testfixture<void (int(T))> : public is_useful_testfixture_helper::is_override_setup<T>::type
+class is_useful_testfixture<void (int(T))> : public is_useful_testfixture_helper::is_override_setup<T>::type	// NOLINT
 {
 };
 

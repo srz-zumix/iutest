@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -174,12 +174,12 @@ private:
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTestLog);
 };
 
-#define IUTEST_LOG_(level)	::iutest::detail::IUTestLog(::iutest::detail::IUTestLog::LOG_##level, __FILE__, __LINE__).GetStream()
-#define IUTEST_CHECK_(condition)	\
-	IUTEST_AMBIGUOUS_ELSE_BLOCKER_	\
-	if( ::iutest::detail::IsTrue(condition) )	\
-		;										\
-		else										\
+#define IUTEST_LOG_(level)			\
+	::iutest::detail::IUTestLog(::iutest::detail::IUTestLog::LOG_##level, __FILE__, __LINE__).GetStream()
+
+#define IUTEST_CHECK_(condition)				\
+	IUTEST_AMBIGUOUS_ELSE_BLOCKER_				\
+	if( !::iutest::detail::IsTrue(condition) )	\
 		IUTEST_LOG_(FATAL) << "Condition " #condition " failed. "
 
 
@@ -194,7 +194,7 @@ class IUStreamCapture
 public:
 	IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
-	IUStreamCapture(FILE* fp)
+	explicit IUStreamCapture(FILE* fp)
 		: m_fp(fp)
 	{
 		m_buf[0] = '\0';

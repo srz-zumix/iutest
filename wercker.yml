@@ -20,7 +20,7 @@ build:
         name: gcc-head
         code: |
           cd tools/wandbox
-          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-head
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-head -x "warning,c++1z"
 
     - script:
         name: gcc-head-98
@@ -32,7 +32,7 @@ build:
         name: clang-head
         code: |
           cd tools/wandbox
-          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-head
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-head -x "warning,c++1z"
 
     - script:
         name: clang-head-98
@@ -44,56 +44,55 @@ build:
         name: gcc-4.9.2
         code: |
           cd tools/wandbox
-          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.9.2
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.9.2 -x "warning,gnu++1y"
 
     - script:
         name: gcc-4.9.1
         code: |
           cd tools/wandbox
-          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.9.1
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.9.1 -x "warning,c++1y"
 
     - script:
         name: gcc-4.9.0
         code: |
           cd tools/wandbox
-          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.9.0
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.9.0 -x "warning,c++11"
 
     - script:
         name: gcc-4.8.2
         code: |
           cd tools/wandbox
-          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.8.2
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.8.2 -x "warning,gnu++11"
 
     - script:
         name: gcc-4.4.7
         code: |
           cd tools/wandbox
-          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.4.7
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.4.7 -x "warning,gnu++0x"
 
     - script:
         name: clang-3.6
         code: |
           cd tools/wandbox
-          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.6
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.6 -x "warning,gnu++14"
 
     - script:
         name: clang-3.3
         code: |
           cd tools/wandbox
-          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.3
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.3 -x "warning,gnu++1y"
 
     - script:
         name: clang-3.2
         code: |
           cd tools/wandbox
-          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.2
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.2 -x "warning,c++11"
 
     - script:
         name: clang-3.1
         code: |
           cd tools/wandbox
-          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.1
-
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.1 -x "warning,gnu++11"
 
     - script:
         name: clang-3.1-98

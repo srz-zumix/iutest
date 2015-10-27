@@ -61,8 +61,8 @@ namespace detail
 class seh_exception : public ::std::exception
 {
 public:
-	seh_exception(const char *const& _What) : ::std::exception(_What) {}
 	seh_exception(void) : ::std::exception() {}
+	explicit seh_exception(const char *const& _What) : ::std::exception(_What) {}
 public:
 	static void translator(DWORD code, _EXCEPTION_POINTERS* ep)
 	{

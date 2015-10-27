@@ -21,11 +21,9 @@
 #  define _MBSTATE_T
 #endif
 
-#include <string>
 #include <wchar.h>
 #include <wctype.h>
 #include <stdarg.h>
-#include <string.h>
 #if defined(IUTEST_OS_CYGWIN)
 #include <strings.h>
 #endif
@@ -34,6 +32,8 @@
 #elif IUTEST_HAS_STRSTREAM
 #  include <strstream>
 #endif
+#include <string>
+#include <cstring>
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
@@ -242,12 +242,12 @@ public:
 	stlstream(void)
 		: ::std::strstream(buf, sizeof(buf)-2, ::std::ios::out)
 	{}
-	stlstream(const char* str)
+	explicit stlstream(const char* str)
 		: ::std::strstream(buf, sizeof(buf)-2, ::std::ios::out)
 	{
 		*this << str;
 	}
-	stlstream(const ::std::string& str)
+	explicit stlstream(const ::std::string& str)
 		: ::std::strstream(buf, sizeof(buf)-2, ::std::ios::out)
 	{
 		*this << str;

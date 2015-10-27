@@ -34,8 +34,8 @@
 #define IUTEST_CONCAT_PACKAGE_(testcase_name)	IIUT_CONCAT_PACKAGE_I(testcase_name).c_str()
 #define IIUT_CONCAT_PACKAGE_I(testcase_name)					\
 	iuTest_ConcatTestCaseName( iuTest_GetTestCasePackageName(	\
-	static_cast<iuTest_TestCasePackage*>(NULL))					\
-	, #testcase_name)
+		static_cast<iuTest_TestCasePackage*>(NULL))				\
+		, #testcase_name)
 
 #define IUTEST_GET_PACKAGENAME_()	\
 	iuTest_GetTestCasePackageName( static_cast<iuTest_TestCasePackage*>(NULL) )
@@ -73,14 +73,13 @@
 #else
 
 #define IIUT_PACKAGE_(name)								\
-	namespace name {									\
-	class iuTest_TestCasePackage;						\
-	namespace { const int IUTEST_PP_CAT( k_iutest_package_##name##_dummy_, IUTEST_PP_UNIQUEID)	\
+	namespace name { class iuTest_TestCasePackage;		\
+	namespace { const int IUTEST_PP_CAT(k_iutest_package_##name##_dummy_, IUTEST_PP_UNIQUEID)	\
 		IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::package_name_server<						\
 				iuTest_TestCasePackage>::setname(iuTest_GetTestCaseParentPackageName(			\
 					static_cast<iuTest_TestCaseParentPackage*>(NULL)) + #name ".");	}			\
 	class iuTest_TestCaseParentPackage;					\
-	namespace { const int IUTEST_PP_CAT( k_iutest_package_##name##_parent_dummy_, IUTEST_PP_UNIQUEID)	\
+	namespace { const int IUTEST_PP_CAT(k_iutest_package_##name##_parent_dummy_, IUTEST_PP_UNIQUEID)	\
 		IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::package_name_server<iuTest_TestCaseParentPackage>	\
 		::setname(iuTest_GetTestCasePackageName(static_cast<iuTest_TestCasePackage*>(NULL))); }			\
 	}													\
@@ -158,7 +157,7 @@ public:
  * @return	パッケージ名
 */
 template<typename T>
-::std::string iuTest_GetTestCasePackageName(T*)
+::std::string iuTest_GetTestCasePackageName(T*)			// NOLINT
 {
 	return ::iutest::detail::package_name_server<T>::getname();
 }
@@ -168,7 +167,7 @@ template<typename T>
  * @return	パッケージ名
 */
 template<typename T>
-::std::string iuTest_GetTestCaseParentPackageName(T*)
+::std::string iuTest_GetTestCaseParentPackageName(T*)	// NOLINT
 {
 	return ::iutest::detail::package_name_server<T>::getname();
 }
