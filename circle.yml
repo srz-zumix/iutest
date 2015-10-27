@@ -18,7 +18,7 @@ test:
     - make :
         parallel: true
         pwd: tools/fused
-    - make test :
+    - make help; make test; make list-compiler; make list-options; :
         parallel: true
         pwd: tools/wandbox
     - make sample :

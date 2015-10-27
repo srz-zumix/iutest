@@ -35,6 +35,8 @@
 #if !defined(IUTEST_HAS_STD_BEGIN_END)
 #  if   IUTEST_HAS_CXX11
 #    define IUTEST_HAS_STD_BEGIN_END	1
+#  elif defined(_LIBCPP_STD_VER) && _LIBCPP_STD_VER >= 11
+#    define IUTEST_HAS_STD_BEGIN_END	1
 #  elif defined(_MSC_VER) && (_MSC_VER >= 1700)
 #    define IUTEST_HAS_STD_BEGIN_END	1
 #  endif

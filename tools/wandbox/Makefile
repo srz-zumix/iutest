@@ -32,6 +32,12 @@ test-gcc: ../../test/syntax_tests.cpp Makefile
 test-clang: ../../test/syntax_tests.cpp Makefile
 	python iuwandbox.py $< -c clang-head -f"-DIUTEST_USE_MAIN" -x "warning,gnu++1y" --expand_include --encoding utf-8-sig
 
+list-compiler:
+	python iuwandbox.py --list_compiler
+
+list-options:
+	python iuwandbox.py --list_options $(WANDBOX_COMPILER)
+
 COMPILE_ERROR_TESTS=\
 	iutest_check_strict_tests \
 	iutest_static_assertion_failure_tests \

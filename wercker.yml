@@ -23,10 +23,22 @@ build:
           python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-head
 
     - script:
+        name: gcc-head-98
+        code: |
+          cd tools/wandbox
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-head -x "warning,c++98"
+
+    - script:
         name: clang-head
         code: |
           cd tools/wandbox
           python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-head
+
+    - script:
+        name: clang-head-98
+        code: |
+          cd tools/wandbox
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-head -x "warning,c++98"
 
     - script:
         name: gcc-4.9.2
@@ -57,6 +69,12 @@ build:
         code: |
           cd tools/wandbox
           python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.4.7
+
+    - script:
+        name: clang-3.6
+        code: |
+          cd tools/wandbox
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.6
 
     - script:
         name: clang-3.3

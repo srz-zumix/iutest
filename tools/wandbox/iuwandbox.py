@@ -29,7 +29,7 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 2.0'
+		, version=u'%(prog)s version 2.1'
 	)
 	parser.add_argument(
 		'--list_compiler'
@@ -51,7 +51,6 @@ def parse_command_line():
 		'-x'
 		, '--options'
 		, help = 'used options for a compiler. default=warning'
-		, default = 'warning'
 	)
 	parser.add_argument(
 		'--stdin'
@@ -106,6 +105,7 @@ def parse_command_line():
 		'code'
 		, metavar='CODE'
 		, help = 'source code file'
+		, nargs='?'
 	)
 	options, unknown = parser.parse_known_args()
 	return options
@@ -168,6 +168,7 @@ def run_wandbox(code, includes, options):
 	w.compiler(options.compiler)
 	if options.options:
 		w.options(options.options)
+		print options.options
 	if options.stdin:
 		w.stdin(options.stdin)
 	if options.compiler_option_raw:
