@@ -168,7 +168,6 @@ def run_wandbox(code, includes, options):
 	w.compiler(options.compiler)
 	if options.options:
 		w.options(options.options)
-		print options.options
 	if options.stdin:
 		w.stdin(options.stdin)
 	if options.compiler_option_raw:
