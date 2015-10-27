@@ -680,3 +680,12 @@ IUTEST(SyntaxTest, ExceptionVectorConstructor)
 
 #endif
 
+#if !defined(IUTEST_USE_GTEST) && defined(__WANDBOX__)
+
+IUTEST(SyntaxText, ShowSpec)
+{
+	::iutest::detail::iuOptionMessage::ShowSpec();
+}
+
+#endif
+

@@ -14,7 +14,7 @@ build:
         name: setup
         code: |
           export PYTHONDONTWRITEBYTECODE=1
-          export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" --encoding utf-8-sig --expand_include"
+          export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1 -D__WANDBOX__=1" --encoding utf-8-sig --expand_include"
 
     - script:
         name: gcc-head
