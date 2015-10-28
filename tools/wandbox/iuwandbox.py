@@ -29,7 +29,7 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 3.0'
+		, version=u'%(prog)s version 3.1'
 	)
 	parser.add_argument(
 		'--list_compiler'
@@ -44,14 +44,23 @@ def parse_command_line():
 	parser.add_argument(
 		'-c'
 		, '--compiler'
-		, help = 'compiler select. default=gcc-head'
+		, help = 'compiler select. default: %(default)s'
 		, default = 'gcc-head'
 	)
 	parser.add_argument(
 		'-x'
 		, '--options'
 		, help = 'used options for a compiler.'
-		, default = None
+	)
+	parser.add_argument(
+		'--default'
+		, action='store_true'
+		, help = 'use default options.'
+	)
+	parser.add_argument(
+		'--boost'
+		, metavar='VERSION'
+		, help = 'set boot options version X.XX or nothing.'
 	)
 	parser.add_argument(
 		'--stdin'
@@ -171,13 +180,17 @@ def run_wandbox(code, includes, options):
 	w = Wandbox()
 	w.compiler(options.compiler)
 	if options.options:
-		w.options(options.options)
+		opt = options.options.split(',')
+	elif options.default:
+		opt = get_default_options(options.compiler)
+	if options.boost:
+		opt = filter(lambda s: s.find('boost') == -1, opt)
+		opt.append('boost-' + options.boost)
+	w.options(','.join(opt))
 	if options.stdin:
 		w.stdin(options.stdin)
 	if options.compiler_option_raw:
-		co = ''
-		for opt in options.compiler_option_raw:
-			co += opt + '\n'
+		co = '\n'.join(options.compiler_option_raw)
 		co = co.replace('\\n', '\n')
 		w.compiler_options(co)
 	if options.runtime_option_raw:
@@ -282,6 +295,24 @@ def listup_options(compiler):
 						for o in s['options']:
 							print('  ' + o['name'])
 							
+#
+# get default options
+def get_default_options(compiler):
+	w = Wandbox()
+	r = w.get_compiler_list()
+	opt = []
+	for d in r:
+		if d['name'] == compiler:
+			if 'switches' in d:
+				switches = d['switches']
+				for s in switches:
+					if 'name' in s:
+						if s['default']:
+							opt.append(s['name'])
+					elif 'options' in s:
+						opt.append(s['default'])
+	return opt
+
 #
 # get permlink
 def get_permlink(link, output):

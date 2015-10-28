@@ -447,20 +447,20 @@
  * @private
  * @{
 */
-#define IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, on_failure) IUTEST_PRED_FORMAT4_( ::iuutil::CmpHelperEqCollections, b1, e1, b2, e2, on_failure)
-#define IUTEST_TEST_EQ_RANGE(expected, actual, on_failure) IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperEqRange, expected, actual, on_failure)
+#define IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, on_failure)	IUTEST_PRED_FORMAT4_( ::iuutil::CmpHelperEqCollections, b1, e1, b2, e2, on_failure)
+#define IUTEST_TEST_EQ_RANGE(expected, actual, on_failure)		IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperEqRange, expected, actual, on_failure)
 
-#define	IUTEST_TEST_STRLNEQ(len, v2, on_failure)	IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRLNEQ, len, v2, on_failure )
-#define IUTEST_TEST_STRIN(substr, actual, on_failure)		IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRIN, substr, actual, on_failure )
-#define IUTEST_TEST_STRNOTIN(substr, actual, on_failure)	IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRNOTIN, substr, actual, on_failure )
+#define	IUTEST_TEST_STRLNEQ(len, v2, on_failure)				IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRLNEQ, len, v2, on_failure )
+#define IUTEST_TEST_STRIN(substr, actual, on_failure)			IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRIN, substr, actual, on_failure )
+#define IUTEST_TEST_STRNOTIN(substr, actual, on_failure)		IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRNOTIN, substr, actual, on_failure )
 
 #if IUTEST_HAS_REGEX
 
-#define IUTEST_TEST_MATCHES_REGEXEQ(regex_str, actual, on_failure) IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperMatchesRegexEq, regex_str, actual, on_failure )
-#define IUTEST_TEST_MATCHES_REGEXNE(regex_str, actual, on_failure) IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperMatchesRegexNe, regex_str, actual, on_failure )
+#define IUTEST_TEST_MATCHES_REGEXEQ(regex, actual, on_failure)	IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperMatchesRegexEq, regex, actual, on_failure )
+#define IUTEST_TEST_MATCHES_REGEXNE(regex, actual, on_failure)	IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperMatchesRegexNe, regex, actual, on_failure )
 
-#define IUTEST_TEST_CONTAINS_REGEXEQ(regex_str, actual, on_failure) IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperContainsRegexEq, regex_str, actual, on_failure )
-#define IUTEST_TEST_CONTAINS_REGEXNE(regex_str, actual, on_failure) IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperContainsRegexNe, regex_str, actual, on_failure )
+#define IUTEST_TEST_CONTAINS_REGEXEQ(regex, actual, on_failure)	IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperContainsRegexEq, regex, actual, on_failure )
+#define IUTEST_TEST_CONTAINS_REGEXNE(regex, actual, on_failure)	IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperContainsRegexNe, regex, actual, on_failure )
 
 #endif
 
@@ -495,16 +495,14 @@ template<typename T1, typename T2>
 	if(b1 != e1)
 	{
 		int elem1 = elem;
-		for(; b1 != e1; ++b1, ++elem1)
-			;
+		for(; b1 != e1; ++b1, ++elem1) {}
 		result = false;
 		ar << "\nMismatch element : " << elem1 << " vs " << elem;
 	}
 	if(b2 != e2)
 	{
 		int elem2 = elem;
-		for(; b2 != e2; ++b2, ++elem2)
-			;
+		for(; b2 != e2; ++b2, ++elem2) {}
 		result = false;
 		ar << "\nMismatch element : " << elem << " vs " << elem2;
 	}
@@ -519,15 +517,15 @@ template<typename T1, typename T2>
  * @brief	Equal Collection Helper
 */
 template<typename T1, typename T2>
-::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqCollections(const char* expr1b, const char* expr1e, const char* expr2b, const char* expr2e
-							, T1 b1, T1 e1, T2 b2, T2 e2)
+::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqCollections(const char* expr1b, const char* expr1e
+	, const char* expr2b, const char* expr2e
+	, T1 b1, T1 e1, T2 b2, T2 e2)
 {
 	if( ::iutest::AssertionResult ar = CmpHelperEqIterator(b1, e1, b2, e2) )
-		;
-	else
-		return ::iutest::AssertionFailure() << "error: Expected: { " << expr1b << ", " << expr1e << " } == { "
-			<< expr2b << ", " << expr2e << " }\n  Actual:" << ar.message();
-	return ::iutest::AssertionSuccess();
+		return ::iutest::AssertionSuccess();
+
+	return ::iutest::AssertionFailure() << "error: Expected: { " << expr1b << ", " << expr1e << " } == { "
+				<< expr2b << ", " << expr2e << " }\n  Actual:" << ar.message();
 }
 
 namespace detail
@@ -538,14 +536,13 @@ template<typename T1, typename T2>
 	, T1 b1, T1 e1, T2 b2, T2 e2)
 {
 	if( ::iutest::AssertionResult ar = CmpHelperEqIterator(b1, e1, b2, e2) )
-		;
-	else
-		return ::iutest::AssertionFailure() << "error: Expected: " << expected_expr << " == " << actual_expr
-			<< " \n  Actual:" << ar.message();
-	return ::iutest::AssertionSuccess();
+		return ::iutest::AssertionSuccess();
+
+	return ::iutest::AssertionFailure() << "error: Expected: " << expected_expr << " == " << actual_expr
+				<< " \n  Actual:" << ar.message();
 }
 
-}
+}	// end of namespace detail
 
 /**
  * @brief	Equal Range Helper
@@ -598,7 +595,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const
 		return ::iutest::AssertionSuccess();
 	}
 	return ::iutest::AssertionFailure() << "error: Value of: " << expr1 << " == strlen(" << expr2 << ")"
-		<< "\n  Actual: " << val2 << " : " << len2 << "\nExpected: " << len1 ;
+		<< "\n  Actual: " << val2 << " : " << len2 << "\nExpected: " << len1;
 }
 /**
  * @brief	文字列長アサーションフォーマッター
@@ -612,7 +609,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const
 		return ::iutest::AssertionSuccess();
 	}
 	return ::iutest::AssertionFailure() << "error: Value of: " << expr1 << " == wcslen(" << expr2 << ")"
-		<< "\n  Actual: " << val2 << " : " << len2 << "\nExpected: " << len1 ;
+		<< "\n  Actual: " << val2 << " : " << len2 << "\nExpected: " << len1;
 }
 
 namespace StrInHelper
@@ -668,7 +665,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* 
 		<< "\n  Actual: " << "strstr(\"" << actual << "\", " << substr << ") == NULL";
 }
 
-}
+}	// end of namespace StrInHelper
 
 /**
  * @brief	文字列部分一致アサーションフォーマッター
@@ -702,7 +699,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* 
 		<< "\n  Actual: " << "strstr(\"" << actual << "\", " << substr << ") != NULL";
 }
 
-}
+}	// end of namespace StrNotInHelper
 
 /**
  * @brief	文字列部分一致アサーションフォーマッター
@@ -739,15 +736,15 @@ inline bool PartialMatch(const char* str, ::iutest::internal::RE& re)
 	return ::iutest::internal::RE::PartialMatch(str, re);
 }
 
-}
+}	// end of namespace RegexHelper
 
 namespace MatchesRegexEqHelper
 {
 
 template<typename T1, typename T2>
-inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T1& regex_str, const T2& actual)
+inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T1& regex, const T2& actual)
 {
-	::iutest::internal::RE m(regex_str);
+	::iutest::internal::RE m(regex);
 	return RegexHelper::FullMatch(actual, m);
 }
 
@@ -769,15 +766,15 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* 
 		, false);
 }
 
-}
+}	// end of namespace MatchesRegexEqHelper
 
 /**
  * @brief	文字列正規表現一致アサーションフォーマッター
 */
-inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperMatchesRegexEq(const char* regex, const char* actual_str
-	, const char* regex_str, const char* actual)
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperMatchesRegexEq(const char* regex_str, const char* actual_str
+	, const char* regex, const char* actual)
 {
-	return MatchesRegexEqHelper::Assertion(regex, actual_str, regex_str, actual);
+	return MatchesRegexEqHelper::Assertion(regex_str, actual_str, regex, actual);
 }
 
 namespace MatchesRegexNeHelper
@@ -801,7 +798,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* 
 		, false);
 }
 
-}
+}	// end of namespace MatchesRegexNeHelper
 
 /**
  * @brief	文字列正規表現不一致アサーションフォーマッター
@@ -816,9 +813,9 @@ namespace ContainsRegexEqHelper
 {
 
 template<typename T1, typename T2>
-inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T1& regex_str, const T2& actual)
+inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T1& regex, const T2& actual)
 {
-	::iutest::internal::RE m(regex_str);
+	::iutest::internal::RE m(regex);
 	return RegexHelper::PartialMatch(actual, m);
 }
 
@@ -840,15 +837,15 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* 
 		, false);
 }
 
-}
+}	// end of namespace ContainsRegexEqHelper
 
 /**
  * @brief	文字列正規表現部分一致アサーションフォーマッター
 */
-inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperContainsRegexEq(const char* regex, const char* actual_str
-	, const char* regex_str, const char* actual)
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperContainsRegexEq(const char* regex_str, const char* actual_str
+	, const char* regex, const char* actual)
 {
-	return ContainsRegexEqHelper::Assertion(regex, actual_str, regex_str, actual);
+	return ContainsRegexEqHelper::Assertion(regex_str, actual_str, regex, actual);
 }
 
 namespace ContainsRegexNeHelper
@@ -872,15 +869,15 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* 
 		, false);
 }
 
-}
+}	// end of namespace ContainsRegexNeHelper
 
 /**
  * @brief	文字列正規表現部分不一致アサーションフォーマッター
 */
-inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperContainsRegexNe(const char* regex, const char* actual_str
-	, const char* regex_str, const char* actual)
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperContainsRegexNe(const char* regex_str, const char* actual
+	, const char* regex, const char* actual)
 {
-	return ContainsRegexNeHelper::Assertion(regex, actual_str, regex_str, actual);
+	return ContainsRegexNeHelper::Assertion(regex_str, actual_str, regex, actual);
 }
 
 #endif

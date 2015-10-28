@@ -198,7 +198,7 @@ public:
 class VCCppUnitResultPrinter : public ::iutest::TestEventListener
 {
 public:
-	VCCppUnitResultPrinter(::iutest::TestEventListener* default_printer)
+	explicit VCCppUnitResultPrinter(::iutest::TestEventListener* default_printer)
 		: m_default_printer(default_printer)
 	{}
 	virtual ~VCCppUnitResultPrinter()
@@ -217,7 +217,7 @@ public:
 
 	virtual void OnTestCaseStart(const ::iutest::TestCase& ) {}
 
-	virtual void OnTestStart(const ::iutest::TestInfo& test_info) 
+	virtual void OnTestStart(const ::iutest::TestInfo& test_info)
 	{
 		m_default_printer->OnTestStart(test_info);
 	}

@@ -255,7 +255,8 @@ inline const ::iutest::TestInfo* FindTestInfo(const char* testcase_name, const c
 /**
  * @brief	TestInfo の検索
 */
-inline const ::iutest::TestInfo* FindParamTestInfo(const ::iutest::TestCase* testcase, const char* testinfo_name, const ::iutest::TestInfo* begin=NULL)
+inline const ::iutest::TestInfo* FindParamTestInfo(const ::iutest::TestCase* testcase, const char* testinfo_name
+													, const ::iutest::TestInfo* begin=NULL)
 {
 	if( testcase == NULL || testinfo_name == NULL )
 	{

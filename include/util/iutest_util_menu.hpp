@@ -40,7 +40,7 @@ class TestMenu
 	TestInfoMap m_TestInfoList;
 	TestCaseMap m_TestCaseList;
 public:
-	TestMenu(WORD nIDTop) : m_nIDTop(nIDTop), m_nID(nIDTop) {}
+	explicit TestMenu(WORD nIDTop) : m_nIDTop(nIDTop), m_nID(nIDTop) {}
 public:
 	bool Create(HMENU hMenu)
 	{

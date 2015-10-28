@@ -12,7 +12,7 @@ before_script:
 script:
   - cd tools/wandbox
   - python ./iuwandbox.py --list_options ${WANDBOX_COMPILER}
-  - python ./iuwandbox.py ../../test/syntax_tests.cpp -c ${WANDBOX_COMPILER} -f"-DIUTEST_USE_MAIN=1" -f"-D__WANDBOX__=1" --encoding utf-8-sig --expand_include
+  - python ./iuwandbox.py ../../test/syntax_tests.cpp -c ${WANDBOX_COMPILER} -f"-DIUTEST_USE_MAIN=1" -f"-D__WANDBOX__=1" --default --boost nothing --encoding utf-8-sig --expand_include --verbose
 #  - python ./iuwandbox.py sample.cpp -c ${WANDBOX_COMPILER}
 
 env:
