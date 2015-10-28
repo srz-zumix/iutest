@@ -523,8 +523,8 @@ template<typename T1, typename T2>
 {
 	if( ::iutest::AssertionResult ar = CmpHelperEqIterator(b1, e1, b2, e2) )
 		return ::iutest::AssertionSuccess();
-
-	return ::iutest::AssertionFailure() << "error: Expected: { " << expr1b << ", " << expr1e << " } == { "
+	else 
+		return ::iutest::AssertionFailure() << "error: Expected: { " << expr1b << ", " << expr1e << " } == { "
 				<< expr2b << ", " << expr2e << " }\n  Actual:" << ar.message();
 }
 
@@ -537,8 +537,8 @@ template<typename T1, typename T2>
 {
 	if( ::iutest::AssertionResult ar = CmpHelperEqIterator(b1, e1, b2, e2) )
 		return ::iutest::AssertionSuccess();
-
-	return ::iutest::AssertionFailure() << "error: Expected: " << expected_expr << " == " << actual_expr
+	else
+		return ::iutest::AssertionFailure() << "error: Expected: " << expected_expr << " == " << actual_expr
 				<< " \n  Actual:" << ar.message();
 }
 
@@ -803,10 +803,10 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* 
 /**
  * @brief	文字列正規表現不一致アサーションフォーマッター
 */
-inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperMatchesRegexNe(const char* regex, const char* actual_str
-	, const char* regex_str, const char* actual)
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperMatchesRegexNe(const char* regex_str, const char* actual_str
+	, const char* regex, const char* actual)
 {
-	return MatchesRegexNeHelper::Assertion(regex, actual_str, regex_str, actual);
+	return MatchesRegexNeHelper::Assertion(regex_str, actual_str, regex, actual);
 }
 
 namespace ContainsRegexEqHelper
@@ -874,7 +874,7 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* 
 /**
  * @brief	文字列正規表現部分不一致アサーションフォーマッター
 */
-inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperContainsRegexNe(const char* regex_str, const char* actual
+inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperContainsRegexNe(const char* regex_str, const char* actual_str
 	, const char* regex, const char* actual)
 {
 	return ContainsRegexNeHelper::Assertion(regex_str, actual_str, regex, actual);
