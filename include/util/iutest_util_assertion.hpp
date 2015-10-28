@@ -523,7 +523,7 @@ template<typename T1, typename T2>
 {
 	if( ::iutest::AssertionResult ar = CmpHelperEqIterator(b1, e1, b2, e2) )
 		return ::iutest::AssertionSuccess();
-	else 
+	else
 		return ::iutest::AssertionFailure() << "error: Expected: { " << expr1b << ", " << expr1e << " } == { "
 				<< expr2b << ", " << expr2e << " }\n  Actual:" << ar.message();
 }
