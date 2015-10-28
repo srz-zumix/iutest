@@ -33,11 +33,15 @@
 
 //! has std::begin,std::end
 #if !defined(IUTEST_HAS_STD_BEGIN_END)
-#  if   defined(_LIBCPP_STD_VER) && _LIBCPP_STD_VER >= 11
+#  if   IUTEST_HAS_CXX11
+#    if   defined(__clang__)
+#      define IUTEST_HAS_STD_BEGIN_END	1
+#    elif defined(__GLIBCXX__) && __GLIBCXX__ > 20120313
+#      define IUTEST_HAS_STD_BEGIN_END	1
+#    endif
+#  elif defined(_LIBCPP_STD_VER) && _LIBCPP_STD_VER >= 11
 #    define IUTEST_HAS_STD_BEGIN_END	1
 #  elif defined(_LIBCPP_VERSION) && _LIBCPP_VERSION >= 1001
-#    define IUTEST_HAS_STD_BEGIN_END	1
-#  elif defined(__GLIBCXX__) && __GLIBCXX__ > 20120313 && IUTEST_HAS_CXX11
 #    define IUTEST_HAS_STD_BEGIN_END	1
 #  elif defined(_MSC_VER) && (_MSC_VER >= 1700)
 #    define IUTEST_HAS_STD_BEGIN_END	1
@@ -92,9 +96,13 @@ template<typename T, size_t SIZE> const T* end  (const T (&x)[SIZE]) { return be
 
 //! has std::declval
 #if !defined(IUTEST_HAS_STD_DECLVAL)
-#  if   defined(_LIBCPP_VERSION)
-#    define IUTEST_HAS_STD_DECLVAL		1
-#  elif defined(__GLIBCXX__) && __GLIBCXX__ > 20120313 && IUTEST_HAS_CXX11
+#  if   IUTEST_HAS_CXX11
+#    if   defined(__clang__)
+#      define IUTEST_HAS_STD_DECLVAL		1
+#    elif defined(__GLIBCXX__) && __GLIBCXX__ > 20120313
+#      define IUTEST_HAS_STD_DECLVAL		1
+#    endif
+#  elif defined(_LIBCPP_VERSION)
 #    define IUTEST_HAS_STD_DECLVAL		1
 #  elif defined(_MSC_VER) && (_MSC_VER >= 1700)
 #    define IUTEST_HAS_STD_DECLVAL		IUTEST_HAS_DECLTYPE
