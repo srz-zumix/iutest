@@ -86,7 +86,8 @@ build:
         name: clang-3.2
         code: |
           cd tools/wandbox
-          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.2 -x "warning,c++11,boost-1.4.7"
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.2 -x "warning"
+          #python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.2 -x "warning,c++11" -f"-Qunused-arguments"
 
     - script:
         name: clang-3.1
