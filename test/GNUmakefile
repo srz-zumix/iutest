@@ -168,6 +168,9 @@ test : $(BUILD_ONLY) $(RUNNER)
 showcxxversion:
 	$(CXX) --version
 
+showcxxmacros:
+	$(CXX) $(STDFLAG) -dM -E -x c++ - < /dev/null
+
 %_run : %
 	@echo $<
 ifdef USE_COVERAGE

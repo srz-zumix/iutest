@@ -326,7 +326,7 @@
 #    if __has_feature(cxx_generalized_initializers)
 #      define IUTEST_HAS_INITIALIZER_LIST	1
 #    endif
-#  elif defined(__GLIBC__)
+#  elif defined(__GLIBCXX__)
 #    if IUTEST_HAS_CXX11 && (__GLIBCXX__ > 20110325)
 #      define IUTEST_HAS_INITIALIZER_LIST	1
 #    endif
