@@ -36,7 +36,7 @@
 #  if   IUTEST_HAS_CXX11
 #    if   defined(__clang__)
 #      define IUTEST_HAS_STD_BEGIN_END	1
-#    elif defined(__GLIBCXX__) && __GLIBCXX__ > 20120313
+#    elif defined(__GLIBCXX__) && __GLIBCXX__ > 20120712
 #      define IUTEST_HAS_STD_BEGIN_END	1
 #    endif
 #  elif defined(_LIBCPP_STD_VER) && _LIBCPP_STD_VER >= 11

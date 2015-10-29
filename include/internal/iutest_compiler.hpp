@@ -292,7 +292,10 @@
 #      define IUTEST_HAS_DEFAULT_FUNCTIONS	1
 #    endif
 #  elif defined(__GNUC__)
-#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+     // private destractor = default is not works in gcc 4.5 - 4.6
+#    if   (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ == 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_DEFAULT_FUNCTIONS	1
+#    elif (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_DEFAULT_FUNCTIONS	1
 #    endif
 #  elif defined(_MSC_VER)
@@ -959,7 +962,11 @@
 #  define IUTEST_HAS_ANALYSIS_ASSUME		0
 #endif
 #if !defined(IUTEST_ANALYSIS_ASSUME)
-#  define IUTEST_ANALYSIS_ASSUME(...)		(void)0
+#  if defined(IUTEST_NO_VARIADIC_MACROS)
+#    define IUTEST_ANALYSIS_ASSUME(x)		(void)0
+#  else
+#    define IUTEST_ANALYSIS_ASSUME(...)		(void)0
+#  endif
 #endif
 
 // C11

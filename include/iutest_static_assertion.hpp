@@ -48,7 +48,7 @@ static bool	StaticAssertTypeEq(void)
  * @brief	static_assert
 */
 #if IUTEST_HAS_STATIC_ASSERT
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) || (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 8))
 #  define IUTEST_STATIC_ASSERT_MSG(B, Msg)	static_assert(B, "static_assert: " Msg)
 #else
 #  define IUTEST_STATIC_ASSERT_MSG(B, Msg)	static_assert(B, Msg)

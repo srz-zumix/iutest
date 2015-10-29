@@ -164,6 +164,7 @@ class ProdClass
 	int m_x;
 public:
 	ProdClass() : m_x(100) {}
+	int GetX() const { return m_x; }
 };
 
 IUTEST_MAKE_PEEP(int ProdClass::*, ProdClass, m_x);

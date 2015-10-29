@@ -143,13 +143,23 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 0.2'
+		, version=u'%(prog)s version 0.3'
 	)
 	parser.add_argument(
 		'-c'
 		, '--compiler'
 		, help = 'set compiler.'
 		, default='gcc'
+	)
+	parser.add_argument(
+		'--verbose'
+		, action='store_true'
+		, help = 'print input message.'
+	)
+	parser.add_argument(
+		'--debug'
+		, action='store_true'
+		, help = 'debug.'
 	)
 	if sys.version_info[0] >= 3:
 		parser.add_argument(
@@ -184,6 +194,8 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
 	msg = None
 	prev = None
 	for line in f:
+		if options.verbose:
+			print(line)
 		if re_fatal.match(line):
 			raise Exception(line)
 
@@ -245,6 +257,8 @@ def parse_vc(options, f):
 	msg = None
 	prev = None
 	for line in f:
+		if options.verbose:
+			print(line)
 		if re_fatal.match(line):
 			raise Exception(line)
 			
@@ -353,10 +367,11 @@ def iutest(l):
 				check = msg
 				re_m = mm
 		elif msg.has_error():
-			#print '%s - %d' % (msg.file, msg.line)
+			#print('%s - %d' % (msg.file, msg.line))
 			if check and msg.file in check.file and msg.line == check.line+1:
 				actual = msg.get_error()
 				expect = re_m.group(1).strip('"')
+				#print(actual.message)
 				if not expect or actual.message.find(expect) != -1:
 					check.checked = True
 					msg.checked = True
@@ -382,7 +397,7 @@ def parse_output(options):
 	#print(options.infile.encoding)
 	f = options.infile
 	#f = codecs.getreader('utf-8')(options.infile)
-		
+	
 	if any(options.compiler.find(s) != -1 for s in ('clang', 'clang++')):
 		l = parse_clang(options, f)
 	elif any(options.compiler.find(s) != -1 for s in ('gcc', 'g++')):
@@ -393,7 +408,8 @@ def parse_output(options):
 	else:
 		raise Exception("sorry, %s compiler is not supported", (options.compiler))
 	
-	#return dump_list(l)
+	if options.debug:
+		dump_list(l)
 	return iutest(l)
 
 #
