@@ -346,7 +346,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 							&& IsWhitespace(*src) )
 						{
 							char tmp[8];
-							snprintf(tmp, sizeof(tmp), "&#x%02X;", *src);
+							iu_snprintf(tmp, sizeof(tmp), "&#x%02X;", *src);
 							msg += tmp;
 						}
 						else

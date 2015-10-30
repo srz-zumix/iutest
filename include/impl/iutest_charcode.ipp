@@ -99,7 +99,7 @@ IUTEST_IPP_INLINE char* CodePointToUtf8(UInt32 code_point, char* buf, size_t siz
 	}
 	else
 	{
-		snprintf(buf, size, "(Invalid UTF16 0x%X)", code_point);
+		iu_snprintf(buf, size, "(Invalid UTF16 0x%X)", code_point);
 	}
 	return buf;
 }

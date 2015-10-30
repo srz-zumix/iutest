@@ -67,7 +67,7 @@ STDFLAG += -std=c++11
 else
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 4 \)))
 # 4.4 later
-#STDFLAG += -std=c++0x
+STDFLAG += -std=c++0x
 endif
 endif
 endif

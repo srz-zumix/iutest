@@ -37,6 +37,12 @@
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
+#if defined(_MSC_VER)
+#  define iu_snprintf	_snprintf
+#else
+#  define iu_snprintf	snprintf
+#endif
+
 namespace iutest {
 namespace detail
 {
@@ -314,7 +320,7 @@ class iu_basic_stream
 	public:
 		typedef impl_select<void, T> select;
 	};
-#define IUTEST_PP_XCS(txt_)	xcs<_Elem>::select::constant(txt_, L##txt_)
+#define IIUT_PP_XCS(txt_)	xcs<_Elem>::select::constant(txt_, L##txt_)
 
 	struct impl
 	{
@@ -384,94 +390,94 @@ public:
 	{
 #if 0
 		_Elem a[16];
-		impl::tostring(a, 16, IUTEST_PP_XCS("%i"), v);
+		impl::tostring(a, 16, IIUT_PP_XCS("%i"), v);
 		s += a;
 #else
-		s += (v ? IUTEST_PP_XCS("true") : IUTEST_PP_XCS("false"));
+		s += (v ? IIUT_PP_XCS("true") : IIUT_PP_XCS("false"));
 #endif
 		return *this;
 	}
 	inline _Myt& operator<< (short v)
 	{
 		_Elem a[64];
-		impl::tostring(a, 64, IUTEST_PP_XCS("%i"), v);
+		impl::tostring(a, 64, IIUT_PP_XCS("%i"), v);
 		s += a;
 		return *this;
 	}
 	inline _Myt& operator<< (unsigned short v)
 	{
 		_Elem a[64];
-		impl::tostring(a, 64, IUTEST_PP_XCS("%u"), v);
+		impl::tostring(a, 64, IIUT_PP_XCS("%u"), v);
 		s += a;
 		return *this;
 	}
 	inline _Myt& operator<< (int v)
 	{
 		_Elem a[64];
-		impl::tostring(a, 64, IUTEST_PP_XCS("%i"), v);
+		impl::tostring(a, 64, IIUT_PP_XCS("%i"), v);
 		s += a;
 		return *this;
 	}
 	inline _Myt& operator<< (unsigned int v)
 	{
 		_Elem a[64];
-		impl::tostring(a, 64, IUTEST_PP_XCS("%u"), v);
+		impl::tostring(a, 64, IIUT_PP_XCS("%u"), v);
 		s += a;
 		return *this;
 	}
 	inline _Myt& operator<< (long v)
 	{
 		_Elem a[64];
-		impl::tostring(a, 64, IUTEST_PP_XCS("%i"), v);
+		impl::tostring(a, 64, IIUT_PP_XCS("%i"), v);
 		s += a;
 		return *this;
 	}
 	inline _Myt& operator<< (unsigned long v)
 	{
 		_Elem a[64];
-		impl::tostring(a, 64, IUTEST_PP_XCS("%u"), v);
+		impl::tostring(a, 64, IIUT_PP_XCS("%u"), v);
 		s += a;
 		return *this;
 	}
 	inline _Myt& operator<< (long long int v)
 	{
 		_Elem a[64];
-		impl::tostring(a, 64, IUTEST_PP_XCS("%lld"), v);
+		impl::tostring(a, 64, IIUT_PP_XCS("%lld"), v);
 		s += a;
 		return *this;
 	}
 	inline _Myt& operator<< (unsigned long long int v)
 	{
 		_Elem a[64];
-		impl::tostring(a, 64, IUTEST_PP_XCS("%llu"), v);
+		impl::tostring(a, 64, IIUT_PP_XCS("%llu"), v);
 		s += a;
 		return *this;
 	}
 	inline _Myt& operator<< (float v)
 	{
 		_Elem a[64];
-		impl::tostring(a, 64, IUTEST_PP_XCS("%f"), v);
+		impl::tostring(a, 64, IIUT_PP_XCS("%f"), v);
 		s += a;
 		return *this;
 	}
 	inline _Myt& operator<< (double v)
 	{
 		_Elem a[64];
-		impl::tostring(a, 64, IUTEST_PP_XCS("%l"), v);
+		impl::tostring(a, 64, IIUT_PP_XCS("%l"), v);
 		s += a;
 		return *this;
 	}
 	inline _Myt& operator<< (long double v)
 	{
 		_Elem a[64];
-		impl::tostring(a, 64, IUTEST_PP_XCS("%L"), v);
+		impl::tostring(a, 64, IIUT_PP_XCS("%L"), v);
 		s += a;
 		return *this;
 	}
 	inline _Myt& operator<< (const void* v)
 	{
 		_Elem a[64];
-		impl::tostring(a, 64, IUTEST_PP_XCS("%t"), v);
+		impl::tostring(a, 64, IIUT_PP_XCS("%t"), v);
 		s += a;
 		return *this;
 	}
@@ -485,7 +491,7 @@ public:
 	void copyfmt(const _Myt&) {}
 };
 
-#undef IUTEST_PP_XCS
+#undef IIUT_PP_XCS
 
 #endif
 
