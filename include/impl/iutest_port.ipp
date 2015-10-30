@@ -52,11 +52,11 @@ IUTEST_IPP_INLINE void vprint_message(const char *fmt, va_list va)
 {
 	char msg[1024];
 	vsnprintf(msg, sizeof(msg), fmt, va);
-	char* tp = strtok(msg, "\n");
+	char* tp = strtok(msg, "\n");	// NOLINT
 	while( tp != NULL )
 	{
 		detail::PostMessage(pp::Var(tp));
-		tp = strtok(NULL, "\n");
+		tp = strtok(NULL, "\n");	// NOLINT
 	}
 }
 IUTEST_IPP_INLINE void print_message(const char *fmt, ...)
@@ -248,13 +248,7 @@ IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, char* buf, size_
 	{
 		return false;
 	}
-	if( size <= strlen(env) )
-	{
-		return false;
-	}
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
-	strcpy(buf, env);
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+	snprintf(buf, size, "%s", env);
 	return true;
 #endif
 }

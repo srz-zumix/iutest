@@ -66,9 +66,10 @@ IUTEST_IPP_INLINE UInt32 ChopLowBits(UInt32* bits, int n)
  * @brief	コードポイントからUTF8へ変換
  * @param [in]	code_point	= コードポイント
  * @param [out]	buf			= 出力バッファ(32バイト以上を要求)
+ * @param [in]	size		= 出力バッファサイズ
  * @return	出力バッファ
 */
-IUTEST_IPP_INLINE char* CodePointToUtf8(UInt32 code_point, char* buf)
+IUTEST_IPP_INLINE char* CodePointToUtf8(UInt32 code_point, char* buf, size_t size)
 {
 	if( code_point <= kMaxCodePoint1 )
 	{
@@ -98,7 +99,7 @@ IUTEST_IPP_INLINE char* CodePointToUtf8(UInt32 code_point, char* buf)
 	}
 	else
 	{
-		sprintf(buf, "(Invalid UTF16 0x%X)", code_point);
+		snprintf(buf, size, "(Invalid UTF16 0x%X)", code_point);
 	}
 	return buf;
 }
@@ -146,7 +147,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 			code_point = static_cast<UInt32>(str[i]);
 		}
 		char buf[32];
-		ss << CodePointToUtf8(code_point, buf);
+		ss << CodePointToUtf8(code_point, buf, sizeof(buf));
 	}
 	return ss.str();
 #endif

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -32,7 +32,7 @@ public:
 	 * @brief	コンストラクタ
 	 * @param [in] path = 出力パス
 	*/
-	DefaultXmlGeneratorListener(const ::std::string& path)
+	explicit DefaultXmlGeneratorListener(const ::std::string& path)
 		: m_fp(NULL)
 	{
 		SetFilePath(path);
@@ -92,7 +92,7 @@ private:
 protected:
 	static void OutputXmlCDataSection(IFile* file, const char* data);
 	static void OutputXmlAttribute(IFile* file, const char* name, const char* value);
-	
+
 protected:
 	static ::std::string EscapeXmlAttribute(const char* str)
 	{

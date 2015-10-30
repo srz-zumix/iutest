@@ -40,7 +40,7 @@
 #if IUTEST_HAS_PEEP
 
 namespace testing {
-namespace detail 
+namespace detail
 {
 
 using ::iutest::detail::peep_tag;

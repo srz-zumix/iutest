@@ -59,7 +59,6 @@
 	INFORM_PRED_FORMAT1(::testing::internal::MakePredicateFormatterFromMatcher(matcher), value)
 #define ASSUME_THAT(value, matcher) \
 	ASSUME_PRED_FORMAT1(::testing::internal::MakePredicateFormatterFromMatcher(matcher), value)
-	
 #else
 
 #define IUTEST_HAS_MATCHERS							0
@@ -92,7 +91,7 @@ namespace matchers
 
 	using ::testing::NanSensitiveDoubleEq;
 	using ::testing::NanSensitiveFloatEq;
-	
+
 	using ::testing::StrEq;
 	using ::testing::StrNe;
 	using ::testing::StrCaseEq;
@@ -125,7 +124,7 @@ namespace matchers
 	using ::testing::A;
 	using ::testing::_;
 	using ::testing::TypedEq;
-	
+
 	template<typename T>
 	inline internal::EqMatcher<T> Equals(T x) { return Eq(x); }
 
@@ -135,7 +134,7 @@ namespace matchers
 	using ::testing::SizeIs;
 #endif
 
-}	// end of namespace matcher
+}	// end of namespace matchers
 }	// end of namespace testing
 
 #endif

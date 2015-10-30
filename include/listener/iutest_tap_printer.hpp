@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -66,7 +66,7 @@ public:
 	 * @brief	コンストラクタ
 	 * @param [in]	directory = 出力ディレクトリ
 	*/
-	TAPFileGeneratorListener(const char* directory=NULL)
+	explicit TAPFileGeneratorListener(const char* directory=NULL)
 	{
 		SetFilePath(directory);
 	}

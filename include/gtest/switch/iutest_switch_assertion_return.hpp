@@ -47,7 +47,7 @@ struct AssertionReturnType
 {
 	T value;
 	AssertionReturnType(void) {}
-	AssertionReturnType(const T& v) : value(v) {}
+	AssertionReturnType(const T& v) : value(v) {}	// NOLINT
 };
 template<>
 struct AssertionReturnType<void>

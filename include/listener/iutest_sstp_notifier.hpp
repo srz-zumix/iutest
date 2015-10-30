@@ -65,7 +65,7 @@ private:
 		int m_code;
 	public:
 		template<size_t N>
-		Response(const char (&str)[N])
+		explicit Response(const char (&str)[N])
 			: m_major(0), m_minor(0), m_code(0)
 		{
 			Parse(str);
@@ -231,8 +231,8 @@ class SakuraScript
 {
 public:
 	SakuraScript(void) {}
-	SakuraScript(const char* script) : m_script(script) {}
-	SakuraScript(const ::std::string& script) : m_script(script) {}
+	explicit SakuraScript(const char* script) : m_script(script) {}
+	explicit SakuraScript(const ::std::string& script) : m_script(script) {}
 public:
 	SakuraScript& Append(const ::std::string& str)
 	{
@@ -342,8 +342,7 @@ struct Emily4
 	};
 };
 
-}
-
+}	// end of namespace ghost
 }	// end of namespace ukagaka
 
 /**
@@ -354,7 +353,7 @@ class SSTPNotifier : public EmptyTestEventListener
 	typedef ukagaka::SakuraScript	Script;
 	typedef ukagaka::ghost::Emily4	Ghost;
 public:
-	SSTPNotifier(const char* host, int port=detail::SSTP::DEFAULT_PORT);
+	explicit SSTPNotifier(const char* host, int port=detail::SSTP::DEFAULT_PORT);
 
 public:
 	virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;

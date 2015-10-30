@@ -33,13 +33,13 @@ IUTEST_IPP_INLINE bool Localtime(time_t sec, struct tm* dst)
 #  if defined(__STDC_WANT_SECURE_LIB__) && __STDC_WANT_SECURE_LIB__
 	return localtime_s(dst, &sec) == 0;
 #  else
-	struct tm* t = localtime(&sec);
+	struct tm* t = localtime(&sec);	// NOLINT
 	if( t == NULL ) return false;
 	if( dst != NULL ) *dst = *t;
 	return true;
 #  endif
 #elif defined(__MINGW32__) || defined(__MINGW64__)
-	const struct tm* const t = localtime(&sec);
+	const struct tm* const t = localtime(&sec);	// NOLINT
 	if( t == NULL || dst == NULL ) return false;
 	*dst = *t;
 	return true;

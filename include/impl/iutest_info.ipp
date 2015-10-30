@@ -117,16 +117,9 @@ IUTEST_IPP_INLINE void TestInfo::RunImpl(void)
 IUTEST_IPP_INLINE void TestInfo::MiniDump(_EXCEPTION_POINTERS* ep)
 {
 #if defined(_MSC_VER)
-
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
-		char path[MAX_PATH];
-		strcpy(path, test_case_name());
-		strcat(path, "_");
-		strcat(path, name());
-		strcat(path, ".dump");
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
-
-		detail::MiniDump::Create(path, ep);
+	char path[MAX_PATH];
+	snprintf(path, sizeof(path), "%s_%s.dump", test_case_name(), name());
+	detail::MiniDump::Create(path, ep);
 #endif
 }
 

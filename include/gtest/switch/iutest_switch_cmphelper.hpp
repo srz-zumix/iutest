@@ -135,7 +135,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* e
 		if( iu_wcsicmp(val1, val2) != 0 ) return AssertionSuccess();
 	}
 	return AssertionFailure() << "error: Value of: " << expr1 << " != " << expr2
-		<< "\n  Actual: " << FormatForComparisonFailureMessage(val2, val1) << "\nExpected: " << FormatForComparisonFailureMessage(val1, val2) ;
+		<< "\n  Actual: " << FormatForComparisonFailureMessage(val2, val1) << "\nExpected: " << FormatForComparisonFailureMessage(val1, val2);
 }
 
 template<typename Elem, typename Traits, typename Ax>

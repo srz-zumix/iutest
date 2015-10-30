@@ -83,17 +83,17 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestEnd(const TestInfo& tes
 {
 	if( test_info.HasFailure() )
 	{
-		detail::iuConsole::color_output(detail::iuConsole::red  , "[  FAILED  ] ");
+		detail::iuConsole::color_output(detail::iuConsole::red   , "[  FAILED  ] ");
 		detail::iuConsole::output("%s.%s", test_info.test_case_name(), test_info.test_name_with_where().c_str());
 	}
 	else if( test_info.is_skipped() )
 	{
-		detail::iuConsole::color_output(detail::iuConsole::yellow,"[  SKIPPED ] ");
+		detail::iuConsole::color_output(detail::iuConsole::yellow, "[  SKIPPED ] ");
 		detail::iuConsole::output("%s.%s", test_info.test_case_name(), test_info.name());
 	}
 	else
 	{
-		detail::iuConsole::color_output(detail::iuConsole::green, "[       OK ] ");
+		detail::iuConsole::color_output(detail::iuConsole::green , "[       OK ] ");
 		detail::iuConsole::output("%s.%s", test_info.test_case_name(), test_info.name());
 	}
 	if( TestFlag::IsEnableFlag(TestFlag::PRINT_TIME) )
@@ -143,12 +143,14 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationEnd(const Unit
 #if !defined(IUTEST_NOT_SUPPORT_STOPWATCH)
 	if( TestFlag::IsEnableFlag(TestFlag::PRINT_TIME) )
 	{
-		detail::iuConsole::output("%d tests from %d testcase ran. (%dms total)\n", test.test_to_run_count(), test.test_case_to_run_count(), test.elapsed_time() );
+		detail::iuConsole::output("%d tests from %d testcase ran. (%dms total)\n"
+			, test.test_to_run_count(), test.test_case_to_run_count(), test.elapsed_time() );
 	}
 	else
 #endif
 	{
-		detail::iuConsole::output("%d tests from %d testcase ran.\n", test.test_to_run_count(), test.test_case_to_run_count() );
+		detail::iuConsole::output("%d tests from %d testcase ran.\n"
+			, test.test_to_run_count(), test.test_case_to_run_count() );
 	}
 
 	{
@@ -204,7 +206,7 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationEnd(const Unit
 				}
 			}
 		}
-		
+
 		if( !test.Passed() )
 		{
 			const int failed_num = test.failed_test_count();

@@ -157,7 +157,8 @@
 #define IUTEST_ASSERT_TRUE(...)				ASSERT_TRUE(!!(__VA_ARGS__))
 #define IUTEST_ASSERT_FALSE(...)			ASSERT_FALSE((__VA_ARGS__))
 #define IUTEST_ASSERT_EQ					ASSERT_EQ
-#define IUTEST_ASSERT_NE(expected, actual)	ASSERT_PRED_FORMAT2(::testing::internal::NeHelper<GTEST_IS_NULL_LITERAL_(expected)>::Compare, expected, actual)
+#define IUTEST_ASSERT_NE(expected, actual)	ASSERT_PRED_FORMAT2(	\
+												::testing::internal::NeHelper<GTEST_IS_NULL_LITERAL_(expected)>::Compare, expected, actual)
 #define IUTEST_ASSERT_LT					ASSERT_LT
 #define IUTEST_ASSERT_LE					ASSERT_LE
 #define IUTEST_ASSERT_GT					ASSERT_GT

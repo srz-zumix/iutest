@@ -197,7 +197,8 @@
 #define IUTEST_INFORM_TRUE(...)				INFORM_TRUE(!!(__VA_ARGS__))
 #define IUTEST_INFORM_FALSE(...)			INFORM_FALSE((__VA_ARGS__))
 #define IUTEST_INFORM_EQ					INFORM_EQ
-#define IUTEST_INFORM_NE(expected, actual)	INFORM_PRED_FORMAT2(::testing::internal::NeHelper<GTEST_IS_NULL_LITERAL_(expected)>::Compare, expected, actual)
+#define IUTEST_INFORM_NE(expected, actual)	INFORM_PRED_FORMAT2(	\
+												::testing::internal::NeHelper<GTEST_IS_NULL_LITERAL_(expected)>::Compare, expected, actual)
 #define IUTEST_INFORM_LT					INFORM_LT
 #define IUTEST_INFORM_LE					INFORM_LE
 #define IUTEST_INFORM_GT					INFORM_GT
@@ -248,32 +249,33 @@ namespace testing
 
 namespace inform_support
 {
-	class DefaultPrinter : public ::testing::EmptyTestEventListener
+
+class DefaultPrinter : public ::testing::EmptyTestEventListener
+{
+private:
+	virtual void OnTestPartResult(const TestPartResult& test_part_result)
 	{
-	private:
-		virtual void OnTestPartResult(const TestPartResult& test_part_result)
+		if( ::testing::UnitTest::GetInstance()->listeners().default_result_printer() == NULL ) return;
+
+		if( test_part_result.type() == TestPartResult::kSuccess )
 		{
-			if( ::testing::UnitTest::GetInstance()->listeners().default_result_printer() == NULL ) return;
-
-			if( test_part_result.type() == TestPartResult::kSuccess )
-			{
-				// 成功のときに出力
-				TestPartResult tmp(TestPartResult::kNonFatalFailure
-					, test_part_result.file_name()
-					, test_part_result.line_number()
-					, test_part_result.message());
-				::testing::UnitTest::GetInstance()->listeners().default_result_printer()->OnTestPartResult(tmp);
-			}
+			// 成功のときに出力
+			TestPartResult tmp(TestPartResult::kNonFatalFailure
+				, test_part_result.file_name()
+				, test_part_result.line_number()
+				, test_part_result.message());
+			::testing::UnitTest::GetInstance()->listeners().default_result_printer()->OnTestPartResult(tmp);
 		}
-	};
-	inline void AppendInformSupportPrinter(void)
-	{
-		// INFORM 用に printer を追加
-		::testing::UnitTest::GetInstance()->listeners().Append( new DefaultPrinter() );
 	}
+};
+inline void AppendInformSupportPrinter(void)
+{
+	// INFORM 用に printer を追加
+	::testing::UnitTest::GetInstance()->listeners().Append( new DefaultPrinter() );
 }
 
-}
+}	// end of namespace inform_support
+}	// end of namespace testing
 
 #endif // !defined(IUTEST_USE_GTEST)
 

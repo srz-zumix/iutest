@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -34,7 +34,7 @@ public:
 	 * @brief	コンストラクタ
 	 * @param [in] path = 出力パス
 	*/
-	JunitXmlGeneratorListener(const ::std::string& path)
+	explicit JunitXmlGeneratorListener(const ::std::string& path)
 		: DefaultXmlGeneratorListener(path)
 	{
 	}

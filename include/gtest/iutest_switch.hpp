@@ -114,7 +114,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleMock(int* argc, wchar_t** argv)
 }
 #endif
 
-}
+}	// end of namespace iutest
 
 #ifndef GMOCK_INCLUDE_GMOCK_GMOCK_H_
 
@@ -310,8 +310,8 @@ namespace tr1
 #include "switch/iutest_switch_cmphelper.hpp"
 
 #ifndef IUTEST_STATIC_ASSERT_MSG
-#  define IUTEST_STATIC_ASSERT_MSG(B, Msg)	\
-	typedef ::testing::iusupport::StaticAssertionTest< sizeof(::testing::iusupport::StaticAssertionFailure< (bool)B >) > IUTEST_PP_CAT(iutest_static_assert_typedef_, __LINE__)
+#  define IUTEST_STATIC_ASSERT_MSG(B, Msg)	typedef ::testing::iusupport::StaticAssertionTest<	\
+		sizeof(::testing::iusupport::StaticAssertionFailure< (bool)B >) > IUTEST_PP_CAT(iutest_static_assert_typedef_, __LINE__)	// NOLINT
 #endif
 
 #ifndef IUTEST_STATIC_ASSERT
@@ -376,7 +376,7 @@ namespace tuples
 	using ::std::tr1::make_tuple;
 	using ::std::tr1::get;
 #endif
-}
+}	// end of namespace tuples
 
 #if GTEST_VER < 0x01080000
 using tuples::tuple;
