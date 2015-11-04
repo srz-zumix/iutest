@@ -32,6 +32,9 @@ test-gcc: ../../test/syntax_tests.cpp Makefile
 test-clang: ../../test/syntax_tests.cpp Makefile
 	python iuwandbox.py $< -c clang-head -f"-DIUTEST_USE_MAIN" -x "warning,gnu++1y" --expand_include --encoding utf-8-sig
 
+test-gcc-98: ../../test/syntax_tests.cpp Makefile
+	python iuwandbox.py $< -c gcc-head -f"-DIUTEST_USE_MAIN" -x "warning,c++98" --expand_include --encoding utf-8-sig
+
 list-compiler:
 	python iuwandbox.py --list_compiler
 

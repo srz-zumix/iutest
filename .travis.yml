@@ -119,7 +119,7 @@ matrix:
     - compiler: clang
       env: USE_COVERAGE=gcov USE_CODECOV=1 STDFLAG=-std=c++11
     - compiler: gcc
-      env: USE_COVERAGE=lcov USE_COVERALLS=1
+      env: USE_COVERAGE=lcov USE_COVERALLS=1 USE_GNU_EXTENSION=1
     - compiler: gcc
       env: USE_FUSED=fused
     - compiler: gcc

@@ -59,19 +59,32 @@ GCCVERSION:=$(subst $(dot),$(space), $(GCCVERSION))
 GCCMAJOR:=$(word 1, $(GCCVERSION))
 GCCMINOR:=$(word 2, $(GCCVERSION))
 
-ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 8 \)))
+# 5.0 later
+ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) ))
+STDFLAG += -std=c++1z
+NO_UNUSED_LOCAL_TYPEDEFS=-Wno-unused-local-typedefs
+
+else
+
 # 4.8 later
+ifeq (1,$(shell expr \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 8 \)))
 STDFLAG += -std=c++1y
 NO_UNUSED_LOCAL_TYPEDEFS=-Wno-unused-local-typedefs
+
 else
-ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 7 \)))
+
 # 4.7 later
+ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 7 \)))
 STDFLAG += -std=c++11
 NO_UNUSED_LOCAL_TYPEDEFS=-Wno-unused-local-typedefs
+
 else
-ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 4 \)))
+
 # 4.4 later
+ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 4 \)))
 STDFLAG += -std=c++0x
+
+endif
 endif
 endif
 endif
@@ -106,6 +119,10 @@ ifeq ($(HOST),WINE)
 WINE_ =wine
 else
 WINE_ =
+endif
+
+ifdef USE_GNU_EXTENSION
+STDFLAG:=$(subst c++,gnu++, $(STDFLAG))
 endif
 
 CXXFLAGS += $(DEFS) $(STDFLAG)

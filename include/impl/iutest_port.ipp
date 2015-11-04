@@ -248,8 +248,8 @@ IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, char* buf, size_
 	{
 		return false;
 	}
-	const int n = snprintf(buf, size, "%s", env);
-	if( n < 0 || n >= size ) return false;
+	const int n = iu_snprintf(buf, size, "%s", env);
+	if( n < 0 || static_cast<size_t>(n) >= size ) return false;
 	return true;
 #endif
 }

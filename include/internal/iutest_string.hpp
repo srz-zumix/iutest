@@ -37,12 +37,6 @@
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
-#if defined(_MSC_VER)
-#  define iu_snprintf	_snprintf
-#else
-#  define iu_snprintf	snprintf
-#endif
-
 namespace iutest {
 namespace detail
 {
@@ -108,6 +102,28 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 	if( *l > *r ) return 1;
 	return 0;
 #endif
+}
+
+/**
+ * @internal
+ * @brief	snprintf
+*/
+inline int iu_snprintf(char* dst, size_t size, const char* format, ...)
+{
+	va_list va;
+	va_start(va, format);
+#if defined(__CYGWIN__)
+#  if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) || (__cplusplus >= 201103L)
+	const int ret = vsnprintf(dst, size, format, va);
+#  else
+	IUTEST_UNUSED_VAR(size);
+	const int ret = vsprintf(dst, format, va);
+#  endif
+#else
+	const int ret = vsnprintf(dst, size, format, va);
+#endif
+	va_end(va);
+	return ret;
 }
 
 inline bool IsEmpty(const char* p) { return p == NULL || *p == '\0'; }
