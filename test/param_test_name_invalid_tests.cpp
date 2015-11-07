@@ -17,13 +17,15 @@
 // include
 #include "iutest.hpp"
 
+#if !defined(IUTEST_USE_GTEST)
+
 #if IUTEST_HAS_STREAMCAPTURE
 
 ::iutest::detail::IUStreamCapture<> stderr_capture(stderr);
 
 #endif
 
-#if IUTEST_HAS_PARAM_TEST && !defined(IUTEST_USE_GTEST)
+#if IUTEST_HAS_PARAM_TEST
 
 class RenameParamTest : public ::iutest::TestWithParam<bool>
 {
@@ -45,6 +47,8 @@ IUTEST_INSTANTIATE_TEST_CASE_P(My1, RenameParamTest, ::iutest::Bool());
 
 #endif
 
+#endif
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
@@ -52,8 +56,10 @@ int main(int argc, char* argv[])
 #endif
 {
 	IUTEST_INIT(&argc, argv);
-#if IUTEST_HAS_TYPED_TEST_P && IUTEST_HAS_STREAMCAPTURE && IUTEST_CHECK_STRICT
+#if !defined(IUTEST_USE_GTEST)
+#if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_STREAMCAPTURE && IUTEST_CHECK_STRICT
 	IUTEST_EXPECT_STRIN("My1/RenameParamTest.Test is already exist.", stderr_capture.GetStreamString());
+#endif
 #endif
 	if( IUTEST_RUN_ALL_TESTS() ) return 1;
 	

@@ -23,7 +23,7 @@
 #define IUTEST_FRIEND_TEST(test_case_name, test_name)	\
 	friend class IUTEST_TEST_CLASS_NAME_(test_case_name, test_name)
 
-#if IUTEST_HAS_TYPED_TEST
+#if IUTEST_HAS_TYPED_TEST || IUTEST_HAS_TYPED_TEST_P
 
 #if !defined(_MSC_VER) || _MSC_VER > 1200
 

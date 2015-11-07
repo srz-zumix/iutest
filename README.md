@@ -43,6 +43,12 @@ notifies the test results using twilio
 * wandbox  
 tools to make use of the iutest in wandbox
 
+Others
+--------------------------------------------------
+
+* Support Google Native Client  
+[![Magnum CI](https://magnum-ci.com/status/9175310cbf4594b8755634347186515a.png)](https://magnum-ci.com/public/ad50f16d4e6b5c8a578a/builds)
+
 
 License
 --------------------------------------------------
