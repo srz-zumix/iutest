@@ -18,29 +18,33 @@ script:
 #  - python ./iuwandbox.py sample.cpp -c ${WANDBOX_COMPILER}
 
 env:
-  - WANDBOX_COMPILER=gcc-head
-  - WANDBOX_COMPILER=gcc-5.2.0
-#  - WANDBOX_COMPILER=gcc-5.1.0 # travis
-  - WANDBOX_COMPILER=gcc-4.9.2
-#  - WANDBOX_COMPILER=gcc-4.9.1 # wercker
-#  - WANDBOX_COMPILER=gcc-4.9.0 # wercker
-#  - WANDBOX_COMPILER=gcc-4.8.2 # wercker
-  - WANDBOX_COMPILER=gcc-4.8.1
-  - WANDBOX_COMPILER=gcc-4.7.3
-#  - WANDBOX_COMPILER=gcc-4.6.4 # drone
-  - WANDBOX_COMPILER=gcc-4.5.4
-#  - WANDBOX_COMPILER=gcc-4.4.7 # wercker
-  - WANDBOX_COMPILER=gcc-4.3.6
-  - WANDBOX_COMPILER=clang-head
-  - WANDBOX_COMPILER=clang-3.7
-#  - WANDBOX_COMPILER=clang-3.6 # wercker
-#  - WANDBOX_COMPILER=clang-3.5 # c++config.h not found
-#  - WANDBOX_COMPILER=clang-3.4 # travis
-#  - WANDBOX_COMPILER=clang-3.3 # wercker
-#  - WANDBOX_COMPILER=clang-3.2 # wercker
-#  - WANDBOX_COMPILER=clang-3.1 # wercker
-  - WANDBOX_COMPILER=clang-3.0
+  matrix:
+    - WANDBOX_COMPILER=gcc-head
+    - WANDBOX_COMPILER=gcc-5.2.0
+#    - WANDBOX_COMPILER=gcc-5.1.0 # travis
+    - WANDBOX_COMPILER=gcc-4.9.2
+#    - WANDBOX_COMPILER=gcc-4.9.1 # wercker
+#    - WANDBOX_COMPILER=gcc-4.9.0 # wercker
+#    - WANDBOX_COMPILER=gcc-4.8.2 # wercker
+    - WANDBOX_COMPILER=gcc-4.8.1
+    - WANDBOX_COMPILER=gcc-4.7.3
+#    - WANDBOX_COMPILER=gcc-4.6.4 # drone
+    - WANDBOX_COMPILER=gcc-4.5.4
+#    - WANDBOX_COMPILER=gcc-4.4.7 # wercker
+    - WANDBOX_COMPILER=gcc-4.3.6
+    - WANDBOX_COMPILER=clang-head
+    - WANDBOX_COMPILER=clang-3.7
+#    - WANDBOX_COMPILER=clang-3.6 # wercker
+#    - WANDBOX_COMPILER=clang-3.5 # c++config.h not found
+#    - WANDBOX_COMPILER=clang-3.4 # travis
+#    - WANDBOX_COMPILER=clang-3.3 # wercker
+#    - WANDBOX_COMPILER=clang-3.2 # wercker
+#    - WANDBOX_COMPILER=clang-3.1 # wercker
+    - WANDBOX_COMPILER=clang-3.0
 
+after_success:
+  - echo OK
+  
 notifications:
   email:
     on_success: change
