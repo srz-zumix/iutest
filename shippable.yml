@@ -1,6 +1,8 @@
 language: python
 
 python: 2.7
+cache: true
+parallelized_test: true
 
 install:
   - pip install requests
