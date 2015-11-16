@@ -22,12 +22,27 @@
 #if IUTEST_HAS_PARAM_TEST
 #include "iutest_pool.hpp"
 
-namespace iutest {
+//======================================================================
+// class
+
+namespace iutest
+{
+
+/**
+ * @brief	値のパラメータ化テストのパラメータ情報
+*/
+template<typename ParamType>
+struct TestParamInfo
+{
+	TestParamInfo(const ParamType& p, size_t i)
+		: param(p), index(i) {}
+	ParamType param;
+	size_t index;
+};
+
 namespace detail
 {
 
-//======================================================================
-// class
 /**
  * @brief	パラメータ単体テスト TestInfo データクラス
 */
@@ -115,6 +130,7 @@ class ParamTestCaseInfo : public IParamTestCaseInfo
 	typedef ::std::vector<IParamTestInfoData*> TestInfoContainer;
 
 	typedef ParamGenerator* (pfnCreateGeneratorFunc)();
+	typedef ::std::string (*pfnParamNameGeneratorFunc)(const TestParamInfo<ParamType>&);
 
 public:
 	/// コンストラクタ
@@ -177,6 +193,22 @@ public:
 				}
 			}
 		}
+	}
+
+	static ::std::string DefaultParamNameFunc(const TestParamInfo<ParamType>& info)
+	{
+		return Tester::MakeTestName(infodata->GetName(), info.index, info.param);
+	}
+
+	template<typename ParamNameFunctor>
+	ParamNameFunctor GetParamNameGen(ParamNameFunctor func)
+	{
+		return func;
+	}
+
+	pfnParamNameGeneratorFunc GetParamNameGen(void)
+	{
+		return DefaultParamNameFunc;
 	}
 
 private:
