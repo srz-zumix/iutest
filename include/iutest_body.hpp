@@ -30,7 +30,7 @@ template<typename T>class TestWithParam;
 namespace detail
 {
 
-::std::string MakeIndexTestName(const char* basename, int index);
+::std::string MakeIndexName(int index);
 
 }
 
@@ -226,6 +226,18 @@ private:
 };
 
 /**
+ * @brief	値のパラメータ化テストのパラメータ情報
+*/
+template<typename ParamType>
+struct TestParamInfo
+{
+	TestParamInfo(const ParamType& p, size_t i)
+		: param(p), index(i) {}
+	ParamType param;
+	size_t index;
+};
+
+/**
  * @brief	パラメータテストインターフェース
  * @tparam	T = パラメータ型
 */
@@ -263,9 +275,9 @@ public:
 	 * @brief	テスト名の生成
 	*/
 	template<typename U>
-	static const ::std::string MakeTestName(const char* basename, int index, const U&)
+	static const ::std::string MakeTestParamName(const TestParamInfo<U>& info)
 	{
-		return detail::MakeIndexTestName(basename, index);
+		return detail::MakeIndexName(info.index);
 	}
 
 	/** @private */

@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01149900u //!< iutest version 1.14.99.0
+#define IUTEST_VER			0x01149901u //!< iutest version 1.14.99.1
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x14u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x00u		//!< Revision
+#define IUTEST_REVISION		0x01u		//!< Revision
 
 /**
  * @mainpage
@@ -116,6 +116,12 @@
  * @page	CHANGELOG	変更履歴
  * @par		Changes
  <ul>
+  <li>v1.15.0.0
+    <ul>
+      <li>値のパラメータ化テストのテスト名指定方法を変更</li>
+      <li>値のパラメータ化テストのテスト名指定方法の Google Test 互換対応</li>
+    </ul>
+  </li>
   <li>v1.14.0.0
     <ul>
       <li>::iutest::Range を Enum に対応</li>

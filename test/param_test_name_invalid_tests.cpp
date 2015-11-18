@@ -31,10 +31,9 @@ class RenameParamTest : public ::iutest::TestWithParam<bool>
 {
 public:
 	template<typename T>
-	static const ::std::string MakeTestName(const char* basename, int, const T&)
+	static const ::std::string MakeTestParamName(const iutest::TestParamInfo<T>& )
 	{
-		::std::string name = basename;
-		return name;
+		return "";
 	}
 };
 

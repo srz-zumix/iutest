@@ -242,13 +242,27 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 namespace detail
 {
 
+IUTEST_IPP_INLINE ::std::string MakeIndexName(int index)
+{
+	iu_stringstream strm;
+	strm << index;
+	return strm.str();
+}
+
 IUTEST_IPP_INLINE ::std::string MakeIndexTestName(const char* basename, int index)
 {
 	::std::string name = basename;
-	iu_stringstream strm;
-	strm << index;
 	name += "/";
-	name += strm.str();
+	name += MakeIndexName(index);
+	return name;
+}
+
+IUTEST_IPP_INLINE::std::string MakeParamTestName(const ::std::string& basename, const ::std::string& parame_name)
+{
+	if( parame_name.empty() ) return basename;
+	::std::string name = basename;
+	name += "/";
+	name += parame_name;
 	return name;
 }
 

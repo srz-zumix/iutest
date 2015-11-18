@@ -22,26 +22,12 @@
 #if IUTEST_HAS_PARAM_TEST
 #include "iutest_pool.hpp"
 
-//======================================================================
-// class
-
-namespace iutest
-{
-
-/**
- * @brief	値のパラメータ化テストのパラメータ情報
-*/
-template<typename ParamType>
-struct TestParamInfo
-{
-	TestParamInfo(const ParamType& p, size_t i)
-		: param(p), index(i) {}
-	ParamType param;
-	size_t index;
-};
-
+namespace iutest {
 namespace detail
 {
+
+//======================================================================
+// class
 
 /**
  * @brief	パラメータ単体テスト TestInfo データクラス
@@ -129,8 +115,16 @@ class ParamTestCaseInfo : public IParamTestCaseInfo
 
 	typedef ::std::vector<IParamTestInfoData*> TestInfoContainer;
 
-	typedef ParamGenerator* (pfnCreateGeneratorFunc)();
+	typedef ParamGenerator* (*pfnCreateGeneratorFunc)();
 	typedef ::std::string (*pfnParamNameGeneratorFunc)(const TestParamInfo<ParamType>&);
+
+	struct Functor
+	{
+		Functor(pfnCreateGeneratorFunc c, pfnParamNameGeneratorFunc p)
+			: CreateGen(c), ParamNameGen(p) {}
+		pfnCreateGeneratorFunc		CreateGen;
+		pfnParamNameGeneratorFunc	ParamNameGen;
+	};
 
 public:
 	/// コンストラクタ
@@ -143,12 +137,13 @@ public:
 	/**
 	 * @brief	インスタンスの登録
 	*/
-	int	AddTestCaseInstantiation(::std::string name, pfnCreateGeneratorFunc* func)
+	int	AddTestCaseInstantiation(::std::string name
+		, pfnCreateGeneratorFunc create_func, pfnParamNameGeneratorFunc paramname_func)
 	{
 #if IUTEST_HAS_STD_EMPLACE
-		m_instantiation.emplace_back(name, func);
+		m_instantiation.emplace_back(name, Functor(create_func, paramname_func));
 #else
-		m_instantiation.push_back(InstantiationPair(name, func));
+		m_instantiation.push_back(InstantiationPair(name, Functor(create_func, paramname_func)));
 #endif
 		return 0;
 	}
@@ -161,7 +156,7 @@ public:
 		for( typename InstantiationContainer::const_iterator gen_it=m_instantiation.begin(), gen_end=m_instantiation.end(); gen_it != gen_end; ++gen_it )
 		{
 			// パラメータ生成器の作成
-			detail::scoped_ptr<ParamGenerator> p((gen_it->second)());
+			detail::scoped_ptr<ParamGenerator> p((gen_it->second.CreateGen)());
 
 			::std::string testcase_name = m_package_name;
 			if( !gen_it->first.empty() )
@@ -177,10 +172,11 @@ public:
 
 			if( p.get() != NULL )
 			{
-				int i=0;
+				size_t i=0;
 				for( p->Begin(); !p->IsEnd(); p->Next() )
 				{
-					const ::std::string name = Tester::MakeTestName(infodata->GetName(), i, p->GetCurrent());
+					const ::std::string name = MakeParamTestName(infodata->GetName()
+						, gen_it->second.ParamNameGen(TestParamInfo<ParamType>(p->GetCurrent(), i)) );
 #if IUTEST_CHECK_STRICT
 					if( !CheckTestName(testcase, name) )
 					{
@@ -197,7 +193,7 @@ public:
 
 	static ::std::string DefaultParamNameFunc(const TestParamInfo<ParamType>& info)
 	{
-		return Tester::MakeTestName(infodata->GetName(), info.index, info.param);
+		return Tester::MakeTestParamName(info);
 	}
 
 	template<typename ParamNameFunctor>
@@ -225,7 +221,7 @@ private:
 		return true;
 	}
 private:
-	typedef ::std::pair< ::std::string, pfnCreateGeneratorFunc* > InstantiationPair;
+	typedef ::std::pair< ::std::string, Functor > InstantiationPair;
 	typedef ::std::vector<InstantiationPair> InstantiationContainer;
 	InstantiationContainer m_instantiation;
 };
