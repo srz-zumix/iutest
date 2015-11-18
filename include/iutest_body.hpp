@@ -274,8 +274,7 @@ public:
 	/**
 	 * @brief	テスト名の生成
 	*/
-	template<typename U>
-	static const ::std::string MakeTestParamName(const TestParamInfo<U>& info)
+	static const ::std::string MakeTestParamName(const TestParamInfo<ParamType>& info)
 	{
 		return detail::MakeIndexName(info.index);
 	}

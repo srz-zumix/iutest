@@ -272,7 +272,7 @@ class TypeParamTestInstance
 #else
 			return UnitTest::instance().AddTestCase(
 #endif
-#if IUTEST_TYPED_TEST_APPEND_TYPENAME
+#if IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME
 				detail::MakeIndexTypedTestName<TypeParam>(testcase, index).c_str()
 #else
 				detail::MakeIndexTestName(testcase, index).c_str()
@@ -477,7 +477,7 @@ public:
 			UnitTest::instance().AddTestCase(
 #endif
 			(package_name +
-#if IUTEST_TYPED_TEST_APPEND_TYPENAME
+#if IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME
 				detail::MakePrefixedIndexTypedTestName<TypeParam>(prefix, testcase_name, index)
 #else
 				detail::MakePrefixedIndexTestName(prefix, testcase_name, index)

@@ -442,8 +442,22 @@
 #endif
 
 #if !defined(IUTEST_TYPED_TEST_APPEND_TYPENAME)
+//! @deprecated
+#  define IUTEST_TYPED_TEST_APPEND_TYPENAME		0
+#endif
+
+#if !defined(IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME)
 //! 型付けテスト名に型名を付けるかどうか
-#  define IUTEST_TYPED_TEST_APPEND_TYPENAME	0
+#  define IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME	IUTEST_TYPED_TEST_APPEND_TYPENAME
+#endif
+
+#if !defined(IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR)
+//! 値をパラメータ化したテストのパラメータ名生成が可能かどうか
+#  if   !defined(IUTEST_NO_VARIADIC_MACROS)
+#    define IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR	1
+#  else
+#    define IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR	0
+#  endif
 #endif
 
 /**

@@ -197,12 +197,12 @@ public:
 	}
 
 	template<typename ParamNameFunctor>
-	ParamNameFunctor GetParamNameGen(ParamNameFunctor func)
+	static ParamNameFunctor GetParamNameGen(ParamNameFunctor func)
 	{
 		return func;
 	}
 
-	pfnParamNameGeneratorFunc GetParamNameGen(void)
+	static pfnParamNameGeneratorFunc GetParamNameGen(void)
 	{
 		return DefaultParamNameFunc;
 	}

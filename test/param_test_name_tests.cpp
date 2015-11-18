@@ -19,19 +19,20 @@
 
 #include "main.cpp"
 
-#if IUTEST_HAS_PARAM_TEST && !defined(IUTEST_USE_GTEST)
+#if IUTEST_HAS_PARAM_TEST 
 
-class RenameParamTest : public ::iutest::TestWithParam<bool>
+#if !defined(IUTEST_USE_GTEST)
+
+class iuRenameParamTest : public ::iutest::TestWithParam<bool>
 {
 public:
-	template<typename T>
-	static const ::std::string MakeTestParamName(const iutest::TestParamInfo<T>& info)
+	static const ::std::string MakeTestParamName(const iutest::TestParamInfo<bool>& info)
 	{
 		return ::iutest::StreamableToString(info.param);
 	}
 };
 
-IUTEST_P(RenameParamTest, Test)
+IUTEST_P(iuRenameParamTest, Test)
 {
 	if( GetParam() )
 	{
@@ -43,8 +44,51 @@ IUTEST_P(RenameParamTest, Test)
 	}
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, RenameParamTest, ::iutest::Bool());
+IUTEST_INSTANTIATE_TEST_CASE_P(My1, iuRenameParamTest, ::iutest::Bool());
 
+#endif
+
+#if IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR
+
+class RenameParamTest : public ::iutest::TestWithParam< ::std::string > {};
+
+struct CustomParamNameFunctor
+{
+	::std::string operator()(const ::iutest::TestParamInfo< ::std::string >& info)
+	{
+		return info.param;
+	}
+};
+
+static ::std::string CustomParamNameFunction(const ::iutest::TestParamInfo< ::std::string >& info)
+{
+	return info.param;
+}
+
+IUTEST_P(RenameParamTest, Test)
+{
+	::std::string name = "Test/";
+	name += GetParam();
+	IUTEST_ASSERT_STREQ(name, ::iutest::UnitTest::GetInstance()->current_test_info()->name());
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_P(CustomParamNameFunctor, RenameParamTest
+								, ::iutest::Values("abcdefghijklmnopqrstuvwxyz", "1234567890")
+								, CustomParamNameFunctor() );
+
+IUTEST_INSTANTIATE_TEST_CASE_P(CustomParamNameFunction, RenameParamTest
+								, ::iutest::Values("abcdefghijklmnopqrstuvwxyz", "1234567890")
+								, CustomParamNameFunction );
+
+#if IUTEST_HAS_LAMBDA
+IUTEST_INSTANTIATE_TEST_CASE_P(CustomParamNameLambda, RenameParamTest
+								, ::iutest::Values("abcdefghijklmnopqrstuvwxyz", "1234567890")
+								, [](const ::iutest::TestParamInfo< ::std::string >& info) { 
+									return info.param;
+								});
+#endif
+
+#endif
 
 #endif
 

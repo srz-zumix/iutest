@@ -6,6 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
+ * @deprecated
  * Copyright (C) 2013-2015, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE

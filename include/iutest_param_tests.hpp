@@ -37,7 +37,7 @@
  * @param	generator_		= Range, Bool, Values, ValuesIn, Combine, Pairwise ...
  * @param	...				= Param name generator function (option)
 */
-#if !defined(IUTEST_NO_VARIADIC_MACROS)
+#if IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR
 #  define IUTEST_INSTANTIATE_TEST_CASE_P(prefix_, testfixture_, generator_, ...)	\
 	IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testfixture_, generator_, __VA_ARGS__)
 #else
@@ -126,25 +126,30 @@
 /**
  * @brief	パラメータテスト登録
 */
-#if !defined(IUTEST_NO_VARIADIC_MACROS)
+#if IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR
 #  define IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_, ...)		\
-	IIUT_INSTANTIATE_TEST_CASE_P_I(prefix_, testcase_, generator_, GetParamNameGen(__VA_ARGS__))
+	IIUT_INSTANTIATE_TEST_CASE_P_I(prefix_, testcase_, generator_					\
+		, ::iutest::detail::ParamTestCaseInfo< IIUT_TEST_P_BASE_FIXTURE(testcase_) >::GetParamNameGen(__VA_ARGS__))
 #else
 #  define IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_)				\
-	IIUT_INSTANTIATE_TEST_CASE_P_I(prefix_, testcase_, generator_, GetParamNameGen())
+	IIUT_INSTANTIATE_TEST_CASE_P_I(prefix_, testcase_, generator_					\
+		, ::iutest::detail::ParamTestCaseInfo< IIUT_TEST_P_BASE_FIXTURE(testcase_) >::GetParamNameGen())
 #endif
 
 #define IIUT_INSTANTIATE_TEST_CASE_P_I(prefix_, testcase_, generator_, paramname_generator_)		\
 	IIUT_TEST_P_FIXTURE_DECL_(testcase_)															\
 	static ::iutest::detail::iuIParamGenerator< IIUT_TEST_P_BASE_FIXTURE(testcase_)::ParamType >*	\
 		IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)(void) { return generator_; }			\
+	static ::std::string IIUT_TEST_P_PARAMGENERATOR_NAME_(prefix_, testcase_)(						\
+		const ::iutest::TestParamInfo< IIUT_TEST_P_BASE_FIXTURE(testcase_)::ParamType >& info) {	\
+			return paramname_generator_(info); }													\
 	int IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)(void) {							\
 		::iutest::detail::ParamTestCaseInfo< IIUT_TEST_P_BASE_FIXTURE(testcase_) >* p =				\
 			IIUT_GETTESTCASEPATTERNHOLDER( IIUT_TEST_P_BASE_FIXTURE(testcase_)						\
 				, IIUT_TO_NAME_STR_(testcase_), IUTEST_GET_PACKAGENAME_());							\
 		return p->AddTestCaseInstantiation(#prefix_													\
 					, IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)							\
-					, p->paramname_generator_ );													\
+					, IIUT_TEST_P_PARAMGENERATOR_NAME_(prefix_, testcase_) );						\
 	} IIUT_TEST_P_INSTANTIATIONREGISTER_(prefix_, testcase_)
 
 /**
@@ -191,6 +196,10 @@
 #define IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)		IIUT_TEST_P_EVALGENERATOR_NAME_I(prefix_, IIUT_TO_VARNAME_(testcase_))
 #define IIUT_TEST_P_EVALGENERATOR_NAME_I(prefix_, testcase_)	IIUT_TEST_P_EVALGENERATOR_NAME_I_(prefix_, testcase_)
 #define IIUT_TEST_P_EVALGENERATOR_NAME_I_(prefix_, testcase_)	s_##prefix_##_##testcase_##_EvalGenerator_
+
+#define IIUT_TEST_P_PARAMGENERATOR_NAME_(prefix_, testcase_)	IIUT_TEST_P_PARAMGENERATOR_NAME_I(prefix_, IIUT_TO_VARNAME_(testcase_))
+#define IIUT_TEST_P_PARAMGENERATOR_NAME_I(prefix_, testcase_)	IIUT_TEST_P_PARAMGENERATOR_NAME_I_(prefix_, testcase_)
+#define IIUT_TEST_P_PARAMGENERATOR_NAME_I_(prefix_, testcase_)	s_##prefix_##_##testcase_##_ParamGenerator_
 
 #define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)		IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I(prefix_, IIUT_TO_VARNAME_(testcase_))
 #define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I(prefix_, testcase_)	IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I_(prefix_, testcase_)
