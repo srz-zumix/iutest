@@ -190,8 +190,10 @@
  * @internal
  * @brief	Assertion message
 */
-#define IUTEST_MESSAGE_AT(file_, line_, msg_, result_type_)	::iutest::AssertionHelper(file_, line_, msg_, result_type_) = ::iutest::AssertionHelper::Fixed()
-#define IUTEST_MESSAGE(msg_, result_type_)					IUTEST_MESSAGE_AT(__FILE__, __LINE__, msg_, result_type_)
+#define IUTEST_MESSAGE_AT(file_, line_, msg_, result_type_)	\
+	::iutest::AssertionHelper(file_, line_, msg_, result_type_) = ::iutest::AssertionHelper::Fixed()
+#define IUTEST_MESSAGE(msg_, result_type_)					\
+	IUTEST_MESSAGE_AT(__FILE__, __LINE__, msg_, result_type_)
 
 /**
  * @internal
@@ -436,37 +438,85 @@
  * @brief	all flavor assertion macro
  * @{
 */
-#define	IUTEST_TEST_EQ(expected, actual, on_failure)			IUTEST_PRED_FORMAT2_( ::iutest::internal::EqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare, expected, actual, on_failure )
-#define	IUTEST_TEST_NE(v1, v2, on_failure)						IUTEST_PRED_FORMAT2_( ::iutest::internal::NeHelper<IUTEST_IS_NULLLITERAL(v1)>::Compare, v1, v2, on_failure )
-//#define	IUTEST_TEST_NE(v1, v2, on_failure)					IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperNE, v1, v2, on_failure )
-#define	IUTEST_TEST_LE(v1, v2, on_failure)						IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperLE, v1, v2, on_failure )
-#define	IUTEST_TEST_LT(v1, v2, on_failure)						IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperLT, v1, v2, on_failure )
-#define	IUTEST_TEST_GE(v1, v2, on_failure)						IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperGE, v1, v2, on_failure )
-#define	IUTEST_TEST_GT(v1, v2, on_failure)						IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperGT, v1, v2, on_failure )
+#define	IUTEST_TEST_EQ(expected, actual, on_failure)		\
+	IUTEST_PRED_FORMAT2_( ::iutest::internal::EqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare	\
+		, expected, actual, on_failure )
 
-#define IUTEST_TEST_TRUE(expr, text, on_failure)				IUTEST_TEST_BOOLEAN_( expr, text, false, true, on_failure)
-#define IUTEST_TEST_FALSE(expr, text, on_failure)				IUTEST_TEST_BOOLEAN_( !(expr), text, true, false, on_failure)
+#define	IUTEST_TEST_NE(v1, v2, on_failure)					\
+	IUTEST_PRED_FORMAT2_( ::iutest::internal::NeHelper<IUTEST_IS_NULLLITERAL(v1)>::Compare			\
+		, v1, v2, on_failure )
 
-#define IUTEST_TEST_FLOAT_EQ(expected, actual, on_failure)		IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperFloatingPointEQ<float> , expected, actual, on_failure )
-#define IUTEST_TEST_DOUBLE_EQ(expected, actual, on_failure)		IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperFloatingPointEQ<double>, expected, actual, on_failure )
+#define	IUTEST_TEST_LE(v1, v2, on_failure)					\
+	IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperLE	\
+		, v1, v2, on_failure )
 
-#define IUTEST_TEST_NEAR(v1, v2, abs_v, on_failure)				IUTEST_PRED_FORMAT3_( ::iutest::internal::CmpHelperNear, v1, v2, abs_v, on_failure )
+#define	IUTEST_TEST_LT(v1, v2, on_failure)					\
+	IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperLT	\
+		, v1, v2, on_failure )
 
-#define	IUTEST_TEST_STREQ(expected, actual, on_failure)			IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSTREQ, expected, actual, on_failure )
-#define	IUTEST_TEST_STRNE(v1, v2, on_failure)					IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSTRNE, v1, v2, on_failure )
-#define	IUTEST_TEST_STRCASEEQ(expected, actual, on_failure)		IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSTRCASEEQ, expected, actual, on_failure )
-#define	IUTEST_TEST_STRCASENE(v1, v2, on_failure)				IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSTRCASENE, v1, v2, on_failure )
+#define	IUTEST_TEST_GE(v1, v2, on_failure)					\
+	IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperGE	\
+		, v1, v2, on_failure )
 
-#define IUTEST_TEST_HRESULT_SUCCEEDED(hr, on_failure)			IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTSuccess, hr, on_failure )
-#define IUTEST_TEST_HRESULT_FAILED(hr, on_failure)				IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTFailure, hr, on_failure )
+#define	IUTEST_TEST_GT(v1, v2, on_failure)					\
+	IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperGT	\
+		, v1, v2, on_failure )
 
-#define IUTEST_TEST_SAME(v1, v2, on_failure)					IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSame, v1, v2, on_failure )
+#define IUTEST_TEST_TRUE(expr, text, on_failure)			\
+	IUTEST_TEST_BOOLEAN_( expr, text, false, true, on_failure)
+
+#define IUTEST_TEST_FALSE(expr, text, on_failure)			\
+	IUTEST_TEST_BOOLEAN_( !(expr), text, true, false, on_failure)
+
+#define IUTEST_TEST_FLOAT_EQ(expected, actual, on_failure)	\
+	IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperFloatingPointEQ<float>	\
+		, expected, actual, on_failure )
+
+#define IUTEST_TEST_DOUBLE_EQ(expected, actual, on_failure)	\
+	IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperFloatingPointEQ<double>	\
+		, expected, actual, on_failure )
+
+#define IUTEST_TEST_NEAR(v1, v2, abs_v, on_failure)			\
+	IUTEST_PRED_FORMAT3_( ::iutest::internal::CmpHelperNear	\
+		, v1, v2, abs_v, on_failure )
+
+#define	IUTEST_TEST_STREQ(expected, actual, on_failure)			\
+	IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSTREQ	\
+		, expected, actual, on_failure )
+
+#define	IUTEST_TEST_STRNE(v1, v2, on_failure)					\
+	IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSTRNE	\
+		, v1, v2, on_failure )
+
+#define	IUTEST_TEST_STRCASEEQ(expected, actual, on_failure)			\
+	IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSTRCASEEQ	\
+		, expected, actual, on_failure )
+
+#define	IUTEST_TEST_STRCASENE(v1, v2, on_failure)					\
+	IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSTRCASENE	\
+		, v1, v2, on_failure )
+
+#define IUTEST_TEST_HRESULT_SUCCEEDED(hr, on_failure)			\
+	IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTSuccess	\
+		, hr, on_failure )
+
+#define IUTEST_TEST_HRESULT_FAILED(hr, on_failure)				\
+	IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTFailure	\
+		, hr, on_failure )
+
+#define IUTEST_TEST_SAME(v1, v2, on_failure)					\
+	IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSame		\
+		, v1, v2, on_failure )
 
 #define IUTEST_TEST_NULL(v, on_failure)			\
-	IUTEST_THROUGH_ANALYSIS_ASSUME_(v==NULL, IUTEST_PRED_FORMAT1_( ::iutest::internal::NullHelper<IUTEST_IS_NULLLITERAL(v)>::CompareEq, v, on_failure ))
+	IUTEST_THROUGH_ANALYSIS_ASSUME_(v==NULL		\
+		, IUTEST_PRED_FORMAT1_( ::iutest::internal::NullHelper<IUTEST_IS_NULLLITERAL(v)>::CompareEq	\
+			, v, on_failure ))
 
 #define IUTEST_TEST_NOTNULL(v, on_failure)		\
-	IUTEST_THROUGH_ANALYSIS_ASSUME_(v!=NULL, IUTEST_PRED_FORMAT1_( ::iutest::internal::NullHelper<IUTEST_IS_NULLLITERAL(v)>::CompareNe, v, on_failure ))
+	IUTEST_THROUGH_ANALYSIS_ASSUME_(v!=NULL		\
+		, IUTEST_PRED_FORMAT1_( ::iutest::internal::NullHelper<IUTEST_IS_NULLLITERAL(v)>::CompareNe	\
+			, v, on_failure ))
 
 #define IUTEST_TEST_NO_FAILURE_(statement, on_failure)						\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_											\
@@ -511,9 +561,11 @@
  * @brief	コンパイルエラーチェックタグ
 */
 #if defined(_MSC_VER)
-#  define IUTEST_TEST_COMPILEERROR(e)	IUTEST_PRAGMA_MESSAGE(__FILE__ "(" IUTEST_PP_TOSTRING(__LINE__) "): note : " "IUTEST_TEST_COMPILEERROR( " #e " )")
+#  define IUTEST_TEST_COMPILEERROR(e)	\
+	IUTEST_PRAGMA_MESSAGE(__FILE__ "(" IUTEST_PP_TOSTRING(__LINE__) "): note : " "IUTEST_TEST_COMPILEERROR( " #e " )")
 #else
-#  define IUTEST_TEST_COMPILEERROR(e)	IUTEST_PRAGMA_MESSAGE("IUTEST_TEST_COMPILEERROR( " #e " )")
+#  define IUTEST_TEST_COMPILEERROR(e)	\
+	IUTEST_PRAGMA_MESSAGE("IUTEST_TEST_COMPILEERROR( " #e " )")
 #endif
 
 /**

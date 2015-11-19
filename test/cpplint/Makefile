@@ -23,7 +23,7 @@ iutest: $(IUTEST_HPP) cpplint.py Makefile
 	python cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS) $(IUTEST_HPP)
 
 internal: $(INTERNAL_HPP) cpplint.py Makefile
-	python cpplint.py --extensions=hpp,cpp --linelength=180 --filter=$(SUPPRESS) $(INTERNAL_HPP)
+	python cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS) $(INTERNAL_HPP)
 
 util: $(UTIL_HPP) cpplint.py Makefile
 	python cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS) $(UTIL_HPP)
