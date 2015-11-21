@@ -84,6 +84,7 @@ before_script:
   - if [ "${WINEGCC}" = '1' ]; then export CXX=wineg++; fi
 
 script:
+  - if [ "${USE_LIB}" == '1' ]; then cd projects/make && make && cd -; fi
   - cd ./test
   - make showcxxversion ${USE_FUSED} all
   #- if [ "${CPPCHECK}" = '1' ]; then
@@ -133,7 +134,7 @@ matrix:
     - compiler: gcc
       env: MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAMCAPTURE=0"
     - compiler: gcc
-      env: MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAMCAPTURE=0" STDFLAG=-std=c++0x
+      env: USE_LIB=1
     #- compiler: gcc
     #  env: CPPCHECK=1
     #- compiler: gcc

@@ -173,10 +173,23 @@ namespace detail
 
 /**
  * @brief	テスト名の作成
+ * @param [in]	index		= インデックス
+*/
+::std::string MakeIndexName(int index);
+
+/**
+ * @brief	テスト名の作成
  * @param [in]	basename	= ベース名
  * @param [in]	index		= インデックス
 */
 ::std::string MakeIndexTestName(const char* basename, int index);
+
+/**
+ * @brief	テスト名の作成
+ * @param [in]	basename	= ベース名
+ * @param [in]	parame_name	= パラメータ名
+*/
+::std::string MakeParamTestName(const ::std::string& basename, const ::std::string& parame_name);
 
 /**
  * @brief	テスト名の作成

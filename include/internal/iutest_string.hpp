@@ -47,15 +47,13 @@ namespace detail
 */
 inline int iu_stricmp(const char* str1, const char* str2)
 {
-#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_WINE)
-
-#if defined(__BORLANDC__)
+#if   defined(__BORLANDC__)
 	return stricmp(str1, str2);
-#else
+#elif defined(_MSC_VER)
 	return _stricmp(str1, str2);
-#endif
-
-#elif !defined(__MWERKS__)
+#elif defined(IUTEST_OS_WINDOWS) && !defined(__STRICT_ANSI__)
+	return _stricmp(str1, str2);
+#elif !defined(__MWERKS__) && !defined(IUTEST_OS_WINDOWS)
 	return strcasecmp(str1, str2);
 
 #else
