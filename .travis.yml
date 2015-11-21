@@ -132,6 +132,8 @@ matrix:
       env: USE_GMOCK=1
     - compiler: gcc
       env: MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAMCAPTURE=0"
+    - compiler: gcc
+      env: MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAMCAPTURE=0" STDFLAG=-std=c++0x
     #- compiler: gcc
     #  env: CPPCHECK=1
     #- compiler: gcc
