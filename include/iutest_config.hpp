@@ -554,14 +554,16 @@
 #if !defined(IUTEST_HAS_SOCKET)
 //! ソケット通信可能かどうか
 #  if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_RT)
-#    if !defined(_MSC_VER) || _MSC_VER >= 1310
+#    if (!defined(_MSC_VER) || _MSC_VER >= 1310) && (defined(_WIN32_WINNT) && _WIN32_WINNT >= 0x501)
 #      define IUTEST_HAS_SOCKET	1
 #    endif
 #  elif defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_LINUX)
 #    define IUTEST_HAS_SOCKET	1
-#  else
-#    define IUTEST_HAS_SOCKET	0
 #  endif
+#endif
+
+#if !defined(IUTEST_HAS_SOCKET)
+#  define IUTEST_HAS_SOCKET		0
 #endif
 
 #if !defined(IUTEST_HAS_STRINGSTREAM)
