@@ -25,7 +25,7 @@
 #  include <sys/stat.h>
 #endif
 
-#if defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 #  include <direct.h>
 #endif
 

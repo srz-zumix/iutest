@@ -108,11 +108,6 @@ IUTEST_IPP_INLINE bool iuFilePath::CreateFolder(void) const
 #if IUTEST_HAS_FILE_STAT
 
 #if   defined(IUTEST_OS_WINDOWS_MOBILE)
-#elif defined(IUTEST_OS_WINDOWS_MINGW)
-	if( mkdir(c_str()) == 0 )
-	{
-		return true;
-	}
 #elif defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_WINE)
 	if( _mkdir(c_str()) == 0 )
 	{
