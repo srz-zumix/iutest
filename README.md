@@ -14,8 +14,25 @@ Welcome to the iutest
 --------------------------------------------------
 iutest is framework for writing C++ tests.
 
-Supports automatic tests discovery, include only, value- and type- parameterized tests,
-XML test report, inform- and assume- flavor, and japanese test name, matchers, etc...
+Features
+--------------------------------------------------
+
+* An XUnit test framework.
+* include only.
+* Test discovery.
+* A rich set of assertions.
+* User-defined assertions.
+* Power assert.
+* Matchers.
+* Test packages (grouping).
+* Fatal and non-fatal, warning, assume failures.
+* Skip test.
+* Value-parameterized tests.
+* Type-parameterized tests.
+* Private member test.
+* Various options for running the tests.
+* XML test report generation.
+* Janaese test name.
 
 Documentation
 --------------------------------------------------
