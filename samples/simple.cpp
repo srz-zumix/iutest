@@ -174,4 +174,3 @@ IUTEST(ProdTest, Peep)
 	ProdClass c;
 	IUTEST_ASSERT_EQ(100, IUTEST_PEEP_GET(c, ProdClass, m_x));
 }
-

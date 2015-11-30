@@ -708,6 +708,9 @@
 #define IIUT_PP_EMPTY_TAG()	, 0
 #define IIUT_PP_EMPTY_TAG_IIUT_PP_EMPTY_TAG		1, 1 IUTEST_PP_EMPTY
 
+// IDENTITY
+#define IUTEST_PP_IDENTITY(x)		x IUTEST_PP_EMPTY
+
 #if !defined(IUTEST_NO_VARIADIC_MACROS)
 
 #if !defined(IUTEST_PP_VA_CAT)
@@ -717,24 +720,31 @@
 
 #endif
 
-// SPLIT
-#define IUTEST_PP_SPLIT(i, ...)	IUTEST_PP_CAT(IIUT_PP_SPLIT_, i)(__VA_ARGS__)
+#if defined(_MSC_VER)
+#define IIUT_PP_VD_CAT(a, b)			IIUT_PP_VD_CAT_I(a, b)
+#define IIUT_PP_VD_CAT_I(a, b)			IIUT_PP_VD_CAT_II(a ## b)
+#define IIUT_PP_VD_CAT_II(res)			res
+#define IIUT_PP_SPLIT(i, ...)			IIUT_PP_VD_CAT(IIUT_PP_VA_CAT_I(IIUT_PP_SPLIT_, i)(__VA_ARGS__), IUTEST_PP_EMPTY())
+#define IIUT_PP_IS_BEGIN_PARENS_C(...)	1 1
+#else
+#define IIUT_PP_SPLIT(i, ...)			IIUT_PP_VA_CAT_I(IIUT_PP_SPLIT_, i)(__VA_ARGS__)
+#define IIUT_PP_IS_BEGIN_PARENS_C(...)	1
+#endif
 #define IIUT_PP_SPLIT_0(a, ...)	a
 #define IIUT_PP_SPLIT_1(a, ...)	__VA_ARGS__
 
 // IS_BEGIN_PARENS
 #define IUTEST_PP_IS_BEGIN_PARENS(...)					\
- 	IUTEST_PP_SPLIT(0,									\
+ 	IIUT_PP_SPLIT(0,									\
 		IUTEST_PP_VA_CAT( IIUT_PP_IS_BEGIN_PARENS_R_	\
 			, IIUT_PP_IS_BEGIN_PARENS_C __VA_ARGS__ ) )
 
 #define IIUT_PP_IS_BEGIN_PARENS_R_1		1,
-#define IIUT_PP_IS_BEGIN_PARENS_C(...)	1
 
 #define IIUT_PP_IS_BEGIN_PARENS_R_IIUT_PP_IS_BEGIN_PARENS_C 0,
 
 #endif
- 	
+
 /**
  * @}
 */
