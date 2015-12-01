@@ -46,7 +46,7 @@ IUTEST(IUTEST_JAPANESE_NAME(あいうえお), IUTEST_JAPANESE_NAME(かきくけ�
 
 class FixedTest : public ::iutest::Test {};
 
-IUTEST_F(IUTEST_JAPANESE_NAME_F(FixedTest, あいうえお), IUTEST_JAPANESE_NAME(かきくけこ))
+IUTEST_F(IUTEST_JAPANESE_NAME_F(あいうえお, FixedTest), IUTEST_JAPANESE_NAME(かきくけこ))
 {
 #if IUTEST_HAS_PACKAGE
 	IUTEST_ASSERT_STREQ("japanese_test.あいうえお", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
@@ -59,7 +59,7 @@ IUTEST_F(IUTEST_JAPANESE_NAME_F(FixedTest, あいうえお), IUTEST_JAPANESE_NAM
 #if IUTEST_HAS_PARAM_TEST
 class ParamTest : public ::iutest::TestWithParam<int> {};
 
-IUTEST_P(IUTEST_JAPANESE_NAME_F(ParamTest, あいうえお), IUTEST_JAPANESE_NAME(あいうえお))
+IUTEST_P(IUTEST_JAPANESE_NAME_F(あいうえお, ParamTest), IUTEST_JAPANESE_NAME(あいうえお))
 {
 #if IUTEST_HAS_PACKAGE
 	IUTEST_ASSERT_STREQ("japanese_test.My1/あいうえお", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
@@ -69,7 +69,7 @@ IUTEST_P(IUTEST_JAPANESE_NAME_F(ParamTest, あいうえお), IUTEST_JAPANESE_NAM
 	IUTEST_ASSERT_STREQ("あいうえお/0", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
 
-IUTEST_P(IUTEST_JAPANESE_NAME_F(ParamTest, あいうえお), Japanese)
+IUTEST_P(IUTEST_JAPANESE_NAME_F(あいうえお, ParamTest), Japanese)
 {
 #if IUTEST_HAS_PACKAGE
 	IUTEST_ASSERT_STREQ("japanese_test.My1/あいうえお", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
@@ -79,7 +79,7 @@ IUTEST_P(IUTEST_JAPANESE_NAME_F(ParamTest, あいうえお), Japanese)
 	IUTEST_ASSERT_STREQ("Japanese/0", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, IUTEST_JAPANESE_NAME_F(ParamTest, あいうえお), ::iutest::Values(0));
+IUTEST_INSTANTIATE_TEST_CASE_P(My1, IUTEST_JAPANESE_NAME_F(あいうえお, ParamTest), ::iutest::Values(0));
 
 #endif
 
@@ -90,7 +90,7 @@ class TypedTest : public ::iutest::Test {};
 
 IUTEST_TYPED_TEST_CASE(TypedTest, int);
 
-IUTEST_TYPED_TEST(IUTEST_JAPANESE_NAME_F(TypedTest, あいうえお), IUTEST_JAPANESE_NAME(あいうえお))
+IUTEST_TYPED_TEST(IUTEST_JAPANESE_NAME_F(あいうえお, TypedTest), IUTEST_JAPANESE_NAME(あいうえお))
 {
 #if IUTEST_HAS_PACKAGE
 	IUTEST_ASSERT_STREQ("japanese_test.あいうえお/0", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
@@ -110,7 +110,7 @@ class TypeParamTest : public ::iutest::Test {};
 
 IUTEST_TYPED_TEST_CASE_P(TypeParamTest);
 
-IUTEST_TYPED_TEST_P(TypeParamTest, IUTEST_JAPANESE_NAME_F(aiueo, あいうえお))
+IUTEST_TYPED_TEST_P(TypeParamTest, IUTEST_JAPANESE_NAME_F(あいうえお, aiueo))
 {
 	IUTEST_ASSERT_STREQ("あいうえお", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
@@ -148,13 +148,13 @@ IUTEST_IGNORE(IUTEST_JAPANESE_NAME(あいうえお), IUTEST_JAPANESE_NAME(あい
 {
 }
 
-IUTEST_F_IGNORE(IUTEST_JAPANESE_NAME_F(FixedTest, あいうえお), IUTEST_JAPANESE_NAME(かきくけこ))
+IUTEST_F_IGNORE(IUTEST_JAPANESE_NAME_F(あいうえお, FixedTest), IUTEST_JAPANESE_NAME(かきくけこ))
 {
 }
 
 #if IUTEST_HAS_PARAM_TEST
 
-IUTEST_P_IGNORE(IUTEST_JAPANESE_NAME_F(ParamTest, あいうえお), IUTEST_JAPANESE_NAME(かきくけこ))
+IUTEST_P_IGNORE(IUTEST_JAPANESE_NAME_F(あいうえお, ParamTest), IUTEST_JAPANESE_NAME(かきくけこ))
 {
 }
 
@@ -162,7 +162,7 @@ IUTEST_P_IGNORE(IUTEST_JAPANESE_NAME_F(ParamTest, あいうえお), IUTEST_JAPAN
 
 #if IUTEST_HAS_TYPED_TEST
 
-IUTEST_TYPED_TEST_IGNORE(IUTEST_JAPANESE_NAME_F(TypedTest, あいうえお), IUTEST_JAPANESE_NAME(あいうえお))
+IUTEST_TYPED_TEST_IGNORE(IUTEST_JAPANESE_NAME_F(あいうえお, TypedTest), IUTEST_JAPANESE_NAME(あいうえお))
 {
 }
 

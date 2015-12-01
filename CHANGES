@@ -5,6 +5,7 @@ Changes for 1.15.0:
 * 値のパラメータ化テストのテスト名指定方法の Google Test 互換対応
 
 ** 変更
+* IUTEST_ALIAS_TESTNAME_F,IUTEST_JAPANESE_NAME_F の引数の順番を変更
 * 値のパラメータ化テストのテスト名指定方法を変更
 * IUTEST_TYPED_TEST_APPEND_TYPENAME を IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME に変更
 

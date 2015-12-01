@@ -54,7 +54,7 @@ IUTEST(IUTEST_JAPANESE_NAME(テスト), IUTEST_JAPANESE_NAME(テスト))
 }
 class JapaneseFixedTest : public ::iutest::Test {};
 
-IUTEST_F(IUTEST_JAPANESE_NAME_F(JapaneseFixedTest, あいうえお), IUTEST_JAPANESE_NAME(かきくけこ))
+IUTEST_F(IUTEST_JAPANESE_NAME_F(あいうえお, JapaneseFixedTest), IUTEST_JAPANESE_NAME(かきくけこ))
 {
 }
 

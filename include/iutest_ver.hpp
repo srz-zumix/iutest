@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01149908u //!< iutest version 1.14.99.8
+#define IUTEST_VER			0x01149909u //!< iutest version 1.14.99.9
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x14u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x08u		//!< Revision
+#define IUTEST_REVISION		0x09u		//!< Revision
 
 /**
  * @mainpage
@@ -118,6 +118,7 @@
  <ul>
   <li>v1.15.0.0
     <ul>
+      <li>IUTEST_ALIAS_TESTNAME_F,IUTEST_JAPANESE_NAME_F の引数の順番を変更</li>
       <li>値のパラメータ化テストのテスト名指定方法を変更</li>
       <li>値のパラメータ化テストのテスト名指定方法の Google Test 互換対応</li>
       <li>IUTEST_TYPED_TEST_APPEND_TYPENAME を IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME に変更</li>

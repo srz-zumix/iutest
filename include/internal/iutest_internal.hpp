@@ -50,10 +50,10 @@
 
 #if defined(_MSC_VER)
 #  define IUTEST_ALIAS_TESTNAME_(name_)			name_
-#  define IUTEST_ALIAS_TESTNAME_F_(var_, name_)	UNPAREN_(dummy, var_, name_)
+#  define IUTEST_ALIAS_TESTNAME_F_(name_, var_)	UNPAREN_(dummy, var_, name_)
 #else
 #  define IUTEST_ALIAS_TESTNAME_(name_)			UNPAREN_(dummy, IUTEST_PP_CAT(iutest_japanese_var, __LINE__), name_)
-#  define IUTEST_ALIAS_TESTNAME_F_(var_, name_)	UNPAREN_(dummy, var_, name_)
+#  define IUTEST_ALIAS_TESTNAME_F_(name_, var_)	UNPAREN_(dummy, var_, name_)
 #endif
 
 #else
@@ -92,13 +92,31 @@
 #endif
 #endif
 
-#define IUTEST_TEST_F_(testfixture_, testname_)									\
-	IUTEST_TEST_(testfixture_, testname_, IIUT_TO_VARNAME_(testfixture_)		\
+#define IIUT_TEST_F_(macro, testfixture_, testname_)							\
+	macro(testfixture_, testname_, IIUT_TO_VARNAME_(testfixture_)				\
 		, ::iutest::internal::GetTypeId< IIUT_TO_VARNAME_(testfixture_) >())
 
+#if IUTEST_HAS_TESTNAME_ALIAS
+
+#define IIUT_TEST_F_A_(macro, testfixture_, testname_)							\
+	IIUT_TEST_F_( macro, IUTEST_PP_IF( IUTEST_PP_IS_BEGIN_PARENS(testfixture_)	\
+		, IUTEST_ALIAS_TESTNAME_F_, IUTEST_PP_EMPTY() ) testfixture_, testname_)
+
+#define IUTEST_TEST_F_(testfixture_, testname_)									\
+	IIUT_TEST_F_A_(IUTEST_TEST_, testfixture_, testname_)
+
 #define IUTEST_TEST_F_IGNORE_(testfixture_, testname_)							\
-	IUTEST_TEST_IGNORE_(testfixture_, testname_, IIUT_TO_VARNAME_(testfixture_)	\
-		, ::iutest::internal::GetTypeId< IIUT_TO_VARNAME_(testfixture_) >())
+	IIUT_TEST_F_A_( IUTEST_TEST_IGNORE_, testfixture_, testname_)
+
+#else
+
+#define IUTEST_TEST_F_(testfixture_, testname_)									\
+	IIUT_TEST_F_(IUTEST_TEST_, testfixture_, testname_)
+
+#define IUTEST_TEST_F_IGNORE_(testfixture_, testname_)							\
+	IIUT_TEST_F_( IUTEST_TEST_IGNORE_, testfixture_, testname_)
+
+#endif
 
 /**
  * @}
