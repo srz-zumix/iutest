@@ -70,7 +70,7 @@
  * @param	generator_	= Range, Bool, Values, ValuesIn, Combine, Pairwise ...
 */
 #define IUTEST_INSTANTIATE_TEST_CASE_AP(prefix_, testcase_, generator_)	\
-	IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, IUTEST_ALIAS_TESTNAME_F(iuTestWithAny, testcase_), generator_)
+	IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, IUTEST_ALIAS_TESTNAME_F(testcase_, iuTestWithAny), generator_)
 
 /**
  * @ingroup	VALUE_PARAMETERIZED_TEST
@@ -83,7 +83,7 @@
  *  IUTEST_INSTANTIATE_TEST_CASE_AP(InstantiateName, TestCaseName, ParamGenerator);\n
 */
 #define IUTEST_AP(testcase_, testname_)	\
-	IIUT_TEST_P_(IUTEST_ALIAS_TESTNAME_F(iuTestWithAny, testcase_), testname_)
+	IIUT_TEST_P_(IUTEST_ALIAS_TESTNAME_F(testcase_, iuTestWithAny), testname_)
 
 
 #endif

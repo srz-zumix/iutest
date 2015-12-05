@@ -44,6 +44,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(My1, WithAnyParamTest, ::iutest::Values(0));
 
 IUTEST_AP(AnyParamTest, Test)
 {
+	IUTEST_EXPECT_STREQ("My1/AnyParamTest", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
 	const int value = GetParam<int>();
 	IUTEST_ASSERT_EQ(0, value);
 }
@@ -56,6 +57,7 @@ IUTEST_INSTANTIATE_TEST_CASE_AP(My1, AnyParamTest, ::iutest::Values(0));
 
 IUTEST_P(NoFixtureAnyParamTest, Test)
 {
+	IUTEST_EXPECT_STREQ("My1/NoFixtureAnyParamTest", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
 	const int value = GetParam<int>();
 	IUTEST_ASSERT_EQ(0, value);
 }
