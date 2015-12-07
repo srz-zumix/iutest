@@ -56,7 +56,7 @@
  *  IUTEST_P(TestCaseName, TestName) {}\n
  *  IUTEST_INSTANTIATE_TEST_CASE_P(InstantiateName, TestCaseName, ParamGenerator);\n
 */
-#define IUTEST_P(testfixture_, testname_)		IIUT_TEST_P_(testfixture_, testname_)
+#define IUTEST_P(testfixture_, testname_)		IUTEST_TEST_P_(testfixture_, testname_)
 
 
 #if IUTEST_HAS_ANY_PARAM_TEST
@@ -83,7 +83,7 @@
  *  IUTEST_INSTANTIATE_TEST_CASE_AP(InstantiateName, TestCaseName, ParamGenerator);\n
 */
 #define IUTEST_AP(testcase_, testname_)	\
-	IIUT_TEST_P_(IUTEST_ALIAS_TESTNAME_F(testcase_, iuTestWithAny), testname_)
+	IUTEST_TEST_P_(IUTEST_ALIAS_TESTNAME_F(testcase_, iuTestWithAny), testname_)
 
 
 #endif
@@ -128,25 +128,40 @@
 */
 #if IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR
 #  define IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_, ...)		\
-	IIUT_INSTANTIATE_TEST_CASE_P_I(prefix_, testcase_, generator_					\
-		, ::iutest::detail::ParamTestCaseInfo< IIUT_TEST_P_BASE_FIXTURE(testcase_) >::GetParamNameGen(__VA_ARGS__))
+	IIUT_INSTANTIATE_TEST_CASE_P_I(prefix_, testcase_, generator_, GetParamNameGen(__VA_ARGS__))
 #else
 #  define IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testcase_, generator_)				\
-	IIUT_INSTANTIATE_TEST_CASE_P_I(prefix_, testcase_, generator_					\
-		, ::iutest::detail::ParamTestCaseInfo< IIUT_TEST_P_BASE_FIXTURE(testcase_) >::GetParamNameGen())
+	IIUT_INSTANTIATE_TEST_CASE_P_I(prefix_, testcase_, generator_, GetParamNameGen())
 #endif
 
+#if IUTEST_HAS_TESTNAME_ALIAS
+
 #define IIUT_INSTANTIATE_TEST_CASE_P_I(prefix_, testcase_, generator_, paramname_generator_)		\
+	IIUT_INSTANTIATE_TEST_CASE_P_II(prefix_, IUTEST_PP_IF( IUTEST_PP_IS_BEGIN_PARENS(testcase_)		\
+		, IUTEST_ALIAS_TESTNAME_F_, IUTEST_PP_EMPTY() ) testcase_, generator_, paramname_generator_)
+
+#else
+
+#define IIUT_INSTANTIATE_TEST_CASE_P_I(prefix_, testcase_, generator_, paramname_generator_)		\
+	IIUT_INSTANTIATE_TEST_CASE_P_II(prefix_, testcase_, generator_, paramname_generator_)
+
+#endif
+
+#define IIUT_INSTANTIATE_TEST_CASE_P_II(prefix_, testcase_, generator_, paramname_generator_)		\
+	IIUT_INSTANTIATE_TEST_CASE_P_III(prefix_, testcase_, IIUT_TEST_P_BASE_FIXTURE(testcase_)		\
+		, generator_, paramname_generator_)
+
+
+#define IIUT_INSTANTIATE_TEST_CASE_P_III(prefix_, testcase_, basefixture_, generator_, paramname_generator_)	\
 	IIUT_TEST_P_FIXTURE_DECL_(testcase_)															\
-	static ::iutest::detail::iuIParamGenerator< IIUT_TEST_P_BASE_FIXTURE(testcase_)::ParamType >*	\
+	static ::iutest::detail::iuIParamGenerator< basefixture_::ParamType >*							\
 		IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)(void) { return generator_; }			\
 	static ::std::string IIUT_TEST_P_PARAMGENERATOR_NAME_(prefix_, testcase_)(						\
-		const ::iutest::TestParamInfo< IIUT_TEST_P_BASE_FIXTURE(testcase_)::ParamType >& info) {	\
-			return paramname_generator_(info); }													\
+		const ::iutest::TestParamInfo< basefixture_::ParamType >& info) { return					\
+			 ::iutest::detail::ParamTestCaseInfo< basefixture_ >::paramname_generator_(info); }		\
 	int IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)(void) {							\
-		::iutest::detail::ParamTestCaseInfo< IIUT_TEST_P_BASE_FIXTURE(testcase_) >* p =				\
-			IIUT_GETTESTCASEPATTERNHOLDER( IIUT_TEST_P_BASE_FIXTURE(testcase_)						\
-				, IIUT_TO_NAME_STR_(testcase_), IUTEST_GET_PACKAGENAME_());							\
+		::iutest::detail::ParamTestCaseInfo< basefixture_ >* p = IIUT_GETTESTCASEPATTERNHOLDER(		\
+				basefixture_, IIUT_TO_NAME_STR_(testcase_), IUTEST_GET_PACKAGENAME_());				\
 		return p->AddTestCaseInstantiation(#prefix_													\
 					, IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)							\
 					, IIUT_TEST_P_PARAMGENERATOR_NAME_(prefix_, testcase_) );						\
@@ -155,43 +170,65 @@
 /**
  * @brief	パラメータテストクラス定義
 */
-#define IIUT_TEST_P_(testcase_, testname_)													\
+#define IIUT_TEST_P_I_(classname_, testcase_, testcasename_, testname_)						\
 	IIUT_TEST_P_FIXTURE_DECL_(testcase_)													\
-	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_)										\
-			: public IIUT_TEST_P_BASE_FIXTURE(testcase_) {									\
-		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
+	class classname_ : public testcase_ {													\
+		public: classname_(void) {}															\
 		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE;								\
 		private: static int AddRegister(void) {												\
-			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_	\
-				, testname_) > testinfo(IIUT_TO_NAME_STR_(testname_));						\
-			IIUT_GETTESTCASEPATTERNHOLDER(IIUT_TEST_P_BASE_FIXTURE(testcase_), IIUT_TO_NAME_STR_(testcase_)	\
+			static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_);	\
+			IIUT_GETTESTCASEPATTERNHOLDER(testcase_, testcasename_							\
 					, IUTEST_GET_PACKAGENAME_())->AddTestPattern(&testinfo); return 0;		\
 		}																					\
 		static int dummy_;																	\
-		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));	\
+		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(classname_);										\
 	};																						\
-	int IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::dummy_ IUTEST_ATTRIBUTE_UNUSED_		\
-		= IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::AddRegister();						\
-	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body(void)
+	int classname_::dummy_ IUTEST_ATTRIBUTE_UNUSED_	 = classname_::AddRegister();			\
+	void classname_::Body(void)
 
-#define IIUT_TEST_P_IGNORE_(testcase_, testname_)											\
-	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_)										\
-			: public IIUT_TEST_P_BASE_FIXTURE(testcase_) {									\
-		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
+#define IIUT_TEST_P_I_IGNORE_(classname_, testcase_, testcasename_, testname_)				\
+	class classname_ : public testcase_ {													\
+		public: classname_(void) {}															\
 		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }		\
 		template<typename T>void Body(void);												\
 		private: static int AddRegister(void) {												\
-			static ::iutest::detail::ParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_	\
-				, testname_) > testinfo(IIUT_TO_NAME_STR_(testname_));						\
-			IIUT_GETTESTCASEPATTERNHOLDER(IIUT_TEST_P_BASE_FIXTURE(testcase_), IIUT_TO_NAME_STR_(testcase_)	\
+			static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_);	\
+			IIUT_GETTESTCASEPATTERNHOLDER(testcase_, testcasename_							\
 				, IUTEST_GET_PACKAGENAME_())->AddTestPattern(&testinfo); return 0;			\
 		}																					\
 		static int dummy_;																	\
-		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));	\
+		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(classname_);										\
 	};																						\
-	int IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::dummy_ IUTEST_ATTRIBUTE_UNUSED_		\
-		= IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::AddRegister();						\
-	template<typename T>void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body(void)
+	int classname_::dummy_ IUTEST_ATTRIBUTE_UNUSED_ = classname_::AddRegister();			\
+	template<typename T>void classname_::Body(void)
+
+#define IIUT_TEST_P_(macro, testcase_, testname_)		\
+	macro(IUTEST_TEST_CLASS_NAME_(testcase_, testname_)	\
+		, IIUT_TEST_P_BASE_FIXTURE(testcase_)			\
+		, IIUT_TO_NAME_STR_(testcase_), IIUT_TO_NAME_STR_(testname_))
+
+#if IUTEST_HAS_TESTNAME_ALIAS
+
+#define IIUT_TEST_P_A_(macro, testcase_, testname_)							\
+	IIUT_TEST_P_( macro, IUTEST_PP_IF( IUTEST_PP_IS_BEGIN_PARENS(testcase_)	\
+		, IUTEST_ALIAS_TESTNAME_F_, IUTEST_PP_EMPTY() ) testcase_, testname_)
+
+#define IUTEST_TEST_P_(testcase_, testname_)		\
+	IIUT_TEST_P_A_(IIUT_TEST_P_I_, testcase_, testname_)
+
+#define IUTEST_TEST_P_IGNORE_(testcase_, testname_)	\
+	IIUT_TEST_P_A_(IIUT_TEST_P_I_IGNORE_, testcase_, testname_)
+
+
+#else
+
+#define IUTEST_TEST_P_(testcase_, testname_)		\
+	IIUT_TEST_P_(IIUT_TEST_P_I_, testcase_, testname_)
+
+#define IUTEST_TEST_P_IGNORE_(testcase_, testname_)	\
+	IIUT_TEST_P_(IIUT_TEST_P_I_IGNORE_, testcase_, testname_)
+
+#endif
 
 #define IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)		IIUT_TEST_P_EVALGENERATOR_NAME_I(prefix_, IIUT_TO_VARNAME_(testcase_))
 #define IIUT_TEST_P_EVALGENERATOR_NAME_I(prefix_, testcase_)	IIUT_TEST_P_EVALGENERATOR_NAME_I_(prefix_, testcase_)

@@ -17,6 +17,7 @@
 // include
 #include "main.cpp"
 #include "concat_tests.cpp"
+#include "fixture_alias_tests.cpp"
 #include "ignore_tests.cpp"
 #include "package_tests1.cpp"
 #include "package_tests2.cpp"

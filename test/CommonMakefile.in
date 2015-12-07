@@ -23,7 +23,6 @@ ALLTESTS_SRCS= main.cpp \
                combine_tests.cpp \
                compatibility_tests.cpp \
                filepath_tests.cpp \
-               fixture_alias_tests.cpp \
                fixture_tests.cpp \
                floatingpoint_tests.cpp \
                no_failure_tests.cpp \
