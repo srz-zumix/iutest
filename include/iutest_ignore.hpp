@@ -81,7 +81,7 @@
  * @note	ignore 版ではテストコードのコンパイルが通らなくても問題ない
 */
 #define IUTEST_TYPED_TEST_IGNORE(testcase_, testname_)	\
-	IIUT_TYPED_TEST_IGNORE_(testcase_, testname_)
+	IUTEST_TYPED_TEST_IGNORE_(testcase_, testname_)
 
 #endif
 

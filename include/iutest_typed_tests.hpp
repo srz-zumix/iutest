@@ -51,7 +51,7 @@
  * @param	testcase_	= テストケース名
  * @param	testname_	= テスト名
 */
-#define IUTEST_TYPED_TEST(testcase_, testname_)		IIUT_TYPED_TEST_(testcase_, testname_)
+#define IUTEST_TYPED_TEST(testcase_, testname_)		IUTEST_TYPED_TEST_(testcase_, testname_)
 
 /**
  * @ingroup	TYPED_TEST
@@ -60,7 +60,7 @@
  * @param	testcase_	= テストケース名
  * @param	testname_	= テスト名
 */
-#define IUTEST_T(testcase_, testname_)				IIUT_TYPED_TEST_(testcase_, testname_)
+#define IUTEST_T(testcase_, testname_)				IUTEST_TYPED_TEST_(testcase_, testname_)
 
 
 /**
@@ -79,34 +79,53 @@
 	typedef ::iutest::detail::TypeList< types_ >::type	IUTEST_TYPED_TEST_PARAMS_(testcase_)
 #endif
 
-#define IIUT_TYPED_TEST_(testcase_, testname_)										\
-	template<typename iutest_TypeParam>												\
-	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_)								\
-	: public IIUT_TO_VARNAME_(testcase_)<iutest_TypeParam> {						\
-		typedef IIUT_TO_VARNAME_(testcase_)<iutest_TypeParam> TestFixture;			\
+#define IIUT_TYPED_TEST_I(classname_, testcase_, testcasename_, testname_)			\
+	template<typename iutest_TypeParam>	class classname_ : public testcase_<iutest_TypeParam> {	\
+		typedef testcase_<iutest_TypeParam> TestFixture;							\
 		typedef iutest_TypeParam TypeParam;											\
 		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE;						\
 	};																				\
-	::iutest::detail::TypeParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_)			\
-		, IUTEST_TYPED_TEST_PARAMS_(testcase_) > IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(	\
-		IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_));			\
+	::iutest::detail::TypeParamTestInstance< classname_, IUTEST_TYPED_TEST_PARAMS_(testcase_) >	\
+		IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(							\
+		IUTEST_CONCAT_PACKAGE_(testcasename_), IIUT_TO_NAME_STR_(testname_));		\
 	template<typename iutest_TypeParam>												\
-	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_TypeParam>::Body(void)
+	void classname_<iutest_TypeParam>::Body(void)
 
-#define IIUT_TYPED_TEST_IGNORE_(testcase_, testname_)								\
-	template<typename iutest_TypeParam>												\
-	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_)								\
-	: public IIUT_TO_VARNAME_(testcase_)<iutest_TypeParam> {						\
-		typedef IIUT_TO_VARNAME_(testcase_)<iutest_TypeParam> TestFixture;			\
+#define IIUT_TYPED_TEST_I_IGNORE(classname_, testcase_, testcasename_, testname_)	\
+	template<typename iutest_TypeParam> class classname_ : public testcase_<iutest_TypeParam> {			\
+		typedef testcase_<iutest_TypeParam> TestFixture;							\
 		typedef iutest_TypeParam TypeParam;											\
 		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }	\
 		template<typename T>void Body(void);										\
 	};																				\
-	::iutest::detail::TypeParamTestInstance< IUTEST_TEST_CLASS_NAME_(testcase_, testname_)			\
-		, IUTEST_TYPED_TEST_PARAMS_(testcase_) > IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(	\
-		IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_));			\
+	::iutest::detail::TypeParamTestInstance< classname_, IUTEST_TYPED_TEST_PARAMS_(testcase_) >			\
+		IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(							\
+		IUTEST_CONCAT_PACKAGE_(testcasename_), IIUT_TO_NAME_STR_(testname_));		\
 	template<typename iutest_TypeParam>	template<typename T>						\
-	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_TypeParam>::Body(void)
+	void classname_<iutest_TypeParam>::Body(void)
+
+#define IIUT_TYPED_TEST_(macro, testcase_, testname_)					\
+	macro(IUTEST_TEST_CLASS_NAME_(testcase_, testname_)					\
+		, IIUT_TO_VARNAME_(testcase_), IIUT_TO_NAME_(testcase_)			\
+		, testname_)
+
+#if IUTEST_HAS_TESTNAME_ALIAS
+
+#define IUTEST_TYPED_TEST_(testcase_, testname_)		\
+	IIUT_TYPED_TEST_(IIUT_TYPED_TEST_I, testcase_, testname_)
+
+#define IUTEST_TYPED_TEST_IGNORE_(testcase_, testname_)	\
+	IIUT_TYPED_TEST_(IIUT_TYPED_TEST_I_IGNORE, testcase_, testname_)
+
+#else
+
+#define IUTEST_TYPED_TEST_(testcase_, testname_)		\
+	IIUT_TYPED_TEST_(IIUT_TYPED_TEST_I, testcase_, testname_)
+
+#define IUTEST_TYPED_TEST_IGNORE_(testcase_, testname_)	\
+	IIUT_TYPED_TEST_(IIUT_TYPED_TEST_I_IGNORE, testcase_, testname_)
+
+#endif
 
 /**
  * @}
