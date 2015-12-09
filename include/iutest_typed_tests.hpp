@@ -67,16 +67,24 @@
  * @private
  * @{
 */
-#define IUTEST_TYPED_TEST_PARAMS_(testcase_)		IIUT_TYPED_TEST_PARAMS_I(IIUT_TO_VARNAME_(testcase_))
-#define IIUT_TYPED_TEST_PARAMS_I(testcase_)			IIUT_TYPED_TEST_PARAMS_I_(testcase_)
-#define IIUT_TYPED_TEST_PARAMS_I_(testcase_)		iutest_types_params_##testcase_
+#if IUTEST_HAS_TESTNAME_ALIAS
+#define IIUT_TYPED_TEST_PARAMS_(testcase_)											\
+	IIUT_TYPED_TEST_PARAMS_I_( IUTEST_PP_IF( IUTEST_PP_IS_BEGIN_PARENS(testcase_)	\
+		, IUTEST_ALIAS_TESTNAME_F_, IUTEST_PP_EMPTY() ) testcase_)
+#else
+#define IIUT_TYPED_TEST_PARAMS_(testcase_)			IIUT_TYPED_TEST_PARAMS_I_(testcase_)
+#endif
+
+#define IIUT_TYPED_TEST_PARAMS_I_(testcase_)		IIUT_TYPED_TEST_PARAMS_II_(IIUT_TO_VARNAME_(testcase_))
+#define IIUT_TYPED_TEST_PARAMS_II_(testcase_)		IIUT_TYPED_TEST_PARAMS_III_(testcase_)
+#define IIUT_TYPED_TEST_PARAMS_III_(testcase_)		iutest_types_params_##testcase_
 
 #if !defined(IUTEST_NO_VARIADIC_MACROS)
 #  define IIUT_TYPED_TEST_CASE_(testcase_, ...)		\
-	typedef ::iutest::detail::TypeList< __VA_ARGS__ >::type	IUTEST_TYPED_TEST_PARAMS_(testcase_)
+	typedef ::iutest::detail::TypeList< __VA_ARGS__ >::type	IIUT_TYPED_TEST_PARAMS_(testcase_)
 #else
 #  define IIUT_TYPED_TEST_CASE_(testcase_, types_)		\
-	typedef ::iutest::detail::TypeList< types_ >::type	IUTEST_TYPED_TEST_PARAMS_(testcase_)
+	typedef ::iutest::detail::TypeList< types_ >::type	IIUT_TYPED_TEST_PARAMS_(testcase_)
 #endif
 
 #define IIUT_TYPED_TEST_I(classname_, testcase_, testcasename_, testname_)			\
@@ -85,7 +93,7 @@
 		typedef iutest_TypeParam TypeParam;											\
 		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE;						\
 	};																				\
-	::iutest::detail::TypeParamTestInstance< classname_, IUTEST_TYPED_TEST_PARAMS_(testcase_) >	\
+	::iutest::detail::TypeParamTestInstance< classname_, IIUT_TYPED_TEST_PARAMS_(testcase_) >	\
 		IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(							\
 		IUTEST_CONCAT_PACKAGE_(testcasename_), IIUT_TO_NAME_STR_(testname_));		\
 	template<typename iutest_TypeParam>												\
@@ -98,7 +106,7 @@
 		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }	\
 		template<typename T>void Body(void);										\
 	};																				\
-	::iutest::detail::TypeParamTestInstance< classname_, IUTEST_TYPED_TEST_PARAMS_(testcase_) >			\
+	::iutest::detail::TypeParamTestInstance< classname_, IIUT_TYPED_TEST_PARAMS_(testcase_) >			\
 		IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(							\
 		IUTEST_CONCAT_PACKAGE_(testcasename_), IIUT_TO_NAME_STR_(testname_));		\
 	template<typename iutest_TypeParam>	template<typename T>						\
@@ -111,11 +119,15 @@
 
 #if IUTEST_HAS_TESTNAME_ALIAS
 
+#define IIUT_TYPED_TEST_A_(macro, testcase_, testname_)							\
+	IIUT_TYPED_TEST_( macro, IUTEST_PP_IF( IUTEST_PP_IS_BEGIN_PARENS(testcase_)	\
+		, IUTEST_ALIAS_TESTNAME_F_, IUTEST_PP_EMPTY() ) testcase_, testname_)
+
 #define IUTEST_TYPED_TEST_(testcase_, testname_)		\
-	IIUT_TYPED_TEST_(IIUT_TYPED_TEST_I, testcase_, testname_)
+	IIUT_TYPED_TEST_A_(IIUT_TYPED_TEST_I, testcase_, testname_)
 
 #define IUTEST_TYPED_TEST_IGNORE_(testcase_, testname_)	\
-	IIUT_TYPED_TEST_(IIUT_TYPED_TEST_I_IGNORE, testcase_, testname_)
+	IIUT_TYPED_TEST_A_(IIUT_TYPED_TEST_I_IGNORE, testcase_, testname_)
 
 #else
 
