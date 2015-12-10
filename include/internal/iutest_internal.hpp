@@ -96,7 +96,7 @@
 	macro(testfixture_, testname_, IIUT_TO_VARNAME_(testfixture_)				\
 		, ::iutest::internal::GetTypeId< IIUT_TO_VARNAME_(testfixture_) >())
 
-#if IUTEST_HAS_TESTNAME_ALIAS
+#if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
 
 #define IIUT_TEST_F_A_(macro, testfixture_, testname_)							\
 	IIUT_TEST_F_( macro, IUTEST_PP_IF( IUTEST_PP_IS_BEGIN_PARENS(testfixture_)	\

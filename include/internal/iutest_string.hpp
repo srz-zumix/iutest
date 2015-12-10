@@ -212,7 +212,7 @@ inline ::std::string ToHexString(T value)
 {
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 	const size_t kN = sizeof(T)*2;
-	char buf[kN+1];
+	char buf[kN + 1] = {0};
 	for( size_t i=0; i < kN; ++i )
 	{
 		buf[i] = ToHex(static_cast<unsigned int>((value>>((kN-i-1)*4))));

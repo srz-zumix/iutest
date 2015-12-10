@@ -72,7 +72,7 @@ IUTEST_IPP_INLINE void TestInfo::RunImpl(void)
 				throw;
 			}
 		}
-		catch (TestPartResult::Type& eType)
+		catch (const TestPartResult::Type& eType)
 		{
 			elapsedmsec = sw.stop();
 			if( TestPartResult::type_is_failed(eType) && TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )

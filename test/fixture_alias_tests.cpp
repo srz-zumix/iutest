@@ -20,7 +20,7 @@
 namespace fixture_alias_tests
 {
 
-#if IUTEST_HAS_TESTNAME_ALIAS
+#if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
 
 class FixtureTest : public ::iutest::Test
 {

@@ -67,7 +67,7 @@
  * @private
  * @{
 */
-#if IUTEST_HAS_TESTNAME_ALIAS
+#if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
 #define IIUT_TYPED_TEST_PARAMS_(testcase_)											\
 	IIUT_TYPED_TEST_PARAMS_I_( IUTEST_PP_IF( IUTEST_PP_IS_BEGIN_PARENS(testcase_)	\
 		, IUTEST_ALIAS_TESTNAME_F_, IUTEST_PP_EMPTY() ) testcase_)
@@ -117,7 +117,7 @@
 		, IIUT_TO_VARNAME_(testcase_), IIUT_TO_NAME_(testcase_)			\
 		, testname_)
 
-#if IUTEST_HAS_TESTNAME_ALIAS
+#if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
 
 #define IIUT_TYPED_TEST_A_(macro, testcase_, testname_)							\
 	IIUT_TYPED_TEST_( macro, IUTEST_PP_IF( IUTEST_PP_IS_BEGIN_PARENS(testcase_)	\

@@ -134,7 +134,7 @@
 	IIUT_INSTANTIATE_TEST_CASE_P_I(prefix_, testcase_, generator_, GetParamNameGen())
 #endif
 
-#if IUTEST_HAS_TESTNAME_ALIAS
+#if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
 
 #define IIUT_INSTANTIATE_TEST_CASE_P_I(prefix_, testcase_, generator_, paramname_generator_)		\
 	IIUT_INSTANTIATE_TEST_CASE_P_II(prefix_, IUTEST_PP_IF( IUTEST_PP_IS_BEGIN_PARENS(testcase_)		\
@@ -207,7 +207,7 @@
 		, IIUT_TEST_P_BASE_FIXTURE(testcase_)			\
 		, IIUT_TO_NAME_STR_(testcase_), IIUT_TO_NAME_STR_(testname_))
 
-#if IUTEST_HAS_TESTNAME_ALIAS
+#if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
 
 #define IIUT_TEST_P_A_(macro, testcase_, testname_)							\
 	IIUT_TEST_P_( macro, IUTEST_PP_IF( IUTEST_PP_IS_BEGIN_PARENS(testcase_)	\

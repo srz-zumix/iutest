@@ -132,7 +132,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 	iu_stringstream ss;
 	for(int i=0; i < num; ++i )
 	{
-		UInt32 code_point;
+		UInt32 code_point = 0;
 		if( str[i] == L'\0' )
 		{
 			break;

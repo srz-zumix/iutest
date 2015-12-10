@@ -423,6 +423,11 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE)
+//! テスト名の別名指定の簡易記法が可能かどうか
+#  define IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE	IUTEST_HAS_TESTNAME_ALIAS
+#endif
+
 #if !defined(IUTEST_HAS_AUTOFIXTURE_PARAM_TEST)
 //! fixture の自動定義に対応したパラメータ化テストが使用可能かどうか
 #  if IUTEST_HAS_IF_EXISTS || !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)

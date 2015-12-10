@@ -46,7 +46,7 @@ IUTEST_IPP_INLINE bool TestCase::Run(void)
 		{
 			result = RunImpl();
 		}
-		catch( TestPartResult::Type& eType )
+		catch( const TestPartResult::Type& eType )
 		{
 			CheckSetUpSkipped();
 
