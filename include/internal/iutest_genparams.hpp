@@ -328,7 +328,7 @@ A1 v1;	A2 v2;
 #if IUTEST_HAS_CONCAT
 #  define IIUT_DECL_VALUEARRAY_CONCAT_()				\
 	template<typename Other> iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const {	\
-		return iuConcatParamHolder<_Myt, Other>(*this, g);
+		return iuConcatParamHolder<_Myt, Other>(*this, g); }
 #else
 #  define IIUT_DECL_VALUEARRAY_CONCAT_()
 #endif
@@ -346,7 +346,6 @@ A1 v1;	A2 v2;
 			return new iuValuesInParamsGenerator<T>(val);							\
 		}																			\
 		IIUT_DECL_VALUEARRAY_CONCAT_()												\
-		}																			\
 	private: IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_VALUEARRAY_VARIABLE_, A, v)		\
 	}
 /**
@@ -724,7 +723,7 @@ private:
 #if IUTEST_HAS_CONCAT
 #define IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_CONCAT_()	\
 		template<typename Other> iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const {		\
-			return iuConcatParamHolder<_Myt, Other>(*this, g);
+			return iuConcatParamHolder<_Myt, Other>(*this, g); }
 #else
 #define IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_CONCAT_()
 #endif
@@ -742,7 +741,6 @@ private:
 				IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_STATICCAST_, T, m_g) );			\
 		}														\
 		IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_CONCAT_()			\
-		}														\
 	private: void operator = (const _Myt&) {}					\
 		IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_VARIABLE_, const Generator, m_g)		\
 	}
@@ -1304,7 +1302,7 @@ private:
 #if IUTEST_HAS_CONCAT
 #  define IIUT_DECL_PAIRWISE_HOLDER_CONCAT_()	\
 		template<typename Other> iuConcatParamHolder<_Myt, Other> operator + (const Other& g) const { \
-			return iuConcatParamHolder<_Myt, Other>(*this, g);
+			return iuConcatParamHolder<_Myt, Other>(*this, g); }
 #else
 #  define IIUT_DECL_PAIRWISE_HOLDER_CONCAT_()
 #endif
@@ -1322,7 +1320,6 @@ private:
 				IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_PAIRWISE_HOLDER_STATICCAST_, T, m_g) );			\
 		}														\
 		IIUT_DECL_PAIRWISE_HOLDER_CONCAT_()						\
-		}														\
 	private: void operator = (const _Myt&) {}					\
 		IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_PAIRWISE_HOLDER_VARIABLE_, const Generator, m_g)		\
 	}
