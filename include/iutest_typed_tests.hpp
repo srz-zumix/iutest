@@ -288,7 +288,7 @@ class TypeParamTestInstance
 		typedef TypedTestCase<TypeParam>	_MyTestCase;
 	public:
 		// コンストラクタ
-		EachTest(const char* testcase, const char* name, int index)
+		EachTest(const char* testcase, const char* name, size_t index)
 			: m_mediator(AddTestCase(testcase, index))
 			, m_info(&m_mediator, name, &m_factory)
 			, m_next(testcase, name, index+1)
@@ -296,7 +296,7 @@ class TypeParamTestInstance
 		}
 
 	private:
-		static TestCase* AddTestCase(const char* testcase, int index)
+		static TestCase* AddTestCase(const char* testcase, size_t index)
 		{
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
 			return UnitTest::instance().AddTestCase<_MyTestCase>(
@@ -338,7 +338,7 @@ class TypeParamTestInstance
 	class EachTest<detail::TypeList0, DMY>
 	{
 	public:
-		EachTest(const char* /*testcase*/, const char* /*name*/, int /*index*/) {}
+		EachTest(const char* /*testcase*/, const char* /*name*/, size_t /*index*/) {}
 		void AddTest(void) {}
 	};
 
@@ -495,7 +495,7 @@ public:
 	 * @brief	テストの登録
 	*/
 	static bool Register(const char* prefix, const char* testcase_name
-		, const ::std::string& package_name, const char* names, int index=0)
+		, const ::std::string& package_name, const char* names, size_t index=0)
 	{
 		typedef typename Types::Head	TypeParam;
 		typedef typename Tests::Head	Head;
@@ -538,7 +538,7 @@ class TypeParameterizedTestCase<Fixture, Tests, detail::TypeList0>
 {
 public:
 	static bool Register(const char* /*prefix*/, const char* /*testcase_name*/
-		, const ::std::string& /*package_name*/, const char* /*names*/, int index=0)
+		, const ::std::string& /*package_name*/, const char* /*names*/, size_t index=0)
 	{
 		IUTEST_UNUSED_VAR(index);
 		return true;

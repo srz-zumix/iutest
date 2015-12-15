@@ -30,7 +30,7 @@ template<typename T>class TestWithParam;
 namespace detail
 {
 
-::std::string MakeIndexName(int index);
+::std::string MakeIndexName(size_t index);
 
 }
 

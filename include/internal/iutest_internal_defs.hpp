@@ -204,14 +204,14 @@ inline explicit_type_t<T>* explicit_type(void) { return NULL; }
 template<typename T>
 class TypeUniqueCounter
 {
-	static int value;
+	static size_t value;
 public:
-	static int count(void) { return value++; }
+	static size_t count(void) { return value++; }
 };
-template<typename T>int TypeUniqueCounter<T>::value = 0;
+template<typename T>size_t TypeUniqueCounter<T>::value = 0;
 
 template<typename T>
-inline int GetTypeUniqueCounter(void) { return TypeUniqueCounter<T>::count(); }
+inline size_t GetTypeUniqueCounter(void) { return TypeUniqueCounter<T>::count(); }
 
 /**
  * @internal
