@@ -19,7 +19,7 @@
 
 #if !defined(IUTEST_USE_GTEST)
 
-#if IUTEST_HAS_STREAMCAPTURE
+#if IUTEST_HAS_STREAM_CAPTURE
 
 ::iutest::detail::IUStreamCapture<> stderr_capture(stderr);
 
@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
 {
 	IUTEST_INIT(&argc, argv);
 #if !defined(IUTEST_USE_GTEST)
-#if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_STREAMCAPTURE && IUTEST_CHECK_STRICT
+#if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_STREAM_CAPTURE && IUTEST_CHECK_STRICT
 	IUTEST_EXPECT_STRIN("My1/RenameParamTest.Test is already exist.", stderr_capture.GetStreamString());
 #endif
 #endif

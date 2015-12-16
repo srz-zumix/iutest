@@ -17,7 +17,7 @@
 // include
 #include "iutest.hpp"
 
-#if IUTEST_HAS_STREAMCAPTURE
+#if IUTEST_HAS_STREAM_CAPTURE
 
 ::iutest::detail::IUStreamCapture<> stderr_capture(stderr);
 
@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
 		const int ret = IUTEST_RUN_ALL_TESTS();
 		
 		if( ret != 0 ) return 1;
-#if IUTEST_HAS_STREAMCAPTURE && IUTEST_HAS_ASSERTION_RETURN
+#if IUTEST_HAS_STREAM_CAPTURE && IUTEST_HAS_ASSERTION_RETURN
 		IUTEST_ASSERT_STRIN("Unable to open flag file \"invalid_FLAGFILE_TEST.txt\".", stderr_capture.GetStreamString())
 			<< ::iutest::AssertionReturn<int>(1);
 #endif

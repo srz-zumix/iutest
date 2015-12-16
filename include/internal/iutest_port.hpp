@@ -183,7 +183,7 @@ private:
 		IUTEST_LOG_(FATAL) << "Condition " #condition " failed. "
 
 
-#if IUTEST_HAS_STREAMCAPTURE
+#if IUTEST_HAS_STREAM_CAPTURE
 
 /**
  * @brief	stream capture

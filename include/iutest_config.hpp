@@ -293,6 +293,11 @@
 #  endif
 #endif
 
+#if !IUTEST_HAS_EXCEPTIONS && IUTEST_USE_THROW_ON_ASSERTION_FAILURE
+#  undef IUTEST_USE_THROW_ON_ASSERTION_FAILURE
+#  define IUTEST_USE_THROW_ON_ASSERTION_FAILURE			0
+#endif
+
 #if !defined(IUTEST_HAS_LAMBDA_STATEMENTS)
 //! lambda を使った statements 展開が可能かどうか
 #  if IUTEST_HAS_LAMBDA && !defined(IUTEST_NO_LAMBDA_SCOPE_RESOLUTION)
@@ -591,8 +596,8 @@
 /**
  * @brief	stdout/stderr の StreamCapture が使用可能かどうか
 */
-#if !defined(IUTEST_HAS_STREAMCAPTURE)
-#  define IUTEST_HAS_STREAMCAPTURE	1
+#if !defined(IUTEST_HAS_STREAM_CAPTURE)
+#  define IUTEST_HAS_STREAM_CAPTURE	1
 #endif
 
 

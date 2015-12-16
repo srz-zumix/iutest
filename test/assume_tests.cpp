@@ -80,6 +80,8 @@ IUTEST(AssumeTest, Near)
 	IUTEST_ASSERT_NEAR(0.0,10.0, 1.0);
 }
 
+#if IUTEST_HAS_EXCEPTIONS
+
 IUTEST(AssumeTest, THROW)
 {
 	IUTEST_ASSUME_THROW((void)0, ::std::bad_exception);
@@ -124,10 +126,18 @@ IUTEST(AssumeTest, THROW_VALUE_STRCASEEQ)
 	IUTEST_ASSERT_THROW_VALUE_STRCASEEQ((void)0, const char*, "");
 }
 
-#if defined(IUTEST_OS_WINDOWS) && IUTEST_OS_WINDOWS
-static const int assume_test_count = 25 + 2;
+#endif
+
+#if IUTEST_HAS_EXCEPTIONS
+static const int assume_throw_test_count = 7;
 #else
-static const int assume_test_count = 25;
+static const int assume_throw_test_count = 0;
+#endif
+
+#if defined(IUTEST_OS_WINDOWS) && IUTEST_OS_WINDOWS
+static const int assume_test_count = assume_throw_test_count + 18 + 2;
+#else
+static const int assume_test_count = assume_throw_test_count + 18;
 #endif
 
 #ifdef UNICODE
