@@ -149,14 +149,39 @@ inline void StringReplace(::std::string& str, char a, const char* to)
 		++pos;
 	}
 }
-inline void StripTrailingSpace(::std::string& str)
+inline ::std::string StripLeadingSpace(const ::std::string& str)
 {
-	::std::string::iterator it = str.end();
-	while(it != str.begin() && IsSpace(*--it))
+	::std::string::const_iterator it = str.begin();
+	while( it != str.end() && IsSpace(*it) )
 	{
-		it = str.erase(it);
+		++it;
 	}
+	return ::std::string(it, str.end());
 }
+inline ::std::string StripTrailingSpace(const ::std::string& str)
+{
+	::std::string::const_iterator it = str.end()-1;
+	while(it != str.begin() && IsSpace(*it))
+	{
+		--it;
+	}
+	return ::std::string(str.begin(), it+1);
+}
+inline ::std::string StripSpace(const ::std::string& str)
+{
+	::std::string::const_iterator start = str.begin();
+	while( start != str.end() && IsSpace(*start) )
+	{
+		++start;
+	}
+	::std::string::const_iterator end = str.end()-1;
+	while( end != str.begin() && IsSpace(*end) )
+	{
+		--end;
+	}
+	return ::std::string(start, end+1);
+}
+
 inline void StringReplaceToLF(::std::string& str)
 {
 	::std::string::size_type pos = 0;

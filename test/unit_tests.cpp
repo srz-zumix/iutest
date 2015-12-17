@@ -97,6 +97,14 @@ IUTEST(UnitTest, has_equal_to_tuple)
 
 #endif
 
+IUTEST(UnitTest, StringStrip)
+{
+	::std::string str = "   a1 a2  ";
+	IUTEST_EXPECT_STREQ("a1 a2  " , ::iutest::detail::StripLeadingSpace(str));
+	IUTEST_EXPECT_STREQ("   a1 a2", ::iutest::detail::StripTrailingSpace(str));
+	IUTEST_EXPECT_STREQ("a1 a2"   , ::iutest::detail::StripSpace(str));
+}
+
 IUTEST(UnitTest, StringReplace)
 {
 	::std::string str = "a1a2a3a4b5";
