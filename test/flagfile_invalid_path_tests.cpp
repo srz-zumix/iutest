@@ -19,7 +19,7 @@
 
 #if IUTEST_HAS_STREAM_CAPTURE
 
-::iutest::detail::IUStreamCapture<256> stderr_capture(stderr);
+::iutest::detail::IUStreamCapture<> stderr_capture(stderr);
 
 #endif
 

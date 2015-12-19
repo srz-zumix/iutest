@@ -185,10 +185,16 @@ private:
 
 #if IUTEST_HAS_STREAM_CAPTURE
 
+#if !defined(BUFSIZ) || BUFSIZ < 1024
+#  define IUTEST_STREAM_CAPTURE_DEFAULT_SIZE	1024
+#else
+#  define IUTEST_STREAM_CAPTURE_DEFAULT_SIZE	BUFSIZ
+#endif
+
 /**
  * @brief	stream capture
- */
-template<int SIZE=BUFSIZ>
+*/
+template<int SIZE=IUTEST_STREAM_CAPTURE_DEFAULT_SIZE>
 class IUStreamCapture
 {
 public:
@@ -198,6 +204,7 @@ public:
 		: m_fp(fp)
 	{
 		m_buf[0] = '\0';
+		fflush(fp);
 		setvbuf(fp, m_buf, _IOFBF, SIZE);
 	}
 
