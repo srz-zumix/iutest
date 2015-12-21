@@ -185,22 +185,16 @@ private:
 
 #if IUTEST_HAS_STREAM_CAPTURE
 
-#if !defined(BUFSIZ) || BUFSIZ < 1024
-#  define IUTEST_STREAM_CAPTURE_DEFAULT_SIZE	1024
-#else
-#  define IUTEST_STREAM_CAPTURE_DEFAULT_SIZE	BUFSIZ
-#endif
-
 /**
- * @brief	stream capture
+ * @brief	stream buffer
 */
-template<int SIZE=IUTEST_STREAM_CAPTURE_DEFAULT_SIZE>
-class IUStreamCapture
+template<int SIZE= BUFSIZ>
+class IUStreamBuffer
 {
 public:
 	IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
-	explicit IUStreamCapture(FILE* fp)
+	explicit IUStreamBuffer(FILE* fp)
 		: m_fp(fp)
 	{
 		m_buf[0] = '\0';
@@ -208,8 +202,9 @@ public:
 		setvbuf(fp, m_buf, _IOFBF, SIZE);
 	}
 
-	~IUStreamCapture(void)
+	~IUStreamBuffer(void)
 	{
+		fflush(m_fp);
 		setbuf(m_fp, NULL);
 	}
 
