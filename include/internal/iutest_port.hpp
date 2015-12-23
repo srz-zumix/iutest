@@ -183,12 +183,12 @@ private:
 		IUTEST_LOG_(FATAL) << "Condition " #condition " failed. "
 
 
-#if IUTEST_HAS_STREAM_CAPTURE
+#if IUTEST_HAS_STREAM_BUFFER
 
 /**
  * @brief	stream buffer
 */
-template<int SIZE= BUFSIZ>
+template<int SIZE=BUFSIZ>
 class IUStreamBuffer
 {
 public:
