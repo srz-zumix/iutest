@@ -17,12 +17,6 @@
 // include
 #include "iutest.hpp"
 
-#if IUTEST_HAS_STREAM_CAPTURE
-
-::iutest::detail::IUStreamBuffer<> stderr_capture(stderr);
-
-#endif
-
 #if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_FOPEN
 #  define FILTER_FILE_TEST	1
 #else
@@ -47,19 +41,18 @@ int main(int argc, char* argv[])
 		targv.push_back(argv[i]);
 	}
 	targv.push_back("--iutest_filter=@invalid_filter_file_test.txt");
-	::iutest::InitIrisUnitTest(targv);
-
 	{
-		const int ret = IUTEST_RUN_ALL_TESTS();
-		
-		if( ret != 0 ) return 1;
-#if IUTEST_HAS_STREAM_CAPTURE && IUTEST_HAS_ASSERTION_RETURN
+#if IUTEST_HAS_STREAM_BUFFER
+		::iutest::detail::IUStreamBuffer<> stderr_capture(stderr);
+#endif
+		::iutest::InitIrisUnitTest(targv);
+#if IUTEST_HAS_STREAM_BUFFER && IUTEST_HAS_ASSERTION_RETURN
 		IUTEST_ASSERT_STRIN("Unable to open filter file \"invalid_filter_file_test.txt\".", stderr_capture.GetStreamString())
 			<< ::iutest::AssertionReturn<int>(1);
 #endif
 	}
 
-	printf("*** Successful ***\n");
+	return IUTEST_RUN_ALL_TESTS();
 #else
 	(void)argc;
 	(void)argv;

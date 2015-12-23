@@ -594,10 +594,10 @@
 #endif
 
 /**
- * @brief	stdout/stderr の StreamCapture が使用可能かどうか
+ * @brief	stdout/stderr の StreamBuffer が使用可能かどうか
 */
-#if !defined(IUTEST_HAS_STREAM_CAPTURE)
-#  define IUTEST_HAS_STREAM_CAPTURE	1
+#if !defined(IUTEST_HAS_STREAM_BUFFER)
+#  define IUTEST_HAS_STREAM_BUFFER	1
 #endif
 
 

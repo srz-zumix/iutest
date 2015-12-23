@@ -100,7 +100,7 @@ int main(int argc, char* argv[])
 		vargv.push_back("-v");
 		vargv.push_back("test2");
 		::iutest::InitIrisUnitTest(vargv);
-		IUTEST_EXPECT_EQ(2, vargv.size());
+		IUTEST_EXPECT_EQ(2u, vargv.size());
 		IUTEST_EXPECT_STREQ("test1", vargv[0]);
 		IUTEST_EXPECT_STREQ("test2", vargv[1]);
 		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
@@ -135,7 +135,7 @@ int main(int argc, char* argv[])
 		vargv.push_back("--iutest_filter");
 		vargv.push_back("--iutest_file_location=auto");
 		::iutest::InitIrisUnitTest(vargv);
-		IUTEST_EXPECT_EQ(0, vargv.size());
+		IUTEST_EXPECT_EQ(0u, vargv.size());
 		
 		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(break_on_failure) );
 		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(throw_on_failure) );
@@ -169,7 +169,7 @@ int main(int argc, char* argv[])
 		vargv.push_back("--verbose");
 		
 		::iutest::InitIrisUnitTest(vargv);
-		IUTEST_EXPECT_EQ(0, vargv.size());
+		IUTEST_EXPECT_EQ(0u, vargv.size());
 		
 		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(also_run_disabled_tests) );
 		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(break_on_failure) );
@@ -208,7 +208,7 @@ int main(int argc, char* argv[])
 		vargv.push_back("--gtest_filter=Flag*");
 		vargv.push_back("--iutest_default_package_name=");
 		::iutest::InitIrisUnitTest(vargv);
-		IUTEST_EXPECT_EQ(0, vargv.size());
+		IUTEST_EXPECT_EQ(0u, vargv.size());
 		
 		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(also_run_disabled_tests) );
 		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(break_on_failure) );
@@ -234,7 +234,7 @@ int main(int argc, char* argv[])
 		::std::vector< ::std::string > vargv;
 		vargv.push_back("--iutest_color=off");
 		::iutest::InitIrisUnitTest(vargv);
-		IUTEST_EXPECT_EQ(0, vargv.size());
+		IUTEST_EXPECT_EQ(0u, vargv.size());
 		IUTEST_EXPECT_STREQ( "no", ::iutest::IUTEST_FLAG(color).c_str() );
 		
 		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
@@ -243,7 +243,7 @@ int main(int argc, char* argv[])
 		::std::vector< ::std::string > vargv;
 		vargv.push_back("--iutest_color=1");
 		::iutest::InitIrisUnitTest(vargv);
-		IUTEST_EXPECT_EQ(0, vargv.size());
+		IUTEST_EXPECT_EQ(0u, vargv.size());
 		IUTEST_EXPECT_STREQ( "yes", ::iutest::IUTEST_FLAG(color).c_str() );
 		
 		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
@@ -252,7 +252,7 @@ int main(int argc, char* argv[])
 		::std::vector< ::std::string > vargv;
 		vargv.push_back("--iutest_color=auto");
 		::iutest::InitIrisUnitTest(vargv);
-		IUTEST_EXPECT_EQ(0, vargv.size());
+		IUTEST_EXPECT_EQ(0u, vargv.size());
 		IUTEST_EXPECT_STREQ( "auto", ::iutest::IUTEST_FLAG(color).c_str() );
 		
 		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;

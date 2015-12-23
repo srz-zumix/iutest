@@ -228,10 +228,10 @@ IUTEST(Matcher, IsEmpty)
 
 IUTEST(Matcher, SizeIs)
 {
-	IUTEST_ASSERT_THAT(ve, SizeIs(0));
-	IUTEST_ASSERT_THAT(va, SizeIs(Ge(10)));
+	IUTEST_ASSERT_THAT(ve, SizeIs(0u));
+	IUTEST_ASSERT_THAT(va, SizeIs(Ge(10u)));
 #if !defined(IUTEST_USE_GMOCK)
-	IUTEST_ASSERT_THAT( c, SizeIs(3));
+	IUTEST_ASSERT_THAT( c, SizeIs(3u));
 #endif
 }
 #endif
@@ -488,10 +488,10 @@ IUTEST(MatcherFailure, IsEmpty)
 
 IUTEST(MatcherFailure, SizeIs)
 {
-	CHECK_FAILURE( IUTEST_ASSERT_THAT(va, SizeIs(0)), "Size is: 0" );
-	CHECK_FAILURE( IUTEST_ASSERT_THAT(va, SizeIs(Lt(0))), "Size is: Lt: 0" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(va, SizeIs(0u)), "Size is: 0" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT(va, SizeIs(Lt(0u))), "Size is: Lt: 0" );
 #if !defined(IUTEST_USE_GMOCK)
-	CHECK_FAILURE( IUTEST_ASSERT_THAT( c, SizeIs(Lt(0))), "Size is: Lt: 0" );
+	CHECK_FAILURE( IUTEST_ASSERT_THAT( c, SizeIs(Lt(0u))), "Size is: Lt: 0" );
 #endif
 }
 #endif

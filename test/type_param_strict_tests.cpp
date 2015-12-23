@@ -15,13 +15,11 @@
 
 #include "iutest.hpp"
 
-#if IUTEST_HAS_STREAM_CAPTURE
-
-::iutest::detail::IUStreamBuffer<> stderr_capture(stderr);
-
-#endif
-
 #if IUTEST_HAS_TYPED_TEST_P 
+
+#if IUTEST_HAS_STREAM_BUFFER
+	::iutest::detail::IUStreamBuffer<> stderr_capture(stderr);
+#endif
 
 #if IUTEST_TYPED_TEST_P_STRICT
 
@@ -66,7 +64,7 @@ int main(int argc, char* argv[])
 #endif
 {
 	IUTEST_INIT(&argc, argv);
-#if IUTEST_HAS_TYPED_TEST_P && IUTEST_HAS_STREAM_CAPTURE
+#if IUTEST_HAS_TYPED_TEST_P && IUTEST_HAS_STREAM_BUFFER
 #if IUTEST_TYPED_TEST_P_STRICT
 	IUTEST_EXPECT_STRIN("Test B has not been registered.", stderr_capture.GetStreamString());
 #endif
