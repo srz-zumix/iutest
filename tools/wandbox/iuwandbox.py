@@ -179,6 +179,7 @@ def setup_includes(w, includes, encoding):
 def run_wandbox(code, includes, options):
 	w = Wandbox()
 	w.compiler(options.compiler)
+	opt = ""
 	if options.options:
 		opt = options.options.split(',')
 	elif options.default:

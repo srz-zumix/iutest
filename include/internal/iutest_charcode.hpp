@@ -48,6 +48,18 @@ namespace detail
 */
 ::std::string WideStringToMultiByteString(const wchar_t* str, int num=-1);
 
+#if IUTEST_HAS_CHAR16_T
+
+/**
+ * @brief	ワイド文字列からマルチバイトへ変換
+ * @param [in]	str	= 入力
+ * @param [in]	num = 入力バッファサイズ
+ * @return	マルチバイト文字列
+*/
+::std::string WideStringToMultiByteString(const char16_t* str, int num=-1);
+
+#endif
+
 /**
  * @brief	文字列から ::std::wstring へ変換
  * @param [in]	c_str	= 入力
@@ -70,6 +82,12 @@ namespace detail
 */
 ::std::string ShowWideCString(const wchar_t* wide_c_str);
 
+#if IUTEST_HAS_CHAR16_T
+/**
+ * @override
+*/
+::std::string ShowWideCString(const char16_t* c16_str);
+#endif
 
 #if IUTEST_HAS_CXX_HDR_CODECVT
 /**
@@ -95,32 +113,17 @@ inline ::std::string ShowWideCString(const wchar_t* wide_c_str)
 	{
 		return kStrings::Null;
 	}
-#if IUTEST_MBS_CODE == IUTEST_MBS_CODE_UTF8
-	return WideStringToUTF8(wide_c_str);
-#elif defined(IUTEST_OS_WINDOWS) && IUTEST_MBS_CODE == IUTEST_MBS_CODE_WINDOWS31J
-	return win::WideStringToMultiByteString(wide_c_str);
-#else
 	return WideStringToMultiByteString(wide_c_str);
-#endif
 }
 
 #if IUTEST_HAS_CHAR16_T
-inline ::std::string ShowWideCString(const char16_t* wide_c_str)
+inline ::std::string ShowWideCString(const char16_t* c16_str)
 {
-	if(wide_c_str == NULL)
+	if( c16_str == NULL)
 	{
 		return kStrings::Null;
 	}
-#if IUTEST_HAS_CXX_HDR_CODECVT
-#if IUTEST_MBS_CODE == IUTEST_MBS_CODE_UTF8
-	return UTF16ToUTF8(wide_c_str);
-#else
-	return ShowWideCString(reinterpret_cast<const wchar_t*>(wide_c_str));
-	//return UTF16ToMultiByteString(wide_c_str);
-#endif
-#else
-	return ShowWideCString(reinterpret_cast<const wchar_t*>(wide_c_str));
-#endif
+	return WideStringToMultiByteString(c16_str);
 }
 #endif
 

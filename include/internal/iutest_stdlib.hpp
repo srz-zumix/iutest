@@ -445,6 +445,23 @@ using tuples::get;
 #  define IUTEST_HAS_CXX_HDR_CODECVT		0
 #endif
 
+//! has cuchar
+#if !defined(IUTEST_HAS_HDR_UCHAR)
+#  if IUTEST_HAS_CHAR16_T || IUTEST_HAS_CHAR32_T
+#    if   defined(__has_include)
+#      if __has_include( <uchar.h> )
+#        define IUTEST_HAS_HDR_UCHAR			1
+#      endif
+#    elif defined(_MSC_VER)
+#      define IUTEST_HAS_HDR_UCHAR				1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_HDR_UCHAR)
+#  define IUTEST_HAS_HDR_UCHAR			0
+#endif
+
 //! has emplace
 #if !defined(IUTEST_HAS_STD_EMPLACE)
 #  if defined(__GNUC__)

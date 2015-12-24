@@ -218,6 +218,11 @@ private:
 	char m_buf[SIZE];
 };
 
+/**
+* @brief	stream capture
+*/
+
+
 #endif
 
 }	// end of namespace detail

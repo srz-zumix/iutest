@@ -252,7 +252,7 @@ IUTEST(PrintToTest, String)
 }
 
 #if IUTEST_HAS_CHAR16_T
-IUTEST(PrintToTest, Unicode16String)
+IUTEST(PrintToTest, U16String)
 {
 	IUTEST_SUCCEED() << ::iutest::PrintToString(u"Test");
 	{
@@ -264,7 +264,7 @@ IUTEST(PrintToTest, Unicode16String)
 #endif
 
 #if IUTEST_HAS_CHAR32_T
-IUTEST(PrintToTest, Unicode32String)
+IUTEST(PrintToTest, U32String)
 {
 	IUTEST_SUCCEED() << ::iutest::PrintToString(U"Test");
 	{

@@ -18,6 +18,9 @@
 //======================================================================
 // include
 #include "../internal/iutest_charcode.hpp"
+#if IUTEST_HAS_HDR_UCHAR
+#  include <uchar.h>
+#endif
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
@@ -174,6 +177,51 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 	return ret;
 #endif
 }
+
+#if IUTEST_HAS_CHAR16_T
+
+IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const char16_t* str, int num)
+{
+#if IUTEST_HAS_HDR_UCHAR
+	IUTEST_UNUSED_VAR(num);
+	const size_t length = ::std::char_traits<char16_t>::length(str);
+	char16_t lead = 0, trail = 0;
+	char32_t cp;
+	char mbs[6];
+	mbstate_t state = {0};
+	mbsinit(&state);
+	::std::string ret;
+
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+	for( size_t i = 0; i < length; ++i )
+	{
+		lead = str[i];
+
+		if( lead > 0xD800 && lead < 0xDC00 )
+		{
+			++i;
+			trail = str[i];
+			cp = (lead << 10) + trail + 0x10000 - (0xD800 << 10) - 0xDC00;
+		}
+		else
+		{
+			cp = lead;
+		}
+		const size_t len = c32rtomb(mbs, cp, &state);
+		if( len != -1 )
+		{
+			mbs[len] = '\0';
+			ret += mbs;
+		}
+	}
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+	return ret;
+#else
+	return WideStringToMultiByteString(reinterpret_cast<const wchar_t*>(str), num);
+#endif
+}
+
+#endif
 
 IUTEST_IPP_INLINE ::std::wstring IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToWideString(const char* str)
 {
