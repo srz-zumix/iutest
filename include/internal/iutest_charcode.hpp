@@ -21,6 +21,7 @@
 #include "iutest_constant.hpp"
 
 #if IUTEST_HAS_CXX_HDR_CODECVT
+#  include <locale>
 #  include <codecvt>
 #endif
 
@@ -60,6 +61,18 @@ namespace detail
 
 #endif
 
+#if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_HDR_UCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
+
+/**
+* @brief	ワイド文字列からマルチバイトへ変換
+* @param [in]	str	= 入力
+* @param [in]	num = 入力バッファサイズ
+* @return	マルチバイト文字列
+*/
+::std::string WideStringToMultiByteString(const char32_t* str, int num = -1);
+
+#endif
+
 /**
  * @brief	文字列から ::std::wstring へ変換
  * @param [in]	c_str	= 入力
@@ -80,34 +93,8 @@ namespace detail
  * @param [in]	wide_c_str	= 入力
  * @return	string
 */
-::std::string ShowWideCString(const wchar_t* wide_c_str);
-
-#if IUTEST_HAS_CHAR16_T
-/**
- * @override
-*/
-::std::string ShowWideCString(const char16_t* c16_str);
-#endif
-
-#if IUTEST_HAS_CXX_HDR_CODECVT
-/**
- * @brief	UTF16文字列からUTF8へ変換
- * @param [in]	str	= 入力
- * @param [in]	num = 入力バッファサイズ
- * @return	UTF8 文字列
-*/
-#if IUTEST_HAS_CHAR16_T
-::std::string UTF16ToUTF8(const char16_t* str, int num=-1);
-#else
-::std::string UTF16ToUTF8(const wchar_t* str, int num=-1);
-#endif
-
-#endif
-
-//======================================================================
-// function
-
-inline ::std::string ShowWideCString(const wchar_t* wide_c_str)
+template<typename CharType>
+::std::string ShowWideCString(const CharType* wide_c_str)
 {
 	if( wide_c_str == NULL )
 	{
@@ -116,15 +103,33 @@ inline ::std::string ShowWideCString(const wchar_t* wide_c_str)
 	return WideStringToMultiByteString(wide_c_str);
 }
 
-#if IUTEST_HAS_CHAR16_T
-inline ::std::string ShowWideCString(const char16_t* c16_str)
+#if IUTEST_HAS_CXX_HDR_CODECVT
+
+template<typename In, typename Out, typename State>
+struct codecvt : public ::std::codecvt<In, Out, State> { ~codecvt() {} };
+
+/**
+ * @brief	文字コード変換
+ * @param [in]	str	= 入力
+ * @return	文字列
+*/
+#if defined(_MSC_VER)
+template<typename In, typename Out, typename State>
+::std::basic_string<Out> CodeConvert(const In* str, ::std::locale loc = ::std::locale(""))
 {
-	if( c16_str == NULL)
-	{
-		return kStrings::Null;
-	}
-	return WideStringToMultiByteString(c16_str);
+	::std::wstring_convert< codecvt<In, Out, State>, In> conv(&::std::use_facet< codecvt<In, Out, State> >(loc));
+	return conv.to_bytes(str);
 }
+#else
+template<typename In, typename Out, typename State>
+::std::basic_string<Out> CodeConvert(const In* str)
+{
+	::std::wstring_convert< codecvt<In, Out, State>, In> conv;
+	//::std::wstring_convert< codecvt<In, Out, State>, In> conv(&::std::use_facet< ::std::codecvt<In, Out, State> >(loc) );
+	return conv.to_bytes(str);
+}
+#endif
+
 #endif
 
 //======================================================================

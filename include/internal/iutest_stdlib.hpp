@@ -422,7 +422,6 @@ using tuples::get;
 #endif
 
 //! has codecvt header
-/*
 #if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
 
 #if   defined(__has_include)
@@ -439,7 +438,6 @@ using tuples::get;
 #endif
 
 #endif
-*/
 
 #if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
 #  define IUTEST_HAS_CXX_HDR_CODECVT		0

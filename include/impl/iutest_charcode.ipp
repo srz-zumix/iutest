@@ -115,22 +115,6 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 		num = static_cast<int>(wcslen(str));
 	}
 #if IUTEST_HAS_CXX_HDR_CODECVT && 0
-	typedef ::std::codecvt_utf8<wchar_t> convert;
-	::std::locale loc("japanese");
-	const convert& conv = ::std::use_facet<convert>(loc);
-	::std::mbstate_t state=0;
-	const size_t utf8_length = num * 2 + 1;
-	char* utf8 = new char[utf8_length];
-	const wchar_t* src_next = NULL;
-	char* utf8_next = NULL;
-	convert::result res = conv.out(state, str, str + num, src_next, utf8, utf8 + utf8_length, utf8_next);
-	::std::string ret;
-	if( res == convert::ok )
-	{
-		ret = utf8;
-	}
-	delete[] utf8;
-	return ret;
 #else
 	iu_stringstream ss;
 	for(int i=0; i < num; ++i )
@@ -182,7 +166,14 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const char16_t* str, int num)
 {
-#if IUTEST_HAS_HDR_UCHAR
+#if IUTEST_HAS_CXX_HDR_CODECVT
+	IUTEST_UNUSED_VAR(num);
+#if defined(_MSC_VER)
+	return CodeConvert<wchar_t, char, ::std::mbstate_t>(reinterpret_cast<const wchar_t*>(str));
+#else
+	return CodeConvert<char16_t, char, ::std::mbstate_t>(str);
+#endif
+#elif IUTEST_HAS_HDR_UCHAR
 	IUTEST_UNUSED_VAR(num);
 	const size_t length = ::std::char_traits<char16_t>::length(str);
 	char16_t lead = 0, trail = 0;
@@ -223,6 +214,42 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 #endif
 
+#if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_HDR_UCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
+
+IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const char32_t* str, int num)
+{
+#if IUTEST_HAS_CXX_HDR_CODECVT
+	IUTEST_UNUSED_VAR(num);
+#if defined(_MSC_VER)
+	return CodeConvert<__int32, char, ::std::mbstate_t>(reinterpret_cast<const __int32*>(str));
+#else
+	return CodeConvert<char32_t, char, ::std::mbstate_t>(str);
+#endif
+#else
+	IUTEST_UNUSED_VAR(num);
+	const size_t length = ::std::char_traits<char32_t>::length(str);
+	char mbs[6];
+	mbstate_t state = { 0 };
+	mbsinit(&state);
+	::std::string ret;
+
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+	for( size_t i = 0; i < length; ++i )
+	{
+		const size_t len = c32rtomb(mbs, str[i], &state);
+		if( len != -1 )
+		{
+			mbs[len] = '\0';
+			ret += mbs;
+		}
+	}
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+	return ret;
+#endif
+}
+
+#endif
+
 IUTEST_IPP_INLINE ::std::wstring IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToWideString(const char* str)
 {
 	if(str == NULL)
@@ -231,13 +258,13 @@ IUTEST_IPP_INLINE ::std::wstring IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToWideS
 	}
 	const size_t length = strlen(str) + 1;
 	wchar_t* wcs = new wchar_t[length];
-	IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 	if(mbstowcs(wcs, str, length) == static_cast<size_t>(-1))
 	{
 		delete[] wcs;
 		return L"(convert error)";
 	}
-	IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 	::std::wstring ret = wcs;
 	delete[] wcs;
 	return ret;
@@ -275,42 +302,6 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ MultiByteStringToUTF8(c
 	return src;
 #endif
 }
-
-#if IUTEST_HAS_CXX_HDR_CODECVT
-
-#if IUTEST_HAS_CHAR16_T
-IUTEST_IPP_INLINE ::std::string UTF16ToUTF8(const char16_t* str, int num)
-#else
-IUTEST_IPP_INLINE ::std::string UTF16ToUTF8(const wchar_t* str, int num)
-#endif
-{
-	if(num == -1)
-	{
-		num = static_cast<int>(wcslen(str));
-	}
-#if IUTEST_HAS_CHAR16_T
-	typedef ::std::codecvt_utf8<char16_t> convert;
-#else
-	typedef ::std::codecvt_utf8<wchar_t> convert;
-#endif
-	::std::locale loc("japanese");
-	const convert& conv = ::std::use_facet<convert>(loc);
-	::std::mbstate_t state=0;
-	const size_t utf8_length = num * 2 + 1;
-	char* utf8 = new char[utf8_length];
-	const convert::_Elem* src_next = NULL;
-	char* utf8_next = NULL;
-	convert::result res = conv.out(state, str, str + num, src_next, utf8, utf8 + utf8_length, utf8_next);
-	::std::string ret;
-	if(res == convert::ok)
-	{
-		ret = utf8;
-	}
-	delete[] utf8;
-	return ret;
-}
-
-#endif
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 

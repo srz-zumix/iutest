@@ -693,3 +693,17 @@ IUTEST(SyntaxTest, ShowSpec)
 
 #endif
 
+#if IUTEST_HAS_CHAR16_T
+IUTEST(PrintToTest, U16String)
+{
+	IUTEST_SUCCEED() << ::iutest::PrintToString(u"テスト");
+}
+#endif
+
+#if IUTEST_HAS_CHAR32_T
+IUTEST(PrintToTest, U32String)
+{
+	IUTEST_SUCCEED() << ::iutest::PrintToString(U"テスト");
+}
+#endif
+

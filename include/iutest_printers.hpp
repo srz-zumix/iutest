@@ -388,14 +388,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(char* str, iu_ostream* 
 }
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t* str, iu_ostream* os)
 {
-	if( str == NULL )
-	{
-		*os << kStrings::Null;
-	}
-	else
-	{
-		UniversalPrint(detail::ShowWideCString(str), os);
-	}
+	UniversalPrint(detail::ShowWideCString(str), os);
 }
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(wchar_t* str, iu_ostream* os)
 {
@@ -404,18 +397,21 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(wchar_t* str, iu_ostrea
 #if IUTEST_HAS_CHAR16_T
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t* str, iu_ostream* os)
 {
-	if( str == NULL )
-	{
-		*os << kStrings::Null;
-	}
-	else
-	{
-		UniversalPrint(detail::ShowWideCString(str), os);
-	}
+	UniversalPrint(detail::ShowWideCString(str), os);
 }
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(char16_t* str, iu_ostream* os)
 {
 	UniversalTersePrint(static_cast<const char16_t*>(str), os);
+}
+#endif
+#if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_HDR_UCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char32_t* str, iu_ostream* os)
+{
+	UniversalPrint(detail::ShowWideCString(str), os);
+}
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(char32_t* str, iu_ostream* os)
+{
+	UniversalTersePrint(static_cast<const char32_t*>(str), os);
 }
 #endif
 
