@@ -32,17 +32,17 @@ class RandomValuesTest3 : public ::iutest::TestWithParam<float> {};
 
 IUTEST_P(RandomValuesTest1, Test)
 {
-	int v = GetParam();
+	const int v = GetParam();
 	IUTEST_SUCCEED() << v;
 }
 IUTEST_P(RandomValuesTest2, Test)
 {
-	char v = GetParam();
-	IUTEST_SUCCEED() << v;
+	const char v = GetParam();
+	IUTEST_SUCCEED() << ::iutest::PrintToString(v);
 }
 IUTEST_P(RandomValuesTest3, Test)
 {
-	float v = GetParam();
+	const float v = GetParam();
 	IUTEST_ASSERT_GE(1, v);
 	IUTEST_ASSERT_LE(0, v);
 	IUTEST_SUCCEED() << v;

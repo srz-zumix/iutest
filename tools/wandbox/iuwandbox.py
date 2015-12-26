@@ -29,7 +29,7 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 3.1'
+		, version=u'%(prog)s version 3.2'
 	)
 	parser.add_argument(
 		'--list_compiler'
@@ -216,10 +216,10 @@ def show_result(r):
 		sys.exit(1)
 	if 'compiler_message' in r:
 		print('compiler_message:')
-		print(r['compiler_message'])
+		print(r['compiler_message'].encode('utf_8'))
 	if 'program_message' in r:
 		print('program_message:')
-		print(r['program_message'])
+		print(r['program_message'].encode('utf_8'))
 	if 'url' in r:
 		print('permlink: ' + r['permlink'])
 		print('url: ' + r['url'])

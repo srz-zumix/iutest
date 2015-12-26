@@ -132,7 +132,7 @@ matrix:
     - compiler: gcc
       env: USE_GMOCK=1
     - compiler: gcc
-      env: MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAMCAPTURE=0"
+      env: MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAM_BUFFER=0"
     - compiler: gcc
       env: USE_LIB=1
     #- compiler: gcc
