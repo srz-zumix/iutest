@@ -549,7 +549,7 @@ template<typename T1, typename T2>
 */
 template<typename T1, typename T2>
 ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqRange(const char* expected_expr, const char* actual_expr
-	, T1 expected, T2 actual)
+	, const T1& expected, const T2& actual)
 {
 	return detail::CmpHelperEqRange(expected_expr, actual_expr, expected.begin(), expected.end()
 		, actual.begin(), actual.end());
@@ -567,7 +567,7 @@ template<typename T1, size_t SIZE1, typename T2, size_t SIZE2>
 /** @overload */
 template<typename T1, typename T2, size_t SIZE2>
 ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqRange(const char* expected_expr, const char* actual_expr
-	, T1 expected, T2(&actual)[SIZE2])
+	, const T1& expected, T2(&actual)[SIZE2])
 {
 	return detail::CmpHelperEqRange(expected_expr, actual_expr, expected.begin(), expected.end()
 		, actual, actual+SIZE2);
@@ -575,7 +575,7 @@ template<typename T1, typename T2, size_t SIZE2>
 /** @overload */
 template<typename T1, size_t SIZE1, typename T2>
 ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqRange(const char* expected_expr, const char* actual_expr
-	, T1(&expected)[SIZE1], T2 actual)
+	, T1(&expected)[SIZE1], const T2& actual)
 {
 	return detail::CmpHelperEqRange(expected_expr, actual_expr, expected, expected+SIZE1
 		, actual.begin(), actual.end());

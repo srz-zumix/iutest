@@ -259,7 +259,8 @@ private:
 
 public:
 	/** @private */
-	class Fixed : public Message {
+	class Fixed : public Message
+	{
 	public:
 		template<typename T>
 		Fixed& operator << (T val)
@@ -291,7 +292,8 @@ public:
 #if IUTEST_HAS_ASSERTION_RETURN
 private:
 	template<typename R>
-	struct ReturnTypedFixed {
+	struct ReturnTypedFixed
+	{
 		Fixed fixed;
 		AssertionReturnType<R> ret;
 		ReturnTypedFixed(const Fixed& f, const AssertionReturnType<R>& r) : fixed(f), ret(r) {}

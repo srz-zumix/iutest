@@ -96,7 +96,11 @@ struct BigVar
 IUTEST(PrintToTest, BigVar)
 {
 	BigVar bigvar;
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 	LogChecker ck("42");
+#else
+	LogChecker ck("40-Byte object < 00 00 00 00 00 00 00 00 30 40 C5 24 69 7F 00 00 01 00 00 00 FF 7F 00 00 00 00 00 00 00 00 00 00 01 ... >");
+#endif
 	IUTEST_SUCCEED() << ::iutest::PrintToString(bigvar);
 }
 #endif
