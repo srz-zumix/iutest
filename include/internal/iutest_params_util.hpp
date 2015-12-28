@@ -18,6 +18,7 @@
 //======================================================================
 // include
 #include "iutest_genparams.hpp"
+#include "iutest_genparams_from_file.hpp"
 
 #if IUTEST_HAS_PARAM_TEST
 #include "iutest_pool.hpp"

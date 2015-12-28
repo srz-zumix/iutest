@@ -42,6 +42,9 @@
     <ClCompile Include="..\..\samples\simple.cpp" />
     <ClCompile Include="..\..\samples\typed.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\samples\csvparams.csv" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{13851977-F039-448D-A853-A98325BDA088}</ProjectGuid>
     <RootNamespace>iutest</RootNamespace>

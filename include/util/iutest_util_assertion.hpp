@@ -556,6 +556,10 @@ template<typename T1, typename T2>
 }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 
+#if IUTEST_HAS_INITIALIZER_LIST
+
+#endif
+
 /** @overload */
 template<typename T1, size_t SIZE1, typename T2, size_t SIZE2>
 ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqRange(const char* expected_expr, const char* actual_expr

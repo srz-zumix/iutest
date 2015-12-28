@@ -205,6 +205,15 @@
 # define IUTEST_HAS_CONCAT			1
 #endif
 
+#if !defined(IUTEST_HAS_CSVPARAMS)
+//! ::iutest::CSV が使用可能かどうか
+#  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_STRINGSTREAM
+#    define IUTEST_HAS_CSVPARAMS	1
+#  else
+#    define IUTEST_HAS_CSVPARAMS	0
+#  endif
+#endif
+
 #if !defined(IUTEST_HAS_VARIADIC_VALUES)
 //! 可変長引数に対応した ::iutest::Values が使用可能かどうか
 #  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
@@ -574,23 +583,6 @@
 
 #if !defined(IUTEST_HAS_SOCKET)
 #  define IUTEST_HAS_SOCKET		0
-#endif
-
-#if !defined(IUTEST_HAS_STRINGSTREAM)
-//! std::stringstream が使用可能かどうか
-#  if !defined(_STLP_NO_IOSTREAMS)
-#    define IUTEST_HAS_STRINGSTREAM	1
-#  else
-#    define IUTEST_HAS_STRINGSTREAM	0
-#  endif
-#endif
-
-/**
- * @brief	std::strstream が使用可能かどうか
- * @note	IUTEST_HAS_STRINGSTREAM が優先されます
-*/
-#if !defined(IUTEST_HAS_STRSTREAM)
-#  define IUTEST_HAS_STRSTREAM		0
 #endif
 
 /**

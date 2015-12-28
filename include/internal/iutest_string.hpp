@@ -182,6 +182,21 @@ inline ::std::string StripSpace(const ::std::string& str)
 	return ::std::string(start, end+1);
 }
 
+inline bool StringIsBlank(const ::std::string& str)
+{
+	::std::string::const_iterator it = str.begin();
+	while( it != str.end() )
+	{
+		const char ch = *it;
+		if( !IsSpace(ch) && ch != '\r' && ch != '\n' )
+		{
+			return false;
+		}
+		++it;
+	}
+	return true;
+}
+
 inline void StringReplaceToLF(::std::string& str)
 {
 	::std::string::size_type pos = 0;

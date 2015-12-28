@@ -631,6 +631,28 @@ IIUT_DECL_PAIRWISE_(9)
 
 #endif
 
+#if IUTEST_HAS_CSVPARAMS
+
+/**
+ * @brief	csv ファイルパラメータ
+*/
+template<typename T>
+detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ CSV(const char* path)
+{
+	return new detail::iuCsvFileParamsGenerator<T>(path);
+}
+/** @override */
+template<typename T>
+detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ CSV(const char* relative_path, const char* test_file)
+{
+	::std::string path = test_file;
+	path += "\\..\\";
+	path += relative_path;
+	return new detail::iuCsvFileParamsGenerator<T>(path);
+}
+
+#endif
+
 /**
  * @}
 */

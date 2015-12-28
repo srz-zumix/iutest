@@ -514,6 +514,26 @@ using tuples::get;
 #  define __socklen_t_defined
 #endif
 
+//! std::stringstream が使用可能かどうか
+#if !defined(IUTEST_HAS_STRINGSTREAM)
+#  if !defined(_STLP_NO_IOSTREAMS)
+#    define IUTEST_HAS_STRINGSTREAM	1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_STRINGSTREAM)
+#  define IUTEST_HAS_STRINGSTREAM	0
+#endif
+
+
+/**
+ * @brief	std::strstream が使用可能かどうか
+ * @note	IUTEST_HAS_STRINGSTREAM が優先されます
+*/
+#if !defined(IUTEST_HAS_STRSTREAM)
+#  define IUTEST_HAS_STRSTREAM		0
+#endif
+
 namespace iutest {
 namespace detail
 {

@@ -175,6 +175,19 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, RandomValuesTest, ::iutest::RandomValues(5));
 
 #endif
 
+#if IUTEST_HAS_CSVPARAMS
+
+class CSVValuesTest : public ::iutest::TestWithParam<int> {};
+
+IUTEST_P(CSVValuesTest, Test)
+{
+	int v = GetParam();
+	IUTEST_SUCCEED() << v;
+}
+IUTEST_INSTANTIATE_TEST_CASE_P(A, CSVValuesTest, ::iutest::CSV<int>("csvparams.csv", __FILE__));
+
+#endif
+
 #endif
 
 /* ---------------------------------------------------
