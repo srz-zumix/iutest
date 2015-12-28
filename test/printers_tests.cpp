@@ -87,6 +87,7 @@ IUTEST(PrintToTest, Bar)
 struct BigVar
 {
 	int big[10];
+	BigVar() { memset(big, 0, sizeof(big)); }
 	operator ::iutest::BiggestInt () const
 	{
 		return 42;
@@ -99,7 +100,7 @@ IUTEST(PrintToTest, BigVar)
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 	LogChecker ck("42");
 #else
-	LogChecker ck("40-Byte object < 00 00 00 00 00 00 00 00 30 40 C5 24 69 7F 00 00 01 00 00 00 FF 7F 00 00 00 00 00 00 00 00 00 00 01 ... >");
+	LogChecker ck("40-Byte object < 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ... >");
 #endif
 	IUTEST_SUCCEED() << ::iutest::PrintToString(bigvar);
 }
