@@ -163,7 +163,7 @@ endif
 # build targets.
 #
 
-.PHONY: clean default all run test bench benchmark
+.PHONY: clean default all run test bench benchmark lint
 
 default : $(TARGETS)
 
@@ -181,6 +181,9 @@ endif
 check : test
 run : test
 test : $(BUILD_ONLY) $(RUNNER)
+
+lint : cpplint/Makefile $(IUTEST_HEADERS) $(MAKEFILE)
+	make -C cpplint
 
 showcxxversion:
 	$(CXX) --version

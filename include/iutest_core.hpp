@@ -18,8 +18,8 @@
 //======================================================================
 // include
 #include "internal/iutest_result_reporter.hpp"
-#include "internal/iutest_params_util.hpp"
 #include "internal/iutest_file.hpp"
+#include "internal/iutest_params_util.hpp"
 
 namespace iutest
 {

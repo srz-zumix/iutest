@@ -32,15 +32,14 @@ class iuCsvFileParamsGenerator : public iuValuesInParamsGenerator<T>
 public:
 	/**
 	 * @brief	コンストラクタ
-	 * @param [in]	begin	= 開始値
-	 * @param [in]	end		= 終了値
-	 * @param [in]	step	= 増値
+	 * @param [in]	path		= ファイルパス
+	 * @param [in]	delimiter	= 区切り文字
 	*/
-	iuCsvFileParamsGenerator(const ::std::string& path, char delimiter=',')
+	explicit iuCsvFileParamsGenerator(const ::std::string& path, char delimiter = ',')
 		: iuValuesInParamsGenerator<T>(ReadParams(path, delimiter))
 	{
 	}
-	
+
 private:
 	void AppendParams(params_t& params, const ::std::string& data)
 	{
