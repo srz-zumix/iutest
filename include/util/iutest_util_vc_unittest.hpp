@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -67,14 +67,14 @@
 #endif
 #define IUTEST_P(testfixture_, testname_)	\
 	IUTEST_VCUNIT_I(testfixture_, testname_, testfixture_##testname_##_class, testfixture_##_##testname_);	\
-	IIUT_TEST_P_(testfixture_, testname_)
+	IUTEST_TEST_P_(testfixture_, testname_)
 
 #ifdef IUTEST_TYPED_TEST
 #  undef IUTEST_TYPED_TEST
 #endif
 #define IUTEST_TYPED_TEST(testfixture_, testname_)	\
 	IUTEST_VCUNIT_I(testfixture_, testname_, testfixture_##testname_##_class, testfixture_##_##testname_);	\
-	IIUT_TYPED_TEST_(testfixture_, testname_)
+	IUTEST_TYPED_TEST_(testfixture_, testname_)
 
 #ifdef IUTEST_TYPED_TEST_P
 #  undef IUTEST_TYPED_TEST_P
