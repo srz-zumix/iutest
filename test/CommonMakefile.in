@@ -51,6 +51,7 @@ TARGETS1= \
           break_on_failure_nobreak_tests \
           catch_exceptions_tests \
           commandline_tests \
+          csvparams_tests \
           disabled_tests \
           env_var_gtest_tests \
           environment_tests \

@@ -1,0 +1,87 @@
+﻿//======================================================================
+//-----------------------------------------------------------------------
+/**
+ * @file		csvparams_tests.cpp
+ * @brief		CSV 対応テスト
+ *
+ * @author		t.shirayanagi
+ * @par			copyright
+ * Copyright (C) 2015, Takazumi Shirayanagi\n
+ * This software is released under the new BSD License,
+ * see LICENSE
+*/
+//-----------------------------------------------------------------------
+//======================================================================
+
+//======================================================================
+// include
+#include "iutest.hpp"
+
+#if IUTEST_HAS_MATCHERS
+
+using namespace ::iutest::matchers;
+
+#endif
+
+#if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_CSVPARAMS
+
+static const int CsvParamsIntTest_Params[] = {
+	#include "testdata/intcsvparams.csv"
+};
+class CsvParamsIntTest : public ::iutest::TestWithParam< int >
+{
+protected:
+	static int check_params[IUTEST_PP_COUNTOF(CsvParamsIntTest_Params)];
+
+public:
+	static void SetUpTestCase(void)
+	{
+		memcpy(check_params, CsvParamsIntTest_Params, sizeof(CsvParamsIntTest_Params));
+	}
+	static void TearDownTestCase(void)
+	{
+		for( size_t i=0; i < IUTEST_PP_COUNTOF(check_params); ++i )
+		{
+			IUTEST_EXPECT_EQ( 0, check_params[i] ) << i;
+		}
+	}
+};
+
+int CsvParamsIntTest::check_params[IUTEST_PP_COUNTOF(CsvParamsIntTest_Params)];
+
+IUTEST_P(CsvParamsIntTest, Num)
+{
+	IUTEST_EXPECT_EQ( IUTEST_PP_COUNTOF(check_params)*2, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count() );
+}
+
+IUTEST_P(CsvParamsIntTest, Param)
+{
+	IUTEST_EXPECT_NE( 0, GetParam() );
+#if IUTEST_HAS_MATCHERS
+	IUTEST_ASSERT_THAT( check_params, Contains( GetParam() ) );
+#endif	
+	for( size_t i=0; i < IUTEST_PP_COUNTOF(check_params); ++i )
+	{
+		if( check_params[i] == GetParam() )
+		{
+			check_params[i] = 0;
+			break;
+		}
+	}
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_P(A, CsvParamsIntTest, ::iutest::CSV<int>("testdata/intcsvparams.csv") );
+
+#endif
+
+#ifdef UNICODE
+int wmain(int argc, wchar_t* argv[])
+#else
+int main(int argc, char* argv[])
+#endif
+{
+	IUTEST_INIT(&argc, argv);
+	return IUTEST_RUN_ALL_TESTS();
+}
+
+
