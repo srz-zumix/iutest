@@ -8,6 +8,7 @@ LOCAL_SRC_FILES := main.cpp \
                    disabledtest.cpp \
                    exception.cpp \
                    fixture.cpp \
+                   matcher.cpp \
                    parameterized.cpp \
                    printto.cpp \
                    simple.cpp \
