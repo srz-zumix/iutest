@@ -31,7 +31,7 @@
  *			google group: https://groups.google.com/forum/?fromgroups#!forum/g-iutest \n
  *
  * @par		copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License.
  *
  * @par		LICENSE
