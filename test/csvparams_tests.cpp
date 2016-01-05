@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -23,7 +23,7 @@ using namespace ::iutest::matchers;
 
 #endif
 
-#if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_CSVPARAMS
+#if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_CSVPARAMS && IUTEST_HAS_FOPEN
 
 static const int CsvParamsIntTest_Params[] = {
 	#include "testdata/intcsvparams.csv"
