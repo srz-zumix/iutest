@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -637,18 +637,18 @@ IIUT_DECL_PAIRWISE_(9)
  * @brief	csv ファイルパラメータ
 */
 template<typename T>
-detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ CSV(const char* path)
+detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ CSV(const char* path, char delimiter = ',')
 {
-	return new detail::iuCsvFileParamsGenerator<T>(path);
+	return new detail::iuCsvFileParamsGenerator<T>(path, delimiter);
 }
 /** @override */
 template<typename T>
-detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ CSV(const char* relative_path, const char* test_file)
+detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ CSV(const char* relative_path, const char* test_file, char delimiter = ',')
 {
 	::std::string path = test_file;
 	path += "\\..\\";
 	path += relative_path;
-	return new detail::iuCsvFileParamsGenerator<T>(path);
+	return new detail::iuCsvFileParamsGenerator<T>(path, delimiter);
 }
 
 #endif

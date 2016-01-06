@@ -72,6 +72,54 @@ IUTEST_P(CsvParamsIntTest, Param)
 
 IUTEST_INSTANTIATE_TEST_CASE_P(A, CsvParamsIntTest, ::iutest::CSV<int>("testdata/intcsvparams.csv") );
 
+static const float CsvParamsFloatTest_Params[] = {
+	#include "testdata/floatcsvparams.csv"
+};
+
+class CsvParamsFloatTest : public ::iutest::TestWithParam< float >
+{
+protected:
+	static float check_params[IUTEST_PP_COUNTOF(CsvParamsFloatTest_Params)];
+
+public:
+	static void SetUpTestCase(void)
+	{
+		memcpy(check_params, CsvParamsFloatTest_Params, sizeof(CsvParamsFloatTest_Params));
+	}
+	static void TearDownTestCase(void)
+	{
+		for( size_t i=0; i < IUTEST_PP_COUNTOF(check_params); ++i )
+		{
+			IUTEST_EXPECT_EQ( 0, check_params[i] ) << i;
+		}
+	}
+};
+
+float CsvParamsFloatTest::check_params[IUTEST_PP_COUNTOF(CsvParamsFloatTest_Params)];
+
+IUTEST_P(CsvParamsFloatTest, Num)
+{
+	IUTEST_EXPECT_EQ( IUTEST_PP_COUNTOF(check_params)*2, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count() );
+}
+
+IUTEST_P(CsvParamsFloatTest, Param)
+{
+	IUTEST_EXPECT_NE( 0.0f, GetParam() );
+#if IUTEST_HAS_MATCHERS
+	IUTEST_ASSERT_THAT( check_params, Contains( GetParam() ) );
+#endif	
+	for( size_t i=0; i < IUTEST_PP_COUNTOF(check_params); ++i )
+	{
+		if( check_params[i] == GetParam() )
+		{
+			check_params[i] = 0.0f;
+			break;
+		}
+	}
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_P(A, CsvParamsFloatTest, ::iutest::CSV<float>("testdata/floatcsvparams.csv") );
+
 #endif
 
 #ifdef UNICODE
