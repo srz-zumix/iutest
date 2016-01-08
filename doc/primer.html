@@ -102,6 +102,7 @@
               <li><a href="#org_test_pairwise">Pairwise</a></li>
               <li><a href="#org_test_randparam">乱数パラメータの生成</a></li>
               <li><a href="#org_test_concatparam">パラメータの連結</a></li>
+              <li><a href="#org_test_csvparam">CSV ファイルからパラメータを生成</a></li>
               <li><a href="#org_test_variadic">Variadic Templates の対応</a></li>
               <li><a href="#org_test_package">パッケージ</a></li>
               <li><a href="#org_test_japanese">日本語テスト名</a></li>
@@ -491,6 +492,19 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A2, TestP
 </pre>
 </div>
       <br />
+      </li>
+
+      <li><a name="org_test_csvparam" id="org_test_csvparam">CSV ファイルからパラメータを生成</a><br />
+      CSV ファイルからパラメータを生成できます。<br />
+<div class="source">
+<pre class="brush:cpp">
+IUTEST_INSTANTIATE_TEST_CASE_P(I, TestI
+     , ::iutest::CSV&lt;int&gt;("intparams.csv") );
+IUTEST_INSTANTIATE_TEST_CASE_P(F, TestF
+     , ::iutest::CSV&lt;float&gt;("fparams.tsv", '\t') );
+</pre>
+</div>
+      ファイルからのパラメータは動的に生成されるため、実行ファイルを更新せずにパラメータだけ更新することが可能になります。<br />
       </li>
 
       <li><a name="org_test_variadic" id="org_test_variadic">Variadic Templates の対応</a><br />
