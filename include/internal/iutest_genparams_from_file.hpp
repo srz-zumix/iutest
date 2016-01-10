@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -73,8 +73,8 @@ private:
 			{
 				fprintf(stderr, "Unable to open file \"%s\".\n", path.c_str());
 				fflush(stderr);
-				detail::IFileSystem::Free(fp);
 			}
+			detail::IFileSystem::Free(fp);
 		}
 		IUTEST_CHECK_(!params.empty());
 		return params;
