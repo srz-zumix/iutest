@@ -2,6 +2,7 @@
 Changes for 1.15.0:
 
 ** 追加
+* --iutest_output オプションで repeat 回数のフォーマットに対応 e.g. --iutest_output=xml:test_%d.xml
 * CSV ファイルから値のパラメータ作成に対応
 * 値のパラメータ化テストのテスト名指定方法の Google Test 互換対応
 

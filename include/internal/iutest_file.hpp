@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -316,6 +316,23 @@ protected:
 
 #endif
 
+namespace detail
+{
+
+/**
+ * @brief	何もしない IFile インターフェースクラス
+*/
+class NoEffectFile : public IFile
+{
+public:
+	virtual bool Open(const char*, int) IUTEST_CXX_OVERRIDE { return true; }
+	virtual void Close(void) IUTEST_CXX_OVERRIDE {}
+	virtual bool Write(const void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true;  }
+	virtual bool Read(void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true; }
+	virtual size_t GetSize(void) IUTEST_CXX_OVERRIDE { return 0; }
+};
+
+}	// end of namespace detail
 }	// end of namespace iutest
 
 #endif // INCG_IRIS_IUTEST_FILE_HPP_77D2C2B9_F504_4BB5_BA56_D97A2EB37DC6_

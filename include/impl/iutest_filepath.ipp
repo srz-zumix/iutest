@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -207,7 +207,7 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::GetRelativeCurrentDir(void)
 IUTEST_IPP_INLINE iuFilePath iuFilePath::GetExecFilePath(void)
 {
 #if   defined(IUTEST_OS_WINDOWS)
-	char path[MAX_PATH];
+	char path[IUTEST_MAX_PATH];
 	::GetModuleFileNameA(NULL, path, sizeof(path));
 	return iuFilePath(path);
 #elif defined(IUTEST_OS_SOLARIS)

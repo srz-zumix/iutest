@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -24,10 +24,26 @@ namespace iutest
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
-IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestProgramStart(const UnitTest& test)
+IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestIterationStart(const UnitTest& test, int iteration)
 {
 	IUTEST_UNUSED_VAR(test);
-	FileOpen(m_output_path.c_str());
+	if( !m_output_path_foramt.empty() )
+	{
+		m_output_path = detail::StringFormat(m_output_path_foramt.c_str(), iteration);
+		if( m_output_path == m_output_path_foramt )
+		{
+			m_output_path_foramt.clear();
+		}
+		if( m_fp != NULL )
+		{
+			OnReportTest(m_fp, test);
+			FileClose();
+		}
+	}
+	if( m_fp == NULL )
+	{
+		FileOpen(m_output_path.c_str());
+	}
 }
 
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestProgramEnd(const UnitTest& test)
@@ -41,7 +57,6 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestProgramEnd(const UnitT
 		}
 	}
 	OnReportTest(m_fp, test);
-
 	FileClose();
 }
 

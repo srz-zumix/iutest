@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -25,6 +25,7 @@ namespace iutest
 */
 class DefaultXmlGeneratorListener : public EmptyTestEventListener
 {
+	::std::string m_output_path_foramt;
 	::std::string m_output_path;
 	IFile* m_fp;
 public:
@@ -56,23 +57,25 @@ private:
 	{
 		if( path.empty() )
 		{
+			m_output_path_foramt.clear();
 			m_output_path = detail::kStrings::DefaultXmlReportFileName;
 		}
 		else
 		{
-			m_output_path = path;
+			m_output_path_foramt = path;
 			const ::std::string::size_type pos = path.find('.');
 			if( pos == ::std::string::npos
 				|| pos == path.length()-1 )
 			{
-				m_output_path += detail::GetPathSeparator();
-				m_output_path += detail::kStrings::DefaultXmlReportFileName;
+				m_output_path_foramt += detail::GetPathSeparator();
+				m_output_path_foramt += detail::kStrings::DefaultXmlReportFileName;
 			}
+			m_output_path = m_output_path_foramt;
 		}
 	}
 
 public:
-	virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;
+	virtual void OnTestIterationStart(const UnitTest& test, int iteration) IUTEST_CXX_OVERRIDE;
 	virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
 
 private:

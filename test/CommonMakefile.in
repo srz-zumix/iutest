@@ -111,6 +111,7 @@ TARGETS_IUTEST_ONLY = \
           ostream_formatter_tests \
           output_tests \
           output_xml_invalid_path_tests \
+          output_xml_repeat_tests \
           param_test_name_invalid_tests \
           param_test_name_tests \
           no_yoda_tests \

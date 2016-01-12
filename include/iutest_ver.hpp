@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01149930u //!< iutest version 1.14.99.30
+#define IUTEST_VER			0x01149931u //!< iutest version 1.14.99.31
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x14u		//!< Minor Version
 #define IUTEST_BUILD		0x99u		//!< Build
-#define IUTEST_REVISION		0x30u		//!< Revision
+#define IUTEST_REVISION		0x31u		//!< Revision
 
 /**
  * @mainpage
@@ -118,6 +118,7 @@
  <ul>
   <li>v1.15.0.0
     <ul>
+      <li>--iutest_output オプションで repeat 回数のフォーマットに対応 e.g. --iutest_output=xml:test_%d.xml</li>
       <li>CSV ファイルから値のパラメータ作成に対応</li>
       <li>IUTEST_ALIAS_TESTNAME_F,IUTEST_JAPANESE_NAME_F の引数の順番を変更</li>
       <li>値のパラメータ化テストのテスト名指定方法を変更</li>

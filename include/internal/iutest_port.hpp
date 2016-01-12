@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,6 +26,18 @@
 #if defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_MAC)
 #  include <unistd.h>
 #  include <locale.h>
+#endif
+
+#if !defined(IUTEST_MAX_PATH)
+#  if   defined(MAX_PATH) && MAX_PATH
+#    define IUTEST_MAX_PATH	MAX_PATH
+#  elif defined(PATH_MAX) && PATH_MAX
+#    define IUTEST_MAX_PATH	PATH_MAX
+#  elif defined(FILENAME_MAX) && FILENAME_MAX
+#    define IUTEST_MAX_PATH	FILENAME_MAX
+#  else
+#    define IUTEST_MAX_PATH	1024
+#  endif
 #endif
 
 namespace iutest {

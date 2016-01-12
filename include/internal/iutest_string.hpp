@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -104,12 +104,10 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 
 /**
  * @internal
- * @brief	snprintf
+ * @brief	vsnprintf
 */
-inline int iu_snprintf(char* dst, size_t size, const char* format, ...)
+inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
-	va_list va;
-	va_start(va, format);
 #if defined(__CYGWIN__)
 #  if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) || (__cplusplus >= 201103L)
 	const int ret = vsnprintf(dst, size, format, va);
@@ -120,6 +118,18 @@ inline int iu_snprintf(char* dst, size_t size, const char* format, ...)
 #else
 	const int ret = vsnprintf(dst, size, format, va);
 #endif
+	return ret;
+}
+
+/**
+ * @internal
+ * @brief	snprintf
+*/
+inline int iu_snprintf(char* dst, size_t size, const char* format, ...)
+{
+	va_list va;
+	va_start(va, format);
+	const int ret = iu_vsnprintf(dst, size, format, va);
 	va_end(va);
 	return ret;
 }
@@ -279,6 +289,37 @@ inline ::std::string ShowStringQuoted(const ::std::string& str)
 {
 	::std::string s = "\""; s += str; s += "\"";
 	return s;
+}
+
+inline ::std::string StringFormat(const char* format, ...)
+{
+	int n = strlen(format) * 2;
+	{
+		va_list va;
+		va_start(va, format);
+		const int ret = iu_vsnprintf(NULL, 0, format, va);
+		va_end(va);
+		if( ret > 0 )
+		{
+			n = ret;
+		}
+	}
+	while( 1 )
+	{
+		char* dst = new char[n];
+		va_list va;
+		va_start(va, format);
+		const int written = iu_vsnprintf(dst, n, format, va);
+		va_end(va);
+		if( written >= 0 && written < n )
+		{
+			::std::string s = ::std::string(dst, written);
+			delete[] dst;
+			return s;
+		}
+		delete[] dst;
+		n *= 2;
+	}
 }
 
 //======================================================================
