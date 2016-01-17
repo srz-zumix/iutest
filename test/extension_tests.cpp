@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2013-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,7 +26,6 @@
 #include "param_test_with_any_tests.cpp"
 #include "pp_tests.cpp"
 #include "random_values_tests.cpp"
-#include "util_tests.cpp"
 #include "values_gen_tests.cpp"
 #include "variadic_templates_tests.cpp"
 

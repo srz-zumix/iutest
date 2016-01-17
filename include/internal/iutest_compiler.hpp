@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -138,14 +138,41 @@
 #  define IUTEST_HAS_NULLPTR		0
 #endif
 
+//! auto
+#if !defined(IUTEST_HAS_AUTO)
+#  if   defined(__clang__)
+#    if __has_feature(cxx_auto_type)
+#      define IUTEST_HAS_AUTO	1
+#    endif
+#  elif defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_AUTO	1
+#    endif
+#  elif defined(_MSC_VER)
+#    if _MSC_VER >= 1600
+#      define IUTEST_HAS_AUTO	1
+#    endif
+#  elif defined(__INTEL_COMPILER)
+#    if __INTEL_COMPILER >= 1200
+#      define IUTEST_HAS_AUTO	1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_AUTO)
+#  define IUTEST_HAS_AUTO		0
+#endif
+
 //! has decltype
 #if !defined(IUTEST_HAS_DECLTYPE)
-#  if   defined(__clang__)
+#  if   defined(__cpp_decltype) && __cpp_decltype >= 200707
+#    define IUTEST_HAS_DECLTYPE		1
+#  elif defined(__clang__)
 #    if __has_feature(cxx_decltype)
 #      define IUTEST_HAS_DECLTYPE	1
 #    endif
 #  elif defined(__GNUC__)
-#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 2)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 3)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_DECLTYPE	1
 #    endif
 #  elif defined(_MSC_VER)
@@ -165,12 +192,14 @@
 
 //! has static_assert
 #if !defined(IUTEST_HAS_STATIC_ASSERT)
-#  if   defined(__clang__)
+#  if   defined(__cpp_static_assert) && __cpp_static_assert >= 200410
+#    define IUTEST_HAS_STATIC_ASSERT	1
+#  elif defined(__clang__)
 #    if __has_feature(cxx_static_assert)
 #      define IUTEST_HAS_STATIC_ASSERT	1
 #    endif
 #  elif defined(__GNUC__)
-#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 2)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 3)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_STATIC_ASSERT	1
 #    endif
 #  elif defined(_MSC_VER)
@@ -191,12 +220,14 @@
 
 //! has constexpr
 #if !defined(IUTEST_HAS_CONSTEXPR)
-#  if   defined(__clang__)
+#  if   defined(__cpp_constexpr) && __cpp_constexpr >= 200704
+#    define IUTEST_HAS_CONSTEXPR	1
+#  elif defined(__clang__)
 #    if __has_feature(cxx_constexpr)
 #      define IUTEST_HAS_CONSTEXPR	1
 #    endif
 #  elif defined(__GNUC__)
-#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 5)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_CONSTEXPR	1
 #    endif
 #  elif defined(_MSC_VER)
@@ -230,12 +261,14 @@
 
 //! has rvalue reference
 #if !defined(IUTEST_HAS_RVALUE_REFS)
-#  if   defined(__clang__)
+#  if   defined(__cpp_rvalue_references) && __cpp_rvalue_references >= 200610
+#      define IUTEST_HAS_RVALUE_REFS	1
+#  elif defined(__clang__)
 #    if __has_feature(cxx_rvalue_references)
 #      define IUTEST_HAS_RVALUE_REFS	1
 #    endif
 #  elif defined(__GNUC__)
-#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 2)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 3)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_RVALUE_REFS	1
 #    endif
 #  elif defined(_MSC_VER)
@@ -322,7 +355,9 @@
 
 //! has initializer_list
 #if !defined(IUTEST_HAS_INITIALIZER_LIST)
-#  if   defined(__clang__)
+#  if   defined(__cpp_initializer_lists) && __cpp_initializer_lists >= 200806
+#    define IUTEST_HAS_INITIALIZER_LIST	1
+#  elif defined(__clang__)
 #    if __has_feature(cxx_generalized_initializers)
 #      define IUTEST_HAS_INITIALIZER_LIST	1
 #    endif
@@ -354,7 +389,9 @@
 
 //! has variadic template
 #if !defined(IUTEST_HAS_VARIADIC_TEMPLATES)
-#  if   defined(__clang__)
+#  if   defined(__cpp_variadic_templates) && __cpp_variadic_templates >= 200704
+#    define IUTEST_HAS_VARIADIC_TEMPLATES	1
+#  elif defined(__clang__)
 #    if __has_feature(cxx_variadic_templates)
 #      define IUTEST_HAS_VARIADIC_TEMPLATES	1
 #    endif
@@ -390,7 +427,7 @@
 #    endif
 #  elif defined(__GNUC__)
 #    if defined(__VARIADIC_TEMPLATES) \
-			|| ( ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ > 7)) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7) && (__GNUC_PATCHLEVEL__ >= 1)))	\
+			|| ( ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 8)) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7) && (__GNUC_PATCHLEVEL__ >= 1)))	\
 				&& defined(__GXX_EXPERIMENTAL_CXX0X__) )
 #      define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES	1
 #    endif
@@ -407,7 +444,9 @@
 
 //! has char16_t
 #if !defined(IUTEST_HAS_CHAR16_T)
-#  if defined(__clang__)
+#  if   defined(__cpp_unicode_characters) && __cpp_unicode_characters >= 200704 && defined(__cpp_unicode_literals) && __cpp_unicode_literals >= 200710
+#    define IUTEST_HAS_CHAR16_T		1
+#  elif defined(__clang__)
 #    if __has_feature(cxx_unicode_literals)
 #      define IUTEST_HAS_CHAR16_T	1
 #    endif
@@ -432,7 +471,9 @@
 
 //! has char32_t
 #ifndef IUTEST_HAS_CHAR32_T
-#  if defined(__clang__)
+#  if   defined(__cpp_unicode_characters) && __cpp_unicode_characters >= 200704 && defined(__cpp_unicode_literals) && __cpp_unicode_literals >= 200710
+#    define IUTEST_HAS_CHAR32_T	1
+#  elif defined(__clang__)
 #    if __has_feature(cxx_unicode_literals)
 #      define IUTEST_HAS_CHAR32_T	1
 #    endif
@@ -457,7 +498,13 @@
 
 //! has lambda
 #if !defined(IUTEST_HAS_LAMBDA)
-#  if   defined(__GNUC__)
+#  if   defined(__cpp_lambdas) && __cpp_lambdas >= 200907
+#    define IUTEST_HAS_LAMBDA		1
+#  elif defined(__clang__)
+#    if __has_feature(cxx_lambdas)
+#      define IUTEST_HAS_LAMBDA		1
+#    endif
+#  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_LAMBDA		1
 #    endif

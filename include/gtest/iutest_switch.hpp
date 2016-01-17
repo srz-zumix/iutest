@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -397,6 +397,11 @@ using tuples::tuple_element;
 
 using tuples::make_tuple;
 using tuples::get;
+
+#if !defined(IUTEST_USING_BEGIN_END)
+#  define IUTEST_USING_BEGIN_END()	\
+	using ::std::begin; using ::std::end
+#endif
 
 namespace iusupport
 {

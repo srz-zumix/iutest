@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "iutest.hpp"
+#include "gtest/iutest_switch.hpp"
 
 IUTEST(UtilTest, Find)
 {
@@ -240,4 +240,14 @@ IUTEST(AssertionTest, CONTAINS_REGEXNE)
 }
 
 #endif
+
+#ifdef UNICODE
+int wmain(int argc, wchar_t* argv[])
+#else
+int main(int argc, char* argv[])
+#endif
+{
+	IUTEST_INIT(&argc, argv);
+	return IUTEST_RUN_ALL_TESTS();
+}
 

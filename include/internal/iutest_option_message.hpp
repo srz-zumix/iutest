@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -155,6 +155,7 @@ inline void iuOptionMessage::ShowFeature(void)
 inline void iuOptionMessage::ShowSpec(void)
 {
 	IIUT_SHOW_MACRO(IUTEST_HAS_ANALYSIS_ASSUME);
+	IIUT_SHOW_MACRO(IUTEST_HAS_AUTO);
 	IIUT_SHOW_MACRO(IUTEST_HAS_CHAR16_T);
 	IIUT_SHOW_MACRO(IUTEST_HAS_CHAR32_T);
 	IIUT_SHOW_MACRO(IUTEST_HAS_CLOCK);
@@ -166,6 +167,7 @@ inline void iuOptionMessage::ShowSpec(void)
 	IIUT_SHOW_MACRO(IUTEST_HAS_CXX_HDR_RANDOM);
 	IIUT_SHOW_MACRO(IUTEST_HAS_CXX_HDR_REGEX);
 	IIUT_SHOW_MACRO(IUTEST_HAS_CXX11);
+	IIUT_SHOW_MACRO(IUTEST_HAS_DECLTYPE);
 	IIUT_SHOW_MACRO(IUTEST_HAS_DELETED_FUNCTIONS);
 	IIUT_SHOW_MACRO(IUTEST_HAS_EXCEPTIONS);
 	IIUT_SHOW_MACRO(IUTEST_HAS_EXPLICIT_CONVERSION);

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -53,12 +53,14 @@
 #endif
 
 //! using begin,end
-#if IUTEST_HAS_STD_BEGIN_END
-#  define IUTEST_USING_BEGIN_END()	\
+#if !defined(IUTEST_USING_BEGIN_END)
+#  if IUTEST_HAS_STD_BEGIN_END
+#    define IUTEST_USING_BEGIN_END()	\
 	using ::std::begin; using ::std::end
-#else
-#  define IUTEST_USING_BEGIN_END()	\
+#  else
+#    define IUTEST_USING_BEGIN_END()	\
 	using ::iutest::detail::cxx::begin; using ::iutest::detail::cxx::end
+#  endif
 #endif
 
 namespace iutest {
@@ -134,7 +136,7 @@ template<typename T, size_t SIZE> const T* end  (const T (&x)[SIZE]) { return be
 #    if (_MSC_VER > 1700) || (_MSC_VER == 1700 && _VARIADIC_MAX >= 9)
 #      define IUTEST_HAS_STD_TUPLE	1
 #    endif
-#  elif defined(__clang__)
+#  elif defined(__has_include)
 #    if __has_include( <tuple> ) && IUTEST_HAS_VARIADIC_TEMPLATES
 #      define IUTEST_HAS_STD_TUPLE	1
 #    endif
@@ -167,7 +169,7 @@ template<typename T, size_t SIZE> const T* end  (const T (&x)[SIZE]) { return be
 #    if (_MSC_VER >= 1500) && (_MSC_VER < 1700) && (_MSC_FULL_VER > 150021022)
 #      define IUTEST_HAS_TR1_TUPLE	1
 #    endif
-#  elif defined(__clang__)
+#  elif defined(__has_include)
 #    if __has_include( <tr1/tuple> )
 #      define IUTEST_HAS_TR1_TUPLE	1
 #    endif
@@ -482,7 +484,7 @@ using tuples::get;
 //! has cxxabi header
 #if !defined(IUTEST_HAS_HDR_CXXABI)
 
-#if   defined(__clang__) && defined(__has_include)
+#if   defined(__has_include)
 #  if __has_include( <cxxabi.h> )
 #    define IUTEST_HAS_HDR_CXXABI		1
 #  endif

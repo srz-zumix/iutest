@@ -93,6 +93,7 @@ TARGETS1= \
           throw_on_failure_tests \
           tr1_tests \
           uninitialize_tests \
+          util_tests \
 
 TARGETS2= \
           assertion_only_tests \

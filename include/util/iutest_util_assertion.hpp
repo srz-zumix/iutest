@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -556,10 +556,6 @@ template<typename T1, typename T2>
 }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 
-#if IUTEST_HAS_INITIALIZER_LIST
-
-#endif
-
 /** @overload */
 template<typename T1, size_t SIZE1, typename T2, size_t SIZE2>
 ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqRange(const char* expected_expr, const char* actual_expr
@@ -584,6 +580,26 @@ template<typename T1, size_t SIZE1, typename T2>
 	return detail::CmpHelperEqRange(expected_expr, actual_expr, expected, expected+SIZE1
 		, actual.begin(), actual.end());
 }
+#if IUTEST_HAS_INITIALIZER_LIST
+
+/** @overload */
+template<typename T1, typename T2>
+::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqRange(const char* expected_expr, const char* actual_expr
+	, const ::std::initializer_list<T1>& expected, const T2& actual)
+{
+	return detail::CmpHelperEqRange(expected_expr, actual_expr, expected.begin(), expected.end()
+		, actual.begin(), actual.end());
+}
+/** @overload */
+template<typename T1, typename T2, size_t SIZE2>
+::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqRange(const char* expected_expr, const char* actual_expr
+	, const ::std::initializer_list<T1>& expected, T2(&actual)[SIZE2])
+{
+	return detail::CmpHelperEqRange(expected_expr, actual_expr, expected.begin(), expected.end()
+		, actual, actual + SIZE2);
+}
+
+#endif
 
 #endif
 
