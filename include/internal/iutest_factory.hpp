@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -65,7 +65,7 @@ template<typename ParamType>
 class iuParamTestFactoryBase : public iuFactoryBase
 {
 public:
-	iuParamTestFactoryBase(void) {}
+	iuParamTestFactoryBase(void) IUTEST_CXX_DEFAULT_FUNCTION
 	explicit iuParamTestFactoryBase(ParamType param) : m_param(param) {}
 public:
 	void				SetParam(ParamType param) { m_param = param; }
@@ -86,7 +86,7 @@ class iuParamTestFactory : public iuParamTestFactoryBase<typename Tester::ParamT
 	typedef typename Tester::ParamType ParamType;
 	typedef iuParamTestFactoryBase<ParamType> _Mybase;
 public:
-	iuParamTestFactory(void) {}
+	iuParamTestFactory(void) IUTEST_CXX_DEFAULT_FUNCTION
 	explicit iuParamTestFactory(ParamType param) : _Mybase(param) {}
 
 public:

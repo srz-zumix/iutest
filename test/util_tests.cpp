@@ -115,6 +115,10 @@ IUTEST(AssertionTest, EQ_RANGE)
 		IUTEST_ASSUME_EQ_RANGE(a, c);
 #if IUTEST_HAS_INITIALIZER_LIST
 		IUTEST_ASSERT_EQ_RANGE(::std::initializer_list<int>({0,1,2,3,4}), a);
+#if IUTEST_HAS_AUTO
+		auto il = {0, 1, 2, 3, 4};
+		IUTEST_ASSERT_EQ_RANGE(il, a);
+#endif
 #endif
 	}
 

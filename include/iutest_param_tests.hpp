@@ -385,7 +385,7 @@ detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ Range(T begin, T end, T ste
 */
 inline detail::iuParamGenerator<bool> IUTEST_ATTRIBUTE_UNUSED_ Bool(void)
 {
-	return new detail::iuBoolParamsGenerator<bool>();
+	return new detail::iuBoolParamsGenerator();
 }
 
 #if IUTEST_HAS_VALUESGEN

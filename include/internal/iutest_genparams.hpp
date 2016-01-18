@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -118,23 +118,22 @@ public:
 
 /**
  * @brief	真偽値パラメータ生成器
- * @tparam T	= パラメータ型
 */
-template<typename T>
-class iuBoolParamsGenerator : public iuIParamGenerator<T>
+class iuBoolParamsGenerator : public iuIParamGenerator<bool>
 {
-	T m_cur;
 	int m_n;
+	bool m_cur;
 public:
 	iuBoolParamsGenerator(void)
 		: m_n(0)
+		, m_cur(false)
 	{}
 
 public:
-	virtual void	Begin(void) IUTEST_CXX_OVERRIDE { m_cur = 0; m_n = 0; }
-	virtual T		GetCurrent(void) const IUTEST_CXX_OVERRIDE { return m_cur; }
+	virtual void	Begin(void) IUTEST_CXX_OVERRIDE { m_cur = false; m_n = 0; }
+	virtual bool	GetCurrent(void) const IUTEST_CXX_OVERRIDE { return m_cur; }
 	virtual void	Next(void) IUTEST_CXX_OVERRIDE { ++m_n; m_cur = !m_cur; }
-	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE { return (m_n >= 2); }
+	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE { return m_n >= 2; }
 };
 
 /**
