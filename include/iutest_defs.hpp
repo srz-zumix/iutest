@@ -375,4 +375,39 @@ typedef detail::type_least_t<8>::Int	BiggestInt;		//!< Biggest Int
 
 }	// end of namespace iutest
 
+/*
+#if IUTEST_HAS_ATTRIBUTE_DEPRECATED
+namespace iutest {
+namespace detail
+{
+
+template<typename T>
+struct type_check_t { static const int IUTEST_ATTRIBUTE_DEPRECATED_ value = 0; };
+
+#if IUTEST_HAS_RVALUE_REFS
+template<typename T>
+int type_check(T&& x) { return 0; }
+#else
+template<typename T>
+int type_check(const T& x) { return 0; }
+#endif
+
+}	// end of namespace detail
+}	// end of namespace iutest
+
+#if defined(_MSC_VER)
+#  if IUTEST_HAS_DECLTYPE
+#    define IUTEST_CHECK_TYPE(x)	(void)::iutest::detail::type_check_t< decltype(x) >::value
+#  endif
+#else
+#  define IUTEST_CHECK_TYPE(x)		::iutest::detail::type_check(x)
+#endif
+
+#if !defined(IUTEST_CHECK_TYPE)
+#  define IUTEST_CHECK_TYPE(x)		(void)0
+#endif
+
+#endif
+*/
+
 #endif // INCG_IRIS_IUTEST_DEFS_HPP_839F06DB_E0B6_4E6A_84F2_D99C0A44E06C_

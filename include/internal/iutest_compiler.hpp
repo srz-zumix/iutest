@@ -1037,6 +1037,63 @@
 
 // attribute
 
+//! has c++11 attribute [[]]
+#if !defined(IUTEST_HAS_ATTRIBUTE)
+#  if defined(__cpp_attributes) && __cpp_attributes >= 200809
+#    define IUTEST_HAS_ATTRIBUTE	1
+#  elif   defined(__clang__)
+#    if __has_feature(cxx_attributes)
+#      define IUTEST_HAS_ATTRIBUTE	1
+#    endif
+#  elif defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 8)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_ATTRIBUTE	1
+#    endif
+#  elif   defined(_MSC_VER)
+#    if _MSC_VER > 1800
+#      define IUTEST_HAS_ATTRIBUTE	1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_ATTRIBUTE)
+#  define IUTEST_HAS_ATTRIBUTE		0
+#endif
+
+//! has deprecated attribute
+#if !defined(IUTEST_HAS_ATTRIBUTE_DEPRECATED)
+#  if defined(__has_cpp_attribute)
+#    if __has_cpp_attribute(deprecated) >= 201309
+#      define IUTEST_HAS_ATTRIBUTE_DEPRECATED	1
+#    endif
+#  elif defined(__GNUC__)
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 9)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
+#      define IUTEST_HAS_ATTRIBUTE_DEPRECATED	1
+#    endif
+#  elif   defined(__clang__)
+#    if __clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 4)
+#      define IUTEST_HAS_ATTRIBUTE_DEPRECATED	1
+#    endif
+#  elif   defined(_MSC_VER)
+#    define IUTEST_HAS_ATTRIBUTE_DEPRECATED		IUTEST_HAS_ATTRIBUTE
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_ATTRIBUTE_DEPRECATED)
+#  define IUTEST_HAS_ATTRIBUTE_DEPRECATED		0
+#endif
+
+//! deprecated attribute
+#if !defined(IUTEST_ATTRIBUTE_DEPRECATED_)
+#  if IUTEST_HAS_ATTRIBUTE_DEPRECATED
+#    define IUTEST_ATTRIBUTE_DEPRECATED_		[[deprecated]]
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_DEPRECATED_)
+#  define IUTEST_ATTRIBUTE_DEPRECATED_
+#endif
+
 //! unused attribute
 #if !defined(IUTEST_ATTRIBUTE_UNUSED_)
 #  if (defined(__GNUC__) && !defined(COMPILER_ICC))
@@ -1063,10 +1120,10 @@
 
 //! noreturn
 #if !defined(IUTEST_ATTRIBUTE_NORETURN_)
-#  if   defined(__clang__)
-#    if __has_feature(cxx_attributes)
-#      define IUTEST_ATTRIBUTE_NORETURN_	[[noreturn]]
-#    elif __has_attribute(noreturn)
+#  if IUTEST_HAS_ATTRIBUTE
+#    define IUTEST_ATTRIBUTE_NORETURN_		[[noreturn]]
+#  elif   defined(__clang__)
+#    if __has_attribute(noreturn)
 #      define IUTEST_ATTRIBUTE_NORETURN_	__attribute__ ((noreturn))
 #    endif
 #  elif defined(__GNUC__) && !defined(COMPILER_ICC)
