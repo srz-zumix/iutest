@@ -285,6 +285,18 @@ IUTEST(AssertionTest, Regex)
 
 #endif
 
+struct X
+{
+	template<typename T>
+	friend bool operator == (const T&, const X&) { return false; }
+	template<typename T>
+	friend bool operator == (const X&, const T&) { return false; }
+};
+
+::std::ostream& operator << (::std::ostream& os, const X&)
+{
+	return os << "X";
+}
 
 /* ---------------------------------------------------
  * 失敗の確認

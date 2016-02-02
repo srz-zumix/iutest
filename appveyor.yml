@@ -2,58 +2,82 @@ version: 1.0.{build}
 os:
 - Visual Studio 2015
 - Windows Server 2012 R2
-
 configuration:
 - Debug
 - Release
-
 init:
 - cmd: 
-
 build:
   project: projects\msvc12\iutest.sln
   parallel: true
   verbosity: minimal
-  
 after_build:
 - cmd: >-
     "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
-    cd test
-    nmake
-    cd ../
 
+
+    cd test
+
+    nmake
+
+    cd ../
 test_script:
 - cmd: >-
     cd projects/msvc12
+
     %Configuration%\iutest_sample.exe
+
     if errorlevel 1 exit /b 1
+
+
     cd %Configuration%
 
     gtest1.exe
+
     if errorlevel 1 exit /b 1
+
     gtest2.exe
+
     if errorlevel 1 exit /b 1
+
     gtest3.exe
+
     if errorlevel 1 exit /b 1
+
     gtest4.exe
+
     if errorlevel 1 exit /b 1
+
     gtest5.exe
+
     if errorlevel 1 exit /b 1
+
     gtest6.exe
+
     if errorlevel 1 exit /b 1
+
     gtest7.exe
+
     if errorlevel 1 exit /b 1
+
     gtest8.exe
+
     if errorlevel 1 exit /b 1
+
     gtest9.exe --terse_output
+
     if errorlevel 1 exit /b 1
+
     gtest10.exe
+
     if errorlevel 1 exit /b 1
+
     cd ../../../
 
-    cd test
-    nmake test
 
+    cd test
+
+    nmake test
 notifications:
 - provider: Email
   to:

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -267,6 +267,8 @@ inline bool iuConsole::IsShouldUseColor(bool use_color)
 		|| IsStringEqual(env, "xterm-256color")
 		|| IsStringEqual(env, "screen")
 		|| IsStringEqual(env, "screen-256color")
+		|| IsStringEqual(env, "tmux")
+		|| IsStringEqual(env, "tmux-256color")
 		|| IsStringEqual(env, "rxvt-unicode")
 		|| IsStringEqual(env, "rxvt-unicode-256color")
 		|| IsStringEqual(env, "linux")
