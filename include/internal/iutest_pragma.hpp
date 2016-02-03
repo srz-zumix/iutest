@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -35,6 +35,7 @@
 #if defined(_MSC_VER)
 #  define IUTEST_PRAGMA_MSC_WARN_PUSH()			IUTEST_PRAGMA(warning (push))
 #  define IUTEST_PRAGMA_MSC_WARN_DISABLE(x)		IUTEST_PRAGMA(warning (disable: x))
+#  define IUTEST_PRAGMA_MSC_WARN_SUPPRESS(x)	IUTEST_PRAGMA(warning (suppress: x))
 #  define IUTEST_PRAGMA_MSC_WARN_POP()			IUTEST_PRAGMA(warning (pop))
 #endif
 

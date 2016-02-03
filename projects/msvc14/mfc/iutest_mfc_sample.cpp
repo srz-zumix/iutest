@@ -19,6 +19,7 @@ using namespace std;
 
 int _tmain(int argc, TCHAR* argv[], TCHAR* envp[])
 {
+	IUTEST_UNUSED_VAR(envp);
 	int nRetCode = 0;
 
 	HMODULE hModule = ::GetModuleHandle(NULL);
@@ -68,12 +69,12 @@ IUTEST(MFC, Rect)
 template<typename T>
 struct test_value
 {
-	static T get(int index) { return index; }
+	static T get(int index) { return static_cast<T>(index); }
 };
 template<typename T>
 struct test_value< T* >
 {
-	static T* get(int index) { return NULL; }
+	static T* get(int) { return NULL; }
 };
 template<>
 struct test_value < CString >

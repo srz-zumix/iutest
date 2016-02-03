@@ -304,7 +304,7 @@ inline ::std::string StringFormat(const char* format, ...)
 			n = ret;
 		}
 	}
-	while( 1 )
+	for( ;; )
 	{
 		char* dst = new char[n];
 		va_list va;
