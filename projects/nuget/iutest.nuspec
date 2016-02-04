@@ -3,9 +3,9 @@
   <metadata>
     <id>iutest</id>
     <title>iutest</title>
-    <version>1.13.0</version>
+    <version>1.15.0</version>
     <authors>Takazumi Shirayanagi</authors>
-    <copyright>Copyright (c) 2011-2015</copyright>
+    <copyright>Copyright (c) 2011-2016</copyright>
     <summary>C++ testing framework.</summary>
     <description>iutest is framework for writing C++ tests.
     Supports automatic tests discovery, include only, value- and type- parameterized tests,
