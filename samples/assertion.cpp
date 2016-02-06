@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -284,19 +284,6 @@ IUTEST(AssertionTest, Regex)
 }
 
 #endif
-
-struct X
-{
-	template<typename T>
-	friend bool operator == (const T&, const X&) { return false; }
-	template<typename T>
-	friend bool operator == (const X&, const T&) { return false; }
-};
-
-::std::ostream& operator << (::std::ostream& os, const X&)
-{
-	return os << "X";
-}
 
 /* ---------------------------------------------------
  * 失敗の確認
