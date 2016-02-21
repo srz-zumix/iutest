@@ -293,7 +293,7 @@ inline ::std::string ShowStringQuoted(const ::std::string& str)
 
 inline ::std::string StringFormat(const char* format, ...)
 {
-	int n = strlen(format) * 2;
+	size_t n = strlen(format) * 2;
 	{
 		va_list va;
 		va_start(va, format);

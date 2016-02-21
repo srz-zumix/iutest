@@ -52,6 +52,7 @@ class BasicSocket
 public:
 #ifdef IUTEST_OS_WINDOWS
 	typedef SOCKET descriptor_t;
+	typedef int length_t;
 
 #if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
 	static const descriptor_t INVALID_DESCRIPTOR = INVALID_SOCKET;
@@ -61,6 +62,7 @@ public:
 
 #else
 	typedef int descriptor_t;
+	typedef size_t length_t;
 
 #if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
 	static const descriptor_t INVALID_DESCRIPTOR = -1;
@@ -107,7 +109,7 @@ public:
 			const descriptor_t fd = socket(curr->ai_family, curr->ai_socktype, curr->ai_protocol);
 			if( fd != INVALID_DESCRIPTOR )
 			{
-				if( connect(fd, curr->ai_addr, curr->ai_addrlen) != -1 )
+				if( connect(fd, curr->ai_addr, static_cast<length_t>(curr->ai_addrlen)) != -1 )
 				{
 					m_socket = fd;
 					break;

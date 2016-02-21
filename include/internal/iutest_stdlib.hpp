@@ -380,7 +380,7 @@ using tuples::get;
 #  else
 #  endif
 #elif defined(_MSC_VER)
-#  if _MSC_VER > 1600
+#  if _MSC_VER > 1600 && _MSC_FULL_VER != 190023725
 #    define IUTEST_HAS_CXX_HDR_CHRONO		1
 #  endif
 #endif

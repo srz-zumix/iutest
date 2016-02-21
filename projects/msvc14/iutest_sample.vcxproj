@@ -189,7 +189,6 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <DisableSpecificWarnings>4505</DisableSpecificWarnings>
       <EnablePREfast>false</EnablePREfast>
-      <AdditionalOptions>-Qunused-arguments %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
