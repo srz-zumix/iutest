@@ -962,6 +962,8 @@
 #  define IUTEST_HAS_WANT_SECURE_LIB		0
 #endif
 
+// MS extensions
+
 //! has Microsoft compiler extension
 #if !defined(IUTEST_HAS_MS_EXTENSIONS)
 #  if defined(__clang__)
@@ -1014,6 +1016,16 @@
 #  else
 #    define IUTEST_ANALYSIS_ASSUME(...)		(void)0
 #  endif
+#endif
+
+#if !defined(IUTEST_HAS_MS_CXX_MODULE)
+#  if defined(_MSC_FULL_VER) && _MSC_FULL_VER >= 190023506
+#    define IUTEST_HAS_MS_CXX_MODULE		1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_MS_CXX_MODULE)
+#  define IUTEST_HAS_MS_CXX_MODULE			0
 #endif
 
 // C11

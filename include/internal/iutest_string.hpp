@@ -297,7 +297,7 @@ inline ::std::string StringFormat(const char* format, ...)
 	{
 		va_list va;
 		va_start(va, format);
-		const int ret = iu_vsnprintf(NULL, 0, format, va);
+		const size_t ret = iu_vsnprintf(NULL, 0, format, va);
 		va_end(va);
 		if( ret > 0 )
 		{
@@ -309,7 +309,7 @@ inline ::std::string StringFormat(const char* format, ...)
 		char* dst = new char[n];
 		va_list va;
 		va_start(va, format);
-		const int written = iu_vsnprintf(dst, n, format, va);
+		const size_t written = iu_vsnprintf(dst, n, format, va);
 		va_end(va);
 		if( written >= 0 && written < n )
 		{
