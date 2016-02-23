@@ -24,5 +24,11 @@
     <None Include="..\Doxyfile">
       <Filter>ソース ファイル</Filter>
     </None>
+    <None Include="..\twilio.html">
+      <Filter>ソース ファイル</Filter>
+    </None>
+    <None Include="..\wandbox.html">
+      <Filter>ソース ファイル</Filter>
+    </None>
   </ItemGroup>
 </Project>

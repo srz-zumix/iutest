@@ -309,17 +309,22 @@ inline ::std::string StringFormat(const char* format, ...)
 		char* dst = new char[n];
 		va_list va;
 		va_start(va, format);
-		const size_t written = iu_vsnprintf(dst, n, format, va);
+		const int written = iu_vsnprintf(dst, n, format, va);
 		va_end(va);
-		if( written >= 0 && written < n )
+		if( written < 0 )
 		{
-			::std::string s = ::std::string(dst, written);
+			if( errno == EOVERFLOW ) break;
+		}
+		else if( static_cast<size_t>(written) < n )
+		{
+			::std::string s = ::std::string(dst, static_cast<size_t>(written));
 			delete[] dst;
 			return s;
 		}
 		delete[] dst;
 		n *= 2;
 	}
+	return "";
 }
 
 //======================================================================

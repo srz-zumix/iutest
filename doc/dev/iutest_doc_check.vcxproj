@@ -18,6 +18,8 @@
     </None>
     <None Include="..\primer.html" />
     <None Include="..\sidebar.html" />
+    <None Include="..\twilio.html" />
+    <None Include="..\wandbox.html" />
     <None Include="build.bat" />
     <None Include="Makefile" />
   </ItemGroup>

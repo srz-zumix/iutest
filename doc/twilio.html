@@ -3,49 +3,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
-  <title>iutest - Wandbox</title>
+  <title>iutest - Twilio</title>
   <meta http-equiv="Content-Type" content="text/html; charset=shift_jis" />
   <meta http-equiv="content-style-type" content="text/css" />
-  <style type="text/css">
-  body {
-    font-family: Arial,'ＭＳ Ｐゴシック',sans-serif ;
-    background-color:#008080;
-    line-height:130%;
-  }
-  h1 {
-    padding:20px 10px;
-    background-color:#cccccc;
-    border-bottom: solid 1px #808080;
-  }
-  h2 {
-    padding:14px 10px;
-    background-color:#cccccc;
-    border-bottom: solid 1px #808080;
-  }
-  h3 {
-    padding:10px 10px;
-    background-color:#cccccc;
-    border-bottom: solid 1px #808080;
-  }
-  .contents {
-    padding:0px 0px 1em 0px;
-    background-color:#f8f8f8;
-    border-right: solid 5px #006400;
-    border-bottom: solid 10px #006400;
-  }
-  li {
-    padding-bottom:4px;
-  }
-  .text_block {
-    padding-left:1em;
-  }
-  .source {
-    border : solid 2px #006400;
-    background-color:#ffffff;
-    padding: 0.5em;
-    margin: 10px;
-  }
-  </style>
+
+  <link href='css/doc.css' rel='stylesheet' type='text/css' />
 </head>
 <body>
 
@@ -63,12 +25,12 @@ tools/twilio/iutwilio.py を使用します。<br />
 iutwilio は python で書かれていますので、python が利用可能な環境で実行してください。<br />
 実行にはテスト結果の xml と、Twilio のアカウント情報、発信先番号を指定します。<br />
 <br />
-</div>
 
 例）<br />
-<pre>
+<pre class="console">
 iutwilio.py result.xml --call +810123456789 --account_sid=AC00000000000000000000000000000000 --auth_token=XXX --number=+815012345678
 </pre>
+</div>
 
 <h2>コマンドラインオプション</h2>
 <div class="text_block">

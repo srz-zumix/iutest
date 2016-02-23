@@ -6,46 +6,8 @@
   <title>iutest - Wandbox</title>
   <meta http-equiv="Content-Type" content="text/html; charset=shift_jis" />
   <meta http-equiv="content-style-type" content="text/css" />
-  <style type="text/css">
-  body {
-    font-family: Arial,'ＭＳ Ｐゴシック',sans-serif ;
-    background-color:#008080;
-    line-height:130%;
-  }
-  h1 {
-    padding:20px 10px;
-    background-color:#cccccc;
-    border-bottom: solid 1px #808080;
-  }
-  h2 {
-    padding:14px 10px;
-    background-color:#cccccc;
-    border-bottom: solid 1px #808080;
-  }
-  h3 {
-    padding:10px 10px;
-    background-color:#cccccc;
-    border-bottom: solid 1px #808080;
-  }
-  .contents {
-    padding:0px 0px 1em 0px;
-    background-color:#f8f8f8;
-    border-right: solid 5px #006400;
-    border-bottom: solid 10px #006400;
-  }
-  li {
-    padding-bottom:4px;
-  }
-  .text_block {
-    padding-left:1em;
-  }
-  .source {
-    border : solid 2px #006400;
-    background-color:#ffffff;
-    padding: 0.5em;
-    margin: 10px;
-  }
-  </style>
+
+  <link href='css/doc.css' rel='stylesheet' type='text/css' />
 </head>
 <body>
 
@@ -66,7 +28,7 @@ iuwandbox は python で書かれていますので、python が利用可能な環境で実行してくだ�
 <br />
 
 例）<br />
-<pre>
+<pre class="console">
 iuwandbox.py sample.cpp
 </pre>
 
@@ -92,7 +54,7 @@ IUTEST(Foo, Bar)
 </pre>
 
 サンプルの実行結果はこちらになります。<br />
-<image src="./images/iuwandbox_sample.png" />
+<img src="./images/iuwandbox_sample.png" alt="サンプル実行結果" />
 <a href="http://melpon.org/wandbox/permlink/bvijy7uej9JuSGu0" target="_blank">http://melpon.org/wandbox/permlink/ASSmVgckBKb1HxFF</a><br />
 <br />
 コンパイラーの選択などは後述のコマンドラインオプションの項をご覧ください。<br />
@@ -104,7 +66,7 @@ IUTEST(Foo, Bar)
 <tr><td>-c,--compiler COMPILER </td><td>コンパイラーを選択します。選択できるコンパイラーは Wandbox を確認するか、--list_compiler オプションで確認してください。デフォルト：[gcc-head]</td></tr>
 <tr><td>-x,--options OPTIONS   </td><td>オプションを選択します。選択できるコンパイラーは Wandbox を確認するか、--list_options オプションで確認してください。</td></tr>
 <tr><td>--default              </td><td>Wandbox のデフォルトオプションを使用します。</td></tr>
-<tr><td>--boost VERSION        </td><td>使用する boost のバージョンを指定します。nothing を指定すると boost を使用しません。</td>
+<tr><td>--boost VERSION        </td><td>使用する boost のバージョンを指定します。nothing を指定すると boost を使用しません。</td></tr>
 <tr><td>-f,--compiler_options_raw OPTIONS</td><td>コンパイラーのオプションを直接指定します。複数のオプションを指定する場合は、[ -f"-Dx=hogefuga\n-O3" ] とするか、[ -f"-Dx=hogefuga" -f"-O3" ] のように複数オプションを記述してください。 </td></tr>
 <tr><td>-r,--runtime_options_raw OPTIONS</td><td>ビルドした実行ファイルのコマンドラインオプションを指定します。複数のオプションを指定する場合は、[ -r"--iutest_shuffle\n--iutest_random_seed=1" ] とするか、[ -r"--iutest_shuffle" -r"--iutest_random_seed=1" ] のように複数オプションを記述してください。 </td></tr>
 <tr><td>--list_compiler        </td><td>利用可能なコンパイラーを列挙します。</td></tr>
