@@ -5,6 +5,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\css">
+      <UniqueIdentifier>{4043d5aa-c256-4b75-8c95-6f6b851981e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile" />
@@ -29,6 +32,9 @@
     </None>
     <None Include="..\wandbox.html">
       <Filter>ソース ファイル</Filter>
+    </None>
+    <None Include="..\css\doc.css">
+      <Filter>ソース ファイル\css</Filter>
     </None>
   </ItemGroup>
 </Project>

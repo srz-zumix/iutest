@@ -275,7 +275,7 @@
 
 /**
  * @internal
- * @biref	比較検証マクロ
+ * @brief	比較検証マクロ
 */
 #define IUTEST_TEST_ASSERT_(expression, on_failure)	\
 	IUTEST_AMBIGUOUS_ELSE_BLOCKER_					\

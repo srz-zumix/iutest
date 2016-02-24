@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\cover.html" />
+    <None Include="..\css\doc.css" />
     <None Include="..\Doxyfile" />
     <None Include="..\index.html">
       <SubType>Designer</SubType>

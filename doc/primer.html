@@ -14,7 +14,7 @@
 
   <script src='http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js' type='text/javascript'></script>
   <script src='http://alexgorbatchev.com/pub/sh/current/scripts/shBrushCpp.js' type='text/javascript'></script>
-  <script>
+  <script type="text/javascript">
     SyntaxHighlighter.all();
   </script>
 </head>
@@ -656,7 +656,7 @@ IUTEST_USE_GTEST マクロを定義してください。<br />
 また、先頭に '-' を付けることで、マッチしたテストを除外するネガティブパターンも指定できます。<br />
 （iutest のテスト名は、TestCaseName.TestName です）<br />
 </p>
-<table class="ruled" >
+<table class="ruled" summary="フィルターフォーマット" >
 <tr><td>*</td><td>任意の文字列にマッチ</td></tr>
 <tr><td>?</td><td>任意の1文字にマッチ</td></tr>
 </table>
@@ -691,7 +691,7 @@ IUTEST_USE_GTEST マクロを定義してください。<br />
 <p>
 Matcher は IUTEST_*_THAT アサーションで利用します。
 </p>
-<table class="ruled" >
+<table class="ruled" summary="THAT" >
 <tr><td>IUTEST_*_THAT(expression, m)</td><td>expression の値が Mathcer m にマッチするか検証します</td></tr>
 </table>
 
@@ -702,7 +702,7 @@ Matcher の種類については Doxygen 生成のドキュメントを確認してください。
 </div> <!-- end of contents -->
 
 <br />
-<div align="right">Copyright (c) 2011-2016, Takazumi-Shirayanagi, All rights reserved.</div>
+<div class="copyright">Copyright (c) 2011-2016, Takazumi-Shirayanagi, All rights reserved.</div>
 
 </body>
 </html>

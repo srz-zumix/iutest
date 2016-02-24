@@ -24,6 +24,7 @@
 #include <wchar.h>
 #include <wctype.h>
 #include <stdarg.h>
+#include <errno.h>
 #if defined(IUTEST_OS_CYGWIN)
 #include <strings.h>
 #endif

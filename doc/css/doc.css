@@ -47,4 +47,10 @@ pre.console {
 	padding: 0.5em;
 	width: 95%;
 }
+div.copyright {
+    text-align: right;
+}
+table.wandbox tr td:first-child {
+    width: 200px;
+}
 
