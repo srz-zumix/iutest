@@ -314,7 +314,12 @@ inline ::std::string StringFormat(const char* format, ...)
 		va_end(va);
 		if( written < 0 )
 		{
+#if defined(EOVERFLOW)
 			if( errno == EOVERFLOW ) break;
+#endif
+#if defined(E2BIG)
+			if( errno == E2BIG ) break;
+#endif
 		}
 		else if( static_cast<size_t>(written) < n )
 		{
