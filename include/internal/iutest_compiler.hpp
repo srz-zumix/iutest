@@ -1031,7 +1031,7 @@
 #if defined(IUTEST_MODULE_EXPORT)
 #  define IUTEST_CXX_MODULE_EXPORT			export
 #else
-#  define IUTEST_CXX_MODULE_EXPORT			
+#  define IUTEST_CXX_MODULE_EXPORT
 #endif
 
 // C11
