@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -56,6 +56,9 @@ public:
 
 	/** 現在何回目のくり返しか取得 */
 	int					repeat_counter(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_repeat_counter; }
+
+	/** リピート回数を取得 */
+	int					repeat_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC { return TestEnv::get_repeat_count(); }
 
 public:
 	/** テスト総数 */

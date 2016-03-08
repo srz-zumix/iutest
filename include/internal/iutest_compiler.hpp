@@ -1028,6 +1028,12 @@
 #  define IUTEST_HAS_MS_CXX_MODULE			0
 #endif
 
+#if defined(IUTEST_MODULE_EXPORT)
+#  define IUTEST_CXX_MODULE_EXPORT			export
+#else
+#  define IUTEST_CXX_MODULE_EXPORT			
+#endif
+
 // C11
 
 //! has _Generic

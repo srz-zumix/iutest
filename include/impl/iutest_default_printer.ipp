@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -34,7 +34,7 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestProgramStart(const Unit
 IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationStart(const UnitTest& test
 								, int iteration)
 {
-	if( IUTEST_FLAG(repeat) != 1 )
+	if( test.repeat_count() != 1 )
 	{
 		detail::iuConsole::output("\nRepeating all tests (iteration %d) . . .\n\n", iteration+1);
 	}
