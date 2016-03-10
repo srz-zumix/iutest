@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -28,6 +28,13 @@
 #  include <sys/time.h>
 #elif defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 #  include <sys/timeb.h>
+#endif
+
+//======================================================================
+// define
+//! @deprecated 
+#if !defined(IUTEST_GetMillisec) && !IUTEST_HAS_CXX_HDR_CHRONO && !IUTEST_HAS_GETTIMEOFDAY && !defined(IUTEST_OS_WINDOWS) && !IUTEST_HAS_CLOCK
+#  define IUTEST_NO_GETTIMEINMILLIS
 #endif
 
 namespace iutest {

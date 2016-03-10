@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -131,22 +131,16 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 	return clock() * 1000 / CLOCKS_PER_SEC;
 
 #else
-
-#define IUTEST_NO_GETTIMEINMILLIS
 	return GetTime()*1000;
 #endif
 }
 
 IUTEST_IPP_INLINE unsigned int GetIndefiniteValue(void)
 {
-#if !defined(IUTEST_NO_GETTIMEINMILLIS)
-	return static_cast<unsigned int>(GetTimeInMillis());
-#else
 	// なるべく同じにならないようにする
-	static unsigned int s = 20120206;
+	static unsigned int s = static_cast<unsigned int>(GetTimeInMillis());
 	s = s*1664525 + 1013904223;
 	return s;
-#endif
 }
 
 }	// end of namespace detail

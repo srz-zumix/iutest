@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -440,7 +440,7 @@ inline AssertionResult CmpHelperOpFailure(const char* expr1, const char* expr2, 
  * @private
  * @{
  */
-#define DECL_COMPARE_HELPER_I_(op_name, op, type1, type2)						\
+#define IIUT_DECL_COMPARE_HELPER_I_(op_name, op, type1, type2)					\
 	inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelper##op_name(			\
 			const char* expr1, const char* expr2, type1 val1, type2 val2) {		\
 		if( val1 op val2 ) { return AssertionSuccess();							\
@@ -449,24 +449,24 @@ inline AssertionResult CmpHelperOpFailure(const char* expr1, const char* expr2, 
 
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 
-#define DECL_COMPARE_HELPER_(op_name, op)							\
+#define IIUT_DECL_COMPARE_HELPER_(op_name, op)						\
 	template<typename T1, typename T2>								\
-	DECL_COMPARE_HELPER_I_(op_name, op, const T1&, const T2&)		\
-	DECL_COMPARE_HELPER_I_(op_name, op, BiggestInt, BiggestInt)
+	IIUT_DECL_COMPARE_HELPER_I_(op_name, op, const T1&, const T2&)	\
+	IIUT_DECL_COMPARE_HELPER_I_(op_name, op, BiggestInt, BiggestInt)
 
 #else
 
-#define DECL_COMPARE_HELPER_(op_name, op)							\
+#define IIUT_DECL_COMPARE_HELPER_(op_name, op)						\
 	template<typename T1, typename T2>								\
-	DECL_COMPARE_HELPER_I_(op_name, op, const T1&, const T2&)
+	IIUT_DECL_COMPARE_HELPER_I_(op_name, op, const T1&, const T2&)
 
 #endif
 
-DECL_COMPARE_HELPER_(NE, !=)
-DECL_COMPARE_HELPER_(LE, <=)
-DECL_COMPARE_HELPER_(LT, < )
-DECL_COMPARE_HELPER_(GE, >=)
-DECL_COMPARE_HELPER_(GT, > )
+IIUT_DECL_COMPARE_HELPER_(NE, !=)
+IIUT_DECL_COMPARE_HELPER_(LE, <=)
+IIUT_DECL_COMPARE_HELPER_(LT, < )
+IIUT_DECL_COMPARE_HELPER_(GE, >=)
+IIUT_DECL_COMPARE_HELPER_(GT, > )
 
 #undef DECL_COMPARE_HELPER_I_
 #undef DECL_COMPARE_HELPER_

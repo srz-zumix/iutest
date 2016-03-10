@@ -28,6 +28,8 @@
 #  include <locale.h>
 #endif
 
+//======================================================================
+// define
 #if !defined(IUTEST_MAX_PATH)
 #  if   defined(MAX_PATH) && MAX_PATH
 #    define IUTEST_MAX_PATH	MAX_PATH
@@ -39,6 +41,21 @@
 #    define IUTEST_MAX_PATH	1024
 #  endif
 #endif
+
+/**
+ * @brief	ログメッセージストリーム
+*/
+#define IUTEST_LOG_(level)			\
+	::iutest::detail::IUTestLog(	\
+		::iutest::detail::IUTestLog::LOG_##level, __FILE__, __LINE__).GetStream()
+
+/**
+ * @brief	内部エラーチェック
+*/
+#define IUTEST_CHECK_(condition)				\
+	IUTEST_AMBIGUOUS_ELSE_BLOCKER_				\
+	if( !::iutest::detail::IsTrue(condition) )	\
+		IUTEST_LOG_(FATAL) << "Condition " #condition " failed. "
 
 namespace iutest {
 
@@ -185,15 +202,6 @@ private:
 
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTestLog);
 };
-
-#define IUTEST_LOG_(level)			\
-	::iutest::detail::IUTestLog(::iutest::detail::IUTestLog::LOG_##level, __FILE__, __LINE__).GetStream()
-
-#define IUTEST_CHECK_(condition)				\
-	IUTEST_AMBIGUOUS_ELSE_BLOCKER_				\
-	if( !::iutest::detail::IsTrue(condition) )	\
-		IUTEST_LOG_(FATAL) << "Condition " #condition " failed. "
-
 
 #if IUTEST_HAS_STREAM_BUFFER
 
