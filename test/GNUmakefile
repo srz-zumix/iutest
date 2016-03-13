@@ -110,6 +110,12 @@ LIBS+=ws2_32
 CXXFLAGS += -static-libgcc -static-libstdc++ -m32
 endif
 
+#
+# scan-build
+#
+ifeq ($(findstring c++-analyzer, $(CXX)),c++-analyzer)
+USE_SCANBUILD=yes
+endif
 
 ifdef OUTPUTXML
 CXXFLAGS +=-DOUTPUTXML
@@ -143,7 +149,7 @@ else
 RUN_TARGETS = $(ALLTESTS_TARGET) $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY)
 endif
 
-ifeq ($(USE_GTEST)$(USE_GMOCK)$(USE_COVERAGE),)
+ifeq ($(USE_GTEST)$(USE_GMOCK)$(USE_COVERAGE)$(USE_SCANBUILD),)
 ERR_TARGETS = $(COMPILEERROR_TARGETS)
 endif
 

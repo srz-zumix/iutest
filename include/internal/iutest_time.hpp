@@ -32,7 +32,7 @@
 
 //======================================================================
 // define
-//! @deprecated 
+//! @deprecated
 #if !defined(IUTEST_GetMillisec) && !IUTEST_HAS_CXX_HDR_CHRONO && !IUTEST_HAS_GETTIMEOFDAY && !defined(IUTEST_OS_WINDOWS) && !IUTEST_HAS_CLOCK
 #  define IUTEST_NO_GETTIMEINMILLIS
 #endif

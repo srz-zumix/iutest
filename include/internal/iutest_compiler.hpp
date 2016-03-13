@@ -115,7 +115,9 @@
 
 //! has nullptr
 #if !defined(IUTEST_HAS_NULLPTR)
-#  if   defined(__clang__)
+#  if   defined(_NATIVE_NULLPTR_SUPPORTED)
+#    define IUTEST_HAS_NULLPTR		1
+#  elif defined(__clang__)
 #    if __has_feature(cxx_nullptr)
 #      define IUTEST_HAS_NULLPTR	1
 #    endif
@@ -762,7 +764,7 @@
 
 //! has Structured Exception Handling
 #if !defined(IUTEST_HAS_SEH)
-#  if   defined(_WIN32)
+#  if   defined(_WIN32) && !defined(__clang__)
 #    if	defined(_MSC_VER) && _MSC_VER > 1400
 #      define IUTEST_HAS_SEH	1
 #    endif
