@@ -526,13 +526,13 @@
 	IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSame		\
 		, v1, v2, on_failure )
 
-#define IUTEST_TEST_NULL(v, on_failure)			\
-	IUTEST_THROUGH_ANALYSIS_ASSUME_(v==NULL		\
+#define IUTEST_TEST_NULL(v, on_failure)						\
+	IUTEST_THROUGH_ANALYSIS_ASSUME_(v==IUTEST_NULLPTR		\
 		, IUTEST_PRED_FORMAT1_( ::iutest::internal::NullHelper<IUTEST_IS_NULLLITERAL(v)>::CompareEq	\
 			, v, on_failure ))
 
-#define IUTEST_TEST_NOTNULL(v, on_failure)		\
-	IUTEST_THROUGH_ANALYSIS_ASSUME_(v!=NULL		\
+#define IUTEST_TEST_NOTNULL(v, on_failure)					\
+	IUTEST_THROUGH_ANALYSIS_ASSUME_(v!=IUTEST_NULLPTR		\
 		, IUTEST_PRED_FORMAT1_( ::iutest::internal::NullHelper<IUTEST_IS_NULLLITERAL(v)>::CompareNe	\
 			, v, on_failure ))
 

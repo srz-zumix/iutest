@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -54,9 +54,11 @@ static bool	StaticAssertTypeEq(void)
 #  define IUTEST_STATIC_ASSERT_MSG(B, Msg)	static_assert(B, Msg)
 #endif
 #else
-#  define IUTEST_STATIC_ASSERT_MSG(B, Msg)								\
-	typedef ::iutest::detail::static_assert_failure<					\
-		sizeof(::iutest::detail::static_assert_failure< (bool)B >) > IUTEST_PP_CAT(iutest_static_assert_typedef_, IUTEST_PP_COUNTER)	// NOLINT
+#  define IUTEST_STATIC_ASSERT_MSG(B, Msg)									\
+	typedef ::iutest::detail::static_assert_failure<						\
+		sizeof(::iutest::detail::static_assert_failure< (bool)B >) >		\
+			IUTEST_PP_CAT(iutest_static_assert_typedef_, IUTEST_PP_COUNTER)	\
+				IUTEST_ATTRIBUTE_UNUSED_	// NOLINT
 #endif
 
 /**

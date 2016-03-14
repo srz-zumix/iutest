@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2013-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -37,6 +37,7 @@ IUTEST_P(ValuesTest, Test)
 #if IUTEST_HAS_VARIADIC_VALUES
 
 IUTEST_INSTANTIATE_TEST_CASE_P( X1, ValuesTest, ::iutest::Values(1) );
+//IUTEST_INSTANTIATE_TEST_CASE_P( X2, ValuesTest, ::iutest::Values(1,2) );
 IUTEST_INSTANTIATE_TEST_CASE_P( X51, ValuesTest
 	, ::iutest::Values( IUTEST_PP_ENUM_PARAMS(51, IUTEST_PP_EMPTY()) ) );
 

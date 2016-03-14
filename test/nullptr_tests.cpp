@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2013-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -24,9 +24,10 @@ IUTEST(NullTest, Null)
 	IUTEST_EXPECT_NULL(p);
 	IUTEST_INFORM_NULL(p);
 
-	IUTEST_ASSERT_NULL(NULL);
 #if IUTEST_HAS_NULLPTR
 	IUTEST_ASSERT_NULL(nullptr);
+#else
+	IUTEST_ASSERT_NULL(NULL);
 #endif
 }
 

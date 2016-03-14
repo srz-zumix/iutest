@@ -140,6 +140,14 @@
 #  define IUTEST_HAS_NULLPTR		0
 #endif
 
+#if !defined(IUTEST_NULLPTR)
+#  if IUTEST_HAS_NULLPTR
+#    define IUTEST_NULLPTR			nullptr
+#  else
+#    define IUTEST_NULLPTR			NULL
+#  endif
+#endif
+
 //! auto
 #if !defined(IUTEST_HAS_AUTO)
 #  if   defined(__clang__)
