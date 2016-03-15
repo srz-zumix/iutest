@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -38,7 +38,8 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 	*os << size << "-Byte object < ";
 	for( size_t i=0; i < size; ++i )
 	{
-		*os << detail::ToHex(buf[i]>>4) << ToHex(buf[i]&0xF) << " ";
+		const unsigned char n = buf[i];
+		*os << detail::ToHex((n>>4)&0xF) << ToHex(n&0xF) << " ";
 		if( i == kMaxCount )
 		{
 			*os << "... ";

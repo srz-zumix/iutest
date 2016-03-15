@@ -71,10 +71,10 @@ build:
           python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.4.7 -x "warning,gnu++0x"
 
     - script:
-        name: clang-3.6
+        name: clang-3.7
         code: |
           cd tools/wandbox
-          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.6 -x "warning,gnu++14"
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.7 -x "warning,gnu++14"
 
     - script:
         name: clang-3.3

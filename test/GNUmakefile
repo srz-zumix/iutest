@@ -12,6 +12,14 @@
 # Flags passed to the C++ compiler.
 #
 
+#
+#
+# include
+#
+include utils/gccversion.mk
+include utils/clangversion.mk
+include CommonMakefile.in
+
 # Optimize
 #OPTIMIZE += -O2
 
@@ -21,78 +29,14 @@ ifdef _DEBUG
 CXXFLAGS += -ggdb
 endif
 
+ifdef USE_COVERAGE
+CXXFLAGS += -coverage
+endif
+
 #
 #
 # compiler
 #
-
-
-#
-# clang
-#
-ifeq ($(findstring clang, $(CXX)),clang)
-#STDFLAG += -std=c++0x
-NO_UNUSED_LOCAL_TYPEDEFS=-Wno-unused-local-typedefs
-
-ifdef USE_COVERAGE
-CXXFLAGS += -coverage
-endif
-
-endif
-
-#
-# GCC
-#
-ifeq ($(CXX),g++)
-
-ifdef USE_COVERAGE
-CXXFLAGS += -coverage
-#OPTIMIZE += -O0
-endif
-
-GCCVERSION:=$(shell $(CXX) -dumpversion)
-
-dot:=.
-empty:=
-space:=$(empty) $(empty)
-GCCVERSION:=$(subst $(dot),$(space), $(GCCVERSION))
-GCCMAJOR:=$(word 1, $(GCCVERSION))
-GCCMINOR:=$(word 2, $(GCCVERSION))
-
-# 5.0 later
-ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) ))
-STDFLAG += -std=c++1z
-NO_UNUSED_LOCAL_TYPEDEFS=-Wno-unused-local-typedefs
-
-else
-
-# 4.8 later
-ifeq (1,$(shell expr \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 8 \)))
-STDFLAG += -std=c++1y
-NO_UNUSED_LOCAL_TYPEDEFS=-Wno-unused-local-typedefs
-
-else
-
-# 4.7 later
-ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 7 \)))
-STDFLAG += -std=c++11
-NO_UNUSED_LOCAL_TYPEDEFS=-Wno-unused-local-typedefs
-
-else
-
-# 4.4 later
-ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 4 \)))
-STDFLAG += -std=c++0x
-
-endif
-endif
-endif
-endif
-
-#CXXFLAGS += -Wdelete-non-virtual-dtor -Wreorder -Wnoexcept
-#CXXFLAGS += -Wsuggest-override
-
-endif
 
 #
 # MINGW
@@ -136,12 +80,6 @@ LIBS_ = $(LIBS:%=-l%)
 LDFLAGS += $(LIBS_)
 
 MAKEFILE=GNUmakefile CommonMakefile.in
-
-#
-#
-# include
-#
-include CommonMakefile.in
 
 ifneq ($(USE_GTEST)$(USE_GMOCK),)
 RUN_TARGETS = $(ALLTESTS_TARGET) $(TARGETS1) $(TARGETS2)

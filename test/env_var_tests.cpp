@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -74,9 +74,11 @@ int main(int argc, char* argv[])
 	(void)argv;
 
 #ifdef UNICODE
-	wchar_t* targv[] = { L"" };
+	wchat_t a[] = "";
+	wchar_t* targv[] = { a };
 #else
-	char* targv[] =  { "" };
+	char a[] = "";
+	char* targv[] =  { a };
 #endif
 	int targc = 1;
 	IUTEST_INIT(&targc, targv);
