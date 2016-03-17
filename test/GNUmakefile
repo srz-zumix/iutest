@@ -75,7 +75,7 @@ ifdef USE_GNU_EXTENSION
 STDFLAG:=$(subst c++,gnu++, $(STDFLAG))
 endif
 
-CXXFLAGS += $(DEFS) $(STDFLAG)
+CXXFLAGS += $(DEFS) $(STDFLAG) $(STDLIB)
 LIBS_ = $(LIBS:%=-l%)
 LDFLAGS += $(LIBS_)
 

@@ -264,6 +264,17 @@ public:
 	explicit iuValueArray(const Args&... args)
 		: v(args...)
 	{}
+
+#if defined(__clang__) && defined(__GLIBCXX__) && __GLIBCXX__ >= 20150426
+#if IUTEST_HAS_RVALUE_REFS
+	// http://stackoverflow.com/questions/23374953/why-does-this-exceed-the-maximum-recursive-template-depth
+	iuValueArray(const iuValueArray& rhs)
+		: v(rhs.v) {}
+	iuValueArray(iuValueArray&& rhs)
+		: v(rhs.v) {}
+#endif
+#endif
+
 public:
 	template<typename T>
 	operator iuIParamGenerator<T>* (void) const

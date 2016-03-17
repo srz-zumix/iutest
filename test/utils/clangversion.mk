@@ -71,5 +71,8 @@ endif
 ifndef STDFLAG
 STDFLAG=-std=$(STD_CPP)
 endif
+#ifndef STDLIB
+#STDLIB=-stdlib=libc++
+#endif
 
 endif

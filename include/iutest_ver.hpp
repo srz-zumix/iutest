@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file		iutest_ver.hpp
- * @brief		iris unit test version 定義 ファイル
+ * @brief		iris unit test version
  *
  * @author		t.shirayanagi
  * @par			copyright
@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01150010u //!< iutest version 1.15.0.10
+#define IUTEST_VER			0x01150011u //!< iutest version 1.15.0.11
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x15u		//!< Minor Version
 #define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x10u		//!< Revision
+#define IUTEST_REVISION		0x11u		//!< Revision
 
 /**
  * @mainpage

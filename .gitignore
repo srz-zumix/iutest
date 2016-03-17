@@ -21,6 +21,8 @@
 coverage.info
 test/*.xml
 lib
+.svn
+.sonar
 
 # Build results
 [Dd]ebug/
