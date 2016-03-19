@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -179,7 +179,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteStr
 	char16_t lead = 0, trail = 0;
 	char32_t cp;
 	char mbs[6];
-	mbstate_t state = {0};
+	mbstate_t state = {};
 	mbsinit(&state);
 	::std::string ret;
 
@@ -199,7 +199,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 			cp = lead;
 		}
 		const size_t len = c32rtomb(mbs, cp, &state);
-		if( len != -1 )
+		if( len != static_cast<size_t>(-1) )
 		{
 			mbs[len] = '\0';
 			ret += mbs;
@@ -237,7 +237,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 	for( size_t i = 0; i < length; ++i )
 	{
 		const size_t len = c32rtomb(mbs, str[i], &state);
-		if( len != -1 )
+		if( len != static_cast<size_t>(-1) )
 		{
 			mbs[len] = '\0';
 			ret += mbs;

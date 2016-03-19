@@ -710,6 +710,8 @@ IUTEST(PrintToTest, U32String)
 }
 #endif
 
+#if defined(__WANDBOX__)
+
 #if IUTEST_HAS_PARAM_TEST
 
 class ValuesTest : public ::iutest::TestWithParam<int> {};
@@ -725,6 +727,8 @@ IUTEST_INSTANTIATE_TEST_CASE_P( X2, ValuesTest, ::iutest::Values(1,2) );
 
 IUTEST_INSTANTIATE_TEST_CASE_P( X51, ValuesTest
 	, ::iutest::Values( IUTEST_PP_ENUM_PARAMS(51, IUTEST_PP_EMPTY()) ) );
+
+#endif
 
 #endif
 

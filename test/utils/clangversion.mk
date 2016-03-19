@@ -28,7 +28,7 @@ NO_UNUSED_LOCAL_TYPEDEFS=-Wno-unused-local-typedefs
 #
 
 # 3.5 later
-ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 5 \)))
+ifeq (1,$(shell expr \( \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 5 \) \)))
 STD_CPP14=c++14
 STD_GNU14=gnu++14
 else
