@@ -340,7 +340,7 @@ using tuples::get;
 
 #if   defined(__has_include)
 #  if __has_include( <regex> ) && IUTEST_HAS_CXX11
-#    if !defined(__GLIBCXX__) || (__GLIBCXX__ > 20120301)
+#    if !defined(__GLIBCXX__) || (__GLIBCXX__ >= 20140422)
 #      define IUTEST_HAS_CXX_HDR_REGEX		1
 #    endif
 #  endif

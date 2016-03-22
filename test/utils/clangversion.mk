@@ -6,7 +6,7 @@
 
 ifeq ($(CXX),clang++)
 
-CLANGVERSION:=$(shell $(CXX) --version |& grep version |& sed "s/.*version\s*\([0-9]*\.[0-9]*\.[0-9]*\).*/\1/")
+CLANGVERSION:=$(shell $(CXX) --version \|\& grep version \|\& sed "s/.*version\s*\([0-9]*\.[0-9]*\.[0-9]*\).*/\1/")
 
 dot:=.
 empty:=
