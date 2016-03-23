@@ -60,7 +60,7 @@ template struct kStringsT<void>;
 
 #endif
 
-}
+}	// namespace
 }	// end of namespace helper
 
 /** @internal */
