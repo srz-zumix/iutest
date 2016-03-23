@@ -16,8 +16,8 @@
 #
 # include
 #
-include utils/gccversion.mk
-include utils/clangversion.mk
+include ../utils/gccversion.mk
+include ../utils/clangversion.mk
 include CommonMakefile.in
 
 # Optimize

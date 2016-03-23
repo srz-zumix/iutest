@@ -11,8 +11,13 @@ dependencies:
         3) pyenv install -ks 3.3.3;  pyenv global 3.3.3;  $(pyenv which pip) install requests twilio; ;;
       esac
 
+#general:
+#  artifacts:
+#    - test/scan-build-result
+
 test:
   override:
+    - clang++ --version
     - pyenv version; python --version :
         parallel: true
     - make :

@@ -20,8 +20,8 @@ iutest is framework for writing C++ tests.
 Features
 --------------------------------------------------
 
-* An XUnit test framework.
-* include only.
+* An [XUnit](https://en.wikipedia.org/wiki/XUnit) test framework.
+* Include only.
 * Test discovery.
 * A rich set of assertions.
 * User-defined assertions.
@@ -32,10 +32,20 @@ Features
 * Skip test.
 * Value-parameterized tests.
 * Type-parameterized tests.
+* CSV parameter.
 * Private member test.
 * Various options for running the tests.
 * XML test report generation.
 * Janaese test name.
+
+Platforms
+--------------------------------------------------
+
+* Windows
+* Linux
+* Mac OS X
+* Cygwin
+* MinGW
 
 Documentation
 --------------------------------------------------

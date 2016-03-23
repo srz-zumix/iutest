@@ -30,7 +30,7 @@ env:
     - WANDBOX_COMPILER=gcc-4.7.3
 #    - WANDBOX_COMPILER=gcc-4.6.4 # drone
     - WANDBOX_COMPILER=gcc-4.5.4
-#    - WANDBOX_COMPILER=gcc-4.4.7 # wercker
+#    - WANDBOX_COMPILER=gcc-4.4.7 # snap ci
     - WANDBOX_COMPILER=gcc-4.3.6
     - WANDBOX_COMPILER=clang-head
     - WANDBOX_COMPILER=clang-3.8
