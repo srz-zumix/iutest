@@ -118,6 +118,11 @@ bool IsPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC;
 bool IsAltPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC;
 
 /**
+ * @brief	一番後ろのパスセパレータのアドレスを取得
+*/
+const char* FindLastPathSeparator(const char* path, size_t length) IUTEST_CXX_NOEXCEPT_SPEC;
+
+/**
  * @brief	環境変数の設定
 */
 bool SetEnvironmentVariable(const char* name, const char* value);

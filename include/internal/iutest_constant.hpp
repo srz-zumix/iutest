@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -23,6 +23,9 @@ namespace detail
 {
 
 namespace helper
+{
+
+namespace
 {
 
 /**
@@ -57,6 +60,7 @@ template struct kStringsT<void>;
 
 #endif
 
+}
 }	// end of namespace helper
 
 /** @internal */

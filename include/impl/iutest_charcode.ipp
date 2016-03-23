@@ -230,7 +230,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteStr
 	const size_t length = ::std::char_traits<char32_t>::length(str);
 	char mbs[6];
 	mbstate_t state = {};
-	IUTEST_CHECK_( mbsinit(&state) != 0 );
+	IUTEST_CHECK_(mbsinit(&state) != 0);
 	::std::string ret;
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()

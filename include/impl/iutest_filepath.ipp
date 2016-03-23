@@ -175,21 +175,7 @@ IUTEST_IPP_INLINE bool iuFilePath::DirectoryExists(void) const
 
 IUTEST_IPP_INLINE const char* iuFilePath::FindLastPathSeparator(void) const
 {
-	const char* ps = c_str();
-	const char* pe = ps + length() - 1;
-	while( pe >= ps )
-	{
-		if( IsPathSeparator(*pe) )
-		{
-			if( (*(pe-1) & 0x80) == 0 )
-			{
-				return pe;
-			}
-			--pe;
-		}
-		--pe;
-	}
-	return NULL;
+	return detail::FindLastPathSeparator(c_str(), length());
 }
 
 IUTEST_IPP_INLINE iuFilePath iuFilePath::GetCurrentDir(void)

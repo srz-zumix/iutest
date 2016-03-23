@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -214,6 +214,25 @@ IUTEST_IPP_INLINE bool IsAltPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC
 	IUTEST_UNUSED_VAR(c);
 #endif
 	return false;
+}
+
+IUTEST_IPP_INLINE const char* FindLastPathSeparator(const char* path, size_t length) IUTEST_CXX_NOEXCEPT_SPEC
+{
+	const char* ps = path;
+	const char* pe = ps + length - 1;
+	while( pe >= ps )
+	{
+		if( IsPathSeparator(*pe) )
+		{
+			if( (*(pe - 1) & 0x80) == 0 )
+			{
+				return pe;
+			}
+			--pe;
+		}
+		--pe;
+	}
+	return NULL;
 }
 
 IUTEST_IPP_INLINE bool SetEnvironmentVariable(const char* name, const char* value)
