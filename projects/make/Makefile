@@ -42,7 +42,7 @@ LDFLAGS += $(LIBS_)
 # Flags passed to the C++ compiler.
 CXXFLAGS += -g -Wall -Wextra -Wundef $(OPTIMIZE)
 #CXXFLAGS += -DSHOW_FAILURE
-CXXFLAGS += $(DEFS)
+CXXFLAGS += $(DEFS) $(STDFLAG)
 
 
 # All tests produced by this Makefile.  Remember to add new tests you

@@ -25,8 +25,9 @@ namespace detail
 namespace helper
 {
 
-namespace
-{
+#if !IUTEST_HAS_LIB
+namespace {
+#endif
 
 /**
  * @brief	文字列定数
@@ -60,7 +61,9 @@ template struct kStringsT<void>;
 
 #endif
 
+#if !IUTEST_HAS_LIB
 }	// namespace
+#endif
 }	// end of namespace helper
 
 /** @internal */
