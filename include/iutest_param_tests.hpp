@@ -645,8 +645,14 @@ detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ CSV(const char* path, char 
 template<typename T>
 detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ CSV(const char* relative_path, const char* test_file, char delimiter = ',')
 {
-	::std::string path = test_file;
-	path += "\\..\\";
+	const char* sep = detail::FindLastPathSeparator(test_file, strlen(test_file));
+	::std::string path;
+	if( sep != NULL )
+	{
+		const size_t length = ::std::distance(test_file, sep);
+		path += ::std::string(test_file, length);
+		path += detail::GetPathSeparator();
+	}
 	path += relative_path;
 	return new detail::iuCsvFileParamsGenerator<T>(path, delimiter);
 }
