@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -21,7 +21,7 @@
 
 #include "../iutest_spi.hpp"
 
-#ifdef GTEST_INCLUDE_GTEST_GTEST_SPI_H_
+#if defined(GTEST_INCLUDE_GTEST_GTEST_SPI_H_)
 #undef EXPECT_FATAL_FAILURE
 #undef EXPECT_FATAL_FAILURE_ON_ALL_THREADS
 #undef EXPECT_NONFATAL_FAILURE

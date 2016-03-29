@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,7 +19,7 @@
 
 //======================================================================
 // undef
-#ifdef GTEST_INCLUDE_GTEST_GTEST_H_
+#if defined(GTEST_INCLUDE_GTEST_GTEST_H_)
 
 #undef RUN_ALL_TESTS
 

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,8 +17,8 @@
 
 //======================================================================
 // include
-#ifdef INCG_IRIS_IUTEST_SWITCH_HPP_
-#  ifdef IUTEST_USE_GTEST
+#if defined(INCG_IRIS_IUTEST_SWITCH_HPP_)
+#  if defined(IUTEST_USE_GTEST)
 #    ifndef iutest
 #      define iutest	testing
 #      include "../internal/iutest_console.hpp"

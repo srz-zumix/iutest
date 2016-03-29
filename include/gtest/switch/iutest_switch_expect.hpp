@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,7 +19,7 @@
 
 //======================================================================
 // undef
-#ifdef GTEST_INCLUDE_GTEST_GTEST_H_
+#if defined(GTEST_INCLUDE_GTEST_GTEST_H_)
 
 #undef EXPECT_TRUE
 #undef EXPECT_FALSE
@@ -102,7 +102,7 @@
 
 //======================================================================
 // undef
-#ifdef INCG_IRIS_IUTEST_HPP_
+#if defined(INCG_IRIS_IUTEST_HPP_)
 
 #undef IUTEST_EXPECT
 #undef IUTEST_EXPECT_NOT

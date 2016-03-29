@@ -43,6 +43,11 @@ def Fuse(root, filename, output, output_dir, minimum):
 		fileset.add(path)
 		for line in codecs.open(path, 'r', 'utf-8-sig'):
 			line = re.sub('/\*.*?\*/', '', line)
+			if minimum:
+				# if defined -> ifdef
+				line = re.sub(r'\s*#\s*if\s*defined\((\S*)\)\s*\Z', r'#ifdef \1', line)
+				# if !defined -> ifndef
+				line = re.sub(r'\s*#\s*if\s*!defined\((\S*)\)\s*\Z', r'#ifndef \1', line)
 			m = INCLUDE_REGEX.match(line)
 			if m:
 				if find_ifdef:

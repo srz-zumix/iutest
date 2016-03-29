@@ -28,7 +28,7 @@
 
 //======================================================================
 // undef
-#ifdef INCG_IRIS_IUTEST_HPP_
+#if defined(INCG_IRIS_IUTEST_HPP_)
 
 #undef IUTEST_ASSERT_NO_FAILURE
 #undef IUTEST_EXPECT_NO_FAILURE
