@@ -32,7 +32,7 @@ def IsUnnecessaryIncludeGuard(line):
 	if m:
 		incg = m.group(2)
 		if incg not in { 'INCG_IRIS_IUTEST_HPP_', 'INCG_IRIS_IUTEST_SWITCH_HPP_', 'INCG_IRIS_IUTEST_SPI_HPP_' }:
-			print incg
+			#print(incg)
 			return True
 	return False
 	
