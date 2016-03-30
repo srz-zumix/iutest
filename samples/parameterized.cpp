@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -25,7 +25,7 @@ protected:
 	static int a;
 	static int b;
 public:
-	static void SetUpTestCase(void)
+	static void SetUpTestCase()
 	{
 		a = 0;
 		b = 0;
@@ -70,7 +70,7 @@ class TestPValueIn : public ::iutest::TestWithParam<char>
 protected:
 	static int a;
 public:
-	static void SetUpTestCase(void)
+	static void SetUpTestCase()
 	{
 		a = 0;
 	}
@@ -97,7 +97,7 @@ class TestPValuesN : public ::iutest::TestWithParam<int>
 protected:
 	static int a;
 public:
-	static void SetUpTestCase(void)
+	static void SetUpTestCase()
 	{
 		a = 1;
 	}

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -22,11 +22,11 @@ class TestFixed : public ::iutest::Test
 protected:
 	static int x;
 public:
-	virtual void SetUp(void)
+	virtual void SetUp()
 	{
 		++x;
 	}
-	static void SetUpTestCase(void)
+	static void SetUpTestCase()
 	{
 		x = 0;
 	}

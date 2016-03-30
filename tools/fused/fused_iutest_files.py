@@ -19,13 +19,23 @@ import codecs
 
 IUTEST_INCLUDE_DIR = os.path.join(os.path.dirname(__file__), '../../include')
 INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*"(.*iutest.*)"')
-IFDEF_REGEX = re.compile(r'^\s*#\s*if\s*defined\s*\(.*\)')
+IFDEF_REGEX = re.compile(r'^\s*#\s*if(def\s*\S*|\s*defined\s*\(.*\))')
 COMMENT_REGEX = re.compile(r'^\s*//.*')
 C_COMMENT_BEGIN_REGEX = re.compile(r'^\s*(.*)/\*.*')
 C_COMMENT_END_REGEX = re.compile(r'^\s*\*/(.*)')
 STRING_REGEX = re.compile(r'.*".*?".*')
 EMPTYLINE_REGEX = re.compile(r'^\s*$')
+INCG_REGEX = re.compile(r'^\s*#\s*(ifndef|define|endif)[/\s]*(INCG_\S*)\s*\Z')
 
+def IsUnnecessaryIncludeGuard(line):
+	m = INCG_REGEX.match(line)
+	if m:
+		incg = m.group(2)
+		if incg not in { 'INCG_IRIS_IUTEST_HPP_', 'INCG_IRIS_IUTEST_SWITCH_HPP_', 'INCG_IRIS_IUTEST_SPI_HPP_' }:
+			print incg
+			return True
+	return False
+	
 def Fuse(root, filename, output, output_dir, minimum):
 	output_file = codecs.open(os.path.join(output_dir, output), 'w', 'utf-8-sig')
 	processed_files = set();
@@ -73,7 +83,7 @@ def Fuse(root, filename, output, output_dir, minimum):
 							if not EMPTYLINE_REGEX.match(m.group(1)):
 								output_file.write(m.group(1))
 						elif not EMPTYLINE_REGEX.match(line):
-							if not COMMENT_REGEX.match(line):
+							if not (COMMENT_REGEX.match(line) or IsUnnecessaryIncludeGuard(line)):
 								line = re.sub('//[\S \t]*', '', line)
 								line = line.strip(' \t')
 								line = line.rstrip() + '\r\n'
@@ -81,8 +91,9 @@ def Fuse(root, filename, output, output_dir, minimum):
 								line = re.sub('^\s*#(.+?)[ \t]+', '#\\1 ', line)
 								line = re.sub('\s+(".*?")', ' \\1', line)
 								if not STRING_REGEX.match(line):
+									line = re.sub(';[ \t]+', ';', line)
 									line = re.sub('[ \t]+', ' ', line)
-									line = re.sub('(\w)\s+([&|\+\-<>]+)[ \t]+', '\\1 \\2', line)
+									line = re.sub('(\w)\s+([&|\+\-<>=]+)[ \t]+', '\\1\\2', line)
 									line = re.sub('\s*([{\+\-\*/%=<>&|]+=)[ \t]*', '\\1', line)
 									#line = re.sub('\w\s*([{\+\-\*/%=<>&|!]+)[ \t]*', '\\1', line)
 									line = re.sub('\s+:[ \t]+(\w)', ':\\1', line)

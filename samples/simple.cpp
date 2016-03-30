@@ -70,7 +70,7 @@ IUTEST_PRAGMA_MSC_WARN_POP()
 /* ---------------------------------------------------
  * 戻り値のある関数での使用
 *//*--------------------------------------------------*/
-int ReturnTest(void)
+int ReturnTest()
 {
 	IUTEST_ASSERT_TRUE(true) << ::iutest::AssertionReturn(-1);
 	return 0;

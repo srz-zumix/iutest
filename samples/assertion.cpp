@@ -14,7 +14,7 @@
 //======================================================================
 #include "../include/iutest.hpp"
 
-int f(void)
+int f()
 {
 	return 42;
 }
@@ -339,7 +339,7 @@ IUTEST(DISABLED_TestFailure, HRESULT)
 
 #endif
 
-void AssertFunc(void)
+void AssertFunc()
 {
 	IUTEST_ASSERT_TRUE(false);
 }

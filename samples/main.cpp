@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -38,11 +38,11 @@
 *//*--------------------------------------------------*/
 class FooEnvironment : public ::iutest::Environment
 {
-	virtual void SetUp(void)
+	virtual void SetUp()
 	{
 		iuutil::Console::output("FooEnvironment::SetUp\n");
 	}
-	virtual void TearDown(void)
+	virtual void TearDown()
 	{
 		iuutil::Console::output("FooEnvironment::TearDown\n");
 	}
