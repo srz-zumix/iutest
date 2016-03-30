@@ -2,7 +2,7 @@
 #
 # iuwandbox.py
 #
-# Copyright (C) 2014-2015, Takazumi Shirayanagi
+# Copyright (C) 2014-2016, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -11,8 +11,6 @@ import os
 import sys
 import re
 import codecs
-import argparse
-import wandbox
 
 from argparse import ArgumentParser
 from wandbox import Wandbox
@@ -20,6 +18,7 @@ from wandbox import Wandbox
 IUTEST_FUSED_SRC = os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.min.hpp')
 IUTEST_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*".*iutest\.hpp"')
 EXPAND_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*"(.*?)"')
+
 
 #
 # command line option
