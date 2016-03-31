@@ -395,9 +395,9 @@ public:
 	}
 
 public:
-	node_ptr	operator -> () { return m_node; }
-	node_ptr	operator &	() { return m_node; }
-	NODE&		operator *  () { return *m_node; }
+	node_ptr	operator ->	() { return m_node; }
+	node_ptr	operator &	() { return m_node; }	// NOLINT
+	NODE&		operator *	() { return *m_node; }
 
 	node_ptr	operator [] (int index) const
 	{

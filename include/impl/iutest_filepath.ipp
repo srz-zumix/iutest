@@ -25,7 +25,8 @@ namespace detail
 
 IUTEST_IPP_INLINE bool iuFilePath::IsDirectory() const
 {
-	const char last = m_path.back();
+//	const char last = m_path.back();
+	const char last = m_path.c_str()[length() - 1];
 	return !m_path.empty() &&
 		(IsPathSeparator(last) || last == '.');
 }
