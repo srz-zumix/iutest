@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2013-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -39,7 +39,7 @@ namespace detail
 
 #if defined(_MSC_VER) && IUTEST_HAS_MINIDUMP
 
-IUTEST_IPP_INLINE MiniDump::MiniDump(void)
+IUTEST_IPP_INLINE MiniDump::MiniDump()
 	: m_hModule(NULL), m_pfnMiniDumpWriteDump(NULL)
 {
 	m_hModule = ::LoadLibraryA("dbghelp.dll");
@@ -49,7 +49,7 @@ IUTEST_IPP_INLINE MiniDump::MiniDump(void)
 	}
 }
 
-IUTEST_IPP_INLINE MiniDump::~MiniDump(void)
+IUTEST_IPP_INLINE MiniDump::~MiniDump()
 {
 	FreeLibrary(m_hModule);
 }

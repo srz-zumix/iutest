@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -96,14 +96,14 @@ inline ::std::string EnvironmentString(const char* name)
 class Environment
 {
 public:
-	virtual ~Environment(void)	{ Release(); }
-	virtual void SetUp(void)	{}	//!< 事前処理
-	virtual void TearDown(void)	{}	//!< 事後処理
+	virtual ~Environment() { Release(); }
+	virtual void SetUp() {}		//!< 事前処理
+	virtual void TearDown() {}	//!< 事後処理
 private:
-	void Release(void);
+	void Release();
 private:
 	struct should_be_SetUp {};
-	virtual should_be_SetUp* Setup(void) IUTEST_CXX_FINAL { return NULL; }
+	virtual should_be_SetUp* Setup() IUTEST_CXX_FINAL { return NULL; }
 };
 
 /**
@@ -122,11 +122,11 @@ public:
 
 		int m_test_flags;
 	public:
-		ScopedGuard(void)
+		ScopedGuard()
 		{
 			m_test_flags = TestFlag::GetInstance().m_test_flags;
 		}
-		~ScopedGuard(void)
+		~ScopedGuard()
 		{
 			TestFlag::GetInstance().m_test_flags = m_test_flags;
 		}
@@ -179,12 +179,12 @@ public:
 	};
 
 private:
-	TestFlag(void) IUTEST_CXX_NOEXCEPT_SPEC
+	TestFlag() IUTEST_CXX_NOEXCEPT_SPEC
 		: m_test_flags(DEFAULT) {}
 
 public:
 	/** @private */
-	static TestFlag& GetInstance(void) { static TestFlag flag; return flag; }
+	static TestFlag& GetInstance() { static TestFlag flag; return flag; }
 public:
 	/**
 	 * @brief	フラグのビット操作
@@ -210,10 +210,10 @@ private:
 	{
 		typedef Fragment<KIND> _Myt;
 	public:
-		Fragment(void) IUTEST_CXX_NOEXCEPT_SPEC {}
+		Fragment() IUTEST_CXX_NOEXCEPT_SPEC {}
 		Fragment(bool f) { SetFlag(KIND, f ? -1 : ~KIND); }	// NOLINT
 		_Myt& operator = (bool f) { SetFlag(KIND, f ? -1 : ~KIND); return *this; }
-		operator bool (void) const { return IsEnableFlag(KIND); }
+		operator bool() const { return IsEnableFlag(KIND); }
 	};
 
 private:
@@ -266,10 +266,10 @@ public:
 	typedef class RandomSeedSet
 	{
 	public:
-		RandomSeedSet(void) IUTEST_CXX_NOEXCEPT_SPEC {}
+		RandomSeedSet() IUTEST_CXX_NOEXCEPT_SPEC {}
 		RandomSeedSet(unsigned int seed) { init_random(seed); }
 		RandomSeedSet& operator = (unsigned int seed) { init_random(seed); return *this; }
-		operator unsigned int (void) const { return get_random_seed(); }
+		operator unsigned int() const { return get_random_seed(); }
 	} random_seed;
 
 	/**
@@ -279,10 +279,10 @@ public:
 	typedef class RepeatCountSet
 	{
 	public:
-		RepeatCountSet(void) IUTEST_CXX_NOEXCEPT_SPEC {}
+		RepeatCountSet() IUTEST_CXX_NOEXCEPT_SPEC {}
 		RepeatCountSet(int count) { set_repeat_count(count); }
 		RepeatCountSet& operator = (int count) { set_repeat_count(count); return *this; }
-		operator int (void) const { return get_repeat_count(); }
+		operator int() const { return get_repeat_count(); }
 	} repeat;
 
 #if defined(IUTEST_NO_PRIVATE_IN_AGGREGATE)
@@ -293,7 +293,7 @@ public:
 private:
 	struct Variable
 	{
-		Variable(void)
+		Variable()
 			: m_random_seed(0)
 			, m_current_random_seed(0)
 			, m_before_origin_random_seed(0)
@@ -320,19 +320,19 @@ private:
 #endif
 	};
 
-	static Variable& get_vars(void) { static Variable v; return v; }
+	static Variable& get_vars() { static Variable v; return v; }
 
 public:
-	static detail::iuRandom&	genrand(void)				{ return get_vars().m_genrand; }				//!< 乱数生成器
-	static unsigned int			get_random_seed(void)		{ return get_vars().m_random_seed; }			//!< 乱数シード
-	static unsigned int			current_random_seed(void)	{ return get_vars().m_current_random_seed; }	//!< 乱数シード
-	static int					get_repeat_count(void)		{ return get_vars().m_repeat_count; }			//!< 繰り返し回数
-	static const char*			get_output_option(void)		{ return get_vars().m_output_option.c_str(); }	//!< 出力オプション
-	static const char*			get_default_package_name(void) { return get_vars().m_default_package_name.c_str(); }	//!< root package オプション
-	static const char*			test_filter(void)			{ return get_vars().m_test_filter.c_str(); }	//!< フィルター文字列
-	static const char*			get_flagfile(void)			{ return get_vars().m_flagfile.c_str(); }		//!< flag file
+	static detail::iuRandom&	genrand() { return get_vars().m_genrand; }				//!< 乱数生成器
+	static unsigned int			get_random_seed() { return get_vars().m_random_seed; }				//!< 乱数シード
+	static unsigned int			current_random_seed() { return get_vars().m_current_random_seed; }	//!< 乱数シード
+	static int					get_repeat_count() { return get_vars().m_repeat_count; }			//!< 繰り返し回数
+	static const char*			get_output_option() { return get_vars().m_output_option.c_str(); }	//!< 出力オプション
+	static const char*			get_default_package_name() { return get_vars().m_default_package_name.c_str(); }	//!< root package オプション
+	static const char*			test_filter() { return get_vars().m_test_filter.c_str(); }		//!< フィルター文字列
+	static const char*			get_flagfile() { return get_vars().m_flagfile.c_str(); }		//!< flag file
 #if IUTEST_HAS_STREAM_RESULT
-	static const char*			get_stream_result_to(void)	{ return get_vars().m_stream_result_to.c_str(); }
+	static const char*			get_stream_result_to() { return get_vars().m_stream_result_to.c_str(); }
 #endif
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
 	static void					global_ostream_copyfmt(iu_ostream& os) { os.copyfmt(get_vars().m_ostream_formatter); }	// NOLINT
@@ -341,16 +341,16 @@ public:
 	/**
 	 * @brief	xml 出力パスを取得
 	*/
-	static ::std::string get_report_xml_filepath(void);
+	static ::std::string get_report_xml_filepath();
 	/**
 	 * @brief	junit xml 出力パスを取得
 	*/
-	static ::std::string get_report_junit_xml_filepath(void);
+	static ::std::string get_report_junit_xml_filepath();
 
 	/** @private */
-	static TestEventListeners& event_listeners(void) { return get_vars().m_event_listeners; }
+	static TestEventListeners& event_listeners() { return get_vars().m_event_listeners; }
 	/** @private */
-	static TestPartResultReporterInterface* GetGlobalTestPartResultReporter(void)
+	static TestPartResultReporterInterface* GetGlobalTestPartResultReporter()
 	{
 		return get_vars().m_testpartresult_reporter;
 	}
@@ -416,7 +416,7 @@ private:
 	/**
 	 * @brief	color オプション文字列を取得
 	*/
-	static const char* get_color_option(void)
+	static const char* get_color_option()
 	{
 		if( TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ANSI) )
 		{
@@ -476,13 +476,13 @@ private:
 		friend bool operator != (_Argt lhs, const char* c_str_)			{ return lhs.m_option != c_str_; }
 		friend bool operator != (_Argt lhs, const ::std::string& str)	{ return lhs.m_option != str; }
 
-		operator ::std::string (void) const { return m_option; }
+		operator ::std::string() const { return m_option; }
 	public:
-		bool empty(void) const			{ return m_option.empty(); }
-		const char* c_str(void) const	{ return m_option.c_str(); }
-		size_t length(void) const		{ return m_option.length(); }
+		bool empty() const			{ return m_option.empty(); }
+		const char* c_str() const	{ return m_option.c_str(); }
+		size_t length() const		{ return m_option.length(); }
 	public:
-		OptionString(void)
+		OptionString()
 			: m_option(G())
 		{
 		}
@@ -548,11 +548,11 @@ public:
 	{
 		IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()
 	public:
-		OStreamFormatter(void)
+		OStreamFormatter()
 		{
 			copyfmt(get_vars().m_ostream_formatter);
 		}
-		virtual ~OStreamFormatter(void)
+		virtual ~OStreamFormatter()
 		{
 			get_vars().m_ostream_formatter.copyfmt(*this);
 		}
@@ -565,7 +565,7 @@ public:
 #endif
 
 private:
-	static iuEnvironmentList& environments(void) { return get_vars().m_environment_list; }
+	static iuEnvironmentList& environments() { return get_vars().m_environment_list; }
 
 public:
 	/**
@@ -610,7 +610,7 @@ private:
 	/**
 	 * @brief	環境セットクラスの解放
 	*/
-	static void ReleaseGlobalTestEnvironment(void)
+	static void ReleaseGlobalTestEnvironment()
 	{
 		// すべて解放する
 		for( iuEnvironmentList::iterator it=environments().begin(); it != environments().end(); )
@@ -675,7 +675,7 @@ public:
 	}
 
 	/** @brief	フラグファイルをロード */
-	static bool LoadFlagFile(void);
+	static bool LoadFlagFile();
 
 private:
 	template<typename CharType>
@@ -693,12 +693,12 @@ private:
 	/**
 	 * @brief	環境変数から設定構築
 	*/
-	static void LoadEnviromentVariable(void);
+	static void LoadEnviromentVariable();
 
 	/**
 	 * @brief	セットアップ
 	*/
-	static void SetUp(void);
+	static void SetUp();
 
 private:
 	/**

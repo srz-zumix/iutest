@@ -39,14 +39,14 @@ class iuIParamGenerator
 public:
 	typedef T type;
 public:
-	typedef _Myt* (*Generator)(void);
+	typedef _Myt* (*Generator)();
 public:
-	virtual ~iuIParamGenerator(void) {}
+	virtual ~iuIParamGenerator() {}
 public:
-	virtual void	Begin(void) = 0;			//!< パラメータリストの先頭に移動
-	virtual T		GetCurrent(void) const = 0;	//!< 現在のパラメータを取得
-	virtual void	Next(void)	= 0;			//!< パラメータを取得して次に移動
-	virtual bool	IsEnd(void) const = 0;		//!< パラメータリストの終端にいるかどうか
+	virtual void	Begin() = 0;			//!< パラメータリストの先頭に移動
+	virtual T		GetCurrent() const = 0;	//!< 現在のパラメータを取得
+	virtual void	Next() = 0;				//!< パラメータを取得して次に移動
+	virtual bool	IsEnd() const = 0;		//!< パラメータリストの終端にいるかどうか
 };
 
 /**
@@ -63,7 +63,7 @@ public:
 	iuParamGenerator(_Interface* pInterface=NULL) : m_pInterface(pInterface) {}	// NOLINT
 
 public:
-	operator iuIParamGenerator<T>* (void) const { return m_pInterface; }
+	operator iuIParamGenerator<T>* () const { return m_pInterface; }
 
 public:
 #if IUTEST_HAS_CONCAT
@@ -75,10 +75,10 @@ public:
 #endif
 
 public:
-	virtual void	Begin(void) IUTEST_CXX_OVERRIDE { m_pInterface->Begin(); }
-	virtual T		GetCurrent(void) const IUTEST_CXX_OVERRIDE { return m_pInterface->GetCurrent(); }
-	virtual void	Next(void) IUTEST_CXX_OVERRIDE { m_pInterface->Next(); }
-	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE { return m_pInterface->IsEnd(); }
+	virtual void	Begin() IUTEST_CXX_OVERRIDE { m_pInterface->Begin(); }
+	virtual T		GetCurrent() const IUTEST_CXX_OVERRIDE { return m_pInterface->GetCurrent(); }
+	virtual void	Next() IUTEST_CXX_OVERRIDE { m_pInterface->Next(); }
+	virtual bool	IsEnd() const IUTEST_CXX_OVERRIDE { return m_pInterface->IsEnd(); }
 private:
 	_Interface* m_pInterface;
 };
@@ -110,10 +110,10 @@ public:
 	}
 
 public:
-	virtual void	Begin(void) IUTEST_CXX_OVERRIDE { m_cur = m_begin; }
-	virtual T		GetCurrent(void) const IUTEST_CXX_OVERRIDE { return m_cur; }
-	virtual void	Next(void) IUTEST_CXX_OVERRIDE { m_cur = static_cast<T>(m_cur + m_step); }
-	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE { return !(m_cur < m_end); }
+	virtual void	Begin() IUTEST_CXX_OVERRIDE { m_cur = m_begin; }
+	virtual T		GetCurrent() const IUTEST_CXX_OVERRIDE { return m_cur; }
+	virtual void	Next() IUTEST_CXX_OVERRIDE { m_cur = static_cast<T>(m_cur + m_step); }
+	virtual bool	IsEnd() const IUTEST_CXX_OVERRIDE { return !(m_cur < m_end); }
 };
 
 /**
@@ -124,16 +124,16 @@ class iuBoolParamsGenerator : public iuIParamGenerator<bool>
 	int m_n;
 	bool m_cur;
 public:
-	iuBoolParamsGenerator(void)
+	iuBoolParamsGenerator()
 		: m_n(0)
 		, m_cur(false)
 	{}
 
 public:
-	virtual void	Begin(void) IUTEST_CXX_OVERRIDE { m_cur = false; m_n = 0; }
-	virtual bool	GetCurrent(void) const IUTEST_CXX_OVERRIDE { return m_cur; }
-	virtual void	Next(void) IUTEST_CXX_OVERRIDE { ++m_n; m_cur = !m_cur; }
-	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE { return m_n >= 2; }
+	virtual void	Begin() IUTEST_CXX_OVERRIDE { m_cur = false; m_n = 0; }
+	virtual bool	GetCurrent() const IUTEST_CXX_OVERRIDE { return m_cur; }
+	virtual void	Next() IUTEST_CXX_OVERRIDE { ++m_n; m_cur = !m_cur; }
+	virtual bool	IsEnd() const IUTEST_CXX_OVERRIDE { return m_n >= 2; }
 };
 
 /**
@@ -176,10 +176,10 @@ public:
 #endif
 
 public:
-	virtual void	Begin(void) IUTEST_CXX_OVERRIDE{ m_it = m_values.begin(); }
-	virtual T		GetCurrent(void) const IUTEST_CXX_OVERRIDE { return *m_it; }
-	virtual void	Next(void) IUTEST_CXX_OVERRIDE { ++m_it; }
-	virtual bool	IsEnd(void) const IUTEST_CXX_OVERRIDE { return (m_it == m_values.end()); }
+	virtual void	Begin() IUTEST_CXX_OVERRIDE{ m_it = m_values.begin(); }
+	virtual T		GetCurrent() const IUTEST_CXX_OVERRIDE { return *m_it; }
+	virtual void	Next() IUTEST_CXX_OVERRIDE { ++m_it; }
+	virtual bool	IsEnd() const IUTEST_CXX_OVERRIDE { return (m_it == m_values.end()); }
 };
 
 
@@ -197,7 +197,7 @@ public:
 
 public:
 	template<typename T>
-	operator iuIParamGenerator<T>* (void)
+	operator iuIParamGenerator<T>* ()
 	{
 		params_t<T> params;
 		params.append(m_g1);
@@ -277,7 +277,7 @@ public:
 
 public:
 	template<typename T>
-	operator iuIParamGenerator<T>* (void) const
+	operator iuIParamGenerator<T>* () const
 	{
 		make_array<T> ar(v);
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
@@ -312,7 +312,7 @@ iuValueArray2(A1 a1, A2 a2) : v1(a1), v2(a2)
 {}
 public:
 template<typename T>
-operator iuIParamGenerator<T>* (void) const
+operator iuIParamGenerator<T>* () const
 {
 const T val[] = { static_cast<T>(v1), static_cast<T>(v2) };
 return new iuValuesInParamsGenerator<T>(val);
@@ -351,7 +351,7 @@ A1 v1;	A2 v2;
 	public:																			\
 		IUTEST_PP_CAT(iuValueArray, n)( IUTEST_PP_ENUM_BINARY_PARAMS(n, A, a) )		\
 		: IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_VALUEARRAY_CONSTRUCT_, v, a) {}		\
-		template<typename T>operator iuIParamGenerator<T>* (void) const {			\
+		template<typename T>operator iuIParamGenerator<T>* () const {				\
 			const T val[] = { IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_VALUEARRAY_STATICCAST_, T, v) };		\
 			return new iuValuesInParamsGenerator<T>(val);							\
 		}																			\
@@ -488,29 +488,28 @@ class iuCartesianProductGenerator : public iuIParamGenerator< tuples::tuple<Args
 public:
 	typedef tuples::tuple<Args...> ParamType;
 public:
-	iuCartesianProductGenerator(void)
-	{}
+	iuCartesianProductGenerator() {}
 
 public:
-	virtual void Begin(void) IUTEST_CXX_OVERRIDE
+	virtual void Begin() IUTEST_CXX_OVERRIDE
 	{
 		tuples::tuple_foreach(v, begin_func());
 	}
-	virtual void Next(void) IUTEST_CXX_OVERRIDE
+	virtual void Next() IUTEST_CXX_OVERRIDE
 	{
 		if( IsEnd() ) return;
 		next_foreach<0, kCount>(v);
 	}
-	virtual bool IsEnd(void) const IUTEST_CXX_OVERRIDE
+	virtual bool IsEnd() const IUTEST_CXX_OVERRIDE
 	{
 		return is_end_foreach<0, kCount>(v);
 	}
-	virtual ParamType GetCurrent(void) const IUTEST_CXX_OVERRIDE
+	virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE
 	{
 		return current_foreach<0, kCount, Args...>();
 	}
 
-	_MyTuple& generators(void) { return v; }
+	_MyTuple& generators() { return v; }
 private:
 	_MyTuple v;
 };
@@ -527,7 +526,7 @@ public:
 
 public:
 	template<typename... Args>
-	operator iuIParamGenerator< tuples::tuple<Args...> >* (void) const
+	operator iuIParamGenerator< tuples::tuple<Args...> >* () const
 	{
 		iuCartesianProductGenerator<Args...>* p = new iuCartesianProductGenerator<Args...>();
 		tuples::tuple_cast_copy(p->generators(), v);
@@ -560,12 +559,12 @@ public:
 		: m_g1(g1), m_g2(g2)
 	{}
 public:
-	virtual void Begin(void) IUTEST_CXX_OVERRIDE
+	virtual void Begin() IUTEST_CXX_OVERRIDE
 	{
 		m_g1.Begin();
 		m_g2.Begin();
 	}
-	virtual void Next(void) IUTEST_CXX_OVERRIDE
+	virtual void Next() IUTEST_CXX_OVERRIDE
 	{
 		if( m_g2.IsEnd() ) return;
 		m_g2.Next();
@@ -575,7 +574,7 @@ public:
 			if( !m_g1.IsEnd() ) m_g2.Begin();
 		}
 	}
-	virtual bool IsEnd(void) const IUTEST_CXX_OVERRIDE
+	virtual bool IsEnd() const IUTEST_CXX_OVERRIDE
 	{
 		return m_g1.IsEnd() && m_g2.IsEnd();
 	}
@@ -601,7 +600,7 @@ public:
 	{}
 
 public:
-	virtual ParamType GetCurrent(void) const IUTEST_CXX_OVERRIDE
+	virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE
 	{
 		return ParamType(this->m_g1.GetCurrent(), this->m_g2.GetCurrent());
 	}
@@ -625,7 +624,7 @@ public:
 	{}
 
 public:
-	virtual ParamType GetCurrent(void) const IUTEST_CXX_OVERRIDE
+	virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE
 	{
 		tuples::tuple<T2, T3> param(this->m_g2.GetCurrent());
 		return ParamType(this->m_g1.GetCurrent(), tuples::get<0>(param), tuples::get<1>(param) );
@@ -661,7 +660,7 @@ public:
 		: _Mybase(g0, IUTEST_PP_CAT(iuCartesianProductGenerator, IUTEST_PP_DEC(n))<							\
 		IUTEST_PP_ENUM_SHIFTED_PARAMS(IUTEST_PP_DEC(n), T)>					\
 		( IUTEST_PP_ENUM_SHIFTED_PARAMS(IUTEST_PP_DEC(n), g) ) ) {}			\
-		virtual ParamType GetCurrent(void) const IUTEST_CXX_OVERRIDE {		\
+		virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE {			\
 			tuples::tuple< IUTEST_PP_ENUM_SHIFTED_PARAMS(IUTEST_PP_DEC(n), T) >	\
 			params(this->m_g2.GetCurrent());								\
 			return ParamType(this->m_g1.GetCurrent(), IUTEST_PP_ENUM(IUTEST_PP_DEC(n)	\
@@ -746,7 +745,7 @@ private:
 		IUTEST_PP_CAT(iuCartesianProductHolder, n)( IUTEST_PP_ENUM_BINARY_PARAMS(n, const Generator, &g) )	\
 		: IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_CONSTRUCT_, m_g, g) {}				\
 		template< IUTEST_PP_ENUM_PARAMS(n, typename T) >		\
-		operator iuIParamGenerator< tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > >* (void) const {			\
+		operator iuIParamGenerator< tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > >* () const {				\
 			return new IUTEST_PP_CAT(iuCartesianProductGenerator, n)< IUTEST_PP_ENUM_PARAMS(n, T) >(		\
 				IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_STATICCAST_, T, m_g) );			\
 		}														\
@@ -787,7 +786,7 @@ protected:
 	struct ParamIndexes
 	{
 		int index[N];
-		ParamIndexes(void) { for( int i=0; i < N; ++i ) index[i] = -1; }
+		ParamIndexes() { for( int i=0; i < N; ++i ) index[i] = -1; }
 	};
 
 private:
@@ -1091,7 +1090,7 @@ public:
 
 public:
 	template<typename... Args>
-	operator iuIParamGenerator< tuples::tuple<Args...> >* (void) const
+	operator iuIParamGenerator< tuples::tuple<Args...> >* () const
 	{
 		tuples::tuple< iuParamGenerator<Args>... > generators;
 		tuples::tuple_cast_copy(generators, v);
@@ -1133,12 +1132,12 @@ public:
 		return new iuPairwiseGenerator2<T1, T2>(g1, g2);
 	}
 public:
-	virtual void Begin(void) IUTEST_CXX_OVERRIDE
+	virtual void Begin() IUTEST_CXX_OVERRIDE
 	{
 		m_g1.Begin();
 		m_g2.Begin();
 	}
-	virtual void Next(void) IUTEST_CXX_OVERRIDE
+	virtual void Next() IUTEST_CXX_OVERRIDE
 	{
 		if( m_g2.IsEnd() )
 		{
@@ -1154,11 +1153,11 @@ public:
 			}
 		}
 	}
-	virtual bool IsEnd(void) const IUTEST_CXX_OVERRIDE
+	virtual bool IsEnd() const IUTEST_CXX_OVERRIDE
 	{
 		return m_g1.IsEnd() && m_g2.IsEnd();
 	}
-	virtual ParamType GetCurrent(void) const IUTEST_CXX_OVERRIDE
+	virtual ParamType GetCurrent() const IUTEST_CXX_OVERRIDE
 	{
 		return ParamType(this->m_g1.GetCurrent(), this->m_g2.GetCurrent());
 	}
@@ -1325,7 +1324,7 @@ private:
 		IUTEST_PP_ENUM_BINARY_PARAMS(n, const Generator, &g) )	\
 		: IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_PAIRWISE_HOLDER_CONSTRUCT_, m_g, g) {}					\
 		template< IUTEST_PP_ENUM_PARAMS(n, typename T) >		\
-		operator iuIParamGenerator< tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > >* (void) const {	\
+		operator iuIParamGenerator< tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > >* () const {		\
 			return IUTEST_PP_CAT(iuPairwiseGenerator, n)< IUTEST_PP_ENUM_PARAMS(n, T) >::Create(	\
 				IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_PAIRWISE_HOLDER_STATICCAST_, T, m_g) );			\
 		}														\
@@ -1369,7 +1368,7 @@ public:
 	{}
 public:
 	template<typename T>
-	operator iuIParamGenerator<T>* (void) const
+	operator iuIParamGenerator<T>* () const
 	{
 		::std::vector<T> params(m_num);
 		::std::generate(params.begin(), params.end(), m_g);
@@ -1401,12 +1400,10 @@ public:
 	iuRandomFilterParamGenerator(const F& fn, unsigned int seed)
 		: m_fn(fn), m_rnd(seed) {}
 
-	type operator ()(void)
+	type operator ()()
 	{
 		type val =  m_rnd.genrand();
-		for( ; !(m_fn)(val); val = m_rnd.genrand() )
-		{
-		}
+		for( ; !(m_fn)(val); val = m_rnd.genrand() ) {}
 		return val;
 	}
 private:
@@ -1428,7 +1425,7 @@ public:
 		: m_num(num), m_seed(seed) {}
 public:
 	template<typename T>
-	operator iuIParamGenerator<T>* (void) const
+	operator iuIParamGenerator<T>* () const
 	{
 		unsigned int seed = m_seed;
 		if( seed == 0 )

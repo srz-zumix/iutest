@@ -268,7 +268,7 @@ private:
 		}
 	}
 };
-inline void AppendInformSupportPrinter(void)
+inline void AppendInformSupportPrinter()
 {
 	// INFORM 用に printer を追加
 	::testing::UnitTest::GetInstance()->listeners().Append( new DefaultPrinter() );

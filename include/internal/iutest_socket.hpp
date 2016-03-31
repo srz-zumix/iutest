@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -72,7 +72,7 @@ public:
 
 #endif
 public:
-	BasicSocket(void) : m_socket(INVALID_DESCRIPTOR)
+	BasicSocket() : m_socket(INVALID_DESCRIPTOR)
 	{
 #ifdef IUTEST_OS_WINDOWS
 		WSADATA wsaData;
@@ -120,12 +120,12 @@ public:
 		freeaddrinfo(servinfo);
 		return (m_socket != INVALID_DESCRIPTOR);
 	}
-	void Close(void)
+	void Close()
 	{
 		Close(m_socket);
 		m_socket = INVALID_DESCRIPTOR;
 	};
-	void CheckLastError(void)
+	void CheckLastError()
 	{
 #ifdef IUTEST_OS_WINDOWS
 		const int le = WSAGetLastError();
@@ -143,7 +143,7 @@ public:
 	}
 
 public:
-	bool IsValid(void) const
+	bool IsValid() const
 	{
 		return m_socket != INVALID_DESCRIPTOR;
 	}
@@ -160,7 +160,7 @@ class SocketWriter : virtual public BasicSocket
 	, public IOutStream
 {
 public:
-	SocketWriter(void) {}
+	SocketWriter() {}
 public:
 	bool Send(const ::std::string& message)
 	{
@@ -210,7 +210,7 @@ private:
 class SocketReader : virtual public BasicSocket
 {
 public:
-	SocketReader(void) {}
+	SocketReader() {}
 public:
 	bool Read(void* buf, size_t size)
 	{
@@ -243,7 +243,7 @@ private:
 class Socket : public SocketWriter, public SocketReader
 {
 public:
-	Socket(void) {}
+	Socket() {}
 };
 
 }	// end of namespace detail

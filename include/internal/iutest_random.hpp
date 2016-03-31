@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -46,7 +46,7 @@ class iuRandom
 		{
 			seed(s);
 		}
-		result_type operator ()(void)
+		result_type operator ()()
 		{
 			return gen();
 		}
@@ -79,11 +79,11 @@ class iuRandom
 		static IUTEST_CXX_CONSTEXPR_OR_CONST result_type _Max = static_cast<result_type>(-1);
 #endif
 
-		static IUTEST_CXX_CONSTEXPR result_type (min)(void) { return 0; }
-		static IUTEST_CXX_CONSTEXPR result_type (max)(void) { return static_cast<result_type>(-1); }
+		static IUTEST_CXX_CONSTEXPR result_type (min)() { return 0; }
+		static IUTEST_CXX_CONSTEXPR result_type (max)() { return static_cast<result_type>(-1); }
 
 	private:
-		result_type gen(void)
+		result_type gen()
 		{
 			const unsigned int t = (m_v1 ^ (m_v1 << 11));
 			m_v1 = m_v2;
@@ -102,8 +102,8 @@ class iuRandom
 public:
 	typedef unsigned int result_type;
 
-	static IUTEST_CXX_CONSTEXPR result_type (min)(void) { return (Engine::min)(); }
-	static IUTEST_CXX_CONSTEXPR result_type (max)(void) { return (Engine::max)(); }
+	static IUTEST_CXX_CONSTEXPR result_type (min)() { return (Engine::min)(); }
+	static IUTEST_CXX_CONSTEXPR result_type (max)() { return (Engine::max)(); }
 
 #if defined(__clang__) && (__clang_major__ < 3 || (__clang_major__ == 3 && __clang_minor__ < 3))
 	static IUTEST_CXX_CONSTEXPR_OR_CONST result_type _Min = Engine::_Min;
@@ -111,7 +111,7 @@ public:
 #endif
 
 public:
-	iuRandom(void)
+	iuRandom()
 	{
 		init();
 	}
@@ -126,7 +126,7 @@ public:
 	 * @brief	初期化
 	 * @details	時間でシードを決定
 	*/
-	void init(void)
+	void init()
 	{
 		init(GetIndefiniteValue());
 	}
@@ -144,7 +144,7 @@ public:
 	 * @brief	乱数の生成
 	 * @return	乱数
 	*/
-	result_type genrand(void)
+	result_type genrand()
 	{
 		return m_engine();
 	}
@@ -169,7 +169,7 @@ public:
 	 * @details	[0,1] の乱数を生成
 	 * @return	乱数
 	*/
-	float genrandf(void)
+	float genrandf()
 	{
 #if IUTEST_HAS_CXX_HDR_RANDOM
 		return ::std::uniform_real_distribution<float>(0.0f, 1.0f)(m_engine);
@@ -194,7 +194,7 @@ public:
 #endif
 
 public:
-	result_type operator ()(void)
+	result_type operator ()()
 	{
 		return genrand();
 	}
@@ -237,16 +237,16 @@ class iuTypedRandom
 {
 	typedef T result_type;
 public:
-	iuTypedRandom(void) {}
+	iuTypedRandom() {}
 	explicit iuTypedRandom(unsigned int seed)
 		: m_rnd(seed) {}
 
-	result_type operator ()(void)
+	result_type operator ()()
 	{
 		return genrand();
 	}
 
-	result_type genrand(void)
+	result_type genrand()
 	{
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
 #if defined(__MWERKS__)

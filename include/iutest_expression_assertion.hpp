@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -118,13 +118,13 @@ public:
 	{
 		return AssertionResult(result() == expected) << "expansion: " << m_result.message();
 	}
-	AssertionResult GetResult(void) const
+	AssertionResult GetResult() const
 	{
 		return AssertionResult(result()) << m_result.message();
 	}
 private:
-	bool result(void) const { return m_result.passed(); }
-	const char* message(void) const { return m_result.message(); }
+	bool result() const { return m_result.passed(); }
+	const char* message() const { return m_result.message(); }
 private:
 	AssertionResult m_result;
 };
@@ -208,7 +208,7 @@ public:
 		const bool b = m_lhs ? true : false;
 		return AssertionResult(b == expected) << "expansion: " << m_message;
 	}
-	AssertionResult GetResult(void) const
+	AssertionResult GetResult() const
 	{
 		const bool b = m_lhs ? true : false;
 		return AssertionResult(b) << m_message;

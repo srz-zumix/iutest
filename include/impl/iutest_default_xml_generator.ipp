@@ -293,7 +293,7 @@ IUTEST_IPP_INLINE bool DefaultXmlGeneratorListener::FileOpen(const char* path)
 	return true;
 }
 
-IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::FileClose(void)
+IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::FileClose()
 {
 	if( m_fp == NULL )
 	{

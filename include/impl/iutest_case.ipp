@@ -22,7 +22,7 @@
 namespace iutest
 {
 
-IUTEST_IPP_INLINE bool TestCase::Run(void)
+IUTEST_IPP_INLINE bool TestCase::Run()
 {
 	if( !should_run() )
 	{
@@ -71,7 +71,7 @@ IUTEST_IPP_INLINE bool TestCase::Run(void)
 	return result;
 }
 
-IUTEST_IPP_INLINE bool TestCase::RunImpl(void)
+IUTEST_IPP_INLINE bool TestCase::RunImpl()
 {
 	bool result=true;
 	m_elapsedmsec = 0;
@@ -110,7 +110,7 @@ IUTEST_IPP_INLINE bool TestCase::RunImpl(void)
 	return result;
 }
 
-IUTEST_IPP_INLINE bool TestCase::CheckSetUpSkipped(void)
+IUTEST_IPP_INLINE bool TestCase::CheckSetUpSkipped()
 {
 	if(m_ad_hoc_testresult.Skipped())
 	{
@@ -123,7 +123,7 @@ IUTEST_IPP_INLINE bool TestCase::CheckSetUpSkipped(void)
 	return false;
 }
 
-IUTEST_IPP_INLINE void TestCase::clear(void)
+IUTEST_IPP_INLINE void TestCase::clear()
 {
 	m_ad_hoc_testresult.Clear();
 	for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
@@ -132,7 +132,7 @@ IUTEST_IPP_INLINE void TestCase::clear(void)
 	}
 }
 
-IUTEST_IPP_INLINE bool TestCase::filter(void)
+IUTEST_IPP_INLINE bool TestCase::filter()
 {
 	m_should_run_num = 0;
 	m_disable_num = 0;
@@ -155,12 +155,12 @@ IUTEST_IPP_INLINE bool TestCase::filter(void)
 	return should_run();
 }
 
-IUTEST_IPP_INLINE int TestCase::reportable_test_count(void) const
+IUTEST_IPP_INLINE int TestCase::reportable_test_count() const
 {
 	return detail::CountIfOverList(m_testinfos, &TestInfo::is_reportable);
 }
 
-IUTEST_IPP_INLINE int TestCase::failed_test_count(void) const
+IUTEST_IPP_INLINE int TestCase::failed_test_count() const
 {
 	if( !should_run() )
 	{
@@ -170,7 +170,7 @@ IUTEST_IPP_INLINE int TestCase::failed_test_count(void) const
 	return detail::CountIf(m_testinfos, IsFaildTest);
 }
 
-IUTEST_IPP_INLINE int TestCase::successful_test_count(void) const
+IUTEST_IPP_INLINE int TestCase::successful_test_count() const
 {
 	if( !should_run() )
 	{
@@ -180,7 +180,7 @@ IUTEST_IPP_INLINE int TestCase::successful_test_count(void) const
 	return detail::CountIf(m_testinfos, IsSuccessfulTest);
 }
 
-IUTEST_IPP_INLINE int TestCase::skip_test_count(void) const
+IUTEST_IPP_INLINE int TestCase::skip_test_count() const
 {
 	if( !should_run() )
 	{
@@ -189,7 +189,7 @@ IUTEST_IPP_INLINE int TestCase::skip_test_count(void) const
 	return detail::CountIf(m_testinfos, IsSkipTest);
 }
 
-IUTEST_IPP_INLINE int TestCase::reportable_skip_test_count(void) const
+IUTEST_IPP_INLINE int TestCase::reportable_skip_test_count() const
 {
 	if( !should_run() )
 	{
@@ -198,7 +198,7 @@ IUTEST_IPP_INLINE int TestCase::reportable_skip_test_count(void) const
 	return detail::CountIf(m_testinfos, IsReportableSkipTest);
 }
 
-IUTEST_IPP_INLINE int TestCase::test_run_skipped_count(void) const
+IUTEST_IPP_INLINE int TestCase::test_run_skipped_count() const
 {
 	if( !should_run() )
 	{
@@ -207,7 +207,7 @@ IUTEST_IPP_INLINE int TestCase::test_run_skipped_count(void) const
 	return detail::CountIf(m_testinfos, IsRunSkippedTest);
 }
 
-IUTEST_IPP_INLINE int TestCase::reportable_test_run_skipped_count(void) const
+IUTEST_IPP_INLINE int TestCase::reportable_test_run_skipped_count() const
 {
 	if( !should_run() )
 	{
@@ -216,7 +216,7 @@ IUTEST_IPP_INLINE int TestCase::reportable_test_run_skipped_count(void) const
 	return detail::CountIf(m_testinfos, IsReportableRunSkippedTest);
 }
 
-IUTEST_IPP_INLINE int TestCase::reportable_disabled_test_count(void) const
+IUTEST_IPP_INLINE int TestCase::reportable_disabled_test_count() const
 {
 	return detail::CountIf(m_testinfos, IsReportableDisabledTest);
 }

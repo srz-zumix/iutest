@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -60,7 +60,7 @@
 	TEST_CLASS_INITIALIZE(iuSetUp) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::SetUpTestCase(); }		\
 	TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::TearDownTestCase(); }	\
 	IIUT_TR1_VCUNIT_METHOD_ATTRIBUTE(testcase_, methodName)	\
-	virtual void Body(void);								\
+	virtual void Body();									\
 	};														\
 	void className::Body()
 
@@ -89,8 +89,8 @@ IUTEST_MAKE_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, ::iutes
 
 #define IUTEST_P(testcase_, testname_)														\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public testcase_ {				\
-	public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}							\
-	protected: virtual void Body(void) {}													\
+	public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)() {}								\
+	protected: virtual void Body() {}														\
 		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));	\
 	};																						\
 	IUTEST_P_VCUNIT_I(testcase_, testname_, testcase_##testname_##_class, testcase_##_##testname_)
@@ -128,8 +128,8 @@ IUTEST_MAKE_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, ::iutes
 	TEST_CLASS_INITIALIZE(iuSetUp) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::SetUpTestCase(); }		\
 	TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::TearDownTestCase(); }	\
 	IIUT_TR1_VCUNIT_METHOD_ATTRIBUTE(testcase_, methodName)										\
-	virtual void Body(void);																\
-	private: static int	AddRegister(void) {													\
+	virtual void Body();																	\
+	private: static int	AddRegister() {														\
 			static ::iutest::detail::ParamTestInstance< className > testinfo(#testname_);	\
 			::iutest::UnitTest::GetInstance()->parameterized_test_registry().				\
 			GetTestCasePatternHolder< testcase_ >(#testcase_, IUTEST_GET_PACKAGENAME_())	\
@@ -230,7 +230,7 @@ namespace VisualStudio
 
 #if IUTEST_HAS_PEEP_FUNC
 
-typedef ::testing::TestEventListener* (::testing::TestEventListeners::* pfnRepeater)(void);
+typedef ::testing::TestEventListener* (::testing::TestEventListeners::* pfnRepeater)();
 
 #define testing	iutest
 IUTEST_MAKE_PEEP(pfnRepeater, ::testing::TestEventListeners, repeater);
@@ -359,12 +359,12 @@ private:
 class VCCppUnitTestPartResultReporter : public ::iutest::EmptyTestEventListener
 {
 public:
-	VCCppUnitTestPartResultReporter(void)
+	VCCppUnitTestPartResultReporter()
 	{
 		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
 		listeners.Append(this);
 	}
-	virtual ~VCCppUnitTestPartResultReporter(void)
+	virtual ~VCCppUnitTestPartResultReporter()
 	{
 		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
 		listeners.Release(this);
@@ -386,7 +386,7 @@ public:
 };
 
 
-inline void SetUpCppUnitTest(void)
+inline void SetUpCppUnitTest()
 {
 #if 0
 	{

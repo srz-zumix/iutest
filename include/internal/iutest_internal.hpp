@@ -129,14 +129,14 @@
 #define IUTEST_TEST_(testcase_, testname_, parent_class_, type_id_)							\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {			\
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));		\
-		public:	IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
-		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE;								\
+		public:	IUTEST_TEST_CLASS_NAME_(testcase_, testname_)() {}							\
+		protected: virtual void Body() IUTEST_CXX_OVERRIDE;									\
 	};																						\
 	::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>			\
 	IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(										\
 		IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_)		\
 		, type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);			\
-	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body(void)
+	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body()
 
 /**
  * @internal
@@ -146,15 +146,15 @@
 #define IUTEST_TEST_IGNORE_(testcase_, testname_, parent_class_, type_id_)					\
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {			\
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN( IUTEST_TEST_CLASS_NAME_(testcase_, testname_) );	\
-		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
-		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }			\
-		template<typename T>void Body(void);												\
+		public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)() {}							\
+		protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }			\
+		template<typename T>void Body();													\
 	};																						\
 	::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>			\
 	IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(										\
 		IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_)		\
 		, type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);			\
-	template<typename T>void IUTEST_TEST_CLASS_NAME_(testcase_, testname_ )::Body(void)
+	template<typename T>void IUTEST_TEST_CLASS_NAME_(testcase_, testname_ )::Body()
 
 #if !defined(IUTEST_NO_VARIADIC_MACROS)
 
@@ -177,11 +177,11 @@
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_);										\
 	class IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {			\
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_));		\
-		public: IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)(void) {}						\
-		static ::std::string MakeTestName(void) { return ::iutest::detail::MakeIndexTestName(	\
+		public: IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)() {}							\
+		static ::std::string MakeTestName() { return ::iutest::detail::MakeIndexTestName(		\
 			IIUT_TO_NAME_STR_(testname_), ::iutest::detail::GetTypeUniqueCounter<				\
 				IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>()); }							\
-		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE { method_(__VA_ARGS__); }		\
+		protected: virtual void Body() IUTEST_CXX_OVERRIDE { method_(__VA_ARGS__); }			\
 	};																							\
 	::iutest::detail::TestInstance<IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)>			\
 	IUTEST_PP_CAT( IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_), __LINE__)(					\

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -91,26 +91,26 @@
 	template<typename iutest_TypeParam>	class classname_ : public testcase_<iutest_TypeParam> {	\
 		typedef testcase_<iutest_TypeParam> TestFixture;							\
 		typedef iutest_TypeParam TypeParam;											\
-		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE;						\
+		protected: virtual void Body() IUTEST_CXX_OVERRIDE;							\
 	};																				\
 	::iutest::detail::TypeParamTestInstance< classname_, IIUT_TYPED_TEST_PARAMS_(testcase_) >	\
 		IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(							\
 		IUTEST_CONCAT_PACKAGE_(testcasename_), IIUT_TO_NAME_STR_(testname_));		\
 	template<typename iutest_TypeParam>												\
-	void classname_<iutest_TypeParam>::Body(void)
+	void classname_<iutest_TypeParam>::Body()
 
 #define IIUT_TYPED_TEST_I_IGNORE(classname_, testcase_, testcasename_, testname_)	\
-	template<typename iutest_TypeParam> class classname_ : public testcase_<iutest_TypeParam> {			\
+	template<typename iutest_TypeParam> class classname_ : public testcase_<iutest_TypeParam> {		\
 		typedef testcase_<iutest_TypeParam> TestFixture;							\
 		typedef iutest_TypeParam TypeParam;											\
-		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }	\
-		template<typename T>void Body(void);										\
+		protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }	\
+		template<typename T>void Body();											\
 	};																				\
-	::iutest::detail::TypeParamTestInstance< classname_, IIUT_TYPED_TEST_PARAMS_(testcase_) >			\
+	::iutest::detail::TypeParamTestInstance< classname_, IIUT_TYPED_TEST_PARAMS_(testcase_) >		\
 		IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(							\
 		IUTEST_CONCAT_PACKAGE_(testcasename_), IIUT_TO_NAME_STR_(testname_));		\
 	template<typename iutest_TypeParam>	template<typename T>						\
-	void classname_<iutest_TypeParam>::Body(void)
+	void classname_<iutest_TypeParam>::Body()
 
 #define IIUT_TYPED_TEST_(macro, testcase_, testname_)					\
 	macro(IUTEST_TEST_CLASS_NAME_(testcase_, testname_)					\
@@ -218,11 +218,11 @@
 	class testname_ : public testcase_<iutest_TypeParam> {		\
 		typedef testcase_<iutest_TypeParam> TestFixture;		\
 		typedef iutest_TypeParam TypeParam;						\
-		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE;	\
+		protected: virtual void Body() IUTEST_CXX_OVERRIDE;		\
 	}; IIUT_TYPED_TEST_P_ADDTESTNAME(testcase_, testname_);		\
 	}															\
 	template<typename iutest_TypeParam>							\
-	void IIUT_TYPED_TEST_P_NAMESPACE_(testcase_)::testname_<iutest_TypeParam>::Body(void)
+	void IIUT_TYPED_TEST_P_NAMESPACE_(testcase_)::testname_<iutest_TypeParam>::Body()
 
 #define IIUT_TYPED_TEST_P_IGNORE_(testcase_, testname_)			\
 	namespace IIUT_TYPED_TEST_P_NAMESPACE_(testcase_) {			\
@@ -230,12 +230,12 @@
 	class testname_ : public testcase_<iutest_TypeParam> {		\
 		typedef testcase_<iutest_TypeParam> TestFixture;		\
 		typedef iutest_TypeParam TypeParam;						\
-		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }		\
-		template<typename T>void Body(void);					\
+		protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }		\
+		template<typename T>void Body();						\
 	}; IIUT_TYPED_TEST_P_ADDTESTNAME(testcase_, testname_);		\
 	}															\
 	template<typename iutest_TypeParam>template<typename T>		\
-	void IIUT_TYPED_TEST_P_NAMESPACE_(testcase_)::testname_<iutest_TypeParam>::Body(void)
+	void IIUT_TYPED_TEST_P_NAMESPACE_(testcase_)::testname_<iutest_TypeParam>::Body()
 
 #define IIUT_REGISTER_TYPED_TEST_CASE_P_(testcase_, ...)								\
 	namespace IIUT_TYPED_TEST_P_NAMESPACE_(testcase_) {									\
@@ -319,7 +319,7 @@ class TypeParamTestInstance
 
 	public:
 		// テストの登録
-		void AddTest(void)
+		void AddTest()
 		{
 			// 順番通りになるように前から登録
 			UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
@@ -339,7 +339,7 @@ class TypeParamTestInstance
 	{
 	public:
 		EachTest(const char* /*testcase*/, const char* /*name*/, size_t /*index*/) {}
-		void AddTest(void) {}
+		void AddTest() {}
 	};
 
 public:
@@ -372,9 +372,9 @@ class TypedTestCasePState
 #endif
 
 public:
-	TypedTestCasePState(void) : m_names(NULL) {}
+	TypedTestCasePState() : m_names(NULL) {}
 public:
-	const char* names(void) const { return m_names; }
+	const char* names() const { return m_names; }
 
 public:
 	bool AddTestName(const char* file, int line, const char* testcase_name, const char* test_name)

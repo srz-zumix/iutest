@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -85,7 +85,7 @@
 						 typedef ::iutest_type_traits::identity<member_type>::type type; };		\
 	template<typename T, typename Tag, typename Tag::type X>									\
 	struct IIUT_PEEP_SETTER_NAME_(class_name, member_name) {									\
-		IIUT_PEEP_SETTER_NAME_(class_name, member_name)(void) {									\
+		IIUT_PEEP_SETTER_NAME_(class_name, member_name)() {										\
 			::iutest::detail::peep_tag<Tag>::value = X; }										\
 		static IIUT_PEEP_SETTER_NAME_(class_name, member_name) instance;						\
 	};																							\
@@ -161,7 +161,7 @@ private:
 		IUTEST_PP_ENUM_BINARY_PARAMS(n, T, t)) {				\
 		return ((*m_ptr).*detail::peep_tag<peep_tag>::value)(IUTEST_PP_ENUM_PARAMS(n, t)); }
 
-		return_type operator () (void) { return ((*m_ptr).*detail::peep_tag<peep_tag>::value)(); }
+		return_type operator () () { return ((*m_ptr).*detail::peep_tag<peep_tag>::value)(); }
 
 		PEEP_DECL_MEMBER_FUNC_(1)
 		PEEP_DECL_MEMBER_FUNC_(2)
@@ -199,7 +199,7 @@ private:
 	private:
 		peep_member_object_impl(const peep_member_object_impl&);
 	public:
-		operator value_type (void) const { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
+		operator value_type () const { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
 		_Myt& operator = (const value_type& value);
 	};
 	template<typename U, typename Type>
@@ -214,8 +214,8 @@ private:
 	private:
 		peep_member_object_impl(const peep_member_object_impl&);
 	public:
-		operator value_type (void) const { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
-		operator value_type& (void) { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
+		operator value_type () const { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
+		operator value_type& () { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
 		_Myt& operator = (const value_type& value)
 		{
 			(*m_ptr).*detail::peep_tag<peep_tag>::value = value;
@@ -242,12 +242,12 @@ private:
 		typedef peep_static_impl<U, Type, Func> _Myt;
 		typedef typename type_traits::remove_pointer<Type>::type value_type;
 	public:
-		peep_static_impl(void) {}
+		peep_static_impl() {}
 		peep_static_impl(const value_type& value) { *detail::peep_tag<peep_tag>::value = value; }	// NOLINT
 		peep_static_impl(const peep_static_impl&) {}
 	public:
-		operator value_type (void) const { return *detail::peep_tag<peep_tag>::value; }
-		operator value_type& (void) { return *detail::peep_tag<peep_tag>::value; }
+		operator value_type () const { return *detail::peep_tag<peep_tag>::value; }
+		operator value_type& () { return *detail::peep_tag<peep_tag>::value; }
 		_Myt& operator = (const value_type& value)
 		{
 			*detail::peep_tag<peep_tag>::value = value;
@@ -259,7 +259,7 @@ private:
 	class peep_static_impl<U, Type, true>
 	{
 	public:
-		operator Type (void) { return *detail::peep_tag<peep_tag>::value; }
+		operator Type () { return *detail::peep_tag<peep_tag>::value; }
 	};
 private:
 	template<typename U, typename Type, bool is_member_ptr>

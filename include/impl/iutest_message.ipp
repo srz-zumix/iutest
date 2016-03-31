@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -35,7 +35,7 @@ IUTEST_IPP_INLINE void iuStreamMessage::append(const char* str)
 	}
 }
 
-IUTEST_IPP_INLINE ::std::string iuCodeMessage::make_message(void) const
+IUTEST_IPP_INLINE ::std::string iuCodeMessage::make_message() const
 {
 	::std::string str = FormatFileLocation(m_file, m_line);
 	str += ": ";

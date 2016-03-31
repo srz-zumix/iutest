@@ -25,7 +25,7 @@
  * @brief	型アサーション
 */
 template<typename T1, typename T2>
-static bool	StaticAssertTypeEq(void)
+static bool	StaticAssertTypeEq()
 {
 	(void)detail::StaticAssertTypeEqHelper<T1, T2>();
 	return true;
@@ -114,7 +114,7 @@ namespace helper
 /** @private */
 template<bool b>struct static_assert_typeeq;
 /** @overload */
-template<>struct static_assert_typeeq<true> { operator bool (void) const { return true; } };
+template<>struct static_assert_typeeq<true> { operator bool() const { return true; } };
 
 }
 

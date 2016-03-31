@@ -80,15 +80,15 @@ const char* GetEnv(const char* name);
 int PutEnv(const char* expr);
 
 const char* GetCWD(char* buf, size_t length);
-::std::string GetCWD(void);
+::std::string GetCWD();
 
 void SleepMillisec(unsigned int millisec);
 
 #if defined(IUTEST_OS_WINDOWS_MOBILE)
-void Abort(void);
+void Abort();
 #else
-IUTEST_ATTRIBUTE_NORETURN_ void Abort(void);
-inline void Abort(void) { abort(); }
+IUTEST_ATTRIBUTE_NORETURN_ void Abort();
+inline void Abort() { abort(); }
 #endif
 
 }	// end of namespace posix
@@ -105,7 +105,7 @@ namespace posix = internal::posix;
 /**
  * @brief	パス区切り文字の取得
 */
-char GetPathSeparator(void) IUTEST_CXX_NOEXCEPT_SPEC;
+char GetPathSeparator() IUTEST_CXX_NOEXCEPT_SPEC;
 
 /**
  * @brief	パス区切り文字かどうか
@@ -197,10 +197,10 @@ public:
 public:
 	IUTestLog(Level level, const char* file, int line);
 
-	~IUTestLog(void);
+	~IUTestLog();
 
 public:
-	iu_stringstream& GetStream(void) { return m_stream; }
+	iu_stringstream& GetStream() { return m_stream; }
 private:
 	const Level kLevel;
 	iu_stringstream m_stream;
@@ -227,7 +227,7 @@ public:
 		setvbuf(fp, m_buf, _IOFBF, SIZE);
 	}
 
-	~IUStreamBuffer(void)
+	~IUStreamBuffer()
 	{
 		fflush(m_fp);
 		setbuf(m_fp, NULL);
@@ -236,7 +236,7 @@ public:
 	IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 public:
-	::std::string GetStreamString(void) { return m_buf; }
+	::std::string GetStreamString() { return m_buf; }
 
 private:
 	FILE* m_fp;

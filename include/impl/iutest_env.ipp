@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -28,7 +28,7 @@ IUTEST_IPP_INLINE void Environment::Release()
 	TestEnv::ReleaseGlobalTestEnvironment(this);
 }
 
-IUTEST_IPP_INLINE ::std::string TestEnv::get_report_xml_filepath(void)
+IUTEST_IPP_INLINE ::std::string TestEnv::get_report_xml_filepath()
 {
 	const ::std::string& option = get_vars().m_output_option;
 	if(option.find("xml") != ::std::string::npos)
@@ -44,7 +44,7 @@ IUTEST_IPP_INLINE ::std::string TestEnv::get_report_xml_filepath(void)
 	return "";
 }
 
-IUTEST_IPP_INLINE::std::string TestEnv::get_report_junit_xml_filepath(void)
+IUTEST_IPP_INLINE::std::string TestEnv::get_report_junit_xml_filepath()
 {
 	const ::std::string& option = get_vars().m_output_option;
 	if( option.find("junit") != ::std::string::npos )
@@ -260,7 +260,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 	return find;
 }
 
-IUTEST_IPP_INLINE void TestEnv::LoadEnviromentVariable(void)
+IUTEST_IPP_INLINE void TestEnv::LoadEnviromentVariable()
 {
 	{
 		int var = 0;
@@ -354,7 +354,7 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnviromentVariable(void)
 	}
 }
 
-IUTEST_IPP_INLINE void TestEnv::SetUp(void)
+IUTEST_IPP_INLINE void TestEnv::SetUp()
 {
 	unsigned int seed = get_random_seed();
 	if( (seed == 0)

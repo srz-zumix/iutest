@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -48,7 +48,7 @@ public:
 	virtual ~IParamTestInfoData() IUTEST_CXX_DEFAULT_FUNCTION
 	virtual TestCase* MakeTestCase(const char* , TestTypeId , SetUpMethod , TearDownMethod ) const = 0;
 	virtual EachTestBase* RegisterTest(TestCase* , const char* ) const = 0;
-	const char* GetName(void) const { return m_name.c_str(); }
+	const char* GetName() const { return m_name.c_str(); }
 protected:
 	::std::string m_name;
 };
@@ -59,7 +59,7 @@ protected:
 class IParamTestCaseInfo
 {
 public:
-	virtual ~IParamTestCaseInfo(void) {}
+	virtual ~IParamTestCaseInfo() {}
 protected:
 	IParamTestCaseInfo(const ::std::string& base_name, const ::std::string& package_name)
 		: m_testcase_base_name(base_name), m_package_name(package_name) {}
@@ -74,7 +74,7 @@ public:
 	};
 
 public:
-	void RegisterTests(void) const
+	void RegisterTests() const
 	{
 		for( TestInfoContainer::const_iterator it=m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
 		{
@@ -82,8 +82,8 @@ public:
 		}
 	}
 
-	::std::string GetTestCaseBaseName(void)	const { return m_testcase_base_name; }
-	::std::string GetPackageName(void)		const { return m_package_name; }
+	::std::string GetTestCaseBaseName()	const { return m_testcase_base_name; }
+	::std::string GetPackageName()		const { return m_package_name; }
 
 public:
 	bool is_same(const ::std::string& base_name, const ::std::string& package_name)
@@ -133,7 +133,7 @@ public:
 		: IParamTestCaseInfo(testcase_name, package_name)
 	{
 	}
-	virtual ~ParamTestCaseInfo(void) {}
+	virtual ~ParamTestCaseInfo() {}
 
 	/**
 	 * @brief	インスタンスの登録
@@ -203,7 +203,7 @@ public:
 		return func;
 	}
 
-	static pfnParamNameGeneratorFunc GetParamNameGen(void)
+	static pfnParamNameGeneratorFunc GetParamNameGen()
 	{
 		return DefaultParamNameFunc;
 	}
@@ -233,7 +233,7 @@ private:
 class ParamTestCaseHolder
 {
 private:
-	~ParamTestCaseHolder(void)
+	~ParamTestCaseHolder()
 	{
 		// 解放
 		for( TestCaseInfoContainer::const_iterator it=m_testcase_infos.begin(), end=m_testcase_infos.end(); it != end; ++it )
@@ -260,7 +260,7 @@ public:
 	}
 
 public:
-	size_t count(void) const { return m_testcase_infos.size(); }
+	size_t count() const { return m_testcase_infos.size(); }
 
 private:
 	struct RegisterTestsFunctor
@@ -272,7 +272,7 @@ private:
 	};
 
 	// テストを登録
-	void RegisterTests(void)
+	void RegisterTests()
 	{
 		::std::for_each(m_testcase_infos.begin(), m_testcase_infos.end(), RegisterTestsFunctor());
 	}

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,7 +27,7 @@ namespace detail
 class IOutStream
 {
 public:
-	virtual ~IOutStream(void) {}
+	virtual ~IOutStream() {}
 public:
 	//! 書き込み
 	virtual bool Write(const void* buf, size_t size, size_t cnt) = 0;
@@ -70,17 +70,17 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 class IInStream
 {
 public:
-	virtual ~IInStream(void) {}
+	virtual ~IInStream() {}
 public:
 	//! 読み込み
 	virtual bool Read(void* buf, size_t size, size_t cnt) = 0;
 
 	//! サイズ取得
-	virtual size_t GetSize(void) = 0;
+	virtual size_t GetSize() = 0;
 
 public:
 	//! 全読み込み
-	virtual ::std::string ReadAll(void)
+	virtual ::std::string ReadAll()
 	{
 		::std::string str;
 		const size_t size = GetSize();

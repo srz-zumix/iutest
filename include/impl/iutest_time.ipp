@@ -88,7 +88,7 @@ IUTEST_IPP_INLINE ::std::string FormatTimeInMillisecAsIso8601(TimeInMillisec mse
 #endif
 }
 
-IUTEST_IPP_INLINE time_t GetTime(void)
+IUTEST_IPP_INLINE time_t GetTime()
 {
 #if IUTEST_HAS_CTIME
 	return time(NULL);
@@ -97,7 +97,7 @@ IUTEST_IPP_INLINE time_t GetTime(void)
 #endif
 }
 
-IUTEST_IPP_INLINE TimeInMillisec GetTimeInMillis(void)
+IUTEST_IPP_INLINE TimeInMillisec GetTimeInMillis()
 {
 #if   defined(IUTEST_GetMillisec)
 	return IUTEST_GetMillisec();
@@ -135,7 +135,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 #endif
 }
 
-IUTEST_IPP_INLINE unsigned int GetIndefiniteValue(void)
+IUTEST_IPP_INLINE unsigned int GetIndefiniteValue()
 {
 	// なるべく同じにならないようにする
 	static unsigned int s = static_cast<unsigned int>(GetTimeInMillis());

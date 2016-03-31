@@ -64,26 +64,26 @@ public:
 	/**
 	 * @brief	成否
 	*/
-	bool failed(void) const IUTEST_CXX_NOEXCEPT_SPEC { return !m_result; }
+	bool failed() const IUTEST_CXX_NOEXCEPT_SPEC { return !m_result; }
 
 	/**
 	 * @brief	成否
 	*/
-	bool passed(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_result; }
+	bool passed() const IUTEST_CXX_NOEXCEPT_SPEC { return m_result; }
 
 	/**
 	 * @brief	メッセージの取得
 	*/
-	const char* message(void) const { return m_message.c_str(); }
+	const char* message() const { return m_message.c_str(); }
 
 	/**
 	 * @brief	メッセージの取得
 	 * @deprecated please use message() instead.
 	*/
-	const char* failure_message(void) const { return message(); }
+	const char* failure_message() const { return message(); }
 
 	/** @private */
-	IUTEST_CXX_EXPLICIT_CONVERSION operator bool (void) const { return m_result; }
+	IUTEST_CXX_EXPLICIT_CONVERSION operator bool() const { return m_result; }
 
 public:
 	/**
@@ -98,7 +98,7 @@ public:
 		return *this;
 	}
 public:
-	AssertionResult operator ! (void) const
+	AssertionResult operator ! () const
 	{
 		return AssertionResult(failed()) << message();
 	}
@@ -115,11 +115,11 @@ public:
 	/**
 	 * @brief	成功結果の作成
 	*/
-	static AssertionResult Success(void) { return AssertionResult(true); }
+	static AssertionResult Success() { return AssertionResult(true); }
 	/**
 	 * @brief	失敗結果の作成
 	*/
-	static AssertionResult Failure(void) { return AssertionResult(false); }
+	static AssertionResult Failure() { return AssertionResult(false); }
 	/**
 	 * @brief	成否の取得
 	*/
@@ -219,7 +219,7 @@ public:
 		{
 			ScopedTrace::GetInstance().list.push_back(this);
 		}
-		~ScopedMessage(void)
+		~ScopedMessage()
 		{
 			ScopedTrace::GetInstance().list.erase(this);
 		}
@@ -230,7 +230,7 @@ private:
 	public:
 		typedef detail::iu_list<ScopedMessage> msg_list;
 		msg_list list;
-		static ScopedTrace& GetInstance(void) { static ScopedTrace inst; return inst; }
+		static ScopedTrace& GetInstance() { static ScopedTrace inst; return inst; }
 	public:
 		void append_message(TestPartResult& part_result)
 		{
@@ -367,11 +367,11 @@ namespace iutest
 /**
  * @brief	テスト成功を示す AssertionResult オブジェクトの取得
 */
-inline AssertionResult AssertionSuccess(void) { return AssertionResult::Success(); }
+inline AssertionResult AssertionSuccess() { return AssertionResult::Success(); }
 /**
  * @brief	テスト失敗を示す AssertionResult オブジェクトの取得
 */
-inline AssertionResult AssertionFailure(void) { return AssertionResult::Failure(); }
+inline AssertionResult AssertionFailure() { return AssertionResult::Failure(); }
 
 namespace internal
 {

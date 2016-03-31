@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -413,7 +413,7 @@ namespace is_convertible_helper
 template<typename From, typename To>
 class is_convertible_type
 {
-	static From MakeFrom(void);
+	static From MakeFrom();
 
 	static char IsConvertibleHelper(To);
 	static char (&IsConvertibleHelper(...))[2];
@@ -862,11 +862,11 @@ class function_return_type
 	struct impl<R (U::*)(IUTEST_PP_ENUM_PARAMS(n, T), ...) CV>				\
 	{ typedef R type; }
 
-	template<typename R>struct impl<R (*)(void)>	{ typedef R type; };
-	template<typename R, typename U>struct impl<R (U::*)(void)>	{ typedef R type; };
+	template<typename R>struct impl<R (*)()>	{ typedef R type; };
+	template<typename R, typename U>struct impl<R (U::*)()>	{ typedef R type; };
 
 #define IIUT_DECL_FUNCTION_RETURN_TYPE_VOID_(CV)	\
-	template<typename R, typename U>struct impl<R (U::*)(void) CV>	{ typedef R type; }
+	template<typename R, typename U>struct impl<R (U::*)() CV>	{ typedef R type; }
 
 	IIUT_DECL_FUNCTION_RETURN_TYPE_VOID_(const);
 	IIUT_DECL_FUNCTION_RETURN_TYPE_VOID_(volatile);

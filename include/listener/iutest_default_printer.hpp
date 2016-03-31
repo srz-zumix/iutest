@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,9 +26,9 @@ namespace iutest
 class DefalutResultPrintListener : public TestEventListener
 {
 public:
-	DefalutResultPrintListener(void) {}
+	DefalutResultPrintListener() {}
 
-	virtual ~DefalutResultPrintListener(void)
+	virtual ~DefalutResultPrintListener()
 	{
 		TestEnv::event_listeners().set_default_result_printer(NULL);
 	}

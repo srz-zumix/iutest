@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -69,7 +69,7 @@ namespace detail
 class iuFilePath
 {
 public:
-	iuFilePath(void) : m_path("") {}
+	iuFilePath() : m_path("") {}
 	iuFilePath(const iuFilePath& rhs) : m_path(rhs.m_path) {}
 
 	explicit iuFilePath(const char* path) : m_path(path)
@@ -82,10 +82,10 @@ public:
 	}
 
 public:
-	::std::string	ToString(void)	const { return m_path; }
-	const char*		c_str(void)		const { return m_path.c_str(); }
-	bool			IsEmpty(void)	const { return c_str() == NULL || *c_str() == '\0'; }
-	size_t			length(void)	const { return m_path.length(); }
+	::std::string	ToString()	const { return m_path; }
+	const char*		c_str()		const { return m_path.c_str(); }
+	bool			IsEmpty()	const { return c_str() == NULL || *c_str() == '\0'; }
+	size_t			length()	const { return m_path.length(); }
 
 public:
 	bool operator == (const iuFilePath& rhs) const
@@ -96,28 +96,28 @@ public:
 	{
 		return IsStringCaseEqual(c_str(), rhs);
 	}
-	//operator const char* (void) const { return c_str(); }
+	//operator const char* () const { return c_str(); }
 
 public:
 	/**
 	 * @brief	フォルダパスかどうか
 	*/
-	bool IsDirectory(void) const;
+	bool IsDirectory() const;
 
 	/**
 	 * @brief	ルートディレクトリパスかどうか
 	*/
-	bool IsRootDirectory(void) const;
+	bool IsRootDirectory() const;
 
 	/**
 	 * @brief	絶対パスかどうか
 	*/
-	bool IsAbsolutePath(void) const;
+	bool IsAbsolutePath() const;
 
 	/**
 	 * @brief	末尾のセパレーターを削除
 	*/
-	iuFilePath RemoveTrailingPathSeparator(void) const;
+	iuFilePath RemoveTrailingPathSeparator() const;
 
 	/**
 	 * @brief	拡張子の削除
@@ -127,53 +127,53 @@ public:
 	/**
 	 * @brief	ディレクトリ名の削除
 	*/
-	iuFilePath RemoveDirectoryName(void) const;
+	iuFilePath RemoveDirectoryName() const;
 
 	/**
 	 * @brief	ファイル名の削除
 	*/
-	iuFilePath RemoveFileName(void) const;
+	iuFilePath RemoveFileName() const;
 
 	/**
 	 * @brief	フォルダの作成
 	*/
-	bool CreateFolder(void) const;
+	bool CreateFolder() const;
 
 	/**
 	 * @brief	フォルダを再帰的に作成
 	*/
-	bool CreateDirectoriesRecursively(void) const;
+	bool CreateDirectoriesRecursively() const;
 
 	/**
 	 * @brief	ファイルまたはフォルダが存在するかどうか
 	*/
-	bool FileOrDirectoryExists(void) const;
+	bool FileOrDirectoryExists() const;
 
 	/**
 	 * @brief	フォルダが存在するかどうか
 	*/
-	bool DirectoryExists(void) const;
+	bool DirectoryExists() const;
 
 	/**
 	 * @brief	一番後ろのパスセパレータのアドレスを取得
 	*/
-	const char* FindLastPathSeparator(void) const;
+	const char* FindLastPathSeparator() const;
 
 public:
 	/**
 	 * @brief	カレントディレクトリの取得
 	*/
-	static iuFilePath GetCurrentDir(void);
+	static iuFilePath GetCurrentDir();
 
 	/**
 	 * @brief	カレントディレクトリの相対パス取得
 	*/
-	static iuFilePath GetRelativeCurrentDir(void);
+	static iuFilePath GetRelativeCurrentDir();
 
 	/**
 	 * @brief	実行ファイルのパスを取得
 	*/
-	static iuFilePath GetExecFilePath(void);
+	static iuFilePath GetExecFilePath();
 
 	/**
 	 * @brief	パスの結合
@@ -184,7 +184,7 @@ private:
 	/**
 	 * @biref	正規化
 	*/
-	void Normalize(void);
+	void Normalize();
 
 private:
 	::std::string m_path;

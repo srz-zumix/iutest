@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2013-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,11 +31,11 @@ class any
 {
 	typedef internal::TypeId type_id;
 public:
-	any(void) : content(NULL) {}
+	any() : content(NULL) {}
 	template<typename T>
 	any(const T& rhs) : content(new holder<T>(rhs)) {}	// NOLINT
 	any(const any& rhs) : content(rhs.content == NULL ? NULL : rhs.content->clone()) {}
-	~any(void) { delete content; }
+	~any() { delete content; }
 public:
 	/**
 	 * @brief	swap
@@ -49,14 +49,14 @@ public:
 	 * @brief	空かどうか
 	 * @retval	true = 空
 	*/
-	bool empty(void) const
+	bool empty() const
 	{
 		return content == NULL;
 	}
 	/**
 	 * @brief	要素のクリア
 	*/
-	void clear(void)
+	void clear()
 	{
 		any().swap(*this);
 	}
@@ -64,7 +64,7 @@ public:
 	 * @brief	型IDの取得
 	 * @return	型ID
 	*/
-	type_id type(void) const
+	type_id type() const
 	{
 		return content == NULL ? internal::GetTypeId<void>() : content->type();
 	}
@@ -73,7 +73,7 @@ public:
 	 * @retval	true = 同一
 	*/
 	template<typename T>
-	bool type_equal(void) const
+	bool type_equal() const
 	{
 		return type() == internal::GetTypeId<T>();
 	}
@@ -93,8 +93,8 @@ private:
 	{
 	public:
 		virtual ~placeholder() {}
-		virtual type_id type(void) const = 0;
-		virtual placeholder* clone(void) const = 0;
+		virtual type_id type() const = 0;
+		virtual placeholder* clone() const = 0;
 	};
 	template<typename T>
 	class holder : public placeholder
@@ -102,11 +102,11 @@ private:
 	public:
 		explicit holder(const T& v) : held(v) {}
 	public:
-		virtual type_id type(void) const IUTEST_CXX_OVERRIDE
+		virtual type_id type() const IUTEST_CXX_OVERRIDE
 		{
 			return internal::GetTypeId<T>();
 		}
-		virtual placeholder* clone(void) const IUTEST_CXX_OVERRIDE
+		virtual placeholder* clone() const IUTEST_CXX_OVERRIDE
 		{
 			return new holder<T>(held);
 		}

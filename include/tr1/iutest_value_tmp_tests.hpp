@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -48,12 +48,12 @@
 	class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public testcase_<iutest_ValueParam> {	\
 		typedef testcase_<iutest_ValueParam> TestFixture;								\
 		static const iutest::BiggestInt ValueParam = iutest_ValueParam;					\
-		protected: virtual void Body(void);												\
+		protected: virtual void Body();													\
 	};																					\
 	iutest::tr1::ValueTmpParamTestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_), IIUT_TYPED_TEST_PARAMS_(testcase_)>	\
 	s_##testcase_##_##testname_( #testcase_, #testname_);								\
 	template<iutest::BiggestInt iutest_ValueParam>										\
-	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_ValueParam>::Body(void)
+	void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_ValueParam>::Body()
 
 /**
  * @}
@@ -143,7 +143,7 @@ class ValueTmpParamTestInstance
 		}
 	public:
 		// テストの登録
-		void AddTest(void)
+		void AddTest()
 		{
 			// 順番通りになるように前から登録
 			UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
@@ -163,7 +163,7 @@ class ValueTmpParamTestInstance
 	{
 	public:
 		EachTest(const char* /*testcase*/, const char* /*name*/, size_t /*index*/) {}
-		void AddTest(void) {}
+		void AddTest() {}
 	};
 
 public:

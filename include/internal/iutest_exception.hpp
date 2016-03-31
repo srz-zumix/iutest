@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -61,7 +61,7 @@ namespace detail
 class seh_exception : public ::std::exception
 {
 public:
-	seh_exception(void) : ::std::exception() {}
+	seh_exception() : ::std::exception() {}
 	explicit seh_exception(const char *const& _What) : ::std::exception(_What) {}
 public:
 	static void translator(DWORD code, _EXCEPTION_POINTERS* ep)

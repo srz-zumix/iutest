@@ -33,92 +33,92 @@ def parse_command_line():
 	parser.add_argument(
 		'--list_compiler'
 		, action='store_true'
-		, help = 'listup compiler.'
+		, help='listup compiler.'
 	)
 	parser.add_argument(
 		'--list_options'
 		, metavar='COMPILER'
-		, help = 'listup compiler options.'
+		, help='listup compiler options.'
 	)
 	parser.add_argument(
 		'-c'
 		, '--compiler'
-		, help = 'compiler select. default: %(default)s'
-		, default = 'gcc-head'
+		, help='compiler select. default: %(default)s'
+		, default='gcc-head'
 	)
 	parser.add_argument(
 		'-x'
 		, '--options'
-		, help = 'used options for a compiler.'
+		, help='used options for a compiler.'
 	)
 	parser.add_argument(
 		'--default'
 		, action='store_true'
-		, help = 'use default options.'
+		, help='use default options.'
 	)
 	parser.add_argument(
 		'--boost'
 		, metavar='VERSION'
-		, help = 'set boot options version X.XX or nothing.'
+		, help='set boot options version X.XX or nothing.'
 	)
 	parser.add_argument(
 		'--stdin'
-		, help = 'set stdin.'
+		, help='set stdin.'
 	)
 	parser.add_argument(
 		'-f'
 		, '--compiler_option_raw'
 		, metavar='OPTIONS'
 		, action='append'
-		, help = 'compile-time any additional options.'
+		, help='compile-time any additional options.'
 	)
 	parser.add_argument(
 		'-r'
 		, '--runtime_option_raw'
 		, metavar='OPTIONS'
 		, action='append'
-		, help = 'runtime-time any additional options.'
+		, help='runtime-time any additional options.'
 	)
 	parser.add_argument(
 		'-s'
 		, '--save'
 		, action='store_true'
-		, help = 'generate permanent link.'
+		, help='generate permanent link.'
 	)
 	parser.add_argument(
 		'--permlink'
 		, metavar='ID'
-		, help = 'get permanent link.'
+		, help='get permanent link.'
 	)
 	parser.add_argument(
 		'-o'
 		, '--output'
 		, metavar='FILE'
-		, help = 'output source code.'
+		, help='output source code.'
 	)
 	parser.add_argument(
 		  '--encoding'
-		, help = 'set encoding.'
+		, help='set encoding.'
 	)
 	parser.add_argument(
 		  '--expand_include'
 		, action='store_true'
-		, help = 'expand include file.'
+		, help='expand include file.'
 	)
 	parser.add_argument(
 		  '--check_config'
 		, action='store_true'
-		, help = 'check config.'
+		, help='check config.'
 	)
 	parser.add_argument(
 		  '--verbose'
 		, action='store_true'
-		, help = 'verbose.'
+		, help='verbose.'
 	)
 	parser.add_argument(
 		'code'
 		, metavar='CODE'
-		, help = 'source code file'
+		, help='source code file'
 		, nargs='?'
 	)
 	options, unknown = parser.parse_known_args()

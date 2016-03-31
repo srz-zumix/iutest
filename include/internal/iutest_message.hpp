@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -42,12 +42,12 @@ namespace detail
 class iuStreamMessage
 {
 public:
-	iuStreamMessage(void) {}
+	iuStreamMessage() {}
 	explicit iuStreamMessage(const char* message) : m_stream(message) {}
 	iuStreamMessage(const iuStreamMessage& rhs) : m_stream(rhs.GetString()) {}
 
 public:
-	::std::string GetString(void) const { return m_stream.str(); }
+	::std::string GetString() const { return m_stream.str(); }
 public:
 	template<typename T>
 	iuStreamMessage& operator << (const T& value)
@@ -148,9 +148,9 @@ public:
 		, m_line(line)
 	{}
 public:
-	const char*		message(void) const { return m_message.c_str(); }		//!< メッセージの取得
-	const char*		file_name(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_file; }	//!< ファイル名の取得
-	int				line_number(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_line; }	//!< ライン番号の取得
+	const char*		message() const { return m_message.c_str(); }		//!< メッセージの取得
+	const char*		file_name() const IUTEST_CXX_NOEXCEPT_SPEC { return m_file; }	//!< ファイル名の取得
+	int				line_number() const IUTEST_CXX_NOEXCEPT_SPEC { return m_line; }	//!< ライン番号の取得
 
 
 public:
@@ -169,8 +169,8 @@ public:
 
 public:
 	/** @private */
-	::std::string make_message(void) const;
-	::std::string make_newline_message(void) const
+	::std::string make_message() const;
+	::std::string make_newline_message() const
 	{
 		return make_message() + "\n";
 	}

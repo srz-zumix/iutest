@@ -31,22 +31,22 @@ public:
 	/**
 	 * @brief	ヘルプの出力
 	*/
-	static void ShowHelp(void);
+	static void ShowHelp();
 	/**
 	 * @brief	バージョン出力
 	*/
-	static void ShowVersion(void);
+	static void ShowVersion();
 	/**
 	 * @brief	機能出力
 	*/
-	static void ShowFeature(void);
+	static void ShowFeature();
 	/**
 	 * @brief	コンパイラスペック出力
 	*/
-	static void ShowSpec(void);
+	static void ShowSpec();
 };
 
-inline void iuOptionMessage::ShowHelp(void)
+inline void iuOptionMessage::ShowHelp()
 {
 	const char* readme =
 		"--------------------------------------------------\n"
@@ -91,7 +91,7 @@ inline void iuOptionMessage::ShowHelp(void)
 	detail::iuConsole::color_output(detail::iuConsole::cyan, readme);
 }
 
-inline void iuOptionMessage::ShowVersion(void)
+inline void iuOptionMessage::ShowVersion()
 {
 	detail::iuConsole::output("iutest version %x.%x.%x.%x\n"
 		, IUTEST_MAJORVER, IUTEST_MINORVER, IUTEST_BUILD, IUTEST_REVISION);
@@ -100,7 +100,7 @@ inline void iuOptionMessage::ShowVersion(void)
 /** @private */
 #define IIUT_SHOW_MACRO(macro)	detail::iuConsole::output("#define %s  %s\n", #macro, IUTEST_PP_TOSTRING(macro))
 
-inline void iuOptionMessage::ShowFeature(void)
+inline void iuOptionMessage::ShowFeature()
 {
 	IIUT_SHOW_MACRO(IUTEST_HAS_ANY_PARAM_TEST);
 	IIUT_SHOW_MACRO(IUTEST_HAS_ASSERTION_NOEQUALTO_OBJECT);
@@ -152,7 +152,7 @@ inline void iuOptionMessage::ShowFeature(void)
 	IIUT_SHOW_MACRO(IUTEST_USE_THROW_ON_ASSERTION_FAILURE);
 }
 
-inline void iuOptionMessage::ShowSpec(void)
+inline void iuOptionMessage::ShowSpec()
 {
 	IIUT_SHOW_MACRO(IUTEST_HAS_ANALYSIS_ASSUME);
 	IIUT_SHOW_MACRO(IUTEST_HAS_ATTRIBUTE);

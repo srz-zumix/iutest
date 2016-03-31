@@ -46,18 +46,18 @@ template<typename T>
 struct AssertionReturnType
 {
 	T value;
-	AssertionReturnType(void) {}
+	AssertionReturnType() {}
 	AssertionReturnType(const T& v) : value(v) {}	// NOLINT
 };
 template<>
 struct AssertionReturnType<void>
 {
-	AssertionReturnType(void) {}
+	AssertionReturnType() {}
 };
 
 template<typename T>
 inline AssertionReturnType<T> AssertionReturn(const T& ret) { return AssertionReturnType<T>(ret); }
-inline AssertionReturnType<void> AssertionReturn(void) { return AssertionReturnType<void>(); }
+inline AssertionReturnType<void> AssertionReturn() { return AssertionReturnType<void>(); }
 
 namespace internal
 {

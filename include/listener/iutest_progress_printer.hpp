@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -30,7 +30,7 @@ namespace iutest
 class ProgressPrintListener : public EmptyTestEventListener
 {
 public:
-	ProgressPrintListener(void) : m_should_run_num(0), m_ran_num(0) {}
+	ProgressPrintListener() : m_should_run_num(0), m_ran_num(0) {}
 public:
 	virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;
 	virtual void OnTestIterationStart(const UnitTest& test
@@ -45,7 +45,7 @@ public:
 	/**
 	 * @brief	ProgressPrintListener に切り替え
 	*/
-	static TestEventListener* SetUp(void)
+	static TestEventListener* SetUp()
 	{
 		TestEventListeners& listeners = UnitTest::GetInstance()->listeners();
 		delete listeners.Release(listeners.default_result_printer());

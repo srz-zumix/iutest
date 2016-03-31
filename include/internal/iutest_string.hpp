@@ -351,7 +351,7 @@ class stlstream : public ::std::strstream
 {
 	char buf[512];
 public:
-	stlstream(void)
+	stlstream()
 		: ::std::strstream(buf, sizeof(buf)-2, ::std::ios::out)
 	{}
 	explicit stlstream(const char* str)
@@ -365,11 +365,11 @@ public:
 		*this << str;
 	}
 public:
-	::std::string str(void) const
+	::std::string str() const
 	{
 		return const_cast<stlstream*>(this)->str();
 	}
-	virtual ::std::string str(void)
+	virtual ::std::string str()
 	{
 		*this << ::std::ends;
 		::std::string str = ::std::strstream::str();
@@ -457,7 +457,7 @@ class iu_basic_stream
 		}
 	};
 public:
-	iu_basic_stream(void) {}
+	iu_basic_stream() {}
 	explicit iu_basic_stream(const char* str) : s(str) {}
 	explicit iu_basic_stream(const ::std::string& str) : s(str) {}
 
@@ -593,7 +593,7 @@ public:
 		return *this;
 	}
 public:
-	const string& str(void) const { return s; }
+	const string& str() const { return s; }
 	void copyfmt(const _Myt&) {}
 };
 

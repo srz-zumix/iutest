@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -138,9 +138,9 @@ namespace detail
 template<typename T>
 class package_name_server
 {
-	static ::std::string& getname_(void) { static ::std::string s; return s; }
+	static ::std::string& getname_() { static ::std::string s; return s; }
 public:
-	static ::std::string getname(void) { return getname_(); }
+	static ::std::string getname() { return getname_(); }
 	static int setname(const ::std::string& s)
 	{
 		::std::string& name = getname_();

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,7 +31,7 @@ namespace detail
 class DefaultGlobalTestPartResultReporter : public TestPartResultReporterInterface
 {
 public:
-	virtual ~DefaultGlobalTestPartResultReporter(void) IUTEST_CXX_OVERRIDE {}
+	virtual ~DefaultGlobalTestPartResultReporter() IUTEST_CXX_OVERRIDE {}
 	virtual void ReportTestPartResult(const TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE
 	{
 		DefaultReportTestPartResult(test_part_result);
@@ -57,7 +57,7 @@ public:
 class NoTestPartResultReporter : public TestPartResultReporterInterface
 {
 public:
-	virtual ~NoTestPartResultReporter(void) IUTEST_CXX_OVERRIDE {}
+	virtual ~NoTestPartResultReporter() IUTEST_CXX_OVERRIDE {}
 	virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
 	{
 		IUTEST_UNUSED_VAR(result);
@@ -101,7 +101,7 @@ public:
 	{
 	public:
 		ReporterHolder() : m_origin(NULL) {}
-		virtual ~ReporterHolder(void)
+		virtual ~ReporterHolder()
 		{
 			Detach();
 		}
@@ -110,7 +110,7 @@ public:
 			m_origin = TestEnv::GetGlobalTestPartResultReporter();
 			TestEnv::SetGlobalTestPartResultReporter(p);
 		}
-		void Detach(void)
+		void Detach()
 		{
 			TestEnv::SetGlobalTestPartResultReporter(m_origin);
 		}
@@ -132,7 +132,7 @@ public:
 	{
 		typedef REPORTER _Mybase;
 	public:
-		Counter(void) : m_count(0)
+		Counter() : m_count(0)
 		{
 			m_holder.Attach(this);
 		}
@@ -145,7 +145,7 @@ public:
 			_Mybase::ReportTestPartResult(result);
 		}
 	public:
-		int count(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_count; }
+		int count() const IUTEST_CXX_NOEXCEPT_SPEC { return m_count; }
 	private:
 		ReporterHolder m_holder;
 		COND m_cond;
@@ -159,7 +159,7 @@ public:
 		typedef REPORTER _Mybase;
 		typedef ::std::vector<TestPartResult> TestPartResults;
 	public:
-		Collector(void)
+		Collector()
 		{
 			m_holder.Attach(this);
 		}
@@ -170,10 +170,10 @@ public:
 			_Mybase::ReportTestPartResult(result);
 		}
 	public:
-		size_t count(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_results.size(); }
+		size_t count() const IUTEST_CXX_NOEXCEPT_SPEC { return m_results.size(); }
 		const TestPartResult& GetTestPartResult(int index) const { return m_results[index]; }
 
-		void ReportTestPartResult(void)
+		void ReportTestPartResult()
 		{
 			for( TestPartResults::iterator it=m_results.begin(); it != m_results.end(); ++it )
 			{

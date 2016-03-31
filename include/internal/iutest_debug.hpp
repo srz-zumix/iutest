@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -41,7 +41,7 @@ namespace detail
 
 //======================================================================
 // function
-static void IUTEST_ATTRIBUTE_UNUSED_ iuDebugInitialize(void)
+static void IUTEST_ATTRIBUTE_UNUSED_ iuDebugInitialize()
 {
 #ifdef _IUTEST_DEBUG
 #  if defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)
@@ -68,8 +68,8 @@ static void IUTEST_ATTRIBUTE_UNUSED_ iuDebugBreakAlloc(long n)
 class MiniDump
 {
 private:
-	MiniDump(void);
-	~MiniDump(void);
+	MiniDump();
+	~MiniDump();
 
 	bool Dump(HANDLE hFile, EXCEPTION_POINTERS* ep);
 public:

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -119,7 +119,7 @@ public:
 	/**
 	 * @brief	QuietResultPrinter に切り替え
 	*/
-	static ::iutest::TestEventListener* SetUp(void)
+	static ::iutest::TestEventListener* SetUp()
 	{
 		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
 		::iutest::TestEventListener* default_printer = listeners.Release(listeners.default_result_printer());

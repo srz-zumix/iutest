@@ -23,14 +23,14 @@ namespace iutest {
 namespace detail
 {
 
-IUTEST_IPP_INLINE bool iuFilePath::IsDirectory(void) const
+IUTEST_IPP_INLINE bool iuFilePath::IsDirectory() const
 {
-	const char last = m_path.c_str()[length() - 1];
+	const char last = m_path.back();
 	return !m_path.empty() &&
 		(IsPathSeparator(last) || last == '.');
 }
 
-IUTEST_IPP_INLINE bool iuFilePath::IsRootDirectory(void) const
+IUTEST_IPP_INLINE bool iuFilePath::IsRootDirectory() const
 {
 #ifdef IUTEST_OS_WINDOWS
 	if( length() != 3 )
@@ -46,7 +46,7 @@ IUTEST_IPP_INLINE bool iuFilePath::IsRootDirectory(void) const
 	return IsAbsolutePath();
 }
 
-IUTEST_IPP_INLINE bool iuFilePath::IsAbsolutePath(void) const
+IUTEST_IPP_INLINE bool iuFilePath::IsAbsolutePath() const
 {
 #ifdef IUTEST_OS_WINDOWS
 	if( length() < 3 )
@@ -65,7 +65,7 @@ IUTEST_IPP_INLINE bool iuFilePath::IsAbsolutePath(void) const
 #endif
 }
 
-IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveTrailingPathSeparator(void) const
+IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveTrailingPathSeparator() const
 {
 	return IsDirectory() ? iuFilePath(std::string(m_path.c_str(), length()-1)) : *this;
 }
@@ -86,13 +86,13 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveExtension(const char* extention) 
 	return iuFilePath(std::string(path, length));
 }
 
-IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveDirectoryName(void) const
+IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveDirectoryName() const
 {
 	const char* const sep = FindLastPathSeparator();
 	return sep != NULL ? iuFilePath(sep+1) : *this;
 }
 
-IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveFileName(void) const
+IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveFileName() const
 {
 	const char* sep = FindLastPathSeparator();
 	if( sep == NULL )
@@ -103,7 +103,7 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveFileName(void) const
 	return iuFilePath(std::string(c_str(), length));
 }
 
-IUTEST_IPP_INLINE bool iuFilePath::CreateFolder(void) const
+IUTEST_IPP_INLINE bool iuFilePath::CreateFolder() const
 {
 #if IUTEST_HAS_FILE_STAT
 
@@ -124,7 +124,7 @@ IUTEST_IPP_INLINE bool iuFilePath::CreateFolder(void) const
 	return DirectoryExists();
 }
 
-IUTEST_IPP_INLINE bool iuFilePath::CreateDirectoriesRecursively(void) const
+IUTEST_IPP_INLINE bool iuFilePath::CreateDirectoriesRecursively() const
 {
 	if( !IsDirectory() )
 	{
@@ -144,7 +144,7 @@ IUTEST_IPP_INLINE bool iuFilePath::CreateDirectoriesRecursively(void) const
 	return CreateFolder();
 }
 
-IUTEST_IPP_INLINE bool iuFilePath::FileOrDirectoryExists(void) const
+IUTEST_IPP_INLINE bool iuFilePath::FileOrDirectoryExists() const
 {
 #if IUTEST_HAS_FILE_STAT
 	posix::StatStruct file_stat;
@@ -154,7 +154,7 @@ IUTEST_IPP_INLINE bool iuFilePath::FileOrDirectoryExists(void) const
 #endif
 }
 
-IUTEST_IPP_INLINE bool iuFilePath::DirectoryExists(void) const
+IUTEST_IPP_INLINE bool iuFilePath::DirectoryExists() const
 {
 #if IUTEST_HAS_FILE_STAT
 
@@ -173,24 +173,24 @@ IUTEST_IPP_INLINE bool iuFilePath::DirectoryExists(void) const
 	return false;
 }
 
-IUTEST_IPP_INLINE const char* iuFilePath::FindLastPathSeparator(void) const
+IUTEST_IPP_INLINE const char* iuFilePath::FindLastPathSeparator() const
 {
 	return detail::FindLastPathSeparator(c_str(), length());
 }
 
-IUTEST_IPP_INLINE iuFilePath iuFilePath::GetCurrentDir(void)
+IUTEST_IPP_INLINE iuFilePath iuFilePath::GetCurrentDir()
 {
 	return iuFilePath(internal::posix::GetCWD());
 }
 
-IUTEST_IPP_INLINE iuFilePath iuFilePath::GetRelativeCurrentDir(void)
+IUTEST_IPP_INLINE iuFilePath iuFilePath::GetRelativeCurrentDir()
 {
 	::std::string dir(".");
 	dir += GetPathSeparator();
 	return iuFilePath(dir);
 }
 
-IUTEST_IPP_INLINE iuFilePath iuFilePath::GetExecFilePath(void)
+IUTEST_IPP_INLINE iuFilePath iuFilePath::GetExecFilePath()
 {
 #if   defined(IUTEST_OS_WINDOWS)
 	char path[IUTEST_MAX_PATH];
@@ -229,7 +229,7 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::ConcatPaths(const iuFilePath& directory
 	return iuFilePath(path);
 }
 
-IUTEST_IPP_INLINE void iuFilePath::Normalize(void)
+IUTEST_IPP_INLINE void iuFilePath::Normalize()
 {
 	const char* src = c_str();
 	char* const dst_top = new char [length()+1];

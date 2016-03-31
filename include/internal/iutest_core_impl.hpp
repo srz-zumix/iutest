@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -34,18 +34,18 @@ protected:
 	//typedef ::std::vector<TestCase*>	iuTestCases;
 	typedef ::std::vector<Environment*>	iuEnvironmentList;
 protected:
-	UnitTestImpl(void) : m_total_test_num(0), m_disable_num(0), m_should_run_num(0)
+	UnitTestImpl() : m_total_test_num(0), m_disable_num(0), m_should_run_num(0)
 		, m_current_testcase(NULL), m_elapsedmsec(0)
 	{
 		ptr() = this;
 	}
-	~UnitTestImpl(void) { TerminateImpl(); }
+	~UnitTestImpl() { TerminateImpl(); }
 
 public:
 	/**
 	 * @brief	テスト中のテストの TestResult の取得
 	*/
-	static TestResult* current_test_result(void);
+	static TestResult* current_test_result();
 
 public:
 	/**
@@ -84,33 +84,33 @@ public:
 	/** @private */
 	void AddTestInfo(TestCase* pCase, TestInfo* pInfo);
 	/** @private */
-	static void SkipTest(void);
+	static void SkipTest();
 
 protected:
 	/**
 	 * @brief	テストのリストアップ
 	*/
-	int Listup(void) const;
+	int Listup() const;
 
 	/**
 	 * @brief	テストのリストアップ(with where)
 	*/
-	int ListupWithWhere(void) const;
+	int ListupWithWhere() const;
 
 	/**
 	 * @brief	事前処理
 	*/
-	bool PreRunner(void);
+	bool PreRunner();
 
 	/**
 	 * @brief	テスト結果のクリア
 	*/
-	void ClearNonAdHocTestResult(void);
+	void ClearNonAdHocTestResult();
 
 	/**
 	 * @brief	ad_hoc_testresult のクリア
 	*/
-	void ClearAdHocTestResult(void)
+	void ClearAdHocTestResult()
 	{
 		m_ad_hoc_testresult.Clear();
 	}
@@ -130,11 +130,11 @@ private:
 	/**
 	 * @brief	セットアップ
 	*/
-	void InitializeImpl(void);
+	void InitializeImpl();
 	/**
 	 * @brief	後片付け
 	*/
-	void TerminateImpl(void);
+	void TerminateImpl();
 
 private:
 #if IUTEST_HAS_EXCEPTIONS && (defined(_MSC_VER) && (_MSC_VER >= 1400)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
@@ -150,7 +150,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 #endif
 
 private:
-	static UnitTestImpl*& ptr(void) IUTEST_CXX_NOEXCEPT_SPEC
+	static UnitTestImpl*& ptr() IUTEST_CXX_NOEXCEPT_SPEC
 	{
 		static UnitTestImpl* ptr = NULL;
 		return ptr;

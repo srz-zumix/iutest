@@ -71,17 +71,17 @@ bool Localtime(time_t sec, struct tm* dst);
 /**
  * @brief	現在時刻の取得
 */
-time_t GetTime(void);
+time_t GetTime();
 
 /**
  * @brief	現在時刻のミリ秒取得
 */
-TimeInMillisec GetTimeInMillis(void);
+TimeInMillisec GetTimeInMillis();
 
 /**
  * @brief	不定な値の取得
 */
-unsigned int GetIndefiniteValue(void);
+unsigned int GetIndefiniteValue();
 
 //======================================================================
 // class
@@ -94,11 +94,11 @@ class iuStopWatch
 private:
 	TimeInMillisec m_begin;
 public:
-	iuStopWatch(void) : m_begin(0) {}
+	iuStopWatch() : m_begin(0) {}
 
 public:
 	// 現在の時間をミリ秒単位で取得
-	static TimeInMillisec get_millisec(void)
+	static TimeInMillisec get_millisec()
 	{
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
 		return 0;
@@ -107,11 +107,11 @@ public:
 #endif
 	}
 public:
-	void start(void)
+	void start()
 	{
 		m_begin = get_millisec();
 	}
-	TimeInMillisec stop(void) const
+	TimeInMillisec stop() const
 	{
 		return get_millisec() - m_begin;
 	}

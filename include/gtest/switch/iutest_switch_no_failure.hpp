@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -74,10 +74,10 @@ namespace internal
 class HasNewFailureHelper : public HasNewFatalFailureHelper
 {
 public:
-	HasNewFailureHelper(void) : m_has_new_failure(false)
+	HasNewFailureHelper() : m_has_new_failure(false)
 	{
 	}
-	virtual ~HasNewFailureHelper(void)
+	virtual ~HasNewFailureHelper()
 	{
 	}
 public:

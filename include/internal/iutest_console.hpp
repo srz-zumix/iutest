@@ -130,7 +130,7 @@ private:
 private:
 	static inline bool IsStringEqual(const char* str1, const char* str2) { return strcmp(str1, str2) == 0; }
 
-	static bool IsColorModeOff(void)
+	static bool IsColorModeOff()
 	{
 #if defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
 		return TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_OFF);
@@ -138,7 +138,7 @@ private:
 		return IUTEST_FLAG(color) == "no";
 #endif
 	}
-	static bool IsColorModeOn(void)
+	static bool IsColorModeOn()
 	{
 #if defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
 		return TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ON);
@@ -146,7 +146,7 @@ private:
 		return IUTEST_FLAG(color) == "yes";
 #endif
 	}
-	static bool IsColorModeAnsi(void)
+	static bool IsColorModeAnsi()
 	{
 #if defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
 		return TestFlag::IsEnableFlag(TestFlag::CONSOLE_COLOR_ANSI);

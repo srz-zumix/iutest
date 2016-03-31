@@ -1607,10 +1607,10 @@ class UnitTestSource
 {
 public:
 	/** @private */
-	static UnitTestSource& GetInstance(void) { static UnitTestSource inst; return inst; }
+	static UnitTestSource& GetInstance() { static UnitTestSource inst; return inst; }
 
 private:
-	UnitTestSource(void)
+	UnitTestSource()
 	{
 #if defined(_IUTEST_DEBUG)
 		detail::iuDebugInitialize();
@@ -1622,7 +1622,7 @@ private:
 	}
 public:
 	/** @private */
-	~UnitTestSource(void)
+	~UnitTestSource()
 	{
 		TestEnv::event_listeners().set_default_result_printer(NULL);
 		TestEnv::event_listeners().set_default_xml_generator(NULL);
@@ -1632,7 +1632,7 @@ public:
 	/**
 	 * @brief	初期化
 	*/
-	void Initialize(void)
+	void Initialize()
 	{
 		UnitTest::instance().Initialize();
 	}
@@ -1640,7 +1640,7 @@ public:
 	/**
 	 * @brief	テストの実行
 	*/
-	int	Run(void)
+	int	Run()
 	{
 		DefaultXmlGeneratorListener::SetUp();
 		JunitXmlGeneratorListener::SetUp();
@@ -1677,7 +1677,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, char** argv)		
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, wchar_t** argv)	{ detail::InitIrisUnitTest(pargc, argv); }		//!< @overload
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const char** argv)	{ detail::InitIrisUnitTest(pargc, argv); }	//!< @overload
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const wchar_t** argv)	{ detail::InitIrisUnitTest(pargc, argv); }	//!< @overload
-inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(void) { detail::InitIrisUnitTest<char**>(NULL, NULL); }	//!< @overload
+inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest() { detail::InitIrisUnitTest<char**>(NULL, NULL); }	//!< @overload
 
 #if IUTEST_HAS_NULLPTR
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, ::std::nullptr_t)	{ detail::InitIrisUnitTest<char**>(pargc, NULL); }	//!< @overload

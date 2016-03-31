@@ -7,7 +7,7 @@
  * @author		t.shirayanagi
  * @par			copyright
  * @deprecated
- * Copyright (C) 2013-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -48,9 +48,9 @@
 */
 #define IIUT_INSTANTIATE_TEST_CASE_PV_(prefix_, testcase_, ...)								\
 	static ::iutest::detail::iuIParamGenerator<testcase_::ParamType>*						\
-		IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)(void) {							\
+		IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)() {								\
 			return IUTEST_CAST_TO_PARAM_GENERATOR_(testcase_::ParamType, __VA_ARGS__); }	\
-	int IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)(void) {					\
+	int IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)() {						\
 		::iutest::detail::ParamTestCaseInfo< IIUT_TEST_P_BASE_FIXTURE(testcase_) >* p =		\
 			IIUT_GETTESTCASEPATTERNHOLDER( IIUT_TEST_P_BASE_FIXTURE(testcase_)				\
 				, IIUT_TO_NAME_STR_(testcase_), IUTEST_GET_PACKAGENAME_());					\

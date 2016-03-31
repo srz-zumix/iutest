@@ -39,12 +39,12 @@ public:
 		OpenReadWrite	= 0x00000003	//!< 読み書き
 	};
 public:
-	virtual ~IFile(void) {}
+	virtual ~IFile() {}
 public:
 	//! 開く
 	virtual bool Open(const char* filename, int mode) = 0;
 	//! 閉じる
-	virtual void Close(void) = 0;
+	virtual void Close() = 0;
 };
 
 namespace detail
@@ -63,23 +63,23 @@ class IFileSystem
 
 	typedef Variable<void> var;
 public:
-	IFileSystem(void)
+	IFileSystem()
 	{
 		var::m_pInstance = this;
 	}
-	virtual ~IFileSystem(void)
+	virtual ~IFileSystem()
 	{
 		var::m_pInstance = NULL;
 	}
 
 public:
-	virtual void Initialize(void) {}
+	virtual void Initialize() {}
 
 public:
-	static IFileSystem* GetInstance(void) { return var::m_pInstance; }
+	static IFileSystem* GetInstance() { return var::m_pInstance; }
 
 public:
-	static IFile* New(void)
+	static IFile* New()
 	{
 		IFileSystem* fs = GetInstance();
 		if( fs == NULL )
@@ -119,7 +119,7 @@ public:
 	}
 
 private:
-	virtual IFile*	Create(void) = 0;
+	virtual IFile*	Create() = 0;
 	virtual void	Delete(IFile*) = 0;
 };
 
@@ -139,7 +139,7 @@ template<typename FILE>
 class FileSystem : public detail::IFileSystem
 {
 private:
-	virtual IFile*	Create(void) IUTEST_CXX_OVERRIDE		{ return new FILE; }
+	virtual IFile*	Create() IUTEST_CXX_OVERRIDE		{ return new FILE; }
 	virtual void	Delete(IFile* ptr) IUTEST_CXX_OVERRIDE	{ detail::Delete<FILE>(static_cast<FILE*>(ptr)); }
 };
 
@@ -153,8 +153,8 @@ class StdioFile : public IFile
 {
 	FILE* m_fp;
 public:
-	StdioFile(void) IUTEST_CXX_NOEXCEPT_SPEC : m_fp(NULL) {}
-	virtual ~StdioFile(void) { Close(); }
+	StdioFile() IUTEST_CXX_NOEXCEPT_SPEC : m_fp(NULL) {}
+	virtual ~StdioFile() { Close(); }
 public:
 	/**
 	 * @brief	開く
@@ -186,7 +186,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 	/**
 	 * @brief	閉じる
 	*/
-	virtual void Close(void) IUTEST_CXX_OVERRIDE
+	virtual void Close() IUTEST_CXX_OVERRIDE
 	{
 		if( m_fp != NULL )
 		{
@@ -222,7 +222,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 	}
 
 	//! サイズ取得
-	virtual size_t GetSize(void) IUTEST_CXX_OVERRIDE
+	virtual size_t GetSize() IUTEST_CXX_OVERRIDE
 	{
 		if(m_fp == NULL) return 0;
 		const long pre = ftell(m_fp);
@@ -244,7 +244,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 class StringStreamFile : public IFile
 {
 public:
-	virtual ~StringStreamFile(void) { Close(); }
+	virtual ~StringStreamFile() { Close(); }
 public:
 	/**
 	 * @brief	開く
@@ -259,7 +259,7 @@ public:
 	/**
 	 * @brief	閉じる
 	*/
-	virtual void Close(void) IUTEST_CXX_OVERRIDE
+	virtual void Close() IUTEST_CXX_OVERRIDE
 	{
 	}
 
@@ -296,7 +296,7 @@ public:
 	}
 
 	//! サイズ取得
-	virtual size_t GetSize(void) IUTEST_CXX_OVERRIDE
+	virtual size_t GetSize() IUTEST_CXX_OVERRIDE
 	{
 		::std::stringstream::pos_type pre = ss.tellg();
 		ss.seekg(0, ::std::ios::end);
@@ -306,7 +306,7 @@ public:
 	}
 
 	//! 全読み込み
-	virtual ::std::string ReadAll(void) IUTEST_CXX_OVERRIDE
+	virtual ::std::string ReadAll() IUTEST_CXX_OVERRIDE
 	{
 		return ss.str();
 	}
@@ -326,10 +326,10 @@ class NoEffectFile : public IFile
 {
 public:
 	virtual bool Open(const char*, int) IUTEST_CXX_OVERRIDE { return true; }
-	virtual void Close(void) IUTEST_CXX_OVERRIDE {}
+	virtual void Close() IUTEST_CXX_OVERRIDE {}
 	virtual bool Write(const void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true;  }
 	virtual bool Read(void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true; }
-	virtual size_t GetSize(void) IUTEST_CXX_OVERRIDE { return 0; }
+	virtual size_t GetSize() IUTEST_CXX_OVERRIDE { return 0; }
 };
 
 }	// end of namespace detail

@@ -25,7 +25,7 @@ namespace iutest
 /**
  * @brief	実行
 */
-IUTEST_IPP_INLINE bool TestInfo::Run(void)
+IUTEST_IPP_INLINE bool TestInfo::Run()
 {
 	if( !should_run() )
 	{
@@ -42,7 +42,7 @@ IUTEST_IPP_INLINE bool TestInfo::Run(void)
 	return !HasFailure();
 }
 
-IUTEST_IPP_INLINE void TestInfo::RunImpl(void)
+IUTEST_IPP_INLINE void TestInfo::RunImpl()
 {
 	detail::iuStopWatch sw;
 	TimeInMillisec elapsedmsec = 0;
@@ -145,14 +145,14 @@ IUTEST_IPP_INLINE void TestInfo::RunOnMSC(Test* test)
 }
 #endif
 
-IUTEST_IPP_INLINE void TestInfo::clear(void)
+IUTEST_IPP_INLINE void TestInfo::clear()
 {
 	m_ran = false;
 	m_skip = false;
 	m_test_result.Clear();
 }
 
-IUTEST_IPP_INLINE bool TestInfo::filter(void)
+IUTEST_IPP_INLINE bool TestInfo::filter()
 {
 	bool run = true;
 	// 無効テストなら実行しない

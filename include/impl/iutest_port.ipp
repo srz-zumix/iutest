@@ -136,7 +136,7 @@ IUTEST_IPP_INLINE const char* GetCWD(char* buf, size_t length)
 #endif
 }
 
-IUTEST_IPP_INLINE ::std::string GetCWD(void)
+IUTEST_IPP_INLINE ::std::string GetCWD()
 {
 	char buf[260] = { 0 };
 	return GetCWD(buf, sizeof(buf));
@@ -168,7 +168,7 @@ IUTEST_IPP_INLINE void SleepMillisec(unsigned int millisec)
 }
 
 #if defined(IUTEST_OS_WINDOWS_MOBILE)
-void Abort(void)
+void Abort()
 {
 	DebugBreak();
 	TerminateProcess(GetCurrentProcess(), 1);
@@ -183,7 +183,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 namespace detail
 {
 
-IUTEST_IPP_INLINE char GetPathSeparator(void) IUTEST_CXX_NOEXCEPT_SPEC
+IUTEST_IPP_INLINE char GetPathSeparator() IUTEST_CXX_NOEXCEPT_SPEC
 {
 #ifdef IUTEST_OS_WINDOWS
 	return '\\';
@@ -403,7 +403,7 @@ IUTEST_IPP_INLINE IUTestLog::IUTestLog(Level level, const char* file, int line)
 	GetStream() << "\r\n" << tag << FormatFileLocation(file, line).c_str() << ": ";
 }
 
-IUTEST_IPP_INLINE IUTestLog::~IUTestLog(void)
+IUTEST_IPP_INLINE IUTestLog::~IUTestLog()
 {
 	GetStream() << "\r\n";
 	fprintf(stderr, "%s", m_stream.str().c_str());

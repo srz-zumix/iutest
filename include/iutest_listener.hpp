@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -61,8 +61,8 @@ class TestEventListener
 {
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TestEventListener);
 public:
-	TestEventListener(void) {}
-	virtual ~TestEventListener(void)	{}
+	TestEventListener() {}
+	virtual ~TestEventListener() {}
 public:
 	virtual void OnTestProgramStart(const UnitTest& test)			= 0;	//!< テストプログラム開始時に呼ばれます
 	virtual void OnTestIterationStart(const UnitTest& test
@@ -157,7 +157,7 @@ class TestEventListeners
 	typedef ::std::vector<TestEventListener*> ListenerContainer;
 
 public:
-	TestEventListeners(void) : m_default_result_printer(NULL), m_default_xml_generator(NULL) {}
+	TestEventListeners() : m_default_result_printer(NULL), m_default_xml_generator(NULL) {}
 
 public:
 	/**
@@ -174,14 +174,14 @@ public:
 	/**
 	 * @brief	デフォルト出力リスナーの取得
 	*/
-	TestEventListener* default_result_printer(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_default_result_printer; }
+	TestEventListener* default_result_printer() const IUTEST_CXX_NOEXCEPT_SPEC { return m_default_result_printer; }
 	/**
 	 * @brief	デフォルトxml出力リスナー取得
 	*/
-	TestEventListener* default_xml_generator(void)  const IUTEST_CXX_NOEXCEPT_SPEC { return m_default_xml_generator; }
+	TestEventListener* default_xml_generator()  const IUTEST_CXX_NOEXCEPT_SPEC { return m_default_xml_generator; }
 
 private:
-	TestEventListener* repeater(void) { return &m_repeater; }
+	TestEventListener* repeater() { return &m_repeater; }
 
 	void OnTestProgramStart(const UnitTest& test)					{ m_repeater.OnTestProgramStart(test); }
 	void OnTestIterationStart(const UnitTest& test, int iteration)	{ m_repeater.OnTestIterationStart(test, iteration); }

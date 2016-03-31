@@ -155,11 +155,11 @@
 #define IIUT_INSTANTIATE_TEST_CASE_P_III(prefix_, testcase_, basefixture_, generator_, paramname_generator_)	\
 	IIUT_TEST_P_FIXTURE_DECL_(testcase_)															\
 	static ::iutest::detail::iuIParamGenerator< basefixture_::ParamType >*							\
-		IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)(void) { return generator_; }			\
+		IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)() { return generator_; }				\
 	static ::std::string IIUT_TEST_P_PARAMGENERATOR_NAME_(prefix_, testcase_)(						\
 		const ::iutest::TestParamInfo< basefixture_::ParamType >& info) { return					\
 			 ::iutest::detail::ParamTestCaseInfo< basefixture_ >::paramname_generator_(info); }		\
-	int IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)(void) {							\
+	int IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)() {								\
 		::iutest::detail::ParamTestCaseInfo< basefixture_ >* p = IIUT_GETTESTCASEPATTERNHOLDER(		\
 				basefixture_, IIUT_TO_NAME_STR_(testcase_), IUTEST_GET_PACKAGENAME_());				\
 		return p->AddTestCaseInstantiation(#prefix_													\
@@ -173,9 +173,9 @@
 #define IIUT_TEST_P_I_(classname_, testcase_, testcasename_, testname_)						\
 	IIUT_TEST_P_FIXTURE_DECL_(testcase_)													\
 	class classname_ : public testcase_ {													\
-		public: classname_(void) {}															\
-		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE;								\
-		private: static int AddRegister(void) {												\
+		public: classname_() {}																\
+		protected: virtual void Body() IUTEST_CXX_OVERRIDE;									\
+		private: static int AddRegister() {													\
 			static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_);	\
 			IIUT_GETTESTCASEPATTERNHOLDER(testcase_, testcasename_							\
 					, IUTEST_GET_PACKAGENAME_())->AddTestPattern(&testinfo); return 0;		\
@@ -184,14 +184,14 @@
 		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(classname_);										\
 	};																						\
 	int classname_::dummy_ IUTEST_ATTRIBUTE_UNUSED_	 = classname_::AddRegister();			\
-	void classname_::Body(void)
+	void classname_::Body()
 
 #define IIUT_TEST_P_I_IGNORE_(classname_, testcase_, testcasename_, testname_)				\
 	class classname_ : public testcase_ {													\
-		public: classname_(void) {}															\
-		protected: virtual void Body(void) IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }		\
-		template<typename T>void Body(void);												\
-		private: static int AddRegister(void) {												\
+		public: classname_() {}																\
+		protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }		\
+		template<typename T>void Body();													\
+		private: static int AddRegister() {													\
 			static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_);	\
 			IIUT_GETTESTCASEPATTERNHOLDER(testcase_, testcasename_							\
 				, IUTEST_GET_PACKAGENAME_())->AddTestPattern(&testinfo); return 0;			\
@@ -200,7 +200,7 @@
 		IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(classname_);										\
 	};																						\
 	int classname_::dummy_ IUTEST_ATTRIBUTE_UNUSED_ = classname_::AddRegister();			\
-	template<typename T>void classname_::Body(void)
+	template<typename T>void classname_::Body()
 
 #define IIUT_TEST_P_(macro, testcase_, testname_)		\
 	macro(IUTEST_TEST_CLASS_NAME_(testcase_, testname_)	\
@@ -328,13 +328,13 @@ public:
 	/**
 	 * @brief	パラメータの取得
 	*/
-	static const ParamType& GetParam(void) { return WithParamInterface<any>::GetParam(); }
+	static const ParamType& GetParam() { return WithParamInterface<any>::GetParam(); }
 
 	/**
 	 * @brief	パラメータの取得
 	*/
 	template<typename T>
-	static T GetParam(void) { return unsafe_any_cast<T>(WithParamInterface<any>::GetParam()); }
+	static T GetParam() { return unsafe_any_cast<T>(WithParamInterface<any>::GetParam()); }
 };
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
@@ -383,7 +383,7 @@ detail::iuParamGenerator<T> IUTEST_ATTRIBUTE_UNUSED_ Range(T begin, T end, T ste
 /**
  * @brief	真偽値パラメータ
 */
-inline detail::iuParamGenerator<bool> IUTEST_ATTRIBUTE_UNUSED_ Bool(void)
+inline detail::iuParamGenerator<bool> IUTEST_ATTRIBUTE_UNUSED_ Bool()
 {
 	return new detail::iuBoolParamsGenerator();
 }

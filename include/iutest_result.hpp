@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -39,7 +39,7 @@ class DefaultGlobalTestPartResultReporter;
 class TestPartResultReporterInterface
 {
 public:
-	virtual ~TestPartResultReporterInterface(void) {}
+	virtual ~TestPartResultReporterInterface() {}
 	/**
 	 * @brief	テスト結果通知受け取り関数
 	 * @param [in] result	= テスト結果
@@ -89,47 +89,47 @@ public:
 	/**
 	 * @brief	失敗かどうか
 	*/
-	bool		failed(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_type > kSuccess; }
+	bool		failed() const IUTEST_CXX_NOEXCEPT_SPEC { return m_type > kSuccess; }
 	/**
 	 * @brief	成功かどうか
 	*/
-	bool		passed(void) const IUTEST_CXX_NOEXCEPT_SPEC { return !failed(); }
+	bool		passed() const IUTEST_CXX_NOEXCEPT_SPEC { return !failed(); }
 	/**
 	 * @brief	警告かどうか
 	*/
-	bool		warning(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kWarning; }
+	bool		warning() const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kWarning; }
 	/**
 	 * @brief	スキップかどうか
 	*/
-	bool		skipped(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kSkip; }
+	bool		skipped() const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kSkip; }
 	/**
 	 * @brief	前提条件エラーかどうか
 	*/
-	bool		assume_failed(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kAssumeFailure; }
+	bool		assume_failed() const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kAssumeFailure; }
 	/**
 	 * @brief	成功かどうか（警告を除く）
 	*/
-	bool		succeeded(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kSuccess; }
+	bool		succeeded() const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kSuccess; }
 
 	/**
 	 * @brief	致命的ではない失敗かどうか
 	*/
-	bool		nonfatally_failed(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kNonFatalFailure; }
+	bool		nonfatally_failed() const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kNonFatalFailure; }
 
 	/**
 	 * @brief	致命的な失敗かどうか
 	*/
-	bool		fatally_failed(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kFatalFailure; }
+	bool		fatally_failed() const IUTEST_CXX_NOEXCEPT_SPEC { return m_type == kFatalFailure; }
 
 	/**
 	 * @brief	理由
 	*/
-	const char*	summary(void) const { return message(); }
+	const char*	summary() const { return message(); }
 
 	/**
 	 * @brief	結果のタイプ取得
 	*/
-	Type		type(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_type; }
+	Type		type() const IUTEST_CXX_NOEXCEPT_SPEC { return m_type; }
 
 private:
 	Type m_type;
@@ -161,8 +161,8 @@ public:
 	 * @brief	値の設定
 	*/
 	void SetValue(const ::std::string& value) { m_value = value; }
-	const char*	key(void)	const { return m_key.c_str(); }		//!< キーの取得
-	const char*	value(void)	const { return m_value.c_str(); }	//!< 値の取得
+	const char*	key()	const { return m_key.c_str(); }		//!< キーの取得
+	const char*	value()	const { return m_value.c_str(); }	//!< 値の取得
 
 public:
 	/**
@@ -207,20 +207,19 @@ class TestResult
 	typedef ::std::vector<TestPartResult>	TestPartResults;
 	typedef ::std::vector<TestProperty>		TestPropertys;
 public:
-	TestResult(void)
-		: m_elapsedmsec(0) {}
+	TestResult() : m_elapsedmsec(0) {}
 
 public:
 	/**
 	 * @brief	成功したかどうか
 	 * @return	真偽値
 	*/
-	bool		Passed(void) const { return !Failed(); }
+	bool		Passed() const { return !Failed(); }
 	/**
 	 * @brief	失敗したかどうか
 	 * @return	真偽値
 	*/
-	bool		Failed(void) const
+	bool		Failed() const
 	{
 		for( TestPartResults::const_iterator it=m_test_part_results.begin()
 			, end=m_test_part_results.end(); it != end; ++it )
@@ -236,7 +235,7 @@ public:
 	 * @brief	スキップしたかどうか
 	 * @return	真偽値
 	*/
-	bool		Skipped(void) const
+	bool		Skipped() const
 	{
 		for( TestPartResults::const_iterator it=m_test_part_results.begin()
 			, end=m_test_part_results.end(); it != end; ++it )
@@ -253,37 +252,37 @@ public:
 	 * @brief	致命的なエラーがあるかどうか
 	 * @return	真偽値
 	*/
-	bool		HasFatalFailure(void) const { return HasResult(TestPartResult::kFatalFailure); }
+	bool		HasFatalFailure() const { return HasResult(TestPartResult::kFatalFailure); }
 
 	/**
 	 * @brief	致命的でないエラーがあるかどうか
 	 * @return	真偽値
 	*/
-	bool		HasNonfatalFailure(void) const { return HasResult(TestPartResult::kNonFatalFailure); }
+	bool		HasNonfatalFailure() const { return HasResult(TestPartResult::kNonFatalFailure); }
 
 	/**
 	 * @brief	前提条件エラーがあるかどうか
 	 * @return	真偽値
 	*/
-	bool		HasAssumeFailure(void) const { return HasResult(TestPartResult::kAssumeFailure); }
+	bool		HasAssumeFailure() const { return HasResult(TestPartResult::kAssumeFailure); }
 
 	/**
 	 * @brief	テストの実行時間の取得
 	 * @return	テストの実行時間
 	*/
-	TimeInMillisec	elapsed_time(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_elapsedmsec; }
+	TimeInMillisec	elapsed_time() const IUTEST_CXX_NOEXCEPT_SPEC { return m_elapsedmsec; }
 
 	/**
 	 * @brief	結果の数を取得
 	 * @return	結果の数
 	*/
-	int			total_part_count(void) const { return static_cast<int>(m_test_part_results.size()); }
+	int			total_part_count() const { return static_cast<int>(m_test_part_results.size()); }
 
 	/**
 	 * @brief	プロパティ総数の取得
 	 * @return	総数
 	*/
-	int			test_property_count(void) const { return static_cast<int>(m_test_propertys.size()); }
+	int			test_property_count() const { return static_cast<int>(m_test_propertys.size()); }
 
 	/**
 	 * @brief	テスト結果の取得
@@ -304,7 +303,7 @@ public:
 	 * @brief	失敗の数を取得
 	 * @return	失敗の数
 	*/
-	int total_error_count(void) const
+	int total_error_count() const
 	{
 		int count = 0;
 		for( TestPartResults::const_iterator it=m_test_part_results.begin()
@@ -337,11 +336,11 @@ private:
 		m_test_propertys.push_back(prop);
 	}
 
-	void ClearResult(void)
+	void ClearResult()
 	{
 		m_test_part_results.clear();
 	}
-	void Clear(void)
+	void Clear()
 	{
 		m_test_part_results.clear();
 		m_test_propertys.clear();

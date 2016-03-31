@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -41,7 +41,7 @@ public:
 	value_ptr prev;
 
 protected:
-	iu_list_node(void) IUTEST_CXX_NOEXCEPT_SPEC : next(NULL)
+	iu_list_node() IUTEST_CXX_NOEXCEPT_SPEC : next(NULL)
 		, prev(NULL)
 	{}
 };
@@ -72,13 +72,13 @@ public:
 	bool operator == (const _Myt& it) const { return this->m_node == it.m_node; }
 	bool operator != (const _Myt& it) const { return this->m_node != it.m_node; }
 
-	_Myt&		operator ++ (void) { m_node = m_node->next; return *this; }
-	_Myt&		operator -- (void) { m_node = m_node->prev; return *this; }
-	value_ptr	operator -> (void) IUTEST_CXX_NOEXCEPT_SPEC { return ptr(); }
-	value_ref	operator *  (void) IUTEST_CXX_NOEXCEPT_SPEC { return *m_node; }
-	value_ptr	ptr(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_node; }
+	_Myt&		operator ++ () { m_node = m_node->next; return *this; }
+	_Myt&		operator -- () { m_node = m_node->prev; return *this; }
+	value_ptr	operator -> () IUTEST_CXX_NOEXCEPT_SPEC { return ptr(); }
+	value_ref	operator *  () IUTEST_CXX_NOEXCEPT_SPEC { return *m_node; }
+	value_ptr	ptr() const IUTEST_CXX_NOEXCEPT_SPEC { return m_node; }
 
-	operator	value_ptr (void)	{ return ptr(); }
+	operator	value_ptr () { return ptr(); }
 
 	_Myt operator + (int n)
 	{
@@ -131,7 +131,7 @@ public:
 
 public:
 	// リストの総数取得
-	unsigned int count(void) const IUTEST_CXX_NOEXCEPT_SPEC
+	unsigned int count() const IUTEST_CXX_NOEXCEPT_SPEC
 	{
 		unsigned int cnt = 0;
 		node_ptr cur = m_node;
@@ -142,7 +142,7 @@ public:
 		}
 		return cnt;
 	}
-	unsigned int size(void) const IUTEST_CXX_NOEXCEPT_SPEC
+	unsigned int size() const IUTEST_CXX_NOEXCEPT_SPEC
 	{
 		return count();
 	}
@@ -340,19 +340,19 @@ public:
 	}
 
 public:
-	iterator begin(void) IUTEST_CXX_NOEXCEPT_SPEC
+	iterator begin() IUTEST_CXX_NOEXCEPT_SPEC
 	{
 		return m_node;
 	}
-	iterator end(void) IUTEST_CXX_NOEXCEPT_SPEC
+	iterator end() IUTEST_CXX_NOEXCEPT_SPEC
 	{
 		return iterator(NULL);
 	}
-	const_iterator begin(void) const IUTEST_CXX_NOEXCEPT_SPEC
+	const_iterator begin() const IUTEST_CXX_NOEXCEPT_SPEC
 	{
 		return m_node;
 	}
-	const_iterator end(void) const IUTEST_CXX_NOEXCEPT_SPEC
+	const_iterator end() const IUTEST_CXX_NOEXCEPT_SPEC
 	{
 		return const_iterator(NULL);
 	}
@@ -395,9 +395,9 @@ public:
 	}
 
 public:
-	node_ptr	operator -> (void)	{ return m_node; }
-	node_ptr	operator &	(void)	{ return m_node; }
-	NODE&		operator *  (void)	{ return *m_node; }
+	node_ptr	operator -> () { return m_node; }
+	node_ptr	operator &	() { return m_node; }
+	NODE&		operator *  () { return *m_node; }
 
 	node_ptr	operator [] (int index) const
 	{
@@ -419,7 +419,7 @@ public:
 private:
 #ifdef _IUTEST_DEBUG
 	// ノードの状態チェック
-	bool check_node(void)
+	bool check_node()
 	{
 		if( m_node == NULL ) return true;
 		node_ptr prev = m_node;

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2013-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -99,7 +99,7 @@ public:
 		return m_bInitialOpen;
 	}
 public:
-	SSTP& Notify(void)
+	SSTP& Notify()
 	{
 		if( m_bInitialOpen && Socket::Open(m_Host.c_str(), m_Port.c_str()) )
 		{
@@ -109,7 +109,7 @@ public:
 		}
 		return *this;
 	}
-	SSTP& End(void)
+	SSTP& End()
 	{
 		SendLn("");
 		Recv();
@@ -163,7 +163,7 @@ public:
 		return *this;
 	}
 private:
-	void Recv(void)
+	void Recv()
 	{
 		char buf[1024];
 		if( Read(buf, sizeof(buf)) )
@@ -230,7 +230,7 @@ namespace ukagaka
 class SakuraScript
 {
 public:
-	SakuraScript(void) {}
+	SakuraScript() {}
 	explicit SakuraScript(const char* script) : m_script(script) {}
 	explicit SakuraScript(const ::std::string& script) : m_script(script) {}
 public:
@@ -249,17 +249,17 @@ public:
 public:
 	SakuraScript& Surface(int id) { Append("\\s[" + StreamableToString(id) + "]"); return *this; }
 	SakuraScript& Animate(int id) { Append("\\i[" + StreamableToString(id) + "]"); return *this; }
-	SakuraScript& Concat(void) { m_script.insert(0, "\\C"); return *this; }
-	SakuraScript& Ln(void) { Append("\\n"); return *this; }
-	SakuraScript& Home(void) { Append("\\h"); return *this; }
-	SakuraScript& You(void) { Append("\\u"); return *this; }
+	SakuraScript& Concat() { m_script.insert(0, "\\C"); return *this; }
+	SakuraScript& Ln() { Append("\\n"); return *this; }
+	SakuraScript& Home() { Append("\\h"); return *this; }
+	SakuraScript& You() { Append("\\u"); return *this; }
 	SakuraScript& Scope(int id) { Append("\\p[" + StreamableToString(id) + "]"); return *this; }
-	SakuraScript& Quick(void) { Append("\\_q"); return *this; }
+	SakuraScript& Quick() { Append("\\_q"); return *this; }
 
 	SakuraScript& Open(const ::std::string& file) { Append("\\![open,file," + file + "]"); return *this; }
 
 public:
-	const ::std::string& ToString(void)
+	const ::std::string& ToString()
 	{
 		// 改行は改行タグに変更する
 		detail::StringReplace(m_script, '\n', "\\n");

@@ -169,12 +169,12 @@ private:
 class VCCppUnitTestPartResultReporter : public ::iutest::EmptyTestEventListener
 {
 public:
-	VCCppUnitTestPartResultReporter(void)
+	VCCppUnitTestPartResultReporter()
 	{
 		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
 		listeners.Append(this);
 	}
-	virtual ~VCCppUnitTestPartResultReporter(void)
+	virtual ~VCCppUnitTestPartResultReporter()
 	{
 		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
 		listeners.Release(this);
@@ -246,7 +246,7 @@ public:
 	/**
 	* @brief	VCCppUnitResultPrinter に切り替え
 	*/
-	static ::iutest::TestEventListener* SetUp(void)
+	static ::iutest::TestEventListener* SetUp()
 	{
 		static ::iutest::TestEventListener* p = NULL;
 		if( p == NULL )
@@ -264,7 +264,7 @@ public:
 	}
 };
 
-inline void SetUpCppUnitTest(void)
+inline void SetUpCppUnitTest()
 {
 	{
 		static VCCppUnitTestPartResultReporter fake;

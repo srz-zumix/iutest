@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -32,7 +32,7 @@ namespace iutest
 class TAPPrintListener : public EmptyTestEventListener
 {
 public:
-	TAPPrintListener(void) {}
+	TAPPrintListener() {}
 public:
 	virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;
 	virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
@@ -45,7 +45,7 @@ public:
 	/**
 	* @brief	TAPPrintListener に切り替え
 	*/
-	static TestEventListener* SetUp(void)
+	static TestEventListener* SetUp()
 	{
 		TestEventListeners& listeners = UnitTest::GetInstance()->listeners();
 		delete listeners.Release(listeners.default_result_printer());
@@ -74,7 +74,7 @@ public:
 	/**
 	 * @brief	出力パスの取得
 	*/
-	const ::std::string& GetFilePath(void) const { return m_output_path; }
+	const ::std::string& GetFilePath() const { return m_output_path; }
 private:
 	/**
 	 * @brief	出力パスの設定
@@ -113,7 +113,7 @@ public:
 	/**
 	 * @brief	TAPFileGeneratorListener に切り替え
 	*/
-	static TestEventListener* SetUp(void)
+	static TestEventListener* SetUp()
 	{
 		TestEventListeners& listeners = UnitTest::GetInstance()->listeners();
 		const ::std::string& output =  TestEnv::get_output_option();

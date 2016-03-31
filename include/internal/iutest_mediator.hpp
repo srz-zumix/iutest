@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -39,11 +39,11 @@ public:
 	explicit iuITestInfoMediator(TestInfo* p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_test_info(p) {}
 public:
 	virtual ~iuITestInfoMediator() IUTEST_CXX_DEFAULT_FUNCTION
-	virtual bool HasFatalFailure(void) const = 0;
-	virtual bool HasNonfatalFailure(void) const = 0;
-	virtual bool HasFailure(void) const = 0;
-	virtual bool IsSkipped(void) const = 0;
-	TestInfo* ptr(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_test_info; }
+	virtual bool HasFatalFailure() const = 0;
+	virtual bool HasNonfatalFailure() const = 0;
+	virtual bool HasFailure() const = 0;
+	virtual bool IsSkipped() const = 0;
+	TestInfo* ptr() const IUTEST_CXX_NOEXCEPT_SPEC { return m_test_info; }
 };
 
 /**
@@ -57,9 +57,9 @@ public:
 	explicit iuITestCaseMediator(TestCase* p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_test_case(p) {}
 public:
 	virtual ~iuITestCaseMediator() IUTEST_CXX_DEFAULT_FUNCTION
-	virtual const char* test_case_name(void) const = 0;
-	virtual const char* type_param(void) const = 0;
-	TestCase* ptr(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_test_case; }
+	virtual const char* test_case_name() const = 0;
+	virtual const char* type_param() const = 0;
+	TestCase* ptr() const IUTEST_CXX_NOEXCEPT_SPEC { return m_test_case; }
 };
 
 }	// end of namespace detail

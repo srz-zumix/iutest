@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -61,54 +61,54 @@ public:
 	/**
 	 * @brief	デストラクタ
 	*/
-	virtual ~TestCase(void) {}
+	virtual ~TestCase() {}
 
 public:
 	/** test case 名の取得 */
-	const char*		name(void)					const { return m_testcase_name.c_str(); }
+	const char*		name()					const { return m_testcase_name.c_str(); }
 
 	/** テスト総数 */
-	int				total_test_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC { return m_testinfos.size(); }
+	int				total_test_count()		const IUTEST_CXX_NOEXCEPT_SPEC { return m_testinfos.size(); }
 	/** レポート対象のテスト総数 */
-	int				reportable_test_count(void)	const;
+	int				reportable_test_count()	const;
 	/** 実行したテスト総数 */
-	int				test_to_run_count(void)		const IUTEST_CXX_NOEXCEPT_SPEC { return m_should_run_num; }
+	int				test_to_run_count()		const IUTEST_CXX_NOEXCEPT_SPEC { return m_should_run_num; }
 	/** 失敗テスト総数 */
-	int				failed_test_count(void)		const;
+	int				failed_test_count()		const;
 	/** 無効テスト総数 */
-	int				disabled_test_count(void)	const IUTEST_CXX_NOEXCEPT_SPEC { return m_disable_num; }
+	int				disabled_test_count()	const IUTEST_CXX_NOEXCEPT_SPEC { return m_disable_num; }
 	/** レポート対象の無効テスト総数 */
-	int				reportable_disabled_test_count(void) const;
+	int				reportable_disabled_test_count() const;
 	/** 成功テスト総数 */
-	int				successful_test_count(void)	const;
+	int				successful_test_count()	const;
 	/** スキップテスト総数 */
-	int				skip_test_count(void)		const;
+	int				skip_test_count()		const;
 	/** レポート対象のスキップテスト総数 */
-	int				reportable_skip_test_count(void) const;
+	int				reportable_skip_test_count() const;
 	/** 明示的にスキップされたテスト総数 */
-	int				test_run_skipped_count(void) const;
+	int				test_run_skipped_count() const;
 	/** レポート対象の明示的にスキップされたテスト総数 */
-	int				reportable_test_run_skipped_count(void) const;
+	int				reportable_test_run_skipped_count() const;
 	/** テストの実行ミリ秒 */
-	TimeInMillisec	elapsed_time(void)			const IUTEST_CXX_NOEXCEPT_SPEC { return m_elapsedmsec; }
+	TimeInMillisec	elapsed_time()			const IUTEST_CXX_NOEXCEPT_SPEC { return m_elapsedmsec; }
 	/** テスト開始時刻 */
-	TimeInMillisec	start_timestamp(void)		const IUTEST_CXX_NOEXCEPT_SPEC{ return m_start_timestamp; }
+	TimeInMillisec	start_timestamp()		const IUTEST_CXX_NOEXCEPT_SPEC{ return m_start_timestamp; }
 
 	/** TestInfo の取得 */
-	const TestInfo*	GetTestInfo(int index)		const { return m_testinfos[index]; }
+	const TestInfo*	GetTestInfo(int index)	const { return m_testinfos[index]; }
 	/** should_run */
-	bool			should_run(void)			const IUTEST_CXX_NOEXCEPT_SPEC { return m_should_run_num != 0; }
+	bool			should_run()			const IUTEST_CXX_NOEXCEPT_SPEC { return m_should_run_num != 0; }
 
 	/** テストが成功したかどうか */
-	bool			Passed(void)				const { return failed_test_count() == 0 && m_ad_hoc_testresult.Passed(); }
+	bool			Passed()				const { return failed_test_count() == 0 && m_ad_hoc_testresult.Passed(); }
 	/** テストが失敗したかどうか */
-	bool			Failed(void)				const { return !Passed(); }
+	bool			Failed()				const { return !Passed(); }
 
 	/** type param 文字列の取得 */
-	virtual const char*	type_param(void)		const { return NULL; }
+	virtual const char*	type_param()		const { return NULL; }
 
 	/** TestCase 名の取得 */
-	::std::string testcase_name_with_where(void) const
+	::std::string testcase_name_with_where() const
 	{
 		::std::string str = m_testcase_name;
 		if( type_param() != NULL )
@@ -120,13 +120,13 @@ public:
 	}
 
 	/** default package 名を含む TestCase 名の取得 */
-	::std::string testcase_name_with_default_package_name(void) const
+	::std::string testcase_name_with_default_package_name() const
 	{
 		return TestEnv::AddDefaultPackageName(name());
 	}
 
 	/** テスト実行中じゃないときのリザルトの取得 */
-	const TestResult* ad_hoc_testresult(void) const IUTEST_CXX_NOEXCEPT_SPEC
+	const TestResult* ad_hoc_testresult() const IUTEST_CXX_NOEXCEPT_SPEC
 	{
 		return &m_ad_hoc_testresult;
 	}
@@ -153,19 +153,19 @@ private:
 	 * @brief	テストの実行
 	 * @return	成否
 	*/
-	bool Run(void);
+	bool Run();
 
 	/**
 	 * @brief	実行
 	 * @return	成否
 	*/
-	bool RunImpl(void);
+	bool RunImpl();
 
 private:
 	/**
 	 * @brief	セットアップのスキップチェック
 	*/
-	bool CheckSetUpSkipped(void);
+	bool CheckSetUpSkipped();
 
 public:
 	/**
@@ -190,12 +190,12 @@ private:
 	/**
 	 * @brief	テストのクリア
 	*/
-	void clear(void);
+	void clear();
 	/*
 	 * @brief	テストのフィルタリング
 	 * @return	実行する場合は真
 	*/
-	bool filter(void);
+	bool filter();
 
 private:
 	friend bool operator == (const TestCase& lhs, const TestCase& rhs)
@@ -206,9 +206,9 @@ private:
 	void push_back(TestInfo* p) { m_testinfos.push_back(p); }
 
 private:
-	iuTestInfos::const_iterator	begin(void)	const		{ return m_testinfos.begin(); }
-	iuTestInfos::const_iterator	end(void)	const		{ return m_testinfos.end(); }
-	TestTypeId					get_typeid(void) const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_id; }
+	iuTestInfos::const_iterator	begin()	const		{ return m_testinfos.begin(); }
+	iuTestInfos::const_iterator	end()	const		{ return m_testinfos.end(); }
+	TestTypeId					get_typeid() const IUTEST_CXX_NOEXCEPT_SPEC	{ return m_id; }
 
 private:
 	static bool IsSuccessfulTest(const TestInfo* p) { return p->is_ran() && p->Passed(); }
@@ -266,7 +266,7 @@ protected:
 
 public:
 	/** type param 文字列の取得 */
-	virtual const char* type_param(void) const IUTEST_CXX_OVERRIDE
+	virtual const char* type_param() const IUTEST_CXX_OVERRIDE
 	{
 		return m_type_param.empty() ? NULL : m_type_param.c_str();
 	}
@@ -288,8 +288,8 @@ class TestCaseMediator IUTEST_CXX_FINAL : public detail::iuITestCaseMediator
 public:
 	explicit TestCaseMediator(TestCase* p) IUTEST_CXX_NOEXCEPT_SPEC : iuITestCaseMediator(p) {}
 public:
-	virtual const char* test_case_name(void) const IUTEST_CXX_OVERRIDE { return m_test_case->name(); }
-	virtual const char* type_param(void)	 const IUTEST_CXX_OVERRIDE { return m_test_case->type_param(); }
+	virtual const char* test_case_name() const IUTEST_CXX_OVERRIDE { return m_test_case->name(); }
+	virtual const char* type_param()	 const IUTEST_CXX_OVERRIDE { return m_test_case->type_param(); }
 };
 
 }	// end of namespace detail

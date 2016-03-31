@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -112,7 +112,7 @@ template<typename T>bool TestTypeIdHelper<T>::_dummy = false;
  * @brief	TypeId Generator
 */
 template<typename T>
-inline TypeId GetTypeId(void)
+inline TypeId GetTypeId()
 {
 	return &(helper::TestTypeIdHelper<T>::_dummy);
 }
@@ -121,7 +121,7 @@ inline TypeId GetTypeId(void)
  * @internal
  * @brief	TypeId Generator
 */
-inline IUTEST_CXX_CONSTEXPR TypeId GetTestTypeId(void)
+inline IUTEST_CXX_CONSTEXPR TypeId GetTestTypeId()
 {
 	return 0;
 }
@@ -183,7 +183,7 @@ public:
 	/**
 	 * @brief	コンストラクタ
 	*/
-	floating_point(void)
+	floating_point()
 	{
 		m_v.uv = 0;
 	}
@@ -235,64 +235,64 @@ public:
 	/**
 	 * @brief	ビット列の取得
 	*/
-	UInt	bits(void) const { return m_v.uv; }
+	UInt	bits() const { return m_v.uv; }
 
 	/**
 	 * @brief	raw データの取得
 	*/
-	RawType	raw(void) const { return m_v.fv; }
+	RawType	raw() const { return m_v.fv; }
 
 	/**
 	 * @brief	exponent
 	*/
-	UInt	exponent_bits(void) const { return m_v.uv & kExpMask; }
+	UInt	exponent_bits() const { return m_v.uv & kExpMask; }
 
 	/**
 	 * @brief	fraction
 	*/
-	UInt	fraction_bits(void) const { return m_v.uv & kFracMask; }
+	UInt	fraction_bits() const { return m_v.uv & kFracMask; }
 
 	/**
 	 * @brief	sign
 	*/
-	UInt	sign_bit(void) const { return m_v.uv & kSignMask; }
+	UInt	sign_bit() const { return m_v.uv & kSignMask; }
 
 	/**
 	 * @brief	is nan
 	*/
-	bool	is_nan(void) const { return exponent_bits() == kExpMask && fraction_bits() != 0; }
+	bool	is_nan() const { return exponent_bits() == kExpMask && fraction_bits() != 0; }
 
 public:
 	//! plus inf
-	static _Myt PINF(void)
+	static _Myt PINF()
 	{
 		_Myt f;
 		f.m_v.uv = kExpMask;
 		return f;
 	}
 	//! minus inf
-	static _Myt NINF(void)
+	static _Myt NINF()
 	{
 		_Myt f = PINF();
 		f.m_v.uv |= kSignMask;
 		return f;
 	}
 	//! plus nan
-	static _Myt PNAN(void)
+	static _Myt PNAN()
 	{
 		_Myt f;
 		f.m_v.uv = kExpMask | 1;
 		return f;
 	}
 	//! minus nan
-	static _Myt NNAN(void)
+	static _Myt NNAN()
 	{
 		_Myt f = PNAN();
 		f.m_v.uv |= kSignMask;
 		return f;
 	}
 	//! plus qnan
-	static _Myt PQNAN(void)
+	static _Myt PQNAN()
 	{
 		_Myt f;
 		f.m_v.uv = ((1 << (kEXP + 1)) - 1);
@@ -300,7 +300,7 @@ public:
 		return f;
 	}
 	//! minus qnan
-	static _Myt NQNAN(void)
+	static _Myt NQNAN()
 	{
 		_Myt f = PQNAN();
 		f.m_v.uv |= kSignMask;
@@ -309,10 +309,10 @@ public:
 
 public:
 #if !defined(_MSC_VER) || _MSC_VER >= 1310
-	operator RawType (void) const	{ return m_v.fv; }	//!< cast to RawType
+	operator RawType () const	{ return m_v.fv; }	//!< cast to RawType
 #else
-	operator float  (void) const	{ return m_v.fv; }
-	operator double (void) const	{ return m_v.fv; }
+	operator float() const	{ return m_v.fv; }
+	operator double() const	{ return m_v.fv; }
 #endif
 	_Myt&	operator = (RawType f)	{ m_v.fv = f; return *this; }	//!< 代入
 
@@ -367,8 +367,8 @@ typedef detail::type_least_t<8>::UInt	UInt64;	//!< 64 bit 符号なし整数型
 
 typedef internal::TypeId TestTypeId;	//!< テスト識別型
 
-typedef void (*SetUpMethod)(void);		//!< SetUp 関数型
-typedef void (*TearDownMethod)(void);	//!< TearDown 関数型
+typedef void (*SetUpMethod)();		//!< SetUp 関数型
+typedef void (*TearDownMethod)();	//!< TearDown 関数型
 
 typedef detail::type_least_t<8>::UInt	TimeInMillisec;	//!< ミリ秒単位を扱う型
 typedef detail::type_least_t<8>::Int	BiggestInt;		//!< Biggest Int

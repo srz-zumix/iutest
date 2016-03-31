@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -61,7 +61,7 @@ public:
 	/**
 	* @brief	stream reuslt listener のセットアップ
 	*/
-	static TestEventListener* SetUp(void)
+	static TestEventListener* SetUp()
 	{
 		::std::string addr = TestEnv::get_stream_result_to();
 		if( !addr.empty() )

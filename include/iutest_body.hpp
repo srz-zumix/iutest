@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -44,7 +44,7 @@ class Test
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(Test);
 
 public:
-	Test(void)
+	Test()
 		: test_info_(NULL)
 		, m_test_info(NULL)
 #if IUTEST_HAS_GENRAND
@@ -54,7 +54,7 @@ public:
 		CurrentTestObserver::s_current = this;
 	}
 
-	virtual ~Test(void)
+	virtual ~Test()
 	{
 		CurrentTestObserver::s_current = NULL;
 	}
@@ -63,7 +63,7 @@ public:
 	/**
 	 * @brief	実行中の TestInfo の取得
 	*/
-	static const TestInfo* GetCurrentTestInfo(void)
+	static const TestInfo* GetCurrentTestInfo()
 	{
 		const Test* curr = GetCurrentTest();
 		if( curr == NULL || curr->m_test_info == NULL )
@@ -76,14 +76,14 @@ public:
 	/**
 	 * @brief	実行中の Test の取得
 	*/
-	static Test* GetCurrentTest(void) { return CurrentTestObserver::GetCurrentTest(); }
+	static Test* GetCurrentTest() { return CurrentTestObserver::GetCurrentTest(); }
 
 
 	/**
 	 * @brief	致命的なエラーが出たかどうか
 	 * @return	真偽値
 	*/
-	static bool HasFatalFailure(void)
+	static bool HasFatalFailure()
 	{
 		return GetCurrentTest()->m_test_info->HasFatalFailure();
 	}
@@ -92,7 +92,7 @@ public:
 	 * @brief	致命的ではないエラーが出たかどうか
 	 * @return	真偽値
 	*/
-	static bool HasNonfatalFailure(void)
+	static bool HasNonfatalFailure()
 	{
 		return GetCurrentTest()->m_test_info->HasNonfatalFailure();
 	}
@@ -101,7 +101,7 @@ public:
 	 * @brief	エラーが出たかどうか
 	 * @return	真偽値
 	*/
-	static bool HasFailure(void)
+	static bool HasFailure()
 	{
 		return GetCurrentTest()->m_test_info->HasFailure();
 	}
@@ -110,7 +110,7 @@ public:
 	 * @brief	スキップされたかどうか
 	 * @return	真偽値
 	*/
-	static bool IsSkipped(void)
+	static bool IsSkipped()
 	{
 		return GetCurrentTest()->m_test_info->IsSkipped();
 	}
@@ -142,7 +142,7 @@ public:
 	 * @note	乱数シードは --iutest_random_seed で指定した値になります。
 	 *			指定しなかった場合は実行時に決定します。
 	*/
-	unsigned int	genrand(void)				{ return m_random.genrand(); }
+	unsigned int	genrand() { return m_random.genrand(); }
 	/**
 	 * @overload
 	 * @param [in]	max	= 上限値
@@ -153,27 +153,27 @@ public:
 	 * @overload
 	 * @return		max	= [0,1] の乱数を生成
 	*/
-	float			genrandf(void)				{ return m_random.genrandf(); }
+	float			genrandf() { return m_random.genrandf(); }
 	/** 乱数シードの取得 */
-	unsigned int	random_seed(void) const IUTEST_CXX_NOEXCEPT_SPEC { return m_random_seed; }
+	unsigned int	random_seed() const IUTEST_CXX_NOEXCEPT_SPEC { return m_random_seed; }
 
 	/** 乱数生成器の取得 */
-	detail::iuRandom& random_engine(void)		{ return m_random; }
+	detail::iuRandom& random_engine() { return m_random; }
 
 #endif
 
 protected:
-	virtual void SetUp(void)	{}	//!< 実行前処理
+	virtual void SetUp() {}	//!< 実行前処理
 #if IUTEST_HAS_AUTOFIXTURE_PARAM_TEST
-	virtual void Body(void)		{}	//!< テスト実装部
+	virtual void Body() {}	//!< テスト実装部
 #else
-	virtual void Body(void)	 = 0;	//!< テスト実装部
+	virtual void Body() = 0;	//!< テスト実装部
 #endif
-	virtual void TearDown(void)	{}	//!< 実行後処理
+	virtual void TearDown() {}	//!< 実行後処理
 
 public:
-	static void SetUpTestCase(void)		{}	//!< test case setup
-	static void TearDownTestCase(void)	{}	//!< test case tear down
+	static void SetUpTestCase() {}		//!< test case setup
+	static void TearDownTestCase() {}	//!< test case tear down
 
 private:
 	/**
@@ -190,7 +190,7 @@ private:
 
 private:
 	struct should_be_SetUp {};
-	virtual should_be_SetUp* Setup(void) IUTEST_CXX_FINAL { return NULL; }
+	virtual should_be_SetUp* Setup() IUTEST_CXX_FINAL { return NULL; }
 
 private:
 	template<typename DMY>
@@ -199,7 +199,7 @@ private:
 	public:
 		static Test* s_current;
 	public:
-		static Test* GetCurrentTest(void) IUTEST_CXX_NOEXCEPT_SPEC { return s_current; }
+		static Test* GetCurrentTest() IUTEST_CXX_NOEXCEPT_SPEC { return s_current; }
 	};
 
 	typedef Observer<void> CurrentTestObserver;
@@ -247,13 +247,13 @@ class WithParamInterface
 public:
 	typedef T ParamType;	//!< パラメータ型
 protected:
-	virtual ~WithParamInterface(void) {}
+	virtual ~WithParamInterface() {}
 
 public:
 	/**
 	 * @brief	パラメータの取得
 	*/
-	static const ParamType& GetParam(void)
+	static const ParamType& GetParam()
 	{
 		IUTEST_CHECK_(s_params != NULL) << "GetParam() can only use the value-parameterized test";
 		IUTEST_ANALYSIS_ASSUME(s_params != NULL);
@@ -265,7 +265,7 @@ public:
 	 * @brief	パラメータの取得
 	*/
 	template<int N>
-	static const typename tuples::tuple_element<N, ParamType>::type& GetParam(void)
+	static const typename tuples::tuple_element<N, ParamType>::type& GetParam()
 	{
 		return tuples::get<N>(GetParam());
 	}

@@ -126,17 +126,17 @@ typedef void void_t;	// default template 引数用 (一部のコンパイラで 
 /**
  * @brief	true を返す(警告対策用)
 */
-inline bool AlwaysTrue(void) { return true; }
+inline bool AlwaysTrue() { return true; }
 
 /**
  * @brief	false を返す(警告対策用)
 */
-inline bool AlwaysFalse(void) { return !AlwaysTrue(); }
+inline bool AlwaysFalse() { return !AlwaysTrue(); }
 
 /**
  * @brief	0 を返す(警告対策用)
 */
-inline int  AlwaysZero(void) { return 0; }
+inline int  AlwaysZero() { return 0; }
 
 /**
  * @brief	真偽値を返す(警告対策用)
@@ -205,7 +205,7 @@ struct explicit_type_t {};
 #endif
 
 template<typename T>
-inline explicit_type_t<T>* explicit_type(void) { return NULL; }
+inline explicit_type_t<T>* explicit_type() { return NULL; }
 
 /**
  * @brief	型に依存したユニークなカウンタ
@@ -215,12 +215,12 @@ class TypeUniqueCounter
 {
 	static size_t value;
 public:
-	static size_t count(void) { return value++; }
+	static size_t count() { return value++; }
 };
 template<typename T>size_t TypeUniqueCounter<T>::value = 0;
 
 template<typename T>
-inline size_t GetTypeUniqueCounter(void) { return TypeUniqueCounter<T>::count(); }
+inline size_t GetTypeUniqueCounter() { return TypeUniqueCounter<T>::count(); }
 
 /**
  * @internal
@@ -233,12 +233,12 @@ class auto_ptr
 public:
 	explicit auto_ptr(T* p = NULL) : m_ptr(p) {}
 	auto_ptr(const auto_ptr& rhs) : m_ptr(rhs.m_ptr) { rhs.m_ptr = NULL; }
-	~auto_ptr(void) { if( m_ptr != NULL ) delete m_ptr; }
+	~auto_ptr() { if( m_ptr != NULL ) delete m_ptr; }
 
-	T& operator *  (void) const { return *m_ptr; }
-	T* operator -> (void) const { return m_ptr; }
+	T& operator *  () const { return *m_ptr; }
+	T* operator -> () const { return m_ptr; }
 
-	T* get(void) { return m_ptr; }
+	T* get() { return m_ptr; }
 };
 
 /**
@@ -251,13 +251,13 @@ class scoped_ptr
 	T* m_ptr;
 public:
 	explicit scoped_ptr(T* p=NULL) : m_ptr(p) {}
-	~scoped_ptr(void) { reset(); }
+	~scoped_ptr() { reset(); }
 
-	T& operator *  (void) const { return *m_ptr; }
-	T* operator -> (void) const { return m_ptr; }
+	T& operator *  () const { return *m_ptr; }
+	T* operator -> () const { return m_ptr; }
 
-	T* get(void) const { return m_ptr; }
-	T* release(void)
+	T* get() const { return m_ptr; }
+	T* release()
 	{
 		T* const p = m_ptr;
 		m_ptr = NULL;
@@ -371,7 +371,7 @@ typedef enabler_t<void> enabler;
  * @brief	型名の取得
 */
 template<typename T>
-inline ::std::string GetTypeName(void)
+inline ::std::string GetTypeName()
 {
 #if IUTEST_HAS_RTTI
 	const char* const name = typeid(T).name();
@@ -395,8 +395,8 @@ inline ::std::string GetTypeName(void)
 #if !IUTEST_HAS_RTTI
 
 #define IIUT_GeTypeNameSpecialization(type)	\
-	template<>inline ::std::string GetTypeName<type>(void) { return #type; }	\
-	template<>inline ::std::string GetTypeName<type*>(void) { return #type "*"; }
+	template<>inline ::std::string GetTypeName<type>() { return #type; }	\
+	template<>inline ::std::string GetTypeName<type*>() { return #type "*"; }
 
 #define IIUT_GeTypeNameSpecialization2(type)	\
 	IIUT_GeTypeNameSpecialization(type)			\

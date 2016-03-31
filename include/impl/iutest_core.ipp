@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -22,62 +22,62 @@
 namespace iutest
 {
 
-IUTEST_IPP_INLINE int UnitTest::reportable_test_count(void) const
+IUTEST_IPP_INLINE int UnitTest::reportable_test_count() const
 {
 	return detail::SumOverList(m_testcases, &TestCase::reportable_test_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::failed_test_count(void) const
+IUTEST_IPP_INLINE int UnitTest::failed_test_count() const
 {
 	return detail::SumOverList(m_testcases, &TestCase::failed_test_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::reportable_disabled_test_count(void) const
+IUTEST_IPP_INLINE int UnitTest::reportable_disabled_test_count() const
 {
 	return detail::SumOverList(m_testcases, &TestCase::reportable_disabled_test_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::successful_test_count(void) const
+IUTEST_IPP_INLINE int UnitTest::successful_test_count() const
 {
 	return detail::SumOverList(m_testcases, &TestCase::successful_test_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::skip_test_count(void) const
+IUTEST_IPP_INLINE int UnitTest::skip_test_count() const
 {
 	return detail::SumOverList(m_testcases, &TestCase::skip_test_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::reportable_skip_test_count(void) const
+IUTEST_IPP_INLINE int UnitTest::reportable_skip_test_count() const
 {
 	return detail::SumOverList(m_testcases, &TestCase::reportable_skip_test_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::test_run_skipped_count(void) const
+IUTEST_IPP_INLINE int UnitTest::test_run_skipped_count() const
 {
 	return detail::SumOverList(m_testcases, &TestCase::test_run_skipped_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::reportable_test_run_skipped_count(void) const
+IUTEST_IPP_INLINE int UnitTest::reportable_test_run_skipped_count() const
 {
 	return detail::SumOverList(m_testcases, &TestCase::reportable_test_run_skipped_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::test_case_to_run_count(void) const
+IUTEST_IPP_INLINE int UnitTest::test_case_to_run_count() const
 {
 	return detail::CountIfOverList(m_testcases, &TestCase::should_run);
 }
 
-IUTEST_IPP_INLINE int UnitTest::successful_test_case_count(void) const
+IUTEST_IPP_INLINE int UnitTest::successful_test_case_count() const
 {
 	return detail::CountIfOverList(m_testcases, &TestCase::Passed);
 }
 
-IUTEST_IPP_INLINE int UnitTest::failed_test_case_count(void) const
+IUTEST_IPP_INLINE int UnitTest::failed_test_case_count() const
 {
 	return detail::CountIfOverList(m_testcases, &TestCase::Failed);
 }
 
-IUTEST_IPP_INLINE bool UnitTest::Passed(void) const
+IUTEST_IPP_INLINE bool UnitTest::Passed() const
 {
 	if( m_ad_hoc_testresult.Failed() )
 	{
@@ -93,7 +93,7 @@ IUTEST_IPP_INLINE bool UnitTest::Passed(void) const
 	return true;
 }
 
-IUTEST_IPP_INLINE int UnitTest::Run(void)
+IUTEST_IPP_INLINE int UnitTest::Run()
 {
 	if( m_init_iutest_count == 0 )
 	{
@@ -140,7 +140,7 @@ IUTEST_IPP_INLINE int UnitTest::Run(void)
 }
 
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
-IUTEST_IPP_INLINE int UnitTest::RunOnMSC(void)
+IUTEST_IPP_INLINE int UnitTest::RunOnMSC()
 {
 	_EXCEPTION_POINTERS* ep = NULL;
 	int ret = 1;
@@ -160,7 +160,7 @@ IUTEST_IPP_INLINE int UnitTest::RunOnMSC(void)
 }
 #endif
 
-IUTEST_IPP_INLINE int UnitTest::RunImpl(void)
+IUTEST_IPP_INLINE int UnitTest::RunImpl()
 {
 	m_repeat_counter = 0;
 	int repeat = TestEnv::get_repeat_count();
@@ -196,7 +196,7 @@ IUTEST_IPP_INLINE int UnitTest::RunImpl(void)
 	return result ? 0 : 1;
 }
 
-IUTEST_IPP_INLINE bool UnitTest::RunOnce(void)
+IUTEST_IPP_INLINE bool UnitTest::RunOnce()
 {
 	m_elapsedmsec = 0;
 
@@ -241,7 +241,7 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce(void)
 	return Passed();
 }
 
-IUTEST_IPP_INLINE void UnitTest::TestProgramStart(void)
+IUTEST_IPP_INLINE void UnitTest::TestProgramStart()
 {
 #if 0
 #if IUTEST_HAS_EXCEPTIONS && defined(_MSC_VER) && IUTEST_HAS_SEH
@@ -274,12 +274,12 @@ IUTEST_IPP_INLINE void UnitTest::TestProgramStart(void)
 	listeners().OnTestProgramStart(*this);
 }
 
-IUTEST_IPP_INLINE void UnitTest::SetUpTestIteration(void)
+IUTEST_IPP_INLINE void UnitTest::SetUpTestIteration()
 {
 	TestEnv::SetUp();
 }
 
-IUTEST_IPP_INLINE void UnitTest::EnvironmentSetUp(void)
+IUTEST_IPP_INLINE void UnitTest::EnvironmentSetUp()
 {
 	listeners().OnEnvironmentsSetUpStart(*this);
 	for( iuEnvironmentList::iterator it = TestEnv::environments().begin(), end=TestEnv::environments().end(); it != end; ++it )
@@ -289,7 +289,7 @@ IUTEST_IPP_INLINE void UnitTest::EnvironmentSetUp(void)
 	listeners().OnEnvironmentsSetUpEnd(*this);
 }
 
-IUTEST_IPP_INLINE void UnitTest::EnvironmentTearDown(void)
+IUTEST_IPP_INLINE void UnitTest::EnvironmentTearDown()
 {
 	listeners().OnEnvironmentsTearDownStart(*this);
 	for( iuEnvironmentList::reverse_iterator it = TestEnv::environments().rbegin(), end=TestEnv::environments().rend(); it != end; ++it )
@@ -299,7 +299,7 @@ IUTEST_IPP_INLINE void UnitTest::EnvironmentTearDown(void)
 	listeners().OnEnvironmentsTearDownEnd(*this);
 }
 
-IUTEST_IPP_INLINE void UnitTest::TestProgramEnd(void)
+IUTEST_IPP_INLINE void UnitTest::TestProgramEnd()
 {
 	if( !m_test_started )
 	{
@@ -313,7 +313,7 @@ IUTEST_IPP_INLINE void UnitTest::TestProgramEnd(void)
 	m_test_started = false;
 }
 
-IUTEST_IPP_INLINE void UnitTest::Initialize(void)
+IUTEST_IPP_INLINE void UnitTest::Initialize()
 {
 	m_init_iutest_count++;
 

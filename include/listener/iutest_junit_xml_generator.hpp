@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -38,7 +38,7 @@ public:
 		: DefaultXmlGeneratorListener(path)
 	{
 	}
-	virtual ~JunitXmlGeneratorListener(void)
+	virtual ~JunitXmlGeneratorListener()
 	{
 	}
 public:
@@ -52,7 +52,7 @@ private:
 	static void OnReportTestSkipped(IFile* file, const TestInfo& test_info);
 public:
 	/** @private */
-	static void SetUp(void)
+	static void SetUp()
 	{
 		::std::string xmlpath = TestEnv::get_report_junit_xml_filepath();
 		if( !xmlpath.empty() )

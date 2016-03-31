@@ -34,10 +34,10 @@ class iuFactoryBase
 {
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(iuFactoryBase);
 public:
-	iuFactoryBase(void) IUTEST_CXX_NOEXCEPT_SPEC {}
-	virtual ~iuFactoryBase(void) {}
+	iuFactoryBase() IUTEST_CXX_NOEXCEPT_SPEC {}
+	virtual ~iuFactoryBase() {}
 public:
-	virtual auto_ptr<Test> Create(void) = 0;
+	virtual auto_ptr<Test> Create() = 0;
 };
 
 /**
@@ -49,7 +49,7 @@ template<class Tester>
 class iuFactory : public iuFactoryBase
 {
 public:
-	virtual auto_ptr<Test> Create(void) IUTEST_CXX_OVERRIDE
+	virtual auto_ptr<Test> Create() IUTEST_CXX_OVERRIDE
 	{
 		auto_ptr<Test> p( new Tester() );
 		return p;
@@ -65,11 +65,11 @@ template<typename ParamType>
 class iuParamTestFactoryBase : public iuFactoryBase
 {
 public:
-	iuParamTestFactoryBase(void) : m_param() {}
+	iuParamTestFactoryBase() : m_param() {}
 	explicit iuParamTestFactoryBase(ParamType param) : m_param(param) {}
 public:
 	void				SetParam(ParamType param) { m_param = param; }
-	const ParamType&	GetParam(void)		const { return m_param; }
+	const ParamType&	GetParam()		const { return m_param; }
 protected:
 	ParamType m_param;
 };
@@ -86,11 +86,11 @@ class iuParamTestFactory : public iuParamTestFactoryBase<typename Tester::ParamT
 	typedef typename Tester::ParamType ParamType;
 	typedef iuParamTestFactoryBase<ParamType> _Mybase;
 public:
-	iuParamTestFactory(void) IUTEST_CXX_DEFAULT_FUNCTION
+	iuParamTestFactory() IUTEST_CXX_DEFAULT_FUNCTION
 	explicit iuParamTestFactory(ParamType param) : _Mybase(param) {}
 
 public:
-	virtual auto_ptr<Test> Create(void) IUTEST_CXX_OVERRIDE
+	virtual auto_ptr<Test> Create() IUTEST_CXX_OVERRIDE
 	{
 		Tester::SetParam(&this->m_param);
 		auto_ptr<Test> p( new Tester() );

@@ -38,7 +38,7 @@ public:
 	{
 		SetFilePath(path);
 	}
-	virtual ~DefaultXmlGeneratorListener(void)
+	virtual ~DefaultXmlGeneratorListener()
 	{
 		FileClose();
 		TestEnv::event_listeners().set_default_xml_generator(NULL);
@@ -47,7 +47,7 @@ public:
 	/**
 	 * @brief	出力ファイルパスの取得
 	*/
-	const ::std::string& GetFilePath(void) const { return m_output_path; }
+	const ::std::string& GetFilePath() const { return m_output_path; }
 
 private:
 	/**
@@ -90,7 +90,7 @@ private:
 
 private:
 	bool FileOpen(const char* path);
-	void FileClose(void);
+	void FileClose();
 
 protected:
 	static void OutputXmlCDataSection(IFile* file, const char* data);
@@ -135,7 +135,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 
 public:
 	/** @private */
-	static void SetUp(void)
+	static void SetUp()
 	{
 		::std::string xmlpath = TestEnv::get_report_xml_filepath();
 		if(!xmlpath.empty())

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -55,7 +55,7 @@ public:
 	typedef iuIObject *value_ptr;
 
 public:
-	~iuPool(void)
+	~iuPool()
 	{
 		// すべて解放する
 		for( pool::iterator it=m_pool.begin(); it != m_pool.end(); )
@@ -68,7 +68,7 @@ public:
 public:
 	void push(value_ptr ptr) { m_pool.push_back(ptr); }
 public:
-	static iuPool& GetInstance(void) { static iuPool inst; return inst; }
+	static iuPool& GetInstance() { static iuPool inst; return inst; }
 };
 
 }	// end of namespace detail
