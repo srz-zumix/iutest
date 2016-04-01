@@ -1,3 +1,11 @@
+# To use GCC and G++ 4.9
+machine:
+  pre:
+    - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 10
+    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 10
+    - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20
+    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 20
+
 dependencies:
   pre:
     - |
@@ -10,7 +18,11 @@ dependencies:
 
 test:
   override:
-    - $(CXX) --version
-    - make test CXX=clang++ OUTPUTXML=1 OPTIMIZE=$(OPTIMIZE) :
+    - g++ --version
+    - clang++ --version
+    - make test CXX=g++ OUTPUTXML=1 OPTIMIZE=${OPTIMIZE} :
+        parallel: true
+        pwd: test
+    - make test CXX=clang++ OUTPUTXML=1 OPTIMIZE=${OPTIMIZE} :
         parallel: true
         pwd: test

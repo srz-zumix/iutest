@@ -7,10 +7,10 @@ compiler:
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r/test
+      - ppa:ubuntu-toolchain-r/test
       - llvm-toolchain-precise-3.8
       - llvm-toolchain-precise
-      - ubuntu-wine/ppa
+      - ppa:ubuntu-wine/ppa
     packages:
       - clang-3.8
       - g++-5
