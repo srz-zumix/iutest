@@ -1,37 +1,16 @@
 dependencies:
-#  cache_directories:
-#    - .pyenv
-
   pre:
     - |
       case $CIRCLE_NODE_INDEX in
-        0) pyenv install -ks 2.7.10; pyenv global 2.7.10; $(pyenv which pip) install requests twilio; ;;
-        1) pyenv install -ks 3.5.0;  pyenv global 3.5.0;  $(pyenv which pip) install requests twilio; ;;
-        2) pyenv install -ks 3.4.3;  pyenv global 3.4.3;  $(pyenv which pip) install requests twilio; ;;
-        3) pyenv install -ks 3.3.3;  pyenv global 3.3.3;  $(pyenv which pip) install requests twilio; ;;
+        0) export OPTIMIZE=-O2 ;;
+        1) export OPTIMIZE=-Oz ;;
+        2) export OPTIMIZE=-O3 ;;
+        3) export OPTIMIZE=-O4 ;;
       esac
-
-#general:
-#  artifacts:
-#    - test/scan-build-result
 
 test:
   override:
-    - clang++ --version
-    - pyenv version; python --version :
+    - $(CXX) --version
+    - make test CXX=clang++ OUTPUTXML=1 OPTIMIZE=$(OPTIMIZE) :
         parallel: true
-    - make :
-        parallel: true
-        pwd: tools/fused
-    - make help; make test; make list-compiler; make list-options; :
-        parallel: true
-        pwd: tools/wandbox
-    - make sample :
-        parallel: true
-        pwd: tools/paiza.io
-    - make test CALL_NUMBER=+819012345678 :
-        parallel: true
-        pwd: tools/twilio
-    - make sample :
-        parallel: true
-        pwd: tools/python
+        pwd: test
