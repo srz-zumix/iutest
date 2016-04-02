@@ -15,14 +15,18 @@ dependencies:
         2) export OPTIMIZE=-O3 ;;
         3) export OPTIMIZE=-O4 ;;
       esac
+    - echo ${OPTIMIZE}
 
 test:
   override:
     - g++ --version
     - clang++ --version
-    - make test CXX=g++ OUTPUTXML=1 OPTIMIZE=${OPTIMIZE} :
+    - make all CXX=g++ OUTPUTXML=1 OPTIMIZE=${OPTIMIZE} :
         parallel: true
         pwd: test
-    - make test CXX=clang++ OUTPUTXML=1 OPTIMIZE=${OPTIMIZE} :
+    - make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=${OPTIMIZE} :
         parallel: true
         pwd: test
+  post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - find . -type f -regex ".*/test/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;

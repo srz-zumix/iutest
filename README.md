@@ -1,6 +1,7 @@
 [![Travis-CI Build Status](https://travis-ci.org/srz-zumix/iutest.png?branch=master)](https://travis-ci.org/srz-zumix/iutest)
 [![Coverage Status](https://coveralls.io/repos/srz-zumix/iutest/badge.png?branch=master)](https://coveralls.io/r/srz-zumix/iutest?branch=master)
 [![codecov.io](http://codecov.io/github/srz-zumix/iutest/coverage.svg?branch=master)](http://codecov.io/github/srz-zumix/iutest?branch=master)  
+[![Circle CI](https://circleci.com/gh/srz-zumix/iutest.svg?style=svg)](https://circleci.com/gh/srz-zumix/iutest)
 [![Snap-CI Build Status](https://snap-ci.com/srz-zumix/iutest/branch/master/build_image)](https://snap-ci.com/srz-zumix/iutest/branch/master)
 [![Shippable Build Status](https://api.shippable.com/projects/541904d2ac22859af743f867/badge?branchName=master)](https://app.shippable.com/projects/541904d2ac22859af743f867/builds/latest)
 [![wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/master "wercker status")](https://app.wercker.com/project/bykey/d385156052aa4118a7f24affe4a8f851)
@@ -63,8 +64,6 @@ Project page
 
 Tools
 --------------------------------------------------
-
-[![Circle CI](https://circleci.com/gh/srz-zumix/iutest.svg?style=svg)](https://circleci.com/gh/srz-zumix/iutest)
 
 * fused  
 make fused-src.
