@@ -5,12 +5,11 @@ compiler:
   - gcc
 
 addons:
-  apt:
+  apt: &apt-global
     sources:
       - ubuntu-toolchain-r-test
       - llvm-toolchain-precise-3.8
       - llvm-toolchain-precise
-      #- ubuntu-wine-ppa
     packages:
       - clang-3.8
       - g++-5
@@ -31,7 +30,7 @@ before_install:
   - sudo apt-get -qq update
 
 install:
-  # gcc 5.1
+  # gcc 5
   - |
     if [ "${USE_NEWEST_GCC}" = '1' ]; then
       sudo update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-5 90;
@@ -128,6 +127,7 @@ matrix:
     - compiler: gcc
       env: COVERITY_SCAN=1
       addons:
+        apt: *apt-global
         coverity_scan:
           project:
             name: "srz-zumix/iutest"
