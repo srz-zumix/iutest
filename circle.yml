@@ -1,3 +1,10 @@
+dependencies:
+  pre:
+    # use clang++-3.4
+    - sudo apt-get update
+    - sudo apt-get remove llvm-3.0
+    - sudo apt-get install llvm-3.4 libclang1-3.4 llvm-3.4-dev
+
 # To use GCC and G++ 4.9
 machine:
   pre:
@@ -10,10 +17,10 @@ test:
   override:
     - g++ --version
     - clang++ --version
-    - case $CIRCLE_NODE_INDEX in 0) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-O2 ;; 1) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-Os ;; 2) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-O3 ;; 3) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-O4 ;; esac :
+    - case $CIRCLE_NODE_INDEX in 0) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O2 ;; 1) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-Os ;; 2) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O3 ;; 3) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O4 ;; esac :
         parallel: true
         pwd: test
-    - case $CIRCLE_NODE_INDEX in 0) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O2 ;; 1) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-Os ;; 2) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O3 ;; 3) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O4 ;; esac :
+    - case $CIRCLE_NODE_INDEX in 0) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-O2 ;; 1) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-Os ;; 2) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-O3 ;; 3) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-O4 ;; esac :
         parallel: true
         pwd: test
   post:
