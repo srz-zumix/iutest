@@ -2,8 +2,8 @@ dependencies:
   pre:
     # use clang++-3.4
     - sudo apt-get update
-    - sudo apt-get remove llvm-3.0 clang
-    - sudo apt-get install clang-3.4 libclang-common-3.4-dev llvm-3.4 libclang1-3.4 llvm-3.4-dev
+    - sudo apt-get remove clang
+    - sudo apt-get install clang-3.4 libclang-common-3.4-dev libllvm3.4=1:3.4-1ubuntu3~precise2
 
 # To use GCC and G++ 4.9
 machine:
