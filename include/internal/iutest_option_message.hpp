@@ -200,8 +200,14 @@ inline void iuOptionMessage::ShowSpec()
 #ifdef _MSC_FULL_VER
 	IIUT_SHOW_MACRO(_MSC_FULL_VER);
 #endif
+#ifdef __GNU_LIBRARY__
+	IIUT_SHOW_MACRO(__GNU_LIBRARY__);
+#endif
 #ifdef __GLIBC__
 	IIUT_SHOW_MACRO(__GLIBC__);
+#endif
+#ifdef __GLIBC_MINOR__
+	IIUT_SHOW_MACRO(__GLIBC_MINOR__);
 #endif
 #ifdef __GLIBCXX__
 	IIUT_SHOW_MACRO(__GLIBCXX__);
