@@ -6,13 +6,14 @@ compiler:
 
 addons:
   apt: &apt-global
-    sources: &apt-common-sources
+    sources:
       - ubuntu-toolchain-r-test
       - llvm-toolchain-precise-3.8
       - llvm-toolchain-precise
-    packages: &apt-common-packages
+    packages:
       - clang-3.8
-      - &apt-gcc [ g++-5, gcc-5 ]
+      - g++-5
+      - gcc-5
       #- cppcheck
 
 before_install:
@@ -97,9 +98,8 @@ matrix:
     - compiler: gcc
       env: USE_COVERAGE=lcov USE_COVERALLS=1 USE_GNU_EXTENSION=1
       addons:
-        apt:
+        apt: *apt-global
           packages:
-            - *apt-common-packages
             - lcov
             - rubygems
     # fused
@@ -109,30 +109,32 @@ matrix:
       env: USE_FUSED=fused_min STDFLAG=-std=c++98
     # Google Test
     - compiler: gcc
+      env: USE_GTEST=1 USE_GTEST_HEAD=1
+      addons:
+        apt: *apt-global
+          packages:
+            - cmake
+    - compiler: gcc
       env: USE_GTEST=1
       addons:
-        apt:
+        apt: *apt-global
           packages:
-            - *apt-common-packages
+            - cmake
             - libgtest-dev
-    - compiler: gcc
-      env: USE_GTEST=1 USE_GTEST_HEAD=1
     # Google Mock
     - compiler: gcc
       env: USE_GMOCK=1
       addons:
-        apt:
+        apt: *apt-global
           packages:
-            - *apt-common-packages
-            - google-mock
             - cmake
+            - google-mock
     # MinGW
     - compiler: gcc
       env: MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAM_BUFFER=0"
       addons:
         apt:
           packages:
-            - *apt-common-packages
             - binutils-mingw-w64-i686
             - gcc-mingw-w64-i686
             - g++-mingw-w64-i686
