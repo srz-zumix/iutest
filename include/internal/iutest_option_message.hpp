@@ -200,8 +200,8 @@ inline void iuOptionMessage::ShowSpec()
 #ifdef _MSC_FULL_VER
 	IIUT_SHOW_MACRO(_MSC_FULL_VER);
 #endif
-#ifdef _LIBCPP_VERSION
-	IIUT_SHOW_MACRO(_LIBCPP_VERSION);
+#ifdef __GLIBC__
+	IIUT_SHOW_MACRO(__GLIBC__);
 #endif
 #ifdef __GLIBCXX__
 	IIUT_SHOW_MACRO(__GLIBCXX__);
