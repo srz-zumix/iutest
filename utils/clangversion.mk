@@ -6,11 +6,12 @@
 
 ifeq ($(CXX),clang++)
 
-CLANGVERSION:=$(shell $(CXX) --version \|\& grep version \|\& sed "s/.*version\s*\([0-9]*\.[0-9]*\.[0-9]*\).*/\1/")
+CLANGVERSION:=$(shell $(CXX) --version \|\& grep version \|\& sed "s/.*version\s*\([0-9]*\.[0-9]*[\.-][0-9]*\).*/\1/")
 
 dot:=.
 empty:=
 space:=$(empty) $(empty)
+CLANGVERSION:=$(subst -,$(dot), $(CLANGVERSION))
 CLANGVERSION:=$(subst $(dot),$(space), $(CLANGVERSION))
 CLANGMAJOR:=$(word 1, $(CLANGVERSION))
 CLANGMINOR:=$(word 2, $(CLANGVERSION))

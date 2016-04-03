@@ -6,25 +6,26 @@ machine:
     - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20
     - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 20
 
-dependencies:
-  pre:
-    - |
-      case $CIRCLE_NODE_INDEX in
-        0) export OPTIMIZE=-O2 ;;
-        1) export OPTIMIZE=-Oz ;;
-        2) export OPTIMIZE=-O3 ;;
-        3) export OPTIMIZE=-O4 ;;
-      esac
-    - echo ${OPTIMIZE}
-
 test:
   override:
     - g++ --version
     - clang++ --version
-    - make all CXX=g++ OUTPUTXML=1 OPTIMIZE=${OPTIMIZE} :
+    - |
+      case $CIRCLE_NODE_INDEX in
+        0) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-O2 ;;
+        1) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-Oz ;;
+        2) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-O3 ;;
+        3) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-O4 ;;
+      esac :
         parallel: true
         pwd: test
-    - make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=${OPTIMIZE} :
+    - |
+      case $CIRCLE_NODE_INDEX in
+        0) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O2 ;;
+        1) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-Oz ;;
+        2) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O3 ;;
+        3) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O4 ;;
+      esac :
         parallel: true
         pwd: test
   post:
