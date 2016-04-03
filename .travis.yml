@@ -6,11 +6,11 @@ compiler:
 
 addons:
   apt: &apt-global
-    sources:
+    sources: &apt-common-sources
       - ubuntu-toolchain-r-test
       - llvm-toolchain-precise-3.8
       - llvm-toolchain-precise
-    packages:
+    packages: &apt-common-packages
       - clang-3.8
       - g++-5
       - gcc-5
@@ -82,6 +82,7 @@ after_success:
 env:
   global:
     # COVERITY_SCAN_TOKEN
+    - secure: "p7jyD2o54mCPQg+3ZSo03/P9G5HJdgZWZ80LQG6Dt4PfNzxBcJWTM4eSZUX+HCe5jTICC7FsDLbucwJUKb5EsXyqvny3QlGp4bvB8OWN8IbroaqpR8s4qVJLzpR9UOGhn+St3dVRZ0y9g9Vjr2/8gknwzqexAwslpGaOLohHZ/0="
 
   matrix:
     - STDFLAG=-std=c++98
@@ -98,8 +99,10 @@ matrix:
     - compiler: gcc
       env: USE_COVERAGE=lcov USE_COVERALLS=1 USE_GNU_EXTENSION=1
       addons:
-        apt: *apt-global
+        apt:
+          sources: *apt-common-sources
           packages:
+            - *apt-common-packages
             - lcov
             - rubygems
     # fused
@@ -111,30 +114,36 @@ matrix:
     - compiler: gcc
       env: USE_GTEST=1 USE_GTEST_HEAD=1
       addons:
-        apt: *apt-global
-          packages:
+        apt:
+          sources: *apt-common-sources
+          packages: &apt-cmake-packages
+            - *apt-common-packages
             - cmake
     - compiler: gcc
       env: USE_GTEST=1
       addons:
-        apt: *apt-global
+        apt:
+          sources: *apt-common-sources
           packages:
-            - cmake
+            - *apt-cmake-packages
             - libgtest-dev
     # Google Mock
     - compiler: gcc
       env: USE_GMOCK=1
       addons:
-        apt: *apt-global
+        apt:
+          sources: *apt-common-sources
           packages:
-            - cmake
+            - *apt-cmake-packages
             - google-mock
     # MinGW
     - compiler: gcc
       env: MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAM_BUFFER=0"
       addons:
         apt:
+          sources: *apt-common-sources
           packages:
+            - *apt-common-packages
             - binutils-mingw-w64-i686
             - gcc-mingw-w64-i686
             - g++-mingw-w64-i686
