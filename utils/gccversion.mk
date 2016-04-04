@@ -4,7 +4,9 @@
 #
 ########################################
 
-ifeq ($(CXX),g++)
+#ifeq ($(CXX),g++)
+ifeq ($(findstring g++, $(CXX)), g++)
+ifneq ($(findstring clang++, $(CXX)), clang++)
 
 GCCVERSION:=$(shell $(CXX) -dumpversion)
 
@@ -87,4 +89,5 @@ ifndef STDFLAG
 STDFLAG=-std=$(STD_CPP)
 endif
 
+endif
 endif

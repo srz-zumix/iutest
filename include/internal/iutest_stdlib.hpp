@@ -24,6 +24,7 @@
 #  include <cstdio>
 #  define __STRICT_ANSI__
 #endif
+#include <cstddef>
 #include <cstdlib>
 
 //======================================================================

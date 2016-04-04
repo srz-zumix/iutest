@@ -21,7 +21,7 @@ include ../utils/clangversion.mk
 include CommonMakefile.in
 
 # Optimize
-#OPTIMIZE += -O2
+#OPTIMIZE=-O2
 
 CXXFLAGS += -g -Wall -Wextra $(OPTIMIZE)
 
@@ -31,6 +31,9 @@ endif
 
 ifdef USE_COVERAGE
 CXXFLAGS += -coverage
+ifndef CCOV
+CCOV=$(USE_COVERAGE)
+endif
 endif
 
 #
@@ -131,9 +134,18 @@ lint : cpplint/Makefile $(IUTEST_HEADERS) $(MAKEFILE)
 
 showcxxversion:
 	$(CXX) --version
+ifdef GCCMAJOR
+	@echo g++-$(GCCMAJOR).$(GCCMINOR)
+endif
+ifdef CLANGMAJOR
+	@echo clang++-$(CLANGMAJOR).$(CLANGMINOR)
+endif
 
 showcxxmacros:
 	$(CXX) $(STDFLAG) -dM -E -x c++ - < /dev/null
+
+showcxxflags:
+	@echo $(CXXFLAGS)
 
 %_run : %
 	@echo $<
@@ -178,31 +190,16 @@ COVARALLS_EXCLUDE_PATTERN  =-E ".*/test/[^\.].*" -E ".*/include/tr1/.*" -E ".*/i
 #COVARALLS_EXCLUDE_PATTERN +=-E ".*iutest_all\.cpp" -E ".*iutest_util_output\.hpp" -E ".*iutest_tuple\.hpp"
 COVARALLS_SRCEXT=-x .h -x .hpp -x .cpp -x .ipp
 
-ifeq ($(USE_COVERAGE),gcov)
-
-dot:=.
-empty:=
-space:=$(empty) $(empty)
-
-GCOVVERSION:=$(shell gcov --version)
-GCOVVERSION:=$(word 3, $(GCOVVERSION))
-GCOVVERSION:=$(subst $(dot),$(space), $(GCOVVERSION))
-GCOVMAJOR:=$(word 1, $(GCOVVERSION))
-GCOVMINOR:=$(word 2, $(GCOVVERSION))
-
-endif
-
 coverage:
+	$(CCOV) -v
 ifeq ($(USE_COVERAGE),lcov)
-	lcov -v
-	lcov -c -d . -o coverage.info && lcov -r coverage.info *gcc* -o coverage.info && lcov -r coverage.info */test/* -o coverage.info
+	$(CCOV) -c -d . -o coverage.info && $(CCOV) -r coverage.info *gcc* -o coverage.info && $(CCOV) -r coverage.info */test/* -o coverage.info
 endif
 ifeq ($(USE_COVERAGE),gcov)
-	gcov -v
-ifeq ($(findstring relative-only, $(shell gcov --help)), relative-only)
-	gcov -r *.gcda;
+ifeq ($(findstring relative-only, $(shell $(CCOV) --help)), relative-only)
+	$(CCOV) -r *.gcda;
 else
-	gcov *.gcda;
+	$(CCOV) *.gcda;
 endif
 endif
 
