@@ -47,7 +47,6 @@ class FooEnvironment : public ::iutest::Environment
 		iuutil::Console::output("FooEnvironment::TearDown\n");
 	}
 };
-#include <iostream>
 
 #if defined(_MSC_VER) && IUTEST_HAS_LIB
 

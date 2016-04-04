@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -49,7 +49,7 @@ public:
 		}
 		return true;
 	}
-	virtual void Printf(const char* fmt, ...)
+	virtual void Printf(const char* fmt, ...) IUTEST_CXX_OVERRIDE
 	{
 		va_list va;
 		va_start(va, fmt);
