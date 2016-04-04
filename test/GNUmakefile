@@ -314,7 +314,7 @@ $(TARGETS2) : $(SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 else
 
 TARGETS_EXCLUDE_ALLTESTS= $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY) $(BUILD_ONLY)
-CXXFLAGS += -Werror=undef
+CXXFLAGS += -Werror -Wno-missing-field-initializers
 
 ifdef USE_LIB
 CXXFLAGS += -DIUTEST_USE_LIB=1 -L../lib
