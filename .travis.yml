@@ -21,12 +21,12 @@ before_install:
 
 install:
   # gcc 5
-  - |
-    if [ "${USE_NEWEST_GCC}" = '1' ]; then
-      sudo update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-5 90;
-      sudo update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-5 90;
-      sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90;
-    fi
+#  - |
+#    if [ "${USE_NEWEST_GCC}" = '1' ]; then
+#      sudo update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-5 90;
+#      sudo update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-5 90;
+#      sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90;
+#    fi
   # gcov/lcov
   - |
     if [ "${USE_COVERALLS}" = '1' ]; then
@@ -53,6 +53,13 @@ install:
     fi
 
 before_script:
+  # g++
+  - |
+    if [ "${USE_NEWEST_GCC}" = '1' ]; then
+      export CC=gcc-5
+      export CXX=g++-5
+      export CCOV=gcov-5
+    fi
   # clang
   - if [ "${CXX}" = 'clang++' ]; then export CXX=clang++-3.8; fi
   # mingw
@@ -84,7 +91,7 @@ env:
 
   matrix:
     - STDFLAG=-std=c++98
-    - STDFLAG=-std=c++11
+    - STDFLAG=
 
   allow_failures:
     - COVERITY_SCAN=1
