@@ -23,9 +23,9 @@ test:
         pwd: test
     - make CXX=clang++ minimum_tests && ./minimum_tests --spec :
         pwd: test
-    #- case $CIRCLE_NODE_INDEX in 0) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O2 ;; 1) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-Os ;; 2) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O3 ;; 3) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O4 ;; esac :
-    #    parallel: true
-    #    pwd: test
+    - case $CIRCLE_NODE_INDEX in 0) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O2 ;; 1) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-Os ;; 2) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O3 ;; 3) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O4 ;; esac :
+        parallel: true
+        pwd: test
     - case $CIRCLE_NODE_INDEX in 0) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-O2 ;; 1) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-Os ;; 2) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-O3 ;; 3) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-O4 ;; esac :
         parallel: true
         pwd: test

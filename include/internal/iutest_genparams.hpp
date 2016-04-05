@@ -265,7 +265,7 @@ public:
 		: v(args...)
 	{}
 
-#if defined(__clang__) && defined(__GLIBCXX__) && __GLIBCXX__ >= 20150426
+#if defined(__clang__) && defined(__GLIBCXX__) && __GLIBCXX__ >= 20141030
 #if IUTEST_HAS_RVALUE_REFS
 	// http://stackoverflow.com/questions/23374953/why-does-this-exceed-the-maximum-recursive-template-depth
 	iuValueArray(const iuValueArray& rhs)
