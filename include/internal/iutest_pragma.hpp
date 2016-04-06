@@ -39,16 +39,35 @@
 #  define IUTEST_PRAGMA_MSC_WARN_POP()			IUTEST_PRAGMA(warning (pop))
 #endif
 
+#ifndef IUTEST_PRAGMA_MSC_WARN_PUSH
+#  define IUTEST_PRAGMA_MSC_WARN_PUSH()
+#endif
+#ifndef IUTEST_PRAGMA_MSC_WARN_DISABLE
+#  define IUTEST_PRAGMA_MSC_WARN_DISABLE(x)
+#endif
+#ifndef IUTEST_PRAGMA_MSC_WARN_POP
+#  define IUTEST_PRAGMA_MSC_WARN_POP()
+#endif
+
 #if defined(__GNUC__)
+//#  if ((__GNUC__ > 4) || (__GNUC__ == 4 && __GNUC_MINOR__ >= 2))
+//#    define IUTEST_PRAGMA_GCC_WARN_DISABLE(x)	IUTEST_PRAGMA(GCC diagnostic ignored x)
+//#  endif
 #  if ((__GNUC__ > 4) || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6))
 #    define IUTEST_PRAGMA_GCC_WARN_PUSH()		IUTEST_PRAGMA(GCC diagnostic push)
 #    define IUTEST_PRAGMA_GCC_WARN_DISABLE(x)	IUTEST_PRAGMA(GCC diagnostic ignored x)
 #    define IUTEST_PRAGMA_GCC_WARN_POP()		IUTEST_PRAGMA(GCC diagnostic pop)
-#  else
-#    define IUTEST_PRAGMA_GCC_WARN_PUSH()
-#    define IUTEST_PRAGMA_GCC_WARN_DISABLE(x)
-#    define IUTEST_PRAGMA_GCC_WARN_POP()
 #  endif
+#endif
+
+#ifndef IUTEST_PRAGMA_GCC_WARN_PUSH
+#  define IUTEST_PRAGMA_GCC_WARN_PUSH()
+#endif
+#ifndef IUTEST_PRAGMA_GCC_WARN_DISABLE
+#  define IUTEST_PRAGMA_GCC_WARN_DISABLE(x)
+#endif
+#ifndef IUTEST_PRAGMA_GCC_WARN_POP
+#  define IUTEST_PRAGMA_GCC_WARN_POP()
 #endif
 
 #if defined(__clang__)
@@ -63,26 +82,6 @@
 #  define IUTEST_PRAGMA_GCC_WARN_PUSH			IUTEST_PRAGMA_CLANG_WARN_PUSH
 #  define IUTEST_PRAGMA_GCC_WARN_DISABLE		IUTEST_PRAGMA_CLANG_WARN_DISABLE
 #  define IUTEST_PRAGMA_GCC_WARN_POP			IUTEST_PRAGMA_CLANG_WARN_POP
-#endif
-
-#ifndef IUTEST_PRAGMA_MSC_WARN_PUSH
-#  define IUTEST_PRAGMA_MSC_WARN_PUSH()
-#endif
-#ifndef IUTEST_PRAGMA_MSC_WARN_DISABLE
-#  define IUTEST_PRAGMA_MSC_WARN_DISABLE(x)
-#endif
-#ifndef IUTEST_PRAGMA_MSC_WARN_POP
-#  define IUTEST_PRAGMA_MSC_WARN_POP()
-#endif
-
-#ifndef IUTEST_PRAGMA_GCC_WARN_PUSH
-#  define IUTEST_PRAGMA_GCC_WARN_PUSH()
-#endif
-#ifndef IUTEST_PRAGMA_GCC_WARN_DISABLE
-#  define IUTEST_PRAGMA_GCC_WARN_DISABLE(x)
-#endif
-#ifndef IUTEST_PRAGMA_GCC_WARN_POP
-#  define IUTEST_PRAGMA_GCC_WARN_POP()
 #endif
 
 #ifndef IUTEST_PRAGMA_CLANG_WARN_PUSH

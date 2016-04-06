@@ -82,4 +82,10 @@ endif
 #STDLIB=-stdlib=libc++
 #endif
 
+#
+# Warning Option
+#
+
+IUTEST_CXX_WARN_FLAGS+=-Wno-missing-field-initializers
+
 endif

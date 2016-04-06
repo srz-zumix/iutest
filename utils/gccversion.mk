@@ -89,5 +89,16 @@ ifndef STDFLAG
 STDFLAG=-std=$(STD_CPP)
 endif
 
+#
+# Warning Option
+#
+
+# until 4.6
+ifeq (1,$(shell expr \( $(GCCMAJOR) \< 4 \) \| \( $(GCCMAJOR) = 4 \& $(GCCMINOR) \< 6 \)))
+IUTEST_CXX_WARN_FLAGS+=-Wno-sign-compare
+endif
+
+IUTEST_CXX_WARN_FLAGS+=-Wno-missing-field-initializers
+
 endif
 endif
