@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01150025u //!< iutest version 1.15.0.25
+#define IUTEST_VER			0x01150026u //!< iutest version 1.15.0.26
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x15u		//!< Minor Version
 #define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x25u		//!< Revision
+#define IUTEST_REVISION		0x26u		//!< Revision
 
 /**
  * @mainpage
@@ -116,6 +116,13 @@
  * @page	CHANGELOG	変更履歴
  * @par		Changes
  <ul>
+  <li>v1.15.1.0
+    <ul>
+      <li>--help|spec|feature|version を同時に使用可能に変更 (e.g. --spec --feature</li>
+      <li>CSV パラメータのパス解決処理を修正</li>
+      <li>fused-src 生成ツールを修正</li>
+    </ul>
+  </li>
   <li>v1.15.0.0
     <ul>
       <li>--iutest_output オプションで repeat 回数のフォーマットに対応 e.g. --iutest_output=xml:test_%d.xml</li>

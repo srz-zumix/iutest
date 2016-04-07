@@ -95,21 +95,24 @@ IUTEST_IPP_INLINE bool UnitTestImpl::PreRunner()
 {
 	InitializeImpl();
 
-	if( TestFlag::IsEnableFlag(TestFlag::SHOW_HELP) )
+	if( TestFlag::IsEnableFlag(TestFlag::SHOW_INFO_MASK) )
 	{
-		detail::iuOptionMessage::ShowHelp();
-	}
-	else if( TestFlag::IsEnableFlag(TestFlag::SHOW_VERSION) )
-	{
-		detail::iuOptionMessage::ShowVersion();
-	}
-	else if( TestFlag::IsEnableFlag(TestFlag::SHOW_FEATURE) )
-	{
-		detail::iuOptionMessage::ShowFeature();
-	}
-	else if( TestFlag::IsEnableFlag(TestFlag::SHOW_SPEC) )
-	{
-		detail::iuOptionMessage::ShowSpec();
+		if( TestFlag::IsEnableFlag(TestFlag::SHOW_HELP) )
+		{
+			detail::iuOptionMessage::ShowHelp();
+		}
+		if( TestFlag::IsEnableFlag(TestFlag::SHOW_VERSION) )
+		{
+			detail::iuOptionMessage::ShowVersion();
+		}
+		if( TestFlag::IsEnableFlag(TestFlag::SHOW_FEATURE) )
+		{
+			detail::iuOptionMessage::ShowFeature();
+		}
+		if( TestFlag::IsEnableFlag(TestFlag::SHOW_SPEC) )
+		{
+			detail::iuOptionMessage::ShowSpec();
+		}
 	}
 	else if( TestFlag::IsEnableFlag(TestFlag::SHOW_TESTS_LIST_WITH_WHERE) )
 	{
