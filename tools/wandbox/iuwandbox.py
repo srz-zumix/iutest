@@ -28,7 +28,7 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 3.2'
+		, version=u'%(prog)s version 3.3'
 	)
 	parser.add_argument(
 		'--list_compiler'
@@ -222,6 +222,8 @@ def show_result(r):
 	if 'url' in r:
 		print('permlink: ' + r['permlink'])
 		print('url: ' + r['url'])
+	if 'signal' in r:
+		print('signal: ' + r['signal'])
 	if 'status' in r:
 		return int(r['status'])
 	return 1
