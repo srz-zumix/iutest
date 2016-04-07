@@ -5,8 +5,18 @@
 ########################################
 
 ifeq ($(findstring clang++, $(CXX)), clang++)
+IUTEST_CLANG_CXX=$(CXX)
+else
+# scan-build
+ifeq ($(findstring clang++, $(CCC_CXX)), clang++)
+IUTEST_CLANG_CXX=$(CCC_CXX)
+endif
+endif
 
-CLANGVERSION:=$(shell $(CXX) --version | grep version | sed "s/.*version\s*\([0-9]*\.[0-9]*[\.-][0-9]*\).*/\1/")
+
+ifdef IUTEST_CLANG_CXX
+
+CLANGVERSION:=$(shell $(IUTEST_CLANG_CXX) --version | grep version | sed "s/.*version\s*\([0-9]*\.[0-9]*[\.-][0-9]*\).*/\1/")
 
 dot:=.
 empty:=
