@@ -82,7 +82,13 @@
 #  define IUTEST_HAS_TR1_TUPLE			1
 #endif
 
-#define IUTEST_HAS_HDR_CXXABI			1
+#if   defined(__has_include)
+#  if __has_include( <cxxabi.h> )
+#    define IUTEST_HAS_HDR_CXXABI		1
+#  endif
+#else
+#  define IUTEST_HAS_HDR_CXXABI			1
+#endif
 
 #elif defined(_LIBCPP_VERSION)
 
@@ -110,7 +116,11 @@
 #  endif
 #endif
 
-#define IUTEST_HAS_HDR_CXXABI			1
+#if   defined(__has_include)
+#  if __has_include( <cxxabi.h> )
+#    define IUTEST_HAS_HDR_CXXABI		1
+#  endif
+#endif
 
 #elif defined(_MSC_VER) && defined(_MSC_FULL_VER)
 
