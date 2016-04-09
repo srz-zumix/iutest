@@ -25,32 +25,183 @@
 #  define __STRICT_ANSI__
 #endif
 #include <cstdlib>
+#include <cstddef>
 
 //======================================================================
 // define
+
+#if   defined(__GLIBCPP__) || defined(__GLIBCXX__)
+
+// libstdc++
+#if   defined(__clang__)
+#  if __has_include(<experimental/any>)
+#    define IUTEST_LIBSTDCXX_VERSION	50100
+#  elif __has_include(<shared_mutex>)
+#    define IUTEST_LIBSTDCXX_VERSION	40900
+#  elif __has_include(<ext/cmath>)
+#    define IUTEST_LIBSTDCXX_VERSION	40800
+#  elif   __has_include(<chrono>)
+#    define IUTEST_LIBSTDCXX_VERSION	40700
+#  elif __has_include(<typeindex>)
+#    define IUTEST_LIBSTDCXX_VERSION	40400
+#  elif __has_include(<future>)
+#    define IUTEST_LIBSTDCXX_VERSION	40400
+#  elif __has_include(<ratio>)
+#    define IUTEST_LIBSTDCXX_VERSION	40400
+#  elif __has_include(<array>)
+#    define IUTEST_LIBSTDCXX_VERSION	40300
+#  endif
+#elif defined(__GNUC__)
+#  define IUTEST_LIBSTDCXX_VERSION		(__GNUC__*10000 + __GNUC_MINOR__*100 + __GNUC_PATCHLEVEL__)
+#endif
+
+#if IUTEST_HAS_CXX11
+#  if IUTEST_LIBSTDCXX_VERSION >= 50100
+#    define IUTEST_HAS_CXX_HDR_CODECVT	1
+#  endif
+#  if IUTEST_LIBSTDCXX_VERSION >= 40900
+#    define IUTEST_HAS_CXX_HDR_REGEX	1
+#  endif
+#  if IUTEST_LIBSTDCXX_VERSION >= 40700
+#    define IUTEST_HAS_STD_EMPLACE		1
+#    define IUTEST_HAS_CXX_HDR_CHRONO	1
+#  endif
+#  if IUTEST_LIBSTDCXX_VERSION >= 40600
+#    define IUTEST_HAS_STD_BEGIN_END	1
+#  endif
+#  if IUTEST_LIBSTDCXX_VERSION >= 40500
+#    define IUTEST_HAS_STD_DECLVAL		1
+#    define IUTEST_HAS_CXX_HDR_RANDOM	1
+#  endif
+#endif
+
+// tuple
+#if   IUTEST_HAS_VARIADIC_TEMPLATES
+#  define IUTEST_HAS_STD_TUPLE			1
+#elif (!defined(__CUDACC__) && !defined(__ARMCC_VERSION) && (IUTEST_LIBSTDCXX_VERSION >= 40000))
+#  define IUTEST_HAS_TR1_TUPLE			1
+#endif
+
+#define IUTEST_HAS_HDR_CXXABI			1
+
+#elif defined(_LIBCPP_VERSION)
+
+// libc++
+#if IUTEST_HAS_CXX11
+#  define IUTEST_HAS_STD_BEGIN_END		1
+#  define IUTEST_HAS_STD_DECLVAL		1
+#  define IUTEST_HAS_STD_EMPLACE		1
+#  define IUTEST_HAS_CXX_HDR_CHRONO		1
+#  define IUTEST_HAS_CXX_HDR_REGEX		1
+#  define IUTEST_HAS_CXX_HDR_RANDOM		1
+#  define IUTEST_HAS_CXX_HDR_CODECVT	1
+#endif
+
+// tuple
+#if   IUTEST_HAS_VARIADIC_TEMPLATES
+#  define IUTEST_HAS_STD_TUPLE			1
+#elif defined(__has_include)
+#  if __has_include( <tr1/tuple> )
+#    define IUTEST_HAS_TR1_TUPLE		1
+#  endif
+#endif
+
+#define IUTEST_HAS_HDR_CXXABI			1
+
+#elif defined(_MSC_VER) && defined(_MSC_FULL_VER)
+
+// Visual C++
+
+#if _MSC_VER >= 1700
+#  define IUTEST_HAS_STD_BEGIN_END		1
+#  define IUTEST_HAS_STD_DECLVAL		IUTEST_HAS_DECLTYPE
+#  define IUTEST_HAS_STD_EMPLACE		1
+#  define IUTEST_HAS_CXX_HDR_REGEX		1
+#  define IUTEST_HAS_CXX_HDR_RANDOM		1
+#  define IUTEST_HAS_CXX_HDR_CODECVT	1
+#  if _MSC_FULL_VER != 190023725
+#    define IUTEST_HAS_CXX_HDR_CHRONO	1
+#  endif
+#endif
+
+// tuple
+#if (_MSC_VER > 1700) || (_MSC_VER == 1700 && _VARIADIC_MAX >= 9)
+#  define IUTEST_HAS_STD_TUPLE			1
+#elif (_MSC_VER >= 1500) && (_MSC_VER < 1700) && (_MSC_FULL_VER > 150021022)
+#  define IUTEST_HAS_TR1_TUPLE			1
+#endif
+
+#elif defined(__SGI_STL_PORT) || defined(_STLPORT_VERSION)
+
+// stlport
+
+#endif
 
 // iterator
 
 //! has std::begin,std::end
 #if !defined(IUTEST_HAS_STD_BEGIN_END)
-#  if   IUTEST_HAS_CXX11
-#    if   defined(__clang__)
-#      define IUTEST_HAS_STD_BEGIN_END	1
-#    elif (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6))
-#      define IUTEST_HAS_STD_BEGIN_END	1
-#    endif
-#  elif defined(_LIBCPP_STD_VER) && _LIBCPP_STD_VER >= 11
-#    define IUTEST_HAS_STD_BEGIN_END	1
-#  elif defined(_LIBCPP_VERSION) && _LIBCPP_VERSION >= 1001
-#    define IUTEST_HAS_STD_BEGIN_END	1
-#  elif defined(_MSC_VER) && (_MSC_VER >= 1700)
-#    define IUTEST_HAS_STD_BEGIN_END	1
+#  define IUTEST_HAS_STD_BEGIN_END		0
+#endif
+//! has std::declval
+#if !defined(IUTEST_HAS_STD_DECLVAL)
+#  define IUTEST_HAS_STD_DECLVAL		0
+#endif
+//! use external include tr1::tuple
+#if !defined(IUTEST_USE_EXTERNAL_TR1_TUPLE)
+#  define IUTEST_USE_EXTERNAL_TR1_TUPLE	0
+#endif
+//! use external include std::tuple
+#ifndef IUTEST_USE_EXTERNAL_STD_TUPLE
+#  define IUTEST_USE_EXTERNAL_STD_TUPLE	0
+#endif
+//! has ::std::tuple
+#if !defined(IUTEST_HAS_STD_TUPLE)
+#  define IUTEST_HAS_STD_TUPLE			0
+#endif
+//! has ::std::tr1::tuple
+#if !defined(IUTEST_HAS_TR1_TUPLE)
+#  define IUTEST_HAS_TR1_TUPLE			0
+#endif
+//! has tuple
+#if IUTEST_HAS_STD_TUPLE || IUTEST_HAS_TR1_TUPLE || IUTEST_USE_EXTERNAL_TR1_TUPLE || IUTEST_USE_EXTERNAL_STD_TUPLE
+#  if !defined(IUTEST_HAS_TUPLE)
+#    define IUTEST_HAS_TUPLE			1
 #  endif
+#else
+#  if defined(IUTEST_HAS_TUPLE)
+#    undef IUTEST_HAS_TUPLE
+#  endif
+#  define IUTEST_HAS_TUPLE				0
+#endif
+//! has chrono header
+#if !defined(IUTEST_HAS_CXX_HDR_CHRONO)
+#  define IUTEST_HAS_CXX_HDR_CHRONO		0
+#endif
+//! has regex header
+#if !defined(IUTEST_HAS_CXX_HDR_REGEX)
+#  define IUTEST_HAS_CXX_HDR_REGEX		0
+#endif
+//! has random header
+#if !defined(IUTEST_HAS_CXX_HDR_RANDOM)
+#  define IUTEST_HAS_CXX_HDR_RANDOM		0
+#endif
+//! has codecvt header
+#if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
+#  define IUTEST_HAS_CXX_HDR_CODECVT	0
+#endif
+//! has emplace
+#if !defined(IUTEST_HAS_STD_EMPLACE)
+#  define IUTEST_HAS_STD_EMPLACE		0
+#endif
+//! has cxxabi header
+#if !defined(IUTEST_HAS_HDR_CXXABI)
+#  define IUTEST_HAS_HDR_CXXABI			0
 #endif
 
-#if !defined(IUTEST_HAS_STD_BEGIN_END)
-#  define IUTEST_HAS_STD_BEGIN_END	0
-#endif
+
+//======================================================================
+// decalre
 
 //! using begin,end
 #if !defined(IUTEST_USING_BEGIN_END)
@@ -94,131 +245,15 @@ template<typename T, size_t SIZE> const T* end  (const T (&x)[SIZE]) { return be
 }	// end of namespace detail
 }	// end of namespace iutest
 
-// declval
-
-//! has std::declval
-#if !defined(IUTEST_HAS_STD_DECLVAL)
-#  if   IUTEST_HAS_CXX11
-#    if   defined(__clang__)
-#      define IUTEST_HAS_STD_DECLVAL		1
-#    elif defined(__GLIBCXX__) && __GLIBCXX__ > 20120313
-#      define IUTEST_HAS_STD_DECLVAL		1
-#    endif
-#  elif defined(_LIBCPP_VERSION)
-#    define IUTEST_HAS_STD_DECLVAL		1
-#  elif defined(_MSC_VER) && (_MSC_VER >= 1700)
-#    define IUTEST_HAS_STD_DECLVAL		IUTEST_HAS_DECLTYPE
-#  endif
-#endif
-
-#if !defined(IUTEST_HAS_STD_DECLVAL)
-#  define IUTEST_HAS_STD_DECLVAL		0
-#endif
-
-// tuple
-
-#if  defined(IUTEST_USE_EXTERNAL_TR1_TUPLE) && IUTEST_USE_EXTERNAL_TR1_TUPLE
-# define IUTEST_HAS_STD_TUPLE	0
-#endif
-
-//! use tr1::tuple
-#if !defined(IUTEST_USE_EXTERNAL_TR1_TUPLE)
-#  define IUTEST_USE_EXTERNAL_TR1_TUPLE	0
-#endif
-
-//! has ::std::tuple
-#if !defined(IUTEST_HAS_STD_TUPLE)
-#  if   defined(IUTEST_USE_EXTERNAL_STD_TUPLE) && IUTEST_USE_EXTERNAL_STD_TUPLE
-#    define IUTEST_HAS_STD_TUPLE	1
-#  elif defined(_STLPORT_VERSION)
-#    define IUTEST_HAS_STD_TUPLE	0
-#  elif defined(_MSC_VER)
-#    if (_MSC_VER > 1700) || (_MSC_VER == 1700 && _VARIADIC_MAX >= 9)
-#      define IUTEST_HAS_STD_TUPLE	1
-#    endif
-#  elif defined(__has_include)
-#    if __has_include( <tuple> ) && IUTEST_HAS_VARIADIC_TEMPLATES
-#      define IUTEST_HAS_STD_TUPLE	1
-#    endif
-#  elif defined(__GNUC__)
-#    if IUTEST_HAS_VARIADIC_TEMPLATES
-#      define IUTEST_HAS_STD_TUPLE	1
-#    endif
-#  endif
-#endif
-
-#if !defined(IUTEST_HAS_STD_TUPLE)
-#  define IUTEST_HAS_STD_TUPLE		0
-#endif
-
-#ifndef IUTEST_USE_EXTERNAL_STD_TUPLE
-#  define IUTEST_USE_EXTERNAL_STD_TUPLE	0
-#endif
-
-#if !IUTEST_HAS_STD_TUPLE
-
-//! has ::std::tr1::tuple
-#if !defined(IUTEST_HAS_TR1_TUPLE)
-#  if   defined(IUTEST_USE_EXTERNAL_TR1_TUPLE) && IUTEST_USE_EXTERNAL_TR1_TUPLE
-#    define IUTEST_HAS_TR1_TUPLE	1
-#  elif defined(_STLPORT_VERSION)
-#    define IUTEST_HAS_TR1_TUPLE	0
-#  elif defined(IUTEST_OS_LINUX_ANDROID) && defined(_STLPORT_MAJOR)
-#    define IUTEST_HAS_TR1_TUPLE	0
-#  elif defined(_MSC_VER) && defined(_MSC_FULL_VER)
-#    if (_MSC_VER >= 1500) && (_MSC_VER < 1700) && (_MSC_FULL_VER > 150021022)
-#      define IUTEST_HAS_TR1_TUPLE	1
-#    endif
-#  elif defined(__has_include)
-#    if __has_include( <tr1/tuple> )
-#      define IUTEST_HAS_TR1_TUPLE	1
-#    endif
-#  elif defined(__GNUC__)
-#    if (!defined(__CUDACC__) && !defined(__ARMCC_VERSION) && (__GNUC__ >= 4))
-#      define IUTEST_HAS_TR1_TUPLE	1
-#    endif
-#  endif
-#endif
-
-#endif
-
-//! has ::std::tr1::tuple
-#if !defined(IUTEST_HAS_TR1_TUPLE)
-#  define IUTEST_HAS_TR1_TUPLE		0
-#endif
-
-#if !defined(IUTEST_USE_OWN_TR1_TUPLE)
-#  define IUTEST_USE_OWN_TR1_TUPLE	0
-#endif
-
-//! has tuple
-#if IUTEST_HAS_STD_TUPLE || IUTEST_HAS_TR1_TUPLE
-#  if !defined(IUTEST_HAS_TUPLE)
-#    define IUTEST_HAS_TUPLE	1
-#  endif
-#else
-#  if defined(IUTEST_HAS_TUPLE)
-#    undef IUTEST_HAS_TUPLE
-#  endif
-#  define IUTEST_HAS_TUPLE		0
-#endif
-
 #if IUTEST_HAS_TUPLE
-
-#if IUTEST_HAS_STD_TUPLE
-#  if !IUTEST_USE_EXTERNAL_STD_TUPLE
+#if !IUTEST_USE_EXTERNAL_STD_TUPLE && !IUTEST_USE_EXTERNAL_TR1_TUPLE
+#  if   IUTEST_HAS_STD_TUPLE
 #    include <tuple>
-#  endif
-#else
-#  if IUTEST_HAS_TR1_TUPLE && !IUTEST_USE_EXTERNAL_TR1_TUPLE
-#    if IUTEST_USE_OWN_TR1_TUPLE
-#      include "iutest_tuple.hpp"
+#  elif IUTEST_HAS_TR1_TUPLE
+#    if (defined(__GNUC__) && (__GNUC__ >= 4))
+#      include <tr1/tuple>
 #    else
-#      if (defined(__GNUC__) && (__GNUC__ >= 4))
-#        include <tr1/tuple>
-#      else
-#        include <tuple>
-#      endif
+#      include <tuple>
 #    endif
 #  endif
 #endif
@@ -227,7 +262,7 @@ namespace iutest {
 namespace tuples
 {
 
-#if IUTEST_HAS_STD_TUPLE
+#if   IUTEST_HAS_STD_TUPLE
 namespace alias = ::std;
 #elif IUTEST_HAS_TR1_TUPLE
 namespace alias = ::std::tr1;
@@ -335,117 +370,7 @@ using tuples::get;
 
 #endif
 
-//! has regex header
-#if !defined(IUTEST_HAS_CXX_HDR_REGEX)
-
-#if   defined(__has_include)
-#  if __has_include( <regex> ) && IUTEST_HAS_CXX11
-#    if !defined(__GLIBCXX__) || (__GLIBCXX__ >= 20140422)
-#      define IUTEST_HAS_CXX_HDR_REGEX		1
-#    endif
-#  endif
-#elif defined(__GLIBCXX__)
-#  if defined(__GNUC__)
-#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 9)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
-#      define IUTEST_HAS_CXX_HDR_REGEX		1
-#    endif
-#  else
-#  endif
-#elif defined(_MSC_VER)
-#  if _MSC_VER > 1600
-#    define IUTEST_HAS_CXX_HDR_REGEX		1
-#  endif
-#endif
-
-#endif
-
-#if !defined(IUTEST_HAS_CXX_HDR_REGEX)
-#  define IUTEST_HAS_CXX_HDR_REGEX			0
-#endif
-
-//! has chrono header
-#if !defined(IUTEST_HAS_CXX_HDR_CHRONO)
-
-#if   defined(__has_include)
-#  if __has_include( <chrono> )
-#    if IUTEST_HAS_CXX11
-#      define IUTEST_HAS_CXX_HDR_CHRONO		1
-#    endif
-#  endif
-#elif defined(__GLIBCXX__)
-#  if defined(__GNUC__)
-#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
-#      define IUTEST_HAS_CXX_HDR_CHRONO		1
-#    endif
-#  else
-#  endif
-#elif defined(_MSC_VER)
-#  if _MSC_VER > 1600 && _MSC_FULL_VER != 190023725
-#    define IUTEST_HAS_CXX_HDR_CHRONO		1
-#  endif
-#endif
-
-#endif
-
-#if !defined(IUTEST_HAS_CXX_HDR_CHRONO)
-#  define IUTEST_HAS_CXX_HDR_CHRONO			0
-#endif
-
-//! has random header
-#if !defined(IUTEST_HAS_CXX_HDR_RANDOM)
-
-#if   defined(__has_include)
-#  if __has_include( <random> )
-#    if IUTEST_HAS_CXX11
-#      define IUTEST_HAS_CXX_HDR_RANDOM		1
-#    endif
-#  endif
-#elif defined(__GLIBCXX__)
-#  if defined(__GNUC__)
-#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 5)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
-#      define IUTEST_HAS_CXX_HDR_RANDOM		1
-#    endif
-#  else
-#  endif
-#elif defined(_LIBCPP_VERSION)
-#  if IUTEST_HAS_CXX11
-#    define IUTEST_HAS_CXX_HDR_RANDOM		1
-#  endif
-#elif defined(_MSC_VER)
-#  if _MSC_VER > 1600
-#    define IUTEST_HAS_CXX_HDR_RANDOM		1
-#  endif
-#endif
-
-#endif
-
-#if !defined(IUTEST_HAS_CXX_HDR_RANDOM)
-#  define IUTEST_HAS_CXX_HDR_RANDOM		0
-#endif
-
-//! has codecvt header
-#if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
-
-#if   defined(__has_include)
-#  if __has_include( <codecvt> )
-#    if IUTEST_HAS_CXX11
-#      define IUTEST_HAS_CXX_HDR_CODECVT	1
-#    endif
-#  endif
-#elif defined(__GLIBCXX__)
-#elif defined(_MSC_VER)
-#  if _MSC_VER > 1600
-#    define IUTEST_HAS_CXX_HDR_CODECVT		1
-#  endif
-#endif
-
-#endif
-
-#if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
-#  define IUTEST_HAS_CXX_HDR_CODECVT		0
-#endif
-
-//! has cuchar
+//! has uchar
 #if !defined(IUTEST_HAS_HDR_UCHAR)
 #  if IUTEST_HAS_CHAR16_T || IUTEST_HAS_CHAR32_T
 #    if   defined(__has_include)
@@ -460,44 +385,6 @@ using tuples::get;
 
 #if !defined(IUTEST_HAS_HDR_UCHAR)
 #  define IUTEST_HAS_HDR_UCHAR			0
-#endif
-
-//! has emplace
-#if !defined(IUTEST_HAS_STD_EMPLACE)
-#  if defined(__GNUC__)
-#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
-#      define IUTEST_HAS_STD_EMPLACE		1
-#    endif
-#  elif defined(__clang__) && IUTEST_HAS_CXX11
-#    define IUTEST_HAS_STD_EMPLACE			1
-#  elif defined(_MSC_VER)
-#    if (_MSC_VER > 1700)
-#      define IUTEST_HAS_STD_EMPLACE		1
-#    endif
-#  endif
-#endif
-
-#if !defined(IUTEST_HAS_STD_EMPLACE)
-#  define IUTEST_HAS_STD_EMPLACE			0
-#endif
-
-//! has cxxabi header
-#if !defined(IUTEST_HAS_HDR_CXXABI)
-
-#if   defined(__has_include)
-#  if __has_include( <cxxabi.h> )
-#    define IUTEST_HAS_HDR_CXXABI		1
-#  endif
-#elif defined(__GLIBCXX__) || defined(__GLIBCPP__)
-#  define IUTEST_HAS_HDR_CXXABI			1
-#else
-#  define IUTEST_HAS_HDR_CXXABI			0
-#endif
-
-#endif
-
-#if !defined(IUTEST_HAS_HDR_CXXABI)
-#  define IUTEST_HAS_HDR_CXXABI			0
 #endif
 
 //! has sys/time.h header
