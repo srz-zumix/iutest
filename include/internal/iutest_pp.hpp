@@ -22,14 +22,14 @@
  * @brief	コピー禁止定義
 */
 #define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)	\
-	TypeName( const TypeName& );						\
-	TypeName& operator = ( const TypeName& )
+	TypeName(const TypeName&);							\
+	TypeName& operator = (const TypeName&)
 
 /**
  * @brief	代入禁止定義
 */
 #define IUTEST_PP_DISALLOW_ASSIGN(TypeName)		\
-	TypeName& operator = ( const TypeName& )
+	TypeName& operator = (const TypeName&)
 
 /**
  * @brief	コピー/ムーブ禁止定義
@@ -37,8 +37,8 @@
 #if defined(IUTEST_HAS_RVALUE_REFS) && IUTEST_HAS_RVALUE_REFS
 #  define IUTEST_PP_DISALLOW_MOVE_AND_COPY_AND_ASSIGN(TypeName)	\
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName);				\
-	TypeName( TypeName&& rhs );									\
-	TypeName& operator = ( TypeName&& )
+	TypeName(TypeName&& rhs);									\
+	TypeName& operator = (TypeName&&)
 #else
 #  define IUTEST_PP_DISALLOW_MOVE_AND_COPY_AND_ASSIGN(TypeName)	\
 	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)

@@ -43,9 +43,9 @@
 #  elif   __has_include(<chrono>)
 #    define IUTEST_LIBSTDCXX_VERSION	40700
 #  elif __has_include(<typeindex>)
-#    define IUTEST_LIBSTDCXX_VERSION	40400
+#    define IUTEST_LIBSTDCXX_VERSION	40600
 #  elif __has_include(<future>)
-#    define IUTEST_LIBSTDCXX_VERSION	40400
+#    define IUTEST_LIBSTDCXX_VERSION	40500
 #  elif __has_include(<ratio>)
 #    define IUTEST_LIBSTDCXX_VERSION	40400
 #  elif __has_include(<array>)
@@ -95,6 +95,10 @@
 #  define IUTEST_HAS_CXX_HDR_REGEX		1
 #  define IUTEST_HAS_CXX_HDR_RANDOM		1
 #  define IUTEST_HAS_CXX_HDR_CODECVT	1
+#endif
+
+#if _LIBCPP_VERSION >= 1001
+#  define IUTEST_HAS_STD_BEGIN_END		1
 #endif
 
 // tuple

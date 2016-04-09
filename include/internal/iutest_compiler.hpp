@@ -1121,10 +1121,10 @@
 //! unused attribute
 #if !defined(IUTEST_ATTRIBUTE_UNUSED_)
 #  if (defined(__GNUC__) && !defined(COMPILER_ICC))
-#    define IUTEST_ATTRIBUTE_UNUSED_	__attribute__ ((unused))
+#    define IUTEST_ATTRIBUTE_UNUSED_	__attribute__((unused))
 #  elif defined(__clang__)
 #    if __has_attribute(unused)
-#      define IUTEST_ATTRIBUTE_UNUSED_	__attribute__ ((unused))
+#      define IUTEST_ATTRIBUTE_UNUSED_	__attribute__((unused))
 #    endif
 #  endif
 #endif
@@ -1136,7 +1136,7 @@
 //! pure attribute
 #if !defined(IUTEST_ATTRIBUTE_PURE_)
 #  if defined(__GNUC__) && !defined(COMPILER_ICC)
-#    define IUTEST_ATTRIBUTE_PURE_		__attribute__ ((pure))
+#    define IUTEST_ATTRIBUTE_PURE_		__attribute__((pure))
 #  else
 #    define IUTEST_ATTRIBUTE_PURE_
 #  endif
@@ -1148,10 +1148,10 @@
 #    define IUTEST_ATTRIBUTE_NORETURN_		[[noreturn]]
 #  elif   defined(__clang__)
 #    if __has_attribute(noreturn)
-#      define IUTEST_ATTRIBUTE_NORETURN_	__attribute__ ((noreturn))
+#      define IUTEST_ATTRIBUTE_NORETURN_	__attribute__((noreturn))
 #    endif
 #  elif defined(__GNUC__) && !defined(COMPILER_ICC)
-#    define IUTEST_ATTRIBUTE_NORETURN_		__attribute__ ((noreturn))
+#    define IUTEST_ATTRIBUTE_NORETURN_		__attribute__((noreturn))
 #  elif defined(_MSC_VER)
 #    define IUTEST_ATTRIBUTE_NORETURN_		__declspec(noreturn)
 #  endif
