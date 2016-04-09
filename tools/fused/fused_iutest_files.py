@@ -22,10 +22,11 @@ IUTEST_INCLUDE_DIR = os.path.join(os.path.dirname(__file__), '../../include')
 class IutestFused:
 	INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*"(.*iutest.*)"')
 	IFDEF_REGEX = re.compile(r'^\s*#\s*if(def\s*\S*|\s*defined\s*\(.*\))')
+	PREPRO_REGEX = re.compile(r'^\s*#')
 	COMMENT_REGEX = re.compile(r'^\s*//.*')
 	C_COMMENT_BEGIN_REGEX = re.compile(r'^\s*(.*)/\*.*')
 	C_COMMENT_END_REGEX = re.compile(r'^\s*\*/(.*)')
-	STRING_REGEX = re.compile(r'.*".*?".*')
+	STRING_REGEX = re.compile(r'.*"(.*?)".*')
 	INCG_REGEX = re.compile(r'^\s*#\s*(ifndef|define|endif)[/\s]*(INCG_\S*)\s*\Z')
 	c_comment = False
 
@@ -67,30 +68,47 @@ class IutestFused:
 		if self.IsUnnecessaryIncludeGuard(line):
 			return ""
 
+		# string store
+		str_l = self.STRING_REGEX.findall(line)
+		for s in str_l:
+			line.replace(s, '@STRING@')
+
+		# remove comment and strip
 		line = re.sub('//[\S \t]*', '', line)
 		line = line.strip(' \t')
 		line = line.rstrip()
+		# remvoe \ \n 
 		if line.endswith('\\'):
 			line = line.rstrip(r'\\')
-		#elif not line.endswith((';', '}')):
 		else:
 			line += '\n'
+		# remove preprocessor directive unnecessary whitespace
 		line = re.sub('^\s*#\s*', '#', line)
 		line = re.sub('^\s*#(.+?)[ \t]+', r'#\1 ', line)
+
+		# remove unnecessary whitespace
 		line = re.sub('\s+(".*?")', r' \1', line)
-		line = re.sub(r'[ \t]+\\', r' \\', line)
 		line = re.sub(r'\)\s+>', r')>', line)
-		if not self.STRING_REGEX.match(line):
-			line = re.sub(';[ \t]+', ';', line)
-			line = re.sub('[ \t]+', ' ', line)
-			line = re.sub('([\w)]+)\s+([&|\+\-<>=\?]+)[ \t]+([^>])', r'\1\2\3', line)
-			line = re.sub('\s*([{\+\-\*/%=<>&|!]+=)[ \t]*', r'\1', line)
-			line = re.sub('<\s+(\w)', r'<\1', line)
-			line = re.sub('\s+:[ \t]+(\w)', r':\1', line)
-			line = re.sub('\s*,[ \t]*', ',', line)
-			line = re.sub('\s*\)', ')', line)
-			line = re.sub('\)\s+{', '){', line)
-			line = re.sub('\s*\([ \t]*', '(', line)
+		line = re.sub(';[ \t]+', ';', line)
+		line = re.sub('[ \t]+', ' ', line)
+		line = re.sub('([\w)]+)\s+([&|\+\-<>=\?]+)[ \t]+([^>])', r'\1\2\3', line)
+		line = re.sub('\s*([{\+\-\*/%=<>&|!]+=)[ \t]*', r'\1', line)
+		line = re.sub('<\s+(\w)', r'<\1', line)
+		line = re.sub('\s+:[ \t]+(\w)', r':\1', line)
+		line = re.sub('\s*,[ \t]*', ',', line)
+		line = re.sub('\s*\)', ')', line)
+		line = re.sub('\)\s+{', '){', line)
+
+		# define HOGE(x) vs define HOGE (x)
+		m = re.match('^#define\s+(\w+)\s+(\([^)]*?\))$', line)
+		line = re.sub('\s*\([ \t]*', '(', line)
+		if m:
+			line = re.sub('^#define\s+(\w+)(\([^)]*?\))$', r'#define \1 \2', line)
+
+		# string restore
+		for s in str_l:
+			line.replace('@STRING@', s, 1)
+
 		line = re.sub('^#define\s+(\w+)=', r'#define \1 =', line)
 		return line
 	
