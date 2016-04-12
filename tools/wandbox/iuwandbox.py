@@ -28,7 +28,7 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 3.3'
+		, version=u'%(prog)s version 3.4'
 	)
 	parser.add_argument(
 		'--list_compiler'
@@ -171,7 +171,8 @@ def setup_includes(w, includes, encoding):
 	w.add_file('iutest.hpp', iutest.read())
 	for filepath in includes:
 		f = codecs.open(filepath, 'r', encoding)
-		w.add_file(filepath, f.read())
+		filename = os.path.basename(filepath)
+		w.add_file(filename, f.read())
 
 #
 # run wandbox

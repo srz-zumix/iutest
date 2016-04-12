@@ -21,7 +21,10 @@ save: sample.cpp $(TOOLS) Makefile
 
 test: ../../test/syntax_tests.cpp Makefile
 	python iupaiza.py $< -c $(PAIZA_COMPILER) -f"-DIUTEST_USE_MAIN" --expand_include --encoding utf-8-sig
-	
+
+minimum_tests: ../../test/minimum_tests.cpp Makefile
+	python iupaiza.py $< -c $(PAIZA_COMPILER) -f"-DIUTEST_USE_MAIN" --expand_include --encoding utf-8-sig
+
 lentest: Makefile
 	dd if=/dev/zero of=lentest.cpp bs=100001 count=1
 	python iupaiza.py lentest.cpp

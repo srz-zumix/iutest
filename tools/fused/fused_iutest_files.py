@@ -26,9 +26,10 @@ class IutestFused:
 	COMMENT_REGEX = re.compile(r'^\s*//.*')
 	C_COMMENT_BEGIN_REGEX = re.compile(r'^\s*(.*)/\*.*')
 	C_COMMENT_END_REGEX = re.compile(r'^\s*\*/(.*)')
-	STRING_REGEX = re.compile(r'.*"(.*?)".*')
+	STRING_REGEX = re.compile(r'(".+?")')
 	INCG_REGEX = re.compile(r'^\s*#\s*(ifndef|define|endif)[/\s]*(INCG_\S*)\s*\Z')
 	c_comment = False
+	store_line = ""
 
 	def IsUnnecessaryIncludeGuard(self, line):
 		m = self.INCG_REGEX.match(line)
@@ -71,17 +72,14 @@ class IutestFused:
 		# string store
 		str_l = self.STRING_REGEX.findall(line)
 		for s in str_l:
-			line.replace(s, '@STRING@')
+			line = line.replace(s, '"@STRING@"', 1)
 
 		# remove comment and strip
 		line = re.sub('//[\S \t]*', '', line)
 		line = line.strip(' \t')
+		# remvoe \r 
 		line = line.rstrip()
-		# remvoe \ \n 
-		if line.endswith('\\'):
-			line = line.rstrip(r'\\')
-		else:
-			line += '\n'
+		line += '\n'
 		# remove preprocessor directive unnecessary whitespace
 		line = re.sub('^\s*#\s*', '#', line)
 		line = re.sub('^\s*#(.+?)[ \t]+', r'#\1 ', line)
@@ -98,20 +96,29 @@ class IutestFused:
 		line = re.sub('\s*,[ \t]*', ',', line)
 		line = re.sub('\s*\)', ')', line)
 		line = re.sub('\)\s+{', '){', line)
+		#line = re.sub('{\s+return', '{return', line)
 
 		# define HOGE(x) vs define HOGE (x)
 		m = re.match('^#define\s+(\w+)\s+(\([^)]*?\))$', line)
 		line = re.sub('\s*\([ \t]*', '(', line)
 		if m:
 			line = re.sub('^#define\s+(\w+)(\([^)]*?\))$', r'#define \1 \2', line)
+		else:
+			line = re.sub('^#define\s+(\w+\([^)]*?\))(\S+)', r'#define \1 \2', line)
 
 		# string restore
 		for s in str_l:
-			line.replace('@STRING@', s, 1)
+			line = line.replace('"@STRING@"', s, 1)
 
 		line = re.sub('^#define\s+(\w+)=', r'#define \1 =', line)
 		return line
 	
+	def Flush(self, output_file):
+		if len(self.store_line) > 0:
+			output_file.write(self.store_line)
+			output_file.write('\n')
+			self.store_line = ""
+
 	def Translate(self, root, filename, output, output_dir, minimum):
 		output_file = codecs.open(os.path.join(output_dir, output), 'w', 'utf-8-sig')
 		processed_files = set();
@@ -127,11 +134,11 @@ class IutestFused:
 			find_ifdef = False;
 			c_comment = False;
 			fileset.add(path)
-			lines = ""
 			for line in codecs.open(path, 'r', 'utf-8-sig'):
 				line = re.sub('/\*.*?\*/', '', line)
 				m = self.INCLUDE_REGEX.match(line)
 				if m:
+					self.Flush(output_file)
 					include_file = m.group(1)
 					if find_ifdef:
 						s = set(fileset)
@@ -143,9 +150,29 @@ class IutestFused:
 					if minimum:
 						line = self.Minmumize(line)
 						if len(line):
-							output_file.write(line)
+							if self.PREPRO_REGEX.match(self.store_line):
+								line = line.strip();
+								if line.endswith('\\'):
+									self.store_line += line.rstrip(r'\\')
+								else:
+									self.store_line += line
+									self.Flush(output_file)
+							elif self.PREPRO_REGEX.match(line):
+								self.Flush(output_file)
+								if line.strip().endswith('\\'):
+									self.store_line += line.strip().rstrip(r'\\')
+								else:
+									output_file.write(line)
+							else:
+								if re.match('[{}]$', line):
+									self.store_line += line.strip()
+								else:
+									self.Flush(output_file)
+									output_file.write(line)
 					else:
 						output_file.write(line)
+			self.Flush(output_file)
+
 		ProcessFile(root, filename, processed_files, minimum)
 		output_file.close()
 
