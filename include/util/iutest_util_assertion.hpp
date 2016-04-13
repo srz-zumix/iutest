@@ -522,10 +522,14 @@ template<typename T1, typename T2>
 	, T1 b1, T1 e1, T2 b2, T2 e2)
 {
 	if( ::iutest::AssertionResult ar = CmpHelperEqIterator(b1, e1, b2, e2) )
+	{
 		return ::iutest::AssertionSuccess();
+	}
 	else
+	{
 		return ::iutest::AssertionFailure() << "error: Expected: { " << expr1b << ", " << expr1e << " } == { "
-				<< expr2b << ", " << expr2e << " }\n  Actual:" << ar.message();
+			<< expr2b << ", " << expr2e << " }\n  Actual:" << ar.message();
+	}
 }
 
 namespace detail
@@ -536,10 +540,14 @@ template<typename T1, typename T2>
 	, T1 b1, T1 e1, T2 b2, T2 e2)
 {
 	if( ::iutest::AssertionResult ar = CmpHelperEqIterator(b1, e1, b2, e2) )
+	{
 		return ::iutest::AssertionSuccess();
+	}
 	else
+	{
 		return ::iutest::AssertionFailure() << "error: Expected: " << expected_expr << " == " << actual_expr
-				<< " \n  Actual:" << ar.message();
+			<< " \n  Actual:" << ar.message();
+	}
 }
 
 }	// end of namespace detail

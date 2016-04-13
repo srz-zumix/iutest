@@ -243,9 +243,8 @@ private:
 	}
 public:
 	template<typename T>
-	ParamTestCaseInfo<T>* GetTestCasePatternHolder(const ::std::string& testcase, const ::std::string& package
-		IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)
-		)
+	ParamTestCaseInfo<T>* GetTestCasePatternHolder(const ::std::string& testcase
+		, const ::std::string& package IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
 	{
 		for( TestCaseInfoContainer::iterator it=m_testcase_infos.begin(), end=m_testcase_infos.end(); it != end; ++it )
 		{

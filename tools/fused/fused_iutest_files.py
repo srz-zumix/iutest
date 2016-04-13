@@ -122,6 +122,9 @@ class IutestFused:
 	def Translate(self, root, filename, output, output_dir, minimum):
 		output_file = codecs.open(os.path.join(output_dir, output), 'w', 'utf-8-sig')
 		processed_files = set();
+		# fused-min not support gtest switch
+		if minimum:
+			processed_files.add(os.path.normpath(os.path.join(root, "gtest/iutest_switch.hpp")))
 		def ProcessFile(curr, filename, fileset, minimum):
 			path = os.path.join(root, filename)
 			if not os.path.exists(path):
@@ -164,11 +167,12 @@ class IutestFused:
 								else:
 									output_file.write(line)
 							else:
-								if re.match('[{}]$', line):
-									self.store_line += line.strip()
-								else:
-									self.Flush(output_file)
-									output_file.write(line)
+								strip_line = line.strip();
+								self.store_line += strip_line
+								#if not re.match('.*[{};\(\)<>]$', strip_line):
+								#	self.Flush(output_file)
+								if re.match('.*(:|IUTEST_CXX_DEFAULT_FUNCTION)$', strip_line):
+									self.store_line += " "
 					else:
 						output_file.write(line)
 			self.Flush(output_file)
