@@ -230,17 +230,16 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestSkipped(IFile* f
 		const TestPartResult& part = tr->GetTestPartResult(i);
 		if( part.skipped() )
 		{
+			::std::string message = detail::FormatCompilerIndependentFileLocation(part.file_name(), part.line_number());
 #if 0
 			OutputXmlAttribute(file, "message"
 				, EscapeXmlAttribute(part.summary()).c_str());
-			::std::string message = detail::FormatCompilerIndependentFileLocation(part.file_name(), part.line_number());
 			file->Printf(">\n");
 			message += "\n";
 			message += detail::MultiByteStringToUTF8(part.summary());
 			OutputXmlCDataSection(file, message.c_str());
 			file->Printf("\n      </skipped>\n");
 #else
-			::std::string message = detail::FormatCompilerIndependentFileLocation(part.file_name(), part.line_number());
 			message += ": ";
 			message += detail::MultiByteStringToUTF8(part.summary());
 			OutputXmlAttribute(file, "message"

@@ -388,13 +388,6 @@ public:
 
 inline void SetUpCppUnitTest()
 {
-#if 0
-	{
-		int argc=0;
-		char** argv = NULL;
-		IUTEST_INIT(&argc, argv);
-	}
-#endif
 	{
 		static VCCppUnitTestPartResultReporter fake;
 #ifndef IUTEST_USE_GTEST

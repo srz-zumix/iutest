@@ -243,16 +243,14 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce()
 
 IUTEST_IPP_INLINE void UnitTest::TestProgramStart()
 {
-#if 0
-#if IUTEST_HAS_EXCEPTIONS && defined(_MSC_VER) && IUTEST_HAS_SEH
-	// /EHa オプションが必要
-	if( TestFlag::IsEnableFlag(TestFlag::CATCH_EXCEPTION) )
-	{
-		// SEH 例外に対応する
-		_set_se_translator(detail::seh_exception::translator);
-	}
-#endif
-#endif
+//#if IUTEST_HAS_EXCEPTIONS && defined(_MSC_VER) && IUTEST_HAS_SEH
+//	// /EHa オプションが必要
+//	if( TestFlag::IsEnableFlag(TestFlag::CATCH_EXCEPTION) )
+//	{
+//		// SEH 例外に対応する
+//		_set_se_translator(detail::seh_exception::translator);
+//	}
+//#endif
 
 	// フィルタリング
 	m_should_run_num = 0;

@@ -951,11 +951,6 @@ private:
 			}
 			if( free_raw != -1 )
 			{
-#if 0
-				IUTEST_UNUSED_VAR(free_idx);
-				IUTEST_UNUSED_VAR(max_overlap);
-				return it;
-#else
 				// 仮に入ったとして重複がないか調べる
 				UInt32 overlap = 0;
 				for( int i=0; i < N; ++i )
@@ -983,7 +978,6 @@ private:
 					find = it;
 					max_overlap = overlap;
 				}
-#endif
 			}
 		}
 		if( find != list.end() )
