@@ -6,6 +6,9 @@
 import requests
 import json
 
+class TooLongException(Exception):
+	pass
+
 #
 #
 #
@@ -25,7 +28,10 @@ class PaizaIO:
 			if not 'longpoll timeout' in result['error']:
 				#print(result['error'])
 				#print(result)
-				raise Exception(result['error'])
+				if "Too long" in result['error']:
+					raise TooLongException(result['error'])
+				else:
+					raise Exception(result['error'])
 		
 		if 'id' in result:
 			self.session_id = result['id']

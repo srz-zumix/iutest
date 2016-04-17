@@ -126,6 +126,20 @@ def show_result(r):
 	return 1
 
 #
+# output code
+def output_code(path, code, encoding):
+	f = file_open(path, 'w', encoding)
+	f.write(code)
+	f.close()
+
+#
+#
+def run_impl(code, options):
+	r = run_paiza(code, options)
+	b = show_result(r)
+	sys.exit(b)
+
+#
 # run
 def run(options):
 	filepath = options.code
@@ -133,12 +147,40 @@ def run(options):
 		sys.exit(1)
 	code = make_code(filepath, options.encoding, options.expand_include)
 	if options.output:
-		f = file_open(options.output, 'w', options.encoding)
-		f.write(code)
-		f.close()
-	r = run_paiza(code, options)
-	b = show_result(r)
-	sys.exit(b)
+		output_code(options.output, code, options.encoding)
+	try:
+		run_impl(code, options)
+	except paizaio.TooLongException, e:
+		print(e)
+		output = options.output
+		if not options.output:
+			output = "paizaio-toolong-sourcecode.cpp"
+			output_code(output, code, options.encoding)
+			print("source code -> " + output)
+		#try:
+		#	from pypreprocessor import pypreprocessor
+		#	try:
+		#		output = os.path.basename(filepath) + ".p"
+		#		code = re.sub('#define (.*)', r'# define \1', code)
+		#		output_code(output, code, options.encoding)
+		#		imp.acquire_lock()
+		#		#pypreprocessor.defines.append('IUTEST_VER')
+		#		pypreprocessor.input = output
+		#		#pypreprocessor.output = output + "p"
+		#		pypreprocessor.removeMeta = True
+		#		pypreprocessor.parse()
+		#		imp.release_lock()
+		#		file = file_open(output, 'r', options.encoding)
+		#		code = file.read()
+		#		file.close()
+		#		run_impl(code, options)
+		#	except Exception, e:
+		#		print(e)
+		#		raise
+		#except:
+		#	sys.exit(1)
+	except:
+		raise
 
 #
 #
