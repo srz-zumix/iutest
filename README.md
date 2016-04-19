@@ -52,7 +52,9 @@ Documentation
 --------------------------------------------------
 
 doc/index.html  
-[online document](http://iutest.osdn.jp/doc/index.html)  
+[online document(OSDN)](http://iutest.osdn.jp/doc/index.html)  
+[online document(gh-pages)](http://srz-zumix.github.io/iutest/)  
+
 
 
 Project page
