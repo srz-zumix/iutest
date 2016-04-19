@@ -21,6 +21,7 @@ gh-pages: target
 	cp -r css gh-pages/
 	cp -r html gh-pages/
 	cp -r images gh-pages/
+	cp ../README.md gh-pages/
 
 clean:
 	rm -rf html
