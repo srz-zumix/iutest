@@ -117,7 +117,7 @@ default : $(TARGETS)
 all : clean default test
 
 clean :
-	$(RM) $(TARGETS) *.o *.stackdump *.core *.log
+	$(RM) $(TARGETS) *.o *.stackdump *.core *.log check_stdlib
 ifdef OUTPUTXML
 	$(RM) *.xml
 endif
@@ -335,3 +335,6 @@ endif
 
 endif
 
+check_stdlib: check_stdlib.cpp $(IUTEST_HEADERS)
+	$(CXX) $(CXXFLAGS) -o $@ $@.cpp
+	./$@
