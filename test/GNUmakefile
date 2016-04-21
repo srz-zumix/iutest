@@ -336,5 +336,5 @@ endif
 endif
 
 check_stdlib: check_stdlib.cpp $(IUTEST_HEADERS)
-	$(CXX) $(CXXFLAGS) -o $@ $@.cpp
+	$(CXX) $(CXXFLAGS) -v -o $@ $@.cpp
 	./$@
