@@ -38,7 +38,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="../../index.html"><span>総合概要</span></a></li>
+      <li><a href="../../pages.html"><span>諸情報</span></a></li>
+      <li><a href="../../modules.html"><span>モジュール</span></a></li>
+      <li><a href="../../namespaces.html"><span>名前空間</span></a></li>
+      <li><a href="../../annotated.html"><span>クラス</span></a></li>
       <li class="current"><a href="../../files.html"><span>ファイル</span></a></li>
+      <li><a href="../../examples.html"><span>各種例</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -60,6 +65,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="../../files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="../../globals.html"><span>ファイルメンバ</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -67,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>クラス</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>名前空間</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>グループ</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(12)"><span class="SelectionMark">&#160;</span>ページ</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -86,7 +92,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="title">iutest_random.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
+<a href="../../d7/d8c/iutest__random_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div>
@@ -95,7 +101,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// include</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;iutest_time.hpp&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d9/d00/iutest__time_8hpp.html">iutest_time.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#if IUTEST_HAS_CXX_HDR_RANDOM</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  include &lt;random&gt;</span></div>
@@ -110,14 +116,14 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"></span><span class="keyword">class </span>iuRandom</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#if IUTEST_HAS_CXX_HDR_RANDOM &amp;&amp; defined(IUTEST_USE_RANDOM_ENGINE_TYPENAME)</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> IUTEST_USE_RANDOM_ENGINE_TYPENAME Engine;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> <a class="code" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#gaccdbafbe570fdf1c8cd911fcd93b1e68">IUTEST_USE_RANDOM_ENGINE_TYPENAME</a> Engine;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor"></span>    <span class="keyword">class </span>Engine</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    {</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> result_type;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">explicit</span> Engine(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> s=0) IUTEST_CXX_NOEXCEPT_SPEC</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">explicit</span> Engine(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> s=0) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        {</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            seed(s);</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        }</div>
@@ -150,12 +156,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        }</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor"></span>        <span class="keyword">static</span> IUTEST_CXX_CONSTEXPR_OR_CONST result_type _Min = 0;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keyword">static</span> IUTEST_CXX_CONSTEXPR_OR_CONST result_type _Max = <span class="keyword">static_cast&lt;</span>result_type<span class="keyword">&gt;</span>(-1);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor"></span>        <span class="keyword">static</span> <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a522dd56c6d3b114b1671d8f2bf82b9e6">IUTEST_CXX_CONSTEXPR_OR_CONST</a> result_type _Min = 0;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keyword">static</span> <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a522dd56c6d3b114b1671d8f2bf82b9e6">IUTEST_CXX_CONSTEXPR_OR_CONST</a> result_type _Max = <span class="keyword">static_cast&lt;</span>result_type<span class="keyword">&gt;</span>(-1);</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keyword">static</span> IUTEST_CXX_CONSTEXPR result_type (min)() { <span class="keywordflow">return</span> 0; }</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keyword">static</span> IUTEST_CXX_CONSTEXPR result_type (max)() { <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>result_type<span class="keyword">&gt;</span>(-1); }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keyword">static</span> <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a> result_type (min)() { <span class="keywordflow">return</span> 0; }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keyword">static</span> <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a> result_type (max)() { <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>result_type<span class="keyword">&gt;</span>(-1); }</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        result_type gen()</div>
@@ -177,12 +183,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> result_type;</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keyword">static</span> IUTEST_CXX_CONSTEXPR result_type (min)() { <span class="keywordflow">return</span> (Engine::min)(); }</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">static</span> IUTEST_CXX_CONSTEXPR result_type (max)() { <span class="keywordflow">return</span> (Engine::max)(); }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keyword">static</span> <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a> result_type (min)() { <span class="keywordflow">return</span> (Engine::min)(); }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">static</span> <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a> result_type (max)() { <span class="keywordflow">return</span> (Engine::max)(); }</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">#if defined(__clang__) &amp;&amp; (__clang_major__ &lt; 3 || (__clang_major__ == 3 &amp;&amp; __clang_minor__ &lt; 3))</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor"></span>    <span class="keyword">static</span> IUTEST_CXX_CONSTEXPR_OR_CONST result_type _Min = Engine::_Min;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">static</span> IUTEST_CXX_CONSTEXPR_OR_CONST result_type _Max = Engine::_Max;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor"></span>    <span class="keyword">static</span> <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a522dd56c6d3b114b1671d8f2bf82b9e6">IUTEST_CXX_CONSTEXPR_OR_CONST</a> result_type _Min = Engine::_Min;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">static</span> <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a522dd56c6d3b114b1671d8f2bf82b9e6">IUTEST_CXX_CONSTEXPR_OR_CONST</a> result_type _Max = Engine::_Max;</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keyword">public</span>:</div>
@@ -269,8 +275,8 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;<span class="preprocessor">#define IIUT_WORKAROUND_GENRAND(type)   \</span></div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="preprocessor">    template&lt;&gt; inline type  iuRandom::genrand&lt;type&gt;(IUTEST_EXPLICIT_TEMPLATE_TYPE_(type))</span></div>
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;IIUT_WORKAROUND_GENRAND(Int64)  { <span class="keywordflow">return</span> (static_cast&lt;Int64&gt;(genrand()) &lt;&lt; 32) | genrand(); }</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;IIUT_WORKAROUND_GENRAND(UInt64) { <span class="keywordflow">return</span> (static_cast&lt;UInt64&gt;(genrand()) &lt;&lt; 32) | genrand(); }</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;IIUT_WORKAROUND_GENRAND(<a class="code" href="../../d3/dda/namespaceiutest.html#afcd16cedeb04ec5f6fd5181b77095f65">Int64</a>)  { <span class="keywordflow">return</span> (static_cast&lt;Int64&gt;(genrand()) &lt;&lt; 32) | genrand(); }</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;IIUT_WORKAROUND_GENRAND(<a class="code" href="../../d3/dda/namespaceiutest.html#ace58a7cdebbbb2407873bfedbfbbced5">UInt64</a>) { <span class="keywordflow">return</span> (static_cast&lt;UInt64&gt;(genrand()) &lt;&lt; 32) | genrand(); }</div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;IIUT_WORKAROUND_GENRAND(<span class="keywordtype">float</span>)  { <span class="keywordflow">return</span> genrandf(); }</div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;IIUT_WORKAROUND_GENRAND(<span class="keywordtype">double</span>) { <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(genrandf()); }</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;</div>
@@ -312,10 +318,17 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
 <div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;</div>
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_RANDOM_HPP_89F260D7_9145_4B50_A8F0_B7A2696121B6_</span></div>
+<div class="ttc" id="iutest__time_8hpp_html"><div class="ttname"><a href="../../d9/d00/iutest__time_8hpp.html">iutest_time.hpp</a></div><div class="ttdoc">iris unit test time utility ファイル </div></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_a522dd56c6d3b114b1671d8f2bf82b9e6"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a522dd56c6d3b114b1671d8f2bf82b9e6">IUTEST_CXX_CONSTEXPR_OR_CONST</a></div><div class="ttdeci">#define IUTEST_CXX_CONSTEXPR_OR_CONST</div><div class="ttdoc">constexpr or const </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:270</div></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:663</div></div>
+<div class="ttc" id="namespaceiutest_html_ace58a7cdebbbb2407873bfedbfbbced5"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#ace58a7cdebbbb2407873bfedbfbbced5">iutest::UInt64</a></div><div class="ttdeci">detail::type_least_t&lt; 8 &gt;::UInt UInt64</div><div class="ttdoc">64 bit 符号なし整数型 </div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:367</div></div>
+<div class="ttc" id="group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r_html_gaccdbafbe570fdf1c8cd911fcd93b1e68"><div class="ttname"><a href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#gaccdbafbe570fdf1c8cd911fcd93b1e68">IUTEST_USE_RANDOM_ENGINE_TYPENAME</a></div><div class="ttdeci">#define IUTEST_USE_RANDOM_ENGINE_TYPENAME</div><div class="ttdoc">iutest で使用する乱数エンジンを指定します </div><div class="ttdef"><b>Definition:</b> iutest_config.hpp:660</div></div>
+<div class="ttc" id="namespaceiutest_html_afcd16cedeb04ec5f6fd5181b77095f65"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#afcd16cedeb04ec5f6fd5181b77095f65">iutest::Int64</a></div><div class="ttdeci">detail::type_least_t&lt; 8 &gt;::Int Int64</div><div class="ttdoc">64 bit 符号付き整数型 </div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:366</div></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_a83b2e224dac8ea0f2f882dc07da5bd04"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a></div><div class="ttdeci">#define IUTEST_CXX_CONSTEXPR</div><div class="ttdoc">constexpr </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:263</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年04月25日(月) 23時45分03秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年04月26日(火) 03時13分09秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

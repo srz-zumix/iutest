@@ -38,7 +38,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="../../index.html"><span>総合概要</span></a></li>
+      <li><a href="../../pages.html"><span>諸情報</span></a></li>
+      <li><a href="../../modules.html"><span>モジュール</span></a></li>
+      <li><a href="../../namespaces.html"><span>名前空間</span></a></li>
+      <li><a href="../../annotated.html"><span>クラス</span></a></li>
       <li class="current"><a href="../../files.html"><span>ファイル</span></a></li>
+      <li><a href="../../examples.html"><span>各種例</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -60,6 +65,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="../../files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="../../globals.html"><span>ファイルメンバ</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -67,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>クラス</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>名前空間</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>グループ</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(12)"><span class="SelectionMark">&#160;</span>ページ</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -86,7 +92,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="title">iutest_message.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
+<a href="../../d3/d0c/iutest__message_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div>
@@ -119,14 +125,14 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    ::std::string GetString()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_stream.str(); }</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    iuStreamMessage&amp; operator &lt;&lt; (<span class="keyword">const</span> T&amp; value)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    iuStreamMessage&amp; <a class="code" href="../../d3/dda/namespaceiutest.html#aa73ba60a51191e9c96aad0feeeb1dd4c">operator &lt;&lt; </a>(<span class="keyword">const</span> T&amp; value)</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    {</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        m_stream &lt;&lt; value;</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor"></span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    iuStreamMessage&amp; operator &lt;&lt; (T* <span class="keyword">const</span>&amp; value)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    iuStreamMessage&amp; <a class="code" href="../../d3/dda/namespaceiutest.html#aa73ba60a51191e9c96aad0feeeb1dd4c">operator &lt;&lt; </a>(T* <span class="keyword">const</span>&amp; value)</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    {</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">if</span>( value == NULL )</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        {</div>
@@ -139,38 +145,38 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor"></span>    iuStreamMessage&amp; operator &lt;&lt; (<span class="keywordtype">bool</span> b)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor"></span>    iuStreamMessage&amp; <a class="code" href="../../d3/dda/namespaceiutest.html#aa73ba60a51191e9c96aad0feeeb1dd4c">operator &lt;&lt; </a>(<span class="keywordtype">bool</span> b)</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    {</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        m_stream &lt;&lt; (b ? <span class="stringliteral">&quot;true&quot;</span> : <span class="stringliteral">&quot;false&quot;</span>);</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    iuStreamMessage&amp; operator &lt;&lt; (<span class="keywordtype">char</span>* str)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    iuStreamMessage&amp; <a class="code" href="../../d3/dda/namespaceiutest.html#aa73ba60a51191e9c96aad0feeeb1dd4c">operator &lt;&lt; </a>(<span class="keywordtype">char</span>* str)</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    {</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        append(str);</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    }</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    iuStreamMessage&amp; operator &lt;&lt; (<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    iuStreamMessage&amp; <a class="code" href="../../d3/dda/namespaceiutest.html#aa73ba60a51191e9c96aad0feeeb1dd4c">operator &lt;&lt; </a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str)</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    {</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        append(str);</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    iuStreamMessage&amp; operator &lt;&lt; (<span class="keywordtype">wchar_t</span>* str)</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    iuStreamMessage&amp; <a class="code" href="../../d3/dda/namespaceiutest.html#aa73ba60a51191e9c96aad0feeeb1dd4c">operator &lt;&lt; </a>(<span class="keywordtype">wchar_t</span>* str)</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    {</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        m_stream &lt;&lt; ShowWideCString(str);</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    iuStreamMessage&amp; operator &lt;&lt; (<span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* str)</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    iuStreamMessage&amp; <a class="code" href="../../d3/dda/namespaceiutest.html#aa73ba60a51191e9c96aad0feeeb1dd4c">operator &lt;&lt; </a>(<span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* str)</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    {</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        m_stream &lt;&lt; ShowWideCString(str);</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    iuStreamMessage&amp; operator &lt;&lt; (<span class="keyword">const</span> iuStreamMessage&amp; message)</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    iuStreamMessage&amp; <a class="code" href="../../d3/dda/namespaceiutest.html#aa73ba60a51191e9c96aad0feeeb1dd4c">operator &lt;&lt; </a>(<span class="keyword">const</span> iuStreamMessage&amp; message)</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    {</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        m_stream &lt;&lt; message.GetString();</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    }</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor"></span>    iuStreamMessage&amp; operator &lt;&lt; (iu_basic_iomanip val)</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor"></span>    iuStreamMessage&amp; <a class="code" href="../../d3/dda/namespaceiutest.html#aa73ba60a51191e9c96aad0feeeb1dd4c">operator &lt;&lt; </a>(iu_basic_iomanip val)</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    {</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        m_stream &lt;&lt; val;</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
@@ -189,7 +195,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    iu_global_format_stringstream m_stream;</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;};</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="keyword">inline</span> iu_ostream&amp; operator &lt;&lt; (iu_ostream&amp; os, <span class="keyword">const</span> iuStreamMessage&amp; msg)</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="keyword">inline</span> iu_ostream&amp; <a class="code" href="../../d3/dda/namespaceiutest.html#aa73ba60a51191e9c96aad0feeeb1dd4c">operator &lt;&lt; </a>(iu_ostream&amp; os, <span class="keyword">const</span> iuStreamMessage&amp; msg)</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;{</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">return</span> os &lt;&lt; msg.GetString();</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;}</div>
@@ -212,13 +218,13 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    {}</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>*     message()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_message.c_str(); }       </div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>*     file_name() const IUTEST_CXX_NOEXCEPT_SPEC { <span class="keywordflow">return</span> m_file; }   </div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordtype">int</span>             line_number() const IUTEST_CXX_NOEXCEPT_SPEC { <span class="keywordflow">return</span> m_line; } </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span>*     file_name() const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> { <span class="keywordflow">return</span> m_file; }   </div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordtype">int</span>             line_number() const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> { <span class="keywordflow">return</span> m_line; } </div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    iuCodeMessage&amp; operator &lt;&lt; (<span class="keyword">const</span> T&amp; value)</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    iuCodeMessage&amp; <a class="code" href="../../d3/dda/namespaceiutest.html#aa73ba60a51191e9c96aad0feeeb1dd4c">operator &lt;&lt; </a>(<span class="keyword">const</span> T&amp; value)</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    {</div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        m_message += (iuStreamMessage() &lt;&lt; value).GetString();</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
@@ -243,10 +249,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_MESSAGE_HPP_0A05C876_F204_41F5_895F_F8454AB283B1_</span></div>
+<div class="ttc" id="namespaceiutest_html_aa73ba60a51191e9c96aad0feeeb1dd4c"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#aa73ba60a51191e9c96aad0feeeb1dd4c">iutest::operator&lt;&lt;</a></div><div class="ttdeci">iu_ostream &amp; operator&lt;&lt;(iu_ostream &amp;os, const TestPartResult &amp;result)</div><div class="ttdoc">TestPartResult print 出力 </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:140</div></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:663</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年04月25日(月) 23時45分03秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年04月26日(火) 03時13分09秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

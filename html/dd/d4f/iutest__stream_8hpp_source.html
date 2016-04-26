@@ -38,7 +38,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="../../index.html"><span>総合概要</span></a></li>
+      <li><a href="../../pages.html"><span>諸情報</span></a></li>
+      <li><a href="../../modules.html"><span>モジュール</span></a></li>
+      <li><a href="../../namespaces.html"><span>名前空間</span></a></li>
+      <li><a href="../../annotated.html"><span>クラス</span></a></li>
       <li class="current"><a href="../../files.html"><span>ファイル</span></a></li>
+      <li><a href="../../examples.html"><span>各種例</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -60,6 +65,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="../../files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="../../globals.html"><span>ファイルメンバ</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -67,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>クラス</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>名前空間</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>グループ</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(12)"><span class="SelectionMark">&#160;</span>ページ</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -86,7 +92,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="title">iutest_stream.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
+<a href="../../dd/d4f/iutest__stream_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div>
@@ -171,11 +177,11 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    FILE* m_fp;</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">explicit</span> FileOutStream(FILE* fp) IUTEST_CXX_NOEXCEPT_SPEC</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">explicit</span> FileOutStream(FILE* fp) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        : m_fp(fp)</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    {}</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Write(<span class="keyword">const</span> <span class="keywordtype">void</span>* buf, <span class="keywordtype">size_t</span> size, <span class="keywordtype">size_t</span> cnt) IUTEST_CXX_OVERRIDE</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Write(<span class="keyword">const</span> <span class="keywordtype">void</span>* buf, <span class="keywordtype">size_t</span> size, <span class="keywordtype">size_t</span> cnt) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    {</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordflow">if</span>( fwrite(buf, size, cnt, m_fp) &lt; cnt ) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
@@ -186,10 +192,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_STREAM_HPP_3A4AF139_9F24_4730_81D0_DADFCE6DCF99_</span></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:610</div></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:663</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年04月25日(月) 23時45分03秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年04月26日(火) 03時13分09秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

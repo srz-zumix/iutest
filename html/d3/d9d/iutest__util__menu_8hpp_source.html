@@ -38,7 +38,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="../../index.html"><span>総合概要</span></a></li>
+      <li><a href="../../pages.html"><span>諸情報</span></a></li>
+      <li><a href="../../modules.html"><span>モジュール</span></a></li>
+      <li><a href="../../namespaces.html"><span>名前空間</span></a></li>
+      <li><a href="../../annotated.html"><span>クラス</span></a></li>
       <li class="current"><a href="../../files.html"><span>ファイル</span></a></li>
+      <li><a href="../../examples.html"><span>各種例</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -60,6 +65,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="../../files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="../../globals.html"><span>ファイルメンバ</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -67,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>クラス</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>名前空間</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>グループ</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(12)"><span class="SelectionMark">&#160;</span>ページ</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -86,7 +92,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="title">iutest_util_menu.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
+<a href="../../d3/d9d/iutest__util__menu_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div>
@@ -95,7 +101,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// include</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;iutest_util_tests.hpp&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d8/def/iutest__util__tests_8hpp.html">iutest_util_tests.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#if defined(IUTEST_OS_WINDOWS)</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#include &lt;windows.h&gt;</span></div>
@@ -134,12 +140,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        Append(hRoot, <span class="stringliteral">&quot;以下をすべて実行&quot;</span>, m_nID);</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        ++m_nID;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        ::iutest::UnitTest* pUnitTest = ::iutest::UnitTest::GetInstance();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> testcase_count = pUnitTest-&gt;total_test_case_count();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html">::iutest::UnitTest</a>* pUnitTest = <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">::iutest::UnitTest::GetInstance</a>();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> testcase_count = pUnitTest-&gt;<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#aef84e56219bc896f131df5cd2edeba01">total_test_case_count</a>();</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">for</span>( <span class="keywordtype">int</span> i=0; i &lt; testcase_count; ++i )</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        {</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            const ::iutest::TestCase* pTestCase = pUnitTest-&gt;GetTestCase(i);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">int</span> test_count = pTestCase-&gt;total_test_count();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            const ::iutest::TestCase* pTestCase = pUnitTest-&gt;<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a58db3f3ae9ff2f3ca274f7bdb6937f8a">GetTestCase</a>(i);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">int</span> test_count = pTestCase-&gt;<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#ac8f9395c5fdc7b578e3acb998fe208f3">total_test_count</a>();</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            HMENU hTestCase = AppendPopup(hRoot, pTestCase-&gt;name());</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            Append(hTestCase, <span class="stringliteral">&quot;以下をすべて実行&quot;</span>, m_nID);</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STD_EMPLACE</span></div>
@@ -167,16 +173,16 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    {</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordflow">if</span>( wID == m_nIDTop )</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            ::iutest::IUTEST_FLAG(filter) = <span class="stringliteral">&quot;*&quot;</span>;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            <span class="keywordflow">return</span> IUTEST_RUN_ALL_TESTS() == 0 ? <span class="keyword">true</span> : <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75">::iutest::IUTEST_FLAG</a>(filter) = <span class="stringliteral">&quot;*&quot;</span>;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga8a327cf27dd6c68be0943a4863197982">IUTEST_RUN_ALL_TESTS</a>() == 0 ? <span class="keyword">true</span> : <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        }</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        {</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            TestInfoMap::iterator it = m_TestInfoList.find(wID);</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordflow">if</span>( it != m_TestInfoList.end() )</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                ::iutest::IUTEST_FLAG(filter) = TestFullName(it-&gt;second);</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                <span class="keywordflow">return</span> IUTEST_RUN_ALL_TESTS() == 0 ? <span class="keyword">true</span> : <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75">::iutest::IUTEST_FLAG</a>(filter) = <a class="code" href="../../d8/dbf/namespaceiuutil.html#adf05d2ff6e124f8b2cb9a3a3f2968fab">TestFullName</a>(it-&gt;second);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga8a327cf27dd6c68be0943a4863197982">IUTEST_RUN_ALL_TESTS</a>() == 0 ? <span class="keyword">true</span> : <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            }</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        }</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        {</div>
@@ -185,8 +191,8 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            {</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                ::std::string filter = it-&gt;second-&gt;name();</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                filter += <span class="stringliteral">&quot;.*&quot;</span>;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                ::iutest::IUTEST_FLAG(filter) = filter;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                <span class="keywordflow">return</span> IUTEST_RUN_ALL_TESTS() == 0 ? <span class="keyword">true</span> : <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75">::iutest::IUTEST_FLAG</a>(filter) = filter;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga8a327cf27dd6c68be0943a4863197982">IUTEST_RUN_ALL_TESTS</a>() == 0 ? <span class="keyword">true</span> : <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            }</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        }</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
@@ -235,10 +241,19 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_MENU_TESTS_HPP_52925DE1_A4AE_4CCB_B524_8E97AA73E03D_</span></div>
+<div class="ttc" id="group___t_e_s_t_d_e_f_html_ga8a327cf27dd6c68be0943a4863197982"><div class="ttname"><a href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga8a327cf27dd6c68be0943a4863197982">IUTEST_RUN_ALL_TESTS</a></div><div class="ttdeci">#define IUTEST_RUN_ALL_TESTS()</div><div class="ttdoc">すべてのテストを実行する </div><div class="ttdef"><b>Definition:</b> iutest.hpp:153</div></div>
+<div class="ttc" id="group___i_u_t_e_s_t___u_t_i_l_html_ga650662dc23cc31b5bee68981633a4a75"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75">IUTEST_FLAG</a></div><div class="ttdeci">#define IUTEST_FLAG(name)</div><div class="ttdoc">フラグセット </div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:53</div></div>
+<div class="ttc" id="namespaceiuutil_html_adf05d2ff6e124f8b2cb9a3a3f2968fab"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#adf05d2ff6e124f8b2cb9a3a3f2968fab">iuutil::TestFullName</a></div><div class="ttdeci">inline::std::string TestFullName(const ::iutest::TestInfo *test_info)</div><div class="ttdoc">テスト名を取得 </div><div class="ttdef"><b>Definition:</b> iutest_util_tests.hpp:30</div></div>
+<div class="ttc" id="classiutest_1_1_unit_test_html_aef84e56219bc896f131df5cd2edeba01"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#aef84e56219bc896f131df5cd2edeba01">iutest::UnitTest::total_test_case_count</a></div><div class="ttdeci">int total_test_case_count() const </div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:89</div></div>
+<div class="ttc" id="classiutest_1_1_unit_test_html_a1154caf184eb447dd0fe5fbde60e1868"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">iutest::UnitTest::GetInstance</a></div><div class="ttdeci">static UnitTest * GetInstance()</div><div class="ttdoc">UnitTest インスタンスの取得 </div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:41</div></div>
+<div class="ttc" id="classiutest_1_1_unit_test_html_a58db3f3ae9ff2f3ca274f7bdb6937f8a"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a58db3f3ae9ff2f3ca274f7bdb6937f8a">iutest::UnitTest::GetTestCase</a></div><div class="ttdeci">const TestCase * GetTestCase(int index) const </div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:107</div></div>
+<div class="ttc" id="classiutest_1_1_test_case_html_ac8f9395c5fdc7b578e3acb998fe208f3"><div class="ttname"><a href="../../df/d67/classiutest_1_1_test_case.html#ac8f9395c5fdc7b578e3acb998fe208f3">iutest::TestCase::total_test_count</a></div><div class="ttdeci">int total_test_count() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_case.hpp:72</div></div>
+<div class="ttc" id="iutest__util__tests_8hpp_html"><div class="ttname"><a href="../../d8/def/iutest__util__tests_8hpp.html">iutest_util_tests.hpp</a></div><div class="ttdoc">iris unit test テスト情報 utility ファイル </div></div>
+<div class="ttc" id="classiutest_1_1_unit_test_html"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html">iutest::UnitTest</a></div><div class="ttdoc">テスト全体の管理者 </div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:33</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年04月25日(月) 23時45分03秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年04月26日(火) 03時13分09秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

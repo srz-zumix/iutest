@@ -38,7 +38,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="../../index.html"><span>総合概要</span></a></li>
+      <li><a href="../../pages.html"><span>諸情報</span></a></li>
+      <li><a href="../../modules.html"><span>モジュール</span></a></li>
+      <li><a href="../../namespaces.html"><span>名前空間</span></a></li>
+      <li><a href="../../annotated.html"><span>クラス</span></a></li>
       <li class="current"><a href="../../files.html"><span>ファイル</span></a></li>
+      <li><a href="../../examples.html"><span>各種例</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -60,6 +65,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="../../files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="../../globals.html"><span>ファイルメンバ</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -67,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>クラス</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>名前空間</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>グループ</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(12)"><span class="SelectionMark">&#160;</span>ページ</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -86,7 +92,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="title">iutest_progress_printer.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
+<a href="../../dc/d5d/iutest__progress__printer_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div>
@@ -103,47 +109,47 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">// class</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"></span><span class="keyword">class </span>ProgressPrintListener : <span class="keyword">public</span> EmptyTestEventListener</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="../../d6/db3/classiutest_1_1_progress_print_listener.html">   31</a></span>&#160;{</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    ProgressPrintListener() : m_should_run_num(0), m_ran_num(0) {}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="../../d6/db3/classiutest_1_1_progress_print_listener.html">ProgressPrintListener</a>() : m_should_run_num(0), m_ran_num(0) {}</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestProgramStart(<span class="keyword">const</span> UnitTest&amp; test) IUTEST_CXX_OVERRIDE;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestIterationStart(<span class="keyword">const</span> UnitTest&amp; test</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                                    , <span class="keywordtype">int</span> iteration) IUTEST_CXX_OVERRIDE;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestEnd(<span class="keyword">const</span> TestInfo&amp; test_info) IUTEST_CXX_OVERRIDE;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../d6/db3/classiutest_1_1_progress_print_listener.html#a01137929a8aac59cb17d3132d07424a0">OnTestProgramStart</a>(<span class="keyword">const</span> <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a>&amp; test) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../d6/db3/classiutest_1_1_progress_print_listener.html#a241f773bcfa879ea28bff6c3264a7b33">OnTestIterationStart</a>(<span class="keyword">const</span> <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a>&amp; test</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                                    , <span class="keywordtype">int</span> iteration) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../d6/db3/classiutest_1_1_progress_print_listener.html#a05ef89aefc579686dcea29f5eaa2fcf2">OnTestEnd</a>(<span class="keyword">const</span> <a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a>&amp; test_info) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">int</span> m_should_run_num;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">int</span> m_ran_num;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">static</span> TestEventListener* SetUp()</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        TestEventListeners&amp; listeners = UnitTest::GetInstance()-&gt;listeners();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keyword">delete</span> listeners.Release(listeners.default_result_printer());</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        TestEventListener* p = <span class="keyword">new</span> ProgressPrintListener;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        listeners.Append(p);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">static</span> <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html">TestEventListener</a>* <a class="code" href="../../d6/db3/classiutest_1_1_progress_print_listener.html#a69fe6ef6ce76b736fdf5186fcb379d16">SetUp</a>()</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="../../d6/db3/classiutest_1_1_progress_print_listener.html#a69fe6ef6ce76b736fdf5186fcb379d16">   49</a></span>&#160;    {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html">TestEventListeners</a>&amp; listeners = <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">UnitTest::GetInstance</a>()-&gt;<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#ad1bc193da4371e5bc979fec816ba3d35">listeners</a>();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keyword">delete</span> listeners.<a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a1cfc2c7548e26395bd1be19928d6fe8c">Release</a>(listeners.<a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a8fb5ced0c4ab6319f8845caf32b68ef6">default_result_printer</a>());</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <a class="code" href="../../dd/d01/classiutest_1_1_test_event_listener.html">TestEventListener</a>* p = <span class="keyword">new</span> <a class="code" href="../../d6/db3/classiutest_1_1_progress_print_listener.html">ProgressPrintListener</a>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        listeners.<a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a40d861fd66ce3f69d40e015dfbc4cbd3">Append</a>(p);</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> p;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> ProgressPrintListener::OnTestProgramStart(<span class="keyword">const</span> UnitTest&amp; test)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;{</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="../../d6/db3/classiutest_1_1_progress_print_listener.html#a01137929a8aac59cb17d3132d07424a0">ProgressPrintListener::OnTestProgramStart</a>(<span class="keyword">const</span> UnitTest&amp; test)</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="../../d6/db3/classiutest_1_1_progress_print_listener.html#a01137929a8aac59cb17d3132d07424a0">   59</a></span>&#160;{</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    IUTEST_UNUSED_VAR(test);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    detail::iuConsole::output(<span class="stringliteral">&quot;0%%   10   20   30   40   50   60   70   80   90   100%%\n&quot;</span>);</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    detail::iuConsole::output(<span class="stringliteral">&quot;|----|----|----|----|----|----|----|----|----|----|   \n&quot;</span>);</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> ProgressPrintListener::OnTestIterationStart(<span class="keyword">const</span> UnitTest&amp; test</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                , <span class="keywordtype">int</span> iteration)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="../../d6/db3/classiutest_1_1_progress_print_listener.html#a241f773bcfa879ea28bff6c3264a7b33">ProgressPrintListener::OnTestIterationStart</a>(<span class="keyword">const</span> <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a>&amp; test</div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="../../d6/db3/classiutest_1_1_progress_print_listener.html#a241f773bcfa879ea28bff6c3264a7b33">   66</a></span>&#160;                                , <span class="keywordtype">int</span> iteration)</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;{</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    IUTEST_UNUSED_VAR(iteration);</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    m_should_run_num = test.test_to_run_count();</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    m_ran_num = 0;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> ProgressPrintListener::OnTestEnd(<span class="keyword">const</span> TestInfo&amp; test_info)</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;{</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="../../d6/db3/classiutest_1_1_progress_print_listener.html#a05ef89aefc579686dcea29f5eaa2fcf2">ProgressPrintListener::OnTestEnd</a>(<span class="keyword">const</span> <a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a>&amp; test_info)</div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="../../d6/db3/classiutest_1_1_progress_print_listener.html#a05ef89aefc579686dcea29f5eaa2fcf2">   74</a></span>&#160;{</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    IUTEST_UNUSED_VAR(test_info);</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    ++m_ran_num;</div>
@@ -159,10 +165,25 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PROGRESS_PRINTER_HPP_D31CE626_EA82_4265_B2B6_50EC5C63CFB6_</span></div>
+<div class="ttc" id="classiutest_1_1_progress_print_listener_html"><div class="ttname"><a href="../../d6/db3/classiutest_1_1_progress_print_listener.html">iutest::ProgressPrintListener</a></div><div class="ttdoc">プログレス出力イベントリスナー </div><div class="ttdef"><b>Definition:</b> iutest_progress_printer.hpp:31</div></div>
+<div class="ttc" id="classiutest_1_1_test_event_listeners_html"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html">iutest::TestEventListeners</a></div><div class="ttdoc">イベントリスナーの管理クラス </div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:156</div></div>
+<div class="ttc" id="classiutest_1_1_test_event_listeners_html_a8fb5ced0c4ab6319f8845caf32b68ef6"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a8fb5ced0c4ab6319f8845caf32b68ef6">iutest::TestEventListeners::default_result_printer</a></div><div class="ttdeci">TestEventListener * default_result_printer() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">デフォルト出力リスナーの取得 </div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:178</div></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:610</div></div>
+<div class="ttc" id="classiutest_1_1_test_event_listener_html"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html">iutest::TestEventListener</a></div><div class="ttdoc">イベントリスナー </div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:61</div></div>
+<div class="ttc" id="classiutest_1_1_unit_test_html_a1154caf184eb447dd0fe5fbde60e1868"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">iutest::UnitTest::GetInstance</a></div><div class="ttdeci">static UnitTest * GetInstance()</div><div class="ttdoc">UnitTest インスタンスの取得 </div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:41</div></div>
+<div class="ttc" id="classiutest_1_1_progress_print_listener_html_a01137929a8aac59cb17d3132d07424a0"><div class="ttname"><a href="../../d6/db3/classiutest_1_1_progress_print_listener.html#a01137929a8aac59cb17d3132d07424a0">iutest::ProgressPrintListener::OnTestProgramStart</a></div><div class="ttdeci">virtual void OnTestProgramStart(const UnitTest &amp;test) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">テストプログラム開始時に呼ばれます </div><div class="ttdef"><b>Definition:</b> iutest_progress_printer.hpp:59</div></div>
+<div class="ttc" id="classiutest_1_1_test_event_listeners_html_a1cfc2c7548e26395bd1be19928d6fe8c"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a1cfc2c7548e26395bd1be19928d6fe8c">iutest::TestEventListeners::Release</a></div><div class="ttdeci">TestEventListener * Release(TestEventListener *listener)</div><div class="ttdoc">リスナーの解放 </div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:172</div></div>
+<div class="ttc" id="classiutest_1_1_test_info_html"><div class="ttname"><a href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a></div><div class="ttdoc">テスト情報クラス </div><div class="ttdef"><b>Definition:</b> iutest_info.hpp:32</div></div>
+<div class="ttc" id="classiutest_1_1_progress_print_listener_html_a241f773bcfa879ea28bff6c3264a7b33"><div class="ttname"><a href="../../d6/db3/classiutest_1_1_progress_print_listener.html#a241f773bcfa879ea28bff6c3264a7b33">iutest::ProgressPrintListener::OnTestIterationStart</a></div><div class="ttdeci">virtual void OnTestIterationStart(const UnitTest &amp;test, int iteration) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">単体テスト開始時に毎回呼ばれます </div><div class="ttdef"><b>Definition:</b> iutest_progress_printer.hpp:66</div></div>
+<div class="ttc" id="classiutest_1_1_unit_test_html_ad1bc193da4371e5bc979fec816ba3d35"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#ad1bc193da4371e5bc979fec816ba3d35">iutest::UnitTest::listeners</a></div><div class="ttdeci">TestEventListeners &amp; listeners() const </div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:115</div></div>
+<div class="ttc" id="classiutest_1_1_progress_print_listener_html_a69fe6ef6ce76b736fdf5186fcb379d16"><div class="ttname"><a href="../../d6/db3/classiutest_1_1_progress_print_listener.html#a69fe6ef6ce76b736fdf5186fcb379d16">iutest::ProgressPrintListener::SetUp</a></div><div class="ttdeci">static TestEventListener * SetUp()</div><div class="ttdoc">ProgressPrintListener に切り替え </div><div class="ttdef"><b>Definition:</b> iutest_progress_printer.hpp:49</div></div>
+<div class="ttc" id="classiutest_1_1_progress_print_listener_html_a05ef89aefc579686dcea29f5eaa2fcf2"><div class="ttname"><a href="../../d6/db3/classiutest_1_1_progress_print_listener.html#a05ef89aefc579686dcea29f5eaa2fcf2">iutest::ProgressPrintListener::OnTestEnd</a></div><div class="ttdeci">virtual void OnTestEnd(const TestInfo &amp;test_info) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">テストケース終了時にに呼ばれます </div><div class="ttdef"><b>Definition:</b> iutest_progress_printer.hpp:74</div></div>
+<div class="ttc" id="classiutest_1_1_unit_test_html"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html">iutest::UnitTest</a></div><div class="ttdoc">テスト全体の管理者 </div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:33</div></div>
+<div class="ttc" id="classiutest_1_1_test_event_listeners_html_a40d861fd66ce3f69d40e015dfbc4cbd3"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a40d861fd66ce3f69d40e015dfbc4cbd3">iutest::TestEventListeners::Append</a></div><div class="ttdeci">void Append(TestEventListener *listener)</div><div class="ttdoc">リスナーの追加 </div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:167</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年04月25日(月) 23時45分03秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年04月26日(火) 03時13分09秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

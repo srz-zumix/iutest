@@ -38,7 +38,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="../../index.html"><span>総合概要</span></a></li>
+      <li><a href="../../pages.html"><span>諸情報</span></a></li>
+      <li><a href="../../modules.html"><span>モジュール</span></a></li>
+      <li><a href="../../namespaces.html"><span>名前空間</span></a></li>
+      <li><a href="../../annotated.html"><span>クラス</span></a></li>
       <li class="current"><a href="../../files.html"><span>ファイル</span></a></li>
+      <li><a href="../../examples.html"><span>各種例</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -60,6 +65,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="../../files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="../../globals.html"><span>ファイルメンバ</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -68,7 +74,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>クラス</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>名前空間</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>グループ</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(12)"><span class="SelectionMark">&#160;</span>ページ</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -82,7 +88,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="title">iutest_typed_tests.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
+<a href="../../d7/d4a/iutest__typed__tests_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div>
@@ -91,10 +97,10 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// include</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;internal/iutest_typed_util.hpp&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../df/dbd/iutest__typed__util_8hpp.html">internal/iutest_typed_util.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#if IUTEST_HAS_TYPED_TEST_P</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  include &quot;internal/iutest_pool.hpp&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  include &quot;<a class="code" href="../../db/d71/iutest__pool_8hpp.html">internal/iutest_pool.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">//======================================================================</span></div>
@@ -104,14 +110,14 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_VARIADIC_MACROS)</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_TYPED_TEST_CASE(testcase_, ...)    IIUT_TYPED_TEST_CASE_(testcase_, __VA_ARGS__)</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#gae66e40268541c8a179af720f0beee90c">   43</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_TYPED_TEST_CASE(testcase_, types_) IIUT_TYPED_TEST_CASE_(testcase_, types_)</span></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#define IUTEST_TYPED_TEST(testcase_, testname_)     IUTEST_TYPED_TEST_(testcase_, testname_)</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga20179a8a238b2ddb2aea8ff3e7eb67a2">   55</a></span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#define IUTEST_T(testcase_, testname_)              IUTEST_TYPED_TEST_(testcase_, testname_)</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga203a686b252b4c476de35dad665f5b38">   64</a></span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE</span></div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define IIUT_TYPED_TEST_PARAMS_(testcase_)                                          \</span></div>
@@ -190,16 +196,16 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="preprocessor">#if IUTEST_HAS_TYPED_TEST_P</span></div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="preprocessor">#define IUTEST_TYPED_TEST_CASE_P(testcase_)             IIUT_TYPED_TEST_CASE_P_(testcase_)</span></div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#gace17d2e293ca0c8cfe17c700a1169512">  160</a></span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="preprocessor">#define IUTEST_TYPED_TEST_P(testcase_, testname_)       IIUT_TYPED_TEST_P_(testcase_, testname_)</span></div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga911461d4ee14abaa56ee213157f98b39">  169</a></span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="preprocessor">#define IUTEST_TP(testcase_, testname_)                 IIUT_TYPED_TEST_P_(testcase_, testname_)</span></div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00178"></a><span class="lineno"><a class="line" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga21b5bebe63e4abbdd0c231ad00f4149a">  178</a></span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="preprocessor">#define IUTEST_REGISTER_TYPED_TEST_CASE_P(testcase_, ...)   \</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="preprocessor">    IIUT_REGISTER_TYPED_TEST_CASE_P_(testcase_, __VA_ARGS__)</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga40893436e3a722535ed0a4a3490df78f">  186</a></span>&#160;<span class="preprocessor">    IIUT_REGISTER_TYPED_TEST_CASE_P_(testcase_, __VA_ARGS__)</span></div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="preprocessor">#define IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(prefix_, testcase_, ...)   \</span></div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="preprocessor">    IIUT_INSTANTIATE_TYPED_TEST_CASE_P_(prefix_, testcase_, __VA_ARGS__)</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno"><a class="line" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#gadb6dd5aac39e34288180e982b92407f7">  197</a></span>&#160;<span class="preprocessor">    IIUT_INSTANTIATE_TYPED_TEST_CASE_P_(prefix_, testcase_, __VA_ARGS__)</span></div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="preprocessor">#define IIUT_TYPED_TEST_CASE_PSTATE_NAME_(testcase_)    s_iutest_typed_test_case_p_state_##testcase_##_</span></div>
@@ -340,7 +346,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    EachTest&lt;TypeParams, void&gt; m_tests;</div>
 <div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeParamTestInstance);</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    <a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>(TypeParamTestInstance);</div>
 <div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;};</div>
 <div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;</div>
 <div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="preprocessor">#endif</span></div>
@@ -363,7 +369,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    {</div>
 <div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;        <span class="keywordflow">if</span>( m_names != NULL )</div>
 <div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        {</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;            IUTEST_LOG_(WARNING) &lt;&lt; detail::FormatCompilerIndependentFileLocation(file, line)</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;            <a class="code" href="../../d1/d2a/iutest__port_8hpp.html#a967848348e16a7d0ab2a31c1593ca9ef">IUTEST_LOG_</a>(WARNING) &lt;&lt; detail::FormatCompilerIndependentFileLocation(file, line)</div>
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;                &lt;&lt; <span class="stringliteral">&quot;: Test &quot;</span> &lt;&lt; test_name &lt;&lt; <span class="stringliteral">&quot; must be defined before IUTEST_REGISTER_TYPED_TEST_CASE_P(&quot;</span></div>
 <div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;                &lt;&lt; testcase_name &lt;&lt; <span class="stringliteral">&quot;, ...).\n&quot;</span>;</div>
 <div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;        }</div>
@@ -390,7 +396,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;                    <span class="keywordflow">continue</span>;</div>
 <div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;                }</div>
 <div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;            }</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;            IUTEST_LOG_(WARNING) &lt;&lt; detail::FormatCompilerIndependentFileLocation(file, line)</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;            <a class="code" href="../../d1/d2a/iutest__port_8hpp.html#a967848348e16a7d0ab2a31c1593ca9ef">IUTEST_LOG_</a>(WARNING) &lt;&lt; detail::FormatCompilerIndependentFileLocation(file, line)</div>
 <div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;                &lt;&lt; <span class="stringliteral">&quot;: Test &quot;</span> &lt;&lt; test_name &lt;&lt; <span class="stringliteral">&quot; has not been registered.\n&quot;</span>;</div>
 <div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;            ret = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        }</div>
@@ -410,7 +416,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;<span class="preprocessor"></span>    nameset_t m_list;</div>
 <div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypedTestCasePState);</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    <a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>(TypedTestCasePState);</div>
 <div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;};</div>
 <div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;</div>
 <div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class </span>Fixture, <span class="keyword">typename</span> Tests, <span class="keyword">typename</span> Types&gt;</div>
@@ -435,10 +441,10 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> Register(TestCase* testcase, <span class="keyword">const</span> <span class="keywordtype">char</span>* test_names)</div>
 <div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;        {</div>
 <div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()</div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;            const <span class="keywordtype">char</span>* str = detail::SkipSpace(test_names);</div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;            const <span class="keywordtype">char</span>* comma = strchr(str, &#39;,&#39;);</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;            ::std::<span class="keywordtype">string</span> test_name;</div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;            if( comma == NULL )</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">char</span>* str = detail::SkipSpace(test_names);</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">char</span>* comma = strchr(str, <span class="charliteral">&#39;,&#39;</span>);</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;            ::std::string test_name;</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;            <span class="keywordflow">if</span>( comma == NULL )</div>
 <div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;            {</div>
 <div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;                test_name = str;</div>
 <div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;            }</div>
@@ -520,10 +526,14 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
 <div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;</div>
 <div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_TYPED_TESTS_HPP_DA9562C6_8CAB_4242_9E9E_22FFB490DE30_</span></div>
+<div class="ttc" id="iutest__pool_8hpp_html"><div class="ttname"><a href="../../db/d71/iutest__pool_8hpp.html">iutest_pool.hpp</a></div><div class="ttdoc">iris unit test memory pool ファイル </div></div>
+<div class="ttc" id="iutest__port_8hpp_html_a967848348e16a7d0ab2a31c1593ca9ef"><div class="ttname"><a href="../../d1/d2a/iutest__port_8hpp.html#a967848348e16a7d0ab2a31c1593ca9ef">IUTEST_LOG_</a></div><div class="ttdeci">#define IUTEST_LOG_(level)</div><div class="ttdoc">ログメッセージストリーム </div><div class="ttdef"><b>Definition:</b> iutest_port.hpp:49</div></div>
+<div class="ttc" id="iutest__typed__util_8hpp_html"><div class="ttname"><a href="../../df/dbd/iutest__typed__util_8hpp.html">iutest_typed_util.hpp</a></div><div class="ttdoc">iris unit test typed util </div></div>
+<div class="ttc" id="iutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義 </div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:25</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年04月25日(月) 23時45分03秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年04月26日(火) 03時13分09秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

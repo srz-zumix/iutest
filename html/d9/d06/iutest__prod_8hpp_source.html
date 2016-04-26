@@ -38,7 +38,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="../../index.html"><span>総合概要</span></a></li>
+      <li><a href="../../pages.html"><span>諸情報</span></a></li>
+      <li><a href="../../modules.html"><span>モジュール</span></a></li>
+      <li><a href="../../namespaces.html"><span>名前空間</span></a></li>
+      <li><a href="../../annotated.html"><span>クラス</span></a></li>
       <li class="current"><a href="../../files.html"><span>ファイル</span></a></li>
+      <li><a href="../../examples.html"><span>各種例</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -60,6 +65,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="../../files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="../../globals.html"><span>ファイルメンバ</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -68,7 +74,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>クラス</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>名前空間</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>グループ</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(12)"><span class="SelectionMark">&#160;</span>ページ</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -82,7 +88,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="title">iutest_prod.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
+<a href="../../d9/d06/iutest__prod_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div>
@@ -92,32 +98,32 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// define</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"></span><span class="preprocessor">#define IUTEST_FRIEND_TEST(test_case_name, test_name)   \</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">    friend class IUTEST_TEST_CLASS_NAME_(test_case_name, test_name)</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#a04d5e3d10afc363a8e69a2eaa713ff8c">   24</a></span>&#160;<span class="preprocessor">    friend class IUTEST_TEST_CLASS_NAME_(test_case_name, test_name)</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#if IUTEST_HAS_TYPED_TEST || IUTEST_HAS_TYPED_TEST_P</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#if !defined(_MSC_VER) || _MSC_VER &gt; 1200</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#define IUTEST_FRIEND_TYPED_TEST(test_case_name, test_name) \</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">    template&lt;typename T&gt;IUTEST_FRIEND_TEST(test_case_name, test_name)</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#aabf6b6e2a4f958f021f5645bd98a1910">   34</a></span>&#160;<span class="preprocessor">    template&lt;typename T&gt;IUTEST_FRIEND_TEST(test_case_name, test_name)</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#define IUTEST_MAKE_PEEP(member_type, class_name, member_name)      \</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">    IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name)</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#a785124bcefaf5c6e494648c4fa581511">   47</a></span>&#160;<span class="preprocessor">    IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name)</span></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#define IUTEST_PEEP_GET(v, class_name, member_name)     \</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">    (v.*::iutest::detail::peep_tag&lt; IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::value)</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#abf3dc05618b1eeea337fa8d758d6534c">   56</a></span>&#160;<span class="preprocessor">    (v.*::iutest::detail::peep_tag&lt; IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::value)</span></div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#define IUTEST_PEEP_STATIC_GET(class_name, member_name) \</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">    (*::iutest::detail::peep_tag&lt; IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::value)</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#a11f5f182732f422d5ca214f37a13d371">   64</a></span>&#160;<span class="preprocessor">    (*::iutest::detail::peep_tag&lt; IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::value)</span></div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#if IUTEST_HAS_PEEP_CLASS</span></div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#define IUTEST_PEEP(class_name, member_name)            \</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">    ::iutest::Peep&lt; class_name, IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::type</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#a2acb8952f9dc74b2c32ded455d13e480">   74</a></span>&#160;<span class="preprocessor">    ::iutest::Peep&lt; class_name, IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::type</span></div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor"></span></div>
@@ -162,7 +168,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Tag&gt;</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="keyword">class </span>Peep</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;{</div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="../../dc/dcc/classiutest_1_1_peep.html">  133</a></span>&#160;{</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keyword">typedef</span> Tag peep_tag;</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> Tag::type peep_type;</div>
@@ -259,12 +265,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> Type, <span class="keywordtype">bool</span> Func&gt;</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keyword">struct </span>peep_member_impl</div>
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    {</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        <span class="keyword">typedef</span> peep_member_function_impl&lt;U, Type&gt; type;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        <span class="keyword">typedef</span> peep_member_function_impl&lt;U, Type&gt; <a class="code" href="../../dc/dcc/classiutest_1_1_peep.html#ae6bdcb5d04a67de061dc27fc28b95c6e">type</a>;</div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    };</div>
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> Type&gt;</div>
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    <span class="keyword">struct </span>peep_member_impl&lt;U, Type U::*, false&gt;</div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    {</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        <span class="keyword">typedef</span> peep_member_object_impl&lt;U, Type, type_traits::is_const&lt;Type&gt;::value&gt; type;</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        <span class="keyword">typedef</span> peep_member_object_impl&lt;U, Type, type_traits::is_const&lt;Type&gt;::value&gt; <a class="code" href="../../dc/dcc/classiutest_1_1_peep.html#ae6bdcb5d04a67de061dc27fc28b95c6e">type</a>;</div>
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    };</div>
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;<span class="keyword">private</span>:</div>
@@ -297,28 +303,29 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> Type, <span class="keywordtype">bool</span> is_member_ptr&gt;</div>
 <div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="keyword">struct </span>peep_impl</div>
 <div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    {</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        <span class="keyword">typedef</span> peep_static_impl&lt;U, Type, type_traits::is_function_pointer&lt;Type&gt;::value &gt; type;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        <span class="keyword">typedef</span> peep_static_impl&lt;U, Type, type_traits::is_function_pointer&lt;Type&gt;::value &gt; <a class="code" href="../../dc/dcc/classiutest_1_1_peep.html#ae6bdcb5d04a67de061dc27fc28b95c6e">type</a>;</div>
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    };</div>
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> Type&gt;</div>
 <div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    <span class="keyword">struct </span>peep_impl&lt;U, Type, true&gt;</div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    {</div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        <span class="keyword">typedef</span> <span class="keyword">typename</span> peep_member_impl&lt;U, Type</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;            , type_traits::is_member_function_pointer&lt;Type&gt;::value &gt;::type type;</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;            , type_traits::is_member_function_pointer&lt;Type&gt;::value &gt;<a class="code" href="../../dc/dcc/classiutest_1_1_peep.html#ae6bdcb5d04a67de061dc27fc28b95c6e">::type</a> <a class="code" href="../../dc/dcc/classiutest_1_1_peep.html#ae6bdcb5d04a67de061dc27fc28b95c6e">type</a>;</div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    };</div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> peep_impl&lt;T, peep_type</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        , type_traits::is_member_pointer&lt;peep_type&gt;::value &gt;::type type;</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;};</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        , type_traits::is_member_pointer&lt;peep_type&gt;::value &gt;<a class="code" href="../../dc/dcc/classiutest_1_1_peep.html#ae6bdcb5d04a67de061dc27fc28b95c6e">::type</a> <a class="code" href="../../dc/dcc/classiutest_1_1_peep.html#ae6bdcb5d04a67de061dc27fc28b95c6e">type</a>;</div>
+<div class="line"><a name="l00280"></a><span class="lineno"><a class="line" href="../../dc/dcc/classiutest_1_1_peep.html#ae6bdcb5d04a67de061dc27fc28b95c6e">  280</a></span>&#160;};</div>
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;</div>
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;</div>
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PROD_HPP_7A316C18_042D_4E48_BC31_E6AE8B6C2E28_</span></div>
+<div class="ttc" id="classiutest_1_1_peep_html_ae6bdcb5d04a67de061dc27fc28b95c6e"><div class="ttname"><a href="../../dc/dcc/classiutest_1_1_peep.html#ae6bdcb5d04a67de061dc27fc28b95c6e">iutest::Peep::type</a></div><div class="ttdeci">peep_impl&lt; T, peep_type, type_traits::is_member_pointer&lt; peep_type &gt;::value &gt;::type type</div><div class="ttdoc">private メンバーアクセスオブジェクト型 </div><div class="ttdef"><b>Definition:</b> iutest_prod.hpp:280</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年04月25日(月) 23時45分03秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年04月26日(火) 03時13分09秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

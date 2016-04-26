@@ -38,7 +38,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="../../index.html"><span>総合概要</span></a></li>
+      <li><a href="../../pages.html"><span>諸情報</span></a></li>
+      <li><a href="../../modules.html"><span>モジュール</span></a></li>
+      <li><a href="../../namespaces.html"><span>名前空間</span></a></li>
+      <li><a href="../../annotated.html"><span>クラス</span></a></li>
       <li class="current"><a href="../../files.html"><span>ファイル</span></a></li>
+      <li><a href="../../examples.html"><span>各種例</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -60,6 +65,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="../../files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="../../globals.html"><span>ファイルメンバ</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -67,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>クラス</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>名前空間</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>グループ</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(12)"><span class="SelectionMark">&#160;</span>ページ</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -86,7 +92,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="title">iutest_internal_defs.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
+<a href="../../d3/d4c/iutest__internal__defs_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div>
@@ -96,9 +102,9 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// include</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;../iutest_defs.hpp&quot;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;iutest_string.hpp&quot;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;iutest_type_traits.hpp&quot;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;iutest_exception.hpp&quot;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d7/d86/iutest__string_8hpp.html">iutest_string.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d9/d0b/iutest__type__traits_8hpp.html">iutest_type_traits.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d3/d8e/iutest__exception_8hpp.html">iutest_exception.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#if IUTEST_HAS_HDR_CXXABI</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  include &lt;cxxabi.h&gt;</span></div>
@@ -111,7 +117,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_AMBIGUOUS_ELSE_BLOCKER_</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_AMBIGUOUS_ELSE_BLOCKER_    switch(::iutest::detail::AlwaysZero()) case 0: default:</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="../../d3/d4c/iutest__internal__defs_8hpp.html#a646dae3b6c926055ae2f597d74f48bc8">   39</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#define IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(statement) if( ::iutest::detail::AlwaysTrue() ) statement</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor"></span></div>
@@ -311,7 +317,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        }</div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    }</div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(scoped_ptr);</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>(scoped_ptr);</div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;};</div>
 <div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;</div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="keyword">struct </span>IsNullLiteralHelper</div>
@@ -332,11 +338,11 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">char</span> no_t;</div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;</div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="keyword">static</span> IUTEST_CXX_CONSTEXPR yes_t IsContainer(<span class="keywordtype">int</span> IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="keyword">static</span> <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a> yes_t IsContainer(<span class="keywordtype">int</span> IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)</div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        , <span class="keyword">typename</span> T::iterator* =NULL, <span class="keyword">typename</span> T::const_iterator* =NULL) { <span class="keywordflow">return</span> 0; }</div>
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;</div>
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="keyword">static</span> IUTEST_CXX_CONSTEXPR no_t  IsContainer(<span class="keywordtype">long</span> IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)) { <span class="keywordflow">return</span> 0; }</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="keyword">static</span> <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a> no_t  IsContainer(<span class="keywordtype">long</span> IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T)) { <span class="keywordflow">return</span> 0; }</div>
 <div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;};</div>
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;</div>
 <div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)</span></div>
@@ -441,10 +447,15 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;</div>
 <div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;</div>
 <div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_INTERNAL_DEFS_HPP_4B0AF5C2_8E8D_43EF_BFC5_F385E68F18DB_</span></div>
+<div class="ttc" id="iutest__exception_8hpp_html"><div class="ttname"><a href="../../d3/d8e/iutest__exception_8hpp.html">iutest_exception.hpp</a></div><div class="ttdoc">iris unit test exception </div></div>
+<div class="ttc" id="iutest__type__traits_8hpp_html"><div class="ttname"><a href="../../d9/d0b/iutest__type__traits_8hpp.html">iutest_type_traits.hpp</a></div><div class="ttdoc">iris unit test type traits </div></div>
+<div class="ttc" id="iutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義 </div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:25</div></div>
+<div class="ttc" id="iutest__string_8hpp_html"><div class="ttname"><a href="../../d7/d86/iutest__string_8hpp.html">iutest_string.hpp</a></div><div class="ttdoc">iris unit test 文字列操作 ファイル </div></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_a83b2e224dac8ea0f2f882dc07da5bd04"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a83b2e224dac8ea0f2f882dc07da5bd04">IUTEST_CXX_CONSTEXPR</a></div><div class="ttdeci">#define IUTEST_CXX_CONSTEXPR</div><div class="ttdoc">constexpr </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:263</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年04月25日(月) 23時45分03秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年04月26日(火) 03時13分09秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

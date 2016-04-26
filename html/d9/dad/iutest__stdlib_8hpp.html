@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.6"/>
+<title>iutest: internal/iutest_stdlib.hpp ファイル</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">iutest
+   &#160;<span id="projectnumber">1.15.0.34</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.8.6 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="../../index.html"><span>総合概要</span></a></li>
+      <li><a href="../../pages.html"><span>諸情報</span></a></li>
+      <li><a href="../../modules.html"><span>モジュール</span></a></li>
+      <li><a href="../../namespaces.html"><span>名前空間</span></a></li>
+      <li><a href="../../annotated.html"><span>クラス</span></a></li>
+      <li class="current"><a href="../../files.html"><span>ファイル</span></a></li>
+      <li><a href="../../examples.html"><span>各種例</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="検索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="../../files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="../../globals.html"><span>ファイルメンバ</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>クラス</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>名前空間</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>グループ</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(12)"><span class="SelectionMark">&#160;</span>ページ</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_7374381ecdb819c64ee9b6ea2bd3370d.html">internal</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#namespaces">名前空間</a> &#124;
+<a href="#define-members">マクロ定義</a>  </div>
+  <div class="headertitle">
+<div class="title">iutest_stdlib.hpp ファイル</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>iris unit test stdlib  
+<a href="#details">[詳解]</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d4/db0/iutest__config_8hpp_source.html">iutest_config.hpp</a>&quot;</code><br/>
+<code>#include &lt;cstdlib&gt;</code><br/>
+<code>#include &lt;cstddef&gt;</code><br/>
+</div>
+<p><a href="../../d9/dad/iutest__stdlib_8hpp_source.html">[ソースコード]</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+名前空間</h2></td></tr>
+<tr class="memitem:d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
+<tr class="memdesc:d3/dda/namespaceiutest"><td class="mdescLeft">&#160;</td><td class="mdescRight">iutest root namespace <br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+マクロ定義</h2></td></tr>
+<tr class="memitem:afcb300b7125a82fa6e96ba7e498b9d11"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afcb300b7125a82fa6e96ba7e498b9d11"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#afcb300b7125a82fa6e96ba7e498b9d11">IUTEST_HAS_STD_BEGIN_END</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:afcb300b7125a82fa6e96ba7e498b9d11"><td class="mdescLeft">&#160;</td><td class="mdescRight">has std::begin,std::end <br/></td></tr>
+<tr class="separator:afcb300b7125a82fa6e96ba7e498b9d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88615ccf327d37ef8d9e39efd02a3f88"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a88615ccf327d37ef8d9e39efd02a3f88"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#a88615ccf327d37ef8d9e39efd02a3f88">IUTEST_HAS_STD_DECLVAL</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a88615ccf327d37ef8d9e39efd02a3f88"><td class="mdescLeft">&#160;</td><td class="mdescRight">has std::declval <br/></td></tr>
+<tr class="separator:a88615ccf327d37ef8d9e39efd02a3f88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bacacb1f606e20fdeeb7c0655b82a82"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7bacacb1f606e20fdeeb7c0655b82a82"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#a7bacacb1f606e20fdeeb7c0655b82a82">IUTEST_USE_EXTERNAL_TR1_TUPLE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a7bacacb1f606e20fdeeb7c0655b82a82"><td class="mdescLeft">&#160;</td><td class="mdescRight">use external include tr1::tuple <br/></td></tr>
+<tr class="separator:a7bacacb1f606e20fdeeb7c0655b82a82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2720c9a24f8f7eefc7569efed8fd817a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2720c9a24f8f7eefc7569efed8fd817a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#a2720c9a24f8f7eefc7569efed8fd817a">IUTEST_USE_EXTERNAL_STD_TUPLE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a2720c9a24f8f7eefc7569efed8fd817a"><td class="mdescLeft">&#160;</td><td class="mdescRight">use external include std::tuple <br/></td></tr>
+<tr class="separator:a2720c9a24f8f7eefc7569efed8fd817a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0515f4ff4d32531fa847d78b2e5fd637"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0515f4ff4d32531fa847d78b2e5fd637"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#a0515f4ff4d32531fa847d78b2e5fd637">IUTEST_HAS_STD_TUPLE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a0515f4ff4d32531fa847d78b2e5fd637"><td class="mdescLeft">&#160;</td><td class="mdescRight">has ::std::tuple <br/></td></tr>
+<tr class="separator:a0515f4ff4d32531fa847d78b2e5fd637"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63c76365f87a609948608d6641d045ba"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a63c76365f87a609948608d6641d045ba"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#a63c76365f87a609948608d6641d045ba">IUTEST_HAS_TR1_TUPLE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a63c76365f87a609948608d6641d045ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">has ::std::tr1::tuple <br/></td></tr>
+<tr class="separator:a63c76365f87a609948608d6641d045ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8384188c9c826e00f46b7edfa1ddb46c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8384188c9c826e00f46b7edfa1ddb46c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#a8384188c9c826e00f46b7edfa1ddb46c">IUTEST_HAS_TUPLE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a8384188c9c826e00f46b7edfa1ddb46c"><td class="mdescLeft">&#160;</td><td class="mdescRight">has tuple <br/></td></tr>
+<tr class="separator:a8384188c9c826e00f46b7edfa1ddb46c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8d8b3071149c3b8448afd23aca5f289"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad8d8b3071149c3b8448afd23aca5f289"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#ad8d8b3071149c3b8448afd23aca5f289">IUTEST_HAS_CXX_HDR_CHRONO</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ad8d8b3071149c3b8448afd23aca5f289"><td class="mdescLeft">&#160;</td><td class="mdescRight">has chrono header <br/></td></tr>
+<tr class="separator:ad8d8b3071149c3b8448afd23aca5f289"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ece30205647dccdfcff8a0c0a9e74ef"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4ece30205647dccdfcff8a0c0a9e74ef"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#a4ece30205647dccdfcff8a0c0a9e74ef">IUTEST_HAS_CXX_HDR_REGEX</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a4ece30205647dccdfcff8a0c0a9e74ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">has regex header <br/></td></tr>
+<tr class="separator:a4ece30205647dccdfcff8a0c0a9e74ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a774fc3052d031a81b8a27e121748aa64"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a774fc3052d031a81b8a27e121748aa64"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#a774fc3052d031a81b8a27e121748aa64">IUTEST_HAS_CXX_HDR_RANDOM</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a774fc3052d031a81b8a27e121748aa64"><td class="mdescLeft">&#160;</td><td class="mdescRight">has random header <br/></td></tr>
+<tr class="separator:a774fc3052d031a81b8a27e121748aa64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace001fa232a38f2504d6eb21aa0625d8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ace001fa232a38f2504d6eb21aa0625d8"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#ace001fa232a38f2504d6eb21aa0625d8">IUTEST_HAS_CXX_HDR_CODECVT</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ace001fa232a38f2504d6eb21aa0625d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">has codecvt header <br/></td></tr>
+<tr class="separator:ace001fa232a38f2504d6eb21aa0625d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c4ba0518b245ca248665c528f84b28c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4c4ba0518b245ca248665c528f84b28c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#a4c4ba0518b245ca248665c528f84b28c">IUTEST_HAS_STD_EMPLACE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a4c4ba0518b245ca248665c528f84b28c"><td class="mdescLeft">&#160;</td><td class="mdescRight">has emplace <br/></td></tr>
+<tr class="separator:a4c4ba0518b245ca248665c528f84b28c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8eda549de4225946d4aaca5928480be0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8eda549de4225946d4aaca5928480be0"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#a8eda549de4225946d4aaca5928480be0">IUTEST_HAS_HDR_CXXABI</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:a8eda549de4225946d4aaca5928480be0"><td class="mdescLeft">&#160;</td><td class="mdescRight">has cxxabi header <br/></td></tr>
+<tr class="separator:a8eda549de4225946d4aaca5928480be0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9323b8b4a8d3fab05f085b08de5ae9ac"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9323b8b4a8d3fab05f085b08de5ae9ac"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#a9323b8b4a8d3fab05f085b08de5ae9ac">IUTEST_USING_BEGIN_END</a>()&#160;&#160;&#160;using ::iutest::detail::cxx::begin; using ::iutest::detail::cxx::end</td></tr>
+<tr class="memdesc:a9323b8b4a8d3fab05f085b08de5ae9ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">using begin,end <br/></td></tr>
+<tr class="separator:a9323b8b4a8d3fab05f085b08de5ae9ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad85c487d2730af5acf729f3f86f119ea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad85c487d2730af5acf729f3f86f119ea"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#ad85c487d2730af5acf729f3f86f119ea">IUTEST_HAS_HDR_UCHAR</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ad85c487d2730af5acf729f3f86f119ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">has uchar <br/></td></tr>
+<tr class="separator:ad85c487d2730af5acf729f3f86f119ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad41582f2ee01c7bfbbd1f685c8c9b1ac"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad41582f2ee01c7bfbbd1f685c8c9b1ac"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#ad41582f2ee01c7bfbbd1f685c8c9b1ac">IUTEST_HAS_HDR_SYSTIME</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ad41582f2ee01c7bfbbd1f685c8c9b1ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">has sys/time.h header <br/></td></tr>
+<tr class="separator:ad41582f2ee01c7bfbbd1f685c8c9b1ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad54a63b997b402437fb77620e78085df"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad54a63b997b402437fb77620e78085df"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#ad54a63b997b402437fb77620e78085df">IUTEST_HAS_STRINGSTREAM</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ad54a63b997b402437fb77620e78085df"><td class="mdescLeft">&#160;</td><td class="mdescRight">std::stringstream が使用可能かどうか <br/></td></tr>
+<tr class="separator:ad54a63b997b402437fb77620e78085df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5f8ba8e39f3eaae15391efaef0b4087"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dad/iutest__stdlib_8hpp.html#ae5f8ba8e39f3eaae15391efaef0b4087">IUTEST_HAS_STRSTREAM</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ae5f8ba8e39f3eaae15391efaef0b4087"><td class="mdescLeft">&#160;</td><td class="mdescRight">std::strstream が使用可能かどうか  <a href="#ae5f8ba8e39f3eaae15391efaef0b4087">[詳解]</a><br/></td></tr>
+<tr class="separator:ae5f8ba8e39f3eaae15391efaef0b4087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>iris unit test stdlib </p>
+<dl class="section author"><dt>著者</dt><dd>t.shirayanagi </dd></dl>
+<dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2012-2016, Takazumi Shirayanagi<br/>
+This software is released under the new BSD License, see LICENSE </dd></dl>
+</div><h2 class="groupheader">マクロ定義詳解</h2>
+<a class="anchor" id="ae5f8ba8e39f3eaae15391efaef0b4087"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_HAS_STRSTREAM&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>std::strstream が使用可能かどうか </p>
+<dl class="section note"><dt>覚え書き</dt><dd>IUTEST_HAS_STRINGSTREAM が優先されます </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+2016年04月26日(火) 03時13分09秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.6
+</small></address>
+</body>
+</html>

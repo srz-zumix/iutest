@@ -1,0 +1,1584 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.6"/>
+<title>iutest: internal/iutest_internal.hpp ファイル</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">iutest
+   &#160;<span id="projectnumber">1.15.0.34</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.8.6 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="../../index.html"><span>総合概要</span></a></li>
+      <li><a href="../../pages.html"><span>諸情報</span></a></li>
+      <li><a href="../../modules.html"><span>モジュール</span></a></li>
+      <li><a href="../../namespaces.html"><span>名前空間</span></a></li>
+      <li><a href="../../annotated.html"><span>クラス</span></a></li>
+      <li class="current"><a href="../../files.html"><span>ファイル</span></a></li>
+      <li><a href="../../examples.html"><span>各種例</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="検索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="../../files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="../../globals.html"><span>ファイルメンバ</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>クラス</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>名前空間</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>グループ</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(12)"><span class="SelectionMark">&#160;</span>ページ</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_7374381ecdb819c64ee9b6ea2bd3370d.html">internal</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#define-members">マクロ定義</a>  </div>
+  <div class="headertitle">
+<div class="title">iutest_internal.hpp ファイル</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>iris unit test 内部定義 ファイル  
+<a href="#details">[詳解]</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d4/db0/iutest__config_8hpp_source.html">iutest_config.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="../../de/dc7/iutest__pred_8hpp_source.html">../iutest_pred.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="../../d9/d87/iutest__package_8hpp_source.html">../iutest_package.hpp</a>&quot;</code><br/>
+</div>
+<p><a href="../../db/d32/iutest__internal_8hpp_source.html">[ソースコード]</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+マクロ定義</h2></td></tr>
+<tr class="memitem:af67da570b03fd15d43ea1decaa1265a2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_</b>(testcase_, testname_, parent_class_, type_id_)</td></tr>
+<tr class="separator:af67da570b03fd15d43ea1decaa1265a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9cb99dd250906728c3468525ceb2701"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_IGNORE_</b>(testcase_, testname_, parent_class_, type_id_)</td></tr>
+<tr class="separator:aa9cb99dd250906728c3468525ceb2701"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe56915f383f6a5ded96e65aa8935d7d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abe56915f383f6a5ded96e65aa8935d7d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_MESSAGE_AT</b>(file_, line_, msg_, result_type_)&#160;&#160;&#160;::iutest::AssertionHelper(file_, line_, msg_, result_type_) = ::iutest::AssertionHelper::Fixed()</td></tr>
+<tr class="separator:abe56915f383f6a5ded96e65aa8935d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a503f85c2b73e5ff6f6f4e13887426ea9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a503f85c2b73e5ff6f6f4e13887426ea9"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_MESSAGE</b>(msg_, result_type_)&#160;&#160;&#160;IUTEST_MESSAGE_AT(__FILE__, __LINE__, msg_, result_type_)</td></tr>
+<tr class="separator:a503f85c2b73e5ff6f6f4e13887426ea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9670e74b5e696e98f87ee51080e32a4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa9670e74b5e696e98f87ee51080e32a4"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_ASSERT_FAILURE</b>(msg)&#160;&#160;&#160;IUTEST_ASSERT_FAILURE_AT(msg, __FILE__, __LINE__)</td></tr>
+<tr class="separator:aa9670e74b5e696e98f87ee51080e32a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7f910ec627c5b18f84cb6545e64b2f1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae7f910ec627c5b18f84cb6545e64b2f1"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_ASSERT_FAILURE_AT</b>(msg, file, line)&#160;&#160;&#160;return IUTEST_MESSAGE_AT(file, line, msg, ::<a class="el" href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6">iutest::TestPartResult::kFatalFailure</a>)</td></tr>
+<tr class="separator:ae7f910ec627c5b18f84cb6545e64b2f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefbd9b7976ec5fcdad0233c715a7bacf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aefbd9b7976ec5fcdad0233c715a7bacf"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_EXPECT_FAILURE</b>(msg)&#160;&#160;&#160;IUTEST_EXPECT_FAILURE_AT(msg, __FILE__, __LINE__)</td></tr>
+<tr class="separator:aefbd9b7976ec5fcdad0233c715a7bacf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca424912069fb4a3ccc734ba0160c862"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aca424912069fb4a3ccc734ba0160c862"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_EXPECT_FAILURE_AT</b>(msg, file, line)&#160;&#160;&#160;IUTEST_MESSAGE_AT(file, line, msg, ::<a class="el" href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5a25a59d8268f93e2f89c9b5bea8940146">iutest::TestPartResult::kNonFatalFailure</a>)</td></tr>
+<tr class="separator:aca424912069fb4a3ccc734ba0160c862"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab71b6bc6a7da1f55037a3c7cdd4ee49a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab71b6bc6a7da1f55037a3c7cdd4ee49a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_INFORM_FAILURE</b>(msg)&#160;&#160;&#160;IUTEST_INFORM_FAILURE_AT(msg, __FILE__, __LINE__)</td></tr>
+<tr class="separator:ab71b6bc6a7da1f55037a3c7cdd4ee49a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a033d27487e1863389e2d092320e81e75"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a033d27487e1863389e2d092320e81e75"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_INFORM_FAILURE_AT</b>(msg, file, line)&#160;&#160;&#160;IUTEST_MESSAGE_AT(file, line, msg, ::<a class="el" href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5ac1f0c9447143e8911e47c7259f6856ad">iutest::TestPartResult::kWarning</a>)</td></tr>
+<tr class="separator:a033d27487e1863389e2d092320e81e75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d990c8d6f3b5132c8ea7112ea3d6484"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2d990c8d6f3b5132c8ea7112ea3d6484"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_ASSUME_FAILURE</b>(msg)&#160;&#160;&#160;IUTEST_ASSUME_FAILURE_AT(msg, __FILE__, __LINE__)</td></tr>
+<tr class="separator:a2d990c8d6f3b5132c8ea7112ea3d6484"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03058dcaf083714c0affcbb6bb5e621a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a03058dcaf083714c0affcbb6bb5e621a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_ASSUME_FAILURE_AT</b>(msg, file, line)&#160;&#160;&#160;return IUTEST_MESSAGE_AT(file, line, msg, ::<a class="el" href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5a81b189615c5da276536705d46827d8b3">iutest::TestPartResult::kAssumeFailure</a>)</td></tr>
+<tr class="separator:a03058dcaf083714c0affcbb6bb5e621a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adda056b07fa18fabfdd911e728dcfabf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adda056b07fa18fabfdd911e728dcfabf"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_SKIP_MESSAGE</b>(msg)&#160;&#160;&#160;IUTEST_SKIP_MESSAGE_AT(msg, __FILE__, __LINE__)</td></tr>
+<tr class="separator:adda056b07fa18fabfdd911e728dcfabf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a788f5ea4231732ca669368a8a89748cb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a788f5ea4231732ca669368a8a89748cb"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_SKIP_MESSAGE_AT</b>(msg, file, line)&#160;&#160;&#160;return IUTEST_MESSAGE_AT(file, line, msg, ::<a class="el" href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5a7afb6039f8447d668d9884dea7d9acca">iutest::TestPartResult::kSkip</a>)</td></tr>
+<tr class="separator:a788f5ea4231732ca669368a8a89748cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a305877dd9b42d5904f6e6e1eecadc92c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a305877dd9b42d5904f6e6e1eecadc92c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_MAKE_ASSERTIONRESULT_</b>(ar)&#160;&#160;&#160;ar</td></tr>
+<tr class="separator:a305877dd9b42d5904f6e6e1eecadc92c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a914edfe417bd14d496a2f02dfb3c8262"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_ASSERT_</b>(expression, on_failure)</td></tr>
+<tr class="separator:a914edfe417bd14d496a2f02dfb3c8262"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad554a22c90d33b27ca1b99c50aa46ebe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_THROW_</b>(statement, expected_exception, on_failure)</td></tr>
+<tr class="separator:ad554a22c90d33b27ca1b99c50aa46ebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad39b83a9c5b00fcde897dc927bbd799b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_THROW_VALUE_</b>(statement, expected_exception, expected_exception_value, on_failure, pred_formatter)</td></tr>
+<tr class="separator:ad39b83a9c5b00fcde897dc927bbd799b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa29d64d2e4bdcf78a767b94b00b41db7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_THROW_VALUE_EQ_</b>(statement, expected_exception, expected_exception_value, on_failure)</td></tr>
+<tr class="separator:aa29d64d2e4bdcf78a767b94b00b41db7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fbdfc8e64ff80f85240bfd2ae513a86"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_THROW_VALUE_NE_</b>(statement, expected_exception, expected_exception_value, on_failure)</td></tr>
+<tr class="separator:a0fbdfc8e64ff80f85240bfd2ae513a86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6a8d8b362d591aea90e557290f54f18"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_THROW_VALUE_STREQ_</b>(statement, expected_exception, expected_exception_value, on_failure)</td></tr>
+<tr class="separator:af6a8d8b362d591aea90e557290f54f18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f237c56210f6e10e01530c1937e2037"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_THROW_VALUE_STRCASEEQ_</b>(statement, expected_exception, expected_exception_value, on_failure)</td></tr>
+<tr class="separator:a3f237c56210f6e10e01530c1937e2037"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0abf0cd74fa2acf11395ca5533bc936"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_ANY_THROW_</b>(statement, on_failure)</td></tr>
+<tr class="separator:af0abf0cd74fa2acf11395ca5533bc936"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7987a94a6f750be1a250a944fae4091d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_NO_THROW_</b>(statement, on_failure)</td></tr>
+<tr class="separator:a7987a94a6f750be1a250a944fae4091d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39c6dc9109ca65f54a65625908e2a85e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_BOOLEAN_</b>(expression, text, actual, expected, on_failure)</td></tr>
+<tr class="separator:a39c6dc9109ca65f54a65625908e2a85e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8696d4733a86ddd9ebea68dedb0fa536"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_ASSERT_EXIT</b>(cond)</td></tr>
+<tr class="separator:a8696d4733a86ddd9ebea68dedb0fa536"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a907669078d54b998e153d15bb017a01b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a907669078d54b998e153d15bb017a01b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_THROUGH_ANALYSIS_ASSUME_</b>(expr, todo)&#160;&#160;&#160;todo</td></tr>
+<tr class="separator:a907669078d54b998e153d15bb017a01b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd2876533b98517f34b317fe5d012f27"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_EQ</b>(expected, actual, on_failure)</td></tr>
+<tr class="separator:abd2876533b98517f34b317fe5d012f27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d6833e400f75a14e42d17016ad1b796"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_NE</b>(v1, v2, on_failure)</td></tr>
+<tr class="separator:a3d6833e400f75a14e42d17016ad1b796"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0179fe5e5b34b3cb8717e26fcca56e4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_LE</b>(v1, v2, on_failure)</td></tr>
+<tr class="separator:af0179fe5e5b34b3cb8717e26fcca56e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa46083efb72e8c0bb9f94b556b3f5973"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_LT</b>(v1, v2, on_failure)</td></tr>
+<tr class="separator:aa46083efb72e8c0bb9f94b556b3f5973"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae214783c614bbf7f7f1c1e6a3eb12fb4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_GE</b>(v1, v2, on_failure)</td></tr>
+<tr class="separator:ae214783c614bbf7f7f1c1e6a3eb12fb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf7b44bccfc1f47bfb749e835300b831"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_GT</b>(v1, v2, on_failure)</td></tr>
+<tr class="separator:adf7b44bccfc1f47bfb749e835300b831"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acde34bb23cbf67ba46d7a3ddf378943e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acde34bb23cbf67ba46d7a3ddf378943e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_TRUE</b>(expr, text, on_failure)&#160;&#160;&#160;IUTEST_TEST_BOOLEAN_( expr, text, false, true, on_failure)</td></tr>
+<tr class="separator:acde34bb23cbf67ba46d7a3ddf378943e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29cfada77272392a84c8ad61c1d3e01a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a29cfada77272392a84c8ad61c1d3e01a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_FALSE</b>(expr, text, on_failure)&#160;&#160;&#160;IUTEST_TEST_BOOLEAN_( !(expr), text, true, false, on_failure)</td></tr>
+<tr class="separator:a29cfada77272392a84c8ad61c1d3e01a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04c50fda725dd124ab04997c7d8ac268"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_FLOAT_EQ</b>(expected, actual, on_failure)</td></tr>
+<tr class="separator:a04c50fda725dd124ab04997c7d8ac268"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace0d30de4ef3eb378f9b0b2ed3e9173a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_DOUBLE_EQ</b>(expected, actual, on_failure)</td></tr>
+<tr class="separator:ace0d30de4ef3eb378f9b0b2ed3e9173a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a6405a3fea8c7aee016d2b5c333d061"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_NEAR</b>(v1, v2, abs_v, on_failure)</td></tr>
+<tr class="separator:a2a6405a3fea8c7aee016d2b5c333d061"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2df39e3fb479d1a2ea1f64abb589faf6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_STREQ</b>(expected, actual, on_failure)</td></tr>
+<tr class="separator:a2df39e3fb479d1a2ea1f64abb589faf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa04e3395072748d8625c39c05567612"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_STRNE</b>(v1, v2, on_failure)</td></tr>
+<tr class="separator:aaa04e3395072748d8625c39c05567612"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af482ba2983ddfc3f0aaf6bb056b942af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_STRCASEEQ</b>(expected, actual, on_failure)</td></tr>
+<tr class="separator:af482ba2983ddfc3f0aaf6bb056b942af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44ab7c9e8d72e21f59574999f16218af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_STRCASENE</b>(v1, v2, on_failure)</td></tr>
+<tr class="separator:a44ab7c9e8d72e21f59574999f16218af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae32d8a8f884d69cded158ed0270bc2da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_HRESULT_SUCCEEDED</b>(hr, on_failure)</td></tr>
+<tr class="separator:ae32d8a8f884d69cded158ed0270bc2da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4633d1665baa3c81cac549c6fabc9e1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_HRESULT_FAILED</b>(hr, on_failure)</td></tr>
+<tr class="separator:ae4633d1665baa3c81cac549c6fabc9e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10d0d803b598251c1fdae5247e1a9866"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_SAME</b>(v1, v2, on_failure)</td></tr>
+<tr class="separator:a10d0d803b598251c1fdae5247e1a9866"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae91cc32cbb8f01e684f4e9ae2fe5b305"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_NULL</b>(v, on_failure)</td></tr>
+<tr class="separator:ae91cc32cbb8f01e684f4e9ae2fe5b305"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0477b6d6563e2d41ed147fa3373be913"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_NOTNULL</b>(v, on_failure)</td></tr>
+<tr class="separator:a0477b6d6563e2d41ed147fa3373be913"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa90ff6dea537645f297ab5878146a0c2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_NO_FAILURE_</b>(statement, on_failure)</td></tr>
+<tr class="separator:aa90ff6dea537645f297ab5878146a0c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a462d8fa9e0d25d9bd1bd9b36a0e9258a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_NO_FATAL_FAILURE_</b>(statement, on_failure)</td></tr>
+<tr class="separator:a462d8fa9e0d25d9bd1bd9b36a0e9258a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a998c4ef0346c9ba4a150228a5a0d295c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_SKIP</b>()</td></tr>
+<tr class="separator:a998c4ef0346c9ba4a150228a5a0d295c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89d9ec3d8fcba78b3a83c8be0203c05c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a89d9ec3d8fcba78b3a83c8be0203c05c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d32/iutest__internal_8hpp.html#a89d9ec3d8fcba78b3a83c8be0203c05c">IUTEST_TEST_COMPILEERROR</a>(e)&#160;&#160;&#160;IUTEST_PRAGMA_MESSAGE(&quot;IUTEST_TEST_COMPILEERROR( &quot; #e &quot; )&quot;)</td></tr>
+<tr class="memdesc:a89d9ec3d8fcba78b3a83c8be0203c05c"><td class="mdescLeft">&#160;</td><td class="mdescRight">コンパイルエラーチェックタグ <br/></td></tr>
+<tr class="separator:a89d9ec3d8fcba78b3a83c8be0203c05c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:aedddfe3d25c6fe4b5c988def852a98b4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aedddfe3d25c6fe4b5c988def852a98b4"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_CLASS_NAME_</b>(testcase_, testname_)&#160;&#160;&#160;IIUT_TEST_CLASS_NAME_I(IIUT_TO_VARNAME_(testcase_), IIUT_TO_VARNAME_(testname_))</td></tr>
+<tr class="separator:aedddfe3d25c6fe4b5c988def852a98b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac10e97d11de2bfc97768ddf38106bd4e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac10e97d11de2bfc97768ddf38106bd4e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_INSTANCE_NAME_</b>(testcase_, testname_)&#160;&#160;&#160;IIUT_TEST_INSTANCE_NAME_I(IIUT_TO_VARNAME_(testcase_), IIUT_TO_VARNAME_(testname_))</td></tr>
+<tr class="separator:ac10e97d11de2bfc97768ddf38106bd4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a915777d5ae970c5d13edb792f801fc9d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a915777d5ae970c5d13edb792f801fc9d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_ALIAS_TESTNAME_</b>(name_)&#160;&#160;&#160;UNPAREN_(dummy, IUTEST_PP_CAT(iutest_japanese_var, __LINE__), name_)</td></tr>
+<tr class="separator:a915777d5ae970c5d13edb792f801fc9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d89e2ea9046c6663fde58c511d21dd1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d89e2ea9046c6663fde58c511d21dd1"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_ALIAS_TESTNAME_F_</b>(name_, var_)&#160;&#160;&#160;UNPAREN_(dummy, var_, name_)</td></tr>
+<tr class="separator:a4d89e2ea9046c6663fde58c511d21dd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23fb6cecc22d79856a646004106637a4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_STRICT_</b>(testcase_, testname_, parent_class_, type_id_)</td></tr>
+<tr class="separator:a23fb6cecc22d79856a646004106637a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac32f655e5f488d01e3aad1e452c66049"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac32f655e5f488d01e3aad1e452c66049"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_F_</b>(testfixture_, testname_)&#160;&#160;&#160;IIUT_TEST_F_A_(IUTEST_TEST_, testfixture_, testname_)</td></tr>
+<tr class="separator:ac32f655e5f488d01e3aad1e452c66049"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acea498d994609fc63e4364c2b082c292"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acea498d994609fc63e4364c2b082c292"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_F_IGNORE_</b>(testfixture_, testname_)&#160;&#160;&#160;IIUT_TEST_F_A_( IUTEST_TEST_IGNORE_, testfixture_, testname_)</td></tr>
+<tr class="separator:acea498d994609fc63e4364c2b082c292"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:a44b3f8da382d12ced574362188ba0db3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a44b3f8da382d12ced574362188ba0db3"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_PMZ_TEST_CLASS_NAME_</b>(testcase_, testname_)&#160;&#160;&#160;IIUT_PMZ_TEST_CLASS_NAME_I(IIUT_TO_VARNAME_(testcase_), IIUT_TO_VARNAME_(testname_))</td></tr>
+<tr class="separator:a44b3f8da382d12ced574362188ba0db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:a23c00c719efd2d4ded587a1539dc07f7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a23c00c719efd2d4ded587a1539dc07f7"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_CLASS_INITIALIZE</b>(methodName)&#160;&#160;&#160;static void SetUpTestCase() { methodName(); } static void methodName()</td></tr>
+<tr class="separator:a23c00c719efd2d4ded587a1539dc07f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d3aa8f745d3d017b91389ce70617d84"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4d3aa8f745d3d017b91389ce70617d84"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_CLASS_CLEANUP</b>(methodName)&#160;&#160;&#160;static void TearDownTestCase() { methodName(); } static void methodName()</td></tr>
+<tr class="separator:a4d3aa8f745d3d017b91389ce70617d84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38f6e76a2b005f5cd3e77ff1b1b8750d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a38f6e76a2b005f5cd3e77ff1b1b8750d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_METHOD_INITIALIZE</b>(methodName)&#160;&#160;&#160;virtual void SetUp() <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> { methodName(); } void methodName()</td></tr>
+<tr class="separator:a38f6e76a2b005f5cd3e77ff1b1b8750d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3eb91c6cc4c65a05ad6f1009f9bed9a1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3eb91c6cc4c65a05ad6f1009f9bed9a1"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_METHOD_CLEANUP</b>(methodName)&#160;&#160;&#160;virtual void TearDown() <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> { methodName(); } void methodName()</td></tr>
+<tr class="separator:a3eb91c6cc4c65a05ad6f1009f9bed9a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:acf8595280f52986005b9531802039012"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acf8595280f52986005b9531802039012"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d32/iutest__internal_8hpp.html#acf8595280f52986005b9531802039012">IUTEST_TEST_STATICASSERT</a>(e)&#160;&#160;&#160;<a class="el" href="../../db/d32/iutest__internal_8hpp.html#a89d9ec3d8fcba78b3a83c8be0203c05c">IUTEST_TEST_COMPILEERROR</a>(&quot;static_assert&quot;)</td></tr>
+<tr class="memdesc:acf8595280f52986005b9531802039012"><td class="mdescLeft">&#160;</td><td class="mdescRight">static_assert チェックタグ <br/></td></tr>
+<tr class="separator:acf8595280f52986005b9531802039012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>iris unit test 内部定義 ファイル </p>
+<dl class="section author"><dt>著者</dt><dd>t.shirayanagi </dd></dl>
+<dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2011-2016, Takazumi Shirayanagi<br/>
+This software is released under the new BSD License, see LICENSE </dd></dl>
+</div><h2 class="groupheader">マクロ定義詳解</h2>
+<a class="anchor" id="a8696d4733a86ddd9ebea68dedb0fa536"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_ASSERT_EXIT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">cond</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> { <span class="keywordflow">if</span>( !(cond) ) {                                                \</div>
+<div class="line">                                                IUTEST_MESSAGE(#cond, ::<a class="code" href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6">iutest::TestPartResult::kFatalFailure</a>); \</div>
+<div class="line">                                                exit(1);                                                        \</div>
+<div class="line">                                            } } <span class="keywordflow">while</span>(::iutest::detail::AlwaysFalse())</div>
+<div class="ttc" id="classiutest_1_1_test_part_result_html_a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6">iutest::TestPartResult::kFatalFailure</a></div><div class="ttdoc">致命的な失敗 </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:67</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="af67da570b03fd15d43ea1decaa1265a2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">testcase_, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">testname_, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">parent_class_, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">type_id_&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line"><span class="keyword">class </span>IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : <span class="keyword">public</span> parent_class_ {            <a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">\</a></div>
+<div class="line"><a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));     \</div>
+<div class="line">        public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)() {}                          \</div>
+<div class="line">        protected: <span class="keyword">virtual</span> <span class="keywordtype">void</span> Body() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;                                 \</div>
+<div class="line">    };                                                                                      \</div>
+<div class="line">    ::iutest::detail::TestInstance&lt;IUTEST_TEST_CLASS_NAME_(testcase_, testname_)&gt;           \</div>
+<div class="line">    IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(                                       \</div>
+<div class="line">        IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_)      \</div>
+<div class="line">        , type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);         \</div>
+<div class="line">    <span class="keywordtype">void</span> IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body()</div>
+<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:610</div></div>
+<div class="ttc" id="iutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義 </div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:25</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="af0abf0cd74fa2acf11395ca5533bc936"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_ANY_THROW_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">statement, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                          \</div>
+<div class="line">    if( ::iutest::detail::AlwaysTrue() ) {                                  \</div>
+<div class="line">        try {                                                               \</div>
+<div class="line">            (void)(statement);                                              \</div>
+<div class="line">            goto IUTEST_PP_CAT(iutest_label_anythrow, __LINE__);            \</div>
+<div class="line">        } <span class="keywordflow">catch</span>( ... ) {                                                    \</div>
+<div class="line">        }                                                                   \</div>
+<div class="line">    } else                                                                  \</div>
+<div class="line">        IUTEST_PP_CAT(iutest_label_anythrow, __LINE__):                     \</div>
+<div class="line">        on_failure(<span class="stringliteral">&quot;\nExpected: &quot;</span> #statement <span class="stringliteral">&quot; throws an exception.\n  Actual: it doesn&#39;s throws.&quot;</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a914edfe417bd14d496a2f02dfb3c8262"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_ASSERT_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expression, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_AMBIGUOUS_ELSE_BLOCKER_                  \</div>
+<div class="line">    if( const ::iutest::AssertionResult iutest_ar = IUTEST_MAKE_ASSERTIONRESULT_(expression) )  \</div>
+<div class="line">        ;                                           \</div>
+<div class="line">    else                                            \</div>
+<div class="line">        on_failure(iutest_ar.message())</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a39c6dc9109ca65f54a65625908e2a85e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_BOOLEAN_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expression, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">text, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">actual, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                              \</div>
+<div class="line">    if( const ::iutest::AssertionResult iutest_ar = ::<a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html#a670d58b4331f0ebc08f21118f839b868">iutest::AssertionResult::Is</a>(expression) ) \</div>
+<div class="line">        ;                                                                       \</div>
+<div class="line">    else                                                                        \</div>
+<div class="line">        on_failure(::iutest::internal::GetBooleanAssertionFailureMessage(       \</div>
+<div class="line">            iutest_ar, text, #actual, #expected).c_str() )</div>
+<div class="ttc" id="classiutest_1_1_assertion_result_html_a670d58b4331f0ebc08f21118f839b868"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html#a670d58b4331f0ebc08f21118f839b868">iutest::AssertionResult::Is</a></div><div class="ttdeci">static AssertionResult Is(const T &amp;b)</div><div class="ttdoc">成否の取得 </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:128</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="ace0d30de4ef3eb378f9b0b2ed3e9173a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_DOUBLE_EQ</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">actual, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperFloatingPointEQ&lt;double&gt;  \</div>
+<div class="line">        , expected, actual, on_failure )</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="abd2876533b98517f34b317fe5d012f27"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_EQ</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">actual, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_PRED_FORMAT2_( ::iutest::internal::EqHelper&lt;IUTEST_IS_NULLLITERAL(expected)&gt;::Compare    \</div>
+<div class="line">        , expected, actual, on_failure )</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a04c50fda725dd124ab04997c7d8ac268"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_FLOAT_EQ</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">actual, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperFloatingPointEQ&lt;float&gt;   \</div>
+<div class="line">        , expected, actual, on_failure )</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="ae214783c614bbf7f7f1c1e6a3eb12fb4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_GE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v1, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v2, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperGE   \</div>
+<div class="line">        , v1, v2, on_failure )</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="adf7b44bccfc1f47bfb749e835300b831"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_GT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v1, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v2, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperGT   \</div>
+<div class="line">        , v1, v2, on_failure )</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="ae4633d1665baa3c81cac549c6fabc9e1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_HRESULT_FAILED</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">hr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTFailure  \</div>
+<div class="line">        , hr, on_failure )</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="ae32d8a8f884d69cded158ed0270bc2da"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_HRESULT_SUCCEEDED</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">hr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTSuccess  \</div>
+<div class="line">        , hr, on_failure )</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="aa9cb99dd250906728c3468525ceb2701"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_IGNORE_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">testcase_, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">testname_, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">parent_class_, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">type_id_&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line"><span class="keyword">class </span>IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : <span class="keyword">public</span> parent_class_ {            <a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">\</a></div>
+<div class="line"><a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>( IUTEST_TEST_CLASS_NAME_(testcase_, testname_) );   \</div>
+<div class="line">        public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)() {}                          \</div>
+<div class="line">        protected: <span class="keyword">virtual</span> <span class="keywordtype">void</span> Body() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> { <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#gae5dfd482090363d33d905171c2149828">IUTEST_SKIP</a>() &lt;&lt; <span class="stringliteral">&quot;ignored test...&quot;</span>; }          \</div>
+<div class="line">        template&lt;typename T&gt;<span class="keywordtype">void</span> Body();                                                    \</div>
+<div class="line">    };                                                                                      \</div>
+<div class="line">    ::iutest::detail::TestInstance&lt;IUTEST_TEST_CLASS_NAME_(testcase_, testname_)&gt;           \</div>
+<div class="line">    IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(                                       \</div>
+<div class="line">        IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_)      \</div>
+<div class="line">        , type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);         \</div>
+<div class="line">    template&lt;typename T&gt;<span class="keywordtype">void</span> IUTEST_TEST_CLASS_NAME_(testcase_, testname_ )::Body()</div>
+<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:610</div></div>
+<div class="ttc" id="iutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義 </div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:25</div></div>
+<div class="ttc" id="group___i_u_t_e_s_t___u_t_i_l_html_gae5dfd482090363d33d905171c2149828"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#gae5dfd482090363d33d905171c2149828">IUTEST_SKIP</a></div><div class="ttdeci">#define IUTEST_SKIP()</div><div class="ttdoc">テストの明示的なスキップ </div><div class="ttdef"><b>Definition:</b> iutest.hpp:212</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="af0179fe5e5b34b3cb8717e26fcca56e4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_LE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v1, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v2, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperLE   \</div>
+<div class="line">        , v1, v2, on_failure )</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="aa46083efb72e8c0bb9f94b556b3f5973"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_LT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v1, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v2, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperLT   \</div>
+<div class="line">        , v1, v2, on_failure )</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a3d6833e400f75a14e42d17016ad1b796"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_NE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v1, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v2, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_PRED_FORMAT2_( ::iutest::internal::NeHelper&lt;IUTEST_IS_NULLLITERAL(v1)&gt;::Compare          \</div>
+<div class="line">        , v1, v2, on_failure )</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a2a6405a3fea8c7aee016d2b5c333d061"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_NEAR</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v1, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v2, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">abs_v, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_PRED_FORMAT3_( ::iutest::internal::CmpHelperNear \</div>
+<div class="line">        , v1, v2, abs_v, on_failure )</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="aa90ff6dea537645f297ab5878146a0c2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_NO_FAILURE_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">statement, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                          \</div>
+<div class="line">    if( ::iutest::detail::AlwaysTrue() ) {                                  \</div>
+<div class="line">        ::iutest::detail::NewTestPartResultCheckHelper::Counter&lt;            \</div>
+<div class="line">            ::iutest::detail::NewTestPartResultCheckHelper::CondGt&lt;         \</div>
+<div class="line">            <a class="code" href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5abfa6f7f9079f948b6ac858724f1f8442">::iutest::TestPartResult::kSuccess</a>&gt; &gt; iutest_failure_checker;   \</div>
+<div class="line">        IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING( { (void)0; statement; } ) \</div>
+<div class="line">        <span class="keywordflow">if</span>( iutest_failure_checker.count() &gt; 0 ) {                          \</div>
+<div class="line">            goto IUTEST_PP_CAT(iutest_label_test_no_failure_, __LINE__);    \</div>
+<div class="line">        }                                                                   \</div>
+<div class="line">    } else                                                                  \</div>
+<div class="line">        IUTEST_PP_CAT(iutest_label_test_no_failure_, __LINE__):             \</div>
+<div class="line">        on_failure(<span class="stringliteral">&quot;\nExpected: &quot;</span> #statement <span class="stringliteral">&quot; doesn&#39;t generate new failure.\n  Actual: it does.&quot;</span>)</div>
+<div class="ttc" id="classiutest_1_1_test_part_result_html_a611b78a968052b144546b58d83a686e5abfa6f7f9079f948b6ac858724f1f8442"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5abfa6f7f9079f948b6ac858724f1f8442">iutest::TestPartResult::kSuccess</a></div><div class="ttdoc">成功 </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:65</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a462d8fa9e0d25d9bd1bd9b36a0e9258a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_NO_FATAL_FAILURE_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">statement, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                          \</div>
+<div class="line">    if( ::iutest::detail::AlwaysTrue() ) {                                  \</div>
+<div class="line">        ::iutest::detail::NewTestPartResultCheckHelper::Counter&lt;            \</div>
+<div class="line">            ::iutest::detail::NewTestPartResultCheckHelper::CondEq&lt;         \</div>
+<div class="line">            <a class="code" href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6">::iutest::TestPartResult::kFatalFailure</a>&gt; &gt; iutest_failure_checker;  \</div>
+<div class="line">        IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING( { (void)0; statement; } ) \</div>
+<div class="line">        <span class="keywordflow">if</span>( iutest_failure_checker.count() &gt; 0 ) {                          \</div>
+<div class="line">            goto IUTEST_PP_CAT(iutest_label_test_no_fatalfailure_, __LINE__);   \</div>
+<div class="line">        }                                                                   \</div>
+<div class="line">    } else                                                                  \</div>
+<div class="line">        IUTEST_PP_CAT(iutest_label_test_no_fatalfailure_, __LINE__):        \</div>
+<div class="line">        on_failure(<span class="stringliteral">&quot;\nExpected: &quot;</span> #statement <span class="stringliteral">&quot; doesn&#39;t generate new fatal failure.\n  Actual: it does.&quot;</span>)</div>
+<div class="ttc" id="classiutest_1_1_test_part_result_html_a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6">iutest::TestPartResult::kFatalFailure</a></div><div class="ttdoc">致命的な失敗 </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:67</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a7987a94a6f750be1a250a944fae4091d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_NO_THROW_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">statement, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                          \</div>
+<div class="line">    if( ::<a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html">iutest::AssertionResult</a> iutest_ar = ::<a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a>() ) {  \</div>
+<div class="line">        try {                                                               \</div>
+<div class="line">            (void)(statement);                                              \</div>
+<div class="line">        } <span class="keywordflow">catch</span>( const ::std::exception&amp; e ) {                              \</div>
+<div class="line">            iutest_ar &lt;&lt; <span class="stringliteral">&quot;\nExpected: &quot;</span> #statement <span class="stringliteral">&quot; doesn&#39;t throw an exception.\n  Actual: it throws. what is \&quot;&quot;</span>  \</div>
+<div class="line">                &lt;&lt; e.what() &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span>;                                        \</div>
+<div class="line">            goto IUTEST_PP_CAT(iutest_label_nothrow, __LINE__);             \</div>
+<div class="line">        } <span class="keywordflow">catch</span>( <span class="keyword">const</span> <span class="keywordtype">char</span> *e ) {                                          \</div>
+<div class="line">            iutest_ar &lt;&lt; <span class="stringliteral">&quot;\nExpected: &quot;</span> #statement <span class="stringliteral">&quot; doesn&#39;t throw an exception.\n  Actual: it throws. \&quot;&quot;</span>  \</div>
+<div class="line">                &lt;&lt; e &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span>;                                               \</div>
+<div class="line">            goto IUTEST_PP_CAT(iutest_label_nothrow, __LINE__);             \</div>
+<div class="line">        } <span class="keywordflow">catch</span>( ... ) {                                                    \</div>
+<div class="line">            iutest_ar &lt;&lt; <span class="stringliteral">&quot;\nExpected: &quot;</span> #statement <span class="stringliteral">&quot; doesn&#39;t throw an exception.\n  Actual: it throws.&quot;</span>;    \</div>
+<div class="line">            goto IUTEST_PP_CAT(iutest_label_nothrow, __LINE__);             \</div>
+<div class="line">        }                                                                   \</div>
+<div class="line">    } else                                                                  \</div>
+<div class="line">        IUTEST_PP_CAT(iutest_label_nothrow, __LINE__):                      \</div>
+<div class="line">        on_failure(iutest_ar.message())</div>
+<div class="ttc" id="classiutest_1_1_assertion_result_html"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html">iutest::AssertionResult</a></div><div class="ttdoc">Assertion Result. </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:54</div></div>
+<div class="ttc" id="namespaceiutest_html_a0538466708443c65f3c7b2c84b7fce0b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a></div><div class="ttdeci">AssertionResult AssertionSuccess()</div><div class="ttdoc">テスト成功を示す AssertionResult オブジェクトの取得 </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:371</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a0477b6d6563e2d41ed147fa3373be913"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_NOTNULL</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_THROUGH_ANALYSIS_ASSUME_(v!=IUTEST_NULLPTR       \</div>
+<div class="line">        , IUTEST_PRED_FORMAT1_( ::iutest::internal::NullHelper&lt;IUTEST_IS_NULLLITERAL(v)&gt;::CompareNe \</div>
+<div class="line">            , v, on_failure ))</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="ae91cc32cbb8f01e684f4e9ae2fe5b305"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_NULL</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_THROUGH_ANALYSIS_ASSUME_(v==IUTEST_NULLPTR       \</div>
+<div class="line">        , IUTEST_PRED_FORMAT1_( ::iutest::internal::NullHelper&lt;IUTEST_IS_NULLLITERAL(v)&gt;::CompareEq \</div>
+<div class="line">            , v, on_failure ))</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a10d0d803b598251c1fdae5247e1a9866"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_SAME</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v1, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v2, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSame     \</div>
+<div class="line">        , v1, v2, on_failure )</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a998c4ef0346c9ba4a150228a5a0d295c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_SKIP</td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                                  \</div>
+<div class="line">    if( (::iutest::UnitTest::current_test_result()-&gt;Failed())                       \</div>
+<div class="line">        || (::iutest::UnitTest::SkipTest(), ::iutest::detail::AlwaysTrue()) )       \</div>
+<div class="line">        IUTEST_SKIP_MESSAGE( ::iutest::UnitTest::current_test_result()-&gt;Failed() ?  \</div>
+<div class="line">             <span class="stringliteral">&quot;Skipped. but already failed. &quot;</span> : <span class="stringliteral">&quot;Skipped. &quot;</span> )</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="af482ba2983ddfc3f0aaf6bb056b942af"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_STRCASEEQ</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">actual, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSTRCASEEQ    \</div>
+<div class="line">        , expected, actual, on_failure )</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a44ab7c9e8d72e21f59574999f16218af"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_STRCASENE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v1, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v2, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSTRCASENE    \</div>
+<div class="line">        , v1, v2, on_failure )</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a2df39e3fb479d1a2ea1f64abb589faf6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_STREQ</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">actual, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSTREQ    \</div>
+<div class="line">        , expected, actual, on_failure )</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a23fb6cecc22d79856a646004106637a4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_STRICT_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">testcase_, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">testname_, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">parent_class_, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">type_id_&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IIUT_CHECK_TESTFIXTURE(testcase_)                                   \</div>
+<div class="line">            IUTEST_TEST_(testcase_, testname_, parent_class_, type_id_)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="aaa04e3395072748d8625c39c05567612"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_STRNE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v1, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">v2, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSTRNE    \</div>
+<div class="line">        , v1, v2, on_failure )</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="ad554a22c90d33b27ca1b99c50aa46ebe"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_THROW_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">statement, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected_exception, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                          \</div>
+<div class="line">    if( <span class="keyword">const</span> <span class="keywordtype">char</span>* msg = <span class="stringliteral">&quot;&quot;</span> ) {                                            \</div>
+<div class="line">        try {                                                               \</div>
+<div class="line">            IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING((<span class="keywordtype">void</span>)(statement));    \</div>
+<div class="line">            msg = <span class="stringliteral">&quot;\nExpected: &quot;</span> #statement <span class="stringliteral">&quot; throws an exception of type &quot;</span> \</div>
+<div class="line"><span class="preprocessor">                  #expected_exception &quot;.\n  Actual: it throws nothing.&quot;;    \</span></div>
+<div class="line"><span class="preprocessor">            goto IUTEST_PP_CAT(iutest_label_throw, __LINE__);               \</span></div>
+<div class="line"><span class="preprocessor">        } catch( expected_exception const&amp; ) {                              \</span></div>
+<div class="line"><span class="preprocessor">        } catch( ... ) {                                                    \</span></div>
+<div class="line"><span class="preprocessor">            msg = &quot;\nExpected: &quot; #statement &quot; throws an exception of type &quot; \</span></div>
+<div class="line"><span class="preprocessor">          #expected_exception &quot;.\n  Actual: it throws a different type.&quot;;   \</span></div>
+<div class="line"><span class="preprocessor">            goto IUTEST_PP_CAT(iutest_label_throw, __LINE__);               \</span></div>
+<div class="line"><span class="preprocessor">        }                                                                   \</span></div>
+<div class="line"><span class="preprocessor">    } else                                                                  \</span></div>
+<div class="line"><span class="preprocessor">        IUTEST_PP_CAT(iutest_label_throw, __LINE__):                        \</span></div>
+<div class="line"><span class="preprocessor">        on_failure(msg)</span></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="ad39b83a9c5b00fcde897dc927bbd799b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_THROW_VALUE_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">statement, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected_exception, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected_exception_value, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">pred_formatter&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                                      \</div>
+<div class="line">    if( ::<a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html">iutest::AssertionResult</a> iutest_ar = ::<a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a>() ) {          \</div>
+<div class="line">        try {                                                                           \</div>
+<div class="line">            IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING((<span class="keywordtype">void</span>)(statement));                \</div>
+<div class="line">            iutest_ar &lt;&lt; <span class="stringliteral">&quot;\nExpected: &quot;</span> #statement <span class="stringliteral">&quot; throws an exception of type &quot;</span>      \</div>
+<div class="line"><span class="preprocessor">                #expected_exception &quot;.\n  Actual: it throws nothing.&quot;;                  \</span></div>
+<div class="line"><span class="preprocessor">            goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);                     \</span></div>
+<div class="line"><span class="preprocessor">        } catch( expected_exception const&amp; e) {                                         \</span></div>
+<div class="line"><span class="preprocessor">            if( const ::iutest::AssertionResult ar                                      \</span></div>
+<div class="line"><span class="preprocessor">                = pred_formatter(&quot;e&quot;, #expected_exception_value, e, expected_exception_value) ) {           \</span></div>
+<div class="line"><span class="preprocessor">            } else {                                                                    \</span></div>
+<div class="line"><span class="preprocessor">                iutest_ar &lt;&lt; &quot;\nExpected: &quot; #statement &quot; throws an exception of value\n&quot; &lt;&lt; ar.message();   \</span></div>
+<div class="line"><span class="preprocessor">                goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);                 \</span></div>
+<div class="line"><span class="preprocessor">            }                                                                           \</span></div>
+<div class="line"><span class="preprocessor">        } catch( ... ) {                                                                \</span></div>
+<div class="line"><span class="preprocessor">            iutest_ar &lt;&lt; &quot;\nExpected: &quot; #statement &quot; throws an exception of type &quot;      \</span></div>
+<div class="line"><span class="preprocessor">                #expected_exception &quot;.\n  Actual: it throws a different type.&quot;;         \</span></div>
+<div class="line"><span class="preprocessor">            goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);                     \</span></div>
+<div class="line"><span class="preprocessor">        }                                                                               \</span></div>
+<div class="line"><span class="preprocessor">    } else                                                                              \</span></div>
+<div class="line"><span class="preprocessor">        IUTEST_PP_CAT(iutest_label_throw_value, __LINE__):                              \</span></div>
+<div class="line"><span class="preprocessor">        on_failure(iutest_ar.message())</span></div>
+<div class="ttc" id="classiutest_1_1_assertion_result_html"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html">iutest::AssertionResult</a></div><div class="ttdoc">Assertion Result. </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:54</div></div>
+<div class="ttc" id="namespaceiutest_html_a0538466708443c65f3c7b2c84b7fce0b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a></div><div class="ttdeci">AssertionResult AssertionSuccess()</div><div class="ttdoc">テスト成功を示す AssertionResult オブジェクトの取得 </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:371</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="aa29d64d2e4bdcf78a767b94b00b41db7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_THROW_VALUE_EQ_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">statement, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected_exception, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected_exception_value, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure            \</div>
+<div class="line">        , ::iutest::internal::EqHelper&lt;IUTEST_IS_NULLLITERAL(expected_exception_value)&gt;::Compare)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a0fbdfc8e64ff80f85240bfd2ae513a86"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_THROW_VALUE_NE_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">statement, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected_exception, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected_exception_value, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure            \</div>
+<div class="line">        , ::iutest::internal::NeHelper&lt;IUTEST_IS_NULLLITERAL(expected_exception_value)&gt;::Compare)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="a3f237c56210f6e10e01530c1937e2037"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_THROW_VALUE_STRCASEEQ_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">statement, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected_exception, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected_exception_value, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure                \</div>
+<div class="line">        , ::iutest::internal::CmpHelperSTRCASEEQ)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a class="anchor" id="af6a8d8b362d591aea90e557290f54f18"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_THROW_VALUE_STREQ_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">statement, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected_exception, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected_exception_value, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure            \</div>
+<div class="line">        , ::iutest::internal::CmpHelperSTREQ)</div>
+</div><!-- fragment -->
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+2016年04月26日(火) 03時13分09秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.6
+</small></address>
+</body>
+</html>

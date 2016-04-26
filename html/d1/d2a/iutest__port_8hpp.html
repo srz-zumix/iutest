@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.6"/>
+<title>iutest: internal/iutest_port.hpp ファイル</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">iutest
+   &#160;<span id="projectnumber">1.15.0.34</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.8.6 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="../../index.html"><span>総合概要</span></a></li>
+      <li><a href="../../pages.html"><span>諸情報</span></a></li>
+      <li><a href="../../modules.html"><span>モジュール</span></a></li>
+      <li><a href="../../namespaces.html"><span>名前空間</span></a></li>
+      <li><a href="../../annotated.html"><span>クラス</span></a></li>
+      <li class="current"><a href="../../files.html"><span>ファイル</span></a></li>
+      <li><a href="../../examples.html"><span>各種例</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="../../search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="検索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="../../search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="../../files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="../../globals.html"><span>ファイルメンバ</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>クラス</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>名前空間</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>グループ</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(12)"><span class="SelectionMark">&#160;</span>ページ</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_7374381ecdb819c64ee9b6ea2bd3370d.html">internal</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#namespaces">名前空間</a> &#124;
+<a href="#define-members">マクロ定義</a>  </div>
+  <div class="headertitle">
+<div class="title">iutest_port.hpp ファイル</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>iris unit test 依存関数 ファイル  
+<a href="#details">[詳解]</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d4/db0/iutest__config_8hpp_source.html">iutest_config.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="../../d3/d4c/iutest__internal__defs_8hpp_source.html">iutest_internal_defs.hpp</a>&quot;</code><br/>
+<code>#include &quot;../impl/iutest_port.ipp&quot;</code><br/>
+</div>
+<p><a href="../../d1/d2a/iutest__port_8hpp_source.html">[ソースコード]</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+名前空間</h2></td></tr>
+<tr class="memitem:d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
+<tr class="memdesc:d3/dda/namespaceiutest"><td class="mdescLeft">&#160;</td><td class="mdescRight">iutest root namespace <br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+マクロ定義</h2></td></tr>
+<tr class="memitem:aa42a028585c78dc4a34d04b593abc1b5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa42a028585c78dc4a34d04b593abc1b5"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_MAX_PATH</b>&#160;&#160;&#160;1024</td></tr>
+<tr class="separator:aa42a028585c78dc4a34d04b593abc1b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a967848348e16a7d0ab2a31c1593ca9ef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d2a/iutest__port_8hpp.html#a967848348e16a7d0ab2a31c1593ca9ef">IUTEST_LOG_</a>(level)</td></tr>
+<tr class="memdesc:a967848348e16a7d0ab2a31c1593ca9ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">ログメッセージストリーム  <a href="#a967848348e16a7d0ab2a31c1593ca9ef">[詳解]</a><br/></td></tr>
+<tr class="separator:a967848348e16a7d0ab2a31c1593ca9ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace4f988a8127594f5c65ee322e6c88fd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d2a/iutest__port_8hpp.html#ace4f988a8127594f5c65ee322e6c88fd">IUTEST_CHECK_</a>(condition)</td></tr>
+<tr class="memdesc:ace4f988a8127594f5c65ee322e6c88fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">内部エラーチェック  <a href="#ace4f988a8127594f5c65ee322e6c88fd">[詳解]</a><br/></td></tr>
+<tr class="separator:ace4f988a8127594f5c65ee322e6c88fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>iris unit test 依存関数 ファイル </p>
+<dl class="section author"><dt>著者</dt><dd>t.shirayanagi </dd></dl>
+<dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2011-2016, Takazumi Shirayanagi<br/>
+This software is released under the new BSD License, see LICENSE </dd></dl>
+</div><h2 class="groupheader">マクロ定義詳解</h2>
+<a class="anchor" id="ace4f988a8127594f5c65ee322e6c88fd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_CHECK_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">condition</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_AMBIGUOUS_ELSE_BLOCKER_              \</div>
+<div class="line">    if( !::iutest::detail::IsTrue(condition) )  <a class="code" href="../../d1/d2a/iutest__port_8hpp.html#a967848348e16a7d0ab2a31c1593ca9ef">\</a></div>
+<div class="line"><a class="code" href="../../d1/d2a/iutest__port_8hpp.html#a967848348e16a7d0ab2a31c1593ca9ef">		IUTEST_LOG_</a>(FATAL) &lt;&lt; <span class="stringliteral">&quot;Condition &quot;</span> #condition <span class="stringliteral">&quot; failed. &quot;</span></div>
+<div class="ttc" id="iutest__port_8hpp_html_a967848348e16a7d0ab2a31c1593ca9ef"><div class="ttname"><a href="../../d1/d2a/iutest__port_8hpp.html#a967848348e16a7d0ab2a31c1593ca9ef">IUTEST_LOG_</a></div><div class="ttdeci">#define IUTEST_LOG_(level)</div><div class="ttdoc">ログメッセージストリーム </div><div class="ttdef"><b>Definition:</b> iutest_port.hpp:49</div></div>
+</div><!-- fragment -->
+<p>内部エラーチェック </p>
+
+</div>
+</div>
+<a class="anchor" id="a967848348e16a7d0ab2a31c1593ca9ef"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_LOG_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">level</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">::iutest::detail::IUTestLog(    \</div>
+<div class="line">        ::iutest::detail::IUTestLog::LOG_##level, __FILE__, __LINE__).GetStream()</div>
+</div><!-- fragment -->
+<p>ログメッセージストリーム </p>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+2016年04月26日(火) 03時13分09秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.6
+</small></address>
+</body>
+</html>

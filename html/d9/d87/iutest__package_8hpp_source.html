@@ -38,7 +38,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="../../index.html"><span>総合概要</span></a></li>
+      <li><a href="../../pages.html"><span>諸情報</span></a></li>
+      <li><a href="../../modules.html"><span>モジュール</span></a></li>
+      <li><a href="../../namespaces.html"><span>名前空間</span></a></li>
+      <li><a href="../../annotated.html"><span>クラス</span></a></li>
       <li class="current"><a href="../../files.html"><span>ファイル</span></a></li>
+      <li><a href="../../examples.html"><span>各種例</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -60,6 +65,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="../../files.html"><span>ファイル一覧</span></a></li>
+      <li><a href="../../globals.html"><span>ファイルメンバ</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -68,7 +74,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-</div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>全て</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>クラス</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>名前空間</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>ファイル</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>関数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>変数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>型定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>列挙型</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>列挙値</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>フレンド</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>マクロ定義</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(11)"><span class="SelectionMark">&#160;</span>グループ</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(12)"><span class="SelectionMark">&#160;</span>ページ</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -82,7 +88,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="title">iutest_package.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
+<a href="../../d9/d87/iutest__package_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div>
@@ -92,7 +98,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// define</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"></span><span class="preprocessor">#define IUTEST_PACKAGE(name)    IIUT_PACKAGE_(name)</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="../../d2/d24/group___t_e_s_t_d_e_f.html#gae64e21d033c63b6e2223bff23449d8db">   26</a></span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#if IUTEST_HAS_PACKAGE</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#define IUTEST_CONCAT_PACKAGE_(testcase_name)   IIUT_CONCAT_PACKAGE_I(testcase_name).c_str()</span></div>
@@ -167,12 +173,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">#if IUTEST_HAS_IF_EXISTS</span></div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_GetTestCasePackageName(<span class="keyword">const</span> iuTest_TestCasePackage*)</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d9/d87/iutest__package_8hpp.html#aeaffd9f593669ab465b11f296223c6a7">iuTest_GetTestCasePackageName</a>(<span class="keyword">const</span> iuTest_TestCasePackage*)</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;{</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_GetTestCaseParentPackageName(<span class="keyword">const</span> iuTest_TestCaseParentPackage*)</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d9/d87/iutest__package_8hpp.html#a97169a76f8088ba775352759e459c0dc">iuTest_GetTestCaseParentPackageName</a>(<span class="keyword">const</span> iuTest_TestCaseParentPackage*)</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;{</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>;</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
@@ -201,31 +207,34 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;::std::string iuTest_GetTestCasePackageName(T*)         <span class="comment">// NOLINT</span></div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;{</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;::std::string <a class="code" href="../../d9/d87/iutest__package_8hpp.html#aeaffd9f593669ab465b11f296223c6a7">iuTest_GetTestCasePackageName</a>(T*)         <span class="comment">// NOLINT</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="../../d9/d87/iutest__package_8hpp.html#aeaffd9f593669ab465b11f296223c6a7">  161</a></span>&#160;{</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    return ::iutest::detail::package_name_server&lt;T&gt;::getname();</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;}</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;::std::string iuTest_GetTestCaseParentPackageName(T*)   <span class="comment">// NOLINT</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;{</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;::std::string <a class="code" href="../../d9/d87/iutest__package_8hpp.html#a97169a76f8088ba775352759e459c0dc">iuTest_GetTestCaseParentPackageName</a>(T*)   <span class="comment">// NOLINT</span></div>
+<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="../../d9/d87/iutest__package_8hpp.html#a97169a76f8088ba775352759e459c0dc">  171</a></span>&#160;{</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    return ::iutest::detail::package_name_server&lt;T&gt;::getname();</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;}</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestCaseName(const ::std::string&amp; package, <span class="keyword">const</span> <span class="keywordtype">char</span>* testcase_name)</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;{</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d9/d87/iutest__package_8hpp.html#a481f44e732939f7a868a75c114864010">iuTest_ConcatTestCaseName</a>(const ::std::string&amp; package, <span class="keyword">const</span> <span class="keywordtype">char</span>* testcase_name)</div>
+<div class="line"><a name="l00182"></a><span class="lineno"><a class="line" href="../../d9/d87/iutest__package_8hpp.html#a481f44e732939f7a868a75c114864010">  182</a></span>&#160;{</div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">package </span>+ testcase_name;</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;}</div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;</div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PACKAGE_HPP_F57C9B7E_7CAA_4429_BE75_FCAAEED1B220_</span></div>
+<div class="ttc" id="iutest__package_8hpp_html_a481f44e732939f7a868a75c114864010"><div class="ttname"><a href="../../d9/d87/iutest__package_8hpp.html#a481f44e732939f7a868a75c114864010">iuTest_ConcatTestCaseName</a></div><div class="ttdeci">inline::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestCaseName(const ::std::string &amp;package, const char *testcase_name)</div><div class="ttdoc">テストケース名との結合 </div><div class="ttdef"><b>Definition:</b> iutest_package.hpp:182</div></div>
+<div class="ttc" id="iutest__package_8hpp_html_a97169a76f8088ba775352759e459c0dc"><div class="ttname"><a href="../../d9/d87/iutest__package_8hpp.html#a97169a76f8088ba775352759e459c0dc">iuTest_GetTestCaseParentPackageName</a></div><div class="ttdeci">::std::string iuTest_GetTestCaseParentPackageName(T *)</div><div class="ttdoc">親空間のパッケージ名の取得 </div><div class="ttdef"><b>Definition:</b> iutest_package.hpp:171</div></div>
+<div class="ttc" id="iutest__package_8hpp_html_aeaffd9f593669ab465b11f296223c6a7"><div class="ttname"><a href="../../d9/d87/iutest__package_8hpp.html#aeaffd9f593669ab465b11f296223c6a7">iuTest_GetTestCasePackageName</a></div><div class="ttdeci">::std::string iuTest_GetTestCasePackageName(T *)</div><div class="ttdoc">パッケージ名の取得 </div><div class="ttdef"><b>Definition:</b> iutest_package.hpp:161</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年04月25日(月) 23時45分03秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年04月26日(火) 03時13分09秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
