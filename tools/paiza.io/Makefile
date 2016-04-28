@@ -28,3 +28,6 @@ minimum_tests: ../../test/minimum_tests.cpp Makefile
 lentest: Makefile
 	dd if=/dev/zero of=lentest.cpp bs=100001 count=1
 	python iupaiza.py lentest.cpp
+
+local: paizaio-sourcecode.cpp Makefile
+	clang++ -std=c++11 $< -o sourcecode
