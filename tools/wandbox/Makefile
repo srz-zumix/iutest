@@ -56,3 +56,6 @@ $(COMPILE_ERROR_TESTS) : $(COMPILE_ERROR_TESTS_SRC) Makefile
 #	python iuwandbox.py ../../test/$@.cpp -c gcc-head -x "warning,gnu++1y" --encoding utf-8-sig $(EXPAND_INCLUDE) | python ../python/iutest_compile_error_test.py -c gcc
 
 compile-error: $(COMPILE_ERROR_TESTS) Makefile
+
+clean:
+	$(RM) sample

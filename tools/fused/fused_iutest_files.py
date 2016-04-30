@@ -96,7 +96,10 @@ class IutestFused:
 		line = re.sub('\s*,[ \t]*', ',', line)
 		line = re.sub('\s*\)', ')', line)
 		line = re.sub('\)\s+{', '){', line)
-		#line = re.sub('{\s+return', '{return', line)
+		line = re.sub('\)\s+const', ')const', line)
+		if not re.match('#define\s+.*\s+{.*', line):
+			line = re.sub('\s*{\s*', '{', line)
+			line = re.sub('\s*}\s*', '}', line)
 
 		# define HOGE(x) vs define HOGE (x)
 		m = re.match('^#define\s+(\w+)\s+(\([^)]*?\))$', line)
@@ -105,6 +108,11 @@ class IutestFused:
 			line = re.sub('^#define\s+(\w+)(\([^)]*?\))$', r'#define \1 \2', line)
 		else:
 			line = re.sub('^#define\s+(\w+\([^)]*?\))(\S+)', r'#define \1 \2', line)
+
+		# 0x00000X => 0xX
+		line = re.sub('0x0+([0-9A-Fa-f])', r'0x\1', line)
+		# 0x0 => 0
+		line = re.sub('0x([0-9])([^0-9A-Fa-f])', r'\1\2', line)
 
 		# string restore
 		for s in str_l:
@@ -115,7 +123,7 @@ class IutestFused:
 	
 	def Flush(self, output_file):
 		if len(self.store_line) > 0:
-			output_file.write(self.store_line)
+			output_file.write(self.store_line.strip())
 			output_file.write('\n')
 			self.store_line = ""
 

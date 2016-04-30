@@ -92,6 +92,7 @@ def make_code(path, encoding, expand):
 def run_paiza(code, options):
 	paiza = PaizaIO()
 	paiza.longpoll(True)
+	paiza.longpoll_timeout(100)
 	paiza.code(code)
 	return paiza.run()
 
@@ -132,6 +133,81 @@ def output_code(path, code, encoding):
 	f.write(code)
 	f.close()
 
+predefined_macros = { '__clang__':'1'
+					, '_LIBCPP_VERSION':'1101'
+					, 'NULL':'0'
+					, '__linux__':'1'
+					, '__cplusplus':'201402'
+					, '__cpp_rvalue_references':'200610'
+					, '__has_include':None
+					}
+#userdefined_macros = { '':'1'
+#					}
+expands_macros = [ 'IUTEST_IPP_INLINE'
+				, 'IUTEST_NULLPTR'
+				, 'IUTEST_CXX_CONSTEXPR'
+				, 'IUTEST_CXX_CONSTEXPR_OR_CONST'
+				, 'IUTEST_CXX_DELETED_FUNCTION'
+				, 'IUTEST_CXX_DEFAULT_FUNCTION'
+				, 'IUTEST_CXX_EXPLICIT_CONVERSION'
+				, 'IUTEST_CXX_NOEXCEPT_SPEC'
+				, 'IUTEST_PRAGMA_GCC_WARN_PUSH'
+				, 'IUTEST_PRAGMA_GCC_WARN_DISABLE'
+				, 'IUTEST_PRAGMA_GCC_WARN_POP'
+				, 'IUTEST_ATTRIBUTE_UNUSED_'
+				, 'IUTEST_ATTRIBUTE_DEPRECATED_'
+				, 'IUTEST_ATTRIBUTE_PURE_'
+				, 'IUTEST_ATTRIBUTE_NORETURN_'
+				]
+
+# 
+clang_has_features = { 'cxx_nullptr':'1'
+				, 'cxx_attributes':'1'
+				, 'cxx_auto_type':'1' 
+				, 'cxx_constexpr':'1'
+				, 'cxx_decltype':'1'
+				, 'cxx_defaulted_functions':'1'
+				, 'cxx_deleted_functions':'1'
+				, 'cxx_explicit_conversions':'1'
+				, 'cxx_generalized_initializers':'1'
+				, 'cxx_lambdas':'1'
+				, 'cxx_noexcept':'1'
+				, 'cxx_override_control':'1'
+				, 'cxx_rtti':'1'
+				, 'cxx_rvalue_references':'1'
+				, 'cxx_static_assert':'1'
+				, 'cxx_strong_enums':'1'
+				, 'cxx_unicode_literals':'1'
+				, 'cxx_variadic_templates':'1'
+				, 'c_generic_selections': '0'
+				}
+
+clang_has_include = { '<cxxabi.h>':'1'
+					, '<uchar.h>':'1'
+					, '<experimental/any>':'0'
+					, '<ext/cmath>':'0'
+					, '<array>':'1'
+					, '<future>':'1'
+					, '<ratio>':'1'
+					, '<shared_mutex>':'1'
+					, '<scoped_allocator>':'1'
+					, '<typeindex>':'1'
+					, '<type_traits>':'1'
+					, '<tr1/tuple>':'0'
+					}
+
+#
+#
+def expand_macro(line, macros):
+	dst = ""
+	for s in re.split('([\(\):;{} /%+\-=<>!&\|*#]+)', line):
+		if s in expands_macros and s in macros:
+			if macros[s]:
+				dst += macros[s]
+		else:
+			dst += s
+	return dst
+
 #
 # 
 def append_define(line, depth, macros, unkowns):
@@ -141,28 +217,19 @@ def append_define(line, depth, macros, unkowns):
 			unkowns.append(d)
 		else:
 			macros[d] = v
+		return d
 	m = re.match("#\s*define (\S+)\s(.+)$", line)
 	if m:
-		append(m.group(1), m.group(2), depth, macros, unkowns)
+		return append(m.group(1), m.group(2), depth, macros, unkowns)
 	else:
 		m = re.match("#\s*define (\S+)$", line)
 		if m:
-			append(m.group(1), None, depth, macros, unkowns)
-
-clang_features = { 'cxx_nullptr':'1'
-				 , 'cxx_auto_type':'1' 
-				 , 'cxx_constexpr':'1'
-				 , 'cxx_decltype':'1'
-				 , 'cxx_deleted_functions':'1'
-				 , 'cxx_override_control':'1'
-				 , 'cxx_rvalue_references':'1'
-				 , 'cxx_static_assert':'1'
-				 , 'cxx_variadic_templates':'1'
-				 }
+			return append(m.group(1), None, depth, macros, unkowns)
+	return None
 
 #
 #
-def expand_macro(expr, macros, unkowns):
+def expand_ppif_macro(expr, macros, unkowns):
 	expand = ""
 	for s in re.split('(&&|\|\||!)', expr):
 		if s == '&&':
@@ -181,14 +248,19 @@ def expand_macro(expr, macros, unkowns):
 					f = d in macros
 					expand += m.group(1) + str(f) + m.group(3)
 				continue
-			if re.match("(.*)__has_include\((.*?)\)(.*)", s):
-				expand += s
+			m = re.match("(.*)__has_include\((.*?)\)(.*)", s)
+			if m:
+				f = m.group(2)
+				if f in clang_has_include:
+					expand += m.group(1) + clang_has_include[f] + m.group(3)
+				else:
+					expand += s
 				continue
 			m = re.match("(.*)__has_feature\((.*?)\)(.*)", s)
 			if m:
 				f = m.group(2)
-				if f in clang_features:
-					expand += m.group(1) + clang_features[f] + m.group(3)
+				if f in clang_has_features:
+					expand += m.group(1) + clang_has_features[f] + m.group(3)
 					continue
 			for w in re.split('([+\-=<>\(\)]+)', s):
 				if re.match('[+\-=<>\(\)]+', w) or w.isspace():
@@ -197,7 +269,7 @@ def expand_macro(expr, macros, unkowns):
 					if w in unkowns:
 						expand += s
 					elif w in macros:
-						expand += expand_macro(macros[w], macros, unkowns)
+						expand += expand_ppif_macro(macros[w], macros, unkowns)
 					elif w.isdigit():
 						expand += w
 					else:
@@ -210,7 +282,7 @@ def expand_macro(expr, macros, unkowns):
 #
 #
 def eval_ppif(expr, macros, unkowns):
-	expand = expand_macro(expr, macros, unkowns)
+	expand = expand_ppif_macro(expr, macros, unkowns)
 	try:
 		if eval(expand):
 			return 1
@@ -218,9 +290,10 @@ def eval_ppif(expr, macros, unkowns):
 			return 0
 	except Exception, e:
 		if not any( x in expand for x in unkowns ):
-			print(expr)
-			print(expand)
-			print(e)
+			if True:
+				print(expr)
+				print(expand)
+				print(e)
 		return -1
 						
 #
@@ -279,11 +352,17 @@ def check_pp(line, depth, brothers, macros, unkowns):
 
 #
 #
+def reduction(line):
+	line = line.replace('IIUT_', 'II_')
+	line = line.replace('II_PP_', 'IP_')
+	line = re.sub('\s+', ' ', line)
+	line = re.sub('\s$', '', line)
+	return line
+#
+#
 def preprocess(code, macros):
-	macros = { '__clang__':'1', '_LIBCPP_VERSION':'1101', 'NULL':'0'
-		  , '__linux__':'1', '__cplusplus':'201402'
-		  }
-	unkowns = [ '__has_include', '__has_feature' ]
+	macros = predefined_macros
+	unkowns = []
 	depth = []
 	brother = []
 	dst = ""
@@ -294,8 +373,13 @@ def preprocess(code, macros):
 		# if/ifdef/ifndef/elif/endif
 		if check_pp(line, depth, brother, macros, unkowns):
 			# define
-			append_define(line, depth, macros, unkowns)
+			d = append_define(line, depth, macros, unkowns)
+			if d:
+				if d in expands_macros:
+					continue
+			line = expand_macro(line, macros)
 			if len(line) > 0:
+				line = reduction(line)
 				dst += line + "\n"
 		
 	#for k,v in sorted(macros.items()):
