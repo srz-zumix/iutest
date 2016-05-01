@@ -151,6 +151,7 @@ private:
 */
 class StdioFile : public IFile
 {
+protected:
 	FILE* m_fp;
 public:
 	StdioFile() IUTEST_CXX_NOEXCEPT_SPEC : m_fp(NULL) {}
@@ -231,6 +232,32 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 		const size_t size = static_cast<size_t>(ftell(m_fp));
 		fseek(m_fp, pre, SEEK_SET);
 		return size;
+	}
+};
+
+class StdErrorFile : public StdioFile
+{
+public:
+	StdErrorFile() IUTEST_CXX_NOEXCEPT_SPEC {}
+	virtual ~StdErrorFile() { Close(); }
+public:
+	/**
+	 * @brief	開く
+	 * @param [in]	filename	= ファイルパス
+	 * @param [in]	mode		= モード
+	 * @return	成否
+	*/
+	virtual bool Open(const char* , int ) IUTEST_CXX_OVERRIDE
+	{
+		m_fp = stderr;
+		return true;
+	}
+	/**
+	 * @brief	閉じる
+	*/
+	virtual void Close() IUTEST_CXX_OVERRIDE
+	{
+		m_fp = NULL;
 	}
 };
 

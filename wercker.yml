@@ -41,6 +41,12 @@ build:
           python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-head -x "warning,c++98"
 
     - script:
+        name: gcc-5.1.0
+        code: |
+          cd tools/wandbox
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-5.1.0 -x "warning,c++1z"
+
+    - script:
         name: gcc-4.9.1
         code: |
           cd tools/wandbox

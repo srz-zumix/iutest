@@ -213,6 +213,9 @@ inline void iuOptionMessage::ShowSpec()
 #ifdef _LIBCPP_VERSION
 	IIUT_SHOW_MACRO(_LIBCPP_VERSION);
 #endif
+#ifdef __POSIX_VISIBLE
+	IIUT_SHOW_MACRO(__POSIX_VISIBLE);
+#endif
 
 #undef IIUT_SHOW_MACRO
 }

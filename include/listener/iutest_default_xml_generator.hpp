@@ -89,8 +89,8 @@ private:
 	static void OnReportTestSkipped(IFile* file, const TestInfo& test_info);
 
 private:
-	bool FileOpen(const char* path);
-	void FileClose();
+	virtual bool FileOpen(const char* path);
+	virtual void FileClose();
 
 protected:
 	static void OutputXmlCDataSection(IFile* file, const char* data);

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -18,14 +18,20 @@
 #include "iutest.hpp"
 #include "../include/internal/iutest_filepath.hpp"
 
+IUTEST(FilePath, Empty)
+{
+	::iutest::internal::FilePath path;
+	IUTEST_EXPECT_TRUE(path.IsEmpty());
+}
+
 #if !defined(IUTEST_USE_GTEST)
 IUTEST(FilePath, GetExecFilePath)
 {
 	::iutest::internal::FilePath path = ::iutest::internal::FilePath::GetExecFilePath();
-	IUTEST_EXPECT_FALSE(path.IsEmpty());
-#if IUTEST_HAS_FILE_STAT
-	IUTEST_EXPECT_TRUE (path.FileOrDirectoryExists());
-#endif
+	if(!path.IsEmpty())
+	{
+		IUTEST_EXPECT_TRUE(path.FileOrDirectoryExists()) << path;
+	}
 }
 #endif
 

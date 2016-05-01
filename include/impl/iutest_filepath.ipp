@@ -209,6 +209,7 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::GetExecFilePath()
 	}
 	return iuFilePath(buf);
 #elif defined(IUTEST_OS_LINUX) || defined(IUTEST_OS_CYGWIN)
+#if __BSD_VISIBLE || __POSIX_VISIBLE >= 200112 || __XSI_VISIBLE >= 4
 	char buf[1024];
 	const ssize_t len = ::readlink("/proc/self/exe", buf, sizeof(buf)-1);
 	if( len == -1 )
@@ -217,6 +218,9 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::GetExecFilePath()
 	}
 	buf[len] = '\0';
 	return iuFilePath(buf);
+#else
+	return iuFilePath();
+#endif
 #else
 	return iuFilePath();
 #endif

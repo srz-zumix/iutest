@@ -24,9 +24,10 @@ script:
 env:
   matrix:
     - WANDBOX_COMPILER=gcc-head
+    - WANDBOX_COMPILER=gcc-6.1.0
     - WANDBOX_COMPILER=gcc-5.3.0
     - WANDBOX_COMPILER=gcc-5.2.0 # travis (5.2.1)
-    - WANDBOX_COMPILER=gcc-5.1.0
+#    - WANDBOX_COMPILER=gcc-5.1.0 # wercker
 #    - WANDBOX_COMPILER=gcc-4.9.2 # circle ci
 #    - WANDBOX_COMPILER=gcc-4.9.1 # wercker
 #    - WANDBOX_COMPILER=gcc-4.9.0 # wercker
