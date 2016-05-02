@@ -151,6 +151,9 @@ expands_macros = [ 'IUTEST_IPP_INLINE'
 				, 'IUTEST_CXX_DEFAULT_FUNCTION'
 				, 'IUTEST_CXX_EXPLICIT_CONVERSION'
 				, 'IUTEST_CXX_NOEXCEPT_SPEC'
+				, 'IUTEST_CXX_OVERRIDE'
+				, 'IUTEST_CXX_FINAL'
+				, 'IUTEST_CXX_NOTHROW'
 				, 'IUTEST_PRAGMA_GCC_WARN_PUSH'
 				, 'IUTEST_PRAGMA_GCC_WARN_DISABLE'
 				, 'IUTEST_PRAGMA_GCC_WARN_POP'
@@ -159,6 +162,21 @@ expands_macros = [ 'IUTEST_IPP_INLINE'
 				, 'IUTEST_ATTRIBUTE_PURE_'
 				, 'IUTEST_ATTRIBUTE_NORETURN_'
 				]
+
+#
+expand_function_macros = [ 'IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN'
+						, 'IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END'
+						, 'IUTEST_PRAGMA_EXTERN_TEMPLATE_WARN_DISABLE_BEGIN'
+						, 'IUTEST_PRAGMA_EXTERN_TEMPLATE_WARN_DISABLE_END'
+						, 'IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN'
+						, 'IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END'
+						, 'IUTEST_PRAGMA_MSC_WARN_PUSH'
+						, 'IUTEST_PRAGMA_MSC_WARN_DISABLE'
+						, 'IUTEST_PRAGMA_MSC_WARN_POP'
+						, 'IUTEST_WORKAROUND_MSC_STLSTREAM_C4250'
+						, 'IUTEST_EXPLICIT_TEMPLATE_TYPE_'
+						, 'IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_'
+						]
 
 # 
 clang_has_features = { 'cxx_nullptr':'1'
@@ -183,7 +201,8 @@ clang_has_features = { 'cxx_nullptr':'1'
 				}
 
 clang_has_include = { '<cxxabi.h>':'1'
-					, '<uchar.h>':'1'
+#					, '<uchar.h>':'1'
+					, '<uchar.h>':'0'
 					, '<experimental/any>':'0'
 					, '<ext/cmath>':'0'
 					, '<array>':'1'
@@ -206,6 +225,38 @@ def expand_macro(line, macros):
 				dst += macros[s]
 		else:
 			dst += s
+	return expand_function_macro(dst, macros)
+
+#
+#
+def expand_function_macro(line, macros):
+	dst = ""
+	tokens = []
+	prev = ""
+	for s in re.split('([\(\)])', line):
+		if s == '(':
+			tokens.append(prev)
+		elif s == ')' and len(tokens) > 0:
+			tokens[-1] += prev + s
+			s = ""
+			ss = tokens.pop()
+			for m in re.finditer('([\w_]+)\((.*?)\)', ss):
+				d = m.group(1)
+				if d in expand_function_macros:
+					if d in macros and macros[d] == None:
+						ss = ss.replace(m.group(0), '')
+			if len(tokens) > 0:
+				tokens[-1] += ss
+			else:
+				dst += ss
+		elif len(tokens) > 0:
+			tokens[-1] += prev
+		else:
+			dst += prev
+		prev = s
+	for s in tokens:
+		dst += s
+	dst += prev
 	return dst
 
 #
@@ -355,6 +406,7 @@ def check_pp(line, depth, brothers, macros, unkowns):
 def reduction(line):
 	line = line.replace('IIUT_', 'II_')
 	line = line.replace('II_PP_', 'IP_')
+	line = line.replace('IUTEST_UNUSED_VAR', '(void)')
 	line = re.sub('\s+', ' ', line)
 	line = re.sub('\s$', '', line)
 	return line
@@ -375,7 +427,9 @@ def preprocess(code, macros):
 			# define
 			d = append_define(line, depth, macros, unkowns)
 			if d:
-				if d in expands_macros:
+				if d in expands_macros or d in expand_function_macros:
+					continue
+				if d in [ 'IUTEST_UNUSED_VAR' ]:
 					continue
 			line = expand_macro(line, macros)
 			if len(line) > 0:
