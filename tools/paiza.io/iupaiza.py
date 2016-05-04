@@ -215,11 +215,10 @@ clang_has_include = { '<cxxabi.h>':'1'
 					, '<tr1/tuple>':'0'
 					}
 
-#
-#
+RE_MACRO_SPLIT = re.compile('([\(\):;{} /%+\-=<>!&\|*#]+)')
 def expand_macro(line, macros):
 	dst = ""
-	for s in re.split('([\(\):;{} /%+\-=<>!&\|*#]+)', line):
+	for s in RE_MACRO_SPLIT.split(line):
 		if s in expands_macros and s in macros:
 			if macros[s]:
 				dst += macros[s]
@@ -227,20 +226,20 @@ def expand_macro(line, macros):
 			dst += s
 	return expand_function_macro(dst, macros)
 
-#
-#
+RE_SPLIT_PAREN = re.compile('([\(\)])')
+RE_FUNC_MACRO = re.compile('([\w_]+)\((.*?)\)')
 def expand_function_macro(line, macros):
 	dst = ""
 	tokens = []
 	prev = ""
-	for s in re.split('([\(\)])', line):
+	for s in RE_SPLIT_PAREN.split(line):
 		if s == '(':
 			tokens.append(prev)
 		elif s == ')' and len(tokens) > 0:
 			tokens[-1] += prev + s
 			s = ""
 			ss = tokens.pop()
-			for m in re.finditer('([\w_]+)\((.*?)\)', ss):
+			for m in RE_FUNC_MACRO.finditer(ss):
 				d = m.group(1)
 				if d in expand_function_macros:
 					if d in macros and macros[d] == None:
@@ -259,30 +258,31 @@ def expand_function_macro(line, macros):
 	dst += prev
 	return dst
 
-#
-# 
+RE_DEFINE = re.compile('#\s*define (\S+)\s*(.*)$')
 def append_define(line, depth, macros, unkowns):
 	def append(d, v, depth, macros, unkowns):
 		d = re.sub('\(.*\)', '', d)
 		if any(x == -1 for x in depth):
 			unkowns.append(d)
 		else:
-			macros[d] = v
+			if len(v) == 0:
+				macros[d] = None
+			else:
+				macros[d] = v
 		return d
-	m = re.match("#\s*define (\S+)\s(.+)$", line)
+	m = RE_DEFINE.match(line)
 	if m:
 		return append(m.group(1), m.group(2), depth, macros, unkowns)
-	else:
-		m = re.match("#\s*define (\S+)$", line)
-		if m:
-			return append(m.group(1), None, depth, macros, unkowns)
 	return None
 
-#
-#
+RE_DEFINE_PARSE = re.compile('(.*)defined\((.*?)\)(.*)')
+RE_HAS_INCLUDE = re.compile('(.*)__has_include\((.*?)\)(.*)')
+RE_HAS_FEATURE = re.compile('(.*)__has_feature\((.*?)\)(.*)')
+RE_SPLIT_OP = re.compile('(&&|\|\||!)')
+RE_SYMBOLMARK = re.compile('([+\-=<>\(\)]+)')
 def expand_ppif_macro(expr, macros, unkowns):
 	expand = ""
-	for s in re.split('(&&|\|\||!)', expr):
+	for s in RE_SPLIT_OP.split(expr):
 		if s == '&&':
 			expand += ' and '
 		elif s == '||':
@@ -290,7 +290,7 @@ def expand_ppif_macro(expr, macros, unkowns):
 		elif s == '!':
 			expand += " not "
 		else:
-			m = re.match("(.*)defined\((.*?)\)(.*)", s)
+			m = RE_DEFINE_PARSE.match(s)
 			if m:
 				d = m.group(2)
 				if d in unkowns:
@@ -299,7 +299,7 @@ def expand_ppif_macro(expr, macros, unkowns):
 					f = d in macros
 					expand += m.group(1) + str(f) + m.group(3)
 				continue
-			m = re.match("(.*)__has_include\((.*?)\)(.*)", s)
+			m = RE_HAS_INCLUDE.match(s)
 			if m:
 				f = m.group(2)
 				if f in clang_has_include:
@@ -307,14 +307,14 @@ def expand_ppif_macro(expr, macros, unkowns):
 				else:
 					expand += s
 				continue
-			m = re.match("(.*)__has_feature\((.*?)\)(.*)", s)
+			m = RE_HAS_FEATURE.match(s)
 			if m:
 				f = m.group(2)
 				if f in clang_has_features:
 					expand += m.group(1) + clang_has_features[f] + m.group(3)
 					continue
-			for w in re.split('([+\-=<>\(\)]+)', s):
-				if re.match('[+\-=<>\(\)]+', w) or w.isspace():
+			for w in RE_SYMBOLMARK.split(s):
+				if RE_SYMBOLMARK.match(w) or w.isspace():
 					expand += w
 				elif len(w) > 0:
 					if w in unkowns:
@@ -364,16 +364,18 @@ def check_ppif(ins, expr, macros, unkowns):
 			return 0
 	return 1
 
-#
-#
+RE_PPIF = re.compile('#\s*(ifdef|ifndef|if)\s*(.*)$')
+RE_PPELIF = re.compile('#\s*elif(.*)$')
+RE_PPELSE = re.compile('#\s*else\s*$')
+RE_PPENDIF = re.compile('#\s*endif')
 def check_pp(line, depth, brothers, macros, unkowns):
-	m = re.match("#\s*(ifdef|ifndef|if)\s*(.*)$", line)
+	m = RE_PPIF.match(line)
 	if m:
 		f = check_ppif(m.group(1), m.group(2), macros, unkowns)
 		depth.append(f)
 		brothers.append([])
 		return all( x != 0 for x in depth ) and f == -1
-	m = re.match("#\s*elif(.*)$", line)
+	m = RE_PPELIF.match(line)
 	if m:
 		brother = brothers[-1]
 		brother.append(depth[-1])
@@ -382,7 +384,7 @@ def check_pp(line, depth, brothers, macros, unkowns):
 			f = check_ppif("elif", m.group(1), macros, unkowns)
 		depth[-1] = f
 		return all( x != 0 for x in depth ) and any(x == -1 for x in brother)
-	m = re.match("#\s*else\s*$", line)
+	m = RE_PPELSE.match(line)
 	if m:
 		brother = brothers[-1]
 		f = depth[-1]
@@ -392,7 +394,7 @@ def check_pp(line, depth, brothers, macros, unkowns):
 			f = 1
 		depth[-1] = f
 		return all( x != 0 for x in depth ) and f == -1
-	if re.match("#\s*endif", line):
+	if RE_PPENDIF.match(line):
 		brother = brothers[-1]
 		f = depth.pop()
 		b1 = all( x != 0 for x in depth )
@@ -410,8 +412,8 @@ def reduction(line):
 	line = re.sub('\s+', ' ', line)
 	line = re.sub('\s$', '', line)
 	return line
-#
-#
+
+RE_CPP_COMMENT = re.compile('^//.*')
 def preprocess(code, macros):
 	macros = predefined_macros
 	unkowns = []
@@ -420,7 +422,7 @@ def preprocess(code, macros):
 	dst = ""
 	for line in code.splitlines():
 		# c++ comment
-		if re.match('^//.*', line):
+		if RE_CPP_COMMENT.match(line):
 			continue
 		# if/ifdef/ifndef/elif/endif
 		if check_pp(line, depth, brother, macros, unkowns):
