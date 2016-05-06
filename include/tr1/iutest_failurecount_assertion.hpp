@@ -145,7 +145,10 @@ public:
 				++n;
 			}
 		}
-		if( n < cnt ) return AssertionSuccess();
+		if( n < cnt )
+		{
+			return AssertionSuccess();
+		}
 		AssertionResult ar = AssertionFailure() << stetements_str << "\nExpected: failure count less than " << cnt << "\n  Actual: " << n;
 		ar << "\nReported results:";
 		for( size_t i=0; i < num; ++i )

@@ -351,7 +351,10 @@ private:
 		for( TestPartResults::const_iterator it=m_test_part_results.begin()
 			, end=m_test_part_results.end(); it != end; ++it )
 		{
-			if( it->type() == eType ) return true;
+			if( it->type() == eType )
+			{
+				return true;
+			}
 		}
 		return false;
 	}

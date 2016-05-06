@@ -262,7 +262,10 @@ IUTEST_IPP_INLINE ::std::string MakeIndexTestName(const char* basename, size_t i
 
 IUTEST_IPP_INLINE::std::string MakeParamTestName(const ::std::string& basename, const ::std::string& parame_name)
 {
-	if( parame_name.empty() ) return basename;
+	if( parame_name.empty() )
+	{
+		return basename;
+	}
 	::std::string name = basename;
 	name += "/";
 	name += parame_name;

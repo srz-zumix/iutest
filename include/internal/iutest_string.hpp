@@ -64,13 +64,25 @@ inline int iu_stricmp(const char* str1, const char* str2)
 	{
 		int ul = toupper(*l);
 		int ur = toupper(*r);
-		if( ul < ur ) return -1;
-		if( ul > ur ) return 1;
+		if( ul < ur )
+		{
+			return -1;
+		}
+		if( ul > ur )
+		{
+			return 1;
+		}
 		++l;
 		++r;
 	}
-	if( *l < *r ) return -1;
-	if( *l > *r ) return 1;
+	if( *l < *r )
+	{
+		return -1;
+	}
+	if( *l > *r )
+	{
+		return 1;
+	}
 	return 0;
 #endif
 }
@@ -92,13 +104,25 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 	{
 		wchar_t ul = towupper(*l);
 		wchar_t ur = towupper(*r);
-		if( ul < ur ) return -1;
-		if( ul > ur ) return 1;
+		if( ul < ur )
+		{
+			return -1;
+		}
+		if( ul > ur )
+		{
+			return 1;
+		}
 		++l;
 		++r;
 	}
-	if( *l < *r ) return -1;
-	if( *l > *r ) return 1;
+	if( *l < *r )
+	{
+		return -1;
+	}
+	if( *l > *r )
+	{
+		return 1;
+	}
 	return 0;
 #endif
 }
@@ -315,10 +339,16 @@ inline ::std::string StringFormat(const char* format, ...)
 		if( written < 0 )
 		{
 #if defined(EOVERFLOW)
-			if( errno == EOVERFLOW ) break;
+			if( errno == EOVERFLOW )
+			{
+				break;
+			}
 #endif
 #if defined(E2BIG)
-			if( errno == E2BIG ) break;
+			if( errno == E2BIG )
+			{
+				break;
+			}
 #endif
 		}
 		else if( static_cast<size_t>(written) < n )

@@ -750,7 +750,10 @@ inline bool FullMatch(const ::std::string& str, ::iutest::internal::RE& re)
 }
 inline bool FullMatch(const char* str, ::iutest::internal::RE& re)
 {
-	if( str == NULL ) return false;
+	if( str == NULL )
+	{
+		return false;
+	}
 	return ::iutest::internal::RE::FullMatch(str, re);
 }
 
@@ -760,7 +763,10 @@ inline bool PartialMatch(const ::std::string& str, ::iutest::internal::RE& re)
 }
 inline bool PartialMatch(const char* str, ::iutest::internal::RE& re)
 {
-	if( str == NULL ) return false;
+	if( str == NULL )
+	{
+		return false;
+	}
 	return ::iutest::internal::RE::PartialMatch(str, re);
 }
 

@@ -172,8 +172,7 @@ private:
 			puts(buf);
 #endif
 			Response res(buf);
-			if( res.m_code < 200
-				|| res.m_code >= 300 )
+			if( res.m_code < 200 || res.m_code >= 300 )
 			{
 				IUTEST_LOG_(WARNING) << buf;
 			}
@@ -206,7 +205,10 @@ private:
 		}
 		if( option & OPTION_NOTRANSLATE )
 		{
-			if( !str.empty() ) str += ",";
+			if( !str.empty() )
+			{
+				str += ",";
+			}
 			str += "notranslate";
 		}
 		return "";
@@ -400,7 +402,9 @@ IUTEST_IPP_INLINE SSTPNotifier::SSTPNotifier(const char* host, int port)
 	: m_sstp("iutest", detail::SSTP::CHARSET_UTF8)
 {
 	if( !m_sstp.Open(host, StreamableToString(port).c_str()) )
+	{
 		IUTEST_LOG_(WARNING) << "SSTPNotifier: failed connect to " << host << ":" << port;
+	}
 }
 
 
@@ -452,7 +456,10 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestStart(const TestInfo& test_info)
 IUTEST_IPP_INLINE void SSTPNotifier::OnTestPartResult(const TestPartResult& test_part_result)
 {
 	const char* filename = test_part_result.file_name();
-	if( filename == NULL ) filename = "";
+	if( filename == NULL )
+	{
+		filename = "";
+	}
 
 	if( test_part_result.passed() )
 	{
@@ -536,11 +543,9 @@ IUTEST_IPP_INLINE ::std::string SSTPNotifier::FormatPath(const ::std::string& pa
 IUTEST_IPP_INLINE ::std::string SSTPNotifier::FormatBool(bool b)
 {
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-	if( b ) return "成功";
-	return "失敗";
+	return b ? "成功" : "失敗";
 #else
-	if( b ) return "Succeeded";
-	return "Failed";
+	return b ? "Succeeded" : "Failed";
 #endif
 }
 

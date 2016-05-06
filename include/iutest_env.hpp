@@ -597,7 +597,10 @@ public:
 		}
 		iuEnvironmentList& list = environments();
 		iuEnvironmentList::iterator it = ::std::find(list.begin(), list.end(), env);
-		if( it == list.end() ) return NULL;
+		if( it == list.end() )
+		{
+			return NULL;
+		}
 		list.erase(it);
 		return env;
 	}
@@ -630,7 +633,10 @@ public:
 	template<typename CharType>
 	static void ParseCommandLine(int* pargc, CharType** argv)
 	{
-		if( argv == NULL ) return;
+		if( argv == NULL )
+		{
+			return;
+		}
 		int argc = *pargc;
 
 		for( int i=0; i < argc; )

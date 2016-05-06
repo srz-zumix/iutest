@@ -144,7 +144,10 @@ public:
 	static int setname(const ::std::string& s)
 	{
 		::std::string& name = getname_();
-		if( name.empty() ) name = s;
+		if( name.empty() )
+		{
+			name = s;
+		}
 		return 0;
 	}
 };

@@ -497,8 +497,10 @@ public:
 	}
 	virtual void Next() IUTEST_CXX_OVERRIDE
 	{
-		if( IsEnd() ) return;
-		next_foreach<0, kCount>(v);
+		if( !IsEnd() )
+		{
+			next_foreach<0, kCount>(v);
+		}
 	}
 	virtual bool IsEnd() const IUTEST_CXX_OVERRIDE
 	{
@@ -566,12 +568,18 @@ public:
 	}
 	virtual void Next() IUTEST_CXX_OVERRIDE
 	{
-		if( m_g2.IsEnd() ) return;
+		if( m_g2.IsEnd() )
+		{
+			return;
+		}
 		m_g2.Next();
 		if( m_g2.IsEnd() )
 		{
 			m_g1.Next();
-			if( !m_g1.IsEnd() ) m_g2.Begin();
+			if( !m_g1.IsEnd() )
+			{
+				m_g2.Begin();
+			}
 		}
 	}
 	virtual bool IsEnd() const IUTEST_CXX_OVERRIDE

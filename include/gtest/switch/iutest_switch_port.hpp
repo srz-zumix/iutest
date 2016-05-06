@@ -246,13 +246,25 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 	{
 		wchar_t ul = towupper(*l);
 		wchar_t ur = towupper(*r);
-		if( ul < ur ) return -1;
-		if( ul > ur ) return 1;
+		if( ul < ur )
+		{
+			return -1;
+		}
+		if( ul > ur )
+		{
+			return 1;
+		}
 		++l;
 		++r;
 	}
-	if( *l < *r ) return -1;
-	if( *l > *r ) return 1;
+	if( *l < *r )
+	{
+		return -1;
+	}
+	if( *l > *r )
+	{
+		return 1;
+	}
 	return 0;
 #endif
 }

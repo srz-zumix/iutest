@@ -249,7 +249,10 @@ IUTEST_IPP_INLINE bool SetEnvironmentVariable(const char* name, const char* valu
 
 IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, char* buf, size_t size)
 {
-	if( buf == NULL ) return false;
+	if( buf == NULL )
+	{
+		return false;
+	}
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
 	const DWORD ret = ::GetEnvironmentVariableA(name, buf, static_cast<DWORD>(size));
 	if( ret == 0 )
@@ -268,7 +271,10 @@ IUTEST_IPP_INLINE bool GetEnvironmentVariable(const char* name, char* buf, size_
 		return false;
 	}
 	const int n = iu_snprintf(buf, size, "%s", env);
-	if( n < 0 || static_cast<size_t>(n) >= size ) return false;
+	if( n < 0 || static_cast<size_t>(n) >= size )
+	{
+		return false;
+	}
 	return true;
 #endif
 }

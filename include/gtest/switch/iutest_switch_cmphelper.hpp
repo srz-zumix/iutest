@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -90,11 +90,17 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASEEQ(const char* e
 {
 	if( val1 == NULL || val2 == NULL )
 	{
-		if( val1 == val2 ) return AssertionSuccess();
+		if( val1 == val2 )
+		{
+			return AssertionSuccess();
+		}
 	}
 	else
 	{
-		if( iu_wcsicmp(val1, val2) == 0 ) return AssertionSuccess();
+		if( iu_wcsicmp(val1, val2) == 0 )
+		{
+			return AssertionSuccess();
+		}
 	}
 	return EqFailure(expr1, expr2
 		, FormatForComparisonFailureMessage(val1, val2).c_str()
@@ -128,11 +134,17 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* e
 {
 	if( val1 == NULL || val2 == NULL )
 	{
-		if( val1 != val2 ) return AssertionSuccess();
+		if( val1 != val2 )
+		{
+			return AssertionSuccess();
+		}
 	}
 	else
 	{
-		if( iu_wcsicmp(val1, val2) != 0 ) return AssertionSuccess();
+		if( iu_wcsicmp(val1, val2) != 0 )
+		{
+			return AssertionSuccess();
+		}
 	}
 	return AssertionFailure() << "error: Value of: " << expr1 << " != " << expr2
 		<< "\n  Actual: " << FormatForComparisonFailureMessage(val2, val1) << "\nExpected: " << FormatForComparisonFailureMessage(val1, val2);

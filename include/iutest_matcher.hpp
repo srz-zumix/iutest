@@ -166,7 +166,10 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U* actual) const
 	{
-		if( actual == NULL ) return AssertionSuccess();
+		if( actual == NULL )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 	::std::string WhichIs() const IUTEST_CXX_OVERRIDE
@@ -188,7 +191,10 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U* actual) const
 	{
-		if( actual != NULL ) return AssertionSuccess();
+		if( actual != NULL )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 	::std::string WhichIs() const IUTEST_CXX_OVERRIDE
@@ -278,7 +284,10 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual) const
 	{
-		if( StartsWith(actual, m_str) ) return AssertionSuccess();
+		if( StartsWith(actual, m_str) )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -328,7 +337,10 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual) const
 	{
-		if( HasSubstr(actual, m_expected) ) return AssertionSuccess();
+		if( HasSubstr(actual, m_expected) )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -379,7 +391,10 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual) const
 	{
-		if( EndsWith(actual, m_str) ) return AssertionSuccess();
+		if( EndsWith(actual, m_str) )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -395,12 +410,18 @@ private:
 	{
 		const size_t len = strlen(end);
 		const size_t actual_len = strlen(actual);
-		if( len > actual_len ) return false;
+		if( len > actual_len )
+		{
+			return false;
+		}
 		const char* p = actual + actual_len - 1;
 		const char* q = end + len - 1;
 		for( size_t i=0; i < len; ++i, --p, --q )
 		{
-			if( *p != *q ) return false;
+			if( *p != *q )
+			{
+				return false;
+			}
 		}
 		return true;
 	}
@@ -438,7 +459,10 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual) const
 	{
-		if( Equals(actual, m_expected) ) return AssertionSuccess();
+		if( Equals(actual, m_expected) )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -544,7 +568,10 @@ public:
 	AssertionResult operator ()(const U& actual)
 	{
 		IUTEST_USING_BEGIN_END();
-		if( Contains(begin(actual), end(actual)) ) return AssertionSuccess();
+		if( Contains(begin(actual), end(actual)) )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -589,7 +616,10 @@ public:
 	AssertionResult operator ()(const U& actual)
 	{
 		IUTEST_USING_BEGIN_END();
-		if( Each(begin(actual), end(actual)) ) return AssertionSuccess();
+		if( Each(begin(actual), end(actual)) )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -635,7 +665,10 @@ public:
 	{
 		IUTEST_USING_BEGIN_END();
 		if( Check(begin(m_expected), end(m_expected)
-			, begin(actual), end(actual)) ) return AssertionSuccess();
+			, begin(actual), end(actual)) )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -699,7 +732,10 @@ public:
 	{
 		IUTEST_USING_BEGIN_END();
 		if( Check(begin(m_expected), end(m_expected)
-			, begin(actual), end(actual)) ) return AssertionSuccess();
+			, begin(actual), end(actual)) )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -758,7 +794,10 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual)
 	{
-		if( (actual).empty() ) return AssertionSuccess();
+		if( (actual).empty() )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -785,7 +824,10 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual)
 	{
-		if( Check(actual) ) return AssertionSuccess();
+		if( Check(actual) )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -829,7 +871,10 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual)
 	{
-		if( CastToMatcher(m_expected)(actual[m_index]) ) return AssertionSuccess();
+		if( CastToMatcher(m_expected)(actual[m_index]) )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -1106,7 +1151,10 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual)
 	{
-		if( Check(actual) ) return AssertionSuccess();
+		if( Check(actual) )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -1160,7 +1208,10 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual)
 	{
-		if( Check(actual) ) return AssertionSuccess();
+		if( Check(actual) )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -1214,7 +1265,10 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual) const
 	{
-		if( CastToMatcher(m_expected)(actual.first) ) return AssertionSuccess();
+		if( CastToMatcher(m_expected)(actual.first) )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -1290,7 +1344,10 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual)
 	{
-		if( Check(actual) ) return AssertionSuccess();
+		if( Check(actual) )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -1328,7 +1385,10 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual)
 	{
-		if( Check(actual) ) return AssertionSuccess();
+		if( Check(actual) )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -1364,7 +1424,10 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual)
 	{
-		if( !CastToMatcher(m_unexpected)(actual) ) return AssertionSuccess();
+		if( !CastToMatcher(m_unexpected)(actual) )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 
@@ -1446,7 +1509,10 @@ public:
 	template<typename U>
 	AssertionResult operator ()(const U& actual) const
 	{
-		if( Regex(actual) ) return AssertionSuccess();
+		if( Regex(actual) )
+		{
+			return AssertionSuccess();
+		}
 		return AssertionFailure() << WhichIs();
 	}
 

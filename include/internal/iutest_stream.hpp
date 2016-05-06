@@ -118,7 +118,10 @@ public:
 	*/
 	virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
 	{
-		if( fwrite(buf, size, cnt, m_fp) < cnt ) return false;
+		if( fwrite(buf, size, cnt, m_fp) < cnt )
+		{
+			return false;
+		}
 		return true;
 	}
 };

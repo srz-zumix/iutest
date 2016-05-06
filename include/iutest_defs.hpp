@@ -211,7 +211,10 @@ public:
 	*/
 	bool	AlmostEquals(const _Myt& rhs) const
 	{
-		if( is_nan() || rhs.is_nan() ) return false;
+		if( is_nan() || rhs.is_nan() )
+		{
+			return false;
+		}
 		return NanSensitiveAlmostEquals(rhs);
 	}
 

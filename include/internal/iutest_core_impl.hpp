@@ -227,7 +227,10 @@ template<typename T>
 {
 #if IUTEST_HAS_RTTI
 	::std::string name = prefix;
-	if( !name.empty() ) name += "/";
+	if( !name.empty() )
+	{
+		name += "/";
+	}
 	name += MakeIndexTypedTestName<T>(basename, index);
 	return name;
 #else

@@ -56,7 +56,10 @@ IUTEST_IPP_INLINE MiniDump::~MiniDump()
 
 IUTEST_IPP_INLINE bool MiniDump::Dump(HANDLE hFile, EXCEPTION_POINTERS* ep)
 {
-	if( m_pfnMiniDumpWriteDump == NULL ) return false;
+	if( m_pfnMiniDumpWriteDump == NULL )
+	{
+		return false;
+	}
 	MINIDUMP_EXCEPTION_INFORMATION mdei;
 	mdei.ThreadId = ::GetCurrentThreadId();
 	mdei.ExceptionPointers = ep;
@@ -76,7 +79,10 @@ IUTEST_IPP_INLINE bool MiniDump::Create(const char* filepath, EXCEPTION_POINTERS
 {
 	HANDLE hFile = CreateFileA( filepath, GENERIC_READ|GENERIC_WRITE, FILE_SHARE_WRITE|FILE_SHARE_READ
 		, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-	if( hFile == NULL || hFile == INVALID_HANDLE_VALUE ) return false;
+	if( hFile == NULL || hFile == INVALID_HANDLE_VALUE )
+	{
+		return false;
+	}
 
 	static MiniDump dump;
 	const bool ret = dump.Dump(hFile, ep);

@@ -356,8 +356,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 					if( IsValidXmlCharacter(*src) )
 #endif
 					{
-						if( is_attribute
-							&& IsWhitespace(*src) )
+						if( is_attribute && IsWhitespace(*src) )
 						{
 							char tmp[8];
 							detail::iu_snprintf(tmp, sizeof(tmp), "&#x%02X;", *src);

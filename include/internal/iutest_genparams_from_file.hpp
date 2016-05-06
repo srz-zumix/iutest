@@ -43,7 +43,10 @@ public:
 private:
 	void AppendParams(params_t& params, const ::std::string& data)
 	{
-		if( StringIsBlank(data) ) return;
+		if( StringIsBlank(data) )
+		{
+			return;
+		}
 		::std::istringstream strm(data);
 		T param;
 		strm >> param;

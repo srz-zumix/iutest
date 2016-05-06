@@ -62,8 +62,14 @@ IUTEST_IPP_INLINE::std::string TestEnv::get_report_junit_xml_filepath()
 IUTEST_IPP_INLINE::std::string TestEnv::AddDefaultPackageName(const char* testcase_name)
 {
 	::std::string str = TestEnv::get_default_package_name();
-	if( str.empty() ) return testcase_name;
-	if( strchr(testcase_name, '.') != NULL ) return testcase_name;
+	if( str.empty() )
+	{
+		return testcase_name;
+	}
+	if( strchr(testcase_name, '.') != NULL )
+	{
+		return testcase_name;
+	}
 
 	str += ".";
 	str += testcase_name;
@@ -473,7 +479,10 @@ IUTEST_IPP_INLINE bool TestEnv::ParseFilterOption(const char* option)
 
 IUTEST_IPP_INLINE bool TestEnv::ParseFlagFileOption(const char* option)
 {
-	if(option == NULL || option[0] == '\0' ) return false;
+	if( option == NULL || option[0] == '\0' )
+	{
+		return false;
+	}
 	set_flagfile_path(option);
 	return true;
 }
@@ -481,7 +490,10 @@ IUTEST_IPP_INLINE bool TestEnv::ParseFlagFileOption(const char* option)
 IUTEST_IPP_INLINE bool TestEnv::LoadFlagFile()
 {
 	const char* path = get_flagfile();
-	if(path == NULL || path[0] == '\0') return true;
+	if( path == NULL || path[0] == '\0' )
+	{
+		return true;
+	}
 
 	::std::string flags;
 	if(!detail::IFileSystem::ReadAll(path, flags))

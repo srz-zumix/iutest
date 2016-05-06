@@ -255,7 +255,10 @@ class DefaultPrinter : public ::testing::EmptyTestEventListener
 private:
 	virtual void OnTestPartResult(const TestPartResult& test_part_result)
 	{
-		if( ::testing::UnitTest::GetInstance()->listeners().default_result_printer() == NULL ) return;
+		if( ::testing::UnitTest::GetInstance()->listeners().default_result_printer() == NULL )
+		{
+			return;
+		}
 
 		if( test_part_result.type() == TestPartResult::kSuccess )
 		{

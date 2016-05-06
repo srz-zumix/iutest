@@ -421,7 +421,10 @@ private:
 	// ノードの状態チェック
 	bool check_node()
 	{
-		if( m_node == NULL ) return true;
+		if( m_node == NULL )
+		{
+			return true;
+		}
 		node_ptr prev = m_node;
 		node_ptr curr = prev->next;
 		while( curr != NULL )

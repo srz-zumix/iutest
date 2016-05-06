@@ -268,7 +268,10 @@ public:
 	{
 		if( m_ptr != p )
 		{
-			if( IsTrue(sizeof(T) > 0) ) delete m_ptr;
+			if( IsTrue(sizeof(T) > 0) )
+			{
+				delete m_ptr;
+			}
 			m_ptr = p;
 		}
 	}

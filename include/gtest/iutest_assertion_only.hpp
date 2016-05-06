@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -144,13 +144,19 @@ int String::Compare(const String& rhs) const
 
 bool String::CStringEquals(const char* lhs, const char* rhs)
 {
-	if( lhs == NULL || rhs == NULL ) return lhs == rhs;
+	if( lhs == NULL || rhs == NULL )
+	{
+		return lhs == rhs;
+	}
 	return strcmp(lhs, rhs) == 0;
 }
 bool String::CaseInsensitiveCStringEquals(const char* lhs,
 	const char* rhs)
 {
-	if( lhs == NULL || rhs == NULL ) return lhs == rhs;
+	if( lhs == NULL || rhs == NULL )
+	{
+		return lhs == rhs;
+	}
 	return internal::posix::StrCaseCmp(lhs, rhs) == 0;
 }
 

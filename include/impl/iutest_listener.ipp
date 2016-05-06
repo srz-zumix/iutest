@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2011-2014, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -25,7 +25,10 @@ namespace iutest
 IUTEST_IPP_INLINE TestEventListener* TestEventRepeater::Release(TestEventListener* listener)
 {
 	ListenerContainer::iterator it = ::std::find(m_listeners.begin(), m_listeners.end(), listener);
-	if( it == m_listeners.end() ) return NULL;
+	if( it == m_listeners.end() )
+	{
+		return NULL;
+	}
 	m_listeners.erase(it);
 	return listener;
 }

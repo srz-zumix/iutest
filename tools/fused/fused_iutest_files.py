@@ -26,7 +26,7 @@ class IutestFused:
 	COMMENT_REGEX = re.compile(r'^\s*//.*')
 	C_COMMENT_BEGIN_REGEX = re.compile(r'^\s*(.*)/\*.*')
 	C_COMMENT_END_REGEX = re.compile(r'^\s*\*/(.*)')
-	STRING_REGEX = re.compile(r'(".+?")')
+	STRING_REGEX = re.compile(r'(".*?")')
 	INCG_REGEX = re.compile(r'^\s*#\s*(ifndef|define|endif)[/\s]*(INCG_\S*)\s*\Z')
 	c_comment = False
 	store_line = ""
@@ -40,7 +40,41 @@ class IutestFused:
 				return True
 		return False
 
-	def Minmumize(self, line):
+	def StoreStrings(self, src, list):
+		tmp = src.replace(r'\"', '$$')
+		prev = 0
+		dst = ""
+		for m in self.STRING_REGEX.finditer(tmp):
+			dst += tmp[prev:m.start()]
+			dst += '"@STRING@"'
+			prev = m.end()
+			list.append(m.group(0))
+		dst += tmp[prev:]
+		return dst
+
+	def RestoreStrings(self, src, list):
+		dst = src
+		for s in list:
+			dst = dst.replace('"@STRING@"', s, 1)
+		dst = dst.replace('$$', r'\"')
+		return dst
+
+	def StoreMinimze(self, line):
+		store = self.store_line + line
+		# string store
+		str_l = []
+		store = self.StoreStrings(store, str_l)
+
+		store = re.sub('"@STRING@""@STRING@"', '"@STRING@"##+##"@STRING@"', store)
+		store = re.sub('\):\s+', '):', store)
+		
+		# string restore
+		store = self.RestoreStrings(store, str_l)
+	
+		store = store.replace('"##+##"', '')
+		self.store_line = store
+		
+	def Minimze(self, line):
 		# if defined -> ifdef
 		line = re.sub(r'\s*#\s*if\s*defined\((\S*)\)\s*\Z', r'#ifdef \1', line)
 		# if !defined -> ifndef
@@ -70,9 +104,8 @@ class IutestFused:
 			return ""
 
 		# string store
-		str_l = self.STRING_REGEX.findall(line)
-		for s in str_l:
-			line = line.replace(s, '"@STRING@"', 1)
+		str_l = []
+		line = self.StoreStrings(line, str_l)
 
 		# remove comment and strip
 		line = re.sub('//[\S \t]*', '', line)
@@ -89,7 +122,7 @@ class IutestFused:
 		line = re.sub(r'\)\s+>', r')>', line)
 		line = re.sub(';[ \t]+', ';', line)
 		line = re.sub('[ \t]+', ' ', line)
-		line = re.sub('([\w)]+)\s+([&|\+\-<>=\?]+)[ \t]+([^>])', r'\1\2\3', line)
+		line = re.sub('([\w)\]]+)\s+([&|\+\-<>=\?]+)[ \t]+([^>])', r'\1\2\3', line)
 		line = re.sub('\s*([{\+\-\*/%=<>&|!]+=)[ \t]*', r'\1', line)
 		line = re.sub('<\s+(\w)', r'<\1', line)
 		line = re.sub('\s+:[ \t]+(\w)', r':\1', line)
@@ -115,8 +148,7 @@ class IutestFused:
 		line = re.sub('0x([0-9])([^0-9A-Fa-f])', r'\1\2', line)
 
 		# string restore
-		for s in str_l:
-			line = line.replace('"@STRING@"', s, 1)
+		line = self.RestoreStrings(line, str_l)
 
 		line = re.sub('^#define\s+(\w+)=', r'#define \1 =', line)
 		return line
@@ -159,24 +191,24 @@ class IutestFused:
 				else:
 					find_ifdef = bool(self.IFDEF_REGEX.match(line))
 					if minimum:
-						line = self.Minmumize(line)
+						line = self.Minimze(line)
 						if len(line):
 							if self.PREPRO_REGEX.match(self.store_line):
 								line = line.strip();
 								if line.endswith('\\'):
-									self.store_line += line.rstrip(r'\\')
+									self.StoreMinimze(line.rstrip(r'\\'))
 								else:
-									self.store_line += line
+									self.StoreMinimze(line)
 									self.Flush(output_file)
 							elif self.PREPRO_REGEX.match(line):
 								self.Flush(output_file)
 								if line.strip().endswith('\\'):
-									self.store_line += line.strip().rstrip(r'\\')
+									self.StoreMinimze(line.strip().rstrip(r'\\'))
 								else:
 									output_file.write(line)
 							else:
 								strip_line = line.strip();
-								self.store_line += strip_line
+								self.StoreMinimze(strip_line)
 								#if not re.match('.*[{};\(\)<>]$', strip_line):
 								#	self.Flush(output_file)
 								if re.match('.*(:|IUTEST_CXX_DEFAULT_FUNCTION)$', strip_line):
