@@ -35,7 +35,10 @@ IUTEST_IPP_INLINE bool iuFilterRegex::match_impl(const char* begin, const char* 
 		if( *tp == '*' )	// 任意の文字列にマッチ
 		{
 			++tp;
-			while( *tp == '*' ) ++tp;
+			while( *tp == '*' )
+			{
+				++tp;
+			}
 			if( tp == end )
 			{
 				return true;
@@ -98,7 +101,10 @@ IUTEST_IPP_INLINE bool iuFilterRegex::match_impl_group(const char* begin, const 
 	while( end2 != end )
 	{
 		++end2;
-		while( *end2 != '-' && end2 != end ) ++end2;
+		while( *end2 != '-' && end2 != end )
+		{
+			++end2;
+		}
 		if( *tp == '-' )
 		{
 			if( match_impl(tp + 1, end2, src) )
