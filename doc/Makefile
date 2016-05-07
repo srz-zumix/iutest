@@ -23,6 +23,7 @@ gh-pages: target
 	cp -r images gh-pages/
 	cp ../README.md gh-pages/
 	cp dev/circle.yml gh-pages/
+	cp dev/shippable.yml gh-pages/
 
 clean:
 	rm -rf html
