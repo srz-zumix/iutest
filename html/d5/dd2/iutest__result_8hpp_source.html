@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.15.0.35</span>
+   &#160;<span id="projectnumber">1.15.0.37</span>
    </div>
   </td>
  </tr>
@@ -301,26 +301,29 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        <span class="keywordflow">for</span>( TestPartResults::const_iterator it=m_test_part_results.begin()</div>
 <div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;            , end=m_test_part_results.end(); it != end; ++it )</div>
 <div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        {</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;            <span class="keywordflow">if</span>( it-&gt;type() == eType ) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;        }</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    }</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>UnitTestImpl;</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>TestInfo;</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>TestCase;</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>detail::DefaultGlobalTestPartResultReporter;</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    TestPartResults m_test_part_results;</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    TestPropertys   m_test_propertys;</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;    <a class="code" href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">TimeInMillisec</a>  m_elapsedmsec;</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    <a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>(TestResult);</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;};</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;            <span class="keywordflow">if</span>( it-&gt;type() == eType )</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;            {</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;            }</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        }</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    }</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>UnitTestImpl;</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>TestInfo;</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>TestCase;</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>detail::DefaultGlobalTestPartResultReporter;</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    TestPartResults m_test_part_results;</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    TestPropertys   m_test_propertys;</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    <a class="code" href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">TimeInMillisec</a>  m_elapsedmsec;</div>
 <div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_RESULT_HPP_D27B1599_F42F_4E2D_B3EB_FACE24C2B921_</span></div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    <a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>(TestResult);</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;};</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_RESULT_HPP_D27B1599_F42F_4E2D_B3EB_FACE24C2B921_</span></div>
 <div class="ttc" id="classiutest_1_1_test_result_html_ac1e10a59e410ad8b67e67929925bfb8f"><div class="ttname"><a href="../../d0/d7b/classiutest_1_1_test_result.html#ac1e10a59e410ad8b67e67929925bfb8f">iutest::TestResult::GetTestProperty</a></div><div class="ttdeci">const TestProperty &amp; GetTestProperty(int index) const </div><div class="ttdoc">プロパティの取得 </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:300</div></div>
 <div class="ttc" id="classiutest_1_1_test_result_html_a4983f1470dc88fc2592ef3a42d6073dc"><div class="ttname"><a href="../../d0/d7b/classiutest_1_1_test_result.html#a4983f1470dc88fc2592ef3a42d6073dc">iutest::TestResult::Passed</a></div><div class="ttdeci">bool Passed() const </div><div class="ttdoc">成功したかどうか </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:218</div></div>
 <div class="ttc" id="classiutest_1_1_test_result_html_abae73dd714fdcb63bd1b03a177ea6530"><div class="ttname"><a href="../../d0/d7b/classiutest_1_1_test_result.html#abae73dd714fdcb63bd1b03a177ea6530">iutest::TestResult::HasAssumeFailure</a></div><div class="ttdeci">bool HasAssumeFailure() const </div><div class="ttdoc">前提条件エラーがあるかどうか </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:268</div></div>
@@ -359,7 +362,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="ttc" id="classiutest_1_1_test_result_html_adb9ef14275a0f6ff49a642aaff218a0d"><div class="ttname"><a href="../../d0/d7b/classiutest_1_1_test_result.html#adb9ef14275a0f6ff49a642aaff218a0d">iutest::TestResult::GetTestPartResult</a></div><div class="ttdeci">const TestPartResult &amp; GetTestPartResult(int index) const </div><div class="ttdoc">テスト結果の取得 </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:293</div></div>
 <div class="ttc" id="classiutest_1_1_test_result_html_a27142b4c4a62b12fcbc44f590d9486c6"><div class="ttname"><a href="../../d0/d7b/classiutest_1_1_test_result.html#a27142b4c4a62b12fcbc44f590d9486c6">iutest::TestResult::HasFatalFailure</a></div><div class="ttdeci">bool HasFatalFailure() const </div><div class="ttdoc">致命的なエラーがあるかどうか </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:256</div></div>
 <div class="ttc" id="classiutest_1_1_test_part_result_html_ae262de3fe0170939c8353621126f5355"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#ae262de3fe0170939c8353621126f5355">iutest::TestPartResult::type</a></div><div class="ttdeci">Type type() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">結果のタイプ取得 </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:133</div></div>
-<div class="ttc" id="namespaceiutest_html_a192c2ae3b556bc59e31bc9e4b1bb1f85"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">iutest::TimeInMillisec</a></div><div class="ttdeci">detail::type_least_t&lt; 8 &gt;::UInt TimeInMillisec</div><div class="ttdoc">ミリ秒単位を扱う型 </div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:374</div></div>
+<div class="ttc" id="namespaceiutest_html_a192c2ae3b556bc59e31bc9e4b1bb1f85"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">iutest::TimeInMillisec</a></div><div class="ttdeci">detail::type_least_t&lt; 8 &gt;::UInt TimeInMillisec</div><div class="ttdoc">ミリ秒単位を扱う型 </div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:377</div></div>
 <div class="ttc" id="classiutest_1_1_test_part_result_html_acbbeb3d6671a6df92ce555a87417445c"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#acbbeb3d6671a6df92ce555a87417445c">iutest::TestPartResult::assume_failed</a></div><div class="ttdeci">bool assume_failed() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">前提条件エラーかどうか </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:109</div></div>
 <div class="ttc" id="classiutest_1_1_test_part_result_html_a8ec1b741555cff0e7d2f99d62c6a8278"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#a8ec1b741555cff0e7d2f99d62c6a8278">iutest::TestPartResult::nonfatally_failed</a></div><div class="ttdeci">bool nonfatally_failed() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">致命的ではない失敗かどうか </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:118</div></div>
 <div class="ttc" id="classiutest_1_1_test_property_html_adb0e159d3a3a330dd80a40145ab2580e"><div class="ttname"><a href="../../db/df6/classiutest_1_1_test_property.html#adb0e159d3a3a330dd80a40145ab2580e">iutest::TestProperty::Validate</a></div><div class="ttdeci">bool Validate(const char **ban_list, size_t size) const </div><div class="ttdoc">有効なキーかどうかチェック </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:174</div></div>
@@ -371,7 +374,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年05月02日(月) 13時59分59秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年05月07日(土) 07時38分04秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

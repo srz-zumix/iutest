@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.15.0.35</span>
+   &#160;<span id="projectnumber">1.15.0.37</span>
    </div>
   </td>
  </tr>
@@ -198,43 +198,46 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> setname(const ::std::string&amp; s)</div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    {</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        ::std::string&amp; name = getname_();</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keywordflow">if</span>( name.empty() ) name = s;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    }</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;};</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keywordflow">if</span>( name.empty() )</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        {</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            name = s;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        }</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    }</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;};</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;::std::string <a class="code" href="../../d9/d87/iutest__package_8hpp.html#aeaffd9f593669ab465b11f296223c6a7">iuTest_GetTestCasePackageName</a>(T*)         <span class="comment">// NOLINT</span></div>
-<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="../../d9/d87/iutest__package_8hpp.html#aeaffd9f593669ab465b11f296223c6a7">  161</a></span>&#160;{</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    return ::iutest::detail::package_name_server&lt;T&gt;::getname();</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;}</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;::std::string <a class="code" href="../../d9/d87/iutest__package_8hpp.html#a97169a76f8088ba775352759e459c0dc">iuTest_GetTestCaseParentPackageName</a>(T*)   <span class="comment">// NOLINT</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="../../d9/d87/iutest__package_8hpp.html#a97169a76f8088ba775352759e459c0dc">  171</a></span>&#160;{</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    return ::iutest::detail::package_name_server&lt;T&gt;::getname();</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;}</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d9/d87/iutest__package_8hpp.html#a481f44e732939f7a868a75c114864010">iuTest_ConcatTestCaseName</a>(const ::std::string&amp; package, <span class="keyword">const</span> <span class="keywordtype">char</span>* testcase_name)</div>
-<div class="line"><a name="l00182"></a><span class="lineno"><a class="line" href="../../d9/d87/iutest__package_8hpp.html#a481f44e732939f7a868a75c114864010">  182</a></span>&#160;{</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">package </span>+ testcase_name;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;}</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PACKAGE_HPP_F57C9B7E_7CAA_4429_BE75_FCAAEED1B220_</span></div>
-<div class="ttc" id="iutest__package_8hpp_html_a481f44e732939f7a868a75c114864010"><div class="ttname"><a href="../../d9/d87/iutest__package_8hpp.html#a481f44e732939f7a868a75c114864010">iuTest_ConcatTestCaseName</a></div><div class="ttdeci">inline::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestCaseName(const ::std::string &amp;package, const char *testcase_name)</div><div class="ttdoc">テストケース名との結合 </div><div class="ttdef"><b>Definition:</b> iutest_package.hpp:182</div></div>
-<div class="ttc" id="iutest__package_8hpp_html_a97169a76f8088ba775352759e459c0dc"><div class="ttname"><a href="../../d9/d87/iutest__package_8hpp.html#a97169a76f8088ba775352759e459c0dc">iuTest_GetTestCaseParentPackageName</a></div><div class="ttdeci">::std::string iuTest_GetTestCaseParentPackageName(T *)</div><div class="ttdoc">親空間のパッケージ名の取得 </div><div class="ttdef"><b>Definition:</b> iutest_package.hpp:171</div></div>
-<div class="ttc" id="iutest__package_8hpp_html_aeaffd9f593669ab465b11f296223c6a7"><div class="ttname"><a href="../../d9/d87/iutest__package_8hpp.html#aeaffd9f593669ab465b11f296223c6a7">iuTest_GetTestCasePackageName</a></div><div class="ttdeci">::std::string iuTest_GetTestCasePackageName(T *)</div><div class="ttdoc">パッケージ名の取得 </div><div class="ttdef"><b>Definition:</b> iutest_package.hpp:161</div></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;::std::string <a class="code" href="../../d9/d87/iutest__package_8hpp.html#aeaffd9f593669ab465b11f296223c6a7">iuTest_GetTestCasePackageName</a>(T*)         <span class="comment">// NOLINT</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno"><a class="line" href="../../d9/d87/iutest__package_8hpp.html#aeaffd9f593669ab465b11f296223c6a7">  164</a></span>&#160;{</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    return ::iutest::detail::package_name_server&lt;T&gt;::getname();</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;}</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;::std::string <a class="code" href="../../d9/d87/iutest__package_8hpp.html#a97169a76f8088ba775352759e459c0dc">iuTest_GetTestCaseParentPackageName</a>(T*)   <span class="comment">// NOLINT</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="../../d9/d87/iutest__package_8hpp.html#a97169a76f8088ba775352759e459c0dc">  174</a></span>&#160;{</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    return ::iutest::detail::package_name_server&lt;T&gt;::getname();</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;}</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d9/d87/iutest__package_8hpp.html#a481f44e732939f7a868a75c114864010">iuTest_ConcatTestCaseName</a>(const ::std::string&amp; package, <span class="keyword">const</span> <span class="keywordtype">char</span>* testcase_name)</div>
+<div class="line"><a name="l00185"></a><span class="lineno"><a class="line" href="../../d9/d87/iutest__package_8hpp.html#a481f44e732939f7a868a75c114864010">  185</a></span>&#160;{</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">package </span>+ testcase_name;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;}</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PACKAGE_HPP_F57C9B7E_7CAA_4429_BE75_FCAAEED1B220_</span></div>
+<div class="ttc" id="iutest__package_8hpp_html_a481f44e732939f7a868a75c114864010"><div class="ttname"><a href="../../d9/d87/iutest__package_8hpp.html#a481f44e732939f7a868a75c114864010">iuTest_ConcatTestCaseName</a></div><div class="ttdeci">inline::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestCaseName(const ::std::string &amp;package, const char *testcase_name)</div><div class="ttdoc">テストケース名との結合 </div><div class="ttdef"><b>Definition:</b> iutest_package.hpp:185</div></div>
+<div class="ttc" id="iutest__package_8hpp_html_a97169a76f8088ba775352759e459c0dc"><div class="ttname"><a href="../../d9/d87/iutest__package_8hpp.html#a97169a76f8088ba775352759e459c0dc">iuTest_GetTestCaseParentPackageName</a></div><div class="ttdeci">::std::string iuTest_GetTestCaseParentPackageName(T *)</div><div class="ttdoc">親空間のパッケージ名の取得 </div><div class="ttdef"><b>Definition:</b> iutest_package.hpp:174</div></div>
+<div class="ttc" id="iutest__package_8hpp_html_aeaffd9f593669ab465b11f296223c6a7"><div class="ttname"><a href="../../d9/d87/iutest__package_8hpp.html#aeaffd9f593669ab465b11f296223c6a7">iuTest_GetTestCasePackageName</a></div><div class="ttdeci">::std::string iuTest_GetTestCasePackageName(T *)</div><div class="ttdoc">パッケージ名の取得 </div><div class="ttdef"><b>Definition:</b> iutest_package.hpp:164</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年05月02日(月) 13時59分59秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年05月07日(土) 07時38分04秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
