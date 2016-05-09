@@ -28,7 +28,7 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 3.4'
+		, version=u'%(prog)s version 3.5'
 	)
 	parser.add_argument(
 		'--list_compiler'
@@ -95,6 +95,11 @@ def parse_command_line():
 		, '--output'
 		, metavar='FILE'
 		, help='output source code.'
+	)
+	parser.add_argument(
+		 '--stderr'
+		, action='store_true'
+		, help='output stderr.'
 	)
 	parser.add_argument(
 		  '--encoding'
@@ -210,16 +215,28 @@ def run_wandbox(code, includes, options):
 
 #
 # show result
-def show_result(r):
+def show_result(r, options):
 	if 'error' in r:
 		print(r['error'])
 		sys.exit(1)
-	if 'compiler_message' in r:
-		print('compiler_message:')
-		print(r['compiler_message'].encode('utf_8'))
-	if 'program_message' in r:
-		print('program_message:')
-		print(r['program_message'].encode('utf_8'))
+	if options.stderr:
+		if 'compiler_output' in r:
+			print('compiler_output:')
+			print(r['compiler_output'].encode('utf_8'))
+		if 'compiler_error' in r:
+			sys.stderr.write(r['compiler_error'].encode('utf_8'))
+		if 'program_output' in r:
+			print('program_output:')
+			print(r['program_output'].encode('utf_8'))
+		if 'program_error' in r:
+			sys.stderr.write(r['program_error'].encode('utf_8'))
+	else:
+		if 'compiler_message' in r:
+			print('compiler_message:')
+			print(r['compiler_message'].encode('utf_8'))
+		if 'program_message' in r:
+			print('program_message:')
+			print(r['program_message'].encode('utf_8'))
 	if 'url' in r:
 		print('permlink: ' + r['permlink'])
 		print('url: ' + r['url'])
@@ -256,7 +273,7 @@ def run(options):
 		f.write(code)
 		f.close()
 	r = run_wandbox(code, includes, options)
-	b = show_result(r)
+	b = show_result(r, options)
 	sys.exit(b)
 	
 #
@@ -318,15 +335,15 @@ def get_default_options(compiler):
 
 #
 # get permlink
-def get_permlink(link, output):
+def get_permlink(options):
 	w = Wandbox()
-	r = w.get_permlink(link)
+	r = w.get_permlink(options.permlink)
 	p = r['parameter']
 	show_parameter(p)
 	print('result:')
-	b = show_result(r['result'])
-	if output:
-		f = open(output, 'w')
+	b = show_result(r['result'], options)
+	if options.output:
+		f = open(options.output, 'w')
 		f.write(p['code'])
 		f.close()
 	sys.exit(b)
@@ -340,7 +357,7 @@ def main():
 	elif options.list_options:
 		listup_options(options.list_options)
 	elif options.permlink:
-		get_permlink(options.permlink, options.output)
+		get_permlink(options)
 	else:
 		if options.check_config:
 			check_config(options)

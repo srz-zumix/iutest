@@ -333,6 +333,9 @@
     <ClInclude Include="..\..\include\internal\iutest_genparams_from_file.hpp">
       <Filter>iutest\internal</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\listener\iutest_stderr_xml_generator.hpp">
+      <Filter>iutest\listener</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\impl\iutest_body.ipp">

@@ -559,6 +559,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\listener\iutest_stderr_xml_generator.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\listener\iutest_streaming_listener.hpp"
 					>
 				</File>

@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01150037u //!< iutest version 1.15.0.37
+#define IUTEST_VER			0x01150038u //!< iutest version 1.15.0.38
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x15u		//!< Minor Version
 #define IUTEST_BUILD		0x00u		//!< Build
-#define IUTEST_REVISION		0x37u		//!< Revision
+#define IUTEST_REVISION		0x38u		//!< Revision
 
 /**
  * @mainpage
@@ -118,7 +118,8 @@
  <ul>
   <li>v1.15.1.0
     <ul>
-      <li>--help|spec|feature|version を同時に使用可能に変更 (e.g. --spec --feature</li>
+      <li>stderr に xml の内容を出力するリスナーを追加</li>
+      <li>--help|spec|feature|version を同時に使用可能に変更 (e.g. --spec --feature)</li>
       <li>CSV パラメータのパス解決処理を修正</li>
       <li>fused-src 生成ツールを修正</li>
     </ul>

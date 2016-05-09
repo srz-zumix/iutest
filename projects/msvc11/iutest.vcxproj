@@ -224,6 +224,7 @@
     <ClInclude Include="..\..\include\listener\iutest_junit_xml_generator.hpp" />
     <ClInclude Include="..\..\include\listener\iutest_progress_printer.hpp" />
     <ClInclude Include="..\..\include\listener\iutest_sstp_notifier.hpp" />
+    <ClInclude Include="..\..\include\listener\iutest_stderr_xml_generator.hpp" />
     <ClInclude Include="..\..\include\listener\iutest_streaming_listener.hpp" />
     <ClInclude Include="..\..\include\listener\iutest_tap_printer.hpp" />
     <ClInclude Include="..\..\include\gtest\iutest_assertion_only.hpp" />
