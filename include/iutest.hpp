@@ -29,7 +29,7 @@
 #include "iutest_static_assertion.hpp"
 #include "iutest_ignore.hpp"
 #include "listener/iutest_default_printer.hpp"
-#include "listener/iutest_junit_xml_generator.hpp"
+#include "listener/iutest_stderr_xml_generator.hpp"
 #include "listener/iutest_streaming_listener.hpp"
 
 #if defined(__AFX_H__)
@@ -1642,8 +1642,13 @@ public:
 	*/
 	int	Run()
 	{
+#if defined(__WANDBOX__)
+		StderrXmlGeneratorListener::SetUp();
+		StderrJunitXmlGeneratorListener::SetUp();
+#else
 		DefaultXmlGeneratorListener::SetUp();
 		JunitXmlGeneratorListener::SetUp();
+#endif
 
 #if IUTEST_HAS_STREAM_RESULT
 		StreamResultListener::SetUp();

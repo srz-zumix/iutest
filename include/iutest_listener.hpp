@@ -36,6 +36,8 @@ namespace detail
 {
 
 class DefaultGlobalTestPartResultReporter;
+template<typename T, typename ::std::string(*GetXmlPath)()>
+class StderrXmlGeneratorListenerBase;
 
 }	// end of namespace detail
 
@@ -216,6 +218,8 @@ private:
 	friend class DefaultXmlGeneratorListener;
 	friend class JunitXmlGeneratorListener;
 	friend class DefalutResultPrintListener;
+	template<typename T, typename ::std::string(*GetXmlPath)()>
+	friend class detail::StderrXmlGeneratorListenerBase;
 
 	TestEventRepeater	m_repeater;
 	TestEventListener*	m_default_result_printer;

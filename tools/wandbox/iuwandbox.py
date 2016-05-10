@@ -28,7 +28,7 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 3.5'
+		, version=u'%(prog)s version 3.6'
 	)
 	parser.add_argument(
 		'--list_compiler'
@@ -70,6 +70,7 @@ def parse_command_line():
 		, '--compiler_option_raw'
 		, metavar='OPTIONS'
 		, action='append'
+		, default=['-D__WANDBOX__']
 		, help='compile-time any additional options.'
 	)
 	parser.add_argument(

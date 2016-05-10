@@ -27,6 +27,7 @@ class DefaultXmlGeneratorListener : public EmptyTestEventListener
 {
 	::std::string m_output_path_foramt;
 	::std::string m_output_path;
+protected:
 	IFile* m_fp;
 public:
 	/**
