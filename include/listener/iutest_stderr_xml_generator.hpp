@@ -51,7 +51,7 @@ private:
 	}
 	virtual void FileClose()
 	{
-		this->m_fp = nullptr;
+		this->m_fp = NULL;
 	}
 
 public:
