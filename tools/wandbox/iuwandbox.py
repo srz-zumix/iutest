@@ -28,7 +28,7 @@ def parse_command_line():
 		'-v'
 		, '--version'
 		, action='version'
-		, version=u'%(prog)s version 3.6'
+		, version=u'%(prog)s version 3.7'
 	)
 	parser.add_argument(
 		'--list_compiler'
@@ -96,6 +96,11 @@ def parse_command_line():
 		, '--output'
 		, metavar='FILE'
 		, help='output source code.'
+	)
+	parser.add_argument(
+		'--xml'
+		, metavar='FILE'
+		, help='output result xml.'
 	)
 	parser.add_argument(
 		 '--stderr'
@@ -229,7 +234,7 @@ def show_result(r, options):
 		if 'program_output' in r:
 			print('program_output:')
 			print(r['program_output'].encode('utf_8'))
-		if 'program_error' in r:
+		if options.xml == None and 'program_error' in r:
 			sys.stderr.write(r['program_error'].encode('utf_8'))
 	else:
 		if 'compiler_message' in r:
@@ -273,8 +278,18 @@ def run(options):
 		f = file_open(options.output, 'w', options.encoding)
 		f.write(code)
 		f.close()
+	if options.xml:
+		options.stderr = True
+		if options.runtime_option_raw:
+			options.runtime_option_raw.append("--iutest_output=xml:"+options.xml)
+		else:
+			options.runtime_option_raw = ["--iutest_output=xml:"+options.xml]
 	r = run_wandbox(code, includes, options)
 	b = show_result(r, options)
+	if options.xml and 'program_error' in r:
+		f = file_open(options.xml, 'w', options.encoding)
+		f.write(r['program_error'])
+		f.close()
 	sys.exit(b)
 	
 #

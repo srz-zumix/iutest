@@ -99,29 +99,26 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestEnd(const TestInfo& tes
 	if( TestFlag::IsEnableFlag(TestFlag::PRINT_TIME) )
 	{
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
-		detail::iuConsole::output(" (--ms)\n" );
+		detail::iuConsole::output(" (--ms)" );
 #else
-		detail::iuConsole::output(" (%dms)\n", test_info.elapsed_time());
+		detail::iuConsole::output(" (%dms)", test_info.elapsed_time());
 #endif
 	}
-	else
-	{
-		detail::iuConsole::output("\n");
-	}
+	detail::iuConsole::output("\n");
 }
 IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestCaseEnd(const TestCase& test_case)
 {
 	detail::iuConsole::color_output(detail::iuConsole::green, "[----------] ");
-#if !defined(IUTEST_NOT_SUPPORT_STOPWATCH)
+	detail::iuConsole::output("%d tests from %s", test_case.test_to_run_count(), test_case.name() );
 	if( TestFlag::IsEnableFlag(TestFlag::PRINT_TIME) )
 	{
-		detail::iuConsole::output("%d tests from %s (%dms total)\n\n", test_case.test_to_run_count(), test_case.name(), test_case.elapsed_time() );
-	}
-	else
+#if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
+		detail::iuConsole::output("(--ms total)");
+#else
+		detail::iuConsole::output("(%dms total)", test_case.elapsed_time() );
 #endif
-	{
-		detail::iuConsole::output("%d tests from %s\n\n", test_case.test_to_run_count(), test_case.name() );
 	}
+	detail::iuConsole::output("\n\n");
 }
 IUTEST_IPP_INLINE void DefalutResultPrintListener::OnEnvironmentsTearDownStart(const UnitTest& test)
 {
@@ -140,18 +137,17 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationEnd(const Unit
 	IUTEST_UNUSED_VAR(iteration);
 
 	detail::iuConsole::color_output(detail::iuConsole::green, "[==========] ");
-#if !defined(IUTEST_NOT_SUPPORT_STOPWATCH)
+	detail::iuConsole::output("%d tests from %d testcase ran."
+		, test.test_to_run_count(), test.test_case_to_run_count() );
 	if( TestFlag::IsEnableFlag(TestFlag::PRINT_TIME) )
 	{
-		detail::iuConsole::output("%d tests from %d testcase ran. (%dms total)\n"
-			, test.test_to_run_count(), test.test_case_to_run_count(), test.elapsed_time() );
-	}
-	else
+#if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
+		detail::iuConsole::output(" (--ms total)");
+#else
+		detail::iuConsole::output(" (%dms total)", test.elapsed_time() );
 #endif
-	{
-		detail::iuConsole::output("%d tests from %d testcase ran.\n"
-			, test.test_to_run_count(), test.test_case_to_run_count() );
 	}
+	detail::iuConsole::output("\n");
 
 	{
 		{

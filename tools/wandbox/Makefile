@@ -16,7 +16,7 @@ fused:
 	make -C ../fused
 
 sample: sample.cpp $(TOOLS) Makefile
-	python iuwandbox.py sample.cpp -f"-Dx=hogefuga\n-O3" --check_config
+	python iuwandbox.py sample.cpp -f"-Dx=hogefuga\n-O3" --check_config -x "warning"
 
 save: sample.cpp $(TOOLS) Makefile
 	python iuwandbox.py sample.cpp -s -x "warning" -f"-Dx=hogefuga\n-O3" -r"--iutest_color=no" $(EXPAND_INCLUDE)
@@ -27,6 +27,9 @@ local:
 	
 test: ../../test/syntax_tests.cpp Makefile
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE)
+
+xml: ../../test/syntax_tests.cpp Makefile
+	python iuwandbox.py $< -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --xml test_result.xml
 
 test-gcc: ../../test/syntax_tests.cpp Makefile
 	python iuwandbox.py $< -c gcc-head -f"-DIUTEST_USE_MAIN" -x "warning,gnu++1y" -f"-Wsuggest-override" --encoding utf-8-sig $(EXPAND_INCLUDE)
