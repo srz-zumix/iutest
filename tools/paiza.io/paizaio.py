@@ -9,7 +9,7 @@ import json
 class TooLongException(Exception):
 	pass
 
-#
+
 #
 #
 class PaizaIO:

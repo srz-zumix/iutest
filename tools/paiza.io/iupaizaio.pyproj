@@ -5,13 +5,13 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>26406c50-24cb-4fff-ba14-11b1a801b780</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>iupaiza.py</StartupFile>
+    <StartupFile>iupaizaio.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>iupaiza</Name>
-    <RootNamespace>iupaiza</RootNamespace>
+    <Name>iupaizaio</Name>
+    <RootNamespace>iupaizaio</RootNamespace>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <CommandLineArguments>../../test/minimum_tests.cpp -c gcc-head -f"-DIUTEST_USE_MAIN" --expand_include --encoding utf-8-sig</CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
@@ -25,7 +25,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="iupaiza.py" />
+    <Compile Include="iupaizaio.py" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
