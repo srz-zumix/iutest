@@ -10,7 +10,7 @@
 
 import sys
 
-#
+
 # main
 def main():
 	f = open(sys.argv[1])
@@ -19,7 +19,7 @@ def main():
 		for line in f:
 			sys.stdout.write(line)
 			if line.find("//=========================================================") != -1:
-				n += 1;
+				n += 1
 				if n == 2:
 					print('#include "iutest_config.hpp"')
 	f.close()

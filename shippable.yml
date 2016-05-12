@@ -14,11 +14,12 @@ install:
 before_script:
   - export PYTHONDONTWRITEBYTECODE=1
   - make -C tools/fused
+  - mkdir -p shippable/testresults
 
 script:
   - cd tools/wandbox
   - python ./iuwandbox.py --list_options ${WANDBOX_COMPILER}
-  - python ./iuwandbox.py ../../test/syntax_tests.cpp -c ${WANDBOX_COMPILER} -f"-DIUTEST_USE_MAIN=1" --default --boost nothing --encoding utf-8-sig --expand_include --verbose
+  - python ./iuwandbox.py ../../test/syntax_tests.cpp -c ${WANDBOX_COMPILER} -f"-DIUTEST_USE_MAIN=1" --default --boost nothing --encoding utf-8-sig --expand_include --verbose --xml ../../shippable/testresults/test_result.xml
 #  - python ./iuwandbox.py sample.cpp -c ${WANDBOX_COMPILER}
 
 env:
