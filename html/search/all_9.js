@@ -400,6 +400,7 @@ var searchData=
   ['iutest_5fstatic_5fassert_5fif_5fexists',['IUTEST_STATIC_ASSERT_IF_EXISTS',['../dc/d47/iutest__static__assertion_8hpp.html#aa4e20586259b13001e03d43682a1743c',1,'iutest_static_assertion.hpp']]],
   ['iutest_5fstatic_5fassert_5fif_5fnot_5fexists',['IUTEST_STATIC_ASSERT_IF_NOT_EXISTS',['../dc/d47/iutest__static__assertion_8hpp.html#aaf9e641ac7ac99d6636d56f13640ced3',1,'iutest_static_assertion.hpp']]],
   ['iutest_5fstatic_5fassertion_2ehpp',['iutest_static_assertion.hpp',['../dc/d47/iutest__static__assertion_8hpp.html',1,'']]],
+  ['iutest_5fstderr_5fxml_5fgenerator_2ehpp',['iutest_stderr_xml_generator.hpp',['../dd/d6c/iutest__stderr__xml__generator_8hpp.html',1,'']]],
   ['iutest_5fstdlib_2ehpp',['iutest_stdlib.hpp',['../d9/dad/iutest__stdlib_8hpp.html',1,'']]],
   ['iutest_5fstream_2ehpp',['iutest_stream.hpp',['../dd/d4f/iutest__stream_8hpp.html',1,'']]],
   ['iutest_5fstreaming_5flistener_2ehpp',['iutest_streaming_listener.hpp',['../d0/dfd/iutest__streaming__listener_8hpp.html',1,'']]],

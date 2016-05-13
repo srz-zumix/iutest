@@ -57,6 +57,7 @@ var searchData=
   ['iutest_5fspi_2ehpp',['iutest_spi.hpp',['../d9/df7/iutest__spi_8hpp.html',1,'']]],
   ['iutest_5fsstp_5fnotifier_2ehpp',['iutest_sstp_notifier.hpp',['../d3/d80/iutest__sstp__notifier_8hpp.html',1,'']]],
   ['iutest_5fstatic_5fassertion_2ehpp',['iutest_static_assertion.hpp',['../dc/d47/iutest__static__assertion_8hpp.html',1,'']]],
+  ['iutest_5fstderr_5fxml_5fgenerator_2ehpp',['iutest_stderr_xml_generator.hpp',['../dd/d6c/iutest__stderr__xml__generator_8hpp.html',1,'']]],
   ['iutest_5fstdlib_2ehpp',['iutest_stdlib.hpp',['../d9/dad/iutest__stdlib_8hpp.html',1,'']]],
   ['iutest_5fstream_2ehpp',['iutest_stream.hpp',['../dd/d4f/iutest__stream_8hpp.html',1,'']]],
   ['iutest_5fstreaming_5flistener_2ehpp',['iutest_streaming_listener.hpp',['../d0/dfd/iutest__streaming__listener_8hpp.html',1,'']]],
