@@ -18,6 +18,12 @@ import re
 import codecs
 
 IUTEST_INCLUDE_DIR = os.path.join(os.path.dirname(__file__), '../../include')
+IUTEST_APPROVAL_INCLUDE_GUARD = {
+	'INCG_IRIS_IUTEST_HPP_',
+	'INCG_IRIS_IUTEST_SWITCH_HPP_',
+	'INCG_IRIS_IUTEST_SPI_HPP_'
+}
+
 
 class IutestFused:
 	INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*"(.*iutest.*)"')
@@ -31,14 +37,15 @@ class IutestFused:
 	c_comment = False
 	store_line = ""
 
+
 	def IsUnnecessaryIncludeGuard(self, line):
 		m = self.INCG_REGEX.match(line)
 		if m:
 			incg = m.group(2)
-			if incg not in { 'INCG_IRIS_IUTEST_HPP_', 'INCG_IRIS_IUTEST_SWITCH_HPP_', 'INCG_IRIS_IUTEST_SPI_HPP_' }:
-				#print(incg)
+			if incg not in IUTEST_APPROVAL_INCLUDE_GUARD:
 				return True
 		return False
+
 
 	def StoreStrings(self, src, list):
 		tmp = src.replace(r'\"', '$$')
@@ -52,12 +59,14 @@ class IutestFused:
 		dst += tmp[prev:]
 		return dst
 
+
 	def RestoreStrings(self, src, list):
 		dst = src
 		for s in list:
 			dst = dst.replace('"@STRING@"', s, 1)
 		dst = dst.replace('$$', r'\"')
 		return dst
+
 
 	def StoreMinimze(self, line):
 		store = self.store_line + line
@@ -73,7 +82,8 @@ class IutestFused:
 	
 		store = store.replace('"##+##"', '')
 		self.store_line = store
-		
+
+
 	def Minimze(self, line):
 		# if defined -> ifdef
 		line = re.sub(r'\s*#\s*if\s*defined\((\S*)\)\s*\Z', r'#ifdef \1', line)
@@ -152,30 +162,34 @@ class IutestFused:
 
 		line = re.sub('^#define\s+(\w+)=', r'#define \1 =', line)
 		return line
-	
+
+
 	def Flush(self, output_file):
 		if len(self.store_line) > 0:
 			output_file.write(self.store_line.strip())
 			output_file.write('\n')
 			self.store_line = ""
 
+
 	def Translate(self, root, filename, output, output_dir, minimum):
 		output_file = codecs.open(os.path.join(output_dir, output), 'w', 'utf-8-sig')
-		processed_files = set();
+		processed_files = set()
 		# fused-min not support gtest switch
 		if minimum:
 			processed_files.add(os.path.normpath(os.path.join(root, "gtest/iutest_switch.hpp")))
+
+
 		def ProcessFile(curr, filename, fileset, minimum):
 			path = os.path.join(root, filename)
 			if not os.path.exists(path):
 				path = os.path.join(curr, filename)
-		
+
 			path = os.path.normpath(path)
 			if path in fileset:
 				return
-		
-			find_ifdef = False;
-			c_comment = False;
+
+			find_ifdef = False
+			c_comment = False
 			fileset.add(path)
 			for line in codecs.open(path, 'r', 'utf-8-sig'):
 				line = re.sub('/\*.*?\*/', '', line)
@@ -194,7 +208,7 @@ class IutestFused:
 						line = self.Minimze(line)
 						if len(line):
 							if self.PREPRO_REGEX.match(self.store_line):
-								line = line.strip();
+								line = line.strip()
 								if line.endswith('\\'):
 									self.StoreMinimze(line.rstrip(r'\\'))
 								else:
@@ -207,7 +221,7 @@ class IutestFused:
 								else:
 									output_file.write(line)
 							else:
-								strip_line = line.strip();
+								strip_line = line.strip()
 								self.StoreMinimze(strip_line)
 								#if not re.match('.*[{};\(\)<>]$', strip_line):
 								#	self.Flush(output_file)
@@ -220,13 +234,16 @@ class IutestFused:
 		ProcessFile(root, filename, processed_files, minimum)
 		output_file.close()
 
+
 def FusedSrc(root, filename, output, output_dir, minimum):
 	f = IutestFused()
 	f.Translate(root, filename, output, output_dir, minimum)
 
+
 def FusedAll(root, output_dir):
 	FusedSrc(root, 'iutest.hpp', 'iutest.hpp', output_dir, False)
 	FusedSrc(root, 'iutest.hpp', 'iutest.min.hpp', output_dir, True)
+
 
 def main():
 	argc = len(sys.argv)
@@ -240,4 +257,3 @@ def main():
 
 if __name__ == '__main__':
 	main()
-
