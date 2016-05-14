@@ -2,6 +2,10 @@
 #
 # iutwilio.py
 #
+# Copyright (C) 2015-2016, Takazumi Shirayanagi
+# This software is released under the new BSD License,
+# see LICENSE
+#
 
 import os
 import sys
@@ -17,71 +21,70 @@ except ImportError:
 from argparse import ArgumentParser
 from twilio.rest import TwilioRestClient
 
-account_sid= ''
+account_sid = ''
 auth_token = ''
-my_number  = ''
-sms_number  = ''
+my_number = ''
+sms_number = ''
 
 
-#
 # command line option
 def parse_command_line():
 	parser = ArgumentParser()
 	parser.add_argument(
-		'-v'
-		, '--version'
-		, action='version'
-		, version=u'%(prog)s version 0.4'
+		'-v',
+		'--version',
+		action='version',
+		version=u'%(prog)s version 0.4'
 	)
 	parser.add_argument(
-		'--ini'
-		, help = 'ini file path. (inifile section [Twilio] account_sid,auth_token,number,sms_number)'
-		, default = 'config.ini'
+		'--ini',
+		default='config.ini',
+		help='ini file path. (inifile section [Twilio] account_sid,auth_token,number,sms_number)'
 	)
 	parser.add_argument(
-		'--call'
-		, metavar = 'NUMBER'
-		, help = 'call to number.'
+		'--call',
+		metavar='NUMBER',
+		help='call to number.'
 	)
 	parser.add_argument(
-		'--sms'
-		, metavar = 'NUMBER'
-		, help = 'send message number.'
+		'--sms',
+		metavar='NUMBER',
+		help='send message number.'
 	)
 	parser.add_argument(
-		'--account_sid'
-		, metavar = 'SID'
-		, help = 'account sid.'
+		'--account_sid',
+		metavar='SID',
+		help='account sid.'
 	)
 	parser.add_argument(
 		'--auth_token'
-		, metavar = 'TOKEN'
+		, metavar='TOKEN'
 		, help = 'auth token.'
 	)
 	parser.add_argument(
-		'--number'
-		, help = 'twilio phone number.'
+		'--number',
+		help='twilio phone number.'
 	)
 	parser.add_argument(
-		'--dump'
-		, action = 'store_true'
-		, help = 'dump setting.'
+		'--dump',
+		action='store_true',
+		help='dump setting.'
 	)
 	parser.add_argument(
-		'--dryrun'
-		, action = 'store_true'
-		, help = 'dryrun.'
+		'--dryrun',
+		action='store_true',
+		help='dryrun.'
 	)
 	parser.add_argument(
-		'--url'
-		, help = 'TwiML url.'
-		, default = 'http://twimlbin.com/2e6ad348'
+		'--url'.
+		default='http://twimlbin.com/2e6ad348'.
+		help='TwiML url.'
 	)
 	parser.add_argument(
-		'xml'
-		, metavar='XML'
-		, help = 'test result xml file'
-		, nargs='?'
+		'xml',
+		metavar='XML',
+		nargs='?',
+		help='test result xml file'
 	)
 	options = parser.parse_args()
 	
@@ -107,16 +110,14 @@ def setup(options):
 		my_number = options.number
 		sms_number = options.number
 
-#
-# get ini
+
 def get_ini(ini, s, n):
 	try:
 		return ini.get(s, n)
 	except:
 		return None
 
-#
-# parse ini
+
 def parse_ini(path):
 	global account_sid
 	global auth_token
@@ -129,32 +130,31 @@ def parse_ini(path):
 		sys.stderr.write('%s not found...' % path)
 		sys.exit(2)
 	ini.read(path)
-	
+
 	account_sid = get_ini(ini, 'Twilio', 'account_sid')
 	auth_token = get_ini(ini, 'Twilio', 'auth_token')
 	my_number = get_ini(ini, 'Twilio', 'number')
 	sms_number = get_ini(ini, 'Twilio', 'sms_number')
-		
+
 #	for section in ini.sections():
 #		print('[%s]' % (section))
 #		for key in ini.options(section):
 #			print('%s.%s =%s' % (section, key, ini.get(section, key)))
 
-#
-# parse xml
+
 def parse_xml(path):
 	tree = ET.parse(path)
 	root = tree.getroot()
 	testsuites = root.find('[@failures]')
 	return testsuites.attrib['failures']
 
-#
+
 # make twilio client
 def make_twilio():
 	client = TwilioRestClient(account_sid, auth_token)
 	return client
 
-#
+
 # call twilio
 def call(client, options):
 	if options.dryrun:
@@ -166,7 +166,6 @@ def call(client, options):
 		print(call.sid)
 
 
-#
 # make_message
 def make_message(options):
 	body = ""
@@ -186,7 +185,7 @@ def make_message(options):
 		if timestamp:
 			body += "%s\n" % (timestamp)
 		first_failure = None
-		
+
 		body += "%d tests from %s testcase ran. (%sms total)\n" % (tests, testcases, time)
 		if passed:
 			body += "PASSED  : %d\n" % (passed)
@@ -201,16 +200,16 @@ def make_message(options):
 			if int(suite.get('failures')):
 				for test in suite:
 					failure_node = test.find('.//failure')
-					if failure_node != None:
+					if failure_node:
 						if not first_failure:
 							first_failure = failure_node
-						name = "%s.%s\n" % ( suite.get('name'), test.get('name') )
+						name = "%s.%s\n" % (suite.get('name'), test.get('name'))
 						if len(body) + len(name) < 155:
-							body += name;
+							body += name
 						else:
 							body += "..."
 							return body
-		if first_failure != None:
+		if first_failure:
 			for s in first_failure.text.split('\n'):
 				if len(body) + len(s) < 155:
 					body += "%s\n" % s
@@ -220,7 +219,6 @@ def make_message(options):
 	return body
 
 
-#
 # message
 def message(client, options):
 	m = make_message(options)
@@ -233,7 +231,7 @@ def message(client, options):
 			from_=sms_number)
 		print(call.sid)
 
-#
+
 # run
 def run(options):
 	filepath = options.xml
@@ -254,7 +252,7 @@ def run(options):
 
 	sys.exit(0)
 
-#
+
 # dump
 def dump(options):
 	print('account_sid: %s' % (account_sid))
@@ -265,8 +263,7 @@ def dump(options):
 	if options.sms:
 		print('sms        : %s' % (options.sms))
 
-#
-#
+
 def main():
 	options = parse_command_line()
 	setup(options)

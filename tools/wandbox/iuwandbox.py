@@ -25,117 +25,117 @@ EXPAND_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*"(.*?)"')
 def parse_command_line():
 	parser = ArgumentParser()
 	parser.add_argument(
-		'-v'
-		, '--version'
-		, action='version'
-		, version=u'%(prog)s version 3.7'
+		'-v',
+		'--version',
+		action='version',
+		version=u'%(prog)s version 3.7'
 	)
 	parser.add_argument(
-		'--list_compiler'
-		, action='store_true'
-		, help='listup compiler.'
+		'--list_compiler',
+		action='store_true',
+		help='listup compiler.'
 	)
 	parser.add_argument(
-		'--list_options'
-		, metavar='COMPILER'
-		, help='listup compiler options.'
+		'--list_options',
+		metavar='COMPILER',
+		help='listup compiler options.'
 	)
 	parser.add_argument(
-		'-c'
-		, '--compiler'
-		, help='compiler select. default: %(default)s'
-		, default='gcc-head'
+		'-c',
+		'--compiler',
+		default='gcc-head',
+		help='compiler select. default: %(default)s'
 	)
 	parser.add_argument(
-		'-x'
-		, '--options'
-		, help='used options for a compiler.'
+		'-x',
+		'--options',
+		help='used options for a compiler.'
 	)
 	parser.add_argument(
-		'--default'
-		, action='store_true'
-		, help='use default options.'
+		'--default',
+		action='store_true',
+		help='use default options.'
 	)
 	parser.add_argument(
-		'--boost'
-		, metavar='VERSION'
-		, help='set boot options version X.XX or nothing.'
+		'--boost',
+		metavar='VERSION',
+		help='set boot options version X.XX or nothing.'
 	)
 	parser.add_argument(
-		'--stdin'
-		, help='set stdin.'
+		'--stdin',
+		help='set stdin.'
 	)
 	parser.add_argument(
-		'-f'
-		, '--compiler_option_raw'
-		, metavar='OPTIONS'
-		, action='append'
-		, default=['-D__WANDBOX__']
-		, help='compile-time any additional options.'
+		'-f',
+		'--compiler_option_raw',
+		metavar='OPTIONS',
+		action='append',
+		default=['-D__WANDBOX__'],
+		help='compile-time any additional options.'
 	)
 	parser.add_argument(
-		'-r'
-		, '--runtime_option_raw'
-		, metavar='OPTIONS'
-		, action='append'
-		, help='runtime-time any additional options.'
+		'-r',
+		'--runtime_option_raw',
+		metavar='OPTIONS',
+		action='append',
+		help='runtime-time any additional options.'
 	)
 	parser.add_argument(
-		'-s'
-		, '--save'
-		, action='store_true'
-		, help='generate permanent link.'
+		'-s',
+		'--save',
+		action='store_true',
+		help='generate permanent link.'
 	)
 	parser.add_argument(
-		'--permlink'
-		, metavar='ID'
-		, help='get permanent link.'
+		'--permlink',
+		metavar='ID',
+		help='get permanent link.'
 	)
 	parser.add_argument(
-		'-o'
-		, '--output'
-		, metavar='FILE'
-		, help='output source code.'
+		'-o',
+		'--output',
+		metavar='FILE',
+		help='output source code.'
 	)
 	parser.add_argument(
-		'--xml'
-		, metavar='FILE'
-		, help='output result xml.'
+		'--xml',
+		metavar='FILE',
+		help='output result xml.'
 	)
 	parser.add_argument(
-		 '--stderr'
-		, action='store_true'
-		, help='output stderr.'
+		'--stderr',
+		action='store_true',
+		help='output stderr.'
 	)
 	parser.add_argument(
-		  '--encoding'
-		, help='set encoding.'
+		'--encoding',
+		help='set encoding.'
 	)
 	parser.add_argument(
-		  '--expand_include'
-		, action='store_true'
-		, help='expand include file.'
+		'--expand_include',
+		action='store_true',
+		help='expand include file.'
 	)
 	parser.add_argument(
-		  '--check_config'
-		, action='store_true'
-		, help='check config.'
+		'--check_config',
+		action='store_true',
+		help='check config.'
 	)
 	parser.add_argument(
-		  '--verbose'
-		, action='store_true'
-		, help='verbose.'
+		'--verbose',
+		action='store_true',
+		help='verbose.'
 	)
 	parser.add_argument(
-		'code'
-		, metavar='CODE'
-		, help='source code file'
-		, nargs='?'
+		'code',
+		metavar='CODE',
+		nargs='?',
+		help='source code file'
 	)
 	options, unknown = parser.parse_known_args()
 	return options
 
-#
+
 # file open
 def file_open(path, mode, encoding):
 	if encoding:
@@ -144,7 +144,7 @@ def file_open(path, mode, encoding):
 		file = open(path, mode)
 	return file
 
-#
+
 # make code
 def make_code(path, encoding, expand, includes):
 	code = ''
@@ -167,7 +167,7 @@ def make_code(path, encoding, expand, includes):
 	file.close()
 	return code
 
-#
+
 # check config
 def check_config(options):
 	if not find_compiler(options.compiler):
@@ -175,7 +175,7 @@ def check_config(options):
 		listup_compiler()
 		sys.exit(1)
 
-#
+
 # setup includes
 def setup_includes(w, includes, encoding):
 	iutest = codecs.open(IUTEST_FUSED_SRC, 'r', 'utf-8-sig')
@@ -185,7 +185,7 @@ def setup_includes(w, includes, encoding):
 		filename = os.path.basename(filepath)
 		w.add_file(filename, f.read())
 
-#
+
 # run wandbox
 def run_wandbox(code, includes, options):
 	w = Wandbox()
@@ -219,7 +219,7 @@ def run_wandbox(code, includes, options):
 	setup_includes(w, includes, options.encoding)
 	return w.run()
 
-#
+
 # show result
 def show_result(r, options):
 	if 'error' in r:
@@ -234,7 +234,7 @@ def show_result(r, options):
 		if 'program_output' in r:
 			print('program_output:')
 			print(r['program_output'].encode('utf_8'))
-		if options.xml == None and 'program_error' in r:
+		if options.xml is None and 'program_error' in r:
 			sys.stderr.write(r['program_error'].encode('utf_8'))
 	else:
 		if 'compiler_message' in r:
@@ -252,7 +252,7 @@ def show_result(r, options):
 		return int(r['status'])
 	return 1
 
-#
+
 # show parameter
 def show_parameter(r):
 	if 'compiler' in r:
@@ -266,8 +266,7 @@ def show_parameter(r):
 	if 'created-at' in r:
 		print(r['created-at'])
 
-#
-# run
+
 def run(options):
 	filepath = options.code
 	if not os.path.exists(filepath):
@@ -281,9 +280,9 @@ def run(options):
 	if options.xml:
 		options.stderr = True
 		if options.runtime_option_raw:
-			options.runtime_option_raw.append("--iutest_output=xml:"+options.xml)
+			options.runtime_option_raw.append("--iutest_output=xml:" + options.xml)
 		else:
-			options.runtime_option_raw = ["--iutest_output=xml:"+options.xml]
+			options.runtime_option_raw = ["--iutest_output=xml:" + options.xml]
 	r = run_wandbox(code, includes, options)
 	b = show_result(r, options)
 	if options.xml and 'program_error' in r:
@@ -291,8 +290,8 @@ def run(options):
 		f.write(r['program_error'])
 		f.close()
 	sys.exit(b)
-	
-#
+
+
 # listup compiler
 def listup_compiler():
 	w = Wandbox()
@@ -301,7 +300,7 @@ def listup_compiler():
 		if d['language'] == 'C++':
 			print(d['name'] + ' (' + d['version'] + ')')
 
-#
+
 # find compiler
 def find_compiler(c):
 	w = Wandbox()
@@ -311,7 +310,7 @@ def find_compiler(c):
 			return True
 	return False
 
-#
+
 # listup options
 def listup_options(compiler):
 	w = Wandbox()
@@ -330,8 +329,8 @@ def listup_options(compiler):
 						print(s['default'] + ' (default)')
 						for o in s['options']:
 							print('  ' + o['name'])
-							
-#
+
+
 # get default options
 def get_default_options(compiler):
 	w = Wandbox()
@@ -349,7 +348,7 @@ def get_default_options(compiler):
 						opt.append(s['default'])
 	return opt
 
-#
+
 # get permlink
 def get_permlink(options):
 	w = Wandbox()
@@ -364,8 +363,7 @@ def get_permlink(options):
 		f.close()
 	sys.exit(b)
 
-#
-#
+
 def main():
 	options = parse_command_line()
 	if options.list_compiler:

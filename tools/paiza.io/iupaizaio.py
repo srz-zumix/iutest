@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 #
-# iupaiza.py
+# iupaizaio.py
+#
+# Copyright (C) 2015-2016, Takazumi Shirayanagi
+# This software is released under the new BSD License,
+# see LICENSE
 #
 
 import os

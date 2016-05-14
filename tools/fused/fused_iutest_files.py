@@ -37,7 +37,6 @@ class IutestFused:
 	c_comment = False
 	store_line = ""
 
-
 	def IsUnnecessaryIncludeGuard(self, line):
 		m = self.INCG_REGEX.match(line)
 		if m:
@@ -45,7 +44,6 @@ class IutestFused:
 			if incg not in IUTEST_APPROVAL_INCLUDE_GUARD:
 				return True
 		return False
-
 
 	def StoreStrings(self, src, list):
 		tmp = src.replace(r'\"', '$$')
@@ -59,14 +57,12 @@ class IutestFused:
 		dst += tmp[prev:]
 		return dst
 
-
 	def RestoreStrings(self, src, list):
 		dst = src
 		for s in list:
 			dst = dst.replace('"@STRING@"', s, 1)
 		dst = dst.replace('$$', r'\"')
 		return dst
-
 
 	def StoreMinimze(self, line):
 		store = self.store_line + line
@@ -76,13 +72,12 @@ class IutestFused:
 
 		store = re.sub('"@STRING@""@STRING@"', '"@STRING@"##+##"@STRING@"', store)
 		store = re.sub('\):\s+', '):', store)
-		
+
 		# string restore
 		store = self.RestoreStrings(store, str_l)
-	
+
 		store = store.replace('"##+##"', '')
 		self.store_line = store
-
 
 	def Minimze(self, line):
 		# if defined -> ifdef
@@ -120,7 +115,7 @@ class IutestFused:
 		# remove comment and strip
 		line = re.sub('//[\S \t]*', '', line)
 		line = line.strip(' \t')
-		# remvoe \r 
+		# remvoe \r
 		line = line.rstrip()
 		line += '\n'
 		# remove preprocessor directive unnecessary whitespace
@@ -163,13 +158,11 @@ class IutestFused:
 		line = re.sub('^#define\s+(\w+)=', r'#define \1 =', line)
 		return line
 
-
 	def Flush(self, output_file):
 		if len(self.store_line) > 0:
 			output_file.write(self.store_line.strip())
 			output_file.write('\n')
 			self.store_line = ""
-
 
 	def Translate(self, root, filename, output, output_dir, minimum):
 		output_file = codecs.open(os.path.join(output_dir, output), 'w', 'utf-8-sig')
@@ -177,7 +170,6 @@ class IutestFused:
 		# fused-min not support gtest switch
 		if minimum:
 			processed_files.add(os.path.normpath(os.path.join(root, "gtest/iutest_switch.hpp")))
-
 
 		def ProcessFile(curr, filename, fileset, minimum):
 			path = os.path.join(root, filename)
@@ -189,7 +181,6 @@ class IutestFused:
 				return
 
 			find_ifdef = False
-			c_comment = False
 			fileset.add(path)
 			for line in codecs.open(path, 'r', 'utf-8-sig'):
 				line = re.sub('/\*.*?\*/', '', line)

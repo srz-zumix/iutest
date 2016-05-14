@@ -3,7 +3,7 @@
 #
 # iutest_compiler_error_test.py
 #
-# Copyright (C) 2015, Takazumi Shirayanagi
+# Copyright (C) 2015-2016, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -12,9 +12,9 @@ import os
 import sys
 import argparse
 import re
-import codecs
 
 from argparse import ArgumentParser
+
 
 class ErrorMessage:
 	file = ""
@@ -24,8 +24,8 @@ class ErrorMessage:
 	parent = None
 	child = None
 	checked = False
-	
-	def set_type(self,str):
+
+	def set_type(self, str):
 		s = str.strip()
 		if s in {"error", u"エラー"}:
 			self.type = "error"
@@ -41,7 +41,7 @@ class ErrorMessage:
 			self.type = "warning"
 		else:
 			self.type = s
-	
+
 	def is_error(self):
 		if self.type == "error":
 			return True
@@ -70,13 +70,6 @@ class ErrorMessage:
 		elif self.child and self.child.has_error_child():
 			return True
 		return False
-	
-	def has_error_parent(self):
-		if self.type == "error":
-			return True
-		elif self.parent:
-			return self.parent.has_error()
-		return False
 
 	def has_error_parent(self):
 		if self.type == "error":
@@ -103,11 +96,10 @@ class ErrorMessage:
 		if self.child:
 			return False
 		return True
-	
+
 	def get_error(self):
 		if self.type == "error":
 			return self
-		
 		if self.parent:
 			e = self.parent.get_error_parent()
 			if e:
@@ -132,57 +124,56 @@ class ErrorMessage:
 			return self.child.get_error_child()
 		return None
 
-format_gcc=True
-color_prompt=False
+format_gcc = True
+color_prompt = False
 
-#
+
 # command line option
 def parse_command_line():
 	parser = ArgumentParser()
 	parser.add_argument(
-		'-v'
-		, '--version'
-		, action='version'
-		, version=u'%(prog)s version 0.3'
+		'-v'.
+		'--version'.
+		action='version'.
+		version=u'%(prog)s version 0.3'
 	)
 	parser.add_argument(
-		'-c'
-		, '--compiler'
-		, help = 'set compiler.'
-		, default='gcc'
+		'-c'.
+		'--compiler'.
+		help='set compiler.'.
+		default='gcc'
 	)
 	parser.add_argument(
-		'--verbose'
-		, action='store_true'
-		, help = 'print input message.'
+		'--verbose'.
+		action='store_true'.
+		help='print input message.'
 	)
 	parser.add_argument(
-		'--debug'
-		, action='store_true'
-		, help = 'debug.'
+		'--debug'.
+		action='store_true'.
+		help='debug.'
 	)
 	if sys.version_info[0] >= 3:
 		parser.add_argument(
-			'-i'
-			, '--infile'
-			, type=argparse.FileType('r', encoding='UTF-8')
-			, help = 'compiler stdout.'
-			, default=sys.stdin
+			'-i'.
+			'--infile'.
+			type=argparse.FileType('r', encoding='UTF-8').
+			help='compiler stdout.'.
+			default=sys.stdin
 		)
 	else:
 		parser.add_argument(
-			'-i'
-			, '--infile'
-			, type=argparse.FileType('r')
-			, help = 'compiler stdout.'
-			, default=sys.stdin
+			'-i',
+			'--infile',
+			type=argparse.FileType('r').
+			help='compiler stdout.'.
+			default=sys.stdin
 		)
 
 	options = parser.parse_args()
 	return options
 
-#
-# parse_gcc_clang
+
 def parse_gcc_clang(options, f, r_expansion, note_is_child):
 	re_fatal = re.compile(r'(\S+)\s*:\s*fatal\s*error\s*.*')
 	re_file = re.compile(r'(\S+):(\d+):(\d+)\s*:(.*)')
@@ -237,18 +228,15 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
 	msg_list.append(msg)
 	return msg_list
 
-#
-# parse_gcc
+
 def parse_gcc(options, f):
 	return parse_gcc_clang(options, f, r'in expansion of macro', False)
 
-#
-# parse_clang
+
 def parse_clang(options, f):
 	return parse_gcc_clang(options, f, r'expanded from ', True)
 
-#
-# parse_vc
+
 def parse_vc(options, f):
 	re_fatal = re.compile(r'(\S+)\s*:\s*fatal\s*error\s*.*')
 	re_file = re.compile(r'(\s*)(\S+)\((\d+)\)\s*:\s*(.*)')
@@ -261,9 +249,8 @@ def parse_vc(options, f):
 			print(line)
 		if re_fatal.match(line):
 			raise Exception(line)
-			
-		m = re_file.match(line)
 
+		m = re_file.match(line)
 		if m:
 			if msg:
 				msg_list.append(msg)
@@ -279,7 +266,7 @@ def parse_vc(options, f):
 			else:
 				msg.set_type('')
 				msg.message += m.group(4)
-				
+
 			if m.group(1) and prev:
 				prev.child = msg
 				msg.parent = prev
@@ -290,8 +277,7 @@ def parse_vc(options, f):
 	msg_list.append(msg)
 	return msg_list
 
-#
-# dump
+
 def dump_msg(m):
 	if format_gcc:
 		if m.is_type_none():
@@ -304,11 +290,12 @@ def dump_msg(m):
 		else:
 			print("%s(%d): %s %s" % (m.file, m.line, m.type, m.message))
 
-	
+
 def dump_msgs(m):
 	if m.parent:
 		dump_msgs(m.parent)
 	dump_msg(m)
+
 
 def dump_list(l):
 	for m in l:
@@ -320,14 +307,13 @@ def dump_list(l):
 
 	return True
 
-#
-# test_result
+
 def test_result(result, msg, e):
 	OKGREEN = '\033[32m'
-	WARNING = '\033[33m'
-	FAIL    = '\033[31m'
-	ENDC    = '\033[0m'
-	
+#	WARNING = '\033[33m'
+	FAIL = '\033[31m'
+	ENDC = '\033[0m'
+
 	if e:
 		msg += ': ' + e.file + ': ' + str(e.line)
 
@@ -342,8 +328,7 @@ def test_result(result, msg, e):
 		else:
 			print('[NG] ' + msg)
 
-#
-# iutest
+
 def iutest(l):
 	result = True
 	re_iutest = re.compile(r'IUTEST_TEST_COMPILEERROR\( (.*) \)')
@@ -368,14 +353,13 @@ def iutest(l):
 				re_m = mm
 		elif msg.has_error():
 			#print('%s - %d' % (msg.file, msg.line))
-			if check and msg.file in check.file and msg.line == check.line+1:
+			if check and msg.file in check.file and msg.line == check.line + 1:
 				actual = msg.get_error()
 				expect = re_m.group(1).strip('"')
 				#print(actual.message)
 				if not expect or actual.message.find(expect) != -1:
 					check.checked = True
 					msg.checked = True
-					e = None
 					test_result(True, re_m.group(0), check)
 			elif msg.is_tail() and not msg.is_checked():
 				dump_msgs(msg)
@@ -387,8 +371,8 @@ def iutest(l):
 		test_result(False, re_m.group(0), check)
 		result = False
 	return result
-#
-# parse_output
+
+
 def parse_output(options):
 	global format_gcc
 	l = None
@@ -397,7 +381,7 @@ def parse_output(options):
 	#print(options.infile.encoding)
 	f = options.infile
 	#f = codecs.getreader('utf-8')(options.infile)
-	
+
 	if any(options.compiler.find(s) != -1 for s in ('clang', 'clang++')):
 		l = parse_clang(options, f)
 	elif any(options.compiler.find(s) != -1 for s in ('gcc', 'g++')):
@@ -407,22 +391,20 @@ def parse_output(options):
 		l = parse_vc(options, f)
 	else:
 		raise Exception("sorry, %s compiler is not supported", (options.compiler))
-	
+
 	if options.debug:
 		dump_list(l)
 	return iutest(l)
 
-#
-# setup
+
 def setup():
 	global color_prompt
 	term = os.environ.get('TERM')
 	if term:
-		if any( term.find(s) for s in ('xterm', 'screen', 'rxvt', 'linux', 'cygwin' ) ):
+		if any(term.find(s) for s in ('xterm', 'screen', 'rxvt', 'linux', 'cygwin')):
 			color_prompt = True
 
-#
-# main
+
 def main():
 	options = parse_command_line()
 	setup()
