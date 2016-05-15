@@ -32,7 +32,7 @@ class Wandbox:
 		return r.json()
 
 	def code(self, str):
-		self.parameter.update({'code':str})
+		self.parameter.update({'code': str})
 
 	def add_file(self, filename, str):
 		if 'codes' in self.parameter:

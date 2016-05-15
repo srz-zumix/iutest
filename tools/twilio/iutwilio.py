@@ -13,13 +13,13 @@ import argparse
 import twilio
 import xml.etree.ElementTree as ET
 
+from argparse import ArgumentParser
+from twilio.rest import TwilioRestClient
+
 try:
 	import configparser
 except ImportError:
 	import ConfigParser as configparser
-
-from argparse import ArgumentParser
-from twilio.rest import TwilioRestClient
 
 account_sid = ''
 auth_token = ''
@@ -57,9 +57,9 @@ def parse_command_line():
 		help='account sid.'
 	)
 	parser.add_argument(
-		'--auth_token'
-		, metavar='TOKEN'
-		, help = 'auth token.'
+		'--auth_token',
+		metavar='TOKEN',
+		help='auth token.'
 	)
 	parser.add_argument(
 		'--number',
@@ -227,7 +227,8 @@ def message(client, options):
 		print('twilio call to ' + options.sms)
 		print(m)
 	else:
-		call = client.messages.create(body=m,
+		call = client.messages.create(
+			body=m,
 			to=options.sms,
 			from_=sms_number)
 		print(call.sid)

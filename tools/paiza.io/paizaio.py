@@ -43,7 +43,7 @@ class PaizaIO:
 
 	def get_status(self):
 		headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-		parameter = {'id': self.session_id, 'api_key':self.parameter['api_key']}
+		parameter = {'id': self.session_id, 'api_key': self.parameter['api_key']}
 		payload = json.dumps(parameter)
 		r = requests.get(self.api_url + 'runners/get_status/', data=payload, headers=headers)
 		r.raise_for_status()
@@ -51,7 +51,7 @@ class PaizaIO:
 
 	def get_details(self):
 		headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-		parameter = {'id': self.session_id, 'api_key':self.parameter['api_key']}
+		parameter = {'id': self.session_id, 'api_key': self.parameter['api_key']}
 		payload = json.dumps(parameter)
 		r = requests.get(self.api_url + 'runners/get_details/', data=payload, headers=headers)
 		r.raise_for_status()
@@ -92,7 +92,7 @@ class PaizaIO:
 		self.parameter.update({'longpoll': b})
 
 	def longpoll_timeout(self, t):
-		self.parameter.update({'longpoll_timeout':t})
+		self.parameter.update({'longpoll_timeout': t})
 
 	def dump(self):
 		print(self.parameter)

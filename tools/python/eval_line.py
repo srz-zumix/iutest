@@ -65,6 +65,7 @@ def parse_command_line():
 	options = parser.parse_args()
 	return options
 
+
 def eval_line(r, define, line):
 	m = r.finditer(define)
 	if m is None:

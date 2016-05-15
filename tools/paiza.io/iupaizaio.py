@@ -76,7 +76,7 @@ def make_code(path, encoding, expand):
 		m = IUTEST_INCLUDE_REGEX.match(line)
 		if m:
 			f = codecs.open(IUTEST_FUSED_SRC, 'r', 'utf-8-sig')
-			
+
 			code += '//==================================================================>>>> ' + line
 			code += f.read()
 			code += '//==================================================================<<<< ' + line
@@ -155,7 +155,7 @@ def run(options):
 		output_code(options.output, code, options.encoding)
 	try:
 		run_impl(code, options)
-	except paizaio.TooLongException, e:
+	except paizaio.TooLongException as e:
 		print(e)
 		output = options.output
 		if not options.output:
@@ -165,7 +165,7 @@ def run(options):
 		try:
 			pp = PaizaPreprocessor()
 			output = os.path.basename(filepath) + ".p"
-			macros = { '__clnag__':'1', '_LIBCPP_VERSION':'1101', 'NULL':'0' }
+			macros = {'__clnag__': '1', '_LIBCPP_VERSION': '1101', 'NULL': '0'}
 			code = pp.preprocess(code, macros)
 			output_code("paizaio-sourcecode.cpp", code, options.encoding)
 			run_impl(code, options)
