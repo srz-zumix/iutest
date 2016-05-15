@@ -169,7 +169,7 @@ def run(options):
 			code = pp.preprocess(code, macros)
 			output_code("paizaio-sourcecode.cpp", code, options.encoding)
 			run_impl(code, options)
-		except paizaio.TooLongException, e:
+		except paizaio.TooLongException as e:
 			print(e)
 			sys.exit(1)
 		except Exception, e:

@@ -56,7 +56,7 @@ class PaizaIO:
 		r = requests.get(self.api_url + 'runners/get_details/', data=payload, headers=headers)
 		r.raise_for_status()
 		return r.json()
-	
+
 	def is_completed(self, r):
 		if 'status' in r:
 			return r['status'] == 'completed'
