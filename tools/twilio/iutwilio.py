@@ -76,8 +76,8 @@ def parse_command_line():
 		help='dryrun.'
 	)
 	parser.add_argument(
-		'--url'.
-		default='http://twimlbin.com/2e6ad348'.
+		'--url',
+		default='http://twimlbin.com/2e6ad348',
 		help='TwiML url.'
 	)
 	parser.add_argument(
@@ -87,15 +87,15 @@ def parse_command_line():
 		help='test result xml file'
 	)
 	options = parser.parse_args()
-	
+
 	if not options.dump:
 		if not options.xml:
 			if not options.call:
 				parser.print_help()
-	
+
 	return options
 
-#
+
 # setup
 def setup(options):
 	global account_sid
@@ -160,7 +160,8 @@ def call(client, options):
 	if options.dryrun:
 		print('twilio call to ' + options.call)
 	else:
-		call = client.calls.create(url=options.url,
+		call = client.calls.create(
+			url=options.url,
 			to=options.call,
 			from_=my_number)
 		print(call.sid)

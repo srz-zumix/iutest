@@ -132,41 +132,41 @@ color_prompt = False
 def parse_command_line():
 	parser = ArgumentParser()
 	parser.add_argument(
-		'-v'.
-		'--version'.
-		action='version'.
+		'-v',
+		'--version',
+		action='version',
 		version=u'%(prog)s version 0.3'
 	)
 	parser.add_argument(
-		'-c'.
-		'--compiler'.
-		help='set compiler.'.
+		'-c',
+		'--compiler',
+		help='set compiler.',
 		default='gcc'
 	)
 	parser.add_argument(
-		'--verbose'.
-		action='store_true'.
+		'--verbose',
+		action='store_true',
 		help='print input message.'
 	)
 	parser.add_argument(
-		'--debug'.
-		action='store_true'.
+		'--debug',
+		action='store_true',
 		help='debug.'
 	)
 	if sys.version_info[0] >= 3:
 		parser.add_argument(
-			'-i'.
-			'--infile'.
-			type=argparse.FileType('r', encoding='UTF-8').
-			help='compiler stdout.'.
+			'-i',
+			'--infile',
+			type=argparse.FileType('r', encoding='UTF-8'),
+			help='compiler stdout.',
 			default=sys.stdin
 		)
 	else:
 		parser.add_argument(
 			'-i',
 			'--infile',
-			type=argparse.FileType('r').
-			help='compiler stdout.'.
+			type=argparse.FileType('r'),
+			help='compiler stdout.',
 			default=sys.stdin
 		)
 

@@ -34,31 +34,31 @@ def parse_command_line():
 	)
 	parser.add_argument(
 		'--stdin',
-		help = 'set stdin.'
+		help='set stdin.'
 	)
 	parser.add_argument(
 		'-o',
 		'--output',
-		help = 'output source code.'
+		help='output source code.'
 	)
 	parser.add_argument(
 		'--encoding',
-		help = 'set encoding.'
+		help='set encoding.'
 	)
 	parser.add_argument(
 		'--expand_include',
 		action='store_true',
-		help = 'expand include file.'
+		help='expand include file.'
 	)
 	parser.add_argument(
 		'code',
 		metavar='CODE',
-		help = 'source code file'
+		help='source code file'
 	)
 	options, unknown = parser.parse_known_args()
 	return options
 
-#
+
 # file open
 def file_open(path, mode, encoding):
 	if encoding:
@@ -67,7 +67,7 @@ def file_open(path, mode, encoding):
 		file = open(path, mode)
 	return file
 
-#
+
 # make code
 def make_code(path, encoding, expand):
 	code = ''
@@ -92,7 +92,7 @@ def make_code(path, encoding, expand):
 	file.close()
 	return code
 
-#
+
 # run paiza
 def run_paiza(code, options):
 	paiza = PaizaIO()
@@ -101,7 +101,7 @@ def run_paiza(code, options):
 	paiza.code(code)
 	return paiza.run()
 
-#
+
 # show result
 def show_result(r):
 	if 'error' in r:
@@ -131,7 +131,7 @@ def show_result(r):
 
 	return 1
 
-#
+
 # output code
 def output_code(path, code, encoding):
 	f = file_open(path, 'w', encoding)
@@ -139,14 +139,12 @@ def output_code(path, code, encoding):
 	f.close()
 
 
-#
-#
 def run_impl(code, options):
 	r = run_paiza(code, options)
 	b = show_result(r)
 	sys.exit(b)
 
-#
+
 # run
 def run(options):
 	filepath = options.code
@@ -180,8 +178,7 @@ def run(options):
 	except:
 		raise
 
-#
-#
+
 def main():
 	options = parse_command_line()
 	run(options)

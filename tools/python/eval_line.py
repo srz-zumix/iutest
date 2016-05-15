@@ -52,13 +52,13 @@ def parse_command_line():
 		help='output file path.'
 	)
 	parser.add_argument(
-		'--encoding'.
+		'--encoding',
 		default=None,
 		help='output file encoding.'
 	)
 	parser.add_argument(
-		'expression'.
-		metavar='EXP'.
+		'expression',
+		metavar='EXP',
 		nargs='+',
 		help='eval expressions'
 	)

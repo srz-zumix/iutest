@@ -233,7 +233,7 @@ class PaizaPreprocessor:
 				return 1
 			else:
 				return 0
-		except Exception, e:
+		except Exception as e:
 			if not any(x in expand for x in self.unkowns):
 				if True:
 					print(expr)
