@@ -172,7 +172,7 @@ def run(options):
 		except paizaio.TooLongException as e:
 			print(e)
 			sys.exit(1)
-		except Exception, e:
+		except Exception as e:
 			print(e)
 			raise
 	except:
