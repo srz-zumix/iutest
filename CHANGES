@@ -3,6 +3,7 @@ Changes for 1.15.1:
 
 ** 追加
 * stderr に xml の内容を出力するリスナーを追加
+* iuwandbox に xml 出力オプション(--xml, --junit)を追加
 
 ** 変更
 * --help|spec|feature|version を同時に使用可能に変更 (e.g. --spec --feature)

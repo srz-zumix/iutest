@@ -119,7 +119,8 @@
   <li>v1.15.1.0
     <ul>
       <li>stderr に xml の内容を出力するリスナーを追加</li>
-      <li>--help|spec|feature|version を同時に使用可能に変更 (e.g. --spec --feature)</li>
+      <li>iuwandbox に xml 出力オプション(--xml, --junit)を追加</li>
+	  <li>--help|spec|feature|version を同時に使用可能に変更 (e.g. --spec --feature)</li>
       <li>CSV パラメータのパス解決処理を修正</li>
       <li>fused-src 生成ツールを修正</li>
     </ul>
