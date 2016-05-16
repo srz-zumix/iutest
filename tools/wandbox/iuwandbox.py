@@ -103,6 +103,11 @@ def parse_command_line():
 		help='output result xml.'
 	)
 	parser.add_argument(
+		'--junit',
+		metavar='FILE',
+		help='output result junit xml.'
+	)
+	parser.add_argument(
 		'--stderr',
 		action='store_true',
 		help='output stderr.'
@@ -234,7 +239,7 @@ def show_result(r, options):
 		if 'program_output' in r:
 			print('program_output:')
 			print(r['program_output'].encode('utf_8'))
-		if options.xml is None and 'program_error' in r:
+		if options.xml is None and options.junit is None and 'program_error' in r:
 			sys.stderr.write(r['program_error'].encode('utf_8'))
 	else:
 		if 'compiler_message' in r:
@@ -267,6 +272,14 @@ def show_parameter(r):
 		print(r['created-at'])
 
 
+def set_output_xml(options, t, xml):
+	options.stderr = True
+	if options.runtime_option_raw:
+		options.runtime_option_raw.append("--iutest_output=" + t + ":" + xml)
+	else:
+		options.runtime_option_raw = ["--iutest_output=" + t + ":" + xml]
+	
+
 def run(options):
 	filepath = options.code
 	if not os.path.exists(filepath):
@@ -277,16 +290,17 @@ def run(options):
 		f = file_open(options.output, 'w', options.encoding)
 		f.write(code)
 		f.close()
+	xml = None
 	if options.xml:
-		options.stderr = True
-		if options.runtime_option_raw:
-			options.runtime_option_raw.append("--iutest_output=xml:" + options.xml)
-		else:
-			options.runtime_option_raw = ["--iutest_output=xml:" + options.xml]
+		xml = options.xml
+		set_output_xml(options, 'xml', xml)
+	if options.junit:
+		xml = options.junit
+		set_output_xml(options, 'junit', xml)
 	r = run_wandbox(code, includes, options)
 	b = show_result(r, options)
-	if options.xml and 'program_error' in r:
-		f = file_open(options.xml, 'w', options.encoding)
+	if xml and 'program_error' in r:
+		f = file_open(xml, 'w', options.encoding)
 		f.write(r['program_error'])
 		f.close()
 	sys.exit(b)
