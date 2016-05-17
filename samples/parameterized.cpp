@@ -52,6 +52,38 @@ IUTEST_P(TestP, TestB)
 	++b;
 }
 
+// Param Test Range (WithParamInterface)
+class TestPIBase : public ::iutest::Test
+{
+protected:
+	static int a;
+	static int b;
+public:
+	static void SetUpTestCase()
+	{
+		a = 0;
+		b = 0;
+	}
+};
+int TestPIBase::a = 0;
+int TestPIBase::b = 0;
+
+class TestPI : public TestPIBase, public ::iutest::WithParamInterface<int> {};
+
+IUTEST_INSTANTIATE_TEST_CASE_P(TestPInstance, TestPI, ::iutest::Range<int>(0, 10));
+
+IUTEST_P(TestPI, TestA)
+{
+	IUTEST_ASSERT_EQ(a, GetParam());
+	++a;
+}
+
+IUTEST_P(TestPI, TestB)
+{
+	IUTEST_ASSERT_EQ(b, GetParam());
+	++b;
+}
+
 // Param Test Bool
 class TestBool : public ::iutest::TestWithParam<bool> {};
 IUTEST_INSTANTIATE_TEST_CASE_P(TestBoolInstance, TestBool, ::iutest::Bool());
