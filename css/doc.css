@@ -51,6 +51,9 @@ div.copyright {
     text-align: right;
 }
 table.wandbox tr td:first-child {
-    width: 200px;
+    width: 20px;
+}
+table.wandbox tr td:nth-child(2) {
+    width: 250px;
 }
 
