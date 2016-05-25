@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include <vector>
 #include <algorithm>
+#include <cstdint>
 #include "internal/iutest_debug.hpp"
 
 #if IUTEST_HAS_TYPED_TEST_P
@@ -50,36 +51,124 @@ struct type_least_t {};
 template<>
 struct type_least_t<1>
 {
+#if defined(INT_LEAST8_MIN)
+	typedef int_least8_t		Int;
+	typedef uint_least8_t		UInt;
+#else
 	typedef char				Int;
 	typedef unsigned char		UInt;
+#endif
 };
 
 /** type_least_t<2> */
 template<>
 struct type_least_t<2>
 {
+#if defined(INT_LEAST16_MIN)
+	typedef int_least16_t		Int;
+	typedef uint_least16_t		UInt;
+#else
 	typedef short				Int;
 	typedef unsigned short		UInt;
+#endif
 };
 
 /** type_least_t<4> */
 template<>
 struct type_least_t<4>
 {
+#if defined(INT_LEAST32_MIN)
+	typedef int_least32_t		Int;
+	typedef uint_least32_t		UInt;
+#else
 	typedef int					Int;
 	typedef unsigned int		UInt;
+#endif
 };
 
 /** type_least_t<8> */
 template<>
 struct type_least_t<8>
 {
+#if defined(INT_LEAST64_MIN)
+	typedef int_least64_t		Int;
+	typedef uint_least64_t		UInt;
+#else
 #if defined(_MSC_VER)
 	typedef __int64				Int;
 	typedef unsigned __int64	UInt;
 #else
 	typedef long long			Int;
 	typedef unsigned long long	UInt;
+#endif
+#endif
+};
+
+/**
+ * @brief	type_fit_t
+*/
+template<int SIZE>
+struct type_fit_t {};
+
+/** type_fit_t<1> */
+template<>
+struct type_fit_t<1>
+{
+#if defined(INT8_MIN)
+	typedef int8_t				Int;
+	typedef uint8_t				UInt;
+#else
+	typedef char				Int;
+	typedef unsigned char		UInt;
+#endif
+};
+
+/** type_fit_t<2> */
+template<>
+struct type_fit_t<2>
+{
+#if defined(INT16_MIN)
+	typedef int16_t				Int;
+	typedef uint16_t			UInt;
+#else
+	typedef short				Int;
+	typedef unsigned short		UInt;
+#endif
+};
+
+/** type_fit_t<4> */
+template<>
+struct type_fit_t<4>
+{
+#if defined(INT32_MIN)
+	typedef int32_t				Int;
+	typedef uint32_t			UInt;
+#else
+#if sizeof(int) != 4 && sizeof(long) == 4
+	typedef long				Int;
+	typedef unsigned long		UInt;
+#else
+	typedef int					Int;
+	typedef unsigned int		UInt;
+#endif
+#endif
+};
+
+/** type_fit_t<8> */
+template<>
+struct type_fit_t<8>
+{
+#if defined(INT64_MIN)
+	typedef int64_t				Int;
+	typedef uint64_t			UInt;
+#else
+#if defined(_MSC_VER)
+	typedef __int64				Int;
+	typedef unsigned __int64	UInt;
+#else
+	typedef long long			Int;
+	typedef unsigned long long	UInt;
+#endif
 #endif
 };
 
@@ -169,7 +258,7 @@ class floating_point
 private:
 	typedef floating_point<RawType> _Myt;
 
-	typedef typename detail::type_least_t<sizeof(RawType)> type;
+	typedef typename detail::type_fit_t<sizeof(RawType)> type;
 	typedef typename type::Int	Int;
 	typedef typename type::UInt	UInt;
 	union FInt
@@ -363,10 +452,10 @@ const typename floating_point<T>::UInt floating_point<T>::kFracMask
 
 //======================================================================
 // typedef
-typedef detail::type_least_t<4>::Int	Int32;	//!< 32 bit 符号付き整数型
-typedef detail::type_least_t<4>::UInt	UInt32;	//!< 32 bit 符号なし整数型
-typedef detail::type_least_t<8>::Int	Int64;	//!< 64 bit 符号付き整数型
-typedef detail::type_least_t<8>::UInt	UInt64;	//!< 64 bit 符号なし整数型
+typedef detail::type_fit_t<4>::Int	Int32;	//!< 32 bit 符号付き整数型
+typedef detail::type_fit_t<4>::UInt	UInt32;	//!< 32 bit 符号なし整数型
+typedef detail::type_fit_t<8>::Int	Int64;	//!< 64 bit 符号付き整数型
+typedef detail::type_fit_t<8>::UInt	UInt64;	//!< 64 bit 符号なし整数型
 
 typedef internal::TypeId TestTypeId;	//!< テスト識別型
 
