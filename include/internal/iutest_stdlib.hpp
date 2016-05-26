@@ -72,6 +72,7 @@
 #  if IUTEST_LIBSTDCXX_VERSION >= 40500
 #    define IUTEST_HAS_STD_DECLVAL		1
 #    define IUTEST_HAS_CXX_HDR_RANDOM	1
+#    define IUTEST_HAS_CXX_HDR_CSTDINT	1
 #  endif
 #endif
 
@@ -101,6 +102,7 @@
 #  define IUTEST_HAS_CXX_HDR_REGEX		1
 #  define IUTEST_HAS_CXX_HDR_RANDOM		1
 #  define IUTEST_HAS_CXX_HDR_CODECVT	1
+#  define IUTEST_HAS_CXX_HDR_CSTDINT	1
 #endif
 
 #if _LIBCPP_VERSION >= 1001
@@ -133,6 +135,7 @@
 #  define IUTEST_HAS_CXX_HDR_REGEX		1
 #  define IUTEST_HAS_CXX_HDR_RANDOM		1
 #  define IUTEST_HAS_CXX_HDR_CODECVT	1
+#  define IUTEST_HAS_CXX_HDR_CSTDINT	1
 #  if _MSC_FULL_VER != 190023725
 #    define IUTEST_HAS_CXX_HDR_CHRONO	1
 #  endif
@@ -204,6 +207,10 @@
 #if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
 #  define IUTEST_HAS_CXX_HDR_CODECVT	0
 #endif
+//! has cstdint header
+#if !defined(IUTEST_HAS_CXX_HDR_CSTDINT)
+#  define IUTEST_HAS_CXX_HDR_CSTDINT	0
+#endif
 //! has emplace
 #if !defined(IUTEST_HAS_STD_EMPLACE)
 #  define IUTEST_HAS_STD_EMPLACE		0
@@ -213,6 +220,11 @@
 #  define IUTEST_HAS_HDR_CXXABI			0
 #endif
 
+//======================================================================
+// include
+#if IUTEST_HAS_CXX_HDR_CSTDINT
+#  include <cstdint>
+#endif
 
 //======================================================================
 // decalre
@@ -440,6 +452,146 @@ using tuples::get;
 namespace iutest {
 namespace detail
 {
+
+//======================================================================
+// struct
+/**
+ * @brief	type_least_t
+*/
+template<int SIZE>
+struct type_least_t {};
+
+/** type_least_t<1> */
+template<>
+struct type_least_t<1>
+{
+#if defined(INT_LEAST8_MIN)
+	typedef int_least8_t		Int;
+	typedef uint_least8_t		UInt;
+#else
+	typedef char				Int;
+	typedef unsigned char		UInt;
+#endif
+};
+
+/** type_least_t<2> */
+template<>
+struct type_least_t<2>
+{
+#if defined(INT_LEAST16_MIN)
+	typedef int_least16_t		Int;
+	typedef uint_least16_t		UInt;
+#else
+	typedef short				Int;
+	typedef unsigned short		UInt;
+#endif
+};
+
+/** type_least_t<4> */
+template<>
+struct type_least_t<4>
+{
+#if defined(INT_LEAST32_MIN)
+	typedef int_least32_t		Int;
+	typedef uint_least32_t		UInt;
+#else
+	typedef int					Int;
+	typedef unsigned int		UInt;
+#endif
+};
+
+/** type_least_t<8> */
+template<>
+struct type_least_t<8>
+{
+#if defined(INT_LEAST64_MIN)
+	typedef int_least64_t		Int;
+	typedef uint_least64_t		UInt;
+#else
+#if defined(_MSC_VER)
+	typedef __int64				Int;
+	typedef unsigned __int64	UInt;
+#else
+	typedef long long			Int;
+	typedef unsigned long long	UInt;
+#endif
+#endif
+};
+
+/**
+ * @brief	type_fit_t
+*/
+template<int SIZE>
+struct type_fit_t {};
+
+/** type_fit_t<1> */
+template<>
+struct type_fit_t<1>
+{
+#if defined(INT8_MIN)
+	typedef int8_t				Int;
+	typedef uint8_t				UInt;
+#else
+	typedef char				Int;
+	typedef unsigned char		UInt;
+#endif
+};
+
+/** type_fit_t<2> */
+template<>
+struct type_fit_t<2>
+{
+#if defined(INT16_MIN)
+	typedef int16_t				Int;
+	typedef uint16_t			UInt;
+#else
+	typedef short				Int;
+	typedef unsigned short		UInt;
+#endif
+};
+
+/** type_fit_t<4> */
+template<>
+struct type_fit_t<4>
+{
+#if defined(INT32_MIN)
+	typedef int32_t				Int;
+	typedef uint32_t			UInt;
+#else
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+	template<typename T, typename F, bool b>
+	struct impl { typedef T type; };
+	template<typename T, typename F>
+	struct impl<T, F, false> { typedef F type; };
+
+	typedef typename impl<long, int
+		, sizeof(int) != 4 && sizeof(long) == 4>::type Int;
+	typedef typename impl<unsigned long, unsigned int
+		, sizeof(int) != 4 && sizeof(long) == 4>::type UInt;
+#else
+	typedef int					Int;
+	typedef unsigned int		UInt;
+#endif
+#endif
+};
+
+/** type_fit_t<8> */
+template<>
+struct type_fit_t<8>
+{
+#if defined(INT64_MIN)
+	typedef int64_t				Int;
+	typedef uint64_t			UInt;
+#else
+#if defined(_MSC_VER)
+	typedef __int64				Int;
+	typedef unsigned __int64	UInt;
+#else
+	typedef long long			Int;
+	typedef unsigned long long	UInt;
+#endif
+#endif
+};
 
 //======================================================================
 // function
