@@ -559,14 +559,16 @@ struct type_fit_t<4>
 	typedef uint32_t			UInt;
 #else
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+private:
 	template<typename T, typename F, bool b>
 	struct impl { typedef T type; };
 	template<typename T, typename F>
 	struct impl<T, F, false> { typedef F type; };
 
-	typedef typename impl<long, int
+public:
+	typedef impl<long, int
 		, sizeof(int) != 4 && sizeof(long) == 4>::type Int;
-	typedef typename impl<unsigned long, unsigned int
+	typedef impl<unsigned long, unsigned int
 		, sizeof(int) != 4 && sizeof(long) == 4>::type UInt;
 #else
 	typedef int					Int;
