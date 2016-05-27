@@ -37,6 +37,7 @@ var searchData=
   ['iutest_5fhas_5fcxx11',['IUTEST_HAS_CXX11',['../dc/d2f/iutest__compiler_8hpp.html#a2a62db2a9a92a3b0248b858deb221309',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fcxx_5fhdr_5fchrono',['IUTEST_HAS_CXX_HDR_CHRONO',['../d9/dad/iutest__stdlib_8hpp.html#ad8d8b3071149c3b8448afd23aca5f289',1,'iutest_stdlib.hpp']]],
   ['iutest_5fhas_5fcxx_5fhdr_5fcodecvt',['IUTEST_HAS_CXX_HDR_CODECVT',['../d9/dad/iutest__stdlib_8hpp.html#ace001fa232a38f2504d6eb21aa0625d8',1,'iutest_stdlib.hpp']]],
+  ['iutest_5fhas_5fcxx_5fhdr_5fcstdint',['IUTEST_HAS_CXX_HDR_CSTDINT',['../d9/dad/iutest__stdlib_8hpp.html#aada187b5c851e01418c0487921627b3a',1,'iutest_stdlib.hpp']]],
   ['iutest_5fhas_5fcxx_5fhdr_5frandom',['IUTEST_HAS_CXX_HDR_RANDOM',['../d9/dad/iutest__stdlib_8hpp.html#a774fc3052d031a81b8a27e121748aa64',1,'iutest_stdlib.hpp']]],
   ['iutest_5fhas_5fcxx_5fhdr_5fregex',['IUTEST_HAS_CXX_HDR_REGEX',['../d9/dad/iutest__stdlib_8hpp.html#a4ece30205647dccdfcff8a0c0a9e74ef',1,'iutest_stdlib.hpp']]],
   ['iutest_5fhas_5fdecltype',['IUTEST_HAS_DECLTYPE',['../dc/d2f/iutest__compiler_8hpp.html#acb054aab62e89421cea777e28797410f',1,'iutest_compiler.hpp']]],

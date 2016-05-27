@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.15.0.40</span>
+   &#160;<span id="projectnumber">1.15.0.43</span>
    </div>
   </td>
  </tr>
@@ -977,7 +977,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00941"></a><span class="lineno">  941</span>&#160;        <span class="comment">// 入れそうなとこを探す</span></div>
 <div class="line"><a name="l00942"></a><span class="lineno">  942</span>&#160;        <span class="keyword">typedef</span> typename ::std::vector&lt; ParamIndexes&lt;N&gt; &gt;::iterator iterator;</div>
 <div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;        iterator find = list.end();</div>
-<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;        <a class="code" href="../../d3/dda/namespaceiutest.html#a3ff7338e93288fc64d2ca3d01f78ec9a">UInt32</a> max_overlap = <span class="keyword">static_cast&lt;</span><a class="code" href="../../d3/dda/namespaceiutest.html#a3ff7338e93288fc64d2ca3d01f78ec9a">UInt32</a><span class="keyword">&gt;</span>(-1);</div>
+<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;        <a class="code" href="../../d3/dda/namespaceiutest.html#a5310e5fc6c9c1a8b16f75992fbc947ee">UInt32</a> max_overlap = <span class="keyword">static_cast&lt;</span><a class="code" href="../../d3/dda/namespaceiutest.html#a5310e5fc6c9c1a8b16f75992fbc947ee">UInt32</a><span class="keyword">&gt;</span>(-1);</div>
 <div class="line"><a name="l00945"></a><span class="lineno">  945</span>&#160;        <span class="keywordflow">for</span>( iterator it = start, end=list.end(); it != end; ++it )</div>
 <div class="line"><a name="l00946"></a><span class="lineno">  946</span>&#160;        {</div>
 <div class="line"><a name="l00947"></a><span class="lineno">  947</span>&#160;            ParamIndexes&lt;N&gt;&amp; indexes = *it;</div>
@@ -996,7 +996,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00960"></a><span class="lineno">  960</span>&#160;            <span class="keywordflow">if</span>( free_raw != -1 )</div>
 <div class="line"><a name="l00961"></a><span class="lineno">  961</span>&#160;            {</div>
 <div class="line"><a name="l00962"></a><span class="lineno">  962</span>&#160;                <span class="comment">// 仮に入ったとして重複がないか調べる</span></div>
-<div class="line"><a name="l00963"></a><span class="lineno">  963</span>&#160;                <a class="code" href="../../d3/dda/namespaceiutest.html#a3ff7338e93288fc64d2ca3d01f78ec9a">UInt32</a> overlap = 0;</div>
+<div class="line"><a name="l00963"></a><span class="lineno">  963</span>&#160;                <a class="code" href="../../d3/dda/namespaceiutest.html#a5310e5fc6c9c1a8b16f75992fbc947ee">UInt32</a> overlap = 0;</div>
 <div class="line"><a name="l00964"></a><span class="lineno">  964</span>&#160;                <span class="keywordflow">for</span>( <span class="keywordtype">int</span> i=0; i &lt; N; ++i )</div>
 <div class="line"><a name="l00965"></a><span class="lineno">  965</span>&#160;                {</div>
 <div class="line"><a name="l00966"></a><span class="lineno">  966</span>&#160;                    <span class="keywordflow">if</span>( indexes.index[i] == -1 || i == free_raw )</div>
@@ -1482,11 +1482,11 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="ttc" id="classiutest_1_1_test_env_html_ac45dd301c78db3de83b0c1e3ee177a83"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#ac45dd301c78db3de83b0c1e3ee177a83">iutest::TestEnv::get_random_seed</a></div><div class="ttdeci">static unsigned int get_random_seed()</div><div class="ttdoc">乱数シード </div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:329</div></div>
 <div class="ttc" id="classiutest_1_1_test_env_html_a9f187ecf76c59e5b77dbc39bf454dd22"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a9f187ecf76c59e5b77dbc39bf454dd22">iutest::TestEnv::genrand</a></div><div class="ttdeci">static detail::iuRandom &amp; genrand()</div><div class="ttdoc">乱数生成器 </div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:328</div></div>
 <div class="ttc" id="iutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:663</div></div>
-<div class="ttc" id="namespaceiutest_html_a3ff7338e93288fc64d2ca3d01f78ec9a"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a3ff7338e93288fc64d2ca3d01f78ec9a">iutest::UInt32</a></div><div class="ttdeci">detail::type_least_t&lt; 4 &gt;::UInt UInt32</div><div class="ttdoc">32 bit 符号なし整数型 </div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:368</div></div>
+<div class="ttc" id="namespaceiutest_html_a5310e5fc6c9c1a8b16f75992fbc947ee"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a5310e5fc6c9c1a8b16f75992fbc947ee">iutest::UInt32</a></div><div class="ttdeci">detail::type_fit_t&lt; 4 &gt;::UInt UInt32</div><div class="ttdoc">32 bit 符号なし整数型 </div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:320</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年05月18日(水) 23時27分50秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年05月27日(金) 14時08分44秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
