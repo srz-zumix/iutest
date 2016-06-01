@@ -30,7 +30,7 @@ def parse_command_line():
 		'-v',
 		'--version',
 		action='version',
-		version=u'%(prog)s version 0.1'
+		version=u'%(prog)s version 0.2'
 	)
 	parser.add_argument(
 		'--stdin',
@@ -49,6 +49,11 @@ def parse_command_line():
 		'--expand_include',
 		action='store_true',
 		help='expand include file.'
+	)
+	parser.add_argument(
+		'--use-main',
+		action='store_true',
+		help='IUTEST_USE_MAIN.'
 	)
 	parser.add_argument(
 		'code',
@@ -165,7 +170,9 @@ def run(options):
 		try:
 			pp = PaizaPreprocessor()
 			output = os.path.basename(filepath) + ".p"
-			macros = {'__clnag__': '1', '_LIBCPP_VERSION': '1101', 'NULL': '0'}
+			macros = {}
+			if options.use_main:
+				macros['IUTEST_USE_MAIN'] = '1'
 			code = pp.preprocess(code, macros)
 			output_code("paizaio-sourcecode.cpp", code, options.encoding)
 			run_impl(code, options)

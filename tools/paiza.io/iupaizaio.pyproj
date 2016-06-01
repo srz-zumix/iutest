@@ -13,7 +13,7 @@
     <Name>iupaizaio</Name>
     <RootNamespace>iupaizaio</RootNamespace>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <CommandLineArguments>../../test/minimum_tests.cpp -c gcc-head -f"-DIUTEST_USE_MAIN" --expand_include --encoding utf-8-sig</CommandLineArguments>
+    <CommandLineArguments>../../test/minimum_tests.cpp -c gcc-head --use-main --expand_include --encoding utf-8-sig</CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -26,6 +26,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="iupaizaio.py" />
+    <Compile Include="iupaizaio_pp.py" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

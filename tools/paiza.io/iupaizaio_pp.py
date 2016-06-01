@@ -299,7 +299,8 @@ class PaizaPreprocessor:
 		line = re.sub('\s$', '', line)
 		return line
 
-	def preprocess(self, code, macros):
+	def preprocess(self, code, add_macros):
+		self.macros = dict(self.macros.items() + add_macros.items())
 		dst = ""
 		for line in code.splitlines():
 			# c++ comment
