@@ -16,7 +16,7 @@ endif
 
 ifdef IUTEST_CLANG_CXX
 
-CLANGVERSION:=$(shell $(IUTEST_CLANG_CXX) --version | grep version | sed "s/.*version\s*\([0-9]*\.[0-9]*[\.-][0-9]*\).*/\1/")
+CLANGVERSION:=$(shell $(IUTEST_CLANG_CXX) --version | grep version | sed "s/.*version\s*\([0-9]*\.[0-9]*\).*/\1/")
 
 dot:=.
 empty:=
@@ -24,7 +24,7 @@ space:=$(empty) $(empty)
 CLANGVERSION:=$(subst -,$(dot), $(CLANGVERSION))
 CLANGVERSION:=$(subst $(dot),$(space), $(CLANGVERSION))
 
-ifeq ($(words $(CLANGVERSION)), 3)
+ifeq ($(words $(CLANGVERSION)), 2)
 CLANGMAJOR:=$(word 1, $(CLANGVERSION))
 CLANGMINOR:=$(word 2, $(CLANGVERSION))
 else
