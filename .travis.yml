@@ -20,13 +20,6 @@ before_install:
   - if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then export USE_NEWEST_GCC=1; fi
 
 install:
-  # gcc 5
-#  - |
-#    if [ "${USE_NEWEST_GCC}" = '1' ]; then
-#      sudo update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-5 90;
-#      sudo update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-5 90;
-#      sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90;
-#    fi
   # gcov/lcov
   - |
     if [ "${USE_COVERALLS}" = '1' ]; then
