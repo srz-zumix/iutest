@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01150100u //!< iutest version 1.15.1.0
+#define IUTEST_VER			0x01150101u //!< iutest version 1.15.1.1
 #define IUTEST_MAJORVER		0x01u		//!< Major Version
 #define IUTEST_MINORVER		0x15u		//!< Minor Version
 #define IUTEST_BUILD		0x01u		//!< Build
-#define IUTEST_REVISION		0x00u		//!< Revision
+#define IUTEST_REVISION		0x01u		//!< Revision
 
 /**
  * @mainpage
@@ -80,7 +80,7 @@
    <tr><td>--iutest_throw_on_failure         </td><td>[yes|no]</td><td>When that failed to throw.</td></tr>
    <tr><td>--iutest_catch_exceptions         </td><td>&lt;yes|no&gt;</td><td>Catch exceptions enable.</td></tr>
    <tr><td>--iutest_print_time               </td><td>&lt;yes|no&gt;</td><td>Setting the display of elapsed time.</td></tr>
-   <tr><td>--iutest_repeat                   </td><td>&lt;count&gt;</td><td>Set the number of repetitions of the test.</td></tr>
+   <tr><td>--iutest_repeat                   </td><td>&lt;count&gt;</td><td>Set the number of repetitions of the test. use a negative count to repeat forever.</td></tr>
    <tr><td>--iutest_stream_result_to         </td><td>&lt;host:port&gt;</td><td>Set stream test results server.</td></tr>
    <tr><td>--iutest_file_location            </td><td>&lt;auto|vs|gcc&gt;</td><td>Format file location messages.</td></tr>
    <tr><td>--iutest_default_package_name     </td><td>[name]</td><td>Set default root package name.</td></tr>

@@ -232,20 +232,20 @@
 
 #define IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)		IIUT_TEST_P_EVALGENERATOR_NAME_I(prefix_, IIUT_TO_VARNAME_(testcase_))
 #define IIUT_TEST_P_EVALGENERATOR_NAME_I(prefix_, testcase_)	IIUT_TEST_P_EVALGENERATOR_NAME_I_(prefix_, testcase_)
-#define IIUT_TEST_P_EVALGENERATOR_NAME_I_(prefix_, testcase_)	s_##prefix_##_##testcase_##_EvalGenerator_
+#define IIUT_TEST_P_EVALGENERATOR_NAME_I_(prefix_, testcase_)	s_##prefix_##_x_iutest_x_##testcase_##_EvalGenerator_
 
 #define IIUT_TEST_P_PARAMGENERATOR_NAME_(prefix_, testcase_)	IIUT_TEST_P_PARAMGENERATOR_NAME_I(prefix_, IIUT_TO_VARNAME_(testcase_))
 #define IIUT_TEST_P_PARAMGENERATOR_NAME_I(prefix_, testcase_)	IIUT_TEST_P_PARAMGENERATOR_NAME_I_(prefix_, testcase_)
-#define IIUT_TEST_P_PARAMGENERATOR_NAME_I_(prefix_, testcase_)	s_##prefix_##_##testcase_##_ParamGenerator_
+#define IIUT_TEST_P_PARAMGENERATOR_NAME_I_(prefix_, testcase_)	s_##prefix_##_x_iutest_x_##testcase_##_ParamGenerator_
 
 #define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)		IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I(prefix_, IIUT_TO_VARNAME_(testcase_))
 #define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I(prefix_, testcase_)	IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I_(prefix_, testcase_)
-#define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I_(prefix_, testcase_)	prefix_##_##testcase_##_TestCaseInstantiationRegister
+#define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I_(prefix_, testcase_)	prefix_##_x_iutest_x_##testcase_##_TestCaseInstantiationRegister
 
 #define IIUT_TEST_P_INSTANTIATIONREGISTER_(prefix_, testcase_)				IIUT_TEST_P_INSTANTIATIONREGISTER_I(prefix_	\
 																				, IIUT_TO_VARNAME_(testcase_), IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_))
 #define IIUT_TEST_P_INSTANTIATIONREGISTER_I(prefix_, testcase_, register_)	IIUT_TEST_P_INSTANTIATIONREGISTER_I_(prefix_, testcase_, register_)
-#define IIUT_TEST_P_INSTANTIATIONREGISTER_I_(prefix_, testcase_, register_)	int s_##prefix_##_##testcase_##_dummy = register_()
+#define IIUT_TEST_P_INSTANTIATIONREGISTER_I_(prefix_, testcase_, register_)	int s_##prefix_##_x_iutest_x_##testcase_##_dummy = register_()
 
 /**
  * @}

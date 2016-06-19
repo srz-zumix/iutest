@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -102,6 +102,18 @@ IUTEST(TestRandom, Engine)
 	IUTEST_ASSERT_LE( ::std::uniform_int_distribution<unsigned int>(0,100)(random_engine()), 100u);
 }
 #endif
+
+#endif
+
+#if !defined(IUTEST_USE_GTEST)
+
+// name conflict test
+IUTEST(TestNameConflict_X, Y)
+{
+}
+IUTEST(TestNameConflict, X_Y)
+{
+}
 
 #endif
 

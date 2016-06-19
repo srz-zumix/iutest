@@ -28,11 +28,11 @@
 */
 #define IUTEST_TEST_CLASS_NAME_(testcase_, testname_)	IIUT_TEST_CLASS_NAME_I(IIUT_TO_VARNAME_(testcase_), IIUT_TO_VARNAME_(testname_))
 #define IIUT_TEST_CLASS_NAME_I(testcase_, testname_)	IIUT_TEST_CLASS_NAME_I_(testcase_, testname_)
-#define IIUT_TEST_CLASS_NAME_I_(testcase_, testname_)	iu_##testcase_##_x_##testname_##_Test
+#define IIUT_TEST_CLASS_NAME_I_(testcase_, testname_)	iu_##testcase_##_x_iutest_x_##testname_##_Test
 
 #define IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)	IIUT_TEST_INSTANCE_NAME_I(IIUT_TO_VARNAME_(testcase_), IIUT_TO_VARNAME_(testname_))
 #define IIUT_TEST_INSTANCE_NAME_I(testcase_, testname_)		IIUT_TEST_INSTANCE_NAME_I_(testcase_, testname_)
-#define IIUT_TEST_INSTANCE_NAME_I_(testcase_, testname_)	s_##testcase_##_##testname_##_Instance
+#define IIUT_TEST_INSTANCE_NAME_I_(testcase_, testname_)	s_##testcase_##_x_iutest_x_##testname_##_Instance
 
 #if IUTEST_HAS_TESTNAME_ALIAS
 

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -58,11 +58,27 @@ IUTEST_INSTANTIATE_TEST_CASE_P(Range, EnumParamTest, ::iutest::Range<TestEnum>(T
 
 class BoolParamTest : public ::iutest::TestWithParam<bool> {};
 
-IUTEST_P(BoolParamTest, Test)
+IUTEST_P(BoolParamTest, X_Test)
 {
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P(My1, BoolParamTest, ::iutest::Bool());
+
+#if !defined(IUTEST_USE_GTEST)
+
+// name conflict test
+class BoolParamTest_X : public ::iutest::TestWithParam<bool> {};
+class B_BoolParamTest_X : public ::iutest::TestWithParam<bool> {};
+
+IUTEST_P(BoolParamTest_X, Test)
+{
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_P(A_B, BoolParamTest_X, ::iutest::Bool());
+IUTEST_INSTANTIATE_TEST_CASE_P(A, B_BoolParamTest_X, ::iutest::Bool());
+
+#endif
+
 
 IUTEST_P(MultiInstantiateParamTest, Test)
 {

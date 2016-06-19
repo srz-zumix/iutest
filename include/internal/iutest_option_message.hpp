@@ -69,8 +69,9 @@ inline void iuOptionMessage::ShowHelp()
 		"    --iutest_throw_on_failure[=0|1]  : When that failed to throw.\n"
 		"    --iutest_catch_exceptions=<0|1>  : Catch exceptions enable.\n"
 		"    --iutest_print_time=<0|1>        : Setting the display of elapsed time.\n"
-		"    --iutest_repeat=<count>          : Set the number of repetitions\n"
-		"                                       of the test.\n"
+		"    --iutest_repeat=<count>\n"
+		"            : Set the number of repetitions of the test.\n"
+		"              use a negative count to repeat forever."
 #if IUTEST_HAS_STREAM_RESULT
 		"    --iutest_stream_result_to=<host:port>\n"
 		"                                     : Set stream test results server.\n"
