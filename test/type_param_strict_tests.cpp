@@ -66,9 +66,9 @@ int main(int argc, char* argv[])
 	IUTEST_INIT(&argc, argv);
 #if IUTEST_HAS_TYPED_TEST_P && IUTEST_HAS_STREAM_BUFFER
 #if IUTEST_TYPED_TEST_P_STRICT
-	IUTEST_EXPECT_STRIN("Test B has not been registered.", stderr_capture.GetStreamString());
+	IUTEST_EXPECT_STRIN("Test \"B\" has not been registered.", stderr_capture.GetStreamString());
 #endif
-	IUTEST_EXPECT_STRIN("Test B must be defined before IUTEST_REGISTER_TYPED_TEST_CASE_P(RegisterFailTypeParamTest, ...).", stderr_capture.GetStreamString());
+	IUTEST_EXPECT_STRIN("Test \"B\" must be defined before IUTEST_REGISTER_TYPED_TEST_CASE_P(RegisterFailTypeParamTest, ...).", stderr_capture.GetStreamString());
 #endif
 	if( IUTEST_RUN_ALL_TESTS() ) return 1;
 	
