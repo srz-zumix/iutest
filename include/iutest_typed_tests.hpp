@@ -407,6 +407,9 @@ public:
 				{
 					continue;
 				}
+				IUTEST_LOG_(FATAL) << detail::FormatCompilerIndependentFileLocation(file, line)
+				<< ": Test \"" << test_name << "\" is find in \"" << test_names
+					<< "\". expected whitespace or comma : " << p[len] << "(" << static_cast<int>(p[len]) <<  ")\n";
 			}
 			IUTEST_LOG_(WARNING) << detail::FormatCompilerIndependentFileLocation(file, line)
 				<< ": Test \"" << test_name << "\" has not been registered.\n" << "    TestNames: " << test_names;
