@@ -499,6 +499,30 @@ public:
 	static bool Register(const char* prefix, const char* testcase_name
 		, const ::std::string& package_name, const char* names, size_t index=0)
 	{
+#if IUTEST_HAS_EXCEPTIONS
+		try
+		{
+			return Register_(prefix, testcase_name, package_name, names, index);
+		}
+		catch (const ::std::exception& e)
+		{
+			IUTEST_LOG_(FATAL) << "IUTEST_INSTANTIATE_TYPED_TEST_CASE_P register tests failed...\n"
+				<< e.what();
+		}
+		catch(...)
+		{
+			IUTEST_LOG_(FATAL) << "IUTEST_INSTANTIATE_TYPED_TEST_CASE_P register tests failed...\n";
+		}
+		return false;
+#else
+		return Register_(prefix, testcase_name, package_name, names, index);
+#endif
+	}
+
+private:
+	static bool Register_(const char* prefix, const char* testcase_name
+		, const ::std::string& package_name, const char* names, size_t index)
+	{
 		typedef typename Types::Head	TypeParam;
 		typedef typename Tests::Head	Head;
 		typedef Fixture<Head>			FixtureClass;

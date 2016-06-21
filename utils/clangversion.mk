@@ -51,10 +51,10 @@ STD_GNU14=gnu++14
 else
 
 # 3.2 later
-ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 2 \)))
-STD_CPP14=c++1y
-STD_GNU14=gnu++1y
-endif
+#ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 2 \)))
+#STD_CPP14=c++1y
+#STD_GNU14=gnu++1y
+#endif
 
 endif
 
