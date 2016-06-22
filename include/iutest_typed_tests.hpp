@@ -372,14 +372,14 @@ class TypedTestCasePState
 #endif
 
 public:
-	TypedTestCasePState() : m_names(NULL) {}
+	TypedTestCasePState() {}
 public:
-	const char* names() const { return m_names; }
+	const char* names() const { return m_names.c_str(); }
 
 public:
 	bool AddTestName(const char* file, int line, const char* testcase_name, const char* test_name)
 	{
-		if( m_names != NULL )
+		if( !m_names.empty() )
 		{
 			IUTEST_LOG_(WARNING) << detail::FormatCompilerIndependentFileLocation(file, line)
 				<< ": Test \"" << test_name << "\" must be defined before IUTEST_REGISTER_TYPED_TEST_CASE_P("
@@ -393,6 +393,7 @@ public:
 	bool VerifyTestNames(const char* file, int line, const char* test_names)
 	{
 		m_names = test_names;
+		test_names = m_names.c_str();
 		IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 #if IUTEST_TYPED_TEST_P_STRICT
 		bool ret = true;
@@ -425,7 +426,7 @@ public:
 	}
 
 private:
-	const char* m_names;
+	std::string m_names;
 
 #if IUTEST_TYPED_TEST_P_STRICT
 	nameset_t m_list;
