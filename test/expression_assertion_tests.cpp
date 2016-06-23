@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -140,44 +140,17 @@ IUTEST(ExpressionFail, Comparison)
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT(g() ||  0), "expansion: false || 0");
 }
 
+#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 IUTEST(ExpressionFail, Arithmetic)
 {
-#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() + 2 == 1), "expansion: 42 + 2 == 1");
-#else
-	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() + 2 == 1), "expansion: 44 == 1");
-#endif
-
-#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() - 2 == 1), "expansion: 42 - 2 == 1");
-#else
-	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() - 2 == 1), "expansion: 40 == 1");
-#endif
-
-#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() * 2 == 1), "expansion: 42 * 2 == 1");
-#else
-	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() * 2 == 1), "expansion: 84 == 1");
-#endif
-
-#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() / 2 == 1), "expansion: 42 / 2 == 1");
-#else
-	CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() / 2 == 1), "expansion: 21 == 1");
-#endif
-
-#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 	CHECK_FATAL_FAILURE(IUTEST_ASSERT(f() % 4 == 1), "expansion: 42 % 4 == 1");
-#else
-	CHECK_FATAL_FAILURE(IUTEST_ASSERT(f() % 4 == 1), "expansion: 2 == 1");
-#endif
-
-#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 	CHECK_FATAL_FAILURE(IUTEST_ASSERT(f() + f() + f() == 1), "expansion: 42 + 42 + 42 == 1");
-#else
-	CHECK_FATAL_FAILURE(IUTEST_ASSERT(f() + f() + f() == 1), "expansion: 126 == 1");
-#endif
 }
+#endif
 
 IUTEST(ExpressionFail, Logical)
 {
@@ -213,44 +186,17 @@ IUTEST(ExpressionNotFail, Comparison)
 	CHECK_FATAL_FAILURE( IUTEST_ASSERT_NOT(g() ||  1), "expansion: false || 1");
 }
 
+#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 IUTEST(ExpressionNotFail, Arithmetic)
 {
-#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() + 2 == 44), "expansion: 42 + 2 == 44");
-#else
-	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() + 2 == 44), "expansion: 44 == 44");
-#endif
-
-#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() - 2 == 40), "expansion: 42 - 2 == 40");
-#else
-	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() - 2 == 40), "expansion: 40 == 40");
-#endif
-
-#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() * 2 == 84), "expansion: 42 * 2 == 84");
-#else
-	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() * 2 == 84), "expansion: 84 == 84");
-#endif
-
-#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() / 2 == 21), "expansion: 42 / 2 == 21");
-#else
-	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() / 2 == 21), "expansion: 21 == 21");
-#endif
-
-#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() % 4 == 2), "expansion: 42 % 4 == 2");
-#else
-	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() % 4 == 2), "expansion: 2 == 2");
-#endif
-
-#if IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE
 	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() + f() + f() == 126), "expansion: 42 + 42 + 42 == 126");
-#else
-	CHECK_FATAL_FAILURE(IUTEST_ASSERT_NOT(f() + f() + f() == 126), "expansion: 126 == 126");
-#endif
 }
+#endif
 
 IUTEST(ExpressionNotFail, Logical)
 {

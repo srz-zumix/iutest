@@ -372,14 +372,14 @@ class TypedTestCasePState
 #endif
 
 public:
-	TypedTestCasePState() {}
+	TypedTestCasePState() : m_names(NULL) {}
 public:
-	const char* names() const { return m_names.c_str(); }
+	const char* names() const { return m_names; }
 
 public:
 	bool AddTestName(const char* file, int line, const char* testcase_name, const char* test_name)
 	{
-		if( !m_names.empty() )
+		if( m_names != NULL )
 		{
 			IUTEST_LOG_(WARNING) << detail::FormatCompilerIndependentFileLocation(file, line)
 				<< ": Test \"" << test_name << "\" must be defined before IUTEST_REGISTER_TYPED_TEST_CASE_P("
@@ -393,7 +393,6 @@ public:
 	bool VerifyTestNames(const char* file, int line, const char* test_names)
 	{
 		m_names = test_names;
-		test_names = m_names.c_str();
 		IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 #if IUTEST_TYPED_TEST_P_STRICT
 		bool ret = true;
@@ -426,7 +425,7 @@ public:
 	}
 
 private:
-	std::string m_names;
+	const char* m_names;
 
 #if IUTEST_TYPED_TEST_P_STRICT
 	nameset_t m_list;
@@ -461,6 +460,7 @@ class TypeParameterizedTestCase
 		static void Register(TestCase* testcase, const char* test_names)
 		{
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
+			IUTEST_CHECK_(test_names != NULL);
 			const char* str = detail::SkipSpace(test_names);
 			const char* comma = strchr(str, ',');
 			::std::string test_name;
@@ -470,7 +470,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 			}
 			else
 			{
-				test_name.append(str, comma - str);
+				test_name = ::std::string(str, static_cast<size_t>(comma - str));
 				++comma;
 			}
 			_Myt* test = new EachTest(testcase, StripTrailingSpace(test_name).c_str());

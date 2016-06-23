@@ -126,11 +126,12 @@
 #if !defined(IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE)
 /**
  * @brief	式アサーションで算術演算子の展開をサポートするかどうか
+ * @deprecated
 */
 #  if 1	// IUTEST_HAS_DECLTYPE
 #    define IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE	1
 #  else
-#    define IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE	0
+#    define IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE	0	// 
 #  endif
 #endif
 
