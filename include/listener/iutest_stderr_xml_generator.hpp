@@ -34,12 +34,14 @@ namespace detail
 template<typename T, typename ::std::string (*GetXmlPath)()>
 class StderrXmlGeneratorListenerBase : public T
 {
-	StdErrorFile m_stderr;
 public:
 	StderrXmlGeneratorListenerBase(const ::std::string& path) : T(path) {}
 	~StderrXmlGeneratorListenerBase() {}
 
+#if IUTEST_HAS_FOPEN
 private:
+	StdErrorFile m_stderr;
+
 	virtual bool FileOpen(const char* path)
 	{
 		if( m_stderr.Open(path, IFile::OpenReadWrite) )
@@ -53,6 +55,7 @@ private:
 	{
 		this->m_fp = NULL;
 	}
+#endif
 
 public:
 	/** @private */

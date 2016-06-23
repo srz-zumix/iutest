@@ -7,8 +7,8 @@ dependencies:
   pre:
     #- sudo add-apt-repository -y 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise-3.7 main'
     #- wget -q -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -
-    - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-    - sudo apt-get update
+    #- sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+    #- sudo apt-get update
   override:
     #- sudo apt-get -qq install clang-3.7
     #- sudo apt-get -qq install g++-4.9
@@ -28,10 +28,10 @@ test:
         pwd: test
     - make CXX=clang++ minimum_tests && ./minimum_tests --spec :
         pwd: test
-    - case $CIRCLE_NODE_INDEX in 0) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O2 ;; 1) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-Os ;; 2) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O3 ;; 3) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-Oz ;; esac :
+    - case $CIRCLE_NODE_INDEX in 0) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-O2 ;; 1) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-Os ;; 2) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-O3 ;; 3) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-O4 ;; esac :
         parallel: true
         pwd: test
-    - case $CIRCLE_NODE_INDEX in 0) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-O2 ;; 1) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-Os ;; 2) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-O3 ;; 3) make all CXX=g++ OUTPUTXML=1 OPTIMIZE=-O4 ;; esac :
+    - case $CIRCLE_NODE_INDEX in 0) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O2 ;; 1) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-Os ;; 2) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-O3 ;; 3) make all CXX=clang++ OUTPUTXML=1 OPTIMIZE=-Oz ;; esac :
         parallel: true
         pwd: test
   post:
