@@ -126,4 +126,4 @@ no_parame_and_type_test:
 
 strstream:
 	make $(MAKE_OPTION) clean
-	make $(MAKE_OPTION) test DEFS="-DIUTEST_HAS_STRINGSTREAM=0 -DIUTEST_HAS_STRSTREAM=1"
+	make $(MAKE_OPTION) test DEFS="-DIUTEST_HAS_STRINGSTREAM=0 -DIUTEST_HAS_STRSTREAM=1" CXXFLAGS="-Wno-deprecated"

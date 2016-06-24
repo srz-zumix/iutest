@@ -443,6 +443,7 @@ using tuples::get;
 /**
  * @brief	std::strstream が使用可能かどうか
  * @note	IUTEST_HAS_STRINGSTREAM が優先されます
+ * @deprecated
 */
 #if !defined(IUTEST_HAS_STRSTREAM)
 #  define IUTEST_HAS_STRSTREAM		0
