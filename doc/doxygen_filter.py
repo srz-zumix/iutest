@@ -9,19 +9,25 @@
 #
 
 import sys
+import os
 
 
 # main
 def main():
-	f = open(sys.argv[1])
+	path = sys.argv[1]
+	f = open(path)
 	n = 0
+	fname = os.path.basename(path)
+	if fname == "iutest_config.hpp":
+		n = 2
 	if f:
 		for line in f:
 			sys.stdout.write(line)
-			if line.find("//=========================================================") != -1:
-				n += 1
-				if n == 2:
-					print('#include "iutest_config.hpp"')
+			if n < 2:
+				if line.find("//=========================================================") != -1:
+					n += 1
+					if n == 2:
+						print('#include "iutest_config.hpp"')
 	f.close()
 
 if __name__ == '__main__':
