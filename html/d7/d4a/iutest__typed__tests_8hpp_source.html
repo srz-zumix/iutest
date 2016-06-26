@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.15.1.6</span>
+   &#160;<span id="projectnumber">1.15.1.7</span>
    </div>
   </td>
  </tr>
@@ -296,7 +296,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;<span class="preprocessor"></span>            <span class="keywordflow">return</span> UnitTest::instance().AddTestCase(</div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;#endif</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;#<span class="keywordflow">if</span> IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;#<span class="keywordflow">if</span> <a class="code" href="../../dc/d51/group___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t.html#gad63f0570fcda66cc955d45ff5b6d656d">IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME</a></div>
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;                detail::MakeIndexTypedTestName&lt;TypeParam&gt;(testcase, index).c_str()</div>
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;#<span class="keywordflow">else</span></div>
 <div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;                detail::MakeIndexTestName(testcase, index).c_str()</div>
@@ -516,7 +516,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;<span class="preprocessor"></span>            UnitTest::instance().AddTestCase(</div>
 <div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;#endif</div>
 <div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;            (package_name +</div>
-<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;#<span class="keywordflow">if</span> IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME</div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;#<span class="keywordflow">if</span> <a class="code" href="../../dc/d51/group___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t.html#gad63f0570fcda66cc955d45ff5b6d656d">IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME</a></div>
 <div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;                detail::MakePrefixedIndexTypedTestName&lt;TypeParam&gt;(prefix, testcase_name, index)</div>
 <div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;#<span class="keywordflow">else</span></div>
 <div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;                detail::MakePrefixedIndexTestName(prefix, testcase_name, index)</div>
@@ -554,6 +554,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
 <div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;</div>
 <div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_TYPED_TESTS_HPP_DA9562C6_8CAB_4242_9E9E_22FFB490DE30_</span></div>
+<div class="ttc" id="group___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t_html_gad63f0570fcda66cc955d45ff5b6d656d"><div class="ttname"><a href="../../dc/d51/group___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t.html#gad63f0570fcda66cc955d45ff5b6d656d">IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME</a></div><div class="ttdeci">#define IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME</div><div class="ttdoc">型付けテスト名に型名を付けるかどうか </div><div class="ttdef"><b>Definition:</b> iutest_config.hpp:471</div></div>
 <div class="ttc" id="iutest__pool_8hpp_html"><div class="ttname"><a href="../../db/d71/iutest__pool_8hpp.html">iutest_pool.hpp</a></div><div class="ttdoc">iris unit test memory pool ファイル </div></div>
 <div class="ttc" id="iutest__port_8hpp_html_a967848348e16a7d0ab2a31c1593ca9ef"><div class="ttname"><a href="../../d1/d2a/iutest__port_8hpp.html#a967848348e16a7d0ab2a31c1593ca9ef">IUTEST_LOG_</a></div><div class="ttdeci">#define IUTEST_LOG_(level)</div><div class="ttdoc">ログメッセージストリーム </div><div class="ttdef"><b>Definition:</b> iutest_port.hpp:49</div></div>
 <div class="ttc" id="iutest__typed__util_8hpp_html"><div class="ttname"><a href="../../df/dbd/iutest__typed__util_8hpp.html">iutest_typed_util.hpp</a></div><div class="ttdoc">iris unit test typed util </div></div>
@@ -562,7 +563,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年06月24日(金) 23時35分32秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年06月26日(日) 23時38分18秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
