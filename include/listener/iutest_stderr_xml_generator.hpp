@@ -35,7 +35,12 @@ template<typename T, typename ::std::string (*GetXmlPath)()>
 class StderrXmlGeneratorListenerBase : public T
 {
 public:
-	StderrXmlGeneratorListenerBase(const ::std::string& path) : T(path) {}
+	/**
+	 * @brief	コンストラクタ
+	 * @param [in] path = 出力パス
+	*/
+	explicit StderrXmlGeneratorListenerBase(const ::std::string& path) : T(path) {}
+
 	~StderrXmlGeneratorListenerBase() {}
 
 #if IUTEST_HAS_FOPEN
