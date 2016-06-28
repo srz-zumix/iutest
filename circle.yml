@@ -5,7 +5,7 @@ general:
 
 dependencies:
   pre:
-    - sudo add-apt-repository -y 'deb http://llvm.org/apt/precise/ llvm-toolchain-precise-3.7 main'
+    - sudo add-apt-repository -y 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.7 main'
     - wget -q -O - http://llvm.org/apt/llvm-snapshot.gpg.key | sudo apt-key add -
     - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
     - sudo apt-get update
