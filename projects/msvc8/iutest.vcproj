@@ -517,10 +517,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\internal\iutest_tuple.hpp"
-					>
-				</File>
-				<File
 					RelativePath="..\..\include\internal\iutest_type_traits.hpp"
 					>
 				</File>

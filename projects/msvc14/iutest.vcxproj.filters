@@ -186,9 +186,6 @@
     <ClInclude Include="..\..\include\internal\iutest_time.hpp">
       <Filter>iutest\internal</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\internal\iutest_tuple.hpp">
-      <Filter>iutest\internal</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\internal\iutest_type_traits.hpp">
       <Filter>iutest\internal</Filter>
     </ClInclude>

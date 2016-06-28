@@ -287,7 +287,6 @@
     <ClInclude Include="..\..\include\internal\iutest_stream.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_string.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_time.hpp" />
-    <ClInclude Include="..\..\include\internal\iutest_tuple.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_type_traits.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_typed_util.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_typelist.hpp" />
