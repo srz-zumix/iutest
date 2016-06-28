@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_streaming_listener.hpp
- * @brief		iris unit test stream result
+ * @file        iutest_streaming_listener.hpp
+ * @brief       iris unit test stream result
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -26,59 +26,60 @@ namespace iutest
 //======================================================================
 // class
 /**
- * @brief	stream result
+ * @brief   stream result
 */
 class StreamResultListener : public EmptyTestEventListener
 {
 public:
-	StreamResultListener(const char* host, const char* port);
+    StreamResultListener(const char* host, const char* port);
 
 public:
-	virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;
-	virtual void OnTestIterationStart(const UnitTest& test
-									, int iteration) IUTEST_CXX_OVERRIDE;
-	virtual void OnTestCaseStart(const TestCase& test_case) IUTEST_CXX_OVERRIDE;
-	virtual void OnTestStart(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;
-	virtual void OnTestPartResult(const TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE;
-	virtual void OnTestRecordProperty(const TestProperty& test_property) IUTEST_CXX_OVERRIDE;
-	virtual void OnTestEnd(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;
-	virtual void OnTestCaseEnd(const TestCase& test_case) IUTEST_CXX_OVERRIDE;
-	virtual void OnTestIterationEnd(const UnitTest& test
-									, int iteration) IUTEST_CXX_OVERRIDE;
-	virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
+    virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;
+    virtual void OnTestIterationStart(const UnitTest& test
+                                    , int iteration) IUTEST_CXX_OVERRIDE;
+    virtual void OnTestCaseStart(const TestCase& test_case) IUTEST_CXX_OVERRIDE;
+    virtual void OnTestStart(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;
+    virtual void OnTestPartResult(const TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE;
+    virtual void OnTestRecordProperty(const TestProperty& test_property) IUTEST_CXX_OVERRIDE;
+    virtual void OnTestEnd(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;
+    virtual void OnTestCaseEnd(const TestCase& test_case) IUTEST_CXX_OVERRIDE;
+    virtual void OnTestIterationEnd(const UnitTest& test
+                                    , int iteration) IUTEST_CXX_OVERRIDE;
+    virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
 private:
-	::std::string UrlEncode(const char* str);
-	::std::string FormatBool(bool b);
+    ::std::string UrlEncode(const char* str);
+    ::std::string FormatBool(bool b);
 
-	void Start();
-	void SendLn(const ::std::string& message);
+    void Start();
+    void SendLn(const ::std::string& message);
 private:
-	detail::SocketWriter m_socket;
+    detail::SocketWriter m_socket;
 
-	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(StreamResultListener);
+    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(StreamResultListener);
 
 public:
-	/**
-	* @brief	stream reuslt listener のセットアップ
-	*/
-	static TestEventListener* SetUp()
-	{
-		::std::string addr = TestEnv::get_stream_result_to();
-		if( !addr.empty() )
-		{
-			const size_t pos = addr.find(':');
-			if( pos != ::std::string::npos )
-			{
-				TestEventListener* p = new StreamResultListener(addr.substr(0, pos).c_str(), addr.substr(pos+1).c_str());
-				UnitTest::GetInstance()->listeners().Append(p);
-				return p;
-			}
-		}
-		return NULL;
-	}
+    /**
+    * @brief    stream reuslt listener のセットアップ
+    */
+    static TestEventListener* SetUp()
+    {
+        ::std::string addr = TestEnv::get_stream_result_to();
+        if( addr.empty() )
+        {
+            return NULL;
+        }
+        const size_t pos = addr.find(':');
+        if( pos == ::std::string::npos )
+        {
+            return NULL;
+        }
+        TestEventListener* p = new StreamResultListener(addr.substr(0, pos).c_str(), addr.substr(pos+1).c_str());
+        UnitTest::GetInstance()->listeners().Append(p);
+        return p;
+    }
 };
 
-}	// end of namespace iutest
+}   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
 #  include "../impl/iutest_streaming_listener.ipp"

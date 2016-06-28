@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_stderr_xml_generator.hpp
- * @brief		output stderr (junit) xml event listener
+ * @file        iutest_stderr_xml_generator.hpp
+ * @brief       output stderr (junit) xml event listener
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -29,58 +29,58 @@ namespace detail
 {
 
 /**
- * @brief	xml result output to stderr
+ * @brief   xml result output to stderr
 */
 template<typename T, typename ::std::string (*GetXmlPath)()>
 class StderrXmlGeneratorListenerBase : public T
 {
 public:
-	/**
-	 * @brief	コンストラクタ
-	 * @param [in] path = 出力パス
-	*/
-	explicit StderrXmlGeneratorListenerBase(const ::std::string& path) : T(path) {}
+    /**
+     * @brief   コンストラクタ
+     * @param [in] path = 出力パス
+    */
+    explicit StderrXmlGeneratorListenerBase(const ::std::string& path) : T(path) {}
 
-	~StderrXmlGeneratorListenerBase() {}
+    ~StderrXmlGeneratorListenerBase() {}
 
 #if IUTEST_HAS_FOPEN
 private:
-	StdErrorFile m_stderr;
+    StdErrorFile m_stderr;
 
-	virtual bool FileOpen(const char* path)
-	{
-		if( m_stderr.Open(path, IFile::OpenReadWrite) )
-		{
-			this->m_fp = &m_stderr;
-			return true;
-		}
-		return false;
-	}
-	virtual void FileClose()
-	{
-		this->m_fp = NULL;
-	}
+    virtual bool FileOpen(const char* path)
+    {
+        if( m_stderr.Open(path, IFile::OpenReadWrite) )
+        {
+            this->m_fp = &m_stderr;
+            return true;
+        }
+        return false;
+    }
+    virtual void FileClose()
+    {
+        this->m_fp = NULL;
+    }
 #endif
 
 public:
-	/** @private */
-	static void SetUp()
-	{
-		::std::string xmlpath = GetXmlPath();
-		if( !xmlpath.empty() )
-		{
-			TestEnv::event_listeners().set_default_xml_generator(new StderrXmlGeneratorListenerBase(xmlpath));
-		}
-	}
+    /** @private */
+    static void SetUp()
+    {
+        ::std::string xmlpath = GetXmlPath();
+        if( !xmlpath.empty() )
+        {
+            TestEnv::event_listeners().set_default_xml_generator(new StderrXmlGeneratorListenerBase(xmlpath));
+        }
+    }
 };
 
-}	// end of namespace detail
+}   // end of namespace detail
 
 typedef detail::StderrXmlGeneratorListenerBase<
-	DefaultXmlGeneratorListener, TestEnv::get_report_xml_filepath> StderrXmlGeneratorListener;
+    DefaultXmlGeneratorListener, TestEnv::get_report_xml_filepath> StderrXmlGeneratorListener;
 typedef detail::StderrXmlGeneratorListenerBase<
-	JunitXmlGeneratorListener, TestEnv::get_report_junit_xml_filepath> StderrJunitXmlGeneratorListener;
+    JunitXmlGeneratorListener, TestEnv::get_report_junit_xml_filepath> StderrJunitXmlGeneratorListener;
 
-}	// end of namespace iutest
+}   // end of namespace iutest
 
 #endif // INCG_IRIS_IUTEST_STDERR_XML_GENERATOR_HPP_44748A14_3446_49D5_8ECE_05ABED0FFF33_

@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_spi_switch.hpp
- * @brief		switching to iutest from gtest / gtest from iutest (spi)
+ * @file        iutest_spi_switch.hpp
+ * @brief       switching to iutest from gtest / gtest from iutest (spi)
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -28,10 +28,10 @@
 #undef EXPECT_NONFATAL_FAILURE_ON_ALL_THREADS
 #endif
 
-#define EXPECT_FATAL_FAILURE					IUTEST_EXPECT_FATAL_FAILURE
-#define EXPECT_FATAL_FAILURE_ON_ALL_THREADS		IUTEST_EXPECT_FATAL_FAILURE
-#define EXPECT_NONFATAL_FAILURE					IUTEST_EXPECT_NONFATAL_FAILURE
-#define EXPECT_NONFATAL_FAILURE_ON_ALL_THREADS	IUTEST_EXPECT_NONFATAL_FAILURE
+#define EXPECT_FATAL_FAILURE                    IUTEST_EXPECT_FATAL_FAILURE
+#define EXPECT_FATAL_FAILURE_ON_ALL_THREADS     IUTEST_EXPECT_FATAL_FAILURE
+#define EXPECT_NONFATAL_FAILURE                 IUTEST_EXPECT_NONFATAL_FAILURE
+#define EXPECT_NONFATAL_FAILURE_ON_ALL_THREADS  IUTEST_EXPECT_NONFATAL_FAILURE
 
 #else // !defined(IUTEST_USE_GTEST)
 
@@ -40,7 +40,7 @@
 #if defined(_MSC_VER)
 // /ZI オプションだと __LINE__ が __LINE__Var+N(Nは番号) になりコンパイルエラーになるための対応
 #  ifndef __LINE__Var
-#    define __LINE__Var	0
+#    define __LINE__Var 0
 #  endif
 #endif
 
@@ -51,10 +51,10 @@
 #undef IUTEST_EXPECT_NONFATAL_FAILURE
 #endif
 
-#define IUTEST_ASSERT_FATAL_FAILURE				EXPECT_FATAL_FAILURE
-#define IUTEST_EXPECT_FATAL_FAILURE				EXPECT_FATAL_FAILURE
-#define IUTEST_ASSERT_NONFATAL_FAILURE			EXPECT_NONFATAL_FAILURE
-#define IUTEST_EXPECT_NONFATAL_FAILURE			EXPECT_NONFATAL_FAILURE
+#define IUTEST_ASSERT_FATAL_FAILURE             EXPECT_FATAL_FAILURE
+#define IUTEST_EXPECT_FATAL_FAILURE             EXPECT_FATAL_FAILURE
+#define IUTEST_ASSERT_NONFATAL_FAILURE          EXPECT_NONFATAL_FAILURE
+#define IUTEST_EXPECT_NONFATAL_FAILURE          EXPECT_NONFATAL_FAILURE
 
 #endif // !defined(IUTEST_USE_GTEST)
 

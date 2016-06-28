@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_regex.hpp
- * @brief		regex
+ * @file        iutest_regex.hpp
+ * @brief       regex
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,45 +26,45 @@ namespace detail
 {
 
 /**
- * @brief	filter regex クラス
+ * @brief   filter regex クラス
 */
 class iuFilterRegex
 {
-	static bool match_impl(const char* begin, const char* end, const char* src);
-	static bool match_impl_group(const char* begin, const char* end, const char* src);
+    static bool match_impl(const char* begin, const char* end, const char* src);
+    static bool match_impl_group(const char* begin, const char* end, const char* src);
 public:
-	static bool match(const char* regex, const char* src);
+    static bool match(const char* regex, const char* src);
 };
 
 #if IUTEST_HAS_CXX_HDR_REGEX
 
 /**
-* @brief	regex クラス
+* @brief    regex クラス
 */
 class iuRegex
 {
 public:
-	iuRegex(const char* pattern) { Init(pattern); }						// NOLINT
-	iuRegex(const ::std::string& pattern) { Init(pattern.c_str()); }	// NOLINT
+    iuRegex(const char* pattern) { Init(pattern); }                     // NOLINT
+    iuRegex(const ::std::string& pattern) { Init(pattern.c_str()); }    // NOLINT
 public:
-	bool FullMatch(const char* str) const;
-	bool PartialMatch(const char* str) const;
+    bool FullMatch(const char* str) const;
+    bool PartialMatch(const char* str) const;
 
-	const char* pattern() const { return m_pattern.c_str(); }
-
-private:
-	void Init(const char* pattern);
+    const char* pattern() const { return m_pattern.c_str(); }
 
 private:
-	::std::regex m_re;
-	::std::string m_pattern;
+    void Init(const char* pattern);
 
-	IUTEST_PP_DISALLOW_ASSIGN(iuRegex);
+private:
+    ::std::regex m_re;
+    ::std::string m_pattern;
+
+    IUTEST_PP_DISALLOW_ASSIGN(iuRegex);
 };
 
 #endif
 
-}	// end of namespace detail
+}   // end of namespace detail
 
 namespace internal
 {
@@ -74,33 +74,33 @@ namespace internal
 class RE : public detail::iuRegex
 {
 public:
-	RE(const char* pattern) : detail::iuRegex(pattern) {}			// NOLINT
-	RE(const ::std::string& pattern) : detail::iuRegex(pattern) {}	// NOLINT
+    RE(const char* pattern) : detail::iuRegex(pattern) {}           // NOLINT
+    RE(const ::std::string& pattern) : detail::iuRegex(pattern) {}  // NOLINT
 public:
-	static bool FullMatch(const ::std::string& str, const RE& re)
-	{
-		return FullMatch(str.c_str(), re);
-	}
-	static bool PartialMatch(const ::std::string& str, const RE& re)
-	{
-		return PartialMatch(str.c_str(), re);
-	}
-	static bool FullMatch(const char* str, const RE& re)
-	{
-		const detail::iuRegex& r = re;
-		return r.FullMatch(str);
-	}
-	static bool PartialMatch(const char* str, const RE& re)
-	{
-		const detail::iuRegex& r = re;
-		return r.PartialMatch(str);
-	}
+    static bool FullMatch(const ::std::string& str, const RE& re)
+    {
+        return FullMatch(str.c_str(), re);
+    }
+    static bool PartialMatch(const ::std::string& str, const RE& re)
+    {
+        return PartialMatch(str.c_str(), re);
+    }
+    static bool FullMatch(const char* str, const RE& re)
+    {
+        const detail::iuRegex& r = re;
+        return r.FullMatch(str);
+    }
+    static bool PartialMatch(const char* str, const RE& re)
+    {
+        const detail::iuRegex& r = re;
+        return r.PartialMatch(str);
+    }
 };
 
 #endif
 
-}	// end of namespace internal
-}	// end of namespace iutest
+}   // end of namespace internal
+}   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
 #  include "../impl/iutest_regex.ipp"

@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_any.hpp
- * @brief		iris unit test any ファイル
+ * @file        iutest_any.hpp
+ * @brief       iris unit test any ファイル
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -25,103 +25,103 @@ namespace iutest
 {
 
 /**
- * @brief	any
+ * @brief   any
 */
 class any
 {
-	typedef internal::TypeId type_id;
+    typedef internal::TypeId type_id;
 public:
-	any() : content(NULL) {}
-	template<typename T>
-	any(const T& rhs) : content(new holder<T>(rhs)) {}	// NOLINT
-	any(const any& rhs) : content(rhs.content == NULL ? NULL : rhs.content->clone()) {}
-	~any() { delete content; }
+    any() : content(NULL) {}
+    template<typename T>
+    any(const T& rhs) : content(new holder<T>(rhs)) {}  // NOLINT
+    any(const any& rhs) : content(rhs.content == NULL ? NULL : rhs.content->clone()) {}
+    ~any() { delete content; }
 public:
-	/**
-	 * @brief	swap
-	*/
-	any& swap(any& rhs)
-	{
-		::std::swap(content, rhs.content);
-		return *this;
-	}
-	/**
-	 * @brief	空かどうか
-	 * @retval	true = 空
-	*/
-	bool empty() const
-	{
-		return content == NULL;
-	}
-	/**
-	 * @brief	要素のクリア
-	*/
-	void clear()
-	{
-		any().swap(*this);
-	}
-	/**
-	 * @brief	型IDの取得
-	 * @return	型ID
-	*/
-	type_id type() const
-	{
-		return content == NULL ? internal::GetTypeId<void>() : content->type();
-	}
-	/**
-	 * @brief	型の比較
-	 * @retval	true = 同一
-	*/
-	template<typename T>
-	bool type_equal() const
-	{
-		return type() == internal::GetTypeId<T>();
-	}
+    /**
+     * @brief   swap
+    */
+    any& swap(any& rhs)
+    {
+        ::std::swap(content, rhs.content);
+        return *this;
+    }
+    /**
+     * @brief   空かどうか
+     * @retval  true = 空
+    */
+    bool empty() const
+    {
+        return content == NULL;
+    }
+    /**
+     * @brief   要素のクリア
+    */
+    void clear()
+    {
+        any().swap(*this);
+    }
+    /**
+     * @brief   型IDの取得
+     * @return  型ID
+    */
+    type_id type() const
+    {
+        return content == NULL ? internal::GetTypeId<void>() : content->type();
+    }
+    /**
+     * @brief   型の比較
+     * @retval  true = 同一
+    */
+    template<typename T>
+    bool type_equal() const
+    {
+        return type() == internal::GetTypeId<T>();
+    }
 
 public:
-	template<typename T>
-	any& operator = (const   T& rhs) { any(rhs).swap(*this); return *this; }
-	any& operator = (const any& rhs) { any(rhs).swap(*this); return *this; }
+    template<typename T>
+    any& operator = (const   T& rhs) { any(rhs).swap(*this); return *this; }
+    any& operator = (const any& rhs) { any(rhs).swap(*this); return *this; }
 
-	template<typename T>
-	friend T* any_cast(any*);
-	template<typename T>
-	friend T* unsafe_any_cast(any*);
+    template<typename T>
+    friend T* any_cast(any*);
+    template<typename T>
+    friend T* unsafe_any_cast(any*);
 
 private:
-	class placeholder
-	{
-	public:
-		virtual ~placeholder() {}
-		virtual type_id type() const = 0;
-		virtual placeholder* clone() const = 0;
-	};
-	template<typename T>
-	class holder : public placeholder
-	{
-	public:
-		explicit holder(const T& v) : held(v) {}
-	public:
-		virtual type_id type() const IUTEST_CXX_OVERRIDE
-		{
-			return internal::GetTypeId<T>();
-		}
-		virtual placeholder* clone() const IUTEST_CXX_OVERRIDE
-		{
-			return new holder<T>(held);
-		}
-	public:
-		T held;
-	private:
-		holder& operator = (const holder&);
-	};
+    class placeholder
+    {
+    public:
+        virtual ~placeholder() {}
+        virtual type_id type() const = 0;
+        virtual placeholder* clone() const = 0;
+    };
+    template<typename T>
+    class holder : public placeholder
+    {
+    public:
+        explicit holder(const T& v) : held(v) {}
+    public:
+        virtual type_id type() const IUTEST_CXX_OVERRIDE
+        {
+            return internal::GetTypeId<T>();
+        }
+        virtual placeholder* clone() const IUTEST_CXX_OVERRIDE
+        {
+            return new holder<T>(held);
+        }
+    public:
+        T held;
+    private:
+        holder& operator = (const holder&);
+    };
 private:
-	placeholder* content;
+    placeholder* content;
 };
 
 #if IUTEST_HAS_EXCEPTIONS
 /**
- * @brief	any_cast の失敗例外
+ * @brief   any_cast の失敗例外
 */
 class bad_any_cast : public ::std::bad_cast {};
 #endif
@@ -129,71 +129,71 @@ class bad_any_cast : public ::std::bad_cast {};
 inline void swap(any& lhs, any& rhs) { lhs.swap(rhs); }
 
 /**
- * @brief	型を考慮したキャスト
+ * @brief   型を考慮したキャスト
 */
 template<typename T>
 T* any_cast(any* p)
 {
-	return p != NULL && p->type_equal<T>() ?
-		&(static_cast< any::holder<T>* >(p->content)->held) : NULL;
+    return p != NULL && p->type_equal<T>() ?
+        &(static_cast< any::holder<T>* >(p->content)->held) : NULL;
 }
 /** @overload */
 template<typename T>
 inline const T* any_cast(const any* p)
 {
-	return any_cast<T>(const_cast<any*>(p));
+    return any_cast<T>(const_cast<any*>(p));
 }
 /** @overload */
 template<typename T>
 inline T any_cast(any& value)
 {
-	typedef typename type_traits::remove_reference<T>::type nonref_t;
-	nonref_t* p = any_cast<nonref_t>(&value);
+    typedef typename type_traits::remove_reference<T>::type nonref_t;
+    nonref_t* p = any_cast<nonref_t>(&value);
 #if IUTEST_HAS_EXCEPTIONS
-	if( p == NULL ) {
-		throw bad_any_cast();
-	}
+    if( p == NULL ) {
+        throw bad_any_cast();
+    }
 #endif
 
-	return static_cast<nonref_t&>(*p);
+    return static_cast<nonref_t&>(*p);
 }
 /** @overload */
 template<typename T>
 inline T any_cast(const any& value)
 {
-	return any_cast<T>(const_cast<any&>(value));
+    return any_cast<T>(const_cast<any&>(value));
 }
 
 /**
- * @brief	型を考慮せずキャスト
+ * @brief   型を考慮せずキャスト
 */
 template<typename T>
 T* unsafe_any_cast(any* p)
 {
-	return p != NULL ?
-		&(static_cast< any::holder<T>* >(p->content)->held) : NULL;
+    return p != NULL ?
+        &(static_cast< any::holder<T>* >(p->content)->held) : NULL;
 }
 /** @overload */
 template<typename T>
 inline const T* unsafe_any_cast(const any* p)
 {
-	return unsafe_any_cast<T>(const_cast<any*>(p));
+    return unsafe_any_cast<T>(const_cast<any*>(p));
 }
 /** @overload */
 template<typename T>
 inline T unsafe_any_cast(any& value)
 {
-	typedef typename type_traits::remove_reference<T>::type nonref_t;
-	nonref_t* p = unsafe_any_cast<nonref_t>(&value);
-	return static_cast<nonref_t&>(*p);
+    typedef typename type_traits::remove_reference<T>::type nonref_t;
+    nonref_t* p = unsafe_any_cast<nonref_t>(&value);
+    return static_cast<nonref_t&>(*p);
 }
 /** @overload */
 template<typename T>
 inline T unsafe_any_cast(const any& value)
 {
-	return unsafe_any_cast<T>(const_cast<any&>(value));
+    return unsafe_any_cast<T>(const_cast<any&>(value));
 }
 
-}	// end of namespace iutest
+}   // end of namespace iutest
 
 #endif // INCG_IRIS_IUTEST_ANY_HPP_8DB2417F_568A_4E01_95AD_21164565B975_

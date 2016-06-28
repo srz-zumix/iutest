@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_exception.hpp
- * @brief		iris unit test exception
+ * @file        iutest_exception.hpp
+ * @brief       iris unit test exception
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -20,33 +20,33 @@
 
 #if IUTEST_HAS_EXCEPTIONS
 #include <exception>
-//#include <stdexcept>	// std::invalid_argment
+//#include <stdexcept>  // std::invalid_argment
 
 namespace iutest {
 namespace detail
 {
 
 /**
- * @brief	C++例外メッセージのフォーマット
- * @param [in]	description	= 説明
- * @return	メッセージ
+ * @brief   C++例外メッセージのフォーマット
+ * @param [in]  description = 説明
+ * @return  メッセージ
 */
 inline ::std::string FormatCxxException(const char* description)
 {
-	iu_stringstream strm;
-	if( description != NULL )
-	{
-		strm << "C++ exception with description \"" << description << "\"";
-	}
-	else
-	{
-		strm << "Unknown C++ exception";
-	}
-	return strm.str();
+    iu_stringstream strm;
+    if( description != NULL )
+    {
+        strm << "C++ exception with description \"" << description << "\"";
+    }
+    else
+    {
+        strm << "Unknown C++ exception";
+    }
+    return strm.str();
 }
 
-}	// end of namespace detail
-}	// end of namespace iutest
+}   // end of namespace detail
+}   // end of namespace iutest
 
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
 #include <iomanip>
@@ -56,41 +56,41 @@ namespace detail
 {
 
 /**
- * @brief	SEH 例外
+ * @brief   SEH 例外
 */
 class seh_exception : public ::std::exception
 {
 public:
-	seh_exception() : ::std::exception() {}
-	explicit seh_exception(const char *const& _What) : ::std::exception(_What) {}
+    seh_exception() : ::std::exception() {}
+    explicit seh_exception(const char *const& _What) : ::std::exception(_What) {}
 public:
-	static void translator(DWORD code, _EXCEPTION_POINTERS* ep)
-	{
-		IUTEST_UNUSED_VAR(ep);
-		iu_stringstream strm;
+    static void translator(DWORD code, _EXCEPTION_POINTERS* ep)
+    {
+        IUTEST_UNUSED_VAR(ep);
+        iu_stringstream strm;
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
-		strm << "SEH exception with code 0x" << ::std::setbase(16) << code;
+        strm << "SEH exception with code 0x" << ::std::setbase(16) << code;
 #else
-		strm << "SEH exception with code " << code;
+        strm << "SEH exception with code " << code;
 #endif
-		throw seh_exception(strm.str().c_str());
-	}
-	static int should_process_through_break_and_cppexceptions(DWORD code)
-	{
-		bool should_handle = true;
-		// break point と C++ 例外はハンドリングしない
-		if( code == EXCEPTION_BREAKPOINT )
-			should_handle = false;
-		if( code == kCxxExceptionCode )
-			should_handle = false;
-		return should_handle ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH;
-	}
+        throw seh_exception(strm.str().c_str());
+    }
+    static int should_process_through_break_and_cppexceptions(DWORD code)
+    {
+        bool should_handle = true;
+        // break point と C++ 例外はハンドリングしない
+        if( code == EXCEPTION_BREAKPOINT )
+            should_handle = false;
+        if( code == kCxxExceptionCode )
+            should_handle = false;
+        return should_handle ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH;
+    }
 public:
-	static const DWORD kCxxExceptionCode = 0xe06d7363;	//!< c++ exception コード
+    static const DWORD kCxxExceptionCode = 0xe06d7363;  //!< c++ exception コード
 };
 
-}	// end of namespace detail
-}	// end of namespace iutest
+}   // end of namespace detail
+}   // end of namespace iutest
 
 #endif
 

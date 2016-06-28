@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_pool.hpp
- * @brief		iris unit test memory pool ファイル
+ * @file        iutest_pool.hpp
+ * @brief       iris unit test memory pool
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -36,42 +36,42 @@ namespace detail
 {
 
 /**
- * @brief	pool で管理するオブジェクトのベースクラス
+ * @brief   pool で管理するオブジェクトのベースクラス
 */
 class iuIObject
 {
 public:
-	virtual ~iuIObject() {}
+    virtual ~iuIObject() {}
 };
 
 /**
- * @brief	new したオブジェクトを管理
+ * @brief   new したオブジェクトを管理
 */
 class iuPool
 {
-	typedef ::std::vector<iuIObject*> pool;
-	pool m_pool;
+    typedef ::std::vector<iuIObject*> pool;
+    pool m_pool;
 public:
-	typedef iuIObject *value_ptr;
+    typedef iuIObject *value_ptr;
 
 public:
-	~iuPool()
-	{
-		// すべて解放する
-		for( pool::iterator it=m_pool.begin(); it != m_pool.end(); )
-		{
-			value_ptr p = *it;
-			it = m_pool.erase(it);
-			delete p;
-		}
-	}
+    ~iuPool()
+    {
+        // すべて解放する
+        for( pool::iterator it=m_pool.begin(); it != m_pool.end(); )
+        {
+            value_ptr p = *it;
+            it = m_pool.erase(it);
+            delete p;
+        }
+    }
 public:
-	void push(value_ptr ptr) { m_pool.push_back(ptr); }
+    void push(value_ptr ptr) { m_pool.push_back(ptr); }
 public:
-	static iuPool& GetInstance() { static iuPool inst; return inst; }
+    static iuPool& GetInstance() { static iuPool inst; return inst; }
 };
 
-}	// end of namespace detail
-}	// end of namespace iutest
+}   // end of namespace detail
+}   // end of namespace iutest
 
 #endif // INCG_IRIS_IUTEST_POOL_HPP_60F7CC27_EA15_4AC7_BCA6_80FFDCBC890E_

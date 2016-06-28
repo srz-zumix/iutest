@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_port.hpp
- * @brief		iris unit test 依存関数 ファイル
+ * @file        iutest_port.hpp
+ * @brief       portable
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -32,30 +32,30 @@
 // define
 #if !defined(IUTEST_MAX_PATH)
 #  if   defined(MAX_PATH) && MAX_PATH
-#    define IUTEST_MAX_PATH	MAX_PATH
+#    define IUTEST_MAX_PATH MAX_PATH
 #  elif defined(PATH_MAX) && PATH_MAX
-#    define IUTEST_MAX_PATH	PATH_MAX
+#    define IUTEST_MAX_PATH PATH_MAX
 #  elif defined(FILENAME_MAX) && FILENAME_MAX
-#    define IUTEST_MAX_PATH	FILENAME_MAX
+#    define IUTEST_MAX_PATH FILENAME_MAX
 #  else
-#    define IUTEST_MAX_PATH	1024
+#    define IUTEST_MAX_PATH 1024
 #  endif
 #endif
 
 /**
- * @brief	ログメッセージストリーム
+ * @brief   ログメッセージストリーム
 */
-#define IUTEST_LOG_(level)			\
-	::iutest::detail::IUTestLog(	\
-		::iutest::detail::IUTestLog::LOG_##level, __FILE__, __LINE__).GetStream()
+#define IUTEST_LOG_(level)          \
+    ::iutest::detail::IUTestLog(    \
+        ::iutest::detail::IUTestLog::LOG_##level, __FILE__, __LINE__).GetStream()
 
 /**
- * @brief	内部エラーチェック
+ * @brief   内部エラーチェック
 */
-#define IUTEST_CHECK_(condition)				\
-	IUTEST_AMBIGUOUS_ELSE_BLOCKER_				\
-	if( !::iutest::detail::IsTrue(condition) )	\
-		IUTEST_LOG_(FATAL) << "Condition " #condition " failed. "
+#define IUTEST_CHECK_(condition)                \
+    IUTEST_AMBIGUOUS_ELSE_BLOCKER_              \
+    if( !::iutest::detail::IsTrue(condition) )  \
+        IUTEST_LOG_(FATAL) << "Condition " #condition " failed. "
 
 namespace iutest {
 
@@ -64,7 +64,7 @@ namespace nacl
 {
 
 /**
- * @brief	printf
+ * @brief   printf
 */
 void vprint_message(const char *fmt, va_list va);
 void print_message(const char *fmt, ...);
@@ -91,11 +91,11 @@ IUTEST_ATTRIBUTE_NORETURN_ void Abort();
 inline void Abort() { abort(); }
 #endif
 
-}	// end of namespace posix
+}   // end of namespace posix
 
 inline void SleepMilliseconds(int n) { posix::SleepMillisec(static_cast<unsigned int>(n)); }
 
-}	// end of namespace internal
+}   // end of namespace internal
 
 namespace detail
 {
@@ -103,36 +103,36 @@ namespace detail
 namespace posix = internal::posix;
 
 /**
- * @brief	パス区切り文字の取得
+ * @brief   パス区切り文字の取得
 */
 char GetPathSeparator() IUTEST_CXX_NOEXCEPT_SPEC;
 
 /**
- * @brief	パス区切り文字かどうか
+ * @brief   パス区切り文字かどうか
 */
 bool IsPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC;
 
 /**
- * @brief	パス区切り文字かどうか
+ * @brief   パス区切り文字かどうか
 */
 bool IsAltPathSeparator(char c) IUTEST_CXX_NOEXCEPT_SPEC;
 
 /**
- * @brief	一番後ろのパスセパレータのアドレスを取得
+ * @brief   一番後ろのパスセパレータのアドレスを取得
 */
 const char* FindLastPathSeparator(const char* path, size_t length) IUTEST_CXX_NOEXCEPT_SPEC;
 
 /**
- * @brief	環境変数の設定
+ * @brief   環境変数の設定
 */
 bool SetEnvironmentVariable(const char* name, const char* value);
 
 
 /**
- * @brief	環境変数の取得
- * @param [in]	name	= 環境変数名
- * @param [out]	buf		= 出力バッファ
- * @return	成否
+ * @brief   環境変数の取得
+ * @param [in]  name    = 環境変数名
+ * @param [out] buf     = 出力バッファ
+ * @return  成否
 */
 bool GetEnvironmentVariable(const char* name, char* buf, size_t size);
 
@@ -147,18 +147,18 @@ return GetEnvironmentVariable(name, buf, SIZE);
 #endif
 
 /**
- * @brief	環境変数の取得
- * @param [in]	name	= 環境変数名
- * @param [out]	var		= 出力文字列
- * @return	成否
+ * @brief   環境変数の取得
+ * @param [in]  name    = 環境変数名
+ * @param [out] var     = 出力文字列
+ * @return  成否
  */
 bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentVariable(const char* name, ::std::string& var);
 
 /**
- * @brief	環境変数の取得
- * @param [in]	name	= 環境変数名
- * @param [out]	var		= 出力数値
- * @return	成否
+ * @brief   環境変数の取得
+ * @param [in]  name    = 環境変数名
+ * @param [out] var     = 出力数値
+ * @return  成否
  */
 bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentInt(const char* name, int& var);
 
@@ -166,92 +166,92 @@ bool IUTEST_ATTRIBUTE_UNUSED_ GetEnvironmentInt(const char* name, int& var);
 namespace win
 {
 
-	/**
-	 * @brief	文字列変換
-	 */
-	::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const wchar_t* wide_c_str);
+    /**
+     * @brief   文字列変換
+     */
+    ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const wchar_t* wide_c_str);
 
-	/**
-	 * @brief	HRESULT のエラー文字列を取得
-	 * @param [in]	hr	= エラー値
-	 * @return	文字列
-	 */
-	::std::string IUTEST_ATTRIBUTE_UNUSED_ GetHResultString(HRESULT hr);
+    /**
+     * @brief   HRESULT のエラー文字列を取得
+     * @param [in]  hr  = エラー値
+     * @return  文字列
+     */
+    ::std::string IUTEST_ATTRIBUTE_UNUSED_ GetHResultString(HRESULT hr);
 
-}	// end of namespace win
+}   // end of namespace win
 #endif
 
 /**
- * @brief	ログ
+ * @brief   ログ
  */
 class IUTestLog
 {
 public:
-	enum Level
-	{
-		LOG_INFO
-		, LOG_WARNING
-		, LOG_ERROR
-		, LOG_FATAL
-	};
+    enum Level
+    {
+        LOG_INFO
+        , LOG_WARNING
+        , LOG_ERROR
+        , LOG_FATAL
+    };
 public:
-	IUTestLog(Level level, const char* file, int line);
+    IUTestLog(Level level, const char* file, int line);
 
-	~IUTestLog();
+    ~IUTestLog();
 
 public:
-	iu_stringstream& GetStream() { return m_stream; }
+    iu_stringstream& GetStream() { return m_stream; }
 private:
-	const Level kLevel;
-	iu_stringstream m_stream;
+    const Level kLevel;
+    iu_stringstream m_stream;
 
-	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTestLog);
+    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTestLog);
 };
 
 #if IUTEST_HAS_STREAM_BUFFER
 
 /**
- * @brief	stream buffer
+ * @brief   stream buffer
 */
 template<int SIZE=BUFSIZ>
 class IUStreamBuffer
 {
 public:
-	IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+    IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
-	explicit IUStreamBuffer(FILE* fp)
-		: m_fp(fp)
-	{
-		m_buf[0] = '\0';
-		fflush(fp);
-		setvbuf(fp, m_buf, _IOFBF, SIZE);
-	}
+    explicit IUStreamBuffer(FILE* fp)
+        : m_fp(fp)
+    {
+        m_buf[0] = '\0';
+        fflush(fp);
+        setvbuf(fp, m_buf, _IOFBF, SIZE);
+    }
 
-	~IUStreamBuffer()
-	{
-		fflush(m_fp);
-		setbuf(m_fp, NULL);
-	}
+    ~IUStreamBuffer()
+    {
+        fflush(m_fp);
+        setbuf(m_fp, NULL);
+    }
 
-	IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+    IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 public:
-	::std::string GetStreamString() { return m_buf; }
+    ::std::string GetStreamString() { return m_buf; }
 
 private:
-	FILE* m_fp;
-	char m_buf[SIZE];
+    FILE* m_fp;
+    char m_buf[SIZE];
 };
 
 /**
-* @brief	stream capture
+* @brief    stream capture
 */
 
 
 #endif
 
-}	// end of namespace detail
-}	// end of namespace iutest
+}   // end of namespace detail
+}   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
 #  include "../impl/iutest_port.ipp"

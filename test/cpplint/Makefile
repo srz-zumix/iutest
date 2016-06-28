@@ -9,8 +9,9 @@ UTIL_HPP=$(wildcard ../../include/util/*.hpp)
 LISTENER_HPP=$(wildcard ../../include/listener/*.hpp)
 IMPL_HPP=$(wildcard ../../include/impl/*.ipp)
 GTEST_HPP=$(wildcard ../../include/gtest/*.hpp) $(wildcard ../../include/gtest/switch/*.hpp)
+SRC_CPP=$(wildcard ../../src/*.cpp)
 
-SUPPRESS_WHITESPACE_SUB=/tab,/indent,/braces,/comments,/newline,/labels,/operators,/parens
+SUPPRESS_WHITESPACE_SUB=/indent,/braces,/comments,/newline,/labels,/operators,/parens
 SUPPRESS_WHITESPACE=$(subst /,-whitespace/,$(SUPPRESS_WHITESPACE_SUB))
 SUPPRESS_BUILD_SUB=/include_what_you_use,/c++11,/c++tr1
 SUPPRESS_BUILD=$(subst /,-build/,$(SUPPRESS_BUILD_SUB))
@@ -37,6 +38,9 @@ impl: $(IMPL_HPP) cpplint.py Makefile
 
 gtest: $(GTEST_HPP) cpplint.py Makefile
 	python cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS),-build/include $(GTEST_HPP)
+
+src: $(SRC_CPP) cpplint.py Makefile
+	python cpplint.py --extensions=hpp,cpp --filter=$(SUPPRESS) $(SRC_CPP)
 
 cpplint.py:
 	git clone https://github.com/google/styleguide.git cpplint

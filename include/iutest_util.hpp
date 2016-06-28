@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_util.hpp
- * @brief		iris unit test utility
+ * @file        iutest_util.hpp
+ * @brief       iris unit test utility
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -32,18 +32,18 @@
 namespace iuutil {}
 
 /**
- * @ingroup		IUTEST_UTIL
- * @brief		ファイルシステムの設定
- * @note		ユーザー定義のファイルクラスを利用するようにするためのマクロです。
+ * @ingroup     IUTEST_UTIL
+ * @brief       ファイルシステムの設定
+ * @note        ユーザー定義のファイルクラスを利用するようにするためのマクロです。
 */
-#define IUTEST_FILESYSTEM_INSTANTIATE(file_class_name)	IIUT_FILESYSTEM_INSTANTIATE_(file_class_name)
+#define IUTEST_FILESYSTEM_INSTANTIATE(file_class_name)  IIUT_FILESYSTEM_INSTANTIATE_(file_class_name)
 
 /**
  * @private
  * @{
 */
-#define IIUT_FILESYSTEM_INSTANTIATE_(file_class_name)	\
-	static ::iutest::FileSystem< file_class_name > IUTEST_ATTRIBUTE_UNUSED_ s_iutest_filesystem_
+#define IIUT_FILESYSTEM_INSTANTIATE_(file_class_name)   \
+    static ::iutest::FileSystem< file_class_name > IUTEST_ATTRIBUTE_UNUSED_ s_iutest_filesystem_
 
 /**
  * @}

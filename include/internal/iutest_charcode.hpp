@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_charcode.hpp
- * @brief		iris unit test 文字コード対応 ファイル
+ * @file        iutest_charcode.hpp
+ * @brief       iris unit test 文字コード対応 ファイル
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -34,28 +34,28 @@ namespace detail
 //======================================================================
 // declare
 /**
- * @brief	ワイド文字列からUTF8へ変換
- * @param [in]	str	= 入力
- * @param [in]	num = 入力バッファサイズ
- * @return	UTF8 文字列
+ * @brief   ワイド文字列からUTF8へ変換
+ * @param [in]  str = 入力
+ * @param [in]  num = 入力バッファサイズ
+ * @return  UTF8 文字列
 */
 ::std::string WideStringToUTF8(const wchar_t* str, int num=-1);
 
 /**
- * @brief	ワイド文字列からマルチバイトへ変換
- * @param [in]	str	= 入力
- * @param [in]	num = 入力バッファサイズ
- * @return	マルチバイト文字列
+ * @brief   ワイド文字列からマルチバイトへ変換
+ * @param [in]  str = 入力
+ * @param [in]  num = 入力バッファサイズ
+ * @return  マルチバイト文字列
 */
 ::std::string WideStringToMultiByteString(const wchar_t* str, int num=-1);
 
 #if IUTEST_HAS_CHAR16_T
 
 /**
- * @brief	ワイド文字列からマルチバイトへ変換
- * @param [in]	str	= 入力
- * @param [in]	num = 入力バッファサイズ
- * @return	マルチバイト文字列
+ * @brief   ワイド文字列からマルチバイトへ変換
+ * @param [in]  str = 入力
+ * @param [in]  num = 入力バッファサイズ
+ * @return  マルチバイト文字列
 */
 ::std::string WideStringToMultiByteString(const char16_t* str, int num=-1);
 
@@ -64,43 +64,43 @@ namespace detail
 #if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_HDR_UCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
 
 /**
-* @brief	ワイド文字列からマルチバイトへ変換
-* @param [in]	str	= 入力
-* @param [in]	num = 入力バッファサイズ
-* @return	マルチバイト文字列
+* @brief    ワイド文字列からマルチバイトへ変換
+* @param [in]   str = 入力
+* @param [in]   num = 入力バッファサイズ
+* @return   マルチバイト文字列
 */
 ::std::string WideStringToMultiByteString(const char32_t* str, int num = -1);
 
 #endif
 
 /**
- * @brief	文字列から ::std::wstring へ変換
- * @param [in]	c_str	= 入力
- * @return	wstring
+ * @brief   文字列から ::std::wstring へ変換
+ * @param [in]  c_str   = 入力
+ * @return  wstring
 */
 ::std::wstring MultiByteStringToWideString(const char* str);
 
 /**
- * @brief	マルチバイト文字からUTF8へ変換
- * @param [in]	str	= 入力
- * @param [in]	num = 入力バッファサイズ
- * @return	UTF8 文字列
+ * @brief   マルチバイト文字からUTF8へ変換
+ * @param [in]  str = 入力
+ * @param [in]  num = 入力バッファサイズ
+ * @return  UTF8 文字列
 */
 ::std::string MultiByteStringToUTF8(const char* src, int num=-1);
 
 /**
- * @brief	ワイド文字列から ::std::string へ変換
- * @param [in]	wide_c_str	= 入力
- * @return	string
+ * @brief   ワイド文字列から ::std::string へ変換
+ * @param [in]  wide_c_str  = 入力
+ * @return  string
 */
 template<typename CharType>
 ::std::string ShowWideCString(const CharType* wide_c_str)
 {
-	if( wide_c_str == NULL )
-	{
-		return kStrings::Null;
-	}
-	return WideStringToMultiByteString(wide_c_str);
+    if( wide_c_str == NULL )
+    {
+        return kStrings::Null;
+    }
+    return WideStringToMultiByteString(wide_c_str);
 }
 
 #if IUTEST_HAS_CXX_HDR_CODECVT
@@ -109,24 +109,24 @@ template<typename In, typename Out, typename State>
 struct codecvt : public ::std::codecvt<In, Out, State> { ~codecvt() {} };
 
 /**
- * @brief	文字コード変換
- * @param [in]	str	= 入力
- * @return	文字列
+ * @brief   文字コード変換
+ * @param [in]  str = 入力
+ * @return  文字列
 */
 #if defined(_MSC_VER)
 template<typename In, typename Out, typename State>
 ::std::basic_string<Out> CodeConvert(const In* str, ::std::locale loc = ::std::locale(""))
 {
-	::std::wstring_convert< codecvt<In, Out, State>, In> conv(&::std::use_facet< codecvt<In, Out, State> >(loc));
-	return conv.to_bytes(str);
+    ::std::wstring_convert< codecvt<In, Out, State>, In> conv(&::std::use_facet< codecvt<In, Out, State> >(loc));
+    return conv.to_bytes(str);
 }
 #else
 template<typename In, typename Out, typename State>
 ::std::basic_string<Out> CodeConvert(const In* str)
 {
-	::std::wstring_convert< codecvt<In, Out, State>, In> conv;
-	//::std::wstring_convert< codecvt<In, Out, State>, In> conv(&::std::use_facet< ::std::codecvt<In, Out, State> >(loc) );
-	return conv.to_bytes(str);
+    ::std::wstring_convert< codecvt<In, Out, State>, In> conv;
+    //::std::wstring_convert< codecvt<In, Out, State>, In> conv(&::std::use_facet< ::std::codecvt<In, Out, State> >(loc) );
+    return conv.to_bytes(str);
 }
 #endif
 
@@ -140,26 +140,26 @@ namespace mbs_ptr_impl
 template<typename T>
 struct to_mbs_ptr
 {
-	const char* ptr(const char* arg) { return arg; }
+    const char* ptr(const char* arg) { return arg; }
 };
 struct wcs_to_mbs_ptr
 {
-	::std::string m_arg;
-	const char* ptr(const wchar_t* arg)
-	{
-		m_arg = ShowWideCString(arg);
-		return m_arg.c_str();
-	}
+    ::std::string m_arg;
+    const char* ptr(const wchar_t* arg)
+    {
+        m_arg = ShowWideCString(arg);
+        return m_arg.c_str();
+    }
 };
 template<>
 struct to_mbs_ptr<wchar_t> : public wcs_to_mbs_ptr {};
 template<>
 struct to_mbs_ptr<const wchar_t> : public wcs_to_mbs_ptr {};
 
-}	// end of namespace mbs_ptr_impl
+}   // end of namespace mbs_ptr_impl
 
 /**
- * @brief	mbs_ptr
+ * @brief   mbs_ptr
 */
 template<typename CharType>
 struct mbs_ptr : public mbs_ptr_impl::to_mbs_ptr<CharType>
@@ -187,8 +187,8 @@ template struct mbs_ptr<wchar_t>;
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
-}	// end of namespace detail
-}	// end of namespace iutest
+}   // end of namespace detail
+}   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
 #  include "../impl/iutest_charcode.ipp"

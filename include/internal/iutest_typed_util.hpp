@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_typed_util.hpp
- * @brief		iris unit test typed util
+ * @file        iutest_typed_util.hpp
+ * @brief       typed util
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,9 +27,9 @@ namespace iutest
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 /**
- * @ingroup	TYPED_TEST TYPE_PARAMETERIZED_TEST
- * @brief	Type List
- * @tparam	Args	= 型リスト
+ * @ingroup TYPED_TEST TYPE_PARAMETERIZED_TEST
+ * @brief   Type List
+ * @tparam  Args    = 型リスト
  * @{
 */
 #if IUTEST_HAS_VARIADIC_TEMPLATES
@@ -37,37 +37,37 @@ namespace iutest
 template<typename ...Args>
 struct Types
 {
-	typedef detail::VariadicTypeList<Args...> type;
-	template<size_t N>struct get : public detail::typelist_get<type, N> {};
+    typedef detail::VariadicTypeList<Args...> type;
+    template<size_t N>struct get : public detail::typelist_get<type, N> {};
 };
 
 #else
 
-#define IIUT_DECL_DEFAULT_ARG_(i, param)	IUTEST_PP_CAT(param, i)=detail::None
+#define IIUT_DECL_DEFAULT_ARG_(i, param)    IUTEST_PP_CAT(param, i)=detail::None
 
 template< IUTEST_PP_ENUM(50, IIUT_DECL_DEFAULT_ARG_, typename T) >
 struct Types
 {
-	typedef detail::TypeList50< IUTEST_PP_ENUM_PARAMS(50, T) > type;
-	template<size_t N>struct get : public detail::typelist_get<type, N> {};
+    typedef detail::TypeList50< IUTEST_PP_ENUM_PARAMS(50, T) > type;
+    template<size_t N>struct get : public detail::typelist_get<type, N> {};
 };
 
 #undef IIUT_DECL_DEFAULT_ARG_
 
-#define IIUT_DECL_SPEC_NONE_(i, param)	param
-#define IIUT_DECL_TYPES_(n, m)								\
-	template< IUTEST_PP_ENUM_PARAMS(n, typename T) >		\
-	struct Types< IUTEST_PP_ENUM_PARAMS(n, T)				\
-		, IUTEST_PP_ENUM(m, IIUT_DECL_SPEC_NONE_, detail::None) > {	\
-		typedef IUTEST_PP_CAT(detail::TypeList, n)<			\
-			IUTEST_PP_ENUM_PARAMS(n, T) > type;				\
-		template<size_t N>struct get : public detail::typelist_get<type, N> {};	\
-	}
+#define IIUT_DECL_SPEC_NONE_(i, param)  param
+#define IIUT_DECL_TYPES_(n, m)                              \
+    template< IUTEST_PP_ENUM_PARAMS(n, typename T) >        \
+    struct Types< IUTEST_PP_ENUM_PARAMS(n, T)               \
+        , IUTEST_PP_ENUM(m, IIUT_DECL_SPEC_NONE_, detail::None) > { \
+        typedef IUTEST_PP_CAT(detail::TypeList, n)<         \
+            IUTEST_PP_ENUM_PARAMS(n, T) > type;             \
+        template<size_t N>struct get : public detail::typelist_get<type, N> {}; \
+    }
 
 template<>
 struct Types< IUTEST_PP_ENUM(50, IIUT_DECL_SPEC_NONE_, detail::None) >
 {
-	typedef detail::TypeList0 type;
+    typedef detail::TypeList0 type;
 };
 
 IIUT_DECL_TYPES_( 1, 49);
@@ -135,41 +135,41 @@ namespace detail
 #if !defined(IUTEST_NO_TEMPLATE_TEMPLATES)
 
 /**
- * @brief	Templates
+ * @brief   Templates
  * @{
 */
 #if IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES
 template<IIUT_TEMPLATE_TPARAM1 ...Types>
 struct Templates
 {
-	typedef VariadicTemplateTypeList<Types...> type;
+    typedef VariadicTemplateTypeList<Types...> type;
 };
 
 #else
 
-#define IIUT_DECL_DEFAULT_ARG_(i, param)	IUTEST_PP_CAT(param, i)=detail::NoneT1
+#define IIUT_DECL_DEFAULT_ARG_(i, param)    IUTEST_PP_CAT(param, i)=detail::NoneT1
 
 template< IUTEST_PP_ENUM(50, IIUT_DECL_DEFAULT_ARG_, IIUT_TEMPLATE_TPARAM1 T) >
 struct Templates
 {
-	typedef detail::TemplateTypeList50< IUTEST_PP_ENUM_PARAMS(50, T) > type;
+    typedef detail::TemplateTypeList50< IUTEST_PP_ENUM_PARAMS(50, T) > type;
 };
 
 #undef IIUT_DECL_DEFAULT_ARG_
 
-#define IIUT_DECL_SPEC_NONE_(i, param)	param
-#define IIUT_DECL_TEMPLATES_(n, m)										\
-	template< IUTEST_PP_ENUM_PARAMS(n, IIUT_TEMPLATE_TPARAM1 T) >		\
-	struct Templates< IUTEST_PP_ENUM_PARAMS(n, T)						\
-		, IUTEST_PP_ENUM(m, IIUT_DECL_SPEC_NONE_, detail::NoneT1) > {	\
-		typedef IUTEST_PP_CAT(detail::TemplateTypeList, n)<				\
-			IUTEST_PP_ENUM_PARAMS(n, T) > type;							\
-	}
+#define IIUT_DECL_SPEC_NONE_(i, param)  param
+#define IIUT_DECL_TEMPLATES_(n, m)                                      \
+    template< IUTEST_PP_ENUM_PARAMS(n, IIUT_TEMPLATE_TPARAM1 T) >       \
+    struct Templates< IUTEST_PP_ENUM_PARAMS(n, T)                       \
+        , IUTEST_PP_ENUM(m, IIUT_DECL_SPEC_NONE_, detail::NoneT1) > {   \
+        typedef IUTEST_PP_CAT(detail::TemplateTypeList, n)<             \
+            IUTEST_PP_ENUM_PARAMS(n, T) > type;                         \
+    }
 
 template<>
 struct Templates< IUTEST_PP_ENUM(50, IIUT_DECL_SPEC_NONE_, detail::NoneT1) >
 {
-	typedef detail::TemplateTypeList0 type;
+    typedef detail::TemplateTypeList0 type;
 };
 
 IIUT_DECL_TEMPLATES_( 1, 49);
@@ -236,7 +236,7 @@ IIUT_DECL_TEMPLATES_(49,  1);
 template<typename T>
 struct TypeList
 {
-	typedef detail::TypeList1<T> type;
+    typedef detail::TypeList1<T> type;
 };
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
@@ -244,7 +244,7 @@ struct TypeList
 template<typename ...Args>
 struct TypeList< Types<Args...> >
 {
-	typedef typename Types<Args...>::type type;
+    typedef typename Types<Args...>::type type;
 };
 
 #else
@@ -252,15 +252,15 @@ struct TypeList< Types<Args...> >
 template< IUTEST_PP_ENUM_PARAMS(50, typename T) >
 struct TypeList< Types< IUTEST_PP_ENUM_PARAMS(50, T) > >
 {
-	typedef typename Types< IUTEST_PP_ENUM_PARAMS(50, T) >::type type;
+    typedef typename Types< IUTEST_PP_ENUM_PARAMS(50, T) >::type type;
 };
 
 #endif
 
-}	// end of namespace detail
+}   // end of namespace detail
 
 #endif // #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
-}	// end of namespace iutest
+}   // end of namespace iutest
 
 #endif // INCG_IRIS_IUTEST_TYPED_UTIL_HPP_32A6F7CF_36C6_4EDE_AD19_04965FBFBB37_

@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_main.cpp
- * @brief		iris unit test main
+ * @file        iutest_main.cpp
+ * @brief       iris unit test main
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,12 +26,12 @@ int wmain(int argc, wchar_t** argv)
 int main(int argc, char** argv)
 #endif
 {
-	::std::cout << "Running main() from iutest_main.cpp" << ::std::endl;
-	
+    ::std::cout << "Running main() from iutest_main.cpp" << ::std::endl;
+    
 #if !defined(IUTEST_OS_WINDOWS_MOBILE)
-	setlocale(LC_CTYPE, "");
+    setlocale(LC_CTYPE, "");
 #endif
 
-	IUTEST_INIT(&argc, argv);
-	return IUTEST_RUN_ALL_TESTS();
+    IUTEST_INIT(&argc, argv);
+    return IUTEST_RUN_ALL_TESTS();
 }

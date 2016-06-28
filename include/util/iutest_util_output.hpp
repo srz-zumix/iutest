@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_util_output.hpp
- * @brief		iris unit test print 出力 utility ファイル
+ * @file        iutest_util_output.hpp
+ * @brief       iris unit test print 出力 utility ファイル
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -20,7 +20,7 @@
 #if defined(INCG_IRIS_IUTEST_SWITCH_HPP_)
 #  if defined(IUTEST_USE_GTEST)
 #    ifndef iutest
-#      define iutest	testing
+#      define iutest    testing
 #      include "../internal/iutest_console.hpp"
 #      undef iutest
 #    else
@@ -36,6 +36,6 @@ namespace iuutil
 //! コンソール出力クラスの再利用
 typedef ::iutest::detail::iuConsole Console;
 
-}	// end of namespace iuutil
+}   // end of namespace iuutil
 
 #endif // INCG_IRIS_IUTEST_UTIL_OUTPUT_HPP_44C683CF_3452_4F68_B34E_10606EB9E190_

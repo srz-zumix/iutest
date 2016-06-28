@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_switch_skip.hpp
- * @brief		IUTEST_SKIP 切り替え定義 ファイル
+ * @file        iutest_switch_skip.hpp
+ * @brief       IUTEST_SKIP 切り替え定義 ファイル
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -32,8 +32,8 @@
 
 //======================================================================
 // define
-#define IUTEST_SKIP()			GTEST_AMBIGUOUS_ELSE_BLOCKER_	\
-								if( ::testing::internal::AlwaysTrue() ) return GTEST_MESSAGE_("Skipped. ", ::testing::TestPartResult::kSuccess)
+#define IUTEST_SKIP()           GTEST_AMBIGUOUS_ELSE_BLOCKER_   \
+                                if( ::testing::internal::AlwaysTrue() ) return GTEST_MESSAGE_("Skipped. ", ::testing::TestPartResult::kSuccess)
 
 
 #endif // !defined(IUTEST_USE_GTEST)

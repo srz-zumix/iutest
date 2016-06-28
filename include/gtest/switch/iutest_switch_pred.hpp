@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_switch_pred.hpp
- * @brief		述語フォーマット 切り替え定義 ファイル
+ * @file        iutest_switch_pred.hpp
+ * @brief       述語フォーマット 切り替え定義 ファイル
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2013-2014, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -43,15 +43,15 @@
 
 //======================================================================
 // define
-#define IUTEST_PRED_FORMAT1_	GTEST_PRED_FORMAT1_
-#define IUTEST_PRED_FORMAT2_	GTEST_PRED_FORMAT2_
-#define IUTEST_PRED_FORMAT3_	GTEST_PRED_FORMAT3_
-#define IUTEST_PRED_FORMAT4_	GTEST_PRED_FORMAT4_
-#define IUTEST_PRED_FORMAT5_	GTEST_PRED_FORMAT5_
+#define IUTEST_PRED_FORMAT1_    GTEST_PRED_FORMAT1_
+#define IUTEST_PRED_FORMAT2_    GTEST_PRED_FORMAT2_
+#define IUTEST_PRED_FORMAT3_    GTEST_PRED_FORMAT3_
+#define IUTEST_PRED_FORMAT4_    GTEST_PRED_FORMAT4_
+#define IUTEST_PRED_FORMAT5_    GTEST_PRED_FORMAT5_
 
 #ifndef IUTEST_THROW_PRED_FORMAT2_
-#  define IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, on_failure)	\
-	IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure, pred_formatter)
+#  define IUTEST_THROW_PRED_FORMAT2_(pred_formatter, statement, expected_exception, expected_exception_value, on_failure)   \
+    IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure, pred_formatter)
 #endif
 
 #endif // !defined(IUTEST_USE_GTEST)

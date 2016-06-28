@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_stdlib.hpp
- * @brief		iris unit test stdlib
+ * @file        iutest_stdlib.hpp
+ * @brief       stdlib
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -34,92 +34,92 @@
 // libstdc++
 #if   defined(__clang__)
 #  if __has_include(<experimental/any>)
-#    define IUTEST_LIBSTDCXX_VERSION	50100
+#    define IUTEST_LIBSTDCXX_VERSION    50100
 #  elif __has_include(<shared_mutex>)
-#    define IUTEST_LIBSTDCXX_VERSION	40900
+#    define IUTEST_LIBSTDCXX_VERSION    40900
 #  elif __has_include(<ext/cmath>)
-#    define IUTEST_LIBSTDCXX_VERSION	40800
+#    define IUTEST_LIBSTDCXX_VERSION    40800
 #  elif   __has_include(<scoped_allocator>)
-#    define IUTEST_LIBSTDCXX_VERSION	40700
+#    define IUTEST_LIBSTDCXX_VERSION    40700
 #  elif __has_include(<typeindex>)
-#    define IUTEST_LIBSTDCXX_VERSION	40600
+#    define IUTEST_LIBSTDCXX_VERSION    40600
 #  elif __has_include(<future>)
-#    define IUTEST_LIBSTDCXX_VERSION	40500
+#    define IUTEST_LIBSTDCXX_VERSION    40500
 #  elif __has_include(<ratio>)
-#    define IUTEST_LIBSTDCXX_VERSION	40400
+#    define IUTEST_LIBSTDCXX_VERSION    40400
 #  elif __has_include(<array>)
-#    define IUTEST_LIBSTDCXX_VERSION	40300
+#    define IUTEST_LIBSTDCXX_VERSION    40300
 #  endif
 #elif defined(__GNUC__)
-#  define IUTEST_LIBSTDCXX_VERSION		(__GNUC__*10000 + __GNUC_MINOR__*100 + __GNUC_PATCHLEVEL__)
+#  define IUTEST_LIBSTDCXX_VERSION      (__GNUC__*10000 + __GNUC_MINOR__*100 + __GNUC_PATCHLEVEL__)
 #endif
 
 #if IUTEST_HAS_CXX11
 #  if IUTEST_LIBSTDCXX_VERSION >= 50100
-#    define IUTEST_HAS_CXX_HDR_CODECVT	1
+#    define IUTEST_HAS_CXX_HDR_CODECVT  1
 #  endif
 #  if IUTEST_LIBSTDCXX_VERSION >= 40900
-#    define IUTEST_HAS_CXX_HDR_REGEX	1
+#    define IUTEST_HAS_CXX_HDR_REGEX    1
 #  endif
 #  if IUTEST_LIBSTDCXX_VERSION >= 40700
-#    define IUTEST_HAS_STD_EMPLACE		1
-#    define IUTEST_HAS_CXX_HDR_CHRONO	1
+#    define IUTEST_HAS_STD_EMPLACE      1
+#    define IUTEST_HAS_CXX_HDR_CHRONO   1
 #  endif
 #  if IUTEST_LIBSTDCXX_VERSION >= 40600
-#    define IUTEST_HAS_STD_BEGIN_END	1
+#    define IUTEST_HAS_STD_BEGIN_END    1
 #  endif
 #  if IUTEST_LIBSTDCXX_VERSION >= 40500
-#    define IUTEST_HAS_STD_DECLVAL		1
-#    define IUTEST_HAS_CXX_HDR_RANDOM	1
-#    define IUTEST_HAS_CXX_HDR_CSTDINT	1
+#    define IUTEST_HAS_STD_DECLVAL      1
+#    define IUTEST_HAS_CXX_HDR_RANDOM   1
+#    define IUTEST_HAS_CXX_HDR_CSTDINT  1
 #  endif
 #endif
 
 // tuple
 #if   IUTEST_HAS_VARIADIC_TEMPLATES
-#  define IUTEST_HAS_STD_TUPLE			1
+#  define IUTEST_HAS_STD_TUPLE          1
 #elif (!defined(__CUDACC__) && !defined(__ARMCC_VERSION) && (IUTEST_LIBSTDCXX_VERSION >= 40000))
-#  define IUTEST_HAS_TR1_TUPLE			1
+#  define IUTEST_HAS_TR1_TUPLE          1
 #endif
 
 #if   defined(__has_include)
 #  if __has_include( <cxxabi.h> )
-#    define IUTEST_HAS_HDR_CXXABI		1
+#    define IUTEST_HAS_HDR_CXXABI       1
 #  endif
 #else
-#  define IUTEST_HAS_HDR_CXXABI			1
+#  define IUTEST_HAS_HDR_CXXABI         1
 #endif
 
 #elif defined(_LIBCPP_VERSION)
 
 // libc++
 #if IUTEST_HAS_CXX11
-#  define IUTEST_HAS_STD_BEGIN_END		1
-#  define IUTEST_HAS_STD_DECLVAL		1
-#  define IUTEST_HAS_STD_EMPLACE		1
-#  define IUTEST_HAS_CXX_HDR_CHRONO		1
-#  define IUTEST_HAS_CXX_HDR_REGEX		1
-#  define IUTEST_HAS_CXX_HDR_RANDOM		1
-#  define IUTEST_HAS_CXX_HDR_CODECVT	1
-#  define IUTEST_HAS_CXX_HDR_CSTDINT	1
+#  define IUTEST_HAS_STD_BEGIN_END      1
+#  define IUTEST_HAS_STD_DECLVAL        1
+#  define IUTEST_HAS_STD_EMPLACE        1
+#  define IUTEST_HAS_CXX_HDR_CHRONO     1
+#  define IUTEST_HAS_CXX_HDR_REGEX      1
+#  define IUTEST_HAS_CXX_HDR_RANDOM     1
+#  define IUTEST_HAS_CXX_HDR_CODECVT    1
+#  define IUTEST_HAS_CXX_HDR_CSTDINT    1
 #endif
 
 #if _LIBCPP_VERSION >= 1001
-#  define IUTEST_HAS_STD_BEGIN_END		1
+#  define IUTEST_HAS_STD_BEGIN_END      1
 #endif
 
 // tuple
 #if   IUTEST_HAS_VARIADIC_TEMPLATES
-#  define IUTEST_HAS_STD_TUPLE			1
+#  define IUTEST_HAS_STD_TUPLE          1
 #elif defined(__has_include)
 #  if __has_include( <tr1/tuple> )
-#    define IUTEST_HAS_TR1_TUPLE		1
+#    define IUTEST_HAS_TR1_TUPLE        1
 #  endif
 #endif
 
 #if   defined(__has_include)
 #  if __has_include( <cxxabi.h> )
-#    define IUTEST_HAS_HDR_CXXABI		1
+#    define IUTEST_HAS_HDR_CXXABI       1
 #  endif
 #endif
 
@@ -128,23 +128,23 @@
 // Visual C++
 
 #if _MSC_VER >= 1700
-#  define IUTEST_HAS_STD_BEGIN_END		1
-#  define IUTEST_HAS_STD_DECLVAL		IUTEST_HAS_DECLTYPE
-#  define IUTEST_HAS_STD_EMPLACE		1
-#  define IUTEST_HAS_CXX_HDR_REGEX		1
-#  define IUTEST_HAS_CXX_HDR_RANDOM		1
-#  define IUTEST_HAS_CXX_HDR_CODECVT	1
-#  define IUTEST_HAS_CXX_HDR_CSTDINT	1
+#  define IUTEST_HAS_STD_BEGIN_END      1
+#  define IUTEST_HAS_STD_DECLVAL        IUTEST_HAS_DECLTYPE
+#  define IUTEST_HAS_STD_EMPLACE        1
+#  define IUTEST_HAS_CXX_HDR_REGEX      1
+#  define IUTEST_HAS_CXX_HDR_RANDOM     1
+#  define IUTEST_HAS_CXX_HDR_CODECVT    1
+#  define IUTEST_HAS_CXX_HDR_CSTDINT    1
 #  if _MSC_FULL_VER != 190023725
-#    define IUTEST_HAS_CXX_HDR_CHRONO	1
+#    define IUTEST_HAS_CXX_HDR_CHRONO   1
 #  endif
 #endif
 
 // tuple
 #if (_MSC_VER > 1700) || (_MSC_VER == 1700 && _VARIADIC_MAX >= 9)
-#  define IUTEST_HAS_STD_TUPLE			1
+#  define IUTEST_HAS_STD_TUPLE          1
 #elif (_MSC_VER >= 1500) && (_MSC_VER < 1700) && (_MSC_FULL_VER > 150021022)
-#  define IUTEST_HAS_TR1_TUPLE			1
+#  define IUTEST_HAS_TR1_TUPLE          1
 #endif
 
 #elif defined(__SGI_STL_PORT) || defined(_STLPORT_VERSION)
@@ -157,66 +157,66 @@
 
 //! has std::begin,std::end
 #if !defined(IUTEST_HAS_STD_BEGIN_END)
-#  define IUTEST_HAS_STD_BEGIN_END		0
+#  define IUTEST_HAS_STD_BEGIN_END      0
 #endif
 //! has std::declval
 #if !defined(IUTEST_HAS_STD_DECLVAL)
-#  define IUTEST_HAS_STD_DECLVAL		0
+#  define IUTEST_HAS_STD_DECLVAL        0
 #endif
 //! use external include tr1::tuple
 #if !defined(IUTEST_USE_EXTERNAL_TR1_TUPLE)
-#  define IUTEST_USE_EXTERNAL_TR1_TUPLE	0
+#  define IUTEST_USE_EXTERNAL_TR1_TUPLE 0
 #endif
 //! use external include std::tuple
 #ifndef IUTEST_USE_EXTERNAL_STD_TUPLE
-#  define IUTEST_USE_EXTERNAL_STD_TUPLE	0
+#  define IUTEST_USE_EXTERNAL_STD_TUPLE 0
 #endif
 //! has ::std::tuple
 #if !defined(IUTEST_HAS_STD_TUPLE)
-#  define IUTEST_HAS_STD_TUPLE			0
+#  define IUTEST_HAS_STD_TUPLE          0
 #endif
 //! has ::std::tr1::tuple
 #if !defined(IUTEST_HAS_TR1_TUPLE)
-#  define IUTEST_HAS_TR1_TUPLE			0
+#  define IUTEST_HAS_TR1_TUPLE          0
 #endif
 //! has tuple
 #if IUTEST_HAS_STD_TUPLE || IUTEST_HAS_TR1_TUPLE || IUTEST_USE_EXTERNAL_TR1_TUPLE || IUTEST_USE_EXTERNAL_STD_TUPLE
 #  if !defined(IUTEST_HAS_TUPLE)
-#    define IUTEST_HAS_TUPLE			1
+#    define IUTEST_HAS_TUPLE            1
 #  endif
 #else
 #  if defined(IUTEST_HAS_TUPLE)
 #    undef IUTEST_HAS_TUPLE
 #  endif
-#  define IUTEST_HAS_TUPLE				0
+#  define IUTEST_HAS_TUPLE              0
 #endif
 //! has chrono header
 #if !defined(IUTEST_HAS_CXX_HDR_CHRONO)
-#  define IUTEST_HAS_CXX_HDR_CHRONO		0
+#  define IUTEST_HAS_CXX_HDR_CHRONO     0
 #endif
 //! has regex header
 #if !defined(IUTEST_HAS_CXX_HDR_REGEX)
-#  define IUTEST_HAS_CXX_HDR_REGEX		0
+#  define IUTEST_HAS_CXX_HDR_REGEX      0
 #endif
 //! has random header
 #if !defined(IUTEST_HAS_CXX_HDR_RANDOM)
-#  define IUTEST_HAS_CXX_HDR_RANDOM		0
+#  define IUTEST_HAS_CXX_HDR_RANDOM     0
 #endif
 //! has codecvt header
 #if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
-#  define IUTEST_HAS_CXX_HDR_CODECVT	0
+#  define IUTEST_HAS_CXX_HDR_CODECVT    0
 #endif
 //! has cstdint header
 #if !defined(IUTEST_HAS_CXX_HDR_CSTDINT)
-#  define IUTEST_HAS_CXX_HDR_CSTDINT	0
+#  define IUTEST_HAS_CXX_HDR_CSTDINT    0
 #endif
 //! has emplace
 #if !defined(IUTEST_HAS_STD_EMPLACE)
-#  define IUTEST_HAS_STD_EMPLACE		0
+#  define IUTEST_HAS_STD_EMPLACE        0
 #endif
 //! has cxxabi header
 #if !defined(IUTEST_HAS_HDR_CXXABI)
-#  define IUTEST_HAS_HDR_CXXABI			0
+#  define IUTEST_HAS_HDR_CXXABI         0
 #endif
 
 //======================================================================
@@ -231,11 +231,11 @@
 //! using begin,end
 #if !defined(IUTEST_USING_BEGIN_END)
 #  if IUTEST_HAS_STD_BEGIN_END
-#    define IUTEST_USING_BEGIN_END()	\
-	using ::std::begin; using ::std::end
+#    define IUTEST_USING_BEGIN_END()    \
+    using ::std::begin; using ::std::end
 #  else
-#    define IUTEST_USING_BEGIN_END()	\
-	using ::iutest::detail::cxx::begin; using ::iutest::detail::cxx::end
+#    define IUTEST_USING_BEGIN_END()    \
+    using ::iutest::detail::cxx::begin; using ::iutest::detail::cxx::end
 #  endif
 #endif
 
@@ -266,9 +266,9 @@ template<typename T, size_t SIZE> const T* end  (const T (&x)[SIZE]) { return be
 
 #endif
 
-}	// end of namespace cxx
-}	// end of namespace detail
-}	// end of namespace iutest
+}   // end of namespace cxx
+}   // end of namespace detail
+}   // end of namespace iutest
 
 #if IUTEST_HAS_TUPLE
 #if !IUTEST_USE_EXTERNAL_STD_TUPLE && !IUTEST_USE_EXTERNAL_TR1_TUPLE
@@ -309,80 +309,80 @@ namespace detail
 template<typename T, typename F, int Begin>
 struct tuple_foreach_impl
 {
-	template<int N, int I>
-	struct impl
-	{
-		static void do_something(T& t, F fn)
-		{
-			fn(I, get<I>(t));
-			impl<N, I + 1>::do_something(t, fn);
-		}
-	};
-	template<int N>
-	struct impl<N, N>
-	{
-		static void do_something(T&, F) {}
-	};
+    template<int N, int I>
+    struct impl
+    {
+        static void do_something(T& t, F fn)
+        {
+            fn(I, get<I>(t));
+            impl<N, I + 1>::do_something(t, fn);
+        }
+    };
+    template<int N>
+    struct impl<N, N>
+    {
+        static void do_something(T&, F) {}
+    };
 
-	static void do_something(T& t, F fn)
-	{
-		impl<tuple_size<T>::value, Begin>::do_something(t, fn);
-	}
+    static void do_something(T& t, F fn)
+    {
+        impl<tuple_size<T>::value, Begin>::do_something(t, fn);
+    }
 };
 
 template<typename T, typename U>
 struct tuple_cast_copy_impl
 {
-	template<int N, int I>
-	struct impl
-	{
-		static void copy(T& dst, const U& src)
-		{
-			get<I>(dst) = static_cast<typename tuple_element<I, T>::type>(get<I>(src));
-			impl<N, I + 1>::copy(dst, src);
-		}
-	};
-	template<int N>
-	struct impl<N, N>
-	{
-		static void copy(T&, const U&) {}
-	};
+    template<int N, int I>
+    struct impl
+    {
+        static void copy(T& dst, const U& src)
+        {
+            get<I>(dst) = static_cast<typename tuple_element<I, T>::type>(get<I>(src));
+            impl<N, I + 1>::copy(dst, src);
+        }
+    };
+    template<int N>
+    struct impl<N, N>
+    {
+        static void copy(T&, const U&) {}
+    };
 
-	static void copy(T& dst, const U& src)
-	{
-		impl<tuple_size<T>::value, 0>::copy(dst, src);
-	}
+    static void copy(T& dst, const U& src)
+    {
+        impl<tuple_size<T>::value, 0>::copy(dst, src);
+    }
 };
 
-}	// end of namespace detail
+}   // end of namespace detail
 
 template<int I, typename tuple_t, typename F>
 void tuple_foreach(tuple_t& t, F& fn)
 {
-	detail::tuple_foreach_impl<tuple_t, F&, I>::do_something(t, fn);
+    detail::tuple_foreach_impl<tuple_t, F&, I>::do_something(t, fn);
 }
 template<typename tuple_t, typename F>
 void tuple_foreach(tuple_t& t, F& fn)
 {
-	tuple_foreach<0>(t, fn);
+    tuple_foreach<0>(t, fn);
 }
 template<int I, typename tuple_t, typename F>
 void tuple_foreach(tuple_t& t, const F& fn)
 {
-	detail::tuple_foreach_impl<tuple_t, const F&, I>::do_something(t, fn);
+    detail::tuple_foreach_impl<tuple_t, const F&, I>::do_something(t, fn);
 }
 template<typename tuple_t, typename F>
 void tuple_foreach(tuple_t& t, const F& fn)
 {
-	tuple_foreach<0>(t, fn);
+    tuple_foreach<0>(t, fn);
 }
 template<typename T, typename U>
 void tuple_cast_copy(T& dst, const U& src)
 {
-	detail::tuple_cast_copy_impl<T, U>::copy(dst, src);
+    detail::tuple_cast_copy_impl<T, U>::copy(dst, src);
 }
 
-}	// end of namespace tuples
+}   // end of namespace tuples
 
 using tuples::tuple;
 using tuples::tuple_size;
@@ -391,7 +391,7 @@ using tuples::tuple_foreach;
 using tuples::make_tuple;
 using tuples::get;
 
-}	// end of namespace iutest
+}   // end of namespace iutest
 
 #endif
 
@@ -400,27 +400,27 @@ using tuples::get;
 #  if IUTEST_HAS_CHAR16_T || IUTEST_HAS_CHAR32_T
 #    if   defined(__has_include)
 #      if __has_include( <uchar.h> )
-#        define IUTEST_HAS_HDR_UCHAR			1
+#        define IUTEST_HAS_HDR_UCHAR            1
 #      endif
 #    elif defined(_MSC_VER)
-#      define IUTEST_HAS_HDR_UCHAR				1
+#      define IUTEST_HAS_HDR_UCHAR              1
 #    endif
 #  endif
 #endif
 
 #if !defined(IUTEST_HAS_HDR_UCHAR)
-#  define IUTEST_HAS_HDR_UCHAR			0
+#  define IUTEST_HAS_HDR_UCHAR          0
 #endif
 
 //! has sys/time.h header
 #if !defined(IUTEST_HAS_HDR_SYSTIME)
 #  if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MINGW) && !defined(IUTEST_OS_WINDOWS_WINE)
-#    define IUTEST_HAS_HDR_SYSTIME		0
+#    define IUTEST_HAS_HDR_SYSTIME      0
 #  endif
 #endif
 
 #if !defined(IUTEST_HAS_HDR_SYSTIME)
-#  define IUTEST_HAS_HDR_SYSTIME		1
+#  define IUTEST_HAS_HDR_SYSTIME        1
 #endif
 
 // socklen_t
@@ -431,22 +431,22 @@ using tuples::get;
 //! std::stringstream が使用可能かどうか
 #if !defined(IUTEST_HAS_STRINGSTREAM)
 #  if !defined(_STLP_NO_IOSTREAMS)
-#    define IUTEST_HAS_STRINGSTREAM	1
+#    define IUTEST_HAS_STRINGSTREAM 1
 #  endif
 #endif
 
 #if !defined(IUTEST_HAS_STRINGSTREAM)
-#  define IUTEST_HAS_STRINGSTREAM	0
+#  define IUTEST_HAS_STRINGSTREAM   0
 #endif
 
 
 /**
- * @brief	std::strstream が使用可能かどうか
- * @note	IUTEST_HAS_STRINGSTREAM が優先されます
+ * @brief   std::strstream が使用可能かどうか
+ * @note    IUTEST_HAS_STRINGSTREAM が優先されます
  * @deprecated
 */
 #if !defined(IUTEST_HAS_STRSTREAM)
-#  define IUTEST_HAS_STRSTREAM		0
+#  define IUTEST_HAS_STRSTREAM      0
 #endif
 
 namespace iutest {
@@ -456,7 +456,7 @@ namespace detail
 //======================================================================
 // struct
 /**
- * @brief	type_least_t
+ * @brief   type_least_t
 */
 template<int SIZE>
 struct type_least_t {};
@@ -466,11 +466,11 @@ template<>
 struct type_least_t<1>
 {
 #if defined(INT_LEAST8_MIN)
-	typedef int_least8_t		Int;
-	typedef uint_least8_t		UInt;
+    typedef int_least8_t        Int;
+    typedef uint_least8_t       UInt;
 #else
-	typedef char				Int;
-	typedef unsigned char		UInt;
+    typedef char                Int;
+    typedef unsigned char       UInt;
 #endif
 };
 
@@ -479,11 +479,11 @@ template<>
 struct type_least_t<2>
 {
 #if defined(INT_LEAST16_MIN)
-	typedef int_least16_t		Int;
-	typedef uint_least16_t		UInt;
+    typedef int_least16_t       Int;
+    typedef uint_least16_t      UInt;
 #else
-	typedef short				Int;
-	typedef unsigned short		UInt;
+    typedef short               Int;
+    typedef unsigned short      UInt;
 #endif
 };
 
@@ -492,11 +492,11 @@ template<>
 struct type_least_t<4>
 {
 #if defined(INT_LEAST32_MIN)
-	typedef int_least32_t		Int;
-	typedef uint_least32_t		UInt;
+    typedef int_least32_t       Int;
+    typedef uint_least32_t      UInt;
 #else
-	typedef int					Int;
-	typedef unsigned int		UInt;
+    typedef int                 Int;
+    typedef unsigned int        UInt;
 #endif
 };
 
@@ -505,21 +505,21 @@ template<>
 struct type_least_t<8>
 {
 #if defined(INT_LEAST64_MIN)
-	typedef int_least64_t		Int;
-	typedef uint_least64_t		UInt;
+    typedef int_least64_t       Int;
+    typedef uint_least64_t      UInt;
 #else
 #if defined(_MSC_VER)
-	typedef __int64				Int;
-	typedef unsigned __int64	UInt;
+    typedef __int64             Int;
+    typedef unsigned __int64    UInt;
 #else
-	typedef long long			Int;
-	typedef unsigned long long	UInt;
+    typedef long long           Int;
+    typedef unsigned long long  UInt;
 #endif
 #endif
 };
 
 /**
- * @brief	type_fit_t
+ * @brief   type_fit_t
 */
 template<int SIZE>
 struct type_fit_t {};
@@ -529,11 +529,11 @@ template<>
 struct type_fit_t<1>
 {
 #if defined(INT8_MIN)
-	typedef int8_t				Int;
-	typedef uint8_t				UInt;
+    typedef int8_t              Int;
+    typedef uint8_t             UInt;
 #else
-	typedef char				Int;
-	typedef unsigned char		UInt;
+    typedef char                Int;
+    typedef unsigned char       UInt;
 #endif
 };
 
@@ -542,11 +542,11 @@ template<>
 struct type_fit_t<2>
 {
 #if defined(INT16_MIN)
-	typedef int16_t				Int;
-	typedef uint16_t			UInt;
+    typedef int16_t             Int;
+    typedef uint16_t            UInt;
 #else
-	typedef short				Int;
-	typedef unsigned short		UInt;
+    typedef short               Int;
+    typedef unsigned short      UInt;
 #endif
 };
 
@@ -555,24 +555,24 @@ template<>
 struct type_fit_t<4>
 {
 #if defined(INT32_MIN)
-	typedef int32_t				Int;
-	typedef uint32_t			UInt;
+    typedef int32_t             Int;
+    typedef uint32_t            UInt;
 #else
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 private:
-	template<typename T, typename F, bool b>
-	struct impl { typedef T type; };
-	template<typename T, typename F>
-	struct impl<T, F, false> { typedef F type; };
+    template<typename T, typename F, bool b>
+    struct impl { typedef T type; };
+    template<typename T, typename F>
+    struct impl<T, F, false> { typedef F type; };
 
 public:
-	typedef impl<long, int
-		, sizeof(int) != 4 && sizeof(long) == 4>::type Int;
-	typedef impl<unsigned long, unsigned int
-		, sizeof(int) != 4 && sizeof(long) == 4>::type UInt;
+    typedef impl<long, int
+        , sizeof(int) != 4 && sizeof(long) == 4>::type Int;
+    typedef impl<unsigned long, unsigned int
+        , sizeof(int) != 4 && sizeof(long) == 4>::type UInt;
 #else
-	typedef int					Int;
-	typedef unsigned int		UInt;
+    typedef int                 Int;
+    typedef unsigned int        UInt;
 #endif
 #endif
 };
@@ -582,15 +582,15 @@ template<>
 struct type_fit_t<8>
 {
 #if defined(INT64_MIN)
-	typedef int64_t				Int;
-	typedef uint64_t			UInt;
+    typedef int64_t             Int;
+    typedef uint64_t            UInt;
 #else
 #if defined(_MSC_VER)
-	typedef __int64				Int;
-	typedef unsigned __int64	UInt;
+    typedef __int64             Int;
+    typedef unsigned __int64    UInt;
 #else
-	typedef long long			Int;
-	typedef unsigned long long	UInt;
+    typedef long long           Int;
+    typedef unsigned long long  UInt;
 #endif
 #endif
 };
@@ -599,22 +599,22 @@ struct type_fit_t<8>
 // function
 /**
  * @internal
- * @brief	mbtowc
+ * @brief   mbtowc
 */
 inline int iu_mbtowc(wchar_t* dst, const char* src, size_t size)
 {
 #if defined(IUTEST_OS_LINUX_ANDROID) || defined(IUTEST_OS_WINDOWS_MOBILE)
-	// unimplimented
-	IUTEST_UNUSED_VAR(dst);
-	IUTEST_UNUSED_VAR(src);
-	IUTEST_UNUSED_VAR(size);
-	return 0;
+    // unimplimented
+    IUTEST_UNUSED_VAR(dst);
+    IUTEST_UNUSED_VAR(src);
+    IUTEST_UNUSED_VAR(size);
+    return 0;
 #else
-	return mbtowc(dst, src, size);
+    return mbtowc(dst, src, size);
 #endif
 }
 
-}	// end of namespace detail
-}	// end of namespace iutest
+}   // end of namespace detail
+}   // end of namespace iutest
 
 #endif // INCG_IRIS_IUTEST_STDLIB_HPP_54D4BEEE_7B6B_4AF4_B1F6_138560480D55_

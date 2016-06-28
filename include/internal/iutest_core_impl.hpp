@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_core_impl.hpp
- * @brief		iris unit test UnitTest 実装 ファイル
+ * @file        iutest_core_impl.hpp
+ * @brief       iris unit test UnitTest 実装 ファイル
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -30,217 +30,217 @@ namespace iutest
 class UnitTestImpl
 {
 protected:
-	typedef detail::iu_list<TestCase>	iuTestCases;
-	//typedef ::std::vector<TestCase*>	iuTestCases;
-	typedef ::std::vector<Environment*>	iuEnvironmentList;
+    typedef detail::iu_list<TestCase>   iuTestCases;
+    //typedef ::std::vector<TestCase*>  iuTestCases;
+    typedef ::std::vector<Environment*> iuEnvironmentList;
 protected:
-	UnitTestImpl() : m_total_test_num(0), m_disable_num(0), m_should_run_num(0)
-		, m_current_testcase(NULL), m_elapsedmsec(0)
-	{
-		ptr() = this;
-	}
-	~UnitTestImpl() { TerminateImpl(); }
+    UnitTestImpl() : m_total_test_num(0), m_disable_num(0), m_should_run_num(0)
+        , m_current_testcase(NULL), m_elapsedmsec(0)
+    {
+        ptr() = this;
+    }
+    ~UnitTestImpl() { TerminateImpl(); }
 
 public:
-	/**
-	 * @brief	テスト中のテストの TestResult の取得
-	*/
-	static TestResult* current_test_result();
+    /**
+     * @brief   テスト中のテストの TestResult の取得
+    */
+    static TestResult* current_test_result();
 
 public:
-	/**
-	 * @brief	有効なプロパティ名かどうかチェック
-	 * @param [in] name	= プロパティ名
-	 * @retval	true=有効
-	 * @retval	false=無効
-	*/
-	static bool ValidateTestPropertyName(const ::std::string& name)
-	{
-		const char* ban[] = {
-			"name", "tests", "failures", "disabled", "skip", "errors", "time", "timestamp", "random_seed"
-		};
+    /**
+     * @brief   有効なプロパティ名かどうかチェック
+     * @param [in] name = プロパティ名
+     * @retval  true=有効
+     * @retval  false=無効
+    */
+    static bool ValidateTestPropertyName(const ::std::string& name)
+    {
+        const char* ban[] = {
+            "name", "tests", "failures", "disabled", "skip", "errors", "time", "timestamp", "random_seed"
+        };
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-		return TestProperty::ValidateName(name, ban);
+        return TestProperty::ValidateName(name, ban);
 #else
-		return TestProperty::ValidateName(name, ban, ban+IUTEST_PP_COUNTOF(ban));
+        return TestProperty::ValidateName(name, ban, ban+IUTEST_PP_COUNTOF(ban));
 #endif
-	}
+    }
 
 public:
-	/** @private */
-	template<typename T>
-	TestCase* AddTestCase(const char* testcase_name, TestTypeId id
-		, SetUpMethod setup, TearDownMethod teardown IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
-	{
-		TestCase* p = FindTestCase(testcase_name, id);
-		if( p == NULL )
-		{
-			p = new T (testcase_name, id, setup, teardown);
-			m_testcases.push_back(p);
-		}
-		return p;
-	}
-	/** @private */
-	void AddTestInfo(TestCase* pCase, TestInfo* pInfo);
-	/** @private */
-	static void SkipTest();
+    /** @private */
+    template<typename T>
+    TestCase* AddTestCase(const char* testcase_name, TestTypeId id
+        , SetUpMethod setup, TearDownMethod teardown IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
+    {
+        TestCase* p = FindTestCase(testcase_name, id);
+        if( p == NULL )
+        {
+            p = new T (testcase_name, id, setup, teardown);
+            m_testcases.push_back(p);
+        }
+        return p;
+    }
+    /** @private */
+    void AddTestInfo(TestCase* pCase, TestInfo* pInfo);
+    /** @private */
+    static void SkipTest();
 
 protected:
-	/**
-	 * @brief	テストのリストアップ
-	*/
-	int Listup() const;
+    /**
+     * @brief   テストのリストアップ
+    */
+    int Listup() const;
 
-	/**
-	 * @brief	テストのリストアップ(with where)
-	*/
-	int ListupWithWhere() const;
+    /**
+     * @brief   テストのリストアップ(with where)
+    */
+    int ListupWithWhere() const;
 
-	/**
-	 * @brief	事前処理
-	*/
-	bool PreRunner();
+    /**
+     * @brief   事前処理
+    */
+    bool PreRunner();
 
-	/**
-	 * @brief	テスト結果のクリア
-	*/
-	void ClearNonAdHocTestResult();
+    /**
+     * @brief   テスト結果のクリア
+    */
+    void ClearNonAdHocTestResult();
 
-	/**
-	 * @brief	ad_hoc_testresult のクリア
-	*/
-	void ClearAdHocTestResult()
-	{
-		m_ad_hoc_testresult.Clear();
-	}
-
-private:
-	/**
-	 * @brief	RecordProperty
-	*/
-	static void RecordProperty(const TestProperty& prop);
-
-	/**
-	 * @brief	FindTestCase
-	*/
-	TestCase* FindTestCase(const char* testcase_name, TestTypeId id);
+    /**
+     * @brief   ad_hoc_testresult のクリア
+    */
+    void ClearAdHocTestResult()
+    {
+        m_ad_hoc_testresult.Clear();
+    }
 
 private:
-	/**
-	 * @brief	セットアップ
-	*/
-	void InitializeImpl();
-	/**
-	 * @brief	後片付け
-	*/
-	void TerminateImpl();
+    /**
+     * @brief   RecordProperty
+    */
+    static void RecordProperty(const TestProperty& prop);
+
+    /**
+     * @brief   FindTestCase
+    */
+    TestCase* FindTestCase(const char* testcase_name, TestTypeId id);
+
+private:
+    /**
+     * @brief   セットアップ
+    */
+    void InitializeImpl();
+    /**
+     * @brief   後片付け
+    */
+    void TerminateImpl();
 
 private:
 #if IUTEST_HAS_EXCEPTIONS && (defined(_MSC_VER) && (_MSC_VER >= 1400)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
-	// _invalid_parameter_handler
-	static void OnInvalidParameter(const wchar_t * expression, const wchar_t * function
-		, const wchar_t * file, unsigned int line, uintptr_t pReserved);
+    // _invalid_parameter_handler
+    static void OnInvalidParameter(const wchar_t * expression, const wchar_t * function
+        , const wchar_t * file, unsigned int line, uintptr_t pReserved);
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 #endif
 
 private:
-	static UnitTestImpl*& ptr() IUTEST_CXX_NOEXCEPT_SPEC
-	{
-		static UnitTestImpl* ptr = NULL;
-		return ptr;
-	}
+    static UnitTestImpl*& ptr() IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        static UnitTestImpl* ptr = NULL;
+        return ptr;
+    }
 protected:
-	friend class UnitTestSource;
-	friend class Test::TestRecordPropertyHelper;
+    friend class UnitTestSource;
+    friend class Test::TestRecordPropertyHelper;
 
-	int				m_total_test_num;	//!< 登録されたテスト総数
-	int				m_disable_num;		//!< 無視したテスト総数
-	int				m_should_run_num;	//!< 実行すべきテスト総数
-	TestCase*		m_current_testcase;	//!< 現在実行中のテストケース
-	TimeInMillisec	m_elapsedmsec;		//!< テストの実行時間
-	iuTestCases		m_testcases;		//!< テストケースリスト
-	TestResult		m_ad_hoc_testresult;	//!< テストが実行中でないときのリザルト
+    int             m_total_test_num;   //!< 登録されたテスト総数
+    int             m_disable_num;      //!< 無視したテスト総数
+    int             m_should_run_num;   //!< 実行すべきテスト総数
+    TestCase*       m_current_testcase; //!< 現在実行中のテストケース
+    TimeInMillisec  m_elapsedmsec;      //!< テストの実行時間
+    iuTestCases     m_testcases;        //!< テストケースリスト
+    TestResult      m_ad_hoc_testresult;    //!< テストが実行中でないときのリザルト
 };
 
 namespace detail
 {
 
 /**
- * @brief	テスト名の作成
- * @param [in]	index		= インデックス
+ * @brief   テスト名の作成
+ * @param [in]  index       = インデックス
 */
 ::std::string MakeIndexName(size_t index);
 
 /**
- * @brief	テスト名の作成
- * @param [in]	basename	= ベース名
- * @param [in]	index		= インデックス
+ * @brief   テスト名の作成
+ * @param [in]  basename    = ベース名
+ * @param [in]  index       = インデックス
 */
 ::std::string MakeIndexTestName(const char* basename, size_t index);
 
 /**
- * @brief	テスト名の作成
- * @param [in]	basename	= ベース名
- * @param [in]	parame_name	= パラメータ名
+ * @brief   テスト名の作成
+ * @param [in]  basename    = ベース名
+ * @param [in]  parame_name = パラメータ名
 */
 ::std::string MakeParamTestName(const ::std::string& basename, const ::std::string& parame_name);
 
 /**
- * @brief	テスト名の作成
- * @param [in]	basename	= ベース名
- * @param [in]	index		= インデックス
+ * @brief   テスト名の作成
+ * @param [in]  basename    = ベース名
+ * @param [in]  index       = インデックス
 */
 template<typename T>
 ::std::string MakeIndexTypedTestName(const char* basename, size_t index)
 {
 #if IUTEST_HAS_RTTI
-	::std::string name = MakeIndexTestName(basename, index);
-	name += "/";
-	name += GetTypeName<T>();
-	return name;
+    ::std::string name = MakeIndexTestName(basename, index);
+    name += "/";
+    name += GetTypeName<T>();
+    return name;
 #else
-	return MakeIndexTestName(basename, index);
+    return MakeIndexTestName(basename, index);
 #endif
 }
 
 /**
- * @brief	テスト名の作成
- * @param [in]	prefix		= prefix
- * @param [in]	basename	= ベース名
- * @param [in]	index		= インデックス
+ * @brief   テスト名の作成
+ * @param [in]  prefix      = prefix
+ * @param [in]  basename    = ベース名
+ * @param [in]  index       = インデックス
 */
 ::std::string MakePrefixedIndexTestName(const char* prefix, const char* basename, size_t index);
 
 /**
- * @brief	テスト名の作成
- * @param [in]	prefix		= prefix
- * @param [in]	basename	= ベース名
- * @param [in]	index		= インデックス
+ * @brief   テスト名の作成
+ * @param [in]  prefix      = prefix
+ * @param [in]  basename    = ベース名
+ * @param [in]  index       = インデックス
 */
 template<typename T>
 ::std::string MakePrefixedIndexTypedTestName(const char* prefix, const char* basename, size_t index)
 {
 #if IUTEST_HAS_RTTI
-	::std::string name = prefix;
-	if( !name.empty() )
-	{
-		name += "/";
-	}
-	name += MakeIndexTypedTestName<T>(basename, index);
-	return name;
+    ::std::string name = prefix;
+    if( !name.empty() )
+    {
+        name += "/";
+    }
+    name += MakeIndexTypedTestName<T>(basename, index);
+    return name;
 #else
-	return MakePrefixedIndexTestName(prefix, basename, index);
+    return MakePrefixedIndexTestName(prefix, basename, index);
 #endif
 }
 
-}	// end of namespace detail
+}   // end of namespace detail
 
-}	// end of namespace iutest
+}   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
 #  include "../impl/iutest_core_impl.ipp"

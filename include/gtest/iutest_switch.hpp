@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_switch.hpp
- * @brief		switching to iutest from gtest / gtest from iutest
+ * @file        iutest_switch.hpp
+ * @brief       switching to iutest from gtest / gtest from iutest
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -18,7 +18,7 @@
 #if !defined(IUTEST_USE_GTEST)
 
 #ifdef GTEST_USE_OWN_TR1_TUPLE
-#  define IUTEST_USE_EXTERNAL_TR1_TUPLE	1	// gtest の tuple を使用する
+#  define IUTEST_USE_EXTERNAL_TR1_TUPLE 1   // gtest の tuple を使用する
 #endif
 
 //======================================================================
@@ -49,22 +49,22 @@
 
 #endif
 
-#define SUCCEED				IUTEST_SUCCEED
-#define FAIL				IUTEST_FAIL
-#define ADD_FAILURE			IUTEST_ADD_FAILURE
-#define ADD_FAILURE_AT		IUTEST_ADD_FAILURE_AT
+#define SUCCEED             IUTEST_SUCCEED
+#define FAIL                IUTEST_FAIL
+#define ADD_FAILURE         IUTEST_ADD_FAILURE
+#define ADD_FAILURE_AT      IUTEST_ADD_FAILURE_AT
 
-#define GTEST_HAS_DEATH_TEST	0
-#define GTEST_HAS_PARAM_TEST	IUTEST_HAS_PARAM_TEST
-#define GTEST_HAS_COMBINE		IUTEST_HAS_COMBINE
-#define GTEST_HAS_TYPED_TEST	IUTEST_HAS_TYPED_TEST
-#define GTEST_HAS_TYPED_TEST_P	IUTEST_HAS_TYPED_TEST_P
+#define GTEST_HAS_DEATH_TEST    0
+#define GTEST_HAS_PARAM_TEST    IUTEST_HAS_PARAM_TEST
+#define GTEST_HAS_COMBINE       IUTEST_HAS_COMBINE
+#define GTEST_HAS_TYPED_TEST    IUTEST_HAS_TYPED_TEST
+#define GTEST_HAS_TYPED_TEST_P  IUTEST_HAS_TYPED_TEST_P
 
-#define GTEST_CAN_STREAM_RESULTS_	0
+#define GTEST_CAN_STREAM_RESULTS_   0
 
-#define GTEST_HAS_EXCEPTIONS	IUTEST_HAS_EXCEPTIONS
-#define GTEST_HAS_RTTI			IUTEST_HAS_RTTI
-#define GTEST_HAS_SEH			IUTEST_HAS_SEH
+#define GTEST_HAS_EXCEPTIONS    IUTEST_HAS_EXCEPTIONS
+#define GTEST_HAS_RTTI          IUTEST_HAS_RTTI
+#define GTEST_HAS_SEH           IUTEST_HAS_SEH
 
 #include "switch/iutest_switch_port.hpp"
 #include "switch/iutest_switch_core.hpp"
@@ -96,31 +96,31 @@ namespace iutest
 // function
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleTest(int* argc, char** argv)
 {
-	InitIrisUnitTest(argc, argv);
+    InitIrisUnitTest(argc, argv);
 }
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleTest(int* argc, wchar_t** argv)
 {
-	InitIrisUnitTest(argc, argv);
+    InitIrisUnitTest(argc, argv);
 }
 
 #if defined(GMOCK_INCLUDE_GMOCK_GMOCK_H_)
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleMock(int* argc, char** argv)
 {
-	testing::InitGoogleMock(argc, argv);
+    testing::InitGoogleMock(argc, argv);
 }
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleMock(int* argc, wchar_t** argv)
 {
-	testing::InitGoogleMock(argc, argv);
+    testing::InitGoogleMock(argc, argv);
 }
 #endif
 
-}	// end of namespace iutest
+}   // end of namespace iutest
 
 #ifndef GMOCK_INCLUDE_GMOCK_GMOCK_H_
 
 #if defined(GTEST_INCLUDE_GTEST_GTEST_H_)
 // すでに testing namespace が存在するので、define で置き換え
-#  define testing	iutest
+#  define testing   iutest
 #else
 // それ以外は namespace の置き換えで対応
 namespace testing = iutest;
@@ -129,30 +129,30 @@ namespace testing = iutest;
 #endif
 
 #ifndef GTEST_INCLUDE_GTEST_GTEST_H_
-#  define GTEST_INCLUDE_GTEST_GTEST_H_	// 以降で、gtest が include されないようにする
+#  define GTEST_INCLUDE_GTEST_GTEST_H_  // 以降で、gtest が include されないようにする
 #endif
 
 #else // !defined(IUTEST_USE_GTEST)
 
 #if defined(INCG_IRIS_IUTEST_HPP_)
 #  if IUTEST_HAS_TUPLE
-#    define GTEST_USE_OWN_TR1_TUPLE	0
+#    define GTEST_USE_OWN_TR1_TUPLE 0
 #  endif
 #  ifdef StaticAssertTypeEq
-#	 undef StaticAssertTypeEq
+#    undef StaticAssertTypeEq
 #  endif
 #endif
 
 #if defined(_MSC_VER) && _MSC_VER == 1700
 #  ifndef _VARIADIC_MAX
-#    define _VARIADIC_MAX	10
+#    define _VARIADIC_MAX   10
 #  endif
 
 #include <tuple>
 namespace std {
 namespace tr1
 {
-	using ::std::tuple;
+    using ::std::tuple;
 }
 }
 #endif
@@ -241,62 +241,62 @@ namespace tr1
 
 #endif
 
-#define IUTEST_SUCCEED			GTEST_SUCCEED
-#define IUTEST_FAIL				GTEST_FAIL
-#define IUTEST_ADD_FAILURE		ADD_FAILURE
-#define IUTEST_ADD_FAILURE_AT	ADD_FAILURE_AT
+#define IUTEST_SUCCEED          GTEST_SUCCEED
+#define IUTEST_FAIL             GTEST_FAIL
+#define IUTEST_ADD_FAILURE      ADD_FAILURE
+#define IUTEST_ADD_FAILURE_AT   ADD_FAILURE_AT
 
-#define IUTEST_HAS_PARAM_TEST				GTEST_HAS_PARAM_TEST
-#define IUTEST_HAS_AUTOFIXTURE_PARAM_TEST	0
-#define IUTEST_HAS_ANY_PARAM_TEST			0
-#define IUTEST_HAS_COMBINE					GTEST_HAS_COMBINE
-#define IUTEST_HAS_PAIRWISE					0
-#define IUTEST_HAS_CONCAT					0
-#define IUTEST_HAS_CSVPARAMS				0
-#define IUTEST_HAS_VARIADIC_VALUES			0
-#define IUTEST_HAS_VARIADIC_COMBINE			0
-#define IUTEST_HAS_VARIADIC_PAIRWISE		0
-#define IUTEST_HAS_VARIADIC_PRED			0
-#define IUTEST_HAS_TYPED_TEST				GTEST_HAS_TYPED_TEST
-#define IUTEST_HAS_TYPED_TEST_P				GTEST_HAS_TYPED_TEST_P
-#define IUTEST_TYPED_TEST_P_STRICT			1
+#define IUTEST_HAS_PARAM_TEST               GTEST_HAS_PARAM_TEST
+#define IUTEST_HAS_AUTOFIXTURE_PARAM_TEST   0
+#define IUTEST_HAS_ANY_PARAM_TEST           0
+#define IUTEST_HAS_COMBINE                  GTEST_HAS_COMBINE
+#define IUTEST_HAS_PAIRWISE                 0
+#define IUTEST_HAS_CONCAT                   0
+#define IUTEST_HAS_CSVPARAMS                0
+#define IUTEST_HAS_VARIADIC_VALUES          0
+#define IUTEST_HAS_VARIADIC_COMBINE         0
+#define IUTEST_HAS_VARIADIC_PAIRWISE        0
+#define IUTEST_HAS_VARIADIC_PRED            0
+#define IUTEST_HAS_TYPED_TEST               GTEST_HAS_TYPED_TEST
+#define IUTEST_HAS_TYPED_TEST_P             GTEST_HAS_TYPED_TEST_P
+#define IUTEST_TYPED_TEST_P_STRICT          1
 
-#define IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME	0
+#define IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME   0
 #if GTEST_VER < 0x01080000
-#  define IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR	0
+#  define IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR    0
 #else
-#  define IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR	1
+#  define IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR    1
 #endif
 
-#define IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE	0
-#define IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE		1
+#define IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE  0
+#define IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE     1
 
-#define IUTEST_HAS_ASSERTION_NOEQUALTO_OBJECT	0
+#define IUTEST_HAS_ASSERTION_NOEQUALTO_OBJECT   0
 
-#define IUTEST_HAS_VALUESGEN			0
-#define IUTEST_HAS_RANDOMVALUES			0
-#define IUTEST_HAS_STATIC_ASSERT_TYPEEQ	1
-#define IUTEST_USE_THROW_ON_ASSERTION_FAILURE	0
-#define IUTEST_HAS_LAMBDA_STATEMENTS	0
-#define IUTEST_HAS_SPI_LAMBDA_SUPPORT	0
-#define IUTEST_HAS_GENRAND				0
-#define IUTEST_HAS_PRINT_TO				1
-#define IUTEST_HAS_TESTNAME_ALIAS		0
-#define IUTEST_HAS_TESTNAME_ALIAS_JP	0
-#define IUTEST_HAS_STREAM_RESULT		1
+#define IUTEST_HAS_VALUESGEN            0
+#define IUTEST_HAS_RANDOMVALUES         0
+#define IUTEST_HAS_STATIC_ASSERT_TYPEEQ 1
+#define IUTEST_USE_THROW_ON_ASSERTION_FAILURE   0
+#define IUTEST_HAS_LAMBDA_STATEMENTS    0
+#define IUTEST_HAS_SPI_LAMBDA_SUPPORT   0
+#define IUTEST_HAS_GENRAND              0
+#define IUTEST_HAS_PRINT_TO             1
+#define IUTEST_HAS_TESTNAME_ALIAS       0
+#define IUTEST_HAS_TESTNAME_ALIAS_JP    0
+#define IUTEST_HAS_STREAM_RESULT        1
 
-#define IUTEST_HAS_STREAM_BUFFER		0
+#define IUTEST_HAS_STREAM_BUFFER        0
 
-#define IUTEST_HAS_EXCEPTIONS		GTEST_HAS_EXCEPTIONS
-#define IUTEST_HAS_RTTI				GTEST_HAS_RTTI
-#define IUTEST_HAS_REGEX			GTEST_USES_POSIX_RE
-#define IUTEST_HAS_SEH				GTEST_HAS_SEH
+#define IUTEST_HAS_EXCEPTIONS       GTEST_HAS_EXCEPTIONS
+#define IUTEST_HAS_RTTI             GTEST_HAS_RTTI
+#define IUTEST_HAS_REGEX            GTEST_USES_POSIX_RE
+#define IUTEST_HAS_SEH              GTEST_HAS_SEH
 
 #ifndef IUTEST_CXX_OVERRIDE
 #  define IUTEST_CXX_OVERRIDE
 #endif
 #ifndef IUTEST_CXX_DEFAULT_FUNCTION
-#  define IUTEST_CXX_DEFAULT_FUNCTION	{}
+#  define IUTEST_CXX_DEFAULT_FUNCTION   {}
 #endif
 
 #include "switch/iutest_switch_port.hpp"
@@ -323,24 +323,24 @@ namespace tr1
 #include "switch/iutest_switch_cmphelper.hpp"
 
 #ifndef IUTEST_STATIC_ASSERT_MSG
-#  define IUTEST_STATIC_ASSERT_MSG(B, Msg)	typedef ::testing::iusupport::StaticAssertionTest<	\
-		sizeof(::testing::iusupport::StaticAssertionFailure< (bool)B >) > IUTEST_PP_CAT(iutest_static_assert_typedef_, __LINE__)	// NOLINT
+#  define IUTEST_STATIC_ASSERT_MSG(B, Msg)  typedef ::testing::iusupport::StaticAssertionTest<  \
+        sizeof(::testing::iusupport::StaticAssertionFailure< (bool)B >) > IUTEST_PP_CAT(iutest_static_assert_typedef_, __LINE__)    // NOLINT
 #endif
 
 #ifndef IUTEST_STATIC_ASSERT
-#  define IUTEST_STATIC_ASSERT(...)	IUTEST_STATIC_ASSERT_MSG((__VA_ARGS__), "")
+#  define IUTEST_STATIC_ASSERT(...) IUTEST_STATIC_ASSERT_MSG((__VA_ARGS__), "")
 #endif
 
 #ifdef IUTEST_ASSERT_EXIT
 #  undef IUTEST_ASSERT_EXIT
 #endif
-#define IUTEST_ASSERT_EXIT(cond)	do { if( !(cond) ) {													\
-										GTEST_MESSAGE_(#cond, ::testing::TestPartResult::kFatalFailure);	\
-										exit(1);															\
-									} } while(::testing::internal::AlwaysFalse())
+#define IUTEST_ASSERT_EXIT(cond)    do { if( !(cond) ) {                                                    \
+                                        GTEST_MESSAGE_(#cond, ::testing::TestPartResult::kFatalFailure);    \
+                                        exit(1);                                                            \
+                                    } } while(::testing::internal::AlwaysFalse())
 
-#define IUTEST_OPERAND(op)			op
-#define IUTEST_EXPRESSION(expr)		expr
+#define IUTEST_OPERAND(op)          op
+#define IUTEST_EXPRESSION(expr)     expr
 
 #if GTEST_VER < 0x01070000
 
@@ -358,38 +358,38 @@ namespace testing
 // function
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, char** argv)
 {
-	InitGoogleTest(pargc, argv);
+    InitGoogleTest(pargc, argv);
 }
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, wchar_t** argv)
 {
-	InitGoogleTest(pargc, argv);
+    InitGoogleTest(pargc, argv);
 }
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const char** argv)
 {
-	InitGoogleTest(pargc, const_cast<char**>(argv));
+    InitGoogleTest(pargc, const_cast<char**>(argv));
 }
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const wchar_t** argv)
 {
-	InitGoogleTest(pargc, const_cast<wchar_t**>(argv));
+    InitGoogleTest(pargc, const_cast<wchar_t**>(argv));
 }
 
 // tuple
 namespace tuples
 {
 #if GTEST_HAS_STD_TUPLE_
-	using ::std::tuple;
-	using ::std::tuple_size;
-	using ::std::tuple_element;
-	using ::std::make_tuple;
-	using ::std::get;
+    using ::std::tuple;
+    using ::std::tuple_size;
+    using ::std::tuple_element;
+    using ::std::make_tuple;
+    using ::std::get;
 #else
-	using ::std::tr1::tuple;
-	using ::std::tr1::tuple_size;
-	using ::std::tr1::tuple_element;
-	using ::std::tr1::make_tuple;
-	using ::std::tr1::get;
+    using ::std::tr1::tuple;
+    using ::std::tr1::tuple_size;
+    using ::std::tr1::tuple_element;
+    using ::std::tr1::make_tuple;
+    using ::std::tr1::get;
 #endif
-}	// end of namespace tuples
+}   // end of namespace tuples
 
 #if GTEST_VER < 0x01080000
 using tuples::tuple;
@@ -401,29 +401,29 @@ using tuples::make_tuple;
 using tuples::get;
 
 #if !defined(IUTEST_USING_BEGIN_END)
-#  define IUTEST_USING_BEGIN_END()	\
-	using ::std::begin; using ::std::end
+#  define IUTEST_USING_BEGIN_END()  \
+    using ::std::begin; using ::std::end
 #endif
 
 namespace iusupport
 {
-	/** @private */
-	template<bool b>struct StaticAssertionFailure;
-	/** @overload */
-	template<> struct StaticAssertionFailure<true> { enum { value = 1 }; };
-	/** @private */
-	template<int x>struct StaticAssertionTest {};
+    /** @private */
+    template<bool b>struct StaticAssertionFailure;
+    /** @overload */
+    template<> struct StaticAssertionFailure<true> { enum { value = 1 }; };
+    /** @private */
+    template<int x>struct StaticAssertionTest {};
 }
 
 #if defined(INCG_IRIS_IUTEST_HPP_)
 
 namespace iusupport
 {
-	inline AssertionResult iuMakeAssertionResult(const AssertionResult& ar) { return ar; }
-	inline AssertionResult iuMakeAssertionResult(const ::iutest::AssertionResult& ar)
-	{
-		return AssertionResult(static_cast<bool>(ar)) << ar.message();
-	}
+    inline AssertionResult iuMakeAssertionResult(const AssertionResult& ar) { return ar; }
+    inline AssertionResult iuMakeAssertionResult(const ::iutest::AssertionResult& ar)
+    {
+        return AssertionResult(static_cast<bool>(ar)) << ar.message();
+    }
 }
 
 // ::iutest::AssertionResult -> ::testing::AssertionResult
@@ -431,9 +431,9 @@ namespace iusupport
 #define GTEST_ASSERT_(expression, on_failure) \
   GTEST_AMBIGUOUS_ELSE_BLOCKER_ \
   if (const ::testing::AssertionResult gtest_ar = ::testing::iusupport::iuMakeAssertionResult(expression)) \
-	; \
+    ; \
   else \
-	on_failure(gtest_ar.failure_message())
+    on_failure(gtest_ar.failure_message())
 
 #endif
 
@@ -443,12 +443,12 @@ namespace internal
 template<typename T>
 struct is_pointer<T* volatile> : public true_type {};
 
-}	// end of namespace internal
+}   // end of namespace internal
 
 // ostream
-typedef ::std::ostream	iu_ostream;
+typedef ::std::ostream  iu_ostream;
 
-}	// end of namespace testing
+}   // end of namespace testing
 
 #if defined(INCG_IRIS_IUTEST_HPP_)
 // すでに iutest namespace が存在するので、define で対応
@@ -460,7 +460,7 @@ namespace iutest = testing;
 #include "../iutest_util.hpp"
 
 #ifndef INCG_IRIS_IUTEST_HPP_
-#  define INCG_IRIS_IUTEST_HPP_	// 以降で、iutest が include されないようにする
+#  define INCG_IRIS_IUTEST_HPP_ // 以降で、iutest が include されないようにする
 #endif
 
 #endif

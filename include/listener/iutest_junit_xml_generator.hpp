@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_junit_xml_generator.hpp
- * @brief		output junit xml event listener
+ * @file        iutest_junit_xml_generator.hpp
+ * @brief       output junit xml event listener
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -25,44 +25,44 @@ namespace iutest
 //======================================================================
 // class
 /**
- * @brief	xml出力イベントリスナー
+ * @brief   xml出力イベントリスナー
 */
 class JunitXmlGeneratorListener : public DefaultXmlGeneratorListener
 {
 public:
-	/**
-	 * @brief	コンストラクタ
-	 * @param [in] path = 出力パス
-	*/
-	explicit JunitXmlGeneratorListener(const ::std::string& path)
-		: DefaultXmlGeneratorListener(path)
-	{
-	}
-	virtual ~JunitXmlGeneratorListener()
-	{
-	}
+    /**
+     * @brief   コンストラクタ
+     * @param [in] path = 出力パス
+    */
+    explicit JunitXmlGeneratorListener(const ::std::string& path)
+        : DefaultXmlGeneratorListener(path)
+    {
+    }
+    virtual ~JunitXmlGeneratorListener()
+    {
+    }
 public:
-	virtual void OnReportTest(IFile* file, const UnitTest& test) IUTEST_CXX_OVERRIDE;
+    virtual void OnReportTest(IFile* file, const UnitTest& test) IUTEST_CXX_OVERRIDE;
 
 private:
-	static void OnReportTestCase(IFile* file, const TestCase& test_case);
-	static void OnReportTestInfo(IFile* file, const TestInfo& test_info);
-	static void OnReportProperty(IFile* file, const char* name, const char* value);
-	static void OnReportTestProperty(IFile* file, const TestResult& test_result);
-	static void OnReportTestSkipped(IFile* file, const TestInfo& test_info);
+    static void OnReportTestCase(IFile* file, const TestCase& test_case);
+    static void OnReportTestInfo(IFile* file, const TestInfo& test_info);
+    static void OnReportProperty(IFile* file, const char* name, const char* value);
+    static void OnReportTestProperty(IFile* file, const TestResult& test_result);
+    static void OnReportTestSkipped(IFile* file, const TestInfo& test_info);
 public:
-	/** @private */
-	static void SetUp()
-	{
-		::std::string xmlpath = TestEnv::get_report_junit_xml_filepath();
-		if( !xmlpath.empty() )
-		{
-			TestEnv::event_listeners().set_default_xml_generator(new JunitXmlGeneratorListener(xmlpath));
-		}
-	}
+    /** @private */
+    static void SetUp()
+    {
+        ::std::string xmlpath = TestEnv::get_report_junit_xml_filepath();
+        if( !xmlpath.empty() )
+        {
+            TestEnv::event_listeners().set_default_xml_generator(new JunitXmlGeneratorListener(xmlpath));
+        }
+    }
 };
 
-}	// end of namespace iutest
+}   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
 #  include "../impl/iutest_junit_xml_generator.ipp"

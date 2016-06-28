@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_typelist.hpp
- * @brief		iris unit test type list
+ * @file        iutest_typelist.hpp
+ * @brief       type list
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2011-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -22,7 +22,7 @@ namespace detail
 //======================================================================
 // struct
 /**
- * @brief	TypeList
+ * @brief   TypeList
  * @{
 */
 
@@ -30,18 +30,18 @@ namespace detail
 template<typename TypeList, size_t N>
 class typelist_get
 {
-	template<typename T, size_t I>
-	struct impl
-	{
-		typedef typename impl<typename T::Tail, I-1>::type type;
-	};
-	template<typename T>
-	struct impl<T, 0>
-	{
-		typedef typename T::Head type;
-	};
+    template<typename T, size_t I>
+    struct impl
+    {
+        typedef typename impl<typename T::Tail, I-1>::type type;
+    };
+    template<typename T>
+    struct impl<T, 0>
+    {
+        typedef typename T::Head type;
+    };
 public:
-	typedef typename impl<TypeList, N>::type type;
+    typedef typename impl<TypeList, N>::type type;
 };
 
 // type list 終端
@@ -50,8 +50,8 @@ struct TypeList0 {};
 template<typename T1>
 struct TypeList1
 {
-	typedef T1 Head;
-	typedef TypeList0 Tail;
+    typedef T1 Head;
+    typedef TypeList0 Tail;
 };
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
@@ -59,23 +59,23 @@ struct TypeList1
 template<typename T, typename ...Args>
 struct VariadicTypeList
 {
-	typedef T Head;
-	typedef VariadicTypeList<Args...> Tail;
+    typedef T Head;
+    typedef VariadicTypeList<Args...> Tail;
 };
 template<typename T>
 struct VariadicTypeList<T>
 {
-	typedef T Head;
-	typedef TypeList0 Tail;
+    typedef T Head;
+    typedef TypeList0 Tail;
 };
 
 #else
 
-#define IIUT_DECL_TYPELIST_(n)	IIUT_DECL_TYPELIST_I(n, IUTEST_PP_DEC(n))
-#define IIUT_DECL_TYPELIST_I(n, m)													\
-	template<typename T0, IUTEST_PP_ENUM_SHIFTED_PARAMS(m, typename T)>				\
-	struct IUTEST_PP_CAT(TypeList, n) { typedef T0 Head;							\
-	typedef IUTEST_PP_CAT(TypeList, m)< IUTEST_PP_ENUM_SHIFTED_PARAMS(m, T) > Tail;	\
+#define IIUT_DECL_TYPELIST_(n)  IIUT_DECL_TYPELIST_I(n, IUTEST_PP_DEC(n))
+#define IIUT_DECL_TYPELIST_I(n, m)                                                  \
+    template<typename T0, IUTEST_PP_ENUM_SHIFTED_PARAMS(m, typename T)>             \
+    struct IUTEST_PP_CAT(TypeList, n) { typedef T0 Head;                            \
+    typedef IUTEST_PP_CAT(TypeList, m)< IUTEST_PP_ENUM_SHIFTED_PARAMS(m, T) > Tail; \
 }
 
 IIUT_DECL_TYPELIST_(2);
@@ -139,23 +139,23 @@ IIUT_DECL_TYPELIST_(50);
 
 #if !defined(IUTEST_NO_TEMPLATE_TEMPLATES)
 
-#define IIUT_TEMPLATE_TPARAM1	template<typename XXX> class
+#define IIUT_TEMPLATE_TPARAM1   template<typename XXX> class
 
 /**
- * @brief	TemplateTypeListBind
+ * @brief   TemplateTypeListBind
 */
 template<IIUT_TEMPLATE_TPARAM1 U>
 struct TemplateTypeSel
 {
-	template<typename T>
-	struct bind
-	{
-		typedef U<T> type;
-	};
+    template<typename T>
+    struct bind
+    {
+        typedef U<T> type;
+    };
 };
 
 /**
- * @brief	TemplateTypeList
+ * @brief   TemplateTypeList
  * @{
 */
 
@@ -167,14 +167,14 @@ struct TemplateTypeList0 {};
 template<IIUT_TEMPLATE_TPARAM1 T1, IIUT_TEMPLATE_TPARAM1 ...Types>
 struct VariadicTemplateTypeList
 {
-	typedef TemplateTypeSel<T1> Head;
-	typedef VariadicTemplateTypeList<Types...> Tail;
+    typedef TemplateTypeSel<T1> Head;
+    typedef VariadicTemplateTypeList<Types...> Tail;
 };
 template<IIUT_TEMPLATE_TPARAM1 T1>
 struct VariadicTemplateTypeList<T1>
 {
-	typedef TemplateTypeSel<T1> Head;
-	typedef TemplateTypeList0 Tail;
+    typedef TemplateTypeSel<T1> Head;
+    typedef TemplateTypeList0 Tail;
 };
 
 #else
@@ -182,15 +182,15 @@ struct VariadicTemplateTypeList<T1>
 template<IIUT_TEMPLATE_TPARAM1 T1>
 struct TemplateTypeList1
 {
-	typedef TemplateTypeSel<T1> Head;
-	typedef TemplateTypeList0 Tail;
+    typedef TemplateTypeSel<T1> Head;
+    typedef TemplateTypeList0 Tail;
 };
 
-#define IIUT_DECL_TEMPLATETYPELIST_(n)	IIUT_DECL_TEMPLATETYPELIST_I(n, IUTEST_PP_DEC(n))
-#define IIUT_DECL_TEMPLATETYPELIST_I(n, m)															\
-	template< IIUT_TEMPLATE_TPARAM1 T0, IUTEST_PP_ENUM_SHIFTED_PARAMS(m, IIUT_TEMPLATE_TPARAM1 T) >	\
-	struct IUTEST_PP_CAT(TemplateTypeList, n) { typedef TemplateTypeSel<T0> Head;					\
-	typedef IUTEST_PP_CAT(TemplateTypeList, m)< IUTEST_PP_ENUM_SHIFTED_PARAMS(m, T) > Tail;			\
+#define IIUT_DECL_TEMPLATETYPELIST_(n)  IIUT_DECL_TEMPLATETYPELIST_I(n, IUTEST_PP_DEC(n))
+#define IIUT_DECL_TEMPLATETYPELIST_I(n, m)                                                          \
+    template< IIUT_TEMPLATE_TPARAM1 T0, IUTEST_PP_ENUM_SHIFTED_PARAMS(m, IIUT_TEMPLATE_TPARAM1 T) > \
+    struct IUTEST_PP_CAT(TemplateTypeList, n) { typedef TemplateTypeSel<T0> Head;                   \
+    typedef IUTEST_PP_CAT(TemplateTypeList, m)< IUTEST_PP_ENUM_SHIFTED_PARAMS(m, T) > Tail;         \
 }
 
 IIUT_DECL_TEMPLATETYPELIST_(2);
@@ -253,8 +253,8 @@ IIUT_DECL_TEMPLATETYPELIST_(50);
 
 #endif
 
-}	// end of namespace detail
+}   // end of namespace detail
 
-}	// end of namespace iutest
+}   // end of namespace iutest
 
 #endif // INCG_IRIS_IUTEST_TYPELIST_HPP_0AC27A0F_3EFF_48AD_9075_E439B4190DA5_

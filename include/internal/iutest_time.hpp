@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_time.hpp
- * @brief		iris unit test time utility ファイル
+ * @file        iutest_time.hpp
+ * @brief       time utility
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -45,41 +45,41 @@ namespace detail
 // declare
 /**
  * @internal
- * @brief	localtime
- * @param	[in]	sec	= 秒
- * @param	[out]	dst	= 時刻
- * @return	成否
+ * @brief   localtime
+ * @param   [in]    sec = 秒
+ * @param   [out]   dst = 時刻
+ * @return  成否
 */
 bool Localtime(time_t sec, struct tm* dst);
 
 /**
  * @internal
- * @brief	TimeInMillisec to string
- * @param	[in]	msec	= ミリ秒
- * @return	秒数の文字列
+ * @brief   TimeInMillisec to string
+ * @param   [in]    msec    = ミリ秒
+ * @return  秒数の文字列
 */
 ::std::string FormatTimeInMillisecAsSecond(TimeInMillisec msec);
 
 /**
  * @internal
- * @brief	TimeInMillisec to string
- * @param	[in]	msec	= ミリ秒
- * @return	時刻の文字列
+ * @brief   TimeInMillisec to string
+ * @param   [in]    msec    = ミリ秒
+ * @return  時刻の文字列
 */
 ::std::string FormatTimeInMillisecAsIso8601(TimeInMillisec msec);
 
 /**
- * @brief	現在時刻の取得
+ * @brief   現在時刻の取得
 */
 time_t GetTime();
 
 /**
- * @brief	現在時刻のミリ秒取得
+ * @brief   現在時刻のミリ秒取得
 */
 TimeInMillisec GetTimeInMillis();
 
 /**
- * @brief	不定な値の取得
+ * @brief   不定な値の取得
 */
 unsigned int GetIndefiniteValue();
 
@@ -87,38 +87,38 @@ unsigned int GetIndefiniteValue();
 // class
 /**
  * @internal
- * @brief	ストップウォッチクラス
+ * @brief   ストップウォッチクラス
 */
 class iuStopWatch
 {
 private:
-	TimeInMillisec m_begin;
+    TimeInMillisec m_begin;
 public:
-	iuStopWatch() : m_begin(0) {}
+    iuStopWatch() : m_begin(0) {}
 
 public:
-	// 現在の時間をミリ秒単位で取得
-	static TimeInMillisec get_millisec()
-	{
+    // 現在の時間をミリ秒単位で取得
+    static TimeInMillisec get_millisec()
+    {
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
-		return 0;
+        return 0;
 #else
-		return GetTimeInMillis();
+        return GetTimeInMillis();
 #endif
-	}
+    }
 public:
-	void start()
-	{
-		m_begin = get_millisec();
-	}
-	TimeInMillisec stop() const
-	{
-		return get_millisec() - m_begin;
-	}
+    void start()
+    {
+        m_begin = get_millisec();
+    }
+    TimeInMillisec stop() const
+    {
+        return get_millisec() - m_begin;
+    }
 };
 
-}	// end of namespace detail
-}	// end of namespace iutest
+}   // end of namespace detail
+}   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
 #  include "../impl/iutest_time.ipp"

@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_socket.hpp
- * @brief		iris unit test soket
+ * @file        iutest_socket.hpp
+ * @brief       soket
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -45,209 +45,209 @@ namespace detail
 //======================================================================
 // class
 /**
- * @brief	ソケットベースクラス
+ * @brief   ソケットベースクラス
 */
 class BasicSocket
 {
 public:
 #ifdef IUTEST_OS_WINDOWS
-	typedef SOCKET descriptor_t;
-	typedef int length_t;
+    typedef SOCKET descriptor_t;
+    typedef int length_t;
 
 #if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
-	static const descriptor_t INVALID_DESCRIPTOR = INVALID_SOCKET;
+    static const descriptor_t INVALID_DESCRIPTOR = INVALID_SOCKET;
 #else
-	enum { INVALID_DESCRIPTOR = INVALID_SOCKET };
+    enum { INVALID_DESCRIPTOR = INVALID_SOCKET };
 #endif
 
 #else
-	typedef int descriptor_t;
-	typedef size_t length_t;
+    typedef int descriptor_t;
+    typedef size_t length_t;
 
 #if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
-	static const descriptor_t INVALID_DESCRIPTOR = -1;
+    static const descriptor_t INVALID_DESCRIPTOR = -1;
 #else
-	enum { INVALID_DESCRIPTOR = -1 };
+    enum { INVALID_DESCRIPTOR = -1 };
 #endif
 
 #endif
 public:
-	BasicSocket() : m_socket(INVALID_DESCRIPTOR)
-	{
+    BasicSocket() : m_socket(INVALID_DESCRIPTOR)
+    {
 #ifdef IUTEST_OS_WINDOWS
-		WSADATA wsaData;
-		(void)WSAStartup(MAKEWORD(2, 2), &wsaData);
+        WSADATA wsaData;
+        (void)WSAStartup(MAKEWORD(2, 2), &wsaData);
 #endif
-	}
-	~BasicSocket(void)
-	{
-		Close();
+    }
+    ~BasicSocket(void)
+    {
+        Close();
 #ifdef IUTEST_OS_WINDOWS
-		WSACleanup();
+        WSACleanup();
 #endif
-	}
+    }
 public:
-	bool Open(const char* host, const char* port)
-	{
-		if( m_socket != INVALID_DESCRIPTOR )
-		{
-			return true;
-		}
-		addrinfo* servinfo = NULL;
-		addrinfo hints;
-		memset(&hints, 0, sizeof(hints));
-		hints.ai_family = AF_UNSPEC;
-		hints.ai_socktype = SOCK_STREAM;
-		const int err_no = getaddrinfo(host, port, &hints, &servinfo);
-		if( err_no != 0 )
-		{
-			return false;
-		}
+    bool Open(const char* host, const char* port)
+    {
+        if( m_socket != INVALID_DESCRIPTOR )
+        {
+            return true;
+        }
+        addrinfo* servinfo = NULL;
+        addrinfo hints;
+        memset(&hints, 0, sizeof(hints));
+        hints.ai_family = AF_UNSPEC;
+        hints.ai_socktype = SOCK_STREAM;
+        const int err_no = getaddrinfo(host, port, &hints, &servinfo);
+        if( err_no != 0 )
+        {
+            return false;
+        }
 
-		for( addrinfo* curr=servinfo; curr != NULL; curr = curr->ai_next )
-		{
-			const descriptor_t fd = socket(curr->ai_family, curr->ai_socktype, curr->ai_protocol);
-			if( fd != INVALID_DESCRIPTOR )
-			{
-				if( connect(fd, curr->ai_addr, static_cast<length_t>(curr->ai_addrlen)) != -1 )
-				{
-					m_socket = fd;
-					break;
-				}
-				Close(fd);
-			}
-		}
-		freeaddrinfo(servinfo);
-		return (m_socket != INVALID_DESCRIPTOR);
-	}
-	void Close()
-	{
-		Close(m_socket);
-		m_socket = INVALID_DESCRIPTOR;
-	};
-	void CheckLastError()
-	{
+        for( addrinfo* curr=servinfo; curr != NULL; curr = curr->ai_next )
+        {
+            const descriptor_t fd = socket(curr->ai_family, curr->ai_socktype, curr->ai_protocol);
+            if( fd != INVALID_DESCRIPTOR )
+            {
+                if( connect(fd, curr->ai_addr, static_cast<length_t>(curr->ai_addrlen)) != -1 )
+                {
+                    m_socket = fd;
+                    break;
+                }
+                Close(fd);
+            }
+        }
+        freeaddrinfo(servinfo);
+        return (m_socket != INVALID_DESCRIPTOR);
+    }
+    void Close()
+    {
+        Close(m_socket);
+        m_socket = INVALID_DESCRIPTOR;
+    };
+    void CheckLastError()
+    {
 #ifdef IUTEST_OS_WINDOWS
-		const int le = WSAGetLastError();
-		IUTEST_LOG_(WARNING) << "WSAGetLastError:" << le;
+        const int le = WSAGetLastError();
+        IUTEST_LOG_(WARNING) << "WSAGetLastError:" << le;
 #endif
-	}
+    }
 public:
-	static int Close(descriptor_t d)
-	{
+    static int Close(descriptor_t d)
+    {
 #ifdef IUTEST_OS_WINDOWS
-		return closesocket(d);
+        return closesocket(d);
 #else
-		return close(d);
+        return close(d);
 #endif
-	}
+    }
 
 public:
-	bool IsValid() const
-	{
-		return m_socket != INVALID_DESCRIPTOR;
-	}
+    bool IsValid() const
+    {
+        return m_socket != INVALID_DESCRIPTOR;
+    }
 protected:
-	descriptor_t m_socket;
+    descriptor_t m_socket;
 
-	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(BasicSocket);
+    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(BasicSocket);
 };
 
 /**
- * @brief	ソケット書き込みクラス
+ * @brief   ソケット書き込みクラス
 */
 class SocketWriter : virtual public BasicSocket
-	, public IOutStream
+    , public IOutStream
 {
 public:
-	SocketWriter() {}
+    SocketWriter() {}
 public:
-	bool Send(const ::std::string& message)
-	{
-		return Write(message.c_str(), message.length(), 1u);
-	}
-	bool SendLn(const ::std::string& message)
-	{
+    bool Send(const ::std::string& message)
+    {
+        return Write(message.c_str(), message.length(), 1u);
+    }
+    bool SendLn(const ::std::string& message)
+    {
 #ifdef IUTEST_OS_WINDOWS
-		return Send(message + "\r\n");
+        return Send(message + "\r\n");
 #else
-		return Send(message + "\r\n");
-		//return Send(message + "\n");
+        return Send(message + "\r\n");
+        //return Send(message + "\n");
 #endif
-	}
+    }
 public:
-	virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
-	{
-		if( !IsValid() )
-		{
-			return false;
-		}
-		const int size_ = static_cast<int>(size);
-		for( size_t i=0; i < cnt; ++i )
-		{
+    virtual bool Write(const void* buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE
+    {
+        if( !IsValid() )
+        {
+            return false;
+        }
+        const int size_ = static_cast<int>(size);
+        for( size_t i=0; i < cnt; ++i )
+        {
 #ifdef IUTEST_OS_WINDOWS
-			if( send(m_socket, static_cast<const char*>(buf), size_, 0) == SOCKET_ERROR )
-			{
-				CheckLastError();
-				return false;
-			}
+            if( send(m_socket, static_cast<const char*>(buf), size_, 0) == SOCKET_ERROR )
+            {
+                CheckLastError();
+                return false;
+            }
 #else
-			if( write(m_socket, buf, size_) == -1 )
-			{
-				return false;
-			}
+            if( write(m_socket, buf, size_) == -1 )
+            {
+                return false;
+            }
 #endif
-		}
-		return true;
-	}
+        }
+        return true;
+    }
 private:
-	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(SocketWriter);
+    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(SocketWriter);
 };
 
 /*
- * @brief	ソケット読み込みクラス
+ * @brief   ソケット読み込みクラス
 */
 class SocketReader : virtual public BasicSocket
 {
 public:
-	SocketReader() {}
+    SocketReader() {}
 public:
-	bool Read(void* buf, size_t size)
-	{
-		if( !IsValid() )
-		{
-			return false;
-		}
-		const int size_ = static_cast<int>(size);
+    bool Read(void* buf, size_t size)
+    {
+        if( !IsValid() )
+        {
+            return false;
+        }
+        const int size_ = static_cast<int>(size);
 #ifdef IUTEST_OS_WINDOWS
-		if( recv(m_socket, static_cast<char*>(buf), size_, 0) == SOCKET_ERROR )
-		{
-			CheckLastError();
-			return false;
-		}
+        if( recv(m_socket, static_cast<char*>(buf), size_, 0) == SOCKET_ERROR )
+        {
+            CheckLastError();
+            return false;
+        }
 #else
-		if( read(m_socket, buf, size_) == -1 )
-		{
-			return false;
-		}
+        if( read(m_socket, buf, size_) == -1 )
+        {
+            return false;
+        }
 #endif
-		return true;
-	}
+        return true;
+    }
 private:
-	IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(SocketReader);
+    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(SocketReader);
 };
 
 /*
- * @brief	ソケット読み込みクラス
+ * @brief   ソケット読み込みクラス
 */
 class Socket : public SocketWriter, public SocketReader
 {
 public:
-	Socket() {}
+    Socket() {}
 };
 
-}	// end of namespace detail
-}	// end of namespace iutest
+}   // end of namespace detail
+}   // end of namespace iutest
 
 #endif
 

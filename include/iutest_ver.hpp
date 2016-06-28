@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_ver.hpp
- * @brief		iris unit test version
+ * @file        iutest_ver.hpp
+ * @brief       iris unit test version
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -17,24 +17,24 @@
 
 //======================================================================
 // define
-#define IUTEST_VER			0x01150107u //!< iutest version 1.15.1.7
-#define IUTEST_MAJORVER		0x01u		//!< Major Version
-#define IUTEST_MINORVER		0x15u		//!< Minor Version
-#define IUTEST_BUILD		0x01u		//!< Build
-#define IUTEST_REVISION		0x07u		//!< Revision
+#define IUTEST_VER          0x01150108u //!< iutest version 1.15.1.8
+#define IUTEST_MAJORVER     0x01u       //!< Major Version
+#define IUTEST_MINORVER     0x15u       //!< Minor Version
+#define IUTEST_BUILD        0x01u       //!< Build
+#define IUTEST_REVISION     0x08u       //!< Revision
 
 /**
  * @mainpage
- * @sa	@b	ProjectHome \n
- *			OSDN        : http://osdn.jp/projects/iutest/ \n
- *			github		: https://github.com/srz-zumix/iutest \n
- *			google group: https://groups.google.com/forum/?fromgroups#!forum/g-iutest \n
+ * @sa  @b  ProjectHome \n
+ *          OSDN        : http://osdn.jp/projects/iutest/ \n
+ *          github      : https://github.com/srz-zumix/iutest \n
+ *          google group: https://groups.google.com/forum/?fromgroups#!forum/g-iutest \n
  *
- * @par		copyright
+ * @par     copyright
  * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License.
  *
- * @par		LICENSE
+ * @par     LICENSE
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:\n
@@ -63,8 +63,8 @@
 */
 
 /**
- * @page	CMDLINE		コマンドラインオプション
- * @par		Command Line Options
+ * @page    CMDLINE     コマンドラインオプション
+ * @par     Command Line Options
  <table>
    <tr><td>--help, -h                        </td><td></td><td>Generate help message.</td></tr>
    <tr><td>--iutest_output                   </td><td>xml|junit[:path]</td><td>Path of xml report.</td></tr>
@@ -92,8 +92,8 @@
 */
 
 /**
- * @page	ENVIRONMENT_OPTIONS	環境変数オプション
- * @par		Environment variable Options
+ * @page    ENVIRONMENT_OPTIONS 環境変数オプション
+ * @par     Environment variable Options
  <table>
    <tr><td>IUTEST_OUTPUT=xml|junit[:path]  </td><td>Path of xml report.</td></tr>
    <tr><td>IUTEST_COLOR=yes|no|auto        </td><td>Console color enable.</td></tr>
@@ -113,14 +113,14 @@
 */
 
 /**
- * @page	CHANGELOG	変更履歴
- * @par		Changes
+ * @page    CHANGELOG   変更履歴
+ * @par     Changes
  <ul>
   <li>v1.15.1.0
     <ul>
       <li>stderr に xml の内容を出力するリスナーを追加</li>
       <li>iuwandbox に xml 出力オプション(--xml, --junit)を追加</li>
-	  <li>--help|spec|feature|version を同時に使用可能に変更 (e.g. --spec --feature)</li>
+      <li>--help|spec|feature|version を同時に使用可能に変更 (e.g. --spec --feature)</li>
       <li>CSV パラメータのパス解決処理を修正</li>
       <li>fused-src 生成ツールを修正</li>
     </ul>

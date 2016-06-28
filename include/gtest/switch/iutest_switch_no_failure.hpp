@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		iutest_switch_no_failure.hpp
- * @brief		IUTEST_*_no_failure アサーション切り替え ファイル
+ * @file        iutest_switch_no_failure.hpp
+ * @brief       IUTEST_*_no_failure アサーション切り替え ファイル
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -19,10 +19,10 @@
 
 //======================================================================
 // define
-#define ASSERT_NO_FAILURE	IUTEST_ASSERT_NO_FAILURE
-#define EXPECT_NO_FAILURE	IUTEST_EXPECT_NO_FAILURE
-#define INFORM_NO_FAILURE	IUTEST_INFORM_NO_FAILURE
-#define ASSUME_NO_FAILURE	IUTEST_ASSUME_NO_FAILURE
+#define ASSERT_NO_FAILURE   IUTEST_ASSERT_NO_FAILURE
+#define EXPECT_NO_FAILURE   IUTEST_EXPECT_NO_FAILURE
+#define INFORM_NO_FAILURE   IUTEST_INFORM_NO_FAILURE
+#define ASSUME_NO_FAILURE   IUTEST_ASSUME_NO_FAILURE
 
 #else // !defined(IUTEST_USE_GTEST)
 
@@ -39,29 +39,29 @@
 
 //======================================================================
 // define
-#define IUTEST_ASSERT_NO_FAILURE	ASSERT_NO_FAILURE
-#define IUTEST_EXPECT_NO_FAILURE	EXPECT_NO_FAILURE
-#define IUTEST_INFORM_NO_FAILURE	INFORM_NO_FAILURE
-#define IUTEST_ASSUME_NO_FAILURE	ASSUME_NO_FAILURE
+#define IUTEST_ASSERT_NO_FAILURE    ASSERT_NO_FAILURE
+#define IUTEST_EXPECT_NO_FAILURE    EXPECT_NO_FAILURE
+#define IUTEST_INFORM_NO_FAILURE    INFORM_NO_FAILURE
+#define IUTEST_ASSUME_NO_FAILURE    ASSUME_NO_FAILURE
 
-#define ASSERT_NO_FAILURE(statement)	GTEST_TEST_NO_FAILURE_(statement, GTEST_FATAL_FAILURE_)
-#define EXPECT_NO_FAILURE(statement)	GTEST_TEST_NO_FAILURE_(statement, GTEST_NONFATAL_FAILURE_)
-#define INFORM_NO_FAILURE(statement)	GTEST_TEST_NO_FAILURE_(statement, GTEST_INFORM_FAILURE_)
-#define ASSUME_NO_FAILURE(statement)	GTEST_TEST_NO_FAILURE_(statement, GTEST_ASSUME_FAILURE_)
+#define ASSERT_NO_FAILURE(statement)    GTEST_TEST_NO_FAILURE_(statement, GTEST_FATAL_FAILURE_)
+#define EXPECT_NO_FAILURE(statement)    GTEST_TEST_NO_FAILURE_(statement, GTEST_NONFATAL_FAILURE_)
+#define INFORM_NO_FAILURE(statement)    GTEST_TEST_NO_FAILURE_(statement, GTEST_INFORM_FAILURE_)
+#define ASSUME_NO_FAILURE(statement)    GTEST_TEST_NO_FAILURE_(statement, GTEST_ASSUME_FAILURE_)
 
-#define GTEST_TEST_NO_FAILURE_(statement, fail)							\
-	GTEST_AMBIGUOUS_ELSE_BLOCKER_										\
-	if(::testing::internal::AlwaysTrue()) {								\
-		::testing::internal::HasNewFailureHelper gtest_failure_checker;	\
-		GTEST_SUPPRESS_UNREACHABLE_CODE_WARNING_BELOW_(statement);		\
-		if(gtest_failure_checker.has_new_failure()) {					\
-			goto GTEST_CONCAT_TOKEN_(gtest_label_testnofail_, __LINE__);\
-		}																\
-	} else																\
-		GTEST_CONCAT_TOKEN_(gtest_label_testnofail_, __LINE__):			\
-			fail("Expected: " #statement " doesn't generate new "		\
-					"failures in the current thread.\n"					\
-					"  Actual: it does.")
+#define GTEST_TEST_NO_FAILURE_(statement, fail)                         \
+    GTEST_AMBIGUOUS_ELSE_BLOCKER_                                       \
+    if(::testing::internal::AlwaysTrue()) {                             \
+        ::testing::internal::HasNewFailureHelper gtest_failure_checker; \
+        GTEST_SUPPRESS_UNREACHABLE_CODE_WARNING_BELOW_(statement);      \
+        if(gtest_failure_checker.has_new_failure()) {                   \
+            goto GTEST_CONCAT_TOKEN_(gtest_label_testnofail_, __LINE__);\
+        }                                                               \
+    } else                                                              \
+        GTEST_CONCAT_TOKEN_(gtest_label_testnofail_, __LINE__):         \
+            fail("Expected: " #statement " doesn't generate new "       \
+                    "failures in the current thread.\n"                 \
+                    "  Actual: it does.")
 
 //======================================================================
 // class
@@ -74,28 +74,28 @@ namespace internal
 class HasNewFailureHelper : public HasNewFatalFailureHelper
 {
 public:
-	HasNewFailureHelper() : m_has_new_failure(false)
-	{
-	}
-	virtual ~HasNewFailureHelper()
-	{
-	}
+    HasNewFailureHelper() : m_has_new_failure(false)
+    {
+    }
+    virtual ~HasNewFailureHelper()
+    {
+    }
 public:
-	virtual void ReportTestPartResult(const TestPartResult& result)
-	{
-		if( result.failed() )
-		{
-			m_has_new_failure = true;
-		}
-	}
-	bool has_new_failure() const { return m_has_new_failure; }
+    virtual void ReportTestPartResult(const TestPartResult& result)
+    {
+        if( result.failed() )
+        {
+            m_has_new_failure = true;
+        }
+    }
+    bool has_new_failure() const { return m_has_new_failure; }
 
 private:
-	bool m_has_new_failure;
+    bool m_has_new_failure;
 };
 
-}	// end of namespace internal
-}	// end of namespace testing
+}   // end of namespace internal
+}   // end of namespace testing
 
 #endif // !defined(IUTEST_USE_GTEST)
 
