@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		main.cpp
- * @brief		sample main ファイル
+ * @file        main.cpp
+ * @brief       sample main ファイル
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -38,14 +38,14 @@
 *//*--------------------------------------------------*/
 class FooEnvironment : public ::iutest::Environment
 {
-	virtual void SetUp()
-	{
-		iuutil::Console::output("FooEnvironment::SetUp\n");
-	}
-	virtual void TearDown()
-	{
-		iuutil::Console::output("FooEnvironment::TearDown\n");
-	}
+    virtual void SetUp()
+    {
+        iuutil::Console::output("FooEnvironment::SetUp\n");
+    }
+    virtual void TearDown()
+    {
+        iuutil::Console::output("FooEnvironment::TearDown\n");
+    }
 };
 
 #if defined(_MSC_VER) && IUTEST_HAS_LIB
@@ -61,32 +61,32 @@ int main(int argc, char* argv[])
 #endif
 {
 #if !defined(IUTEST_OS_WINDOWS_MOBILE)
-	setlocale(LC_CTYPE, "");
+    setlocale(LC_CTYPE, "");
 #endif
 
 #if 1
-	iutest::AddGlobalTestEnvironment(new FooEnvironment());
+    iutest::AddGlobalTestEnvironment(new FooEnvironment());
 #endif
 
-	//iutest::IUTEST_FLAG(shuffle) = false;
-	//iutest::IUTEST_FLAG(throw_on_failure) = true;
-	IUTEST_INIT(&argc, argv);
+    //iutest::IUTEST_FLAG(shuffle) = false;
+    //iutest::IUTEST_FLAG(throw_on_failure) = true;
+    IUTEST_INIT(&argc, argv);
 
 #if defined(USE_TAP)
-	::iutest::TAPPrintListener::SetUp();
+    ::iutest::TAPPrintListener::SetUp();
 #endif
 
 #if defined(USE_PROGRESS)
-	::iutest::ProgressPrintListener::SetUp();
+    ::iutest::ProgressPrintListener::SetUp();
 #endif
 
 #if defined(USE_SSTPNOTIFIER)
-	::iutest::SSTPNotifier::SetUp("localhost");
+    ::iutest::SSTPNotifier::SetUp("localhost");
 #endif
 
-	//::iuutil::QuietResultPrinter::SetUp();
+    //::iuutil::QuietResultPrinter::SetUp();
 
-	return IUTEST_RUN_ALL_TESTS();
+    return IUTEST_RUN_ALL_TESTS();
 }
 
 #endif

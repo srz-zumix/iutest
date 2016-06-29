@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		typed.cpp
- * @brief		typed and type parameterized test sample
+ * @file        typed.cpp
+ * @brief       typed and type parameterized test sample
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2014, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,14 +26,14 @@ IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
 
 IUTEST_TYPED_TEST(TypedTest, Equal)
 {
-	TypeParam a = 0;
-	IUTEST_ASSERT_EQ(0, a);
+    TypeParam a = 0;
+    IUTEST_ASSERT_EQ(0, a);
 }
 
 IUTEST_TYPED_TEST(TypedTest, Litle)
 {
-	TypeParam a = 1;
-	IUTEST_ASSERT_LT(0, a);
+    TypeParam a = 1;
+    IUTEST_ASSERT_LT(0, a);
 }
 
 #endif
@@ -50,14 +50,14 @@ IUTEST_TYPED_TEST_CASE_P(TypedTestP);
 
 IUTEST_TYPED_TEST_P(TypedTestP, Equal)
 {
-	TypeParam a = 0;
-	IUTEST_ASSERT_EQ(0, a);
+    TypeParam a = 0;
+    IUTEST_ASSERT_EQ(0, a);
 }
 
 IUTEST_TYPED_TEST_P(TypedTestP, Litle)
 {
-	TypeParam a = 1;
-	IUTEST_ASSERT_LT(0, a);
+    TypeParam a = 1;
+    IUTEST_ASSERT_LT(0, a);
 }
 
 IUTEST_REGISTER_TYPED_TEST_CASE_P(TypedTestP, Equal, Litle);

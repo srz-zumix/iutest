@@ -10,27 +10,27 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace iutest_unittest
 {
-	TEST_MODULE_INITIALIZE(iutest)
-	{
-		::iuutil::VisualStudio::SetUpCppUnitTest();
-	}
+    TEST_MODULE_INITIALIZE(iutest)
+    {
+        ::iuutil::VisualStudio::SetUpCppUnitTest();
+    }
 
-	TEST_CLASS(UnitTest1)
-	{
-	public:
-		TEST_CLASS_INITIALIZE(a) { Logger::WriteMessage(__FUNCTION__); }
-		TEST_METHOD_INITIALIZE(b) { Logger::WriteMessage(__FUNCTION__); }
+    TEST_CLASS(UnitTest1)
+    {
+    public:
+        TEST_CLASS_INITIALIZE(a) { Logger::WriteMessage(__FUNCTION__); }
+        TEST_METHOD_INITIALIZE(b) { Logger::WriteMessage(__FUNCTION__); }
 
-		TEST_METHOD(TestMethod1)
-		{
-			Assert::AreEqual(0, 1);
-		}
-		TEST_METHOD(TestMethod2)
-		{
-			Assert::AreEqual(0, 1);
-		}
+        TEST_METHOD(TestMethod1)
+        {
+            Assert::AreEqual(0, 1);
+        }
+        TEST_METHOD(TestMethod2)
+        {
+            Assert::AreEqual(0, 1);
+        }
 
-	};
+    };
 }
 #endif
 
@@ -39,21 +39,21 @@ namespace iutest_unittest
 *//*--------------------------------------------------*/
 IUTEST(Test, Version)
 {
-	unsigned long v = (IUTEST_MAJORVER << 24) | (IUTEST_MINORVER << 16) | (IUTEST_BUILD << 8) | IUTEST_REVISION;
-	IUTEST_ASSERT_EQ( IUTEST_VER, v );
+    unsigned long v = (IUTEST_MAJORVER << 24) | (IUTEST_MINORVER << 16) | (IUTEST_BUILD << 8) | IUTEST_REVISION;
+    IUTEST_ASSERT_EQ( IUTEST_VER, v );
 }
 
 IUTEST(Test, GetName)
 {
-	IUTEST_ASSERT_STREQ("GetName", iutest::UnitTest::GetInstance()->current_test_info()->name());
-	RecordProperty("test_name", iutest::UnitTest::GetInstance()->current_test_info()->name());
-	RecordProperty("number", 1);
+    IUTEST_ASSERT_STREQ("GetName", iutest::UnitTest::GetInstance()->current_test_info()->name());
+    RecordProperty("test_name", iutest::UnitTest::GetInstance()->current_test_info()->name());
+    RecordProperty("number", 1);
 }
 
 IUTEST(Test, Stream)
 {
-	IUTEST_SUCCEED() << "OK!!";
-	IUTEST_SUCCEED() << L"OK!!";
+    IUTEST_SUCCEED() << "OK!!";
+    IUTEST_SUCCEED() << L"OK!!";
 }
 
 /** --------------------------------------------------
@@ -62,39 +62,39 @@ IUTEST(Test, Stream)
 class TestFixed : public iutest::Test
 {
 protected:
-	static int x;
+    static int x;
 public:
-	virtual void SetUp(void)
-	{
-		++x;
-	}
-	static void SetUpTestCase(void)
-	{
-		x = 0;
-	}
+    virtual void SetUp(void)
+    {
+        ++x;
+    }
+    static void SetUpTestCase(void)
+    {
+        x = 0;
+    }
 };
 int TestFixed::x = -1;
 
 IUTEST_F(TestFixed, Test1)
 {
-	IUTEST_ASSERT_EQ(1, x);
+    IUTEST_ASSERT_EQ(1, x);
 }
 
 IUTEST_F(TestFixed, Test2)
 {
-	IUTEST_ASSERT_EQ(1, x);
+    IUTEST_ASSERT_EQ(1, x);
 }
 
 typedef TestFixed TestFixed2;
 
 IUTEST_F(TestFixed2, Test1)
 {
-	IUTEST_ASSERT_EQ(1, x);
+    IUTEST_ASSERT_EQ(1, x);
 }
 
 IUTEST_F(TestFixed2, Test2)
 {
-	IUTEST_ASSERT_EQ(1, x);
+    IUTEST_ASSERT_EQ(1, x);
 }
 
 /** --------------------------------------------------
@@ -102,117 +102,117 @@ IUTEST_F(TestFixed2, Test2)
 *//*--------------------------------------------------*/
 IUTEST(AssertionTest, NoFailure)
 {
-	IUTEST_ASSERT_NO_FATAL_FAILURE( IUTEST_EXPECT_TRUE(true) );
-	IUTEST_EXPECT_NO_FATAL_FAILURE( IUTEST_EXPECT_TRUE(true) );
-	IUTEST_INFORM_NO_FATAL_FAILURE( IUTEST_EXPECT_TRUE(true) );
+    IUTEST_ASSERT_NO_FATAL_FAILURE( IUTEST_EXPECT_TRUE(true) );
+    IUTEST_EXPECT_NO_FATAL_FAILURE( IUTEST_EXPECT_TRUE(true) );
+    IUTEST_INFORM_NO_FATAL_FAILURE( IUTEST_EXPECT_TRUE(true) );
 }
 IUTEST(AssertionTest, Base)
 {
-	int x0=0, y0=0, x1=1;
-	float f0=0.0f, f1=1.0f;
-	double d0=0.0, d1=1.0;
-	// EQ
-	{
-		IUTEST_ASSERT_EQ(x0, y0);
-		IUTEST_EXPECT_EQ(x0, y0);
-		IUTEST_INFORM_EQ(x0, y0);
-		int* zero=NULL;
-		IUTEST_ASSERT_EQ(NULL, zero);
-	}
+    int x0=0, y0=0, x1=1;
+    float f0=0.0f, f1=1.0f;
+    double d0=0.0, d1=1.0;
+    // EQ
+    {
+        IUTEST_ASSERT_EQ(x0, y0);
+        IUTEST_EXPECT_EQ(x0, y0);
+        IUTEST_INFORM_EQ(x0, y0);
+        int* zero=NULL;
+        IUTEST_ASSERT_EQ(NULL, zero);
+    }
 
-	// NE
-	{
-		IUTEST_ASSERT_NE(x0, x1);
-		IUTEST_EXPECT_NE(x0, x1);
-		IUTEST_INFORM_NE(x0, x1);
-		int* one=(int*)1;
-		IUTEST_ASSERT_NE(NULL, one);
-	}
+    // NE
+    {
+        IUTEST_ASSERT_NE(x0, x1);
+        IUTEST_EXPECT_NE(x0, x1);
+        IUTEST_INFORM_NE(x0, x1);
+        int* one=(int*)1;
+        IUTEST_ASSERT_NE(NULL, one);
+    }
 
-	// LE, LT
-	{
-		IUTEST_ASSERT_LE(x0, y0);
-		IUTEST_EXPECT_LE(f0, f1);
-		IUTEST_INFORM_LE(0.0, 0x1);
-		IUTEST_ASSERT_LT(x0, x1);
-		IUTEST_EXPECT_LT(d0, d1);
-		IUTEST_INFORM_LT(0.0, 0x1);
-	}
+    // LE, LT
+    {
+        IUTEST_ASSERT_LE(x0, y0);
+        IUTEST_EXPECT_LE(f0, f1);
+        IUTEST_INFORM_LE(0.0, 0x1);
+        IUTEST_ASSERT_LT(x0, x1);
+        IUTEST_EXPECT_LT(d0, d1);
+        IUTEST_INFORM_LT(0.0, 0x1);
+    }
 
-	// GE, GT
-	{
-		IUTEST_ASSERT_GE(x0, y0);
-		IUTEST_EXPECT_GE(f1, f0);
-		IUTEST_INFORM_GE(0x1, 0.0f);
-		IUTEST_ASSERT_GT(x1, x0);
-		IUTEST_EXPECT_GT(d1, d0);
-		IUTEST_INFORM_GT(0x1, 0.0f);
-	}
+    // GE, GT
+    {
+        IUTEST_ASSERT_GE(x0, y0);
+        IUTEST_EXPECT_GE(f1, f0);
+        IUTEST_INFORM_GE(0x1, 0.0f);
+        IUTEST_ASSERT_GT(x1, x0);
+        IUTEST_EXPECT_GT(d1, d0);
+        IUTEST_INFORM_GT(0x1, 0.0f);
+    }
 
-	// float. double
-	{
-		IUTEST_ASSERT_FLOAT_EQ(1.0f, f1);
-		IUTEST_EXPECT_FLOAT_EQ(0.0f, f0);
-		IUTEST_INFORM_FLOAT_EQ(-1.0f, -2.0f/2.0f);
+    // float. double
+    {
+        IUTEST_ASSERT_FLOAT_EQ(1.0f, f1);
+        IUTEST_EXPECT_FLOAT_EQ(0.0f, f0);
+        IUTEST_INFORM_FLOAT_EQ(-1.0f, -2.0f/2.0f);
 
-		IUTEST_ASSERT_DOUBLE_EQ(1.0, d1);
-		IUTEST_EXPECT_DOUBLE_EQ(0.0, d0);
-		IUTEST_INFORM_DOUBLE_EQ(-1.0, -2.0/2.0);
-	}
+        IUTEST_ASSERT_DOUBLE_EQ(1.0, d1);
+        IUTEST_EXPECT_DOUBLE_EQ(0.0, d0);
+        IUTEST_INFORM_DOUBLE_EQ(-1.0, -2.0/2.0);
+    }
 
-	// Near
-	{
-		IUTEST_ASSERT_NEAR(0, 1, 2);
-		IUTEST_EXPECT_NEAR(1.0f, 4.0f, 4);
-		IUTEST_INFORM_NEAR(2.0, 1.0, 2);
-	}
+    // Near
+    {
+        IUTEST_ASSERT_NEAR(0, 1, 2);
+        IUTEST_EXPECT_NEAR(1.0f, 4.0f, 4);
+        IUTEST_INFORM_NEAR(2.0, 1.0, 2);
+    }
 }
 
 IUTEST(AssertionTest, String)
 {
-	const char mbs[] = "test";
-	const wchar_t wcs[] = L"test";
-	IUTEST_ASSERT_STREQ( "test", mbs);
-	IUTEST_ASSERT_STREQ(L"test", wcs);
-	IUTEST_EXPECT_STREQ( "test", mbs);
-	IUTEST_INFORM_STREQ(L"test", wcs);
-	IUTEST_ASSERT_STRNE( "host", mbs);
-	IUTEST_ASSERT_STRNE(L"host", wcs);
-	IUTEST_EXPECT_STRNE( "host", mbs);
-	IUTEST_INFORM_STRNE(L"host", wcs);
+    const char mbs[] = "test";
+    const wchar_t wcs[] = L"test";
+    IUTEST_ASSERT_STREQ( "test", mbs);
+    IUTEST_ASSERT_STREQ(L"test", wcs);
+    IUTEST_EXPECT_STREQ( "test", mbs);
+    IUTEST_INFORM_STREQ(L"test", wcs);
+    IUTEST_ASSERT_STRNE( "host", mbs);
+    IUTEST_ASSERT_STRNE(L"host", wcs);
+    IUTEST_EXPECT_STRNE( "host", mbs);
+    IUTEST_INFORM_STRNE(L"host", wcs);
 
-	IUTEST_ASSERT_STRLNEQ(4, mbs);
-	IUTEST_ASSERT_STRLNEQ(4, wcs);
-	IUTEST_EXPECT_STRLNEQ(4, wcs);
-	IUTEST_INFORM_STRLNEQ(4, wcs);
+    IUTEST_ASSERT_STRLNEQ(4, mbs);
+    IUTEST_ASSERT_STRLNEQ(4, wcs);
+    IUTEST_EXPECT_STRLNEQ(4, wcs);
+    IUTEST_INFORM_STRLNEQ(4, wcs);
 
-	{
-		std::string str1 = "tEst";
-		std::string str2 = "teSt";
-		std::string str3 = "hoSt";
+    {
+        std::string str1 = "tEst";
+        std::string str2 = "teSt";
+        std::string str3 = "hoSt";
 
-		IUTEST_ASSERT_STRCASEEQ("TeSt", mbs);
-		IUTEST_ASSERT_STRCASEEQ("TeSt", str1);
-		IUTEST_EXPECT_STRCASEEQ(str1, "TeSt");
-		IUTEST_INFORM_STRCASEEQ(str1, str2);
+        IUTEST_ASSERT_STRCASEEQ("TeSt", mbs);
+        IUTEST_ASSERT_STRCASEEQ("TeSt", str1);
+        IUTEST_EXPECT_STRCASEEQ(str1, "TeSt");
+        IUTEST_INFORM_STRCASEEQ(str1, str2);
 
-		IUTEST_ASSERT_STRCASENE("HoSt", mbs);
-		IUTEST_ASSERT_STRCASENE("HoSt", str1);
-		IUTEST_EXPECT_STRCASENE(str1, "HoSt");
-		IUTEST_INFORM_STRCASENE(str1, str3);
-	}
+        IUTEST_ASSERT_STRCASENE("HoSt", mbs);
+        IUTEST_ASSERT_STRCASENE("HoSt", str1);
+        IUTEST_EXPECT_STRCASENE(str1, "HoSt");
+        IUTEST_INFORM_STRCASENE(str1, str3);
+    }
 }
 
 #if defined(IUTEST_OS_WINDOWS)
 
 IUTEST(AssertionTest, HResult)
 {
-	IUTEST_ASSERT_HRESULT_SUCCEEDED(0);
-	IUTEST_EXPECT_HRESULT_SUCCEEDED(0);
-	IUTEST_INFORM_HRESULT_SUCCEEDED(0);
-	IUTEST_ASSERT_HRESULT_FAILED(-1);
-	IUTEST_EXPECT_HRESULT_FAILED(-1);
-	IUTEST_INFORM_HRESULT_FAILED(-1);
+    IUTEST_ASSERT_HRESULT_SUCCEEDED(0);
+    IUTEST_EXPECT_HRESULT_SUCCEEDED(0);
+    IUTEST_INFORM_HRESULT_SUCCEEDED(0);
+    IUTEST_ASSERT_HRESULT_FAILED(-1);
+    IUTEST_EXPECT_HRESULT_FAILED(-1);
+    IUTEST_INFORM_HRESULT_FAILED(-1);
 }
 
 #endif
@@ -222,41 +222,41 @@ IUTEST(AssertionTest, HResult)
 *//*--------------------------------------------------*/
 static bool IsOdd(int val)
 {
-	return (val & 1) != 0;
+    return (val & 1) != 0;
 }
-static bool	IsGreater(int a, int b)
+static bool IsGreater(int a, int b)
 {
-	return a > b;
+    return a > b;
 }
-static bool	PredTest3(int , int , int )
+static bool PredTest3(int , int , int )
 {
-	return true;
+    return true;
 }
-static bool	PredTest4(int , int , int , int )
+static bool PredTest4(int , int , int , int )
 {
-	return true;
+    return true;
 }
-static bool	PredTest5(int , int , int , int , int )
+static bool PredTest5(int , int , int , int , int )
 {
-	return true;
+    return true;
 }
 IUTEST(AssertionTest, Pred)
 {
-	IUTEST_ASSERT_PRED1(IsOdd, 3);
-	IUTEST_EXPECT_PRED1(IsOdd, 3);
-	IUTEST_INFORM_PRED1(IsOdd, 3);
-	IUTEST_ASSERT_PRED2(IsGreater, 3, 1);
-	IUTEST_EXPECT_PRED2(IsGreater, 3, 1);
-	IUTEST_INFORM_PRED2(IsGreater, 3, 1);
-	IUTEST_ASSERT_PRED3(PredTest3, 0, 1, 2);
-	IUTEST_EXPECT_PRED3(PredTest3, 0, 1, 2);
-	IUTEST_INFORM_PRED3(PredTest3, 0, 1, 2);
-	IUTEST_ASSERT_PRED4(PredTest4, 0, 1, 2, 3);
-	IUTEST_EXPECT_PRED4(PredTest4, 0, 1, 2, 3);
-	IUTEST_INFORM_PRED4(PredTest4, 0, 1, 2, 3);
-	IUTEST_ASSERT_PRED5(PredTest5, 0, 1, 2, 3, 4);
-	IUTEST_EXPECT_PRED5(PredTest5, 0, 1, 2, 3, 4);
-	IUTEST_INFORM_PRED5(PredTest5, 0, 1, 2, 3, 4);
+    IUTEST_ASSERT_PRED1(IsOdd, 3);
+    IUTEST_EXPECT_PRED1(IsOdd, 3);
+    IUTEST_INFORM_PRED1(IsOdd, 3);
+    IUTEST_ASSERT_PRED2(IsGreater, 3, 1);
+    IUTEST_EXPECT_PRED2(IsGreater, 3, 1);
+    IUTEST_INFORM_PRED2(IsGreater, 3, 1);
+    IUTEST_ASSERT_PRED3(PredTest3, 0, 1, 2);
+    IUTEST_EXPECT_PRED3(PredTest3, 0, 1, 2);
+    IUTEST_INFORM_PRED3(PredTest3, 0, 1, 2);
+    IUTEST_ASSERT_PRED4(PredTest4, 0, 1, 2, 3);
+    IUTEST_EXPECT_PRED4(PredTest4, 0, 1, 2, 3);
+    IUTEST_INFORM_PRED4(PredTest4, 0, 1, 2, 3);
+    IUTEST_ASSERT_PRED5(PredTest5, 0, 1, 2, 3, 4);
+    IUTEST_EXPECT_PRED5(PredTest5, 0, 1, 2, 3, 4);
+    IUTEST_INFORM_PRED5(PredTest5, 0, 1, 2, 3, 4);
 }
 
 /** --------------------------------------------------
@@ -267,19 +267,19 @@ IUTEST(AssertionTest, Pred)
 class TestP : public iutest::TestWithParam<int>
 {
 protected:
-	static int a;
-	static int b;
+    static int a;
+    static int b;
 public:
-	static void SetUpTestCase(void)
-	{
-		a = 0;
-		b = 0;
-		IUTEST_SUCCEED() << "SetUpTestCase";
-	}
-	static void TearDownTestCase(void)
-	{
-		IUTEST_SUCCEED() << "TearDownTestCase";
-	}
+    static void SetUpTestCase(void)
+    {
+        a = 0;
+        b = 0;
+        IUTEST_SUCCEED() << "SetUpTestCase";
+    }
+    static void TearDownTestCase(void)
+    {
+        IUTEST_SUCCEED() << "TearDownTestCase";
+    }
 };
 int TestP::a = 0;
 int TestP::b = 0;
@@ -288,14 +288,14 @@ IUTEST_INSTANTIATE_TEST_CASE_P(TestPInstance, TestP, iutest::Range<int>(0, 10));
 
 IUTEST_P(TestP, TestA)
 {
-	IUTEST_ASSERT_EQ(a, GetParam());
-	++a;
+    IUTEST_ASSERT_EQ(a, GetParam());
+    ++a;
 }
 
 IUTEST_P(TestP, TestB)
 {
-	IUTEST_ASSERT_EQ(b, GetParam());
-	++b;
+    IUTEST_ASSERT_EQ(b, GetParam());
+    ++b;
 }
 
 // Param Test Bool
@@ -304,9 +304,9 @@ IUTEST_INSTANTIATE_TEST_CASE_P(TestBoolInstance, TestBool, iutest::Bool());
 
 IUTEST_P(TestBool, TestA)
 {
-	static bool x=false;
-	IUTEST_ASSERT_EQ(x, GetParam());
-	x = !x;
+    static bool x=false;
+    IUTEST_ASSERT_EQ(x, GetParam());
+    x = !x;
 }
 
 // Param Test ValueIn
@@ -314,19 +314,19 @@ const char ValueInTestText[] = "ValueInTestText";
 class TestPValueIn : public iutest::TestWithParam<char>
 {
 protected:
-	static int a;
+    static int a;
 public:
-	static void SetUpTestCase(void)
-	{
-		a = 0;
-	}
+    static void SetUpTestCase(void)
+    {
+        a = 0;
+    }
 };
 int TestPValueIn::a = 0;
 IUTEST_INSTANTIATE_TEST_CASE_P(TestPValueInInstance, TestPValueIn, iutest::ValuesIn(ValueInTestText));
 
 IUTEST_P(TestPValueIn, TestA)
 {
-	IUTEST_ASSERT_EQ(ValueInTestText[a++], GetParam());
+    IUTEST_ASSERT_EQ(ValueInTestText[a++], GetParam());
 }
 
 // Param Test Values
@@ -335,31 +335,31 @@ IUTEST_INSTANTIATE_TEST_CASE_P(TestPValues1Instance, TestPValues1, iutest::Value
 
 IUTEST_P(TestPValues1, TestA)
 {
-	IUTEST_ASSERT_FLOAT_EQ(1.0f, GetParam());
+    IUTEST_ASSERT_FLOAT_EQ(1.0f, GetParam());
 }
 
 class TestPValuesN : public iutest::TestWithParam<int>
 {
 protected:
-	static int a;
+    static int a;
 public:
-	static void SetUpTestCase(void)
-	{
-		a = 1;
-	}
+    static void SetUpTestCase(void)
+    {
+        a = 1;
+    }
 };
 int TestPValuesN::a = 1;
 IUTEST_INSTANTIATE_TEST_CASE_P(TestPValuesNInstance, TestPValuesN, iutest::Values(1, 2, 3, 4, 5, 6, 7, 8, 9
-																	//, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
-																	//, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29
-																	//, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39
-																	//, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49
-																	//, 50
-																	));
+                                                                    //, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+                                                                    //, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29
+                                                                    //, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39
+                                                                    //, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49
+                                                                    //, 50
+                                                                    ));
 
 IUTEST_P(TestPValuesN, TestA)
 {
-	IUTEST_ASSERT_EQ(a++, GetParam());
+    IUTEST_ASSERT_EQ(a++, GetParam());
 }
 
 #if IUTEST_HAS_COMBINE
@@ -370,14 +370,14 @@ class TestPCombine : public iutest::TestWithParam< iutest::tuples::tuple<bool, i
 
 IUTEST_P(TestPCombine, TestA)
 {
-	bool b = iutest::tuples::get<0>(GetParam());
-	int i1 = iutest::tuples::get<1>(GetParam());
-	int i2 = iutest::tuples::get<2>(GetParam());
-	IUTEST_SUCCEED() << b << ", " << i1 << ", " << i2;
+    bool b = iutest::tuples::get<0>(GetParam());
+    int i1 = iutest::tuples::get<1>(GetParam());
+    int i2 = iutest::tuples::get<2>(GetParam());
+    IUTEST_SUCCEED() << b << ", " << i1 << ", " << i2;
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P(TestPCombineInstance, TestPCombine
-							   , iutest::Combine( iutest::Bool(), iutest::Values(1, 2), iutest::Values(10, 11) ) );
+                               , iutest::Combine( iutest::Bool(), iutest::Values(1, 2), iutest::Values(10, 11) ) );
 #endif
 
 #endif
@@ -391,28 +391,28 @@ template<typename T>
 class TypedTest : public iutest::Test 
 {
 public:
-	static void SetUpTestCase(void)
-	{
-		IUTEST_SUCCEED() << "SetUpTestCase";
-	}
-	static void TearDownTestCase(void)
-	{
-		IUTEST_SUCCEED() << "TearDownTestCase";
-	}
+    static void SetUpTestCase(void)
+    {
+        IUTEST_SUCCEED() << "SetUpTestCase";
+    }
+    static void TearDownTestCase(void)
+    {
+        IUTEST_SUCCEED() << "TearDownTestCase";
+    }
 };
 typedef iutest::Types<int, long, short> TypedTestTypes;
 IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
 
 IUTEST_TYPED_TEST(TypedTest, Equal)
 {
-	TypeParam a = 0;
-	IUTEST_ASSERT_EQ(0, a);
+    TypeParam a = 0;
+    IUTEST_ASSERT_EQ(0, a);
 }
 
 IUTEST_TYPED_TEST(TypedTest, Litle)
 {
-	TypeParam a = 1;
-	IUTEST_ASSERT_LT(0, a);
+    TypeParam a = 1;
+    IUTEST_ASSERT_LT(0, a);
 }
 
 #endif
@@ -429,14 +429,14 @@ IUTEST_TYPED_TEST_CASE_P(TypedTestP);
 
 IUTEST_TYPED_TEST_P(TypedTestP, Equal)
 {
-	TypeParam a = 0;
-	IUTEST_ASSERT_EQ(0, a);
+    TypeParam a = 0;
+    IUTEST_ASSERT_EQ(0, a);
 }
 
 IUTEST_TYPED_TEST_P(TypedTestP, Litle)
 {
-	TypeParam a = 1;
-	IUTEST_ASSERT_LT(0, a);
+    TypeParam a = 1;
+    IUTEST_ASSERT_LT(0, a);
 }
 
 IUTEST_REGISTER_TYPED_TEST_CASE_P(TypedTestP, Equal, Litle);
@@ -450,22 +450,22 @@ IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(TypedTestPInstance, TypedTestP, TypedTestTy
 // このテストは無効テスト
 IUTEST(TestDisabled, DISABLED_Test1)
 {
-	IUTEST_ASSERT_TRUE(false);
+    IUTEST_ASSERT_TRUE(false);
 }
 
 IUTEST(TestDisabled, Test2)
 {
-	IUTEST_ASSERT_TRUE(true);
+    IUTEST_ASSERT_TRUE(true);
 }
 
 // テストケースすべてを無効にする
 IUTEST(DISABLED_TestCaseDisabled, Test1)
 {
-	IUTEST_ASSERT_TRUE(false);
+    IUTEST_ASSERT_TRUE(false);
 }
 IUTEST(DISABLED_TestCaseDisabled, Test2)
 {
-	IUTEST_ASSERT_TRUE(false);
+    IUTEST_ASSERT_TRUE(false);
 }
 
 /** --------------------------------------------------
@@ -473,50 +473,50 @@ IUTEST(DISABLED_TestCaseDisabled, Test2)
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_EXCEPTIONS
 
-static void	ExceptionFunction(int i)
+static void ExceptionFunction(int i)
 {
-	switch( i )
-	{
-	case 0:
-		return;
-	case 1:
-		throw 2;
-		break;
-	case 2:
-		throw std::bad_exception();
-		break;
-	default:
-		break;
-	}
+    switch( i )
+    {
+    case 0:
+        return;
+    case 1:
+        throw 2;
+        break;
+    case 2:
+        throw std::bad_exception();
+        break;
+    default:
+        break;
+    }
 }
 
 IUTEST(AssertionTest, Exception)
 {
-	//IUTEST_ASSERT_THROW(throw std::bad_exception(), std::bad_exception);
-	IUTEST_ASSERT_THROW(ExceptionFunction(2), std::bad_exception);
-	IUTEST_EXPECT_THROW(ExceptionFunction(2), std::bad_exception);
-	IUTEST_INFORM_THROW(ExceptionFunction(2), std::bad_exception);
-	IUTEST_ASSERT_ANY_THROW(ExceptionFunction(1));
-	IUTEST_EXPECT_ANY_THROW(ExceptionFunction(1));
-	IUTEST_INFORM_ANY_THROW(ExceptionFunction(1));
-	IUTEST_ASSERT_NO_THROW(ExceptionFunction(0));
-	IUTEST_EXPECT_NO_THROW(ExceptionFunction(0));
-	IUTEST_INFORM_NO_THROW(ExceptionFunction(0));
+    //IUTEST_ASSERT_THROW(throw std::bad_exception(), std::bad_exception);
+    IUTEST_ASSERT_THROW(ExceptionFunction(2), std::bad_exception);
+    IUTEST_EXPECT_THROW(ExceptionFunction(2), std::bad_exception);
+    IUTEST_INFORM_THROW(ExceptionFunction(2), std::bad_exception);
+    IUTEST_ASSERT_ANY_THROW(ExceptionFunction(1));
+    IUTEST_EXPECT_ANY_THROW(ExceptionFunction(1));
+    IUTEST_INFORM_ANY_THROW(ExceptionFunction(1));
+    IUTEST_ASSERT_NO_THROW(ExceptionFunction(0));
+    IUTEST_EXPECT_NO_THROW(ExceptionFunction(0));
+    IUTEST_INFORM_NO_THROW(ExceptionFunction(0));
 }
 
 class exception_test
 {
 public:
-	exception_test(const std::vector<int>&)
-	{
-		IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw std::exception());
-	}
+    exception_test(const std::vector<int>&)
+    {
+        IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw std::exception());
+    }
 };
 
 IUTEST(AssertionTest, Exception2)
 {
-	std::vector<int> a;
-	IUTEST_ASSERT_THROW(exception_test(a), std::exception);
+    std::vector<int> a;
+    IUTEST_ASSERT_THROW(exception_test(a), std::exception);
 }
 
 #endif
@@ -526,7 +526,7 @@ IUTEST(AssertionTest, Exception2)
 *//*--------------------------------------------------*/
 IUTEST(StaticTest, Eq)
 {
-	IUTEST_ASSERT_TRUE( (iutest::StaticAssertTypeEq<int, int>()) );
-	//iutest::StaticAssertTypeEq<bool, int>();
+    IUTEST_ASSERT_TRUE( (iutest::StaticAssertTypeEq<int, int>()) );
+    //iutest::StaticAssertTypeEq<bool, int>();
 }
 

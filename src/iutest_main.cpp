@@ -27,7 +27,7 @@ int main(int argc, char** argv)
 #endif
 {
     ::std::cout << "Running main() from iutest_main.cpp" << ::std::endl;
-    
+
 #if !defined(IUTEST_OS_WINDOWS_MOBILE)
     setlocale(LC_CTYPE, "");
 #endif

@@ -432,6 +432,7 @@
 				<File
 					RelativePath="..\..\include\internal\iutest_genparams.hpp"
 					>
+				</File>
 				<File
 					RelativePath="..\..\include\internal\iutest_genparams_from_file.hpp"
 					>
