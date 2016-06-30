@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		type_param_tests_strict.cpp
- * @brief		type parameter test
+ * @file        type_param_tests_strict.cpp
+ * @brief       type parameter test
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -18,7 +18,7 @@
 #if IUTEST_HAS_TYPED_TEST_P 
 
 #if IUTEST_HAS_STREAM_BUFFER
-	::iutest::detail::IUStreamBuffer<> stderr_capture(stderr);
+    ::iutest::detail::IUStreamBuffer<> stderr_capture(stderr);
 #endif
 
 #if IUTEST_TYPED_TEST_P_STRICT
@@ -33,7 +33,7 @@ IUTEST_TYPED_TEST_P(VerifyFailTypeParamTest, A)
 }
 IUTEST_TYPED_TEST_P(VerifyFailTypeParamTest, B)
 {
-	IUTEST_FAIL();
+    IUTEST_FAIL();
 }
 
 IUTEST_REGISTER_TYPED_TEST_CASE_P(VerifyFailTypeParamTest, A);
@@ -63,16 +63,16 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	IUTEST_INIT(&argc, argv);
+    IUTEST_INIT(&argc, argv);
 #if IUTEST_HAS_TYPED_TEST_P && IUTEST_HAS_STREAM_BUFFER
 #if IUTEST_TYPED_TEST_P_STRICT
-	IUTEST_EXPECT_STRIN("Test \"B\" has not been registered.", stderr_capture.GetStreamString());
+    IUTEST_EXPECT_STRIN("Test \"B\" has not been registered.", stderr_capture.GetStreamString());
 #endif
-	IUTEST_EXPECT_STRIN("Test \"B\" must be defined before IUTEST_REGISTER_TYPED_TEST_CASE_P(RegisterFailTypeParamTest, ...).", stderr_capture.GetStreamString());
+    IUTEST_EXPECT_STRIN("Test \"B\" must be defined before IUTEST_REGISTER_TYPED_TEST_CASE_P(RegisterFailTypeParamTest, ...).", stderr_capture.GetStreamString());
 #endif
-	if( IUTEST_RUN_ALL_TESTS() ) return 1;
-	
-	printf("*** Successful ***\n");
-	return 0;
+    if( IUTEST_RUN_ALL_TESTS() ) return 1;
+    
+    printf("*** Successful ***\n");
+    return 0;
 }
 

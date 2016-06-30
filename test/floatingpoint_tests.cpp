@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		floatingpoint_tests.cpp
- * @brief		float/double test
+ * @file        floatingpoint_tests.cpp
+ * @brief       float/double test
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -29,10 +29,10 @@ template<typename T>
 class FloatingpointTest : public ::iutest::Test
 {
 public:
-	typedef ::iutest::floating_point<T>	ftype;
+    typedef ::iutest::floating_point<T> ftype;
 
-	static T ONE;
-	static T ZERO;
+    static T ONE;
+    static T ZERO;
 };
 template<typename T>
 T FloatingpointTest<T>::ONE = (T)1;
@@ -44,27 +44,27 @@ IUTEST_TYPED_TEST_CASE(FloatingpointTest, FloatingpointTestTypes);
 
 IUTEST_TYPED_TEST(FloatingpointTest, PINF)
 {
-	typedef typename TestFixture::ftype FloatType;
-	TypeParam a=TestFixture::ONE;
-	TypeParam b=TestFixture::ZERO;
+    typedef typename TestFixture::ftype FloatType;
+    TypeParam a=TestFixture::ONE;
+    TypeParam b=TestFixture::ZERO;
 
-	IUTEST_EXPECT_EQ(FloatType(a/b), TestFixture::ftype::PINF());
+    IUTEST_EXPECT_EQ(FloatType(a/b), TestFixture::ftype::PINF());
 }
 
 IUTEST_TYPED_TEST(FloatingpointTest, NINF)
 {
-	typedef typename TestFixture::ftype FloatType;
-	TypeParam b=TestFixture::ZERO;
+    typedef typename TestFixture::ftype FloatType;
+    TypeParam b=TestFixture::ZERO;
 
-	IUTEST_EXPECT_EQ(FloatType(log(b)), TestFixture::ftype::NINF());
+    IUTEST_EXPECT_EQ(FloatType(log(b)), TestFixture::ftype::NINF());
 }
 
 IUTEST_TYPED_TEST(FloatingpointTest, NQNAN)
 {
-	typedef typename TestFixture::ftype FloatType;
-	TypeParam a=TestFixture::ONE;
+    typedef typename TestFixture::ftype FloatType;
+    TypeParam a=TestFixture::ONE;
 
-	IUTEST_EXPECT_EQ(FloatType(sqrt(-a)), TestFixture::ftype::NQNAN());
+    IUTEST_EXPECT_EQ(FloatType(sqrt(-a)), TestFixture::ftype::NQNAN());
 }
 
 }

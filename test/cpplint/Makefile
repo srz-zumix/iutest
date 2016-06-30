@@ -11,6 +11,7 @@ IMPL_HPP=$(wildcard ../../include/impl/*.ipp)
 GTEST_HPP=$(wildcard ../../include/gtest/*.hpp) $(wildcard ../../include/gtest/switch/*.hpp)
 SRC_CPP=$(wildcard ../../src/*.cpp)
 SAMPLES=$(wildcard ../../samples/*.cpp)
+TESTS=$(wildcard ../../test/*.cpp) $(wildcard ../../test/*.hpp)
 
 SUPPRESS_WHITESPACE_SUB=/indent,/braces,/comments,/newline,/labels,/operators,/parens
 SUPPRESS_WHITESPACE=$(subst /,-whitespace/,$(SUPPRESS_WHITESPACE_SUB))
@@ -20,7 +21,7 @@ SUPPRESS_READABILITY=-readability/todo,-readability/braces,-readability/function
 SUPPRESS_RUNTIME=-runtime/int,-runtime/references
 SUPPRESS=$(SUPPRESS_BUILD),$(SUPPRESS_WHITESPACE),$(SUPPRESS_READABILITY),$(SUPPRESS_RUNTIME)
 
-all: iutest internal impl listener util gtest src samples
+all: iutest internal impl listener util gtest src samples test
 
 iutest: $(IUTEST_HPP) cpplint.py Makefile
 	python cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS) $(IUTEST_HPP)
@@ -45,6 +46,9 @@ src: $(SRC_CPP) cpplint.py Makefile
 
 samples: $(SAMPLES) cpplint.py Makefile
 	python cpplint.py --extensions=hpp,cpp --linelength=120 --filter=$(SUPPRESS),-build/namespace,-runtime/printf $(SAMPLES)
+
+test: $(SRC_CPP) cpplint.py Makefile
+	python cpplint.py --extensions=hpp,cpp --linelength=120 --filter=$(SUPPRESS) $(TESTS)
 
 
 cpplint.py:

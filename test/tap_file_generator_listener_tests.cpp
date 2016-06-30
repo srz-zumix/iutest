@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		tap_printer_listener_tests.cpp
- * @brief		TAPPrintListener test
+ * @file        tap_printer_listener_tests.cpp
+ * @brief       TAPPrintListener test
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -20,9 +20,9 @@
 #include "logger_tests.hpp"
 
 #if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_STRINGSTREAM && IUTEST_HAS_ASSERTION_RETURN
-#  define TAP_TEST	1
+#  define TAP_TEST  1
 #else
-#  define TAP_TEST	0
+#  define TAP_TEST  0
 #endif
 
 #if TAP_TEST
@@ -30,12 +30,12 @@
 class FileIO : public ::iutest::StringStreamFile
 {
 public:
-	static ::std::string s_io;
+    static ::std::string s_io;
 
-	virtual void Close()
-	{
-		s_io += ss.str();
-	}
+    virtual void Close()
+    {
+        s_io += ss.str();
+    }
 };
 
 ::std::string FileIO::s_io;
@@ -56,13 +56,13 @@ const char tap_test_str[] =
 
 IUTEST(Foo, Ok)
 {
-	IUTEST_SUCCEED() << "not show.";
-	RecordProperty("foo", "A");
+    IUTEST_SUCCEED() << "not show.";
+    RecordProperty("foo", "A");
 }
 
 IUTEST(Bar, DISABLED_Ng)
 {
-	IUTEST_FAIL() << "show failed.\n test.";
+    IUTEST_FAIL() << "show failed.\n test.";
 }
 
 #endif
@@ -76,76 +76,76 @@ int main(int argc, char* argv[])
 {
 #if TAP_TEST
 
-	IUTEST_INIT(&argc, argv);
+    IUTEST_INIT(&argc, argv);
 #if !defined(IUTEST_USE_GTEST)
-	{
-		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-		{
-			::iutest::IUTEST_FLAG(output) = "test/";
-			::iutest::TAPFileGeneratorListener* listener = reinterpret_cast< ::iutest::TAPFileGeneratorListener*>( ::iutest::TAPFileGeneratorListener::SetUp() );
-			IUTEST_ASSERT_EQ("test/", listener->GetFilePath() ) << ::iutest::AssertionReturn<int>(1);
-			delete listeners.Release(listener);
-		}
-		{
-			::iutest::IUTEST_FLAG(output) = ".";
-			::iutest::TAPFileGeneratorListener* listener = reinterpret_cast< ::iutest::TAPFileGeneratorListener*>( ::iutest::TAPFileGeneratorListener::SetUp() );
-			IUTEST_ASSERT_EQ(".", listener->GetFilePath() ) << ::iutest::AssertionReturn<int>(1);
-			delete listeners.Release(listener);
-		}
-		{
-			::iutest::IUTEST_FLAG(output) = "hoge/test.tap";
-			::iutest::detail::iuFilePath path("hoge/");
-			::iutest::TAPFileGeneratorListener* listener = reinterpret_cast< ::iutest::TAPFileGeneratorListener*>( ::iutest::TAPFileGeneratorListener::SetUp() );
-			IUTEST_ASSERT_EQ(path.ToString(), listener->GetFilePath() ) << ::iutest::AssertionReturn<int>(1);
-			delete listeners.Release(listener);
-		}
-	}
+    {
+        ::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
+        {
+            ::iutest::IUTEST_FLAG(output) = "test/";
+            ::iutest::TAPFileGeneratorListener* listener = reinterpret_cast< ::iutest::TAPFileGeneratorListener*>( ::iutest::TAPFileGeneratorListener::SetUp() );
+            IUTEST_ASSERT_EQ("test/", listener->GetFilePath() ) << ::iutest::AssertionReturn<int>(1);
+            delete listeners.Release(listener);
+        }
+        {
+            ::iutest::IUTEST_FLAG(output) = ".";
+            ::iutest::TAPFileGeneratorListener* listener = reinterpret_cast< ::iutest::TAPFileGeneratorListener*>( ::iutest::TAPFileGeneratorListener::SetUp() );
+            IUTEST_ASSERT_EQ(".", listener->GetFilePath() ) << ::iutest::AssertionReturn<int>(1);
+            delete listeners.Release(listener);
+        }
+        {
+            ::iutest::IUTEST_FLAG(output) = "hoge/test.tap";
+            ::iutest::detail::iuFilePath path("hoge/");
+            ::iutest::TAPFileGeneratorListener* listener = reinterpret_cast< ::iutest::TAPFileGeneratorListener*>( ::iutest::TAPFileGeneratorListener::SetUp() );
+            IUTEST_ASSERT_EQ(path.ToString(), listener->GetFilePath() ) << ::iutest::AssertionReturn<int>(1);
+            delete listeners.Release(listener);
+        }
+    }
 #endif
 
-	// xml 出力しない
-	::iutest::IUTEST_FLAG(output) = NULL;
+    // xml 出力しない
+    ::iutest::IUTEST_FLAG(output) = NULL;
 #if !defined(IUTEST_USE_GTEST)
-	::iutest::TAPFileGeneratorListener::SetUp();
+    ::iutest::TAPFileGeneratorListener::SetUp();
 #endif
 
-	{
-		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;	
-	
+    {
+        if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1; 
+    
 #if !defined(IUTEST_USE_GTEST)
-		IUTEST_EXPECT_STREQ(tap_test_str, FileIO::s_io.c_str());
-		FileIO::s_io.clear();
+        IUTEST_EXPECT_STREQ(tap_test_str, FileIO::s_io.c_str());
+        FileIO::s_io.clear();
 #endif
-		if( ::iutest::UnitTest::GetInstance()->Failed() ) return 1;
-	}
+        if( ::iutest::UnitTest::GetInstance()->Failed() ) return 1;
+    }
 
-	{
-		::iutest::IUTEST_FLAG(filter) = "*Hoge*";
-		::iutest::IUTEST_FLAG(also_run_disabled_tests) = false;
-		if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;	
-	
+    {
+        ::iutest::IUTEST_FLAG(filter) = "*Hoge*";
+        ::iutest::IUTEST_FLAG(also_run_disabled_tests) = false;
+        if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1; 
+    
 #if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_ASSERTION_RETURN
-		IUTEST_EXPECT_STRIN("*Hoge*", FileIO::s_io.c_str()) << ::iutest::AssertionReturn<int>(1);
-		FileIO::s_io.clear();
+        IUTEST_EXPECT_STRIN("*Hoge*", FileIO::s_io.c_str()) << ::iutest::AssertionReturn<int>(1);
+        FileIO::s_io.clear();
 #endif
-	}
+    }
 
-	{
-		::iutest::IUTEST_FLAG(filter) = NULL;
-		::iutest::IUTEST_FLAG(also_run_disabled_tests) = true;
-		if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;	
-	
+    {
+        ::iutest::IUTEST_FLAG(filter) = NULL;
+        ::iutest::IUTEST_FLAG(also_run_disabled_tests) = true;
+        if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1; 
+    
 #if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_ASSERTION_RETURN
-		IUTEST_EXPECT_STRIN("not ok", FileIO::s_io.c_str()) << ::iutest::AssertionReturn<int>(1);
-		IUTEST_EXPECT_STRIN("show failed., test.", FileIO::s_io.c_str()) << ::iutest::AssertionReturn<int>(1);
-		FileIO::s_io.clear();
+        IUTEST_EXPECT_STRIN("not ok", FileIO::s_io.c_str()) << ::iutest::AssertionReturn<int>(1);
+        IUTEST_EXPECT_STRIN("show failed., test.", FileIO::s_io.c_str()) << ::iutest::AssertionReturn<int>(1);
+        FileIO::s_io.clear();
 #endif
-	}
+    }
 
-	printf("*** Successful ***\n");
+    printf("*** Successful ***\n");
 #else
-	(void)argc;
-	(void)argv;
-	printf("*** TAP_TEST=0 ***\n");
+    (void)argc;
+    (void)argv;
+    printf("*** TAP_TEST=0 ***\n");
 #endif
-	return 0;
+    return 0;
 }

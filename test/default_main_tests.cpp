@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		default_main_tests.cpp
- * @brief		default main test
+ * @file        default_main_tests.cpp
+ * @brief       default main test
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -20,5 +20,5 @@
 
 IUTEST(Foo, Bar)
 {
-	IUTEST_ASSERT_EQ(1, abs(-1));
+    IUTEST_ASSERT_EQ(1, abs(-1));
 }

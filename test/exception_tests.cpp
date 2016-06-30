@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		exception_tests.cpp
- * @brief		iutest test 例外テスト
+ * @file        exception_tests.cpp
+ * @brief       iutest test 例外テスト
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -22,12 +22,12 @@
 
 IUTEST(ExceptionTest, StdExceptionThrow)
 {
-	throw std::runtime_error("ExceptionTest");
+    throw std::runtime_error("ExceptionTest");
 }
 
 IUTEST(ExceptionTest, Throw)
 {
-	throw "ExceptionTest";
+    throw "ExceptionTest";
 }
 
 #endif
@@ -38,18 +38,18 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	IUTEST_INIT(&argc, argv);
+    IUTEST_INIT(&argc, argv);
 #if IUTEST_HAS_EXCEPTIONS
 #if defined(OUTPUTXML)
-	// 失敗テストを含むので xml 出力しない
-	::iutest::IUTEST_FLAG(output) = NULL;
+    // 失敗テストを含むので xml 出力しない
+    ::iutest::IUTEST_FLAG(output) = NULL;
 #endif
-	if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
-	IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
+    if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
+    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
 #else
-	if( IUTEST_RUN_ALL_TESTS() ) return 1;
+    if( IUTEST_RUN_ALL_TESTS() ) return 1;
 #endif
-	printf("*** Successful ***\n");
-	return 0;
+    printf("*** Successful ***\n");
+    return 0;
 }
 

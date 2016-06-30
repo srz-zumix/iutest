@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		gtest_tap_tests.cpp
- * @brief		https://github.com/kinow/gtest-tap-listener 対応テスト
+ * @file        gtest_tap_tests.cpp
+ * @brief       https://github.com/kinow/gtest-tap-listener 対応テスト
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -21,7 +21,7 @@
 
 IUTEST(Foo, Bar)
 {
-	IUTEST_EXPECT_EQ(0, 1);
+    IUTEST_EXPECT_EQ(0, 1);
 }
 
 #ifdef UNICODE
@@ -30,9 +30,9 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	IUTEST_INIT(&argc, argv);
-	::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-	delete listeners.Release(listeners.default_result_printer());
-	listeners.Append(new tap::TapListener());
-	return IUTEST_RUN_ALL_TESTS();
+    IUTEST_INIT(&argc, argv);
+    ::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
+    delete listeners.Release(listeners.default_result_printer());
+    listeners.Append(new tap::TapListener());
+    return IUTEST_RUN_ALL_TESTS();
 }

@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		spi_tests_decl.cpp
- * @brief		iutest spi test
+ * @file        spi_tests_decl.cpp
+ * @brief       iutest spi test
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2015-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -21,100 +21,100 @@
 #  error FLAVOR
 #endif
 
-	FAILURE_MACRO( FLAVOR(_TRUE)(false), "" );
-	FAILURE_MACRO( FLAVOR(_FALSE)(true), "" );
-	FAILURE_MACRO( FLAVOR(_NULL)((void*)1), "" );
-	FAILURE_MACRO( FLAVOR(_NOTNULL)((void*)0), "" );
-	FAILURE_MACRO( FLAVOR(_SAME)(a, b), "" );
-	FAILURE_MACRO( FLAVOR(_EQ)(0, 1), "" );
-	FAILURE_MACRO( FLAVOR(_NE)(1, 1), "" );
-	FAILURE_MACRO( FLAVOR(_LE)(1, 0), "" );
-	FAILURE_MACRO( FLAVOR(_LT)(1, 0), "" );
-	FAILURE_MACRO( FLAVOR(_GE)(0, 1), "" );
-	FAILURE_MACRO( FLAVOR(_GT)(0, 1), "" );
+    FAILURE_MACRO( FLAVOR(_TRUE)(false), "" );
+    FAILURE_MACRO( FLAVOR(_FALSE)(true), "" );
+    FAILURE_MACRO( FLAVOR(_NULL)((void*)1), "" );
+    FAILURE_MACRO( FLAVOR(_NOTNULL)((void*)0), "" );
+    FAILURE_MACRO( FLAVOR(_SAME)(a, b), "" );
+    FAILURE_MACRO( FLAVOR(_EQ)(0, 1), "" );
+    FAILURE_MACRO( FLAVOR(_NE)(1, 1), "" );
+    FAILURE_MACRO( FLAVOR(_LE)(1, 0), "" );
+    FAILURE_MACRO( FLAVOR(_LT)(1, 0), "" );
+    FAILURE_MACRO( FLAVOR(_GE)(0, 1), "" );
+    FAILURE_MACRO( FLAVOR(_GT)(0, 1), "" );
 #if !defined(IUTEST_USE_GTEST)
-	FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0, 1), "(0x" );
-	FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0, 1), "(0x" );
-	FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0.0f/a, 0.0f/a), "(0x" );
-	FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0.0/a, 0.0f/a), "(0x" );
-	FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::FloatLE , 2, 0), "(0x" );
-	FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::DoubleLE, 2, 0), "(0x" );
+    FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0, 1), "(0x" );
+    FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0, 1), "(0x" );
+    FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0.0f/a, 0.0f/a), "(0x" );
+    FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0.0/a, 0.0f/a), "(0x" );
+    FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::FloatLE , 2, 0), "(0x" );
+    FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::DoubleLE, 2, 0), "(0x" );
 #else
-	FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0, 1), "" );
-	FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0, 1), "" );
-	FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0.0f/a, 0.0f/a), "" );
-	FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0.0/a, 0.0f/a), "" );
-	FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::FloatLE , 2, 0), "" );
-	FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::DoubleLE, 2, 0), "" );
+    FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0, 1), "" );
+    FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0, 1), "" );
+    FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0.0f/a, 0.0f/a), "" );
+    FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0.0/a, 0.0f/a), "" );
+    FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::FloatLE , 2, 0), "" );
+    FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::DoubleLE, 2, 0), "" );
 #endif
-	FAILURE_MACRO( FLAVOR(_NEAR)(0, 100, 2), "" );
+    FAILURE_MACRO( FLAVOR(_NEAR)(0, 100, 2), "" );
 
-	FAILURE_MACRO( FLAVOR(_STREQ)("A", "a"), "" );
-	FAILURE_MACRO( FLAVOR(_STREQ)("A", null_str), "" );
-	FAILURE_MACRO( FLAVOR(_STREQ)(null_str, "a"), "" );
-	FAILURE_MACRO( FLAVOR(_STREQ)(sa, "A"), "" );
-	FAILURE_MACRO( FLAVOR(_STREQ)("A", sa), "" );
-	FAILURE_MACRO( FLAVOR(_STREQ)(sa, sb), "" );
-	FAILURE_MACRO( FLAVOR(_STREQ)(L"A", L"a"), "" );
-	FAILURE_MACRO( FLAVOR(_STRNE)("a", "a"), "" );
-	FAILURE_MACRO( FLAVOR(_STRNE)(null_str, null_str), "" );
-	FAILURE_MACRO( FLAVOR(_STRNE)(sa, "a"), "" );
-	FAILURE_MACRO( FLAVOR(_STRNE)("a", sa), "" );
-	FAILURE_MACRO( FLAVOR(_STRNE)(sa, sa), "" );
-	FAILURE_MACRO( FLAVOR(_STRNE)(L"a", L"a"), "" );
+    FAILURE_MACRO( FLAVOR(_STREQ)("A", "a"), "" );
+    FAILURE_MACRO( FLAVOR(_STREQ)("A", null_str), "" );
+    FAILURE_MACRO( FLAVOR(_STREQ)(null_str, "a"), "" );
+    FAILURE_MACRO( FLAVOR(_STREQ)(sa, "A"), "" );
+    FAILURE_MACRO( FLAVOR(_STREQ)("A", sa), "" );
+    FAILURE_MACRO( FLAVOR(_STREQ)(sa, sb), "" );
+    FAILURE_MACRO( FLAVOR(_STREQ)(L"A", L"a"), "" );
+    FAILURE_MACRO( FLAVOR(_STRNE)("a", "a"), "" );
+    FAILURE_MACRO( FLAVOR(_STRNE)(null_str, null_str), "" );
+    FAILURE_MACRO( FLAVOR(_STRNE)(sa, "a"), "" );
+    FAILURE_MACRO( FLAVOR(_STRNE)("a", sa), "" );
+    FAILURE_MACRO( FLAVOR(_STRNE)(sa, sa), "" );
+    FAILURE_MACRO( FLAVOR(_STRNE)(L"a", L"a"), "" );
 
-	FAILURE_MACRO( FLAVOR(_STRCASEEQ)("b", "a"), "" );
-	FAILURE_MACRO( FLAVOR(_STRCASEEQ)("b", null_str), "" );
-	FAILURE_MACRO( FLAVOR(_STRCASEEQ)(null_str, "a"), "" );
-	FAILURE_MACRO( FLAVOR(_STRCASEEQ)(sa, "b"), "" );
-	FAILURE_MACRO( FLAVOR(_STRCASEEQ)("b", sa), "" );
-	FAILURE_MACRO( FLAVOR(_STRCASEEQ)(sa, sb), "" );
-	FAILURE_MACRO( FLAVOR(_STRCASEEQ)(L"a", L"b"), "" );
-	FAILURE_MACRO( FLAVOR(_STRCASENE)("a", "a"), "" );
-	FAILURE_MACRO( FLAVOR(_STRCASENE)("A", "a"), "" );
-	FAILURE_MACRO( FLAVOR(_STRCASENE)(null_str, null_str), "" );
-	FAILURE_MACRO( FLAVOR(_STRCASENE)(sa, "A"), "" );
-	FAILURE_MACRO( FLAVOR(_STRCASENE)("A", sa), "" );
-	FAILURE_MACRO( FLAVOR(_STRCASENE)(sa, sa), "" );
-	FAILURE_MACRO( FLAVOR(_STRCASENE)(L"A", L"a"), "" );
+    FAILURE_MACRO( FLAVOR(_STRCASEEQ)("b", "a"), "" );
+    FAILURE_MACRO( FLAVOR(_STRCASEEQ)("b", null_str), "" );
+    FAILURE_MACRO( FLAVOR(_STRCASEEQ)(null_str, "a"), "" );
+    FAILURE_MACRO( FLAVOR(_STRCASEEQ)(sa, "b"), "" );
+    FAILURE_MACRO( FLAVOR(_STRCASEEQ)("b", sa), "" );
+    FAILURE_MACRO( FLAVOR(_STRCASEEQ)(sa, sb), "" );
+    FAILURE_MACRO( FLAVOR(_STRCASEEQ)(L"a", L"b"), "" );
+    FAILURE_MACRO( FLAVOR(_STRCASENE)("a", "a"), "" );
+    FAILURE_MACRO( FLAVOR(_STRCASENE)("A", "a"), "" );
+    FAILURE_MACRO( FLAVOR(_STRCASENE)(null_str, null_str), "" );
+    FAILURE_MACRO( FLAVOR(_STRCASENE)(sa, "A"), "" );
+    FAILURE_MACRO( FLAVOR(_STRCASENE)("A", sa), "" );
+    FAILURE_MACRO( FLAVOR(_STRCASENE)(sa, sa), "" );
+    FAILURE_MACRO( FLAVOR(_STRCASENE)(L"A", L"a"), "" );
 
-	FAILURE_MACRO( FLAVOR(_PRED1)(IsOdd, 2), "evaluates to false, where" );
-	FAILURE_MACRO( FLAVOR(_PRED2)(IsGreater, 0, 1), "evaluates to false, where" );
-	FAILURE_MACRO( FLAVOR(_PRED3)(PredTest3, 0, 1, 3), "evaluates to false, where" );
-	FAILURE_MACRO( FLAVOR(_PRED4)(PredTest4, 0, 1, 2, 4), "evaluates to false, where" );
-	FAILURE_MACRO( FLAVOR(_PRED5)(PredTest5, 0, 1, 2, 3, 5), "evaluates to false, where" );
+    FAILURE_MACRO( FLAVOR(_PRED1)(IsOdd, 2), "evaluates to false, where" );
+    FAILURE_MACRO( FLAVOR(_PRED2)(IsGreater, 0, 1), "evaluates to false, where" );
+    FAILURE_MACRO( FLAVOR(_PRED3)(PredTest3, 0, 1, 3), "evaluates to false, where" );
+    FAILURE_MACRO( FLAVOR(_PRED4)(PredTest4, 0, 1, 2, 4), "evaluates to false, where" );
+    FAILURE_MACRO( FLAVOR(_PRED5)(PredTest5, 0, 1, 2, 3, 5), "evaluates to false, where" );
 #if !defined(IUTEST_USE_GTEST) && !defined(IUTEST_NO_VARIADIC_MACROS) && IUTEST_HAS_VARIADIC_TEMPLATES
-	FAILURE_MACRO( FLAVOR(_PRED)(PredTest6, 0, 1, 2, 3, 4, 6), "evaluates to false, where" );
+    FAILURE_MACRO( FLAVOR(_PRED)(PredTest6, 0, 1, 2, 3, 4, 6), "evaluates to false, where" );
 #endif
 
 #if defined(IUTEST_OS_WINDOWS)
-	FAILURE_MACRO( FLAVOR(_HRESULT_SUCCEEDED)(-1), "" );
-	FAILURE_MACRO( FLAVOR(_HRESULT_FAILED)(0), "" );
-	FAILURE_MACRO( FLAVOR(_HRESULT_FAILED)(100), "" );
+    FAILURE_MACRO( FLAVOR(_HRESULT_SUCCEEDED)(-1), "" );
+    FAILURE_MACRO( FLAVOR(_HRESULT_FAILED)(0), "" );
+    FAILURE_MACRO( FLAVOR(_HRESULT_FAILED)(100), "" );
 #endif
-	
-	FAILURE_MACRO( FLAVOR(_STRIN)("b", "a"), "strstr" );
-	FAILURE_MACRO( FLAVOR(_STRIN)("b", null_str), "strstr" );
-	FAILURE_MACRO( FLAVOR(_STRIN)(null_str, "a"), "strstr" );
-	
-	FAILURE_MACRO( FLAVOR(_STRNOTIN)("a", "a"), "strstr" );
+    
+    FAILURE_MACRO( FLAVOR(_STRIN)("b", "a"), "strstr" );
+    FAILURE_MACRO( FLAVOR(_STRIN)("b", null_str), "strstr" );
+    FAILURE_MACRO( FLAVOR(_STRIN)(null_str, "a"), "strstr" );
+    
+    FAILURE_MACRO( FLAVOR(_STRNOTIN)("a", "a"), "strstr" );
 
-	FAILURE_MACRO( FLAVOR(_EQ_COLLECTIONS)(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0]))), "Mismatch element" );
-	FAILURE_MACRO( FLAVOR(_EQ_COLLECTIONS)(ab, ab+(sizeof(ab)/sizeof(ab[0])), aa, aa+(sizeof(aa)/sizeof(aa[0]))), "Mismatch element" );
-	FAILURE_MACRO( FLAVOR(_EQ_COLLECTIONS)(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0]))), "Mismatch in a position" );
+    FAILURE_MACRO( FLAVOR(_EQ_COLLECTIONS)(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0]))), "Mismatch element" );
+    FAILURE_MACRO( FLAVOR(_EQ_COLLECTIONS)(ab, ab+(sizeof(ab)/sizeof(ab[0])), aa, aa+(sizeof(aa)/sizeof(aa[0]))), "Mismatch element" );
+    FAILURE_MACRO( FLAVOR(_EQ_COLLECTIONS)(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0]))), "Mismatch in a position" );
 
-	FAILURE_MACRO( FLAVOR(_EQ_RANGE)(aa, ab), "Mismatch element" );
-	FAILURE_MACRO( FLAVOR(_EQ_RANGE)(ab, aa), "Mismatch element" );
-	FAILURE_MACRO( FLAVOR(_EQ_RANGE)(aa, ac), "Mismatch in a position" );
-		
+    FAILURE_MACRO( FLAVOR(_EQ_RANGE)(aa, ab), "Mismatch element" );
+    FAILURE_MACRO( FLAVOR(_EQ_RANGE)(ab, aa), "Mismatch element" );
+    FAILURE_MACRO( FLAVOR(_EQ_RANGE)(aa, ac), "Mismatch in a position" );
+        
 #if IUTEST_HAS_REGEX
-	FAILURE_MACRO( FLAVOR(_MATCHES_REGEXEQ)("te[0-9]*st", "te0123sta"), "Matches Regex (\"te[0-9]*st\")" );
-	FAILURE_MACRO( FLAVOR(_MATCHES_REGEXEQ)("te[0-9]*st", null_str), "Matches Regex (\"te[0-9]*st\")" );
-	FAILURE_MACRO( FLAVOR(_MATCHES_REGEXNE)("te[0-9]*st", "te0123st"), "Not Matches Regex (\"te[0-9]*st\")" );
-	FAILURE_MACRO( FLAVOR(_CONTAINS_REGEXEQ)("te[0-9]*st", "a"), "Contains Regex (\"te[0-9]*st\")" );
-	FAILURE_MACRO( FLAVOR(_CONTAINS_REGEXEQ)("te[0-9]*st", null_str), "Contains Regex (\"te[0-9]*st\")" );
-	FAILURE_MACRO( FLAVOR(_CONTAINS_REGEXNE)("te[0-9]*st", "te0123sta"), "Contains Regex (\"te[0-9]*st\")" );
-	FAILURE_MACRO( FLAVOR(_CONTAINS_REGEXNE)("te[0-9]*st", "te0123st"), "Contains Regex (\"te[0-9]*st\")" );
+    FAILURE_MACRO( FLAVOR(_MATCHES_REGEXEQ)("te[0-9]*st", "te0123sta"), "Matches Regex (\"te[0-9]*st\")" );
+    FAILURE_MACRO( FLAVOR(_MATCHES_REGEXEQ)("te[0-9]*st", null_str), "Matches Regex (\"te[0-9]*st\")" );
+    FAILURE_MACRO( FLAVOR(_MATCHES_REGEXNE)("te[0-9]*st", "te0123st"), "Not Matches Regex (\"te[0-9]*st\")" );
+    FAILURE_MACRO( FLAVOR(_CONTAINS_REGEXEQ)("te[0-9]*st", "a"), "Contains Regex (\"te[0-9]*st\")" );
+    FAILURE_MACRO( FLAVOR(_CONTAINS_REGEXEQ)("te[0-9]*st", null_str), "Contains Regex (\"te[0-9]*st\")" );
+    FAILURE_MACRO( FLAVOR(_CONTAINS_REGEXNE)("te[0-9]*st", "te0123sta"), "Contains Regex (\"te[0-9]*st\")" );
+    FAILURE_MACRO( FLAVOR(_CONTAINS_REGEXNE)("te[0-9]*st", "te0123st"), "Contains Regex (\"te[0-9]*st\")" );
 #endif
 
 #undef FLAVOR

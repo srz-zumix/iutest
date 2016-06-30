@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		type_param_tests3.cpp
- * @brief		type parameter test
+ * @file        type_param_tests3.cpp
+ * @brief       type parameter test
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -23,7 +23,7 @@ template<typename T>
 class TypeParamTest3 : public ::iutest::Test
 {
 public:
-	static T value;
+    static T value;
 };
 
 template<typename T>
@@ -34,14 +34,14 @@ IUTEST_TYPED_TEST_CASE_P(TypeParamTest3);
 
 IUTEST_TYPED_TEST_P(TypeParamTest3, Mul2)
 {
-	TypeParam x = 1;
-	IUTEST_ASSERT_EQ(x+x, 2*x);
+    TypeParam x = 1;
+    IUTEST_ASSERT_EQ(x+x, 2*x);
 }
 
 IUTEST_TYPED_TEST_P(TypeParamTest3, StaticMul2)
 {
-	TestFixture::value = 1;
-	IUTEST_ASSERT_EQ(TestFixture::value+TestFixture::value, 2*TestFixture::value);
+    TestFixture::value = 1;
+    IUTEST_ASSERT_EQ(TestFixture::value+TestFixture::value, 2*TestFixture::value);
 }
 
 IUTEST_REGISTER_TYPED_TEST_CASE_P(TypeParamTest3, StaticMul2, Mul2);

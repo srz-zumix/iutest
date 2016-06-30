@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		basic_tests.cpp
- * @brief		iutest basic test
+ * @file        basic_tests.cpp
+ * @brief       iutest basic test
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -20,48 +20,48 @@
 #if !defined(IUTEST_USE_GTEST)
 IUTEST(VersionTest, Check)
 {
-	unsigned long v = (IUTEST_MAJORVER << 24) | (IUTEST_MINORVER << 16) | (IUTEST_BUILD << 8) | IUTEST_REVISION;
-	IUTEST_ASSERT_EQ( IUTEST_VER, v );
+    unsigned long v = (IUTEST_MAJORVER << 24) | (IUTEST_MINORVER << 16) | (IUTEST_BUILD << 8) | IUTEST_REVISION;
+    IUTEST_ASSERT_EQ( IUTEST_VER, v );
 }
 #endif
 
 IUTEST(CommandLineFlagTest, CanBeAccessed)
 {
-	bool dummy = ::iutest::IUTEST_FLAG(also_run_disabled_tests)
-	|| ::iutest::IUTEST_FLAG(break_on_failure)
-	|| ::iutest::IUTEST_FLAG(catch_exceptions)
-	|| ::iutest::IUTEST_FLAG(list_tests)
-	|| ::iutest::IUTEST_FLAG(print_time)
-	|| ::iutest::IUTEST_FLAG(random_seed)
-	|| ::iutest::IUTEST_FLAG(repeat) > 0
-	|| ::iutest::IUTEST_FLAG(shuffle)
-	|| ::iutest::IUTEST_FLAG(throw_on_failure)
-	|| ::iutest::IUTEST_FLAG(color) != "unknown"
-	|| ::iutest::IUTEST_FLAG(filter) != "unknown"
+    bool dummy = ::iutest::IUTEST_FLAG(also_run_disabled_tests)
+    || ::iutest::IUTEST_FLAG(break_on_failure)
+    || ::iutest::IUTEST_FLAG(catch_exceptions)
+    || ::iutest::IUTEST_FLAG(list_tests)
+    || ::iutest::IUTEST_FLAG(print_time)
+    || ::iutest::IUTEST_FLAG(random_seed)
+    || ::iutest::IUTEST_FLAG(repeat) > 0
+    || ::iutest::IUTEST_FLAG(shuffle)
+    || ::iutest::IUTEST_FLAG(throw_on_failure)
+    || ::iutest::IUTEST_FLAG(color) != "unknown"
+    || ::iutest::IUTEST_FLAG(filter) != "unknown"
 #if !defined(IUTEST_USE_GTEST)
-	|| ::iutest::IUTEST_FLAG(verbose)
-	|| ::iutest::IUTEST_FLAG(file_location_style_msvc)
-	|| ::iutest::IUTEST_FLAG(list_tests_with_where)
-	|| ::iutest::IUTEST_FLAG(default_package_name) != "unknown"
+    || ::iutest::IUTEST_FLAG(verbose)
+    || ::iutest::IUTEST_FLAG(file_location_style_msvc)
+    || ::iutest::IUTEST_FLAG(list_tests_with_where)
+    || ::iutest::IUTEST_FLAG(default_package_name) != "unknown"
 #endif
-	;
-	IUTEST_EXPECT_TRUE(dummy || !dummy);
+    ;
+    IUTEST_EXPECT_TRUE(dummy || !dummy);
 }
 
 IUTEST(TestInformation, CurrentTestCase)
 {
-	IUTEST_ASSERT_STREQ("TestInformation", ::iutest::UnitTest::GetInstance()->current_test_case()->name());
-	IUTEST_ASSERT_TRUE(::iutest::UnitTest::GetInstance()->current_test_case()->should_run());
+    IUTEST_ASSERT_STREQ("TestInformation", ::iutest::UnitTest::GetInstance()->current_test_case()->name());
+    IUTEST_ASSERT_TRUE(::iutest::UnitTest::GetInstance()->current_test_case()->should_run());
 }
 
 IUTEST(TestInformation, CurrentTestInfo)
 {
-	IUTEST_ASSERT_STREQ("TestInformation", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
-	IUTEST_ASSERT_STREQ("CurrentTestInfo", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
-	IUTEST_ASSERT_TRUE(::iutest::UnitTest::GetInstance()->current_test_info()->should_run());
+    IUTEST_ASSERT_STREQ("TestInformation", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+    IUTEST_ASSERT_STREQ("CurrentTestInfo", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
+    IUTEST_ASSERT_TRUE(::iutest::UnitTest::GetInstance()->current_test_info()->should_run());
 #if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x06)
-	IUTEST_ASSERT_EQ(NULL, ::iutest::UnitTest::GetInstance()->current_test_info()->type_param());
-	IUTEST_ASSERT_EQ(NULL, ::iutest::UnitTest::GetInstance()->current_test_info()->value_param());
+    IUTEST_ASSERT_EQ(NULL, ::iutest::UnitTest::GetInstance()->current_test_info()->type_param());
+    IUTEST_ASSERT_EQ(NULL, ::iutest::UnitTest::GetInstance()->current_test_info()->value_param());
 #endif
 }
 
@@ -71,20 +71,20 @@ IUTEST(TestInformation, DISABLED_Test)
 
 IUTEST(TestInformation, TestInfoCount)
 {
-	IUTEST_ASSERT_EQ(4, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count());
-	IUTEST_ASSERT_EQ(3, ::iutest::UnitTest::GetInstance()->current_test_case()->test_to_run_count());
-	IUTEST_ASSERT_EQ(3, ::iutest::UnitTest::GetInstance()->current_test_case()->successful_test_count());
-	IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->failed_test_count());
-	IUTEST_ASSERT_EQ(1, ::iutest::UnitTest::GetInstance()->current_test_case()->disabled_test_count());
+    IUTEST_ASSERT_EQ(4, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count());
+    IUTEST_ASSERT_EQ(3, ::iutest::UnitTest::GetInstance()->current_test_case()->test_to_run_count());
+    IUTEST_ASSERT_EQ(3, ::iutest::UnitTest::GetInstance()->current_test_case()->successful_test_count());
+    IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->failed_test_count());
+    IUTEST_ASSERT_EQ(1, ::iutest::UnitTest::GetInstance()->current_test_case()->disabled_test_count());
 #if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
-	IUTEST_ASSERT_EQ(1, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_disabled_test_count());
-	IUTEST_ASSERT_EQ(4, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_test_count());
+    IUTEST_ASSERT_EQ(1, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_disabled_test_count());
+    IUTEST_ASSERT_EQ(4, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_test_count());
 #endif
 #if !defined(IUTEST_USE_GTEST)
-	IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->test_run_skipped_count());
-	IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_test_run_skipped_count());
-	IUTEST_ASSERT_EQ(1, ::iutest::UnitTest::GetInstance()->current_test_case()->skip_test_count());
-	IUTEST_ASSERT_EQ(1, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_skip_test_count());
+    IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->test_run_skipped_count());
+    IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_test_run_skipped_count());
+    IUTEST_ASSERT_EQ(1, ::iutest::UnitTest::GetInstance()->current_test_case()->skip_test_count());
+    IUTEST_ASSERT_EQ(1, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_skip_test_count());
 #endif
 }
 
@@ -92,14 +92,14 @@ IUTEST(TestInformation, TestInfoCount)
 
 IUTEST(TestRandom, Genrand)
 {
-	IUTEST_ASSERT_LE(genrand(100), 100u);
+    IUTEST_ASSERT_LE(genrand(100), 100u);
 }
 
 #if IUTEST_HAS_CXX_HDR_RANDOM
 
 IUTEST(TestRandom, Engine)
 {
-	IUTEST_ASSERT_LE( ::std::uniform_int_distribution<unsigned int>(0,100)(random_engine()), 100u);
+    IUTEST_ASSERT_LE( ::std::uniform_int_distribution<unsigned int>(0,100)(random_engine()), 100u);
 }
 #endif
 
@@ -117,18 +117,18 @@ IUTEST(TestNameConflict, X_Y)
 
 #endif
 
-#define SHOW_MACRO(macro)	::iutest::detail::iuConsole::output("#define %s  %s\n", #macro, IUTEST_PP_TOSTRING(macro))
+#define SHOW_MACRO(macro)   ::iutest::detail::iuConsole::output("#define %s  %s\n", #macro, IUTEST_PP_TOSTRING(macro))
 
 IUTEST(Config, Check)
 {
 #ifdef _MSC_FULL_VER
-	SHOW_MACRO(_MSC_FULL_VER);
+    SHOW_MACRO(_MSC_FULL_VER);
 #endif
 #ifdef _LIBCPP_VERSION
-	SHOW_MACRO(_LIBCPP_VERSION);
+    SHOW_MACRO(_LIBCPP_VERSION);
 #endif
 #ifdef __GLIBCXX__
-	SHOW_MACRO(__GLIBCXX__);
+    SHOW_MACRO(__GLIBCXX__);
 #endif
 }
 

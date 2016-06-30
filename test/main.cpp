@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		main.cpp
- * @brief		test main
+ * @file        main.cpp
+ * @brief       test main
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2012-2014, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -37,16 +37,16 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	IUTEST_INIT(&argc, argv);
+    IUTEST_INIT(&argc, argv);
 
 #ifdef USE_TAP
-	::iutest::TAPPrintListener::SetUp();
+    ::iutest::TAPPrintListener::SetUp();
 #endif
 
 #ifdef USE_PROGRESS
-	::iutest::ProgressPrintListener::SetUp();
+    ::iutest::ProgressPrintListener::SetUp();
 #endif
-	
-	return IUTEST_RUN_ALL_TESTS();
+    
+    return IUTEST_RUN_ALL_TESTS();
 }
 

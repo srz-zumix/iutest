@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		break_on_failure_nobreak_tests.cpp
- * @brief		break_on_fialure no break test
+ * @file        break_on_failure_nobreak_tests.cpp
+ * @brief       break_on_fialure no break test
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,17 +19,17 @@
 
 IUTEST(Foo, Skip)
 {
-	IUTEST_SKIP();
+    IUTEST_SKIP();
 }
 
 IUTEST(Foo, Inform)
 {
-	IUTEST_INFORM_FALSE(true);
+    IUTEST_INFORM_FALSE(true);
 }
 
 IUTEST(Foo, Assume)
 {
-	IUTEST_ASSUME_FALSE(true);
+    IUTEST_ASSUME_FALSE(true);
 }
 
 #ifdef UNICODE
@@ -38,8 +38,8 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	::iutest::IUTEST_FLAG(break_on_failure) = true;
-	
-	IUTEST_INIT(&argc, argv);
-	return IUTEST_RUN_ALL_TESTS();
+    ::iutest::IUTEST_FLAG(break_on_failure) = true;
+    
+    IUTEST_INIT(&argc, argv);
+    return IUTEST_RUN_ALL_TESTS();
 }
