@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.15.1.7</span>
+   &#160;<span id="projectnumber">1.15.1.8</span>
    </div>
   </td>
  </tr>
@@ -268,8 +268,8 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I(prefix_, testcase_)    IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I_(prefix_, testcase_)</span></div>
 <div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I_(prefix_, testcase_)   prefix_##_x_iutest_x_##testcase_##_TestCaseInstantiationRegister</span></div>
 <div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="preprocessor">#define IIUT_TEST_P_INSTANTIATIONREGISTER_(prefix_, testcase_)              IIUT_TEST_P_INSTANTIATIONREGISTER_I(prefix_ \</span></div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;<span class="preprocessor">                                                                                , IIUT_TO_VARNAME_(testcase_), IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_))</span></div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="preprocessor">#define IIUT_TEST_P_INSTANTIATIONREGISTER_(prefix_, testcase_)  \</span></div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;<span class="preprocessor">    IIUT_TEST_P_INSTANTIATIONREGISTER_I(prefix_, IIUT_TO_VARNAME_(testcase_), IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_))</span></div>
 <div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define IIUT_TEST_P_INSTANTIATIONREGISTER_I(prefix_, testcase_, register_)  IIUT_TEST_P_INSTANTIATIONREGISTER_I_(prefix_, testcase_, register_)</span></div>
 <div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define IIUT_TEST_P_INSTANTIATIONREGISTER_I_(prefix_, testcase_, register_) int s_##prefix_##_x_iutest_x_##testcase_##_dummy = register_()</span></div>
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="preprocessor"></span></div>
@@ -630,7 +630,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="ttc" id="classiutest_1_1_with_param_interface_html_a8ae49dee85b5d712529d0a8f5e327be2"><div class="ttname"><a href="../../df/d22/classiutest_1_1_with_param_interface.html#a8ae49dee85b5d712529d0a8f5e327be2">iutest::WithParamInterface&lt; any &gt;::ParamType</a></div><div class="ttdeci">any ParamType</div><div class="ttdoc">パラメータ型 </div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:249</div></div>
 <div class="ttc" id="classiutest_1_1_test_with_any_html"><div class="ttname"><a href="../../dd/d91/classiutest_1_1_test_with_any.html">iutest::TestWithAny</a></div><div class="ttdoc">any パラメータテストフィクスチャ </div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:326</div></div>
 <div class="ttc" id="group___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_ga5688b7c1b6e065fd5b69781ca7548b24"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga5688b7c1b6e065fd5b69781ca7548b24">iutest::Concat</a></div><div class="ttdeci">detail::iuConcatParamHolder&lt; G1, G2 &gt; Concat(const G1 &amp;g1, const G2 &amp;g2)</div><div class="ttdoc">パラメータの結合 </div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:548</div></div>
-<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:610</div></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:611</div></div>
 <div class="ttc" id="group___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_ga3241736c35537ff59b81e0fe78adc1de"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga3241736c35537ff59b81e0fe78adc1de">iutest::ValuesGen</a></div><div class="ttdeci">detail::iuValuesParamsGeneratorHolder&lt; Generator &gt; IUTEST_ATTRIBUTE_UNUSED_ ValuesGen(size_t num, const Generator &amp;gen)</div><div class="ttdoc">ユーザー定義ジェネレータ利用パラメータ </div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:398</div></div>
 <div class="ttc" id="namespaceiutest_html_a089d4c220696dc46e2ef184fc945367c"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">iutest::PrintToString</a></div><div class="ttdeci">std::string PrintToString(const T &amp;v)</div><div class="ttdoc">文字列化 </div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:533</div></div>
 <div class="ttc" id="group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_gaf27cb6dcf37042c9c8123217eab523c6"><div class="ttname"><a href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#gaf27cb6dcf37042c9c8123217eab523c6">iuTestWithAny</a></div><div class="ttdeci">::iutest::TestWithAny iuTestWithAny</div><div class="ttdoc">any param test fixture </div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:674</div></div>
@@ -649,7 +649,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年06月26日(日) 23時38分18秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年06月30日(木) 03時20分09秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

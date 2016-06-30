@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.15.1.7</span>
+   &#160;<span id="projectnumber">1.15.1.8</span>
    </div>
   </td>
  </tr>
@@ -190,109 +190,110 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="comment">// フィルタリング</span></div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">if</span>( <a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#aa8b8153e11a8439174a98058eb54274f">TestFlag::IsEnableFlag</a>(<a class="code" href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8a0ecd8271165109eb1c27c8764bd18224">TestFlag::FILTERING_TESTS</a>) )</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    {</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        detail::iuConsole::color_output(detail::iuConsole::yellow, <span class="stringliteral">&quot;# Note: iutest filter = %s\n&quot;</span>, <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a5908831d1f400180f97a687ec1d21928">TestEnv::test_filter</a>());</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    }</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;}</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a7ddbe8a0b6823eadee5ac19a07572752">TAPPrintListener::OnTestProgramEnd</a>(<span class="keyword">const</span> <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a>&amp; test)</div>
-<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a7ddbe8a0b6823eadee5ac19a07572752">  136</a></span>&#160;{</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    detail::LogStream stream;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordtype">int</span> number = 1;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">for</span>( <span class="keywordtype">int</span> k=0, count=test.<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#aef84e56219bc896f131df5cd2edeba01">total_test_case_count</a>(); k &lt; count; ++k )</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    {</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../df/d67/classiutest_1_1_test_case.html">TestCase</a>&amp; test_case = *test.<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a58db3f3ae9ff2f3ca274f7bdb6937f8a">GetTestCase</a>(k);</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <a class="code" href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#af1025ff7acae98e17ebda943a5285601">OnReportTestCase</a>(&amp;stream, test_case, number);</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        number += test_case.<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#ac8f9395c5fdc7b578e3acb998fe208f3">total_test_count</a>();</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    }</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    detail::iuConsole::output(<span class="stringliteral">&quot;1..%d\n&quot;</span>, number-1);</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;}</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#af1025ff7acae98e17ebda943a5285601">TAPPrintListener::OnReportTestCase</a>(detail::IOutStream* <span class="keyword">const</span> stream, <span class="keyword">const</span> <a class="code" href="../../df/d67/classiutest_1_1_test_case.html">TestCase</a>&amp; test_case, <span class="keywordtype">int</span> top)</div>
-<div class="line"><a name="l00151"></a><span class="lineno"><a class="line" href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#af1025ff7acae98e17ebda943a5285601">  151</a></span>&#160;{</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    stream-&gt;Printf(<span class="stringliteral">&quot;# %s started.\n&quot;</span>, test_case.<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#a2faa0f8d2c9c5dea207524bf99799f00">name</a>());</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordflow">for</span>( <span class="keywordtype">int</span> i=0, count=test_case.<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#ac8f9395c5fdc7b578e3acb998fe208f3">total_test_count</a>(); i &lt; count; ++i )</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    {</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a>* test_info = test_case.<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#afb5b8f3eb20a05d2bf0610378f4eb58f">GetTestInfo</a>(i);</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keywordflow">if</span>( !test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#a4cb2783888a8d22f07b28cd6e3cc45cc">should_run</a>() )</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        {</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            <span class="comment">// スキップ</span></div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            stream-&gt;Printf(<span class="stringliteral">&quot;ok %d # SKIP - %s\n&quot;</span>, top+i, test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#acb83951703c7bab66c69de0f7c0e95e3">name</a>());</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        }</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        {</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            <span class="keywordflow">if</span>( test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#aaed6804309d25cf157232fb2fa5f497b">HasFailure</a>() )</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            {</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                stream-&gt;Printf(<span class="stringliteral">&quot;not ok %d - %s &quot;</span>, top+i, test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#acb83951703c7bab66c69de0f7c0e95e3">name</a>() );</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                <span class="keywordflow">for</span>( <span class="keywordtype">int</span> j=0, count=test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#aa3f1f0ed51c9b6704155713083122e98">result</a>()-&gt;<a class="code" href="../../d0/d7b/classiutest_1_1_test_result.html#a76e0fc82e47e798b8198a22d7e88ad1a">total_part_count</a>(); j &lt; count; ++j )</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                {</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                    <span class="keyword">const</span> <a class="code" href="../../d8/d3c/classiutest_1_1_test_part_result.html">TestPartResult</a>&amp; part = test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#aa3f1f0ed51c9b6704155713083122e98">result</a>()-&gt;<a class="code" href="../../d0/d7b/classiutest_1_1_test_result.html#adb9ef14275a0f6ff49a642aaff218a0d">GetTestPartResult</a>(j);</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                    ::std::string summary = part.make_message();</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                    <span class="comment">// 改行を置き換え</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                    detail::StringReplace(summary, <span class="charliteral">&#39;\n&#39;</span>, <span class="stringliteral">&quot;, &quot;</span>);</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                    stream-&gt;Printf(<span class="stringliteral">&quot;%s. &quot;</span>, summary.c_str() );</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                }</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                stream-&gt;Printf(<span class="stringliteral">&quot;\n&quot;</span>);</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;            }</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            {</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                stream-&gt;Printf(<span class="stringliteral">&quot;ok %d - %s\n&quot;</span>, top+i, test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#acb83951703c7bab66c69de0f7c0e95e3">name</a>() );</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;            }</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        }</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    }</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    stream-&gt;Printf(<span class="stringliteral">&quot;# %s ended.\n&quot;</span>, test_case.<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#a2faa0f8d2c9c5dea207524bf99799f00">name</a>());</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;}</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="../../dc/d0e/classiutest_1_1_t_a_p_file_generator_listener.html#a6f2719220f12b124bbecaa94aee808cc">TAPFileGeneratorListener::OnTestProgramEnd</a>(<span class="keyword">const</span> <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a>&amp; test)</div>
-<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="../../dc/d0e/classiutest_1_1_t_a_p_file_generator_listener.html#a6f2719220f12b124bbecaa94aee808cc">  188</a></span>&#160;{</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordflow">for</span>( <span class="keywordtype">int</span> k=0, count=test.<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#aef84e56219bc896f131df5cd2edeba01">total_test_case_count</a>(); k &lt; count; ++k )</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    {</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../df/d67/classiutest_1_1_test_case.html">TestCase</a>&amp; test_case = *test.<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a58db3f3ae9ff2f3ca274f7bdb6937f8a">GetTestCase</a>(k);</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        IUTEST_UNUSED_VAR(test);</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <a class="code" href="../../d9/d57/classiutest_1_1_i_file.html">IFile</a>* fp = detail::IFileSystem::New();</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        <span class="keywordflow">if</span>( fp == NULL )</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        {</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        }</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        ::std::string filepath = m_output_path;</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        ::std::string name = test_case.<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#a2faa0f8d2c9c5dea207524bf99799f00">name</a>();</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        detail::StringReplace(name, <span class="charliteral">&#39;/&#39;</span>, <span class="stringliteral">&quot;_&quot;</span>);</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        filepath += detail::GetPathSeparator();</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        filepath += name;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        filepath += <span class="stringliteral">&quot;.tap&quot;</span>;</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <span class="keywordflow">if</span>( !fp-&gt;<a class="code" href="../../d9/d57/classiutest_1_1_i_file.html#ad5e3d6e3009974fce8cffa15984f9a83">Open</a>(filepath.c_str(), <a class="code" href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381a7e5485c8952d435a56c8bb38c223a577">IFile::OpenWrite</a>) )</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        {</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            fprintf(stderr, <span class="stringliteral">&quot;Unable to open file \&quot;%s\&quot;.\n&quot;</span>, filepath.c_str());</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            fflush(stderr);</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        }</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        <a class="code" href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#af1025ff7acae98e17ebda943a5285601">OnReportTestCase</a>(fp, test_case);</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        fp-&gt;Printf(<span class="stringliteral">&quot;1..%d\n&quot;</span>, test_case.<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#ac8f9395c5fdc7b578e3acb998fe208f3">total_test_count</a>());</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        fp-&gt;<a class="code" href="../../d9/d57/classiutest_1_1_i_file.html#ab7589b799ad6a3844ace9574d4fb1bce">Close</a>();</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        detail::IFileSystem::Free(fp);</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    }</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;}</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_TAP_PRINTER_HPP_77055C2B_AAE1_4944_A61C_26C58B04B37B_</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        detail::iuConsole::color_output(detail::iuConsole::yellow</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            , <span class="stringliteral">&quot;# Note: iutest filter = %s\n&quot;</span>, <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a5908831d1f400180f97a687ec1d21928">TestEnv::test_filter</a>());</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    }</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;}</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a7ddbe8a0b6823eadee5ac19a07572752">TAPPrintListener::OnTestProgramEnd</a>(<span class="keyword">const</span> <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a>&amp; test)</div>
+<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a7ddbe8a0b6823eadee5ac19a07572752">  137</a></span>&#160;{</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    detail::LogStream stream;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordtype">int</span> number = 1;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordflow">for</span>( <span class="keywordtype">int</span> k=0, count=test.<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#aef84e56219bc896f131df5cd2edeba01">total_test_case_count</a>(); k &lt; count; ++k )</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    {</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../df/d67/classiutest_1_1_test_case.html">TestCase</a>&amp; test_case = *test.<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a58db3f3ae9ff2f3ca274f7bdb6937f8a">GetTestCase</a>(k);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <a class="code" href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#af1025ff7acae98e17ebda943a5285601">OnReportTestCase</a>(&amp;stream, test_case, number);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        number += test_case.<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#ac8f9395c5fdc7b578e3acb998fe208f3">total_test_count</a>();</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    }</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    detail::iuConsole::output(<span class="stringliteral">&quot;1..%d\n&quot;</span>, number-1);</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;}</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#af1025ff7acae98e17ebda943a5285601">TAPPrintListener::OnReportTestCase</a>(detail::IOutStream* <span class="keyword">const</span> stream, <span class="keyword">const</span> <a class="code" href="../../df/d67/classiutest_1_1_test_case.html">TestCase</a>&amp; test_case, <span class="keywordtype">int</span> top)</div>
+<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#af1025ff7acae98e17ebda943a5285601">  152</a></span>&#160;{</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    stream-&gt;Printf(<span class="stringliteral">&quot;# %s started.\n&quot;</span>, test_case.<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#a2faa0f8d2c9c5dea207524bf99799f00">name</a>());</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordflow">for</span>( <span class="keywordtype">int</span> i=0, count=test_case.<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#ac8f9395c5fdc7b578e3acb998fe208f3">total_test_count</a>(); i &lt; count; ++i )</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    {</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a>* test_info = test_case.<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#afb5b8f3eb20a05d2bf0610378f4eb58f">GetTestInfo</a>(i);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">if</span>( !test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#a4cb2783888a8d22f07b28cd6e3cc45cc">should_run</a>() )</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        {</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            <span class="comment">// スキップ</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            stream-&gt;Printf(<span class="stringliteral">&quot;ok %d # SKIP - %s\n&quot;</span>, top+i, test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#acb83951703c7bab66c69de0f7c0e95e3">name</a>());</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        }</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        {</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            <span class="keywordflow">if</span>( test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#aaed6804309d25cf157232fb2fa5f497b">HasFailure</a>() )</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;            {</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                stream-&gt;Printf(<span class="stringliteral">&quot;not ok %d - %s &quot;</span>, top+i, test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#acb83951703c7bab66c69de0f7c0e95e3">name</a>() );</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                <span class="keywordflow">for</span>( <span class="keywordtype">int</span> j=0, count=test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#aa3f1f0ed51c9b6704155713083122e98">result</a>()-&gt;<a class="code" href="../../d0/d7b/classiutest_1_1_test_result.html#a76e0fc82e47e798b8198a22d7e88ad1a">total_part_count</a>(); j &lt; count; ++j )</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                {</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                    <span class="keyword">const</span> <a class="code" href="../../d8/d3c/classiutest_1_1_test_part_result.html">TestPartResult</a>&amp; part = test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#aa3f1f0ed51c9b6704155713083122e98">result</a>()-&gt;<a class="code" href="../../d0/d7b/classiutest_1_1_test_result.html#adb9ef14275a0f6ff49a642aaff218a0d">GetTestPartResult</a>(j);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                    ::std::string summary = part.make_message();</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                    <span class="comment">// 改行を置き換え</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                    detail::StringReplace(summary, <span class="charliteral">&#39;\n&#39;</span>, <span class="stringliteral">&quot;, &quot;</span>);</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                    stream-&gt;Printf(<span class="stringliteral">&quot;%s. &quot;</span>, summary.c_str() );</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                }</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                stream-&gt;Printf(<span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;            }</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;            {</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                stream-&gt;Printf(<span class="stringliteral">&quot;ok %d - %s\n&quot;</span>, top+i, test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#acb83951703c7bab66c69de0f7c0e95e3">name</a>() );</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;            }</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        }</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    }</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    stream-&gt;Printf(<span class="stringliteral">&quot;# %s ended.\n&quot;</span>, test_case.<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#a2faa0f8d2c9c5dea207524bf99799f00">name</a>());</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;}</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="../../dc/d0e/classiutest_1_1_t_a_p_file_generator_listener.html#a6f2719220f12b124bbecaa94aee808cc">TAPFileGeneratorListener::OnTestProgramEnd</a>(<span class="keyword">const</span> <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a>&amp; test)</div>
+<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="../../dc/d0e/classiutest_1_1_t_a_p_file_generator_listener.html#a6f2719220f12b124bbecaa94aee808cc">  189</a></span>&#160;{</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordflow">for</span>( <span class="keywordtype">int</span> k=0, count=test.<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#aef84e56219bc896f131df5cd2edeba01">total_test_case_count</a>(); k &lt; count; ++k )</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    {</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../df/d67/classiutest_1_1_test_case.html">TestCase</a>&amp; test_case = *test.<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a58db3f3ae9ff2f3ca274f7bdb6937f8a">GetTestCase</a>(k);</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        IUTEST_UNUSED_VAR(test);</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        <a class="code" href="../../d9/d57/classiutest_1_1_i_file.html">IFile</a>* fp = detail::IFileSystem::New();</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keywordflow">if</span>( fp == NULL )</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        {</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        }</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        ::std::string filepath = m_output_path;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        ::std::string name = test_case.<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#a2faa0f8d2c9c5dea207524bf99799f00">name</a>();</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        detail::StringReplace(name, <span class="charliteral">&#39;/&#39;</span>, <span class="stringliteral">&quot;_&quot;</span>);</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        filepath += detail::GetPathSeparator();</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        filepath += name;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        filepath += <span class="stringliteral">&quot;.tap&quot;</span>;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keywordflow">if</span>( !fp-&gt;<a class="code" href="../../d9/d57/classiutest_1_1_i_file.html#ad5e3d6e3009974fce8cffa15984f9a83">Open</a>(filepath.c_str(), <a class="code" href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381a7e5485c8952d435a56c8bb38c223a577">IFile::OpenWrite</a>) )</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        {</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            fprintf(stderr, <span class="stringliteral">&quot;Unable to open file \&quot;%s\&quot;.\n&quot;</span>, filepath.c_str());</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;            fflush(stderr);</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        }</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        <a class="code" href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#af1025ff7acae98e17ebda943a5285601">OnReportTestCase</a>(fp, test_case);</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        fp-&gt;Printf(<span class="stringliteral">&quot;1..%d\n&quot;</span>, test_case.<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#ac8f9395c5fdc7b578e3acb998fe208f3">total_test_count</a>());</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        fp-&gt;<a class="code" href="../../d9/d57/classiutest_1_1_i_file.html#ab7589b799ad6a3844ace9574d4fb1bce">Close</a>();</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        detail::IFileSystem::Free(fp);</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    }</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;}</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_TAP_PRINTER_HPP_77055C2B_AAE1_4944_A61C_26C58B04B37B_</span></div>
 <div class="ttc" id="classiutest_1_1_test_event_listeners_html"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html">iutest::TestEventListeners</a></div><div class="ttdoc">イベントリスナーの管理クラス </div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:158</div></div>
 <div class="ttc" id="classiutest_1_1_test_event_listeners_html_a8fb5ced0c4ab6319f8845caf32b68ef6"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html#a8fb5ced0c4ab6319f8845caf32b68ef6">iutest::TestEventListeners::default_result_printer</a></div><div class="ttdeci">TestEventListener * default_result_printer() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">デフォルト出力リスナーの取得 </div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:180</div></div>
 <div class="ttc" id="classiutest_1_1_t_a_p_print_listener_html_a7abebe763a8728c7359a3f855973a48a"><div class="ttname"><a href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a7abebe763a8728c7359a3f855973a48a">iutest::TAPPrintListener::OnTestProgramStart</a></div><div class="ttdeci">virtual void OnTestProgramStart(const UnitTest &amp;test) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">テストプログラム開始時に呼ばれます </div><div class="ttdef"><b>Definition:</b> iutest_tap_printer.hpp:127</div></div>
-<div class="ttc" id="classiutest_1_1_t_a_p_print_listener_html_a7ddbe8a0b6823eadee5ac19a07572752"><div class="ttname"><a href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a7ddbe8a0b6823eadee5ac19a07572752">iutest::TAPPrintListener::OnTestProgramEnd</a></div><div class="ttdeci">virtual void OnTestProgramEnd(const UnitTest &amp;test) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">テストプログラム終了時に呼ばれます </div><div class="ttdef"><b>Definition:</b> iutest_tap_printer.hpp:136</div></div>
+<div class="ttc" id="classiutest_1_1_t_a_p_print_listener_html_a7ddbe8a0b6823eadee5ac19a07572752"><div class="ttname"><a href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a7ddbe8a0b6823eadee5ac19a07572752">iutest::TAPPrintListener::OnTestProgramEnd</a></div><div class="ttdeci">virtual void OnTestProgramEnd(const UnitTest &amp;test) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">テストプログラム終了時に呼ばれます </div><div class="ttdef"><b>Definition:</b> iutest_tap_printer.hpp:137</div></div>
 <div class="ttc" id="classiutest_1_1_test_info_html_acb83951703c7bab66c69de0f7c0e95e3"><div class="ttname"><a href="../../d8/d3d/classiutest_1_1_test_info.html#acb83951703c7bab66c69de0f7c0e95e3">iutest::TestInfo::name</a></div><div class="ttdeci">const char * name() const </div><div class="ttdef"><b>Definition:</b> iutest_info.hpp:64</div></div>
 <div class="ttc" id="classiutest_1_1_t_a_p_print_listener_html_a5103fc5e0a2ca7797e4161cbe7a2d7bd"><div class="ttname"><a href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a5103fc5e0a2ca7797e4161cbe7a2d7bd">iutest::TAPPrintListener::SetUp</a></div><div class="ttdeci">static TestEventListener * SetUp()</div><div class="ttdoc">TAPPrintListener に切り替え </div><div class="ttdef"><b>Definition:</b> iutest_tap_printer.hpp:49</div></div>
 <div class="ttc" id="classiutest_1_1_test_part_result_html"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html">iutest::TestPartResult</a></div><div class="ttdoc">テスト結果を示すクラス </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:54</div></div>
 <div class="ttc" id="classiutest_1_1_test_result_html_a76e0fc82e47e798b8198a22d7e88ad1a"><div class="ttname"><a href="../../d0/d7b/classiutest_1_1_test_result.html#a76e0fc82e47e798b8198a22d7e88ad1a">iutest::TestResult::total_part_count</a></div><div class="ttdeci">int total_part_count() const </div><div class="ttdoc">結果の数を取得 </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:280</div></div>
 <div class="ttc" id="classiutest_1_1_unit_test_html_aef84e56219bc896f131df5cd2edeba01"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#aef84e56219bc896f131df5cd2edeba01">iutest::UnitTest::total_test_case_count</a></div><div class="ttdeci">int total_test_case_count() const </div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:89</div></div>
-<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:610</div></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:611</div></div>
 <div class="ttc" id="classiutest_1_1_test_property_html"><div class="ttname"><a href="../../db/df6/classiutest_1_1_test_property.html">iutest::TestProperty</a></div><div class="ttdoc">テストプロパティ </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:149</div></div>
 <div class="ttc" id="classiutest_1_1_test_env_html_a5908831d1f400180f97a687ec1d21928"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a5908831d1f400180f97a687ec1d21928">iutest::TestEnv::test_filter</a></div><div class="ttdeci">static const char * test_filter()</div><div class="ttdoc">フィルター文字列 </div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:334</div></div>
 <div class="ttc" id="classiutest_1_1_test_event_listener_html"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html">iutest::TestEventListener</a></div><div class="ttdoc">イベントリスナー </div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:63</div></div>
@@ -305,7 +306,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="ttc" id="classiutest_1_1_test_case_html_ac8f9395c5fdc7b578e3acb998fe208f3"><div class="ttname"><a href="../../df/d67/classiutest_1_1_test_case.html#ac8f9395c5fdc7b578e3acb998fe208f3">iutest::TestCase::total_test_count</a></div><div class="ttdeci">int total_test_count() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_case.hpp:72</div></div>
 <div class="ttc" id="classiutest_1_1_test_case_html"><div class="ttname"><a href="../../df/d67/classiutest_1_1_test_case.html">iutest::TestCase</a></div><div class="ttdoc">テストケース </div><div class="ttdef"><b>Definition:</b> iutest_case.hpp:31</div></div>
 <div class="ttc" id="classiutest_1_1_test_case_html_a2faa0f8d2c9c5dea207524bf99799f00"><div class="ttname"><a href="../../df/d67/classiutest_1_1_test_case.html#a2faa0f8d2c9c5dea207524bf99799f00">iutest::TestCase::name</a></div><div class="ttdeci">const char * name() const </div><div class="ttdef"><b>Definition:</b> iutest_case.hpp:69</div></div>
-<div class="ttc" id="classiutest_1_1_t_a_p_file_generator_listener_html_a6f2719220f12b124bbecaa94aee808cc"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_t_a_p_file_generator_listener.html#a6f2719220f12b124bbecaa94aee808cc">iutest::TAPFileGeneratorListener::OnTestProgramEnd</a></div><div class="ttdeci">virtual void OnTestProgramEnd(const UnitTest &amp;test) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">テストプログラム終了時に呼ばれます </div><div class="ttdef"><b>Definition:</b> iutest_tap_printer.hpp:188</div></div>
+<div class="ttc" id="classiutest_1_1_t_a_p_file_generator_listener_html_a6f2719220f12b124bbecaa94aee808cc"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_t_a_p_file_generator_listener.html#a6f2719220f12b124bbecaa94aee808cc">iutest::TAPFileGeneratorListener::OnTestProgramEnd</a></div><div class="ttdeci">virtual void OnTestProgramEnd(const UnitTest &amp;test) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">テストプログラム終了時に呼ばれます </div><div class="ttdef"><b>Definition:</b> iutest_tap_printer.hpp:189</div></div>
 <div class="ttc" id="classiutest_1_1_i_file_html_a6e0f77bd1fb9a4a386975f2c849a8381a7e5485c8952d435a56c8bb38c223a577"><div class="ttname"><a href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381a7e5485c8952d435a56c8bb38c223a577">iutest::IFile::OpenWrite</a></div><div class="ttdoc">書き込み </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:39</div></div>
 <div class="ttc" id="classiutest_1_1_test_flag_html_a397f885a4bd35c356163b4cf0eab2ac8a0ecd8271165109eb1c27c8764bd18224"><div class="ttname"><a href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8a0ecd8271165109eb1c27c8764bd18224">iutest::TestFlag::FILTERING_TESTS</a></div><div class="ttdoc">テストのフィルタリング </div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:146</div></div>
 <div class="ttc" id="classiutest_1_1_test_info_html"><div class="ttname"><a href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a></div><div class="ttdoc">テスト情報クラス </div><div class="ttdef"><b>Definition:</b> iutest_info.hpp:32</div></div>
@@ -315,7 +316,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="ttc" id="classiutest_1_1_i_file_html_ab7589b799ad6a3844ace9574d4fb1bce"><div class="ttname"><a href="../../d9/d57/classiutest_1_1_i_file.html#ab7589b799ad6a3844ace9574d4fb1bce">iutest::IFile::Close</a></div><div class="ttdeci">virtual void Close()=0</div><div class="ttdoc">閉じる </div></div>
 <div class="ttc" id="classiutest_1_1_test_env_html_ac4e5e4d404fe4e10d22199a4e1a74948"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#ac4e5e4d404fe4e10d22199a4e1a74948">iutest::TestEnv::get_output_option</a></div><div class="ttdeci">static const char * get_output_option()</div><div class="ttdoc">出力オプション </div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:332</div></div>
 <div class="ttc" id="classiutest_1_1_test_result_html_adb9ef14275a0f6ff49a642aaff218a0d"><div class="ttname"><a href="../../d0/d7b/classiutest_1_1_test_result.html#adb9ef14275a0f6ff49a642aaff218a0d">iutest::TestResult::GetTestPartResult</a></div><div class="ttdeci">const TestPartResult &amp; GetTestPartResult(int index) const </div><div class="ttdoc">テスト結果の取得 </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:293</div></div>
-<div class="ttc" id="classiutest_1_1_t_a_p_print_listener_html_af1025ff7acae98e17ebda943a5285601"><div class="ttname"><a href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#af1025ff7acae98e17ebda943a5285601">iutest::TAPPrintListener::OnReportTestCase</a></div><div class="ttdeci">void OnReportTestCase(detail::IOutStream *const stream, const TestCase &amp;test_case, int top=1)</div><div class="ttdoc">テストケース毎の処理 </div><div class="ttdef"><b>Definition:</b> iutest_tap_printer.hpp:151</div></div>
+<div class="ttc" id="classiutest_1_1_t_a_p_print_listener_html_af1025ff7acae98e17ebda943a5285601"><div class="ttname"><a href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#af1025ff7acae98e17ebda943a5285601">iutest::TAPPrintListener::OnReportTestCase</a></div><div class="ttdeci">void OnReportTestCase(detail::IOutStream *const stream, const TestCase &amp;test_case, int top=1)</div><div class="ttdoc">テストケース毎の処理 </div><div class="ttdef"><b>Definition:</b> iutest_tap_printer.hpp:152</div></div>
 <div class="ttc" id="classiutest_1_1_i_file_html"><div class="ttname"><a href="../../d9/d57/classiutest_1_1_i_file.html">iutest::IFile</a></div><div class="ttdoc">ファイルクラスインターフェイス </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:32</div></div>
 <div class="ttc" id="classiutest_1_1_test_info_html_aaed6804309d25cf157232fb2fa5f497b"><div class="ttname"><a href="../../d8/d3d/classiutest_1_1_test_info.html#aaed6804309d25cf157232fb2fa5f497b">iutest::TestInfo::HasFailure</a></div><div class="ttdeci">bool HasFailure() const </div><div class="ttdoc">エラーが出たかどうか </div><div class="ttdef"><b>Definition:</b> iutest_info.hpp:113</div></div>
 <div class="ttc" id="classiutest_1_1_t_a_p_file_generator_listener_html_a5d3e275ecf32b1c451b010ba41ea1572"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_t_a_p_file_generator_listener.html#a5d3e275ecf32b1c451b010ba41ea1572">iutest::TAPFileGeneratorListener::TAPFileGeneratorListener</a></div><div class="ttdeci">TAPFileGeneratorListener(const char *directory=NULL)</div><div class="ttdoc">コンストラクタ </div><div class="ttdef"><b>Definition:</b> iutest_tap_printer.hpp:70</div></div>
@@ -329,7 +330,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年06月26日(日) 23時38分18秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年06月30日(木) 03時20分09秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

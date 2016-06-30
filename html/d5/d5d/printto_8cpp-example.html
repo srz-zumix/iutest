@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.15.1.7</span>
+   &#160;<span id="projectnumber">1.15.1.8</span>
    </div>
   </td>
  </tr>
@@ -103,7 +103,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line">    }</div>
 <div class="line">};</div>
 <div class="line"></div>
-<div class="line">::iutest::iu_ostream&amp; operator &lt;&lt; (::iutest::iu_ostream&amp; os, <span class="keyword">const</span> Bar&amp; bar) </div>
+<div class="line">::iutest::iu_ostream&amp; operator &lt;&lt; (::iutest::iu_ostream&amp; os, <span class="keyword">const</span> Bar&amp; bar)</div>
 <div class="line">{</div>
 <div class="line">    <span class="keywordflow">return</span> os &lt;&lt; <span class="stringliteral">&quot;X:&quot;</span> &lt;&lt; bar.x &lt;&lt; <span class="stringliteral">&quot; Y:&quot;</span> &lt;&lt; bar.y &lt;&lt; <span class="stringliteral">&quot; Z:&quot;</span> &lt;&lt; bar.z;</div>
 <div class="line">}</div>
@@ -166,7 +166,11 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><span class="preprocessor"></span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><span class="keyword">class </span>TypedPrintToTest : <span class="keyword">public</span> <a name="_a4"></a><a class="code" href="../../dc/d0e/classiutest_1_1_test.html">::iutest::Test</a> {};</div>
-<div class="line">typedef ::iutest::Types&lt;char, unsigned char, short, unsigned short, int, unsigned int, long, unsigned long, int*&gt; PrintStringTestTypes;</div>
+<div class="line">typedef ::iutest::Types&lt;char, <span class="keywordtype">unsigned</span> char</div>
+<div class="line">            , short, <span class="keywordtype">unsigned</span> short</div>
+<div class="line">            , int, <span class="keywordtype">unsigned</span> int</div>
+<div class="line">            , long, <span class="keywordtype">unsigned</span> long</div>
+<div class="line">            , <span class="keywordtype">int</span>*&gt; PrintStringTestTypes;</div>
 <div class="line"><a name="a5"></a><a class="code" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#gae66e40268541c8a179af720f0beee90c">IUTEST_TYPED_TEST_CASE</a>(TypedPrintToTest, PrintStringTestTypes);</div>
 <div class="line"></div>
 <div class="line"><a name="a6"></a><a class="code" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga20179a8a238b2ddb2aea8ff3e7eb67a2">IUTEST_TYPED_TEST</a>(TypedPrintToTest, Print)</div>
@@ -202,7 +206,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --> </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年06月26日(日) 23時38分18秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年06月30日(木) 03時20分09秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
