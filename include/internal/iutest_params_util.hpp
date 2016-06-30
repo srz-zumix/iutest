@@ -119,8 +119,10 @@ class ParamTestCaseInfo : public IParamTestCaseInfo
     typedef ParamGenerator* (*pfnCreateGeneratorFunc)();
     typedef ::std::string (*pfnParamNameGeneratorFunc)(const TestParamInfo<ParamType>&);
 
-    struct Functor
+    class Functor
     {
+        Functor() {}
+    public:
         Functor(pfnCreateGeneratorFunc c, pfnParamNameGeneratorFunc p)
             : CreateGen(c), ParamNameGen(p) {}
         pfnCreateGeneratorFunc      CreateGen;
