@@ -135,9 +135,9 @@ public:
 IUTEST(UnitTest, XmlEscape)
 {
     IUTEST_EXPECT_STREQ("a&lt;&gt;&#x09;b&amp; &apos;&quot;c&#x0D;&#x0A;"
-        , HackXmlGeneratorListener::EscapeXmlAttribute("a<> b& \'\"c\r\n"));
-    IUTEST_EXPECT_STREQ("a&lt;&gt;  b&amp; \'\"c\r\n"
-        , HackXmlGeneratorListener::EscapeXmlText("a<>  b& \'\"c\r\n"));
+        , HackXmlGeneratorListener::EscapeXmlAttribute("a<>	b& \'\"c\r\n"));
+    IUTEST_EXPECT_STREQ("a&lt;&gt;	b&amp; \'\"c\r\n"
+        , HackXmlGeneratorListener::EscapeXmlText("a<>	b& \'\"c\r\n"));
 }
 
 IUTEST(UnitTest, FileLocqtion)
