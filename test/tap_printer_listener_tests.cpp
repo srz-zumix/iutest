@@ -19,15 +19,14 @@
 #include "../include/listener/iutest_tap_printer.hpp"
 #include "logger_tests.hpp"
 
-const char tap_test_str[] = 
+const char tap_test_str[] =
 "# Foo started.\n"
 "ok 1 - Ok\n"
 "# Foo ended.\n"
 "# Bar started.\n"
 "ok 2 # SKIP - DISABLED_Ng\n"
 "# Bar ended.\n"
-"1..2\n"
-;
+"1..2\n";
 
 IUTEST(Foo, Ok)
 {
@@ -53,14 +52,14 @@ int main(int argc, char* argv[])
 
 #if !defined(IUTEST_USE_GTEST)
     ::iutest::TAPPrintListener::SetUp();
-    
+
     TestLogger logger;
     ::iutest::detail::iuConsole::SetLogger(&logger);
 #endif
 
     {
-        if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1; 
-    
+        if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
+
 #if !defined(IUTEST_USE_GTEST)
         IUTEST_EXPECT_STREQ(tap_test_str, logger.c_str());
         logger.clear();
@@ -71,8 +70,8 @@ int main(int argc, char* argv[])
     {
         ::iutest::IUTEST_FLAG(filter) = "*Hoge*";
         ::iutest::IUTEST_FLAG(also_run_disabled_tests) = false;
-        if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1; 
-    
+        if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
+
 #if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_ASSERTION_RETURN
         IUTEST_EXPECT_STRIN("*Hoge*", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
         logger.clear();
@@ -82,8 +81,8 @@ int main(int argc, char* argv[])
     {
         ::iutest::IUTEST_FLAG(filter) = NULL;
         ::iutest::IUTEST_FLAG(also_run_disabled_tests) = true;
-        if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1; 
-    
+        if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
+
 #if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_ASSERTION_RETURN
         IUTEST_EXPECT_STRIN("not ok", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
         IUTEST_EXPECT_STRIN("show failed., test.", logger.c_str()) << ::iutest::AssertionReturn<int>(1);

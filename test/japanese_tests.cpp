@@ -21,7 +21,6 @@
 
 IUTEST_PACKAGE(japanese_test)
 {
-
 IUTEST(JapaneseTest, IUTEST_JAPANESE_NAME(あいうえお))
 {
 //  IUTEST_SUCCEED() << "あいうえお";
@@ -168,10 +167,9 @@ IUTEST_TYPED_TEST_IGNORE(IUTEST_JAPANESE_NAME_F(あいうえお, TypedTest), IUT
 
 #endif
 
-}
+}   // end of namespace ignore_test
 
 #endif
-
 }
 
 #endif
@@ -183,12 +181,12 @@ int main(int argc, char* argv[])
 #endif
 {
     IUTEST_INIT(&argc, argv);
-    
+
     int ret = IUTEST_RUN_ALL_TESTS();
     if( ret != 0 ) return 1;
-    
+
 #if IUTEST_HAS_TESTNAME_ALIAS_JP
-    
+
     int testcase_count = 3;
     int test_count = 4;
 #if IUTEST_HAS_PARAM_TEST
@@ -212,7 +210,7 @@ int main(int argc, char* argv[])
     test_count += 1;
 #endif
 #endif
-    
+
 #if IUTEST_HAS_ASSERTION_RETURN
     IUTEST_ASSERT_EQ( testcase_count, ::iutest::UnitTest::GetInstance()->total_test_case_count()) << ::iutest::AssertionReturn(1);
     IUTEST_ASSERT_EQ( test_count, ::iutest::UnitTest::GetInstance()->total_test_count() ) << ::iutest::AssertionReturn(1);

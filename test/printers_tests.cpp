@@ -15,10 +15,9 @@
 
 //======================================================================
 // include
+#include <vector>
 #include "iutest.hpp"
 #include "logger_tests.hpp"
-
-#include <vector>
 
 #if !defined(IUTEST_USE_GTEST)
 TestLogger printer_logger;
@@ -27,7 +26,7 @@ class LogChecker
 {
     ::std::string m_str;
 public:
-    LogChecker(const char* str) : m_str(str)
+    explicit LogChecker(const char* str) : m_str(str)
     {
         ::iutest::detail::iuConsole::SetLogger(&printer_logger);
     }
@@ -42,7 +41,7 @@ public:
 class LogChecker
 {
 public:
-    LogChecker(const char*) {}
+    explicit LogChecker(const char*) {}
 };
 #endif
 
@@ -65,7 +64,7 @@ struct Bar
     }
 };
 
-::iutest::iu_ostream& operator << (::iutest::iu_ostream& os, const Bar& bar) 
+::iutest::iu_ostream& operator << (::iutest::iu_ostream& os, const Bar& bar)
 {
     IUTEST_ADD_FAILURE();
     return os << "X:" << bar.x << " Y:" << bar.y << " Z:" << bar.z;
@@ -282,15 +281,15 @@ IUTEST(PrintToTest, U32String)
 
 struct Point0
 {
-    unsigned int x,y;
+    unsigned int x, y;
 };
 struct Point1
 {
-    int x,y;
+    int x, y;
 };
 struct Point2
 {
-    int x,y;
+    int x, y;
 };
 
 ::iutest::iu_ostream& operator << (::iutest::iu_ostream& os, const Point1& x)
@@ -359,7 +358,7 @@ IUTEST(PrintToTest, Nullptr)
 IUTEST(PrintToTest, Tuple)
 {
     ::iutest::tuples::tuple<bool, int, char> t(false, 100, 'a');
-    
+
     IUTEST_SUCCEED() << ::iutest::PrintToString(t);
 }
 #endif

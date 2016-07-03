@@ -59,7 +59,7 @@ IUTEST_P(CsvParamsIntTest, Param)
     IUTEST_EXPECT_NE( 0, GetParam() );
 #if IUTEST_HAS_MATCHERS
     IUTEST_ASSERT_THAT( check_params, Contains( GetParam() ) );
-#endif  
+#endif
     for( size_t i=0; i < IUTEST_PP_COUNTOF(check_params); ++i )
     {
         if( check_params[i] == GetParam() )
@@ -108,7 +108,7 @@ IUTEST_P(CsvParamsFloatTest, Param)
     IUTEST_EXPECT_NE( 0.0f, GetParam() );
 #if IUTEST_HAS_MATCHERS
     IUTEST_ASSERT_THAT( check_params, Contains( GetParam() ) );
-#endif  
+#endif
     for( size_t i=0; i < IUTEST_PP_COUNTOF(check_params); ++i )
     {
         if( check_params[i] == GetParam() )

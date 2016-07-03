@@ -29,7 +29,7 @@ public:
 
     static int index;
     static Tuple list[2*2*TABLE_SIZE];
-    
+
 public:
     static void SetUpTestCase(void) { index = 0; }
 };
@@ -104,7 +104,7 @@ class VariadicCombineTest : public ::iutest::TestWithParam< VariadicCombineTestT
 public:
     static int num;
     static int count;
-    
+
     static VariadicCombineTestTuple count_to_tuple(int c)
     {
         return ::iutest::tuples::make_tuple(
@@ -143,8 +143,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, VariadicCombineTest
         , ::iutest::ValuesIn(test_table)
     ));
 
-}
-
+}   // end of namespace variadic_combine_test
 
 #endif
 

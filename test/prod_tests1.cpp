@@ -128,7 +128,7 @@ IUTEST(PeepTest, PeepMacro)
 
     IUTEST_PEEP_GET(s_prod2, ProdClass2, m_x) = 42;
     IUTEST_EXPECT_EQ(42, s_prod2.GetX());
-    
+
     IUTEST_EXPECT_EQ(42, IUTEST_PEEP_GET(s_prod2, ProdClass2, m_x));
 }
 
@@ -168,7 +168,7 @@ IUTEST(PeepTest, Const)
     // マクロ版
     IUTEST_EXPECT_EQ(42, IUTEST_PEEP_GET(s_prod, ProdClass, m_c));
 }
-    
+
 #if IUTEST_HAS_PEEP_CLASS
 IUTEST(PeepClassTest, Const)
 {
@@ -187,7 +187,7 @@ IUTEST(PeepTest, StaticPeep)
 
     IUTEST_EXPECT_EQ(4, IUTEST_PEEP_STATIC_GET(ProdClass, m_y));
 }
-    
+
 #if IUTEST_HAS_PEEP_CLASS
 IUTEST(PeepClassTest, StaticPeep)
 {
@@ -217,7 +217,7 @@ IUTEST(PeepTest, Function)
     IUTEST_EXPECT_EQ(100, s_prod.GetX());
     IUTEST_EXPECT_EQ(100, IUTEST_PEEP_GET(s_prod, ProdClass, ConstGetX)());
 }
-    
+
 #if IUTEST_HAS_PEEP_CLASS
 IUTEST(PeepClassTest, Function)
 {
@@ -241,8 +241,8 @@ IUTEST(PeepTest, StaticFunction)
     IUTEST_PEEP_STATIC_GET(ProdClass, SetY)(100);
     IUTEST_EXPECT_EQ(100, ProdClass::GetY());
 }
-    
-    // object 版
+
+// object 版
 #if IUTEST_HAS_PEEP_CLASS
 IUTEST(PeepClassTest, StaticFunction)
 {
@@ -256,7 +256,7 @@ IUTEST(PeepClassTest, StaticFunction)
 
 #endif
 
-}
+}   // end of namespace prod_test
 
 
 #if IUTEST_HAS_PEEP

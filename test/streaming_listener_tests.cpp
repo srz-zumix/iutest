@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
         IUTEST_EXPECT_STREQ( "test", ::iutest::IUTEST_FLAG(stream_result_to).c_str() );
     }
     ::iutest::IUTEST_FLAG(stream_result_to) = "localhost:5103";
-    if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1; 
+    if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
     printf("*** Successful ***\n");
     return 0;
 #else

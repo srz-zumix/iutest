@@ -23,16 +23,16 @@ IUTEST_PACKAGE(pkg1)
     {
         IUTEST_EXPECT_PACKAGENAME(pkg1, Test);
     }
-    
+
     IUTEST_F(PackageTestFixed, A)
     {
         IUTEST_EXPECT_PACKAGENAME(pkg1, PackageTestFixed);
     }
-    
+
 #if IUTEST_HAS_PARAM_METHOD_TEST
     IUTEST_PMZ(ParamMethodTest, A, TestFunction, 0, 0);
 #endif
-    
+
 #if IUTEST_HAS_PARAM_TEST
     IUTEST_P(PackageParamTest, A)
     {
@@ -55,7 +55,6 @@ IUTEST_PACKAGE(pkg1)
     IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, PackageTypeParamTest, MyTypesA);
 
 #endif
-
 }
 
 IUTEST_PACKAGE(pkg2)

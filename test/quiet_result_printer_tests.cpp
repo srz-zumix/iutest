@@ -38,12 +38,12 @@ int main(int argc, char* argv[])
     // 実行対象テストがないので xml 出力しない
     ::iutest::IUTEST_FLAG(output) = NULL;
 #endif
-    
+
 #if !defined(IUTEST_USE_GTEST)
     TestLogger logger;
     ::iutest::detail::iuConsole::SetLogger(&logger);
 #endif
-    
+
     ::iutest::TestEventListener* listener = ::iuutil::QuietResultPrinter::SetUp();
 #if IUTEST_HAS_ASSERTION_RETURN
     IUTEST_ASSERT_NOTNULL( listener ) << ::iutest::AssertionReturn<int>(1);
@@ -61,14 +61,14 @@ int main(int argc, char* argv[])
         ::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
         delete listeners.Release(listener);
     }
-    
+
     listener = ::iuutil::QuietResultPrinter::SetUp();
 #if IUTEST_HAS_ASSERTION_RETURN
     IUTEST_ASSERT_NULL( listener ) << ::iutest::AssertionReturn<int>(1);
 #else
     if( listener != NULL ) return 1;
 #endif
-    
+
     printf("*** Successful ***\n");
     return 0;
 }

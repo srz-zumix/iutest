@@ -24,7 +24,7 @@ class MyEnvironment : public ::iutest::Environment
 public:
     static bool setup;
     static bool teardown;
-    
+
 public:
     void Reset(void)
     {
@@ -39,7 +39,7 @@ private:
         ++test_counter;
         Environment::SetUp();
     }
-    
+
     virtual void TearDown(void)
     {
         teardown = true;
@@ -56,7 +56,7 @@ private:
         IUTEST_ASSERT_EQ(1, test_counter);
         ++test_counter;
     }
-    
+
     virtual void TearDown(void)
     {
         IUTEST_ASSERT_EQ(2, test_counter);
@@ -90,8 +90,8 @@ int main(int argc, char* argv[])
     env->Reset();
     const int ret = IUTEST_RUN_ALL_TESTS();
     if( ret != 0 ) return 1;
-    
+
     IUTEST_EXPECT_TRUE( MyEnvironment::teardown );
-    
+
     return ::iutest::UnitTest::GetInstance()->Passed() ? 0 : 1;
 }

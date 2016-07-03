@@ -57,7 +57,7 @@ IUTEST_P(OrderTest, Bar)
 
 #else
 
-#define DECL_ORDER_TEST(n) IUTEST(OrderTest, IUTEST_PP_CAT(Bar,n)) { order[count].push_back(n); }
+#define DECL_ORDER_TEST(n) IUTEST(OrderTest, IUTEST_PP_CAT(Bar, n)) { order[count].push_back(n); }
 
 DECL_ORDER_TEST(0)
 DECL_ORDER_TEST(1)
@@ -81,18 +81,18 @@ int main(int argc, char* argv[])
     MyEnvironment* const env = new MyEnvironment();
     IUTEST_ASSERT_EXIT( ::iutest::AddGlobalTestEnvironment(env) == env );
     IUTEST_INIT(&argc, argv);
-    
+
     ::iutest::IUTEST_FLAG(repeat) = kRepeatCount;
     ::iutest::IUTEST_FLAG(shuffle) = true;
     ::iutest::IUTEST_FLAG(random_seed) = kSeed;
 
     const int ret = IUTEST_RUN_ALL_TESTS();
     if( ret != 0 ) return ret;
-    
+
     // シャッフルした順番を繰り返しシャッフルするため同じ順番にならない
     IUTEST_EXPECT_NE(order[0], order[1]);
     IUTEST_EXPECT_NE(order[0], order[2]);
-    
+
     return ::iutest::UnitTest::GetInstance()->Passed() ? 0 : 1;
 }
 

@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
 #endif
     const int ret = IUTEST_RUN_ALL_TESTS();
     if( ret == 0 ) return 1;
-    
+
 #if IUTEST_HAS_ASSERTION_RETURN
     IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->successful_test_count()) << ::iutest::AssertionReturn(1);
     IUTEST_ASSERT_EQ(3, ::iutest::UnitTest::GetInstance()->failed_test_count()) << ::iutest::AssertionReturn(1);

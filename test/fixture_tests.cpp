@@ -84,7 +84,7 @@ class TestFixtureLikeVCUnit : public ::iutest::Test
 {
 public:
     static int x;
-    
+
     ~TestFixtureLikeVCUnit()
     {
         IUTEST_EXPECT_EQ(3, x);

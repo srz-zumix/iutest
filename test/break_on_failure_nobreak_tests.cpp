@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
 #endif
 {
     ::iutest::IUTEST_FLAG(break_on_failure) = true;
-    
+
     IUTEST_INIT(&argc, argv);
     return IUTEST_RUN_ALL_TESTS();
 }

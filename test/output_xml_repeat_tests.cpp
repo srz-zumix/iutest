@@ -43,7 +43,7 @@ int TestF::nI = 0;
 IUTEST_F(TestF, XmlFilePath)
 {
     char expect[256];
-    ::iutest::detail::iu_snprintf(expect, 256, "test_%d.xml", nI);
+    ::iutest::detail::iu_snprintf(expect, sizeof(expect), "test_%d.xml", nI);
     IUTEST_ASSERT_EQ( expect
         , (reinterpret_cast< ::iutest::DefaultXmlGeneratorListener*>(::iutest::TestEnv::event_listeners().default_xml_generator())->GetFilePath()) );
 }

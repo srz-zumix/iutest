@@ -43,13 +43,12 @@ bool PairwiseTest2::mtx[2][2];
 
 IUTEST_P(PairwiseTest2, Num)
 {
-    PairwiseTest2Tuple param = GetParam();
-    
+    const PairwiseTest2Tuple param = GetParam();
     mtx[::iutest::tuples::get<0>(param)][::iutest::tuples::get<1>(param)] = true;
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P(A, PairwiseTest2
-    , ::iutest::Pairwise(::iutest::Range(0,2), ::iutest::Range(0,2)) );
+    , ::iutest::Pairwise(::iutest::Range(0, 2), ::iutest::Range(0, 2)) );
 
 
 typedef ::iutest::tuples::tuple<int, int, int, int, int, int, int, int, int> PairwiseTestTuple;
@@ -77,60 +76,65 @@ IUTEST_P(PairwiseTest, Num)
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P(A, PairwiseTest
-    , ::iutest::Pairwise(::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
+    , ::iutest::Pairwise(
+          ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
     ));
 #if IUTEST_HAS_CONCAT
 IUTEST_INSTANTIATE_TEST_CASE_P(B, PairwiseTest
     , ::iutest::Concat(
-        ::iutest::Pairwise(::iutest::Range(0,1)
-            , ::iutest::Range(0,2)
-            , ::iutest::Range(0,2)
-            , ::iutest::Range(0,2)
-            , ::iutest::Range(0,2)
-            , ::iutest::Range(0,2)
-            , ::iutest::Range(0,2)
-            , ::iutest::Range(0,2)
-            , ::iutest::Range(0,2)
+        ::iutest::Pairwise(
+              ::iutest::Range(0, 1)
+            , ::iutest::Range(0, 2)
+            , ::iutest::Range(0, 2)
+            , ::iutest::Range(0, 2)
+            , ::iutest::Range(0, 2)
+            , ::iutest::Range(0, 2)
+            , ::iutest::Range(0, 2)
+            , ::iutest::Range(0, 2)
+            , ::iutest::Range(0, 2)
         ),
-        ::iutest::Pairwise(::iutest::Range(1,2)
-            , ::iutest::Range(0,2)
-            , ::iutest::Range(0,2)
-            , ::iutest::Range(0,2)
-            , ::iutest::Range(0,2)
-            , ::iutest::Range(0,2)
-            , ::iutest::Range(0,2)
-            , ::iutest::Range(0,2)
-            , ::iutest::Range(0,2)
+        ::iutest::Pairwise(
+              ::iutest::Range(1, 2)
+            , ::iutest::Range(0, 2)
+            , ::iutest::Range(0, 2)
+            , ::iutest::Range(0, 2)
+            , ::iutest::Range(0, 2)
+            , ::iutest::Range(0, 2)
+            , ::iutest::Range(0, 2)
+            , ::iutest::Range(0, 2)
+            , ::iutest::Range(0, 2)
         )
     )
     );
 IUTEST_INSTANTIATE_TEST_CASE_P(C, PairwiseTest
-    , ::iutest::Pairwise(::iutest::Range(0,1)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-    ) + ::iutest::Pairwise(::iutest::Range(1,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
+    , ::iutest::Pairwise(
+          ::iutest::Range(0, 1)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+    ) + ::iutest::Pairwise(
+          ::iutest::Range(1, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
     )
     );
 #endif
@@ -163,16 +167,17 @@ IUTEST_P(VariadicPairwiseTest, Num)
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P(A, VariadicPairwiseTest
-    , ::iutest::Pairwise(::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
-        , ::iutest::Range(0,2)
+    , ::iutest::Pairwise(
+          ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
+        , ::iutest::Range(0, 2)
     ));
 
 

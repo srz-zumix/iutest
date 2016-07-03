@@ -74,7 +74,7 @@ IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, RegisterVerboseSpaceTypeParamTest, ::iut
 
 #endif
 
-}
+}   // end of namespace type_param_test
 
 #endif
 

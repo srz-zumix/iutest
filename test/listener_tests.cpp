@@ -34,7 +34,7 @@ public:
     bool called_OnEnvironmentsTearDownEnd;
     bool called_OnTestIterationEnd;
     bool called_OnTestProgramEnd;
-    
+
 public:
     MyTestEventListener(void)
     : called_OnTestProgramStart(false)
@@ -52,7 +52,7 @@ public:
     , called_OnTestIterationEnd(false)
     , called_OnTestProgramEnd(false)
     {}
-    
+
 public:
     virtual void OnTestProgramStart(const ::iutest::UnitTest& /*test*/)
     {
@@ -130,7 +130,7 @@ IUTEST(FlagTest, Check)
     IUTEST_ASSERT_TRUE( listener->called_OnEnvironmentsSetUpEnd );
     IUTEST_ASSERT_TRUE( listener->called_OnTestCaseStart );
     IUTEST_ASSERT_TRUE( listener->called_OnTestStart );
-    
+
     IUTEST_ASSERT_FALSE( listener->called_OnTestEnd );
     IUTEST_ASSERT_FALSE( listener->called_OnTestCaseEnd );
     IUTEST_ASSERT_FALSE( listener->called_OnEnvironmentsTearDownStart );
@@ -141,7 +141,7 @@ IUTEST(FlagTest, Check)
     IUTEST_ASSERT_FALSE( listener->called_OnTestPartResult );
     IUTEST_EXPECT_EQ(1, 2);
     IUTEST_ASSERT_TRUE( listener->called_OnTestPartResult );
-    
+
     IUTEST_ASSERT_FALSE( listener->called_OnTestRecordProperty );
     RecordProperty("dummy", 0);
     IUTEST_ASSERT_TRUE( listener->called_OnTestRecordProperty );
@@ -164,7 +164,7 @@ int main(int argc, char* argv[])
     listeners.Append( listener );
     listeners.Append( new ::iutest::EmptyTestEventListener() );
     const int ret = IUTEST_RUN_ALL_TESTS();
-    
+
     IUTEST_ASSERT_EXIT( listener->called_OnTestEnd );
     IUTEST_ASSERT_EXIT( listener->called_OnTestCaseEnd );
     IUTEST_ASSERT_EXIT( listener->called_OnEnvironmentsTearDownStart );

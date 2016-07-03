@@ -29,9 +29,9 @@ void test_printf(const char* fmt, ...);
 
 //======================================================================
 // include
+#include <iostream>
 #include "iutest.hpp"
 #include "../include/gtest/iutest_assertion_only.hpp"
-#include <iostream>
 
 #ifdef IUTEST_USE_GTEST
 static ::std::stringstream s_outstream;

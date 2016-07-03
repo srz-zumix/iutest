@@ -31,7 +31,7 @@ IUTEST(StaticAssertTypeEqTest, Fail)
 }
 
 IUTEST(StaticAssertTypeEqTest, Fail2)
-{   
+{
     IUTEST_TEST_STATICASSERT("static_assert")
     IUTEST_STATIC_ASSERT(false);
 }

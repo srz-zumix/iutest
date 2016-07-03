@@ -61,17 +61,17 @@ IUTEST(UnitTest, is_base_of)
 
 struct X
 {
-    int a,b,c;
+    int a, b, c;
 };
 struct Y
 {
-    int a,b,c;
+    int a, b, c;
     bool operator == (const Y&) { return true; }
 };
 
 struct Z
 {
-    int a,b,c;
+    int a, b, c;
 };
 
 bool operator == (const Z&, const Z&) { return true; }
@@ -135,9 +135,9 @@ public:
 IUTEST(UnitTest, XmlEscape)
 {
     IUTEST_EXPECT_STREQ("a&lt;&gt;&#x09;b&amp; &apos;&quot;c&#x0D;&#x0A;"
-        , HackXmlGeneratorListener::EscapeXmlAttribute("a<>	b& \'\"c\r\n"));
-    IUTEST_EXPECT_STREQ("a&lt;&gt;	b&amp; \'\"c\r\n"
-        , HackXmlGeneratorListener::EscapeXmlText("a<>	b& \'\"c\r\n"));
+        , HackXmlGeneratorListener::EscapeXmlAttribute("a<>	b& \'\"c\r\n"));// NOLINT
+    IUTEST_EXPECT_STREQ("a&lt;&gt;	b&amp; \'\"c\r\n"                       // NOLINT
+        , HackXmlGeneratorListener::EscapeXmlText("a<>	b& \'\"c\r\n"));    // NOLINT
 }
 
 IUTEST(UnitTest, FileLocqtion)

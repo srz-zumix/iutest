@@ -48,7 +48,7 @@ samples: $(SAMPLES) cpplint.py Makefile
 	python cpplint.py --extensions=hpp,cpp --linelength=120 --filter=$(SUPPRESS),-build/namespace,-runtime/printf $(SAMPLES)
 
 test: $(SRC_CPP) cpplint.py Makefile
-	python cpplint.py --extensions=hpp,cpp --linelength=120 --filter=$(SUPPRESS) $(TESTS)
+	python cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS),-build/namespace,-build/include $(TESTS)
 
 
 cpplint.py:

@@ -34,4 +34,4 @@ IUTEST(ProdTest, PeepA2)
 
 #endif
 
-}
+}   // end of namespace prod_test

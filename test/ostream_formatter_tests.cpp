@@ -15,9 +15,9 @@
 
 //======================================================================
 // include
+#include <iomanip>
 #include "iutest.hpp"
 #include "logger_tests.hpp"
-#include <iomanip>
 
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP) && (IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM)
 #  define OSTREAM_FORMATTER_TESTS_ENABLE
@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
     // 実行対象テストがないので xml 出力しない
     ::iutest::IUTEST_FLAG(output) = NULL;
 #endif
-    
+
     ::iutest::detail::iuConsole::SetLogger(&logger);
 
     ::iutest::IUTEST_FLAG(color) = "no";
@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
     ::iutest::IUTEST_FLAG(ostream_formatter) << ::std::hex
         << ::std::setw(8) << ::std::setfill('0') << ::std::setprecision(5);
 #endif
-    
+
     {
         if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
 #if defined(OSTREAM_FORMATTER_TESTS_ENABLE)
@@ -69,6 +69,5 @@ int main(int argc, char* argv[])
 #endif
     }
     printf("*** Successful ***\n");
-    
     return 0;
 }

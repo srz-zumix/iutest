@@ -186,7 +186,7 @@ int main(int argc, char* argv[])
     expected_disable_test_count += 2;
     expected_test_count += 3;
 #endif
-    
+
     {
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret != 0 ) return 1;
@@ -198,7 +198,7 @@ int main(int argc, char* argv[])
         IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->skip_test_count() == expected_disable_test_count );
 #endif
     }
-    
+
     {
         ::iutest::IUTEST_FLAG(also_run_disabled_tests) = true;
         const int ret = IUTEST_RUN_ALL_TESTS();

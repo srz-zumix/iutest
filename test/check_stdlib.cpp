@@ -13,12 +13,11 @@
 //-----------------------------------------------------------------------
 //======================================================================
 
+#include <iostream>
 #include "../include/internal/iutest_pp.hpp"
 #include "../include/internal/iutest_compiler.hpp"
 #include "../include/internal/iutest_stdlib.hpp"
-#include <iostream>
 
-#include "../include/internal/iutest_stdlib.hpp"
 #define SHOW_MACRO(x)   ::std::cout << "#define " #x " " IUTEST_PP_TOSTRING(x) << ::std::endl
 
 #ifdef UNICODE

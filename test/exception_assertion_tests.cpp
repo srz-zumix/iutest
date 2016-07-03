@@ -78,7 +78,7 @@ IUTEST(Exception, ValueEQ)
     IUTEST_INFORM_THROW_VALUE_EQ(ExceptionFunction(1), int, 2);
     IUTEST_ASSUME_THROW_VALUE_EQ(ExceptionFunction(1), int, 2);
 }
-    
+
 IUTEST(Exception, ValueNE)
 {
     IUTEST_ASSERT_THROW_VALUE_NE(throw 2, int, 0);

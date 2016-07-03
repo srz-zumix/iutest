@@ -79,9 +79,9 @@ bool FilterTest( ::std::vector< ::std::string > targv
     FilterFile::filter = filter;
     ::iutest::InitIrisUnitTest(targv);
     const int ret = IUTEST_RUN_ALL_TESTS();
-    
+
     if( ret != 0 ) return false;
-    
+
     {
         IUTEST_SCOPED_TRACE(filter);
 
@@ -91,16 +91,15 @@ bool FilterTest( ::std::vector< ::std::string > targv
         IUTEST_EXPECT_EQ( ranFooBaz    , FooBaz::state );
         IUTEST_EXPECT_EQ( ranFooBarTest, FooBarTest::state );
         IUTEST_EXPECT_EQ( ranFooQux    , FooQux::state );
-        
+
         int nRan = 0;
-        
         if( ranTestHoge ) ++nRan;
         if( ranHogeTest ) ++nRan;
         if( ranFooBar ) ++nRan;
         if( ranFooBaz ) ++nRan;
         if( ranFooBarTest ) ++nRan;
         if( ranFooQux ) ++nRan;
-        
+
 #if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
         IUTEST_EXPECT_EQ( nRan, ::iutest::UnitTest::GetInstance()->reportable_test_count() );
         IUTEST_EXPECT_EQ( 0, ::iutest::UnitTest::GetInstance()->reportable_disabled_test_count() );

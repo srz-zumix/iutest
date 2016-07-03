@@ -46,7 +46,7 @@ IUTEST_TYPED_TEST(TypedTest, A)
 
 #endif
 
-const char list_test_str[] = 
+const char list_test_str[] =
 #if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TYPED_TEST
 "3 tests from 3 testcase\n"
 #elif IUTEST_HAS_TYPED_TEST || IUTEST_HAS_PARAM_TEST
@@ -64,7 +64,7 @@ const char list_test_str[] =
 "Test/ParamTest\n"
 "  A/0\n"
 #endif
-;
+"";
 
 const char list_test_with_where_str[] =
 #if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TYPED_TEST
@@ -89,7 +89,7 @@ const char list_test_with_where_str[] =
 "  A/0, where GetParam() = 4-Byte object < 2A 00 00 00 >\n"
 #endif
 #endif
-;
+"";
 
 #ifdef UNICODE
 #  define DECAL_ARGV(cmd) const wchar_t* targv[] = { argv[0], L cmd }
@@ -142,7 +142,7 @@ int main(int argc, char* argv[])
             << ::iutest::AssertionReturn<int>(1);
         if( ret != 0 ) return 1;
     }
-#endif  
+#endif
     return 0;
 }
 

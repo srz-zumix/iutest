@@ -538,9 +538,6 @@ IUTEST(SyntaxTest, VariadicPredFormat)
 
 #if IUTEST_HAS_EXCEPTIONS
 
-namespace syntax_test
-{
-
 static void ExceptionFunction(int i)
 {
     switch( i )
@@ -664,12 +661,10 @@ IUTEST(SyntaxTest, ExceptionValueFormat)
             , ExceptionFunction(5), float, x) << x;
 }
 
-}
-
 class exception_test
 {
 public:
-    exception_test(const ::std::vector<int>&)
+    explicit exception_test(const ::std::vector<int>&)
     {
         IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw ::std::exception());
     }
@@ -721,7 +716,7 @@ IUTEST_P(ValuesTest, Test)
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P( X1, ValuesTest, ::iutest::Values(1) );
-IUTEST_INSTANTIATE_TEST_CASE_P( X2, ValuesTest, ::iutest::Values(1,2) );
+IUTEST_INSTANTIATE_TEST_CASE_P( X2, ValuesTest, ::iutest::Values(1, 2) );
 
 #if IUTEST_HAS_VARIADIC_VALUES
 
@@ -734,4 +729,4 @@ IUTEST_INSTANTIATE_TEST_CASE_P( X51, ValuesTest
 
 #endif
 
-}
+}   // end of namespace syntax_tests

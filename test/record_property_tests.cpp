@@ -33,7 +33,7 @@ bool CheckProperty(const ::iutest::TestResult* tr, const char* key, const char* 
 #if IUTEST_USE_THROW_ON_ASSERTION_FAILURE
     try {
 #endif
-    
+
 #if IUTEST_HAS_ASSERTION_RETURN
     IUTEST_ASSERT_EQ(1, tr->test_property_count()) << ::iutest::AssertionReturn<bool>(false);
     IUTEST_EXPECT_STREQ(key, tr->GetTestProperty(0).key()) << ::iutest::AssertionReturn<bool>(false);
@@ -81,7 +81,7 @@ IUTEST_F(RecordTest, A)
     IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("value_param", "B"), "Reserved key");
 #endif
     CheckProperty(::iutest::UnitTest::GetInstance()->current_test_info()->result(), "hoge", "B");
-    
+
     // overwirte
     RecordProperty("hoge", "b");
     CheckProperty(::iutest::UnitTest::GetInstance()->current_test_info()->result(), "hoge", "b");
@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
     IUTEST_EXPECT_NONFATAL_FAILURE( ::iutest::Test::RecordProperty("timestamp"  , "C"), "Reserved key");
     IUTEST_EXPECT_NONFATAL_FAILURE( ::iutest::Test::RecordProperty("random_seed", "C"), "Reserved key");
 #endif
-    
+
     {
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret != 0 ) return 1;

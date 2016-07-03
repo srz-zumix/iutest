@@ -259,8 +259,8 @@ IUTEST(PPTest, Counter)
 }
 
 #if defined(IUTEST_PP_IS_BEGIN_PARENS)
-#define PAREN_TRUE  (x,y)
-#define PAREN_FALSE x,y
+#define PAREN_TRUE  (x, y)
+#define PAREN_FALSE x, y
 
 IUTEST(PPTest, IsBeginParens)
 {

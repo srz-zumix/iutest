@@ -26,7 +26,7 @@ class ProdClass
 {
     IUTEST_FRIEND_TEST(ProdTest, Friend);
     IUTEST_FRIEND_TEST(ProdFixtureTest, Friend);
-#if IUTEST_HAS_PARAM_TEST   
+#if IUTEST_HAS_PARAM_TEST
     IUTEST_FRIEND_TEST(ProdParamTest, Friend);
 #endif
 #if IUTEST_HAS_TYPED_TEST
@@ -35,7 +35,7 @@ class ProdClass
 #if IUTEST_HAS_TYPED_TEST_P
     IUTEST_FRIEND_TYPED_TEST(ProdTypeParamTest, Friend);
 #endif
-    
+
 public:
     ProdClass(void) : m_dummy(0), m_x(0), m_z(0), m_a(0), m_c(42) {}
     ProdClass(const ProdClass& rhs) : m_dummy(rhs.m_dummy), m_x(rhs.m_x), m_z(rhs.m_z), m_a(rhs.m_a), m_c(42) {}

@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
         ::iutest::IUTEST_FLAG(filter) = "*Expect*";
         IUTEST_INIT(&argc, argv);
         if( IUTEST_RUN_ALL_TESTS() == 0 ) return 2;
-        
+
         return 1;
     }
     catch(...)
@@ -121,7 +121,7 @@ int main(int argc, char* argv[])
         ::iutest::IUTEST_FLAG(filter) = "*Assert*";
         IUTEST_INIT(&argc, argv);
         if( IUTEST_RUN_ALL_TESTS() == 0 ) return 2;
-        
+
         return 1;
     }
     catch(...)
@@ -133,7 +133,7 @@ int main(int argc, char* argv[])
         ::iutest::IUTEST_FLAG(filter) = "Throw*";
         IUTEST_INIT(&argc, argv);
         if( IUTEST_RUN_ALL_TESTS() == 0 ) return 2;
-        
+
         return 1;
     }
     catch(...)
@@ -145,7 +145,7 @@ int main(int argc, char* argv[])
         ::iutest::IUTEST_FLAG(filter) = "SetUpThrow*";
         IUTEST_INIT(&argc, argv);
         if( IUTEST_RUN_ALL_TESTS() == 0 ) return 2;
-        
+
         return 1;
     }
     catch(...)
@@ -157,13 +157,13 @@ int main(int argc, char* argv[])
         ::iutest::IUTEST_FLAG(filter) = "SetUpTestCaseThrow*";
         IUTEST_INIT(&argc, argv);
         if( IUTEST_RUN_ALL_TESTS() == 0 ) return 2;
-        
+
         return 1;
     }
     catch(...)
     {
     }
-    
+
 #if !defined(IUTEST_USE_GTEST)
     try
     {
@@ -177,7 +177,6 @@ int main(int argc, char* argv[])
         return 1;
     }
 #endif
-    
 
 #endif
     printf("*** Successful ***\n");

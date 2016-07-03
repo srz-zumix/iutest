@@ -42,7 +42,7 @@ IUTEST_PACKAGE(pkg1)
 {
     class PackageTestFixed : public ::iutest::Test {};
 
-    
+
 #if IUTEST_HAS_PARAM_METHOD_TEST
     inline void TestFunction(int x, int y)
     {
@@ -50,7 +50,7 @@ IUTEST_PACKAGE(pkg1)
         IUTEST_EXPECT_PACKAGENAME(pkg1, ParamMethodTest);
     }
 #endif
-    
+
 #if IUTEST_HAS_PARAM_TEST
     class PackageParamTest : public ::iutest::TestWithParam<int> {};
 #endif

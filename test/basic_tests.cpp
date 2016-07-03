@@ -27,24 +27,24 @@ IUTEST(VersionTest, Check)
 
 IUTEST(CommandLineFlagTest, CanBeAccessed)
 {
-    bool dummy = ::iutest::IUTEST_FLAG(also_run_disabled_tests)
-    || ::iutest::IUTEST_FLAG(break_on_failure)
-    || ::iutest::IUTEST_FLAG(catch_exceptions)
-    || ::iutest::IUTEST_FLAG(list_tests)
-    || ::iutest::IUTEST_FLAG(print_time)
-    || ::iutest::IUTEST_FLAG(random_seed)
-    || ::iutest::IUTEST_FLAG(repeat) > 0
-    || ::iutest::IUTEST_FLAG(shuffle)
-    || ::iutest::IUTEST_FLAG(throw_on_failure)
-    || ::iutest::IUTEST_FLAG(color) != "unknown"
-    || ::iutest::IUTEST_FLAG(filter) != "unknown"
+    const bool dummy =
+           ::iutest::IUTEST_FLAG(also_run_disabled_tests)
+        || ::iutest::IUTEST_FLAG(break_on_failure)
+        || ::iutest::IUTEST_FLAG(catch_exceptions)
+        || ::iutest::IUTEST_FLAG(list_tests)
+        || ::iutest::IUTEST_FLAG(print_time)
+        || ::iutest::IUTEST_FLAG(random_seed)
+        || ::iutest::IUTEST_FLAG(shuffle)
+        || ::iutest::IUTEST_FLAG(throw_on_failure)
+        || ::iutest::IUTEST_FLAG(color) != "unknown"
+        || ::iutest::IUTEST_FLAG(filter) != "unknown"
 #if !defined(IUTEST_USE_GTEST)
-    || ::iutest::IUTEST_FLAG(verbose)
-    || ::iutest::IUTEST_FLAG(file_location_style_msvc)
-    || ::iutest::IUTEST_FLAG(list_tests_with_where)
-    || ::iutest::IUTEST_FLAG(default_package_name) != "unknown"
+        || ::iutest::IUTEST_FLAG(verbose)
+        || ::iutest::IUTEST_FLAG(file_location_style_msvc)
+        || ::iutest::IUTEST_FLAG(list_tests_with_where)
+        || ::iutest::IUTEST_FLAG(default_package_name) != "unknown"
 #endif
-    ;
+        || (::iutest::IUTEST_FLAG(repeat) > 0);
     IUTEST_EXPECT_TRUE(dummy || !dummy);
 }
 
@@ -99,7 +99,7 @@ IUTEST(TestRandom, Genrand)
 
 IUTEST(TestRandom, Engine)
 {
-    IUTEST_ASSERT_LE( ::std::uniform_int_distribution<unsigned int>(0,100)(random_engine()), 100u);
+    IUTEST_ASSERT_LE( ::std::uniform_int_distribution<unsigned int>(0, 100)(random_engine()), 100u);
 }
 #endif
 

@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
         ::std::string str;
         IUTEST_EXPECT_FALSE(::iutest::detail::IFileSystem::ReadAll("iutest_file_system_test.cpp", str));
     }
-    
+
     IUTEST_INIT(&argc, argv);
 
     RegisterFileSystem();

@@ -15,8 +15,8 @@
 
 //======================================================================
 // include
-#include "../include/gtest/iutest_spi_switch.hpp"
 #include <map>
+#include "../include/gtest/iutest_spi_switch.hpp"
 
 #if IUTEST_HAS_MATCHERS
 
@@ -35,18 +35,18 @@ int a[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 int b[3] = { 1, 2, 3 };
 int c[3] = { 1, 1, 1 };
 int d[4] = { 1, 2, 3, 4 };
-int n[2][2] = { {0,1}, {2,3} };
+int n[2][2] = { {0, 1}, {2, 3} };
 ::std::map<int, int> m;
 int* p1 = NULL;
 int** p2 = &p1;
 float f0 = 0.0f;
 double d0 = 0.0;
 struct X { int a, b; X(int _a, int _b) : a(_a), b(_b) {} int GetA() const { return a; } };
-X x(1,1);
+X x(1, 1);
 ::std::map<int, X> mx;
 int X2(int v) { return v*2; }
 
-}
+}   // end of namespace
 
 IUTEST(Matcher, Eq)
 {
@@ -213,10 +213,10 @@ IUTEST(Matcher, Pointwise)
     IUTEST_EXPECT_THAT(n[0], Pointwise(Lt(), n[1]));
     IUTEST_EXPECT_THAT(n[0], Pointwise(Le(), n[1]));
     IUTEST_EXPECT_THAT(n[1], Pointwise(Gt(), n[0]));
-    IUTEST_EXPECT_THAT( b, Pointwise(Ge(), c));
-    IUTEST_EXPECT_THAT(va, Pointwise(Eq(),va));
-    IUTEST_EXPECT_THAT( a, Pointwise(Eq(),va));
-    IUTEST_EXPECT_THAT(va, Pointwise(Eq(), a));
+    IUTEST_EXPECT_THAT( b, Pointwise(Ge(),  c));
+    IUTEST_EXPECT_THAT(va, Pointwise(Eq(), va));
+    IUTEST_EXPECT_THAT( a, Pointwise(Eq(), va));
+    IUTEST_EXPECT_THAT(va, Pointwise(Eq(),  a));
 }
 
 
@@ -462,8 +462,10 @@ IUTEST(MatcherFailure, ContainerEq)
     CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "Mismatch in a position 2: 1 vs 3" );
 #else
     CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "ContainerEq: {4-Byte" );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "Mismatch in a position 1: 4-Byte object < 01 00 00 00 > vs 4-Byte object < 02 00 00 00 >" );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "Mismatch in a position 2: 4-Byte object < 01 00 00 00 > vs 4-Byte object < 03 00 00 00 >" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c))
+        , "Mismatch in a position 1: 4-Byte object < 01 00 00 00 > vs 4-Byte object < 02 00 00 00 >" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c))
+        , "Mismatch in a position 2: 4-Byte object < 01 00 00 00 > vs 4-Byte object < 03 00 00 00 >" );
 #endif
     CHECK_FAILURE( IUTEST_ASSERT_THAT( a, ContainerEq(c)), "Mismatch element : 3 vs 10" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT( c, ContainerEq(a)), "Mismatch element : 10 vs 3" );
@@ -704,8 +706,8 @@ int main(int argc, char* argv[])
 #if IUTEST_HAS_MATCHERS
     for( int i=0; i < 10; ++i ) va.push_back(i);
     for( int i=0; i < 10; ++i ) vv.push_back(va);
-    for( int i=0; i < 10; ++i ) m.insert( ::std::pair<int,int>(i, 100) );
-    for( int i=0; i < 10; ++i ) mx.insert( ::std::pair<int,X>(i, X(i, i)) );
+    for( int i=0; i < 10; ++i ) m.insert( ::std::pair<int, int>(i, 100) );
+    for( int i=0; i < 10; ++i ) mx.insert( ::std::pair<int, X>(i, X(i, i)) );
 #endif
 
     IUTEST_INIT(&argc, argv);

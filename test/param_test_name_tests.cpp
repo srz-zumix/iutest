@@ -19,7 +19,7 @@
 
 #include "main.cpp"
 
-#if IUTEST_HAS_PARAM_TEST 
+#if IUTEST_HAS_PARAM_TEST
 
 #if !defined(IUTEST_USE_GTEST)
 
@@ -83,7 +83,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(CustomParamNameFunction, RenameParamTest
 #if IUTEST_HAS_LAMBDA
 IUTEST_INSTANTIATE_TEST_CASE_P(CustomParamNameLambda, RenameParamTest
                                 , ::iutest::Values("abcdefghijklmnopqrstuvwxyz", "1234567890")
-                                , [](const ::iutest::TestParamInfo< ::std::string >& info) { 
+                                , [](const ::iutest::TestParamInfo< ::std::string >& info) {
                                     return info.param;
                                 });
 #endif

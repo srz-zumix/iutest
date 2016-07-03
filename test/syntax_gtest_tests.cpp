@@ -315,7 +315,7 @@ TEST(GTestSyntaxTest, HResultFailed)
 
 #if IUTEST_HAS_EXCEPTIONS
 
-namespace syntax_test
+namespace syntax_tests
 {
 
 static void ExceptionFunction(int i)
@@ -441,14 +441,14 @@ TEST(GTestSyntaxTest, ExceptionValueFormat)
             , ExceptionFunction(5), float, x) << x;
 }
 
-}
+}   // end of namespace syntax_tests
 
 #if !defined(IUTEST_USE_GTEST)
 
 class exception_test
 {
 public:
-    exception_test(const ::std::vector<int>&)
+    explicit exception_test(const ::std::vector<int>&)
     {
         IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw ::std::exception());
     }
@@ -464,4 +464,4 @@ TEST(GTestSyntaxTest, ExceptionVectorConstructor)
 
 #endif
 
-}
+}   // end of namespace syntax_gtest_tests

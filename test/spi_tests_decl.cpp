@@ -23,8 +23,8 @@
 
     FAILURE_MACRO( FLAVOR(_TRUE)(false), "" );
     FAILURE_MACRO( FLAVOR(_FALSE)(true), "" );
-    FAILURE_MACRO( FLAVOR(_NULL)((void*)1), "" );
-    FAILURE_MACRO( FLAVOR(_NOTNULL)((void*)0), "" );
+    FAILURE_MACRO( FLAVOR(_NULL)(reinterpret_cast<void*>(1)), "" );
+    FAILURE_MACRO( FLAVOR(_NOTNULL)(reinterpret_cast<void*>(0)), "" );
     FAILURE_MACRO( FLAVOR(_SAME)(a, b), "" );
     FAILURE_MACRO( FLAVOR(_EQ)(0, 1), "" );
     FAILURE_MACRO( FLAVOR(_NE)(1, 1), "" );
@@ -92,11 +92,11 @@
     FAILURE_MACRO( FLAVOR(_HRESULT_FAILED)(0), "" );
     FAILURE_MACRO( FLAVOR(_HRESULT_FAILED)(100), "" );
 #endif
-    
+
     FAILURE_MACRO( FLAVOR(_STRIN)("b", "a"), "strstr" );
     FAILURE_MACRO( FLAVOR(_STRIN)("b", null_str), "strstr" );
     FAILURE_MACRO( FLAVOR(_STRIN)(null_str, "a"), "strstr" );
-    
+
     FAILURE_MACRO( FLAVOR(_STRNOTIN)("a", "a"), "strstr" );
 
     FAILURE_MACRO( FLAVOR(_EQ_COLLECTIONS)(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0]))), "Mismatch element" );
@@ -106,7 +106,7 @@
     FAILURE_MACRO( FLAVOR(_EQ_RANGE)(aa, ab), "Mismatch element" );
     FAILURE_MACRO( FLAVOR(_EQ_RANGE)(ab, aa), "Mismatch element" );
     FAILURE_MACRO( FLAVOR(_EQ_RANGE)(aa, ac), "Mismatch in a position" );
-        
+
 #if IUTEST_HAS_REGEX
     FAILURE_MACRO( FLAVOR(_MATCHES_REGEXEQ)("te[0-9]*st", "te0123sta"), "Matches Regex (\"te[0-9]*st\")" );
     FAILURE_MACRO( FLAVOR(_MATCHES_REGEXEQ)("te[0-9]*st", null_str), "Matches Regex (\"te[0-9]*st\")" );

@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
 #ifdef USE_PROGRESS
     ::iutest::ProgressPrintListener::SetUp();
 #endif
-    
+
     return IUTEST_RUN_ALL_TESTS();
 }
 

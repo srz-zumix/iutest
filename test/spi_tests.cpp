@@ -33,7 +33,7 @@ public:
     ::std::string sa;
     ::std::string sb;
     ::std::string sa2;
-    
+
     SPITest()
         : null_str(NULL)
         , a(0), b(0)
@@ -52,7 +52,7 @@ public:
         ab[5] = 5;
     }
 #endif
-    
+
 public:
     void FatalFailure_Sub(int& count);
     void FatalFailure2_Sub(int& count);
@@ -72,15 +72,15 @@ void SPITest::FatalFailure_Sub(int& count)
 {
     #define FLAVOR(n) IUTEST_ASSERT##n
     #define FAILURE_MACRO IUTEST_ASSERT_FATAL_FAILURE
-    
+
 #include "spi_tests_decl.cpp"
-    
+
     #undef FLAVOR
     #undef FAILURE_MACRO
 
     count++;
 }
-    
+
 IUTEST_F(SPITest, FatalFailure)
 {
     int count=0;
@@ -99,15 +99,15 @@ void SPITest::FatalFailure2_Sub(int& count)
 {
     #define FLAVOR(n) IUTEST_ASSERT##n
     #define FAILURE_MACRO IUTEST_EXPECT_FATAL_FAILURE
-    
+
 #include "spi_tests_decl.cpp"
-    
+
     #undef FLAVOR
     #undef FAILURE_MACRO
 
     count++;
 }
-    
+
 IUTEST_F(SPITest, FatalFailure2)
 {
     int count=0;
@@ -126,9 +126,9 @@ IUTEST_F(SPITest, NonFatalFailure)
 {
     #define FLAVOR(n) IUTEST_EXPECT##n
     #define FAILURE_MACRO IUTEST_ASSERT_NONFATAL_FAILURE
-    
+
 #include "spi_tests_decl.cpp"
-    
+
     #undef FLAVOR
     #undef FAILURE_MACRO
 }
@@ -137,12 +137,11 @@ IUTEST_F(SPITest, NonFatalFailure2)
 {
     #define FLAVOR(n) IUTEST_EXPECT##n
     #define FAILURE_MACRO IUTEST_EXPECT_NONFATAL_FAILURE
-    
+
 #include "spi_tests_decl.cpp"
-    
+
     #undef FLAVOR
     #undef FAILURE_MACRO
 }
 
-}
-
+}   // end of namespace spitest

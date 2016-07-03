@@ -25,7 +25,7 @@ IUTEST(LoggerTest, Output)
 {
     logger.clear();
     logger.output("%d", 1);
-    
+
     IUTEST_EXPECT_STREQ("1", logger.c_str());
 }
 
@@ -35,7 +35,7 @@ IUTEST(LogStreamTest, Write)
     ::iutest::detail::LogStream stream;
     const char text[] = "test text";
     stream.Write(text, sizeof(text), 1);
-    
+
     IUTEST_EXPECT_STREQ(text, logger.c_str());
 }
 

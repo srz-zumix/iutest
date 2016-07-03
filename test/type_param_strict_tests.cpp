@@ -15,7 +15,7 @@
 
 #include "iutest.hpp"
 
-#if IUTEST_HAS_TYPED_TEST_P 
+#if IUTEST_HAS_TYPED_TEST_P
 
 #if IUTEST_HAS_STREAM_BUFFER
     ::iutest::detail::IUStreamBuffer<> stderr_capture(stderr);
@@ -68,10 +68,12 @@ int main(int argc, char* argv[])
 #if IUTEST_TYPED_TEST_P_STRICT
     IUTEST_EXPECT_STRIN("Test \"B\" has not been registered.", stderr_capture.GetStreamString());
 #endif
-    IUTEST_EXPECT_STRIN("Test \"B\" must be defined before IUTEST_REGISTER_TYPED_TEST_CASE_P(RegisterFailTypeParamTest, ...).", stderr_capture.GetStreamString());
+    IUTEST_EXPECT_STRIN(
+        "Test \"B\" must be defined before IUTEST_REGISTER_TYPED_TEST_CASE_P(RegisterFailTypeParamTest, ...)."
+        , stderr_capture.GetStreamString() );
 #endif
     if( IUTEST_RUN_ALL_TESTS() ) return 1;
-    
+
     printf("*** Successful ***\n");
     return 0;
 }

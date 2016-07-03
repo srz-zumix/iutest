@@ -35,10 +35,10 @@ IUTEST(AssertionTest, True)
     IUTEST_EXPECT_TRUE(100==100);
     IUTEST_EXPECT_TRUE(IsEven(2));
 #if !defined(IUTEST_NO_VARIADIC_MACROS)
-    IUTEST_ASSERT_TRUE(add_t<0,1>::value);
-    IUTEST_EXPECT_TRUE(add_t<0,1>::value);
-    IUTEST_INFORM_TRUE(add_t<0,1>::value);
-    IUTEST_ASSUME_TRUE(add_t<0,1>::value);
+    IUTEST_ASSERT_TRUE(add_t<0, 1>::value);
+    IUTEST_EXPECT_TRUE(add_t<0, 1>::value);
+    IUTEST_INFORM_TRUE(add_t<0, 1>::value);
+    IUTEST_ASSUME_TRUE(add_t<0, 1>::value);
 #endif
 }
 
@@ -50,16 +50,16 @@ IUTEST(AssertionTest, False)
     IUTEST_EXPECT_FALSE(0);
     IUTEST_EXPECT_FALSE(100!=100);
 #if !defined(IUTEST_NO_VARIADIC_MACROS)
-    IUTEST_ASSERT_FALSE(add_t<0,0>::value);
-    IUTEST_EXPECT_FALSE(add_t<0,0>::value);
-    IUTEST_INFORM_FALSE(add_t<0,0>::value);
-    IUTEST_ASSUME_FALSE(add_t<0,0>::value);
+    IUTEST_ASSERT_FALSE(add_t<0, 0>::value);
+    IUTEST_EXPECT_FALSE(add_t<0, 0>::value);
+    IUTEST_INFORM_FALSE(add_t<0, 0>::value);
+    IUTEST_ASSUME_FALSE(add_t<0, 0>::value);
 #endif
 }
 
 struct Point
 {
-    int x,y;
+    int x, y;
     bool operator == (const Point& rhs) const { return x==rhs.x && y==rhs.y; }
 };
 
@@ -82,17 +82,17 @@ IUTEST(AssertionTest, EQ)
     IUTEST_ASSERT_EQ(v1, v2);
     IUTEST_EXPECT_EQ(v1, v2);
     IUTEST_INFORM_EQ(v1, v2);
-    
+
     {
         Point a = {0, 0};
         Point b = {0, 0};
-        
+
         IUTEST_ASSERT_EQ(a, b);
         IUTEST_EXPECT_EQ(a, b);
         IUTEST_INFORM_EQ(a, b);
     }
 #endif
-    
+
 #if IUTEST_HAS_STRONG_ENUMS
     {
         enum class eTest { Var1=1, Var2=1 };
@@ -105,20 +105,20 @@ IUTEST(AssertionTest, EQ)
 
 struct TestObjectX
 {
-    int a,b,c;
+    int a, b, c;
 };
 
 IUTEST(AssertionTest, MemCmpEQ)
 {
-    TestObjectX x={0,1,2};
-    TestObjectX y={0,1,2};
+    TestObjectX x={0, 1, 2};
+    TestObjectX y={0, 1, 2};
     IUTEST_ASSERT_EQ(x, y);
 }
 
 IUTEST(AssertionTest, MemCmpNE)
 {
-    TestObjectX x={0,1,2};
-    TestObjectX y={0,1,3};
+    TestObjectX x={0, 1, 2};
+    TestObjectX y={0, 1, 3};
     IUTEST_ASSERT_NE(x, y);
 }
 
@@ -130,9 +130,9 @@ IUTEST(AssertionTest, NE)
     IUTEST_ASSERT_NE(x0, x1);
     IUTEST_EXPECT_NE(x0, x1);
     IUTEST_INFORM_NE(x0, x1);
-    int* one=(int*)1;
+    int* one=reinterpret_cast<int*>(1);
     IUTEST_ASSERT_NE(NULL, one);
-    
+
 #if IUTEST_HAS_NULLPTR
     IUTEST_ASSERT_NE(nullptr, one);
     IUTEST_ASSERT_NE(one, nullptr);
@@ -271,11 +271,11 @@ IUTEST(AssertionTest, Cpp11)
     const char32_t c32[] = U"test";
     IUTEST_EXPECT_STREQ(c32, U"test");
 #endif
-    
+
 #if IUTEST_HAS_LAMBDA
     {
         IUTEST_EXPECT_EQ(100, [] () -> int { return 100; }());
-        
+
         int x=0, y=0;
         [=] () { IUTEST_EXPECT_EQ(x, y); }();
     }

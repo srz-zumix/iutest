@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
     ::iutest::IUTEST_FLAG(output) = NULL;
 #endif
     const int ret = IUTEST_RUN_ALL_TESTS();
-    
+
     IUTEST_ASSERT_EXIT( ret != 0 );
     IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
     IUTEST_ASSERT_EXIT( setup_flag == 0 );

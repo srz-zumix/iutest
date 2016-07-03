@@ -25,14 +25,14 @@ public:
     struct Gen
     {
         int i;
-        Gen(int n) : i(n) {}
+        explicit Gen(int n) : i(n) {}
         int operator ()(void) { return i++; }
     };
 };
 
 IUTEST_P(ValuesGenTest, Test)
 {
-    int v = GetParam();
+    const int v = GetParam();
     IUTEST_SUCCEED() << v;
 }
 
@@ -59,7 +59,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(Random, ValuesGenTest, ::iutest::ValuesGen(5,
         return g;
     }()
     ));
-    
+
 #endif
 
 /*
@@ -102,7 +102,8 @@ struct RandomVMExceptMoneyGenerator
 };
 
 #if IUTEST_HAS_LAMBDA
-IUTEST_INSTANTIATE_TEST_CASE_P(RandomGen_lambda, ValuesGenTest, ::iutest::ValuesGen(5, ::iutest::RandomGenerator<int>([](int n){ return n != 10 && n != 50 && n != 100 && n != 500; })));
+IUTEST_INSTANTIATE_TEST_CASE_P(RandomGen_lambda, ValuesGenTest
+    , ::iutest::ValuesGen(5, ::iutest::RandomGenerator<int>([](int n){ return n != 10 && n != 50 && n != 100 && n != 500; })));
 #endif
 
 IUTEST_INSTANTIATE_TEST_CASE_P(Random03_00, ValuesGenTest, ::iutest::ValuesGen(5, RandomVMExceptMoneyGenerator()));

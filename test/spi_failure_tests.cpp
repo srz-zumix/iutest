@@ -39,90 +39,89 @@ void NonFatalFailure2(void)
 
 IUTEST(SPIAssertFailureTest, NoFailure)
 {
-    IUTEST_ASSERT_FATAL_FAILURE(return;, "");
+    IUTEST_ASSERT_FATAL_FAILURE(return; , "");
 }
 
 IUTEST(SPIAssertFailureTest, Substr)
 {
-    IUTEST_ASSERT_FATAL_FAILURE(FatalFailure1();, "aaaa");
+    IUTEST_ASSERT_FATAL_FAILURE(FatalFailure1(); , "aaaa");
 }
 
 IUTEST(SPIAssertFailureTest, Different)
 {
-    IUTEST_ASSERT_FATAL_FAILURE(NonFatalFailure1();, "");
+    IUTEST_ASSERT_FATAL_FAILURE(NonFatalFailure1(); , "");
 }
 
 #if !IUTEST_USE_THROW_ON_ASSERTION_FAILURE
 IUTEST(SPIAssertFailureTest, Over)
 {
-    IUTEST_ASSERT_FATAL_FAILURE(FatalFailure2();, "");
+    IUTEST_ASSERT_FATAL_FAILURE(FatalFailure2(); , "");
 }
 #endif
 
 
 IUTEST(SPIAssertNonFailureTest, NoFailure)
 {
-    IUTEST_ASSERT_NONFATAL_FAILURE(return;, "");
+    IUTEST_ASSERT_NONFATAL_FAILURE(return; , "");
 }
 
 IUTEST(SPIAssertNonFailureTest, Substr)
 {
-    IUTEST_ASSERT_NONFATAL_FAILURE(NonFatalFailure1();, "aaaa");
+    IUTEST_ASSERT_NONFATAL_FAILURE(NonFatalFailure1(); , "aaaa");
 }
 
 IUTEST(SPIAssertNonFailureTest, Different)
 {
-    IUTEST_ASSERT_NONFATAL_FAILURE(FatalFailure1();, "");
+    IUTEST_ASSERT_NONFATAL_FAILURE(FatalFailure1(); , "");
 }
 
 IUTEST(SPIAssertNonFailureTest, Over)
 {
-    IUTEST_ASSERT_NONFATAL_FAILURE(NonFatalFailure2();, "");
+    IUTEST_ASSERT_NONFATAL_FAILURE(NonFatalFailure2(); , "");
 }
 
 
 IUTEST(SPIExpectFailureTest, NoFailure)
 {
-    IUTEST_EXPECT_FATAL_FAILURE(return;, "");
+    IUTEST_EXPECT_FATAL_FAILURE(return; , "");
 }
 
 IUTEST(SPIExpectFailureTest, Substr)
 {
-    IUTEST_EXPECT_FATAL_FAILURE(FatalFailure1();, "aaaa");
+    IUTEST_EXPECT_FATAL_FAILURE(FatalFailure1(); , "aaaa");
 }
 
 IUTEST(SPIExpectFailureTest, Different)
 {
-    IUTEST_EXPECT_FATAL_FAILURE(NonFatalFailure1();, "");
+    IUTEST_EXPECT_FATAL_FAILURE(NonFatalFailure1(); , "");
 }
 
 #if !IUTEST_USE_THROW_ON_ASSERTION_FAILURE
 IUTEST(SPIExpectFailureTest, Over)
 {
-    IUTEST_EXPECT_FATAL_FAILURE(FatalFailure2();, "");
+    IUTEST_EXPECT_FATAL_FAILURE(FatalFailure2(); , "");
 }
 #endif
 
 IUTEST(SPIExpectNonFailureTest, NoFailure)
 {
-    IUTEST_EXPECT_NONFATAL_FAILURE(return;, "");
+    IUTEST_EXPECT_NONFATAL_FAILURE(return; , "");
 }
 
 IUTEST(SPIExpectNonFailureTest, Substr)
 {
-    IUTEST_EXPECT_NONFATAL_FAILURE(NonFatalFailure1();, "aaaa");
+    IUTEST_EXPECT_NONFATAL_FAILURE(NonFatalFailure1(); , "aaaa");
 }
 
 IUTEST(SPIExpectNonFailureTest, Different)
 {
-    IUTEST_EXPECT_NONFATAL_FAILURE(FatalFailure1();, "");
+    IUTEST_EXPECT_NONFATAL_FAILURE(FatalFailure1(); , "");
 }
 
 IUTEST(SPIExpectNonFailureTest, Over)
 {
-    IUTEST_EXPECT_NONFATAL_FAILURE(NonFatalFailure2();, "");
+    IUTEST_EXPECT_NONFATAL_FAILURE(NonFatalFailure2(); , "");
 }
-
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
@@ -137,7 +136,7 @@ int main(int argc, char* argv[])
 #endif
     const int ret = IUTEST_RUN_ALL_TESTS();
     if( ret == 0 ) return 1;
-    
+
     IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->successful_test_count() == 0 );
     printf("*** Successful ***\n");
     return 0;

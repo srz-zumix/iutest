@@ -44,7 +44,6 @@ int main(int argc, char* argv[])
         ::iutest::detail::IUStreamBuffer<> stderr_capture(stderr);
 #endif
         const int ret = IUTEST_RUN_ALL_TESTS();
-        
         if( ret != 0 ) return 1;
 #if IUTEST_HAS_STREAM_BUFFER && IUTEST_HAS_ASSERTION_RETURN
         IUTEST_ASSERT_STRIN("Unable to open file \"invalid_path?/test.xml\".", stderr_capture.GetStreamString())

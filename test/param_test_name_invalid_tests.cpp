@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
 #endif
 #endif
     if( IUTEST_RUN_ALL_TESTS() ) return 1;
-    
+
     printf("*** Successful ***\n");
     return 0;
 }

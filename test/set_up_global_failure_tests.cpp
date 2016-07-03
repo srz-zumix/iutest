@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret == 0 ) return 1;
-    
+
 #if defined(IUTEST_USE_GTEST)
         setup_failure = false;
 #else

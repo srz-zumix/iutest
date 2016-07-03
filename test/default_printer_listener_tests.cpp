@@ -64,16 +64,16 @@ int main(int argc, char* argv[])
     // 実行対象テストがないので xml 出力しない
     ::iutest::IUTEST_FLAG(output) = NULL;
 #endif
-    
+
     ::iutest::AddGlobalTestEnvironment(new LoggerClear());
     ::iutest::detail::iuConsole::SetLogger(&logger);
 
     ::iutest::IUTEST_FLAG(color) = "no";
-    
+
     {
         ::iutest::IUTEST_FLAG(verbose) = false;
         ::iutest::IUTEST_FLAG(print_time) = true;
-        
+
         if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
 #if IUTEST_HAS_ASSERTION_RETURN
         IUTEST_ASSERT_STRIN("[ DISABLED ]", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
@@ -85,7 +85,7 @@ int main(int argc, char* argv[])
         IUTEST_ASSERT_STRNOTIN("[  SKIPPED ] Test.Skip", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
 
         IUTEST_ASSERT_STRNOTIN("[       OK ]", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
-        
+
         IUTEST_ASSERT_STRIN("ms total)", s_log_testcases.c_str()) << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_STRIN("ms)", s_log_testcases.c_str()) << ::iutest::AssertionReturn<int>(1);
 #endif
@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
     {
         ::iutest::IUTEST_FLAG(verbose) = true;
         ::iutest::IUTEST_FLAG(print_time) = false;
-        
+
         if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
 #if IUTEST_HAS_ASSERTION_RETURN
         IUTEST_ASSERT_STRIN("[ DISABLED ]", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
@@ -110,8 +110,8 @@ int main(int argc, char* argv[])
         IUTEST_ASSERT_STRNOTIN("ms)", s_log_testcases.c_str()) << ::iutest::AssertionReturn<int>(1);
 #endif
     }
-    
+
     printf("*** Successful ***\n");
-    
+
     return 0;
 }

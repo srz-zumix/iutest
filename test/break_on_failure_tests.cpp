@@ -32,8 +32,6 @@ LONG WINAPI ExitWithExceptionCode(struct _EXCEPTION_POINTERS* exception_pointers
 #endif
 
 
-
-
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
@@ -41,14 +39,14 @@ int main(int argc, char* argv[])
 #endif
 {
     ::iutest::IUTEST_FLAG(break_on_failure) = true;
-    
+
 #if defined(IUTEST_OS_WINDOWS) && IUTEST_OS_WINDOWS
     SetErrorMode(SEM_NOGPFAULTERRORBOX | SEM_FAILCRITICALERRORS);
 #if IUTEST_HAS_SEH && !defined(IUTEST_OS_WINDOWS_MOBILE)
     SetUnhandledExceptionFilter(ExitWithExceptionCode);
 #endif
 #endif
-    
+
     IUTEST_INIT(&argc, argv);
     return IUTEST_RUN_ALL_TESTS();
 }

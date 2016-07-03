@@ -35,7 +35,7 @@ int SetUpEnvironment(void)
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "REPEAT=2") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "FILTER=Flag*") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "OUTPUT=test") == -1 ) return -1;
-    
+
     if( ::iutest::internal::posix::PutEnv("IUTEST_DEFAULT_PACKAGE_NAME=env_var") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv("IUTEST_FILE_LOCATION=vs") == -1 ) return -1;
     return 0;
@@ -56,10 +56,10 @@ IUTEST(FlagTest, Check)
     IUTEST_EXPECT_STREQ( "env_var", ::iutest::IUTEST_FLAG(default_package_name).c_str() );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(file_location_style_msvc) );
 #endif
-    
+
     IUTEST_EXPECT_EQ( 200u, ::iutest::IUTEST_FLAG(random_seed) );
     IUTEST_EXPECT_EQ(   2 , ::iutest::IUTEST_FLAG(repeat) );
-    
+
     IUTEST_EXPECT_STREQ( "Flag*", ::iutest::IUTEST_FLAG(filter).c_str() );
     IUTEST_EXPECT_STREQ( "test", ::iutest::IUTEST_FLAG(output).c_str() );
 }

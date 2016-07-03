@@ -42,7 +42,7 @@ template<> const char16_t*  text<char16_t>::test = u"test";
 template<> const char16_t*  text<char16_t>::Test = u"Test";
 template<> const char16_t*  text<char16_t>::host = u"host";
 #endif
-    
+
 #if IUTEST_HAS_CHAR32_T
 template<> const char32_t*  text<char32_t>::test = U"test";
 template<> const char32_t*  text<char32_t>::Test = U"Test";
@@ -95,7 +95,7 @@ IUTEST_TYPED_TEST(StrTest, Raw)
     IUTEST_ASSERT_STREQ(TestFixture::Text::test, p);
     IUTEST_EXPECT_STREQ(TestFixture::Text::test, p);
     IUTEST_INFORM_STREQ(TestFixture::Text::test, p);
-    
+
     IUTEST_ASSERT_STRNE(TestFixture::Text::Test, p);
     IUTEST_EXPECT_STRNE(TestFixture::Text::Test, p);
     IUTEST_INFORM_STRNE(TestFixture::Text::Test, p);
@@ -130,7 +130,7 @@ IUTEST_TYPED_TEST(StrTest, String)
 IUTEST_TYPED_TEST(StrCaseTest, Null)
 {
     TypeParam* p=NULL;
-    
+
     IUTEST_ASSERT_STRCASEEQ(NULL, p);
     IUTEST_EXPECT_STRCASEEQ(NULL, p);
     IUTEST_INFORM_STRCASEEQ(NULL, p);
@@ -153,7 +153,7 @@ IUTEST_TYPED_TEST(StrCaseTest, Raw)
     IUTEST_ASSERT_STRCASEEQ(TestFixture::Text::Test, p);
     IUTEST_EXPECT_STRCASEEQ(TestFixture::Text::Test, p);
     IUTEST_INFORM_STRCASEEQ(TestFixture::Text::Test, p);
-    
+
     IUTEST_ASSERT_STRCASENE(TestFixture::Text::host, p);
     IUTEST_EXPECT_STRCASENE(TestFixture::Text::host, p);
     IUTEST_INFORM_STRCASENE(TestFixture::Text::host, p);
@@ -183,7 +183,7 @@ IUTEST_TYPED_TEST(StrCaseTest, String)
     IUTEST_ASSERT_STRCASEEQ(TestFixture::Text::test, Test);
     IUTEST_EXPECT_STRCASEEQ(TestFixture::Text::test, Test);
     IUTEST_INFORM_STRCASEEQ(TestFixture::Text::test, Test);
-    
+
     typename TestFixture::String host = TestFixture::Text::host;
     IUTEST_ASSERT_STRCASENE(host, TestFixture::Text::test);
     IUTEST_EXPECT_STRCASENE(host, TestFixture::Text::test);
@@ -196,6 +196,6 @@ IUTEST_TYPED_TEST(StrCaseTest, String)
     IUTEST_INFORM_STRCASENE(TestFixture::Text::test, host);
 }
 
-}
+}   // end of namespace strtest
 
 #endif

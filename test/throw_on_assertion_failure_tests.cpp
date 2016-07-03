@@ -83,7 +83,7 @@ int main(int argc, char* argv[])
     ::iutest::IUTEST_FLAG(output) = NULL;
 #endif
     const int ret = IUTEST_RUN_ALL_TESTS();
-    
+
 #if IUTEST_USE_THROW_ON_ASSERTION_FAILURE
     IUTEST_ASSERT_EXIT( x == 0 );
 #else

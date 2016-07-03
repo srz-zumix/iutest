@@ -57,7 +57,7 @@ IUTEST(AssertionTest, EQ_COLLECTIONS)
         int  a[] = { 0, 1, 2, 3, 4 };
         int  b[] = { 0, 1, 2, 3, 4 };
         char c[] = { 0, 1, 2, 3, 4 };
-        
+
         IUTEST_ASSERT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
         IUTEST_EXPECT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
         IUTEST_INFORM_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
@@ -103,7 +103,7 @@ IUTEST(AssertionTest, EQ_RANGE)
         int  a[] = { 0, 1, 2, 3, 4 };
         int  b[] = { 0, 1, 2, 3, 4 };
         char c[] = { 0, 1, 2, 3, 4 };
-        
+
         IUTEST_ASSERT_EQ_RANGE(a, b);
         IUTEST_EXPECT_EQ_RANGE(a, b);
         IUTEST_INFORM_EQ_RANGE(a, b);
@@ -114,7 +114,7 @@ IUTEST(AssertionTest, EQ_RANGE)
         IUTEST_INFORM_EQ_RANGE(a, c);
         IUTEST_ASSUME_EQ_RANGE(a, c);
 #if IUTEST_HAS_INITIALIZER_LIST
-        IUTEST_ASSERT_EQ_RANGE(::std::initializer_list<int>({0,1,2,3,4}), a);
+        IUTEST_ASSERT_EQ_RANGE(::std::initializer_list<int>({0, 1, 2, 3, 4}), a);
 #if IUTEST_HAS_AUTO
         auto il = {0, 1, 2, 3, 4};
         IUTEST_ASSERT_EQ_RANGE(il, a);
