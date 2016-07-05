@@ -99,12 +99,14 @@
 #  define IUTEST_HAS_STD_BEGIN_END      1
 #  define IUTEST_HAS_STD_DECLVAL        1
 #  define IUTEST_HAS_STD_EMPLACE        1
-#  define IUTEST_HAS_STD_QUICK_EXIT     1
 #  define IUTEST_HAS_CXX_HDR_CHRONO     1
 #  define IUTEST_HAS_CXX_HDR_REGEX      1
 #  define IUTEST_HAS_CXX_HDR_RANDOM     1
 #  define IUTEST_HAS_CXX_HDR_CODECVT    1
 #  define IUTEST_HAS_CXX_HDR_CSTDINT    1
+#if defined(_LIBCPP_HAS_QUICK_EXIT)
+#  define IUTEST_HAS_STD_QUICK_EXIT     1
+#endif
 #endif
 
 #if _LIBCPP_VERSION >= 1001
