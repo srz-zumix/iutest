@@ -59,7 +59,7 @@ def parse_command_line():
     parser.add_argument(
         '--boost',
         metavar='VERSION',
-        help='set boot options version X.XX or nothing.'
+        help='set boost options version X.XX or nothing.'
     )
     parser.add_argument(
         '--stdin',
