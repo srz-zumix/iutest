@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		param_method_tests.cpp
- * @brief		parameter method test
+ * @file        param_method_tests.cpp
+ * @brief       parameter method test
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -21,7 +21,7 @@
 
 void TestFunction(int x, int y)
 {
-	IUTEST_ASSERT_EQ(x, y);
+    IUTEST_ASSERT_EQ(x, y);
 }
 IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 0, 0);
 IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 1, 1);

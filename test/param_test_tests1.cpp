@@ -1,11 +1,11 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		param_test_tests1.cpp
- * @brief		parameter test
+ * @file        param_test_tests1.cpp
+ * @brief       parameter test
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -21,7 +21,7 @@
 
 IUTEST_P(ParamTest, Test)
 {
-	IUTEST_SUCCEED() << GetParam();
+    IUTEST_SUCCEED() << GetParam();
 }
 
 int param_test_array[] = { 3, 2, 1, 0 };
@@ -38,12 +38,12 @@ IUTEST_INSTANTIATE_TEST_CASE_P(ValuesInInitializerList, ParamTest, ::iutest::Val
 
 enum TestEnum
 {
-	  TestEnum_0
-	, TestEnum_1
-	, TestEnum_2
-	, TestEnum_3
-	, TestEnum_4
-	, TestEnum_5
+      TestEnum_0
+    , TestEnum_1
+    , TestEnum_2
+    , TestEnum_3
+    , TestEnum_4
+    , TestEnum_5
 };
 
 class EnumParamTest : public ::iutest::TestWithParam<TestEnum> {};
@@ -82,9 +82,9 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, B_BoolParamTest_X, ::iutest::Bool());
 
 IUTEST_P(MultiInstantiateParamTest, Test)
 {
-	int param = GetParam();
-	IUTEST_ASSERT_EQ(0, value);
-	IUTEST_ASSERT_EQ(param, param);
+    int param = GetParam();
+    IUTEST_ASSERT_EQ(0, value);
+    IUTEST_ASSERT_EQ(param, param);
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P(My1, MultiInstantiateParamTest, ::iutest::Range<int>(0, 10));

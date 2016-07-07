@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		progress_tests.cpp
- * @brief		プログレス表示 テスト
+ * @file        progress_tests.cpp
+ * @brief       プログレス表示 テスト
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -24,17 +24,17 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	IUTEST_INIT(&argc, argv);
+    IUTEST_INIT(&argc, argv);
 #if !defined(IUTEST_USE_GTEST)
-	IUTEST_EXPECT_NOTNULL( ::iutest::ProgressPrintListener::SetUp() );
+    IUTEST_EXPECT_NOTNULL( ::iutest::ProgressPrintListener::SetUp() );
 #endif
-	return IUTEST_RUN_ALL_TESTS();
+    return IUTEST_RUN_ALL_TESTS();
 }
 
 #if !defined(IUTEST_USE_GTEST)
 
-#define DECL_TEST(n)	IUTEST(Foo, Bar##n) {	\
-							::iutest::internal::SleepMilliseconds(100); }
+#define DECL_TEST(n)    IUTEST(Foo, Bar##n) {   \
+                            ::iutest::internal::SleepMilliseconds(100); }
 
 
 DECL_TEST(0)

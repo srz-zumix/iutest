@@ -56,7 +56,6 @@ inline void iuOptionMessage::ShowHelp()
         "Command Line Options\n"
         "\n"
         "    --help, -h                       : Generate help message.\n"
-        "    --iutest_output=xml[:path]       : Path of xml report.\n"
         "    --iutest_list_tests              : List up tests.\n"
         "    --iutest_list_tests_with_where   : List up tests with where.\n"
         "    --iutest_color=<yes|no|auto|ansi>: Console color enable.\n"
@@ -69,9 +68,11 @@ inline void iuOptionMessage::ShowHelp()
         "    --iutest_throw_on_failure[=0|1]  : When that failed to throw.\n"
         "    --iutest_catch_exceptions=<0|1>  : Catch exceptions enable.\n"
         "    --iutest_print_time=<0|1>        : Setting the display of elapsed time.\n"
+        "    --iutest_output=<xml|junit>[:path]\n"
+        "            : Path of xml report.\n"
         "    --iutest_repeat=<count>\n"
         "            : Set the number of repetitions of the test.\n"
-        "              use a negative count to repeat forever."
+        "              use a negative count to repeat forever.\n"
 #if IUTEST_HAS_STREAM_RESULT
         "    --iutest_stream_result_to=<host:port>\n"
         "                                     : Set stream test results server.\n"
@@ -85,7 +86,7 @@ inline void iuOptionMessage::ShowHelp()
         "--------------------------------------------------\n"
         "License\n"
         "\n"
-        "    Copyright (c) 2011-2015, Takazumi-Shirayanagi\n"
+        "    Copyright (c) 2011-2016, Takazumi-Shirayanagi\n"
         "\n"
         "    This software is released under the new BSD License, see LICENSE\n"
         "\n";
@@ -192,6 +193,7 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_HAS_STD_BEGIN_END);
     IIUT_SHOW_MACRO(IUTEST_HAS_STD_DECLVAL);
     IIUT_SHOW_MACRO(IUTEST_HAS_STD_EMPLACE);
+    IIUT_SHOW_MACRO(IUTEST_HAS_STD_QUICK_EXIT);
     IIUT_SHOW_MACRO(IUTEST_HAS_STRINGSTREAM);
     IIUT_SHOW_MACRO(IUTEST_HAS_STRONG_ENUMS);
     IIUT_SHOW_MACRO(IUTEST_HAS_STRSTREAM);

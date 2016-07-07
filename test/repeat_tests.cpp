@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		repeat_tests.cpp
- * @brief		繰り返し対応テスト
+ * @file        repeat_tests.cpp
+ * @brief       繰り返し対応テスト
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -22,12 +22,12 @@ int g_hoge_fuga = 0;
 
 IUTEST(Foo, Bar)
 {
-	++g_foo_bar;
+    ++g_foo_bar;
 }
 
 IUTEST(Hoge, Fuga)
 {
-	++g_hoge_fuga;
+    ++g_hoge_fuga;
 }
 
 #if IUTEST_HAS_PARAM_TEST
@@ -41,7 +41,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(Foo, TestP, ::iutest::Range<int>(0, kNumberOfPara
 
 IUTEST_P(TestP, Bar)
 {
-	++g_param_test;
+    ++g_param_test;
 }
 
 #endif
@@ -52,87 +52,87 @@ int g_environment_teardown = 0;
 class MyEnvironment : public ::iutest::Environment
 {
 private:
-	virtual void SetUp(void)	{ ++g_environment_setup; }
-	virtual void TearDown(void)	{ ++g_environment_teardown; }
+    virtual void SetUp(void)    { ++g_environment_setup; }
+    virtual void TearDown(void) { ++g_environment_teardown; }
 };
 
 IUTEST(Repeat, Counter)
 {
 #if !defined(IUTEST_USE_GTEST)
-	IUTEST_ASSERT_EQ(g_environment_setup, ::iutest::UnitTest::GetInstance()->repeat_counter()+1);
+    IUTEST_ASSERT_EQ(g_environment_setup, ::iutest::UnitTest::GetInstance()->repeat_counter()+1);
 #endif
 }
 
 
 void ClearCounter(void)
 {
-	g_foo_bar = 0;
-	g_hoge_fuga = 0;
-	g_environment_setup = 0;
-	g_environment_teardown = 0;
+    g_foo_bar = 0;
+    g_hoge_fuga = 0;
+    g_environment_setup = 0;
+    g_environment_teardown = 0;
 #if IUTEST_HAS_PARAM_TEST
-	g_param_test = 0;
+    g_param_test = 0;
 #endif
 }
 
 void CheckCount(int expected)
 {
-	IUTEST_EXPECT_EQ(expected, g_environment_setup);
-	IUTEST_EXPECT_EQ(expected, g_environment_teardown);
-	IUTEST_EXPECT_EQ(expected, g_foo_bar);
-	IUTEST_EXPECT_EQ(expected, g_hoge_fuga);
+    IUTEST_EXPECT_EQ(expected, g_environment_setup);
+    IUTEST_EXPECT_EQ(expected, g_environment_teardown);
+    IUTEST_EXPECT_EQ(expected, g_foo_bar);
+    IUTEST_EXPECT_EQ(expected, g_hoge_fuga);
 #if IUTEST_HAS_PARAM_TEST
-	IUTEST_EXPECT_EQ(expected*kNumberOfParamTests, g_param_test);
+    IUTEST_EXPECT_EQ(expected*kNumberOfParamTests, g_param_test);
 #endif
 }
 
 bool RunTest(void)
 {
-	ClearCounter();
-	if( IUTEST_RUN_ALL_TESTS() != 0 ) return false;
-	return ::iutest::UnitTest::GetInstance()->Passed();
+    ClearCounter();
+    if( IUTEST_RUN_ALL_TESTS() != 0 ) return false;
+    return ::iutest::UnitTest::GetInstance()->Passed();
 }
 
 bool RepeatTest(int repeat)
 {
-	::iutest::IUTEST_FLAG(repeat) = repeat;
-	return RunTest();
+    ::iutest::IUTEST_FLAG(repeat) = repeat;
+    return RunTest();
 }
 
 bool RepeatTestUnspecified(void)
 {
-	(void)RunTest();
-	CheckCount(1);
-	return ::iutest::UnitTest::GetInstance()->Passed();
+    (void)RunTest();
+    CheckCount(1);
+    return ::iutest::UnitTest::GetInstance()->Passed();
 }
 
 bool RepeatTestNonFilter(int repeat)
 {
-	if( !RepeatTest(repeat) ) return false;
-	CheckCount(repeat);
-	return ::iutest::UnitTest::GetInstance()->Passed();
+    if( !RepeatTest(repeat) ) return false;
+    CheckCount(repeat);
+    return ::iutest::UnitTest::GetInstance()->Passed();
 }
 
 bool RepeatTestWithEmpyFilter(int repeat)
 {
-	::iutest::IUTEST_FLAG(filter) = "None";
-	if( !RepeatTest(repeat) ) return false;
-	CheckCount(0);
-	return ::iutest::UnitTest::GetInstance()->Passed();
+    ::iutest::IUTEST_FLAG(filter) = "None";
+    if( !RepeatTest(repeat) ) return false;
+    CheckCount(0);
+    return ::iutest::UnitTest::GetInstance()->Passed();
 }
 
 bool RepeatTestWithFilter(int repeat)
 {
-	::iutest::IUTEST_FLAG(filter) = "*Bar*";
-	if( !RepeatTest(repeat) ) return false;
-	IUTEST_EXPECT_EQ(repeat, g_environment_setup);
-	IUTEST_EXPECT_EQ(repeat, g_environment_teardown);
-	IUTEST_EXPECT_EQ(repeat, g_foo_bar);
-	IUTEST_EXPECT_EQ(0, g_hoge_fuga);
+    ::iutest::IUTEST_FLAG(filter) = "*Bar*";
+    if( !RepeatTest(repeat) ) return false;
+    IUTEST_EXPECT_EQ(repeat, g_environment_setup);
+    IUTEST_EXPECT_EQ(repeat, g_environment_teardown);
+    IUTEST_EXPECT_EQ(repeat, g_foo_bar);
+    IUTEST_EXPECT_EQ(0, g_hoge_fuga);
 #if IUTEST_HAS_PARAM_TEST
-	IUTEST_EXPECT_EQ(repeat*kNumberOfParamTests, g_param_test);
+    IUTEST_EXPECT_EQ(repeat*kNumberOfParamTests, g_param_test);
 #endif
-	return ::iutest::UnitTest::GetInstance()->Passed();
+    return ::iutest::UnitTest::GetInstance()->Passed();
 }
 
 #ifdef UNICODE
@@ -141,21 +141,21 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	MyEnvironment* const env = new MyEnvironment();
-	IUTEST_ASSERT_EXIT( ::iutest::AddGlobalTestEnvironment(env) == env );
-	IUTEST_INIT(&argc, argv);
-	
-	IUTEST_ASSERT_EXIT( RepeatTestUnspecified() );
-	IUTEST_ASSERT_EXIT( RepeatTestNonFilter(0) );
-	IUTEST_ASSERT_EXIT( RepeatTestNonFilter(2) );
-	IUTEST_ASSERT_EXIT( RepeatTestNonFilter(10) );
+    MyEnvironment* const env = new MyEnvironment();
+    IUTEST_ASSERT_EXIT( ::iutest::AddGlobalTestEnvironment(env) == env );
+    IUTEST_INIT(&argc, argv);
 
-	IUTEST_ASSERT_EXIT( RepeatTestWithEmpyFilter(2) );
-	IUTEST_ASSERT_EXIT( RepeatTestWithEmpyFilter(3) );
-	
-	IUTEST_ASSERT_EXIT( RepeatTestWithFilter(3) );
+    IUTEST_ASSERT_EXIT( RepeatTestUnspecified() );
+    IUTEST_ASSERT_EXIT( RepeatTestNonFilter(0) );
+    IUTEST_ASSERT_EXIT( RepeatTestNonFilter(2) );
+    IUTEST_ASSERT_EXIT( RepeatTestNonFilter(10) );
 
-	printf("*** Successful ***\n");
-	return 0;
+    IUTEST_ASSERT_EXIT( RepeatTestWithEmpyFilter(2) );
+    IUTEST_ASSERT_EXIT( RepeatTestWithEmpyFilter(3) );
+
+    IUTEST_ASSERT_EXIT( RepeatTestWithFilter(3) );
+
+    printf("*** Successful ***\n");
+    return 0;
 }
 

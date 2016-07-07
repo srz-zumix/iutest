@@ -28,7 +28,6 @@
 
 //======================================================================
 // define
-
 #if   defined(__GLIBCPP__) || defined(__GLIBCXX__)
 
 // libstdc++
@@ -73,6 +72,9 @@
 #    define IUTEST_HAS_CXX_HDR_RANDOM   1
 #    define IUTEST_HAS_CXX_HDR_CSTDINT  1
 #  endif
+#  if defined(_GLIBCXX_HAVE_QUICK_EXIT) && defined(_GLIBCXX_HAVE_AT_QUICK_EXIT)
+#    define IUTEST_HAS_STD_QUICK_EXIT   1
+#  endif
 #endif
 
 // tuple
@@ -102,6 +104,9 @@
 #  define IUTEST_HAS_CXX_HDR_RANDOM     1
 #  define IUTEST_HAS_CXX_HDR_CODECVT    1
 #  define IUTEST_HAS_CXX_HDR_CSTDINT    1
+#if defined(_LIBCPP_HAS_QUICK_EXIT)
+#  define IUTEST_HAS_STD_QUICK_EXIT     1
+#endif
 #endif
 
 #if _LIBCPP_VERSION >= 1001
@@ -140,6 +145,10 @@
 #  endif
 #endif
 
+#if _MSC_VER > 1800
+#  define IUTEST_HAS_STD_QUICK_EXIT     1
+#endif
+
 // tuple
 #if (_MSC_VER > 1700) || (_MSC_VER == 1700 && _VARIADIC_MAX >= 9)
 #  define IUTEST_HAS_STD_TUPLE          1
@@ -152,8 +161,6 @@
 // stlport
 
 #endif
-
-// iterator
 
 //! has std::begin,std::end
 #if !defined(IUTEST_HAS_STD_BEGIN_END)
@@ -213,6 +220,10 @@
 //! has emplace
 #if !defined(IUTEST_HAS_STD_EMPLACE)
 #  define IUTEST_HAS_STD_EMPLACE        0
+#endif
+//! has quick_exit
+#if !defined(IUTEST_HAS_STD_QUICK_EXIT)
+#  define IUTEST_HAS_STD_QUICK_EXIT     0
 #endif
 //! has cxxabi header
 #if !defined(IUTEST_HAS_HDR_CXXABI)

@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		assertion_return_tests.cpp
- * @brief		iutest assertion return test
+ * @file        assertion_return_tests.cpp
+ * @brief       iutest assertion return test
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2013-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -24,32 +24,32 @@ static int value2 = 1;
 
 int ReturnTest1(void)
 {
-	IUTEST_ASSERT_TRUE(false) << "message" << ::iutest::AssertionReturnType<int>(-1);
-	return 0;
+    IUTEST_ASSERT_TRUE(false) << "message" << ::iutest::AssertionReturnType<int>(-1);
+    return 0;
 }
 
 int ReturnTest2(void)
 {
-	IUTEST_ASSERT_TRUE(false) << "message" << ::iutest::AssertionReturn(-1);
-	return 0;
+    IUTEST_ASSERT_TRUE(false) << "message" << ::iutest::AssertionReturn(-1);
+    return 0;
 }
 
 void ReturnTestCall(void)
 {
-	IUTEST_ASSERT_FATAL_FAILURE(value1 = ReturnTest1(), "message");
-	IUTEST_ASSERT_FATAL_FAILURE(value2 = ReturnTest2(), "message");
-	IUTEST_ASSERT_TRUE(false) << ::iutest::AssertionReturn();
+    IUTEST_ASSERT_FATAL_FAILURE(value1 = ReturnTest1(), "message");
+    IUTEST_ASSERT_FATAL_FAILURE(value2 = ReturnTest2(), "message");
+    IUTEST_ASSERT_TRUE(false) << ::iutest::AssertionReturn();
 }
 
 IUTEST(ReturnTest, Test)
 {
-	IUTEST_ASSERT_FATAL_FAILURE(ReturnTestCall(), "");
+    IUTEST_ASSERT_FATAL_FAILURE(ReturnTestCall(), "");
 #if IUTEST_USE_THROW_ON_ASSERTION_FAILURE
-	IUTEST_EXPECT_EQ( 1, value1);
-	IUTEST_EXPECT_EQ( 1, value2);
+    IUTEST_EXPECT_EQ( 1, value1);
+    IUTEST_EXPECT_EQ( 1, value2);
 #else
-	IUTEST_EXPECT_EQ(-1, value1);
-	IUTEST_EXPECT_EQ(-1, value2);
+    IUTEST_EXPECT_EQ(-1, value1);
+    IUTEST_EXPECT_EQ(-1, value2);
 #endif
 }
 
@@ -61,7 +61,7 @@ int wmain(int argc, wchar_t** argv)
 int main(int argc, char** argv)
 #endif
 {
-	IUTEST_INIT(&argc, argv);
-	return IUTEST_RUN_ALL_TESTS();
+    IUTEST_INIT(&argc, argv);
+    return IUTEST_RUN_ALL_TESTS();
 }
 

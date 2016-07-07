@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		check_strict_tests.cpp
- * @brief		IUTEST_CHECK_STRICT test
+ * @file        check_strict_tests.cpp
+ * @brief       IUTEST_CHECK_STRICT test
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2015-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,7 +26,7 @@
 class TestFixture : public ::iutest::Test
 {
 public:
-	virtual void SetUp() {}
+    virtual void SetUp() {}
 };
 
 IUTEST_TEST_STATICASSERT("TestFixture is fixture class, mistake the IUTEST_F?")
@@ -40,7 +40,7 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	IUTEST_INIT(&argc, argv);
-	return IUTEST_RUN_ALL_TESTS();
+    IUTEST_INIT(&argc, argv);
+    return IUTEST_RUN_ALL_TESTS();
 }
 

@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		list_test_tests.cpp
- * @brief		iutest_list_tests command line test
+ * @file        list_test_tests.cpp
+ * @brief       iutest_list_tests command line test
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2013-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -46,7 +46,7 @@ IUTEST_TYPED_TEST(TypedTest, A)
 
 #endif
 
-const char list_test_str[] = 
+const char list_test_str[] =
 #if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TYPED_TEST
 "3 tests from 3 testcase\n"
 #elif IUTEST_HAS_TYPED_TEST || IUTEST_HAS_PARAM_TEST
@@ -64,7 +64,7 @@ const char list_test_str[] =
 "Test/ParamTest\n"
 "  A/0\n"
 #endif
-;
+"";
 
 const char list_test_with_where_str[] =
 #if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TYPED_TEST
@@ -89,7 +89,7 @@ const char list_test_with_where_str[] =
 "  A/0, where GetParam() = 4-Byte object < 2A 00 00 00 >\n"
 #endif
 #endif
-;
+"";
 
 #ifdef UNICODE
 #  define DECAL_ARGV(cmd) const wchar_t* targv[] = { argv[0], L cmd }
@@ -103,46 +103,46 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	(void)argc;
-	(void)argv;
-	{
-		int targc = 2;
-		DECAL_ARGV("--gtest_list_tests");
-		IUTEST_INIT(&targc, targv);
+    (void)argc;
+    (void)argv;
+    {
+        int targc = 2;
+        DECAL_ARGV("--gtest_list_tests");
+        IUTEST_INIT(&targc, targv);
 
 #if !defined(IUTEST_USE_GTEST)
-		TestLogger logger;
-		::iutest::detail::iuConsole::SetLogger(&logger);
+        TestLogger logger;
+        ::iutest::detail::iuConsole::SetLogger(&logger);
 #endif
-		IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(list_tests) );
-		const int ret = IUTEST_RUN_ALL_TESTS();
+        IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(list_tests) );
+        const int ret = IUTEST_RUN_ALL_TESTS();
 
 #if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_ASSERTION_RETURN
-		::iutest::detail::iuConsole::SetLogger(NULL);
-		IUTEST_ASSERT_STREQ(list_test_str, logger.c_str())
-			<< ::iutest::AssertionReturn<int>(1);
+        ::iutest::detail::iuConsole::SetLogger(NULL);
+        IUTEST_ASSERT_STREQ(list_test_str, logger.c_str())
+            << ::iutest::AssertionReturn<int>(1);
 #endif
-		if( ret != 0 ) return 1;
-	}
+        if( ret != 0 ) return 1;
+    }
 #if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_ASSERTION_RETURN
-	{
-		int targc = 2;
-		DECAL_ARGV("--iutest_list_tests_with_where");
-		IUTEST_INIT(&targc, targv);
+    {
+        int targc = 2;
+        DECAL_ARGV("--iutest_list_tests_with_where");
+        IUTEST_INIT(&targc, targv);
 
-		TestLogger logger;
-		::iutest::detail::iuConsole::SetLogger(&logger);
+        TestLogger logger;
+        ::iutest::detail::iuConsole::SetLogger(&logger);
 
-		IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(list_tests) );
-		IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(list_tests_with_where) );
-		const int ret = IUTEST_RUN_ALL_TESTS();
+        IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(list_tests) );
+        IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(list_tests_with_where) );
+        const int ret = IUTEST_RUN_ALL_TESTS();
 
-		::iutest::detail::iuConsole::SetLogger(NULL);
-		IUTEST_ASSERT_STREQ(list_test_with_where_str, logger.c_str())
-			<< ::iutest::AssertionReturn<int>(1);
-		if( ret != 0 ) return 1;
-	}
-#endif	
-	return 0;
+        ::iutest::detail::iuConsole::SetLogger(NULL);
+        IUTEST_ASSERT_STREQ(list_test_with_where_str, logger.c_str())
+            << ::iutest::AssertionReturn<int>(1);
+        if( ret != 0 ) return 1;
+    }
+#endif
+    return 0;
 }
 

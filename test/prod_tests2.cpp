@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		prod_tests2.cpp
- * @brief		product code access test
+ * @file        prod_tests2.cpp
+ * @brief       product code access test
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,12 +26,12 @@ static ProdClass s_prod_2;
 
 IUTEST(ProdTest, PeepA2)
 {
-	IUTEST_PEEP_GET(s_prod_2, ProdClass, m_a) = 2;
-	IUTEST_EXPECT_EQ(2, s_prod_2.GetA());
+    IUTEST_PEEP_GET(s_prod_2, ProdClass, m_a) = 2;
+    IUTEST_EXPECT_EQ(2, s_prod_2.GetA());
 
-	IUTEST_EXPECT_EQ(2, IUTEST_PEEP_GET(s_prod_2, ProdClass, m_a));
+    IUTEST_EXPECT_EQ(2, IUTEST_PEEP_GET(s_prod_2, ProdClass, m_a));
 }
 
 #endif
 
-}
+}   // end of namespace prod_test

@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		static_assertion_tests.cpp
- * @brief		StaticAssertTypeEq アサーション test
+ * @file        static_assertion_tests.cpp
+ * @brief       StaticAssertTypeEq アサーション test
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -23,8 +23,8 @@ bool b = ::iutest::StaticAssertTypeEq<int, int>();
 
 IUTEST(StaticAssertTypeEqTest, OK)
 {
-	::iutest::StaticAssertTypeEq<float, float>();
-	IUTEST_STATIC_ASSERT(true);
+    ::iutest::StaticAssertTypeEq<float, float>();
+    IUTEST_STATIC_ASSERT(true);
 }
 
 #endif

@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		static_assertion_failure_tests.cpp
- * @brief		StaticAssertTypeEq fail test
+ * @file        static_assertion_failure_tests.cpp
+ * @brief       StaticAssertTypeEq fail test
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2015-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,20 +26,20 @@ bool b = ::iutest::StaticAssertTypeEq<int, float>();
 
 IUTEST(StaticAssertTypeEqTest, Fail)
 {
-	IUTEST_TEST_COMPILEERROR("static_assert_typeeq")
-	::iutest::StaticAssertTypeEq<float, int>();
+    IUTEST_TEST_COMPILEERROR("static_assert_typeeq")
+    ::iutest::StaticAssertTypeEq<float, int>();
 }
 
 IUTEST(StaticAssertTypeEqTest, Fail2)
-{	
-	IUTEST_TEST_STATICASSERT("static_assert")
-	IUTEST_STATIC_ASSERT(false);
+{
+    IUTEST_TEST_STATICASSERT("static_assert")
+    IUTEST_STATIC_ASSERT(false);
 }
 
 IUTEST(StaticAssertTypeEqTest, Fail3)
 {
-	IUTEST_TEST_STATICASSERT("static_assert")
-	IUTEST_STATIC_ASSERT(test_struct<false, false>::value);
+    IUTEST_TEST_STATICASSERT("static_assert")
+    IUTEST_STATIC_ASSERT(test_struct<false, false>::value);
 }
 
 #endif

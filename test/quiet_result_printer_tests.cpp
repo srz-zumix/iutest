@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		quiet_result_printer_tests.cpp
- * @brief		QuietResultPrinter test
+ * @file        quiet_result_printer_tests.cpp
+ * @brief       QuietResultPrinter test
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -24,7 +24,7 @@ IUTEST(Test, Ok)
 
 IUTEST(Test, NG)
 {
-	IUTEST_ASSERT_TRUE(false);
+    IUTEST_ASSERT_TRUE(false);
 }
 
 #ifdef UNICODE
@@ -33,42 +33,42 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	IUTEST_INIT(&argc, argv);
+    IUTEST_INIT(&argc, argv);
 #if defined(OUTPUTXML)
-	// 実行対象テストがないので xml 出力しない
-	::iutest::IUTEST_FLAG(output) = NULL;
+    // 実行対象テストがないので xml 出力しない
+    ::iutest::IUTEST_FLAG(output) = NULL;
 #endif
-	
+
 #if !defined(IUTEST_USE_GTEST)
-	TestLogger logger;
-	::iutest::detail::iuConsole::SetLogger(&logger);
-#endif
-	
-	::iutest::TestEventListener* listener = ::iuutil::QuietResultPrinter::SetUp();
-#if IUTEST_HAS_ASSERTION_RETURN
-	IUTEST_ASSERT_NOTNULL( listener ) << ::iutest::AssertionReturn<int>(1);
-#else
-	if( listener == NULL ) return 1;
+    TestLogger logger;
+    ::iutest::detail::iuConsole::SetLogger(&logger);
 #endif
 
-	if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
+    ::iutest::TestEventListener* listener = ::iuutil::QuietResultPrinter::SetUp();
+#if IUTEST_HAS_ASSERTION_RETURN
+    IUTEST_ASSERT_NOTNULL( listener ) << ::iutest::AssertionReturn<int>(1);
+#else
+    if( listener == NULL ) return 1;
+#endif
+
+    if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
 #if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_ASSERTION_RETURN
-	IUTEST_ASSERT_STRNOTIN("[       OK ]", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
-	IUTEST_ASSERT_STRIN   ("[  FAILED  ]", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
+    IUTEST_ASSERT_STRNOTIN("[       OK ]", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
+    IUTEST_ASSERT_STRIN   ("[  FAILED  ]", logger.c_str()) << ::iutest::AssertionReturn<int>(1);
 #endif
 
-	{
-		::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
-		delete listeners.Release(listener);
-	}
-	
-	listener = ::iuutil::QuietResultPrinter::SetUp();
+    {
+        ::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
+        delete listeners.Release(listener);
+    }
+
+    listener = ::iuutil::QuietResultPrinter::SetUp();
 #if IUTEST_HAS_ASSERTION_RETURN
-	IUTEST_ASSERT_NULL( listener ) << ::iutest::AssertionReturn<int>(1);
+    IUTEST_ASSERT_NULL( listener ) << ::iutest::AssertionReturn<int>(1);
 #else
-	if( listener != NULL ) return 1;
+    if( listener != NULL ) return 1;
 #endif
-	
-	printf("*** Successful ***\n");
-	return 0;
+
+    printf("*** Successful ***\n");
+    return 0;
 }

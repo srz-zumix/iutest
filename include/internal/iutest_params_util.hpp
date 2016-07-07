@@ -121,8 +121,9 @@ class ParamTestCaseInfo : public IParamTestCaseInfo
 
     class Functor
     {
-        Functor() {}
     public:
+        Functor()
+            : CreateGen(NULL), ParamNameGen(NULL) {}
         Functor(pfnCreateGeneratorFunc c, pfnParamNameGeneratorFunc p)
             : CreateGen(c), ParamNameGen(p) {}
         pfnCreateGeneratorFunc      CreateGen;

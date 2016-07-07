@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		assertion_only_tests.cpp
- * @brief		iutest assertion only test
+ * @file        assertion_only_tests.cpp
+ * @brief       iutest assertion only test
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,8 +19,8 @@
 
 //======================================================================
 // define
-#define IUTEST_VPRINTF		test_vprintf
-#define IUTEST_PRINTF		test_printf
+#define IUTEST_VPRINTF      test_vprintf
+#define IUTEST_PRINTF       test_printf
 
 //======================================================================
 // declare
@@ -29,9 +29,9 @@ void test_printf(const char* fmt, ...);
 
 //======================================================================
 // include
+#include <iostream>
 #include "iutest.hpp"
 #include "../include/gtest/iutest_assertion_only.hpp"
-#include <iostream>
 
 #ifdef IUTEST_USE_GTEST
 static ::std::stringstream s_outstream;
@@ -41,17 +41,17 @@ static ::iutest::iu_stringstream s_outstream;
 
 void test_vprintf(const char* fmt, va_list va)
 {
-	char buf[4096];
-	vsprintf(buf, fmt, va);
-	s_outstream << buf;
+    char buf[4096];
+    vsprintf(buf, fmt, va);
+    s_outstream << buf;
 }
 
 void test_printf(const char* fmt, ...)
 {
-	va_list va;
-	va_start(va, fmt);
-	test_vprintf(fmt, va);
-	va_end(va);
+    va_list va;
+    va_start(va, fmt);
+    test_vprintf(fmt, va);
+    va_end(va);
 }
 
 
@@ -61,13 +61,13 @@ int wmain(int, wchar_t**)
 int main(int, char**)
 #endif
 {
-	IUTEST_EXPECT_EQ(0, 1);
+    IUTEST_EXPECT_EQ(0, 1);
 
 #if !defined(IUTEST_USE_GTEST)
-//	::std::cout << s_outstream.str();
-	if( s_outstream.str().empty() ) return 1;
+//  ::std::cout << s_outstream.str();
+    if( s_outstream.str().empty() ) return 1;
 #endif
-	::std::cout << "*** Successful ***" << ::std::endl;
-	return 0;
+    ::std::cout << "*** Successful ***" << ::std::endl;
+    return 0;
 }
 

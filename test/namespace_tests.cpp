@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		namespace_tests.cpp
- * @brief		iutest namespace 対応 test
+ * @file        namespace_tests.cpp
+ * @brief       iutest namespace 対応 test
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2012-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -15,18 +15,15 @@
 
 //======================================================================
 // include
+#include <cmath>
 #include "../include/gtest/iutest_spi_switch.hpp"
 #include "../include/internal/iutest_filepath.hpp"
-#include <cmath>
 #include "main.cpp"
 
 namespace test
 {
 
-namespace iutest
-{
-	class dummy;
-}
+namespace iutest { class dummy; }
 
 #include "assertion_tests.cpp"
 #include "basic_tests.cpp"
@@ -52,5 +49,5 @@ namespace iutest
 #include "util_tests.cpp"
 #include "variadic_templates_tests.cpp"
 
-}
+}   // end of namespace test
 

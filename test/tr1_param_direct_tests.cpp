@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		tr1_param_direct_tests.cpp
- * @brief		parameter test
+ * @file        tr1_param_direct_tests.cpp
+ * @brief       parameter test
  *
- * @author		t.shirayanagi
- * @par			copyright
- * Copyright (C) 2013-2015, Takazumi Shirayanagi\n
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,7 +26,7 @@
 typedef ParamTest ParamDirectTest;
 IUTEST_P(ParamDirectTest, Test)
 {
-	IUTEST_SUCCEED() << GetParam();
+    IUTEST_SUCCEED() << GetParam();
 }
 
 int param_test_array[] = { 3, 2, 1, 0 };
