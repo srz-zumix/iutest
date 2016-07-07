@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01150112u //!< iutest version 1.15.1.12
+#define IUTEST_VER          0x01150113u //!< iutest version 1.15.1.13
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x15u       //!< Minor Version
 #define IUTEST_BUILD        0x01u       //!< Build
-#define IUTEST_REVISION     0x12u       //!< Revision
+#define IUTEST_REVISION     0x13u       //!< Revision
 
 /**
  * @mainpage
@@ -116,6 +116,14 @@
  * @page    CHANGELOG   変更履歴
  * @par     Changes
  <ul>
+  <li>v1.15.2.0
+    <ul>
+      <li>iuwandbox.py の --boost オプションが Python3 で使えない問題を修正</li>
+      <li>IUTEST(A, B_C) と IUTEST(A_B, C) が名前の衝突でコンパイルエラーになる問題を修正</li>
+      <li>deprecated: IUTEST_HAS_STRSTREAM は将来的に削除されます</li>
+      <li>deprecated: IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE は将来的に削除されます</li>
+    </ul>
+  </li>
   <li>v1.15.1.0
     <ul>
       <li>stderr に xml の内容を出力するリスナーを追加</li>
