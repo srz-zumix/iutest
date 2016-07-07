@@ -24,7 +24,7 @@ save: sample.cpp $(TOOLS) Makefile
 local:
 	g++ sample.cpp -o sample
 	./sample
-	
+
 test: ../../test/syntax_tests.cpp Makefile
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE)
 
@@ -42,6 +42,15 @@ test-clang: ../../test/syntax_tests.cpp Makefile
 
 test-gcc-98: ../../test/syntax_tests.cpp Makefile
 	python iuwandbox.py $< -c gcc-head -f"-DIUTEST_USE_MAIN" -x "warning,c++98" --encoding utf-8-sig $(EXPAND_INCLUDE)
+
+boost: ../../test/syntax_tests.cpp Makefile
+	python iuwandbox.py $< -c $(WANDBOX_COMPILER) --boost 1.60 -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --verbose --dryrun
+
+dryrun-test: ../../test/syntax_tests.cpp Makefile
+	# boost option test
+	python iuwandbox.py $< -c $(WANDBOX_COMPILER) --boost 1.60 -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --verbose --dryrun
+	python iuwandbox.py $< -c $(WANDBOX_COMPILER) --default --boost 1.60 -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --verbose --dryrun
+	
 
 list-compiler:
 	python iuwandbox.py --list_compiler
