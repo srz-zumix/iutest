@@ -9,8 +9,6 @@
 
 import os
 import sys
-import argparse
-import twilio
 import xml.etree.ElementTree as ET
 
 from argparse import ArgumentParser

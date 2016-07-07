@@ -11,7 +11,6 @@ import os
 import sys
 import re
 import codecs
-import argparse
 import paizaio
 
 from argparse import ArgumentParser
@@ -82,9 +81,9 @@ def make_code(path, encoding, expand):
         if m:
             f = codecs.open(IUTEST_FUSED_SRC, 'r', 'utf-8-sig')
 
-            code += '//==================================================================>>>> ' + line
+            code += '//========================================================>>>> ' + line
             code += f.read()
-            code += '//==================================================================<<<< ' + line
+            code += '//========================================================<<<< ' + line
         else:
             if expand:
                 m = EXPAND_INCLUDE_REGEX.match(line)

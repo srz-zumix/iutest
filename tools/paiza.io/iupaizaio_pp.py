@@ -84,7 +84,6 @@ clang_has_features = {
 
 clang_has_include = {
     '<cxxabi.h>': '1',
-#   '<uchar.h>': '1',
     '<uchar.h>': '0',
     '<experimental/any>': '0',
     '<ext/cmath>': '0',
