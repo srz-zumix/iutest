@@ -28,7 +28,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 3.7'
+        version=u'%(prog)s version 3.8'
     )
     parser.add_argument(
         '--list_compiler',
@@ -142,7 +142,7 @@ def parse_command_line():
         nargs='?',
         help='source code file'
     )
-    options, unknown = parser.parse_known_args()
+    options = parser.parse_args()
     return options
 
 

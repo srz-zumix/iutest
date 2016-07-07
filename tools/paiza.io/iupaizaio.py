@@ -59,7 +59,7 @@ def parse_command_line():
         metavar='CODE',
         help='source code file'
     )
-    options, unknown = parser.parse_known_args()
+    options = parser.parse_args()
     return options
 
 
