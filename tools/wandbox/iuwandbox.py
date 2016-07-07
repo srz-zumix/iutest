@@ -132,6 +132,11 @@ def parse_command_line():
         help='verbose.'
     )
     parser.add_argument(
+        '--dryrun',
+        action='store_true',
+        help='dryrun.'
+    )
+    parser.add_argument(
         'code',
         metavar='CODE',
         nargs='?',
@@ -195,14 +200,14 @@ def setup_includes(w, includes, encoding):
 def run_wandbox(code, includes, options):
     w = Wandbox()
     w.compiler(options.compiler)
-    opt = ""
+    opt = {}
     if options.options:
         opt = options.options.split(',')
     elif options.default:
         opt = get_default_options(options.compiler)
     if options.boost:
-        opt = filter(lambda s: s.find('boost') == -1, opt)
-        opt.append('boost-' + options.boost)
+        opt = list(filter(lambda s: s.find('boost') == -1, opt))
+        opt.append('boost-' + str(options.boost))
     w.options(','.join(opt))
     if options.stdin:
         w.stdin(options.stdin)
@@ -222,6 +227,8 @@ def run_wandbox(code, includes, options):
         w.dump()
     w.code(code)
     setup_includes(w, includes, options.encoding)
+    if options.dryrun:
+        sys.exit(0)
     return w.run()
 
 
@@ -278,7 +285,7 @@ def set_output_xml(options, t, xml):
         options.runtime_option_raw.append("--iutest_output=" + t + ":" + xml)
     else:
         options.runtime_option_raw = ["--iutest_output=" + t + ":" + xml]
-    
+
 
 def run(options):
     filepath = options.code
