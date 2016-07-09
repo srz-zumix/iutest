@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.15.1.12</span>
+   &#160;<span id="projectnumber">1.15.1.13</span>
    </div>
   </td>
  </tr>
@@ -83,6 +83,18 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><dl class="section user"><dt>Changes</dt><dd><ul>
+<li>
+v1.15.2.0 <ul>
+<li>
+iuwandbox.py の &ndash;boost オプションが Python3 で使えない問題を修正 </li>
+<li>
+<a class="el" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9" title="テスト関数定義マクロ ">IUTEST(A, B_C)</a> と <a class="el" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9" title="テスト関数定義マクロ ">IUTEST(A_B, C)</a> が名前の衝突でコンパイルエラーになる問題を修正 </li>
+<li>
+deprecated: IUTEST_HAS_STRSTREAM は将来的に削除されます </li>
+<li>
+deprecated: IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE は将来的に削除されます </li>
+</ul>
+</li>
 <li>
 v1.15.1.0 <ul>
 <li>
@@ -908,7 +920,7 @@ xml 出力に対応 </li>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年07月07日(木) 04時00分55秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年07月09日(土) 13時40分19秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
