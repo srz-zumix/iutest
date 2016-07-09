@@ -163,16 +163,25 @@ def make_code(path, encoding, expand, includes):
         m = IUTEST_INCLUDE_REGEX.match(line)
         if m:
             code += '#include "iutest.hpp"\n'
+            code += '//origin>> ' + line
+            if 'iutest.hpp' not in includes:
+                f = codecs.open(IUTEST_FUSED_SRC, 'r', 'utf-8-sig')
+                includes['iutest.hpp'] = f.read()
         else:
             m = EXPAND_INCLUDE_REGEX.match(line)
             if m:
                 include_path = os.path.join(os.path.dirname(path), m.group(1))
                 if os.path.exists(include_path):
+                    expand_include_file_code = make_code(include_path, encoding, expand, includes)
                     if expand:
-                        code += make_code(include_path, encoding, expand, includes)
-                        code += '// '
+                        code += expand_include_file_code
+                        code += '//origin>> '
                     else:
-                        includes.append(include_path)
+                        include_filename = os.path.basename(include_path)
+                        code += '#include "' + include_filename + '"\n'
+                        code += '//origin>> '
+                        if include_filename not in includes:
+                            includes[include_filename] = expand_include_file_code
             code += line
     file.close()
     return code
@@ -187,20 +196,16 @@ def check_config(options):
 
 
 # setup includes
-def setup_includes(w, includes, encoding):
-    iutest = codecs.open(IUTEST_FUSED_SRC, 'r', 'utf-8-sig')
-    w.add_file('iutest.hpp', iutest.read())
-    for filepath in includes:
-        f = codecs.open(filepath, 'r', encoding)
-        filename = os.path.basename(filepath)
-        w.add_file(filename, f.read())
+def setup_includes(w, includes):
+    for filename,code in includes.items():
+        w.add_file(filename, code)
 
 
 # run wandbox
 def run_wandbox(code, includes, options):
     w = Wandbox()
     w.compiler(options.compiler)
-    opt = {}
+    opt = []
     if options.options:
         opt = options.options.split(',')
     elif options.default:
@@ -226,7 +231,7 @@ def run_wandbox(code, includes, options):
     if options.verbose:
         w.dump()
     w.code(code)
-    setup_includes(w, includes, options.encoding)
+    setup_includes(w, includes)
     if options.dryrun:
         sys.exit(0)
     return w.run()
@@ -291,7 +296,7 @@ def run(options):
     filepath = options.code
     if not os.path.exists(filepath):
         sys.exit(1)
-    includes = []
+    includes = {}
     code = make_code(filepath, options.encoding, options.expand_include, includes)
     if options.output:
         f = file_open(options.output, 'w', options.encoding)
