@@ -126,6 +126,7 @@ public:
 private:
     static inline void color_output_impl(Color color, const char* fmt, va_list va);
     static inline bool IsShouldUseColor(bool use_color);
+    static inline bool HasColorConsole();
 
 private:
     static inline bool IsStringEqual(const char* str1, const char* str2) { return strcmp(str1, str2) == 0; }
@@ -221,19 +222,24 @@ inline void iuConsole::color_output_impl(Color color, const char* fmt, va_list v
             FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE
         };
         const HANDLE stdout_handle = GetStdHandle(STD_OUTPUT_HANDLE);
-        CONSOLE_SCREEN_BUFFER_INFO csbi;
-        ::GetConsoleScreenBufferInfo(stdout_handle, &csbi);
-        const WORD wAttributes = csbi.wAttributes;
+        if( stdout_handle != INVALID_HANDLE_VALUE )
+        {
+            CONSOLE_SCREEN_BUFFER_INFO csbi;
+            if( ::GetConsoleScreenBufferInfo(stdout_handle, &csbi) )
+            {
+                const WORD wAttributes = csbi.wAttributes;
 
-        fflush(stdout);
-        ::SetConsoleTextAttribute(stdout_handle, attr[color] | FOREGROUND_INTENSITY);
+                fflush(stdout);
+                ::SetConsoleTextAttribute(stdout_handle, attr[color] | FOREGROUND_INTENSITY);
 
-        voutput(fmt, va);
+                voutput(fmt, va);
 
-        fflush(stdout);
-        ::SetConsoleTextAttribute(stdout_handle, wAttributes);
+                fflush(stdout);
+                ::SetConsoleTextAttribute(stdout_handle, wAttributes);
+                return;
+            }
+        }
     }
-    else
 #endif
     {
         output("\033[1;3%cm", '0' + color);
@@ -252,16 +258,26 @@ inline bool iuConsole::IsShouldUseColor(bool use_color)
     {
         return false;
     }
+    static bool has_color = HasColorConsole();
+    return use_color && has_color;
+}
 
+inline bool iuConsole::HasColorConsole()
+{
 #if !IUTEST_HAS_COLORCONSOLE
-    (void)(use_color);
     return false;
 #else
 #if defined(IUTEST_OS_WINDOWS)
-    return use_color;
-#else
+    {
+        CONSOLE_SCREEN_BUFFER_INFO csbi;
+        if( ::GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi) )
+        {
+            return true;
+        }
+    }
+#endif
     const char* env = internal::posix::GetEnv("TERM");
-    bool term_conf = (env != NULL) && (
+    const bool term_conf = (env != NULL) && (
         IsStringEqual(env, "xterm")
         || IsStringEqual(env, "xterm-color")
         || IsStringEqual(env, "xterm-256color")
@@ -274,9 +290,7 @@ inline bool iuConsole::IsShouldUseColor(bool use_color)
         || IsStringEqual(env, "linux")
         || IsStringEqual(env, "cygwin")
         );
-    return use_color && term_conf;
-#endif
-
+    return term_conf;
 #endif
 }
 

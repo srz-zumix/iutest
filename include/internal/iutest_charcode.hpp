@@ -61,7 +61,7 @@ namespace detail
 
 #endif
 
-#if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_HDR_UCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
+#if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_CXX_HDR_CUCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
 
 /**
 * @brief    ワイド文字列からマルチバイトへ変換

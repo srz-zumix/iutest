@@ -18,8 +18,8 @@
 //======================================================================
 // include
 #include "../internal/iutest_charcode.hpp"
-#if IUTEST_HAS_HDR_UCHAR
-#  include <uchar.h>
+#if IUTEST_HAS_CXX_HDR_CUCHAR
+#  include <cuchar>
 #endif
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
@@ -173,7 +173,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteStr
 #else
     return CodeConvert<char16_t, char, ::std::mbstate_t>(str);
 #endif
-#elif IUTEST_HAS_HDR_UCHAR
+#elif IUTEST_HAS_CXX_HDR_CUCHAR
     IUTEST_UNUSED_VAR(num);
     const size_t length = ::std::char_traits<char16_t>::length(str);
     char16_t lead = 0, trail = 0;
@@ -198,7 +198,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         {
             cp = lead;
         }
-        const size_t len = c32rtomb(mbs, cp, &state);
+        const size_t len = ::std::c32rtomb(mbs, cp, &state);
         if( len != static_cast<size_t>(-1) )
         {
             mbs[len] = '\0';
@@ -214,7 +214,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 #endif
 
-#if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_HDR_UCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
+#if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_CXX_HDR_CUCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const char32_t* str, int num)
 {

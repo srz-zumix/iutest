@@ -116,6 +116,12 @@
 #  endif
 #endif
 
+#if   defined(__has_include)
+#  if !defined(IUTEST_HAS_CXX_HDR_CUCHAR) && __has_include( <cuchar> )
+#    define IUTEST_HAS_CXX_HDR_CUCHAR   1
+#  endif
+#endif
+
 #elif defined(_LIBCPP_VERSION)
 
 // libc++
@@ -170,6 +176,9 @@
 #  if !defined(IUTEST_HAS_HDR_CXXABI) && __has_include( <cxxabi.h> )
 #    define IUTEST_HAS_HDR_CXXABI       1
 #  endif
+#  if !defined(IUTEST_HAS_CXX_HDR_CUCHAR) && __has_include( <cuchar> )
+#    define IUTEST_HAS_CXX_HDR_CUCHAR   1
+#  endif
 #endif
 
 #elif defined(_MSC_VER) && defined(_MSC_FULL_VER)
@@ -203,9 +212,12 @@
 #  endif
 #endif
 
-#if _MSC_VER > 1800
+#if _MSC_VER >= 1900
 #  if !defined(IUTEST_HAS_STD_QUICK_EXIT)
 #    define IUTEST_HAS_STD_QUICK_EXIT     1
+#  endif
+#  if !defined(IUTEST_HAS_CXX_HDR_CUCHAR)
+#    define IUTEST_HAS_CXX_HDR_CUCHAR     1
 #  endif
 #endif
 
@@ -292,6 +304,10 @@
 //! has cxxabi header
 #if !defined(IUTEST_HAS_HDR_CXXABI)
 #  define IUTEST_HAS_HDR_CXXABI         0
+#endif
+//! has uchar
+#if !defined(IUTEST_HAS_CXX_HDR_CUCHAR)
+#  define IUTEST_HAS_CXX_HDR_CUCHAR     0
 #endif
 
 //======================================================================
@@ -468,23 +484,6 @@ using tuples::get;
 
 }   // end of namespace iutest
 
-#endif
-
-//! has uchar
-#if !defined(IUTEST_HAS_HDR_UCHAR)
-#  if IUTEST_HAS_CHAR16_T || IUTEST_HAS_CHAR32_T
-#    if   defined(__has_include)
-#      if __has_include( <uchar.h> )
-#        define IUTEST_HAS_HDR_UCHAR            1
-#      endif
-#    elif defined(_MSC_VER)
-#      define IUTEST_HAS_HDR_UCHAR              1
-#    endif
-#  endif
-#endif
-
-#if !defined(IUTEST_HAS_HDR_UCHAR)
-#  define IUTEST_HAS_HDR_UCHAR          0
 #endif
 
 //! has sys/time.h header

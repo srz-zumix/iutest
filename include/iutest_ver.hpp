@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01150113u //!< iutest version 1.15.1.13
+#define IUTEST_VER          0x01150114u //!< iutest version 1.15.1.14
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x15u       //!< Minor Version
 #define IUTEST_BUILD        0x01u       //!< Build
-#define IUTEST_REVISION     0x13u       //!< Revision
+#define IUTEST_REVISION     0x14u       //!< Revision
 
 /**
  * @mainpage
@@ -120,6 +120,7 @@
     <ul>
       <li>iuwandbox.py の --boost オプションが Python3 で使えない問題を修正</li>
       <li>IUTEST(A, B_C) と IUTEST(A_B, C) が名前の衝突でコンパイルエラーになる問題を修正</li>
+      <li>色付きコンソールの自動判定を修正</li>
       <li>deprecated: IUTEST_HAS_STRSTREAM は将来的に削除されます</li>
       <li>deprecated: IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE は将来的に削除されます</li>
     </ul>
