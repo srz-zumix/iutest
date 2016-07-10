@@ -93,6 +93,11 @@
 #      define IUTEST_HAS_STD_QUICK_EXIT   1
 #    endif
 #  endif
+#  if   defined(__has_include)
+#    if !defined(IUTEST_HAS_CXX_HDR_CUCHAR) && __has_include( <cuchar> )
+#      define IUTEST_HAS_CXX_HDR_CUCHAR   1
+#    endif
+#  endif
 #endif
 
 // tuple
@@ -113,12 +118,6 @@
 #    endif
 #  else
 #    define IUTEST_HAS_HDR_CXXABI         1
-#  endif
-#endif
-
-#if   defined(__has_include)
-#  if !defined(IUTEST_HAS_CXX_HDR_CUCHAR) && __has_include( <cuchar> )
-#    define IUTEST_HAS_CXX_HDR_CUCHAR   1
 #  endif
 #endif
 
@@ -153,6 +152,11 @@
 #  if !defined(IUTEST_HAS_STD_QUICK_EXIT) && defined(_LIBCPP_HAS_QUICK_EXIT)
 #    define IUTEST_HAS_STD_QUICK_EXIT     1
 #  endif
+#  if   defined(__has_include)
+#    if !defined(IUTEST_HAS_CXX_HDR_CUCHAR) && __has_include( <cuchar> )
+#      define IUTEST_HAS_CXX_HDR_CUCHAR   1
+#    endif
+#  endif
 #endif
 
 #if _LIBCPP_VERSION >= 1001
@@ -175,9 +179,6 @@
 #if   defined(__has_include)
 #  if !defined(IUTEST_HAS_HDR_CXXABI) && __has_include( <cxxabi.h> )
 #    define IUTEST_HAS_HDR_CXXABI       1
-#  endif
-#  if !defined(IUTEST_HAS_CXX_HDR_CUCHAR) && __has_include( <cuchar> )
-#    define IUTEST_HAS_CXX_HDR_CUCHAR   1
 #  endif
 #endif
 
@@ -305,7 +306,7 @@
 #if !defined(IUTEST_HAS_HDR_CXXABI)
 #  define IUTEST_HAS_HDR_CXXABI         0
 #endif
-//! has uchar
+//! has cuchar
 #if !defined(IUTEST_HAS_CXX_HDR_CUCHAR)
 #  define IUTEST_HAS_CXX_HDR_CUCHAR     0
 #endif
