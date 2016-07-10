@@ -18,7 +18,11 @@
 //======================================================================
 // include
 #include "../internal/iutest_charcode.hpp"
-#if IUTEST_HAS_HDR_UCHAR
+
+//msys2 mingw clang predefine char16_t/char32_t. 
+//However, mingw's header try to redefine these so that clang make compile error.
+//When msys2 mingw clang doesn't define char16_t/char32_t, this line will case error.
+#if IUTEST_HAS_HDR_UCHAR && !(defined(__MINGW32__) && defined(_WIN32) && defined(__GNUC__) && defined(__clang__))
 #  include <uchar.h>
 #endif
 
