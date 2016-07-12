@@ -21,6 +21,9 @@
 namespace syntax_tests
 {
 
+IUTEST_PARGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()
+
 IUTEST(SyntaxTest, True)
 {
     if( bool b = true )
@@ -728,5 +731,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P( X51, ValuesTest
 #endif
 
 #endif
+
+IUTEST_PARGMA_WARN_POP()
 
 }   // end of namespace syntax_tests

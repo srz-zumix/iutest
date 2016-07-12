@@ -47,6 +47,8 @@
 #undef GTEST_HAS_RTTI
 #undef GTEST_HAS_SEH
 
+#undef GTEST_IS_THREADSAFE
+
 #endif
 
 #define SUCCEED             IUTEST_SUCCEED
@@ -65,6 +67,8 @@
 #define GTEST_HAS_EXCEPTIONS    IUTEST_HAS_EXCEPTIONS
 #define GTEST_HAS_RTTI          IUTEST_HAS_RTTI
 #define GTEST_HAS_SEH           IUTEST_HAS_SEH
+
+#define GTEST_IS_THREADSAFE     0
 
 #include "switch/iutest_switch_port.hpp"
 #include "switch/iutest_switch_core.hpp"
