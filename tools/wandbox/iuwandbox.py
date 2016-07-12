@@ -28,7 +28,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 3.8'
+        version=u'%(prog)s version 3.9'
     )
     parser.add_argument(
         '--list_compiler',
@@ -60,6 +60,16 @@ def parse_command_line():
         '--boost',
         metavar='VERSION',
         help='set boost options version X.XX or nothing.'
+    )
+    parser.add_argument(
+        '--sprout',
+        action='store_true',
+        help='use sprout.'
+    )
+    parser.add_argument(
+        '--msgpack',
+        action='store_true',
+        help='use msgpack.'
     )
     parser.add_argument(
         '--stdin',
@@ -155,8 +165,21 @@ def file_open(path, mode, encoding):
     return file
 
 
+# make include filename
+def make_include_filename(path, includes, included_files):
+    if path in included_files:
+        return included_files[path]
+    else:
+        include_dir, include_filename = os.path.split(path)
+        while include_filename in includes:
+            include_dir, dirname = os.path.split(include_dir) 
+            include_filename = dirname + '__' + include_filename
+        included_files[path] = include_filename
+        return include_filename
+
+
 # make code
-def make_code(path, encoding, expand, includes):
+def make_code(path, encoding, expand, includes, included_files):
     code = ''
     file = file_open(path, 'r', encoding)
     for line in file:
@@ -172,12 +195,13 @@ def make_code(path, encoding, expand, includes):
             if m:
                 include_path = os.path.join(os.path.dirname(path), m.group(1))
                 if os.path.exists(include_path):
-                    expand_include_file_code = make_code(include_path, encoding, expand, includes)
+                    expand_include_file_code = make_code(include_path, encoding, expand, includes, included_files)
                     if expand:
                         code += expand_include_file_code
                         code += '//origin>> '
                     else:
-                        include_filename = os.path.basename(include_path)
+                        include_abspath = os.path.abspath(include_path)
+                        include_filename = make_include_filename(include_abspath, includes, included_files)
                         code += '#include "' + include_filename + '"\n'
                         code += '//origin>> '
                         if include_filename not in includes:
@@ -213,6 +237,10 @@ def run_wandbox(code, includes, options):
     if options.boost:
         opt = list(filter(lambda s: s.find('boost') == -1, opt))
         opt.append('boost-' + str(options.boost))
+    if options.sprout and 'sprout' not in opt:
+        opt.append('sprout')
+    if options.msgpack and 'msgpack' not in opt:
+        opt.append('msgpack')
     w.options(','.join(opt))
     if options.stdin:
         w.stdin(options.stdin)
@@ -297,7 +325,8 @@ def run(options):
     if not os.path.exists(filepath):
         sys.exit(1)
     includes = {}
-    code = make_code(filepath, options.encoding, options.expand_include, includes)
+    included_files = {}
+    code = make_code(filepath, options.encoding, options.expand_include, includes, included_files)
     if options.output:
         f = file_open(options.output, 'w', options.encoding)
         f.write(code)

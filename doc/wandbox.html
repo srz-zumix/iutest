@@ -67,6 +67,8 @@ IUTEST(Foo, Bar)
 <tr><td>-x</td><td>--options OPTIONS      </td><td>オプションを選択します。選択できるコンパイラーは Wandbox を確認するか、--list_options オプションで確認してください。</td></tr>
 <tr><td>  </td><td>--default              </td><td>Wandbox のデフォルトオプションを使用します。</td></tr>
 <tr><td>  </td><td>--boost VERSION        </td><td>使用する boost のバージョンを指定します。nothing を指定すると boost を使用しません。</td></tr>
+<tr><td>  </td><td>--sprout               </td><td><a href="https://github.com/bolero-MURAKAMI/Sprout">Sprout</a> を使用します。</td></tr>
+<tr><td>  </td><td>--msgpack              </td><td><a href="http://msgpack.org/">MessagePack</a> を使用します。</td></tr>
 <tr><td>-f</td><td>--compiler_options_raw OPTIONS</td><td>コンパイラーのオプションを直接指定します。複数のオプションを指定する場合は、[ -f"-Dx=hogefuga\n-O3" ] とするか、[ -f"-Dx=hogefuga" -f"-O3" ] のように複数オプションを記述してください。 </td></tr>
 <tr><td>-r</td><td>--runtime_options_raw OPTIONS</td><td>ビルドした実行ファイルのコマンドラインオプションを指定します。複数のオプションを指定する場合は、[ -r"--iutest_shuffle\n--iutest_random_seed=1" ] とするか、[ -r"--iutest_shuffle" -r"--iutest_random_seed=1" ] のように複数オプションを記述してください。 </td></tr>
 <tr><td>  </td><td>--list_compiler        </td><td>利用可能なコンパイラーを列挙します。</td></tr>
@@ -79,6 +81,7 @@ IUTEST(Foo, Bar)
 <tr><td>  </td><td>--junit FILE           </td><td>テスト結果 xml を junit 形式で FILE に書き出します。</td></tr>
 <tr><td>-s</td><td>--save                 </td><td>permarnent link を生成します。</td></tr>
 <tr><td>  </td><td>--verbose              </td><td>実行前にパラメータを表示します。</td></tr>
+<tr><td>  </td><td>--dryrun               </td><td>Wandbox で実行せず終了します。</td></tr>
 <tr><td>  </td><td>--permlink ID          </td><td>ID の permarnent link の情報を取得します。--output オプションを指定すると、ソースコードをファイルに書き出します。</td></tr>
 <tr><td>-v</td><td>--version              </td><td>バージョンを表示します</td></tr>
 <tr><td>-h</td><td>--help                 </td><td>ヘルプを表示します</td></tr>

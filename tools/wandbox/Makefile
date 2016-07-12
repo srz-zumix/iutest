@@ -11,7 +11,7 @@ WANDBOX_COMPILER?=gcc-head
 
 help: $(TOOLS)
 	python iuwandbox.py -h
-	
+
 fused:
 	make -C ../fused
 
@@ -50,7 +50,7 @@ dryrun-test: ../../test/syntax_tests.cpp Makefile
 	# boost option test
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) --boost 1.60 -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --verbose --dryrun
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) --default --boost 1.60 -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --verbose --dryrun
-	
+
 
 list-compiler:
 	python iuwandbox.py --list_compiler
