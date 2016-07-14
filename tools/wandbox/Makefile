@@ -52,8 +52,14 @@ dryrun-test: ../../test/syntax_tests.cpp Makefile
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) --default --boost 1.60 -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --verbose --dryrun
 
 
+test-all: ../../test/syntax_tests.cpp Makefile
+	@for compiler in $(shell python iuwandbox.py --list_compiler); do \
+		echo $${compiler}; \
+		python iuwandbox.py $< -c $${compiler} -f"-DIUTEST_USE_MAIN" -f"-Werror" --encoding utf-8-sig || exit 1; \
+	done
+
 list-compiler:
-	python iuwandbox.py --list_compiler
+	python iuwandbox.py --list_compiler --verbose
 
 list-options:
 	python iuwandbox.py --list_options $(WANDBOX_COMPILER)

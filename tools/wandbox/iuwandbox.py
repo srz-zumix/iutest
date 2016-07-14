@@ -28,7 +28,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 4.0'
+        version=u'%(prog)s version 4.1'
     )
     parser.add_argument(
         '--list_compiler',
@@ -153,10 +153,7 @@ def parse_command_line():
         help='source code file'
     )
     options = parser.parse_args()
-    if options.code is None:
-        parser.print_help()
-        sys.exit(1)
-    return options
+    return options, parser
 
 
 # file open
@@ -250,6 +247,10 @@ def run_wandbox(code, includes, options):
     if options.compiler_option_raw:
         co = '\n'.join(options.compiler_option_raw)
         co = co.replace('\\n', '\n')
+        if options.compiler == "clang-3.5":
+            co += "\n-DIUTEST_HAS_HDR_CXXABI=0"
+        if options.compiler in ["clang-3.2", "clang-3.1", "clang-3.0"]:
+            co += "\n-Qunused-arguments"
         w.compiler_options(co)
     if options.runtime_option_raw:
         ro = ''
@@ -351,12 +352,15 @@ def run(options):
 
 
 # listup compiler
-def listup_compiler():
+def listup_compiler(verbose):
     w = Wandbox()
     r = w.get_compiler_list()
     for d in r:
         if d['language'] == 'C++':
-            print(d['name'] + ' (' + d['version'] + ')')
+            if verbose:
+                print(d['name'] + ' (' + d['version'] + ')')
+            else:
+                print(d['name'])
 
 
 # find compiler
@@ -423,9 +427,9 @@ def get_permlink(options):
 
 
 def main():
-    options = parse_command_line()
+    options, parser = parse_command_line()
     if options.list_compiler:
-        listup_compiler()
+        listup_compiler(options.verbose)
     elif options.list_options:
         listup_options(options.list_options)
     elif options.permlink:
@@ -433,6 +437,9 @@ def main():
     else:
         if options.check_config:
             check_config(options)
+        elif options.code is None:
+            parser.print_help()
+            sys.exit(1)
         run(options)
 
 if __name__ == '__main__':
