@@ -14,6 +14,7 @@ import codecs
 
 from argparse import ArgumentParser
 from wandbox import Wandbox
+from requests.exceptions import HTTPError
 
 IUTEST_FUSED_SRC = os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.min.hpp')
 IUTEST_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*".*iutest\.hpp"')
@@ -28,7 +29,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 4.1'
+        version=u'%(prog)s version 4.2'
     )
     parser.add_argument(
         '--list_compiler',
@@ -266,7 +267,18 @@ def run_wandbox(code, includes, options):
     setup_includes(w, includes)
     if options.dryrun:
         sys.exit(0)
-    return w.run()
+    def run(retries):
+        try:
+            return w.run()
+        except HTTPError as e:
+            if e.response.status_code == 504 and retries > 0:
+                print(e.message)
+                return run(retries-1)
+            else:
+                raise
+        except:
+            raise
+    return run(3)
 
 
 # show result
