@@ -22,6 +22,8 @@
 namespace prod_test
 {
 
+IUTEST_FRIEND_TYPED_TEST_P_DECLARATION(ProdTypeParamTest, Friend)
+
 class ProdClass
 {
     IUTEST_FRIEND_TEST(ProdTest, Friend);
@@ -33,7 +35,7 @@ class ProdClass
     IUTEST_FRIEND_TYPED_TEST(ProdTypedTest, Friend);
 #endif
 #if IUTEST_HAS_TYPED_TEST_P
-    IUTEST_FRIEND_TYPED_TEST(ProdTypeParamTest, Friend);
+    IUTEST_FRIEND_TYPED_TEST_P(ProdTypeParamTest, Friend);
 #endif
 
 public:

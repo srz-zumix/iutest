@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01150117u //!< iutest version 1.15.1.17
+#define IUTEST_VER          0x01150118u //!< iutest version 1.15.1.18
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x15u       //!< Minor Version
 #define IUTEST_BUILD        0x01u       //!< Build
-#define IUTEST_REVISION     0x17u       //!< Revision
+#define IUTEST_REVISION     0x18u       //!< Revision
 
 /**
  * @mainpage
@@ -118,6 +118,7 @@
  <ul>
   <li>v1.15.2.0
     <ul>
+      <li>IUTEST_TYPED_TEST_P に対して friend できるように IUTEST_FRIEND_TYPED_TEST_P_DECLARATION/IUTEST_FRIEND_TYPED_TEST_P を追加</li>
       <li>iuwandbox.py の --boost オプションが Python3 で使えない問題を修正</li>
       <li>IUTEST(A, B_C) と IUTEST(A_B, C) が名前の衝突でコンパイルエラーになる問題を修正</li>
       <li>色付きコンソールの自動判定を修正</li>

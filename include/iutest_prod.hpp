@@ -23,15 +23,31 @@
 #define IUTEST_FRIEND_TEST(test_case_name, test_name)   \
     friend class IUTEST_TEST_CLASS_NAME_(test_case_name, test_name)
 
-#if IUTEST_HAS_TYPED_TEST || IUTEST_HAS_TYPED_TEST_P
-
 #if !defined(_MSC_VER) || _MSC_VER > 1200
 
+#if IUTEST_HAS_TYPED_TEST
+
 /**
- * @brief   テストから見えるように fried 登録(IUTEST_TYPED_TEST用)
+ * @brief   テストから見えるように fried 登録(IUTEST_TYPED_TEST 用)
 */
 #define IUTEST_FRIEND_TYPED_TEST(test_case_name, test_name) \
     template<typename T>IUTEST_FRIEND_TEST(test_case_name, test_name)
+
+#endif
+
+#if IUTEST_HAS_TYPED_TEST_P
+
+/**
+ * @brief   テストから見えるように fried 登録するための宣言
+*/
+#define IUTEST_FRIEND_TYPED_TEST_P_DECLARATION(test_case_name, test_name) \
+    namespace IIUT_TYPED_TEST_P_NAMESPACE_(test_case_name) { template<typename T>class test_name; }
+
+/**
+ * @brief   テストから見えるように fried 登録(IUTEST_TYPED_TEST_P 用)
+*/
+#define IUTEST_FRIEND_TYPED_TEST_P(test_case_name, test_name) \
+    template<typename T>friend class IIUT_TYPED_TEST_P_NAMESPACE_(test_case_name)::test_name
 
 #endif
 
