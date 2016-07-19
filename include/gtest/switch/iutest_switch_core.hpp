@@ -145,7 +145,7 @@
 #define IUTEST_FRIEND_TYPED_TEST_P_DECLARATION(test_case_name, test_name)   \
     namespace GTEST_CASE_NAMESPACE_(test_case_name) { template<typename T>class test_name; }
 #define IUTEST_FRIEND_TYPED_TEST_P(test_case_name, test_name)               \
-   template<typename T>friend class GTEST_CASE_NAMESPACE_(test_case_name)::test_name  
+   template<typename T>friend class GTEST_CASE_NAMESPACE_(test_case_name)::test_name
 #define IUTEST_SCOPED_TRACE         SCOPED_TRACE
 #define IUTEST_FLAG                 GTEST_FLAG
 

@@ -51,18 +51,18 @@ Platforms
 Documentation
 --------------------------------------------------
 
+* in repository  
 doc/index.html  
-[online document(OSDN)](http://iutest.osdn.jp/doc/index.html)  
-[online document(gh-pages)](http://srz-zumix.github.io/iutest/)  
-
-
+* online document  
+[least released version(OSDN)](http://iutest.osdn.jp/doc/index.html)  
+[github master branch (gh-pages)](http://srz-zumix.github.io/iutest/)  
 
 Project page
 --------------------------------------------------
 
-[Project page](http://iutest.osdn.jp/)  
-[Github](https://github.com/srz-zumix/iutest)  
-[Google Group](https://groups.google.com/forum/?fromgroups#!forum/g-iutest)  
+* [Project page](http://iutest.osdn.jp/)  
+* [Github](https://github.com/srz-zumix/iutest)  
+* [Google Group](https://groups.google.com/forum/?fromgroups#!forum/g-iutest)  
 
 Tools
 --------------------------------------------------
