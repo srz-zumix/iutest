@@ -22,7 +22,9 @@
 namespace prod_test
 {
 
+#if IUTEST_HAS_TYPED_TEST_P
 IUTEST_FRIEND_TYPED_TEST_P_DECLARATION(ProdTypeParamTest, Friend)
+#endif
 
 class ProdClass
 {
