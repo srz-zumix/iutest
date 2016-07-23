@@ -1,4 +1,24 @@
 ﻿--------------------------------------------------
+Changes for 1.15.2:
+
+** 追加
+* IUTEST_TYPED_TEST_P に対して friend できるように IUTEST_FRIEND_TYPED_TEST_P_DECLARATION/IUTEST_FRIEND_TYPED_TEST_P を追加
+* iuwandbox に --sprout/--msgpack オプションを追加
+
+** 変更
+* iuwandbox の --list_compiler オプションでバージョンを出力しないように変更。--verbose を付けると以前と同じバージョン付きの出力をする
+* deprecated: IUTEST_HAS_STRSTREAM は将来的に削除されます
+* deprecated: IUTEST_HAS_ARITHMETIC_EXPRESSION_DECOMPOSE は将来的に削除されます
+
+** 修正
+* iuwandbox で --expand_include オプションを付けなかった場合の include されたファイルの対応を修正
+* iuwandbox の --boost オプションが Python3 で使えない問題を修正
+* iuwandbox で未定義オプションを指定した場合にエラーにならない問題を修正
+* IUTEST(A, B_C) と IUTEST(A_B, C) が名前の衝突でコンパイルエラーになる問題を修正
+* 色付きコンソールの自動判定を修正
+* バグ修正
+
+--------------------------------------------------
 Changes for 1.15.1:
 
 ** 追加

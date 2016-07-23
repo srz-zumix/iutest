@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01150119u //!< iutest version 1.15.1.19
+#define IUTEST_VER          0x01150200u //!< iutest version 1.15.2.0
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x15u       //!< Minor Version
-#define IUTEST_BUILD        0x01u       //!< Build
-#define IUTEST_REVISION     0x19u       //!< Revision
+#define IUTEST_BUILD        0x02u       //!< Build
+#define IUTEST_REVISION     0x00u       //!< Revision
 
 /**
  * @mainpage
@@ -119,7 +119,11 @@
   <li>v1.15.2.0
     <ul>
       <li>IUTEST_TYPED_TEST_P に対して friend できるように IUTEST_FRIEND_TYPED_TEST_P_DECLARATION/IUTEST_FRIEND_TYPED_TEST_P を追加</li>
-      <li>iuwandbox.py の --boost オプションが Python3 で使えない問題を修正</li>
+      <li>iuwandbox に --sprout/--msgpack オプションを追加</li>
+      <li>iuwandbox の --list_compiler オプションでバージョンを出力しないように変更。--verbose を付けると以前と同じバージョン付きの出力をする</li>
+      <li>iuwandbox で --expand_include オプションを付けなかった場合の include されたファイルの対応を修正</li>
+      <li>iuwandbox の --boost オプションが Python3 で使えない問題を修正</li>
+      <li>iuwandbox で未定義オプションを指定した場合にエラーにならない問題を修正</li>
       <li>IUTEST(A, B_C) と IUTEST(A_B, C) が名前の衝突でコンパイルエラーになる問題を修正</li>
       <li>色付きコンソールの自動判定を修正</li>
       <li>deprecated: IUTEST_HAS_STRSTREAM は将来的に削除されます</li>
