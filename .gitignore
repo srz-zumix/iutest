@@ -18,6 +18,7 @@
 *.opendb
 *.user
 *.nupkg
+*.pyc
 coverage.info
 test/*.xml
 lib
@@ -35,3 +36,4 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+fused-src/
