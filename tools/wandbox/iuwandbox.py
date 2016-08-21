@@ -173,7 +173,7 @@ def make_include_filename(path, includes, included_files):
     else:
         include_dir, include_filename = os.path.split(path)
         while include_filename in includes:
-            include_dir, dirname = os.path.split(include_dir) 
+            include_dir, dirname = os.path.split(include_dir)
             include_filename = dirname + '__' + include_filename
         included_files[path] = include_filename
         return include_filename
@@ -196,13 +196,15 @@ def make_code(path, encoding, expand, includes, included_files):
             if m:
                 include_path = os.path.join(os.path.dirname(path), m.group(1))
                 if os.path.exists(include_path):
-                    expand_include_file_code = make_code(include_path, encoding, expand, includes, included_files)
+                    expand_include_file_code = make_code(
+                        include_path, encoding, expand, includes, included_files)
                     if expand:
                         code += expand_include_file_code
                         code += '//origin>> '
                     else:
                         include_abspath = os.path.abspath(include_path)
-                        include_filename = make_include_filename(include_abspath, includes, included_files)
+                        include_filename = make_include_filename(
+                            include_abspath, includes, included_files)
                         code += '#include "' + include_filename + '"\n'
                         code += '//origin>> '
                         if include_filename not in includes:
@@ -222,7 +224,7 @@ def check_config(options):
 
 # setup includes
 def setup_includes(w, includes):
-    for filename,code in includes.items():
+    for filename, code in includes.items():
         w.add_file(filename, code)
 
 
@@ -267,13 +269,14 @@ def run_wandbox(code, includes, options):
     setup_includes(w, includes)
     if options.dryrun:
         sys.exit(0)
+
     def run(retries):
         try:
             return w.run()
         except HTTPError as e:
             if e.response.status_code == 504 and retries > 0:
                 print(e.message)
-                return run(retries-1)
+                return run(retries - 1)
             else:
                 raise
         except:
