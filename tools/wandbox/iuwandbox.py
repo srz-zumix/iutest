@@ -12,6 +12,7 @@ import sys
 import re
 import codecs
 
+from time import sleep
 from argparse import ArgumentParser
 from wandbox import Wandbox
 from requests.exceptions import HTTPError
@@ -276,6 +277,8 @@ def run_wandbox(code, includes, options):
         except HTTPError as e:
             if e.response.status_code == 504 and retries > 0:
                 print(e.message)
+                print("wait 30sec...")
+                sleep(30)
                 return run(retries - 1)
             else:
                 raise
