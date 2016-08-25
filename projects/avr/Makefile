@@ -34,7 +34,7 @@ CHANGE_ENCODING=yes
 
 # iutest root directory
 ifdef CHANGE_ENCODING
-IUTEST_DIR = ./iutest
+IUTEST_DIR = ./tmp/iutest
 IUTEST_DIR_ORG = ../../
 else
 IUTEST_DIR = ../../

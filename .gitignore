@@ -37,5 +37,6 @@ bld/
 [Bb]in/
 [Oo]bj/
 fused-src/
+tmp/
 
 *コピー*
