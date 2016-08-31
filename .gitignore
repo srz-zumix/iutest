@@ -22,6 +22,7 @@
 coverage.info
 test/*.xml
 lib
+libs
 .svn
 .sonar
 

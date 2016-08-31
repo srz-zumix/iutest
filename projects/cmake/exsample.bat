@@ -1,7 +1,7 @@
 @echo off
 
-if not exist exsample mkdir exsample
-cd exsample
+if not exist tmp mkdir tmp
+cd tmp
 if errorlevel 1 goto end
 if not exist vc10 mkdir vc10
 cd vc10

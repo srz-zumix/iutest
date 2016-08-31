@@ -145,6 +145,8 @@ sample.elf : $(SAMPLE_OBJS)
 
 $(TESTS) : sample.hex
 
+$(IUTEST_DIR)/src/*.cpp: preset
+
 #
 # preset
 #  avr-gcc not support utf8 ?
