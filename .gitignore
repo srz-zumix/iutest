@@ -19,6 +19,7 @@
 *.user
 *.nupkg
 *.pyc
+*.VC.db
 coverage.info
 test/*.xml
 lib
@@ -28,8 +29,10 @@ libs
 
 # Build results
 [Dd]ebug/
+[Dd]ebug*/
 [Dd]ebugPublic/
 [Rr]elease/
+[Rr]elease*/
 [Rr]eleases/
 x64/
 x86/
