@@ -285,6 +285,21 @@
         on_failure(iutest_ar.message())
 
 #if IUTEST_HAS_EXCEPTIONS
+
+#if IUTEST_HAS_CATCH_SEH_EXCEPTION_ASERRTION
+
+#define IIUT_SEH_THROUGH(statement)    [&]() { _EXCEPTION_POINTERS* ep = NULL;  \
+    __try { (void)(statement); } __except (ep = GetExceptionInformation()       \
+        , ::iutest::detail::seh_exception::should_process_through_break_and_cppexceptions(GetExceptionCode()) ) {   \
+        ::iutest::detail::seh_exception::translator(GetExceptionCode(), ep);  \
+    } }()
+
+#else
+
+#define IIUT_SEH_THROUGH(statement)    (void)(statement)
+
+#endif
+
 /**
  * @internal
  * @brief   throw assertion defined macro
@@ -293,7 +308,7 @@
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                          \
     if( const char* msg = "" ) {                                            \
         try {                                                               \
-            IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING((void)(statement));    \
+            IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(IIUT_SEH_THROUGH(statement));    \
             msg = "\nExpected: " #statement " throws an exception of type " \
                   #expected_exception ".\n  Actual: it throws nothing.";    \
             goto IUTEST_PP_CAT(iutest_label_throw, __LINE__);               \
@@ -315,7 +330,7 @@
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                                      \
     if( ::iutest::AssertionResult iutest_ar = ::iutest::AssertionSuccess() ) {          \
         try {                                                                           \
-            IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING((void)(statement));                \
+            IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(IIUT_SEH_THROUGH(statement));      \
             iutest_ar << "\nExpected: " #statement " throws an exception of type "      \
                 #expected_exception ".\n  Actual: it throws nothing.";                  \
             goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);                     \
@@ -356,7 +371,7 @@
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                          \
     if( ::iutest::detail::AlwaysTrue() ) {                                  \
         try {                                                               \
-            (void)(statement);                                              \
+            IIUT_SEH_THROUGH(statement);                                    \
             goto IUTEST_PP_CAT(iutest_label_anythrow, __LINE__);            \
         } catch( ... ) {                                                    \
         }                                                                   \
@@ -372,7 +387,7 @@
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                          \
     if( ::iutest::AssertionResult iutest_ar = ::iutest::AssertionSuccess() ) {  \
         try {                                                               \
-            (void)(statement);                                              \
+            IIUT_SEH_THROUGH(statement);                                    \
         } catch( const ::std::exception& e ) {                              \
             iutest_ar << "\nExpected: " #statement " doesn't throw an exception.\n  Actual: it throws. what is \""  \
                 << e.what() << "\"";                                        \

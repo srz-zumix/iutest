@@ -12,6 +12,7 @@
 *.pdb
 *.idb
 *.ilk
+*.ipch
 *.suo
 *.sdf
 *.opensdf

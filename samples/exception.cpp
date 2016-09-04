@@ -71,6 +71,14 @@ IUTEST(AssertionTest, Exception2)
 
 #endif
 
+#if IUTEST_HAS_CATCH_SEH_EXCEPTION_ASERRTION
+IUTEST(TestFailure, SEH)
+{
+    int* p = reinterpret_cast<int*>(0x1234);
+    IUTEST_EXPECT_ANY_THROW(*p = 1);
+}
+#endif
+
 #endif
 
 /* ---------------------------------------------------
@@ -107,4 +115,5 @@ IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wnonnull")
 IUTEST_PRAGMA_GCC_WARN_POP()
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 }
+
 #endif

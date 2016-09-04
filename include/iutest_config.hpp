@@ -326,6 +326,15 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_CATCH_SEH_EXCEPTION_ASERRTION)
+//! 例外アサーションで SEH をキャッチ可能かどうか
+#  if IUTEST_HAS_LAMBDA_STATEMENTS && IUTEST_HAS_SEH
+#    define IUTEST_HAS_CATCH_SEH_EXCEPTION_ASERRTION  1
+#  else
+#    define IUTEST_HAS_CATCH_SEH_EXCEPTION_ASERRTION  0
+#  endif
+#endif
+
 #if !defined(IUTEST_HAS_GENRAND)
 #  define IUTEST_HAS_GENRAND        1   //!< テストごとの genrand 関数が使用可能かどうか
 #endif
