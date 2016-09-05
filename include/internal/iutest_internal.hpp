@@ -291,7 +291,7 @@
 #define IIUT_SEH_THROUGH(statement)    [&]() { _EXCEPTION_POINTERS* ep = NULL;  \
     __try { (void)(statement); } __except (ep = GetExceptionInformation()       \
         , ::iutest::detail::seh_exception::should_process_through_break_and_cppexceptions(GetExceptionCode()) ) {   \
-        ::iutest::detail::seh_exception::translator(GetExceptionCode(), ep);  \
+        ::iutest::detail::seh_exception::translator(GetExceptionCode(), ep);    \
     } }()
 
 #else

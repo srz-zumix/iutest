@@ -516,8 +516,11 @@
 #      define IUTEST_HAS_LAMBDA     1
 #    endif
 #  elif defined(_MSC_VER)
-#    if   _MSC_VER > 1600
+#    if   _MSC_VER > 1800
 #      define IUTEST_HAS_LAMBDA     1
+#    elif _MSC_VER > 1600
+#      define IUTEST_HAS_LAMBDA     1
+#      define IUTEST_NO_LAMBDA_SEH_SCOPE_RESOLUTION // lambda v1.1 is not supported try/__try scope resolution.
 #    elif _MSC_VER == 1600
 #      define IUTEST_HAS_LAMBDA     1
 #      define IUTEST_NO_LAMBDA_SCOPE_RESOLUTION // VC++10 lambda v1.0 is not supported.
