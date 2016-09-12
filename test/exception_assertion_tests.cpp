@@ -37,6 +37,12 @@ static void ExceptionFunction(int i)
         throw ::std::string("error");
     case 5:
         throw 0.1f;
+    case -1:
+        {
+            int* p = reinterpret_cast<int*>(0x1234);
+            *p = 1;
+        }
+        break;
     default:
         break;
     }
@@ -116,6 +122,15 @@ IUTEST(Exception, ValueFormat)
     IUTEST_ASSERT_THROW_PRED_FORMAT2(::iutest::internal::CmpHelperFloatingPointEQ<float>, ExceptionFunction(5), float, 0.1f);
 }
 
+#if IUTEST_HAS_CATCH_SEH_EXCEPTION_ASERRTION
+IUTEST(Exception, SEH)
+{
+    IUTEST_ASSERT_ANY_THROW(ExceptionFunction(-1));
+    IUTEST_EXPECT_ANY_THROW(ExceptionFunction(-1));
+    IUTEST_INFORM_ANY_THROW(ExceptionFunction(-1));
+    IUTEST_ASSUME_ANY_THROW(ExceptionFunction(-1));
+}
+#endif
 
 IUTEST(ExceptionFailure, Throw)
 {
