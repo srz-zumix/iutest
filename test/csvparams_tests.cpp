@@ -73,9 +73,14 @@ IUTEST_P(CsvParamsIntTest, Param)
 IUTEST_INSTANTIATE_TEST_CASE_P(CSV, CsvParamsIntTest, ::iutest::CSV<int>("testdata/intcsvparams.csv") );
 IUTEST_INSTANTIATE_TEST_CASE_P(TSV, CsvParamsIntTest, ::iutest::CSV<int>("testdata/intcsvparams.tsv", '\t') );
 
+IUTEST_PRAGMA_MSC_WARN_PUSH()
+IUTEST_PRAGMA_MSC_WARN_DISABLE(4838)
+
 static const float CsvParamsFloatTest_Params[] = {
     #include "testdata/floatcsvparams.csv"
 };
+
+IUTEST_PRAGMA_MSC_WARN_POP()
 
 class CsvParamsFloatTest : public ::iutest::TestWithParam< float >
 {

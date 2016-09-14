@@ -125,6 +125,7 @@ IUTEST(Exception, ValueFormat)
 #if IUTEST_HAS_CATCH_SEH_EXCEPTION_ASERRTION
 IUTEST(Exception, SEH)
 {
+    IUTEST_ASSERT_THROW(ExceptionFunction(-1), ::iutest::detail::seh_exception);
     IUTEST_ASSERT_ANY_THROW(ExceptionFunction(-1));
     IUTEST_EXPECT_ANY_THROW(ExceptionFunction(-1));
     IUTEST_INFORM_ANY_THROW(ExceptionFunction(-1));
@@ -193,6 +194,13 @@ IUTEST(NoThrowFailure, Noexcept)
 
 #endif
 
+#if IUTEST_HAS_CATCH_SEH_EXCEPTION_ASERRTION
+IUTEST(ExceptionFailure, SEH)
+{
+    IUTEST_ASSERT_FATAL_FAILURE   ( IUTEST_ASSERT_NO_THROW(ExceptionFunction(-1)), "" );
+    IUTEST_ASSERT_NONFATAL_FAILURE( IUTEST_EXPECT_NO_THROW(ExceptionFunction(-1)), "" );
+}
+#endif
 
 #endif
 
