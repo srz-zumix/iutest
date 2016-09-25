@@ -52,6 +52,11 @@ class ErrorMessage:
             return True
         return False
 
+    def is_iutest(self):
+        if self.is_note() and self.message.find("IUTEST_TEST_COMPILEERROR") != -1:
+            return True
+        return False
+
     def is_type_none(self):
         if not self.type:
             return True
@@ -153,6 +158,11 @@ def parse_command_line():
         action='store_true',
         help='debug.'
     )
+    parser.add_argument(
+        '--command',
+        help='execute command.',
+        default=None
+    )
     if sys.version_info[0] >= 3:
         parser.add_argument(
             '-i',
@@ -240,7 +250,7 @@ def parse_clang(options, f):
 def parse_vc(options, f):
     re_fatal = re.compile(r'(\S+)\s*:\s*fatal\s*error\s*.*')
     re_file = re.compile(r'(\s*)(\S+)\((\d+)\)\s*:\s*(.*)')
-    re_message = re.compile(r'.*\(\d+\)\s*: (\S*) (\S*: .*)')
+    re_message = re.compile(r'.*\(\d+\)\s*: (\S*)\s*(\S*: .*)')
     msg_list = []
     msg = None
     prev = None
@@ -267,7 +277,8 @@ def parse_vc(options, f):
                 msg.set_type('')
                 msg.message += m.group(4)
 
-            if m.group(1) and prev:
+            child_note = m.group(1) or (msg.is_note() and not msg.is_iutest())
+            if (m.group(1) or child_note) and prev:
                 prev.child = msg
                 msg.parent = prev
         else:
