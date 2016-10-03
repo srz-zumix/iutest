@@ -14,6 +14,7 @@ import argparse
 import re
 
 from argparse import ArgumentParser
+from subprocess import Popen, PIPE, STDOUT
 
 
 class ErrorMessage:
@@ -387,11 +388,20 @@ def iutest(l):
 def parse_output(options):
     global format_gcc
     l = None
-    if not options.infile:
-        raise Exception("infile null")
-    #print(options.infile.encoding)
-    f = options.infile
-    #f = codecs.getreader('utf-8')(options.infile)
+    if options.command:
+        args = re.split('\s+', options.command)
+        for i in range(len(args)):
+            args[i] = os.path.expandvars(args[i])
+        p = Popen(args, stdout=PIPE, stderr=STDOUT)
+        p.wait()
+        out, err = p.communicate()
+        f = out.splitlines()
+    else:
+        if not options.infile:
+            raise Exception("infile null")
+        #print(options.infile.encoding)
+        f = options.infile
+        #f = codecs.getreader('utf-8')(options.infile)
 
     if any(options.compiler.find(s) != -1 for s in ('clang', 'clang++')):
         l = parse_clang(options, f)
@@ -414,7 +424,6 @@ def setup():
     if term:
         if any(term.find(s) for s in ('xterm', 'screen', 'rxvt', 'linux', 'cygwin')):
             color_prompt = True
-
 
 def main():
     options = parse_command_line()
