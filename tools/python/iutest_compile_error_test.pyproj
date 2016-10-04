@@ -18,7 +18,7 @@
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <InterpreterArguments>
     </InterpreterArguments>
-    <CommandLineArguments>--command "cmd /c %VS140COMNTOOLS%\vsvars32.bat &amp;&amp; cl -I..\..\include  /EHsc /nologo    /Festatic_assertion_failure_tests ..\..\test\static_assertion_failure_tests.cpp" -c cl</CommandLineArguments>
+    <CommandLineArguments>--command "cmd /c %VS140COMNTOOLS%\vsvars32.bat &amp;&amp; cl -I..\..\include  /EHsc /nologo    /Festatic_assertion_failure_tests ..\..\test\static_assertion_failure_tests.cpp" -c cl --verbose</CommandLineArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />

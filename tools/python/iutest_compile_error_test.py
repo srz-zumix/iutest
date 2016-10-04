@@ -358,11 +358,9 @@ def iutest(l):
                 dump_msg(check)
                 dump_msg(msg)
                 test_result(False, re_m.group(0), check)
-                check = None
                 result = False
-            else:
-                check = msg
-                re_m = mm
+            check = msg
+            re_m = mm
         elif msg.has_error():
             #print('%s - %d' % (msg.file, msg.line))
             if check and msg.file in check.file and msg.line == check.line + 1:

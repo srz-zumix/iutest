@@ -79,5 +79,5 @@ $(TARGETS_EXCLUDE_ALLTESTS) : $(SRCS) $(IUTEST_HEADERS) Makefile
 
 $(COMPILEERROR_TARGETS) : $(SRCS) $(IUTEST_HEADERS) Makefile
 #	-$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) /Fe$@ $@.cpp $(LDFLAGS)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) /Fe$@ $@.cpp $(LDFLAGS) | python ../tools/python/iutest_compile_error_test.py -c $(CXX)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) /Fe$@ $@.cpp $(LDFLAGS) | python ../tools/python/iutest_compile_error_test.py -c $(CXX) --verbose
 
