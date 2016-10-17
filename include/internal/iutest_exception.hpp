@@ -89,6 +89,22 @@ public:
     static const DWORD kCxxExceptionCode = 0xe06d7363;  //!< c++ exception コード
 };
 
+template<typename T>
+void seh_passthrough(T func)
+{
+    _EXCEPTION_POINTERS* ep = NULL;
+    __try
+    {
+        (func)();
+    }
+    __except( ep = GetExceptionInformation()
+        , seh_exception::should_process_through_break_and_cppexceptions(GetExceptionCode()) )
+    {
+        seh_exception::translator(GetExceptionCode(), ep);
+    }
+}
+
+
 }   // end of namespace detail
 }   // end of namespace iutest
 

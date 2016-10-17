@@ -365,12 +365,6 @@
     <None Include="..\..\include\impl\iutest_regex.ipp">
       <Filter>iutest\impl</Filter>
     </None>
-    <None Include="..\..\doc\Doxyfile">
-      <Filter>doxygen</Filter>
-    </None>
-    <None Include="..\..\doc\index.html">
-      <Filter>doxygen</Filter>
-    </None>
     <None Include="..\..\include\impl\iutest_filepath.ipp">
       <Filter>iutest\impl</Filter>
     </None>
@@ -394,6 +388,12 @@
     </None>
     <None Include="..\..\include\impl\iutest_junit_xml_generator.ipp">
       <Filter>iutest\impl</Filter>
+    </None>
+    <None Include="..\..\docs\Doxyfile">
+      <Filter>doxygen</Filter>
+    </None>
+    <None Include="..\..\docs\index.html">
+      <Filter>doxygen</Filter>
     </None>
   </ItemGroup>
 </Project>

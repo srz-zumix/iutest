@@ -337,8 +337,8 @@
     <None Include="..\..\include\impl\iutest_message.ipp" />
     <None Include="..\..\include\impl\iutest_port.ipp" />
     <None Include="..\..\include\impl\iutest_regex.ipp" />
-    <None Include="..\..\doc\Doxyfile" />
-    <None Include="..\..\doc\index.html" />
+    <None Include="..\..\docs\Doxyfile" />
+    <None Include="..\..\docs\index.html" />
     <None Include="..\..\include\impl\iutest_streaming_listener.ipp" />
     <None Include="..\..\include\impl\iutest_time.ipp" />
   </ItemGroup>

@@ -17,10 +17,10 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01150200u //!< iutest version 1.15.2.0
+#define IUTEST_VER          0x01159900u //!< iutest version 1.15.99.0
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x15u       //!< Minor Version
-#define IUTEST_BUILD        0x02u       //!< Build
+#define IUTEST_BUILD        0x99u       //!< Build
 #define IUTEST_REVISION     0x00u       //!< Revision
 
 /**
@@ -116,6 +116,11 @@
  * @page    CHANGELOG   変更履歴
  * @par     Changes
  <ul>
+  <li>v1.16.0.0
+    <ul>
+      <li>例外アサーションで構造化例外（SEH）もキャッチできるように修正</li>
+    </ul>
+  </li>
   <li>v1.15.2.0
     <ul>
       <li>IUTEST_TYPED_TEST_P に対して friend できるように IUTEST_FRIEND_TYPED_TEST_P_DECLARATION/IUTEST_FRIEND_TYPED_TEST_P を追加</li>

@@ -288,11 +288,7 @@
 
 #if IUTEST_HAS_CATCH_SEH_EXCEPTION_ASERRTION
 
-#define IIUT_SEH_THROUGH(statement)    [&]() { _EXCEPTION_POINTERS* ep = NULL;  \
-    __try { (void)(statement); } __except (ep = GetExceptionInformation()       \
-        , ::iutest::detail::seh_exception::should_process_through_break_and_cppexceptions(GetExceptionCode()) ) {   \
-        ::iutest::detail::seh_exception::translator(GetExceptionCode(), ep);    \
-    } }()
+#define IIUT_SEH_THROUGH(statement)    ::iutest::detail::seh_passthrough([&](){ (void)(statement); })
 
 #else
 

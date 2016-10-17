@@ -30,7 +30,7 @@
     <ProjectGuid>{C46DA5A4-27B5-4A0C-97D0-F5D0B9881087}</ProjectGuid>
     <RootNamespace>iutest</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_MD|Win32'" Label="Configuration">
@@ -347,8 +347,8 @@
     <None Include="..\..\include\impl\iutest_message.ipp" />
     <None Include="..\..\include\impl\iutest_port.ipp" />
     <None Include="..\..\include\impl\iutest_regex.ipp" />
-    <None Include="..\..\doc\Doxyfile" />
-    <None Include="..\..\doc\index.html" />
+    <None Include="..\..\docs\Doxyfile" />
+    <None Include="..\..\docs\index.html" />
     <None Include="..\..\include\impl\iutest_streaming_listener.ipp" />
     <None Include="..\..\include\impl\iutest_time.ipp" />
   </ItemGroup>

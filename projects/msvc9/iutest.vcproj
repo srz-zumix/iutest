@@ -768,11 +768,11 @@
 			Name="doxygen"
 			>
 			<File
-				RelativePath="..\..\doc\Doxyfile"
+				RelativePath="..\..\docs\Doxyfile"
 				>
 			</File>
 			<File
-				RelativePath="..\..\doc\index.html"
+				RelativePath="..\..\docs\index.html"
 				>
 			</File>
 		</Filter>
