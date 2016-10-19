@@ -1,7 +1,7 @@
 version: 1.0.{build}
 os:
 - Visual Studio 2015
-- Windows Server 2012 R2
+- Visual Studio 2013
 configuration:
 - Debug
 - Release
