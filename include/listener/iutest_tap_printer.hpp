@@ -152,7 +152,7 @@ inline void TAPPrintListener::OnReportTestCase(detail::IOutStream* const stream,
 {
     stream->Printf("# %s started.\n", test_case.name());
 
-    for( int i=0, count=test_case.total_test_count(); i < count; ++i )
+    for( int i=0, test_count=test_case.total_test_count(); i < test_count; ++i )
     {
         const TestInfo* test_info = test_case.GetTestInfo(i);
         if( !test_info->should_run() )
@@ -165,7 +165,7 @@ inline void TAPPrintListener::OnReportTestCase(detail::IOutStream* const stream,
             if( test_info->HasFailure() )
             {
                 stream->Printf("not ok %d - %s ", top+i, test_info->name() );
-                for( int j=0, count=test_info->result()->total_part_count(); j < count; ++j )
+                for( int j=0, part_count=test_info->result()->total_part_count(); j < part_count; ++j )
                 {
                     const TestPartResult& part = test_info->result()->GetTestPartResult(j);
                     ::std::string summary = part.make_message();

@@ -953,11 +953,11 @@ private:
             return AssertionFailure() << WhichIs(stream.str());
         }
 
-        Ite a=actual_begin;
-        typename ::std::vector<T>::iterator e=m_expected.begin();
-        for( int i=0; e != m_expected.end(); ++e, ++a, ++i )
+        Ite it_a=actual_begin;
+        typename ::std::vector<T>::iterator it_e=m_expected.begin();
+        for( int i=0; it_e != m_expected.end(); ++it_e, ++it_a, ++i )
         {
-            if( *a != *e )
+            if( *it_a != *it_e )
             {
                 return AssertionFailure() << WhichIs();
             }

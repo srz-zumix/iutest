@@ -20,13 +20,13 @@
 static unsigned int kSeed = 9876;
 static unsigned int seed = 0;
 static const int kRepeatCount = 3;
-static int count = 0;
+static int random_speed_test_count = 0;
 
 class MyEnvironment : public ::iutest::Environment
 {
 private:
     virtual void SetUp(void) {}
-    virtual void TearDown(void) { seed = ::iutest::UnitTest::GetInstance()->random_seed(); ++count; }
+    virtual void TearDown(void) { seed = ::iutest::UnitTest::GetInstance()->random_seed(); ++random_speed_test_count; }
 };
 
 IUTEST(Foo, Bar)
@@ -52,7 +52,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(Foo, OrderTest, ::iutest::Range<int>(0, kNumberOf
 
 IUTEST_P(OrderTest, Bar)
 {
-    order[count].push_back(GetParam());
+    order[random_speed_test_count].push_back(GetParam());
 }
 
 #else

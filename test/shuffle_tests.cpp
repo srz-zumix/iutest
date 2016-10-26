@@ -18,13 +18,13 @@
 #include "iutest.hpp"
 
 static unsigned int seed = 0;
-static int count = 0;
+static int shuffle_tests_count = 0;
 
 class MyEnvironment : public ::iutest::Environment
 {
 private:
     virtual void SetUp(void)    {}
-    virtual void TearDown(void) { seed = ::iutest::UnitTest::GetInstance()->random_seed(); ++count; }
+    virtual void TearDown(void) { seed = ::iutest::UnitTest::GetInstance()->random_seed(); ++shuffle_tests_count; }
 };
 
 IUTEST(Foo, Bar)
@@ -43,7 +43,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(Foo, OrderTest, ::iutest::Range<int>(0, kNumberOf
 
 IUTEST_P(OrderTest, Bar)
 {
-    order[count].push_back(GetParam());
+    order[shuffle_tests_count].push_back(GetParam());
 }
 
 #else

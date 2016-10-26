@@ -212,8 +212,8 @@ private:
         typedef Fragment<KIND> _Myt;
     public:
         Fragment() IUTEST_CXX_NOEXCEPT_SPEC {}
-        Fragment(bool f) { SetFlag(KIND, f ? -1 : ~KIND); } // NOLINT
-        _Myt& operator = (bool f) { SetFlag(KIND, f ? -1 : ~KIND); return *this; }
+        Fragment(bool enabled) { SetFlag(KIND, enabled ? -1 : ~KIND); } // NOLINT
+        _Myt& operator = (bool enabled) { SetFlag(KIND, enabled ? -1 : ~KIND); return *this; }
         operator bool() const { return IsEnableFlag(KIND); }
     };
 

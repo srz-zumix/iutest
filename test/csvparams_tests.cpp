@@ -75,6 +75,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(TSV, CsvParamsIntTest, ::iutest::CSV<int>("testda
 
 IUTEST_PRAGMA_MSC_WARN_PUSH()
 IUTEST_PRAGMA_MSC_WARN_DISABLE(4838)
+IUTEST_PRAGMA_MSC_WARN_DISABLE(4305)
 
 static const float CsvParamsFloatTest_Params[] = {
     #include "testdata/floatcsvparams.csv"

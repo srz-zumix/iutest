@@ -778,8 +778,8 @@ namespace MatchesRegexEqHelper
 template<typename T1, typename T2>
 inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T1& regex, const T2& actual)
 {
-    ::iutest::internal::RE m(regex);
-    return RegexHelper::FullMatch(actual, m);
+    ::iutest::internal::RE iure(regex);
+    return RegexHelper::FullMatch(actual, iure);
 }
 
 template<typename T1, typename T2>

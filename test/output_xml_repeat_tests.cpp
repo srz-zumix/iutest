@@ -69,6 +69,6 @@ int main(int argc, char* argv[])
     (void)argc;
     (void)argv;
     printf("*** OUTPUT_XML_TEST=0 ***\n");
-#endif
     return 0;
+#endif
 }

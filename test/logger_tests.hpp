@@ -27,6 +27,7 @@ class TestLogger : public ::iutest::detail::iuLogger
 public:
     virtual void voutput(const char* fmt, va_list va)
     {
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 #ifdef va_copy
         va_list va2;
         va_copy(va2, va);
@@ -41,6 +42,7 @@ public:
         m_log += buf;
         ::iutest::detail::iuConsole::nl_output(buf);
 #endif
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     }
     void clear(void) { m_log.clear(); }
 public:

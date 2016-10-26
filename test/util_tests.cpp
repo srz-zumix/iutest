@@ -78,7 +78,7 @@ IUTEST(AssertionTest, EQ_COLLECTIONS)
         {
             a.push_back(i);
             b.push_back(i);
-            c.push_back(i);
+            c.push_back(static_cast<char>(i));
         }
         IUTEST_ASSERT_EQ_COLLECTIONS(a.begin(), a.end(), b.begin(), b.end());
         IUTEST_EXPECT_EQ_COLLECTIONS(a.begin(), a.end(), b.begin(), b.end());
@@ -131,7 +131,7 @@ IUTEST(AssertionTest, EQ_RANGE)
         {
             a.push_back(i);
             b.push_back(i);
-            c.push_back(i);
+            c.push_back(static_cast<char>(i));
         }
         IUTEST_ASSERT_EQ_RANGE(a, b);
         IUTEST_EXPECT_EQ_RANGE(a, b);

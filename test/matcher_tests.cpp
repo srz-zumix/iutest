@@ -31,18 +31,18 @@ namespace {
 ::std::vector<int> va;
 ::std::vector<int> ve;
 ::std::vector< ::std::vector<int> > vv;
-int a[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-int b[3] = { 1, 2, 3 };
-int c[3] = { 1, 1, 1 };
-int d[4] = { 1, 2, 3, 4 };
-int n[2][2] = { {0, 1}, {2, 3} };
-::std::map<int, int> m;
+int ga[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+int gb[3] = { 1, 2, 3 };
+int gc[3] = { 1, 1, 1 };
+int gd[4] = { 1, 2, 3, 4 };
+int gn[2][2] = { {0, 1}, {2, 3} };
+::std::map<int, int> gm;
 int* p1 = NULL;
 int** p2 = &p1;
 float f0 = 0.0f;
 double d0 = 0.0;
 struct X { int a, b; X(int _a, int _b) : a(_a), b(_b) {} int GetA() const { return a; } };
-X x(1, 1);
+X gx(1, 1);
 ::std::map<int, X> mx;
 int X2(int v) { return v*2; }
 
@@ -185,38 +185,38 @@ IUTEST(Matcher, Equals)
 IUTEST(Matcher, Contains)
 {
     IUTEST_EXPECT_THAT(va, Contains(1));
-    IUTEST_EXPECT_THAT( b, Contains(1));
+    IUTEST_EXPECT_THAT(gb, Contains(1));
     IUTEST_EXPECT_THAT(va, Contains(Lt(4)));
     IUTEST_EXPECT_THAT(vv, Contains(Contains(Lt(4))));
 }
 
 IUTEST(Matcher, Each)
 {
-    IUTEST_EXPECT_THAT( c, Each(1));
+    IUTEST_EXPECT_THAT(gc, Each(1));
     IUTEST_EXPECT_THAT(va, Each(Le(10)));
     IUTEST_EXPECT_THAT(vv, Each(Each(Le(10))));
 }
 
 IUTEST(Matcher, ContainerEq)
 {
-    IUTEST_EXPECT_THAT( a, ContainerEq( a));
+    IUTEST_EXPECT_THAT(ga, ContainerEq(ga));
     IUTEST_EXPECT_THAT(va, ContainerEq(va));
 #if !defined(IUTEST_USE_GTEST)
-    IUTEST_EXPECT_THAT( a, ContainerEq(va));
-    IUTEST_EXPECT_THAT(va, ContainerEq( a));
+    IUTEST_EXPECT_THAT(ga, ContainerEq(va));
+    IUTEST_EXPECT_THAT(va, ContainerEq(ga));
 #endif
 }
 
 IUTEST(Matcher, Pointwise)
 {
-    IUTEST_EXPECT_THAT(n[0], Pointwise(Ne(), n[1]));
-    IUTEST_EXPECT_THAT(n[0], Pointwise(Lt(), n[1]));
-    IUTEST_EXPECT_THAT(n[0], Pointwise(Le(), n[1]));
-    IUTEST_EXPECT_THAT(n[1], Pointwise(Gt(), n[0]));
-    IUTEST_EXPECT_THAT( b, Pointwise(Ge(),  c));
+    IUTEST_EXPECT_THAT(gn[0], Pointwise(Ne(), gn[1]));
+    IUTEST_EXPECT_THAT(gn[0], Pointwise(Lt(), gn[1]));
+    IUTEST_EXPECT_THAT(gn[0], Pointwise(Le(), gn[1]));
+    IUTEST_EXPECT_THAT(gn[1], Pointwise(Gt(), gn[0]));
+    IUTEST_EXPECT_THAT(gb, Pointwise(Ge(), gc));
     IUTEST_EXPECT_THAT(va, Pointwise(Eq(), va));
-    IUTEST_EXPECT_THAT( a, Pointwise(Eq(), va));
-    IUTEST_EXPECT_THAT(va, Pointwise(Eq(),  a));
+    IUTEST_EXPECT_THAT(ga, Pointwise(Eq(), va));
+    IUTEST_EXPECT_THAT(va, Pointwise(Eq(), ga));
 }
 
 
@@ -231,7 +231,7 @@ IUTEST(Matcher, SizeIs)
     IUTEST_ASSERT_THAT(ve, SizeIs(0u));
     IUTEST_ASSERT_THAT(va, SizeIs(Ge(10u)));
 #if !defined(IUTEST_USE_GMOCK)
-    IUTEST_ASSERT_THAT( c, SizeIs(3u));
+    IUTEST_ASSERT_THAT(gc, SizeIs(3u));
 #endif
 }
 #endif
@@ -239,33 +239,33 @@ IUTEST(Matcher, SizeIs)
 #if !defined(IUTEST_USE_GMOCK)
 IUTEST(Matcher, At)
 {
-    IUTEST_EXPECT_THAT( b, At(1, 2));
+    IUTEST_EXPECT_THAT(gb, At(1, 2));
     IUTEST_EXPECT_THAT(va, At(1, Gt(0)));
 }
 #endif
 
 IUTEST(Matcher, Key)
 {
-    IUTEST_EXPECT_THAT( m, Each(Key(Le(10))));
+    IUTEST_EXPECT_THAT(gm, Each(Key(Le(10))));
 }
 
 IUTEST(Matcher, Pair)
 {
-    IUTEST_EXPECT_THAT( m, Each(Pair(Le(10), 100)));
+    IUTEST_EXPECT_THAT(gm, Each(Pair(Le(10), 100)));
 }
 
 IUTEST(Matcher, Field)
 {
-    IUTEST_EXPECT_THAT( x, Field(&X::a, 1));
-    IUTEST_EXPECT_THAT(&x, Field(&X::a, 1));
-    IUTEST_EXPECT_THAT(mx, Each(Pair(Le(10), Field(&X::b, Ge(0)))));
+    IUTEST_EXPECT_THAT( gx, Field(&X::a, 1));
+    IUTEST_EXPECT_THAT(&gx, Field(&X::a, 1));
+    IUTEST_EXPECT_THAT( mx, Each(Pair(Le(10), Field(&X::b, Ge(0)))));
 }
 
 IUTEST(Matcher, Propetry)
 {
-    IUTEST_EXPECT_THAT( x, Property(&X::GetA, 1));
-    IUTEST_EXPECT_THAT(&x, Property(&X::GetA, 1));
-    IUTEST_EXPECT_THAT(mx, Each(Pair(Le(10), Property(&X::GetA, Ge(0)))));
+    IUTEST_EXPECT_THAT( gx, Property(&X::GetA, 1));
+    IUTEST_EXPECT_THAT(&gx, Property(&X::GetA, 1));
+    IUTEST_EXPECT_THAT( mx, Each(Pair(Le(10), Property(&X::GetA, Ge(0)))));
 }
 
 IUTEST(Matcher, ResultOf)
@@ -277,17 +277,17 @@ IUTEST(Matcher, ResultOf)
 IUTEST(Matcher, Pointee)
 {
 #if !defined(IUTEST_USE_GMOCK)
-    IUTEST_EXPECT_THAT(a, Pointee(0));
-    IUTEST_EXPECT_THAT(a, Pointee(Ge(0)));
+    IUTEST_EXPECT_THAT(ga, Pointee(0));
+    IUTEST_EXPECT_THAT(ga, Pointee(Ge(0)));
 #endif
     IUTEST_EXPECT_THAT(p2, Pointee(IsNull()));
 }
 
 IUTEST(Matcher, _)
 {
-    IUTEST_EXPECT_THAT(42, _);
-    IUTEST_EXPECT_THAT( x, _);
-    IUTEST_EXPECT_THAT(&x, _);
+    IUTEST_EXPECT_THAT( 42, _);
+    IUTEST_EXPECT_THAT( gx, _);
+    IUTEST_EXPECT_THAT(&gx, _);
 }
 
 IUTEST(Matcher, Not)
@@ -298,23 +298,23 @@ IUTEST(Matcher, Not)
 
 IUTEST(Matcher, A)
 {
-    IUTEST_EXPECT_THAT(42, A<int>());
-    IUTEST_EXPECT_THAT( x, A<X>());
-    IUTEST_EXPECT_THAT(&x, A<X*>());
+    IUTEST_EXPECT_THAT( 42, A<int>());
+    IUTEST_EXPECT_THAT( gx, A<X>());
+    IUTEST_EXPECT_THAT(&gx, A<X*>());
 }
 
 IUTEST(Matcher, ElementsAreArray)
 {
-    IUTEST_EXPECT_THAT(va, ElementsAreArray(a));
-    IUTEST_EXPECT_THAT( c, ElementsAreArray(c));
-    IUTEST_EXPECT_THAT( b, ElementsAreArray(d, 3));
+    IUTEST_EXPECT_THAT(va, ElementsAreArray(ga));
+    IUTEST_EXPECT_THAT(gc, ElementsAreArray(gc));
+    IUTEST_EXPECT_THAT(gb, ElementsAreArray(gd, 3));
 #if !defined(IUTEST_USE_GMOCK) || (GMOCK_VER >= 0x01070000)
-    IUTEST_EXPECT_THAT( a, ElementsAreArray(va.begin(), va.end()));
-    IUTEST_EXPECT_THAT( a, ElementsAreArray(va));
+    IUTEST_EXPECT_THAT(ga, ElementsAreArray(va.begin(), va.end()));
+    IUTEST_EXPECT_THAT(ga, ElementsAreArray(va));
     IUTEST_EXPECT_THAT(va, ElementsAreArray(va));
 #endif
 #if IUTEST_HAS_INITIALIZER_LIST
-    IUTEST_EXPECT_THAT( c, ElementsAreArray({1, 1, 1}));
+    IUTEST_EXPECT_THAT(gc, ElementsAreArray({1, 1, 1}));
 #endif
 }
 
@@ -441,7 +441,7 @@ IUTEST(MatcherFailure, Equals)
 IUTEST(MatcherFailure, Contains)
 {
     CHECK_FAILURE( IUTEST_ASSERT_THAT(va, Contains(42)), "Contains: 42" );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( b, Contains(42)), "Contains: 42" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, Contains(42)), "Contains: 42" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(va, Contains(Lt(0))), "Contains: Lt: 0" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(vv, Contains(Contains(Lt(0)))), "Contains: Contains: Lt: 0" );
 }
@@ -449,7 +449,7 @@ IUTEST(MatcherFailure, Contains)
 IUTEST(MatcherFailure, Each)
 {
     CHECK_FAILURE( IUTEST_ASSERT_THAT(va, Each(42)), "Each: 42" );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( b, Each(42)), "Each: 42" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, Each(42)), "Each: 42" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(va, Each(Ne(9))), "Each: Ne: 9" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(vv, Each(Each(Gt(5)))), "Each: Each: Gt: 5" );
 }
@@ -457,29 +457,29 @@ IUTEST(MatcherFailure, Each)
 IUTEST(MatcherFailure, ContainerEq)
 {
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "ContainerEq: {1, 1, 1}" );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "Mismatch in a position 1: 1 vs 2" );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "Mismatch in a position 2: 1 vs 3" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, ContainerEq(gc)), "ContainerEq: {1, 1, 1}" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, ContainerEq(gc)), "Mismatch in a position 1: 1 vs 2" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, ContainerEq(gc)), "Mismatch in a position 2: 1 vs 3" );
 #else
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c)), "ContainerEq: {4-Byte" );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c))
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, ContainerEq(gc)), "ContainerEq: {4-Byte" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, ContainerEq(gc))
         , "Mismatch in a position 1: 4-Byte object < 01 00 00 00 > vs 4-Byte object < 02 00 00 00 >" );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( b, ContainerEq(c))
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, ContainerEq(gc))
         , "Mismatch in a position 2: 4-Byte object < 01 00 00 00 > vs 4-Byte object < 03 00 00 00 >" );
 #endif
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( a, ContainerEq(c)), "Mismatch element : 3 vs 10" );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( c, ContainerEq(a)), "Mismatch element : 10 vs 3" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(ga, ContainerEq(gc)), "Mismatch element : 3 vs 10" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gc, ContainerEq(ga)), "Mismatch element : 10 vs 3" );
 }
 
 IUTEST(MatcherFailure, Pointwise)
 {
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( b, Pointwise(Eq(), c)), "Pointwise: Eq: {1, 1, 1}" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, Pointwise(Eq(), gc)), "Pointwise: Eq: {1, 1, 1}" );
 #else
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( b, Pointwise(Eq(), c)), "Pointwise: Eq: {4-Byte" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, Pointwise(Eq(), gc)), "Pointwise: Eq: {4-Byte" );
 #endif
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( a, Pointwise(Eq(), c)), "Mismatch element : 3 vs 10" );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( c, Pointwise(Eq(), a)), "Mismatch element : 10 vs 3" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(ga, Pointwise(Eq(), gc)), "Mismatch element : 3 vs 10" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gc, Pointwise(Eq(), ga)), "Mismatch element : 10 vs 3" );
 }
 
 #if !defined(IUTEST_USE_GMOCK) || (defined(GMOCK_VER) && GMOCK_VER >= 0x01070000)
@@ -493,7 +493,7 @@ IUTEST(MatcherFailure, SizeIs)
     CHECK_FAILURE( IUTEST_ASSERT_THAT(va, SizeIs(0u)), "Size is: 0" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(va, SizeIs(Lt(0u))), "Size is: Lt: 0" );
 #if !defined(IUTEST_USE_GMOCK)
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( c, SizeIs(Lt(0u))), "Size is: Lt: 0" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gc, SizeIs(Lt(0u))), "Size is: Lt: 0" );
 #endif
 }
 #endif
@@ -501,32 +501,32 @@ IUTEST(MatcherFailure, SizeIs)
 #if !defined(IUTEST_USE_GMOCK)
 IUTEST(MatcherFailure, At)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( b, At(2, 2)), "At 2: 2" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, At(2, 2)), "At 2: 2" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(va, At(1, Gt(1))), "At 1: Gt: 1" );
 }
 #endif
 
 IUTEST(MatcherFailure, Key)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( m, Each(Key(0))), "Each: Key: 0" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gm, Each(Key(0))), "Each: Key: 0" );
 }
 
 IUTEST(MatcherFailure, Pair)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( m, Each(Pair(Gt(5), 100))), "Each: Pair: (Gt: 5, 100)" );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( m, Each(Pair(_, Ne(100)))), "Each: Pair: (_, Ne: 100)" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gm, Each(Pair(Gt(5), 100))), "Each: Pair: (Gt: 5, 100)" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gm, Each(Pair(_, Ne(100)))), "Each: Pair: (_, Ne: 100)" );
 }
 
 IUTEST(MatcherFailure, Field)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( x, Field(&X::a, 100)), "Field: 100" );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( x, Field(&X::a, Ne(1))), "Field: Ne: 1" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gx, Field(&X::a, 100)), "Field: 100" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gx, Field(&X::a, Ne(1))), "Field: Ne: 1" );
 }
 
 IUTEST(MatcherFailure, Property)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( x, Property(&X::GetA, 100)), "Property: 100" );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT( x, Property(&X::GetA, Ne(1))), "Property: Ne: 1" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gx, Property(&X::GetA, 100)), "Property: 100" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gx, Property(&X::GetA, Ne(1))), "Property: Ne: 1" );
 }
 
 IUTEST(MatcherFailure, ResultOf)
@@ -538,8 +538,8 @@ IUTEST(MatcherFailure, ResultOf)
 IUTEST(MatcherFailure, Pointee)
 {
 #if !defined(IUTEST_USE_GMOCK)
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(a, Pointee(1)), "Points To: 1");
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(a, Pointee(Gt(0))), "Points To: Gt: 0");
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(ga, Pointee(1)), "Points To: 1");
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(ga, Pointee(Gt(0))), "Points To: Gt: 0");
 #endif
     CHECK_FAILURE( IUTEST_ASSERT_THAT(p2, Pointee(NotNull())), "Points To: Not Null");
 }
@@ -552,10 +552,10 @@ IUTEST(MatcherFailure, Not)
 
 IUTEST(MatcherFailure, ElementsAreArray)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(b, ElementsAreArray(c)), "ElementsAreArray: " );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(b, ElementsAreArray(a))
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, ElementsAreArray(gc)), "ElementsAreArray: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, ElementsAreArray(ga))
         , "ElementsAreArray: actual argument[3] is less than 10");
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(a, ElementsAreArray(b))
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(ga, ElementsAreArray(gb))
         , "ElementsAreArray: actual argument[10] is greater than 3");
 }
 
@@ -563,20 +563,20 @@ IUTEST(MatcherFailure, ElementsAreArray)
 
 IUTEST(Matcher, ElementsAreArrayForward)
 {
-    IUTEST_EXPECT_THAT(va, ElementsAreArrayForward(a));
-    IUTEST_EXPECT_THAT( c, ElementsAreArrayForward(c));
-    IUTEST_EXPECT_THAT( a, ElementsAreArrayForward(va.begin(), va.begin()+1));
+    IUTEST_EXPECT_THAT(va, ElementsAreArrayForward(ga));
+    IUTEST_EXPECT_THAT(gc, ElementsAreArrayForward(gc));
+    IUTEST_EXPECT_THAT(ga, ElementsAreArrayForward(va.begin(), va.begin()+1));
     IUTEST_EXPECT_THAT(va, ElementsAreArrayForward(va));
 #if IUTEST_HAS_INITIALIZER_LIST
-    IUTEST_EXPECT_THAT( c, ElementsAreArrayForward({1, 1}));
+    IUTEST_EXPECT_THAT(gc, ElementsAreArrayForward({1, 1}));
 #endif
-    IUTEST_EXPECT_THAT( c, ElementsAreArrayForward(b, 1));
+    IUTEST_EXPECT_THAT(gc, ElementsAreArrayForward(gb, 1));
 }
 
 IUTEST(MatcherFailure, ElementsAreArrayForward)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(b, ElementsAreArrayForward(c)), "ElementsAreArrayForward: " );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(b, ElementsAreArrayForward(a))
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, ElementsAreArrayForward(gc)), "ElementsAreArrayForward: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, ElementsAreArrayForward(ga))
         , "ElementsAreArrayForward: actual argument[3] is less than 10");
 }
 
@@ -598,9 +598,9 @@ IUTEST(MatcherFailure, ElementsAre)
         , ElementsAre( 'h', 'o', 'G', 'e', '\0')), "ElementsAre(2): G");
     CHECK_FAILURE( IUTEST_ASSERT_THAT(va
         , ElementsAre(Ge(0), Gt(0), Lt(1))), "ElementsAre(2): Lt: 1");
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(n, Each(
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gn, Each(
         ElementsAre(Lt(3), Lt(3)))), "Each: ElementsAre: {Lt: 3, Lt: 3}");
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(c
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gc
         , ElementsAre( Ge(0), Gt(0), Ne(0), Eq(0) ) ), "ElementsAre: argument[3] is less than 4");
 }
 
@@ -706,7 +706,7 @@ int main(int argc, char* argv[])
 #if IUTEST_HAS_MATCHERS
     for( int i=0; i < 10; ++i ) va.push_back(i);
     for( int i=0; i < 10; ++i ) vv.push_back(va);
-    for( int i=0; i < 10; ++i ) m.insert( ::std::pair<int, int>(i, 100) );
+    for( int i=0; i < 10; ++i ) gm.insert( ::std::pair<int, int>(i, 100) );
     for( int i=0; i < 10; ++i ) mx.insert( ::std::pair<int, X>(i, X(i, i)) );
 #endif
 

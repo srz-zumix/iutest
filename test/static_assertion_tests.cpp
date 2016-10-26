@@ -19,7 +19,7 @@
 
 #if IUTEST_HAS_STATIC_ASSERT_TYPEEQ
 
-bool b = ::iutest::StaticAssertTypeEq<int, int>();
+const bool static_assert_typeeq_result_b = ::iutest::StaticAssertTypeEq<int, int>();
 
 IUTEST(StaticAssertTypeEqTest, OK)
 {
