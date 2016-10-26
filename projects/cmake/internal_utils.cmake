@@ -149,3 +149,21 @@ function(cxx_executable_gtest_sample name dir)
   add_executable(${name} ${SRCS})
 endfunction()
 
+#
+# test —p
+#
+function(cxx_executable_test name)
+  set(SRCS ../../test/${name}.cpp)
+  foreach (src ${ARGN})
+    set(SRCS ${SRCS} ../../test/${src})
+  endforeach()
+  add_executable(${name} ${SRCS})
+endfunction()
+
+function(cxx_executable_test_with_main name)
+  set(SRCS ../../test/main.cpp)
+  foreach (src ${ARGN})
+    set(SRCS ${SRCS} ../../test/${src})
+  endforeach()
+  add_executable(${name} ${SRCS})
+endfunction()
