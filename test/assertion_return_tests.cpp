@@ -22,22 +22,24 @@
 static int value1 = 1;
 static int value2 = 1;
 
-int ReturnTest1(void)
+int ReturnTest1(bool condition)
 {
-    IUTEST_ASSERT_TRUE(false) << "message" << ::iutest::AssertionReturnType<int>(-1);
+    IUTEST_ASSERT_TRUE(condition) << "message" << ::iutest::AssertionReturnType<int>(-1);
     return 0;
 }
 
-int ReturnTest2(void)
+int ReturnTest2(bool condition)
 {
-    IUTEST_ASSERT_TRUE(false) << "message" << ::iutest::AssertionReturn(-1);
+    IUTEST_ASSERT_TRUE(condition) << "message" << ::iutest::AssertionReturn(-1);
     return 0;
 }
 
 void ReturnTestCall(void)
 {
-    IUTEST_ASSERT_FATAL_FAILURE(value1 = ReturnTest1(), "message");
-    IUTEST_ASSERT_FATAL_FAILURE(value2 = ReturnTest2(), "message");
+	IUTEST_ASSERT_EQ(0, ReturnTest1(true));
+	IUTEST_ASSERT_EQ(0, ReturnTest2(true));
+    IUTEST_ASSERT_FATAL_FAILURE(value1 = ReturnTest1(false), "message");
+    IUTEST_ASSERT_FATAL_FAILURE(value2 = ReturnTest2(false), "message");
     IUTEST_ASSERT_TRUE(false) << ::iutest::AssertionReturn();
 }
 

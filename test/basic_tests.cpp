@@ -25,27 +25,29 @@ IUTEST(VersionTest, Check)
 }
 #endif
 
+#define EVAL_IUTEST_FLAG(expression)  x = (expression) ? x : __LINE__
+
 IUTEST(CommandLineFlagTest, CanBeAccessed)
 {
-    const bool dummy =
-           ::iutest::IUTEST_FLAG(also_run_disabled_tests)
-        || ::iutest::IUTEST_FLAG(break_on_failure)
-        || ::iutest::IUTEST_FLAG(catch_exceptions)
-        || ::iutest::IUTEST_FLAG(list_tests)
-        || ::iutest::IUTEST_FLAG(print_time)
-        || ::iutest::IUTEST_FLAG(random_seed)
-        || ::iutest::IUTEST_FLAG(shuffle)
-        || ::iutest::IUTEST_FLAG(throw_on_failure)
-        || ::iutest::IUTEST_FLAG(color) != "unknown"
-        || ::iutest::IUTEST_FLAG(filter) != "unknown"
+    int x = 1;
+    EVAL_IUTEST_FLAG( ::iutest::IUTEST_FLAG(also_run_disabled_tests) );
+    EVAL_IUTEST_FLAG( ::iutest::IUTEST_FLAG(break_on_failure) );
+    EVAL_IUTEST_FLAG( ::iutest::IUTEST_FLAG(catch_exceptions) );
+    EVAL_IUTEST_FLAG( ::iutest::IUTEST_FLAG(list_tests) );
+    EVAL_IUTEST_FLAG( ::iutest::IUTEST_FLAG(print_time) );
+    EVAL_IUTEST_FLAG( ::iutest::IUTEST_FLAG(random_seed) );
+    EVAL_IUTEST_FLAG( ::iutest::IUTEST_FLAG(shuffle) );
+    EVAL_IUTEST_FLAG( ::iutest::IUTEST_FLAG(throw_on_failure) );
+    EVAL_IUTEST_FLAG( ::iutest::IUTEST_FLAG(color) != "unknown" );
+    EVAL_IUTEST_FLAG( ::iutest::IUTEST_FLAG(filter) != "unknown" );
 #if !defined(IUTEST_USE_GTEST)
-        || ::iutest::IUTEST_FLAG(verbose)
-        || ::iutest::IUTEST_FLAG(file_location_style_msvc)
-        || ::iutest::IUTEST_FLAG(list_tests_with_where)
-        || ::iutest::IUTEST_FLAG(default_package_name) != "unknown"
+    EVAL_IUTEST_FLAG( ::iutest::IUTEST_FLAG(verbose) );
+    EVAL_IUTEST_FLAG( ::iutest::IUTEST_FLAG(file_location_style_msvc) );
+    EVAL_IUTEST_FLAG( ::iutest::IUTEST_FLAG(list_tests_with_where) );
+    EVAL_IUTEST_FLAG( ::iutest::IUTEST_FLAG(default_package_name) != "unknown" );
 #endif
-        || (::iutest::IUTEST_FLAG(repeat) > 0);
-    IUTEST_EXPECT_TRUE(dummy || !dummy);
+        EVAL_IUTEST_FLAG( (::iutest::IUTEST_FLAG(repeat) > 0) );
+    IUTEST_EXPECT_NE(0, x);
 }
 
 IUTEST(TestInformation, CurrentTestCase)

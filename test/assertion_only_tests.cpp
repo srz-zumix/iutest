@@ -20,12 +20,10 @@
 //======================================================================
 // define
 #define IUTEST_VPRINTF      test_vprintf
-#define IUTEST_PRINTF       test_printf
 
 //======================================================================
 // declare
 void test_vprintf(const char* fmt, va_list va);
-void test_printf(const char* fmt, ...);
 
 //======================================================================
 // include
@@ -45,15 +43,6 @@ void test_vprintf(const char* fmt, va_list va)
     vsprintf(buf, fmt, va);
     s_outstream << buf;
 }
-
-void test_printf(const char* fmt, ...)
-{
-    va_list va;
-    va_start(va, fmt);
-    test_vprintf(fmt, va);
-    va_end(va);
-}
-
 
 #ifdef UNICODE
 int wmain(int, wchar_t**)

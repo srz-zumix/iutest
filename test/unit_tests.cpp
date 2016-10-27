@@ -20,7 +20,6 @@
 class Base {};
 class Derived : public Base {};
 class Hoge {};
-void Func(void) {}
 
 typedef int inttype;
 
