@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.15.2.0</span>
+   &#160;<span id="projectnumber">1.15.99.1</span>
    </div>
   </td>
  </tr>
@@ -341,7 +341,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 <div class="line">        IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_)      \</div>
 <div class="line">        , type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);         \</div>
 <div class="line">    <span class="keywordtype">void</span> IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body()</div>
-<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:611</div></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:614</div></div>
 <div class="ttc" id="iutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義 </div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:25</div></div>
 </div><!-- fragment -->
 </div>
@@ -372,7 +372,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 <b>値:</b><div class="fragment"><div class="line">IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                          \</div>
 <div class="line">    if( ::iutest::detail::AlwaysTrue() ) {                                  \</div>
 <div class="line">        try {                                                               \</div>
-<div class="line">            (void)(statement);                                              \</div>
+<div class="line">            IIUT_SEH_THROUGH(statement);                                    \</div>
 <div class="line">            goto IUTEST_PP_CAT(iutest_label_anythrow, __LINE__);            \</div>
 <div class="line">        } <span class="keywordflow">catch</span>( ... ) {                                                    \</div>
 <div class="line">        }                                                                   \</div>
@@ -736,7 +736,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 <div class="line">        IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_)      \</div>
 <div class="line">        , type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);         \</div>
 <div class="line">    template&lt;typename T&gt;<span class="keywordtype">void</span> IUTEST_TEST_CLASS_NAME_(testcase_, testname_ )::Body()</div>
-<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:611</div></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:614</div></div>
 <div class="ttc" id="iutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義 </div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:25</div></div>
 <div class="ttc" id="group___i_u_t_e_s_t___u_t_i_l_html_gae5dfd482090363d33d905171c2149828"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#gae5dfd482090363d33d905171c2149828">IUTEST_SKIP</a></div><div class="ttdeci">#define IUTEST_SKIP()</div><div class="ttdoc">テストの明示的なスキップ </div><div class="ttdef"><b>Definition:</b> iutest.hpp:212</div></div>
 </div><!-- fragment -->
@@ -988,7 +988,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 <b>値:</b><div class="fragment"><div class="line">IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                          \</div>
 <div class="line">    if( ::<a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html">iutest::AssertionResult</a> iutest_ar = ::<a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a>() ) {  \</div>
 <div class="line">        try {                                                               \</div>
-<div class="line">            (void)(statement);                                              \</div>
+<div class="line">            IIUT_SEH_THROUGH(statement);                                    \</div>
 <div class="line">        } <span class="keywordflow">catch</span>( const ::std::exception&amp; e ) {                              \</div>
 <div class="line">            iutest_ar &lt;&lt; <span class="stringliteral">&quot;\nExpected: &quot;</span> #statement <span class="stringliteral">&quot; doesn&#39;t throw an exception.\n  Actual: it throws. what is \&quot;&quot;</span>  \</div>
 <div class="line">                &lt;&lt; e.what() &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span>;                                        \</div>
@@ -1329,7 +1329,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 <b>値:</b><div class="fragment"><div class="line">IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                          \</div>
 <div class="line">    if( <span class="keyword">const</span> <span class="keywordtype">char</span>* msg = <span class="stringliteral">&quot;&quot;</span> ) {                                            \</div>
 <div class="line">        try {                                                               \</div>
-<div class="line">            IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING((<span class="keywordtype">void</span>)(statement));    \</div>
+<div class="line">            IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(IIUT_SEH_THROUGH(statement));    \</div>
 <div class="line">            msg = <span class="stringliteral">&quot;\nExpected: &quot;</span> #statement <span class="stringliteral">&quot; throws an exception of type &quot;</span> \</div>
 <div class="line"><span class="preprocessor">                  #expected_exception &quot;.\n  Actual: it throws nothing.&quot;;    \</span></div>
 <div class="line"><span class="preprocessor">            goto IUTEST_PP_CAT(iutest_label_throw, __LINE__);               \</span></div>
@@ -1389,7 +1389,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 <b>値:</b><div class="fragment"><div class="line">IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                                      \</div>
 <div class="line">    if( ::<a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html">iutest::AssertionResult</a> iutest_ar = ::<a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a>() ) {          \</div>
 <div class="line">        try {                                                                           \</div>
-<div class="line">            IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING((<span class="keywordtype">void</span>)(statement));                \</div>
+<div class="line">            IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(IIUT_SEH_THROUGH(statement));      \</div>
 <div class="line">            iutest_ar &lt;&lt; <span class="stringliteral">&quot;\nExpected: &quot;</span> #statement <span class="stringliteral">&quot; throws an exception of type &quot;</span>      \</div>
 <div class="line"><span class="preprocessor">                #expected_exception &quot;.\n  Actual: it throws nothing.&quot;;                  \</span></div>
 <div class="line"><span class="preprocessor">            goto IUTEST_PP_CAT(iutest_label_throw_value, __LINE__);                     \</span></div>
@@ -1576,7 +1576,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年08月20日(土) 03時19分29秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年10月27日(木) 14時19分21秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

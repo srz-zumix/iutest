@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.15.2.0</span>
+   &#160;<span id="projectnumber">1.15.99.1</span>
    </div>
   </td>
  </tr>
@@ -955,11 +955,11 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00953"></a><span class="lineno">  953</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; WhichIs(stream.str());</div>
 <div class="line"><a name="l00954"></a><span class="lineno">  954</span>&#160;        }</div>
 <div class="line"><a name="l00955"></a><span class="lineno">  955</span>&#160;</div>
-<div class="line"><a name="l00956"></a><span class="lineno">  956</span>&#160;        Ite a=actual_begin;</div>
-<div class="line"><a name="l00957"></a><span class="lineno">  957</span>&#160;        typename ::std::vector&lt;T&gt;::iterator e=m_expected.begin();</div>
-<div class="line"><a name="l00958"></a><span class="lineno">  958</span>&#160;        <span class="keywordflow">for</span>( <span class="keywordtype">int</span> i=0; e != m_expected.end(); ++e, ++a, ++i )</div>
+<div class="line"><a name="l00956"></a><span class="lineno">  956</span>&#160;        Ite it_a=actual_begin;</div>
+<div class="line"><a name="l00957"></a><span class="lineno">  957</span>&#160;        typename ::std::vector&lt;T&gt;::iterator it_e=m_expected.begin();</div>
+<div class="line"><a name="l00958"></a><span class="lineno">  958</span>&#160;        <span class="keywordflow">for</span>( <span class="keywordtype">int</span> i=0; it_e != m_expected.end(); ++it_e, ++it_a, ++i )</div>
 <div class="line"><a name="l00959"></a><span class="lineno">  959</span>&#160;        {</div>
-<div class="line"><a name="l00960"></a><span class="lineno">  960</span>&#160;            <span class="keywordflow">if</span>( *a != *e )</div>
+<div class="line"><a name="l00960"></a><span class="lineno">  960</span>&#160;            <span class="keywordflow">if</span>( *it_a != *it_e )</div>
 <div class="line"><a name="l00961"></a><span class="lineno">  961</span>&#160;            {</div>
 <div class="line"><a name="l00962"></a><span class="lineno">  962</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; WhichIs();</div>
 <div class="line"><a name="l00963"></a><span class="lineno">  963</span>&#160;            }</div>
@@ -2231,7 +2231,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="ttc" id="group___m_a_t_c_h_e_r_s_html_ga4a6416be1c8857eb0e3983944083ebf8"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga4a6416be1c8857eb0e3983944083ebf8">iutest::matchers::ElementsAreArray</a></div><div class="ttdeci">detail::ElementsAreArrayMatcher&lt; T &gt; ElementsAreArray(const T *a, int count)</div><div class="ttdoc">Make ElementsAreArray matcher. </div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2205</div></div>
 <div class="ttc" id="group___m_a_t_c_h_e_r_s_html_ga17dfe184eceab879cb40b933af83f282"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga17dfe184eceab879cb40b933af83f282">iutest::matchers::ElementsAre</a></div><div class="ttdeci">detail::ElementsAreMatcher&lt; T...&gt; ElementsAre(const T &amp;...m)</div><div class="ttdoc">Make ElementsAre matcher. </div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2270</div></div>
 <div class="ttc" id="namespaceiutest_html_aa73ba60a51191e9c96aad0feeeb1dd4c"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#aa73ba60a51191e9c96aad0feeeb1dd4c">iutest::operator&lt;&lt;</a></div><div class="ttdeci">iu_ostream &amp; operator&lt;&lt;(iu_ostream &amp;os, const TestPartResult &amp;result)</div><div class="ttdoc">TestPartResult print 出力 </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:140</div></div>
-<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:611</div></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:614</div></div>
 <div class="ttc" id="group___m_a_t_c_h_e_r_s_html_gab9b849a8012156017e407afdee199974"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gab9b849a8012156017e407afdee199974">iutest::matchers::Ge</a></div><div class="ttdeci">detail::TwofoldGeMatcher Ge()</div><div class="ttdoc">Make Twofold Ge matcher. </div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:1944</div></div>
 <div class="ttc" id="group___m_a_t_c_h_e_r_s_html_ga17d504316de4b8aa00f43662c74c4b88"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga17d504316de4b8aa00f43662c74c4b88">iutest::matchers::NotNull</a></div><div class="ttdeci">detail::NotNullMatcher NotNull()</div><div class="ttdoc">Make NotNull matcher. </div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:1971</div></div>
 <div class="ttc" id="namespaceiutest_html_a089d4c220696dc46e2ef184fc945367c"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">iutest::PrintToString</a></div><div class="ttdeci">std::string PrintToString(const T &amp;v)</div><div class="ttdoc">文字列化 </div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:533</div></div>
@@ -2277,7 +2277,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年08月20日(土) 03時19分29秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年10月27日(木) 14時19分21秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

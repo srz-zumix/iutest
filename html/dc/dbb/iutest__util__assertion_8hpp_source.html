@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.15.2.0</span>
+   &#160;<span id="projectnumber">1.15.99.1</span>
    </div>
   </td>
  </tr>
@@ -621,8 +621,8 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
 <div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> IUTEST_ATTRIBUTE_UNUSED_ Compare(<span class="keyword">const</span> T1&amp; regex, <span class="keyword">const</span> T2&amp; actual)</div>
 <div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;{</div>
-<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;    ::iutest::internal::RE m(regex);</div>
-<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;    <span class="keywordflow">return</span> RegexHelper::FullMatch(actual, m);</div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;    ::iutest::internal::RE iure(regex);</div>
+<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;    <span class="keywordflow">return</span> RegexHelper::FullMatch(actual, iure);</div>
 <div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;}</div>
 <div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;</div>
 <div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
@@ -773,7 +773,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年08月20日(土) 03時19分29秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年10月27日(木) 14時19分21秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

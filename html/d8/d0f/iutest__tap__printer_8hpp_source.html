@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.15.2.0</span>
+   &#160;<span id="projectnumber">1.15.99.1</span>
    </div>
   </td>
  </tr>
@@ -213,7 +213,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="../../d6/d0f/classiutest_1_1_t_a_p_print_listener.html#af1025ff7acae98e17ebda943a5285601">  152</a></span>&#160;{</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    stream-&gt;Printf(<span class="stringliteral">&quot;# %s started.\n&quot;</span>, test_case.<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#a2faa0f8d2c9c5dea207524bf99799f00">name</a>());</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordflow">for</span>( <span class="keywordtype">int</span> i=0, count=test_case.<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#ac8f9395c5fdc7b578e3acb998fe208f3">total_test_count</a>(); i &lt; count; ++i )</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordflow">for</span>( <span class="keywordtype">int</span> i=0, test_count=test_case.<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#ac8f9395c5fdc7b578e3acb998fe208f3">total_test_count</a>(); i &lt; test_count; ++i )</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    {</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a>* test_info = test_case.<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#afb5b8f3eb20a05d2bf0610378f4eb58f">GetTestInfo</a>(i);</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">if</span>( !test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#a4cb2783888a8d22f07b28cd6e3cc45cc">should_run</a>() )</div>
@@ -226,7 +226,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            <span class="keywordflow">if</span>( test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#aaed6804309d25cf157232fb2fa5f497b">HasFailure</a>() )</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;            {</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                stream-&gt;Printf(<span class="stringliteral">&quot;not ok %d - %s &quot;</span>, top+i, test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#acb83951703c7bab66c69de0f7c0e95e3">name</a>() );</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                <span class="keywordflow">for</span>( <span class="keywordtype">int</span> j=0, count=test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#aa3f1f0ed51c9b6704155713083122e98">result</a>()-&gt;<a class="code" href="../../d0/d7b/classiutest_1_1_test_result.html#a76e0fc82e47e798b8198a22d7e88ad1a">total_part_count</a>(); j &lt; count; ++j )</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                <span class="keywordflow">for</span>( <span class="keywordtype">int</span> j=0, part_count=test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#aa3f1f0ed51c9b6704155713083122e98">result</a>()-&gt;<a class="code" href="../../d0/d7b/classiutest_1_1_test_result.html#a76e0fc82e47e798b8198a22d7e88ad1a">total_part_count</a>(); j &lt; part_count; ++j )</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                {</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                    <span class="keyword">const</span> <a class="code" href="../../d8/d3c/classiutest_1_1_test_part_result.html">TestPartResult</a>&amp; part = test_info-&gt;<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#aa3f1f0ed51c9b6704155713083122e98">result</a>()-&gt;<a class="code" href="../../d0/d7b/classiutest_1_1_test_result.html#adb9ef14275a0f6ff49a642aaff218a0d">GetTestPartResult</a>(j);</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                    ::std::string summary = part.make_message();</div>
@@ -293,7 +293,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="ttc" id="classiutest_1_1_test_part_result_html"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html">iutest::TestPartResult</a></div><div class="ttdoc">テスト結果を示すクラス </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:54</div></div>
 <div class="ttc" id="classiutest_1_1_test_result_html_a76e0fc82e47e798b8198a22d7e88ad1a"><div class="ttname"><a href="../../d0/d7b/classiutest_1_1_test_result.html#a76e0fc82e47e798b8198a22d7e88ad1a">iutest::TestResult::total_part_count</a></div><div class="ttdeci">int total_part_count() const </div><div class="ttdoc">結果の数を取得 </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:280</div></div>
 <div class="ttc" id="classiutest_1_1_unit_test_html_aef84e56219bc896f131df5cd2edeba01"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#aef84e56219bc896f131df5cd2edeba01">iutest::UnitTest::total_test_case_count</a></div><div class="ttdeci">int total_test_case_count() const </div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:89</div></div>
-<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:611</div></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:614</div></div>
 <div class="ttc" id="classiutest_1_1_test_property_html"><div class="ttname"><a href="../../db/df6/classiutest_1_1_test_property.html">iutest::TestProperty</a></div><div class="ttdoc">テストプロパティ </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:149</div></div>
 <div class="ttc" id="classiutest_1_1_test_env_html_a5908831d1f400180f97a687ec1d21928"><div class="ttname"><a href="../../d7/d8c/classiutest_1_1_test_env.html#a5908831d1f400180f97a687ec1d21928">iutest::TestEnv::test_filter</a></div><div class="ttdeci">static const char * test_filter()</div><div class="ttdoc">フィルター文字列 </div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:334</div></div>
 <div class="ttc" id="classiutest_1_1_test_event_listener_html"><div class="ttname"><a href="../../dd/d01/classiutest_1_1_test_event_listener.html">iutest::TestEventListener</a></div><div class="ttdoc">イベントリスナー </div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:63</div></div>
@@ -330,7 +330,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年08月20日(土) 03時19分29秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年10月27日(木) 14時19分21秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
