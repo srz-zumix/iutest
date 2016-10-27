@@ -36,8 +36,8 @@ int ReturnTest2(bool condition)
 
 void ReturnTestCall(void)
 {
-	IUTEST_ASSERT_EQ(0, ReturnTest1(true));
-	IUTEST_ASSERT_EQ(0, ReturnTest2(true));
+    IUTEST_ASSERT_EQ(0, ReturnTest1(true));
+    IUTEST_ASSERT_EQ(0, ReturnTest2(true));
     IUTEST_ASSERT_FATAL_FAILURE(value1 = ReturnTest1(false), "message");
     IUTEST_ASSERT_FATAL_FAILURE(value2 = ReturnTest2(false), "message");
     IUTEST_ASSERT_TRUE(false) << ::iutest::AssertionReturn();
