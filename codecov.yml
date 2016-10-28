@@ -1,0 +1,5 @@
+coverage:
+  ignore:
+  - test/break_on_failure_tests.cpp
+  - usr/lib/.*
+  - samples/.*
