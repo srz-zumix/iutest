@@ -41,11 +41,11 @@ int SetUpEnvironment(void)
     return 0;
 }
 
-static volatile int g_dummy = SetUpEnvironment();
+static volatile int g_setup_environment = SetUpEnvironment();
 
 IUTEST(FlagTest, Check)
 {
-    if( g_dummy != 0 ) return;  // putenv に失敗した場合はテストしない
+    IUTEST_ASSUME_EQ(0, g_setup_environment);  // putenv に失敗した場合はテストしない
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(also_run_disabled_tests) );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(break_on_failure) );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(throw_on_failure) );

@@ -100,6 +100,33 @@ IUTEST_IPP_INLINE int PutEnv(const char* expr)
 #endif
 }
 
+IUTEST_IPP_INLINE int SetEnv(const char* name, const char* value, int overwrite)
+{
+    IUTEST_UNUSED_VAR(name);
+    IUTEST_UNUSED_VAR(value);
+    IUTEST_UNUSED_VAR(overwrite);
+#if defined(IUTEST_OS_WINDOWS)
+#  if !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
+    if( overwrite == 0 )
+    {
+        char buf[2];
+        if( ::GetEnvironmentVariableA(name, buf, sizeof(buf)) > 0 )
+        {
+            return -1;
+        }
+    }
+    return ::SetEnvironmentVariableA(name, value) ? 0 : -1;
+#  else
+    return -1;
+#endif
+#elif defined(__STRICT_ANSI__)
+    return -1;
+#else
+    return setenv(name, value, overwrite);
+#endif
+}
+
+
 IUTEST_IPP_INLINE const char* GetCWD(char* buf, size_t length)
 {
 #if   defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE) \
@@ -240,10 +267,7 @@ IUTEST_IPP_INLINE bool SetEnvironmentVariable(const char* name, const char* valu
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
     return ::SetEnvironmentVariableA(name, value) ? true : false;
 #else
-    ::std::string var = name;
-    var += "=";
-    var += value;
-    return internal::posix::PutEnv(var.c_str()) == 0 ? true : false;
+    return internal::posix::SetEnv(name, value, 1) == 0 ? true : false;
 #endif
 }
 

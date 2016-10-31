@@ -198,7 +198,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         {
             cp = lead;
         }
-        const size_t len = ::std::c32rtomb(mbs, cp, &state);
+        const size_t len = c32rtomb(mbs, cp, &state);
         if( len != static_cast<size_t>(-1) )
         {
             mbs[len] = '\0';

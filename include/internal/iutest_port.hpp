@@ -78,6 +78,7 @@ namespace posix
 
 const char* GetEnv(const char* name);
 int PutEnv(const char* expr);
+int SetEnv(const char* name, const char* value, int overwrite);
 
 const char* GetCWD(char* buf, size_t length);
 ::std::string GetCWD();
