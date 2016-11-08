@@ -95,6 +95,8 @@ IUTEST_IPP_INLINE int PutEnv(const char* expr)
     || defined(IUTEST_NO_PUTENV) || defined(__STRICT_ANSI__)
     IUTEST_UNUSED_VAR(expr);
     return -1;
+#elif defined(IUTEST_OS_WINDOWS)
+    return _putenv(expr);
 #else
     return putenv(const_cast<char*>(expr));
 #endif
@@ -109,13 +111,15 @@ IUTEST_IPP_INLINE int SetEnv(const char* name, const char* value, int overwrite)
 #  if !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
     if( overwrite == 0 )
     {
-        char buf[2];
-        if( ::GetEnvironmentVariableA(name, buf, sizeof(buf)) > 0 )
+        if( GetEnv(name) != NULL )
         {
             return -1;
         }
     }
-    return ::SetEnvironmentVariableA(name, value) ? 0 : -1;
+    ::std::string expr = name;
+    expr += "=";
+    expr += value;
+    return PutEnv(expr.c_str());
 #  else
     return -1;
 #endif

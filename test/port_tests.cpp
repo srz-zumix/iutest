@@ -20,17 +20,26 @@
 
 IUTEST(PortableTest, SetGetEnv)
 {
-    const char* env_name = "IUTEST_PORT_TEST_ENV";
+    const char* env_name = "IUTEST_PORT_TEST_SETENV";
     if( ::iutest::internal::posix::SetEnv(env_name, "test", 0) == -1 ) IUTEST_SKIP();
     IUTEST_ASSERT_STREQ("test", ::iutest::internal::posix::GetEnv(env_name));
     
-    IUTEST_EXPECT_NE(-1, ::iutest::internal::posix::SetEnv(env_name, "hoge", 0));
+    IUTEST_EXPECT_EQ(-1, ::iutest::internal::posix::SetEnv(env_name, "hoge", 0));
     IUTEST_ASSERT_STREQ("test", ::iutest::internal::posix::GetEnv(env_name));
 
     IUTEST_EXPECT_NE(-1, ::iutest::internal::posix::SetEnv(env_name, "hoge", 1));
     IUTEST_ASSERT_STREQ("hoge", ::iutest::internal::posix::GetEnv(env_name));
 }
 
+IUTEST(PortableTest, PutGetEnv)
+{
+    const char* env_name = "IUTEST_PORT_TEST_PUTENV";
+    if( ::iutest::internal::posix::PutEnv("IUTEST_PORT_TEST_PUTENV=test") == -1 ) IUTEST_SKIP();
+    IUTEST_ASSERT_STREQ("test", ::iutest::internal::posix::GetEnv(env_name));
+
+    IUTEST_EXPECT_NE(-1, ::iutest::internal::posix::PutEnv("IUTEST_PORT_TEST_PUTENV=hoge"));
+    IUTEST_ASSERT_STREQ("hoge", ::iutest::internal::posix::GetEnv(env_name));
+}
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
