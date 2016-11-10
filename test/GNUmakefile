@@ -18,6 +18,7 @@
 #
 include ../utils/gccversion.mk
 include ../utils/clangversion.mk
+include ../utils/cygwin.mk
 include CommonMakefile.in
 
 # Optimize
@@ -74,8 +75,16 @@ else
 WINE_ =
 endif
 
-ifdef USE_GNU_EXTENSION
+ifeq ($(IUTEST_MKFLAG_CYGWIN),1)
 STDFLAG:=$(subst c++,gnu++, $(STDFLAG))
+endif
+
+ifdef USE_GNU_EXTENSION
+ifeq ($(USE_GNU_EXTENSION),0)
+STDFLAG:=$(subst gnu++,c++, $(STDFLAG))
+else
+STDFLAG:=$(subst c++,gnu++, $(STDFLAG))
+endif
 endif
 
 CXXFLAGS += $(DEFS) $(STDFLAG) $(STDLIB)

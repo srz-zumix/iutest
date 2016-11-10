@@ -78,7 +78,8 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
 IUTEST_IPP_INLINE const char* GetEnv(const char* name)
 {
-#if defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_NO_GETENV)
+#if defined(IUTEST_NO_GETENV) \
+    || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE)
     IUTEST_UNUSED_VAR(name);
     return NULL;
 #elif defined(__BORLANDC__) || defined(__SunOS_5_8) || defined(__SunOS_5_9)
@@ -91,8 +92,8 @@ IUTEST_IPP_INLINE const char* GetEnv(const char* name)
 
 IUTEST_IPP_INLINE int PutEnv(const char* expr)
 {
-#if defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE) \
-    || defined(IUTEST_NO_PUTENV) || defined(__STRICT_ANSI__)
+#if defined(IUTEST_NO_PUTENV) || defined(__STRICT_ANSI__) \
+    || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE)
     IUTEST_UNUSED_VAR(expr);
     return -1;
 #elif defined(IUTEST_OS_WINDOWS)
@@ -104,27 +105,24 @@ IUTEST_IPP_INLINE int PutEnv(const char* expr)
 
 IUTEST_IPP_INLINE int SetEnv(const char* name, const char* value, int overwrite)
 {
+#if defined(IUTEST_NO_SETENV) || defined(__STRICT_ANSI__) \
+    || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE)
     IUTEST_UNUSED_VAR(name);
     IUTEST_UNUSED_VAR(value);
     IUTEST_UNUSED_VAR(overwrite);
-#if defined(IUTEST_OS_WINDOWS)
-#  if !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(IUTEST_OS_WINDOWS_PHONE) && !defined(IUTEST_OS_WINDOWS_RT)
+    return -1;
+#elif defined(IUTEST_OS_WINDOWS)
     if( overwrite == 0 )
     {
         if( GetEnv(name) != NULL )
         {
-            return -1;
+            return 0;
         }
     }
     ::std::string expr = name;
     expr += "=";
     expr += value;
     return PutEnv(expr.c_str());
-#  else
-    return -1;
-#endif
-#elif defined(__STRICT_ANSI__)
-    return -1;
 #else
     return setenv(name, value, overwrite);
 #endif

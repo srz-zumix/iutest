@@ -669,6 +669,7 @@
 #define IUTEST_USE_RANDOM_ENGINE_TYPENAME   ::std::default_random_engine
 
 #define IUTEST_NO_GETENV    //!< getenv 関数がない場合は定義
+#define IUTEST_NO_SETENV    //!< setenv 関数がない場合は定義
 #define IUTEST_NO_PUTENV    //!< putenv 関数がない場合は定義
 #define IUTEST_NO_GETCWD    //!< getcwd 関数がない場合は定義
 

@@ -222,11 +222,39 @@ namespace posix
 
 inline int PutEnv(const char* expr)
 {
-#if defined(IUTEST_OS_WINDOWS_MOBILE) || defined(IUTEST_NO_PUTENV) || defined(__STRICT_ANSI__)
+#if defined(IUTEST_NO_PUTENV) || defined(__STRICT_ANSI__) \
+    || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE)
     (void)(expr);
     return -1;
+#elif defined(IUTEST_OS_WINDOWS)
+    return _putenv(expr);
 #else
     return putenv(const_cast<char*>(expr));
+#endif
+}
+
+inline int SetEnv(const char* name, const char* value, int overwrite)
+{
+#if defined(IUTEST_NO_SETENV) || defined(__STRICT_ANSI__) \
+    || defined(IUTEST_OS_WINDOWS_PHONE) || defined(IUTEST_OS_WINDOWS_RT) || defined(IUTEST_OS_WINDOWS_MOBILE)
+    (void)(name);
+    (void)(value);
+    (void)(overwrite);
+    return -1;
+#elif defined(IUTEST_OS_WINDOWS)
+    if( overwrite == 0 )
+    {
+        if( GetEnv(name) != NULL )
+        {
+            return 0;
+        }
+    }
+    ::std::string expr = name;
+    expr += "=";
+    expr += value;
+    return PutEnv(expr.c_str());
+#else
+    return setenv(name, value, overwrite);
 #endif
 }
 
