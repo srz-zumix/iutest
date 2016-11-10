@@ -80,7 +80,7 @@ after_success:
 env:
   global:
     # COVERITY_SCAN_TOKEN
-    - secure: "p7jyD2o54mCPQg+3ZSo03/P9G5HJdgZWZ80LQG6Dt4PfNzxBcJWTM4eSZUX+HCe5jTICC7FsDLbucwJUKb5EsXyqvny3QlGp4bvB8OWN8IbroaqpR8s4qVJLzpR9UOGhn+St3dVRZ0y9g9Vjr2/8gknwzqexAwslpGaOLohHZ/0="
+    - secure: "TcQxkqb1xHfr1WnVX/CzRyQGOSA29mvLIwn1+lb794Ysq8dNZoHdbcIrKbe/YKR0uRZ5rnL1Onn6L3HyRCJxZg5Grsqrv1dRVSR4X132EoRo0Y8sy/a+c3JFhBJUiaAMds2wG2EFmDCSXNxcUEgzUFEGnTk2vnVKAVBDpOQLlOk="
 
   matrix:
     - STDFLAG=-std=c++98
