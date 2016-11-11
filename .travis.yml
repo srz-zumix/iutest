@@ -163,6 +163,6 @@ matrix:
             name: "srz-zumix/iutest"
             description: "iutest c++ testing framework"
           notification_email: zumix.cpp@gmail.com
-          build_command_prepend: cd ./test
+          build_command_prepend: "cov-configure --comptype gcc --compiler gcc-5 && cd ./test"
           build_command: make coverity_scan
           branch_pattern: coverity_scan
