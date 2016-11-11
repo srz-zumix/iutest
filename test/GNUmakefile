@@ -171,6 +171,8 @@ endif
 run_% : %_run
 	@echo $< > /dev/null
 
+coverity_scan: $(BUILD_TARGETS)
+
 #
 #
 # fused
@@ -336,9 +338,12 @@ $(ALLTESTS_TARGET) : $(ALLTESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 $(TARGETS_EXCLUDE_ALLTESTS) : $(SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(IUTEST_LIB_) $(LDFLAGS)
 
+
+IUTEST_COMPILE_ERROR_TEST_OPTION=-c $(CXX) --verbose
+
 $(ERR_TARGETS) : $(SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 	#-$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(IUTEST_LIB_) $(LDFLAGS)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(IUTEST_LIB_) $(LDFLAGS) 2>&1 | python ../tools/python/iutest_compile_error_test.py -c $(CXX) --verbose
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(IUTEST_LIB_) $(LDFLAGS) 2>&1 | python ../tools/python/iutest_compile_error_test.py $(IUTEST_COMPILE_ERROR_TEST_OPTION)
 
 endif
 
