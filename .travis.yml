@@ -110,7 +110,7 @@ matrix:
       env: USE_FUSED=fused_min STDFLAG=-std=c++98
     # Google Test
     - compiler: gcc
-      env: USE_GTEST=1 USE_GTEST_HEAD=1
+      env: USE_GTEST=1 USE_GTEST_HEAD=1 USE_GNU_EXTENSION=1
       addons:
         apt:
           sources: *apt-common-sources
