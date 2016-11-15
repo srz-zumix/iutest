@@ -16,6 +16,7 @@
 //======================================================================
 // include
 #include "iutest.hpp"
+#include <errno.h>
 
 #if defined(USE_GTEST_PREFIX) || defined(IUTEST_USE_GTEST)
 #  define ENV_PREFIX    "GTEST_"
@@ -23,15 +24,15 @@
 #  define ENV_PREFIX    "IUTEST_"
 #endif
 
-int SetUpEnvironment(void)
+int SetUpEnvironmentImpl(void)
 {
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "SHUFFLE=1") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "RANDOM_SEED=200") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "ALSO_RUN_DISABLED_TESTS=1") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "BREAK_ON_FAILURE=1") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "THROW_ON_FAILURE=1") == -1 ) return -1;
-    if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "CATCH_EXCEPTIONS=1") == -1 ) return -1;
-    if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "PRINT_TIME=1") == -1 ) return -1;
+    if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "CATCH_EXCEPTIONS=0") == -1 ) return -1;
+    if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "PRINT_TIME=0") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "REPEAT=2") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "FILTER=Flag*") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "OUTPUT=test") == -1 ) return -1;
@@ -41,17 +42,26 @@ int SetUpEnvironment(void)
     return 0;
 }
 
+static int lasterror = 0;
+
+int SetUpEnvironment(void)
+{
+    if( SetUpEnvironmentImpl() == 0 ) return 0;
+    lasterror = errno;
+    return -1;
+}
+
 static volatile int g_setup_environment = SetUpEnvironment();
 
 IUTEST(FlagTest, Check)
 {
-    IUTEST_ASSUME_EQ(0, g_setup_environment);  // putenv に失敗した場合はテストしない
+    IUTEST_ASSUME_EQ(0, g_setup_environment) << lasterror << ": " << strerror(lasterror);  // putenv に失敗した場合はテストしない
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(also_run_disabled_tests) );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(break_on_failure) );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(throw_on_failure) );
-    IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(catch_exceptions) );
-    IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(print_time) );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(shuffle) );
+    IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(catch_exceptions) );
+    IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(print_time) );
 #if !defined(IUTEST_USE_GTEST)
     IUTEST_EXPECT_STREQ( "env_var", ::iutest::IUTEST_FLAG(default_package_name).c_str() );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(file_location_style_msvc) );
