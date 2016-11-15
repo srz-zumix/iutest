@@ -64,13 +64,15 @@ private:
 
 public:
     /** @private */
-    static void SetUp()
+    static bool SetUp()
     {
         ::std::string xmlpath = GetXmlPath();
         if( !xmlpath.empty() )
         {
             TestEnv::event_listeners().set_default_xml_generator(new StderrXmlGeneratorListenerBase(xmlpath));
+            return true;
         }
+        return false;
     }
 };
 

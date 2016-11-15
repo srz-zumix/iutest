@@ -31,13 +31,13 @@ IUTEST_IPP_INLINE void Environment::Release()
 IUTEST_IPP_INLINE ::std::string TestEnv::get_report_xml_filepath()
 {
     const ::std::string& option = get_vars().m_output_option;
-    if(option.find("xml") != ::std::string::npos)
+    const char spec[] = "xml";
+    const size_t length = sizeof(spec) - 1;
+    if( option.compare(0, length, spec) == 0 )
     {
-        const ::std::string::size_type pos = option.find("xml:");
-        if(pos != ::std::string::npos
-            && option.length() > pos + 4)
+        if( (option.length() > length + 1) && (option.at(length) == ':') )
         {
-            return option.substr(pos + 4);
+            return option.substr(length + 1);
         }
         return detail::kStrings::DefaultXmlReportFileName;
     }
@@ -47,12 +47,13 @@ IUTEST_IPP_INLINE ::std::string TestEnv::get_report_xml_filepath()
 IUTEST_IPP_INLINE::std::string TestEnv::get_report_junit_xml_filepath()
 {
     const ::std::string& option = get_vars().m_output_option;
-    if( option.find("junit") != ::std::string::npos )
+    const char spec[] = "junit";
+    const size_t length = sizeof(spec) - 1;
+    if( option.compare(0, length, spec) == 0 )
     {
-        const ::std::string::size_type pos = option.find("junit:");
-        if( pos != ::std::string::npos )
+        if( (option.length() > length + 1) && (option.at(length) == ':') )
         {
-            return option.substr(pos + 6);
+            return option.substr(length + 1);
         }
         return detail::kStrings::DefaultXmlReportFileName;
     }

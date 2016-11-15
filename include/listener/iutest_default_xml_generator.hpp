@@ -136,13 +136,15 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 
 public:
     /** @private */
-    static void SetUp()
+    static bool SetUp()
     {
         ::std::string xmlpath = TestEnv::get_report_xml_filepath();
         if( !xmlpath.empty() )
         {
             TestEnv::event_listeners().set_default_xml_generator(new DefaultXmlGeneratorListener(xmlpath));
+            return true;
         }
+        return false;
     }
 };
 

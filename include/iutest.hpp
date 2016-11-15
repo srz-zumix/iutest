@@ -1620,6 +1620,7 @@ private:
 #endif
         TestEnv::event_listeners().set_default_result_printer(new DefalutResultPrintListener());
     }
+
 public:
     /** @private */
     ~UnitTestSource()
@@ -1642,19 +1643,31 @@ public:
     */
     int Run()
     {
+        SetUpDefaultListener();
+        return UnitTest::instance().Run();
+    }
+
+private:
+    void SetUpDefaultListener()
+    {
+        if( TestEnv::has_output_option() )
+        {
+            do
+            {
 #if defined(__WANDBOX__)
-        StderrXmlGeneratorListener::SetUp();
-        StderrJunitXmlGeneratorListener::SetUp();
+                if( StderrXmlGeneratorListener::SetUp() ) break;
+                if( StderrJunitXmlGeneratorListener::SetUp() ) break;
 #else
-        DefaultXmlGeneratorListener::SetUp();
-        JunitXmlGeneratorListener::SetUp();
+                if( DefaultXmlGeneratorListener::SetUp() ) break;
+                if( JunitXmlGeneratorListener::SetUp() ) break;
 #endif
+                IUTEST_LOG_(WARNING) << "unrecognized output format \"" << TestEnv::get_output_option() << "\" ignored.";
+            } while( detail::AlwaysFalse() );
+        }
 
 #if IUTEST_HAS_STREAM_RESULT
         StreamResultListener::SetUp();
 #endif
-
-        return UnitTest::instance().Run();
     }
 };
 

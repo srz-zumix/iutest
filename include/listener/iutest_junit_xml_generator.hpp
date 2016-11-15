@@ -52,13 +52,15 @@ private:
     static void OnReportTestSkipped(IFile* file, const TestInfo& test_info);
 public:
     /** @private */
-    static void SetUp()
+    static bool SetUp()
     {
         ::std::string xmlpath = TestEnv::get_report_junit_xml_filepath();
         if( !xmlpath.empty() )
         {
             TestEnv::event_listeners().set_default_xml_generator(new JunitXmlGeneratorListener(xmlpath));
+            return true;
         }
+        return false;
     }
 };
 

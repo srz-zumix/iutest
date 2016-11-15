@@ -360,6 +360,11 @@ public:
     {
         get_vars().m_testpartresult_reporter = ptr;
     }
+    /** @private */
+    static bool has_output_option()
+    {
+        return !get_vars().m_output_option.empty();
+    }
 
 private:
     /**
