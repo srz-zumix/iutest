@@ -1655,11 +1655,23 @@ private:
             do
             {
 #if defined(__WANDBOX__)
-                if( StderrXmlGeneratorListener::SetUp() ) break;
-                if( StderrJunitXmlGeneratorListener::SetUp() ) break;
+                if( StderrXmlGeneratorListener::SetUp() )
+                {
+                    break;
+                }
+                if( StderrJunitXmlGeneratorListener::SetUp() )
+                {
+                    break;
+                }
 #else
-                if( DefaultXmlGeneratorListener::SetUp() ) break;
-                if( JunitXmlGeneratorListener::SetUp() ) break;
+                if( DefaultXmlGeneratorListener::SetUp() )
+                {
+                    break;
+                }
+                if( JunitXmlGeneratorListener::SetUp() )
+                {
+                    break;
+                }
 #endif
                 IUTEST_LOG_(WARNING) << "unrecognized output format \"" << TestEnv::get_output_option() << "\" ignored.";
             } while( detail::AlwaysFalse() );
