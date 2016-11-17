@@ -53,6 +53,8 @@ int SetUpEnvironment(void)
 
 static volatile int g_setup_environment = SetUpEnvironment();
 
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+
 IUTEST(FlagTest, Check)
 {
     IUTEST_ASSUME_EQ(0, g_setup_environment) << lasterror << ": " << strerror(lasterror);  // putenv に失敗した場合はテストしない
@@ -73,6 +75,8 @@ IUTEST(FlagTest, Check)
     IUTEST_EXPECT_STREQ( "Flag*", ::iutest::IUTEST_FLAG(filter).c_str() );
     IUTEST_EXPECT_STREQ( "test", ::iutest::IUTEST_FLAG(output).c_str() );
 }
+
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])

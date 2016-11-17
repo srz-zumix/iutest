@@ -65,7 +65,10 @@
     }                                                       \
     class iuTest_TestCaseParentPackage;                     \
     __if_not_exists(name::iuTest_GetTestCaseParentPackageName) {    \
+        IUTEST_PRAGMA_MSC_WARN_PUSH()                       \
+        IUTEST_PRAGMA_MSC_WARN_DISABLE(4505)                \
         IIUT_PACKAGE_DECL_PARENT_NAME_FUNC(name)            \
+        IUTEST_PRAGMA_MSC_WARN_POP()                        \
     }                                                       \
     }                                                       \
     namespace name
