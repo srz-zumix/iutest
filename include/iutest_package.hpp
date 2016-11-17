@@ -57,38 +57,46 @@
     }
 
 
-#define IIUT_PACKAGE_(name)                                 \
-    namespace name {                                        \
+#define IIUT_PACKAGE_CURRENT_NAMESPACE_(name)               \
     class iuTest_TestCasePackage;                           \
     __if_not_exists(name::iuTest_GetTestCasePackageName) {  \
         IIUT_PACKAGE_DECL_NAME_FUNC(name)                   \
-    }                                                       \
+    }
+
+#define IIUT_PACKAGE_PARENT_NAMESPACE_(name)                \
     class iuTest_TestCaseParentPackage;                     \
     __if_not_exists(name::iuTest_GetTestCaseParentPackageName) {    \
         IUTEST_PRAGMA_MSC_WARN_PUSH()                       \
         IUTEST_PRAGMA_MSC_WARN_DISABLE(4505)                \
         IIUT_PACKAGE_DECL_PARENT_NAME_FUNC(name)            \
         IUTEST_PRAGMA_MSC_WARN_POP()                        \
-    }                                                       \
-    }                                                       \
-    namespace name
+    }
 
 #else
 
-#define IIUT_PACKAGE_(name)                             \
-    namespace name { class iuTest_TestCasePackage;      \
+#define IIUT_PACKAGE_CURRENT_NAMESPACE_(name)               \
+    class iuTest_TestCasePackage;                           \
     namespace { const int IUTEST_PP_CAT(k_iutest_package_##name##_dummy_, IUTEST_PP_UNIQUEID)   \
         IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::package_name_server<                       \
                 iuTest_TestCasePackage>::setname(iuTest_GetTestCaseParentPackageName(           \
-                    static_cast<iuTest_TestCaseParentPackage*>(NULL)) + #name "."); }           \
-    class iuTest_TestCaseParentPackage;                 \
+                    static_cast<iuTest_TestCaseParentPackage*>(NULL)) + #name ".");             \
+    }
+
+#define IIUT_PACKAGE_PARENT_NAMESPACE_(name)                \
+    class iuTest_TestCaseParentPackage;                     \
     namespace { const int IUTEST_PP_CAT(k_iutest_package_##name##_parent_dummy_, IUTEST_PP_UNIQUEID)    \
         IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::package_name_server<iuTest_TestCaseParentPackage>  \
-        ::setname(iuTest_GetTestCasePackageName(static_cast<iuTest_TestCasePackage*>(NULL))); }         \
-    }                                                   \
-    namespace name
+        ::setname(iuTest_GetTestCasePackageName(static_cast<iuTest_TestCasePackage*>(NULL)));           \
+    }
 
 #endif
+
+#define IIUT_PACKAGE_(name)                                 \
+    namespace name {                                        \
+        IIUT_PACKAGE_CURRENT_NAMESPACE_(name)               \
+        IIUT_PACKAGE_PARENT_NAMESPACE_(name)                \
+    }                                                       \
+    namespace name
 
 #else
 
