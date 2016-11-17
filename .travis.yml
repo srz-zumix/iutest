@@ -165,4 +165,4 @@ matrix:
           notification_email: zumix.cpp@gmail.com
           build_command_prepend: "cov-configure --comptype gcc --compiler gcc-5 && cd ./test"
           build_command: make coverity_scan
-          branch_pattern: coverity_scan
+          branch_pattern: master
