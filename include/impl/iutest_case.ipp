@@ -167,7 +167,7 @@ IUTEST_IPP_INLINE int TestCase::failed_test_count() const
         return 0;
     }
     //if( m_ad_hoc_testresult.Failed() ) return m_testinfos.count();
-    return detail::CountIf(m_testinfos, IsFaildTest);
+    return detail::CountIf(m_testinfos, IsFailedTest);
 }
 
 IUTEST_IPP_INLINE int TestCase::successful_test_count() const

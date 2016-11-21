@@ -42,7 +42,7 @@ class SSTP : public Socket
 public:
     enum eCharset
     {
-        CHARSET_ASCII
+          CHARSET_ASCII
         , CHARSET_SHIFTJIS
         , CHARSET_ISO_220_JP
         , CHARSET_EUC_JP

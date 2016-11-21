@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "CppUnitTest.h"
 
 #include "../../include/iutest.hpp"
@@ -35,7 +35,7 @@ namespace iutest_unittest
 #endif
 
 /** --------------------------------------------------
- * ŠÈ’P‚ÈƒeƒXƒg
+ * ç°¡å˜ãªãƒ†ã‚¹ãƒˆ
 *//*--------------------------------------------------*/
 IUTEST(Test, Version)
 {
@@ -57,7 +57,7 @@ IUTEST(Test, Stream)
 }
 
 /** --------------------------------------------------
- * ƒeƒXƒgƒtƒBƒNƒXƒ`ƒƒ‚Ì—˜—p
+ * ãƒ†ã‚¹ãƒˆãƒ•ã‚£ã‚¯ã‚¹ãƒãƒ£ã®åˆ©ç”¨
 *//*--------------------------------------------------*/
 class TestFixed : public iutest::Test
 {
@@ -98,7 +98,7 @@ IUTEST_F(TestFixed2, Test2)
 }
 
 /** --------------------------------------------------
- * ŠeíƒAƒT[ƒVƒ‡ƒ“
+ * å„ç¨®ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³
 *//*--------------------------------------------------*/
 IUTEST(AssertionTest, NoFailure)
 {
@@ -218,7 +218,7 @@ IUTEST(AssertionTest, HResult)
 #endif
 
 /** --------------------------------------------------
- * qŒêƒAƒT[ƒVƒ‡ƒ“
+ * è¿°èªã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³
 *//*--------------------------------------------------*/
 static bool IsOdd(int val)
 {
@@ -260,7 +260,7 @@ IUTEST(AssertionTest, Pred)
 }
 
 /** --------------------------------------------------
- * ’l‚ğƒpƒ‰ƒ[ƒ^‰»‚µ‚½ƒeƒXƒg
+ * å€¤ã‚’ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿åŒ–ã—ãŸãƒ†ã‚¹ãƒˆ
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_PARAM_TEST
 // Param Test Range
@@ -383,7 +383,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(TestPCombineInstance, TestPCombine
 #endif
 
 /** --------------------------------------------------
- * Œ^•t‚¯ƒeƒXƒg
+ * å‹ä»˜ã‘ãƒ†ã‚¹ãƒˆ
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_TYPED_TEST
 
@@ -418,7 +418,7 @@ IUTEST_TYPED_TEST(TypedTest, Litle)
 #endif
 
 /** --------------------------------------------------
- * Œ^‚ğƒpƒ‰ƒ[ƒ^‰»‚µ‚½ƒeƒXƒg
+ * å‹ã‚’ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿åŒ–ã—ãŸãƒ†ã‚¹ãƒˆ
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_TYPED_TEST_P
 
@@ -445,9 +445,9 @@ IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(TypedTestPInstance, TypedTestP, TypedTestTy
 #endif
 
 /** --------------------------------------------------
- * Diabled ƒeƒXƒg
+ * Diabled ãƒ†ã‚¹ãƒˆ
 *//*--------------------------------------------------*/
-// ‚±‚ÌƒeƒXƒg‚Í–³ŒøƒeƒXƒg
+// ã“ã®ãƒ†ã‚¹ãƒˆã¯ç„¡åŠ¹ãƒ†ã‚¹ãƒˆ
 IUTEST(TestDisabled, DISABLED_Test1)
 {
     IUTEST_ASSERT_TRUE(false);
@@ -458,7 +458,7 @@ IUTEST(TestDisabled, Test2)
     IUTEST_ASSERT_TRUE(true);
 }
 
-// ƒeƒXƒgƒP[ƒX‚·‚×‚Ä‚ğ–³Œø‚É‚·‚é
+// ãƒ†ã‚¹ãƒˆã‚±ãƒ¼ã‚¹ã™ã¹ã¦ã‚’ç„¡åŠ¹ã«ã™ã‚‹
 IUTEST(DISABLED_TestCaseDisabled, Test1)
 {
     IUTEST_ASSERT_TRUE(false);
@@ -469,7 +469,7 @@ IUTEST(DISABLED_TestCaseDisabled, Test2)
 }
 
 /** --------------------------------------------------
- * —áŠOƒAƒT[ƒVƒ‡ƒ“
+ * ä¾‹å¤–ã‚¢ã‚µãƒ¼ã‚·ãƒ§ãƒ³
 *//*--------------------------------------------------*/
 #if IUTEST_HAS_EXCEPTIONS
 
@@ -522,7 +522,7 @@ IUTEST(AssertionTest, Exception2)
 #endif
 
 /** --------------------------------------------------
- * Œ^‚Ìˆê’vƒeƒXƒg
+ * å‹ã®ä¸€è‡´ãƒ†ã‚¹ãƒˆ
 *//*--------------------------------------------------*/
 IUTEST(StaticTest, Eq)
 {

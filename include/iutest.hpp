@@ -1618,7 +1618,7 @@ private:
         IUTEST_UNUSED_VAR(&detail::iuDebugInitialize);
         IUTEST_UNUSED_VAR(&detail::iuDebugBreakAlloc);
 #endif
-        TestEnv::event_listeners().set_default_result_printer(new DefalutResultPrintListener());
+        TestEnv::event_listeners().set_default_result_printer(new DefaultResultPrintListener());
     }
 
 public:

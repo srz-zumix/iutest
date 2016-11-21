@@ -25,7 +25,7 @@ namespace iutest
 */
 class DefaultXmlGeneratorListener : public EmptyTestEventListener
 {
-    ::std::string m_output_path_foramt;
+    ::std::string m_output_path_format;
     ::std::string m_output_path;
 protected:
     IFile* m_fp;
@@ -58,20 +58,20 @@ private:
     {
         if( path.empty() )
         {
-            m_output_path_foramt.clear();
+            m_output_path_format.clear();
             m_output_path = detail::kStrings::DefaultXmlReportFileName;
         }
         else
         {
-            m_output_path_foramt = path;
+            m_output_path_format = path;
             const ::std::string::size_type pos = path.find('.');
             if( pos == ::std::string::npos
                 || pos == path.length()-1 )
             {
-                m_output_path_foramt += detail::GetPathSeparator();
-                m_output_path_foramt += detail::kStrings::DefaultXmlReportFileName;
+                m_output_path_format += detail::GetPathSeparator();
+                m_output_path_format += detail::kStrings::DefaultXmlReportFileName;
             }
-            m_output_path = m_output_path_foramt;
+            m_output_path = m_output_path_format;
         }
     }
 

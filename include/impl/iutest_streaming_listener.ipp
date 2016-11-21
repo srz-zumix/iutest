@@ -93,7 +93,7 @@ IUTEST_IPP_INLINE void StreamResultListener::OnTestIterationEnd(const UnitTest& 
 }
 IUTEST_IPP_INLINE void StreamResultListener::OnTestProgramEnd(const UnitTest& test)
 {
-    SendLn("event=TestProgramEnd&passd=" + FormatBool(test.Passed()));
+    SendLn("event=TestProgramEnd&passed=" + FormatBool(test.Passed()));
     m_socket.Close();
 }
 

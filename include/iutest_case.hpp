@@ -212,7 +212,7 @@ private:
 
 private:
     static bool IsSuccessfulTest(const TestInfo* p) { return p->is_ran() && p->Passed(); }
-    static bool IsFaildTest(const TestInfo* p) { return p->should_run() && p->HasFailure(); }
+    static bool IsFailedTest(const TestInfo* p) { return p->should_run() && p->HasFailure(); }
     static bool IsSkipTest(const TestInfo* p) { return !p->is_ran() || p->is_skipped(); }
     static bool IsReportableSkipTest(const TestInfo* p) { return p->is_reportable() && IsSkipTest(p); }
     static bool IsRunSkippedTest(const TestInfo* p) { return p->should_run() && p->is_skipped(); }

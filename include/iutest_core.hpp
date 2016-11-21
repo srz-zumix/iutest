@@ -173,7 +173,7 @@ private:
         // デフォルトリポーターをセット
         TestEnv::SetGlobalTestPartResultReporter(&m_default_test_part_result_reporter);
         // 環境変数によるテストフラグ指定をロード
-        TestEnv::LoadEnviromentVariable();
+        TestEnv::LoadEnvironmentVariable();
     }
 #if defined(_MSC_VER) && _MSC_VER < 1300
 public: // VC++6.0 bug

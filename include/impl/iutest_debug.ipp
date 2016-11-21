@@ -24,10 +24,10 @@
 #    if _MSC_VER >= 1900
 IUTEST_PRAGMA_MSC_WARN_PUSH()
 IUTEST_PRAGMA_MSC_WARN_DISABLE(4091)
-#      include <DbgHelp.h>
+#      include <dbghelp.h>
 IUTEST_PRAGMA_MSC_WARN_POP()
 #    else
-#      include <DbgHelp.h>
+#      include <dbghelp.h>
 #    endif
 //#  pragma comment (lib, "dbghelp.lib")
 #  endif

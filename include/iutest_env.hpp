@@ -705,7 +705,7 @@ private:
     /**
      * @brief   環境変数から設定構築
     */
-    static void LoadEnviromentVariable();
+    static void LoadEnvironmentVariable();
 
     /**
      * @brief   セットアップ

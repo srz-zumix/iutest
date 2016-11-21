@@ -22,7 +22,7 @@
 namespace iutest
 {
 
-IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestProgramStart(const UnitTest& test)
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestProgramStart(const UnitTest& test)
 {
     IUTEST_UNUSED_VAR(test);
     // フィルタリング
@@ -31,7 +31,7 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestProgramStart(const Unit
         detail::iuConsole::color_output(detail::iuConsole::yellow, "Note: iutest filter = %s\n", TestEnv::test_filter());
     }
 }
-IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationStart(const UnitTest& test
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationStart(const UnitTest& test
                                 , int iteration)
 {
     if( test.repeat_count() != 1 )
@@ -46,28 +46,28 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationStart(const Un
     detail::iuConsole::color_output(detail::iuConsole::green, "[==========] ");
     detail::iuConsole::output("Running %d tests from %d test cases.\n", test.test_to_run_count(), test.test_case_to_run_count() );
 }
-IUTEST_IPP_INLINE void DefalutResultPrintListener::OnEnvironmentsSetUpStart(const UnitTest& test)
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnEnvironmentsSetUpStart(const UnitTest& test)
 {
     IUTEST_UNUSED_VAR(test);
 
     detail::iuConsole::color_output(detail::iuConsole::green, "[----------] ");
     detail::iuConsole::output("Global test environment set-up.\n" );
 }
-IUTEST_IPP_INLINE void DefalutResultPrintListener::OnEnvironmentsSetUpEnd(const UnitTest& test)
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnEnvironmentsSetUpEnd(const UnitTest& test)
 {
     IUTEST_UNUSED_VAR(test);
 }
-IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestCaseStart(const TestCase& test_case)
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestCaseStart(const TestCase& test_case)
 {
     detail::iuConsole::color_output(detail::iuConsole::green, "[----------] ");
     detail::iuConsole::output("%d tests from %s\n", test_case.test_to_run_count(), test_case.testcase_name_with_where().c_str() );
 }
-IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestStart(const TestInfo& test_info)
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestStart(const TestInfo& test_info)
 {
     detail::iuConsole::color_output(detail::iuConsole::green, "[ RUN      ] ");
     detail::iuConsole::output("%s.%s\n", test_info.test_case_name(), test_info.name());
 }
-IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestPartResult(const TestPartResult& test_part_result)
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestPartResult(const TestPartResult& test_part_result)
 {
     //if( test_part_result.type() == TestPartResult::kSuccess ) return;
 #if defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)
@@ -75,11 +75,11 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestPartResult(const TestPa
 #endif
     detail::iuConsole::output(test_part_result.make_newline_message().c_str());
 }
-IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestRecordProperty(const TestProperty& test_property)
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestRecordProperty(const TestProperty& test_property)
 {
     detail::iuConsole::output("iutest record property:\n  %s=%s\n", test_property.key(), test_property.value());
 }
-IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestEnd(const TestInfo& test_info)
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestEnd(const TestInfo& test_info)
 {
     if( test_info.HasFailure() )
     {
@@ -106,7 +106,7 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestEnd(const TestInfo& tes
     }
     detail::iuConsole::output("\n");
 }
-IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestCaseEnd(const TestCase& test_case)
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestCaseEnd(const TestCase& test_case)
 {
     detail::iuConsole::color_output(detail::iuConsole::green, "[----------] ");
     detail::iuConsole::output("%d tests from %s", test_case.test_to_run_count(), test_case.name() );
@@ -120,18 +120,18 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestCaseEnd(const TestCase&
     }
     detail::iuConsole::output("\n\n");
 }
-IUTEST_IPP_INLINE void DefalutResultPrintListener::OnEnvironmentsTearDownStart(const UnitTest& test)
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnEnvironmentsTearDownStart(const UnitTest& test)
 {
     IUTEST_UNUSED_VAR(test);
 
     detail::iuConsole::color_output(detail::iuConsole::green, "[----------] ");
     detail::iuConsole::output("Global test environment tear-down.\n" );
 }
-IUTEST_IPP_INLINE void DefalutResultPrintListener::OnEnvironmentsTearDownEnd(const UnitTest& test)
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnEnvironmentsTearDownEnd(const UnitTest& test)
 {
     IUTEST_UNUSED_VAR(test);
 }
-IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationEnd(const UnitTest& test
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const UnitTest& test
                                 , int iteration)
 {
     IUTEST_UNUSED_VAR(iteration);
@@ -237,7 +237,7 @@ IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestIterationEnd(const Unit
         }
     }
 }
-IUTEST_IPP_INLINE void DefalutResultPrintListener::OnTestProgramEnd(const UnitTest& test)
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestProgramEnd(const UnitTest& test)
 {
     IUTEST_UNUSED_VAR(test);
 }

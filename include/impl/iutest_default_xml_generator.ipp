@@ -27,12 +27,12 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestIterationStart(const UnitTest& test, int iteration)
 {
     IUTEST_UNUSED_VAR(test);
-    if( !m_output_path_foramt.empty() )
+    if( !m_output_path_format.empty() )
     {
-        m_output_path = detail::StringFormat(m_output_path_foramt.c_str(), iteration);
-        if( m_output_path == m_output_path_foramt )
+        m_output_path = detail::StringFormat(m_output_path_format.c_str(), iteration);
+        if( m_output_path == m_output_path_format)
         {
-            m_output_path_foramt.clear();
+            m_output_path_format.clear();
         }
         if( m_fp != NULL )
         {

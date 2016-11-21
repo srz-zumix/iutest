@@ -267,7 +267,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
     return find;
 }
 
-IUTEST_IPP_INLINE void TestEnv::LoadEnviromentVariable()
+IUTEST_IPP_INLINE void TestEnv::LoadEnvironmentVariable()
 {
     {
         int var = 0;

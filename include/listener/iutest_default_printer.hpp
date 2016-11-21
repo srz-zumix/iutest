@@ -23,12 +23,12 @@ namespace iutest
 /**
  * @brief   デフォルト出力イベントリスナー
 */
-class DefalutResultPrintListener : public TestEventListener
+class DefaultResultPrintListener : public TestEventListener
 {
 public:
-    DefalutResultPrintListener() {}
+    DefaultResultPrintListener() {}
 
-    virtual ~DefalutResultPrintListener()
+    virtual ~DefaultResultPrintListener()
     {
         TestEnv::event_listeners().set_default_result_printer(NULL);
     }

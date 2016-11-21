@@ -217,7 +217,7 @@ private:
     friend class detail::DefaultGlobalTestPartResultReporter;
     friend class DefaultXmlGeneratorListener;
     friend class JunitXmlGeneratorListener;
-    friend class DefalutResultPrintListener;
+    friend class DefaultResultPrintListener;
     template<typename T, typename ::std::string(*GetXmlPath)()>
     friend class detail::StderrXmlGeneratorListenerBase;
 
