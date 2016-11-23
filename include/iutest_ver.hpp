@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01159907u //!< iutest version 1.15.99.7
+#define IUTEST_VER          0x01159908u //!< iutest version 1.15.99.8
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x15u       //!< Minor Version
 #define IUTEST_BUILD        0x99u       //!< Build
-#define IUTEST_REVISION     0x07u       //!< Revision
+#define IUTEST_REVISION     0x08u       //!< Revision
 
 /**
  * @mainpage
@@ -119,6 +119,7 @@
   <li>v1.16.0.0
     <ul>
       <li>例外アサーションで構造化例外（SEH）もキャッチできるように修正</li>
+      <li>--iutest_filter のルールを Google Test 互換に修正</li>
     </ul>
   </li>
   <li>v1.15.2.0

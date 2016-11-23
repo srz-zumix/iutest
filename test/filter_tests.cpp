@@ -173,58 +173,33 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-#if !defined(IUTEST_USE_GTEST)
-    // gtest は negative filter は１つまで
-    if( !FilterTest("Foo.Ba*-*Test*-*Baz*"
-        , TestHoge::NOT_RAN
-        , HogeTest::NOT_RAN
-        , FooBar::RAN
-        , FooBaz::NOT_RAN
-        , FooBarTest::NOT_RAN
-        , FooQux::NOT_RAN
-    ) ) {
-        return 1;
-    }
-
-    if( !FilterTest("Foo.Ba*:-*Test*:-*Baz*"
-        , TestHoge::NOT_RAN
-        , HogeTest::NOT_RAN
-        , FooBar::RAN
-        , FooBaz::NOT_RAN
-        , FooBarTest::NOT_RAN
-        , FooQux::NOT_RAN
-    ) ) {
-        return 1;
-    }
-
-    if( !FilterTest("Foo.Ba*-*Test*:-*Baz*"
-        , TestHoge::NOT_RAN
-        , HogeTest::NOT_RAN
-        , FooBar::RAN
-        , FooBaz::NOT_RAN
-        , FooBarTest::NOT_RAN
-        , FooQux::NOT_RAN
-    ) ) {
-        return 1;
-    }
-
-    if( !FilterTest("Foo.Ba*-*Test*:*Test*-Foo.Ba*"
-        , TestHoge::RAN
-        , HogeTest::RAN
-        , FooBar::RAN
-        , FooBaz::RAN
-        , FooBarTest::NOT_RAN
-        , FooQux::NOT_RAN
-    ) ) {
-        return 1;
-    }
-#endif
-
     if( !FilterTest("Foo.Ba*:-*Test*"
         , TestHoge::NOT_RAN
         , HogeTest::NOT_RAN
         , FooBar::RAN
         , FooBaz::RAN
+        , FooBarTest::NOT_RAN
+        , FooQux::NOT_RAN
+    ) ) {
+        return 1;
+    }
+
+    if( !FilterTest("-*Test*:*Baz*"
+        , TestHoge::NOT_RAN
+        , HogeTest::NOT_RAN
+        , FooBar::RAN
+        , FooBaz::NOT_RAN
+        , FooBarTest::NOT_RAN
+        , FooQux::RAN
+    ) ) {
+        return 1;
+    }
+
+    if( !FilterTest("Foo.Ba*-*Test*:*Baz*"
+        , TestHoge::NOT_RAN
+        , HogeTest::NOT_RAN
+        , FooBar::RAN
+        , FooBaz::NOT_RAN
         , FooBarTest::NOT_RAN
         , FooQux::NOT_RAN
     ) ) {

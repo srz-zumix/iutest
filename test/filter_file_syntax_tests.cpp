@@ -140,37 +140,13 @@ int main(int argc, char* argv[])
     }
 
     if( !FilterTest(targv
-        , "Foo.Ba*:-*Test*:-*Baz*"
+        , "-*Test*"
         , TestHoge::NOT_RAN
         , HogeTest::NOT_RAN
-        , FooBar::RAN
-        , FooBaz::NOT_RAN
-        , FooBarTest::NOT_RAN
-        , FooQux::NOT_RAN
-    ) ) {
-        return 1;
-    }
-
-    if( !FilterTest(targv
-        , "Foo.Ba*-*Test*:-*Baz*"
-        , TestHoge::NOT_RAN
-        , HogeTest::NOT_RAN
-        , FooBar::RAN
-        , FooBaz::NOT_RAN
-        , FooBarTest::NOT_RAN
-        , FooQux::NOT_RAN
-    ) ) {
-        return 1;
-    }
-
-    if( !FilterTest(targv
-        , "Foo.Ba*-*Test*:*Test*-Foo.Ba*"
-        , TestHoge::RAN
-        , HogeTest::RAN
         , FooBar::RAN
         , FooBaz::RAN
         , FooBarTest::NOT_RAN
-        , FooQux::NOT_RAN
+        , FooQux::RAN
     ) ) {
         return 1;
     }
@@ -181,6 +157,30 @@ int main(int argc, char* argv[])
         , HogeTest::NOT_RAN
         , FooBar::RAN
         , FooBaz::RAN
+        , FooBarTest::NOT_RAN
+        , FooQux::NOT_RAN
+    ) ) {
+        return 1;
+    }
+
+    if( !FilterTest(targv
+        , "Foo.Ba*:-*Test*:*Baz*"
+        , TestHoge::NOT_RAN
+        , HogeTest::NOT_RAN
+        , FooBar::RAN
+        , FooBaz::NOT_RAN
+        , FooBarTest::NOT_RAN
+        , FooQux::NOT_RAN
+    ) ) {
+        return 1;
+    }
+
+    if( !FilterTest(targv
+        , "Foo.Ba*-*Test*:*Baz*"
+        , TestHoge::NOT_RAN
+        , HogeTest::NOT_RAN
+        , FooBar::RAN
+        , FooBaz::NOT_RAN
         , FooBarTest::NOT_RAN
         , FooQux::NOT_RAN
     ) ) {

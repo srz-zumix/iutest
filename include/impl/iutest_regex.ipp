@@ -93,82 +93,58 @@ IUTEST_IPP_INLINE bool iuFilterRegex::match_impl(const char* begin, const char* 
     return true;
 }
 
-IUTEST_IPP_INLINE bool iuFilterRegex::match_impl_group(const char* begin, const char* end, const char* src)
+IUTEST_IPP_INLINE bool iuFilterRegex::match_impl_list(const char* begin, const char* end, const char* src)
 {
-    bool match = true;
     const char* tp = begin;
     const char* end2 = tp;
     while( end2 != end )
     {
         ++end2;
-        while( *end2 != '-' && end2 != end )
+        while( *end2 != ':' && end2 != end )
         {
             ++end2;
         }
-        if( *tp == '-' )
+        if( match_impl(tp, end2, src) )
         {
-            if( match_impl(tp + 1, end2, src) )
-            {
-                match = false;
-            }
+            return true;
         }
-        else
-        {
-            if( !match_impl(tp, end2, src) )
-            {
-                match = false;
-            }
-        }
+
         tp = end2;
-    }
-    return match;
-}
-
-IUTEST_IPP_INLINE bool iuFilterRegex::match(const char* regex, const char* src)
-{
-    const char* tp = regex;
-    bool positive = false;
-    bool positive_checked = false;
-    bool negative = true;
-
-    while( *tp != '\0' )
-    {
-        const char* end = tp;
-        while( *end != '\0' && *end != ':' )
-        {
-            ++end;
-        }
-
-        if( tp != end )
-        {
-            if( *tp == '-' )
-            {
-                if( match_impl(tp + 1, end, src) )
-                {
-                    return false;
-                }
-                negative = false;
-            }
-            else
-            {
-                positive_checked = true;
-                if( match_impl_group(tp, end, src) )
-                {
-                    positive = true;
-                }
-            }
-            tp = end;
-        }
         if( *tp == ':' )
         {
             ++tp;
         }
     }
-    if( !negative && !positive_checked )
+    return false;
+}
+
+IUTEST_IPP_INLINE bool iuFilterRegex::match(const char* regex, const char* src)
+{
+    const char* tp = regex;
+    const char* end = tp;
+    while( *end != '\0' && *end != '-' )
     {
-        positive = true;
+        ++end;
     }
-    return positive;
+
+    if( *end == '-' )
+    {
+        if( tp != end && !match_impl_list(tp, end, src) )
+        {
+            return false;
+        }
+        tp = end + 1;
+        while( *end != '\0' )
+        {
+            ++end;
+        }
+        if( match_impl_list(tp, end, src) )
+        {
+            return false;
+        }
+        return true;
+    }
+    return match_impl_list(tp, end, src);
 }
 
 #if IUTEST_HAS_CXX_HDR_REGEX
