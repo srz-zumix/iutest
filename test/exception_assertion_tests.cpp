@@ -122,7 +122,7 @@ IUTEST(Exception, ValueFormat)
     IUTEST_ASSERT_THROW_PRED_FORMAT2(::iutest::internal::CmpHelperFloatingPointEQ<float>, ExceptionFunction(5), float, 0.1f);
 }
 
-#if IUTEST_HAS_CATCH_SEH_EXCEPTION_ASERRTION
+#if IUTEST_HAS_CATCH_SEH_EXCEPTION_ASSERTION
 IUTEST(Exception, SEH)
 {
     IUTEST_ASSERT_THROW(ExceptionFunction(-1), ::iutest::detail::seh_exception);
@@ -194,7 +194,7 @@ IUTEST(NoThrowFailure, Noexcept)
 
 #endif
 
-#if IUTEST_HAS_CATCH_SEH_EXCEPTION_ASERRTION
+#if IUTEST_HAS_CATCH_SEH_EXCEPTION_ASSERTION
 IUTEST(ExceptionFailure, SEH)
 {
     IUTEST_ASSERT_FATAL_FAILURE   ( IUTEST_ASSERT_NO_THROW(ExceptionFunction(-1)), "" );

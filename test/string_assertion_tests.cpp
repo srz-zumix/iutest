@@ -19,7 +19,7 @@
 
 #if IUTEST_HAS_TYPED_TEST
 
-namespace strtest
+namespace string_assertion_test
 {
 
 template<typename T>

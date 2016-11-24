@@ -50,23 +50,23 @@ IUTEST_PACKAGE(PACKAGENAME)
 	IUTEST_INSTANTIATE_TEST_CASE_P(C, ParamTest, ::iutest::ValuesIn(make_param(1000, 0)));
 
 	class CombineTest : public ::iutest::TestWithParam< ::iutest::tuples::tuple<bool, int, int> > {};
-	static const int combinetest_tble[] = {0, 1};
+	static const int kCombineTestTable[] = {0, 1};
 
 	IUTEST_P(CombineTest, Param)
 	{
 		(void)GetParam();
 	}
 	IUTEST_INSTANTIATE_TEST_CASE_P(A, CombineTest
-		, ::iutest::Combine(::iutest::Bool(), ::iutest::Values(1, 10), ::iutest::ValuesIn(combinetest_tble)));
+		, ::iutest::Combine(::iutest::Bool(), ::iutest::Values(1, 10), ::iutest::ValuesIn(kCombineTestTable)));
 	IUTEST_INSTANTIATE_TEST_CASE_P(B, CombineTest
 		, ::iutest::Concat(
-			::iutest::Combine(::iutest::Values(false), ::iutest::Values(1, 10), ::iutest::ValuesIn(combinetest_tble))
-			, ::iutest::Combine(::iutest::Values(true), ::iutest::Values(1, 10), ::iutest::ValuesIn(combinetest_tble))
+			::iutest::Combine(::iutest::Values(false), ::iutest::Values(1, 10), ::iutest::ValuesIn(kCombineTestTable))
+			, ::iutest::Combine(::iutest::Values(true), ::iutest::Values(1, 10), ::iutest::ValuesIn(kCombineTestTable))
 		)
 	);
 	IUTEST_INSTANTIATE_TEST_CASE_P(C, CombineTest
-		, ::iutest::Combine(::iutest::Values(false), ::iutest::Values(1, 10), ::iutest::ValuesIn(combinetest_tble))
-			+ ::iutest::Combine(::iutest::Values(true), ::iutest::Values(1, 10), ::iutest::ValuesIn(combinetest_tble))
+		, ::iutest::Combine(::iutest::Values(false), ::iutest::Values(1, 10), ::iutest::ValuesIn(kCombineTestTable))
+			+ ::iutest::Combine(::iutest::Values(true), ::iutest::Values(1, 10), ::iutest::ValuesIn(kCombineTestTable))
 	);
 
 	template<typename T>

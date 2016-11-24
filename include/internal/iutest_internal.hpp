@@ -286,7 +286,7 @@
 
 #if IUTEST_HAS_EXCEPTIONS
 
-#if IUTEST_HAS_CATCH_SEH_EXCEPTION_ASERRTION
+#if IUTEST_HAS_CATCH_SEH_EXCEPTION_ASSERTION
 
 #define IIUT_SEH_THROUGH(statement)    ::iutest::detail::seh_passthrough([&](){ (void)(statement); })
 

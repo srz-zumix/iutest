@@ -18,7 +18,7 @@
 #include "../include/gtest/iutest_spi_switch.hpp"
 #include "pred_tests.hpp"
 
-namespace spitest
+namespace spi_test
 {
 
 class SPITest : public ::iutest::Test

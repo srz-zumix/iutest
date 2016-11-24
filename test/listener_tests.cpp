@@ -83,13 +83,13 @@ public:
     {
         called_OnTestPartResult = true;
     }
-    virtual void OnTestRecordProperty(const ::iutest::TestProperty& test_propterty)
+    virtual void OnTestRecordProperty(const ::iutest::TestProperty& test_property)
     {
         called_OnTestRecordProperty = true;
 #if !defined(IUTEST_USE_GTEST)
-        TestEventListener::OnTestRecordProperty(test_propterty);
+        TestEventListener::OnTestRecordProperty(test_property);
 #else
-        IUTEST_UNUSED_VAR(test_propterty);
+        IUTEST_UNUSED_VAR(test_property);
 #endif
     }
     virtual void OnTestEnd(const ::iutest::TestInfo& /*test_info*/)

@@ -261,7 +261,7 @@ IUTEST(Matcher, Field)
     IUTEST_EXPECT_THAT( mx, Each(Pair(Le(10), Field(&X::b, Ge(0)))));
 }
 
-IUTEST(Matcher, Propetry)
+IUTEST(Matcher, Property)
 {
     IUTEST_EXPECT_THAT( gx, Property(&X::GetA, 1));
     IUTEST_EXPECT_THAT(&gx, Property(&X::GetA, 1));

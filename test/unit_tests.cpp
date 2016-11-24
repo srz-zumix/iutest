@@ -139,7 +139,7 @@ IUTEST(UnitTest, XmlEscape)
         , HackXmlGeneratorListener::EscapeXmlText("a<>	b& \'\"c\r\n"));    // NOLINT
 }
 
-IUTEST(UnitTest, FileLocqtion)
+IUTEST(UnitTest, FileLocation)
 {
     ::iutest::IUTEST_FLAG(file_location_style_msvc) = false;
     IUTEST_EXPECT_STREQ("main.cpp:1"

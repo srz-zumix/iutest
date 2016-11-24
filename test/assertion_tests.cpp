@@ -289,7 +289,7 @@ public:
     IUTEST_CXX_EXPLICIT_CONVERSION operator bool() const { return true; }
 };
 
-IUTEST(AssertionTest, ExplicitConversoin)
+IUTEST(AssertionTest, ExplicitConversion)
 {
     ec_test ec;
     IUTEST_ASSERT_TRUE(ec);

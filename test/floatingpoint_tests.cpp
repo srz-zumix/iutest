@@ -22,7 +22,7 @@
 
 #if IUTEST_HAS_TYPED_TEST
 
-namespace floationgpoint_test
+namespace floatingpoint_test
 {
 
 template<typename T>

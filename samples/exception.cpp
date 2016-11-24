@@ -71,7 +71,7 @@ IUTEST(AssertionTest, Exception2)
 
 #endif
 
-#if IUTEST_HAS_CATCH_SEH_EXCEPTION_ASERRTION
+#if IUTEST_HAS_CATCH_SEH_EXCEPTION_ASSERTION
 IUTEST(TestFailure, SEH)
 {
     int* p = reinterpret_cast<int*>(0x1234);

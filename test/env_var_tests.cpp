@@ -88,7 +88,7 @@ int main(int argc, char* argv[])
     (void)argv;
 
 #ifdef UNICODE
-    wchat_t a[] = "";
+    wchar_t a[] = "";
     wchar_t* targv[] = { a };
 #else
     char a[] = "";
