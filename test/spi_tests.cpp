@@ -144,4 +144,4 @@ IUTEST_F(SPITest, NonFatalFailure2)
     #undef FAILURE_MACRO
 }
 
-}   // end of namespace spitest
+}   // end of namespace spi_test

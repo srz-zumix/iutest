@@ -67,7 +67,7 @@ IUTEST_TYPED_TEST(FloatingpointTest, NQNAN)
     IUTEST_EXPECT_EQ(FloatType(sqrt(-a)), TestFixture::ftype::NQNAN());
 }
 
-}   // end of namespace floationgpoint_test
+}   // end of namespace floatingpoint_test
 
 #endif
 

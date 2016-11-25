@@ -196,6 +196,6 @@ IUTEST_TYPED_TEST(StrCaseTest, String)
     IUTEST_INFORM_STRCASENE(TestFixture::Text::test, host);
 }
 
-}   // end of namespace strtest
+}   // end of namespace string_assertion_test
 
 #endif
