@@ -18,11 +18,14 @@ fused:
 sample: sample.cpp $(TOOLS) Makefile
 	python iuwandbox.py sample.cpp -f"-Dx=hogefuga\n-O3" --check_config -x "warning"
 
+sample2: sample.cpp sample2.cpp $(TOOLS) Makefile
+	python iuwandbox.py sample.cpp sample2.cpp -f"-Dx=hogefuga\n-O3" --check_config -x "warning"
+
 save: sample.cpp $(TOOLS) Makefile
 	python iuwandbox.py sample.cpp -s -x "warning" -f"-Dx=hogefuga\n-O3" -r"--iutest_color=no" $(EXPAND_INCLUDE)
 
 local:
-	g++ sample.cpp -o sample
+	g++ sample.cpp sample2.cpp -o sample
 	./sample
 
 test: ../../test/syntax_tests.cpp Makefile

@@ -151,7 +151,7 @@ def parse_command_line():
     parser.add_argument(
         'code',
         metavar='CODE',
-        nargs='?',
+        nargs='+',
         help='source code file'
     )
     options = parser.parse_args()
@@ -190,8 +190,13 @@ def make_code(path, encoding, expand, includes, included_files):
             code += '#include "iutest.hpp"\n'
             code += '//origin>> ' + line
             if 'iutest.hpp' not in includes:
-                f = codecs.open(IUTEST_FUSED_SRC, 'r', 'utf-8-sig')
-                includes['iutest.hpp'] = f.read()
+                try:
+                    f = codecs.open(IUTEST_FUSED_SRC, 'r', 'utf-8-sig')
+                    includes['iutest.hpp'] = f.read()
+                except:
+                    print('{0} is not found...'.format(IUTEST_FUSED_SRC))
+                    print('please try \"make fused\"')
+                    exit(1)
         else:
             m = EXPAND_INCLUDE_REGEX.match(line)
             if m:
@@ -223,14 +228,14 @@ def check_config(options):
         sys.exit(1)
 
 
-# setup includes
-def setup_includes(w, includes):
-    for filename, code in includes.items():
+# setup additional files
+def add_files(w, fileinfos):
+    for filename, code in fileinfos.items():
         w.add_file(filename, code)
 
 
 # run wandbox
-def run_wandbox(code, includes, options):
+def run_wandbox(code, includes, impliments, options):
     w = Wandbox()
     w.compiler(options.compiler)
     opt = []
@@ -264,10 +269,13 @@ def run_wandbox(code, includes, options):
         w.runtime_options(ro)
     if options.save:
         w.permanent_link(options.save)
+    for filename in impliments.keys():
+        w.add_compiler_options(filename)
     if options.verbose:
         w.dump()
     w.code(code)
-    setup_includes(w, includes)
+    add_files(w, includes)
+    add_files(w, impliments)
     if options.dryrun:
         sys.exit(0)
 
@@ -343,12 +351,17 @@ def set_output_xml(options, t, xml):
 
 
 def run(options):
-    filepath = options.code
-    if not os.path.exists(filepath):
+    main_filepath = options.code[0]
+    if not os.path.exists(main_filepath):
         sys.exit(1)
     includes = {}
     included_files = {}
-    code = make_code(filepath, options.encoding, options.expand_include, includes, included_files)
+    impliments = {}
+    code = make_code(main_filepath, options.encoding, options.expand_include, includes, included_files)
+    
+    for filepath in options.code[1:]:
+        impliments[os.path.basename(filepath)] = make_code(filepath, options.encoding, options.expand_include, includes, included_files)
+
     if options.output:
         f = file_open(options.output, 'w', options.encoding)
         f.write(code)
@@ -360,7 +373,7 @@ def run(options):
     if options.junit:
         xml = options.junit
         set_output_xml(options, 'junit', xml)
-    r = run_wandbox(code, includes, options)
+    r = run_wandbox(code, includes, impliments, options)
     b = show_result(r, options)
     if xml and 'program_error' in r:
         f = file_open(xml, 'w', options.encoding)

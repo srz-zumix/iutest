@@ -52,6 +52,15 @@ class Wandbox:
     def compiler_options(self, str):
         self.parameter.update({'compiler-option-raw': str})
 
+    def add_compiler_options(self, str):
+        if 'compiler-option-raw' not in self.parameter:
+            self.compiler_options(str)
+        else:
+            option = self.parameter['compiler-option-raw']
+            option += '\n'
+            option += str
+            self.parameter.update({'compiler-option-raw': option})
+
     def runtime_options(self, str):
         self.parameter.update({'runtime-option-raw': str})
 

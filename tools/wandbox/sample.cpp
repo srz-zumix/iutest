@@ -1,5 +1,6 @@
 #include "../../include/iutest.hpp"
 #include "sample.h"
+#include "sample2.h"
 #include <iostream>
 
 int main(int argc, char** argv)
@@ -14,4 +15,5 @@ int main(int argc, char** argv)
 IUTEST(Foo, Bar)
 {
     IUTEST_ASSERT_EQ(42, f());
+    IUTEST_ASSERT_EQ( 0, g());
 }
