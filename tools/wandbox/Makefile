@@ -1,6 +1,8 @@
 #
 # Makefile
 
+include ../../test/CommonMakefile.in
+
 .PHONY: sample
 
 TOOLS=wandbox.py iuwandbox.py
@@ -54,8 +56,7 @@ dryrun-test: ../../test/syntax_tests.cpp Makefile
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) --boost 1.60 -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --verbose --dryrun
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) --default --boost 1.60 -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --verbose --dryrun
 
-
-test-all: ../../test/syntax_tests.cpp Makefile
+test-all-compiler: ../../test/syntax_tests.cpp Makefile
 	@for compiler in $(shell python iuwandbox.py --list_compiler); do \
 		echo $${compiler}; \
 		python iuwandbox.py $< -c $${compiler} -f"-DIUTEST_USE_MAIN" -f"-Werror" --encoding utf-8-sig || exit 1; \
@@ -67,14 +68,20 @@ list-compiler:
 list-options:
 	python iuwandbox.py --list_options $(WANDBOX_COMPILER)
 
-COMPILE_ERROR_TESTS=\
-	iutest_check_strict_tests \
-	iutest_static_assertion_failure_tests \
+#
+# iutest test
+#
 
-COMPILE_ERROR_TESTS_SRC=$(COMPILE_ERROR_TESTS:%=../../test/%.cpp)
+ALLTESTS_SRCS_=$(ALLTESTS_SRCS:%=../../test/%)
+
+alltest: $(ALLTESTS_SRCS_) Makefile
+	python iuwandbox.py $(ALLTESTS_SRCS_) -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE)
 
 
-$(COMPILE_ERROR_TESTS) : $(COMPILE_ERROR_TESTS_SRC) Makefile
+
+COMPILE_ERROR_TESTS_SRC_=$(COMPILEERROR_TARGETS:%=../../test/%.cpp)
+
+$(COMPILEERROR_TARGETS) : $(COMPILE_ERROR_TESTS_SRC_) Makefile
 #	-python iuwandbox.py ../../test/$@.cpp -c clang-head -x "warning,gnu++1y" --encoding utf-8-sig $(EXPAND_INCLUDE)
 	python iuwandbox.py ../../test/$@.cpp -c clang-head -x "warning,gnu++1y" --encoding utf-8-sig $(EXPAND_INCLUDE) | python ../python/iutest_compile_error_test.py -c clang
 #	python iuwandbox.py ../../test/$@.cpp -c gcc-head -x "warning,gnu++1y" --encoding utf-8-sig $(EXPAND_INCLUDE) | python ../python/iutest_compile_error_test.py -c gcc

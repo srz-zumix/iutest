@@ -211,8 +211,9 @@ def make_code(path, encoding, expand, includes, included_files):
                         include_abspath = os.path.abspath(include_path)
                         include_filename = make_include_filename(
                             include_abspath, includes, included_files)
-                        code += '#include "' + include_filename + '"\n'
-                        code += '//origin>> '
+                        if not include_filename == include_path:
+                            code += '#include "' + include_filename + '"\n'
+                            code += '//origin>> '
                         if include_filename not in includes:
                             includes[include_filename] = expand_include_file_code
             code += line
@@ -274,8 +275,8 @@ def run_wandbox(code, includes, impliments, options):
     if options.verbose:
         w.dump()
     w.code(code)
-    add_files(w, includes)
     add_files(w, impliments)
+    add_files(w, includes)
     if options.dryrun:
         sys.exit(0)
 
@@ -351,7 +352,7 @@ def set_output_xml(options, t, xml):
 
 
 def run(options):
-    main_filepath = options.code[0]
+    main_filepath = options.code[0].strip()
     if not os.path.exists(main_filepath):
         sys.exit(1)
     includes = {}
@@ -359,7 +360,8 @@ def run(options):
     impliments = {}
     code = make_code(main_filepath, options.encoding, options.expand_include, includes, included_files)
     
-    for filepath in options.code[1:]:
+    for filepath_ in options.code[1:]:
+        filepath = filepath_.strip()
         impliments[os.path.basename(filepath)] = make_code(filepath, options.encoding, options.expand_include, includes, included_files)
 
     if options.output:

@@ -423,6 +423,7 @@ def setup():
         if any(term.find(s) for s in ('xterm', 'screen', 'rxvt', 'linux', 'cygwin')):
             color_prompt = True
 
+
 def main():
     options = parse_command_line()
     setup()
