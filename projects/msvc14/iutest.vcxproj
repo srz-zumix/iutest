@@ -328,7 +328,7 @@
     <ClInclude Include="..\..\include\util\iutest_util_quiet_result_printer.hpp" />
     <ClInclude Include="..\..\include\util\iutest_util_tests.hpp" />
     <ClInclude Include="..\..\include\util\iutest_util_vc_unittest.hpp" />
-    <ClInclude Include="Y:\usr\local\shirayanagi\iutest\include\listener\iutest_sstp_notifier.hpp" />
+    <ClInclude Include="..\..\include\listener\iutest_sstp_notifier.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\impl\iutest_body.ipp" />

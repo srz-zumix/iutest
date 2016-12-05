@@ -342,7 +342,7 @@ $(TARGETS_EXCLUDE_ALLTESTS) : $(SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 IUTEST_COMPILE_ERROR_TEST_OPTION=-c $(CXX) --verbose
 
 $(ERR_TARGETS) : $(SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
-	#-$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(IUTEST_LIB_) $(LDFLAGS)
+#	-$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(IUTEST_LIB_) $(LDFLAGS)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(IUTEST_LIB_) $(LDFLAGS) 2>&1 | python ../tools/python/iutest_compile_error_test.py $(IUTEST_COMPILE_ERROR_TEST_OPTION)
 
 endif
@@ -352,3 +352,17 @@ endif
 check_stdlib: check_stdlib.cpp $(IUTEST_HEADERS)
 	$(CXX) $(CXXFLAGS) -v -o $@ $@.cpp
 	./$@
+
+#
+#
+# Include Guard Test
+#
+
+IUTEST_INCLUDE_FILES := $(wildcard $(IUTEST_HEADERS))
+IUTEST_INCLUDE_GUARD_CHECK := $(IUTEST_INCLUDE_FILES:%=%.incg)
+
+check_incg: $(IUTEST_INCLUDE_GUARD_CHECK)
+
+%.incg: %
+#	@echo $(notdir $<)
+	@../tools/python/iutest_incg_test.py $<
