@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01159909u //!< iutest version 1.15.99.9
+#define IUTEST_VER          0x01160000u //!< iutest version 1.16.0.0
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
-#define IUTEST_MINORVER     0x15u       //!< Minor Version
-#define IUTEST_BUILD        0x99u       //!< Build
-#define IUTEST_REVISION     0x09u       //!< Revision
+#define IUTEST_MINORVER     0x16u       //!< Minor Version
+#define IUTEST_BUILD        0x00u       //!< Build
+#define IUTEST_REVISION     0x00u       //!< Revision
 
 /**
  * @mainpage
@@ -118,7 +118,8 @@
  <ul>
   <li>v1.16.0.0
     <ul>
-      <li>例外アサーションで構造化例外（SEH）もキャッチできるように修正</li>
+      <li>iuwandbox で複数ソースファイルに対応</li>
+      <li>例外アサーションで構造化例外（SEH）もキャッチできるように対応</li>
       <li>--iutest_filter のルールを Google Test 互換に修正</li>
     </ul>
   </li>

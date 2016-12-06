@@ -2,6 +2,19 @@
 Changes for 1.15.2:
 
 ** 追加
+* iuwandbox で複数ソースファイルに対応
+* 例外アサーションで構造化例外（SEH）もキャッチできるように対応
+
+** 変更
+* --iutest_filter のルールを Google Test 互換に修正
+
+** 修正
+* バグ修正
+
+--------------------------------------------------
+Changes for 1.15.2:
+
+** 追加
 * IUTEST_TYPED_TEST_P に対して friend できるように IUTEST_FRIEND_TYPED_TEST_P_DECLARATION/IUTEST_FRIEND_TYPED_TEST_P を追加
 * iuwandbox に --sprout/--msgpack オプションを追加
 
