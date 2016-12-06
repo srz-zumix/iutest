@@ -365,4 +365,4 @@ check_incg: $(IUTEST_INCLUDE_GUARD_CHECK)
 
 %.incg: %
 #	@echo $(notdir $<)
-	@../tools/python/iutest_incg_test.py $<
+	python ../tools/python/iutest_incg_test.py $<
