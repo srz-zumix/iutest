@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.15.99.1</span>
+   &#160;<span id="projectnumber">1.15.99.9</span>
    </div>
   </td>
  </tr>
@@ -128,23 +128,25 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> OnReportTestProperty(IFile* file, <span class="keyword">const</span> TestResult&amp; test_result);</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> OnReportTestSkipped(IFile* file, <span class="keyword">const</span> TestInfo&amp; test_info);</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> SetUp()</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> SetUp()</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    {</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        ::std::string xmlpath = <a class="code" href="../../d7/d8c/classiutest_1_1_test_env.html#a4da536e15bf20b8e5d4a82f84c6fafe4">TestEnv::get_report_junit_xml_filepath</a>();</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">if</span>( !xmlpath.empty() )</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        {</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            TestEnv::event_listeners().set_default_xml_generator(<span class="keyword">new</span> <a class="code" href="../../d7/d5b/classiutest_1_1_junit_xml_generator_listener.html#a88238abe5d36fefb542f1058b70ab6fa">JunitXmlGeneratorListener</a>(xmlpath));</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;};</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_LIB</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  include &quot;../impl/iutest_junit_xml_generator.ipp&quot;</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_JUNIT_XML_GENERATOR_HPP_C6AD11BD_BDA4_45F3_A736_53B09DD6A7BD_</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_LIB</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  include &quot;../impl/iutest_junit_xml_generator.ipp&quot;</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_JUNIT_XML_GENERATOR_HPP_C6AD11BD_BDA4_45F3_A736_53B09DD6A7BD_</span></div>
 <div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:614</div></div>
 <div class="ttc" id="classiutest_1_1_default_xml_generator_listener_html"><div class="ttname"><a href="../../db/da9/classiutest_1_1_default_xml_generator_listener.html">iutest::DefaultXmlGeneratorListener</a></div><div class="ttdoc">xml出力イベントリスナー </div><div class="ttdef"><b>Definition:</b> iutest_default_xml_generator.hpp:27</div></div>
 <div class="ttc" id="classiutest_1_1_junit_xml_generator_listener_html"><div class="ttname"><a href="../../d7/d5b/classiutest_1_1_junit_xml_generator_listener.html">iutest::JunitXmlGeneratorListener</a></div><div class="ttdoc">xml出力イベントリスナー </div><div class="ttdef"><b>Definition:</b> iutest_junit_xml_generator.hpp:31</div></div>
@@ -154,7 +156,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2016年10月27日(木) 14時19分21秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2016年12月06日(火) 03時35分29秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

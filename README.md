@@ -1,6 +1,7 @@
 [![Travis-CI Build Status](https://travis-ci.org/srz-zumix/iutest.png?branch=master)](https://travis-ci.org/srz-zumix/iutest)
 [![Coverage Status](https://coveralls.io/repos/srz-zumix/iutest/badge.png?branch=master)](https://coveralls.io/r/srz-zumix/iutest?branch=master)
 [![codecov](https://codecov.io/gh/srz-zumix/iutest/branch/master/graph/badge.svg)](https://codecov.io/gh/srz-zumix/iutest)
+[![Coverity Scan Build Status](https://scan.coverity.com/projects/1316/badge.svg)](https://scan.coverity.com/projects/srz-zumix-iutest)
 [ ![Codeship Status for srz-zumix/iutest](https://codeship.com/projects/5bc87030-5b41-0133-6000-4242aa07dce3/status?branch=master)](https://codeship.com/projects/110695)  
 [![Circle CI](https://circleci.com/gh/srz-zumix/iutest.svg?style=svg)](https://circleci.com/gh/srz-zumix/iutest)
 [![Snap-CI Build Status](https://snap-ci.com/srz-zumix/iutest/branch/master/build_image)](https://snap-ci.com/srz-zumix/iutest/branch/master)
