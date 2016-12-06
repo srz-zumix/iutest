@@ -57,7 +57,7 @@ IUTEST_P(OrderTest, Bar)
 
 #else
 
-#define DECL_ORDER_TEST(n) IUTEST(OrderTest, IUTEST_PP_CAT(Bar, n)) { order[count].push_back(n); }
+#define DECL_ORDER_TEST(n) IUTEST(OrderTest, IUTEST_PP_CAT(Bar, n)) { order[random_speed_test_count].push_back(n); }
 
 DECL_ORDER_TEST(0)
 DECL_ORDER_TEST(1)
