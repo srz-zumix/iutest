@@ -154,7 +154,7 @@ def parse_command_line():
     parser.add_argument(
         'code',
         metavar='CODE',
-        nargs='+',
+        nargs='*',
         help='source code file'
     )
     options = parser.parse_args()
@@ -495,7 +495,7 @@ def main():
     else:
         if options.check_config:
             check_config(options)
-        elif options.code is None:
+        elif len(options.code) == 0:
             parser.print_help()
             sys.exit(1)
         run(options)
