@@ -41,6 +41,8 @@ class IutestFused:
         m = self.INCG_REGEX.match(line)
         if m:
             incg = m.group(2)
+            if m.group(1) == 'define':
+                return False
             if incg not in IUTEST_APPROVAL_INCLUDE_GUARD:
                 return True
         return False

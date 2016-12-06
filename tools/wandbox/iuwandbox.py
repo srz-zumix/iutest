@@ -17,10 +17,13 @@ from argparse import ArgumentParser
 from wandbox import Wandbox
 from requests.exceptions import HTTPError
 
-IUTEST_FUSED_SRC = os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.min.hpp')
-IUTEST_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*".*iutest\.hpp"')
+IUTEST_FUSED_SRC = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.min.hpp'))
+IUTEST_INCLUDE_PATH = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../include'))
+IUTEST_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*".*(iutest|iutest_switch)\.hpp"')
 EXPAND_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*"(.*?)"')
+IUTEST_INCG_REGEX = re.compile(r'\s*#\s*define[/\s]*(INCG_IRIS_\S*)\s*')
 
+iutest_incg_list = []
 
 #
 # command line option
@@ -180,6 +183,16 @@ def make_include_filename(path, includes, included_files):
         return include_filename
 
 
+# 
+def is_iutest_included_file(filepath):
+    if os.path.abspath(filepath).startswith(IUTEST_INCLUDE_PATH):
+        incg = 'INCG_IRIS_' + os.path.basename(filepath).upper().replace('.', '_')
+        for included_incg in iutest_incg_list:
+            if included_incg.startswith(incg):
+                return True
+    return False
+
+
 # make code
 def make_code(path, encoding, expand, includes, included_files):
     code = ''
@@ -192,7 +205,11 @@ def make_code(path, encoding, expand, includes, included_files):
             if 'iutest.hpp' not in includes:
                 try:
                     f = codecs.open(IUTEST_FUSED_SRC, 'r', 'utf-8-sig')
-                    includes['iutest.hpp'] = f.read()
+                    iutest_src = f.read()
+                    f.close()
+                    includes['iutest.hpp'] = iutest_src
+                    global iutest_incg_list
+                    iutest_incg_list = IUTEST_INCG_REGEX.findall(iutest_src)
                 except:
                     print('{0} is not found...'.format(IUTEST_FUSED_SRC))
                     print('please try \"make fused\"')
@@ -200,11 +217,13 @@ def make_code(path, encoding, expand, includes, included_files):
         else:
             m = EXPAND_INCLUDE_REGEX.match(line)
             if m:
-                include_path = os.path.join(os.path.dirname(path), m.group(1))
-                if os.path.exists(include_path):
-                    expand_include_file_code = make_code(
-                        include_path, encoding, expand, includes, included_files)
+                include_path = os.path.normpath(os.path.join(os.path.dirname(path), m.group(1)))
+                if is_iutest_included_file(include_path):
+                    code += '//origin>> '
+                elif os.path.exists(include_path):
                     if expand:
+                        expand_include_file_code = make_code(
+                            include_path, encoding, expand, includes, included_files)
                         code += expand_include_file_code
                         code += '//origin>> '
                     else:
@@ -215,6 +234,9 @@ def make_code(path, encoding, expand, includes, included_files):
                             code += '#include "' + include_filename + '"\n'
                             code += '//origin>> '
                         if include_filename not in includes:
+                            includes[include_filename] = ''
+                            expand_include_file_code = make_code(
+                                include_path, encoding, expand, includes, included_files)
                             includes[include_filename] = expand_include_file_code
             code += line
     file.close()
@@ -285,7 +307,10 @@ def run_wandbox(code, includes, impliments, options):
             return w.run()
         except HTTPError as e:
             if e.response.status_code == 504 and retries > 0:
-                print(e.message)
+                try:
+                    print(e.message)
+                except:
+                    pass
                 print("wait 30sec...")
                 sleep(30)
                 return run(retries - 1)

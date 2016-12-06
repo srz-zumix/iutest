@@ -75,8 +75,10 @@ list-options:
 ALLTESTS_SRCS_=$(ALLTESTS_SRCS:%=../../test/%)
 
 alltest: $(ALLTESTS_SRCS_) Makefile
-	python iuwandbox.py $(ALLTESTS_SRCS_) -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE)
+	python iuwandbox.py $(ALLTESTS_SRCS_) -c $(WANDBOX_COMPILER) --encoding utf-8-sig $(EXPAND_INCLUDE)
 
+alltest-dryrun: $(ALLTESTS_SRCS_) Makefile
+	python iuwandbox.py $(ALLTESTS_SRCS_) -c $(WANDBOX_COMPILER) --encoding utf-8-sig $(EXPAND_INCLUDE) --dryrun
 
 
 COMPILE_ERROR_TESTS_SRC_=$(COMPILEERROR_TARGETS:%=../../test/%.cpp)
