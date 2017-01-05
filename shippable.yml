@@ -55,7 +55,9 @@ env:
 after_success:
   - echo OK
   
-notifications:
-  email:
-    on_success: change
-    on_failure: always
+integrations:
+  notifications:
+    - integrationName: email
+      type: email
+      on_success: change
+      on_failure: always
