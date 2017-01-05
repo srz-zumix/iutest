@@ -726,6 +726,8 @@
 #  define IUTEST_LIB_TOOLSET    "vc120"
 #elif _MSC_VER == 1900
 #  define IUTEST_LIB_TOOLSET    "vc140"
+#elif _MSC_VER == 1910
+#  define IUTEST_LIB_TOOLSET    "vc150"
 #else
 #  error unknown _MSC_VER.
 #endif

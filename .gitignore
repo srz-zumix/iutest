@@ -27,6 +27,7 @@ lib
 libs
 .svn
 .sonar
+.vs
 
 # Build results
 [Dd]ebug/
