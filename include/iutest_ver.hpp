@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01160001u //!< iutest version 1.16.0.1
+#define IUTEST_VER          0x01160002u //!< iutest version 1.16.0.2
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
 #define IUTEST_BUILD        0x00u       //!< Build
-#define IUTEST_REVISION     0x01u       //!< Revision
+#define IUTEST_REVISION     0x02u       //!< Revision
 
 /**
  * @mainpage
@@ -31,7 +31,7 @@
  *          google group: https://groups.google.com/forum/?fromgroups#!forum/g-iutest \n
  *
  * @par     copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License.
  *
  * @par     LICENSE
