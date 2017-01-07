@@ -136,9 +136,6 @@ public:
      * @brief   フラグ
     */
     enum Kind
-#if IUTEST_HAS_STRONG_ENUMS
-        : unsigned int
-#endif
     {
         SHUFFLE_TESTS           = 0x00000001,   //!< シャッフルテスト
         RUN_DISABLED_TESTS      = 0x00000002,   //!< DISABLED テストも実行
@@ -159,17 +156,18 @@ public:
         CATCH_EXCEPTION_GLOBAL  = 0x00020000,   //!< 例外を catch する(UnitTest)
         CATCH_EXCEPTION         = 0x00030000,   //!< 例外を catch する
 
-        SHOW_TESTS_LIST         = 0x02000000,   //!< テストのリスト表示
-        SHOW_TESTS_LIST_WITH_WHERE
-                                = 0x04000000,   //!< テストのリスト表示(with where)
+        SHOW_HELP               = 0x01000000,   //!< ヘルプ表示
+        SHOW_VERSION            = 0x02000000,   //!< バージョン表示
+        SHOW_FEATURE            = 0x04000000,   //!< 機能の出力
+        SHOW_SPEC               = 0x08000000,   //!< Specの出力
 
-        SHOW_HELP               = 0x10000000,   //!< ヘルプ表示
-        SHOW_VERSION            = 0x20000000,   //!< バージョン表示
-        SHOW_FEATURE            = 0x40000000,   //!< 機能の出力
-        SHOW_SPEC               = 0x80000000,   //!< Specの出力
-        SHOW_INFO_MASK          = 0xF0000000,   //!< 情報表示系マスク
-        SHOW_MASK               = 0xFF000000,   //!< 表示系マスク
-        MASK                    = 0xFFFFFFFF,   //!< マスク
+        SHOW_TESTS_LIST         = 0x20000000,   //!< テストのリスト表示
+        SHOW_TESTS_LIST_WITH_WHERE
+                                = 0x40000000,   //!< テストのリスト表示(with where)
+
+        SHOW_INFO_MASK          = 0x0F000000,   //!< 情報表示系マスク
+        SHOW_MASK               = 0x7F000000,   //!< 表示系マスク
+        MASK                    = 0x7FFFFFFF,   //!< マスク
 
         //! デフォルト
 #if defined(_MSC_VER)
