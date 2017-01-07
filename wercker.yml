@@ -8,11 +8,13 @@ build:
 
     - script: 
         name: make fused
-        code: make -C tools/fused
+        code: |
+          make -C tools/fused
 
     - script:
         name: setup
         code: |
+          python --version
           export PYTHONDONTWRITEBYTECODE=1
           export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --encoding utf-8-sig --expand_include"
 
