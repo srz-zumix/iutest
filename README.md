@@ -86,7 +86,7 @@ Others
 License
 --------------------------------------------------
 
-    Copyright (c) 2011-2016, Takazumi Shirayanagi,
+    Copyright (c) 2011-2017, Takazumi Shirayanagi,
     All rights reserved.
 
     This software is released under the New(3-clause) BSD License, see LICENSE

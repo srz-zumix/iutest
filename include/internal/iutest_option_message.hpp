@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -86,7 +86,7 @@ inline void iuOptionMessage::ShowHelp()
         "--------------------------------------------------\n"
         "License\n"
         "\n"
-        "    Copyright (c) 2011-2016, Takazumi-Shirayanagi\n"
+        "    Copyright (c) 2011-2017, Takazumi-Shirayanagi\n"
         "\n"
         "    This software is released under the new BSD License, see LICENSE\n"
         "\n";
