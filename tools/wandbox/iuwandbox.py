@@ -2,7 +2,7 @@
 #
 # iuwandbox.py
 #
-# Copyright (C) 2014-2016, Takazumi Shirayanagi
+# Copyright (C) 2014-2017, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -33,7 +33,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 4.2'
+        version=u'%(prog)s version 4.3'
     )
     parser.add_argument(
         '--list_compiler',
@@ -437,6 +437,7 @@ def listup_options(compiler):
     r = w.get_compiler_list()
     for d in r:
         if d['name'] == compiler:
+            print('# ' + compiler)
             if 'switches' in d:
                 switches = d['switches']
                 for s in switches:
