@@ -166,3 +166,7 @@ matrix:
           build_command_prepend: "cov-configure --comptype gcc --compiler gcc-5 && cd ./test"
           build_command: make coverity_scan
           branch_pattern: master
+
+notifications:
+  webhooks:
+    secure: fw3I8N9wRbK2so0uH3AhodQMKyQxk+2h2d/FXjKclO88n/XNPkF8RQ7q+TuDvjR5kBRIuKAFnCBMeSedQt0bvcdWMMKmCeY4blKBf4ewT1Yugm4MmQcVXgEvEL37o6JPIzgb3AuTpAPSsteQD1KmZaHga8X1WWRnYqCSqc2eP9E=
