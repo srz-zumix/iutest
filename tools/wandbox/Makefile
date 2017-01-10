@@ -90,5 +90,12 @@ $(COMPILEERROR_TARGETS) : $(COMPILE_ERROR_TESTS_SRC_) Makefile
 
 compile-error: $(COMPILE_ERROR_TESTS) Makefile
 
+#
+# profile
+#
+
+profile: ../../test/syntax_tests.cpp Makefile
+	python -m cProfile -s time iuwandbox.py $< -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE)
+
 clean:
 	$(RM) sample
