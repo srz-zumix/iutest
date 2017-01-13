@@ -67,7 +67,7 @@ script:
     if [ "${COVERITY_SCAN}" != '1' ]; then
       make showcxxversion ${USE_FUSED} all
     else
-      cat test/cov-int/scm_log.txt
+      cat test/cov-int/scm_log.txt || true
     fi
   #- if [ "${CPPCHECK}" = '1' ]; then
   #    cppcheck --version;
