@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -413,7 +413,7 @@ private:
     */
     static void set_stream_result_to(const char* str)
     {
-        get_vars().m_stream_result_to = str == NULL ? "" : str;
+        get_vars().m_stream_result_to = detail::NullableString(str);
     }
 #endif
 
@@ -449,7 +449,7 @@ private:
     */
     static void set_output_option(const char* str)
     {
-        get_vars().m_output_option = str == NULL ? "" : str;
+        get_vars().m_output_option = detail::NullableString(str);
     }
 
     /**
@@ -457,7 +457,7 @@ private:
     */
     static void set_default_package_name(const char* str)
     {
-        get_vars().m_default_package_name = str == NULL ? "" : str;
+        get_vars().m_default_package_name = detail::NullableString(str);
     }
 
 private:
@@ -492,7 +492,7 @@ private:
         }
         const _Myt& operator = (const char* c_str_)
         {
-            m_option = c_str_ == NULL ? "" : c_str_;
+            m_option = detail::NullableString(c_str_);
             S(c_str_);
             return *this;
         }

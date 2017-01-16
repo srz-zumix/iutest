@@ -168,6 +168,7 @@ inline int iu_snprintf(char* dst, size_t size, const char* format, ...)
 
 inline bool IsEmpty(const char* p) { return p == NULL || *p == '\0'; }
 inline IUTEST_CXX_CONSTEXPR bool IsSpace(char ch) { return ch == ' ' || ch =='\t'; }
+inline const char* NullableString(const char* str) { return str == NULL ? "" : str; }
 inline IUTEST_CXX_CONSTEXPR const char* SkipSpace(const char* p)
 {
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
