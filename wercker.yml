@@ -63,30 +63,33 @@ build:
           export PYTHONDONTWRITEBYTECODE=1
           export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --encoding utf-8-sig --expand_include"
 
+gcc-head:
     - script:
-        name: gcc-head
+        name: c++1z
         code: |
           cd tools/wandbox
           python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-head -x "warning,c++1z"
 
     - script:
-        name: gcc-head-98
+        name: c++-98
         code: |
           cd tools/wandbox
           python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-head -x "warning,c++98"
 
+clang-head:
     - script:
-        name: clang-head
+        name: c++1z
         code: |
           cd tools/wandbox
           python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-head -x "warning,c++1z"
 
     - script:
-        name: clang-head-98
+        name: c++-98
         code: |
           cd tools/wandbox
           python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-head -x "warning,c++98"
 
+gcc:
     - script:
         name: gcc-5.1.0
         code: |
@@ -111,6 +114,7 @@ build:
           cd tools/wandbox
           python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.8.2 -x "warning,gnu++11"
 
+clang:
     - script:
         name: clang-3.7
         code: |
