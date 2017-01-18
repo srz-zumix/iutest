@@ -64,6 +64,7 @@ build:
           export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --encoding utf-8-sig --expand_include"
 
 gcc-head:
+  steps:
     - script:
         name: c++1z
         code: |
@@ -77,6 +78,7 @@ gcc-head:
           python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-head -x "warning,c++98"
 
 clang-head:
+  steps:
     - script:
         name: c++1z
         code: |
@@ -90,6 +92,7 @@ clang-head:
           python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-head -x "warning,c++98"
 
 gcc:
+  steps:
     - script:
         name: gcc-5.1.0
         code: |
@@ -115,6 +118,7 @@ gcc:
           python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.8.2 -x "warning,gnu++11"
 
 clang:
+  steps:
     - script:
         name: clang-3.7
         code: |
