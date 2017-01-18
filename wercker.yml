@@ -65,6 +65,10 @@ build:
 
 gcc-head:
   steps:
+    - pip-install:
+        requirements_file: ""
+        packages_list: "requests"
+
     - script:
         name: c++1z
         code: |
@@ -79,6 +83,10 @@ gcc-head:
 
 clang-head:
   steps:
+    - pip-install:
+        requirements_file: ""
+        packages_list: "requests"
+
     - script:
         name: c++1z
         code: |
@@ -93,6 +101,10 @@ clang-head:
 
 gcc:
   steps:
+    - pip-install:
+        requirements_file: ""
+        packages_list: "requests"
+
     - script:
         name: gcc-5.1.0
         code: |
@@ -119,6 +131,10 @@ gcc:
 
 clang:
   steps:
+    - pip-install:
+        requirements_file: ""
+        packages_list: "requests"
+
     - script:
         name: clang-3.7
         code: |
