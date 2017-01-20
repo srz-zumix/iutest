@@ -36,9 +36,9 @@ build:
     #     python_location: /usr/bin/python3.2
 
     # A step that executes `pip install` command.
-    - pip-install:
-        requirements_file: ""
-        packages_list: "requests"
+    #- pip-install:
+    #    requirements_file: ""
+    #    packages_list: "requests"
 
     # # This pip-install clears the local wheel cache
     # - pip-install:
@@ -54,11 +54,15 @@ build:
 
 wandbox:
   steps:
+    - virtualenv:
+        name: setup virtual environment
+        install_wheel: false # Enable wheel to speed up builds (experimental)
+
     - pip-install:
         requirements_file: ""
         packages_list: "requests"
 
-    - script: 
+    - script:
         name: make fused
         code: |
           make -C tools/fused
@@ -67,7 +71,7 @@ wandbox:
         name: setup
         code: |
           export PYTHONDONTWRITEBYTECODE=1
-          export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --encoding utf-8-sig --expand_include"
+          export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --encoding utf-8-sig --expand_include" --verbose
 
     - script:
         name: c++
@@ -96,3 +100,9 @@ wandbox:
           #python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.2 -x "warning,c++11" -f"-Qunused-arguments"
 #          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.1 -x "warning,gnu++11"
 #          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.1 -x "warning,c++98"
+
+nothing:
+  steps:
+    - script:
+        name: echo
+        code: echo "nothing to do"
