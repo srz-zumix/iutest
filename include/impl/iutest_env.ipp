@@ -79,10 +79,8 @@ IUTEST_IPP_INLINE::std::string TestEnv::AddDefaultPackageName(const char* testca
 
 IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
 {
-    bool find = false;
     if( *str == '-' )
     {
-        find = true;
         ++str;
         if( *str == '-' )
         {
@@ -113,158 +111,153 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
             }
             if( iuoption )
             {
-                // --iutest_*
-                if( detail::IsStringForwardMatching(str, "output") )
+                if( ParseIutestOptionCommandLineElemA(str) )
                 {
-                    find = ParseOutputOption(ParseOptionSettingStr(str));
+                    return true;
                 }
-                else if( detail::IsStringEqual(str, "list_tests") )
-                {
-                    TestFlag::SetFlag(TestFlag::SHOW_TESTS_LIST);
-                }
-                else if( detail::IsStringEqual(str, "list_tests_with_where") )
-                {
-                    TestFlag::SetFlag(TestFlag::SHOW_TESTS_LIST_WITH_WHERE);
-                }
-                else if( detail::IsStringForwardMatching(str, "color") )
-                {
-                    find = ParseColorOption(ParseOptionSettingStr(str));
-                }
-                else if( detail::IsStringEqual(str, "shuffle") )
-                {
-                    TestFlag::SetFlag(TestFlag::SHUFFLE_TESTS);
-                }
-                else if( detail::IsStringForwardMatching(str, "random_seed") )
-                {
-                    const char* opt = ParseOptionSettingStr(str);
-                    if( opt != NULL )
-                    {
-                        char* end = NULL;
-                        long seed = strtol(opt, &end, 0);
-                        init_random(static_cast<unsigned int>(seed));
-                    }
-                    else
-                    {
-                        find = false;
-                    }
-                }
-                else if( detail::IsStringEqual(str, "also_run_disabled_tests") )
-                {
-                    TestFlag::SetFlag(TestFlag::RUN_DISABLED_TESTS);
-                }
-                else if( detail::IsStringForwardMatching(str, "break_on_failure") )
-                {
-                    find = ParseYesNoFlagCommandLine(str, TestFlag::BREAK_ON_FAILURE, 1);
-                }
-                else if( detail::IsStringForwardMatching(str, "catch_exceptions") )
-                {
-                    find = ParseYesNoFlagCommandLine(str, TestFlag::CATCH_EXCEPTION, -1);
-                }
-                else if( detail::IsStringForwardMatching(str, "throw_on_failure") )
-                {
-                    find = ParseYesNoFlagCommandLine(str, TestFlag::THROW_ON_FAILURE, 1);
-                }
-                else if( detail::IsStringForwardMatching(str, "print_time") )
-                {
-                    find = ParseYesNoFlagCommandLine(str, TestFlag::PRINT_TIME, -1);
-                }
-                else if( detail::IsStringForwardMatching(str, "repeat") )
-                {
-                    const char* opt = ParseOptionSettingStr(str);
-                    if( opt != NULL )
-                    {
-                        char* end = NULL;
-                        long count = strtol(opt, &end, 0);
-                        set_repeat_count(static_cast<int>(count));
-                    }
-                    else
-                    {
-                        find = false;
-                    }
-                }
-                else if(detail::IsStringForwardMatching(str, "filter"))
-                {
-                    ParseFilterOption(ParseOptionSettingStr(str));
-                }
-                else if(detail::IsStringForwardMatching(str, "flagfile"))
-                {
-                    ParseFlagFileOption(ParseOptionSettingStr(str));
-                }
-#if IUTEST_HAS_STREAM_RESULT
-                else if( detail::IsStringForwardMatching(str, "stream_result_to") )
-                {
-                    const char* opt = ParseOptionSettingStr(str);
-                    if( opt != NULL )
-                    {
-                        set_stream_result_to(opt);
-                    }
-                    else
-                    {
-                        find = false;
-                    }
-                }
-#endif
-                else if( detail::IsStringForwardMatching(str, "file_location") )
-                {
-                    find = ParseFileLocationOption(ParseOptionSettingStr(str));
-                }
-                else if( detail::IsStringForwardMatching(str, "default_package_name") )
-                {
-                    set_default_package_name(ParseOptionSettingStr(str));
-                }
-                else
-                {
-                    find = false;
-                }
-                if( !find )
-                {
-                    // 該当するオプションがない場合はヘルプ表示
-                    TestFlag::SetFlag(TestFlag::SHOW_HELP);
-                }
-            }
-            else if( detail::IsStringEqual(str, "help") )
-            {
+                // 該当するオプションがない場合はヘルプ表示
                 TestFlag::SetFlag(TestFlag::SHOW_HELP);
-            }
-            else if( detail::IsStringEqual(str, "version") )
-            {
-                TestFlag::SetFlag(TestFlag::SHOW_VERSION);
-            }
-            else if( detail::IsStringEqual(str, "feature") )
-            {
-                TestFlag::SetFlag(TestFlag::SHOW_FEATURE);
-            }
-            else if( detail::IsStringEqual(str, "spec") )
-            {
-                TestFlag::SetFlag(TestFlag::SHOW_SPEC);
-            }
-            else if( detail::IsStringEqual(str, "verbose") )
-            {
-                TestFlag::SetFlag(TestFlag::VERBOSE);
             }
             else
             {
-                find = false;
+                if( detail::IsStringEqual(str, "help") )
+                {
+                    return SetFlag(TestFlag::SHOW_HELP);
+                }
+                if( detail::IsStringEqual(str, "version") )
+                {
+                    return SetFlag(TestFlag::SHOW_VERSION);
+                }
+                if( detail::IsStringEqual(str, "feature") )
+                {
+                    return SetFlag(TestFlag::SHOW_FEATURE);
+                }
+                if( detail::IsStringEqual(str, "spec") )
+                {
+                    return SetFlag(TestFlag::SHOW_SPEC);
+                }
+                if( detail::IsStringEqual(str, "verbose") )
+                {
+                    return SetFlag(TestFlag::VERBOSE);
+                }
             }
         }
         else
         {
             if( detail::IsStringEqual(str, "v") )
             {
-                TestFlag::SetFlag(TestFlag::SHOW_VERSION);
+                return SetFlag(TestFlag::SHOW_VERSION);
             }
-            else if( detail::IsStringEqual(str, "h")
-                || detail::IsStringEqual(str, "?") )
+            if( detail::IsStringEqual(str, "h")
+             || detail::IsStringEqual(str, "?") )
             {
-                TestFlag::SetFlag(TestFlag::SHOW_HELP);
-            }
-            else
-            {
-                find = false;
+                return SetFlag(TestFlag::SHOW_HELP);
             }
         }
     }
-    return find;
+    return false;
+}
+
+IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* str)
+{
+    // --iutest_*
+    if( detail::IsStringForwardMatching(str, "output") )
+    {
+        return ParseOutputOption(ParseOptionSettingStr(str));
+    }
+    if( detail::IsStringEqual(str, "list_tests") )
+    {
+        return SetFlag(TestFlag::SHOW_TESTS_LIST);
+    }
+    if( detail::IsStringEqual(str, "list_tests_with_where") )
+    {
+        return SetFlag(TestFlag::SHOW_TESTS_LIST_WITH_WHERE);
+    }
+    if( detail::IsStringForwardMatching(str, "color") )
+    {
+        return ParseColorOption(ParseOptionSettingStr(str));
+    }
+    if( detail::IsStringEqual(str, "shuffle") )
+    {
+        return SetFlag(TestFlag::SHUFFLE_TESTS);
+    }
+    if( detail::IsStringForwardMatching(str, "random_seed") )
+    {
+        const char* opt = ParseOptionSettingStr(str);
+        if( opt != NULL )
+        {
+            char* end = NULL;
+            long seed = strtol(opt, &end, 0);
+            init_random(static_cast<unsigned int>(seed));
+            return true;
+        }
+    }
+    if( detail::IsStringEqual(str, "also_run_disabled_tests") )
+    {
+        return SetFlag(TestFlag::RUN_DISABLED_TESTS);
+    }
+    if( detail::IsStringForwardMatching(str, "break_on_failure") )
+    {
+        return ParseYesNoFlagCommandLine(str, TestFlag::BREAK_ON_FAILURE, 1);
+    }
+    if( detail::IsStringForwardMatching(str, "catch_exceptions") )
+    {
+        return ParseYesNoFlagCommandLine(str, TestFlag::CATCH_EXCEPTION, -1);
+    }
+    if( detail::IsStringForwardMatching(str, "throw_on_failure") )
+    {
+        return ParseYesNoFlagCommandLine(str, TestFlag::THROW_ON_FAILURE, 1);
+    }
+    if( detail::IsStringForwardMatching(str, "print_time") )
+    {
+        return ParseYesNoFlagCommandLine(str, TestFlag::PRINT_TIME, -1);
+    }
+    if( detail::IsStringForwardMatching(str, "repeat") )
+    {
+        const char* opt = ParseOptionSettingStr(str);
+        if( opt != NULL )
+        {
+            char* end = NULL;
+            long count = strtol(opt, &end, 0);
+            set_repeat_count(static_cast<int>(count));
+            return true;
+        }
+    }
+    if( detail::IsStringForwardMatching(str, "filter") )
+    {
+        return ParseFilterOption(ParseOptionSettingStr(str));
+    }
+    if( detail::IsStringForwardMatching(str, "flagfile") )
+    {
+        return ParseFlagFileOption(ParseOptionSettingStr(str));
+    }
+#if IUTEST_HAS_STREAM_RESULT
+    if( detail::IsStringForwardMatching(str, "stream_result_to") )
+    {
+        const char* opt = ParseOptionSettingStr(str);
+        if( opt != NULL )
+        {
+            set_stream_result_to(opt);
+            return true;
+        }
+    }
+#endif
+    if( detail::IsStringForwardMatching(str, "file_location") )
+    {
+        return ParseFileLocationOption(ParseOptionSettingStr(str));
+    }
+    if( detail::IsStringForwardMatching(str, "default_package_name") )
+    {
+        set_default_package_name(ParseOptionSettingStr(str));
+        return true;
+    }
+    return false;
+}
+
+IUTEST_IPP_INLINE bool TestEnv::SetFlag(int enable, int mask)
+{
+    TestFlag::SetFlag(enable, mask);
+    return true;
 }
 
 IUTEST_IPP_INLINE void TestEnv::LoadEnvironmentVariable()

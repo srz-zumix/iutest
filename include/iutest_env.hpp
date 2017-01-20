@@ -698,6 +698,8 @@ private:
         return ParseCommandLineElemA(str);
     }
     static bool ParseCommandLineElemA(const char* str);
+    static bool ParseIutestOptionCommandLineElemA(const char* str);
+    static bool SetFlag(int enable, int mask = -1);
 
 private:
     /**
