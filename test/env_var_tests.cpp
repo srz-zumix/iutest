@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -51,13 +51,18 @@ int SetUpEnvironment(void)
     return -1;
 }
 
-static volatile int g_setup_environment = SetUpEnvironment();
+static volatile class SetUpResult
+{
+public:
+    SetUpResult(int n) : setup_environment(n) {}
+    int setup_environment;
+} g_result IUTEST_ATTRIBUTE_INIT_PRIORITY_(101) = SetUpEnvironment();
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
 IUTEST(FlagTest, Check)
 {
-    IUTEST_ASSUME_EQ(0, g_setup_environment) << lasterror << ": " << strerror(lasterror);  // putenv に失敗した場合はテストしない
+    IUTEST_ASSUME_EQ(0, g_result.setup_environment) << lasterror << ": " << strerror(lasterror);  // putenv に失敗した場合はテストしない
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(also_run_disabled_tests) );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(break_on_failure) );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(throw_on_failure) );

@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01160005u //!< iutest version 1.16.0.5
+#define IUTEST_VER          0x01160006u //!< iutest version 1.16.0.6
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
 #define IUTEST_BUILD        0x00u       //!< Build
-#define IUTEST_REVISION     0x05u       //!< Revision
+#define IUTEST_REVISION     0x06u       //!< Revision
 
 /**
  * @mainpage
@@ -116,6 +116,11 @@
  * @page    CHANGELOG   変更履歴
  * @par     Changes
  <ul>
+  <li>v1.16.1.0
+    <ul>
+      <li>XML_OUTPUT_FILE 環境変数に対応</li>
+    </ul>
+  </li>
   <li>v1.16.0.0
     <ul>
       <li>iuwandbox で複数ソースファイルに対応</li>

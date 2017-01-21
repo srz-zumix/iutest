@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -1147,6 +1147,22 @@
 #if !defined(IUTEST_ATTRIBUTE_NORETURN_)
 #  define IUTEST_ATTRIBUTE_NORETURN_
 #endif
+
+//! init_priority
+#if !defined(IUTEST_ATTRIBUTE_INIT_PRIORITY_)
+#  if   defined(__clang__)
+#    if __has_attribute(init_priority)
+#      define IUTEST_ATTRIBUTE_INIT_PRIORITY_(n)    __attribute__((init_priority(n)))
+#    endif
+#  elif defined(__GNUC__) && !defined(COMPILER_ICC)
+#    define IUTEST_ATTRIBUTE_INIT_PRIORITY_(n)      __attribute__((init_priority(n)))
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_INIT_PRIORITY_)
+#  define IUTEST_ATTRIBUTE_INIT_PRIORITY_(n)
+#endif
+
 
 // workaround
 /**

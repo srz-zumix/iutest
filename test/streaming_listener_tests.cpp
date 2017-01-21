@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,7 +31,13 @@ int SetUpEnvironment(void)
     return 0;
 }
 
-static volatile int g_dummy = SetUpEnvironment();
+static volatile class SetUpResult
+{
+public:
+    SetUpResult(int n) : setup_environment(n) {}
+    int setup_environment;
+} g_result IUTEST_ATTRIBUTE_INIT_PRIORITY_(101) = SetUpEnvironment();
+
 #endif
 
 IUTEST(Test, Ok)
@@ -46,7 +52,7 @@ int main(int argc, char* argv[])
 {
     IUTEST_INIT(&argc, argv);
 #if IUTEST_HAS_STREAM_RESULT
-    if( g_dummy == 0 )
+    if( g_result.setup_environment == 0 )
     {
         IUTEST_EXPECT_STREQ( "test", ::iutest::IUTEST_FLAG(stream_result_to).c_str() );
     }
