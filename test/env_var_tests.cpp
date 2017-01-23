@@ -53,12 +53,13 @@ int SetUpEnvironment(void)
     return -1;
 }
 
-static volatile class SetUpResult
+class SetUpResult
 {
 public:
     SetUpResult(int n) : setup_environment(n) {}
     int setup_environment;
-} g_result(SetUpEnvironment()) IUTEST_ATTRIBUTE_INIT_PRIORITY_(101);
+};
+static volatile SetUpResult g_result IUTEST_ATTRIBUTE_INIT_PRIORITY_(101) = SetUpResult(SetUpEnvironment());
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 

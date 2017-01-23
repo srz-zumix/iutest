@@ -31,12 +31,13 @@ int SetUpEnvironment(void)
     return 0;
 }
 
-static volatile class SetUpResult
+class SetUpResult
 {
 public:
     SetUpResult(int n) : setup_environment(n) {}
     int setup_environment;
-} g_result(SetUpEnvironment()) IUTEST_ATTRIBUTE_INIT_PRIORITY_(101);
+};
+static volatile SetUpResult g_result IUTEST_ATTRIBUTE_INIT_PRIORITY_(101) = SetUpResult(SetUpEnvironment());
 
 #endif
 
