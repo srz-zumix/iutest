@@ -36,9 +36,11 @@ int SetUpEnvironmentImpl(void)
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "REPEAT=2") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "FILTER=Flag*") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv(ENV_PREFIX "OUTPUT=test") == -1 ) return -1;
+    if( ::iutest::internal::posix::PutEnv("XML_OUTPUT_FILE=hoge") == -1 ) return -1; // OUTPUT envrionment takes precedence
 
     if( ::iutest::internal::posix::PutEnv("IUTEST_DEFAULT_PACKAGE_NAME=env_var") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv("IUTEST_FILE_LOCATION=vs") == -1 ) return -1;
+    
     return 0;
 }
 
@@ -56,7 +58,7 @@ static volatile class SetUpResult
 public:
     SetUpResult(int n) : setup_environment(n) {}
     int setup_environment;
-} g_result IUTEST_ATTRIBUTE_INIT_PRIORITY_(101) = SetUpEnvironment();
+} g_result(SetUpEnvironment()) IUTEST_ATTRIBUTE_INIT_PRIORITY_(101);
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
