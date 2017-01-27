@@ -40,7 +40,7 @@ int SetUpEnvironmentImpl(void)
 
     if( ::iutest::internal::posix::PutEnv("IUTEST_DEFAULT_PACKAGE_NAME=env_var") == -1 ) return -1;
     if( ::iutest::internal::posix::PutEnv("IUTEST_FILE_LOCATION=vs") == -1 ) return -1;
-    
+
     return 0;
 }
 
