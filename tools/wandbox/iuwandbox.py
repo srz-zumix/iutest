@@ -33,7 +33,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 4.4'
+        version=u'%(prog)s version 4.5'
     )
     parser.add_argument(
         '--list_compiler',
@@ -59,7 +59,17 @@ def parse_command_line():
     parser.add_argument(
         '--default',
         action='store_true',
-        help='use default options.'
+        help='it is not work. default options are set by default (deprecated)'
+    )
+    parser.add_argument(
+        '--no-default',
+        action='store_true',
+        help='no set default options.'
+    )
+    parser.add_argument(
+        '--std',
+        metavar='VERSION',
+        help='set --std options.'
     )
     parser.add_argument(
         '--boost',
@@ -245,10 +255,26 @@ def make_code(path, encoding, expand, includes, included_files):
 
 # check config
 def check_config(options):
+    has_error = False
     if not find_compiler(options.compiler):
         print('Wandbox is not supported compiler [' + options.compiler + ']')
         listup_compiler()
+        has_error = True
+    if options.options or options.std:
+        opt = get_options(options.compiler)
+        if options.options:
+            for o in options.options.split(','):
+                if o not in opt:
+                    print('Wandbox is not supported option [{0}] ({1})'.format(o, options.compiler))
+                    has_error = True
+        if options.std:
+            if options.std not in opt:
+                print('Wandbox is not supported option [{0}] ({1})'.format(options.std, options.compiler))
+                has_error = True
+    if has_error:
         sys.exit(1)
+    if options.default:
+        print('--default option is not work. default options are set by default (deprecated)')
 
 
 # setup additional files
@@ -257,26 +283,48 @@ def add_files(w, fileinfos):
         w.add_file(filename, code)
 
 
-# run wandbox
-def run_wandbox(code, includes, impliments, options):
-    w = Wandbox()
-    w.compiler(options.compiler)
+# create opt list
+def create_option_list(options):
+    def filterout_cppver(opt):
+        tmp = list(filter(lambda s: s.find('c++') == -1, opt))
+        tmp = list(filter(lambda s: s.find('gnu++') == -1, tmp))
+        return tmp
     opt = []
-    if options.options:
-        opt = options.options.split(',')
-    elif options.default:
+    if not options.no_default:
         opt = get_default_options(options.compiler)
+    if options.options:
+        for o in options.options.split(','):
+            if o not in opt:
+                if (o.find('c++') == 0) or (o.find('gnu++') == 0):
+                    opt = filterout_cppver(opt)
+                opt.append(o)
+    # std
+    if options.std:
+        opt = filterout_cppver(opt)
+        opt.append(options.std)
+    # boost
     if options.compiler in ["clang-3.4"]:
         if not options.boost:
             options.boost = 'nothing'
     if options.boost:
+        if options.compiler not in options.boost:
+            options.boost = options.boost + '-' + options.compiler
         opt = list(filter(lambda s: s.find('boost') == -1, opt))
         opt.append('boost-' + str(options.boost))
+    # sprout
     if options.sprout and 'sprout' not in opt:
         opt.append('sprout')
+    # msgpack
     if options.msgpack and 'msgpack' not in opt:
         opt.append('msgpack')
-    w.options(','.join(opt))
+    return opt
+
+
+# run wandbox
+def run_wandbox(code, includes, impliments, options):
+    w = Wandbox()
+    w.compiler(options.compiler)
+    w.options(','.join(create_option_list(options)))
     if options.stdin:
         w.stdin(options.stdin)
     co = ''
@@ -455,6 +503,24 @@ def listup_options(compiler):
                         print(s['default'] + ' (default)')
                         for o in s['options']:
                             print('  ' + o['name'])
+
+
+def get_options(compiler):
+    w = Wandbox()
+    r = w.get_compiler_list()
+    opt = []
+    for d in r:
+        if d['name'] == compiler:
+            if 'switches' in d:
+                switches = d['switches']
+                for s in switches:
+                    if 'name' in s:
+                        opt.append(s['name'])
+                    elif 'options' in s:
+                        opt.append(s['default'])
+                        for o in s['options']:
+                            opt.append(o['name'])
+    return opt
 
 
 # get default options

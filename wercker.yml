@@ -83,13 +83,13 @@ wandbox:
         name: c++
         code: |
           cd tools/wandbox
-          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c ${IUWANDBOX_COMPILER} -x "warning,c++${IUWANDBOX_CPPVER}" ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION}
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c ${IUWANDBOX_COMPILER} --std "c++${IUWANDBOX_CPPVER}" ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION}
 
     - script:
         name: gnuc++
         code: |
           cd tools/wandbox
-          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c ${IUWANDBOX_COMPILER} -x "warning,gnu++${IUWANDBOX_CPPVER}" ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_GNUC_ADD_OPTION}
+          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c ${IUWANDBOX_COMPILER} --std "gnu++${IUWANDBOX_CPPVER}" ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_GNUC_ADD_OPTION}
 
 nothing:
   steps:
