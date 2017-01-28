@@ -36,9 +36,9 @@ build:
     #     python_location: /usr/bin/python3.2
 
     # A step that executes `pip install` command.
-    #- pip-install:
-    #    requirements_file: ""
-    #    packages_list: "requests"
+    - pip-install:
+        requirements_file: ""
+        packages_list: "requests"
 
     # # This pip-install clears the local wheel cache
     # - pip-install:
