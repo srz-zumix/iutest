@@ -55,6 +55,7 @@ build:
     - script:
         name: listup compiler
         code: |
+          cd tools/wandbox
           python iuwandbox.py --list_compiler --verbose
 
 wandbox:
