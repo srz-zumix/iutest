@@ -33,7 +33,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 4.3'
+        version=u'%(prog)s version 4.4'
     )
     parser.add_argument(
         '--list_compiler',
@@ -266,6 +266,9 @@ def run_wandbox(code, includes, impliments, options):
         opt = options.options.split(',')
     elif options.default:
         opt = get_default_options(options.compiler)
+    if options.compiler in ["clang-3.4"]:
+        if not options.boost:
+            options.boost = 'nothing'
     if options.boost:
         opt = list(filter(lambda s: s.find('boost') == -1, opt))
         opt.append('boost-' + str(options.boost))
@@ -276,13 +279,15 @@ def run_wandbox(code, includes, impliments, options):
     w.options(','.join(opt))
     if options.stdin:
         w.stdin(options.stdin)
+    co = ''
     if options.compiler_option_raw:
         co = '\n'.join(options.compiler_option_raw)
         co = co.replace('\\n', '\n')
-        if options.compiler == "clang-3.5":
-            co += "\n-DIUTEST_HAS_HDR_CXXABI=0"
-        if options.compiler in ["clang-3.2", "clang-3.1", "clang-3.0"]:
-            co += "\n-Qunused-arguments"
+    #if options.compiler == "clang-3.5.0":
+    #    co += "\n-DIUTEST_HAS_HDR_CXXABI=0"
+    if options.compiler in ["clang-3.2", "clang-3.1", "clang-3.0"]:
+        co += "\n-Qunused-arguments"
+    if len(co) > 0:
         w.compiler_options(co)
     if options.runtime_option_raw:
         ro = ''
