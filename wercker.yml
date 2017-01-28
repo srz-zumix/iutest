@@ -52,6 +52,11 @@ build:
           echo "python version $(python --version) running"
           echo "pip version $(pip --version) running"
 
+    - script:
+        name: listup compiler
+        code: |
+          python iuwandbox.py --list_compiler --verbose
+
 wandbox:
   steps:
     - virtualenv:
@@ -71,7 +76,7 @@ wandbox:
         name: setup
         code: |
           export PYTHONDONTWRITEBYTECODE=1
-          export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --encoding utf-8-sig --expand_include --verbose"
+          export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --encoding utf-8-sig --expand_include --verbose --check_config"
 
     - script:
         name: c++
@@ -84,22 +89,6 @@ wandbox:
         code: |
           cd tools/wandbox
           python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c ${IUWANDBOX_COMPILER} -x "warning,gnu++${IUWANDBOX_CPPVER}" ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_GNUC_ADD_OPTION}
-
-
-#          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-head -x "warning,c++1z"
-#          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-head -x "warning,c++98"
-#          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-head -x "warning,c++1z"
-#          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-head -x "warning,c++98"
-#          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-5.1.0 -x "warning,c++1z"
-#          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.9.1 -x "warning,c++1y"
-#          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.9.0 -x "warning,c++11"
-#          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c gcc-4.8.2 -x "warning,gnu++11"
-#          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.7 -x "warning,gnu++14"
-#          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.3 -x "warning,gnu++1y"
-#          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.2 -x "warning"
-          #python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.2 -x "warning,c++11" -f"-Qunused-arguments"
-#          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.1 -x "warning,gnu++11"
-#          python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c clang-3.1 -x "warning,c++98"
 
 nothing:
   steps:
