@@ -271,6 +271,8 @@ def check_config(options):
             if options.std not in opt:
                 print('Wandbox is not supported option [{0}] ({1})'.format(options.std, options.compiler))
                 has_error = True
+        if has_error:
+            listup_options(options.compiler)
     if has_error:
         sys.exit(1)
     if options.default:
@@ -331,9 +333,9 @@ def run_wandbox(code, includes, impliments, options):
     if options.compiler_option_raw:
         co = '\n'.join(options.compiler_option_raw)
         co = co.replace('\\n', '\n')
-    #if options.compiler == "clang-3.5.0":
-    #    co += "\n-DIUTEST_HAS_HDR_CXXABI=0"
-    if options.compiler in ["clang-3.2", "clang-3.1", "clang-3.0"]:
+    if options.compiler in ["clang-3.4"]:
+        co += "\n-DIUTEST_HAS_HDR_CXXABI=0"
+    if options.compiler in ["clang-3.3", "clang-3.2", "clang-3.1", "clang-3.0"]:
         co += "\n-Qunused-arguments"
     if len(co) > 0:
         w.compiler_options(co)
