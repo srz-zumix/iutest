@@ -333,10 +333,12 @@ def run_wandbox(code, includes, impliments, options):
     if options.compiler_option_raw:
         co = '\n'.join(options.compiler_option_raw)
         co = co.replace('\\n', '\n')
-    if options.compiler in ["clang-3.4"]:
-        co += "\n-DIUTEST_HAS_HDR_CXXABI=0"
+#    if options.compiler in ["clang-3.4"]:
+#        co += "\n-DIUTEST_HAS_HDR_CXXABI=0"
     if options.compiler in ["clang-3.3", "clang-3.2", "clang-3.1", "clang-3.0"]:
         co += "\n-Qunused-arguments"
+#    if options.compiler in ["clang-3.4", "clang-3.3"]:
+#        co += "\n-fno-rtti"
     if len(co) > 0:
         w.compiler_options(co)
     if options.runtime_option_raw:
