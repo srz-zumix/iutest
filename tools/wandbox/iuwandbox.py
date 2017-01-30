@@ -33,15 +33,17 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 4.5'
+        version=u'%(prog)s version 4.6'
     )
     parser.add_argument(
         '--list_compiler',
+        '--list-compiler',
         action='store_true',
         help='listup compiler.'
     )
     parser.add_argument(
         '--list_options',
+        '--list-options',
         metavar='COMPILER',
         help='listup compiler options.'
     )
@@ -62,6 +64,7 @@ def parse_command_line():
         help='it is not work. default options are set by default (deprecated)'
     )
     parser.add_argument(
+        '--no_default',
         '--no-default',
         action='store_true',
         help='no set default options.'
@@ -75,6 +78,17 @@ def parse_command_line():
         '--boost',
         metavar='VERSION',
         help='set boost options version X.XX or nothing.'
+    )
+    parser.add_argument(
+        '--optimize',
+        action='store_true',
+        help='use optimization.'
+    )
+    parser.add_argument(
+        '--cpp_verbose',
+        '--cpp-verbose',
+        action='store_true',
+        help='use cpp-verbose.'
     )
     parser.add_argument(
         '--sprout',
@@ -93,6 +107,7 @@ def parse_command_line():
     parser.add_argument(
         '-f',
         '--compiler_option_raw',
+        '--compiler-option-raw',
         metavar='OPTIONS',
         action='append',
         default=['-D__WANDBOX__'],
@@ -101,6 +116,7 @@ def parse_command_line():
     parser.add_argument(
         '-r',
         '--runtime_option_raw',
+        '--runtime-option-raw',
         metavar='OPTIONS',
         action='append',
         help='runtime-time any additional options.'
@@ -143,6 +159,7 @@ def parse_command_line():
     )
     parser.add_argument(
         '--expand_include',
+        '--expand-include',
         action='store_true',
         help='expand include file.'
     )
@@ -304,8 +321,14 @@ def create_option_list(options):
     if options.std:
         opt = filterout_cppver(opt)
         opt.append(options.std)
+    # optimize
+    if options.optimize and ('optimize' not in opt):
+        opt.append('optimize')
+    # cpp-verbose
+    if options.cpp_verbose and ('cpp-verbose' not in opt):
+        opt.append('cpp-verbose')
     # boost
-    if options.compiler in ["clang-3.4"]:
+    if options.compiler in ['clang-3.4']:
         if not options.boost:
             options.boost = 'nothing'
     if options.boost:
@@ -314,10 +337,10 @@ def create_option_list(options):
         opt = list(filter(lambda s: s.find('boost') == -1, opt))
         opt.append('boost-' + str(options.boost))
     # sprout
-    if options.sprout and 'sprout' not in opt:
+    if options.sprout and ('sprout' not in opt):
         opt.append('sprout')
     # msgpack
-    if options.msgpack and 'msgpack' not in opt:
+    if options.msgpack and ('msgpack' not in opt):
         opt.append('msgpack')
     return opt
 
@@ -329,17 +352,19 @@ def run_wandbox(code, includes, impliments, options):
     w.options(','.join(create_option_list(options)))
     if options.stdin:
         w.stdin(options.stdin)
-    co = ''
+    colist = []
     if options.compiler_option_raw:
-        co = '\n'.join(options.compiler_option_raw)
+        colist = options.compiler_option_raw
+#    if options.compiler in ['clang-3.4']:
+#        colist.append('-DIUTEST_HAS_HDR_CXXABI=0')
+    if options.compiler in ['clang-3.3', 'clang-3.2', 'clang-3.1', 'clang-3.0']:
+        colist.append('-Qunused-arguments')
+    if options.compiler in ['clang-3.4', 'clang-3.3']:
+        colist.append('-fno-exceptions')
+        colist.append('-fno-rtti')
+    if len(colist) > 0:
+        co = '\n'.join(colist)
         co = co.replace('\\n', '\n')
-#    if options.compiler in ["clang-3.4"]:
-#        co += "\n-DIUTEST_HAS_HDR_CXXABI=0"
-    if options.compiler in ["clang-3.3", "clang-3.2", "clang-3.1", "clang-3.0"]:
-        co += "\n-Qunused-arguments"
-#    if options.compiler in ["clang-3.4", "clang-3.3"]:
-#        co += "\n-fno-rtti"
-    if len(co) > 0:
         w.compiler_options(co)
     if options.runtime_option_raw:
         ro = ''
@@ -368,7 +393,7 @@ def run_wandbox(code, includes, impliments, options):
                     print(e.message)
                 except:
                     pass
-                print("wait 30sec...")
+                print('wait 30sec...')
                 sleep(30)
                 return run(retries - 1)
             else:
@@ -428,9 +453,9 @@ def show_parameter(r):
 def set_output_xml(options, t, xml):
     options.stderr = True
     if options.runtime_option_raw:
-        options.runtime_option_raw.append("--iutest_output=" + t + ":" + xml)
+        options.runtime_option_raw.append('--iutest_output=' + t + ':' + xml)
     else:
-        options.runtime_option_raw = ["--iutest_output=" + t + ":" + xml]
+        options.runtime_option_raw = ['--iutest_output=' + t + ':' + xml]
 
 
 def run(options):
