@@ -328,7 +328,7 @@ def create_option_list(options):
     if options.cpp_verbose and ('cpp-verbose' not in opt):
         opt.append('cpp-verbose')
     # boost
-    if options.compiler in ['clang-3.4']:
+    if options.compiler in ['clang-3.4', 'clang-3.3']:
         if not options.boost:
             options.boost = 'nothing'
     if options.boost:
