@@ -73,6 +73,7 @@ TARGETS1= \
           no_failure_fail_tests \
           no_fatalfailure_tests \
           no_test_tests \
+          output_env_var_tests \
           output_junit_xml_tests \
           output_xml_tests \
           port_tests \
