@@ -24,6 +24,7 @@ EXPAND_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*"(.*?)"')
 IUTEST_INCG_REGEX = re.compile(r'\s*#\s*define[/\s]*(INCG_IRIS_\S*)\s*')
 
 iutest_incg_list = []
+workaround = True
 
 #
 # command line option
@@ -328,9 +329,11 @@ def create_option_list(options):
     if options.cpp_verbose and ('cpp-verbose' not in opt):
         opt.append('cpp-verbose')
     # boost
-    if options.compiler in ['clang-3.4', 'clang-3.3']:
-        if not options.boost:
-            options.boost = 'nothing'
+    if workaround:
+        pass
+#        if options.compiler in ['clang-3.4', 'clang-3.3']:
+#            if not options.boost:
+#                options.boost = 'nothing'
     if options.boost:
         if options.compiler not in options.boost:
             options.boost = options.boost + '-' + options.compiler
@@ -355,13 +358,17 @@ def run_wandbox(code, includes, impliments, options):
     colist = []
     if options.compiler_option_raw:
         colist = options.compiler_option_raw
-#    if options.compiler in ['clang-3.4']:
-#        colist.append('-DIUTEST_HAS_HDR_CXXABI=0')
-    if options.compiler in ['clang-3.3', 'clang-3.2', 'clang-3.1', 'clang-3.0']:
-        colist.append('-Qunused-arguments')
-    if options.compiler in ['clang-3.4', 'clang-3.3']:
-        colist.append('-fno-exceptions')
-        colist.append('-fno-rtti')
+    if workaround:
+        pass
+        if options.compiler in ['clang-3.2']:
+            colist.append('-ftemplate-depth=1024')
+#        if options.compiler in ['clang-3.4']:
+#            colist.append('-DIUTEST_HAS_HDR_CXXABI=0')
+#        if options.compiler in ['clang-3.3', 'clang-3.2', 'clang-3.1', 'clang-3.0']:
+#            colist.append('-Qunused-arguments')
+#        if options.compiler in ['clang-3.4', 'clang-3.3']:
+#            colist.append('-fno-exceptions')
+#            colist.append('-fno-rtti')
     if len(colist) > 0:
         co = '\n'.join(colist)
         co = co.replace('\\n', '\n')
