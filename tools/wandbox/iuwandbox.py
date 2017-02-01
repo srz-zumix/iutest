@@ -34,7 +34,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 4.6'
+        version=u'%(prog)s version 5.0'
     )
     parser.add_argument(
         '--list_compiler',
@@ -65,7 +65,6 @@ def parse_command_line():
         help='it is not work. default options are set by default (deprecated)'
     )
     parser.add_argument(
-        '--no_default',
         '--no-default',
         action='store_true',
         help='no set default options.'
@@ -86,7 +85,6 @@ def parse_command_line():
         help='use optimization.'
     )
     parser.add_argument(
-        '--cpp_verbose',
         '--cpp-verbose',
         action='store_true',
         help='use cpp-verbose.'
@@ -166,6 +164,7 @@ def parse_command_line():
     )
     parser.add_argument(
         '--check_config',
+        '--check-config',
         action='store_true',
         help='check config.'
     )
@@ -357,7 +356,10 @@ def run_wandbox(code, includes, impliments, options):
         w.stdin(options.stdin)
     colist = []
     if options.compiler_option_raw:
-        colist = options.compiler_option_raw
+        raw_options = options.compiler_option_raw
+        for x in raw_options:
+            colist.extend(re.split('\s(?=-)', x))
+
     if workaround:
         pass
         if options.compiler in ['clang-3.2']:
@@ -374,9 +376,10 @@ def run_wandbox(code, includes, impliments, options):
         co = co.replace('\\n', '\n')
         w.compiler_options(co)
     if options.runtime_option_raw:
-        ro = ''
+        rolist = []
         for opt in options.runtime_option_raw:
-            ro += opt + '\n'
+            rolist.extend(opt.split())
+        ro = '\n'.join(rolist)
         ro = ro.replace('\\n', '\n')
         w.runtime_options(ro)
     if options.save:

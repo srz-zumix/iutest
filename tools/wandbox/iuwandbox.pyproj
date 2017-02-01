@@ -13,7 +13,7 @@
     <Name>iuwandbox</Name>
     <RootNamespace>iuwandbox</RootNamespace>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <CommandLineArguments>sample.cpp sample2.cpp --encoding utf-8-sig --verbose</CommandLineArguments>
+    <CommandLineArguments>sample.cpp sample2.cpp --encoding utf-8-sig --verbose -f"-Dx=hogefuga -O3" -r"--iutest_shuffle --iutest_random_seed=1"</CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

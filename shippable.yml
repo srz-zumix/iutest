@@ -1,4 +1,4 @@
-# shippable test c++98 compile...
+﻿# shippable test c++98 compile...
 
 language: python
 
@@ -20,9 +20,9 @@ before_script:
 
 script:
   - cd tools/wandbox
-  - python ./iuwandbox.py --list_options ${WANDBOX_COMPILER}
-  - python ./iuwandbox.py ../../test/syntax_tests.cpp -c ${WANDBOX_COMPILER} -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --std "c++98" --boost nothing --encoding utf-8-sig --expand_include --verbose --junit ../../shippable/testresults/test_result.xml
-  - python ./iuwandbox.py ../../test/syntax_tests.cpp -c ${WANDBOX_COMPILER} -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --std "gnu++98" --boost nothing --encoding utf-8-sig --expand_include --verbose --junit ../../shippable/testresults/test_result_gnu.xml
+  - python ./iuwandbox.py --list-options ${WANDBOX_COMPILER}
+  - python ./iuwandbox.py ../../test/syntax_tests.cpp -c ${WANDBOX_COMPILER} -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --std   "c++98" --boost nothing --encoding utf-8-sig --check-config --expand-include --verbose --junit ../../shippable/testresults/test_result.xml
+  - python ./iuwandbox.py ../../test/syntax_tests.cpp -c ${WANDBOX_COMPILER} -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --std "gnu++98" --boost nothing --encoding utf-8-sig --check-config --expand-include --verbose --junit ../../shippable/testresults/test_result_gnu.xml
 
 env:
   matrix:

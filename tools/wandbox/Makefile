@@ -7,7 +7,7 @@ include ../../test/CommonMakefile.in
 
 TOOLS=wandbox.py iuwandbox.py
 
-#EXPAND_INCLUDE?=--expand_include
+#EXPAND_INCLUDE?=--expand-include
 
 WANDBOX_COMPILER?=gcc-head
 
@@ -18,13 +18,13 @@ fused:
 	make -C ../fused
 
 sample: sample.cpp $(TOOLS) Makefile
-	python iuwandbox.py sample.cpp -f"-Dx=hogefuga\n-O3" --check_config -x "warning"
+	python iuwandbox.py sample.cpp -f"-Dx=hogefuga -O3" --check-config -x "warning"
 
 sample2: sample.cpp sample2.cpp $(TOOLS) Makefile
-	python iuwandbox.py sample.cpp sample2.cpp -f"-Dx=hogefuga\n-O3\n-DSAMPLE2" --check_config -x "warning"
+	python iuwandbox.py sample.cpp sample2.cpp -f"-Dx=hogefuga -O3 -DSAMPLE2" --check-config -x "warning"
 
 save: sample.cpp $(TOOLS) Makefile
-	python iuwandbox.py sample.cpp -s -x "warning" -f"-Dx=hogefuga\n-O3" -r"--iutest_color=no" $(EXPAND_INCLUDE)
+	python iuwandbox.py sample.cpp -s -x "warning" -f"-Dx=hogefuga -O3" -r"--iutest_color=no" $(EXPAND_INCLUDE)
 
 local:
 	g++ sample.cpp sample2.cpp -o sample
@@ -57,16 +57,16 @@ dryrun-test: ../../test/syntax_tests.cpp Makefile
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) --default --boost 1.60 -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --verbose --dryrun
 
 test-all-compiler: ../../test/syntax_tests.cpp Makefile
-	@for compiler in $(shell python iuwandbox.py --list_compiler); do \
+	@for compiler in $(shell python iuwandbox.py --list-compiler); do \
 		echo $${compiler}; \
 		python iuwandbox.py $< -c $${compiler} -f"-DIUTEST_USE_MAIN" -f"-Werror" --encoding utf-8-sig || exit 1; \
 	done
 
 list-compiler:
-	python iuwandbox.py --list_compiler --verbose
+	python iuwandbox.py --list-compiler --verbose
 
 list-options:
-	python iuwandbox.py --list_options $(WANDBOX_COMPILER)
+	python iuwandbox.py --list-options $(WANDBOX_COMPILER)
 
 #
 # iutest test
