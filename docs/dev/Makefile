@@ -15,3 +15,7 @@ lint:
 
 clean:
 	$(RM) -rf html
+
+version-test:
+	make -f VersionTest.mk --no-print-directory
+
