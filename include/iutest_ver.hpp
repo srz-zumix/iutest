@@ -20,8 +20,10 @@
 #define IUTEST_VER          0x01160007u //!< iutest version 1.16.0.7
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
-#define IUTEST_BUILD        0x00u       //!< Build
+#define IUTEST_MICROVER     0x00u       //!< Micro Version
 #define IUTEST_REVISION     0x07u       //!< Revision
+
+#define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
 /**
  * @mainpage
@@ -118,6 +120,7 @@
  <ul>
   <li>v1.16.1.0
     <ul>
+      <li>IUTEST_BUILD を非推奨に変更し、IUTEST_MICROVER を追加</li>
       <li>XML_OUTPUT_FILE 環境変数に対応</li>
     </ul>
   </li>

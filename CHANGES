@@ -5,6 +5,7 @@ Changes for 1.16.1:
 * XML_OUTPUT_FILE 環境変数に対応
 
 ** 変更
+* IUTEST_BUILD を非推奨に変更し、IUTEST_MICROVER を追加
 * Wandbox の更新に合わせて iuwandbox を変更
 * iuwandbox: --list_compiler のようなオプション名中の _ を - に変更（_ 付きの旧オプションは将来のバージョンで廃止）
 

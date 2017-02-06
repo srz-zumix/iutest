@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -20,7 +20,7 @@
 #if !defined(IUTEST_USE_GTEST)
 IUTEST(VersionTest, Check)
 {
-    unsigned long v = (IUTEST_MAJORVER << 24) | (IUTEST_MINORVER << 16) | (IUTEST_BUILD << 8) | IUTEST_REVISION;
+    unsigned long v = (IUTEST_MAJORVER << 24) | (IUTEST_MINORVER << 16) | (IUTEST_MICROVER << 8) | IUTEST_REVISION;
     IUTEST_ASSERT_EQ( IUTEST_VER, v );
 }
 #endif

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -53,15 +53,20 @@
 #  endif
 #endif
 
-#ifndef GTEST_BUILD
+//!< Micro Version
+#ifndef GTEST_MICROVER
 #  if GTEST_MINORVER == 0x02 && defined(GTEST_HAS_CLONE)
-#    define GTEST_BUILD     0x01        //!< Build
+#    define GTEST_MICROVER  0x01
 #  elif GTEST_MINORVER == 0x00
 // 判断難しい
-#    define GTEST_BUILD     0x01        //!< Build
+#    define GTEST_MICROVER  0x01
 #  else
-#    define GTEST_BUILD     0x00        //!< Build
+#    define GTEST_MICROVER  0x00
 #  endif
+#endif
+
+#ifndef GTEST_BUILD
+#  define GTEST_BUILD       GTEST_MICROVER  //!< @deprecated
 #endif
 
 #ifndef GTEST_REVISION
@@ -71,8 +76,8 @@
 #ifndef GTEST_VER
 #  define   GTEST_VER       ((GTEST_MAJORVER<<24)   \
                             |(GTEST_MINORVER<<16)   \
-                            |(GTEST_BUILD<<8)       \
-                            |(GTEST_REVISION<<0)    \
+                            |(GTEST_MICROVER<< 8)   \
+                            |(GTEST_REVISION<< 0)   \
                             )   //!< google test version
 #endif
 
