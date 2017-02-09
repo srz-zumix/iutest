@@ -18,8 +18,9 @@ doxygen-version:
 nuget-version:
 	@grep '<version>' ../../projects/nuget/iutest.nuspec | sed -e 's/.*>\(.*\)<.*/NuGet Version: \1/'
 ifeq (0, $(IUTEST_REVISION))
-	@grep '<version>' ../../projects/nuget/iutest.nuspec | findstr '$(IUTEST_MAJORVER).$(IUTEST_MINORVER).$(IUTEST_MICROVER)'
+	@grep '$(IUTEST_MAJORVER).$(IUTEST_MINORVER).$(IUTEST_MICROVER)' ../../projects/nuget/iutest.nuspec > /dev/null
 else
+	@grep '<version>' ../../projects/nuget/iutest.nuspec | sed -e 's/.*>\(.*\)<.*/NuGet Version: \1/'
 	@echo test skipped...
 endif
 
@@ -27,7 +28,7 @@ endif
 changes:
 	@grep 'Changes for ' ../../CHANGES | head -1
 ifeq (0, $(IUTEST_REVISION))
-	@grep 'Changes for ' ../../CHANGES | head -1 | findstr '$(IUTEST_MAJORVER).$(IUTEST_MINORVER).$(IUTEST_MICROVER)'
+	@grep 'Changes for ' ../../CHANGES | head -1 | grep '$(IUTEST_MAJORVER).$(IUTEST_MINORVER).$(IUTEST_MICROVER)' > /dev/null
 else
 	@echo test skipped...
 endif
