@@ -8,7 +8,8 @@
 [![Shippable Build Status](https://api.shippable.com/projects/541904d2ac22859af743f867/badge?branchName=master)](https://app.shippable.com/projects/541904d2ac22859af743f867/builds/latest)
 [![wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/master "wercker status")](https://app.wercker.com/project/bykey/d385156052aa4118a7f24affe4a8f851)
 [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/2gdmgo8ce8m0iy0e/branch/master?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest/branch/master)
-[![Semaphore Build Status](https://semaphoreci.com/api/v1/srz_zumix/iutest/branches/master/shields_badge.svg)](https://semaphoreci.com/srz_zumix/iutest)  
+[![Semaphore Build Status](https://semaphoreci.com/api/v1/srz_zumix/iutest/branches/master/shields_badge.svg)](https://semaphoreci.com/srz_zumix/iutest)
+[![Magnum CI](https://magnum-ci.com/status/9175310cbf4594b8755634347186515a.png)](https://magnum-ci.com/public/ad50f16d4e6b5c8a578a/builds)  
 [![New(3-clause) BSD License](https://img.shields.io/badge/license-New_BSD-blue.svg)](http://opensource.org/licenses/BSD-3-Clause)  
 [![NuGet version](https://badge.fury.io/nu/iutest.svg)](https://badge.fury.io/nu/iutest)  
 
@@ -36,10 +37,12 @@ Features
 * Value-parameterized tests.
 * Type-parameterized tests.
 * CSV parameter.
+* Pairwise parameter.
 * Private member test.
 * Various options for running the tests.
-* XML test report generation.
-* Janaese test name.
+* XML/JUnit test report generation.
+* Janaese test name (C++03). 
+* Compatible with Google Test.
 
 Platforms
 --------------------------------------------------
@@ -49,6 +52,7 @@ Platforms
 * Mac OS X
 * Cygwin
 * MinGW
+* Google Native Client
 
 Documentation
 --------------------------------------------------
@@ -76,12 +80,20 @@ notifies the test results using twilio
 * wandbox  
 tools to make use of the iutest in wandbox
 
-Others
+Tests
 --------------------------------------------------
 
-* Support Google Native Client  
-[![Magnum CI](https://magnum-ci.com/status/9175310cbf4594b8755634347186515a.png)](https://magnum-ci.com/public/ad50f16d4e6b5c8a578a/builds)
-
+|CI|Tests|
+|:--|:--|
+|[![Travis-CI Build Status](https://travis-ci.org/srz-zumix/iutest.png?branch=master)](https://travis-ci.org/srz-zumix)|Basic tests, Google test compatibility, Coverage, Coverity-scan, Wine + MinGW|
+|[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/2gdmgo8ce8m0iy0e/branch/master?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest/branch/master)|Windows, Cygwin, MinGW, NuGet, Sample build|
+|[![Snap-CI Build Status](https://snap-ci.com/srz-zumix/iutest/branch/master/build_image)](https://snap-ci.com/srz-zumix/iutest/branch/master)|Configurations tests|
+|[![wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/master "wercker status")](https://app.wercker.com/project/bykey/d385156052aa4118a7f24affe4a8f851)|Syntax tests for compiler each version|
+|[![Shippable Build Status](https://api.shippable.com/projects/541904d2ac22859af743f867/badge?branchName=master)](https://app.shippable.com/projects/541904d2ac22859af743f867/builds/latest)|Syntax tests for compiler each version (c++98)|
+|[ ![Codeship Status for srz-zumix/iutest](https://codeship.com/projects/5bc87030-5b41-0133-6000-4242aa07dce3/status?branch=master)](https://codeship.com/projects/110695)|Cpplint, Update documents|
+|[![Semaphore Build Status](https://semaphoreci.com/api/v1/srz_zumix/iutest/branches/master/shields_badge.svg)](https://semaphoreci.com/srz_zumix/iutest)|Scan-build|
+|[![Circle CI](https://circleci.com/gh/srz-zumix/iutest.svg?style=svg)](https://circleci.com/gh/srz-zumix/iutest)|Optimize options test|
+|[![Magnum CI](https://magnum-ci.com/status/9175310cbf4594b8755634347186515a.png)](https://magnum-ci.com/public/ad50f16d4e6b5c8a578a/builds)|Google Native Client|
 
 License
 --------------------------------------------------
