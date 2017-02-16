@@ -33,9 +33,12 @@ CXXFLAGS =$(CXXFLAGS) -DOUTPUTXML
 #
 !include <CommonMakefile.in>
 
-RUN_TARGETS = $(ALLTESTS_TARGET) $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY)
+RUN_TARGETS = $(ALLTESTS_TARGET) $(NAMESPACETESTS_TARGET) $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY)
 BUILD_TARGETS = $(RUN_TARGETS) $(BUILD_ONLY) $(COMPILEERROR_TARGETS)
 TARGETS = $(BUILD_TARGETS)
+
+NAMESPACETESTS_TEST_SRCS = $(ALLTESTS_TEST_SRCS:.cpp=.ns.cpp)
+NAMESPACETESTS_SRCS = main.cpp $(NAMESPACETESTS_TEST_SRCS)
 
 SRCS   = $(BUILD_TARGETS:_tests=_tests.cpp)
 RUNNER = $(RUN_TARGETS:_tests=_tests_run)
@@ -48,7 +51,7 @@ default : $(TARGETS)
 all : clean default test
 
 clean :
-	$(RM) *.exe *.obj *.dump
+	$(RM) *.exe *.obj *.dump *.ns.cpp
 !ifdef OUTPUTXML
 	$(RM) *.xml
 !endif
@@ -68,11 +71,28 @@ $(RUNNER) : $(@:_run=)
 	$(@:_run=) $(RUN_OPTION)
 !endif
 
+#
+# NAMESPACETESTS_SRCS
+
+$(NAMESPACETESTS_TEST_SRCS): $(ALLTESTS_TEST_SRCS) Makefile
+	@echo #include ^<cmath^> > $@
+	@echo #include "../include/gtest/iutest_spi_switch.hpp" >> $@
+	@echo #include "../include/internal/iutest_filepath.hpp" >> $@
+	@echo namespace test { namespace iutest { class dummy; } >> $@
+	@echo #include "$(@:.ns=)" >> $@
+	@echo } >> $@
+
+
+#
 # Builds a sample test.  
 
 TARGETS_EXCLUDE_ALLTESTS= $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY) $(BUILD_ONLY)
+
 $(ALLTESTS_TARGET) : $(ALLTESTS_SRCS) $(IUTEST_HEADERS) Makefile
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) /Fe$@ $(ALLTESTS_SRCS) $(LDFLAGS)
+
+$(NAMESPACETESTS_TARGET) : $(NAMESPACETESTS_SRCS) $(IUTEST_HEADERS) Makefile
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) /Fe$@ $(NAMESPACETESTS_SRCS) $(LDFLAGS)
 
 $(TARGETS_EXCLUDE_ALLTESTS) : $(SRCS) $(IUTEST_HEADERS) Makefile
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) /Fe$@ $@.cpp $(LDFLAGS)

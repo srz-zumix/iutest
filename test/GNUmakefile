@@ -93,10 +93,12 @@ LDFLAGS += $(LIBS_)
 
 MAKEFILE=GNUmakefile CommonMakefile.in
 
+NAMESPACETESTS_SRCS = main.cpp $(ALLTESTS_TEST_SRCS:%.cpp=%.ns.cpp)
+
 ifneq ($(USE_GTEST)$(USE_GMOCK),)
-RUN_TARGETS = $(ALLTESTS_TARGET) $(TARGETS1) $(TARGETS2)
+RUN_TARGETS = $(ALLTESTS_TARGET) $(NAMESPACETESTS_TARGET) $(TARGETS1) $(TARGETS2)
 else
-RUN_TARGETS = $(ALLTESTS_TARGET) $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY)
+RUN_TARGETS = $(ALLTESTS_TARGET) $(NAMESPACETESTS_TARGET) $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY)
 endif
 
 ifeq ($(USE_GTEST)$(USE_GMOCK)$(USE_COVERAGE)$(USE_SCANBUILD),)
@@ -126,7 +128,7 @@ default : $(TARGETS)
 all : clean default test
 
 clean :
-	$(RM) $(TARGETS) *.o *.stackdump *.core *.log check_stdlib
+	$(RM) $(TARGETS) *.o *.stackdump *.core *.log *.ns.cpp check_stdlib
 ifdef OUTPUTXML
 	$(RM) *.xml
 endif
@@ -255,6 +257,20 @@ build_benchmark:
 
 #
 #
+# NAMESPACETESTS_SRCS
+#
+
+%.ns.cpp: %.cpp
+	@echo '#include <cmath>' > $@
+	@echo '#include "../include/gtest/iutest_spi_switch.hpp"' >> $@
+	@echo '#include "../include/internal/iutest_filepath.hpp"' >> $@
+	@echo 'namespace test { namespace iutest { class dummy; }' >> $@
+	@echo '#include "$<"' >> $@
+	@echo '}' >> $@
+
+
+#
+#
 # Build tests.
 #
 
@@ -283,6 +299,9 @@ $(BUILD_ONLY) : $(SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 
 $(ALLTESTS_TARGET) : $(ALLTESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(ALLTESTS_SRCS) $(GTESTFLAGS)
+
+$(NAMESPACETESTS_TARGET) : $(NAMESPACETESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(NAMESPACETESTS_SRCS) $(GTESTFLAGS)
 
 $(TARGETS1) : $(SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(GTESTFLAGS)
@@ -316,6 +335,9 @@ $(BUILD_ONLY) : $(SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 $(ALLTESTS_TARGET) : $(ALLTESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(ALLTESTS_SRCS) $(GMOCKFLAGS)
 
+$(NAMESPACETESTS_TARGET) : $(NAMESPACETESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(NAMESPACETESTS_SRCS) $(GMOCKFLAGS)
+
 $(TARGETS1) : $(SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(GMOCKFLAGS)
 
@@ -334,6 +356,9 @@ endif
 
 $(ALLTESTS_TARGET) : $(ALLTESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(ALLTESTS_SRCS) $(IUTEST_LIB_) $(LDFLAGS)
+
+$(NAMESPACETESTS_TARGET) : $(NAMESPACETESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(NAMESPACETESTS_SRCS) $(IUTEST_LIB_) $(LDFLAGS)
 
 $(TARGETS_EXCLUDE_ALLTESTS) : $(SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(IUTEST_LIB_) $(LDFLAGS)
