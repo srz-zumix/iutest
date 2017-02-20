@@ -23,6 +23,7 @@
 *.VC.db
 coverage.info
 test/*.xml
+test/*.ns.cpp
 lib
 libs
 .svn
