@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -405,7 +405,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(char16_t* str, iu_ostre
     UniversalTersePrint(static_cast<const char16_t*>(str), os);
 }
 #endif
-#if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_HDR_UCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
+#if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_CXX_HDR_CUCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char32_t* str, iu_ostream* os)
 {
     UniversalPrint(detail::ShowWideCString(str), os);

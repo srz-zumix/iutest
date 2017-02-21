@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -20,6 +20,16 @@
 #if IUTEST_HAS_STATIC_ASSERT_TYPEEQ
 
 #if 0
+
+namespace iutest
+{
+
+namespace detail
+{
+    template<typename T1, typename T2>
+    struct StaticAssertTypeEqHelper;
+}
+
 /**
  * @ingroup IUTEST_UTIL
  * @brief   型アサーション
@@ -27,9 +37,11 @@
 template<typename T1, typename T2>
 static bool StaticAssertTypeEq()
 {
-    (void)detail::StaticAssertTypeEqHelper<T1, T2>();
-    return true;
+    return detail::StaticAssertTypeEqHelper<T1, T2>();
 }
+
+}   // end of namespace iutest
+
 #else
 
 /**
@@ -121,7 +133,9 @@ template<>struct static_assert_typeeq<true> { operator bool() const { return tru
 /** @private */
 template<typename T1, typename T2>
 struct StaticAssertTypeEqHelper
-    : public helper::static_assert_typeeq< iutest_type_traits::is_same<T1, T2>::value > {};
+    : public helper::static_assert_typeeq< iutest_type_traits::is_same<T1, T2>::value >
+{
+};
 
 #endif
 
