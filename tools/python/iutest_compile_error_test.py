@@ -130,6 +130,14 @@ class ErrorMessage:
             return self.child.get_error_child()
         return None
 
+
+class ExpectMessage:
+    def __init__(self, msg, expect, expression):
+        self.msg = msg
+        self.expect = expect
+        self.expression = expression
+
+
 format_gcc = True
 color_prompt = False
 
@@ -141,7 +149,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 0.3'
+        version=u'%(prog)s version 0.4'
     )
     parser.add_argument(
         '-c',
@@ -187,8 +195,53 @@ def parse_command_line():
 
 def parse_gcc_clang(options, f, r_expansion, note_is_child):
     re_fatal = re.compile(r'(\S+)\s*:\s*fatal\s*error\s*.*')
-    re_file = re.compile(r'(\S+):(\d+):(\d+)\s*:(.*)')
-    re_infile = re.compile(r'In file included from (\S+):(\d+):(\d+)(.*)')
+    class rmessage:
+        re_file = re.compile(r'(\S+):(\d+):(\d+)\s*:(.*)')
+        re_infile = re.compile(r'In file included from (\S+):(\d+):(\d+)(.*)')
+        re_ininst = re.compile(r'(\S+):\s* (In instantiation of .*)')
+
+        def __init__(self):
+            self.m1 = None
+            self.m2 = None
+            self.m3 = None
+
+        def match(self, line):
+            self.m1 = self.re_file.match(line)
+            if self.m1:
+                return True
+            self.m2 = self.re_infile.match(line)
+            if self.m2:
+                return True
+            self.m3 = self.re_ininst.match(line)
+            if self.m3:
+                return True
+            return False
+
+        def file(self):
+            if self.m1:
+                return self.m1.group(1)
+            if self.m2:
+                return self.m2.group(1)
+            if self.m3:
+                return self.m3.group(1)
+            return None
+
+        def line(self):
+            if self.m1:
+                return int(self.m1.group(2))
+            if self.m2:
+                return int(self.m2.group(2))
+            return None
+
+        def message(self):
+            if self.m1:
+                return self.m1.group(4)
+            if self.m2:
+                return self.m2.group(4)
+            if self.m3:
+                return self.m3.group(2)
+            return None
+
     re_message = re.compile(r'.*:\d+:\d+: (\S*): (.*)')
     re_expansion = re.compile(r_expansion)
     re_declaration = re.compile(r'.*declaration of\s*(.*)')
@@ -201,17 +254,14 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
         if re_fatal.match(line):
             raise Exception(line)
 
-        m = re_file.match(line)
-        if not m:
-            m = re_infile.match(line)
-
-        if m:
+        m = rmessage()
+        if m.match(line):
             if msg:
                 msg_list.append(msg)
                 prev = msg
             msg = ErrorMessage()
-            msg.file = m.group(1)
-            msg.line = int(m.group(2))
+            msg.file = m.file()
+            msg.line = m.line()
             msg.type = ""
             n = re_message.match(line)
             if n:
@@ -219,7 +269,7 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
                 msg.message += n.group(2)
             else:
                 msg.set_type('')
-                msg.message += m.group(4)
+                msg.message += m.message()
 
             is_child = note_is_child and msg.is_note()
             is_type_none = prev and prev.is_type_none()
@@ -291,16 +341,21 @@ def parse_vc(options, f):
 
 
 def dump_msg(m):
+    s = m.file
     if format_gcc:
-        if m.is_type_none():
-            print("%s:%d: %s" % (m.file, m.line, m.message))
-        else:
-            print("%s:%d: %s: %s" % (m.file, m.line, m.type, m.message))
+        s += ':'
+        if m.line:
+            s += '%d:' % (m.line)
+        if not m.is_type_none():
+            s += ' %s:' % (m.type)
+        print("%s: %s" % (s, m.message))
     else:
+        if m.line:
+            s += '(%d)' % (m.line)
         if m.parent:
-            print("\t%s(%d): %s %s" % (m.file, m.line, m.type, m.message))
+            print("\t%s: %s %s" % (s, m.type, m.message))
         else:
-            print("%s(%d): %s %s" % (m.file, m.line, m.type, m.message))
+            print("%s: %s %s" % (s, m.type, m.message))
 
 
 def dump_msgs(m):
@@ -345,41 +400,41 @@ def iutest(l):
     result = True
     re_iutest = re.compile(r'IUTEST_TEST_COMPILEERROR\( (.*) \)')
     re_m = None
-    check = None
-    for msg in l:
+    checkList = []
+    messageList = []
+    for i, msg in enumerate(l):
         if not msg:
             continue
-
         mm = re_iutest.search(msg.message)
         if mm:
-            if msg.parent:
-                continue
-            if check and not check.checked:
-                dump_msg(check)
-                dump_msg(msg)
-                test_result(False, re_m.group(0), check)
-                result = False
-            check = msg
-            re_m = mm
-        elif msg.has_error():
+            if not msg.parent:
+                expect = mm.group(1).strip('"')
+                checkList.append(ExpectMessage(msg, expect, mm.group(0)))
+        else:
+            messageList.append(msg)
+
+    for msg in messageList:
+        if msg.has_error():
             #print('%s - %d' % (msg.file, msg.line))
-            if check and msg.file in check.file and msg.line == check.line + 1:
-                actual = msg.get_error()
-                expect = re_m.group(1).strip('"')
-                #print(actual.message)
-                if not expect or actual.message.find(expect) != -1:
-                    check.checked = True
-                    msg.checked = True
-                    test_result(True, re_m.group(0), check)
-            elif msg.is_tail() and not msg.is_checked():
+            for check in checkList:
+                if msg.file in check.msg.file and msg.line == check.msg.line + 1:
+                    actual = msg.get_error()
+                    #print(actual.message)
+                    if not check.expect or actual.message.find(check.expect) != -1:
+                        check.msg.checked = True
+                        msg.checked = True
+            if msg.is_tail() and not msg.is_checked():
                 dump_msgs(msg)
                 result = False
         elif msg.is_warning():
             dump_msg(msg)
 
-    if check and not check.checked:
-        test_result(False, re_m.group(0), check)
-        result = False
+    for check in checkList:
+        if check.msg.checked:
+            test_result(True, check.expression, check.msg)
+        else:
+            test_result(False, check.expression, check.msg)
+            result = False
     return result
 
 
@@ -393,7 +448,7 @@ def parse_output(options):
         p = Popen(args, stdout=PIPE, stderr=STDOUT)
         p.wait()
         out, err = p.communicate()
-        f = out.splitlines()
+        f = out.decode('utf-8').splitlines()
     else:
         if not options.infile:
             raise Exception("infile null")
