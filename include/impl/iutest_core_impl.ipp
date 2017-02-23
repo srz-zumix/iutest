@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -190,7 +190,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::InitializeImpl()
     SetErrorMode(SEM_FAILCRITICALERRORS | SEM_NOALIGNMENTFAULTEXCEPT | SEM_NOGPFAULTERRORBOX | SEM_NOOPENFILEERRORBOX);
 #endif
 
-#if (defined(_MSC_VER) || IUTEST_OS_WINDOWS_MINGW) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+#if (defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
     _set_error_mode(_OUT_TO_STDERR);
 #endif
 

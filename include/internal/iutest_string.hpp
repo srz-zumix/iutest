@@ -133,7 +133,7 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 */
 inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
-#if defined(__CYGWIN__)
+#if defined(__CYGWIN__) || defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)
 #  if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) || (__cplusplus >= 201103L)
     const int ret = vsnprintf(dst, size, format, va);
 #  else
