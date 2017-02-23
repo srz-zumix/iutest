@@ -342,20 +342,20 @@ def parse_vc(options, f):
 
 def dump_msg(m):
     s = m.file
+    s += ':'
     if format_gcc:
-        s += ':'
         if m.line:
             s += '%d:' % (m.line)
         if not m.is_type_none():
             s += ' %s:' % (m.type)
-        print("%s: %s" % (s, m.message))
+        print("%s %s" % (s, m.message))
     else:
         if m.line:
-            s += '(%d)' % (m.line)
+            s += '(%d);' % (m.line)
         if m.parent:
-            print("\t%s: %s %s" % (s, m.type, m.message))
+            print("\t%s %s %s" % (s, m.type, m.message))
         else:
-            print("%s: %s %s" % (s, m.type, m.message))
+            print("%s %s %s" % (s, m.type, m.message))
 
 
 def dump_msgs(m):
@@ -420,9 +420,10 @@ def iutest(l):
                 if msg.file in check.msg.file and msg.line == check.msg.line + 1:
                     actual = msg.get_error()
                     #print(actual.message)
+                    msg.checked = True
                     if not check.expect or actual.message.find(check.expect) != -1:
                         check.msg.checked = True
-                        msg.checked = True
+                        break
             if msg.is_tail() and not msg.is_checked():
                 dump_msgs(msg)
                 result = False
@@ -468,6 +469,8 @@ def parse_output(options):
 
     if options.debug:
         dump_list(l)
+    if options.verbose:
+        print('----')
     return iutest(l)
 
 
