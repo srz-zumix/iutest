@@ -52,7 +52,7 @@ inline int iu_stricmp(const char* str1, const char* str2)
     return stricmp(str1, str2);
 #elif defined(_MSC_VER)
     return _stricmp(str1, str2);
-#elif defined(IUTEST_OS_WINDOWS) && !defined(__STRICT_ANSI__)
+#elif defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MINGW) && !defined(__STRICT_ANSI__)
     return _stricmp(str1, str2);
 #elif !defined(__MWERKS__) && !defined(IUTEST_OS_WINDOWS)
     return strcasecmp(str1, str2);
@@ -127,16 +127,11 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 #endif
 }
 
-/**
- * @internal
- * @brief   vsnprintf
-*/
+namespace wrapper
+{
+
 inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
-#if defined(__CYGWIN__) || defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)
-#  if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) || (__cplusplus >= 201103L)
-    const int ret = vsnprintf(dst, size, format, va);
-#  else
     char buffer[4096];
     const int ret = vsprintf(buffer, format, va);
     if( dst != NULL )
@@ -146,11 +141,28 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
         strncpy(dst, buffer, write);
         dst[write] = '\0';
     }
-#  endif
-#else
-    const int ret = vsnprintf(dst, size, format, va);
-#endif
     return ret;
+}
+
+}
+
+/**
+ * @internal
+ * @brief   vsnprintf
+*/
+inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
+{
+#if defined(__CYGWIN__)
+#  if !defined(__STRICT_ANSI__) || (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) || (__cplusplus >= 201103L)
+    return vsnprintf(dst, size, format, va);
+#  else
+    return wrapper::iu_vsnprintf(dst, size, format, va);
+#  endif
+#elif (defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)) && defined(__STRICT_ANSI__)
+    return wrapper::iu_vsnprintf(dst, size, format, va);
+#else
+    return vsnprintf(dst, size, format, va);
+#endif
 }
 
 /**
