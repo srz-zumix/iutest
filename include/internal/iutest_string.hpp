@@ -144,7 +144,7 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
     return ret;
 }
 
-}
+} // end of namespace wrapper
 
 /**
  * @internal
