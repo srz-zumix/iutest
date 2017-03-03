@@ -87,7 +87,11 @@ Tests
 |CI|Tests|
 |:--|:--|
 |[![Travis-CI Build Status](https://travis-ci.org/srz-zumix/iutest.png?branch=master)](https://travis-ci.org/srz-zumix)|Basic tests, Google test compatibility, Coverage, Coverity-scan, Wine + MinGW|
-|[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/2gdmgo8ce8m0iy0e/branch/master?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest/branch/master)|Windows, Cygwin, MinGW, NuGet, Sample build|
+|[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/2gdmgo8ce8m0iy0e/branch/master?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest/branch/master)|Windows, NuGet|
+|[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/906w23swuocl9fex?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-8dhoe)|Sample build|
+|[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/0w0wuhc58kre178q?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-xsqun)|Visual Studio PREFAST (Code Analysis)|
+|[![Build status](https://ci.appveyor.com/api/projects/status/erhkn5rer20jmdbq?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-xlae4)|Cygwin|
+|[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/xr7yvj6swxutluu4?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-rbhes)|MinGW|
 |[![Snap-CI Build Status](https://snap-ci.com/srz-zumix/iutest/branch/master/build_image)](https://snap-ci.com/srz-zumix/iutest/branch/master)|Configurations tests|
 |[![wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/master "wercker status")](https://app.wercker.com/project/bykey/d385156052aa4118a7f24affe4a8f851)|Syntax tests for compiler each version|
 |[![Shippable Build Status](https://api.shippable.com/projects/541904d2ac22859af743f867/badge?branchName=master)](https://app.shippable.com/projects/541904d2ac22859af743f867/builds/latest)|Syntax tests for compiler each version (c++98)|
