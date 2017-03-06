@@ -14,6 +14,6 @@ LOCAL_SRC_FILES := main.cpp \
                    simple.cpp \
                    typed.cpp
                    
-LOCAL_CFLAGS := -Wno-psabi
+LOCAL_CFLAGS := -Wno-psabi -Wunknown-warning-option
 
 include $(BUILD_EXECUTABLE)
