@@ -13,7 +13,9 @@ LOCAL_SRC_FILES := main.cpp \
                    printto.cpp \
                    simple.cpp \
                    typed.cpp
-                   
-LOCAL_CFLAGS := -Wno-psabi -Wunknown-warning-option
+
+ifdef SNAP_CI                   
+LOCAL_CFLAGS := -Wno-psabi
+endif
 
 include $(BUILD_EXECUTABLE)
