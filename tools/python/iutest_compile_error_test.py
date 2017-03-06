@@ -196,8 +196,8 @@ def parse_command_line():
 def parse_gcc_clang(options, f, r_expansion, note_is_child):
     re_fatal = re.compile(r'(\S+)\s*:\s*fatal\s*error\s*.*')
     class rmessage:
-        re_file = re.compile(r'(\S+):(\d+):(\d+)\s*:(.*)')
-        re_infile = re.compile(r'In file included from (\S+):(\d+):(\d+)(.*)')
+        re_file = re.compile(r'(\S+):(\d+):(?:\d+\s*:|)(.*)')
+        re_infile = re.compile(r'In file included from (\S+):(\d+):(?:\d+|)(.*)')
         re_ininst = re.compile(r'(\S+):\s* (In instantiation of .*)')
 
         def __init__(self):
@@ -235,14 +235,14 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
 
         def message(self):
             if self.m1:
-                return self.m1.group(4)
+                return self.m1.group(3)
             if self.m2:
-                return self.m2.group(4)
+                return self.m2.group(3)
             if self.m3:
                 return self.m3.group(2)
             return None
 
-    re_message = re.compile(r'.*:\d+:\d+: (\S*): (.*)')
+    re_message = re.compile(r'.*:\d+:(\d+:|)\s*(\S*):\s*(.*)')
     re_expansion = re.compile(r_expansion)
     re_declaration = re.compile(r'.*declaration of\s*(.*)')
     msg_list = []
@@ -250,7 +250,7 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
     prev = None
     for line in f:
         if options.verbose:
-            print(line)
+            print(line.rstrip())
         if re_fatal.match(line):
             raise Exception(line)
 
@@ -307,7 +307,7 @@ def parse_vc(options, f):
     prev = None
     for line in f:
         if options.verbose:
-            print(line)
+            print(line.rstrip())
         if re_fatal.match(line):
             raise Exception(line)
 
