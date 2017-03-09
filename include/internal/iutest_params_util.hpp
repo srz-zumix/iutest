@@ -213,7 +213,7 @@ public:
     }
 
 private:
-    static bool CheckTestName(TestCase* testcase, const::std::string& name)
+    static bool CheckTestName(const TestCase* testcase, const::std::string& name)
     {
         const int count = testcase->total_test_count();
         for(int i = 0; i < count; ++i )

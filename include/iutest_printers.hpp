@@ -242,7 +242,6 @@ inline void PrintTo(const T& value, iu_ostream* os) {
 }
 inline void PrintTo(bool b, iu_ostream* os)         { *os << (b ? "true" : "false"); }
 inline void PrintTo(const char* c, iu_ostream* os)  { *os << c; }
-inline void PrintTo(char* c, iu_ostream* os)        { *os << c; }
 inline void PrintTo(const ::std::string& str, iu_ostream* os)   { *os << str.c_str(); }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 template<typename T>
@@ -383,36 +382,20 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char* str, iu_ost
         UniversalPrint(::std::string(str), os);
     }
 }
-inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(char* str, iu_ostream* os)
-{
-    UniversalTersePrint(static_cast<const char*>(str), os);
-}
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t* str, iu_ostream* os)
 {
     UniversalPrint(detail::ShowWideCString(str), os);
-}
-inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(wchar_t* str, iu_ostream* os)
-{
-    UniversalTersePrint(static_cast<const wchar_t*>(str), os);
 }
 #if IUTEST_HAS_CHAR16_T
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t* str, iu_ostream* os)
 {
     UniversalPrint(detail::ShowWideCString(str), os);
 }
-inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(char16_t* str, iu_ostream* os)
-{
-    UniversalTersePrint(static_cast<const char16_t*>(str), os);
-}
 #endif
 #if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_CXX_HDR_CUCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char32_t* str, iu_ostream* os)
 {
     UniversalPrint(detail::ShowWideCString(str), os);
-}
-inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(char32_t* str, iu_ostream* os)
-{
-    UniversalTersePrint(static_cast<const char32_t*>(str), os);
 }
 #endif
 

@@ -744,11 +744,11 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNOTIN(cons
 namespace RegexHelper
 {
 
-inline bool FullMatch(const ::std::string& str, ::iutest::internal::RE& re)
+inline bool FullMatch(const ::std::string& str, const ::iutest::internal::RE& re)
 {
     return ::iutest::internal::RE::FullMatch(str, re);
 }
-inline bool FullMatch(const char* str, ::iutest::internal::RE& re)
+inline bool FullMatch(const char* str, const ::iutest::internal::RE& re)
 {
     if( str == NULL )
     {
@@ -757,11 +757,11 @@ inline bool FullMatch(const char* str, ::iutest::internal::RE& re)
     return ::iutest::internal::RE::FullMatch(str, re);
 }
 
-inline bool PartialMatch(const ::std::string& str, ::iutest::internal::RE& re)
+inline bool PartialMatch(const ::std::string& str, const ::iutest::internal::RE& re)
 {
     return ::iutest::internal::RE::PartialMatch(str, re);
 }
-inline bool PartialMatch(const char* str, ::iutest::internal::RE& re)
+inline bool PartialMatch(const char* str, const ::iutest::internal::RE& re)
 {
     if( str == NULL )
     {

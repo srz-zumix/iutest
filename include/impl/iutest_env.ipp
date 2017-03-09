@@ -187,7 +187,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
         if( opt != NULL )
         {
             char* end = NULL;
-            long seed = strtol(opt, &end, 0);
+            const long seed = strtol(opt, &end, 0);
             init_random(static_cast<unsigned int>(seed));
             return true;
         }
@@ -218,7 +218,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
         if( opt != NULL )
         {
             char* end = NULL;
-            long count = strtol(opt, &end, 0);
+            const long count = strtol(opt, &end, 0);
             set_repeat_count(static_cast<int>(count));
             return true;
         }

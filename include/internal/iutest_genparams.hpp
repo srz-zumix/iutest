@@ -441,7 +441,7 @@ class iuCartesianProductGenerator : public iuIParamGenerator< tuples::tuple<Args
     bool is_end_foreach(Tuple& t
         , typename detail::enable_if<index != end, void>::type*& = detail::enabler::value ) const
     {
-        bool b = tuples::get<index>(t).IsEnd();
+        const bool b = tuples::get<index>(t).IsEnd();
         return b && is_end_foreach<index+1, end>(t);
     }
     template<int index, int end, typename Tuple>

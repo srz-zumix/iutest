@@ -71,7 +71,7 @@ IUTEST_IPP_INLINE bool MiniDump::Dump(HANDLE hFile, EXCEPTION_POINTERS* ep)
         , PMINIDUMP_USER_STREAM_INFORMATION
         , PMINIDUMP_CALLBACK_INFORMATION
         );
-    pfnMiniDumpWriteDump proc = reinterpret_cast<pfnMiniDumpWriteDump>(m_pfnMiniDumpWriteDump);
+    const pfnMiniDumpWriteDump proc = reinterpret_cast<const pfnMiniDumpWriteDump>(m_pfnMiniDumpWriteDump);
     return (*proc)( ::GetCurrentProcess(), ::GetCurrentProcessId(), hFile, MiniDumpNormal
         , &mdei, NULL, NULL) ? true : false;
 }
