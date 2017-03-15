@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -124,6 +124,11 @@ private:
      * @brief   FindTestCase
     */
     TestCase* FindTestCase(const char* testcase_name, TestTypeId id);
+
+    /**
+     * @brief   Do information options
+    */
+    bool DoInfoOptions();
 
 private:
     /**

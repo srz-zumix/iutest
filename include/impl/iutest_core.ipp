@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -113,10 +113,10 @@ IUTEST_IPP_INLINE int UnitTest::Run()
         return Passed() ? 0 : 1;
     }
 
-    int ret = 1;
 #if IUTEST_HAS_EXCEPTIONS
     if( TestFlag::IsEnableFlag(TestFlag::CATCH_EXCEPTION_GLOBAL) )
     {
+        int ret = 1;
         try
         {
 #if IUTEST_HAS_SEH
@@ -132,13 +132,10 @@ IUTEST_IPP_INLINE int UnitTest::Run()
         catch( ... )
         {
         }
+        return ret;
     }
-    else
 #endif
-    {
-        ret = RunImpl();
-    }
-    return ret;
+    return RunImpl();
 }
 
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH

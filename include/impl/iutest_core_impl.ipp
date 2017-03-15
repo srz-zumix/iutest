@@ -95,39 +95,12 @@ IUTEST_IPP_INLINE bool UnitTestImpl::PreRunner()
 {
     InitializeImpl();
 
-    if( TestFlag::IsEnableFlag(TestFlag::SHOW_INFO_MASK) )
+    if( DoInfoOptions() )
     {
-        if( TestFlag::IsEnableFlag(TestFlag::SHOW_HELP) )
-        {
-            detail::iuOptionMessage::ShowHelp();
-        }
-        if( TestFlag::IsEnableFlag(TestFlag::SHOW_VERSION) )
-        {
-            detail::iuOptionMessage::ShowVersion();
-        }
-        if( TestFlag::IsEnableFlag(TestFlag::SHOW_FEATURE) )
-        {
-            detail::iuOptionMessage::ShowFeature();
-        }
-        if( TestFlag::IsEnableFlag(TestFlag::SHOW_SPEC) )
-        {
-            detail::iuOptionMessage::ShowSpec();
-        }
+        TestFlag::SetFlag(0, ~TestFlag::SHOW_MASK);
+        return false;
     }
-    else if( TestFlag::IsEnableFlag(TestFlag::SHOW_TESTS_LIST_WITH_WHERE) )
-    {
-        ListupWithWhere();
-    }
-    else if( TestFlag::IsEnableFlag(TestFlag::SHOW_TESTS_LIST) )
-    {
-        Listup();
-    }
-    else
-    {
-        return true;
-    }
-    TestFlag::SetFlag(0, ~TestFlag::SHOW_MASK);
-    return false;
+    return true;
 }
 
 IUTEST_IPP_INLINE void UnitTestImpl::ClearNonAdHocTestResult()
@@ -180,6 +153,41 @@ IUTEST_IPP_INLINE TestCase* UnitTestImpl::FindTestCase(const char* testcase_name
 {
     TestCase::FindOp func ={ id, testcase_name };
     return detail::FindList(m_testcases, func);
+}
+
+IUTEST_IPP_INLINE bool UnitTestImpl::DoInfoOptions()
+{
+    if( TestFlag::IsEnableFlag(TestFlag::SHOW_INFO_MASK) )
+    {
+        if( TestFlag::IsEnableFlag(TestFlag::SHOW_HELP) )
+        {
+            detail::iuOptionMessage::ShowHelp();
+        }
+        if( TestFlag::IsEnableFlag(TestFlag::SHOW_VERSION) )
+        {
+            detail::iuOptionMessage::ShowVersion();
+        }
+        if( TestFlag::IsEnableFlag(TestFlag::SHOW_FEATURE) )
+        {
+            detail::iuOptionMessage::ShowFeature();
+        }
+        if( TestFlag::IsEnableFlag(TestFlag::SHOW_SPEC) )
+        {
+            detail::iuOptionMessage::ShowSpec();
+        }
+        return true;
+    }
+    if( TestFlag::IsEnableFlag(TestFlag::SHOW_TESTS_LIST_WITH_WHERE) )
+    {
+        ListupWithWhere();
+        return true;
+    }
+    if( TestFlag::IsEnableFlag(TestFlag::SHOW_TESTS_LIST) )
+    {
+        Listup();
+        return true;
+    }
+    return false;
 }
 
 IUTEST_IPP_INLINE void UnitTestImpl::InitializeImpl()
