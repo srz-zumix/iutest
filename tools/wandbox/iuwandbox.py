@@ -34,7 +34,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 5.0'
+        version=u'%(prog)s version 5.1'
     )
     parser.add_argument(
         '--list_compiler',
@@ -413,6 +413,13 @@ def run_wandbox(code, includes, impliments, options):
     return run(3)
 
 
+def wandbox_hint(r):
+    if 'compiler_error' in r:
+        if 'undefined reference to `init_unit_test_suite' in r['compiler_error']:
+            print('hint:')
+            print('  If you do not use boost test, please specify the file with the main function first.')
+
+
 # show result
 def show_result(r, options):
     if 'error' in r:
@@ -441,6 +448,8 @@ def show_result(r, options):
         print('url: ' + r['url'])
     if 'signal' in r:
         print('signal: ' + r['signal'])
+    wandbox_hint(r)
+
     if 'status' in r:
         return int(r['status'])
     return 1
