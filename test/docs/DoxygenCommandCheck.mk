@@ -201,6 +201,9 @@ endif
 ifneq ("$(wildcard $(ROOT))","")
 FILELIST=$(shell find ${ROOT} -type f -name '*.hpp')
 FILELIST+=$(shell find ${ROOT} -type f -name '*.h')
+FILELIST+=$(shell find ${ROOT} -type f -name '*.ipp')
+FILELIST+=$(shell find ${ROOT} -type f -name '*.c')
+FILELIST+=$(shell find ${ROOT} -type f -name '*.cpp')
 else
 ROOT_PATH_NOT_EXIST=1
 endif
