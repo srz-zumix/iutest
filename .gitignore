@@ -21,6 +21,7 @@
 *.nupkg
 *.pyc
 *.VC.db
+*.tmp
 coverage.info
 test/*.xml
 test/*.ns.cpp

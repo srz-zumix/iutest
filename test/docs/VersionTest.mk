@@ -4,7 +4,7 @@ IUTEST_MICROVER:=$(shell grep 'IUTEST_MICROVER' ../../include/iutest_ver.hpp | h
 IUTEST_REVISION:=$(shell grep 'IUTEST_REVISION' ../../include/iutest_ver.hpp | head -1 | sed -e 's/.*define.*0x\([0-9]*\).*/\1/' -e 's/0\+\([0-9]\+\)/\1/')
 IUTEST_VERSION:=$(IUTEST_MAJORVER).$(IUTEST_MINORVER).$(IUTEST_MICROVER).$(IUTEST_REVISION)
 
-DOXYGEN_VERSION:=$(word 3, $(shell grep 'PROJECT_NUMBER' ../Doxyfile | tail -n 1))
+DOXYGEN_VERSION:=$(word 3, $(shell grep 'PROJECT_NUMBER' ../../docs/Doxyfile | tail -n 1))
 
 default: dump-version doxygen-version nuget-version changes
 
