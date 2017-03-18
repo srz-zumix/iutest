@@ -160,7 +160,7 @@ public:
 };
 
 /**
- * @biref   フラグ変更スコープ
+ * @brief   フラグ変更スコープ
 */
 class ScopedDisableTestFailureBreak : public TestFlag::ScopedGuard
 {

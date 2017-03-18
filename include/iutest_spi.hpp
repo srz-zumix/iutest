@@ -203,7 +203,7 @@ public:
 };
 
 /**
- * @biref   フラグ変更スコープ
+ * @brief   フラグ変更スコープ
 */
 class ScopedSPITestFlag : public TestFlag::ScopedGuard
 {

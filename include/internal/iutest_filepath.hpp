@@ -182,7 +182,7 @@ public:
 
 private:
     /**
-     * @biref   正規化
+     * @brief   正規化
     */
     void Normalize();
 
