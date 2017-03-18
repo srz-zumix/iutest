@@ -7,6 +7,5 @@ version-test:
 
 
 doxygen-test:
-	cd ../../include
 	make -f DoxygenCommandCheck.mk --no-print-directory ROOT=../../include
 

@@ -209,8 +209,8 @@ ROOT_PATH_NOT_EXIST=1
 endif
 
 ifneq ($(FILELIST),)
-NOMATCHS=$(shell grep -ozP '/\*\*[\s\S]*?\*/' ${FILELIST} | grep -aoP '\s@[\S]*?\s' | grep -avP '.*@(${DOXYGEN_COMMANDS})\s.*' | sort -bu)
-NOMATCHS+=$(shell grep -onP '//!.*' ${FILELIST} | grep -aoP '\s@[\S]*' | grep -avP '.*@(${DOXYGEN_COMMANDS})' | sort -bu)
+NOMATCHS=$(shell grep -aozP '/\*\*[\s\S]*?\*/' ${FILELIST} | grep -aoP '\s@[\S]*?\s' | grep -avP '.*@(${DOXYGEN_COMMANDS})\s.*' | sort -bu)
+NOMATCHS+=$(shell grep -aonP '//!.*' ${FILELIST} | grep -aoP '\s@[\S]*' | grep -avP '.*@(${DOXYGEN_COMMANDS})' | sort -bu)
 endif
 
 default: doxygen-command-typo-check
