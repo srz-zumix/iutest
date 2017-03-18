@@ -1,3 +1,14 @@
+#!/usr/bin/make
+#
+# Doxygen special commands checker
+#
+# Usage: make -C DoxygenCommandCheck.mk ROOT=<root-path> [ADD_COMMANDS=<additional commands>]
+#
+# Copyright (C) 2017, Takazumi Shirayanagi\n
+# This software is released under the new BSD License,
+# see LICENSE
+#
+
 # doxygen special commands list (v1.18.13)
 DOXYGEN_COMMAND_LIST={ \
 	} \
