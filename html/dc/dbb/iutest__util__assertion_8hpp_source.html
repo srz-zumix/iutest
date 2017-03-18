@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.1.3</span>
+   &#160;<span id="projectnumber">1.16.1.5</span>
    </div>
   </td>
  </tr>
@@ -587,11 +587,11 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;<span class="keyword">namespace </span>RegexHelper</div>
 <div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;{</div>
 <div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;</div>
-<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> FullMatch(const ::std::string&amp; str, ::iutest::internal::RE&amp; re)</div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> FullMatch(const ::std::string&amp; str, const ::iutest::internal::RE&amp; re)</div>
 <div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;{</div>
 <div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;    return ::iutest::internal::RE::FullMatch(str, re);</div>
 <div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;}</div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> FullMatch(<span class="keyword">const</span> <span class="keywordtype">char</span>* str, ::iutest::internal::RE&amp; re)</div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> FullMatch(<span class="keyword">const</span> <span class="keywordtype">char</span>* str, const ::iutest::internal::RE&amp; re)</div>
 <div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;{</div>
 <div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;    <span class="keywordflow">if</span>( str == NULL )</div>
 <div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;    {</div>
@@ -600,11 +600,11 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;    return ::iutest::internal::RE::FullMatch(str, re);</div>
 <div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;}</div>
 <div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;</div>
-<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> PartialMatch(const ::std::string&amp; str, ::iutest::internal::RE&amp; re)</div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> PartialMatch(const ::std::string&amp; str, const ::iutest::internal::RE&amp; re)</div>
 <div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;{</div>
 <div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;    return ::iutest::internal::RE::PartialMatch(str, re);</div>
 <div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;}</div>
-<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> PartialMatch(<span class="keyword">const</span> <span class="keywordtype">char</span>* str, ::iutest::internal::RE&amp; re)</div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">bool</span> PartialMatch(<span class="keyword">const</span> <span class="keywordtype">char</span>* str, const ::iutest::internal::RE&amp; re)</div>
 <div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;{</div>
 <div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;    <span class="keywordflow">if</span>( str == NULL )</div>
 <div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;    {</div>
@@ -760,7 +760,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="ttc" id="namespaceiuutil_html_af28fb39c073ad80211f3eec2b129c78d"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#af28fb39c073ad80211f3eec2b129c78d">iuutil::CmpHelperSTRNOTIN</a></div><div class="ttdeci">inline::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNOTIN(const char *substr_str, const char *actual_str, const T1 &amp;substr, const T2 &amp;actual)</div><div class="ttdoc">文字列部分一致アサーションフォーマッター </div><div class="ttdef"><b>Definition:</b> iutest_util_assertion.hpp:737</div></div>
 <div class="ttc" id="namespaceiuutil_html_a520fdc809897633b53ea19bb96a03a30"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#a520fdc809897633b53ea19bb96a03a30">iuutil::CmpHelperSTRIN</a></div><div class="ttdeci">inline::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRIN(const char *substr_str, const char *actual_str, const T1 &amp;substr, const T2 &amp;actual)</div><div class="ttdoc">文字列部分一致アサーションフォーマッター </div><div class="ttdef"><b>Definition:</b> iutest_util_assertion.hpp:703</div></div>
 <div class="ttc" id="namespaceiuutil_html_acd202552c17d83630e04c4a7f7a74c42"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#acd202552c17d83630e04c4a7f7a74c42">iuutil::CmpHelperEqIterator</a></div><div class="ttdeci">::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqIterator(T1 b1, T1 e1, T2 b2, T2 e2)</div><div class="ttdoc">Equal Collection Helper. </div><div class="ttdef"><b>Definition:</b> iutest_util_assertion.hpp:481</div></div>
-<div class="ttc" id="namespaceiutest_html_a089d4c220696dc46e2ef184fc945367c"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">iutest::PrintToString</a></div><div class="ttdeci">std::string PrintToString(const T &amp;v)</div><div class="ttdoc">文字列化 </div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:533</div></div>
+<div class="ttc" id="namespaceiutest_html_a089d4c220696dc46e2ef184fc945367c"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">iutest::PrintToString</a></div><div class="ttdeci">std::string PrintToString(const T &amp;v)</div><div class="ttdoc">文字列化 </div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:516</div></div>
 <div class="ttc" id="namespaceiuutil_html_a6bef07be57635fdc8f412403df3d8a57"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#a6bef07be57635fdc8f412403df3d8a57">iuutil::CmpHelperEqRange</a></div><div class="ttdeci">::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperEqRange(const char *expected_expr, const char *actual_expr, T1(&amp;expected)[SIZE1], const T2 &amp;actual)</div><div class="ttdef"><b>Definition:</b> iutest_util_assertion.hpp:586</div></div>
 <div class="ttc" id="namespaceiutest_html_a543a2a28ba663224cb511a4ae93877dc"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a543a2a28ba663224cb511a4ae93877dc">iutest::Message</a></div><div class="ttdeci">detail::iuStreamMessage Message</div><div class="ttdoc">Message クラス </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:31</div></div>
 <div class="ttc" id="namespaceiuutil_html_a602df67448168da2fb09fd13f9dbd665"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#a602df67448168da2fb09fd13f9dbd665">iuutil::CmpHelperSTRLNEQ</a></div><div class="ttdeci">inline::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRLNEQ(const char *expr1, const char *expr2, size_t len1, const char *val2)</div><div class="ttdoc">文字列長アサーションフォーマッター </div><div class="ttdef"><b>Definition:</b> iutest_util_assertion.hpp:618</div></div>
@@ -773,7 +773,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2017年02月28日(火) 23時31分35秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2017年03月18日(土) 12時40分19秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
