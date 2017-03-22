@@ -11,7 +11,8 @@ import json
 #
 class Wandbox:
     """wandbox api class"""
-    api_url = 'http://melpon.org/wandbox/api'
+    #api_url = 'http://melpon.org/wandbox/api'
+    api_url = 'https://wandbox.org/api'
     parameter = {'code': ''}
 
     def get_compiler_list(self):
