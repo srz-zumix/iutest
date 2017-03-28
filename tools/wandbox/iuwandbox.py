@@ -11,6 +11,7 @@ import os
 import sys
 import re
 import codecs
+import argparse
 
 from time import sleep
 from argparse import ArgumentParser
@@ -34,7 +35,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 5.1'
+        version=u'%(prog)s version 5.2'
     )
     parser.add_argument(
         '--list_compiler',
@@ -161,6 +162,11 @@ def parse_command_line():
         '--expand-include',
         action='store_true',
         help='expand include file.'
+    )
+    parser.add_argument(
+        '--make',
+        action='store_true',
+        help=argparse.SUPPRESS
     )
     parser.add_argument(
         '--check_config',
@@ -347,21 +353,116 @@ def create_option_list(options):
     return opt
 
 
-# run wandbox
-def run_wandbox(code, includes, impliments, options):
-    w = Wandbox()
-    w.compiler(options.compiler)
-    w.options(','.join(create_option_list(options)))
-    if options.stdin:
-        w.stdin(options.stdin)
+def expand_wandbox_options(w, compiler, options):
+    colist = []
+    defs = {}
+    for d in w.get_compiler_list():
+        if d['name'] == compiler:
+            if 'switches' in d:
+                switches = d['switches']
+                for s in switches:
+                    if ('name' in s) and ('display-flags' in s):
+                        defs[s['name']] = s['display-flags']
+                    elif 'options' in s:
+                        for o in s['options']:
+                            if ('name' in o) and ('display-flags' in o):
+                                defs[o['name']] = o['display-flags']
+    for opt in options:
+        if opt in defs:
+            colist.extend(defs[opt].split())
+    return colist
+
+
+def run_wandbox_impl(w, options, retries):
+    if options.dryrun:
+        sys.exit(0)
+    def run(retries):
+        try:
+            return w.run()
+        except HTTPError as e:
+            if e.response.status_code == 504 and retries > 0:
+                try:
+                    print(e.message)
+                except:
+                    pass
+                print('wait 30sec...')
+                sleep(30)
+                return run(retries - 1)
+            else:
+                raise
+        except:
+            raise
+    return run(retries)
+
+
+def create_compiler_raw_option_list(options):
     colist = []
     if options.compiler_option_raw:
         raw_options = options.compiler_option_raw
         for x in raw_options:
             colist.extend(re.split('\s(?=-)', x))
+    return colist
+
+
+# run wandbox (makefile)
+def run_wandbox_make(main_filepath, code, includes, impliments, options):
+    w = Wandbox()
+    w.compiler('bash')
+    woptions = create_option_list(options)
+    if options.stdin:
+        w.stdin(options.stdin)
+    impliments[os.path.basename(main_filepath)] = code
+
+    colist = create_compiler_raw_option_list(options)
+    colist.extend(expand_wandbox_options(w, options.compiler, woptions))
+
+    rolist = []
+    if options.runtime_option_raw:
+        for opt in options.runtime_option_raw:
+            rolist.extend(opt.split())
+
+    makefile = '#!/bin/make\n# generate makefile by iuwandbox.py\n'
+    makefile += '\nCXXFLAGS+='
+    for opt in colist:
+        makefile += opt + ' '
+    makefile += '\nOBJS='
+    for filename in impliments.keys():
+        makefile += os.path.splitext(filename)[0] + '.o '
+
+    makefile += '\n\
+prog: $(OBJS)\n\
+\t$(CXX) -o $@ $^ $(CXXFLAGS) $(LDFLAGS)\n\
+'
+
+    impliments['Makefile'] = makefile
+
+    bashscript = 'make -j 4\n'
+    bashscript += './prog '
+    for opt in rolist:
+        bashscript += opt + ' '
+    bashscript += '\n'
+    w.code(bashscript)
+    
+    if options.save:
+        w.permanent_link(options.save)
+    if options.verbose:
+        w.dump()
+    add_files(w, impliments)
+    add_files(w, includes)
+
+    return run_wandbox_impl(w, options, 3)
+
+
+# run wandbox (cxx)
+def run_wandbox_cxx(code, includes, impliments, options):
+    w = Wandbox()
+    w.compiler(options.compiler)
+    w.options(','.join(create_option_list(options)))
+    if options.stdin:
+        w.stdin(options.stdin)
+    colist = create_compiler_raw_option_list(options)
 
     if workaround:
-        pass
         if options.compiler in ['clang-3.2']:
             colist.append('-ftemplate-depth=1024')
 #        if options.compiler in ['clang-3.4']:
@@ -371,6 +472,7 @@ def run_wandbox(code, includes, impliments, options):
 #        if options.compiler in ['clang-3.4', 'clang-3.3']:
 #            colist.append('-fno-exceptions')
 #            colist.append('-fno-rtti')
+        pass
     if len(colist) > 0:
         co = '\n'.join(colist)
         co = co.replace('\\n', '\n')
@@ -391,26 +493,16 @@ def run_wandbox(code, includes, impliments, options):
     w.code(code)
     add_files(w, impliments)
     add_files(w, includes)
-    if options.dryrun:
-        sys.exit(0)
 
-    def run(retries):
-        try:
-            return w.run()
-        except HTTPError as e:
-            if e.response.status_code == 504 and retries > 0:
-                try:
-                    print(e.message)
-                except:
-                    pass
-                print('wait 30sec...')
-                sleep(30)
-                return run(retries - 1)
-            else:
-                raise
-        except:
-            raise
-    return run(3)
+    return run_wandbox_impl(w, options, 3)
+
+
+# run wandbox
+def run_wandbox(main_filepath, code, includes, impliments, options):
+    if options.make:
+        return run_wandbox_make(main_filepath, code, includes, impliments, options)
+    else:
+        return run_wandbox_cxx(code, includes, impliments, options)
 
 
 def wandbox_hint(r):
@@ -501,7 +593,7 @@ def run(options):
     if options.junit:
         xml = options.junit
         set_output_xml(options, 'junit', xml)
-    r = run_wandbox(code, includes, impliments, options)
+    r = run_wandbox(main_filepath, code, includes, impliments, options)
     b = show_result(r, options)
     if xml and 'program_error' in r:
         f = file_open(xml, 'w', options.encoding)

@@ -48,6 +48,9 @@ test-clang: ../../test/syntax_tests.cpp Makefile
 test-gcc-98: ../../test/syntax_tests.cpp Makefile
 	python iuwandbox.py $< -c gcc-head -f"-DIUTEST_USE_MAIN" -x "warning,c++98" --encoding utf-8-sig $(EXPAND_INCLUDE)
 
+test-make: ../../test/syntax_tests.cpp Makefile
+	python iuwandbox.py $< -c gcc-head -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --make
+
 boost: ../../test/syntax_tests.cpp Makefile
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) --boost 1.60 -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --verbose --dryrun
 
@@ -79,6 +82,9 @@ alltest: $(ALLTESTS_SRCS_) Makefile
 
 alltest-dryrun: $(ALLTESTS_SRCS_) Makefile
 	python iuwandbox.py $(ALLTESTS_SRCS_) -c $(WANDBOX_COMPILER) --encoding utf-8-sig $(EXPAND_INCLUDE) --dryrun
+
+alltest-make: $(ALLTESTS_SRCS_) Makefile
+	python iuwandbox.py $(ALLTESTS_SRCS_) -c $(WANDBOX_COMPILER) --encoding utf-8-sig $(EXPAND_INCLUDE) --make
 
 
 COMPILE_ERROR_TESTS_SRC_=$(COMPILEERROR_TARGETS:%=../../test/%.cpp)
