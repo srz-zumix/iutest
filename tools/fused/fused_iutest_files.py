@@ -234,7 +234,8 @@ def FusedSrc(root, filename, output, output_dir, minimum):
 
 
 def FusedAll(root, output_dir):
-    os.makedirs(output_dir, True)
+    if not os.path.exist(output_dir):
+        os.makedirs(output_dir, True)
     FusedSrc(root, 'iutest.hpp', 'iutest.hpp', output_dir, False)
     FusedSrc(root, 'iutest.hpp', 'iutest.min.hpp', output_dir, True)
 
