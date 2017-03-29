@@ -400,7 +400,7 @@ def create_compiler_raw_option_list(options):
     if options.compiler_option_raw:
         raw_options = options.compiler_option_raw
         for x in raw_options:
-            colist.extend(re.split('\s(?=-)', x))
+            colist.extend(re.split('\s(?=-)', x.strip('"')))
     return colist
 
 

@@ -26,7 +26,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="iuwandbox.py" />
+    <Compile Include="test\test_iuwandbox.py" />
     <Compile Include="wandbox.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="test\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Makefile" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
