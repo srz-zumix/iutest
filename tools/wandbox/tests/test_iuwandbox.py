@@ -8,7 +8,10 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../../fused')
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../../wandbox')
 
-import unittest
+try:
+    import unittest2 as unittest
+except:
+    import unittest
 import iuwandbox
 import shutil
 
@@ -27,25 +30,25 @@ class iuwandbox_test_base(unittest.TestCase):
     def setUp(self):
         self.capture = StringIO()
         sys.stdout = self.capture
-        return super().setUp()
+        return super(iuwandbox_test_base, self).setUp()
 
     def tearDown(self):
         sys.stdout = sys.__stdout__
-        return super().tearDown()
+        return super(iuwandbox_test_base, self).tearDown()
 
 
 class nofused_iuwandbox_test(iuwandbox_test_base):
     def setUp(self):
         if os.path.exists(fused_src):
             shutil.rmtree(fused_src)
-        return super().setUp()
+        return super(nofused_iuwandbox_test, self).setUp()
 
     def test_nofused(self):
         sys.argv[1:] = [ test_src ]
         sys.argv.extend(test_opt)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
-        self.assertEqual(cm.exception.code, 1)
+        self.assertEqual(cm.exception.code, 1, self.capture.getvalue())
         self.assertRegex(self.capture.getvalue(), '.*please try \"make fused\".*')
 
 
@@ -53,14 +56,14 @@ class iuwandbox_test(iuwandbox_test_base):
     def setUp(self):
         if not os.path.exists(fused_src):
             os.system('python ' + root + '/tools/fused/fused_iutest_files.py ' + fused_src)
-        return super().setUp()
+        return super(iuwandbox_test, self).setUp()
 
     def test_nomain(self):
         sys.argv[1:] = [ test_src ]
         sys.argv.extend(test_opt_nomain)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
-        self.assertEqual(cm.exception.code, 1)
+        self.assertEqual(cm.exception.code, 1, self.capture.getvalue())
         self.assertRegex(self.capture.getvalue(), '.*hint:.*')
         self.assertRegex(self.capture.getvalue(), '.*If you do not use boost test, please specify the file with the main function first..*')
 
@@ -69,7 +72,7 @@ class iuwandbox_test(iuwandbox_test_base):
         sys.argv.extend(test_opt)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
-        self.assertEqual(cm.exception.code, 0)
+        self.assertEqual(cm.exception.code, 0, self.capture.getvalue())
         self.assertRegex(self.capture.getvalue(), '.*OK.*')
 
 if __name__ == "__main__":

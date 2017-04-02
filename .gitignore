@@ -22,6 +22,7 @@
 *.pyc
 *.VC.db
 *.tmp
+*.egg-info/
 coverage.info
 test/*.xml
 test/*.ns.cpp
@@ -30,6 +31,7 @@ libs
 .svn
 .sonar
 .vs
+.tox
 
 # Build results
 [Dd]ebug/

@@ -26,11 +26,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="iuwandbox.py" />
-    <Compile Include="test\test_iuwandbox.py" />
+    <Compile Include="tests\test_iuwandbox.py" />
     <Compile Include="wandbox.py" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="test\" />
+    <Folder Include="tests\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Makefile" />
