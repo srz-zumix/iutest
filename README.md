@@ -29,21 +29,26 @@ Features
 * An [XUnit](https://en.wikipedia.org/wiki/XUnit) test framework.
 * Include only.
 * Test discovery.
-* A rich set of assertions.
-* User-defined assertions.
-* Power assert.
-* Matchers.
-* Test packages (grouping).
-* Fatal and non-fatal, warning, assume failures.
-* Skip test.
+* XML/JUnit test report generation.
+* Assertions.
+   + A rich set of assertions.
+   + User-defined assertions.
+   + Power-assert (expression-assert).
+   + Matchers.
+   + Fatal and non-fatal, warning, assume failures.
 * Value-parameterized tests.
 * Type-parameterized tests.
-* CSV parameter.
-* Pairwise parameter.
+* Advanced parameter generation.
+   + Pairwise parameter.
+   + CSV parameter.
+   + Any parameter.
+   + Random parameter.
+   + Multiple parameters can be concatenated. 
+* Test packages (grouping).
+* Skip test.
 * Private member test.
-* Various options for running the tests.
-* XML/JUnit test report generation.
 * Janaese test name (C++03). 
+* Various options for running the tests.
 * Compatible with Google Test.
 
 Platforms
@@ -68,9 +73,14 @@ doc/index.html
 Project page
 --------------------------------------------------
 
-* [Project page](http://iutest.osdn.jp/)  
+* [OSDN Project page](http://iutest.osdn.jp/)  
 * [Github](https://github.com/srz-zumix/iutest)  
-* [Google Group](https://groups.google.com/forum/?fromgroups#!forum/g-iutest)  
+
+Support
+--------------------------------------------------
+
+* Use [Github issues](https://github.com/srz-zumix/iutest/issues) to report bugs and feature requests.
+* Ask questions at the twitter ([]@srz_zumix](https://twitter.com/srz_zumix))
 
 Tools
 --------------------------------------------------
@@ -80,7 +90,7 @@ make fused-src.
 * twilio  
 notifies the test results using twilio
 * wandbox  
-tools to make use of the iutest in wandbox
+tools to make use of the iutest in [wandbox](https://wandbox.org/)
 
 Tests
 --------------------------------------------------
