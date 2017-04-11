@@ -35,7 +35,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 5.2'
+        version=u'%(prog)s version 5.3'
     )
     parser.add_argument(
         '--list_compiler',
@@ -276,6 +276,10 @@ def make_code(path, encoding, expand, includes, included_files):
     return code
 
 
+def print_undefined_option(option, compiler):
+    print('Wandbox is not supported option [{0}] ({1})'.format(opt, compiler))
+
+
 # check config
 def check_config(options):
     has_error = False
@@ -288,11 +292,11 @@ def check_config(options):
         if options.options:
             for o in options.options.split(','):
                 if o not in opt:
-                    print('Wandbox is not supported option [{0}] ({1})'.format(o, options.compiler))
+                    print_undefined_option(o, options.compiler)
                     has_error = True
         if options.std:
             if options.std not in opt:
-                print('Wandbox is not supported option [{0}] ({1})'.format(options.std, options.compiler))
+                print_undefined_option(options.std, options.compiler)
                 has_error = True
         if has_error:
             listup_options(options.compiler)
@@ -512,6 +516,15 @@ def wandbox_hint(r):
             print('  If you do not use boost test, please specify the file with the main function first.')
 
 
+def byte_to_str(value):
+    try:
+        if isinstance(value, bytes):
+            return value.decode('utf_8')
+    except:
+        pass
+    return value
+
+
 # show result
 def show_result(r, options):
     if 'error' in r:
@@ -520,21 +533,21 @@ def show_result(r, options):
     if options.stderr:
         if 'compiler_output' in r:
             print('compiler_output:')
-            print(r['compiler_output'].encode('utf_8'))
+            print(byte_to_str(r['compiler_output']))
         if 'compiler_error' in r:
-            sys.stderr.write(r['compiler_error'].encode('utf_8'))
+            sys.stderr.write(byte_to_str(r['compiler_error']))
         if 'program_output' in r:
             print('program_output:')
-            print(r['program_output'].encode('utf_8'))
+            print(byte_to_str(r['program_output']))
         if options.xml is None and options.junit is None and 'program_error' in r:
-            sys.stderr.write(r['program_error'].encode('utf_8'))
+            sys.stderr.write(byte_to_str(r['program_error']))
     else:
         if 'compiler_message' in r:
             print('compiler_message:')
-            print(r['compiler_message'].encode('utf_8'))
+            print(byte_to_str(r['compiler_message']))
         if 'program_message' in r:
             print('program_message:')
-            print(r['program_message'].encode('utf_8'))
+            print(byte_to_str(r['program_message']))
     if 'url' in r:
         print('permlink: ' + r['permlink'])
         print('url: ' + r['url'])

@@ -6,7 +6,7 @@ from setuptools import find_packages
 #readme = f.read()
 #f.close()
 
-VERSION = "5.2"
+VERSION = "5.3"
 
 setup(
     name = "iuwandbox"

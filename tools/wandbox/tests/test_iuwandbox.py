@@ -3,6 +3,8 @@
 # test_iuwandbox.py
 #
 
+from __future__ import print_function
+
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../../fused')
@@ -26,15 +28,30 @@ test_src = root + '/test/syntax_tests.cpp'
 test_opt_nomain = [ '--encoding', 'utf-8-sig' ]
 test_opt = [ '--encoding', 'utf-8-sig', '-f"-DIUTEST_USE_MAIN"' ]
 
+
+def eprint(*args, **kwargs):
+    print(*args, file=sys.stderr, **kwargs)
+
+
 class iuwandbox_test_base(unittest.TestCase):
+    dir = None
+
     def setUp(self):
         self.capture = StringIO()
         sys.stdout = self.capture
+        self.dir = os.getcwd()
+        os.chdir(os.path.dirname(os.path.abspath(__file__)))
         return super(iuwandbox_test_base, self).setUp()
 
     def tearDown(self):
         sys.stdout = sys.__stdout__
+        os.chdir(self.dir)
+        self.capture.close()
         return super(iuwandbox_test_base, self).tearDown()
+
+    def dump(self):
+        value = self.capture.getvalue()
+        eprint(value)
 
 
 class nofused_iuwandbox_test(iuwandbox_test_base):
@@ -48,6 +65,7 @@ class nofused_iuwandbox_test(iuwandbox_test_base):
         sys.argv.extend(test_opt)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
+        self.dump()
         self.assertEqual(cm.exception.code, 1, self.capture.getvalue())
         self.assertRegex(self.capture.getvalue(), '.*please try \"make fused\".*')
 
@@ -63,6 +81,7 @@ class iuwandbox_test(iuwandbox_test_base):
         sys.argv.extend(test_opt_nomain)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
+        self.dump()
         self.assertEqual(cm.exception.code, 1, self.capture.getvalue())
         self.assertRegex(self.capture.getvalue(), '.*hint:.*')
         self.assertRegex(self.capture.getvalue(), '.*If you do not use boost test, please specify the file with the main function first..*')
@@ -72,6 +91,16 @@ class iuwandbox_test(iuwandbox_test_base):
         sys.argv.extend(test_opt)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
+        self.dump()
+        self.assertEqual(cm.exception.code, 0, self.capture.getvalue())
+        self.assertRegex(self.capture.getvalue(), '.*OK.*')
+
+    def test_same_filename(self):
+        sys.argv[1:] = [ 'src/main.cpp', 'src/A/sample.cpp', 'src/B/sample.cpp' ]
+        sys.argv.extend(test_opt_nomain)
+        with self.assertRaises(SystemExit) as cm:
+            iuwandbox.main()
+        self.dump()
         self.assertEqual(cm.exception.code, 0, self.capture.getvalue())
         self.assertRegex(self.capture.getvalue(), '.*OK.*')
 

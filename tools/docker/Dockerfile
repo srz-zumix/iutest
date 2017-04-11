@@ -29,6 +29,8 @@ RUN pyenv local 3.6.0 && \
      pyenv local --unset
 RUN pyenv local 2.7.13 3.5.2 3.6.0
 
+RUN pip install virtualenv
+
 ADD Dockerfile /data
 RUN git clone https://github.com/srz-zumix/iutest.git /iutest
 
