@@ -516,10 +516,10 @@ def wandbox_hint(r):
             print('  If you do not use boost test, please specify the file with the main function first.')
 
 
-def byte_to_str(value):
+def text_transform(value):
     try:
-        if isinstance(value, bytes):
-            return value.decode('utf_8')
+        if isinstance(value, str):
+            return value.decode()
     except:
         pass
     return value
@@ -533,21 +533,21 @@ def show_result(r, options):
     if options.stderr:
         if 'compiler_output' in r:
             print('compiler_output:')
-            print(byte_to_str(r['compiler_output']))
+            print(text_transform(r['compiler_output']))
         if 'compiler_error' in r:
-            sys.stderr.write(byte_to_str(r['compiler_error']))
+            sys.stderr.write(text_transform(r['compiler_error']))
         if 'program_output' in r:
             print('program_output:')
-            print(byte_to_str(r['program_output']))
+            print(text_transform(r['program_output']))
         if options.xml is None and options.junit is None and 'program_error' in r:
-            sys.stderr.write(byte_to_str(r['program_error']))
+            sys.stderr.write(text_transform(r['program_error']))
     else:
         if 'compiler_message' in r:
             print('compiler_message:')
-            print(byte_to_str(r['compiler_message']))
+            print(text_transform(r['compiler_message']))
         if 'program_message' in r:
             print('program_message:')
-            print(byte_to_str(r['program_message']))
+            print(text_transform(r['program_message']))
     if 'url' in r:
         print('permlink: ' + r['permlink'])
         print('url: ' + r['url'])

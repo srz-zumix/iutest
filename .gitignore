@@ -32,6 +32,7 @@ libs
 .sonar
 .vs
 .tox
+env.*/
 
 # Build results
 [Dd]ebug/
