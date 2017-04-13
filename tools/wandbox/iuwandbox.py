@@ -520,6 +520,8 @@ def text_transform(value):
     try:
         if isinstance(value, str):
             return value.decode()
+        elif isinstance(value, unicode):
+            return value.encode('utf_8')
     except:
         pass
     return value
