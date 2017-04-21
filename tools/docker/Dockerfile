@@ -1,6 +1,6 @@
 FROM ubuntu:trusty
 
-MAINTAINER srz-zumix <zumix.cpp@gmail.com>
+MAINTAINER srz_zumix <zumix.cpp@gmail.com>
 
 RUN apt-get update -q -y
 RUN apt-get install -y wget vim iputils-ping sudo curl

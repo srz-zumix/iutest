@@ -1,0 +1,37 @@
+version: '1.0'
+steps:
+  BuildingDockerImage:
+    title: Building Docker Image
+    type: build
+    image_name: srzzumix/iutest
+    dockerfile: tools/docker/codefresh/Dockerfile
+
+  RunningUnitTests:
+    title: Running Unit Tests
+    image: '${{BuildingDockerImage}}'
+    working_directory: IMAGE_WORK_DIR
+    entry_point:
+      - /bin/sh
+      - /codefresh/volume/cf-generated/unit_test_script
+    create_file:
+      path: /codefresh/volume/cf-generated
+      name: unit_test_script
+      content: |-
+        g++ --version
+        cd test
+        make USE_GTEST=y test
+        make clean
+        make USE_GMOCK=y test
+        export NACL_SDK_ROOT="$(find /usr/local/nacl_sdk -maxdepth 1 -type d -name 'pepper_*')"
+        cd ../projects/nacl
+        make
+    on_success:
+      metadata:
+        set:
+          - '${{BuildingDockerImage.imageId}}':
+              - CF_QUALITY: true
+    on_fail:
+      metadata:
+        set:
+          - '${{BuildingDockerImage.imageId}}':
+              - CF_QUALITY: false
