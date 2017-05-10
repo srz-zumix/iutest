@@ -15,6 +15,7 @@ try:
 except:
     import unittest
 import iuwandbox
+import fused_iutest_files
 import shutil
 
 try:
@@ -73,7 +74,8 @@ class nofused_iuwandbox_test(iuwandbox_test_base):
 class iuwandbox_test(iuwandbox_test_base):
     def setUp(self):
         if not os.path.exists(fused_src):
-            os.system('python ' + root + '/tools/fused/fused_iutest_files.py ' + fused_src)
+            fused_iutest_files.FusedAll(fused_iutest_files.IUTEST_INCLUDE_DIR, fused_src)
+#            os.system('python ' + root + '/tools/fused/fused_iutest_files.py ' + fused_src)
         return super(iuwandbox_test, self).setUp()
 
     def test_nomain(self):
