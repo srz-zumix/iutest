@@ -62,7 +62,7 @@ class nofused_iuwandbox_test(iuwandbox_test_base):
                 shutil.rmtree(fused_src)
             except:
                 pass
-        if os.path.exists(fused_src):
+        if os.path.exists(os.path.join(fused_src, 'iutest.min.hpp')):
             self.skipTest('fused-src is exists')
         return super(nofused_iuwandbox_test, self).setUp()
 
@@ -84,7 +84,7 @@ class iuwandbox_test(iuwandbox_test_base):
 #              os.system('python ' + root + '/tools/fused/fused_iutest_files.py ' + fused_src)
             except:
                 pass
-        if not os.path.exists(fused_src):
+        if not os.path.exists(os.path.join(fused_src, 'iutest.min.hpp')):
             self.skipTest('fused-src is not exists')
         return super(iuwandbox_test, self).setUp()
 
