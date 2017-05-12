@@ -58,7 +58,12 @@ class iuwandbox_test_base(unittest.TestCase):
 class nofused_iuwandbox_test(iuwandbox_test_base):
     def setUp(self):
         if os.path.exists(fused_src):
-            shutil.rmtree(fused_src)
+            try:
+                shutil.rmtree(fused_src)
+            except:
+                pass
+        if os.path.exists(fused_src):
+            self.skipTest('fused-src is exists')
         return super(nofused_iuwandbox_test, self).setUp()
 
     def test_nofused(self):
@@ -74,8 +79,13 @@ class nofused_iuwandbox_test(iuwandbox_test_base):
 class iuwandbox_test(iuwandbox_test_base):
     def setUp(self):
         if not os.path.exists(fused_src):
-            fused_iutest_files.FusedAll(fused_iutest_files.IUTEST_INCLUDE_DIR, fused_src)
-#            os.system('python ' + root + '/tools/fused/fused_iutest_files.py ' + fused_src)
+            try:
+                fused_iutest_files.FusedAll(fused_iutest_files.IUTEST_INCLUDE_DIR, fused_src)
+#              os.system('python ' + root + '/tools/fused/fused_iutest_files.py ' + fused_src)
+            except:
+                pass
+        if not os.path.exists(fused_src):
+            self.skipTest('fused-src is not exists')
         return super(iuwandbox_test, self).setUp()
 
     def test_nomain(self):
