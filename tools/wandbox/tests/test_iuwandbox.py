@@ -57,6 +57,8 @@ class iuwandbox_test_base(unittest.TestCase):
 
 class nofused_iuwandbox_test(iuwandbox_test_base):
     def setUp(self):
+        if 'SCRUTINIZER' in os.environ:
+            self.skipTest('this test is not run on SCRUTINIZER.')
         if os.path.exists(fused_src):
             try:
                 shutil.rmtree(fused_src)
