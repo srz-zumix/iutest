@@ -35,7 +35,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 5.3'
+        version=u'%(prog)s version 5.4'
     )
     parser.add_argument(
         '--list_compiler',
@@ -410,95 +410,95 @@ def create_compiler_raw_option_list(options):
 
 # run wandbox (makefile)
 def run_wandbox_make(main_filepath, code, includes, impliments, options):
-    w = Wandbox()
-    w.compiler('bash')
-    woptions = create_option_list(options)
-    if options.stdin:
-        w.stdin(options.stdin)
-    impliments[os.path.basename(main_filepath)] = code
+    with Wandbox() as w:
+        w.compiler('bash')
+        woptions = create_option_list(options)
+        if options.stdin:
+            w.stdin(options.stdin)
+        impliments[os.path.basename(main_filepath)] = code
 
-    colist = create_compiler_raw_option_list(options)
-    colist.extend(expand_wandbox_options(w, options.compiler, woptions))
+        colist = create_compiler_raw_option_list(options)
+        colist.extend(expand_wandbox_options(w, options.compiler, woptions))
 
-    rolist = []
-    if options.runtime_option_raw:
-        for opt in options.runtime_option_raw:
-            rolist.extend(opt.split())
+        rolist = []
+        if options.runtime_option_raw:
+            for opt in options.runtime_option_raw:
+                rolist.extend(opt.split())
 
-    makefile = '#!/bin/make\n# generate makefile by iuwandbox.py\n'
-    makefile += '\nCXXFLAGS+='
-    for opt in colist:
-        makefile += opt + ' '
-    makefile += '\nOBJS='
-    for filename in impliments.keys():
-        makefile += os.path.splitext(filename)[0] + '.o '
+        makefile = '#!/bin/make\n# generate makefile by iuwandbox.py\n'
+        makefile += '\nCXXFLAGS+='
+        for opt in colist:
+            makefile += opt + ' '
+        makefile += '\nOBJS='
+        for filename in impliments.keys():
+            makefile += os.path.splitext(filename)[0] + '.o '
 
-    makefile += '\n\
+        makefile += '\n\
 prog: $(OBJS)\n\
 \t$(CXX) -o $@ $^ $(CXXFLAGS) $(LDFLAGS)\n\
 '
 
-    impliments['Makefile'] = makefile
+        impliments['Makefile'] = makefile
 
-    bashscript = 'make -j 4\n'
-    bashscript += './prog '
-    for opt in rolist:
-        bashscript += opt + ' '
-    bashscript += '\n'
-    w.code(bashscript)
+        bashscript = 'make -j 4\n'
+        bashscript += './prog '
+        for opt in rolist:
+            bashscript += opt + ' '
+        bashscript += '\n'
+        w.code(bashscript)
     
-    if options.save:
-        w.permanent_link(options.save)
-    if options.verbose:
-        w.dump()
-    add_files(w, impliments)
-    add_files(w, includes)
+        if options.save:
+            w.permanent_link(options.save)
+        if options.verbose:
+            w.dump()
+        add_files(w, impliments)
+        add_files(w, includes)
 
-    return run_wandbox_impl(w, options, 3)
+        return run_wandbox_impl(w, options, 3)
 
 
 # run wandbox (cxx)
 def run_wandbox_cxx(code, includes, impliments, options):
-    w = Wandbox()
-    w.compiler(options.compiler)
-    w.options(','.join(create_option_list(options)))
-    if options.stdin:
-        w.stdin(options.stdin)
-    colist = create_compiler_raw_option_list(options)
+    with Wandbox() as w:
+        w.compiler(options.compiler)
+        w.options(','.join(create_option_list(options)))
+        if options.stdin:
+            w.stdin(options.stdin)
+        colist = create_compiler_raw_option_list(options)
 
-    if workaround:
-        if options.compiler in ['clang-3.2']:
-            colist.append('-ftemplate-depth=1024')
-#        if options.compiler in ['clang-3.4']:
-#            colist.append('-DIUTEST_HAS_HDR_CXXABI=0')
-#        if options.compiler in ['clang-3.3', 'clang-3.2', 'clang-3.1', 'clang-3.0']:
-#            colist.append('-Qunused-arguments')
-#        if options.compiler in ['clang-3.4', 'clang-3.3']:
-#            colist.append('-fno-exceptions')
-#            colist.append('-fno-rtti')
-        pass
-    if len(colist) > 0:
-        co = '\n'.join(colist)
-        co = co.replace('\\n', '\n')
-        w.compiler_options(co)
-    if options.runtime_option_raw:
-        rolist = []
-        for opt in options.runtime_option_raw:
-            rolist.extend(opt.split())
-        ro = '\n'.join(rolist)
-        ro = ro.replace('\\n', '\n')
-        w.runtime_options(ro)
-    if options.save:
-        w.permanent_link(options.save)
-    for filename in impliments.keys():
-        w.add_compiler_options(filename)
-    if options.verbose:
-        w.dump()
-    w.code(code)
-    add_files(w, impliments)
-    add_files(w, includes)
+        if workaround:
+            if options.compiler in ['clang-3.2']:
+                colist.append('-ftemplate-depth=1024')
+    #        if options.compiler in ['clang-3.4']:
+    #            colist.append('-DIUTEST_HAS_HDR_CXXABI=0')
+    #        if options.compiler in ['clang-3.3', 'clang-3.2', 'clang-3.1', 'clang-3.0']:
+    #            colist.append('-Qunused-arguments')
+    #        if options.compiler in ['clang-3.4', 'clang-3.3']:
+    #            colist.append('-fno-exceptions')
+    #            colist.append('-fno-rtti')
+            pass
+        if len(colist) > 0:
+            co = '\n'.join(colist)
+            co = co.replace('\\n', '\n')
+            w.compiler_options(co)
+        if options.runtime_option_raw:
+            rolist = []
+            for opt in options.runtime_option_raw:
+                rolist.extend(opt.split())
+            ro = '\n'.join(rolist)
+            ro = ro.replace('\\n', '\n')
+            w.runtime_options(ro)
+        if options.save:
+            w.permanent_link(options.save)
+        for filename in impliments.keys():
+            w.add_compiler_options(filename)
+        if options.verbose:
+            w.dump()
+        w.code(code)
+        add_files(w, impliments)
+        add_files(w, includes)
 
-    return run_wandbox_impl(w, options, 3)
+        return run_wandbox_impl(w, options, 3)
 
 
 # run wandbox
@@ -619,8 +619,7 @@ def run(options):
 
 # listup compiler
 def listup_compiler(verbose):
-    w = Wandbox()
-    r = w.get_compiler_list()
+    r = Wandbox.GetCompilerList()
     for d in r:
         if d['language'] == 'C++':
             if verbose:
@@ -631,8 +630,7 @@ def listup_compiler(verbose):
 
 # find compiler
 def find_compiler(c):
-    w = Wandbox()
-    r = w.get_compiler_list()
+    r = Wandbox.GetCompilerList()
     for d in r:
         if d['language'] == 'C++' and d['name'] == c:
             return True
@@ -641,8 +639,7 @@ def find_compiler(c):
 
 # listup options
 def listup_options(compiler):
-    w = Wandbox()
-    r = w.get_compiler_list()
+    r = Wandbox.GetCompilerList()
     for d in r:
         if d['name'] == compiler:
             print('# ' + compiler)
@@ -661,8 +658,7 @@ def listup_options(compiler):
 
 
 def get_options(compiler):
-    w = Wandbox()
-    r = w.get_compiler_list()
+    r = Wandbox.GetCompilerList()
     opt = []
     for d in r:
         if d['name'] == compiler:
@@ -680,8 +676,7 @@ def get_options(compiler):
 
 # get default options
 def get_default_options(compiler):
-    w = Wandbox()
-    r = w.get_compiler_list()
+    r = Wandbox.GetCompilerList()
     opt = []
     for d in r:
         if d['name'] == compiler:
@@ -698,8 +693,7 @@ def get_default_options(compiler):
 
 # get permlink
 def get_permlink(options):
-    w = Wandbox()
-    r = w.get_permlink(options.permlink)
+    r = Wandbox.GetPermlink(options.permlink)
     p = r['parameter']
     show_parameter(p)
     print('result:')

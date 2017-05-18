@@ -26,8 +26,10 @@ except ImportError:
 root = os.path.normpath(os.path.dirname(os.path.abspath(__file__)) + '/../../../')
 fused_src = root + '/fused-src'
 test_src = root + '/test/syntax_tests.cpp'
-test_opt_nomain = [ '--encoding', 'utf-8-sig' ]
-test_opt = [ '--encoding', 'utf-8-sig', '-f"-DIUTEST_USE_MAIN"' ]
+test_opt_default = [ '--encoding', 'utf-8-sig' ]
+test_opt_nomain = test_opt_default
+test_opt = [ '-f"-DIUTEST_USE_MAIN"' ]
+test_opt.extend(test_opt_default)
 
 
 def eprint(*args, **kwargs):
@@ -91,6 +93,7 @@ class iuwandbox_test(iuwandbox_test_base):
         return super(iuwandbox_test, self).setUp()
 
     def test_nomain(self):
+        sys.argv = sys.argv[:1]
         sys.argv[1:] = [ test_src ]
         sys.argv.extend(test_opt_nomain)
         with self.assertRaises(SystemExit) as cm:
@@ -103,6 +106,7 @@ class iuwandbox_test(iuwandbox_test_base):
     def test_run(self):
         sys.argv[1:] = [ test_src ]
         sys.argv.extend(test_opt)
+        print(sys.argv)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
         self.dump()
@@ -112,6 +116,7 @@ class iuwandbox_test(iuwandbox_test_base):
     def test_same_filename(self):
         sys.argv[1:] = [ 'src/main.cpp', 'src/A/sample.cpp', 'src/B/sample.cpp' ]
         sys.argv.extend(test_opt_nomain)
+        print(sys.argv)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
         self.dump()

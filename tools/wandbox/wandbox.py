@@ -13,22 +13,38 @@ class Wandbox:
     """wandbox api class"""
     #api_url = 'http://melpon.org/wandbox/api'
     api_url = 'https://wandbox.org/api'
-    parameter = {'code': ''}
 
-    def get_compiler_list(self):
-        r = requests.get(self.api_url + '/list.json')
+    def __init__(self):
+        self.reset()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        return True
+
+    @staticmethod
+    def GetCompilerList():
+        r = requests.get(Wandbox.api_url + '/list.json')
         r.raise_for_status()
         return r.json()
+
+    def get_compiler_list(self):
+        return Wandbox.GetCompilerList()
+
+    @staticmethod
+    def GetPermlink(link):
+        r = requests.get(Wandbox.api_url + '/permlink/' + link)
+        r.raise_for_status()
+        return r.json()
+
+    def get_permlink(self, link):
+        return Wandbox.GetPermlink(link)
 
     def run(self):
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         payload = json.dumps(self.parameter)
         r = requests.post(self.api_url + '/compile.json', data=payload, headers=headers)
-        r.raise_for_status()
-        return r.json()
-
-    def get_permlink(self, link):
-        r = requests.get(self.api_url + '/permlink/' + link)
         r.raise_for_status()
         return r.json()
 
@@ -71,11 +87,17 @@ class Wandbox:
     def dump(self):
         print(self.parameter)
 
+    def close(self):
+        self.reset()
+
+    def reset(self):
+        self.parameter = {'code': ''}
+
 
 if __name__ == '__main__':
-    w = Wandbox()
-    w.compiler('gcc-head')
-    w.options('warning,gnu++1y')
-    w.compiler_options('-Dx=hogefuga\n-O3')
-    w.code('#include <iostream>\nint main() { int x = 0; std::cout << "hoge" << std::endl; }')
-    print(w.run())
+    with Wandbox() as w:
+        w.compiler('gcc-head')
+        w.options('warning,gnu++1y')
+        w.compiler_options('-Dx=hogefuga\n-O3')
+        w.code('#include <iostream>\nint main() { int x = 0; std::cout << "hoge" << std::endl; }')
+        print(w.run())
