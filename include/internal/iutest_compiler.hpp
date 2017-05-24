@@ -825,9 +825,9 @@
 
 //! explicit instantiation access checking (static member function)
 #if !defined(IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_STATIC_MEMBER_FUNCTION)
-#  if defined(_MSC_VER) && (_MSC_VER < 1900)
+#  if defined(_MSC_VER) && ((_MSC_VER < 1900) || (defined(_MSC_FULL_VER) && _MSC_FULL_VER < 190024210))
 // Visual Studio では、private な static メンバー関数に explicit instantiation でもアクセスできない
-#    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_STATIC_MEMBER_FUNCTION 1
+#    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_STATIC_MEMBER_FUNCTION 0
 #  else
 #    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_STATIC_MEMBER_FUNCTION 1
 #  endif
