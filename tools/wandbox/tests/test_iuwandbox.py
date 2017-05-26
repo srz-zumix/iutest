@@ -26,9 +26,9 @@ except ImportError:
 root = os.path.normpath(os.path.dirname(os.path.abspath(__file__)) + '/../../../')
 fused_src = root + '/fused-src'
 test_src = root + '/test/syntax_tests.cpp'
-test_opt_default = [ '--encoding', 'utf-8-sig' ]
+test_opt_default = ['--encoding', 'utf-8-sig']
 test_opt_nomain = test_opt_default
-test_opt = [ '-f"-DIUTEST_USE_MAIN"' ]
+test_opt = ['-f"-DIUTEST_USE_MAIN"']
 test_opt.extend(test_opt_default)
 
 
@@ -71,7 +71,7 @@ class nofused_iuwandbox_test(iuwandbox_test_base):
         return super(nofused_iuwandbox_test, self).setUp()
 
     def test_nofused(self):
-        sys.argv[1:] = [ test_src ]
+        sys.argv[1:] = [test_src]
         sys.argv.extend(test_opt)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
@@ -93,8 +93,7 @@ class iuwandbox_test(iuwandbox_test_base):
         return super(iuwandbox_test, self).setUp()
 
     def test_nomain(self):
-        sys.argv = sys.argv[:1]
-        sys.argv[1:] = [ test_src ]
+        sys.argv[1:] = [test_src]
         sys.argv.extend(test_opt_nomain)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()

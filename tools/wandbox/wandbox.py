@@ -28,91 +28,91 @@ class Wandbox:
     def __exit__(self, exc_type, exc_value, traceback):
         return True
 
-    """
-    get compiler list
-    """
     @staticmethod
     def GetCompilerList():
+        """
+        get compiler list
+        """
         response = requests.get(Wandbox.api_url + '/list.json')
         response.raise_for_status()
         return response.json()
 
-    """
-    get compiler list
-    .. deprecated:: 0.3.4
-    """
     def get_compiler_list(self):
+        """
+        get compiler list
+        .. deprecated:: 0.3.4
+        """
         return Wandbox.GetCompilerList()
 
-    """
-    get wandbox permanet link
-    """
     @staticmethod
     def GetPermlink(link):
+        """
+        get wandbox permanet link
+        """
         response = requests.get(Wandbox.api_url + '/permlink/' + link)
         response.raise_for_status()
         return response.json()
 
-    """
-    get wandbox permanet link
-    .. deprecated:: 0.3.4
-    """
     def get_permlink(self, link):
+        """
+        get wandbox permanet link
+        .. deprecated:: 0.3.4
+        """
         return Wandbox.GetPermlink(link)
 
-    """
-    excute on wandbox
-    """
     def run(self):
+        """
+        excute on wandbox
+        """
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         payload = json.dumps(self.parameter)
         response = requests.post(self.api_url + '/compile.json', data=payload, headers=headers)
         response.raise_for_status()
         return response.json()
 
-    """
-    set main source code
-    """
     def code(self, code):
+        """
+        set main source code
+        """
         self.parameter.update({'code': code})
 
-    """
-    append file
-    """
     def add_file(self, filename, code):
+        """
+        append file
+        """
         if 'codes' in self.parameter:
             self.parameter['codes'].append({'file': filename, 'code': code})
         else:
             self.parameter.update({'codes': [{'file': filename, 'code': code}]})
 
-    """
-    set compiler name
-    """
     def compiler(self, name):
+        """
+        set compiler name
+        """
         self.parameter.update({'compiler': name})
 
-    """
-    set wandbox options
-    """
     def options(self, options_str):
+        """
+        set wandbox options
+        """
         self.parameter.update({'options': options_str})
 
-    """
-    set stdin buffer
-    """
     def stdin(self, input):
+        """
+        set stdin buffer
+        """
         self.parameter.update({'stdin': input})
 
-    """
-    set wandbox defined compiler options
-    """
     def compiler_options(self, options_str):
+        """
+        set wandbox defined compiler options
+        """
         self.parameter.update({'compiler-option-raw': options_str})
 
-    """
-    set compiler options
-    """
     def add_compiler_options(self, options_str):
+        """
+        set compiler options
+        """
         if 'compiler-option-raw' not in self.parameter:
             self.compiler_options(options_str)
         else:
@@ -121,28 +121,28 @@ class Wandbox:
             option += options_str
             self.parameter.update({'compiler-option-raw': option})
 
-    """
-    set runtime options
-    """
     def runtime_options(self, options_str):
+        """
+        set runtime options
+        """
         self.parameter.update({'runtime-option-raw': options_str})
 
-    """
-    wandbox permanet link to enable
-    """
     def permanent_link(self, enable):
+        """
+        wandbox permanet link to enable
+        """
         self.parameter.update({'save': enable})
 
-    """
-    dump parameters
-    """
     def dump(self):
+        """
+        dump parameters
+        """
         print(self.parameter)
 
-    """
-    reset parametes
-    """
     def reset(self):
+        """
+        reset parametes
+        """
         self.parameter = {'code': ''}
 
 
