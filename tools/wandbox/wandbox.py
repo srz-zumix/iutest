@@ -97,11 +97,11 @@ class Wandbox:
         """
         self.parameter.update({'options': options_str})
 
-    def stdin(self, input):
+    def stdin(self, input_str):
         """
         set stdin buffer
         """
-        self.parameter.update({'stdin': input})
+        self.parameter.update({'stdin': input_str})
 
     def compiler_options(self, options_str):
         """
