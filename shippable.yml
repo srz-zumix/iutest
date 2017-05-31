@@ -27,6 +27,7 @@ script:
 env:
   matrix:
     - WANDBOX_COMPILER=gcc-head
+    - WANDBOX_COMPILER=gcc-7.1.0
     - WANDBOX_COMPILER=gcc-6.3.0
 #    - WANDBOX_COMPILER=gcc-6.2.0
 #    - WANDBOX_COMPILER=gcc-6.1.0
@@ -58,6 +59,7 @@ env:
 #    - WANDBOX_COMPILER=clang-3.3
 #    - WANDBOX_COMPILER=clang-3.2
 #    - WANDBOX_COMPILER=clang-3.1
+    - WANDBOX_COMPILER=zapcc-1.0.1
 
 after_success:
   - echo OK
