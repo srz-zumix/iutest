@@ -1,0 +1,18 @@
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+
+[Makefile]
+indent_style = tab
+
+[*.{cpp,hpp,ipp}}
+charset = utf-8-bom
+
+[*.py]
+charset = utf-8
+
+[*.{yml,html}]
+indent_size = 2
