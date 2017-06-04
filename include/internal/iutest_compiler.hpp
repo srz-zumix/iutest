@@ -100,6 +100,22 @@
 #  include <android/api-level.h>
 #endif
 
+// c++17
+
+//! inline variable
+#if !defined(IUTEST_HAS_INLINE_VARIABLE)
+#if defined(__clang__)
+#  if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 9))
+#    define IUTEST_HAS_INLINE_VARIABLE      1
+#  endif
+#endif
+#endif
+
+#if !defined(IUTEST_HAS_INLINE_VARIABLE)
+#  define IUTEST_HAS_INLINE_VARIABLE        0
+#endif
+
+
 // c++11
 
 //! is c++11 compiler

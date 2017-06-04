@@ -22,6 +22,17 @@ namespace iutest {
 namespace detail
 {
 
+#if IUTEST_HAS_INLINE_VARIABLE
+
+namespace kStrings
+{
+    static inline const char* const DefaultXmlReportFileName = "test_detail.xml";
+    static inline const char* const UnknownFile = "unknown file";
+    static inline const char* const Null = "(null)";
+}
+
+#else
+
 namespace helper
 {
 
@@ -68,6 +79,8 @@ template struct kStringsT<void>;
 
 /** @internal */
 typedef helper::kStringsT<void> kStrings;
+
+#endif
 
 /**
  * @brief   定数群
