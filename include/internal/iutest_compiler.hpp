@@ -102,10 +102,21 @@
 
 // c++17
 
+//! is c++17 compiler
+#if !defined(IUTEST_HAS_CXX17)
+#  if (defined(__cplusplus) && __cplusplus >= 201406L)
+#    define IUTEST_HAS_CXX17        1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CXX11)
+#  define IUTEST_HAS_CXX11          0
+#endif
+
 //! inline variable
 #if !defined(IUTEST_HAS_INLINE_VARIABLE)
 #if defined(__clang__)
-#  if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 9))
+#  if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 9)) && IUTEST_HAS_CXX17
 #    define IUTEST_HAS_INLINE_VARIABLE      1
 #  endif
 #endif
