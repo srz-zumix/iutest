@@ -8,10 +8,10 @@ addons:
   apt: &apt-global
     sources: &apt-common-sources
       - ubuntu-toolchain-r-test
-      - llvm-toolchain-precise-3.8
+      - llvm-toolchain-precise-3.9
       - llvm-toolchain-precise
     packages: &apt-common-packages
-      - clang-3.8
+      - clang-3.9
       - g++-5
       - gcc-5
       #- cppcheck
@@ -54,7 +54,7 @@ before_script:
       export CCOV=gcov-5
     fi
   # clang
-  - if [ "${CXX}" = 'clang++' ]; then export CXX=clang++-3.8; fi
+  - if [ "${CXX}" = 'clang++' ]; then export CXX=clang++-3.9; fi
   # mingw
   - if [ "${MINGW}" = '1' ]; then export CXX=i686-w64-mingw32-g++; fi
   # winegcc
@@ -152,7 +152,10 @@ matrix:
             - binutils-mingw-w64-i686
             - gcc-mingw-w64-i686
             - g++-mingw-w64-i686
+    # Use Lib
     - compiler: gcc
+      env: USE_LIB=1
+    - compiler: clang
       env: USE_LIB=1
     #- compiler: gcc
     #  env: CPPCHECK=1
