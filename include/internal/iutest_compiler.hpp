@@ -109,8 +109,8 @@
 #  endif
 #endif
 
-#if !defined(IUTEST_HAS_CXX11)
-#  define IUTEST_HAS_CXX11          0
+#if !defined(IUTEST_HAS_CXX17)
+#  define IUTEST_HAS_CXX17          0
 #endif
 
 //! inline variable
