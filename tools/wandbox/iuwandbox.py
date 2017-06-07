@@ -35,7 +35,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 5.4'
+        version=u'%(prog)s version 5.5'
     )
     parser.add_argument(
         '--list_compiler',
@@ -167,6 +167,20 @@ def parse_command_line():
         '--make',
         action='store_true',
         help=argparse.SUPPRESS
+    )
+    parser.add_argument(
+        '--retry-wait',
+        type=int,
+        default=60,
+        metavar='SECONDS',
+        help='Wait time for retry when HTTPError occurs'
+    )
+    parser.add_argument(
+        '--retry',
+        type=int,
+        default=3,
+        metavar='COUNT',
+        help='Number of retries when HTTPError occurs'
     )
     parser.add_argument(
         '--check_config',
@@ -377,20 +391,21 @@ def expand_wandbox_options(w, compiler, options):
     return colist
 
 
-def run_wandbox_impl(w, options, retries):
+def run_wandbox_impl(w, options):
     if options.dryrun:
         sys.exit(0)
+    retries = options.retry
     def run(retries):
         try:
             return w.run()
         except HTTPError as e:
-            if e.response.status_code == 504 and retries > 0:
+            if e.response.status_code in [504, 443] and retries > 0:
                 try:
                     print(e.message)
                 except:
                     pass
-                print('wait 30sec...')
-                sleep(30)
+                print('wait {0}sec...'.format(options.retry_wait))
+                sleep(options.retry_wait)
                 return run(retries - 1)
             else:
                 raise
@@ -454,7 +469,7 @@ prog: $(OBJS)\n\
         add_files(w, impliments)
         add_files(w, includes)
 
-        return run_wandbox_impl(w, options, 3)
+        return run_wandbox_impl(w, options)
 
 
 # run wandbox (cxx)
@@ -498,7 +513,7 @@ def run_wandbox_cxx(code, includes, impliments, options):
         add_files(w, impliments)
         add_files(w, includes)
 
-        return run_wandbox_impl(w, options, 3)
+        return run_wandbox_impl(w, options)
 
 
 # run wandbox
