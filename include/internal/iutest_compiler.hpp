@@ -86,7 +86,7 @@
 #    define IUTEST_PLATFORM             "LINUX"
 #  endif
 #elif defined(__native_client__)
-#  define IUTEST_OS_NACL                1
+#  define IUTEST_OS_NACL                1   //!< @deprecated native client to eol
 #  define IUTEST_PLATFORM               "Google Native Client"
 #elif defined(__AVR32__) || defined(__avr32__)
 #  define IUTEST_OS_AVR32               1
