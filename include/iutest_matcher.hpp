@@ -107,7 +107,7 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& msg)
     }
 
 
-IUTEST_PARGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 
 DECL_COMPARE_MATCHER(Ne, !=);
@@ -123,7 +123,7 @@ DECL_COMPARE_MATCHER2(Lt, < );
 DECL_COMPARE_MATCHER2(Ge, >=);
 DECL_COMPARE_MATCHER2(Gt, > );
 
-IUTEST_PARGMA_WARN_POP()
+IUTEST_PRAGMA_WARN_POP()
 
 #undef DECL_COMPARE_MATCHER
 #undef DECL_COMPARE_MATCHER2
@@ -477,10 +477,10 @@ private:
     template<typename A, typename B>
     static bool Equals(const A& actual, const B& expected)
     {
-IUTEST_PARGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
         return actual == expected;
-IUTEST_PARGMA_WARN_POP()
+IUTEST_PRAGMA_WARN_POP()
     }
     static bool Equals(const char* actual, const char* expected)
     {

@@ -71,7 +71,7 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveTrailingPathSeparator() const
     return IsDirectory() ? iuFilePath(std::string(m_path.c_str(), length()-1)) : *this;
 }
 
-IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveExtension(const char* extention) const
+IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveExtension(const char* extension) const
 {
     const char* const path = m_path.c_str();
     const char* const ext = strrchr(path, '.');
@@ -79,7 +79,7 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveExtension(const char* extention) 
     {
         return *this;
     }
-    if( extention != NULL && !IsStringCaseEqual(ext + 1, extention) )
+    if( extension != NULL && !IsStringCaseEqual(ext + 1, extension) )
     {
         return *this;
     }

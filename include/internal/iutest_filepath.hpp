@@ -122,7 +122,7 @@ public:
     /**
      * @brief   拡張子の削除
     */
-    iuFilePath RemoveExtension(const char* extention=NULL) const;
+    iuFilePath RemoveExtension(const char* extension=NULL) const;
 
     /**
      * @brief   ディレクトリ名の削除

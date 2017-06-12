@@ -546,7 +546,7 @@ inline AssertionResult CmpHelperEQ(const char* expected_str, const char* actual_
 {
     IUTEST_UNUSED_VAR(expected_str);
 
-IUTEST_PARGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 
     if( actual == expected )
@@ -559,7 +559,7 @@ IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
         , FormatForComparisonFailureMessage(actual, expected)
         );
 
-IUTEST_PARGMA_WARN_POP()
+IUTEST_PRAGMA_WARN_POP()
 }
 
 template<typename T>
@@ -568,7 +568,7 @@ inline AssertionResult CmpHelperMemCmpEQ(const char* expected_str, const char* a
 {
     IUTEST_UNUSED_VAR(expected_str);
 
-IUTEST_PARGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 
     if( memcmp(&actual, &expected, sizeof(T)) == 0 )
@@ -581,14 +581,14 @@ IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
         , FormatForComparisonFailureMessage(actual, expected)
         );
 
-IUTEST_PARGMA_WARN_POP()
+IUTEST_PRAGMA_WARN_POP()
 }
 
 template<typename T>
 inline AssertionResult CmpHelperMemCmpNE(const char* expected_str, const char* actual_str
     , const T& expected, const T& actual)
 {
-IUTEST_PARGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 
     if( memcmp(&actual, &expected, sizeof(T)) != 0 )
@@ -599,7 +599,7 @@ IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
     return AssertionFailure() << "error: Expected: " << expected_str << " != " << actual_str
         << "\n  Actual: " << FormatForComparisonFailureMessage(expected, actual);
 
-IUTEST_PARGMA_WARN_POP()
+IUTEST_PRAGMA_WARN_POP()
 }
 
 /**
