@@ -12,7 +12,6 @@ import sys
 import os
 
 
-# main
 def main():
     path = sys.argv[1]
     f = open(path)
@@ -29,6 +28,7 @@ def main():
                     if n == 2:
                         print('#include "iutest_config.hpp"')
     f.close()
+
 
 if __name__ == '__main__':
     main()

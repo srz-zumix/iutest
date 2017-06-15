@@ -195,6 +195,7 @@ def parse_command_line():
 
 def parse_gcc_clang(options, f, r_expansion, note_is_child):
     re_fatal = re.compile(r'(\S+)\s*:\s*fatal\s*error\s*.*')
+
     class rmessage:
         re_file = re.compile(r'(\S+):(\d+):(?:\d+\s*:|)(.*)')
         re_infile = re.compile(r'In file included from (\S+):(\d+):(?:\d+|)(.*)')
@@ -399,7 +400,6 @@ def test_result(result, msg, e):
 def iutest(l):
     result = True
     re_iutest = re.compile(r'IUTEST_TEST_COMPILEERROR\( (.*) \)')
-    re_m = None
     checkList = []
     messageList = []
     for i, msg in enumerate(l):
@@ -487,6 +487,7 @@ def main():
     setup()
     if not parse_output(options):
         sys.exit(1)
+
 
 if __name__ == '__main__':
     main()

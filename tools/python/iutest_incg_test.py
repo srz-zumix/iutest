@@ -13,6 +13,7 @@ import sys
 import re
 import codecs
 
+
 def main():
     filepath = sys.argv[1]
     incg = os.path.basename(filepath).upper().replace('.', '_')
@@ -22,6 +23,7 @@ def main():
     r = '\s*#\s*ifndef[/\s]*INCG_IRIS_{0}\S*\s*'.format(incg)
     if not re.search(r, text):
         exit(1)
+
 
 if __name__ == '__main__':
     main()

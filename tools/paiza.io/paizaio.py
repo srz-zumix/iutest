@@ -97,6 +97,7 @@ class PaizaIO:
     def dump(self):
         print(self.parameter)
 
+
 if __name__ == '__main__':
     paiza = PaizaIO()
     paiza.code('#include <iostream>\nint main() { int x = 0; std::cout << "hoge" << std::endl; }')
