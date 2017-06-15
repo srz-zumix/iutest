@@ -27,7 +27,7 @@ IUTEST_INCG_REGEX = re.compile(r'\s*#\s*define[/\s]*(INCG_IRIS_\S*)\s*')
 iutest_incg_list = []
 workaround = True
 
-#
+
 # command line option
 def parse_command_line():
     parser = ArgumentParser()
@@ -35,7 +35,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 5.5'
+        version=u'%(prog)s version 5.6'
     )
     parser.add_argument(
         '--list_compiler',
@@ -230,7 +230,6 @@ def make_include_filename(path, includes, included_files):
         return include_filename
 
 
-# 
 def is_iutest_included_file(filepath):
     if os.path.abspath(filepath).startswith(IUTEST_INCLUDE_PATH):
         incg = 'INCG_IRIS_' + os.path.basename(filepath).upper().replace('.', '_')
@@ -290,8 +289,8 @@ def make_code(path, encoding, expand, includes, included_files):
     return code
 
 
-def print_undefined_option(option, compiler):
-    print('Wandbox is not supported option [{0}] ({1})'.format(opt, compiler))
+def print_undefined_option(option_name, compiler):
+    print('Wandbox is not supported option [{0}] ({1})'.format(option_name, compiler))
 
 
 # check config
@@ -391,27 +390,36 @@ def expand_wandbox_options(w, compiler, options):
     return colist
 
 
+def wandbox_api_call(callback, retries):
+    try:
+        return callback()
+    except HTTPError as e:
+        if e.response.status_code in [504, 443] and retries > 0:
+            try:
+                print(e.message)
+            except:
+                pass
+            print('wait {0}sec...'.format(options.retry_wait))
+            sleep(options.retry_wait)
+            return wandbox_api(callback, retries - 1)
+        else:
+            raise
+    except:
+        raise
+
+
+def wandbox_get_compilerlist():
+    return wandbox_api_call(Wandbox.GetCompilerList, 3)
+
+
 def run_wandbox_impl(w, options):
     if options.dryrun:
         sys.exit(0)
     retries = options.retry
-    def run(retries):
-        try:
-            return w.run()
-        except HTTPError as e:
-            if e.response.status_code in [504, 443] and retries > 0:
-                try:
-                    print(e.message)
-                except:
-                    pass
-                print('wait {0}sec...'.format(options.retry_wait))
-                sleep(options.retry_wait)
-                return run(retries - 1)
-            else:
-                raise
-        except:
-            raise
-    return run(retries)
+
+    def run():
+        return w.run()
+    return wandbox_api_call(run, retries)
 
 
 def create_compiler_raw_option_list(options):
@@ -461,7 +469,7 @@ prog: $(OBJS)\n\
             bashscript += opt + ' '
         bashscript += '\n'
         w.code(bashscript)
-    
+
         if options.save:
             w.permanent_link(options.save)
         if options.verbose:
@@ -607,7 +615,7 @@ def run(options):
     included_files = {}
     impliments = {}
     code = make_code(main_filepath, options.encoding, options.expand_include, includes, included_files)
-    
+
     for filepath_ in options.code[1:]:
         filepath = filepath_.strip()
         impliments[os.path.basename(filepath)] = make_code(filepath, options.encoding, options.expand_include, includes, included_files)
@@ -634,7 +642,7 @@ def run(options):
 
 # listup compiler
 def listup_compiler(verbose):
-    r = Wandbox.GetCompilerList()
+    r = wandbox_get_compilerlist()
     for d in r:
         if d['language'] == 'C++':
             if verbose:
@@ -645,7 +653,7 @@ def listup_compiler(verbose):
 
 # find compiler
 def find_compiler(c):
-    r = Wandbox.GetCompilerList()
+    r = wandbox_get_compilerlist()
     for d in r:
         if d['language'] == 'C++' and d['name'] == c:
             return True
@@ -654,7 +662,7 @@ def find_compiler(c):
 
 # listup options
 def listup_options(compiler):
-    r = Wandbox.GetCompilerList()
+    r = wandbox_get_compilerlist()
     for d in r:
         if d['name'] == compiler:
             print('# ' + compiler)
@@ -673,7 +681,7 @@ def listup_options(compiler):
 
 
 def get_options(compiler):
-    r = Wandbox.GetCompilerList()
+    r = wandbox_get_compilerlist()
     opt = []
     for d in r:
         if d['name'] == compiler:
@@ -691,7 +699,7 @@ def get_options(compiler):
 
 # get default options
 def get_default_options(compiler):
-    r = Wandbox.GetCompilerList()
+    r = wandbox_get_compilerlist()
     opt = []
     for d in r:
         if d['name'] == compiler:
@@ -735,6 +743,7 @@ def main():
             parser.print_help()
             sys.exit(1)
         run(options)
+
 
 if __name__ == '__main__':
     main()

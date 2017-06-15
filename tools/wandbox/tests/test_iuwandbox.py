@@ -103,7 +103,7 @@ class iuwandbox_test(iuwandbox_test_base):
         self.assertRegex(self.capture.getvalue(), '.*If you do not use boost test, please specify the file with the main function first..*')
 
     def test_run(self):
-        sys.argv[1:] = [ test_src ]
+        sys.argv[1:] = [test_src]
         sys.argv.extend(test_opt)
         print(sys.argv)
         with self.assertRaises(SystemExit) as cm:
@@ -113,7 +113,7 @@ class iuwandbox_test(iuwandbox_test_base):
         self.assertRegex(self.capture.getvalue(), '.*OK.*')
 
     def test_same_filename(self):
-        sys.argv[1:] = [ 'src/main.cpp', 'src/A/sample.cpp', 'src/B/sample.cpp' ]
+        sys.argv[1:] = ['src/main.cpp', 'src/A/sample.cpp', 'src/B/sample.cpp']
         sys.argv.extend(test_opt_nomain)
         print(sys.argv)
         with self.assertRaises(SystemExit) as cm:
@@ -121,6 +121,7 @@ class iuwandbox_test(iuwandbox_test_base):
         self.dump()
         self.assertEqual(cm.exception.code, 0, self.capture.getvalue())
         self.assertRegex(self.capture.getvalue(), '.*OK.*')
+
 
 if __name__ == "__main__":
     unittest.main()
