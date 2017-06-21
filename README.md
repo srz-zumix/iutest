@@ -1,4 +1,4 @@
-[![Travis-CI Build Status](https://travis-ci.org/srz-zumix/iutest.png?branch=master)](https://travis-ci.org/srz-zumix/iutest)
+[![Travis-CI Build Status](https://travis-ci.org/srz-zumix/iutest.svg?branch=master)](https://travis-ci.org/srz-zumix/iutest)
 [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/2gdmgo8ce8m0iy0e/branch/master?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest/branch/master)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/1316/badge.svg)](https://scan.coverity.com/projects/srz-zumix-iutest)
 [![Codeship Status for srz-zumix/iutest](https://codeship.com/projects/5bc87030-5b41-0133-6000-4242aa07dce3/status?branch=master)](https://codeship.com/projects/110695)  
@@ -9,8 +9,8 @@
 [![Codefresh build status]( https://g.codefresh.io/api/badges/build?repoOwner=srz-zumix&repoName=iutest&branch=master&pipelineName=iutest&accountName=srz-zumix&type=cf-1)]( https://g.codefresh.io/repositories/srz-zumix/iutest/builds?filter=trigger:build;branch:master;service:58a933be9d1bd40100495882~iutest)
 [![Bitrise Build Status](https://www.bitrise.io/app/a1525fe176d85f53/status.svg?token=C67enKOhen9rjw_Cl37ihA&branch=master)](https://www.bitrise.io/app/a1525fe176d85f53)
 [![CircleCI](https://circleci.com/gh/srz-zumix/iutest/tree/master.svg?style=svg)](https://circleci.com/gh/srz-zumix/iutest/tree/master)
-[![Build Status](https://scrutinizer-ci.com/g/srz-zumix/iutest/badges/build.png?b=master)](https://scrutinizer-ci.com/g/srz-zumix/iutest/build-status/master)  
-[![Coverage Status](https://coveralls.io/repos/srz-zumix/iutest/badge.png?branch=master)](https://coveralls.io/r/srz-zumix/iutest?branch=master)
+[![Scrutinizer Build Status](https://scrutinizer-ci.com/g/srz-zumix/iutest/badges/build.png?b=master)](https://scrutinizer-ci.com/g/srz-zumix/iutest/build-status/master)  
+[![Coverage Status](https://coveralls.io/repos/github/srz-zumix/iutest/badge.svg?branch=master)](https://coveralls.io/github/srz-zumix/iutest?branch=master)
 [![codecov](https://codecov.io/gh/srz-zumix/iutest/branch/master/graph/badge.svg)](https://codecov.io/gh/srz-zumix/iutest)  
 [![New(3-clause) BSD License](https://img.shields.io/badge/license-New_BSD-blue.svg)](http://opensource.org/licenses/BSD-3-Clause)
 [![NuGet version](https://badge.fury.io/nu/iutest.svg)](https://badge.fury.io/nu/iutest)  
@@ -96,7 +96,7 @@ Tests
 
 |CI|master|develop|Tests|
 |:--|:--|:--|:--|
-|Travis CI|[![Travis-CI Build Status](https://travis-ci.org/srz-zumix/iutest.svg?branch=master)](https://travis-ci.org/srz-zumix/iutest)|[![Travis-CI Build Status](https://travis-ci.org/srz-zumix/iutest.png?branch=develop)](https://travis-ci.org/srz-zumix/iutest)|Basic tests, Google test compatibility, Coverage, Coverity-scan, Wine + MinGW|
+|Travis CI|[![Travis-CI Build Status](https://travis-ci.org/srz-zumix/iutest.svg?branch=master)](https://travis-ci.org/srz-zumix/iutest)|[![Travis-CI Build Status](https://travis-ci.org/srz-zumix/iutest.svg?branch=develop)](https://travis-ci.org/srz-zumix/iutest)|Basic tests, Google test compatibility, Coverage, Coverity-scan, Wine + MinGW|
 |AppVeyor|[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/2gdmgo8ce8m0iy0e/branch/master?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest/branch/master)|[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/2gdmgo8ce8m0iy0e/branch/develop?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest/branch/develop)|Windows, NuGet|
 ||[![AppVeyor Build sample status](https://ci.appveyor.com/api/projects/status/906w23swuocl9fex/branch/master?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-8dhoe/branch/master)|[![AppVeyor Build sample status](https://ci.appveyor.com/api/projects/status/906w23swuocl9fex/branch/develop?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-8dhoe/branch/develop)|Sample build|
 ||[![AppVeyor Build PREFAST status](https://ci.appveyor.com/api/projects/status/0w0wuhc58kre178q/branch/master?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-xsqun/branch/master)|[![AppVeyor Build PREFAST status](https://ci.appveyor.com/api/projects/status/0w0wuhc58kre178q/branch/develop?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-xsqun/branch/develop)|Visual Studio PREFAST (Code Analysis)|
@@ -116,7 +116,7 @@ Tests
 Coverage
 --------------------------------------------------
 
-[![Coverage Status](https://coveralls.io/repos/srz-zumix/iutest/badge.png?branch=master)](https://coveralls.io/r/srz-zumix/iutest?branch=master)  
+[![Coverage Status](https://coveralls.io/repos/github/srz-zumix/iutest/badge.svg?branch=master)](https://coveralls.io/github/srz-zumix/iutest?branch=master)  
 
 
 [![codecov](https://codecov.io/gh/srz-zumix/iutest/branch/master/graph/badge.svg)](https://codecov.io/gh/srz-zumix/iutest)  
