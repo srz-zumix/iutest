@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -116,8 +116,12 @@ template<typename F>
 struct is_function_pointer : public ::std::integral_constant<bool
     , ::std::is_pointer<F>::value && ::std::is_function< typename ::std::remove_pointer<F>::type >::value > {};
 
+#if defined(__cpp_lib_bool_constant) && __cpp_lib_bool_constant >= 201505
+using ::std::bool_constant;
+#else
 template<bool B>
 struct bool_constant : ::std::integral_constant<bool, B> {};
+#endif
 
 #else
 

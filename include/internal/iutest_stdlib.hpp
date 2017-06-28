@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -28,6 +28,14 @@
 
 //======================================================================
 // define
+#if defined(__has_include)
+#  if __has_include( <codecvt> )
+#    define IUTEST_HAS_CXX_HDR_CODECVT  1
+#  else
+#    define IUTEST_HAS_CXX_HDR_CODECVT  0
+#  endif
+#endif
+
 #if   defined(__GLIBCPP__) || defined(__GLIBCXX__)
 
 // libstdc++

@@ -106,6 +106,8 @@
 #if !defined(IUTEST_HAS_CXX17)
 #  if (defined(__cplusplus) && __cplusplus >= 201406L)
 #    define IUTEST_HAS_CXX17        1
+#  elif defined(_MSVC_LANG) && _MSVC_LANG > 201402
+#    define IUTEST_HAS_CXX17        1
 #  endif
 #endif
 
@@ -126,6 +128,20 @@
 #  define IUTEST_HAS_INLINE_VARIABLE        0
 #endif
 
+//! constexpr if
+#if !defined(IUTEST_HAS_CONSTEXPR_IF)
+#  if   defined(__cpp_if_constexpr) && __cpp_if_constexpr >= 201606
+#    define IUTEST_HAS_CONSTEXPR_IF         1
+#  elif defined(_MSC_VER)
+#    if _MSC_VER >= 1910 && IUTEST_HAS_CXX17
+#      define IUTEST_HAS_CONSTEXPR_IF       1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CONSTEXPR_IF)
+#  define IUTEST_HAS_CONSTEXPR_IF           0
+#endif
 
 // c++11
 

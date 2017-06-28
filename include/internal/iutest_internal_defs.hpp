@@ -118,7 +118,7 @@ namespace type_traits = iutest_type_traits;
 namespace detail
 {
 
-typedef void void_t;    // default template 引数用 (一部のコンパイラで = void だエラーになるため)
+typedef void void_t;    // default template 引数用 (一部のコンパイラで = void だとエラーになるため)
 
 //======================================================================
 // function
