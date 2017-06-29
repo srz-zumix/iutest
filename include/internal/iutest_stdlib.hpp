@@ -28,14 +28,6 @@
 
 //======================================================================
 // define
-#if defined(__has_include)
-#  if __has_include( <codecvt> )
-#    define IUTEST_HAS_CXX_HDR_CODECVT  1
-#  else
-#    define IUTEST_HAS_CXX_HDR_CODECVT  0
-#  endif
-#endif
-
 #if   defined(__GLIBCPP__) || defined(__GLIBCXX__)
 
 // libstdc++
@@ -245,6 +237,14 @@
 
 // stlport
 
+#endif
+
+#if defined(__has_include)
+#  if defined(IUTEST_HAS_CXX_HDR_CODECVT) && IUTEST_HAS_CXX_HDR_CODECVT
+#    if !__has_include( <codecvt> )
+#      undef IUTEST_HAS_CXX_HDR_CODECVT
+#    endif
+#  endif
 #endif
 
 //! has std::begin,std::end
