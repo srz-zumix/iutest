@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01160109u //!< iutest version 1.16.1.9
+#define IUTEST_VER          0x01160110u //!< iutest version 1.16.1.10
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
 #define IUTEST_MICROVER     0x01u       //!< Micro Version
-#define IUTEST_REVISION     0x09u       //!< Revision
+#define IUTEST_REVISION     0x10u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -118,6 +118,11 @@
  * @page    CHANGELOG   変更履歴
  * @par     Changes
  <ul>
+  <li>v1.16.2.0
+    <ul>
+      <li></li>
+    </ul>
+  </li>
   <li>v1.16.1.0
     <ul>
       <li>IUTEST_BUILD を非推奨に変更し、IUTEST_MICROVER を追加</li>

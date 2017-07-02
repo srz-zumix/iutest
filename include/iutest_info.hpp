@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -112,6 +112,15 @@ public:
     bool    HasFailure() const
     {
         return m_test_result.Failed();
+    }
+
+    /**
+     * @brief   警告があるかどうか
+     * @return  真偽値
+    */
+    bool    HasWarning() const
+    {
+        return m_test_result.HasWarning();
     }
 
     /**

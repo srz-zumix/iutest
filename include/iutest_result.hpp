@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -89,7 +89,7 @@ public:
     /**
      * @brief   失敗かどうか
     */
-    bool        failed() const IUTEST_CXX_NOEXCEPT_SPEC { return m_type > kSuccess; }
+    bool        failed() const IUTEST_CXX_NOEXCEPT_SPEC { return type_is_failed(m_type);; }
     /**
      * @brief   成功かどうか
     */
@@ -265,6 +265,12 @@ public:
      * @return  真偽値
     */
     bool        HasAssumeFailure() const { return HasResult(TestPartResult::kAssumeFailure); }
+
+    /**
+     * @brief   警告があるかどうか
+     * @return  真偽値
+    */
+    bool        HasWarning() const { return HasResult(TestPartResult::kWarning); }
 
     /**
      * @brief   テストの実行時間の取得

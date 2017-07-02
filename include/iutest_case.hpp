@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -209,6 +209,9 @@ private:
     iuTestInfos::const_iterator begin() const       { return m_testinfos.begin(); }
     iuTestInfos::const_iterator end()   const       { return m_testinfos.end(); }
     TestTypeId                  get_typeid() const IUTEST_CXX_NOEXCEPT_SPEC { return m_id; }
+
+private:
+    bool HasWarning() const { return m_ad_hoc_testresult.HasWarning() || detail::AnyOverList(m_testinfos, &TestInfo::HasWarning); }
 
 private:
     static bool IsSuccessfulTest(const TestInfo* p) { return p->is_ran() && p->Passed(); }

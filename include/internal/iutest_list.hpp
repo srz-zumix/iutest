@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -523,6 +523,23 @@ int CountIfOverList(const iu_list<Node>& list, Fn f)
         }
     }
     return count;
+}
+
+/**
+ * @brief   条件に合う要素があるかどうか
+*/
+template<typename Node, typename Fn>
+bool AnyOverList(const iu_list<Node>& list, Fn f)
+{
+    int count = 0;
+    for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
+    {
+        if( ((*it).*f)() )
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 }   // end of namespace detail
