@@ -531,7 +531,6 @@ int CountIfOverList(const iu_list<Node>& list, Fn f)
 template<typename Node, typename Fn>
 bool AnyOverList(const iu_list<Node>& list, Fn f)
 {
-    int count = 0;
     for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
     {
         if( ((*it).*f)() )
