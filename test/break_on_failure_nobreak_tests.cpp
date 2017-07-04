@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -40,6 +40,8 @@ int main(int argc, char* argv[])
 {
     IUTEST_INIT(&argc, argv);
     ::iutest::IUTEST_FLAG(break_on_failure) = true;
+#if !defined(IUTEST_USE_GTEST)
     ::iutest::IUTEST_FLAG(warning_into_error) = false;
+#endif
     return IUTEST_RUN_ALL_TESTS();
 }
