@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -208,6 +208,10 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     {
         return ParseYesNoFlagCommandLine(str, TestFlag::THROW_ON_FAILURE, 1);
     }
+    if (detail::IsStringForwardMatching(str, "warning_into_error"))
+    {
+        return ParseYesNoFlagCommandLine(str, TestFlag::WARNING_INTO_ERROR, 1);
+    }
     if( detail::IsStringForwardMatching(str, "print_time") )
     {
         return ParseYesNoFlagCommandLine(str, TestFlag::PRINT_TIME, -1);
@@ -298,6 +302,11 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnvironmentVariable()
         {
             TestFlag::SetFlag(TestFlag::THROW_ON_FAILURE
                 , var ? TestFlag::MASK : ~(TestFlag::THROW_ON_FAILURE) );
+        }
+        if (detail::GetEnvironmentInt("IUTEST_WARNING_INTO_ERROR", var))
+        {
+            TestFlag::SetFlag(TestFlag::WARNING_INTO_ERROR
+                , var ? TestFlag::MASK : ~(TestFlag::WARNING_INTO_ERROR));
         }
         if( detail::GetEnvironmentInt("IUTEST_PRINT_TIME", var)
         ||  detail::GetEnvironmentInt("GTEST_PRINT_TIME", var) )

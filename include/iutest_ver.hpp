@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01160110u //!< iutest version 1.16.1.10
+#define IUTEST_VER          0x01160111u //!< iutest version 1.16.1.11
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
 #define IUTEST_MICROVER     0x01u       //!< Micro Version
-#define IUTEST_REVISION     0x10u       //!< Revision
+#define IUTEST_REVISION     0x11u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -80,6 +80,7 @@
    <tr><td>--iutest_also_run_disabled_tests  </td><td></td><td>Run disabled tests.</td></tr>
    <tr><td>--iutest_break_on_failure         </td><td>[yes|no]</td><td>When that failed to break.</td></tr>
    <tr><td>--iutest_throw_on_failure         </td><td>[yes|no]</td><td>When that failed to throw.</td></tr>
+   <tr><td>--iutest_warning_into_error       </td><td>[yes|no]</td><td>Make warnings into error.</td></tr>
    <tr><td>--iutest_catch_exceptions         </td><td>&lt;yes|no&gt;</td><td>Catch exceptions enable.</td></tr>
    <tr><td>--iutest_print_time               </td><td>&lt;yes|no&gt;</td><td>Setting the display of elapsed time.</td></tr>
    <tr><td>--iutest_repeat                   </td><td>&lt;count&gt;</td><td>Set the number of repetitions of the test. use a negative count to repeat forever.</td></tr>
@@ -106,6 +107,7 @@
    <tr><td>IUTEST_ALSO_RUN_DISABLED_TESTS  </td><td>Run disabled tests.</td></tr>
    <tr><td>IUTEST_BREAK_ON_FAILURE=0|1     </td><td>When that failed to break.</td></tr>
    <tr><td>IUTEST_THROW_ON_FAILURE=0|1     </td><td>When that failed to throw.</td></tr>
+   <tr><td>IUTEST_WARNING_INTO_ERROR=0|1   </td><td>Make warnings into error.</td></tr>
    <tr><td>IUTEST_CATCH_EXCEPTIONS=0|1     </td><td>Catch exceptions enable.</td></tr>
    <tr><td>IUTEST_PRINT_TIME=0|1           </td><td>Setting the display of elapsed time.</td></tr>
    <tr><td>IUTEST_REPEAT=count             </td><td>Set the number of repetitions of the test.</td></tr>
@@ -120,7 +122,7 @@
  <ul>
   <li>v1.16.2.0
     <ul>
-      <li></li>
+      <li>警告をエラーとするオプション(--iutest_warning_into_error)を追加</li>
     </ul>
   </li>
   <li>v1.16.1.0

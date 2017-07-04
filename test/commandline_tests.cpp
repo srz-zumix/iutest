@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        commandline_tests.cpp
- * @brief       CommandLine 対応テスト
+ * @brief       CommandLine tests
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -163,6 +163,7 @@ int main(int argc, char* argv[])
         vargv.push_back("--iutest_repeat=2");
         vargv.push_back("--iutest_filter=Flag*");
         vargv.push_back("--iutest_default_package_name=root");
+        vargv.push_back("--iutest_warning_into_error=t");
 #if IUTEST_HAS_STREAM_RESULT
         vargv.push_back("--iutest_stream_result_to=test");
 #endif
@@ -178,6 +179,7 @@ int main(int argc, char* argv[])
         IUTEST_EXPECT_FALSE( ::iutest::IUTEST_FLAG(print_time) );
         IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(shuffle) );
         IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(file_location_style_msvc) );
+        IUTEST_EXPECT_TRUE ( ::iutest::IUTEST_FLAG(warning_into_error) );
 
         IUTEST_EXPECT_EQ( 200u, ::iutest::IUTEST_FLAG(random_seed) );
         IUTEST_EXPECT_EQ(   2 , ::iutest::IUTEST_FLAG(repeat) );

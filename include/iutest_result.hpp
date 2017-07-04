@@ -83,7 +83,17 @@ public:
     /**
     * @brief    失敗かどうか
     */
-    static bool type_is_failed(Type type) IUTEST_CXX_NOEXCEPT_SPEC { return type > kSuccess; }
+    static bool type_is_failed(Type type) IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        if( iutest::IUTEST_FLAG(warning_into_error) )
+        {
+            if( type == kWarning )
+            {
+                return true;
+            }
+        }
+        return type > kSuccess;
+    }
 
 public:
     /**

@@ -32,6 +32,7 @@
  *          also_run_disabled_tests (bool)\n
  *          break_on_failure (bool)\n
  *          throw_on_failure (bool)\n
+ *          warning_into_error (bool)\n
  *          catch_exceptions (bool)\n
  *          catch_exceptions_each   (bool)\n
  *          catch_exceptions_global (bool)\n
@@ -143,6 +144,7 @@ public:
 
         BREAK_ON_FAILURE        = 0x00000010,   //!< テスト失敗時にブレーク
         THROW_ON_FAILURE        = 0x00000040,   //!< 致命的な失敗時に throw する
+        WARNING_INTO_ERROR      = 0x00000080,   //!< 警告をエラーとする
 
         CONSOLE_COLOR_ON        = 0x00000100,   //!< 色つき出力ON
         CONSOLE_COLOR_OFF       = 0x00000200,   //!< 色つき出力OFF
@@ -244,6 +246,7 @@ public:
     typedef TestFlag::Fragment<TestFlag::BREAK_ON_FAILURE>      break_on_failure;
     typedef TestFlag::Fragment<TestFlag::CATCH_EXCEPTION>       catch_exceptions;
     typedef TestFlag::Fragment<TestFlag::THROW_ON_FAILURE>      throw_on_failure;
+    typedef TestFlag::Fragment<TestFlag::WARNING_INTO_ERROR>    warning_into_error;
     typedef TestFlag::Fragment<TestFlag::PRINT_TIME>            print_time;
     typedef TestFlag::Fragment<TestFlag::SHOW_TESTS_LIST>       list_tests;
     typedef TestFlag::Fragment<TestFlag::SHOW_TESTS_LIST_WITH_WHERE> list_tests_with_where;

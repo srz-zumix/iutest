@@ -38,8 +38,8 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-    ::iutest::IUTEST_FLAG(break_on_failure) = true;
-
     IUTEST_INIT(&argc, argv);
+    ::iutest::IUTEST_FLAG(break_on_failure) = true;
+    ::iutest::IUTEST_FLAG(warning_into_error) = false;
     return IUTEST_RUN_ALL_TESTS();
 }
