@@ -260,6 +260,7 @@ var searchData=
   ['iutest_5fhas_5fcombine',['IUTEST_HAS_COMBINE',['../dc/d51/group___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t.html#ga0716e536e3170433c685cbc5db7b85e4',1,'iutest_config.hpp']]],
   ['iutest_5fhas_5fconcat',['IUTEST_HAS_CONCAT',['../dc/d51/group___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t.html#ga2cd94c8cd76a6020d2f2fac72793e0a8',1,'iutest_config.hpp']]],
   ['iutest_5fhas_5fconstexpr',['IUTEST_HAS_CONSTEXPR',['../dc/d2f/iutest__compiler_8hpp.html#a59a6abfcf5e398ede7d89f64b7d3a216',1,'iutest_compiler.hpp']]],
+  ['iutest_5fhas_5fconstexpr_5fif',['IUTEST_HAS_CONSTEXPR_IF',['../dc/d2f/iutest__compiler_8hpp.html#a2098f27dcc34f5af9d5e85b04e244a1f',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fcounter_5fmacro',['IUTEST_HAS_COUNTER_MACRO',['../dc/d2f/iutest__compiler_8hpp.html#af82262b60d94b5639c04c270797bdcb6',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fcsvparams',['IUTEST_HAS_CSVPARAMS',['../dc/d51/group___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t.html#gaf09ba0f2704a2f403937807eb5658a8b',1,'iutest_config.hpp']]],
   ['iutest_5fhas_5fctime',['IUTEST_HAS_CTIME',['../de/d11/group___i_u_t_e_s_t___c_o_n_f_i_g___t_i_m_e.html#ga6391cea7287d9ef16a89e093697a7814',1,'iutest_config.hpp']]],

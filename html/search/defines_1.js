@@ -36,6 +36,7 @@ var searchData=
   ['iutest_5fhas_5fclass_5fmember_5ftemplate_5fspecialization',['IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION',['../dc/d2f/iutest__compiler_8hpp.html#a8132e04c43a3d382d98be3257cf871ba',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fcolorconsole',['IUTEST_HAS_COLORCONSOLE',['../d3/df9/iutest__console_8hpp.html#af5aac14096cac1b238abe98d3a686d00',1,'iutest_console.hpp']]],
   ['iutest_5fhas_5fconstexpr',['IUTEST_HAS_CONSTEXPR',['../dc/d2f/iutest__compiler_8hpp.html#a59a6abfcf5e398ede7d89f64b7d3a216',1,'iutest_compiler.hpp']]],
+  ['iutest_5fhas_5fconstexpr_5fif',['IUTEST_HAS_CONSTEXPR_IF',['../dc/d2f/iutest__compiler_8hpp.html#a2098f27dcc34f5af9d5e85b04e244a1f',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fcounter_5fmacro',['IUTEST_HAS_COUNTER_MACRO',['../dc/d2f/iutest__compiler_8hpp.html#af82262b60d94b5639c04c270797bdcb6',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fcxx11',['IUTEST_HAS_CXX11',['../dc/d2f/iutest__compiler_8hpp.html#a2a62db2a9a92a3b0248b858deb221309',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fcxx17',['IUTEST_HAS_CXX17',['../dc/d2f/iutest__compiler_8hpp.html#a10dd91fbda1790b0f4bb8e250a1e8578',1,'iutest_compiler.hpp']]],
