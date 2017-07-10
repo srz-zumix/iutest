@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -190,10 +190,11 @@ class IUTestLog
 public:
     enum Level
     {
-        LOG_INFO
+          LOG_INFO
         , LOG_WARNING
         , LOG_ERROR
         , LOG_FATAL
+        , LOG_LEVEL_NUM
     };
 public:
     IUTestLog(Level level, const char* file, int line);
@@ -202,6 +203,20 @@ public:
 
 public:
     iu_stringstream& GetStream() { return m_stream; }
+
+public:
+    static int GetCount(Level level) { return GetCountTable().count[level]; }
+    static bool HasWarning() { return GetCount(LOG_WARNING) > 0; }
+    static bool HasError() { return GetCount(LOG_ERROR) > 0 || GetCount(LOG_FATAL) > 0; }
+
+private:
+    struct Count
+    {
+        int count[LOG_LEVEL_NUM];
+    };
+
+    static Count& GetCountTable() { static Count count = {0}; return count; }
+
 private:
     const Level kLevel;
     iu_stringstream m_stream;

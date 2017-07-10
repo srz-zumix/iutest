@@ -106,6 +106,11 @@ int main(int argc, char* argv[])
 #endif
     int targc = 1;
     IUTEST_INIT(&targc, targv);
-    return IUTEST_RUN_ALL_TESTS();
+#if !defined(IUTEST_USE_GTEST)
+    if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
+#else
+    if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
+#endif
+    return 0;
 }
 

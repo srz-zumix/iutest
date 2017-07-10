@@ -69,6 +69,7 @@ TARGETS1= \
           flagfile_gtest_tests \
           help_tests \
           inform_tests \
+          internal_log_tests \
           invalid_commandline_tests \
           japanese_tests \
           list_test_tests \

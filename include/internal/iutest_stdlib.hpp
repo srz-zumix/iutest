@@ -88,6 +88,11 @@
 #      define IUTEST_HAS_CXX_HDR_CSTDINT  1
 #    endif
 #  endif
+#  if IUTEST_LIBSTDCXX_VERSION >= 40300
+#    if !defined(IUTEST_HAS_CXX_HDR_ARRAY)
+#      define IUTEST_HAS_CXX_HDR_ARRAY    1
+#    endif
+#  endif
 #  if defined(_GLIBCXX_HAVE_QUICK_EXIT) && defined(_GLIBCXX_HAVE_AT_QUICK_EXIT)
 #    if !defined(IUTEST_HAS_STD_QUICK_EXIT)
 #      define IUTEST_HAS_STD_QUICK_EXIT   1
@@ -149,6 +154,9 @@
 #  if !defined(IUTEST_HAS_CXX_HDR_CSTDINT)
 #    define IUTEST_HAS_CXX_HDR_CSTDINT    1
 #  endif
+#  if !defined(IUTEST_HAS_CXX_HDR_ARRAY)
+#    define IUTEST_HAS_CXX_HDR_ARRAY      1
+#  endif
 #  if !defined(IUTEST_HAS_STD_QUICK_EXIT) && defined(_LIBCPP_HAS_QUICK_EXIT)
 #    define IUTEST_HAS_STD_QUICK_EXIT     1
 #  endif
@@ -185,6 +193,12 @@
 #elif defined(_MSC_VER) && defined(_MSC_FULL_VER)
 
 // Visual C++
+
+#if _MSC_VER >= 1600
+#  if !defined(IUTEST_HAS_CXX_HDR_ARRAY)
+#    define IUTEST_HAS_CXX_HDR_ARRAY      1
+#  endif
+#endif
 
 #if _MSC_VER >= 1700
 #  if !defined(IUTEST_HAS_STD_BEGIN_END)
@@ -302,6 +316,10 @@
 #if !defined(IUTEST_HAS_CXX_HDR_CSTDINT)
 #  define IUTEST_HAS_CXX_HDR_CSTDINT    0
 #endif
+//! has array header
+#if !defined(IUTEST_HAS_CXX_HDR_ARRAY)
+#  define IUTEST_HAS_CXX_HDR_ARRAY      0
+#endif
 //! has emplace
 #if !defined(IUTEST_HAS_STD_EMPLACE)
 #  define IUTEST_HAS_STD_EMPLACE        0
@@ -324,6 +342,7 @@
 #if IUTEST_HAS_CXX_HDR_CSTDINT
 #  include <cstdint>
 #endif
+#include <iterator>
 
 //======================================================================
 // decalre
@@ -346,7 +365,8 @@ namespace cxx
 
 #if IUTEST_HAS_STD_BEGIN_END
 
-using namespace std; // NOLINT
+using ::std::begin;
+using ::std::end;
 
 #else
 

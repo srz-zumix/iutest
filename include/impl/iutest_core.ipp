@@ -163,36 +163,48 @@ IUTEST_IPP_INLINE int UnitTest::RunImpl()
 {
     m_repeat_counter = 0;
     int repeat = TestEnv::get_repeat_count();
-    if( repeat == 0 )
-    {
-        return 0;
-    }
-
-    m_start_timestamp = detail::GetTimeInMillis();
-    TestProgramStart();
-
     bool result = true;
-    while(repeat)
+    if( repeat != 0 )
     {
-        SetUpTestIteration();
+        m_start_timestamp = detail::GetTimeInMillis();
+        TestProgramStart();
 
-        listeners().OnTestIterationStart(*this, m_repeat_counter);
-        if( !RunOnce() )
+        while( repeat )
         {
-            result = false;
+            SetUpTestIteration();
+
+            listeners().OnTestIterationStart(*this, m_repeat_counter);
+            if( !RunOnce() )
+            {
+                result = false;
+            }
+            listeners().OnTestIterationEnd(*this, m_repeat_counter);
+
+            ++m_repeat_counter;
+            if( repeat > 0 )
+            {
+                --repeat;
+            }
         }
-        listeners().OnTestIterationEnd(*this, m_repeat_counter);
 
-        ++m_repeat_counter;
-        if( repeat > 0 )
+        TestProgramEnd();
+    }
+    if( !result )
+    {
+        return 1;
+    }
+    if( detail::IUTestLog::HasError() )
+    {
+        return 1;
+    }
+    if( IUTEST_FLAG(warning_into_error) )
+    {
+        if( detail::IUTestLog::HasWarning() )
         {
-            --repeat;
+            return 1;
         }
     }
-
-    TestProgramEnd();
-
-    return result ? 0 : 1;
+    return 0;
 }
 
 IUTEST_IPP_INLINE bool UnitTest::RunOnce()

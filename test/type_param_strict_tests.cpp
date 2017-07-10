@@ -64,6 +64,9 @@ int main(int argc, char* argv[])
 #endif
 {
     IUTEST_INIT(&argc, argv);
+#if !defined(IUTEST_USE_GTEST)
+    ::iutest::IUTEST_FLAG(warning_into_error) = false;
+#endif
 #if IUTEST_HAS_TYPED_TEST_P && IUTEST_HAS_STREAM_BUFFER
 #if IUTEST_TYPED_TEST_P_STRICT
     IUTEST_EXPECT_STRIN("Test \"B\" has not been registered.", stderr_capture.GetStreamString());

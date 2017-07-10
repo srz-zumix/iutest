@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -427,6 +427,10 @@ IUTEST_IPP_INLINE ::std::string GetHResultString(HRESULT hr)
 IUTEST_IPP_INLINE IUTestLog::IUTestLog(Level level, const char* file, int line)
     : kLevel(level)
 {
+    if( level < LOG_LEVEL_NUM && level >= 0 )
+    {
+        ++GetCountTable().count[level];
+    }
     const char* const tag =
         (level == LOG_INFO   ) ? "[  INFO ] ":
         (level == LOG_WARNING) ? "[WARNING] ":
