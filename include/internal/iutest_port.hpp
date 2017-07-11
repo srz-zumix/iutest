@@ -215,7 +215,7 @@ private:
         int count[LOG_LEVEL_NUM];
     };
 
-    static Count& GetCountTable() { static Count count = {0}; return count; }
+    static Count& GetCountTable() { static Count count = { {0} }; return count; }
 
 private:
     const Level kLevel;
