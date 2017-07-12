@@ -66,7 +66,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
 IUTEST(FlagTest, Check)
 {
-    IUTEST_ASSUME_EQ(0, g_result.setup_environment) << lasterror << ": " << strerror(lasterror);  // putenv に失敗した場合はテストしない
+    IUTEST_ASSUME_EQ(0, g_result.setup_environment) << "\n" << lasterror << ": " << strerror(lasterror);  // putenv に失敗した場合はテストしない
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(also_run_disabled_tests) );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(break_on_failure) );
     IUTEST_EXPECT_TRUE( ::iutest::IUTEST_FLAG(throw_on_failure) );
@@ -107,10 +107,15 @@ int main(int argc, char* argv[])
     int targc = 1;
     IUTEST_INIT(&targc, targv);
 #if !defined(IUTEST_USE_GTEST)
-    if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
-#else
-    if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
+    if( g_result.setup_environment == 0 && ::iutest::IUTEST_FLAG(warning_into_error) )
+    {
+        if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
+    }
+    else
 #endif
+    {
+        if( IUTEST_RUN_ALL_TESTS() != 0 ) return 1;
+    }
     return 0;
 }
 
