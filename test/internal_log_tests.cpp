@@ -40,7 +40,7 @@ int main(int argc, char** argv)
     }
 
     IUTEST_LOG_(WARNING) << "a";
-    
+
     ::iutest::IUTEST_FLAG(warning_into_error) = false;
     if( IUTEST_RUN_ALL_TESTS() != 0 )
     {
