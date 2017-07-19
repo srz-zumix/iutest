@@ -15,7 +15,7 @@ var indexSectionsWithContent =
   5: "_tv",
   6: "bcimpstu",
   7: "kot",
-  8: "bcdfkmoprstv",
+  8: "bcdfkmoprstvw",
   9: "au",
   10: "ai",
   11: "aefilmoptãå",

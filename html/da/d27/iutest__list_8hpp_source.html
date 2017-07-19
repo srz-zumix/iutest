@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.1.9</span>
+   &#160;<span id="projectnumber">1.16.1.12</span>
    </div>
   </td>
  </tr>
@@ -580,16 +580,29 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;    <span class="keywordflow">return</span> count;</div>
 <div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;}</div>
 <div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;</div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
-<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
-<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;</div>
-<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;</div>
-<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_LIST_HPP_CB5AECEA_6147_4A89_BB97_236338CA177E_</span></div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> Node, <span class="keyword">typename</span> Fn&gt;</div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;<span class="keywordtype">bool</span> AnyOverList(<span class="keyword">const</span> iu_list&lt;Node&gt;&amp; list, Fn f)</div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;{</div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;    <span class="keywordflow">for</span>( <span class="keyword">typename</span> iu_list&lt;Node&gt;::const_iterator it = list.begin(), end=list.end(); it != end; ++it )</div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;    {</div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;        <span class="keywordflow">if</span>( ((*it).*f)() )</div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;        {</div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;        }</div>
+<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;    }</div>
+<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;}</div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;</div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;</div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;</div>
+<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_LIST_HPP_CB5AECEA_6147_4A89_BB97_236338CA177E_</span></div>
 <div class="ttc" id="iutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:710</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2017年07月05日(水) 12時45分36秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2017年07月19日(水) 12時42分21秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
