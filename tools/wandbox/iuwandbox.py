@@ -17,6 +17,7 @@ from time import sleep
 from argparse import ArgumentParser
 from wandbox import Wandbox
 from requests.exceptions import HTTPError
+from requests.exceptions import ConnectionError
 
 IUTEST_FUSED_SRC = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.min.hpp'))
 IUTEST_INCLUDE_PATH = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../include'))
@@ -35,7 +36,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 5.6'
+        version=u'%(prog)s version 5.7'
     )
     parser.add_argument(
         '--list_compiler',
@@ -393,7 +394,7 @@ def expand_wandbox_options(w, compiler, options):
 def wandbox_api_call(callback, retries):
     try:
         return callback()
-    except HTTPError as e:
+    except (HTTPError, ConnectionError) as e:
         if e.response.status_code in [504, 443] and retries > 0:
             try:
                 print(e.message)
