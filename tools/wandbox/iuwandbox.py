@@ -395,7 +395,13 @@ def wandbox_api_call(callback, retries):
     try:
         return callback()
     except (HTTPError, ConnectionError) as e:
-        if e.response.status_code in [504, 443] and retries > 0:
+
+        def is_retry(e):
+            if not e.response:
+                return True
+            return e.response.status_code in [504]
+
+        if is_retry(e) and retries > 0:
             try:
                 print(e.message)
             except:
