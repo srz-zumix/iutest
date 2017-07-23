@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def checkout() {
+def checkoutSCM() {
     try {
         checkout scm
     } catch(e) {
@@ -8,44 +8,45 @@ def checkout() {
     }
 }
 
-node {
-    properties([
-        parameters([
-            booleanParam(
-                defaultValue: false,
-                description: 'run config tests',
-                name: 'runConfigTests'
-            )
-        ])
-    ])
-
-    step([$class: 'GitHubSetCommitStatusBuilder'])
-
-    stage('checkout') {
-        checkout()
+pipeline {
+    agent any
+    parameters {
+        booleanParam(
+            defaultValue: false,
+            description: 'run config tests',
+            name: 'runConfigTests'
+        )
     }
-    stage('main-test') {
-       sh 'cd test && make test'
-    }
-    stage('config-test') {
-        if (params.runConfigTests) {
-            stage('disable_feature_param') {
-               sh 'cd test/configcheck && make disable_feature_param'
+
+    stages {
+        stage('github') {
+            steps {
+              step([$class: 'GitHubSetCommitStatusBuilder'])
             }
-            stage('disable_feature') {
-               sh 'cd test/configcheck && make disable_feature_1'
+        }
+        stage('checkout') {
+            steps {
+              checkoutSCM()
             }
-           stage('disable_spec') {
-               sh 'cd test/configcheck && make disable_spec'
+        }
+        stage('main-test') {
+            steps {
+              sh 'cd test && make test'
             }
-           stage('combine') {
-               sh 'cd test/configcheck && make combine'
+        }
+        stage('config-test') {
+            when {
+                expression {
+                    params.runConfigTests.toBoolean()
+                }
             }
-           stage('nofeature') {
-               sh 'cd test/configcheck && make nofeature'
+            steps {
+                sh 'cd test/configcheck && make disable_feature_param'
+                sh 'cd test/configcheck && make disable_feature_1'
+                sh 'cd test/configcheck && make disable_spec'
+                sh 'cd test/configcheck && make combine'
+                sh 'cd test/configcheck && make nofeature'
             }
-        } else {
-            echo 'skip config tests'
         }
     }
 }

@@ -51,3 +51,4 @@ fused-src/
 tmp/
 
 *コピー*
+.jflintrc
