@@ -27,10 +27,15 @@ IUTEST_INCG_REGEX = re.compile(r'\s*#\s*define[/\s]*(INCG_IRIS_\S*)\s*')
 
 iutest_incg_list = []
 workaround = True
+api_retries = 3
+api_retry_wait = 60
 
 
 # command line option
 def parse_command_line():
+    global api_retries
+    global api_retry_wait
+
     parser = ArgumentParser()
     parser.add_argument(
         '-v',
@@ -172,14 +177,14 @@ def parse_command_line():
     parser.add_argument(
         '--retry-wait',
         type=int,
-        default=60,
+        default=api_retry_wait,
         metavar='SECONDS',
         help='Wait time for retry when HTTPError occurs'
     )
     parser.add_argument(
         '--retry',
         type=int,
-        default=3,
+        default=api_retries,
         metavar='COUNT',
         help='Number of retries when HTTPError occurs'
     )
@@ -206,6 +211,8 @@ def parse_command_line():
         help='source code file'
     )
     options = parser.parse_args()
+    api_retries = options.retry
+    api_retry_wait = options.retry_wait
     return options, parser
 
 
@@ -391,7 +398,7 @@ def expand_wandbox_options(w, compiler, options):
     return colist
 
 
-def wandbox_api_call(callback, retries):
+def wandbox_api_call(callback, retries, retry_wait):
     try:
         return callback()
     except (HTTPError, ConnectionError) as e:
@@ -406,9 +413,9 @@ def wandbox_api_call(callback, retries):
                 print(e.message)
             except:
                 pass
-            print('wait {0}sec...'.format(options.retry_wait))
-            sleep(options.retry_wait)
-            return wandbox_api(callback, retries - 1)
+            print('wait {0}sec...'.format(retry_wait))
+            sleep(retry_wait)
+            return wandbox_api_call(callback, retries - 1, retry_wait)
         else:
             raise
     except:
@@ -416,7 +423,7 @@ def wandbox_api_call(callback, retries):
 
 
 def wandbox_get_compilerlist():
-    return wandbox_api_call(Wandbox.GetCompilerList, 3)
+    return wandbox_api_call(Wandbox.GetCompilerList, api_retries, api_retry_wait)
 
 
 def run_wandbox_impl(w, options):
@@ -426,7 +433,7 @@ def run_wandbox_impl(w, options):
 
     def run():
         return w.run()
-    return wandbox_api_call(run, retries)
+    return wandbox_api_call(run, retries, options.retry_wait)
 
 
 def create_compiler_raw_option_list(options):
