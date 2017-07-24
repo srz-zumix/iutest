@@ -47,7 +47,8 @@ pipeline {
         stage('config-test') {
             when {
                 expression {
-                    return Boolean.parseBoolean(params.runConfigTests)
+                    return params.runConfigTests.toBoolean()
+                    return boolean.parseBoolean(params.runConfigTests)
                 }
             }
             steps {
