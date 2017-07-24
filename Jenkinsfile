@@ -21,23 +21,33 @@ pipeline {
     stages {
         stage('github') {
             steps {
-              step([$class: 'GitHubSetCommitStatusBuilder'])
+                step([$class: 'GitHubSetCommitStatusBuilder'])
             }
         }
         stage('checkout') {
             steps {
-              checkoutSCM()
+                checkoutSCM()
             }
         }
         stage('main-test') {
             steps {
-              sh 'cd test && make test'
+                sh 'cd test && make test'
+            }
+        }
+        stage('cppcheck') {
+            when {
+                expression {
+                    return fileExists('cppcheck')
+                }
+            }
+            steps {
+                sh 'cppcheck --version'
             }
         }
         stage('config-test') {
             when {
                 expression {
-                    params.runConfigTests.toBoolean()
+                    return Boolean.parseBoolean(params.runConfigTests)
                 }
             }
             steps {
