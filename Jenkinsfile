@@ -10,6 +10,10 @@ def checkoutSCM() {
 
 pipeline {
     agent any
+    options {
+        //disableConcurrentBuilds()
+        ansiColor('xterm')
+    }
     parameters {
         booleanParam(
             defaultValue: false,
