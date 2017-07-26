@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -333,7 +333,11 @@ private:
     void OnFixed(const Fixed& fixed)
     {
         // OnFixed で throw しないこと！テスト側の例外キャッチにかからなくなる
-        m_part_result.add_message(fixed.GetString());
+        const std::string append_message = fixed.GetString();
+        if( !append_message.empty() )
+        {
+            m_part_result.add_message(" " + append_message);
+        }
         ScopedTrace::GetInstance().append_message(m_part_result);
 
         if( TestEnv::GetGlobalTestPartResultReporter() != NULL )
