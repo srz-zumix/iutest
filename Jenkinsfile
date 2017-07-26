@@ -56,11 +56,13 @@ pipeline {
                 }
             }
             steps {
-                sh 'cd test/configcheck && make disable_feature_param'
-                sh 'cd test/configcheck && make disable_feature_1'
-                sh 'cd test/configcheck && make disable_spec'
-                sh 'cd test/configcheck && make combine'
-                sh 'cd test/configcheck && make nofeature'
+                dir('test/configcheck') {
+                    sh 'make -j4 disable_feature_param'
+                    sh 'make -j4 disable_feature_1'
+                    sh 'make -j4 disable_spec'
+                    sh 'make -j4 combine'
+                    sh 'make -j4 nofeature'
+                }
             }
         }
     }
