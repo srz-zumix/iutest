@@ -35,7 +35,9 @@ pipeline {
         }
         stage('main-test') {
             steps {
-                sh 'cd test && make test'
+                dir('test') {
+                    sh 'make -j4 && make test'
+                }
             }
         }
         stage('cppcheck') {
@@ -57,11 +59,11 @@ pipeline {
             }
             steps {
                 dir('test/configcheck') {
-                    sh 'make -j4 disable_feature_param'
-                    sh 'make -j4 disable_feature_1'
-                    sh 'make -j4 disable_spec'
-                    sh 'make -j4 combine'
-                    sh 'make -j4 nofeature'
+                    sh 'make disable_feature_param'
+                    sh 'make disable_feature_1'
+                    sh 'make disable_spec'
+                    sh 'make combine'
+                    sh 'make nofeature'
                 }
             }
         }

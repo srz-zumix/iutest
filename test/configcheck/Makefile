@@ -1,4 +1,4 @@
-MAKE_OPTION=--no-print-directory -C ../
+MAKE_OPTION=--no-print-directory -C ../ -j4
 
 DISABLE_FEATURE_CONFIG= \
 	IUTEST_HAS_ANY_PARAM_TEST \
@@ -102,28 +102,32 @@ disable_feature: disable_feature_1 disable_feature_param
 disable: disable_feature disable_spec
 nofeature : $(NOFEATURE_TARGETS)
 
-all : clean default test
+all : clean default
 
 clean :
-	make $(MAKE_OPTION) clean
+	$(MAKE) $(MAKE_OPTION) clean
 	$(RM) $(TARGETS)
 
 %.dis :
 	@echo $(@:%.dis=%)
-	make $(MAKE_OPTION) clean
-	make $(MAKE_OPTION) test DEFS=-D$(@:%.dis=%)=0
+	$(MAKE) $(MAKE_OPTION) clean
+	$(MAKE) $(MAKE_OPTION) DEFS=-D$(@:%.dis=%)=0
+	$(MAKE) $(MAKE_OPTION) run DEFS=-D$(@:%.dis=%)=0
 	@echo ok > $@
 
 %.no :
 	@echo $(@:%.no=%)
-	make $(MAKE_OPTION) clean
-	make $(MAKE_OPTION) test DEFS=-D$(@:%.no=%)
+	$(MAKE) $(MAKE_OPTION) clean
+	$(MAKE) $(MAKE_OPTION) DEFS=-D$(@:%.no=%)
+	$(MAKE) $(MAKE_OPTION) run DEFS=-D$(@:%.no=%)
 	@echo ok > $@
 
 no_parame_and_type_test:
-	make $(MAKE_OPTION) clean
-	make $(MAKE_OPTION) test DEFS="-DIUTEST_HAS_TYPED_TEST=0 -DIUTEST_HAS_PARAM_TEST=0 -DIUTEST_HAS_TYPED_TEST_P=0 -DIUTEST_HAS_VARIADIC_PRED=0"
+	$(MAKE) $(MAKE_OPTION) clean
+	$(MAKE) $(MAKE_OPTION) DEFS="-DIUTEST_HAS_TYPED_TEST=0 -DIUTEST_HAS_PARAM_TEST=0 -DIUTEST_HAS_TYPED_TEST_P=0 -DIUTEST_HAS_VARIADIC_PRED=0"
+	$(MAKE) $(MAKE_OPTION) run DEFS="-DIUTEST_HAS_TYPED_TEST=0 -DIUTEST_HAS_PARAM_TEST=0 -DIUTEST_HAS_TYPED_TEST_P=0 -DIUTEST_HAS_VARIADIC_PRED=0"
 
 strstream:
-	make $(MAKE_OPTION) clean
-	make $(MAKE_OPTION) test DEFS="-DIUTEST_HAS_STRINGSTREAM=0 -DIUTEST_HAS_STRSTREAM=1" CXXFLAGS="-Wno-deprecated"
+	$(MAKE) $(MAKE_OPTION) clean
+	$(MAKE) $(MAKE_OPTION) DEFS="-DIUTEST_HAS_STRINGSTREAM=0 -DIUTEST_HAS_STRSTREAM=1" CXXFLAGS="-Wno-deprecated"
+	$(MAKE) $(MAKE_OPTION) run DEFS="-DIUTEST_HAS_STRINGSTREAM=0 -DIUTEST_HAS_STRSTREAM=1" CXXFLAGS="-Wno-deprecated"
