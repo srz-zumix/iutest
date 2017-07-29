@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -16,6 +16,12 @@
 //======================================================================
 // include
 #include "iutest.hpp"
+
+#if IUTEST_HAS_FOPEN
+#  define FLAGFILE_TEST 1
+#else
+#  define FLAGFILE_TEST 0
+#endif
 
 #if defined(USE_GTEST_PREFIX) || defined(IUTEST_USE_GTEST)
 #  define ENV_PREFIX    "GTEST_"
@@ -51,6 +57,8 @@ int main(int argc, char* argv[])
     (void)argc;
     (void)argv;
 
+#if FLAGFILE_TEST
+
 #ifdef UNICODE
     wchar_t** targv = NULL;
 #else
@@ -59,5 +67,10 @@ int main(int argc, char* argv[])
     int targc = 0;
     IUTEST_INIT(&targc, targv);
     return IUTEST_RUN_ALL_TESTS();
+
+#else
+    printf("*** FLAGFILE_TEST=0 ***\n");
+    return 0;
+#endif
 }
 
