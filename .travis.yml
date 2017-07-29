@@ -69,7 +69,7 @@ before_script:
 script:
   - if [ "${USE_LIB}" == '1' ]; then cd projects/make && make && cd -; fi
   - cd ./test
-  - if [ "${COVERITY_SCAN}" != '1' ]; then make showcxxversion ${USE_FUSED} all; fi
+  - if [ "${COVERITY_SCAN}" != '1' ]; then make -j4 showcxxversion ${USE_FUSED} && make test ${USE_FUSED}; fi
   - if [ "${COVERITY_SCAN}" == '1' ]; then cat cov-int/build-log.txt || true; fi
   - if [ "${COVERITY_SCAN}" == '1' ]; then cat cov-int/scm_log.txt || true; fi
   #- if [ "${CPPCHECK}" = '1' ]; then
