@@ -16,15 +16,20 @@ steps:
     create_file:
       path: /codefresh/volume/cf-generated
       name: unit_test_script
-      content: |-
+      content: >-
+        cat /proc/cpuinfo
+
         g++ --version
+
+        # echo | gcc -E -Wp,-v -
+
         cd test
-        make USE_GTEST=y test
+
+        make -j 4 USE_GTEST=y && make test
+
         make clean
-        make USE_GMOCK=y test
-        export NACL_SDK_ROOT="$(find /usr/local/nacl_sdk -maxdepth 1 -type d -name 'pepper_*')"
-        cd ../projects/nacl
-        make
+
+        make -j 4 USE_GMOCK=y && make test
     on_success:
       metadata:
         set:
