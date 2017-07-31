@@ -83,6 +83,15 @@ $(NAMESPACETESTS_TEST_SRCS): $(ALLTESTS_TEST_SRCS) Makefile
 	@echo } >> $@
 
 
+# Compile error test.
+
+IUTEST_COMPILE_ERROR_TEST_OPTION=-c $(CXX)
+!if "$(CI)" == "true"
+IUTEST_COMPILE_ERROR_TEST_OPTION+= --verbose
+!endif
+
+
+
 #
 # Builds a sample test.  
 
@@ -99,5 +108,5 @@ $(TARGETS_EXCLUDE_ALLTESTS) : $(IUTEST_HEADERS) Makefile
 
 $(COMPILEERROR_TARGETS) : $(IUTEST_HEADERS) Makefile
 #	-$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) /Fe$@ $@.cpp $(LDFLAGS)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) /Fe$@ $@.cpp $(LDFLAGS) | python ../tools/python/iutest_compile_error_test.py -c $(CXX) --verbose
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) /Fe$@ $@.cpp $(LDFLAGS) | python ../tools/python/iutest_compile_error_test.py $(IUTEST_COMPILE_ERROR_TEST_OPTION)
 
