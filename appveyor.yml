@@ -1,18 +1,24 @@
 version: 1.0.{build}
-os:
-- Visual Studio 2015
-- Visual Studio 2013
+environment:
+  matrix:
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+      PROJECT_DIR: msvc12
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      PROJECT_DIR: msvc14
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      PROJECT_DIR: msvc15
+
 configuration:
-- Debug
-- Release
-init:
-- cmd: 
+  - Debug
+  - Release
+
 build:
-  project: projects\msvc12\iutest.sln
+  project: projects\%PROJECT_DIR%\iutest.sln
   parallel: true
   verbosity: minimal
+
 after_build:
-- cmd: >-
+  - cmd: >-
     "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
 
 
@@ -22,8 +28,8 @@ after_build:
 
     cd ../
 test_script:
-- cmd: >-
-    cd projects/msvc12
+  - cmd: >-
+    cd projects\%PROJECT_DIR%
 
     %Configuration%\iutest_sample.exe
 
@@ -78,10 +84,11 @@ test_script:
     cd test
 
     nmake test
+
 notifications:
-- provider: Email
-  to:
-  - zumix.cpp@gmail.com
-  on_build_success: false
-  on_build_failure: true
-  on_build_status_changed: true
+  - provider: Email
+    to:
+      - zumix.cpp@gmail.com
+    on_build_success: false
+    on_build_failure: true
+    on_build_status_changed: true
