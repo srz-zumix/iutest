@@ -19,71 +19,68 @@ build:
 
 after_build:
   - cmd: >-
-    "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
+      "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
 
+      cd test
 
-    cd test
+      nmake
 
-    nmake
-
-    cd ../
+      cd ../
 test_script:
   - cmd: >-
-    cd projects\%PROJECT_DIR%
+      cd projects\%PROJECT_DIR%
 
-    %Configuration%\iutest_sample.exe
+      %Configuration%\iutest_sample.exe
 
-    if errorlevel 1 exit /b 1
+      if errorlevel 1 exit /b 1
 
+      cd %Configuration%
 
-    cd %Configuration%
+      gtest1.exe
 
-    gtest1.exe
+      if errorlevel 1 exit /b 1
 
-    if errorlevel 1 exit /b 1
+      gtest2.exe
 
-    gtest2.exe
+      if errorlevel 1 exit /b 1
 
-    if errorlevel 1 exit /b 1
+      gtest3.exe
 
-    gtest3.exe
+      if errorlevel 1 exit /b 1
 
-    if errorlevel 1 exit /b 1
+      gtest4.exe
 
-    gtest4.exe
+      if errorlevel 1 exit /b 1
 
-    if errorlevel 1 exit /b 1
+      gtest5.exe
 
-    gtest5.exe
+      if errorlevel 1 exit /b 1
 
-    if errorlevel 1 exit /b 1
+      gtest6.exe
 
-    gtest6.exe
+      if errorlevel 1 exit /b 1
 
-    if errorlevel 1 exit /b 1
+      gtest7.exe
 
-    gtest7.exe
+      if errorlevel 1 exit /b 1
 
-    if errorlevel 1 exit /b 1
+      gtest8.exe
 
-    gtest8.exe
+      if errorlevel 1 exit /b 1
 
-    if errorlevel 1 exit /b 1
+      gtest9.exe --terse_output
 
-    gtest9.exe --terse_output
+      if errorlevel 1 exit /b 1
 
-    if errorlevel 1 exit /b 1
+      gtest10.exe
 
-    gtest10.exe
+      if errorlevel 1 exit /b 1
 
-    if errorlevel 1 exit /b 1
+      cd ../../../
 
-    cd ../../../
+      cd test
 
-
-    cd test
-
-    nmake test
+      nmake test
 
 notifications:
   - provider: Email
