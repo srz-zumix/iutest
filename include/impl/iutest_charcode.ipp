@@ -287,8 +287,8 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const char32_t* str, int num)
 {
-#if IUTEST_HAS_CXX_HDR_CUCHAR
     IUTEST_UNUSED_VAR(num);
+#if IUTEST_HAS_CXX_HDR_CUCHAR
     const size_t length = ::std::char_traits<char32_t>::length(str);
     char mbs[6];
     mbstate_t state = {};
