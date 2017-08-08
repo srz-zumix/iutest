@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -57,17 +57,33 @@ namespace detail
  * @param [in]  num = 入力バッファサイズ
  * @return  マルチバイト文字列
 */
+::std::string WideStringToUTF8(const char16_t* str, int num=-1);
+
+/**
+ * @brief   ワイド文字列からマルチバイトへ変換
+ * @param [in]  str = 入力
+ * @param [in]  num = 入力バッファサイズ
+ * @return  マルチバイト文字列
+*/
 ::std::string WideStringToMultiByteString(const char16_t* str, int num=-1);
 
 #endif
 
-#if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_CXX_HDR_CUCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
+#if IUTEST_HAS_CHAR32_T && IUTEST_HAS_CXX_HDR_CUCHAR
 
 /**
-* @brief    ワイド文字列からマルチバイトへ変換
-* @param [in]   str = 入力
-* @param [in]   num = 入力バッファサイズ
-* @return   マルチバイト文字列
+ * @brief    ワイド文字列からマルチバイトへ変換
+ * @param [in]   str = 入力
+ * @param [in]   num = 入力バッファサイズ
+ * @return   マルチバイト文字列
+*/
+::std::string WideStringToUTF8(const char32_t* str, int num = -1);
+
+/**
+ * @brief    ワイド文字列からマルチバイトへ変換
+ * @param [in]   str = 入力
+ * @param [in]   num = 入力バッファサイズ
+ * @return   マルチバイト文字列
 */
 ::std::string WideStringToMultiByteString(const char32_t* str, int num = -1);
 
