@@ -69,7 +69,7 @@ namespace detail
 
 #endif
 
-#if IUTEST_HAS_CHAR32_T && IUTEST_HAS_CXX_HDR_CUCHAR
+#if IUTEST_HAS_CHAR32_T
 
 /**
  * @brief    ワイド文字列からマルチバイトへ変換
