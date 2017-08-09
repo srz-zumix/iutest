@@ -308,6 +308,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     return ret;
 #else
+    IUTEST_UNUSED_VAR(str);
     return "(convert error)";
 #endif
 }
