@@ -19,7 +19,7 @@ before_build:
   - cmd: >-
       mkdir build && cd build
 
-      cmake ../projects/cmake -G %CMAKE_GENERATOR_NAME% -Dbuild_gtest_samples=ON
+      cmake ../projects/cmake -G "%CMAKE_GENERATOR_NAME%" -Dbuild_gtest_samples=ON
 
       cd ..
 
