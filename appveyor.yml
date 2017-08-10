@@ -3,84 +3,38 @@ environment:
   matrix:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
       PROJECT_DIR: msvc12
+      CMAKE_GENERATOR_NAME: Visual Studio 12 2013
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       PROJECT_DIR: msvc14
+      CMAKE_GENERATOR_NAME: Visual Studio 14 2015
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       PROJECT_DIR: msvc15
+      CMAKE_GENERATOR_NAME: Visual Studio 15 2017
 
 configuration:
   - Debug
   - Release
 
+before_build:
+  - cmd: >-
+      mkdir build && cd build
+
+      cmake ../projects/cmake -G %CMAKE_GENERATOR_NAME% -Dbuild_gtest_samples=ON
+
+      cd ..
+
+      @echo D | xcopy /Y /Q test\testdata build\%Configuration%\testdata
+
 build:
-  project: projects\%PROJECT_DIR%\iutest.sln
+  project: build\iutest.sln
   parallel: true
   verbosity: minimal
 
-after_build:
-  - cmd: >-
-      "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
-
-      cd test
-
-      nmake
-
-      cd ../
 test_script:
   - cmd: >-
-      cd projects\%PROJECT_DIR%
+      cd build\%Configuration%
 
-      %Configuration%\iutest_sample.exe
-
-      if errorlevel 1 exit /b 1
-
-      cd %Configuration%
-
-      gtest1.exe
-
-      if errorlevel 1 exit /b 1
-
-      gtest2.exe
-
-      if errorlevel 1 exit /b 1
-
-      gtest3.exe
-
-      if errorlevel 1 exit /b 1
-
-      gtest4.exe
-
-      if errorlevel 1 exit /b 1
-
-      gtest5.exe
-
-      if errorlevel 1 exit /b 1
-
-      gtest6.exe
-
-      if errorlevel 1 exit /b 1
-
-      gtest7.exe
-
-      if errorlevel 1 exit /b 1
-
-      gtest8.exe
-
-      if errorlevel 1 exit /b 1
-
-      gtest9.exe --terse_output
-
-      if errorlevel 1 exit /b 1
-
-      gtest10.exe
-
-      if errorlevel 1 exit /b 1
-
-      cd ../../../
-
-      cd test
-
-      nmake test
+      for %%a in (*.exe) do %%a || exit /b 1
 
 notifications:
   - provider: Email
