@@ -30,7 +30,7 @@ build:
 
 after_build:
   - cmd: >-
-      @echo D | xcopy /Y /Q test\testdata build\%Configuration%\testdata
+      xcopy /S /Y /Q test\testdata build\%Configuration%\testdata\
 
 test_script:
   - cmd: >-
