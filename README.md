@@ -2,7 +2,6 @@
 [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/2gdmgo8ce8m0iy0e/branch/master?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest/branch/master)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/1316/badge.svg)](https://scan.coverity.com/projects/srz-zumix-iutest)
 [![Codeship Status for srz-zumix/iutest](https://codeship.com/projects/5bc87030-5b41-0133-6000-4242aa07dce3/status?branch=master)](https://codeship.com/projects/110695)  
-[![Snap-CI Build Status](https://snap-ci.com/srz-zumix/iutest/branch/master/build_image)](https://snap-ci.com/srz-zumix/iutest/branch/master)
 [![wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/master "wercker status")](https://app.wercker.com/project/bykey/d385156052aa4118a7f24affe4a8f851)
 [![Shippable Run Status](https://api.shippable.com/projects/541904d2ac22859af743f867/badge?branch=master)](https://app.shippable.com/github/srz-zumix/iutest)
 [![Semaphore Build Status](https://semaphoreci.com/api/v1/srz_zumix/iutest/branches/master/badge.svg)](https://semaphoreci.com/srz_zumix/iutest)
@@ -79,7 +78,7 @@ Support
 --------------------------------------------------
 
 * Use [Github issues](https://github.com/srz-zumix/iutest/issues) to report bugs and feature requests.
-* Ask questions at the twitter ([]@srz_zumix](https://twitter.com/srz_zumix))
+* Ask questions at the twitter ([@srz_zumix](https://twitter.com/srz_zumix))
 
 Tools
 --------------------------------------------------
@@ -102,7 +101,6 @@ Tests
 ||[![AppVeyor Build PREFAST status](https://ci.appveyor.com/api/projects/status/0w0wuhc58kre178q/branch/master?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-xsqun/branch/master)|[![AppVeyor Build PREFAST status](https://ci.appveyor.com/api/projects/status/0w0wuhc58kre178q/branch/develop?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-xsqun/branch/develop)|Visual Studio PREFAST (Code Analysis)|
 ||[![AppVeyor Build cygwin status](https://ci.appveyor.com/api/projects/status/erhkn5rer20jmdbq/branch/master?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-xlae4/branch/master)|[![AppVeyor Build cygwin status](https://ci.appveyor.com/api/projects/status/erhkn5rer20jmdbq/branch/develop?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-xlae4/branch/develop)|Cygwin|
 ||[![AooVeyor Build mingw status](https://ci.appveyor.com/api/projects/status/xr7yvj6swxutluu4/branch/master?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-rbhes/branch/master)|[![AppVeyor Build mingw status](https://ci.appveyor.com/api/projects/status/xr7yvj6swxutluu4/branch/develop?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-rbhes/branch/develop)|MinGW|
-|Snap CI|[![Snap-CI Build Status](https://snap-ci.com/srz-zumix/iutest/branch/master/build_image)](https://snap-ci.com/srz-zumix/iutest/branch/master)|[![Snap-CI Build Status](https://app.snap-ci.com/srz-zumix/iutest/branch/develop/build_image)](https://app.snap-ci.com/srz-zumix/iutest/branch/develop)|Configurations tests, CentOS, Android|
 |Wercker|[![wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/master "wercker status")](https://app.wercker.com/project/byKey/d385156052aa4118a7f24affe4a8f851)|[![wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/develop "wercker status")](https://app.wercker.com/project/byKey/d385156052aa4118a7f24affe4a8f851)|Syntax tests for compiler each version|
 |Shippable|[![Shippable Run Status](https://api.shippable.com/projects/541904d2ac22859af743f867/badge?branch=master)](https://app.shippable.com/github/srz-zumix/iutest)|[![Run Status](https://api.shippable.com/projects/541904d2ac22859af743f867/badge?branch=develop)](https://app.shippable.com/github/srz-zumix/iutest)|Syntax tests for compiler each version (c++98)|
 |Codeship|[ ![Codeship Status for srz-zumix/iutest](https://app.codeship.com/projects/5bc87030-5b41-0133-6000-4242aa07dce3/status?branch=master)](https://app.codeship.com/projects/110695)|[ ![Codeship Status for srz-zumix/iutest](https://app.codeship.com/projects/5bc87030-5b41-0133-6000-4242aa07dce3/status?branch=develop)](https://app.codeship.com/projects/110695)|Cpplint, Update documents|

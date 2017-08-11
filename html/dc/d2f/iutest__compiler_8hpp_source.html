@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.1.13</span>
+   &#160;<span id="projectnumber">1.16.1.15</span>
    </div>
   </td>
  </tr>
@@ -905,7 +905,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;<span class="preprocessor">#if !defined(IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION)</span></div>
-<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  if defined(_MSC_VER) &amp;&amp; ((_MSC_VER &lt; 1600) || (_MSC_VER == 1900 &amp;&amp; defined(_MSC_FULL_VER) &amp;&amp; _MSC_FULL_VER &lt; 190024210))</span></div>
+<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  if defined(_MSC_VER) &amp;&amp; ((_MSC_VER &lt; 1600) || (_MSC_VER == 1900))</span></div>
 <div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;<span class="preprocessor"></span>     <span class="comment">// VS2008 以前では、private なメンバー関数に explicit instantiation でもアクセスできない</span></div>
 <div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;<span class="preprocessor">#    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION    0</span></div>
 <div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  else</span></div>
@@ -914,7 +914,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;<span class="preprocessor">#if !defined(IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_STATIC_MEMBER_FUNCTION)</span></div>
-<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  if defined(_MSC_VER) &amp;&amp; ((_MSC_VER &lt; 1900) || (defined(_MSC_FULL_VER) &amp;&amp; _MSC_FULL_VER &lt; 190024210))</span></div>
+<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  if defined(_MSC_VER) &amp;&amp; (_MSC_VER &lt; 1910)</span></div>
 <div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;<span class="preprocessor"></span><span class="comment">// Visual Studio では、private な static メンバー関数に explicit instantiation でもアクセスできない</span></div>
 <div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;<span class="preprocessor">#    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_STATIC_MEMBER_FUNCTION 0</span></div>
 <div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  else</span></div>
@@ -1251,7 +1251,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2017年07月31日(月) 23時14分32秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2017年08月11日(金) 14時37分24秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
