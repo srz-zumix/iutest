@@ -23,12 +23,14 @@ before_build:
 
       cd ..
 
-      @echo D | xcopy /Y /Q test\testdata build\%Configuration%\testdata
-
 build:
   project: build\iutest.sln
   parallel: true
   verbosity: minimal
+
+after_build:
+  - cmd: >-
+      @echo D | xcopy /Y /Q test\testdata build\%Configuration%\testdata
 
 test_script:
   - cmd: >-
