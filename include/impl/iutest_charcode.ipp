@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -107,6 +107,36 @@ IUTEST_IPP_INLINE char* CodePointToUtf8(UInt32 code_point, char* buf, size_t siz
     return buf;
 }
 
+#if defined(_MSC_VER)
+IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToSJIS(const ::std::string& str)
+{
+    const size_t src_length = str.length() + 1;
+    const int lengthWideChar = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), src_length, NULL, 0);
+    if( lengthWideChar <= 0 )
+    {
+        return "(convert error)";
+    }
+
+    wchar_t* wbuf = new wchar_t[lengthWideChar];
+    MultiByteToWideChar(CP_UTF8, 0, str.c_str(), src_length, wbuf, lengthWideChar);
+
+    const int lengthSJIS = WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, NULL, 0, NULL, NULL);
+    if( lengthSJIS <= 0 )
+    {
+        delete[] wbuf;
+        return "(convert error)";
+    }
+
+    char* buf = new char[lengthSJIS];
+    WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, buf, lengthSJIS, NULL, NULL);
+
+    std::string ret(buf);
+    delete[] wbuf;
+    delete[] buf;
+    return ret;
+}
+#endif
+
 IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const wchar_t* str, int num)
 {
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
@@ -164,15 +194,54 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 #if IUTEST_HAS_CHAR16_T
 
+IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const char16_t* str, int num)
+{
+#if IUTEST_HAS_CXX_HDR_CUCHAR
+    IUTEST_UNUSED_VAR(num);
+    const size_t length = ::std::char_traits<char16_t>::length(str);
+    char16_t lead = 0, trail = 0;
+    char32_t cp;
+    char mbs[6];
+    mbstate_t state = {};
+    IUTEST_CHECK_(mbsinit(&state) != 0);
+    ::std::string ret;
+
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+    for( size_t i = 0; i < length; ++i )
+    {
+        lead = str[i];
+
+        if( lead > 0xD800 && lead < 0xDC00 )
+        {
+            ++i;
+            trail = str[i];
+            cp = (lead << 10) + trail + 0x10000 - (0xD800 << 10) - 0xDC00;
+        }
+        else
+        {
+            cp = lead;
+        }
+        const size_t len = c32rtomb(mbs, cp, &state);
+        if( len != static_cast<size_t>(-1) )
+        {
+            mbs[len] = '\0';
+            ret += mbs;
+        }
+    }
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+    return ret;
+#else
+    return WideStringToUTF8(reinterpret_cast<const wchar_t*>(str), num);
+#endif
+}
+
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const char16_t* str, int num)
 {
-#if IUTEST_HAS_CXX_HDR_CODECVT
-    IUTEST_UNUSED_VAR(num);
 #if defined(_MSC_VER)
-    return CodeConvert<wchar_t, char, ::std::mbstate_t>(reinterpret_cast<const wchar_t*>(str));
-#else
+    return UTF8ToSJIS(WideStringToUTF8(str, num));
+#elif IUTEST_HAS_CXX_HDR_CODECVT
+    IUTEST_UNUSED_VAR(num);
     return CodeConvert<char16_t, char, ::std::mbstate_t>(str);
-#endif
 #elif IUTEST_HAS_CXX_HDR_CUCHAR
     IUTEST_UNUSED_VAR(num);
     const size_t length = ::std::char_traits<char16_t>::length(str);
@@ -214,19 +283,12 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 #endif
 
-#if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_CXX_HDR_CUCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
+#if IUTEST_HAS_CHAR32_T
 
-IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const char32_t* str, int num)
+IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const char32_t* str, int num)
 {
-#if IUTEST_HAS_CXX_HDR_CODECVT
     IUTEST_UNUSED_VAR(num);
-#if defined(_MSC_VER)
-    return CodeConvert<__int32, char, ::std::mbstate_t>(reinterpret_cast<const __int32*>(str));
-#else
-    return CodeConvert<char32_t, char, ::std::mbstate_t>(str);
-#endif
-#else
-    IUTEST_UNUSED_VAR(num);
+#if IUTEST_HAS_CXX_HDR_CUCHAR
     const size_t length = ::std::char_traits<char32_t>::length(str);
     char mbs[6];
     mbstate_t state = {};
@@ -245,6 +307,21 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     }
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     return ret;
+#else
+    IUTEST_UNUSED_VAR(str);
+    return "(convert error)";
+#endif
+}
+
+IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToMultiByteString(const char32_t* str, int num)
+{
+#if defined(_MSC_VER)
+    return UTF8ToSJIS(WideStringToUTF8(str, num));
+#elif IUTEST_HAS_CXX_HDR_CODECVT
+    IUTEST_UNUSED_VAR(num);
+    return CodeConvert<char32_t, char, ::std::mbstate_t>(str);
+#else
+    return WideStringToUTF8(str, num);
 #endif
 }
 

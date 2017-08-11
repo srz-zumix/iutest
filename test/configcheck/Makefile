@@ -1,3 +1,20 @@
+# iutest root directory
+IUTEST_DIR = ../..
+IUTEST_INCLUDE = -I$(IUTEST_DIR)/include
+
+# All iutest headers.  Usually you shouldn't change this
+# definition.
+IUTEST_HEADERS = $(IUTEST_DIR)/include/*.hpp \
+                 $(IUTEST_DIR)/include/impl/*.ipp \
+                 $(IUTEST_DIR)/include/internal/*.hpp \
+                 $(IUTEST_DIR)/include/listener/*.hpp \
+                 $(IUTEST_DIR)/include/util/*.hpp \
+                 $(IUTEST_DIR)/include/gtest/*.hpp \
+                 $(IUTEST_DIR)/include/gtest/switch/*.hpp
+
+TESTS_SOURCES = ../*.cpp \
+                ../*.hpp
+
 MAKE_OPTION=--no-print-directory -C ../ -j4
 
 DISABLE_FEATURE_CONFIG= \
@@ -108,26 +125,26 @@ clean :
 	$(MAKE) $(MAKE_OPTION) clean
 	$(RM) $(TARGETS)
 
-%.dis :
+%.dis : $(IUTEST_HEADERS) $(TESTS_SOURCES) $(MAKEFILE)
 	@echo $(@:%.dis=%)
 	$(MAKE) $(MAKE_OPTION) clean
 	$(MAKE) $(MAKE_OPTION) DEFS=-D$(@:%.dis=%)=0
 	$(MAKE) $(MAKE_OPTION) run DEFS=-D$(@:%.dis=%)=0
 	@echo ok > $@
 
-%.no :
+%.no : $(IUTEST_HEADERS) $(TESTS_SOURCES) $(MAKEFILE)
 	@echo $(@:%.no=%)
 	$(MAKE) $(MAKE_OPTION) clean
 	$(MAKE) $(MAKE_OPTION) DEFS=-D$(@:%.no=%)
 	$(MAKE) $(MAKE_OPTION) run DEFS=-D$(@:%.no=%)
 	@echo ok > $@
 
-no_parame_and_type_test:
+no_parame_and_type_test: $(IUTEST_HEADERS) $(TESTS_SOURCES) $(MAKEFILE)
 	$(MAKE) $(MAKE_OPTION) clean
 	$(MAKE) $(MAKE_OPTION) DEFS="-DIUTEST_HAS_TYPED_TEST=0 -DIUTEST_HAS_PARAM_TEST=0 -DIUTEST_HAS_TYPED_TEST_P=0 -DIUTEST_HAS_VARIADIC_PRED=0"
 	$(MAKE) $(MAKE_OPTION) run DEFS="-DIUTEST_HAS_TYPED_TEST=0 -DIUTEST_HAS_PARAM_TEST=0 -DIUTEST_HAS_TYPED_TEST_P=0 -DIUTEST_HAS_VARIADIC_PRED=0"
 
-strstream:
+strstream: $(IUTEST_HEADERS) $(TESTS_SOURCES) $(MAKEFILE)
 	$(MAKE) $(MAKE_OPTION) clean
 	$(MAKE) $(MAKE_OPTION) DEFS="-DIUTEST_HAS_STRINGSTREAM=0 -DIUTEST_HAS_STRSTREAM=1" CXXFLAGS="-Wno-deprecated"
 	$(MAKE) $(MAKE_OPTION) run DEFS="-DIUTEST_HAS_STRINGSTREAM=0 -DIUTEST_HAS_STRSTREAM=1" CXXFLAGS="-Wno-deprecated"
