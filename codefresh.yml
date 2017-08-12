@@ -25,11 +25,7 @@ steps:
 
         cd test
 
-        make -j 4 USE_GTEST=y && make test
-
-        make clean
-
-        make -j 4 USE_GMOCK=y && make test
+        make -j 4 ${MAKE_OPTION} && make test
     on_success:
       metadata:
         set:
