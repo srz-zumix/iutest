@@ -2,6 +2,9 @@
 # CMake build script for iutest.
 #
 
+# CMake バージョン
+cmake_minimum_required(VERSION 3.0.2)
+
 # option
 option(build_gtest_samples "gtest sample build." OFF)
 option(build_tests "tests build." ON)
@@ -19,9 +22,6 @@ endif()
 
 # プロジェクト名
 project(iutest CXX C)
-
-# CMake バージョン
-cmake_minimum_required(VERSION 2.6.2)
 
 if (COMMAND set_up_hermetic_build)
   set_up_hermetic_build()
@@ -205,5 +205,88 @@ if (build_tests)
   cxx_executable_test(tap_printer_listener_tests)
   cxx_executable_test(type_param_strict_tests)
   cxx_executable_test(unit_tests)
+endif()
+
+########################################################################
+#
+# CTest
+#
+enable_testing()
+
+if (build_tests)
+  cxx_add_test(all_tests)
+  cxx_add_test(assertion_return_tests)
+  cxx_add_test(assume_tests)
+  cxx_add_test(break_on_failure_nobreak_tests)
+  cxx_add_test(catch_exceptions_tests)
+  cxx_add_test(commandline_tests)
+  cxx_add_test(csvparams_tests)
+  cxx_add_test(disabled_tests)
+  cxx_add_test(env_var_gtest_tests)
+  cxx_add_test(environment_tests)
+  cxx_add_test(exception_assertion_tests)
+  cxx_add_test(exception_tests)
+  cxx_add_test(expression_assertion_tests)
+  cxx_add_test(extension_tests)
+  cxx_add_test(file_system_tests)
+  cxx_add_test(filter_tests)
+  cxx_add_test(flagfile_gtest_tests)
+  cxx_add_test(help_tests)
+  cxx_add_test(invalid_commandline_tests)
+  cxx_add_test(japanese_tests)
+  cxx_add_test(list_test_tests)
+  cxx_add_test(listener_tests)
+  cxx_add_test(matcher_tests)
+  cxx_add_test(minimum_tests)
+  cxx_add_test(no_failure_fail_tests)
+  cxx_add_test(no_fatalfailure_tests)
+  cxx_add_test(no_test_tests)
+  cxx_add_test(output_junit_xml_tests)
+  cxx_add_test(output_xml_tests)
+  cxx_add_test(port_tests)
+  cxx_add_test(printers_tests)
+  cxx_add_test(progress_tests)
+  cxx_add_test(quiet_result_printer_tests)
+  cxx_add_test(random_seed_tests)
+  cxx_add_test(record_property_tests)
+  cxx_add_test(repeat_tests)
+  cxx_add_test(scoped_trace_tests)
+  cxx_add_test(set_up_failure_tests)
+  cxx_add_test(set_up_global_failure_tests)
+  cxx_add_test(set_up_testcase_failure_tests)
+  cxx_add_test(shuffle_tests)
+  cxx_add_test(skip_tests)
+  cxx_add_test(spi_failure_tests)
+  cxx_add_test(streaming_listener_tests)
+  cxx_add_test(throw_on_assertion_failure_tests)
+  cxx_add_test(throw_on_failure_tests)
+  cxx_add_test(tr1_tests)
+  cxx_add_test(uninitialize_tests)
+  cxx_add_test(util_tests)
+  cxx_add_test(namespace_tests)
+  # iutest only
+  cxx_add_test(default_main_tests)
+  cxx_add_test(default_printer_listener_tests)
+  cxx_add_test(env_var_tests)
+  cxx_add_test(exit_tests)
+  cxx_add_test(filter_file_invalid_path_tests)
+  cxx_add_test(filter_file_syntax_tests)
+  cxx_add_test(filter_file_tests)
+  cxx_add_test(flagfile_env_var_tests)
+  cxx_add_test(flagfile_invalid_path_tests)
+  cxx_add_test(flagfile_tests)
+  cxx_add_test(ostream_formatter_tests)
+  cxx_add_test(output_tests)
+  cxx_add_test(output_xml_invalid_path_tests)
+  cxx_add_test(output_xml_repeat_tests)
+  cxx_add_test(param_test_name_invalid_tests)
+  cxx_add_test(param_test_name_tests)
+  cxx_add_test(no_yoda_tests)
+  cxx_add_test(tap_file_generator_listener_tests)
+  cxx_add_test(tap_printer_listener_tests)
+  cxx_add_test(type_param_strict_tests)
+  cxx_add_test(unit_tests)
+
+  file(COPY ../../test/testdata DESTINATION .)
 endif()
 

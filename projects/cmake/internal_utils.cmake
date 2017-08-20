@@ -185,3 +185,14 @@ function(cxx_namespace_test name)
   endforeach()
   add_executable(${name} ${SRCS})
 endfunction()
+
+#
+# CTest —p
+#
+function(cxx_add_test name)
+  add_test(
+    NAME ${name}
+    COMMAND $<TARGET_FILE:${name}>
+    )
+endfunction()
+
