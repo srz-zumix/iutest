@@ -28,15 +28,11 @@ build:
   parallel: true
   verbosity: minimal
 
-after_build:
-  - cmd: >-
-      xcopy /S /Y /Q test\testdata build\%Configuration%\testdata\
-
 test_script:
   - cmd: >-
-      cd build\%Configuration%
+      cd build
 
-      for %%a in (*.exe) do %%a || exit /b 1
+      ctest -C %Configuration% -V
 
 notifications:
   - provider: Email
