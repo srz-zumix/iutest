@@ -41,7 +41,15 @@ public:
     }
 
 private:
-    bool ToParam(const ::std::string&, T&) { return false; }
+    bool ToParam(const ::std::string& data, T& param)
+    { 
+        ::std::istringstream strm(data);
+        if( strm >> param )
+        {
+            return true;
+        }
+        return false;
+    }
 
 private:
     void AppendParams(params_t& params, const ::std::string& data)
@@ -50,14 +58,10 @@ private:
         {
             return;
         }
-        ::std::istringstream strm(data);
         T param;
-        if( !(strm >> param) )
+        if( !ToParam(data, param) )
         {
-            if( !ToParam(data, param) )
-            {
-                return;
-            }
+            return;
         }
         params.push_back(param);
     }
@@ -95,8 +99,17 @@ private:
 
 template<>inline bool iuCsvFileParamsGenerator<float>::ToParam(const ::std::string& data, float& param)
 {
+#if IUTEST_HAS_CXX11
     param = std::stof(data);
     return true;
+#else
+    ::std::istringstream strm(data);
+    if( !(strm >> param) )
+    {
+        param = static_cast<float>(atof(data.c_str()));
+    }
+    return true;
+#endif
 }
 
 
