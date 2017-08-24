@@ -350,7 +350,7 @@
 //! std::sto* が使用可能かどうか
 #if !defined(IUTEST_HAS_STD_STR_TO_VALUE)
 #  if IUTEST_HAS_CXX11
-#    if defined(IUTEST_OS_WINDOWS_MINGW))
+#    if defined(IUTEST_OS_WINDOWS_MINGW)
 #      if defined(__MINGW64__) && (defined(__GNUC__) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 8)))
 #        define IUTEST_HAS_STD_STR_TO_VALUE 1
 #      endif
