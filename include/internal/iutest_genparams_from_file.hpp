@@ -42,7 +42,7 @@ public:
 
 private:
     bool ToParam(const ::std::string& data, T& param)
-    { 
+    {
         ::std::istringstream strm(data);
         if( strm >> param )
         {
