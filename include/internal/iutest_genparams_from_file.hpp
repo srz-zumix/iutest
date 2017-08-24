@@ -99,7 +99,7 @@ private:
 
 template<>inline bool iuCsvFileParamsGenerator<float>::ToParam(const ::std::string& data, float& param)
 {
-#if IUTEST_HAS_CXX11
+#if IUTEST_HAS_STD_STR_TO_VALUE
     param = std::stof(data);
     return true;
 #else

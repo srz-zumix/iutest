@@ -347,6 +347,23 @@
 //======================================================================
 // decalre
 
+//! std::sto* が使用可能かどうか
+#if !defined(IUTEST_HAS_STD_STR_TO_VALUE)
+#  if IUTEST_HAS_CXX11
+#    if defined(IUTEST_OS_WINDOWS_MINGW))
+#      if defined(__MINGW64__) && (defined(__GNUC__) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 8)))
+#        define IUTEST_HAS_STD_STR_TO_VALUE 1
+#      endif
+#    else
+#      define IUTEST_HAS_STD_STR_TO_VALUE   1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_STD_STR_TO_VALUE)
+#  define IUTEST_HAS_STD_STR_TO_VALUE   0
+#endif
+
 //! using begin,end
 #if !defined(IUTEST_USING_BEGIN_END)
 #  if IUTEST_HAS_STD_BEGIN_END
