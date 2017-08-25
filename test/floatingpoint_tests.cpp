@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -59,6 +59,9 @@ IUTEST_TYPED_TEST(FloatingpointTest, NINF)
     IUTEST_EXPECT_EQ(FloatType(log(b)), TestFixture::ftype::NINF());
 }
 
+// MinGW-w64 sqrt bug
+// https://sourceforge.net/p/mingw/bugs/2337/
+#if !defined(__MINGW64__)
 IUTEST_TYPED_TEST(FloatingpointTest, NQNAN)
 {
     typedef typename TestFixture::ftype FloatType;
@@ -66,6 +69,7 @@ IUTEST_TYPED_TEST(FloatingpointTest, NQNAN)
 
     IUTEST_EXPECT_EQ(FloatType(sqrt(-a)), TestFixture::ftype::NQNAN());
 }
+#endif
 
 }   // end of namespace floatingpoint_test
 
