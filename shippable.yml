@@ -28,7 +28,8 @@ script:
 env:
   matrix:
     - WANDBOX_COMPILER=gcc-head
-    - WANDBOX_COMPILER=gcc-7.1.0
+    - WANDBOX_COMPILER=gcc-7.2.0
+#    - WANDBOX_COMPILER=gcc-7.1.0
     - WANDBOX_COMPILER=gcc-6.3.0
 #    - WANDBOX_COMPILER=gcc-6.2.0
 #    - WANDBOX_COMPILER=gcc-6.1.0
