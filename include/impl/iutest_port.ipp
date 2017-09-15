@@ -427,10 +427,7 @@ IUTEST_IPP_INLINE ::std::string GetHResultString(HRESULT hr)
 IUTEST_IPP_INLINE IUTestLog::IUTestLog(Level level, const char* file, int line)
     : kLevel(level)
 {
-    if( level < LOG_LEVEL_NUM && level >= 0 )
-    {
-        ++GetCountTable().count[level];
-    }
+    CountUp(level);
     const char* const tag =
         (level == LOG_INFO   ) ? "[  INFO ] ":
         (level == LOG_WARNING) ? "[WARNING] ":
@@ -447,6 +444,14 @@ IUTEST_IPP_INLINE IUTestLog::~IUTestLog()
     {
         fflush(stderr);
         posix::Abort();
+    }
+}
+
+IUTEST_IPP_INLINE void IUTestLog::CountUp(int level)
+{
+    if( level < LOG_LEVEL_NUM && level >= 0 )
+    {
+        ++GetCountTable().count[level];
     }
 }
 

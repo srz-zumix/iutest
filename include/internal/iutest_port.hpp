@@ -216,6 +216,7 @@ private:
     };
 
     static Count& GetCountTable() { static Count count = { {0} }; return count; }
+    static void CountUp(int level);
 
 private:
     const Level kLevel;
