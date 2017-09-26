@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.1.17</span>
+   &#160;<span id="projectnumber">1.16.1.18</span>
    </div>
   </td>
  </tr>
@@ -247,56 +247,57 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    };</div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;</div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keyword">static</span> Count&amp; GetCountTable() { <span class="keyword">static</span> Count count = { {0} }; <span class="keywordflow">return</span> count; }</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keyword">const</span> Level kLevel;</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    iu_stringstream m_stream;</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>(IUTestLog);</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;};</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STREAM_BUFFER</span></div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="keyword">template</span>&lt;<span class="keywordtype">int</span> SIZE=BUFSIZ&gt;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="keyword">class </span>IUStreamBuffer</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;{</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="keyword">explicit</span> IUStreamBuffer(FILE* fp)</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        : m_fp(fp)</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    {</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;        m_buf[0] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        fflush(fp);</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        setvbuf(fp, m_buf, _IOFBF, SIZE);</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    }</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    ~IUStreamBuffer()</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    {</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        fflush(m_fp);</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        setbuf(m_fp, NULL);</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    }</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    ::std::string GetStreamString() { <span class="keywordflow">return</span> m_buf; }</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    FILE* m_fp;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="keywordtype">char</span> m_buf[SIZE];</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;};</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_LIB</span></div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  include &quot;../impl/iutest_port.ipp&quot;</span></div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PORT_HPP_7893F685_A1A9_477A_82E8_BF06237697FF_</span></div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> CountUp(<span class="keywordtype">int</span> level);</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keyword">const</span> Level kLevel;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    iu_stringstream m_stream;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>(IUTestLog);</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;};</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STREAM_BUFFER</span></div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="keyword">template</span>&lt;<span class="keywordtype">int</span> SIZE=BUFSIZ&gt;</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;<span class="keyword">class </span>IUStreamBuffer</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;{</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keyword">explicit</span> IUStreamBuffer(FILE* fp)</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        : m_fp(fp)</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    {</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        m_buf[0] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        fflush(fp);</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        setvbuf(fp, m_buf, _IOFBF, SIZE);</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    }</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    ~IUStreamBuffer()</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    {</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        fflush(m_fp);</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        setbuf(m_fp, NULL);</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    }</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    ::std::string GetStreamString() { <span class="keywordflow">return</span> m_buf; }</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    FILE* m_fp;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <span class="keywordtype">char</span> m_buf[SIZE];</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;};</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_LIB</span></div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  include &quot;../impl/iutest_port.ipp&quot;</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PORT_HPP_7893F685_A1A9_477A_82E8_BF06237697FF_</span></div>
 <div class="ttc" id="iutest__internal__defs_8hpp_html"><div class="ttname"><a href="../../d3/d4c/iutest__internal__defs_8hpp.html">iutest_internal_defs.hpp</a></div><div class="ttdoc">internal definition </div></div>
 <div class="ttc" id="iutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:710</div></div>
 <div class="ttc" id="iutest__compiler_8hpp_html_ae77bae4c5720c1d321484985bbfc763d"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae77bae4c5720c1d321484985bbfc763d">IUTEST_ATTRIBUTE_NORETURN_</a></div><div class="ttdeci">#define IUTEST_ATTRIBUTE_NORETURN_</div><div class="ttdoc">noreturn </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:1192</div></div>
@@ -304,7 +305,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2017年08月26日(土) 08時18分09秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2017年09月26日(火) 23時14分22秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
