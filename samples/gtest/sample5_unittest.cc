@@ -50,7 +50,7 @@
 //#include "gtest/gtest.h"
 #include "gtest/iutest_switch.hpp"
 #include "sample1.h"
-
+namespace {
 // In this sample, we want to ensure that every test finishes within
 // ~5 seconds.  If a test takes longer to run, we consider it a
 // failure.
@@ -192,7 +192,7 @@ TEST_F(QueueTest, Dequeue) {
   EXPECT_EQ(1u, q2_.Size());
   delete n;
 }
-
+}  // namespace
 // If necessary, you can derive further test fixtures from a derived
 // fixture itself.  For example, you can derive another fixture from
 // QueueTest.  Google Test imposes no limit on how deep the hierarchy

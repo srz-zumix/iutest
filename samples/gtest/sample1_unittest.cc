@@ -48,7 +48,7 @@
 //#include "gtest/gtest.h"
 #include "gtest/iutest_switch.hpp"
 
-
+namespace {
 // Step 2. Use the TEST macro to define your tests.
 //
 // TEST has two parameters: the test case name and the test name.
@@ -140,6 +140,7 @@ TEST(IsPrimeTest, Positive) {
   EXPECT_FALSE(IsPrime(6));
   EXPECT_TRUE(IsPrime(23));
 }
+}  // namespace
 
 // Step 3. Call RUN_ALL_TESTS() in main().
 //

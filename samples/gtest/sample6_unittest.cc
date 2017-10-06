@@ -37,7 +37,7 @@
 
 //#include "gtest/gtest.h"
 #include "gtest/iutest_switch.hpp"
-
+namespace {
 // First, we define some factory functions for creating instances of
 // the implementations.  You may be able to skip this step if all your
 // implementations can be constructed the same way.
@@ -223,3 +223,4 @@ INSTANTIATE_TYPED_TEST_CASE_P(OnTheFlyAndPreCalculated,    // Instance name
                               PrimeTableImplementations);  // Type list
 
 #endif  // GTEST_HAS_TYPED_TEST_P
+}  // namespace

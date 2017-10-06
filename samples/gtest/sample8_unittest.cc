@@ -38,7 +38,7 @@
 
 //#include "gtest/gtest.h"
 #include "gtest/iutest_switch.hpp"
-
+namespace {
 #if GTEST_HAS_COMBINE
 
 // Suppose we want to introduce a new, improved implementation of PrimeTable
@@ -172,3 +172,4 @@ INSTANTIATE_TEST_CASE_P(MeaningfulTestParameters,
 TEST(DummyTest, CombineIsNotSupportedOnThisPlatform) {}
 
 #endif  // GTEST_HAS_COMBINE
+}  // namespace
