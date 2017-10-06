@@ -82,7 +82,7 @@ IUTEST_F(RecordTest, A)
 #endif
     CheckProperty(::iutest::UnitTest::GetInstance()->current_test_info()->result(), "hoge", "B");
 
-    // overwirte
+    // overwrite
     RecordProperty("hoge", "b");
     CheckProperty(::iutest::UnitTest::GetInstance()->current_test_info()->result(), "hoge", "b");
 }

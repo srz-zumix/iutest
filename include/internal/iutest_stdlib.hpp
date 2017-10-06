@@ -345,7 +345,7 @@
 #include <iterator>
 
 //======================================================================
-// decalre
+// declare
 
 //! std::sto* が使用可能かどうか
 #if !defined(IUTEST_HAS_STD_STR_TO_VALUE)

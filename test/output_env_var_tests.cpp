@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file        output_env_var_tests.cpp
-* @brief       envrionment variable (output setting) test
+* @brief       environment variable (output setting) test
  *
  * @author      t.shirayanagi
  * @par         copyright
