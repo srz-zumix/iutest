@@ -3,7 +3,7 @@
   <metadata>
     <id>iutest</id>
     <title>iutest</title>
-    <version>1.16.1</version>
+    <version>1.16.2</version>
     <authors>Takazumi Shirayanagi</authors>
     <copyright>Copyright (c) 2011-2017</copyright>
     <summary>C++ testing framework.</summary>
@@ -20,7 +20,10 @@
     <file src="..\..\README.md" target="\build\native\README.md" />
     <file src="..\..\LICENSE" target="\build\native\LICENSE" />
     <file src="..\..\CHANGES" target="\build\native\CHANGES" />
+    <file src="..\..\COPYING" target="\build\native\COPYING" />
+    <file src="..\..\.editorconfig" target="\build\native\.editorconfig" />
     <file src="..\..\include\**\*.*" target="\build\native\include" />
+    <file src="..\..\tools\**\*.*" target="\build\native\tools" />
     <file src="iutest.targets" target="\build\native\iutest.targets" />
   </files>
 </package>
