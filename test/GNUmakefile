@@ -295,7 +295,7 @@ $(TARGETS_EXCLUDE_ALLTESTS) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 
 
 IUTEST_COMPILE_ERROR_TEST_OPTION=-c $(CXX)
-ifeq ($(CI),true)
+ifeq ($(CI,,),true)
 IUTEST_COMPILE_ERROR_TEST_OPTION+= --verbose
 endif
 
