@@ -1,8 +1,12 @@
-########################################
+#
+# clangversion.mk
 #
 # Clang version check
 #
-########################################
+# Copyright (C) 2017, Takazumi Shirayanagi
+# This software is released under the new BSD License,
+# see LICENSE
+#
 
 ifeq ($(findstring clang++, $(CXX)), clang++)
 IUTEST_CLANG_CXX=$(CXX)

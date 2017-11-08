@@ -1,8 +1,12 @@
-########################################
+#
+# gccversion.mk
 #
 # GCC version check
 #
-########################################
+# Copyright (C) 2017, Takazumi Shirayanagi
+# This software is released under the new BSD License,
+# see LICENSE
+#
 
 #ifeq ($(CXX),g++)
 ifeq ($(findstring g++, $(CXX)), g++)

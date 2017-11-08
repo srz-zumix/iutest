@@ -1,3 +1,11 @@
+#
+# GNUMakefile
+#
+# Copyright (C) 2017, Takazumi Shirayanagi
+# This software is released under the new BSD License,
+# see LICENSE
+#
+
 # Test GNUmakefile (for GNU make)
 #
 # SYNOPSIS:
@@ -19,6 +27,7 @@
 include ../utils/gccversion.mk
 include ../utils/clangversion.mk
 include ../utils/cygwin.mk
+include ../utils/ci.mk
 include CommonMakefile.in
 
 # Optimize
@@ -295,7 +304,7 @@ $(TARGETS_EXCLUDE_ALLTESTS) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 
 
 IUTEST_COMPILE_ERROR_TEST_OPTION=-c $(CXX)
-ifeq ($(CI,,),true)
+ifeq ($(CI),true)
 IUTEST_COMPILE_ERROR_TEST_OPTION+= --verbose
 endif
 
