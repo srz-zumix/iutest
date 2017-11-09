@@ -483,11 +483,14 @@ def setup():
 
 
 def main():
-    options = parse_command_line()
-    setup()
-    if not parse_output(options):
-        sys.exit(1)
-
+    try:
+        options = parse_command_line()
+        setup()
+        if not parse_output(options):
+            sys.exit(1)
+    except Exception as e:
+        print(e)
+        raise
 
 if __name__ == '__main__':
     main()
