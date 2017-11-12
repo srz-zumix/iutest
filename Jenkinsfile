@@ -1,4 +1,11 @@
 #!/usr/bin/env groovy
+#
+# Jenkinsfile
+#
+# Copyright (C) 2017, Takazumi Shirayanagi
+# This software is released under the new BSD License,
+# see LICENSE
+#
 
 def checkoutSCM() {
     try {
@@ -37,6 +44,7 @@ pipeline {
             steps {
                 dir('test') {
                     sh 'make -j4 && make test'
+                    sh 'make -j4 && make test OUTPUTXML=1'
                 }
             }
         }
@@ -66,6 +74,11 @@ pipeline {
                     sh 'make nofeature'
                 }
             }
+        }
+    }
+    post {
+        always {
+            junit 'test/*.xml'
         }
     }
 }
