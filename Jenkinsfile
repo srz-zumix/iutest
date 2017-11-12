@@ -44,7 +44,7 @@ pipeline {
             steps {
                 dir('test') {
                     sh 'make -j4 && make test'
-                    sh 'make -j4 && make test OUTPUTXML=1'
+                    sh 'make clean && make -j4 && make test OUTPUTXML=1'
                 }
             }
         }
