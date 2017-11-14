@@ -342,7 +342,7 @@ IUTEST_IPP_INLINE void TestEnv::LoadEnvironmentVariable()
         else if( detail::GetEnvironmentVariable("XML_OUTPUT_FILE", str+4, sizeof(str) - 4) )
         {
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
-            strncpy(str, "xml:", 4);
+            memcpy(str, "xml:", 4);
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
             ParseOutputOption(str);
         }
