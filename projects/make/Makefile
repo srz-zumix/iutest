@@ -25,7 +25,7 @@ SAMPLE_SRCS = main.cpp \
               printto.cpp \
               simple.cpp \
               typed.cpp
-              
+
 SAMPLE_OBJS = $(SAMPLE_SRCS:%.cpp=%.o)
 
 # Flags passed to the preprocessor.

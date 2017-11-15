@@ -137,7 +137,7 @@ default : $(TARGETS)
 all : clean default test
 
 clean :
-	$(RM) $(TARGETS) *.o *.stackdump *.core *.log *.ns.cpp check_stdlib
+	$(RM) $(TARGETS) *.o *.stackdump *.core *.exe *.log *.ns.cpp check_stdlib
 ifdef OUTPUTXML
 	$(RM) *.xml
 endif

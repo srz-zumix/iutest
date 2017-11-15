@@ -50,5 +50,8 @@ bld/
 fused-src/
 tmp/
 
+# execute files
+projects/make/sample
+
 *コピー*
 .jflintrc
