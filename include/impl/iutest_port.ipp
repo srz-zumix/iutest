@@ -171,11 +171,14 @@ IUTEST_IPP_INLINE ::std::string GetCWD()
     return GetCWD(buf, sizeof(buf));
 }
 
-IUTEST_IPP_INLINE void SleepMillisecFor(unsigned int millisec)
+IUTEST_IPP_INLINE int SleepMillisecFor(unsigned int millisec)
 {
     volatile int x=0;
-    for( unsigned int i=0; i < millisec; ++i ) x += 1;
-    IUTEST_UNUSED_VAR(x);
+    for( unsigned int i=0; i < millisec; ++i )
+    {
+        x += 1;
+    }
+    return x;
 }
 
 IUTEST_IPP_INLINE void SleepMillisec(unsigned int millisec)
@@ -193,10 +196,11 @@ IUTEST_IPP_INLINE void SleepMillisec(unsigned int millisec)
         && (!defined(_POSIX_C_SOURCE) || !(_POSIX_C_SOURCE >= 200809L || _XOPEN_SOURCE >= 700)) )
     usleep(millisec*1000);
 #else
-    SleepMillisecFor(millisec);
+    (void)SleepMillisecFor(millisec);
 #endif
+
 #else
-    SleepMillisecFor(millisec);
+    (void)SleepMillisecFor(millisec);
 #endif
 }
 
