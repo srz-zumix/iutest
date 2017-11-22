@@ -2,8 +2,8 @@ inspecode:
   cppcheck:
     options:
       --enable: all
-      -I: ./include
-      --force
+      -I: include
+      --force:
     thresholds:
       num-issues:
         information: 0
