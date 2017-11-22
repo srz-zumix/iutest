@@ -1,6 +1,4 @@
 inspecode:
-  unused: default
-
   cppcheck:
     options:
       --enable: all
@@ -9,6 +7,9 @@ inspecode:
         IUTEST_HAS_CLOCK=1
         _WIN32=1
         _MSC_VER=1700
+      -U:
+        __GNUC__
+        __clang__
       --platform: win64
       --force:
     thresholds:
