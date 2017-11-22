@@ -1,0 +1,12 @@
+inspecode:
+  cppcheck:
+    options:
+      --enable: all
+      -I: ./include
+      --force
+    thresholds:
+      num-issues:
+        information: 0
+        style: 0
+        performance: 0
+        portability; 0
