@@ -221,7 +221,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         {
             cp = lead;
         }
-        const size_t len = c32rtomb(mbs, cp, &state);
+        const size_t len = ::std::c32rtomb(mbs, cp, &state);
         if( len != static_cast<size_t>(-1) )
         {
             mbs[len] = '\0';
@@ -267,7 +267,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         {
             cp = lead;
         }
-        const size_t len = c32rtomb(mbs, cp, &state);
+        const size_t len = ::std::c32rtomb(mbs, cp, &state);
         if( len != static_cast<size_t>(-1) )
         {
             mbs[len] = '\0';
@@ -298,7 +298,7 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ WideStringToUTF8(const c
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     for( size_t i = 0; i < length; ++i )
     {
-        const size_t len = c32rtomb(mbs, str[i], &state);
+        const size_t len = ::std::c32rtomb(mbs, str[i], &state);
         if( len != static_cast<size_t>(-1) )
         {
             mbs[len] = '\0';
