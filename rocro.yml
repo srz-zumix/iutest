@@ -1,8 +1,15 @@
 inspecode:
+  unused: default
+
   cppcheck:
     options:
       --enable: all
       -I: include
+      -D:
+        IUTEST_HAS_CLOCK=1
+        _WIN32=1
+        _MSC_VER=1700
+      --platform: win64
       --force:
     thresholds:
       num-issues:
