@@ -15,6 +15,8 @@ inspecode:
       --platform: win64
       --max-configs: 20
       #--force:
+    ignore:
+      test/spi_tests_decl.cpp
     thresholds:
       num-issues:
         #information: 0
