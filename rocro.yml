@@ -10,11 +10,14 @@ inspecode:
       -U:
         __GNUC__
         __clang__
+        __CYGWIN__
+        __APPLE__
       --platform: win64
-      --force:
+      --max-configs: 20
+      #--force:
     thresholds:
       num-issues:
-        information: 0
+        #information: 0
         style: 0
         performance: 0
         portability: 0
