@@ -13,6 +13,8 @@ inspecode:
         __CYGWIN__
         __APPLE__
       --platform: win64
+      --suppress:
+        syntaxError
       --max-configs: 20
       #--force:
     ignore:
