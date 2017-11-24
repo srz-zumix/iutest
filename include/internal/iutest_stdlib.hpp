@@ -98,9 +98,11 @@
 #      define IUTEST_HAS_STD_QUICK_EXIT   1
 #    endif
 #  endif
-#  if   defined(__has_include)
+#  if defined(__has_include)
 #    if !defined(IUTEST_HAS_CXX_HDR_CUCHAR) && __has_include( <cuchar> )
-#      define IUTEST_HAS_CXX_HDR_CUCHAR   1
+#      if defined(_GLIBCXX_USE_C11_UCHAR_CXX11) && _GLIBCXX_USE_C11_UCHAR_CXX11
+#        define IUTEST_HAS_CXX_HDR_CUCHAR   1
+#      endif
 #    endif
 #  endif
 #endif
