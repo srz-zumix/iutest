@@ -9,6 +9,7 @@
 [![Bitrise Build Status](https://www.bitrise.io/app/a1525fe176d85f53/status.svg?token=C67enKOhen9rjw_Cl37ihA&branch=master)](https://www.bitrise.io/app/a1525fe176d85f53)
 [![CircleCI](https://circleci.com/gh/srz-zumix/iutest/tree/master.svg?style=svg)](https://circleci.com/gh/srz-zumix/iutest/tree/master)
 [![Scrutinizer Build Status](https://scrutinizer-ci.com/g/srz-zumix/iutest/badges/build.png?b=master)](https://scrutinizer-ci.com/g/srz-zumix/iutest/build-status/master)  
+[![Rocro INSPECODE Report](https://inspecode.rocro.com/badges/github.com/srz-zumix/iutest/report?token=wt0KUnRUG1-Ul2mLrg8ComR1RznZV3VoXecBJHW0EIk&branch=master)](https://inspecode.rocro.com/reports/github.com/srz-zumix/iutest/branch/master/summary)
 [![Coverage Status](https://coveralls.io/repos/github/srz-zumix/iutest/badge.svg?branch=master)](https://coveralls.io/github/srz-zumix/iutest?branch=master)
 [![codecov](https://codecov.io/gh/srz-zumix/iutest/branch/master/graph/badge.svg)](https://codecov.io/gh/srz-zumix/iutest)  
 [![New(3-clause) BSD License](https://img.shields.io/badge/license-New_BSD-blue.svg)](http://opensource.org/licenses/BSD-3-Clause)
@@ -111,6 +112,7 @@ Tests
 |           |[![Build Status](https://www.bitrise.io/app/aefa67ee488094b1/status.svg?token=aDrRgkZEmNFmsDjBM9fWTw&branch=master)](https://www.bitrise.io/app/aefa67ee488094b1)|[![Build Status](https://www.bitrise.io/app/aefa67ee488094b1/status.svg?token=aDrRgkZEmNFmsDjBM9fWTw&branch=develop)](https://www.bitrise.io/app/aefa67ee488094b1)|Android|
 |CircleCI   |[![CircleCI](https://circleci.com/gh/srz-zumix/iutest/tree/master.svg?style=svg)](https://circleci.com/gh/srz-zumix/iutest/tree/master)|[![CircleCI](https://circleci.com/gh/srz-zumix/iutest/tree/develop.svg?style=svg)](https://circleci.com/gh/srz-zumix/iutest/tree/develop)|Optimize options test|
 |Scrutinizer|[![Scrutinizer Build Status](https://scrutinizer-ci.com/g/srz-zumix/iutest/badges/build.png?b=master)](https://scrutinizer-ci.com/g/srz-zumix/iutest/build-status/master)|[![Scrutinizer Build Status](https://scrutinizer-ci.com/g/srz-zumix/iutest/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/srz-zumix/iutest/build-status/develop)|iuwandbox tests|
+|INSPECODE  |[![Job Status](https://inspecode.rocro.com/badges/github.com/srz-zumix/iutest/status?token=wt0KUnRUG1-Ul2mLrg8ComR1RznZV3VoXecBJHW0EIk&branch=master)](https://inspecode.rocro.com/jobs/github.com/srz-zumix/iutest/latest?completed=true&branch=master)|[![Job Status](https://inspecode.rocro.com/badges/github.com/srz-zumix/iutest/status?token=wt0KUnRUG1-Ul2mLrg8ComR1RznZV3VoXecBJHW0EIk&branch=develop)](https://inspecode.rocro.com/jobs/github.com/srz-zumix/iutest/latest?completed=true&branch=develop)|Spell check, Cppcheck|
 
 Coverage
 --------------------------------------------------
