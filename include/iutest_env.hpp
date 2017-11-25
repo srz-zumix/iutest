@@ -104,7 +104,6 @@ private:
     void Release();
 private:
     struct should_be_SetUp {};
-    // cppcheck-suppress unusedPrivateFunction
     virtual should_be_SetUp* Setup() IUTEST_CXX_FINAL { return NULL; }
 };
 
