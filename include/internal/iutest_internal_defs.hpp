@@ -130,6 +130,7 @@ inline bool AlwaysTrue() { return true; }
 
 /**
  * @brief   false を返す(警告対策用)
+ * cppcheck-suppress knownConditionTrueFalse
 */
 inline bool AlwaysFalse() { return !AlwaysTrue(); }
 
