@@ -130,7 +130,6 @@ inline bool AlwaysTrue() { return true; }
 
 /**
  * @brief   false を返す(警告対策用)
- * cppcheck-suppress knownConditionTrueFalse
 */
 inline bool AlwaysFalse() { return !AlwaysTrue(); }
 
@@ -238,6 +237,8 @@ public:
 
     T& operator *  () const { return *m_ptr; }
     T* operator -> () const { return m_ptr; }
+
+    T& operator = (auto_ptr& rhs) { m_ptr = rhs.m_ptr; rhs.m_ptr = NULL; return *this; }
 
     T* get() { return m_ptr; }
 };
