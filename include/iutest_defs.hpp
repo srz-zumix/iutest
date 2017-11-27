@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -270,6 +270,7 @@ public:
     operator double() const { return m_v.fv; }
 #endif
     _Myt&   operator = (RawType f)  { m_v.fv = f; return *this; }   //!< 代入
+    _Myt&   operator = (const _Myt& rhs) { m_v.fv = rhs.m_v; return *this; }   //!< 代入
 
     bool    operator == (const _Myt& rhs) const { return m_v.uv == rhs.m_v.uv; }    //!< 比較
 
