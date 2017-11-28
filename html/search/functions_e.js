@@ -18,6 +18,6 @@ var searchData=
   ['open',['Open',['../d9/d57/classiutest_1_1_i_file.html#ad5e3d6e3009974fce8cffa15984f9a83',1,'iutest::IFile::Open()'],['../de/d67/classiutest_1_1_stdio_file.html#ae6ef8c44e07716cb5ba592ffa8281160',1,'iutest::StdioFile::Open()'],['../d4/d62/classiutest_1_1_std_error_file.html#a03f106aedb883cfbd614d9b103c0ff89',1,'iutest::StdErrorFile::Open()'],['../da/d94/classiutest_1_1_string_stream_file.html#ab58e3a655c891927a99e9cc37215e5d1',1,'iutest::StringStreamFile::Open()']]],
   ['operator_20rawtype',['operator RawType',['../d3/d81/classiutest_1_1floating__point.html#aee26b262d4bb40d7c097d1a805985065',1,'iutest::floating_point']]],
   ['operator_3c_3c',['operator&lt;&lt;',['../d9/d5f/classiutest_1_1_assertion_result.html#abf7ad4de100c21e41329e6ad84cd9476',1,'iutest::AssertionResult::operator&lt;&lt;()'],['../d3/dda/namespaceiutest.html#aa73ba60a51191e9c96aad0feeeb1dd4c',1,'iutest::operator&lt;&lt;()']]],
-  ['operator_3d',['operator=',['../d3/d81/classiutest_1_1floating__point.html#af5c7658056f9d5e94a3be83e6fce5b43',1,'iutest::floating_point']]],
+  ['operator_3d',['operator=',['../d3/d81/classiutest_1_1floating__point.html#af5c7658056f9d5e94a3be83e6fce5b43',1,'iutest::floating_point::operator=(RawType f)'],['../d3/d81/classiutest_1_1floating__point.html#a122c7778a6fded703439c0571221b0a7',1,'iutest::floating_point::operator=(const _Myt &amp;rhs)']]],
   ['operator_3d_3d',['operator==',['../d3/d81/classiutest_1_1floating__point.html#a3b0156a2762f897f27655c66f2774c19',1,'iutest::floating_point']]]
 ];

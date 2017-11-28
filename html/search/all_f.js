@@ -24,6 +24,6 @@ var searchData=
   ['openwrite',['OpenWrite',['../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381a7e5485c8952d435a56c8bb38c223a577',1,'iutest::IFile']]],
   ['operator_20rawtype',['operator RawType',['../d3/d81/classiutest_1_1floating__point.html#aee26b262d4bb40d7c097d1a805985065',1,'iutest::floating_point']]],
   ['operator_3c_3c',['operator&lt;&lt;',['../d9/d5f/classiutest_1_1_assertion_result.html#abf7ad4de100c21e41329e6ad84cd9476',1,'iutest::AssertionResult::operator&lt;&lt;()'],['../d3/dda/namespaceiutest.html#aa73ba60a51191e9c96aad0feeeb1dd4c',1,'iutest::operator&lt;&lt;()']]],
-  ['operator_3d',['operator=',['../d3/d81/classiutest_1_1floating__point.html#af5c7658056f9d5e94a3be83e6fce5b43',1,'iutest::floating_point']]],
+  ['operator_3d',['operator=',['../d3/d81/classiutest_1_1floating__point.html#af5c7658056f9d5e94a3be83e6fce5b43',1,'iutest::floating_point::operator=(RawType f)'],['../d3/d81/classiutest_1_1floating__point.html#a122c7778a6fded703439c0571221b0a7',1,'iutest::floating_point::operator=(const _Myt &amp;rhs)']]],
   ['operator_3d_3d',['operator==',['../d3/d81/classiutest_1_1floating__point.html#a3b0156a2762f897f27655c66f2774c19',1,'iutest::floating_point']]]
 ];
