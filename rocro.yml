@@ -1,8 +1,8 @@
 inspecode:
   cpplint:
     input:
-      include/*.*
-      src/*.*
+      - include/**
+      - src/**
     options:
       --linelength: 150
       --headers: hpp,ipp
