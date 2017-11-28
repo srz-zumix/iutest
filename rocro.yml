@@ -1,4 +1,8 @@
 inspecode:
+  cpplint:
+    --linelength: 150
+    --extensions: hpp,ipp,cpp
+
   cppcheck:
     options:
       --enable: all
