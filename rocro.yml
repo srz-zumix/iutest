@@ -6,7 +6,7 @@ inspecode:
     options:
       --linelength: 150
       --headers: hpp,ipp
-      --extensions: cpp
+      --extensions: hpp,ipp,cpp
     thresholds:
       num-issues: 0
 
