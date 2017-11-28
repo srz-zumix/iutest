@@ -1,7 +1,14 @@
 inspecode:
   cpplint:
-    --linelength: 150
-    --extensions: hpp,ipp,cpp
+    input:
+      include/*.*
+      src/*.*
+    options:
+      --linelength: 150
+      --headers: hpp,ipp
+      --extensions: cpp
+    thresholds:
+      num-issues: 0
 
   cppcheck:
     options:
