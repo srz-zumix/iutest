@@ -7,6 +7,8 @@ inspecode:
       --linelength: 150
       --headers: hpp,ipp
       --extensions: hpp,ipp,cpp
+      --filter:
+        -build/header_guard
     thresholds:
       num-issues: 0
 
