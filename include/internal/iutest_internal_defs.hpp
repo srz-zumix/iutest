@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -78,7 +78,7 @@
 #      define IUTEST_BREAK()    __asm__("int $3\n" : : )
 #    endif
 #  elif defined(__GUNC__) && (defined (__i386__) || defined (__x86_64__))
-#    define IUTEST_BREAK()  do { __asm{ int 3 } } while(::iutest::detail::AlwaysFalse())
+#    define IUTEST_BREAK()  do { __asm { int 3 } } while(::iutest::detail::AlwaysFalse())
 #  elif defined(__clang__) || defined(__GNUC__)
 #    define IUTEST_BREAK()  __builtin_trap()
 #  elif defined(__ARMCC_VERSION)

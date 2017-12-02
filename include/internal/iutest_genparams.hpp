@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -176,7 +176,7 @@ public:
 #endif
 
 public:
-    virtual void    Begin() IUTEST_CXX_OVERRIDE{ m_it = m_values.begin(); }
+    virtual void    Begin() IUTEST_CXX_OVERRIDE { m_it = m_values.begin(); }
     virtual T       GetCurrent() const IUTEST_CXX_OVERRIDE { return *m_it; }
     virtual void    Next() IUTEST_CXX_OVERRIDE { ++m_it; }
     virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE { return (m_it == m_values.end()); }
