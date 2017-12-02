@@ -9,6 +9,7 @@ inspecode:
       --extensions: hpp,ipp,cpp
       --filter:
         -build/header_guard
+        -whitespace/parens
     thresholds:
       num-issues: 0
 
