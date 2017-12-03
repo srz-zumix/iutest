@@ -11,7 +11,9 @@ inspecode:
         -build/header_guard,
         -whitespace/braces,
         -whitespace/parens,
-        -readability/braces
+        -readability/braces,
+        -build/c++11,
+        -build/c++tr1
     thresholds:
       num-issues: 0
 
