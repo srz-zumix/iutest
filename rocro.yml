@@ -9,6 +9,7 @@ inspecode:
       --extensions: hpp,ipp,cpp
       --filter:
         -build/header_guard,
+        -whitespace/braces,
         -whitespace/parens,
         -readability/braces
     thresholds:
