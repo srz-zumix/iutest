@@ -9,11 +9,12 @@ inspecode:
       --extensions: hpp,ipp,cpp
       --filter:
         -build/header_guard,
+        -build/c++11,
+        -build/c++tr1,
+        -build/include_what_you_use
         -whitespace/braces,
         -whitespace/parens,
         -readability/braces,
-        -build/c++11,
-        -build/c++tr1
     thresholds:
       num-issues: 0
 
