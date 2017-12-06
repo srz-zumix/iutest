@@ -2,6 +2,8 @@
 inspecode:
   tidy:
     auto-fix: true
+    ignore:
+      - html/*
     options:
       --indent: y
     
