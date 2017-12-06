@@ -1,7 +1,7 @@
 # for gh-pages
 inspecode:
   tidy:
-    auto-fix
+    auto-fix:
     options:
       --indent: y
     
