@@ -6,4 +6,3 @@ inspecode:
       - html/*
     options:
       --indent: y
-    
