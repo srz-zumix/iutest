@@ -6,4 +6,4 @@ inspecode:
       - html/*
     options:
       -wrap: 0
-      --indent: y
+      --indent: no
