@@ -5,5 +5,5 @@ inspecode:
     ignore:
       - html/*
     options:
+       -wrap: 0
       --indent: y
-      --drop-proprietary-attributes: y
