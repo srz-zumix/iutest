@@ -6,3 +6,4 @@ inspecode:
       - html/*
     options:
       --indent: y
+      --drop-proprietary-attributes: y
