@@ -48,6 +48,6 @@ inspecode:
 
   scan-build:
     options:
-      -analyze-headers
-      -k
-      --: [make, -C, test]
+      - -analyze-headers
+      - -k
+      - --: [make, -C, test]
