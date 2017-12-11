@@ -14,6 +14,9 @@ inspecode:
         -build/include_what_you_use,
         -whitespace/braces,
         -whitespace/parens,
+        -whitespace/newline,
+        -whitespace/operators,
+        -whitespace/comments,
         -readability/braces
     thresholds:
       num-issues: 0
