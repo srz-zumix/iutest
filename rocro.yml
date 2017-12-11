@@ -11,10 +11,10 @@ inspecode:
         -build/header_guard,
         -build/c++11,
         -build/c++tr1,
-        -build/include_what_you_use
+        -build/include_what_you_use,
         -whitespace/braces,
         -whitespace/parens,
-        -readability/braces,
+        -readability/braces
     thresholds:
       num-issues: 0
 
