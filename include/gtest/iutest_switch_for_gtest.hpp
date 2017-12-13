@@ -42,9 +42,9 @@ namespace tr1
 
 #ifdef __STRICT_ANSI__
 #  undef __STRICT_ANSI__
-#  include <cstdio>
 #  include <string.h>
 #  include <stdlib.h>
+#  include <cstdio>
 #  define __STRICT_ANSI__
 #endif
 
