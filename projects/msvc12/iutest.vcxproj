@@ -222,6 +222,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\gtest\iutest_gmock_ver.hpp" />
+    <ClInclude Include="..\..\include\gtest\iutest_switch_for_gtest.hpp" />
+    <ClInclude Include="..\..\include\gtest\iutest_switch_for_iutest.hpp" />
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_assertion_return.hpp" />
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_assume.hpp" />
     <ClInclude Include="..\..\include\gtest\switch\iutest_switch_filepath.hpp" />

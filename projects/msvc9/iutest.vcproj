@@ -590,6 +590,14 @@
 					RelativePath="..\..\include\gtest\iutest_switch.hpp"
 					>
 				</File>
+				<File
+					RelativePath="..\..\include\gtest\iutest_switch_for_gtest.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\gtest\iutest_switch_for_iutest.hpp"
+					>
+				</File>
 				<Filter
 					Name="switch"
 					>

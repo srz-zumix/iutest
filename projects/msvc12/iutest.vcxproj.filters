@@ -330,6 +330,12 @@
     <ClInclude Include="..\..\include\listener\iutest_stderr_xml_generator.hpp">
       <Filter>iutest\listener</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\gtest\iutest_switch_for_gtest.hpp">
+      <Filter>iutest\gtest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\gtest\iutest_switch_for_iutest.hpp">
+      <Filter>iutest\gtest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\impl\iutest_body.ipp">
