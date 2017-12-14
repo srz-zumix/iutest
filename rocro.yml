@@ -17,7 +17,8 @@ inspecode:
         -whitespace/newline,
         -whitespace/operators,
         -whitespace/comments,
-        -readability/braces
+        -readability/braces,
+        -readability/todo
     thresholds:
       num-issues: 0
 
