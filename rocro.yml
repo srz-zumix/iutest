@@ -14,6 +14,7 @@ inspecode:
         -build/include_what_you_use,
         -readability/braces,
         -readability/todo,
+        -runtime/references,
         -whitespace/braces,
         -whitespace/comments,
         -whitespace/indent,
