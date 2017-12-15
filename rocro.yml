@@ -8,17 +8,18 @@ inspecode:
       --headers: hpp,ipp
       --extensions: hpp,ipp,cpp
       --filter:
-        -build/header_guard,
         -build/c++11,
         -build/c++tr1,
+        -build/header_guard,
         -build/include_what_you_use,
+        -readability/braces,
+        -readability/todo,
         -whitespace/braces,
-        -whitespace/parens,
+        -whitespace/comments,
+        -whitespace/indent,
         -whitespace/newline,
         -whitespace/operators,
-        -whitespace/comments,
-        -readability/braces,
-        -readability/todo
+        -whitespace/parens
     thresholds:
       num-issues: 0
 
