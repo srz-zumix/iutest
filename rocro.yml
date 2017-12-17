@@ -57,4 +57,4 @@ inspecode:
     options:
       - -analyze-headers
       - -k
-      - --: [make, -C, test, all_tests]
+      - --: [make, -C, test, syntax_tests]
