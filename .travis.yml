@@ -1,6 +1,5 @@
 dist: trusty
 sudo: false
-group: deprecated-2017Q2
 
 language: cpp
 
@@ -111,7 +110,7 @@ matrix:
           packages:
             - *apt-common-packages
             - lcov
-            - rubygems
+            - rubygems-integration
     # fused
     - compiler: gcc
       env: USE_FUSED=fused
