@@ -20,6 +20,8 @@ addons:
       #- cppcheck
 
 before_install:
+  - apt-cache search clang
+  - apt-cache search g++
   - if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then export USE_NEWEST_GCC=1; fi
 
 install:
