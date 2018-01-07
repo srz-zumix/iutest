@@ -39,9 +39,16 @@ install:
         git clone https://github.com/google/googletest.git googletest
       else
         mkdir googletest
-        ls /usr/src/
-        cp -r /usr/src/gtest googletest
-        mv googletest/gtest googletest/googletest
+        if [ -e /usr/src/gtest ]; then
+          cp -r /usr/src/gtest googletest
+          mv googletest/gtest googletest/googletest
+        elif [ -e /usr/src/gmock ]; then
+          ls -R /usr/src/gmock
+          cp -r /usr/src/gmock googletest
+          mv googletest/gmock googletest/googletest
+        else
+          exit 1
+        fi
       fi
       cd googletest/googletest
       cmake . && cmake --build .
