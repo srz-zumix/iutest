@@ -52,13 +52,23 @@ install:
       cmake . && cmake --build .
       export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:$PWD/include
       export LIBRARY_PATH=$LIBRARY_PATH:$PWD
-      env
       cd -
     fi
   # gmock
-  #- |
-  #  if [ "${USE_GMOCK}" = '1' ]; then
-  #  fi
+  - |
+    if [ "${USE_GMOCK}" = '1' ]; then
+      if [ -e /usr/src/gmock ]; then
+        cp -r /usr/src/gmock googletest
+        mv googletest/gmock googletest/googlemock
+      fi
+      if [ -e googletest/googlemock ]; then
+        cd googletest/googlemock
+        cmake . && cmake --build .
+        export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:$PWD/include
+        export LIBRARY_PATH=$LIBRARY_PATH:$PWD
+        cd -
+      fi
+    fi
 
 before_script:
   # g++
