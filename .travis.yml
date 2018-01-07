@@ -41,14 +41,12 @@ install:
         mkdir googletest
         if [ -e /usr/src/gtest ]; then
           cp -r /usr/src/gtest googletest
-          mv googletest/gtest googletest/googletest
-        elif [ -e /usr/src/gmock ]; then
-          ls -R /usr/src/gmock
-          cp -r /usr/src/gmock googletest
-          mv googletest/gmock googletest/googletest
+        elif [ -e /usr/src/gmock/gtest ]; then
+          cp -r /usr/src/gmock/gtest googletest
         else
           exit 1
         fi
+        mv googletest/gtest googletest/googletest
       fi
       cd googletest/googletest
       cmake . && cmake --build .
