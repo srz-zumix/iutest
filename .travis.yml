@@ -1,4 +1,4 @@
-dist: precise
+dist: trusty
 sudo: false
 
 language: cpp
@@ -11,15 +11,18 @@ addons:
   apt: &apt-global
     sources: &apt-common-sources
       - ubuntu-toolchain-r-test
-      - llvm-toolchain-precise-3.9
-      - llvm-toolchain-precise
+      - llvm-toolchain-trusty-5.0
+      - llvm-toolchain-trusty
     packages: &apt-common-packages
-      - clang-3.9
+      - clang-5.0
       - g++-5
       - gcc-5
       #- cppcheck
 
 before_install:
+  - python utils/travisci/travis_blocking_stdout.py
+  - apt-cache search clang
+  - apt-cache search gcc
   - if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then export USE_NEWEST_GCC=1; fi
 
 install:
@@ -36,20 +39,36 @@ install:
         git clone https://github.com/google/googletest.git googletest
       else
         mkdir googletest
-        cp -r /usr/src/gtest googletest
+        if [ -e /usr/src/gtest ]; then
+          cp -r /usr/src/gtest googletest
+        elif [ -e /usr/src/gmock/gtest ]; then
+          cp -r /usr/src/gmock/gtest googletest
+        else
+          exit 1
+        fi
         mv googletest/gtest googletest/googletest
       fi
       cd googletest/googletest
       cmake . && cmake --build .
       export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:$PWD/include
       export LIBRARY_PATH=$LIBRARY_PATH:$PWD
-      env
       cd -
     fi
   # gmock
-  #- |
-  #  if [ "${USE_GMOCK}" = '1' ]; then
-  #  fi
+  - |
+    if [ "${USE_GMOCK}" = '1' ]; then
+      if [ -e /usr/src/gmock ]; then
+        cp -r /usr/src/gmock googletest
+        mv googletest/gmock googletest/googlemock
+      fi
+      if [ -e googletest/googlemock ]; then
+        cd googletest/googlemock
+        cmake . && cmake --build .
+        export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:$PWD/include
+        export LIBRARY_PATH=$LIBRARY_PATH:$PWD
+        cd -
+      fi
+    fi
 
 before_script:
   # g++
@@ -60,7 +79,7 @@ before_script:
       export CCOV=gcov-5
     fi
   # clang
-  - if [ "${CXX}" = 'clang++' ]; then export CXX=clang++-3.9; fi
+  - if [ "${CXX}" = 'clang++' ]; then export CXX=clang++-5.0; fi
   # mingw
   - if [ "${MINGW}" = '1' ]; then export CXX=i686-w64-mingw32-g++; fi
   # winegcc
@@ -110,7 +129,7 @@ matrix:
           packages:
             - *apt-common-packages
             - lcov
-            - rubygems
+            - rubygems-integration
     # fused
     - compiler: gcc
       env: USE_FUSED=fused
