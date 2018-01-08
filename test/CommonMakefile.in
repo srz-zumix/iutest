@@ -48,6 +48,25 @@ ALLTESTS_SRCS= main.cpp \
 
 ALLTESTS_TARGET=all_tests
 
+EXTENSIONTESTS_TEST_SRCS= \
+               concat_tests.cpp \
+               fixture_alias_tests.cpp \
+               ignore_tests.cpp \
+               package_tests1.cpp \
+               package_tests2.cpp \
+               pairwise_tests.cpp \
+               param_method_tests.cpp \
+               param_test_with_any_tests.cpp \
+               pp_tests.cpp \
+               random_values_tests.cpp \
+               values_gen_tests.cpp \
+               variadic_templates_tests.cpp \
+
+EXTENSIONTESTS_SRCS= main.cpp \
+               $(EXTENSIONTESTS_TEST_SRCS)
+
+EXTENSIONTESTS_TARGET=extension_tests
+
 NAMESPACETESTS_TARGET=namespace_tests
 
 TARGETS1= \
@@ -63,7 +82,6 @@ TARGETS1= \
           exception_assertion_tests \
           exception_tests \
           expression_assertion_tests \
-          extension_tests \
           file_system_tests \
           filter_tests \
           flagfile_gtest_tests \
