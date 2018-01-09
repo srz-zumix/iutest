@@ -11,7 +11,7 @@ addons:
   apt: &apt-global
     sources: &apt-common-sources
       - ubuntu-toolchain-r-test
-      #- llvm-toolchain-trusty-5.0
+      - llvm-toolchain-trusty-5.0
       - llvm-toolchain-trusty
     packages: &apt-common-packages
       - clang-6.0
