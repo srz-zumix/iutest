@@ -13,7 +13,7 @@ addons:
       - ubuntu-toolchain-r-test
       - llvm-toolchain-trusty-5.0
       - llvm-toolchain-trusty
-    packages: apt-common-packages
+    packages: &apt-common-packages
       - clang-5.0
       - g++-7
       - gcc-7
