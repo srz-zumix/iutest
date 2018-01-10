@@ -143,7 +143,10 @@ IUTEST(PeepClassTest, PeepObject)
     IUTEST_EXPECT_EQ(10, s_prod.GetX());
 
     IUTEST_EXPECT_EQ(10, prod_class_x);
+}
 
+IUTEST(PeepClassTest, PeepObject2)
+{
     IUTEST_PEEP(ProdClass2, m_x) prod_class2_x(&s_prod2);
     prod_class2_x = 54;
     IUTEST_EXPECT_EQ(54, s_prod2.GetX());

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2018 Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,6 +19,9 @@
 
 namespace syntax_gtest_tests
 {
+
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()
 
 TEST(GTestSyntaxTest, True)
 {
@@ -463,5 +466,7 @@ TEST(GTestSyntaxTest, ExceptionVectorConstructor)
 #endif
 
 #endif
+
+IUTEST_PRAGMA_WARN_POP()
 
 }   // end of namespace syntax_gtest_tests
