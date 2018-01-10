@@ -13,8 +13,8 @@ addons:
       - ubuntu-toolchain-r-test
       - llvm-toolchain-trusty-5.0
       - llvm-toolchain-trusty
-    packages: &apt-common-packages
-      - clang-6.0
+    packages: apt-common-packages
+      - clang-5.0
       - g++-7
       - gcc-7
       #- cppcheck
@@ -79,7 +79,10 @@ before_script:
       export CCOV=gcov-7
     fi
   # clang
-  - if [ "${CXX}" = 'clang++' ]; then export CXX=clang++-6.0; fi
+  - |
+    if [ "${CXX}" = 'clang++' ]; then
+      export CXX=clang++-5.0;
+    fi
   # mingw
   - if [ "${MINGW}" = '1' ]; then export CXX=i686-w64-mingw32-g++; fi
   # winegcc
