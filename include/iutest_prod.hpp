@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -206,7 +206,6 @@ private:
     template<typename U, typename Type, bool is_const>
     class peep_member_object_impl
     {
-        typedef peep_member_object_impl<U, Type, false> _Myt;
         typedef Type value_type;
     private:
         U* m_ptr;
@@ -216,12 +215,11 @@ private:
         peep_member_object_impl(const peep_member_object_impl&);
     public:
         operator value_type () const { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
-        _Myt& operator = (const value_type& value);
+        peep_member_object_impl& operator = (const value_type& value) IUTEST_CXX_DELETED_FUNCTION;
     };
     template<typename U, typename Type>
     class peep_member_object_impl<U, Type, false>
     {
-        typedef peep_member_object_impl<U, Type, false> _Myt;
         typedef Type value_type;
     private:
         U* m_ptr;
@@ -232,7 +230,7 @@ private:
     public:
         operator value_type () const { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
         operator value_type& () { return (*m_ptr).*detail::peep_tag<peep_tag>::value; }
-        _Myt& operator = (const value_type& value)
+        peep_member_object_impl& operator = (const value_type& value)
         {
             (*m_ptr).*detail::peep_tag<peep_tag>::value = value;
             return *this;
@@ -255,7 +253,6 @@ private:
     template<typename U, typename Type, bool Func>
     class peep_static_impl
     {
-        typedef peep_static_impl<U, Type, Func> _Myt;
         typedef typename type_traits::remove_pointer<Type>::type value_type;
     public:
         peep_static_impl() {}
@@ -264,7 +261,7 @@ private:
     public:
         operator value_type () const { return *detail::peep_tag<peep_tag>::value; }
         operator value_type& () { return *detail::peep_tag<peep_tag>::value; }
-        _Myt& operator = (const value_type& value)
+        peep_static_impl& operator = (const value_type& value)
         {
             *detail::peep_tag<peep_tag>::value = value;
             return *this;
