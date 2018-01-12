@@ -1,8 +1,8 @@
-########################################################################
+ï»¿########################################################################
 # CMake build script for iutest.
 #
 
-# CMake ƒo[ƒWƒ‡ƒ“
+# CMake ãƒãƒ¼ã‚¸ãƒ§ãƒ³
 cmake_minimum_required(VERSION 3.0.2)
 
 # option
@@ -20,7 +20,7 @@ endif()
 #
 # Project-wide settings
 
-# ƒvƒƒWƒFƒNƒg–¼
+# ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆå
 project(iutest CXX C)
 
 if (COMMAND set_up_hermetic_build)
@@ -31,7 +31,7 @@ endif()
 include(internal_utils.cmake)
 config_compiler_and_linker()  # Defined in internal_utils.cmake.
 
-# ƒCƒ“ƒNƒ‹[ƒhƒpƒX
+# ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ‘ã‚¹
 include_directories(
   ${PROJECT_SOURCE_DIR}/../../include
   )
@@ -39,14 +39,14 @@ include_directories(
 
 ########################################################################
 #
-# ƒ‰ƒCƒuƒ‰ƒŠ
+# ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
 #
 cxx_library(iutest "${cxx_strict}" ../../src/iutest_all.cpp)
 cxx_library(iutest_main "${cxx_strict}" ../../src/iutest_main.cpp)
 
 ########################################################################
 #
-# ƒTƒ“ƒvƒ‹
+# ã‚µãƒ³ãƒ—ãƒ«
 #
 cxx_executable_sample(iutest_sample
  ../../samples/main.cpp
@@ -63,7 +63,7 @@ cxx_executable_sample(iutest_sample
 
 ########################################################################
 #
-# gtest ƒTƒ“ƒvƒ‹
+# gtest ã‚µãƒ³ãƒ—ãƒ«
 #
 if (build_gtest_samples)
   cxx_executable_gtest_sample(sample1_unittest  ../../samples/gtest sample1.cc main.cc)
@@ -121,7 +121,20 @@ if (build_tests)
   cxx_executable_test(exception_assertion_tests)
   cxx_executable_test(exception_tests)
   cxx_executable_test(expression_assertion_tests)
-  cxx_executable_test(extension_tests)
+  cxx_executable_test_with_main(extension_tests
+    concat_tests.cpp
+    fixture_alias_tests.cpp
+    ignore_tests.cpp
+    package_tests1.cpp
+    package_tests2.cpp
+    pairwise_tests.cpp
+    param_method_tests.cpp
+    param_test_with_any_tests.cpp
+    pp_tests.cpp
+    random_values_tests.cpp
+    values_gen_tests.cpp
+    variadic_templates_tests.cpp
+  )
   cxx_executable_test(file_system_tests)
   cxx_executable_test(filter_tests)
   cxx_executable_test(flagfile_gtest_tests)

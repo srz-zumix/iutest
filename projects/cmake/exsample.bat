@@ -1,6 +1,6 @@
 @echo off
 
-SET VCVERSION=14
+SET VCVERSION=15
 SET DIRNAME=vc%VCVERSION%
 
 pushd .

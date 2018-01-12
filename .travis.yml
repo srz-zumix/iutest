@@ -11,10 +11,10 @@ addons:
   apt: &apt-global
     sources: &apt-common-sources
       - ubuntu-toolchain-r-test
-      #- llvm-toolchain-trusty-5.0
+      - llvm-toolchain-trusty-5.0
       - llvm-toolchain-trusty
     packages: &apt-common-packages
-      - clang-6.0
+      - clang-5.0
       - g++-7
       - gcc-7
       #- cppcheck
@@ -79,7 +79,10 @@ before_script:
       export CCOV=gcov-7
     fi
   # clang
-  - if [ "${CXX}" = 'clang++' ]; then export CXX=clang++-6.0; fi
+  - |
+    if [ "${CXX}" = 'clang++' ]; then
+      export CXX=clang++-5.0;
+    fi
   # mingw
   - if [ "${MINGW}" = '1' ]; then export CXX=i686-w64-mingw32-g++; fi
   # winegcc
@@ -162,19 +165,19 @@ matrix:
             - *apt-cmake-packages
             - google-mock
     # MinGW
-    - compiler: gcc
-      env: MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAM_BUFFER=0"
-      addons:
-        apt:
-          sources:
-            - *apt-common-sources
-            #- ppa:ubuntu-wine/ppa
-          packages:
-            - *apt-common-packages
-            - wine
-            - binutils-mingw-w64-i686
-            - gcc-mingw-w64-i686
-            - g++-mingw-w64-i686
+    # - compiler: gcc
+    #   env: MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAM_BUFFER=0"
+    #   addons:
+    #     apt:
+    #       sources:
+    #         - *apt-common-sources
+    #         #- ppa:ubuntu-wine/ppa
+    #       packages:
+    #         - *apt-common-packages
+    #         - wine
+    #         - binutils-mingw-w64-i686
+    #         - gcc-mingw-w64-i686
+    #         - g++-mingw-w64-i686
     # Use Lib
     - compiler: gcc
       env: USE_LIB=1
