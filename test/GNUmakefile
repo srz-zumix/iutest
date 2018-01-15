@@ -79,7 +79,8 @@ CXXFLAGS +=-DOUTPUTXML
 endif
 
 ifeq ($(HOST),WINE)
-WINE_ =wine
+#WINE_ =wine
+WINE_ =wineconsole
 else
 WINE_ =
 endif
