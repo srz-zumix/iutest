@@ -95,6 +95,7 @@ class iuwandbox_test(iuwandbox_test_base):
     def test_nomain(self):
         sys.argv[1:] = [test_src]
         sys.argv.extend(test_opt_nomain)
+        sys.argv.extend(['--boost', '1.65.0'])
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
         self.dump()
