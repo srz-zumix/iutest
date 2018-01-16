@@ -1,4 +1,8 @@
-# ƒTƒ“ƒvƒ‹ Makefile
+# sample Makefile
+#
+# Copyright (C) 2018, Takazumi Shirayanagi
+# This software is released under the new BSD License,
+# see LICENSE
 #
 # SYNOPSIS:
 #
