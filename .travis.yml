@@ -96,8 +96,6 @@ script:
     if [ "${COVERITY_SCAN}" == '1' ]; then
       cat cov-int/build-log.txt || true;
       cat cov-int/scm_log.txt || true;
-      test -e cov-int/build-log.txt
-      test -e cov-int/scm_log.txt
     fi
   #- if [ "${CPPCHECK}" = '1' ]; then
   #    cppcheck --version;
