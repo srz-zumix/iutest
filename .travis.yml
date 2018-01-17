@@ -118,6 +118,7 @@ env:
 
   matrix:
     - STDFLAG=-std=c++98
+    - STDFLAG=-std=c++11
     - STDFLAG=
 
   allow_failures:
