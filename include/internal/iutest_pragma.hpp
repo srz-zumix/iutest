@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -189,6 +189,16 @@
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE)
 #  define IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()
+#endif
+
+#if defined(__GNUC__)
+#  if (__GNUC__ > 6)
+#    define IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE()  IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wnoexcept-type")
+#  endif
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE)
+#  define IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE()
 #endif
 
 #endif // INCG_IRIS_IUTEST_PRAGMA_HPP_FBC5A1DE_3D0C_443E_84B1_5F0618DF9A6B_

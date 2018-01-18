@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -439,6 +439,9 @@ private:
 #endif
 };
 
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE()
+
 /**
  * @brief   vector シャッフル
 */
@@ -540,6 +543,8 @@ bool AnyOverList(const iu_list<Node>& list, Fn f)
     }
     return false;
 }
+
+IUTEST_PRAGMA_WARN_POP()
 
 }   // end of namespace detail
 }   // end of namespace iutest
