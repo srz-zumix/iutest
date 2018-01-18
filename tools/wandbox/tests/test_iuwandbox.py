@@ -95,6 +95,26 @@ class iuwandbox_test(iuwandbox_test_base):
     def test_nomain(self):
         sys.argv[1:] = [test_src]
         sys.argv.extend(test_opt_nomain)
+        with self.assertRaises(SystemExit) as cm:
+            iuwandbox.main()
+        self.dump()
+        self.assertEqual(cm.exception.code, 1, self.capture.getvalue())
+        self.assertRegex(self.capture.getvalue(), '.*hint:.*')
+        self.assertRegex(self.capture.getvalue(), '.*In "iutest" you can omit the definition of the main function, please define IUTEST_USE_MAIN. (--iutest-use-main or -f"-DIUTEST_USE_MAIN")*')
+
+    def test_use_main(self):
+        sys.argv[1:] = [test_src]
+        sys.argv.extend(test_opt_nomain)
+        sys.argv.append('--iutest-use-main')
+        with self.assertRaises(SystemExit) as cm:
+            iuwandbox.main()
+        self.dump()
+        self.assertEqual(cm.exception.code, 0, self.capture.getvalue())
+        self.assertRegex(self.capture.getvalue(), '.*OK.*')
+
+    def test_boosttest_workarround(self):
+        sys.argv[1:] = [test_src]
+        sys.argv.extend(test_opt_nomain)
         sys.argv.extend(['--boost', '1.65.0'])
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()

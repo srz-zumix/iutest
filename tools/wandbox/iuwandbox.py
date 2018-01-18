@@ -2,7 +2,7 @@
 #
 # iuwandbox.py
 #
-# Copyright (C) 2014-2017, Takazumi Shirayanagi
+# Copyright (C) 2014-2018, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -41,17 +41,17 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 5.7'
+        version=u'%(prog)s version 5.8'
     )
     parser.add_argument(
-        '--list_compiler',
         '--list-compiler',
+        '--list_compiler',
         action='store_true',
         help='listup compiler.'
     )
     parser.add_argument(
-        '--list_options',
         '--list-options',
+        '--list_options',
         metavar='COMPILER',
         help='listup compiler options.'
     )
@@ -112,8 +112,8 @@ def parse_command_line():
     )
     parser.add_argument(
         '-f',
-        '--compiler_option_raw',
         '--compiler-option-raw',
+        '--compiler_option_raw',
         metavar='OPTIONS',
         action='append',
         default=['-D__WANDBOX__'],
@@ -121,8 +121,8 @@ def parse_command_line():
     )
     parser.add_argument(
         '-r',
-        '--runtime_option_raw',
         '--runtime-option-raw',
+        '--runtime_option_raw',
         metavar='OPTIONS',
         action='append',
         help='runtime-time any additional options.'
@@ -164,8 +164,8 @@ def parse_command_line():
         help='set encoding.'
     )
     parser.add_argument(
-        '--expand_include',
         '--expand-include',
+        '--expand_include',
         action='store_true',
         help='expand include file.'
     )
@@ -189,10 +189,15 @@ def parse_command_line():
         help='Number of retries when HTTPError occurs'
     )
     parser.add_argument(
-        '--check_config',
         '--check-config',
+        '--check_config',
         action='store_true',
         help='check config.'
+    )
+    parser.add_argument(
+        '--iutest-use-main',
+        action='store_true',
+        help='define IUTEST_USE_MAIN.'
     )
     parser.add_argument(
         '--verbose',
@@ -442,6 +447,8 @@ def create_compiler_raw_option_list(options):
         raw_options = options.compiler_option_raw
         for x in raw_options:
             colist.extend(re.split('\s(?=-)', x.strip('"')))
+    if options.iutest_use_main:
+        colist.append('-DIUTEST_USE_MAIN')
     return colist
 
 
@@ -548,7 +555,10 @@ def run_wandbox(main_filepath, code, includes, impliments, options):
 
 def wandbox_hint(r):
     if 'compiler_error' in r:
-        if 'undefined reference to `init_unit_test_suite' in r['compiler_error']:
+        if 'undefined reference to `main' in r['compiler_error']:
+            print('hint:')
+            print('  In "iutest" you can omit the definition of the main function, please define IUTEST_USE_MAIN. (--iutest-use-main or -f"-DIUTEST_USE_MAIN")')
+        elif 'undefined reference to `init_unit_test_suite' in r['compiler_error']:
             print('hint:')
             print('  If you do not use boost test, please specify the file with the main function first.')
 
