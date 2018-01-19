@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -37,7 +37,7 @@ namespace helper
 {
 
 #if !IUTEST_HAS_LIB
-namespace {
+namespace { // NOLINT
 #endif
 
 /**
