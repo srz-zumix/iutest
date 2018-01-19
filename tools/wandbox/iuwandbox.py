@@ -431,6 +431,14 @@ def wandbox_get_compilerlist():
     return wandbox_api_call(Wandbox.GetCompilerList, api_retries, api_retry_wait)
 
 
+def wandbox_get_compilerswitches(compiler):
+    for d in wandbox_get_compilerlist():
+        if d['name'] == compiler:
+            if 'switches' in d:
+                return d['switches']
+    return []
+
+
 def run_wandbox_impl(w, options):
     if options.dryrun:
         sys.exit(0)
@@ -705,36 +713,26 @@ def listup_options(compiler):
 
 
 def get_options(compiler):
-    r = wandbox_get_compilerlist()
     opt = []
-    for d in r:
-        if d['name'] == compiler:
-            if 'switches' in d:
-                switches = d['switches']
-                for s in switches:
-                    if 'name' in s:
-                        opt.append(s['name'])
-                    elif 'options' in s:
-                        opt.append(s['default'])
-                        for o in s['options']:
-                            opt.append(o['name'])
+    for s in wandbox_get_compilerswitches(compiler):
+        if 'name' in s:
+            opt.append(s['name'])
+        elif 'options' in s:
+            opt.append(s['default'])
+            for o in s['options']:
+                opt.append(o['name'])
     return opt
 
 
 # get default options
 def get_default_options(compiler):
-    r = wandbox_get_compilerlist()
     opt = []
-    for d in r:
-        if d['name'] == compiler:
-            if 'switches' in d:
-                switches = d['switches']
-                for s in switches:
-                    if 'name' in s:
-                        if s['default']:
-                            opt.append(s['name'])
-                    elif 'options' in s:
-                        opt.append(s['default'])
+    for s in wandbox_get_compilerswitches(compiler):
+        if 'name' in s:
+            if s['default']:
+                opt.append(s['name'])
+        elif 'options' in s:
+            opt.append(s['default'])
     return opt
 
 

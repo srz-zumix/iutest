@@ -97,6 +97,14 @@ $(COMPILEERROR_TARGETS) : $(COMPILE_ERROR_TESTS_SRC_) Makefile
 compile-error: $(COMPILE_ERROR_TESTS) Makefile
 
 #
+# unittest
+#
+utest: unittest
+
+unittest:
+	unit2 discover .
+
+#
 # profile
 #
 
