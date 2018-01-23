@@ -41,7 +41,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 5.8'
+        version=u'%(prog)s version 5.9'
     )
     parser.add_argument(
         '--list-compiler',
@@ -69,7 +69,7 @@ def parse_command_line():
     parser.add_argument(
         '--default',
         action='store_true',
-        help='it is not work. default options are set by default (deprecated)'
+        help='--default option is deprecated. default options are always set.'
     )
     parser.add_argument(
         '--no-default',
@@ -234,13 +234,12 @@ def file_open(path, mode, encoding):
 def make_include_filename(path, includes, included_files):
     if path in included_files:
         return included_files[path]
-    else:
-        include_dir, include_filename = os.path.split(path)
-        while include_filename in includes:
-            include_dir, dirname = os.path.split(include_dir)
-            include_filename = dirname + '__' + include_filename
-        included_files[path] = include_filename
-        return include_filename
+    include_dir, include_filename = os.path.split(path)
+    while include_filename in includes:
+        include_dir, dirname = os.path.split(include_dir)
+        include_filename = dirname + '__' + include_filename
+    included_files[path] = include_filename
+    return include_filename
 
 
 def is_iutest_included_file(filepath):
@@ -306,12 +305,23 @@ def print_undefined_option(option_name, compiler):
     print('Wandbox is not supported option [{0}] ({1})'.format(option_name, compiler))
 
 
+def check_std_option_compatible(options, old, new, optlist):
+    if (options.std == old) and (new in optlist):
+        #options.std = new
+        print('{0} is not supported option. you can use {1}'.format(old, new))
+        return True
+    elif (options.std == new) and (old in optlist):
+        #options.std = old
+        print('{0} is not supported option. you can use {1}'.format(new, old))
+        return True
+    return False
+
 # check config
 def check_config(options):
     has_error = False
     if not find_compiler(options.compiler):
         print('Wandbox is not supported compiler [' + options.compiler + ']')
-        listup_compiler()
+        listup_compiler(options.verbose)
         has_error = True
     if options.options or options.std:
         opt = get_options(options.compiler)
@@ -323,13 +333,22 @@ def check_config(options):
         if options.std:
             if options.std not in opt:
                 print_undefined_option(options.std, options.compiler)
-                has_error = True
+                prev_std_option = options.std
+                if  check_std_option_compatible(options, 'c++1z', 'c++17', opt) or \
+                    check_std_option_compatible(options, 'gnu++1z', 'gnu++17', opt) or \
+                    check_std_option_compatible(options, 'c++1y', 'c++14', opt) or \
+                    check_std_option_compatible(options, 'gnu++1y', 'gnu++14', opt) or \
+                    check_std_option_compatible(options, 'c++0x', 'c++11', opt) or \
+                    check_std_option_compatible(options, 'gnu++0x', 'gnu++11', opt):
+                    pass
+                if (options.std == prev_std_option):
+                    has_error = True
         if has_error:
             listup_options(options.compiler)
     if has_error:
         sys.exit(1)
     if options.default:
-        print('--default option is not work. default options are set by default (deprecated)')
+        print('--default option is deprecated. default options are always set.')
 
 
 # setup additional files
@@ -529,7 +548,7 @@ def run_wandbox_cxx(code, includes, impliments, options):
     #            colist.append('-fno-exceptions')
     #            colist.append('-fno-rtti')
             pass
-        if len(colist) > 0:
+        if colist:
             co = '\n'.join(colist)
             co = co.replace('\\n', '\n')
             w.compiler_options(co)
@@ -557,8 +576,7 @@ def run_wandbox_cxx(code, includes, impliments, options):
 def run_wandbox(main_filepath, code, includes, impliments, options):
     if options.make:
         return run_wandbox_make(main_filepath, code, includes, impliments, options)
-    else:
-        return run_wandbox_cxx(code, includes, impliments, options)
+    return run_wandbox_cxx(code, includes, impliments, options)
 
 
 def wandbox_hint(r):
@@ -761,7 +779,7 @@ def main():
     else:
         if options.check_config:
             check_config(options)
-        elif len(options.code) == 0:
+        elif not options.code:
             parser.print_help()
             sys.exit(1)
         run(options)
