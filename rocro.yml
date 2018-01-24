@@ -45,9 +45,9 @@ inspecode:
       --max-configs: 20
       #--force:
     ignore:
-      test/spi_tests_decl.cpp
-      projects/**/*.c
-      projects/**/*.cpp
+      - test/spi_tests_decl.cpp
+      - projects/**/*.c
+      - projects/**/*.cpp
     thresholds:
       num-issues:
         #information: 0
