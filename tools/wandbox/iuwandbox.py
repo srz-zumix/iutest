@@ -305,14 +305,19 @@ def print_undefined_option(option_name, compiler):
     print('Wandbox is not supported option [{0}] ({1})'.format(option_name, compiler))
 
 
+def change_std_option(options, new_value):
+    print('  change std option: {0} -> {1}'.format(options.std, new_value))
+    options.std = new_value
+
+
 def check_std_option_compatible(options, old, new, optlist):
     if (options.std == old) and (new in optlist):
-        #options.std = new
-        print('{0} is not supported option. you can use {1}'.format(old, new))
+        print('  [{0}] is not supported option. you can use [{1}]'.format(old, new))
+        change_std_option(options, new)
         return True
     elif (options.std == new) and (old in optlist):
-        #options.std = old
-        print('{0} is not supported option. you can use {1}'.format(new, old))
+        print('  [{0}] is not supported option. you can use [{1}]'.format(new, old))
+        change_std_option(options, old)
         return True
     return False
 
