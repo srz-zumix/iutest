@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -690,6 +690,17 @@
 
 #if !defined(IUTEST_HAS_NOEXCEPT)
 #  define IUTEST_HAS_NOEXCEPT   0
+#endif
+
+//! noexcept function type
+#if !defined(IUTEST_HAS_NOEXCEPT_FUNCTION_TYPE)
+#  if defined(__cpp_noexcept_function_type) && __cpp_noexcept_function_type >= 201510L
+#    define IUTEST_HAS_NOEXCEPT_FUNCTION_TYPE 1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_NOEXCEPT_FUNCTION_TYPE)
+#  define IUTEST_HAS_NOEXCEPT_FUNCTION_TYPE 0
 #endif
 
 //! noexcept definition
