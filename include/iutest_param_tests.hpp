@@ -402,7 +402,7 @@ inline detail::iuValuesParamsGeneratorHolder<StdGenerator> IUTEST_ATTRIBUTE_UNUS
 
 /**
  * @brief   乱数ジェネレータ
- * @detail  ValuesGen の Generator として利用します
+ * @details ValuesGen の Generator として利用します
  * @param   filter  = フィルター関数(bool ()(T))
  * @param   sedd    = 乱数シード
 */
