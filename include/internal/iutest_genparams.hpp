@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -24,7 +24,7 @@ namespace detail
 //======================================================================
 // declare
 #if IUTEST_HAS_CONCAT
-template<typename G1, typename G2>class iuConcatParamHolder;
+template<typename Generator1, typename Generator2>class iuConcatParamHolder;
 #endif
 
 //======================================================================
@@ -35,11 +35,10 @@ template<typename G1, typename G2>class iuConcatParamHolder;
 template<typename T>
 class iuIParamGenerator
 {
-    typedef iuIParamGenerator<T> _Myt;
 public:
     typedef T type;
 public:
-    typedef _Myt* (*Generator)();
+    typedef iuIParamGenerator<T>* (*Generator)();
 public:
     virtual ~iuIParamGenerator() {}
 public:
@@ -1360,12 +1359,12 @@ IIUT_DECL_PAIRWISE_HOLDER_(9);
  * @brief   パラメータ生成器
  * @tparam G    = パラメータ生成器
 */
-template<typename G>
+template<typename StdGenerator>
 class iuValuesParamsGeneratorHolder
 {
-    typedef iuValuesParamsGeneratorHolder<G> _Myt;
+    typedef iuValuesParamsGeneratorHolder<StdGenerator> _Myt;
 public:
-    iuValuesParamsGeneratorHolder(size_t num, const G& g)
+    iuValuesParamsGeneratorHolder(size_t num, const StdGenerator& g)
         : m_num(num), m_g(g)
     {}
 public:
@@ -1388,7 +1387,7 @@ public:
 
 private:
     size_t m_num;
-    G m_g;
+    StdGenerator m_g;
 };
 
 /**

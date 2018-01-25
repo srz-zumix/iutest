@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -392,24 +392,28 @@ inline detail::iuParamGenerator<bool> IUTEST_ATTRIBUTE_UNUSED_ Bool()
 
 /**
  * @brief   ユーザー定義ジェネレータ利用パラメータ
+ * @param   generator = std::generate function
 */
-template<typename Generator>
-inline detail::iuValuesParamsGeneratorHolder<Generator> IUTEST_ATTRIBUTE_UNUSED_ ValuesGen(size_t num, const Generator& gen)
+template<typename StdGenerator>
+inline detail::iuValuesParamsGeneratorHolder<StdGenerator> IUTEST_ATTRIBUTE_UNUSED_ ValuesGen(size_t num, const StdGenerator& generator)
 {
-    return detail::iuValuesParamsGeneratorHolder<Generator>(num, gen);
+    return detail::iuValuesParamsGeneratorHolder<StdGenerator>(num, generator);
 }
 
 /**
  * @brief   乱数ジェネレータ
+ * @detail  ValuesGen の Generator として利用します
+ * @param   filter  = フィルター関数(bool ()(T))
+ * @param   sedd    = 乱数シード
 */
-template<typename T, typename F>
-inline detail::iuRandomFilterParamGenerator<T, F> IUTEST_ATTRIBUTE_UNUSED_ RandomGenerator(const F& fn, unsigned int seed=0)
+template<typename T, typename Filter>
+inline detail::iuRandomFilterParamGenerator<T, Filter> IUTEST_ATTRIBUTE_UNUSED_ RandomGenerator(const Filter& filter, unsigned int seed=0)
 {
     if( seed == 0 )
     {
         seed = detail::GetIndefiniteValue();
     }
-    return detail::iuRandomFilterParamGenerator<T, F>(fn, seed);
+    return detail::iuRandomFilterParamGenerator<T, Filter>(filter, seed);
 }
 
 #endif
@@ -543,10 +547,10 @@ IIUT_DECL_VALUES_(50)
 /**
  * @brief   パラメータの結合
 */
-template<typename G1, typename G2>
-detail::iuConcatParamHolder<G1, G2> Concat(const G1& g1, const G2& g2)
+template<typename Generator1, typename Generator2>
+detail::iuConcatParamHolder<Generator1, Generator2> Concat(const Generator1& g1, const Generator2& g2)
 {
-    return detail::iuConcatParamHolder<G1, G2>(g1, g2);
+    return detail::iuConcatParamHolder<Generator1, Generator2>(g1, g2);
 }
 #endif
 
