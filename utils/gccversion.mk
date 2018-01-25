@@ -44,7 +44,7 @@ endif
 #
 
 # 5.0 later
-ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) ))
+ifeq (1,$(shell expr \( $(GCCMAJOR) \>= 5 \) ))
 STD_CPP14=c++14
 STD_GNU14=gnu++14
 else
@@ -62,9 +62,11 @@ endif
 #
 
 # 5.0 later
-ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) ))
-STD_CPP17=c++1z
-STD_GNU17=gnu++1z
+ifeq (1,$(shell expr \( $(GCCMAJOR) \>= 5 \) ))
+#STD_CPP17=c++1z
+#STD_GNU17=gnu++1z
+STD_CPP17=c++17
+STD_GNU17=gnu++17
 endif
 
 #

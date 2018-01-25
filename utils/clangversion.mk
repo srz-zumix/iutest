@@ -66,10 +66,18 @@ endif
 # c++17
 #
 
+# 4.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 4 \)))
+STD_CPP17=c++17
+STD_GNU17=gnu++17
+else
+
 # 3.5 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 5 \)))
 STD_CPP17=c++1z
 STD_GNU17=gnu++1z
+endif
+
 endif
 
 #
