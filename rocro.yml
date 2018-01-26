@@ -30,18 +30,19 @@ inspecode:
       --enable: all
       -I: include
       -D:
-        IUTEST_HAS_CLOCK=1
-        _WIN32=1
-        _MSC_VER=1700
+        - IUTEST_HAS_CLOCK=1
+        - _WIN32=1
+        - _MSC_VER=1700
       -U:
-        __GNUC__
-        __clang__
-        __CYGWIN__
-        __APPLE__
+        - __GNUC__
+        - __clang__
+        - __CYGWIN__
+        - __APPLE__
       --platform: win64
       --inline-suppr:
       --suppress:
         - syntaxError
+        - unusedFunction
         - "knownConditionTrueFalse:*/iutest_internal_defs.hpp"
       --max-configs: 20
       #--force:
