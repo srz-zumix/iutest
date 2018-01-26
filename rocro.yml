@@ -31,19 +31,19 @@ inspecode:
       -I: include
       -D:
         - IUTEST_HAS_CLOCK=1
-        - _WIN32=1
-        - _MSC_VER=1700
       -U:
-        - __GNUC__
+        - _WIN32
+        - _MSC_VER
         - __clang__
         - __CYGWIN__
         - __APPLE__
-      --platform: win64
+      --platform: unix64
       --inline-suppr:
       --suppress:
         - syntaxError
         - unusedFunction
         - "knownConditionTrueFalse:*/iutest_internal_defs.hpp"
+        - unmatchedSuppression
       --max-configs: 20
       #--force:
     ignore:
