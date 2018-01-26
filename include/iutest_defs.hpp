@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -283,7 +283,7 @@ private:
     };
 
 private:
-    static UInt norm(UInt v) { return v & kSignMask ? ~v + 1 : v | kSignMask; }
+    static UInt norm(UInt v) { return (v & kSignMask) ? (~v + 1) : (v | kSignMask); }
 
 #if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
     static const UInt kSignMask = static_cast<UInt>(1u) << (kEXP + kFRAC);

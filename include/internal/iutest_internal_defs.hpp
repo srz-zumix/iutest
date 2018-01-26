@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -238,7 +238,7 @@ public:
     T& operator *  () const { return *m_ptr; }
     T* operator -> () const { return m_ptr; }
 
-    T& operator = (auto_ptr& rhs) { m_ptr = rhs.m_ptr; rhs.m_ptr = NULL; return *this; }
+    auto_ptr& operator = (auto_ptr& rhs) { m_ptr = rhs.m_ptr; rhs.m_ptr = NULL; return *this; }
 
     T* get() { return m_ptr; }
 };

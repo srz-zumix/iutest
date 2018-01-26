@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,7 +17,7 @@
 
 //======================================================================
 // include
-#include "CppUnitTest.h"
+#include <CppUnitTest.h>
 #include "../../include/iutest_prod.hpp"
 #include "../../include/util/iutest_util_tests.hpp"
 
