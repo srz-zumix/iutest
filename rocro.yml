@@ -43,6 +43,7 @@ inspecode:
         - syntaxError
         - unusedFunction
         - "knownConditionTrueFalse:*/iutest_internal_defs.hpp"
+        - "noExplicitConstructor:*/iutest_defs.hpp"
         - unmatchedSuppression
       --max-configs: 20
       #--force:
