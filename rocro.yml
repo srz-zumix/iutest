@@ -41,7 +41,7 @@ inspecode:
       --platform: win64
       --inline-suppr:
       --suppress:
-        syntaxError
+        syntaxError,
         knownConditionTrueFalse:*/iutest_internal_defs.hpp
       --max-configs: 20
       #--force:
