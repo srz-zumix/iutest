@@ -132,7 +132,7 @@ endif
 # build targets.
 #
 
-.PHONY: clean default all run test bench benchmark lint
+.PHONY: clean default all run test bench benchmark lint cppcheck
 
 default : $(TARGETS)
 
@@ -360,3 +360,11 @@ check_incg: $(IUTEST_INCLUDE_GUARD_CHECK)
 %.incg: %
 #	@echo $(notdir $<)
 	python ../tools/python/iutest_incg_test.py $<
+
+
+#
+# cppcheck
+#
+
+cppcheck:
+	make -C cppcheck

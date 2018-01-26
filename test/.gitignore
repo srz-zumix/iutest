@@ -12,3 +12,4 @@ cpplint/cpplint.py
 !Makefile
 !GNUMakefile
 *.ns.cpp
+!**/
