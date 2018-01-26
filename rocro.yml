@@ -42,7 +42,7 @@ inspecode:
       --inline-suppr:
       --suppress:
         - syntaxError
-        - knownConditionTrueFalse\:*/iutest_internal_defs.hpp
+        - "knownConditionTrueFalse:*/iutest_internal_defs.hpp"
       --max-configs: 20
       #--force:
     ignore:
