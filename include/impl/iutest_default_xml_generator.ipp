@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -316,9 +316,10 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OutputXmlAttribute(IFile* fi
     file->Printf("\" ");
 }
 
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
+
 IUTEST_IPP_INLINE ::std::string DefaultXmlGeneratorListener::EscapeXml(const char* str, bool is_attribute)
 {
-IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
     ::std::string msg;
     if( str != NULL )
     {
@@ -373,8 +374,9 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
         }
     }
     return msg;
-IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 }
+
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 

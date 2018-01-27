@@ -44,6 +44,7 @@ inspecode:
         - unusedFunction
         - "knownConditionTrueFalse:*/iutest_internal_defs.hpp"
         - "noExplicitConstructor:*/iutest_defs.hpp"
+        - "noExplicitConstructor:*/iutest_any.hpp"
         - unmatchedSuppression
       --max-configs: 20
       #--force:
