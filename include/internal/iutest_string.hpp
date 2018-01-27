@@ -179,14 +179,14 @@ inline int iu_snprintf(char* dst, size_t size, const char* format, ...)
     return ret;
 }
 
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
+
 inline bool IsEmpty(const char* p) { return p == NULL || *p == '\0'; }
 inline IUTEST_CXX_CONSTEXPR bool IsSpace(char ch) { return ch == ' ' || ch =='\t'; }
 inline const char* NullableString(const char* str) { return str == NULL ? "" : str; }
 inline IUTEST_CXX_CONSTEXPR const char* SkipSpace(const char* p)
 {
-IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
     return p == NULL ? NULL : (IsSpace(*p) ? SkipSpace(++p) : p);
-IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 }
 inline IUTEST_CXX_CONSTEXPR const char* FindComma(const char* p)
 {
@@ -306,7 +306,6 @@ inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n)
 template<typename T>
 inline ::std::string ToHexString(T value)
 {
-IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
     const size_t kN = sizeof(T)*2;
     char buf[kN + 1] = {0};
     for( size_t i=0; i < kN; ++i )
@@ -315,7 +314,6 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
     }
     buf[kN] = '\0';
     return buf;
-IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 }
 
 inline ::std::string FormatIntWidth2(int value)
@@ -383,6 +381,8 @@ inline ::std::string StringFormat(const char* format, ...)
     }
     return "";
 }
+
+IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 
 //======================================================================
 // declare
