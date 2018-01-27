@@ -76,7 +76,7 @@ private:
                 const ::std::string dataset = fp->ReadAll();
                 ::std::string::size_type prev = 0;
                 ::std::string::size_type pos = 0;
-                while( pos = dataset.find(delimiter, prev), pos != ::std::string::npos )
+                while( static_cast<void>(pos = dataset.find(delimiter, prev)), pos != ::std::string::npos )
                 {
                     const ::std::string data = dataset.substr(prev, pos - prev);
                     AppendParams(params, data);
