@@ -62,6 +62,7 @@ var searchData=
   ['iutest_5fhas_5flambda',['IUTEST_HAS_LAMBDA',['../dc/d2f/iutest__compiler_8hpp.html#a1492732ee8fb90596929d559540bd9ba',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fms_5fextensions',['IUTEST_HAS_MS_EXTENSIONS',['../dc/d2f/iutest__compiler_8hpp.html#a537cb02bd5ef41c5b29807ef19a5e7de',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fnoexcept',['IUTEST_HAS_NOEXCEPT',['../dc/d2f/iutest__compiler_8hpp.html#aafccefe5ce22a465eded7cdfa14df12e',1,'iutest_compiler.hpp']]],
+  ['iutest_5fhas_5fnoexcept_5ffunction_5ftype',['IUTEST_HAS_NOEXCEPT_FUNCTION_TYPE',['../dc/d2f/iutest__compiler_8hpp.html#abc589b0e78dfc3aafa620b266eb241f0',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fnullptr',['IUTEST_HAS_NULLPTR',['../dc/d2f/iutest__compiler_8hpp.html#ad6bae65bf94fdca662426c8b764fe6d2',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5foverride_5fand_5ffinal',['IUTEST_HAS_OVERRIDE_AND_FINAL',['../dc/d2f/iutest__compiler_8hpp.html#a0e1225cc0827acef332a3139e82a0956',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5frtti',['IUTEST_HAS_RTTI',['../dc/d2f/iutest__compiler_8hpp.html#ae13cb328fa68b6edb2e54b19919ac976',1,'iutest_compiler.hpp']]],

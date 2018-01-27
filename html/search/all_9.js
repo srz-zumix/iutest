@@ -299,6 +299,7 @@ var searchData=
   ['iutest_5fhas_5fminidump',['IUTEST_HAS_MINIDUMP',['../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#gac7a5cddc0c5b9ed0fdd4dc07e22e74a2',1,'iutest_config.hpp']]],
   ['iutest_5fhas_5fms_5fextensions',['IUTEST_HAS_MS_EXTENSIONS',['../dc/d2f/iutest__compiler_8hpp.html#a537cb02bd5ef41c5b29807ef19a5e7de',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fnoexcept',['IUTEST_HAS_NOEXCEPT',['../dc/d2f/iutest__compiler_8hpp.html#aafccefe5ce22a465eded7cdfa14df12e',1,'iutest_compiler.hpp']]],
+  ['iutest_5fhas_5fnoexcept_5ffunction_5ftype',['IUTEST_HAS_NOEXCEPT_FUNCTION_TYPE',['../dc/d2f/iutest__compiler_8hpp.html#abc589b0e78dfc3aafa620b266eb241f0',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fnullptr',['IUTEST_HAS_NULLPTR',['../dc/d2f/iutest__compiler_8hpp.html#ad6bae65bf94fdca662426c8b764fe6d2',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5foverride_5fand_5ffinal',['IUTEST_HAS_OVERRIDE_AND_FINAL',['../dc/d2f/iutest__compiler_8hpp.html#a0e1225cc0827acef332a3139e82a0956',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fpackage',['IUTEST_HAS_PACKAGE',['../dc/d51/group___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t.html#gae9bdf7920fe1fed913b81d1ca01b15d7',1,'iutest_config.hpp']]],

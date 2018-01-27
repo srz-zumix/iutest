@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.2.2</span>
+   &#160;<span id="projectnumber">1.16.2.4</span>
    </div>
   </td>
  </tr>
@@ -329,7 +329,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    SakuraScript&amp; Surface(<span class="keywordtype">int</span> <span class="keywordtype">id</span>) { Append(<span class="stringliteral">&quot;\\s[&quot;</span> + StreamableToString(<span class="keywordtype">id</span>) + <span class="stringliteral">&quot;]&quot;</span>); <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    SakuraScript&amp; Animate(<span class="keywordtype">int</span> <span class="keywordtype">id</span>) { Append(<span class="stringliteral">&quot;\\i[&quot;</span> + StreamableToString(<span class="keywordtype">id</span>) + <span class="stringliteral">&quot;]&quot;</span>); <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    SakuraScript&amp; <a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga5688b7c1b6e065fd5b69781ca7548b24">Concat</a>() { m_script.insert(0, <span class="stringliteral">&quot;\\C&quot;</span>); <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    SakuraScript&amp; <a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb">Concat</a>() { m_script.insert(0, <span class="stringliteral">&quot;\\C&quot;</span>); <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
 <div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    SakuraScript&amp; Ln() { Append(<span class="stringliteral">&quot;\\n&quot;</span>); <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    SakuraScript&amp; Home() { Append(<span class="stringliteral">&quot;\\h&quot;</span>); <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    SakuraScript&amp; You() { Append(<span class="stringliteral">&quot;\\u&quot;</span>); <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
@@ -494,9 +494,9 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;    IUTEST_UNUSED_VAR(test);</div>
 <div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    m_sstp.Notify()</div>
 <div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="preprocessor">#if IUTEST_SSTPNOTIFIER_JAPANESE</span></div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;<span class="preprocessor"></span>        .Script(Script(StreamableToString(iteration + 1) + <span class="stringliteral">&quot;回目のテストだよ&quot;</span>).<a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga5688b7c1b6e065fd5b69781ca7548b24">Concat</a>().Ln().ToString())</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;<span class="preprocessor"></span>        .Script(Script(StreamableToString(iteration + 1) + <span class="stringliteral">&quot;回目のテストだよ&quot;</span>).<a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb">Concat</a>().Ln().ToString())</div>
 <div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;<span class="preprocessor"></span>        .Script(Script(StreamableToString(iteration+1) + <span class="stringliteral">&quot;-th test.&quot;</span>).<a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga5688b7c1b6e065fd5b69781ca7548b24">Concat</a>().Ln().ToString())</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;<span class="preprocessor"></span>        .Script(Script(StreamableToString(iteration+1) + <span class="stringliteral">&quot;-th test.&quot;</span>).<a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb">Concat</a>().Ln().ToString())</div>
 <div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;<span class="preprocessor"></span>        .End();</div>
 <div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;}</div>
@@ -550,7 +550,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;{</div>
 <div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;    m_sstp.Notify()</div>
 <div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;        .Script(Script(<span class="stringliteral">&quot;TestRecordProperty:&quot;</span> + StreamableToString(test_property.key())</div>
-<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;            + <span class="stringliteral">&quot;=&quot;</span> + test_property.value()).<a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga5688b7c1b6e065fd5b69781ca7548b24">Concat</a>().Ln().ToString())</div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;            + <span class="stringliteral">&quot;=&quot;</span> + test_property.value()).<a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb">Concat</a>().Ln().ToString())</div>
 <div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;        .End();</div>
 <div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;}</div>
 <div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;IUTEST_IPP_INLINE <span class="keywordtype">void</span> SSTPNotifier::OnTestEnd(<span class="keyword">const</span> TestInfo&amp; test_info)</div>
@@ -587,9 +587,9 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;    IUTEST_UNUSED_VAR(test);</div>
 <div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;    m_sstp.Notify()</div>
 <div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;<span class="preprocessor">#if IUTEST_SSTPNOTIFIER_JAPANESE</span></div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;<span class="preprocessor"></span>        .Script(Script(<span class="stringliteral">&quot;おわり&quot;</span>).<a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga5688b7c1b6e065fd5b69781ca7548b24">Concat</a>().Ln().ToString())</div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;<span class="preprocessor"></span>        .Script(Script(<span class="stringliteral">&quot;おわり&quot;</span>).<a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb">Concat</a>().Ln().ToString())</div>
 <div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;<span class="preprocessor"></span>        .Script(Script(<span class="stringliteral">&quot;Finish!&quot;</span>).<a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga5688b7c1b6e065fd5b69781ca7548b24">Concat</a>().Ln().ToString())</div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;<span class="preprocessor"></span>        .Script(Script(<span class="stringliteral">&quot;Finish!&quot;</span>).<a class="code" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb">Concat</a>().Ln().ToString())</div>
 <div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;<span class="preprocessor"></span>        .End();</div>
 <div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;    m_sstp.Close();</div>
@@ -623,17 +623,17 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_SSTP_NOTIFIER_HPP_1187A63F_E99B_4289_A562_3C87B9739B7D_</span></div>
-<div class="ttc" id="group___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_ga5688b7c1b6e065fd5b69781ca7548b24"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga5688b7c1b6e065fd5b69781ca7548b24">iutest::Concat</a></div><div class="ttdeci">detail::iuConcatParamHolder&lt; G1, G2 &gt; Concat(const G1 &amp;g1, const G2 &amp;g2)</div><div class="ttdoc">パラメータの結合 </div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:548</div></div>
 <div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:657</div></div>
 <div class="ttc" id="classiutest_1_1_unit_test_html_a1154caf184eb447dd0fe5fbde60e1868"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">iutest::UnitTest::GetInstance</a></div><div class="ttdeci">static UnitTest * GetInstance()</div><div class="ttdoc">UnitTest インスタンスの取得 </div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:41</div></div>
 <div class="ttc" id="iutest__port_8hpp_html_a967848348e16a7d0ab2a31c1593ca9ef"><div class="ttname"><a href="../../d1/d2a/iutest__port_8hpp.html#a967848348e16a7d0ab2a31c1593ca9ef">IUTEST_LOG_</a></div><div class="ttdeci">#define IUTEST_LOG_(level)</div><div class="ttdoc">ログメッセージストリーム </div><div class="ttdef"><b>Definition:</b> iutest_port.hpp:49</div></div>
 <div class="ttc" id="classiutest_1_1_unit_test_html_ad1bc193da4371e5bc979fec816ba3d35"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#ad1bc193da4371e5bc979fec816ba3d35">iutest::UnitTest::listeners</a></div><div class="ttdeci">TestEventListeners &amp; listeners() const </div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:115</div></div>
+<div class="ttc" id="group___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gaa6075f95d9a7a1784623e0aebf6488bb"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb">iutest::Concat</a></div><div class="ttdeci">detail::iuConcatParamHolder&lt; Generator1, Generator2 &gt; Concat(const Generator1 &amp;g1, const Generator2 &amp;g2)</div><div class="ttdoc">パラメータの結合 </div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:552</div></div>
 <div class="ttc" id="iutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義 </div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:25</div></div>
 <div class="ttc" id="namespaceiutest_html_a5310e5fc6c9c1a8b16f75992fbc947ee"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a5310e5fc6c9c1a8b16f75992fbc947ee">iutest::UInt32</a></div><div class="ttdeci">detail::type_fit_t&lt; 4 &gt;::UInt UInt32</div><div class="ttdoc">32 bit 符号なし整数型 </div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:321</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年01月24日(水) 01時05分14秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年01月27日(土) 00時55分12秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
