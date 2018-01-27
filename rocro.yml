@@ -50,6 +50,8 @@ inspecode:
       #--force:
     ignore:
       - test/spi_tests_decl.cpp
+      - test/benchmark/*.cpp
+      - tools/wandbox/*.cpp
       - projects/**/*.c
       - projects/**/*.cpp
     thresholds:
