@@ -46,9 +46,9 @@ inspecode:
         - "noExplicitConstructor:*/iutest_defs.hpp"
         - "noExplicitConstructor:*/iutest_any.hpp"
         - "unusedStructMember:*/iutest_constant.hpp"
+        - "unusedStructMember:*/iutest_defs.hpp"
         - "unusedStructMember:*/iutest_type_traits.hpp"
         - unmatchedSuppression
-        #- "unusedStructMember:*/iutest_defs.hpp"
       --max-configs: 20
       #--force:
     ignore:

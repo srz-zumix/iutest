@@ -66,7 +66,6 @@ template<typename T>bool TestTypeIdHelper<T>::_dummy = false;
 template<typename T>
 inline TypeId GetTypeId()
 {
-    IUTEST_UNUSED_VAR(helper::TestTypeIdHelper<T>::_dummy);
     return &(helper::TestTypeIdHelper<T>::_dummy);
 }
 
