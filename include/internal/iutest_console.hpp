@@ -123,14 +123,12 @@ public:
         var::m_pLogger = logger;
         return pre;
     }
-private:
-    static inline void color_output_impl(Color color, const char* fmt, va_list va);
-    static inline bool IsShouldUseColor(bool use_color);
-    static inline bool HasColorConsole();
 
-private:
-    static inline bool IsStringEqual(const char* str1, const char* str2) { return strcmp(str1, str2) == 0; }
-
+public:
+    /**
+     * @brief 色付き表示が無効かどうか
+     * @return 真偽値
+    */
     static bool IsColorModeOff()
     {
 #if defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
@@ -139,6 +137,10 @@ private:
         return IUTEST_FLAG(color) == "no";
 #endif
     }
+    /**
+     * @brief 色付き表示が有効かどうか
+     * @return 真偽値
+    */
     static bool IsColorModeOn()
     {
 #if defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
@@ -147,6 +149,10 @@ private:
         return IUTEST_FLAG(color) == "yes";
 #endif
     }
+    /**
+     * @brief 色付き表示が ANSI エスケープかどうか
+     * @return 真偽値
+    */
     static bool IsColorModeAnsi()
     {
 #if defined(INCG_IRIS_IUTEST_HPP_) && !defined(IUTEST_USE_GTEST)
@@ -155,6 +161,12 @@ private:
         return false;
 #endif
     }
+
+private:
+    static inline void color_output_impl(Color color, const char* fmt, va_list va);
+    static inline bool IsShouldUseColor(bool use_color);
+    static inline bool HasColorConsole();
+    static inline bool IsStringEqual(const char* str1, const char* str2) { return strcmp(str1, str2) == 0; }
 };
 
 inline void iuConsole::output(const char *fmt, ...)
