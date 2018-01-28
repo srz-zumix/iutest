@@ -199,7 +199,7 @@ inline bool IsStringForwardMatching(const char* str1, const char* str2) { return
 inline void StringReplace(::std::string& str, char a, const char* to)
 {
     ::std::string::size_type pos = 0;
-    while( pos = str.find(a, pos), pos != ::std::string::npos )
+    while( static_cast<void>(pos = str.find(a, pos)), pos != ::std::string::npos )
     {
         str.replace(pos, 1, to);
         ++pos;
@@ -256,7 +256,7 @@ inline bool StringIsBlank(const ::std::string& str)
 inline void StringReplaceToLF(::std::string& str)
 {
     ::std::string::size_type pos = 0;
-    while( pos = str.find("\r\n", pos), pos != ::std::string::npos )
+    while( static_cast<void>(pos = str.find("\r\n", pos)), pos != ::std::string::npos )
     {
         str.replace(pos, 2, "\n");
         ++pos;
@@ -288,7 +288,7 @@ inline void StringSplit(const ::std::string& str, char delimiter, ::std::vector<
     ::std::string::size_type prev = 0;
     ::std::string::size_type pos = 0;
     ::std::vector< ::std::string > parsed;
-    while(pos = str.find(delimiter, prev), pos != ::std::string::npos)
+    while(static_cast<void>(pos = str.find(delimiter, prev)), pos != ::std::string::npos)
     {
         parsed.push_back(str.substr(prev, pos - prev));
         ++pos;
