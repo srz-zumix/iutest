@@ -45,12 +45,16 @@ inspecode:
         - "knownConditionTrueFalse:*/iutest_internal_defs.hpp"
         - "noExplicitConstructor:*/iutest_defs.hpp"
         - "noExplicitConstructor:*/iutest_any.hpp"
+        - "unusedStructMember:*/iutest_constant.hpp"
+        - "unusedStructMember:*/iutest_type_traits.hpp"
         - unmatchedSuppression
+        #- "unusedStructMember:*/iutest_defs.hpp"
       --max-configs: 20
       #--force:
     ignore:
       - test/spi_tests_decl.cpp
       - test/benchmark/*.cpp
+      - tools/paiza.io/*.cpp
       - tools/wandbox/*.cpp
       - projects/**/*.c
       - projects/**/*.cpp
