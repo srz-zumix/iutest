@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -59,10 +59,70 @@
 namespace iutest_type_traits
 {
 
+typedef void void_t;    // default template 引数用 (一部のコンパイラで = void だとエラーになるため)
+
 /**
  * @brief   identity
 */
 template<typename T>struct identity { typedef T type; };
+
+/**
+ * @brief   enable_if
+*/
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+
+template<bool B, typename T>
+struct enable_if
+{
+    typedef T type;
+};
+template<typename T>
+struct enable_if<false, T> {};
+
+#else
+
+namespace helper
+{
+
+template<bool B>
+struct enable_if_impl_
+{
+    template<typename T>struct inner { typedef T type; };
+};
+template<>
+struct enable_if_impl_<false>
+{
+    template<typename T>struct inner {};
+};
+
+}   // end of namespace helper
+
+template<bool B, typename T>
+struct enable_if : public helper::enable_if_impl_<B>::template inner<T>
+{
+};
+
+#endif
+
+template<class COND, typename T = void_t>
+struct enable_if_t : public enable_if<COND::value, T> {};
+
+/**
+ * @brief   disable_if
+*/
+template<bool B, typename T>
+struct disable_if : public enable_if<!B, T> {};
+template<class COND, typename T = void_t>
+struct disable_if_t : public disable_if<COND::value, T> {};
+
+template<typename T>
+struct enabler_t
+{
+    static void* value;
+};
+template<typename T>void* enabler_t<T>::value = NULL;
+
+typedef enabler_t<void> enabler;
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
