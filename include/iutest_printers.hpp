@@ -191,13 +191,13 @@ inline void DefaultPrintTo(IsContainerHelper::no_t
 
 template<typename T>
 inline void DefaultPtrPrintTo(T* ptr, iu_ostream* os
-    , typename enable_if_t< is_convertible<T*, const void*> >::type*& = enabler::value)
+    , typename iutest_type_traits::enable_if_t< is_convertible<T*, const void*> >::type*& = iutest_type_traits::enabler::value)
 {
     *os << ptr;
 }
 template<typename T>
 inline void DefaultPtrPrintTo(T* ptr, iu_ostream* os
-    , typename disable_if_t< is_convertible<T*, const void*> >::type*& = enabler::value)
+    , typename iutest_type_traits::disable_if_t< is_convertible<T*, const void*> >::type*& = iutest_type_traits::enabler::value)
 {
     *os << reinterpret_cast<const void*>(reinterpret_cast<type_least_t<8>::UInt>(ptr));
 }
@@ -303,20 +303,20 @@ inline void PrintTo(const ::std::nullptr_t&, iu_ostream* os) { *os << "nullptr";
 
 template<typename T, int I, int SIZE>
 inline void PrintTupleElemTo(const T& t, iu_ostream* os
-    , typename detail::enable_if<I == 0, void>::type*& = detail::enabler::value)
+    , typename iutest_type_traits::enable_if<I == 0, void>::type*& = iutest_type_traits::enabler::value)
 {
     IUTEST_UNUSED_VAR(t);
     IUTEST_UNUSED_VAR(os);
 }
 template<typename T, int I, int SIZE>
 inline void PrintTupleElemTo(const T& t, iu_ostream* os
-    , typename detail::enable_if<I == 1, void>::type*& = detail::enabler::value)
+    , typename iutest_type_traits::enable_if<I == 1, void>::type*& = iutest_type_traits::enabler::value)
 {
     PrintTo(tuples::get<SIZE-I>(t), os);
 }
 template<typename T, int I, int SIZE>
 inline void PrintTupleElemTo(const T& t, iu_ostream* os
-    , typename detail::enable_if<(I&(~1)) != 0, void>::type*& = detail::enabler::value)
+    , typename iutest_type_traits::enable_if<(I&(~1)) != 0, void>::type*& = iutest_type_traits::enabler::value)
 {
     PrintTo(tuples::get<SIZE-I>(t), os);
     *os << ", ";
