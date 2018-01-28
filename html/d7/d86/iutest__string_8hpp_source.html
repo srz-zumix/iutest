@@ -267,7 +267,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> StringReplace(::std::string&amp; str, <span class="keywordtype">char</span> a, <span class="keyword">const</span> <span class="keywordtype">char</span>* to)</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;{</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    ::std::string::size_type pos = 0;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="keywordflow">while</span>( pos = str.find(a, pos), pos != ::std::string::npos )</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="keywordflow">while</span>( static_cast&lt;void&gt;(pos = str.find(a, pos)), pos != ::std::string::npos )</div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    {</div>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        str.replace(pos, 1, to);</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        ++pos;</div>
@@ -324,7 +324,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> StringReplaceToLF(::std::string&amp; str)</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;{</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    ::std::string::size_type pos = 0;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="keywordflow">while</span>( pos = str.find(<span class="stringliteral">&quot;\r\n&quot;</span>, pos), pos != ::std::string::npos )</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="keywordflow">while</span>( static_cast&lt;void&gt;(pos = str.find(<span class="stringliteral">&quot;\r\n&quot;</span>, pos)), pos != ::std::string::npos )</div>
 <div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    {</div>
 <div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        str.replace(pos, 2, <span class="stringliteral">&quot;\n&quot;</span>);</div>
 <div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        ++pos;</div>
@@ -356,7 +356,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    ::std::string::size_type prev = 0;</div>
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    ::std::string::size_type pos = 0;</div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    ::std::vector&lt; ::std::string &gt; parsed;</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <span class="keywordflow">while</span>(pos = str.find(delimiter, prev), pos != ::std::string::npos)</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <span class="keywordflow">while</span>(static_cast&lt;void&gt;(pos = str.find(delimiter, prev)), pos != ::std::string::npos)</div>
 <div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    {</div>
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        parsed.push_back(str.substr(prev, pos - prev));</div>
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        ++pos;</div>
@@ -756,7 +756,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年01月27日(土) 00時55分12秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年01月28日(日) 02時53分27秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

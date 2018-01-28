@@ -151,7 +151,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                const ::std::string dataset = fp-&gt;ReadAll();</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                ::std::string::size_type prev = 0;</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                ::std::string::size_type pos = 0;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                <span class="keywordflow">while</span>( pos = dataset.find(delimiter, prev), pos != ::std::string::npos )</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                <span class="keywordflow">while</span>( static_cast&lt;void&gt;(pos = dataset.find(delimiter, prev)), pos != ::std::string::npos )</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                {</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                    const ::std::string data = dataset.substr(prev, pos - prev);</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                    AppendParams(params, data);</div>
@@ -199,7 +199,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年01月27日(土) 00時55分11秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年01月28日(日) 02時53分27秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
