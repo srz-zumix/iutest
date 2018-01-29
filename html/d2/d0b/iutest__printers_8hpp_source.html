@@ -266,13 +266,13 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> DefaultPtrPrintTo(T* ptr, iu_ostream* os</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    , <span class="keyword">typename</span> enable_if_t&lt; is_convertible&lt;T*, const void*&gt; &gt;::type*&amp; = enabler::value)</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    , <span class="keyword">typename</span> iutest_type_traits::enable_if_t&lt; is_convertible&lt;T*, const void*&gt; &gt;::type*&amp; = iutest_type_traits::enabler::value)</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;{</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    *os &lt;&lt; ptr;</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;}</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> DefaultPtrPrintTo(T* ptr, iu_ostream* os</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    , <span class="keyword">typename</span> disable_if_t&lt; is_convertible&lt;T*, const void*&gt; &gt;::type*&amp; = enabler::value)</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    , <span class="keyword">typename</span> iutest_type_traits::disable_if_t&lt; is_convertible&lt;T*, const void*&gt; &gt;::type*&amp; = iutest_type_traits::enabler::value)</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;{</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    *os &lt;&lt; reinterpret_cast&lt;const void*&gt;(<span class="keyword">reinterpret_cast&lt;</span>type_least_t&lt;8&gt;::UInt<span class="keyword">&gt;</span>(ptr));</div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;}</div>
@@ -375,20 +375,20 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keywordtype">int</span> I, <span class="keywordtype">int</span> SIZE&gt;</div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> PrintTupleElemTo(<span class="keyword">const</span> T&amp; t, iu_ostream* os</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    , <span class="keyword">typename</span> detail::enable_if&lt;I == 0, void&gt;::type*&amp; = detail::enabler::value)</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    , <span class="keyword">typename</span> iutest_type_traits::enable_if&lt;I == 0, void&gt;::type*&amp; = iutest_type_traits::enabler::value)</div>
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;{</div>
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    IUTEST_UNUSED_VAR(t);</div>
 <div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    IUTEST_UNUSED_VAR(os);</div>
 <div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;}</div>
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keywordtype">int</span> I, <span class="keywordtype">int</span> SIZE&gt;</div>
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> PrintTupleElemTo(<span class="keyword">const</span> T&amp; t, iu_ostream* os</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    , <span class="keyword">typename</span> detail::enable_if&lt;I == 1, void&gt;::type*&amp; = detail::enabler::value)</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    , <span class="keyword">typename</span> iutest_type_traits::enable_if&lt;I == 1, void&gt;::type*&amp; = iutest_type_traits::enabler::value)</div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;{</div>
 <div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    PrintTo(tuples::get&lt;SIZE-I&gt;(t), os);</div>
 <div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;}</div>
 <div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keywordtype">int</span> I, <span class="keywordtype">int</span> SIZE&gt;</div>
 <div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> PrintTupleElemTo(<span class="keyword">const</span> T&amp; t, iu_ostream* os</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    , <span class="keyword">typename</span> detail::enable_if&lt;(I&amp;(~1)) != 0, <span class="keywordtype">void</span>&gt;::type*&amp; = detail::enabler::value)</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    , <span class="keyword">typename</span> iutest_type_traits::enable_if&lt;(I&amp;(~1)) != 0, <span class="keywordtype">void</span>&gt;::type*&amp; = iutest_type_traits::enabler::value)</div>
 <div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;{</div>
 <div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    PrintTo(tuples::get&lt;SIZE-I&gt;(t), os);</div>
 <div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    *os &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;</div>
@@ -606,7 +606,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年01月28日(日) 02時53分27秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年01月29日(月) 00時42分24秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
