@@ -52,6 +52,11 @@ OPTIONS+= $(CPPCHECK_SUPPRESS_OPTIONS)
 
 SRC_CPP=$(wildcard ../../src/*.cpp)
 SAMPLES=$(wildcard ../../samples/*.cpp)
+TESTS=$(wildcard ../../test/*.cpp)
+
+SRCS=$(SRC_CPP) \
+	$(TESTS) \
+	#$(SAMPLES) \
 
 TARGETS=cppcheck_result.xml
 
@@ -73,7 +78,7 @@ version:
 	cppcheck --version
 
 check-config:
-	cppcheck $(IUTEST_INCLUDE) $(OPTIONS) $(SRC_CPP) --check-config --xml 2> $@.xml
+	cppcheck $(IUTEST_INCLUDE) $(OPTIONS) $(SRCS) --check-config --xml 2> $@.xml
 
 $(TARGETS): $(SRC_CPP) Makefile
-	cppcheck $(IUTEST_INCLUDE) $(OPTIONS) $(SRC_CPP) --xml 2> $@
+	cppcheck $(IUTEST_INCLUDE) $(OPTIONS) $(SRCS) --xml 2> $@

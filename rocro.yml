@@ -31,6 +31,7 @@ inspecode:
       -I: include
       -D:
         - IUTEST_HAS_CLOCK=1
+        - IUTEST_HAS_TESTNAME_ALIAS_JP=0
       -U:
         - _WIN32
         - _MSC_VER
@@ -48,6 +49,7 @@ inspecode:
         - "unusedStructMember:*/iutest_constant.hpp"
         - "unusedStructMember:*/iutest_defs.hpp"
         - "unusedStructMember:*/iutest_type_traits.hpp"
+        - "preprocessorErrorDirective:*/iutest_param_tests.hpp" # IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE negative failure
         - unmatchedSuppression
       --max-configs: 20
       #--force:
