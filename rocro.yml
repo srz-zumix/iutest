@@ -50,6 +50,7 @@ inspecode:
         - "unusedStructMember:*/iutest_defs.hpp"
         - "unusedStructMember:*/iutest_type_traits.hpp"
         - "preprocessorErrorDirective:*/iutest_param_tests.hpp" # IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE negative failure
+        - "syntaxError:*/japanese_tests.cpp"
         - unmatchedSuppression
       --max-configs: 20
       #--force:
