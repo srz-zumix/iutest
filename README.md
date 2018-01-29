@@ -28,7 +28,7 @@ Features
 --------------------------------------------------
 
 * An [XUnit](https://en.wikipedia.org/wiki/XUnit) test framework.
-* Include only.
+* Header only, no external dependencies.
 * Test discovery.
 * XML/JUnit test report generation.
 * Assertions.
