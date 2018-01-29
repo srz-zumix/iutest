@@ -50,13 +50,13 @@ inspecode:
         - "unusedStructMember:*/iutest_defs.hpp"
         - "unusedStructMember:*/iutest_type_traits.hpp"
         - "preprocessorErrorDirective:*/iutest_param_tests.hpp" # IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE negative failure
-        - "syntaxError:*/japanese_tests.cpp"
         - unmatchedSuppression
       --max-configs: 20
       #--force:
     ignore:
       - test/spi_tests_decl.cpp
       - test/benchmark/*.cpp
+      - test/japanese_tests.cpp # unhandled character(s)
       - tools/paiza.io/*.cpp
       - tools/wandbox/*.cpp
       - projects/**/*.c
