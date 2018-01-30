@@ -31,6 +31,7 @@ libs
 .svn
 .sonar
 .vs
+.vscode
 .tox
 env.*/
 
