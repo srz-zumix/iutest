@@ -15,6 +15,9 @@
     <ClCompile Include="..\..\samples\fixture.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\samples\japanese.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\samples\assertion.cpp">
       <Filter>src</Filter>
     </ClCompile>

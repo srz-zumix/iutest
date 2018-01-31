@@ -35,6 +35,7 @@
     <ClCompile Include="..\..\samples\disabledtest.cpp" />
     <ClCompile Include="..\..\samples\exception.cpp" />
     <ClCompile Include="..\..\samples\fixture.cpp" />
+    <ClCompile Include="..\..\samples\japanese.cpp" />
     <ClCompile Include="..\..\samples\main.cpp" />
     <ClCompile Include="..\..\samples\matcher.cpp" />
     <ClCompile Include="..\..\samples\parameterized.cpp" />

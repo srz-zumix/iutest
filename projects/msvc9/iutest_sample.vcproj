@@ -343,6 +343,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\samples\japanese.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\samples\main.cpp"
 				>
 			</File>

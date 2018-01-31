@@ -57,6 +57,7 @@ inspecode:
       - test/spi_tests_decl.cpp
       - test/benchmark/*.cpp
       - test/japanese_tests.cpp # unhandled character(s)
+      - samples/japanese.cpp # unhandled character(s)
       - tools/paiza.io/*.cpp
       - tools/wandbox/*.cpp
       - projects/**/*.c

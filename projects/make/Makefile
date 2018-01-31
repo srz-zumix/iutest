@@ -24,6 +24,7 @@ SAMPLE_SRCS = main.cpp \
               disabledtest.cpp \
               exception.cpp \
               fixture.cpp \
+			  japanese.cpp \
               matcher.cpp \
               parameterized.cpp \
               printto.cpp \

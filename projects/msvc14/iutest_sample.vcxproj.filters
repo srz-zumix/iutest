@@ -39,6 +39,9 @@
     <ClCompile Include="..\..\samples\matcher.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\samples\japanese.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\samples\csvparams.csv">
