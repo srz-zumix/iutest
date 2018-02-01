@@ -34,6 +34,8 @@ public:
     mfc_iterator(const T& container, POSITION pos) : m_container(container), m_pos(pos) {}
     mfc_iterator(const mfc_iterator& rhs) : m_container(rhs.m_container), m_pos(rhs.m_pos) {}
 
+    mfc_iterator& operator = (const mfc_iterator& rhs) { m_container = rhs.m_container; m_pos = m_pos; return *this; }
+
     mfc_iterator& operator ++ ()    { advance(); return *this; }
     mfc_iterator& operator ++ (int) { mfc_iterator r(*this); advance(); return r; }
 
@@ -67,6 +69,8 @@ class mfc_map_iterator : public ::std::iterator < ::std::input_iterator_tag, ::s
 public:
     mfc_map_iterator(const T& container, POSITION pos) : m_container(container), m_pos(pos) {}
     mfc_map_iterator(const mfc_map_iterator& rhs) : m_container(rhs.m_container), m_pos(rhs.m_pos) {}
+
+    mfc_map_iterator& operator = (const mfc_map_iterator& rhs) { m_container = rhs.m_container; m_pos = m_pos; return *this; }
 
     mfc_map_iterator& operator ++ ()    { advance(); return *this; }
     mfc_map_iterator& operator ++ (int) { mfc_iterator r(*this); advance(); return r; }

@@ -64,14 +64,6 @@ public:
 */
 class iuConsole
 {
-    template<typename T>
-    struct Variable
-    {
-        static iuLogger* m_pLogger;
-    };
-
-    typedef Variable<void> var;
-
 public:
     //! コンソール文字色
     enum Color
@@ -119,8 +111,8 @@ public:
     //! Logger のセット
     static iuLogger* SetLogger(iuLogger* logger)
     {
-        iuLogger* pre = var::m_pLogger;
-        var::m_pLogger = logger;
+        iuLogger* pre = GetLoggerInstanceVariable().pInstance;
+        GetLoggerInstanceVariable().pInstance = logger;
         return pre;
     }
 
@@ -167,6 +159,15 @@ private:
     static inline bool IsShouldUseColor(bool use_color);
     static inline bool HasColorConsole();
     static inline bool IsStringEqual(const char* str1, const char* str2) { return strcmp(str1, str2) == 0; }
+
+private:
+    struct LoggerInstanceVariable
+    {
+        iuLogger* pInstance;
+    };
+
+    static LoggerInstanceVariable& GetLoggerInstanceVariable() { static LoggerInstanceVariable v; return v; }
+    static iuLogger* GetLogger() { return GetLoggerInstanceVariable().pInstance; }
 };
 
 inline void iuConsole::output(const char *fmt, ...)
@@ -178,9 +179,10 @@ inline void iuConsole::output(const char *fmt, ...)
 }
 inline void iuConsole::voutput(const char* fmt, va_list va)
 {
-    if( var::m_pLogger != NULL )
+    iuLogger* pLogger = GetLogger();
+    if(pLogger != NULL)
     {
-        var::m_pLogger->voutput(fmt, va);
+        pLogger->voutput(fmt, va);
     }
     else
     {
@@ -308,20 +310,5 @@ inline bool iuConsole::HasColorConsole()
 
 }   // end of namespace detail
 }   // end of namespace iutest
-
-#if IUTEST_HAS_LIB && IUTEST_HAS_EXTERN_TEMPLATE
-
-IUTEST_PRAGMA_EXTERN_TEMPLATE_WARN_DISABLE_BEGIN()
-
-extern template struct ::iutest::detail::iuConsole::Variable<void>;
-
-IUTEST_PRAGMA_EXTERN_TEMPLATE_WARN_DISABLE_END()
-
-#else
-
-template<typename T>
-::iutest::detail::iuLogger* ::iutest::detail::iuConsole::Variable<T>::m_pLogger = NULL;
-
-#endif
 
 #endif // INCG_IRIS_IUTEST_CONSOLE_HPP_DCAC5025_B7BB_424E_A849_9E6FE0A3B460_

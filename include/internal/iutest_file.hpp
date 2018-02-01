@@ -55,28 +55,21 @@ namespace detail
 */
 class IFileSystem
 {
-    template<typename T>
-    struct Variable
-    {
-        static IFileSystem* m_pInstance;
-    };
-
-    typedef Variable<void> var;
 public:
     IFileSystem()
     {
-        var::m_pInstance = this;
+        SetInstance(this);
     }
     virtual ~IFileSystem()
     {
-        var::m_pInstance = NULL;
+        SetInstance(NULL);
     }
 
 public:
     virtual void Initialize() {}
 
 public:
-    static IFileSystem* GetInstance() { return var::m_pInstance; }
+    static IFileSystem* GetInstance() { return GetInstanceVariable().pInstance; }
 
 public:
     static IFile* New()
@@ -121,13 +114,19 @@ public:
 private:
     virtual IFile*  Create() = 0;
     virtual void    Delete(IFile*) = 0;
+
+private:
+    struct InstanceVariable
+    {
+        IFileSystem* pInstance;
+    };
+
+    static InstanceVariable& GetInstanceVariable() { static InstanceVariable v; return v; }
+    static void SetInstance(IFileSystem* pFileSystem) { GetInstanceVariable().pInstance = pFileSystem; }
 };
 
 }   // end of namespace detail
 }   // end of namespace iutest
-
-template<typename T>
-::iutest::detail::IFileSystem* ::iutest::detail::IFileSystem::Variable<T>::m_pInstance = NULL;
 
 namespace iutest
 {

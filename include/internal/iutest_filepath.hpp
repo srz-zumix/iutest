@@ -88,6 +88,8 @@ public:
     size_t          length()    const { return m_path.length(); }
 
 public:
+    iuFilePath & operator = (const iuFilePath& rhs) { m_path = rhs.m_path; return *this; }
+
     iuFilePath& operator == (const iuFilePath& rhs)
     {
         m_path = rhs.m_path;
