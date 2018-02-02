@@ -20,6 +20,13 @@ Doxyfile    text eol=lf
 *.html      text eol=lf
 *.css       text eol=lf
 *.py        text eol=lf
+*.cpp       text eol=lf
+*.cxx       text eol=lf
+*.cc        text eol=lf
+*.c         text eol=lf
+*.ipp       text eol=lf
+*.hpp       text eol=lf
+*.h         text eol=lf
 
 # project file
 *.code-workspace    text eol=lf
