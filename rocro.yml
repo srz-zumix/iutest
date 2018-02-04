@@ -52,7 +52,6 @@ inspecode:
         - "preprocessorErrorDirective:*/iutest_param_tests.hpp" # IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE negative failure
         - unmatchedSuppression
       --max-configs: 20
-      --check-config:
       #--force:
     ignore:
       - test/spi_tests_decl.cpp
