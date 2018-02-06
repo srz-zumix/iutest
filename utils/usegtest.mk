@@ -1,7 +1,7 @@
 #
 # usegtest.mk
 #
-# Copyright (C) 2017, Takazumi Shirayanagi
+# Copyright (C) 2017-2018, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -10,7 +10,7 @@ ifdef GTEST_ROOT
 
 GTEST_ROOT_=$(subst \,/,$(GTEST_ROOT))
 ifeq ($(shell test -e $(GTEST_ROOT_)/googletest/include && echo -n yes), yes)
-GTEST_ROOT_=$(GTEST_ROOT_)/googletest
+GTEST_ROOT_:=$(GTEST_ROOT_)/googletest
 endif
 
 endif
@@ -19,17 +19,17 @@ ifdef GMOCK_ROOT
 
 GMOCK_ROOT_=$(subst \,/,$(GMOCK_ROOT))
 ifeq ($(shell test -e $(GMOCK_ROOT_)/googlemock/include && echo -n yes), yes)
-GMOCK_ROOT_=$(GMOCK_ROOT_)/googlemock
+GMOCK_ROOT_:=$(GMOCK_ROOT_)/googlemock
 endif
 
 ifndef GTEST_ROOT_
 
 ifeq ($(shell test -e $(GMOCK_ROOT_)/gtest/include && echo -n yes), yes)
-GTEST_ROOT_=$(GMOCK_ROOT_)/gtest
+GTEST_ROOT_:=$(GMOCK_ROOT_)/gtest
 endif
 
 ifeq ($(shell test -e $(GMOCK_ROOT_)/googletest/include && echo -n yes), yes)
-GTEST_ROOT_=$(GMOCK_ROOT_)/googletest
+GTEST_ROOT_:=$(GMOCK_ROOT_)/googletest
 endif
 
 endif
