@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -34,9 +34,9 @@ public:
     //! ファイルオープンモードフラグ
     enum OpenFlag
     {
-        OpenRead        = 0x00000001,   //!< 読み込み
-        OpenWrite       = 0x00000002,   //!< 書き込み
-        OpenReadWrite   = 0x00000003    //!< 読み書き
+        OpenRead    = 0x00000001,   //!< 読み込み
+        OpenWrite   = 0x00000002,   //!< 書き込み
+        OpenAppend  = 0x00000003    //!< 追記
     };
 public:
     virtual ~IFile() {}
@@ -174,7 +174,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         case IFile::OpenWrite:
             m_fp = fopen(filename, "wb");
             break;
-        case IFile::OpenReadWrite:
+        case IFile::OpenAppend:
             m_fp = fopen(filename, "ab");
             break;
         default:

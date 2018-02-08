@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2016-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -49,7 +49,7 @@ private:
 
     virtual bool FileOpen(const char* path)
     {
-        if( m_stderr.Open(path, IFile::OpenReadWrite) )
+        if( m_stderr.Open(path, IFile::OpenAppend) )
         {
             this->m_fp = &m_stderr;
             return true;
