@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2018, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -164,6 +164,17 @@ IUTEST(UnitTest, GetEnvironmentVariable)
     IUTEST_EXPECT_FALSE( ::iutest::detail::GetEnvironmentVariable("PATH", buf, sizeof(buf)) );
     IUTEST_EXPECT_FALSE( ::iutest::detail::GetEnvironmentVariable("PATH", NULL, 0) );
 }
+
+#if IUTEST_HAS_FOPEN
+
+IUTEST(StdFileUnitTest, AppendOpenedFileSize)
+{
+    ::iutest::StdioFile file;
+    IUTEST_ASSERT_TRUE( file.Open("unit_tests.cpp", iutest::IFile::OpenAppend) );
+    IUTEST_ASSERT_LT(0u, file.GetSize());
+}
+
+#endif
 
 
 #ifdef UNICODE
