@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -76,6 +76,7 @@
 #endif
 
 #define IUTEST_UNUSED_VAR(x)        (void)(x)
+#define IUTEST_UNUSED_RETURN(x)     (void)(x)
 
 // DEC
 #define IUTEST_PP_DEC(n)    IIUT_PP_DEC_I(n)

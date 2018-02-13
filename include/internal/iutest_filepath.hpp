@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -21,42 +21,8 @@
 // include
 #include "iutest_port.hpp"
 
-#if IUTEST_HAS_FILE_STAT
-#  include <sys/stat.h>
-#endif
-
-#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
-#  include <direct.h>
-#endif
-
-namespace iutest {
-
-namespace internal {
-namespace posix
+namespace iutest
 {
-
-#if IUTEST_HAS_FILE_STAT
-
-#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_WINE)
-
-    typedef struct _stat StatStruct;
-
-    inline int Stat(const char* path, StatStruct* buf) { return _stat(path, buf); }
-    inline bool IsDir(const StatStruct& st) { return (st.st_mode & _S_IFDIR) != 0; }
-
-#else
-
-    typedef struct stat StatStruct;
-
-    inline int Stat(const char* path, StatStruct* buf) { return stat(path, buf); }
-    inline bool IsDir(const StatStruct& st) { return S_ISDIR(st.st_mode); }
-
-#endif
-
-#endif
-
-}   // end of namespace posix
-}   // end of namespace internal
 
 namespace detail
 {

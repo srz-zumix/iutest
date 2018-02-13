@@ -234,15 +234,26 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
         const long pre = ftell(m_fp);
         if( pre == -1 )
         {
-            return 0;
+            return GetSize(m_fp);
         }
         if( fseek(m_fp, 0, SEEK_END) != 0 )
         {
-            return 0;
+            return GetSize(m_fp);
         }
         const size_t size = static_cast<size_t>(ftell(m_fp));
-        fseek(m_fp, pre, SEEK_SET);
+        IUTEST_UNUSED_RETURN(fseek(m_fp, pre, SEEK_SET));
         return size;
+    }
+
+public:
+    static size_t GetSize(FILE* fp)
+    {
+        internal::posix::StatStruct st;
+        if (internal::posix::Stat(fp, &st) != 0)
+        {
+            return 0;
+        }
+        return st.st_size;
     }
 };
 
