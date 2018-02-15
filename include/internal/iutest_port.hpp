@@ -106,7 +106,7 @@ inline int Fileno(FILE* fp) { return fileno(fp); }
 
 #else
 
-inline int Fileno(FILE* fp) { return -1; }
+inline int Fileno(FILE*) { return -1; }
 
 #endif
 
