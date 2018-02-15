@@ -918,6 +918,13 @@
 #  endif
 #endif
 
+//! has fileno
+#if !defined(IUTEST_HAS_FILENO)
+#  if !defined(IUTEST_OS_WINDOWS_MOBILE) && !defined(__STRICT_ANSI__)
+#    define IUTEST_HAS_FILENO               1
+#  endif
+#endif
+
 //! explicit class member template specialization
 #if !defined(IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION)
 #  if defined(_MSC_VER)

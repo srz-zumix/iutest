@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -506,6 +506,10 @@
 
 #if !defined(IUTEST_HAS_FILE_STAT)
 #  define IUTEST_HAS_FILE_STAT      0   //!< stat が使用可能かどうか
+#endif
+
+#if !defined(IUTEST_HAS_FILENO)
+#  define IUTEST_HAS_FILENO         0   //!< fileno が使用可能かどうか
 #endif
 
 /**

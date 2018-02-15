@@ -96,13 +96,27 @@ IUTEST_ATTRIBUTE_NORETURN_ void Abort();
 inline void Abort() { abort(); }
 #endif
 
+#if IUTEST_HAS_FILENO
+
+#if defined(_MSC_VER)
+inline int Fileno(FILE* fp) { return _fileno(fp); }
+#else
+inline int Fileno(FILE* fp) { return fileno(fp); }
+#endif
+
+#else
+
+inline int Fileno(FILE* fp) { return -1; }
+
+#endif
+
 #if IUTEST_HAS_FILE_STAT
 
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_WINE)
 
 typedef struct _stat StatStruct;
 
-inline int Stat(FILE* fp, StatStruct* buf) { return _fstat(_fileno(fp), buf); }
+inline int Stat(FILE* fp, StatStruct* buf) { return _fstat(Fileno(fp), buf); }
 inline int Stat(const char* path, StatStruct* buf) { return _stat(path, buf); }
 inline bool IsDir(const StatStruct& st) { return (st.st_mode & _S_IFDIR) != 0; }
 
@@ -110,7 +124,7 @@ inline bool IsDir(const StatStruct& st) { return (st.st_mode & _S_IFDIR) != 0; }
 
 typedef struct stat StatStruct;
 
-inline int Stat(FILE* fp, StatStruct* buf) { return fstat(fileno(fp), buf); }
+inline int Stat(FILE* fp, StatStruct* buf) { return fstat(Fileno(fp), buf); }
 inline int Stat(const char* path, StatStruct* buf) { return stat(path, buf); }
 inline bool IsDir(const StatStruct& st) { return S_ISDIR(st.st_mode); }
 
