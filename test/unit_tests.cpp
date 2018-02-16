@@ -165,7 +165,7 @@ IUTEST(UnitTest, GetEnvironmentVariable)
     IUTEST_EXPECT_FALSE( ::iutest::detail::GetEnvironmentVariable("PATH", NULL, 0) );
 }
 
-#if IUTEST_HAS_FOPEN
+#if IUTEST_HAS_FILENO && IUTEST_HAS_FOPEN
 
 IUTEST(StdFileUnitTest, AppendOpenedFileSize)
 {
