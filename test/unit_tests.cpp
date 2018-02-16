@@ -16,6 +16,7 @@
 //======================================================================
 // include
 #include "iutest.hpp"
+#include "internal/iutest_filepath.hpp"
 
 class Base {};
 class Derived : public Base {};
@@ -170,7 +171,9 @@ IUTEST(UnitTest, GetEnvironmentVariable)
 IUTEST(StdFileUnitTest, AppendOpenedFileSize)
 {
     ::iutest::StdioFile file;
-    IUTEST_ASSERT_TRUE( file.Open("unit_tests.cpp", iutest::IFile::OpenAppend) );
+    ::iutest::internal::FilePath filename("unit_tests.cpp");
+    IUTEST_ASSUME_TRUE( filename.FileOrDirectoryExists() );
+    IUTEST_ASSERT_TRUE( file.Open(filename.c_str(), iutest::IFile::OpenAppend) );
     IUTEST_ASSERT_LT(0u, file.GetSize());
 }
 
