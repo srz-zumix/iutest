@@ -23,6 +23,16 @@ endif()
 # プロジェクト名
 project(iutest CXX C)
 
+find_path(IUTEST_ROOT_DIR
+        NAMES include/iutest.hpp
+        HINTS 
+            ../../
+        )
+
+set(CMAKE_MODULE_PATH ${IUTEST_ROOT_DIR}/cmake)
+find_package(IUTEST REQUIRED)
+
+
 if (COMMAND set_up_hermetic_build)
   set_up_hermetic_build()
 endif()
@@ -32,34 +42,31 @@ include(internal_utils.cmake)
 config_compiler_and_linker()  # Defined in internal_utils.cmake.
 
 # インクルードパス
-include_directories(
-  ${PROJECT_SOURCE_DIR}/../../include
-  )
-
+include_directories(${IUTEST_INCLUDE_DIR})
 
 ########################################################################
 #
 # ライブラリ
 #
-cxx_library(iutest "${cxx_strict}" ../../src/iutest_all.cpp)
-cxx_library(iutest_main "${cxx_strict}" ../../src/iutest_main.cpp)
+cxx_library(iutest "${cxx_strict}" ${IUTEST_ROOT_DIR}/src/iutest_all.cpp)
+cxx_library(iutest_main "${cxx_strict}" ${IUTEST_ROOT_DIR}/src/iutest_main.cpp)
 
 ########################################################################
 #
 # サンプル
 #
 cxx_executable_sample(iutest_sample
- ../../samples/main.cpp
- ../../samples/assertion.cpp
- ../../samples/disabledtest.cpp
- ../../samples/exception.cpp
- ../../samples/fixture.cpp
- ../../samples/japanese.cpp
- ../../samples/matcher.cpp
- ../../samples/parameterized.cpp
- ../../samples/printto.cpp
- ../../samples/simple.cpp
- ../../samples/typed.cpp
+ ${IUTEST_ROOT_DIR}/samples/main.cpp
+ ${IUTEST_ROOT_DIR}/samples/assertion.cpp
+ ${IUTEST_ROOT_DIR}/samples/disabledtest.cpp
+ ${IUTEST_ROOT_DIR}/samples/exception.cpp
+ ${IUTEST_ROOT_DIR}/samples/fixture.cpp
+ ${IUTEST_ROOT_DIR}/samples/japanese.cpp
+ ${IUTEST_ROOT_DIR}/samples/matcher.cpp
+ ${IUTEST_ROOT_DIR}/samples/parameterized.cpp
+ ${IUTEST_ROOT_DIR}/samples/printto.cpp
+ ${IUTEST_ROOT_DIR}/samples/simple.cpp
+ ${IUTEST_ROOT_DIR}/samples/typed.cpp
 )
 
 ########################################################################
@@ -67,16 +74,16 @@ cxx_executable_sample(iutest_sample
 # gtest サンプル
 #
 if (build_gtest_samples)
-  cxx_executable_gtest_sample(sample1_unittest  ../../samples/gtest sample1.cc main.cc)
-  cxx_executable_gtest_sample(sample2_unittest  ../../samples/gtest sample2.cc main.cc)
-  cxx_executable_gtest_sample(sample3_unittest  ../../samples/gtest main.cc)
-  cxx_executable_gtest_sample(sample4_unittest  ../../samples/gtest sample4.cc main.cc)
-  cxx_executable_gtest_sample(sample5_unittest  ../../samples/gtest sample1.cc main.cc)
-  cxx_executable_gtest_sample(sample6_unittest  ../../samples/gtest main.cc)
-  cxx_executable_gtest_sample(sample7_unittest  ../../samples/gtest main.cc)
-  cxx_executable_gtest_sample(sample8_unittest  ../../samples/gtest main.cc)
-  cxx_executable_gtest_sample(sample9_unittest  ../../samples/gtest )
-  cxx_executable_gtest_sample(sample10_unittest ../../samples/gtest )
+  cxx_executable_gtest_sample(sample1_unittest  ${IUTEST_ROOT_DIR}/samples/gtest sample1.cc main.cc)
+  cxx_executable_gtest_sample(sample2_unittest  ${IUTEST_ROOT_DIR}/samples/gtest sample2.cc main.cc)
+  cxx_executable_gtest_sample(sample3_unittest  ${IUTEST_ROOT_DIR}/samples/gtest main.cc)
+  cxx_executable_gtest_sample(sample4_unittest  ${IUTEST_ROOT_DIR}/samples/gtest sample4.cc main.cc)
+  cxx_executable_gtest_sample(sample5_unittest  ${IUTEST_ROOT_DIR}/samples/gtest sample1.cc main.cc)
+  cxx_executable_gtest_sample(sample6_unittest  ${IUTEST_ROOT_DIR}/samples/gtest main.cc)
+  cxx_executable_gtest_sample(sample7_unittest  ${IUTEST_ROOT_DIR}/samples/gtest main.cc)
+  cxx_executable_gtest_sample(sample8_unittest  ${IUTEST_ROOT_DIR}/samples/gtest main.cc)
+  cxx_executable_gtest_sample(sample9_unittest  ${IUTEST_ROOT_DIR}/samples/gtest )
+  cxx_executable_gtest_sample(sample10_unittest ${IUTEST_ROOT_DIR}/samples/gtest )
 endif()
 
 ########################################################################
@@ -116,6 +123,7 @@ if (build_tests)
   cxx_executable_test(catch_exceptions_tests)
   cxx_executable_test(commandline_tests)
   cxx_executable_test(csvparams_tests)
+  cxx_executable_test(cxx_feature_tests)
   cxx_executable_test(disabled_tests)
   cxx_executable_test(env_var_gtest_tests)
   cxx_executable_test(environment_tests)
@@ -301,6 +309,6 @@ if (build_tests)
   cxx_add_test(type_param_strict_tests)
   cxx_add_test(unit_tests)
 
-  file(COPY ../../test/testdata DESTINATION .)
+  file(COPY ${IUTEST_ROOT_DIR}/test/testdata DESTINATION .)
 endif()
 

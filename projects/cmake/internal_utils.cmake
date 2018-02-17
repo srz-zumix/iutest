@@ -1,6 +1,6 @@
-
+Ôªø
 #
-# MT, MD ê›íË
+# MT, MD Ë®≠ÂÆö
 #
 macro(fix_default_compiler_settings_)
   if (MSVC)
@@ -8,7 +8,7 @@ macro(fix_default_compiler_settings_)
              CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
              CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
       if (NOT BUILD_SHARED_LIBS AND NOT iutest_force_shared_crt)
-        # íuä∑
+        # ÁΩÆÊèõ
         string(REPLACE "/MD" "-MT" ${flag_var} "${${flag_var}}")
       endif()
 
@@ -20,7 +20,7 @@ endmacro()
 
 
 #
-# ÉvÉçÉWÉFÉNÉgê›íË
+# „Éó„É≠„Ç∏„Çß„ÇØ„ÉàË®≠ÂÆö
 #
 macro(config_compiler_and_linker)
   fix_default_compiler_settings_()
@@ -104,7 +104,7 @@ function(cxx_library_with_type name type cxx_flags)
 endfunction()
 
 #
-# É^Å[ÉQÉbÉgê›íË
+# „Çø„Éº„Ç≤„ÉÉ„ÉàË®≠ÂÆö
 #
 function(cxx_shared_library name cxx_flags)
   cxx_library_with_type(${name} SHARED "${cxx_flags}" ${ARGN})
@@ -115,21 +115,21 @@ function(cxx_library name cxx_flags)
 endfunction()
 
 function(cxx_executable_with_flags name cxx_flags libs)
-  # É\Å[ÉXÉRÅ[Éh
+  # „ÇΩ„Éº„Çπ„Ç≥„Éº„Éâ
   add_executable(${name} ${ARGN})
   if (cxx_flags)
     set_target_properties(${name}
       PROPERTIES
       COMPILE_FLAGS "${cxx_flags}")
   endif()
-  # ÉâÉCÉuÉâÉäÉäÉìÉN
+  # „É©„Ç§„Éñ„É©„É™„É™„É≥„ÇØ
   foreach (lib "${libs}")
     target_link_libraries(${name} ${lib})
   endforeach()
 endfunction()
 
 #
-# ÉTÉìÉvÉãóp
+# „Çµ„É≥„Éó„É´Áî®
 #
 function(cxx_executable_sample name)
   add_executable(${name} ${ARGN})
@@ -139,7 +139,7 @@ function(cxx_executable_sample name)
 endfunction()
 
 #
-# gtest ÉTÉìÉvÉãóp
+# gtest „Çµ„É≥„Éó„É´Áî®
 #
 function(cxx_executable_gtest_sample name dir)
   set(SRCS ${dir}/${name}.cc)
@@ -150,34 +150,37 @@ function(cxx_executable_gtest_sample name dir)
 endfunction()
 
 #
-# test óp
+# test Áî®
 #
 function(cxx_executable_test name)
-  set(SRCS ../../test/${name}.cpp)
+  set(SRCS ${IUTEST_ROOT_DIR}/test/${name}.cpp)
   foreach (src ${ARGN})
-    set(SRCS ${SRCS} ../../test/${src})
+    set(SRCS ${SRCS} ${IUTEST_ROOT_DIR}/test/${src})
   endforeach()
   add_executable(${name} ${SRCS})
 endfunction()
 
 function(cxx_executable_test_with_main name)
-  set(SRCS ../../test/main.cpp)
+  set(SRCS ${IUTEST_ROOT_DIR}/test/main.cpp)
   foreach (src ${ARGN})
-    set(SRCS ${SRCS} ../../test/${src})
+    set(SRCS ${SRCS} ${IUTEST_ROOT_DIR}/test/${src})
   endforeach()
   add_executable(${name} ${SRCS})
 endfunction()
 
 
 function(cxx_namespace_test name)
-  set(SRCS ../../test/main.cpp)
+  set(SRCS ${IUTEST_ROOT_DIR}/test/main.cpp)
+  message(STATUS "create namespace test source:")
+  file(RELATIVE_PATH test_relative_include_path ${IUTEST_ROOT_DIR}/test ${IUTEST_INCLUDE_DIR})
   foreach (src ${ARGN})
     get_filename_component(result "${src}" NAME_WE)
-    set(ns_src ../../test/${result}.ns.cpp)
-    message(STATUS ${ns_src})
+    set(ns_src ${IUTEST_ROOT_DIR}/test/${result}.ns.cpp)
+    file(RELATIVE_PATH ns_src_relative_path ${IUTEST_ROOT_DIR} ${ns_src})
+    message(STATUS "  - ${ns_src_relative_path}")
     file(WRITE  ${ns_src} "#include <cmath>\n")
-    file(APPEND ${ns_src} "#include \"../include/gtest/iutest_spi_switch.hpp\"\n")
-    file(APPEND ${ns_src} "#include \"../include/internal/iutest_filepath.hpp\"\n")
+    file(APPEND ${ns_src} "#include \"${test_relative_include_path}/gtest/iutest_spi_switch.hpp\"\n")
+    file(APPEND ${ns_src} "#include \"${test_relative_include_path}/internal/iutest_filepath.hpp\"\n")
     file(APPEND ${ns_src} "namespace test { namespace iutest { class dummy; }\n")
     file(APPEND ${ns_src} "#include \"${src}\"\n")
     file(APPEND ${ns_src} "}\n")
@@ -187,7 +190,7 @@ function(cxx_namespace_test name)
 endfunction()
 
 #
-# CTest óp
+# CTest Áî®
 #
 function(cxx_add_test name)
   add_test(
