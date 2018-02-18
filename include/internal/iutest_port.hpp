@@ -116,7 +116,7 @@ inline int Fileno(FILE*) { return -1; }
 
 typedef struct _stat StatStruct;
 
-inline int Stat(FILE* fp, StatStruct* buf) { return _fstat(Fileno(fp), buf); }
+inline int FileStat(int fd, StatStruct* buf) { return _fstat(fd, buf); }
 inline int Stat(const char* path, StatStruct* buf) { return _stat(path, buf); }
 inline bool IsDir(const StatStruct& st) { return (st.st_mode & _S_IFDIR) != 0; }
 
@@ -124,11 +124,17 @@ inline bool IsDir(const StatStruct& st) { return (st.st_mode & _S_IFDIR) != 0; }
 
 typedef struct stat StatStruct;
 
-inline int Stat(FILE* fp, StatStruct* buf) { return fstat(Fileno(fp), buf); }
+inline int FileStat(int fd, StatStruct* buf) { return fstat(fd, buf); }
 inline int Stat(const char* path, StatStruct* buf) { return stat(path, buf); }
 inline bool IsDir(const StatStruct& st) { return S_ISDIR(st.st_mode); }
 
 #endif
+
+inline int Stat(FILE* fp, StatStruct* buf)
+{
+    int fd = Fileno(fp);
+    return fd >= 0 ? FileStat(fd, buf) : fd;
+}
 
 #endif
 
