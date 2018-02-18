@@ -76,6 +76,7 @@ TARGETS1= \
           catch_exceptions_tests \
           commandline_tests \
           csvparams_tests \
+          cxx_feature_tests \
           disabled_tests \
           env_var_gtest_tests \
           environment_tests \
