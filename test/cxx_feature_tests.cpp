@@ -39,7 +39,7 @@ int n2() noexcept
     return 2;
 }
 
-}
+}   // namesapce
 
 IUTEST(NoexceptFounctionType, Assert)
 {
