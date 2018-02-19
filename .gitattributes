@@ -1,10 +1,11 @@
 * text=auto
 *.gitattributes text eol=lf
 
-# scripts
+# scripts/build
 *.bat       text eol=crlf
 *.sh        text eol=lf
 *.mk        text eol=lf
+*.cmake     text eol=lf
 *.in        text eol=lf
 Makefile    text eol=lf
 Gnumakefile text eol=lf
