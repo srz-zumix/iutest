@@ -120,6 +120,11 @@
  * @page    CHANGELOG   変更履歴
  * @par     Changes
  <ul>
+  <li>v1.16.3.0
+    <ul>
+      <li></li>
+    </ul>
+  </li>
   <li>v1.16.2.0
     <ul>
       <li>警告をエラーとするオプション(--iutest_warning_into_error)を追加</li>
