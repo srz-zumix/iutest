@@ -5,6 +5,11 @@ steps:
     type: build
     image_name: srzzumix/iutest
     dockerfile: tools/docker/codefresh/Dockerfile
+    when:
+      condition:
+        all:
+          noSkipCiInCommitMessage: |
+            includes(lower("${{CF_COMMIT_MESSAGE}}"), "[ci skip]") == false && includes(lower("${{CF_COMMIT_MESSAGE}}"), "[skip ci]") == false
 
   RunningUnitTests:
     title: Running Unit Tests
