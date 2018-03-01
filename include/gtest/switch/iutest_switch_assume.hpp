@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -185,8 +185,8 @@
 #define ASSUME_NO_FATAL_FAILURE(statement) \
     GTEST_TEST_NO_FATAL_FAILURE_(statement, GTEST_ASSUME_FAILURE_)
 
-#define IUTEST_ASSUME(...)                  ASSUME_TRUE(__VA_ARGS__)
-#define IUTEST_ASSUME_NOT(...)              ASSUME_FALSE(__VA_ARGS__)
+#define IUTEST_ASSUME(...)                  ASSUME_TRUE((__VA_ARGS__))
+#define IUTEST_ASSUME_NOT(...)              ASSUME_FALSE((__VA_ARGS__))
 #define IUTEST_ASSUME_TRUE(...)             ASSUME_TRUE(!!(__VA_ARGS__))
 #define IUTEST_ASSUME_FALSE(...)            ASSUME_FALSE((__VA_ARGS__))
 #define IUTEST_ASSUME_EQ                    ASSUME_EQ

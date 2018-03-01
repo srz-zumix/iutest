@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -153,8 +153,8 @@
 
 //======================================================================
 // define
-#define IUTEST_EXPECT(...)                  EXPECT_TRUE(__VA_ARGS__)
-#define IUTEST_EXPECT_NOT(...)              EXPECT_FALSE(__VA_ARGS__)
+#define IUTEST_EXPECT(...)                  EXPECT_TRUE((__VA_ARGS__))
+#define IUTEST_EXPECT_NOT(...)              EXPECT_FALSE((__VA_ARGS__))
 #define IUTEST_EXPECT_TRUE(...)             EXPECT_TRUE(!!(__VA_ARGS__))
 #define IUTEST_EXPECT_FALSE(...)            EXPECT_FALSE((__VA_ARGS__))
 #define IUTEST_EXPECT_EQ                    EXPECT_EQ

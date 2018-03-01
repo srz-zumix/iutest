@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -152,8 +152,8 @@
 
 //======================================================================
 // define
-#define IUTEST_ASSERT(...)                  ASSERT_TRUE(__VA_ARGS__)
-#define IUTEST_ASSERT_NOT(...)              ASSERT_FALSE(__VA_ARGS__)
+#define IUTEST_ASSERT(...)                  ASSERT_TRUE((__VA_ARGS__))
+#define IUTEST_ASSERT_NOT(...)              ASSERT_FALSE((__VA_ARGS__))
 #define IUTEST_ASSERT_TRUE(...)             ASSERT_TRUE(!!(__VA_ARGS__))
 #define IUTEST_ASSERT_FALSE(...)            ASSERT_FALSE((__VA_ARGS__))
 #define IUTEST_ASSERT_EQ                    ASSERT_EQ

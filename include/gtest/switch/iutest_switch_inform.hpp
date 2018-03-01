@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -192,8 +192,8 @@
 #define INFORM_NO_FATAL_FAILURE(statement) \
     GTEST_TEST_NO_FATAL_FAILURE_(statement, GTEST_INFORM_FAILURE_)
 
-#define IUTEST_INFORM(...)                  INFORM_TRUE(__VA_ARGS__)
-#define IUTEST_INFORM_NOT(...)              INFORM_FALSE(__VA_ARGS__)
+#define IUTEST_INFORM(...)                  INFORM_TRUE((__VA_ARGS__))
+#define IUTEST_INFORM_NOT(...)              INFORM_FALSE((__VA_ARGS__))
 #define IUTEST_INFORM_TRUE(...)             INFORM_TRUE(!!(__VA_ARGS__))
 #define IUTEST_INFORM_FALSE(...)            INFORM_FALSE((__VA_ARGS__))
 #define IUTEST_INFORM_EQ                    INFORM_EQ
