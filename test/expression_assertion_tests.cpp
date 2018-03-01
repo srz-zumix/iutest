@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -24,6 +24,11 @@ int f(void)
 bool g(void)
 {
     return false;
+}
+template<typename T, typename U>
+int x(T a, U b)
+{
+    return a * b;
 }
 int z(void)
 {
@@ -73,6 +78,20 @@ IUTEST(Expression, Logical)
     IUTEST_EXPECT(f() == 42 && g() == false );
     IUTEST_EXPECT(f() != 42 || g() == false );
 }
+
+#ifndef IUTEST_NO_VARIADIC_MACROS
+IUTEST(Expression, VariadicMacro)
+{
+    IUTEST_ASSERT(x<int, int>(1, 42) == 42);
+    IUTEST_EXPECT(x<int, int>(1, 42) == 42);
+    IUTEST_INFORM(x<int, int>(1, 42) == 42);
+    IUTEST_ASSUME(x<int, int>(1, 42) == 42);
+    IUTEST_ASSERT_NOT(x<int, int>(1, 42) != 42);
+    IUTEST_EXPECT_NOT(x<int, int>(1, 42) != 42);
+    IUTEST_INFORM_NOT(x<int, int>(1, 42) != 42);
+    IUTEST_ASSUME_NOT(x<int, int>(1, 42) != 42);
+}
+#endif
 
 IUTEST(ExpressionNot, Monadic)
 {
@@ -147,8 +166,8 @@ IUTEST(ExpressionFail, Arithmetic)
     CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() - 2 == 1), "expansion: 42 - 2 == 1");
     CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() * 2 == 1), "expansion: 42 * 2 == 1");
     CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() / 2 == 1), "expansion: 42 / 2 == 1");
-    CHECK_FATAL_FAILURE(IUTEST_ASSERT(f() % 4 == 1), "expansion: 42 % 4 == 1");
-    CHECK_FATAL_FAILURE(IUTEST_ASSERT(f() + f() + f() == 1), "expansion: 42 + 42 + 42 == 1");
+    CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() % 4 == 1), "expansion: 42 % 4 == 1");
+    CHECK_FATAL_FAILURE( IUTEST_ASSERT(f() + f() + f() == 1), "expansion: 42 + 42 + 42 == 1");
 }
 #endif
 

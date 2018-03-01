@@ -41,8 +41,19 @@
 #  define IIUT_EXPRESSION_DECOMPOSE()   ::iutest::detail::ExpressionDecomposer()>>
 #endif
 
-#define IUTEST_TEST_EXPRESSION_(expr, expected, on_failure) \
+#ifndef IUTEST_NO_VARIADIC_MACROS
+#  define IIUT_TEST_EXPRESSION_UNPAREN_(...)   __VA_ARGS__
+#  define IIUT_TEST_EXPRESSION_EXPAND_EXPRESSION(expr)    IIUT_TEST_EXPRESSION_EXPAND_EXPRESSION_(UNPAREN_ expr)
+#  define IIUT_TEST_EXPRESSION_EXPAND_EXPRESSION_(expr)   IIUT_TEST_EXPRESSION_##expr
+#  define IIUT_TEST_EXPRESSION_(expr, expected, on_failure) \
     IUTEST_TEST_TRUE( ( IIUT_EXPRESSION_DECOMPOSE() expr ).GetResult(expected), #expr, on_failure )
+#  define IUTEST_TEST_EXPRESSION_(expr, expected, on_failure) \
+    IIUT_TEST_EXPRESSION_( IIUT_TEST_EXPRESSION_EXPAND_EXPRESSION(expr), expected, on_failure )
+#else
+#  define IUTEST_TEST_EXPRESSION_(expr, expected, on_failure) \
+    IUTEST_TEST_TRUE( ( IIUT_EXPRESSION_DECOMPOSE() expr ).GetResult(expected), #expr, on_failure )
+#endif
+
 
 #define IIUT_DECL_EXPRESSION_RESULT_OP(op)                                      \
     template<typename RHS>ExpressionResult operator op (const RHS& rhs) const { \

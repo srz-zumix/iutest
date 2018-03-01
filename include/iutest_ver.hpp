@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01160209u //!< iutest version 1.16.2.9
+#define IUTEST_VER          0x01160210u //!< iutest version 1.16.2.10
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
 #define IUTEST_MICROVER     0x02u       //!< Micro Version
-#define IUTEST_REVISION     0x09u       //!< Revision
+#define IUTEST_REVISION     0x10u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -122,7 +122,7 @@
  <ul>
   <li>v1.16.3.0
     <ul>
-      <li></li>
+      <li>IUTEST_ASSERT,IUTEST_EXPECT の Variadic 対応</li>
     </ul>
   </li>
   <li>v1.16.2.0

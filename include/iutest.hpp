@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
  *
@@ -236,7 +236,11 @@
  * @param   expression  = 式
 */
 #ifndef IUTEST_ASSERT
-#  define   IUTEST_ASSERT(expression)               IUTEST_TEST_EXPRESSION_(expression, true, IUTEST_ASSERT_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define IUTEST_ASSERT(...)                      IUTEST_TEST_EXPRESSION_((__VA_ARGS__), true, IUTEST_ASSERT_FAILURE)
+#  else
+#    define IUTEST_ASSERT(expression)               IUTEST_TEST_EXPRESSION_(expression, true, IUTEST_ASSERT_FAILURE)
+#  endif
 #endif
 /**
  * @ingroup IUTEST_ASSERT_
@@ -244,7 +248,11 @@
  * @param   expression  = 式
 */
 #ifndef IUTEST_ASSERT_NOT
-#  define   IUTEST_ASSERT_NOT(expression)           IUTEST_TEST_EXPRESSION_(expression, false, IUTEST_ASSERT_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define IUTEST_ASSERT_NOT(...)                  IUTEST_TEST_EXPRESSION_((__VA_ARGS__), false, IUTEST_ASSERT_FAILURE)
+#  else
+#    define IUTEST_ASSERT_NOT(expression)           IUTEST_TEST_EXPRESSION_(expression, false, IUTEST_ASSERT_FAILURE)
+#  endif
 #endif
 
 #if IUTEST_HAS_MATCHERS
@@ -582,7 +590,11 @@
  * @param   expression  = 式
 */
 #ifndef IUTEST_EXPECT
-#  define   IUTEST_EXPECT(expression)               IUTEST_TEST_EXPRESSION_(expression, true, IUTEST_EXPECT_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define IUTEST_EXPECT(...)                      IUTEST_TEST_EXPRESSION_((__VA_ARGS__), true, IUTEST_EXPECT_FAILURE)
+#  else
+#    define IUTEST_EXPECT(expression)               IUTEST_TEST_EXPRESSION_(expression, true, IUTEST_EXPECT_FAILURE)
+#  endif
 #endif
 /**
  * @ingroup IUTEST_EXPECT_
@@ -590,7 +602,11 @@
  * @param   expression  = 式
 */
 #ifndef IUTEST_EXPECT_NOT
-#  define   IUTEST_EXPECT_NOT(expression)           IUTEST_TEST_EXPRESSION_(expression, false, IUTEST_EXPECT_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define IUTEST_EXPECT_NOT(...)                  IUTEST_TEST_EXPRESSION_((__VA_ARGS__), false, IUTEST_EXPECT_FAILURE)
+#  else
+#    define IUTEST_EXPECT_NOT(expression)           IUTEST_TEST_EXPRESSION_(expression, false, IUTEST_EXPECT_FAILURE)
+#  endif
 #endif
 
 #if IUTEST_HAS_MATCHERS
@@ -938,7 +954,11 @@
  * @param   expression  = 式
 */
 #ifndef IUTEST_INFORM
-#  define   IUTEST_INFORM(expression)               IUTEST_TEST_EXPRESSION_(expression, true, IUTEST_INFORM_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define IUTEST_INFORM(...)                      IUTEST_TEST_EXPRESSION_((__VA_ARGS__), true, IUTEST_INFORM_FAILURE)
+#  else
+#    define IUTEST_INFORM(expression)               IUTEST_TEST_EXPRESSION_(expression, true, IUTEST_INFORM_FAILURE)
+#  endif
 #endif
 /**
  * @ingroup IUTEST_INFORM_
@@ -946,7 +966,11 @@
  * @param   expression  = 式
 */
 #ifndef IUTEST_INFORM_NOT
-#  define   IUTEST_INFORM_NOT(expression)           IUTEST_TEST_EXPRESSION_(expression, false, IUTEST_INFORM_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define IUTEST_INFORM_NOT(...)                  IUTEST_TEST_EXPRESSION_((__VA_ARGS__), false, IUTEST_INFORM_FAILURE)
+#  else
+#    define IUTEST_INFORM_NOT(expression)           IUTEST_TEST_EXPRESSION_(expression, false, IUTEST_INFORM_FAILURE)
+#  endif
 #endif
 
 #if IUTEST_HAS_MATCHERS
@@ -1275,7 +1299,11 @@
  * @param   expression  = 式
 */
 #ifndef IUTEST_ASSUME
-#  define   IUTEST_ASSUME(expression)               IUTEST_TEST_EXPRESSION_(expression, true, IUTEST_ASSUME_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define IUTEST_ASSUME(...)                      IUTEST_TEST_EXPRESSION_((__VA_ARGS__), true, IUTEST_ASSUME_FAILURE)
+#  else
+#    define IUTEST_ASSUME(expression)               IUTEST_TEST_EXPRESSION_(expression, true, IUTEST_ASSUME_FAILURE)
+#  endif
 #endif
 /**
  * @ingroup IUTEST_ASSUME_
@@ -1283,7 +1311,11 @@
  * @param   expression  = 式
 */
 #ifndef IUTEST_ASSUME_NOT
-#  define   IUTEST_ASSUME_NOT(expression)           IUTEST_TEST_EXPRESSION_(expression, false, IUTEST_ASSUME_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define IUTEST_ASSUME_NOT(...)                  IUTEST_TEST_EXPRESSION_((__VA_ARGS__), false, IUTEST_ASSUME_FAILURE)
+#  else
+#    define IUTEST_ASSUME_NOT(expression)           IUTEST_TEST_EXPRESSION_(expression, false, IUTEST_ASSUME_FAILURE)
+#  endif
 #endif
 
 #if IUTEST_HAS_MATCHERS

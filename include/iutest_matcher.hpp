@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -1974,7 +1974,7 @@ inline detail::NotNullMatcher NotNull()
 
 /**
  * @brief   Make TypedEq matcher
- * @details argument == expected
+ * @details argument == (T)expected
 */
 template<typename T, typename U>
 detail::TypedEqMatcher<T> TypedEq(const U& expected)
