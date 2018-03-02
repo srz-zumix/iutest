@@ -75,6 +75,7 @@ IUTEST(Foo, Bar)
 <tr><td>  </td><td>--msgpack              </td><td><a href="http://msgpack.org/">MessagePack</a> を使用します。</td></tr>
 <tr><td>-f</td><td>--compiler-options-raw OPTIONS</td><td>コンパイラーのオプションを直接指定します。複数のオプションを指定する場合は、[ -f"-Dx=hogefuga -O3" ] とするか、[ -f"-Dx=hogefuga" -f"-O3" ] のように記述できます。 </td></tr>
 <tr><td>-r</td><td>--runtime-options-raw OPTIONS</td><td>ビルドした実行ファイルのコマンドラインオプションを指定します。複数のオプションを指定する場合は、[ -r"--iutest_shuffle --iutest_random_seed=1" ] とするか、[ -r"--iutest_shuffle" -r"--iutest_random_seed=1" ] のように複数オプションを記述してください。 </td></tr>
+<tr><td>  </td><td>--iutest-use-main      </td><td>-DIUTEST_USE_MAIN をコンパイルオプションにつけます。main 関数の記述が省略できます。</td></tr>
 <tr><td>  </td><td>--list-compiler        </td><td>利用可能なコンパイラーを列挙します。</td></tr>
 <tr><td>  </td><td>--list-options COMPILER</td><td>COMPILER で利用可能なオプションを列挙します。</td></tr>
 <tr><td>  </td><td>--stdin                </td><td>実行時の stdin の内容を指定します。</td></tr>
@@ -87,8 +88,8 @@ IUTEST(Foo, Bar)
 <tr><td>  </td><td>--verbose              </td><td>実行前にパラメータを表示します。</td></tr>
 <tr><td>  </td><td>--dryrun               </td><td>Wandbox で実行せず終了します。</td></tr>
 <tr><td>  </td><td>--permlink ID          </td><td>ID の permarnent link の情報を取得します。--output オプションを指定すると、ソースコードをファイルに書き出します。</td></tr>
-<tr><td>-v</td><td>--version              </td><td>バージョンを表示します</td></tr>
-<tr><td>-h</td><td>--help                 </td><td>ヘルプを表示します</td></tr>
+<tr><td>-v</td><td>--version              </td><td>バージョンを表示します。</td></tr>
+<tr><td>-h</td><td>--help                 </td><td>ヘルプを表示します。</td></tr>
 </table>
 </div>
 

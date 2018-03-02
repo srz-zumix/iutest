@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.2.9</span>
+   &#160;<span id="projectnumber">1.16.2.10</span>
    </div>
   </td>
  </tr>
@@ -90,12 +90,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 マクロ定義</h2></td></tr>
-<tr class="memitem:ga8b21054bdf534d59c731011579690dd2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8b21054bdf534d59c731011579690dd2">IUTEST_EXPECT</a>(expression)&#160;&#160;&#160;IUTEST_TEST_EXPRESSION_(expression, true, IUTEST_EXPECT_FAILURE)</td></tr>
-<tr class="memdesc:ga8b21054bdf534d59c731011579690dd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">式アサーション  <a href="#ga8b21054bdf534d59c731011579690dd2">[詳解]</a><br/></td></tr>
-<tr class="separator:ga8b21054bdf534d59c731011579690dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4b5ea2303e826a3d4f8e0bfaef4d081e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga4b5ea2303e826a3d4f8e0bfaef4d081e">IUTEST_EXPECT_NOT</a>(expression)&#160;&#160;&#160;IUTEST_TEST_EXPRESSION_(expression, false, IUTEST_EXPECT_FAILURE)</td></tr>
-<tr class="memdesc:ga4b5ea2303e826a3d4f8e0bfaef4d081e"><td class="mdescLeft">&#160;</td><td class="mdescRight">式アサーション  <a href="#ga4b5ea2303e826a3d4f8e0bfaef4d081e">[詳解]</a><br/></td></tr>
-<tr class="separator:ga4b5ea2303e826a3d4f8e0bfaef4d081e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga186b320238832d053438ec92b18456c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga186b320238832d053438ec92b18456c3">IUTEST_EXPECT</a>(...)&#160;&#160;&#160;IUTEST_TEST_EXPRESSION_((__VA_ARGS__), true, IUTEST_EXPECT_FAILURE)</td></tr>
+<tr class="memdesc:ga186b320238832d053438ec92b18456c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">式アサーション  <a href="#ga186b320238832d053438ec92b18456c3">[詳解]</a><br/></td></tr>
+<tr class="separator:ga186b320238832d053438ec92b18456c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf0e00bff94dc5020163fda9b5b214d7a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#gaf0e00bff94dc5020163fda9b5b214d7a">IUTEST_EXPECT_NOT</a>(...)&#160;&#160;&#160;IUTEST_TEST_EXPRESSION_((__VA_ARGS__), false, IUTEST_EXPECT_FAILURE)</td></tr>
+<tr class="memdesc:gaf0e00bff94dc5020163fda9b5b214d7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">式アサーション  <a href="#gaf0e00bff94dc5020163fda9b5b214d7a">[詳解]</a><br/></td></tr>
+<tr class="separator:gaf0e00bff94dc5020163fda9b5b214d7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga83a9225ee5d6bb976610e5f2970228e8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga83a9225ee5d6bb976610e5f2970228e8">IUTEST_EXPECT_THAT</a>(actual, matcher)&#160;&#160;&#160;IUTEST_TEST_THAT(actual, matcher, IUTEST_EXPECT_FAILURE)</td></tr>
 <tr class="memdesc:ga83a9225ee5d6bb976610e5f2970228e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">matcher テスト  <a href="#ga83a9225ee5d6bb976610e5f2970228e8">[詳解]</a><br/></td></tr>
 <tr class="separator:ga83a9225ee5d6bb976610e5f2970228e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -259,7 +259,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <p>致命的ではないエラーフレーバー </p>
 <p>失敗した場合でも、テストを続行します。 </p>
 <h2 class="groupheader">マクロ定義詳解</h2>
-<a class="anchor" id="ga8b21054bdf534d59c731011579690dd2"></a>
+<a class="anchor" id="ga186b320238832d053438ec92b18456c3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -267,8 +267,8 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
           <td class="memname">#define IUTEST_EXPECT</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">expression</td><td>)</td>
-          <td>&#160;&#160;&#160;IUTEST_TEST_EXPRESSION_(expression, true, IUTEST_EXPECT_FAILURE)</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td>&#160;&#160;&#160;IUTEST_TEST_EXPRESSION_((__VA_ARGS__), true, IUTEST_EXPECT_FAILURE)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -882,7 +882,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </dl>
 </div>
 </div>
-<a class="anchor" id="ga4b5ea2303e826a3d4f8e0bfaef4d081e"></a>
+<a class="anchor" id="gaf0e00bff94dc5020163fda9b5b214d7a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -890,8 +890,8 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
           <td class="memname">#define IUTEST_EXPECT_NOT</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">expression</td><td>)</td>
-          <td>&#160;&#160;&#160;IUTEST_TEST_EXPRESSION_(expression, false, IUTEST_EXPECT_FAILURE)</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td>&#160;&#160;&#160;IUTEST_TEST_EXPRESSION_((__VA_ARGS__), false, IUTEST_EXPECT_FAILURE)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2101,7 +2101,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年02月19日(月) 00時55分22秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年03月02日(金) 00時47分34秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
