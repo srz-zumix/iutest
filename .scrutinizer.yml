@@ -1,9 +1,24 @@
 build:
     environment:
         python: 3.6.0
+#    dependencies:
+#        before:
+#            - pip install tox
     tests:
+        before:
+            - make -C tools/fused
         override:
-            - echo OK
+            - tox
+    nodes:
+        tests: true
+        analysis:
+            tests:
+                override:
+                    -
+                        command: pylint-run
+                        use_website_config: true
+                    - py-scrutinizer-run
+
 filter:
     excluded_paths:
         - '*/test/*'
