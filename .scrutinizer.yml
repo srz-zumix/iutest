@@ -14,9 +14,6 @@ build:
         analysis:
             tests:
                 override:
-                    -
-                        command: pylint-run
-                        use_website_config: true
                     - py-scrutinizer-run
 
 filter:
