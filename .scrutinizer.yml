@@ -1,9 +1,6 @@
 build:
     environment:
         python: 3.6.0
-#    dependencies:
-#        before:
-#            - pip install tox
     tests:
         before:
             - make -C tools/fused
