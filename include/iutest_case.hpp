@@ -41,20 +41,17 @@ protected:
      * @param [in]  setup           = テスト事前実行関数
      * @param [in]  teardown        = テスト事後実行関数
     */
-    TestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+    TestCase(const ::std::string& testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
     : m_testcase_name(testcase_name)
-    , m_setup(setup), m_teardown(teardown)
-    , m_id(id), m_disable_num(0)
+    , m_setup(setup)
+    , m_teardown(teardown)
+    , m_id(id)
+    , m_disable_num(0)
     , m_should_run_num(0)
     , m_elapsedmsec(0)
     , m_start_timestamp(0)
-    , m_disable(false)
+    , m_disable(detail::IsDisableTestName(testcase_name))
     {
-        if( detail::IsStringForwardMatching(testcase_name, "DISABLED_")
-            || (strstr(testcase_name, "/DISABLED_") != NULL) )
-        {
-            m_disable = true;
-        }
     }
 
 public:
@@ -190,7 +187,7 @@ public:
 
         bool operator () (const TestCase* p) const
         {
-            if( p->get_typeid() == m_id && (strcmp(p->name(), m_name) == 0) )
+            if( p->get_typeid() == m_id && detail::IsStringEqual(p->m_testcase_name, m_name) )
             {
                 return true;
             }
@@ -273,10 +270,11 @@ protected:
      * @param [in]  setup           = テスト事前実行関数
      * @param [in]  teardown        = テスト事後実行関数
     */
-    TypedTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+    TypedTestCase(const ::std::string& testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
         : TestCase(testcase_name, id, setup, teardown)
         , m_type_param(detail::GetTypeName<TypeParam>())
-    {}
+    {
+    }
 
 public:
     /** type param 文字列の取得 */

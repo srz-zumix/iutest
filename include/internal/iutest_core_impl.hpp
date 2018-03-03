@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -69,7 +69,7 @@ public:
 public:
     /** @private */
     template<typename T>
-    TestCase* AddTestCase(const char* testcase_name, TestTypeId id
+    TestCase* AddTestCase(const ::std::string& testcase_name, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
         TestCase* p = FindTestCase(testcase_name, id);
@@ -123,7 +123,7 @@ private:
     /**
      * @brief   FindTestCase
     */
-    TestCase* FindTestCase(const char* testcase_name, TestTypeId id);
+    TestCase* FindTestCase(const ::std::string& testcase_name, TestTypeId id);
 
     /**
      * @brief   Do information options
