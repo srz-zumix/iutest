@@ -169,6 +169,9 @@ matrix:
           packages:
             - *apt-cmake-packages
             - google-mock
+    # Sanitize
+    - compiler: clang
+      env: STDFLAG=-std=c++11 CXXFLAGS="-fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer"
     # MinGW
     # - compiler: gcc
     #   env: MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAM_BUFFER=0"
