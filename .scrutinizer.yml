@@ -2,17 +2,8 @@ build:
     environment:
         python: 3.6.0
     tests:
-        before:
-            - make -C tools/fused
         override:
-            - tox
-    nodes:
-        tests: true
-        analysis:
-            tests:
-                override:
-                    - py-scrutinizer-run
-
+            - echo OK
 filter:
     excluded_paths:
         - '*/test/*'
