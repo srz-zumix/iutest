@@ -29,7 +29,14 @@ int main(int argc, char* argv[])
 {
     (void)argc;
     (void)argv;
-    if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
+    if( IUTEST_RUN_ALL_TESTS() == 0 ) 
+    {
+#if !defined(IUTEST_USE_GTEST)
+        return 1;
+#else
+        printf("googletest latest is behavior changed...\n");
+#endif
+    }
     printf("*** Successful ***\n");
     return 0;
 }
