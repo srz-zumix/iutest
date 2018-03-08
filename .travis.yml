@@ -90,7 +90,7 @@ before_script:
 
 script:
   - if [ "${USE_LIB}" == '1' ]; then cd projects/make && make && cd -; fi
-  - if [ -n "${CUSTOM_COMMANDS}" ]; then eval ${CUSTOM_COMMANDS}; fi
+  - if [ -n "${CUSTOM_COMMANDS}" ]; then echo "${CUSTOM_COMMANDS}" && eval ${CUSTOM_COMMANDS}; fi
   - cd ./test
   - if [ "${COVERITY_SCAN}" != '1' ]; then make -j4 showcxxversion ${USE_FUSED} default && make test ${USE_FUSED}; fi
   - |
@@ -175,7 +175,7 @@ matrix:
       env:
         - STDFLAG=-std=c++11
         - CXXFLAGS="-stdlib=libc++ -fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer"
-        - CUSTOM_COMMANDS=" clang++ -Wall -Wextra -std=c++14 -g -fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer -O1 samples/simple.cpp samples/main.cpp"
+        - CUSTOM_COMMANDS="clang++-5.0 -Wall -Wextra -std=c++14 -g -fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer -O1 samples/simple.cpp samples/main.cpp"
     # MinGW
     # - compiler: gcc
     #   env: MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAM_BUFFER=0"
