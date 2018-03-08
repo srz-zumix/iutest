@@ -90,7 +90,7 @@ before_script:
 
 script:
   - if [ "${USE_LIB}" == '1' ]; then cd projects/make && make && cd -; fi
-  - if [ -n "${CUSTOM_COMMANDS}" ]; then ${CUSTOM_COMMANDS}; fi
+  - if [ -n "${CUSTOM_COMMANDS}" ]; then eval ${CUSTOM_COMMANDS}; fi
   - cd ./test
   - if [ "${COVERITY_SCAN}" != '1' ]; then make -j4 showcxxversion ${USE_FUSED} default && make test ${USE_FUSED}; fi
   - |
