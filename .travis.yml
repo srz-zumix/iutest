@@ -11,10 +11,10 @@ addons:
   apt: &apt-global
     sources: &apt-common-sources
       - ubuntu-toolchain-r-test
-      - llvm-toolchain-trusty-5.0
+      - llvm-toolchain-trusty-6.0
       - llvm-toolchain-trusty
     packages: &apt-common-packages
-      - clang-5.0
+      - clang-6.0
       - g++-7
       - gcc-7
       #- cppcheck
@@ -81,7 +81,7 @@ before_script:
   # clang
   - |
     if [ "${CXX}" = 'clang++' ]; then
-      export CXX=clang++-5.0;
+      export CXX=clang++-6.0;
     fi
   # mingw
   - if [ "${MINGW}" = '1' ]; then export CXX=i686-w64-mingw32-g++; fi
@@ -90,7 +90,7 @@ before_script:
 
 script:
   - if [ "${USE_LIB}" == '1' ]; then cd projects/make && make && cd -; fi
-  - if [ -n "${CUSTOM_COMMANDS}" ]; then clang++-5.0 -Wall -Wextra -std=c++14 -g -fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer -O1 samples/simple.cpp samples/main.cpp; fi
+  - clang++-6.0 -Wall -Wextra -std=c++14 -g -fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer -O1 samples/simple.cpp samples/main.cpp
   - cd ./test
   - if [ "${COVERITY_SCAN}" != '1' ]; then make -j4 showcxxversion ${USE_FUSED} default && make test ${USE_FUSED}; fi
   - |
