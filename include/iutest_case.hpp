@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -42,14 +42,14 @@ protected:
      * @param [in]  teardown        = テスト事後実行関数
     */
     TestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
-    : m_testcase_name(testcase_name)
-    , m_setup(setup), m_teardown(teardown)
+    : m_setup(setup), m_teardown(teardown)
     , m_id(id), m_disable_num(0)
     , m_should_run_num(0)
     , m_elapsedmsec(0)
     , m_start_timestamp(0)
     , m_disable(false)
     {
+        m_testcase_name = testcase_name;
         if( detail::IsStringForwardMatching(testcase_name, "DISABLED_")
             || (strstr(testcase_name, "/DISABLED_") != NULL) )
         {
