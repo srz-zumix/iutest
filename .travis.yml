@@ -15,6 +15,7 @@ addons:
       - llvm-toolchain-trusty
     packages: &apt-common-packages
       - clang-6.0
+      - libc++-dev
       - g++-7
       - gcc-7
       #- cppcheck
