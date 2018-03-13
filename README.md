@@ -15,6 +15,7 @@
 [![codecov](https://codecov.io/gh/srz-zumix/iutest/branch/master/graph/badge.svg)](https://codecov.io/gh/srz-zumix/iutest)  
 [![New(3-clause) BSD License](https://img.shields.io/badge/license-New_BSD-blue.svg)](http://opensource.org/licenses/BSD-3-Clause)
 [![NuGet version](https://badge.fury.io/nu/iutest.svg)](https://badge.fury.io/nu/iutest)  
+[![support](https://img.shields.io/badge/%24-support-orange.svg)](http://amzn.asia/6fNxDZU)
 
 iutest
 ==========
