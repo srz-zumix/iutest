@@ -1224,6 +1224,33 @@
 #  define IUTEST_ATTRIBUTE_INIT_PRIORITY_(n)
 #endif
 
+//! MemorySanitizer
+#if !defined(IUTEST_HAS_MEMORY_SANITIZER)
+#  if defined(__has_feature)
+#    if __has_feature(memory_sanitizer)
+#      define IUTEST_HAS_MEMORY_SANITIZER   1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_MEMORY_SANITIZER)
+#  define IUTEST_HAS_MEMORY_SANITIZER       0
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY)
+#  if IUTEST_HAS_MEMORY_SANITIZER
+#    if   defined(__clang__)
+#      define IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY   __attribute__((no_sanitize("memory")))
+#    elif defined(__GNUC__) && !defined(COMPILER_ICC)
+#      define IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY   __attribute__((no_sanitize("memory")))
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY)
+#  define IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
+#endif
+
 
 // workaround
 /**
