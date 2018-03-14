@@ -15,6 +15,7 @@
 [![codecov](https://codecov.io/gh/srz-zumix/iutest/branch/master/graph/badge.svg)](https://codecov.io/gh/srz-zumix/iutest)  
 [![New(3-clause) BSD License](https://img.shields.io/badge/license-New_BSD-blue.svg)](http://opensource.org/licenses/BSD-3-Clause)
 [![NuGet version](https://badge.fury.io/nu/iutest.svg)](https://badge.fury.io/nu/iutest)  
+[![support](https://img.shields.io/badge/%24-support-orange.svg)](http://amzn.asia/6fNxDZU)
 
 iutest
 ==========
@@ -99,7 +100,6 @@ Tests
 |:--|:--|:--|:--|
 |Travis CI  |[![Travis-CI Build Status](https://travis-ci.org/srz-zumix/iutest.svg?branch=master)](https://travis-ci.org/srz-zumix/iutest)|[![Travis-CI Build Status](https://travis-ci.org/srz-zumix/iutest.svg?branch=develop)](https://travis-ci.org/srz-zumix/iutest)|Basic tests, Google test compatibility, Coverage, Coverity-scan, Wine + MinGW|
 |AppVeyor   |[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/2gdmgo8ce8m0iy0e/branch/master?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest/branch/master)|[![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/2gdmgo8ce8m0iy0e/branch/develop?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest/branch/develop)|Windows, NuGet|
-|           |[![AppVeyor Build sample status](https://ci.appveyor.com/api/projects/status/906w23swuocl9fex/branch/master?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-8dhoe/branch/master)|[![AppVeyor Build sample status](https://ci.appveyor.com/api/projects/status/906w23swuocl9fex/branch/develop?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-8dhoe/branch/develop)|Sample build|
 |           |[![AppVeyor Build PREFAST status](https://ci.appveyor.com/api/projects/status/0w0wuhc58kre178q/branch/master?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-xsqun/branch/master)|[![AppVeyor Build PREFAST status](https://ci.appveyor.com/api/projects/status/0w0wuhc58kre178q/branch/develop?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-xsqun/branch/develop)|Visual Studio PREFAST (Code Analysis)|
 |           |[![AppVeyor Build cygwin status](https://ci.appveyor.com/api/projects/status/erhkn5rer20jmdbq/branch/master?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-xlae4/branch/master)|[![AppVeyor Build cygwin status](https://ci.appveyor.com/api/projects/status/erhkn5rer20jmdbq/branch/develop?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-xlae4/branch/develop)|Cygwin|
 |           |[![AooVeyor Build mingw status](https://ci.appveyor.com/api/projects/status/xr7yvj6swxutluu4/branch/master?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-rbhes/branch/master)|[![AppVeyor Build mingw status](https://ci.appveyor.com/api/projects/status/xr7yvj6swxutluu4/branch/develop?svg=true)](https://ci.appveyor.com/project/srz-zumix/iutest-rbhes/branch/develop)|MinGW|

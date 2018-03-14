@@ -297,6 +297,7 @@ var searchData=
   ['iutest_5fhas_5fmatcher_5felementsarearrayforward',['IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD',['../dc/d51/group___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t.html#ga21b9a5d95ed58ea3a90b53b35248f108',1,'iutest_config.hpp']]],
   ['iutest_5fhas_5fmatcher_5fregex',['IUTEST_HAS_MATCHER_REGEX',['../dc/d51/group___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t.html#gacc9f78722c6a28e1d8af6bdb66ec91d8',1,'iutest_config.hpp']]],
   ['iutest_5fhas_5fmatchers',['IUTEST_HAS_MATCHERS',['../dc/d51/group___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t.html#ga1a947a1368d6a151c78f967064166e05',1,'iutest_config.hpp']]],
+  ['iutest_5fhas_5fmemory_5fsanitizer',['IUTEST_HAS_MEMORY_SANITIZER',['../dc/d2f/iutest__compiler_8hpp.html#a8cc33c8644c0e50fa57314cd41363451',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fminidump',['IUTEST_HAS_MINIDUMP',['../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#gac7a5cddc0c5b9ed0fdd4dc07e22e74a2',1,'iutest_config.hpp']]],
   ['iutest_5fhas_5fms_5fextensions',['IUTEST_HAS_MS_EXTENSIONS',['../dc/d2f/iutest__compiler_8hpp.html#a537cb02bd5ef41c5b29807ef19a5e7de',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fnoexcept',['IUTEST_HAS_NOEXCEPT',['../dc/d2f/iutest__compiler_8hpp.html#aafccefe5ce22a465eded7cdfa14df12e',1,'iutest_compiler.hpp']]],

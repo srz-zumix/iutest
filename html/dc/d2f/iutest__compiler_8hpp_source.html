@@ -1244,30 +1244,56 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l01224"></a><span class="lineno"> 1224</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_ATTRIBUTE_INIT_PRIORITY_(n)</span></div>
 <div class="line"><a name="l01225"></a><span class="lineno"><a class="line" href="../../dc/d2f/iutest__compiler_8hpp.html#a61f680e71839946345998dfe8d2b8255"> 1225</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l01226"></a><span class="lineno"> 1226</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l01227"></a><span class="lineno"> 1227</span>&#160;</div>
-<div class="line"><a name="l01228"></a><span class="lineno"> 1228</span>&#160;<span class="comment">// workaround</span></div>
-<div class="line"><a name="l01234"></a><span class="lineno"> 1234</span>&#160;<span class="comment"></span><span class="preprocessor">#if defined(_MSC_VER)</span></div>
-<div class="line"><a name="l01235"></a><span class="lineno"> 1235</span>&#160;<span class="preprocessor"></span><span class="comment">// http://stackoverflow.com/questions/14487241/avoiding-an-inheritance-by-dominance-warning-for-a-mocked-stdfstream-class</span></div>
-<div class="line"><a name="l01236"></a><span class="lineno"> 1236</span>&#160;<span class="preprocessor">#  define IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()   \</span></div>
-<div class="line"><a name="l01237"></a><span class="lineno"> 1237</span>&#160;<span class="preprocessor">    void _Add_vtordisp1() {}    \</span></div>
-<div class="line"><a name="l01238"></a><span class="lineno"> 1238</span>&#160;<span class="preprocessor">    void _Add_vtordisp2() {}</span></div>
-<div class="line"><a name="l01239"></a><span class="lineno"> 1239</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
-<div class="line"><a name="l01240"></a><span class="lineno"> 1240</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()</span></div>
-<div class="line"><a name="l01241"></a><span class="lineno"> 1241</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l01242"></a><span class="lineno"> 1242</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l01247"></a><span class="lineno"> 1247</span>&#160;<span class="comment">// pragma</span></div>
-<div class="line"><a name="l01248"></a><span class="lineno"> 1248</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d7/d02/iutest__pragma_8hpp.html">iutest_pragma.hpp</a>&quot;</span></div>
-<div class="line"><a name="l01249"></a><span class="lineno"> 1249</span>&#160;</div>
-<div class="line"><a name="l01250"></a><span class="lineno"> 1250</span>&#160;<span class="preprocessor">#if defined(_MSC_VER) &amp;&amp; _MSC_VER &lt; 1300</span></div>
-<div class="line"><a name="l01251"></a><span class="lineno"> 1251</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  pragma warning(disable:4786) // ident trunc to &#39;255&#39; chars in debug info</span></div>
+<div class="line"><a name="l01228"></a><span class="lineno"> 1228</span>&#160;<span class="preprocessor">#if !defined(IUTEST_HAS_MEMORY_SANITIZER)</span></div>
+<div class="line"><a name="l01229"></a><span class="lineno"> 1229</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  if defined(__has_feature)</span></div>
+<div class="line"><a name="l01230"></a><span class="lineno"> 1230</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    if __has_feature(memory_sanitizer)</span></div>
+<div class="line"><a name="l01231"></a><span class="lineno"> 1231</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#      define IUTEST_HAS_MEMORY_SANITIZER   1</span></div>
+<div class="line"><a name="l01232"></a><span class="lineno"> 1232</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    endif</span></div>
+<div class="line"><a name="l01233"></a><span class="lineno"> 1233</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  endif</span></div>
+<div class="line"><a name="l01234"></a><span class="lineno"> 1234</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01235"></a><span class="lineno"> 1235</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l01236"></a><span class="lineno"> 1236</span>&#160;<span class="preprocessor">#if !defined(IUTEST_HAS_MEMORY_SANITIZER)</span></div>
+<div class="line"><a name="l01237"></a><span class="lineno"> 1237</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_HAS_MEMORY_SANITIZER       0</span></div>
+<div class="line"><a name="l01238"></a><span class="lineno"><a class="line" href="../../dc/d2f/iutest__compiler_8hpp.html#a8cc33c8644c0e50fa57314cd41363451"> 1238</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01239"></a><span class="lineno"> 1239</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l01240"></a><span class="lineno"> 1240</span>&#160;<span class="preprocessor">#if !defined(IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY)</span></div>
+<div class="line"><a name="l01241"></a><span class="lineno"> 1241</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  if IUTEST_HAS_MEMORY_SANITIZER</span></div>
+<div class="line"><a name="l01242"></a><span class="lineno"> 1242</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    if   defined(__clang__)</span></div>
+<div class="line"><a name="l01243"></a><span class="lineno"> 1243</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#      define IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY   __attribute__((no_sanitize(&quot;memory&quot;)))</span></div>
+<div class="line"><a name="l01244"></a><span class="lineno"> 1244</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    elif defined(__GNUC__) &amp;&amp; !defined(COMPILER_ICC)</span></div>
+<div class="line"><a name="l01245"></a><span class="lineno"> 1245</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#      define IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY   __attribute__((no_sanitize(&quot;memory&quot;)))</span></div>
+<div class="line"><a name="l01246"></a><span class="lineno"> 1246</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    endif</span></div>
+<div class="line"><a name="l01247"></a><span class="lineno"> 1247</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  endif</span></div>
+<div class="line"><a name="l01248"></a><span class="lineno"> 1248</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01249"></a><span class="lineno"> 1249</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l01250"></a><span class="lineno"> 1250</span>&#160;<span class="preprocessor">#if !defined(IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY)</span></div>
+<div class="line"><a name="l01251"></a><span class="lineno"> 1251</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY</span></div>
 <div class="line"><a name="l01252"></a><span class="lineno"> 1252</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l01253"></a><span class="lineno"> 1253</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l01254"></a><span class="lineno"> 1254</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_COMPILER_HPP_6DDB27E8_E2FF_4754_80B0_F500025820C4_</span></div>
+<div class="line"><a name="l01254"></a><span class="lineno"> 1254</span>&#160;</div>
+<div class="line"><a name="l01255"></a><span class="lineno"> 1255</span>&#160;<span class="comment">// workaround</span></div>
+<div class="line"><a name="l01261"></a><span class="lineno"> 1261</span>&#160;<span class="comment"></span><span class="preprocessor">#if defined(_MSC_VER)</span></div>
+<div class="line"><a name="l01262"></a><span class="lineno"> 1262</span>&#160;<span class="preprocessor"></span><span class="comment">// http://stackoverflow.com/questions/14487241/avoiding-an-inheritance-by-dominance-warning-for-a-mocked-stdfstream-class</span></div>
+<div class="line"><a name="l01263"></a><span class="lineno"> 1263</span>&#160;<span class="preprocessor">#  define IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()   \</span></div>
+<div class="line"><a name="l01264"></a><span class="lineno"> 1264</span>&#160;<span class="preprocessor">    void _Add_vtordisp1() {}    \</span></div>
+<div class="line"><a name="l01265"></a><span class="lineno"> 1265</span>&#160;<span class="preprocessor">    void _Add_vtordisp2() {}</span></div>
+<div class="line"><a name="l01266"></a><span class="lineno"> 1266</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
+<div class="line"><a name="l01267"></a><span class="lineno"> 1267</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()</span></div>
+<div class="line"><a name="l01268"></a><span class="lineno"> 1268</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01269"></a><span class="lineno"> 1269</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l01274"></a><span class="lineno"> 1274</span>&#160;<span class="comment">// pragma</span></div>
+<div class="line"><a name="l01275"></a><span class="lineno"> 1275</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d7/d02/iutest__pragma_8hpp.html">iutest_pragma.hpp</a>&quot;</span></div>
+<div class="line"><a name="l01276"></a><span class="lineno"> 1276</span>&#160;</div>
+<div class="line"><a name="l01277"></a><span class="lineno"> 1277</span>&#160;<span class="preprocessor">#if defined(_MSC_VER) &amp;&amp; _MSC_VER &lt; 1300</span></div>
+<div class="line"><a name="l01278"></a><span class="lineno"> 1278</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  pragma warning(disable:4786) // ident trunc to &#39;255&#39; chars in debug info</span></div>
+<div class="line"><a name="l01279"></a><span class="lineno"> 1279</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l01280"></a><span class="lineno"> 1280</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l01281"></a><span class="lineno"> 1281</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_COMPILER_HPP_6DDB27E8_E2FF_4754_80B0_F500025820C4_</span></div>
 <div class="ttc" id="iutest__pragma_8hpp_html"><div class="ttname"><a href="../../d7/d02/iutest__pragma_8hpp.html">iutest_pragma.hpp</a></div><div class="ttdoc">pragma macros </div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年03月02日(金) 00時47分33秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年03月14日(水) 01時11分34秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

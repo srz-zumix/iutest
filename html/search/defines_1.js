@@ -61,6 +61,7 @@ var searchData=
   ['iutest_5fhas_5finitializer_5flist',['IUTEST_HAS_INITIALIZER_LIST',['../dc/d2f/iutest__compiler_8hpp.html#a56943f3c54b7dece398fc050d049183f',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5finline_5fvariable',['IUTEST_HAS_INLINE_VARIABLE',['../dc/d2f/iutest__compiler_8hpp.html#aae37db36c18fe66c95b5a2b99fb001ff',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5flambda',['IUTEST_HAS_LAMBDA',['../dc/d2f/iutest__compiler_8hpp.html#a1492732ee8fb90596929d559540bd9ba',1,'iutest_compiler.hpp']]],
+  ['iutest_5fhas_5fmemory_5fsanitizer',['IUTEST_HAS_MEMORY_SANITIZER',['../dc/d2f/iutest__compiler_8hpp.html#a8cc33c8644c0e50fa57314cd41363451',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fms_5fextensions',['IUTEST_HAS_MS_EXTENSIONS',['../dc/d2f/iutest__compiler_8hpp.html#a537cb02bd5ef41c5b29807ef19a5e7de',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fnoexcept',['IUTEST_HAS_NOEXCEPT',['../dc/d2f/iutest__compiler_8hpp.html#aafccefe5ce22a465eded7cdfa14df12e',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fnoexcept_5ffunction_5ftype',['IUTEST_HAS_NOEXCEPT_FUNCTION_TYPE',['../dc/d2f/iutest__compiler_8hpp.html#abc589b0e78dfc3aafa620b266eb241f0',1,'iutest_compiler.hpp']]],
