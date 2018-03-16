@@ -667,6 +667,11 @@
 #define IUTEST_USE_EXTERNAL_STD_TUPLE   0
 
 /**
+ * @brief   std::is_member_function_pointer がコンパイルエラーになる場合に定義する
+*/
+#define IUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER   1
+
+/**
  * @brief   iutest で使用する乱数エンジンを指定します
  * @details 未定義の場合は iutest が実装しているエンジンを使用します(XorShift 128)
 */
