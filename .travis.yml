@@ -121,13 +121,15 @@ env:
     - STDFLAG=-std=c++98
     - STDFLAG=-std=c++11
     - STDFLAG=
-    - STDFLAG=-stdlib=libc++
 
   allow_failures:
     - COVERITY_SCAN=1
 
 matrix:
   include:
+    # libc++
+    - compiler: clang
+      env: STDFLAG=-stdlib=libc++
     # coverage
     - compiler: clang
       env: USE_COVERAGE=gcov USE_CODECOV=1 USE_GNU_EXTENSION=1
