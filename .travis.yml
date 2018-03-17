@@ -121,6 +121,7 @@ env:
     - STDFLAG=-std=c++98
     - STDFLAG=-std=c++11
     - STDFLAG=
+    - STDFLAG=-stdlib=libc++
 
   allow_failures:
     - COVERITY_SCAN=1
