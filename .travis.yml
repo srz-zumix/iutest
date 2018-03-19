@@ -129,7 +129,9 @@ matrix:
   include:
     # libc++
     - compiler: clang
-      env: STDFLAG=-stdlib=libc++
+      env:
+        - STDFLAG=-stdlib=libc++
+        - DEFS="-DIUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER=1"
     # coverage
     - compiler: clang
       env: USE_COVERAGE=gcov USE_CODECOV=1 USE_GNU_EXTENSION=1
