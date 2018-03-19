@@ -737,12 +737,12 @@ struct is_member_pointer
 namespace is_member_function_pointer_helper
 {
 
-    /** @private */
-    template<typename T>
-    class is_member_function_pointer
-    {
-        template<typename U>
-        struct impl : public false_type {};
+/** @private */
+template<typename T>
+class is_member_function_pointer
+{
+    template<typename U>
+    struct impl : public false_type {};
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
 
@@ -752,10 +752,10 @@ namespace is_member_function_pointer_helper
     template<typename R, typename U, typename ...Args>          \
     struct impl<R (U::*)(Args..., ...) CV> : public true_type {}
 
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_CV_(IUTEST_PP_EMPTY());
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_CV_(const);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_CV_(volatile);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_CV_(const volatile);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_CV_(IUTEST_PP_EMPTY());
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_CV_(const);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_CV_(volatile);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_CV_(const volatile);
 
 #undef IIUT_DECL_IS_MEMBER_FUNCTION_PTR_CV_
 
@@ -765,11 +765,11 @@ namespace is_member_function_pointer_helper
     template<typename R, typename U>struct impl<R (U::*)() CV> : public true_type {};   \
     template<typename R, typename U>struct impl<R (U::*)(...) CV> : public true_type {}
 
-        template<typename R, typename U>struct impl<R(U::*)()> : public true_type {};
-        template<typename R, typename U>struct impl<R(U::*)(...)> : public true_type {};
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_VOID_CV_(const);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_VOID_CV_(volatile);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_VOID_CV_(const volatile);
+    template<typename R, typename U>struct impl<R(U::*)()> : public true_type {};
+    template<typename R, typename U>struct impl<R(U::*)(...)> : public true_type {};
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_VOID_CV_(const);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_VOID_CV_(volatile);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_VOID_CV_(const volatile);
 
 #undef IIUT_DECL_IS_MEMBER_FUNCTION_PTR_VOID_CV_
 
@@ -785,41 +785,41 @@ namespace is_member_function_pointer_helper
     template<typename R, typename U, IUTEST_PP_ENUM_PARAMS(n, typename T)>          \
     struct impl<R (U::*)(IUTEST_PP_ENUM_PARAMS(n, T), ...) CV> : public true_type {}
 
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(1);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(2);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(3);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(4);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(5);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(6);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(7);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(8);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(9);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(10);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(11);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(12);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(13);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(14);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(15);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(16);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(17);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(18);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(19);
-        IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(20);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(1);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(2);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(3);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(4);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(5);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(6);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(7);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(8);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(9);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(10);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(11);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(12);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(13);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(14);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(15);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(16);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(17);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(18);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(19);
+    IIUT_DECL_IS_MEMBER_FUNCTION_PTR_(20);
 
 #undef IIUT_DECL_IS_MEMBER_FUNCTION_PTR_
 #undef IIUT_DECL_IS_MEMBER_FUNCTION_PTR_I
 
 #endif
 
-    public:
-        typedef bool_constant< impl< typename remove_cv<T>::type >::value > type;
-    };
+public:
+    typedef bool_constant< impl< typename remove_cv<T>::type >::value > type;
+};
 
 }   // end of namespace is_member_function_pointer_helper
 
-    /**
-    * @brief   is member function pointer
-    */
+/**
+ * @brief   is member function pointer
+*/
 template<typename T>
 struct is_member_function_pointer
     : public is_member_function_pointer_helper::is_member_function_pointer<T>::type
