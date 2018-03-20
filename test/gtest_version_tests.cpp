@@ -16,7 +16,7 @@
 // include
 #include "iutest.hpp"
 
-#if defined(IUTEST_USE_GTEST) 
+#if defined(IUTEST_USE_GTEST)
 
 #if defined(GTEST_EXPECT_VER)
 
