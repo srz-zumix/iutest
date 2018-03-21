@@ -53,6 +53,10 @@
 
 #if IUTEST_HAS_HDR_TYPETARITS
 #  include <type_traits>
+#else
+#  if !defined(IUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER)
+#    define IUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER   1
+#  endif
 #endif
 
 /** iutest type traits */
@@ -142,8 +146,11 @@ public:
     typedef typename impl<T, void>::type type;
 };
 
+#if defined(IUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER) && IUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER
+template<typename T>struct is_member_function_pointer;
 #endif
 
+#endif
 
 #if IUTEST_HAS_HDR_TYPETARITS
 
@@ -169,7 +176,9 @@ template<typename T>
 struct add_rvalue_reference { typedef T type; };
 #endif
 using ::std::is_function;
+#if !defined(IUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER) || !IUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER
 using ::std::is_member_function_pointer;
+#endif
 using ::std::is_member_pointer;
 
 template<typename F>
@@ -689,6 +698,42 @@ struct is_function_pointer
 {
 };
 
+namespace is_member_pointer_helper
+{
+
+/** @private */
+template<typename T>
+class is_member_pointer
+{
+    template<typename U>
+    struct impl : public false_type {};
+    template<typename U, typename C>
+    struct impl<U C::*> : public true_type {};
+
+public:
+    typedef bool_constant< impl< typename remove_cv<T>::type >::value
+                            || is_member_function_pointer<T>::value > type;
+};
+
+}   // end of namespace is_member_pointer_helper
+
+/**
+ * @brief   is member pointer
+*/
+template<typename T>
+struct is_member_pointer
+    : public is_member_pointer_helper::is_member_pointer<T>::type
+{
+};
+
+#endif // #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+
+#endif // #if IUTEST_HAS_HDR_TYPETRAITS
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+
+#if defined(IUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER) && IUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER
+
 namespace is_member_function_pointer_helper
 {
 
@@ -720,8 +765,8 @@ class is_member_function_pointer
     template<typename R, typename U>struct impl<R (U::*)() CV> : public true_type {};   \
     template<typename R, typename U>struct impl<R (U::*)(...) CV> : public true_type {}
 
-    template<typename R, typename U>struct impl<R (U::*)()> : public true_type {};
-    template<typename R, typename U>struct impl<R (U::*)(...)> : public true_type {};
+    template<typename R, typename U>struct impl<R(U::*)()> : public true_type {};
+    template<typename R, typename U>struct impl<R(U::*)(...)> : public true_type {};
     IIUT_DECL_IS_MEMBER_FUNCTION_PTR_VOID_CV_(const);
     IIUT_DECL_IS_MEMBER_FUNCTION_PTR_VOID_CV_(volatile);
     IIUT_DECL_IS_MEMBER_FUNCTION_PTR_VOID_CV_(const volatile);
@@ -781,37 +826,10 @@ struct is_member_function_pointer
 {
 };
 
-namespace is_member_pointer_helper
-{
-
-/** @private */
-template<typename T>
-class is_member_pointer
-{
-    template<typename U>
-    struct impl : public false_type {};
-    template<typename U, typename C>
-    struct impl<U C::*> : public true_type {};
-
-public:
-    typedef bool_constant< impl< typename remove_cv<T>::type >::value
-                            || is_member_function_pointer<T>::value > type;
-};
-
-}   // end of namespace is_member_pointer_helper
-
-/**
- * @brief   is member pointer
-*/
-template<typename T>
-struct is_member_pointer
-    : public is_member_pointer_helper::is_member_pointer<T>::type
-{
-};
+#endif // #if defined(IUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER) && IUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER
 
 #endif // #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
-#endif // #if IUTEST_HAS_HDR_TYPETRAITS
 
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 

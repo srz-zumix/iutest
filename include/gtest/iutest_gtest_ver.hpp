@@ -81,6 +81,10 @@
                             )   //!< google test version
 #endif
 
+#if !defined(GTEST_LATEST)
+#  define GTEST_LATEST      0   //!< google test development latest version
+#endif
+
 #endif
 
 #endif // INCG_IRIS_IUTEST_GTEST_VER_HPP_7396AEF4_D1AB_44B5_9FE3_23CEC1240158_

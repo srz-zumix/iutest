@@ -132,7 +132,7 @@ endif
 # build targets.
 #
 
-.PHONY: clean default all run test bench benchmark lint cppcheck
+.PHONY: clean default all run test bench benchmark lint cppcheck gtest-version
 
 default : $(TARGETS)
 
@@ -320,6 +320,14 @@ $(TARGETS1) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 
 $(TARGETS2) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp
+
+# gtest version test
+gtest-version: run_gtest_version_tests
+
+GTEST_EXPECT_VER:=0
+GTEST_EXPECT_LATEST:=0
+gtest_version_tests: % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS) -DGTEST_EXPECT_VER=$(GTEST_EXPECT_VER) -DGTEST_EXPECT_LATEST=$(GTEST_EXPECT_LATEST)
 
 endif
 
