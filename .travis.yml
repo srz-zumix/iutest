@@ -135,7 +135,7 @@ matrix:
     # no workaround test
     - compiler: clang
       env:
-        - STDFLAG=-stdlib=libc++
+        - DEFS=-stdlib=libc++
 
 notifications:
   webhooks:
