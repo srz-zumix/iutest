@@ -11,10 +11,10 @@ addons:
   apt: &apt-global
     sources: &apt-common-sources
       - ubuntu-toolchain-r-test
-      - llvm-toolchain-trusty-6.0
+      - llvm-toolchain-trusty-5.0
       - llvm-toolchain-trusty
     packages: &apt-common-packages
-      - clang-6.0
+      - clang-5.0
       - libc++-dev
       - g++-7
       - gcc-7
@@ -82,7 +82,7 @@ before_script:
   # clang
   - |
     if [ "${CXX}" = 'clang++' ]; then
-      export CXX=clang++-6.0;
+      export CXX=clang++-5.0;
     fi
   # mingw
   - if [ "${MINGW}" = '1' ]; then export CXX=i686-w64-mingw32-g++; fi
@@ -132,82 +132,10 @@ matrix:
       env:
         - STDFLAG=-stdlib=libc++
         - DEFS="-DIUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER=1"
-    # coverage
+    # no workaround test
     - compiler: clang
-      env: USE_COVERAGE=gcov USE_CODECOV=1 USE_GNU_EXTENSION=1
-    - compiler: gcc
-      env: USE_COVERAGE=lcov USE_COVERALLS=1 USE_GNU_EXTENSION=1
-      addons:
-        apt:
-          sources: *apt-common-sources
-          packages:
-            - *apt-common-packages
-            - lcov
-            - rubygems-integration
-    # fused
-    - compiler: gcc
-      env: USE_FUSED=fused
-    - compiler: gcc
-      env: USE_FUSED=fused_min STDFLAG=-std=c++98
-    # Google Test
-    - compiler: gcc
-      env: USE_GTEST=1 USE_GTEST_HEAD=1 USE_GNU_EXTENSION=1
-      addons:
-        apt:
-          sources: *apt-common-sources
-          packages: &apt-cmake-packages
-            - *apt-common-packages
-            - cmake
-    - compiler: gcc
-      env: USE_GTEST=1
-      addons:
-        apt:
-          sources: *apt-common-sources
-          packages:
-            - *apt-cmake-packages
-            - libgtest-dev
-    # Google Mock
-    - compiler: gcc
-      env: USE_GMOCK=1
-      addons:
-        apt:
-          sources: *apt-common-sources
-          packages:
-            - *apt-cmake-packages
-            - google-mock
-    # MinGW
-    # - compiler: gcc
-    #   env: MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAM_BUFFER=0"
-    #   addons:
-    #     apt:
-    #       sources:
-    #         - *apt-common-sources
-    #         #- ppa:ubuntu-wine/ppa
-    #       packages:
-    #         - *apt-common-packages
-    #         - wine
-    #         - binutils-mingw-w64-i686
-    #         - gcc-mingw-w64-i686
-    #         - g++-mingw-w64-i686
-    # Use Lib
-    - compiler: gcc
-      env: USE_LIB=1
-    - compiler: clang
-      env: USE_LIB=1
-    #- compiler: gcc
-    #  env: CPPCHECK=1
-    - compiler: gcc
-      env: COVERITY_SCAN=1
-      addons:
-        apt: *apt-global
-        coverity_scan:
-          project:
-            name: "srz-zumix/iutest"
-            description: "iutest c++ testing framework"
-          notification_email: zumix.cpp@gmail.com
-          build_command_prepend: "cov-configure --comptype gcc --compiler gcc-7 --template && cd ./test"
-          build_command: make coverity_scan STDFLAG=-std=c++1z
-          branch_pattern: master
+      env:
+        - STDFLAG=-stdlib=libc++
 
 notifications:
   webhooks:
