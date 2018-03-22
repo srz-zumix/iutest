@@ -129,6 +129,9 @@ IUTEST(Config, Check)
 #ifdef _LIBCPP_VERSION
     SHOW_MACRO(_LIBCPP_VERSION);
 #endif
+#ifdef _LIBCPP_STD_VER
+    SHOW_MACRO(_LIBCPP_STD_VER);
+#endif
 #ifdef __GLIBCXX__
     SHOW_MACRO(__GLIBCXX__);
 #endif
