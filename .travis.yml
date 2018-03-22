@@ -135,6 +135,15 @@ matrix:
     # no workaround test
     - compiler: clang
       env:
+        - STDFLAG=-std=c++11
+        - DEFS=-stdlib=libc++
+    - compiler: clang
+      env:
+        - STDFLAG=-std=c++14
+        - DEFS=-stdlib=libc++
+    - compiler: clang
+      env:
+        - STDFLAG=-std=c++98
         - DEFS=-stdlib=libc++
 
 notifications:
