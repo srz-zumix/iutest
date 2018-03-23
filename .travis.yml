@@ -136,22 +136,26 @@ matrix:
     - compiler: clang
       env:
         - STDFLAG=-std=c++11
-        #- DEFS=-stdlib=libc++
-        - DEFS="-stdlib=libc++ -DIUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER=1"
+        - USE_GNU_EXTENSION=1
+        - DEFS=-stdlib=libc++
+        #- DEFS="-stdlib=libc++ -DIUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER=1"
     - compiler: clang
       env:
         - STDFLAG=-std=c++14
-        #- DEFS=-stdlib=libc++
-        - DEFS="-stdlib=libc++ -DIUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER=1"
+        - USE_GNU_EXTENSION=1
+        - DEFS=-stdlib=libc++
+        #- DEFS="-stdlib=libc++ -DIUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER=1"
     - compiler: clang
       env:
         - STDFLAG=-std=c++98
-        #- DEFS=-stdlib=libc++
-        - DEFS="-stdlib=libc++ -DIUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER=1"
+        - USE_GNU_EXTENSION=1
+        - DEFS=-stdlib=libc++
+        #- DEFS="-stdlib=libc++ -DIUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER=1"
     - compiler: clang
       env:
-        #- DEFS=-stdlib=libc++
-        - DEFS="-stdlib=libc++ -DIUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER=1"
+        - USE_GNU_EXTENSION=1
+        - DEFS=-stdlib=libc++
+        #- DEFS="-stdlib=libc++ -DIUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER=1"
 
 notifications:
   webhooks:
