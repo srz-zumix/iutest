@@ -607,6 +607,9 @@ def text_transform(value):
 
 # show result
 def show_result(r, options):
+    if r is None:
+        print('failed: timeout...')
+        sys.exit(1)
     if 'error' in r:
         print(r['error'])
         sys.exit(1)
