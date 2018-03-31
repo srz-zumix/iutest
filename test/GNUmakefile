@@ -97,6 +97,16 @@ STDFLAG:=$(subst c++,gnu++, $(STDFLAG))
 endif
 endif
 
+#
+# gtest-version tests
+#
+ifdef GTEST_EXPECT_VER
+CXXFLAGS+=-DGTEST_EXPECT_VER=$(GTEST_EXPECT_VER)
+endif
+ifdef GTEST_EXPECT_LATEST
+CXXFLAGS+=-DGTEST_EXPECT_LATEST=$(GTEST_EXPECT_LATEST)
+endif
+
 CXXFLAGS += $(DEFS) $(STDFLAG) $(STDLIB)
 LIBS_ = $(LIBS:%=-l%)
 LDFLAGS += $(LIBS_)
@@ -183,6 +193,9 @@ endif
 
 run_% : %_run
 	@echo $< > /dev/null
+
+# gtest version test
+gtest-version: gtest_version_tests_run
 
 coverity_scan: $(BUILD_TARGETS)
 
@@ -320,14 +333,6 @@ $(TARGETS1) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 
 $(TARGETS2) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp
-
-# gtest version test
-gtest-version: run_gtest_version_tests
-
-GTEST_EXPECT_VER:=0
-GTEST_EXPECT_LATEST:=0
-gtest_version_tests: % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS) -DGTEST_EXPECT_VER=$(GTEST_EXPECT_VER) -DGTEST_EXPECT_LATEST=$(GTEST_EXPECT_LATEST)
 
 endif
 

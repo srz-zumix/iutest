@@ -89,6 +89,7 @@ TARGETS1= \
           file_system_tests \
           filter_tests \
           flagfile_gtest_tests \
+          gtest_version_tests \
           help_tests \
           inform_tests \
           internal_log_tests \
