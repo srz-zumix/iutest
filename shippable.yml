@@ -11,6 +11,7 @@ branches:
     - gh-pages
 
 install:
+  - pip install -i https://pypi.python.org/simple/ --upgrade pip
   - pip install requests
 
 before_script:
