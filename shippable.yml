@@ -11,9 +11,9 @@ branches:
     - gh-pages
 
 install:
-  - pip install -i https://pypi.python.org/simple/ --upgrade pip || cat /home/shippable/.pip/pip.log
+  - pip install -i https://pypi.python.org/simple/ --upgrade pip || cat /home/shippable/.pip/pip.log && false
   - pip --version
-  - pip install requests || cat /home/shippable/.pip/pip.log
+  - pip install requests || cat /home/shippable/.pip/pip.log && false
 
 before_script:
   - export PYTHONDONTWRITEBYTECODE=1
