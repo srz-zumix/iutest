@@ -590,8 +590,12 @@
 #    if (!defined(_MSC_VER) || _MSC_VER >= 1310) && (defined(_WIN32_WINNT) && _WIN32_WINNT >= 0x501)
 #      define IUTEST_HAS_SOCKET 1
 #    endif
-#  elif defined(IUTEST_OS_CYGWIN) && !defined(__STRICT_ANSI__)
-#    define IUTEST_HAS_SOCKET   1
+#  elif defined(IUTEST_OS_CYGWIN)
+#    if (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 1) \
+        || (defined(_XOPEN_SOURCE) && _XOPEN_SOURCE) \
+        || (defined(_POSIX_SOURCE) && _POSIX_SOURCE)
+#      define IUTEST_HAS_SOCKET   1
+#    endif
 #  elif defined(IUTEST_OS_LINUX)
 #    define IUTEST_HAS_SOCKET   1
 #  endif
