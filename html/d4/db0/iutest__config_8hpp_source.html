@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.2.10</span>
+   &#160;<span id="projectnumber">1.16.2.12</span>
    </div>
   </td>
  </tr>
@@ -555,112 +555,120 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    if (!defined(_MSC_VER) || _MSC_VER &gt;= 1310) &amp;&amp; (defined(_WIN32_WINNT) &amp;&amp; _WIN32_WINNT &gt;= 0x501)</span></div>
 <div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#      define IUTEST_HAS_SOCKET 1</span></div>
 <div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    endif</span></div>
-<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  elif defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_LINUX)</span></div>
-<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    define IUTEST_HAS_SOCKET   1</span></div>
-<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  endif</span></div>
-<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;<span class="preprocessor">#if !defined(IUTEST_HAS_SOCKET)</span></div>
-<div class="line"><a name="l00599"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#gad3e413f621dfa6d136de36b3e3409005">  599</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_HAS_SOCKET     0</span></div>
-<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;<span class="preprocessor">#if !defined(IUTEST_HAS_STREAM_BUFFER)</span></div>
-<div class="line"><a name="l00606"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#gaa4fac664b9323f4196f4b223e81a5aed">  606</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_HAS_STREAM_BUFFER  1</span></div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;</div>
-<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;<span class="preprocessor">#if !defined(IUTEST_HAS_STREAM_RESULT)</span></div>
-<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  if IUTEST_HAS_SOCKET</span></div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    define IUTEST_HAS_STREAM_RESULT    1</span></div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  else</span></div>
-<div class="line"><a name="l00625"></a><span class="lineno"><a class="line" href="../../d4/da3/group___i_u_t_e_s_t___c_o_n_f_i_g___l_i_s_t_e_n_e_r.html#gae78ded653a3f3d4fe2320e927ee9d26e">  625</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    define IUTEST_HAS_STREAM_RESULT    0</span></div>
-<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  endif</span></div>
-<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;<span class="comment">// Doxygen 用</span></div>
-<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;<span class="preprocessor">#ifdef IUTEST_BUILD_DOXYGEN</span></div>
-<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00641"></a><span class="lineno"><a class="line" href="../../de/d11/group___i_u_t_e_s_t___c_o_n_f_i_g___t_i_m_e.html#ga1410537fc53df34837e73326c0b30458">  641</a></span>&#160;<span class="preprocessor">#define IUTEST_GetMillisec()    </span></div>
-<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00659"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#ga7bacacb1f606e20fdeeb7c0655b82a82">  659</a></span>&#160;<span class="preprocessor">#define IUTEST_USE_EXTERNAL_TR1_TUPLE   0</span></div>
-<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00667"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#ga2720c9a24f8f7eefc7569efed8fd817a">  667</a></span>&#160;<span class="preprocessor">#define IUTEST_USE_EXTERNAL_STD_TUPLE   0</span></div>
-<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00673"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#gaccdbafbe570fdf1c8cd911fcd93b1e68">  673</a></span>&#160;<span class="preprocessor">#define IUTEST_USE_RANDOM_ENGINE_TYPENAME   ::std::default_random_engine</span></div>
+<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  elif defined(IUTEST_OS_CYGWIN)</span></div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    if (defined(_POSIX_C_SOURCE) &amp;&amp; _POSIX_C_SOURCE &gt;= 1) \</span></div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;<span class="preprocessor">        || (defined(_XOPEN_SOURCE) &amp;&amp; _XOPEN_SOURCE) \</span></div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;<span class="preprocessor">        || (defined(_POSIX_SOURCE) &amp;&amp; _POSIX_SOURCE)</span></div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#      define IUTEST_HAS_SOCKET   1</span></div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    endif</span></div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  elif defined(IUTEST_OS_LINUX)</span></div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    define IUTEST_HAS_SOCKET   1</span></div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  endif</span></div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;<span class="preprocessor">#if !defined(IUTEST_HAS_SOCKET)</span></div>
+<div class="line"><a name="l00605"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#gad3e413f621dfa6d136de36b3e3409005">  605</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_HAS_SOCKET     0</span></div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;<span class="preprocessor">#if !defined(IUTEST_HAS_STREAM_BUFFER)</span></div>
+<div class="line"><a name="l00612"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#gaa4fac664b9323f4196f4b223e81a5aed">  612</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_HAS_STREAM_BUFFER  1</span></div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;</div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;<span class="preprocessor">#if !defined(IUTEST_HAS_STREAM_RESULT)</span></div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  if IUTEST_HAS_SOCKET</span></div>
+<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    define IUTEST_HAS_STREAM_RESULT    1</span></div>
+<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  else</span></div>
+<div class="line"><a name="l00631"></a><span class="lineno"><a class="line" href="../../d4/da3/group___i_u_t_e_s_t___c_o_n_f_i_g___l_i_s_t_e_n_e_r.html#gae78ded653a3f3d4fe2320e927ee9d26e">  631</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    define IUTEST_HAS_STREAM_RESULT    0</span></div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  endif</span></div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;<span class="comment">// Doxygen 用</span></div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;<span class="preprocessor">#ifdef IUTEST_BUILD_DOXYGEN</span></div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00647"></a><span class="lineno"><a class="line" href="../../de/d11/group___i_u_t_e_s_t___c_o_n_f_i_g___t_i_m_e.html#ga1410537fc53df34837e73326c0b30458">  647</a></span>&#160;<span class="preprocessor">#define IUTEST_GetMillisec()    </span></div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00665"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#ga7bacacb1f606e20fdeeb7c0655b82a82">  665</a></span>&#160;<span class="preprocessor">#define IUTEST_USE_EXTERNAL_TR1_TUPLE   0</span></div>
+<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00673"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#ga2720c9a24f8f7eefc7569efed8fd817a">  673</a></span>&#160;<span class="preprocessor">#define IUTEST_USE_EXTERNAL_STD_TUPLE   0</span></div>
 <div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00675"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#ga1a7daf8f9b754f16a7deb00c7b33f407">  675</a></span>&#160;<span class="preprocessor">#define IUTEST_NO_GETENV    </span></div>
-<div class="line"><a name="l00676"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#gaa4eb6603c36c0bdfd31d8b9685e3ee24">  676</a></span>&#160;<span class="preprocessor">#define IUTEST_NO_SETENV    </span></div>
-<div class="line"><a name="l00677"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#gafe41f26a589519e7f031f4aa4f687857">  677</a></span>&#160;<span class="preprocessor">#define IUTEST_NO_PUTENV    </span></div>
-<div class="line"><a name="l00678"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#gadebefb5e852109b94eb0be3634d7d1ca">  678</a></span>&#160;<span class="preprocessor">#define IUTEST_NO_GETCWD    </span></div>
+<div class="line"><a name="l00678"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#ga38ef950347c6453ca96ff2bc58a9f0dd">  678</a></span>&#160;<span class="preprocessor">#define IUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER   1</span></div>
 <div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00684"></a><span class="lineno"><a class="line" href="../../dd/d04/group___i_u_t_e_s_t___c_o_n_f_i_g.html#ga4e53d8577ecfcc964b6604722a94abe6">  684</a></span>&#160;<span class="preprocessor">#define IUTEST_USE_LIB      </span></div>
-<div class="line"><a name="l00685"></a><span class="lineno"><a class="line" href="../../dd/d04/group___i_u_t_e_s_t___c_o_n_f_i_g.html#gad3ab7dd72d9648e10feda39b24866ec2">  685</a></span>&#160;<span class="preprocessor">#define IUTEST_AUTO_LINK    </span></div>
-<div class="line"><a name="l00686"></a><span class="lineno"><a class="line" href="../../dd/d04/group___i_u_t_e_s_t___c_o_n_f_i_g.html#ga2836558ce55541c282e0bb068df25841">  686</a></span>&#160;<span class="preprocessor">#define IUTEST_USE_MAIN     </span></div>
-<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;<span class="comment">// include only</span></div>
-<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;<span class="preprocessor">#if IUTEST_HAS_LIB</span></div>
-<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_IPP_INLINE</span></div>
-<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_IPP_INLINE     inline</span></div>
-<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;<span class="comment">// auto link</span></div>
-<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;<span class="preprocessor">#if IUTEST_HAS_LIB &amp;&amp; defined(IUTEST_AUTO_LINK)</span></div>
-<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;<span class="preprocessor">#if defined(_MSC_VER)</span></div>
-<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;<span class="preprocessor">#if defined(_MT) || defined(__MT__)</span></div>
-<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  if defined(_DLL)</span></div>
-<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    define IUTEST_LIB_THREAD_OPT   &quot;md&quot;</span></div>
-<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  else</span></div>
-<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    define IUTEST_LIB_THREAD_OPT   &quot;mt&quot;</span></div>
-<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  endif</span></div>
-<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_THREAD_OPT &quot;&quot;</span></div>
-<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;<span class="preprocessor">#if   _MSC_VER == 1400</span></div>
-<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_TOOLSET    &quot;vc80&quot;</span></div>
-<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#elif _MSC_VER == 1500</span></div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_TOOLSET    &quot;vc90&quot;</span></div>
-<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#elif _MSC_VER == 1600</span></div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_TOOLSET    &quot;vc100&quot;</span></div>
-<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#elif _MSC_VER == 1700</span></div>
-<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_TOOLSET    &quot;vc110&quot;</span></div>
-<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#elif _MSC_VER == 1800</span></div>
-<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_TOOLSET    &quot;vc120&quot;</span></div>
-<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#elif _MSC_VER == 1900</span></div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_TOOLSET    &quot;vc140&quot;</span></div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#elif _MSC_VER == 1910</span></div>
-<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_TOOLSET    &quot;vc141&quot;</span></div>
-<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  error unknown _MSC_VER.</span></div>
-<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;<span class="preprocessor">#if defined(_DEBUG)</span></div>
-<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_RT_OPT     &quot;d&quot;</span></div>
-<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_RT_OPT     &quot;&quot;</span></div>
-<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;<span class="preprocessor">#define IUTEST_LIB_NAME(name)   \</span></div>
-<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;<span class="preprocessor">    #name &quot;-&quot; IUTEST_LIB_TOOLSET &quot;-&quot; IUTEST_LIB_THREAD_OPT IUTEST_LIB_RT_OPT &quot;.lib&quot;</span></div>
-<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;<span class="preprocessor">#pragma comment(lib, IUTEST_LIB_NAME(libiutest) )</span></div>
+<div class="line"><a name="l00684"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#gaccdbafbe570fdf1c8cd911fcd93b1e68">  684</a></span>&#160;<span class="preprocessor">#define IUTEST_USE_RANDOM_ENGINE_TYPENAME   ::std::default_random_engine</span></div>
+<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00686"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#ga1a7daf8f9b754f16a7deb00c7b33f407">  686</a></span>&#160;<span class="preprocessor">#define IUTEST_NO_GETENV    </span></div>
+<div class="line"><a name="l00687"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#gaa4eb6603c36c0bdfd31d8b9685e3ee24">  687</a></span>&#160;<span class="preprocessor">#define IUTEST_NO_SETENV    </span></div>
+<div class="line"><a name="l00688"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#gafe41f26a589519e7f031f4aa4f687857">  688</a></span>&#160;<span class="preprocessor">#define IUTEST_NO_PUTENV    </span></div>
+<div class="line"><a name="l00689"></a><span class="lineno"><a class="line" href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#gadebefb5e852109b94eb0be3634d7d1ca">  689</a></span>&#160;<span class="preprocessor">#define IUTEST_NO_GETCWD    </span></div>
+<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00695"></a><span class="lineno"><a class="line" href="../../dd/d04/group___i_u_t_e_s_t___c_o_n_f_i_g.html#ga4e53d8577ecfcc964b6604722a94abe6">  695</a></span>&#160;<span class="preprocessor">#define IUTEST_USE_LIB      </span></div>
+<div class="line"><a name="l00696"></a><span class="lineno"><a class="line" href="../../dd/d04/group___i_u_t_e_s_t___c_o_n_f_i_g.html#gad3ab7dd72d9648e10feda39b24866ec2">  696</a></span>&#160;<span class="preprocessor">#define IUTEST_AUTO_LINK    </span></div>
+<div class="line"><a name="l00697"></a><span class="lineno"><a class="line" href="../../dd/d04/group___i_u_t_e_s_t___c_o_n_f_i_g.html#ga2836558ce55541c282e0bb068df25841">  697</a></span>&#160;<span class="preprocessor">#define IUTEST_USE_MAIN     </span></div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;<span class="comment">// include only</span></div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;<span class="preprocessor">#if IUTEST_HAS_LIB</span></div>
+<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_IPP_INLINE</span></div>
+<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_IPP_INLINE     inline</span></div>
+<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;<span class="comment">// auto link</span></div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;<span class="preprocessor">#if IUTEST_HAS_LIB &amp;&amp; defined(IUTEST_AUTO_LINK)</span></div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;<span class="preprocessor">#if defined(_MSC_VER)</span></div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;<span class="preprocessor">#if defined(_MT) || defined(__MT__)</span></div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  if defined(_DLL)</span></div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    define IUTEST_LIB_THREAD_OPT   &quot;md&quot;</span></div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  else</span></div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    define IUTEST_LIB_THREAD_OPT   &quot;mt&quot;</span></div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  endif</span></div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_THREAD_OPT &quot;&quot;</span></div>
+<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;<span class="preprocessor">#if   _MSC_VER == 1400</span></div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_TOOLSET    &quot;vc80&quot;</span></div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#elif _MSC_VER == 1500</span></div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_TOOLSET    &quot;vc90&quot;</span></div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#elif _MSC_VER == 1600</span></div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_TOOLSET    &quot;vc100&quot;</span></div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#elif _MSC_VER == 1700</span></div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_TOOLSET    &quot;vc110&quot;</span></div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#elif _MSC_VER == 1800</span></div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_TOOLSET    &quot;vc120&quot;</span></div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#elif _MSC_VER == 1900</span></div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_TOOLSET    &quot;vc140&quot;</span></div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#elif _MSC_VER == 1910</span></div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_TOOLSET    &quot;vc141&quot;</span></div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  error unknown _MSC_VER.</span></div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_CONFIG_HPP_F0151607_0D9D_4055_B94D_ED4A0FFA748B_</span></div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;<span class="preprocessor">#if defined(_DEBUG)</span></div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_RT_OPT     &quot;d&quot;</span></div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_LIB_RT_OPT     &quot;&quot;</span></div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;<span class="preprocessor">#define IUTEST_LIB_NAME(name)   \</span></div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;<span class="preprocessor">    #name &quot;-&quot; IUTEST_LIB_TOOLSET &quot;-&quot; IUTEST_LIB_THREAD_OPT IUTEST_LIB_RT_OPT &quot;.lib&quot;</span></div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;<span class="preprocessor">#pragma comment(lib, IUTEST_LIB_NAME(libiutest) )</span></div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_CONFIG_HPP_F0151607_0D9D_4055_B94D_ED4A0FFA748B_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年03月14日(水) 01時11分34秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年04月02日(月) 14時02分43秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -493,6 +493,7 @@ var searchData=
   ['iutest_5fuse_5fexternal_5ftr1_5ftuple',['IUTEST_USE_EXTERNAL_TR1_TUPLE',['../d9/dad/iutest__stdlib_8hpp.html#a7bacacb1f606e20fdeeb7c0655b82a82',1,'IUTEST_USE_EXTERNAL_TR1_TUPLE():&#160;iutest_stdlib.hpp'],['../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#ga7bacacb1f606e20fdeeb7c0655b82a82',1,'IUTEST_USE_EXTERNAL_TR1_TUPLE():&#160;iutest_config.hpp']]],
   ['iutest_5fuse_5flib',['IUTEST_USE_LIB',['../dd/d04/group___i_u_t_e_s_t___c_o_n_f_i_g.html#ga4e53d8577ecfcc964b6604722a94abe6',1,'iutest_config.hpp']]],
   ['iutest_5fuse_5fmain',['IUTEST_USE_MAIN',['../dd/d04/group___i_u_t_e_s_t___c_o_n_f_i_g.html#ga2836558ce55541c282e0bb068df25841',1,'iutest_config.hpp']]],
+  ['iutest_5fuse_5fown_5fis_5fmember_5ffunction_5fpointer',['IUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER',['../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#ga38ef950347c6453ca96ff2bc58a9f0dd',1,'iutest_config.hpp']]],
   ['iutest_5fuse_5frandom_5fengine_5ftypename',['IUTEST_USE_RANDOM_ENGINE_TYPENAME',['../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#gaccdbafbe570fdf1c8cd911fcd93b1e68',1,'iutest_config.hpp']]],
   ['iutest_5fuse_5fthrow_5fon_5fassertion_5ffailure',['IUTEST_USE_THROW_ON_ASSERTION_FAILURE',['../dc/d51/group___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t.html#gafc2ef343919f5fda870aab5ea2192018',1,'iutest_config.hpp']]],
   ['iutest_5fusing_5fbegin_5fend',['IUTEST_USING_BEGIN_END',['../d9/dad/iutest__stdlib_8hpp.html#a9323b8b4a8d3fab05f085b08de5ae9ac',1,'iutest_stdlib.hpp']]],

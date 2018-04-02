@@ -9,7 +9,7 @@
 [![Bitrise Build Status](https://www.bitrise.io/app/a1525fe176d85f53/status.svg?token=C67enKOhen9rjw_Cl37ihA&branch=master)](https://www.bitrise.io/app/a1525fe176d85f53)
 [![CircleCI](https://circleci.com/gh/srz-zumix/iutest/tree/master.svg?style=svg)](https://circleci.com/gh/srz-zumix/iutest/tree/master)
 [![Scrutinizer Build Status](https://scrutinizer-ci.com/g/srz-zumix/iutest/badges/build.png?b=master)](https://scrutinizer-ci.com/g/srz-zumix/iutest/build-status/master)  
-[![Job Status](https://inspecode.rocro.com/badges/github.com/srz-zumix/iutest/status?token=wt0KUnRUG1-Ul2mLrg8ComR1RznZV3VoXecBJHW0EIk)](https://inspecode.rocro.com/jobs/github.com/srz-zumix/iutest/latest?completed=true)
+[![INSPECODE Job Status](https://inspecode.rocro.com/badges/github.com/srz-zumix/iutest/status?token=wt0KUnRUG1-Ul2mLrg8ComR1RznZV3VoXecBJHW0EIk&branch=master)](https://inspecode.rocro.com/jobs/github.com/srz-zumix/iutest/latest?completed=true&branch=master)
 [![Rocro INSPECODE Report](https://inspecode.rocro.com/badges/github.com/srz-zumix/iutest/report?token=wt0KUnRUG1-Ul2mLrg8ComR1RznZV3VoXecBJHW0EIk&branch=master)](https://inspecode.rocro.com/reports/github.com/srz-zumix/iutest/branch/master/summary)
 [![Coverage Status](https://coveralls.io/repos/github/srz-zumix/iutest/badge.svg?branch=master)](https://coveralls.io/github/srz-zumix/iutest?branch=master)
 [![codecov](https://codecov.io/gh/srz-zumix/iutest/branch/master/graph/badge.svg)](https://codecov.io/gh/srz-zumix/iutest)  

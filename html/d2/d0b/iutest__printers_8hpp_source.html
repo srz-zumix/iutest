@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.2.10</span>
+   &#160;<span id="projectnumber">1.16.2.12</span>
    </div>
   </td>
  </tr>
@@ -266,13 +266,13 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> DefaultPtrPrintTo(T* ptr, iu_ostream* os</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    , <span class="keyword">typename</span> iutest_type_traits::enable_if_t&lt; is_convertible&lt;T*, const void*&gt; &gt;::type*&amp; = iutest_type_traits::enabler::value)</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    , <span class="keyword">typename</span> iutest_type_traits::enable_if_t&lt; iutest_type_traits::is_convertible&lt;T*, const void*&gt; &gt;::type*&amp; = iutest_type_traits::enabler::value)</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;{</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    *os &lt;&lt; ptr;</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;}</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> DefaultPtrPrintTo(T* ptr, iu_ostream* os</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    , <span class="keyword">typename</span> iutest_type_traits::disable_if_t&lt; is_convertible&lt;T*, const void*&gt; &gt;::type*&amp; = iutest_type_traits::enabler::value)</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    , <span class="keyword">typename</span> iutest_type_traits::disable_if_t&lt; iutest_type_traits::is_convertible&lt;T*, const void*&gt; &gt;::type*&amp; = iutest_type_traits::enabler::value)</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;{</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    *os &lt;&lt; reinterpret_cast&lt;const void*&gt;(<span class="keyword">reinterpret_cast&lt;</span>type_least_t&lt;8&gt;::UInt<span class="keyword">&gt;</span>(ptr));</div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;}</div>
@@ -606,7 +606,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年03月14日(水) 01時11分34秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年04月02日(月) 14時02分43秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
