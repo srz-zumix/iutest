@@ -12,7 +12,7 @@ branches:
 
 build:
   pre_ci:
-    - sudo apt-get update && sudo apt-get install --only-upgrade openssl libssl-dev.
+    - sudo apt-get update && sudo apt-get install --only-upgrade openssl libssl-dev
     - pip install -i https://pypi.python.org/simple/ --upgrade pip
     - pip --version
     - pip install requests # || cat /home/shippable/.pip/pip.log
