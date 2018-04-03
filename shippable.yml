@@ -11,15 +11,14 @@ branches:
     - gh-pages
 
 build:
-  pre_ci:
-    - sudo apt-get update && sudo apt-get install --only-upgrade openssl libssl-dev
-    - pip install -i https://pypi.python.org/simple/ --upgrade pip
-    - pip --version
+  ci:
+#    - sudo apt-get update && sudo apt-get install --only-upgrade openssl libssl-dev
+#    - pip install -i https://pypi.python.org/simple/ --upgrade pip
+#    - pip --version
     - pip install requests # || cat /home/shippable/.pip/pip.log
     - export PYTHONDONTWRITEBYTECODE=1
     - make -C tools/fused
     - mkdir -p shippable/testresults
-  ci:
     - cd tools/wandbox
     - python ./iuwandbox.py --list-options ${WANDBOX_COMPILER}
     - export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --boost nothing --encoding utf-8-sig --expand-include --verbose --check-config"
