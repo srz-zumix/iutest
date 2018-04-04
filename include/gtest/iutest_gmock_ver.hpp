@@ -43,7 +43,7 @@
 #endif
 
 #ifndef GMOCK_BUILD
-#  define GTEST_BUILD       0x00        //!< Build
+#  define GMOCK_BUILD       0x00        //!< Build
 #endif
 
 #ifndef GMOCK_REVISION
