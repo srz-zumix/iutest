@@ -1,16 +1,14 @@
-# global default
-container:
-  image: gcc:latest
-  
-test_task:
+cirrus_gcc_test_task:
+  container:
+    image: gcc:latest
   env:
     matrix:
       STDFLAG: -std=c++14
       STDFLAG: -std=c++17
-      STDFLAG: -std=c++2a
+      #STDFLAG: -std=c++2a
   test_script: cd test && make -j4 showcxxversion default && make test
   
-use_gtest_task:
+cirrus_use_gtest_task:
   env:
     USE_GTEST: 1
   container:
