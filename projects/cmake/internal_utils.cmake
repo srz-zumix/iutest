@@ -8,13 +8,17 @@ macro(fix_default_compiler_settings_)
              CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
              CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
       if (NOT BUILD_SHARED_LIBS AND NOT iutest_force_shared_crt)
-        # 置換
         string(REPLACE "/MD" "-MT" ${flag_var} "${${flag_var}}")
       endif()
 
-      # Replaces /W3 with /W4 in defaults.
-      string(REPLACE "/W3" "-W4" ${flag_var} "${${flag_var}}")
+      # Force to always compile with W4
+      if(${flag_var} MATCHES "/W[0-4]")
+        string(REGEX REPLACE "/W[0-4]" "/W4" ${flag_var} "${${flag_var}}")
+      #else()
+      #  set(${flag_var} "${${flag_var}} /W4")
+      endif()
     endforeach()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
   endif()
 endmacro()
 
