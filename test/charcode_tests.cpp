@@ -17,10 +17,12 @@
 // include
 #include "iutest.hpp"
 
+#if defined(_MSC_VER)
 IUTEST(CharCodeTest, UTF8ToSJIS)
 {
     (void)iutest::detail::UTF8ToSJIS("test");
 }
+#endif
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
