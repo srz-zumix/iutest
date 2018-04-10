@@ -127,6 +127,7 @@ IUTEST(UnitTest, AddDefaultPackageName)
 
 class HackXmlGeneratorListener : public ::iutest::DefaultXmlGeneratorListener
 {
+    HackXmlGeneratorListener() : ::iutest::DefaultXmlGeneratorListener("") {}
 public:
     using DefaultXmlGeneratorListener::EscapeXmlAttribute;
     using DefaultXmlGeneratorListener::EscapeXmlText;
