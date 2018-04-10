@@ -77,6 +77,7 @@ TARGETS1= \
           assume_tests \
           break_on_failure_nobreak_tests \
           catch_exceptions_tests \
+          charcode_tests \
           commandline_tests \
           csvparams_tests \
           cxx_feature_tests \
