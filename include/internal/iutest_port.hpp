@@ -280,7 +280,6 @@ template<int SIZE=BUFSIZ>
 class IUStreamBuffer
 {
 public:
-    IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
     explicit IUStreamBuffer(FILE* fp)
         : m_fp(fp)
@@ -292,11 +291,11 @@ public:
 
     ~IUStreamBuffer()
     {
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         fflush(m_fp);
         setbuf(m_fp, NULL);
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     }
-
-    IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 public:
     ::std::string GetStreamString() { return m_buf; }
