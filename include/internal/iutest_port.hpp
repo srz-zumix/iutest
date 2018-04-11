@@ -280,7 +280,6 @@ template<int SIZE=BUFSIZ>
 class IUStreamBuffer
 {
 public:
-
     explicit IUStreamBuffer(FILE* fp)
         : m_fp(fp)
     {
