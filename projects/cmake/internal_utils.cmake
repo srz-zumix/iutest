@@ -17,8 +17,12 @@ macro(fix_default_compiler_settings_)
       #else()
       #  set(${flag_var} "${${flag_var}} /W4")
       endif()
+
+      set(${flag_var} "${${flag_var}} /WX")
+      if (MSVC_VERSION LESS 1900)
+        set(${flag_var} "${${flag_var}} -wd4675")
+      endif()
     endforeach()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
     foreach (flag_var
              CMAKE_CXX_FLAGS)
       message(STATUS "${flag_var}=${${flag_var}}")
@@ -35,13 +39,7 @@ macro(config_compiler_and_linker)
   if (MSVC)
     # Newlines inside flags variables break CMake's NMake generator.
     # TODO(vladl@google.com): Add -RTCs and -RTCu to debug builds.
-    set(cxx_base_flags "-GS -W4 -WX -wd4505 -nologo -J -Zi")
-    if (MSVC_VERSION LESS 1400)
-      # Suppress spurious warnings MSVC 7.1 sometimes issues.
-      #set(cxx_base_flags "${cxx_base_flags} -wd4800")
-      #set(cxx_base_flags "${cxx_base_flags} -wd4511 -wd4512")
-      #set(cxx_base_flags "${cxx_base_flags} -wd4675")
-    endif()
+    set(cxx_base_flags "-GS -nologo -J -Zi")
     set(cxx_base_flags "${cxx_base_flags} -D_UNICODE -DUNICODE -DWIN32 -D_WIN32")
     set(cxx_base_flags "${cxx_base_flags} -DSTRICT -DWIN32_LEAN_AND_MEAN")
     set(cxx_exception_flags "-EHsc -D_HAS_EXCEPTIONS=1")
