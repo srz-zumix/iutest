@@ -65,12 +65,9 @@
 
 #define IIUT_PACKAGE_PARENT_NAMESPACE_(name)                \
     class iuTest_TestCaseParentPackage;                     \
-    IUTEST_PRAGMA_MSC_WARN_PUSH()                           \
-    IUTEST_PRAGMA_MSC_WARN_DISABLE(4505)                    \
     __if_not_exists(name::iuTest_GetTestCaseParentPackageName) {    \
         IIUT_PACKAGE_DECL_PARENT_NAME_FUNC(name)            \
-    }                                                       \
-    IUTEST_PRAGMA_MSC_WARN_POP()
+    }
 
 #else
 
@@ -92,10 +89,13 @@
 #endif
 
 #define IIUT_PACKAGE_(name)                                 \
+    IUTEST_PRAGMA_MSC_WARN_PUSH()                           \
+    IUTEST_PRAGMA_MSC_WARN_DISABLE(4505)                    \
     namespace name {                                        \
         IIUT_PACKAGE_CURRENT_NAMESPACE_(name)               \
         IIUT_PACKAGE_PARENT_NAMESPACE_(name)                \
     }                                                       \
+    IUTEST_PRAGMA_MSC_WARN_POP()                            \
     namespace name
 
 #else
