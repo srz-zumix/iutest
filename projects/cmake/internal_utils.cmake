@@ -20,7 +20,7 @@ macro(fix_default_compiler_settings_)
 
       set(${flag_var} "${${flag_var}} /WX")
       if (MSVC_VERSION LESS 1900)
-        set(${flag_var} "${${flag_var}} -wd4675")
+        set(${flag_var} "${${flag_var}} -wd4505")
       endif()
     endforeach()
     foreach (flag_var
