@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -58,6 +58,6 @@ int main(int argc, char* argv[])
     (void)argc;
     (void)argv;
     printf("*** FLAGFILE_TEST=0 ***\n");
-#endif
     return 0;
+#endif
 }
