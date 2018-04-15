@@ -1979,7 +1979,7 @@ inline detail::NotNullMatcher NotNull()
 template<typename T, typename U>
 detail::TypedEqMatcher<T> TypedEq(const U& expected)
 {
-    return detail::TypedEqMatcher<T>(expected);
+    return detail::TypedEqMatcher<T>(static_cast<T>(expected));
 }
 
 /**
