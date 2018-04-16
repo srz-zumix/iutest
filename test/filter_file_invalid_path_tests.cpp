@@ -57,6 +57,6 @@ int main(int argc, char* argv[])
     (void)argc;
     (void)argv;
     printf("*** FILTER_FILE_TEST=0 ***\n");
-#endif
     return 0;
+#endif
 }

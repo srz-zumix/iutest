@@ -17,6 +17,8 @@
 // include
 #include "../include/gtest/iutest_spi_switch.hpp"
 
+IUTEST_PRAGMA_UNREACHCODE_WARN_DISABLE_BEGIN()
+
 static int assume_test_var_a=0;
 static int assume_test_var_b=1;
 
@@ -128,6 +130,8 @@ IUTEST(AssumeTest, THROW_VALUE_STRCASEEQ)
 
 #endif
 
+IUTEST_PRAGMA_UNREACHCODE_WARN_DISABLE_END()
+
 #if IUTEST_HAS_EXCEPTIONS
 static const int assume_throw_test_count = 7;
 #else
@@ -164,4 +168,3 @@ int main(int argc, char** argv)
     printf("*** Successful ***\n");
     return 0;
 }
-
