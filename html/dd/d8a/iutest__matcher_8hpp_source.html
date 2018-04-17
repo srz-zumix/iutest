@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.2.13</span>
+   &#160;<span id="projectnumber">1.16.2.14</span>
    </div>
   </td>
  </tr>
@@ -1860,7 +1860,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l01979"></a><span class="lineno"> 1979</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l01980"></a><span class="lineno"> 1980</span>&#160;detail::TypedEqMatcher&lt;T&gt; <a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga769ad15e67be7313c681169bc64aad8b">TypedEq</a>(<span class="keyword">const</span> U&amp; expected)</div>
 <div class="line"><a name="l01981"></a><span class="lineno"><a class="line" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga769ad15e67be7313c681169bc64aad8b"> 1981</a></span>&#160;{</div>
-<div class="line"><a name="l01982"></a><span class="lineno"> 1982</span>&#160;    <span class="keywordflow">return</span> detail::TypedEqMatcher&lt;T&gt;(expected);</div>
+<div class="line"><a name="l01982"></a><span class="lineno"> 1982</span>&#160;    <span class="keywordflow">return</span> detail::TypedEqMatcher&lt;T&gt;(<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(expected));</div>
 <div class="line"><a name="l01983"></a><span class="lineno"> 1983</span>&#160;}</div>
 <div class="line"><a name="l01984"></a><span class="lineno"> 1984</span>&#160;</div>
 <div class="line"><a name="l01989"></a><span class="lineno"> 1989</span>&#160;<span class="keyword">inline</span> detail::FloatingPointEqMatcher&lt;float&gt; <a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga80c57f9ddda8896ea907e25c6aa7dc07">FloatEq</a>(<span class="keywordtype">float</span> expected)</div>
@@ -2277,7 +2277,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年04月08日(日) 11時35分57秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年04月17日(火) 00時49分51秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
