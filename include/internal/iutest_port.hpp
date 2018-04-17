@@ -290,10 +290,8 @@ public:
 
     ~IUStreamBuffer()
     {
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         fflush(m_fp);
-        setbuf(m_fp, NULL);
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+        setvbuf(m_fp, NULL, _IONBF, 0);
     }
 
 public:
