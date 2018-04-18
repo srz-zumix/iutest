@@ -22,6 +22,7 @@
 
 IUTEST(GTest, Version)
 {
+    IUTEST_ASSUME_GT(GTEST_EXPECT_VER, 0);
     IUTEST_EXPECT_EQ(GTEST_EXPECT_VER, GTEST_VER);
 }
 
@@ -40,19 +41,22 @@ IUTEST(GTest, Latest)
 
 #if defined(IUTEST_USE_GMOCK)
 
-// 1.6 以降のみ対応している
-#if GMOCK_VER >= 0x01060000
-
 #if !defined(GMOCK_EXPECT_VER) && defined(GTEST_EXPECT_VER)
 #  define GMOCK_EXPECT_VER  GTEST_EXPECT_VER
 #endif
+
+// 1.5 以降のみ対応している
+#if GMOCK_EXPECT_VER >= 0x01050000
 
 #if defined(GMOCK_EXPECT_VER)
 
 IUTEST(GMock, Version)
 {
+    IUTEST_ASSUME_GT(GMOCK_EXPECT_VER, 0);
     IUTEST_EXPECT_EQ(GMOCK_EXPECT_VER, GMOCK_VER);
 }
+
+#endif
 
 #endif
 
@@ -66,8 +70,6 @@ IUTEST(GMock, Latest)
 {
     IUTEST_EXPECT_EQ(GMOCK_EXPECT_LATEST, GMOCK_LATEST);
 }
-
-#endif
 
 #endif
 
