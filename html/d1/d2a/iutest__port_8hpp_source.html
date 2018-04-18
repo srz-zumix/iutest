@@ -318,30 +318,28 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;</div>
 <div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    ~IUStreamBuffer()</div>
 <div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    {</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        fflush(m_fp);</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;        setbuf(m_fp, NULL);</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    }</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    ::std::string GetStreamString() { <span class="keywordflow">return</span> m_buf; }</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    FILE* m_fp;</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="keywordtype">char</span> m_buf[SIZE];</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;};</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_LIB</span></div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  include &quot;../impl/iutest_port.ipp&quot;</span></div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PORT_HPP_7893F685_A1A9_477A_82E8_BF06237697FF_</span></div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        fflush(m_fp);</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        setvbuf(m_fp, NULL, _IONBF, 0);</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    }</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    ::std::string GetStreamString() { <span class="keywordflow">return</span> m_buf; }</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    FILE* m_fp;</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <span class="keywordtype">char</span> m_buf[SIZE];</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;};</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_LIB</span></div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  include &quot;../impl/iutest_port.ipp&quot;</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PORT_HPP_7893F685_A1A9_477A_82E8_BF06237697FF_</span></div>
 <div class="ttc" id="iutest__internal__defs_8hpp_html"><div class="ttname"><a href="../../d3/d4c/iutest__internal__defs_8hpp.html">iutest_internal_defs.hpp</a></div><div class="ttdoc">internal definition </div></div>
 <div class="ttc" id="iutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:721</div></div>
 <div class="ttc" id="iutest__compiler_8hpp_html_ae77bae4c5720c1d321484985bbfc763d"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae77bae4c5720c1d321484985bbfc763d">IUTEST_ATTRIBUTE_NORETURN_</a></div><div class="ttdeci">#define IUTEST_ATTRIBUTE_NORETURN_</div><div class="ttdoc">noreturn </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:1210</div></div>
@@ -349,7 +347,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年04月17日(火) 00時49分51秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年04月18日(水) 13時17分06秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
