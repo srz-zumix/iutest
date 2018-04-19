@@ -195,7 +195,7 @@ run_% : %_run
 	@echo $< > /dev/null
 
 # gtest version test
-gtest-version: gtest_version_tests_run
+gtest-version: clean gtest_version_tests_run
 
 coverity_scan: $(BUILD_TARGETS)
 
