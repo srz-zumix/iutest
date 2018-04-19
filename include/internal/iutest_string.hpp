@@ -25,7 +25,7 @@
 #include <wctype.h>
 #include <stdarg.h>
 #include <errno.h>
-#if defined(IUTEST_OS_CYGWIN)
+#if defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_ARM)
 #include <strings.h>
 #endif
 #if   IUTEST_HAS_STRINGSTREAM
