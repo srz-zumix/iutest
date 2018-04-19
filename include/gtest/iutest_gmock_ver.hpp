@@ -34,11 +34,15 @@
 #ifndef GMOCK_MINORVER
 #  if   defined(GMOCK_INCLUDE_GMOCK_INTERNAL_CUSTOM_GMOCK_MATCHERS_H_)
 #    define GMOCK_MINORVER  0x08
+#    define GMOCK_LATEST	1
+#  elif defined(GMOCK_INCLUDE_GMOCK_INTERNAL_CUSTOM_CALLBACK_MATCHERS_H_)
+#    define GMOCK_MINORVER  0x08
 #  elif defined(GMOCK_GMOCK_MORE_MATCHERS_H_)
 #    define GMOCK_MINORVER  0x07
-#  else
-// v1.6.0 以前は未対応
+#  elif !defined(GMOCK_COMPILE_ASSERT_)
 #    define GMOCK_MINORVER  0x06
+#  else
+#    define GMOCK_MINORVER  0x05
 #  endif
 #endif
 
