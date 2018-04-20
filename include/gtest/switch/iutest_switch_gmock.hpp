@@ -101,9 +101,9 @@ namespace matchers
     using ::testing::EndsWith;
 
     using ::testing::Contains;
-	using ::testing::ContainerEq;
+    using ::testing::ContainerEq;
 #if GMOCK_VER > 0x01050000
-	using ::testing::Each;
+    using ::testing::Each;
     using ::testing::Pointwise;
 #endif
     using ::testing::Key;
