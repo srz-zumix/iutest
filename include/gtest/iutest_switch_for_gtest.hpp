@@ -333,6 +333,17 @@ struct is_pointer<T* volatile> : public true_type {};
 // ostream
 typedef ::std::ostream  iu_ostream;
 
+#if GTEST_VER < 0x01060000
+
+template<typename T>
+inline ::std::string PrintToString(T)
+{
+    // google test 1.5 or less is not supported to PrintToString
+    return "";
+}
+
+#endif
+
 }   // end of namespace testing
 
 #if defined(INCG_IRIS_IUTEST_HPP_)
