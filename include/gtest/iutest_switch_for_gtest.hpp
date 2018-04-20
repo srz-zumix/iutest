@@ -349,6 +349,8 @@ inline ::std::string PrintToString(T)
 
 #if !defined(IUTEST_USE_GMOCK)
 using dummy_printer::PrintToString;
+#elif GTEST_VER < 0x01050000
+using dummy_printer::PrintToString;
 #endif
 
 #endif
