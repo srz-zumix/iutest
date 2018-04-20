@@ -335,12 +335,21 @@ typedef ::std::ostream  iu_ostream;
 
 #if GTEST_VER < 0x01060000
 
+namespace dummy_printer
+{
+
 template<typename T>
 inline ::std::string PrintToString(T)
 {
     // google test 1.5 or less is not supported to PrintToString
     return "";
 }
+
+}
+
+#if !defined(IUTEST_USE_GMOCK)
+using dummy_printer::PrintToString;
+#endif
 
 #endif
 
