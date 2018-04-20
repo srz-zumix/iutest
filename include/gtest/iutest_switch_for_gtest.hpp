@@ -307,7 +307,11 @@ namespace iusupport
     inline AssertionResult iuMakeAssertionResult(const AssertionResult& ar) { return ar; }
     inline AssertionResult iuMakeAssertionResult(const ::iutest::AssertionResult& ar)
     {
+#if GTEST_VER > 0x01040000
         return AssertionResult(static_cast<bool>(ar)) << ar.message();
+#else
+        return static_cast<bool>(ar) ? AssertionSuccess() : AssertionFailure(ar.message());
+#endif
     }
 }
 
