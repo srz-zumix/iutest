@@ -309,7 +309,7 @@ class AssertionResultFailure
     Message m_message;
 public:
     template<typename T>
-    AssertionResult& operator << (const T& value)
+    AssertionResultFailure& operator << (const T& value)
     {
         m_message << value;
         return *this;
