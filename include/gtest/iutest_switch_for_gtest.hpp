@@ -304,12 +304,20 @@ namespace iusupport
 namespace iusupport
 {
 
-class AssertionResultFailure : public Message 
+class AssertionResultFailure
 {
+    Message m_message;
+public:
+    template<typename T>
+    AssertionResult& operator << (const T& value)
+    {
+        m_message << value;
+        return *this;
+    }
 public:
     operator AssertionResult () const
     {
-        return testing::AssertionFailure(*this);
+        return testing::AssertionFailure(m_message);
     }
 };
 
