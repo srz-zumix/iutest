@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -299,6 +299,27 @@ namespace iusupport
     /** @private */
     template<int x>struct StaticAssertionTest {};
 }
+
+#if GTEST_VER <= 0x01040000
+namespace iusupport
+{
+
+class AssertionResultFailure : public Message 
+{
+public:
+    operator AssertionResult () const
+    {
+        return testing::AssertionFailure(*this);
+    }
+};
+
+}
+
+inline iusupport::AssertionResultFailure AssertionFailure()
+{
+     return iusupport::AssertionResultFailure(); 
+}
+#endif
 
 #if defined(INCG_IRIS_IUTEST_HPP_)
 
