@@ -377,6 +377,14 @@ inline AssertionResult AssertionSuccess() { return AssertionResult::Success(); }
 */
 inline AssertionResult AssertionFailure() { return AssertionResult::Failure(); }
 
+/**
+ * @brief   テスト結果のメッセージを取得する（for compatible）
+*/
+inline const char* GetAssertionResultMessage(const AssertionResult& ar)
+{
+    return ar.message();
+}
+
 namespace internal
 {
 

@@ -327,7 +327,17 @@ inline iusupport::AssertionResultFailure AssertionFailure()
 {
      return iusupport::AssertionResultFailure(); 
 }
+
 #endif
+
+inline const char* GetAssertionResultMessage(const AssertionResult& ar)
+{
+#if GTEST_VER <= 0x01010000
+    return ar.failure_message();
+#else
+    return ar.message();
+#endif
+}
 
 #if defined(INCG_IRIS_IUTEST_HPP_)
 
