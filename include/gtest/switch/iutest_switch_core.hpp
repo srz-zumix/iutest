@@ -189,6 +189,9 @@
 #endif
 
 #if GTEST_VER <= 0x01040000
+namespace testing
+{
+
 namespace iusupport
 {
 
@@ -209,12 +212,14 @@ public:
     }
 };
 
-}
+} // end of namesapce iusupport
 
 inline iusupport::AssertionResultFailure AssertionFailure()
 {
      return iusupport::AssertionResultFailure(); 
 }
+
+} // end of namespace testing
 
 #endif
 
