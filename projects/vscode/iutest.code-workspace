@@ -6,7 +6,9 @@
 	],
 	"settings": {
 		"files.associations": {
-			"*.ipp":"cpp"
+			"*.ipp": "cpp",
+			"future": "cpp",
+			"system_error": "cpp"
 		}
 	}
 }
