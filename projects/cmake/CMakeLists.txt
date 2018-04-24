@@ -32,7 +32,6 @@ find_path(IUTEST_ROOT_DIR
 set(CMAKE_MODULE_PATH ${IUTEST_ROOT_DIR}/cmake)
 find_package(IUTEST REQUIRED)
 
-
 if (COMMAND set_up_hermetic_build)
   set_up_hermetic_build()
 endif()
@@ -41,8 +40,14 @@ endif()
 include(internal_utils.cmake)
 config_compiler_and_linker()  # Defined in internal_utils.cmake.
 
+set(CMAKE_CONFIGURATION_TYPES "Debug_gtest;${CMAKE_CONFIGURATION_TYPES}")
+message(STATUS "configuration types: ${CMAKE_CONFIGURATION_TYPES}")
+
 # インクルードパス
 include_directories(${IUTEST_INCLUDE_DIR})
+if (NOT "$ENV{GTEST_ROOT}" STREQUAL "")
+  include_directories($ENV{GTEST_ROOT}/include)
+endif()
 
 ########################################################################
 #
