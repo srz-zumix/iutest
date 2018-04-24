@@ -332,7 +332,7 @@ inline iusupport::AssertionResultFailure AssertionFailure()
 
 inline const char* GetAssertionResultMessage(const AssertionResult& ar)
 {
-#if GTEST_VER <= 0x01010000
+#if GTEST_VER <= 0x01040000
     return ar.failure_message();
 #else
     return ar.message();
@@ -361,7 +361,7 @@ namespace iusupport
   if (const ::testing::AssertionResult gtest_ar = ::testing::iusupport::iuMakeAssertionResult(expression)) \
     ; \
   else \
-    on_failure(gtest_ar.failure_message())
+    on_failure(GetAssertionResultMessage(gtest_ar))
 
 #endif
 
