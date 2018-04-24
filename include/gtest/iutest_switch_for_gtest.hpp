@@ -300,36 +300,6 @@ namespace iusupport
     template<int x>struct StaticAssertionTest {};
 }
 
-#if GTEST_VER <= 0x01040000
-namespace iusupport
-{
-
-class AssertionResultFailure
-{
-    Message m_message;
-public:
-    template<typename T>
-    AssertionResultFailure& operator << (const T& value)
-    {
-        m_message << value;
-        return *this;
-    }
-public:
-    operator AssertionResult () const
-    {
-        return testing::AssertionFailure(m_message);
-    }
-};
-
-}
-
-inline iusupport::AssertionResultFailure AssertionFailure()
-{
-     return iusupport::AssertionResultFailure(); 
-}
-
-#endif
-
 inline const char* GetAssertionResultMessage(const AssertionResult& ar)
 {
 #if GTEST_VER <= 0x01040000
