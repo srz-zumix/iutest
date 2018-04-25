@@ -169,6 +169,9 @@
 #define IUTEST_PP_CAT   GTEST_CONCAT_TOKEN_
 #define IUTEST_IS_NULLLITERAL   GTEST_IS_NULL_LITERAL_
 
+#if !defined(GTEST_TEST)
+#  define GTEST_TEST    TEST
+#endif
 
 // __analysis_assume
 #if defined(_MSC_VER) && (_MSC_VER >= 1500) && !defined(__CUDACC__)
