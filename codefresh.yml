@@ -4,7 +4,7 @@ steps:
     title: Building Docker Image
     type: build
     image_name: srzzumix/iutest
-    dockerfile: tools/docker/codefresh/Dockerfile
+    dockerfile: .ci/Dockerfile.gtest
 
   RunningUnitTests:
     title: Running Unit Tests
