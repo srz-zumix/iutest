@@ -59,6 +59,10 @@ namespace tr1
 #include "iutest_gtest_ver.hpp"
 #include "../internal/iutest_pragma.hpp"
 
+#if GTEST_VER < 0x01040000
+#  error google test 1.3.0 or less is not supported...
+#else
+
 //======================================================================
 // define
 
@@ -381,6 +385,8 @@ namespace iutest = testing;
 
 #ifndef INCG_IRIS_IUTEST_HPP_
 #  define INCG_IRIS_IUTEST_HPP_ // 以降で、iutest が include されないようにする
+#endif
+
 #endif
 
 #endif
