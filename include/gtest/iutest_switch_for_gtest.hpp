@@ -362,7 +362,7 @@ inline ::std::string PrintToString(T)
     return "";
 }
 
-}   // end of namesapce dummy_printer
+}   // end of namespace dummy_printer
 
 #if !defined(IUTEST_USE_GMOCK)
 using dummy_printer::PrintToString;
