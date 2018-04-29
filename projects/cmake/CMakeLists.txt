@@ -7,6 +7,7 @@ cmake_minimum_required(VERSION 3.0.2)
 
 # option
 option(build_gtest_samples "gtest sample build." OFF)
+option(build_use_gtest_configuration "use gtest build configuration." ON)
 option(build_tests "tests build." ON)
 
 # Defines pre_project_set_up_hermetic_build() and set_up_hermetic_build().
@@ -40,8 +41,10 @@ endif()
 include(internal_utils.cmake)
 config_compiler_and_linker()  # Defined in internal_utils.cmake.
 
-set(CMAKE_CONFIGURATION_TYPES "Debug_gtest;${CMAKE_CONFIGURATION_TYPES}")
-message(STATUS "configuration types: ${CMAKE_CONFIGURATION_TYPES}")
+if (build_use_gtest_configuration)
+  set(CMAKE_CONFIGURATION_TYPES "Debug_gtest;${CMAKE_CONFIGURATION_TYPES}")
+  message(STATUS "configuration types: ${CMAKE_CONFIGURATION_TYPES}")
+endif()
 
 # インクルードパス
 include_directories(${IUTEST_INCLUDE_DIR})
