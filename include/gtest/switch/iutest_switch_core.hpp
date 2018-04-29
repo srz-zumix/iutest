@@ -215,11 +215,11 @@ public:
     }
 };
 
-} // end of namesapce iusupport
+} // end of namespace iusupport
 
 inline iusupport::AssertionResultFailure AssertionFailure()
 {
-     return iusupport::AssertionResultFailure(); 
+     return iusupport::AssertionResultFailure();
 }
 
 } // end of namespace testing

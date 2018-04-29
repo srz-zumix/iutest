@@ -326,7 +326,7 @@ namespace iusupport
         return static_cast<bool>(ar) ? AssertionSuccess() : AssertionFailure(Message(ar.message()));
 #endif
     }
-}
+}   // end of namespace iusupport
 
 // ::iutest::AssertionResult -> ::testing::AssertionResult
 #undef GTEST_ASSERT_
@@ -362,7 +362,7 @@ inline ::std::string PrintToString(T)
     return "";
 }
 
-}
+}   // end of namesapce dummy_printer
 
 #if !defined(IUTEST_USE_GMOCK)
 using dummy_printer::PrintToString;
