@@ -41,8 +41,12 @@
 #    define GMOCK_MINORVER  0x07
 #  elif !defined(GMOCK_COMPILE_ASSERT_)
 #    define GMOCK_MINORVER  0x06
-#  else
+#  elif defined(GMOCK_USES_POSIX_RE)
+#    define GMOCK_MINORVER  0x04
+#  elif defined(GTEST_DISALLOW_COPY_AND_ASSIGN_)
 #    define GMOCK_MINORVER  0x05
+#  else
+#    define GMOCK_MINORVER  0x04
 #  endif
 #endif
 
