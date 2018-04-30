@@ -10,6 +10,7 @@ var searchData=
   ['get_5frepeat_5fcount',['get_repeat_count',['../d7/d8c/classiutest_1_1_test_env.html#a96f7e9e3229ebd7f29573f26c1d7173e',1,'iutest::TestEnv']]],
   ['get_5freport_5fjunit_5fxml_5ffilepath',['get_report_junit_xml_filepath',['../d7/d8c/classiutest_1_1_test_env.html#a4da536e15bf20b8e5d4a82f84c6fafe4',1,'iutest::TestEnv']]],
   ['get_5freport_5fxml_5ffilepath',['get_report_xml_filepath',['../d7/d8c/classiutest_1_1_test_env.html#af1e05e9d523724f9210f149583226179',1,'iutest::TestEnv']]],
+  ['getassertionresultmessage',['GetAssertionResultMessage',['../d3/dda/namespaceiutest.html#a8378a13fea823d34999165f7f4dba302',1,'iutest']]],
   ['getcurrenttest',['GetCurrentTest',['../dc/d0e/classiutest_1_1_test.html#a69f141c4284b30b119c5691c7933d56f',1,'iutest::Test']]],
   ['getcurrenttestinfo',['GetCurrentTestInfo',['../dc/d0e/classiutest_1_1_test.html#a82600ea64053455a9f3c7189338f1c67',1,'iutest::Test']]],
   ['getfilepath',['GetFilePath',['../db/da9/classiutest_1_1_default_xml_generator_listener.html#a51314ff71304920c9684eaae01ae8460',1,'iutest::DefaultXmlGeneratorListener::GetFilePath()'],['../dc/d0e/classiutest_1_1_t_a_p_file_generator_listener.html#ad9bbb1d231ea6c66f9d3fad965f83373',1,'iutest::TAPFileGeneratorListener::GetFilePath()']]],
