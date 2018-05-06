@@ -21,7 +21,7 @@ addons:
       #- cppcheck
 
 before_install:
-  - python utils/travisci/travis_blocking_stdout.py
+  - python .ci/travisci/travis_blocking_stdout.py
   - apt-cache search clang
   - apt-cache search gcc
   - if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then export USE_NEWEST_GCC=1; fi
