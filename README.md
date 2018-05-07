@@ -53,7 +53,7 @@ Features
 * Private member test.
 * Janaese test name (C++03). 
 * Various options for running the tests.
-* Compatible with Google Test.
+* Compatible with [Google Test](https://github.com/google/googletest).
 
 Platforms
 --------------------------------------------------
