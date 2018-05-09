@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01160300u //!< iutest version 1.16.3.0
+#define IUTEST_VER          0x01160301u //!< iutest version 1.16.3.1
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
 #define IUTEST_MICROVER     0x03u       //!< Micro Version
-#define IUTEST_REVISION     0x00u       //!< Revision
+#define IUTEST_REVISION     0x01u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -120,6 +120,11 @@
  * @page    CHANGELOG   変更履歴
  * @par     Changes
  <ul>
+  <li>v1.16.4.0
+    <ul>
+      <li>deprecated: two pahse name lookup が無いこと利用しているため IUTEST_IGNORE を非推奨へ</li>
+    </ul>
+  </li>
   <li>v1.16.3.0
     <ul>
       <li>IUTEST_ASSERT,IUTEST_EXPECT の Variadic 対応</li>

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,6 +27,7 @@
  * @param   testcase_   = テストケース名
  * @param   testname_   = テスト名
  * @note    ignore 版ではテストコードのコンパイルが通らなくても問題ない
+ * @deprecated
 */
 #define IUTEST_TEST_IGNORE(testcase_, testname_)                \
     IUTEST_TEST_IGNORE_(testcase_, testname_, ::iutest::Test    \
@@ -39,6 +40,7 @@
  * @param   testcase_   = テストケース名
  * @param   testname_   = テスト名
  * @note    ignore 版ではテストコードのコンパイルが通らなくても問題ない
+ * @deprecated
 */
 #define IUTEST_IGNORE(testcase_, testname_)         \
     IUTEST_TEST_IGNORE(testcase_, testname_)
@@ -64,6 +66,7 @@
  * @param   testcase_   = テストケース名
  * @param   testname_   = テスト名
  * @note    ignore 版ではテストコードのコンパイルが通らなくても問題ない
+ * @deprecated
 */
 #define IUTEST_P_IGNORE(testcase_, testname_)       \
     IUTEST_TEST_P_IGNORE_(testcase_, testname_)
@@ -79,6 +82,7 @@
  * @param   testcase_   = テストケース名
  * @param   testname_   = テスト名
  * @note    ignore 版ではテストコードのコンパイルが通らなくても問題ない
+ * @deprecated
 */
 #define IUTEST_TYPED_TEST_IGNORE(testcase_, testname_)  \
     IUTEST_TYPED_TEST_IGNORE_(testcase_, testname_)
@@ -94,6 +98,7 @@
  * @param   testcase_   = テストケース名
  * @param   testname_   = テスト名
  * @note    ignore 版ではテストコードのコンパイルが通らなくても問題ない
+ * @deprecated
 */
 #define IUTEST_TYPED_TEST_P_IGNORE(testcase_, testname_)    \
     IIUT_TYPED_TEST_P_IGNORE_(testcase_, testname_)

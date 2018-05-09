@@ -103,6 +103,7 @@
 #if !defined(IUTEST_HAS_IGNORE_TEST)
 /**
  * @brief   コンパイルが通らなくてもよいテスト生成マクロが使用可能かどうか
+ * @deprecated
 */
 #  if defined(IUTEST_NO_TWO_PHASE_NAME_LOOKUP)
 #    define IUTEST_HAS_IGNORE_TEST  1

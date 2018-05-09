@@ -941,9 +941,11 @@
 #  endif
 #endif
 
-//! has Two pahse name lookup
+//! has two pahse name lookup
 #if !defined(IUTEST_NO_TWO_PHASE_NAME_LOOKUP)
-#  if defined(_MSC_VER)
+// Visual Studio 2017 (15.3) 以降は two phase name lookup が実装されている
+// （コンパイルオプションで無視できるが iutest はこれを検出しない）
+#  if defined(_MSC_VER) && (_MSC_VER < 1910)
 #    define IUTEST_NO_TWO_PHASE_NAME_LOOKUP             1
 #  endif
 #endif
