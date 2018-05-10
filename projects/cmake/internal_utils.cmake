@@ -9,7 +9,7 @@ macro(fix_default_compiler_settings_)
     endif()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
     if (MSVC_VERSION LESS 1900)
-      set(CMAKE_CXX_FLAGS} "${CMAKE_CXX_FLAGS} -wd4505")
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -wd4505")
     endif()
 
     foreach (flag_var
