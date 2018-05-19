@@ -252,8 +252,12 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
     }
     if( detail::IsStringForwardMatching(str, "default_package_name") )
     {
-        set_default_package_name(ParseOptionSettingStr(str));
-        return true;
+        const char* opt = ParseOptionSettingStr(str);
+        if (opt != NULL)
+        {
+            set_default_package_name(opt);
+            return true;
+        }
     }
     return false;
 }
