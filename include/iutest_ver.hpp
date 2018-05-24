@@ -86,7 +86,7 @@
    <tr><td>--iutest_repeat                   </td><td>&lt;count&gt;</td><td>Set the number of repetitions of the test. use a negative count to repeat forever.</td></tr>
    <tr><td>--iutest_stream_result_to         </td><td>&lt;host:port&gt;</td><td>Set stream test results server.</td></tr>
    <tr><td>--iutest_file_location            </td><td>&lt;auto|vs|gcc&gt;</td><td>Format file location messages.</td></tr>
-   <tr><td>--iutest_default_package_name     </td><td>[name]</td><td>Set default root package name.</td></tr>
+   <tr><td>--iutest_default_package_name     </td><td>&lt;name&gt;</td><td>Set default root package name.</td></tr>
    <tr><td>--verbose                         </td><td></td><td>Verbose option.</td></tr>
    <tr><td>--feature                         </td><td></td><td>Show iutest feature.</td></tr>
    <tr><td>--version, -v                     </td><td></td><td>Show iutest version.</td></tr>
