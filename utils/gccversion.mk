@@ -21,6 +21,7 @@ GCCVERSION:=$(subst $(dot),$(space), $(GCCVERSION))
 GCCMAJOR:=$(word 1, $(GCCVERSION))
 GCCMINOR:=$(word 2, $(GCCVERSION))
 
+CXX_NAME=g++
 STD_CPP03=c++98
 STD_GNU03=gnu++98
 

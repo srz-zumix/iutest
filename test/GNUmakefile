@@ -166,6 +166,9 @@ lint : cpplint/Makefile $(IUTEST_HEADERS) $(MAKEFILE)
 
 showcxxversion:
 	$(CXX) --version
+ifeq ($(CXX_NAME),g++)
+	$(CXX) -dumpversion
+endif
 ifdef GCCMAJOR
 	@echo g++-$(GCCMAJOR).$(GCCMINOR)
 endif
