@@ -1,0 +1,7 @@
+FROM arm-none-eabi-gcc
+
+MAINTAINER srz_zumix <https://github.com/srz-zumix>
+
+RUN apt-get update && \
+  apt-get install -q -y python && \
+  apt-get clean
