@@ -103,8 +103,8 @@ inline void iuOptionMessage::ShowVersion()
 
 /** @private */
 #define IIUT_SHOW_MACRO(macro)  detail::iuConsole::output("#define %s  %s\n", #macro, IUTEST_PP_TOSTRING(macro))
-#define IIUT_SHOW_ENABLE_MACRO(macro)   if(  macro) detail::iuConsole::output("#define %s  %s\n", #macro, IUTEST_PP_TOSTRING(macro))
-#define IIUT_SHOW_DISABLE_MACRO(macro)  if(! macro) detail::iuConsole::output("#define %s  %s\n", #macro, IUTEST_PP_TOSTRING(macro))
+#define IIUT_SHOW_ENABLE_MACRO(macro)   IUTEST_PP_IF(macro, IIUT_SHOW_MACRO(macro), IUTEST_PP_EMPTY())
+#define IIUT_SHOW_DISABLE_MACRO(macro)  IUTEST_PP_IF(macro, IUTEST_PP_EMPTY(), IIUT_SHOW_MACRO(macro))
 
 /** @private */
 #define IIUT_SHOW_FEATURE_MACROS(m) \
@@ -152,10 +152,7 @@ inline void iuOptionMessage::ShowVersion()
     m (IUTEST_HAS_VALUESGEN); \
     m (IUTEST_HAS_VARIADIC_COMBINE); \
     m (IUTEST_HAS_VARIADIC_PAIRWISE); \
-    m (IUTEST_HAS_VARIADIC_VALUES); \
-    m (IUTEST_CHECK_STRICT); \
-    m (IUTEST_PLATFORM); \
-    m (IUTEST_USE_THROW_ON_ASSERTION_FAILURE)
+    m (IUTEST_HAS_VARIADIC_VALUES)
 
 inline void iuOptionMessage::ShowFeature()
 {
@@ -169,6 +166,9 @@ inline void iuOptionMessage::ShowFeature()
 
 inline void iuOptionMessage::ShowSpec()
 {
+    IIUT_SHOW_MACRO(IUTEST_PLATFORM);
+
+    IIUT_SHOW_MACRO(IUTEST_CHECK_STRICT);
     IIUT_SHOW_MACRO(IUTEST_HAS_ANALYSIS_ASSUME);
     IIUT_SHOW_MACRO(IUTEST_HAS_ATTRIBUTE);
     IIUT_SHOW_MACRO(IUTEST_HAS_AUTO);
@@ -218,6 +218,7 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_HAS_TUPLE);
     IIUT_SHOW_MACRO(IUTEST_HAS_VARIADIC_TEMPLATES);
     IIUT_SHOW_MACRO(IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES);
+    IIUT_SHOW_MACRO(IUTEST_USE_THROW_ON_ASSERTION_FAILURE);
 
 #ifdef IUTEST_LIBSTDCXX_VERSION
     IIUT_SHOW_MACRO(IUTEST_LIBSTDCXX_VERSION);

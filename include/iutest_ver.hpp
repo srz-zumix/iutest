@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01160302u //!< iutest version 1.16.3.2
+#define IUTEST_VER          0x01160303u //!< iutest version 1.16.3.3
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
 #define IUTEST_MICROVER     0x03u       //!< Micro Version
-#define IUTEST_REVISION     0x02u       //!< Revision
+#define IUTEST_REVISION     0x03u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -86,7 +86,7 @@
    <tr><td>--iutest_repeat                   </td><td>&lt;count&gt;</td><td>Set the number of repetitions of the test. use a negative count to repeat forever.</td></tr>
    <tr><td>--iutest_stream_result_to         </td><td>&lt;host:port&gt;</td><td>Set stream test results server.</td></tr>
    <tr><td>--iutest_file_location            </td><td>&lt;auto|vs|gcc&gt;</td><td>Format file location messages.</td></tr>
-   <tr><td>--iutest_default_package_name     </td><td>&lt;name&gt;</td><td>Set default root package name.</td></tr>
+   <tr><td>--iutest_default_package_name     </td><td>[name]</td><td>Set default root package name.</td></tr>
    <tr><td>--verbose                         </td><td></td><td>Verbose option.</td></tr>
    <tr><td>--feature                         </td><td></td><td>Show iutest feature.</td></tr>
    <tr><td>--version, -v                     </td><td></td><td>Show iutest version.</td></tr>
@@ -122,7 +122,7 @@
  <ul>
   <li>v1.16.4.0
     <ul>
-      <li></li>
+      <li>d</li>
       <li>deprecated: IUTEST_IGNORE 関係を非推奨にしました</li>
     </ul>
   </li>
