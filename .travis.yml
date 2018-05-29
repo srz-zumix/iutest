@@ -91,8 +91,14 @@ before_script:
 
 script:
   - if [ "${USE_LIB}" == '1' ]; then cd projects/make && make && cd -; fi
+  - if [ "${USE_CMAKE}" == '1' ]; then
+      mkdir ./cmake-build && cd ./cmake-build && cmake --build ../../projects/cmake;
+      cd ..;
+    fi
   - cd ./test
-  - if [ "${COVERITY_SCAN}" != '1' ]; then make -j4 showcxxversion ${USE_FUSED} default && make test ${USE_FUSED}; fi
+  - if [ "${COVERITY_SCAN}" != '1' ] && [ "${USE_CMAKE}" != '1' ]; then
+      make -j4 showcxxversion ${USE_FUSED} default && make test ${USE_FUSED};
+    fi
   - |
     if [ "${COVERITY_SCAN}" == '1' ] && [ -d cov-int ]; then
       cat cov-int/build-log.txt || true;
