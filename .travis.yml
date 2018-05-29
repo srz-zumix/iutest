@@ -149,15 +149,24 @@ matrix:
       env: USE_FUSED=fused
     - compiler: gcc
       env: USE_FUSED=fused_min STDFLAG=-std=c++98
-    # Google Test
+    # cmake
     - compiler: gcc
-      env: USE_GTEST=1 USE_GTEST_HEAD=1 USE_GNU_EXTENSION=1
+      env: USE_CMAKE=1
       addons:
         apt:
           sources: *apt-common-sources
           packages: &apt-cmake-packages
             - *apt-common-packages
-            - cmake
+            - cmake    
+    # Google Test
+    #- compiler: gcc
+    #  env: USE_GTEST=1 USE_GTEST_HEAD=1 USE_GNU_EXTENSION=1
+    #  addons:
+    #    apt:
+    #      sources: *apt-common-sources
+    #      packages:
+    #        - *apt-cmake-packages
+    #        - cmake
     - compiler: gcc
       env: USE_GTEST=1
       addons:
