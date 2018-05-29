@@ -92,7 +92,7 @@ before_script:
 script:
   - if [ "${USE_LIB}" == '1' ]; then cd projects/make && make && cd -; fi
   - if [ "${USE_CMAKE}" == '1' ]; then
-      mkdir ./cmake-build && cd ./cmake-build && cmake ../projects/cmake && cmake --build ../projects/cmake && cd ..;
+      mkdir ./cmake-build && cd ./cmake-build && cmake ../projects/cmake && cmake --build . && cd ..;
     fi
   - cd ./test
   - if [ "${COVERITY_SCAN}" != '1' ] && [ "${USE_CMAKE}" != '1' ]; then
