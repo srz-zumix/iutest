@@ -65,6 +65,8 @@ public:
     template<typename T>
     struct is_matcher : public iutest_type_traits::is_base_of<IMatcher, T> {};
 public:
+    // IMatcher(const IMatcher &) {}
+    IMatcher& operator = (const IMatcher&) { return *this; }
     virtual ~IMatcher() {}
     virtual ::std::string WhichIs() const = 0;
 };
@@ -82,6 +84,7 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& msg)
 #define DECL_COMPARE_MATCHER(name, op)  \
     template<typename T>class IUTEST_PP_CAT(name, Matcher): public IMatcher{    \
     public: explicit IUTEST_PP_CAT(name, Matcher)(const T& v) : m_expected(v) {}\
+    IUTEST_PP_CAT(name, Matcher)(const IUTEST_PP_CAT(name, Matcher) & rhs) : m_expected(rhs.m_expected) {}\
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                         \
         iu_global_format_stringstream strm;                                     \
         strm << #name ": " << m_expected; return strm.str();                    \
@@ -97,6 +100,7 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& msg)
 #define DECL_COMPARE_MATCHER2(name, op) \
     class IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher)): public IMatcher{        \
     public: IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher))() {}                   \
+    IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher))(const IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher)) &) {}\
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return #name; }                 \
     template<typename T, typename U>AssertionResult operator ()                         \
         (const T& actual, const U& expected) const {                                    \
@@ -1453,6 +1457,7 @@ class AnyMatcher : public IMatcher
 {
 public:
     AnyMatcher() {}
+    AnyMatcher(const AnyMatcher &) {}
 public:
     AssertionResult operator ()(const T&) const
     {
@@ -1479,6 +1484,7 @@ class AnythingMatcher : public IMatcher
 {
 public:
     AnythingMatcher() {}
+    AnythingMatcher(const AnythingMatcher &) {}
 public:
     template<typename U>
     AssertionResult operator ()(const U&) const
