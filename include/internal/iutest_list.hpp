@@ -67,6 +67,10 @@ public:
 public:
     iu_list_iterator(value_ptr p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_node(p) {}  // NOLINT
     iu_list_iterator(const iu_list_iterator& rhs) IUTEST_CXX_NOEXCEPT_SPEC : m_node(rhs.m_node) {}
+    iu_list_iterator& operator = (const iu_list_iterator& rhs) IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        m_node = rhs.rhs;
+    }
 
 public:
     bool operator == (const _Myt& it) const { return this->m_node == it.m_node; }
