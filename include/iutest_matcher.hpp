@@ -332,7 +332,7 @@ class HasSubstrMatcher : public IMatcher
 {
 public:
     explicit HasSubstrMatcher(T expected) : m_expected(expected) {}
-
+    HasSubstrMatcher(const HasSubstrMatcher & rhs) : m_expected(rhs.m_expected) {}
 public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
