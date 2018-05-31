@@ -69,7 +69,7 @@ public:
     iu_list_iterator(const iu_list_iterator& rhs) IUTEST_CXX_NOEXCEPT_SPEC : m_node(rhs.m_node) {}
     iu_list_iterator& operator = (const iu_list_iterator& rhs) IUTEST_CXX_NOEXCEPT_SPEC
     {
-        m_node = rhs.rhs;
+        m_node = rhs.m_node;
         return *this;
     }
 
