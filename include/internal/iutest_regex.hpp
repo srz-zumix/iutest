@@ -46,6 +46,7 @@ class iuRegex
 public:
     iuRegex(const char* pattern) { Init(pattern); }                     // NOLINT
     iuRegex(const ::std::string& pattern) { Init(pattern.c_str()); }    // NOLINT
+    iuRegex(const iuRegex & rhs) : m_re(rhs.m_re), m_pattern(rhs.m_pattern) {}
 public:
     bool FullMatch(const char* str) const;
     bool PartialMatch(const char* str) const;
