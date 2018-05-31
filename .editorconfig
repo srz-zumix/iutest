@@ -16,3 +16,6 @@ charset = utf-8
 
 [*.{yml,html}]
 indent_size = 2
+
+[*.md]
+indent_size = 2
