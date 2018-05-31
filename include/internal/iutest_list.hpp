@@ -70,6 +70,7 @@ public:
     iu_list_iterator& operator = (const iu_list_iterator& rhs) IUTEST_CXX_NOEXCEPT_SPEC
     {
         m_node = rhs.rhs;
+        return *this;
     }
 
 public:
