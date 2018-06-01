@@ -20,6 +20,7 @@ Doxyfile    text eol=lf
 *.md        text eol=lf
 CHANGES     text eol=lf
 LICENSE     text eol=lf
+COPYING     text eol=lf
 
 # source code
 *.html      text eol=lf
