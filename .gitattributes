@@ -1,5 +1,6 @@
 * text=auto
 *.gitattributes text eol=lf
+*.gitignore text eol=lf
 
 # scripts/build
 *.bat       text eol=crlf
@@ -17,6 +18,8 @@ Doxyfile    text eol=lf
 
 # text
 *.md        text eol=lf
+CHANGES     text eol=lf
+LICENSE     text eol=lf
 
 # source code
 *.html      text eol=lf
