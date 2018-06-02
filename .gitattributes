@@ -4,12 +4,14 @@
 
 # scripts/build
 *.bat       text eol=crlf
+*.cmd       text eol=crlf
 *.sh        text eol=lf
 *.mk        text eol=lf
 *.cmake     text eol=lf
 *.in        text eol=lf
 Makefile    text eol=lf
 Gnumakefile text eol=lf
+CMakeLists.txt text eol=lf
 
 # configs
 *.yml       text eol=lf
@@ -33,6 +35,8 @@ COPYING     text eol=lf
 *.ipp       text eol=lf
 *.hpp       text eol=lf
 *.h         text eol=lf
+*.mm        text eol=lf
+*.cu        text eol=lf
 
 # project file
 *.code-workspace    text eol=lf
@@ -40,3 +44,5 @@ COPYING     text eol=lf
 *.vcxproj           text eol=crlf
 *.vcproj            text eol=crlf
 *.vcxproj.filters   text eol=crlf
+*.androidproj       text eol=crlf
+*.nuspec            text eol=lf
