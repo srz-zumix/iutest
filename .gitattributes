@@ -44,5 +44,12 @@ COPYING     text eol=lf
 *.vcxproj           text eol=crlf
 *.vcproj            text eol=crlf
 *.vcxproj.filters   text eol=crlf
+*.pyproj            text eol=crlf
 *.androidproj       text eol=crlf
-*.nuspec            text eol=lf
+
+# nuget
+*.nuspec    text eol=lf
+*.targets   text eol=lf
+
+# Docker
+Dockerfile  text eol=lf
