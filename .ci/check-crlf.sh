@@ -1,9 +1,9 @@
 #!/bin/sh
 #git grep --cached -I $'\r'
+GREP_OPT=
 for i in `grep -oP '(?<=\*\.)[\S]+(?=.*eol=crlf)' ../.gitattributes`
 do
-    cat find.txt | grep -v $i
-    exit
+    GREP_OPT=$i|${GREP_OPT}
 done
 
-cat find.txt
+echo "$GREP_OPT"
