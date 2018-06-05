@@ -1,9 +1,8 @@
 #!/bin/sh
-#git grep --cached -I $'\r'
-GREP_OPT=
+GREP_OPT=dont_match_dummy_string
 for i in `grep -oP '(?<=\*\.)[\S]+(?=.*eol=crlf)' ../.gitattributes`
 do
-    GREP_OPT=$i|${GREP_OPT}
+    GREP_OPT="$i|${GREP_OPT}"
 done
 
-echo "$GREP_OPT"
+git grep --cached -I $'\r' # | grep -v -e "$GREP_OPT"
