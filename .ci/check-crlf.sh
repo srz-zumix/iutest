@@ -9,4 +9,4 @@ do
     GREP_OPT="$i|${GREP_OPT}"
 done
 
-git grep --cached -I -P '\r' | grep -v -P "${GREP_OPT}"
+git grep $* -I -P '\r' | grep -v -P "${GREP_OPT}"
