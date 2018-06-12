@@ -364,6 +364,7 @@ public:
     /** @private */
     static bool has_output_option()
     {
+        build-error
         return !get_vars().m_output_option.empty();
     }
 
