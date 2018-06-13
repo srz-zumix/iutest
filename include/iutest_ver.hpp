@@ -122,8 +122,8 @@
  <ul>
   <li>v1.16.4.0
     <ul>
-      <li>d</li>
       <li>deprecated: IUTEST_IGNORE 関係を非推奨にしました</li>
+      <li>コンパイルエラーの修正</li>
     </ul>
   </li>
   <li>v1.16.3.0
