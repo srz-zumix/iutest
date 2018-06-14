@@ -55,8 +55,6 @@ IUTEST(GMock, Version)
 
 #endif
 
-#endif
-
 #if !defined(GMOCK_EXPECT_LATEST) && defined(GTEST_EXPECT_LATEST)
 #  define GMOCK_EXPECT_LATEST  GTEST_EXPECT_LATEST
 #endif
@@ -67,6 +65,8 @@ IUTEST(GMock, Latest)
 {
     IUTEST_EXPECT_EQ(GMOCK_EXPECT_LATEST, GMOCK_LATEST);
 }
+
+#endif
 
 #endif
 
