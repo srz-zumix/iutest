@@ -131,6 +131,10 @@ Coverage
 [![codecov](https://codecov.io/gh/srz-zumix/iutest/branch/master/graph/badge.svg)](https://codecov.io/gh/srz-zumix/iutest)  
 [![codecov](https://codecov.io/gh/srz-zumix/iutest/branch/master/graphs/icicle.svg)](https://codecov.io/gh/srz-zumix/iutest)  
 
+Contributing change
+--------------------------------------------------
+
+Please read the CONTRIBUTING.md for details on how to contribute to this project.
 
 License
 --------------------------------------------------
