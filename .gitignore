@@ -53,8 +53,18 @@ bld/
 fused-src/
 tmp/
 
+# bundle
+.bundle/
+vendor/
+
+# secret
+credential.yml
+
 # execute files
 projects/make/sample
 
 *コピー*
 .jflintrc
+
+# appveyor
+appveyor-tools/
