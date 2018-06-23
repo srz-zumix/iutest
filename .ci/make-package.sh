@@ -25,13 +25,45 @@ fi
 echo $RELEASE_VERSION
 PACKAGE_NAME=iutest-$RELEASE_VERSION
 
-# make fused
-make -C tools/fused
-git add -f fused-src/*
-git stash -u
+if [ `git diff --name-only` ]; then
+    echo diff detected...
+#    exit 1
+else
+    # make fused
+    make -C tools/fused
+    git add -f fused-src/*
+    git stash -u
 
-# packaging
-git archive --format=tar.gz 'stash@{0}' > $PACKAGE_NAME.tar.gz
-git archive --format=zip    'stash@{0}' > $PACKAGE_NAME.zip
+    # packaging
+    mkdir -p package
+    git archive --format=tar.gz 'stash@{0}' > package/$PACKAGE_NAME.tar.gz
+    git archive --format=zip    'stash@{0}' > package/$PACKAGE_NAME.zip
 
-git stash drop
+    git stash drop
+fi
+
+# create release note
+echo version $RELEASE_VERSION > package/RELEASENOTE
+
+# create changelog
+echo Changes for $RELEASE_VERSION > package/CHANGELOG
+if [ `grep 'Changes for $RELEASE_VERSION' CHANGES.md` ]; then
+    echo CHANGELOG is not found.
+else
+    cat CHANGES.md | while read line
+    out=0
+    do
+        if [ $line == "Changes for $RELEASE_VERSION" ]; then
+            out = 1
+        fi
+        if [ out == 1 ]; then
+            if [ `echo $line | grep "Changes for .*"` ]; then
+                echo $line >> package/CHANGELOG
+            else
+                out = 0
+                exit 0
+            fi
+        fi
+    done
+fi
+
