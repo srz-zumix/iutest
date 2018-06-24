@@ -53,10 +53,10 @@ else
     cat CHANGES.md | while read line
     out=0
     do
-        if [ $line == "Changes for $RELEASE_VERSION" ]; then
+        if [ $line = "Changes for $RELEASE_VERSION" ]; then
             out = 1
         fi
-        if [ out == 1 ]; then
+        if [ out = 1 ]; then
             if [ `echo $line | grep "Changes for .*"` ]; then
                 echo $line >> package/CHANGELOG
             else
