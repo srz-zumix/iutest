@@ -59,8 +59,9 @@ echo version $RELEASE_VERSION > package/RELEASENOTE
 echo "$(<package/RELEASENOTE)"
 
 # create changelog
+CHANGELOG_FILE=package/CHANGELOG-ja
 echo change log
-echo Changes for $RELEASE_VERSION > package/CHANGELOG
+echo Changes for $RELEASE_VERSION > $CHANGELOG_FILE
 if [ `grep 'Changes for $RELEASE_VERSION' CHANGES.md` ]; then
     echo CHANGELOG is not found.
 else
@@ -74,11 +75,11 @@ else
             if echo "$line" | grep -e "Changes for .*" > /dev/null; then
                 break
             elif echo "$line" | grep -v "^--*$" > /dev/null; then
-                echo "$line" >> package/CHANGELOG
+                echo "$line" >> $CHANGELOG_FILE
             fi
         fi
     done < CHANGES.md
 fi
 
 echo --------------------
-echo "$(<package/CHANGELOG)"
+echo "$(<$CHANGELOG_FILE)"
