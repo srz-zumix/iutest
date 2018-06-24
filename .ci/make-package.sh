@@ -14,13 +14,24 @@ if [ -z $RELEASE_VERSION ]; then
     RELEASE_VERSION=$BRANCH_NAME
 fi
 
-if [ `echo ${RELEASE_VERSION} | grep -o "^[0-9].[0.9].[0-9]$"` ]; then
-    RELEASE_VERSION=`echo ${RELEASE_VERSION} | grep -o "v[0-9].[0.9].[0-9]"`
+if [ -z $RELEASE_VERSION ]; then
+    BRANCH_NAME=`git branch | grep -e "^*" | cut -d' ' -f 2`
+    RELEASE_VERSION=$BRANCH_NAME
+fi
+
+echo ${RELEASE_VERSION} | grep -e "^[0-9].[0.9].[0-9]$" > /dev/null
+if [ $? != 0 ]; then
+    RELEASE_VERSION=`echo ${RELEASE_VERSION} | grep -e "v[0-9].[0.9].[0-9]"`
     if [ -z $RELEASE_VERSION ]; then
-        RELEASE_VERSION=v0.0.0
+        RELEASE_VERSION=v1.16.3
     fi
     RELEASE_VERSION=${RELEASE_VERSION:1}
 fi
+
+if [ -e ./package ]; then
+    rm -rf ./package
+fi
+mkdir package
 
 echo $RELEASE_VERSION
 PACKAGE_NAME=iutest-$RELEASE_VERSION
@@ -43,27 +54,31 @@ else
 fi
 
 # create release note
+echo release note
 echo version $RELEASE_VERSION > package/RELEASENOTE
+echo "$(<package/RELEASENOTE)"
 
 # create changelog
+echo change log
 echo Changes for $RELEASE_VERSION > package/CHANGELOG
 if [ `grep 'Changes for $RELEASE_VERSION' CHANGES.md` ]; then
     echo CHANGELOG is not found.
 else
-    cat CHANGES.md | while read line
-    out=0
+    CHANGELOG_ENABLE=0
+    while read
     do
-        if [ "$line" = "Changes for $RELEASE_VERSION" ]; then
-            out = 1
-        fi
-        if [ out = 1 ]; then
-            if [ `echo $line | grep "Changes for .*"` ]; then
-                echo $line >> package/CHANGELOG
-            else
-                out = 0
-                exit 0
+        line=$REPLY
+        if echo "$line" | grep -e "Changes for $RELEASE_VERSION$" > /dev/null; then
+            CHANGELOG_ENABLE=1
+        elif [ $CHANGELOG_ENABLE = 1 ]; then                
+            if echo "$line" | grep -e "Changes for .*" > /dev/null; then
+                break
+            elif echo "$line" | grep -v "^--*$" > /dev/null; then
+                echo "$line" >> package/CHANGELOG
             fi
         fi
-    done
+    done < CHANGES.md
 fi
 
+echo --------------------
+echo "$(<package/CHANGELOG)"

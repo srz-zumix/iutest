@@ -68,3 +68,6 @@ projects/make/sample
 
 # appveyor
 appveyor-tools/
+
+# package
+package/
