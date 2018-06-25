@@ -22,7 +22,7 @@ fi
 echo ${RELEASE_VERSION} | grep -e "^[0-9].[0.9].[0-9]$" > /dev/null
 if [ $? != 0 ]; then
     RELEASE_VERSION=`echo ${RELEASE_VERSION} | grep -e "v[0-9].[0.9].[0-9]"`
-    if [ -z $RELEASE_VERSION ]; then
+    if [ -z "$RELEASE_VERSION" ]; then
         RELEASE_VERSION=v0.0.0
     fi
     RELEASE_VERSION=${RELEASE_VERSION:1}
