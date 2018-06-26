@@ -22,12 +22,11 @@ fi
 echo ${RELEASE_VERSION} | grep -e "^[0-9].[0.9].[0-9]$" > /dev/null
 if [ $? != 0 ]; then
     RELEASE_VERSION=`echo ${RELEASE_VERSION} | grep -e "v[0-9].[0.9].[0-9]"`
-    echo $RELEASE_VERSION
     if [ -z "$RELEASE_VERSION" ]; then
         echo set dummy version
         RELEASE_VERSION=v0.0.0
     fi
-    RELEASE_VERSION=${RELEASE_VERSION:1}
+    RELEASE_VERSION="${RELEASE_VERSION:1}"
 fi
 
 if [ -e ./package ]; then
