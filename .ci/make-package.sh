@@ -26,6 +26,7 @@ if [ $? != 0 ]; then
         echo set dummy version
         RELEASE_VERSION=v0.0.0
     fi
+    echo ${RELEASE_VERSION:1}
     RELEASE_VERSION="${RELEASE_VERSION:1}"
 fi
 
