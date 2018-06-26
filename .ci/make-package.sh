@@ -26,7 +26,6 @@ if [ $? != 0 ]; then
         echo set dummy version
         RELEASE_VERSION=v0.0.0
     fi
-    echo ${RELEASE_VERSION#v}
     RELEASE_VERSION=${RELEASE_VERSION#v}
 fi
 
@@ -35,7 +34,7 @@ if [ -e ./package ]; then
 fi
 mkdir package
 
-echo $RELEASE_VERSION
+echo Release version $RELEASE_VERSION
 PACKAGE_NAME=iutest-$RELEASE_VERSION
 
 if [ `git diff --name-only` ]; then
@@ -43,7 +42,7 @@ if [ `git diff --name-only` ]; then
 #    exit 1
 else
     # make fused
-    make -C tools/fused
+    make -C tools/fused --no-print-directory
     git add -f fused-src/*
     git stash -u
 
