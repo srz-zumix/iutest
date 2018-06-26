@@ -27,7 +27,7 @@ if [ $? != 0 ]; then
         RELEASE_VERSION=v0.0.0
     fi
     echo ${RELEASE_VERSION#v}
-    RELEASE_VERSION:=${RELEASE_VERSION#v}
+    RELEASE_VERSION=${RELEASE_VERSION#v}
 fi
 
 if [ -e ./package ]; then
@@ -58,7 +58,10 @@ fi
 # create release note
 echo release note
 echo version $RELEASE_VERSION > package/RELEASENOTE
-echo "$(<package/RELEASENOTE)"
+cat package/RELEASENOTE
+if [ $? != 0 ]; then
+    echo "$(<package/RELEASENOTE)"
+fi
 
 # create changelog
 CHANGELOG_FILE=package/CHANGELOG-ja
@@ -84,4 +87,7 @@ else
 fi
 
 echo --------------------
-echo "$(<$CHANGELOG_FILE)"
+cat $CHANGELOG_FILE
+if [ $? != 0 ]; then
+    echo "$(<$CHANGELOG_FILE)"
+fi
