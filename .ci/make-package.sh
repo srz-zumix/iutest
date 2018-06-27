@@ -29,13 +29,18 @@ if [ $? != 0 ]; then
     RELEASE_VERSION=${RELEASE_VERSION#v}
 fi
 
-if [ -e ./package ]; then
-    rm -rf ./package
+if [ ! -e ./package ]; then
+    mkdir package
 fi
-mkdir package
 
 echo Release version $RELEASE_VERSION
 PACKAGE_NAME=iutest-$RELEASE_VERSION
+PACKAGE_ROOT=./package/v$RELEASE_VERSION
+
+if [ -e $PACKAGE_ROOT ]; then
+    rm -rf $PACKAGE_ROOT
+fi
+mkdir $PACKAGE_ROOT
 
 if [ `git diff --name-only` ]; then
     echo diff detected...
@@ -48,22 +53,22 @@ else
 
     # packaging
     mkdir -p package
-    git archive --format=tar.gz 'stash@{0}' > package/$PACKAGE_NAME.tar.gz
-    git archive --format=zip    'stash@{0}' > package/$PACKAGE_NAME.zip
+    git archive --format=tar.gz 'stash@{0}' > $PACKAGE_ROOT/$PACKAGE_NAME.tar.gz
+    git archive --format=zip    'stash@{0}' > $PACKAGE_ROOT/$PACKAGE_NAME.zip
 
     git stash drop
 fi
 
 # create release note
 echo release note
-echo version $RELEASE_VERSION > package/RELEASENOTE
-cat package/RELEASENOTE
+echo version $RELEASE_VERSION > $PACKAGE_ROOT/RELEASENOTE
+cat $PACKAGE_ROOT/RELEASENOTE
 if [ $? != 0 ]; then
-    echo "$(<package/RELEASENOTE)"
+    echo "$(<$PACKAGE_ROOT/RELEASENOTE)"
 fi
 
 # create changelog
-CHANGELOG_FILE=package/CHANGELOG-ja
+CHANGELOG_FILE=$PACKAGE_ROOT/CHANGELOG-ja
 echo change log
 echo Changes for $RELEASE_VERSION > $CHANGELOG_FILE
 if [ `grep 'Changes for $RELEASE_VERSION' CHANGES.md` ]; then
