@@ -225,4 +225,6 @@ matrix:
 
 notifications:
   webhooks:
-    secure: Oxajh80h7/RI6otg8Xd2QkglQU0y8ug+f8GVC/BV9VnS9cFWk10z+/69OOBFGCTN7Qjgp+MwOkrQz4a50bIIlrTQtTnw0SmMKd+qIWVJ55xXnSCqWcGE7cD1Rx5/ZmFaAZ0khTZzHwSjhCN4gexLf/aYmG3AnXLXhqNnxkZ73nY=
+    urls:
+      - secure: Oxajh80h7/RI6otg8Xd2QkglQU0y8ug+f8GVC/BV9VnS9cFWk10z+/69OOBFGCTN7Qjgp+MwOkrQz4a50bIIlrTQtTnw0SmMKd+qIWVJ55xXnSCqWcGE7cD1Rx5/ZmFaAZ0khTZzHwSjhCN4gexLf/aYmG3AnXLXhqNnxkZ73nY=
+      - secure: T+ZBCfi1TBStN2eXidtV0J5AjQqtNEXIQtytuJWpgAdgCHSD73gJusSzE9nB0k0I28i1fn6meSuGVmGPdH7CUJdjRVUgbsCSGJot6mi2iR8Qe1+ST1AnS7cD5TvhhmKba5quaIhsv8jAVTmUMYvsX40cZYV99hSUzSegJQjsVXg=

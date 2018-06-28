@@ -53,3 +53,13 @@ COPYING     text eol=lf
 
 # Docker
 Dockerfile  text eol=lf
+
+# export settings
+.ci         export-ignore
+.circleci   export-ignore
+*.yml       export-ignore
+Jenkinsfile export-ignore
+tox.ini     export-ignore
+docs/dev    export-ignore
+.gitignore  export-ignore
+.gitattributes export-ignore

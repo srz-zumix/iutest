@@ -22,6 +22,8 @@
 *.pyc
 *.VC.db
 *.tmp
+*.zip
+*.tar.gz
 *.egg-info/
 coverage.info
 test/*.xml
@@ -51,8 +53,21 @@ bld/
 fused-src/
 tmp/
 
+# bundle
+.bundle/
+vendor/
+
+# secret
+credential.yml
+
 # execute files
 projects/make/sample
 
 *コピー*
 .jflintrc
+
+# appveyor
+appveyor-tools/
+
+# package
+package/

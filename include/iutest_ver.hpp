@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01160303u //!< iutest version 1.16.3.3
+#define IUTEST_VER          0x01160304u //!< iutest version 1.16.3.4
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
 #define IUTEST_MICROVER     0x03u       //!< Micro Version
-#define IUTEST_REVISION     0x03u       //!< Revision
+#define IUTEST_REVISION     0x04u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -122,8 +122,8 @@
  <ul>
   <li>v1.16.4.0
     <ul>
-      <li>d</li>
       <li>deprecated: IUTEST_IGNORE 関係を非推奨にしました</li>
+      <li>コンパイルエラーの修正</li>
     </ul>
   </li>
   <li>v1.16.3.0
