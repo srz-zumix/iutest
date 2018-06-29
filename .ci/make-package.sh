@@ -35,7 +35,8 @@ fi
 
 echo Release version $RELEASE_VERSION
 PACKAGE_NAME=iutest-$RELEASE_VERSION
-PACKAGE_ROOT=./package/v$RELEASE_VERSION
+#PACKAGE_ROOT=./package/v$RELEASE_VERSION
+PACKAGE_ROOT=./package
 
 if [ -e $PACKAGE_ROOT ]; then
     rm -rf $PACKAGE_ROOT
