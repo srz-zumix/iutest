@@ -1,7 +1,8 @@
 #!/bin/bash
 
 if git rev-parse --ls-include-work-tree > /dev/null 2>&1; then
-    cd `pwd`/`git rev-parse --show-cdup`
+    IUTEST_ROOT=`pwd`/`git rev-parse --show-cdup`
+    cd $IUTEST_ROOT
 fi
 
 if [ ! -z $1 ]; then
@@ -34,6 +35,7 @@ if [ ! -e ./package ]; then
 fi
 
 echo Release version $RELEASE_VERSION
+RELEASE_NAME=v$RELEASE_VERSION
 PACKAGE_NAME=iutest-$RELEASE_VERSION
 #PACKAGE_ROOT=./package/v$RELEASE_VERSION
 PACKAGE_ROOT=./package
@@ -43,10 +45,21 @@ if [ -e $PACKAGE_ROOT ]; then
 fi
 mkdir $PACKAGE_ROOT
 
+can_packaging=true
+
 if [ `git diff --name-only` ]; then
     echo diff detected...
-#    exit 1
-else
+    can_packaging=false
+fi
+
+if [ `git clean -fdn | wc -l` ]; then
+    echo untracked file detected...
+    can_packaging=false
+fi
+
+if $can_packaging; then
+    echo create package
+    exit 1
     # make fused
     make -C tools/fused --no-print-directory
     git add -f fused-src/*
