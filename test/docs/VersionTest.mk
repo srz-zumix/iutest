@@ -28,7 +28,7 @@ endif
 
 changes:
 	@grep 'Changes for ' $(CHANGES_FILE) | head -1
-    @if [ ! -e "$(CHANGES_FILE)" ]; then exit 1; fi
+	@if [ ! -e "$(CHANGES_FILE)" ]; then exit 1; fi
 ifeq (0, $(IUTEST_REVISION))
 	@grep 'Changes for ' $(CHANGES_FILE) | head -1 | grep '$(IUTEST_MAJORVER).$(IUTEST_MINORVER).$(IUTEST_MICROVER)' > /dev/null
 else
