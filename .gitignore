@@ -71,3 +71,7 @@ appveyor-tools/
 
 # package
 package/
+
+# osdn
+.osdn.vars
+osdn_*/
