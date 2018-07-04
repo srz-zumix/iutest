@@ -2,13 +2,18 @@
 
 # make-package
 BASEDIR=$(dirname "$0")
-source $BASEDIR/../make-package.sh
+source $BASEDIR/../make-package.sh $*
 
 echo ====================
 echo osdn release
 echo ====================
 #echo $RELEASE_VERSION
 echo $RELEASE_NAME
+
+if ! $can_packaging; then
+    echo is not packaging...
+    exit 1
+fi
 
 if [ -z $RELEASE_NAME ]; then
     echo release name is not set
