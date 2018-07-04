@@ -49,6 +49,11 @@ mkdir $PACKAGE_ROOT
 
 can_packaging=true
 
+if [ -n "`git diff --cached --name-only`" ]; then
+    echo staged diff detected...
+    can_packaging=false
+fi
+
 if [ -n "`git diff --name-only`" ]; then
     echo diff detected...
     can_packaging=false
@@ -72,6 +77,8 @@ if $can_packaging; then
     git archive --format=zip    'stash@{0}' > $PACKAGE_ROOT/$PACKAGE_NAME.zip
 
     git stash drop
+else
+    echo skipped packaging...
 fi
 
 # create release note
