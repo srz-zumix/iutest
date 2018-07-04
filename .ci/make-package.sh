@@ -5,24 +5,26 @@ if git rev-parse --ls-include-work-tree > /dev/null 2>&1; then
     cd $IUTEST_ROOT
 fi
 
-if [ ! -z $1 ]; then
+if [ -n $1 ]; then
     RELEASE_VERSION=$1
-    #echo $RELEASE_VERSION
+    echo $RELEASE_VERSION
 fi
 
 if [ -z $RELEASE_VERSION ]; then
+    echo get branch name from HEAD
     BRANCH_NAME=`echo $(\git symbolic-ref --short HEAD) | sed s:/:-:g` 2>/dev/null
     RELEASE_VERSION=$BRANCH_NAME
 fi
 
 if [ -z $RELEASE_VERSION ]; then
+    echo get branch name from branch command
     BRANCH_NAME=`git branch | grep -e "^*" | cut -d' ' -f 2`
     RELEASE_VERSION=$BRANCH_NAME
 fi
 
-echo ${RELEASE_VERSION} | grep -e "^[0-9].[0.9].[0-9]$" > /dev/null
+echo ${RELEASE_VERSION} | grep -e "^[0-9]*.[0.9]*.[0-9]*$" > /dev/null
 if [ $? != 0 ]; then
-    RELEASE_VERSION=`echo ${RELEASE_VERSION} | grep -e "v[0-9].[0.9].[0-9]"`
+    RELEASE_VERSION=`echo ${RELEASE_VERSION} | grep -e "v[0-9]*.[0.9]*.[0-9]*"`
     if [ -z "$RELEASE_VERSION" ]; then
         echo set dummy version
         RELEASE_VERSION=v0.0.0
@@ -47,19 +49,23 @@ mkdir $PACKAGE_ROOT
 
 can_packaging=true
 
-if [ `git diff --name-only` ]; then
+if [ -n "`git diff --cached --name-only`" ]; then
+    echo staged diff detected...
+    can_packaging=false
+fi
+
+if [ -n "`git diff --name-only`" ]; then
     echo diff detected...
     can_packaging=false
 fi
 
-if [ `git clean -fdn | wc -l` ]; then
+if [ -n "`git clean -fdn`" ]; then
     echo untracked file detected...
     can_packaging=false
 fi
 
 if $can_packaging; then
     echo create package
-    exit 1
     # make fused
     make -C tools/fused --no-print-directory
     git add -f fused-src/*
@@ -71,6 +77,8 @@ if $can_packaging; then
     git archive --format=zip    'stash@{0}' > $PACKAGE_ROOT/$PACKAGE_NAME.zip
 
     git stash drop
+else
+    echo skipped packaging...
 fi
 
 # create release note
