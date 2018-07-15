@@ -57,6 +57,8 @@ env:
     - WANDBOX_COMPILER=gcc-4.5.4
     - WANDBOX_COMPILER=gcc-4.4.7
     - WANDBOX_COMPILER=clang-head IUWANDBOX_ADD_OPTION=-f"-Wno-c++11-inline-namespace"
+    - WANDBOX_COMPILER=clang-6.0.1
+#    - WANDBOX_COMPILER=clang-6.0.0
     - WANDBOX_COMPILER=clang-5.0.0
     - WANDBOX_COMPILER=clang-4.0.1
     - WANDBOX_COMPILER=clang-4.0.0
