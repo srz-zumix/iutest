@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -46,7 +46,6 @@ class iuRegex
 public:
     iuRegex(const char* pattern) { Init(pattern); }                     // NOLINT
     iuRegex(const ::std::string& pattern) { Init(pattern.c_str()); }    // NOLINT
-    iuRegex(const iuRegex & rhs) : m_re(rhs.m_re), m_pattern(rhs.m_pattern) {}
 public:
     bool FullMatch(const char* str) const;
     bool PartialMatch(const char* str) const;
@@ -59,8 +58,6 @@ private:
 private:
     ::std::regex m_re;
     ::std::string m_pattern;
-
-    IUTEST_PP_DISALLOW_ASSIGN(iuRegex);
 };
 
 #endif
