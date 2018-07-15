@@ -72,6 +72,13 @@ list-options:
 	python iuwandbox.py --list-options $(WANDBOX_COMPILER)
 
 #
+# raw api
+#
+get-list-json:
+	mkdir -p tmp
+	curl https://wandbox.org/api/list.json > tmp/list.json
+
+#
 # iutest test
 #
 

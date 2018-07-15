@@ -41,7 +41,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 5.9'
+        version=u'%(prog)s version 6.0'
     )
     parser.add_argument(
         '--list-compiler',
@@ -415,12 +415,12 @@ def expand_wandbox_options(w, compiler, options):
             if 'switches' in d:
                 switches = d['switches']
                 for s in switches:
-                    if ('name' in s) and ('display-flags' in s):
-                        defs[s['name']] = s['display-flags']
-                    elif 'options' in s:
+                    if 'options' in s:
                         for o in s['options']:
                             if ('name' in o) and ('display-flags' in o):
                                 defs[o['name']] = o['display-flags']
+                    elif ('name' in s) and ('display-flags' in s):
+                        defs[s['name']] = s['display-flags']
     for opt in options:
         if opt in defs:
             colist.extend(defs[opt].split())
@@ -727,26 +727,30 @@ def listup_options(compiler):
             if 'switches' in d:
                 switches = d['switches']
                 for s in switches:
-                    if 'name' in s:
+                    if 'options' in s:
+                        default_option = s['default']
+                        print(s['name'])
+                        for o in s['options']:
+                            if o['name'] == default_option:
+                                print('  ' + o['name'] + ' (default)')
+                            else:
+                                print('  ' + o['name'])
+                    elif 'name' in s:
                         if s['default']:
                             print(s['name'] + ' (default)')
                         else:
                             print(s['name'])
-                    elif 'options' in s:
-                        print(s['default'] + ' (default)')
-                        for o in s['options']:
-                            print('  ' + o['name'])
 
 
 def get_options(compiler):
     opt = []
     for s in wandbox_get_compilerswitches(compiler):
-        if 'name' in s:
-            opt.append(s['name'])
-        elif 'options' in s:
+        if 'options' in s:
             opt.append(s['default'])
             for o in s['options']:
                 opt.append(o['name'])
+        elif 'name' in s:
+            opt.append(s['name'])
     return opt
 
 
@@ -754,11 +758,11 @@ def get_options(compiler):
 def get_default_options(compiler):
     opt = []
     for s in wandbox_get_compilerswitches(compiler):
-        if 'name' in s:
+        if 'options' in s:
+            opt.append(s['default'])
+        elif 'name' in s:
             if s['default']:
                 opt.append(s['name'])
-        elif 'options' in s:
-            opt.append(s['default'])
     return opt
 
 
