@@ -314,17 +314,24 @@ CXXFLAGS += -DIUTEST_USE_LIB=1 -L../lib
 LDFLAGS:= -liutest $(LDFLAGS)
 endif
 
+$(TARGETS_EXCLUDE_ALLTESTS) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS)
+
+
+# compiler error test
+
+PY_COMPILEERROR_TEST_TOOL=../tools/python/iutest_compile_error_test.py
+ifeq ($(CXX_NAME),)
 IUTEST_COMPILE_ERROR_TEST_OPTION=-c $(CXX)
+else
+IUTEST_COMPILE_ERROR_TEST_OPTION=-c $(CXX_NAME)
+endif
 ifeq ($(CI),true)
 IUTEST_COMPILE_ERROR_TEST_OPTION+= --verbose
 endif
 
-$(TARGETS_EXCLUDE_ALLTESTS) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS)
-
 $(ERR_TARGETS) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
-#	-$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS) 2>&1 | python ../tools/python/iutest_compile_error_test.py $(IUTEST_COMPILE_ERROR_TEST_OPTION)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS) 2>&1 | python $(PY_COMPILEERROR_TEST_TOOL) $(IUTEST_COMPILE_ERROR_TEST_OPTION)
 
 else
 
