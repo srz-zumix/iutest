@@ -65,9 +65,6 @@ public:
     template<typename T>
     struct is_matcher : public iutest_type_traits::is_base_of<IMatcher, T> {};
 public:
-    // IMatcher(const IMatcher &) {}
-    IMatcher& operator = (const IMatcher&) { return *this; }
-    virtual ~IMatcher() {}
     virtual ::std::string WhichIs() const = 0;
 };
 
