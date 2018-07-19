@@ -81,10 +81,15 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& msg)
  * @{
  */
 
+#define IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(name)            \
+    name(const name& rhs) : m_expected(rhs.m_expected) {}                               \
+    name& operator = (const name& rhs) { m_expected = rhs.m_expected; return *this; }   \
+    class IUTEST_PP_CAT(dummy_, name)
+
 #define DECL_COMPARE_MATCHER(name, op)  \
     template<typename T>class IUTEST_PP_CAT(name, Matcher): public IMatcher{    \
     public: explicit IUTEST_PP_CAT(name, Matcher)(const T& v) : m_expected(v) {}\
-    IUTEST_PP_CAT(name, Matcher)(const IUTEST_PP_CAT(name, Matcher) & rhs) : m_expected(rhs.m_expected) {}\
+    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(IUTEST_PP_CAT(name, Matcher)); \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                         \
         iu_global_format_stringstream strm;                                     \
         strm << #name ": " << m_expected; return strm.str();                    \
@@ -93,21 +98,17 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& msg)
         if( actual op m_expected ) return AssertionSuccess();                   \
         return AssertionFailure() << WhichIs();                                 \
     }                                                                           \
-    private: IUTEST_PP_DISALLOW_ASSIGN(IUTEST_PP_CAT(name, Matcher));           \
-    const T& m_expected;                                                        \
+    private: const T& m_expected;                                               \
     }
 
 #define DECL_COMPARE_MATCHER2(name, op) \
     class IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher)): public IMatcher{        \
-    public: IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher))() {}                   \
-    IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher))(const IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher)) &) {}\
-    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return #name; }                 \
+    public: ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return #name; }         \
     template<typename T, typename U>AssertionResult operator ()                         \
         (const T& actual, const U& expected) const {                                    \
         if( actual op expected ) return AssertionSuccess();                             \
         return AssertionFailure() << WhichIs() << ": " << actual << " vs " << expected; \
-    } private:                                                                          \
-        IUTEST_PP_DISALLOW_ASSIGN(IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher)));\
+    }                                                                                   \
     }
 
 
@@ -135,6 +136,7 @@ IUTEST_PRAGMA_WARN_POP()
 #define DECL_STR_COMPARE_MATCHER(name)  \
     template<typename T>class IUTEST_PP_CAT(name, Matcher): public IMatcher {   \
     public: IUTEST_PP_CAT(name, Matcher)(const T& value) : m_expected(value) {} \
+    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(IUTEST_PP_CAT(name, Matcher)); \
     template<typename U>AssertionResult operator ()(const U& actual) const {    \
         if( internal::IUTEST_PP_CAT(name, Helper)::Compare(                     \
             actual, m_expected) ) { return AssertionSuccess(); }                \
@@ -144,7 +146,7 @@ IUTEST_PRAGMA_WARN_POP()
         iu_global_format_stringstream strm; strm << #name ": " << m_expected;   \
         return strm.str();                                                      \
     }                                                                           \
-    private: IUTEST_PP_DISALLOW_ASSIGN(IUTEST_PP_CAT(name, Matcher));           \
+    private:                                                                    \
     const T& m_expected;                                                        \
     }
 
@@ -165,8 +167,6 @@ DECL_STR_COMPARE_MATCHER(StrCaseNe);
 class IsNullMatcher : public IMatcher
 {
 public:
-    IsNullMatcher() {}
-public:
     template<typename U>
     AssertionResult operator ()(const U* actual) const
     {
@@ -180,8 +180,6 @@ public:
     {
         return "Is Null";
     }
-private:
-    IUTEST_PP_DISALLOW_ASSIGN(IsNullMatcher);
 };
 
 /**
@@ -189,8 +187,6 @@ private:
 */
 class NotNullMatcher : public IMatcher
 {
-public:
-    NotNullMatcher() {}
 public:
     template<typename U>
     AssertionResult operator ()(const U* actual) const
@@ -205,8 +201,6 @@ public:
     {
         return "Not Null";
     }
-private:
-    IUTEST_PP_DISALLOW_ASSIGN(NotNullMatcher);
 };
 
 /**
@@ -216,6 +210,7 @@ template<typename T>
 class FloatingPointEqMatcher : public IMatcher
 {
 public:
+    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(FloatingPointEqMatcher);
     explicit FloatingPointEqMatcher(const T& value) : m_expected(value) {}
 
 public:
@@ -237,8 +232,6 @@ public:
         return strm.str();
     }
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(FloatingPointEqMatcher);
-
     floating_point<T> m_expected;
 };
 
@@ -249,6 +242,7 @@ template<typename T>
 class NanSensitiveFloatingPointEqMatcher : public IMatcher
 {
 public:
+    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(NanSensitiveFloatingPointEqMatcher);
     explicit NanSensitiveFloatingPointEqMatcher(const T& value) : m_expected(value) {}
 
 public:
@@ -270,8 +264,6 @@ public:
         return strm.str();
     }
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(NanSensitiveFloatingPointEqMatcher);
-
     floating_point<T> m_expected;
 };
 
@@ -282,13 +274,14 @@ template<typename T>
 class StartsWithMatcher : public IMatcher
 {
 public:
-    explicit StartsWithMatcher(T str) : m_str(str) {}
+    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(StartsWithMatcher);
+    explicit StartsWithMatcher(T str) : m_expected(str) {}
 
 public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if( StartsWith(actual, m_str) )
+        if( StartsWith(actual, m_expected) )
         {
             return AssertionSuccess();
         }
@@ -299,7 +292,7 @@ public:
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
-        strm << "StartsWith: " << m_str;
+        strm << "StartsWith: " << m_expected;
         return strm.str();
     }
 private:
@@ -323,9 +316,7 @@ private:
         return StartsWith(actual, p);
     }
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(StartsWithMatcher);
-
-    T m_str;
+    T m_expected;
 };
 
 /**
@@ -335,8 +326,8 @@ template<typename T>
 class HasSubstrMatcher : public IMatcher
 {
 public:
+    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(HasSubstrMatcher);
     explicit HasSubstrMatcher(T expected) : m_expected(expected) {}
-    HasSubstrMatcher(const HasSubstrMatcher & rhs) : m_expected(rhs.m_expected) {}
 public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
@@ -377,8 +368,6 @@ private:
     }
 
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(HasSubstrMatcher);
-
     T m_expected;
 };
 
@@ -389,13 +378,14 @@ template<typename T>
 class EndsWithMatcher : public IMatcher
 {
 public:
-    explicit EndsWithMatcher(T str) : m_str(str) {}
+    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(EndsWithMatcher);
+    explicit EndsWithMatcher(T str) : m_expected(str) {}
 
 public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if( EndsWith(actual, m_str) )
+        if( EndsWith(actual, m_expected) )
         {
             return AssertionSuccess();
         }
@@ -406,7 +396,7 @@ public:
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
-        strm << "EndsWith: " << m_str;
+        strm << "EndsWith: " << m_expected;
         return strm.str();
     }
 private:
@@ -445,9 +435,7 @@ private:
         return EndsWith(actual, p);
     }
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(EndsWithMatcher);
-
-    T m_str;
+    T m_expected;
 };
 
 /**
@@ -457,6 +445,7 @@ template<typename T>
 class EqMatcher : public IMatcher
 {
 public:
+    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(EqMatcher);
     explicit EqMatcher(const T& expected) : m_expected(expected) {}
 
 public:
@@ -501,8 +490,6 @@ IUTEST_PRAGMA_WARN_POP()
         return Equals(actual, p);
     }
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(EqMatcher);
-
     const T& m_expected;
 };
 
@@ -513,7 +500,7 @@ template<typename T>
 class TypedEqMatcher : public EqMatcher<T>
 {
 public:
-    explicit TypedEqMatcher(T expected) : EqMatcher<T>(m_expected), m_expected(expected) {}
+    explicit TypedEqMatcher(T expected) : EqMatcher<T>(expected) {}
 public:
     AssertionResult operator ()(const T& actual)
     {
@@ -521,11 +508,6 @@ public:
     }
     template<typename U>
     AssertionResult operator ()(const U&) const;
-
-private:
-    IUTEST_PP_DISALLOW_ASSIGN(TypedEqMatcher);
-
-    T m_expected;
 };
 
 /**
@@ -565,6 +547,7 @@ template<typename T>
 class ContainsMatcher : public IMatcher
 {
 public:
+    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(ContainsMatcher);
     explicit ContainsMatcher(const T& expected) : m_expected(expected) {}
 
 public:
@@ -601,8 +584,6 @@ private:
     }
 
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(ContainsMatcher);
-
     T m_expected;
 };
 
@@ -613,6 +594,7 @@ template<typename T>
 class EachMatcher : public IMatcher
 {
 public:
+    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(EachMatcher);
     explicit EachMatcher(const T& expected) : m_expected(expected) {}
 
 public:
@@ -649,8 +631,6 @@ private:
     }
 
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(EachMatcher);
-
     T m_expected;
 };
 
@@ -713,8 +693,6 @@ private:
     }
 
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(ContainerEqMatcher);
-
     const T& m_expected;
     ::std::string m_whichIs;
 };
@@ -779,8 +757,6 @@ private:
     }
 
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(PointwiseMatcher);
-
     M m_matcher;
     const T& m_expected;
     ::std::string m_whichIs;
@@ -791,9 +767,6 @@ private:
 */
 class IsEmptyMatcher : public IMatcher
 {
-public:
-    IsEmptyMatcher() {}
-
 public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
@@ -810,8 +783,6 @@ public:
     {
         return "Is Empty";
     }
-private:
-    IUTEST_PP_DISALLOW_ASSIGN(IsEmptyMatcher);
 };
 
 
@@ -822,6 +793,7 @@ template<typename T>
 class SizeIsMatcher : public IMatcher
 {
 public:
+    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(SizeIsMatcher);
     explicit SizeIsMatcher(const T& expected) : m_expected(expected) {}
 
 public:
@@ -857,8 +829,6 @@ private:
 #endif
 
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(SizeIsMatcher);
-
     T m_expected;
 };
 
@@ -891,8 +861,6 @@ public:
     }
 
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(AtMatcher);
-
     size_t m_index;
     T m_expected;
 };
@@ -970,8 +938,6 @@ private:
     }
 
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(ElementsAreArrayMatcher);
-
     ::std::vector<T> m_expected;
     bool m_expected_elem_count;
 };
@@ -1057,7 +1023,6 @@ private:
     {
         return StreamableToString(tuples::get<N>(matchers)) + ", " + WhichIs_<T, N + 1, LAST>(matchers);
     }
-    IUTEST_PP_DISALLOW_ASSIGN(ElementsAreMatcherBase);
 };
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
@@ -1106,8 +1071,6 @@ public:
         return ElementsAreMatcherBase::WhichIs<0>(m_matchers);
     }
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(ElementsAreMatcher);
-
     tuples::tuple<T0, T1> m_matchers;
 };
 */
@@ -1121,7 +1084,7 @@ private:
         return Check(m_matchers, actual); }                                             \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                                 \
         return ElementsAreMatcherBase::WhichIs<0>(m_matchers); }                        \
-    private: IUTEST_PP_DISALLOW_ASSIGN(IUTEST_PP_CAT(ElementsAreMatcher, n));           \
+    private:                                                                            \
     tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > m_matchers;                            \
     }
 
@@ -1193,8 +1156,6 @@ private:
 #endif
 
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(FieldMatcher);
-
     const F& m_field;
     T m_expected;
 };
@@ -1250,8 +1211,6 @@ private:
 #endif
 
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(PropertyMatcher);
-
     const F& m_property;
     T m_expected;
 };
@@ -1263,6 +1222,7 @@ template<typename T>
 class KeyMatcher : public IMatcher
 {
 public:
+    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(KeyMatcher);
     explicit KeyMatcher(const T& expected) : m_expected(expected) {}
 
 public:
@@ -1285,8 +1245,6 @@ public:
     }
 
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(KeyMatcher);
-
     const T& m_expected;
 };
 
@@ -1329,8 +1287,6 @@ private:
     }
 
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(PairMatcher);
-
     T1 m_m1;
     T2 m_m2;
 };
@@ -1370,8 +1326,6 @@ private:
         return static_cast<bool>(CastToMatcher(m_expected)((*m_func)(actual)));
     }
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(ResultOfMatcher);
-
     F& m_func;
     T m_expected;
 };
@@ -1410,8 +1364,6 @@ private:
         return static_cast<bool>(CastToMatcher(m_expected)(*actual));
     }
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(PointeeMatcher);
-
     T m_expected;
 };
 
@@ -1444,8 +1396,6 @@ public:
     }
 
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(NotMatcher);
-
     T m_unexpected;
 };
 
@@ -1455,9 +1405,6 @@ private:
 template<typename T>
 class AnyMatcher : public IMatcher
 {
-public:
-    AnyMatcher() {}
-    AnyMatcher(const AnyMatcher &) {}
 public:
     AssertionResult operator ()(const T&) const
     {
@@ -1473,8 +1420,6 @@ public:
         strm << "A: " << detail::GetTypeName<T>();
         return strm.str();
     }
-private:
-    IUTEST_PP_DISALLOW_ASSIGN(AnyMatcher);
 };
 
 /**
@@ -1482,9 +1427,6 @@ private:
 */
 class AnythingMatcher : public IMatcher
 {
-public:
-    AnythingMatcher() {}
-    AnythingMatcher(const AnythingMatcher &) {}
 public:
     template<typename U>
     AssertionResult operator ()(const U&) const
@@ -1497,8 +1439,6 @@ public:
     {
         return "_";
     }
-private:
-    IUTEST_PP_DISALLOW_ASSIGN(AnythingMatcher);
 };
 
 #if IUTEST_HAS_MATCHER_REGEX
@@ -1549,8 +1489,6 @@ private:
     }
 
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(RegexMatcher);
-
     detail::iuRegex m_expected;
     bool m_full_match;
 };
@@ -1607,7 +1545,6 @@ private:
     {
         return tuples::get<N>(matchers).WhichIs() + " and " + WhichIs_<T, N + 1, LAST>(matchers);
     }
-    IUTEST_PP_DISALLOW_ASSIGN(AllOfMatcherBase);
 };
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
@@ -1656,8 +1593,6 @@ public:
         return AllOfMatcherBase::WhichIs<0>(m_matchers);
     }
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(AllOfMatcher);
-
     tuples::tuple<T0, T1> m_matchers;
 };
 */
@@ -1671,7 +1606,7 @@ private:
         return Check(m_matchers, actual); }                                         \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                             \
         return AllOfMatcherBase::WhichIs<0>(m_matchers); }                          \
-    private: IUTEST_PP_DISALLOW_ASSIGN(IUTEST_PP_CAT(AllOfMatcher, n));             \
+    private:                                                                        \
     tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > m_matchers;                        \
     }
 
@@ -1737,8 +1672,6 @@ private:
     {
         return tuples::get<N>(matchers).WhichIs() + " or " + WhichIs_<T, N + 1, LAST>(matchers);
     }
-
-    IUTEST_PP_DISALLOW_ASSIGN(AnyOfMatcherBase);
 };
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES
@@ -1787,8 +1720,6 @@ public:
         return AnyOfMatcherBase::WhichIs<0>(m_matchers);
     }
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(AnyOfMatcher);
-
     tuples::tuple<T0, T1> m_matchers;
 };
 */
@@ -1802,7 +1733,7 @@ private:
         return Check(m_matchers, actual); }                                         \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                             \
         return AnyOfMatcherBase::WhichIs<0>(m_matchers); }                          \
-    private: IUTEST_PP_DISALLOW_ASSIGN(IUTEST_PP_CAT(AnyOfMatcher, n));             \
+    private:                                                                        \
     tuples::tuple< IUTEST_PP_ENUM_PARAMS(n, T) > m_matchers;                        \
     }
 

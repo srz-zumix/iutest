@@ -200,14 +200,6 @@ public:
         : m_part_result(file, line, message.c_str(), type)
     {}
 
-private:
-    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(AssertionHelper);
-
-#if IUTEST_HAS_RVALUE_REFS
-    AssertionHelper(AssertionHelper&& rhs) IUTEST_CXX_DELETED_FUNCTION;
-    AssertionHelper& operator=(AssertionHelper&&) IUTEST_CXX_DELETED_FUNCTION;
-#endif
-
 public:
     /** @private */
     class ScopedMessage : public detail::iu_list_node<ScopedMessage>
@@ -359,6 +351,9 @@ private:
 private:
     friend class TestInfo;
     TestPartResult m_part_result;
+
+private:
+    IUTEST_PP_DISALLOW_MOVE_AND_COPY_AND_ASSIGN(AssertionHelper);
 };
 
 }   // end of namespace iutest
