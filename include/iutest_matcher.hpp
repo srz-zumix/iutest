@@ -56,6 +56,8 @@ inline ::std::string MatcherAssertionFailureMessage(const char* actual, const ch
 //======================================================================
 // class
 
+IUTEST_PRAGMA_ASSIGNMENT_OPERATOR_COULD_NOT_GENERATE_WARN_DISABLE_BEGIN()
+
 /**
  * @brief   matcher interface
 */
@@ -78,15 +80,9 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& msg)
  * @{
  */
 
-#define IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(name)            \
-    name(const name& rhs) : m_expected(rhs.m_expected) {}                               \
-    name& operator = (const name& rhs) { m_expected = rhs.m_expected; return *this; }   \
-    class IUTEST_PP_CAT(dummy_, name)
-
 #define DECL_COMPARE_MATCHER(name, op)  \
     template<typename T>class IUTEST_PP_CAT(name, Matcher): public IMatcher{    \
     public: explicit IUTEST_PP_CAT(name, Matcher)(const T& v) : m_expected(v) {}\
-    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(IUTEST_PP_CAT(name, Matcher)); \
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                         \
         iu_global_format_stringstream strm;                                     \
         strm << #name ": " << m_expected; return strm.str();                    \
@@ -133,7 +129,6 @@ IUTEST_PRAGMA_WARN_POP()
 #define DECL_STR_COMPARE_MATCHER(name)  \
     template<typename T>class IUTEST_PP_CAT(name, Matcher): public IMatcher {   \
     public: IUTEST_PP_CAT(name, Matcher)(const T& value) : m_expected(value) {} \
-    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(IUTEST_PP_CAT(name, Matcher)); \
     template<typename U>AssertionResult operator ()(const U& actual) const {    \
         if( internal::IUTEST_PP_CAT(name, Helper)::Compare(                     \
             actual, m_expected) ) { return AssertionSuccess(); }                \
@@ -207,7 +202,6 @@ template<typename T>
 class FloatingPointEqMatcher : public IMatcher
 {
 public:
-    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(FloatingPointEqMatcher);
     explicit FloatingPointEqMatcher(const T& value) : m_expected(value) {}
 
 public:
@@ -239,7 +233,6 @@ template<typename T>
 class NanSensitiveFloatingPointEqMatcher : public IMatcher
 {
 public:
-    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(NanSensitiveFloatingPointEqMatcher);
     explicit NanSensitiveFloatingPointEqMatcher(const T& value) : m_expected(value) {}
 
 public:
@@ -271,7 +264,6 @@ template<typename T>
 class StartsWithMatcher : public IMatcher
 {
 public:
-    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(StartsWithMatcher);
     explicit StartsWithMatcher(T str) : m_expected(str) {}
 
 public:
@@ -323,7 +315,6 @@ template<typename T>
 class HasSubstrMatcher : public IMatcher
 {
 public:
-    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(HasSubstrMatcher);
     explicit HasSubstrMatcher(T expected) : m_expected(expected) {}
 public:
     template<typename U>
@@ -375,7 +366,6 @@ template<typename T>
 class EndsWithMatcher : public IMatcher
 {
 public:
-    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(EndsWithMatcher);
     explicit EndsWithMatcher(T str) : m_expected(str) {}
 
 public:
@@ -442,7 +432,6 @@ template<typename T>
 class EqMatcher : public IMatcher
 {
 public:
-    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(EqMatcher);
     explicit EqMatcher(const T& expected) : m_expected(expected) {}
 
 public:
@@ -497,7 +486,7 @@ template<typename T>
 class TypedEqMatcher : public EqMatcher<T>
 {
 public:
-    explicit TypedEqMatcher(T expected) : EqMatcher<T>(expected) {}
+    explicit TypedEqMatcher(T expected) : EqMatcher<T>(m_expected), m_expected(expected) {}
 public:
     AssertionResult operator ()(const T& actual)
     {
@@ -505,6 +494,9 @@ public:
     }
     template<typename U>
     AssertionResult operator ()(const U&) const;
+
+private:
+    T m_expected;
 };
 
 /**
@@ -544,7 +536,6 @@ template<typename T>
 class ContainsMatcher : public IMatcher
 {
 public:
-    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(ContainsMatcher);
     explicit ContainsMatcher(const T& expected) : m_expected(expected) {}
 
 public:
@@ -591,7 +582,6 @@ template<typename T>
 class EachMatcher : public IMatcher
 {
 public:
-    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(EachMatcher);
     explicit EachMatcher(const T& expected) : m_expected(expected) {}
 
 public:
@@ -790,7 +780,6 @@ template<typename T>
 class SizeIsMatcher : public IMatcher
 {
 public:
-    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(SizeIsMatcher);
     explicit SizeIsMatcher(const T& expected) : m_expected(expected) {}
 
 public:
@@ -1219,7 +1208,6 @@ template<typename T>
 class KeyMatcher : public IMatcher
 {
 public:
-    IIUT_MATCHER_HAS_EXPECTED_MEMBER_CLASS_DEFAULT_COPY_AND_ASSIGN(KeyMatcher);
     explicit KeyMatcher(const T& expected) : m_expected(expected) {}
 
 public:
@@ -1749,6 +1737,8 @@ IIUT_DECL_ANYOF_MATCHER(10);
 #endif
 
 #endif
+
+IUTEST_PRAGMA_ASSIGNMENT_OPERATOR_COULD_NOT_GENERATE_WARN_DISABLE_END()
 
 }   // end of namespace detail
 

@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01160401u //!< iutest version 1.16.4.1
+#define IUTEST_VER          0x01160401u //!< iutest version 1.16.4.2
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
 #define IUTEST_MICROVER     0x04u       //!< Micro Version
-#define IUTEST_REVISION     0x01u       //!< Revision
+#define IUTEST_REVISION     0x02u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -120,6 +120,12 @@
  * @page    CHANGELOG   変更履歴
  * @par     Changes
  <ul>
+  <li>v1.16.5.0
+    <ul>
+      <li>iuwandbox で std-cxx の指定をするとオプションチェックで失敗する不具合を修正</li>
+      <li></li>
+    </ul>
+  </li>
   <li>v1.16.4.0
     <ul>
       <li>deprecated: IUTEST_IGNORE 関係を非推奨にしました</li>
