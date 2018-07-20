@@ -1412,6 +1412,7 @@ public:
 */
 class AnythingMatcher : public IMatcher
 {
+    AnythingMatcher() IUTEST_CXX_DEFAULT_FUNCTION
 public:
     template<typename U>
     AssertionResult operator ()(const U&) const
