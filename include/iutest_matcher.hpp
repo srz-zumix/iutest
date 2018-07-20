@@ -1412,6 +1412,7 @@ public:
 */
 class AnythingMatcher : public IMatcher
 {
+public:
     AnythingMatcher() IUTEST_CXX_DEFAULT_FUNCTION
 public:
     template<typename U>
