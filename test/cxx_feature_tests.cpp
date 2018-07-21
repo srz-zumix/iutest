@@ -59,6 +59,8 @@ IUTEST(NoexceptFounctionType, ExpressionAssert)
 
 #endif
 
+#if IUTEST_HAS_STD_STRING_VIEW
+
 IUTEST(StringView, Compare)
 {
     std::string_view view = "Hello";
@@ -71,6 +73,8 @@ IUTEST(StringView, PrintTo)
     std::string_view view = "Hello";
     IUTEST_SUCCEED() << ::iutest::PrintToString(view);
 }
+
+#endif
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
