@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_switch_for_gtest.hpp
- * @brief       switching to iutest from gtest / gtest from iutest
+ * @brief       switching to iutest from gtest
  *
  * @author      t.shirayanagi
  * @par         copyright
@@ -127,6 +127,8 @@ namespace tr1
 #undef IUTEST_OPERAND
 #undef IUTEST_EXPRESSION
 
+#undef IUTEST_HAS_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LEFESPAN
+
 #endif
 
 #define IUTEST_SUCCEED          GTEST_SUCCEED
@@ -180,6 +182,12 @@ namespace tr1
 #define IUTEST_HAS_RTTI             GTEST_HAS_RTTI
 #define IUTEST_HAS_REGEX            GTEST_USES_POSIX_RE
 #define IUTEST_HAS_SEH              GTEST_HAS_SEH
+
+#if GTEST_VER >= 0x01070000
+#  define IUTEST_HAS_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LEFESPAN 1
+#else
+#  define IUTEST_HAS_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LEFESPAN 0
+#endif
 
 #ifndef IUTEST_CXX_OVERRIDE
 #  define IUTEST_CXX_OVERRIDE

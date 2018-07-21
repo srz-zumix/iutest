@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -113,24 +113,30 @@ int main(int argc, char* argv[])
     {
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret != 0 ) return 1;
-#if !defined(IUTEST_USE_GTEST)
+#if IUTEST_HAS_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LEFESPAN
         if( !CheckProperty(::iutest::UnitTest::GetInstance()->ad_hoc_testresult(), "bar", "C") )
+        {
             return 1;
+        }
 #endif
     }
-#if !defined(IUTEST_USE_GTEST)
+#if IUTEST_HAS_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LEFESPAN
     {
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret != 0 ) return 1;
         if( !CheckProperty(::iutest::UnitTest::GetInstance()->ad_hoc_testresult(), "bar", "C") )
+        {
             return 1;
+        }
     }
     {
         IUTEST_INIT(&argc, argv);
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret != 0 ) return 1;
         if( CheckProperty(::iutest::UnitTest::GetInstance()->ad_hoc_testresult(), "bar", "C") )
+        {
             return 1;
+        }
     }
 #endif
     printf("*** Successful ***\n");
