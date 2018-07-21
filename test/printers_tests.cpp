@@ -19,32 +19,6 @@
 #include "iutest.hpp"
 #include "logger_tests.hpp"
 
-#if !defined(IUTEST_USE_GTEST)
-TestLogger printer_logger;
-
-class LogChecker
-{
-    ::std::string m_str;
-public:
-    explicit LogChecker(const char* str) : m_str(str)
-    {
-        ::iutest::detail::iuConsole::SetLogger(&printer_logger);
-    }
-    ~LogChecker(void)
-    {
-        ::iutest::detail::iuConsole::SetLogger(NULL);
-        IUTEST_EXPECT_STRIN(m_str.c_str(), printer_logger.c_str());
-        printer_logger.clear();
-    }
-};
-#else
-class LogChecker
-{
-public:
-    explicit LogChecker(const char*) {}
-};
-#endif
-
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else

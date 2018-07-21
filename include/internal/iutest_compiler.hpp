@@ -100,13 +100,17 @@
 #  include <android/api-level.h>
 #endif
 
-// c++17
+// __cplusplus numbers
+
+#define IUTEST_CPLUSPLUS_CXX11 201103L
+#define IUTEST_CPLUSPLUS_CXX14 201402L
+#define IUTEST_CPLUSPLUS_CXX17 201703L
 
 //! is c++17 compiler
 #if !defined(IUTEST_HAS_CXX17)
-#  if (defined(__cplusplus) && __cplusplus >= 201406L)
+#  if (defined(__cplusplus) && __cplusplus >= IUTEST_CPLUSPLUS_CXX17)
 #    define IUTEST_HAS_CXX17        1
-#  elif defined(_MSVC_LANG) && _MSVC_LANG > 201402
+#  elif (defined(_MSVC_LANG) && _MSVC_LANG >= IUTEST_CPLUSPLUS_CXX17)
 #    define IUTEST_HAS_CXX17        1
 #  endif
 #endif
@@ -115,10 +119,50 @@
 #  define IUTEST_HAS_CXX17          0
 #endif
 
+#if !defined(IUTEST_HAS_CXX1Z)
+#  if (defined(__cplusplus) && __cplusplus > IUTEST_CPLUSPLUS_CXX14)
+#    define IUTEST_HAS_CXX1Z        1
+#  elif (defined(_MSVC_LANG) && _MSVC_LANG > IUTEST_CPLUSPLUS_CXX14)
+#    define IUTEST_HAS_CXX1Z        1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CXX1Z)
+#  define IUTEST_HAS_CXX1Z          0
+#endif
+
+//! is c++14 compiler
+#if !defined(IUTEST_HAS_CXX14)
+#  if (defined(__cplusplus) && __cplusplus >= IUTEST_CPLUSPLUS_CXX14)
+#    define IUTEST_HAS_CXX14        1
+#  elif (defined(_MSVC_LANG) && _MSVC_LANG >= IUTEST_CPLUSPLUS_CXX14)
+#    define IUTEST_HAS_CXX14        1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CXX14)
+#  define IUTEST_HAS_CXX14          0
+#endif
+
+//! is c++11 compiler
+#if !defined(IUTEST_HAS_CXX11)
+#  if (defined(__cplusplus) && __cplusplus >= IUTEST_CPLUSPLUS_CXX11) || defined(__GXX_EXPERIMENTAL_CXX0X__)
+#    define IUTEST_HAS_CXX11        1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CXX11)
+#  define IUTEST_HAS_CXX11          0
+#endif
+
+
+
+// c++17 features
+
 //! inline variable
 #if !defined(IUTEST_HAS_INLINE_VARIABLE)
 #if defined(__clang__)
-#  if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 9)) && IUTEST_HAS_CXX17
+#  if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 9)) && IUTEST_HAS_CXX1Z
 #    define IUTEST_HAS_INLINE_VARIABLE      1
 #  endif
 #endif
@@ -143,18 +187,7 @@
 #  define IUTEST_HAS_CONSTEXPR_IF           0
 #endif
 
-// c++11
-
-//! is c++11 compiler
-#if !defined(IUTEST_HAS_CXX11)
-#  if (defined(__cplusplus) && __cplusplus >= 201103L) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-#    define IUTEST_HAS_CXX11        1
-#  endif
-#endif
-
-#if !defined(IUTEST_HAS_CXX11)
-#  define IUTEST_HAS_CXX11          0
-#endif
+// c++11 features
 
 //! has nullptr
 #if !defined(IUTEST_HAS_NULLPTR)

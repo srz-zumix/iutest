@@ -16,6 +16,7 @@
 //======================================================================
 // include
 #include "../include/gtest/iutest_spi_switch.hpp"
+#include "logger_tests.hpp"
 
 #if IUTEST_HAS_NOEXCEPT_FUNCTION_TYPE
 
@@ -57,6 +58,19 @@ IUTEST(NoexceptFounctionType, ExpressionAssert)
 }
 
 #endif
+
+IUTEST(StringView, Compare)
+{
+    std::string_view view = "Hello";
+    IUTEST_ASSERT_EQ("Hello", view);
+}
+
+IUTEST(StringView, PrintTo)
+{
+    LogChecker ck("Hello");
+    std::string_view view = "Hello";
+    IUTEST_SUCCEED() << ::iutest::PrintToString(view);
+}
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])

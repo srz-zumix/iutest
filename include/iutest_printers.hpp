@@ -242,7 +242,8 @@ inline void PrintTo(const T& value, iu_ostream* os) {
 }
 inline void PrintTo(bool b, iu_ostream* os)         { *os << (b ? "true" : "false"); }
 inline void PrintTo(const char* c, iu_ostream* os)  { *os << c; }
-inline void PrintTo(const ::std::string& str, iu_ostream* os)   { *os << str.c_str(); }
+template<typename CharT, typename Traits, typename Alloc>
+inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)   { *os << str.c_str(); }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 template<typename T>
 inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
@@ -294,6 +295,14 @@ inline void PrintTo(const unsigned char value, iu_ostream* os)
 {
     *os << static_cast<unsigned int>(value);
 }
+#if IUTEST_HAS_STD_STRING_VIEW
+template<typename CharT, typename Traits>
+inline void PrintTo(const std::basic_string_view<CharT, Traits>& value, iu_ostream* os)
+{
+    const std::basic_string<CharT, Traits> tmp{ value };
+    *os << tmp;
+}
+#endif
 
 #if IUTEST_HAS_NULLPTR
 inline void PrintTo(const ::std::nullptr_t&, iu_ostream* os) { *os << "nullptr"; }

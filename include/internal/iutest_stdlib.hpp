@@ -32,7 +32,9 @@
 
 // libstdc++
 #if   defined(__clang__)
-#  if __has_include(<experimental/any>)
+#  if __has_include(<experimental/memory_resource>)
+#    define IUTEST_LIBSTDCXX_VERSION    60100
+#  elif __has_include(<experimental/any>)
 #    define IUTEST_LIBSTDCXX_VERSION    50100
 #  elif __has_include(<shared_mutex>)
 #    define IUTEST_LIBSTDCXX_VERSION    40900
@@ -54,6 +56,11 @@
 #endif
 
 #if IUTEST_HAS_CXX11
+#  if IUTEST_LIBSTDCXX_VERSION >= 60100
+#    if !defined(IUTEST_HAS_STD_INVOKE) && IUTEST_HAS_CXX1Z
+#      define IUTEST_HAS_STD_INVOKE       1
+#    endif
+#  endif
 #  if IUTEST_LIBSTDCXX_VERSION >= 50100
 #    if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
 #      define IUTEST_HAS_CXX_HDR_CODECVT  1
@@ -169,6 +176,11 @@
 #  endif
 #endif
 
+#if _LIBCPP_VERSION >= 3700
+#  if !defined(IUTEST_HAS_STD_INVOKE) && IUTEST_HAS_CXX1Z
+#    define IUTEST_HAS_STD_INVOKE         1
+#  endif
+#endif
 #if _LIBCPP_VERSION >= 1001
 #  if !defined(IUTEST_HAS_STD_BEGIN_END)
 #    define IUTEST_HAS_STD_BEGIN_END      1
@@ -255,6 +267,18 @@
 
 #endif
 
+#if IUTEST_HAS_CXX1Z
+
+// c++17 feature
+
+#if defined(__has_include)
+#  if __has_include(<string_view>)
+#    define IUTEST_HAS_STD_STRING_VIEW  1
+#  endif
+#endif
+
+#endif
+
 #if defined(__has_include)
 #  if defined(IUTEST_HAS_CXX_HDR_CODECVT) && IUTEST_HAS_CXX_HDR_CODECVT
 #    if !__has_include( <codecvt> )
@@ -263,6 +287,14 @@
 #  endif
 #endif
 
+//! has std::invoke
+#if !defined(IUTEST_HAS_STD_INVOKE)
+#  define IUTEST_HAS_STD_INVOKE         0
+#endif
+//! has std::string_view
+#if !defined(IUTEST_HAS_STD_STRING_VIEW)
+#  define IUTEST_HAS_STD_STRING_VIEW    0
+#endif
 //! has std::begin,std::end
 #if !defined(IUTEST_HAS_STD_BEGIN_END)
 #  define IUTEST_HAS_STD_BEGIN_END      0
