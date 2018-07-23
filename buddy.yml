@@ -170,7 +170,7 @@
     mount_filesystem_path: "/buddy/iutest"
     shell: "SH"
     trigger_condition: "ALWAYS"
-- pipeline: "gtest-comaptible-released"
+- pipeline: "gtest-compatible-released"
   trigger_mode: "ON_EVERY_PUSH"
   ref_name: "master"
   ref_type: "BRANCH"

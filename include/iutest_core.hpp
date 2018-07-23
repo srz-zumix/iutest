@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -93,8 +93,14 @@ public:
     /** 失敗したテストケース総数 */
     int             failed_test_case_count() const;
 
+    /**
+     * @brief テスト実行中じゃないときのリザルトの取得
+     * @deprecated
+     */
+    const TestResult* ad_hoc_testresult() const IUTEST_CXX_NOEXCEPT_SPEC { return ad_hoc_test_result(); }
+
     /** テスト実行中じゃないときのリザルトの取得 */
-    const TestResult* ad_hoc_testresult() const IUTEST_CXX_NOEXCEPT_SPEC { return &m_ad_hoc_testresult; }
+    const TestResult* ad_hoc_test_result() const IUTEST_CXX_NOEXCEPT_SPEC { return &m_ad_hoc_testresult; }
 
     /** テストの実行ミリ秒 */
     TimeInMillisec  elapsed_time()      const IUTEST_CXX_NOEXCEPT_SPEC { return m_elapsedmsec; }
