@@ -18,7 +18,6 @@
 #include "iutest.hpp"
 #include "../include/iutest_spi.hpp"
 
-#if !defined(IUTEST_USE_GTEST)
 #if !IUTEST_HAS_ASSERTION_RETURN
 void CheckProperty_(const ::iutest::TestResult* tr, const char* key, const char* value)
 {
@@ -87,8 +86,6 @@ IUTEST_F(RecordTest, A)
     CheckProperty(::iutest::UnitTest::GetInstance()->current_test_info()->result(), "hoge", "b");
 }
 
-#endif
-
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
@@ -113,14 +110,14 @@ int main(int argc, char* argv[])
     {
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret != 0 ) return 1;
-#if IUTEST_HAS_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LEFESPAN
+#if IUTEST_HAS_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN
         if( !CheckProperty(::iutest::UnitTest::GetInstance()->ad_hoc_testresult(), "bar", "C") )
         {
             return 1;
         }
 #endif
     }
-#if IUTEST_HAS_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LEFESPAN
+#if IUTEST_HAS_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN
     {
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret != 0 ) return 1;
