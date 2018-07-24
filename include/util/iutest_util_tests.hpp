@@ -326,6 +326,7 @@ inline const ::iutest::TestResult* GetTestCaseAdHocResult(const ::iutest::TestCa
 #if IUTEST_HAS_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN
     return TestResultPointer(test_case->ad_hoc_test_result());
 #else
+    IUTEST_UNUSED_VAR(test_case);
     return GetAdHocTestResult();
 #endif
 }
