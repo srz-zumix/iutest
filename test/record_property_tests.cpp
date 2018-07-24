@@ -21,9 +21,12 @@
 #if !IUTEST_HAS_ASSERTION_RETURN
 void CheckProperty_(const ::iutest::TestResult* tr, const char* key, const char* value)
 {
-    IUTEST_ASSERT_EQ(1, tr->test_property_count());
-    IUTEST_EXPECT_STREQ(key, tr->GetTestProperty(0).key());
-    IUTEST_EXPECT_STREQ(value, tr->GetTestProperty(0).value());
+    if( tr != NULL )
+    {
+        IUTEST_ASSERT_EQ(1, tr->test_property_count());
+        IUTEST_EXPECT_STREQ(key, tr->GetTestProperty(0).key());
+        IUTEST_EXPECT_STREQ(value, tr->GetTestProperty(0).value());
+    }
 }
 #endif
 
@@ -34,9 +37,12 @@ bool CheckProperty(const ::iutest::TestResult* tr, const char* key, const char* 
 #endif
 
 #if IUTEST_HAS_ASSERTION_RETURN
-    IUTEST_ASSERT_EQ(1, tr->test_property_count()) << ::iutest::AssertionReturn<bool>(false);
-    IUTEST_EXPECT_STREQ(key, tr->GetTestProperty(0).key()) << ::iutest::AssertionReturn<bool>(false);
-    IUTEST_EXPECT_STREQ(value, tr->GetTestProperty(0).value()) << ::iutest::AssertionReturn<bool>(false);
+    if( tr != NULL )
+    {
+        IUTEST_ASSERT_EQ(1, tr->test_property_count()) << ::iutest::AssertionReturn<bool>(false);
+        IUTEST_EXPECT_STREQ(key, tr->GetTestProperty(0).key()) << ::iutest::AssertionReturn<bool>(false);
+        IUTEST_EXPECT_STREQ(value, tr->GetTestProperty(0).value()) << ::iutest::AssertionReturn<bool>(false);
+    }
 #else
     CheckProperty_(tr, key, value);
 #endif
@@ -110,14 +116,14 @@ int main(int argc, char* argv[])
     {
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret != 0 ) return 1;
-#if IUTEST_HAS_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN
+#if !defined(IUTEST_NO_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN)
         if( !CheckProperty(iuutil::GetAdHocTestResult(), "bar", "C") )
         {
             return 1;
         }
 #endif
     }
-#if IUTEST_HAS_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN
+#if !defined(IUTEST_NO_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN)
     {
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret != 0 ) return 1;

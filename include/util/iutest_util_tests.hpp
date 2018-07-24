@@ -315,7 +315,7 @@ inline const ::iutest::TestResult* TestResultPointer(const ::iutest::TestResult&
 */
 inline const ::iutest::TestResult* GetAdHocTestResult()
 {
-#if IUTEST_HAS_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN
+#if !defined(IUTEST_NO_UNITEST_AD_HOC_TEST_RESULT_ACCESSOR)
     return TestResultPointer(::iutest::UnitTest::GetInstance()->ad_hoc_test_result());
 #else
     return NULL;
@@ -327,7 +327,7 @@ inline const ::iutest::TestResult* GetAdHocTestResult()
 */
 inline const ::iutest::TestResult* GetTestCaseAdHocResult(const ::iutest::TestCase* test_case)
 {
-#if IUTEST_HAS_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN
+#if !defined(IUTEST_NO_TESTCASE_AD_HOC_TEST_RESULT_ACCESSOR)
     return TestResultPointer(test_case->ad_hoc_test_result());
 #else
     IUTEST_UNUSED_VAR(test_case);
