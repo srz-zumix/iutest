@@ -125,8 +125,8 @@ public:
         return TestEnv::AddDefaultPackageName(name());
     }
 
-    /** 
-     * @brief   テスト実行中じゃないときのリザルトの取得 
+    /**
+     * @brief   テスト実行中じゃないときのリザルトの取得
      * @deprecated
     */
     const TestResult* ad_hoc_testresult() const IUTEST_CXX_NOEXCEPT_SPEC
@@ -134,14 +134,13 @@ public:
         return ad_hoc_test_result();
     }
 
-    /** 
-     * @brief   テスト実行中じゃないときのリザルトの取得 
+    /**
+     * @brief   テスト実行中じゃないときのリザルトの取得
     */
     const TestResult* ad_hoc_test_result() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return &m_ad_hoc_testresult;
     }
-    
 
 public:
     /**

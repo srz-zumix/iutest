@@ -315,7 +315,11 @@ inline const ::iutest::TestResult* TestResultPointer(const ::iutest::TestResult&
 */
 inline const ::iutest::TestResult* GetAdHocTestResult()
 {
+#if IUTEST_HAS_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN
     return TestResultPointer(::iutest::UnitTest::GetInstance()->ad_hoc_test_result());
+#else
+    return NULL;
+#endif
 }
 
 /**
