@@ -311,19 +311,11 @@ inline const ::iutest::TestResult* TestResultPointer(const ::iutest::TestResult&
 }
 
 /**
- * @brief   get test result
+ * @brief   ad_hoc_test_result の取得
 */
-inline const ::iutest::TestResult* GetTestResult(const ::iutest::TestInfo* test_info)
+inline const ::iutest::TestResult* GetAdHocTestResult()
 {
-    return TestResultPointer(test_info->result());
-}
-
-/**
- * @brief   get test result
-*/
-inline const ::iutest::TestResult* GetCurrentTestResult()
-{
-    return GetTestResult(::iutest::UnitTest::GetInstance()->current_test_info());
+    return TestResultPointer(::iutest::UnitTest::GetInstance()->ad_hoc_test_result());
 }
 
 /**
@@ -347,11 +339,19 @@ inline const ::iutest::TestResult* GetCurrentTestCaseAdHocResult()
 }
 
 /**
- * @brief   ad_hoc_test_result の取得
+ * @brief   get test result
 */
-inline const ::iutest::TestResult* GetAdHocTestResult()
+inline const ::iutest::TestResult* GetTestResult(const ::iutest::TestInfo* test_info)
 {
-    return TestResultPointer(::iutest::UnitTest::GetInstance()->ad_hoc_test_result());
+    return TestResultPointer(test_info->result());
+}
+
+/**
+ * @brief   get test result
+*/
+inline const ::iutest::TestResult* GetCurrentTestResult()
+{
+    return GetTestResult(::iutest::UnitTest::GetInstance()->current_test_info());
 }
 
 }   // end of namespace iuutil
