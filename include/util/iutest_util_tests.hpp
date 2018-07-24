@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -294,6 +294,59 @@ inline const ::iutest::TestInfo* FindParamTestInfo(const ::iutest::TestCase* tes
     }
     return NULL;
 }
+
+
+/**
+ * @brief   ad_hoc_test_result の取得
+*/
+inline const ::iutest::TestResult* GetTestResult(const ::iutest::TestInfo* test_info)
+{
+    return TestResultPointer(test_info->result());
+}
+
+/**
+ * @brief   TestCase の ad_hoc_test_result の取得
+*/
+inline const ::iutest::TestResult* GetCurrentTestCaseAdHocResult(const ::iutest::TestCase* test_case)
+{
+    return GetTestCaseAdHocResult(::iutest::UnitTest::GetInstance()->current_test_case());
+}
+
+/**
+ * @brief   TestCase の ad_hoc_test_result の取得
+*/
+inline const ::iutest::TestResult* GetTestCaseAdHocResult(const ::iutest::TestCase* test_case)
+{
+#if IUTEST_HAS_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN
+    return TestResultPointer(test_case->ad_hoc_test_result());
+#else
+    return GetAdHocTestResult();
+#endif
+}
+
+/**
+ * @brief   ad_hoc_test_result の取得
+*/
+inline const ::iutest::TestResult* GetAdHocTestResult()
+{
+    return TestResultPointer(::iutest::UnitTest::GetInstance()->ad_hoc_test_result());
+}
+
+/** 
+ * @private
+*/
+inline const ::iutest::TestResult* TestResultPointer(const ::iutest::TestResult* result)
+{
+    return result;
+}
+/** 
+ * @private
+*/
+inline const ::iutest::TestResult* TestResultPointer(const ::iutest::TestResult& result)
+{
+    return &result;
+}
+
 
 }   // end of namespace iuutil
 

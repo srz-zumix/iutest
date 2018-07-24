@@ -63,9 +63,7 @@ public:
         IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("errors"   , "A"), "Reserved key");
         IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("time"     , "A"), "Reserved key");
 #endif
-#if IUTEST_HAS_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN
-        CheckProperty(::iutest::UnitTest::GetInstance()->current_test_case()->ad_hoc_test_result(), "foo", "A");
-#endif
+        CheckProperty(::iuutil::GetCurrentTestCaseAdHocResult(), "foo", "A");
     }
 };
 
@@ -81,11 +79,11 @@ IUTEST_F(RecordTest, A)
     IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("type_param" , "B"), "Reserved key");
     IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("value_param", "B"), "Reserved key");
 #endif
-    CheckProperty(::iutest::UnitTest::GetInstance()->current_test_info()->result(), "hoge", "B");
+    CheckProperty(::iuutil::GetCurrentTestResult(), "hoge", "B");
 
     // overwrite
     RecordProperty("hoge", "b");
-    CheckProperty(::iutest::UnitTest::GetInstance()->current_test_info()->result(), "hoge", "b");
+    CheckProperty(::iuutil::GetCurrentTestResult(), "hoge", "b");
 }
 
 #ifdef UNICODE
@@ -113,7 +111,7 @@ int main(int argc, char* argv[])
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret != 0 ) return 1;
 #if IUTEST_HAS_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN
-        if( !CheckProperty(::iutest::UnitTest::GetInstance()->ad_hoc_test_result(), "bar", "C") )
+        if( !CheckProperty(iuutil::GetAdHocTestResult(), "bar", "C") )
         {
             return 1;
         }
@@ -123,7 +121,7 @@ int main(int argc, char* argv[])
     {
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret != 0 ) return 1;
-        if( !CheckProperty(::iutest::UnitTest::GetInstance()->ad_hoc_test_result(), "bar", "C") )
+        if( !CheckProperty(iuutil::GetAdHocTestResult(), "bar", "C") )
         {
             return 1;
         }
@@ -132,7 +130,7 @@ int main(int argc, char* argv[])
         IUTEST_INIT(&argc, argv);
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret != 0 ) return 1;
-        if( CheckProperty(::iutest::UnitTest::GetInstance()->ad_hoc_test_result(), "bar", "C") )
+        if( CheckProperty(iuutil::GetAdHocTestResult(), "bar", "C") )
         {
             return 1;
         }
