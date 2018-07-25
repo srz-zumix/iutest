@@ -18,6 +18,11 @@
 
 #if defined(IUTEST_USE_GTEST)
 
+IUTEST(GTest, Print)
+{
+    IUTEST_SUCCEED() << GTEST_VER;
+}
+
 #if defined(GTEST_EXPECT_VER)
 
 IUTEST(GTest, Version)
@@ -40,6 +45,11 @@ IUTEST(GTest, Latest)
 #endif
 
 #if defined(IUTEST_USE_GMOCK)
+
+IUTEST(GMock, Print)
+{
+    IUTEST_SUCCEED() << GMOCK_VER;
+}
 
 #if !defined(GMOCK_EXPECT_VER) && defined(GTEST_EXPECT_VER)
 #  define GMOCK_EXPECT_VER  GTEST_EXPECT_VER
