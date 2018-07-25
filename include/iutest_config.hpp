@@ -689,6 +689,9 @@
 #define IUTEST_NO_PUTENV    //!< putenv 関数がない場合は定義
 #define IUTEST_NO_GETCWD    //!< getcwd 関数がない場合は定義
 
+//! RecordProperty が Test 以外の場所でも使用できない場合に定義される
+#define IUTEST_NO_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN
+
 /**
  * @}
 */

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -293,6 +293,70 @@ inline const ::iutest::TestInfo* FindParamTestInfo(const ::iutest::TestCase* tes
         }
     }
     return NULL;
+}
+
+/** 
+ * @private
+*/
+inline const ::iutest::TestResult* TestResultPointer(const ::iutest::TestResult* result)
+{
+    return result;
+}
+/** 
+ * @private
+*/
+inline const ::iutest::TestResult* TestResultPointer(const ::iutest::TestResult& result)
+{
+    return &result;
+}
+
+/**
+ * @brief   ad_hoc_test_result の取得
+*/
+inline const ::iutest::TestResult* GetAdHocTestResult()
+{
+#if !defined(IUTEST_NO_UNITEST_AD_HOC_TEST_RESULT_ACCESSOR)
+    return TestResultPointer(::iutest::UnitTest::GetInstance()->ad_hoc_test_result());
+#else
+    return NULL;
+#endif
+}
+
+/**
+ * @brief   TestCase の ad_hoc_test_result の取得
+*/
+inline const ::iutest::TestResult* GetTestCaseAdHocResult(const ::iutest::TestCase* test_case)
+{
+#if !defined(IUTEST_NO_TESTCASE_AD_HOC_TEST_RESULT_ACCESSOR)
+    return TestResultPointer(test_case->ad_hoc_test_result());
+#else
+    IUTEST_UNUSED_VAR(test_case);
+    return GetAdHocTestResult();
+#endif
+}
+
+/**
+ * @brief   TestCase の ad_hoc_test_result の取得
+*/
+inline const ::iutest::TestResult* GetCurrentTestCaseAdHocResult()
+{
+    return GetTestCaseAdHocResult(::iutest::UnitTest::GetInstance()->current_test_case());
+}
+
+/**
+ * @brief   get test result
+*/
+inline const ::iutest::TestResult* GetTestResult(const ::iutest::TestInfo* test_info)
+{
+    return TestResultPointer(test_info->result());
+}
+
+/**
+ * @brief   get test result
+*/
+inline const ::iutest::TestResult* GetCurrentTestResult()
+{
+    return GetTestResult(::iutest::UnitTest::GetInstance()->current_test_info());
 }
 
 }   // end of namespace iuutil

@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_switch_for_gtest.hpp
- * @brief       switching to iutest from gtest / gtest from iutest
+ * @brief       switching to iutest from gtest
  *
  * @author      t.shirayanagi
  * @par         copyright
@@ -180,6 +180,12 @@ namespace tr1
 #define IUTEST_HAS_RTTI             GTEST_HAS_RTTI
 #define IUTEST_HAS_REGEX            GTEST_USES_POSIX_RE
 #define IUTEST_HAS_SEH              GTEST_HAS_SEH
+
+#if GTEST_VER < 0x01070000
+#  define IUTEST_NO_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN
+#  define IUTEST_NO_UNITEST_AD_HOC_TEST_RESULT_ACCESSOR
+#  define IUTEST_NO_TESTCASE_AD_HOC_TEST_RESULT_ACCESSOR
+#endif
 
 #ifndef IUTEST_CXX_OVERRIDE
 #  define IUTEST_CXX_OVERRIDE

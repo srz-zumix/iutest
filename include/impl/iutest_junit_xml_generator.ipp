@@ -86,7 +86,7 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestCase(IFile* file, 
     }
 
     // propertys
-    OnReportTestProperty(file, *test_case.ad_hoc_testresult());
+    OnReportTestProperty(file, *test_case.ad_hoc_test_result());
 
     file->Printf("    </properties>\n");
 
