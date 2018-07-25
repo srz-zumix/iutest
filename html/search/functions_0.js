@@ -1,6 +1,7 @@
 var searchData=
 [
   ['a',['A',['../d4/d14/group___m_a_t_c_h_e_r_s.html#ga7dff43861c1c0e66369395115b2b4e42',1,'iutest::matchers']]],
+  ['ad_5fhoc_5ftest_5fresult',['ad_hoc_test_result',['../df/d67/classiutest_1_1_test_case.html#a9b625d6542f2eaab725143afddbb195f',1,'iutest::TestCase::ad_hoc_test_result()'],['../de/d13/classiutest_1_1_unit_test.html#a2e3f4886e28213ef0f012e417ff5cdc4',1,'iutest::UnitTest::ad_hoc_test_result()']]],
   ['ad_5fhoc_5ftestresult',['ad_hoc_testresult',['../df/d67/classiutest_1_1_test_case.html#a02f57c1730a8322ecc8ca2eb696d2012',1,'iutest::TestCase::ad_hoc_testresult()'],['../de/d13/classiutest_1_1_unit_test.html#aebff55392dbb8a6dfdcc8f167feeee13',1,'iutest::UnitTest::ad_hoc_testresult()']]],
   ['adddefaultpackagename',['AddDefaultPackageName',['../d7/d8c/classiutest_1_1_test_env.html#a83a052ba699fc992f0b696fd6283bc9c',1,'iutest::TestEnv']]],
   ['addglobaltestenvironment',['AddGlobalTestEnvironment',['../d7/d8c/classiutest_1_1_test_env.html#aa4ad04d5148c7d8226ae00b8ae53ac77',1,'iutest::TestEnv::AddGlobalTestEnvironment()'],['../d3/dda/namespaceiutest.html#ae122192fab03fe831e82c32db2bbd3be',1,'iutest::AddGlobalTestEnvironment()']]],

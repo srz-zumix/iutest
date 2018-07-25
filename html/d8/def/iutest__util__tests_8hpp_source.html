@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.4.0</span>
+   &#160;<span id="projectnumber">1.16.4.6</span>
    </div>
   </td>
  </tr>
@@ -346,9 +346,52 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="keywordflow">return</span> NULL;</div>
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;}</div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;}   <span class="comment">// end of namespace iuutil</span></div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_UTIL_TESTS_HPP_4095FF9B_D6B8_4CD3_BF86_43DFED1760EA_</span></div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;<span class="keyword">inline</span> const ::iutest::TestResult* TestResultPointer(const ::iutest::TestResult* result)</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;{</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;}</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="keyword">inline</span> const ::iutest::TestResult* TestResultPointer(const ::iutest::TestResult&amp; result)</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;{</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    <span class="keywordflow">return</span> &amp;result;</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;}</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="keyword">inline</span> const ::iutest::TestResult* <a class="code" href="../../d8/dbf/namespaceiuutil.html#aa9b98c72a899938b23603b8059f0dd43">GetAdHocTestResult</a>()</div>
+<div class="line"><a name="l00317"></a><span class="lineno"><a class="line" href="../../d8/dbf/namespaceiuutil.html#aa9b98c72a899938b23603b8059f0dd43">  317</a></span>&#160;{</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_UNITEST_AD_HOC_TEST_RESULT_ACCESSOR)</span></div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> TestResultPointer(::<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">iutest::UnitTest::GetInstance</a>()-&gt;ad_hoc_test_result());</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> NULL;</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;<span class="keyword">inline</span> const ::iutest::TestResult* <a class="code" href="../../d8/dbf/namespaceiuutil.html#a43cf5939a597f8dcec8edceb298459ac">GetTestCaseAdHocResult</a>(const ::iutest::TestCase* test_case)</div>
+<div class="line"><a name="l00329"></a><span class="lineno"><a class="line" href="../../d8/dbf/namespaceiuutil.html#a43cf5939a597f8dcec8edceb298459ac">  329</a></span>&#160;{</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_TESTCASE_AD_HOC_TEST_RESULT_ACCESSOR)</span></div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> TestResultPointer(test_case-&gt;ad_hoc_test_result());</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="preprocessor"></span>    IUTEST_UNUSED_VAR(test_case);</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d8/dbf/namespaceiuutil.html#aa9b98c72a899938b23603b8059f0dd43">GetAdHocTestResult</a>();</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="keyword">inline</span> const ::iutest::TestResult* <a class="code" href="../../d8/dbf/namespaceiuutil.html#a4bbc54bac55b0d220efe6de8872d4e67">GetCurrentTestCaseAdHocResult</a>()</div>
+<div class="line"><a name="l00342"></a><span class="lineno"><a class="line" href="../../d8/dbf/namespaceiuutil.html#a4bbc54bac55b0d220efe6de8872d4e67">  342</a></span>&#160;{</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d8/dbf/namespaceiuutil.html#a43cf5939a597f8dcec8edceb298459ac">GetTestCaseAdHocResult</a>(::<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">iutest::UnitTest::GetInstance</a>()-&gt;current_test_case());</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;}</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="keyword">inline</span> const ::iutest::TestResult* <a class="code" href="../../d8/dbf/namespaceiuutil.html#a2868d2577890f1ce343ff75ad66a2dcb">GetTestResult</a>(const ::iutest::TestInfo* test_info)</div>
+<div class="line"><a name="l00350"></a><span class="lineno"><a class="line" href="../../d8/dbf/namespaceiuutil.html#a2868d2577890f1ce343ff75ad66a2dcb">  350</a></span>&#160;{</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    <span class="keywordflow">return</span> TestResultPointer(test_info-&gt;result());</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;}</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="keyword">inline</span> const ::iutest::TestResult* <a class="code" href="../../d8/dbf/namespaceiuutil.html#a6e50a4ec60a2f47a3c08fef404b75841">GetCurrentTestResult</a>()</div>
+<div class="line"><a name="l00358"></a><span class="lineno"><a class="line" href="../../d8/dbf/namespaceiuutil.html#a6e50a4ec60a2f47a3c08fef404b75841">  358</a></span>&#160;{</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d8/dbf/namespaceiuutil.html#a2868d2577890f1ce343ff75ad66a2dcb">GetTestResult</a>(::<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">iutest::UnitTest::GetInstance</a>()-&gt;current_test_info());</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;}</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;}   <span class="comment">// end of namespace iuutil</span></div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_UTIL_TESTS_HPP_4095FF9B_D6B8_4CD3_BF86_43DFED1760EA_</span></div>
 <div class="ttc" id="namespaceiuutil_html_af72317d8937edadd6c94e2310b00225f"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#af72317d8937edadd6c94e2310b00225f">iuutil::FindParamTestCase</a></div><div class="ttdeci">const ::iutest::TestCase * FindParamTestCase(const char *testcase_name, const ::iutest::TestCase *begin=NULL)</div><div class="ttdoc">TestCase の検索 </div><div class="ttdef"><b>Definition:</b> iutest_util_tests.hpp:106</div></div>
 <div class="ttc" id="namespaceiuutil_html_ac4a4e53149c0da32bbd3eae91054484b"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#ac4a4e53149c0da32bbd3eae91054484b">iuutil::FindParamTestInfo</a></div><div class="ttdeci">const ::iutest::TestInfo * FindParamTestInfo(const ::iutest::TestCase *testcase, const char *testinfo_name, const ::iutest::TestInfo *begin=NULL)</div><div class="ttdoc">TestInfo の検索 </div><div class="ttdef"><b>Definition:</b> iutest_util_tests.hpp:259</div></div>
 <div class="ttc" id="namespaceiuutil_html_a267701080dcf662c5c6a3408167ce9fa"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#a267701080dcf662c5c6a3408167ce9fa">iuutil::FindTypedTestCase</a></div><div class="ttdeci">const ::iutest::TestCase * FindTypedTestCase(const char *testcase_name, const ::iutest::TestCase *begin=NULL)</div><div class="ttdoc">Typed Test の TestCase の検索 </div><div class="ttdef"><b>Definition:</b> iutest_util_tests.hpp:144</div></div>
@@ -356,17 +399,22 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="ttc" id="classiutest_1_1_unit_test_html_aef84e56219bc896f131df5cd2edeba01"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#aef84e56219bc896f131df5cd2edeba01">iutest::UnitTest::total_test_case_count</a></div><div class="ttdeci">int total_test_case_count() const </div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:89</div></div>
 <div class="ttc" id="classiutest_1_1_unit_test_html_a1154caf184eb447dd0fe5fbde60e1868"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">iutest::UnitTest::GetInstance</a></div><div class="ttdeci">static UnitTest * GetInstance()</div><div class="ttdoc">UnitTest インスタンスの取得 </div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:41</div></div>
 <div class="ttc" id="namespaceiuutil_html_ac1710fc5d95970d2a96416525e201fde"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#ac1710fc5d95970d2a96416525e201fde">iuutil::FindTestInfo</a></div><div class="ttdeci">const ::iutest::TestInfo * FindTestInfo(const ::iutest::TestCase *testcase, const char *testinfo_name)</div><div class="ttdoc">TestInfo の検索 </div><div class="ttdef"><b>Definition:</b> iutest_util_tests.hpp:224</div></div>
-<div class="ttc" id="classiutest_1_1_unit_test_html_a58db3f3ae9ff2f3ca274f7bdb6937f8a"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a58db3f3ae9ff2f3ca274f7bdb6937f8a">iutest::UnitTest::GetTestCase</a></div><div class="ttdeci">const TestCase * GetTestCase(int index) const </div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:107</div></div>
+<div class="ttc" id="classiutest_1_1_unit_test_html_a58db3f3ae9ff2f3ca274f7bdb6937f8a"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a58db3f3ae9ff2f3ca274f7bdb6937f8a">iutest::UnitTest::GetTestCase</a></div><div class="ttdeci">const TestCase * GetTestCase(int index) const </div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:113</div></div>
 <div class="ttc" id="namespaceiuutil_html_ac8323e0176c865c7b024d8dba9336f26"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#ac8323e0176c865c7b024d8dba9336f26">iuutil::FindTestCase</a></div><div class="ttdeci">const ::iutest::TestCase * FindTestCase(const char *testcase_name)</div><div class="ttdoc">TestCase の検索 </div><div class="ttdef"><b>Definition:</b> iutest_util_tests.hpp:85</div></div>
 <div class="ttc" id="classiutest_1_1_test_case_html_a2faa0f8d2c9c5dea207524bf99799f00"><div class="ttname"><a href="../../df/d67/classiutest_1_1_test_case.html#a2faa0f8d2c9c5dea207524bf99799f00">iutest::TestCase::name</a></div><div class="ttdeci">const char * name() const </div><div class="ttdef"><b>Definition:</b> iutest_case.hpp:69</div></div>
+<div class="ttc" id="namespaceiuutil_html_a2868d2577890f1ce343ff75ad66a2dcb"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#a2868d2577890f1ce343ff75ad66a2dcb">iuutil::GetTestResult</a></div><div class="ttdeci">const ::iutest::TestResult * GetTestResult(const ::iutest::TestInfo *test_info)</div><div class="ttdoc">get test result </div><div class="ttdef"><b>Definition:</b> iutest_util_tests.hpp:350</div></div>
 <div class="ttc" id="namespaceiuutil_html_a2dd11c4737e2e0287efa442797046fd7"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#a2dd11c4737e2e0287efa442797046fd7">iuutil::TestCaseNameRemoveInstantiateAndIndexName</a></div><div class="ttdeci">inline::std::string TestCaseNameRemoveInstantiateAndIndexName(const char *name)</div><div class="ttdoc">インスタンス名とインデックスを除いたテストケース名を取得 </div><div class="ttdef"><b>Definition:</b> iutest_util_tests.hpp:62</div></div>
 <div class="ttc" id="namespaceiuutil_html_a8f5df62845fdd7cb3238b48ceddbc9e0"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#a8f5df62845fdd7cb3238b48ceddbc9e0">iuutil::TestNameRemoveIndexName</a></div><div class="ttdeci">inline::std::string TestNameRemoveIndexName(const char *name)</div><div class="ttdoc">インデックスを除いたテスト名を取得 </div><div class="ttdef"><b>Definition:</b> iutest_util_tests.hpp:41</div></div>
+<div class="ttc" id="namespaceiuutil_html_aa9b98c72a899938b23603b8059f0dd43"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#aa9b98c72a899938b23603b8059f0dd43">iuutil::GetAdHocTestResult</a></div><div class="ttdeci">const ::iutest::TestResult * GetAdHocTestResult()</div><div class="ttdoc">ad_hoc_test_result の取得 </div><div class="ttdef"><b>Definition:</b> iutest_util_tests.hpp:317</div></div>
 <div class="ttc" id="namespaceiuutil_html_a690ad6d60b8e401393a3cc52b68c7295"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#a690ad6d60b8e401393a3cc52b68c7295">iuutil::FindParamTypedTestCase</a></div><div class="ttdeci">const ::iutest::TestCase * FindParamTypedTestCase(const char *testcase_name, const ::iutest::TestCase *begin=NULL)</div><div class="ttdoc">Type Parameter Test の TestCase の検索 </div><div class="ttdef"><b>Definition:</b> iutest_util_tests.hpp:184</div></div>
 <div class="ttc" id="namespaceiuutil_html_ac79621915023a893120049a334aac654"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#ac79621915023a893120049a334aac654">iuutil::TestCaseNameRemoveIndexName</a></div><div class="ttdeci">inline::std::string TestCaseNameRemoveIndexName(const char *name)</div><div class="ttdoc">インデックスを除いたテストケース名を取得 </div><div class="ttdef"><b>Definition:</b> iutest_util_tests.hpp:54</div></div>
+<div class="ttc" id="namespaceiuutil_html_a4bbc54bac55b0d220efe6de8872d4e67"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#a4bbc54bac55b0d220efe6de8872d4e67">iuutil::GetCurrentTestCaseAdHocResult</a></div><div class="ttdeci">const ::iutest::TestResult * GetCurrentTestCaseAdHocResult()</div><div class="ttdoc">TestCase の ad_hoc_test_result の取得 </div><div class="ttdef"><b>Definition:</b> iutest_util_tests.hpp:342</div></div>
+<div class="ttc" id="namespaceiuutil_html_a6e50a4ec60a2f47a3c08fef404b75841"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#a6e50a4ec60a2f47a3c08fef404b75841">iuutil::GetCurrentTestResult</a></div><div class="ttdeci">const ::iutest::TestResult * GetCurrentTestResult()</div><div class="ttdoc">get test result </div><div class="ttdef"><b>Definition:</b> iutest_util_tests.hpp:358</div></div>
+<div class="ttc" id="namespaceiuutil_html_a43cf5939a597f8dcec8edceb298459ac"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#a43cf5939a597f8dcec8edceb298459ac">iuutil::GetTestCaseAdHocResult</a></div><div class="ttdeci">const ::iutest::TestResult * GetTestCaseAdHocResult(const ::iutest::TestCase *test_case)</div><div class="ttdoc">TestCase の ad_hoc_test_result の取得 </div><div class="ttdef"><b>Definition:</b> iutest_util_tests.hpp:329</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年07月03日(火) 13時51分25秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年07月25日(水) 14時20分34秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
