@@ -119,7 +119,7 @@ int main(int argc, char* argv[])
 #if !defined(IUTEST_NO_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN)
         if( !CheckProperty(iuutil::GetAdHocTestResult(), "bar", "C") )
         {
-            printf("ad hoc test result is not recorded");
+            printf("ad hoc test result is not recorded\n");
             return 1;
         }
 #endif
@@ -130,7 +130,7 @@ int main(int argc, char* argv[])
         if( ret != 0 ) return 1;
         if( !CheckProperty(iuutil::GetAdHocTestResult(), "bar", "C") )
         {
-            printf("ad hoc test result is cleared?");
+            printf("ad hoc test result is cleared?\n");
             return 1;
         }
     }
@@ -138,11 +138,19 @@ int main(int argc, char* argv[])
         IUTEST_INIT(&argc, argv);
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret != 0 ) return 1;
+#if !defined(IUTEST_USE_GTEST)
         if( CheckProperty(iuutil::GetAdHocTestResult(), "bar", "C") )
         {
-            printf("ad hoc test result is not cleared?");
+            printf("ad hoc test result is not cleared?\n");
             return 1;
         }
+#else
+        if( !CheckProperty(iuutil::GetAdHocTestResult(), "bar", "C") )
+        {
+            printf("ad hoc test result is cleared? (iutest expect)\n");
+            return 1;
+        }
+#endif
     }
 #endif
     printf("*** Successful ***\n");
