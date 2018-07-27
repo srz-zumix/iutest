@@ -9,7 +9,8 @@
 			"*.ipp": "cpp",
 			"future": "cpp",
 			"system_error": "cpp",
-			"random": "cpp"
+			"random": "cpp",
+			"algorithm": "cpp"
 		}
 	}
 }
