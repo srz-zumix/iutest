@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01160407u //!< iutest version 1.16.4.7
+#define IUTEST_VER          0x01160408u //!< iutest version 1.16.4.8
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
 #define IUTEST_MICROVER     0x04u       //!< Micro Version
-#define IUTEST_REVISION     0x07u       //!< Revision
+#define IUTEST_REVISION     0x08u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -123,6 +123,7 @@
   <li>v1.16.5.0
     <ul>
       <li>IUTEST_*_NULL, IUTEST_*_NOTNULL を可変長引数対応</li>
+      <li>IUTEST_*_HRESULT_SUCCEEDED, IUTEST_*_HRESULT_FAILED を可変長引数対応</li>
       <li>ad_hoc_testresult の取得関数名を ad_hoc_test_result に変更</li>
       <li>compatibility: iuutil に ad_hoc_testresult の取得関数を追加</li>
       <li>iuwandbox で std-cxx の指定をするとオプションチェックで失敗する不具合を修正</li>

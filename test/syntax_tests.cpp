@@ -678,9 +678,9 @@ IUTEST(SyntaxTest, ExceptionAnyThrow)
     if( int x = 1 )
         IUTEST_ASSERT_ANY_THROW(throw ::std::bad_exception()) << x;
     if( int x = 1 )
-        IUTEST_ASSERT_ANY_THROW(throw ::std::bad_exception()) << x;
+        IUTEST_EXPECT_ANY_THROW(throw ::std::bad_exception()) << x;
     if( int x = 1 )
-        IUTEST_ASSERT_ANY_THROW(throw ::std::bad_exception()) << x;
+        IUTEST_INFORM_ANY_THROW(throw ::std::bad_exception()) << x;
     if( int x = 1 )
         IUTEST_ASSUME_ANY_THROW(throw ::std::bad_exception()) << x;
 }
