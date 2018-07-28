@@ -50,13 +50,13 @@ IUTEST(SyntaxTest, True)
 IUTEST(SyntaxTest, VariadicTrue)
 {
     if( bool b = true )
-        IUTEST_ASSERT_TRUE(T<0,0>::call(b)) << b;
+        IUTEST_ASSERT_TRUE(T<0, 0>::call(b)) << b;
     if( bool b = true )
-        IUTEST_EXPECT_TRUE(T<0,0>::call(b)) << b;
+        IUTEST_EXPECT_TRUE(T<0, 0>::call(b)) << b;
     if( bool b = true )
-        IUTEST_INFORM_TRUE(T<0,0>::call(b)) << b;
+        IUTEST_INFORM_TRUE(T<0, 0>::call(b)) << b;
     if( bool b = true )
-        IUTEST_ASSUME_TRUE(T<0,0>::call(b)) << b;
+        IUTEST_ASSUME_TRUE(T<0, 0>::call(b)) << b;
 }
 #endif
 
@@ -77,13 +77,13 @@ IUTEST(SyntaxTest, False)
 IUTEST(SyntaxTest, VariadicFalse)
 {
     if( bool b = false )
-        IUTEST_ASSERT_FALSE(T<0,0>::call(b)) << b;
+        IUTEST_ASSERT_FALSE(T<0, 0>::call(b)) << b;
     if( bool b = false )
-        IUTEST_EXPECT_FALSE(T<0,0>::call(b)) << b;
+        IUTEST_EXPECT_FALSE(T<0, 0>::call(b)) << b;
     if( bool b = false )
-        IUTEST_INFORM_FALSE(T<0,0>::call(b)) << b;
+        IUTEST_INFORM_FALSE(T<0, 0>::call(b)) << b;
     if( bool b = false )
-        IUTEST_ASSUME_FALSE(T<0,0>::call(b)) << b;
+        IUTEST_ASSUME_FALSE(T<0, 0>::call(b)) << b;
 }
 
 #endif
@@ -244,13 +244,13 @@ IUTEST(SyntaxTest, VariadicNull)
 {
     int* p = NULL;
     if( int x = 1 )
-        IUTEST_ASSERT_NULL(T<0,0>::call(p)) << x;
+        IUTEST_ASSERT_NULL(T<0, 0>::call(p)) << x;
     if( int x = 1 )
-        IUTEST_EXPECT_NULL(T<0,0>::call(p)) << x;
+        IUTEST_EXPECT_NULL(T<0, 0>::call(p)) << x;
     if( int x = 1 )
-        IUTEST_INFORM_NULL(T<0,0>::call(p)) << x;
+        IUTEST_INFORM_NULL(T<0, 0>::call(p)) << x;
     if( int x = 1 )
-        IUTEST_ASSUME_NULL(T<0,0>::call(p)) << x;
+        IUTEST_ASSUME_NULL(T<0, 0>::call(p)) << x;
 }
 #endif
 
@@ -270,13 +270,13 @@ IUTEST(SyntaxTest, NotNull)
 IUTEST(SyntaxTest, VariadicNotNull)
 {
     if( void* p = this )
-        IUTEST_ASSERT_NOTNULL(T<0,0>::call(p)) << p;
+        IUTEST_ASSERT_NOTNULL(T<0, 0>::call(p)) << p;
     if( void* p = this )
-        IUTEST_EXPECT_NOTNULL(T<0,0>::call(p)) << p;
+        IUTEST_EXPECT_NOTNULL(T<0, 0>::call(p)) << p;
     if( void* p = this )
-        IUTEST_INFORM_NOTNULL(T<0,0>::call(p)) << p;
+        IUTEST_INFORM_NOTNULL(T<0, 0>::call(p)) << p;
     if( void* p = this )
-        IUTEST_ASSUME_NOTNULL(T<0,0>::call(p)) << p;
+        IUTEST_ASSUME_NOTNULL(T<0, 0>::call(p)) << p;
 }
 #endif
 
@@ -376,13 +376,13 @@ IUTEST(SyntaxTest, HResultSucceeded)
 IUTEST(SyntaxTest, VariadicHResultSucceeded)
 {
     if( int x=1 )
-        IUTEST_ASSERT_HRESULT_SUCCEEDED(T<0,0>::call(0)) << x;
+        IUTEST_ASSERT_HRESULT_SUCCEEDED(T<0, 0>::call(0)) << x;
     if( int x=1 )
-        IUTEST_EXPECT_HRESULT_SUCCEEDED(T<0,0>::call(0)) << x;
+        IUTEST_EXPECT_HRESULT_SUCCEEDED(T<0, 0>::call(0)) << x;
     if( int x=1 )
-        IUTEST_INFORM_HRESULT_SUCCEEDED(T<0,0>::call(0)) << x;
+        IUTEST_INFORM_HRESULT_SUCCEEDED(T<0, 0>::call(0)) << x;
     if( int x=1 )
-        IUTEST_ASSUME_HRESULT_SUCCEEDED(T<0,0>::call(0)) << x;
+        IUTEST_ASSUME_HRESULT_SUCCEEDED(T<0, 0>::call(0)) << x;
 }
 #endif
 
@@ -402,13 +402,13 @@ IUTEST(SyntaxTest, HResultFailed)
 IUTEST(SyntaxTest, VariadicHResultFailed)
 {
     if( int x=1 )
-        IUTEST_ASSERT_HRESULT_FAILED(T<0,0>::call(-1)) << x;
+        IUTEST_ASSERT_HRESULT_FAILED(T<0, 0>::call(-1)) << x;
     if( int x=1 )
-        IUTEST_EXPECT_HRESULT_FAILED(T<0,0>::call(-1)) << x;
+        IUTEST_EXPECT_HRESULT_FAILED(T<0, 0>::call(-1)) << x;
     if( int x=1 )
-        IUTEST_INFORM_HRESULT_FAILED(T<0,0>::call(-1)) << x;
+        IUTEST_INFORM_HRESULT_FAILED(T<0, 0>::call(-1)) << x;
     if( int x=1 )
-        IUTEST_ASSUME_HRESULT_FAILED(T<0,0>::call(-1)) << x;
+        IUTEST_ASSUME_HRESULT_FAILED(T<0, 0>::call(-1)) << x;
 }
 #endif
 
