@@ -372,6 +372,20 @@ IUTEST(SyntaxTest, HResultSucceeded)
         IUTEST_ASSUME_HRESULT_SUCCEEDED(0) << x;
 }
 
+#ifndef IUTEST_NO_VARIADIC_MACROS
+IUTEST(SyntaxTest, VariadicHResultSucceeded)
+{
+    if( int x=1 )
+        IUTEST_ASSERT_HRESULT_SUCCEEDED(T<0,0>::call(0)) << x;
+    if( int x=1 )
+        IUTEST_EXPECT_HRESULT_SUCCEEDED(T<0,0>::call(0)) << x;
+    if( int x=1 )
+        IUTEST_INFORM_HRESULT_SUCCEEDED(T<0,0>::call(0)) << x;
+    if( int x=1 )
+        IUTEST_ASSUME_HRESULT_SUCCEEDED(T<0,0>::call(0)) << x;
+}
+#endif
+
 IUTEST(SyntaxTest, HResultFailed)
 {
     if( int x=1 )
@@ -383,6 +397,20 @@ IUTEST(SyntaxTest, HResultFailed)
     if( int x=1 )
         IUTEST_ASSUME_HRESULT_FAILED(-1) << x;
 }
+
+#ifndef IUTEST_NO_VARIADIC_MACROS
+IUTEST(SyntaxTest, VariadicHResultFailed)
+{
+    if( int x=1 )
+        IUTEST_ASSERT_HRESULT_FAILED(T<0,0>::call(-1)) << x;
+    if( int x=1 )
+        IUTEST_EXPECT_HRESULT_FAILED(T<0,0>::call(-1)) << x;
+    if( int x=1 )
+        IUTEST_INFORM_HRESULT_FAILED(T<0,0>::call(-1)) << x;
+    if( int x=1 )
+        IUTEST_ASSUME_HRESULT_FAILED(T<0,0>::call(-1)) << x;
+}
+#endif
 
 #endif
 
