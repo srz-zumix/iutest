@@ -22,10 +22,12 @@
 
 iutest
 ==========
+
 iutest - iris unit test framework
 
 Welcome to the iutest
 --------------------------------------------------
+
 iutest is framework for writing C++ tests.
 
 Features
@@ -69,10 +71,10 @@ Documentation
 --------------------------------------------------
 
 * in repository  
-doc/index.html  
+  doc/index.html  
 * online document  
-[least released version(OSDN)](http://iutest.osdn.jp/doc/index.html)  
-[github master branch (gh-pages)](http://srz-zumix.github.io/iutest/)  
+  [least released version(OSDN)](http://iutest.osdn.jp/doc/index.html)  
+  [github master branch (gh-pages)](http://srz-zumix.github.io/iutest/)  
 
 Project page
 --------------------------------------------------
@@ -90,11 +92,11 @@ Tools
 --------------------------------------------------
 
 * fused  
-make fused-src.
+  make fused-src.
 * twilio  
-notifies the test results using twilio
+  notifies the test results using twilio
 * wandbox  
-tools to make use of the iutest in [wandbox](https://wandbox.org/)
+  tools to make use of the iutest in [wandbox](https://wandbox.org/)
 
 Tests
 --------------------------------------------------
@@ -116,7 +118,8 @@ Tests
 |           |[![Build Status](https://app.bitrise.io/app/aefa67ee488094b1/status.svg?token=aDrRgkZEmNFmsDjBM9fWTw&branch=master)](https://app.bitrise.io/app/aefa67ee488094b1)|[![Build Status](https://app.bitrise.io/app/aefa67ee488094b1/status.svg?token=aDrRgkZEmNFmsDjBM9fWTw&branch=develop)](https://app.bitrise.io/app/aefa67ee488094b1)|Android|
 |CircleCI   |[![CircleCI](https://circleci.com/gh/srz-zumix/iutest/tree/master.svg?style=svg)](https://circleci.com/gh/srz-zumix/iutest/tree/master)|[![CircleCI](https://circleci.com/gh/srz-zumix/iutest/tree/develop.svg?style=svg)](https://circleci.com/gh/srz-zumix/iutest/tree/develop)|Optimize options test|
 |Cirrus CI  |[![Cirrus Build Status](https://api.cirrus-ci.com/github/srz-zumix/iutest.svg?branch=master)](https://cirrus-ci.com/github/srz-zumix/iutest/master)|[![Cirrus Build Status](https://api.cirrus-ci.com/github/srz-zumix/iutest.svg?branch=develop)](https://cirrus-ci.com/github/srz-zumix/iutest/develop)|g++ std=c++14,17...|
-|Buddy      |[![buddy branch](https://app.buddy.works/zumixcpp/iutest/repository/branch/master/badge.svg?token=5e58135ab4831252209e7b1fe75bfe9de669b0dc7e95ed4316eebad2187d59a0 "buddy branch")](https://app.buddy.works/zumixcpp/iutest/repository/branch/master)|[![buddy branch](https://app.buddy.works/zumixcpp/iutest/repository/branch/develop/badge.svg?token=5e58135ab4831252209e7b1fe75bfe9de669b0dc7e95ed4316eebad2187d59a0 "buddy branch")](https://app.buddy.works/zumixcpp/iutest/repository/branch/develop)|arm-none-eabi-gcc build|
+|Buddy      |[![buddy branch](https://app.buddy.works/zumixcpp/iutest/repository/branch/master/badge.svg?token=5e58135ab4831252209e7b1fe75bfe9de669b0dc7e95ed4316eebad2187d59a0 "buddy branch")](https://app.buddy.works/zumixcpp/iutest/repository/branch/master)|[![buddy branch](https://app.buddy.works/zumixcpp/iutest/repository/branch/develop/badge.svg?token=5e58135ab4831252209e7b1fe75bfe9de669b0dc7e95ed4316eebad2187d59a0 "buddy branch")](https://app.buddy.works/zumixcpp/iutest/repository/branch/develop)|arm-none-eabi-gcc build, and below|
+||[![buddy pipeline](https://app.buddy.works/zumixcpp/iutest/pipelines/pipeline/145531/badge.svg?token=5e58135ab4831252209e7b1fe75bfe9de669b0dc7e95ed4316eebad2187d59a0 "buddy pipeline")](https://app.buddy.works/zumixcpp/iutest/pipelines/pipeline/145531)|-|gtest comaptible test for released versions|
 |           |-|[![buddy pipeline](https://app.buddy.works/zumixcpp/iutest/pipelines/pipeline/129694/badge.svg?token=5e58135ab4831252209e7b1fe75bfe9de669b0dc7e95ed4316eebad2187d59a0 "buddy pipeline")](https://app.buddy.works/zumixcpp/iutest/pipelines/pipeline/129694)|gtest version detect test|
 |Scrutinizer|[![Scrutinizer Build Status](https://scrutinizer-ci.com/g/srz-zumix/iutest/badges/build.png?b=master)](https://scrutinizer-ci.com/g/srz-zumix/iutest/build-status/master)|[![Scrutinizer Build Status](https://scrutinizer-ci.com/g/srz-zumix/iutest/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/srz-zumix/iutest/build-status/develop)|iuwandbox tests|
 |INSPECODE  |[![Job Status](https://inspecode.rocro.com/badges/github.com/srz-zumix/iutest/status?token=wt0KUnRUG1-Ul2mLrg8ComR1RznZV3VoXecBJHW0EIk&branch=master)](https://inspecode.rocro.com/jobs/github.com/srz-zumix/iutest/latest?completed=true&branch=master)|[![Job Status](https://inspecode.rocro.com/badges/github.com/srz-zumix/iutest/status?token=wt0KUnRUG1-Ul2mLrg8ComR1RznZV3VoXecBJHW0EIk&branch=develop)](https://inspecode.rocro.com/jobs/github.com/srz-zumix/iutest/latest?completed=true&branch=develop)|Spell check, Cppcheck, cpplint, metrics, scan-build|
