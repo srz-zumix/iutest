@@ -225,6 +225,7 @@
     trigger_condition: "ALWAYS"
   - action: "release-1.4.0"
     type: "BUILD"
+    disabled: true
     working_directory: "/buddy/iutest"
     docker_image_name: "srzzumix/googletest"
     docker_image_tag: "release-1.4.0"

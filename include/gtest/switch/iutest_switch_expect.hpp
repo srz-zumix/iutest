@@ -165,8 +165,8 @@
 #define IUTEST_EXPECT_GT                    EXPECT_GT
 #define IUTEST_EXPECT_GE                    EXPECT_GE
 #define IUTEST_EXPECT_NEAR                  EXPECT_NEAR
-#define IUTEST_EXPECT_NULL(v)               EXPECT_EQ(NULL, v)
-#define IUTEST_EXPECT_NOTNULL(v)            EXPECT_TRUE(NULL != (v))
+#define IUTEST_EXPECT_NULL(...)             EXPECT_EQ(NULL, (__VA_ARGS__))
+#define IUTEST_EXPECT_NOTNULL(...)          EXPECT_TRUE(NULL != (__VA_ARGS__))
 #define IUTEST_EXPECT_SAME(v1, v2)          EXPECT_PRED_FORMAT2(::testing::internal::CmpHelperSame, v1, v2)
 #define IUTEST_EXPECT_FLOAT_EQ              EXPECT_FLOAT_EQ
 #define IUTEST_EXPECT_DOUBLE_EQ             EXPECT_DOUBLE_EQ

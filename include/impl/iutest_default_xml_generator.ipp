@@ -95,7 +95,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTest(IFile* file, co
 
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestCase(IFile* file, const TestCase& test_case)
 {
-    if( test_case.reportable_test_count() == 0 )
+    if( test_case.reportable_test_count() <= 0 )
     {
         return;
     }

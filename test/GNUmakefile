@@ -1,7 +1,7 @@
 #
 # GNUMakefile
 #
-# Copyright (C) 2017, Takazumi Shirayanagi
+# Copyright (C) 2017-2018, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -24,6 +24,7 @@
 #
 # include
 #
+include ../utils/xcode.mk
 include ../utils/gccversion.mk
 include ../utils/clangversion.mk
 include ../utils/cygwin.mk

@@ -349,7 +349,11 @@
  * @details v が NULL であることを検証します
 */
 #ifndef IUTEST_ASSERT_NULL
-#  define   IUTEST_ASSERT_NULL(v)                   IUTEST_TEST_NULL(v, IUTEST_ASSERT_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define   IUTEST_ASSERT_NULL(...)               IUTEST_TEST_NULL((__VA_ARGS__), IUTEST_ASSERT_FAILURE)
+#  else
+#    define   IUTEST_ASSERT_NULL(v)                 IUTEST_TEST_NULL(v, IUTEST_ASSERT_FAILURE)
+#  endif
 #endif
 /**
  * @ingroup IUTEST_ASSERT_
@@ -357,7 +361,11 @@
  * @details v が NULL でないことを検証します
 */
 #ifndef IUTEST_ASSERT_NOTNULL
-#  define   IUTEST_ASSERT_NOTNULL(v)                IUTEST_TEST_NOTNULL(v, IUTEST_ASSERT_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define   IUTEST_ASSERT_NOTNULL(...)            IUTEST_TEST_NOTNULL((__VA_ARGS__), IUTEST_ASSERT_FAILURE)
+#  else
+#    define   IUTEST_ASSERT_NOTNULL(v)              IUTEST_TEST_NOTNULL(v, IUTEST_ASSERT_FAILURE)
+#  endif
 #endif
 
 /**
@@ -703,7 +711,11 @@
  * @details v が NULL であることを検証します
 */
 #ifndef IUTEST_EXPECT_NULL
-#  define   IUTEST_EXPECT_NULL(v)                   IUTEST_TEST_NULL(v, IUTEST_EXPECT_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define   IUTEST_EXPECT_NULL(...)               IUTEST_TEST_NULL((__VA_ARGS__), IUTEST_EXPECT_FAILURE)
+#  else
+#    define   IUTEST_EXPECT_NULL(v)                 IUTEST_TEST_NULL(v, IUTEST_EXPECT_FAILURE)
+#  endif
 #endif
 /**
  * @ingroup IUTEST_EXPECT_
@@ -711,7 +723,11 @@
  * @details v が NULL でないことを検証します
 */
 #ifndef IUTEST_EXPECT_NOTNULL
-#  define   IUTEST_EXPECT_NOTNULL(v)                IUTEST_TEST_NOTNULL(v, IUTEST_EXPECT_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define   IUTEST_EXPECT_NOTNULL(...)            IUTEST_TEST_NOTNULL((__VA_ARGS__), IUTEST_EXPECT_FAILURE)
+#  else
+#    define   IUTEST_EXPECT_NOTNULL(v)              IUTEST_TEST_NOTNULL(v, IUTEST_EXPECT_FAILURE)
+#  endif
 #endif
 
 /**
@@ -1067,7 +1083,11 @@
  * @details v が NULL であることを検証します
 */
 #ifndef IUTEST_INFORM_NULL
-#  define   IUTEST_INFORM_NULL(v)                   IUTEST_TEST_NULL(v, IUTEST_INFORM_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define   IUTEST_INFORM_NULL(...)               IUTEST_TEST_NULL((__VA_ARGS__), IUTEST_INFORM_FAILURE)
+#  else
+#    define   IUTEST_INFORM_NULL(v)                 IUTEST_TEST_NULL(v, IUTEST_INFORM_FAILURE)
+#  endif
 #endif
 /**
  * @ingroup IUTEST_INFORM_
@@ -1075,7 +1095,11 @@
  * @details v が NULL でないことを検証します
 */
 #ifndef IUTEST_INFORM_NOTNULL
-#  define   IUTEST_INFORM_NOTNULL(v)                IUTEST_TEST_NOTNULL(v, IUTEST_INFORM_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define   IUTEST_INFORM_NOTNULL(...)            IUTEST_TEST_NOTNULL((__VA_ARGS__), IUTEST_INFORM_FAILURE)
+#  else
+#    define   IUTEST_INFORM_NOTNULL(v)              IUTEST_TEST_NOTNULL(v, IUTEST_INFORM_FAILURE)
+#  endif
 #endif
 
 /**
@@ -1413,7 +1437,11 @@
  * @details v が NULL であることを検証します
 */
 #ifndef IUTEST_ASSUME_NULL
-#  define   IUTEST_ASSUME_NULL(v)                   IUTEST_TEST_NULL(v, IUTEST_ASSUME_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define   IUTEST_ASSUME_NULL(...)               IUTEST_TEST_NULL((__VA_ARGS__), IUTEST_ASSUME_FAILURE)
+#  else
+#    define   IUTEST_ASSUME_NULL(v)                 IUTEST_TEST_NULL(v, IUTEST_ASSUME_FAILURE)
+#  endif
 #endif
 /**
  * @ingroup IUTEST_ASSUME_
@@ -1421,7 +1449,11 @@
  * @details v が NULL でないことを検証します
 */
 #ifndef IUTEST_ASSUME_NOTNULL
-#  define   IUTEST_ASSUME_NOTNULL(v)                IUTEST_TEST_NOTNULL(v, IUTEST_ASSUME_FAILURE)
+#  ifndef IUTEST_NO_VARIADIC_MACROS
+#    define   IUTEST_ASSUME_NOTNULL(...)            IUTEST_TEST_NOTNULL((__VA_ARGS__), IUTEST_ASSUME_FAILURE)
+#  else
+#    define   IUTEST_ASSUME_NOTNULL(v)              IUTEST_TEST_NOTNULL(v, IUTEST_ASSUME_FAILURE)
+#  endif
 #endif
 
 /**

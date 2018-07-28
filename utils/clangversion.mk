@@ -8,6 +8,8 @@
 # see LICENSE
 #
 
+ifneq ($(CXX_NAME),clang++)
+
 ifeq ($(findstring clang++, $(CXX)), clang++)
 IUTEST_CLANG_CXX=$(CXX)
 else
@@ -16,7 +18,6 @@ ifeq ($(findstring clang++, $(CCC_CXX)), clang++)
 IUTEST_CLANG_CXX=$(CCC_CXX)
 endif
 endif
-
 
 ifdef IUTEST_CLANG_CXX
 
@@ -36,6 +37,12 @@ else
 CLANGMAJOR:=0
 CLANGMINOR:=0
 endif
+
+endif
+
+endif
+
+ifeq ($(CXX_NAME),clang++)
 
 STD_CPP03=c++98
 STD_GNU03=gnu++98

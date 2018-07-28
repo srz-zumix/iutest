@@ -203,8 +203,8 @@
 #define IUTEST_INFORM_LE                    INFORM_LE
 #define IUTEST_INFORM_GT                    INFORM_GT
 #define IUTEST_INFORM_GE                    INFORM_GE
-#define IUTEST_INFORM_NULL(v)               INFORM_EQ(NULL, v)
-#define IUTEST_INFORM_NOTNULL(v)            INFORM_TRUE(NULL != (v))
+#define IUTEST_INFORM_NULL(...)             INFORM_EQ(NULL, (__VA_ARGS__))
+#define IUTEST_INFORM_NOTNULL(...)          INFORM_TRUE(NULL != (__VA_ARGS__))
 #define IUTEST_INFORM_SAME(v1, v2)          INFORM_PRED_FORMAT2(::testing::internal::CmpHelperSame, v1, v2)
 #define IUTEST_INFORM_NEAR                  INFORM_NEAR
 #define IUTEST_INFORM_FLOAT_EQ              INFORM_FLOAT_EQ
