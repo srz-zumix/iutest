@@ -10,10 +10,13 @@ environment:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       PROJECT_DIR: msvc15
       CMAKE_GENERATOR_NAME: Visual Studio 15 2017
+    - BUILD_NUGET: yes
 
 configuration:
   - Debug
   - Release
+
+clone_depth: 1
 
 before_build:
   - cmd: >-
@@ -33,6 +36,19 @@ test_script:
       cd build
 
       ctest -C %Configuration% -V
+
+for:
+-
+  matrix:
+    except:
+      - configuration: Release
+        BUILD_NUGET: yes
+
+  build_script:
+    ps: |
+      $nuspecPath = "projects\nuget\iutest.nuspec"
+      Write-Output "Building NuGet package"
+      nuget pack $nuspecPath -OutputDirectory ".\"
 
 notifications:
   - provider: Email
