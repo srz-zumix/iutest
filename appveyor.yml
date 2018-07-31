@@ -64,7 +64,7 @@ for:
       - configuration: Release
         BUILD_NUGET: yes
   before_build:
-    cmd: echo.
+    - cmd: echo.
   build_script:
     ps: |
       $nuspecPath = "projects\nuget\iutest.nuspec"
