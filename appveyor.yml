@@ -48,13 +48,13 @@ for:
     only:
       - configuration: Release
         BUILD_NUGET: yes
-  before_build: off
+  before_build:
   build_script:
     ps: |
       $nuspecPath = "projects\nuget\iutest.nuspec"
       Write-Output "Building NuGet package"
       nuget pack $nuspecPath -OutputDirectory ".\"
-  test_script: off
+  test: off
 
 notifications:
   - provider: Email
