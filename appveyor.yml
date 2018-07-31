@@ -73,7 +73,7 @@ for:
   test: off
 
 on_failure:
-  - ps: |
+  ps: |
     # rdp
     $commit_message = $env:APPVEYOR_REPO_COMMIT_MESSAGE
     if($commit_message.Contains("[appveyor rdp]")) {
