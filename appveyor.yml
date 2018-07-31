@@ -10,6 +10,10 @@ environment:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       PROJECT_DIR: msvc15
       CMAKE_GENERATOR_NAME: Visual Studio 15 2017
+    - BUILD_CYGWIN: yes
+      USE_GNU_EXTENSION: 0
+    - BUILD_CYGWIN: yes
+      USE_GNU_EXTENSION: 1
     - BUILD_NUGET: yes
 
 configuration:
@@ -22,6 +26,17 @@ matrix:
       BUILD_NUGET: yes
       
 clone_depth: 1
+
+init:
+  ps: |
+    $commit_message = $env:APPVEYOR_REPO_COMMIT_MESSAGE
+    if($commit_message.Contains("[appveyor rdp]")) {
+        iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+        Set-WinSystemLocale ja-JP
+        Set-Location -Path hklm:\SYSTEM\CurrentControlSet\Control
+        New-ItemProperty -Path ".\Keyboard Layout" -Name IgnoreRemoteKeyboardLayout -PropertyType DWORD -Value 1 -Force
+        Restart-Computer
+    }
 
 before_build:
   - cmd: >-
@@ -55,6 +70,14 @@ for:
       Write-Output "Building NuGet package"
       nuget pack $nuspecPath -OutputDirectory ".\"
   test: off
+
+on_failure:
+  - ps: |
+    # rdp
+    $commit_message = $env:APPVEYOR_REPO_COMMIT_MESSAGE
+    if($commit_message.Contains("[appveyor rdp]")) {
+      $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+    }
 
 notifications:
   - provider: Email
