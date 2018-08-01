@@ -112,6 +112,8 @@ for:
         BUILD_CYGWIN: yes
   install:
     cmd: set path=%MINGW_PATH%;%path%
+  before_build:
+    cmd: echo.
   build_script:
     cmd: |
       cd test
