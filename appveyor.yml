@@ -109,7 +109,7 @@ for:
   matrix:
     only:
       - configuration: Release
-        BUILD_CYGWIN: yes
+        BUILD_MINGW: yes
   install:
     cmd: set path=%MINGW_PATH%;%path%
   before_build:
