@@ -15,13 +15,13 @@ environment:
     - BUILD_CYGWIN: yes
       USE_GNU_EXTENSION: 1
     - BUILD_MINGW: yes
-      #MINGW_PATH: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
-      MINGW_PATH: C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1
+      MINGW_PATH: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
+      #MINGW_PATH: C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1
       MAKE_OPTIONS: LIBS=ws2_32
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      #APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     # MINGW32 
     - BUILD_MINGW: yes
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      #APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       MINGW_PATH: c:\mingw\bin
     - BUILD_NUGET: yes
 
