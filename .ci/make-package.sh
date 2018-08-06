@@ -90,7 +90,7 @@ if [ $? != 0 ]; then
 fi
 
 # create changelog
-CHANGELOG_FILE=$PACKAGE_ROOT/CHANGELOG-ja
+CHANGELOG_FILE=$PACKAGE_ROOT/CHANGELOG-ja.md
 echo change log
 echo Changes for $RELEASE_VERSION > $CHANGELOG_FILE
 if [ `grep 'Changes for $RELEASE_VERSION' CHANGES.md` ]; then

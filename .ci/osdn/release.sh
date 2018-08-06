@@ -1,4 +1,5 @@
 #!/bin/bash
+# Usage: release.sh [version]
 
 # make-package
 BASEDIR=$(dirname "$0")
