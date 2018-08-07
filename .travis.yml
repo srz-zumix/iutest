@@ -206,8 +206,8 @@ matrix:
     # Use Lib
     - compiler: gcc
       env: USE_LIB=1
-    - compiler: clang
-      env: USE_LIB=1
+#    - compiler: clang
+#      env: USE_LIB=1
     #- compiler: gcc
     #  env: CPPCHECK=1
     - compiler: gcc
@@ -223,7 +223,7 @@ matrix:
           build_command: make coverity_scan STDFLAG=-std=c++1z
           branch_pattern: master
     - os: osx
-      env: STDFLAG=-std=c++11
+      env: OSX=1 STDFLAG=-std=c++11
 
 notifications:
   webhooks:
