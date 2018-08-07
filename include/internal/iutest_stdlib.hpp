@@ -277,6 +277,12 @@
 #  endif
 #endif
 
+#if defined(__has_include)
+#  if __has_include(<optional>)
+#    define IUTEST_HAS_STD_OPTIONAL     1
+#  endif
+#endif
+
 #endif
 
 #if defined(__has_include)
@@ -287,6 +293,10 @@
 #  endif
 #endif
 
+//! has std::optional
+#if !defined(IUTEST_HAS_STD_OPTIONAL)
+#  define IUTEST_HAS_STD_OPTIONAL       0
+#endif
 //! has std::invoke
 #if !defined(IUTEST_HAS_STD_INVOKE)
 #  define IUTEST_HAS_STD_INVOKE         0
@@ -377,6 +387,9 @@
 #  include <cstdint>
 #endif
 #include <iterator>
+#if IUTEST_HAS_STD_OPTIONAL
+#include <optional>
+#endif
 
 //======================================================================
 // declare

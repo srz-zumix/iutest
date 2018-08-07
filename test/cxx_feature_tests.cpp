@@ -76,6 +76,38 @@ IUTEST(StringView, PrintTo)
 
 #endif
 
+#if IUTEST_HAS_STD_OPTIONAL
+
+IUTEST(Optional, Compare)
+{
+    {
+        std::optional<int> opt = 0;
+        IUTEST_EXPECT_TRUE(opt);
+        IUTEST_EXPECT_EQ(0, opt);
+    }
+    {
+        std::optional<int> opt = std::nullopt;
+        IUTEST_EXPECT_FALSE(opt);
+        IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_EQ(1234, opt), "1234");
+    }
+}
+
+IUTEST(Optional, PrintTo)
+{
+    {
+        LogChecker ck("1234");
+        std::optional<int> opt = 1234;
+        IUTEST_SUCCEED() << ::iutest::PrintToString(opt);
+    }
+    {
+        LogChecker ck("nullopt");
+        std::optional<int> opt = std::nullopt;
+        IUTEST_SUCCEED() << ::iutest::PrintToString(opt);
+    }
+}
+
+#endif
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else

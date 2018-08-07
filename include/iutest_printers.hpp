@@ -304,6 +304,21 @@ inline void PrintTo(const std::basic_string_view<CharT, Traits>& value, iu_ostre
 }
 #endif
 
+#if IUTEST_HAS_STD_OPTIONAL
+template<typename T>
+inline void PrintTo(const std::optional<T>& value, iu_ostream* os)
+{
+    if (value)
+    {
+        UniversalPrint(value.value(), os);
+    }
+    else
+    {
+        *os << "nullopt";
+    }
+}
+#endif
+
 #if IUTEST_HAS_NULLPTR
 inline void PrintTo(const ::std::nullptr_t&, iu_ostream* os) { *os << "nullptr"; }
 #endif
