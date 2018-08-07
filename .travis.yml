@@ -22,8 +22,8 @@ addons:
 
 before_install:
   - python .ci/travisci/travis_blocking_stdout.py
-  - apt-cache search clang | true
-  - apt-cache search gcc | true
+  - apt-cache search clang || true
+  - apt-cache search gcc || true
   - if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then export USE_NEWEST_GCC=1; fi
 
 install:
@@ -81,7 +81,7 @@ before_script:
     fi
   # clang
   - |
-    if [ "${CXX}" = 'clang++' ]; then
+    if [ "${CXX}" = 'clang++' ] && [ "${TRAVIS_OS_NAME}" != 'osx' ; then
       export CXX=clang++-6.0;
     fi
   # mingw
@@ -223,6 +223,7 @@ matrix:
           build_command: make coverity_scan STDFLAG=-std=c++1z
           branch_pattern: master
     - os: osx
+      env: STDFLAG=-std=c++11
 
 notifications:
   webhooks:
