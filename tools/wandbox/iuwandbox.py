@@ -41,7 +41,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 6.0'
+        version=u'%(prog)s version 6.1'
     )
     parser.add_argument(
         '--list-compiler',
@@ -537,7 +537,8 @@ prog: $(OBJS)\n\
 def run_wandbox_cxx(code, includes, impliments, options):
     with Wandbox() as w:
         w.compiler(options.compiler)
-        w.options(','.join(create_option_list(options)))
+        woptions = ','.join(create_option_list(options))
+        w.options(woptions)
         if options.stdin:
             w.stdin(options.stdin)
         colist = create_compiler_raw_option_list(options)
@@ -549,9 +550,10 @@ def run_wandbox_cxx(code, includes, impliments, options):
     #            colist.append('-DIUTEST_HAS_HDR_CXXABI=0')
     #        if options.compiler in ['clang-3.3', 'clang-3.2', 'clang-3.1', 'clang-3.0']:
     #            colist.append('-Qunused-arguments')
-    #        if options.compiler in ['clang-3.4', 'clang-3.3']:
-    #            colist.append('-fno-exceptions')
-    #            colist.append('-fno-rtti')
+            if 'boost-nothing' in woptions:
+                if options.compiler in ['clang-3.4', 'clang-3.3']:
+                    colist.append('-fno-exceptions')
+                    colist.append('-fno-rtti')
             pass
         if colist:
             co = '\n'.join(colist)
