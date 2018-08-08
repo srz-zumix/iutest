@@ -108,6 +108,51 @@ IUTEST(Optional, PrintTo)
 
 #endif
 
+#if IUTEST_HAS_STD_VARIANT
+
+IUTEST(Variant, Compare)
+{
+    {
+        std::variant<int, float, std::string> v1 = 1234;
+        std::variant<int, float, std::string> v2 = 1234;
+        IUTEST_EXPECT_EQ(v1, v2);
+    }
+}
+
+IUTEST(Variant, PrintTo)
+{
+    {
+        LogChecker ck("1234");
+        std::variant<int, float, std::string> v = 1234;
+        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
+    }
+    {
+        LogChecker ck("test");
+        std::variant<int, float, std::string> v("test");
+        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
+    }
+    {
+        LogChecker ck("monostate");
+        std::variant<std::monostate, int, float, std::string> v;
+        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
+    }
+    {
+        LogChecker ck("valueless_by_exception");
+        std::variant<int, float, std::string> v = 0.2f;
+        try
+        {
+            struct S { operator int() { throw 42; } };
+            v.emplace<0>(S());
+        }
+        catch(...)
+        {
+        }
+        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
+    }
+}
+
+#endif
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else

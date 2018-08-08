@@ -319,6 +319,25 @@ inline void PrintTo(const std::optional<T>& value, iu_ostream* os)
 }
 #endif
 
+#if IUTEST_HAS_STD_VARIANT
+template<typename... Types>
+inline void PrintTo(const std::variant<Types...>& value, iu_ostream* os)
+{
+    if (value.valueless_by_exception())
+    {
+        *os << "valueless_by_exception";
+    }
+    else
+    {
+        std::visit([&os](const auto& v) { UniversalPrint(v, os); }, value);
+    }
+}
+inline void PrintTo(const std::monostate&, iu_ostream* os)
+{
+    *os << "monostate";
+}
+#endif
+
 #if IUTEST_HAS_NULLPTR
 inline void PrintTo(const ::std::nullptr_t&, iu_ostream* os) { *os << "nullptr"; }
 #endif

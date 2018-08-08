@@ -283,6 +283,12 @@
 #  endif
 #endif
 
+#if IUTEST_HAS_VARIADIC_TEMPLATES && defined(__has_include)
+#  if __has_include(<variant>)
+#    define IUTEST_HAS_STD_VARIANT      1
+#  endif
+#endif
+
 #endif
 
 #if defined(__has_include)
@@ -293,6 +299,10 @@
 #  endif
 #endif
 
+//! has std::variant
+#if !defined(IUTEST_HAS_STD_VARIANT)
+#  define IUTEST_HAS_STD_VARIANT        0
+#endif
 //! has std::optional
 #if !defined(IUTEST_HAS_STD_OPTIONAL)
 #  define IUTEST_HAS_STD_OPTIONAL       0
@@ -389,6 +399,9 @@
 #include <iterator>
 #if IUTEST_HAS_STD_OPTIONAL
 #include <optional>
+#endif
+#if IUTEST_HAS_STD_VARIANT
+#include <variant>
 #endif
 
 //======================================================================
