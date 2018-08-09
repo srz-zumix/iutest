@@ -82,7 +82,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTest(IFile* file, co
     file->Printf("name=\"AllTests\"");
 
     // propertys
-    OnReportTestProperty(file, *test.ad_hoc_testresult(), UnitTest::ValidateTestPropertyName);
+    OnReportTestProperty(file, *test.ad_hoc_test_result(), UnitTest::ValidateTestPropertyName);
 
     file->Printf(">\n");
 
@@ -95,7 +95,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTest(IFile* file, co
 
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestCase(IFile* file, const TestCase& test_case)
 {
-    if( test_case.reportable_test_count() == 0 )
+    if( test_case.reportable_test_count() <= 0 )
     {
         return;
     }
@@ -117,7 +117,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestCase(IFile* file
         );
 
     // propertys
-    OnReportTestProperty(file, *test_case.ad_hoc_testresult(), TestCase::ValidateTestPropertyName);
+    OnReportTestProperty(file, *test_case.ad_hoc_test_result(), TestCase::ValidateTestPropertyName);
 
     file->Printf(">\n");
 

@@ -1,7 +1,7 @@
 #
 # GNUMakefile
 #
-# Copyright (C) 2017, Takazumi Shirayanagi
+# Copyright (C) 2017-2018, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -24,6 +24,7 @@
 #
 # include
 #
+include ../utils/xcode.mk
 include ../utils/gccversion.mk
 include ../utils/clangversion.mk
 include ../utils/cygwin.mk
@@ -97,6 +98,19 @@ STDFLAG:=$(subst c++,gnu++, $(STDFLAG))
 endif
 endif
 
+#
+# gtest-version tests
+#
+ifdef GTEST_EXPECT_VER
+CXXFLAGS+=-DGTEST_EXPECT_VER=$(GTEST_EXPECT_VER)
+ifndef GTEST_EXPECT_LATEST
+CXXFLAGS+=-DGTEST_EXPECT_LATEST=0
+endif
+endif
+ifdef GTEST_EXPECT_LATEST
+CXXFLAGS+=-DGTEST_EXPECT_LATEST=$(GTEST_EXPECT_LATEST)
+endif
+
 CXXFLAGS += $(DEFS) $(STDFLAG) $(STDLIB)
 LIBS_ = $(LIBS:%=-l%)
 LDFLAGS += $(LIBS_)
@@ -156,6 +170,9 @@ lint : cpplint/Makefile $(IUTEST_HEADERS) $(MAKEFILE)
 
 showcxxversion:
 	$(CXX) --version
+ifeq ($(CXX_NAME),g++)
+	$(CXX) -dumpversion
+endif
 ifdef GCCMAJOR
 	@echo g++-$(GCCMAJOR).$(GCCMINOR)
 endif
@@ -183,6 +200,9 @@ endif
 
 run_% : %_run
 	@echo $< > /dev/null
+
+# gtest version test
+gtest-version: clean gtest_version_tests_run
 
 coverity_scan: $(BUILD_TARGETS)
 
@@ -295,17 +315,24 @@ CXXFLAGS += -DIUTEST_USE_LIB=1 -L../lib
 LDFLAGS:= -liutest $(LDFLAGS)
 endif
 
+$(TARGETS_EXCLUDE_ALLTESTS) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS)
+
+
+# compiler error test
+
+PY_COMPILEERROR_TEST_TOOL=../tools/python/iutest_compile_error_test.py
+ifeq ($(CXX_NAME),)
 IUTEST_COMPILE_ERROR_TEST_OPTION=-c $(CXX)
+else
+IUTEST_COMPILE_ERROR_TEST_OPTION=-c $(CXX_NAME)
+endif
 ifeq ($(CI),true)
 IUTEST_COMPILE_ERROR_TEST_OPTION+= --verbose
 endif
 
-$(TARGETS_EXCLUDE_ALLTESTS) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS)
-
 $(ERR_TARGETS) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
-#	-$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS) 2>&1 | python ../tools/python/iutest_compile_error_test.py $(IUTEST_COMPILE_ERROR_TEST_OPTION)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS) 2>&1 | python $(PY_COMPILEERROR_TEST_TOOL) $(IUTEST_COMPILE_ERROR_TEST_OPTION)
 
 else
 
@@ -320,14 +347,6 @@ $(TARGETS1) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 
 $(TARGETS2) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp
-
-# gtest version test
-gtest-version: run_gtest_version_tests
-
-GTEST_EXPECT_VER:=0
-GTEST_EXPECT_LATEST:=0
-gtest_version_tests: % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS) -DGTEST_EXPECT_VER=$(GTEST_EXPECT_VER) -DGTEST_EXPECT_LATEST=$(GTEST_EXPECT_LATEST)
 
 endif
 

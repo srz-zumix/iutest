@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -101,9 +101,11 @@ namespace matchers
     using ::testing::EndsWith;
 
     using ::testing::Contains;
-    using ::testing::Each;
     using ::testing::ContainerEq;
+#if GMOCK_VER > 0x01050000
+    using ::testing::Each;
     using ::testing::Pointwise;
+#endif
     using ::testing::Key;
     using ::testing::Pair;
     using ::testing::Field;

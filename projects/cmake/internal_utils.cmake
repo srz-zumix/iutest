@@ -4,18 +4,37 @@
 #
 macro(fix_default_compiler_settings_)
   if (MSVC)
+    if(NOT (MSVC_VERSION LESS 1910))
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17 /permissive-")
+    endif()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
+    if (MSVC_VERSION LESS 1900)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -wd4505")
+    endif()
+
     foreach (flag_var
              CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
-             CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO)
+             CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO
+             )
       if (NOT BUILD_SHARED_LIBS AND NOT iutest_force_shared_crt)
-        # 置換
         string(REPLACE "/MD" "-MT" ${flag_var} "${${flag_var}}")
       endif()
 
-      # Replaces /W3 with /W4 in defaults.
-      string(REPLACE "/W3" "-W4" ${flag_var} "${${flag_var}}")
+      # Force to always compile with W4
+      if(${flag_var} MATCHES "/W[0-4]")
+        string(REGEX REPLACE "/W[0-4]" "/W4" ${flag_var} "${${flag_var}}")
+      #else()
+      #  set(${flag_var} "${${flag_var}} /W4")
+      endif()
+    endforeach()
+
+    foreach (flag_var
+             CMAKE_CXX_FLAGS)
+      message(STATUS "${flag_var}=${${flag_var}}")
     endforeach()
   endif()
+  set(CMAKE_CXX_FLAGS_DEBUG_GTEST "${CMAKE_CXX_FLAGS_DEBUG} -DIUTEST_USE_GTEST")
+  set(CMAKE_EXE_LINKER_FLAGS_DEBUG_GTEST ${CMAKE_EXE_LINKER_FLAGS_DEBUG})
 endmacro()
 
 
@@ -27,13 +46,7 @@ macro(config_compiler_and_linker)
   if (MSVC)
     # Newlines inside flags variables break CMake's NMake generator.
     # TODO(vladl@google.com): Add -RTCs and -RTCu to debug builds.
-    set(cxx_base_flags "-GS -W4 -WX -wd4505 -nologo -J -Zi")
-    if (MSVC_VERSION LESS 1400)
-      # Suppress spurious warnings MSVC 7.1 sometimes issues.
-      #set(cxx_base_flags "${cxx_base_flags} -wd4800")
-      #set(cxx_base_flags "${cxx_base_flags} -wd4511 -wd4512")
-      #set(cxx_base_flags "${cxx_base_flags} -wd4675")
-    endif()
+    set(cxx_base_flags "-GS -nologo -J -Zi")
     set(cxx_base_flags "${cxx_base_flags} -D_UNICODE -DUNICODE -DWIN32 -D_WIN32")
     set(cxx_base_flags "${cxx_base_flags} -DSTRICT -DWIN32_LEAN_AND_MEAN")
     set(cxx_exception_flags "-EHsc -D_HAS_EXCEPTIONS=1")

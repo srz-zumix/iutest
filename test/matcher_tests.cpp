@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -92,7 +92,9 @@ IUTEST(Matcher, NotNull)
 
 IUTEST(Matcher, TypedEq)
 {
+    int v=0;
     IUTEST_EXPECT_THAT(1, TypedEq<int>(1));
+    IUTEST_EXPECT_THAT(&v, TypedEq<int*>(&v));
 }
 
 IUTEST(Matcher, FloatEq)

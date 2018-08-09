@@ -21,9 +21,9 @@ addons:
       #- cppcheck
 
 before_install:
-  - python utils/travisci/travis_blocking_stdout.py
-  - apt-cache search clang
-  - apt-cache search gcc
+  - python .ci/travisci/travis_blocking_stdout.py
+  - apt-cache search clang || true
+  - apt-cache search gcc || true
   - if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then export USE_NEWEST_GCC=1; fi
 
 install:
@@ -81,7 +81,7 @@ before_script:
     fi
   # clang
   - |
-    if [ "${CXX}" = 'clang++' ]; then
+    if [ "${CXX}" = 'clang++' ] && [ "${TRAVIS_OS_NAME}" != 'osx' ; then
       export CXX=clang++-6.0;
     fi
   # mingw
@@ -90,10 +90,15 @@ before_script:
   - if [ "${WINEGCC}" = '1' ]; then export CXX=wineg++; fi
 
 script:
-  - if [ "${USE_LIB}" == '1' ]; then cd projects/make && make && cd -; fi
   - if [ -n "${CUSTOM_COMMANDS}" ]; then echo "${CUSTOM_COMMANDS}" && eval ${CUSTOM_COMMANDS}; fi
+  - if [ "${USE_LIB}" == '1' ]; then cd projects/make && make && cd -; fi
+  - if [ "${USE_CMAKE}" == '1' ]; then
+      mkdir ./cmake-build && cd ./cmake-build && cmake ../projects/cmake && cmake --build . && ctest -C Debug -V && cd ..;
+    fi
   - cd ./test
-  - if [ "${COVERITY_SCAN}" != '1' ]; then make -j4 showcxxversion ${USE_FUSED} default && make test ${USE_FUSED}; fi
+  - if [ "${COVERITY_SCAN}" != '1' ] && [ "${USE_CMAKE}" != '1' ]; then
+      make -j4 showcxxversion ${USE_FUSED} default && make test ${USE_FUSED};
+    fi
   - |
     if [ "${COVERITY_SCAN}" == '1' ] && [ -d cov-int ]; then
       cat cov-int/build-log.txt || true;
@@ -150,15 +155,24 @@ matrix:
       env: USE_FUSED=fused
     - compiler: gcc
       env: USE_FUSED=fused_min STDFLAG=-std=c++98
-    # Google Test
+    # cmake
     - compiler: gcc
-      env: USE_GTEST=1 USE_GTEST_HEAD=1 USE_GNU_EXTENSION=1
+      env: USE_CMAKE=1
       addons:
         apt:
           sources: *apt-common-sources
           packages: &apt-cmake-packages
             - *apt-common-packages
-            - cmake
+            - cmake    
+    # Google Test
+    #- compiler: gcc
+    #  env: USE_GTEST=1 USE_GTEST_HEAD=1 USE_GNU_EXTENSION=1
+    #  addons:
+    #    apt:
+    #      sources: *apt-common-sources
+    #      packages:
+    #        - *apt-cmake-packages
+    #        - cmake
     - compiler: gcc
       env: USE_GTEST=1
       addons:
@@ -200,8 +214,8 @@ matrix:
     # Use Lib
     - compiler: gcc
       env: USE_LIB=1
-    - compiler: clang
-      env: USE_LIB=1
+#    - compiler: clang
+#      env: USE_LIB=1
     #- compiler: gcc
     #  env: CPPCHECK=1
     - compiler: gcc
@@ -216,7 +230,11 @@ matrix:
           build_command_prepend: "cov-configure --comptype gcc --compiler gcc-7 --template && cd ./test"
           build_command: make coverity_scan STDFLAG=-std=c++1z
           branch_pattern: master
+    - os: osx
+      env: OSX=1 STDFLAG=-std=c++11
 
 notifications:
   webhooks:
-    secure: Oxajh80h7/RI6otg8Xd2QkglQU0y8ug+f8GVC/BV9VnS9cFWk10z+/69OOBFGCTN7Qjgp+MwOkrQz4a50bIIlrTQtTnw0SmMKd+qIWVJ55xXnSCqWcGE7cD1Rx5/ZmFaAZ0khTZzHwSjhCN4gexLf/aYmG3AnXLXhqNnxkZ73nY=
+    urls:
+      - secure: Oxajh80h7/RI6otg8Xd2QkglQU0y8ug+f8GVC/BV9VnS9cFWk10z+/69OOBFGCTN7Qjgp+MwOkrQz4a50bIIlrTQtTnw0SmMKd+qIWVJ55xXnSCqWcGE7cD1Rx5/ZmFaAZ0khTZzHwSjhCN4gexLf/aYmG3AnXLXhqNnxkZ73nY=
+      - secure: T+ZBCfi1TBStN2eXidtV0J5AjQqtNEXIQtytuJWpgAdgCHSD73gJusSzE9nB0k0I28i1fn6meSuGVmGPdH7CUJdjRVUgbsCSGJot6mi2iR8Qe1+ST1AnS7cD5TvhhmKba5quaIhsv8jAVTmUMYvsX40cZYV99hSUzSegJQjsVXg=

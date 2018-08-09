@@ -528,7 +528,7 @@ template<typename T1, typename T2>
     else
     {
         return ::iutest::AssertionFailure() << "error: Expected: { " << expr1b << ", " << expr1e << " } == { "
-            << expr2b << ", " << expr2e << " }\n  Actual:" << ar.message();
+            << expr2b << ", " << expr2e << " }\n  Actual:" << GetAssertionResultMessage(ar);
     }
 }
 
@@ -546,7 +546,7 @@ template<typename T1, typename T2>
     else
     {
         return ::iutest::AssertionFailure() << "error: Expected: " << expected_expr << " == " << actual_expr
-            << " \n  Actual:" << ar.message();
+            << " \n  Actual:" << GetAssertionResultMessage(ar);
     }
 }
 

@@ -77,6 +77,7 @@ TARGETS1= \
           assume_tests \
           break_on_failure_nobreak_tests \
           catch_exceptions_tests \
+          charcode_tests \
           commandline_tests \
           csvparams_tests \
           cxx_feature_tests \
@@ -89,6 +90,7 @@ TARGETS1= \
           file_system_tests \
           filter_tests \
           flagfile_gtest_tests \
+          gtest_version_tests \
           help_tests \
           inform_tests \
           internal_log_tests \

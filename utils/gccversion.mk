@@ -12,15 +12,17 @@
 ifeq ($(findstring g++, $(CXX)), g++)
 ifneq ($(findstring clang++, $(CXX)), clang++)
 
-GCCVERSION:=$(shell $(CXX) -dumpversion)
+GCCDUMPVERSION:=$(shell $(CXX) -dumpversion)
+GCCVERSION_TEMP:=$(GCCDUMPVERSION) 0 0
 
 dot:=.
 empty:=
 space:=$(empty) $(empty)
-GCCVERSION:=$(subst $(dot),$(space), $(GCCVERSION))
-GCCMAJOR:=$(word 1, $(GCCVERSION))
-GCCMINOR:=$(word 2, $(GCCVERSION))
+GCCVERSION_TEMP:=$(subst $(dot),$(space), $(GCCVERSION_TEMP))
+GCCMAJOR:=$(word 1, $(GCCVERSION_TEMP))
+GCCMINOR:=$(word 2, $(GCCVERSION_TEMP))
 
+CXX_NAME=g++
 STD_CPP03=c++98
 STD_GNU03=gnu++98
 
@@ -102,6 +104,11 @@ endif
 # until 4.6
 ifeq (1,$(shell expr \( $(GCCMAJOR) \< 4 \) \| \( $(GCCMAJOR) = 4 \& $(GCCMINOR) \< 6 \)))
 IUTEST_CXX_WARN_FLAGS+=-Wno-sign-compare
+endif
+
+# arm
+ifeq ($(findstring arm, $(CXX)), arm)
+IUTEST_CXX_WARN_FLAGS+=-Wno-psabi
 endif
 
 IUTEST_CXX_WARN_FLAGS+=-Wno-missing-field-initializers

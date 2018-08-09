@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -32,16 +32,26 @@
 
 //!< Minor Version
 #ifndef GMOCK_MINORVER
-#  if   defined(GMOCK_GMOCK_MORE_MATCHERS_H_)
+#  if   defined(GMOCK_INCLUDE_GMOCK_INTERNAL_CUSTOM_GMOCK_MATCHERS_H_)
+#    define GMOCK_MINORVER  0x08
+#    define GMOCK_LATEST    1
+#  elif defined(GMOCK_INCLUDE_GMOCK_INTERNAL_CUSTOM_CALLBACK_MATCHERS_H_)
+#    define GMOCK_MINORVER  0x08
+#  elif defined(GMOCK_GMOCK_MORE_MATCHERS_H_)
 #    define GMOCK_MINORVER  0x07
-#  else
-// v1.6.0 以前は未対応
+#  elif !defined(GMOCK_COMPILE_ASSERT_)
 #    define GMOCK_MINORVER  0x06
+#  elif defined(GMOCK_USES_POSIX_RE)
+#    define GMOCK_MINORVER  0x04
+#  elif defined(GTEST_DISALLOW_COPY_AND_ASSIGN_)
+#    define GMOCK_MINORVER  0x05
+#  else
+#    define GMOCK_MINORVER  0x04
 #  endif
 #endif
 
 #ifndef GMOCK_BUILD
-#  define GTEST_BUILD       0x00        //!< Build
+#  define GMOCK_BUILD       0x00        //!< Build
 #endif
 
 #ifndef GMOCK_REVISION
@@ -54,6 +64,10 @@
                             |(GMOCK_BUILD<<8)       \
                             |(GMOCK_REVISION<<0)    \
                             )   //!< google test version
+#endif
+
+#if !defined(GMOCK_LATEST)
+#  define GMOCK_LATEST      0   //!< google test development latest version
 #endif
 
 #endif

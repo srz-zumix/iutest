@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -18,13 +18,15 @@
 #include "iutest.hpp"
 #include "../include/iutest_spi.hpp"
 
-#if !defined(IUTEST_USE_GTEST)
 #if !IUTEST_HAS_ASSERTION_RETURN
 void CheckProperty_(const ::iutest::TestResult* tr, const char* key, const char* value)
 {
-    IUTEST_ASSERT_EQ(1, tr->test_property_count());
-    IUTEST_EXPECT_STREQ(key, tr->GetTestProperty(0).key());
-    IUTEST_EXPECT_STREQ(value, tr->GetTestProperty(0).value());
+    if( tr != NULL )
+    {
+        IUTEST_ASSERT_EQ(1, tr->test_property_count());
+        IUTEST_EXPECT_STREQ(key, tr->GetTestProperty(0).key());
+        IUTEST_EXPECT_STREQ(value, tr->GetTestProperty(0).value());
+    }
 }
 #endif
 
@@ -35,9 +37,12 @@ bool CheckProperty(const ::iutest::TestResult* tr, const char* key, const char* 
 #endif
 
 #if IUTEST_HAS_ASSERTION_RETURN
-    IUTEST_ASSERT_EQ(1, tr->test_property_count()) << ::iutest::AssertionReturn<bool>(false);
-    IUTEST_EXPECT_STREQ(key, tr->GetTestProperty(0).key()) << ::iutest::AssertionReturn<bool>(false);
-    IUTEST_EXPECT_STREQ(value, tr->GetTestProperty(0).value()) << ::iutest::AssertionReturn<bool>(false);
+    if( tr != NULL )
+    {
+        IUTEST_ASSERT_EQ(1, tr->test_property_count()) << ::iutest::AssertionReturn<bool>(false);
+        IUTEST_EXPECT_STREQ(key, tr->GetTestProperty(0).key()) << ::iutest::AssertionReturn<bool>(false);
+        IUTEST_EXPECT_STREQ(value, tr->GetTestProperty(0).value()) << ::iutest::AssertionReturn<bool>(false);
+    }
 #else
     CheckProperty_(tr, key, value);
 #endif
@@ -64,7 +69,7 @@ public:
         IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("errors"   , "A"), "Reserved key");
         IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("time"     , "A"), "Reserved key");
 #endif
-        CheckProperty(::iutest::UnitTest::GetInstance()->current_test_case()->ad_hoc_testresult(), "foo", "A");
+        CheckProperty(::iuutil::GetCurrentTestCaseAdHocResult(), "foo", "A");
     }
 };
 
@@ -80,14 +85,12 @@ IUTEST_F(RecordTest, A)
     IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("type_param" , "B"), "Reserved key");
     IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("value_param", "B"), "Reserved key");
 #endif
-    CheckProperty(::iutest::UnitTest::GetInstance()->current_test_info()->result(), "hoge", "B");
+    CheckProperty(::iuutil::GetCurrentTestResult(), "hoge", "B");
 
     // overwrite
     RecordProperty("hoge", "b");
-    CheckProperty(::iutest::UnitTest::GetInstance()->current_test_info()->result(), "hoge", "b");
+    CheckProperty(::iuutil::GetCurrentTestResult(), "hoge", "b");
 }
-
-#endif
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
@@ -113,24 +116,41 @@ int main(int argc, char* argv[])
     {
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret != 0 ) return 1;
-#if !defined(IUTEST_USE_GTEST)
-        if( !CheckProperty(::iutest::UnitTest::GetInstance()->ad_hoc_testresult(), "bar", "C") )
+#if !defined(IUTEST_NO_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN)
+        if( !CheckProperty(iuutil::GetAdHocTestResult(), "bar", "C") )
+        {
+            printf("ad hoc test result is not recorded\n");
             return 1;
+        }
 #endif
     }
-#if !defined(IUTEST_USE_GTEST)
+#if !defined(IUTEST_NO_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN)
     {
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret != 0 ) return 1;
-        if( !CheckProperty(::iutest::UnitTest::GetInstance()->ad_hoc_testresult(), "bar", "C") )
+        if( !CheckProperty(iuutil::GetAdHocTestResult(), "bar", "C") )
+        {
+            printf("ad hoc test result is cleared?\n");
             return 1;
+        }
     }
     {
         IUTEST_INIT(&argc, argv);
         const int ret = IUTEST_RUN_ALL_TESTS();
         if( ret != 0 ) return 1;
-        if( CheckProperty(::iutest::UnitTest::GetInstance()->ad_hoc_testresult(), "bar", "C") )
+#if !defined(IUTEST_USE_GTEST)
+        if( CheckProperty(iuutil::GetAdHocTestResult(), "bar", "C") )
+        {
+            printf("ad hoc test result is not cleared?\n");
             return 1;
+        }
+#else
+        if( !CheckProperty(iuutil::GetAdHocTestResult(), "bar", "C") )
+        {
+            printf("ad hoc test result is cleared? (iutest expect)\n");
+            return 1;
+        }
+#endif
     }
 #endif
     printf("*** Successful ***\n");

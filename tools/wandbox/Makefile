@@ -59,10 +59,10 @@ dryrun-test: ../../test/syntax_tests.cpp Makefile
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) --boost 1.60 -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --verbose --dryrun
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) --default --boost 1.60 -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --verbose --dryrun
 
-test-all-compiler: ../../test/syntax_tests.cpp Makefile
+test-all-compiler: ../../test/syntax_tests.cpp Makefile fused
 	@for compiler in $(shell python iuwandbox.py --list-compiler); do \
 		echo $${compiler}; \
-		python iuwandbox.py $< -c $${compiler} -f"-DIUTEST_USE_MAIN" -f"-Werror" --encoding utf-8-sig || exit 1; \
+		python iuwandbox.py $< -c $${compiler} -f"-DIUTEST_USE_MAIN" -f"-Werror" --encoding utf-8-sig $(WANDBOX_ADD_OPTIONS) || exit 1; \
 	done
 
 list-compiler:
@@ -70,6 +70,13 @@ list-compiler:
 
 list-options:
 	python iuwandbox.py --list-options $(WANDBOX_COMPILER)
+
+#
+# raw api
+#
+get-list-json:
+	mkdir -p tmp
+	curl https://wandbox.org/api/list.json > tmp/list.json
 
 #
 # iutest test

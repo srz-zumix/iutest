@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -169,6 +169,9 @@
 #define IUTEST_PP_CAT   GTEST_CONCAT_TOKEN_
 #define IUTEST_IS_NULLLITERAL   GTEST_IS_NULL_LITERAL_
 
+#if !defined(GTEST_TEST)
+#  define GTEST_TEST    TEST
+#endif
 
 // __analysis_assume
 #if defined(_MSC_VER) && (_MSC_VER >= 1500) && !defined(__CUDACC__)
@@ -185,6 +188,41 @@
 #else
 
 #define IUTEST_THROUGH_ANALYSIS_ASSUME(expr, todo)  todo
+
+#endif
+
+#if GTEST_VER <= 0x01040000
+namespace testing
+{
+
+namespace iusupport
+{
+
+class AssertionResultFailure
+{
+    Message m_message;
+public:
+    template<typename T>
+    AssertionResultFailure& operator << (const T& value)
+    {
+        m_message << value;
+        return *this;
+    }
+public:
+    operator AssertionResult () const
+    {
+        return testing::AssertionFailure(m_message);
+    }
+};
+
+} // end of namespace iusupport
+
+inline iusupport::AssertionResultFailure AssertionFailure()
+{
+     return iusupport::AssertionResultFailure();
+}
+
+} // end of namespace testing
 
 #endif
 

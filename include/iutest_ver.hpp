@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01160211u //!< iutest version 1.16.2.11
+#define IUTEST_VER          0x01160501u //!< iutest version 1.16.5.1
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
-#define IUTEST_MICROVER     0x02u       //!< Micro Version
-#define IUTEST_REVISION     0x11u       //!< Revision
+#define IUTEST_MICROVER     0x05u       //!< Micro Version
+#define IUTEST_REVISION     0x01u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -120,9 +120,31 @@
  * @page    CHANGELOG   変更履歴
  * @par     Changes
  <ul>
+  <li>v1.16.5.0
+    <ul>
+      <li></li>
+    </ul>
+  </li>
+  <li>v1.16.5.0
+    <ul>
+      <li>IUTEST_*_NULL, IUTEST_*_NOTNULL を可変長引数対応</li>
+      <li>IUTEST_*_HRESULT_SUCCEEDED, IUTEST_*_HRESULT_FAILED を可変長引数対応</li>
+      <li>ad_hoc_testresult の取得関数名を ad_hoc_test_result に変更</li>
+      <li>compatibility: iuutil に ad_hoc_testresult の取得関数を追加</li>
+      <li>iuwandbox で std-cxx の指定をするとオプションチェックで失敗する不具合を修正</li>
+      <li></li>
+    </ul>
+  </li>
+  <li>v1.16.4.0
+    <ul>
+      <li>deprecated: IUTEST_IGNORE 関係を非推奨にしました</li>
+      <li>コンパイルエラーの修正</li>
+    </ul>
+  </li>
   <li>v1.16.3.0
     <ul>
       <li>IUTEST_ASSERT,IUTEST_EXPECT の Variadic 対応</li>
+      <li>gtest 各バージョンの互換性の不備を修正</li>
     </ul>
   </li>
   <li>v1.16.2.0

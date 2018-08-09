@@ -103,6 +103,7 @@
 #if !defined(IUTEST_HAS_IGNORE_TEST)
 /**
  * @brief   コンパイルが通らなくてもよいテスト生成マクロが使用可能かどうか
+ * @deprecated
 */
 #  if defined(IUTEST_NO_TWO_PHASE_NAME_LOOKUP)
 #    define IUTEST_HAS_IGNORE_TEST  1
@@ -590,7 +591,13 @@
 #    if (!defined(_MSC_VER) || _MSC_VER >= 1310) && (defined(_WIN32_WINNT) && _WIN32_WINNT >= 0x501)
 #      define IUTEST_HAS_SOCKET 1
 #    endif
-#  elif defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_LINUX)
+#  elif defined(IUTEST_OS_CYGWIN)
+#    if (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 1) \
+        || (defined(_XOPEN_SOURCE) && _XOPEN_SOURCE) \
+        || (defined(_POSIX_SOURCE) && _POSIX_SOURCE)
+#      define IUTEST_HAS_SOCKET   1
+#    endif
+#  elif defined(IUTEST_OS_LINUX)
 #    define IUTEST_HAS_SOCKET   1
 #  endif
 #endif
@@ -681,6 +688,9 @@
 #define IUTEST_NO_SETENV    //!< setenv 関数がない場合は定義
 #define IUTEST_NO_PUTENV    //!< putenv 関数がない場合は定義
 #define IUTEST_NO_GETCWD    //!< getcwd 関数がない場合は定義
+
+//! RecordProperty が Test 以外の場所でも使用できない場合に定義される
+#define IUTEST_NO_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN
 
 /**
  * @}

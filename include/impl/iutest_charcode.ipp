@@ -110,7 +110,7 @@ IUTEST_IPP_INLINE char* CodePointToUtf8(UInt32 code_point, char* buf, size_t siz
 #if defined(_MSC_VER)
 IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToSJIS(const ::std::string& str)
 {
-    const size_t src_length = str.length() + 1;
+    const int src_length = static_cast<int>(str.length() + 1);
     const int lengthWideChar = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), src_length, NULL, 0);
     if( lengthWideChar <= 0 )
     {

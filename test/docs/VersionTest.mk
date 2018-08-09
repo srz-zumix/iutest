@@ -5,6 +5,7 @@ IUTEST_REVISION:=$(shell grep 'IUTEST_REVISION' ../../include/iutest_ver.hpp | h
 IUTEST_VERSION:=$(IUTEST_MAJORVER).$(IUTEST_MINORVER).$(IUTEST_MICROVER).$(IUTEST_REVISION)
 
 DOXYGEN_VERSION:=$(word 3, $(shell grep 'PROJECT_NUMBER' ../../docs/Doxyfile | tail -n 1))
+CHANGES_FILE:=../../CHANGES.md
 
 default: dump-version doxygen-version nuget-version changes
 
@@ -26,9 +27,10 @@ endif
 
 
 changes:
-	@grep 'Changes for ' ../../CHANGES | head -1
+	@grep 'Changes for ' $(CHANGES_FILE) | head -1
+	@if [ ! -e "$(CHANGES_FILE)" ]; then exit 1; fi
 ifeq (0, $(IUTEST_REVISION))
-	@grep 'Changes for ' ../../CHANGES | head -1 | grep '$(IUTEST_MAJORVER).$(IUTEST_MINORVER).$(IUTEST_MICROVER)' > /dev/null
+	@grep 'Changes for ' $(CHANGES_FILE) | head -1 | grep '$(IUTEST_MAJORVER).$(IUTEST_MINORVER).$(IUTEST_MICROVER)' > /dev/null
 else
 	@echo test skipped...
 endif

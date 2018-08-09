@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -221,14 +221,14 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
                         detail::iuConsole::output("%s.%s\n", testinfo->test_case_name(), testinfo->name());
                     }
                 }
-                if( testcase->ad_hoc_testresult()->Failed() )
+                if( testcase->ad_hoc_test_result()->Failed() )
                 {
                     detail::iuConsole::color_output(detail::iuConsole::red, "[  FAILED  ] ");
                     detail::iuConsole::output("%s at SetUpTestCase/TearDownTestCase\n", testcase->name());
                 }
             }
 
-            if( test.ad_hoc_testresult()->Failed() )
+            if( test.ad_hoc_test_result()->Failed() )
             {
                 detail::iuConsole::color_output(detail::iuConsole::red, "[  FAILED  ] ");
                 detail::iuConsole::output("other than\n");

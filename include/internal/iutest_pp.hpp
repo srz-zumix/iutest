@@ -19,17 +19,19 @@
 // define
 
 /**
- * @brief   コピー禁止定義
+ * @brief       コピー禁止定義
 */
 #define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)    \
-    TypeName(const TypeName&);                          \
-    TypeName& operator = (const TypeName&)
+        TypeName(const TypeName&);                      \
+        TypeName& operator = (const TypeName&)
 
 /**
- * @brief   代入禁止定義
+ * @brief       代入禁止定義
 */
 #define IUTEST_PP_DISALLOW_ASSIGN(TypeName)     \
-    TypeName& operator = (const TypeName&)
+    private:                                    \
+        TypeName& operator = (const TypeName&)
+
 
 /**
  * @brief   コピー/ムーブ禁止定義

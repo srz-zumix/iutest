@@ -21,6 +21,16 @@
 namespace syntax_tests
 {
 
+#ifndef IUTEST_NO_VARIADIC_MACROS
+
+template<int A, int B>struct T
+{
+    template<typename U>
+    static U call(U v) { return v; }
+};
+
+#endif
+
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()
 
@@ -36,6 +46,20 @@ IUTEST(SyntaxTest, True)
         IUTEST_ASSUME_TRUE(b) << b;
 }
 
+#ifndef IUTEST_NO_VARIADIC_MACROS
+IUTEST(SyntaxTest, VariadicTrue)
+{
+    if( bool b = true )
+        IUTEST_ASSERT_TRUE(T<0, 0>::call(b)) << b;
+    if( bool b = true )
+        IUTEST_EXPECT_TRUE(T<0, 0>::call(b)) << b;
+    if( bool b = true )
+        IUTEST_INFORM_TRUE(T<0, 0>::call(b)) << b;
+    if( bool b = true )
+        IUTEST_ASSUME_TRUE(T<0, 0>::call(b)) << b;
+}
+#endif
+
 IUTEST(SyntaxTest, False)
 {
     if( bool b = false )
@@ -47,6 +71,22 @@ IUTEST(SyntaxTest, False)
     if( bool b = false )
         IUTEST_ASSUME_FALSE(b) << b;
 }
+
+#ifndef IUTEST_NO_VARIADIC_MACROS
+
+IUTEST(SyntaxTest, VariadicFalse)
+{
+    if( bool b = false )
+        IUTEST_ASSERT_FALSE(T<0, 0>::call(b)) << b;
+    if( bool b = false )
+        IUTEST_EXPECT_FALSE(T<0, 0>::call(b)) << b;
+    if( bool b = false )
+        IUTEST_INFORM_FALSE(T<0, 0>::call(b)) << b;
+    if( bool b = false )
+        IUTEST_ASSUME_FALSE(T<0, 0>::call(b)) << b;
+}
+
+#endif
 
 IUTEST(SyntaxTest, EQ)
 {
@@ -199,6 +239,21 @@ IUTEST(SyntaxTest, Null)
         IUTEST_ASSUME_NULL(p) << x;
 }
 
+#ifndef IUTEST_NO_VARIADIC_MACROS
+IUTEST(SyntaxTest, VariadicNull)
+{
+    int* p = NULL;
+    if( int x = 1 )
+        IUTEST_ASSERT_NULL(T<0, 0>::call(p)) << x;
+    if( int x = 1 )
+        IUTEST_EXPECT_NULL(T<0, 0>::call(p)) << x;
+    if( int x = 1 )
+        IUTEST_INFORM_NULL(T<0, 0>::call(p)) << x;
+    if( int x = 1 )
+        IUTEST_ASSUME_NULL(T<0, 0>::call(p)) << x;
+}
+#endif
+
 IUTEST(SyntaxTest, NotNull)
 {
     if( void* p = this )
@@ -210,6 +265,20 @@ IUTEST(SyntaxTest, NotNull)
     if( void* p = this )
         IUTEST_ASSUME_NOTNULL(p) << p;
 }
+
+#ifndef IUTEST_NO_VARIADIC_MACROS
+IUTEST(SyntaxTest, VariadicNotNull)
+{
+    if( void* p = this )
+        IUTEST_ASSERT_NOTNULL(T<0, 0>::call(p)) << p;
+    if( void* p = this )
+        IUTEST_EXPECT_NOTNULL(T<0, 0>::call(p)) << p;
+    if( void* p = this )
+        IUTEST_INFORM_NOTNULL(T<0, 0>::call(p)) << p;
+    if( void* p = this )
+        IUTEST_ASSUME_NOTNULL(T<0, 0>::call(p)) << p;
+}
+#endif
 
 IUTEST(SyntaxTest, Same)
 {
@@ -303,6 +372,20 @@ IUTEST(SyntaxTest, HResultSucceeded)
         IUTEST_ASSUME_HRESULT_SUCCEEDED(0) << x;
 }
 
+#ifndef IUTEST_NO_VARIADIC_MACROS
+IUTEST(SyntaxTest, VariadicHResultSucceeded)
+{
+    if( int x=1 )
+        IUTEST_ASSERT_HRESULT_SUCCEEDED(T<0, 0>::call(0)) << x;
+    if( int x=1 )
+        IUTEST_EXPECT_HRESULT_SUCCEEDED(T<0, 0>::call(0)) << x;
+    if( int x=1 )
+        IUTEST_INFORM_HRESULT_SUCCEEDED(T<0, 0>::call(0)) << x;
+    if( int x=1 )
+        IUTEST_ASSUME_HRESULT_SUCCEEDED(T<0, 0>::call(0)) << x;
+}
+#endif
+
 IUTEST(SyntaxTest, HResultFailed)
 {
     if( int x=1 )
@@ -314,6 +397,20 @@ IUTEST(SyntaxTest, HResultFailed)
     if( int x=1 )
         IUTEST_ASSUME_HRESULT_FAILED(-1) << x;
 }
+
+#ifndef IUTEST_NO_VARIADIC_MACROS
+IUTEST(SyntaxTest, VariadicHResultFailed)
+{
+    if( int x=1 )
+        IUTEST_ASSERT_HRESULT_FAILED(T<0, 0>::call(-1)) << x;
+    if( int x=1 )
+        IUTEST_EXPECT_HRESULT_FAILED(T<0, 0>::call(-1)) << x;
+    if( int x=1 )
+        IUTEST_INFORM_HRESULT_FAILED(T<0, 0>::call(-1)) << x;
+    if( int x=1 )
+        IUTEST_ASSUME_HRESULT_FAILED(T<0, 0>::call(-1)) << x;
+}
+#endif
 
 #endif
 
@@ -581,9 +678,9 @@ IUTEST(SyntaxTest, ExceptionAnyThrow)
     if( int x = 1 )
         IUTEST_ASSERT_ANY_THROW(throw ::std::bad_exception()) << x;
     if( int x = 1 )
-        IUTEST_ASSERT_ANY_THROW(throw ::std::bad_exception()) << x;
+        IUTEST_EXPECT_ANY_THROW(throw ::std::bad_exception()) << x;
     if( int x = 1 )
-        IUTEST_ASSERT_ANY_THROW(throw ::std::bad_exception()) << x;
+        IUTEST_INFORM_ANY_THROW(throw ::std::bad_exception()) << x;
     if( int x = 1 )
         IUTEST_ASSUME_ANY_THROW(throw ::std::bad_exception()) << x;
 }

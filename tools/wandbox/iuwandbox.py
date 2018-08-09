@@ -41,7 +41,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 5.9'
+        version=u'%(prog)s version 6.1'
     )
     parser.add_argument(
         '--list-compiler',
@@ -415,12 +415,12 @@ def expand_wandbox_options(w, compiler, options):
             if 'switches' in d:
                 switches = d['switches']
                 for s in switches:
-                    if ('name' in s) and ('display-flags' in s):
-                        defs[s['name']] = s['display-flags']
-                    elif 'options' in s:
+                    if 'options' in s:
                         for o in s['options']:
                             if ('name' in o) and ('display-flags' in o):
                                 defs[o['name']] = o['display-flags']
+                    elif ('name' in s) and ('display-flags' in s):
+                        defs[s['name']] = s['display-flags']
     for opt in options:
         if opt in defs:
             colist.extend(defs[opt].split())
@@ -537,7 +537,8 @@ prog: $(OBJS)\n\
 def run_wandbox_cxx(code, includes, impliments, options):
     with Wandbox() as w:
         w.compiler(options.compiler)
-        w.options(','.join(create_option_list(options)))
+        woptions = ','.join(create_option_list(options))
+        w.options(woptions)
         if options.stdin:
             w.stdin(options.stdin)
         colist = create_compiler_raw_option_list(options)
@@ -549,9 +550,10 @@ def run_wandbox_cxx(code, includes, impliments, options):
     #            colist.append('-DIUTEST_HAS_HDR_CXXABI=0')
     #        if options.compiler in ['clang-3.3', 'clang-3.2', 'clang-3.1', 'clang-3.0']:
     #            colist.append('-Qunused-arguments')
-    #        if options.compiler in ['clang-3.4', 'clang-3.3']:
-    #            colist.append('-fno-exceptions')
-    #            colist.append('-fno-rtti')
+            if 'boost-nothing' in woptions:
+                if options.compiler in ['clang-3.4', 'clang-3.3']:
+                    colist.append('-fno-exceptions')
+                    colist.append('-fno-rtti')
             pass
         if colist:
             co = '\n'.join(colist)
@@ -607,6 +609,9 @@ def text_transform(value):
 
 # show result
 def show_result(r, options):
+    if r is None:
+        print('failed: timeout...')
+        sys.exit(1)
     if 'error' in r:
         print(r['error'])
         sys.exit(1)
@@ -724,26 +729,30 @@ def listup_options(compiler):
             if 'switches' in d:
                 switches = d['switches']
                 for s in switches:
-                    if 'name' in s:
+                    if 'options' in s:
+                        default_option = s['default']
+                        print(s['name'])
+                        for o in s['options']:
+                            if o['name'] == default_option:
+                                print('  ' + o['name'] + ' (default)')
+                            else:
+                                print('  ' + o['name'])
+                    elif 'name' in s:
                         if s['default']:
                             print(s['name'] + ' (default)')
                         else:
                             print(s['name'])
-                    elif 'options' in s:
-                        print(s['default'] + ' (default)')
-                        for o in s['options']:
-                            print('  ' + o['name'])
 
 
 def get_options(compiler):
     opt = []
     for s in wandbox_get_compilerswitches(compiler):
-        if 'name' in s:
-            opt.append(s['name'])
-        elif 'options' in s:
+        if 'options' in s:
             opt.append(s['default'])
             for o in s['options']:
                 opt.append(o['name'])
+        elif 'name' in s:
+            opt.append(s['name'])
     return opt
 
 
@@ -751,11 +760,11 @@ def get_options(compiler):
 def get_default_options(compiler):
     opt = []
     for s in wandbox_get_compilerswitches(compiler):
-        if 'name' in s:
+        if 'options' in s:
+            opt.append(s['default'])
+        elif 'name' in s:
             if s['default']:
                 opt.append(s['name'])
-        elif 'options' in s:
-            opt.append(s['default'])
     return opt
 
 

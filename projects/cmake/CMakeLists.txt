@@ -7,6 +7,7 @@ cmake_minimum_required(VERSION 3.0.2)
 
 # option
 option(build_gtest_samples "gtest sample build." OFF)
+option(build_use_gtest_configuration "use gtest build configuration." ON)
 option(build_tests "tests build." ON)
 
 # Defines pre_project_set_up_hermetic_build() and set_up_hermetic_build().
@@ -32,7 +33,6 @@ find_path(IUTEST_ROOT_DIR
 set(CMAKE_MODULE_PATH ${IUTEST_ROOT_DIR}/cmake)
 find_package(IUTEST REQUIRED)
 
-
 if (COMMAND set_up_hermetic_build)
   set_up_hermetic_build()
 endif()
@@ -41,8 +41,16 @@ endif()
 include(internal_utils.cmake)
 config_compiler_and_linker()  # Defined in internal_utils.cmake.
 
+if (build_use_gtest_configuration)
+  set(CMAKE_CONFIGURATION_TYPES "Debug_gtest;${CMAKE_CONFIGURATION_TYPES}")
+  message(STATUS "configuration types: ${CMAKE_CONFIGURATION_TYPES}")
+endif()
+
 # インクルードパス
 include_directories(${IUTEST_INCLUDE_DIR})
+if (NOT "$ENV{GTEST_ROOT}" STREQUAL "")
+  include_directories($ENV{GTEST_ROOT}/include)
+endif()
 
 ########################################################################
 #
@@ -121,6 +129,7 @@ if (build_tests)
   cxx_executable_test(assume_tests)
   cxx_executable_test(break_on_failure_nobreak_tests)
   cxx_executable_test(catch_exceptions_tests)
+  cxx_executable_test(charcode_tests)
   cxx_executable_test(commandline_tests)
   cxx_executable_test(csvparams_tests)
   cxx_executable_test(cxx_feature_tests)
@@ -147,6 +156,7 @@ if (build_tests)
   cxx_executable_test(file_system_tests)
   cxx_executable_test(filter_tests)
   cxx_executable_test(flagfile_gtest_tests)
+  cxx_executable_test(gtest_version_tests)
   cxx_executable_test(help_tests)
   cxx_executable_test(invalid_commandline_tests)
   cxx_executable_test(japanese_tests)
@@ -241,6 +251,7 @@ if (build_tests)
   cxx_add_test(assume_tests)
   cxx_add_test(break_on_failure_nobreak_tests)
   cxx_add_test(catch_exceptions_tests)
+  cxx_add_test(charcode_tests)
   cxx_add_test(commandline_tests)
   cxx_add_test(csvparams_tests)
   cxx_add_test(disabled_tests)
@@ -253,6 +264,7 @@ if (build_tests)
   cxx_add_test(file_system_tests)
   cxx_add_test(filter_tests)
   cxx_add_test(flagfile_gtest_tests)
+  cxx_add_test(gtest_version_tests)
   cxx_add_test(help_tests)
   cxx_add_test(invalid_commandline_tests)
   cxx_add_test(japanese_tests)

@@ -100,7 +100,18 @@
 #  include <android/api-level.h>
 #endif
 
+// c++2a
+
 // c++17
+#if !defined(IUTEST_HAS_CXX2A)
+#  if (defined(__cplusplus) && __cplusplus > 201703L)
+#    define IUTEST_HAS_CXX2A        1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CXX2A)
+#  define IUTEST_HAS_CXX2A          0
+#endif
 
 //! is c++17 compiler
 #if !defined(IUTEST_HAS_CXX17)
@@ -733,8 +744,10 @@
 #if !defined(IUTEST_CXX_NOTHROW)
 #  if IUTEST_HAS_NOEXCEPT
 #    define IUTEST_CXX_NOTHROW  noexcept
+#  elif IUTEST_HAS_CXX2A
+#    define IUTEST_CXX_NOTHROW
 #  else
-#    define IUTEST_CXX_NOTHROW  throw()
+#    define IUTEST_CXX_NOTHROW  throw() // C++20 で消える
 #  endif
 #endif
 
@@ -941,9 +954,11 @@
 #  endif
 #endif
 
-//! has Two pahse name lookup
+//! has two pahse name lookup
 #if !defined(IUTEST_NO_TWO_PHASE_NAME_LOOKUP)
-#  if defined(_MSC_VER)
+// Visual Studio 2017 (15.3) 以降は two phase name lookup が実装されている
+// （コンパイルオプションで無視できるが iutest はこれを検出しない）
+#  if defined(_MSC_VER) && (_MSC_VER < 1910)
 #    define IUTEST_NO_TWO_PHASE_NAME_LOOKUP             1
 #  endif
 #endif

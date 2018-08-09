@@ -7,32 +7,44 @@ trigger_map:
 - push_branch: develop
   workflow: primary
 - pull_request_source_branch: "*"
+  pull_request_target_branch: develop
   workflow: primary
+- pull_request_source_branch: "*"
+  workflow: primary
+  pull_request_target_branch: master
 workflows:
   primary:
     steps:
     - activate-ssh-key@3.1.1:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@3.4.1: {}
+    - git-clone@3.5.1: {}
+    - script@1.1.4:
+        title: SetUp
+        inputs:
+        - content: |-
+            system_profiler SPHardwareDataType
+            gem install xcpretty
     - script@1.1.3:
         title: CMake
         inputs:
-        - content: |-
-            #!/bin/bash
-            # fail if any commands fails
-            set -ex
-            brew install cmake
-            cmake --version
-            mkdir xcode
-            cd xcode
-            cmake ../projects/cmake -G "Xcode"
-            ls
-    - script@1.1.3:
+        - content: "#!/bin/bash\n# fail if any commands fails\nset -ex\nbrew install
+            cmake\ncmake --version\nmkdir xcode\ncd xcode\ncmake ../projects/cmake
+            -G \"Xcode\" -DCMAKE_XCODE_GENERATE_SCHEME=TRUE -Dbuild_use_gtest_configuration=OFF
+            \nls"
+    - script@1.1.4:
         title: Xcodebuild
         inputs:
-        - content: |-
+        - content: |
             xcodebuild -project xcode/iutest.xcodeproj -list
-            xcodebuild -project xcode/iutest.xcodeproj build
-            #xcodebuild -project xcode/iutest.xcodeproj test
+            #xcodebuild -project xcode/iutest.xcodeproj -IDEBuildOperationMaxNumberOfConcurrentCompileTasks=2 build  | xcpretty -c
+            xcodebuild -project xcode/iutest.xcodeproj build  | xcpretty -c
+    - script@1.1.4:
+        title: Tests
+        inputs:
+        - content: |-
+            #xcodebuild -project xcode/iutest.xcodeproj -scheme all_tests test
+            #xcodebuild -project xcode/iutest.xcodeproj -scheme all_tests -destination 'platform=iOS' test
+            cd xcode
+            ctest -C Debug -V
     after_run: 
     before_run: 

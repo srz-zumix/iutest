@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_switch_for_gtest.hpp
- * @brief       switching to iutest from gtest / gtest from iutest
+ * @brief       switching to iutest from gtest
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -58,6 +58,10 @@ namespace tr1
 #endif
 #include "iutest_gtest_ver.hpp"
 #include "../internal/iutest_pragma.hpp"
+
+#if GTEST_VER < 0x01040000
+#  error google test 1.3.0 or less is not supported...
+#else
 
 //======================================================================
 // define
@@ -125,7 +129,11 @@ namespace tr1
 
 #endif
 
-#define IUTEST_SUCCEED          GTEST_SUCCEED
+#if GTEST_VER > 0x01040000
+#  define IUTEST_SUCCEED        GTEST_SUCCEED
+#else
+#  define IUTEST_SUCCEED()      GTEST_SUCCESS_("Succeeded")
+#endif
 #define IUTEST_FAIL             GTEST_FAIL
 #define IUTEST_ADD_FAILURE      ADD_FAILURE
 #define IUTEST_ADD_FAILURE_AT   ADD_FAILURE_AT
@@ -176,6 +184,12 @@ namespace tr1
 #define IUTEST_HAS_RTTI             GTEST_HAS_RTTI
 #define IUTEST_HAS_REGEX            GTEST_USES_POSIX_RE
 #define IUTEST_HAS_SEH              GTEST_HAS_SEH
+
+#if GTEST_VER < 0x01070000
+#  define IUTEST_NO_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN
+#  define IUTEST_NO_UNITEST_AD_HOC_TEST_RESULT_ACCESSOR
+#  define IUTEST_NO_TESTCASE_AD_HOC_TEST_RESULT_ACCESSOR
+#endif
 
 #ifndef IUTEST_CXX_OVERRIDE
 #  define IUTEST_CXX_OVERRIDE
@@ -300,6 +314,15 @@ namespace iusupport
     template<int x>struct StaticAssertionTest {};
 }
 
+inline const char* GetAssertionResultMessage(const AssertionResult& ar)
+{
+#if GTEST_VER <= 0x01040000
+    return ar.failure_message();
+#else
+    return ar.message();
+#endif
+}
+
 #if defined(INCG_IRIS_IUTEST_HPP_)
 
 namespace iusupport
@@ -307,9 +330,13 @@ namespace iusupport
     inline AssertionResult iuMakeAssertionResult(const AssertionResult& ar) { return ar; }
     inline AssertionResult iuMakeAssertionResult(const ::iutest::AssertionResult& ar)
     {
+#if GTEST_VER > 0x01040000
         return AssertionResult(static_cast<bool>(ar)) << ar.message();
+#else
+        return static_cast<bool>(ar) ? AssertionSuccess() : AssertionFailure(Message(ar.message()));
+#endif
     }
-}
+}   // end of namespace iusupport
 
 // ::iutest::AssertionResult -> ::testing::AssertionResult
 #undef GTEST_ASSERT_
@@ -318,7 +345,7 @@ namespace iusupport
   if (const ::testing::AssertionResult gtest_ar = ::testing::iusupport::iuMakeAssertionResult(expression)) \
     ; \
   else \
-    on_failure(gtest_ar.failure_message())
+    on_failure(GetAssertionResultMessage(gtest_ar))
 
 #endif
 
@@ -333,6 +360,28 @@ struct is_pointer<T* volatile> : public true_type {};
 // ostream
 typedef ::std::ostream  iu_ostream;
 
+#if GTEST_VER < 0x01060000
+
+namespace dummy_printer
+{
+
+template<typename T>
+inline ::std::string PrintToString(T)
+{
+    // google test 1.5 or less is not supported to PrintToString
+    return "";
+}
+
+}   // end of namespace dummy_printer
+
+#if !defined(IUTEST_USE_GMOCK)
+using dummy_printer::PrintToString;
+#elif GTEST_VER < 0x01050000
+using dummy_printer::PrintToString;
+#endif
+
+#endif
+
 }   // end of namespace testing
 
 #if defined(INCG_IRIS_IUTEST_HPP_)
@@ -346,6 +395,8 @@ namespace iutest = testing;
 
 #ifndef INCG_IRIS_IUTEST_HPP_
 #  define INCG_IRIS_IUTEST_HPP_ // 以降で、iutest が include されないようにする
+#endif
+
 #endif
 
 #endif

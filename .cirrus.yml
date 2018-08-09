@@ -1,0 +1,27 @@
+cirrus_gcc_test_task:
+  container:
+    image: gcc:latest
+  env:
+    matrix:
+      STDFLAG: -std=c++14
+      STDFLAG: -std=c++17
+      #STDFLAG: -std=c++2a
+  test_script: cd test && make -j4 showcxxversion default && make test
+  
+#cirrus_use_gtest_task:
+#  env:
+#    USE_GTEST: 1
+#  container:
+#    image: srzzumix/googletest:latest
+#  test_script: cd test && make -j4 showcxxversion default && make test
+  
+cirrus_osx_test_task:
+  osx_instance:
+    image: high-sierra-xcode-9.4.1
+  env:
+    matrix:
+      STDFLAG: -std=c++14
+      STDFLAG: -std=c++17
+      #STDFLAG: -std=c++2a
+  test_script: cd test && make -j4 showcxxversion default && make test
+

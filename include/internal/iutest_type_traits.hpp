@@ -63,7 +63,7 @@
 namespace iutest_type_traits
 {
 
-typedef void void_t;    // default template 引数用 (一部のコンパイラで = void だとエラーになるため)
+typedef void type_defined_void;    // default template 引数用 (一部のコンパイラで = void だとエラーになるため)
 
 /**
  * @brief   identity
@@ -108,7 +108,7 @@ struct enable_if : public helper::enable_if_impl_<B>::template inner<T>
 
 #endif
 
-template<class COND, typename T = void_t>
+template<class COND, typename T = type_defined_void>
 struct enable_if_t : public enable_if<COND::value, T> {};
 
 /**
@@ -116,7 +116,7 @@ struct enable_if_t : public enable_if<COND::value, T> {};
 */
 template<bool B, typename T>
 struct disable_if : public enable_if<!B, T> {};
-template<class COND, typename T = void_t>
+template<class COND, typename T = type_defined_void>
 struct disable_if_t : public disable_if<COND::value, T> {};
 
 template<typename T>
