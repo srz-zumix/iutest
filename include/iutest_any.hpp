@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -78,6 +78,34 @@ public:
         return type() == internal::GetTypeId<T>();
     }
 
+    /**
+     * @brief   所持している値の文字列化
+    */
+    ::std::string to_string() const
+    {
+        if(empty())
+        {
+            return "empty";
+        }
+        return content->to_string();
+    }
+
+public:
+    /**
+     * @brief   要素があるかどうか
+    */
+    bool has_value() const
+    {
+        return !empty();
+    }
+    /**
+    * @brief   要素のクリア
+    */
+    void reset()
+    {
+        clear();
+    }
+
 public:
     template<typename T>
     any& operator = (const   T& rhs) { any(rhs).swap(*this); return *this; }
@@ -95,6 +123,7 @@ private:
         virtual ~placeholder() {}
         virtual type_id type() const = 0;
         virtual placeholder* clone() const = 0;
+        virtual ::std::string to_string() const = 0;
     };
     template<typename T>
     class holder : public placeholder
@@ -109,6 +138,10 @@ private:
         virtual placeholder* clone() const IUTEST_CXX_OVERRIDE
         {
             return new holder<T>(held);
+        }
+        virtual ::std::string to_string() const
+        {
+            return PrintToString(held);
         }
     public:
         T held;
@@ -170,8 +203,15 @@ inline T any_cast(const any& value)
 template<typename T>
 T* unsafe_any_cast(any* p)
 {
-    return p != NULL ?
-        &(static_cast< any::holder<T>* >(p->content)->held) : NULL;
+    if(p == NULL)
+    {
+        return NULL;
+    }
+    if(!p->has_value())
+    {
+        return NULL;
+    }
+    return &(static_cast< any::holder<T>* >(p->content)->held);
 }
 /** @overload */
 template<typename T>
@@ -193,6 +233,24 @@ inline T unsafe_any_cast(const any& value)
 {
     return unsafe_any_cast<T>(const_cast<any&>(value));
 }
+
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+template<typename Elem, typename Traits>
+::std::basic_ostream<Elem, Traits>& operator << (::std::basic_ostream<Elem, Traits>& os, const any& value)
+{
+    return os << value.to_string();
+}
+#else
+template<typename T>
+iu_ostream& operator << (iu_ostream& os, const T& value)
+{
+    return os << value.to_string();
+}
+#endif
+
+#endif
 
 }   // end of namespace iutest
 

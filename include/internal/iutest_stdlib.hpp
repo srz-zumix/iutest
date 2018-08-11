@@ -289,6 +289,12 @@
 #  endif
 #endif
 
+#if defined(__has_include)
+#  if __has_include(<any>)
+#    define IUTEST_HAS_STD_ANY          1
+#  endif
+#endif
+
 #endif
 
 #if defined(__has_include)
@@ -299,6 +305,10 @@
 #  endif
 #endif
 
+//! has ::std::any
+#if !defined(IUTEST_HAS_STD_ANY)
+#  define IUTEST_HAS_STD_ANY            0
+#endif
 //! has std::variant
 #if !defined(IUTEST_HAS_STD_VARIANT)
 #  define IUTEST_HAS_STD_VARIANT        0
@@ -402,6 +412,9 @@
 #endif
 #if IUTEST_HAS_STD_VARIANT
 #include <variant>
+#endif
+#if IUTEST_HAS_STD_ANY
+#include <any>
 #endif
 
 //======================================================================
@@ -608,7 +621,7 @@ using tuples::get;
 #  define __socklen_t_defined
 #endif
 
-//! std::stringstream が使用可能かどうか
+//! ::std::stringstream が使用可能かどうか
 #if !defined(IUTEST_HAS_STRINGSTREAM)
 #  if !defined(_STLP_NO_IOSTREAMS)
 #    define IUTEST_HAS_STRINGSTREAM 1
@@ -621,7 +634,7 @@ using tuples::get;
 
 
 /**
- * @brief   std::strstream が使用可能かどうか
+ * @brief   ::std::strstream が使用可能かどうか
  * @note    IUTEST_HAS_STRINGSTREAM が優先されます
  * @deprecated
 */

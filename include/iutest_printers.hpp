@@ -175,16 +175,23 @@ inline void DefaultPrintTo(IsContainerHelper::yes_t
     }
     *os << "}";
 }
+
 template<typename T>
-inline void DefaultPrintTo(IsContainerHelper::no_t
-                        , iutest_type_traits::false_type
-                        , const T& value, iu_ostream* os)
+inline void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
 {
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     printer_internal2::DefaultPrintNonContainerTo(value, os);
 #else
     printer_internal::formatter::Printer<false>::Print(value, os);
 #endif
+}
+/** @overload */
+template<typename T>
+inline void DefaultPrintTo(IsContainerHelper::no_t
+                        , iutest_type_traits::false_type
+                        , const T& value, iu_ostream* os)
+{
+    DefaultPrintNonContainerTo(value, os);
 }
 
 #if !defined(IUTEST_NO_SFINAE) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
@@ -297,16 +304,16 @@ inline void PrintTo(const unsigned char value, iu_ostream* os)
 }
 #if IUTEST_HAS_STD_STRING_VIEW
 template<typename CharT, typename Traits>
-inline void PrintTo(const std::basic_string_view<CharT, Traits>& value, iu_ostream* os)
+inline void PrintTo(const ::std::basic_string_view<CharT, Traits>& value, iu_ostream* os)
 {
-    const std::basic_string<CharT, Traits> tmp{ value };
+    const ::std::basic_string<CharT, Traits> tmp{ value };
     *os << tmp;
 }
 #endif
 
 #if IUTEST_HAS_STD_OPTIONAL
 template<typename T>
-inline void PrintTo(const std::optional<T>& value, iu_ostream* os)
+inline void PrintTo(const ::std::optional<T>& value, iu_ostream* os)
 {
     if (value)
     {
@@ -321,7 +328,7 @@ inline void PrintTo(const std::optional<T>& value, iu_ostream* os)
 
 #if IUTEST_HAS_STD_VARIANT
 template<typename... Types>
-inline void PrintTo(const std::variant<Types...>& value, iu_ostream* os)
+inline void PrintTo(const ::std::variant<Types...>& value, iu_ostream* os)
 {
     if (value.valueless_by_exception())
     {
@@ -332,9 +339,17 @@ inline void PrintTo(const std::variant<Types...>& value, iu_ostream* os)
         std::visit([&os](const auto& v) { UniversalPrint(v, os); }, value);
     }
 }
-inline void PrintTo(const std::monostate&, iu_ostream* os)
+inline void PrintTo(const ::std::monostate&, iu_ostream* os)
 {
     *os << "monostate";
+}
+#endif
+
+#if IUTEST_HAS_STD_ANY
+inline void PrintTo(::std::any& value, iu_ostream* os)
+{
+   *os << "-Any type-name: " << value.type().name();
+   DefaultPrintNonContainerTo(value, os);
 }
 #endif
 
