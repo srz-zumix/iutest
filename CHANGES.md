@@ -2,6 +2,21 @@
 
 --------------------------------------------------
 
+## Changes for 1.16.5
+
+* Improved
+  * IUTEST_*_NULL, IUTEST_*_NOTNULL を可変長引数対応
+  * IUTEST_*_HRESULT_SUCCEEDED, IUTEST_*_HRESULT_FAILED を可変長引数対応
+  * compatibility: iuutil に ad_hoc_testresult の取得関数を追加
+
+* Changes
+  * ad_hoc_testresult の取得関数名を ad_hoc_test_result に変更
+
+* Bug fixes
+  * iuwandbox: iuwandbox で std-cxx の指定をするとオプションチェックで失敗する不具合を修正
+
+--------------------------------------------------
+
 ## Changes for 1.16.4
 
 * 変更

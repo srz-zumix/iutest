@@ -196,8 +196,8 @@
 #define IUTEST_ASSUME_LE                    ASSUME_LE
 #define IUTEST_ASSUME_GT                    ASSUME_GT
 #define IUTEST_ASSUME_GE                    ASSUME_GE
-#define IUTEST_ASSUME_NULL(v)               ASSUME_EQ(NULL, v)
-#define IUTEST_ASSUME_NOTNULL(v)            ASSUME_TRUE(NULL != (v))
+#define IUTEST_ASSUME_NULL(...)             ASSUME_EQ(NULL, (__VA_ARGS__))
+#define IUTEST_ASSUME_NOTNULL(...)          ASSUME_TRUE(NULL != (__VA_ARGS__))
 #define IUTEST_ASSUME_SAME(v1, v2)          ASSUME_PRED_FORMAT2(::testing::internal::CmpHelperSame, v1, v2)
 #define IUTEST_ASSUME_NEAR                  ASSUME_NEAR
 #define IUTEST_ASSUME_FLOAT_EQ              ASSUME_FLOAT_EQ
@@ -212,10 +212,10 @@
 #define IUTEST_ASSUME_NO_FATAL_FAILURE      ASSUME_NO_FATAL_FAILURE
 
 #ifdef GTEST_OS_WINDOWS
-# define ASSUME_HRESULT_SUCCEEDED(expr) \
-    ASSUME_PRED_FORMAT1(::testing::internal::IsHRESULTSuccess, (expr))
-# define ASSUME_HRESULT_FAILED(expr) \
-    ASSUME_PRED_FORMAT1(::testing::internal::IsHRESULTFailure, (expr))
+# define ASSUME_HRESULT_SUCCEEDED(...) \
+    ASSUME_PRED_FORMAT1(::testing::internal::IsHRESULTSuccess, (__VA_ARGS__))
+# define ASSUME_HRESULT_FAILED(...) \
+    ASSUME_PRED_FORMAT1(::testing::internal::IsHRESULTFailure, (__VA_ARGS__))
 
 #  define IUTEST_ASSUME_HRESULT_SUCCEEDED   ASSUME_HRESULT_SUCCEEDED
 #  define IUTEST_ASSUME_HRESULT_FAILED      ASSUME_HRESULT_FAILED

@@ -129,7 +129,11 @@ namespace tr1
 
 #endif
 
-#define IUTEST_SUCCEED          GTEST_SUCCEED
+#if GTEST_VER > 0x01040000
+#  define IUTEST_SUCCEED        GTEST_SUCCEED
+#else
+#  define IUTEST_SUCCEED()      GTEST_SUCCESS_("Succeeded")
+#endif
 #define IUTEST_FAIL             GTEST_FAIL
 #define IUTEST_ADD_FAILURE      ADD_FAILURE
 #define IUTEST_ADD_FAILURE_AT   ADD_FAILURE_AT

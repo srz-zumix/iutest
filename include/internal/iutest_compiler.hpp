@@ -106,6 +106,19 @@
 #define IUTEST_CPLUSPLUS_CXX14 201402L
 #define IUTEST_CPLUSPLUS_CXX17 201703L
 
+// c++2a
+
+#if !defined(IUTEST_HAS_CXX2A)
+#  if (defined(__cplusplus) && __cplusplus > 201703L)
+#    define IUTEST_HAS_CXX2A        1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CXX2A)
+#  define IUTEST_HAS_CXX2A          0
+#endif
+
+// c++17
 //! is c++17 compiler
 #if !defined(IUTEST_HAS_CXX17)
 #  if (defined(__cplusplus) && __cplusplus >= IUTEST_CPLUSPLUS_CXX17)
@@ -766,8 +779,10 @@
 #if !defined(IUTEST_CXX_NOTHROW)
 #  if IUTEST_HAS_NOEXCEPT
 #    define IUTEST_CXX_NOTHROW  noexcept
+#  elif IUTEST_HAS_CXX2A
+#    define IUTEST_CXX_NOTHROW
 #  else
-#    define IUTEST_CXX_NOTHROW  throw()
+#    define IUTEST_CXX_NOTHROW  throw() // C++20 で消える
 #  endif
 #endif
 

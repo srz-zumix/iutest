@@ -95,6 +95,35 @@ wandbox:
               python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c $compiler --std "gnu++${IUWANDBOX_CPPVER}" ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION};
           done
 
+wandbox-all-compiler:
+  steps:
+    - virtualenv:
+        name: setup virtual environment
+
+    - pip-install:
+        requirements_file: ""
+        packages_list: "requests"
+
+    - script:
+        name: make fused
+        code: |
+          make -C tools/fused
+
+    - script:
+        name: setup
+        code: |
+          export PYTHONDONTWRITEBYTECODE=1
+          export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --encoding utf-8-sig --expand-include --verbose --check-config --retry-wait 180"
+
+    - script:
+        name: all-compiler
+        code: |
+          cd tools/wandbox
+          for compiler in $(shell python iuwandbox.py --list-compiler)
+          do
+              python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} -c $compiler ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION};
+          done
+
 nothing:
   steps:
     - script:
