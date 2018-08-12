@@ -62,7 +62,7 @@ dryrun-test: ../../test/syntax_tests.cpp Makefile
 test-all-compiler: ../../test/syntax_tests.cpp Makefile fused
 	@for compiler in $(shell python iuwandbox.py --list-compiler); do \
 		echo $${compiler}; \
-		python iuwandbox.py $< -c $${compiler} -f"-DIUTEST_USE_MAIN" -f"-Werror" --encoding utf-8-sig $(WANDBOX_ADD_OPTIONS) || exit 1; \
+		python iuwandbox.py $< -c $${compiler} -f"-DIUTEST_USE_MAIN" -f"-Werror" --encoding utf-8-sig --verbose $(WANDBOX_ADD_OPTIONS) || exit 1; \
 	done
 
 list-compiler:

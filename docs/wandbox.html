@@ -41,7 +41,7 @@ iuwandbox.py sample.cpp
 int main(int argc, char** argv)
 {
     int x = 0;
-    std::cout &lt;&lt; "hoge" &lt;&lt; std::endl;
+    ::std::cout &lt;&lt; "hoge" &lt;&lt; ::std::endl;
     
     IUTEST_INIT(&amp;argc, argv);
     return IUTEST_RUN_ALL_TESTS();

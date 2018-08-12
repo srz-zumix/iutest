@@ -20,7 +20,7 @@
 
 #if IUTEST_HAS_EXCEPTIONS
 #include <exception>
-//#include <stdexcept>  // std::invalid_argment
+//#include <stdexcept>  // ::std::invalid_argment
 
 namespace iutest {
 namespace detail

@@ -26,7 +26,8 @@ class Wandbox:
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        return True
+        self.reset()
+        return False
 
     @staticmethod
     def GetCompilerList():
@@ -151,5 +152,5 @@ if __name__ == '__main__':
         w.compiler('gcc-head')
         w.options('warning,gnu++1y')
         w.compiler_options('-Dx=hogefuga\n-O3')
-        w.code('#include <iostream>\nint main() { int x = 0; std::cout << "hoge" << std::endl; }')
+        w.code('#include <iostream>\nint main() { int x = 0; ::std::cout << "hoge" << ::std::endl; }')
         print(w.run())

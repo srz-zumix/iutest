@@ -22,7 +22,7 @@
 
 IUTEST(ExceptionTest, StdExceptionThrow)
 {
-    throw std::runtime_error("ExceptionTest");
+    throw ::std::runtime_error("ExceptionTest");
 }
 
 IUTEST(ExceptionTest, Throw)

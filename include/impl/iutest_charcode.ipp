@@ -130,7 +130,7 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ UTF8ToSJIS(const ::std:
     char* buf = new char[lengthSJIS];
     WideCharToMultiByte(CP_THREAD_ACP, 0, wbuf, -1, buf, lengthSJIS, NULL, NULL);
 
-    std::string ret(buf);
+    ::std::string ret(buf);
     delete[] wbuf;
     delete[] buf;
     return ret;

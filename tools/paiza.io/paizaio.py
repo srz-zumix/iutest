@@ -100,5 +100,5 @@ class PaizaIO:
 
 if __name__ == '__main__':
     paiza = PaizaIO()
-    paiza.code('#include <iostream>\nint main() { int x = 0; std::cout << "hoge" << std::endl; }')
+    paiza.code('#include <iostream>\nint main() { int x = 0; ::std::cout << "hoge" << ::std::endl; }')
     print(paiza.run())
