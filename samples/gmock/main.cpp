@@ -18,9 +18,9 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	::testing::InitGoogleMock(&argc, argv);
-	IUTEST_INIT(&argc, argv);
-	return IUTEST_RUN_ALL_TESTS();	// run all
+    ::testing::InitGoogleMock(&argc, argv);
+    IUTEST_INIT(&argc, argv);
+    return IUTEST_RUN_ALL_TESTS();	// run all
 }
 
 /**
@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 class Foo
 {
 public:
-	virtual std::string name(void) = 0;
+    virtual ::std::string name(void) = 0;
 };
 
 /**
@@ -38,7 +38,7 @@ public:
 class MockFoo : public Foo
 {
 public:
-	MOCK_METHOD0( name, std::string () );
+    MOCK_METHOD0( name, ::std::string () );
 };
 
 /**
@@ -46,27 +46,27 @@ public:
 */
 class FooTest
 {
-	Foo*	m_foo;
+    Foo*	m_foo;
 public:
-	FooTest(Foo* foo) : m_foo(foo) {}
+    FooTest(Foo* foo) : m_foo(foo) {}
 
-	std::string name(void) { return m_foo->name(); }
-	std::string repeat(int n) 
-	{
-		std::string str;
-		for( int i=0; i < n; ++i ) str += name();
-		return str;
-	}
+    ::std::string name(void) { return m_foo->name(); }
+    ::std::string repeat(int n) 
+    {
+        ::std::string str;
+        for( int i=0; i < n; ++i ) str += name();
+        return str;
+    }
 };
 
 TEST(FooTest, Name)
 {
-	// モック
-	MockFoo mock;
-	EXPECT_CALL(mock, name()).WillOnce( ::testing::Return("iutest") );
+    // モック
+    MockFoo mock;
+    EXPECT_CALL(mock, name()).WillOnce( ::testing::Return("iutest") );
 
-	FooTest test(&mock);
-	IUTEST_ASSERT_EQ( "iutest", test.name() );
+    FooTest test(&mock);
+    IUTEST_ASSERT_EQ( "iutest", test.name() );
 }
 
 using testing::Pointwise;
@@ -79,7 +79,7 @@ using testing::Each;
 TEST(PointwiseTest, WorksForLhsNativeArray)
 {
   const int lhs[] = { 1, 2, 3 };
-  std::vector<int> rhs;
+  ::std::vector<int> rhs;
   rhs.push_back(2);
   rhs.push_back(4);
   rhs.push_back(6);

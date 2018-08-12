@@ -72,7 +72,7 @@ IUTEST_IPP_INLINE bool iuFilePath::IsAbsolutePath() const
 
 IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveTrailingPathSeparator() const
 {
-    return IsDirectory() ? iuFilePath(std::string(m_path.c_str(), length()-1)) : *this;
+    return IsDirectory() ? iuFilePath(::std::string(m_path.c_str(), length()-1)) : *this;
 }
 
 IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveExtension(const char* extension) const
@@ -88,7 +88,7 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveExtension(const char* extension) 
         return *this;
     }
     const size_t length = ext - path;
-    return iuFilePath(std::string(path, length));
+    return iuFilePath(::std::string(path, length));
 }
 
 IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveDirectoryName() const
@@ -105,7 +105,7 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveFileName() const
         return GetRelativeCurrentDir();
     }
     const size_t length = sep - c_str() + 1;
-    return iuFilePath(std::string(c_str(), length));
+    return iuFilePath(::std::string(c_str(), length));
 }
 
 IUTEST_IPP_INLINE bool iuFilePath::CreateFolder() const

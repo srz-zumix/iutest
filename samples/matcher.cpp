@@ -80,7 +80,7 @@ IUTEST(Matcher, Container)
 IUTEST(Matcher, Member)
 {
     X x(0, 1);
-    std::map<int, X> m;
+    ::std::map<int, X> m;
     for( int i=0; i < 10; ++i )
     {
         m.insert(::std::pair<int, X>(i, X(i, 100)));
