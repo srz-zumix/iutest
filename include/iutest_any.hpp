@@ -139,7 +139,7 @@ private:
         {
             return new holder<T>(held);
         }
-        virtual ::std::string to_string() const
+        virtual ::std::string to_string() const IUTEST_CXX_OVERRIDE
         {
             return PrintToString(held);
         }
