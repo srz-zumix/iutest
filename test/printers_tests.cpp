@@ -372,7 +372,7 @@ IUTEST(PrintToTest, Tuple)
 IUTEST(PrintToTest, Array)
 {
     LogChecker ck("3, 1, 4");
-    ::std::array<int, 3> ar = { { 3, 1, 4 } ;
+    ::std::array<int, 3> ar = { { 3, 1, 4 } };
     IUTEST_SUCCEED() << ::iutest::PrintToString(ar);
 }
 #endif
