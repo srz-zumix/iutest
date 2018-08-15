@@ -198,10 +198,9 @@ inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestCaseName(const ::
 }
 #if IUTEST_HAS_RVALUE_REFS
 /** @overload */
-inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestCaseName(const ::std::string&& package, const char* testcase_name)
+inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestCaseName(::std::string package, const char* testcase_name)
 {
-    ::std::string ss = package + testcase_name;
-    return ss;
+    return package + testcase_name;
 }
 #endif
 
