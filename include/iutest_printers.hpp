@@ -379,7 +379,8 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char* str, iu_ost
     }
     else
     {
-        UniversalPrint(::std::string(str), os);
+        ::std::string ss = str;
+        UniversalPrint(ss, os);
     }
 }
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t* str, iu_ostream* os)

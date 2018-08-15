@@ -200,7 +200,8 @@ inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestCaseName(const ::
 /** @overload */
 inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestCaseName(const ::std::string&& package, const char* testcase_name)
 {
-    return package + testcase_name;
+    ::std::string ss = package + testcase_name;
+    return ss;
 }
 #endif
 
