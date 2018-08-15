@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -18,6 +18,10 @@
 #include <vector>
 #include "iutest.hpp"
 #include "logger_tests.hpp"
+
+#if IUTEST_HAS_CXX_HDR_ARRAY
+#  include <array>  // NOLINT
+#endif
 
 #if !defined(IUTEST_USE_GTEST)
 TestLogger printer_logger;
@@ -357,9 +361,19 @@ IUTEST(PrintToTest, Nullptr)
 #if IUTEST_HAS_TUPLE
 IUTEST(PrintToTest, Tuple)
 {
+    LogChecker ck("false, 100, 'a'");
     ::iutest::tuples::tuple<bool, int, char> t(false, 100, 'a');
 
     IUTEST_SUCCEED() << ::iutest::PrintToString(t);
+}
+#endif
+
+#if IUTEST_HAS_CXX_HDR_ARRAY
+IUTEST(PrintToTest, Array)
+{
+    LogChecker ck("3, 1, 4");
+    ::std::array<int, 3> ar = { 3, 1, 4 };
+    IUTEST_SUCCEED() << ::iutest::PrintToString(ar);
 }
 #endif
 
