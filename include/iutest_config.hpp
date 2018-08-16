@@ -659,7 +659,7 @@
 
 /**
  * @brief   iutest で t1/tuple.h をインクルードするかどうか
- * @details 1: std::tr1 名前空間にある tuple を使用します。
+ * @details 1: ::std::tr1 名前空間にある tuple を使用します。
  *          tuple.h はユーザーがインクルードします。
  *          0: 指定なし iutest が自動で判断します。
 */
@@ -674,7 +674,7 @@
 #define IUTEST_USE_EXTERNAL_STD_TUPLE   0
 
 /**
- * @brief   std::is_member_function_pointer がコンパイルエラーになる場合に定義する
+ * @brief   ::std::is_member_function_pointer がコンパイルエラーになる場合に定義する
 */
 #define IUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER   1
 

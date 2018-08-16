@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01160500u //!< iutest version 1.16.5.0
+#define IUTEST_VER          0x01160501u //!< iutest version 1.16.5.1
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
 #define IUTEST_MICROVER     0x05u       //!< Micro Version
-#define IUTEST_REVISION     0x00u       //!< Revision
+#define IUTEST_REVISION     0x01u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -120,6 +120,11 @@
  * @page    CHANGELOG   変更履歴
  * @par     Changes
  <ul>
+  <li>v1.16.5.0
+    <ul>
+      <li></li>
+    </ul>
+  </li>
   <li>v1.16.5.0
     <ul>
       <li>IUTEST_*_NULL, IUTEST_*_NOTNULL を可変長引数対応</li>
@@ -474,7 +479,7 @@
   <li>v0.36.2.1
     <ul>
       <li>型名表記をデマングルするように修正</li>
-      <li>Google Test を使用した場合でも std::string に対応した文字列比較アサーションを使えるように修正</li>
+      <li>Google Test を使用した場合でも ::std::string に対応した文字列比較アサーションを使えるように修正</li>
       <li>Google Test を使用した時に wchar_t 版の STRCASENE が使えるように修正</li>
       <li>IUTEST_THROW_ON_ASSERT_FAILURE のデフォルト値を 0 に変更</li>
       <li>IUTEST_THROW_ON_ASSERT_FAILURE が有効なとき IUTEST_*_FATAL_FAILURE が正しく動作しない問題を修正</li>
@@ -515,7 +520,7 @@
     <ul>
       <li>IUTEST_STATIC_ASSERT 追加</li>
       <li>IUTEST_SCOPED_TRACE で gtest と同じ記法が使えるように修正</li>
-      <li>std::chrono::high_resolution_clock に対応</li>
+      <li>::std::chrono::high_resolution_clock に対応</li>
       <li>iutest::PrintToString でストリーム出力できない型に対応（バイト配列を出力）</li>
       <li>テスト用乱数のシード取得を追加</li>
       <li>IUTEST_*_TRUE|FALSE で iutest::AssertionResult を受け取れるように修正</li>
@@ -631,7 +636,7 @@
     <ul>
       <li>イベントリスナーに RecordProperty 時のイベントを追加</li>
       <li>google mock 対応</li>
-      <li>IUTEST_*_STRCASE* に std::string をそのまま使えるように修正</li>
+      <li>IUTEST_*_STRCASE* に ::std::string をそのまま使えるように修正</li>
       <li>rvalue reference 対応</li>
     </ul>
   </li>

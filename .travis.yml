@@ -16,14 +16,14 @@ addons:
     packages: &apt-common-packages
       - clang-6.0
       - libc++-dev
-      - g++-7
-      - gcc-7
+      - g++-8
+      - gcc-8
       #- cppcheck
 
 before_install:
   - python .ci/travisci/travis_blocking_stdout.py
-  - apt-cache search clang
-  - apt-cache search gcc
+  - apt-cache search clang || true
+  - apt-cache search gcc || true
   - if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then export USE_NEWEST_GCC=1; fi
 
 install:
@@ -75,13 +75,13 @@ before_script:
   # g++
   - |
     if [ "${USE_NEWEST_GCC}" = '1' ]; then
-      export CC=gcc-7
-      export CXX=g++-7
-      export CCOV=gcov-7
+      export CC=gcc-8
+      export CXX=g++-8
+      export CCOV=gcov-8
     fi
   # clang
   - |
-    if [ "${CXX}" = 'clang++' ]; then
+    if [ "${CXX}" = 'clang++' ] && [ "${TRAVIS_OS_NAME}" != 'osx' ; then
       export CXX=clang++-6.0;
     fi
   # mingw
@@ -206,8 +206,8 @@ matrix:
     # Use Lib
     - compiler: gcc
       env: USE_LIB=1
-    - compiler: clang
-      env: USE_LIB=1
+#    - compiler: clang
+#      env: USE_LIB=1
     #- compiler: gcc
     #  env: CPPCHECK=1
     - compiler: gcc
@@ -219,9 +219,11 @@ matrix:
             name: "srz-zumix/iutest"
             description: "iutest c++ testing framework"
           notification_email: zumix.cpp@gmail.com
-          build_command_prepend: "cov-configure --comptype gcc --compiler gcc-7 --template && cd ./test"
+          build_command_prepend: "cov-configure --comptype gcc --compiler gcc-8 --template && cd ./test"
           build_command: make coverity_scan STDFLAG=-std=c++1z
           branch_pattern: master
+    - os: osx
+      env: OSX=1 STDFLAG=-std=c++11
 
 notifications:
   webhooks:
