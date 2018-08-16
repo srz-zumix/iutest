@@ -192,17 +192,11 @@ template<typename T>
  * @brief   テストケース名との結合
  * @return  テストケース名
 */
-#if IUTEST_HAS_RVALUE_REFS
-inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestCaseName(::std::string package, const char* testcase_name)
+inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
+    iuTest_ConcatTestCaseName(const ::std::string& package, const char* testcase_name)
 {
     return package + testcase_name;
 }
-#else
-inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestCaseName(const ::std::string& package, const char* testcase_name)
-{
-    return package + testcase_name;
-}
-#endif
 
 #endif
 
