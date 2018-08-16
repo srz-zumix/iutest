@@ -302,7 +302,7 @@ inline void PrintTo(const unsigned char value, iu_ostream* os)
 {
     *os << static_cast<unsigned int>(value);
 }
-#if IUTEST_HAS_STD_STRING_VIEW
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
 template<typename CharT, typename Traits>
 inline void PrintTo(const ::std::basic_string_view<CharT, Traits>& value, iu_ostream* os)
 {
@@ -311,7 +311,7 @@ inline void PrintTo(const ::std::basic_string_view<CharT, Traits>& value, iu_ost
 }
 #endif
 
-#if IUTEST_HAS_STD_OPTIONAL
+#if IUTEST_HAS_CXX_HDR_OPTIONAL
 template<typename T>
 inline void PrintTo(const ::std::optional<T>& value, iu_ostream* os)
 {
@@ -326,7 +326,7 @@ inline void PrintTo(const ::std::optional<T>& value, iu_ostream* os)
 }
 #endif
 
-#if IUTEST_HAS_STD_VARIANT
+#if IUTEST_HAS_CXX_HDR_VARIANT
 template<typename... Types>
 inline void PrintTo(const ::std::variant<Types...>& value, iu_ostream* os)
 {
@@ -345,7 +345,7 @@ inline void PrintTo(const ::std::monostate&, iu_ostream* os)
 }
 #endif
 
-#if IUTEST_HAS_STD_ANY
+#if IUTEST_HAS_CXX_HDR_ANY
 inline void PrintTo(::std::any& value, iu_ostream* os)
 {
    *os << "-Any type-name: " << value.type().name();

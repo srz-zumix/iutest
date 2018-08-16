@@ -59,7 +59,7 @@ IUTEST(NoexceptFounctionType, ExpressionAssert)
 
 #endif
 
-#if IUTEST_HAS_STD_STRING_VIEW
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
 
 IUTEST(StringView, Compare)
 {
@@ -76,7 +76,7 @@ IUTEST(StringView, PrintTo)
 
 #endif
 
-#if IUTEST_HAS_STD_OPTIONAL
+#if IUTEST_HAS_CXX_HDR_OPTIONAL
 
 IUTEST(Optional, Compare)
 {
@@ -108,7 +108,7 @@ IUTEST(Optional, PrintTo)
 
 #endif
 
-#if IUTEST_HAS_STD_VARIANT
+#if IUTEST_HAS_CXX_HDR_VARIANT
 
 IUTEST(Variant, Compare)
 {
@@ -147,6 +147,28 @@ IUTEST(Variant, PrintTo)
         catch(...)
         {
         }
+        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
+    }
+}
+
+#endif
+
+#if IUTEST_HAS_CXX_HDR_ANY
+
+IUTEST(Any, Compare)
+{
+    {
+        std::any v1 = 1;
+        std::any v2 = 2;
+        IUTEST_EXPECT_EQ(v1, v2);
+}
+}
+
+IUTEST(Any, PrintTo)
+{
+    {
+        //LogChecker ck("1234");
+        std::any v = 1234;
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
 }
