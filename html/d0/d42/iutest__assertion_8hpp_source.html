@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.5.0</span>
+   &#160;<span id="projectnumber">1.16.5.1</span>
    </div>
   </td>
  </tr>
@@ -332,7 +332,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    <span class="keywordtype">void</span> OnFixed(<span class="keyword">const</span> Fixed&amp; fixed)</div>
 <div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    {</div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        <span class="comment">// OnFixed で throw しないこと！テスト側の例外キャッチにかからなくなる</span></div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        <span class="keyword">const</span> std::string append_message = fixed.GetString();</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;        const ::std::string append_message = fixed.GetString();</div>
 <div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;        <span class="keywordflow">if</span>( !append_message.empty() )</div>
 <div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;        {</div>
 <div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;            m_part_result.add_message(<span class="stringliteral">&quot; &quot;</span> + append_message);</div>
@@ -406,7 +406,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;}</div>
 <div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;</div>
 <div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;<span class="keyword">inline</span> AssertionResult EqFailure(<span class="keyword">const</span> <span class="keywordtype">char</span>* expected_expression, <span class="keyword">const</span> <span class="keywordtype">char</span>* actual_expression</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    , <span class="keyword">const</span> std::string&amp; expected, <span class="keyword">const</span> std::string&amp; actual, <span class="keywordtype">bool</span> ignoring_case = <span class="keyword">false</span>)</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    , const ::std::string&amp; expected, const ::std::string&amp; actual, <span class="keywordtype">bool</span> ignoring_case = <span class="keyword">false</span>)</div>
 <div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;{</div>
 <div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    iu_global_format_stringstream strm;</div>
 <div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    strm &lt;&lt; <span class="stringliteral">&quot;error: Value of &quot;</span> &lt;&lt; actual_expression</div>
@@ -1205,7 +1205,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="ttc" id="classiutest_1_1_test_flag_html_a397f885a4bd35c356163b4cf0eab2ac8a38762a3d1bed33340d0df7d4b9a4919e"><div class="ttname"><a href="../../d8/d00/classiutest_1_1_test_flag.html#a397f885a4bd35c356163b4cf0eab2ac8a38762a3d1bed33340d0df7d4b9a4919e">iutest::TestFlag::BREAK_ON_FAILURE</a></div><div class="ttdoc">テスト失敗時にブレーク </div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:146</div></div>
 <div class="ttc" id="group___m_a_t_c_h_e_r_s_html_ga7dff43861c1c0e66369395115b2b4e42"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga7dff43861c1c0e66369395115b2b4e42">iutest::matchers::A</a></div><div class="ttdeci">detail::AnyMatcher&lt; T &gt; A()</div><div class="ttdoc">Make Any matcher. </div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2301</div></div>
 <div class="ttc" id="namespaceiutest_html_a58cf9f6611f8a453aba8c89d4f7465f3"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a58cf9f6611f8a453aba8c89d4f7465f3">iutest::AssertionReturn</a></div><div class="ttdeci">AssertionReturnType&lt; T &gt; AssertionReturn(const T &amp;ret)</div><div class="ttdoc">Assetion Return 設定 </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:169</div></div>
-<div class="ttc" id="iutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:721</div></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:732</div></div>
 <div class="ttc" id="classiutest_1_1_test_flag_html_aa8b8153e11a8439174a98058eb54274f"><div class="ttname"><a href="../../d8/d00/classiutest_1_1_test_flag.html#aa8b8153e11a8439174a98058eb54274f">iutest::TestFlag::IsEnableFlag</a></div><div class="ttdeci">static bool IsEnableFlag(int flag)</div><div class="ttdoc">フラグが立っているかどうか </div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:207</div></div>
 <div class="ttc" id="iutest__list_8hpp_html"><div class="ttname"><a href="../../da/d27/iutest__list_8hpp.html">iutest_list.hpp</a></div><div class="ttdoc">iris unit test list 構造 ファイル </div></div>
 <div class="ttc" id="namespaceiutest_html_a543a2a28ba663224cb511a4ae93877dc"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a543a2a28ba663224cb511a4ae93877dc">iutest::Message</a></div><div class="ttdeci">detail::iuStreamMessage Message</div><div class="ttdoc">Message クラス </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:31</div></div>
@@ -1223,14 +1223,14 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="ttc" id="namespaceiutest_html_a49b30d45309d9c8e820b2252082e0c99"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">iutest::AssertionFailure</a></div><div class="ttdeci">AssertionResult AssertionFailure()</div><div class="ttdoc">テスト失敗を示す AssertionResult オブジェクトの取得 </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:374</div></div>
 <div class="ttc" id="structiutest_1_1_assertion_return_type_html_a6ed717b9ad1f163070ed83efb755c8a2"><div class="ttname"><a href="../../dd/d41/structiutest_1_1_assertion_return_type.html#a6ed717b9ad1f163070ed83efb755c8a2">iutest::AssertionReturnType::value</a></div><div class="ttdeci">R value</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:146</div></div>
 <div class="ttc" id="classiutest_1_1_assertion_result_html"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html">iutest::AssertionResult</a></div><div class="ttdoc">Assertion Result. </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:54</div></div>
-<div class="ttc" id="iutest__compiler_8hpp_html_a4582554323adda45e92a0f70680126b6"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a4582554323adda45e92a0f70680126b6">IUTEST_CXX_EXPLICIT_CONVERSION</a></div><div class="ttdeci">#define IUTEST_CXX_EXPLICIT_CONVERSION</div><div class="ttdoc">explicit conversion definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:623</div></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_a4582554323adda45e92a0f70680126b6"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a4582554323adda45e92a0f70680126b6">IUTEST_CXX_EXPLICIT_CONVERSION</a></div><div class="ttdeci">#define IUTEST_CXX_EXPLICIT_CONVERSION</div><div class="ttdoc">explicit conversion definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:634</div></div>
 <div class="ttc" id="classiutest_1_1_test_part_result_html_a611b78a968052b144546b58d83a686e5a7afb6039f8447d668d9884dea7d9acca"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5a7afb6039f8447d668d9884dea7d9acca">iutest::TestPartResult::kSkip</a></div><div class="ttdoc">スキップ </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:63</div></div>
 <div class="ttc" id="namespaceiutest_html_a0538466708443c65f3c7b2c84b7fce0b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a></div><div class="ttdeci">AssertionResult AssertionSuccess()</div><div class="ttdoc">テスト成功を示す AssertionResult オブジェクトの取得 </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:370</div></div>
 <div class="ttc" id="classiutest_1_1_assertion_result_html_aae1405582edbedd7ebf004dd1f87b3eb"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html#aae1405582edbedd7ebf004dd1f87b3eb">iutest::AssertionResult::message</a></div><div class="ttdeci">const char * message() const </div><div class="ttdoc">メッセージの取得 </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:78</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年08月06日(月) 00時44分32秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年08月16日(木) 00時55分07秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

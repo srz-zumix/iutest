@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.5.0</span>
+   &#160;<span id="projectnumber">1.16.5.1</span>
    </div>
   </td>
  </tr>
@@ -83,6 +83,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><dl class="section user"><dt>Changes</dt><dd><ul>
+<li>
+v1.16.5.0 <ul>
+<li>
+</li>
+</ul>
+</li>
 <li>
 v1.16.5.0 <ul>
 <li>
@@ -634,7 +640,7 @@ v0.36.2.1 <ul>
 <li>
 型名表記をデマングルするように修正 </li>
 <li>
-Google Test を使用した場合でも std::string に対応した文字列比較アサーションを使えるように修正 </li>
+Google Test を使用した場合でも ::std::string に対応した文字列比較アサーションを使えるように修正 </li>
 <li>
 Google Test を使用した時に wchar_t 版の STRCASENE が使えるように修正 </li>
 <li>
@@ -696,7 +702,7 @@ IUTEST_STATIC_ASSERT 追加 </li>
 <li>
 IUTEST_SCOPED_TRACE で gtest と同じ記法が使えるように修正 </li>
 <li>
-std::chrono::high_resolution_clock に対応 </li>
+::std::chrono::high_resolution_clock に対応 </li>
 <li>
 <a class="el" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c" title="文字列化 ">iutest::PrintToString</a> でストリーム出力できない型に対応（バイト配列を出力） </li>
 <li>
@@ -880,7 +886,7 @@ v0.19.0.0 <ul>
 <li>
 google mock 対応 </li>
 <li>
-IUTEST_*_STRCASE* に std::string をそのまま使えるように修正 </li>
+IUTEST_*_STRCASE* に ::std::string をそのまま使えるように修正 </li>
 <li>
 rvalue reference 対応 </li>
 </ul>
@@ -988,7 +994,7 @@ xml 出力に対応 </li>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年08月06日(月) 00時44分33秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年08月16日(木) 00時55分07秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
