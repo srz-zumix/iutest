@@ -43,7 +43,7 @@ IUTEST_IPP_INLINE ::std::string iuCodeMessage::make_message() const
     return str;
 }
 
-IUTEST_IPP_INLINE iu_stringstream GetStringStream() { iu_stringstream strm; return strm; }
+IUTEST_IPP_INLINE iu_stringstream IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY GetStringStream() { iu_stringstream strm; return strm; }
 
 IUTEST_IPP_INLINE ::std::string FormatFileLocation(const char* file, int line)
 {
