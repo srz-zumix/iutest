@@ -415,6 +415,11 @@
 
 //======================================================================
 // include
+#include <iterator>
+
+#if IUTEST_HAS_CXX_HDR_ANY
+#  include <any>
+#endif
 #if IUTEST_HAS_CXX_HDR_CSTDINT
 #  include <cstdint>
 #endif
@@ -424,10 +429,6 @@
 #if IUTEST_HAS_CXX_HDR_VARIANT
 #  include <variant>
 #endif
-#if IUTEST_HAS_CXX_HDR_ANY
-#  include <any>
-#endif
-#include <iterator>
 
 //======================================================================
 // declare
