@@ -31,7 +31,7 @@
 
 #if IUTEST_HAS_PACKAGE
 
-#define IUTEST_CONCAT_PACKAGE_(testcase_name)   IIUT_CONCAT_PACKAGE_I(testcase_name).c_str()
+#define IUTEST_CONCAT_PACKAGE_(testcase_name)   IIUT_CONCAT_PACKAGE_I(testcase_name)
 #define IIUT_CONCAT_PACKAGE_I(testcase_name)                    \
     iuTest_ConcatTestCaseName( iuTest_GetTestCasePackageName(   \
         static_cast<iuTest_TestCasePackage*>(NULL))             \
