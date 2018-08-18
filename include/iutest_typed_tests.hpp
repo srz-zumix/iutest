@@ -349,6 +349,11 @@ public:
     {
         m_tests.AddTest();
     }
+    TypeParamTestInstance(const std::string& testcase, const char* name)
+        : m_tests(testcase.c_str(), name, 0)
+    {
+        m_tests.AddTest();
+    }
 
 private:
     EachTest<TypeParams, void> m_tests;

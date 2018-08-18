@@ -195,9 +195,10 @@ template<typename T>
 inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
     iuTest_ConcatTestCaseName(const ::std::string& package, const char* testcase_name)
 {
-    ::std::string str(package);
-    str.append(testcase_name);
-    return str;
+    return package + testcase_name;
+    // ::std::string str(package);
+    // str.append(testcase_name);
+    // return str;
 }
 
 #endif
