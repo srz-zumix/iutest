@@ -63,14 +63,14 @@ IUTEST(NoexceptFounctionType, ExpressionAssert)
 
 IUTEST(StringView, Compare)
 {
-    std::string_view view = "Hello";
+    ::std::string_view view = "Hello";
     IUTEST_ASSERT_EQ("Hello", view);
 }
 
 IUTEST(StringView, PrintTo)
 {
     LogChecker ck("Hello");
-    std::string_view view = "Hello";
+    ::std::string_view view = "Hello";
     IUTEST_SUCCEED() << ::iutest::PrintToString(view);
 }
 
@@ -81,12 +81,12 @@ IUTEST(StringView, PrintTo)
 IUTEST(Optional, Compare)
 {
     {
-        std::optional<int> opt = 0;
+        ::std::optional<int> opt = 0;
         IUTEST_EXPECT_TRUE(opt);
         IUTEST_EXPECT_EQ(0, opt);
     }
     {
-        std::optional<int> opt = std::nullopt;
+        ::std::optional<int> opt = ::std::nullopt;
         IUTEST_EXPECT_FALSE(opt);
         IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_EQ(1234, opt), "1234");
     }
@@ -96,12 +96,12 @@ IUTEST(Optional, PrintTo)
 {
     {
         LogChecker ck("1234");
-        std::optional<int> opt = 1234;
+        ::std::optional<int> opt = 1234;
         IUTEST_SUCCEED() << ::iutest::PrintToString(opt);
     }
     {
         LogChecker ck("nullopt");
-        std::optional<int> opt = std::nullopt;
+        ::std::optional<int> opt = ::std::nullopt;
         IUTEST_SUCCEED() << ::iutest::PrintToString(opt);
     }
 }
@@ -113,8 +113,8 @@ IUTEST(Optional, PrintTo)
 IUTEST(Variant, Compare)
 {
     {
-        std::variant<int, float, std::string> v1 = 1234;
-        std::variant<int, float, std::string> v2 = 1234;
+        ::std::variant<int, float, ::std::string> v1 = 1234;
+        ::std::variant<int, float, ::std::string> v2 = 1234;
         IUTEST_EXPECT_EQ(v1, v2);
     }
 }
@@ -123,22 +123,22 @@ IUTEST(Variant, PrintTo)
 {
     {
         LogChecker ck("1234");
-        std::variant<int, float, std::string> v = 1234;
+        ::std::variant<int, float, ::std::string> v = 1234;
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
     {
         LogChecker ck("test");
-        std::variant<int, float, std::string> v("test");
+        ::std::variant<int, float, ::std::string> v("test");
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
     {
         LogChecker ck("monostate");
-        std::variant<std::monostate, int, float, std::string> v;
+        ::std::variant<std::monostate, int, float, std::string> v;
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
     {
         LogChecker ck("valueless_by_exception");
-        std::variant<int, float, std::string> v = 0.2f;
+        ::std::variant<int, float, ::std::string> v = 0.2f;
         try
         {
             struct S { operator int() { throw 42; } };
@@ -155,25 +155,66 @@ IUTEST(Variant, PrintTo)
 
 #if IUTEST_HAS_CXX_HDR_ANY
 
-IUTEST(Any, Compare)
-{
-    {
-        std::any v1 = 1;
-        std::any v2 = 2;
-        IUTEST_EXPECT_EQ(v1, v2);
-}
-}
+//IUTEST(Any, Compare)
+//{
+//    {
+//        ::std::any v1 = 1;
+//        ::std::any v2 = 1;
+//        IUTEST_EXPECT_EQ(v1, v2);
+//    }
+//}
 
 IUTEST(Any, PrintTo)
 {
     {
         //LogChecker ck("1234");
-        std::any v = 1234;
+        ::std::any v = 1234;
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
 }
 
 #endif
+
+#if IUTEST_HAS_CXX_HDR_FILESYSTEM
+
+IUTEST(FileSystem, PathCompare)
+{
+    {
+        ::std::filesystem::path v1 = "a";
+        ::std::filesystem::path v2 = "a";
+        IUTEST_EXPECT_EQ(v1, v2);
+    }
+}
+
+IUTEST(FileSystem, PathPrintTo)
+{
+    {
+        LogChecker ck("cxx_feature_tests.cpp\"");
+        ::std::filesystem::path v = __FILE__;
+        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
+    }
+}
+
+IUTEST(FileSystem, StatusCompare)
+{
+    {
+        ::std::filesystem::file_status v1 = ::std::filesystem::status(__FILE__);
+        ::std::filesystem::file_status v2 = ::std::filesystem::status(__FILE__);
+        IUTEST_EXPECT_EQ(v1, v2);
+    }
+}
+
+IUTEST(FileSystem, StatusPrintTo)
+{
+    {
+        LogChecker ck("regular: 0");
+        ::std::filesystem::file_status v = ::std::filesystem::status(__FILE__);
+        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
+    }
+}
+
+#endif
+
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])

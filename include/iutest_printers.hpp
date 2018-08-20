@@ -346,10 +346,50 @@ inline void PrintTo(const ::std::monostate&, iu_ostream* os)
 #endif
 
 #if IUTEST_HAS_CXX_HDR_ANY
-inline void PrintTo(::std::any& value, iu_ostream* os)
+inline void PrintTo(const ::std::any& value, iu_ostream* os)
 {
    *os << "-Any type-name: " << value.type().name();
    DefaultPrintNonContainerTo(value, os);
+}
+#endif
+
+#if IUTEST_HAS_CXX_HDR_FILESYSTEM
+inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_type& value)
+{
+    switch(value)
+    {
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, none);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, not_found);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, regular);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, directory);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, symlink);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, block);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, character);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, fifo);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, socket);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, unknown);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, junction);
+    default:
+        break;
+    }
+    return "";
+}
+inline void PrintTo(const ::std::filesystem::path& value, iu_ostream* os)
+{
+    DefaultPrintNonContainerTo(value, os);
+}
+inline void PrintTo(const ::std::filesystem::file_type& value, iu_ostream* os)
+{
+    *os << FileSystemFileTypeToString(value);
+}
+inline void PrintTo(const ::std::filesystem::perms& value, iu_ostream* os)
+{
+    *os << ToOctString(static_cast<UInt16>(value));
+}
+inline void PrintTo(const ::std::filesystem::file_status& value, iu_ostream* os)
+{
+    *os << FileSystemFileTypeToString(value.type()) << ": ";
+    PrintTo(value.permissions(), os);
 }
 #endif
 

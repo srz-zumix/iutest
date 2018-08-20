@@ -423,6 +423,9 @@
 #if IUTEST_HAS_CXX_HDR_CSTDINT
 #  include <cstdint>
 #endif
+#if IUTEST_HAS_CXX_HDR_FILESYSTEM
+#  include <filesystem>
+#endif
 #if IUTEST_HAS_CXX_HDR_OPTIONAL
 #  include <optional>
 #endif

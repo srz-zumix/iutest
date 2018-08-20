@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -296,6 +296,24 @@ inline void StringSplit(const ::std::string& str, char delimiter, ::std::vector<
     }
     parsed.push_back(str.substr(prev));
     dst.swap(parsed);
+}
+
+inline IUTEST_CXX_CONSTEXPR char ToOct(unsigned int n)
+{
+    return '0' + (n & 0x7);
+}
+
+template<typename T>
+inline ::std::string ToOctString(T value)
+{
+    const size_t kN = (sizeof(T) * 8 + 2) / 3;
+    char buf[kN + 1] = { 0 };
+    for(size_t i = 0; i < kN; ++i)
+    {
+        buf[i] = ToOct(static_cast<unsigned int>((value >> ((kN - i - 1) * 3))));
+    }
+    buf[kN] = '\0';
+    return buf;
 }
 
 inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n)
