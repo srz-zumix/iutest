@@ -241,7 +241,7 @@ public:
     /** コンストラクタ */
     TestInstance(const ::std::string& testcase, const char* name, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown)
-        : m_mediator(AddTestCase(testcase.c_str(), id, setup, teardown))
+        : m_mediator(AddTestCase(testcase, id, setup, teardown))
         , m_info(&m_mediator, name, &m_factory)
     {
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
@@ -258,7 +258,7 @@ public:
     /** コンストラクタ */
     TestInstance(const ::std::string& testcase, const char* name, const char*  value_params, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown)
-        : m_mediator(AddTestCase(testcase.c_str(), id, setup, teardown))
+        : m_mediator(AddTestCase(testcase, id, setup, teardown))
         , m_info(&m_mediator, name, &m_factory)
     {
         m_info.set_value_param(value_params);
@@ -272,6 +272,16 @@ private:
         return UnitTest::instance().AddTestCase<TestCase>(testcase, id, setup, teardown);
 #else
         return UnitTest::instance().AddTestCase(testcase, id, setup, teardown, detail::explicit_type<TestCase>());
+#endif
+    }
+
+    TestCase* AddTestCase(const ::std::string& testcase, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+    {
+#if IUTEST_HAS_MEMORY_SANITIZER
+        ::std::string testcase_name(testcase);
+        return AddTestCase(testcase_name.c_str(), id, setup, teardown);
+#else
+        return AddTestCase(testcase.c_str(), id, setup, teardown);
 #endif
     }
 private:
