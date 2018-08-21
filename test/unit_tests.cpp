@@ -183,20 +183,20 @@ IUTEST(StdFileUnitTest, AppendOpenedFileSize)
 
 IUTEST(UnitTest, ToHexString)
 {
-    IUTEST_EXPECT_STREQ("00", ::iutest::detail::ToHexString<::iutest::UInt8>(0));
-    IUTEST_EXPECT_STREQ("0000", ::iutest::detail::ToHexString<::iutest::UInt16>(0));
-    IUTEST_EXPECT_STREQ("00000000", ::iutest::detail::ToHexString<::iutest::UInt32>(0));
-    IUTEST_EXPECT_STREQ("0000000000000000", ::iutest::detail::ToHexString<::iutest::UInt64>(0));
-    IUTEST_EXPECT_STREQ("01234567", ::iutest::detail::ToHexString(0x01234567u));
+    IUTEST_EXPECT_STREQ(              "00", ::iutest::detail::ToHexString< ::iutest::UInt8  >(0));
+    IUTEST_EXPECT_STREQ(            "0000", ::iutest::detail::ToHexString< ::iutest::UInt16 >(0));
+    IUTEST_EXPECT_STREQ(        "00000000", ::iutest::detail::ToHexString< ::iutest::UInt32 >(0));
+    IUTEST_EXPECT_STREQ("0000000000000000", ::iutest::detail::ToHexString< ::iutest::UInt64 >(0));
+    IUTEST_EXPECT_STREQ(        "01234567", ::iutest::detail::ToHexString(0x01234567u));
 }
 
 IUTEST(UnitTest, ToOctString)
 {
-    IUTEST_EXPECT_STREQ("000", ::iutest::detail::ToOctString<::iutest::UInt8>(0));
-    IUTEST_EXPECT_STREQ("000000", ::iutest::detail::ToOctString<::iutest::UInt16>(0));
-    IUTEST_EXPECT_STREQ("00000000000", ::iutest::detail::ToOctString<::iutest::UInt32>(0));
-    IUTEST_EXPECT_STREQ("0000000000000000000000", ::iutest::detail::ToOctString<::iutest::UInt64>(0));
-    IUTEST_EXPECT_STREQ("377", ::iutest::detail::ToOctString<::iutest::UInt8>(0377u));
+    IUTEST_EXPECT_STREQ(                   "000", ::iutest::detail::ToOctString< ::iutest::UInt8  >(0));
+    IUTEST_EXPECT_STREQ(                "000000", ::iutest::detail::ToOctString< ::iutest::UInt16 >(0));
+    IUTEST_EXPECT_STREQ(           "00000000000", ::iutest::detail::ToOctString< ::iutest::UInt32 >(0));
+    IUTEST_EXPECT_STREQ("0000000000000000000000", ::iutest::detail::ToOctString< ::iutest::UInt64 >(0));
+    IUTEST_EXPECT_STREQ(                   "377", ::iutest::detail::ToOctString< ::iutest::UInt8  >(0377u));
 }
 
 #ifdef UNICODE
