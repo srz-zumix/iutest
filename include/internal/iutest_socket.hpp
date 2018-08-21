@@ -124,7 +124,7 @@ public:
     {
         Close(m_socket);
         m_socket = INVALID_DESCRIPTOR;
-    };
+    }
     void CheckLastError()
     {
 #ifdef IUTEST_OS_WINDOWS

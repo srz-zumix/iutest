@@ -121,7 +121,7 @@ public:
     void Append(TestEventListener* listener)
     {
         m_listeners.push_back(listener);
-    };
+    }
 
     /**
      * @brief   リスナーの解放
