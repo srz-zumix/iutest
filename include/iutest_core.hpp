@@ -275,7 +275,8 @@ private:
 #endif
     }
 
-    TestCase* IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY AddTestCase(const ::std::string& testcase, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+    IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
+    TestCase* AddTestCase(const ::std::string& testcase, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
     {
 #if IUTEST_HAS_MEMORY_SANITIZER
         ::std::string testcase_name(testcase);
