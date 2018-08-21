@@ -250,22 +250,33 @@ public:
     ParamTestCaseInfo<T>* IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY GetTestCasePatternHolder(const ::std::string& testcase
         , const ::std::string& package IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
+        ParamTestCaseInfo<T>* p = static_cast<ParamTestCaseInfo<T>*>(FindTestCasePatternHolder(testcase, package));
+        if( p == NULL )
+        {
+ #if IUTEST_HAS_MEMORY_SANITIZER
+            ::std::string testcase_name(testcase);
+            ::std::string package_name(package);
+            p = new ParamTestCaseInfo<T>(testcase_name, package_name);
+#else
+            p = new ParamTestCaseInfo<T>(testcase, package);
+#endif
+            m_testcase_infos.push_back(p);
+        }
+        return p;
+    }
+
+private:
+    IParamTestCaseInfo* IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY FindTestCasePatternHolder(
+        const ::std::string& testcase, const ::std::string& package)
+    {
         for( TestCaseInfoContainer::iterator it=m_testcase_infos.begin(), end=m_testcase_infos.end(); it != end; ++it )
         {
             if( (*it)->is_same(testcase, package) )
             {
-                return static_cast<ParamTestCaseInfo<T>*>(*it);
+                return (*it);
             }
         }
-#if IUTEST_HAS_MEMORY_SANITIZER
-        ::std::string testcase_name(testcase);
-        ::std::string package_name(package);
-        ParamTestCaseInfo<T>* p = new ParamTestCaseInfo<T>(testcase_name, package_name);
-#else
-        ParamTestCaseInfo<T>* p = new ParamTestCaseInfo<T>(testcase, package);
-#endif
-        m_testcase_infos.push_back(p);
-        return p;
+        return NULL;
     }
 
 public:
