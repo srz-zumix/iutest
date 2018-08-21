@@ -254,7 +254,7 @@ IUTEST_MAKE_PEEP(pfnRepeater, ::testing::TestEventListeners, repeater);
 ::testing::TestEventListener* GetTestEventListenerRepeater(::testing::TestEventListeners& listeners)
 {
 #if defined(IUTEST_USE_GTEST)
-    return reinterpret_cast<::testing::TestEventListener*>( IUTEST_PEEP_GET(listeners, ::testing::TestEventListeners, repeater_) );
+    return reinterpret_cast< ::testing::TestEventListener* >( IUTEST_PEEP_GET(listeners, ::testing::TestEventListeners, repeater_) );
 #else
     return &(IUTEST_PEEP_GET(listeners, ::iutest::TestEventListeners, m_repeater));
 #endif
@@ -316,7 +316,7 @@ public:
     {
 #ifndef IUTEST_USE_GTEST
         (IUTEST_PEEP_GET(*(::iutest::UnitTest::GetInstance())
-            , ::iutest::UnitTest, m_current_testcase)) = const_cast<::iutest::TestCase*>(testcase);
+            , ::iutest::UnitTest, m_current_testcase)) = const_cast< ::iutest::TestCase* >(testcase);
 #endif
     }
 };
