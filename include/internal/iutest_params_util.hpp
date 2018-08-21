@@ -246,27 +246,31 @@ private:
         }
     }
 public:
+
+#if IUTEST_HAS_MEMORY_SANITIZER
+    template<typename T>
+    ParamTestCaseInfo<T>* IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY GetTestCasePatternHolder(const ::std::string& testcase_name
+        , const ::std::string& package_name IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
+    {
+        ::std::string testcase(testcase_name);
+        ::std::string package(package_name);
+#else
     template<typename T>
     ParamTestCaseInfo<T>* IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY GetTestCasePatternHolder(const ::std::string& testcase
         , const ::std::string& package IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
+#endif
         ParamTestCaseInfo<T>* p = static_cast<ParamTestCaseInfo<T>*>(FindTestCasePatternHolder(testcase, package));
         if( p == NULL )
         {
- #if IUTEST_HAS_MEMORY_SANITIZER
-            ::std::string testcase_name(testcase);
-            ::std::string package_name(package);
-            p = new ParamTestCaseInfo<T>(testcase_name, package_name);
-#else
             p = new ParamTestCaseInfo<T>(testcase, package);
-#endif
             m_testcase_infos.push_back(p);
         }
         return p;
     }
 
 private:
-    IParamTestCaseInfo* IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY FindTestCasePatternHolder(
+    IParamTestCaseInfo* FindTestCasePatternHolder(
         const ::std::string& testcase, const ::std::string& package)
     {
         for( TestCaseInfoContainer::iterator it=m_testcase_infos.begin(), end=m_testcase_infos.end(); it != end; ++it )
