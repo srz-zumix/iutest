@@ -90,6 +90,10 @@ public:
     {
         return m_testcase_base_name == base_name && m_package_name == package_name;
     }
+    bool is_same(const char* base_name, const char* package_name)
+    {
+        return m_testcase_base_name == base_name && m_package_name == package_name;
+    }
 
 private:
     virtual void OnRegisterTests(IParamTestInfoData*) const = 0;
@@ -133,6 +137,10 @@ class ParamTestCaseInfo : public IParamTestCaseInfo
 public:
     /// コンストラクタ
     ParamTestCaseInfo(const ::std::string& testcase_name, const ::std::string& package_name)
+        : IParamTestCaseInfo(testcase_name, package_name)
+    {
+    }
+    ParamTestCaseInfo(const char* testcase_name, const char* package_name)
         : IParamTestCaseInfo(testcase_name, package_name)
     {
     }
@@ -254,12 +262,19 @@ public:
     {
         ::std::string testcase(testcase_name);
         ::std::string package(package_name);
+        ParamTestCaseInfo<T>* p = static_cast<ParamTestCaseInfo<T>*>(FindTestCasePatternHolder(testcase.c_str(), package.c_str()));
+        if( p == NULL )
+        {
+            p = new ParamTestCaseInfo<T>(testcase.c_str(), package.c_str());
+            m_testcase_infos.push_back(p);
+        }
+        return p;
+    }
 #else
     template<typename T>
     ParamTestCaseInfo<T>* IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY GetTestCasePatternHolder(const ::std::string& testcase
         , const ::std::string& package IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
-#endif
         ParamTestCaseInfo<T>* p = static_cast<ParamTestCaseInfo<T>*>(FindTestCasePatternHolder(testcase, package));
         if( p == NULL )
         {
@@ -268,10 +283,12 @@ public:
         }
         return p;
     }
+#endif
 
 private:
+    template<typename T>
     IParamTestCaseInfo* FindTestCasePatternHolder(
-        const ::std::string& testcase, const ::std::string& package)
+        const T& testcase, const T& package)
     {
         for( TestCaseInfoContainer::iterator it=m_testcase_infos.begin(), end=m_testcase_infos.end(); it != end; ++it )
         {
