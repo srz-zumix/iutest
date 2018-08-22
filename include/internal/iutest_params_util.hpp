@@ -63,6 +63,8 @@ public:
 protected:
     IParamTestCaseInfo(const ::std::string& base_name, const ::std::string& package_name)
         : m_testcase_base_name(base_name), m_package_name(package_name) {}
+    IParamTestCaseInfo(const char* base_name, const char* package_name)
+        : m_testcase_base_name(base_name), m_package_name(package_name) {}
 
 public:
     /**
