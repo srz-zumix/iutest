@@ -63,10 +63,14 @@ IUTEST_PRAGMA_ASSIGNMENT_OPERATOR_COULD_NOT_GENERATE_WARN_DISABLE_BEGIN()
 */
 class IMatcher
 {
+    IMatcher& operator=(const IMatcher&);
 public:
     template<typename T>
     struct is_matcher : public iutest_type_traits::is_base_of<IMatcher, T> {};
 public:
+    IMatcher() {}
+    IMatcher(const IMatcher&) {}
+    virtual ~IMatcher() {}
     virtual ::std::string WhichIs() const = 0;
 };
 
