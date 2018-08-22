@@ -261,7 +261,7 @@ public:
         , const ::std::string& package_name IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
         (void)package_name;
-        char* package = "";
+        const char* package = "";
         ParamTestCaseInfo<T>* p = static_cast<ParamTestCaseInfo<T>*>(FindTestCasePatternHolder(testcase_name, package));
         if( p == NULL )
         {
