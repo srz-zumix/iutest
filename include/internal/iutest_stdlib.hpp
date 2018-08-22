@@ -296,6 +296,12 @@
 #  endif
 #endif
 
+#endif
+
+#if IUTEST_HAS_CXX17
+
+// c++17 feature
+
 #if IUTEST_HAS_VARIADIC_TEMPLATES && defined(__has_include)
 #  if __has_include(<variant>)
 #    define IUTEST_HAS_CXX_HDR_VARIANT      1
