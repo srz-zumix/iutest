@@ -294,6 +294,12 @@ class TypeParamTestInstance
             , m_next(testcase, name, index+1)
         {
         }
+        EachTest(const ::std::string& testcase, const char* name, size_t index)
+            : m_mediator(AddTestCase(testcase, index))
+            , m_info(&m_mediator, name, &m_factory)
+            , m_next(testcase, name, index+1)
+        {
+        }
 
     private:
         static TestCase* AddTestCase(const char* testcase, size_t index)
@@ -315,6 +321,16 @@ class TypeParamTestInstance
                 , detail::explicit_type<_MyTestCase>()
 #endif
                 );
+        }
+        IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
+        static TestCase* AddTestCase(const ::std::string& testcase, size_t index)
+        {
+#if IUTEST_HAS_MEMORY_SANITIZER
+        ::std::string testcase_name(testcase);
+        return AddTestCase(testcase_name.c_str(), index);
+#else
+        return AddTestCase(testcase.c_str(), index);
+#endif
         }
 
     public:
@@ -350,7 +366,7 @@ public:
         m_tests.AddTest();
     }
     TypeParamTestInstance(const std::string& testcase, const char* name)
-        : m_tests(testcase.c_str(), name, 0)
+        : m_tests(testcase, name, 0)
     {
         m_tests.AddTest();
     }
