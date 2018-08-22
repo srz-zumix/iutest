@@ -260,11 +260,12 @@ public:
     ParamTestCaseInfo<T>* IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY GetTestCasePatternHolder(const char* testcase_name
         , const ::std::string& package_name IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
-        ::std::string package(package_name);
-        ParamTestCaseInfo<T>* p = static_cast<ParamTestCaseInfo<T>*>(FindTestCasePatternHolder(testcase_name, ""));
+        (void)package_name;
+        char* package = "";
+        ParamTestCaseInfo<T>* p = static_cast<ParamTestCaseInfo<T>*>(FindTestCasePatternHolder(testcase_name, package));
         if( p == NULL )
         {
-            p = new ParamTestCaseInfo<T>(testcase_name, "");
+            p = new ParamTestCaseInfo<T>(testcase_name, package);
             m_testcase_infos.push_back(p);
         }
         return p;
@@ -286,8 +287,7 @@ public:
 
 private:
     template<typename T>
-    IParamTestCaseInfo* FindTestCasePatternHolder(
-        const T& testcase, const T& package)
+    IParamTestCaseInfo* FindTestCasePatternHolder(const T& testcase, const T& package)
     {
         for( TestCaseInfoContainer::iterator it=m_testcase_infos.begin(), end=m_testcase_infos.end(); it != end; ++it )
         {
