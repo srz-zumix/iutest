@@ -275,8 +275,14 @@ protected:
     */
     TypedTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
         : TestCase(testcase_name, id, setup, teardown)
+#if !IUTEST_HAS_MEMORY_SANITIZER
         , m_type_param(detail::GetTypeName<TypeParam>())
+#endif
     {
+#if IUTEST_HAS_MEMORY_SANITIZER
+        ::std::string tmp = detail::GetTypeName<TypeParam>();
+        m_type_param = tmp;
+#endif
     }
 
 public:
