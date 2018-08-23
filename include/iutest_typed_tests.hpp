@@ -355,6 +355,7 @@ class TypeParamTestInstance
     {
     public:
         EachTest(const char* /*testcase*/, const char* /*name*/, size_t /*index*/) {}
+        EachTest(const ::std::string& /*testcase*/, const char* /*name*/, size_t /*index*/) {}
         void AddTest() {}
     };
 
