@@ -75,7 +75,7 @@ wandbox:
         name: setup
         code: |
           export PYTHONDONTWRITEBYTECODE=1
-          export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" -f"-Werror" -f"-Weffc++" --encoding utf-8-sig --expand-include --verbose --check-config --retry-wait 180"
+          export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --encoding utf-8-sig --expand-include --verbose --check-config --retry-wait 180"
 
     - script:
         name: c++

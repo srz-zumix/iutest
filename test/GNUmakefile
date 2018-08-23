@@ -34,7 +34,7 @@ include CommonMakefile.in
 # Optimize
 #OPTIMIZE=-O2
 
-CXXFLAGS += -g -Wall -Wextra -Weffc++ $(OPTIMIZE)
+CXXFLAGS += -g -Wall -Wextra $(OPTIMIZE)
 
 ifdef _DEBUG
 CXXFLAGS += -ggdb
