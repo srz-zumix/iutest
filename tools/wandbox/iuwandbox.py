@@ -41,7 +41,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 6.1'
+        version=u'%(prog)s version 6.2'
     )
     parser.add_argument(
         '--list-compiler',
@@ -368,6 +368,10 @@ def create_option_list(options):
         tmp = list(filter(lambda s: s.find('c++') == -1, opt))
         tmp = list(filter(lambda s: s.find('gnu++') == -1, tmp))
         return tmp
+    def find_cppname(opt):
+        if any((x.startswith('c++') for x in opt)):
+            return 'c++'
+        return 'gnu++'
     opt = []
     if not options.no_default:
         opt = get_default_options(options.compiler)
@@ -389,10 +393,14 @@ def create_option_list(options):
         opt.append('cpp-verbose')
     # boost
     if workaround:
-        pass
+        if options.compiler in ['clang-3.1']:
+            cppname = find_cppname(opt)
+            opt = filterout_cppver(opt)
+            opt.append(cppname + '98')
 #        if options.compiler in ['clang-3.4', 'clang-3.3']:
 #            if not options.boost:
 #                options.boost = 'nothing'
+        pass
     if options.boost:
         if options.compiler not in options.boost:
             options.boost = options.boost + '-' + options.compiler
@@ -481,6 +489,8 @@ def create_compiler_raw_option_list(options):
             colist.extend(re.split('\s(?=-)', x.strip('"')))
     if options.iutest_use_main:
         colist.append('-DIUTEST_USE_MAIN')
+    if '-D__WANDBOX__' not in colist:
+        colist.append('-D__WANDBOX__')
     return colist
 
 

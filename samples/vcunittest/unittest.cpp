@@ -187,9 +187,9 @@ IUTEST(AssertionTest, String)
     IUTEST_INFORM_STRLNEQ(4, wcs);
 
     {
-        std::string str1 = "tEst";
-        std::string str2 = "teSt";
-        std::string str3 = "hoSt";
+        ::std::string str1 = "tEst";
+        ::std::string str2 = "teSt";
+        ::std::string str3 = "hoSt";
 
         IUTEST_ASSERT_STRCASEEQ("TeSt", mbs);
         IUTEST_ASSERT_STRCASEEQ("TeSt", str1);
@@ -483,7 +483,7 @@ static void ExceptionFunction(int i)
         throw 2;
         break;
     case 2:
-        throw std::bad_exception();
+        throw ::std::bad_exception();
         break;
     default:
         break;
@@ -492,10 +492,10 @@ static void ExceptionFunction(int i)
 
 IUTEST(AssertionTest, Exception)
 {
-    //IUTEST_ASSERT_THROW(throw std::bad_exception(), std::bad_exception);
-    IUTEST_ASSERT_THROW(ExceptionFunction(2), std::bad_exception);
-    IUTEST_EXPECT_THROW(ExceptionFunction(2), std::bad_exception);
-    IUTEST_INFORM_THROW(ExceptionFunction(2), std::bad_exception);
+    //IUTEST_ASSERT_THROW(throw ::std::bad_exception(), ::std::bad_exception);
+    IUTEST_ASSERT_THROW(ExceptionFunction(2), ::std::bad_exception);
+    IUTEST_EXPECT_THROW(ExceptionFunction(2), ::std::bad_exception);
+    IUTEST_INFORM_THROW(ExceptionFunction(2), ::std::bad_exception);
     IUTEST_ASSERT_ANY_THROW(ExceptionFunction(1));
     IUTEST_EXPECT_ANY_THROW(ExceptionFunction(1));
     IUTEST_INFORM_ANY_THROW(ExceptionFunction(1));
@@ -507,16 +507,16 @@ IUTEST(AssertionTest, Exception)
 class exception_test
 {
 public:
-    exception_test(const std::vector<int>&)
+    exception_test(const ::std::vector<int>&)
     {
-        IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw std::exception());
+        IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw ::std::exception());
     }
 };
 
 IUTEST(AssertionTest, Exception2)
 {
-    std::vector<int> a;
-    IUTEST_ASSERT_THROW(exception_test(a), std::exception);
+    ::std::vector<int> a;
+    IUTEST_ASSERT_THROW(exception_test(a), ::std::exception);
 }
 
 #endif

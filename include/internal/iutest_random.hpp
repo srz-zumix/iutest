@@ -209,9 +209,9 @@ public:
     void shuffle(It first, It last)
     {
 #if IUTEST_HAS_CXX_HDR_RANDOM
-        std::shuffle(first, last, m_engine);
+        ::std::shuffle(first, last, m_engine);
 #else
-        std::random_shuffle(first, last, *this);
+        ::std::random_shuffle(first, last, *this);
 #endif
     }
 };

@@ -392,7 +392,7 @@ inline detail::iuParamGenerator<bool> IUTEST_ATTRIBUTE_UNUSED_ Bool()
 
 /**
  * @brief   ユーザー定義ジェネレータ利用パラメータ
- * @param   generator = std::generate function
+ * @param   generator = ::std::generate function
 */
 template<typename StdGenerator>
 inline detail::iuValuesParamsGeneratorHolder<StdGenerator> IUTEST_ATTRIBUTE_UNUSED_ ValuesGen(size_t num, const StdGenerator& generator)

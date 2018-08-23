@@ -263,11 +263,11 @@
 #  endif
 #endif
 
-//! has std::begin,std::end
+//! has ::std::begin,::std::end
 #if !defined(IUTEST_HAS_STD_BEGIN_END)
 #  define IUTEST_HAS_STD_BEGIN_END      0
 #endif
-//! has std::declval
+//! has ::std::declval
 #if !defined(IUTEST_HAS_STD_DECLVAL)
 #  define IUTEST_HAS_STD_DECLVAL        0
 #endif
@@ -275,7 +275,7 @@
 #if !defined(IUTEST_USE_EXTERNAL_TR1_TUPLE)
 #  define IUTEST_USE_EXTERNAL_TR1_TUPLE 0
 #endif
-//! use external include std::tuple
+//! use external include ::std::tuple
 #ifndef IUTEST_USE_EXTERNAL_STD_TUPLE
 #  define IUTEST_USE_EXTERNAL_STD_TUPLE 0
 #endif
@@ -349,7 +349,7 @@
 //======================================================================
 // declare
 
-//! std::sto* が使用可能かどうか
+//! ::std::sto* が使用可能かどうか
 #if !defined(IUTEST_HAS_STD_STR_TO_VALUE)
 #  if IUTEST_HAS_CXX11
 #    if defined(IUTEST_OS_WINDOWS_MINGW)
@@ -550,7 +550,7 @@ using tuples::get;
 #  define __socklen_t_defined
 #endif
 
-//! std::stringstream が使用可能かどうか
+//! ::std::stringstream が使用可能かどうか
 #if !defined(IUTEST_HAS_STRINGSTREAM)
 #  if !defined(_STLP_NO_IOSTREAMS)
 #    define IUTEST_HAS_STRINGSTREAM 1
@@ -563,7 +563,7 @@ using tuples::get;
 
 
 /**
- * @brief   std::strstream が使用可能かどうか
+ * @brief   ::std::strstream が使用可能かどうか
  * @note    IUTEST_HAS_STRINGSTREAM が優先されます
  * @deprecated
 */

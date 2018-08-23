@@ -257,7 +257,7 @@ class iuValueArray
         explicit make_array(const _MyTuple& t)
         {
             tuples::tuple_foreach(t, *this);
-        };
+        }
     };
 public:
     explicit iuValueArray(const Args&... args)

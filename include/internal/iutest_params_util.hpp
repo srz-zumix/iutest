@@ -73,7 +73,7 @@ public:
     void AddTestPattern(IParamTestInfoData* testinfo)
     {
         m_testinfos.push_back(testinfo);
-    };
+    }
 
 public:
     void RegisterTests() const

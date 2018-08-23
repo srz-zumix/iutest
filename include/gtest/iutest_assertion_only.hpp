@@ -280,7 +280,7 @@ AssertionResult CmpHelperSTRCASENE(const char* s1_expression,
 
 #if GTEST_MINORVER >= 0x07
 Message::Message() : ss_(new ::std::stringstream) {
-    *ss_ << ::std::setprecision(std::numeric_limits<double>::digits10 + 2);
+    *ss_ << ::std::setprecision(::std::numeric_limits<double>::digits10 + 2);
 }
 
 ::std::string Message::GetString() const {

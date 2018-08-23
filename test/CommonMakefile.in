@@ -135,6 +135,7 @@ TARGETS_IUTEST_ONLY = \
           default_printer_listener_tests \
           env_var_tests \
           exit_tests \
+          feature_spec_tests \
           filter_file_invalid_path_tests \
           filter_file_syntax_tests \
           filter_file_tests \

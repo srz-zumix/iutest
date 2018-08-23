@@ -325,7 +325,7 @@ private:
     void OnFixed(const Fixed& fixed)
     {
         // OnFixed で throw しないこと！テスト側の例外キャッチにかからなくなる
-        const std::string append_message = fixed.GetString();
+        const ::std::string append_message = fixed.GetString();
         if( !append_message.empty() )
         {
             m_part_result.add_message(" " + append_message);
@@ -417,7 +417,7 @@ inline ::std::string GetBooleanAssertionFailureMessage(const AssertionResult& ar
  * @brief   Eq 系アサーション
 */
 inline AssertionResult EqFailure(const char* expected_expression, const char* actual_expression
-    , const std::string& expected, const std::string& actual, bool ignoring_case = false)
+    , const ::std::string& expected, const ::std::string& actual, bool ignoring_case = false)
 {
     iu_global_format_stringstream strm;
     strm << "error: Value of " << actual_expression
