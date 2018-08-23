@@ -325,7 +325,7 @@ inline ::std::string GetTypeName()
     using abi::__cxa_demangle;
     int status=1;
     char* const read_name = __cxa_demangle(name, 0, 0, &status);
-    ::std::string str = status == 0 ? read_name : name;
+    ::std::string str(status == 0 ? read_name : name);
     free(read_name);
     return str;
 #else
