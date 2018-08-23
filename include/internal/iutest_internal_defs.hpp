@@ -316,7 +316,7 @@ struct IsContainerHelper
  * @brief   型名の取得
 */
 template<typename T>
-inline ::std::string GetTypeName()
+inline ::std::string IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY GetTypeName()
 {
 #if IUTEST_HAS_RTTI
     const char* const name = typeid(T).name();
