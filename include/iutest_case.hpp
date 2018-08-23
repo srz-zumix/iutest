@@ -276,7 +276,7 @@ protected:
     TypedTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
         : TestCase(testcase_name, id, setup, teardown)
     {
-        m_type_param = detail::GetTypeName<TypeParam>();
+//        m_type_param = detail::GetTypeName<TypeParam>();
     }
 
 public:
