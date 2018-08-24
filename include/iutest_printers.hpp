@@ -512,7 +512,8 @@ inline void UniversalPrint(const T& value, iu_ostream* os)
 /**
  * @brief   文字列化
 */
-template<typename T> IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
+IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
+template<typename T>
 inline ::std::string PrintToString(const T& v)
 {
     iu_global_format_stringstream strm;

@@ -1321,13 +1321,10 @@
 #endif
 
 #if !defined(IUTEST_ATTRIBUTE_NO_SANITIZE_ALL)
-#  if IUTEST_HAS_MEMORY_SANITIZER && IUTEST_HAS_ADDRESS_SANITIZER && IUTEST_HAS_THREAD_SANITIZER
-#    if   defined(__clang__)
-#      define IUTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS  __attribute__((no_sanitize("address", "memory", "thread")))
-#    elif defined(__GNUC__) && !defined(COMPILER_ICC)
-#      define IUTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS  __attribute__((no_sanitize("address", "memory", "thread")))
-#    endif
-#  endif
+#  define IUTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS  \
+    IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY \
+    IUTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS \
+    IUTEST_ATTRIBUTE_NO_SANITIZE_THREAD
 #endif
 
 #if !defined(IUTEST_ATTRIBUTE_NO_SANITIZE_ALL)

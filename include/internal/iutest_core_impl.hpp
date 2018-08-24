@@ -68,6 +68,7 @@ public:
 
 public:
     /** @private */
+    IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
     template<typename T>
     TestCase* AddTestCase(const char* testcase_name, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )

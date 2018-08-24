@@ -43,7 +43,8 @@ IUTEST_IPP_INLINE ::std::string iuCodeMessage::make_message() const
     return str;
 }
 
-IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY FormatFileLocation(const char* file, int line)
+IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
+IUTEST_IPP_INLINE ::std::string FormatFileLocation(const char* file, int line)
 {
     const char* const file_name = file == NULL ? kStrings::UnknownFile : file;
     if( line < 0 )
