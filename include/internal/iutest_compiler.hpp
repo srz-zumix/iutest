@@ -1255,9 +1255,9 @@
 #if !defined(IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY)
 #  if IUTEST_HAS_MEMORY_SANITIZER
 #    if   defined(__clang__)
-#      define IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY   __attribute__((no_sanitize("memory")))
+#      define IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY   __attribute__((no_sanitize_memory))
 #    elif defined(__GNUC__) && !defined(COMPILER_ICC)
-#      define IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY   __attribute__((no_sanitize("memory")))
+#      define IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY   __attribute__((no_sanitize_memory))
 #    endif
 #  endif
 #endif
@@ -1266,6 +1266,73 @@
 #  define IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
 #endif
 
+//! AddressSanitizer
+#if !defined(IUTEST_HAS_ADDRESS_SANITIZER)
+#  if defined(__has_feature)
+#    if __has_feature(address_sanitizer)
+#      define IUTEST_HAS_ADDRESS_SANITIZER  1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_ADDRESS_SANITIZER)
+#  define IUTEST_HAS_ADDRESS_SANITIZER      0
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS)
+#  if IUTEST_HAS_ADDRESS_SANITIZER
+#    if   defined(__clang__)
+#      define IUTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS  __attribute__((no_sanitize_address))
+#    elif defined(__GNUC__) && !defined(COMPILER_ICC)
+#      define IUTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS  __attribute__((no_sanitize_address))
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS)
+#  define IUTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS
+#endif
+
+//! ThreadSanitizer
+#if !defined(IUTEST_HAS_THREAD_SANITIZER)
+#  if defined(__has_feature)
+#    if __has_feature(thread_sanitizer)
+#      define IUTEST_HAS_THREAD_SANITIZER   1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_THREAD_SANITIZER)
+#  define IUTEST_HAS_THREAD_SANITIZER       0
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_NO_SANITIZE_THREAD)
+#  if IUTEST_HAS_THREAD_SANITIZER
+#    if   defined(__clang__)
+#      define IUTEST_ATTRIBUTE_NO_SANITIZE_THREAD   __attribute__((no_sanitize_thread))
+#    elif defined(__GNUC__) && !defined(COMPILER_ICC)
+#      define IUTEST_ATTRIBUTE_NO_SANITIZE_THREAD   __attribute__((no_sanitize_thread))
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_NO_SANITIZE_THREAD)
+#  define IUTEST_ATTRIBUTE_NO_SANITIZE_THREAD
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_NO_SANITIZE_ALL)
+#  if IUTEST_HAS_MEMORY_SANITIZER && IUTEST_HAS_ADDRESS_SANITIZER && IUTEST_HAS_THREAD_SANITIZER
+#    if   defined(__clang__)
+#      define IUTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS  __attribute__((no_sanitize("address", "memory", "thread")))
+#    elif defined(__GNUC__) && !defined(COMPILER_ICC)
+#      define IUTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS  __attribute__((no_sanitize("address", "memory", "thread")))
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_NO_SANITIZE_ALL)
+#  define IUTEST_ATTRIBUTE_NO_SANITIZE_ALL
+#endif
 
 // workaround
 /**
