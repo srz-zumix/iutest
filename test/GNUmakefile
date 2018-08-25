@@ -47,6 +47,10 @@ CCOV=$(USE_COVERAGE)
 endif
 endif
 
+ifdef USE_MSAN
+CXXFLAGS += -fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer
+endif
+
 #
 #
 # compiler
