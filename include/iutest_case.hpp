@@ -41,6 +41,7 @@ protected:
      * @param [in]  setup           = テスト事前実行関数
      * @param [in]  teardown        = テスト事後実行関数
     */
+   IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
     TestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
     : m_testcase_name(testcase_name)
     , m_setup(setup), m_teardown(teardown)
