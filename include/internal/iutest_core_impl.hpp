@@ -81,6 +81,7 @@ public:
         return p;
     }
     template<typename T>
+    IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
     TestCase* AddTestCase(const ::std::string& testcase_name, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
