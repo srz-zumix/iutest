@@ -326,10 +326,10 @@ class TypeParamTestInstance
         static TestCase* AddTestCase(const ::std::string& testcase, size_t index)
         {
 #if IUTEST_HAS_MEMORY_SANITIZER
-        ::std::string testcase_name(testcase);
-        return AddTestCase(testcase_name.c_str(), index);
+            ::std::string testcase_name(testcase);
+            return AddTestCase(testcase_name.c_str(), index);
 #else
-        return AddTestCase(testcase.c_str(), index);
+            return AddTestCase(testcase.c_str(), index);
 #endif
         }
 
