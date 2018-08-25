@@ -543,7 +543,6 @@ public:
     }
 
 private:
-    IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
     static bool Register_(const char* prefix, const char* testcase_name
         , const ::std::string& package_name, const char* names, size_t index)
     {
@@ -563,7 +562,7 @@ private:
 #else
                 detail::MakePrefixedIndexTestName(prefix, testcase_name, index)
 #endif
-            ).c_str()
+            )
             , internal::GetTypeId<FixtureClass>()
             , FixtureClass::SetUpTestCase, FixtureClass::TearDownTestCase
 #if defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)

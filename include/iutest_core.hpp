@@ -274,17 +274,15 @@ private:
         return UnitTest::instance().AddTestCase(testcase, id, setup, teardown, detail::explicit_type<TestCase>());
 #endif
     }
-
-    IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
     TestCase* AddTestCase(const ::std::string& testcase, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
     {
-#if IUTEST_HAS_MEMORY_SANITIZER
-        ::std::string testcase_name(testcase);
-        return AddTestCase(testcase_name.c_str(), id, setup, teardown);
+#if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
+        return UnitTest::instance().AddTestCase<TestCase>(testcase, id, setup, teardown);
 #else
-        return AddTestCase(testcase.c_str(), id, setup, teardown);
+        return UnitTest::instance().AddTestCase(testcase, id, setup, teardown, detail::explicit_type<TestCase>());
 #endif
     }
+
 private:
     TestCaseMediator    m_mediator;
     TestInfo            m_info;

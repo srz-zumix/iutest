@@ -49,12 +49,7 @@ protected:
     , m_start_timestamp(0)
     , m_disable(false)
     {
-#if IUTEST_HAS_MEMORY_SANITIZER
-        ::std::string tmp(testcase_name);
-        m_testcase_name = tmp;
-#else
         m_testcase_name = testcase_name;
-#endif
         if( detail::IsStringForwardMatching(testcase_name, "DISABLED_")
             || (strstr(testcase_name, "/DISABLED_") != NULL) )
         {
