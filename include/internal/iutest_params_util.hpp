@@ -259,7 +259,8 @@ private:
 public:
 #if IUTEST_HAS_MEMORY_SANITIZER
     template<typename T>
-    ParamTestCaseInfo<T>* IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY GetTestCasePatternHolder(const char* testcase_name
+    IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
+    ParamTestCaseInfo<T>* GetTestCasePatternHolder(const char* testcase_name
         , const ::std::string& package_name IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
         ::std::string package(package_name);

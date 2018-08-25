@@ -310,9 +310,9 @@ class TypeParamTestInstance
             return UnitTest::instance().AddTestCase(
 #endif
 #if IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME
-                detail::MakeIndexTypedTestName<TypeParam>(testcase, index).c_str()
+                detail::MakeIndexTypedTestName<TypeParam>(testcase, index)
 #else
-                detail::MakeIndexTestName(testcase, index).c_str()
+                detail::MakeIndexTestName(testcase, index)
 #endif
                 , internal::GetTypeId<detail::None>()   // TypeId を統一するためダミー引数を渡す
                 , TestBody::SetUpTestCase
