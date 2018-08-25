@@ -50,7 +50,7 @@ protected:
     , m_disable(false)
     {
 #if IUTEST_HAS_MEMORY_SANITIZER
-        ::st::string tmp(testcase_name);
+        ::std::string tmp(testcase_name);
         m_testcase_name = tmp;
 #else
         m_testcase_name = testcase_name;
