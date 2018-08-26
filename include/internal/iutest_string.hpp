@@ -197,7 +197,7 @@ inline bool IsStringCaseEqual(const char* str1, const char* str2) { return iu_st
 inline bool IsStringForwardMatching(const char* str1, const char* str2) { return strstr(str1, str2) == str1; }
 inline bool IsStringForwardMatching(const ::std::string& str1, const char* str2) { return str1.find(str2) == 0; }
 inline bool IsStringContains(const char* str1, const char* str2) { return strstr(str1, str2) != NULL; }
-inline bool IsStringContains(const ::std::string& str1, const char* str2) { return str1.find(str2) >= 0; }
+inline bool IsStringContains(const ::std::string& str1, const char* str2) { return str1.find(str2) != ::std::string::npos; }
 
 inline void StringReplace(::std::string& str, char a, const char* to)
 {
