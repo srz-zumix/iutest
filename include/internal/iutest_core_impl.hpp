@@ -69,18 +69,6 @@ public:
 public:
     /** @private */
     template<typename T>
-    TestCase* AddTestCase(const char* testcase_name, TestTypeId id
-        , SetUpMethod setup, TearDownMethod teardown IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
-    {
-        TestCase* p = FindTestCase(testcase_name, id);
-        if( p == NULL )
-        {
-            p = new T (testcase_name, id, setup, teardown);
-            m_testcases.push_back(p);
-        }
-        return p;
-    }
-    template<typename T>
     IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
     TestCase* AddTestCase(const ::std::string& testcase_name, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
