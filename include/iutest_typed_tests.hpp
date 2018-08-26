@@ -471,7 +471,7 @@ class TypeParameterizedTestCase
         typedef detail::iuFactory<TestBody>     Factory;
         typedef EachTest<TypeParam, TestsList>  _Myt;
 
-        EachTest(TestCase* testcase, const char* name)
+        EachTest(TestCase* testcase, const ::std::string& name)
             : m_mediator(testcase)
             , m_info(&m_mediator, name, &m_factory)
         {
@@ -495,7 +495,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
                 test_name = ::std::string(str, static_cast<size_t>(comma - str));
                 ++comma;
             }
-            _Myt* test = new EachTest(testcase, StripTrailingSpace(test_name).c_str());
+            _Myt* test = new EachTest(testcase, StripTrailingSpace(test_name));
             // new オブジェクトを管理してもらう
             detail::iuPool::GetInstance().push(test);
 
@@ -550,19 +550,20 @@ private:
         typedef typename Tests::Head    Head;
         typedef Fixture<Head>           FixtureClass;
         typedef TypedTestCase<TypeParam>    _MyTestCase;
+        ::std::string full_testcase_name = package_name;
+        full_testcase_name += 
+#if IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME
+            detail::MakePrefixedIndexTypedTestName<TypeParam>(prefix, testcase_name, index);
+#else
+            detail::MakePrefixedIndexTestName(prefix, testcase_name, index);
+#endif
         TestCase* testcase =
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
             UnitTest::instance().AddTestCase<_MyTestCase>(
 #else
             UnitTest::instance().AddTestCase(
 #endif
-            (package_name +
-#if IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME
-                detail::MakePrefixedIndexTypedTestName<TypeParam>(prefix, testcase_name, index)
-#else
-                detail::MakePrefixedIndexTestName(prefix, testcase_name, index)
-#endif
-            )
+            full_testcase_name
             , internal::GetTypeId<FixtureClass>()
             , FixtureClass::SetUpTestCase, FixtureClass::TearDownTestCase
 #if defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)

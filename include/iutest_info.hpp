@@ -38,7 +38,7 @@ public:
      * @param [in]  name        = テスト名
      * @param [in]  factory     = テスト生成器
     */
-    TestInfo(detail::iuITestCaseMediator* testcase, const char* name, detail::iuFactoryBase* factory)
+    TestInfo(detail::iuITestCaseMediator* testcase, const ::std::string& name, detail::iuFactoryBase* factory)
         : m_testname(name)
         , m_factory(factory)
         , m_testcase(testcase)
@@ -50,7 +50,7 @@ public:
     {
         m_mediator.SetPointer(this);
         if( detail::IsStringForwardMatching(name, "DISABLED_")
-            || (strstr(name, "/DISABLED_") != NULL) )
+            || detail::IsStringContains(name, "/DISABLED_") )
         {
             m_disable = true;
         }
