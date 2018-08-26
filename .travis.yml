@@ -5,7 +5,7 @@ language: cpp
 
 compiler:
   - clang
-  - gcc
+#  - gcc
 
 addons:
   apt: &apt-global
@@ -124,8 +124,8 @@ env:
     - secure: "TcQxkqb1xHfr1WnVX/CzRyQGOSA29mvLIwn1+lb794Ysq8dNZoHdbcIrKbe/YKR0uRZ5rnL1Onn6L3HyRCJxZg5Grsqrv1dRVSR4X132EoRo0Y8sy/a+c3JFhBJUiaAMds2wG2EFmDCSXNxcUEgzUFEGnTk2vnVKAVBDpOQLlOk="
 
   matrix:
-    - STDFLAG=-std=c++98
-    - STDFLAG=-std=c++11
+#    - STDFLAG=-std=c++98
+#    - STDFLAG=-std=c++11
     - STDFLAG=
 
   allow_failures:
