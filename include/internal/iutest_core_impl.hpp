@@ -85,12 +85,13 @@ public:
     TestCase* AddTestCase(const ::std::string& testcase_name, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
-#if IUTEST_HAS_MEMORY_SANITIZER
-        ::std::string testcase_name_(testcase_name);
-        return AddTestCase<T>(testcase_name_.c_str(), id, setup, teardown);
-#else
-        return AddTestCase<T>(testcase_name.c_str(), id, setup, teardown);
-#endif
+        TestCase* p = FindTestCase(testcase_name.c_str(), id);
+        if( p == NULL )
+        {
+            p = new T (testcase_name, id, setup, teardown);
+            m_testcases.push_back(p);
+        }
+        return p;
     }
     /** @private */
     void AddTestInfo(TestCase* pCase, TestInfo* pInfo);
