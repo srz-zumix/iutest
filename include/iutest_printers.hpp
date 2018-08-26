@@ -391,6 +391,9 @@ inline void PrintTo(const ::std::filesystem::file_status& value, iu_ostream* os)
     *os << FileSystemFileTypeToString(value.type()) << ": ";
     PrintTo(value.permissions(), os);
 }
+//inline void PrintTo(const ::std::filesystem::space_info& value, iu_ostream* os)
+//{
+//}
 #endif
 
 #if IUTEST_HAS_NULLPTR

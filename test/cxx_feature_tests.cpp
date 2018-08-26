@@ -213,6 +213,16 @@ IUTEST(FileSystem, StatusPrintTo)
     }
 }
 
+IUTEST(FileSystem, SpaceInfoPrintTo)
+{
+    {
+        LogChecker ck("regular: 0");
+        ::std::filesystem::path path = __FILE__;
+        ::std::filesystem::space_info v = ::std::filesystem::space(path.remove_filename());
+        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
+    }
+}
+
 #endif
 
 

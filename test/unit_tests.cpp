@@ -199,6 +199,18 @@ IUTEST(UnitTest, ToOctString)
     IUTEST_EXPECT_STREQ(                   "377", ::iutest::detail::ToOctString< ::iutest::UInt8  >(0377u));
 }
 
+IUTEST(UnitTest, FormatSizeByte)
+{
+    IUTEST_EXPECT_STREQ("0B", ::iutest::detail::FormatSizeByte(0));
+    IUTEST_EXPECT_STREQ("2B", ::iutest::detail::FormatSizeByte(2));
+    IUTEST_EXPECT_STREQ("1KB", ::iutest::detail::FormatSizeByte(1024));
+    IUTEST_EXPECT_STREQ("1.0KB", ::iutest::detail::FormatSizeByte(1025));
+    IUTEST_EXPECT_STREQ("1MB", ::iutest::detail::FormatSizeByte(1024 * 1024));
+    IUTEST_EXPECT_STREQ("1.9MB", ::iutest::detail::FormatSizeByte(2 * 1024 * 1024 - 1));
+    IUTEST_EXPECT_STREQ("1GB", ::iutest::detail::FormatSizeByte(1024 * 1024 * 1024));
+}
+
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else

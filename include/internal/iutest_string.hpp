@@ -42,6 +42,8 @@ namespace iutest {
 namespace detail
 {
 
+::std::string StringFormat(const char* format, ...);
+
 /**
  * @internal
  * @brief   stricmp
@@ -340,6 +342,35 @@ inline ::std::string FormatIntWidth2(int value)
     buf[0] = (value/10)%10 + '0';
     buf[1] = (value   )%10 + '0';
     return buf;
+}
+
+inline ::std::string FormatSizeByte(size_t value)
+{
+    const char* suffixes[] = {
+        "B",
+        "KB",
+        "MB",
+        "GB",
+    };
+    const size_t suffixes_length = IUTEST_PP_COUNTOF(suffixes);
+    size_t index = 0;
+    double view_value = value;
+    while(view_value >= 1024 && index < suffixes_length)
+    {
+        ++index;
+        view_value /= 1024;
+    }
+
+    const size_t n = static_cast<size_t>(::std::floor(view_value));
+    const size_t f = static_cast<size_t>(view_value * 10.0 - n * 10.0);
+    if(view_value - n == 0)
+    {
+        return StringFormat("%d%s", n, suffixes[index]);
+    }
+    else
+    {
+        return StringFormat("%d.%d%s", n, f, suffixes[index]);
+    }
 }
 
 inline ::std::string ShowStringQuoted(const char* str)
