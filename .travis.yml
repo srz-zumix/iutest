@@ -128,7 +128,7 @@ env:
     - STDFLAG=
 
   allow_failures:
-    - COVERITY_SCAN=1
+    - env: COVERITY_SCAN=1
 
 matrix:
   include:
