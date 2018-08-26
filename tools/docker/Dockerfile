@@ -1,14 +1,15 @@
-FROM ubuntu:trusty
+FROM ubuntu:xenial
 
 MAINTAINER srz_zumix <zumix.cpp@gmail.com>
 
-RUN apt-get update -q -y
-RUN apt-get install -y wget vim iputils-ping sudo curl
-RUN apt-get install -y libsqlite3-dev libssl-dev
-RUN apt-get install -y python2.7 python2.7-dev python-virtualenv
-RUN apt-get install -y git subversion
-RUN apt-get install -y build-essential
-RUN mkdir /iutest
+RUN apt-get update -q -y && \
+    apt-get install -y software-properties-common
+RUN apt-get update -q -y && \
+    apt-get install -y wget vim iputils-ping sudo curl && \
+    apt-get install -y libsqlite3-dev libssl-dev && \
+    apt-get install -y python2.7 python2.7-dev python-virtualenv && \
+    apt-get install -y git subversion && \
+    apt-get install -y build-essential
 
 # pyenv
 ENV PYENV_ROOT $HOME/.pyenv
@@ -31,7 +32,15 @@ RUN pyenv local 2.7.13 3.5.2 3.6.0
 
 RUN pip install virtualenv
 
-ADD Dockerfile /data
-RUN git clone https://github.com/srz-zumix/iutest.git /iutest
+RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add - && \
+    apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-6.0 main" && \
+    apt-get update && \
+    apt-get install -y clang-6.0
+RUN update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-6.0 1000 && \
+    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-6.0 1000 && \
+    update-alternatives --config clang && \
+    update-alternatives --config clang++
 
-
+RUN mkdir /iutest
+VOLUME [ "/iutest" ]
+WORKDIR /iutest
