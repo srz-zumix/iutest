@@ -51,8 +51,7 @@ protected:
     , m_start_timestamp(0)
     , m_disable(false)
     {
-        if( detail::IsStringForwardMatching(m_testcase_name, "DISABLED_")
-            || detail::IsStringContains(m_testcase_name, "/DISABLED_") )
+        if( detail::IsDisableTestName(m_testcase_name) )
         {
             m_disable = true;
         }
