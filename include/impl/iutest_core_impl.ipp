@@ -149,9 +149,9 @@ IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
     TestEnv::event_listeners().OnTestRecordProperty(prop);
 }
 
-IUTEST_IPP_INLINE TestCase* UnitTestImpl::FindTestCase(const char* testcase_name, TestTypeId id)
+IUTEST_IPP_INLINE TestCase* UnitTestImpl::FindTestCase(const ::std::string& testcase_name, TestTypeId id)
 {
-    TestCase::FindOp func ={ id, testcase_name };
+    TestCase::FindOp func ={ id, testcase_name.c_str() };
     return detail::FindList(m_testcases, func);
 }
 

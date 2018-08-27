@@ -73,7 +73,7 @@ public:
     TestCase* AddTestCase(const ::std::string& testcase_name, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
-        TestCase* p = FindTestCase(testcase_name.c_str(), id);
+        TestCase* p = FindTestCase(testcase_name, id);
         if( p == NULL )
         {
             p = new T (testcase_name, id, setup, teardown);
@@ -124,7 +124,7 @@ private:
     /**
      * @brief   FindTestCase
     */
-    TestCase* FindTestCase(const char* testcase_name, TestTypeId id);
+    TestCase* FindTestCase(const ::std::string& testcase_name, TestTypeId id);
 
     /**
      * @brief   Do information options
