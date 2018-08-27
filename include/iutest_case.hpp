@@ -62,6 +62,7 @@ public:
 
 public:
     /** test case 名の取得 */
+    IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
     const char*     name()                  const { return m_testcase_name.c_str(); }
 
     /** テスト総数 */
