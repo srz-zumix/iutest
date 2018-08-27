@@ -187,7 +187,7 @@ public:
 
         bool operator () (const TestCase* p) const
         {
-            if( p->get_typeid() == m_id && IsStringEqual(p->name(), m_name) )
+            if( p->get_typeid() == m_id && detail::IsStringEqual(p->name(), m_name) )
             {
                 return true;
             }
