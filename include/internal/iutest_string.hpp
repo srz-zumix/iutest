@@ -35,6 +35,7 @@
 #endif
 #include <string>
 #include <cstring>
+#include <cmath>
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
@@ -344,13 +345,14 @@ inline ::std::string FormatIntWidth2(int value)
     return buf;
 }
 
-inline ::std::string FormatSizeByte(size_t value)
+inline ::std::string FormatSizeByte(UInt64 value)
 {
     const char* suffixes[] = {
         "B",
         "KB",
         "MB",
         "GB",
+        "TB",
     };
     const size_t suffixes_length = IUTEST_PP_COUNTOF(suffixes);
     size_t index = 0;
@@ -361,8 +363,8 @@ inline ::std::string FormatSizeByte(size_t value)
         view_value /= 1024;
     }
 
-    const size_t n = static_cast<size_t>(::std::floor(view_value));
-    const size_t f = static_cast<size_t>(view_value * 10.0 - n * 10.0);
+    const UInt64 n = static_cast<UInt64>(::std::floor(view_value));
+    const UInt64 f = static_cast<UInt64>(view_value * 10.0 - n * 10.0);
     if(view_value - n == 0)
     {
         return StringFormat("%d%s", n, suffixes[index]);
