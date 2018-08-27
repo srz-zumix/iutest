@@ -216,7 +216,19 @@ IUTEST(FileSystem, StatusPrintTo)
 IUTEST(FileSystem, SpaceInfoPrintTo)
 {
     {
-        LogChecker ck("regular: 0");
+        LogChecker ck("cpacity");
+        ::std::filesystem::path path = __FILE__;
+        ::std::filesystem::space_info v = ::std::filesystem::space(path.remove_filename());
+        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
+    }
+    {
+        LogChecker ck("free");
+        ::std::filesystem::path path = __FILE__;
+        ::std::filesystem::space_info v = ::std::filesystem::space(path.remove_filename());
+        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
+    }
+    {
+        LogChecker ck("available");
         ::std::filesystem::path path = __FILE__;
         ::std::filesystem::space_info v = ::std::filesystem::space(path.remove_filename());
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);

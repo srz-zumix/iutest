@@ -356,7 +356,7 @@ inline ::std::string FormatSizeByte(UInt64 value)
     };
     const size_t suffixes_length = IUTEST_PP_COUNTOF(suffixes);
     size_t index = 0;
-    double view_value = value;
+    double view_value = static_cast<double>(value);
     while(view_value >= 1024 && index < suffixes_length)
     {
         ++index;
@@ -365,13 +365,14 @@ inline ::std::string FormatSizeByte(UInt64 value)
 
     const UInt64 n = static_cast<UInt64>(::std::floor(view_value));
     const UInt64 f = static_cast<UInt64>(view_value * 10.0 - n * 10.0);
+    const char* suffix = suffixes[index];
     if(view_value - n == 0)
     {
-        return StringFormat("%d%s", n, suffixes[index]);
+        return StringFormat("%llu%s", n, suffix);
     }
     else
     {
-        return StringFormat("%d.%d%s", n, f, suffixes[index]);
+        return StringFormat("%llu.%llu%s", n, f, suffix);
     }
 }
 

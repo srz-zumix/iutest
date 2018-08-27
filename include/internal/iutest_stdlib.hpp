@@ -303,7 +303,7 @@
 // c++17 feature
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES && defined(__has_include)
-#  if __has_include(<variant>)
+#  if __has_include(<variant>) && !__has_include(<experimental/variant>)
 #    define IUTEST_HAS_CXX_HDR_VARIANT      1
 #  endif
 #endif

@@ -391,9 +391,12 @@ inline void PrintTo(const ::std::filesystem::file_status& value, iu_ostream* os)
     *os << FileSystemFileTypeToString(value.type()) << ": ";
     PrintTo(value.permissions(), os);
 }
-//inline void PrintTo(const ::std::filesystem::space_info& value, iu_ostream* os)
-//{
-//}
+inline void PrintTo(const ::std::filesystem::space_info& value, iu_ostream* os)
+{
+    *os << "cpacity: " << detail::FormatSizeByte(value.capacity)
+        << ", free: " << detail::FormatSizeByte(value.free)
+        << ", available: " << detail::FormatSizeByte(value.available);
+}
 #endif
 
 #if IUTEST_HAS_NULLPTR
