@@ -41,7 +41,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 6.1'
+        version=u'%(prog)s version 6.2'
     )
     parser.add_argument(
         '--list-compiler',
@@ -489,6 +489,8 @@ def create_compiler_raw_option_list(options):
             colist.extend(re.split('\s(?=-)', x.strip('"')))
     if options.iutest_use_main:
         colist.append('-DIUTEST_USE_MAIN')
+    if '-D__WANDBOX__' not in colist:
+        colist.append('-D__WANDBOX__')
     return colist
 
 

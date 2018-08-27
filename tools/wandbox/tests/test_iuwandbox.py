@@ -30,6 +30,8 @@ test_opt_default = ['--encoding', 'utf-8-sig']
 test_opt_nomain = test_opt_default
 test_opt = ['-f"-DIUTEST_USE_MAIN"']
 test_opt.extend(test_opt_default)
+test_opt_verbose = ['--verbose']
+test_opt_dryrun = ['--dryrun']
 
 
 def eprint(*args, **kwargs):
@@ -111,6 +113,19 @@ class iuwandbox_test(iuwandbox_test_base):
         self.dump()
         self.assertEqual(cm.exception.code, 0, self.capture.getvalue())
         self.assertRegex(self.capture.getvalue(), '.*OK.*')
+
+    def test_define_wandbox(self):
+        sys.argv[1:] = [test_src]
+        sys.argv.extend(test_opt)
+        sys.argv.extend(test_opt_dryrun)
+        sys.argv.extend(test_opt_verbose)
+        sys.argv.append('-f"-DTEST"')
+        with self.assertRaises(SystemExit) as cm:
+            iuwandbox.main()
+        self.dump()
+        self.assertEqual(cm.exception.code, 0, self.capture.getvalue())
+        self.assertRegex(self.capture.getvalue(), '.*-D__WNADBOX__.*')
+        self.assertRegex(self.capture.getvalue(), '.*-DTEST.*')
 
     def test_boosttest_workarround(self):
         sys.argv[1:] = [test_src]

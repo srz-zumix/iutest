@@ -118,4 +118,9 @@ endif
 
 IUTEST_CXX_WARN_FLAGS+=-Wno-missing-field-initializers
 
+# 8.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 8 \)))
+IUTEST_CXX_WARN_FLAGS+=-Wextra-semi
+endif
+
 endif
