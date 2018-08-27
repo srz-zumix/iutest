@@ -336,6 +336,7 @@ class is_useful_testfixture<void (int(T))> : public is_useful_testfixture_helper
 
 #endif
 
+IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
 inline bool IsDisableTestName(const ::std::string& name)
 {
 #if IUTEST_HAS_MEMORY_SANITIZER
