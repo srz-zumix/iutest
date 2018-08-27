@@ -45,16 +45,13 @@ protected:
     : m_testcase_name(testcase_name)
     , m_setup(setup)
     , m_teardown(teardown)
-    , m_id(id), m_disable_num(0)
+    , m_id(id)
+    , m_disable_num(0)
     , m_should_run_num(0)
     , m_elapsedmsec(0)
     , m_start_timestamp(0)
-    , m_disable(false)
+    , m_disable(detail::IsDisableTestName(testcase_name))
     {
-        if( detail::IsDisableTestName(m_testcase_name) )
-        {
-            m_disable = true;
-        }
     }
 
 public:

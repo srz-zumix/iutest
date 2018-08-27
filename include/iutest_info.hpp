@@ -44,15 +44,11 @@ public:
         , m_testcase(testcase)
         , m_should_run(true)
         , m_ran(false)
-        , m_disable(false)
+        , m_disable(detail::IsDisableTestName(name))
         , m_skip(false)
         , m_matches_filter(true)
     {
         m_mediator.SetPointer(this);
-        if( detail::IsDisableTestName(m_testname) )
-        {
-            m_disable = true;
-        }
     }
 
 public:
