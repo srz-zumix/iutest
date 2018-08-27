@@ -152,7 +152,12 @@ IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
 IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
 IUTEST_IPP_INLINE TestCase* UnitTestImpl::FindTestCase(const ::std::string& testcase_name, TestTypeId id)
 {
+#if IUTEST_HAS_MEMORY_SANITIZER
+    const ::std::string name(testcase_name);
+    TestCase::FindOp func ={ id, name.c_str() };
+#else
     TestCase::FindOp func ={ id, testcase_name.c_str() };
+#endif
     return detail::FindList(m_testcases, func);
 }
 
