@@ -149,6 +149,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::RecordProperty(const TestProperty& prop)
     TestEnv::event_listeners().OnTestRecordProperty(prop);
 }
 
+IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
 IUTEST_IPP_INLINE TestCase* UnitTestImpl::FindTestCase(const ::std::string& testcase_name, TestTypeId id)
 {
     TestCase::FindOp func ={ id, testcase_name.c_str() };
