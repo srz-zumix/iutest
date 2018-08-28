@@ -193,6 +193,8 @@ inline IUTEST_CXX_CONSTEXPR const char* FindComma(const char* p)
     return (p == NULL || *p == '\0') ? NULL : ((*p == ',') ? p : FindComma(++p));
 }
 inline bool IsStringEqual(const char* str1, const char* str2) { return strcmp(str1, str2) == 0; }
+inline bool IsStringEqual(const ::std::string& str1, const char* str2) { return str1 == str2; }
+inline bool IsStringEqual(const ::std::string& str1, const ::std::string& str2) { return str1 == str2; }
 inline bool IsStringCaseEqual(const char* str1, const char* str2) { return iu_stricmp(str1, str2) == 0; }
 inline bool IsStringForwardMatching(const char* str1, const char* str2) { return strstr(str1, str2) == str1; }
 inline bool IsStringForwardMatching(const ::std::string& str1, const char* str2) { return str1.find(str2) == 0; }
