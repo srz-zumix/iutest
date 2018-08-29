@@ -174,9 +174,10 @@ public:
             detail::scoped_ptr<ParamGenerator> p((gen_it->second.CreateGen)());
 
             ::std::string testcase_name = m_package_name;
-            if( !gen_it->first.empty() )
+            const ::std::string first = gen_it->first;
+            if( !first.empty() )
             {
-                testcase_name += gen_it->first;
+                testcase_name += first;
                 testcase_name += "/";
             }
             testcase_name += m_testcase_base_name;
