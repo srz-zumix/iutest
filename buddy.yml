@@ -1,6 +1,6 @@
 - pipeline: "build-arm-none-eabi"
   trigger_mode: "ON_EVERY_PUSH"
-  ref_name: "(^((?!gh-pages).)*$)"
+  ref_name: "(^(master|develop)*$)"
   ref_type: "WILDCARD"
   actions:
   - action: "Build Docker image"
