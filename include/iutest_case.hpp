@@ -184,7 +184,11 @@ public:
     struct FindOp
     {
         TestTypeId  m_id;
+#if IUTEST_HAS_MEMORY_SANITIZER
+        ::std::string m_name;
+#else
         const char* m_name;
+#endif
 
         bool operator () (const TestCase* p) const
         {
