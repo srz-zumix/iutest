@@ -192,7 +192,12 @@ public:
 
         bool operator () (const TestCase* p) const
         {
+#if IUTEST_HAS_MEMORY_SANITIZER
+            ::std::string name(m_name);
+            if( p->get_typeid() == m_id && detail::IsStringEqual(p->m_testcase_name, name) )
+#else
             if( p->get_typeid() == m_id && detail::IsStringEqual(p->m_testcase_name, m_name) )
+#endif
             {
                 return true;
             }
