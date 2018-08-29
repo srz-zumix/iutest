@@ -190,6 +190,7 @@ public:
         const char* m_name;
 #endif
 
+        IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
         bool operator () (const TestCase* p) const
         {
 #if IUTEST_HAS_MEMORY_SANITIZER
