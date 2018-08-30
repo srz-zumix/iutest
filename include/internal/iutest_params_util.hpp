@@ -217,7 +217,7 @@ public:
     }
 
 private:
-    ::std::string CreateTestCaseName(const ::std::string& generator_name)
+    ::std::string CreateTestCaseName(const ::std::string& generator_name) const
     {
         ::std::string testcase_name = m_package_name;
         if( !generator_name.empty() )
