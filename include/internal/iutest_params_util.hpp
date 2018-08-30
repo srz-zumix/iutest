@@ -173,14 +173,7 @@ public:
             // パラメータ生成器の作成
             detail::scoped_ptr<ParamGenerator> p((gen_it->second.CreateGen)());
 
-            ::std::string testcase_name = m_package_name;
-            const ::std::string first = gen_it->first;
-            if( !first.empty() )
-            {
-                testcase_name += first;
-                testcase_name += "/";
-            }
-            testcase_name += m_testcase_base_name;
+            const ::std::string testcase_name = CreateTestCaseName(gen_it->first);
             TestCase* testcase = infodata->MakeTestCase(testcase_name.c_str()
                 , internal::GetTypeId<Tester>()
                 , Tester::SetUpTestCase
@@ -223,6 +216,18 @@ public:
         return DefaultParamNameFunc;
     }
 
+private:
+    ::std::string CreateTestCaseName(const ::std::string& generator_name)
+    {
+        ::std::string testcase_name = m_package_name;
+        if( !generator_name.empty() )
+        {
+            testcase_name += generator_name;
+            testcase_name += "/";
+        }
+        testcase_name += m_testcase_base_name;
+        return testcase_name;
+    }
 private:
     static bool CheckTestName(const TestCase* testcase, const::std::string& name)
     {
