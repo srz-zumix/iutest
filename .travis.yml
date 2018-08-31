@@ -201,7 +201,7 @@ matrix:
       env:
         - STDFLAG=-std=c++11
         - DEFS="-DIUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER=1 -DIUTEST_CHECK_STRICT=0 -DIUTEST_HAS_HDR_CXXABI=0"
-        - CXXFLAGS="-lasan -fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer"
+        - CXXFLAGS="-lasan -fsanitize=address -fno-omit-frame-pointer"
     # MinGW
     # - compiler: gcc
     #   env: MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAM_BUFFER=0"
