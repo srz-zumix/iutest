@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  optimize_test:
     working_directory: ~/srz-zumix/iutest
     parallelism: 4
     shell: /bin/bash --login
