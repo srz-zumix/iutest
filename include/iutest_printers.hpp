@@ -327,9 +327,9 @@ template<typename T>
 IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
 inline void PrintTupleTo(const T& t, iu_ostream* os)
 {
-    *os << "(";
+//    *os << "(";
     PrintTupleElemTo<T, tuples::tuple_size<T>::value, tuples::tuple_size<T>::value>(t, os);
-    *os << ")";
+//    *os << ")";
 }
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
