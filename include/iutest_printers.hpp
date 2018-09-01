@@ -324,6 +324,7 @@ inline void PrintTupleElemTo(const T& t, iu_ostream* os
 }
 
 template<typename T>
+IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
 inline void PrintTupleTo(const T& t, iu_ostream* os)
 {
     *os << "(";
