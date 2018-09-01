@@ -22,9 +22,30 @@ addons:
 
 before_install:
   - python .ci/travisci/travis_blocking_stdout.py
-  - apt-cache search clang || true
-  - apt-cache search gcc || true
-  - if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then export USE_NEWEST_GCC=1; fi
+  #- apt-cache search clang || true
+  #- apt-cache search gcc || true
+  # g++
+  - |
+    if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then
+      #export CC=gcc-8
+      #export CXX=g++-8
+      #export CCOV=gcov-8
+      update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-8  90
+      update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-8  90
+      update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-8 90
+    fi
+  # clang
+  - |
+    if [ "${CXX}" = 'clang++' ] && [ "${TRAVIS_OS_NAME}" != 'osx' ; then
+      #export CXX=clang++-6.0;
+      update-alternatives --install /usr/bin/clang   clang   /usr/bin/clang-7   90
+      update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-7 90
+    fi
+  # mingw
+  - if [ "${MINGW}" = '1' ]; then export CXX=i686-w64-mingw32-g++; fi
+  # winegcc
+  - if [ "${WINEGCC}" = '1' ]; then export CXX=wineg++; fi
+
 
 install:
   # gcov/lcov
@@ -70,24 +91,6 @@ install:
         cd -
       fi
     fi
-
-before_script:
-  # g++
-  - |
-    if [ "${USE_NEWEST_GCC}" = '1' ]; then
-      export CC=gcc-8
-      export CXX=g++-8
-      export CCOV=gcov-8
-    fi
-  # clang
-  - |
-    if [ "${CXX}" = 'clang++' ] && [ "${TRAVIS_OS_NAME}" != 'osx' ; then
-      export CXX=clang++-6.0;
-    fi
-  # mingw
-  - if [ "${MINGW}" = '1' ]; then export CXX=i686-w64-mingw32-g++; fi
-  # winegcc
-  - if [ "${WINEGCC}" = '1' ]; then export CXX=wineg++; fi
 
 script:
   - if [ "${USE_LIB}" == '1' ]; then cd projects/make && make && cd -; fi
