@@ -217,6 +217,7 @@ public:
     }
 
 private:
+    IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
     ::std::string CreateTestCaseName(const ::std::string& generator_name) const
     {
         ::std::string testcase_name = m_package_name;
@@ -229,7 +230,6 @@ private:
         return testcase_name;
     }
 private:
-    IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
     static bool CheckTestName(const TestCase* testcase, const::std::string& name)
     {
         const int count = testcase->total_test_count();
