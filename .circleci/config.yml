@@ -79,7 +79,7 @@ jobs:
 
 workflows:
   version: 2
-  test:
+  default-test:
     jobs:
       - optimize_test:
         filters:
@@ -87,3 +87,4 @@ workflows:
             only:
               - master
               - develop
+              - /^feature.*/
