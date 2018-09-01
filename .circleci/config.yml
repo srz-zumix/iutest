@@ -1,10 +1,6 @@
 version: 2
 jobs:
   optimize_test:
-    branches:
-      only:
-        - master
-        - develop
     working_directory: ~/srz-zumix/iutest
     parallelism: 4
     shell: /bin/bash --login
@@ -83,6 +79,11 @@ jobs:
 
 workflows:
   version: 2
-  optimize_test:
+  test:
     jobs:
       - optimize_test
+        filters:
+          branches:
+            only:
+              - master
+              - develop
