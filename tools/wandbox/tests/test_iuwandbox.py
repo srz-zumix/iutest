@@ -124,7 +124,7 @@ class iuwandbox_test(iuwandbox_test_base):
             iuwandbox.main()
         self.dump()
         self.assertEqual(cm.exception.code, 0, self.capture.getvalue())
-        self.assertRegex(self.capture.getvalue(), '.*-D__WNADBOX__.*')
+        self.assertRegex(self.capture.getvalue(), '.*-D__WANDBOX__.*')
         self.assertRegex(self.capture.getvalue(), '.*-DTEST.*')
 
     def test_boosttest_workarround(self):
