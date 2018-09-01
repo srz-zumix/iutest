@@ -1,6 +1,10 @@
 version: 2
 jobs:
   optimize_test:
+    branches:
+      only:
+        - master
+        - develop
     working_directory: ~/srz-zumix/iutest
     parallelism: 4
     shell: /bin/bash --login
@@ -15,11 +19,11 @@ jobs:
     - restore_cache:
         keys:
         # This branch if available
-        - v1-dep-{{ .Branch }}-
+        - v2-dep-{{ .Branch }}-
         # Default branch if not
-        - v1-dep-master-
+        - v2-dep-master-
         # Any branch if there are none on the default branch - this should be unnecessary if you have your default branch configured correctly
-        - v1-dep-
+        - v2-dep-
     - run: sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
     - run: wget -q -O - http://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
     - run: sudo add-apt-repository -y 'deb http://apt.llvm.org/cosmic/ llvm-toolchain-cosmic-7 main'
@@ -31,7 +35,7 @@ jobs:
     - run: sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-7 60
     - run: sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-7 60
     - save_cache:
-        key: v1-dep-{{ .Branch }}-{{ epoch }}
+        key: v2-dep-{{ .Branch }}-{{ epoch }}
         paths:
         # This is a broad list of cache paths to include many possible development environments
         # You can probably delete some of these entries
