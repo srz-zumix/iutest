@@ -27,19 +27,22 @@ before_install:
   # g++
   - |
     if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then
-      #export CC=gcc-8
-      #export CXX=g++-8
-      #export CCOV=gcov-8
-      update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-8  90
-      update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-8  90
-      update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-8 90
+      export CC=gcc-8
+      export CXX=g++-8
+      export CCOV=gcov-8
+      export AR=AR=gcc-ar-8
+      export RANLIB=gcc-ranlib-8 
+      #update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-8  90
+      #update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-8  90
+      #update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-8 90
     fi
   # clang
   - |
-    if [ "${CXX}" = 'clang++' ] && [ "${TRAVIS_OS_NAME}" != 'osx' ; then
-      #export CXX=clang++-6.0;
-      update-alternatives --install /usr/bin/clang   clang   /usr/bin/clang-7   90
-      update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-7 90
+    if [ "${CXX}" = 'clang++' ] && [ "${TRAVIS_OS_NAME}" != 'osx' ]; then
+      export CCC=clang-6.0;
+      export CXX=clang++-6.0;
+      #update-alternatives --install /usr/bin/clang   clang   /usr/bin/clang-7   90
+      #update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-7 90
     fi
   # mingw
   - if [ "${MINGW}" = '1' ]; then export CXX=i686-w64-mingw32-g++; fi
