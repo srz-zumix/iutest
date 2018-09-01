@@ -294,7 +294,7 @@ public:
 
 private:
     // テストケースの作成
-    virtual TestCase* MakeTestCase(const char* testcase_name, TestTypeId id
+    virtual TestCase* MakeTestCase(const ::std::string& testcase_name, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown) const IUTEST_CXX_OVERRIDE
     {
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)

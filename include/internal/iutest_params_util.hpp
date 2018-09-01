@@ -46,7 +46,7 @@ public:
 public:
     explicit IParamTestInfoData(const char* name) : m_name(name) {}
     virtual ~IParamTestInfoData() IUTEST_CXX_DEFAULT_FUNCTION
-    virtual TestCase* MakeTestCase(const std::string& , TestTypeId , SetUpMethod , TearDownMethod ) const = 0;
+    virtual TestCase* MakeTestCase(const ::std::string& , TestTypeId , SetUpMethod , TearDownMethod ) const = 0;
     virtual EachTestBase* RegisterTest(TestCase* , const ::std::string& ) const = 0;
     const char* GetName() const { return m_name.c_str(); }
 protected:
