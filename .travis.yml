@@ -11,10 +11,10 @@ addons:
   apt: &apt-global
     sources: &apt-common-sources
       - ubuntu-toolchain-r-test
-      - llvm-toolchain-trusty-7.0
+      - llvm-toolchain-trusty-7
       - llvm-toolchain-trusty
     packages: &apt-common-packages
-      - clang-7.0
+      - clang-7
       - libc++-dev
       - g++-8
       - gcc-8
@@ -39,8 +39,8 @@ before_install:
   # clang
   - |
     if [ "${CXX}" = 'clang++' ] && [ "${TRAVIS_OS_NAME}" != 'osx' ]; then
-      export CCC=clang-7.0;
-      export CXX=clang++-7.0;
+      export CCC=clang-7;
+      export CXX=clang++-7;
       #update-alternatives --install /usr/bin/clang   clang   /usr/bin/clang-7   90
       #update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-7 90
     fi
