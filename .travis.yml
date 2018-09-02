@@ -11,10 +11,10 @@ addons:
   apt: &apt-global
     sources: &apt-common-sources
       - ubuntu-toolchain-r-test
-      #- llvm-toolchain-trusty-7
+      - llvm-toolchain-trusty-6.0
       - llvm-toolchain-trusty
     packages: &apt-common-packages
-      - clang-7
+      - clang-6.0
       - libc++-dev
       - g++-8
       - gcc-8
@@ -22,8 +22,8 @@ addons:
 
 before_install:
   - python .ci/travisci/travis_blocking_stdout.py
-  - apt-cache search clang || true
-  - apt-cache search gcc || true
+  #- apt-cache search clang || true
+  #- apt-cache search gcc || true
   # g++
   - |
     if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then
@@ -39,8 +39,8 @@ before_install:
   # clang
   - |
     if [ "${CXX}" = 'clang++' ] && [ "${TRAVIS_OS_NAME}" != 'osx' ]; then
-      export CCC=clang-7;
-      export CXX=clang++-7;
+      export CCC=clang-6.0;
+      export CXX=clang++-6.0;
       #update-alternatives --install /usr/bin/clang   clang   /usr/bin/clang-7   90
       #update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-7 90
     fi
