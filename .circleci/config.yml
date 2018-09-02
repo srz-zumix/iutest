@@ -76,14 +76,18 @@ jobs:
     - run:
         name: g++ test
         command: |
-          case $CIRCLE_NODE_INDEX in 0) make all $MAKE_OPTION OPTIMIZE=-O2 ;; 1) make all $MAKE_OPTION OPTIMIZE=-Os ;; 2) make all $MAKE_OPTION OPTIMIZE=-O3 ;; 3) make all $MAKE_OPTION OPTIMIZE=-O4 ;; esac
+          make clean
+          case $CIRCLE_NODE_INDEX in 0) make default $MAKE_OPTION OPTIMIZE=-O2 ;; 1) make default $MAKE_OPTION OPTIMIZE=-Os ;; 2) make default $MAKE_OPTION OPTIMIZE=-O3 ;; 3) make default $MAKE_OPTION OPTIMIZE=-O4 ;; esac
+          make test
         working_directory: test
         environment:
           CXX: g++
     - run:
         name: clang++ test
         command: |
-          case $CIRCLE_NODE_INDEX in 0) make all $MAKE_OPTION OPTIMIZE=-O2 ;; 1) make all $MAKE_OPTION OPTIMIZE=-Os ;; 2) make all $MAKE_OPTION OPTIMIZE=-O3 ;; 3) make all $MAKE_OPTION OPTIMIZE=-Oz ;; esac
+          make clean
+          case $CIRCLE_NODE_INDEX in 0) make default $MAKE_OPTION OPTIMIZE=-O2 ;; 1) make default $MAKE_OPTION OPTIMIZE=-Os ;; 2) make default $MAKE_OPTION OPTIMIZE=-O3 ;; 3) make default $MAKE_OPTION OPTIMIZE=-Oz ;; esac
+          make test
         working_directory: test
         environment:
           CXX: clang++
