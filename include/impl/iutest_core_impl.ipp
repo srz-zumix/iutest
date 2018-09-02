@@ -261,7 +261,7 @@ namespace detail
 IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
 IUTEST_IPP_INLINE ::std::string MakeIndexName(size_t index)
 {
-    iu_stringstream strm;
+    iu_global_format_stringstream strm;
     strm << index;
     return strm.str();
 }
