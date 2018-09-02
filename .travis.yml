@@ -30,7 +30,7 @@ before_install:
       export CC=gcc-8
       export CXX=g++-8
       export CCOV=gcov-8
-      export AR=AR=gcc-ar-8
+      export AR=gcc-ar-8
       export RANLIB=gcc-ranlib-8 
       #update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-8  90
       #update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-8  90

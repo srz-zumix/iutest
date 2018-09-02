@@ -334,7 +334,7 @@ struct Hoge {
 };
 IUTEST(PrintToTest, MaxElem)
 {
-    Hoge hoge;
+    Hoge hoge = { 0 };
     {
         LogChecker ck(" ...");
         IUTEST_SUCCEED() << ::iutest::PrintToString(hoge);
