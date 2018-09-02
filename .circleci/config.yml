@@ -1,18 +1,21 @@
 version: 2
+default: &default
+  shell: /bin/bash --login
+  docker:
+  - image: circleci/buildpack-deps:cosmic-browsers
+
 jobs:
   optimize_test:
     working_directory: ~/srz-zumix/iutest
     parallelism: 4
-    shell: /bin/bash --login
+    <<: *default
     environment:
       CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
-    docker:
-    - image: circleci/buildpack-deps:cosmic-browsers
     steps:
     - checkout
     - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
-    - restore_cache:
+    - restore_cache: &restore_cache
         keys:
         # This branch if available
         - v2-dep-{{ .Branch }}-
@@ -20,7 +23,7 @@ jobs:
         - v2-dep-master-
         # Any branch if there are none on the default branch - this should be unnecessary if you have your default branch configured correctly
         - v2-dep-
-    - run: 
+    - run: &setup-step
         name: SetUp
         command: |
           sudo apt-get -y --allow-unauthenticated update
@@ -35,7 +38,7 @@ jobs:
           sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
           sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-7 60
           sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-7 60
-    - save_cache:
+    - save_cache: &save_cache
         key: v2-dep-{{ .Branch }}-{{ epoch }}
         paths:
         # This is a broad list of cache paths to include many possible development environments
@@ -109,4 +112,4 @@ workflows:
               only:
                 - master
                 - develop
-                - /^feature.*/
+                #- /^feature.*/
