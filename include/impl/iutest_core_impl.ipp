@@ -235,7 +235,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::TerminateImpl()
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
-    // _invalid_parameter_handler
+// _invalid_parameter_handler
 IUTEST_IPP_INLINE void UnitTestImpl::OnInvalidParameter(const wchar_t * expression, const wchar_t * function
     , const wchar_t * file, unsigned int line, uintptr_t pReserved)
 {
@@ -258,6 +258,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 namespace detail
 {
 
+IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
 IUTEST_IPP_INLINE ::std::string MakeIndexName(size_t index)
 {
     iu_stringstream strm;
