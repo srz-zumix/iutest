@@ -12,6 +12,7 @@ jobs:
     environment:
       CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
+      MAKE_OPTION: -j4 OUTPUTXML=1
     steps:
     - checkout
     - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
@@ -75,14 +76,14 @@ jobs:
     - run:
         name: g++ test
         command: |
-          case $CIRCLE_NODE_INDEX in 0) make all OUTPUTXML=1 OPTIMIZE=-O2 ;; 1) make all OUTPUTXML=1 OPTIMIZE=-Os ;; 2) make all OUTPUTXML=1 OPTIMIZE=-O3 ;; 3) make all OUTPUTXML=1 OPTIMIZE=-O4 ;; esac
+          case $CIRCLE_NODE_INDEX in 0) make all $MAKE_OPTION OPTIMIZE=-O2 ;; 1) make all $MAKE_OPTION OPTIMIZE=-Os ;; 2) make all $MAKE_OPTION OPTIMIZE=-O3 ;; 3) make all $MAKE_OPTION OPTIMIZE=-O4 ;; esac
         working_directory: test
         environment:
           CXX: g++
     - run:
         name: clang++ test
         command: |
-          case $CIRCLE_NODE_INDEX in 0) make all OUTPUTXML=1 OPTIMIZE=-O2 ;; 1) make all OUTPUTXML=1 OPTIMIZE=-Os ;; 2) make all OUTPUTXML=1 OPTIMIZE=-O3 ;; 3) make all OUTPUTXML=1 OPTIMIZE=-Oz ;; esac
+          case $CIRCLE_NODE_INDEX in 0) make all $MAKE_OPTION OPTIMIZE=-O2 ;; 1) make all $MAKE_OPTION OPTIMIZE=-Os ;; 2) make all $MAKE_OPTION OPTIMIZE=-O3 ;; 3) make all $MAKE_OPTION OPTIMIZE=-Oz ;; esac
         working_directory: test
         environment:
           CXX: clang++
