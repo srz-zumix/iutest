@@ -58,16 +58,26 @@ jobs:
             make CXX=clang++ showcxxversion;
           fi
     - run:
-        name: minimum_tests and show spec
-        command: if [ "$CIRCLE_NODE_INDEX" == "0" ]; then make CXX=clang++ minimum_tests && ./minimum_tests --spec; fi
+        name: g++ minimum_tests and show feature / spec
+        command: if [ "$CIRCLE_NODE_INDEX" == "0" ]; then make minimum_tests && ./minimum_tests --spec --feature; fi
         working_directory: test
+        environment:
+          CXX: g++
     - run:
+        name: clang++ minimum_tests and show feature / spec
+        command: if [ "$CIRCLE_NODE_INDEX" == "0" ]; then make minimum_tests && ./minimum_tests --spec --feature; fi
+        working_directory: test
+        environment:
+          CXX: clang++
+    - run:
+        name: g++ test
         command: |
           case $CIRCLE_NODE_INDEX in 0) make all OUTPUTXML=1 OPTIMIZE=-O2 ;; 1) make all OUTPUTXML=1 OPTIMIZE=-Os ;; 2) make all OUTPUTXML=1 OPTIMIZE=-O3 ;; 3) make all OUTPUTXML=1 OPTIMIZE=-O4 ;; esac
         working_directory: test
         environment:
           CXX: g++
     - run:
+        name: clang++ test
         command: |
           case $CIRCLE_NODE_INDEX in 0) make all OUTPUTXML=1 OPTIMIZE=-O2 ;; 1) make all OUTPUTXML=1 OPTIMIZE=-Os ;; 2) make all OUTPUTXML=1 OPTIMIZE=-O3 ;; 3) make all OUTPUTXML=1 OPTIMIZE=-Oz ;; esac
         working_directory: test
