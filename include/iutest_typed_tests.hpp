@@ -545,7 +545,7 @@ private:
         typedef Fixture<Head>           FixtureClass;
         typedef TypedTestCase<TypeParam>    _MyTestCase;
         ::std::string full_testcase_name = package_name;
-        full_testcase_name += 
+        full_testcase_name +=
 #if IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME
             detail::MakePrefixedIndexTypedTestName<TypeParam>(prefix, testcase_name, index);
 #else
