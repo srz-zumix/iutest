@@ -324,11 +324,12 @@ inline void PrintTupleElemTo(const T& t, iu_ostream* os
 }
 
 template<typename T>
+IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
 inline void PrintTupleTo(const T& t, iu_ostream* os)
 {
-    *os << "(";
+//    *os << "(";
     PrintTupleElemTo<T, tuples::tuple_size<T>::value, tuples::tuple_size<T>::value>(t, os);
-    *os << ")";
+//    *os << ")";
 }
 
 #if IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
@@ -379,7 +380,8 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char* str, iu_ost
     }
     else
     {
-        UniversalPrint(::std::string(str), os);
+        ::std::string ss = str;
+        UniversalPrint(ss, os);
     }
 }
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t* str, iu_ostream* os)
@@ -512,6 +514,7 @@ inline void UniversalPrint(const T& value, iu_ostream* os)
  * @brief   文字列化
 */
 template<typename T>
+IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
 inline ::std::string PrintToString(const T& v)
 {
     iu_global_format_stringstream strm;

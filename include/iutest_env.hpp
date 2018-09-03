@@ -792,6 +792,7 @@ class iu_global_format_stringstream : public iu_stringstream
     IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()
 public:
     iu_global_format_stringstream()
+        : iu_stringstream("")
     {
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
         TestEnv::global_ostream_copyfmt(*this);

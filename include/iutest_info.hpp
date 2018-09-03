@@ -38,22 +38,17 @@ public:
      * @param [in]  name        = テスト名
      * @param [in]  factory     = テスト生成器
     */
-    TestInfo(detail::iuITestCaseMediator* testcase, const char* name, detail::iuFactoryBase* factory)
+    TestInfo(detail::iuITestCaseMediator* testcase, const ::std::string& name, detail::iuFactoryBase* factory)
         : m_testname(name)
         , m_factory(factory)
         , m_testcase(testcase)
         , m_should_run(true)
         , m_ran(false)
-        , m_disable(false)
+        , m_disable(detail::IsDisableTestName(name))
         , m_skip(false)
         , m_matches_filter(true)
     {
         m_mediator.SetPointer(this);
-        if( detail::IsStringForwardMatching(name, "DISABLED_")
-            || (strstr(name, "/DISABLED_") != NULL) )
-        {
-            m_disable = true;
-        }
     }
 
 public:

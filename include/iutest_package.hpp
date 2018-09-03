@@ -31,7 +31,7 @@
 
 #if IUTEST_HAS_PACKAGE
 
-#define IUTEST_CONCAT_PACKAGE_(testcase_name)   IIUT_CONCAT_PACKAGE_I(testcase_name).c_str()
+#define IUTEST_CONCAT_PACKAGE_(testcase_name)   IIUT_CONCAT_PACKAGE_I(testcase_name)
 #define IIUT_CONCAT_PACKAGE_I(testcase_name)                    \
     iuTest_ConcatTestCaseName( iuTest_GetTestCasePackageName(   \
         static_cast<iuTest_TestCasePackage*>(NULL))             \
@@ -192,9 +192,16 @@ template<typename T>
  * @brief   テストケース名との結合
  * @return  テストケース名
 */
-inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestCaseName(const ::std::string& package, const char* testcase_name)
+inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
+    iuTest_ConcatTestCaseName(const ::std::string& package, const char* testcase_name)
 {
+#if IUTEST_HAS_MEMORY_SANITIZER
+    ::std::string str(package);
+    str.append(testcase_name);
+    return str;
+#else
     return package + testcase_name;
+#endif
 }
 
 #endif

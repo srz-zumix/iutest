@@ -239,7 +239,24 @@ public:
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
     }
     /** コンストラクタ */
+    TestInstance(const ::std::string& testcase, const char* name, TestTypeId id
+        , SetUpMethod setup, TearDownMethod teardown)
+        : m_mediator(AddTestCase(testcase, id, setup, teardown))
+        , m_info(&m_mediator, name, &m_factory)
+    {
+        UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
+    }
+    /** コンストラクタ */
     TestInstance(const char* testcase, const char* name, const char*  value_params, TestTypeId id
+        , SetUpMethod setup, TearDownMethod teardown)
+        : m_mediator(AddTestCase(testcase, id, setup, teardown))
+        , m_info(&m_mediator, name, &m_factory)
+    {
+        m_info.set_value_param(value_params);
+        UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
+    }
+    /** コンストラクタ */
+    TestInstance(const ::std::string& testcase, const char* name, const char*  value_params, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown)
         : m_mediator(AddTestCase(testcase, id, setup, teardown))
         , m_info(&m_mediator, name, &m_factory)
@@ -257,6 +274,15 @@ private:
         return UnitTest::instance().AddTestCase(testcase, id, setup, teardown, detail::explicit_type<TestCase>());
 #endif
     }
+    TestCase* AddTestCase(const ::std::string& testcase, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+    {
+#if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
+        return UnitTest::instance().AddTestCase<TestCase>(testcase, id, setup, teardown);
+#else
+        return UnitTest::instance().AddTestCase(testcase, id, setup, teardown, detail::explicit_type<TestCase>());
+#endif
+    }
+
 private:
     TestCaseMediator    m_mediator;
     TestInfo            m_info;

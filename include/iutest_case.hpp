@@ -41,20 +41,17 @@ protected:
      * @param [in]  setup           = テスト事前実行関数
      * @param [in]  teardown        = テスト事後実行関数
     */
-    TestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+    TestCase(const ::std::string& testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
     : m_testcase_name(testcase_name)
-    , m_setup(setup), m_teardown(teardown)
-    , m_id(id), m_disable_num(0)
+    , m_setup(setup)
+    , m_teardown(teardown)
+    , m_id(id)
+    , m_disable_num(0)
     , m_should_run_num(0)
     , m_elapsedmsec(0)
     , m_start_timestamp(0)
-    , m_disable(false)
+    , m_disable(detail::IsDisableTestName(testcase_name))
     {
-        if( detail::IsStringForwardMatching(testcase_name, "DISABLED_")
-            || (strstr(testcase_name, "/DISABLED_") != NULL) )
-        {
-            m_disable = true;
-        }
     }
 
 public:
@@ -65,6 +62,7 @@ public:
 
 public:
     /** test case 名の取得 */
+    IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
     const char*     name()                  const { return m_testcase_name.c_str(); }
 
     /** テスト総数 */
@@ -186,11 +184,22 @@ public:
     struct FindOp
     {
         TestTypeId  m_id;
+#if IUTEST_HAS_MEMORY_SANITIZER
+        ::std::string m_name;
+#else
         const char* m_name;
+#endif
 
+        IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
         bool operator () (const TestCase* p) const
         {
-            if( p->get_typeid() == m_id && (strcmp(p->name(), m_name) == 0) )
+#if IUTEST_HAS_MEMORY_SANITIZER
+            ::std::string name1(p->m_testcase_name);
+            ::std::string name2(m_name);
+            if( p->get_typeid() == m_id && detail::IsStringEqual(name1, name2) )
+#else
+            if( p->get_typeid() == m_id && detail::IsStringEqual(p->m_testcase_name, m_name) )
+#endif
             {
                 return true;
             }
@@ -273,10 +282,17 @@ protected:
      * @param [in]  setup           = テスト事前実行関数
      * @param [in]  teardown        = テスト事後実行関数
     */
-    TypedTestCase(const char* testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+    TypedTestCase(const ::std::string& testcase_name, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
         : TestCase(testcase_name, id, setup, teardown)
+#if !IUTEST_HAS_MEMORY_SANITIZER
         , m_type_param(detail::GetTypeName<TypeParam>())
-    {}
+#endif
+    {
+#if IUTEST_HAS_MEMORY_SANITIZER
+        ::std::string tmp = detail::GetTypeName<TypeParam>();
+        m_type_param = tmp;
+#endif
+    }
 
 public:
     /** type param 文字列の取得 */

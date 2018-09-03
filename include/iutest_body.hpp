@@ -336,6 +336,25 @@ class is_useful_testfixture<void (int(T))> : public is_useful_testfixture_helper
 
 #endif
 
+IUTEST_ATTRIBUTE_NO_SANITIZE_MEMORY
+inline bool IsDisableTestName(const ::std::string& name)
+{
+#if IUTEST_HAS_MEMORY_SANITIZER
+    const ::std::string test_name(name);
+    const ::std::string disabled_name = "DISABLED_";
+    const ::std::string disabled_name_with_prefix = "/DISABLED_";
+    if( detail::IsStringForwardMatching(test_name, disabled_name)
+        || detail::IsStringContains(test_name, disabled_name_with_prefix) )
+#else
+    if( detail::IsStringForwardMatching(name, "DISABLED_")
+        || detail::IsStringContains(name, "/DISABLED_") )
+#endif
+    {
+        return true;
+    }
+    return false;
+}
+
 }   // end of namespace detail
 
 }   // end of namespace iutest
