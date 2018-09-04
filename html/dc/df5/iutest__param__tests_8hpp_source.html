@@ -290,7 +290,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keyword">class </span>EachTest IUTEST_CXX_FINAL : <span class="keyword">public</span> IParamTestInfoData::ParamEachTestBase&lt;ParamType&gt;</div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    {</div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        EachTest(TestCase* testcase, <span class="keyword">const</span> <span class="keywordtype">char</span>* name)</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        EachTest(TestCase* testcase, const ::std::string&amp; name)</div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;            : m_mediator(testcase)</div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;            , m_info(&amp;m_mediator, name, &amp;m_factory)</div>
 <div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        {</div>
@@ -312,7 +312,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;</div>
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="comment">// テストケースの作成</span></div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <span class="keyword">virtual</span> TestCase* MakeTestCase(<span class="keyword">const</span> <span class="keywordtype">char</span>* testcase_name, <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a> <span class="keywordtype">id</span></div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <span class="keyword">virtual</span> TestCase* MakeTestCase(const ::std::string&amp; testcase_name, <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a> <span class="keywordtype">id</span></div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        , <a class="code" href="../../d3/dda/namespaceiutest.html#a0c6209d69c0bb07ae10f0bfb0df003ad">SetUpMethod</a> setup, <a class="code" href="../../d3/dda/namespaceiutest.html#a0da5e09ef9f72886ae6162e7f52975ce">TearDownMethod</a> teardown) <span class="keyword">const</span> <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
 <div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    {</div>
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)</span></div>
@@ -325,7 +325,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;</div>
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="comment">// テストの作成登録</span></div>
 <div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="keyword">virtual</span> IParamTestInfoData::EachTestBase* RegisterTest(TestCase* testcase</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;                                                        , <span class="keyword">const</span> <span class="keywordtype">char</span>* name) <span class="keyword">const</span> <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;                                                        , const ::std::string&amp; name) <span class="keyword">const</span> <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    {</div>
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        EachTest* test = <span class="keyword">new</span> EachTest(testcase, name);</div>
 <div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        <span class="comment">// new オブジェクトを管理してもらう</span></div>
@@ -649,7 +649,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年08月27日(月) 13時32分40秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年09月04日(火) 03時51分50秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -358,7 +358,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="preprocessor"></span>    <span class="keyword">using</span> abi::__cxa_demangle;</div>
 <div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <span class="keywordtype">int</span> status=1;</div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="keywordtype">char</span>* <span class="keyword">const</span> read_name = __cxa_demangle(name, 0, 0, &amp;status);</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    ::std::string str = status == 0 ? read_name : name;</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    ::std::string str(status == 0 ? read_name : name);</div>
 <div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    free(read_name);</div>
 <div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="keywordflow">return</span> str;</div>
 <div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="preprocessor">#else</span></div>
@@ -406,7 +406,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年08月27日(月) 13時32分39秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年09月04日(火) 03時51分49秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
