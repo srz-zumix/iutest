@@ -235,6 +235,28 @@ IUTEST(FileSystem, SpaceInfoPrintTo)
     }
 }
 
+IUTEST(FileSystem, DirectoryEntryCompare)
+{
+    {
+        ::std::filesystem::path path = __FILE__;
+        ::std::filesystem::directory_entry x = *::std::filesystem::directory_iterator(path.remove_filename());
+        ::std::filesystem::directory_entry v1 = x;
+        ::std::filesystem::directory_entry v2 = x;
+        IUTEST_EXPECT_EQ(v1, v2);
+    }
+}
+
+IUTEST(FileSystem, DirectoryEntryPrintTo)
+{
+    {
+        ::std::filesystem::path path = __FILE__;
+        ::std::filesystem::path directory = path.remove_filename();
+        LogChecker ck(directory.string());
+        ::std::filesystem::directory_entry x = *::std::filesystem::directory_iterator(directory);
+        IUTEST_SUCCEED() << ::iutest::PrintToString(x);
+    }
+}
+
 #endif
 
 

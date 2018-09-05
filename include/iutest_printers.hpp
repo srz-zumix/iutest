@@ -397,6 +397,10 @@ inline void PrintTo(const ::std::filesystem::space_info& value, iu_ostream* os)
         << ", free: " << detail::FormatSizeByte(value.free)
         << ", available: " << detail::FormatSizeByte(value.available);
 }
+inline void PrintTo(const ::std::filesystem::directory_entry& value, iu_ostream* os)
+{
+    PrintTo(value.path(), os);
+}
 #endif
 
 #if IUTEST_HAS_NULLPTR

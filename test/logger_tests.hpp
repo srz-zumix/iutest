@@ -62,6 +62,10 @@ public:
     {
         ::iutest::detail::iuConsole::SetLogger(&printer_logger);
     }
+    explicit LogChecker(const std::string& str) : m_str(str)
+    {
+        ::iutest::detail::iuConsole::SetLogger(&printer_logger);
+    }
     ~LogChecker(void)
     {
         ::iutest::detail::iuConsole::SetLogger(NULL);
