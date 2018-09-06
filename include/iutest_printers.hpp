@@ -368,11 +368,13 @@ inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_ty
     IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, fifo);
     IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, socket);
     IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, unknown);
+#if defined(IUTEST_OS_WINDOWS)
     IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, junction);
+#endif
     default:
         break;
     }
-    return "";
+    return PrintTo(static_cast<int>(value, os);
 }
 inline void PrintTo(const ::std::filesystem::path& value, iu_ostream* os)
 {
