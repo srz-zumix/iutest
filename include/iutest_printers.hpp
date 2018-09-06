@@ -374,7 +374,7 @@ inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_ty
     default:
         break;
     }
-    return PrintTo(static_cast<int>(value, os);
+    return PrintToString(static_cast<int>(value));
 }
 inline void PrintTo(const ::std::filesystem::path& value, iu_ostream* os)
 {
