@@ -153,6 +153,7 @@ if (build_tests)
     values_gen_tests.cpp
     variadic_templates_tests.cpp
   )
+  cxx_executable_test(feature_spec_tests)
   cxx_executable_test(file_system_tests)
   cxx_executable_test(filter_tests)
   cxx_executable_test(flagfile_gtest_tests)

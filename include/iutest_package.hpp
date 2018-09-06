@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,7 +31,7 @@
 
 #if IUTEST_HAS_PACKAGE
 
-#define IUTEST_CONCAT_PACKAGE_(testcase_name)   IIUT_CONCAT_PACKAGE_I(testcase_name).c_str()
+#define IUTEST_CONCAT_PACKAGE_(testcase_name)   IIUT_CONCAT_PACKAGE_I(testcase_name)
 #define IIUT_CONCAT_PACKAGE_I(testcase_name)                    \
     iuTest_ConcatTestCaseName( iuTest_GetTestCasePackageName(   \
         static_cast<iuTest_TestCasePackage*>(NULL))             \

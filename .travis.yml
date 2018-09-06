@@ -16,15 +16,39 @@ addons:
     packages: &apt-common-packages
       - clang-6.0
       - libc++-dev
-      - g++-7
-      - gcc-7
+      - g++-8
+      - gcc-8
       #- cppcheck
 
 before_install:
   - python .ci/travisci/travis_blocking_stdout.py
-  - apt-cache search clang || true
-  - apt-cache search gcc || true
-  - if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then export USE_NEWEST_GCC=1; fi
+  #- apt-cache search clang || true
+  #- apt-cache search gcc || true
+  # g++
+  - |
+    if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then
+      export CC=gcc-8
+      export CXX=g++-8
+      export CCOV=gcov-8
+      export AR=gcc-ar-8
+      export RANLIB=gcc-ranlib-8 
+      #update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-8  90
+      #update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-8  90
+      #update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-8 90
+    fi
+  # clang
+  - |
+    if [ "${CXX}" = 'clang++' ] && [ "${TRAVIS_OS_NAME}" != 'osx' ]; then
+      export CCC=clang-6.0;
+      export CXX=clang++-6.0;
+      #update-alternatives --install /usr/bin/clang   clang   /usr/bin/clang-7   90
+      #update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-7 90
+    fi
+  # mingw
+  - if [ "${MINGW}" = '1' ]; then export CXX=i686-w64-mingw32-g++; fi
+  # winegcc
+  - if [ "${WINEGCC}" = '1' ]; then export CXX=wineg++; fi
+
 
 install:
   # gcov/lcov
@@ -71,25 +95,8 @@ install:
       fi
     fi
 
-before_script:
-  # g++
-  - |
-    if [ "${USE_NEWEST_GCC}" = '1' ]; then
-      export CC=gcc-7
-      export CXX=g++-7
-      export CCOV=gcov-7
-    fi
-  # clang
-  - |
-    if [ "${CXX}" = 'clang++' ] && [ "${TRAVIS_OS_NAME}" != 'osx' ; then
-      export CXX=clang++-6.0;
-    fi
-  # mingw
-  - if [ "${MINGW}" = '1' ]; then export CXX=i686-w64-mingw32-g++; fi
-  # winegcc
-  - if [ "${WINEGCC}" = '1' ]; then export CXX=wineg++; fi
-
 script:
+  - if [ -n "${CUSTOM_COMMANDS}" ]; then echo "${CUSTOM_COMMANDS}" && eval ${CUSTOM_COMMANDS}; fi
   - if [ "${USE_LIB}" == '1' ]; then cd projects/make && make && cd -; fi
   - if [ "${USE_CMAKE}" == '1' ]; then
       mkdir ./cmake-build && cd ./cmake-build && cmake ../projects/cmake && cmake --build . && ctest -C Debug -V && cd ..;
@@ -128,7 +135,7 @@ env:
     - STDFLAG=
 
   allow_failures:
-    - COVERITY_SCAN=1
+    - env: COVERITY_SCAN=1
 
 matrix:
   include:
@@ -224,7 +231,19 @@ matrix:
           branch_pattern: master
     - os: osx
       env: OSX=1 STDFLAG=-std=c++11
-
+    # Sanitize
+    #- compiler: clang
+    #  env:
+    #    - STDFLAG=-std=c++11
+    #    - DEFS="-DIUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER=1 -DIUTEST_CHECK_STRICT=0 -DIUTEST_HAS_HDR_CXXABI=0"
+    #    - CXXFLAGS="-stdlib=libc++ -fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer"
+    #    #- CUSTOM_COMMANDS="clang++-6.0 -Wall -Wextra -std=c++14 -stdlib=libc++ -g -fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer -O1 samples/simple.cpp samples/main.cpp && ./a.out && ./a.out --feature --spec"
+    #- compiler: gcc
+    #  env:
+    #    - STDFLAG=-std=c++11
+    #   - DEFS="-DIUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER=1 -DIUTEST_CHECK_STRICT=0 -DIUTEST_HAS_HDR_CXXABI=0"
+    #    - CXXFLAGS="-lasan -fsanitize=address -fno-omit-frame-pointer"
+ 
 notifications:
   webhooks:
     urls:

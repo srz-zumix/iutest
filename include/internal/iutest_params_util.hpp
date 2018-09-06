@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -46,8 +46,8 @@ public:
 public:
     explicit IParamTestInfoData(const char* name) : m_name(name) {}
     virtual ~IParamTestInfoData() IUTEST_CXX_DEFAULT_FUNCTION
-    virtual TestCase* MakeTestCase(const char* , TestTypeId , SetUpMethod , TearDownMethod ) const = 0;
-    virtual EachTestBase* RegisterTest(TestCase* , const char* ) const = 0;
+    virtual TestCase* MakeTestCase(const ::std::string& , TestTypeId , SetUpMethod , TearDownMethod ) const = 0;
+    virtual EachTestBase* RegisterTest(TestCase* , const ::std::string& ) const = 0;
     const char* GetName() const { return m_name.c_str(); }
 protected:
     ::std::string m_name;
@@ -63,6 +63,8 @@ public:
 protected:
     IParamTestCaseInfo(const ::std::string& base_name, const ::std::string& package_name)
         : m_testcase_base_name(base_name), m_package_name(package_name) {}
+    IParamTestCaseInfo(const char* base_name, const char* package_name)
+        : m_testcase_base_name(base_name), m_package_name(package_name) {}
 
 public:
     /**
@@ -71,7 +73,7 @@ public:
     void AddTestPattern(IParamTestInfoData* testinfo)
     {
         m_testinfos.push_back(testinfo);
-    };
+    }
 
 public:
     void RegisterTests() const
@@ -87,6 +89,10 @@ public:
 
 public:
     bool is_same(const ::std::string& base_name, const ::std::string& package_name)
+    {
+        return m_testcase_base_name == base_name && m_package_name == package_name;
+    }
+    bool is_same(const char* base_name, const char* package_name)
     {
         return m_testcase_base_name == base_name && m_package_name == package_name;
     }
@@ -136,6 +142,10 @@ public:
         : IParamTestCaseInfo(testcase_name, package_name)
     {
     }
+    ParamTestCaseInfo(const char* testcase_name, const char* package_name)
+        : IParamTestCaseInfo(testcase_name, package_name)
+    {
+    }
     virtual ~ParamTestCaseInfo() {}
 
     /**
@@ -163,14 +173,8 @@ public:
             // パラメータ生成器の作成
             detail::scoped_ptr<ParamGenerator> p((gen_it->second.CreateGen)());
 
-            ::std::string testcase_name = m_package_name;
-            if( !gen_it->first.empty() )
-            {
-                testcase_name += gen_it->first;
-                testcase_name += "/";
-            }
-            testcase_name += m_testcase_base_name;
-            TestCase* testcase = infodata->MakeTestCase(testcase_name.c_str()
+            const ::std::string testcase_name = CreateTestCaseName(gen_it->first);
+            TestCase* testcase = infodata->MakeTestCase(testcase_name
                 , internal::GetTypeId<Tester>()
                 , Tester::SetUpTestCase
                 , Tester::TearDownTestCase);
@@ -188,7 +192,7 @@ public:
                         IUTEST_LOG_(WARNING) << testcase_name << "." << name << " is already exist.";
                     }
 #endif
-                    EachTest* test = static_cast<EachTest*>(infodata->RegisterTest(testcase, name.c_str()));
+                    EachTest* test = static_cast<EachTest*>(infodata->RegisterTest(testcase, name));
                     test->SetParam(p->GetCurrent());
                     ++i;
                 }
@@ -212,6 +216,18 @@ public:
         return DefaultParamNameFunc;
     }
 
+private:
+    ::std::string CreateTestCaseName(const ::std::string& generator_name) const
+    {
+        ::std::string testcase_name = m_package_name;
+        if( !generator_name.empty() )
+        {
+            testcase_name += generator_name;
+            testcase_name += "/";
+        }
+        testcase_name += m_testcase_base_name;
+        return testcase_name;
+    }
 private:
     static bool CheckTestName(const TestCase* testcase, const::std::string& name)
     {
@@ -245,21 +261,33 @@ private:
             delete *it;
         }
     }
+
 public:
     template<typename T>
     ParamTestCaseInfo<T>* GetTestCasePatternHolder(const ::std::string& testcase
         , const ::std::string& package IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_(T) )
     {
+        ParamTestCaseInfo<T>* p = static_cast<ParamTestCaseInfo<T>*>(FindTestCasePatternHolder(testcase, package));
+        if( p == NULL )
+        {
+            p = new ParamTestCaseInfo<T>(testcase, package);
+            m_testcase_infos.push_back(p);
+        }
+        return p;
+    }
+
+private:
+    template<typename T>
+    IParamTestCaseInfo* FindTestCasePatternHolder(const T& testcase, const T& package)
+    {
         for( TestCaseInfoContainer::iterator it=m_testcase_infos.begin(), end=m_testcase_infos.end(); it != end; ++it )
         {
             if( (*it)->is_same(testcase, package) )
             {
-                return static_cast<ParamTestCaseInfo<T>*>(*it);
+                return (*it);
             }
         }
-        ParamTestCaseInfo<T>* p = new ParamTestCaseInfo<T>(testcase, package);
-        m_testcase_infos.push_back(p);
-        return p;
+        return NULL;
     }
 
 public:

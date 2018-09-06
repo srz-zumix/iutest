@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -335,6 +335,16 @@ class is_useful_testfixture<void (int(T))> : public is_useful_testfixture_helper
 };
 
 #endif
+
+inline bool IsDisableTestName(const ::std::string& name)
+{
+    if( detail::IsStringForwardMatching(name, "DISABLED_")
+        || detail::IsStringContains(name, "/DISABLED_") )
+    {
+        return true;
+    }
+    return false;
+}
 
 }   // end of namespace detail
 
