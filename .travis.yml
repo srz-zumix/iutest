@@ -228,7 +228,7 @@ matrix:
           notification_email: zumix.cpp@gmail.com
           build_command_prepend: "cov-configure --comptype gcc --compiler gcc-7 --template && cd ./test"
           build_command: make coverity_scan STDFLAG=-std=c++1z
-          branch_pattern: master
+          branch_pattern: "master|*coverity_scan*"
     - os: osx
       env: OSX=1 STDFLAG=-std=c++11
     # Sanitize
