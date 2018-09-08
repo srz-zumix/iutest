@@ -189,7 +189,7 @@ IUTEST(FileSystem, PathCompare)
 IUTEST(FileSystem, PathPrintTo)
 {
     {
-        LogChecker ck("cxx_feature_tests.cpp\"");
+        LogChecker ck("/cxx_feature_tests.cpp");
         ::std::filesystem::path v = __FILE__;
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
@@ -250,9 +250,20 @@ IUTEST(FileSystem, DirectoryEntryPrintTo)
 {
     {
         ::std::filesystem::path path = __FILE__;
-        ::std::filesystem::path directory = path.remove_filename();
-        LogChecker ck(directory.string());
+        ::std::filesystem::path directory = path.remove_filename().append("testdata");
+        LogChecker ck(directory.generic_string());
         ::std::filesystem::directory_entry x = *::std::filesystem::directory_iterator(directory);
+        IUTEST_SUCCEED() << ::iutest::PrintToString(x);
+    }
+}
+
+IUTEST(FileSystem, DirectoryIteratorPrintTo)
+{
+    {
+        ::std::filesystem::path path = __FILE__;
+        ::std::filesystem::path directory = path.remove_filename().append("testdata");
+        LogChecker ck(directory.generic_string());
+        ::std::filesystem::directory_iterator x = ::std::filesystem::directory_iterator(directory);
         IUTEST_SUCCEED() << ::iutest::PrintToString(x);
     }
 }

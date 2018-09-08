@@ -378,7 +378,7 @@ inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_ty
 }
 inline void PrintTo(const ::std::filesystem::path& value, iu_ostream* os)
 {
-    DefaultPrintNonContainerTo(value, os);
+    *os << value.generic_string();
 }
 inline void PrintTo(const ::std::filesystem::file_type& value, iu_ostream* os)
 {
@@ -402,6 +402,10 @@ inline void PrintTo(const ::std::filesystem::space_info& value, iu_ostream* os)
 inline void PrintTo(const ::std::filesystem::directory_entry& value, iu_ostream* os)
 {
     PrintTo(value.path(), os);
+}
+inline void PrintTo(const ::std::filesystem::directory_iterator& value, iu_ostream* os)
+{
+    PrintTo(*value, os);
 }
 #endif
 
