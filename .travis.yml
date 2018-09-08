@@ -227,7 +227,7 @@ matrix:
             description: "iutest c++ testing framework"
           notification_email: zumix.cpp@gmail.com
           build_command_prepend: "cov-configure --comptype gcc --compiler gcc-8 --template && cd ./test"
-          build_command: make -j4 coverity_scan STDFLAG=-std=c++11
+          build_command: make -j4 coverity_scan STDFLAG=-std=c++03
           branch_pattern: master|.*coverity_scan.*
     - os: osx
       env: OSX=1 STDFLAG=-std=c++11
