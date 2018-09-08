@@ -217,6 +217,8 @@ matrix:
 #      env: USE_LIB=1
     #- compiler: gcc
     #  env: CPPCHECK=1
+    - os: osx
+      env: OSX=1 STDFLAG=-std=c++11
     - compiler: gcc
       env: COVERITY_SCAN=1
       addons:
@@ -229,8 +231,6 @@ matrix:
           build_command_prepend: "cov-configure --comptype gcc --compiler gcc-8 --template && cd ./test"
           build_command: make -j4 coverity_scan STDFLAG=-std=c++03
           branch_pattern: master|.*coverity_scan.*
-    - os: osx
-      env: OSX=1 STDFLAG=-std=c++11
     # Sanitize
     #- compiler: clang
     #  env:
