@@ -24,6 +24,9 @@ before_install:
   - python .ci/travisci/travis_blocking_stdout.py
   #- apt-cache search clang || true
   #- apt-cache search gcc || true
+  # compiler predefined specific
+  - if [[ "${COMPILER_CC}" != "" ]]; then export CC=${COMPILER_CC}; fi
+  - if [[ "${COMPILER_CXX}" != "" ]]; then export CXX=${COMPILER_CXX}; fi
   # g++
   - |
     if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then
@@ -222,8 +225,8 @@ matrix:
     - compiler: gcc
       env:
         - COVERITY_SCAN=1
-        - CC=gcc-7
-        - CXX=g++-7
+        - COMPILER_CC=gcc-7
+        - COMPILER_CXX=g++-7
       addons:
         apt:
           sources: *apt-common-sources
