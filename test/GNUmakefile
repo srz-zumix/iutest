@@ -40,6 +40,10 @@ ifdef _DEBUG
 CXXFLAGS += -ggdb
 endif
 
+ifdef _VERBOSE
+CXXFLAGS += -v
+endif
+
 ifdef USE_COVERAGE
 CXXFLAGS += -coverage
 ifndef CCOV
