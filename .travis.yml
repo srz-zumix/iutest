@@ -47,11 +47,6 @@ before_install:
       #update-alternatives --install /usr/bin/clang   clang   /usr/bin/clang-7   90
       #update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-7 90
     fi
-  # mingw
-  - if [ "${MINGW}" = '1' ]; then export CXX=i686-w64-mingw32-g++; fi
-  # winegcc
-  - if [ "${WINEGCC}" = '1' ]; then export CXX=wineg++; fi
-
 
 install:
   # gcov/lcov
@@ -201,7 +196,10 @@ matrix:
             - google-mock
     # MinGW
     # - compiler: gcc
-    #   env: MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAM_BUFFER=0"
+    #   env: 
+    #     - MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAM_BUFFER=0"
+    #     - COMPILER_CC=i686-w64-mingw32-gcc
+    #     - COMPILER_CXX=i686-w64-mingw32-g++
     #   addons:
     #     apt:
     #       sources:
