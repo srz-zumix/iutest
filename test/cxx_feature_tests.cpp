@@ -175,7 +175,7 @@ IUTEST(Any, PrintTo)
 
 #endif
 
-#if IUTEST_HAS_CXX_HDR_FILESYSTEM
+#if IUTEST_HAS_CXX_HDR_FILESYSTEM && 0 // need -lstdc++fs
 
 IUTEST(FileSystem, PathCompare)
 {
