@@ -321,7 +321,7 @@ private:
     static const UInt kSignMask = static_cast<UInt>(1u) << (kEXP + kFRAC);
     static const UInt kExpMask = ((static_cast<UInt>(1u) << kEXP) - 1) << kFRAC;
     static const UInt kFracMask = (static_cast<UInt>(1u) << kFRAC) - 1;
-    static const UInt kEnableBitMask = (static_cast<UInt>(1u) << (kEXP + kFRAC + 1)) - 1;
+    static const UInt kEnableBitMask = kSignMask | kExpMask | kFracMask;
 #else
     static const UInt kSignMask;
     static const UInt kExpMask;
@@ -345,6 +345,9 @@ const typename floating_point<T>::UInt floating_point<T>::kExpMask
 template<typename T>
 const typename floating_point<T>::UInt floating_point<T>::kFracMask
     = ((static_cast<typename floating_point<T>::UInt>(1u) << floating_point<T>::kFRAC) - 1);
+template<typename T>
+const typename floating_point<T>::UInt floating_point<T>::kEnableBitMask
+    = floating_point<T>::kSignMask | floating_point<T>::kExpMask | floating_point<T>::kFracMask;
 
 #endif
 
