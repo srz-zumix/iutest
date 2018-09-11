@@ -41,6 +41,10 @@ int* p1 = NULL;
 int** p2 = &p1;
 float f0 = 0.0f;
 double d0 = 0.0;
+#if IUTEST_HAS_LONG_DOUBLE
+long double ld0 = 0.0;
+#endif
+
 struct X { int a, b; X(int _a, int _b) : a(_a), b(_b) {} int GetA() const { return a; } };
 X gx(1, 1);
 ::std::map<int, X> mx;
@@ -100,12 +104,25 @@ IUTEST(Matcher, TypedEq)
 IUTEST(Matcher, FloatEq)
 {
     IUTEST_EXPECT_THAT(f0, FloatEq(0.0f));
+    IUTEST_EXPECT_THAT(f0, FloatingPointEq(0.0f));
 }
 
 IUTEST(Matcher, DoubleEq)
 {
     IUTEST_EXPECT_THAT(d0, DoubleEq(0.0));
+    IUTEST_EXPECT_THAT(d0, FloatingPointEq(0.0));
 }
+
+#if IUTEST_HAS_LONG_DOUBLE
+
+IUTEST(Matcher, LongDoubleEq)
+{
+    IUTEST_EXPECT_THAT(ld0, LongDoubleEq(0.0));
+    long double ldx = 0.001;
+    IUTEST_EXPECT_THAT(ldx, LongDoubleEq(0.001));
+}
+
+#endif
 
 IUTEST(Matcher, NanSensitiveFloatEq)
 {

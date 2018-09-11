@@ -1913,6 +1913,16 @@ detail::TypedEqMatcher<T> TypedEq(const U& expected)
 }
 
 /**
+ * @brief   Make FloatingPoint Eq matcher
+ * @details argument は expected とおよそ等しい
+*/
+template<typename T>
+inline detail::FloatingPointEqMatcher<T> FloatingPointEq(T expected)
+{
+    return detail::FloatingPointEqMatcher<T>(expected);
+}
+
+/**
  * @brief   Make Float Eq matcher
  * @details argument は expected とおよそ等しい
 */
@@ -1929,6 +1939,19 @@ inline detail::FloatingPointEqMatcher<double> DoubleEq(double expected)
 {
     return detail::FloatingPointEqMatcher<double>(expected);
 }
+
+#if IUTEST_HAS_LONG_DOUBLE
+
+/**
+ * @brief   Make Long Double Eq matcher
+ * @details argument は expected とおよそ等しい
+*/
+inline detail::FloatingPointEqMatcher<long double> LongDoubleEq(long double expected)
+{
+    return detail::FloatingPointEqMatcher<long double>(expected);
+}
+
+#endif
 
 /**
  * @brief   Make NanSensitive Float Eq matcher

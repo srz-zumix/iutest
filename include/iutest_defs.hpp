@@ -110,6 +110,37 @@ struct ieee754_bits<double>
     };
 };
 
+#if IUTEST_HAS_LONG_DOUBLE
+
+template<size_t N>
+struct ieee754_bits_longdouble {};
+
+template<>
+struct ieee754_bits_longdouble<8u>
+{
+    enum {
+          EXP = 11
+        , FRAC = 52
+    };
+};
+
+// 80bit 精度
+template<>
+struct ieee754_bits_longdouble<16u>
+{
+    enum {
+          EXP = 15
+        , FRAC = 64
+    };
+};
+
+template<>
+struct ieee754_bits<long double> : ieee754_bits_longdouble<sizeof(long double)>
+{
+};
+
+#endif
+
 }   // end of namespace detail
 
 /**
@@ -146,6 +177,7 @@ public:
     */
     floating_point(RawType f)   // NOLINT
     {
+        m_v.uv = 0;
         m_v.fv = f;
     }
 
@@ -176,8 +208,8 @@ public:
     */
     bool    NanSensitiveAlmostEquals(const _Myt& rhs) const
     {
-        const UInt v1 = norm(m_v.uv);
-        const UInt v2 = norm(rhs.m_v.uv);
+        const UInt v1 = norm(bits());
+        const UInt v2 = norm(rhs.bits());
         const UInt diff = (v1 > v2) ? v1 - v2 : v2 - v1;
         if( diff <= kMaxUlps )
         {
@@ -190,7 +222,7 @@ public:
     /**
      * @brief   ビット列の取得
     */
-    UInt    bits() const { return m_v.uv; }
+    UInt    bits() const { return m_v.uv & kEnableBitMask; }
 
     /**
      * @brief   raw データの取得
@@ -289,10 +321,12 @@ private:
     static const UInt kSignMask = static_cast<UInt>(1u) << (kEXP + kFRAC);
     static const UInt kExpMask = ((static_cast<UInt>(1u) << kEXP) - 1) << kFRAC;
     static const UInt kFracMask = (static_cast<UInt>(1u) << kFRAC) - 1;
+    static const UInt kEnableBitMask = (static_cast<UInt>(1u) << (kEXP + kFRAC + 1)) - 1;
 #else
     static const UInt kSignMask;
     static const UInt kExpMask;
     static const UInt kFracMask;
+    static const UInt kEnableBitMask;
 #endif
 
 private:

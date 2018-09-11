@@ -4,6 +4,9 @@
 
 ## Changes for 1.16.6
 
+* Improved
+  * long double に対応
+  
 * Changes
   * iuwandbox: -D__WANDBOX__ コンパイラーオプションを必ずつけるように変更
 

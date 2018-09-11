@@ -490,6 +490,10 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_LONG_DOUBLE)
+#  define IUTEST_HAS_LONG_DOUBLE    1
+#endif
+
 /**
  * @}
 */

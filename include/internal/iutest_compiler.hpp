@@ -880,6 +880,19 @@
 #  include <typeinfo>
 #endif
 
+//! has 128bit type
+#if !defined(IUTEST_HAS_INT128)
+#  if defined(__SIZEOF_INT128__) && __SIZEOF_INT128__ == 16
+#    define IUTEST_HAS_INT128   1
+#  elif defined(_MSC_VER)
+#    define IUTEST_HAS_INT128   1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_INT128)
+#  define IUTEST_HAS_INT128     0
+#endif
+
 //! explicit instantiation access checking
 #if !defined(IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION)
 #  if defined(_MSC_VER) && ((_MSC_VER < 1600) || (_MSC_VER == 1900))
