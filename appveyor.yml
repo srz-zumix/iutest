@@ -21,7 +21,7 @@ environment:
     - BUILD_CYGWIN: yes
       USE_GNU_EXTENSION: 1
       CYGWIN_PATH: C:\cygwin64
-      CYGWIN_SETUP_EXE: setup.exe
+      CYGWIN_SETUP_EXE: setup-x86_64.exe
     - BUILD_MINGW: yes
       MINGW_PATH: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
       #MINGW_PATH: C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1
@@ -98,7 +98,6 @@ for:
         BUILD_CYGWIN: yes
   install:
     cmd: |
-      dir %CYGWIN_PATH% 
       %CYGWIN_PATH%\%CYGWIN_SETUP_EXE% -qnNdO -R %CYGWIN_PATH% -s http://cygwin.mirror.constant.com -l %CYGWIN_PATH%/var/cache/setup -P make -P clang
       SET PATH=%PATH%;%CYGWIN_PATH%\bin
   before_build:
