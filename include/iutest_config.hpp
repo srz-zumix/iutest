@@ -513,6 +513,19 @@
 #  define IUTEST_HAS_FILENO         0   //!< fileno が使用可能かどうか
 #endif
 
+//! ::std::filesystem を使用するかどうか
+#if !defined(IUTEST_USE_CXX_FILESYSTEM)
+#  if IUTEST_HAS_CXX_HDR_FILESYSTEM
+#    if defined(_MSC_VER)
+#      define IUTEST_USE_CXX_FILESYSTEM 1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_USE_CXX_FILESYSTEM)
+#  define IUTEST_USE_CXX_FILESYSTEM     0
+#endif
+
 /**
  * @}
 */
