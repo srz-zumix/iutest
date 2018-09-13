@@ -2,6 +2,20 @@
 
 --------------------------------------------------
 
+## Changes for 1.16.6
+
+* Improved
+  * long double に対応
+  
+* Changes
+  * iuwandbox: -D__WANDBOX__ コンパイラーオプションを必ずつけるように変更
+
+* Bug fixes
+  * iuwandbox: dryrun オプションが失敗を返す問題を修正
+  * いくつかのコンパイラー警告を修正
+
+--------------------------------------------------
+
 ## Changes for 1.16.5
 
 * Improved

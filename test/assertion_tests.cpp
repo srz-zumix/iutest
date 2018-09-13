@@ -215,6 +215,18 @@ IUTEST(AssertionTest, DoubleLE)
     IUTEST_INFORM_PRED_FORMAT2(::iutest::DoubleLE, -1.0, -2.0/2.0);
 }
 
+#if IUTEST_HAS_LONG_DOUBLE
+
+IUTEST(AssertionTest, LongDouble)
+{
+    long double d0=0.0, d1=1.0;
+    IUTEST_ASSERT_LONG_DOUBLE_EQ(1.0, d1);
+    IUTEST_EXPECT_LONG_DOUBLE_EQ(0.0, d0);
+    IUTEST_INFORM_LONG_DOUBLE_EQ(-1.0, -2.0/2.0);
+}
+
+#endif
+
 IUTEST(AssertionTest, Near)
 {
     IUTEST_ASSERT_NEAR(0, 1, 1.5);

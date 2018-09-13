@@ -40,6 +40,10 @@ ifdef _DEBUG
 CXXFLAGS += -ggdb
 endif
 
+ifdef _VERBOSE
+CXXFLAGS += -v
+endif
+
 ifdef USE_COVERAGE
 CXXFLAGS += -coverage
 ifndef CCOV
@@ -141,6 +145,8 @@ IUTEST_INCLUDE=-I$(IUTEST_DIR)/fused-src
 IUTEST_HEADERS+=$(IUTEST_DIR)/fused-src/iutest.hpp
 endif
 
+COVERITY_SCAN_BUILD_TARGETS = $(ALLTESTS_TARGET) $(EXTENSIONTESTS_TARGET) $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY)
+
 #
 #
 # build targets.
@@ -204,7 +210,7 @@ run_% : %_run
 # gtest version test
 gtest-version: clean gtest_version_tests_run
 
-coverity_scan: $(BUILD_TARGETS)
+coverity_scan: $(COVERITY_SCAN_BUILD_TARGETS)
 
 #
 #

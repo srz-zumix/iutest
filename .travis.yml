@@ -24,6 +24,9 @@ before_install:
   - python .ci/travisci/travis_blocking_stdout.py
   #- apt-cache search clang || true
   #- apt-cache search gcc || true
+  # compiler predefined specific
+  - if [[ "${COMPILER_CC}" != "" ]]; then export CC=${COMPILER_CC}; fi
+  - if [[ "${COMPILER_CXX}" != "" ]]; then export CXX=${COMPILER_CXX}; fi
   # g++
   - |
     if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then
@@ -44,11 +47,6 @@ before_install:
       #update-alternatives --install /usr/bin/clang   clang   /usr/bin/clang-7   90
       #update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-7 90
     fi
-  # mingw
-  - if [ "${MINGW}" = '1' ]; then export CXX=i686-w64-mingw32-g++; fi
-  # winegcc
-  - if [ "${WINEGCC}" = '1' ]; then export CXX=wineg++; fi
-
 
 install:
   # gcov/lcov
@@ -198,7 +196,10 @@ matrix:
             - google-mock
     # MinGW
     # - compiler: gcc
-    #   env: MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAM_BUFFER=0"
+    #   env: 
+    #     - MINGW=1 HOST=WINE DEFS="-DIUTEST_HAS_STREAM_BUFFER=0"
+    #     - COMPILER_CC=i686-w64-mingw32-gcc
+    #     - COMPILER_CXX=i686-w64-mingw32-g++
     #   addons:
     #     apt:
     #       sources:
@@ -217,20 +218,27 @@ matrix:
 #      env: USE_LIB=1
     #- compiler: gcc
     #  env: CPPCHECK=1
+    - os: osx
+      env: OSX=1 STDFLAG=-std=c++11
     - compiler: gcc
-      env: COVERITY_SCAN=1
+      env:
+        - COVERITY_SCAN=1
+        - COMPILER_CC=gcc-7
+        - COMPILER_CXX=g++-7
       addons:
-        apt: *apt-global
+        apt:
+          sources: *apt-common-sources
+          packages:
+            - gcc-7
+            - g++-7
         coverity_scan:
           project:
             name: "srz-zumix/iutest"
             description: "iutest c++ testing framework"
           notification_email: zumix.cpp@gmail.com
           build_command_prepend: "cov-configure --comptype gcc --compiler gcc-7 --template && cd ./test"
-          build_command: make coverity_scan STDFLAG=-std=c++1z
-          branch_pattern: master
-    - os: osx
-      env: OSX=1 STDFLAG=-std=c++11
+          build_command: make -j4 coverity_scan STDFLAG=-std=c++17
+          branch_pattern: master|.*coverity_scan.*
     # Sanitize
     #- compiler: clang
     #  env:

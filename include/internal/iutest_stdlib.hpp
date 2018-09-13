@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -713,6 +713,21 @@ struct type_fit_t<8>
 #else
     typedef long long           Int;
     typedef unsigned long long  UInt;
+#endif
+#endif
+};
+
+/** type_fit_t<8> */
+template<>
+struct type_fit_t<16>
+{
+#if IUTEST_HAS_INT128
+#if defined(_MSC_VER)
+    typedef __int128            Int;
+    typedef unsigned __int128   UInt;
+#else
+    typedef __int128_t  Int;
+    typedef __uint128_t UInt;
 #endif
 #endif
 };

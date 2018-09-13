@@ -1913,6 +1913,16 @@ detail::TypedEqMatcher<T> TypedEq(const U& expected)
 }
 
 /**
+ * @brief   Make FloatingPoint Eq matcher
+ * @details argument は expected とおよそ等しい
+*/
+template<typename T>
+inline detail::FloatingPointEqMatcher<T> FloatingPointEq(T expected)
+{
+    return detail::FloatingPointEqMatcher<T>(expected);
+}
+
+/**
  * @brief   Make Float Eq matcher
  * @details argument は expected とおよそ等しい
 */
@@ -1928,6 +1938,29 @@ inline detail::FloatingPointEqMatcher<float> FloatEq(float expected)
 inline detail::FloatingPointEqMatcher<double> DoubleEq(double expected)
 {
     return detail::FloatingPointEqMatcher<double>(expected);
+}
+
+#if IUTEST_HAS_LONG_DOUBLE
+
+/**
+ * @brief   Make Long Double Eq matcher
+ * @details argument は expected とおよそ等しい
+*/
+inline detail::FloatingPointEqMatcher<long double> LongDoubleEq(long double expected)
+{
+    return detail::FloatingPointEqMatcher<long double>(expected);
+}
+
+#endif
+
+/**
+ * @brief   Make FloatingPoint Eq matcher
+ * @details argument は expected とおよそ等しい
+*/
+template<typename T>
+inline detail::NanSensitiveFloatingPointEqMatcher<T> NanSensitiveFloatingPointEq(T expected)
+{
+    return detail::NanSensitiveFloatingPointEqMatcher<T>(expected);
 }
 
 /**
@@ -1947,6 +1980,19 @@ inline detail::NanSensitiveFloatingPointEqMatcher<double> NanSensitiveDoubleEq(d
 {
     return detail::NanSensitiveFloatingPointEqMatcher<double>(expected);
 }
+
+#if IUTEST_HAS_LONG_DOUBLE
+
+/**
+ * @brief   Make NanSensitive LongDouble Eq matcher
+ * @details argument は expected とおよそ等しい（NaN 同士は等しいとされる）
+*/
+inline detail::NanSensitiveFloatingPointEqMatcher<long double> NanSensitiveLongDoubleEq(long double expected)
+{
+    return detail::NanSensitiveFloatingPointEqMatcher<long double>(expected);
+}
+
+#endif
 
 /**
  * @brief   Make StrEq matcher

@@ -396,6 +396,18 @@
 #  define   IUTEST_ASSERT_DOUBLE_EQ(expected, actual)   IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
 #endif
 
+#if IUTEST_HAS_LONG_DOUBLE
+/**
+ * @ingroup IUTEST_ASSERT_
+ * @brief   long double の比較 テスト
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_ASSERT_LONG_DOUBLE_EQ
+#  define   IUTEST_ASSERT_LONG_DOUBLE_EQ(expected, actual)  IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
+#endif
+#endif
+
 /**
  * @ingroup IUTEST_ASSERT_
  * @brief   ２値の差の範囲 テスト
@@ -764,6 +776,18 @@
 */
 #ifndef IUTEST_EXPECT_DOUBLE_EQ
 #  define   IUTEST_EXPECT_DOUBLE_EQ(expected, actual)   IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
+#endif
+
+#if IUTEST_HAS_LONG_DOUBLE
+/**
+ * @ingroup IUTEST_EXPECT_
+ * @brief   long double の比較 テスト
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_EXPECT_LONG_DOUBLE_EQ
+#  define   IUTEST_EXPECT_LONG_DOUBLE_EQ(expected, actual)  IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
+#endif
 #endif
 
 /**
@@ -1146,6 +1170,18 @@
 #  define   IUTEST_INFORM_DOUBLE_EQ(expected, actual)   IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_INFORM_FAILURE)
 #endif
 
+#if IUTEST_HAS_LONG_DOUBLE
+/**
+ * @ingroup IUTEST_INFORM_
+ * @brief   long double の比較 テスト
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_INFORM_LONG_DOUBLE_EQ
+#  define   IUTEST_INFORM_LONG_DOUBLE_EQ(expected, actual)  IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_INFORM_FAILURE)
+#endif
+#endif
+
 /**
  * @ingroup IUTEST_INFORM_
  * @brief   ２値の差の範囲 テスト
@@ -1506,6 +1542,18 @@
 */
 #ifndef IUTEST_ASSUME_DOUBLE_EQ
 #  define   IUTEST_ASSUME_DOUBLE_EQ(expected, actual)   IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
+#endif
+
+#if IUTEST_HAS_LONG_DOUBLE
+/**
+ * @ingroup IUTEST_ASSUME_
+ * @brief   long double の比較 テスト
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_ASSUME_LONG_DOUBLE_EQ
+#  define   IUTEST_ASSUME_LONG_DOUBLE_EQ(expected, actual)  IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
+#endif
 #endif
 
 /**
