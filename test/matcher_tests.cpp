@@ -140,7 +140,7 @@ IUTEST(Matcher, NanSensitiveDoubleEq)
 
 #if IUTEST_HAS_LONG_DOUBLE
 
-IUTEST(Matcher, LongDoubleEq)
+IUTEST(Matcher, NanSensitiveLongDoubleEq)
 {
     IUTEST_EXPECT_THAT(ld0, NanSensitiveLongDoubleEq(0.0));
     long double ldx = 0.001;
@@ -407,23 +407,46 @@ IUTEST(MatcherFailure, FloatEq)
 {
     CHECK_FAILURE( IUTEST_ASSERT_THAT(f0, FloatEq(1.0f)), "Eq: " );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(0/f0, FloatEq(0/f0)), "Eq: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(0/f0, FloatintPointEq(0/f0)), "Eq: " );
 }
 
 IUTEST(MatcherFailure, DoubleEq)
 {
     CHECK_FAILURE( IUTEST_ASSERT_THAT(d0, DoubleEq(1.0)), "Eq: " );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(0/d0, DoubleEq(0/d0)), "Eq: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(0/d0, FloatintPointEq(0/d0)), "Eq: " );
 }
+
+#if IUTEST_HAS_LONG_DOUBLE
+
+IUTEST(MatcherFailure, LongDoubleEq)
+{
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, LongDoubleEq(1.0)), "Eq: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(0/ld0, LongDoubleEq(0/ld0)), "Eq: " );
+}
+
+#endif
 
 IUTEST(MatcherFailure, NanSensitiveFloatEq)
 {
     CHECK_FAILURE( IUTEST_ASSERT_THAT(f0, NanSensitiveFloatEq(1.0f)), "Eq: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(f0, NanSensitiveFloatingPointEq(1.0f)), "Eq: " );
 }
 
 IUTEST(MatcherFailure, NanSensitiveDoubleEq)
 {
     CHECK_FAILURE( IUTEST_ASSERT_THAT(d0, NanSensitiveDoubleEq(1.0)), "Eq: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(d0, NanSensitiveFloatingPointEq(1.0)), "Eq: " );
 }
+
+#if IUTEST_HAS_LONG_DOUBLE
+
+IUTEST(MatcherFailure, NanSensitiveLongDoubleEq)
+{
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, NanSensitiveLongDoubleEq(1.0)), "Eq: " );
+}
+
+#endif
 
 IUTEST(MatcherFailure, StrEq)
 {
