@@ -492,10 +492,14 @@
 
 #if !defined(IUTEST_HAS_LONG_DOUBLE)
 #  if   IUTEST_HAS_INT128
-#    define IUTEST_HAS_LONG_DOUBLE    1
+#    define IUTEST_HAS_LONG_DOUBLE  1
 #  elif defined(__SIZEOF_FLOAT128__) && (__SIZEOF_FLOAT128__ <= 8)
-#    define IUTEST_HAS_LONG_DOUBLE    1
+#    define IUTEST_HAS_LONG_DOUBLE  1
 #  endif
+#endif
+
+#if !defined(IUTEST_HAS_LONG_DOUBLE)
+#  define IUTEST_HAS_LONG_DOUBLE    0
 #endif
 
 /**
