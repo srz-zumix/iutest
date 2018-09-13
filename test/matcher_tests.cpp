@@ -407,14 +407,14 @@ IUTEST(MatcherFailure, FloatEq)
 {
     CHECK_FAILURE( IUTEST_ASSERT_THAT(f0, FloatEq(1.0f)), "Eq: " );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(0/f0, FloatEq(0/f0)), "Eq: " );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(0/f0, FloatintPointEq(0/f0)), "Eq: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(0/f0, FloatingPointEq(0/f0)), "Eq: " );
 }
 
 IUTEST(MatcherFailure, DoubleEq)
 {
     CHECK_FAILURE( IUTEST_ASSERT_THAT(d0, DoubleEq(1.0)), "Eq: " );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(0/d0, DoubleEq(0/d0)), "Eq: " );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(0/d0, FloatintPointEq(0/d0)), "Eq: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(0/d0, FloatingPointEq(0/d0)), "Eq: " );
 }
 
 #if IUTEST_HAS_LONG_DOUBLE
