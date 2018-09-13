@@ -491,7 +491,7 @@
 #endif
 
 #if !defined(IUTEST_HAS_LONG_DOUBLE)
-#  if   defined(IUTEST_HAS_INT128)
+#  if   IUTEST_HAS_INT128
 #    define IUTEST_HAS_LONG_DOUBLE    1
 #  elif defined(__SIZEOF_FLOAT128__) && (__SIZEOF_FLOAT128__ <= 8)
 #    define IUTEST_HAS_LONG_DOUBLE    1
