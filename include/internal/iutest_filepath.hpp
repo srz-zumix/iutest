@@ -40,7 +40,7 @@ class iuFilePath
     public:
         comapt_filepath_string(const char* path) : ::std::string(path) {}
         comapt_filepath_string(const ::std::string& path) : ::std::string(path) {}
-        ::std::string generic_string() const { return *this; }
+        const ::std::string& generic_string() const { return *this; }
     };
 #endif
 
