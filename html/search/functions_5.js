@@ -15,6 +15,7 @@ var searchData=
   ['findtypedtestcase',['FindTypedTestCase',['../d8/dbf/namespaceiuutil.html#a267701080dcf662c5c6a3408167ce9fa',1,'iuutil']]],
   ['floateq',['FloatEq',['../d4/d14/group___m_a_t_c_h_e_r_s.html#ga80c57f9ddda8896ea907e25c6aa7dc07',1,'iutest::matchers']]],
   ['floating_5fpoint',['floating_point',['../d3/d81/classiutest_1_1floating__point.html#a82fff93cfba296685e50a477223b9cb3',1,'iutest::floating_point::floating_point()'],['../d3/d81/classiutest_1_1floating__point.html#a0e5014a2a631ef19f3fd57b00d9cd6fc',1,'iutest::floating_point::floating_point(RawType f)'],['../d3/d81/classiutest_1_1floating__point.html#adc72f07e4eb7eb94c8541d31f6557be6',1,'iutest::floating_point::floating_point(const floating_point &amp;rhs)']]],
+  ['floatingpointeq',['FloatingPointEq',['../d4/d14/group___m_a_t_c_h_e_r_s.html#ga7d98939001f38c168558b6637b4cf0e1',1,'iutest::matchers']]],
   ['floatle',['FloatLE',['../d3/dda/namespaceiutest.html#a1321b4a46ed9da0895a47f0370875e38',1,'iutest']]],
   ['fraction_5fbits',['fraction_bits',['../d3/d81/classiutest_1_1floating__point.html#ac238aa232043ff7bddbf4c45d683c127',1,'iutest::floating_point']]]
 ];

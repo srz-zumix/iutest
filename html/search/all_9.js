@@ -290,6 +290,7 @@ var searchData=
   ['iutest_5fhas_5fignore_5ftest',['IUTEST_HAS_IGNORE_TEST',['../dc/d51/group___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t.html#ga5425d31a97bd3c12a3fa56db01eebf22',1,'iutest_config.hpp']]],
   ['iutest_5fhas_5finitializer_5flist',['IUTEST_HAS_INITIALIZER_LIST',['../dc/d2f/iutest__compiler_8hpp.html#a56943f3c54b7dece398fc050d049183f',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5finline_5fvariable',['IUTEST_HAS_INLINE_VARIABLE',['../dc/d2f/iutest__compiler_8hpp.html#aae37db36c18fe66c95b5a2b99fb001ff',1,'iutest_compiler.hpp']]],
+  ['iutest_5fhas_5fint128',['IUTEST_HAS_INT128',['../dc/d2f/iutest__compiler_8hpp.html#af8b7e3dd4fe1e14d5e4d61e187c31166',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5flambda',['IUTEST_HAS_LAMBDA',['../dc/d2f/iutest__compiler_8hpp.html#a1492732ee8fb90596929d559540bd9ba',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5flambda_5fstatements',['IUTEST_HAS_LAMBDA_STATEMENTS',['../dc/d51/group___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t.html#gab5d1f669de1c39519e686ecb868ca29f',1,'iutest_config.hpp']]],
   ['iutest_5fhas_5flib',['IUTEST_HAS_LIB',['../dd/d04/group___i_u_t_e_s_t___c_o_n_f_i_g.html#gac2792c5edcd3196080bd6a5446a77651',1,'iutest_config.hpp']]],

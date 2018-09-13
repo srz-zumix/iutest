@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.5.2</span>
+   &#160;<span id="projectnumber">1.16.5.4</span>
    </div>
   </td>
  </tr>
@@ -449,14 +449,14 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
 <div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;<a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html">::iutest::AssertionResult</a> IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d8/dbf/namespaceiuutil.html#a72d7eb81b271b97f1fcb6a81edc5245b">CmpHelperEqRange</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* expected_expr, <span class="keyword">const</span> <span class="keywordtype">char</span>* actual_expr</div>
-<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;    , const ::std::initializer_list&lt;T1&gt;&amp; expected, <span class="keyword">const</span> T2&amp; actual)</div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;    , ::std::initializer_list&lt;T1&gt; expected, <span class="keyword">const</span> T2&amp; actual)</div>
 <div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;{</div>
 <div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d8/dbf/namespaceiuutil.html#a6bef07be57635fdc8f412403df3d8a57">detail::CmpHelperEqRange</a>(expected_expr, actual_expr, expected.begin(), expected.end()</div>
 <div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;        , actual.begin(), actual.end());</div>
 <div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;}</div>
 <div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2, <span class="keywordtype">size_t</span> SIZE2&gt;</div>
 <div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;<a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html">::iutest::AssertionResult</a> IUTEST_ATTRIBUTE_UNUSED_ <a class="code" href="../../d8/dbf/namespaceiuutil.html#a72d7eb81b271b97f1fcb6a81edc5245b">CmpHelperEqRange</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* expected_expr, <span class="keyword">const</span> <span class="keywordtype">char</span>* actual_expr</div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;    , const ::std::initializer_list&lt;T1&gt;&amp; expected, T2(&amp;actual)[SIZE2])</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;    , ::std::initializer_list&lt;T1&gt; expected, T2(&amp;actual)[SIZE2])</div>
 <div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;{</div>
 <div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d8/dbf/namespaceiuutil.html#a6bef07be57635fdc8f412403df3d8a57">detail::CmpHelperEqRange</a>(expected_expr, actual_expr, expected.begin(), expected.end()</div>
 <div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;        , actual, actual + SIZE2);</div>
@@ -773,7 +773,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年09月04日(火) 03時51分50秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年09月13日(木) 12時54分04秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

@@ -61,6 +61,7 @@ var searchData=
   ['iutest_5fhas_5fif_5fexists',['IUTEST_HAS_IF_EXISTS',['../dc/d2f/iutest__compiler_8hpp.html#a2d63e2b58f46aaebb6868c9477d34326',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5finitializer_5flist',['IUTEST_HAS_INITIALIZER_LIST',['../dc/d2f/iutest__compiler_8hpp.html#a56943f3c54b7dece398fc050d049183f',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5finline_5fvariable',['IUTEST_HAS_INLINE_VARIABLE',['../dc/d2f/iutest__compiler_8hpp.html#aae37db36c18fe66c95b5a2b99fb001ff',1,'iutest_compiler.hpp']]],
+  ['iutest_5fhas_5fint128',['IUTEST_HAS_INT128',['../dc/d2f/iutest__compiler_8hpp.html#af8b7e3dd4fe1e14d5e4d61e187c31166',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5flambda',['IUTEST_HAS_LAMBDA',['../dc/d2f/iutest__compiler_8hpp.html#a1492732ee8fb90596929d559540bd9ba',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fmemory_5fsanitizer',['IUTEST_HAS_MEMORY_SANITIZER',['../dc/d2f/iutest__compiler_8hpp.html#a8cc33c8644c0e50fa57314cd41363451',1,'iutest_compiler.hpp']]],
   ['iutest_5fhas_5fms_5fextensions',['IUTEST_HAS_MS_EXTENSIONS',['../dc/d2f/iutest__compiler_8hpp.html#a537cb02bd5ef41c5b29807ef19a5e7de',1,'iutest_compiler.hpp']]],

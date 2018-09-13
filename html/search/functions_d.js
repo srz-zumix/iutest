@@ -4,6 +4,7 @@ var searchData=
   ['nansensitivealmostequals',['NanSensitiveAlmostEquals',['../d3/d81/classiutest_1_1floating__point.html#a1c3e745f3d35b5c9f9be13904627ac99',1,'iutest::floating_point']]],
   ['nansensitivedoubleeq',['NanSensitiveDoubleEq',['../d4/d14/group___m_a_t_c_h_e_r_s.html#gab6781e0013e20fd03c26c8549ceb38be',1,'iutest::matchers']]],
   ['nansensitivefloateq',['NanSensitiveFloatEq',['../d4/d14/group___m_a_t_c_h_e_r_s.html#gaa1dbfedcbf810557d5a0c354fb45eeb1',1,'iutest::matchers']]],
+  ['nansensitivefloatingpointeq',['NanSensitiveFloatingPointEq',['../d4/d14/group___m_a_t_c_h_e_r_s.html#ga55d4f87b218eb0e76e0ba5b15809d9ab',1,'iutest::matchers']]],
   ['ne',['Ne',['../d4/d14/group___m_a_t_c_h_e_r_s.html#ga7f7abedb821d6cdd3ea6297c5b2b89c9',1,'iutest::matchers::Ne(const T &amp;expected)'],['../d4/d14/group___m_a_t_c_h_e_r_s.html#gabb443c6232361be33e0ae183d2d91e31',1,'iutest::matchers::Ne()']]],
   ['ninf',['NINF',['../d3/d81/classiutest_1_1floating__point.html#ae8c1c5b46b42e78b4134a1ef01b39d4f',1,'iutest::floating_point']]],
   ['nnan',['NNAN',['../d3/d81/classiutest_1_1floating__point.html#a1d57c4e43ec005d88ac0ca0bbc799c29',1,'iutest::floating_point']]],
