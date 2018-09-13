@@ -1958,7 +1958,7 @@ inline detail::FloatingPointEqMatcher<long double> LongDoubleEq(long double expe
  * @details argument は expected とおよそ等しい
 */
 template<typename T>
-inline detail::FloatingPointEqMatcher<T> NanSensitiveFloatingPointEq(T expected)
+inline detail::NanSensitiveFloatingPointEqMatcher<T> NanSensitiveFloatingPointEq(T expected)
 {
     return detail::NanSensitiveFloatingPointEqMatcher<T>(expected);
 }
