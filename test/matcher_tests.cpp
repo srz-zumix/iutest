@@ -128,13 +128,26 @@ IUTEST(Matcher, NanSensitiveFloatEq)
 {
     IUTEST_EXPECT_THAT(f0, NanSensitiveFloatEq(0.0f));
     IUTEST_EXPECT_THAT(0.0f/f0, NanSensitiveFloatEq(0.0f/f0));
+    IUTEST_EXPECT_THAT(0.0f/f0, NanSensitiveFloatingPointEq(0.0f/f0));
 }
 
 IUTEST(Matcher, NanSensitiveDoubleEq)
 {
     IUTEST_EXPECT_THAT(d0, NanSensitiveDoubleEq(0.0));
     IUTEST_EXPECT_THAT(0.0/d0, NanSensitiveDoubleEq(0.0/d0));
+    IUTEST_EXPECT_THAT(0.0/d0, NanSensitiveFloatingPointEq(0.0/d0));
 }
+
+#if IUTEST_HAS_LONG_DOUBLE
+
+IUTEST(Matcher, LongDoubleEq)
+{
+    IUTEST_EXPECT_THAT(ld0, NanSensitiveLongDoubleEq(0.0));
+    long double ldx = 0.001;
+    IUTEST_EXPECT_THAT(ldx, NanSensitiveLongDoubleEq(0.001));
+}
+
+#endif
 
 IUTEST(Matcher, StrEq)
 {

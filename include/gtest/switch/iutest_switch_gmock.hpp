@@ -131,10 +131,14 @@ namespace matchers
     inline internal::EqMatcher<T> Equals(T x) { return Eq(x); }
 
     template<typename T>
-    inline internal::FloatingEqMatcher<T> FloatPointEq(T rhs) {
+    inline internal::FloatingEqMatcher<T> FloatingPointEq(T rhs) {
         return internal::FloatingEqMatcher<T>(rhs, false);
     }
 
+    template<typename T>
+    inline internal::FloatingEqMatcher<T> NanSensitiveFloatingPointEq(T rhs) {
+        return internal::FloatingEqMatcher<T>(rhs, true);
+    }
 
 #if GMOCK_VER >= 0x01070000
     // gmock 1.7 later
