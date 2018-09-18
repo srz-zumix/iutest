@@ -269,7 +269,7 @@ class FloatingPointNearMatcher : public IMatcher
 {
 public:
     explicit FloatingPointNearMatcher(const T& value, const T& abs_error)
-        : m_expected(value), m_abs_error(abs_error) {}
+        : m_expected(value), m_max_abs_error(abs_error) {}
 
 public:
     template<typename U>
@@ -302,7 +302,7 @@ class NanSensitiveFloatingPointNearMatcher : public IMatcher
 {
 public:
     explicit NanSensitiveFloatingPointNearMatcher(const T& value, const T& abs_error)
-        : m_expected(value), m_abs_error(abs_error) {}
+        : m_expected(value), m_max_abs_error(abs_error) {}
 
 public:
     template<typename U>
