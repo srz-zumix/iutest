@@ -220,6 +220,56 @@ public:
 
 public:
     /**
+     * @brief   浮動小数点数の差分が max_abs_error 以内に収まるかどうか
+    */
+    bool    AlmostNear(const _Myt& rhs, RawType max_abs_error) const
+    {
+        if( is_nan() || rhs.is_nan() )
+        {
+            return false;
+        }
+        if( m_v.fv == rhs.m_v.fv )
+        {
+            return true;
+        }
+        _Myt abs = Abs(rhs);
+        if( abs.m_v.fv <= max_abs_error )
+        {
+            return true;
+        }
+        _Myt abs_error = _Myt(max_abs_error);
+        if( abs.AlmostEquals(abs_error) ) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @brief   浮動小数点数の差分が max_abs_error 以内に収まるかどうか
+    */
+    bool    NanSensitiveAlmostNear(const _Myt& rhs, RawType max_abs_error) const
+    {
+        if( is_nan() && rhs.is_nan() )
+        {
+            return true;
+        }
+        return AlmostNear(rhs, max_abs_error);
+    }
+
+public:
+    _Myt    Abs(const _Myt& rhs) const
+    {
+        if( m_v.fv > rhs.m_v.fv )
+        {
+            return _Myt(m_v.fv - rhs.m_v.fv);
+        }
+        else
+        {
+            return _Myt(rhs.m_v.fv - m_v.fv);
+        }
+    }
+public:
+    /**
      * @brief   ビット列の取得
     */
     UInt    bits() const { return m_v.uv & kEnableBitMask; }

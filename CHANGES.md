@@ -5,6 +5,8 @@
 ## Changes for 1.16.6
 
 * Improved
+  * Matcher に (NanSensitive)FloatNear/DoubleNear を追加
+  * Matcher に template 版の浮動小数点数比較を追加・(NanSensitive)FloatingPointEq/FloatingPointNear
   * long double に対応
   
 * Changes
