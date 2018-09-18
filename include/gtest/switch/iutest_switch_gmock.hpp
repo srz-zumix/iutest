@@ -88,9 +88,13 @@ namespace matchers
     using ::testing::NotNull;
     using ::testing::DoubleEq;
     using ::testing::FloatEq;
+    using ::testing::DoubleNear;
+    using ::testing::FloatNear;
 
     using ::testing::NanSensitiveDoubleEq;
     using ::testing::NanSensitiveFloatEq;
+    using ::testing::NanSensitiveDoubleNear;
+    using ::testing::NanSensitiveFloatNear;
 
     using ::testing::StrEq;
     using ::testing::StrNe;
@@ -138,6 +142,16 @@ namespace matchers
     template<typename T>
     inline internal::FloatingEqMatcher<T> NanSensitiveFloatingPointEq(T rhs) {
         return internal::FloatingEqMatcher<T>(rhs, true);
+    }
+
+    template<typename T>
+    inline internal::FloatingEqMatcher<T> FloatingPointNear(T rhs, T max_abs_error) {
+        return internal::FloatingEqMatcher<T>(rhs, false, max_abs_error);
+    }
+
+    template<typename T>
+    inline internal::FloatingEqMatcher<T> NanSensitiveFloatingPointNear(T rhs, T max_abs_error) {
+        return internal::FloatingEqMatcher<T>(rhs, true, max_abs_error);
     }
 
 #if GMOCK_VER >= 0x01070000

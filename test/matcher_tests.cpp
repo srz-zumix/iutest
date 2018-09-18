@@ -113,6 +113,20 @@ IUTEST(Matcher, DoubleEq)
     IUTEST_EXPECT_THAT(d0, FloatingPointEq(0.0));
 }
 
+IUTEST(Matcher, FloatNear)
+{
+    IUTEST_EXPECT_THAT(f0, FloatNear(0.0f, 0.0f));
+    IUTEST_EXPECT_THAT(f0, FloatNear(1.0f, 1.0f));
+    IUTEST_EXPECT_THAT(f0, FloatingPointNear(0.0f, 0.0f));
+}
+
+IUTEST(Matcher, DoubleNear)
+{
+    IUTEST_EXPECT_THAT(d0, DoubleNear(0.0, 0.0));
+    IUTEST_EXPECT_THAT(d0, DoubleNear(1.0, 1.0));
+    IUTEST_EXPECT_THAT(d0, FloatingPointNear(0.0, 0.0));
+}
+
 #if IUTEST_HAS_LONG_DOUBLE
 
 IUTEST(Matcher, LongDoubleEq)
@@ -122,6 +136,12 @@ IUTEST(Matcher, LongDoubleEq)
     IUTEST_EXPECT_THAT(ldx, LongDoubleEq(0.001));
 }
 
+IUTEST(Matcher, LongDoubleNear)
+{
+    IUTEST_EXPECT_THAT(ld0, LongDoubleNear(0.0, 0.0));
+    long double ldx = 0.001;
+    IUTEST_EXPECT_THAT(ld0, LongDoubleNear(ldx, ldx));
+}
 #endif
 
 IUTEST(Matcher, NanSensitiveFloatEq)
@@ -138,13 +158,38 @@ IUTEST(Matcher, NanSensitiveDoubleEq)
     IUTEST_EXPECT_THAT(0.0/d0, NanSensitiveFloatingPointEq(0.0/d0));
 }
 
+IUTEST(Matcher, NanSensitiveFloatNear)
+{
+    IUTEST_EXPECT_THAT(f0, NanSensitiveFloatNear(0.0f, 0.0f));
+    IUTEST_EXPECT_THAT(f0, NanSensitiveFloatNear(1.0f, 1.0f));
+    IUTEST_EXPECT_THAT(0.0f/f0, NanSensitiveFloatNear(0.0f/f0, 0.0f));
+    IUTEST_EXPECT_THAT(0.0f/f0, NanSensitiveFloatingPointNear(0.0f/f0, 0.0f));
+}
+
+IUTEST(Matcher, NanSensitiveDoubleNear)
+{
+    IUTEST_EXPECT_THAT(d0, NanSensitiveDoubleNear(0.0, 0.0));
+    IUTEST_EXPECT_THAT(d0, NanSensitiveDoubleNear(1.0, 1.0));
+    IUTEST_EXPECT_THAT(0.0/d0, NanSensitiveDoubleNear(0.0/d0, 0.0));
+    IUTEST_EXPECT_THAT(0.0/d0, NanSensitiveFloatingPointNear(0.0/d0, 0.0));
+}
+
 #if IUTEST_HAS_LONG_DOUBLE
 
 IUTEST(Matcher, NanSensitiveLongDoubleEq)
 {
     IUTEST_EXPECT_THAT(ld0, NanSensitiveLongDoubleEq(0.0));
+    IUTEST_EXPECT_THAT(0.0/ld0, NanSensitiveLongDoubleEq(0.0/ld0));
     long double ldx = 0.001;
     IUTEST_EXPECT_THAT(ldx, NanSensitiveLongDoubleEq(0.001));
+}
+
+IUTEST(Matcher, NanSensitiveLongDoubleNear)
+{
+    IUTEST_EXPECT_THAT(ld0, NanSensitiveLongDoubleNear(0.0, 0.0));
+    IUTEST_EXPECT_THAT(0.0/ld0, NanSensitiveLongDoubleNear(0.0/ld0, 0.0));
+    long double ldx = 0.001;
+    IUTEST_EXPECT_THAT(ld0, NanSensitiveLongDoubleNear(ldx, ldx));
 }
 
 #endif

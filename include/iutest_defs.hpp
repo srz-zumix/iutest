@@ -228,7 +228,7 @@ public:
         {
             return false;
         }
-        if( actual == m_expected )
+        if( m_v.fv == rhs.m_v.fv )
         {
             return true;
         }
