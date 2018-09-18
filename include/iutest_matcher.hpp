@@ -2094,7 +2094,7 @@ inline detail::FloatingPointNearMatcher<double> DoubleNear(double expected, doub
  * @brief   Make Long Double Near matcher
  * @details argument は expected と max_abs_error 以内の差分
 */
-inline detail::FloatingPointNearMatcher<long double> LongDoubleENear(long double expected, long double max_abs_error)
+inline detail::FloatingPointNearMatcher<long double> LongDoubleNear(long double expected, long double max_abs_error)
 {
     return detail::FloatingPointNearMatcher<long double>(expected, max_abs_error);
 }
