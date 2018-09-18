@@ -290,8 +290,8 @@ public:
         return strm.str();
     }
 private:
-    T m_max_abs_error;
     floating_point<T> m_expected;
+    T m_max_abs_error;
 };
 
 /**
@@ -323,8 +323,8 @@ public:
         return strm.str();
     }
 private:
-    T m_max_abs_error;
     floating_point<T> m_expected;
+    T m_max_abs_error;
 };
 
 /**
