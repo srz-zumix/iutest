@@ -3,7 +3,7 @@
   <metadata>
     <id>iutest</id>
     <title>iutest</title>
-    <version>1.16.5</version>
+    <version>1.16.6</version>
     <authors>Takazumi Shirayanagi</authors>
     <copyright>Copyright (c) 2011-2018</copyright>
     <summary>C++ testing framework.</summary>
