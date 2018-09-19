@@ -13,6 +13,8 @@ jobs:
       CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
       MAKE_OPTION: -j4 OUTPUTXML=1
+      MAKE_TARGET: all_tests
+      MAKE_RUN_TARGET: run_all_tests
     steps:
     - checkout
     - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
@@ -77,8 +79,8 @@ jobs:
         name: g++ test
         command: |
           make clean
-          case $CIRCLE_NODE_INDEX in 0) make default $MAKE_OPTION OPTIMIZE=-O2 ;; 1) make default $MAKE_OPTION OPTIMIZE=-Os ;; 2) make default $MAKE_OPTION OPTIMIZE=-O3 ;; 3) make default $MAKE_OPTION OPTIMIZE=-O4 ;; esac
-          make test
+          case $CIRCLE_NODE_INDEX in 0) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-O2 ;; 1) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-Os ;; 2) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-O3 ;; 3) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-O4 ;; esac
+          make $MAKE_RUN_TARGET
         working_directory: test
         environment:
           CXX: g++
@@ -86,8 +88,8 @@ jobs:
         name: clang++ test
         command: |
           make clean
-          case $CIRCLE_NODE_INDEX in 0) make default $MAKE_OPTION OPTIMIZE=-O2 ;; 1) make default $MAKE_OPTION OPTIMIZE=-Os ;; 2) make default $MAKE_OPTION OPTIMIZE=-O3 ;; 3) make default $MAKE_OPTION OPTIMIZE=-Oz ;; esac
-          make test
+          case $CIRCLE_NODE_INDEX in 0) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-O2 ;; 1) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-Os ;; 2) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-O3 ;; 3) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-Oz ;; esac
+          make $MAKE_RUN_TARGET
         working_directory: test
         environment:
           CXX: clang++
