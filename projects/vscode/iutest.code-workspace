@@ -10,7 +10,18 @@
 			"future": "cpp",
 			"system_error": "cpp",
 			"random": "cpp",
-			"algorithm": "cpp"
+			"algorithm": "cpp",
+			"__config": "cpp",
+			"__nullptr": "cpp",
+			"exception": "cpp",
+			"initializer_list": "cpp",
+			"new": "cpp",
+			"stdexcept": "cpp",
+			"typeinfo": "cpp",
+			"functional": "cpp",
+			"tuple": "cpp",
+			"type_traits": "cpp",
+			"utility": "cpp"
 		}
 	}
 }
