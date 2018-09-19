@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -504,6 +504,14 @@
 #define IUTEST_TEST_DOUBLE_EQ(expected, actual, on_failure) \
     IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperFloatingPointEQ<double>  \
         , expected, actual, on_failure )
+
+#if IUTEST_HAS_LONG_DOUBLE
+
+#define IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, on_failure) \
+    IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperFloatingPointEQ<long double>  \
+        , expected, actual, on_failure )
+
+#endif
 
 #define IUTEST_TEST_NEAR(v1, v2, abs_v, on_failure)         \
     IUTEST_PRED_FORMAT3_( ::iutest::internal::CmpHelperNear \

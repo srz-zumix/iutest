@@ -262,6 +262,72 @@ private:
 };
 
 /**
+ * @brief   Floating point Near matcher
+*/
+template<typename T>
+class FloatingPointNearMatcher : public IMatcher
+{
+public:
+    explicit FloatingPointNearMatcher(const T& value, const T& abs_error)
+        : m_expected(value), m_max_abs_error(abs_error) {}
+
+public:
+    template<typename U>
+    AssertionResult operator ()(const U& actual) const
+    {
+        floating_point<T> a(actual);
+        if( m_expected.AlmostNear(a, m_max_abs_error) )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << WhichIs();
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        iu_global_format_stringstream strm;
+        strm << "Near: " << PrintToString(m_expected) << "(abs error <= " << m_max_abs_error << ")";
+        return strm.str();
+    }
+private:
+    floating_point<T> m_expected;
+    T m_max_abs_error;
+};
+
+/**
+ * @brief   Floating point Near matcher (NanSensitive)
+*/
+template<typename T>
+class NanSensitiveFloatingPointNearMatcher : public IMatcher
+{
+public:
+    explicit NanSensitiveFloatingPointNearMatcher(const T& value, const T& abs_error)
+        : m_expected(value), m_max_abs_error(abs_error) {}
+
+public:
+    template<typename U>
+    AssertionResult operator ()(const U& actual) const
+    {
+        floating_point<T> a(actual);
+        if( m_expected.NanSensitiveAlmostNear(a, m_max_abs_error) )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << WhichIs();
+    }
+
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        iu_global_format_stringstream strm;
+        strm << "NanSensitive Near: " << PrintToString(m_expected) << "(abs error <= " << m_max_abs_error << ")";
+        return strm.str();
+    }
+private:
+    floating_point<T> m_expected;
+    T m_max_abs_error;
+};
+
+/**
  * @brief   StartsWith matcher
 */
 template<typename T>
@@ -1913,6 +1979,16 @@ detail::TypedEqMatcher<T> TypedEq(const U& expected)
 }
 
 /**
+ * @brief   Make FloatingPoint Eq matcher
+ * @details argument は expected とおよそ等しい
+*/
+template<typename T>
+inline detail::FloatingPointEqMatcher<T> FloatingPointEq(T expected)
+{
+    return detail::FloatingPointEqMatcher<T>(expected);
+}
+
+/**
  * @brief   Make Float Eq matcher
  * @details argument は expected とおよそ等しい
 */
@@ -1928,6 +2004,29 @@ inline detail::FloatingPointEqMatcher<float> FloatEq(float expected)
 inline detail::FloatingPointEqMatcher<double> DoubleEq(double expected)
 {
     return detail::FloatingPointEqMatcher<double>(expected);
+}
+
+#if IUTEST_HAS_LONG_DOUBLE
+
+/**
+ * @brief   Make Long Double Eq matcher
+ * @details argument は expected とおよそ等しい
+*/
+inline detail::FloatingPointEqMatcher<long double> LongDoubleEq(long double expected)
+{
+    return detail::FloatingPointEqMatcher<long double>(expected);
+}
+
+#endif
+
+/**
+ * @brief   Make FloatingPoint Eq matcher
+ * @details argument は expected とおよそ等しい
+*/
+template<typename T>
+inline detail::NanSensitiveFloatingPointEqMatcher<T> NanSensitiveFloatingPointEq(T expected)
+{
+    return detail::NanSensitiveFloatingPointEqMatcher<T>(expected);
 }
 
 /**
@@ -1947,6 +2046,101 @@ inline detail::NanSensitiveFloatingPointEqMatcher<double> NanSensitiveDoubleEq(d
 {
     return detail::NanSensitiveFloatingPointEqMatcher<double>(expected);
 }
+
+#if IUTEST_HAS_LONG_DOUBLE
+
+/**
+ * @brief   Make NanSensitive LongDouble Eq matcher
+ * @details argument は expected とおよそ等しい（NaN 同士は等しいとされる）
+*/
+inline detail::NanSensitiveFloatingPointEqMatcher<long double> NanSensitiveLongDoubleEq(long double expected)
+{
+    return detail::NanSensitiveFloatingPointEqMatcher<long double>(expected);
+}
+
+#endif
+
+/**
+ * @brief   Make FloatingPoint Near matcher
+ * @details argument は expected と max_abs_error 以内の差分
+*/
+template<typename T>
+inline detail::FloatingPointNearMatcher<T> FloatingPointNear(T expected, T max_abs_error)
+{
+    return detail::FloatingPointNearMatcher<T>(expected, max_abs_error);
+}
+
+/**
+ * @brief   Make Float Near matcher
+ * @details argument は expected と max_abs_error 以内の差分
+*/
+inline detail::FloatingPointNearMatcher<float> FloatNear(float expected, float max_abs_error)
+{
+    return detail::FloatingPointNearMatcher<float>(expected, max_abs_error);
+}
+
+/**
+ * @brief   Make Double Near matcher
+ * @details argument は expected と max_abs_error 以内の差分
+*/
+inline detail::FloatingPointNearMatcher<double> DoubleNear(double expected, double max_abs_error)
+{
+    return detail::FloatingPointNearMatcher<double>(expected, max_abs_error);
+}
+
+#if IUTEST_HAS_LONG_DOUBLE
+
+/**
+ * @brief   Make Long Double Near matcher
+ * @details argument は expected と max_abs_error 以内の差分
+*/
+inline detail::FloatingPointNearMatcher<long double> LongDoubleNear(long double expected, long double max_abs_error)
+{
+    return detail::FloatingPointNearMatcher<long double>(expected, max_abs_error);
+}
+
+#endif
+
+/**
+ * @brief   Make FloatingPoint Near matcher
+ * @details argument は expected と max_abs_error 以内の差分
+*/
+template<typename T>
+inline detail::NanSensitiveFloatingPointNearMatcher<T> NanSensitiveFloatingPointNear(T expected, T max_abs_error)
+{
+    return detail::NanSensitiveFloatingPointNearMatcher<T>(expected, max_abs_error);
+}
+
+/**
+ * @brief   Make NanSensitive Float Near matcher
+ * @details argument は expected と max_abs_error 以内の差分（NaN 同士は等しいとされる）
+*/
+inline detail::NanSensitiveFloatingPointNearMatcher<float> NanSensitiveFloatNear(float expected, float max_abs_error)
+{
+    return detail::NanSensitiveFloatingPointNearMatcher<float>(expected, max_abs_error);
+}
+
+/**
+ * @brief   Make NanSensitive Double Near matcher
+ * @details argument は expected と max_abs_error 以内の差分（NaN 同士は等しいとされる）
+*/
+inline detail::NanSensitiveFloatingPointNearMatcher<double> NanSensitiveDoubleNear(double expected, double max_abs_error)
+{
+    return detail::NanSensitiveFloatingPointNearMatcher<double>(expected, max_abs_error);
+}
+
+#if IUTEST_HAS_LONG_DOUBLE
+
+/**
+ * @brief   Make NanSensitive LongDouble Near matcher
+ * @details argument は expected と max_abs_error 以内の差分（NaN 同士は等しいとされる）
+*/
+inline detail::NanSensitiveFloatingPointNearMatcher<long double> NanSensitiveLongDoubleNear(long double expected, long double max_abs_error)
+{
+    return detail::NanSensitiveFloatingPointNearMatcher<long double>(expected, max_abs_error);
+}
+
+#endif
 
 /**
  * @brief   Make StrEq matcher

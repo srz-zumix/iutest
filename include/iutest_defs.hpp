@@ -110,6 +110,37 @@ struct ieee754_bits<double>
     };
 };
 
+#if IUTEST_HAS_LONG_DOUBLE
+
+template<size_t N>
+struct ieee754_bits_longdouble {};
+
+template<>
+struct ieee754_bits_longdouble<8u>
+{
+    enum {
+          EXP = 11
+        , FRAC = 52
+    };
+};
+
+// 80bit 精度
+template<>
+struct ieee754_bits_longdouble<16u>
+{
+    enum {
+          EXP = 15
+        , FRAC = 64
+    };
+};
+
+template<>
+struct ieee754_bits<long double> : ieee754_bits_longdouble<sizeof(long double)>
+{
+};
+
+#endif
+
 }   // end of namespace detail
 
 /**
@@ -146,6 +177,7 @@ public:
     */
     floating_point(RawType f)   // NOLINT
     {
+        m_v.uv = 0;
         m_v.fv = f;
     }
 
@@ -176,8 +208,8 @@ public:
     */
     bool    NanSensitiveAlmostEquals(const _Myt& rhs) const
     {
-        const UInt v1 = norm(m_v.uv);
-        const UInt v2 = norm(rhs.m_v.uv);
+        const UInt v1 = norm(bits());
+        const UInt v2 = norm(rhs.bits());
         const UInt diff = (v1 > v2) ? v1 - v2 : v2 - v1;
         if( diff <= kMaxUlps )
         {
@@ -188,9 +220,59 @@ public:
 
 public:
     /**
+     * @brief   浮動小数点数の差分が max_abs_error 以内に収まるかどうか
+    */
+    bool    AlmostNear(const _Myt& rhs, RawType max_abs_error) const
+    {
+        if( is_nan() || rhs.is_nan() )
+        {
+            return false;
+        }
+        if( m_v.fv == rhs.m_v.fv )
+        {
+            return true;
+        }
+        _Myt abs = Abs(rhs);
+        if( abs.m_v.fv <= max_abs_error )
+        {
+            return true;
+        }
+        _Myt abs_error = _Myt(max_abs_error);
+        if( abs.AlmostEquals(abs_error) ) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @brief   浮動小数点数の差分が max_abs_error 以内に収まるかどうか
+    */
+    bool    NanSensitiveAlmostNear(const _Myt& rhs, RawType max_abs_error) const
+    {
+        if( is_nan() && rhs.is_nan() )
+        {
+            return true;
+        }
+        return AlmostNear(rhs, max_abs_error);
+    }
+
+public:
+    _Myt    Abs(const _Myt& rhs) const
+    {
+        if( m_v.fv > rhs.m_v.fv )
+        {
+            return _Myt(m_v.fv - rhs.m_v.fv);
+        }
+        else
+        {
+            return _Myt(rhs.m_v.fv - m_v.fv);
+        }
+    }
+public:
+    /**
      * @brief   ビット列の取得
     */
-    UInt    bits() const { return m_v.uv; }
+    UInt    bits() const { return m_v.uv & kEnableBitMask; }
 
     /**
      * @brief   raw データの取得
@@ -289,10 +371,12 @@ private:
     static const UInt kSignMask = static_cast<UInt>(1u) << (kEXP + kFRAC);
     static const UInt kExpMask = ((static_cast<UInt>(1u) << kEXP) - 1) << kFRAC;
     static const UInt kFracMask = (static_cast<UInt>(1u) << kFRAC) - 1;
+    static const UInt kEnableBitMask = kSignMask | kExpMask | kFracMask;
 #else
     static const UInt kSignMask;
     static const UInt kExpMask;
     static const UInt kFracMask;
+    static const UInt kEnableBitMask;
 #endif
 
 private:
@@ -311,6 +395,9 @@ const typename floating_point<T>::UInt floating_point<T>::kExpMask
 template<typename T>
 const typename floating_point<T>::UInt floating_point<T>::kFracMask
     = ((static_cast<typename floating_point<T>::UInt>(1u) << floating_point<T>::kFRAC) - 1);
+template<typename T>
+const typename floating_point<T>::UInt floating_point<T>::kEnableBitMask
+    = floating_point<T>::kSignMask | floating_point<T>::kExpMask | floating_point<T>::kFracMask;
 
 #endif
 

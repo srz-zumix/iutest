@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01160503u //!< iutest version 1.16.5.3
+#define IUTEST_VER          0x01160600u //!< iutest version 1.16.6.0
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
-#define IUTEST_MICROVER     0x05u       //!< Micro Version
-#define IUTEST_REVISION     0x03u       //!< Revision
+#define IUTEST_MICROVER     0x06u       //!< Micro Version
+#define IUTEST_REVISION     0x00u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -122,6 +122,9 @@
  <ul>
   <li>v1.16.6.0
     <ul>
+      <li>Matcher に (NanSensitive)FloatNear/DoubleNear を追加</li>
+      <li>Matcher に template 版の浮動小数点数比較を追加・(NanSensitive)FloatingPointEq/FloatingPointNear</li>
+      <li>long double に対応</li>
       <li>iuwandbox: -D__WANDBOX__ コンパイラーオプションを必ずつけるように変更</li>
       <li>iuwandbox: dryrun オプションが失敗を返す問題を修正</li>
       <li>Fixed: いくつかのコンパイラー警告を修正</li>
