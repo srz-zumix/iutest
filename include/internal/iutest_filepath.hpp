@@ -38,8 +38,8 @@ class iuFilePath
     class comapt_filepath_string : public ::std::string
     {
     public:
-        explicit comapt_filepath_string(const char* path) : ::std::string(path) {}
-        explicit comapt_filepath_string(const ::std::string& path) : ::std::string(path) {}
+        comapt_filepath_string(const char* path) : ::std::string(path) {} // NOLINT
+        comapt_filepath_string(const ::std::string& path) : ::std::string(path) {} // NOLINT
         const ::std::string& generic_string() const { return *this; }
     };
 #endif
