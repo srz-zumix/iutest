@@ -38,8 +38,8 @@ class iuFilePath
     class comapt_filepath_string : public ::std::string
     {
     public:
-        comapt_filepath_string(const char* path) : ::std::string(path) {}
-        comapt_filepath_string(const ::std::string& path) : ::std::string(path) {}
+        explicit comapt_filepath_string(const char* path) : ::std::string(path) {}
+        explicit comapt_filepath_string(const ::std::string& path) : ::std::string(path) {}
         const ::std::string& generic_string() const { return *this; }
     };
 #endif
@@ -180,7 +180,6 @@ private:
     void Normalize();
 
 private:
-
 #if IUTEST_USE_CXX_FILESYSTEM
     ::std::filesystem::path m_path;
 #else
