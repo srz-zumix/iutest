@@ -62,7 +62,7 @@ IUTEST_AP(AnyParamTest2, Test)
 
 IUTEST_INSTANTIATE_TEST_CASE_AP(My2, AnyParamTest2, ::iutest::Values("0"));
 
-}
+} // end of namespace workaround
 
 #endif
 
