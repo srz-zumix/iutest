@@ -56,7 +56,7 @@ namespace workaround
 
 IUTEST_AP(AnyParamTest2, Test)
 {
-    const ::std::string value = GetParam<::std::string>();
+    const ::std::string value = GetParam< ::std::string >();
     IUTEST_ASSERT_EQ("0", value);
 }
 
