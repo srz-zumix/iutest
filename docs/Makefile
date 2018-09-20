@@ -22,6 +22,7 @@ gh-pages: target
 	cp -r html gh-pages/
 	cp -r images gh-pages/
 	cp ../README.md gh-pages/
+	cp -r dev/.circleci gh-pages/
 	cp dev/*.yml gh-pages/
 
 clean:
