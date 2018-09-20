@@ -19,10 +19,6 @@
 #include "iutest.hpp"
 #include "logger_tests.hpp"
 
-#if IUTEST_HAS_CXX_HDR_ARRAY
-#  include <array>  // NOLINT
-#endif
-
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
@@ -61,6 +57,21 @@ IUTEST(PrintToTest, Bar)
 }
 
 #if !defined(IUTEST_USE_GTEST)
+
+IUTEST(PrintToTest, IutestAnyNotInitialized)
+{
+    ::iutest::any a;
+    LogChecker ck("empty");
+    IUTEST_SUCCEED() << ::iutest::PrintToString(a);
+}
+
+IUTEST(PrintToTest, IutestAnyString)
+{
+    ::iutest::any a = "test";
+    LogChecker ck("test");
+    IUTEST_SUCCEED() << ::iutest::PrintToString(a);
+}
+
 struct BigVar
 {
     int big[10];
@@ -339,15 +350,6 @@ IUTEST(PrintToTest, Tuple)
     ::iutest::tuples::tuple<bool, int, char> t(false, 100, 'a');
 
     IUTEST_SUCCEED() << ::iutest::PrintToString(t);
-}
-#endif
-
-#if IUTEST_HAS_CXX_HDR_ARRAY
-IUTEST(PrintToTest, Array)
-{
-    LogChecker ck("3, 1, 4");
-    ::std::array<int, 3> ar = { { 3, 1, 4 } };
-    IUTEST_SUCCEED() << ::iutest::PrintToString(ar);
 }
 #endif
 

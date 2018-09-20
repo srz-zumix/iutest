@@ -35,6 +35,7 @@ public:
     template<typename T>
     any(const T& rhs) : content(new holder<T>(rhs)) {}  // NOLINT
     any(const any& rhs) : content(rhs.content == NULL ? NULL : rhs.content->clone()) {}
+    any(const char rhs[]) : content(new holder< ::std::string >(::std::string(rhs)) ) {}  // NOLINT
     ~any() { delete content; }
 public:
     /**

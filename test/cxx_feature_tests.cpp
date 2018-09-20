@@ -18,6 +18,10 @@
 #include "../include/gtest/iutest_spi_switch.hpp"
 #include "logger_tests.hpp"
 
+#if IUTEST_HAS_CXX_HDR_ARRAY
+#  include <array>  // NOLINT
+#endif
+
 #if IUTEST_HAS_NOEXCEPT_FUNCTION_TYPE
 
 namespace
@@ -149,6 +153,17 @@ IUTEST(Variant, PrintTo)
         }
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
+}
+
+#endif
+
+#if IUTEST_HAS_CXX_HDR_ARRAY
+
+IUTEST(StdArray, PrintTo)
+{
+    LogChecker ck("3, 1, 4");
+    ::std::array<int, 3> ar = { { 3, 1, 4 } };
+    IUTEST_SUCCEED() << ::iutest::PrintToString(ar);
 }
 
 #endif
