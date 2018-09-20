@@ -211,6 +211,19 @@ IUTEST(UnitTest, FormatSizeByte)
     IUTEST_EXPECT_STREQ("1TB", ::iutest::detail::FormatSizeByte(1024ull * 1024 * 1024 * 1024));
 }
 
+IUTEST(UnitTest, EmptyAny)
+{
+    ::iutest::any a;
+    ::iutest::any* p = NULL;
+    IUTEST_EXPECT_NULL(::iutest::unsafe_any_cast<int>(p));
+    IUTEST_EXPECT_NULL(::iutest::unsafe_any_cast<int>(&a));
+}
+
+IUTEST(UnitTest, StringAny)
+{
+    ::iutest::any a = "test";
+    IUTEST_EXPECT_EQ("test", ::iutest::any_cast< ::std::string >(a));
+}
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
