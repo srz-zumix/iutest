@@ -80,6 +80,9 @@
 #define IUTEST_UNUSED_VAR(x)        (void)(x)
 #define IUTEST_UNUSED_RETURN(x)     (void)(x)
 
+#define IUTEST_PP_ENUM_CASE_RETURN_STRING(name) case name: return #name
+#define IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(ns, name) case ns::name: return #name
+
 // DEC
 #define IUTEST_PP_DEC(n)    IIUT_PP_DEC_I(n)
 #define IIUT_PP_DEC_I(n)    IIUT_PP_DEC_##n

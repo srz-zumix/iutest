@@ -175,16 +175,23 @@ inline void DefaultPrintTo(IsContainerHelper::yes_t
     }
     *os << "}";
 }
+
 template<typename T>
-inline void DefaultPrintTo(IsContainerHelper::no_t
-                        , iutest_type_traits::false_type
-                        , const T& value, iu_ostream* os)
+inline void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
 {
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     printer_internal2::DefaultPrintNonContainerTo(value, os);
 #else
     printer_internal::formatter::Printer<false>::Print(value, os);
 #endif
+}
+/** @overload */
+template<typename T>
+inline void DefaultPrintTo(IsContainerHelper::no_t
+                        , iutest_type_traits::false_type
+                        , const T& value, iu_ostream* os)
+{
+    DefaultPrintNonContainerTo(value, os);
 }
 
 #if !defined(IUTEST_NO_SFINAE) && !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
@@ -242,7 +249,8 @@ inline void PrintTo(const T& value, iu_ostream* os) {
 }
 inline void PrintTo(bool b, iu_ostream* os)         { *os << (b ? "true" : "false"); }
 inline void PrintTo(const char* c, iu_ostream* os)  { *os << c; }
-inline void PrintTo(const ::std::string& str, iu_ostream* os)   { *os << str.c_str(); }
+template<typename CharT, typename Traits, typename Alloc>
+inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)   { *os << str.c_str(); }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 template<typename T>
 inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
@@ -294,6 +302,112 @@ inline void PrintTo(const unsigned char value, iu_ostream* os)
 {
     *os << static_cast<unsigned int>(value);
 }
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+template<typename CharT, typename Traits>
+inline void PrintTo(const ::std::basic_string_view<CharT, Traits>& value, iu_ostream* os)
+{
+    const ::std::basic_string<CharT, Traits> tmp{ value };
+    *os << tmp;
+}
+#endif
+
+#if IUTEST_HAS_CXX_HDR_OPTIONAL
+template<typename T>
+inline void PrintTo(const ::std::optional<T>& value, iu_ostream* os)
+{
+    if (value)
+    {
+        UniversalPrint(value.value(), os);
+    }
+    else
+    {
+        *os << "nullopt";
+    }
+}
+#endif
+
+#if IUTEST_HAS_CXX_HDR_VARIANT
+template<typename... Types>
+inline void PrintTo(const ::std::variant<Types...>& value, iu_ostream* os)
+{
+    if (value.valueless_by_exception())
+    {
+        *os << "valueless_by_exception";
+    }
+    else
+    {
+        std::visit([&os](const auto& v) { UniversalPrint(v, os); }, value);
+    }
+}
+inline void PrintTo(const ::std::monostate&, iu_ostream* os)
+{
+    *os << "monostate";
+}
+#endif
+
+#if IUTEST_HAS_CXX_HDR_ANY
+inline void PrintTo(const ::std::any& value, iu_ostream* os)
+{
+   *os << "-Any type-name: " << value.type().name();
+   DefaultPrintNonContainerTo(value, os);
+}
+#endif
+
+#if IUTEST_USE_CXX_FILESYSTEM
+inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_type& value)
+{
+    switch(value)
+    {
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, none);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, not_found);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, regular);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, directory);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, symlink);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, block);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, character);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, fifo);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, socket);
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, unknown);
+#if defined(IUTEST_OS_WINDOWS)
+    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, junction);
+#endif
+    default:
+        break;
+    }
+    return PrintToString(static_cast<int>(value));
+}
+inline void PrintTo(const ::std::filesystem::path& value, iu_ostream* os)
+{
+    *os << value.generic_string();
+}
+inline void PrintTo(const ::std::filesystem::file_type& value, iu_ostream* os)
+{
+    *os << FileSystemFileTypeToString(value);
+}
+inline void PrintTo(const ::std::filesystem::perms& value, iu_ostream* os)
+{
+    *os << ToOctString(static_cast<UInt16>(value));
+}
+inline void PrintTo(const ::std::filesystem::file_status& value, iu_ostream* os)
+{
+    *os << FileSystemFileTypeToString(value.type()) << ": ";
+    PrintTo(value.permissions(), os);
+}
+inline void PrintTo(const ::std::filesystem::space_info& value, iu_ostream* os)
+{
+    *os << "cpacity: " << detail::FormatSizeByte(value.capacity)
+        << ", free: " << detail::FormatSizeByte(value.free)
+        << ", available: " << detail::FormatSizeByte(value.available);
+}
+inline void PrintTo(const ::std::filesystem::directory_entry& value, iu_ostream* os)
+{
+    PrintTo(value.path(), os);
+}
+inline void PrintTo(const ::std::filesystem::directory_iterator& value, iu_ostream* os)
+{
+    PrintTo(*value, os);
+}
+#endif
 
 #if IUTEST_HAS_NULLPTR
 inline void PrintTo(const ::std::nullptr_t&, iu_ostream* os) { *os << "nullptr"; }

@@ -32,7 +32,9 @@
 
 // libstdc++
 #if   defined(__clang__)
-#  if __has_include(<experimental/any>)
+#  if __has_include(<experimental/memory_resource>)
+#    define IUTEST_LIBSTDCXX_VERSION    60100
+#  elif __has_include(<experimental/any>)
 #    define IUTEST_LIBSTDCXX_VERSION    50100
 #  elif __has_include(<shared_mutex>)
 #    define IUTEST_LIBSTDCXX_VERSION    40900
@@ -54,6 +56,11 @@
 #endif
 
 #if IUTEST_HAS_CXX11
+#  if IUTEST_LIBSTDCXX_VERSION >= 60100
+#    if !defined(IUTEST_HAS_STD_INVOKE) && IUTEST_HAS_CXX1Z
+#      define IUTEST_HAS_STD_INVOKE       1
+#    endif
+#  endif
 #  if IUTEST_LIBSTDCXX_VERSION >= 50100
 #    if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
 #      define IUTEST_HAS_CXX_HDR_CODECVT  1
@@ -169,6 +176,11 @@
 #  endif
 #endif
 
+#if _LIBCPP_VERSION >= 3700
+#  if !defined(IUTEST_HAS_STD_INVOKE) && IUTEST_HAS_CXX1Z
+#    define IUTEST_HAS_STD_INVOKE         1
+#  endif
+#endif
 #if _LIBCPP_VERSION >= 1001
 #  if !defined(IUTEST_HAS_STD_BEGIN_END)
 #    define IUTEST_HAS_STD_BEGIN_END      1
@@ -255,6 +267,51 @@
 
 #endif
 
+#if IUTEST_HAS_CXX1Z
+
+// c++17 feature
+
+#if defined(__has_include)
+#  if __has_include(<any>)
+#    define IUTEST_HAS_CXX_HDR_ANY          1
+#  endif
+#endif
+
+#if defined(__has_include)
+#  if __has_include(<filesystem>)
+#    define IUTEST_HAS_CXX_HDR_FILESYSTEM   1
+#  endif
+#endif
+
+
+#if defined(__has_include)
+#  if __has_include(<optional>)
+#    define IUTEST_HAS_CXX_HDR_OPTIONAL     1
+#  endif
+#endif
+
+#if defined(__has_include)
+#  if __has_include(<string_view>)
+#    define IUTEST_HAS_CXX_HDR_STRING_VIEW  1
+#  endif
+#endif
+
+#endif
+
+#if IUTEST_HAS_CXX17
+
+// c++17 feature
+
+#if IUTEST_HAS_VARIADIC_TEMPLATES && defined(__has_include)
+#  if   defined(__clang__) && (__clang_major__ < 3 || (__clang_major__ == 3 && __clang_minor__ < 6))
+#    define IUTEST_HAS_CXX_HDR_VARIANT      0   // clang 3.5 + variant is not worked
+#  elif __has_include(<variant>)
+#    define IUTEST_HAS_CXX_HDR_VARIANT      1
+#  endif
+#endif
+
+#endif
+
 #if defined(__has_include)
 #  if defined(IUTEST_HAS_CXX_HDR_CODECVT) && IUTEST_HAS_CXX_HDR_CODECVT
 #    if !__has_include( <codecvt> )
@@ -270,6 +327,18 @@
 //! has ::std::declval
 #if !defined(IUTEST_HAS_STD_DECLVAL)
 #  define IUTEST_HAS_STD_DECLVAL        0
+#endif
+//! has emplace
+#if !defined(IUTEST_HAS_STD_EMPLACE)
+#  define IUTEST_HAS_STD_EMPLACE        0
+#endif
+//! has std::invoke
+#if !defined(IUTEST_HAS_STD_INVOKE)
+#  define IUTEST_HAS_STD_INVOKE         0
+#endif
+//! has quick_exit
+#if !defined(IUTEST_HAS_STD_QUICK_EXIT)
+#  define IUTEST_HAS_STD_QUICK_EXIT     0
 #endif
 //! use external include tr1::tuple
 #if !defined(IUTEST_USE_EXTERNAL_TR1_TUPLE)
@@ -298,53 +367,79 @@
 #  endif
 #  define IUTEST_HAS_TUPLE              0
 #endif
-//! has chrono header
-#if !defined(IUTEST_HAS_CXX_HDR_CHRONO)
-#  define IUTEST_HAS_CXX_HDR_CHRONO     0
-#endif
-//! has regex header
-#if !defined(IUTEST_HAS_CXX_HDR_REGEX)
-#  define IUTEST_HAS_CXX_HDR_REGEX      0
-#endif
-//! has random header
-#if !defined(IUTEST_HAS_CXX_HDR_RANDOM)
-#  define IUTEST_HAS_CXX_HDR_RANDOM     0
-#endif
-//! has codecvt header
-#if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
-#  define IUTEST_HAS_CXX_HDR_CODECVT    0
-#endif
-//! has cstdint header
-#if !defined(IUTEST_HAS_CXX_HDR_CSTDINT)
-#  define IUTEST_HAS_CXX_HDR_CSTDINT    0
+
+//! has any header
+#if !defined(IUTEST_HAS_CXX_HDR_ANY)
+#  define IUTEST_HAS_CXX_HDR_ANY        0
 #endif
 //! has array header
 #if !defined(IUTEST_HAS_CXX_HDR_ARRAY)
 #  define IUTEST_HAS_CXX_HDR_ARRAY      0
 #endif
-//! has emplace
-#if !defined(IUTEST_HAS_STD_EMPLACE)
-#  define IUTEST_HAS_STD_EMPLACE        0
+//! has chrono header
+#if !defined(IUTEST_HAS_CXX_HDR_CHRONO)
+#  define IUTEST_HAS_CXX_HDR_CHRONO     0
 #endif
-//! has quick_exit
-#if !defined(IUTEST_HAS_STD_QUICK_EXIT)
-#  define IUTEST_HAS_STD_QUICK_EXIT     0
-#endif
-//! has cxxabi header
-#if !defined(IUTEST_HAS_HDR_CXXABI)
-#  define IUTEST_HAS_HDR_CXXABI         0
+//! has codecvt header
+#if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
+#  define IUTEST_HAS_CXX_HDR_CODECVT    0
 #endif
 //! has cuchar
 #if !defined(IUTEST_HAS_CXX_HDR_CUCHAR)
 #  define IUTEST_HAS_CXX_HDR_CUCHAR     0
 #endif
+//! has cstdint header
+#if !defined(IUTEST_HAS_CXX_HDR_CSTDINT)
+#  define IUTEST_HAS_CXX_HDR_CSTDINT    0
+#endif
+//! has filesystem header
+#if !defined(IUTEST_HAS_CXX_HDR_FILESYSTEM)
+#  define IUTEST_HAS_CXX_HDR_FILESYSTEM 0
+#endif
+//! has optional header
+#if !defined(IUTEST_HAS_CXX_HDR_OPTIONAL)
+#  define IUTEST_HAS_CXX_HDR_OPTIONAL   0
+#endif
+//! has random header
+#if !defined(IUTEST_HAS_CXX_HDR_RANDOM)
+#  define IUTEST_HAS_CXX_HDR_RANDOM     0
+#endif
+//! has regex header
+#if !defined(IUTEST_HAS_CXX_HDR_REGEX)
+#  define IUTEST_HAS_CXX_HDR_REGEX      0
+#endif
+//! has string_view header
+#if !defined(IUTEST_HAS_CXX_HDR_STRING_VIEW)
+#  define IUTEST_HAS_CXX_HDR_STRING_VIEW 0
+#endif
+//! has variant header
+#if !defined(IUTEST_HAS_CXX_HDR_VARIANT)
+#  define IUTEST_HAS_CXX_HDR_VARIANT    0
+#endif
+//! has cxxabi header
+#if !defined(IUTEST_HAS_HDR_CXXABI)
+#  define IUTEST_HAS_HDR_CXXABI         0
+#endif
 
 //======================================================================
 // include
+#include <iterator>
+
+#if IUTEST_HAS_CXX_HDR_ANY
+#  include <any>
+#endif
 #if IUTEST_HAS_CXX_HDR_CSTDINT
 #  include <cstdint>
 #endif
-#include <iterator>
+#if IUTEST_HAS_CXX_HDR_FILESYSTEM
+#  include <filesystem>
+#endif
+#if IUTEST_HAS_CXX_HDR_OPTIONAL
+#  include <optional>
+#endif
+#if IUTEST_HAS_CXX_HDR_VARIANT
+#  include <variant>
+#endif
 
 //======================================================================
 // declare

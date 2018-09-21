@@ -19,36 +19,6 @@
 #include "iutest.hpp"
 #include "logger_tests.hpp"
 
-#if IUTEST_HAS_CXX_HDR_ARRAY
-#  include <array>  // NOLINT
-#endif
-
-#if !defined(IUTEST_USE_GTEST)
-TestLogger printer_logger;
-
-class LogChecker
-{
-    ::std::string m_str;
-public:
-    explicit LogChecker(const char* str) : m_str(str)
-    {
-        ::iutest::detail::iuConsole::SetLogger(&printer_logger);
-    }
-    ~LogChecker(void)
-    {
-        ::iutest::detail::iuConsole::SetLogger(NULL);
-        IUTEST_EXPECT_STRIN(m_str.c_str(), printer_logger.c_str());
-        printer_logger.clear();
-    }
-};
-#else
-class LogChecker
-{
-public:
-    explicit LogChecker(const char*) {}
-};
-#endif
-
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else
@@ -87,6 +57,21 @@ IUTEST(PrintToTest, Bar)
 }
 
 #if !defined(IUTEST_USE_GTEST)
+
+IUTEST(PrintToTest, IutestAnyNotInitialized)
+{
+    ::iutest::any a;
+    LogChecker ck("empty");
+    IUTEST_SUCCEED() << ::iutest::PrintToString(a);
+}
+
+IUTEST(PrintToTest, IutestAnyString)
+{
+    ::iutest::any a = "test";
+    LogChecker ck("test");
+    IUTEST_SUCCEED() << ::iutest::PrintToString(a);
+}
+
 struct BigVar
 {
     int big[10];
@@ -365,15 +350,6 @@ IUTEST(PrintToTest, Tuple)
     ::iutest::tuples::tuple<bool, int, char> t(false, 100, 'a');
 
     IUTEST_SUCCEED() << ::iutest::PrintToString(t);
-}
-#endif
-
-#if IUTEST_HAS_CXX_HDR_ARRAY
-IUTEST(PrintToTest, Array)
-{
-    LogChecker ck("3, 1, 4");
-    ::std::array<int, 3> ar = { { 3, 1, 4 } };
-    IUTEST_SUCCEED() << ::iutest::PrintToString(ar);
 }
 #endif
 

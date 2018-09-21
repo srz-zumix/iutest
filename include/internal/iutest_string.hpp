@@ -35,12 +35,15 @@
 #endif
 #include <string>
 #include <cstring>
+#include <cmath>
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
 namespace iutest {
 namespace detail
 {
+
+::std::string StringFormat(const char* format, ...);
 
 /**
  * @internal
@@ -305,6 +308,24 @@ inline void StringSplit(const ::std::string& str, char delimiter, ::std::vector<
     dst.swap(parsed);
 }
 
+inline IUTEST_CXX_CONSTEXPR char ToOct(unsigned int n)
+{
+    return '0' + (n & 0x7);
+}
+
+template<typename T>
+inline ::std::string ToOctString(T value)
+{
+    const size_t kN = (sizeof(T) * 8 + 2) / 3;
+    char buf[kN + 1] = { 0 };
+    for(size_t i = 0; i < kN; ++i)
+    {
+        buf[i] = ToOct(static_cast<unsigned int>((value >> ((kN - i - 1) * 3))));
+    }
+    buf[kN] = '\0';
+    return buf;
+}
+
 inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n)
 {
     return (n&0xF) >= 0xA ? 'A'+((n&0xF)-0xA) : '0'+(n&0xF);
@@ -329,6 +350,37 @@ inline ::std::string FormatIntWidth2(int value)
     buf[0] = (value/10)%10 + '0';
     buf[1] = (value   )%10 + '0';
     return buf;
+}
+
+inline ::std::string FormatSizeByte(UInt64 value)
+{
+    const char* suffixes[] = {
+        "B",
+        "KB",
+        "MB",
+        "GB",
+        "TB",
+    };
+    const size_t suffixes_length = IUTEST_PP_COUNTOF(suffixes);
+    size_t index = 0;
+    double view_value = static_cast<double>(value);
+    while(view_value >= 1024 && index < suffixes_length)
+    {
+        ++index;
+        view_value /= 1024;
+    }
+
+    const UInt64 n = static_cast<UInt64>(::std::floor(view_value));
+    const UInt64 f = static_cast<UInt64>(view_value * 10.0 - n * 10.0);
+    const char* suffix = suffixes[index];
+    if(view_value - n == 0)
+    {
+        return StringFormat("%llu%s", n, suffix);
+    }
+    else
+    {
+        return StringFormat("%llu.%llu%s", n, f, suffix);
+    }
 }
 
 inline ::std::string ShowStringQuoted(const char* str)

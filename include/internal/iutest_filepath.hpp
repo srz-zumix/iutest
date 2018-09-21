@@ -34,6 +34,17 @@ namespace detail
 */
 class iuFilePath
 {
+#if !IUTEST_USE_CXX_FILESYSTEM
+    class comapt_filepath_string : public ::std::string
+    {
+    public:
+        explicit comapt_filepath_string(const char* path) : ::std::string(path) {}
+        explicit comapt_filepath_string(const ::std::string& path) : ::std::string(path) {}
+        comapt_filepath_string& operator = (const char* path) { ::std::string::operator=(path); return *this; }
+        const ::std::string& generic_string() const { return *this; }
+    };
+#endif
+
 public:
     iuFilePath() : m_path("") {}
     iuFilePath(const iuFilePath& rhs) : m_path(rhs.m_path) {}
@@ -46,12 +57,17 @@ public:
     {
         Normalize();
     }
+#if IUTEST_USE_CXX_FILESYSTEM
+    explicit iuFilePath(const ::std::filesystem::path& path) : m_path(path)
+    {
+    }
+#endif
 
 public:
-    ::std::string   ToString()  const { return m_path; }
-    const char*     c_str()     const { return m_path.c_str(); }
-    bool            IsEmpty()   const { return c_str() == NULL || *c_str() == '\0'; }
-    size_t          length()    const { return m_path.length(); }
+    ::std::string   ToString()  const { return m_path.generic_string(); }
+    const char*     c_str()     const { return m_path.generic_string().c_str(); }
+    bool            IsEmpty()   const { return m_path.empty(); }
+    size_t          length()    const { return m_path.generic_string().length(); }
 
 public:
     iuFilePath & operator = (const iuFilePath& rhs) { m_path = rhs.m_path; return *this; }
@@ -91,6 +107,11 @@ public:
      * @brief   末尾のセパレーターを削除
     */
     iuFilePath RemoveTrailingPathSeparator() const;
+
+    /**
+     * @brief   拡張子の取得
+    */
+    ::std::string GetExtension() const;
 
     /**
      * @brief   拡張子の削除
@@ -160,7 +181,11 @@ private:
     void Normalize();
 
 private:
-    ::std::string m_path;
+#if IUTEST_USE_CXX_FILESYSTEM
+    ::std::filesystem::path m_path;
+#else
+    comapt_filepath_string m_path;
+#endif
 };
 
 inline iu_ostream& operator << (iu_ostream& os, const iuFilePath& path)

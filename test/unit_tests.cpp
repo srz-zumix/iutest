@@ -181,6 +181,50 @@ IUTEST(StdFileUnitTest, AppendOpenedFileSize)
 #endif
 
 
+IUTEST(UnitTest, ToHexString)
+{
+    IUTEST_EXPECT_STREQ(              "00", ::iutest::detail::ToHexString< ::iutest::UInt8  >(0));
+    IUTEST_EXPECT_STREQ(            "0000", ::iutest::detail::ToHexString< ::iutest::UInt16 >(0));
+    IUTEST_EXPECT_STREQ(        "00000000", ::iutest::detail::ToHexString< ::iutest::UInt32 >(0));
+    IUTEST_EXPECT_STREQ("0000000000000000", ::iutest::detail::ToHexString< ::iutest::UInt64 >(0));
+    IUTEST_EXPECT_STREQ(        "01234567", ::iutest::detail::ToHexString(0x01234567u));
+}
+
+IUTEST(UnitTest, ToOctString)
+{
+    IUTEST_EXPECT_STREQ(                   "000", ::iutest::detail::ToOctString< ::iutest::UInt8  >(0));
+    IUTEST_EXPECT_STREQ(                "000000", ::iutest::detail::ToOctString< ::iutest::UInt16 >(0));
+    IUTEST_EXPECT_STREQ(           "00000000000", ::iutest::detail::ToOctString< ::iutest::UInt32 >(0));
+    IUTEST_EXPECT_STREQ("0000000000000000000000", ::iutest::detail::ToOctString< ::iutest::UInt64 >(0));
+    IUTEST_EXPECT_STREQ(                   "377", ::iutest::detail::ToOctString< ::iutest::UInt8  >(0377u));
+}
+
+IUTEST(UnitTest, FormatSizeByte)
+{
+    IUTEST_EXPECT_STREQ("0B", ::iutest::detail::FormatSizeByte(0));
+    IUTEST_EXPECT_STREQ("2B", ::iutest::detail::FormatSizeByte(2));
+    IUTEST_EXPECT_STREQ("1KB", ::iutest::detail::FormatSizeByte(1024));
+    IUTEST_EXPECT_STREQ("1.0KB", ::iutest::detail::FormatSizeByte(1025));
+    IUTEST_EXPECT_STREQ("1MB", ::iutest::detail::FormatSizeByte(1024 * 1024));
+    IUTEST_EXPECT_STREQ("1.9MB", ::iutest::detail::FormatSizeByte(2 * 1024 * 1024 - 1));
+    IUTEST_EXPECT_STREQ("1GB", ::iutest::detail::FormatSizeByte(1024 * 1024 * 1024));
+    IUTEST_EXPECT_STREQ("1TB", ::iutest::detail::FormatSizeByte(1024ull * 1024 * 1024 * 1024));
+}
+
+IUTEST(UnitTest, EmptyAny)
+{
+    ::iutest::any a;
+    ::iutest::any* p = NULL;
+    IUTEST_EXPECT_NULL(::iutest::unsafe_any_cast<int>(p));
+    IUTEST_EXPECT_NULL(::iutest::unsafe_any_cast<int>(&a));
+}
+
+IUTEST(UnitTest, StringAny)
+{
+    ::iutest::any a = "test";
+    IUTEST_EXPECT_EQ("test", ::iutest::any_cast< ::std::string >(a));
+}
+
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
 #else

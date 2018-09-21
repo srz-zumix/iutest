@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -50,6 +50,19 @@ IUTEST_AP(AnyParamTest, Test)
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_AP(My1, AnyParamTest, ::iutest::Values(0));
+
+namespace workaround
+{
+
+IUTEST_AP(AnyParamTest2, Test)
+{
+    const ::std::string value = GetParam< ::std::string >();
+    IUTEST_ASSERT_EQ("0", value);
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_AP(My2, AnyParamTest2, ::iutest::Values("0"));
+
+} // end of namespace workaround
 
 #endif
 
