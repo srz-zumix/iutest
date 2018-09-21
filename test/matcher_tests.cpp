@@ -493,6 +493,51 @@ IUTEST(MatcherFailure, NanSensitiveLongDoubleEq)
 
 #endif
 
+IUTEST(MatcherFailure, FloatNear)
+{
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(f0, FloatNear(f0, 1.0f)), "Near: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(0/f0, FloatNear(0/f0, 1.0f)), "Near: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(0/f0, FloatingPointNear(f0, 1.0f)), "Near: " );
+}
+
+IUTEST(MatcherFailure, DoubleNear)
+{
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(d0, DoubleNear(d0, 1.0)), "Near: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(0/d0, DoubleNear(0/d0, 1.0)), "Near: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(0/d0, FloatingPointNear(0/d0, 1.0)), "Near: " );
+}
+
+#if IUTEST_HAS_LONG_DOUBLE
+
+IUTEST(MatcherFailure, LongDoubleNear)
+{
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, LongDoubleNear(ld0, 1.0)), "Near: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(0/ld0, LongDoubleNear(0/ld0, 1.0)), "Near: " );
+}
+
+#endif
+
+IUTEST(MatcherFailure, NanSensitiveFloatNear)
+{
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(f0, NanSensitiveFloatNear(f0, 1.0f)), "Near: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(f0, NanSensitiveFloatingPointNear(f0, 1.0f)), "Near: " );
+}
+
+IUTEST(MatcherFailure, NanSensitiveDoubleNear)
+{
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(d0, NanSensitiveDoubleNear(d0, 1.0)), "Near: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(d0, NanSensitiveFloatingPointNear(d0, 1.0)), "Near: " );
+}
+
+#if IUTEST_HAS_LONG_DOUBLE
+
+IUTEST(MatcherFailure, NanSensitiveLongDoubleNear)
+{
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, NanSensitiveLongDoubleNear(ld0, 1.0)), "Near: " );
+}
+
+#endif
+
 IUTEST(MatcherFailure, StrEq)
 {
     CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge", StrEq("Hoge")), "StrEq: Hoge");
