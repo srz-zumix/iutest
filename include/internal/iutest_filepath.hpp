@@ -41,7 +41,8 @@ class iuFilePath
         explicit comapt_filepath_string(const char* path) : ::std::string(path) {}
         explicit comapt_filepath_string(const ::std::string& path) : ::std::string(path) {}
         comapt_filepath_string& operator = (const char* path) { ::std::string::operator=(path); return *this; }
-        const ::std::string& generic_string() const { return *this; }
+        const ::std::string& string() const { return *this; }
+//        const ::std::string& generic_string() const { return *this; }
     };
 #endif
 
@@ -64,10 +65,9 @@ public:
 #endif
 
 public:
-    ::std::string   ToString()  const { return m_path.generic_string(); }
-    const char*     c_str()     const { return m_path.generic_string().c_str(); }
+    ::std::string   ToString()  const { return m_path.string(); }
     bool            IsEmpty()   const { return m_path.empty(); }
-    size_t          length()    const { return m_path.generic_string().length(); }
+    size_t          length()    const { return m_path.string().length(); }
 
 public:
     iuFilePath & operator = (const iuFilePath& rhs) { m_path = rhs.m_path; return *this; }
@@ -79,13 +79,12 @@ public:
     }
     bool operator == (const iuFilePath& rhs) const
     {
-        return IsStringCaseEqual(c_str(), rhs.c_str());
+        return IsStringCaseEqual(m_path.string(), rhs.m_path.string());
     }
     bool operator == (const char* rhs) const
     {
-        return IsStringCaseEqual(c_str(), rhs);
+        return IsStringCaseEqual(m_path.string(), rhs);
     }
-    //operator const char* () const { return c_str(); }
 
 public:
     /**
@@ -148,11 +147,6 @@ public:
     */
     bool DirectoryExists() const;
 
-    /**
-     * @brief   一番後ろのパスセパレータのアドレスを取得
-    */
-    const char* FindLastPathSeparator() const;
-
 public:
     /**
      * @brief   カレントディレクトリの取得
@@ -190,7 +184,7 @@ private:
 
 inline iu_ostream& operator << (iu_ostream& os, const iuFilePath& path)
 {
-    return os << path.c_str();
+    return os << path.ToString();
 }
 
 }   // end of namespace detail
