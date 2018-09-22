@@ -15,7 +15,6 @@ addons:
       - llvm-toolchain-trusty
     packages: &apt-common-packages
       - clang-6.0
-      - libc++-dev
       - libc++-8-dev
       - g++-8
       - gcc-8
