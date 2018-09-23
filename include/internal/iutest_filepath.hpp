@@ -170,7 +170,7 @@ private:
     void Normalize();
 
 private:
-    comapt_filepath_string m_path;
+    ::std::string m_path;
 };
 
 inline iu_ostream& operator << (iu_ostream& os, const iuFilePath& path)
