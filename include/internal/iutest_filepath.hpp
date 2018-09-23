@@ -66,6 +66,7 @@ public:
 
 public:
     ::std::string   ToString()  const { return m_path.string(); }
+    ::std::string   string()    const { return m_path.string(); }
     bool            IsEmpty()   const { return m_path.empty(); }
     size_t          length()    const { return m_path.string().length(); }
 
