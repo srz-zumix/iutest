@@ -74,11 +74,11 @@ public:
     }
     bool operator == (const iuFilePath& rhs) const
     {
-        return IsStringCaseEqual(m_path.string(), rhs.m_path.string());
+        return IsStringCaseEqual(m_path, rhs.m_path);
     }
     bool operator == (const char* rhs) const
     {
-        return IsStringCaseEqual(m_path.string(), rhs);
+        return IsStringCaseEqual(m_path, rhs);
     }
 
 public:
