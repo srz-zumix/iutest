@@ -141,12 +141,16 @@ matrix:
       env:
         - STDFLAG=-stdlib=libc++
         - DEFS="-DIUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER=1"
+        - COMPILER_CX=clang-7
+        - COMPILER_CXX=clang++-7
       addons:
         apt:
           sources:
-            - llvm-toolchain-trusty-6.0
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-7
+            - llvm-toolchain-trusty
           packages:
-            - clang-6.0
+            - clang-7
             - libc++-dev
     # coverage
     - compiler: clang
