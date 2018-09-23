@@ -82,12 +82,17 @@ IUTEST_IPP_INLINE bool iuFilePath::IsAbsolutePath() const
 
 IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveTrailingPathSeparator() const
 {
-    ::std::string::const_iterator it = m_path.end()-1;
-    while(it != m_path.begin() && IsPathSeparator(*it))
+#if IUTEST_USE_CXX_FILESYSTEM
+    const ::std::string path = m_path.generic_string();
+#else
+    const ::std::string& path = m_path;
+#endif
+    ::std::string::const_iterator it = path.end()-1;
+    while(it != path.begin() && IsPathSeparator(*it))
     {
         --it;
     }
-    return iuFilePath(::std::string(m_path.begin(), it+1));
+    return iuFilePath(::std::string(path.begin(), it+1));
 }
 
 IUTEST_IPP_INLINE ::std::string iuFilePath::GetExtension() const
