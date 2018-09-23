@@ -30,7 +30,7 @@ namespace detail
 IUTEST_IPP_INLINE bool iuFilePath::IsDirectory() const
 {
 #if IUTEST_USE_CXX_FILESYSTEM
-    return ::std::filesystem::is_directory(m_path);
+    return ::std::filesystem::is_directory(path());
 #else
     if( m_path.empty() )
     {
@@ -60,7 +60,7 @@ IUTEST_IPP_INLINE bool iuFilePath::IsRootDirectory() const
 IUTEST_IPP_INLINE bool iuFilePath::IsAbsolutePath() const
 {
 #if IUTEST_USE_CXX_FILESYSTEM
-    return m_path.is_absolute();
+    return path().is_absolute();
 #else
 #ifdef IUTEST_OS_WINDOWS
     if( length() < 3 )
@@ -82,11 +82,7 @@ IUTEST_IPP_INLINE bool iuFilePath::IsAbsolutePath() const
 
 IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveTrailingPathSeparator() const
 {
-#if IUTEST_USE_CXX_FILESYSTEM
-    const ::std::string path = m_path.generic_string();
-#else
     const ::std::string& path = m_path;
-#endif
     ::std::string::const_iterator it = path.end()-1;
     while(it != path.begin() && IsPathSeparator(*it))
     {
@@ -97,9 +93,6 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveTrailingPathSeparator() const
 
 IUTEST_IPP_INLINE ::std::string iuFilePath::GetExtension() const
 {
-#if IUTEST_USE_CXX_FILESYSTEM
-    return m_path.extension().generic_string();
-#else
     const char* const path = m_path.c_str();
     const char* const ext = strrchr(path, '.');
     if(ext == NULL)
@@ -107,17 +100,11 @@ IUTEST_IPP_INLINE ::std::string iuFilePath::GetExtension() const
         return "";
     }
     return ext;
-#endif
 }
 
 IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveExtension(const char* extension) const
 {
-#if IUTEST_USE_CXX_FILESYSTEM
-    const ::std::string path_string = m_path.generic_string();
-#else
-    const ::std::string& path_string = m_path;
-#endif
-    const char* const path = path_string.c_str();
+    const char* const path = m_path.c_str();
     const char* const ext = strrchr(path, '.');
     if( ext == NULL )
     {
@@ -133,22 +120,12 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveExtension(const char* extension) 
 
 IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveDirectoryName() const
 {
-#if IUTEST_USE_CXX_FILESYSTEM
-    return iuFilePath(m_path.parent_path());
-#else
     const char* const sep = detail::FindLastPathSeparator(m_path.c_str(), m_path.length());
     return sep != NULL ? iuFilePath(sep+1) : *this;
-#endif
 }
 
 IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveFileName() const
 {
-#if IUTEST_USE_CXX_FILESYSTEM
-    if(m_path.has_filename()) {
-        return iuFilePath(m_path.parent_path());
-    }
-    return iuFilePath(m_path);
-#else
     const char* path = m_path.c_str();
     size_t pos = detail::FindLastPathSeparatorPosition(path, m_path.length());
     if( pos == ::std::string::npos )
@@ -157,13 +134,12 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::RemoveFileName() const
     }
     const size_t length = pos + 1;
     return iuFilePath(::std::string(path, length));
-#endif
 }
 
 IUTEST_IPP_INLINE bool iuFilePath::CreateFolder() const
 {
 #if IUTEST_USE_CXX_FILESYSTEM
-    return ::std::filesystem::create_directory(m_path);
+    return ::std::filesystem::create_directory(path());
 #else
 #if IUTEST_HAS_FILE_STAT
 
@@ -188,7 +164,7 @@ IUTEST_IPP_INLINE bool iuFilePath::CreateFolder() const
 IUTEST_IPP_INLINE bool iuFilePath::CreateDirectoriesRecursively() const
 {
 #if IUTEST_USE_CXX_FILESYSTEM
-    return ::std::filesystem::create_directories(m_path);
+    return ::std::filesystem::create_directories(path());
 #else
     if( !IsDirectory() )
     {
@@ -212,7 +188,7 @@ IUTEST_IPP_INLINE bool iuFilePath::CreateDirectoriesRecursively() const
 IUTEST_IPP_INLINE bool iuFilePath::FileOrDirectoryExists() const
 {
 #if IUTEST_USE_CXX_FILESYSTEM
-    return ::std::filesystem::exists(m_path);
+    return ::std::filesystem::exists(path());
 #else
 #if IUTEST_HAS_FILE_STAT
     posix::StatStruct file_stat;
@@ -226,7 +202,7 @@ IUTEST_IPP_INLINE bool iuFilePath::FileOrDirectoryExists() const
 IUTEST_IPP_INLINE bool iuFilePath::DirectoryExists() const
 {
 #if IUTEST_USE_CXX_FILESYSTEM
-    return ::std::filesystem::is_directory(::std::filesystem::status(m_path));
+    return ::std::filesystem::is_directory(status());
 #else
 #if IUTEST_HAS_FILE_STAT
 
@@ -297,20 +273,14 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::GetExecFilePath()
 
 IUTEST_IPP_INLINE iuFilePath iuFilePath::ConcatPaths(const iuFilePath& directory, const iuFilePath& relative_path)
 {
-#if IUTEST_USE_CXX_FILESYSTEM
-    return iuFilePath(directory.m_path / relative_path.m_path);
-#else
     ::std::string path = directory.RemoveTrailingPathSeparator().m_path;
     path += GetPathSeparator();
     path += relative_path.m_path;
     return iuFilePath(path);
-#endif
 }
 
 IUTEST_IPP_INLINE void iuFilePath::Normalize()
 {
-#if IUTEST_USE_CXX_FILESYSTEM
-#else
     const char* src = m_path.c_str();
     char* const dst_top = new char [length()+1];
     char* dst = dst_top;
@@ -339,7 +309,6 @@ IUTEST_IPP_INLINE void iuFilePath::Normalize()
     *dst = '\0';
     m_path = dst_top;
     delete [] dst_top;
-#endif
 }
 
 }   // end of namespace detail

@@ -34,18 +34,6 @@ namespace detail
 */
 class iuFilePath
 {
-#if !IUTEST_USE_CXX_FILESYSTEM
-    class comapt_filepath_string : public ::std::string
-    {
-    public:
-        explicit comapt_filepath_string(const char* path) : ::std::string(path) {}
-        explicit comapt_filepath_string(const ::std::string& path) : ::std::string(path) {}
-        comapt_filepath_string& operator = (const char* path) { ::std::string::operator=(path); return *this; }
-        const ::std::string& string() const { return *this; }
-//        const ::std::string& generic_string() const { return *this; }
-    };
-#endif
-
 public:
     iuFilePath() : m_path("") {}
     iuFilePath(const iuFilePath& rhs) : m_path(rhs.m_path) {}
@@ -59,16 +47,22 @@ public:
         Normalize();
     }
 #if IUTEST_USE_CXX_FILESYSTEM
-    explicit iuFilePath(const ::std::filesystem::path& path) : m_path(path)
+    explicit iuFilePath(const ::std::filesystem::path& path) : m_path(path.string())
     {
+        Normalize();
     }
 #endif
 
 public:
-    ::std::string   ToString()  const { return m_path.string(); }
-    ::std::string   string()    const { return m_path.string(); }
+    ::std::string           ToString()  const { return m_path; }
+    const ::std::string&    string()    const { return m_path; }
     bool            IsEmpty()   const { return m_path.empty(); }
-    size_t          length()    const { return m_path.string().length(); }
+    size_t          length()    const { return m_path.length(); }
+
+#if IUTEST_USE_CXX_FILESYSTEM
+    ::std::filesystem::path path() const { return ::std::filesystem::path(m_path); }
+    ::std::filesystem::file_status status() const { return ::std::filesystem::status(path()); }
+#endif
 
 public:
     iuFilePath & operator = (const iuFilePath& rhs) { m_path = rhs.m_path; return *this; }
@@ -176,16 +170,12 @@ private:
     void Normalize();
 
 private:
-#if IUTEST_USE_CXX_FILESYSTEM
-    ::std::filesystem::path m_path;
-#else
     comapt_filepath_string m_path;
-#endif
 };
 
 inline iu_ostream& operator << (iu_ostream& os, const iuFilePath& path)
 {
-    return os << path.ToString();
+    return os << path.string();
 }
 
 }   // end of namespace detail
