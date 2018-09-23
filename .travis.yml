@@ -15,7 +15,6 @@ addons:
       - llvm-toolchain-trusty
     packages: &apt-common-packages
       - clang-6.0
-      - libc++-8-dev
       - g++-8
       - gcc-8
       #- cppcheck
@@ -142,6 +141,12 @@ matrix:
       env:
         - STDFLAG=-stdlib=libc++
         - DEFS="-DIUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER=1"
+      addons:
+        apt:
+          sources: *apt-common-sources
+          packages:
+            - clang-6.0
+            - libc++-dev
     # coverage
     - compiler: clang
       env: USE_COVERAGE=gcov USE_CODECOV=1 USE_GNU_EXTENSION=1
