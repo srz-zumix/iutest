@@ -29,16 +29,12 @@ namespace detail
 
 IUTEST_IPP_INLINE bool iuFilePath::IsDirectory() const
 {
-#if IUTEST_USE_CXX_FILESYSTEM
-    return ::std::filesystem::is_directory(path());
-#else
     if( m_path.empty() )
     {
         return false;
     }
     const char last = *m_path.rbegin();
     return (IsPathSeparator(last) || last == '.');
-#endif
 }
 
 IUTEST_IPP_INLINE bool iuFilePath::IsRootDirectory() const
