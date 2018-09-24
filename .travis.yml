@@ -91,6 +91,10 @@ install:
         cd -
       fi
     fi
+    # libcxx
+    if [ "${USE_LIBCXX}" = '1' ]; then
+      sh ./.ci/setup-libcxx.sh
+    fi
 
 script:
   - if [ -n "${CUSTOM_COMMANDS}" ]; then echo "${CUSTOM_COMMANDS}" && eval ${CUSTOM_COMMANDS}; fi
@@ -139,18 +143,18 @@ env:
 matrix:
   include:
     # libc++
-    #- compiler: clang
-    #  env:
-    #    - USE_LIBCXX=1
-    #    - STDFLAG=-stdlib=libc++
-    #    - DEFS="-DIUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER=1"
-    #  addons:
-    #    apt:
-    #      sources: *apt-common-sources
-    #      packages:
-    #        - libc++-dev
-    #        - clang-6.0
-    # coverage
+    - compiler: clang
+     env:
+       - USE_LIBCXX=1
+       - STDFLAG=-stdlib=libc++
+       - DEFS="-DIUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER=1"
+     addons:
+       apt:
+         sources: *apt-common-sources
+         packages:
+           - cmake
+           - clang-6.0
+    coverage
     - compiler: clang
       env: USE_COVERAGE=gcov USE_CODECOV=1 USE_GNU_EXTENSION=1
     - compiler: gcc
