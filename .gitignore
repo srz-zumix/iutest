@@ -50,7 +50,7 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
-fused-src/
+fused-src/*.*
 tmp/
 
 # bundle

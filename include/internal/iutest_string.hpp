@@ -199,6 +199,8 @@ inline bool IsStringEqual(const char* str1, const char* str2) { return strcmp(st
 inline bool IsStringEqual(const ::std::string& str1, const char* str2) { return str1.compare(str2) == 0; }
 inline bool IsStringEqual(const ::std::string& str1, const ::std::string& str2) { return str1.compare(str2) == 0; }
 inline bool IsStringCaseEqual(const char* str1, const char* str2) { return iu_stricmp(str1, str2) == 0; }
+inline bool IsStringCaseEqual(const ::std::string& str1, const char* str2) { return iu_stricmp(str1.c_str(), str2) == 0; }
+inline bool IsStringCaseEqual(const ::std::string& str1, const ::std::string& str2) { return iu_stricmp(str1.c_str(), str2.c_str()) == 0; }
 inline bool IsStringForwardMatching(const char* str1, const char* str2) { return strstr(str1, str2) == str1; }
 inline bool IsStringForwardMatching(const ::std::string& str1, const char* str2) { return str1.find(str2) == 0; }
 inline bool IsStringForwardMatching(const ::std::string& str1, const std::string& str2) { return str1.find(str2) == 0; }
