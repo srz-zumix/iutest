@@ -154,7 +154,7 @@ matrix:
          packages:
            - cmake
            - clang-6.0
-    coverage
+    # coverage
     - compiler: clang
       env: USE_COVERAGE=gcov USE_CODECOV=1 USE_GNU_EXTENSION=1
     - compiler: gcc
