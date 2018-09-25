@@ -302,11 +302,13 @@
 
 // c++17 feature
 
-#if IUTEST_HAS_VARIADIC_TEMPLATES && defined(__has_include)
-#  if   defined(__clang__) && (__clang_major__ < 3 || (__clang_major__ == 3 && __clang_minor__ < 6))
-#    define IUTEST_HAS_CXX_HDR_VARIANT      0   // clang 3.5 + variant is not worked
-#  elif __has_include(<variant>)
-#    define IUTEST_HAS_CXX_HDR_VARIANT      1
+#if !defined(IUTEST_HAS_CXX_HDR_VARIANT)
+#  if IUTEST_HAS_VARIADIC_TEMPLATES && defined(__has_include)
+#    if   defined(__clang__) && (__clang_major__ < 3 || (__clang_major__ == 3 && __clang_minor__ < 6))
+#      define IUTEST_HAS_CXX_HDR_VARIANT      0   // clang 3.5 + variant is not worked
+#    elif __has_include(<variant>)
+#      define IUTEST_HAS_CXX_HDR_VARIANT      1
+#    endif
 #  endif
 #endif
 
