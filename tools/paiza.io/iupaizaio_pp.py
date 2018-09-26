@@ -2,12 +2,15 @@
 #
 # iupaizaio_pp.py
 #
-# Copyright (C) 2015-2016, Takazumi Shirayanagi
+# Copyright (C) 2015-2018, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
 
-import re
+import os
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '../fused'))
+from iutest_pp_strip import IutestPreprocessor
 
 predefined_macros = {
     '__clang__': '1',
@@ -19,8 +22,8 @@ predefined_macros = {
     '__has_include': None
 }
 
-#userdefined_macros = { '': '1'
-#}
+iutest_config_macro = {
+}
 
 expands_macros = [
     'IUTEST_IPP_INLINE',
@@ -98,225 +101,12 @@ clang_has_include = {
     '<tr1/tuple>': '0'
 }
 
-RE_MACRO_SPLIT = re.compile('([\(\):;{} /%+\-=<>!&\|*#]+)')
-RE_SPLIT_PAREN = re.compile('([\(\)])')
-RE_FUNC_MACRO = re.compile('([\w_]+)\((.*?)\)')
-RE_DEFINE = re.compile('#\s*define (\S+)\s*(.*)$')
-RE_DEFINE_PARSE = re.compile('(.*)defined\((.*?)\)(.*)')
-RE_HAS_INCLUDE = re.compile('(.*)__has_include\((.*?)\)(.*)')
-RE_HAS_FEATURE = re.compile('(.*)__has_feature\((.*?)\)(.*)')
-RE_SPLIT_OP = re.compile('(&&|\|\||!)')
-RE_SYMBOLMARK = re.compile('([+\-=<>\(\)]+)')
-RE_PPIF = re.compile('#\s*(ifdef|ifndef|if)\s*(.*)$')
-RE_PPELIF = re.compile('#\s*elif(.*)$')
-RE_PPELSE = re.compile('#\s*else\s*$')
-RE_PPENDIF = re.compile('#\s*endif')
-RE_CPP_COMMENT = re.compile('^//.*')
-
-
 class PaizaPreprocessor:
-    macros = predefined_macros
-    unkowns = []
-    depth = []
-    brothers = []
-
-    def __expand_macro(self, line):
-        dst = ""
-        for s in RE_MACRO_SPLIT.split(line):
-            if s in expands_macros and s in self.macros:
-                if self.macros[s]:
-                    dst += self.macros[s]
-            else:
-                dst += s
-        return self.__expand_function_macro(dst)
-
-    def __expand_function_macro(self, line):
-        dst = ""
-        tokens = []
-        prev = ""
-        for s in RE_SPLIT_PAREN.split(line):
-            if s == '(':
-                tokens.append(prev)
-            elif s == ')' and len(tokens) > 0:
-                tokens[-1] += prev + s
-                s = ""
-                ss = tokens.pop()
-                for m in RE_FUNC_MACRO.finditer(ss):
-                    d = m.group(1)
-                    if d in expand_function_macros:
-                        if d in self.macros and self.macros[d] is None:
-                            ss = ss.replace(m.group(0), '')
-                if len(tokens) > 0:
-                    tokens[-1] += ss
-                else:
-                    dst += ss
-            elif len(tokens) > 0:
-                tokens[-1] += prev
-            else:
-                dst += prev
-            prev = s
-        for s in tokens:
-            dst += s
-        dst += prev
-        return dst
-
-    def __append_define(self, line):
-        def append(d, v, depth, macros, unkowns):
-            d = re.sub('\(.*\)', '', d)
-            if any(x == -1 for x in depth):
-                unkowns.append(d)
-            else:
-                if len(v) == 0:
-                    macros[d] = None
-                else:
-                    macros[d] = v
-            return d
-        m = RE_DEFINE.match(line)
-        if m:
-            return append(m.group(1), m.group(2), self.depth, self.macros, self.unkowns)
-        return None
-
-    def __expand_ppif_macro(self, expr):
-        expand = ""
-        for s in RE_SPLIT_OP.split(expr):
-            if s == '&&':
-                expand += ' and '
-            elif s == '||':
-                expand += ' or '
-            elif s == '!':
-                expand += " not "
-            else:
-                m = RE_DEFINE_PARSE.match(s)
-                if m:
-                    d = m.group(2)
-                    if d in self.unkowns:
-                        expand += s
-                    else:
-                        f = d in self.macros
-                        expand += m.group(1) + str(f) + m.group(3)
-                    continue
-                m = RE_HAS_INCLUDE.match(s)
-                if m:
-                    f = m.group(2)
-                    if f in clang_has_include:
-                        expand += m.group(1) + clang_has_include[f] + m.group(3)
-                    else:
-                        expand += s
-                    continue
-                m = RE_HAS_FEATURE.match(s)
-                if m:
-                    f = m.group(2)
-                    if f in clang_has_features:
-                        expand += m.group(1) + clang_has_features[f] + m.group(3)
-                        continue
-                for w in RE_SYMBOLMARK.split(s):
-                    if RE_SYMBOLMARK.match(w) or w.isspace():
-                        expand += w
-                    elif len(w) > 0:
-                        if w in self.unkowns:
-                            expand += s
-                        elif w in self.macros:
-                            expand += self.__expand_ppif_macro(self.macros[w])
-                        elif w.isdigit():
-                            expand += w
-                        else:
-                            expand += '0'
-
-        expand = expand.replace('0(0)', '0')
-        expand = expand.replace('not =', '!=')
-        return expand
-
-    def __eval_ppif(self, expr):
-        expand = self.__expand_ppif_macro(expr)
-        try:
-            if eval(expand):
-                return 1
-            else:
-                return 0
-        except Exception as e:
-            if not any(x in expand for x in self.unkowns):
-                if True:
-                    print(expr)
-                    print(expand)
-                    print(e)
-            return -1
-
-    def __check_ppif(self, ins, expr):
-        if ins == "if" or ins == "elif":
-            return self.__eval_ppif(expr)
-        elif ins == "ifdef":
-            if expr in self.unkowns:
-                return -1
-            if expr not in self.macros:
-                return 0
-        elif ins == "ifndef":
-            if expr in self.unkowns:
-                return -1
-            if expr in self.macros:
-                return 0
-        return 1
-
-    def __check_pp(self, line):
-        m = RE_PPIF.match(line)
-        if m:
-            f = self.__check_ppif(m.group(1), m.group(2))
-            self.depth.append(f)
-            self.brothers.append([])
-            return all(x != 0 for x in self.depth) and f == -1
-        m = RE_PPELIF.match(line)
-        if m:
-            brother = self.brothers[-1]
-            brother.append(self.depth[-1])
-            f = 0
-            if not any(x == 1 for x in brother):
-                f = self.__check_ppif("elif", m.group(1))
-            self.depth[-1] = f
-            return all(x != 0 for x in self.depth) and any(x == -1 for x in brother)
-        m = RE_PPELSE.match(line)
-        if m:
-            brother = self.brothers[-1]
-            f = self.depth[-1]
-            if f == 1 or any(x == 1 for x in brother):
-                f = 0
-            elif f == 0:
-                f = 1
-            self.depth[-1] = f
-            return all(x != 0 for x in self.depth) and f == -1
-        if RE_PPENDIF.match(line):
-            brother = self.brothers[-1]
-            f = self.depth.pop()
-            b1 = all(x != 0 for x in self.depth)
-            b2 = any(x == -1 for x in brother)
-            self.brothers.pop()
-            return b1 and (f == -1 or b2)
-        return len(self.depth) == 0 or all(x != 0 for x in self.depth)
-
-    def __reduction(self, line):
-        line = line.replace('IIUT_', 'II_')
-        line = line.replace('II_PP_', 'IP_')
-        line = line.replace('IUTEST_UNUSED_VAR', '(void)')
-        line = re.sub('\s+', ' ', line)
-        line = re.sub('\s$', '', line)
-        return line
+    pp = IutestPreprocessor(predefined_macros
+        , expand_function_macros
+        , expands_macros
+        , clang_has_features
+        , clang_has_include)
 
     def preprocess(self, code, add_macros):
-        self.macros = dict(self.macros.items() + add_macros.items())
-        dst = ""
-        for line in code.splitlines():
-            # c++ comment
-            if RE_CPP_COMMENT.match(line):
-                continue
-            # if/ifdef/ifndef/elif/endif
-            if self.__check_pp(line):
-                # define
-                d = self.__append_define(line)
-                if d:
-                    if d in expands_macros or d in expand_function_macros:
-                        continue
-                    if d in ['IUTEST_UNUSED_VAR']:
-                        continue
-                line = self.__expand_macro(line)
-                if len(line) > 0:
-                    line = self.__reduction(line)
-                    dst += line + "\n"
-        return dst
+        return self.pp.preprocess(code, add_macros)

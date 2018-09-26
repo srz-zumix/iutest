@@ -23,15 +23,49 @@ IUTEST_HEADERS = $(IUTEST_DIR)/include/*.hpp \
 # fused-src directory
 FUSED_DIR = $(IUTEST_DIR)/fused-src
 
+# fused src output
+FUSED_TARGETS=iutest.hpp iutest.min.hpp
+FUSED_WANDBOX_TARGET=iutest.wandbox.min.hpp
+OUTPUTS_TARGETS=$(FUSED_TARGETS) $(FUSED_WANDBOX_TARGET)
+OUTPUTS=$(OUTPUTS_TARGETS:%=$(FUSED_DIR)/%)
 
-default: $(FUSED_DIR) $(IUTEST_HEADERS) fused_iutest_files.py Makefile
+default: fused wandbox
+
+fused: iutest.hpp iutest.min.hpp
+
+$(FUSED_TARGETS): fused_impl
+
+fused_impl: $(FUSED_DIR) $(IUTEST_HEADERS) fused_iutest_files.py Makefile
 	python fused_iutest_files.py $(FUSED_DIR)
 
-min: default
+min: fused
 	mv $(FUSED_DIR)/iutest.min.hpp $(FUSED_DIR)/iutest.hpp
 
+wandbox: iutest.wandbox.min.hpp
+
+$(FUSED_WANDBOX_TARGET): fused
+	python iuwandbox_pp.py
+
+wandbox_debug: fused
+	python iuwandbox_pp.py debug
+
+ls:
+	ls -lh ../../fused-src
+
+# tests
+TEST_TARGETS=min_test wandbox_test
+
+min_test: fused
+	g++ tests/test.min.cpp -o $@
+	./$@
+
+wandbox_test: wandbox
+	g++ tests/test.wandbox.min.cpp -o $@
+	./$@
+
 clean:
-	$(RM) -rf $(FUSED_DIR)
+	$(RM) -rf $(OUTPUTS)
+	$(RM) -rf $(TEST_TARGETS)
 
 $(FUSED_DIR):
 	@if [ ! -d $@ ]; then \

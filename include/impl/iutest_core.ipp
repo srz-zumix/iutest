@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -138,7 +138,7 @@ IUTEST_IPP_INLINE int UnitTest::Run()
     return RunImpl();
 }
 
-#if IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
+#if IUTEST_HAS_SEH && IUTEST_HAS_EXCEPTIONS
 IUTEST_IPP_INLINE int UnitTest::RunOnMSC()
 {
     _EXCEPTION_POINTERS* ep = NULL;
