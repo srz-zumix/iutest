@@ -14,6 +14,7 @@ from iutest_pp_strip import IutestPreprocessor
 
 predefined_macros = {
     'NULL': '0',
+    'IUTEST_HAS_LIB': '0',
     '_MSC_VER': None,
 }
 
@@ -46,10 +47,13 @@ has_features = {
 has_include = {
 }
 
+debug = False
+
 class WandboxPreprocessor:
     pp = IutestPreprocessor(predefined_macros, expand_function_macros, expands_macros, has_features, has_include)
 
     def preprocess(self, code, add_macros):
+        self.pp.set_debug_flag(debug)
         return self.pp.preprocess(code, add_macros)
 
 
@@ -67,6 +71,11 @@ def default_pp():
 
 
 def main():
+    global debug
+    argc = len(sys.argv)
+    if argc == 2:
+        if sys.argv[1] == 'debug':
+            debug = True
     default_pp()
 
 if __name__ == '__main__':

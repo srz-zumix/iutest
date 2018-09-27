@@ -34,6 +34,9 @@ min: fused
 wandbox: fused
 	python iuwandbox_pp.py
 
+wandbox-debug: fused
+	python iuwandbox_pp.py debug
+
 clean:
 	$(RM) -rf $(FUSED_DIR)
 

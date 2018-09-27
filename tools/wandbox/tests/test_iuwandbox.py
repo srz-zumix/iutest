@@ -88,6 +88,7 @@ class iuwandbox_test(iuwandbox_test_base):
         if not os.path.exists(fused_src):
             try:
                 fused_iutest_files.FusedAll(fused_iutest_files.IUTEST_INCLUDE_DIR, fused_src)
+                iuwandbox_pp.default_pp()
 #              os.system('python ' + root + '/tools/fused/fused_iutest_files.py ' + fused_src)
             except:
                 pass

@@ -119,8 +119,6 @@ class IutestPreprocessor:
 
     def __expand_ppif_macro(self, expr):
         expand = ""
-        if expr is None:
-            return expand
         for s in RE_SPLIT_OP.split(expr):
             if s == '&&':
                 expand += ' and '
@@ -135,7 +133,7 @@ class IutestPreprocessor:
                     if d in self.unkowns:
                         expand += s
                     else:
-                        f = d in self.macros
+                        f = d in self.macros and self.macros[d] is not None
                         expand += m.group(1) + str(f) + m.group(3)
                     continue
                 m = RE_HAS_INCLUDE.match(s)
@@ -158,7 +156,7 @@ class IutestPreprocessor:
                     elif len(w) > 0:
                         if w in self.unkowns:
                             expand += s
-                        elif w in self.macros:
+                        elif w in self.macros and self.macros[w] is not None:
                             expand += self.__expand_ppif_macro(self.macros[w])
                         elif w.isdigit():
                             expand += w
