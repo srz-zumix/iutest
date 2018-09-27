@@ -36,7 +36,7 @@ class IutestPreprocessor:
     brothers = []
     debug = False
 
-    def __init__(self, predefined_macros, expands_macros, expand_function_macros, has_features, has_include):
+    def __init__(self, predefined_macros, expand_function_macros, expands_macros, has_features, has_include):
         self.set_expand_function_macros(expand_function_macros)
         self.set_expands_macros(expands_macros)
         self.set_has_features(has_features)
@@ -64,8 +64,8 @@ class IutestPreprocessor:
     def __expand_macro(self, line):
         dst = ""
         for s in RE_MACRO_SPLIT.split(line):
-            if s in self.expands_macros and s in self.macros:
-                if self.macros[s]:
+            if s in self.expands_macros:
+                if s in self.macros and self.macros[s]:
                     dst += self.macros[s]
             else:
                 dst += s
@@ -85,7 +85,7 @@ class IutestPreprocessor:
                 for m in RE_FUNC_MACRO.finditer(ss):
                     d = m.group(1)
                     if d in self.expand_function_macros:
-                        if d in self.macros and self.macros[d] is None:
+                        if d not in self.macros or self.macros[d] is None:
                             ss = ss.replace(m.group(0), '')
                 if len(tokens) > 0:
                     tokens[-1] += ss
@@ -132,9 +132,15 @@ class IutestPreprocessor:
                     d = m.group(2)
                     if d in self.unkowns:
                         expand += s
-                    else:
-                        f = d in self.macros and self.macros[d] is not None
+                    elif d in self.macros:
+                        if self.macros[d] is None:
+                            f = False
+                        else:
+                            f = self.macros[d]
                         expand += m.group(1) + str(f) + m.group(3)
+                    else:
+                        expand += s
+                        self.unkowns.append(d)
                     continue
                 m = RE_HAS_INCLUDE.match(s)
                 if m:
@@ -150,18 +156,21 @@ class IutestPreprocessor:
                     if f in self.has_features:
                         expand += m.group(1) + self.has_features[f] + m.group(3)
                         continue
-                for w in RE_SYMBOLMARK.split(s):
+                for w in RE_SYMBOLMARK.split(s.strip()):
                     if RE_SYMBOLMARK.match(w) or w.isspace():
                         expand += w
                     elif len(w) > 0:
                         if w in self.unkowns:
-                            expand += s
-                        elif w in self.macros and self.macros[w] is not None:
-                            expand += self.__expand_ppif_macro(self.macros[w])
+                            expand += w
+                        elif w in self.macros:
+                            if self.macros[w] is None:
+                                expand += '0'
+                            else:
+                                expand += self.__expand_ppif_macro(self.macros[w])
                         elif w.isdigit():
                             expand += w
                         else:
-                            expand += '0'
+                            expand += w
 
         expand = expand.replace('0(0)', '0')
         expand = expand.replace('not =', '!=')
@@ -188,49 +197,69 @@ class IutestPreprocessor:
         elif ins == "ifdef":
             if expr in self.unkowns:
                 return -1
-            if expr not in self.macros:
-                return 0
+            elif expr not in self.macros:
+                return -1
+            elif expr in self.macros:
+                if self.macros[expr] is None:
+                    return 0
         elif ins == "ifndef":
             if expr in self.unkowns:
                 return -1
-            if expr in self.macros:
+            elif expr in self.macros:
+                if self.macros[expr] is None:
+                    return 1
                 return 0
+            else:
+                return -1
         return 1
 
+    # return line string or None
     def __check_pp(self, line):
+        def ret(b):
+            if b:
+                return line
+            return None
         m = RE_PPIF.match(line)
         if m:
             f = self.__check_ppif(m.group(1), m.group(2))
             self.depth.append(f)
             self.brothers.append([])
-            return all(x != 0 for x in self.depth) and f == -1
+            return ret(all(x != 0 for x in self.depth) and f == -1)
         m = RE_PPELIF.match(line)
         if m:
             brother = self.brothers[-1]
-            brother.append(self.depth[-1])
+            prev_brother_f = self.depth[-1]
+            if len(brother) == 0 and prev_brother_f == 0:
+                # 直前が if で 結果が False だった場合 #if に変換する
+                line = line.replace('#elif', '#if')
+            brother.append(prev_brother_f)
             f = 0
             if not any(x == 1 for x in brother):
                 f = self.__check_ppif("elif", m.group(1))
             self.depth[-1] = f
-            return all(x != 0 for x in self.depth) and any(x == -1 for x in brother)
+            if all(x != 0 for x in self.depth):
+                if f == -1 or any(x == -1 for x in brother):
+                    return line
+            return None
         m = RE_PPELSE.match(line)
         if m:
             brother = self.brothers[-1]
-            f = self.depth[-1]
+            brother.append(self.depth[-1])
+            f = -1
             if f == 1 or any(x == 1 for x in brother):
                 f = 0
-            elif f == 0:
+            elif all(x == 0 for x in brother):
                 f = 1
             self.depth[-1] = f
-            return all(x != 0 for x in self.depth) and f == -1
+            return ret(all(x != 0 for x in self.depth) and f == -1)
         if RE_PPENDIF.match(line):
             brother = self.brothers[-1]
             f = self.depth.pop()
             b1 = all(x != 0 for x in self.depth)
             b2 = any(x == -1 for x in brother)
             self.brothers.pop()
-            return b1 and (f == -1 or b2)
-        return len(self.depth) == 0 or all(x != 0 for x in self.depth)
+            return ret(b1 and (f == -1 or b2))
+        return ret(len(self.depth) == 0 or all(x != 0 for x in self.depth))
 
     def __reduction(self, line):
         line = line.replace('IIUT_', 'II_')
@@ -249,7 +278,8 @@ class IutestPreprocessor:
             if RE_CPP_COMMENT.match(line):
                 continue
             # if/ifdef/ifndef/elif/endif
-            if self.__check_pp(line):
+            line = self.__check_pp(line)
+            if line:
                 # define
                 d = self.__append_define(line)
                 if d:

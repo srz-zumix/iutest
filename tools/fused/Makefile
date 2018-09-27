@@ -37,6 +37,15 @@ wandbox: fused
 wandbox-debug: fused
 	python iuwandbox_pp.py debug
 
+min.test:
+	g++ tests/test.min.cpp -o min_test
+	./min_test
+
+wandbox.test:
+	g++ tests/test.wandbox.min.cpp -o wandbox_test
+	./wandbox_test
+
+
 clean:
 	$(RM) -rf $(FUSED_DIR)
 
