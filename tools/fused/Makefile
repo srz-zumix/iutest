@@ -23,12 +23,16 @@ IUTEST_HEADERS = $(IUTEST_DIR)/include/*.hpp \
 # fused-src directory
 FUSED_DIR = $(IUTEST_DIR)/fused-src
 
+default: fused wandbox
 
-default: $(FUSED_DIR) $(IUTEST_HEADERS) fused_iutest_files.py Makefile
+fused: $(FUSED_DIR) $(IUTEST_HEADERS) fused_iutest_files.py Makefile
 	python fused_iutest_files.py $(FUSED_DIR)
 
-min: default
+min: fused
 	mv $(FUSED_DIR)/iutest.min.hpp $(FUSED_DIR)/iutest.hpp
+
+wandbox: fused
+	python iuwandbox_pp.py
 
 clean:
 	$(RM) -rf $(FUSED_DIR)

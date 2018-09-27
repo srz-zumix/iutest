@@ -34,6 +34,7 @@ class IutestPreprocessor:
     unkowns = []
     depth = []
     brothers = []
+    debug = False
 
     def __init__(self, predefined_macros, expands_macros, expand_function_macros, has_features, has_include):
         self.set_expand_function_macros(expand_function_macros)
@@ -56,6 +57,9 @@ class IutestPreprocessor:
 
     def set_has_features(self, has_features):
         self.has_features = has_features
+    
+    def set_debug_flag(self, flag):
+        self.debug = flag
 
     def __expand_macro(self, line):
         dst = ""
@@ -115,6 +119,8 @@ class IutestPreprocessor:
 
     def __expand_ppif_macro(self, expr):
         expand = ""
+        if expr is None:
+            return expand
         for s in RE_SPLIT_OP.split(expr):
             if s == '&&':
                 expand += ' and '
@@ -172,7 +178,7 @@ class IutestPreprocessor:
                 return 0
         except Exception as e:
             if not any(x in expand for x in self.unkowns):
-                if True:
+                if self.debug:
                     print(expr)
                     print(expand)
                     print(e)
@@ -237,7 +243,8 @@ class IutestPreprocessor:
         return line
 
     def preprocess(self, code, add_macros):
-        self.macros = dict(self.macros.items() + add_macros.items())
+        if not add_macros is None:
+            self.macros = dict(self.macros.items() + add_macros.items())
         dst = ""
         for line in code.splitlines():
             # c++ comment

@@ -9,8 +9,7 @@
 
 import os
 import sys
-import re
-sys.path.append(os.path.join(os.path.dirname(__file__), '../python'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '../fused'))
 from iutest_pp_strip import IutestPreprocessor
 
 predefined_macros = {
