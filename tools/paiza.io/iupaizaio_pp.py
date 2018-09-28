@@ -22,8 +22,8 @@ predefined_macros = {
     '__has_include': None
 }
 
-#userdefined_macros = { '': '1'
-#}
+iutest_config_macro = {
+}
 
 expands_macros = [
     'IUTEST_IPP_INLINE',
@@ -102,7 +102,11 @@ clang_has_include = {
 }
 
 class PaizaPreprocessor:
-    pp = IutestPreprocessor(predefined_macros, expand_function_macros, expands_macros, clang_has_features, clang_has_include)
+    pp = IutestPreprocessor(predefined_macros
+        , expand_function_macros
+        , expands_macros
+        , clang_has_features
+        , clang_has_include)
 
     def preprocess(self, code, add_macros):
         return self.pp.preprocess(code, add_macros)

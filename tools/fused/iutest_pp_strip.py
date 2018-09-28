@@ -29,6 +29,7 @@ class IutestPreprocessor:
     macros = {}
     expands_macros = []
     expand_function_macros = []
+    iutest_config_macro = []
     has_include = {}
     has_features = {}
     unkowns = []
@@ -36,15 +37,26 @@ class IutestPreprocessor:
     brothers = []
     debug = False
 
-    def __init__(self, predefined_macros, expand_function_macros, expands_macros, has_features, has_include):
+    def __init__(self
+            , predefined_macros
+            , iutest_config_macro
+            , expand_function_macros
+            , expands_macros
+            , has_features
+            , has_include):
+        self.set_predefined_macros(predefined_macros)
+        self.set_iutest_config_macro(iutest_config_macro)
         self.set_expand_function_macros(expand_function_macros)
         self.set_expands_macros(expands_macros)
         self.set_has_features(has_features)
         self.set_has_include(has_include)
-        self.set_predefined_macros(predefined_macros)
 
     def set_predefined_macros(self, predefined_macros):
         self.macros = predefined_macros
+
+    def set_iutest_config_macro(self, iutest_config_macro):
+        self.iutest_config_macro = iutest_config_macro
+        self.macros.update(iutest_config_macro)
 
     def set_expands_macros(self, expands_macros):
         self.expands_macros = expands_macros
@@ -271,7 +283,7 @@ class IutestPreprocessor:
 
     def preprocess(self, code, add_macros):
         if not add_macros is None:
-            self.macros = dict(self.macros.items() + add_macros.items())
+            self.macros.update(add_macros)
         dst = ""
         for line in code.splitlines():
             # c++ comment
@@ -291,4 +303,9 @@ class IutestPreprocessor:
                 if len(line) > 0:
                     line = self.__reduction(line)
                     dst += line + "\n"
+                # config macro insert
+                if '#define INCG_IRIS_IUTEST_CONFIG_HPP_' in line:
+                    for k,v in self.iutest_config_macro.items():
+                        dst += '#define ' + k + ' ' + str(v) + '\n'
+                    self.iutest_config_macro.clear()
         return dst

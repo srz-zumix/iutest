@@ -14,12 +14,13 @@ from iutest_pp_strip import IutestPreprocessor
 
 predefined_macros = {
     'NULL': '0',
-    'IUTEST_HAS_LIB': '0',
     '_MSC_VER': None,
+    '__MWERKS__': None,
 }
 
-#userdefined_macros = { '': '1'
-#}
+iutest_config_macro = {
+    'IUTEST_HAS_LIB': '0',
+}
 
 expands_macros = [
     'IUTEST_IPP_INLINE',
@@ -50,7 +51,12 @@ has_include = {
 debug = False
 
 class WandboxPreprocessor:
-    pp = IutestPreprocessor(predefined_macros, expand_function_macros, expands_macros, has_features, has_include)
+    pp = IutestPreprocessor(predefined_macros
+        , iutest_config_macro
+        , expand_function_macros
+        , expands_macros
+        , has_features
+        , has_include)
 
     def preprocess(self, code, add_macros):
         self.pp.set_debug_flag(debug)
