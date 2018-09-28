@@ -49,6 +49,8 @@ $(FUSED_WANDBOX_TARGET): fused
 wandbox-debug: fused
 	python iuwandbox_pp.py debug
 
+ls:
+	ls -lh ../../fused-src
 
 # tests
 TEST_TARGETS=min_test wandbox_test

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -391,6 +391,8 @@
  * @{
 */
 
+#ifndef IUTEST_NO_UTIL_ASSERTION_GTEST_COMPATIBLE
+
 #define ASSERT_EQ_COLLECTIONS   IUTEST_ASSERT_EQ_COLLECTIONS
 #define ASSERT_EQ_RANGE         IUTEST_ASSERT_EQ_RANGE
 #define ASSERT_STRLNEQ          IUTEST_ASSERT_STRLNEQ
@@ -436,6 +438,8 @@
 #define EXPECT_CONTAINS_REGEXNE IUTEST_EXPECT_CONTAINS_REGEXNE
 #define INFORM_CONTAINS_REGEXNE IUTEST_INFORM_CONTAINS_REGEXNE
 #define ASSUME_CONTAINS_REGEXNE IUTEST_ASSUME_CONTAINS_REGEXNE
+
+#endif
 
 #endif
 

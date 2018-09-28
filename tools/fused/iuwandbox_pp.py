@@ -14,12 +14,27 @@ from iutest_pp_strip import IutestPreprocessor
 
 predefined_macros = {
     'NULL': '0',
+    'IUTEST_USE_GTEST': None,
+    'IUTEST_BUILD_DOXYGEN': None,
+    '_IUTEST_DEBUG': None,
     '_MSC_VER': None,
+    '_WIN32': None,
+    'WIN32': None,
+    '__WIN32__': None,
+    'WINAPI_FAMILY': None,
     '__MWERKS__': None,
+    'IUTEST_OS_WINDOWS': None,
+    'IUTEST_OS_WINDOWS_MINGW': None,
+    'IUTEST_OS_WINDOWS_MOBILE': None,
+    'IUTEST_OS_WINDOWS_PHONE': None,
+    'IUTEST_OS_WINDOWS_RT': None,
+    'IUTEST_OS_WINDOWS_WINE': None,
+    'IUTEST_NO_UTIL_ASSERTION_GTEST_COMPATIBLE': '1',
 }
 
 iutest_config_macro = {
     'IUTEST_HAS_LIB': '0',
+    'IUTEST_HAS_TESTNAME_ALIAS_JP': '0',
 }
 
 expands_macros = [
