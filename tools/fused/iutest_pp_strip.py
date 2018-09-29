@@ -120,7 +120,7 @@ class IutestPreprocessor:
                 unkowns.append(d)
             else:
                 if len(v) == 0:
-                    macros[d] = None
+                    macros[d] = 'defined'
                 else:
                     macros[d] = v
             return d
@@ -145,11 +145,12 @@ class IutestPreprocessor:
                     if d in self.unkowns:
                         expand += s
                     elif d in self.macros:
+                        expand += m.group(1)
                         if self.macros[d] is None:
-                            f = False
+                            expand += ' (0==1) '
                         else:
-                            f = self.macros[d]
-                        expand += m.group(1) + str(f) + m.group(3)
+                            expand += ' (0==0) '
+                        expand += m.group(3)
                     else:
                         expand += s
                         self.unkowns.append(d)
@@ -191,16 +192,25 @@ class IutestPreprocessor:
     def __eval_ppif(self, expr):
         expand = self.__expand_ppif_macro(expr)
         try:
-            if eval(expand):
+            r = eval(expand)
+            if r:
                 return 1
             else:
                 return 0
         except Exception as e:
-            if not any(x in expand for x in self.unkowns):
+            def debug_print():
                 if self.debug:
                     print(expr)
                     print(expand)
                     print(e)
+            if 'INCG_IRIS_' in expr:
+                print(expr)
+                print(expand)
+                print(e)
+            if not any(x in expand for x in self.unkowns):
+                debug_print()
+            elif len(expr.split()) > 1:
+                debug_print()
             return -1
 
     def __check_ppif(self, ins, expr):
@@ -244,7 +254,8 @@ class IutestPreprocessor:
             if len(brother) == 0 and prev_brother_f == 0:
                 # 直前が if で 結果が False だった場合 #if に変換する
                 line = line.replace('#elif', '#if')
-            brother.append(prev_brother_f)
+            else:
+                brother.append(prev_brother_f)
             f = 0
             if not any(x == 1 for x in brother):
                 f = self.__check_ppif("elif", m.group(1))
