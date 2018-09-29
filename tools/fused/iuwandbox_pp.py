@@ -18,6 +18,7 @@ predefined_macros = {
     'IUTEST_BUILD_DOXYGEN': None,
     '_IUTEST_DEBUG': None,
     '_MSC_VER': None,
+    '_MSC_FULL_VER': None,
     '_WIN32': None,
     'WIN32': None,
     '__WIN32__': None,
@@ -30,11 +31,28 @@ predefined_macros = {
     'IUTEST_OS_WINDOWS_RT': None,
     'IUTEST_OS_WINDOWS_WINE': None,
     'IUTEST_NO_UTIL_ASSERTION_GTEST_COMPATIBLE': '1',
+    'IUTEST_NO_TWO_PHASE_NAME_LOOKUP': None,
+    'IUTEST_NO_FUNCTION_TEMPLATE_ORDERING': None,
+    'IUTEST_NO_INCLASS_MEMBER_INITIALIZATION': None,
+    'IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS': None,
+    'IUTEST_NO_SFINAE': None,
+    'IUTEST_NO_TEMPLATE_TEMPLATES': None,
+    'IUTEST_NO_VOID_RETURNS': None,
+    'IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP': None,
+    'IUTEST_NO_PRIVATE_IN_AGGREGATE': None,
+    'IUTEST_NO_VARIADIC_MACROS': None,
+    'IUTEST_HAS_WANT_SECURE_LIB': '0',
+    'IUTEST_HAS_MS_EXTENSIONS': '0',
+    'IUTEST_HAS_MS_CXX_MODULE': '0',
+    'IUTEST_CXX_MODULE_EXPORT': None,
+    'MS_CPP_UNITTESTFRAMEWORK': None,
 }
 
 iutest_config_macro = {
     'IUTEST_HAS_LIB': '0',
     'IUTEST_HAS_TESTNAME_ALIAS_JP': '0',
+    'IUTEST_HAS_IF_EXISTS': '0',
+    'IUTEST_HAS_ANALYSIS_ASSUME': '0',
 }
 
 expands_macros = [
@@ -77,6 +95,9 @@ class WandboxPreprocessor:
         self.pp.set_debug_flag(debug)
         return self.pp.preprocess(code, add_macros)
 
+    def remove_empty_ppif(self, code):
+        return self.pp.remove_empty_ppif(code)
+
 
 def default_pp():
     output_dir = "../../fused-src"
@@ -87,6 +108,7 @@ def default_pp():
     output_file = codecs.open(os.path.join(output_dir, output), 'w', 'utf-8-sig')
     pp = WandboxPreprocessor()
     code = pp.preprocess(code, None)
+    code = pp.remove_empty_ppif(code)
     output_file.write(code)
     output_file.close()
 

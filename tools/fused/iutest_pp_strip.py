@@ -309,3 +309,60 @@ class IutestPreprocessor:
                         dst += '#define ' + k + ' ' + str(v) + '\n'
                     self.iutest_config_macro.clear()
         return dst
+
+    def __get_ppif_type(self, line):
+        if RE_PPIF.match(line):
+            return 'if'
+        elif RE_PPELIF.match(line):
+            return 'elif'
+        elif RE_PPELSE.match(line):
+            return 'else'
+        elif RE_PPENDIF.match(line):
+            return 'endif'
+        return None
+
+    def remove_empty_ppif(self, code):
+        self.depth.clear()
+        self.brothers.clear()
+        dst = ""
+        prev = None
+        cache_lines = []
+        def cach_clear():
+            ret = ""
+            for s in cache_lines:
+                if s is not None:
+                    ret += s
+            cache_lines.clear()
+            return ret
+
+        for line in code.splitlines():
+            line += "\n"
+            t = self.__get_ppif_type(line)
+            if t == 'endif':
+                if prev == 'if':
+                    if len(cache_lines) > 0:
+                        cache_lines = cache_lines[:-1]
+                elif prev != 'endif':
+                    if len(cache_lines) > 0:
+                        cache_lines[-1] = line
+                    else:
+                        cache_lines.append(line)
+                else:
+                    dst += cach_clear()
+                    dst += line
+            elif t is not None:
+                if prev is None:
+                    cache_lines.append(line)
+                else:
+                    if t == 'else' and prev == 'elif':
+                        cache_lines[-1] = line
+                    elif t == 'elif' and prev == 'elif':
+                        cache_lines[-1] = line
+                    else:
+                        cache_lines.append(line)
+            else:
+                dst += cach_clear()
+                dst += line
+            prev = t
+        dst += cach_clear()
+        return dst
