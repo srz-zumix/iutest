@@ -252,7 +252,7 @@ class IutestPreprocessor:
             brother = self.brothers[-1]
             prev_brother_f = self.depth[-1]
             if len(brother) == 0 and prev_brother_f == 0:
-                # 直前が if で 結果が False だった場合 #if に変換する
+                # Convert to #if if the last is if and the result is False
                 line = line.replace('#elif', '#if')
             else:
                 brother.append(prev_brother_f)
