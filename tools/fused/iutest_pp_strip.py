@@ -27,12 +27,13 @@ RE_CPP_COMMENT = re.compile('^//.*')
 
 class IutestPreprocessor:
     macros = {}
+    depth_macros = [ {} ]
     expands_macros = []
     expand_function_macros = []
     iutest_config_macro = []
     has_include = {}
     has_features = {}
-    unkowns = []
+    unknowns = []
     depth = []
     brothers = []
     debug = False
@@ -113,20 +114,37 @@ class IutestPreprocessor:
         dst += prev
         return dst
 
+    def __has_current_macro(self, name):
+        current_depth_macro = self.depth_macros[-1]
+        if name in current_depth_macro:
+            return True
+        if name in self.macros:
+            return True
+        return False
+
+    def __get_current_macro(self, name):
+        current_depth_macro = self.depth_macros[-1]
+        if name in current_depth_macro:
+            return current_depth_macro[name]
+        if name in self.macros:
+            return self.macros[name]
+        return False
+
     def __append_define(self, line):
-        def append(d, v, depth, macros, unkowns):
+        def append(d, v, depth, macros, unknowns, current):
             d = re.sub('\(.*\)', '', d)
+            if len(v) == 0:
+                v = 'defined'
             if any(x == -1 for x in depth):
-                unkowns.append(d)
+                unknowns.append(d)
+                current[d] = v
             else:
-                if len(v) == 0:
-                    macros[d] = 'defined'
-                else:
-                    macros[d] = v
+                macros[d] = v
             return d
         m = RE_DEFINE.match(line)
         if m:
-            return append(m.group(1), m.group(2), self.depth, self.macros, self.unkowns)
+            current_depth_macro = self.depth_macros[-1]
+            return append(m.group(1), m.group(2), self.depth, self.macros, self.unknowns, current_depth_macro)
         return None
 
     def __expand_ppif_macro(self, expr):
@@ -142,18 +160,18 @@ class IutestPreprocessor:
                 m = RE_DEFINE_PARSE.match(s)
                 if m:
                     d = m.group(2)
-                    if d in self.unkowns:
-                        expand += s
-                    elif d in self.macros:
+                    if self.__has_current_macro(d):
                         expand += m.group(1)
-                        if self.macros[d] is None:
+                        if self.__get_current_macro(d) is None:
                             expand += ' (0==1) '
                         else:
                             expand += ' (0==0) '
                         expand += m.group(3)
+                    elif d in self.unknowns:
+                        expand += s
                     else:
                         expand += s
-                        self.unkowns.append(d)
+                        self.unknowns.append(d)
                     continue
                 m = RE_HAS_INCLUDE.match(s)
                 if m:
@@ -173,7 +191,7 @@ class IutestPreprocessor:
                     if RE_SYMBOLMARK.match(w) or w.isspace():
                         expand += w
                     elif len(w) > 0:
-                        if w in self.unkowns:
+                        if w in self.unknowns:
                             expand += w
                         elif w in self.macros:
                             if self.macros[w] is None:
@@ -207,7 +225,7 @@ class IutestPreprocessor:
                 print(expr)
                 print(expand)
                 print(e)
-            if not any(x in expand for x in self.unkowns):
+            if not any(x in expand for x in self.unknowns):
                 debug_print()
             elif len(expr.split()) > 1:
                 debug_print()
@@ -217,7 +235,7 @@ class IutestPreprocessor:
         if ins == "if" or ins == "elif":
             return self.__eval_ppif(expr)
         elif ins == "ifdef":
-            if expr in self.unkowns:
+            if expr in self.unknowns:
                 return -1
             elif expr not in self.macros:
                 return -1
@@ -225,7 +243,7 @@ class IutestPreprocessor:
                 if self.macros[expr] is None:
                     return 0
         elif ins == "ifndef":
-            if expr in self.unkowns:
+            if expr in self.unknowns:
                 return -1
             elif expr in self.macros:
                 if self.macros[expr] is None:
@@ -245,6 +263,7 @@ class IutestPreprocessor:
         if m:
             f = self.__check_ppif(m.group(1), m.group(2))
             self.depth.append(f)
+            self.depth_macros.append({})
             self.brothers.append([])
             return ret(all(x != 0 for x in self.depth) and f == -1)
         m = RE_PPELIF.match(line)
@@ -278,6 +297,7 @@ class IutestPreprocessor:
         if RE_PPENDIF.match(line):
             brother = self.brothers[-1]
             f = self.depth.pop()
+            self.depth_macros.pop()
             b1 = all(x != 0 for x in self.depth)
             b2 = any(x == -1 for x in brother)
             self.brothers.pop()
@@ -318,7 +338,7 @@ class IutestPreprocessor:
                 if '#define INCG_IRIS_IUTEST_CONFIG_HPP_' in line:
                     for k,v in self.iutest_config_macro.items():
                         dst += '#define ' + k + ' ' + str(v) + '\n'
-                    self.iutest_config_macro.clear()
+                    self.iutest_config_macro = []
         return dst
 
     def __get_ppif_type(self, line):
@@ -341,7 +361,7 @@ class IutestPreprocessor:
             for s in cache_lines:
                 if s is not None:
                     ret += s
-            cache_lines.clear()
+            del cache_lines[:]
             return ret
 
         for line in code.splitlines():
