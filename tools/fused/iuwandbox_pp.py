@@ -29,6 +29,7 @@ predefined_macros = {
     'WIN32': None,
     '__WIN32__': None,
     'WINAPI_FAMILY': None,
+    '__AFX_H__': None,
     '__MWERKS__': None,
     'IUTEST_OS_WINDOWS': None,
     'IUTEST_OS_WINDOWS_MINGW': None,
@@ -70,6 +71,7 @@ iutest_config_macro = {
     'IUTEST_HAS_TESTNAME_ALIAS_JP': '0',
     'IUTEST_HAS_IF_EXISTS': '0',
     'IUTEST_HAS_ANALYSIS_ASSUME': '0',
+    'IUTEST_HAS_IGNORE_TEST': '0',
 }
 
 expands_macros = [

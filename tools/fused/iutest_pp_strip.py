@@ -8,6 +8,7 @@
 #
 
 import re
+import collections
 
 RE_MACRO_SPLIT = re.compile('([\(\):;{} /%+\-=<>!&\|*#]+)')
 RE_SPLIT_PAREN = re.compile('([\(\)])')
@@ -305,9 +306,39 @@ class IutestPreprocessor:
         return ret(len(self.depth) == 0 or all(x != 0 for x in self.depth))
 
     def __reduction(self, line):
+        reduction_macros = {
+            'IP_INC':    'IP_I',
+            'IP_DEC':    'IP_D',
+            'IP_BOOL':   'IP_B',
+            'IP_ENUM':   'IP_E',
+            'IP_REPEAT': 'IP_R',
+            'II_SHOW_MACRO':  'II_S_M',
+            'II_ELEMENTSARE': 'II_EA',
+            'II_DECL_VALUEARRAY_': 'II_D_VA_',
+            'II_DECL_CARTESIAN_PRODUCT_': 'II_D_C_P_',
+            'II_DECL_PAIRWISE_': 'II_D_PW_',
+            'II_DECL_IS_FUNCTION_PTR_': 'II_D_IS_FP_',
+            'II_DECL_IS_MEMBER_FUNCTION_PTR_': 'II_D_IS_M_FP_',
+            'II_DECL_FUNCTION_RETURN_TYPE_': 'II_D_F_R_T_',
+            'II_DECL_EXPRESSION_': 'II_D_EP_',
+            'II_DECL_TUPLE_PRINTTO': 'II_D_T_PT',
+            'II_DECL_ANYOF_AND_ALLOF': 'II_D_AAA',
+            'II_DECL_COMPARE_HELPER_': 'II_D_C_H_',
+            'II_DECL_COMBINE_':   'II_D_C_',
+            'II_DECL_VALUES_':    'II_D_V_',
+            'II_DECL_TYPES_':     'II_D_T_',
+            'II_DECL_TEMPLATES_': 'II_D_TPL_',
+            'II_DECL_TYPELIST_':  'II_D_TL_',
+            'II_DECL_TEMPLATETYPELIST_': 'II_D_TTL_',
+        }
         line = line.replace('IIUT_', 'II_')
         line = line.replace('II_PP_', 'IP_')
         line = line.replace('IUTEST_UNUSED_VAR', '(void)')
+        for k,v in reduction_macros.items():
+            if collections.Counter(reduction_macros.values())[v] > 1:
+                print('error: duplicated ' + v)
+                continue
+            line = line.replace(k, v)
         line = re.sub('\s+', ' ', line)
         line = re.sub('\s$', '', line)
         return line
