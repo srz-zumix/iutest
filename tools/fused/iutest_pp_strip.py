@@ -333,8 +333,6 @@ class IutestPreprocessor:
         return None
 
     def remove_empty_ppif(self, code):
-        self.depth.clear()
-        self.brothers.clear()
         dst = ""
         prev = None
         cache_lines = []
