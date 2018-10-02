@@ -25,7 +25,7 @@ RE_PPELSE = re.compile('#\s*else\s*$')
 RE_PPENDIF = re.compile('#\s*endif')
 RE_CPP_COMMENT = re.compile('^//.*')
 
-STRIP_INCG_REGEX = re.compile(r'^INCG_\S*_HPP_\S+\Z')
+STRIP_INCG_REGEX = re.compile(r'^INCG_\S*_[IH]PP_\S+\Z')
 
 
 class IutestPreprocessor:
