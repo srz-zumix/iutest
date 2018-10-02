@@ -24,8 +24,9 @@ RE_PPELIF = re.compile('#\s*elif(.*)$')
 RE_PPELSE = re.compile('#\s*else\s*$')
 RE_PPENDIF = re.compile('#\s*endif')
 RE_CPP_COMMENT = re.compile('^//.*')
+RE_SYSTEM_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*<(.*)>')
 
-STRIP_INCG_REGEX = re.compile(r'^INCG_\S*_[IH]PP_\S+\Z')
+RE_STRIP_INCG_REGEX = re.compile(r'^INCG_\S*_[IH]PP_\S+\Z')
 
 
 class IutestPreprocessor:
@@ -34,6 +35,7 @@ class IutestPreprocessor:
     expands_macros = []
     expand_function_macros = []
     iutest_config_macro = []
+    included_path = [ [] ]
     has_include = {}
     has_features = {}
     unknowns = []
@@ -137,7 +139,7 @@ class IutestPreprocessor:
         def append(d, v, depth, macros, unknowns, current):
             d = re.sub('\(.*\)', '', d)
             if len(v) == 0:
-                if STRIP_INCG_REGEX.match(d):
+                if RE_STRIP_INCG_REGEX.match(d):
                     self.expands_macros.append(d)
                 v = 'defined'
             if any(x == -1 for x in depth):
@@ -269,6 +271,7 @@ class IutestPreprocessor:
             f = self.__check_ppif(m.group(1), m.group(2))
             self.depth.append(f)
             self.depth_macros.append({})
+            self.included_path.append([])
             self.brothers.append([])
             return ret(all(x != 0 for x in self.depth) and f == -1)
         m = RE_PPELIF.match(line)
@@ -302,12 +305,23 @@ class IutestPreprocessor:
         if RE_PPENDIF.match(line):
             brother = self.brothers[-1]
             f = self.depth.pop()
+            self.included_path.pop()
             self.depth_macros.pop()
             b1 = all(x != 0 for x in self.depth)
             b2 = any(x == -1 for x in brother)
             self.brothers.pop()
             return ret(b1 and (f == -1 or b2))
         return ret(len(self.depth) == 0 or all(x != 0 for x in self.depth))
+
+    def __check_include(self, line):
+        m = RE_SYSTEM_INCLUDE_REGEX.match(line)
+        if m:
+            path = m.group(1)
+            if path in self.included_path[-1]:
+                return False
+            else:
+                self.included_path[-1].append(path)
+        return True
 
     def __reduction(self, line):
         reduction_macros = {
@@ -359,6 +373,9 @@ class IutestPreprocessor:
             # if/ifdef/ifndef/elif/endif
             line = self.__check_pp(line)
             if line:
+                # include
+                if not self.__check_include(line):
+                    continue
                 # define
                 d = self.__append_define(line)
                 if d:
