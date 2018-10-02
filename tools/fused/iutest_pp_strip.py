@@ -25,6 +25,8 @@ RE_PPELSE = re.compile('#\s*else\s*$')
 RE_PPENDIF = re.compile('#\s*endif')
 RE_CPP_COMMENT = re.compile('^//.*')
 
+STRIP_INCG_REGEX = re.compile(r'^INCG_\S*_HPP_\S+\Z')
+
 
 class IutestPreprocessor:
     macros = {}
@@ -135,6 +137,8 @@ class IutestPreprocessor:
         def append(d, v, depth, macros, unknowns, current):
             d = re.sub('\(.*\)', '', d)
             if len(v) == 0:
+                if STRIP_INCG_REGEX.match(d):
+                    self.expands_macros.append(d)
                 v = 'defined'
             if any(x == -1 for x in depth):
                 unknowns.append(d)
@@ -321,6 +325,7 @@ class IutestPreprocessor:
             'II_DECL_IS_MEMBER_FUNCTION_PTR_': 'II_D_IS_M_FP_',
             'II_DECL_FUNCTION_RETURN_TYPE_': 'II_D_F_R_T_',
             'II_DECL_EXPRESSION_': 'II_D_EP_',
+            'II_DECL_ELEMENTSARE_': 'II_D_EA_',
             'II_DECL_TUPLE_PRINTTO': 'II_D_T_PT',
             'II_DECL_ANYOF_AND_ALLOF': 'II_D_AAA',
             'II_DECL_COMPARE_HELPER_': 'II_D_C_H_',
@@ -357,6 +362,11 @@ class IutestPreprocessor:
                 # define
                 d = self.__append_define(line)
                 if d:
+                    # config macro insert
+                    if 'INCG_IRIS_IUTEST_CONFIG_HPP_' in d:
+                        for k,v in self.iutest_config_macro.items():
+                            dst += '#define ' + k + ' ' + str(v) + '\n'
+                        self.iutest_config_macro = []
                     if d in self.expands_macros or d in self.expand_function_macros:
                         continue
                     if d in ['IUTEST_UNUSED_VAR']:
@@ -365,11 +375,6 @@ class IutestPreprocessor:
                 if len(line) > 0:
                     line = self.__reduction(line)
                     dst += line + "\n"
-                # config macro insert
-                if '#define INCG_IRIS_IUTEST_CONFIG_HPP_' in line:
-                    for k,v in self.iutest_config_macro.items():
-                        dst += '#define ' + k + ' ' + str(v) + '\n'
-                    self.iutest_config_macro = []
         return dst
 
     def __get_ppif_type(self, line):
