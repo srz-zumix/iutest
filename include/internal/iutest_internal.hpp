@@ -105,16 +105,24 @@
 #define IUTEST_TEST_F_(testfixture_, testname_)                                 \
     IIUT_TEST_F_A_(IUTEST_TEST_, testfixture_, testname_)
 
+#if IUTEST_HAS_IGNORE_TEST
+
 #define IUTEST_TEST_F_IGNORE_(testfixture_, testname_)                          \
     IIUT_TEST_F_A_( IUTEST_TEST_IGNORE_, testfixture_, testname_)
+
+#endif
 
 #else
 
 #define IUTEST_TEST_F_(testfixture_, testname_)                                 \
     IIUT_TEST_F_(IUTEST_TEST_, testfixture_, testname_)
 
+#if IUTEST_HAS_IGNORE_TEST
+
 #define IUTEST_TEST_F_IGNORE_(testfixture_, testname_)                          \
     IIUT_TEST_F_( IUTEST_TEST_IGNORE_, testfixture_, testname_)
+
+#endif
 
 #endif
 
@@ -138,6 +146,8 @@
         , type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);         \
     void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body()
 
+#if IUTEST_HAS_IGNORE_TEST
+
 /**
  * @internal
  * @brief   Test class defined macro
@@ -155,6 +165,8 @@
         IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_)      \
         , type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);         \
     template<typename T>void IUTEST_TEST_CLASS_NAME_(testcase_, testname_ )::Body()
+
+#endif
 
 #if !defined(IUTEST_NO_VARIADIC_MACROS)
 
