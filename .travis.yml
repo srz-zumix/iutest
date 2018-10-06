@@ -91,7 +91,8 @@ install:
         cd -
       fi
     fi
-    # libcxx
+  # libcxx
+  - |
     if [ "${USE_LIBCXX}" = '1' ]; then
       sh ./.ci/setup-libcxx.sh
     fi
