@@ -73,6 +73,7 @@ iutest_config_macro = {
     'IUTEST_HAS_IF_EXISTS': '0',
     'IUTEST_HAS_ANALYSIS_ASSUME': '0',
     'IUTEST_HAS_IGNORE_TEST': '0',
+    'IUTEST_HAS_MINIDUMP': '0',
 }
 
 expands_macros = [

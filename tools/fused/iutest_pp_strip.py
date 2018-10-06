@@ -359,6 +359,8 @@ class IutestPreprocessor:
             'II_DECL_STR_COMPARE_MATCHER': 'II_D_S_COMP_M',
             'II_DECL_ALLOF_MATCHER': 'II_D_ALL_M',
             'II_DECL_ANYOF_MATCHER': 'II_D_ANY_M',
+            'II_DECL_DEFAULT_ARG_': 'II_D_DEF_A_',
+            'II_DECL_SPEC_NONE_': 'II_D_S_NN_',
             'II_D_C_P_GENERATOR_': 'II_D_C_P_GEN_',
             'II_D_C_P_HOLDER_': 'II_D_C_P_HLR_',
             'II_D_PW_GENERATOR_': 'II_D_PW_GEN_',
@@ -385,6 +387,8 @@ class IutestPreprocessor:
             'II_T_T_PARAMS_': 'II_T_T_PRMS_',
             'II_REGISTER_TYPED_TEST_CASE_P_':    'II_R_T_TC_P_',
             'II_INSTANTIATE_TYPED_TEST_CASE_P_': 'II_INST_T_TC_P_',
+            'II_PEEP_TAG_NAME_':    'II_PE_T_N_',
+            'II_PEEP_SETTER_NAME_': 'II_PE_S_N_',
             'II_GeTypeNameSpecialization': 'II_GTNS',
             'II_WORKAROUND_GENRAND': 'II_WA_GENRAND',
         }
