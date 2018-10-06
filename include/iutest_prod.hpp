@@ -172,35 +172,35 @@ private:
         }
 #else
 
-#define PEEP_DECL_MEMBER_FUNC_(n)   \
+#define IIUT_DECL_PEEP_MEMBER_FUNC_(n)   \
     template<IUTEST_PP_ENUM_PARAMS(n, typename T)>return_type operator () (     \
         IUTEST_PP_ENUM_BINARY_PARAMS(n, T, t)) {                \
         return ((*m_ptr).*detail::peep_tag<peep_tag>::value)(IUTEST_PP_ENUM_PARAMS(n, t)); }
 
         return_type operator () () { return ((*m_ptr).*detail::peep_tag<peep_tag>::value)(); }
 
-        PEEP_DECL_MEMBER_FUNC_(1)
-        PEEP_DECL_MEMBER_FUNC_(2)
-        PEEP_DECL_MEMBER_FUNC_(3)
-        PEEP_DECL_MEMBER_FUNC_(4)
-        PEEP_DECL_MEMBER_FUNC_(5)
-        PEEP_DECL_MEMBER_FUNC_(6)
-        PEEP_DECL_MEMBER_FUNC_(7)
-        PEEP_DECL_MEMBER_FUNC_(8)
-        PEEP_DECL_MEMBER_FUNC_(9)
-        PEEP_DECL_MEMBER_FUNC_(10)
-        PEEP_DECL_MEMBER_FUNC_(11)
-        PEEP_DECL_MEMBER_FUNC_(12)
-        PEEP_DECL_MEMBER_FUNC_(13)
-        PEEP_DECL_MEMBER_FUNC_(14)
-        PEEP_DECL_MEMBER_FUNC_(15)
-        PEEP_DECL_MEMBER_FUNC_(16)
-        PEEP_DECL_MEMBER_FUNC_(17)
-        PEEP_DECL_MEMBER_FUNC_(18)
-        PEEP_DECL_MEMBER_FUNC_(19)
-        PEEP_DECL_MEMBER_FUNC_(20)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(1)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(2)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(3)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(4)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(5)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(6)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(7)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(8)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(9)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(10)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(11)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(12)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(13)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(14)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(15)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(16)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(17)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(18)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(19)
+        IIUT_DECL_PEEP_MEMBER_FUNC_(20)
 
-#undef IUTEST_DECL_PEEP_MEMBER_FUNC_
+#undef IIUT_DECL_PEEP_MEMBER_FUNC_
 #endif
     };
     template<typename U, typename Type, bool is_const>

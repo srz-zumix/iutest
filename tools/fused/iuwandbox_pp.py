@@ -13,6 +13,7 @@ import codecs
 from iutest_pp_strip import IutestPreprocessor
 
 predefined_macros = {
+    '__WANDBOX__': '1',
     'NULL': '0',
     'IUTEST_USE_GTEST': None,
     'IUTEST_BUILD_DOXYGEN': None,
