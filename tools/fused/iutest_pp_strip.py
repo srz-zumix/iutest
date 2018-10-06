@@ -371,6 +371,10 @@ class IutestPreprocessor:
             'II_TEST_P_EVALGENERATOR_NAME_':    'II_T_P_EGEN_N_',
             'II_TEST_P_PARAMGENERATOR_NAME_':   'II_T_P_PGEN_N_',
             'II_TEST_P_INSTANTIATIONREGISTER_': 'II_T_P_INST_R_',
+            'II_TYPED_TEST_': 'II_T_T_',
+            'II_T_T_PARAMS_': 'II_T_T_PRMS_',
+            'II_REGISTER_TYPED_TEST_CASE_P_':    'II_R_T_TC_P_',
+            'II_INSTANTIATE_TYPED_TEST_CASE_P_': 'II_INST_T_TC_P_',
             'II_GeTypeNameSpecialization': 'II_GTNS',
             'II_WORKAROUND_GENRAND': 'II_WA_GENRAND',
         }
