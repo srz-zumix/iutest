@@ -920,20 +920,6 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperContainsRegex
 
 #endif
 
-/**
- * @private
- * @{
-*/
-#define IIUT_COMPARE_HELPER_DEC_(name)  struct name {                                       \
-    template<typename T1, typename T2>                                                      \
-    static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2, const T1& val1, const T2& val2) {   \
-        return ::iutest::internal::CmpHelper##name(expr1, expr2, val1, val2);               \
-    }                                                                                       \
-    }
-/**
- * @}
-*/
-
 }   // end of namespace iuutil
 
 #endif // INCG_IRIS_IUTEST_UTIL_ASSERTION_HPP_A45F8265_40E0_44F2_91C6_090B1778657C_
