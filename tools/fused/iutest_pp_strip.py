@@ -462,6 +462,8 @@ class IutestPreprocessor:
                 if d:
                     # config macro insert
                     if 'INCG_IRIS_IUTEST_CONFIG_HPP_' in d:
+                        dst += self.prev_line + '\n'
+                        self.prev_line = None
                         for k,v in self.iutest_config_macro.items():
                             dst += '#define ' + k + ' ' + str(v) + '\n'
                         self.iutest_config_macro = []
