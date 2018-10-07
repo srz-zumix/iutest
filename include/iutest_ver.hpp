@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01160600u //!< iutest version 1.16.6.0
+#define IUTEST_VER          0x01169902u //!< iutest version 1.16.99.2
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
-#define IUTEST_MICROVER     0x06u       //!< Micro Version
-#define IUTEST_REVISION     0x00u       //!< Revision
+#define IUTEST_MICROVER     0x99u       //!< Micro Version
+#define IUTEST_REVISION     0x02u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 

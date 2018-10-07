@@ -46,12 +46,23 @@ public:
     {
         Normalize();
     }
+#if IUTEST_USE_CXX_FILESYSTEM
+    explicit iuFilePath(const ::std::filesystem::path& path) : m_path(path.string())
+    {
+        Normalize();
+    }
+#endif
 
 public:
-    ::std::string   ToString()  const { return m_path; }
-    const char*     c_str()     const { return m_path.c_str(); }
-    bool            IsEmpty()   const { return c_str() == NULL || *c_str() == '\0'; }
+    ::std::string           ToString()  const { return m_path; }
+    const ::std::string&    string()    const { return m_path; }
+    bool            IsEmpty()   const { return m_path.empty(); }
     size_t          length()    const { return m_path.length(); }
+
+#if IUTEST_USE_CXX_FILESYSTEM
+    ::std::filesystem::path path() const { return ::std::filesystem::path(m_path); }
+    ::std::filesystem::file_status status() const { return ::std::filesystem::status(path()); }
+#endif
 
 public:
     iuFilePath & operator = (const iuFilePath& rhs) { m_path = rhs.m_path; return *this; }
@@ -63,13 +74,12 @@ public:
     }
     bool operator == (const iuFilePath& rhs) const
     {
-        return IsStringCaseEqual(c_str(), rhs.c_str());
+        return IsStringCaseEqual(m_path, rhs.m_path);
     }
     bool operator == (const char* rhs) const
     {
-        return IsStringCaseEqual(c_str(), rhs);
+        return IsStringCaseEqual(m_path, rhs);
     }
-    //operator const char* () const { return c_str(); }
 
 public:
     /**
@@ -91,6 +101,11 @@ public:
      * @brief   末尾のセパレーターを削除
     */
     iuFilePath RemoveTrailingPathSeparator() const;
+
+    /**
+     * @brief   拡張子の取得
+    */
+    ::std::string GetExtension() const;
 
     /**
      * @brief   拡張子の削除
@@ -127,11 +142,6 @@ public:
     */
     bool DirectoryExists() const;
 
-    /**
-     * @brief   一番後ろのパスセパレータのアドレスを取得
-    */
-    const char* FindLastPathSeparator() const;
-
 public:
     /**
      * @brief   カレントディレクトリの取得
@@ -165,7 +175,7 @@ private:
 
 inline iu_ostream& operator << (iu_ostream& os, const iuFilePath& path)
 {
-    return os << path.c_str();
+    return os << path.string();
 }
 
 }   // end of namespace detail

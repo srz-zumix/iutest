@@ -403,6 +403,10 @@ const typename floating_point<T>::UInt floating_point<T>::kEnableBitMask
 
 //======================================================================
 // typedef
+typedef detail::type_fit_t<1>::Int  Int8;   //!<  8 bit 符号付き整数型
+typedef detail::type_fit_t<1>::UInt UInt8;  //!<  8 bit 符号なし整数型
+typedef detail::type_fit_t<2>::Int  Int16;  //!< 16 bit 符号付き整数型
+typedef detail::type_fit_t<2>::UInt UInt16; //!< 16 bit 符号なし整数型
 typedef detail::type_fit_t<4>::Int  Int32;  //!< 32 bit 符号付き整数型
 typedef detail::type_fit_t<4>::UInt UInt32; //!< 32 bit 符号なし整数型
 typedef detail::type_fit_t<8>::Int  Int64;  //!< 64 bit 符号付き整数型
