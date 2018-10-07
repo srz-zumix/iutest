@@ -186,6 +186,8 @@
     int classname_::dummy_ IUTEST_ATTRIBUTE_UNUSED_  = classname_::AddRegister();           \
     void classname_::Body()
 
+#if IUTEST_HAS_IGNORE_TEST
+
 #define IIUT_TEST_P_I_IGNORE_(classname_, testcase_, testcasename_, testname_)              \
     class classname_ : public testcase_ {                                                   \
         public: classname_() {}                                                             \
@@ -202,6 +204,8 @@
     int classname_::dummy_ IUTEST_ATTRIBUTE_UNUSED_ = classname_::AddRegister();            \
     template<typename T>void classname_::Body()
 
+#endif
+
 #define IIUT_TEST_P_(macro, testcase_, testname_)       \
     macro(IUTEST_TEST_CLASS_NAME_(testcase_, testname_) \
         , IIUT_TEST_P_BASE_FIXTURE(testcase_)           \
@@ -216,17 +220,24 @@
 #define IUTEST_TEST_P_(testcase_, testname_)        \
     IIUT_TEST_P_A_(IIUT_TEST_P_I_, testcase_, testname_)
 
+#if IUTEST_HAS_IGNORE_TEST
+
 #define IUTEST_TEST_P_IGNORE_(testcase_, testname_) \
     IIUT_TEST_P_A_(IIUT_TEST_P_I_IGNORE_, testcase_, testname_)
 
+#endif
 
 #else
 
 #define IUTEST_TEST_P_(testcase_, testname_)        \
     IIUT_TEST_P_(IIUT_TEST_P_I_, testcase_, testname_)
 
+#if IUTEST_HAS_IGNORE_TEST
+
 #define IUTEST_TEST_P_IGNORE_(testcase_, testname_) \
     IIUT_TEST_P_(IIUT_TEST_P_I_IGNORE_, testcase_, testname_)
+
+#endif
 
 #endif
 
