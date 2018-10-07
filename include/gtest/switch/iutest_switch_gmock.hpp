@@ -86,15 +86,18 @@ namespace matchers
     using ::testing::Ge;
     using ::testing::IsNull;
     using ::testing::NotNull;
+
     using ::testing::DoubleEq;
     using ::testing::FloatEq;
-    using ::testing::DoubleNear;
-    using ::testing::FloatNear;
-
     using ::testing::NanSensitiveDoubleEq;
     using ::testing::NanSensitiveFloatEq;
+
+#if GMOCK_VER > 0x01060000
+    using ::testing::DoubleNear;
+    using ::testing::FloatNear;
     using ::testing::NanSensitiveDoubleNear;
     using ::testing::NanSensitiveFloatNear;
+#endif
 
     using ::testing::StrEq;
     using ::testing::StrNe;
