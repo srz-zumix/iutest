@@ -42,6 +42,7 @@ class IutestPreprocessor:
     depth = []
     brothers = []
     debug = False
+    prev_line = None
 
     def __init__(self
             , predefined_macros
@@ -321,7 +322,7 @@ class IutestPreprocessor:
                 return False
             else:
                 self.included_path[-1].append(path)
-        return True
+        return True        
 
     def __reduction(self, line):
         reduction_macros = {
@@ -334,6 +335,9 @@ class IutestPreprocessor:
             'IP_EMPTY_TAG': 'IP_EMP_T',
             'IP_IS_BEGIN_PARENS': 'IP_IS_BGN_P',
             'II_SHOW_MACRO':  'II_S_M',
+            'II_SHOW_ENABLE_MACRO':   'II_S_E_M',
+            'II_SHOW_DISABLE_MACRO':  'II_S_D_M',
+            'II_SHOW_FEATURE_MACROS': 'II_S_F_M',
             'II_ELEMENTSARE': 'II_EA',
             'II_EA_MATCHER_NAME': 'II_EA_M_N',
             'II_ANYOF_AND_ALLOF_MATCHER_NAME': 'II_AAA_M_N',
@@ -395,6 +399,13 @@ class IutestPreprocessor:
         line = line.replace('IIUT_', 'II_')
         line = line.replace('II_PP_', 'IP_')
         line = line.replace('IUTEST_UNUSED_VAR', '(void)')
+        line = line.replace('statement', 'st')
+        line = line.replace('expected_exception', 'exp_e')
+        line = line.replace('expected_str',   'exp_s')
+        line = line.replace('expected_value', 'exp_v')
+        line = line.replace('actual_str',  'act_s')
+        line = line.replace('pred_formatter',  'pred_fmt')
+        line = line.replace('on_failure',  'on_f')
         for k,v in reduction_macros.items():
             if collections.Counter(reduction_macros.values())[v] > 1:
                 print('error: duplicated ' + v)
@@ -402,6 +413,34 @@ class IutestPreprocessor:
             line = line.replace(k, v)
         line = re.sub('\s+', ' ', line)
         line = re.sub('\s$', '', line)
+        line = line.strip()
+        return line
+
+    def __strip_namespace(self, line, ns):
+        s = ""
+        for n in ns:
+            s += "namespace " + n + "{"
+        e = ""
+        for n in ns:
+            e += "}"
+        def __is_namespace_open_close_line(x):
+            return x.startswith(s) and x.endswith(e)
+        if __is_namespace_open_close_line(line) and __is_namespace_open_close_line(self.prev_line):
+            self.prev_line = self.prev_line[:-len(e)]
+            line = line[len(s):]
+        return line
+
+    def __strip_namespace_iutest_detail(self, line):
+        ns = ['iutest', 'detail']
+        return self.__strip_namespace(line, ns)
+
+    def __strip_namespace_iutest(self, line):
+        ns = ['iutest']
+        return self.__strip_namespace(line, ns)
+
+    def __strip_namespaces(self, line):
+        line = self.__strip_namespace_iutest_detail(line)
+        line = self.__strip_namespace_iutest(line)
         return line
 
     def preprocess(self, code, add_macros):
@@ -433,7 +472,15 @@ class IutestPreprocessor:
                 line = self.__expand_macro(line)
                 if len(line) > 0:
                     line = self.__reduction(line)
-                    dst += line + "\n"
+                    if self.prev_line is not None:
+                        line = self.__strip_namespaces(line)
+                        if self.prev_line.startswith('#'):
+                             self.prev_line += '\n'
+                        elif line.startswith('#'):
+                             self.prev_line += '\n'
+                        dst += self.prev_line
+                    self.prev_line = line
+        dst += self.prev_line + '\n'
         return dst
 
     def __get_ppif_type(self, line):
