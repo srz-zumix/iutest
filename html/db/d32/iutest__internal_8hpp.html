@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.6.0</span>
+   &#160;<span id="projectnumber">1.16.99.2</span>
    </div>
   </td>
  </tr>
@@ -107,8 +107,6 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 マクロ定義</h2></td></tr>
 <tr class="memitem:af67da570b03fd15d43ea1decaa1265a2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_</b>(testcase_, testname_, parent_class_, type_id_)</td></tr>
 <tr class="separator:af67da570b03fd15d43ea1decaa1265a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9cb99dd250906728c3468525ceb2701"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_IGNORE_</b>(testcase_, testname_, parent_class_, type_id_)</td></tr>
-<tr class="separator:aa9cb99dd250906728c3468525ceb2701"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe56915f383f6a5ded96e65aa8935d7d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abe56915f383f6a5ded96e65aa8935d7d"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_MESSAGE_AT</b>(file_, line_, msg_, result_type_)&#160;&#160;&#160;::iutest::AssertionHelper(file_, line_, msg_, result_type_) = ::iutest::AssertionHelper::Fixed()</td></tr>
 <tr class="separator:abe56915f383f6a5ded96e65aa8935d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -243,9 +241,6 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <tr class="memitem:ac32f655e5f488d01e3aad1e452c66049"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac32f655e5f488d01e3aad1e452c66049"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_F_</b>(testfixture_, testname_)&#160;&#160;&#160;IIUT_TEST_F_A_(IUTEST_TEST_, testfixture_, testname_)</td></tr>
 <tr class="separator:ac32f655e5f488d01e3aad1e452c66049"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acea498d994609fc63e4364c2b082c292"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acea498d994609fc63e4364c2b082c292"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_F_IGNORE_</b>(testfixture_, testname_)&#160;&#160;&#160;IIUT_TEST_F_A_( IUTEST_TEST_IGNORE_, testfixture_, testname_)</td></tr>
-<tr class="separator:acea498d994609fc63e4364c2b082c292"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
 <tr class="memitem:a44b3f8da382d12ced574362188ba0db3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a44b3f8da382d12ced574362188ba0db3"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_PMZ_TEST_CLASS_NAME_</b>(testcase_, testname_)&#160;&#160;&#160;IIUT_PMZ_TEST_CLASS_NAME_I(IIUT_TO_VARNAME_(testcase_), IIUT_TO_VARNAME_(testname_))</td></tr>
@@ -341,7 +336,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 <div class="line">        IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_)      \</div>
 <div class="line">        , type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);         \</div>
 <div class="line">    <span class="keywordtype">void</span> IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body()</div>
-<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:668</div></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:703</div></div>
 <div class="ttc" id="iutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義 </div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:25</div></div>
 </div><!-- fragment -->
 </div>
@@ -687,58 +682,6 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><div class="memdoc">
 <b>値:</b><div class="fragment"><div class="line">IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTSuccess  \</div>
 <div class="line">        , hr, on_failure )</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a class="anchor" id="aa9cb99dd250906728c3468525ceb2701"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define IUTEST_TEST_IGNORE_</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">testcase_, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">testname_, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">parent_class_, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">type_id_&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line"><span class="keyword">class </span>IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : <span class="keyword">public</span> parent_class_ {            <a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">\</a></div>
-<div class="line"><a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>( IUTEST_TEST_CLASS_NAME_(testcase_, testname_) );    \</div>
-<div class="line">        public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)() {}                          \</div>
-<div class="line">        protected: <span class="keyword">virtual</span> <span class="keywordtype">void</span> Body() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> { <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#gae5dfd482090363d33d905171c2149828">IUTEST_SKIP</a>() &lt;&lt; <span class="stringliteral">&quot;ignored test...&quot;</span>; }          \</div>
-<div class="line">        template&lt;typename T&gt;<span class="keywordtype">void</span> Body();                                                    \</div>
-<div class="line">    };                                                                                      \</div>
-<div class="line">    ::iutest::detail::TestInstance&lt;IUTEST_TEST_CLASS_NAME_(testcase_, testname_)&gt;           \</div>
-<div class="line">    IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(                                       \</div>
-<div class="line">        IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_)      \</div>
-<div class="line">        , type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);         \</div>
-<div class="line">    template&lt;typename T&gt;<span class="keywordtype">void</span> IUTEST_TEST_CLASS_NAME_(testcase_, testname_ )::Body()</div>
-<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:668</div></div>
-<div class="ttc" id="iutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義 </div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:25</div></div>
-<div class="ttc" id="group___i_u_t_e_s_t___u_t_i_l_html_gae5dfd482090363d33d905171c2149828"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#gae5dfd482090363d33d905171c2149828">IUTEST_SKIP</a></div><div class="ttdeci">#define IUTEST_SKIP()</div><div class="ttdoc">テストの明示的なスキップ </div><div class="ttdef"><b>Definition:</b> iutest.hpp:212</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1576,7 +1519,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年09月20日(木) 00時14分38秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年10月07日(日) 14時12分31秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
