@@ -434,7 +434,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">size_t</span> suffixes_length = IUTEST_PP_COUNTOF(suffixes);</div>
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <span class="keywordtype">size_t</span> index = 0;</div>
 <div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    <span class="keywordtype">double</span> view_value = <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(value);</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    <span class="keywordflow">while</span>(view_value &gt;= 1024 &amp;&amp; index &lt; suffixes_length)</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    <span class="keywordflow">while</span>(view_value &gt;= 1024 &amp;&amp; index + 1 &lt; suffixes_length)</div>
 <div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    {</div>
 <div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        ++index;</div>
 <div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;        view_value /= 1024;</div>
@@ -818,7 +818,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年10月07日(日) 14時12分31秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年10月08日(月) 14時33分00秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
