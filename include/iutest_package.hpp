@@ -31,11 +31,11 @@
 
 #if IUTEST_HAS_PACKAGE
 
-#define IUTEST_CONCAT_PACKAGE_(testcase_name)   IIUT_CONCAT_PACKAGE_I(testcase_name)
-#define IIUT_CONCAT_PACKAGE_I(testcase_name)                    \
+#define IUTEST_CONCAT_PACKAGE_(testcasename_)   IIUT_CONCAT_PACKAGE_I(testcasename_)
+#define IIUT_CONCAT_PACKAGE_I(testcasename_)                    \
     iuTest_ConcatTestCaseName( iuTest_GetTestCasePackageName(   \
         static_cast<iuTest_TestCasePackage*>(NULL))             \
-        , #testcase_name)
+        , #testcasename_)
 
 #define IUTEST_GET_PACKAGENAME_()   \
     iuTest_GetTestCasePackageName( static_cast<iuTest_TestCasePackage*>(NULL) )
@@ -100,8 +100,8 @@
 
 #else
 
-#define IUTEST_CONCAT_PACKAGE_(testcase_name)   IIUT_CONCAT_PACKAGE_I(testcase_name)
-#define IIUT_CONCAT_PACKAGE_I(testcase_name)    #testcase_name
+#define IUTEST_CONCAT_PACKAGE_(testcasename_)   IIUT_CONCAT_PACKAGE_I(testcasename_)
+#define IIUT_CONCAT_PACKAGE_I(testcasename_)    #testcasename_
 #define IIUT_PACKAGE_(name)                     namespace name
 #define IUTEST_GET_PACKAGENAME_()               ""
 

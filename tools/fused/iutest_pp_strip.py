@@ -404,8 +404,12 @@ class IutestPreprocessor:
         line = line.replace('expected_str',   'exp_s')
         line = line.replace('expected_value', 'exp_v')
         line = line.replace('actual_str',  'act_s')
+        line = line.replace('regex_str',  'regex_s')
         line = line.replace('pred_formatter',  'pred_fmt')
         line = line.replace('on_failure',  'on_f')
+        line = line.replace('testcasename_',  'tcn_')
+        line = line.replace('testname_',  'tn_')
+        line = line.replace('testfixture_',  'tf_')
         for k,v in reduction_macros.items():
             if collections.Counter(reduction_macros.values())[v] > 1:
                 print('error: duplicated ' + v)
