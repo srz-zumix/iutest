@@ -60,6 +60,7 @@ predefined_macros = {
     'IUTEST_NO_TESTCASE_AD_HOC_TEST_RESULT_ACCESSOR': None,
     'IUTEST_NO_GETENV': None,
     'IUTEST_NO_PUTENV': None,
+    'IUTEST_NO_SETENV': None,
     'IUTEST_NO_GETCWD': None,
     'IUTEST_NOT_SUPPORT_STOPWATCH': None,
     'IUTEST_HAS_WANT_SECURE_LIB': '0',
@@ -130,7 +131,7 @@ class WandboxPreprocessor:
 
 
 def default_pp():
-    output_dir = "../../fused-src"
+    output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../fused-src")
     output = "iutest.wandbox.min.hpp"
     f = codecs.open(os.path.join(output_dir, "iutest.min.hpp"), 'r', 'utf-8-sig')
     code = f.read()

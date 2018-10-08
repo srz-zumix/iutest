@@ -46,7 +46,7 @@ wandbox: iutest.wandbox.min.hpp
 $(FUSED_WANDBOX_TARGET): fused
 	python iuwandbox_pp.py
 
-wandbox-debug: fused
+wandbox_debug: fused
 	python iuwandbox_pp.py debug
 
 ls:

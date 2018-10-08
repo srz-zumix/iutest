@@ -28,6 +28,8 @@ RE_SYSTEM_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*<(.*)>')
 
 RE_STRIP_INCG_REGEX = re.compile(r'^INCG_\S*_[IH]PP_\S+\Z')
 
+RE_EVAL_UNDEFINED_EXCEPTION = re.compile(r'^name \'(defined_.*)\' is not defined\Z')
+
 
 class IutestPreprocessor:
     macros = {}
@@ -76,7 +78,7 @@ class IutestPreprocessor:
 
     def set_has_features(self, has_features):
         self.has_features = has_features
-    
+
     def set_debug_flag(self, flag):
         self.debug = flag
 
@@ -171,9 +173,9 @@ class IutestPreprocessor:
                     if self.__has_current_macro(d):
                         expand += m.group(1)
                         if self.__get_current_macro(d) is None:
-                            expand += ' (0==1) '
+                            expand += ' (0) '
                         else:
-                            expand += ' (0==0) '
+                            expand += ' (1) '
                         expand += m.group(3)
                     elif d in self.unknowns:
                         expand += s
@@ -211,9 +213,29 @@ class IutestPreprocessor:
                         else:
                             expand += w
 
-        expand = expand.replace('0(0)', '0')
+        expand = expand.replace('0(0)', '(0)')
         expand = expand.replace('not =', '!=')
+        expand = expand.replace('not  (0)', '(1)')
         return expand
+
+    def __eval_ppif_unknown_defined(self, exception_str, expand):
+        if 'defined' not in expand:
+            return -1
+        expand = re.sub(r'defined\((.*?)\)', 'defined_\\1', expand)
+        def eval_x(d, x):
+            try:
+                expanded = expand.replace(d, str(x))
+                return eval(expanded)
+            except Exception:
+                return -1
+        m = RE_EVAL_UNDEFINED_EXCEPTION.match(exception_str)
+        if m:
+            d = m.group(1)
+            r0 = eval_x(d, 0)
+            r1 = eval_x(d, 1)
+            if r0 == r1:
+                return r0
+        return -1
 
     def __eval_ppif(self, expr):
         expand = self.__expand_ppif_macro(expr)
@@ -224,20 +246,15 @@ class IutestPreprocessor:
             else:
                 return 0
         except Exception as e:
-            def debug_print():
-                if self.debug:
-                    print(expr)
-                    print(expand)
-                    print(e)
-            if 'INCG_IRIS_' in expr:
-                print(expr)
-                print(expand)
-                print(e)
-            if not any(x in expand for x in self.unknowns):
-                debug_print()
-            elif len(expr.split()) > 1:
-                debug_print()
-            return -1
+            r = -1
+            if len(expr.split()) > 1:
+                # r = self.__eval_ppif_unknown_defined(str(e), expand)
+                if r == -1:
+                    if self.debug:
+                        print(expr)
+                        print(expand)
+                        print(e)
+            return r
 
     def __check_ppif(self, ins, expr):
         if ins == "if" or ins == "elif":
@@ -322,7 +339,7 @@ class IutestPreprocessor:
                 return False
             else:
                 self.included_path[-1].append(path)
-        return True        
+        return True
 
     def __reduction(self, line):
         reduction_macros = {
