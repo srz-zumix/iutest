@@ -366,7 +366,7 @@ inline ::std::string FormatSizeByte(UInt64 value)
     const size_t suffixes_length = IUTEST_PP_COUNTOF(suffixes);
     size_t index = 0;
     double view_value = static_cast<double>(value);
-    while(view_value >= 1024 && index < suffixes_length)
+    while(view_value >= 1024 && index + 1 < suffixes_length)
     {
         ++index;
         view_value /= 1024;
