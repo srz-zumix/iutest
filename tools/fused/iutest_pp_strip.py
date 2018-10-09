@@ -20,7 +20,7 @@ RE_HAS_FEATURE = re.compile('(.*)__has_feature\((.*?)\)(.*)')
 RE_SPLIT_OP = re.compile('(&&|\|\||!)')
 RE_SYMBOLMARK = re.compile('([+\-=<>\(\)]+)')
 RE_PPIF = re.compile('#\s*(ifdef|ifndef|if)\s*(.*)$')
-RE_PPELIF = re.compile('#\s*elif(.*)$')
+RE_PPELIF = re.compile('#\s*elif\s*(.*)$')
 RE_PPELSE = re.compile('#\s*else\s*$')
 RE_PPENDIF = re.compile('#\s*endif')
 RE_CPP_COMMENT = re.compile('^//.*')
@@ -215,7 +215,7 @@ class IutestPreprocessor:
 
         expand = expand.replace('0(0)', '(0)')
         expand = expand.replace('not =', '!=')
-        expand = expand.replace('not  (0)', '(1)')
+        expand = re.sub(r'not\s*\(0\)', '(1)', expand)
         return expand
 
     def __eval_ppif_unknown_defined(self, exception_str, expand):
@@ -242,41 +242,57 @@ class IutestPreprocessor:
         try:
             r = eval(expand)
             if r:
-                return 1
+                return (1, None)
             else:
-                return 0
+                return (0, None)
         except Exception as e:
             r = -1
-            if len(expr.split()) > 1:
+            if len(expand.split()) > 1:
                 # r = self.__eval_ppif_unknown_defined(str(e), expand)
                 if r == -1:
                     if self.debug:
                         print(expr)
                         print(expand)
                         print(e)
-            return r
+                # strip fixed condition
+                if '(0)' in expand or '(1)' in expand:
+                    expand = re.sub(r'\s*\(0\)\s*or\s*', '', expand)
+                    expand = re.sub(r'\s*or\s*\(0\)\s*', '', expand)
+                    expand = re.sub(r'\s*\(1\)\s*and\s*', '', expand)
+                    expand = re.sub(r'\s*and\s*\(1\)\s*', '', expand)
+                    expand = expand.replace('and', '&&')
+                    expand = expand.replace('or',  '||')
+                    expand = expand.replace('not',  '!')
+                    expand = expand.replace('(0)',  '0')
+                    expand = expand.replace('(1)',  '1')
+                    expand = expand.replace(' ', '')
+                    return (r, expand)
+            return (r, None)
 
     def __check_ppif(self, ins, expr):
         if ins == "if" or ins == "elif":
             return self.__eval_ppif(expr)
-        elif ins == "ifdef":
-            if expr in self.unknowns:
+        else:
+            def other():
+                if ins == "ifdef":
+                    if expr in self.unknowns:
+                        return -1
+                    elif expr not in self.macros:
+                        return -1
+                    elif expr in self.macros:
+                        if self.macros[expr] is None:
+                            return 0
+                elif ins == "ifndef":
+                    if expr in self.unknowns:
+                        return -1
+                    elif expr in self.macros:
+                        if self.macros[expr] is None:
+                            return 1
+                        return 0
+                    else:
+                        return -1
                 return -1
-            elif expr not in self.macros:
-                return -1
-            elif expr in self.macros:
-                if self.macros[expr] is None:
-                    return 0
-        elif ins == "ifndef":
-            if expr in self.unknowns:
-                return -1
-            elif expr in self.macros:
-                if self.macros[expr] is None:
-                    return 1
-                return 0
-            else:
-                return -1
-        return 1
+            return other(), None
 
     # return line string or None
     def __check_pp(self, line):
@@ -286,11 +302,14 @@ class IutestPreprocessor:
             return None
         m = RE_PPIF.match(line)
         if m:
-            f = self.__check_ppif(m.group(1), m.group(2))
+            expr = m.group(2)
+            f,expanded_expr = self.__check_ppif(m.group(1), expr)
             self.depth.append(f)
             self.depth_macros.append({})
             self.included_path.append([])
             self.brothers.append([])
+            if expanded_expr is not None:
+                line = line.replace(expr, expanded_expr)
             return ret(all(x != 0 for x in self.depth) and f == -1)
         m = RE_PPELIF.match(line)
         if m:
@@ -303,7 +322,10 @@ class IutestPreprocessor:
                 brother.append(prev_brother_f)
             f = 0
             if not any(x == 1 for x in brother):
-                f = self.__check_ppif("elif", m.group(1))
+                expr = m.group(1)
+                f,expanded_expr = self.__check_ppif("elif", expr)
+                if expanded_expr is not None:
+                    line = line.replace(expr, expanded_expr)
             self.depth[-1] = f
             if all(x != 0 for x in self.depth):
                 if f == -1 or any(x == -1 for x in brother):
