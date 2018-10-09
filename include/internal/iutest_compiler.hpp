@@ -175,7 +175,7 @@
 //! inline variable
 #if !defined(IUTEST_HAS_INLINE_VARIABLE)
 #if defined(__clang__)
-#  if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 9)) && IUTEST_HAS_CXX1Z
+#  if IUTEST_HAS_CXX1Z && (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 9))
 #    define IUTEST_HAS_INLINE_VARIABLE      1
 #  endif
 #endif
@@ -1099,7 +1099,7 @@
 //! has __if_exists
 #if !defined(IUTEST_HAS_IF_EXISTS)
 #  if defined(__clang__)
-#    if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 5) ) && IUTEST_HAS_MS_EXTENSIONS
+#    if IUTEST_HAS_MS_EXTENSIONS && (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 5) )
 #      define IUTEST_HAS_IF_EXISTS          1
 #    endif
 #  elif defined(_MSC_VER) && _MSC_VER >= 1310
