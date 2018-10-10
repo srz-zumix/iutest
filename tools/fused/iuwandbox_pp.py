@@ -19,6 +19,7 @@ predefined_macros = {
     'IUTEST_BUILD_DOXYGEN': None,
     '_IUTEST_DEBUG': None,
     '__CYGWIN__': None,
+    'IUTEST_OS_CYGWIN': None,
     '__arm__': None,
     'IUTEST_OS_ARM': None,
     '__AVR32__': None,
@@ -83,6 +84,7 @@ iutest_config_macro = {
     'IUTEST_HAS_MINIDUMP': '0',
     'IUTEST_HAS_STRSTREAM': '0',
     'IUTEST_HAS_STRINGSTREAM': '1',
+    'IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION': '0',
 }
 
 expands_macros = [
