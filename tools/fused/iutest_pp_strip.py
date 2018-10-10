@@ -216,12 +216,19 @@ class IutestPreprocessor:
         expand = expand.replace('0(0)', '(0)')
         expand = expand.replace('not =', '!=')
         expand = re.sub(r'not\s*\(0\)', '(1)', expand)
-        return expand
+        return expand.strip()
 
-    def __eval_ppif_unknown_defined(self, exception_str, expand):
+    def __eval_ppif_unknown_defined(self, expand):
         if 'defined' not in expand:
             return -1
         expand = re.sub(r'defined\((.*?)\)', 'defined_\\1', expand)
+        try:
+            r = eval(expand)
+        except Exception as e:
+            r = self.__eval_ppif_unknown_defined_(str(e), expand)
+        return r
+
+    def __eval_ppif_unknown_defined_(self, exception_str, expand):
         def eval_x(d, x):
             try:
                 expanded = expand.replace(d, str(x))
@@ -239,16 +246,17 @@ class IutestPreprocessor:
 
     def __eval_ppif(self, expr):
         expand = self.__expand_ppif_macro(expr)
+        expand_expr = re.sub(r'([0-9])+L', r'\1', expand)
         try:
-            r = eval(expand)
+            r = eval(expand_expr)
             if r:
-                return (1, None)
+                return (1, '1')
             else:
-                return (0, None)
+                return (0, '0')
         except Exception as e:
             r = -1
             if len(expand.split()) > 1:
-                # r = self.__eval_ppif_unknown_defined(str(e), expand)
+                # r = self.__eval_ppif_unknown_defined(expand_expr)
                 if r == -1:
                     if self.debug:
                         print(expr)
