@@ -422,6 +422,10 @@ class IutestPreprocessor:
             'II_DECL_ANYOF_MATCHER': 'II_D_ANY_M',
             'II_DECL_DEFAULT_ARG_': 'II_D_DEF_A_',
             'II_DECL_SPEC_NONE_': 'II_D_S_NN_',
+            'II_SUCCEED': 'II_S',
+            'II_FAIL': 'II_F',
+            'II_ADD_FAILURE': 'II_ADD_F',
+            'II_SCOPED_MESSAGE': 'II_S_MSG',
             'II_D_C_P_GENERATOR_': 'II_D_C_P_GEN_',
             'II_D_C_P_HOLDER_': 'II_D_C_P_HLR_',
             'II_D_PW_GENERATOR_': 'II_D_PW_GEN_',
@@ -441,10 +445,17 @@ class IutestPreprocessor:
             'II_TEST_P_EVALGENERATOR_NAME_':    'II_T_P_EGEN_N_',
             'II_TEST_P_PARAMGENERATOR_NAME_':   'II_T_P_PGEN_N_',
             'II_TEST_P_INSTANTIATIONREGISTER_': 'II_T_P_INST_R_',
+            'II_TEST_P_FIXTURE_DECL_': 'II_T_P_FX_D_',
+            'II_TEST_P_BASE_FIXTURE': 'II_T_P_B_FX',
+            'II_T_P_INST_R_NAME_': 'II_T_P_INST_R_N_',
             'II_TEST_EXPRESSION_': 'II_T_EXPR_',
             'II_T_EXPR_EXPAND_EXPRESSION': 'II_T_EXPR_E_E',
             'II_EXPRESSION_DECOMPOSE': 'II_EXPR_DEC',
             'II_TYPED_TEST_': 'II_T_T_',
+            'II_T_T_CASE_': 'II_T_TC_',
+            'II_T_TC_PSTATE_NAME_': 'II_T_TC_PS_N_',
+            'II_T_T_P_NAMESPACE_': 'II_T_T_P_NS_',
+            'II_T_T_P_ADDTESTNAME': 'II_T_T_P_ADD_TN',
             'II_T_T_PARAMS_': 'II_T_T_PRMS_',
             'II_REGISTER_TYPED_TEST_CASE_P_':    'II_R_T_TC_P_',
             'II_INSTANTIATE_TYPED_TEST_CASE_P_': 'II_INST_T_TC_P_',
@@ -458,11 +469,12 @@ class IutestPreprocessor:
         line = line.replace('IUTEST_UNUSED_VAR', '(void)')
         line = line.replace('statement', 'st')
         line = line.replace('expected_exception', 'exp_e')
+        line = line.replace('exp_e_value', 'exp_e_v')
         line = line.replace('expected_str',   'exp_s')
         line = line.replace('expected_value', 'exp_v')
         line = line.replace('actual_str',  'act_s')
         line = line.replace('regex_str',  'regex_s')
-        line = line.replace('pred_formatter',  'pred_fmt')
+        line = line.replace('pred_formatter',  'pd_fmt')
         line = line.replace('on_failure',  'on_f')
         line = line.replace('testcasename_',  'tcn_')
         line = line.replace('testname_',  'tn_')

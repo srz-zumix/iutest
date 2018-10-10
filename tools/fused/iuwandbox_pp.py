@@ -73,6 +73,7 @@ predefined_macros = {
     'IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_STATIC_MEMBER_FUNCTION': '1',
     '__native_client__': None,
     'IUTEST_OS_NACL': None,
+    'IUTEST_HAS_INVALID_PARAMETER_HANDLER': '0',
 }
 
 iutest_config_macro = {
@@ -107,6 +108,8 @@ expand_function_macros = [
     'IUTEST_IF_EXISTS',
     'IUTEST_IF_NOT_EXISTS',
     'IUTEST_STATIC_EXISTS',
+    'IUTEST_STATIC_ASSERT_IF_EXISTS',
+    'IUTEST_STATIC_ASSERT_IF_NOT_EXISTS',
 ]
 
 #
