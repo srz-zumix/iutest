@@ -81,6 +81,8 @@ iutest_config_macro = {
     'IUTEST_HAS_ANALYSIS_ASSUME': '0',
     'IUTEST_HAS_IGNORE_TEST': '0',
     'IUTEST_HAS_MINIDUMP': '0',
+    'IUTEST_HAS_STRSTREAM': '0',
+    'IUTEST_HAS_STRINGSTREAM': '1',
 }
 
 expands_macros = [
