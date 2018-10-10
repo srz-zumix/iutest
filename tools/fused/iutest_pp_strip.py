@@ -290,6 +290,8 @@ class IutestPreprocessor:
                     elif expr in self.macros:
                         if self.macros[expr] is None:
                             return 0
+                        else:
+                            return 1
                 elif ins == "ifndef":
                     if expr in self.unknowns:
                         return -1
