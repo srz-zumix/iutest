@@ -86,10 +86,11 @@ class IutestPreprocessor:
         dst = ""
         for s in RE_MACRO_SPLIT.split(line):
             if s in self.expands_macros:
-                if s in self.macros and self.macros[s]:
-                    dst += self.macros[s]
-            else:
-                dst += s
+                expand = self.__get_current_macro(s)
+                if expand is not None:
+                    dst += expand
+                    continue
+            dst += s
         return self.__expand_function_macro(dst)
 
     def __expand_function_macro(self, line):
@@ -123,20 +124,20 @@ class IutestPreprocessor:
         return dst
 
     def __has_current_macro(self, name):
-        current_depth_macro = self.depth_macros[-1]
-        if name in current_depth_macro:
-            return True
         if name in self.macros:
             return True
+        for m in self.depth_macros:
+            if name in m:
+                return True
         return False
 
     def __get_current_macro(self, name):
-        current_depth_macro = self.depth_macros[-1]
-        if name in current_depth_macro:
-            return current_depth_macro[name]
         if name in self.macros:
             return self.macros[name]
-        return False
+        for m in self.depth_macros:
+            if name in m:
+                return m[name]
+        return None
 
     def __append_define(self, line):
         def append(d, v, depth, macros, unknowns, current):
@@ -357,11 +358,17 @@ class IutestPreprocessor:
             brother = self.brothers[-1]
             f = self.depth.pop()
             self.included_path.pop()
-            self.depth_macros.pop()
+            poped_macros = self.depth_macros.pop()
             b1 = all(x != 0 for x in self.depth)
             b2 = any(x == -1 for x in brother)
             self.brothers.pop()
-            return ret(b1 and (f == -1 or b2))
+            need_endif = b1 and (f == -1 or b2)
+            if need_endif:
+                return line
+            if len(self.depth_macros) > 0:
+                current_depth_macros = self.depth_macros[-1]
+                current_depth_macros.update(poped_macros)
+            return None
         return ret(len(self.depth) == 0 or all(x != 0 for x in self.depth))
 
     def __check_include(self, line):
@@ -521,7 +528,7 @@ class IutestPreprocessor:
         return line
 
     def preprocess(self, code, add_macros):
-        if not add_macros is None:
+        if add_macros is not None:
             self.macros.update(add_macros)
         dst = ""
         for line in code.splitlines():
