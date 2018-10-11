@@ -96,6 +96,7 @@ iutest_config_macro = {
     'IUTEST_HAS_MEMORY_SANITIZER': '0',
     'IUTEST_HAS_ADDRESS_SANITIZER': '0',
     'IUTEST_HAS_THREAD_SANITIZER': '0',
+    'IUTEST_HAS_SEH': '0',
 }
 
 expands_macros = [
