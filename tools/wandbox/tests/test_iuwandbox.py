@@ -64,13 +64,14 @@ class nofused_iuwandbox_test(iuwandbox_test_base):
     def setUp(self):
         if 'SCRUTINIZER' in os.environ:
             self.skipTest('this test is not run on SCRUTINIZER.')
-        if os.path.exists(fused_src):
-            try:
-                shutil.rmtree(fused_src)
-            except:
-                pass
-        if os.path.exists(os.path.join(fused_src, 'iutest.min.hpp')):
-            self.skipTest('fused-src is exists')
+        for f in ['iutest.hpp', 'iutest.min.hpp', 'iutest.wandbox.min.hpp']:
+            if os.path.exists(os.path.join(fused_src, f)):
+                try:
+                    os.remove(os.path.join(fused_src, f))
+                except:
+                    pass
+            if os.path.exists(os.path.join(fused_src, f)):
+                self.skipTest('fused-src/' + f + ' is exists')
         return super(nofused_iuwandbox_test, self).setUp()
 
     def test_nofused(self):
@@ -85,7 +86,11 @@ class nofused_iuwandbox_test(iuwandbox_test_base):
 
 class iuwandbox_test(iuwandbox_test_base):
     def setUp(self):
-        if not os.path.exists(fused_src):
+        need_make_fused = False
+        for f in ['iutest.hpp', 'iutest.min.hpp', 'iutest.wandbox.min.hpp']:
+            if not os.path.exists(os.path.join(fused_src, f)):
+                need_make_fused = True
+        if need_make_fused:
             try:
                 fused_iutest_files.FusedAll(fused_iutest_files.IUTEST_INCLUDE_DIR, fused_src)
                 iuwandbox_pp.default_pp()
