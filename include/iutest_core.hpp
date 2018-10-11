@@ -126,7 +126,7 @@ protected:
     int Run();
 
 private:
-#if IUTEST_HAS_EXCEPTIONS && IUTEST_HAS_SEH
+#if IUTEST_HAS_SEH && IUTEST_HAS_EXCEPTIONS
     int RunOnMSC();
 #endif
     int RunImpl();
