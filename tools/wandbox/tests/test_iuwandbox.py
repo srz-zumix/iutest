@@ -69,8 +69,8 @@ class nofused_iuwandbox_test(iuwandbox_test_base):
             if os.path.exists(os.path.join(fused_src, f)):
                 try:
                     os.remove(os.path.join(fused_src, f))
-                except:
-                    self.skipTest('fused-src/' + f + ' remove failed...')
+                except Exception as e:
+                    self.skipTest('fused-src/' + f + ' remove failed... : ' + str(e))
             if os.path.exists(os.path.join(fused_src, f)):
                 self.skipTest('fused-src/' + f + ' is exists')
         return super(nofused_iuwandbox_test, self).setUp()
