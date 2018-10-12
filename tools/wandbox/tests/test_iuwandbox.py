@@ -58,6 +58,7 @@ class iuwandbox_test_base(unittest.TestCase):
     def dump(self):
         value = self.capture.getvalue()
         eprint(value)
+        return value
 
 
 class nofused_iuwandbox_test(iuwandbox_test_base):
@@ -69,7 +70,7 @@ class nofused_iuwandbox_test(iuwandbox_test_base):
                 try:
                     os.remove(os.path.join(fused_src, f))
                 except:
-                    pass
+                    self.skipTest('fused-src/' + f + ' remove failed...')
             if os.path.exists(os.path.join(fused_src, f)):
                 self.skipTest('fused-src/' + f + ' is exists')
         return super(nofused_iuwandbox_test, self).setUp()
@@ -80,8 +81,9 @@ class nofused_iuwandbox_test(iuwandbox_test_base):
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
         self.dump()
-        self.assertEqual(cm.exception.code, 1, self.capture.getvalue())
-        self.assertRegex(self.capture.getvalue(), '.*please try \"make fused\".*')
+        output = self.capture.getvalue()
+        self.assertEqual(cm.exception.code, 1, output)
+        self.assertRegex(output, '.*please try \"make fused\".*')
 
 
 class iuwandbox_test(iuwandbox_test_base):
@@ -106,10 +108,10 @@ class iuwandbox_test(iuwandbox_test_base):
         sys.argv.extend(test_opt_nomain)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
-        self.dump()
-        self.assertEqual(cm.exception.code, 1, self.capture.getvalue())
-        self.assertRegex(self.capture.getvalue(), '.*hint:.*')
-        self.assertRegex(self.capture.getvalue(), '.*In "iutest" you can omit the definition of the main function, please define IUTEST_USE_MAIN. (--iutest-use-main or -f"-DIUTEST_USE_MAIN")*')
+        output = self.dump()
+        self.assertEqual(cm.exception.code, 1, output)
+        self.assertRegex(output, '.*hint:.*')
+        self.assertRegex(output, '.*In "iutest" you can omit the definition of the main function, please define IUTEST_USE_MAIN. (--iutest-use-main or -f"-DIUTEST_USE_MAIN")*')
 
     def test_use_main(self):
         sys.argv[1:] = [test_src]
@@ -117,9 +119,9 @@ class iuwandbox_test(iuwandbox_test_base):
         sys.argv.append('--iutest-use-main')
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
-        self.dump()
-        self.assertEqual(cm.exception.code, 0, self.capture.getvalue())
-        self.assertRegex(self.capture.getvalue(), '.*OK.*')
+        output = self.dump()
+        self.assertEqual(cm.exception.code, 0, output)
+        self.assertRegex(output, '.*OK.*')
 
     def test_define_wandbox(self):
         sys.argv[1:] = [test_src]
@@ -129,10 +131,10 @@ class iuwandbox_test(iuwandbox_test_base):
         sys.argv.append('-f"-DTEST"')
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
-        self.dump()
-        self.assertEqual(cm.exception.code, 0, self.capture.getvalue())
-        self.assertRegex(self.capture.getvalue(), '.*-D__WANDBOX__.*')
-        self.assertRegex(self.capture.getvalue(), '.*-DTEST.*')
+        output = self.dump()
+        self.assertEqual(cm.exception.code, 0, output)
+        self.assertRegex(output, '.*-D__WANDBOX__.*')
+        self.assertRegex(output, '.*-DTEST.*')
 
     def test_boosttest_workarround(self):
         sys.argv[1:] = [test_src]
@@ -140,10 +142,10 @@ class iuwandbox_test(iuwandbox_test_base):
         sys.argv.extend(['--boost', '1.65.0'])
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
-        self.dump()
-        self.assertEqual(cm.exception.code, 1, self.capture.getvalue())
-        self.assertRegex(self.capture.getvalue(), '.*hint:.*')
-        self.assertRegex(self.capture.getvalue(), '.*If you do not use boost test, please specify the file with the main function first..*')
+        output = self.dump()
+        self.assertEqual(cm.exception.code, 1, output)
+        self.assertRegex(output, '.*hint:.*')
+        self.assertRegex(output, '.*If you do not use boost test, please specify the file with the main function first..*')
 
     def test_run(self):
         sys.argv[1:] = [test_src]
@@ -151,9 +153,10 @@ class iuwandbox_test(iuwandbox_test_base):
         print(sys.argv)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
-        self.dump()
-        self.assertEqual(cm.exception.code, 0, self.capture.getvalue())
-        self.assertRegex(self.capture.getvalue(), '.*OK.*')
+        output = self.dump()
+        self.assertEqual(cm.exception.code, 0, output)
+        self.assertRegex(output, '\[ \s+OK \]')
+        self.assertFalse('-Wmisleading-indentation' in output)
 
     def test_same_filename(self):
         sys.argv[1:] = ['src/main.cpp', 'src/A/sample.cpp', 'src/B/sample.cpp']
@@ -161,9 +164,9 @@ class iuwandbox_test(iuwandbox_test_base):
         print(sys.argv)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
-        self.dump()
-        self.assertEqual(cm.exception.code, 0, self.capture.getvalue())
-        self.assertRegex(self.capture.getvalue(), '.*OK.*')
+        output = self.dump()
+        self.assertEqual(cm.exception.code, 0, output)
+        self.assertRegex(output, '.*OK.*')
 
 
 if __name__ == "__main__":
