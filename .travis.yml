@@ -228,6 +228,8 @@ matrix:
     #  env: CPPCHECK=1
     - os: osx
       env: OSX=1 STDFLAG=-std=c++11
+    - os: windows
+      env: WINDOWS=1
     - compiler: gcc
       env:
         - COVERITY_SCAN=1
