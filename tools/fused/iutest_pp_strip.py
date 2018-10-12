@@ -495,7 +495,7 @@ class IutestPreprocessor:
                 continue
             line = line.replace(k, v)
         line = re.sub(r'(?<![\w\d_])NULL(?![\w\d_])', '0', line)
-        line = re.sub('\s+', ' ', line)
+        # line = re.sub('\s+', ' ', line)
         line = re.sub('\s$', '', line)
         line = line.strip()
         return line
