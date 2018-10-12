@@ -229,7 +229,8 @@ matrix:
     - os: osx
       env: OSX=1 STDFLAG=-std=c++11
     - os: windows
-      env: WINDOWS=1
+      language: sh
+      env: WINDOWS=1 USE_CMAKE=1
     - compiler: gcc
       env:
         - COVERITY_SCAN=1
