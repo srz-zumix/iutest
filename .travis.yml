@@ -20,7 +20,7 @@ addons:
       #- cppcheck
 
 before_install:
-  - python .ci/travisci/travis_blocking_stdout.py
+  - python .ci/travisci/travis_blocking_stdout.py || true
   #- apt-cache search clang || true
   #- apt-cache search gcc || true
   # compiler predefined specific
