@@ -23,10 +23,9 @@ before_install:
   - python .ci/travisci/travis_blocking_stdout.py || true
   - |
     if [[ "${WINDOWS}" != "" ]]; then
-      cd C:\\
-      dir /b
-      dir /s cmake.exe
-      where /R cmake*;
+      env
+      cd c://
+      ls
       cd -
     fi
   #- apt-cache search clang || true
