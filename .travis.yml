@@ -21,6 +21,7 @@ addons:
 
 before_install:
   - python .ci/travisci/travis_blocking_stdout.py || true
+  - if [[ "${WINDOWS}" != "" ]]; then where /R C:\\ cmake; fi
   #- apt-cache search clang || true
   #- apt-cache search gcc || true
   # compiler predefined specific
