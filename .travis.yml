@@ -24,7 +24,7 @@ before_install:
   - |
     if [[ "${WINDOWS}" != "" ]]; then
       env
-      cd c://
+      cd ${ChocolateyToolsLocation}
       ls
       cd -
     fi
