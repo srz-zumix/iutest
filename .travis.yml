@@ -23,7 +23,7 @@ before_install:
   - python .ci/travisci/travis_blocking_stdout.py || true
   - |
     if [[ "${WINDOWS}" != "" ]]; then
-      env
+      clist -lo
       cd ${ChocolateyToolsLocation}
       ls
       cd -
