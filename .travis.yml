@@ -21,6 +21,13 @@ addons:
 
 before_install:
   - python .ci/travisci/travis_blocking_stdout.py || true
+  - |
+    if [[ "${WINDOWS}" != "" ]]; then
+      cd "${ChocolateyToolsLocation}"
+      cd
+      ls
+      cd -
+    fi
   - if [[ "${WINDOWS}" != "" ]]; then cmd /C choco list -localonly; fi
   #- apt-cache search clang || true
   #- apt-cache search gcc || true
