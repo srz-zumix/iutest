@@ -23,7 +23,9 @@ before_install:
   - python .ci/travisci/travis_blocking_stdout.py || true
   - |
     if [[ "${WINDOWS}" != "" ]]; then
-      clist -lo
+      where choco
+      where clist
+      choco list -lo
       cd ${ChocolateyToolsLocation}
       ls
       cd -
