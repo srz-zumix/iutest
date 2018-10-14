@@ -28,5 +28,5 @@ cmake -DCMAKE_C_COMPILER=${COMPILER_CC} -DCMAKE_CXX_COMPILER=${COMPILER_CXX} \
       -DLLVM_BUILD_32_BITS=${BUILD_32_BITS} \
       ../llvm-source
 make cxx -j4
-sudo make install-cxxabi install-cxx
+make install-cxxabi install-cxx
 cd ../
