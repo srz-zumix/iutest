@@ -28,7 +28,7 @@ before_install:
       ls
       cd -
     fi
-  - if [[ "${WINDOWS}" != "" ]]; then cmd /C choco list -localonly; fi
+  # - if [[ "${WINDOWS}" != "" ]]; then cmd /C choco list -localonly; fi
   #- apt-cache search clang || true
   #- apt-cache search gcc || true
   # compiler predefined specific
