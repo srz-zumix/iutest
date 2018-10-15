@@ -17,7 +17,6 @@ except:
 import iuwandbox
 import fused_iutest_files
 import iuwandbox_pp
-import shutil
 
 try:
     from StringIO import StringIO
