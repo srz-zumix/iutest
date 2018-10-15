@@ -25,9 +25,12 @@ before_install:
       where ruby
       where curl
       where cmake
-      cd "${ChocolateyToolsLocation}"
+      cd "C:\ProgramData\chocolatey\bin"
       ls
       cd -
+      # cd "${ChocolateyToolsLocation}"
+      # ls
+      # cd -
     fi
   # - if [[ "${WINDOWS}" != "" ]]; then cmd /C choco list -localonly; fi
   #- apt-cache search clang || true
@@ -144,9 +147,6 @@ matrix:
   include:
     - os: windows
       language: sh
-      env: WINDOWS=1 USE_CMAKE=1
-    - os: windows
-      language: go
       env: WINDOWS=1 USE_CMAKE=1
  
 notifications:
