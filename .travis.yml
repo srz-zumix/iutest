@@ -5,7 +5,6 @@ language: cpp
 
 compiler:
   - clang
-  - gcc
 
 addons:
   apt: &apt-global
@@ -23,6 +22,9 @@ before_install:
   - python .ci/travisci/travis_blocking_stdout.py || true
   - |
     if [[ "${WINDOWS}" != "" ]]; then
+      where ruby
+      where curl
+      where cmake
       cd "${ChocolateyToolsLocation}"
       ls
       cd -
@@ -133,11 +135,6 @@ env:
     # COVERITY_SCAN_TOKEN
     - secure: "TcQxkqb1xHfr1WnVX/CzRyQGOSA29mvLIwn1+lb794Ysq8dNZoHdbcIrKbe/YKR0uRZ5rnL1Onn6L3HyRCJxZg5Grsqrv1dRVSR4X132EoRo0Y8sy/a+c3JFhBJUiaAMds2wG2EFmDCSXNxcUEgzUFEGnTk2vnVKAVBDpOQLlOk="
 
-  matrix:
-    - STDFLAG=-std=c++98
-    - STDFLAG=-std=c++11
-    - STDFLAG=
-
   allow_failures:
     - env:
       - COVERITY_SCAN=1
@@ -147,6 +144,9 @@ matrix:
   include:
     - os: windows
       language: sh
+      env: WINDOWS=1 USE_CMAKE=1
+    - os: windows
+      language: go
       env: WINDOWS=1 USE_CMAKE=1
  
 notifications:
