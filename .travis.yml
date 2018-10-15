@@ -32,7 +32,7 @@ before_install:
       # ls
       # cd -
     fi
-  # - if [[ "${WINDOWS}" != "" ]]; then cmd /C choco list -localonly; fi
+  - if [[ "${WINDOWS}" != "" ]]; then cmd /C choco.exe list -localonly; fi
   #- apt-cache search clang || true
   #- apt-cache search gcc || true
   # compiler predefined specific
@@ -147,6 +147,15 @@ matrix:
   include:
     - os: windows
       language: sh
+      env: WINDOWS=1 USE_CMAKE=1
+    - os: windows
+      language: go
+      env: WINDOWS=1 USE_CMAKE=1
+    - os: windows
+      language: rust
+      env: WINDOWS=1 USE_CMAKE=1
+    - os: windows
+      language: node_js
       env: WINDOWS=1 USE_CMAKE=1
  
 notifications:
