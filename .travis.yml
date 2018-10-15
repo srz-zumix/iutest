@@ -22,20 +22,8 @@ before_install:
   - python .ci/travisci/travis_blocking_stdout.py || true
   - |
     if [[ "${WINDOWS}" != "" ]]; then
-      where ruby
-      where curl
+      export PATH=$PATH:${PROGRAMFILES}/CMake/bin
       where cmake
-      env
-      echo ${PROGRAMFILES}
-      cd "${PROGRAMFILES}"
-      ls
-      cd -
-      # cd "C:\ProgramData\chocolatey\bin"
-      # ls
-      # cd -
-      # cd "${ChocolateyToolsLocation}"
-      # ls
-      # cd -
     fi
   # - if [[ "${WINDOWS}" != "" ]]; then cmd /C choco.exe list -localonly; fi
   #- apt-cache search clang || true
