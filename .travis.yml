@@ -25,16 +25,14 @@ before_install:
       where ruby
       where curl
       where cmake
+      env
+      echo ${ProgramFiles}
       cd "${ProgramFiles}"
       ls
       cd -
-      echo ==============================
-      cd "${ProgramFiles(x86)}"
-      ls
-      cd -
-      cd "C:\ProgramData\chocolatey\bin"
-      ls
-      cd -
+      # cd "C:\ProgramData\chocolatey\bin"
+      # ls
+      # cd -
       # cd "${ChocolateyToolsLocation}"
       # ls
       # cd -
