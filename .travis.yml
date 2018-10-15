@@ -26,8 +26,8 @@ before_install:
       where curl
       where cmake
       env
-      echo ${ProgramFiles}
-      cd "${ProgramFiles}"
+      echo ${PROGRAMFILES}
+      cd "${PROGRAMFILES}"
       ls
       cd -
       # cd "C:\ProgramData\chocolatey\bin"
