@@ -105,7 +105,7 @@ script:
       echo cmake create;
       cmake ../projects/cmake;
       echo cmake build;
-      cmake --build . ;
+      cmake --trace --debug-output --build . ;
       echo cmake test;
       ctest -C Debug -V;
       cd ..;
