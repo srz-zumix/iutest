@@ -100,7 +100,7 @@ script:
   - if [ -n "${CUSTOM_COMMANDS}" ]; then echo "${CUSTOM_COMMANDS}" && eval ${CUSTOM_COMMANDS}; fi
   - if [ "${USE_LIB}" == '1' ]; then cd projects/make && make && cd -; fi
   - if [ "${USE_CMAKE}" == '1' ]; then
-      mkdir ./cmake-build && cd ./cmake-build && cmake ../projects/cmake && cmake --trace --build . && ctest -C Debug -V && cd ..;
+      mkdir ./cmake-build && cd ./cmake-build && cmake ../projects/cmake && cmake --build . --clean-first --config Debug && ctest -C Debug -V && cd ..;
     fi
   - cd ./test
   - if [ "${COVERITY_SCAN}" != '1' ] && [ "${USE_CMAKE}" != '1' ]; then
