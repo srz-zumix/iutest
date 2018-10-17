@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "fused_iutest_files", "fused_iutest_files.pyproj", "{F77D5605-AEA2-4D14-B203-253643D479A3}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "iuwandbox_pp", "iuwandbox_pp.pyproj", "{BAC9756A-023E-44FF-8F77-EF75B3F9EA1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,8 +15,13 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F77D5605-AEA2-4D14-B203-253643D479A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F77D5605-AEA2-4D14-B203-253643D479A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAC9756A-023E-44FF-8F77-EF75B3F9EA1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAC9756A-023E-44FF-8F77-EF75B3F9EA1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {47D6CC7E-A456-4E3D-A012-E6A2D1D9A0D3}
 	EndGlobalSection
 EndGlobal
