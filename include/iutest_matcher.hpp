@@ -84,7 +84,7 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& msg)
  * @{
  */
 
-#define DECL_COMPARE_MATCHER(name, op)  \
+#define IIUT_DECL_COMPARE_MATCHER(name, op)  \
     template<typename T>class IUTEST_PP_CAT(name, Matcher): public IMatcher{    \
     public: explicit IUTEST_PP_CAT(name, Matcher)(const T& v) : m_expected(v) {}\
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                         \
@@ -98,7 +98,7 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& msg)
     private: const T& m_expected;                                               \
     }
 
-#define DECL_COMPARE_MATCHER2(name, op) \
+#define IIUT_DECL_COMPARE_MATCHER2(name, op) \
     class IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher)): public IMatcher{        \
     public: ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return #name; }         \
     template<typename T, typename U>AssertionResult operator ()                         \
@@ -112,25 +112,25 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& msg)
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 
-DECL_COMPARE_MATCHER(Ne, !=);
-DECL_COMPARE_MATCHER(Le, <=);
-DECL_COMPARE_MATCHER(Lt, < );
-DECL_COMPARE_MATCHER(Ge, >=);
-DECL_COMPARE_MATCHER(Gt, > );
+IIUT_DECL_COMPARE_MATCHER(Ne, !=);
+IIUT_DECL_COMPARE_MATCHER(Le, <=);
+IIUT_DECL_COMPARE_MATCHER(Lt, < );
+IIUT_DECL_COMPARE_MATCHER(Ge, >=);
+IIUT_DECL_COMPARE_MATCHER(Gt, > );
 
-DECL_COMPARE_MATCHER2(Eq, ==);
-DECL_COMPARE_MATCHER2(Ne, !=);
-DECL_COMPARE_MATCHER2(Le, <=);
-DECL_COMPARE_MATCHER2(Lt, < );
-DECL_COMPARE_MATCHER2(Ge, >=);
-DECL_COMPARE_MATCHER2(Gt, > );
+IIUT_DECL_COMPARE_MATCHER2(Eq, ==);
+IIUT_DECL_COMPARE_MATCHER2(Ne, !=);
+IIUT_DECL_COMPARE_MATCHER2(Le, <=);
+IIUT_DECL_COMPARE_MATCHER2(Lt, < );
+IIUT_DECL_COMPARE_MATCHER2(Ge, >=);
+IIUT_DECL_COMPARE_MATCHER2(Gt, > );
 
 IUTEST_PRAGMA_WARN_POP()
 
-#undef DECL_COMPARE_MATCHER
-#undef DECL_COMPARE_MATCHER2
+#undef IIUT_DECL_COMPARE_MATCHER
+#undef IIUT_DECL_COMPARE_MATCHER2
 
-#define DECL_STR_COMPARE_MATCHER(name)  \
+#define IIUT_DECL_STR_COMPARE_MATCHER(name)  \
     template<typename T>class IUTEST_PP_CAT(name, Matcher): public IMatcher {   \
     public: IUTEST_PP_CAT(name, Matcher)(const T& value) : m_expected(value) {} \
     template<typename U>AssertionResult operator ()(const U& actual) const {    \
@@ -146,12 +146,12 @@ IUTEST_PRAGMA_WARN_POP()
     const T& m_expected;                                                        \
     }
 
-DECL_STR_COMPARE_MATCHER(StrEq);
-DECL_STR_COMPARE_MATCHER(StrNe);
-DECL_STR_COMPARE_MATCHER(StrCaseEq);
-DECL_STR_COMPARE_MATCHER(StrCaseNe);
+IIUT_DECL_STR_COMPARE_MATCHER(StrEq);
+IIUT_DECL_STR_COMPARE_MATCHER(StrNe);
+IIUT_DECL_STR_COMPARE_MATCHER(StrCaseEq);
+IIUT_DECL_STR_COMPARE_MATCHER(StrCaseNe);
 
-#undef DECL_COMPARE_MATCHER
+#undef IIUT_DECL_COMPARE_MATCHER
 
 /**
  * @}

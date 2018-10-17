@@ -155,8 +155,8 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 */
 inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
-#if   defined(__CYGWIN__) && defined(__STRICT_ANSI__) \
-        && (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) && (__cplusplus >= 201103L)
+#if   defined(__CYGWIN__) \
+        && (defined(__STRICT_ANSI__) && (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) && (__cplusplus >= 201103L))
     return wrapper::iu_vsnprintf(dst, size, format, va);
 #elif (defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)) && defined(__STRICT_ANSI__)
     return wrapper::iu_vsnprintf(dst, size, format, va);

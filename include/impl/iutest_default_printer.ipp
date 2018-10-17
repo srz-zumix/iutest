@@ -79,23 +79,26 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestRecordProperty(const Te
 {
     detail::iuConsole::output("iutest record property:\n  %s=%s\n", test_property.key(), test_property.value());
 }
-IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestEnd(const TestInfo& test_info)
+IUTEST_IPP_INLINE void DefaultResultPrintListener::PrintTestResult(const TestInfo& test_info) const
 {
     if( test_info.HasFailure() )
     {
         detail::iuConsole::color_output(detail::iuConsole::red   , "[  FAILED  ] ");
         detail::iuConsole::output("%s.%s", test_info.test_case_name(), test_info.test_name_with_where().c_str());
+        return;
     }
-    else if( test_info.is_skipped() )
+    if( test_info.is_skipped() )
     {
         detail::iuConsole::color_output(detail::iuConsole::yellow, "[  SKIPPED ] ");
         detail::iuConsole::output("%s.%s", test_info.test_case_name(), test_info.name());
+        return;
     }
-    else
-    {
-        detail::iuConsole::color_output(detail::iuConsole::green , "[       OK ] ");
-        detail::iuConsole::output("%s.%s", test_info.test_case_name(), test_info.name());
-    }
+    detail::iuConsole::color_output(detail::iuConsole::green , "[       OK ] ");
+    detail::iuConsole::output("%s.%s", test_info.test_case_name(), test_info.name());
+}
+IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestEnd(const TestInfo& test_info)
+{
+    PrintTestResult(test_info);
     if( TestFlag::IsEnableFlag(TestFlag::PRINT_TIME) )
     {
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)

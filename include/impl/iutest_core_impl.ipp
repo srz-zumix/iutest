@@ -211,7 +211,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::InitializeImpl()
     }
 #endif
 
-#if IUTEST_HAS_EXCEPTIONS && (defined(_MSC_VER) && (_MSC_VER >= 1400)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+#if IUTEST_HAS_INVALID_PARAMETER_HANDLER
     _set_invalid_parameter_handler(OnInvalidParameter);
 #endif
 }
@@ -226,7 +226,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::TerminateImpl()
     }
 }
 
-#if IUTEST_HAS_EXCEPTIONS && (defined(_MSC_VER) && (_MSC_VER >= 1400)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+#if IUTEST_HAS_INVALID_PARAMETER_HANDLER
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 

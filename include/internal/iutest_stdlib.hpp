@@ -668,6 +668,17 @@ using tuples::get;
 #  define IUTEST_HAS_STRSTREAM      0
 #endif
 
+//! _set_invalid_parameter_handler が使用可能かどうか
+#if !defined(IUTEST_HAS_INVALID_PARAMETER_HANDLER)
+#  if IUTEST_HAS_EXCEPTIONS && (defined(_MSC_VER) && (_MSC_VER >= 1400)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+#    define IUTEST_HAS_INVALID_PARAMETER_HANDLER    1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_INVALID_PARAMETER_HANDLER)
+#  define IUTEST_HAS_INVALID_PARAMETER_HANDLER      0
+#endif
+
 namespace iutest {
 namespace detail
 {

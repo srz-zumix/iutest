@@ -39,6 +39,9 @@ xml: ../../test/syntax_tests.cpp Makefile
 junit: ../../test/syntax_tests.cpp Makefile
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --junit junit_test_result.xml
 
+experimental: ../../test/syntax_tests.cpp Makefile
+	python iuwandbox.py $< -c $(WANDBOX_COMPILER) -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --iutest-use-wandbox-min
+
 test-gcc: ../../test/syntax_tests.cpp Makefile
 	python iuwandbox.py $< -c gcc-head -f"-DIUTEST_USE_MAIN" -x "warning,gnu++1y" -f"-Wsuggest-override" --encoding utf-8-sig $(EXPAND_INCLUDE)
 

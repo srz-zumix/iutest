@@ -20,6 +20,7 @@ from requests.exceptions import HTTPError
 from requests.exceptions import ConnectionError
 
 IUTEST_FUSED_SRC = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.min.hpp'))
+IUTEST_WANDBOX_FUSED_SRC = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.wandbox.min.hpp'))
 IUTEST_INCLUDE_PATH = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../include'))
 IUTEST_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*".*(iutest|iutest_switch)\.hpp"')
 EXPAND_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*"(.*?)"')
@@ -29,12 +30,14 @@ iutest_incg_list = []
 workaround = True
 api_retries = 3
 api_retry_wait = 60
+fused_src = IUTEST_FUSED_SRC
 
 
 # command line option
 def parse_command_line():
     global api_retries
     global api_retry_wait
+    global fused_src
 
     parser = ArgumentParser()
     parser.add_argument(
@@ -200,6 +203,11 @@ def parse_command_line():
         help='define IUTEST_USE_MAIN.'
     )
     parser.add_argument(
+        '--iutest-use-wandbox-min',
+        action='store_true',
+        help='use iutest.wandbox.min.hpp (experimental).'
+    )
+    parser.add_argument(
         '--verbose',
         action='store_true',
         help='verbose.'
@@ -218,6 +226,8 @@ def parse_command_line():
     options = parser.parse_args()
     api_retries = options.retry
     api_retry_wait = options.retry_wait
+    if options.iutest_use_wandbox_min:
+        fused_src = IUTEST_WANDBOX_FUSED_SRC
     return options, parser
 
 
@@ -262,14 +272,14 @@ def make_code(path, encoding, expand, includes, included_files):
             code += '//origin>> ' + line
             if 'iutest.hpp' not in includes:
                 try:
-                    f = codecs.open(IUTEST_FUSED_SRC, 'r', 'utf-8-sig')
+                    f = codecs.open(fused_src, 'r', 'utf-8-sig')
                     iutest_src = f.read()
                     f.close()
                     includes['iutest.hpp'] = iutest_src
                     global iutest_incg_list
                     iutest_incg_list = IUTEST_INCG_REGEX.findall(iutest_src)
                 except:
-                    print('{0} is not found...'.format(IUTEST_FUSED_SRC))
+                    print('{0} is not found...'.format(fused_src))
                     print('please try \"make fused\"')
                     exit(1)
         else:

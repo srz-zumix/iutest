@@ -16,7 +16,7 @@ except:
     import unittest
 import iuwandbox
 import fused_iutest_files
-import shutil
+import iuwandbox_pp
 
 try:
     from StringIO import StringIO
@@ -26,7 +26,7 @@ except ImportError:
 root = os.path.normpath(os.path.dirname(os.path.abspath(__file__)) + '/../../../')
 fused_src = root + '/fused-src'
 test_src = root + '/test/syntax_tests.cpp'
-test_opt_default = ['--encoding', 'utf-8-sig']
+test_opt_default = ['--encoding', 'utf-8-sig', '--iutest-use-wandbox-min']
 test_opt_nomain = test_opt_default
 test_opt = ['-f"-DIUTEST_USE_MAIN"']
 test_opt.extend(test_opt_default)
@@ -57,19 +57,21 @@ class iuwandbox_test_base(unittest.TestCase):
     def dump(self):
         value = self.capture.getvalue()
         eprint(value)
+        return value
 
 
 class nofused_iuwandbox_test(iuwandbox_test_base):
     def setUp(self):
         if 'SCRUTINIZER' in os.environ:
             self.skipTest('this test is not run on SCRUTINIZER.')
-        if os.path.exists(fused_src):
-            try:
-                shutil.rmtree(fused_src)
-            except:
-                pass
-        if os.path.exists(os.path.join(fused_src, 'iutest.min.hpp')):
-            self.skipTest('fused-src is exists')
+        for f in ['iutest.hpp', 'iutest.min.hpp', 'iutest.wandbox.min.hpp']:
+            if os.path.exists(os.path.join(fused_src, f)):
+                try:
+                    os.remove(os.path.join(fused_src, f))
+                except Exception as e:
+                    self.skipTest('fused-src/' + f + ' remove failed... : ' + str(e))
+            if os.path.exists(os.path.join(fused_src, f)):
+                self.skipTest('fused-src/' + f + ' is exists')
         return super(nofused_iuwandbox_test, self).setUp()
 
     def test_nofused(self):
@@ -78,15 +80,21 @@ class nofused_iuwandbox_test(iuwandbox_test_base):
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
         self.dump()
-        self.assertEqual(cm.exception.code, 1, self.capture.getvalue())
-        self.assertRegex(self.capture.getvalue(), '.*please try \"make fused\".*')
+        output = self.capture.getvalue()
+        self.assertEqual(cm.exception.code, 1, output)
+        self.assertRegex(output, '.*please try \"make fused\".*')
 
 
 class iuwandbox_test(iuwandbox_test_base):
     def setUp(self):
-        if not os.path.exists(fused_src):
+        need_make_fused = False
+        for f in ['iutest.hpp', 'iutest.min.hpp', 'iutest.wandbox.min.hpp']:
+            if not os.path.exists(os.path.join(fused_src, f)):
+                need_make_fused = True
+        if need_make_fused:
             try:
                 fused_iutest_files.FusedAll(fused_iutest_files.IUTEST_INCLUDE_DIR, fused_src)
+                iuwandbox_pp.default_pp()
 #              os.system('python ' + root + '/tools/fused/fused_iutest_files.py ' + fused_src)
             except:
                 pass
@@ -99,10 +107,10 @@ class iuwandbox_test(iuwandbox_test_base):
         sys.argv.extend(test_opt_nomain)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
-        self.dump()
-        self.assertEqual(cm.exception.code, 1, self.capture.getvalue())
-        self.assertRegex(self.capture.getvalue(), '.*hint:.*')
-        self.assertRegex(self.capture.getvalue(), '.*In "iutest" you can omit the definition of the main function, please define IUTEST_USE_MAIN. (--iutest-use-main or -f"-DIUTEST_USE_MAIN")*')
+        output = self.dump()
+        self.assertEqual(cm.exception.code, 1, output)
+        self.assertRegex(output, '.*hint:.*')
+        self.assertRegex(output, '.*In "iutest" you can omit the definition of the main function, please define IUTEST_USE_MAIN. (--iutest-use-main or -f"-DIUTEST_USE_MAIN")*')
 
     def test_use_main(self):
         sys.argv[1:] = [test_src]
@@ -110,9 +118,9 @@ class iuwandbox_test(iuwandbox_test_base):
         sys.argv.append('--iutest-use-main')
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
-        self.dump()
-        self.assertEqual(cm.exception.code, 0, self.capture.getvalue())
-        self.assertRegex(self.capture.getvalue(), '.*OK.*')
+        output = self.dump()
+        self.assertEqual(cm.exception.code, 0, output)
+        self.assertRegex(output, '.*OK.*')
 
     def test_define_wandbox(self):
         sys.argv[1:] = [test_src]
@@ -122,10 +130,10 @@ class iuwandbox_test(iuwandbox_test_base):
         sys.argv.append('-f"-DTEST"')
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
-        self.dump()
-        self.assertEqual(cm.exception.code, 0, self.capture.getvalue())
-        self.assertRegex(self.capture.getvalue(), '.*-D__WANDBOX__.*')
-        self.assertRegex(self.capture.getvalue(), '.*-DTEST.*')
+        output = self.dump()
+        self.assertEqual(cm.exception.code, 0, output)
+        self.assertRegex(output, '.*-D__WANDBOX__.*')
+        self.assertRegex(output, '.*-DTEST.*')
 
     def test_boosttest_workarround(self):
         sys.argv[1:] = [test_src]
@@ -133,10 +141,10 @@ class iuwandbox_test(iuwandbox_test_base):
         sys.argv.extend(['--boost', '1.65.0'])
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
-        self.dump()
-        self.assertEqual(cm.exception.code, 1, self.capture.getvalue())
-        self.assertRegex(self.capture.getvalue(), '.*hint:.*')
-        self.assertRegex(self.capture.getvalue(), '.*If you do not use boost test, please specify the file with the main function first..*')
+        output = self.dump()
+        self.assertEqual(cm.exception.code, 1, output)
+        self.assertRegex(output, '.*hint:.*')
+        self.assertRegex(output, '.*If you do not use boost test, please specify the file with the main function first..*')
 
     def test_run(self):
         sys.argv[1:] = [test_src]
@@ -144,9 +152,10 @@ class iuwandbox_test(iuwandbox_test_base):
         print(sys.argv)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
-        self.dump()
-        self.assertEqual(cm.exception.code, 0, self.capture.getvalue())
-        self.assertRegex(self.capture.getvalue(), '.*OK.*')
+        output = self.dump()
+        self.assertEqual(cm.exception.code, 0, output)
+        self.assertRegex(output, '\[ \s+OK \]')
+        self.assertFalse('-Wmisleading-indentation' in output)
 
     def test_same_filename(self):
         sys.argv[1:] = ['src/main.cpp', 'src/A/sample.cpp', 'src/B/sample.cpp']
@@ -154,9 +163,9 @@ class iuwandbox_test(iuwandbox_test_base):
         print(sys.argv)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
-        self.dump()
-        self.assertEqual(cm.exception.code, 0, self.capture.getvalue())
-        self.assertRegex(self.capture.getvalue(), '.*OK.*')
+        output = self.dump()
+        self.assertEqual(cm.exception.code, 0, output)
+        self.assertRegex(output, '.*OK.*')
 
 
 if __name__ == "__main__":
