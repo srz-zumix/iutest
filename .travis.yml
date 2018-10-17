@@ -103,8 +103,11 @@ script:
     if [ "${USE_CMAKE}" == '1' ]; then
       mkdir ./cmake-build && cd ./cmake-build
       cmake ../projects/cmake
-      ls
-      cmake --build .
+      if [ "${USE_WINDOWS} != '0' ]; then
+        msbuild "${TRAVIS_BUILD_DIR}\cmake-build\iutest.sln" /m /verbosity:minimal
+      else
+        cmake --build .
+      fi
       ctest -C Debug -V
       cd ..
     fi
