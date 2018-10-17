@@ -19,11 +19,16 @@ addons:
       #- cppcheck
 
 before_install:
-  - python .ci/travisci/travis_blocking_stdout.py || true
   - |
     if [[ "${WINDOWS}" != "" ]]; then
+      cd ${PROGRAMFILES}
+      ls
+      cd ..
+      ls
+      cd ${TRAVIS_BUILD_DIR}
       export PATH=$PATH:${PROGRAMFILES}/CMake/bin
     fi
+  - python .ci/travisci/travis_blocking_stdout.py || true
   # - if [[ "${WINDOWS}" != "" ]]; then cmd /C choco.exe list -localonly; fi
   #- apt-cache search clang || true
   #- apt-cache search gcc || true
@@ -103,7 +108,8 @@ script:
     if [ "${USE_CMAKE}" == '1' ]; then
       mkdir ./cmake-build && cd ./cmake-build
       cmake ../projects/cmake
-      if [ "${USE_WINDOWS}" != '0' ]; then
+      if [ "${WINDOWS}" == '1' ]; then
+        ctest -C Debug -V --build-and-test
         msbuild "${TRAVIS_BUILD_DIR}\cmake-build\iutest.sln" /m /verbosity:minimal
       else
         cmake --build .
