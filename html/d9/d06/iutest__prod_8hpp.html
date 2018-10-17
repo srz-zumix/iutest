@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.99.2</span>
+   &#160;<span id="projectnumber">1.16.99.3</span>
    </div>
   </td>
  </tr>
@@ -113,22 +113,22 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 マクロ定義</h2></td></tr>
-<tr class="memitem:a04d5e3d10afc363a8e69a2eaa713ff8c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a04d5e3d10afc363a8e69a2eaa713ff8c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a04d5e3d10afc363a8e69a2eaa713ff8c">IUTEST_FRIEND_TEST</a>(test_case_name, test_name)&#160;&#160;&#160;friend class IUTEST_TEST_CLASS_NAME_(test_case_name, test_name)</td></tr>
-<tr class="memdesc:a04d5e3d10afc363a8e69a2eaa713ff8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">テストから見えるように fried 登録 <br/></td></tr>
-<tr class="separator:a04d5e3d10afc363a8e69a2eaa713ff8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabf6b6e2a4f958f021f5645bd98a1910"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aabf6b6e2a4f958f021f5645bd98a1910"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#aabf6b6e2a4f958f021f5645bd98a1910">IUTEST_FRIEND_TYPED_TEST</a>(test_case_name, test_name)&#160;&#160;&#160;template&lt;typename T&gt;<a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a04d5e3d10afc363a8e69a2eaa713ff8c">IUTEST_FRIEND_TEST</a>(test_case_name, test_name)</td></tr>
-<tr class="memdesc:aabf6b6e2a4f958f021f5645bd98a1910"><td class="mdescLeft">&#160;</td><td class="mdescRight">テストから見えるように fried 登録(IUTEST_TYPED_TEST 用) <br/></td></tr>
-<tr class="separator:aabf6b6e2a4f958f021f5645bd98a1910"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65446e264b565193a29f4fb461cfa4c1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a65446e264b565193a29f4fb461cfa4c1"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a65446e264b565193a29f4fb461cfa4c1">IUTEST_FRIEND_TYPED_TEST_P_DECLARATION</a>(test_case_name, test_name)&#160;&#160;&#160;namespace IIUT_TYPED_TEST_P_NAMESPACE_(test_case_name) { template&lt;typename T&gt;class test_name; }</td></tr>
-<tr class="memdesc:a65446e264b565193a29f4fb461cfa4c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">テストから見えるように fried 登録するための宣言 <br/></td></tr>
-<tr class="separator:a65446e264b565193a29f4fb461cfa4c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a725c5d67f5f2a763243b6274141a529d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a725c5d67f5f2a763243b6274141a529d"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a725c5d67f5f2a763243b6274141a529d">IUTEST_FRIEND_TYPED_TEST_P</a>(test_case_name, test_name)&#160;&#160;&#160;template&lt;typename T&gt;friend class IIUT_TYPED_TEST_P_NAMESPACE_(test_case_name)::test_name</td></tr>
-<tr class="memdesc:a725c5d67f5f2a763243b6274141a529d"><td class="mdescLeft">&#160;</td><td class="mdescRight">テストから見えるように fried 登録(IUTEST_TYPED_TEST_P 用) <br/></td></tr>
-<tr class="separator:a725c5d67f5f2a763243b6274141a529d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc7b460ffb47d86372e63b46fd5bc7f0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acc7b460ffb47d86372e63b46fd5bc7f0"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#acc7b460ffb47d86372e63b46fd5bc7f0">IUTEST_FRIEND_TEST</a>(testcasename_, testname_)&#160;&#160;&#160;friend class IUTEST_TEST_CLASS_NAME_(testcasename_, testname_)</td></tr>
+<tr class="memdesc:acc7b460ffb47d86372e63b46fd5bc7f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">テストから見えるように fried 登録 <br/></td></tr>
+<tr class="separator:acc7b460ffb47d86372e63b46fd5bc7f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31eea07b567b1cf2a2e8e7329a88b33c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a31eea07b567b1cf2a2e8e7329a88b33c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a31eea07b567b1cf2a2e8e7329a88b33c">IUTEST_FRIEND_TYPED_TEST</a>(testcasename_, testname_)&#160;&#160;&#160;template&lt;typename T&gt;<a class="el" href="../../d9/d06/iutest__prod_8hpp.html#acc7b460ffb47d86372e63b46fd5bc7f0">IUTEST_FRIEND_TEST</a>(testcasename_, testname_)</td></tr>
+<tr class="memdesc:a31eea07b567b1cf2a2e8e7329a88b33c"><td class="mdescLeft">&#160;</td><td class="mdescRight">テストから見えるように fried 登録(IUTEST_TYPED_TEST 用) <br/></td></tr>
+<tr class="separator:a31eea07b567b1cf2a2e8e7329a88b33c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa83e508bbe4d7ed7ec332541813284e4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa83e508bbe4d7ed7ec332541813284e4"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#aa83e508bbe4d7ed7ec332541813284e4">IUTEST_FRIEND_TYPED_TEST_P_DECLARATION</a>(testcasename_, testname_)&#160;&#160;&#160;namespace IIUT_TYPED_TEST_P_NAMESPACE_(testcasename_) { template&lt;typename T&gt;class testname_; }</td></tr>
+<tr class="memdesc:aa83e508bbe4d7ed7ec332541813284e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">テストから見えるように fried 登録するための宣言 <br/></td></tr>
+<tr class="separator:aa83e508bbe4d7ed7ec332541813284e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0719268f46c1b648e4f1638fe3828af8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0719268f46c1b648e4f1638fe3828af8"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a0719268f46c1b648e4f1638fe3828af8">IUTEST_FRIEND_TYPED_TEST_P</a>(testcasename_, testname_)&#160;&#160;&#160;template&lt;typename T&gt;friend class IIUT_TYPED_TEST_P_NAMESPACE_(testcasename_)::testname_</td></tr>
+<tr class="memdesc:a0719268f46c1b648e4f1638fe3828af8"><td class="mdescLeft">&#160;</td><td class="mdescRight">テストから見えるように fried 登録(IUTEST_TYPED_TEST_P 用) <br/></td></tr>
+<tr class="separator:a0719268f46c1b648e4f1638fe3828af8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a785124bcefaf5c6e494648c4fa581511"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a785124bcefaf5c6e494648c4fa581511">IUTEST_MAKE_PEEP</a>(member_type, class_name, member_name)&#160;&#160;&#160;IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name)</td></tr>
 <tr class="memdesc:a785124bcefaf5c6e494648c4fa581511"><td class="mdescLeft">&#160;</td><td class="mdescRight">private メンバーへのアクセス権を作成  <a href="#a785124bcefaf5c6e494648c4fa581511">[詳解]</a><br/></td></tr>
 <tr class="separator:a785124bcefaf5c6e494648c4fa581511"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -356,7 +356,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年10月08日(月) 14時33分01秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年10月17日(水) 14時56分50秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

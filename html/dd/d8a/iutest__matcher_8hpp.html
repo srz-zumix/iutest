@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.99.2</span>
+   &#160;<span id="projectnumber">1.16.99.3</span>
    </div>
   </td>
  </tr>
@@ -113,13 +113,6 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
 <tr class="memitem:a319913400997e45514e5d707be5bf669"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_THAT</b>(actual, matcher, on_failure)</td></tr>
 <tr class="separator:a319913400997e45514e5d707be5bf669"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
-<tr class="memitem:a5f3b852d98a60e0f31323d1179fb0363"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>DECL_COMPARE_MATCHER</b>(name, op)</td></tr>
-<tr class="separator:a5f3b852d98a60e0f31323d1179fb0363"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b9b84996558b9d8016f915f805d97d8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>DECL_COMPARE_MATCHER2</b>(name, op)</td></tr>
-<tr class="separator:a1b9b84996558b9d8016f915f805d97d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a1e9ae6d19814a6c00fee7d9f8a52c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>DECL_STR_COMPARE_MATCHER</b>(name)</td></tr>
-<tr class="separator:a3a1e9ae6d19814a6c00fee7d9f8a52c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 関数</h2></td></tr>
@@ -397,117 +390,6 @@ const detail::AnythingMatcher&#160;</td><td class="memItemRight" valign="bottom"
 <dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2014-2018, Takazumi Shirayanagi<br/>
 This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><h2 class="groupheader">マクロ定義詳解</h2>
-<a class="anchor" id="a5f3b852d98a60e0f31323d1179fb0363"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define DECL_COMPARE_MATCHER</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">name, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">op&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;<span class="keyword">class </span>IUTEST_PP_CAT(name, Matcher): <span class="keyword">public</span> IMatcher{    \</div>
-<div class="line">    public: <span class="keyword">explicit</span> IUTEST_PP_CAT(name, Matcher)(<span class="keyword">const</span> T&amp; v) : m_expected(v) {}\</div>
-<div class="line">    ::std::string WhichIs() const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> {                         \</div>
-<div class="line">        iu_global_format_stringstream strm;                                     \</div>
-<div class="line">        strm &lt;&lt; #name <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; m_expected; <span class="keywordflow">return</span> strm.str();                    \</div>
-<div class="line">    }                                                                           \</div>
-<div class="line">    template&lt;typename U&gt;AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)<span class="keyword"> const </span>{    \</div>
-<div class="line">        if( actual op m_expected ) <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();                   \</div>
-<div class="line">        return <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; WhichIs();                                 \</div>
-<div class="line">    }                                                                           \</div>
-<div class="line">    private: <span class="keyword">const</span> T&amp; m_expected;                                               \</div>
-<div class="line">    }</div>
-<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:703</div></div>
-<div class="ttc" id="namespaceiutest_html_a49b30d45309d9c8e820b2252082e0c99"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">iutest::AssertionFailure</a></div><div class="ttdeci">AssertionResult AssertionFailure()</div><div class="ttdoc">テスト失敗を示す AssertionResult オブジェクトの取得 </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:374</div></div>
-<div class="ttc" id="namespaceiutest_html_a0538466708443c65f3c7b2c84b7fce0b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a></div><div class="ttdeci">AssertionResult AssertionSuccess()</div><div class="ttdoc">テスト成功を示す AssertionResult オブジェクトの取得 </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:370</div></div>
-</div><!-- fragment -->
-</div>
-</div>
-<a class="anchor" id="a1b9b84996558b9d8016f915f805d97d8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define DECL_COMPARE_MATCHER2</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">name, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">op&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line"><span class="keyword">class </span>IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher)): <span class="keyword">public</span> IMatcher{        \</div>
-<div class="line">    public: ::std::string WhichIs() const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> { <span class="keywordflow">return</span> #name; }         \</div>
-<div class="line">    template&lt;typename T, typename U&gt;AssertionResult operator ()                         \</div>
-<div class="line">        (<span class="keyword">const</span> T&amp; actual, <span class="keyword">const</span> U&amp; expected) <span class="keyword">const</span> {                                    \</div>
-<div class="line">        if( actual op expected ) <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();                             \</div>
-<div class="line">        return <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; WhichIs() &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; actual &lt;&lt; <span class="stringliteral">&quot; vs &quot;</span> &lt;&lt; expected; \</div>
-<div class="line">    }                                                                                   \</div>
-<div class="line">    }</div>
-<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:703</div></div>
-<div class="ttc" id="namespaceiutest_html_a49b30d45309d9c8e820b2252082e0c99"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">iutest::AssertionFailure</a></div><div class="ttdeci">AssertionResult AssertionFailure()</div><div class="ttdoc">テスト失敗を示す AssertionResult オブジェクトの取得 </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:374</div></div>
-<div class="ttc" id="namespaceiutest_html_a0538466708443c65f3c7b2c84b7fce0b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a></div><div class="ttdeci">AssertionResult AssertionSuccess()</div><div class="ttdoc">テスト成功を示す AssertionResult オブジェクトの取得 </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:370</div></div>
-</div><!-- fragment -->
-</div>
-</div>
-<a class="anchor" id="a3a1e9ae6d19814a6c00fee7d9f8a52c4"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define DECL_STR_COMPARE_MATCHER</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">name</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;<span class="keyword">class </span>IUTEST_PP_CAT(name, Matcher): <span class="keyword">public</span> IMatcher {   \</div>
-<div class="line">    public: IUTEST_PP_CAT(name, Matcher)(<span class="keyword">const</span> T&amp; value) : m_expected(value) {} \</div>
-<div class="line">    template&lt;typename U&gt;AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)<span class="keyword"> const </span>{    \</div>
-<div class="line">        if( internal::IUTEST_PP_CAT(name, Helper)::Compare(                     \</div>
-<div class="line">            actual, m_expected) ) { <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>(); }                \</div>
-<div class="line">        return <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; WhichIs();                                 \</div>
-<div class="line">    }                                                                           \</div>
-<div class="line">    ::std::string WhichIs() const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> {                         \</div>
-<div class="line">        iu_global_format_stringstream strm; strm &lt;&lt; #name <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; m_expected;   \</div>
-<div class="line">        return strm.str();                                                      \</div>
-<div class="line">    }                                                                           \</div>
-<div class="line">    private:                                                                    \</div>
-<div class="line">    const T&amp; m_expected;                                                        \</div>
-<div class="line">    }</div>
-<div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:703</div></div>
-<div class="ttc" id="namespaceiutest_html_a49b30d45309d9c8e820b2252082e0c99"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">iutest::AssertionFailure</a></div><div class="ttdeci">AssertionResult AssertionFailure()</div><div class="ttdoc">テスト失敗を示す AssertionResult オブジェクトの取得 </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:374</div></div>
-<div class="ttc" id="namespaceiutest_html_a0538466708443c65f3c7b2c84b7fce0b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a></div><div class="ttdeci">AssertionResult AssertionSuccess()</div><div class="ttdoc">テスト成功を示す AssertionResult オブジェクトの取得 </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:370</div></div>
-</div><!-- fragment -->
-</div>
-</div>
 <a class="anchor" id="a319913400997e45514e5d707be5bf669"></a>
 <div class="memitem">
 <div class="memproto">
@@ -550,7 +432,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年10月08日(月) 14時33分01秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年10月17日(水) 14時56分50秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

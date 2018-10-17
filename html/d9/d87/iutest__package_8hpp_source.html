@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.99.2</span>
+   &#160;<span id="projectnumber">1.16.99.3</span>
    </div>
   </td>
  </tr>
@@ -101,11 +101,11 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="../../d2/d24/group___t_e_s_t_d_e_f.html#gae64e21d033c63b6e2223bff23449d8db">   26</a></span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#if IUTEST_HAS_PACKAGE</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#define IUTEST_CONCAT_PACKAGE_(testcase_name)   IIUT_CONCAT_PACKAGE_I(testcase_name)</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define IIUT_CONCAT_PACKAGE_I(testcase_name)                    \</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#define IUTEST_CONCAT_PACKAGE_(testcasename_)   IIUT_CONCAT_PACKAGE_I(testcasename_)</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define IIUT_CONCAT_PACKAGE_I(testcasename_)                    \</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">    iuTest_ConcatTestCaseName( iuTest_GetTestCasePackageName(   \</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">        static_cast&lt;iuTest_TestCasePackage*&gt;(NULL))             \</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">        , #testcase_name)</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">        , #testcasename_)</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#define IUTEST_GET_PACKAGENAME_()   \</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">    iuTest_GetTestCasePackageName( static_cast&lt;iuTest_TestCasePackage*&gt;(NULL) )</span></div>
@@ -170,8 +170,8 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">#define IUTEST_CONCAT_PACKAGE_(testcase_name)   IIUT_CONCAT_PACKAGE_I(testcase_name)</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define IIUT_CONCAT_PACKAGE_I(testcase_name)    #testcase_name</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">#define IUTEST_CONCAT_PACKAGE_(testcasename_)   IIUT_CONCAT_PACKAGE_I(testcasename_)</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define IIUT_CONCAT_PACKAGE_I(testcasename_)    #testcasename_</span></div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define IIUT_PACKAGE_(name)                     namespace name</span></div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define IUTEST_GET_PACKAGENAME_()               &quot;&quot;</span></div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor"></span></div>
@@ -248,7 +248,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年10月08日(月) 14時33分01秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年10月17日(水) 14時56分50秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

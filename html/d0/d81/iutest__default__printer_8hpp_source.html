@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.99.2</span>
+   &#160;<span id="projectnumber">1.16.99.3</span>
    </div>
   </td>
  </tr>
@@ -130,15 +130,18 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#a833226262eea1a869f462987b85e41e3">OnTestIterationEnd</a>(<span class="keyword">const</span> <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a>&amp; test</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                                    , <span class="keywordtype">int</span> iteration) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#a346e1abdbdfb3eec7beb3fe504c35c69">OnTestProgramEnd</a>(<span class="keyword">const</span> <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a>&amp; test) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_LIB</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  include &quot;../impl/iutest_default_printer.ipp&quot;</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_DEFAULT_PRINTER_HPP_77055C2B_AAE1_4944_A61C_26C58B04B37B_</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> PrintTestResult(<span class="keyword">const</span> <a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a>&amp; test_info) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;};</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_LIB</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  include &quot;../impl/iutest_default_printer.ipp&quot;</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_DEFAULT_PRINTER_HPP_77055C2B_AAE1_4944_A61C_26C58B04B37B_</span></div>
 <div class="ttc" id="classiutest_1_1_default_result_print_listener_html_aa79001edfef5bf8b2de68b62c5e8a81f"><div class="ttname"><a href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#aa79001edfef5bf8b2de68b62c5e8a81f">iutest::DefaultResultPrintListener::OnTestCaseStart</a></div><div class="ttdeci">virtual void OnTestCaseStart(const TestCase &amp;test_case) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">テストケース開始時に呼ばれます </div></div>
 <div class="ttc" id="classiutest_1_1_default_result_print_listener_html_ae5b8519fad0322aae12bf01249fe9dee"><div class="ttname"><a href="../../d2/d71/classiutest_1_1_default_result_print_listener.html#ae5b8519fad0322aae12bf01249fe9dee">iutest::DefaultResultPrintListener::OnTestStart</a></div><div class="ttdeci">virtual void OnTestStart(const TestInfo &amp;test_info) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">テスト開始時に呼ばれます </div></div>
 <div class="ttc" id="classiutest_1_1_default_result_print_listener_html"><div class="ttname"><a href="../../d2/d71/classiutest_1_1_default_result_print_listener.html">iutest::DefaultResultPrintListener</a></div><div class="ttdoc">デフォルト出力イベントリスナー </div><div class="ttdef"><b>Definition:</b> iutest_default_printer.hpp:27</div></div>
@@ -163,7 +166,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年10月08日(月) 14時33分01秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年10月17日(水) 14時56分50秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

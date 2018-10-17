@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.99.2</span>
+   &#160;<span id="projectnumber">1.16.99.3</span>
    </div>
   </td>
  </tr>
@@ -255,7 +255,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="preprocessor">#if !defined(IUTEST_HAS_INLINE_VARIABLE)</span></div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#if defined(__clang__)</span></div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  if (__clang_major__ &gt; 3 || (__clang_major__ == 3 &amp;&amp; __clang_minor__ &gt;= 9)) &amp;&amp; IUTEST_HAS_CXX1Z</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  if IUTEST_HAS_CXX1Z &amp;&amp; (__clang_major__ &gt; 3 || (__clang_major__ == 3 &amp;&amp; __clang_minor__ &gt;= 9))</span></div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    define IUTEST_HAS_INLINE_VARIABLE      1</span></div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  endif</span></div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
@@ -1126,7 +1126,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l01098"></a><span class="lineno"> 1098</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l01100"></a><span class="lineno"> 1100</span>&#160;<span class="preprocessor">#if !defined(IUTEST_HAS_IF_EXISTS)</span></div>
 <div class="line"><a name="l01101"></a><span class="lineno"> 1101</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  if defined(__clang__)</span></div>
-<div class="line"><a name="l01102"></a><span class="lineno"> 1102</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    if (__clang_major__ &gt; 3 || (__clang_major__ == 3 &amp;&amp; __clang_minor__ &gt;= 5) ) &amp;&amp; IUTEST_HAS_MS_EXTENSIONS</span></div>
+<div class="line"><a name="l01102"></a><span class="lineno"> 1102</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    if IUTEST_HAS_MS_EXTENSIONS &amp;&amp; (__clang_major__ &gt; 3 || (__clang_major__ == 3 &amp;&amp; __clang_minor__ &gt;= 5) )</span></div>
 <div class="line"><a name="l01103"></a><span class="lineno"> 1103</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#      define IUTEST_HAS_IF_EXISTS          1</span></div>
 <div class="line"><a name="l01104"></a><span class="lineno"> 1104</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    endif</span></div>
 <div class="line"><a name="l01105"></a><span class="lineno"> 1105</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  elif defined(_MSC_VER) &amp;&amp; _MSC_VER &gt;= 1310</span></div>
@@ -1171,7 +1171,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l01145"></a><span class="lineno"> 1145</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_HAS_MS_CXX_MODULE          0</span></div>
 <div class="line"><a name="l01146"></a><span class="lineno"> 1146</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l01147"></a><span class="lineno"> 1147</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l01148"></a><span class="lineno"> 1148</span>&#160;<span class="preprocessor">#if defined(IUTEST_MODULE_EXPORT)</span></div>
+<div class="line"><a name="l01148"></a><span class="lineno"> 1148</span>&#160;<span class="preprocessor">#if IUTEST_HAS_MS_CXX_MODULE</span></div>
 <div class="line"><a name="l01149"></a><span class="lineno"> 1149</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_CXX_MODULE_EXPORT          export</span></div>
 <div class="line"><a name="l01150"></a><span class="lineno"> 1150</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
 <div class="line"><a name="l01151"></a><span class="lineno"> 1151</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_CXX_MODULE_EXPORT</span></div>
@@ -1416,7 +1416,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年10月08日(月) 14時33分00秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年10月17日(水) 14時56分50秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

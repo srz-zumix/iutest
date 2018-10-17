@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.99.2</span>
+   &#160;<span id="projectnumber">1.16.99.3</span>
    </div>
   </td>
  </tr>
@@ -146,7 +146,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">return</span> os &lt;&lt; msg.WhichIs();</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#define DECL_COMPARE_MATCHER(name, op)  \</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#define IIUT_DECL_COMPARE_MATCHER(name, op)  \</span></div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">    template&lt;typename T&gt;class IUTEST_PP_CAT(name, Matcher): public IMatcher{    \</span></div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">    public: explicit IUTEST_PP_CAT(name, Matcher)(const T&amp; v) : m_expected(v) {}\</span></div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE {                         \</span></div>
@@ -160,7 +160,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor">    private: const T&amp; m_expected;                                               \</span></div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">    }</span></div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#define DECL_COMPARE_MATCHER2(name, op) \</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#define IIUT_DECL_COMPARE_MATCHER2(name, op) \</span></div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">    class IUTEST_PP_CAT(Twofold, IUTEST_PP_CAT(name, Matcher)): public IMatcher{        \</span></div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">    public: ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return #name; }         \</span></div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">    template&lt;typename T, typename U&gt;AssertionResult operator ()                         \</span></div>
@@ -174,25 +174,25 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;IUTEST_PRAGMA_WARN_PUSH()</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;DECL_COMPARE_MATCHER(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gabb443c6232361be33e0ae183d2d91e31">Ne</a>, !=);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;DECL_COMPARE_MATCHER(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gae140560bebaea386a113c2343a7e80ee">Le</a>, &lt;=);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;DECL_COMPARE_MATCHER(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga9e8a5a7515a8a448bf736c99fa057cb7">Lt</a>, &lt; );</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;DECL_COMPARE_MATCHER(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gab9b849a8012156017e407afdee199974">Ge</a>, &gt;=);</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;DECL_COMPARE_MATCHER(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga0587e3f46245ad889384185ff76306f9">Gt</a>, &gt; );</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;IIUT_DECL_COMPARE_MATCHER(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gabb443c6232361be33e0ae183d2d91e31">Ne</a>, !=);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;IIUT_DECL_COMPARE_MATCHER(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gae140560bebaea386a113c2343a7e80ee">Le</a>, &lt;=);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;IIUT_DECL_COMPARE_MATCHER(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga9e8a5a7515a8a448bf736c99fa057cb7">Lt</a>, &lt; );</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;IIUT_DECL_COMPARE_MATCHER(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gab9b849a8012156017e407afdee199974">Ge</a>, &gt;=);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;IIUT_DECL_COMPARE_MATCHER(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga0587e3f46245ad889384185ff76306f9">Gt</a>, &gt; );</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;DECL_COMPARE_MATCHER2(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga99a557b19f8d3524304b9382b258205f">Eq</a>, ==);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;DECL_COMPARE_MATCHER2(Ne, !=);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;DECL_COMPARE_MATCHER2(Le, &lt;=);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;DECL_COMPARE_MATCHER2(Lt, &lt; );</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;DECL_COMPARE_MATCHER2(Ge, &gt;=);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;DECL_COMPARE_MATCHER2(Gt, &gt; );</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;IIUT_DECL_COMPARE_MATCHER2(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga99a557b19f8d3524304b9382b258205f">Eq</a>, ==);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;IIUT_DECL_COMPARE_MATCHER2(Ne, !=);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;IIUT_DECL_COMPARE_MATCHER2(Le, &lt;=);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;IIUT_DECL_COMPARE_MATCHER2(Lt, &lt; );</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;IIUT_DECL_COMPARE_MATCHER2(Ge, &gt;=);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;IIUT_DECL_COMPARE_MATCHER2(Gt, &gt; );</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;IUTEST_PRAGMA_WARN_POP()</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="preprocessor">#undef DECL_COMPARE_MATCHER</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#undef DECL_COMPARE_MATCHER2</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="preprocessor">#undef IIUT_DECL_COMPARE_MATCHER</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#undef IIUT_DECL_COMPARE_MATCHER2</span></div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#define DECL_STR_COMPARE_MATCHER(name)  \</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#define IIUT_DECL_STR_COMPARE_MATCHER(name)  \</span></div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="preprocessor">    template&lt;typename T&gt;class IUTEST_PP_CAT(name, Matcher): public IMatcher {   \</span></div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="preprocessor">    public: IUTEST_PP_CAT(name, Matcher)(const T&amp; value) : m_expected(value) {} \</span></div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor">    template&lt;typename U&gt;AssertionResult operator ()(const U&amp; actual) const {    \</span></div>
@@ -208,12 +208,12 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="preprocessor">    const T&amp; m_expected;                                                        \</span></div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="preprocessor">    }</span></div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;DECL_STR_COMPARE_MATCHER(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga59663ce75a0eaa468b121923e91fc4b1">StrEq</a>);</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;DECL_STR_COMPARE_MATCHER(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gac2bd95e9bf465c102dc880dfa6b902e4">StrNe</a>);</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;DECL_STR_COMPARE_MATCHER(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gae252655afa4addd98ac7dace3395d683">StrCaseEq</a>);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;DECL_STR_COMPARE_MATCHER(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga9db6eb3623fc430b188e4b6a686bae97">StrCaseNe</a>);</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;IIUT_DECL_STR_COMPARE_MATCHER(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga59663ce75a0eaa468b121923e91fc4b1">StrEq</a>);</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;IIUT_DECL_STR_COMPARE_MATCHER(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gac2bd95e9bf465c102dc880dfa6b902e4">StrNe</a>);</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;IIUT_DECL_STR_COMPARE_MATCHER(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gae252655afa4addd98ac7dace3395d683">StrCaseEq</a>);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;IIUT_DECL_STR_COMPARE_MATCHER(<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga9db6eb3623fc430b188e4b6a686bae97">StrCaseNe</a>);</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="preprocessor">#undef DECL_COMPARE_MATCHER</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="preprocessor">#undef IIUT_DECL_COMPARE_MATCHER</span></div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="keyword">class </span>IsNullMatcher : <span class="keyword">public</span> IMatcher</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;{</div>
@@ -2354,7 +2354,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年10月08日(月) 14時33分01秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年10月17日(水) 14時56分50秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

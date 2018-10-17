@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.99.2</span>
+   &#160;<span id="projectnumber">1.16.99.3</span>
    </div>
   </td>
  </tr>
@@ -720,175 +720,185 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_HAS_STRSTREAM      0</span></div>
 <div class="line"><a name="l00669"></a><span class="lineno"><a class="line" href="../../d9/dad/iutest__stdlib_8hpp.html#ae5f8ba8e39f3eaae15391efaef0b4087">  669</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;<span class="keyword">namespace </span>iutest {</div>
-<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;<span class="keyword">namespace </span>detail</div>
-<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;{</div>
-<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;</div>
-<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;<span class="comment">//======================================================================</span></div>
-<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;<span class="comment">// struct</span></div>
-<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;<span class="comment"></span><span class="keyword">template</span>&lt;<span class="keywordtype">int</span> SIZE&gt;</div>
-<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;<span class="keyword">struct </span>type_least_t {};</div>
-<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;</div>
-<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;<span class="keyword">struct </span>type_least_t&lt;1&gt;</div>
-<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;{</div>
-<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;<span class="preprocessor">#if defined(INT_LEAST8_MIN)</span></div>
-<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> int_least8_t        Int;</div>
-<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;    <span class="keyword">typedef</span> uint_least8_t       UInt;</div>
-<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> <span class="keywordtype">char</span>                Int;</div>
-<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>       UInt;</div>
-<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;<span class="preprocessor"></span>};</div>
-<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;</div>
-<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;<span class="keyword">struct </span>type_least_t&lt;2&gt;</div>
-<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;{</div>
-<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;<span class="preprocessor">#if defined(INT_LEAST16_MIN)</span></div>
-<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> int_least16_t       Int;</div>
-<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;    <span class="keyword">typedef</span> uint_least16_t      UInt;</div>
-<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> <span class="keywordtype">short</span>               Int;</div>
-<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span>      UInt;</div>
-<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;<span class="preprocessor"></span>};</div>
-<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;</div>
-<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;<span class="keyword">struct </span>type_least_t&lt;4&gt;</div>
-<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;{</div>
-<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;<span class="preprocessor">#if defined(INT_LEAST32_MIN)</span></div>
-<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> int_least32_t       Int;</div>
-<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;    <span class="keyword">typedef</span> uint_least32_t      UInt;</div>
-<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> <span class="keywordtype">int</span>                 Int;</div>
-<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>        UInt;</div>
-<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;<span class="preprocessor"></span>};</div>
-<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;</div>
-<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;<span class="keyword">struct </span>type_least_t&lt;8&gt;</div>
-<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;{</div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;<span class="preprocessor">#if defined(INT_LEAST64_MIN)</span></div>
-<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> int_least64_t       Int;</div>
-<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;    <span class="keyword">typedef</span> uint_least64_t      UInt;</div>
-<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#if defined(_MSC_VER)</span></div>
-<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> __int64             Int;</div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> __int64    UInt;</div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span>           Int;</div>
-<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span>  UInt;</div>
-<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;<span class="preprocessor"></span>};</div>
-<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;</div>
-<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;<span class="keyword">template</span>&lt;<span class="keywordtype">int</span> SIZE&gt;</div>
-<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;<span class="keyword">struct </span>type_fit_t {};</div>
-<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;</div>
-<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;<span class="keyword">struct </span>type_fit_t&lt;1&gt;</div>
-<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;{</div>
-<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;<span class="preprocessor">#if defined(INT8_MIN)</span></div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> int8_t              Int;</div>
-<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;    <span class="keyword">typedef</span> uint8_t             UInt;</div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> <span class="keywordtype">char</span>                Int;</div>
-<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>       UInt;</div>
-<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;<span class="preprocessor"></span>};</div>
-<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;</div>
-<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;<span class="keyword">struct </span>type_fit_t&lt;2&gt;</div>
-<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;{</div>
-<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;<span class="preprocessor">#if defined(INT16_MIN)</span></div>
-<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> int16_t             Int;</div>
-<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;    <span class="keyword">typedef</span> uint16_t            UInt;</div>
-<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> <span class="keywordtype">short</span>               Int;</div>
-<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span>      UInt;</div>
-<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;<span class="preprocessor"></span>};</div>
-<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;</div>
-<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;<span class="keyword">struct </span>type_fit_t&lt;4&gt;</div>
-<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;{</div>
-<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;<span class="preprocessor">#if defined(INT32_MIN)</span></div>
-<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> int32_t             Int;</div>
-<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;    <span class="keyword">typedef</span> uint32_t            UInt;</div>
-<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)</span></div>
-<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;<span class="preprocessor"></span><span class="keyword">private</span>:</div>
-<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> F, <span class="keywordtype">bool</span> b&gt;</div>
-<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;    <span class="keyword">struct </span>impl { <span class="keyword">typedef</span> T type; };</div>
-<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> F&gt;</div>
-<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;    <span class="keyword">struct </span>impl&lt;T, F, false&gt; { <span class="keyword">typedef</span> F type; };</div>
-<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;</div>
-<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;    <span class="keyword">typedef</span> impl&lt;long, int</div>
-<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;        , <span class="keyword">sizeof</span>(int) != 4 &amp;&amp; <span class="keyword">sizeof</span>(<span class="keywordtype">long</span>) == 4&gt;::type Int;</div>
-<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;    <span class="keyword">typedef</span> impl&lt;<span class="keywordtype">unsigned</span> long, <span class="keywordtype">unsigned</span> int</div>
-<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;        , <span class="keyword">sizeof</span>(int) != 4 &amp;&amp; <span class="keyword">sizeof</span>(<span class="keywordtype">long</span>) == 4&gt;::type UInt;</div>
-<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> <span class="keywordtype">int</span>                 Int;</div>
-<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>        UInt;</div>
-<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;<span class="preprocessor"></span>};</div>
-<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;</div>
-<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;<span class="keyword">struct </span>type_fit_t&lt;8&gt;</div>
-<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;{</div>
-<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;<span class="preprocessor">#if defined(INT64_MIN)</span></div>
-<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> int64_t             Int;</div>
-<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;    <span class="keyword">typedef</span> uint64_t            UInt;</div>
-<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#if defined(_MSC_VER)</span></div>
-<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> __int64             Int;</div>
-<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> __int64    UInt;</div>
-<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span>           Int;</div>
-<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span>  UInt;</div>
-<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;<span class="preprocessor"></span>};</div>
-<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;</div>
-<div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;<span class="keyword">struct </span>type_fit_t&lt;16&gt;</div>
-<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;{</div>
-<div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;<span class="preprocessor">#if IUTEST_HAS_INT128</span></div>
-<div class="line"><a name="l00822"></a><span class="lineno">  822</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#if defined(_MSC_VER)</span></div>
-<div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> __int128            Int;</div>
-<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> __int128   UInt;</div>
-<div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> __int128_t  Int;</div>
-<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;    <span class="keyword">typedef</span> __uint128_t UInt;</div>
-<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;<span class="preprocessor"></span>};</div>
-<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;</div>
-<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;<span class="comment">//======================================================================</span></div>
-<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;<span class="comment">// function</span></div>
-<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;<span class="comment"></span><span class="keyword">inline</span> <span class="keywordtype">int</span> iu_mbtowc(<span class="keywordtype">wchar_t</span>* dst, <span class="keyword">const</span> <span class="keywordtype">char</span>* src, <span class="keywordtype">size_t</span> size)</div>
-<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160;{</div>
-<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;<span class="preprocessor">#if defined(IUTEST_OS_LINUX_ANDROID) || defined(IUTEST_OS_WINDOWS_MOBILE)</span></div>
-<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160;<span class="preprocessor"></span>    <span class="comment">// unimplimented</span></div>
-<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;    IUTEST_UNUSED_VAR(dst);</div>
-<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;    IUTEST_UNUSED_VAR(src);</div>
-<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;    IUTEST_UNUSED_VAR(size);</div>
-<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> mbtowc(dst, src, size);</div>
-<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;<span class="preprocessor"></span>}</div>
-<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;</div>
-<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
-<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
-<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;</div>
-<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_STDLIB_HPP_54D4BEEE_7B6B_4AF4_B1F6_138560480D55_</span></div>
+<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;<span class="preprocessor">#if !defined(IUTEST_HAS_INVALID_PARAMETER_HANDLER)</span></div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  if IUTEST_HAS_EXCEPTIONS &amp;&amp; (defined(_MSC_VER) &amp;&amp; (_MSC_VER &gt;= 1400)) &amp;&amp; !defined(IUTEST_OS_WINDOWS_MOBILE)</span></div>
+<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    define IUTEST_HAS_INVALID_PARAMETER_HANDLER    1</span></div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  endif</span></div>
+<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;<span class="preprocessor">#if !defined(IUTEST_HAS_INVALID_PARAMETER_HANDLER)</span></div>
+<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_HAS_INVALID_PARAMETER_HANDLER      0</span></div>
+<div class="line"><a name="l00680"></a><span class="lineno"><a class="line" href="../../d9/dad/iutest__stdlib_8hpp.html#a32a39c2250e19c7b6741840a3cf31f26">  680</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;<span class="keyword">namespace </span>iutest {</div>
+<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;<span class="keyword">namespace </span>detail</div>
+<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;{</div>
+<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;</div>
+<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;<span class="comment">//======================================================================</span></div>
+<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;<span class="comment">// struct</span></div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;<span class="comment"></span><span class="keyword">template</span>&lt;<span class="keywordtype">int</span> SIZE&gt;</div>
+<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;<span class="keyword">struct </span>type_least_t {};</div>
+<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;</div>
+<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;<span class="keyword">struct </span>type_least_t&lt;1&gt;</div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;{</div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;<span class="preprocessor">#if defined(INT_LEAST8_MIN)</span></div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> int_least8_t        Int;</div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;    <span class="keyword">typedef</span> uint_least8_t       UInt;</div>
+<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> <span class="keywordtype">char</span>                Int;</div>
+<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>       UInt;</div>
+<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;<span class="preprocessor"></span>};</div>
+<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;</div>
+<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;<span class="keyword">struct </span>type_least_t&lt;2&gt;</div>
+<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;{</div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;<span class="preprocessor">#if defined(INT_LEAST16_MIN)</span></div>
+<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> int_least16_t       Int;</div>
+<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;    <span class="keyword">typedef</span> uint_least16_t      UInt;</div>
+<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> <span class="keywordtype">short</span>               Int;</div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span>      UInt;</div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;<span class="preprocessor"></span>};</div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;</div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;<span class="keyword">struct </span>type_least_t&lt;4&gt;</div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;{</div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;<span class="preprocessor">#if defined(INT_LEAST32_MIN)</span></div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> int_least32_t       Int;</div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;    <span class="keyword">typedef</span> uint_least32_t      UInt;</div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> <span class="keywordtype">int</span>                 Int;</div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>        UInt;</div>
+<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;<span class="preprocessor"></span>};</div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;</div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;<span class="keyword">struct </span>type_least_t&lt;8&gt;</div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;{</div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;<span class="preprocessor">#if defined(INT_LEAST64_MIN)</span></div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> int_least64_t       Int;</div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;    <span class="keyword">typedef</span> uint_least64_t      UInt;</div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#if defined(_MSC_VER)</span></div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> __int64             Int;</div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> __int64    UInt;</div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span>           Int;</div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span>  UInt;</div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;<span class="preprocessor"></span>};</div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;<span class="keyword">template</span>&lt;<span class="keywordtype">int</span> SIZE&gt;</div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;<span class="keyword">struct </span>type_fit_t {};</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;</div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;<span class="keyword">struct </span>type_fit_t&lt;1&gt;</div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;{</div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;<span class="preprocessor">#if defined(INT8_MIN)</span></div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> int8_t              Int;</div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;    <span class="keyword">typedef</span> uint8_t             UInt;</div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> <span class="keywordtype">char</span>                Int;</div>
+<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>       UInt;</div>
+<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;<span class="preprocessor"></span>};</div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;</div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;<span class="keyword">struct </span>type_fit_t&lt;2&gt;</div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;{</div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;<span class="preprocessor">#if defined(INT16_MIN)</span></div>
+<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> int16_t             Int;</div>
+<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;    <span class="keyword">typedef</span> uint16_t            UInt;</div>
+<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> <span class="keywordtype">short</span>               Int;</div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span>      UInt;</div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;<span class="preprocessor"></span>};</div>
+<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;</div>
+<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;<span class="keyword">struct </span>type_fit_t&lt;4&gt;</div>
+<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;{</div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;<span class="preprocessor">#if defined(INT32_MIN)</span></div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> int32_t             Int;</div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;    <span class="keyword">typedef</span> uint32_t            UInt;</div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)</span></div>
+<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;<span class="preprocessor"></span><span class="keyword">private</span>:</div>
+<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> F, <span class="keywordtype">bool</span> b&gt;</div>
+<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;    <span class="keyword">struct </span>impl { <span class="keyword">typedef</span> T type; };</div>
+<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> F&gt;</div>
+<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;    <span class="keyword">struct </span>impl&lt;T, F, false&gt; { <span class="keyword">typedef</span> F type; };</div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;</div>
+<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;    <span class="keyword">typedef</span> impl&lt;long, int</div>
+<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;        , <span class="keyword">sizeof</span>(int) != 4 &amp;&amp; <span class="keyword">sizeof</span>(<span class="keywordtype">long</span>) == 4&gt;::type Int;</div>
+<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;    <span class="keyword">typedef</span> impl&lt;<span class="keywordtype">unsigned</span> long, <span class="keywordtype">unsigned</span> int</div>
+<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;        , <span class="keyword">sizeof</span>(int) != 4 &amp;&amp; <span class="keyword">sizeof</span>(<span class="keywordtype">long</span>) == 4&gt;::type UInt;</div>
+<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> <span class="keywordtype">int</span>                 Int;</div>
+<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>        UInt;</div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;<span class="preprocessor"></span>};</div>
+<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;</div>
+<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;<span class="keyword">struct </span>type_fit_t&lt;8&gt;</div>
+<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;{</div>
+<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;<span class="preprocessor">#if defined(INT64_MIN)</span></div>
+<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> int64_t             Int;</div>
+<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;    <span class="keyword">typedef</span> uint64_t            UInt;</div>
+<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#if defined(_MSC_VER)</span></div>
+<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> __int64             Int;</div>
+<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> __int64    UInt;</div>
+<div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00822"></a><span class="lineno">  822</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span>           Int;</div>
+<div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span>  UInt;</div>
+<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;<span class="preprocessor"></span>};</div>
+<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;</div>
+<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;<span class="keyword">struct </span>type_fit_t&lt;16&gt;</div>
+<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;{</div>
+<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;<span class="preprocessor">#if IUTEST_HAS_INT128</span></div>
+<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#if defined(_MSC_VER)</span></div>
+<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> __int128            Int;</div>
+<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;    <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> __int128   UInt;</div>
+<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;<span class="preprocessor"></span>    <span class="keyword">typedef</span> __int128_t  Int;</div>
+<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;    <span class="keyword">typedef</span> __uint128_t UInt;</div>
+<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160;<span class="preprocessor"></span>};</div>
+<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;</div>
+<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;<span class="comment">//======================================================================</span></div>
+<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;<span class="comment">// function</span></div>
+<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;<span class="comment"></span><span class="keyword">inline</span> <span class="keywordtype">int</span> iu_mbtowc(<span class="keywordtype">wchar_t</span>* dst, <span class="keyword">const</span> <span class="keywordtype">char</span>* src, <span class="keywordtype">size_t</span> size)</div>
+<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;{</div>
+<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;<span class="preprocessor">#if defined(IUTEST_OS_LINUX_ANDROID) || defined(IUTEST_OS_WINDOWS_MOBILE)</span></div>
+<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;<span class="preprocessor"></span>    <span class="comment">// unimplimented</span></div>
+<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;    IUTEST_UNUSED_VAR(dst);</div>
+<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;    IUTEST_UNUSED_VAR(src);</div>
+<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;    IUTEST_UNUSED_VAR(size);</div>
+<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> mbtowc(dst, src, size);</div>
+<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;</div>
+<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
+<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;</div>
+<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_STDLIB_HPP_54D4BEEE_7B6B_4AF4_B1F6_138560480D55_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年10月08日(月) 14時33分00秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年10月17日(水) 14時56分50秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

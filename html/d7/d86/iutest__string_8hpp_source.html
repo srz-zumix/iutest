@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.99.2</span>
+   &#160;<span id="projectnumber">1.16.99.3</span>
    </div>
   </td>
  </tr>
@@ -227,8 +227,8 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">int</span> iu_vsnprintf(<span class="keywordtype">char</span>* dst, <span class="keywordtype">size_t</span> size, <span class="keyword">const</span> <span class="keywordtype">char</span>* format, va_list va)</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;{</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="preprocessor">#if   defined(__CYGWIN__) &amp;&amp; defined(__STRICT_ANSI__) \</span></div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="preprocessor">        &amp;&amp; (defined(__STDC_VERSION__) &amp;&amp; (__STDC_VERSION__ &gt;= 199901L)) &amp;&amp; (__cplusplus &gt;= 201103L)</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="preprocessor">#if   defined(__CYGWIN__) \</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="preprocessor">        &amp;&amp; (defined(__STRICT_ANSI__) &amp;&amp; (defined(__STDC_VERSION__) &amp;&amp; (__STDC_VERSION__ &gt;= 199901L)) &amp;&amp; (__cplusplus &gt;= 201103L))</span></div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> wrapper::iu_vsnprintf(dst, size, format, va);</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor">#elif (defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)) &amp;&amp; defined(__STRICT_ANSI__)</span></div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="preprocessor"></span>    <span class="keywordflow">return</span> wrapper::iu_vsnprintf(dst, size, format, va);</div>
@@ -818,7 +818,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年10月08日(月) 14時33分00秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2018年10月17日(水) 14時56分50秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
