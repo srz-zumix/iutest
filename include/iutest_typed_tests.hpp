@@ -99,6 +99,8 @@
     template<typename iutest_TypeParam>                                             \
     void classname_<iutest_TypeParam>::Body()
 
+#if IUTEST_HAS_IGNORE_TEST
+
 #define IIUT_TYPED_TEST_I_IGNORE(classname_, testcase_, testcasename_, testname_)   \
     template<typename iutest_TypeParam> class classname_ : public testcase_<iutest_TypeParam> {     \
         typedef testcase_<iutest_TypeParam> TestFixture;                            \
@@ -111,6 +113,8 @@
         IUTEST_CONCAT_PACKAGE_(testcasename_), IIUT_TO_NAME_STR_(testname_));       \
     template<typename iutest_TypeParam> template<typename T>                        \
     void classname_<iutest_TypeParam>::Body()
+
+#endif
 
 #define IIUT_TYPED_TEST_(macro, testcase_, testname_)                   \
     macro(IUTEST_TEST_CLASS_NAME_(testcase_, testname_)                 \
@@ -126,16 +130,24 @@
 #define IUTEST_TYPED_TEST_(testcase_, testname_)        \
     IIUT_TYPED_TEST_A_(IIUT_TYPED_TEST_I, testcase_, testname_)
 
+#if IUTEST_HAS_IGNORE_TEST
+
 #define IUTEST_TYPED_TEST_IGNORE_(testcase_, testname_) \
     IIUT_TYPED_TEST_A_(IIUT_TYPED_TEST_I_IGNORE, testcase_, testname_)
+
+#endif
 
 #else
 
 #define IUTEST_TYPED_TEST_(testcase_, testname_)        \
     IIUT_TYPED_TEST_(IIUT_TYPED_TEST_I, testcase_, testname_)
 
+#if IUTEST_HAS_IGNORE_TEST
+
 #define IUTEST_TYPED_TEST_IGNORE_(testcase_, testname_) \
     IIUT_TYPED_TEST_(IIUT_TYPED_TEST_I_IGNORE, testcase_, testname_)
+
+#endif
 
 #endif
 
@@ -224,6 +236,8 @@
     template<typename iutest_TypeParam>                         \
     void IIUT_TYPED_TEST_P_NAMESPACE_(testcase_)::testname_<iutest_TypeParam>::Body()
 
+#if IUTEST_HAS_IGNORE_TEST
+
 #define IIUT_TYPED_TEST_P_IGNORE_(testcase_, testname_)         \
     namespace IIUT_TYPED_TEST_P_NAMESPACE_(testcase_) {         \
     template<typename iutest_TypeParam>                         \
@@ -236,6 +250,8 @@
     }                                                           \
     template<typename iutest_TypeParam>template<typename T>     \
     void IIUT_TYPED_TEST_P_NAMESPACE_(testcase_)::testname_<iutest_TypeParam>::Body()
+
+#endif
 
 #define IIUT_REGISTER_TYPED_TEST_CASE_P_(testcase_, ...)                                \
     namespace IIUT_TYPED_TEST_P_NAMESPACE_(testcase_) {                                 \
