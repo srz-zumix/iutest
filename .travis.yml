@@ -20,17 +20,9 @@ addons:
 
 before_install:
   - |
-    if [[ $TRAVIS_OS_NAME == windows ]]; then
-      cd "C:/Program Files (x86)/MSBuild"
-      ls
-      cd "${PROGRAMFILES}"
-      ls
-      cd ..
-      ls
-      find . -name "*python.exe"
-      find . -name "*MSBuild.exe"
-      cd "${TRAVIS_BUILD_DIR}"
-      export PATH=$PATH:${PROGRAMFILES}/CMake/bin
+    if [[ "${WINDOWS}" != "" ]]; then
+      env
+      export PATH=$PATH:${PROGRAMFILES}/CMake/bin:C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/
     fi
   - python .ci/travisci/travis_blocking_stdout.py || true
   # - if [[ "${WINDOWS}" != "" ]]; then cmd /C choco.exe list -localonly; fi
