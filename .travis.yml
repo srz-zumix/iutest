@@ -21,11 +21,11 @@ addons:
 before_install:
   - |
     if [[ "${WINDOWS}" != "" ]]; then
-      cd ${PROGRAMFILES}
+      cd "${PROGRAMFILES}"
       ls
       cd ..
       ls
-      cd ${TRAVIS_BUILD_DIR}
+      cd "${TRAVIS_BUILD_DIR}"
       export PATH=$PATH:${PROGRAMFILES}/CMake/bin
     fi
   - python .ci/travisci/travis_blocking_stdout.py || true
@@ -106,10 +106,10 @@ script:
   - if [ "${USE_LIB}" == '1' ]; then cd projects/make && make && cd -; fi
   - |
     if [ "${USE_CMAKE}" == '1' ]; then
+      set -e
       mkdir ./cmake-build && cd ./cmake-build
       cmake ../projects/cmake
       if [ "${WINDOWS}" == '1' ]; then
-        ctest -C Debug -V --build-and-test
         msbuild "${TRAVIS_BUILD_DIR}\cmake-build\iutest.sln" /m /verbosity:minimal
       else
         cmake --build .
