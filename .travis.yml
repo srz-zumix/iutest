@@ -23,7 +23,7 @@ before_install:
     if [[ "${WINDOWS}" != "" ]]; then
       env
       export PATH=$PATH:${PROGRAMFILES}/CMake/bin
-      export PATH="$PATH:${ProgramFiles(x86)}/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/"
+      echo ${ProgramFiles(x86)}
     fi
   - python .ci/travisci/travis_blocking_stdout.py || true
   # - if [[ "${WINDOWS}" != "" ]]; then cmd /C choco.exe list -localonly; fi
@@ -107,7 +107,7 @@ script:
       mkdir ./cmake-build && cd ./cmake-build
       cmake ../projects/cmake
       if [ $TRAVIS_OS_NAME == windows ]; then
-        msbuild "${TRAVIS_BUILD_DIR}\cmake-build\iutest.sln" /m /verbosity:minimal
+        cmd /C "${VS140COMNTOOLS}/vsvars32.bat" && msbuild "${TRAVIS_BUILD_DIR}\cmake-build\iutest.sln" /m /verbosity:minimal
       else
         cmake --build .
       fi
