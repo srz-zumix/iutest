@@ -23,10 +23,8 @@ before_install:
     if [[ "${WINDOWS}" != "" ]]; then
       env
       export PATH=$PATH:${PROGRAMFILES}/CMake/bin
-      echo ${ProgramFiles(x86)}
     fi
   - python .ci/travisci/travis_blocking_stdout.py || true
-  # - if [[ "${WINDOWS}" != "" ]]; then cmd /C choco.exe list -localonly; fi
   #- apt-cache search clang || true
   #- apt-cache search gcc || true
   # compiler predefined specific
