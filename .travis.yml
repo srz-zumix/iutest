@@ -21,10 +21,14 @@ addons:
 before_install:
   - |
     if [[ "${WINDOWS}" != "" ]]; then
+      cd "C:/Program Files (x86)"
+      ls
       cd "${PROGRAMFILES}"
       ls
       cd ..
       ls
+      where /r "c:" msbuild
+      where /r "c:" python 
       cd "${TRAVIS_BUILD_DIR}"
       export PATH=$PATH:${PROGRAMFILES}/CMake/bin
     fi
