@@ -20,15 +20,15 @@ addons:
 
 before_install:
   - |
-    if [[ "${WINDOWS}" != "" ]]; then
+    if [[ $TRAVIS_OS_NAME == windows ]]; then
       cd "C:/Program Files (x86)/MSBuild"
       ls
       cd "${PROGRAMFILES}"
       ls
       cd ..
       ls
-      find . -name "*python*"
-      find . -name "*msbuild*"
+      find . -name "*python.exe"
+      find . -name "*MSBuild.exe"
       cd "${TRAVIS_BUILD_DIR}"
       export PATH=$PATH:${PROGRAMFILES}/CMake/bin
     fi
@@ -113,7 +113,7 @@ script:
       set -e
       mkdir ./cmake-build && cd ./cmake-build
       cmake ../projects/cmake
-      if [ "${WINDOWS}" == '1' ]; then
+      if [ $TRAVIS_OS_NAME == windows ]; then
         msbuild "${TRAVIS_BUILD_DIR}\cmake-build\iutest.sln" /m /verbosity:minimal
       else
         cmake --build .
