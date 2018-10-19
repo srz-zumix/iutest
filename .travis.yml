@@ -21,8 +21,10 @@ addons:
 before_install:
   - |
     if [ "$TRAVIS_OS_NAME" == "windows" ]; then
+      MSBUILD=`dirname "$(find '/c/Program Files'* -name 'MSBuild.exe' 2>/dev/null | grep 'amd64' | head -n1)"`
+      export PATH=$PATH:${PROGRAMFILES}/CMake/bin:"$MSBUILD"
       env
-      export PATH=$PATH:${PROGRAMFILES}/CMake/bin
+      MSBuild.exe --version
     fi
   - python .ci/travisci/travis_blocking_stdout.py || true
   #- apt-cache search clang || true
@@ -106,7 +108,7 @@ script:
       cmake ../projects/cmake
       if [ "$TRAVIS_OS_NAME" == "windows" ]; then
         echo msbuild
-        "C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe" "${TRAVIS_BUILD_DIR}\cmake-build\iutest.sln" /m /verbosity:minimal
+        msbuild "${TRAVIS_BUILD_DIR}\cmake-build\iutest.sln" /m /verbosity:minimal
       else
         cmake --build .
       fi
