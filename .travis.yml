@@ -105,7 +105,8 @@ script:
       mkdir ./cmake-build && cd ./cmake-build
       cmake ../projects/cmake
       if [ "$TRAVIS_OS_NAME" == "windows" ]; then
-          "C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe" "${TRAVIS_BUILD_DIR}\cmake-build\iutest.sln" /m /verbosity:minimal
+        echo msbuild
+        "C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe" "${TRAVIS_BUILD_DIR}\cmake-build\iutest.sln" /m /verbosity:minimal
       else
         cmake --build .
       fi
