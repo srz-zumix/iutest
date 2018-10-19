@@ -20,7 +20,7 @@ addons:
 
 before_install:
   - |
-    if [[ "${WINDOWS}" != "" ]]; then
+    if [ "$TRAVIS_OS_NAME" == "windows" ]; then
       env
       export PATH=$PATH:${PROGRAMFILES}/CMake/bin
     fi
@@ -104,7 +104,7 @@ script:
       set -e
       mkdir ./cmake-build && cd ./cmake-build
       cmake ../projects/cmake
-      if [ $TRAVIS_OS_NAME == windows ]; then
+      if [ "$TRAVIS_OS_NAME" == "windows" ]; then
           "C:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools/MSBuild/15.0/Bin/MSBuild.exe" "${TRAVIS_BUILD_DIR}\cmake-build\iutest.sln" /m /verbosity:minimal
       else
         cmake --build .
