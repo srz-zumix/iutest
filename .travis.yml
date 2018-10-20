@@ -16,7 +16,7 @@ script:
       cmake ../projects/cmake
       if [ "$TRAVIS_OS_NAME" == "windows" ]; then
         echo msbuild
-        MSBuild.exe "${TRAVIS_BUILD_DIR}\cmake-build\iutest.sln" /m /verbosity:minimal
+        MSBuild.exe "cmake-build\iutest.sln" /m /verbosity:minimal
       else
         cmake --build .
       fi
@@ -32,7 +32,6 @@ matrix:
       before_script:
         - cmake.exe --version
         - cmd.exe /C echo test
-        - cmd.exe /C MSBuild.exe --version
         - MSBuild.exe --version
     - os: windows
       language: go
