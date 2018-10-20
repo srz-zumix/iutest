@@ -16,7 +16,8 @@ script:
       cmake ../projects/cmake
       if [ "$TRAVIS_OS_NAME" == "windows" ]; then
         echo msbuild
-        MSBuild.exe "cmake-build\iutest.sln" /m /verbosity:minimal
+        echo MSBuild.exe "cmake-build\iutest.sln" /m /verbosity:minimal
+        MSBuild.exe "cmake-build/iutest.sln"
       else
         cmake --build .
       fi
