@@ -184,6 +184,7 @@ class IutestFused:
 
             find_ifdef = False
             fileset.add(path)
+            # print(filename)
             for line in codecs.open(path, 'r', 'utf-8-sig'):
                 line = re.sub('/\*.*?\*/', '', line)
                 m = self.INCLUDE_REGEX.match(line)

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -391,6 +391,8 @@
  * @{
 */
 
+#ifndef IUTEST_NO_UTIL_ASSERTION_GTEST_COMPATIBLE
+
 #define ASSERT_EQ_COLLECTIONS   IUTEST_ASSERT_EQ_COLLECTIONS
 #define ASSERT_EQ_RANGE         IUTEST_ASSERT_EQ_RANGE
 #define ASSERT_STRLNEQ          IUTEST_ASSERT_STRLNEQ
@@ -436,6 +438,8 @@
 #define EXPECT_CONTAINS_REGEXNE IUTEST_EXPECT_CONTAINS_REGEXNE
 #define INFORM_CONTAINS_REGEXNE IUTEST_INFORM_CONTAINS_REGEXNE
 #define ASSUME_CONTAINS_REGEXNE IUTEST_ASSUME_CONTAINS_REGEXNE
+
+#endif
 
 #endif
 
@@ -915,20 +919,6 @@ inline ::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperContainsRegex
 }
 
 #endif
-
-/**
- * @private
- * @{
-*/
-#define IIUT_COMPARE_HELPER_DEC_(name)  struct name {                                       \
-    template<typename T1, typename T2>                                                      \
-    static ::iutest::AssertionResult Comp(const char* expr1, const char* expr2, const T1& val1, const T2& val2) {   \
-        return ::iutest::internal::CmpHelper##name(expr1, expr2, val1, val2);               \
-    }                                                                                       \
-    }
-/**
- * @}
-*/
 
 }   // end of namespace iuutil
 

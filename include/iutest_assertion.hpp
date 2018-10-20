@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -475,8 +475,8 @@ IIUT_DECL_COMPARE_HELPER_(LT, < )
 IIUT_DECL_COMPARE_HELPER_(GE, >=)
 IIUT_DECL_COMPARE_HELPER_(GT, > )
 
-#undef DECL_COMPARE_HELPER_I_
-#undef DECL_COMPARE_HELPER_
+#undef IIUT_DECL_COMPARE_HELPER_I_
+#undef IIUT_DECL_COMPARE_HELPER_
 
 /**
  * @}
