@@ -155,10 +155,14 @@ matrix:
       env: WINDOWS=1 USE_CMAKE=1
       before_script:
         - cmake.exe --version
+        - cmd.exe /C echo test
+        - cmd.exe /C MSBuild.exe --version
         - MSBuild.exe --version
     - os: windows
       language: go
       env: WINDOWS=1 USE_CMAKE=1
+      before_script:
+        - powershell /?
     - os: windows
       language: rust
       env: WINDOWS=1 USE_CMAKE=1
