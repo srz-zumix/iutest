@@ -21,10 +21,10 @@ addons:
 before_install:
   - |
     if [ "$TRAVIS_OS_NAME" == "windows" ]; then
+      CMAKE=`dirname "$(find '/c/Program Files'* -name 'cmake.exe' 2>/dev/null | head -n1)"`
       MSBUILD=`dirname "$(find '/c/Program Files'* -name 'MSBuild.exe' 2>/dev/null | grep 'amd64' | head -n1)"`
-      export PATH=$PATH:${PROGRAMFILES}/CMake/bin:"$MSBUILD"
+      export PATH=$PATH:"$CMAKE":"$MSBUILD"
       echo $PATH
-      MSBuild.exe --version
     fi
   - python .ci/travisci/travis_blocking_stdout.py || true
   #- apt-cache search clang || true
@@ -153,6 +153,9 @@ matrix:
     - os: windows
       language: sh
       env: WINDOWS=1 USE_CMAKE=1
+      before_script:
+        - cmake.exe --version
+        - MSBuild.exe --version
     - os: windows
       language: go
       env: WINDOWS=1 USE_CMAKE=1
