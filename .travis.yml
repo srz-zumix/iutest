@@ -23,7 +23,7 @@ before_install:
     if [ "$TRAVIS_OS_NAME" == "windows" ]; then
       MSBUILD=`dirname "$(find '/c/Program Files'* -name 'MSBuild.exe' 2>/dev/null | grep 'amd64' | head -n1)"`
       export PATH=$PATH:${PROGRAMFILES}/CMake/bin:"$MSBUILD"
-      env
+      echo $PATH
       MSBuild.exe --version
     fi
   - python .ci/travisci/travis_blocking_stdout.py || true
