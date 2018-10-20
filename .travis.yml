@@ -1,23 +1,3 @@
-dist: trusty
-sudo: false
-
-language: cpp
-
-compiler:
-  - clang
-
-addons:
-  apt: &apt-global
-    sources: &apt-common-sources
-      - ubuntu-toolchain-r-test
-      - llvm-toolchain-trusty-6.0
-      - llvm-toolchain-trusty
-    packages: &apt-common-packages
-      - clang-6.0
-      - g++-8
-      - gcc-8
-      #- cppcheck
-
 before_install:
   - |
     if [ "$TRAVIS_OS_NAME" == "windows" ]; then
@@ -27,80 +7,8 @@ before_install:
       echo $PATH
     fi
   - python .ci/travisci/travis_blocking_stdout.py || true
-  #- apt-cache search clang || true
-  #- apt-cache search gcc || true
-  # compiler predefined specific
-  - if [[ "${COMPILER_CC}" != "" ]]; then export CC=${COMPILER_CC}; fi
-  - if [[ "${COMPILER_CXX}" != "" ]]; then export CXX=${COMPILER_CXX}; fi
-  # g++
-  - |
-    if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then
-      export CC=gcc-8
-      export CXX=g++-8
-      export CCOV=gcov-8
-      export AR=gcc-ar-8
-      export RANLIB=gcc-ranlib-8 
-      #update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-8  90
-      #update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-8  90
-      #update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-8 90
-    fi
-  # clang
-  - |
-    if [ "${CXX}" = 'clang++' ] && [ "${TRAVIS_OS_NAME}" != 'osx' ]; then
-      export CCC=clang-6.0;
-      export CXX=clang++-6.0;
-      #update-alternatives --install /usr/bin/clang   clang   /usr/bin/clang-7   90
-      #update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-7 90
-    fi
-
-install:
-  # gcov/lcov
-  - |
-    if [ "${USE_COVERALLS}" = '1' ]; then
-      if [ "${USE_COVERAGE}" = 'gcov' ]; then easy_install cpp-coveralls; fi
-      if [ "${USE_COVERAGE}" = 'lcov' ]; then gem install lcoveralls; fi
-    fi
-  # gtest/gmock
-  - |
-    if [ "${USE_GTEST}" = '1' ] || [ "${USE_GMOCK}" = '1' ]; then
-      if [ "${USE_GTEST_HEAD}" == '1' ]; then
-        git clone https://github.com/google/googletest.git googletest
-      else
-        mkdir googletest
-        if [ -e /usr/src/gtest ]; then
-          cp -r /usr/src/gtest googletest
-        elif [ -e /usr/src/gmock/gtest ]; then
-          cp -r /usr/src/gmock/gtest googletest
-        else
-          exit 1
-        fi
-        mv googletest/gtest googletest/googletest
-      fi
-      cd googletest/googletest
-      cmake . && cmake --build .
-      export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:$PWD/include
-      export LIBRARY_PATH=$LIBRARY_PATH:$PWD
-      cd -
-    fi
-  # gmock
-  - |
-    if [ "${USE_GMOCK}" = '1' ]; then
-      if [ -e /usr/src/gmock ]; then
-        cp -r /usr/src/gmock googletest
-        mv googletest/gmock googletest/googlemock
-      fi
-      if [ -e googletest/googlemock ]; then
-        cd googletest/googlemock
-        cmake . && cmake --build .
-        export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:$PWD/include
-        export LIBRARY_PATH=$LIBRARY_PATH:$PWD
-        cd -
-      fi
-    fi
 
 script:
-  - if [ -n "${CUSTOM_COMMANDS}" ]; then echo "${CUSTOM_COMMANDS}" && eval ${CUSTOM_COMMANDS}; fi
-  - if [ "${USE_LIB}" == '1' ]; then cd projects/make && make && cd -; fi
   - |
     if [ "${USE_CMAKE}" == '1' ]; then
       set -e
@@ -115,38 +23,6 @@ script:
       ctest -C Debug -V
       cd ..
     fi
-  - cd ./test
-  - if [ "${COVERITY_SCAN}" != '1' ] && [ "${USE_CMAKE}" != '1' ]; then
-      make -j4 showcxxversion ${USE_FUSED} default && make test ${USE_FUSED};
-    fi
-  - |
-    if [ "${COVERITY_SCAN}" == '1' ] && [ -d cov-int ]; then
-      cat cov-int/build-log.txt || true;
-      cat cov-int/scm_log.txt || true;
-      ls cov-int;
-    fi
-  #- if [ "${CPPCHECK}" = '1' ]; then
-  #    cppcheck --version;
-  #    cppcheck samples --enable=all -f -j 4 --suppress=syntaxError -i samples/gmock -i samples/gtest -i samples/vcunittest -i samples/windows -UGTEST_HIDE_UNREACHABLE_CODE_ -UGTEST_API_ -UGTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS_ -UGTEST_HAS_STD_TUPLE_ -UGTEST_MESSAGE_AT_ -UGTEST_INCLUDE_GTEST_GTEST_TYPED_TEST_H_ -UGMOCK_INCLUDE_GMOCK_GMOCK_H_ -U__STDC_WANT_SECURE_LIB__ -UIUTEST_USE_GTEST -UIUTEST_DEBUG -UIUTEST_FILE -U__GLIBCXX__;
-  #  else
-  #    cd ./test; make showcxxversion ${USE_FUSED} all;
-  #  fi
-
-after_success:
-  # Coverage
-  #- echo ${TRAVIS_JOB_ID}
-  - if [ "${USE_COVERALLS}" = '1' ]; then make send-coveralls; fi
-  - if [ "${USE_CODECOV}" = '1' ]; then make send-codecov; fi
-  
-env:
-  global:
-    # COVERITY_SCAN_TOKEN
-    - secure: "TcQxkqb1xHfr1WnVX/CzRyQGOSA29mvLIwn1+lb794Ysq8dNZoHdbcIrKbe/YKR0uRZ5rnL1Onn6L3HyRCJxZg5Grsqrv1dRVSR4X132EoRo0Y8sy/a+c3JFhBJUiaAMds2wG2EFmDCSXNxcUEgzUFEGnTk2vnVKAVBDpOQLlOk="
-
-  allow_failures:
-    - env:
-      - COVERITY_SCAN=1
-      - USE_LIBCXX=1
 
 matrix:
   include:
@@ -170,8 +46,3 @@ matrix:
       language: node_js
       env: WINDOWS=1 USE_CMAKE=1
  
-notifications:
-  webhooks:
-    urls:
-      - secure: Oxajh80h7/RI6otg8Xd2QkglQU0y8ug+f8GVC/BV9VnS9cFWk10z+/69OOBFGCTN7Qjgp+MwOkrQz4a50bIIlrTQtTnw0SmMKd+qIWVJ55xXnSCqWcGE7cD1Rx5/ZmFaAZ0khTZzHwSjhCN4gexLf/aYmG3AnXLXhqNnxkZ73nY=
-      - secure: T+ZBCfi1TBStN2eXidtV0J5AjQqtNEXIQtytuJWpgAdgCHSD73gJusSzE9nB0k0I28i1fn6meSuGVmGPdH7CUJdjRVUgbsCSGJot6mi2iR8Qe1+ST1AnS7cD5TvhhmKba5quaIhsv8jAVTmUMYvsX40cZYV99hSUzSegJQjsVXg=
