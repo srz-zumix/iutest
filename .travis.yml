@@ -41,8 +41,8 @@ before_install:
   # clang
   - |
     if [ "${CXX}" = 'clang++' ] && [ "${TRAVIS_OS_NAME}" != 'osx' ]; then
-      export CCC=clang-6.0;
-      export CXX=clang++-6.0;
+      export CCC=clang-6.0
+      export CXX=clang++-6.0
       #update-alternatives --install /usr/bin/clang   clang   /usr/bin/clang-7   90
       #update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-7 90
     fi
@@ -57,7 +57,7 @@ install:
   # gtest/gmock
   - |
     if [ "${USE_GTEST}" = '1' ] || [ "${USE_GMOCK}" = '1' ]; then
-      if [ "${USE_GTEST_HEAD}" == '1' ]; then
+      if [ "${USE_GTEST_HEAD}" = '1' ]; then
         git clone https://github.com/google/googletest.git googletest
       else
         mkdir googletest
@@ -93,9 +93,8 @@ install:
     fi
 
 script:
-  - if [ -n "${CUSTOM_COMMANDS}" ]; then echo "${CUSTOM_COMMANDS}" && eval ${CUSTOM_COMMANDS}; fi
-  - if [ "${USE_LIB}" == '1' ]; then cd projects/make && make && cd -; fi
-  - if [ "${USE_CMAKE}" == '1' ]; then
+  - if [ "${USE_LIB}" = '1' ]; then cd projects/make && make && cd -; fi
+  - if [ "${USE_CMAKE}" = '1' ]; then
       mkdir ./cmake-build && cd ./cmake-build && cmake ../projects/cmake && cmake --build . && ctest -C Debug -V && cd ..;
     fi
   - cd ./test
@@ -103,10 +102,10 @@ script:
       make -j4 showcxxversion ${USE_FUSED} default && make test ${USE_FUSED};
     fi
   - |
-    if [ "${COVERITY_SCAN}" == '1' ] && [ -d cov-int ]; then
-      cat cov-int/build-log.txt || true;
-      cat cov-int/scm_log.txt || true;
-      ls cov-int;
+    if [ "${COVERITY_SCAN}" = '1' ] && [ -d cov-int ]; then
+      cat cov-int/build-log.txt || true
+      cat cov-int/scm_log.txt || true
+      ls cov-int
     fi
   #- if [ "${CPPCHECK}" = '1' ]; then
   #    cppcheck --version;
@@ -117,7 +116,6 @@ script:
 
 after_success:
   # Coverage
-  #- echo ${TRAVIS_JOB_ID}
   - if [ "${USE_COVERALLS}" = '1' ]; then make send-coveralls; fi
   - if [ "${USE_CODECOV}" = '1' ]; then make send-codecov; fi
   
@@ -222,12 +220,13 @@ matrix:
     # Use Lib
     - compiler: gcc
       env: USE_LIB=1
-#    - compiler: clang
-#      env: USE_LIB=1
-    #- compiler: gcc
-    #  env: CPPCHECK=1
+    # - compiler: clang
+    #   env: USE_LIB=1
+    # - compiler: gcc
+    #   env: CPPCHECK=1
     - os: osx
       env: OSX=1 STDFLAG=-std=c++11
+    # CoverityScan
     - compiler: gcc
       env:
         - COVERITY_SCAN=1
