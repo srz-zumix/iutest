@@ -17,10 +17,10 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01160600u //!< iutest version 1.16.6.0
+#define IUTEST_VER          0x01160700u //!< iutest version 1.16.7.0
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
-#define IUTEST_MICROVER     0x06u       //!< Micro Version
+#define IUTEST_MICROVER     0x07u       //!< Micro Version
 #define IUTEST_REVISION     0x00u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
@@ -120,6 +120,11 @@
  * @page    CHANGELOG   変更履歴
  * @par     Changes
  <ul>
+  <li>v1.16.7.0
+    <ul>
+      <li>古い google mock の互換性エラー修正</li>
+    </ul>
+  </li>
   <li>v1.16.6.0
     <ul>
       <li>Matcher に (NanSensitive)FloatNear/DoubleNear を追加</li>
