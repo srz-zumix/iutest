@@ -238,7 +238,8 @@ matrix:
       env: WINDOWS=1
       script:
         - mkdir ./cmake-build && cd ./cmake-build && cmake ../projects/cmake
-        - MSBuild.exe iutest.sln /verbosity:minimal | tee msbuild.log
+        - cmake --build . | tee msbuild.log
+        # - MSBuild.exe iutest.sln /verbosity:minimal | tee msbuild.log
         - ctest -C Debug -V
     # CoverityScan
     - compiler: gcc
