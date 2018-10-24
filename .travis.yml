@@ -22,6 +22,7 @@ addons:
 before_install:
   - |
     if [ "$TRAVIS_OS_NAME" == 'windows' ]; then
+      echo $PATH
       CMAKE=`dirname "$(find '/c/Program Files'* -name 'cmake.exe' 2>/dev/null | head -n1)"`
       MSBUILD=`dirname "$(find '/c/Program Files'* -name 'MSBuild.exe' 2>/dev/null | grep 'amd64' | head -n1)"`
       export PATH=$PATH:"$CMAKE":"$MSBUILD"
@@ -234,7 +235,6 @@ matrix:
     - os: osx
       env: OSX=1 STDFLAG=-std=c++11
     - os: windows
-      language: shell
       env: WINDOWS=1
       script:
         - mkdir ./cmake-build && cd ./cmake-build && cmake ../projects/cmake
