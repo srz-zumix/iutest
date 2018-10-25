@@ -20,14 +20,6 @@ addons:
       #- cppcheck
 
 before_install:
-  - |
-    if [ "$TRAVIS_OS_NAME" == 'windows' ]; then
-      echo $PATH
-      CMAKE=`dirname "$(find '/c/Program Files'* -name 'cmake.exe' 2>/dev/null | head -n1)"`
-      MSBUILD=`dirname "$(find '/c/Program Files'* -name 'MSBuild.exe' 2>/dev/null | grep 'amd64' | head -n1)"`
-      export PATH=$PATH:"$CMAKE":"$MSBUILD"
-      echo $PATH
-    fi
   - python .ci/travisci/travis_blocking_stdout.py || true
   #- apt-cache search clang || true
   #- apt-cache search gcc || true
