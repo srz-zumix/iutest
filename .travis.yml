@@ -227,6 +227,8 @@ matrix:
     - os: osx
       env: OSX=1 STDFLAG=-std=c++11
     - os: windows
+      env: WINDOWS=1 USE_CMAKE=1
+    - os: windows
       env: WINDOWS=1
       script:
         - mkdir ./cmake-build && cd ./cmake-build && cmake ../projects/cmake
