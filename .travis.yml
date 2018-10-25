@@ -227,13 +227,10 @@ matrix:
     - os: osx
       env: OSX=1 STDFLAG=-std=c++11
     - os: windows
-      env: WINDOWS=1 USE_CMAKE=1
-    - os: windows
       env: WINDOWS=1
       script:
         - mkdir ./cmake-build && cd ./cmake-build && cmake ../projects/cmake
         - cmake --build . | tee msbuild.log
-        # - MSBuild.exe iutest.sln /verbosity:minimal | tee msbuild.log
         - ctest -C Debug -V
     # CoverityScan
     - compiler: gcc
