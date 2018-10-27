@@ -20,13 +20,6 @@ addons:
       #- cppcheck
 
 before_install:
-  - |
-    if [ "$TRAVIS_OS_NAME" == 'windows' ]; then
-      CMAKE=`dirname "$(find '/c/Program Files'* -name 'cmake.exe' 2>/dev/null | head -n1)"`
-      MSBUILD=`dirname "$(find '/c/Program Files'* -name 'MSBuild.exe' 2>/dev/null | grep 'amd64' | head -n1)"`
-      export PATH=$PATH:"$CMAKE":"$MSBUILD"
-      echo $PATH
-    fi
   - python .ci/travisci/travis_blocking_stdout.py || true
   #- apt-cache search clang || true
   #- apt-cache search gcc || true
@@ -234,12 +227,10 @@ matrix:
     - os: osx
       env: OSX=1 STDFLAG=-std=c++11
     - os: windows
-      language: shell
       env: WINDOWS=1
       script:
         - mkdir ./cmake-build && cd ./cmake-build && cmake ../projects/cmake
         - cmake --build . | tee msbuild.log
-        # - MSBuild.exe iutest.sln /verbosity:minimal | tee msbuild.log
         - ctest -C Debug -V
     # CoverityScan
     - compiler: gcc
