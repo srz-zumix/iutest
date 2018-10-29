@@ -17,14 +17,20 @@
 
 //======================================================================
 // include
-#ifdef _IUTEST_DEBUG
-#include <assert.h>
+#if IUTEST_USE_OWN_LIST
+#  ifdef _IUTEST_DEBUG
+#    include <assert.h>
+#  endif
+#else
+#  include <list>
 #endif
 
 namespace iutest {
 namespace detail
 {
 
+#if IUTEST_USE_OWN_LIST
+    
 //======================================================================
 // class
 /**
@@ -80,7 +86,7 @@ public:
     _Myt&       operator ++ () { m_node = m_node->next; return *this; }
     _Myt&       operator -- () { m_node = m_node->prev; return *this; }
     value_ptr   operator -> () IUTEST_CXX_NOEXCEPT_SPEC { return ptr(); }
-    value_ref   operator *  () IUTEST_CXX_NOEXCEPT_SPEC { return *m_node; }
+    value_ptr   operator *  () IUTEST_CXX_NOEXCEPT_SPEC { return m_node; }
     value_ptr   ptr() const IUTEST_CXX_NOEXCEPT_SPEC { return m_node; }
 
     operator    value_ptr () { return ptr(); }
@@ -225,7 +231,7 @@ public:
         p->prev = prev;
     }
     // 削除
-    void erase(node_ptr p)
+    void remove(node_ptr p)
     {
         if( p == NULL )
         {
@@ -255,7 +261,7 @@ public:
     }
     void erase(iterator it)
     {
-        erase(it.ptr());
+        remove(it.ptr());
     }
 public:
     /**
@@ -444,6 +450,9 @@ private:
 #endif
 };
 
+#endif
+
+
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE()
 
@@ -455,46 +464,53 @@ void RandomShuffle(It begin, It last, iuRandom& r)
 {
     r.shuffle(begin, last);
 }
-
+#if IUTEST_USE_OWN_LIST
 template<typename Node, typename Fn>
 void RandomShuffle(iu_list<Node>& list, Fn& r)
 {
     list.shuffle(r);
 }
-template<typename Node, typename Fn>
-void RandomShuffle(::std::vector<Node>& list, Fn& r)
+#endif
+template<typename T, typename Fn>
+void RandomShuffle(::std::vector<T>& list, Fn& r)
 {
     RandomShuffle(list.begin(), list.end(), r);
 }
 
+#if IUTEST_USE_OWN_LIST
 template<typename Node, typename Fn>
 Node* FindList(const iu_list<Node>& list, Fn& f)
 {
     return list.find(f);
 }
-template<typename Node, typename Fn>
-Node FindList(const ::std::vector<Node>& list, Fn& f)
+#else
+template<typename T, typename Fn>
+T FindList(const ::std::vector<T>& list, Fn& f)
 {
-    for( typename ::std::vector<Node>::const_iterator it=list.begin(), end=list.end(); it != end; ++it )
+    for(typename ::std::vector<T>::const_iterator it = list.begin(), end = list.end(); it != end; ++it)
     {
-        if( f(*it) )
+        if(f(*it))
         {
             return *it;
         }
     }
     return NULL;
 }
+#endif
+
 
 /**
  * @brief   条件に合う要素数をカウント
 */
+#if IUTEST_USE_OWN_LIST
+
 template<typename Node, typename Fn>
 int CountIf(const iu_list<Node>& list, Fn f)
 {
     int count = 0;
     for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
     {
-        if( f(it) )
+        if( f(*it) )
         {
             ++count;
         }
@@ -502,30 +518,69 @@ int CountIf(const iu_list<Node>& list, Fn f)
     return count;
 }
 
+#else
+
+template<typename T, typename Fn>
+int CountIf(const ::std::vector<T>& list, Fn f)
+{
+    int count = 0;
+    for(typename ::std::vector<T>::const_iterator it = list.begin(), end = list.end(); it != end; ++it)
+    {
+        if(f(*it))
+        {
+            ++count;
+        }
+    }
+    return count;
+}
+
+#endif
+
+
 /**
  * @brief   リストの示す値の総和
 */
+#if IUTEST_USE_OWN_LIST
+
 template<typename Node, typename Fn>
 int SumOverList(const iu_list<Node>& list, Fn f)
 {
     int count = 0;
     for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
     {
-        count += ((*it).*f)();
+        count += ((*it)->*f)();
     }
     return count;
 }
 
+#else
+
+template<typename T, typename Fn>
+int SumOverList(const ::std::vector<T>& list, Fn f)
+{
+    int count = 0;
+    for(typename ::std::vector<T>::const_iterator it = list.begin(), end = list.end(); it != end; ++it)
+    {
+        count += ((*it)->*f)();
+    }
+    return count;
+}
+
+#endif
+
+
 /**
  * @brief   リストの示す真の総和
 */
+#if IUTEST_USE_OWN_LIST
+
 template<typename Node, typename Fn>
 int CountIfOverList(const iu_list<Node>& list, Fn f)
 {
     int count = 0;
     for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
     {
-        if( ((*it).*f)() )
+        if( ((*it)->*f)() )
         {
             ++count;
         }
@@ -533,21 +588,58 @@ int CountIfOverList(const iu_list<Node>& list, Fn f)
     return count;
 }
 
+#else
+
+template<typename T, typename Fn>
+int CountIfOverList(const ::std::vector<T>& list, Fn f)
+{
+    int count = 0;
+    for(typename ::std::vector<T>::const_iterator it = list.begin(), end = list.end(); it != end; ++it)
+    {
+        if(((*it)->*f)())
+        {
+            ++count;
+        }
+    }
+    return count;
+}
+
+#endif
+
 /**
  * @brief   条件に合う要素があるかどうか
 */
+#if IUTEST_USE_OWN_LIST
+
 template<typename Node, typename Fn>
 bool AnyOverList(const iu_list<Node>& list, Fn f)
 {
     for( typename iu_list<Node>::const_iterator it = list.begin(), end=list.end(); it != end; ++it )
     {
-        if( ((*it).*f)() )
+        if( ((*it)->*f)() )
         {
             return true;
         }
     }
     return false;
 }
+
+#else
+
+template<typename T, typename Fn>
+bool AnyOverList(const ::std::vector<T>& list, Fn f)
+{
+    for(typename ::std::vector<T>::const_iterator it = list.begin(), end = list.end(); it != end; ++it)
+    {
+        if(((*it)->*f)())
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+#endif
 
 IUTEST_PRAGMA_WARN_POP()
 

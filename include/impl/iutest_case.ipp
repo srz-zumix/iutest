@@ -94,7 +94,7 @@ IUTEST_IPP_INLINE bool TestCase::RunImpl()
         for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
         {
             // 実行
-            if( !(it)->Run() )
+            if( !(*it)->Run() )
             {
                 result = false;
             }
@@ -116,7 +116,7 @@ IUTEST_IPP_INLINE bool TestCase::CheckSetUpSkipped()
     {
         for(iuTestInfos::iterator it = m_testinfos.begin(), end = m_testinfos.end(); it != end; ++it)
         {
-            (it)->skip();
+            (*it)->skip();
         }
         return true;
     }
@@ -128,7 +128,7 @@ IUTEST_IPP_INLINE void TestCase::clear()
     m_ad_hoc_testresult.Clear();
     for( iuTestInfos::iterator it = m_testinfos.begin(), end=m_testinfos.end(); it != end; ++it )
     {
-        (it)->clear();
+        (*it)->clear();
     }
 }
 
@@ -141,13 +141,13 @@ IUTEST_IPP_INLINE bool TestCase::filter()
         if( m_disable )
         {
             // DISABLE の伝搬
-            (it)->m_disable = true;
+            (*it)->m_disable = true;
         }
-        if( (it)->is_disabled_test() )
+        if( (*it)->is_disabled_test() )
         {
             ++m_disable_num;
         }
-        if( (it)->filter() )
+        if( (*it)->filter() )
         {
             ++m_should_run_num;
         }

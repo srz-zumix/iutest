@@ -85,7 +85,7 @@ IUTEST_IPP_INLINE bool UnitTest::Passed() const
     }
     for( iuTestCases::const_iterator it=m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
     {
-        if( (it)->Failed() )
+        if( (*it)->Failed() )
         {
             return false;
         }
@@ -239,8 +239,8 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce()
         sw.start();
         for( iuTestCases::iterator it=m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
         {
-            m_current_testcase = it;
-            (it)->Run();
+            m_current_testcase = *it;
+            m_current_testcase->Run();
             m_current_testcase = NULL;
         }
         m_elapsedmsec = sw.stop();
@@ -268,9 +268,10 @@ IUTEST_IPP_INLINE void UnitTest::TestProgramStart()
     m_disable_num = 0;
     for( iuTestCases::iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
     {
-        (it)->filter();
-        m_should_run_num += (it)->test_to_run_count();
-        m_disable_num += (it)->disabled_test_count();
+        TestCase* testcase = *it;
+        testcase->filter();
+        m_should_run_num += testcase->test_to_run_count();
+        m_disable_num += testcase->disabled_test_count();
     }
 
     atexit(OnExit);
