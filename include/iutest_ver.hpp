@@ -120,6 +120,11 @@
  * @page    CHANGELOG   変更履歴
  * @par     Changes
  <ul>
+  <li>v1.17.0.0
+    <ul>
+      <li></li>
+    </ul>
+  </li>
   <li>v1.16.7.0
     <ul>
       <li>古い google mock の互換性エラー修正</li>

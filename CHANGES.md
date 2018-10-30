@@ -6,6 +6,9 @@
 
 * Improved
 
+* Changes
+  * deprecated: IUTEST_USE_OWN_LIST
+
 * Bug fixes
 
 --------------------------------------------------
