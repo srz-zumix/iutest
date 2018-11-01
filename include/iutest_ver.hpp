@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01169903u //!< iutest version 1.16.99.3
+#define IUTEST_VER          0x01169905u //!< iutest version 1.16.99.5
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
 #define IUTEST_MICROVER     0x99u       //!< Micro Version
-#define IUTEST_REVISION     0x03u       //!< Revision
+#define IUTEST_REVISION     0x05u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -120,6 +120,11 @@
  * @page    CHANGELOG   変更履歴
  * @par     Changes
  <ul>
+  <li>v1.17.0.0
+    <ul>
+      <li></li>
+    </ul>
+  </li>
   <li>v1.16.7.0
     <ul>
       <li>古い google mock の互換性エラー修正</li>

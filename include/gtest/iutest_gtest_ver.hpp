@@ -32,7 +32,7 @@
 
 //!< Minor Version
 #ifndef GTEST_MINORVER
-#  if   defined(GTEST_STRINGIFY_)
+#  if   !defined(GTEST_INCLUDE_GTEST_INTERNAL_GTEST_LINKED_PTR_H_)
 #    define GTEST_MINORVER  0x08
 #    define GTEST_LATEST    1
 #  elif defined(GTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS_)
@@ -58,14 +58,18 @@
 
 //!< Micro Version
 #ifndef GTEST_MICROVER
-#  if GTEST_MINORVER == 0x02 && defined(GTEST_HAS_CLONE)
+#  if   GTEST_MINORVER == 0x08 && defined(GTEST_STRINGIFY_)
+#    define GTEST_MICROVER    0x01
+#  elif GTEST_MINORVER == 0x02 && defined(GTEST_HAS_CLONE)
 #    define GTEST_MICROVER  0x01
 #  elif GTEST_MINORVER == 0x00
 // 判断難しい
 #    define GTEST_MICROVER  0x01
-#  else
-#    define GTEST_MICROVER  0x00
 #  endif
+#endif
+
+#ifndef GTEST_MICROVER
+#  define GTEST_MICROVER    0x00
 #endif
 
 #ifndef GTEST_BUILD

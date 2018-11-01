@@ -276,7 +276,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const wchar_t*
 // tuple
 namespace tuples
 {
-#if GTEST_HAS_STD_TUPLE_
+#if GTEST_VER >= 0x01090000 || GTEST_LATEST || (defined(GTEST_HAS_STD_TUPLE_) && GTEST_HAS_STD_TUPLE_)
     using ::std::tuple;
     using ::std::tuple_size;
     using ::std::tuple_element;

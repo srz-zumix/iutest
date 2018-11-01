@@ -29,7 +29,9 @@ namespace iutest
  * @brief   テスト情報クラス
 */
 class TestInfo
+#if IUTEST_USE_OWN_LIST
     : public detail::iu_list_node<TestInfo>
+#endif
 {
 public:
     /**
