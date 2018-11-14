@@ -52,7 +52,7 @@
 
 //!< Micro Version
 #ifndef GMOCK_MICROVER
-#  if   GMOCK_MICROVER == 0x08 && defined(GMOCK_INCLUDE_GMOCK_MORE_MATCHERS_H_)
+#  if   GMOCK_MINORVER == 0x08 && defined(GMOCK_INCLUDE_GMOCK_MORE_MATCHERS_H_)
 #    define GMOCK_MICROVER  0x01
 #  endif
 #endif
