@@ -198,7 +198,11 @@ ifdef USE_COVERAGE
 	${WINE_} ./$< $(RUN_OPTION) --iutest_output=xml:$<.xml > /dev/null
 else
 ifdef OUTPUTXML
+ifeq ($(OUTPUTXML),junit)
+	${WINE_} ./$< $(RUN_OPTION) --iutest_output=junit:$<.xml
+else
 	${WINE_} ./$< $(RUN_OPTION) --iutest_output=xml:$<.xml
+endif
 else
 	${WINE_} ./$< $(RUN_OPTION)
 endif
