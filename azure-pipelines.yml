@@ -8,7 +8,7 @@ pool:
 
 steps:
 - script: |
-    cd test && make && make test OUTPUTXML=junit
+    cd test && make -j4 test OUTPUTXML=junit
   displayName: 'make'
 
 - task: PublishTestResults@2
