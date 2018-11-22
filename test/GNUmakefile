@@ -160,6 +160,7 @@ all : clean default test
 
 clean :
 	$(RM) $(TARGETS) *.o *.stackdump *.core *.exe *.log *.ns.cpp check_stdlib
+	$(RM) -R *.dSYM
 ifdef OUTPUTXML
 	$(RM) *.xml
 endif
