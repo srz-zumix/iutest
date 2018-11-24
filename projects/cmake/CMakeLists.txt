@@ -27,7 +27,7 @@ project(iutest CXX C)
 find_path(IUTEST_ROOT_DIR
         NAMES include/iutest.hpp
         HINTS 
-            ../../
+            ${CMAKE_CURRENT_SOURCE_DIR}/../../
         )
 
 set(CMAKE_MODULE_PATH ${IUTEST_ROOT_DIR}/cmake)
@@ -82,6 +82,7 @@ cxx_executable_sample(iutest_sample
 # gtest サンプル
 #
 if (build_gtest_samples)
+  message(STATUS "add gtest samples")
   cxx_executable_gtest_sample(sample1_unittest  ${IUTEST_ROOT_DIR}/samples/gtest sample1.cc main.cc)
   cxx_executable_gtest_sample(sample2_unittest  ${IUTEST_ROOT_DIR}/samples/gtest sample2.cc main.cc)
   cxx_executable_gtest_sample(sample3_unittest  ${IUTEST_ROOT_DIR}/samples/gtest main.cc)
@@ -325,3 +326,21 @@ if (build_tests)
   file(COPY ${IUTEST_ROOT_DIR}/test/testdata DESTINATION .)
 endif()
 
+install(TARGETS iutest
+    EXPORT iutest-export
+    ARCHIVE  DESTINATION lib
+    LIBRARY  DESTINATION lib
+    COMPONENT   library
+    )
+install(TARGETS iutest_main
+    ARCHIVE  DESTINATION lib
+    LIBRARY  DESTINATION lib
+    COMPONENT   library
+    )
+install(DIRECTORY ${IUTEST_ROOT_DIR}/include/
+    DESTINATION include/iutest
+    )
+install(EXPORT iutest-export
+    FILE IUTEST-config.cmake
+    DESTINATION share/cmake/iutest/
+    )
