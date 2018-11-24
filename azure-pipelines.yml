@@ -1,5 +1,5 @@
 
 jobs:
-  job: .ci/azure_pipelines/template-make-test.yml
-  parameters:
-    name: default
+  - template: .ci/azure_pipelines/template-make-test.yml
+    parameters:
+      name: default
