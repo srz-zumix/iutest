@@ -6,20 +6,20 @@
 # template steps
 
 parameters:
-  name: ''
-  options: ''
+  target: ''
   vmImage: 'ubuntu 16.04'
 
+# target
+# sh 'make disable_feature_param'
+# sh 'make disable_feature_1'
+# sh 'make disable_spec'
+# sh 'make combine'
+# sh 'make nofeature'
+
 jobs:
-  - job: ${{ parameters.name }}
+  - job: ${{ parameters.target }}
     pool:
       vmImage: ${{ parameters.vmImage }}
     steps:
-    - script: make -C test -j4 OUTPUTXML=junit ${{ parameters.options }}
-      displayName: 'make'
-    - script: make -C test -j4 OUTPUTXML=junit ${{ parameters.options }} test
+    - script: make -C test/configcheck ${{ parameters.target }}
       displayName: 'test'
-
-    - task: PublishTestResults@2
-      inputs:
-        testResultsFiles: 'test/*.xml'
