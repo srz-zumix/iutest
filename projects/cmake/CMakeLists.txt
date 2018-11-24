@@ -24,13 +24,24 @@ endif()
 # プロジェクト名
 project(iutest CXX C)
 
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)
+set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE NEVER)
+
 find_path(IUTEST_ROOT_DIR
         NAMES include/iutest.hpp
-        HINTS 
+        HINTS
+            ../../
             ${CMAKE_CURRENT_SOURCE_DIR}/../../
+        NO_DEFAULT_PATH
         )
 
-set(CMAKE_MODULE_PATH ${IUTEST_ROOT_DIR}/cmake)
+set(IUTEST_DIR ${IUTEST_ROOT_DIR})
+list(APPEND CMAKE_PREFIX_PATH ${IUTEST_ROOT_DIR})
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../)
+
+list(APPEND CMAKE_MODULE_PATH ${IUTEST_ROOT_DIR}/cmake)
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../cmake)
+
 find_package(IUTEST REQUIRED)
 
 if (COMMAND set_up_hermetic_build)

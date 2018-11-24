@@ -20,6 +20,7 @@ find_path(IUTEST_ROOT_DIR
         NAMES include/iutest.hpp
         HINTS 
             ENV IUTEST_ROOT
+            ENV IUTEST_DIR
         )
 
 find_path(IUTEST_INCLUDE_DIR
