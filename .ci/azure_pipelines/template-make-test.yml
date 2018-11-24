@@ -7,9 +7,12 @@
 
 parameters:
   name: ''
+  vmImage: 'ubuntu 16.04'
 
 jobs:
   - job: ${{ parameters.name }}
+    pool:
+      vmImage: ${{ parameters.vmImage }}
     steps:
     - script: make -C test -j4 OUTPUTXML=junit
       displayName: 'make'
