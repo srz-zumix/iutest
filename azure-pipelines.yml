@@ -4,7 +4,5 @@ jobs:
     parameters:
       name: default
   - template: .ci/azure_pipelines/template-make-disabled-test.yml
-    strategy:
-      matrix:
-        AnyParamTest:
-          DISABLED_CONFIG: IUTEST_HAS_ANY_PARAM_TEST
+    parameters:
+      name: disabled

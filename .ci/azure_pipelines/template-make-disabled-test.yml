@@ -10,9 +10,20 @@ parameters:
   vmImage: 'ubuntu 16.04'
 
 jobs:
-  - template: template-make-test.yml
-    parameters:
-      name: "${{ parameters.name }}-${DISABLED_CONFIG}"
-      options: "DEFS+=-D${DISABLED_CONFIG}=0 ${{ parameters.options }}"
+  - job: ${{ parameters.name }}
+    strategy:
+      matrix:
+        AnyParamTest:
+          DISABLED_CONFIG: IUTEST_HAS_ANY_PARAM_TEST
+    pool:
       vmImage: ${{ parameters.vmImage }}
+    steps:
+    - script: make -C test -j4 OUTPUTXML=junit ${{ parameters.options }} DEFS+=-D${DISABLED_CONFIG}=0
+      displayName: 'make'
+    - script: make -C test -j4 OUTPUTXML=junit ${{ parameters.options }} DEFS+=-D${DISABLED_CONFIG}=0 test
+      displayName: 'test'
+
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFiles: 'test/*.xml'
 
