@@ -15,7 +15,7 @@ steps:
 - script: make -C test -j4 OUTPUTXML=junit ${{ parameters.options }} ${run_option} test
   displayName: 'test'
   env:
-    run_option: RUN_OPTION=-"-iutest_default_package_name=${{ parameters.package_name }}"
+    run_option: RUN_OPTION="--iutest_default_package_name=${{ parameters.package_name }}"
 
 - task: PublishTestResults@2
   inputs:
