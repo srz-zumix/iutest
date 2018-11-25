@@ -3,3 +3,8 @@ jobs:
   - template: .ci/azure_pipelines/template-make-test.yml
     parameters:
       name: default
+  - template: .ci/azure_pipelines/template-make-disabled-test.yml
+    parameters:
+      name: disabled
+      disable_configs:
+        - IUTEST_HAS_ANY_PARAM_TEST
