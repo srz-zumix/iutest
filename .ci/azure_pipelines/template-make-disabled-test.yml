@@ -8,7 +8,7 @@ parameters:
   name: ''
   options: ''
   vmImage: 'ubuntu 16.04'
-  disable_configs: []
+  disable_configs: [ IUTEST_HAS_ANY_PARAM_TEST ]
 
 jobs:
 - ${{ each disable_config in parameters.disable_configs }}:
