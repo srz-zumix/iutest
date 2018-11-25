@@ -8,13 +8,11 @@ parameters:
   name: ''
   options: ''
   vmImage: 'ubuntu 16.04'
-  disable_configs: [ IUTEST_HAS_ANY_PARAM_TEST ]
 
 jobs:
-- ${{ each disable_config in parameters.disable_configs }}:
   - template: template-make-test.yml
     parameters:
-      name: "${{ parameters.name }}-${{ disable_config }}"
-      options: "DEFS+=-D${{ disable_config }}=0 ${{ parameters.options }}"
+      name: "${{ parameters.name }}-${DISABLED_CONFIG}"
+      options: "DEFS+=-D${DISABLED_CONFIG}=0 ${{ parameters.options }}"
       vmImage: ${{ parameters.vmImage }}
 
