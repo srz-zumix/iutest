@@ -12,7 +12,7 @@ parameters:
 
 jobs:
 - ${{ each disable_config in parameters.disable_configs }}:
-  - job: template-make-test.yml
+  - template: template-make-test.yml
     parameters:
       name: "${{ parameters.name }}-${{ disable_config }}"
       options: "DEFS+=-D${{ disable_config }}=0 ${{ parameters.options }}"
