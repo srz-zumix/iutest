@@ -18,12 +18,7 @@ jobs:
     pool:
       vmImage: ${{ parameters.vmImage }}
     steps:
-    - script: make -C test -j4 OUTPUTXML=junit ${{ parameters.options }} DEFS+=-D${DISABLED_CONFIG}=0
-      displayName: 'make'
-    - script: make -C test -j4 OUTPUTXML=junit ${{ parameters.options }} DEFS+=-D${DISABLED_CONFIG}=0 test
-      displayName: 'test'
-
-    - task: PublishTestResults@2
-      inputs:
-        testResultsFiles: 'test/*.xml'
-
+    - template: template-make-test-steps.yml
+      parameters:
+        options: ${{ parameters.options }} DEFS+=-D${DISABLED_CONFIG}=0
+        package_name: "${{ parameters.name }}-${DISABLED_CONFIG}"
