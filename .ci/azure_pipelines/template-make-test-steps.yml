@@ -9,10 +9,13 @@ parameters:
   options: ''
   package_name: 'default'
 
+variables:
+  run_option: RUN_OPTION=-"-iutest_default_package_name=${{ parameters.package_name }}"
+
 steps:
-- script: make -C test -j4 OUTPUTXML=junit RUN_OPTION=-"-iutest_default_package_name=${{ package_name }}" ${{ parameters.options }}
+- script: make -C test -j4 OUTPUTXML=junit ${run_option} ${{ parameters.options }}
   displayName: 'make'
-- script: make -C test -j4 OUTPUTXML=junit RUN_OPTION=-"-iutest_default_package_name=${{ package_name }}" ${{ parameters.options }} test
+- script: make -C test -j4 OUTPUTXML=junit ${run_option} ${{ parameters.options }} test
   displayName: 'test'
 
 - task: PublishTestResults@2
