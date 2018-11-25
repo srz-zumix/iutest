@@ -15,6 +15,8 @@ jobs:
       matrix:
         AnyParamTest:
           DISABLED_CONFIG: IUTEST_HAS_ANY_PARAM_TEST
+        Assertion_NoEqualToObject:
+          DISABLED_CONFIG: IUTEST_HAS_ASSERTION_NOEQUALTO_OBJECT
     pool:
       vmImage: ${{ parameters.vmImage }}
     steps:
