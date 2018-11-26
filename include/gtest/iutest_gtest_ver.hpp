@@ -15,11 +15,6 @@
 #ifndef INCG_IRIS_IUTEST_GTEST_VER_HPP_7396AEF4_D1AB_44B5_9FE3_23CEC1240158_
 #define INCG_IRIS_IUTEST_GTEST_VER_HPP_7396AEF4_D1AB_44B5_9FE3_23CEC1240158_
 
-#if defined(IUTEST_USE_GTEST)
-
-//======================================================================
-// include
-#include <gtest/gtest.h>
 
 //======================================================================
 // define
@@ -93,5 +88,3 @@
 #endif
 
 #endif
-
-#endif // INCG_IRIS_IUTEST_GTEST_VER_HPP_7396AEF4_D1AB_44B5_9FE3_23CEC1240158_
