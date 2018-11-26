@@ -3,19 +3,23 @@
 # Add steps that publish test results, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/c-cpp/gcc
 
-# optional make test job template
+# template steps
 
 parameters:
-  name: ''
-  options: ''
+  target: ''
   vmImage: 'ubuntu 16.04'
 
+# target
+# sh 'make disable_feature_param'
+# sh 'make disable_feature_1'
+# sh 'make disable_spec'
+# sh 'make combine'
+# sh 'make nofeature'
+
 jobs:
-  - job: ${{ parameters.name }}
+  - job: ${{ parameters.target }}
     pool:
       vmImage: ${{ parameters.vmImage }}
     steps:
-    - template: template-make-test-steps.yml
-      parameters:
-        options: ${{ parameters.options }}
-        package_name: ${{ parameters.name }}
+    - script: make -C test/configcheck ${{ parameters.target }}
+      displayName: 'test'
