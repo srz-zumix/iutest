@@ -1,6 +1,6 @@
 FROM ubuntu:xenial
 
-MAINTAINER srz_zumix <https://github.com/srz-zumix>
+LABEL maintainer "srz_zumix <https://github.com/srz-zumix>"
 
 RUN dpkg --add-architecture i386 && \
   apt-get update && apt-get -y install build-essential git vim-common wget git bzip2 make python libc6:i386 astyle clang cmake && \

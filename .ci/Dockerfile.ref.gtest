@@ -5,7 +5,7 @@
 ARG VERSION=latest
 FROM srzzumix/googletest:${VERSION}
 
-MAINTAINER srz_zumix <https://github.com/srz-zumix>
+LABEL maintainer "srz_zumix <https://github.com/srz-zumix>"
 
 ARG VERSION
 RUN echo ${VERSION} | tee image_version

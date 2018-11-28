@@ -1,6 +1,6 @@
 FROM ubuntu:xenial
 
-MAINTAINER srz_zumix <zumix.cpp@gmail.com>
+LABEL maintainer "srz_zumix <https://github.com/srz-zumix>"
 
 RUN apt-get update -q -y && \
     apt-get install -y software-properties-common
