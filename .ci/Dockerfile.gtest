@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-MAINTAINER srz_zumix <https://github.com/srz-zumix>
+LABEL maintainer "srz_zumix <https://github.com/srz-zumix>"
 
 ARG BRANCH_OR_TAG=master
 RUN env

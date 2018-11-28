@@ -15,12 +15,6 @@
 #ifndef INCG_IRIS_IUTEST_GMOCK_VER_HPP_CBBF82C8_EB6F_4398_BAA6_5B485AC52D36_
 #define INCG_IRIS_IUTEST_GMOCK_VER_HPP_CBBF82C8_EB6F_4398_BAA6_5B485AC52D36_
 
-#if defined(IUTEST_USE_GTEST) && defined(IUTEST_USE_GMOCK)
-
-//======================================================================
-// include
-#include <gmock/gmock.h>
-
 //======================================================================
 // define
 
@@ -35,6 +29,8 @@
 #  if   !defined(GTEST_INCLUDE_GTEST_INTERNAL_GTEST_LINKED_PTR_H_)
 #    define GMOCK_MINORVER  0x08
 #    define GMOCK_LATEST    1
+#  elif defined(GMOCK_INCLUDE_GMOCK_INTERNAL_CUSTOM_GMOCK_MATCHERS_H_)
+#    define GMOCK_MINORVER  0x08
 #  elif defined(GMOCK_INCLUDE_GMOCK_INTERNAL_CUSTOM_CALLBACK_MATCHERS_H_)
 #    define GMOCK_MINORVER  0x08
 #  elif defined(GMOCK_GMOCK_MORE_MATCHERS_H_)
@@ -52,7 +48,7 @@
 
 //!< Micro Version
 #ifndef GMOCK_MICROVER
-#  if   GMOCK_MINORVER == 0x08 && defined(GMOCK_INCLUDE_GMOCK_MORE_MATCHERS_H_)
+#  if   GMOCK_MINORVER == 0x08 && !defined(GMOCK_INCLUDE_GMOCK_INTERNAL_CUSTOM_CALLBACK_MATCHERS_H_)
 #    define GMOCK_MICROVER  0x01
 #  endif
 #endif
@@ -82,5 +78,3 @@
 #endif
 
 #endif
-
-#endif // INCG_IRIS_IUTEST_GMOCK_VER_HPP_CBBF82C8_EB6F_4398_BAA6_5B485AC52D36_

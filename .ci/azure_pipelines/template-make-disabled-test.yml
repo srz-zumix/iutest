@@ -1,0 +1,26 @@
+# C/C++ with GCC
+# Build your C/C++ project with GCC using make.
+# Add steps that publish test results, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/c-cpp/gcc
+
+# disable config jobs template
+parameters:
+  name: ''
+  options: ''
+  vmImage: 'ubuntu 16.04'
+
+jobs:
+  - job: ${{ parameters.name }}
+    strategy:
+      matrix:
+        AnyParamTest:
+          DISABLED_CONFIG: IUTEST_HAS_ANY_PARAM_TEST
+        Assertion_NoEqualToObject:
+          DISABLED_CONFIG: IUTEST_HAS_ASSERTION_NOEQUALTO_OBJECT
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    steps:
+    - template: template-make-test-steps.yml
+      parameters:
+        options: ${{ parameters.options }} DEFS+=-D${DISABLED_CONFIG}=0
+        package_name: "${{ parameters.name }}-${DISABLED_CONFIG}"
