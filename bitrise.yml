@@ -16,9 +16,9 @@ trigger_map:
 workflows:
   iOS:
     steps:
-    - activate-ssh-key@3.1.1:
+    - activate-ssh-key:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@3.5.1: {}
+    - git-clone: {}
     - script:
         title: Set CACHE env var
         inputs:
@@ -30,7 +30,7 @@ workflows:
             envman add --key BREW_OPT_CMAKE --value "/usr/local/opt/cmake"
             #envman add --key BREW_CACHE_CMAKE --value "$(brew --cache)/cmake"
     - cache-pull@2.0.1: {}
-    - script@1.1.4:
+    - script:
         title: gem install
         inputs:
         - content: |-
@@ -48,20 +48,20 @@ workflows:
 
             brew install cmake
             brew link cmake
-    - script@1.1.3:
+    - script:
         title: CMake
         inputs:
         - content: "#!/bin/bash\n# fail if any commands fails\nset -ex\ncmake --version\nmkdir
             xcode\ncd xcode\ncmake ../projects/cmake -G \"Xcode\" -DCMAKE_XCODE_GENERATE_SCHEME=TRUE
             -Dbuild_use_gtest_configuration=OFF \nls"
-    - script@1.1.4:
+    - script:
         title: Xcodebuild
         inputs:
         - content: |
             xcodebuild -project xcode/iutest.xcodeproj -list
             #xcodebuild -project xcode/iutest.xcodeproj -IDEBuildOperationMaxNumberOfConcurrentCompileTasks=2 build  | xcpretty -c
             xcodebuild -project xcode/iutest.xcodeproj build  | xcpretty -c
-    - script@1.1.4:
+    - script:
         title: Tests
         inputs:
         - content: |-
@@ -81,9 +81,13 @@ workflows:
         stack: osx-xcode-10.1.x
   Android:
     steps:
-    - activate-ssh-key@3.1.1:
+    - script@1.1.5:
+        inputs:
+        - content: cat /etc/lsb-release || sw_vers || true
+        title: Check Stack
+    - activate-ssh-key:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@3.4.3: {}
+    - git-clone: {}
     - script@1.1.5:
         title: Set cache directory
         inputs:
@@ -94,24 +98,54 @@ workflows:
             envman add --key APT_CACHE_DIR --value $CACHE
     - cache-pull@2.0.1: {}
     - script@1.1.5:
+        title: SetUp Environments
+        inputs:
+        - content: |
+            #!/usr/bin/env bash
+            # fail if any commands fails
+            set -e
+            # debug log
+            set -x
+
+            env
+            ls /opt/android-ndk
+            envman add --key ANDROID_NDK_ROOT --value /opt/android-ndk
+            envman add --key ANDROID_NDK_HOME --value /opt/android-ndk
+    - script@1.1.5:
         title: CMake
         inputs:
-        - content: "#!/bin/bash\n# fail if any commands fails\nset -ex\napt-get install
-            -qq cmake\ncmake --version\nmkdir android-build\ncd android-build\n#cmake
-            ../projects/cmake -G \"Xcode\" -DCMAKE_XCODE_GENERATE_SCHEME=TRUE -Dbuild_use_gtest_configuration=OFF
-            \nls"
-    - script@1.1.3:
+        - content: |-
+            #!/bin/bash
+            # fail if any commands fails
+            set -ex
+            #apt-get update
+            #apt-get install -qq cmake
+            pip install --upgrade cmake
+            cmake --version
+            mkdir android-build
+            cd android-build
+            cmake ../projects/cmake -Dbuild_use_gtest_configuration=OFF \
+             -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_ROOT/build/cmake/android.toolchain.cmake \
+             -DANDROID_ABI=arm64-v8a \
+             -DANDROID_NATIVE_API_LEVEL=24 \
+             -DANDROID_STL=c++_static \
+             -DCMAKE_FIND_DEBUG_MODE=1
+            ls
+    - script:
         title: Build
         inputs:
-        - content: |-
+        - content: |
             #!/bin/bash
             # fail if any commands fails
             set -e
             # debug log
             set -x
 
-            cd projects/android/iutest_sample
-            ndk-build
+
+            #cd projects/android/iutest_sample
+            #ndk-build
+
+            cmake --build ./android-build
     - cache-push@2.0.5:
         inputs:
         - cache_paths: |
@@ -129,3 +163,7 @@ workflows:
         title: Trigger Android workflow
     after_run:
     - iOS
+  test:
+    after_run:
+    - iOS
+    - Android
