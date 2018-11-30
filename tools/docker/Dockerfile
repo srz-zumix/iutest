@@ -14,7 +14,7 @@ RUN apt-get update -q -y && \
 # pyenv
 ENV PYENV_ROOT $HOME/.pyenv
 ENV PATH $HOME/.pyenv/shims:$HOME/.pyenv/bin:$PATH
-RUN curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
+RUN wget https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer -O - | bash
 RUN pyenv --version
 RUN pyenv install 2.7.13
 RUN pyenv install 3.5.2
