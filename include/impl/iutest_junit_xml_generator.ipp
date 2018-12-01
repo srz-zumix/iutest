@@ -27,6 +27,11 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTest(IFile* file, const UnitTest& test)
 {
     file->Printf("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+    const int reportable_test_count = test.reportable_test_count();
+    if( reportable_test_count <= 0 )
+    {
+        return;
+    }
     file->Printf("<testsuites tests=\"%d\" failures=\"%d\" disabled=\"%d\" "
         , test.reportable_test_count()
         , test.failed_test_count()
