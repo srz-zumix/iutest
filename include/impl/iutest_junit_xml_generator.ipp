@@ -28,17 +28,14 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTest(IFile* file, cons
 {
     file->Printf("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
     const int reportable_test_count = test.reportable_test_count();
-    if( reportable_test_count <= 0 )
-    {
-        return;
-    }
     file->Printf("<testsuites tests=\"%d\" failures=\"%d\" disabled=\"%d\" "
-        , test.reportable_test_count()
+        , reportable_test_count
         , test.failed_test_count()
         , test.reportable_disabled_test_count()
         );
-    file->Printf("errors=\"0\" time=\"%s\" "
+    file->Printf("errors=\"0\" time=\"%s\" timestamp=\"%s\" "
         , detail::FormatTimeInMillisecAsSecond(test.elapsed_time()).c_str()
+        , detail::FormatTimeInMillisecAsIso8601(test.start_timestamp()).c_str()
         );
     file->Printf("name=\"AllTests\">\n");
 
@@ -51,7 +48,8 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTest(IFile* file, cons
 
 IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestCase(IFile* file, const TestCase& test_case)
 {
-    if( test_case.reportable_test_count() == 0 )
+    const int reportable_test_count = test_case.reportable_test_count();
+    if( reportable_test_count <= 0 )
     {
         return;
     }
@@ -60,14 +58,15 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestCase(IFile* file, 
     OutputXmlAttribute(file, "name"
         , EscapeXmlAttribute(test_case.testcase_name_with_default_package_name()).c_str());
     file->Printf("tests=\"%d\" failures=\"%d\" disabled=\"%d\" "
-        , test_case.reportable_test_count()
+        , reportable_test_count
         , test_case.failed_test_count()
         , test_case.reportable_disabled_test_count()
         );
     file->Printf("skipped=\"%d\" ", test_case.reportable_skip_test_count() );
-    file->Printf("errors=\"0\" time=\"%s\">\n"
+    file->Printf("errors=\"0\" time=\"%s\" timestamp=\"%s\""
         , detail::FormatTimeInMillisecAsSecond(test_case.elapsed_time()).c_str()
-    );
+        , detail::FormatTimeInMillisecAsIso8601(test_case.start_timestamp()).c_str()
+        );
 
     file->Printf("    <properties>\n");
 
