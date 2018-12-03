@@ -63,7 +63,7 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestCase(IFile* file, 
         , test_case.reportable_disabled_test_count()
         );
     file->Printf("skipped=\"%d\" ", test_case.reportable_skip_test_count() );
-    file->Printf("errors=\"0\" time=\"%s\" timestamp=\"%s\""
+    file->Printf("errors=\"0\" time=\"%s\" timestamp=\"%s\">"
         , detail::FormatTimeInMillisecAsSecond(test_case.elapsed_time()).c_str()
         , detail::FormatTimeInMillisecAsIso8601(test_case.start_timestamp()).c_str()
         );
