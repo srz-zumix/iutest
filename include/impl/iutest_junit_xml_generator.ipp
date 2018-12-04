@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -23,6 +23,15 @@ namespace iutest
 {
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+
+IUTEST_IPP_INLINE bool JunitXmlGeneratorListener::IsReportable(const UnitTest& test)
+{
+    const int reportable_test_count = test.reportable_test_count();
+    if( reportable_test_count <= 0 ) {
+        return false;
+    }
+    return true;
+}
 
 IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTest(IFile* file, const UnitTest& test)
 {
