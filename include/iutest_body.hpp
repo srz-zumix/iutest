@@ -246,6 +246,7 @@ class WithParamInterface
 {
 public:
     typedef T ParamType;    //!< パラメータ型
+    typedef TestParamInfo<T> TestParamInfoType; //!< パラメータ情報型
 protected:
     virtual ~WithParamInterface() {}
 
@@ -274,7 +275,7 @@ public:
     /**
      * @brief   テスト名の生成
     */
-    static const ::std::string MakeTestParamName(const TestParamInfo<ParamType>& info)
+    static const ::std::string MakeTestParamName(const TestParamInfoType& info)
     {
         return detail::MakeIndexName(info.index);
     }
