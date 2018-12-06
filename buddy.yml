@@ -2,6 +2,7 @@
   trigger_mode: "ON_EVERY_PUSH"
   ref_name: "(^(master|develop)*$)"
   ref_type: "WILDCARD"
+  # auto_clear_cache: true
   actions:
   - action: "Build Docker image"
     type: "DOCKERFILE"
