@@ -34,6 +34,7 @@ var searchData=
   ['testinfo',['TestInfo',['../d8/d3d/classiutest_1_1_test_info.html',1,'iutest']]],
   ['testnameremoveindexname',['TestNameRemoveIndexName',['../d8/dbf/namespaceiuutil.html#a8f5df62845fdd7cb3238b48ceddbc9e0',1,'iuutil']]],
   ['testparaminfo',['TestParamInfo',['../dc/d05/structiutest_1_1_test_param_info.html',1,'iutest']]],
+  ['testparaminfotype',['TestParamInfoType',['../df/d22/classiutest_1_1_with_param_interface.html#accd379e4b3ceaf3625fb291c1da50522',1,'iutest::WithParamInterface']]],
   ['testpartresult',['TestPartResult',['../d8/d3c/classiutest_1_1_test_part_result.html#adf20e1dcc987d62994745be18490dc9a',1,'iutest::TestPartResult::TestPartResult(const char *file, int line, const char *message, Type type)'],['../d8/d3c/classiutest_1_1_test_part_result.html#a9c50b12b44c77dcc6616b398874ade4f',1,'iutest::TestPartResult::TestPartResult(const TestPartResult &amp;rhs)']]],
   ['testpartresult',['TestPartResult',['../d8/d3c/classiutest_1_1_test_part_result.html',1,'iutest']]],
   ['testpartresultreporterinterface',['TestPartResultReporterInterface',['../dc/d5e/classiutest_1_1_test_part_result_reporter_interface.html',1,'iutest']]],
