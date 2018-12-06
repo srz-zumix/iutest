@@ -26,7 +26,10 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestIterationStart(const UnitTest& test, int iteration)
 {
-    IUTEST_UNUSED_VAR(test);
+    if(!IsReportable(test))
+    {
+        return;
+    }
     if( !m_output_path_format.empty() )
     {
         m_output_path = detail::StringFormat(m_output_path_format.c_str(), iteration);
@@ -48,6 +51,10 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestIterationStart(const U
 
 IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestProgramEnd(const UnitTest& test)
 {
+    if(!IsReportable(test))
+    {
+        return;
+    }
     if( m_fp == NULL )
     {
         FileOpen(m_output_path.c_str());

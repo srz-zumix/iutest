@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -80,6 +80,7 @@ public:
     virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
 
 private:
+    virtual bool IsReportable(const UnitTest& test) { IUTEST_UNUSED_VAR(test); return true; }
     virtual void OnReportTest(IFile* file, const UnitTest& test);
 
 private:

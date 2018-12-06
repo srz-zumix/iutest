@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -24,16 +24,27 @@ namespace iutest
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
+IUTEST_IPP_INLINE bool JunitXmlGeneratorListener::IsReportable(const UnitTest& test)
+{
+    const int reportable_test_count = test.reportable_test_count();
+    if( reportable_test_count <= 0 ) {
+        return false;
+    }
+    return true;
+}
+
 IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTest(IFile* file, const UnitTest& test)
 {
     file->Printf("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+    const int reportable_test_count = test.reportable_test_count();
     file->Printf("<testsuites tests=\"%d\" failures=\"%d\" disabled=\"%d\" "
-        , test.reportable_test_count()
+        , reportable_test_count
         , test.failed_test_count()
         , test.reportable_disabled_test_count()
         );
-    file->Printf("errors=\"0\" time=\"%s\" "
+    file->Printf("errors=\"0\" time=\"%s\" timestamp=\"%s\" "
         , detail::FormatTimeInMillisecAsSecond(test.elapsed_time()).c_str()
+        , detail::FormatTimeInMillisecAsIso8601(test.start_timestamp()).c_str()
         );
     file->Printf("name=\"AllTests\">\n");
 
@@ -46,7 +57,8 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTest(IFile* file, cons
 
 IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestCase(IFile* file, const TestCase& test_case)
 {
-    if( test_case.reportable_test_count() == 0 )
+    const int reportable_test_count = test_case.reportable_test_count();
+    if( reportable_test_count <= 0 )
     {
         return;
     }
@@ -55,14 +67,15 @@ IUTEST_IPP_INLINE void JunitXmlGeneratorListener::OnReportTestCase(IFile* file, 
     OutputXmlAttribute(file, "name"
         , EscapeXmlAttribute(test_case.testcase_name_with_default_package_name()).c_str());
     file->Printf("tests=\"%d\" failures=\"%d\" disabled=\"%d\" "
-        , test_case.reportable_test_count()
+        , reportable_test_count
         , test_case.failed_test_count()
         , test_case.reportable_disabled_test_count()
         );
     file->Printf("skipped=\"%d\" ", test_case.reportable_skip_test_count() );
-    file->Printf("errors=\"0\" time=\"%s\">\n"
+    file->Printf("errors=\"0\" time=\"%s\" timestamp=\"%s\">"
         , detail::FormatTimeInMillisecAsSecond(test_case.elapsed_time()).c_str()
-    );
+        , detail::FormatTimeInMillisecAsIso8601(test_case.start_timestamp()).c_str()
+        );
 
     file->Printf("    <properties>\n");
 
