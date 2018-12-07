@@ -17,6 +17,66 @@ jobs:
           DISABLED_CONFIG: IUTEST_HAS_ANY_PARAM_TEST
         Assertion_NoEqualToObject:
           DISABLED_CONFIG: IUTEST_HAS_ASSERTION_NOEQUALTO_OBJECT
+        Assertion_Return:
+          DISABLED_CONFIG: IUTEST_HAS_ASSERTION_RETURN
+        Assertion_AutoFixtureParamTest:
+          DISABLED_CONFIG: IUTEST_HAS_AUTOFIXTURE_PARAM_TEST
+        Assertion_Exception:
+          DISABLED_CONFIG: IUTEST_HAS_EXCEPTIONS
+        Assertion_GenRand:
+          DISABLED_CONFIG: IUTEST_HAS_GENRAND
+        # Assertion_IgnoreTest:
+        #   DISABLED_CONFIG: IUTEST_HAS_IGNORE_TEST
+        Assertion_Matchers:
+          DISABLED_CONFIG: IUTEST_HAS_MATCHERS
+        Assertion_MatchersAllOfAndAnyOf:
+          DISABLED_CONFIG: IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
+        Assertion_MatchersElementsAre:
+          DISABLED_CONFIG: IUTEST_HAS_MATCHER_ELEMENTSARE
+        Assertion_MatchersElementsAreArrayForward:
+          DISABLED_CONFIG: IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD
+        Assertion_MatchersRegex:
+          DISABLED_CONFIG: IUTEST_HAS_MATCHER_REGEX
+        Assertion_Package:
+          DISABLED_CONFIG: IUTEST_HAS_PACKAGE
+        Assertion_Peep:
+          DISABLED_CONFIG: IUTEST_HAS_PEEP
+        Assertion_PeepClass:
+          DISABLED_CONFIG: IUTEST_HAS_PEEP_CLASS
+        Assertion_PeepFunc:
+          DISABLED_CONFIG: IUTEST_HAS_PEEP_FUNC
+        Assertion_PeepStaticFunc:
+          DISABLED_CONFIG: IUTEST_HAS_PEEP_STATIC_FUNC
+        Assertion_PrintTo:
+          DISABLED_CONFIG: IUTEST_HAS_PRINT_TO
+        Assertion_Regex:
+          DISABLED_CONFIG: IUTEST_HAS_REGEX
+        Assertion_ReportSkipped:
+          DISABLED_CONFIG: IUTEST_HAS_REPORT_SKIPPED
+        Assertion_Socket:
+          DISABLED_CONFIG: IUTEST_HAS_SOCKET
+        Assertion_SpiLambdaSupport:
+          DISABLED_CONFIG: IUTEST_HAS_SPI_LAMBDA_SUPPORT
+        Assertion_StaticAssertTypeEq:
+          DISABLED_CONFIG: IUTEST_HAS_STATIC_ASSERT_TYPEEQ
+        Assertion_StreamCapture:
+          DISABLED_CONFIG: IUTEST_HAS_STREAM_CAPTURE
+        Assertion_StreamResult:
+          DISABLED_CONFIG: IUTEST_HAS_STREAM_RESULT
+        Assertion_TestFixtureAliasByTuple:
+          DISABLED_CONFIG: IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
+        # Assertion_TestNameAliasJp:
+        #   DISABLED_CONFIG: IUTEST_HAS_TESTNAME_ALIAS_JP
+        Assertion_TestNameAlias:
+          DISABLED_CONFIG: IUTEST_HAS_TESTNAME_ALIAS
+        Assertion_Regex:
+          DISABLED_CONFIG: IUTEST_HAS_LAMBDA_STATEMENTS
+        Assertion_TypedTestP:
+          DISABLED_CONFIG: IUTEST_HAS_TYPED_TEST_P
+        Assertion_TypedTest:
+          DISABLED_CONFIG: IUTEST_HAS_TYPED_TEST
+        Assertion_TypedTestPStrict:
+          DISABLED_CONFIG: IUTEST_TYPED_TEST_P_STRICT
     pool:
       vmImage: ${{ parameters.vmImage }}
     steps:
