@@ -6,3 +6,6 @@ jobs:
   - template: .ci/azure_pipelines/template-make-disabled-test.yml
     parameters:
       name: disabled
+  - template: .ci/azure_pipelines/template-make-nofeature-test.yml
+    parameters:
+      name: nofeature
