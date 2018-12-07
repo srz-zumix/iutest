@@ -69,7 +69,7 @@ jobs:
         #   DISABLED_CONFIG: IUTEST_HAS_TESTNAME_ALIAS_JP
         Assertion_TestNameAlias:
           DISABLED_CONFIG: IUTEST_HAS_TESTNAME_ALIAS
-        Assertion_Regex:
+        Assertion_LambdaStatements:
           DISABLED_CONFIG: IUTEST_HAS_LAMBDA_STATEMENTS
         Assertion_TypedTestP:
           DISABLED_CONFIG: IUTEST_HAS_TYPED_TEST_P
