@@ -269,7 +269,7 @@ public:
                 return size;
             }
         }
-        return static_cast<size_t>(-1);        
+        return static_cast<size_t>(-1);
     }
 };
 
