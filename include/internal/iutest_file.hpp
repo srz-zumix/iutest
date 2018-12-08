@@ -245,12 +245,12 @@ public:
         internal::posix::StatStruct st;
         if (internal::posix::Stat(fp, &st) != 0)
         {
-            return 0;
+            return GetSizeBySeekSet(fp);
         }
         return st.st_size;
 #else
         IUTEST_UNUSED_VAR(fp);
-        return static_cast<size_t>(-1);
+        return 0;
 #endif
     }
     static size_t GetSizeBySeekSet(FILE* fp)
@@ -260,16 +260,13 @@ public:
             return 0;
         }
         const long pre = ftell(fp);
-        if( pre != -1 )
+        if( (pre != -1) && (fseek(fp, 0, SEEK_END) == 0) )
         {
-            if( fseek(fp, 0, SEEK_END) == 0 )
-            {
-                const size_t size = static_cast<size_t>(ftell(fp));
-                IUTEST_UNUSED_RETURN(fseek(fp, pre, SEEK_SET));
-                return size;
-            }
+            const size_t size = static_cast<size_t>(ftell(fp));
+            IUTEST_UNUSED_RETURN(fseek(fp, pre, SEEK_SET));
+            return size;
         }
-        return static_cast<size_t>(-1);
+        return 0;
     }
 };
 
