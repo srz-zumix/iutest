@@ -4,10 +4,8 @@ jobs:
     parameters:
       name: default
   - template: .ci/azure_pipelines/template-make-disabled-test.yml
-    dependsOn: default
     parameters:
       name: disabled
   - template: .ci/azure_pipelines/template-make-nofeature-test.yml
-    dependsOn: default
     parameters:
       name: nofeature
