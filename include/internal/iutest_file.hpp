@@ -227,33 +227,49 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     //! サイズ取得
     virtual size_t GetSize() IUTEST_CXX_OVERRIDE
     {
-        if( m_fp == NULL )
-        {
-            return 0;
-        }
-        const long pre = ftell(m_fp);
-        if( pre == -1 )
-        {
-            return GetSize(m_fp);
-        }
-        if( fseek(m_fp, 0, SEEK_END) != 0 )
-        {
-            return GetSize(m_fp);
-        }
-        const size_t size = static_cast<size_t>(ftell(m_fp));
-        IUTEST_UNUSED_RETURN(fseek(m_fp, pre, SEEK_SET));
-        return size;
+#if IUTEST_HAS_FILE_STAT
+        return GetSize(m_fp);
+#else
+        return GetSizeBySeekSet(m_fp);
+#endif
     }
 
 public:
     static size_t GetSize(FILE* fp)
     {
+        if( fp == NULL )
+        {
+            return 0;
+        }
+#if IUTEST_HAS_FILE_STAT
         internal::posix::StatStruct st;
         if (internal::posix::Stat(fp, &st) != 0)
         {
             return 0;
         }
         return st.st_size;
+#else
+        IUTEST_UNUSED_VAR(fp);
+        return static_cast<size_t>(-1);
+#endif
+    }
+    static size_t GetSizeBySeekSet(FILE* fp)
+    {
+        if( fp == NULL )
+        {
+            return 0;
+        }
+        const long pre = ftell(fp);
+        if( pre != -1 )
+        {
+            if( fseek(fp, 0, SEEK_END) == 0 )
+            {
+                const size_t size = static_cast<size_t>(ftell(fp));
+                IUTEST_UNUSED_RETURN(fseek(fp, pre, SEEK_SET));
+                return size;
+            }
+        }
+        return static_cast<size_t>(-1);        
     }
 };
 
