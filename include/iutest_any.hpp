@@ -239,13 +239,12 @@ inline T unsafe_any_cast(const any& value)
 
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
 template<typename Elem, typename Traits>
-::std::basic_ostream<Elem, Traits>& operator << (::std::basic_ostream<Elem, Traits>& os, const any& value)
+inline ::std::basic_ostream<Elem, Traits>& operator << (::std::basic_ostream<Elem, Traits>& os, const any& value)
 {
     return os << value.to_string();
 }
 #else
-template<typename T>
-iu_ostream& operator << (iu_ostream& os, const T& value)
+inline iu_ostream& operator << (iu_ostream& os, const any& value)
 {
     return os << value.to_string();
 }
