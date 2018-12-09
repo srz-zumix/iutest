@@ -1,6 +1,6 @@
 
 jobs:
-  - job: syntax-test
+  - job: syntax_test
     steps:
       - script: make -C test -j4 syntax_tests_run
         displayName: 'syntax test'
