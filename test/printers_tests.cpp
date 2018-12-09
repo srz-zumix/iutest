@@ -67,8 +67,8 @@ IUTEST(PrintToTest, IutestAnyNotInitialized)
 
 IUTEST(PrintToTest, IutestAnyString)
 {
-    ::iutest::any a = "test";
-    LogChecker ck("test");
+    ::iutest::any a = "any-test";
+    LogChecker ck("any-test");
     IUTEST_SUCCEED() << ::iutest::PrintToString(a);
 }
 
