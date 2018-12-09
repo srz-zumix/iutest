@@ -136,6 +136,7 @@ endif
 
 BUILD_TARGETS = $(RUN_TARGETS) $(BUILD_ONLY)
 TARGETS = $(BUILD_TARGETS) $(ERR_TARGETS)
+NO_DEFAULT_TARGETS=$(SYNTAXTESTS_TARGET)
 
 SRCS   = $(BUILD_TARGETS:%=%.cpp)
 RUNNER = $(RUN_TARGETS:%=run_%)
@@ -159,7 +160,7 @@ default : $(TARGETS)
 all : clean default test
 
 clean :
-	$(RM) $(TARGETS) *.o *.stackdump *.core *.exe *.log *.ns.cpp check_stdlib
+	$(RM) $(TARGETS) $(NO_DEFAULT_TARGETS) *.o *.stackdump *.core *.exe *.log *.ns.cpp check_stdlib
 	$(RM) -R *.dSYM
 ifdef OUTPUTXML
 	$(RM) *.xml
@@ -369,6 +370,9 @@ $(NAMESPACETESTS_TARGET) : $(NAMESPACETESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 
 $(EXTENSIONTESTS_TARGET) : $(EXTENSIONTESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(EXTENSIONTESTS_SRCS) $(LDFLAGS)
+
+$(SYNTAXTESTS_TARGET) : $(SYNTAXTESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(SYNTAXTESTS_SRCS) $(LDFLAGS)
 
 .cpp: $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp main.cpp $(LDFLAGS)

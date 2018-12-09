@@ -70,6 +70,14 @@ EXTENSIONTESTS_SRCS= main.cpp \
 
 EXTENSIONTESTS_TARGET=extension_tests
 
+SYNTAXTESTS_TEST_SRCS= \
+               syntax_tests.cpp \
+
+SYNTAXTESTS_SRCS= main.cpp \
+               $(SYNTAXTESTS_TEST_SRCS)
+
+SYNTAXTESTS_TARGET=syntax_tests
+
 NAMESPACETESTS_TARGET=namespace_tests
 
 TARGETS1= \
