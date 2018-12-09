@@ -9,7 +9,7 @@
     login: "srzzumix"
     password: "${zumix_dockerhub}"
     docker_image_tag: "latest"
-    dockerfile_path: ".ci/Dockerfile.arm"
+    dockerfile_path: ".ci/docker/arm-none-eabi/Dockerfile"
     repository: "srzzumix/arm-none-eabi-gcc-with-python"
   - action: "Execute: arm-none-eabi-gcc --version"
     type: "BUILD"
