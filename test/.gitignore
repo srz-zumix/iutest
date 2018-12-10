@@ -1,15 +1,25 @@
+# ignore all
+*
+
+# includes
+!*.cpp
+!*.hpp
+!*.in
+!Makefile
+!GNUMakefile
+!**/
+# !benchmark/**/*
+!configcheck/**/*
+!cppcheck/**/*
+!cpplint/**/*
+!docs/**/*
+!testdata/**/*
+
+# excludes
+*.ns.cpp
 *.html
 *.png
 *.css
 benchmark/benchmark_n*.cpp
 cpplint/cpplint.py
 
-# execute files
-*
-!*.cpp
-!*.hpp
-!*.in
-!Makefile
-!GNUMakefile
-*.ns.cpp
-!**/
