@@ -7,6 +7,8 @@
 * Improved
 
 * Changes
+  * CSV パラメータ生成でファイルオープン失敗した場合の警告レベルを FATAL から WARNING に変更
+  * CSV パラメータ生成で要素がなかった場合に WARNING 出力
   * deprecated: IUTEST_USE_OWN_LIST
 
 * Bug fixes

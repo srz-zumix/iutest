@@ -123,6 +123,9 @@
   <li>v1.17.0.0
     <ul>
       <li></li>
+      <li><CSV パラメータ生成でファイルオープン失敗した場合の警告レベルを FATAL から WARNING に変更/li>
+      <li>CSV パラメータ生成で要素がなかった場合に WARNING 出力</li>
+      <li>deprecated: IUTEST_USE_OWN_LIST</li>
     </ul>
   </li>
   <li>v1.16.7.0
