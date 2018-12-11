@@ -169,6 +169,14 @@ ifdef USE_COVERAGE
 	$(RM) *.xml *.gcov *.gcno *.gcda coverage.info
 endif
 
+clean-xml :
+	$(RM) *.xml
+
+clean-cov :
+	$(RM) *.xml *.gcov *.gcno *.gcda coverage.info
+
+clean-all : clean clean-xml clean-cov
+
 check : test
 run : test
 test : $(BUILD_ONLY) $(RUNNER)
