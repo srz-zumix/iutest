@@ -1,6 +1,10 @@
 trigger:
   batch: true
   branches:
+    include:
+      - master
+      - develop
+      - azure-pipelines/*
     exclude:
       - feature/*
       - test/*
