@@ -1,3 +1,17 @@
+trigger:
+  batch: true
+  branches:
+    exclude:
+      - feature/*
+      - test/*
+  paths:
+    include:
+      - azure-pipelines.yml
+      - .ci/azure_pipelins/*
+    exclude:
+      - *.md
+      - *.yml
+      - docs/*
 
 jobs:
   - job: syntax_test
