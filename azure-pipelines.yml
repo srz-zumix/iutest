@@ -9,7 +9,8 @@ trigger:
     exclude:
       - "*.md"
       - docs/*
-      - *ci-yamls
+      - .travis.yml
+      - bit.yml
 
 jobs:
   - job: syntax_test
@@ -27,7 +28,3 @@ jobs:
   - template: .ci/azure_pipelines/template-make-nofeature-test.yml
     parameters:
       name: nofeature
-
-exclude: &ci-yamls
-  - .travis.yml
-  - bit.yml
