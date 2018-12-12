@@ -287,6 +287,7 @@ benchmark: build_benchmark
 
 BENCHMARK_MAKE_OPTION=--no-print-directory -C benchmark
 
+build_benchmark: SHELL=/bin/bash
 build_benchmark:
 	@if [ -f benchmark_basis_time.log ]; then rm benchmark_basis_time.log; fi
 	@if [ -f benchmark_build_time.log ]; then rm benchmark_build_time.log; fi
