@@ -5,12 +5,6 @@ trigger:
       - master
       - develop
       - azure-pipelines/*
-  paths:
-    exclude:
-      - "*.md"
-      - docs/*
-      - .travis.yml
-      - bit.yml
 
 jobs:
   - job: syntax_test
