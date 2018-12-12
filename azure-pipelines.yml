@@ -5,6 +5,9 @@ trigger:
       - master
       - develop
       - azure-pipelines/*
+    exclude:
+      - feature/*
+      - test/*
 
 jobs:
   - job: syntax_test
