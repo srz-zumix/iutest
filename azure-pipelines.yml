@@ -1,5 +1,14 @@
 trigger:
   batch: true
+  branches:
+    include:
+      - master
+      - develop
+      - azure-pipelines/*
+  paths:
+    exclude:
+      - "*.md"
+      - docs/*
 
 jobs:
   - job: syntax_test
