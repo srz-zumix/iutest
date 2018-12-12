@@ -9,8 +9,8 @@ trigger:
       - azure-pipelines.yml
       - .ci/azure_pipelins/*
     exclude:
-      - *.md
-      - *.yml
+      - "*.md"
+      - "*.yml"
       - docs/*
 
 jobs:
