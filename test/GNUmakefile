@@ -176,6 +176,9 @@ clean-cov :
 	$(RM) *.xml *.gcov *.gcno *.gcda coverage.info
 
 clean-all : clean clean-xml clean-cov
+	make -C benchmark clean
+	make -C configcheck clean
+	make -C cpplint clean
 
 check : test
 run : test
