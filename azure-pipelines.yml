@@ -5,17 +5,11 @@ trigger:
       - master
       - develop
       - azure-pipelines/*
-    exclude:
-      - feature/*
-      - test/*
   paths:
-    include:
-      - azure-pipelines.yml
-      - .ci/azure_pipelins/*
     exclude:
       - "*.md"
-      - "*.yml"
       - docs/*
+      - *ci-yamls
 
 jobs:
   - job: syntax_test
@@ -33,3 +27,7 @@ jobs:
   - template: .ci/azure_pipelines/template-make-nofeature-test.yml
     parameters:
       name: nofeature
+
+exclude: &ci-yamls
+  - .travis.yml
+  - bit.yml
