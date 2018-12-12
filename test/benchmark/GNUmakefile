@@ -63,6 +63,7 @@ BENCH_SRCS = benchmark_n0.cpp \
 
 OBJS   = $(SRCS:%.cpp=%.o) $(BENCH_SRCS:%.cpp=%.o)
 TARGET = benchmark
+TARGET_BASE=benchmark_base
 BASIS = basis
 
 #
@@ -79,7 +80,7 @@ build: $(TARGET)
 all : clean build test
 
 clean :
-	$(RM) $(TARGET) $(BASIS) benchmark_n*.cpp *.o *.stackdump
+	$(RM) $(TARGET) $(TARGET_BASE) $(BASIS) benchmark_n*.cpp *.o *.stackdump
 
 check : test
 run : test
@@ -98,5 +99,5 @@ benchmark_n%.cpp: benchmark_base.cpp
 $(TARGET): $(OBJS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
-base: benchmark_base.o main.o
+$(TARGET_BASE): benchmark_base.o main.o
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
