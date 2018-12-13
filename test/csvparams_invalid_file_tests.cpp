@@ -61,8 +61,14 @@ int main(int argc, char* argv[])
 #if IUTEST_HAS_STREAM_BUFFER && IUTEST_HAS_ASSERTION_RETURN
     IUTEST_ASSERT_STRIN("Unable to open file \"testdata/not-exist?.csv\".", stderr_capture.GetStreamString())
         << ::iutest::AssertionReturn<int>(1);
-    IUTEST_ASSERT_STRIN("Empty params file \"testdata/empty.csv\".", stderr_capture.GetStreamString())
-        << ::iutest::AssertionReturn<int>(1);
+    IUTEST_ASSERT_STRIN(
+#if IUTEST_HAS_FOPEN
+        "Empty params file "
+#else
+        "Unable to open file "
+#endif
+        "\"testdata/empty.csv\".", stderr_capture.GetStreamString()
+    ) << ::iutest::AssertionReturn<int>(1);
 #endif
     printf("*** Successful ***\n");
 #else
