@@ -10,6 +10,7 @@ trigger:
       - "*.md"
       - docs/*
       - .circleci/*
+      - .cirrus.yml
       - .travis.yml
       - appveyor.yml
       - bitrise.yml
@@ -20,6 +21,7 @@ trigger:
       - shippable.yml
       - wercker.yml
       - Jenkinsfile
+      - .editorconfig
 
 jobs:
   - job: syntax_test
