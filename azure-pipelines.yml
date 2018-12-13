@@ -1,3 +1,27 @@
+trigger:
+#  batch: true
+  branches:
+    include:
+      - master
+      - develop
+      - azure-pipelines/*
+  paths:
+    exclude:
+      - "*.md"
+      - docs/*
+      - .circleci/*
+      - .cirrus.yml
+      - .travis.yml
+      - appveyor.yml
+      - bitrise.yml
+      - buddy.yml
+      - codecov.yml
+      - codefresh.yml
+      - rocro.yml
+      - shippable.yml
+      - wercker.yml
+      - Jenkinsfile
+      - .editorconfig
 
 jobs:
   - job: syntax_test
