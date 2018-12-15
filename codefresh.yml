@@ -1,41 +1,34 @@
-# https://github.com/srz-zumix/iutest-test/blob/master/codefresh.yml
-
-#version: '1.0'
-#steps:
-#  BuildingDockerImage:
-#    title: Building Docker Image
-#    type: build
-#    image_name: srzzumix/iutest
-#    dockerfile: .ci/Dockerfile.codefresh
-#
-#  RunningUnitTests:
-#    title: Running Unit Tests
-#    image: '${{BuildingDockerImage}}'
-#    working_directory: IMAGE_WORK_DIR
-#    entry_point:
-#      - /bin/sh
-#      - /codefresh/volume/cf-generated/unit_test_script
-#    create_file:
-#      path: /codefresh/volume/cf-generated
-#      name: unit_test_script
-#      content: >-
-#        cat /proc/cpuinfo
-#
-#        g++ --version
-#
-#        # echo | gcc -E -Wp,-v -
-#
-#        cd test
-#
-#        make -j 4 ${MAKE_OPTION} && make test
-#    on_success:
-#      metadata:
-#        set:
-#          - '${{BuildingDockerImage.imageId}}':
-#              - CF_QUALITY: true
-#    on_fail:
-#      metadata:
-#        set:
-#          - '${{BuildingDockerImage.imageId}}':
-#              - CF_QUALITY: false
-#
+version: '1.0'
+steps:
+  BuildingDockerImage:
+    title: Building Docker Image
+    type: build
+    image_name: srz-zumix/iutest
+    working_directory: ./
+    tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
+    dockerfile: tools/docker/Dockerfile
+  RunningUnitTests:
+    title: Running Unit Tests
+    image: '${{BuildingDockerImage}}'
+    working_directory: IMAGE_WORK_DIR
+    entry_point:
+      - /bin/sh
+      - /codefresh/volume/cf-generated/unit_test_script
+    create_file:
+      path: /codefresh/volume/cf-generated
+      name: unit_test_script
+      content: |-
+        cd /codefresh/volume/iutest
+        cd test
+        make -C benchmark
+        make bench
+    on_success:
+      metadata:
+        set:
+          - '${{BuildingDockerImage.imageId}}':
+              - CF_QUALITY: true
+    on_fail:
+      metadata:
+        set:
+          - '${{BuildingDockerImage.imageId}}':
+              - CF_QUALITY: false
