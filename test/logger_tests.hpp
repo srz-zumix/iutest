@@ -52,7 +52,6 @@ public:
 #endif
 
 #if !defined(IUTEST_USE_GTEST)
-
 class LogChecker
 {
     TestLogger printer_logger;
@@ -78,6 +77,35 @@ class LogChecker
 {
 public:
     explicit LogChecker(const char*) {}
+};
+#endif
+
+#if !defined(IUTEST_USE_GTEST) && !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+class PrintToLogChecker
+{
+    TestLogger printer_logger;
+    ::std::string m_str;
+public:
+    explicit PrintToLogChecker(const char* str) : m_str(str)
+    {
+        ::iutest::detail::iuConsole::SetLogger(&printer_logger);
+    }
+    explicit PrintToLogChecker(const std::string& str) : m_str(str)
+    {
+        ::iutest::detail::iuConsole::SetLogger(&printer_logger);
+    }
+    ~PrintToLogChecker(void)
+    {
+        ::iutest::detail::iuConsole::SetLogger(NULL);
+        IUTEST_EXPECT_STRIN(m_str.c_str(), printer_logger.c_str());
+        printer_logger.clear();
+    }
+};
+#else
+class PrintToLogChecker
+{
+public:
+    explicit PrintToLogChecker(const char*) {}
 };
 #endif
 

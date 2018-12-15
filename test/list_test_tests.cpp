@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -81,13 +81,8 @@ const char list_test_with_where_str[] =
 "  A\n"
 #endif
 #if IUTEST_HAS_PARAM_TEST
-#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 "Test/ParamTest\n"
 "  A/0, where GetParam() = 42\n"
-#else
-"Test/ParamTest\n"
-"  A/0, where GetParam() = 4-Byte object < 2A 00 00 00 >\n"
-#endif
 #endif
 "";
 
