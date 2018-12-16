@@ -10,6 +10,8 @@ parameters:
   package_name: 'default'
 
 steps:
+- script: make -C test showcxxversion
+  displayName: 'versions'
 - script: make -C test -j4 OUTPUTXML=junit ${{ parameters.options }}
   displayName: 'make'
 - script: make -C test OUTPUTXML=junit ${{ parameters.options }} ${run_option} test
