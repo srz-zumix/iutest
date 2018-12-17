@@ -18,6 +18,7 @@
 //======================================================================
 // include
 #include "iutest_defs.hpp"
+#include "iutest_default_printers.hpp"
 #include "internal/iutest_string.hpp"
 
 namespace iutest
@@ -345,14 +346,6 @@ inline void PrintTo(const ::std::variant<Types...>& value, iu_ostream* os)
 inline void PrintTo(const ::std::monostate&, iu_ostream* os)
 {
     *os << "monostate";
-}
-#endif
-
-#if IUTEST_HAS_CXX_HDR_ANY
-inline void PrintTo(const ::std::any& value, iu_ostream* os)
-{
-   *os << "-Any type-name: " << value.type().name();
-   DefaultPrintNonContainerTo(value, os);
 }
 #endif
 
