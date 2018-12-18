@@ -18,6 +18,9 @@ steps:
   displayName: 'test'
   env:
     run_option: RUN_OPTION="--iutest_default_package_name=${{ parameters.package_name }}"
+- script: cd test && ls
+  displayName: 'failed check'
+  condition: failed()
 
 - task: PublishTestResults@2
   inputs:
