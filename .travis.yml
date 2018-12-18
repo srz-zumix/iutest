@@ -10,8 +10,8 @@ addons:
   apt: &apt-global
     sources: &apt-common-sources
       - ubuntu-toolchain-r-test
-      - llvm-toolchain-trusty-6.0
-      - llvm-toolchain-trusty
+      - llvm-toolchain-xenial-6.0
+      - llvm-toolchain-xenial
     packages: &apt-common-packages
       - clang-6.0
       - g++-8
