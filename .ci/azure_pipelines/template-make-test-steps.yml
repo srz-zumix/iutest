@@ -18,7 +18,7 @@ steps:
   displayName: 'test'
   env:
     run_option: RUN_OPTION="--iutest_default_package_name=${{ parameters.package_name }}"
-- script: ls
+- script: ls -a && cd test && ls -a
   displayName: 'failed check'
   condition: failed()
 
