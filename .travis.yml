@@ -54,9 +54,9 @@ install:
       if [ "${USE_COVERAGE}" = 'lcov' ]; then gem install lcoveralls; fi
     fi
   # gtest/gmock
-  - if [ "${USE_GTEST}" = '1' ] || [ "${USE_GMOCK}" = '1' ]; then .ci/travisci/install-gtest.sh; fi 
+  - if [ "${USE_GTEST}" = '1' ] || [ "${USE_GMOCK}" = '1' ]; then . .ci/travisci/install-gtest.sh; fi 
   # gmock
-  - if [ "${USE_GMOCK}" = '1' ]; then .ci/travisci/install-gmock.sh; fi
+  - if [ "${USE_GMOCK}" = '1' ]; then . .ci/travisci/install-gmock.sh; fi
 
 script:
   - if [ "${USE_LIB}" = '1' ]; then cd projects/make && make && cd -; fi
