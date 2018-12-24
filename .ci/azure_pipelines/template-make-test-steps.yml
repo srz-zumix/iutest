@@ -21,6 +21,11 @@ steps:
 - script: ls -a && cd test && ls -a
   displayName: 'failed check'
   condition: failed()
+- task: PublishPipelineArtifact@0
+  condition: failed()
+  inputs:
+    artifactName: 'test exe'
+    targetPath: 'test/*'
 
 - task: PublishTestResults@2
   inputs:
