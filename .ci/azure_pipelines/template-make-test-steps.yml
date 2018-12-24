@@ -24,8 +24,8 @@ steps:
 - task: PublishPipelineArtifact@0
   condition: failed()
   inputs:
-    artifactName: 'test exe'
-    targetPath: 'test/*'
+    artifactName: 'test'
+    targetPath: 'test'
 
 - task: PublishTestResults@2
   inputs:
