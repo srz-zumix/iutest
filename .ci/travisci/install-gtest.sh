@@ -14,6 +14,7 @@ else
     exit 1
   fi
   mv googletest/gtest googletest/googletest
+  ln -s googletest/googletest googletest/gtest
 fi
 
 cd googletest/googletest
