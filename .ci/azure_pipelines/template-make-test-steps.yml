@@ -10,7 +10,7 @@ parameters:
   package_name: 'default'
 
 steps:
-- script: ulimit -c unlimited
+- script: ulimit -a && ulimit -c unlimited && cat /proc/sys/kernel/core_pattern
   displayName: 'setup'
   condition: eq(variables['Agent.OS'], 'Linux')
 - script: make -C test showcxxversion
