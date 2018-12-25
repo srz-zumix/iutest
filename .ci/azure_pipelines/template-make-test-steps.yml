@@ -10,6 +10,9 @@ parameters:
   package_name: 'default'
 
 steps:
+- script: ulimit -c unlimited
+  displayName: 'setup'
+  condition: eq(variables['Agent.OS'], 'Linux')
 - script: make -C test showcxxversion
   displayName: 'versions'
 - script: make -C test -j4 OUTPUTXML=junit ${{ parameters.options }}
