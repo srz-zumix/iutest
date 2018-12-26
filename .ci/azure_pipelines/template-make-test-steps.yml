@@ -13,9 +13,10 @@ steps:
 - script: |
     ulimit -a
     ulimit -c unlimited
-    # echo [main] > ~/.config/apport/settings
-    # echo unpackaged=true >> ~/.config/apport/settings
-    # cat ~/.config/apport/settings
+    mkdir -p ~/.config/apport/
+    echo [main] > ~/.config/apport/settings
+    echo unpackaged=true >> ~/.config/apport/settings
+    cat ~/.config/apport/settings
     # sudo sysctl -w kernel.core_pattern=core.%e.%p
     # cat /proc/sys/kernel/core_pattern
   displayName: 'setup'
