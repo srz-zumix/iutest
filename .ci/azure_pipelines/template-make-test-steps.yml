@@ -13,7 +13,6 @@ steps:
 - script: |
     ulimit -a
     ulimit -c unlimited
-    cat ~/.config/apport/settings
     echo [main] > ~/.config/apport/settings
     echo unpackaged=true >> ~/.config/apport/settings
     cat ~/.config/apport/settings
