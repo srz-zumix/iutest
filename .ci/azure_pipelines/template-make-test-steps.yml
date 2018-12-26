@@ -13,9 +13,9 @@ steps:
 - script: |
     ulimit -a
     ulimit -c unlimited
-    echo [main] > ~/.config/apport/settings
-    echo unpackaged=true >> ~/.config/apport/settings
-    cat ~/.config/apport/settings
+    # echo [main] > ~/.config/apport/settings
+    # echo unpackaged=true >> ~/.config/apport/settings
+    # cat ~/.config/apport/settings
     # sudo sysctl -w kernel.core_pattern=core.%e.%p
     # cat /proc/sys/kernel/core_pattern
   displayName: 'setup'
@@ -28,7 +28,10 @@ steps:
   displayName: 'test'
   env:
     run_option: RUN_OPTION="--iutest_default_package_name=${{ parameters.package_name }}"
-- script: ls -a && cd test && ls -a
+- script: |
+    ls -a
+    cd test && ls -a
+    ls -a /var/crash/
   displayName: 'failed check'
   condition: failed()
 - task: PublishPipelineArtifact@0
