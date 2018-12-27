@@ -11,7 +11,7 @@ parameters:
 
 steps:
 - script: |
-    id && cat /etc/group
+    id
     ulimit -c unlimited && ulimit -a
     mkdir -p ~/.config/apport/
     echo [main] > ~/.config/apport/settings
