@@ -32,7 +32,7 @@ steps:
     ls -a /var/crash/
     mkdir test/coredump
     for file in `\find /var/crash/ -name '*.crash'`; do cp $file test/coredump ; done
-    for file in `\find /var/crash/ -name '*.crash'`; do sudo apport-unpack $file test/coredump ; done
+    for file in `\find /var/crash/ -name '*.crash'`; do sudo apport-unpack $file test/coredump/${file%%.*} ; done
     cd test/coredump && ls -a
   displayName: 'core dump unpack'
   condition: failed()
