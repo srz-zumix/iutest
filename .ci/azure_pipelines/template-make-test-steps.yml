@@ -29,7 +29,7 @@ steps:
 - script: |
     ls -a /var/crash/
     mkdir test/coredump
-    for file in `\find . -name '*.txt'`; do apport-unpack $file test/coredump ; done
+    for file in `\find /var/crash/ -name '*.crash'`; do apport-unpack $file test/coredump ; done
     cd test/coredump && ls -a
   displayName: 'core dump unpack'
   condition: failed()
