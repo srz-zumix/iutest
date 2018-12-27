@@ -11,14 +11,11 @@ parameters:
 
 steps:
 - script: |
-    ulimit -a
-    ulimit -c unlimited
+    ulimit -c unlimited && ulimit -a
     mkdir -p ~/.config/apport/
     echo [main] > ~/.config/apport/settings
     echo unpackaged=true >> ~/.config/apport/settings
     cat ~/.config/apport/settings
-    # sudo sysctl -w kernel.core_pattern=core.%e.%p
-    # cat /proc/sys/kernel/core_pattern
   displayName: 'setup'
   condition: eq(variables['Agent.OS'], 'Linux')
 - script: make -C test showcxxversion
@@ -30,16 +27,17 @@ steps:
   env:
     run_option: RUN_OPTION="--iutest_default_package_name=${{ parameters.package_name }}"
 - script: |
-    ls -a
-    cd test && ls -a
     ls -a /var/crash/
-  displayName: 'failed check'
+    mkdir test/coredump
+    for file in `\find . -name '*.txt'`; do apport-unpack $file test/coredump ; done
+    cd test/coredump && ls -a
+  displayName: 'core dump unpack'
   condition: failed()
 - task: PublishPipelineArtifact@0
   condition: failed()
   inputs:
-    artifactName: 'test'
-    targetPath: 'test'
+    artifactName: 'core dump'
+    targetPath: 'test/coredump'
 
 - task: PublishTestResults@2
   inputs:
