@@ -11,7 +11,6 @@ parameters:
 
 steps:
 - script: |
-    id
     ulimit -c unlimited && ulimit -a
     mkdir -p ~/.config/apport/
     echo [main] > ~/.config/apport/settings
@@ -28,6 +27,7 @@ steps:
   env:
     run_option: RUN_OPTION="--iutest_default_package_name=${{ parameters.package_name }}"
 - script: |
+    python --version
     ls -a /var/crash/
     mkdir test/coredump
     for file in `\find /var/crash/ -name '*.crash'`; do apport-unpack $file test/coredump ; done
