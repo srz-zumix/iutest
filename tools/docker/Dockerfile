@@ -9,7 +9,8 @@ RUN apt-get update -q -y && \
     apt-get install -y libsqlite3-dev libssl-dev && \
     apt-get install -y python2.7 python2.7-dev python-virtualenv && \
     apt-get install -y git subversion && \
-    apt-get install -y build-essential
+    apt-get install -y build-essential && \
+    apt-get install -y gdb
 
 # pyenv
 ENV PYENV_ROOT $HOME/.pyenv
