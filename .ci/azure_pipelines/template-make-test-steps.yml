@@ -11,8 +11,6 @@ parameters:
 
 steps:
 - script: |
-    whoami
-    groups `whoami`
     ulimit -c unlimited && ulimit -a
     mkdir -p ~/.config/apport/
     echo [main] > ~/.config/apport/settings
@@ -31,7 +29,8 @@ steps:
 - script: |
     ls -a /var/crash/
     mkdir test/coredump
-    for file in `\find /var/crash/ -name '*.crash'`; do cp $file test/coredump ; done
+    for file in `\find /var/crash/ -name '*.crash'`; do sudo cp $file test/coredump ; done
+    for file in `\find /var/crash/ -name '*.crash'`; do sudo sed -i -e "s/UserGroups:\s*$/UserGroups: iutest/g" $file ; done
     for file in `\find /var/crash/ -name '*.crash'`; do apport-unpack $file test/coredump/`basename $file .crash` ; done
     cd test/coredump && ls -a
   displayName: 'core dump unpack'
