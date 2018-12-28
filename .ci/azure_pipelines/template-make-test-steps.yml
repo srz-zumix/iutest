@@ -27,12 +27,12 @@ steps:
   env:
     run_option: RUN_OPTION="--iutest_default_package_name=${{ parameters.package_name }}"
 - script: |
-    ls -a /var/crash/
+    ls /var/crash/
     mkdir test/coredump
     # for file in `\find /var/crash/ -name '*.crash'`; do sudo cp $file test/coredump ; done
     for file in `\find /var/crash/ -name '*.crash'`; do sudo sed -i -e "s/UserGroups:\s*$/UserGroups: iutest/g" $file ; done
     for file in `\find /var/crash/ -name '*.crash'`; do apport-unpack $file test/coredump/`basename $file .crash` ; done
-    cd test/coredump && ls -a
+    cd test/coredump && ls -Ra
   displayName: 'core dump unpack'
   condition: failed()
 - task: PublishPipelineArtifact@0
