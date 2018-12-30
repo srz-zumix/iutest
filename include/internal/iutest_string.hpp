@@ -155,7 +155,13 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 */
 inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
-#if   defined(__CYGWIN__) \
+#if   defined(_MSC_VER)
+#  if IUTEST_HAS_WANT_SECURE_LIB
+    return _vsnprintf_s(dst, size, _TRUNCATE, fmt, va);
+#  else
+    return _vsnprintf(dst, size, fmt, va);
+#  endif
+#elif defined(__CYGWIN__) \
         && (defined(__STRICT_ANSI__) && (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) && (__cplusplus >= 201103L))
     return wrapper::iu_vsnprintf(dst, size, format, va);
 #elif (defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)) && defined(__STRICT_ANSI__)
