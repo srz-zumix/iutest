@@ -157,9 +157,9 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
 #if   defined(_MSC_VER)
 #  if IUTEST_HAS_WANT_SECURE_LIB
-    return _vsnprintf_s(dst, size, _TRUNCATE, fmt, va);
+    return _vsnprintf_s(dst, size, _TRUNCATE, format, va);
 #  else
-    return _vsnprintf(dst, size, fmt, va);
+    return _vsnprintf(dst, size, format, va);
 #  endif
 #elif defined(__CYGWIN__) \
         && (defined(__STRICT_ANSI__) && (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) && (__cplusplus >= 201103L))
