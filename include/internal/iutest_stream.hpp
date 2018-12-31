@@ -47,8 +47,12 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         {
             Write(buf, static_cast<size_t>(len), 1);
         }
+        else
+        {
+            IUTEST_LOG_(WARNING) << "stream output trancated: " << fmt;
+        }
         return len;
-        
+
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     }
 };
