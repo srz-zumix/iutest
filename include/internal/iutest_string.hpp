@@ -155,6 +155,10 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 */
 inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
+    if( dst == NULL && size > 0 )
+    {
+        return -1;
+    }
 #if   defined(_MSC_VER)
 #  if IUTEST_HAS_WANT_SECURE_LIB
     return _vsnprintf_s(dst, size, _TRUNCATE, format, va);
@@ -167,10 +171,6 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 #elif (defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)) && defined(__STRICT_ANSI__)
     return wrapper::iu_vsnprintf(dst, size, format, va);
 #else
-    if( dst == NULL && size > 0 )
-    {
-        return -1;
-    }
     return vsnprintf(dst, size, format, va);
 #endif
 }
