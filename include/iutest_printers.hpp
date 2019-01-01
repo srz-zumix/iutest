@@ -250,9 +250,6 @@ inline void PrintTo(const T& value, iu_ostream* os) {
 }
 inline void PrintTo(bool b, iu_ostream* os)         { *os << (b ? "true" : "false"); }
 inline void PrintTo(const char* c, iu_ostream* os)  { *os << c; }
-#if defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
-inline void PrintTo(int v, iu_ostream* os)  { *os << v; }
-#endif
 template<typename CharT, typename Traits, typename Alloc>
 inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)   { *os << str.c_str(); }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
@@ -403,10 +400,6 @@ inline void PrintTo(const ::std::filesystem::directory_iterator& value, iu_ostre
 {
     PrintTo(*value, os);
 }
-#endif
-
-#if IUTEST_HAS_NULLPTR
-inline void PrintTo(const ::std::nullptr_t&, iu_ostream* os) { *os << "nullptr"; }
 #endif
 
 #if IUTEST_HAS_TUPLE
