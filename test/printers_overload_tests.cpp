@@ -18,12 +18,6 @@
 #include "iutest.hpp"
 #include "logger_tests.hpp"
 
-#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
-
-#if IUTEST_HAS_CXX_HDR_ARRAY
-#  include <array>  // NOLINT
-#endif
-
 #if IUTEST_HAS_CXX_HDR_STRING_VIEW
 
 namespace std
@@ -45,106 +39,50 @@ IUTEST(StringView, PrintTo)
 
 #endif
 
-#if IUTEST_HAS_CXX_HDR_OPTIONAL
+#define DECL_BAR()      \
+    struct Bar {        \
+        int x, y, z;    \
+        bool operator == (const Bar& rhs) const {           \
+            return x == rhs.x && y == rhs.y && z == rhs.z;  \
+        }               \
+    }
 
-template<typename T>
-void PrintTo(const ::std::optional<T>&, ::iutest::iu_ostream* os)
+namespace Foo
 {
-    *os << "{af7fe5f5-08da-421b-80a6-b0514e7ee139}";
+    DECL_BAR();
+
+    ::iutest::iu_ostream& operator << (::iutest::iu_ostream& os, const Bar& bar)
+    {
+        return os << "x:" << bar.x << " y:" << bar.y << " z:" << bar.z;
+    }
 }
 
-IUTEST(Optional, PrintTo)
+IUTEST(PrintToTest, OperatorPrintToBar)
 {
-    LogChecker ck("{af7fe5f5-08da-421b-80a6-b0514e7ee139}");
-    ::std::optional<int> opt = 1234;
-    IUTEST_SUCCEED() << ::iutest::PrintToString(opt);
+    Foo::Bar bar = {0, 1, 2};
+    LogChecker ck("x:0 y:1 z:2");
+    IUTEST_SUCCEED() << ::iutest::PrintToString(bar);
 }
 
-#endif
+DECL_BAR();
 
-// #if IUTEST_HAS_CXX_HDR_VARIANT
-
-// IUTEST(Variant, PrintTo)
-// {
-//     LogChecker ck("1234");
-//     ::std::variant<int, float, ::std::string> v = 1234;
-//     IUTEST_SUCCEED() << ::iutest::PrintToString(v);
-// }
-
-// #endif
-
-// #if IUTEST_HAS_CXX_HDR_ARRAY
-
-// IUTEST(StdArray, PrintTo)
-// {
-//     LogChecker ck("3, 1, 4");
-//     ::std::array<int, 3> ar = { { 3, 1, 4 } };
-//     IUTEST_SUCCEED() << ::iutest::PrintToString(ar);
-// }
-
-// #endif
-
-#if IUTEST_HAS_CXX_HDR_ANY
-
-void PrintTo(const ::std::any&, ::iutest::iu_ostream* os)
+::iutest::iu_ostream& operator << (::iutest::iu_ostream& os, const Bar& bar)
 {
-    *os << "{242f0229-6f27-450d-861b-67716eb9a693}";
+    IUTEST_ADD_FAILURE();
+    return os << "X:" << bar.x << " Y:" << bar.y << " Z:" << bar.z;
 }
 
-IUTEST(Any, PrintTo)
+void PrintTo(const Bar& bar, ::iutest::iu_ostream* os)
 {
-    LogChecker ck("{242f0229-6f27-450d-861b-67716eb9a693}");
-    ::std::any v = 1234;
-    IUTEST_SUCCEED() << ::iutest::PrintToString(v);
+    *os << "x:" << bar.x << " y:" << bar.y << " z:" << bar.z;
 }
 
-#endif
-
-// #if IUTEST_USE_CXX_FILESYSTEM
-
-// IUTEST(FileSystem, PathPrintTo)
-// {
-//     LogChecker ck("/cxx_feature_tests.cpp");
-//     ::std::filesystem::path v = __FILE__;
-//     IUTEST_SUCCEED() << ::iutest::PrintToString(v);
-// }
-
-// IUTEST(FileSystem, StatusPrintTo)
-// {
-//     LogChecker ck("regular: 0");
-//     ::std::filesystem::file_status v = ::std::filesystem::status(__FILE__);
-//     IUTEST_SUCCEED() << ::iutest::PrintToString(v);
-// }
-
-// IUTEST(FileSystem, SpaceInfoPrintTo)
-// {
-//     LogChecker ck("cpacity");
-//     ::std::filesystem::path path = __FILE__;
-//     ::std::filesystem::space_info v = ::std::filesystem::space(path.remove_filename());
-//     IUTEST_SUCCEED() << ::iutest::PrintToString(v);
-// }
-
-// IUTEST(FileSystem, DirectoryEntryPrintTo)
-// {
-//     ::std::filesystem::path path = __FILE__;
-//     ::std::filesystem::path directory = path.remove_filename().append("testdata");
-//     LogChecker ck(directory.generic_string());
-//     ::std::filesystem::directory_entry x = *::std::filesystem::directory_iterator(directory);
-//     IUTEST_SUCCEED() << ::iutest::PrintToString(x);
-// }
-
-// IUTEST(FileSystem, DirectoryIteratorPrintTo)
-// {
-//     ::std::filesystem::path path = __FILE__;
-//     ::std::filesystem::path directory = path.remove_filename().append("testdata");
-//     LogChecker ck(directory.generic_string());
-//     ::std::filesystem::directory_iterator x = ::std::filesystem::directory_iterator(directory);
-//     IUTEST_SUCCEED() << ::iutest::PrintToString(x);
-// }
-
-// #endif
-
-#endif
+IUTEST(PrintToTest, PrintToBar)
+{
+    Bar bar = {0, 1, 2};
+    LogChecker ck("x:0 y:1 z:2");
+    IUTEST_SUCCEED() << ::iutest::PrintToString(bar);
+}
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])

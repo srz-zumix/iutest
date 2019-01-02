@@ -139,11 +139,6 @@ void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
 }   // end of namespace printer_internal2
 
 //======================================================================
-// declare
-template<typename T>
-void UniversalPrint(const T& value, iu_ostream* os);
-
-//======================================================================
 // function
 /**
  * @brief   デフォルト文字列変換関数
@@ -250,22 +245,11 @@ inline void PrintTo(const T& value, iu_ostream* os) {
 }
 inline void PrintTo(bool b, iu_ostream* os)         { *os << (b ? "true" : "false"); }
 inline void PrintTo(const char* c, iu_ostream* os)  { *os << c; }
-template<typename CharT, typename Traits, typename Alloc>
-inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)   { *os << str.c_str(); }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 template<typename T>
 inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
 {
     *os << f.raw() << "(0x" << ToHexString(f.bits()) << ")";
-}
-template<typename T1, typename T2>
-inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)
-{
-    *os << "(";
-    UniversalPrint(value.first, os);
-    *os << ", ";
-    UniversalPrint(value.second, os);
-    *os << ")";
 }
 #endif
 // char or unsigned char の時に、 0 が NULL 文字にならないように修正
@@ -304,130 +288,6 @@ inline void PrintTo(const unsigned char value, iu_ostream* os)
     *os << static_cast<unsigned int>(value);
 }
 
-#if IUTEST_USE_CXX_FILESYSTEM
-inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_type& value)
-{
-    switch(value)
-    {
-    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, none);
-    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, not_found);
-    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, regular);
-    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, directory);
-    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, symlink);
-    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, block);
-    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, character);
-    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, fifo);
-    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, socket);
-    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, unknown);
-#if defined(IUTEST_OS_WINDOWS)
-    IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, junction);
-#endif
-    default:
-        break;
-    }
-    return PrintToString(static_cast<int>(value));
-}
-inline void PrintTo(const ::std::filesystem::path& value, iu_ostream* os)
-{
-    *os << value.generic_string();
-}
-inline void PrintTo(const ::std::filesystem::file_type& value, iu_ostream* os)
-{
-    *os << FileSystemFileTypeToString(value);
-}
-inline void PrintTo(const ::std::filesystem::perms& value, iu_ostream* os)
-{
-    *os << ToOctString(static_cast<UInt16>(value));
-}
-inline void PrintTo(const ::std::filesystem::file_status& value, iu_ostream* os)
-{
-    *os << FileSystemFileTypeToString(value.type()) << ": ";
-    UniversalPrint(value.permissions(), os);
-}
-inline void PrintTo(const ::std::filesystem::space_info& value, iu_ostream* os)
-{
-    *os << "cpacity: " << detail::FormatSizeByte(value.capacity)
-        << ", free: " << detail::FormatSizeByte(value.free)
-        << ", available: " << detail::FormatSizeByte(value.available);
-}
-inline void PrintTo(const ::std::filesystem::directory_entry& value, iu_ostream* os)
-{
-    UniversalPrint(value.path(), os);
-}
-inline void PrintTo(const ::std::filesystem::directory_iterator& value, iu_ostream* os)
-{
-    UniversalPrint(*value, os);
-}
-#endif
-
-#if IUTEST_HAS_NULLPTR
-inline void PrintTo(const ::std::nullptr_t&, iu_ostream* os) { *os << "nullptr"; }
-#endif
-
-#if IUTEST_HAS_TUPLE
-
-template<typename T, int I, int SIZE>
-inline void PrintTupleElemTo(const T& t, iu_ostream* os
-    , typename iutest_type_traits::enable_if<I == 0, void>::type*& = iutest_type_traits::enabler::value)
-{
-    IUTEST_UNUSED_VAR(t);
-    IUTEST_UNUSED_VAR(os);
-}
-template<typename T, int I, int SIZE>
-inline void PrintTupleElemTo(const T& t, iu_ostream* os
-    , typename iutest_type_traits::enable_if<I == 1, void>::type*& = iutest_type_traits::enabler::value)
-{
-    UniversalPrint(tuples::get<SIZE-I>(t), os);
-}
-template<typename T, int I, int SIZE>
-inline void PrintTupleElemTo(const T& t, iu_ostream* os
-    , typename iutest_type_traits::enable_if<(I&(~1)) != 0, void>::type*& = iutest_type_traits::enabler::value)
-{
-    UniversalPrint(tuples::get<SIZE-I>(t), os);
-    *os << ", ";
-    PrintTupleElemTo<T, I-1, SIZE>(t, os);
-}
-
-template<typename T>
-inline void PrintTupleTo(const T& t, iu_ostream* os)
-{
-    *os << "(";
-    PrintTupleElemTo<T, tuples::tuple_size<T>::value, tuples::tuple_size<T>::value>(t, os);
-    *os << ")";
-}
-
-#if IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
-
-template<typename ...Args>
-inline void PrintTo(const tuples::tuple<Args...>& t, iu_ostream* os)
-{
-    PrintTupleTo(t, os);
-}
-
-#else
-
-#define IIUT_DECL_TUPLE_PRINTTO(n)                                              \
-    template<IUTEST_PP_ENUM_PARAMS(n, typename A)>inline void PrintTo(          \
-        const tuples::tuple<IUTEST_PP_ENUM_PARAMS(n, A)>& t, iu_ostream* os) {  \
-            PrintTupleTo(t, os); }
-
-inline void PrintTo(const tuples::tuple<>& t, iu_ostream* os) { PrintTupleTo(t, os); }
-
-IIUT_DECL_TUPLE_PRINTTO(1)
-IIUT_DECL_TUPLE_PRINTTO(2)
-IIUT_DECL_TUPLE_PRINTTO(3)
-IIUT_DECL_TUPLE_PRINTTO(4)
-IIUT_DECL_TUPLE_PRINTTO(5)
-IIUT_DECL_TUPLE_PRINTTO(6)
-IIUT_DECL_TUPLE_PRINTTO(7)
-IIUT_DECL_TUPLE_PRINTTO(8)
-IIUT_DECL_TUPLE_PRINTTO(9)
-
-#undef IIUT_DECL_TUPLE_PRINTTO
-
-#endif
-
-#endif
 
 /** @private */
 template<typename T>
@@ -524,7 +384,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const wchar_t* begin, s
 template<typename T>
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(const T& value, iu_ostream* os)
 {
-    using namespace ::iutest::detail::printer_internal_default_printto; // NOLINT
+    using namespace ::iutest::detail::printer_internal_stdlib; // NOLINT
     PrintTo(value, os);
 }
 
