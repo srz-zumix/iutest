@@ -9,7 +9,8 @@ RUN apt-get update -q -y && \
     apt-get install -y libsqlite3-dev libssl-dev && \
     apt-get install -y python2.7 python2.7-dev python-virtualenv && \
     apt-get install -y git subversion && \
-    apt-get install -y build-essential
+    apt-get install -y build-essential && \
+    apt-get install -y gdb
 
 # pyenv
 ENV PYENV_ROOT $HOME/.pyenv
@@ -33,11 +34,11 @@ RUN pyenv local 2.7.13 3.5.2 3.6.0
 RUN pip install virtualenv
 
 RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add - && \
-    apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-6.0 main" && \
+    apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-7 main" && \
     apt-get update && \
-    apt-get install -y clang-6.0
-RUN update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-6.0 1000 && \
-    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-6.0 1000 && \
+    apt-get install -y clang-7
+RUN update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-7 1000 && \
+    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-7 1000 && \
     update-alternatives --config clang && \
     update-alternatives --config clang++
 
