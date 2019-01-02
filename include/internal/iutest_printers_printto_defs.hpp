@@ -26,6 +26,8 @@ namespace detail
 // declare
 template<typename T>
 void UniversalPrint(const T& value, iu_ostream* os);
+template<typename T>
+void DefaultPrintNonContainerTo(const T& value, iu_ostream* os);
 
 //======================================================================
 // function
@@ -95,7 +97,7 @@ inline void PrintTo(const ::std::basic_string_view<CharT, Traits>& value, iu_ost
 inline void PrintTo(const ::std::any& value, iu_ostream* os)
 {
    *os << "-Any type-name: " << value.type().name();
-   DefaultPrintNonContainerTo(value, os);
+   UniversalPrint(value, os);
 }
 #endif
 
