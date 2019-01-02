@@ -52,7 +52,7 @@ Features
   + CSV parameter.
   + Any parameter.
   + Random parameter.
-  + Multiple parameters can be concatenated. 
+  + Multiple parameters can be concatenated.
 * Test packages (grouping).
 * Skip test.
 * Private member test.
@@ -95,10 +95,10 @@ Tools
 
 * fused  
   make fused-src.
-* twilio  
-  notifies the test results using twilio
-* wandbox  
-  tools to make use of the iutest in [wandbox](https://wandbox.org/)
+* Twilio  
+  notifies the test results using Twilio
+* Wandbox  
+  tools to make use of the iutest in [Wandbox](https://wandbox.org/)
 
 Tests
 --------------------------------------------------

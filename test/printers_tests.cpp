@@ -61,14 +61,22 @@ IUTEST(PrintToTest, Bar)
 IUTEST(PrintToTest, IutestAnyNotInitialized)
 {
     ::iutest::any a;
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     LogChecker ck("empty");
+#else
+    LogChecker ck("8-Byte object < 00 00 00 00 00 00 00 00 >");
+#endif
     IUTEST_SUCCEED() << ::iutest::PrintToString(a);
 }
 
 IUTEST(PrintToTest, IutestAnyString)
 {
-    ::iutest::any a = "test";
-    LogChecker ck("test");
+    ::iutest::any a = "any-test";
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+    LogChecker ck("any-test");
+#else
+    LogChecker ck("8-Byte object");
+#endif
     IUTEST_SUCCEED() << ::iutest::PrintToString(a);
 }
 
@@ -149,19 +157,11 @@ IUTEST(PrintToTest, Std)
     ::std::vector<int> v(a, a+(sizeof(a)/sizeof(a[0])));
 
     {
-#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
         LogChecker ck("0, 1");
-#else
-        LogChecker ck("4-Byte object < 00 00 00 00 >, 4-Byte object < 01 00 00 00 >");
-#endif
         IUTEST_SUCCEED() << ::iutest::PrintToString(p);
     }
     {
-#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
         LogChecker ck("{ 0, 1, 2 }");
-#else
-        LogChecker ck("{ 4-Byte object < 00 00 00 00 >, 4-Byte object < 01 00 00 00 >, 4-Byte object < 02 00 00 00 > }");
-#endif
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
 }

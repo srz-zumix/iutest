@@ -2,17 +2,16 @@
   trigger_mode: "ON_EVERY_PUSH"
   ref_name: "(^(master|develop)*$)"
   ref_type: "WILDCARD"
+  # always_from_scratch: true
+  auto_clear_cache: true
   actions:
   - action: "Build Docker image"
     type: "DOCKERFILE"
     login: "srzzumix"
-    password: "zumix_dockerhub"
+    password: "${zumix_dockerhub}"
     docker_image_tag: "latest"
-    dockerfile_path: ".ci/Dockerfile.arm"
+    dockerfile_path: ".ci/docker/arm-none-eabi/Dockerfile"
     repository: "srzzumix/arm-none-eabi-gcc-with-python"
-    trigger_condition_paths:
-    - ".ci/Dockerfile.arm"
-    trigger_condition: "ON_CHANGE_AT_PATH"
   - action: "Execute: arm-none-eabi-gcc --version"
     type: "BUILD"
     working_directory: "/buddy/iutest"

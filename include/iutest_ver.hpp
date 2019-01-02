@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01169908u //!< iutest version 1.16.99.8
+#define IUTEST_VER          0x01169910u //!< iutest version 1.16.99.10
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
 #define IUTEST_MICROVER     0x99u       //!< Micro Version
-#define IUTEST_REVISION     0x08u       //!< Revision
+#define IUTEST_REVISION     0x10u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -123,6 +123,9 @@
   <li>v1.17.0.0
     <ul>
       <li></li>
+      <li><CSV パラメータ生成でファイルオープン失敗した場合の警告レベルを FATAL から WARNING に変更/li>
+      <li>CSV パラメータ生成で要素がなかった場合に WARNING 出力</li>
+      <li>deprecated: IUTEST_USE_OWN_LIST</li>
     </ul>
   </li>
   <li>v1.16.7.0

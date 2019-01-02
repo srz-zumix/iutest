@@ -13,11 +13,109 @@ jobs:
   - job: ${{ parameters.name }}
     strategy:
       matrix:
-        AnyParamTest:
+        Disable_AnyParamTest:
           DISABLED_CONFIG: IUTEST_HAS_ANY_PARAM_TEST
-        Assertion_NoEqualToObject:
+        Disable_AssertionNoEqualToObject:
           DISABLED_CONFIG: IUTEST_HAS_ASSERTION_NOEQUALTO_OBJECT
-    pool:
+        Disable_AssertionReturn:
+          DISABLED_CONFIG: IUTEST_HAS_ASSERTION_RETURN
+        Disable_AutoFixtureParamTest:
+          DISABLED_CONFIG: IUTEST_HAS_AUTOFIXTURE_PARAM_TEST
+        Disable_Exception:
+          DISABLED_CONFIG: IUTEST_HAS_EXCEPTIONS
+        Disable_GenRand:
+          DISABLED_CONFIG: IUTEST_HAS_GENRAND
+        # Disable_IgnoreTest:
+        #   DISABLED_CONFIG: IUTEST_HAS_IGNORE_TEST
+        Disable_Matchers:
+          DISABLED_CONFIG: IUTEST_HAS_MATCHERS
+        Disable_MatchersAllOfAndAnyOf:
+          DISABLED_CONFIG: IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
+        Disable_MatchersElementsAre:
+          DISABLED_CONFIG: IUTEST_HAS_MATCHER_ELEMENTSARE
+        Disable_MatchersElementsAreArrayForward:
+          DISABLED_CONFIG: IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD
+        Disable_MatchersRegex:
+          DISABLED_CONFIG: IUTEST_HAS_MATCHER_REGEX
+        Disable_Package:
+          DISABLED_CONFIG: IUTEST_HAS_PACKAGE
+        Disable_Peep:
+          DISABLED_CONFIG: IUTEST_HAS_PEEP
+        Disable_PeepClass:
+          DISABLED_CONFIG: IUTEST_HAS_PEEP_CLASS
+        Disable_PeepFunc:
+          DISABLED_CONFIG: IUTEST_HAS_PEEP_FUNC
+        Disable_PeepStaticFunc:
+          DISABLED_CONFIG: IUTEST_HAS_PEEP_STATIC_FUNC
+        Disable_PrintTo:
+          DISABLED_CONFIG: IUTEST_HAS_PRINT_TO
+        Disable_Regex:
+          DISABLED_CONFIG: IUTEST_HAS_REGEX
+        Disable_ReportSkipped:
+          DISABLED_CONFIG: IUTEST_HAS_REPORT_SKIPPED
+        Disable_Socket:
+          DISABLED_CONFIG: IUTEST_HAS_SOCKET
+        Disable_SpiLambdaSupport:
+          DISABLED_CONFIG: IUTEST_HAS_SPI_LAMBDA_SUPPORT
+        Disable_StaticAssertTypeEq:
+          DISABLED_CONFIG: IUTEST_HAS_STATIC_ASSERT_TYPEEQ
+        Disable_StreamCapture:
+          DISABLED_CONFIG: IUTEST_HAS_STREAM_CAPTURE
+        Disable_StreamResult:
+          DISABLED_CONFIG: IUTEST_HAS_STREAM_RESULT
+        Disable_TestFixtureAliasByTuple:
+          DISABLED_CONFIG: IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
+        # Disable_TestNameAliasJp:
+        #   DISABLED_CONFIG: IUTEST_HAS_TESTNAME_ALIAS_JP
+        Disable_TestNameAlias:
+          DISABLED_CONFIG: IUTEST_HAS_TESTNAME_ALIAS
+        Disable_LambdaStatements:
+          DISABLED_CONFIG: IUTEST_HAS_LAMBDA_STATEMENTS
+        Disable_TypedTestP:
+          DISABLED_CONFIG: IUTEST_HAS_TYPED_TEST_P
+        Disable_TypedTest:
+          DISABLED_CONFIG: IUTEST_HAS_TYPED_TEST
+        Disable_TypedTestPStrict:
+          DISABLED_CONFIG: IUTEST_TYPED_TEST_P_STRICT
+        # feature parame test configs
+        Disable_Combine:
+          DISABLED_CONFIG: IUTEST_HAS_COMBINE
+        Disable_Concat:
+          DISABLED_CONFIG: IUTEST_HAS_CONCAT
+        Disable_CsvParams:
+          DISABLED_CONFIG: IUTEST_HAS_CSVPARAMS
+        Disable_Pairwise:
+          DISABLED_CONFIG: IUTEST_HAS_PAIRWISE
+        Disable_ParamMethodTest:
+          DISABLED_CONFIG: IUTEST_HAS_PARAM_METHOD_TEST
+        Disable_ParamTest:
+          DISABLED_CONFIG: IUTEST_HAS_PARAM_TEST
+        Disable_ParamTestParamNameGenerator:
+          DISABLED_CONFIG: IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR
+        Disable_RandomValues:
+          DISABLED_CONFIG: IUTEST_HAS_RANDOMVALUES
+        Disable_ValuesGen:
+          DISABLED_CONFIG: IUTEST_HAS_VALUESGEN
+        Disable_VariadicCombine:
+          DISABLED_CONFIG: IUTEST_HAS_VARIADIC_COMBINE
+        Disable_VariadicPariwise:
+          DISABLED_CONFIG: IUTEST_HAS_VARIADIC_PAIRWISE
+        Disable_VariadicValues:
+          DISABLED_CONFIG: IUTEST_HAS_VARIADIC_VALUES
+        # spec config
+        Disable_BitwiseExpressionDecompose:
+          DISABLED_CONFIG: IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE
+        Disable_FileStat:
+          DISABLED_CONFIG: IUTEST_HAS_FILE_STAT
+        Disable_FOpen:
+          DISABLED_CONFIG: IUTEST_HAS_FOPEN
+        Disable_StringStream:
+          DISABLED_CONFIG: IUTEST_HAS_STRINGSTREAM
+        Disable_Tuple:
+          DISABLED_CONFIG: IUTEST_HAS_TUPLE
+    #     Disable_VariadicTemplates:
+    #       DISABLED_CONFIG: IUTEST_HAS_VARIADIC_TEMPLATES
+    # pool:
       vmImage: ${{ parameters.vmImage }}
     steps:
     - template: template-make-test-steps.yml
