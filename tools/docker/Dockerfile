@@ -33,6 +33,17 @@ RUN pyenv local 2.7.13 3.5.2 3.6.0
 
 RUN pip install virtualenv
 
+# gcc
+RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
+    apt-get update && \
+    apt-get install -y g++-8 gcc-8
+RUN update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-8  1000 && \
+    update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-8  1000 && \
+    update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-8 1000 && \
+    update-alternatives --config gcc && \
+    update-alternatives --config g++
+
+# clang
 RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add - && \
     apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-7 main" && \
     apt-get update && \
@@ -41,6 +52,8 @@ RUN update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-7 10
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-7 1000 && \
     update-alternatives --config clang && \
     update-alternatives --config clang++
+
+RUN apt-get clean
 
 RUN mkdir /iutest
 VOLUME [ "/iutest" ]
