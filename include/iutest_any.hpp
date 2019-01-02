@@ -235,23 +235,6 @@ inline T unsafe_any_cast(const any& value)
     return unsafe_any_cast<T>(const_cast<any&>(value));
 }
 
-#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
-
-#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
-template<typename Elem, typename Traits>
-inline ::std::basic_ostream<Elem, Traits>& operator << (::std::basic_ostream<Elem, Traits>& os, const any& value)
-{
-    return os << value.to_string();
-}
-#else
-inline iu_ostream& operator << (iu_ostream& os, const any& value)
-{
-    return os << value.to_string();
-}
-#endif
-
-#endif
-
 }   // end of namespace iutest
 
 #endif // INCG_IRIS_IUTEST_ANY_HPP_8DB2417F_568A_4E01_95AD_21164565B975_

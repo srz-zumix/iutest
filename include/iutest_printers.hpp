@@ -18,17 +18,11 @@
 //======================================================================
 // include
 #include "iutest_defs.hpp"
-#include "iutest_default_printers.hpp"
+#include "iutest_any.hpp"
+#include "internal/iutest_printers_printto_defs.hpp"
 #include "internal/iutest_string.hpp"
 
-namespace iutest
-{
-
-//======================================================================
-// declare
-template<typename T>
-std::string PrintToString(const T& v);
-
+namespace iutest {
 namespace detail
 {
 
@@ -245,13 +239,6 @@ inline void PrintTo(const T& value, iu_ostream* os) {
 }
 inline void PrintTo(bool b, iu_ostream* os)         { *os << (b ? "true" : "false"); }
 inline void PrintTo(const char* c, iu_ostream* os)  { *os << c; }
-#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-template<typename T>
-inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
-{
-    *os << f.raw() << "(0x" << ToHexString(f.bits()) << ")";
-}
-#endif
 // char or unsigned char の時に、 0 が NULL 文字にならないように修正
 inline void PrintTo(const char value, iu_ostream* os)
 {
@@ -384,7 +371,8 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const wchar_t* begin, s
 template<typename T>
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(const T& value, iu_ostream* os)
 {
-    using namespace ::iutest::detail::printer_internal_stdlib; // NOLINT
+    using namespace ::iutest::detail::printer_iutest_printto; // NOLINT
+    using namespace ::iutest::detail::printer_stdlib_printto; // NOLINT
     PrintTo(value, os);
 }
 

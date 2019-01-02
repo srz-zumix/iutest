@@ -1,7 +1,7 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file        iutest_default_printers.hpp
+ * @file        iutest_printers_printto_defs.hpp
  * @brief       iris unit test default print to operaters 
  *
  * @author      t.shirayanagi
@@ -12,8 +12,8 @@
 */
 //-----------------------------------------------------------------------
 //======================================================================
-#ifndef INCG_IRIS_IUTEST_DEFAULT_PRINTERS_HPP_52DAF156_7F2D_4AF2_B4CA_9412A1FBCE39_
-#define INCG_IRIS_IUTEST_DEFAULT_PRINTERS_HPP_52DAF156_7F2D_4AF2_B4CA_9412A1FBCE39_
+#ifndef INCG_IRIS_IUTEST_PRINTERS_PRINTTO_DEFS_HPP_52DAF156_7F2D_4AF2_B4CA_9412A1FBCE39_
+#define INCG_IRIS_IUTEST_PRINTERS_PRINTTO_DEFS_HPP_52DAF156_7F2D_4AF2_B4CA_9412A1FBCE39_
 
 //======================================================================
 // define
@@ -33,7 +33,25 @@ void UniversalPrint(const T& value, iu_ostream* os);
 inline void PrintTo(int v, iu_ostream* os)  { *os << v; }
 #endif
 
-namespace printer_internal_stdlib
+namespace printer_iutest_printto
+{
+
+inline void PrintTo(const any& value, iu_ostream* os)
+{
+    *os << value.to_string();
+}
+
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+template<typename T>
+inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
+{
+    *os << f.raw() << "(0x" << ToHexString(f.bits()) << ")";
+}
+#endif
+
+}   // end of namespace printer_iutest_printto
+
+namespace printer_stdlib_printto
 {
 
 template<typename CharT, typename Traits, typename Alloc>
@@ -236,8 +254,8 @@ IIUT_DECL_TUPLE_PRINTTO(9)
 
 #endif
 
-}   // end of namespace printer_internal_stdlib
+}   // end of namespace printer_stdlib_printto
 }   // end of namespace detail
 }   // end of namespace iutest
 
-#endif // INCG_IRIS_IUTEST_DEFAULT_PRINTERS_HPP_52DAF156_7F2D_4AF2_B4CA_9412A1FBCE39_
+#endif // INCG_IRIS_IUTEST_PRINTERS_PRINTTO_DEFS_HPP_52DAF156_7F2D_4AF2_B4CA_9412A1FBCE39_
