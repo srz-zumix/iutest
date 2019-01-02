@@ -303,48 +303,6 @@ inline void PrintTo(const unsigned char value, iu_ostream* os)
 {
     *os << static_cast<unsigned int>(value);
 }
-#if IUTEST_HAS_CXX_HDR_STRING_VIEW
-template<typename CharT, typename Traits>
-inline void PrintTo(const ::std::basic_string_view<CharT, Traits>& value, iu_ostream* os)
-{
-    const ::std::basic_string<CharT, Traits> tmp{ value };
-    *os << tmp;
-}
-#endif
-
-#if IUTEST_HAS_CXX_HDR_OPTIONAL
-template<typename T>
-inline void PrintTo(const ::std::optional<T>& value, iu_ostream* os)
-{
-    if (value)
-    {
-        UniversalPrint(value.value(), os);
-    }
-    else
-    {
-        *os << "nullopt";
-    }
-}
-#endif
-
-#if IUTEST_HAS_CXX_HDR_VARIANT
-template<typename... Types>
-inline void PrintTo(const ::std::variant<Types...>& value, iu_ostream* os)
-{
-    if (value.valueless_by_exception())
-    {
-        *os << "valueless_by_exception";
-    }
-    else
-    {
-        std::visit([&os](const auto& v) { UniversalPrint(v, os); }, value);
-    }
-}
-inline void PrintTo(const ::std::monostate&, iu_ostream* os)
-{
-    *os << "monostate";
-}
-#endif
 
 #if IUTEST_USE_CXX_FILESYSTEM
 inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_type& value)
@@ -384,7 +342,7 @@ inline void PrintTo(const ::std::filesystem::perms& value, iu_ostream* os)
 inline void PrintTo(const ::std::filesystem::file_status& value, iu_ostream* os)
 {
     *os << FileSystemFileTypeToString(value.type()) << ": ";
-    PrintTo(value.permissions(), os);
+    UniversalPrint(value.permissions(), os);
 }
 inline void PrintTo(const ::std::filesystem::space_info& value, iu_ostream* os)
 {
@@ -394,12 +352,16 @@ inline void PrintTo(const ::std::filesystem::space_info& value, iu_ostream* os)
 }
 inline void PrintTo(const ::std::filesystem::directory_entry& value, iu_ostream* os)
 {
-    PrintTo(value.path(), os);
+    UniversalPrint(value.path(), os);
 }
 inline void PrintTo(const ::std::filesystem::directory_iterator& value, iu_ostream* os)
 {
-    PrintTo(*value, os);
+    UniversalPrint(*value, os);
 }
+#endif
+
+#if IUTEST_HAS_NULLPTR
+inline void PrintTo(const ::std::nullptr_t&, iu_ostream* os) { *os << "nullptr"; }
 #endif
 
 #if IUTEST_HAS_TUPLE
@@ -415,13 +377,13 @@ template<typename T, int I, int SIZE>
 inline void PrintTupleElemTo(const T& t, iu_ostream* os
     , typename iutest_type_traits::enable_if<I == 1, void>::type*& = iutest_type_traits::enabler::value)
 {
-    PrintTo(tuples::get<SIZE-I>(t), os);
+    UniversalPrint(tuples::get<SIZE-I>(t), os);
 }
 template<typename T, int I, int SIZE>
 inline void PrintTupleElemTo(const T& t, iu_ostream* os
     , typename iutest_type_traits::enable_if<(I&(~1)) != 0, void>::type*& = iutest_type_traits::enabler::value)
 {
-    PrintTo(tuples::get<SIZE-I>(t), os);
+    UniversalPrint(tuples::get<SIZE-I>(t), os);
     *os << ", ";
     PrintTupleElemTo<T, I-1, SIZE>(t, os);
 }
@@ -562,6 +524,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const wchar_t* begin, s
 template<typename T>
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintTo(const T& value, iu_ostream* os)
 {
+    using namespace ::iutest::detail::printer_internal_default_printto; // NOLINT
     PrintTo(value, os);
 }
 

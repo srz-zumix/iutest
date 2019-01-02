@@ -17,39 +17,63 @@
 
 //======================================================================
 // define
-#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
-#  define IIUT_STREAM_OP_DECL(T) \
-    template<typename Elem, typename Traits, typename T> \
-    inline ::std::basic_ostream<Elem, Traits>& operator << (::std::basic_ostream<Elem, Traits>& os, const T& value)
-#else
-#  define IIUT_STREAM_OP_DECL(T) \
-    template<typename T> \
-    inline iu_ostream& operator << (iu_ostream& os, const T& value)
-#endif
 
 namespace iutest {
 namespace detail {
+namespace printer_internal_default_printto {
 
-namespace printer_internal
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+template<typename CharT, typename Traits>
+inline void PrintTo(const ::std::basic_string_view<CharT, Traits>& value, iu_ostream* os)
 {
-
-#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+    const ::std::basic_string<CharT, Traits> tmp{ value };
+    *os << tmp;
+}
+#endif
 
 #if IUTEST_HAS_CXX_HDR_ANY
-IIUT_STREAM_OP_DECL(::std::any)
+inline void PrintTo(const ::std::any& value, iu_ostream* os)
 {
    *os << "-Any type-name: " << value.type().name();
    DefaultPrintNonContainerTo(value, os);
 }
 #endif
 
+#if IUTEST_HAS_CXX_HDR_OPTIONAL
+template<typename T>
+inline void PrintTo(const ::std::optional<T>& value, iu_ostream* os)
+{
+    if (value)
+    {
+        UniversalPrint(value.value(), os);
+    }
+    else
+    {
+        *os << "nullopt";
+    }
+}
 #endif
 
-}   // end of namespace printer_internal
-
-#if IUTEST_HAS_NULLPTR
-inline void PrintTo(const ::std::nullptr_t&, iu_ostream* os) { *os << "nullptr"; }
+#if IUTEST_HAS_CXX_HDR_VARIANT
+template<typename... Types>
+inline void PrintTo(const ::std::variant<Types...>& value, iu_ostream* os)
+{
+    if (value.valueless_by_exception())
+    {
+        *os << "valueless_by_exception";
+    }
+    else
+    {
+        std::visit([&os](const auto& v) { UniversalPrint(v, os); }, value);
+    }
+}
+inline void PrintTo(const ::std::monostate&, iu_ostream* os)
+{
+    *os << "monostate";
+}
 #endif
+
+}   // end of namespace printer_internal_default_printto
 
 #if defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 inline void PrintTo(int v, iu_ostream* os)  { *os << v; }
