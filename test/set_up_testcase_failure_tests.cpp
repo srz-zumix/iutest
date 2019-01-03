@@ -64,7 +64,7 @@ int main(int argc, char* argv[])
 
 #if defined(IUTEST_USE_GTEST)
     // "Google Test" fails to set up a test case,
-    // it does not report a failure, and the test is also continued 
+    // it does not report a failure, and the test is also continued
     if( ret == 1 ) return 1;
 #else
     if( ret == 0 ) return 1;
