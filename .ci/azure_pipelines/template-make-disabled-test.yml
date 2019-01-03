@@ -113,9 +113,9 @@ jobs:
           DISABLED_CONFIG: IUTEST_HAS_STRINGSTREAM
         Disable_Tuple:
           DISABLED_CONFIG: IUTEST_HAS_TUPLE
-    #     Disable_VariadicTemplates:
-    #       DISABLED_CONFIG: IUTEST_HAS_VARIADIC_TEMPLATES
-    # pool:
+        Disable_VariadicTemplates:
+          DISABLED_CONFIG: IUTEST_HAS_VARIADIC_TEMPLATES
+    pool:
       vmImage: ${{ parameters.vmImage }}
     steps:
     - template: template-make-test-steps.yml
