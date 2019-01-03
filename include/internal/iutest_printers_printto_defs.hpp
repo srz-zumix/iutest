@@ -96,8 +96,8 @@ inline void PrintTo(const ::std::basic_string_view<CharT, Traits>& value, iu_ost
 #if IUTEST_HAS_CXX_HDR_ANY
 inline void PrintTo(const ::std::any& value, iu_ostream* os)
 {
-   *os << "-Any type-name: " << value.type().name();
-   UniversalPrint(value, os);
+    *os << "-Any type-name: " << value.type().name();
+    DefaultPrintNonContainerTo(value, os);
 }
 #endif
 
