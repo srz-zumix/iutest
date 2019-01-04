@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.99.8</span>
+   &#160;<span id="projectnumber">1.16.99.10</span>
    </div>
   </td>
  </tr>
@@ -296,35 +296,36 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    IIUT_SHOW_MACRO(<a class="code" href="../../d9/dad/iutest__stdlib_8hpp.html#a8384188c9c826e00f46b7edfa1ddb46c">IUTEST_HAS_TUPLE</a>);</div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    IIUT_SHOW_MACRO(IUTEST_HAS_VARIADIC_TEMPLATES);</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    IIUT_SHOW_MACRO(<a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a64b3edcdc1ddeb929a67ff9761bc1dc2">IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES</a>);</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    IIUT_SHOW_MACRO(<a class="code" href="../../dc/d51/group___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t.html#gafc2ef343919f5fda870aab5ea2192018">IUTEST_USE_THROW_ON_ASSERTION_FAILURE</a>);</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="preprocessor">#ifdef IUTEST_LIBSTDCXX_VERSION</span></div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="preprocessor"></span>    IIUT_SHOW_MACRO(IUTEST_LIBSTDCXX_VERSION);</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="preprocessor">#ifdef _MSC_FULL_VER</span></div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="preprocessor"></span>    IIUT_SHOW_MACRO(_MSC_FULL_VER);</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifdef __GLIBCXX__</span></div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;<span class="preprocessor"></span>    IIUT_SHOW_MACRO(__GLIBCXX__);</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifdef __GLIBCPP__</span></div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;<span class="preprocessor"></span>    IIUT_SHOW_MACRO(__GLIBCPP__);</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifdef _LIBCPP_VERSION</span></div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="preprocessor"></span>    IIUT_SHOW_MACRO(_LIBCPP_VERSION);</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifdef __POSIX_VISIBLE</span></div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="preprocessor"></span>    IIUT_SHOW_MACRO(__POSIX_VISIBLE);</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="preprocessor">#undef IIUT_SHOW_MACRO</span></div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="preprocessor"></span>}</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_OPTION_MESSAGE_HPP_00EB9B17_0615_4678_9AD0_1F5B295B404F_</span></div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    IIUT_SHOW_MACRO(<a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a0b382b0e3c4dffe89999d5fa908407d5">IUTEST_HAS_WANT_SECURE_LIB</a>);</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    IIUT_SHOW_MACRO(<a class="code" href="../../dc/d51/group___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t.html#gafc2ef343919f5fda870aab5ea2192018">IUTEST_USE_THROW_ON_ASSERTION_FAILURE</a>);</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="preprocessor">#ifdef IUTEST_LIBSTDCXX_VERSION</span></div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="preprocessor"></span>    IIUT_SHOW_MACRO(IUTEST_LIBSTDCXX_VERSION);</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="preprocessor">#ifdef _MSC_FULL_VER</span></div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="preprocessor"></span>    IIUT_SHOW_MACRO(_MSC_FULL_VER);</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifdef __GLIBCXX__</span></div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;<span class="preprocessor"></span>    IIUT_SHOW_MACRO(__GLIBCXX__);</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifdef __GLIBCPP__</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="preprocessor"></span>    IIUT_SHOW_MACRO(__GLIBCPP__);</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifdef _LIBCPP_VERSION</span></div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;<span class="preprocessor"></span>    IIUT_SHOW_MACRO(_LIBCPP_VERSION);</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#ifdef __POSIX_VISIBLE</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="preprocessor"></span>    IIUT_SHOW_MACRO(__POSIX_VISIBLE);</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="preprocessor">#undef IIUT_SHOW_MACRO</span></div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="preprocessor"></span>}</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_OPTION_MESSAGE_HPP_00EB9B17_0615_4678_9AD0_1F5B295B404F_</span></div>
 <div class="ttc" id="iutest__compiler_8hpp_html_a2098f27dcc34f5af9d5e85b04e244a1f"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a2098f27dcc34f5af9d5e85b04e244a1f">IUTEST_HAS_CONSTEXPR_IF</a></div><div class="ttdeci">#define IUTEST_HAS_CONSTEXPR_IF</div><div class="ttdoc">constexpr if </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:201</div></div>
 <div class="ttc" id="iutest__stdlib_8hpp_html_ae5f8ba8e39f3eaae15391efaef0b4087"><div class="ttname"><a href="../../d9/dad/iutest__stdlib_8hpp.html#ae5f8ba8e39f3eaae15391efaef0b4087">IUTEST_HAS_STRSTREAM</a></div><div class="ttdeci">#define IUTEST_HAS_STRSTREAM</div><div class="ttdoc">::std::strstream が使用可能かどうか </div><div class="ttdef"><b>Definition:</b> iutest_stdlib.hpp:669</div></div>
 <div class="ttc" id="iutest__stdlib_8hpp_html_a4ece30205647dccdfcff8a0c0a9e74ef"><div class="ttname"><a href="../../d9/dad/iutest__stdlib_8hpp.html#a4ece30205647dccdfcff8a0c0a9e74ef">IUTEST_HAS_CXX_HDR_REGEX</a></div><div class="ttdeci">#define IUTEST_HAS_CXX_HDR_REGEX</div><div class="ttdoc">has regex header </div><div class="ttdef"><b>Definition:</b> iutest_stdlib.hpp:412</div></div>
@@ -350,6 +351,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="ttc" id="iutest__compiler_8hpp_html_a2a62db2a9a92a3b0248b858deb221309"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a2a62db2a9a92a3b0248b858deb221309">IUTEST_HAS_CXX11</a></div><div class="ttdeci">#define IUTEST_HAS_CXX11</div><div class="ttdoc">is c++11 compiler </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:169</div></div>
 <div class="ttc" id="iutest__compiler_8hpp_html_a25420d262fb8e8c6f56afc7029416c4e"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a25420d262fb8e8c6f56afc7029416c4e">IUTEST_HAS_DELETED_FUNCTIONS</a></div><div class="ttdeci">#define IUTEST_HAS_DELETED_FUNCTIONS</div><div class="ttdoc">has delete function </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:411</div></div>
 <div class="ttc" id="iutest__compiler_8hpp_html_a64b3edcdc1ddeb929a67ff9761bc1dc2"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a64b3edcdc1ddeb929a67ff9761bc1dc2">IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES</a></div><div class="ttdeci">#define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES</div><div class="ttdoc">has variadic template </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:539</div></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_a0b382b0e3c4dffe89999d5fa908407d5"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a0b382b0e3c4dffe89999d5fa908407d5">IUTEST_HAS_WANT_SECURE_LIB</a></div><div class="ttdeci">#define IUTEST_HAS_WANT_SECURE_LIB</div><div class="ttdoc">partial template specialization </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:1080</div></div>
 <div class="ttc" id="iutest__compiler_8hpp_html_a176c0a26c3a73e9fb9d72c39f1f92bcf"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a176c0a26c3a73e9fb9d72c39f1f92bcf">IUTEST_HAS_STRONG_ENUMS</a></div><div class="ttdeci">#define IUTEST_HAS_STRONG_ENUMS</div><div class="ttdoc">has enum class </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:829</div></div>
 <div class="ttc" id="iutest__compiler_8hpp_html_af82262b60d94b5639c04c270797bdcb6"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#af82262b60d94b5639c04c270797bdcb6">IUTEST_HAS_COUNTER_MACRO</a></div><div class="ttdeci">#define IUTEST_HAS_COUNTER_MACRO</div><div class="ttdoc">has COUNTER </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:973</div></div>
 <div class="ttc" id="group___i_u_t_e_s_t___c_o_n_f_i_g___t_i_m_e_html_gac31023d96b281031e296dce766ea0d70"><div class="ttname"><a href="../../de/d11/group___i_u_t_e_s_t___c_o_n_f_i_g___t_i_m_e.html#gac31023d96b281031e296dce766ea0d70">IUTEST_HAS_GETTIMEOFDAY</a></div><div class="ttdeci">#define IUTEST_HAS_GETTIMEOFDAY</div><div class="ttdoc">gettimeofday 関数が使用可能かどうか </div><div class="ttdef"><b>Definition:</b> iutest_config.hpp:569</div></div>
@@ -388,7 +390,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年12月06日(木) 01時14分48秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2019年01月04日(金) 00時42分28秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

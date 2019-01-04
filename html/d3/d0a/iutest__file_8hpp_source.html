@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.99.8</span>
+   &#160;<span id="projectnumber">1.16.99.10</span>
    </div>
   </td>
  </tr>
@@ -274,139 +274,152 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> <a class="code" href="../../de/d67/classiutest_1_1_stdio_file.html#a9ac2f9a1ec1601431247c6a8a45be149">GetSize</a>() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
 <div class="line"><a name="l00229"></a><span class="lineno"><a class="line" href="../../de/d67/classiutest_1_1_stdio_file.html#a9ac2f9a1ec1601431247c6a8a45be149">  229</a></span>&#160;    {</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        <span class="keywordflow">if</span>( m_fp == NULL )</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        {</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;            <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        }</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">long</span> pre = ftell(m_fp);</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        <span class="keywordflow">if</span>( pre == -1 )</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        {</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../de/d67/classiutest_1_1_stdio_file.html#a9ac2f9a1ec1601431247c6a8a45be149">GetSize</a>(m_fp);</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        }</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        <span class="keywordflow">if</span>( fseek(m_fp, 0, SEEK_END) != 0 )</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        {</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../de/d67/classiutest_1_1_stdio_file.html#a9ac2f9a1ec1601431247c6a8a45be149">GetSize</a>(m_fp);</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        }</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">size_t</span> size = <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(ftell(m_fp));</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        IUTEST_UNUSED_RETURN(fseek(m_fp, pre, SEEK_SET));</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        <span class="keywordflow">return</span> size;</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    }</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">size_t</span> <a class="code" href="../../de/d67/classiutest_1_1_stdio_file.html#a9ac2f9a1ec1601431247c6a8a45be149">GetSize</a>(FILE* fp)</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    {</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        internal::posix::StatStruct st;</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <span class="keywordflow">if</span> (internal::posix::Stat(fp, &amp;st) != 0)</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        {</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;            <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        }</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        <span class="keywordflow">return</span> st.st_size;</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    }</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;};</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;<span class="keyword">class </span>StdErrorFile : <span class="keyword">public</span> StdioFile</div>
-<div class="line"><a name="l00261"></a><span class="lineno"><a class="line" href="../../d4/d62/classiutest_1_1_std_error_file.html">  261</a></span>&#160;{</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    <a class="code" href="../../d4/d62/classiutest_1_1_std_error_file.html">StdErrorFile</a>() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> {}</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="../../d4/d62/classiutest_1_1_std_error_file.html">StdErrorFile</a>() { <a class="code" href="../../d4/d62/classiutest_1_1_std_error_file.html#ace94c9711a5f01aeeb5d63f0cc53fc60">Close</a>(); }</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="../../d4/d62/classiutest_1_1_std_error_file.html#a03f106aedb883cfbd614d9b103c0ff89">Open</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* , <span class="keywordtype">int</span> ) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
-<div class="line"><a name="l00273"></a><span class="lineno"><a class="line" href="../../d4/d62/classiutest_1_1_std_error_file.html#a03f106aedb883cfbd614d9b103c0ff89">  273</a></span>&#160;    {</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        m_fp = stderr;</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    }</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../d4/d62/classiutest_1_1_std_error_file.html#ace94c9711a5f01aeeb5d63f0cc53fc60">Close</a>() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
-<div class="line"><a name="l00281"></a><span class="lineno"><a class="line" href="../../d4/d62/classiutest_1_1_std_error_file.html#ace94c9711a5f01aeeb5d63f0cc53fc60">  281</a></span>&#160;    {</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        m_fp = NULL;</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    }</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;};</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STRINGSTREAM</span></div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;<span class="keyword">class </span>StringStreamFile : <span class="keyword">public</span> IFile</div>
-<div class="line"><a name="l00294"></a><span class="lineno"><a class="line" href="../../da/d94/classiutest_1_1_string_stream_file.html">  294</a></span>&#160;{</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="../../da/d94/classiutest_1_1_string_stream_file.html">StringStreamFile</a>() { <a class="code" href="../../da/d94/classiutest_1_1_string_stream_file.html#ab51f2ebbfb888c8ffb067285244dd1f1">Close</a>(); }</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="../../da/d94/classiutest_1_1_string_stream_file.html#ab58e3a655c891927a99e9cc37215e5d1">Open</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* , <span class="keywordtype">int</span> ) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
-<div class="line"><a name="l00303"></a><span class="lineno"><a class="line" href="../../da/d94/classiutest_1_1_string_stream_file.html#ab58e3a655c891927a99e9cc37215e5d1">  303</a></span>&#160;    {</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        ss.clear();</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    }</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../da/d94/classiutest_1_1_string_stream_file.html#ab51f2ebbfb888c8ffb067285244dd1f1">Close</a>() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
-<div class="line"><a name="l00312"></a><span class="lineno"><a class="line" href="../../da/d94/classiutest_1_1_string_stream_file.html#ab51f2ebbfb888c8ffb067285244dd1f1">  312</a></span>&#160;    {</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    }</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="../../da/d94/classiutest_1_1_string_stream_file.html#aec158761c03558d99c19f28bc4426cb0">Write</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* buf, <span class="keywordtype">size_t</span> size, <span class="keywordtype">size_t</span> cnt) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
-<div class="line"><a name="l00322"></a><span class="lineno"><a class="line" href="../../da/d94/classiutest_1_1_string_stream_file.html#aec158761c03558d99c19f28bc4426cb0">  322</a></span>&#160;    {</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        <span class="keywordflow">for</span>( <span class="keywordtype">size_t</span> i=0; i &lt; cnt; ++i )</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        {</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;            ss.write(static_cast&lt;const char*&gt;(buf), size);</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        }</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    }</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="../../da/d94/classiutest_1_1_string_stream_file.html#a79949a9a09010201ba06c6e2902dc5f6">Read</a>(<span class="keywordtype">void</span>* buf, <span class="keywordtype">size_t</span> size, <span class="keywordtype">size_t</span> cnt) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
-<div class="line"><a name="l00337"></a><span class="lineno"><a class="line" href="../../da/d94/classiutest_1_1_string_stream_file.html#a79949a9a09010201ba06c6e2902dc5f6">  337</a></span>&#160;    {</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        <span class="keywordtype">char</span>* p = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(buf);</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        <span class="keywordflow">for</span>( <span class="keywordtype">size_t</span> i = 0; i &lt; cnt; ++i )</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        {</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;            ss.read(p, size);</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;            p += size;</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        }</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    }</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> <a class="code" href="../../da/d94/classiutest_1_1_string_stream_file.html#aa59430cb4761fe996bc6380b343e8b4b">GetSize</a>() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
-<div class="line"><a name="l00349"></a><span class="lineno"><a class="line" href="../../da/d94/classiutest_1_1_string_stream_file.html#aa59430cb4761fe996bc6380b343e8b4b">  349</a></span>&#160;    {</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        ::std::stringstream::pos_type pre = ss.tellg();</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        ss.seekg(0, ::std::ios::end);</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        ::std::stringstream::pos_type size = ss.tellg();</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        ss.seekg(pre, ::std::ios::beg);</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(size);</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    }</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    virtual ::std::string <a class="code" href="../../da/d94/classiutest_1_1_string_stream_file.html#ae91ba3255b56b6497ee8aa2cb7432b13">ReadAll</a>() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
-<div class="line"><a name="l00359"></a><span class="lineno"><a class="line" href="../../da/d94/classiutest_1_1_string_stream_file.html#ae91ba3255b56b6497ee8aa2cb7432b13">  359</a></span>&#160;    {</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        <span class="keywordflow">return</span> ss.str();</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    }</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    ::std::stringstream ss;</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;};</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;<span class="keyword">namespace </span>detail</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;{</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;<span class="keyword">class </span>NoEffectFile : <span class="keyword">public</span> IFile</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;{</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Open(<span class="keyword">const</span> <span class="keywordtype">char</span>*, <span class="keywordtype">int</span>) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> { <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../d9/d57/classiutest_1_1_i_file.html#ab7589b799ad6a3844ace9574d4fb1bce">Close</a>() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> {}</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Write(<span class="keyword">const</span> <span class="keywordtype">void</span>*, <span class="keywordtype">size_t</span>, <span class="keywordtype">size_t</span>) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> { <span class="keywordflow">return</span> <span class="keyword">true</span>;  }</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Read(<span class="keywordtype">void</span>*, <span class="keywordtype">size_t</span>, <span class="keywordtype">size_t</span>) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> { <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> GetSize() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> { <span class="keywordflow">return</span> 0; }</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;};</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="preprocessor">#if IUTEST_HAS_FILE_STAT</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="preprocessor"></span>        <span class="keywordflow">return</span> <a class="code" href="../../de/d67/classiutest_1_1_stdio_file.html#a9ac2f9a1ec1601431247c6a8a45be149">GetSize</a>(m_fp);</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="preprocessor"></span>        <span class="keywordflow">return</span> GetSizeBySeekSet(m_fp);</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="preprocessor"></span>    }</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">size_t</span> <a class="code" href="../../de/d67/classiutest_1_1_stdio_file.html#a9ac2f9a1ec1601431247c6a8a45be149">GetSize</a>(FILE* fp)</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    {</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        <span class="keywordflow">if</span>( fp == NULL )</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;        {</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;            <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        }</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="preprocessor">#if IUTEST_HAS_FILE_STAT</span></div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="preprocessor"></span>        internal::posix::StatStruct st;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        <span class="keywordflow">if</span> (internal::posix::Stat(fp, &amp;st) != 0)</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        {</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;            <span class="keywordflow">return</span> GetSizeBySeekSet(fp);</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        }</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        <span class="keywordflow">return</span> st.st_size;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="preprocessor"></span>        IUTEST_UNUSED_VAR(fp);</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;<span class="preprocessor"></span>    }</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">size_t</span> GetSizeBySeekSet(FILE* fp)</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    {</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        <span class="keywordflow">if</span>( fp == NULL )</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        {</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;            <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        }</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">long</span> pre = ftell(fp);</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        <span class="keywordflow">if</span>( (pre != -1) &amp;&amp; (fseek(fp, 0, SEEK_END) == 0) )</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        {</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">size_t</span> size = <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(ftell(fp));</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            IUTEST_UNUSED_RETURN(fseek(fp, pre, SEEK_SET));</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;            <span class="keywordflow">return</span> size;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        }</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    }</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;};</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="keyword">class </span>StdErrorFile : <span class="keyword">public</span> StdioFile</div>
+<div class="line"><a name="l00274"></a><span class="lineno"><a class="line" href="../../d4/d62/classiutest_1_1_std_error_file.html">  274</a></span>&#160;{</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <a class="code" href="../../d4/d62/classiutest_1_1_std_error_file.html">StdErrorFile</a>() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> {}</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="../../d4/d62/classiutest_1_1_std_error_file.html">StdErrorFile</a>() { <a class="code" href="../../d4/d62/classiutest_1_1_std_error_file.html#ace94c9711a5f01aeeb5d63f0cc53fc60">Close</a>(); }</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="../../d4/d62/classiutest_1_1_std_error_file.html#a03f106aedb883cfbd614d9b103c0ff89">Open</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* , <span class="keywordtype">int</span> ) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
+<div class="line"><a name="l00286"></a><span class="lineno"><a class="line" href="../../d4/d62/classiutest_1_1_std_error_file.html#a03f106aedb883cfbd614d9b103c0ff89">  286</a></span>&#160;    {</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        m_fp = stderr;</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    }</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../d4/d62/classiutest_1_1_std_error_file.html#ace94c9711a5f01aeeb5d63f0cc53fc60">Close</a>() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
+<div class="line"><a name="l00294"></a><span class="lineno"><a class="line" href="../../d4/d62/classiutest_1_1_std_error_file.html#ace94c9711a5f01aeeb5d63f0cc53fc60">  294</a></span>&#160;    {</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;        m_fp = NULL;</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    }</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;};</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STRINGSTREAM</span></div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;<span class="keyword">class </span>StringStreamFile : <span class="keyword">public</span> IFile</div>
+<div class="line"><a name="l00307"></a><span class="lineno"><a class="line" href="../../da/d94/classiutest_1_1_string_stream_file.html">  307</a></span>&#160;{</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="../../da/d94/classiutest_1_1_string_stream_file.html">StringStreamFile</a>() { <a class="code" href="../../da/d94/classiutest_1_1_string_stream_file.html#ab51f2ebbfb888c8ffb067285244dd1f1">Close</a>(); }</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="../../da/d94/classiutest_1_1_string_stream_file.html#ab58e3a655c891927a99e9cc37215e5d1">Open</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* , <span class="keywordtype">int</span> ) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
+<div class="line"><a name="l00316"></a><span class="lineno"><a class="line" href="../../da/d94/classiutest_1_1_string_stream_file.html#ab58e3a655c891927a99e9cc37215e5d1">  316</a></span>&#160;    {</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        ss.clear();</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    }</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../da/d94/classiutest_1_1_string_stream_file.html#ab51f2ebbfb888c8ffb067285244dd1f1">Close</a>() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
+<div class="line"><a name="l00325"></a><span class="lineno"><a class="line" href="../../da/d94/classiutest_1_1_string_stream_file.html#ab51f2ebbfb888c8ffb067285244dd1f1">  325</a></span>&#160;    {</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    }</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="../../da/d94/classiutest_1_1_string_stream_file.html#aec158761c03558d99c19f28bc4426cb0">Write</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* buf, <span class="keywordtype">size_t</span> size, <span class="keywordtype">size_t</span> cnt) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
+<div class="line"><a name="l00335"></a><span class="lineno"><a class="line" href="../../da/d94/classiutest_1_1_string_stream_file.html#aec158761c03558d99c19f28bc4426cb0">  335</a></span>&#160;    {</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        <span class="keywordflow">for</span>( <span class="keywordtype">size_t</span> i=0; i &lt; cnt; ++i )</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;        {</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;            ss.write(static_cast&lt;const char*&gt;(buf), size);</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        }</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    }</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="../../da/d94/classiutest_1_1_string_stream_file.html#a79949a9a09010201ba06c6e2902dc5f6">Read</a>(<span class="keywordtype">void</span>* buf, <span class="keywordtype">size_t</span> size, <span class="keywordtype">size_t</span> cnt) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
+<div class="line"><a name="l00350"></a><span class="lineno"><a class="line" href="../../da/d94/classiutest_1_1_string_stream_file.html#a79949a9a09010201ba06c6e2902dc5f6">  350</a></span>&#160;    {</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        <span class="keywordtype">char</span>* p = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(buf);</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        <span class="keywordflow">for</span>( <span class="keywordtype">size_t</span> i = 0; i &lt; cnt; ++i )</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        {</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;            ss.read(p, size);</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;            p += size;</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;        }</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    }</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> <a class="code" href="../../da/d94/classiutest_1_1_string_stream_file.html#aa59430cb4761fe996bc6380b343e8b4b">GetSize</a>() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
+<div class="line"><a name="l00362"></a><span class="lineno"><a class="line" href="../../da/d94/classiutest_1_1_string_stream_file.html#aa59430cb4761fe996bc6380b343e8b4b">  362</a></span>&#160;    {</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        ::std::stringstream::pos_type pre = ss.tellg();</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        ss.seekg(0, ::std::ios::end);</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;        ::std::stringstream::pos_type size = ss.tellg();</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;        ss.seekg(pre, ::std::ios::beg);</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(size);</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    }</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    virtual ::std::string <a class="code" href="../../da/d94/classiutest_1_1_string_stream_file.html#ae91ba3255b56b6497ee8aa2cb7432b13">ReadAll</a>() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
+<div class="line"><a name="l00372"></a><span class="lineno"><a class="line" href="../../da/d94/classiutest_1_1_string_stream_file.html#ae91ba3255b56b6497ee8aa2cb7432b13">  372</a></span>&#160;    {</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;        <span class="keywordflow">return</span> ss.str();</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    }</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    ::std::stringstream ss;</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;};</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;<span class="keyword">namespace </span>detail</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;{</div>
 <div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_FILE_HPP_77D2C2B9_F504_4BB5_BA56_D97A2EB37DC6_</span></div>
-<div class="ttc" id="classiutest_1_1_string_stream_file_html_a79949a9a09010201ba06c6e2902dc5f6"><div class="ttname"><a href="../../da/d94/classiutest_1_1_string_stream_file.html#a79949a9a09010201ba06c6e2902dc5f6">iutest::StringStreamFile::Read</a></div><div class="ttdeci">virtual bool Read(void *buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">読み込み </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:337</div></div>
-<div class="ttc" id="classiutest_1_1_string_stream_file_html_ab58e3a655c891927a99e9cc37215e5d1"><div class="ttname"><a href="../../da/d94/classiutest_1_1_string_stream_file.html#ab58e3a655c891927a99e9cc37215e5d1">iutest::StringStreamFile::Open</a></div><div class="ttdeci">virtual bool Open(const char *, int) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">開く </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:303</div></div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="keyword">class </span>NoEffectFile : <span class="keyword">public</span> IFile</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;{</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Open(<span class="keyword">const</span> <span class="keywordtype">char</span>*, <span class="keywordtype">int</span>) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> { <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="../../d9/d57/classiutest_1_1_i_file.html#ab7589b799ad6a3844ace9574d4fb1bce">Close</a>() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> {}</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Write(<span class="keyword">const</span> <span class="keywordtype">void</span>*, <span class="keywordtype">size_t</span>, <span class="keywordtype">size_t</span>) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> { <span class="keywordflow">return</span> <span class="keyword">true</span>;  }</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> Read(<span class="keywordtype">void</span>*, <span class="keywordtype">size_t</span>, <span class="keywordtype">size_t</span>) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> { <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> GetSize() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> { <span class="keywordflow">return</span> 0; }</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;};</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_FILE_HPP_77D2C2B9_F504_4BB5_BA56_D97A2EB37DC6_</span></div>
+<div class="ttc" id="classiutest_1_1_string_stream_file_html_a79949a9a09010201ba06c6e2902dc5f6"><div class="ttname"><a href="../../da/d94/classiutest_1_1_string_stream_file.html#a79949a9a09010201ba06c6e2902dc5f6">iutest::StringStreamFile::Read</a></div><div class="ttdeci">virtual bool Read(void *buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">読み込み </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:350</div></div>
+<div class="ttc" id="classiutest_1_1_string_stream_file_html_ab58e3a655c891927a99e9cc37215e5d1"><div class="ttname"><a href="../../da/d94/classiutest_1_1_string_stream_file.html#ab58e3a655c891927a99e9cc37215e5d1">iutest::StringStreamFile::Open</a></div><div class="ttdeci">virtual bool Open(const char *, int) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">開く </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:316</div></div>
 <div class="ttc" id="iutest__stream_8hpp_html"><div class="ttname"><a href="../../dd/d4f/iutest__stream_8hpp.html">iutest_stream.hpp</a></div><div class="ttdoc">io stream </div></div>
 <div class="ttc" id="classiutest_1_1_stdio_file_html_a0d35f28780840d0522aaa2c4c42077d9"><div class="ttname"><a href="../../de/d67/classiutest_1_1_stdio_file.html#a0d35f28780840d0522aaa2c4c42077d9">iutest::StdioFile::Write</a></div><div class="ttdeci">virtual bool Write(const void *buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">書き込み </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:204</div></div>
 <div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:703</div></div>
-<div class="ttc" id="classiutest_1_1_std_error_file_html_a03f106aedb883cfbd614d9b103c0ff89"><div class="ttname"><a href="../../d4/d62/classiutest_1_1_std_error_file.html#a03f106aedb883cfbd614d9b103c0ff89">iutest::StdErrorFile::Open</a></div><div class="ttdeci">virtual bool Open(const char *, int) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">開く </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:273</div></div>
-<div class="ttc" id="classiutest_1_1_std_error_file_html_ace94c9711a5f01aeeb5d63f0cc53fc60"><div class="ttname"><a href="../../d4/d62/classiutest_1_1_std_error_file.html#ace94c9711a5f01aeeb5d63f0cc53fc60">iutest::StdErrorFile::Close</a></div><div class="ttdeci">virtual void Close() IUTEST_CXX_OVERRIDE</div><div class="ttdoc">閉じる </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:281</div></div>
+<div class="ttc" id="classiutest_1_1_std_error_file_html_a03f106aedb883cfbd614d9b103c0ff89"><div class="ttname"><a href="../../d4/d62/classiutest_1_1_std_error_file.html#a03f106aedb883cfbd614d9b103c0ff89">iutest::StdErrorFile::Open</a></div><div class="ttdeci">virtual bool Open(const char *, int) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">開く </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:286</div></div>
+<div class="ttc" id="classiutest_1_1_std_error_file_html_ace94c9711a5f01aeeb5d63f0cc53fc60"><div class="ttname"><a href="../../d4/d62/classiutest_1_1_std_error_file.html#ace94c9711a5f01aeeb5d63f0cc53fc60">iutest::StdErrorFile::Close</a></div><div class="ttdeci">virtual void Close() IUTEST_CXX_OVERRIDE</div><div class="ttdoc">閉じる </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:294</div></div>
 <div class="ttc" id="iutest__internal__defs_8hpp_html"><div class="ttname"><a href="../../d3/d4c/iutest__internal__defs_8hpp.html">iutest_internal_defs.hpp</a></div><div class="ttdoc">internal definition </div></div>
 <div class="ttc" id="classiutest_1_1_stdio_file_html"><div class="ttname"><a href="../../de/d67/classiutest_1_1_stdio_file.html">iutest::StdioFile</a></div><div class="ttdoc">標準ファイルクラス </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:152</div></div>
 <div class="ttc" id="iutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:767</div></div>
-<div class="ttc" id="classiutest_1_1_string_stream_file_html_ae91ba3255b56b6497ee8aa2cb7432b13"><div class="ttname"><a href="../../da/d94/classiutest_1_1_string_stream_file.html#ae91ba3255b56b6497ee8aa2cb7432b13">iutest::StringStreamFile::ReadAll</a></div><div class="ttdeci">virtual ::std::string ReadAll() IUTEST_CXX_OVERRIDE</div><div class="ttdoc">全読み込み </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:359</div></div>
+<div class="ttc" id="classiutest_1_1_string_stream_file_html_ae91ba3255b56b6497ee8aa2cb7432b13"><div class="ttname"><a href="../../da/d94/classiutest_1_1_string_stream_file.html#ae91ba3255b56b6497ee8aa2cb7432b13">iutest::StringStreamFile::ReadAll</a></div><div class="ttdeci">virtual ::std::string ReadAll() IUTEST_CXX_OVERRIDE</div><div class="ttdoc">全読み込み </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:372</div></div>
 <div class="ttc" id="classiutest_1_1_i_file_html_a6e0f77bd1fb9a4a386975f2c849a8381a7e5485c8952d435a56c8bb38c223a577"><div class="ttname"><a href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381a7e5485c8952d435a56c8bb38c223a577">iutest::IFile::OpenWrite</a></div><div class="ttdoc">書き込み </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:39</div></div>
 <div class="ttc" id="classiutest_1_1_i_file_html_ab7589b799ad6a3844ace9574d4fb1bce"><div class="ttname"><a href="../../d9/d57/classiutest_1_1_i_file.html#ab7589b799ad6a3844ace9574d4fb1bce">iutest::IFile::Close</a></div><div class="ttdeci">virtual void Close()=0</div><div class="ttdoc">閉じる </div></div>
 <div class="ttc" id="classiutest_1_1_i_file_html_a6e0f77bd1fb9a4a386975f2c849a8381a7615d69233c676be957240e011843eea"><div class="ttname"><a href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381a7615d69233c676be957240e011843eea">iutest::IFile::OpenAppend</a></div><div class="ttdoc">追記 </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:40</div></div>
@@ -414,19 +427,19 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="ttc" id="classiutest_1_1_i_file_html"><div class="ttname"><a href="../../d9/d57/classiutest_1_1_i_file.html">iutest::IFile</a></div><div class="ttdoc">ファイルクラスインターフェイス </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:32</div></div>
 <div class="ttc" id="classiutest_1_1_stdio_file_html_a9ac2f9a1ec1601431247c6a8a45be149"><div class="ttname"><a href="../../de/d67/classiutest_1_1_stdio_file.html#a9ac2f9a1ec1601431247c6a8a45be149">iutest::StdioFile::GetSize</a></div><div class="ttdeci">virtual size_t GetSize() IUTEST_CXX_OVERRIDE</div><div class="ttdoc">サイズ取得 </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:229</div></div>
 <div class="ttc" id="classiutest_1_1_i_file_html_a6e0f77bd1fb9a4a386975f2c849a8381"><div class="ttname"><a href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381">iutest::IFile::OpenFlag</a></div><div class="ttdeci">OpenFlag</div><div class="ttdoc">ファイルオープンモードフラグ </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:36</div></div>
-<div class="ttc" id="classiutest_1_1_string_stream_file_html_aec158761c03558d99c19f28bc4426cb0"><div class="ttname"><a href="../../da/d94/classiutest_1_1_string_stream_file.html#aec158761c03558d99c19f28bc4426cb0">iutest::StringStreamFile::Write</a></div><div class="ttdeci">virtual bool Write(const void *buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">書き込み </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:322</div></div>
+<div class="ttc" id="classiutest_1_1_string_stream_file_html_aec158761c03558d99c19f28bc4426cb0"><div class="ttname"><a href="../../da/d94/classiutest_1_1_string_stream_file.html#aec158761c03558d99c19f28bc4426cb0">iutest::StringStreamFile::Write</a></div><div class="ttdeci">virtual bool Write(const void *buf, size_t size, size_t cnt) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">書き込み </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:335</div></div>
 <div class="ttc" id="classiutest_1_1_stdio_file_html_ae6ef8c44e07716cb5ba592ffa8281160"><div class="ttname"><a href="../../de/d67/classiutest_1_1_stdio_file.html#ae6ef8c44e07716cb5ba592ffa8281160">iutest::StdioFile::Open</a></div><div class="ttdeci">virtual bool Open(const char *filename, int mode) IUTEST_CXX_OVERRIDE</div><div class="ttdoc">開く </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:166</div></div>
-<div class="ttc" id="classiutest_1_1_string_stream_file_html_aa59430cb4761fe996bc6380b343e8b4b"><div class="ttname"><a href="../../da/d94/classiutest_1_1_string_stream_file.html#aa59430cb4761fe996bc6380b343e8b4b">iutest::StringStreamFile::GetSize</a></div><div class="ttdeci">virtual size_t GetSize() IUTEST_CXX_OVERRIDE</div><div class="ttdoc">サイズ取得 </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:349</div></div>
-<div class="ttc" id="classiutest_1_1_string_stream_file_html_ab51f2ebbfb888c8ffb067285244dd1f1"><div class="ttname"><a href="../../da/d94/classiutest_1_1_string_stream_file.html#ab51f2ebbfb888c8ffb067285244dd1f1">iutest::StringStreamFile::Close</a></div><div class="ttdeci">virtual void Close() IUTEST_CXX_OVERRIDE</div><div class="ttdoc">閉じる </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:312</div></div>
-<div class="ttc" id="classiutest_1_1_std_error_file_html"><div class="ttname"><a href="../../d4/d62/classiutest_1_1_std_error_file.html">iutest::StdErrorFile</a></div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:261</div></div>
-<div class="ttc" id="classiutest_1_1_string_stream_file_html"><div class="ttname"><a href="../../da/d94/classiutest_1_1_string_stream_file.html">iutest::StringStreamFile</a></div><div class="ttdoc">文字列バッファ書き込み IFile インターフェースクラス </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:294</div></div>
+<div class="ttc" id="classiutest_1_1_string_stream_file_html_aa59430cb4761fe996bc6380b343e8b4b"><div class="ttname"><a href="../../da/d94/classiutest_1_1_string_stream_file.html#aa59430cb4761fe996bc6380b343e8b4b">iutest::StringStreamFile::GetSize</a></div><div class="ttdeci">virtual size_t GetSize() IUTEST_CXX_OVERRIDE</div><div class="ttdoc">サイズ取得 </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:362</div></div>
+<div class="ttc" id="classiutest_1_1_string_stream_file_html_ab51f2ebbfb888c8ffb067285244dd1f1"><div class="ttname"><a href="../../da/d94/classiutest_1_1_string_stream_file.html#ab51f2ebbfb888c8ffb067285244dd1f1">iutest::StringStreamFile::Close</a></div><div class="ttdeci">virtual void Close() IUTEST_CXX_OVERRIDE</div><div class="ttdoc">閉じる </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:325</div></div>
+<div class="ttc" id="classiutest_1_1_std_error_file_html"><div class="ttname"><a href="../../d4/d62/classiutest_1_1_std_error_file.html">iutest::StdErrorFile</a></div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:274</div></div>
+<div class="ttc" id="classiutest_1_1_string_stream_file_html"><div class="ttname"><a href="../../da/d94/classiutest_1_1_string_stream_file.html">iutest::StringStreamFile</a></div><div class="ttdoc">文字列バッファ書き込み IFile インターフェースクラス </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:307</div></div>
 <div class="ttc" id="classiutest_1_1_i_file_html_a6e0f77bd1fb9a4a386975f2c849a8381ac5b882ad5f9150026affd4b02512a3c2"><div class="ttname"><a href="../../d9/d57/classiutest_1_1_i_file.html#a6e0f77bd1fb9a4a386975f2c849a8381ac5b882ad5f9150026affd4b02512a3c2">iutest::IFile::OpenRead</a></div><div class="ttdoc">読み込み </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:38</div></div>
 <div class="ttc" id="classiutest_1_1_stdio_file_html_aac5c63092ec375c995f0798459c75035"><div class="ttname"><a href="../../de/d67/classiutest_1_1_stdio_file.html#aac5c63092ec375c995f0798459c75035">iutest::StdioFile::Close</a></div><div class="ttdeci">virtual void Close() IUTEST_CXX_OVERRIDE</div><div class="ttdoc">閉じる </div><div class="ttdef"><b>Definition:</b> iutest_file.hpp:190</div></div>
 <div class="ttc" id="classiutest_1_1_i_file_html_ad5e3d6e3009974fce8cffa15984f9a83"><div class="ttname"><a href="../../d9/d57/classiutest_1_1_i_file.html#ad5e3d6e3009974fce8cffa15984f9a83">iutest::IFile::Open</a></div><div class="ttdeci">virtual bool Open(const char *filename, int mode)=0</div><div class="ttdoc">開く </div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年12月06日(木) 01時14分48秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2019年01月04日(金) 00時42分28秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

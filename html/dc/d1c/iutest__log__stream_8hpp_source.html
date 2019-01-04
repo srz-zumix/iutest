@@ -23,7 +23,7 @@
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.99.8</span>
+   &#160;<span id="projectnumber">1.16.99.10</span>
    </div>
   </td>
  </tr>
@@ -124,26 +124,27 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        }</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Printf(<span class="keyword">const</span> <span class="keywordtype">char</span>* fmt, ...) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> Printf(<span class="keyword">const</span> <span class="keywordtype">char</span>* fmt, ...) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    {</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        va_list va;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        va_start(va, fmt);</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        iuConsole::voutput(fmt, va);</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        va_end(va);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;};</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_LOG_STREAM_HPP_090644E7_9AA3_48DA_A526_BD4060DB52CF_</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_LOG_STREAM_HPP_090644E7_9AA3_48DA_A526_BD4060DB52CF_</span></div>
 <div class="ttc" id="iutest__stream_8hpp_html"><div class="ttname"><a href="../../dd/d4f/iutest__stream_8hpp.html">iutest_stream.hpp</a></div><div class="ttdoc">io stream </div></div>
 <div class="ttc" id="iutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:703</div></div>
 <div class="ttc" id="iutest__console_8hpp_html"><div class="ttname"><a href="../../d3/df9/iutest__console_8hpp.html">iutest_console.hpp</a></div><div class="ttdoc">iris unit test console </div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2018年12月06日(木) 01時14分48秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2019年01月04日(金) 00時42分28秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
