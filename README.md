@@ -144,7 +144,7 @@ Please read the [`CONTRIBUTING.md`](CONTRIBUTING.md) for details on how to contr
 License
 --------------------------------------------------
 
-    Copyright (c) 2011-2018, Takazumi Shirayanagi,
+    Copyright (c) 2011-2019, Takazumi Shirayanagi,
     All rights reserved.
 
     This software is released under the New(3-clause) BSD License, see LICENSE
