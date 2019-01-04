@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 #endif
     const int ret = IUTEST_RUN_ALL_TESTS();
 
-#if defined(IUTEST_USE_GTEST)
+#if defined(IUTEST_USE_GTEST) && GTEST_VER >= 0x01080100
     // "Google Test" fails to set up a test case,
     // it does not report a failure, and the test is also continued
     if( ret == 1 ) return 1;
