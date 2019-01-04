@@ -62,7 +62,13 @@ int main(int argc, char* argv[])
 #endif
     const int ret = IUTEST_RUN_ALL_TESTS();
 
+#if defined(IUTEST_USE_GTEST)
+    // "Google Test" fails to set up a test case,
+    // it does not report a failure, and the test is also continued
+    if( ret == 1 ) return 1;
+#else
     if( ret == 0 ) return 1;
+#endif
 
     IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() != 2 );
 #if !defined(IUTEST_USE_GTEST)

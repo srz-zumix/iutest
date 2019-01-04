@@ -155,16 +155,26 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 */
 inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
-#if   defined(__CYGWIN__) \
+    if( dst == NULL && size > 0 )
+    {
+        return -1;
+    }
+#if   defined(_MSC_VER)
+    if( dst == NULL || size <= 0 )
+    {
+        return _vscprintf(format, va);
+    }
+#  if IUTEST_HAS_WANT_SECURE_LIB
+    return _vsnprintf_s(dst, size, _TRUNCATE, format, va);
+#  else
+    return _vsnprintf(dst, size, format, va);
+#  endif
+#elif defined(__CYGWIN__) \
         && (defined(__STRICT_ANSI__) && (defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)) && (__cplusplus >= 201103L))
     return wrapper::iu_vsnprintf(dst, size, format, va);
 #elif (defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)) && defined(__STRICT_ANSI__)
     return wrapper::iu_vsnprintf(dst, size, format, va);
 #else
-    if( dst == NULL && size > 0 )
-    {
-        return -1;
-    }
     return vsnprintf(dst, size, format, va);
 #endif
 }
@@ -398,7 +408,7 @@ inline ::std::string ShowStringQuoted(const ::std::string& str)
 
 inline ::std::string StringFormat(const char* format, ...)
 {
-    size_t n = strlen(format) * 2;
+    size_t n = strlen(format) * 2 + 1;
     {
         va_list va;
         va_start(va, format);
@@ -406,7 +416,7 @@ inline ::std::string StringFormat(const char* format, ...)
         va_end(va);
         if( ret > 0 )
         {
-            n = ret;
+            n = ret + 1;
         }
     }
     for( ;; )

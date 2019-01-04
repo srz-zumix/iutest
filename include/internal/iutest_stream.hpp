@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -32,7 +32,7 @@ public:
     //! 書き込み
     virtual bool Write(const void* buf, size_t size, size_t cnt) = 0;
 public:
-    virtual void Printf(const char* fmt, ...)
+    virtual int Printf(const char* fmt, ...)
     {
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
@@ -40,25 +40,18 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         char buf[1024] = {0};
         va_list va;
         va_start(va, fmt);
-#if defined(_MSC_VER)
-#  if IUTEST_HAS_WANT_SECURE_LIB
-        const int len = _vsnprintf_s(buf, _TRUNCATE, fmt, va);
-#  else
-        const int len = _vsnprintf(buf, sizeof(buf)-1, fmt, va);
-#  endif
-#else
-#if defined(__STRICT_ANSI__)
-        const int len = vsprintf(buf, fmt, va);
-#else
-        const int len = vsnprintf(buf, sizeof(buf), fmt, va);
-#endif
-#endif
+        const int len = iu_vsnprintf(buf, sizeof(buf)-1, fmt, va);
         va_end(va);
 
         if( len > 0 )
         {
             Write(buf, static_cast<size_t>(len), 1);
         }
+        else
+        {
+            IUTEST_LOG_(WARNING) << "stream output trancated: " << fmt;
+        }
+        return len;
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     }
