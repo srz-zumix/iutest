@@ -186,6 +186,18 @@
   ref_name: "master"
   ref_type: "BRANCH"
   actions:
+  - action: "release-1.8.1"
+    type: "BUILD"
+    working_directory: "/buddy/iutest"
+    docker_image_name: "srzzumix/googletest"
+    docker_image_tag: "release-1.8.1"
+    execute_commands:
+    - "cd test"
+    - "make USE_GTEST=1             GTEST_EXPECT_VER=0x01080100 test"
+    - "make USE_GTEST=1 USE_GMOCK=1 GTEST_EXPECT_VER=0x01080100 test"
+    mount_filesystem_path: "/buddy/iutest"
+    shell: "SH"
+    trigger_condition: "ALWAYS"
   - action: "release-1.8.0"
     type: "BUILD"
     working_directory: "/buddy/iutest"

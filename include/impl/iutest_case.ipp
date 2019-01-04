@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -166,7 +166,10 @@ IUTEST_IPP_INLINE int TestCase::failed_test_count() const
     {
         return 0;
     }
-    //if( m_ad_hoc_testresult.Failed() ) return m_testinfos.count();
+    // if( m_ad_hoc_testresult.Failed() )
+    // {
+    //     return reportable_test_count();
+    // }
     return detail::CountIf(m_testinfos, IsFailedTest);
 }
 
@@ -176,7 +179,10 @@ IUTEST_IPP_INLINE int TestCase::successful_test_count() const
     {
         return 0;
     }
-    //if( m_ad_hoc_testresult.Failed() ) return 0;
+    // if( m_ad_hoc_testresult.Failed() )
+    // {
+    //     return 0;
+    // }
     return detail::CountIf(m_testinfos, IsSuccessfulTest);
 }
 
