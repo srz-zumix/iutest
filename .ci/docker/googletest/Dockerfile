@@ -1,6 +1,7 @@
+
 # Usage
-# docker build --build-arg VERSION=release-1.8.0 -f .ci/Dockerfile.ref.gtest -t gtest .
-# docker run -itd -v $(pwd):/iutest gtest bash
+# docker build .ci/docker/googletest -t iutest-gtest --build-arg VERSION=release-1.8.0
+# docker run -it -v $(pwd):/iutest iutest-gtest bash
 
 ARG VERSION=latest
 FROM srzzumix/googletest:${VERSION}
