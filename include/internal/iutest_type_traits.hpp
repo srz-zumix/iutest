@@ -22,7 +22,7 @@
 //======================================================================
 // define
 #ifndef IUTEST_HAS_HDR_TYPETARITS
-#  if defined(__clang__)
+#  if defined(__has_include)
 #    if __has_include( <type_traits> ) && IUTEST_HAS_CXX11
 #      define IUTEST_HAS_HDR_TYPETARITS     1
 #    endif

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -140,12 +140,20 @@
 #define IUTEST_P    TEST_P
 #define IUTEST_INSTANTIATE_TEST_CASE_P  INSTANTIATE_TEST_CASE_P
 
+#if !defined(GTEST_SUITE_NAMESPACE_)
+#  if defined(GTEST_CASE_NAMESPACE_)
+#    define GTEST_SUITE_NAMESPACE_  GTEST_CASE_NAMESPACE_
+#  else
+#    define GTEST_SUITE_NAMESPACE_(TestSuiteName) gtest_suite_##TestSuiteName##_
+#  endif
+#endif
+
 #define IUTEST_FRIEND_TEST          FRIEND_TEST
 #define IUTEST_FRIEND_TYPED_TEST    template<typename T>FRIEND_TEST
 #define IUTEST_FRIEND_TYPED_TEST_P_DECLARATION(test_case_name, test_name)   \
-    namespace GTEST_CASE_NAMESPACE_(test_case_name) { template<typename T>class test_name; }
+    namespace GTEST_SUITE_NAMESPACE_(test_case_name) { template<typename T>class test_name; }
 #define IUTEST_FRIEND_TYPED_TEST_P(test_case_name, test_name)               \
-   template<typename T>friend class GTEST_CASE_NAMESPACE_(test_case_name)::test_name
+   template<typename T>friend class GTEST_SUITE_NAMESPACE_(test_case_name)::test_name
 #define IUTEST_SCOPED_TRACE         SCOPED_TRACE
 #define IUTEST_FLAG                 GTEST_FLAG
 
