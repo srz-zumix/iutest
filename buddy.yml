@@ -39,8 +39,7 @@
     working_directory: "/buddy/iutest"
     docker_image_name: &gtest_image "srzzumix/googletest"
     docker_image_tag: "latest"
-    execute_commands:
-    - "export MAKE_OPTION=\"GTEST_EXPECT_VER=0x01080100 GTEST_EXPECT_LATEST=1\""
+    execute_commands: &gtest_version_test_commands
     - "cd test"
     - "make USE_GTEST=1             ${MAKE_OPTION} gtest-version"
     - "make USE_GTEST=1 USE_GMOCK=1 ${MAKE_OPTION} gtest-version"
@@ -50,13 +49,11 @@
   - action: "release-1.8.1"
     type: "BUILD"
     working_directory: "/buddy/iutest"
-    docker_image_name: *gtest_image 
+    docker_image_name: *gtest_image
     docker_image_tag: "release-1.8.1"
     execute_commands:
     - "export MAKE_OPTION=\"GTEST_EXPECT_VER=0x01080100\""
-    - "cd test"
-    - "make USE_GTEST=1             ${MAKE_OPTION} gtest-version"
-    - "make USE_GTEST=1 USE_GMOCK=1 ${MAKE_OPTION} gtest-version"
+    - *gtest_version_test_commands
     mount_filesystem_path: "/buddy/iutest"
     shell: "SH"
     trigger_condition: "ALWAYS"
