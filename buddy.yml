@@ -1,14 +1,14 @@
-- .gtest-version-action-template: &gtest-version-action-template
-  type: "BUILD"
-  working_directory: "/buddy/iutest"
-  docker_image_name: "srzzumix/googletest"
-  execute_commands:
-  - "cd test"
-  - "make USE_GTEST=1             ${MAKE_OPTION} gtest-version"
-  - "make USE_GTEST=1 USE_GMOCK=1 ${MAKE_OPTION} gtest-version"
-  mount_filesystem_path: "/buddy/iutest"
-  shell: "SH"
-  trigger_condition: "ALWAYS"
+# - .gtest-version-action-template: &gtest-version-action-template
+#   type: "BUILD"
+#   working_directory: "/buddy/iutest"
+#   docker_image_name: "srzzumix/googletest"
+#   execute_commands:
+#   - "cd test"
+#   - "make USE_GTEST=1             ${MAKE_OPTION} gtest-version"
+#   - "make USE_GTEST=1 USE_GMOCK=1 ${MAKE_OPTION} gtest-version"
+#   mount_filesystem_path: "/buddy/iutest"
+#   shell: "SH"
+#   trigger_condition: "ALWAYS"
 
 - pipeline: "build-arm-none-eabi"
   trigger_mode: "ON_EVERY_PUSH"
