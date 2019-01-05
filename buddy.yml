@@ -55,6 +55,7 @@
     - "export MAKE_OPTION=\"GTEST_EXPECT_VER=0x01080100 GTEST_EXPECT_LATEST=1\""
     execute_commands:
     - "cd test"
+    - "echo ${MAKE_OPTION}"
     - "make USE_GTEST=1             ${MAKE_OPTION} gtest-version"
     - "make USE_GTEST=1 USE_GMOCK=1 ${MAKE_OPTION} gtest-version"
     mount_filesystem_path: "/buddy/iutest"
