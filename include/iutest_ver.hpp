@@ -123,7 +123,8 @@ modification, are permitted provided that the following conditions are met: \n
   <li>v1.17.0.0
     <ul>
       <li></li>
-      <li><CSV パラメータ生成でファイルオープン失敗した場合の警告レベルを FATAL から WARNING に変更/li>
+      <li>junit xml 出力で出力するテストが 0 だった場合にファイル書き出ししないように修正</li>
+      <li>CSV パラメータ生成でファイルオープン失敗した場合の警告レベルを FATAL から WARNING に変更/li>
       <li>CSV パラメータ生成で要素がなかった場合に WARNING 出力</li>
       <li>deprecated: IUTEST_USE_OWN_LIST</li>
     </ul>
