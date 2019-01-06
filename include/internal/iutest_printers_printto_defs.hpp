@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2018-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,8 +31,65 @@ void DefaultPrintNonContainerTo(const T& value, iu_ostream* os);
 
 //======================================================================
 // function
+inline void PrintTo(bool b, iu_ostream* os)         { *os << (b ? "true" : "false"); }
+inline void PrintTo(const char* c, iu_ostream* os)  { *os << c; }
+// char or unsigned char の時に、 0 が NULL 文字にならないように修正
+inline void PrintTo(const char value, iu_ostream* os)
+{
+    if( value == 0 )
+    {
+        *os << "\\0";
+    }
+    else if( value < 0x20 )
+    {
+        *os << static_cast<int>(value);
+    }
+    else
+    {
+        *os << "\'" << value << "\'";
+    }
+}
+inline void PrintTo(const wchar_t value, iu_ostream* os)
+{
+    if( value == 0 )
+    {
+        *os << "\\0";
+    }
+    else if( value < 0x20 )
+    {
+        *os << static_cast<int>(value);
+    }
+    else
+    {
+        *os << "\'" << value << "\'";
+    }
+}
+inline void PrintTo(const unsigned char value, iu_ostream* os)
+{
+    *os << static_cast<unsigned int>(value);
+}
+
 #if defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
-inline void PrintTo(int v, iu_ostream* os)  { *os << v; }
+
+#define IIUT_DECL_FUNDAMENTAL_PRINTTO(type_) \
+    inline void PrintTo(type_ v, iu_ostream* os) { *os << v; }
+
+IIUT_DECL_FUNDAMENTAL_PRINTTO(short)
+IIUT_DECL_FUNDAMENTAL_PRINTTO(unsigned short)
+IIUT_DECL_FUNDAMENTAL_PRINTTO(int)
+IIUT_DECL_FUNDAMENTAL_PRINTTO(unsigned int)
+IIUT_DECL_FUNDAMENTAL_PRINTTO(long)
+IIUT_DECL_FUNDAMENTAL_PRINTTO(unsigned long)
+IIUT_DECL_FUNDAMENTAL_PRINTTO(long long)
+IIUT_DECL_FUNDAMENTAL_PRINTTO(unsigned long long)
+IIUT_DECL_FUNDAMENTAL_PRINTTO(float)
+IIUT_DECL_FUNDAMENTAL_PRINTTO(double)
+#if IUTEST_HAS_LONG_DOUBLE
+IIUT_DECL_FUNDAMENTAL_PRINTTO(long double)
+#endif
+
+#undef IIUT_DECL_FUNDAMENTAL_PRINTTO
+
 #endif
 
 namespace printer_iutest_printto

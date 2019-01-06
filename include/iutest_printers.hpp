@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -237,44 +237,6 @@ inline void PrintTo(const T& value, iu_ostream* os) {
 #endif
         , iutest_type_traits::is_pointer<T>(), value, os);
 }
-inline void PrintTo(bool b, iu_ostream* os)         { *os << (b ? "true" : "false"); }
-inline void PrintTo(const char* c, iu_ostream* os)  { *os << c; }
-// char or unsigned char の時に、 0 が NULL 文字にならないように修正
-inline void PrintTo(const char value, iu_ostream* os)
-{
-    if( value == 0 )
-    {
-        *os << "\\0";
-    }
-    else if( value < 0x20 )
-    {
-        *os << static_cast<int>(value);
-    }
-    else
-    {
-        *os << "\'" << value << "\'";
-    }
-}
-inline void PrintTo(const wchar_t value, iu_ostream* os)
-{
-    if( value == 0 )
-    {
-        *os << "\\0";
-    }
-    else if( value < 0x20 )
-    {
-        *os << static_cast<int>(value);
-    }
-    else
-    {
-        *os << "\'" << value << "\'";
-    }
-}
-inline void PrintTo(const unsigned char value, iu_ostream* os)
-{
-    *os << static_cast<unsigned int>(value);
-}
-
 
 /** @private */
 template<typename T>
