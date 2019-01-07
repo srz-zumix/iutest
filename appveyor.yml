@@ -10,6 +10,7 @@ environment:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       PROJECT_DIR: msvc15
       CMAKE_GENERATOR_NAME: Visual Studio 15 2017
+    # Cygwin
     - BUILD_CYGWIN: yes
       USE_GNU_EXTENSION: 0
       CYGWIN_PATH: C:\cygwin
@@ -22,6 +23,7 @@ environment:
       USE_GNU_EXTENSION: 1
       CYGWIN_PATH: C:\cygwin64
       CYGWIN_SETUP_EXE: setup-x86_64.exe
+    # MINGW64
     - BUILD_MINGW: yes
       MINGW_PATH: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
       #MINGW_PATH: C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1
@@ -31,6 +33,9 @@ environment:
     - BUILD_MINGW: yes
       #APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       MINGW_PATH: c:\mingw\bin
+    # Menu
+    - BUILD_MENU: yes
+    # Nuget
     - BUILD_NUGET: yes
 
 configuration:
@@ -45,6 +50,8 @@ matrix:
       BUILD_CYGWIN: yes
     - configuration: Debug
       BUILD_MINGW: yes
+    - configuration: Debug
+      BUILD_MENU: yes
       
 clone_depth: 1
 
@@ -76,20 +83,6 @@ test_script:
       ctest -C %Configuration% -V
 
 for:
-# NuGet
--
-  matrix:
-    only:
-      - configuration: Release
-        BUILD_NUGET: yes
-  before_build:
-    cmd: echo.
-  build_script:
-    ps: |
-      $nuspecPath = "projects\nuget\iutest.nuspec"
-      Write-Output "Building NuGet package"
-      nuget pack $nuspecPath -OutputDirectory ".\"
-  test: off
 # Cygwin
 -
   matrix:
@@ -132,7 +125,33 @@ for:
       mingw32-make %MAKE_OPTIONS%
   test_script:
     cmd: mingw32-make test %MAKE_OPTIONS%
-    
+# Menu
+-
+  matrix:
+    only:
+      - configuration: Release
+        BUILD_MENU: yes
+  before_build:
+    cmd: echo.
+  build:
+    project: samples\windows\iutest_windows_sample.sln
+    parallel: true
+    verbosity: minimal
+  test: off
+# NuGet
+-
+  matrix:
+    only:
+      - configuration: Release
+        BUILD_NUGET: yes
+  before_build:
+    cmd: echo.
+  build_script:
+    ps: |
+      $nuspecPath = "projects\nuget\iutest.nuspec"
+      Write-Output "Building NuGet package"
+      nuget pack $nuspecPath -OutputDirectory ".\"
+  test: off
 on_failure:
   ps: |
     # rdp
