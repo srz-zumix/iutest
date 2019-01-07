@@ -1,6 +1,6 @@
 - pipeline: "build-arm-none-eabi"
   trigger_mode: "ON_EVERY_PUSH"
-  ref_name: "(^(master|develop)*$)"
+  ref_name: "(^(master|develop|buddy/)*$)"
   ref_type: "WILDCARD"
   # always_from_scratch: true
   auto_clear_cache: true
@@ -26,6 +26,8 @@
     mount_filesystem_path: "/buddy/iutest"
     shell: "BASH"
     trigger_condition: "ALWAYS"
+
+# google test version detect test
 - pipeline: "gtest-version"
   trigger_mode: "SCHEDULED"
   ref_name: "develop"
@@ -181,9 +183,11 @@
     mount_filesystem_path: "/buddy/iutest"
     shell: "SH"
     trigger_condition: "ALWAYS"
+
+# released google test compatible test
 - pipeline: "gtest-compatible-released"
   trigger_mode: "ON_EVERY_PUSH"
-  ref_name: "master"
+  ref_name: "(^(master|buddy/)*$)"
   ref_type: "BRANCH"
   actions:
   - action: "release-1.8.1"
