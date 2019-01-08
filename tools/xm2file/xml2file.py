@@ -8,6 +8,7 @@
 #
 
 import argparse
+import os
 import re
 import codecs
 import xml.etree.ElementTree as ET
@@ -52,10 +53,27 @@ def parse_command_line():
 
 cmdline_options = None
 
+
+def fopen(path):
+    f = codecs.open(os.path.join(cmdline_options.ouput, path), 'w', cmdline_options.encoding)
+    return f
+
+
+def make_path(filename, testsuites, testsuite, testcase):
+    # root_name = testsuites.attrib['name']
+    root_name = filename
+    suite_name = testsuite.attrib['name']
+    case_name = testsuite.attrib['name']
+    return os.path.join(os.path.join(root_name, suite_name), case_name)
+
+
 def xml2file(path):
     tree = ET.parse(path)
     root = tree.getroot()
     testsuites = root
+
+    filename = os.path.split(os.path.basename(path))[0]
+
     print(testsuites.tag)
     for attr in testsuites.attrib:
         print(attr)
