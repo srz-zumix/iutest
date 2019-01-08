@@ -33,6 +33,10 @@ environment:
     - BUILD_MINGW: yes
       #APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       MINGW_PATH: c:\mingw\bin
+    # Prefast
+    - BUILD_PREFAST: yes
+      PROJECT_DIR: msvc14
+      MSBUILD_VER: 14.0
     # Menu
     - BUILD_MENU: yes
     # Nuget
@@ -50,6 +54,8 @@ matrix:
       BUILD_CYGWIN: yes
     - configuration: Debug
       BUILD_MINGW: yes
+    - configuration: Release
+      BUILD_PREFAST: yes
     - configuration: Debug
       BUILD_MENU: yes
       
@@ -125,6 +131,22 @@ for:
       mingw32-make %MAKE_OPTIONS%
   test_script:
     cmd: mingw32-make test %MAKE_OPTIONS%
+# Prefast
+-
+  matrix:
+    only:
+      - configuration: Debug
+        BUILD_PREFAST: yes
+  before_build:
+    cmd: echo.
+  build_script:
+    cmd: |
+      '"%ProgramFiles(x86)%\MSBuild\%MSBUILD_VER%\Bin\MSBuild.exe" \
+        "projects\%PROJECT_DIR%\iutest_sample.vcxproj" \
+        /m /verbosity:minimal \
+        /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" \
+        /p:RunCodeAnalysis=true /p:EnablePREfast=true /p:CodeAnalysisTreatWarningsAsErrors=true'
+  test: off
 # Menu
 -
   matrix:
