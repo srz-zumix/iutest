@@ -39,6 +39,9 @@ environment:
       MSBUILD_VER: 14.0
     # Menu
     - BUILD_MENU: yes
+    # Package Build
+    - BUILD_PACKAGE: yes
+      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
     # Nuget
     - BUILD_NUGET: yes
 
@@ -49,8 +52,6 @@ configuration:
 matrix:
   exclude:
     - configuration: Debug
-      BUILD_NUGET: yes
-    - configuration: Debug
       BUILD_CYGWIN: yes
     - configuration: Debug
       BUILD_MINGW: yes
@@ -58,6 +59,10 @@ matrix:
       BUILD_PREFAST: yes
     - configuration: Debug
       BUILD_MENU: yes
+    - configuration: Debug
+      BUILD_PACKAGE: yes
+    - configuration: Debug
+      BUILD_NUGET: yes
       
 clone_depth: 1
 
@@ -159,6 +164,17 @@ for:
     project: samples\windows\iutest_windows_sample.sln
     parallel: true
     verbosity: minimal
+  test: off
+# Package Build
+-
+  matrix:
+    only:
+      - configuration: Release
+        BUILD_PACKAGE: yes
+  before_build:
+    cmd: echo.
+  build_script:
+    sh: bash ./.ci/make-package.sh
   test: off
 # NuGet
 -
