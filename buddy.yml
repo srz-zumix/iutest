@@ -1,6 +1,6 @@
 - pipeline: "build-arm-none-eabi"
   trigger_mode: "ON_EVERY_PUSH"
-  ref_name: "(^(master|develop)*$)"
+  ref_name: "(^(master|develop|buddy/)*$)"
   ref_type: "WILDCARD"
   # always_from_scratch: true
   auto_clear_cache: true
@@ -18,7 +18,7 @@
     docker_image_name: "srzzumix/arm-none-eabi-gcc-with-python"
     docker_image_tag: "latest"
     execute_commands:
-    - "export PATH=$PATH:/usr/local/bin/gcc-arm-none-eabi-7-2017-q4-major/bin"
+    - "export PATH=$PATH:/usr/local/bin/gcc-arm-none-eabi-8-2018-q4-major/bin"
     - "arm-none-eabi-gcc --version"
     - "cd test"
     - "make CC=arm-none-eabi-gcc CXX=arm-none-eabi-g++ showcxxversion showcxxmacros DEFS=\"--specs=nosys.specs -mthumb -mcpu=cortex-m3\""
@@ -26,6 +26,8 @@
     mount_filesystem_path: "/buddy/iutest"
     shell: "BASH"
     trigger_condition: "ALWAYS"
+
+# google test version detect test
 - pipeline: "gtest-version"
   trigger_mode: "SCHEDULED"
   ref_name: "develop"
@@ -181,9 +183,11 @@
     mount_filesystem_path: "/buddy/iutest"
     shell: "SH"
     trigger_condition: "ALWAYS"
+
+# released google test compatible test
 - pipeline: "gtest-compatible-released"
   trigger_mode: "ON_EVERY_PUSH"
-  ref_name: "master"
+  ref_name: "(^(master|buddy/)*$)"
   ref_type: "BRANCH"
   actions:
   - action: "release-1.8.1"
