@@ -151,9 +151,8 @@ for:
     cmd: |
       cd test
       nmake
-  test:
-    cmd: |
-      nmake test
+  test_script:
+    cmd: nmake test
 # Prefast
 -
   matrix:
