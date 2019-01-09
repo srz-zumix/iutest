@@ -39,6 +39,11 @@ def parse_command_line():
         help='no output time attribute'
     )
     parser.add_argument(
+        '--verbose',
+        action='store_true',
+        help='log verbose'
+    )
+    parser.add_argument(
         '--encoding',
         default=None,
         help='output file encoding.'
@@ -53,6 +58,11 @@ def parse_command_line():
     return options
 
 cmdline_options = None
+
+
+def log(msg):
+    if cmdline_options.verbose:
+        print(msg)
 
 
 def mkdir_p(path):
@@ -103,7 +113,7 @@ def write_result(f, testcase):
         fd['text'] = failure.text
         d['failure'].append(fd)
     jt = json.dumps(d, indent=4, ensure_ascii=False)
-    print(jt)
+    # print(jt)
     f.write(jt)
 
 
@@ -112,12 +122,16 @@ def xml2file(path):
     root = tree.getroot()
     testsuites = root
 
-    filename = os.path.splitext(os.path.basename(path))[0]
+    basename = os.path.basename(path)
+    filename = os.path.splitext(basename)[0]
     root_path = make_rootpath(filename, testsuites)
     clean_dir(root_path)
 
+    log(basename)
     for testsuite in testsuites:
+        log("  " + testsuite.attrib['name'])
         for testcase in testsuite:
+            log("    " + testcase.attrib['name'])
             f = fopen(make_path(root_path, testsuite, testcase))
             write_result(f, testcase)
             f.close()
