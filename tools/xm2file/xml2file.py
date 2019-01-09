@@ -13,6 +13,7 @@ import errno
 import re
 import json
 import codecs
+import shutil
 import xml.etree.ElementTree as ET
 
 from argparse import ArgumentParser
@@ -31,6 +32,11 @@ def parse_command_line():
         '--output',
         default=None,
         help='output file path.'
+    )
+    parser.add_argument(
+        '--no-time',
+        action='store_true',
+        help='no output time attribute'
     )
     parser.add_argument(
         '--encoding',
@@ -59,28 +65,44 @@ def mkdir_p(path):
             raise
 
 
-def fopen(relative_path):
-    path = os.path.join(cmdline_options.output, relative_path)
+def clean_dir(path):
+    if os.path.exists(path):
+        shutil.rmtree(path)
+
+
+def fopen(path):
     dir = os.path.dirname(path)
     mkdir_p(dir)
     f = codecs.open(path, 'w', cmdline_options.encoding)
     return f
 
 
-def make_path(filename, testsuites, testsuite, testcase):
+def make_rootpath(xml_filename, testsuites):
     # root_name = testsuites.attrib['name']
-    root_name = filename
+    root_name = xml_filename
+    path = os.path.join(cmdline_options.output, root_name)
+    return path
+
+
+def make_path(root_path, testsuite, testcase):
     suite_name = testsuite.attrib['name']
     case_name = testcase.attrib['name']
     ext = '.json'
-    return os.path.join(os.path.join(root_name, suite_name), case_name + ext)
+    return os.path.join(os.path.join(root_path, suite_name), case_name + ext)
 
 
 def write_result(f, testcase):
     d = testcase.attrib
-    if 'time' in d:
-        del d['time']
-    jt = json.dumps(d)
+    if cmdline_options.no_time:
+        if 'time' in d:
+            del d['time']
+    # failures
+    d['failure'] = []
+    for failure in testcase:
+        fd = failure.attrib
+        fd['text'] = failure.text
+        d['failure'].append(fd)
+    jt = json.dumps(d, indent=4, ensure_ascii=False)
     print(jt)
     f.write(jt)
 
@@ -90,18 +112,23 @@ def xml2file(path):
     root = tree.getroot()
     testsuites = root
 
-    filename = os.path.split(os.path.basename(path))[0]
+    filename = os.path.splitext(os.path.basename(path))[0]
+    root_path = make_rootpath(filename, testsuites)
+    clean_dir(root_path)
+
     for testsuite in testsuites:
         for testcase in testsuite:
-            f = fopen(make_path(filename, testsuites, testsuite, testcase))
+            f = fopen(make_path(root_path, testsuite, testcase))
             write_result(f, testcase)
             f.close()
+
 
 def main():
     global cmdline_options
     cmdline_options = parse_command_line()
     for path in cmdline_options.file:
         xml2file(path)
+
 
 if __name__ == '__main__':
     main()

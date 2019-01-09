@@ -10,6 +10,7 @@ INPUT_XML_RECORD_PROPERTY=$(INPUTDIR)/record_property_tests.xml
 INPUT_XML_FAILURE=$(INPUTDIR)/no_failure_fail_tests.xml
 INPUT_XMLS=$(INPUT_XML1) $(INPUT_XML2) $(INPUT_XML_RECORD_PROPERTY) $(INPUT_XML_FAILURE)
 XML2FILE=xml2file.py
+XML2FILE_EXEC=python $(XML2FILE) $(XML2FILE_OPTION)
 
 .PHONY: default clean all
 
@@ -19,21 +20,22 @@ all: default record_prop failed multi
 
 clean:
 	rm -rf $(TMPDIR)
+	make -C ../../test clean
 
 xml2file: $(INPUT_XML1) $(XML2FILE)
-	python $(XML2FILE) -o $(OUTDIR) $(INPUT_XML1)
+	$(XML2FILE_EXEC) -o $(OUTDIR) $(INPUT_XML1)
 
 record_prop: $(INPUT_XML_RECORD_PROPERTY) $(XML2FILE)
-	python $(XML2FILE) -o $(OUTDIR) $(INPUT_XML_RECORD_PROPERTY)
+	$(XML2FILE_EXEC) -o $(OUTDIR) $(INPUT_XML_RECORD_PROPERTY)
 
 failed: $(INPUT_XML_FAILURE) $(XML2FILE)
-	python $(XML2FILE) -o $(OUTDIR) $(INPUT_XML_FAILURE)
+	$(XML2FILE_EXEC) -o $(OUTDIR) $(INPUT_XML_FAILURE)
 
 multi: $(INPUT_XML1) $(INPUT_XML2) $(XML2FILE)
-	python $(XML2FILE) -o $(OUTDIR) $(INPUT_XML1) $(INPUT_XML2)
+	$(XML2FILE_EXEC) -o $(OUTDIR) $(INPUT_XML1) $(INPUT_XML2)
 
 $(INPUT_XMLS):
-	make -C ../../test OUTPUTXML=1 $(@:$(INPUTDIR)/%.xml=%)
+	make -C ../../test $(@:$(INPUTDIR)/%.xml=%)
 	make -C ../../test OUTPUTXML=1 run_$(@:$(INPUTDIR)/%.xml=%)
 	mkdir -p $(INPUTDIR)
 	cp ../../test/$(@:$(INPUTDIR)/%.xml=%.xml) $@
