@@ -9,18 +9,13 @@
 
 import argparse
 import os
+import errno
 import re
+import json
 import codecs
 import xml.etree.ElementTree as ET
 
 from argparse import ArgumentParser
-
-
-# EvalIntAction
-class EvalIntAction(argparse.Action):
-    def __call__(self, parser, namespace, values, options_string=None):
-        setattr(namespace, self.dest, int(eval(values[0])))
-
 
 # command line option
 def parse_command_line():
@@ -54,8 +49,21 @@ def parse_command_line():
 cmdline_options = None
 
 
-def fopen(path):
-    f = codecs.open(os.path.join(cmdline_options.ouput, path), 'w', cmdline_options.encoding)
+def mkdir_p(path):
+    try:
+        os.makedirs(path)
+    except OSError as exc:  # Python >2.5
+        if exc.errno == errno.EEXIST and os.path.isdir(path):
+            pass
+        else:
+            raise
+
+
+def fopen(relative_path):
+    path = os.path.join(cmdline_options.output, relative_path)
+    dir = os.path.dirname(path)
+    mkdir_p(dir)
+    f = codecs.open(path, 'w', cmdline_options.encoding)
     return f
 
 
@@ -63,8 +71,18 @@ def make_path(filename, testsuites, testsuite, testcase):
     # root_name = testsuites.attrib['name']
     root_name = filename
     suite_name = testsuite.attrib['name']
-    case_name = testsuite.attrib['name']
-    return os.path.join(os.path.join(root_name, suite_name), case_name)
+    case_name = testcase.attrib['name']
+    ext = '.json'
+    return os.path.join(os.path.join(root_name, suite_name), case_name + ext)
+
+
+def write_result(f, testcase):
+    d = testcase.attrib
+    if 'time' in d:
+        del d['time']
+    jt = json.dumps(d)
+    print(jt)
+    f.write(jt)
 
 
 def xml2file(path):
@@ -73,18 +91,11 @@ def xml2file(path):
     testsuites = root
 
     filename = os.path.split(os.path.basename(path))[0]
-
-    print(testsuites.tag)
-    for attr in testsuites.attrib:
-        print(attr)
     for testsuite in testsuites:
-        print(testsuite.tag)
-        for attr in testsuite.attrib:
-            print(attr)
         for testcase in testsuite:
-            print(testcase.tag, testcase.text)
-            for attr in testcase.attrib:
-                print(attr)
+            f = fopen(make_path(filename, testsuites, testsuite, testcase))
+            write_result(f, testcase)
+            f.close()
 
 def main():
     global cmdline_options
