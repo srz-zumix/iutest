@@ -35,7 +35,7 @@ environment:
       MINGW_PATH: c:\mingw\bin
     # Prefast
     - BUILD_PREFAST: yes
-      PROJECT_DIR: msvc15
+      PROJECT_DIR: msvc14
     # Menu
     - BUILD_MENU: yes
     # Package Build
