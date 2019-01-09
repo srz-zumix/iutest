@@ -35,8 +35,7 @@ environment:
       MINGW_PATH: c:\mingw\bin
     # Prefast
     - BUILD_PREFAST: yes
-      PROJECT_DIR: msvc14
-      MSBUILD_VER: 14.0
+      PROJECT_DIR: msvc15
     # Menu
     - BUILD_MENU: yes
     # Package Build
@@ -142,15 +141,14 @@ for:
     only:
       - configuration: Debug
         BUILD_PREFAST: yes
+  environment:
+    MSBUILD_LOGGER_OPTION: /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+    MSBUILD_PREFAST_OPTION: /p:RunCodeAnalysis=true /p:EnablePREfast=true /p:CodeAnalysisTreatWarningsAsErrors=true
   before_build:
     cmd: echo.
   build_script:
     cmd: |
-      '"%ProgramFiles(x86)%\MSBuild\%MSBUILD_VER%\Bin\MSBuild.exe" \
-        "projects\%PROJECT_DIR%\iutest_sample.vcxproj" \
-        /m /verbosity:minimal \
-        /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" \
-        /p:RunCodeAnalysis=true /p:EnablePREfast=true /p:CodeAnalysisTreatWarningsAsErrors=true'
+      msbuild "projects\%PROJECT_DIR%\iutest_sample.vcxproj" /m %MSBUILD_LOGGER_OPTION% %MSBUILD_PREFAST_OPTION%
   test: off
 # Menu
 -
