@@ -33,6 +33,8 @@ environment:
     - BUILD_MINGW: yes
       #APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       MINGW_PATH: c:\mingw\bin
+    # NMAKE
+    - BUILD_NMAKE: yes
     # Prefast
     - BUILD_PREFAST: yes
       PROJECT_DIR: msvc14
@@ -54,6 +56,8 @@ matrix:
       BUILD_CYGWIN: yes
     - configuration: Debug
       BUILD_MINGW: yes
+    - configuration: Debug
+      BUILD_NMAKE: yes
     - configuration: Release
       BUILD_PREFAST: yes
     - configuration: Debug
@@ -135,6 +139,21 @@ for:
       mingw32-make %MAKE_OPTIONS%
   test_script:
     cmd: mingw32-make test %MAKE_OPTIONS%
+# NAMKE
+-
+  matrix:
+    only:
+      - configuration: Release
+        BUILD_NMAKE: yes
+  before_build:
+    cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat"'
+  build_script:
+    cmd: |
+      cd test
+      nmake
+  test:
+    cmd: |
+      nmake test
 # Prefast
 -
   matrix:
