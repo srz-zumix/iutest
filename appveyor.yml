@@ -148,7 +148,7 @@ for:
       @echo. > foo.h && g++ -std=c++1z -dM -E -x c++ foo.h
       mingw32-make -j4 %MAKE_OPTIONS%
   test_script:
-    cmd: mingw32-make test
+    cmd: mingw32-make test %MAKE_OPTIONS%
 # NAMKE
 -
   matrix:
