@@ -49,6 +49,8 @@ IUTEST_PACKAGE(PACKAGENAME)
 	IUTEST_INSTANTIATE_TEST_CASE_P(B, ParamTest, ::iutest::Values(IUTEST_PP_ENUM_PARAMS(IUTEST_PP_LIMIT_ENUM, IUTEST_PP_EMPTY())));
 	IUTEST_INSTANTIATE_TEST_CASE_P(C, ParamTest, ::iutest::ValuesIn(make_param(1000, 0)));
 
+#if IUTEST_HAS_COMBINE
+
 	class CombineTest : public ::iutest::TestWithParam< ::iutest::tuples::tuple<bool, int, int> > {};
 	static const int kCombineTestTable[] = {0, 1};
 
@@ -68,6 +70,8 @@ IUTEST_PACKAGE(PACKAGENAME)
 		, ::iutest::Combine(::iutest::Values(false), ::iutest::Values(1, 10), ::iutest::ValuesIn(kCombineTestTable))
 			+ ::iutest::Combine(::iutest::Values(true), ::iutest::Values(1, 10), ::iutest::ValuesIn(kCombineTestTable))
 	);
+
+#endif
 
 	template<typename T>
 	class TypedTest : public ::iutest::Test {};

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01169903u //!< iutest version 1.16.99.3
+#define IUTEST_VER          0x01169912u //!< iutest version 1.16.99.12
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
 #define IUTEST_MICROVER     0x99u       //!< Micro Version
-#define IUTEST_REVISION     0x03u       //!< Revision
+#define IUTEST_REVISION     0x12u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -33,24 +33,24 @@
  *          google group: https://groups.google.com/forum/?fromgroups#!forum/g-iutest \n
  *
  * @par     copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License.
  *
  * @par     LICENSE
 
- Redistribution and use in source and binary forms, with or without
- modification, are permitted provided that the following conditions are met:\n
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met: \n
  \n
- * Redistributions of source code must retain the above copyright notice, this
- list of conditions and the following disclaimer.\n
+* Redistributions of source code must retain the above copyright notice, this
+ list of conditions and the following disclaimer. \n
  \n
- * Redistributions in binary form must reproduce the above copyright notice,
- this list of conditions and the following disclaimer in the documentation
- and/or other materials provided with the distribution.\n
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution. \n
  \n
- * Neither the name of iutest nor the names of its
- contributors may be used to endorse or promote products derived from
- this software without specific prior written permission.\n
+* Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission. \n
  \n
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -120,6 +120,20 @@
  * @page    CHANGELOG   変更履歴
  * @par     Changes
  <ul>
+  <li>v1.17.0.0
+    <ul>
+      <li></li>
+      <li>junit xml 出力で出力するテストが 0 だった場合にファイル書き出ししないように修正</li>
+      <li>CSV パラメータ生成でファイルオープン失敗した場合の警告レベルを FATAL から WARNING に変更/li>
+      <li>CSV パラメータ生成で要素がなかった場合に WARNING 出力</li>
+      <li>deprecated: IUTEST_USE_OWN_LIST</li>
+    </ul>
+  </li>
+  <li>v1.16.7.0
+    <ul>
+      <li>古い google mock の互換性エラー修正</li>
+    </ul>
+  </li>
   <li>v1.16.6.0
     <ul>
       <li>Matcher に (NanSensitive)FloatNear/DoubleNear を追加</li>

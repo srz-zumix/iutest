@@ -28,11 +28,18 @@ namespace iutest
  * @brief   テストケース
 */
 class TestCase
+#if IUTEST_USE_OWN_LIST
     : public detail::iu_list_node<TestCase>
+#endif
 {
 protected:
-    typedef detail::iu_list<TestInfo>   iuTestInfos;    //!< TestInfo リスト
-    //typedef ::std::vector<TestInfo*>  iuTestInfos;    //!< TestInfo リスト
+    //! TestInfo リスト
+#if IUTEST_USE_OWN_LIST
+    typedef detail::iu_list<TestInfo>   iuTestInfos;
+#else
+    typedef ::std::vector<TestInfo*>    iuTestInfos;
+#endif
+
 protected:
     /**
      * @brief   コンストラクタ

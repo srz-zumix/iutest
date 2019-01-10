@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -276,7 +276,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitIrisUnitTest(int* pargc, const wchar_t*
 // tuple
 namespace tuples
 {
-#if GTEST_HAS_STD_TUPLE_
+#if GTEST_VER >= 0x01090000 || GTEST_LATEST || (defined(GTEST_HAS_STD_TUPLE_) && GTEST_HAS_STD_TUPLE_)
     using ::std::tuple;
     using ::std::tuple_size;
     using ::std::tuple_element;
@@ -350,6 +350,8 @@ namespace iusupport
 
 #endif
 
+#if GTEST_VER <= 0x01080100 && !GTEST_LATEST
+
 namespace internal
 {
 
@@ -357,6 +359,8 @@ template<typename T>
 struct is_pointer<T* volatile> : public true_type {};
 
 }   // end of namespace internal
+
+#endif
 
 // ostream
 typedef ::std::ostream  iu_ostream;

@@ -60,13 +60,13 @@ IUTEST_IPP_INLINE int UnitTestImpl::Listup() const
     detail::iuConsole::output("%d tests from %d testcase\n", m_total_test_num, m_testcases.size() );
     for( iuTestCases::const_iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
     {
-        detail::iuConsole::output((it)->name());
+        detail::iuConsole::output((*it)->name());
         detail::iuConsole::output("\n");
 
-        for( TestCase::iuTestInfos::const_iterator it2 = (it)->begin(), end2=(it)->end(); it2 != end2; ++it2 )
+        for( TestCase::iuTestInfos::const_iterator it2 = (*it)->begin(), end2=(*it)->end(); it2 != end2; ++it2 )
         {
             detail::iuConsole::output("  ");
-            detail::iuConsole::output((it2)->name());
+            detail::iuConsole::output((*it2)->name());
             detail::iuConsole::output("\n");
         }
     }
@@ -78,13 +78,13 @@ IUTEST_IPP_INLINE int UnitTestImpl::ListupWithWhere() const
     detail::iuConsole::output("%d tests from %d testcase\n", m_total_test_num, m_testcases.size() );
     for( iuTestCases::const_iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
     {
-        detail::iuConsole::output((it)->testcase_name_with_where().c_str());
+        detail::iuConsole::output((*it)->testcase_name_with_where().c_str());
         detail::iuConsole::output("\n");
 
-        for( TestCase::iuTestInfos::const_iterator it2 = (it)->begin(), end2=(it)->end(); it2 != end2; ++it2 )
+        for( TestCase::iuTestInfos::const_iterator it2 = (*it)->begin(), end2=(*it)->end(); it2 != end2; ++it2 )
         {
             detail::iuConsole::output("  ");
-            detail::iuConsole::output((it2)->test_name_with_where().c_str());
+            detail::iuConsole::output((*it2)->test_name_with_where().c_str());
             detail::iuConsole::output("\n");
         }
     }
@@ -107,7 +107,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::ClearNonAdHocTestResult()
 {
     for( iuTestCases::iterator it=m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
     {
-        (it)->clear();
+        (*it)->clear();
     }
 }
 
@@ -220,7 +220,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::TerminateImpl()
 {
     for( iuTestCases::iterator it = m_testcases.begin(); it != m_testcases.end(); it = m_testcases.begin())
     {
-        TestCase* p = (it);
+        TestCase* p = (*it);
         m_testcases.erase(it);
         delete p;
     }

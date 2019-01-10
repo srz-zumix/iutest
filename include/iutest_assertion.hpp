@@ -202,8 +202,11 @@ public:
 
 public:
     /** @private */
-    class ScopedMessage : public detail::iu_list_node<ScopedMessage>
-        , public detail::iuCodeMessage
+    class ScopedMessage
+        : public detail::iuCodeMessage
+#if IUTEST_USE_OWN_LIST
+        , public detail::iu_list_node<ScopedMessage>
+#endif
     {
     public:
         ScopedMessage(const detail::iuCodeMessage& msg) // NOLINT
@@ -213,20 +216,24 @@ public:
         }
         ~ScopedMessage()
         {
-            ScopedTrace::GetInstance().list.erase(this);
+            ScopedTrace::GetInstance().list.remove(this);
         }
     };
 private:
     class ScopedTrace
     {
     public:
+#if IUTEST_USE_OWN_LIST
         typedef detail::iu_list<ScopedMessage> msg_list;
+#else
+        typedef ::std::list<ScopedMessage*> msg_list;
+#endif
         msg_list list;
         static ScopedTrace& GetInstance() { static ScopedTrace inst; return inst; }
     public:
         void append_message(TestPartResult& part_result)
         {
-            if( list.count() )
+            if( list.size() )
             {
                 part_result.add_message("\niutest trace:");
                 for( msg_list::iterator it = list.begin(), end=list.end(); it != end; ++it )
@@ -234,7 +241,7 @@ private:
                     // TODO : 追加メッセージとして保存するべき
                     // 現状はテスト結果のメッセージに追加している。
                     part_result.add_message("\n");
-                    part_result.add_message(it->make_message().c_str());
+                    part_result.add_message((*it)->make_message().c_str());
                 }
             }
         }

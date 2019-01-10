@@ -30,8 +30,11 @@ namespace iutest
 class UnitTestImpl
 {
 protected:
+#if IUTEST_USE_OWN_LIST
     typedef detail::iu_list<TestCase>   iuTestCases;
-    //typedef ::std::vector<TestCase*>  iuTestCases;
+#else
+    typedef ::std::vector<TestCase*>    iuTestCases;
+#endif
     typedef ::std::vector<Environment*> iuEnvironmentList;
 protected:
     UnitTestImpl() : m_total_test_num(0), m_disable_num(0), m_should_run_num(0)

@@ -6,7 +6,24 @@
 
 * Improved
 
+* Changes
+  * junit xml 出力で出力するテストが 0 だった場合にファイル書き出ししないように修正
+  * CSV パラメータ生成でファイルオープン失敗した場合の警告レベルを FATAL から WARNING に変更
+  * CSV パラメータ生成で要素がなかった場合に WARNING 出力
+  * deprecated: IUTEST_USE_OWN_LIST
+
 * Bug fixes
+
+--------------------------------------------------
+
+## Changes for 1.16.7
+
+* Improved
+  * iuwandbox: コードサイズをさらに削減したヘッダーファイルに対応（--iutest-use-wandbox-min）
+  
+* Bug fixes
+  * 古い google mock の互換性エラー修正
+  * いくつかの不具合を修正
 
 --------------------------------------------------
 

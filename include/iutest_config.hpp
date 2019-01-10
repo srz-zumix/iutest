@@ -640,6 +640,20 @@
 
 
 /**
+ * @brief   テストの所持を独自リストクラスで行う
+ * @deprecated
+*/
+#if !defined(IUTEST_USE_OWN_LIST)
+#  if defined(IUTEST_NO_TEMPLATE_TEMPLATES)
+#    define IUTEST_USE_OWN_LIST 1
+#  endif
+#endif
+
+#if !defined(IUTEST_USE_OWN_LIST)
+#  define IUTEST_USE_OWN_LIST   0
+#endif
+
+/**
  * @}
 */
 

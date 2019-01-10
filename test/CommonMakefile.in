@@ -70,6 +70,14 @@ EXTENSIONTESTS_SRCS= main.cpp \
 
 EXTENSIONTESTS_TARGET=extension_tests
 
+SYNTAXTESTS_TEST_SRCS= \
+               syntax_tests.cpp \
+
+SYNTAXTESTS_SRCS= main.cpp \
+               $(SYNTAXTESTS_TEST_SRCS)
+
+SYNTAXTESTS_TARGET=syntax_tests
+
 NAMESPACETESTS_TARGET=namespace_tests
 
 TARGETS1= \
@@ -79,6 +87,7 @@ TARGETS1= \
           catch_exceptions_tests \
           charcode_tests \
           commandline_tests \
+          csvparams_invalid_file_tests \
           csvparams_tests \
           cxx_feature_tests \
           disabled_tests \

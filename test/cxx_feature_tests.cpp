@@ -73,7 +73,7 @@ IUTEST(StringView, Compare)
 
 IUTEST(StringView, PrintTo)
 {
-    LogChecker ck("Hello");
+    PrintToLogChecker ck("Hello");
     ::std::string_view view = "Hello";
     IUTEST_SUCCEED() << ::iutest::PrintToString(view);
 }
@@ -91,6 +91,10 @@ IUTEST(Optional, Compare)
     }
     {
         ::std::optional<int> opt = ::std::nullopt;
+        IUTEST_EXPECT_EQ(::std::nullopt, opt);
+    }
+    {
+        ::std::optional<int> opt = ::std::nullopt;
         IUTEST_EXPECT_FALSE(opt);
         IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_EQ(1234, opt), "1234");
     }
@@ -99,12 +103,12 @@ IUTEST(Optional, Compare)
 IUTEST(Optional, PrintTo)
 {
     {
-        LogChecker ck("1234");
+        PrintToLogChecker ck("1234");
         ::std::optional<int> opt = 1234;
         IUTEST_SUCCEED() << ::iutest::PrintToString(opt);
     }
     {
-        LogChecker ck("nullopt");
+        PrintToLogChecker ck("nullopt");
         ::std::optional<int> opt = ::std::nullopt;
         IUTEST_SUCCEED() << ::iutest::PrintToString(opt);
     }
@@ -126,22 +130,22 @@ IUTEST(Variant, Compare)
 IUTEST(Variant, PrintTo)
 {
     {
-        LogChecker ck("1234");
+        PrintToLogChecker ck("1234");
         ::std::variant<int, float, ::std::string> v = 1234;
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
     {
-        LogChecker ck("test");
+        PrintToLogChecker ck("test");
         ::std::variant<int, float, ::std::string> v("test");
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
     {
-        LogChecker ck("monostate");
+        PrintToLogChecker ck("monostate");
         ::std::variant<std::monostate, int, float, std::string> v;
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
     {
-        LogChecker ck("valueless_by_exception");
+        PrintToLogChecker ck("valueless_by_exception");
         ::std::variant<int, float, ::std::string> v = 0.2f;
         try
         {
@@ -161,7 +165,7 @@ IUTEST(Variant, PrintTo)
 
 IUTEST(StdArray, PrintTo)
 {
-    LogChecker ck("3, 1, 4");
+    PrintToLogChecker ck("3, 1, 4");
     ::std::array<int, 3> ar = { { 3, 1, 4 } };
     IUTEST_SUCCEED() << ::iutest::PrintToString(ar);
 }
@@ -182,7 +186,7 @@ IUTEST(StdArray, PrintTo)
 IUTEST(Any, PrintTo)
 {
     {
-        //LogChecker ck("1234");
+        //PrintToLogChecker ck("1234");
         ::std::any v = 1234;
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
@@ -204,7 +208,7 @@ IUTEST(FileSystem, PathCompare)
 IUTEST(FileSystem, PathPrintTo)
 {
     {
-        LogChecker ck("/cxx_feature_tests.cpp");
+        PrintToLogChecker ck("/cxx_feature_tests.cpp");
         ::std::filesystem::path v = __FILE__;
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
@@ -222,7 +226,7 @@ IUTEST(FileSystem, StatusCompare)
 IUTEST(FileSystem, StatusPrintTo)
 {
     {
-        LogChecker ck("regular: 0");
+        PrintToLogChecker ck("regular: 0");
         ::std::filesystem::file_status v = ::std::filesystem::status(__FILE__);
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
@@ -231,19 +235,19 @@ IUTEST(FileSystem, StatusPrintTo)
 IUTEST(FileSystem, SpaceInfoPrintTo)
 {
     {
-        LogChecker ck("cpacity");
+        PrintToLogChecker ck("cpacity");
         ::std::filesystem::path path = __FILE__;
         ::std::filesystem::space_info v = ::std::filesystem::space(path.remove_filename());
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
     {
-        LogChecker ck("free");
+        PrintToLogChecker ck("free");
         ::std::filesystem::path path = __FILE__;
         ::std::filesystem::space_info v = ::std::filesystem::space(path.remove_filename());
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
     {
-        LogChecker ck("available");
+        PrintToLogChecker ck("available");
         ::std::filesystem::path path = __FILE__;
         ::std::filesystem::space_info v = ::std::filesystem::space(path.remove_filename());
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
@@ -266,7 +270,7 @@ IUTEST(FileSystem, DirectoryEntryPrintTo)
     {
         ::std::filesystem::path path = __FILE__;
         ::std::filesystem::path directory = path.remove_filename().append("testdata");
-        LogChecker ck(directory.generic_string());
+        PrintToLogChecker ck(directory.generic_string());
         ::std::filesystem::directory_entry x = *::std::filesystem::directory_iterator(directory);
         IUTEST_SUCCEED() << ::iutest::PrintToString(x);
     }
@@ -277,7 +281,7 @@ IUTEST(FileSystem, DirectoryIteratorPrintTo)
     {
         ::std::filesystem::path path = __FILE__;
         ::std::filesystem::path directory = path.remove_filename().append("testdata");
-        LogChecker ck(directory.generic_string());
+        PrintToLogChecker ck(directory.generic_string());
         ::std::filesystem::directory_iterator x = ::std::filesystem::directory_iterator(directory);
         IUTEST_SUCCEED() << ::iutest::PrintToString(x);
     }

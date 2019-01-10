@@ -1,0 +1,41 @@
+trigger:
+#  batch: true
+  branches:
+    include:
+      - master
+      - develop
+      - azure-pipelines/*
+  paths:
+    exclude:
+      - "*.md"
+      - docs/*
+      - .circleci/*
+      - .cirrus.yml
+      - .travis.yml
+      - appveyor.yml
+      - bitrise.yml
+      - buddy.yml
+      - codecov.yml
+      - codefresh.yml
+      - rocro.yml
+      - shippable.yml
+      - wercker.yml
+      - Jenkinsfile
+      - .editorconfig
+
+jobs:
+  - job: syntax_test
+    pool:
+      vmImage: ubuntu-16.04
+    steps:
+      - script: make -C test -j4 syntax_tests_run
+        displayName: 'syntax test'
+  - template: .ci/azure_pipelines/template-make-test.yml
+    parameters:
+      name: default
+  - template: .ci/azure_pipelines/template-make-disabled-test.yml
+    parameters:
+      name: disabled
+  - template: .ci/azure_pipelines/template-make-nofeature-test.yml
+    parameters:
+      name: nofeature

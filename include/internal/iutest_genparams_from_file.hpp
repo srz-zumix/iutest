@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2018, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -69,30 +69,30 @@ private:
     {
         params_t params;
         IFile* fp = detail::IFileSystem::New();
-        if( fp != NULL )
+        if( (fp != NULL) && fp->Open(path.c_str(), IFile::OpenRead) )
         {
-            if( fp->Open(path.c_str(), IFile::OpenRead) )
+            const ::std::string dataset = fp->ReadAll();
+            ::std::string::size_type prev = 0;
+            ::std::string::size_type pos = 0;
+            while( static_cast<void>(pos = dataset.find(delimiter, prev)), pos != ::std::string::npos )
             {
-                const ::std::string dataset = fp->ReadAll();
-                ::std::string::size_type prev = 0;
-                ::std::string::size_type pos = 0;
-                while( static_cast<void>(pos = dataset.find(delimiter, prev)), pos != ::std::string::npos )
-                {
-                    const ::std::string data = dataset.substr(prev, pos - prev);
-                    AppendParams(params, data);
-                    ++pos;
-                    prev = pos;
-                }
-                AppendParams(params, dataset.substr(prev));
+                const ::std::string data = dataset.substr(prev, pos - prev);
+                AppendParams(params, data);
+                ++pos;
+                prev = pos;
             }
-            else
+            AppendParams(params, dataset.substr(prev));
+
+            if( params.empty() )
             {
-                fprintf(stderr, "Unable to open file \"%s\".\n", path.c_str());
-                fflush(stderr);
+                IUTEST_LOG_(WARNING) << "Empty params file \"" << path << "\".";
             }
-            detail::IFileSystem::Free(fp);
         }
-        IUTEST_CHECK_(!params.empty());
+        else
+        {
+            IUTEST_LOG_(WARNING) << "Unable to open file \"" << path << "\".";
+        }
+        detail::IFileSystem::Free(fp);
         return params;
     }
 };
