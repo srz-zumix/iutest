@@ -1,6 +1,7 @@
 version: 1.0.{build}
 environment:
   matrix:
+    # Visual Studio
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
       PROJECT_DIR: msvc12
       CMAKE_GENERATOR_NAME: Visual Studio 12 2013
@@ -25,16 +26,27 @@ environment:
       CYGWIN_SETUP_EXE: setup-x86_64.exe
     # MINGW64
     - BUILD_MINGW: yes
+      USE_GNU_EXTENSION: 0
+      MAKE_OPTIONS: LIBS=ws2_32
       MINGW_PATH: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
       #MINGW_PATH: C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1
-      MAKE_OPTIONS: LIBS=ws2_32
       #APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-    # MINGW32 
+    # MINGW64 GNU EXTENSION
     - BUILD_MINGW: yes
-      #APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      USE_GNU_EXTENSION: 1
+      MAKE_OPTIONS: LIBS=ws2_32
+      MINGW_PATH: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
+    # MINGW32
+    - BUILD_MINGW: yes
+      USE_GNU_EXTENSION: 0
+      MINGW_PATH: c:\mingw\bin
+    # MINGW32 GNU EXTENSION
+    - BUILD_MINGW: yes
+      USE_GNU_EXTENSION: 1
       MINGW_PATH: c:\mingw\bin
     # NMAKE
     - BUILD_NMAKE: yes
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     # Prefast
     - BUILD_PREFAST: yes
       PROJECT_DIR: msvc14
@@ -66,7 +78,7 @@ matrix:
       BUILD_PACKAGE: yes
     - configuration: Debug
       BUILD_NUGET: yes
-      
+
 clone_depth: 1
 
 init:
@@ -115,7 +127,7 @@ for:
       g++ --version; clang++ --version; python --version
       @echo. > foo.h && g++ -std=c++1z -dM -E -x c++ foo.h
       uname
-      make
+      make -j4
   test_script:
     cmd: |
       make test
@@ -134,11 +146,9 @@ for:
       cd test
       g++ --version
       @echo. > foo.h && g++ -std=c++1z -dM -E -x c++ foo.h
-      mingw32-make USE_GNU_EXTENSION=1 %MAKE_OPTIONS%
-      mingw32-make clean
-      mingw32-make %MAKE_OPTIONS%
+      mingw32-make -j4 %MAKE_OPTIONS%
   test_script:
-    cmd: mingw32-make test %MAKE_OPTIONS%
+    cmd: mingw32-make test
 # NAMKE
 -
   matrix:
