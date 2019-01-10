@@ -81,6 +81,7 @@ SYNTAXTESTS_TARGET=syntax_tests
 NAMESPACETESTS_TARGET=namespace_tests
 
 TARGETS1= \
+          also_run_disabled_tests \
           assertion_return_tests \
           assume_tests \
           break_on_failure_nobreak_tests \
