@@ -49,6 +49,11 @@ def parse_command_line():
         help='output file encoding.'
     )
     parser.add_argument(
+        '--debug',
+        action='store_true',
+        help='log debug'
+    )
+    parser.add_argument(
         'file',
         metavar='FILE',
         nargs='+',
@@ -62,6 +67,11 @@ cmdline_options = None
 
 def log(msg):
     if cmdline_options.verbose:
+        print(msg)
+
+
+def logd(msg):
+    if cmdline_options.debug:
         print(msg)
 
 
@@ -106,14 +116,16 @@ def write_result(f, testcase):
     if cmdline_options.no_time:
         if 'time' in d:
             del d['time']
-    # failures
-    d['failure'] = []
-    for failure in testcase:
-        fd = failure.attrib
-        fd['text'] = failure.text
-        d['failure'].append(fd)
+    # failure and skipped ...
+    for child in testcase:
+        tag = child.tag
+        if tag not in d:
+            d[tag] = []
+        fd = child.attrib
+        fd['text'] = child.text
+        d[tag].append(fd)
     jt = json.dumps(d, indent=4, ensure_ascii=False)
-    # print(jt)
+    logd(jt)
     f.write(jt)
 
 
