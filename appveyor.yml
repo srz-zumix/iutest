@@ -1,4 +1,5 @@
 version: 1.0.{build}
+
 environment:
   matrix:
     # Visual Studio
@@ -78,6 +79,16 @@ matrix:
       BUILD_PACKAGE: yes
     - configuration: Debug
       BUILD_NUGET: yes
+
+branches:
+  only:
+    - master
+    - develop
+    - /feature.*/
+    - /appveyor.*/
+
+# Do not build feature branch with open Pull Requests
+skip_branch_with_pr: true
 
 clone_depth: 1
 
