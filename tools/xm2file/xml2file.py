@@ -111,6 +111,19 @@ def make_path(root_path, testsuite, testcase):
     return os.path.join(os.path.join(root_path, suite_name), case_name + ext)
 
 
+def get_user_properties(node):
+    system_attributes = [
+        "errors",
+        "tests",
+        "time",
+    ]
+    users = {}
+    for a in node.attrib:
+        if a not in system_attributes:
+            users[a] = node.attrib[a]
+    return users
+
+
 def write_result(f, testcase):
     d = testcase.attrib
     if cmdline_options.no_time:
@@ -140,6 +153,7 @@ def xml2file(path):
     clean_dir(root_path)
 
     log(basename)
+    print(get_user_properties(testsuites))
     for testsuite in testsuites:
         log("  " + testsuite.attrib['name'])
         for testcase in testsuite:
