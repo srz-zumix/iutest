@@ -1,5 +1,2 @@
-#!/bin/sh -l
-
+#!/bin/sh
 sh -c "echo $*"
-
-ls
