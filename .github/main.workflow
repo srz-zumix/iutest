@@ -4,7 +4,7 @@ workflow "New workflow" {
 }
 
 action "Hello World" {
-  uses = "./github/actions/run-test"
+  uses = "./helloworld"
   env = {
     MY_NAME = "srz_zumix"
   }
