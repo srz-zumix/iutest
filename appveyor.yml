@@ -115,9 +115,7 @@ build:
   verbosity: minimal
 
 test_script:
-  cmd: |
-      cd build
-      ctest -C %Configuration% -V
+  cmd: cd build && ctest -C %Configuration% -V
 
 for:
 # Cygwin
@@ -140,8 +138,7 @@ for:
       uname
       make -j4
   test_script:
-    cmd: |
-      make test
+    cmd: make test
 # MINGW
 -
   matrix:
@@ -169,9 +166,7 @@ for:
   before_build:
     cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat"'
   build_script:
-    cmd: |
-      cd test
-      nmake
+    cmd: cd test && nmake
   test_script:
     cmd: nmake test
 # Prefast
@@ -186,8 +181,7 @@ for:
   before_build:
     cmd: echo.
   build_script:
-    cmd: |
-      msbuild "projects\%PROJECT_DIR%\iutest_sample.vcxproj" /m %MSBUILD_LOGGER_OPTION% %MSBUILD_PREFAST_OPTION%
+    cmd: msbuild "projects\%PROJECT_DIR%\iutest_sample.vcxproj" /m %MSBUILD_LOGGER_OPTION% %MSBUILD_PREFAST_OPTION%
   test: off
 # Menu
 -
@@ -227,6 +221,7 @@ for:
       Write-Output "Building NuGet package"
       nuget pack $nuspecPath -OutputDirectory ".\"
   test: off
+
 on_failure:
   ps: |
     # rdp
