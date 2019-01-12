@@ -111,12 +111,7 @@ def make_path(root_path, testsuite, testcase):
     return os.path.join(os.path.join(root_path, suite_name), case_name + ext)
 
 
-def get_user_properties(node):
-    system_attributes = [
-        "errors",
-        "tests",
-        "time",
-    ]
+def _get_user_properties(node, system_attributes):
     users = {}
     for a in node.attrib:
         if a not in system_attributes:
@@ -124,11 +119,31 @@ def get_user_properties(node):
     return users
 
 
-def write_result(f, testcase):
+def get_user_properties(node):
+    system_attributes = {
+        "testsuites": [
+            "name", "tests", "failures", "disabled", "skip", "errors", "time", "timestamp", "random_seed"
+        ],
+        "testsuite": [
+            "name", "tests", "failures", "disabled", "skip", "errors", "time", "timestamp", "random_seed"
+        ],
+        "testcase": [
+            "name", "status", "time", "classname", "type_param", "value_param"
+        ]
+    }
+    for k,v in system_attributes.items():
+        if node.tag == k:
+            return _get_user_properties(node, v)
+    return node.attrib
+
+
+def write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase):
     d = testcase.attrib
     if cmdline_options.no_time:
         if 'time' in d:
             del d['time']
+    d['testsuites_attrib'] = testsuites_user_attrib
+    d['testsuite_attrib'] = testsuite_user_attrib
     # failure and skipped ...
     for child in testcase:
         tag = child.tag
@@ -153,13 +168,14 @@ def xml2file(path):
     clean_dir(root_path)
 
     log(basename)
-    print(get_user_properties(testsuites))
+    testsuites_user_attrib = get_user_properties(testsuites)
     for testsuite in testsuites:
         log("  " + testsuite.attrib['name'])
+        testsuite_user_attrib = get_user_properties(testsuite)
         for testcase in testsuite:
             log("    " + testcase.attrib['name'])
             f = fopen(make_path(root_path, testsuite, testcase))
-            write_result(f, testcase)
+            write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase)
             f.close()
 
 
