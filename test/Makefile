@@ -67,9 +67,9 @@ showcxxversion:
 $(RUNNER) : $(@:_tests_run=_tests)
 	@echo $@
 !ifdef OUTPUTXML
-	$(@:_run=) $(RUN_OPTION) --iutest_output=xml:$<.xml
+	$< $(RUN_OPTION) --iutest_output=xml:$<.xml
 !else
-	$(@:_run=) $(RUN_OPTION)
+	$< $(RUN_OPTION)
 !endif
 
 #
