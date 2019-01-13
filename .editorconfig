@@ -16,6 +16,9 @@ charset = utf-8-bom
 charset = utf-8
 trim_trailing_whitespace = true
 
+[*.yml]
+trim_trailing_whitespace = true
+
 [*.{yml,html}]
 indent_size = 2
 

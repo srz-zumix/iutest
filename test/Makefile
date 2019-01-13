@@ -64,7 +64,7 @@ test : $(BUILD_ONLY) $(RUNNER)
 showcxxversion:
 	-$(CXX)
 
-$(RUNNER) : $(@:_run=)
+$(RUNNER) : $(@:_tests_run=_tests)
 	@echo $@
 !ifdef OUTPUTXML
 	$(@:_run=) $(RUN_OPTION) --iutest_output=xml:$<.xml
