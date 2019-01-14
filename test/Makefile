@@ -34,7 +34,8 @@ CXXFLAGS =$(CXXFLAGS) -DOUTPUTXML
 !include <CommonMakefile.in>
 
 RUN_TARGETS = $(ALLTESTS_TARGET) $(EXTENSIONTESTS_TARGET) $(NAMESPACETESTS_TARGET) $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY)
-BUILD_TARGETS = $(RUN_TARGETS) $(BUILD_ONLY) $(COMPILEERROR_TARGETS)
+BUILD_TARGETS = $(RUN_TARGETS) $(BUILD_ONLY)
+# BUILD_TARGETS = $(RUN_TARGETS) $(BUILD_ONLY) $(COMPILEERROR_TARGETS)
 TARGETS = $(BUILD_TARGETS)
 
 NAMESPACETESTS_TEST_SRCS = $(ALLTESTS_TEST_SRCS:.cpp=.ns.cpp)
@@ -66,9 +67,9 @@ showcxxversion:
 $(RUNNER) : $(@:_tests_run=_tests)
 	@echo $@
 !ifdef OUTPUTXML
-	$(@:_run=) $(RUN_OPTION) --iutest_output=xml:$<.xml
+	$< $(RUN_OPTION) --iutest_output=xml:$<.xml
 !else
-	$(@:_run=) $(RUN_OPTION)
+	$< $(RUN_OPTION)
 !endif
 
 #

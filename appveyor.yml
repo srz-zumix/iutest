@@ -1,6 +1,8 @@
 version: 1.0.{build}
+
 environment:
   matrix:
+    # Visual Studio
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
       PROJECT_DIR: msvc12
       CMAKE_GENERATOR_NAME: Visual Studio 12 2013
@@ -10,6 +12,7 @@ environment:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       PROJECT_DIR: msvc15
       CMAKE_GENERATOR_NAME: Visual Studio 15 2017
+    # Cygwin
     - BUILD_CYGWIN: yes
       USE_GNU_EXTENSION: 0
       CYGWIN_PATH: C:\cygwin
@@ -22,15 +25,38 @@ environment:
       USE_GNU_EXTENSION: 1
       CYGWIN_PATH: C:\cygwin64
       CYGWIN_SETUP_EXE: setup-x86_64.exe
+    # MINGW64
     - BUILD_MINGW: yes
+      USE_GNU_EXTENSION: 0
+      MAKE_OPTIONS: LIBS=ws2_32
       MINGW_PATH: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
       #MINGW_PATH: C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1
-      MAKE_OPTIONS: LIBS=ws2_32
       #APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-    # MINGW32 
+    # MINGW64 GNU EXTENSION
     - BUILD_MINGW: yes
-      #APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      USE_GNU_EXTENSION: 1
+      MAKE_OPTIONS: LIBS=ws2_32
+      MINGW_PATH: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
+    # MINGW32
+    - BUILD_MINGW: yes
+      USE_GNU_EXTENSION: 0
       MINGW_PATH: c:\mingw\bin
+    # MINGW32 GNU EXTENSION
+    - BUILD_MINGW: yes
+      USE_GNU_EXTENSION: 1
+      MINGW_PATH: c:\mingw\bin
+    # NMAKE
+    - BUILD_NMAKE: yes
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    # Prefast
+    - BUILD_PREFAST: yes
+      PROJECT_DIR: msvc14
+    # Menu
+    - BUILD_MENU: yes
+    # Package Build
+    - BUILD_PACKAGE: yes
+      APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
+    # Nuget
     - BUILD_NUGET: yes
 
 configuration:
@@ -40,12 +66,30 @@ configuration:
 matrix:
   exclude:
     - configuration: Debug
-      BUILD_NUGET: yes
-    - configuration: Debug
       BUILD_CYGWIN: yes
     - configuration: Debug
       BUILD_MINGW: yes
-      
+    - configuration: Debug
+      BUILD_NMAKE: yes
+    - configuration: Release
+      BUILD_PREFAST: yes
+    - configuration: Debug
+      BUILD_MENU: yes
+    - configuration: Debug
+      BUILD_PACKAGE: yes
+    - configuration: Debug
+      BUILD_NUGET: yes
+
+branches:
+  only:
+    - master
+    - develop
+    - /feature.*/
+    - /appveyor.*/
+
+# Do not build feature branch with open Pull Requests
+skip_branch_with_pr: true
+
 clone_depth: 1
 
 init:
@@ -71,25 +115,9 @@ build:
   verbosity: minimal
 
 test_script:
-  cmd: |
-      cd build
-      ctest -C %Configuration% -V
+  cmd: cd build && ctest -C %Configuration% -V
 
 for:
-# NuGet
--
-  matrix:
-    only:
-      - configuration: Release
-        BUILD_NUGET: yes
-  before_build:
-    cmd: echo.
-  build_script:
-    ps: |
-      $nuspecPath = "projects\nuget\iutest.nuspec"
-      Write-Output "Building NuGet package"
-      nuget pack $nuspecPath -OutputDirectory ".\"
-  test: off
 # Cygwin
 -
   matrix:
@@ -108,10 +136,9 @@ for:
       g++ --version; clang++ --version; python --version
       @echo. > foo.h && g++ -std=c++1z -dM -E -x c++ foo.h
       uname
-      make
+      make -j4
   test_script:
-    cmd: |
-      make test
+    cmd: make test
 # MINGW
 -
   matrix:
@@ -127,12 +154,74 @@ for:
       cd test
       g++ --version
       @echo. > foo.h && g++ -std=c++1z -dM -E -x c++ foo.h
-      mingw32-make USE_GNU_EXTENSION=1 %MAKE_OPTIONS%
-      mingw32-make clean
-      mingw32-make %MAKE_OPTIONS%
+      mingw32-make -j4 %MAKE_OPTIONS%
   test_script:
     cmd: mingw32-make test %MAKE_OPTIONS%
-    
+# NAMKE
+-
+  matrix:
+    only:
+      - configuration: Release
+        BUILD_NMAKE: yes
+  before_build:
+    cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat"'
+  build_script:
+    cmd: cd test && nmake
+  test_script:
+    cmd: nmake test
+# Prefast
+-
+  matrix:
+    only:
+      - configuration: Debug
+        BUILD_PREFAST: yes
+  environment:
+    MSBUILD_LOGGER_OPTION: /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+    MSBUILD_PREFAST_OPTION: /p:RunCodeAnalysis=true /p:EnablePREfast=true /p:CodeAnalysisTreatWarningsAsErrors=true
+  before_build:
+    cmd: echo.
+  build_script:
+    cmd: msbuild "projects\%PROJECT_DIR%\iutest_sample.vcxproj" /m %MSBUILD_LOGGER_OPTION% %MSBUILD_PREFAST_OPTION%
+  test: off
+# Menu
+-
+  matrix:
+    only:
+      - configuration: Release
+        BUILD_MENU: yes
+  before_build:
+    cmd: echo.
+  build:
+    project: samples\windows\iutest_windows_sample.sln
+    parallel: true
+    verbosity: minimal
+  test: off
+# Package Build
+-
+  matrix:
+    only:
+      - configuration: Release
+        BUILD_PACKAGE: yes
+  before_build:
+    cmd: echo.
+  build_script:
+    sh: bash ./.ci/make-package.sh
+  test: off
+# NuGet
+-
+  matrix:
+    only:
+      - configuration: Release
+        BUILD_NUGET: yes
+  before_build:
+    cmd: echo.
+  build_script:
+    ps: |
+      $nuspecPath = "projects\nuget\iutest.nuspec"
+      Write-Output "Building NuGet package"
+      nuget pack $nuspecPath -OutputDirectory ".\"
+  test: off
+
 on_failure:
   ps: |
     # rdp

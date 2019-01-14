@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2018-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -59,16 +59,15 @@ int main(int argc, char* argv[])
     const int ret = IUTEST_RUN_ALL_TESTS();
     if( ret != 0 ) return 1;
 #if IUTEST_HAS_STREAM_BUFFER && IUTEST_HAS_ASSERTION_RETURN
-    IUTEST_ASSERT_STRIN("Unable to open file \"testdata/not-exist?.csv\".", stderr_capture.GetStreamString())
+    ::std::string stderr_message = stderr_capture.GetStreamString();
+    IUTEST_ASSERT_STRIN("Unable to open file \"testdata/not-exist?.csv\".", stderr_message)
         << ::iutest::AssertionReturn<int>(1);
-    IUTEST_ASSERT_STRIN(
 #if IUTEST_HAS_FOPEN
-        "Empty params file "
+    IUTEST_ASSERT_STRIN("Empty params file "    "\"testdata/empty.csv\".", stderr_message)
 #else
-        "Unable to open file "
+    IUTEST_ASSERT_STRIN("Unable to open file "  "\"testdata/empty.csv\".", stderr_message)
 #endif
-        "\"testdata/empty.csv\".", stderr_capture.GetStreamString()
-    ) << ::iutest::AssertionReturn<int>(1);
+        << ::iutest::AssertionReturn<int>(1);
 #endif
     printf("*** Successful ***\n");
 #else
