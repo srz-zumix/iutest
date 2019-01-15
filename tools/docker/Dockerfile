@@ -1,3 +1,7 @@
+# Usage
+# docker build tools/docker -t iutest
+# docker run -it -v $(pwd):/iutest iutest bash
+
 FROM ubuntu:xenial
 
 LABEL maintainer "srz_zumix <https://github.com/srz-zumix>"
