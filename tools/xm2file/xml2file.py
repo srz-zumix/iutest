@@ -7,10 +7,8 @@
 # see LICENSE
 #
 
-import argparse
 import os
 import errno
-import re
 import json
 import codecs
 import shutil
