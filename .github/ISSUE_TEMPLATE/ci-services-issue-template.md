@@ -14,7 +14,7 @@ assignees: ''
 * [ ] Bitrise
 * [ ] Buddy
 * [ ] Circle CI
-* [ ] Circle CI
+* [ ] Cirrus CI
 * [ ] Codefresh
 * [ ] Codeship
 * [ ] GitLab CI
