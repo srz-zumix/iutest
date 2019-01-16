@@ -1,5 +1,5 @@
 cirrus_gcc_test_task:
-  only_if: $CIRRUS_BRANCH == 'master' || $CIRRUS_BRANCH == 'develop' || $CIRRUS_BRANCH =~ 'feature.*' || $CIRRUS_BRANCH =~ 'cirrusci.*''
+  only_if: $CIRRUS_BRANCH == 'master' || $CIRRUS_BRANCH == 'develop' || $CIRRUS_BRANCH =~ 'feature/.*' || $CIRRUS_BRANCH =~ 'cirrusci/.*'
   container:
     image: gcc:latest
   env:
