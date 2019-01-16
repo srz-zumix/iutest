@@ -1,5 +1,6 @@
 cirrus_gcc_test_task:
-  only_if: $CIRRUS_BRANCH =~ '(master|develop|feature/.*|cirrusci/.*)'
+  only_if: $CIRRUS_BRANCH == 'master' || $CIRRUS_BRANCH == 'develop' || $CIRRUS_BRANCH =~ 'feature/.*' || $CIRRUS_BRANCH =~ 'cirrusci/.*' || $CIRRUS_BASE_BRANCH != ''
+  auto_cancellation: true
   container:
     image: gcc:latest
   env:
@@ -17,7 +18,8 @@ cirrus_gcc_test_task:
 #  test_script: cd test && make -j4 showcxxversion default && make test
 
 cirrus_osx_test_task:
-  only_if: $CIRRUS_BRANCH =~ '(master|develop|feature/.*|cirrusci/.*)'
+  only_if: $CIRRUS_BRANCH == 'master' || $CIRRUS_BRANCH == 'develop' || $CIRRUS_BRANCH =~ 'feature/.*' || $CIRRUS_BRANCH =~ 'cirrusci/.*' || $CIRRUS_BASE_BRANCH != ''
+  auto_cancellation: true
   osx_instance:
     image: high-sierra-xcode-9.4.1
   env:
@@ -27,3 +29,7 @@ cirrus_osx_test_task:
       #STDFLAG: -std=c++2a
   test_script: cd test && make -j4 showcxxversion default && make test
 
+# cirrus_worker_info_task:
+#   container:
+#     image: gcc:latest
+#   test_script: env
