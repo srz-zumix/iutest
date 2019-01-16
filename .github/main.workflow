@@ -1,17 +1,8 @@
 workflow "New workflow" {
   on = "push"
   resolves = [
-    "Hello World",
     "lint:editorconfig",
   ]
-}
-
-action "Hello World" {
-  uses = "./helloworld"
-  env = {
-    MY_NAME = "srz_zumix"
-  }
-  args = "\"Hello world, I'm $MY_NAME!\""
 }
 
 action "GitHub Action for npm install" {
