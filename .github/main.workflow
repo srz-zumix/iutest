@@ -7,8 +7,8 @@ workflow "New workflow" {
 
 action "GitHub Action for npm install git" {
   uses = "actions/npm@e7aaefed7c9f2e83d493ff810f17fa5ccd7ed437"
-  runs = "bash"
-  args = "-c apt-get install -y git"
+  args = "bash -c apt-get install -y git"
+  runs = "\"\""
 }
 
 action "GitHub Action for npm install" {
