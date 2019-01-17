@@ -5,6 +5,7 @@ trigger:
       - master
       - develop
       - azure-pipelines/*
+      - azurepipelines/*
   paths:
     exclude:
       - "*.md"
@@ -22,6 +23,12 @@ trigger:
       - wercker.yml
       - Jenkinsfile
       - .editorconfig
+
+pr:
+  branches:
+    include:
+      - master
+      - develop
 
 jobs:
   - job: syntax_test
