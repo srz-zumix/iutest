@@ -5,17 +5,10 @@ workflow "New workflow" {
   ]
 }
 
-action "GitHub Action for npm apt-get update" {
-  uses = "actions/npm@master"
-  args = "update"
-  runs = "apt-get"
-}
-
 action "GitHub Action for npm apt-get install git" {
   uses = "actions/npm@master"
-  args = "install -y git"
-  runs = "apt-get"
-  needs = ["GitHub Action for npm apt-get update"]
+  args = [ "apt-get update && apt-get install -y git" ]
+  runs = "bash -c"
 }
 
 action "GitHub Action for npm install" {
