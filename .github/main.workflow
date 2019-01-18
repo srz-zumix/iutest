@@ -5,16 +5,23 @@ workflow "New workflow" {
   ]
 }
 
-action "GitHub Action for npm install git" {
+action "GitHub Action for npm apt-get update" {
   uses = "actions/npm@e7aaefed7c9f2e83d493ff810f17fa5ccd7ed437"
-  args = "-c '\"apt-get update && apt-get install -y git\"'"
-  runs = "bash"
+  args = "update"
+  runs = "apt-get"
+}
+
+action "GitHub Action for npm apt-get install git" {
+  uses = "actions/npm@e7aaefed7c9f2e83d493ff810f17fa5ccd7ed437"
+  args = "install -y git"
+  runs = "apt-get"
+  needs = ["GitHub Action for npm apt-get update"]
 }
 
 action "GitHub Action for npm install" {
   uses = "actions/npm@e7aaefed7c9f2e83d493ff810f17fa5ccd7ed437"
   args = "install"
-  needs = ["GitHub Action for npm install git"]
+  needs = ["GitHub Action for npm apt-get install git"]
 }
 
 action "lint:editorconfig" {
