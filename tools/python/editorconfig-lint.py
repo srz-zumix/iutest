@@ -8,19 +8,45 @@
 #
 
 import sys
+import os
 
 try:
-    import configparser
+    from configparser import ConfigParser
 except ImportError:
-    import ConfigParser as configparser
+    from ConfigParser import SafeConfigParser as ConfigParser
+
+
+class EditorConfig(object):
+    def __init__(self, path):
+        self.name = os.path.basename(path)
+        self.fp = open(path)
+        self.first_head = True
+
+    def readline(self):
+        if self.first_head:
+            self.first_head = False
+            return '[global]\n'
+        return self.fp.readline()
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        line = self.readline()
+        if not line:
+            raise StopIteration
+        return line
+
+    next = __next__  # For Python 2 compatibility.
+
 
 def main():
     path = sys.argv[1]
-    ini = configparser.SafeConfigParser()
+    ini = ConfigParser()
     if not os.path.exists(path):
         sys.stderr.write('%s not found...' % path)
         sys.exit(2)
-    ini.read(path)
+    ini.read_file(EditorConfig(path))
     sys.exit(0)
 
 if __name__ == '__main__':
