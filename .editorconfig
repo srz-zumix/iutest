@@ -9,7 +9,7 @@ insert_final_newline = true
 indent_style = tab
 end_of_line = lf
 
-[*.{cpp,hpp,ipp}]
+[*.{cpp,hpp,ipp}}
 charset = utf-8-bom
 
 [*.py]
