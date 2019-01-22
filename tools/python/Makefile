@@ -1,7 +1,7 @@
 #
 # Makefile
 
-.PHONY: sample clean
+.PHONY: sample clean editorconfig
 TOOLS=eval_line.py
 
 sample: $(TOOLS) Makefile
@@ -10,7 +10,5 @@ sample: $(TOOLS) Makefile
 clean:
 	rm -rf pp_inc.h
 
-xml2file:
-	make -C ../../test OUTPUTXML=1 run_matcher_tests > /dev/null
-	make -C ../../test OUTPUTXML=1 run_unit_tests > /dev/null
-	python xml2file.py -o tmp ../../test/unit_tests.xml ../../test/matcher_tests.xml
+editorconfig:
+	python editorconfig-lint.py ../../.editorconfig
