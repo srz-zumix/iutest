@@ -8,3 +8,6 @@
 
 fused:
 	make -C tools/fused
+
+editorconfig:
+	make -C tools/python editorconfig
