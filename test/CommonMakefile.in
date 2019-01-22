@@ -117,6 +117,7 @@ TARGETS1= \
           output_junit_xml_tests \
           output_xml_tests \
           port_tests \
+          printers_overload_tests \
           printers_tests \
           progress_tests \
           quiet_result_printer_tests \
