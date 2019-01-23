@@ -139,8 +139,8 @@ void DefaultPrintNonContainerTo(const T& value, iu_ostream* os)
 */
 template<typename T>
 inline void DefaultPrintTo(IsContainerHelper::yes_t
-                           , iutest_type_traits::false_type
-                           , const T& container, iu_ostream* os)
+                        , iutest_type_traits::false_type
+                        , const T& container, iu_ostream* os)
 {
     const size_t kMaxCount = kValues::MaxPrintContainerCount;
     size_t count = 0;

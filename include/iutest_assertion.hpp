@@ -781,8 +781,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNearFloatingPoint(
         << "\nExpected: " << FormatForComparisonFailureMessage(abs_v, diff);
 }
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ DoubleNearPredFormat(
-      const char* expr1, const char* expr2, const char* absc
-    , double val1, double val2, double abs_v)
+    const char* expr1, const char* expr2, const char* absc
+        , double val1, double val2, double abs_v)
 {
     return CmpHelperNearFloatingPoint(expr1, expr2, absc, val1, val2, abs_v);
 }

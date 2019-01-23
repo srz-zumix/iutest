@@ -154,7 +154,7 @@
         IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)() { return generator_; }                \
     static ::std::string IIUT_TEST_P_PARAMGENERATOR_NAME_(prefix_, testcase_)(                      \
         const ::iutest::TestParamInfo< basefixture_::ParamType >& info) { return                    \
-             ::iutest::detail::ParamTestCaseInfo< basefixture_ >::paramname_generator_(info); }     \
+            ::iutest::detail::ParamTestCaseInfo< basefixture_ >::paramname_generator_(info); }      \
     int IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)() {                             \
         ::iutest::detail::ParamTestCaseInfo< basefixture_ >* p = IIUT_GETTESTCASEPATTERNHOLDER(     \
                 basefixture_, IIUT_TO_NAME_STR_(testcase_), IUTEST_GET_PACKAGENAME_());             \
