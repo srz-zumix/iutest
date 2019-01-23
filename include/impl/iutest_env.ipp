@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -149,7 +149,7 @@ IUTEST_IPP_INLINE bool TestEnv::ParseCommandLineElemA(const char* str)
                 return SetFlag(TestFlag::SHOW_VERSION);
             }
             if( detail::IsStringEqual(str, "h")
-             || detail::IsStringEqual(str, "?") )
+                || detail::IsStringEqual(str, "?") )
             {
                 return SetFlag(TestFlag::SHOW_HELP);
             }

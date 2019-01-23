@@ -246,8 +246,8 @@ namespace tr1
 
 #undef GTEST_COMPILE_ASSERT_
 #define GTEST_COMPILE_ASSERT_(expr, msg) \
-  typedef ::testing::internal::CompileAssert<(static_cast<bool>(expr))> \
-      msg[static_cast<bool>(expr) ? 1 : -1] GTEST_ATTRIBUTE_UNUSED_
+    typedef ::testing::internal::CompileAssert<(static_cast<bool>(expr))> \
+        msg[static_cast<bool>(expr) ? 1 : -1] GTEST_ATTRIBUTE_UNUSED_
 
 #endif
 
@@ -342,11 +342,11 @@ namespace iusupport
 // ::iutest::AssertionResult -> ::testing::AssertionResult
 #undef GTEST_ASSERT_
 #define GTEST_ASSERT_(expression, on_failure) \
-  GTEST_AMBIGUOUS_ELSE_BLOCKER_ \
-  if (const ::testing::AssertionResult gtest_ar = ::testing::iusupport::iuMakeAssertionResult(expression)) \
-    ; \
-  else \
-    on_failure(GetAssertionResultMessage(gtest_ar))
+    GTEST_AMBIGUOUS_ELSE_BLOCKER_ \
+    if (const ::testing::AssertionResult gtest_ar = ::testing::iusupport::iuMakeAssertionResult(expression)) \
+        ;   \
+    else    \
+        on_failure(GetAssertionResultMessage(gtest_ar))
 
 #endif
 

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -74,7 +74,7 @@ private:
     bool Dump(HANDLE hFile, EXCEPTION_POINTERS* ep);
 public:
     /**
-     @brief minidump 作成
+     * @brief minidump 作成
     */
     static bool Create(const char* filepath, EXCEPTION_POINTERS* ep);
 
