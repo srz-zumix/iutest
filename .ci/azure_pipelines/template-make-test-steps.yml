@@ -29,10 +29,10 @@ steps:
 - script: |
     ls /var/crash/
     mkdir test/coredump
-    # for file in `\find /var/crash/ -name '*.crash'`; do sudo cp $file test/coredump ; done
-    for file in `\find /var/crash/ -name '*.crash'`; do sudo sed -i -e "s/UserGroups:\s*$/UserGroups:iutest/g" $file ; done
-    for file in `\find /var/crash/ -name '*.crash'`; do apport-unpack $file test/coredump/`basename $file .crash` ; done
-    cd test/coredump && ls -Ra
+    # for file in `find /var/crash/ -name '*.crash'`; do sudo cp $file test/coredump ; done
+    for file in `find /var/crash/ -name '*.crash'`; do sudo sed -i -e "s/UserGroups:\s*$/UserGroups:iutest/g" $file ; done
+    for file in `find /var/crash/ -name '*.crash'`; do apport-unpack $file test/coredump/`basename $file .crash` ; done
+    (cd test/coredump && ls -Ra)
   displayName: 'core dump unpack'
   condition: failed()
 - task: PublishPipelineArtifact@0
@@ -44,3 +44,8 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFiles: 'test/*.xml'
+
+- script: |
+    mkdir iutest-test-result
+    find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --verbose -o iutest-test-result/azure-pipelines/${AGENT_JOBNAME}/
+  displayName: 'push test results'
