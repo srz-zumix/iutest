@@ -186,7 +186,7 @@ IUTEST(StdArray, PrintTo)
 IUTEST(Any, PrintTo)
 {
     {
-        PrintToLogChecker ck("Any type-name:");
+        //PrintToLogChecker ck("1234");
         ::std::any v = 1234;
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
