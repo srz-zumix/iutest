@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -37,10 +37,11 @@ class TestMenu
     typedef ::std::map<WORD, const ::iutest::TestCase*> TestCaseMap;
     WORD m_nID;
     const WORD m_nIDTop;
+    HMENU m_hRootMenu;
     TestInfoMap m_TestInfoList;
     TestCaseMap m_TestCaseList;
 public:
-    explicit TestMenu(WORD nIDTop) : m_nIDTop(nIDTop), m_nID(nIDTop) {}
+    explicit TestMenu(WORD nIDTop) : m_nIDTop(nIDTop), m_nID(nIDTop), m_hRootMenu(NULL) {}
 public:
     bool Create(HMENU hMenu)
     {
@@ -48,9 +49,19 @@ public:
         {
             return false;
         }
-
+        if( m_hRootMenu == NULL )
+        {
+            if( !Create() )
+            {
+                return false;
+            }
+        }
+        return AppendPopup(hMenu, "TestList", m_hRootMenu);
+    }
+    bool Create()
+    {
         // テストを列挙
-        HMENU hRoot = AppendPopup(hMenu, "TestList");
+        HMENU hRoot = CreateMenu();
         if( hRoot == NULL )
         {
             return false;
@@ -85,6 +96,7 @@ public:
                 ++m_nID;
             }
         }
+        m_hRootMenu = hRoot;
         return true;
     }
 
@@ -117,6 +129,21 @@ public:
         return true;
     }
 
+    bool TrackPopupMenu(HWND hWnd, POINT point)
+    {
+        if ( !::TrackPopupMenu(m_hRootMenu
+            , TPM_LEFTALIGN | TPM_BOTTOMALIGN
+            , point.x, point.y
+            , 0
+            , hWnd
+            , NULL
+        ) )
+        {
+            return false;
+        }
+        return true;
+    }
+
 private:
     static bool Append(HMENU hMenu, const char* lpszName, WORD nID)
     {
@@ -135,9 +162,8 @@ private:
         }
         return true;
     }
-    static HMENU AppendPopup(HMENU hMenu, const char* lpszName)
+    static bool AppendPopup(HMENU hMenu, const char* lpszName, HMENU hSubMenu)
     {
-        HMENU hSubMenu = CreateMenu();
         char str[256];
         MENUITEMINFOA mii = {0};
         mii.cbSize      = sizeof(mii);
@@ -149,6 +175,16 @@ private:
         const int num = ::GetMenuItemCount(hMenu);
         if( !::InsertMenuItemA(hMenu, num, TRUE, &mii) )
         {
+            return false;
+        }
+        return true;
+    }
+    static HMENU AppendPopup(HMENU hMenu, const char* lpszName)
+    {
+        HMENU hSubMenu = CreateMenu();
+        if( !AppendPopup(hMenu, lpszName, hSubMenu) )
+        {
+            DestroyMenu(hSubMenu);
             return NULL;
         }
         return hSubMenu;
