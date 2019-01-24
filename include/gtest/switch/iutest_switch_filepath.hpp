@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_switch_filepath.hpp
- * @brief       FilePath 切り替え ファイル
+ * @brief       iutest|gtest FilePath switch
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -24,19 +24,19 @@ namespace internal
 {
 
 inline bool operator == (const FilePath& lhs
-                         , const FilePath& rhs)
+                        , const FilePath& rhs)
 {
     return posix::StrCaseCmp(lhs.c_str(), rhs.c_str()) == 0;
 }
 
 inline bool operator == (const FilePath& lhs
-                         , const char* rhs)
+                        , const char* rhs)
 {
     return posix::StrCaseCmp(lhs.c_str(), rhs) == 0;
 }
 
 inline bool operator == (const char* lhs
-                         , const FilePath& rhs)
+                        , const FilePath& rhs)
 {
     return posix::StrCaseCmp(lhs, rhs.c_str()) == 0;
 }

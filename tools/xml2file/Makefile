@@ -14,6 +14,8 @@ XML2FILE=xml2file.py
 # XML2FILE_OPTION+=--verbose
 # XML2FILE_OPTION+=--debug
 XML2FILE_EXEC=python $(XML2FILE) $(XML2FILE_OPTION)
+XMLTYPE=junit
+# XMLTYPE=default
 
 .PHONY: default clean all
 
@@ -42,6 +44,6 @@ multi: $(INPUT_XML1) $(INPUT_XML2) $(XML2FILE)
 
 $(INPUT_XMLS):
 	make -C ../../test $(@:$(INPUTDIR)/%.xml=%)
-	make -C ../../test OUTPUTXML=1 run_$(@:$(INPUTDIR)/%.xml=%)
+	make -C ../../test OUTPUTXML=$(XMLTYPE) run_$(@:$(INPUTDIR)/%.xml=%)
 	mkdir -p $(INPUTDIR)
 	cp ../../test/$(@:$(INPUTDIR)/%.xml=%.xml) $@

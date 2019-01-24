@@ -79,3 +79,7 @@ osdn_*/
 # npm
 node_modules/
 package-lock.json
+
+# python
+# pyenv
+.python-version
