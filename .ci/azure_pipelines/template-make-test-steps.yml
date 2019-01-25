@@ -47,5 +47,5 @@ steps:
 
 - script: |
     mkdir iutest-test-result
-    find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --verbose -o iutest-test-result/azure-pipelines/${AGENT_JOBNAME}/
+    find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --verbose -o iutest-test-result/azure-pipelines/${AGENT_JOBNAME}/
   displayName: 'push test results'
