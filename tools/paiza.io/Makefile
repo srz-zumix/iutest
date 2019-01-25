@@ -7,7 +7,7 @@ TOOLS=paizaio.py iupaizaio.py iupaizaio_pp.py
 
 help: $(TOOLS)
 	python iupaizaio.py -h
-	
+
 fused:
 	make -C ../fused
 
@@ -35,4 +35,3 @@ paizaio-sourcecode: paizaio-sourcecode.cpp Makefile
 
 clean:
 	$(RM) paizaio paizaio-sourcecode.cpp paizaio-toolong-sourcecode.cpp *.pyc
-

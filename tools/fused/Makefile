@@ -1,7 +1,7 @@
 #
 #
 #
-# Copyright (C) 2018, Takazumi Shirayanagi
+# Copyright (C) 2018-2019, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 
@@ -12,13 +12,13 @@ IUTEST_INCLUDE = -I$(IUTEST_DIR)/include
 
 # All iutest headers.  Usually you shouldn't change this
 # definition.
-IUTEST_HEADERS = $(IUTEST_DIR)/include/*.hpp \
-                 $(IUTEST_DIR)/include/impl/*.ipp \
-                 $(IUTEST_DIR)/include/internal/*.hpp \
-                 $(IUTEST_DIR)/include/listener/*.hpp \
-                 $(IUTEST_DIR)/include/util/*.hpp \
-                 $(IUTEST_DIR)/include/gtest/*.hpp \
-                 $(IUTEST_DIR)/include/gtest/switch/*.hpp
+IUTEST_HEADERS =$(IUTEST_DIR)/include/*.hpp \
+				$(IUTEST_DIR)/include/impl/*.ipp \
+				$(IUTEST_DIR)/include/internal/*.hpp \
+				$(IUTEST_DIR)/include/listener/*.hpp \
+				$(IUTEST_DIR)/include/util/*.hpp \
+				$(IUTEST_DIR)/include/gtest/*.hpp \
+				$(IUTEST_DIR)/include/gtest/switch/*.hpp
 
 # fused-src directory
 FUSED_DIR = $(IUTEST_DIR)/fused-src
@@ -71,4 +71,3 @@ $(FUSED_DIR):
 	@if [ ! -d $@ ]; then \
 		mkdir -p $@; \
 	fi
-
