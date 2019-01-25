@@ -55,14 +55,14 @@ MAKEFILE=GNUmakefile
 
 SRCS   = main.cpp
 
-BENCH_SRCS = benchmark_n0.cpp \
-             benchmark_n1.cpp \
-             benchmark_n2.cpp \
-             benchmark_n3.cpp \
-             benchmark_n4.cpp \
+BENCH_SRCS =benchmark_n0.cpp \
+			benchmark_n1.cpp \
+			benchmark_n2.cpp \
+			benchmark_n3.cpp \
+			benchmark_n4.cpp \
 
-OBJS   = $(SRCS:%.cpp=%.o) $(BENCH_SRCS:%.cpp=%.o)
-TARGET = benchmark
+OBJS  = $(SRCS:%.cpp=%.o) $(BENCH_SRCS:%.cpp=%.o)
+TARGET= benchmark
 TARGET_BASE=benchmark_base
 BASIS = basis
 

@@ -13,7 +13,7 @@ IUTEST_HEADERS =$(IUTEST_DIR)/include/*.hpp \
 				$(IUTEST_DIR)/include/gtest/switch/*.hpp
 
 TESTS_SOURCES = ../*.cpp \
-                ../*.hpp
+				../*.hpp
 
 MAKE_OPTION=--no-print-directory -C ../ -j4
 
