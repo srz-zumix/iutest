@@ -109,6 +109,14 @@ def make_path(root_path, testsuite, testcase):
     return os.path.join(os.path.join(root_path, suite_name), case_name + ext)
 
 
+def get_properties_node(node):
+    users = {}
+    for prop in node:
+        if ('name' in prop.attrib) and ('value' in prop.attrib):
+            users[prop.attrib['name']] = prop.attrib['value']
+    return users
+
+
 def _get_user_properties(node, system_attributes):
     users = {}
     for a in node.attrib:
@@ -171,10 +179,13 @@ def xml2file(path):
         log("  " + testsuite.attrib['name'])
         testsuite_user_attrib = get_user_properties(testsuite)
         for testcase in testsuite:
-            log("    " + testcase.attrib['name'])
-            f = fopen(make_path(root_path, testsuite, testcase))
-            write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase)
-            f.close()
+            if testcase.tag == 'testcase':
+                log("    " + testcase.attrib['name'])
+                f = fopen(make_path(root_path, testsuite, testcase))
+                write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase)
+                f.close()
+            elif testcase.tag == 'properties':
+                testsuite_user_attrib.update(get_properties_node(testcase))
 
 
 def main():

@@ -36,11 +36,6 @@ namespace iutest
 {
 
 //======================================================================
-// declare
-template<typename T>
-std::string PrintToString(const T& v);
-
-//======================================================================
 // struct
 namespace internal
 {
