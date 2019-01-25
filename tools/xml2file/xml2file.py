@@ -8,6 +8,7 @@
 #
 
 import os
+import sys
 import errno
 import json
 import codecs
@@ -73,6 +74,13 @@ def logd(msg):
         print(msg)
 
 
+def loge(msg):
+    try:
+        print(msg, file=sys.stderr)
+    except:
+        print >> sys.stderr, msg
+
+
 def mkdir_p(path):
     try:
         os.makedirs(path)
@@ -80,6 +88,7 @@ def mkdir_p(path):
         if exc.errno == errno.EEXIST and os.path.isdir(path):
             pass
         else:
+            loge('failed mkdirs: ' + path)
             raise
 
 
@@ -103,8 +112,8 @@ def make_rootpath(xml_filename, testsuites):
 
 
 def make_path(root_path, testsuite, testcase):
-    suite_name = testsuite.attrib['name']
-    case_name = testcase.attrib['name']
+    suite_name = testsuite.attrib['name'].lstrip('/')
+    case_name = testcase.attrib['name'].lstrip('/')
     ext = '.json'
     return os.path.join(os.path.join(root_path, suite_name), case_name + ext)
 
