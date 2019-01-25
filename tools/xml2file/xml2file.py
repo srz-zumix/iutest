@@ -75,10 +75,7 @@ def logd(msg):
 
 
 def loge(msg):
-    try:
-        print(msg, file=sys.stderr)
-    except:
-        print >> sys.stderr, msg
+    sys.stderr.write(msg)
 
 
 def mkdir_p(path):
