@@ -13,7 +13,8 @@
     "lint:editorconfig-cpp": "editorconfig-checker src include",
     "eclint": "npm-run-all eclint:*",
     "eclint:src": "eclint check ./src",
-    "eclint:include": "find ./include -type f -not -name iutest_ver.hpp | xargs eclint check -s 2"
+    "eclint:include": "find ./include -type f -not -name iutest_ver.hpp | xargs eclint check -s 2",
+    "eclint:root": "find . -maxdepth 1 -type f | xargs eclint check"
   },
   "repository": {
     "type": "git",
