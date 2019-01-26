@@ -101,8 +101,7 @@ def fopen(path):
     return f
 
 
-def make_rootpath(xml_filename, testsuites):
-    # root_name = testsuites.attrib['name']
+def make_rootpath(xml_filename):
     root_name = xml_filename
     path = os.path.join(cmdline_options.output, root_name)
     return path
@@ -174,7 +173,7 @@ def xml2file(path):
     filename = os.path.splitext(basename)[0]
     log(basename)
 
-    root_path = make_rootpath(filename, testsuites)
+    root_path = make_rootpath(filename)
     clean_dir(root_path)
 
     tree = ET.parse(path)
@@ -203,7 +202,7 @@ def main():
         try:
             xml2file(path)
         except Exception as e:
-            loge(e)
+            loge(str(e))
             result = False
     if not result:
         exit(1)
