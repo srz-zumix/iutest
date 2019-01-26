@@ -24,8 +24,8 @@ steps:
   displayName: 'make'
 - script: |
     make -C test OUTPUTXML=junit ${{ parameters.options }} ${run_option} test
-    TEST_RESULTS=`find ./test -maxdepth 0 -name *.xml 2>/dev/null`
-    if [ $? -ne 0 ] || [ -z "$TEST_RESULTS" ]; then "echo ##vso[task.setvariable variable=SkipPushTestResult]true"; fi
+    TEST_RESULTS=`find ./test -maxdepth 1 -name *.xml 2>/dev/null`
+    if [ $? -ne 0 ] || [ -z "$TEST_RESULTS" ]; then echo "##vso[task.setvariable variable=SkipPushTestResult]true"; fi
   displayName: 'test'
   env:
     run_option: RUN_OPTION="--iutest_default_package_name=${{ parameters.package_name }}"
