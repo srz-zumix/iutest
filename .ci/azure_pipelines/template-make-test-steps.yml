@@ -22,7 +22,10 @@ steps:
   displayName: 'versions'
 - script: make -C test -j4 OUTPUTXML=junit ${{ parameters.options }}
   displayName: 'make'
-- script: make -C test OUTPUTXML=junit ${{ parameters.options }} ${run_option} test
+- script: |
+    make -C test OUTPUTXML=junit ${{ parameters.options }} ${run_option} test
+    TEST_RESULTS=`find ./test -maxdepth 0 -name *.xml 2>/dev/null`
+    if [ $? -ne 0 ] || [ -z "$TEST_RESULTS" ]; then "echo ##vso[task.setvariable variable=SkipPushTestResult]true"; fi
   displayName: 'test'
   env:
     run_option: RUN_OPTION="--iutest_default_package_name=${{ parameters.package_name }}"
@@ -48,4 +51,5 @@ steps:
 - script: |
     mkdir iutest-test-result
     find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --verbose -o iutest-test-result/azure-pipelines/${AGENT_JOBNAME}/
+  condition: ne(variables['SkipPushTestResult'], 'true')
   displayName: 'push test results'
