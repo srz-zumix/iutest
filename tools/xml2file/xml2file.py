@@ -13,6 +13,7 @@ import errno
 import json
 import codecs
 import shutil
+import tempfile
 import xml.etree.ElementTree as ET
 
 from argparse import ArgumentParser
@@ -65,6 +66,10 @@ cmdline_options = None
 
 
 def log(msg):
+    print(msg)
+
+
+def logv(msg):
     if cmdline_options.verbose:
         print(msg)
 
@@ -75,7 +80,7 @@ def logd(msg):
 
 
 def loge(msg):
-    sys.stderr.write(msg)
+    sys.stderr.write(msg + "\n")
 
 
 def mkdir_p(path):
@@ -171,7 +176,7 @@ def write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase):
 def xml2file(path):
     basename = os.path.basename(path)
     filename = os.path.splitext(basename)[0]
-    log(basename)
+    logv(basename)
 
     root_path = make_rootpath(filename)
     clean_dir(root_path)
@@ -182,11 +187,11 @@ def xml2file(path):
 
     testsuites_user_attrib = get_user_properties(testsuites)
     for testsuite in testsuites:
-        log("  " + testsuite.attrib['name'])
+        logv("  " + testsuite.attrib['name'])
         testsuite_user_attrib = get_user_properties(testsuite)
         for testcase in testsuite:
             if testcase.tag == 'testcase':
-                log("    " + testcase.attrib['name'])
+                logv("    " + testcase.attrib['name'])
                 f = fopen(make_path(root_path, testsuite, testcase))
                 write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase)
                 f.close()
@@ -198,11 +203,14 @@ def main():
     result=True
     global cmdline_options
     cmdline_options = parse_command_line()
+    if cmdline_options.output is None:
+        cmdline_options.output = tempfile.mkdtemp(prefix='xml2file')
+    log("output: " + cmdline_options.output)
     for path in cmdline_options.file:
         try:
             xml2file(path)
         except Exception as e:
-            loge(str(e))
+            loge("error: " + path + ": " + str(e))
             result = False
     if not result:
         exit(1)

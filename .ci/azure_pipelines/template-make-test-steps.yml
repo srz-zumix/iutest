@@ -20,9 +20,12 @@ steps:
   condition: eq(variables['Agent.OS'], 'Linux')
 - script: make -C test showcxxversion
   displayName: 'versions'
-- script: make -C test -j4 OUTPUTXML=junit ${{ parameters.options }}
+- script: |
+    echo "make -C test -j4 OUTPUTXML=junit ${{ parameters.options }}"
+    make -C test -j4 OUTPUTXML=junit ${{ parameters.options }}
   displayName: 'make'
 - script: |
+    echo "make -C test OUTPUTXML=junit ${{ parameters.options }} ${run_option} test"
     make -C test OUTPUTXML=junit ${{ parameters.options }} ${run_option} test
     TEST_RESULTS=`find ./test -maxdepth 1 -name *.xml 2>/dev/null`
     if [ $? -ne 0 ] || [ -z "$TEST_RESULTS" ]; then echo "##vso[task.setvariable variable=SkipPushTestResult]true"; fi
