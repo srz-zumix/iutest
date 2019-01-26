@@ -170,16 +170,17 @@ def write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase):
 
 
 def xml2file(path):
+    basename = os.path.basename(path)
+    filename = os.path.splitext(basename)[0]
+    log(basename)
+
+    root_path = make_rootpath(filename, testsuites)
+    clean_dir(root_path)
+
     tree = ET.parse(path)
     root = tree.getroot()
     testsuites = root
 
-    basename = os.path.basename(path)
-    filename = os.path.splitext(basename)[0]
-    root_path = make_rootpath(filename, testsuites)
-    clean_dir(root_path)
-
-    log(basename)
     testsuites_user_attrib = get_user_properties(testsuites)
     for testsuite in testsuites:
         log("  " + testsuite.attrib['name'])
@@ -195,10 +196,17 @@ def xml2file(path):
 
 
 def main():
+    result=True
     global cmdline_options
     cmdline_options = parse_command_line()
     for path in cmdline_options.file:
-        xml2file(path)
+        try:
+            xml2file(path)
+        except Exception as e:
+            loge(e)
+            result = False
+    if not result:
+        exit(1)
 
 
 if __name__ == '__main__':
