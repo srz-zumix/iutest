@@ -98,7 +98,7 @@
 #define IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name)                             \
     template<typename T>struct IIUT_PEEP_TAG_NAME_(class_name, member_name);                    \
     template<>struct IIUT_PEEP_TAG_NAME_(class_name, member_name)<class_name> {                 \
-                         typedef ::iutest_type_traits::identity<member_type>::type type; };     \
+                        typedef ::iutest_type_traits::identity<member_type>::type type; };      \
     template<typename T, typename Tag, typename Tag::type X>                                    \
     struct IIUT_PEEP_SETTER_NAME_(class_name, member_name) {                                    \
         IIUT_PEEP_SETTER_NAME_(class_name, member_name)() {                                     \
