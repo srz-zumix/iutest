@@ -4,14 +4,15 @@ environment:
   matrix:
     # Visual Studio
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
-      PROJECT_DIR: msvc12
       CMAKE_GENERATOR_NAME: Visual Studio 12 2013
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      PROJECT_DIR: msvc14
       CMAKE_GENERATOR_NAME: Visual Studio 14 2015
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      PROJECT_DIR: msvc15
       CMAKE_GENERATOR_NAME: Visual Studio 15 2017
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019 Preview
+      PROJECT_DIR: msvc16
+      BUILD_PRE_PROJECT: yes
+      CMAKE_GENERATOR_NAME: Visual Studio 16 2019
     # Cygwin
     - BUILD_CYGWIN: yes
       USE_GNU_EXTENSION: 0
@@ -50,7 +51,6 @@ environment:
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     # Prefast
     - BUILD_PREFAST: yes
-      PROJECT_DIR: msvc14
     # Menu
     - BUILD_MENU: yes
     # Package Build
@@ -118,6 +118,22 @@ test_script:
   cmd: cd build && ctest -C %Configuration% -V
 
 for:
+# Build .sln (no cmake)
+-
+  matrix:
+    only:
+      - configuration: Debug
+        BUILD_PRE_PROJECT: yes
+  before_build:
+    cmd: echo.
+  build:
+    project: projects\%PROJECT_DIR%\iutest.sln
+    parallel: true
+    verbosity: minimal
+  test_script:
+    cd projects\%PROJECT_DIR%\Debug
+    iutest_sample.exe
+    iutest_sample.exe --spec
 # Cygwin
 -
   matrix:
@@ -178,6 +194,7 @@ for:
   environment:
     MSBUILD_LOGGER_OPTION: /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
     MSBUILD_PREFAST_OPTION: /p:RunCodeAnalysis=true /p:EnablePREfast=true /p:CodeAnalysisTreatWarningsAsErrors=true
+    PROJECT_DIR: msvc14
   before_build:
     cmd: echo.
   build_script:
