@@ -109,7 +109,9 @@
 // c++2a
 
 #if !defined(IUTEST_HAS_CXX2A)
-#  if (defined(__cplusplus) && __cplusplus > 201703L)
+#  if (defined(__cplusplus) && __cplusplus > IUTEST_CPLUSPLUS_CXX17)
+#    define IUTEST_HAS_CXX2A        1
+#  elif (defined(_MSVC_LANG) && _MSVC_LANG > IUTEST_CPLUSPLUS_CXX17)
 #    define IUTEST_HAS_CXX2A        1
 #  endif
 #endif
