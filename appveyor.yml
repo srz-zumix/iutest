@@ -122,8 +122,7 @@ for:
 -
   matrix:
     only:
-      - configuration: Debug
-        BUILD_PRE_PROJECT: yes
+      - BUILD_PRE_PROJECT: yes
   before_build:
     cmd: echo.
   build:
@@ -131,7 +130,7 @@ for:
     parallel: true
     verbosity: minimal
   test_script:
-    cd projects\%PROJECT_DIR%\Debug
+    cd projects\%PROJECT_DIR%\%Configuration%
     iutest_sample.exe
     iutest_sample.exe --spec
 # Cygwin
