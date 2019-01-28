@@ -54,5 +54,10 @@ steps:
 - script: |
     mkdir iutest-test-result
     find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --verbose -o iutest-test-result/azure-pipelines/${AGENT_JOBNAME}/
-  condition: ne(variables['SkipPushTestResult'], 'true')
-  displayName: 'push test results'
+  condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
+  displayName: 'xml to file'
+
+- script: |
+    ls iutest-test-result
+  condition: always()
+  displayName: 'xml2file push to github'
