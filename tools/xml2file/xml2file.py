@@ -181,22 +181,28 @@ def xml2file(path):
     root_path = make_rootpath(filename)
     clean_dir(root_path)
 
-    tree = ET.parse(path)
-    root = tree.getroot()
-    testsuites = root
+    try:
+        tree = ET.parse(path)
+        root = tree.getroot()
+        testsuites = root
 
-    testsuites_user_attrib = get_user_properties(testsuites)
-    for testsuite in testsuites:
-        logv("  " + testsuite.attrib['name'])
-        testsuite_user_attrib = get_user_properties(testsuite)
-        for testcase in testsuite:
-            if testcase.tag == 'testcase':
-                logv("    " + testcase.attrib['name'])
-                f = fopen(make_path(root_path, testsuite, testcase))
-                write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase)
-                f.close()
-            elif testcase.tag == 'properties':
-                testsuite_user_attrib.update(get_properties_node(testcase))
+        testsuites_user_attrib = get_user_properties(testsuites)
+        for testsuite in testsuites:
+            logv("  " + testsuite.attrib['name'])
+            testsuite_user_attrib = get_user_properties(testsuite)
+            for testcase in testsuite:
+                if testcase.tag == 'testcase':
+                    logv("    " + testcase.attrib['name'])
+                    f = fopen(make_path(root_path, testsuite, testcase))
+                    write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase)
+                    f.close()
+                elif testcase.tag == 'properties':
+                    testsuite_user_attrib.update(get_properties_node(testcase))
+    except Exception as e:
+        f = fopen(os.path.join(root_path, "parser_error.txt"))
+        f.write(str(e))
+        f.close()
+        raise
 
 
 def main():
