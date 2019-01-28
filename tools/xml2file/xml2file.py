@@ -49,6 +49,11 @@ def parse_command_line():
         help='output file encoding.'
     )
     parser.add_argument(
+        '--clean',
+        action='store_true',
+        help='clean output direcotry (before)'
+    )
+    parser.add_argument(
         '--debug',
         action='store_true',
         help='log debug'
@@ -212,6 +217,8 @@ def main():
     if cmdline_options.output is None:
         cmdline_options.output = tempfile.mkdtemp(prefix='xml2file')
     log("output: " + cmdline_options.output)
+    if cmdline_options.clear:
+        clean_dir(cmdline_options.output)
     for path in cmdline_options.file:
         try:
             xml2file(path)
