@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -24,6 +24,8 @@
 #endif
 
 #if OUTPUT_JUNIT_XML_TEST
+
+static const ::std::string kLongLongProperty = ::std::string(1024, 'A') + "piyo";
 
 class FileIO : public ::iutest::StringStreamFile
 {
@@ -63,6 +65,11 @@ IUTEST(Foo, Skip)
     IUTEST_SKIP();
 }
 
+IUTEST(Foo, TestCaseProperty)
+{
+    RecordProperty("testcase_property", "A");
+}
+
 IUTEST(Foo, DISABLED_Test)
 {
 }
@@ -73,6 +80,7 @@ public:
     static void SetUpTestCase()
     {
         RecordProperty("fixture", 1);
+        RecordProperty("hoge", kLongLongProperty);
     }
 };
 
@@ -145,6 +153,11 @@ int main(int argc, char* argv[])
         IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("<skipped type=\"iutest.skip\"" ))
             << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("disabled test" ))
+            << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        // TODO: https://github.com/srz-zumix/iutest/issues/182
+        // IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("<property name=\"testcase_property\" value=\"A\" />" ))
+        //     << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("<property name=\"hoge\" value=\"" + kLongLongProperty + "\" />" ))
             << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
         IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("<property name=\"fixture\" value=\"1\"" ))

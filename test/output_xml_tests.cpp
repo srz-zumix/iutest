@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        output_xml_tests.cpp
- * @brief       xml 出力対応テスト
+ * @brief       output xml tests
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -24,6 +24,8 @@
 #endif
 
 #if OUTPUT_XML_TEST
+
+static const ::std::string kLongLongProperty = ::std::string(1024, 'A') + "piyo";
 
 class FileIO : public ::iutest::StringStreamFile
 {
@@ -62,6 +64,11 @@ IUTEST(Foo, Bar)
     IUTEST_ASSERT_EQ(3, 3);
 }
 
+IUTEST(Foo, LongLongPropetry)
+{
+    RecordProperty("hoge", kLongLongProperty);
+}
+
 #if IUTEST_HAS_PACKAGE
 
 IUTEST_PACKAGE(test)
@@ -96,6 +103,8 @@ int main(int argc, char* argv[])
             )->GetFilePath()) ) << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("Fail")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
         IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("Foo" )) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find("hoge=\"" + kLongLongProperty + "\"" ))
+            << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
 
         FileIO::s_io.clear();
     }

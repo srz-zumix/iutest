@@ -3,6 +3,7 @@
 /**
  * @file        iutest_junit_xml_generator.ipp
  * @brief       output junit xml event listener implementation
+ * @note        https://github.com/junit-team/junit5/blob/master/platform-tests/src/test/resources/jenkins-junit.xsd
  *
  * @author      t.shirayanagi
  * @par         copyright
