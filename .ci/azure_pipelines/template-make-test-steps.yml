@@ -58,6 +58,6 @@ steps:
   displayName: 'xml to file'
 
 - script: |
-    ls iutest-test-result
-  condition: always()
+    find ./iutest-test-result -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
+  condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml2file push to github'
