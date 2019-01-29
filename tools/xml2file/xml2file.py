@@ -51,7 +51,7 @@ def parse_command_line():
     parser.add_argument(
         '--clean',
         action='store_true',
-        help='clean output direcotry (before)'
+        help='clean output directory (before)'
     )
     parser.add_argument(
         '--debug',
