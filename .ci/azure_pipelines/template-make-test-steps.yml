@@ -67,6 +67,13 @@ steps:
   displayName: 'xml to file'
 
 - script: |
-    find ./iutest-test-result -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
+    cd iutest-test-result
+    find . -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
+    git add --all
+    echo "${BUILD_SOURCEBRANCHNAME}: ${BUILD_SOURCEVERSION}: ${BUILD_SOURCEVERSIONMESSAGE}" > message.txt
+    echo >> message.txt
+    echo "${BUILD_BUILDURI}" >> message.txt
+    git commit -F message.txt
+    git push
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml2file push to github'
