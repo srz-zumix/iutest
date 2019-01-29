@@ -217,7 +217,7 @@ def main():
     if cmdline_options.output is None:
         cmdline_options.output = tempfile.mkdtemp(prefix='xml2file')
     log("output: " + cmdline_options.output)
-    if cmdline_options.clear:
+    if cmdline_options.clean:
         clean_dir(cmdline_options.output)
     for path in cmdline_options.file:
         try:
