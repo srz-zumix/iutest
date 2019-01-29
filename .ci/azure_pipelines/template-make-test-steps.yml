@@ -59,6 +59,8 @@ steps:
     sshKeySecureFile: 'id_azurepipelines_rsa'
 
 - script: |
+    ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+    ls ~/.ssh
     git clone git@github.com:srz-zumix/iutest-test-results.git
     find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --verbose --clean -o iutest-test-result/azure-pipelines/${AGENT_JOBNAME}/
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
