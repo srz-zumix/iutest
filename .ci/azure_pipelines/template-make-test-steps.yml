@@ -68,9 +68,9 @@ steps:
 
 - script: |
     cd ../iutest-test-result
-    find . -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
-    git config user.email "${GIT_USER_EMAIL}"
-    git config user.name "${GIT_USER_NAME}"
+    find ./azure-pipelines -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
+    git config user.email "zumix.cpp@gmail.com"
+    git config user.name "srz-zumix (Azure Pipelines)"
     git add --all
     echo "${BUILD_SOURCEBRANCHNAME}: ${BUILD_SOURCEVERSION}: ${BUILD_SOURCEVERSIONMESSAGE}" > message.txt
     echo >> message.txt
