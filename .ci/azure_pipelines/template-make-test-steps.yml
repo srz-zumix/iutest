@@ -61,14 +61,16 @@ steps:
 - script: |
     ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
     ls ~/.ssh
-    git clone git@github.com:srz-zumix/iutest-test-results.git
-    find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --verbose --clean -o iutest-test-result/azure-pipelines/${AGENT_JOBNAME}/
+    git clone git@github.com:srz-zumix/iutest-test-results.git ../iutest-test-result
+    find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --verbose --clean -o ../iutest-test-result/azure-pipelines/${AGENT_JOBNAME}/
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml to file'
 
 - script: |
-    cd iutest-test-result
+    cd ../iutest-test-result
     find . -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
+    git config user.email "${GIT_USER_EMAIL}"
+    git config user.name "${GIT_USER_NAME}"
     git add --all
     echo "${BUILD_SOURCEBRANCHNAME}: ${BUILD_SOURCEVERSION}: ${BUILD_SOURCEVERSIONMESSAGE}" > message.txt
     echo >> message.txt
