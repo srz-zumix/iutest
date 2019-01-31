@@ -67,11 +67,11 @@ steps:
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml to file'
 
-- task: PublishPipelineArtifact@0
+- task: CopyFiles@2
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   inputs:
-    artifactName: 'test result xml2file'
-    targetPath: '../iutest-test-result'
+    sourceFolder: '../iutest-test-result'
+    targetFolder: $(Build.ArtifactStagingDirectory)
 
   # - script: |
   #   cd ../iutest-test-result
