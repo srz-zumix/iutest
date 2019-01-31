@@ -41,6 +41,7 @@ steps:
     (cd test/coredump && ls -Ra)
   displayName: 'core dump unpack'
   condition: failed()
+
 - task: PublishPipelineArtifact@0
   condition: failed()
   inputs:
@@ -51,31 +52,37 @@ steps:
   inputs:
     testResultsFiles: 'test/*.xml'
 
-- task: InstallSSHKey@0
-  displayName: 'Install SSH Key'
-  inputs:
-    hostName: 'github.com'
-    sshPublicKey: 'not required'
-    sshKeySecureFile: 'id_azurepipelines_rsa'
+# - task: InstallSSHKey@0
+#   displayName: 'Install SSH Key'
+#   inputs:
+#     hostName: 'github.com'
+#     sshPublicKey: 'not required'
+#     sshKeySecureFile: 'id_azurepipelines_rsa'
 
 - script: |
-    ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-    ls ~/.ssh
-    git clone git@github.com:srz-zumix/iutest-test-results.git ../iutest-test-result
+    # ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+    # ls ~/.ssh
+    # git clone git@github.com:srz-zumix/iutest-test-results.git ../iutest-test-result
     find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --verbose --clean -o ../iutest-test-result/azure-pipelines/${AGENT_JOBNAME}/
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml to file'
 
-- script: |
-    cd ../iutest-test-result
-    find ./azure-pipelines -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
-    git config user.email "zumix.cpp@gmail.com"
-    git config user.name "srz-zumix (Azure Pipelines)"
-    git add --all
-    echo "${BUILD_SOURCEBRANCHNAME}: ${BUILD_SOURCEVERSION}: ${BUILD_SOURCEVERSIONMESSAGE}" > message.txt
-    echo >> message.txt
-    echo "${BUILD_BUILDURI}" >> message.txt
-    git commit -F message.txt
-    git push
+- task: PublishPipelineArtifact@0
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
-  displayName: 'xml2file push to github'
+  inputs:
+    artifactName: 'test result xml2file'
+    targetPath: '../iutest-test-result'
+
+  # - script: |
+  #   cd ../iutest-test-result
+  #   find ./azure-pipelines -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
+  #   git config user.email "zumix.cpp@gmail.com"
+  #   git config user.name "srz-zumix (Azure Pipelines)"
+  #   git add --all
+  #   echo "${BUILD_SOURCEBRANCHNAME}: ${BUILD_SOURCEVERSION}: ${BUILD_SOURCEVERSIONMESSAGE}" > message.txt
+  #   echo >> message.txt
+  #   echo "${BUILD_BUILDURI}" >> message.txt
+  #   git commit -F message.txt
+  #   git push
+  # condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
+  # displayName: 'xml2file push to github'
