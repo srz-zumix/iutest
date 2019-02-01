@@ -140,7 +140,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor">#define IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name)                             \</span></div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">    template&lt;typename T&gt;struct IIUT_PEEP_TAG_NAME_(class_name, member_name);                    \</span></div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor">    template&lt;&gt;struct IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; {                 \</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">                         typedef ::iutest_type_traits::identity&lt;member_type&gt;::type type; };     \</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">                        typedef ::iutest_type_traits::identity&lt;member_type&gt;::type type; };      \</span></div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">    template&lt;typename T, typename Tag, typename Tag::type X&gt;                                    \</span></div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">    struct IIUT_PEEP_SETTER_NAME_(class_name, member_name) {                                    \</span></div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">        IIUT_PEEP_SETTER_NAME_(class_name, member_name)() {                                     \</span></div>
@@ -329,11 +329,11 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;</div>
 <div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PROD_HPP_7A316C18_042D_4E48_BC31_E6AE8B6C2E28_</span></div>
 <div class="ttc" id="classiutest_1_1_peep_html_ae6bdcb5d04a67de061dc27fc28b95c6e"><div class="ttname"><a href="../../dc/dcc/classiutest_1_1_peep.html#ae6bdcb5d04a67de061dc27fc28b95c6e">iutest::Peep::type</a></div><div class="ttdeci">peep_impl&lt; T, peep_type, type_traits::is_member_pointer&lt; peep_type &gt;::value &gt;::type type</div><div class="ttdoc">private メンバーアクセスオブジェクト型 </div><div class="ttdef"><b>Definition:</b> iutest_prod.hpp:293</div></div>
-<div class="ttc" id="iutest__compiler_8hpp_html_a42fd5b126100cbf2e505fec4f669f3ba"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a42fd5b126100cbf2e505fec4f669f3ba">IUTEST_CXX_DELETED_FUNCTION</a></div><div class="ttdeci">#define IUTEST_CXX_DELETED_FUNCTION</div><div class="ttdoc">delete function </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:418</div></div>
+<div class="ttc" id="iutest__compiler_8hpp_html_a42fd5b126100cbf2e505fec4f669f3ba"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a42fd5b126100cbf2e505fec4f669f3ba">IUTEST_CXX_DELETED_FUNCTION</a></div><div class="ttdeci">#define IUTEST_CXX_DELETED_FUNCTION</div><div class="ttdoc">delete function </div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:420</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2019年01月24日(木) 12時44分05秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2019年02月01日(金) 01時22分32秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

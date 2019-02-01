@@ -224,8 +224,8 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="comment">// function</span></div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment"></span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> DefaultPrintTo(IsContainerHelper::yes_t</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                           , iutest_type_traits::false_type</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                           , <span class="keyword">const</span> T&amp; container, iu_ostream* os)</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                        , iutest_type_traits::false_type</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                        , <span class="keyword">const</span> T&amp; container, iu_ostream* os)</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;{</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">size_t</span> kMaxCount = kValues::MaxPrintContainerCount;</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordtype">size_t</span> count = 0;</div>
@@ -422,8 +422,8 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="preprocessor">#if IUTEST_HAS_CXX_HDR_ANY</span></div>
 <div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="preprocessor"></span><span class="keyword">inline</span> <span class="keywordtype">void</span> PrintTo(const ::std::any&amp; value, iu_ostream* os)</div>
 <div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;{</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;   *os &lt;&lt; <span class="stringliteral">&quot;-Any type-name: &quot;</span> &lt;&lt; value.type().name();</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;   DefaultPrintNonContainerTo(value, os);</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    *os &lt;&lt; <span class="stringliteral">&quot;-Any type-name: &quot;</span> &lt;&lt; value.type().name();</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    DefaultPrintNonContainerTo(value, os);</div>
 <div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;}</div>
 <div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;<span class="preprocessor"></span></div>
@@ -721,7 +721,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2019年01月24日(木) 12時44分05秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2019年02月01日(金) 01時22分32秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

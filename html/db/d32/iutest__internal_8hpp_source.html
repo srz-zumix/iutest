@@ -333,14 +333,14 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="preprocessor">    IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                          \</span></div>
 <div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="preprocessor">    if( const char* msg = &quot;&quot; ) {                                            \</span></div>
 <div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="preprocessor">        try {                                                               \</span></div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="preprocessor">            IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(IIUT_SEH_THROUGH(statement));    \</span></div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="preprocessor">            IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(IIUT_SEH_THROUGH(statement));  \</span></div>
 <div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="preprocessor">            msg = &quot;\nExpected: &quot; #statement &quot; throws an exception of type &quot; \</span></div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="preprocessor">                  #expected_exception &quot;.\n  Actual: it throws nothing.&quot;;    \</span></div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="preprocessor">                #expected_exception &quot;.\n  Actual: it throws nothing.&quot;;      \</span></div>
 <div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="preprocessor">            goto IUTEST_PP_CAT(iutest_label_throw, __LINE__);               \</span></div>
 <div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="preprocessor">        } catch( expected_exception const&amp; ) {                              \</span></div>
 <div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;<span class="preprocessor">        } catch( ... ) {                                                    \</span></div>
 <div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="preprocessor">            msg = &quot;\nExpected: &quot; #statement &quot; throws an exception of type &quot; \</span></div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;<span class="preprocessor">          #expected_exception &quot;.\n  Actual: it throws a different type.&quot;;   \</span></div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;<span class="preprocessor">                #expected_exception &quot;.\n  Actual: it throws a different type.&quot;;     \</span></div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="preprocessor">            goto IUTEST_PP_CAT(iutest_label_throw, __LINE__);               \</span></div>
 <div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;<span class="preprocessor">        }                                                                   \</span></div>
 <div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;<span class="preprocessor">    } else                                                                  \</span></div>
@@ -581,7 +581,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 <div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;<span class="preprocessor">    if( (::iutest::UnitTest::current_test_result()-&gt;Failed())                       \</span></div>
 <div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;<span class="preprocessor">        || (::iutest::UnitTest::SkipTest(), ::iutest::detail::AlwaysTrue()) )       \</span></div>
 <div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;<span class="preprocessor">        IUTEST_SKIP_MESSAGE( ::iutest::UnitTest::current_test_result()-&gt;Failed() ?  \</span></div>
-<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;<span class="preprocessor">             &quot;Skipped. but already failed. &quot; : &quot;Skipped. &quot; )</span></div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;<span class="preprocessor">                                &quot;Skipped. but already failed. &quot; : &quot;Skipped. &quot; )</span></div>
 <div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;<span class="preprocessor">#if defined(_MSC_VER)</span></div>
 <div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  define IUTEST_TEST_COMPILEERROR(e)   \</span></div>
@@ -601,7 +601,7 @@ var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2019年01月24日(木) 12時44分05秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2019年02月01日(金) 01時22分32秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>
