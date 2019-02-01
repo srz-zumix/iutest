@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -316,14 +316,14 @@
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                          \
     if( const char* msg = "" ) {                                            \
         try {                                                               \
-            IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(IIUT_SEH_THROUGH(statement));    \
+            IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(IIUT_SEH_THROUGH(statement));  \
             msg = "\nExpected: " #statement " throws an exception of type " \
-                  #expected_exception ".\n  Actual: it throws nothing.";    \
+                #expected_exception ".\n  Actual: it throws nothing.";      \
             goto IUTEST_PP_CAT(iutest_label_throw, __LINE__);               \
         } catch( expected_exception const& ) {                              \
         } catch( ... ) {                                                    \
             msg = "\nExpected: " #statement " throws an exception of type " \
-          #expected_exception ".\n  Actual: it throws a different type.";   \
+                #expected_exception ".\n  Actual: it throws a different type.";     \
             goto IUTEST_PP_CAT(iutest_label_throw, __LINE__);               \
         }                                                                   \
     } else                                                                  \
@@ -600,7 +600,7 @@
     if( (::iutest::UnitTest::current_test_result()->Failed())                       \
         || (::iutest::UnitTest::SkipTest(), ::iutest::detail::AlwaysTrue()) )       \
         IUTEST_SKIP_MESSAGE( ::iutest::UnitTest::current_test_result()->Failed() ?  \
-             "Skipped. but already failed. " : "Skipped. " )
+                                "Skipped. but already failed. " : "Skipped. " )
 
 /**
  * @}

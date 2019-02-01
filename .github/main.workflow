@@ -1,4 +1,4 @@
-workflow "New workflow" {
+workflow "Main workflow" {
   on = "push"
   resolves = [
     "lint:editorconfig",

@@ -94,7 +94,7 @@ IUTEST_COMPILE_ERROR_TEST_OPTION+= --verbose
 
 
 #
-# Builds a sample test.  
+# Builds a sample test.
 
 TARGETS_EXCLUDE_ALLTESTS= $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY) $(BUILD_ONLY)
 

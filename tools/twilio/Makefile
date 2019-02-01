@@ -11,7 +11,7 @@ sample: sample.cpp Makefile
 
 exec_sample: sample
 	- ./sample --iutest_output=xml:result.xml
-	
+
 dryrun: exec_sample iutwilio.py
 ifdef SMS
 	python ./iutwilio.py result.xml --dryrun --sms ${CALL_NUMBER}
@@ -34,4 +34,3 @@ test: iutwilio.py
 setup:
 	#pip install twilio
 	easy_install twilio
-	

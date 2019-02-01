@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -109,7 +109,9 @@
 // c++2a
 
 #if !defined(IUTEST_HAS_CXX2A)
-#  if (defined(__cplusplus) && __cplusplus > 201703L)
+#  if (defined(__cplusplus) && __cplusplus > IUTEST_CPLUSPLUS_CXX17)
+#    define IUTEST_HAS_CXX2A        1
+#  elif (defined(_MSVC_LANG) && _MSVC_LANG > IUTEST_CPLUSPLUS_CXX17)
 #    define IUTEST_HAS_CXX2A        1
 #  endif
 #endif
@@ -424,7 +426,7 @@
 #      define IUTEST_HAS_DEFAULT_FUNCTIONS  1
 #    endif
 #  elif defined(__GNUC__)
-     // private destractor = default is not works in gcc 4.5 - 4.6
+// private destractor = default is not works in gcc 4.5 - 4.6
 #    if   (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ == 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_DEFAULT_FUNCTIONS  1
 #    elif (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
@@ -491,7 +493,7 @@
 #      define IUTEST_HAS_VARIADIC_TEMPLATES 1
 #    endif
 #  elif defined(__GNUC__)
-     // http://gcc.gnu.org/bugzilla/show_bug.cgi?id=35722
+// http://gcc.gnu.org/bugzilla/show_bug.cgi?id=35722
 #    if defined(__VARIADIC_TEMPLATES)   \
             || ( ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7))) && defined(__GXX_EXPERIMENTAL_CXX0X__) )
 #      define IUTEST_HAS_VARIADIC_TEMPLATES 1
@@ -723,7 +725,7 @@
 #      define IUTEST_HAS_NOEXCEPT   1
 #    endif
 #  elif defined(_MSC_VER)
-     // https://connect.microsoft.com/VisualStudio/feedback/details/809079/torino-compile-error-template-noexcept
+// https://connect.microsoft.com/VisualStudio/feedback/details/809079/torino-compile-error-template-noexcept
 #    if _MSC_FULL_VER >= 190022816
 #      define IUTEST_HAS_NOEXCEPT   1
 #    endif
@@ -931,7 +933,7 @@
 //! explicit instantiation access checking
 #if !defined(IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION)
 #  if defined(_MSC_VER) && ((_MSC_VER < 1600) || (_MSC_VER == 1900))
-     // VS2008 以前では、private なメンバー関数に explicit instantiation でもアクセスできない
+// VS2008 以前では、private なメンバー関数に explicit instantiation でもアクセスできない
 #    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION    0
 #  else
 #    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION    1

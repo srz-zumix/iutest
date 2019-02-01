@@ -234,7 +234,7 @@ coverity_scan: $(COVERITY_SCAN_BUILD_TARGETS)
 # fused
 #
 
-FUSED_PY= ../tools/fused/*.py 
+FUSED_PY= ../tools/fused/*.py
 
 fused: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fused/Makefile $(FUSED_PY)
 	make -C ../tools/fused
