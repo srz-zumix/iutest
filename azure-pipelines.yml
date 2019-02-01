@@ -52,6 +52,7 @@ jobs:
     dependsOn:
       - disabled
       - nofeature
+    condition: always()
     steps:
       - task: PublishPipelineArtifact@0
         inputs:
