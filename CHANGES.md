@@ -5,6 +5,7 @@
 ## Changes for 1.17.0
 
 * Improved
+  * Visual Studio 2019 対応
 
 * Changes
   * junit xml 出力で出力するテストが 0 だった場合にファイル書き出ししないように修正
