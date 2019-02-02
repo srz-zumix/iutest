@@ -53,7 +53,7 @@ environment:
       PROJECT_DIR: msvc14
     # Menu
     - BUILD_MENU: yes
-      CMAKE_GENERATOR_NAME: Visual Studio 15 2017
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     # Package Build
     - BUILD_PACKAGE: yes
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
