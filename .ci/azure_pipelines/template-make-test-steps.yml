@@ -73,7 +73,7 @@ steps:
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml to file'
 
-  - script: |
+- script: |
     cd ../iutest-test-result
     find ./azure-pipelines -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
     git config user.email "zumix.cpp@gmail.com"
