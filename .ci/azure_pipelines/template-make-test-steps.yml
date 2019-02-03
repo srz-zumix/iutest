@@ -61,7 +61,8 @@ steps:
 
 - script: |
     sudo apt-get update
-    sudo apt-get install -y hub
+    sudo apt-get install -y rubygems
+    sudo gem install hub
   displayName: 'Install Hub'
 
 - script: |
