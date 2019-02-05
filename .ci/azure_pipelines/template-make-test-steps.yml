@@ -89,6 +89,7 @@ steps:
     echo >> message.txt
     echo "${BUILD_BUILDURI}" >> message.txt
     git commit -F message.txt
-    hub pull-request -m "Azure Pipelines ${AGENT_JOBNAME}"
+    echo hub pull-request -m "Azure Pipelines ${AGENT_JOBNAME}"
+    hub
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml2file push to github pr'
