@@ -61,13 +61,14 @@ steps:
 
 - task: DownloadSecureFile@1
   inputs:
-    secureFile: .hub
+    secureFile: hub
 
 - script: |
     sudo apt-get update
     sudo apt-get install -y rubygems
     sudo gem install hub
-    cp $(Agent.TempDirectory)/.hub ~/.hub
+    hub --version
+    cp $(Agent.TempDirectory)/hub ~/.config/hub
   displayName: 'Install Hub'
 
 - script: |
