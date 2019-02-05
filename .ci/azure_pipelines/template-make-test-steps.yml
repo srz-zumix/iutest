@@ -59,10 +59,15 @@ steps:
     sshPublicKey: 'not required'
     sshKeySecureFile: 'id_azurepipelines_rsa'
 
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: .hub
+
 - script: |
     sudo apt-get update
     sudo apt-get install -y rubygems
     sudo gem install hub
+    cp $(Agent.TempDirectory)/.hub ~/.hub
   displayName: 'Install Hub'
 
 - script: |
