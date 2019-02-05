@@ -92,6 +92,7 @@ steps:
     git commit -F message.txt
     echo "Azure Pipelines ${AGENT_JOBNAME}\n\n" > pr.txt
     cat message.txt >> pr.txt
+    git push -u origin ci/azurepipelines/${AGENT_JOBNAME}
     hub pull-request -F pr.txt
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml2file push to github pr'
