@@ -16,6 +16,8 @@ steps:
     echo [main] > ~/.config/apport/settings
     echo unpackaged=true >> ~/.config/apport/settings
     cat ~/.config/apport/settings
+    sudo apt-get install language-pack-ja
+    sudo update-locale LANG=ja_JP.UTF-8
   displayName: 'setup'
   condition: eq(variables['Agent.OS'], 'Linux')
 - script: |
