@@ -18,7 +18,9 @@ steps:
     cat ~/.config/apport/settings
   displayName: 'setup'
   condition: eq(variables['Agent.OS'], 'Linux')
-- script: make -C test showcxxversion
+- script: |
+    echo $LANG
+    make -C test showcxxversion
   displayName: 'versions'
 - script: |
     echo "make -C test -j4 OUTPUTXML=junit ${{ parameters.options }}"
@@ -90,9 +92,11 @@ steps:
     echo >> message.txt
     echo "${BUILD_BUILDURI}" >> message.txt
     git commit -F message.txt
-    echo "Azure Pipelines ${AGENT_JOBNAME}\n\n" > pr.txt
-    cat message.txt >> pr.txt
     git push -u origin ci/azurepipelines/${AGENT_JOBNAME}
+    echo "Azure Pipelines ${AGENT_JOBNAME}" > pr.txt
+    echo >> pr.txt
+    echo >> pr.txt
+    cat message.txt >> pr.txt
     hub pull-request -F pr.txt
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml2file push to github pr'
