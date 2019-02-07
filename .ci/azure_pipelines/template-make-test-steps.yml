@@ -113,6 +113,6 @@ steps:
     cat message.txt >> pr.txt
     hub pull-request -F pr.txt
   env:
-    TESTRESULT_BRANCHNAME:ci/azurepipelines/${AGENT_JOBNAME}_${BUILD_BUILDNUMBER}
+    TESTRESULT_BRANCHNAME: ci/azurepipelines/${AGENT_JOBNAME}_${BUILD_BUILDNUMBER}
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml2file push to github pr'
