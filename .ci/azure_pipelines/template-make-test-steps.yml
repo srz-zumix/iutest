@@ -18,7 +18,6 @@ steps:
     cat ~/.config/apport/settings
     sudo apt-get install language-pack-ja
     sudo update-locale LANG=ja_JP.UTF-8
-    echo '##vso[task.setvariable variable=test_result_branch_name]ci/azurepipelines/${AGENT_JOBNAME}_${BUILD_BUILDNUMBER}'
   displayName: 'setup'
   condition: eq(variables['Agent.OS'], 'Linux')
 
@@ -34,6 +33,10 @@ steps:
     secureFile: hub
 
 - script: |
+    echo "##vso[task.setvariable variable=TestResultBranchName]ci/azurepipelines/${AGENT_JOBNAME}_${BUILD_BUILDNUMBER}"
+  displayName: 'setVars'
+
+- script: |
     sudo apt-get update
     sudo apt-get install -y rubygems
     sudo gem install hub
@@ -43,6 +46,7 @@ steps:
 
 - script: |
     echo $LANG
+    echo ${TestResultBranchName}
     make -C test showcxxversion
   displayName: 'versions'
 
@@ -89,7 +93,7 @@ steps:
 - script: |
     ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
     git clone git@github.com:srz-zumix/iutest-test-results.git ../iutest-test-result
-    git checkout -b ${test_result_branch_name}
+    git checkout -b ${TestResultBranchName}
     find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --verbose --clean -o ../iutest-test-result/azure-pipelines/${AGENT_JOBNAME}/
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml to file'
@@ -104,7 +108,7 @@ steps:
     echo >> message.txt
     echo "${BUILD_BUILDURI}" >> message.txt
     git commit -F message.txt
-    git push -u origin ${test_result_branch_name}
+    git push -u origin ${TestResultBranchName}
     echo "Azure Pipelines ${AGENT_JOBNAME}" > pr.txt
     echo >> pr.txt
     echo >> pr.txt
