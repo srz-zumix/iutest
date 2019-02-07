@@ -33,10 +33,6 @@ steps:
     secureFile: hub
 
 - script: |
-    echo "##vso[task.setvariable variable=TestResultBranchName]ci/azurepipelines/${AGENT_JOBNAME}_${BUILD_BUILDNUMBER}"
-  displayName: 'setVars'
-
-- script: |
     sudo apt-get update
     sudo apt-get install -y rubygems
     sudo gem install hub
@@ -80,11 +76,17 @@ steps:
     artifactName: 'core dump'
     targetPath: 'test/coredump'
 
+- task: CopyFiles@2
+  condition: always()
+  inputs:
+    contents: 'test/*.xml'
+    targetFolder: $(Build.ArtifactStagingDirectory)
+
 - task: PublishPipelineArtifact@0
   condition: always()
   inputs:
+    targetPath: $(Build.ArtifactStagingDirectory)
     artifactName: "test result ${AGENT_JOBNAME}"
-    targetPath: 'test/*.xml'
 
 - task: PublishTestResults@2
   inputs:
@@ -95,10 +97,6 @@ steps:
     git clone git@github.com:srz-zumix/iutest-test-results.git ../iutest-test-result
     git checkout -b ${TestResultBranchName}
     find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --verbose --clean -o ../iutest-test-result/azure-pipelines/${AGENT_JOBNAME}/
-  condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
-  displayName: 'xml to file'
-
-- script: |
     cd ../iutest-test-result
     find ./azure-pipelines -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
     git config user.email "zumix.cpp@gmail.com"
@@ -108,11 +106,13 @@ steps:
     echo >> message.txt
     echo "${BUILD_BUILDURI}" >> message.txt
     git commit -F message.txt
-    git push -u origin ${TestResultBranchName}
+    git push -u origin ${TESTRESULT_BRANCHNAME}
     echo "Azure Pipelines ${AGENT_JOBNAME}" > pr.txt
     echo >> pr.txt
     echo >> pr.txt
     cat message.txt >> pr.txt
     hub pull-request -F pr.txt
+  env:
+    TESTRESULT_BRANCHNAME:ci/azurepipelines/${AGENT_JOBNAME}_${BUILD_BUILDNUMBER}
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml2file push to github pr'
