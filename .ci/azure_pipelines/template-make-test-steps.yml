@@ -9,9 +9,6 @@ parameters:
   options: ''
   package_name: 'default'
 
-variables:
-  test_result_branch_name=ci/azurepipelines/${AGENT_JOBNAME}_${BUILD_BUILDNUMBER}
-
 steps:
 - script: |
     ulimit -c unlimited && ulimit -a
@@ -21,6 +18,7 @@ steps:
     cat ~/.config/apport/settings
     sudo apt-get install language-pack-ja
     sudo update-locale LANG=ja_JP.UTF-8
+    echo '##vso[task.setvariable variable=test_result_branch_name]ci/azurepipelines/${AGENT_JOBNAME}_${BUILD_BUILDNUMBER}'
   displayName: 'setup'
   condition: eq(variables['Agent.OS'], 'Linux')
 
