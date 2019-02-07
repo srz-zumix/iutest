@@ -52,6 +52,12 @@ steps:
     artifactName: 'core dump'
     targetPath: 'test/coredump'
 
+- task: PublishPipelineArtifact@0
+  condition: always()
+  inputs:
+    artifactName: "test result ${AGENT_JOBNAME}"
+    targetPath: 'test/*.xml'
+
 - task: PublishTestResults@2
   inputs:
     testResultsFiles: 'test/*.xml'
