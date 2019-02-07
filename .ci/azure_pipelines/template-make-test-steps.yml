@@ -20,14 +20,36 @@ steps:
     sudo update-locale LANG=ja_JP.UTF-8
   displayName: 'setup'
   condition: eq(variables['Agent.OS'], 'Linux')
+
+- task: InstallSSHKey@0
+  displayName: 'Install SSH Key'
+  inputs:
+    hostName: 'github.com'
+    sshPublicKey: 'not required'
+    sshKeySecureFile: 'id_azurepipelines_rsa'
+
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: hub
+
+- script: |
+    sudo apt-get update
+    sudo apt-get install -y rubygems
+    sudo gem install hub
+    hub --version
+    cp $(Agent.TempDirectory)/hub ~/.config/hub
+  displayName: 'Install Hub'
+
 - script: |
     echo $LANG
     make -C test showcxxversion
   displayName: 'versions'
+
 - script: |
     echo "make -C test -j4 OUTPUTXML=junit ${{ parameters.options }}"
     make -C test -j4 OUTPUTXML=junit ${{ parameters.options }}
   displayName: 'make'
+
 - script: |
     echo "make -C test OUTPUTXML=junit ${{ parameters.options }} ${run_option} test"
     make -C test OUTPUTXML=junit ${{ parameters.options }} ${run_option} test
@@ -36,6 +58,7 @@ steps:
   displayName: 'test'
   env:
     run_option: RUN_OPTION="--iutest_default_package_name=${{ parameters.package_name }}"
+
 - script: |
     ls /var/crash/
     mkdir test/coredump
@@ -61,25 +84,6 @@ steps:
 - task: PublishTestResults@2
   inputs:
     testResultsFiles: 'test/*.xml'
-
-- task: InstallSSHKey@0
-  displayName: 'Install SSH Key'
-  inputs:
-    hostName: 'github.com'
-    sshPublicKey: 'not required'
-    sshKeySecureFile: 'id_azurepipelines_rsa'
-
-- task: DownloadSecureFile@1
-  inputs:
-    secureFile: hub
-
-- script: |
-    sudo apt-get update
-    sudo apt-get install -y rubygems
-    sudo gem install hub
-    hub --version
-    cp $(Agent.TempDirectory)/hub ~/.config/hub
-  displayName: 'Install Hub'
 
 - script: |
     ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
