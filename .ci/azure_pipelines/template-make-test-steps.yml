@@ -86,7 +86,7 @@ steps:
   condition: always()
   inputs:
     targetPath: $(Build.ArtifactStagingDirectory)
-    artifactName: "test result ${AGENT_JOBNAME}"
+    artifactName: "test result $(Agent.JobName)"
 
 - task: PublishTestResults@2
   inputs:
@@ -95,7 +95,7 @@ steps:
 - script: |
     ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
     git clone git@github.com:srz-zumix/iutest-test-results.git ../iutest-test-result
-    git checkout -b ${TestResultBranchName}
+    git checkout -b ${TESTRESULT_BRANCHNAME}
     find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --verbose --clean -o ../iutest-test-result/azure-pipelines/${AGENT_JOBNAME}/
     cd ../iutest-test-result
     find ./azure-pipelines -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
@@ -113,6 +113,6 @@ steps:
     cat message.txt >> pr.txt
     hub pull-request -F pr.txt
   env:
-    TESTRESULT_BRANCHNAME: ci/azurepipelines/${AGENT_JOBNAME}_${BUILD_BUILDNUMBER}
+    TESTRESULT_BRANCHNAME: ci/azurepipelines/$(Agent.JobName)_$(Build.BuildNumber)
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml2file push to github pr'
