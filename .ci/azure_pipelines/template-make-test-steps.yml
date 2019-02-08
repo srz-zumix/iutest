@@ -95,10 +95,10 @@ steps:
 - script: |
     ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
     git clone -q git@github.com:srz-zumix/iutest-test-results.git ../iutest-test-result
+    cd ../iutest-test-result
     git checkout -b ${TESTRESULT_BRANCHNAME}
     find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --verbose --clean -o ../iutest-test-result/azure-pipelines/${AGENT_JOBNAME}/
-    cd ../iutest-test-result
-    find ./azure-pipelines -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
+    # find ./azure-pipelines -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
     git config user.email "zumix.cpp@gmail.com"
     git config user.name "srz-zumix (Azure Pipelines)"
     git add --all
