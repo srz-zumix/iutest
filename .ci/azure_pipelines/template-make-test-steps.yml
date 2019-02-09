@@ -18,7 +18,7 @@ steps:
     cat ~/.config/apport/settings
     sudo apt-get install language-pack-ja
     sudo update-locale LANG=ja_JP.UTF-8
-    export LANG=ja_JP.UTF-8
+    locale -a
   displayName: 'setup'
   condition: eq(variables['Agent.OS'], 'Linux')
 
@@ -42,8 +42,6 @@ steps:
   displayName: 'Install Hub'
 
 - script: |
-    locale -a
-    echo $LANG
     echo ${TestResultBranchName}
     make -C test showcxxversion
   displayName: 'versions'
@@ -95,6 +93,7 @@ steps:
     testResultsFiles: 'test/*.xml'
 
 - script: |
+    export LANG=ja_JP.UTF-8
     ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
     git clone -q git@github.com:srz-zumix/iutest-test-results.git ../iutest-test-result
     find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --verbose --clean -o ../iutest-test-result/azure-pipelines/${AGENT_JOBNAME}/
