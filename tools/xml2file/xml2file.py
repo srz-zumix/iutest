@@ -216,6 +216,7 @@ def main():
     cmdline_options = parse_command_line()
     if cmdline_options.output is None:
         cmdline_options.output = tempfile.mkdtemp(prefix='xml2file')
+    logd(sys.getfilesystemencoding())
     log("output: " + cmdline_options.output)
     if cmdline_options.clean:
         clean_dir(cmdline_options.output)
