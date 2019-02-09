@@ -9,8 +9,9 @@
     "npm-run-all": "^4.1.5"
   },
   "scripts": {
-    "lint:editorconfig": "editorconfig-checker --exclude-regexp \"\\.sln|\\..*proj\" .",
-    "lint:editorconfig-cpp": "editorconfig-checker src include",
+    "lint:editorconfig": "npm-run-all eclint eccheck",
+    "eccheck": "editorconfig-checker --exclude-regexp \"\\.sln|\\..*proj\" .",
+    "eccheck:cpp": "editorconfig-checker src include",
     "eclint": "npm-run-all eclint:*",
     "eclint:src": "eclint check ./src",
     "eclint:include": "find ./include -type f -not -name iutest_ver.hpp | xargs eclint check -s 2",
