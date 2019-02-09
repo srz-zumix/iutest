@@ -17,6 +17,7 @@ trim_trailing_whitespace = true
 
 [*.{cpp,hpp,ipp}]
 charset = utf-8-bom
+trim_trailing_whitespace = true
 
 [*.py]
 charset = utf-8

@@ -51,7 +51,7 @@ public:
     FooTest(Foo* foo) : m_foo(foo) {}
 
     ::std::string name(void) { return m_foo->name(); }
-    ::std::string repeat(int n) 
+    ::std::string repeat(int n)
     {
         ::std::string str;
         for( int i=0; i < n; ++i ) str += name();
