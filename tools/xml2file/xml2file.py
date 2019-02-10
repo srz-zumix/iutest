@@ -187,7 +187,9 @@ def xml2file(path):
     clean_dir(root_path)
 
     try:
-        tree = ET.parse(path)
+        xmlfile = codecs.open(path, 'r', cmdline_options.encoding)
+        tree = ET.parse(xmlfile)
+        xmlfile.close()
         root = tree.getroot()
         testsuites = root
 
