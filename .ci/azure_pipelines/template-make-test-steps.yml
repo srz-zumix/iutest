@@ -96,7 +96,7 @@ steps:
     export LANG=ja_JP.UTF-8
     ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
     git clone -q git@github.com:srz-zumix/iutest-test-results.git ../iutest-test-result
-    find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --verbose --debug --clean -o ../iutest-test-result/azure-pipelines/${AGENT_JOBNAME}/
+    find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --verbose --clean -o ../iutest-test-result/azure-pipelines/${AGENT_JOBNAME}/
     cd ../iutest-test-result
     git checkout -b ${TESTRESULT_BRANCHNAME}
     # find ./azure-pipelines -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
