@@ -28,5 +28,17 @@
 			"string": "cpp",
 			"string_view": "cpp"
 		}
-	}
+    },
+    "launch": {
+        "configurations": [
+            {
+                "name": "Python: xml2file.py",
+                "type": "python",
+                "request": "launch",
+                "program": "${workspaceFolder}/tools/xml2file/xml2file.py",
+                "args" : ["-o", "${workspaceFolder}/tools/xml2file/tmp/files", "${workspaceFolder}/tools/xml2file/tmp/inputs/japanese_tests.xml"]
+            }
+        ],
+        "compounds": []
+    }
 }
