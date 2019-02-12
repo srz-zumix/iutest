@@ -18,6 +18,10 @@ XML2FILE_EXEC=python $(XML2FILE) $(XML2FILE_OPTION)
 XMLTYPE=junit
 # XMLTYPE=default
 
+ifeq ($(VERBOSE),1)
+XML2FILE_OPTION+=--verbose
+endif
+
 .PHONY: default clean all
 
 default: xml2file

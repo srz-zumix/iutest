@@ -45,7 +45,7 @@ def parse_command_line():
     )
     parser.add_argument(
         '--encoding',
-        default=None,
+        default='utf-8',
         help='output file encoding.'
     )
     parser.add_argument(
@@ -187,9 +187,8 @@ def xml2file(path):
     clean_dir(root_path)
 
     try:
-        xmlfile = codecs.open(path, 'r', cmdline_options.encoding)
-        tree = ET.parse(xmlfile)
-        xmlfile.close()
+        xmlp = ET.XMLParser(encoding=cmdline_options.encoding)
+        tree = ET.parse(path, xmlp)
         root = tree.getroot()
         testsuites = root
 
