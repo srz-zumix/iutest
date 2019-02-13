@@ -1,2 +1,2 @@
 [bandit]
-skips: ['B314']
+skips: B314
