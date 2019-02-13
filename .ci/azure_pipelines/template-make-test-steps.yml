@@ -107,11 +107,11 @@ steps:
     echo >> message.txt
     echo "${BUILD_BUILDURI}" >> message.txt
     git commit -F message.txt
-    git push -u origin ${TESTRESULT_BRANCHNAME}
     echo "Azure Pipelines ${AGENT_JOBNAME} ${BUILD_BUILDID}" > pr.txt
     echo >> pr.txt
     echo >> pr.txt
     cat message.txt >> pr.txt
+    git push -u origin ${TESTRESULT_BRANCHNAME}
     hub pull-request -F pr.txt
   env:
     TESTRESULT_BRANCHNAME: ci/azurepipelines/$(Agent.JobName)_$(Build.BuildId)
