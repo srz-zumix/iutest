@@ -46,3 +46,16 @@ jobs:
   - template: .ci/azure_pipelines/template-make-nofeature-test.yml
     parameters:
       name: nofeature
+  - job: publish
+    pool:
+      vmImage: ubuntu-16.04
+    dependsOn:
+      - disabled
+      - nofeature
+    condition: always()
+    steps:
+      - task: PublishPipelineArtifact@0
+        inputs:
+          artifactName: 'xml2file'
+          targetPath: $(Build.ArtifactStagingDirectory)
+
