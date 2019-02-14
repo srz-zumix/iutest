@@ -111,8 +111,8 @@ steps:
     echo >> pr.txt
     echo >> pr.txt
     cat message.txt >> pr.txt
-    git push -u origin ${TESTRESULT_BRANCHNAME}
-    hub pull-request -F pr.txt
+    # git push -u origin ${TESTRESULT_BRANCHNAME}
+    # hub pull-request -F pr.txt
   env:
     TESTRESULT_BRANCHNAME: ci/azurepipelines/$(Agent.JobName)_$(Build.BuildId)
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
