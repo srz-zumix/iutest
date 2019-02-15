@@ -29,6 +29,7 @@ pr:
     include:
       - master
       - develop
+      - feature/*
 
 jobs:
   - job: syntax_test
