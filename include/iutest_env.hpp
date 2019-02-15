@@ -557,6 +557,12 @@ public:
     */
     typedef OptionString<get_default_package_name, set_default_package_name> default_package_name;
 
+    /**
+     * @private
+     * @brief   locale_ctype オプション設定用オブジェクト
+    */
+    typedef OptionString<get_locale_ctype, set_locale_ctype> locale_ctype;
+
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
     /**
      * @private
