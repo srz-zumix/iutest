@@ -259,6 +259,12 @@ IUTEST_IPP_INLINE bool TestEnv::ParseIutestOptionCommandLineElemA(const char* st
             return true;
         }
     }
+    if( detail::IsStringForwardMatching(str, "local_ctype") )
+    {
+        const char* opt = ParseOptionSettingStr(str);
+        set_locale_ctype(opt);
+        return true;
+    }
     return false;
 }
 

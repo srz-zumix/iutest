@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -49,6 +49,7 @@
  *          file_location_style_msvc (bool)\n
  *          default_package_name (string)\n
  *          ostream_formatter (ostream)\n
+ *          locale_ctype (string)\n
 */
 #define IUTEST_FLAG(name)   IIUT_FLAG(name)
 
@@ -320,6 +321,7 @@ private:
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
         iu_stringstream     m_ostream_formatter;
 #endif
+        ::std::string       m_locale_ctype;
     };
 
     static Variable& get_vars() { static Variable v; return v; }
@@ -339,6 +341,7 @@ public:
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
     static void                 global_ostream_copyfmt(iu_ostream& os) { os.copyfmt(get_vars().m_ostream_formatter); }  // NOLINT
 #endif
+    static const char*          get_locale_ctype() { return get_vars().m_locale_ctype.c_str(); }    //!< ctype locale オプション
 
     /**
      * @brief   xml 出力パスを取得
@@ -461,6 +464,14 @@ private:
     static void set_default_package_name(const char* str)
     {
         get_vars().m_default_package_name = detail::NullableString(str);
+    }
+
+    /**
+     * @brief   locale_ctype オプションを設定
+    */
+    static void set_locale_ctype(const char* str)
+    {
+        get_vars().m_locale_ctype = detail::NullableString(str);
     }
 
 private:
