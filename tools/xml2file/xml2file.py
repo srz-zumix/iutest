@@ -8,10 +8,12 @@
 #
 
 import os
+import sys
 import errno
 import json
 import codecs
 import shutil
+import tempfile
 import xml.etree.ElementTree as ET
 
 from argparse import ArgumentParser
@@ -43,8 +45,13 @@ def parse_command_line():
     )
     parser.add_argument(
         '--encoding',
-        default=None,
+        default='utf-8',
         help='output file encoding.'
+    )
+    parser.add_argument(
+        '--clean',
+        action='store_true',
+        help='clean output directory (before)'
     )
     parser.add_argument(
         '--debug',
@@ -64,6 +71,10 @@ cmdline_options = None
 
 
 def log(msg):
+    print(msg)
+
+
+def logv(msg):
     if cmdline_options.verbose:
         print(msg)
 
@@ -73,6 +84,10 @@ def logd(msg):
         print(msg)
 
 
+def loge(msg):
+    sys.stderr.write(msg + "\n")
+
+
 def mkdir_p(path):
     try:
         os.makedirs(path)
@@ -80,6 +95,7 @@ def mkdir_p(path):
         if exc.errno == errno.EEXIST and os.path.isdir(path):
             pass
         else:
+            loge('failed mkdirs: ' + path)
             raise
 
 
@@ -95,16 +111,15 @@ def fopen(path):
     return f
 
 
-def make_rootpath(xml_filename, testsuites):
-    # root_name = testsuites.attrib['name']
+def make_rootpath(xml_filename):
     root_name = xml_filename
     path = os.path.join(cmdline_options.output, root_name)
     return path
 
 
 def make_path(root_path, testsuite, testcase):
-    suite_name = testsuite.attrib['name']
-    case_name = testcase.attrib['name']
+    suite_name = testsuite.attrib['name'].lstrip('/')
+    case_name = testcase.attrib['name'].lstrip('/')
     ext = '.json'
     return os.path.join(os.path.join(root_path, suite_name), case_name + ext)
 
@@ -164,35 +179,56 @@ def write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase):
 
 
 def xml2file(path):
-    tree = ET.parse(path)
-    root = tree.getroot()
-    testsuites = root
-
     basename = os.path.basename(path)
     filename = os.path.splitext(basename)[0]
-    root_path = make_rootpath(filename, testsuites)
+    logv(basename)
+
+    root_path = make_rootpath(filename)
     clean_dir(root_path)
 
-    log(basename)
-    testsuites_user_attrib = get_user_properties(testsuites)
-    for testsuite in testsuites:
-        log("  " + testsuite.attrib['name'])
-        testsuite_user_attrib = get_user_properties(testsuite)
-        for testcase in testsuite:
-            if testcase.tag == 'testcase':
-                log("    " + testcase.attrib['name'])
-                f = fopen(make_path(root_path, testsuite, testcase))
-                write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase)
-                f.close()
-            elif testcase.tag == 'properties':
-                testsuite_user_attrib.update(get_properties_node(testcase))
+    try:
+        xmlp = ET.XMLParser(encoding=cmdline_options.encoding)
+        tree = ET.parse(path, xmlp)
+        root = tree.getroot()
+        testsuites = root
+
+        testsuites_user_attrib = get_user_properties(testsuites)
+        for testsuite in testsuites:
+            logv("  " + testsuite.attrib['name'])
+            testsuite_user_attrib = get_user_properties(testsuite)
+            for testcase in testsuite:
+                if testcase.tag == 'testcase':
+                    logv("    " + testcase.attrib['name'])
+                    f = fopen(make_path(root_path, testsuite, testcase))
+                    write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase)
+                    f.close()
+                elif testcase.tag == 'properties':
+                    testsuite_user_attrib.update(get_properties_node(testcase))
+    except Exception as e:
+        f = fopen(os.path.join(root_path, "parser_error.txt"))
+        f.write(str(e))
+        f.close()
+        raise
 
 
 def main():
+    result=True
     global cmdline_options
     cmdline_options = parse_command_line()
+    if cmdline_options.output is None:
+        cmdline_options.output = tempfile.mkdtemp(prefix='xml2file')
+    logd(sys.getfilesystemencoding())
+    log("output: " + cmdline_options.output)
+    if cmdline_options.clean:
+        clean_dir(cmdline_options.output)
     for path in cmdline_options.file:
-        xml2file(path)
+        try:
+            xml2file(path)
+        except Exception as e:
+            loge("error: " + path + ": " + str(e))
+            result = False
+    if not result:
+        exit(1)
 
 
 if __name__ == '__main__':

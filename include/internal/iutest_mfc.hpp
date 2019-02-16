@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -293,7 +293,7 @@ private:
     T& m_container;
 };
 
-/** 
+/**
  * @brief   make mfc container
 */
 template<typename T>
