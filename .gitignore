@@ -83,3 +83,11 @@ package-lock.json
 # python
 # pyenv
 .python-version
+
+# cmake
+CMakeLists.txt.user
+CMakeCache.txt*
+CTestTestfile.cmake
+cmake_install.cmake
+compile_commands.json
+CMakeFiles/
