@@ -216,7 +216,10 @@ IUTEST_IPP_INLINE void UnitTestImpl::InitializeImpl()
 #endif
 
 #if !defined(IUTEST_OS_WINDOWS_MOBILE)
-    setlocale(LC_CTYPE, TestEnv::get_locale_ctype());
+    if( setlocale(LC_CTYPE, TestEnv::get_locale_ctype()) == NULL )
+    {
+        IUTEST_LOG_(WARNING) << "failed: setlocale LC_CTYPE to " << TestEnv::get_locale_ctype();
+    }
 #endif
 }
 
