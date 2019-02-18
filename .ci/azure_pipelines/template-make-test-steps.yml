@@ -112,8 +112,11 @@ steps:
     echo >> pr.txt
     cat message.txt >> pr.txt
     git push -u origin ${TESTRESULT_BRANCHNAME}
+    git co -b ${PR_BRANCHNAME}
+    git push -u origin ${PR_BRANCHNAME}
     hub pull-request -F pr.txt -b all
   env:
-    TESTRESULT_BRANCHNAME: ci/azurepipelines/$(Agent.JobName)_$(Build.BuildId)
+    TESTRESULT_BRANCHNAME: ci/azurepipelines/$(Agent.JobName)
+    PR_BRANCHNAME: ci/azurepipelines/$(Agent.JobName)_$(Build.BuildId)
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml2file push to github pr'
