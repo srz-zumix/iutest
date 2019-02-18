@@ -342,6 +342,7 @@ public:
     static void                 global_ostream_copyfmt(iu_ostream& os) { os.copyfmt(get_vars().m_ostream_formatter); }  // NOLINT
 #endif
     static const char*          get_locale_ctype() { return get_vars().m_locale_ctype.c_str(); }    //!< ctype locale オプション
+    static bool                 is_specific_locale_ctype() { return !get_vars().m_locale_ctype.empty(); }
 
     /**
      * @brief   xml 出力パスを取得
