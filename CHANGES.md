@@ -5,9 +5,12 @@
 ## Changes for 1.17.0
 
 * Improved
+  * --iutest_locale_ctype オプションを追加
+  * setlocale(LC_CTYPE, IUTEST_FLAG(locale_ctype)) をテスト実行開始時に行うように修正
   * Visual Studio 2019 対応
 
 * Changes
+  * iutest_main で setlocale していたものを廃止
   * junit xml 出力で出力するテストが 0 だった場合にファイル書き出ししないように修正
   * CSV パラメータ生成でファイルオープン失敗した場合の警告レベルを FATAL から WARNING に変更
   * CSV パラメータ生成で要素がなかった場合に WARNING 出力

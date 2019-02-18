@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,10 +27,6 @@ int main(int argc, char** argv)
 #endif
 {
     ::std::cout << "Running main() from iutest_main.cpp" << ::std::endl;
-
-#if !defined(IUTEST_OS_WINDOWS_MOBILE)
-    setlocale(LC_CTYPE, "");
-#endif
 
     IUTEST_INIT(&argc, argv);
     return IUTEST_RUN_ALL_TESTS();

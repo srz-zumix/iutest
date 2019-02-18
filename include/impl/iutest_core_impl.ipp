@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -213,6 +213,13 @@ IUTEST_IPP_INLINE void UnitTestImpl::InitializeImpl()
 
 #if IUTEST_HAS_INVALID_PARAMETER_HANDLER
     _set_invalid_parameter_handler(OnInvalidParameter);
+#endif
+
+#if !defined(IUTEST_OS_WINDOWS_MOBILE)
+    if( setlocale(LC_CTYPE, TestEnv::get_locale_ctype()) == NULL )
+    {
+        IUTEST_LOG_(WARNING) << "failed: setlocale LC_CTYPE to " << TestEnv::get_locale_ctype();
+    }
 #endif
 }
 
