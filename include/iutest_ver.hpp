@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01169913u //!< iutest version 1.16.99.13
+#define IUTEST_VER          0x01169914u //!< iutest version 1.16.99.14
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
 #define IUTEST_MICROVER     0x99u       //!< Micro Version
-#define IUTEST_REVISION     0x13u       //!< Revision
+#define IUTEST_REVISION     0x14u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -87,6 +87,7 @@ modification, are permitted provided that the following conditions are met: \n
    <tr><td>--iutest_stream_result_to         </td><td>&lt;host:port&gt;</td><td>Set stream test results server.</td></tr>
    <tr><td>--iutest_file_location            </td><td>&lt;auto|vs|gcc&gt;</td><td>Format file location messages.</td></tr>
    <tr><td>--iutest_default_package_name     </td><td>[name]</td><td>Set default root package name.</td></tr>
+   <tr><td>--iutest_locale_ctype             </td><td>[name]</td><td>setlocate(LC_CTYPE, [name]).</td></tr>
    <tr><td>--verbose                         </td><td></td><td>Verbose option.</td></tr>
    <tr><td>--feature                         </td><td></td><td>Show iutest feature.</td></tr>
    <tr><td>--version, -v                     </td><td></td><td>Show iutest version.</td></tr>
@@ -123,6 +124,9 @@ modification, are permitted provided that the following conditions are met: \n
   <li>v1.17.0.0
     <ul>
       <li></li>
+      <li>--iutest_locale_ctype オプションを追加</li>
+      <li>setlocale(LC_CTYPE, IUTEST_FLAG(locale_ctype)) をテスト実行開始時に行うように修正</li>
+      <li>iutest_main で setlocale していたものを廃止</li>
       <li>Visual Studio 2019 対応</li>
       <li>junit xml 出力で出力するテストが 0 だった場合にファイル書き出ししないように修正</li>
       <li>CSV パラメータ生成でファイルオープン失敗した場合の警告レベルを FATAL から WARNING に変更/li>

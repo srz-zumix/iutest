@@ -38,6 +38,7 @@ end_of_line = crlf
 
 [*.sh]
 indent_size = 2
+end_of_line = lf
 
 [*.json]
 indent_size = 2

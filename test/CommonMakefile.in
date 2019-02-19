@@ -152,6 +152,7 @@ TARGETS_IUTEST_ONLY = \
 		flagfile_env_var_tests \
 		flagfile_invalid_path_tests \
 		flagfile_tests \
+		invalid_locale_ctype_tests \
 		ostream_formatter_tests \
 		output_tests \
 		output_xml_invalid_path_tests \

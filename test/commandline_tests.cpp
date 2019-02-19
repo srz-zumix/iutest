@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -164,6 +164,7 @@ int main(int argc, char* argv[])
         vargv.push_back("--iutest_filter=Flag*");
         vargv.push_back("--iutest_default_package_name=root");
         vargv.push_back("--iutest_warning_into_error=t");
+        vargv.push_back("--iutest_locale_ctype=C");
 #if IUTEST_HAS_STREAM_RESULT
         vargv.push_back("--iutest_stream_result_to=test");
 #endif
@@ -187,6 +188,7 @@ int main(int argc, char* argv[])
         IUTEST_EXPECT_STREQ( "ansi", ::iutest::IUTEST_FLAG(color).c_str() );
         IUTEST_EXPECT_STREQ( "Flag*", ::iutest::IUTEST_FLAG(filter).c_str() );
         IUTEST_EXPECT_STREQ( "root", ::iutest::IUTEST_FLAG(default_package_name).c_str() );
+        IUTEST_EXPECT_STREQ( "C", ::iutest::IUTEST_FLAG(locale_ctype).c_str() );
 #if IUTEST_HAS_STREAM_RESULT
         IUTEST_EXPECT_STREQ( "test", ::iutest::IUTEST_FLAG(stream_result_to).c_str() );
 #endif
