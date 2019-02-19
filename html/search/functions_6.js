@@ -5,6 +5,7 @@ var searchData=
   ['genrandf',['genrandf',['../dc/d0e/classiutest_1_1_test.html#a6048ed363bc6cee59c4d4b6de276de80',1,'iutest::Test']]],
   ['get_5fdefault_5fpackage_5fname',['get_default_package_name',['../d7/d8c/classiutest_1_1_test_env.html#a2109bd04603abf8cf57114fabe0add80',1,'iutest::TestEnv']]],
   ['get_5fflagfile',['get_flagfile',['../d7/d8c/classiutest_1_1_test_env.html#a3dff21f193032a3e9ba2dbadf555be45',1,'iutest::TestEnv']]],
+  ['get_5flocale_5fctype',['get_locale_ctype',['../d7/d8c/classiutest_1_1_test_env.html#a21c71821471bc6e9c5418c575be2c6dc',1,'iutest::TestEnv']]],
   ['get_5foutput_5foption',['get_output_option',['../d7/d8c/classiutest_1_1_test_env.html#ac4e5e4d404fe4e10d22199a4e1a74948',1,'iutest::TestEnv']]],
   ['get_5frandom_5fseed',['get_random_seed',['../d7/d8c/classiutest_1_1_test_env.html#ac45dd301c78db3de83b0c1e3ee177a83',1,'iutest::TestEnv']]],
   ['get_5frepeat_5fcount',['get_repeat_count',['../d7/d8c/classiutest_1_1_test_env.html#a96f7e9e3229ebd7f29573f26c1d7173e',1,'iutest::TestEnv']]],
