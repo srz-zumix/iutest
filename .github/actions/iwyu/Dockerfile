@@ -1,4 +1,4 @@
-FROM srzzumix/iwyu
+FROM srzzumix/iwyu:latest
 
 LABEL "com.github.actions.name"="Include What You Use"
 LABEL "com.github.actions.description"="Write arguments to the cmake options"
