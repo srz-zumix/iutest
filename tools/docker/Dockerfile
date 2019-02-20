@@ -6,6 +6,7 @@ FROM ubuntu:xenial
 
 LABEL maintainer "srz_zumix <https://github.com/srz-zumix>"
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update -q -y && \
     apt-get install -y --no-install-recommends software-properties-common && \
     apt-get update -q -y && \
@@ -45,9 +46,9 @@ RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
     apt-get install -y --no-install-recommends g++-8 gcc-8 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-RUN update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-8 1000 && \
+RUN update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-8 1000 \
                         --slave   /usr/bin/g++  g++  /usr/bin/g++-8 \
-                        --slave   /usr/bin/gcov gcov /usr/bin/gcov-8 \
+                        --slave   /usr/bin/gcov gcov /usr/bin/gcov-8
 
 # clang
 RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
