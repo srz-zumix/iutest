@@ -14,5 +14,5 @@ action "lint:editorconfig" {
 
 action "Include What You Use" {
   uses = "./.github/actions/iwyu"
-  args = "/work/projects/cmake"
+  args = "/work/projects/cmake -Dbuild_test_namespace_test=OFF"
 }

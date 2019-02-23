@@ -9,8 +9,8 @@ LABEL "repository"="https://github.com/srz-zumix/iutest"
 LABEL "homepage"="https://github.com/srz-zumix/iutest"
 LABEL "maintainer"="https://github.com/srz-zumix"
 
-RUN ln -s /usr/bin/clang++-${CLANG_VERSION} /usr/bin/clang++
-RUN ln -s /usr/bin/clang-${CLANG_VERSION} /usr/bin/clang
+RUN ln -s "/usr/bin/clang++-${CLANG_VERSION}" /usr/bin/clang++
+RUN ln -s "/usr/bin/clang-${CLANG_VERSION}" /usr/bin/clang
 
-ADD entrypoint.sh /entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
