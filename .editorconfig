@@ -46,6 +46,9 @@ indent_size = 2
 [{COPYING,LICENSE}]
 indent_size = 2
 
+[CMakeLists.txt]
+indent_size = 2
+
 # comment style for lint
 [*]
 # C-style doc comments
