@@ -1,3 +1,5 @@
+# iutest exsample: docker run -it -v "/$(pwd)":/target iuiwyu /work/projects/cmake -Dbuild_tests=OFF
+
 FROM srzzumix/iwyu:latest
 
 LABEL "com.github.actions.name"="Include What You Use"
