@@ -2,4 +2,5 @@
 
 set -exu
 
-RUN codecrumbs -d . -e samples/main.cpp
+# codecrumbs -d . -e samples/main.cpp -p 2018
+codecrumbs $*
