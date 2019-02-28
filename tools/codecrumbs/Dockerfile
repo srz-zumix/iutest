@@ -1,10 +1,8 @@
-# docker build -t iucodecrumbs -f tools/codecrumbs/Dockerfile .
-
 FROM ubuntu:xenial
 
 LABEL maintainer "srz_zumix <https://github.com/srz-zumix>"
 
-ENV DEBCONF_NOWARNINGS yes
+# ENV DEBCONF_NOWARNINGS yes
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update -q -y && \
@@ -32,9 +30,10 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     rm -rf /var/lib/apt/lists/*
 
 RUN yarn global add codecrumbs
-RUN mkdir /iutest
-COPY ./ /iutest
-WORKDIR /iutest
+RUN apt-get update -q -y && \
+    apt-get install -y tcpdump && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY tools/codecrumbs/entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
