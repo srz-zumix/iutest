@@ -95,13 +95,13 @@ steps:
 - script: |
     export LANG=ja_JP.UTF-8
     ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-    git clone -q git@github.com:srz-zumix/${TESTRESULT_BRANCHNAME}.git ../${TESTRESULT_BRANCHNAME}
+    git clone -q git@github.com:srz-zumix/${TESTRESULT_REPONAME}.git ../${TESTRESULT_REPONAME}
     git branch
-    cd ../${TESTRESULT_BRANCHNAME} && git checkout -b ${TESTRESULT_BRANCHNAME} origin/${TESTRESULT_BRANCHNAME} | git checkout -b ${TESTRESULT_BRANCHNAME}
+    cd ../${TESTRESULT_REPONAME} && git checkout -b ${TESTRESULT_BRANCHNAME} origin/${TESTRESULT_BRANCHNAME} | git checkout -b ${TESTRESULT_BRANCHNAME}
     cd -
-    find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --verbose --clean -o ../${TESTRESULT_BRANCHNAME}/azure-pipelines/${AGENT_JOBNAME}/
+    find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --verbose --clean -o ../${TESTRESULT_REPONAME}/azure-pipelines/${AGENT_JOBNAME}/
     # find ./azure-pipelines -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
-    cd ../${TESTRESULT_BRANCHNAME}
+    cd ../${TESTRESULT_REPONAME}
     git config user.email "zumix.cpp@gmail.com"
     git config user.name "srz-zumix (Azure Pipelines)"
     git add --all
