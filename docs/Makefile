@@ -10,7 +10,9 @@ all: target lint
 upgrade:
 	doxygen -u
 
-target: Doxyfile html/index.html
+target: html/index.html
+
+html/index.html: Doxyfile
 	doxygen Doxyfile
 #	doxyindexer searchdata.xml -o html/
 #	cp '$(DOXYGEN_ROOT)/bin/doxysearch.cgi' html/
