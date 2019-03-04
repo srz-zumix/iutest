@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>iutest: グラフの凡例</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">iutest
+   &#160;<span id="projectnumber">1.16.99.14</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'検索');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">グラフの凡例</div>  </div>
+</div><!--header-->
+<div class="contents">
+<p>Doxygen が生成したグラフを読み方について。</p>
+<p>次のコード例をご覧ください。 </p><div class="fragment"><div class="line">/*! 全体の大きさの関係で見えなくなるクラスです。 */</div><div class="line">class Invisible { };</div><div class="line"></div><div class="line">/*! 表示を切り捨てられたクラス(Invisibleクラスの分が見えません) */</div><div class="line">class Truncated : public Invisible { };</div><div class="line"></div><div class="line">/* Doxygen 用のコメントコードがないクラス */</div><div class="line">class Undocumented { };</div><div class="line"></div><div class="line">/*! 公開継承されているクラス */</div><div class="line">class PublicBase : public Truncated { };</div><div class="line"></div><div class="line">/*! A template class */</div><div class="line">template&lt;class T&gt; class Templ { };</div><div class="line"></div><div class="line">/*! 限定公開で継承されているクラス */</div><div class="line">class ProtectedBase { };</div><div class="line"></div><div class="line">/*! 非公開継承されているクラス */</div><div class="line">class PrivateBase { };</div><div class="line"></div><div class="line">/*! Inherited クラス内で使われているクラス */</div><div class="line">class Used { };</div><div class="line"></div><div class="line">/*! 複数のクラスを継承している上位クラス */</div><div class="line">class Inherited : public PublicBase,</div><div class="line">                  protected ProtectedBase,</div><div class="line">                  private PrivateBase,</div><div class="line">                  public Undocumented,</div><div class="line">                  public Templ&lt;int&gt;</div><div class="line">{</div><div class="line">  private:</div><div class="line">    Used *m_usedClass;</div><div class="line">};</div></div><!-- fragment --><p> <code>MAX_DOT_GRAPH_HEIGHT</code> タグに 200 を与えた設定ファイルを使うと、次のようなグラフとなります。</p>
+<center><div class="image">
+<img src="graph_legend.png"/>
+</div>
+</center> <p>グラフ内の矩形は構造体やクラスを表しています。色の意味は次の通りです。 </p><ul>
+<li>
+中を黒く塗られた四角は、図が注目している起点です。 </li>
+<li>
+黒枠は詳解があることを示しています。 </li>
+<li>
+灰色枠で示されたクラス等には詳解がありません。 </li>
+<li>
+赤枠で示されたものは詳解を持つクラスですが、指定された大きさに収まらないことから一部の継承・包含関係が省略されていることを表します。 </li>
+</ul>
+<p>矢印の意味は次の通りです。</p>
+<ul>
+<li>
+青い矢印は二つのクラス間の公開継承関係を示します。 </li>
+<li>
+緑の矢印は限定公開の継承関係を示します。 </li>
+<li>
+赤の矢印は非公開の継承関係を示します。 </li>
+<li>
+紫の破線矢印は、そのクラスが他のクラスに含まれているか、利用されていることを示します。また、矢印のラベルは矢の先にあるクラス等をアクセスしている矢の根本のメンバを表しています。 </li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+2019年03月04日(月) 13時20分40秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>
