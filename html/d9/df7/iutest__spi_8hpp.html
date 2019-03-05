@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>iutest: iutest_spi.hpp ファイル</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">iutest
+   &#160;<span id="projectnumber">1.16.99.14</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('../../',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#namespaces">名前空間</a> &#124;
+<a href="#define-members">マクロ定義</a>  </div>
+  <div class="headertitle">
+<div class="title">iutest_spi.hpp ファイル</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>iris unit test spi 対応用 ファイル  
+<a href="#details">[詳解]</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d4/db0/iutest__config_8hpp_source.html">iutest_config.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d0/de0/iutest_8hpp_source.html">iutest.hpp</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+iutest_spi.hpp の依存先関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d7/dcc/iutest__spi_8hpp__incl.png" border="0" usemap="#iutest__spi_8hpp" alt=""/></div>
+<map name="iutest__spi_8hpp" id="iutest__spi_8hpp">
+<area shape="rect" id="node2" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config " alt="" coords="2061,698,2195,725"/>
+<area shape="rect" id="node3" href="../../d0/de0/iutest_8hpp.html" title="iris unit test " alt="" coords="2642,80,2729,107"/>
+<area shape="rect" id="node4" href="../../d9/df2/iutest__ver_8hpp.html" title="iris unit test version " alt="" coords="3687,333,3801,360"/>
+<area shape="rect" id="node5" href="../../d0/db5/iutest__core_8hpp.html" title="iris unit test core " alt="" coords="915,162,1037,189"/>
+<area shape="rect" id="node27" href="../../dc/df5/iutest__param__tests_8hpp.html" title="iris unit test parameter 定義 ファイル " alt="" coords="1765,333,1939,360"/>
+<area shape="rect" id="node29" href="../../d7/d4a/iutest__typed__tests_8hpp.html" title="iris unit test typed test " alt="" coords="1951,423,2121,449"/>
+<area shape="rect" id="node32" href="../../d9/d06/iutest__prod_8hpp.html" title="iris unit test production code 対応用 ファイル " alt="" coords="2025,251,2148,278"/>
+<area shape="rect" id="node33" href="../../d5/d06/iutest__expression__assertion_8hpp.html" title="iris unit test 式アサーション 定義 ファイル " alt="" coords="2065,333,2297,360"/>
+<area shape="rect" id="node34" href="../../dd/d8a/iutest__matcher_8hpp.html" title="iris unit test matcher 定義 ファイル " alt="" coords="2287,251,2433,278"/>
+<area shape="rect" id="node35" href="../../dc/d47/iutest__static__assertion_8hpp.html" title="iris unit test static assertion 定義 ファイル " alt="" coords="2372,333,2569,360"/>
+<area shape="rect" id="node36" href="../../dc/df5/iutest__ignore_8hpp.html" title="iris unit test ignore test ファイル " alt="" coords="2530,162,2665,189"/>
+<area shape="rect" id="node37" href="../../d0/d81/iutest__default__printer_8hpp.html" title="iris unit test デフォルト出力イベントリスナー ファイル " alt="" coords="2689,155,2855,196"/>
+<area shape="rect" id="node39" href="../../dd/d6c/iutest__stderr__xml__generator_8hpp.html" title="output stderr (junit) xml event listener " alt="" coords="2813,415,2971,457"/>
+<area shape="rect" id="node41" href="../../dc/d19/iutest__default__xml__generator_8hpp.html" title="iris unit test xml 出力イベントリスナー ファイル " alt="" coords="3737,601,3881,643"/>
+<area shape="rect" id="node44" href="../../d0/dfd/iutest__streaming__listener_8hpp.html" title="iris unit test stream result " alt="" coords="2958,155,3143,196"/>
+<area shape="rect" id="node45" href="../../de/dd4/iutest__util_8hpp.html" title="iris unit test utility " alt="" coords="3161,423,3276,449"/>
+<area shape="rect" id="node50" href="../../db/df6/iutest__default__main_8hpp.html" title="iris unit test default main " alt="" coords="3345,155,3511,196"/>
+<area shape="rect" id="node6" href="../../d5/d65/iutest__result__reporter_8hpp.html" title="iris unit test TestPartResult リポーター ファイル " alt="" coords="808,244,965,285"/>
+<area shape="rect" id="node22" href="../../d7/d42/iutest__params__util_8hpp.html" title="iris unit test parameter 定義 ファイル " alt="" coords="1383,512,1553,553"/>
+<area shape="rect" id="node7" href="../../dc/d62/iutest__core__impl_8hpp.html" title="iris unit test UnitTest 実装 ファイル " alt="" coords="622,333,781,360"/>
+<area shape="rect" id="node8" href="../../db/d32/iutest__internal_8hpp.html" title="iris unit test internal definition " alt="" coords="355,519,499,546"/>
+<area shape="rect" id="node10" href="../../d9/d00/iutest__time_8hpp.html" title="time utility " alt="" coords="1098,423,1222,449"/>
+<area shape="rect" id="node13" href="../../d2/d08/iutest__regex_8hpp.html" title="regex " alt="" coords="558,609,743,635"/>
+<area shape="rect" id="node14" href="../../d8/def/iutest__listener_8hpp.html" title="iris unit test イベントリスナー 定義 ファイル " alt="" coords="195,609,338,635"/>
+<area shape="rect" id="node16" href="../../d0/dda/iutest__env_8hpp.html" title="iris unit test 環境 ファイル " alt="" coords="523,519,653,546"/>
+<area shape="rect" id="node18" href="../../d3/d0c/iutest__message_8hpp.html" title="iris unit test メッセージ ファイル " alt="" coords="457,423,663,449"/>
+<area shape="rect" id="node19" href="../../d2/d5f/iutest__option__message_8hpp.html" title="iris unit test コマンドラインメッセージ ファイル " alt="" coords="779,519,981,546"/>
+<area shape="rect" id="node20" href="../../da/d62/iutest__case_8hpp.html" title="iris unit test testcase " alt="" coords="789,423,925,449"/>
+<area shape="rect" id="node21" href="../../d1/d09/iutest__body_8hpp.html" title="iris unit test テスト単体クラス ファイル " alt="" coords="950,423,1074,449"/>
+<area shape="rect" id="node11" href="../../d3/d4c/iutest__internal__defs_8hpp.html" title="internal definition " alt="" coords="1647,519,1825,546"/>
+<area shape="rect" id="node12" href="../../d9/d0b/iutest__type__traits_8hpp_source.html" title="type traits " alt="" coords="2525,609,2689,635"/>
+<area shape="rect" id="node23" href="../../d6/dfe/iutest__genparams_8hpp.html" title="iris unit test parameter generator " alt="" coords="1406,609,1573,635"/>
+<area shape="rect" id="node24" href="../../d9/d88/iutest__genparams__from__file_8hpp.html" title="iris unit test parameter generator from file " alt="" coords="1597,601,1774,643"/>
+<area shape="rect" id="node25" href="../../db/d71/iutest__pool_8hpp.html" title="iris unit test memory pool " alt="" coords="1208,609,1331,635"/>
+<area shape="rect" id="node28" href="../../d4/d63/iutest__any_8hpp.html" title="iris unit test any ファイル " alt="" coords="1759,423,1875,449"/>
+<area shape="rect" id="node30" href="../../df/dbd/iutest__typed__util_8hpp.html" title="typed util " alt="" coords="2001,512,2159,553"/>
+<area shape="rect" id="node31" href="../../d5/d5c/iutest__typelist_8hpp.html" title="type list " alt="" coords="2002,609,2145,635"/>
+<area shape="rect" id="node40" href="../../d5/d8e/iutest__junit__xml__generator_8hpp.html" title="output junit xml event listener " alt="" coords="2807,519,3031,546"/>
+<area shape="rect" id="node46" href="../../dc/dbb/iutest__util__assertion_8hpp.html" title="iris unit test assertion 拡張 ファイル " alt="" coords="2575,519,2782,546"/>
+<area shape="rect" id="node47" href="../../df/de1/iutest__util__output_8hpp.html" title="iris unit test print 出力 utility ファイル " alt="" coords="3087,609,3276,635"/>
+<area shape="rect" id="node48" href="../../df/d01/iutest__util__quiet__result__printer_8hpp.html" title="iris unit test quiet result printer " alt="" coords="3156,512,3308,553"/>
+<area shape="rect" id="node49" href="../../d8/def/iutest__util__tests_8hpp.html" title="iris unit test テスト情報 utility ファイル " alt="" coords="3332,519,3511,546"/>
+</map>
+</div>
+</div>
+<p><a href="../../d9/df7/iutest__spi_8hpp_source.html">[ソースコード]</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+名前空間</h2></td></tr>
+<tr class="memitem:d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
+<tr class="memdesc:d3/dda/namespaceiutest"><td class="mdescLeft">&#160;</td><td class="mdescRight">iutest root namespace <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+マクロ定義</h2></td></tr>
+<tr class="memitem:gae4c4d4662ebf2842329c3207cf535611"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#gae4c4d4662ebf2842329c3207cf535611">IUTEST_ASSERT_FATAL_FAILURE</a>(statement,  substr)&#160;&#160;&#160;IUTEST_TEST_FATAL_FAILURE_(statement, #statement, substr, IUTEST_ASSERT_FAILURE)</td></tr>
+<tr class="memdesc:gae4c4d4662ebf2842329c3207cf535611"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fatal Failure 発生確認テスト <br /></td></tr>
+<tr class="separator:gae4c4d4662ebf2842329c3207cf535611"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga25cb369310ed9962a8606bc5eec49611"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga25cb369310ed9962a8606bc5eec49611">IUTEST_ASSERT_NONFATAL_FAILURE</a>(statement,  substr)&#160;&#160;&#160;IUTEST_TEST_NONFATAL_FAILURE_(statement, #statement, substr, IUTEST_ASSERT_FAILURE)</td></tr>
+<tr class="memdesc:ga25cb369310ed9962a8606bc5eec49611"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non Fatal Failure 発生確認テスト <br /></td></tr>
+<tr class="separator:ga25cb369310ed9962a8606bc5eec49611"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaee2bb9bfc87ef9af8dc919fb4fcccf5f"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#gaee2bb9bfc87ef9af8dc919fb4fcccf5f">IUTEST_EXPECT_FATAL_FAILURE</a>(statement,  substr)&#160;&#160;&#160;IUTEST_TEST_FATAL_FAILURE_(statement, #statement, substr, IUTEST_EXPECT_FAILURE)</td></tr>
+<tr class="memdesc:gaee2bb9bfc87ef9af8dc919fb4fcccf5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fatal Failure 発生確認テスト <br /></td></tr>
+<tr class="separator:gaee2bb9bfc87ef9af8dc919fb4fcccf5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadfe7ec6613efce40d5b32a4cb4242885"><td class="memItemLeft" align="right" valign="top">
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#gadfe7ec6613efce40d5b32a4cb4242885">IUTEST_EXPECT_NONFATAL_FAILURE</a>(statement,  substr)&#160;&#160;&#160;IUTEST_TEST_NONFATAL_FAILURE_(statement, #statement, substr, IUTEST_EXPECT_FAILURE)</td></tr>
+<tr class="memdesc:gadfe7ec6613efce40d5b32a4cb4242885"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non Fatal Failure 発生確認テスト <br /></td></tr>
+<tr class="separator:gadfe7ec6613efce40d5b32a4cb4242885"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:a8968e276822b21c14acb8bc3466284a1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_FATAL_FAILURE_</b>(statement,  text,  substr,  on_failure)</td></tr>
+<tr class="separator:a8968e276822b21c14acb8bc3466284a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cf930bb86e0ae8f31287c1625590c15"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_NONFATAL_FAILURE_</b>(statement,  text,  substr,  on_failure)</td></tr>
+<tr class="separator:a0cf930bb86e0ae8f31287c1625590c15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>iris unit test spi 対応用 ファイル </p>
+<dl class="section author"><dt>著者</dt><dd>t.shirayanagi </dd></dl>
+<dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2012-2016, Takazumi Shirayanagi<br />
+This software is released under the new BSD License, see LICENSE </dd></dl>
+</div><h2 class="groupheader">マクロ定義詳解</h2>
+<a id="a8968e276822b21c14acb8bc3466284a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8968e276822b21c14acb8bc3466284a1">&#9670;&nbsp;</a></span>IUTEST_TEST_FATAL_FAILURE_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_FATAL_FAILURE_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">statement, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">text, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">substr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                                  \</div><div class="line">    if( ::<a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html">iutest::AssertionResult</a> iutest_spi_ar = ::<a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a>() ) {  \</div><div class="line">        ::iutest::detail::SPIFailureChecker&lt;                                        \</div><div class="line">            <a class="code" href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6">::iutest::TestPartResult::kFatalFailure</a>&gt; iutest_failure_checker;        \</div><div class="line">        IIUT_SPI_STATEMENT_EXECUTER(statement);                                     \</div><div class="line">        <a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html">::iutest::AssertionResult</a> ar = iutest_failure_checker.GetResult(substr);    \</div><div class="line">        if( !ar ) {                                                                 \</div><div class="line">            iutest_spi_ar &lt;&lt; ar.<a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html#a94bc4bf866b6bdc7d42c844191bc37bd">message</a>();                                          \</div><div class="line">            goto IUTEST_PP_CAT(iutest_label_test_fatalfailure_, __LINE__);          \</div><div class="line">        }                                                                           \</div><div class="line">    } else                                                                          \</div><div class="line">        IUTEST_PP_CAT(iutest_label_test_fatalfailure_, __LINE__):                   \</div><div class="line">        on_failure(iutest_spi_ar.message())</div><div class="ttc" id="classiutest_1_1_assertion_result_html_a94bc4bf866b6bdc7d42c844191bc37bd"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html#a94bc4bf866b6bdc7d42c844191bc37bd">iutest::AssertionResult::message</a></div><div class="ttdeci">const char * message() const</div><div class="ttdoc">メッセージの取得 </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:78</div></div>
+<div class="ttc" id="classiutest_1_1_test_part_result_html_a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6">iutest::TestPartResult::kFatalFailure</a></div><div class="ttdoc">致命的な失敗 </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:67</div></div>
+<div class="ttc" id="classiutest_1_1_assertion_result_html"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html">iutest::AssertionResult</a></div><div class="ttdoc">Assertion Result </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:54</div></div>
+<div class="ttc" id="namespaceiutest_html_a0538466708443c65f3c7b2c84b7fce0b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a></div><div class="ttdeci">AssertionResult AssertionSuccess()</div><div class="ttdoc">テスト成功を示す AssertionResult オブジェクトの取得 </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:377</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a0cf930bb86e0ae8f31287c1625590c15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cf930bb86e0ae8f31287c1625590c15">&#9670;&nbsp;</a></span>IUTEST_TEST_NONFATAL_FAILURE_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_TEST_NONFATAL_FAILURE_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">statement, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">text, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">substr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">on_failure&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                                  \</div><div class="line">    if( ::<a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html">iutest::AssertionResult</a> iutest_spi_ar = ::<a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a>() ) {  \</div><div class="line">        ::iutest::detail::SPIFailureChecker&lt;                                        \</div><div class="line">            <a class="code" href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5a25a59d8268f93e2f89c9b5bea8940146">::iutest::TestPartResult::kNonFatalFailure</a>&gt; iutest_failure_checker;     \</div><div class="line">        IIUT_SPI_STATEMENT_EXECUTER(statement);                                     \</div><div class="line">        <a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html">::iutest::AssertionResult</a> ar = iutest_failure_checker.GetResult(substr);    \</div><div class="line">        if( !ar ) {                                                                 \</div><div class="line">            iutest_spi_ar &lt;&lt; ar.<a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html#a94bc4bf866b6bdc7d42c844191bc37bd">message</a>();                                          \</div><div class="line">            goto IUTEST_PP_CAT(iutest_label_test_fatalfailure_, __LINE__);          \</div><div class="line">        }                                                                           \</div><div class="line">    } else                                                                          \</div><div class="line">        IUTEST_PP_CAT(iutest_label_test_fatalfailure_, __LINE__):                   \</div><div class="line">        on_failure(iutest_spi_ar.message())</div><div class="ttc" id="classiutest_1_1_assertion_result_html_a94bc4bf866b6bdc7d42c844191bc37bd"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html#a94bc4bf866b6bdc7d42c844191bc37bd">iutest::AssertionResult::message</a></div><div class="ttdeci">const char * message() const</div><div class="ttdoc">メッセージの取得 </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:78</div></div>
+<div class="ttc" id="classiutest_1_1_test_part_result_html_a611b78a968052b144546b58d83a686e5a25a59d8268f93e2f89c9b5bea8940146"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5a25a59d8268f93e2f89c9b5bea8940146">iutest::TestPartResult::kNonFatalFailure</a></div><div class="ttdoc">致命的ではない失敗 </div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:66</div></div>
+<div class="ttc" id="classiutest_1_1_assertion_result_html"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html">iutest::AssertionResult</a></div><div class="ttdoc">Assertion Result </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:54</div></div>
+<div class="ttc" id="namespaceiutest_html_a0538466708443c65f3c7b2c84b7fce0b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a></div><div class="ttdeci">AssertionResult AssertionSuccess()</div><div class="ttdoc">テスト成功を示す AssertionResult オブジェクトの取得 </div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:377</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+2019年03月05日(火) 00時51分48秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>

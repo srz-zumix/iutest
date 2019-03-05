@@ -63,6 +63,9 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#namespaces">名前空間</a> &#124;
+<a href="#define-members">マクロ定義</a>  </div>
   <div class="headertitle">
 <div class="title">iutest_internal_defs.hpp ファイル</div>  </div>
 </div><!--header-->
@@ -72,16 +75,24 @@ $(function() {
 <a href="#details">[詳解]</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="../../d4/db0/iutest__config_8hpp_source.html">iutest_config.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d1/d84/iutest__defs_8hpp_source.html">../iutest_defs.hpp</a>&quot;</code><br />
-<code>#include &quot;iutest_string.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d7/d86/iutest__string_8hpp_source.html">iutest_string.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d9/d0b/iutest__type__traits_8hpp_source.html">iutest_type_traits.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d3/d8e/iutest__exception_8hpp_source.html">iutest_exception.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 iutest_internal_defs.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d9/d12/iutest__internal__defs_8hpp__incl.png" border="0" usemap="#internal_2iutest__internal__defs_8hpp" alt=""/></div>
 <map name="internal_2iutest__internal__defs_8hpp" id="internal_2iutest__internal__defs_8hpp">
-<area shape="rect" id="node2" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config " alt="" coords="5,169,139,196"/>
-<area shape="rect" id="node3" href="../../d1/d84/iutest__defs_8hpp.html" title="iris unit test definition " alt="" coords="110,95,245,121"/>
-<area shape="rect" id="node5" href="../../d7/d86/iutest__string_8hpp_source.html" title="iutest_string.hpp" alt="" coords="269,95,400,121"/>
-<area shape="rect" id="node4" href="../../dc/d2f/iutest__compiler_8hpp_source.html" title="internal/iutest_compiler.hpp" alt="" coords="163,169,367,196"/>
+<area shape="rect" id="node2" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config " alt="" coords="756,319,889,345"/>
+<area shape="rect" id="node3" href="../../d1/d84/iutest__defs_8hpp.html" title="iris unit test definition " alt="" coords="554,95,688,121"/>
+<area shape="rect" id="node16" href="../../d7/d86/iutest__string_8hpp.html" title="iris unit test 文字列操作 ファイル " alt="" coords="1588,95,1718,121"/>
+<area shape="rect" id="node25" href="../../d9/d0b/iutest__type__traits_8hpp_source.html" title="type traits " alt="" coords="23,95,187,121"/>
+<area shape="rect" id="node26" href="../../d3/d8e/iutest__exception_8hpp.html" title="iris unit test exception " alt="" coords="2006,95,2164,121"/>
+<area shape="rect" id="node4" href="../../dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル " alt="" coords="439,169,643,196"/>
+<area shape="rect" id="node6" href="../../d9/d6f/iutest__pp_8hpp.html" title="preprocessor definition " alt="" coords="23,169,187,196"/>
+<area shape="rect" id="node7" href="../../d9/dad/iutest__stdlib_8hpp.html" title="stdlib " alt="" coords="1058,169,1242,196"/>
+<area shape="rect" id="node13" href="../../da/d86/iutest__debug_8hpp.html" title="iris unit test debug 用定義 ファイル " alt="" coords="846,169,1034,196"/>
+<area shape="rect" id="node5" href="../../d7/d02/iutest__pragma_8hpp.html" title="pragma macros " alt="" coords="478,244,622,271"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -89,13 +100,87 @@ iutest_internal_defs.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d0/d5a/iutest__internal__defs_8hpp__dep__incl.png" border="0" usemap="#internal_2iutest__internal__defs_8hppdep" alt=""/></div>
 <map name="internal_2iutest__internal__defs_8hppdep" id="internal_2iutest__internal__defs_8hppdep">
-<area shape="rect" id="node2" href="../../d1/d2a/iutest__port_8hpp.html" title="portable " alt="" coords="5,95,180,121"/>
-<area shape="rect" id="node3" href="../../dd/de1/iutest__socket_8hpp.html" title="soket " alt="" coords="204,95,395,121"/>
-<area shape="rect" id="node4" href="../../d9/d00/iutest__time_8hpp.html" title="time utility " alt="" coords="419,95,598,121"/>
+<area shape="rect" id="node2" href="../../d1/d2a/iutest__port_8hpp.html" title="portable " alt="" coords="147,95,322,121"/>
+<area shape="rect" id="node20" href="../../d9/d00/iutest__time_8hpp.html" title="time utility " alt="" coords="377,95,556,121"/>
+<area shape="rect" id="node22" href="../../d3/d0a/iutest__file_8hpp.html" title="iris unit test ファイルクラス ファイル " alt="" coords="513,483,681,509"/>
+<area shape="rect" id="node23" href="../../dd/de1/iutest__socket_8hpp.html" title="soket " alt="" coords="635,95,826,121"/>
+<area shape="rect" id="node24" href="../../d4/d63/iutest__any_8hpp.html" title="iris unit test any ファイル " alt="" coords="803,169,919,196"/>
+<area shape="rect" id="node3" href="../../d5/dd3/iutest__charcode_8hpp.html" title="iris unit test 文字コード対応 ファイル " alt="" coords="131,169,338,196"/>
+<area shape="rect" id="node19" href="../../d5/d66/iutest__filepath_8hpp.html" title="iris unit test ファイルパスクラス ファイル " alt="" coords="5,319,203,345"/>
+<area shape="rect" id="node4" href="../../d0/dda/iutest__env_8hpp.html" title="iris unit test 環境 ファイル " alt="" coords="272,244,389,271"/>
+<area shape="rect" id="node5" href="../../d3/d0c/iutest__message_8hpp.html" title="iris unit test メッセージ ファイル " alt="" coords="299,319,506,345"/>
+<area shape="rect" id="node18" href="../../dc/d1c/iutest__log__stream_8hpp.html" title="iris unit test log io stream " alt="" coords="182,393,322,435"/>
+<area shape="rect" id="node6" href="../../d5/dd2/iutest__result_8hpp.html" title="iris unit test result " alt="" coords="347,401,477,427"/>
+<area shape="rect" id="node7" href="../../d0/d42/iutest__assertion_8hpp.html" title="iris unit test assertion 定義 ファイル " alt="" coords="335,483,489,509"/>
+<area shape="rect" id="node8" href="../../de/dc7/iutest__pred_8hpp.html" title="iris unit test 述語 Assertion ファイル " alt="" coords="357,557,480,584"/>
+<area shape="rect" id="node9" href="../../db/d32/iutest__internal_8hpp.html" title="iris unit test internal definition " alt="" coords="326,632,525,659"/>
+<area shape="rect" id="node10" href="../../dc/d62/iutest__core__impl_8hpp.html" title="iris unit test UnitTest 実装 ファイル " alt="" coords="369,707,517,748"/>
+<area shape="rect" id="node11" href="../../d5/d65/iutest__result__reporter_8hpp.html" title="iris unit test TestPartResult リポーター ファイル " alt="" coords="369,796,527,837"/>
+<area shape="rect" id="node12" href="../../d0/db5/iutest__core_8hpp.html" title="iris unit test core " alt="" coords="468,885,591,912"/>
+<area shape="rect" id="node13" href="../../d0/de0/iutest_8hpp.html" title="iris unit test " alt="" coords="794,967,881,994"/>
+<area shape="rect" id="node15" href="../../dc/d5d/iutest__progress__printer_8hpp.html" title="iris unit test プログレス出力イベントリスナー ファイル " alt="" coords="398,960,573,1001"/>
+<area shape="rect" id="node16" href="../../d3/d80/iutest__sstp__notifier_8hpp.html" title="iris unit test SSTP 通知 ファイル " alt="" coords="597,960,744,1001"/>
+<area shape="rect" id="node17" href="../../d8/d0f/iutest__tap__printer_8hpp.html" title="iris unit test Test Anything Protocol 出力イベントリスナー ファイル " alt="" coords="182,960,322,1001"/>
+<area shape="rect" id="node14" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル " alt="" coords="781,1049,894,1076"/>
+<area shape="rect" id="node21" href="../../d7/d8c/iutest__random_8hpp.html" title="iris unit test 乱数生成器 定義 ファイル " alt="" coords="362,169,561,196"/>
+<area shape="rect" id="node25" href="../../dc/df5/iutest__param__tests_8hpp.html" title="iris unit test parameter 定義 ファイル " alt="" coords="761,244,935,271"/>
 </map>
 </div>
 </div>
 <p><a href="../../d3/d4c/iutest__internal__defs_8hpp_source.html">[ソースコード]</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+名前空間</h2></td></tr>
+<tr class="memitem:d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
+<tr class="memdesc:d3/dda/namespaceiutest"><td class="mdescLeft">&#160;</td><td class="mdescRight">iutest root namespace <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+マクロ定義</h2></td></tr>
+<tr class="memitem:a646dae3b6c926055ae2f597d74f48bc8"><td class="memItemLeft" align="right" valign="top"><a id="a646dae3b6c926055ae2f597d74f48bc8"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4c/iutest__internal__defs_8hpp.html#a646dae3b6c926055ae2f597d74f48bc8">IUTEST_AMBIGUOUS_ELSE_BLOCKER_</a>&#160;&#160;&#160;switch(::iutest::detail::AlwaysZero()) case 0: default:</td></tr>
+<tr class="memdesc:a646dae3b6c926055ae2f597d74f48bc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">曖昧な else 文の警告抑制 <br /></td></tr>
+<tr class="separator:a646dae3b6c926055ae2f597d74f48bc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac905531fd1144078b86c17a259449e1"><td class="memItemLeft" align="right" valign="top"><a id="aac905531fd1144078b86c17a259449e1"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING</b>(statement)&#160;&#160;&#160;if( ::iutest::detail::AlwaysTrue() ) statement</td></tr>
+<tr class="separator:aac905531fd1144078b86c17a259449e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef8b503e5d076f6d64872749221e59d7"><td class="memItemLeft" align="right" valign="top"><a id="aef8b503e5d076f6d64872749221e59d7"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_MBS_CODE_UNKNOWN</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:aef8b503e5d076f6d64872749221e59d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabbb367537a54211a64770e704d43cc7"><td class="memItemLeft" align="right" valign="top"><a id="aabbb367537a54211a64770e704d43cc7"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_MBS_CODE_UTF8</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:aabbb367537a54211a64770e704d43cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb6f6e94f3f5f2949a6b9ac15e929e7a"><td class="memItemLeft" align="right" valign="top"><a id="abb6f6e94f3f5f2949a6b9ac15e929e7a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_MBS_CODE_WINDOWS31J</b>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:abb6f6e94f3f5f2949a6b9ac15e929e7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0403d3d26ff25fba4bd90b63b6cc604"><td class="memItemLeft" align="right" valign="top"><a id="ab0403d3d26ff25fba4bd90b63b6cc604"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_MBS_CODE</b>&#160;&#160;&#160;IUTEST_MBS_CODE_UTF8</td></tr>
+<tr class="separator:ab0403d3d26ff25fba4bd90b63b6cc604"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a070d2ce7b6bb7e5c05602aa8c308d0c4"><td class="memItemLeft" align="right" valign="top"><a id="a070d2ce7b6bb7e5c05602aa8c308d0c4"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>NULL</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a070d2ce7b6bb7e5c05602aa8c308d0c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb2e2918b22ad88e1765db85d1026252"><td class="memItemLeft" align="right" valign="top"><a id="adb2e2918b22ad88e1765db85d1026252"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_BREAK</b>()&#160;&#160;&#160;*static_cast&lt;volatile int*&gt;(NULL) = 1</td></tr>
+<tr class="separator:adb2e2918b22ad88e1765db85d1026252"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a906990b2df38936f6918df275475dc7a"><td class="memItemLeft" align="right" valign="top"><a id="a906990b2df38936f6918df275475dc7a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_IF_EXISTS</b>(identifier_,  statement_)</td></tr>
+<tr class="separator:a906990b2df38936f6918df275475dc7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4b8f66dba87cefb5fd111576cda5e0b"><td class="memItemLeft" align="right" valign="top"><a id="ab4b8f66dba87cefb5fd111576cda5e0b"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_IF_NOT_EXISTS</b>(identifier_,  statement_)</td></tr>
+<tr class="separator:ab4b8f66dba87cefb5fd111576cda5e0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17b3c9ea4f2dc0feaa9a3e0a180f61d0"><td class="memItemLeft" align="right" valign="top"><a id="a17b3c9ea4f2dc0feaa9a3e0a180f61d0"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_STATIC_EXISTS</b>(identifier_)</td></tr>
+<tr class="separator:a17b3c9ea4f2dc0feaa9a3e0a180f61d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96a365f153be3ff322cb927862797329"><td class="memItemLeft" align="right" valign="top"><a id="a96a365f153be3ff322cb927862797329"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_EXPLICIT_TEMPLATE_TYPE_</b>(t)</td></tr>
+<tr class="separator:a96a365f153be3ff322cb927862797329"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e151b2b0d178414d5fdaa94118668bc"><td class="memItemLeft" align="right" valign="top"><a id="a9e151b2b0d178414d5fdaa94118668bc"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_</b>(t)</td></tr>
+<tr class="separator:a9e151b2b0d178414d5fdaa94118668bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87ac2e0ae68f9e3be054b322e5caf2a0"><td class="memItemLeft" align="right" valign="top"><a id="a87ac2e0ae68f9e3be054b322e5caf2a0"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_IS_NULLLITERAL</b>(x)&#160;&#160;&#160;(sizeof(::iutest::detail::IsNullLiteralHelper::IsNullLiteral(x)) == 1)</td></tr>
+<tr class="separator:a87ac2e0ae68f9e3be054b322e5caf2a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>internal definition </p>
 <dl class="section author"><dt>著者</dt><dd>t.shirayanagi </dd></dl>
@@ -104,7 +189,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2019年03月04日(月) 13時20分40秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2019年03月05日(火) 00時51分48秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

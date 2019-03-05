@@ -63,6 +63,9 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#namespaces">名前空間</a> &#124;
+<a href="#typedef-members">型定義</a>  </div>
   <div class="headertitle">
 <div class="title">iutest_stderr_xml_generator.hpp ファイル</div>  </div>
 </div><!--header-->
@@ -77,13 +80,38 @@ iutest_stderr_xml_generator.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../dd/daa/iutest__stderr__xml__generator_8hpp__incl.png" border="0" usemap="#listener_2iutest__stderr__xml__generator_8hpp" alt=""/></div>
 <map name="listener_2iutest__stderr__xml__generator_8hpp" id="listener_2iutest__stderr__xml__generator_8hpp">
-<area shape="rect" id="node2" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config " alt="" coords="5,177,139,203"/>
-<area shape="rect" id="node3" href="../../d5/d8e/iutest__junit__xml__generator_8hpp.html" title="output junit xml event listener " alt="" coords="109,95,333,121"/>
-<area shape="rect" id="node4" href="../../dc/d19/iutest__default__xml__generator_8hpp_source.html" title="iutest_default_xml\l_generator.hpp" alt="" coords="163,169,307,211"/>
+<area shape="rect" id="node2" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config " alt="" coords="5,266,139,293"/>
+<area shape="rect" id="node3" href="../../d5/d8e/iutest__junit__xml__generator_8hpp.html" title="output junit xml event listener " alt="" coords="89,95,313,121"/>
+<area shape="rect" id="node4" href="../../dc/d19/iutest__default__xml__generator_8hpp.html" title="iris unit test xml 出力イベントリスナー ファイル " alt="" coords="135,169,279,211"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+被依存関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d7/d31/iutest__stderr__xml__generator_8hpp__dep__incl.png" border="0" usemap="#listener_2iutest__stderr__xml__generator_8hppdep" alt=""/></div>
+<map name="listener_2iutest__stderr__xml__generator_8hppdep" id="listener_2iutest__stderr__xml__generator_8hppdep">
+<area shape="rect" id="node2" href="../../d0/de0/iutest_8hpp.html" title="iris unit test " alt="" coords="41,95,127,121"/>
+<area shape="rect" id="node3" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル " alt="" coords="27,169,141,196"/>
 </map>
 </div>
 </div>
 <p><a href="../../dd/d6c/iutest__stderr__xml__generator_8hpp_source.html">[ソースコード]</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+名前空間</h2></td></tr>
+<tr class="memitem:d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
+<tr class="memdesc:d3/dda/namespaceiutest"><td class="mdescLeft">&#160;</td><td class="mdescRight">iutest root namespace <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+型定義</h2></td></tr>
+<tr class="memitem:a643f3d081c8a818bbb9d4cbb8fa078be"><td class="memItemLeft" align="right" valign="top"><a id="a643f3d081c8a818bbb9d4cbb8fa078be"></a>
+typedef detail::StderrXmlGeneratorListenerBase&lt; DefaultXmlGeneratorListener, TestEnv::get_report_xml_filepath &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>iutest::StderrXmlGeneratorListener</b></td></tr>
+<tr class="separator:a643f3d081c8a818bbb9d4cbb8fa078be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c022e214b543b3895762edacc84d036"><td class="memItemLeft" align="right" valign="top"><a id="a3c022e214b543b3895762edacc84d036"></a>
+typedef detail::StderrXmlGeneratorListenerBase&lt; JunitXmlGeneratorListener, TestEnv::get_report_junit_xml_filepath &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>iutest::StderrJunitXmlGeneratorListener</b></td></tr>
+<tr class="separator:a3c022e214b543b3895762edacc84d036"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>output stderr (junit) xml event listener </p>
 <dl class="section author"><dt>著者</dt><dd>t.shirayanagi </dd></dl>
@@ -92,7 +120,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2019年03月04日(月) 13時20分40秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2019年03月05日(火) 00時51分48秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

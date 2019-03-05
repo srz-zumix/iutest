@@ -1,0 +1,8 @@
+<map id="iutest::IFile" name="iutest::IFile">
+<area shape="rect" id="node4" title="何もしない IFile インターフェースクラス " alt="" coords="5,155,195,181"/>
+<area shape="rect" id="node5" href="$de/d67/classiutest_1_1_stdio_file.html" title="標準ファイルクラス " alt="" coords="219,155,341,181"/>
+<area shape="rect" id="node7" href="$da/d94/classiutest_1_1_string_stream_file.html" title="文字列バッファ書き込み IFile インターフェースクラス " alt="" coords="366,155,541,181"/>
+<area shape="rect" id="node2" title="出力ストリームインターフェイス " alt="" coords="84,5,271,32"/>
+<area shape="rect" id="node3" title="入力ストリームインターフェイス " alt="" coords="295,5,470,32"/>
+<area shape="rect" id="node6" href="$d4/d62/classiutest_1_1_std_error_file.html" title="iutest::StdErrorFile" alt="" coords="209,229,351,256"/>
+</map>

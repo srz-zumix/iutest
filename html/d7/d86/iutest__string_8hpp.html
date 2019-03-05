@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>iutest: internal/iutest_string.hpp ファイル</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">iutest
+   &#160;<span id="projectnumber">1.16.99.14</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.8.13 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('../../',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_7374381ecdb819c64ee9b6ea2bd3370d.html">internal</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#namespaces">名前空間</a> &#124;
+<a href="#define-members">マクロ定義</a> &#124;
+<a href="#typedef-members">型定義</a>  </div>
+  <div class="headertitle">
+<div class="title">iutest_string.hpp ファイル</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>iris unit test 文字列操作 ファイル  
+<a href="#details">[詳解]</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d4/db0/iutest__config_8hpp_source.html">iutest_config.hpp</a>&quot;</code><br />
+<code>#include &lt;wchar.h&gt;</code><br />
+<code>#include &lt;wctype.h&gt;</code><br />
+<code>#include &lt;stdarg.h&gt;</code><br />
+<code>#include &lt;errno.h&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;cstring&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+iutest_string.hpp の依存先関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../de/d78/iutest__string_8hpp__incl.png" border="0" usemap="#internal_2iutest__string_8hpp" alt=""/></div>
+<map name="internal_2iutest__string_8hpp" id="internal_2iutest__string_8hpp">
+<area shape="rect" id="node2" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config " alt="" coords="5,80,139,107"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+被依存関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../dd/d1d/iutest__string_8hpp__dep__incl.png" border="0" usemap="#internal_2iutest__string_8hppdep" alt=""/></div>
+<map name="internal_2iutest__string_8hppdep" id="internal_2iutest__string_8hppdep">
+<area shape="rect" id="node2" href="../../d3/d4c/iutest__internal__defs_8hpp.html" title="internal definition " alt="" coords="585,80,756,121"/>
+<area shape="rect" id="node27" href="../../d2/d0b/iutest__printers_8hpp.html" title="iris unit test print 出力ヘルパー ファイル " alt="" coords="345,87,489,114"/>
+<area shape="rect" id="node3" href="../../d1/d2a/iutest__port_8hpp.html" title="portable " alt="" coords="278,169,453,196"/>
+<area shape="rect" id="node21" href="../../d9/d00/iutest__time_8hpp.html" title="time utility " alt="" coords="477,169,656,196"/>
+<area shape="rect" id="node23" href="../../d3/d0a/iutest__file_8hpp.html" title="iris unit test ファイルクラス ファイル " alt="" coords="775,557,943,584"/>
+<area shape="rect" id="node24" href="../../dd/de1/iutest__socket_8hpp.html" title="soket " alt="" coords="681,169,871,196"/>
+<area shape="rect" id="node25" href="../../d4/d63/iutest__any_8hpp.html" title="iris unit test any ファイル " alt="" coords="962,244,1078,271"/>
+<area shape="rect" id="node4" href="../../d5/dd3/iutest__charcode_8hpp.html" title="iris unit test 文字コード対応 ファイル " alt="" coords="329,244,535,271"/>
+<area shape="rect" id="node20" href="../../d5/d66/iutest__filepath_8hpp.html" title="iris unit test ファイルパスクラス ファイル " alt="" coords="5,393,203,420"/>
+<area shape="rect" id="node5" href="../../d0/dda/iutest__env_8hpp.html" title="iris unit test 環境 ファイル " alt="" coords="420,319,537,345"/>
+<area shape="rect" id="node6" href="../../d3/d0c/iutest__message_8hpp.html" title="iris unit test メッセージ ファイル " alt="" coords="423,393,630,420"/>
+<area shape="rect" id="node19" href="../../dc/d1c/iutest__log__stream_8hpp.html" title="iris unit test log io stream " alt="" coords="306,468,446,509"/>
+<area shape="rect" id="node7" href="../../d5/dd2/iutest__result_8hpp.html" title="iris unit test result " alt="" coords="471,475,601,502"/>
+<area shape="rect" id="node8" href="../../d0/d42/iutest__assertion_8hpp.html" title="iris unit test assertion 定義 ファイル " alt="" coords="459,557,613,584"/>
+<area shape="rect" id="node9" href="../../de/dc7/iutest__pred_8hpp.html" title="iris unit test 述語 Assertion ファイル " alt="" coords="500,632,623,659"/>
+<area shape="rect" id="node10" href="../../db/d32/iutest__internal_8hpp.html" title="iris unit test internal definition " alt="" coords="514,707,713,733"/>
+<area shape="rect" id="node11" href="../../dc/d62/iutest__core__impl_8hpp.html" title="iris unit test UnitTest 実装 ファイル " alt="" coords="553,781,701,823"/>
+<area shape="rect" id="node12" href="../../d5/d65/iutest__result__reporter_8hpp.html" title="iris unit test TestPartResult リポーター ファイル " alt="" coords="561,871,719,912"/>
+<area shape="rect" id="node13" href="../../d0/db5/iutest__core_8hpp.html" title="iris unit test core " alt="" coords="663,960,785,987"/>
+<area shape="rect" id="node14" href="../../d0/de0/iutest_8hpp.html" title="iris unit test " alt="" coords="922,1042,1009,1069"/>
+<area shape="rect" id="node16" href="../../dc/d5d/iutest__progress__printer_8hpp.html" title="iris unit test プログレス出力イベントリスナー ファイル " alt="" coords="503,1035,678,1076"/>
+<area shape="rect" id="node17" href="../../d3/d80/iutest__sstp__notifier_8hpp.html" title="iris unit test SSTP 通知 ファイル " alt="" coords="703,1035,849,1076"/>
+<area shape="rect" id="node18" href="../../d8/d0f/iutest__tap__printer_8hpp.html" title="iris unit test Test Anything Protocol 出力イベントリスナー ファイル " alt="" coords="306,1035,446,1076"/>
+<area shape="rect" id="node15" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル " alt="" coords="909,1124,1022,1151"/>
+<area shape="rect" id="node22" href="../../d7/d8c/iutest__random_8hpp.html" title="iris unit test 乱数生成器 定義 ファイル " alt="" coords="559,244,758,271"/>
+<area shape="rect" id="node26" href="../../dc/df5/iutest__param__tests_8hpp.html" title="iris unit test parameter 定義 ファイル " alt="" coords="947,319,1122,345"/>
+</map>
+</div>
+</div>
+<p><a href="../../d7/d86/iutest__string_8hpp_source.html">[ソースコード]</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+名前空間</h2></td></tr>
+<tr class="memitem:d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
+<tr class="memdesc:d3/dda/namespaceiutest"><td class="mdescLeft">&#160;</td><td class="mdescRight">iutest root namespace <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+マクロ定義</h2></td></tr>
+<tr class="memitem:aeb4b67f875c29dfa326b8662643fd93f"><td class="memItemLeft" align="right" valign="top"><a id="aeb4b67f875c29dfa326b8662643fd93f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_HAS_BIGGESTINT_OSTREAM</b>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:aeb4b67f875c29dfa326b8662643fd93f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+型定義</h2></td></tr>
+<tr class="memitem:ab91c3c8c1acf3d29da4a574f5cc053d2"><td class="memItemLeft" align="right" valign="top"><a id="ab91c3c8c1acf3d29da4a574f5cc053d2"></a>
+typedef detail::iu_stream&#160;</td><td class="memItemRight" valign="bottom"><b>iutest::iu_ostream</b></td></tr>
+<tr class="separator:ab91c3c8c1acf3d29da4a574f5cc053d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c16dea7e85fd3f9b1f7b29db472d920"><td class="memItemLeft" align="right" valign="top"><a id="a3c16dea7e85fd3f9b1f7b29db472d920"></a>
+typedef detail::iu_stream&#160;</td><td class="memItemRight" valign="bottom"><b>iutest::iu_stringstream</b></td></tr>
+<tr class="separator:a3c16dea7e85fd3f9b1f7b29db472d920"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>iris unit test 文字列操作 ファイル </p>
+<dl class="section author"><dt>著者</dt><dd>t.shirayanagi </dd></dl>
+<dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2011-2018, Takazumi Shirayanagi<br />
+This software is released under the new BSD License, see LICENSE </dd></dl>
+</div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+2019年03月05日(火) 00時51分48秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
+</body>
+</html>
