@@ -9,6 +9,7 @@
 #
 
 import sys
+import io
 import os
 import codecs
 
@@ -31,6 +32,11 @@ def filter(path, encoding):
 
 def main():
     path = sys.argv[1]
+    if not sys.stdout.encoding == 'utf-8':
+        try:
+            sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+        except AttributeError:
+            sys.stdout = codecs.getwriter('utf-8')(sys.stdout)
     try:
         filter(path, 'utf-8-sig')
     except UnicodeDecodeError:
