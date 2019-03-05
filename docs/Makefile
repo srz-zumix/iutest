@@ -12,7 +12,8 @@ upgrade:
 
 target: html/index.html
 
-html/index.html: Doxyfile
+html/index.html: Makefile Doxyfile doxygen_filter.py
+	export PYTHONIOENCODING=utf-8
 	doxygen Doxyfile
 #	doxyindexer searchdata.xml -o html/
 #	cp '$(DOXYGEN_ROOT)/bin/doxysearch.cgi' html/
