@@ -10,7 +10,7 @@ RUN apt-get update -q -y && \
     apt-get update -q -y && \
     apt-get install -y --no-install-recommends \
         apt-transport-https ca-certificates \
-        build-essential curl && \
+        git build-essential curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -29,11 +29,19 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN yarn global add codecrumbs
+# RUN yarn global add codecrumbs
+RUN mkdir /codecrumbs && cd /codecrumbs && \
+    git clone https://github.com/Bogdan-Lyashenko/codecrumbs.git . && \
+    find ./src -type f -name '*.js' | xargs grep -l '127.0.0.1' | xargs sed -i.bak -e 's/127\.0\.0\.1/0.0.0.0/g' && \
+    yarn && yarn build && \
+    chmod +x /codecrumbs/cli/index.cli.js && \
+    ln -s /codecrumbs/cli/index.cli.js /usr/bin/codecrumbs
 RUN apt-get update -q -y && \
     apt-get install -y tcpdump && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY tools/codecrumbs/entrypoint.sh /entrypoint.sh
+EXPOSE 3018
+
+COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
