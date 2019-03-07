@@ -34,8 +34,8 @@ RUN mkdir /codecrumbs && cd /codecrumbs && \
     git clone https://github.com/Bogdan-Lyashenko/codecrumbs.git . && \
     find ./src -type f -name '*.js' | xargs grep -l '127.0.0.1' | xargs sed -i.bak -e 's/127\.0\.0\.1/0.0.0.0/g' && \
     yarn && yarn build && \
-    chmod +x /codecrumbs/cli/index.cli.js && \
-    ln -s /codecrumbs/cli/index.cli.js /usr/bin/codecrumbs
+    cd - 
+RUN yarn global add /codecrumbs
 RUN apt-get update -q -y && \
     apt-get install -y tcpdump && \
     apt-get clean && \
