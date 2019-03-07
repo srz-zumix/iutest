@@ -28,7 +28,7 @@ cirrus_osx_14_test_task: &osx_task
   test_script: cd test && make -j4 showcxxversion default && make test
 
 cirrus_osx_17_test_task:
-  <<: &osx_task
+  <<: *osx_task
   env:
     STDFLAG: -std=c++17
   depends_on:
