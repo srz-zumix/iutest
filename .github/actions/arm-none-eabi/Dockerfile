@@ -1,6 +1,14 @@
 FROM ubuntu:xenial
 
-LABEL maintainer "srz_zumix <https://github.com/srz-zumix>"
+LABEL "com.github.actions.name"="Include What You Use"
+LABEL "com.github.actions.description"="Write arguments to the cmake options"
+LABEL "com.github.actions.icon"="check"
+LABEL "com.github.actions.color"="blue"
+
+LABEL "repository"="https://github.com/srz-zumix/iutest"
+LABEL "homepage"="https://github.com/srz-zumix/iutest"
+LABEL "maintainer"="https://github.com/srz-zumix"
+
 
 # https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads
 RUN dpkg --add-architecture i386 && \
@@ -32,3 +40,6 @@ RUN dpkg --add-architecture i386 && \
   wget https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2018q4/gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2 && \
   tar -xf gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2 -C /usr/local/bin/ && rm *.tar.bz2 && \
   apt-get clean
+
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]

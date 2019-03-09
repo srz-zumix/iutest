@@ -3,6 +3,7 @@ workflow "Main workflow" {
   resolves = [
     "lint:editorconfig",
     "Include What You Use",
+    "arm-none-eabi",
   ]
 }
 
@@ -15,4 +16,9 @@ action "lint:editorconfig" {
 action "Include What You Use" {
   uses = "./.github/actions/iwyu"
   args = "/work/projects/cmake -Dbuild_test_namespace_test=OFF"
+}
+
+action "arm-none-eabi" {
+  uses = "./.github/actions/arm-none-eabi"
+  args = "cd test && make showcxxversion showcxxmacros && make"
 }
