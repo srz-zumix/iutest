@@ -20,5 +20,5 @@ action "Include What You Use" {
 
 action "arm-none-eabi" {
   uses = "./.github/actions/arm-none-eabi"
-  args = ["cd test && make showcxxversion showcxxmacros && make"]
+  args = ["./.github/actions/arm-none-eabi/build.sh"]
 }
