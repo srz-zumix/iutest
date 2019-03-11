@@ -7,7 +7,7 @@ arm-none-eabi-gcc --version
 CC=arm-none-eabi-gcc
 CXX=arm-none-eabi-g++
 
-sh -c $*
+# sh -c $*
 
-# - "make CC=arm-none-eabi-gcc CXX=arm-none-eabi-g++ showcxxversion showcxxmacros DEFS=\"--specs=nosys.specs -mthumb -mcpu=cortex-m3\""
-# - "make CC=arm-none-eabi-gcc CXX=arm-none-eabi-g++ DEFS=\"--specs=nosys.specs -mthumb -mcpu=cortex-m3\""
+make CC=arm-none-eabi-gcc CXX=arm-none-eabi-g++ showcxxversion showcxxmacros DEFS="--specs=nosys.specs -mthumb -mcpu=cortex-m3"
+make CC=arm-none-eabi-gcc CXX=arm-none-eabi-g++ DEFS="--specs=nosys.specs -mthumb -mcpu=cortex-m3"
