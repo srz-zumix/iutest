@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -143,10 +143,10 @@
 
 #define IUTEST_TEST_THROW_VALUE_EQ_(statement, expected_exception, expected_exception_value, on_failure)    \
     IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure            \
-        , ::testing::internal::EqHelper<GTEST_IS_NULL_LITERAL_(expected_exception_value)>::Compare)
+        , IIUT_COMPATIBLE_EQHELPER(expected_exception_value)::Compare)
 #define IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, expected_exception_value, on_failure)    \
     IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure            \
-        , ::testing::internal::NeHelper<GTEST_IS_NULL_LITERAL_(expected_exception_value)>::Compare)
+        , IIUT_COMPATIBLE_EQHELPER(expected_exception_value)::Compare)
 #define IUTEST_TEST_THROW_VALUE_STREQ_(statement, expected_exception, expected_exception_value, on_failure) \
     IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure            \
         , ::testing::internal::CmpHelperSTREQ)

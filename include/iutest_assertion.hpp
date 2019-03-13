@@ -617,6 +617,12 @@ IUTEST_PRAGMA_WARN_POP()
 }
 
 /**
+ * @brief   backward
+*/
+namespace backward
+{
+
+/**
  * @brief   Equal Helper
  * @tparam  IsNullLiteral   = val1 が NULL リテラルかどうか
 */
@@ -647,7 +653,6 @@ public:
     {
         return CmpHelper<T, detail::has_equal_to<T>::value>::Compare(expr1, expr2, val1, val2);
     }
-
 #endif
 
 public:
@@ -759,6 +764,53 @@ public:
     }
 #endif
 };
+
+}   // end of namespace backward
+
+#if IUTEST_HAS_NULLPTR && IUTEST_HAS_HDR_TYPETARITS && 0
+
+/**
+ * @brief   Equal Helper
+*/
+class EqHelper
+{
+    template<typename T1, typename T2, typename detail::enable_if<
+        !std::is_integral<T1>::value || !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value>
+    static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
+    {
+        return backward::EqHelper<false>::Compare(expr1, expr2, val1, val2);
+    }
+    template<typename T>
+    static AssertionResult Compare(const char* expr1, const char* expr2, ::std::nullptr_t, T* val2)
+    {
+        return CmpHelperEQ(expr1, expr2, static_cast<T*>(NULL), val2);
+    }
+};
+
+/**
+ * @brief   Not Equal Helper
+*/
+class NeHelper
+{
+    template<typename T1, typename T2, typename detail::enable_if<
+        !std::is_integral<T1>::value || !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value>
+    static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
+    {
+        return backward::NeHelper<false>::Compare(expr1, expr2, val1, val2);
+    }
+    template<typename T>
+    static AssertionResult Compare(const char* expr1, const char* expr2, ::std::nullptr_t, T* val2)
+    {
+        return CmpHelperNE(expr1, expr2, static_cast<T*>(NULL), val2);
+    }
+};
+
+#else
+
+using backward::EqHelper;
+using backward::NeHelper;
+
+#endif
 
 template<typename RawType>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNearFloatingPoint(

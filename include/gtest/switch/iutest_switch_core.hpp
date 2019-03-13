@@ -175,7 +175,16 @@
 #define IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING    GTEST_SUPPRESS_UNREACHABLE_CODE_WARNING_BELOW_
 
 #define IUTEST_PP_CAT   GTEST_CONCAT_TOKEN_
-#define IUTEST_IS_NULLLITERAL   GTEST_IS_NULL_LITERAL_
+
+#if defined(GTEST_IS_NULL_LITERAL_)
+#  define IUTEST_IS_NULLLITERAL                 GTEST_IS_NULL_LITERAL_
+#  define IIUT_COMPATIBLE_EQHELPER(expected)    ::testing::internal::EqHelper<GTEST_IS_NULL_LITERAL_(expected)>
+#else
+#  define IUTEST_IS_NULLLITERAL(x)  \
+    (sizeof(::iutest_compatible::IsNullLiteralHelper::IsNullLiteral(x)) == 1)
+#  define IIUT_COMPATIBLE_EQHELPER(expected)    ::testing::internal::EqHelper
+#endif
+#define IIUT_COMPATIBLE_NEHELPER(expected)      ::testing::internal::backward::NeHelper<IUTEST_IS_NULLLITERAL(expected)>
 
 #if !defined(GTEST_TEST)
 #  define GTEST_TEST    TEST

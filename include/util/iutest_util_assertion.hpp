@@ -488,7 +488,7 @@ template<typename T1, typename T2>
     ::iutest::Message ar;
     for(elem=0; b1 != e1 && b2 != e2; ++b1, ++b2, ++elem)
     {
-        if(!::iutest::internal::EqHelper<false>::Compare("", "", *b1, *b2))
+        if(!::iutest::internal::backward::EqHelper<false>::Compare("", "", *b1, *b2))
         {
             result = false;
             ar << "\nMismatch in a position " << elem << ": "
