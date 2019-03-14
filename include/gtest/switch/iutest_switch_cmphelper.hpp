@@ -38,12 +38,79 @@ template<> struct EnableIf<true> { typedef void type; };
 #endif
 
 //======================================================================
+// class
+
+namespace backward
+{
+
+#if defined(GTEST_IS_NULL_LITERAL_)
+
+template <bool lhs_is_null_literal>
+class EqHelper : public internal::EqHelper<lhs_is_null_literal> {};
+
+#else
+
+template <bool lhs_is_null_literal>
+class EqHelper : public internal::EqHelper {};
+
+#endif
+
+template <bool lhs_is_null_literal>
+class NeHelper {
+public:
+    template <typename T1, typename T2>
+    static AssertionResult Compare(const char* expected_expression,
+        const char* actual_expression,
+        const T1& expected,
+        const T2& actual) {
+            return CmpHelperNE(expected_expression, actual_expression, expected,
+                actual);
+    }
+
+    static AssertionResult Compare(const char* expected_expression,
+        const char* actual_expression,
+        BiggestInt expected,
+        BiggestInt actual) {
+            return CmpHelperNE(expected_expression, actual_expression, expected,
+                actual);
+    }
+};
+
+template <>
+class NeHelper<true> {
+public:
+    template <typename T1, typename T2>
+    static AssertionResult Compare(
+        const char* expected_expression,
+        const char* actual_expression,
+        const T1& expected,
+        const T2& actual,
+        typename EnableIf<!is_pointer<T2>::value>::type* = 0) {
+            return CmpHelperNE(expected_expression, actual_expression, expected,
+                actual);
+    }
+
+    template <typename T>
+    static AssertionResult Compare(
+        const char* expected_expression,
+        const char* actual_expression,
+        Secret* /* expected (NULL) */,
+        T* actual) {
+            return CmpHelperNE(expected_expression, actual_expression,
+                static_cast<T*>(NULL), actual);
+    }
+};
+
+}   // end of namespace backward
+
+//======================================================================
 // function
+
 template<typename T1, typename T2>
 inline AssertionResult  CmpHelperSame(const char* expected_str, const char* actual_str
     , const T1& expected, const T2& actual)
 {
-    return IIUT_COMPATIBLE_EQHELPER(false)::Compare(expected_str, actual_str, &expected, &actual);
+    return ::testing::internal::backward::EqHelper<false>::Compare(expected_str, actual_str, &expected, &actual);
 }
 
 template<typename Elem, typename Traits, typename Ax>
@@ -175,69 +242,6 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(const char* e
 {
     return CmpHelperSTRCASENE(expr1, expr2, val1.c_str(), val2);
 }
-
-namespace backward
-{
-
-#if defined(GTEST_IS_NULL_LITERAL_)
-
-template <bool lhs_is_null_literal>
-class EqHelper : public internal::EqHelper<lhs_is_null_literal> {};
-
-#else
-
-template <bool lhs_is_null_literal>
-class EqHelper : public internal::EqHelper {};
-
-#endif
-
-template <bool lhs_is_null_literal>
-class NeHelper {
-public:
-    template <typename T1, typename T2>
-    static AssertionResult Compare(const char* expected_expression,
-        const char* actual_expression,
-        const T1& expected,
-        const T2& actual) {
-            return CmpHelperNE(expected_expression, actual_expression, expected,
-                actual);
-    }
-
-    static AssertionResult Compare(const char* expected_expression,
-        const char* actual_expression,
-        BiggestInt expected,
-        BiggestInt actual) {
-            return CmpHelperNE(expected_expression, actual_expression, expected,
-                actual);
-    }
-};
-
-template <>
-class NeHelper<true> {
-public:
-    template <typename T1, typename T2>
-    static AssertionResult Compare(
-        const char* expected_expression,
-        const char* actual_expression,
-        const T1& expected,
-        const T2& actual,
-        typename EnableIf<!is_pointer<T2>::value>::type* = 0) {
-            return CmpHelperNE(expected_expression, actual_expression, expected,
-                actual);
-    }
-
-    template <typename T>
-    static AssertionResult Compare(
-        const char* expected_expression,
-        const char* actual_expression,
-        Secret* /* expected (NULL) */,
-        T* actual) {
-            return CmpHelperNE(expected_expression, actual_expression,
-                static_cast<T*>(NULL), actual);
-    }
-};
-
-}   // end of namespace backward
 
 }   // end of namespace internal
 }   // end of namespace testing
