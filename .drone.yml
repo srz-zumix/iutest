@@ -1,0 +1,18 @@
+kind: pipeline
+name: benchmark_test
+
+clone:
+  depth: 1
+
+steps:
+# - name: build
+#   image: docker
+#   commands:
+#     - docker build tools/docker/Dockerfile
+
+- name: bench
+  image: gcc
+  commands:
+    - cd test
+    - make -C benchmark
+    - make bench
