@@ -32,7 +32,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
 # RUN yarn global add codecrumbs
 RUN mkdir /codecrumbs && \
     git clone https://github.com/Bogdan-Lyashenko/codecrumbs.git /codecrumbs && \
-    find /codecrumbs/src -type f -name '*.js' | xargs grep -l '127.0.0.1' | xargs sed -i.bak -e 's/127\.0\.0\.1/0.0.0.0/g' && \
+    find /codecrumbs/src -type f -name '*.js' | xargs grep -l '127.0.0.1' | xargs sed -i.bak -e 's/127\.0\.0\.1/0.0.0.0/g'
 WORKDIR /codecrumbs
 RUN yarn && yarn build && \
     yarn global add /codecrumbs
