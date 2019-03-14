@@ -1,9 +1,6 @@
 kind: pipeline
 name: benchmark_test
 
-clone:
-  depth: 1
-
 steps:
 - name: bench
   image: gcc
@@ -20,5 +17,5 @@ steps:
 - name: build
   image: docker
   commands:
-    - docker build ./tools/docker/Dockerfile
+    - docker build ./tools/docker
 
