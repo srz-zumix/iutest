@@ -146,7 +146,7 @@
         , IIUT_COMPATIBLE_EQHELPER(expected_exception_value)::Compare)
 #define IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, expected_exception_value, on_failure)    \
     IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure            \
-        , IIUT_COMPATIBLE_EQHELPER(expected_exception_value)::Compare)
+        , IIUT_COMPATIBLE_NEHELPER(expected_exception_value)::Compare)
 #define IUTEST_TEST_THROW_VALUE_STREQ_(statement, expected_exception, expected_exception_value, on_failure) \
     IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure            \
         , ::testing::internal::CmpHelperSTREQ)
