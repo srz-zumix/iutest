@@ -155,10 +155,22 @@
     shell: "SH"
     trigger_condition: "ALWAYS"
 
+# for test branch
+# - pipeline: "gtest-compatible-released"
+#   trigger_mode: "ON_EVERY_PUSH"
+#   ref_name: "buddy/*"
+#   ref_type: "BRANCH"
+#   - action: "Run iutest/gtest-compatible-released"
+#     type: "RUN_NEXT_PIPELINE"
+#     comment: "Triggered by $BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
+#     revision: "INHERIT"
+#     trigger_condition: "ALWAYS"
+#     next_pipeline_id: 145531
+
 # released google test compatible test
 - pipeline: "gtest-compatible-released"
   trigger_mode: "ON_EVERY_PUSH"
-  ref_name: "(^(master|buddy/)*$)"
+  ref_name: "master"
   ref_type: "BRANCH"
   actions:
   - action: "release-1.8.1"
