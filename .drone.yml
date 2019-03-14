@@ -20,5 +20,5 @@ steps:
 - name: build
   image: docker
   commands:
-    - docker build tools/docker/Dockerfile
+    - docker build ./tools/docker/Dockerfile
 
