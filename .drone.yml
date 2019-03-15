@@ -8,6 +8,12 @@ steps:
     - cd test
     - make -C benchmark
     - make bench
+  when:
+    branch:
+      - master
+      - develop
+      - feature/*
+      - drone/*
 
 ---
 kind: pipeline
@@ -18,5 +24,14 @@ steps:
   image: plugins/docker
   settings:
     dockerfile: tools/docker/Dockerfile
+    repo: srzzumix/iutest
     dry_run: true
+  when:
+    branch:
+      - master
+      - develop
+      - feature/*
+      - drone/*
+    event:
+      - push
 
