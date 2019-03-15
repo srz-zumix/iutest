@@ -36,8 +36,3 @@ steps:
     dockerfile: tools/docker/Dockerfile
     repo: srzzumix/iutest
     dry_run: true
-- name: bench
-  image: srzzumix/iutest
-  commands:
-    - make -j4 -C test test
-
