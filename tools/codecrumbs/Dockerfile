@@ -17,7 +17,7 @@ RUN apt-get update -q -y && \
 # install nodejs
 RUN curl -sL https://deb.nodesource.com/setup_11.x | bash - && \
     apt-get update -q -y && \
-    apt-get install -y --no-install-recommends nodejs && \
+    apt-get install -y nodejs && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -25,23 +25,18 @@ RUN curl -sL https://deb.nodesource.com/setup_11.x | bash - && \
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt-get update -q -y && \
-    apt-get install -y --no-install-recommends yarn && \
+    apt-get install -y yarn && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # RUN yarn global add codecrumbs
-RUN mkdir /codecrumbs && \
-    git clone https://github.com/Bogdan-Lyashenko/codecrumbs.git /codecrumbs && \
-    find /codecrumbs/src -type f -name '*.js' | xargs grep -l '127.0.0.1' | xargs sed -i.bak -e 's/127\.0\.0\.1/0.0.0.0/g'
-WORKDIR /codecrumbs
-RUN yarn && yarn build && \
-    yarn global add /codecrumbs
-# RUN apt-get update -q -y && \
-#     apt-get install -y --no-install-recommends tcpdump && \
-#     apt-get clean && \
-#     rm -rf /var/lib/apt/lists/*
-
-EXPOSE 3018
+RUN mkdir /codecrumbs && cd /codecrumbs && \
+    git clone https://github.com/Bogdan-Lyashenko/codecrumbs.git .
+COPY webpack.prod.js /codecrumbs/src/public
+RUN cd /codecrumbs && \
+    find ./src/server -type f -name '*.js' | xargs grep -l '127.0.0.1' | xargs sed -i.bak -e 's/127\.0\.0\.1/0.0.0.0/g' && \
+    yarn && yarn build 
+RUN yarn global add /codecrumbs
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
