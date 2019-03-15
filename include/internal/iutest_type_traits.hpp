@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -303,7 +303,6 @@ class is_pointer
 public:
     typedef typename impl<rmcv_type, void>::type type;
 #else
-    typedef T rmcv_type;
     static T& make_t();
     static char IsPointerHelper(const volatile void*);
     static char (&IsPointerHelper(...))[2];
