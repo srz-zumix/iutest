@@ -34,7 +34,7 @@ RUN mkdir /codecrumbs && \
     git clone https://github.com/Bogdan-Lyashenko/codecrumbs.git /codecrumbs
 COPY webpack.prod.js /codecrumbs/src/public
 WORKDIR /codecrumbs
-RUN find ./src/server -type f -name '*.js' -print0 | xargs grep -l '127.0.0.1' | xargs sed -i.bak -e 's/127\.0\.0\.1/0.0.0.0/g' && \
+RUN find ./src/server -type f -name '*.js' -print0 | xargs -0 grep -l '127.0.0.1' | xargs sed -i.bak -e 's/127\.0\.0\.1/0.0.0.0/g' && \
     yarn && yarn build && \
     yarn global add /codecrumbs
 
