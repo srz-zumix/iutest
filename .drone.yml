@@ -16,6 +16,7 @@ name: build_docker
 steps:
 - name: build
   image: plugins/docker
-  dockerfile: tools/docker/Dockerfile
-  dry_run: true
+  settings:
+    dockerfile: tools/docker/Dockerfile
+    dry_run: true
 
