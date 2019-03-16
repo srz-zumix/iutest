@@ -1,0 +1,38 @@
+kind: pipeline
+name: benchmark_test
+
+trigger:
+  branch:
+    - master
+    - develop
+    - feature/*
+    - drone/*
+
+steps:
+- name: bench
+  image: gcc
+  commands:
+    - cd test
+    - make -C benchmark
+    - make bench
+
+---
+kind: pipeline
+name: build_docker
+
+trigger:
+  branch:
+    - master
+    - develop
+    - feature/*
+    - drone/*
+  event:
+    - push
+
+steps:
+- name: build
+  image: plugins/docker
+  settings:
+    dockerfile: tools/docker/Dockerfile
+    repo: srzzumix/iutest
+    dry_run: true
