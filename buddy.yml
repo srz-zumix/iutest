@@ -1,10 +1,8 @@
 # google test version detect test
 - pipeline: "gtest-version"
-  trigger_mode: "SCHEDULED"
+  trigger_mode: "ON_EVERY_PUSH"
   ref_name: "develop"
   ref_type: "BRANCH"
-  start_date: "2018-03-19T03:14:00.000Z"
-  delay: 10080
   run_always: true
   actions:
   - action: "lastest"
@@ -156,16 +154,22 @@
     trigger_condition: "ALWAYS"
 
 # for test branch
-# - pipeline: "gtest-compatible-released"
-#   trigger_mode: "ON_EVERY_PUSH"
-#   ref_name: "buddy/*"
-#   ref_type: "BRANCH"
-#   - action: "Run iutest/gtest-compatible-released"
-#     type: "RUN_NEXT_PIPELINE"
-#     comment: "Triggered by $BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
-#     revision: "INHERIT"
-#     trigger_condition: "ALWAYS"
-#     next_pipeline_id: 145531
+- pipeline: "gtest-compatible-released"
+  trigger_mode: "ON_EVERY_PUSH"
+  ref_name: "buddy/*"
+  ref_type: "BRANCH"
+  - action: "Run iutest/gtest-compatible-released"
+    type: "RUN_NEXT_PIPELINE"
+    comment: "Triggered by $BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
+    revision: "INHERIT"
+    trigger_condition: "ALWAYS"
+    next_pipeline_id: 177449
+  - action: "Run iutest/gtest-version"
+    type: "RUN_NEXT_PIPELINE"
+    comment: "Triggered by $BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
+    revision: "INHERIT"
+    trigger_condition: "ALWAYS"
+    next_pipeline_id: 177448
 
 # released google test compatible test
 - pipeline: "gtest-compatible-released"
