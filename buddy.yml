@@ -154,7 +154,7 @@
     trigger_condition: "ALWAYS"
 
 # for test branch
-- pipeline: "gtest-compatible-released"
+- pipeline: "buddy-test-pipeline"
   trigger_mode: "ON_EVERY_PUSH"
   ref_name: "buddy/*"
   ref_type: "BRANCH"
