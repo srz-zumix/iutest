@@ -158,6 +158,7 @@
   trigger_mode: "ON_EVERY_PUSH"
   ref_name: "buddy/*"
   ref_type: "BRANCH"
+  actions:
   - action: "Run iutest/gtest-compatible-released"
     type: "RUN_NEXT_PIPELINE"
     comment: "Triggered by $BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
