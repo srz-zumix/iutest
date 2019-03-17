@@ -1,8 +1,7 @@
 version: '2'
 services:
   codecrumbs:
-    build: .
-    image: codecrumbs
+    image: srzzumix/docker-codecrumbs
     ports:
       - 2018:2018
       - 3018:3018
