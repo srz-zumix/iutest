@@ -1,0 +1,11 @@
+version: '2'
+services:
+  codecrumbs:
+    image: srzzumix/codecrumbs
+    ports:
+      - 2018:2018
+      - 3018:3018
+    working_dir: /target
+    volumes:
+      - ../../:/target
+    command: -d . -e samples/main.cpp
