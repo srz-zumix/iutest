@@ -3,7 +3,6 @@
   trigger_mode: "ON_EVERY_PUSH"
   ref_name: "develop"
   ref_type: "BRANCH"
-  run_always: true
   actions:
   - action: "lastest"
     type: "BUILD"
