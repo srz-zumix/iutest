@@ -21,6 +21,8 @@ steps:
     webhook:
       from_secret: SLACK_WEBHOOK
     channel: ci
+    username: drone
+    icon_url: https://github.com/drone/brand/blob/master/logos/png/drone-logo-dark_256.png
   when:
     status: [ success, failure ]
 
