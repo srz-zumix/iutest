@@ -33,6 +33,50 @@ steps:
   when:
     status: [ failure ]
 
+---
+kind: pipeline
+name: gtest-version-detect
+
+trigger:
+  branch:
+    - master
+    - develop
+    - feature/*
+    - drone/*
+
+steps:
+- name: latest
+  image: srzzumix/googletest:latest
+  environment:
+    GTEST_EXPECT_VERSION: 0x01080100
+  commands:
+    - "cd test"
+    - "make USE_GTEST=1             GTEST_EXPECT_VER=${GTEST_EXPECT_VERSION} GTEST_EXPECT_LATEST=1 gtest-version"
+    - "make USE_GTEST=1 USE_GMOCK=1 GTEST_EXPECT_VER=${GTEST_EXPECT_VERSION} GTEST_EXPECT_LATEST=1 gtest-version"
+- name: release-1.8.1
+  image: srzzumix/googletest:release-1.8.1
+  environment:
+    GTEST_EXPECT_VERSION: 0x01080100
+  commands: &gtest-version-detect-commands
+    - "cd test"
+    - "make USE_GTEST=1             GTEST_EXPECT_VER=${GTEST_EXPECT_VERSION} gtest-version"
+    - "make USE_GTEST=1 USE_GMOCK=1 GTEST_EXPECT_VER=${GTEST_EXPECT_VERSION} gtest-version"
+- name: release-1.8.0
+  image: srzzumix/googletest:release-1.8.0
+  environment:
+    GTEST_EXPECT_VERSION: 0x01080000
+  commands: *gtest-version-detect-commands
+- name: slack
+  image: plugins/slack
+  settings:
+    webhook:
+      from_secret: SLACK_WEBHOOK
+    channel: ci
+    username: drone
+    icon_url: https://raw.githubusercontent.com/drone/brand/master/logos/png/drone-logo-dark_256.png
+  when:
+    status: [ failure ]
+
 # ---
 # kind: pipeline
 # name: build_docker
