@@ -1,5 +1,5 @@
 kind: pipeline
-name: benchmark_test
+name: gtest-compatible-released
 
 trigger:
   branch:
@@ -9,12 +9,19 @@ trigger:
     - drone/*
 
 steps:
-- name: bench
-  image: gcc
-  commands:
-    - cd test
-    - make -C benchmark
-    - make bench
+- name: release-1.8.1
+  image: srzzumix/googletest:release-1.8.1
+  environment:
+    - GTEST_EXPECT_VERSION: 0x01080100
+  commands: &gtest-compatible-commands
+    - "cd test"
+    - "make USE_GTEST=1             GTEST_EXPECT_VER=${GTEST_EXPECT_VERSION} test"
+    - "make USE_GTEST=1 USE_GMOCK=1 GTEST_EXPECT_VER=${GTEST_EXPECT_VERSION} test"
+- name: release-1.8.0
+  image: srzzumix/googletest:release-1.8.0
+  environment:
+    - GTEST_EXPECT_VERSION: 0x01080000
+  commands: *gtest-compatible-commands
 - name: slack
   image: plugins/slack
   settings:
@@ -24,25 +31,25 @@ steps:
     username: drone
     icon_url: https://raw.githubusercontent.com/drone/brand/master/logos/png/drone-logo-dark_256.png
   when:
-    status: [ success, failure ]
+    status: [ failure ]
 
----
-kind: pipeline
-name: build_docker
+# ---
+# kind: pipeline
+# name: build_docker
 
-trigger:
-  branch:
-    - master
-    - develop
-    - feature/*
-    - drone/*
-  event:
-    - push
+# trigger:
+#   branch:
+#     - master
+#     - develop
+#     - feature/*
+#     - drone/*
+#   event:
+#     - push
 
-steps:
-- name: build
-  image: plugins/docker
-  settings:
-    dockerfile: tools/docker/Dockerfile
-    repo: srzzumix/iutest
-    dry_run: true
+# steps:
+# - name: build
+#   image: plugins/docker
+#   settings:
+#     dockerfile: tools/docker/Dockerfile
+#     repo: srzzumix/iutest
+#     dry_run: true
