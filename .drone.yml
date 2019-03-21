@@ -21,7 +21,8 @@ steps:
   image: srzzumix/googletest:release-1.8.0
   environment:
     - GTEST_EXPECT_VERSION: 0x01080000
-  commands: *gtest-compatible-commands
+  commands:
+    - *gtest-compatible-commands
 - name: slack
   image: plugins/slack
   settings:
