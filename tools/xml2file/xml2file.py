@@ -180,7 +180,7 @@ def write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase):
 
 def opentree(path):
     try:
-        with codecs.open(path, 'r', encoding=cmdline_options.encoding) as failed:
+        with codecs.open(path, 'r', encoding=cmdline_options.encoding) as f:
             return ET.parse(f)
     except Exception as e:
         loge("error: " + path + ": " + str(e))

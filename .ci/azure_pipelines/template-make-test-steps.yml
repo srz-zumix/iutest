@@ -99,7 +99,7 @@ steps:
     git branch
     cd ../${TESTRESULT_REPONAME} && git checkout -b ${TESTRESULT_BRANCHNAME} origin/${TESTRESULT_BRANCHNAME} 2> /dev/null | git checkout -b ${TESTRESULT_BRANCHNAME}
     cd -
-    find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --clean --debug -o ../${TESTRESULT_REPONAME}/azure-pipelines/${AGENT_JOBNAME}/
+    find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --clean --verbose -o ../${TESTRESULT_REPONAME}/azure-pipelines/${AGENT_JOBNAME}/
     # find ./azure-pipelines -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
     cd ../${TESTRESULT_REPONAME}
     git config user.email "zumix.cpp@gmail.com"
