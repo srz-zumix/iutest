@@ -178,6 +178,16 @@ def write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase):
     f.write(jt)
 
 
+def opentree(path):
+    try:
+        with codecs.open(path, 'r', encoding=cmdline_options.encoding) as failed:
+            return ET.parse(f)
+    except Exception as e:
+        loge("error: " + path + ": " + str(e))
+        xmlp = ET.XMLParser(encoding=cmdline_options.encoding)
+        return ET.parse(path, xmlp)
+
+
 def xml2file(path):
     basename = os.path.basename(path)
     filename = os.path.splitext(basename)[0]
@@ -187,8 +197,7 @@ def xml2file(path):
     clean_dir(root_path)
 
     try:
-        xmlp = ET.XMLParser(encoding=cmdline_options.encoding)
-        tree = ET.parse(path, xmlp)
+        tree = opentree(path)
         root = tree.getroot()
         testsuites = root
 
