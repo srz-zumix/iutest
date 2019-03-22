@@ -58,6 +58,7 @@ namespace tr1
 #endif
 #include "iutest_gtest_ver.hpp"
 #include "../internal/iutest_pragma.hpp"
+#include "../internal/iutest_compatible_defs.hpp"
 
 #if GTEST_VER < 0x01040000
 #  error google test 1.3.0 or less is not supported...

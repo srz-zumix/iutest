@@ -9,6 +9,7 @@ cmake_minimum_required(VERSION 3.0.2)
 option(build_gtest_samples "gtest sample build." OFF)
 option(build_use_gtest_configuration "use gtest build configuration." ON)
 option(build_tests "tests build." ON)
+option(build_namespace_tests "enable namespace test build." ON)
 
 # Defines pre_project_set_up_hermetic_build() and set_up_hermetic_build().
 include(cmake/hermetic_build.cmake OPTIONAL)
@@ -202,32 +203,34 @@ if (build_tests)
   cxx_executable_test(tr1_tests)
   cxx_executable_test(uninitialize_tests)
   cxx_executable_test(util_tests)
-  cxx_namespace_test(namespace_tests
-   assertion_tests.cpp
-   basic_tests.cpp
-   combine_tests.cpp
-   compatibility_tests.cpp
-   filepath_tests.cpp
-   fixture_tests.cpp
-   floatingpoint_tests.cpp
-   no_failure_tests.cpp
-   nullptr_tests.cpp
-   param_test_tests1.cpp
-   param_test_tests2.cpp
-   pred_tests.cpp
-   prod_tests1.cpp
-   prod_tests2.cpp
-   spi_tests.cpp
-   static_assertion_tests.cpp
-   string_assertion_tests.cpp
-   syntax_tests.cpp
-   syntax_gtest_tests.cpp
-   type_param_tests1.cpp
-   type_param_tests2.cpp
-   type_param_tests3.cpp
-   typed_test_tests.cpp
-   values_tests.cpp
-  )
+  if (build_namespace_tests)
+    cxx_namespace_test(namespace_tests
+      assertion_tests.cpp
+      basic_tests.cpp
+      combine_tests.cpp
+      compatibility_tests.cpp
+      filepath_tests.cpp
+      fixture_tests.cpp
+      floatingpoint_tests.cpp
+      no_failure_tests.cpp
+      nullptr_tests.cpp
+      param_test_tests1.cpp
+      param_test_tests2.cpp
+      pred_tests.cpp
+      prod_tests1.cpp
+      prod_tests2.cpp
+      spi_tests.cpp
+      static_assertion_tests.cpp
+      string_assertion_tests.cpp
+      syntax_tests.cpp
+      syntax_gtest_tests.cpp
+      type_param_tests1.cpp
+      type_param_tests2.cpp
+      type_param_tests3.cpp
+      typed_test_tests.cpp
+      values_tests.cpp
+    )
+  endif()
   # iutest only
   cxx_executable_test(default_main_tests)
   cxx_executable_test(default_printer_listener_tests)
@@ -310,7 +313,9 @@ if (build_tests)
   cxx_add_test(tr1_tests)
   cxx_add_test(uninitialize_tests)
   cxx_add_test(util_tests)
-  cxx_add_test(namespace_tests)
+  if (build_namespace_tests)
+      cxx_add_test(namespace_tests)
+  endif()
   # iutest only
   cxx_add_test(default_main_tests)
   cxx_add_test(default_printer_listener_tests)

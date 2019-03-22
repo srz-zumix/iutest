@@ -730,7 +730,7 @@ private:
         Message ar;
         for( elem=0; b1 != e1 && b2 != e2; ++b1, ++b2, ++elem )
         {
-            if( !internal::EqHelper<false>::Compare("", "", *b1, *b2) )
+            if( !internal::backward::EqHelper<false>::Compare("", "", *b1, *b2) )
             {
                 result = false;
                 ar << "\nMismatch in a position " << elem << ": "
