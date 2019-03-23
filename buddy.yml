@@ -1,6 +1,5 @@
 - pipeline: "benchmark"
   trigger_mode: "ON_EVERY_PUSH"
-  ref_name: "*"
   ref_type: "BRANCH"
   actions:
   - action: "benchmark test"
