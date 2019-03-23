@@ -101,6 +101,7 @@ steps:
     cd -
     set -e
     find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --clean --verbose -o ../${TESTRESULT_REPONAME}/azure-pipelines/${AGENT_JOBNAME}/
+    if [ -f parser_error.txt ]; then cat parser_error.txt; fi
     # find ./azure-pipelines -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
     cd ../${TESTRESULT_REPONAME}
     git config user.email "zumix.cpp@gmail.com"

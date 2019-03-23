@@ -207,7 +207,7 @@ def xml2file(path):
             testsuite_user_attrib = get_user_properties(testsuite)
             for testcase in testsuite:
                 if testcase.tag == 'testcase':
-                    logv("    " + testcase.attrib['name'])
+                    # logv("    " + testcase.attrib['name'])
                     f = fopen(make_path(root_path, testsuite, testcase))
                     write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase)
                     f.close()
