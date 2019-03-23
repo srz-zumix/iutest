@@ -1,15 +1,18 @@
-- pipeline: "benchmark"
+- pipeline: "benchmark test"
   trigger_mode: "ON_EVERY_PUSH"
-  ref_type: "BRANCH"
+  ref_name: "(^(master$|develop$|buddy/*$))"
+  ref_type: "WILDCARD"
+  trigger_condition: "ALWAYS"
   actions:
-  - action: "benchmark test"
+  - action: "Execute: make bench"
     type: "BUILD"
-    docker_image_name: "gcc"
     working_directory: "/buddy/iutest"
-    mount_filesystem_path: "/buddy/iutest"
+    docker_image_name: "library/gcc"
+    docker_image_tag: "7"
     execute_commands:
-      - cd test
-      - make -C benchmark
-      - make bench
+    - "cd test"
+    - "make -C benchmark"
+    - "make bench"
+    mount_filesystem_path: "/buddy/iutest"
     shell: "SH"
     trigger_condition: "ALWAYS"
