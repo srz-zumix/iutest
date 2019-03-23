@@ -40,7 +40,8 @@ def parse_command_line():
     )
     parser.add_argument(
         '--verbose',
-        action='store_true',
+        default=0,
+        metavar='LEVEL',
         help='log verbose'
     )
     parser.add_argument(
@@ -74,8 +75,8 @@ def log(msg):
     print(msg)
 
 
-def logv(msg):
-    if cmdline_options.verbose:
+def logv(lv, msg):
+    if cmdline_options.verbose >= lv:
         print(msg)
 
 
@@ -191,7 +192,7 @@ def opentree(path):
 def xml2file(path):
     basename = os.path.basename(path)
     filename = os.path.splitext(basename)[0]
-    logv(basename)
+    logv(1, basename)
 
     root_path = make_rootpath(filename)
     clean_dir(root_path)
@@ -203,11 +204,11 @@ def xml2file(path):
 
         testsuites_user_attrib = get_user_properties(testsuites)
         for testsuite in testsuites:
-            logv("  " + testsuite.attrib['name'])
+            logv(2, "  " + testsuite.attrib['name'])
             testsuite_user_attrib = get_user_properties(testsuite)
             for testcase in testsuite:
                 if testcase.tag == 'testcase':
-                    # logv("    " + testcase.attrib['name'])
+                    logv(3, "    " + testcase.attrib['name'])
                     f = fopen(make_path(root_path, testsuite, testcase))
                     write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase)
                     f.close()
