@@ -40,6 +40,7 @@ def parse_command_line():
     )
     parser.add_argument(
         '--verbose',
+        type=int,
         default=0,
         metavar='LEVEL',
         help='log verbose'
