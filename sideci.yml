@@ -1,0 +1,9 @@
+linter:
+  stylelint:
+    npm_install: false
+    root_dir: 'docs'
+    glob: '**/*.{css,scss}'
+
+  goodcheck:
+    config: .ci/goodcheck.yml
+

@@ -1,0 +1,14 @@
+rules:
+  - id: github
+    pattern: Github
+    message: |
+      GitHub is GitHub, not Github
+
+      You may misspelling the name of the service!
+    justification:
+      - When you mean a service different from GitHub
+      - When GitHub is renamed
+    pass:
+      - <a>Signup via GitHub</a>
+    fail:
+      - <a>Signup via Github</a>
