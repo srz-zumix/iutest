@@ -124,7 +124,7 @@ for:
     only:
       - BUILD_PRE_PROJECT: yes
   before_build:
-    cmd: echo.
+    cmd: cmake --version
   build:
     project: projects\%PROJECT_DIR%\iutest.sln
     parallel: true
