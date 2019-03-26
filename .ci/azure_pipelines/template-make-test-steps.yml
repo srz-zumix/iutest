@@ -101,8 +101,9 @@ steps:
     ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
     git clone -q git@github.com:srz-zumix/${TESTRESULT_REPONAME}.git ../${TESTRESULT_REPONAME}
     cd ../${TESTRESULT_REPONAME}
+    git remote -v
     git fetch -p && git branch -a
-    git checkout    ${TESTRESULT_BRANCHNAME} origin/${TESTRESULT_BRANCHNAME}
+    git checkout    ${TESTRESULT_BRANCHNAME} remotes/origin/${TESTRESULT_BRANCHNAME}
     git checkout -b ${TESTRESULT_BRANCHNAME}
     cd -
     set -e
