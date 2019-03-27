@@ -131,6 +131,7 @@ steps:
   displayName: 'xml2file push to github pr'
 
 - script: |
+    cd ../${TESTRESULT_REPONAME}
     pwd
     git status
     git branch -D all
