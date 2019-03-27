@@ -129,3 +129,18 @@ steps:
     PR_BRANCHNAME: ci/azurepipelines/$(Agent.JobName)_$(Build.BuildId)
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml2file push to github pr'
+
+- script: |
+    pwd
+    git status
+    git branch -D all
+    git fetch -p --all
+    git checkout -b all origin/all
+    git merge origin/${PR_BRANCHNAME}
+    git push
+  env:
+    TESTRESULT_REPONAME: iutest-ci-results
+    TESTRESULT_BRANCHNAME: ci/azurepipelines/$(Agent.JobName)
+    PR_BRANCHNAME: ci/azurepipelines/$(Agent.JobName)_$(Build.BuildId)
+  condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
+  displayName: 'try merge'
