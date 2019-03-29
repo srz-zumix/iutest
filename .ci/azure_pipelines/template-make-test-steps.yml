@@ -9,6 +9,11 @@ parameters:
   options: ''
   package_name: 'default'
 
+variables:
+  TESTRESULT_REPONAME: iutest-ci-results
+  TESTRESULT_BRANCHNAME: ci/azurepipelines/$(Agent.JobName)
+  PR_BRANCHNAME: ci/azurepipelines/$(Agent.JobName)_$(Build.BuildId)
+
 steps:
 - script: |
     ulimit -c unlimited && ulimit -a
@@ -106,9 +111,6 @@ steps:
     git fetch -p --all
     git checkout -b ${TESTRESULT_BRANCHNAME} origin/${TESTRESULT_BRANCHNAME} || git checkout -b ${TESTRESULT_BRANCHNAME}
     git merge origin/master
-  env:
-    TESTRESULT_REPONAME: iutest-ci-results
-    TESTRESULT_BRANCHNAME: ci/azurepipelines/$(Agent.JobName)
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'setup testresult repository'
 
@@ -130,18 +132,11 @@ steps:
     git checkout -b ${PR_BRANCHNAME}
     git push -u origin ${PR_BRANCHNAME}
     hub pull-request -F pr.txt -b all
-  env:
-    TESTRESULT_REPONAME: iutest-ci-results
-    TESTRESULT_BRANCHNAME: ci/azurepipelines/$(Agent.JobName)
-    PR_BRANCHNAME: ci/azurepipelines/$(Agent.JobName)_$(Build.BuildId)
-  condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
+  condition: and(succeeded(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml2file push to github pr'
 
 - script: |
     cd ../${TESTRESULT_REPONAME}
     ./merge.sh ${PR_BRANCHNAME}
-  env:
-    TESTRESULT_REPONAME: iutest-ci-results
-    PR_BRANCHNAME: ci/azurepipelines/$(Agent.JobName)_$(Build.BuildId)
-  condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
+  condition: and(succeeded(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'try merge'
