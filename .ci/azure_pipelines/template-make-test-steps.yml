@@ -8,11 +8,9 @@
 parameters:
   options: ''
   package_name: 'default'
-
-variables:
-  TESTRESULT_REPONAME: iutest-ci-results
-  TESTRESULT_BRANCHNAME: ci/azurepipelines/$(Agent.JobName)
-  PR_BRANCHNAME: ci/azurepipelines/$(Agent.JobName)_$(Build.BuildId)
+  TESTRESULT_REPONAME: 'iutest-ci-results'
+  TESTRESULT_BRANCHNAME: 'ci/azurepipelines/$(Agent.JobName)'
+  PR_BRANCHNAME: 'ci/azurepipelines/$(Agent.JobName)_$(Build.BuildId)'
 
 steps:
 - script: |
