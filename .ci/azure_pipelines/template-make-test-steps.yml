@@ -52,7 +52,8 @@ steps:
 - script: |
     echo "make -C test -j4 OUTPUTXML=junit ${{ parameters.options }}"
     make -C test -j4 OUTPUTXML=junit ${{ parameters.options }}
-  displayName: 'make'
+  displayName: 'make'git f
+
 
 - script: |
     echo "make -C test OUTPUTXML=junit ${{ parameters.options }} test"
@@ -123,7 +124,7 @@ steps:
     echo "${BUILD_BUILDURI}" >> message.txt
     git commit -q -F message.txt
     git push -u origin ${{ parameters.TESTRESULT_BRANCHNAME }}
-  condition: and(succeeded(), ne(variables['SkipPushTestResult'], 'true'))
+  condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml2file push to github'
 
 - script: |
@@ -135,11 +136,11 @@ steps:
     git checkout -b ${ parameters.TESTRESUTL_PR_BRANCHNAME}
     git push -u origin ${ parameters.TESTRESUTL_PR_BRANCHNAME}
     hub pull-request -F pr.txt -b all
-  condition: and(succeeded(), ne(variables['SkipPushTestResult'], 'true'))
+  condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml2file create pullrequest'
 
 - script: |
     cd ../${{ parameters.TESTRESULT_REPONAME }}
     ./merge.sh -d ${ parameters.TESTRESUTL_PR_BRANCHNAME}
-  condition: and(succeeded(), ne(variables['SkipPushTestResult'], 'true'))
+  condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'try merge'
