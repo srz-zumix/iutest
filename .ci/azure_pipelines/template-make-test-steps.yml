@@ -127,19 +127,20 @@ steps:
   displayName: 'xml2file push to github'
 
 - script: |
+    set -e
     cd ../${{ parameters.TESTRESULT_REPONAME }}
     echo "Azure Pipelines ${AGENT_JOBNAME} ${BUILD_BUILDID}" > pr.txt
     echo >> pr.txt
     echo >> pr.txt
     cat message.txt >> pr.txt
-    git checkout -b ${ parameters.TESTRESUTL_PR_BRANCHNAME}
-    git push -u origin ${ parameters.TESTRESUTL_PR_BRANCHNAME}
+    git checkout -b ${{ parameters.TESTRESUTL_PR_BRANCHNAME }}
+    git push -u origin ${{ parameters.TESTRESUTL_PR_BRANCHNAME }}
     hub pull-request -F pr.txt -b all
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml2file create pullrequest'
 
 - script: |
     cd ../${{ parameters.TESTRESULT_REPONAME }}
-    ./merge.sh -d ${ parameters.TESTRESUTL_PR_BRANCHNAME}
+    ./merge.sh -d ${{ parameters.TESTRESUTL_PR_BRANCHNAME }}
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'try merge'
