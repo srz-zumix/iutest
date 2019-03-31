@@ -3,6 +3,7 @@
   ref_name: "(^(master$|develop$|buddy/*$))"
   ref_type: "WILDCARD"
   trigger_condition: "ALWAYS"
+  auto_clear_cache: true
   actions:
   - action: "Execute: make bench"
     type: "BUILD"
