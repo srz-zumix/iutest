@@ -52,8 +52,7 @@ steps:
 - script: |
     echo "make -C test -j4 OUTPUTXML=junit ${{ parameters.options }}"
     make -C test -j4 OUTPUTXML=junit ${{ parameters.options }}
-  displayName: 'make'git f
-
+  displayName: 'make'
 
 - script: |
     echo "make -C test OUTPUTXML=junit ${{ parameters.options }} test"
