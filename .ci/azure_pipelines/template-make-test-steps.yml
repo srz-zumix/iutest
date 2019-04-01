@@ -3,6 +3,7 @@
 parameters:
   options: ''
   package_name: 'default'
+  testresult_git_report: 'true'
   make_pullrequest: 'true'
   TESTRESULT_REPONAME: 'iutest-ci-results'
   TESTRESULT_BRANCHNAME: 'ci/azurepipelines/$(Agent.JobName)'
@@ -28,19 +29,18 @@ steps:
     sshPublicKey: 'not required'
     sshKeySecureFile: 'id_azurepipelines_rsa'
 
-- ${{ if parameters.make_pullrequest }}:
-  - task: DownloadSecureFile@1
-    inputs:
-      secureFile: hub
-
-- ${{ if parameters.make_pullrequest }}:
-  - script: |
-      sudo apt-get update
-      sudo apt-get install -y rubygems
-      sudo gem install hub
-      hub --version
-      cp $(Agent.TempDirectory)/hub ~/.config/hub
-    displayName: 'Install Hub'
+- ${{ if parameters.testresult_git_report }}:
+  - ${{ if parameters.make_pullrequest }}:
+    - task: DownloadSecureFile@1
+      inputs:
+        secureFile: hub
+    - script: |
+        sudo apt-get update
+        sudo apt-get install -y rubygems
+        sudo gem install hub
+        hub --version
+        cp $(Agent.TempDirectory)/hub ~/.config/hub
+      displayName: 'Install Hub'
 
 - script: |
     echo ${TestResultBranchName}
@@ -97,51 +97,52 @@ steps:
   inputs:
     testResultsFiles: 'test/*.xml'
 
-- script: |
-    export LANG=ja_JP.UTF-8
-    ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-    git clone git@github.com:srz-zumix/${{ parameters.TESTRESULT_REPONAME }}.git ../${{ parameters.TESTRESULT_REPONAME }} 2>/dev/null
-    cd ../${{ parameters.TESTRESULT_REPONAME }}
-    git config user.email "zumix.cpp@gmail.com"
-    git config user.name "srz-zumix (Azure Pipelines)"
-    git fetch -p --all
-    git checkout -b ${{ parameters.TESTRESULT_BRANCHNAME }} origin/${{ parameters.TESTRESULT_BRANCHNAME }} || git checkout -b ${{ parameters.TESTRESULT_BRANCHNAME }}
-    git merge origin/master
-  condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
-  displayName: 'setup testresult repository'
+- ${{ if parameters.testresult_git_report }}:
+  - script: |
+      export LANG=ja_JP.UTF-8
+      ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+      git clone git@github.com:srz-zumix/${{ parameters.TESTRESULT_REPONAME }}.git ../${{ parameters.TESTRESULT_REPONAME }} 2>/dev/null
+      cd ../${{ parameters.TESTRESULT_REPONAME }}
+      git config user.email "zumix.cpp@gmail.com"
+      git config user.name "srz-zumix (Azure Pipelines)"
+      git fetch -p --all
+      git checkout -b ${{ parameters.TESTRESULT_BRANCHNAME }} origin/${{ parameters.TESTRESULT_BRANCHNAME }} || git checkout -b ${{ parameters.TESTRESULT_BRANCHNAME }}
+      git merge origin/master
+    condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
+    displayName: 'setup testresult repository'
 
-- script: |
-    set -e
-    find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --clean --verbose 1 -o ../${{ parameters.TESTRESULT_REPONAME }}/azure-pipelines/${AGENT_JOBNAME}/
-    # find ./azure-pipelines -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
-    cd ../${{ parameters.TESTRESULT_REPONAME }}
-    git add --all
-    echo "${BUILD_SOURCEBRANCHNAME}: ${BUILD_SOURCEVERSION}: ${BUILD_SOURCEVERSIONMESSAGE}" > message.txt
-    echo >> message.txt
-    echo "${BUILD_BUILDURI}" >> message.txt
-    git commit -q -F message.txt
-    git push -u origin ${{ parameters.TESTRESULT_BRANCHNAME }}
-    git checkout -b ${{ parameters.TESTRESUTL_PR_BRANCHNAME }}
-    git push -u origin ${{ parameters.TESTRESUTL_PR_BRANCHNAME }}
-    rm message.txt
-  condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
-  displayName: 'xml2file push to github'
-
-- ${{ if parameters.make_pullrequest }}:
   - script: |
       set -e
+      find ./test -name '*.xml' | xargs python ./tools/xml2file/xml2file.py --encoding utf-8 --clean --verbose 1 -o ../${{ parameters.TESTRESULT_REPONAME }}/azure-pipelines/${AGENT_JOBNAME}/
+      # find ./azure-pipelines -type f -printf "%T@ %p\n" | sort -nr | cut -d\  -f2-
       cd ../${{ parameters.TESTRESULT_REPONAME }}
-      echo "Azure Pipelines ${AGENT_JOBNAME} ${BUILD_BUILDID}" > pr.txt
-      echo >> pr.txt
-      echo >> pr.txt
-      git log -1 --pretty='%s%n%n%b' >> pr.txt
-      hub pull-request -F pr.txt -b all
-      rm pr.txt
+      git add --all
+      echo "${BUILD_SOURCEBRANCHNAME}: ${BUILD_SOURCEVERSION}: ${BUILD_SOURCEVERSIONMESSAGE}" > message.txt
+      echo >> message.txt
+      echo "${BUILD_BUILDURI}" >> message.txt
+      git commit -q -F message.txt
+      git push -u origin ${{ parameters.TESTRESULT_BRANCHNAME }}
+      git checkout -b ${{ parameters.TESTRESUTL_PR_BRANCHNAME }}
+      git push -u origin ${{ parameters.TESTRESUTL_PR_BRANCHNAME }}
+      rm message.txt
     condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
-    displayName: 'xml2file create pullrequest'
+    displayName: 'xml2file push to github'
 
-- script: |
-    cd ../${{ parameters.TESTRESULT_REPONAME }}
-    ./merge.sh -d ${{ parameters.TESTRESUTL_PR_BRANCHNAME }}
-  condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
-  displayName: 'try merge'
+  - ${{ if parameters.make_pullrequest }}:
+    - script: |
+        set -e
+        cd ../${{ parameters.TESTRESULT_REPONAME }}
+        echo "Azure Pipelines ${AGENT_JOBNAME} ${BUILD_BUILDID}" > pr.txt
+        echo >> pr.txt
+        echo >> pr.txt
+        git log -1 --pretty='%s%n%n%b' >> pr.txt
+        hub pull-request -F pr.txt -b all
+        rm pr.txt
+      condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
+      displayName: 'xml2file create pullrequest'
+
+  - script: |
+      cd ../${{ parameters.TESTRESULT_REPONAME }}
+      ./merge.sh -d ${{ parameters.TESTRESUTL_PR_BRANCHNAME }}
+    condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
+    displayName: 'try merge'
