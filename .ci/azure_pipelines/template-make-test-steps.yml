@@ -127,7 +127,7 @@ steps:
   condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
   displayName: 'xml2file push to github'
 
-- ${{ if parameters.make_pullrequest }}
+- ${{ if parameters.make_pullrequest }}:
   - script: |
       set -e
       cd ../${{ parameters.TESTRESULT_REPONAME }}
