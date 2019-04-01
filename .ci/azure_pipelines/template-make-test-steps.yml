@@ -31,7 +31,7 @@ steps:
 - task: DownloadSecureFile@1
   inputs:
     secureFile: hub
-  condition: ne(${{ parameters.make_pullrequest }}, 'false')
+  condition: ${{ parameters.make_pullrequest }}
 
 - script: |
     sudo apt-get update
@@ -40,7 +40,7 @@ steps:
     hub --version
     cp $(Agent.TempDirectory)/hub ~/.config/hub
   displayName: 'Install Hub'
-  condition: ne(${{ parameters.make_pullrequest }}, 'false')
+  condition: ${{ parameters.make_pullrequest }}
 
 - script: |
     echo ${TestResultBranchName}
@@ -135,7 +135,7 @@ steps:
     git push -u origin ${{ parameters.TESTRESUTL_PR_BRANCHNAME }}
     hub pull-request -F pr.txt -b all
     rm pr.txt message.txt
-  condition: and(ne(variables['SkipPushTestResult'], 'true'), ne(${{ parameters.make_pullrequest }}, 'false'))
+  condition: and(ne(variables['SkipPushTestResult'], 'true'), ${{ parameters.make_pullrequest }})
   displayName: 'xml2file create pullrequest'
 
 - script: |
