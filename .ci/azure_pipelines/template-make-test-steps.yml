@@ -3,8 +3,8 @@
 parameters:
   options: ''
   package_name: 'default'
-  testresult_git_report: 'true'
   make_pullrequest: 'true'
+  testresult_git_report: 'true'
   TESTRESULT_REPONAME: 'iutest-ci-results'
   TESTRESULT_BRANCHNAME: 'ci/azurepipelines/$(Agent.JobName)'
   TESTRESUTL_PR_BRANCHNAME: 'ci/azurepipelines/$(Agent.JobName)_$(Build.BuildId)'
