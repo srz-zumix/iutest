@@ -163,6 +163,8 @@
 #if !defined(IUTEST_HAS_CXX11)
 #  if (defined(__cplusplus) && __cplusplus >= IUTEST_CPLUSPLUS_CXX11) || defined(__GXX_EXPERIMENTAL_CXX0X__)
 #    define IUTEST_HAS_CXX11        1
+#  elif (defined(_MSVC_LANG) && _MSVC_LANG >= IUTEST_CPLUSPLUS_CXX11)
+#    define IUTEST_HAS_CXX11        1
 #  endif
 #endif
 
