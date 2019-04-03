@@ -50,7 +50,7 @@ public:
     //typedef pointer const_reverse_iterator;
     //typedef const_reverse_iterator reverse_iterator;
     typedef size_t size_type;
-    typedef ptrdiff_t difference_type;
+    typedef ::std::ptrdiff_t difference_type;
 
 public:
     static const size_type npos = static_cast<size_type >(-1);
@@ -87,7 +87,7 @@ public:
         , m_size(N)
     {
     }
-    
+
     template<typename Allocator>
     iu_basic_string_view(const ::std::basic_string<value_type, traits_type, Allocator>& str)
         : m_data(str.data())
