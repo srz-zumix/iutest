@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,6 +19,7 @@
 // include
 #include "iutest_defs.hpp"
 #include "internal/iutest_string.hpp"
+#include "internal/iutest_string_view.hpp"
 
 namespace iutest
 {

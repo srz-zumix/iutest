@@ -70,6 +70,18 @@ EXTENSIONTESTS_SRCS= main.cpp \
 
 EXTENSIONTESTS_TARGET=extension_tests
 
+UNITTESTS_TEST_SRCS= \
+		unit_file_tests.cpp \
+		unit_misc_tests.cpp \
+		unit_string_tests.cpp \
+		unit_string_view_tests.cpp \
+		unit_typetraits_tests.cpp \
+
+UNITTESTS_SRCS= main.cpp \
+		$(UNITTESTS_TEST_SRCS)
+
+UNITTESTS_TARGET=unit_tests
+
 SYNTAXTESTS_TEST_SRCS= \
 		syntax_tests.cpp \
 
@@ -157,13 +169,14 @@ TARGETS_IUTEST_ONLY = \
 		output_tests \
 		output_xml_invalid_path_tests \
 		output_xml_repeat_tests \
+		own_string_view_tests \
 		param_test_name_invalid_tests \
 		param_test_name_tests \
 		no_yoda_tests \
 		tap_file_generator_listener_tests \
 		tap_printer_listener_tests \
 		type_param_strict_tests \
-		unit_tests \
+		$(UNITTESTS_TARGET)
 
 COMPILEERROR_TARGETS=\
 		check_strict_tests \

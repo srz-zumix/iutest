@@ -19,6 +19,7 @@
 // include
 #include "../iutest_defs.hpp"
 #include "iutest_string.hpp"
+#include "iutest_string_view.hpp"
 #include "iutest_type_traits.hpp"
 #include "iutest_compatible_defs.hpp"
 #include "iutest_exception.hpp"

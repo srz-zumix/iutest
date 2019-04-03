@@ -246,13 +246,20 @@ if (build_tests)
   cxx_executable_test(output_tests)
   cxx_executable_test(output_xml_invalid_path_tests)
   cxx_executable_test(output_xml_repeat_tests)
+  cxx_executable_test(own_string_view_tests)
   cxx_executable_test(param_test_name_invalid_tests)
   cxx_executable_test(param_test_name_tests)
   cxx_executable_test(no_yoda_tests)
   cxx_executable_test(tap_file_generator_listener_tests)
   cxx_executable_test(tap_printer_listener_tests)
   cxx_executable_test(type_param_strict_tests)
-  cxx_executable_test(unit_tests)
+  cxx_executable_test_with_main(unit_tests
+    unit_file_tests.cpp
+    unit_misc_tests.cpp
+    unit_string_tests.cpp
+    unit_string_view_tests.cpp
+    unit_typetraits_tests.cpp
+  )
 endif()
 
 ########################################################################
