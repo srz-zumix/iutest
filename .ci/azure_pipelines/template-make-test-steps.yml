@@ -5,6 +5,7 @@ parameters:
   package_name: 'default'
   make_pullrequest: 'true'
   testresult_git_report: 'true'
+  LOCALE_CTYPE: 'ja_JP.UTF-8'
   TESTRESULT_REPONAME: 'iutest-ci-results'
   TESTRESULT_BRANCHNAME: 'ci/azurepipelines/$(Agent.JobName)'
   TESTRESUTL_PR_BRANCHNAME: 'ci/azurepipelines/$(Agent.JobName)_$(Build.BuildId)'
@@ -57,7 +58,7 @@ steps:
     make -C test OUTPUTXML=junit ${{ parameters.options }} test
   displayName: 'test'
   env:
-    RUN_OPTION: --iutest_default_package_name=${{ parameters.package_name }} --iutest_locale_ctype=JPN
+    RUN_OPTION: --iutest_default_package_name=${{ parameters.package_name }} --iutest_locale_ctype=${{ parameters.LOCALE_CTYPE }}
 
 - script: |
     TEST_RESULTS=`find ./test -maxdepth 1 -name *.xml 2>/dev/null`
