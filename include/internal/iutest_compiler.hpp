@@ -178,7 +178,9 @@
 
 //! inline variable
 #if !defined(IUTEST_HAS_INLINE_VARIABLE)
-#if defined(__clang__)
+#if   defined(__cpp_inline_variables) && __cpp_inline_variables >= 201606
+#  define IUTEST_HAS_INLINE_VARIABLE        1
+#elif defined(__clang__)
 #  if IUTEST_HAS_CXX1Z && (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 9))
 #    define IUTEST_HAS_INLINE_VARIABLE      1
 #  endif
