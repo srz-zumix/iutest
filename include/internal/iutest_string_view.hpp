@@ -21,6 +21,10 @@
 #  include <string_view>
 #endif
 
+#if IUTEST_HAS_EXCEPTIONS
+#  include <stdexcept>
+#endif
+
 namespace iutest {
 namespace detail
 {
@@ -356,7 +360,7 @@ private:
     void out_of_range() const
     {
 #if IUTEST_HAS_EXCEPTIONS
-        throw new std::out_of_range("invalid string_view position");
+        throw new ::std::out_of_range("invalid string_view position");
 #endif
     }
 
