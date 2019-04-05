@@ -163,6 +163,8 @@
 #if !defined(IUTEST_HAS_CXX11)
 #  if (defined(__cplusplus) && __cplusplus >= IUTEST_CPLUSPLUS_CXX11) || defined(__GXX_EXPERIMENTAL_CXX0X__)
 #    define IUTEST_HAS_CXX11        1
+#  elif (defined(_MSVC_LANG) && _MSVC_LANG >= IUTEST_CPLUSPLUS_CXX11)
+#    define IUTEST_HAS_CXX11        1
 #  endif
 #endif
 
@@ -176,7 +178,9 @@
 
 //! inline variable
 #if !defined(IUTEST_HAS_INLINE_VARIABLE)
-#if defined(__clang__)
+#if   defined(__cpp_inline_variables) && __cpp_inline_variables >= 201606
+#  define IUTEST_HAS_INLINE_VARIABLE        1
+#elif defined(__clang__)
 #  if IUTEST_HAS_CXX1Z && (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 9))
 #    define IUTEST_HAS_INLINE_VARIABLE      1
 #  endif
