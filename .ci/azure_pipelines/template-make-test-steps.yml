@@ -109,7 +109,6 @@ steps:
       git fetch -p --all
       git checkout -b ${{ parameters.TESTRESULT_BRANCHNAME }} origin/${{ parameters.TESTRESULT_BRANCHNAME }} || git checkout -b ${{ parameters.TESTRESULT_BRANCHNAME }}
       git merge origin/master
-      git merge -s ours origin/all
     condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
     displayName: 'setup testresult repository'
 
