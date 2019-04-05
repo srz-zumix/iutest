@@ -31,12 +31,12 @@ namespace detail
 
 #if !IUTEST_USE_OWN_STRING_VIEW
 
-template<typename CharT, typename Traits = ::std::char_traits<CharT>>
+template<typename CharT, typename Traits = ::std::char_traits<CharT> >
 using iu_basic_string_view = ::std::basic_string_view<CharT, Traits>;
 
 #else
 
-template <class CharT, class Traits = ::std::char_traits<CharT>>
+template <class CharT, class Traits = ::std::char_traits<CharT> >
 class iu_basic_string_view;
 
 template<typename CharT, typename Traits>
