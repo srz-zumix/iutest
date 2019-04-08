@@ -386,13 +386,13 @@
 #if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
 #  define IUTEST_HAS_CXX_HDR_CODECVT    0
 #endif
-//! has cuchar
-#if !defined(IUTEST_HAS_CXX_HDR_CUCHAR)
-#  define IUTEST_HAS_CXX_HDR_CUCHAR     0
-#endif
 //! has cstdint header
 #if !defined(IUTEST_HAS_CXX_HDR_CSTDINT)
 #  define IUTEST_HAS_CXX_HDR_CSTDINT    0
+#endif
+//! has cuchar
+#if !defined(IUTEST_HAS_CXX_HDR_CUCHAR)
+#  define IUTEST_HAS_CXX_HDR_CUCHAR     0
 #endif
 //! has filesystem header
 #if !defined(IUTEST_HAS_CXX_HDR_FILESYSTEM)
