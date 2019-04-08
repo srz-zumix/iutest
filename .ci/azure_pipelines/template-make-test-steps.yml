@@ -143,6 +143,7 @@ steps:
       displayName: 'xml2file create pullrequest'
 
   - script: |
+      export LANG=ja_JP.UTF-8
       cd ../${{ parameters.TESTRESULT_REPONAME }}
       ./merge.sh -d ${{ parameters.TESTRESUTL_PR_BRANCHNAME }}
     condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
