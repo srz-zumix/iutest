@@ -3,8 +3,8 @@
 parameters:
   options: ''
   package_name: 'default'
-  make_pullrequest: 'true'
   testresult_git_report: 'true'
+  make_pullrequest: 'true'
   LOCALE_CTYPE: 'ja_JP.UTF-8'
   TESTRESULT_REPONAME: 'iutest-ci-results'
   TESTRESULT_BRANCHNAME: 'ci/azurepipelines/$(Agent.JobName)'
