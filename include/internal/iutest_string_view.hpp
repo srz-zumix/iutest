@@ -140,9 +140,10 @@ public:
     {
         return m_data[pos];
     }
-    IUTEST_CXX_CONSTEXPR const_reference at(size_type pos) const
+    IUTEST_CXX14_CONSTEXPR const_reference at(size_type pos) const
     {
         offset_exclusive(pos);
+        return m_data[pos];
     }
     IUTEST_CXX_CONSTEXPR const_reference front() const IUTEST_CXX_NOEXCEPT_SPEC
     {
@@ -158,18 +159,18 @@ public:
     }
 
 public:
-    IUTEST_CXX_CONSTEXPR void remove_prefix(size_type n) IUTEST_CXX_NOEXCEPT_SPEC
+    IUTEST_CXX14_CONSTEXPR void remove_prefix(size_type n) IUTEST_CXX_NOEXCEPT_SPEC
     {
         m_data += n;
         m_size -= n;
     }
 
-    IUTEST_CXX_CONSTEXPR void remove_suffix(size_type n) IUTEST_CXX_NOEXCEPT_SPEC
+    IUTEST_CXX14_CONSTEXPR void remove_suffix(size_type n) IUTEST_CXX_NOEXCEPT_SPEC
     {
         m_size -= n;
     }
 
-    IUTEST_CXX_CONSTEXPR void swap(iu_basic_string_view & other) IUTEST_CXX_NOEXCEPT_SPEC
+    IUTEST_CXX14_CONSTEXPR void swap(iu_basic_string_view & other) IUTEST_CXX_NOEXCEPT_SPEC
     {
         const iu_basic_string_view tmp = { other };
         other = *this;
@@ -185,7 +186,7 @@ public:
         return count;
     }
 
-    IUTEST_CXX_CONSTEXPR iu_basic_string_view substr(size_type pos = 0, size_type n = npos) const
+    IUTEST_CXX14_CONSTEXPR iu_basic_string_view substr(size_type pos = 0, size_type n = npos) const
     {
         offset_exclusive(pos);
         const size_type count = clamp_suffix_size(pos, n);
@@ -200,7 +201,7 @@ public:
     }
 
 public:
-    IUTEST_CXX_CONSTEXPR int compare(iu_basic_string_view sv) const IUTEST_CXX_NOEXCEPT_SPEC
+    IUTEST_CXX14_CONSTEXPR int compare(iu_basic_string_view sv) const IUTEST_CXX_NOEXCEPT_SPEC
     {
         {
             const size_type count = (::std::min)(m_size, sv.m_size);
@@ -274,7 +275,7 @@ public:
     }
 
 public:
-    IUTEST_CXX_CONSTEXPR size_type find(iu_basic_string_view sv, size_type pos = 0) const IUTEST_CXX_NOEXCEPT_SPEC
+    IUTEST_CXX14_CONSTEXPR size_type find(iu_basic_string_view sv, size_type pos = 0) const IUTEST_CXX_NOEXCEPT_SPEC
     {
         if( (sv.m_size > m_size) || (pos > m_size - sv.m_size) )
         {
@@ -299,7 +300,7 @@ public:
             }
         }
     }
-    IUTEST_CXX_CONSTEXPR size_type find(value_type c, size_type pos = 0) const IUTEST_CXX_NOEXCEPT_SPEC
+    IUTEST_CXX14_CONSTEXPR size_type find(value_type c, size_type pos = 0) const IUTEST_CXX_NOEXCEPT_SPEC
     {
         if( pos < m_size )
         {
