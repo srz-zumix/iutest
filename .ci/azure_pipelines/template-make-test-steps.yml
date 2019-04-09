@@ -18,7 +18,7 @@ steps:
     echo unpackaged=true >> ~/.config/apport/settings
     cat ~/.config/apport/settings
     sudo apt-get install language-pack-ja
-    sudo update-locale LANG=ja_JP.UTF-8
+    sudo update-locale LANG=${{ parameters.LOCALE_CTYPE }}
     locale -a
   displayName: 'setup'
   condition: eq(variables['Agent.OS'], 'Linux')
@@ -100,7 +100,7 @@ steps:
 
 - ${{ if parameters.testresult_git_report }}:
   - script: |
-      export LANG=ja_JP.UTF-8
+      export LANG=${{ parameters.LOCALE_CTYPE }}
       ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
       git clone git@github.com:srz-zumix/${{ parameters.TESTRESULT_REPONAME }}.git ../${{ parameters.TESTRESULT_REPONAME }} 2>/dev/null
       cd ../${{ parameters.TESTRESULT_REPONAME }}
@@ -143,7 +143,7 @@ steps:
       displayName: 'xml2file create pullrequest'
 
   - script: |
-      export LANG=ja_JP.UTF-8
+      export LANG=${{ parameters.LOCALE_CTYPE }}
       cd ../${{ parameters.TESTRESULT_REPONAME }}
       ./merge.sh -d ${{ parameters.TESTRESUTL_PR_BRANCHNAME }}
     condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
