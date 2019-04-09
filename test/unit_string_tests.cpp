@@ -41,8 +41,11 @@ IUTEST(UnitStringTest, StringReplaceToLF)
 
 IUTEST(UnitStringTest, AddDefaultPackageName)
 {
+    const ::std::string prev_name = ::iutest::IUTEST_FLAG(default_package_name);
+    ::iutest::IUTEST_FLAG(default_package_name) = "Test";
     IUTEST_EXPECT_STREQ("Test.a1a2a3a4b5", ::iutest::TestEnv::AddDefaultPackageName("a1a2a3a4b5"));
     IUTEST_EXPECT_STREQ("Hoge.a1a2a3a4b5", ::iutest::TestEnv::AddDefaultPackageName("Hoge.a1a2a3a4b5"));
+    ::iutest::IUTEST_FLAG(default_package_name) = prev_name;
 }
 
 class HackXmlGeneratorListener : public ::iutest::DefaultXmlGeneratorListener

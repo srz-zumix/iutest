@@ -175,8 +175,7 @@ TARGETS_IUTEST_ONLY = \
 		no_yoda_tests \
 		tap_file_generator_listener_tests \
 		tap_printer_listener_tests \
-		type_param_strict_tests \
-		$(UNITTESTS_TARGET)
+		type_param_strict_tests
 
 COMPILEERROR_TARGETS=\
 		check_strict_tests \
