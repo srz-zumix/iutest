@@ -145,6 +145,6 @@ steps:
   - script: |
       export LANG=${{ parameters.LOCALE_CTYPE }}
       cd ../${{ parameters.TESTRESULT_REPONAME }}
-      ./merge.sh -d ${{ parameters.TESTRESUTL_PR_BRANCHNAME }}
+      ./merge.sh -d ${{ parameters.TESTRESUTL_PR_BRANCHNAME }} -r 10
     condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
     displayName: 'try merge'
