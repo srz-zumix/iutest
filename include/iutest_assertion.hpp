@@ -872,7 +872,6 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(
 namespace StrEqHelper
 {
 
-
 #define IIUT_DECL_STREQ_COMPARE_HELPER_(T)   \
     inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(detail::iu_basic_string_view<T> val1   \
         , detail::iu_basic_string_view<T> val2) {                                       \

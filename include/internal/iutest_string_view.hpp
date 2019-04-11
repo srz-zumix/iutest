@@ -99,7 +99,6 @@ public:
     {
     }
 
-
     ~iu_basic_string_view() IUTEST_CXX_DEFAULT_FUNCTION;
 
 public:
@@ -381,6 +380,47 @@ private:
 };
 
 #endif
+
+template<typename CharT, typename Traits = ::std::char_traits<CharT> >
+class iu_nullable_basic_string_view : public iu_basic_string_view<CharT, Traits>
+{
+public:
+    IUTEST_CXX_CONSTEXPR iu_nullable_basic_string_view() IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_DEFAULT_FUNCTION;
+#if IUTEST_HAS_NULLPTR
+    IUTEST_CXX_CONSTEXPR iu_nullable_basic_string_view(::std::nullptr_t)
+        : iu_basic_string_view(IUTEST_NULLPTR, 0)
+    {
+    }
+#endif
+    IUTEST_CXX_CONSTEXPR iu_nullable_basic_string_view(const_pointer str)
+        : iu_basic_string_view(str, str ? traits_type::length(str) : 0)
+    {
+    }
+    IUTEST_CXX_CONSTEXPR iu_nullable_basic_string_view(const_pointer str, size_type len)
+        : iu_basic_string_view(str, len)
+    {
+    }
+#if IUTEST_HAS_DEFAULT_FUNCTIONS
+    IUTEST_CXX_CONSTEXPR iu_nullable_basic_string_view(const iu_nullable_basic_string_view&) IUTEST_CXX_NOEXCEPT_SPEC = default;
+#else
+    IUTEST_CXX_CONSTEXPR iu_nullable_basic_string_view(const iu_nullable_basic_string_view& rhs) IUTEST_CXX_NOEXCEPT_SPEC
+        : iu_basic_string_view(rhs)
+    {
+    }
+#endif
+
+    template<size_t N>
+    iu_nullable_basic_string_view(value_type(&str)[N])
+        : iu_basic_string_view(str, N)
+    {
+    }
+
+    template<typename Allocator>
+    iu_nullable_basic_string_view(const ::std::basic_string<value_type, traits_type, Allocator>& str)
+        : iu_basic_string_view(str.data(), str.length())
+    {
+    }
+};
 
 
 typedef iu_basic_string_view<char>      iu_string_view;
