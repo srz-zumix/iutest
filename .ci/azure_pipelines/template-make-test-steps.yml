@@ -98,7 +98,7 @@ steps:
   inputs:
     testResultsFiles: 'test/*.xml'
 
-- ${{ eq(parameters.testresult_git_report, 'true') }}:
+- ${{ if eq(parameters.testresult_git_report, 'true') }}:
   - script: |
       export LANG=${{ parameters.LOCALE_CTYPE }}
       ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
@@ -129,7 +129,7 @@ steps:
     condition: and(always(), ne(variables['SkipPushTestResult'], 'true'))
     displayName: 'xml2file push to github'
 
-  - ${{ eq(parameters.make_pullrequest, 'true') }}:
+  - ${{ if eq(parameters.make_pullrequest, 'true') }}:
     - script: |
         set -e
         cd ../${{ parameters.TESTRESULT_REPONAME }}
