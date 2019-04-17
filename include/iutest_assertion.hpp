@@ -882,14 +882,14 @@ namespace StrEqHelper
 #endif
 
 #define IIUT_DECL_STREQ_COMPARE_HELPER_SV_(T)   \
-    inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(detail::iu_basic_string_view<T> val1   \
-        , detail::iu_basic_string_view<T> val2) {                                       \
-        return val1 == val2;                                                            \
-    }                                                                                   \
-    inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T* val1, const T* val2) {        \
-        if( val1 == NULL || val2 == NULL ) { return val1 == val2; }                     \
-        return Compare(detail::iu_basic_string_view<T>(val1)                            \
-            , detail::iu_basic_string_view<T>(val2));                                   \
+    inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(detail::iu_nullable_basic_string_view<T> val1  \
+        , detail::iu_nullable_basic_string_view<T> val2) {                                      \
+        return val1 == val2;                                                                    \
+    }                                                                                           \
+    inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T* val1, const T* val2) {                \
+        if( val1 == NULL || val2 == NULL ) { return val1 == val2; }                             \
+        return Compare(detail::iu_nullable_basic_string_view<T>(val1)                           \
+            , detail::iu_nullable_basic_string_view<T>(val2));                                  \
     }
 
 #define IIUT_DECL_STREQ_COMPARE_HELPER_(T)      \
@@ -953,7 +953,8 @@ inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T1& val1, const T2& val2)
 }   // end of namespace StrNeHelper
 
 template<typename T1, typename T2, typename detail::enable_if<
-    !std::is_integral<T1>::value || !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value>
+    (!std::is_integral<T1>::value || !detail::is_pointer<T2>::value)
+    && (!std::is_integral<T2>::value || !detail::is_pointer<T1>::value), void>::type*& = detail::enabler::value>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     const char* expr1, const char* expr2
     , T1 val1, T2 val2)
@@ -966,6 +967,21 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
         << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))
         << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
+}
+
+template<typename T>
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
+    const char* expr1, const char* expr2
+    , T val1, ::std::nullptr_t)
+{
+    if( StrNeHelper::Compare(val1, nullptr) )
+    {
+        return AssertionSuccess();
+    }
+
+    return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
+        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(nullptr, val1))
+        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, nullptr));
 }
 
 template<typename T>
