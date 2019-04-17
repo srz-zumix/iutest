@@ -422,6 +422,11 @@ public:
     {
     }
 
+    iu_nullable_basic_string_view(const _Mybase& str_view)
+        : _Mybase(str_view)
+    {
+    }
+
     template<typename Allocator>
     iu_nullable_basic_string_view(const ::std::basic_string<value_type, traits_type, Allocator>& str)
         : _Mybase(str.data(), str.length())
