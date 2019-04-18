@@ -34,7 +34,8 @@ include CommonMakefile.in
 # Optimize
 #OPTIMIZE=-O2
 
-CXXFLAGS += -g -Wall -Wextra $(OPTIMIZE)
+STRICT_CXXFLAGS:= -Wformat=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wconversion -Wfloat-equal -Wpointer-arith
+CXXFLAGS += -g -Wall -Wextra $(STRICT_CXXFLAGS) $(OPTIMIZE)
 
 ifdef _DEBUG
 CXXFLAGS += -ggdb
