@@ -926,6 +926,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
         , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1)));
 }
 
+#if IUTEST_HAS_NULLPTR
+
 template<typename T>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
     const char* expr1, const char* expr2
@@ -940,6 +942,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
         , detail::ShowStringQuoted(FormatForComparisonFailureMessage(nullptr, val2))
         , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, nullptr)));
 }
+
+#endif
 
 namespace StrNeHelper
 {
@@ -968,6 +972,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
         << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))
         << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
 }
+
+#if IUTEST_HAS_NULLPTR
 
 template<typename T>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
@@ -998,6 +1004,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
         << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, nullptr))
         << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(nullptr, val2));
 }
+
+#endif
 
 namespace StrCaseEqHelper
 {
