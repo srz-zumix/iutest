@@ -17,6 +17,7 @@ assignees: ''
 * [ ] Cirrus CI
 * [ ] Codefresh
 * [ ] Codeship
+* [ ] GitHub Actions
 * [ ] GitLab CI
 * [ ] INSPECODE
 * [ ] Scrutinizer

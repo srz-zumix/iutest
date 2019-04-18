@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -171,6 +171,7 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_PLATFORM);
 
     IIUT_SHOW_MACRO(IUTEST_CHECK_STRICT);
+    IIUT_SHOW_MACRO(IUTEST_CPLUSPLUS);
     IIUT_SHOW_MACRO(IUTEST_HAS_ANALYSIS_ASSUME);
     IIUT_SHOW_MACRO(IUTEST_HAS_ATTRIBUTE);
     IIUT_SHOW_MACRO(IUTEST_HAS_AUTO);
@@ -231,6 +232,7 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_HAS_VARIADIC_TEMPLATES);
     IIUT_SHOW_MACRO(IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES);
     IIUT_SHOW_MACRO(IUTEST_HAS_WANT_SECURE_LIB);
+    IIUT_SHOW_MACRO(IUTEST_USE_OWN_LIST);
     IIUT_SHOW_MACRO(IUTEST_USE_THROW_ON_ASSERTION_FAILURE);
 
 #ifdef IUTEST_LIBSTDCXX_VERSION

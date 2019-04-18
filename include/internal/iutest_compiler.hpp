@@ -106,12 +106,19 @@
 #define IUTEST_CPLUSPLUS_CXX14 201402L
 #define IUTEST_CPLUSPLUS_CXX17 201703L
 
+// __cplusplus
+#if     defined(_MSVC_LANG)
+#  define IUTEST_CPLUSPLUS      _MSVC_LANG
+#elif   defined(__cplusplus)
+#  define IUTEST_CPLUSPLUS      __cplusplus
+#else
+#  define IUTEST_CPLUSPLUS      0
+#endif
+
 // c++2a
 
 #if !defined(IUTEST_HAS_CXX2A)
-#  if (defined(__cplusplus) && __cplusplus > IUTEST_CPLUSPLUS_CXX17)
-#    define IUTEST_HAS_CXX2A        1
-#  elif (defined(_MSVC_LANG) && _MSVC_LANG > IUTEST_CPLUSPLUS_CXX17)
+#  if IUTEST_CPLUSPLUS > IUTEST_CPLUSPLUS_CXX17
 #    define IUTEST_HAS_CXX2A        1
 #  endif
 #endif
@@ -123,9 +130,7 @@
 // c++17
 //! is c++17 compiler
 #if !defined(IUTEST_HAS_CXX17)
-#  if (defined(__cplusplus) && __cplusplus >= IUTEST_CPLUSPLUS_CXX17)
-#    define IUTEST_HAS_CXX17        1
-#  elif (defined(_MSVC_LANG) && _MSVC_LANG >= IUTEST_CPLUSPLUS_CXX17)
+#  if IUTEST_CPLUSPLUS >= IUTEST_CPLUSPLUS_CXX17
 #    define IUTEST_HAS_CXX17        1
 #  endif
 #endif
@@ -135,9 +140,7 @@
 #endif
 
 #if !defined(IUTEST_HAS_CXX1Z)
-#  if (defined(__cplusplus) && __cplusplus > IUTEST_CPLUSPLUS_CXX14)
-#    define IUTEST_HAS_CXX1Z        1
-#  elif (defined(_MSVC_LANG) && _MSVC_LANG > IUTEST_CPLUSPLUS_CXX14)
+#  if IUTEST_CPLUSPLUS > IUTEST_CPLUSPLUS_CXX14
 #    define IUTEST_HAS_CXX1Z        1
 #  endif
 #endif
@@ -148,9 +151,7 @@
 
 //! is c++14 compiler
 #if !defined(IUTEST_HAS_CXX14)
-#  if (defined(__cplusplus) && __cplusplus >= IUTEST_CPLUSPLUS_CXX14)
-#    define IUTEST_HAS_CXX14        1
-#  elif (defined(_MSVC_LANG) && _MSVC_LANG >= IUTEST_CPLUSPLUS_CXX14)
+#  if IUTEST_CPLUSPLUS >= IUTEST_CPLUSPLUS_CXX14
 #    define IUTEST_HAS_CXX14        1
 #  endif
 #endif
@@ -161,7 +162,7 @@
 
 //! is c++11 compiler
 #if !defined(IUTEST_HAS_CXX11)
-#  if (defined(__cplusplus) && __cplusplus >= IUTEST_CPLUSPLUS_CXX11) || defined(__GXX_EXPERIMENTAL_CXX0X__)
+#  if (IUTEST_CPLUSPLUS >= IUTEST_CPLUSPLUS_CXX11) || defined(__GXX_EXPERIMENTAL_CXX0X__)
 #    define IUTEST_HAS_CXX11        1
 #  endif
 #endif
@@ -176,7 +177,9 @@
 
 //! inline variable
 #if !defined(IUTEST_HAS_INLINE_VARIABLE)
-#if defined(__clang__)
+#if   defined(__cpp_inline_variables) && __cpp_inline_variables >= 201606
+#  define IUTEST_HAS_INLINE_VARIABLE        1
+#elif defined(__clang__)
 #  if IUTEST_HAS_CXX1Z && (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 9))
 #    define IUTEST_HAS_INLINE_VARIABLE      1
 #  endif
@@ -351,6 +354,13 @@
 #  define IUTEST_CXX_CONSTEXPR          constexpr
 #else
 #  define IUTEST_CXX_CONSTEXPR
+#endif
+
+#if IUTEST_HAS_CONSTEXPR && \
+        (defined(__cpp_constexpr) && __cpp_constexpr >= 201304 || IUTEST_HAS_CXX14)
+#  define IUTEST_CXX14_CONSTEXPR        constexpr
+#else
+#  define IUTEST_CXX14_CONSTEXPR
 #endif
 
 //! constexpr or const
