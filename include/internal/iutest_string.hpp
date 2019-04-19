@@ -320,11 +320,6 @@ inline void StringSplit(const ::std::string& str, char delimiter, ::std::vector<
     dst.swap(parsed);
 }
 
-inline IUTEST_CXX_CONSTEXPR char ToOct(unsigned int n)
-{
-    return '0' + (n & 0x7);
-}
-
 template<typename T>
 inline ::std::string ToOctString(T value)
 {
@@ -332,7 +327,8 @@ inline ::std::string ToOctString(T value)
     char buf[kN + 1] = { 0 };
     for(size_t i = 0; i < kN; ++i)
     {
-        buf[i] = ToOct(static_cast<unsigned int>((value >> ((kN - i - 1) * 3))));
+        const T n = (value >> ((kN - i - 1) * 3));
+        buf[i] = static_cast<char>('0' + (n & 0x7));
     }
     buf[kN] = '\0';
     return buf;
@@ -340,7 +336,7 @@ inline ::std::string ToOctString(T value)
 
 inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n)
 {
-    return (n&0xF) >= 0xA ? 'A'+((n&0xF)-0xA) : '0'+(n&0xF);
+    return static_cast<char>((n&0xF) >= 0xA ? 'A'+((n&0xF)-0xA) : '0'+(n&0xF));
 }
 
 template<typename T>
@@ -359,8 +355,8 @@ inline ::std::string ToHexString(T value)
 inline ::std::string FormatIntWidth2(int value)
 {
     char buf[3] = "00";
-    buf[0] = (value/10)%10 + '0';
-    buf[1] = (value   )%10 + '0';
+    buf[0] = static_cast<char>((value/10)%10 + '0');
+    buf[1] = static_cast<char>((value   )%10 + '0');
     return buf;
 }
 
