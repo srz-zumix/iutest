@@ -24,6 +24,9 @@
 #  include <cstdio>
 #  define __STRICT_ANSI__
 #endif
+#if !defined(_MSC_VER)
+#  include <stdint.h>
+#endif
 #include <cstdlib>
 
 //======================================================================
