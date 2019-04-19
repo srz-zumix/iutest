@@ -775,7 +775,7 @@ public:
 class EqHelper
 {
     template<typename T1, typename T2, typename detail::enable_if<
-        !std::is_integral<T1>::value || !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value>
+        !detail::is_integral<T1>::value || !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value>
     static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
     {
         return backward::EqHelper<false>::Compare(expr1, expr2, val1, val2);
@@ -793,7 +793,7 @@ class EqHelper
 class NeHelper
 {
     template<typename T1, typename T2, typename detail::enable_if<
-        !std::is_integral<T1>::value || !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value>
+        !detail::is_integral<T1>::value || !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value>
     static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
     {
         return backward::NeHelper<false>::Compare(expr1, expr2, val1, val2);
@@ -911,7 +911,7 @@ IIUT_DECL_STREQ_COMPARE_HELPER_(char32_t)
 }   // end of namespace StrEqHelper
 
 template<typename T1, typename T2, typename detail::enable_if<
-    !std::is_integral<T1>::value || !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value>
+    !detail::is_integral<T1>::value || !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
     const char* expr1, const char* expr2
     , T1 val1, T2 val2)
@@ -957,8 +957,8 @@ inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T1& val1, const T2& val2)
 }   // end of namespace StrNeHelper
 
 template<typename T1, typename T2, typename detail::enable_if<
-    (!std::is_integral<T1>::value || !detail::is_pointer<T2>::value)
-    && (!std::is_integral<T2>::value || !detail::is_pointer<T1>::value), void>::type*& = detail::enabler::value>
+    (!detail::is_integral<T1>::value || !detail::is_pointer<T2>::value)
+    && (!detail::is_integral<T2>::value || !detail::is_pointer<T1>::value), void>::type*& = detail::enabler::value>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     const char* expr1, const char* expr2
     , T1 val1, T2 val2)
