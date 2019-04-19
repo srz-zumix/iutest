@@ -751,7 +751,7 @@ struct type_least_t<8>
 /**
  * @brief   type_fit_t
 */
-template<int SIZE>
+template<size_t SIZE>
 struct type_fit_t {};
 
 /** type_fit_t<1> */

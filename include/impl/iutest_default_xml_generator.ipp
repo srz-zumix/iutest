@@ -32,6 +32,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestIterationStart(const U
     }
     if( !m_output_path_format.empty() )
     {
+        // FIXME: -Wformat-nonliteral
         m_output_path = detail::StringFormat(m_output_path_format.c_str(), iteration);
         if( m_output_path == m_output_path_format)
         {
