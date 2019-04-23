@@ -367,6 +367,7 @@ class is_integral<__int128> : public true_type {};
 /**
  * @brief   is_integral
 */
+template<typename T>
 struct is_integral : public is_integral_helper::is_integral<T> {};
 
 namespace is_pointer_helper
