@@ -17,6 +17,13 @@
 // include
 #include "iutest.hpp"
 
+IUTEST(UnitStringTest, Stricmp)
+{
+    IUTEST_EXPECT_EQ(0, ::iutest::detail::iu_stricmp("AAA", "aaa"));
+    IUTEST_EXPECT_LT(0, ::iutest::detail::iu_stricmp("AAAa", "aaa"));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::iu_stricmp("AAA", "aaaA"));
+}
+
 IUTEST(UnitStringTest, StringStrip)
 {
     ::std::string str = "   a1 a2  ";
