@@ -105,8 +105,8 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
     const wchar_t* r = str2;
     while(*l)
     {
-        wchar_t ul = towupper(*l);
-        wchar_t ur = towupper(*r);
+        const wint_t ul = towupper(*l);
+        const wint_t ur = towupper(*r);
         if( ul < ur )
         {
             return -1;
@@ -381,7 +381,7 @@ inline ::std::string FormatSizeByte(UInt64 value)
     const UInt64 n = static_cast<UInt64>(::std::floor(view_value));
     const UInt64 f = static_cast<UInt64>(view_value * 10.0 - n * 10.0);
     const char* suffix = suffixes[index];
-    if(view_value - n == 0)
+    if(static_cast<UInt64>(view_value - n) == 0u)
     {
         return StringFormat("%llu%s", n, suffix);
     }
