@@ -35,8 +35,10 @@
 #if !defined(IUTEST_USE_GTEST)
     FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0, 1), "(0x" );
     FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0, 1), "(0x" );
-    FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0.0f/a, 0.0f/a), "(0x" );
-    FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0.0/a, 0.0f/a), "(0x" );
+    const float fa = static_cast<float>(a);
+    FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0.0f/fa, 0.0f/fa), "(0x" );
+    const double da = static_cast<double>(a);
+    FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0.0/da, 0.0f/da), "(0x" );
     FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::FloatLE , 2, 0), "(0x" );
     FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::DoubleLE, 2, 0), "(0x" );
 #else

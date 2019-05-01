@@ -55,7 +55,7 @@ IUTEST_TYPED_TEST(FloatingpointTest, NINF)
 {
     typedef typename TestFixture::ftype FloatType;
     const TypeParam b=TestFixture::ZERO;
-    const TypeParam lb=static_cast<FloatType>(log(b));
+    const TypeParam lb=static_cast<TypeParam>(log(b));
     IUTEST_EXPECT_EQ(FloatType(lb), FloatType::NINF());
 }
 
