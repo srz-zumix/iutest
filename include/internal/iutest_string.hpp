@@ -383,11 +383,11 @@ inline ::std::string FormatSizeByte(UInt64 value)
     const char* suffix = suffixes[index];
     if(static_cast<UInt32>(view_value - n) == 0u)
     {
-        return StringFormat("%llu%s", n, suffix);
+        return StringFormat("%lu%s", n, suffix);
     }
     else
     {
-        return StringFormat("%llu.%llu%s", n, f, suffix);
+        return StringFormat("%lu.%lu%s", n, f, suffix);
     }
 }
 
