@@ -926,24 +926,20 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
         , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1)));
 }
 
-#if IUTEST_HAS_NULLPTR
-
 template<typename T>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
     const char* expr1, const char* expr2
-    , ::std::nullptr_t, T val2)
+    , detail::iu_nullptr_convertible_t, T val2)
 {
-    if( StrEqHelper::Compare(nullptr, val2) )
+    if( StrEqHelper::Compare(IUTEST_NULLPTR, val2) )
     {
         return AssertionSuccess();
     }
 
     return EqFailure(expr1, expr2
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(nullptr, val2))
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, nullptr)));
+        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(IUTEST_NULLPTR, val2))
+        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, IUTEST_NULLPTR)));
 }
-
-#endif
 
 namespace StrNeHelper
 {

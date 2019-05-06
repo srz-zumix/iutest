@@ -121,6 +121,14 @@ namespace detail
 {
 
 //======================================================================
+// types
+#if IUTEST_HAS_NULLPTR
+typedef ::std::nullptr_t iu_nullptr_convertible_t;
+#else
+typedef ::iutest_compatible::IsNullLiteralHelper::Object* iu_nullptr_convertible_t;
+#endif
+
+//======================================================================
 // function
 
 /**
