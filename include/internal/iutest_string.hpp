@@ -381,7 +381,7 @@ inline ::std::string FormatSizeByte(UInt64 value)
     const UInt32 n = static_cast<UInt32>(::std::floor(view_value));
     const UInt32 f = static_cast<UInt32>(view_value * 10.0 - n * 10.0);
     const char* suffix = suffixes[index];
-    if(static_cast<UInt32>(view_value - n) == 0u)
+    if(view_value - n <= 0.0)
     {
         return StringFormat("%lu%s", n, suffix);
     }
