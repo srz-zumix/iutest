@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -70,10 +70,11 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestStart(const TestInfo& t
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestPartResult(const TestPartResult& test_part_result)
 {
     //if( test_part_result.type() == TestPartResult::kSuccess ) return;
+    const char* msg = test_part_result.make_newline_message().c_str();
 #if defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)
-    OutputDebugStringA(test_part_result.make_newline_message().c_str());
+    OutputDebugStringA(msg);
 #endif
-    detail::iuConsole::output(test_part_result.make_newline_message().c_str());
+    detail::iuConsole::output("%s", msg);
 }
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestRecordProperty(const TestProperty& test_property)
 {
@@ -104,7 +105,7 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestEnd(const TestInfo& tes
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
         detail::iuConsole::output(" (--ms)" );
 #else
-        detail::iuConsole::output(" (%dms)", test_info.elapsed_time());
+        detail::iuConsole::output(" (%sms)", detail::FormatTimeInMillisec(test_info.elapsed_time()).c_str());
 #endif
     }
     detail::iuConsole::output("\n");
@@ -118,7 +119,7 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestCaseEnd(const TestCase&
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
         detail::iuConsole::output("(--ms total)");
 #else
-        detail::iuConsole::output("(%dms total)", test_case.elapsed_time() );
+        detail::iuConsole::output("(%sms total)", detail::FormatTimeInMillisec(test_case.elapsed_time()).c_str());
 #endif
     }
     detail::iuConsole::output("\n\n");
@@ -147,7 +148,7 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestIterationEnd(const Unit
 #if defined(IUTEST_NOT_SUPPORT_STOPWATCH)
         detail::iuConsole::output(" (--ms total)");
 #else
-        detail::iuConsole::output(" (%dms total)", test.elapsed_time() );
+        detail::iuConsole::output(" (%sms total)", detail::FormatTimeInMillisec(test.elapsed_time()).c_str());
 #endif
     }
     detail::iuConsole::output("\n");

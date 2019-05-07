@@ -48,7 +48,7 @@ public:
 
 inline void iuOptionMessage::ShowHelp()
 {
-    const char* readme =
+    detail::iuConsole::color_output(detail::iuConsole::cyan,
         "--------------------------------------------------\n"
         "Name\n"
         "    iutest - iris unit test framework\n"
@@ -91,8 +91,8 @@ inline void iuOptionMessage::ShowHelp()
         "    Copyright (c) 2011-2018, Takazumi-Shirayanagi\n"
         "\n"
         "    This software is released under the new BSD License, see LICENSE\n"
-        "\n";
-    detail::iuConsole::color_output(detail::iuConsole::cyan, readme);
+        "\n"
+    );
 }
 
 inline void iuOptionMessage::ShowVersion()
