@@ -1299,6 +1299,22 @@
 #  define IUTEST_ATTRIBUTE_INIT_PRIORITY_(n)
 #endif
 
+//! format
+#if !defined(IUTEST_ATTRIBUTE_FORMAT)
+#  if   defined(__has_attribute)
+#    if __has_attribute(format)
+#      define IUTEST_ATTRIBUTE_FORMAT(fmt, fi, vi)  __attribute__ ((__format__ (fmt, fi, vi)))
+#    endif
+#  elif defined(__GNUC__) && !defined(COMPILER_ICC)
+#    define IUTEST_ATTRIBUTE_FORMAT(fmt, fi, vi)    __attribute__ ((__format__ (fmt, fi, vi)))
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_FORMAT)
+#  define IUTEST_ATTRIBUTE_FORMAT(fmt, fi, vi)
+#endif
+
+
 //! MemorySanitizer
 #if !defined(IUTEST_HAS_MEMORY_SANITIZER)
 #  if defined(__has_feature)
