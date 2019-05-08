@@ -133,6 +133,8 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 namespace wrapper
 {
 
+int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_ATTRIBUTE_FORMAT(__printf__, 3, 0);
+
 inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
     char buffer[4096];
@@ -148,6 +150,9 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 }
 
 } // end of namespace wrapper
+
+int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_ATTRIBUTE_FORMAT(__printf__, 3, 0);
+int iu_snprintf(char* dst, size_t size, const char* format, ...) IUTEST_ATTRIBUTE_FORMAT(__printf__, 3, 4);
 
 /**
  * @internal
