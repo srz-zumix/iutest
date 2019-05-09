@@ -43,7 +43,7 @@ namespace iutest {
 namespace detail
 {
 
-::std::string StringFormat(const char* format, ...);
+::std::string StringFormat(const char* format, ...) IUTEST_ATTRIBUTE_FORMAT(__printf__, 1, 2);
 
 /**
  * @internal
