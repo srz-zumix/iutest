@@ -81,25 +81,14 @@ script:
       ls cov-int
     fi
   # Coverage
-  - |
-    if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then
-      if [ "${USE_COVERALLS}" = '1' ]; then make send-coveralls; fi
-      if [ "${USE_CODECOV}" = '1' ]; then make send-codecov; fi
-    fi
+  - if [ "${USE_COVERALLS}" = '1' ]; then make send-coveralls; fi
+  - if [ "${USE_CODECOV}" = '1' ]; then make send-codecov; fi
   #- if [ "${CPPCHECK}" = '1' ]; then
   #    cppcheck --version;
   #    cppcheck samples --enable=all -f -j 4 --suppress=syntaxError -i samples/gmock -i samples/gtest -i samples/vcunittest -i samples/windows -UGTEST_HIDE_UNREACHABLE_CODE_ -UGTEST_API_ -UGTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS_ -UGTEST_HAS_STD_TUPLE_ -UGTEST_MESSAGE_AT_ -UGTEST_INCLUDE_GTEST_GTEST_TYPED_TEST_H_ -UGMOCK_INCLUDE_GMOCK_GMOCK_H_ -U__STDC_WANT_SECURE_LIB__ -UIUTEST_USE_GTEST -UIUTEST_DEBUG -UIUTEST_FILE -U__GLIBCXX__;
   #  else
   #    cd ./test; make showcxxversion ${USE_FUSED} all;
   #  fi
-
-after_success:
-  # Coverage
-  - |
-    if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then
-      if [ "${USE_COVERALLS}" = '1' ]; then make send-coveralls; fi
-      if [ "${USE_CODECOV}" = '1' ]; then make send-codecov; fi
-    fi
 
 env:
   global:
