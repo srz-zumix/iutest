@@ -70,11 +70,11 @@ IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestStart(const TestInfo& t
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestPartResult(const TestPartResult& test_part_result)
 {
     //if( test_part_result.type() == TestPartResult::kSuccess ) return;
-    const char* msg = test_part_result.make_newline_message().c_str();
+    const std::string msg = test_part_result.make_newline_message();;
 #if defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)
-    OutputDebugStringA(msg);
+    OutputDebugStringA(msg.c_str());
 #endif
-    detail::iuConsole::output("%s", msg);
+    detail::iuConsole::output("%s", msg.c_str());
 }
 IUTEST_IPP_INLINE void DefaultResultPrintListener::OnTestRecordProperty(const TestProperty& test_property)
 {

@@ -332,7 +332,8 @@ inline ::std::string ToOctString(T value)
     const size_t kN = (kB + 2) / 3;
     const size_t kD = kB - (kN - 1) * 3;
     const size_t kMask = (1u << kD) - 1u;
-    char buf[kN + 1] = { ToOct(static_cast<unsigned int>((value >> ((kN - 1) * 3)) & kMask)), 0 };
+    const T head = (value >> ((kN - 1) * 3)) & kMask;
+    char buf[kN + 1] = { static_cast<char>('0' + (head & 0x7)), 0 };
     for(size_t i = 1; i < kN; ++i)
     {
         const T n = (value >> ((kN - i - 1) * 3));
