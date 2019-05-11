@@ -46,8 +46,8 @@ before_install:
     fi
   # clang
   - |
-    if [ "${CXX}" = 'clang++' ] && [ "${TRAVIS_OS_NAME}" != 'osx' ] && [ "${USE_COVERAGE}" != '' ]; then
-      export CCC=clang-8
+    if [ "${CXX}" = 'clang++' ] && [ "${TRAVIS_OS_NAME}" != 'osx' ] && [ "${USE_COVERAGE}" = '' ]; then
+      export CC=clang-8
       export CXX=clang++-8
       #update-alternatives --install /usr/bin/clang   clang   /usr/bin/clang-7   90
       #update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-7 90
