@@ -216,6 +216,16 @@
 #endif
 
 #if   defined(_MSC_VER)
+#  define IUTEST_PRAGMA_WARN_CAST_ALIGN()   // IUTEST_PRAGMA_MSC_WARN_DISABLE(4390)
+#elif defined(__clang__)
+#  define IUTEST_PRAGMA_WARN_CAST_ALIGN()   IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Werror=cast-align")
+#elif defined(__GNUC__)
+#  define IUTEST_PRAGMA_WARN_CAST_ALIGN()   IUTEST_PRAGMA_GCC_WARN_DISABLE("-Werror=cast-align")
+#else
+#  define IUTEST_PRAGMA_WARN_CAST_ALIGN()
+#endif
+
+#if   defined(_MSC_VER)
 #  define IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()
 #elif defined(__clang__)
 #  if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ > 0))
