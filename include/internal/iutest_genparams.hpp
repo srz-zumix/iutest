@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -193,6 +193,9 @@ class iuConcatParamHolder
 public:
     iuConcatParamHolder(const G1& g1, const G2& g2)
         : m_g1(g1), m_g2(g2) {}
+
+private:
+    iuConcatParamHolder() IUTEST_CXX_DELETED_FUNCTION;
 
 public:
     template<typename T>
@@ -544,7 +547,7 @@ public:
 #endif
 
 private:
-    void operator = (const _Myt&);
+    _Myt& operator = (const _Myt&) IUTEST_CXX_DELETED_FUNCTION;
 private:
     _MyTuple v;
 };
@@ -721,7 +724,7 @@ public:
     }
 
 private:
-    void operator = (const _Myt&) {}
+    _Myt& operator = (const _Myt&);
 private:
     const Generator1 m_g1;
     const Generator2 m_g2;
@@ -757,7 +760,7 @@ private:
                 IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_STATICCAST_, T, m_g) );         \
         }                                                       \
         IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_CONCAT_()            \
-    private: void operator = (const _Myt&) {}                   \
+    private: _Myt& operator = (const _Myt&);                    \
         IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_CARTESIAN_PRODUCT_HOLDER_VARIABLE_, const Generator, m_g)      \
     }
 
@@ -1108,7 +1111,7 @@ public:
 #endif
 
 private:
-    void operator = (const _Myt&);
+    _Myt& operator = (const _Myt&) IUTEST_CXX_DELETED_FUNCTION;
 private:
     _MyTuple v;
 };
@@ -1298,7 +1301,7 @@ public:
     }
 
 private:
-    void operator = (const _Myt&) {}
+    _Myt& operator = (const _Myt&);
 private:
     const Generator1 m_g1;
     const Generator2 m_g2;
@@ -1330,7 +1333,7 @@ private:
                 IUTEST_PP_ENUM_BINARY(n, IIUT_DECL_PAIRWISE_HOLDER_STATICCAST_, T, m_g) );          \
         }                                                       \
         IIUT_DECL_PAIRWISE_HOLDER_CONCAT_()                     \
-    private: void operator = (const _Myt&) {}                   \
+    private: _Myt& operator = (const _Myt&);                    \
         IUTEST_PP_REPEAT_BINARY(n, IIUT_DECL_PAIRWISE_HOLDER_VARIABLE_, const Generator, m_g)       \
     }
 

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2018-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -127,6 +127,29 @@ IUTEST(Variant, Compare)
     }
 }
 
+#if IUTEST_HAS_EXCEPTIONS
+struct AlwaysThrow
+{
+  AlwaysThrow() = default;
+  AlwaysThrow(const AlwaysThrow&)
+  {
+    throw std::exception();
+  }
+  AlwaysThrow(AlwaysThrow&&)
+  {
+    throw std::exception();
+  }
+  AlwaysThrow& operator=(const AlwaysThrow&)
+  {
+    throw std::exception();
+  }
+  AlwaysThrow& operator=(AlwaysThrow&&)
+  {
+    throw std::exception();
+  }
+};
+#endif
+
 IUTEST(Variant, PrintTo)
 {
     {
@@ -144,9 +167,10 @@ IUTEST(Variant, PrintTo)
         ::std::variant<std::monostate, int, float, std::string> v;
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
+#if IUTEST_HAS_EXCEPTIONS
     {
         PrintToLogChecker ck("valueless_by_exception");
-        ::std::variant<int, float, ::std::string> v = 0.2f;
+        ::std::variant<int, float, AlwaysThrow> v = 0.2f;
         try
         {
             struct S { operator int() { throw 42; } };
@@ -154,9 +178,23 @@ IUTEST(Variant, PrintTo)
         }
         catch(...)
         {
+            IUTEST_INFORM_TRUE(v.valueless_by_exception());
         }
+        if( !v.valueless_by_exception() )
+        {
+            try
+            {
+                v = AlwaysThrow();
+            }
+            catch(...)
+            {
+                IUTEST_INFORM_TRUE(v.valueless_by_exception());
+            }
+        }
+
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
+#endif
 }
 
 #endif
