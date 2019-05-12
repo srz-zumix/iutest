@@ -235,7 +235,7 @@ private:
     }
 
 private:
-    IUTEST_PP_DISALLOW_ASSIGN(ExpressionLHS);
+    ExpressionLHS& operator = (const ExpressionLHS&) IUTEST_CXX_DELETED_FUNCTION;
 private:
     T m_lhs;
     ::std::string m_message;
