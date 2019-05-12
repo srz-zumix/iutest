@@ -218,9 +218,9 @@
 #if   defined(_MSC_VER)
 #  define IUTEST_PRAGMA_WARN_CAST_ALIGN()   // IUTEST_PRAGMA_MSC_WARN_DISABLE(4390)
 #elif defined(__clang__)
-#  define IUTEST_PRAGMA_WARN_CAST_ALIGN()   IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Werror=cast-align")
+#  define IUTEST_PRAGMA_WARN_CAST_ALIGN()   IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wcast-align")
 #elif defined(__GNUC__)
-#  define IUTEST_PRAGMA_WARN_CAST_ALIGN()   IUTEST_PRAGMA_GCC_WARN_DISABLE("-Werror=cast-align")
+#  define IUTEST_PRAGMA_WARN_CAST_ALIGN()   IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wcast-align")
 #else
 #  define IUTEST_PRAGMA_WARN_CAST_ALIGN()
 #endif
