@@ -270,12 +270,13 @@ else
 endif
 endif
 
+COVERALLS_OPTION= --service travis-pro
 send-coveralls: coverage
 ifeq ($(USE_COVERAGE),lcov)
-	cd ../; lcoveralls --retry-count 3 ./test/coverage.info
+	cd ../; lcoveralls ${COVERALLS_OPTION} --retry-count 3 ./test/coverage.info
 endif
 ifeq ($(USE_COVERAGE),gcov)
-	cd ../; coveralls -n -r ./ -b ./test $(COVARALLS_EXCLUDE_PATTERN) $(COVARALLS_EXCLUDE)
+	cd ../; coveralls ${COVERALLS_OPTION} -n -r ./ -b ./test $(COVARALLS_EXCLUDE_PATTERN) $(COVARALLS_EXCLUDE)
 endif
 
 send-codecov: coverage
