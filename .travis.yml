@@ -58,7 +58,10 @@ install:
   - |
     if [ "${USE_COVERALLS}" = '1' ]; then
       if [ "${USE_COVERAGE}" = 'gcov' ]; then easy_install cpp-coveralls; fi
-      if [ "${USE_COVERAGE}" = 'lcov' ]; then gem install lcoveralls; fi
+      if [ "${USE_COVERAGE}" = 'lcov' ]; then
+        gem install specific_install && gem specific_install -l 'git://github.com/pcolby/lcoveralls.git'
+        # gem install lcoveralls;
+      fi
     fi
   # gtest/gmock
   - if [ "${USE_GTEST}" = '1' ] || [ "${USE_GMOCK}" = '1' ]; then . .ci/travisci/install-gtest.sh; fi
