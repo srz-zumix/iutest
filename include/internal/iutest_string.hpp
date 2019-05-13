@@ -392,11 +392,11 @@ inline ::std::string FormatSizeByte(UInt64 value)
     const char* suffix = suffixes[index];
     if(view_value - n <= 0.0)
     {
-        return StringFormat("%lu%s", n, suffix);
+        return StringFormat("%" PRIu32 "%s", n, suffix);
     }
     else
     {
-        return StringFormat("%lu.%lu%s", n, f, suffix);
+        return StringFormat("%" PRIu32 ".%" PRIu32 "%s", n, f, suffix);
     }
 }
 
