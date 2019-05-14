@@ -32,7 +32,7 @@ public:
     //! 書き込み
     virtual bool Write(const void* buf, size_t size, size_t cnt) = 0;
 public:
-    virtual int Printf(const char* fmt, ...)
+    virtual int Printf(const char* fmt, ...) IUTEST_ATTRIBUTE_FORMAT(__printf__, 2, 3)
     {
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
