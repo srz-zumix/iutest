@@ -57,7 +57,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::SkipTest()
 
 IUTEST_IPP_INLINE int UnitTestImpl::Listup() const
 {
-    detail::iuConsole::output("%d tests from %d testcase\n", m_total_test_num, m_testcases.size() );
+    detail::iuConsole::output("%d tests from %zu testcase\n", m_total_test_num, m_testcases.size() );
     for( iuTestCases::const_iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
     {
         detail::iuConsole::output("%s\n", (*it)->name());

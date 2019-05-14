@@ -369,6 +369,22 @@ inline ::std::string FormatIntWidth2(int value)
     return buf;
 }
 
+#define IIUT_DECL_TOSTRING(fmt_, type_) \
+    inline ::std::string iu_to_string(type_ value) {\
+        char buf[128];                              \
+        iu_snprintf(buf, sizeof(buf), fmt_, value); \
+        return buf;                                 \
+    }
+
+IIUT_DECL_TOSTRING("%d", int)
+IIUT_DECL_TOSTRING("%u", unsigned int)
+IIUT_DECL_TOSTRING("%ld", long)
+IIUT_DECL_TOSTRING("%lu", unsigned long)
+IIUT_DECL_TOSTRING("%lld", long long)
+IIUT_DECL_TOSTRING("%llu", unsigned long long)
+
+#undef IIUT_DECL_TOSTRING
+
 inline ::std::string FormatSizeByte(UInt64 value)
 {
     const char* suffixes[] = {
@@ -392,11 +408,11 @@ inline ::std::string FormatSizeByte(UInt64 value)
     const char* suffix = suffixes[index];
     if(view_value - n <= 0.0)
     {
-        return StringFormat("%" PRIu32 "%s", n, suffix);
+        return iu_to_string(n) + suffix;
     }
     else
     {
-        return StringFormat("%" PRIu32 ".%" PRIu32 "%s", n, f, suffix);
+        return iu_to_string(n) + "." + iu_to_string(f) + suffix;
     }
 }
 
