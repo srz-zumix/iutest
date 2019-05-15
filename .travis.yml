@@ -126,7 +126,7 @@ matrix:
     - compiler: gcc
       env: USE_COVERAGE=gcov USE_CODECOV=1 USE_GNU_EXTENSION=1
     - compiler: clang
-      env: USE_COVERAGE=lcov USE_COVERALLS=1 USE_GNU_EXTENSION=1
+      env: USE_COVERAGE=lcov USE_COVERALLS=1 USE_GNU_EXTENSION=1 LCOV_GCOV_TOOL=llvm-gcov.sh
       addons:
         apt:
           sources: *apt-common-sources
