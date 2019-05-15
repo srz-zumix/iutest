@@ -57,7 +57,7 @@ namespace tr1
 #include "iutest_gmock_ver.hpp"
 #endif
 #include "iutest_gtest_ver.hpp"
-#include "../internal/iutest_pragma.hpp"
+#include "../internal/iutest_compiler.hpp"
 #include "../internal/iutest_compatible_defs.hpp"
 
 #if GTEST_VER < 0x01040000
