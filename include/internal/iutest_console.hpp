@@ -17,6 +17,7 @@
 
 //======================================================================
 // include
+#include "iutest_compiler.hpp"
 #include <stdio.h>
 #include <stdarg.h>
 
