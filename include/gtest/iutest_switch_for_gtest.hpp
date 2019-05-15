@@ -57,8 +57,6 @@ namespace tr1
 #include "iutest_gmock_ver.hpp"
 #endif
 #include "iutest_gtest_ver.hpp"
-#include "../internal/iutest_compiler.hpp"
-#include "../internal/iutest_compatible_defs.hpp"
 
 #if GTEST_VER < 0x01040000
 #  error google test 1.3.0 or less is not supported...
@@ -199,6 +197,9 @@ namespace tr1
 #ifndef IUTEST_CXX_DEFAULT_FUNCTION
 #  define IUTEST_CXX_DEFAULT_FUNCTION   {}
 #endif
+
+#include "../internal/iutest_compiler.hpp"
+#include "../internal/iutest_compatible_defs.hpp"
 
 #include "switch/iutest_switch_port.hpp"
 #include "switch/iutest_switch_core.hpp"
