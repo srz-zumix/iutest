@@ -112,8 +112,6 @@
 
 //======================================================================
 // undef
-#if defined(INCG_IRIS_IUTEST_HPP_)
-
 #ifdef IUTEST_OS_CYGWIN
 #  undef IUTEST_OS_CYGWIN
 #endif
@@ -155,8 +153,6 @@
 #endif
 #ifdef IUTEST_OS_NACL
 #  undef IUTEST_OS_NACL
-#endif
-
 #endif
 
 //======================================================================
