@@ -191,13 +191,6 @@ namespace tr1
 #  define IUTEST_NO_TESTCASE_AD_HOC_TEST_RESULT_ACCESSOR
 #endif
 
-#ifndef IUTEST_CXX_OVERRIDE
-#  define IUTEST_CXX_OVERRIDE
-#endif
-#ifndef IUTEST_CXX_DEFAULT_FUNCTION
-#  define IUTEST_CXX_DEFAULT_FUNCTION   {}
-#endif
-
 #include "../internal/iutest_compiler.hpp"
 #include "../internal/iutest_compatible_defs.hpp"
 
