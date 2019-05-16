@@ -4,13 +4,13 @@ environment:
   matrix:
     # Visual Studio
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
-      PROJECT_DIR: msvc12
+      PROJECT_DIR: vs2013
       CMAKE_GENERATOR_NAME: Visual Studio 12 2013
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      PROJECT_DIR: msvc14
+      PROJECT_DIR: vs2015
       CMAKE_GENERATOR_NAME: Visual Studio 14 2015
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      PROJECT_DIR: msvc15
+      PROJECT_DIR: vs2017
       CMAKE_GENERATOR_NAME: Visual Studio 15 2017
     # Cygwin
     - BUILD_CYGWIN: yes
@@ -50,7 +50,7 @@ environment:
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     # Prefast
     - BUILD_PREFAST: yes
-      PROJECT_DIR: msvc14
+      PROJECT_DIR: vs2015
     # Menu
     - BUILD_MENU: yes
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
