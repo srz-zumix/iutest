@@ -45,22 +45,11 @@ namespace detail
 
 ::std::string StringFormat(const char* format, ...);
 
-/**
- * @internal
- * @brief   stricmp
-*/
+namespace wrapper
+{
+
 inline int iu_stricmp(const char* str1, const char* str2)
 {
-#if   defined(__BORLANDC__)
-    return stricmp(str1, str2);
-#elif defined(_MSC_VER)
-    return _stricmp(str1, str2);
-#elif defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MINGW) && !defined(__STRICT_ANSI__)
-    return _stricmp(str1, str2);
-#elif !defined(__MWERKS__) && !defined(IUTEST_OS_WINDOWS)
-    return strcasecmp(str1, str2);
-
-#else
     const char* l = str1;
     const char* r = str2;
     while(*l)
@@ -87,20 +76,10 @@ inline int iu_stricmp(const char* str1, const char* str2)
         return 1;
     }
     return 0;
-#endif
 }
 
-/**
- * @internal
- * @brief   wcsicmp
-*/
 inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 {
-#if   defined(_MSC_VER)
-    return _wcsicmp(str1, str2);
-#elif defined(IUTEST_OS_LINUX) && !defined(IUTEST_OS_LINUX_ANDROID)
-    return wcscasecmp(str1, str2);
-#else
     const wchar_t* l = str1;
     const wchar_t* r = str2;
     while(*l)
@@ -127,6 +106,41 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
         return 1;
     }
     return 0;
+}
+
+}
+
+/**
+ * @internal
+ * @brief   stricmp
+*/
+inline int iu_stricmp(const char* str1, const char* str2)
+{
+#if   defined(__BORLANDC__)
+    return stricmp(str1, str2);
+#elif defined(_MSC_VER)
+    return _stricmp(str1, str2);
+#elif defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MINGW) && !defined(__STRICT_ANSI__)
+    return _stricmp(str1, str2);
+#elif !defined(__MWERKS__) && !defined(IUTEST_OS_WINDOWS)
+    return strcasecmp(str1, str2);
+#else
+    return wrapper::iu_stricmp(str1, str2);
+#endif
+}
+
+/**
+ * @internal
+ * @brief   wcsicmp
+*/
+inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
+{
+#if   defined(_MSC_VER)
+    return _wcsicmp(str1, str2);
+#elif defined(IUTEST_OS_LINUX) && !defined(IUTEST_OS_LINUX_ANDROID)
+    return wcscasecmp(str1, str2);
+#else
+    return wrapper::iu_wcsicmp(str1, str2);
 #endif
 }
 

@@ -20,8 +20,15 @@
 IUTEST(UnitStringTest, Stricmp)
 {
     IUTEST_EXPECT_EQ(0, ::iutest::detail::iu_stricmp("AAA", "aaa"));
-    IUTEST_EXPECT_LT(0, ::iutest::detail::iu_stricmp("AAAa", "aaa"));
-    IUTEST_EXPECT_GT(0, ::iutest::detail::iu_stricmp("AAA", "aaaA"));
+    IUTEST_EXPECT_LT(0, ::iutest::detail::iu_stricmp("AAAaa", "aaa"));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::iu_stricmp("AAA", "aaaAA"));
+}
+
+IUTEST(UnitStringTest, OwnStricmp)
+{
+    IUTEST_EXPECT_EQ(0, ::iutest::detail::wrapper::iu_stricmp("AAA", "aaa"));
+    IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_stricmp("AAAaa", "aaa"));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_stricmp("AAA", "aaaAA"));
 }
 
 IUTEST(UnitStringTest, StringStrip)
