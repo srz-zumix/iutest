@@ -17,10 +17,10 @@ addons:
   apt: &apt-global
     sources: &apt-common-sources
       - ubuntu-toolchain-r-test
-      - llvm-toolchain-xenial-6.0
+      - llvm-toolchain-xenial-8
       - llvm-toolchain-xenial
     packages: &apt-common-packages
-      - clang-6.0
+      - clang-8
       - g++-8
       - gcc-8
       #- cppcheck
@@ -34,7 +34,7 @@ before_install:
   - if [[ "${COMPILER_CXX}" != "" ]]; then export CXX=${COMPILER_CXX}; fi
   # g++
   - |
-    if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" != 'lcov' ]; then
+    if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" = '' ]; then
       export CC=gcc-8
       export CXX=g++-8
       export CCOV=gcov-8
@@ -46,9 +46,9 @@ before_install:
     fi
   # clang
   - |
-    if [ "${CXX}" = 'clang++' ] && [ "${TRAVIS_OS_NAME}" != 'osx' ]; then
-      export CCC=clang-6.0
-      export CXX=clang++-6.0
+    if [ "${CXX}" = 'clang++' ] && [ "${TRAVIS_OS_NAME}" != 'osx' ] && [ "${USE_COVERAGE}" = '' ]; then
+      export CC=clang-8
+      export CXX=clang++-8
       #update-alternatives --install /usr/bin/clang   clang   /usr/bin/clang-7   90
       #update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-7 90
     fi
@@ -58,7 +58,10 @@ install:
   - |
     if [ "${USE_COVERALLS}" = '1' ]; then
       if [ "${USE_COVERAGE}" = 'gcov' ]; then easy_install cpp-coveralls; fi
-      if [ "${USE_COVERAGE}" = 'lcov' ]; then gem install lcoveralls; fi
+      if [ "${USE_COVERAGE}" = 'lcov' ]; then
+        gem install specific_install && gem specific_install -l 'git://github.com/pcolby/lcoveralls.git'
+        # gem install lcoveralls;
+      fi
     fi
   # gtest/gmock
   - if [ "${USE_GTEST}" = '1' ] || [ "${USE_GMOCK}" = '1' ]; then . .ci/travisci/install-gtest.sh; fi
@@ -80,17 +83,15 @@ script:
       cat cov-int/scm_log.txt || true
       ls cov-int
     fi
+  # Coverage
+  - if [ "${USE_COVERALLS}" = '1' ]; then make send-coveralls; fi
+  - if [ "${USE_CODECOV}" = '1' ]; then make send-codecov; fi
   #- if [ "${CPPCHECK}" = '1' ]; then
   #    cppcheck --version;
   #    cppcheck samples --enable=all -f -j 4 --suppress=syntaxError -i samples/gmock -i samples/gtest -i samples/vcunittest -i samples/windows -UGTEST_HIDE_UNREACHABLE_CODE_ -UGTEST_API_ -UGTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS_ -UGTEST_HAS_STD_TUPLE_ -UGTEST_MESSAGE_AT_ -UGTEST_INCLUDE_GTEST_GTEST_TYPED_TEST_H_ -UGMOCK_INCLUDE_GMOCK_GMOCK_H_ -U__STDC_WANT_SECURE_LIB__ -UIUTEST_USE_GTEST -UIUTEST_DEBUG -UIUTEST_FILE -U__GLIBCXX__;
   #  else
   #    cd ./test; make showcxxversion ${USE_FUSED} all;
   #  fi
-
-after_success:
-  # Coverage
-  - if [ "${USE_COVERALLS}" = '1' ]; then make send-coveralls; fi
-  - if [ "${USE_CODECOV}" = '1' ]; then make send-codecov; fi
 
 env:
   global:
@@ -120,12 +121,12 @@ matrix:
     #      sources: *apt-common-sources
     #      packages:
     #        - libc++-dev
-    #        - clang-6.0
+    #        - clang-8
     # coverage
-    - compiler: clang
-      env: USE_COVERAGE=gcov USE_CODECOV=1 USE_GNU_EXTENSION=1
     - compiler: gcc
-      env: USE_COVERAGE=lcov USE_COVERALLS=1 USE_GNU_EXTENSION=1
+      env: USE_COVERAGE=gcov USE_CODECOV=1 USE_GNU_EXTENSION=1
+    - compiler: clang
+      env: USE_COVERAGE=lcov USE_COVERALLS=1 USE_GNU_EXTENSION=1 LCOV_GCOV_TOOL=${TRAVIS_BUILD_DIR}/.ci/llvm-gcov.sh
       addons:
         apt:
           sources: *apt-common-sources
@@ -231,7 +232,7 @@ matrix:
     #    - STDFLAG=-std=c++11
     #    - DEFS="-DIUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER=1 -DIUTEST_CHECK_STRICT=0 -DIUTEST_HAS_HDR_CXXABI=0"
     #    - CXXFLAGS="-stdlib=libc++ -fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer"
-    #    #- CUSTOM_COMMANDS="clang++-6.0 -Wall -Wextra -std=c++14 -stdlib=libc++ -g -fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer -O1 samples/simple.cpp samples/main.cpp && ./a.out && ./a.out --feature --spec"
+    #    #- CUSTOM_COMMANDS="clang++-8 -Wall -Wextra -std=c++14 -stdlib=libc++ -g -fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer -O1 samples/simple.cpp samples/main.cpp && ./a.out && ./a.out --feature --spec"
     #- compiler: gcc
     #  env:
     #    - STDFLAG=-std=c++11
