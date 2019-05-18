@@ -33,16 +33,16 @@ IUTEST(UnitStringTest, OwnStricmp)
 
 IUTEST(UnitStringTest, Wcsicmp)
 {
-    IUTEST_EXPECT_EQ(0, ::iutest::detail::iu_wcsicmp("AAA", "aaa"));
-    IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp("AAAa", "aaa"));
-    IUTEST_EXPECT_GT(0, ::iutest::detail::iu_wcsicmp("AAA", "aaaA"));
+    IUTEST_EXPECT_EQ(0, ::iutest::detail::iu_wcsicmp(L"AAA", L"aaa"));
+    IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp(L"AAAa", L"aaa"));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::iu_wcsicmp(L"AAA", L"aaaA"));
 }
 
 IUTEST(UnitStringTest, OwnWcsicmp)
 {
-    IUTEST_EXPECT_EQ(0, ::iutest::detail::wrapper::iu_wcsicmp("AAA", "aaa"));
-    IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_wcsicmp("AAAa", "aaa"));
-    IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_wcsicmp("AAA", "aaaA"));
+    IUTEST_EXPECT_EQ(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", L"aaa"));
+    IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAAa", L"aaa"));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", L"aaaA"));
 }
 
 IUTEST(UnitStringTest, StringStrip)
