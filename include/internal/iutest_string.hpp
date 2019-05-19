@@ -43,7 +43,7 @@ namespace iutest {
 namespace detail
 {
 
-::std::string StringFormat(const char* format, ...) IUTEST_ATTRIBUTE_FORMAT(__printf__, 1, 2);
+::std::string StringFormat(const char* format, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 2);
 
 /**
  * @internal
@@ -133,7 +133,7 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 namespace wrapper
 {
 
-int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_ATTRIBUTE_FORMAT(__printf__, 3, 0);
+int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 0);
 
 inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
@@ -151,8 +151,8 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 
 } // end of namespace wrapper
 
-int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_ATTRIBUTE_FORMAT(__printf__, 3, 0);
-int iu_snprintf(char* dst, size_t size, const char* format, ...) IUTEST_ATTRIBUTE_FORMAT(__printf__, 3, 4);
+int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 0);
+int iu_snprintf(char* dst, size_t size, const char* format, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 4);
 
 /**
  * @internal

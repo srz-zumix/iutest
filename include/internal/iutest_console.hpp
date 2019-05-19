@@ -48,7 +48,7 @@ class iuLogger
 {
 public:
     virtual ~iuLogger() IUTEST_CXX_DEFAULT_FUNCTION
-    virtual void output(const char* fmt, ...) IUTEST_ATTRIBUTE_FORMAT(__printf__, 2, 3)
+    virtual void output(const char* fmt, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(2, 3)
     {
         va_list va;
         va_start(va, fmt);
@@ -81,31 +81,31 @@ public:
     /**
      * @brief   標準出力
     */
-    static inline void output(const char *fmt, ...) IUTEST_ATTRIBUTE_FORMAT(__printf__, 1, 2);
+    static inline void output(const char *fmt, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 2);
 
     /**
      * @brief   標準出力
     */
-    static inline void voutput(const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT(__printf__, 1, 0);
+    static inline void voutput(const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 0);
 
     /**
      * @brief   色指定で標準出力
      * @param [in]  color   = 文字色
     */
-    static inline void color_output(Color color, const char *fmt, ...) IUTEST_ATTRIBUTE_FORMAT(__printf__, 2, 3);
+    static inline void color_output(Color color, const char *fmt, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(2, 3);
 
 public:
     /**
      * @brief   標準出力
      * @note    no logger
     */
-    static inline void nl_output(const char *fmt, ...) IUTEST_ATTRIBUTE_FORMAT(__printf__, 1, 2);
+    static inline void nl_output(const char *fmt, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 2);
 
     /**
      * @brief   標準出力
      * @note    no logger
     */
-    static inline void nl_voutput(const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT(__printf__, 1, 0);
+    static inline void nl_voutput(const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 0);
 
 public:
     //! Logger のセット
@@ -155,7 +155,7 @@ public:
     }
 
 private:
-    static inline void color_output_impl(Color color, const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT(__printf__, 2, 0);
+    static inline void color_output_impl(Color color, const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(2, 0);
     static inline bool IsShouldUseColor(bool use_color);
     static inline bool HasColorConsole();
     static inline bool IsStringEqual(const char* str1, const char* str2) { return strcmp(str1, str2) == 0; }

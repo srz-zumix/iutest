@@ -1236,8 +1236,20 @@
 #  endif
 #endif
 
+//! format printf
+#if !defined(IUTEST_ATTRIBUTE_FORMAT_PRINTF) && defined(IUTEST_ATTRIBUTE_FORMAT)
+#  if defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)
+#    define IUTEST_ATTRIBUTE_FORMAT_PRINTF(fi, vi)  IUTEST_ATTRIBUTE_FORMAT(__MINGW_PRINTF_FORMAT, fi, vi)
+#  else
+#    define IUTEST_ATTRIBUTE_FORMAT_PRINTF(fi, vi)  IUTEST_ATTRIBUTE_FORMAT(__printf__, fi, vi)
+#  endif
+#endif
+
 #if !defined(IUTEST_ATTRIBUTE_FORMAT)
 #  define IUTEST_ATTRIBUTE_FORMAT(fmt, fi, vi)
+#endif
+#if !defined(IUTEST_ATTRIBUTE_FORMAT_PRINTF)
+#  define IUTEST_ATTRIBUTE_FORMAT_PRINTF(fi, vi)
 #endif
 
 
