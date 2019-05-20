@@ -679,6 +679,14 @@ using tuples::get;
 #  define IUTEST_HAS_INVALID_PARAMETER_HANDLER      0
 #endif
 
+//! size_t format macros
+#if !defined(IUPRzu)
+#if defined(_MSC_VER) && (_MSC_VER < 1900)
+#define IUPRzu  "I"
+#else
+#define IUPRzu  "zu"
+#endif
+
 namespace iutest {
 namespace detail
 {
