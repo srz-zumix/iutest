@@ -686,6 +686,7 @@ using tuples::get;
 #else
 #define IUPRzu  "zu"
 #endif
+#endif
 
 namespace iutest {
 namespace detail
