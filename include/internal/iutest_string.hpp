@@ -108,7 +108,7 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
     return 0;
 }
 
-}
+}   // end of namespace wrapper
 
 /**
  * @internal
