@@ -682,7 +682,7 @@ using tuples::get;
 //! size_t format macros
 #if !defined(IUPRzu)
 #if defined(_MSC_VER) && (_MSC_VER < 1900)
-#define IUPRzu  "I"
+#define IUPRzu  "Iu"
 #else
 #define IUPRzu  "zu"
 #endif
