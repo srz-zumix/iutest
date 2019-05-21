@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -110,11 +110,11 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleTest(int* argc, wchar_t** argv)
 #if defined(GMOCK_INCLUDE_GMOCK_GMOCK_H_)
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleMock(int* argc, char** argv)
 {
-    testing::InitGoogleMock(argc, argv);
+    ::testing::InitGoogleMock(argc, argv);
 }
 inline void IUTEST_ATTRIBUTE_UNUSED_ InitGoogleMock(int* argc, wchar_t** argv)
 {
-    testing::InitGoogleMock(argc, argv);
+    ::testing::InitGoogleMock(argc, argv);
 }
 #endif
 
