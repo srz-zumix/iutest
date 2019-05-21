@@ -26,7 +26,7 @@ IUTEST(UnitStringTest, Stricmp)
     IUTEST_EXPECT_GT(0, ::iutest::detail::iu_stricmp("AAAa", "aaaB"));
     IUTEST_EXPECT_LT(0, ::iutest::detail::iu_stricmp("AAA", negative_sample));
     IUTEST_EXPECT_GT(0, ::iutest::detail::iu_stricmp("AAA", "aaaA"));
-
+}
 
 IUTEST(UnitStringTest, OwnStricmp)
 {
