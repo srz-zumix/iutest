@@ -39,7 +39,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 #else
         vsprintf(buf, fmt, va);
         m_log += buf;
-        ::iutest::detail::iuConsole::nl_output(buf);
+        ::iutest::detail::iuConsole::nl_output("%s", buf);
 #endif
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     }
