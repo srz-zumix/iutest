@@ -1239,6 +1239,9 @@
 //! format printf
 #if !defined(IUTEST_ATTRIBUTE_FORMAT_PRINTF) && defined(IUTEST_ATTRIBUTE_FORMAT)
 #  if defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)
+#    if !defined(__MINGW_PRINTF_FORMAT)
+#      define __MINGW_PRINTF_FORMAT     gnu_printf
+#    endif
 #    define IUTEST_ATTRIBUTE_FORMAT_PRINTF(fi, vi)  IUTEST_ATTRIBUTE_FORMAT(__MINGW_PRINTF_FORMAT, fi, vi)
 #  else
 #    define IUTEST_ATTRIBUTE_FORMAT_PRINTF(fi, vi)  IUTEST_ATTRIBUTE_FORMAT(__printf__, fi, vi)
