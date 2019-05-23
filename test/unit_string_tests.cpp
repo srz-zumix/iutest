@@ -23,8 +23,9 @@ IUTEST(UnitStringTest, Stricmp)
     const char negative_sample[] = { 'a', 'a', 'a', negative, '\0' };
     IUTEST_EXPECT_EQ(0, ::iutest::detail::iu_stricmp("AAA", "aaa"));
     IUTEST_EXPECT_LT(0, ::iutest::detail::iu_stricmp("AAAa", "aaa"));
-    IUTEST_EXPECT_GT(0, ::iutest::detail::iu_stricmp("AAAa", "aaaB"));
-    IUTEST_EXPECT_LT(0, ::iutest::detail::iu_stricmp("AAA", negative_sample));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::iu_stricmp("AAAB", "aaaa"));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::iu_stricmp("AAAA", "aaab"));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::iu_stricmp("AAA", negative_sample));
     IUTEST_EXPECT_GT(0, ::iutest::detail::iu_stricmp("AAA", "aaaA"));
 }
 
@@ -34,8 +35,9 @@ IUTEST(UnitStringTest, OwnStricmp)
     const char negative_sample[] = { 'a', 'a', 'a', negative, '\0' };
     IUTEST_EXPECT_EQ(0, ::iutest::detail::wrapper::iu_stricmp("AAA", "aaa"));
     IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_stricmp("AAAa", "aaa"));
-    IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_stricmp("AAAa", "aaaB"));
-    IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_stricmp("AAA", negative_sample));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_stricmp("AAAB", "aaaa"));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_stricmp("AAAA", "aaab"));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_stricmp("AAA", negative_sample));
     IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_stricmp("AAA", "aaaA"));
 }
 

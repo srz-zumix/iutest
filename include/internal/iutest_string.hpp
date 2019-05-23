@@ -48,34 +48,35 @@ namespace detail
 namespace wrapper
 {
 
+inline int iu_mbicmp(char l, char r)
+{
+    const int ul = static_cast<int>(static_cast<unsigned char>(toupper(l)));
+    const int ur = static_cast<int>(static_cast<unsigned char>(toupper(r)));
+    return ul - ur;
+}
+
 inline int iu_stricmp(const char* str1, const char* str2)
 {
     const char* l = str1;
     const char* r = str2;
     while(*l)
     {
-        int ul = toupper(*l);
-        int ur = toupper(*r);
-        if( ul < ur )
+        const int ret = iu_mbicmp(*l, *r);
+        if( ret != 0 )
         {
-            return -1;
-        }
-        if( ul > ur )
-        {
-            return 1;
+            return ret;
         }
         ++l;
         ++r;
     }
-    if( *l < *r )
-    {
-        return -1;
-    }
-    if( *l > *r )
-    {
-        return 1;
-    }
-    return 0;
+    return iu_mbicmp(*l, *r);
+}
+
+inline int iu_wcicmp(char l, char r)
+{
+    wchar_t ul = towupper(l);
+    wchar_t ur = towupper(r);
+    return ul - ur;
 }
 
 inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
@@ -84,28 +85,15 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
     const wchar_t* r = str2;
     while(*l)
     {
-        wchar_t ul = towupper(*l);
-        wchar_t ur = towupper(*r);
-        if( ul < ur )
+        const int ret = iu_wcicmp(*l, *r);
+        if( ret != 0 )
         {
-            return -1;
-        }
-        if( ul > ur )
-        {
-            return 1;
+            return ret;
         }
         ++l;
         ++r;
     }
-    if( *l < *r )
-    {
-        return -1;
-    }
-    if( *l > *r )
-    {
-        return 1;
-    }
-    return 0;
+    return iu_wcicmp(*l, *r);
 }
 
 }   // end of namespace wrapper
