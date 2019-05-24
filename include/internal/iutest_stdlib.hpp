@@ -681,11 +681,12 @@ using tuples::get;
 
 //! size_t format macros
 #if !defined(IUPRzu)
-#if defined(_MSC_VER) && (_MSC_VER < 1900)
-#  define IUPRzu  "Iu"
-#elif defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)
-#  if !defined(__USE_MINGW_ANSI_STDIO)
+#  if defined(_MSC_VER) && (_MSC_VER < 1900)
 #    define IUPRzu  "Iu"
+#  elif defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)
+#    if !defined(__USE_MINGW_ANSI_STDIO)
+#      define IUPRzu  "Iu"
+#    endif
 #  endif
 #endif
 
