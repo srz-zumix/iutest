@@ -72,7 +72,7 @@ inline int iu_stricmp(const char* str1, const char* str2)
     return iu_mbicmp(*l, *r);
 }
 
-inline int iu_wcicmp(char l, char r)
+inline int iu_wcicmp(wchar_t l, wchar_t r)
 {
     wchar_t ul = towupper(l);
     wchar_t ur = towupper(r);
