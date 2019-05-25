@@ -43,7 +43,7 @@ IUTEST(UnitStringTest, OwnStricmp)
 
 IUTEST(UnitStringTest, Wcsicmp)
 {
-    const wchar_t negative = -1;
+    const wchar_t negative = static_cast<wchar_t>(-1);
     const wchar_t negative_sample[] = { L'a', L'a', L'a', negative, L'\0' };
     IUTEST_EXPECT_EQ(0, ::iutest::detail::iu_wcsicmp(L"AAA", L"aaa"));
     IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp(L"AAAa", L"aaa"));
@@ -54,7 +54,7 @@ IUTEST(UnitStringTest, Wcsicmp)
 
 IUTEST(UnitStringTest, OwnWcsicmp)
 {
-    const wchar_t negative = -1;
+    const wchar_t negative = static_cast<wchar_t>(-1);
     const wchar_t negative_sample[] = { L'a', L'a', L'a', negative, L'\0' };
     IUTEST_EXPECT_EQ(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", L"aaa"));
     IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAAa", L"aaa"));
