@@ -135,7 +135,7 @@ for:
     cmd: |
       cd test
       g++ --version; clang++ --version; python --version
-      @echo. > foo.h && g++ -std=c++1z -dM -E -x c++ foo.h
+      make showcxxmacros
       uname
       make -j4
   test_script:
