@@ -328,9 +328,12 @@ inline IUTEST_CXX_CONSTEXPR char ToOct(unsigned int n)
 template<typename T>
 inline ::std::string ToOctString(T value)
 {
-    const size_t kN = (sizeof(T) * 8 + 2) / 3;
-    char buf[kN + 1] = { 0 };
-    for(size_t i = 0; i < kN; ++i)
+    const size_t kB = sizeof(T) * 8;
+    const size_t kN = (kB + 2) / 3;
+    const size_t kD = kB - (kN - 1) * 3;
+    const size_t kMask = (1u << kD) - 1u;
+    char buf[kN + 1] = { ToOct(static_cast<unsigned int>((value >> ((kN - 1) * 3)) & kMask)), 0 };
+    for(size_t i = 1; i < kN; ++i)
     {
         buf[i] = ToOct(static_cast<unsigned int>((value >> ((kN - i - 1) * 3))));
     }

@@ -27,18 +27,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\samples\gtest\main.cc" />
-    <ClCompile Include="..\..\..\..\samples\gtest\sample4.cc" />
-    <ClCompile Include="..\..\..\..\samples\gtest\sample4_unittest.cc" />
+    <ClInclude Include="..\..\..\..\samples\gtest\sample2.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\samples\gtest\sample4.h" />
+    <ClCompile Include="..\..\..\..\samples\gtest\main.cc" />
+    <ClCompile Include="..\..\..\..\samples\gtest\sample2.cc" />
+    <ClCompile Include="..\..\..\..\samples\gtest\sample2_unittest.cc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{323B6D46-73DD-406D-AE4A-B97DB7EB0B7F}</ProjectGuid>
-    <RootNamespace>gtest4</RootNamespace>
+    <ProjectGuid>{24A48412-EBF3-4C58-9BF9-71A5F6E3BD3E}</ProjectGuid>
+    <RootNamespace>gtest2</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_gtest|Win32'" Label="Configuration">
