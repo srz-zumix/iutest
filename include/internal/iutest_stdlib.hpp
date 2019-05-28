@@ -687,7 +687,7 @@ using tuples::get;
 #    if !defined(__STRICT_ANSI__) && !defined(__USE_MINGW_ANSI_STDIO)
 #      if defined(_WIN64)
 #        define IUPRzu  PRIu64
-#      elif defined(_WIN32)
+#      elif defined(_WIN32) || defined(WIN32) || defined(__WIN32__)
 #        define IUPRzu  PRIu32
 #      endif
 #    endif
