@@ -684,8 +684,12 @@ using tuples::get;
 #  if defined(_MSC_VER) && (_MSC_VER < 1900)
 #    define IUPRzu  "Iu"
 #  elif defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)
-#    if !defined(__STRICT_ANSI__)
-#      define IUPRzu  "Iu"
+#    if !defined(__STRICT_ANSI__) && !defined(__USE_MINGW_ANSI_STDIO)
+#      if defined(_WIN64)
+#        define IUPRzu  PRIu64
+#      elif defined(_WIN32)
+#        define IUPRzu  PRIu32
+#      endif
 #    endif
 #  endif
 #endif
