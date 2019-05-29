@@ -25,6 +25,7 @@
 #  define __STRICT_ANSI__
 #endif
 #include <cstdlib>
+#include <inttypes.h>
 
 //======================================================================
 // define
