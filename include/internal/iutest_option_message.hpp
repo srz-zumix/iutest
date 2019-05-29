@@ -255,6 +255,10 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(__POSIX_VISIBLE);
 #endif
 
+#ifdef __USE_MINGW_ANSI_STDIO
+    IIUT_SHOW_MACRO(__USE_MINGW_ANSI_STDIO);
+#endif
+
 #undef IIUT_SHOW_MACRO
 }
 
