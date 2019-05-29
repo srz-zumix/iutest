@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -72,7 +72,7 @@ inline int iu_stricmp(const char* str1, const char* str2)
     return iu_mbicmp(*l, *r);
 }
 
-inline ::std::wint_t iu_wcicmp(wchar_t l, wchar_t r)
+inline int iu_wcicmp(wchar_t l, wchar_t r)
 {
     const ::std::wint_t ul = towupper(l);
     const ::std::wint_t ur = towupper(r);
