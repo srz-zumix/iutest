@@ -100,7 +100,7 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 
 /**
  * @internal
- * @brief   stricmp
+ * @brief   stricmp (unsigned char compare)
 */
 inline int iu_stricmp(const char* str1, const char* str2)
 {
@@ -110,7 +110,8 @@ inline int iu_stricmp(const char* str1, const char* str2)
     return _stricmp(str1, str2);
 #elif defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MINGW) && !defined(__STRICT_ANSI__)
     return _stricmp(str1, str2);
-#elif !defined(__MWERKS__) && !defined(IUTEST_OS_WINDOWS)
+#elif !defined(__MWERKS__) && !defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_CYGWIN)
+    // NOTE: Cygwin strcasecmp signed comapre?
     return strcasecmp(str1, str2);
 #else
     return wrapper::iu_stricmp(str1, str2);
