@@ -111,7 +111,7 @@ inline int iu_stricmp(const char* str1, const char* str2)
 #elif defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MINGW) && !defined(__STRICT_ANSI__)
     return _stricmp(str1, str2);
 #elif !defined(__MWERKS__) && !defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_CYGWIN)
-    // NOTE: Cygwin strcasecmp signed comapre?
+    // NOTE: Cygwin strcasecmp signed compare?
     return strcasecmp(str1, str2);
 #else
     return wrapper::iu_stricmp(str1, str2);
