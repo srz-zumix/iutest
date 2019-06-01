@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -45,9 +45,62 @@ namespace detail
 
 ::std::string StringFormat(const char* format, ...);
 
+namespace wrapper
+{
+
+inline int iu_mbicmp(char l, char r)
+{
+    const int ul = static_cast<int>(static_cast<unsigned char>(toupper(l)));
+    const int ur = static_cast<int>(static_cast<unsigned char>(toupper(r)));
+    return ul - ur;
+}
+
+inline int iu_stricmp(const char* str1, const char* str2)
+{
+    const char* l = str1;
+    const char* r = str2;
+    while(*l)
+    {
+        const int ret = iu_mbicmp(*l, *r);
+        if( ret != 0 )
+        {
+            return ret;
+        }
+        ++l;
+        ++r;
+    }
+    return iu_mbicmp(*l, *r);
+}
+
+inline int iu_wcicmp(wchar_t l, wchar_t r)
+{
+    const ::std::wint_t ul = towupper(l);
+    const ::std::wint_t ur = towupper(r);
+    return ul - ur;
+}
+
+inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
+{
+    const wchar_t* l = str1;
+    const wchar_t* r = str2;
+    while(*l)
+    {
+        const int ret = iu_wcicmp(*l, *r);
+        if( ret != 0 )
+        {
+            return ret;
+        }
+        ++l;
+        ++r;
+    }
+    return iu_wcicmp(*l, *r);
+}
+
+}   // end of namespace wrapper
+
 /**
  * @internal
- * @brief   stricmp
+ * @brief   stricmp (unsigned char compare)
 */
 inline int iu_stricmp(const char* str1, const char* str2)
 {
@@ -57,36 +110,11 @@ inline int iu_stricmp(const char* str1, const char* str2)
     return _stricmp(str1, str2);
 #elif defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MINGW) && !defined(__STRICT_ANSI__)
     return _stricmp(str1, str2);
-#elif !defined(__MWERKS__) && !defined(IUTEST_OS_WINDOWS)
+#elif !defined(__MWERKS__) && !defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_CYGWIN)
+    // NOTE: Cygwin strcasecmp signed compare?
     return strcasecmp(str1, str2);
-
 #else
-    const char* l = str1;
-    const char* r = str2;
-    while(*l)
-    {
-        int ul = toupper(*l);
-        int ur = toupper(*r);
-        if( ul < ur )
-        {
-            return -1;
-        }
-        if( ul > ur )
-        {
-            return 1;
-        }
-        ++l;
-        ++r;
-    }
-    if( *l < *r )
-    {
-        return -1;
-    }
-    if( *l > *r )
-    {
-        return 1;
-    }
-    return 0;
+    return wrapper::iu_stricmp(str1, str2);
 #endif
 }
 
@@ -101,32 +129,7 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 #elif defined(IUTEST_OS_LINUX) && !defined(IUTEST_OS_LINUX_ANDROID)
     return wcscasecmp(str1, str2);
 #else
-    const wchar_t* l = str1;
-    const wchar_t* r = str2;
-    while(*l)
-    {
-        wchar_t ul = towupper(*l);
-        wchar_t ur = towupper(*r);
-        if( ul < ur )
-        {
-            return -1;
-        }
-        if( ul > ur )
-        {
-            return 1;
-        }
-        ++l;
-        ++r;
-    }
-    if( *l < *r )
-    {
-        return -1;
-    }
-    if( *l > *r )
-    {
-        return 1;
-    }
-    return 0;
+    return wrapper::iu_wcsicmp(str1, str2);
 #endif
 }
 
