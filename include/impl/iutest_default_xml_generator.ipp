@@ -332,7 +332,8 @@ IUTEST_IPP_INLINE ::std::string DefaultXmlGeneratorListener::EscapeXml(const cha
     {
         for( const char* src = str; *src; ++src )
         {
-            switch(*src)
+            const char s = *src;
+            switch(s)
             {
             case '<':
                 msg += "&lt;";
@@ -359,20 +360,20 @@ IUTEST_IPP_INLINE ::std::string DefaultXmlGeneratorListener::EscapeXml(const cha
                         msg += detail::WideStringToUTF8(&wc, 1);
                         src += len-1;
                     }
-                    else if( IsValidXmlCharacter(*src) )
+                    else if( IsValidXmlCharacter(s) )
 #else
-                    if( IsValidXmlCharacter(*src) )
+                    if( IsValidXmlCharacter(s) )
 #endif
                     {
-                        if( is_attribute && IsWhitespace(*src) )
+                        if( is_attribute && IsWhitespace(s) )
                         {
                             char tmp[8];
-                            detail::iu_snprintf(tmp, sizeof(tmp), "&#x%02X;", *src);
+                            detail::iu_snprintf(tmp, sizeof(tmp), "&#x%02X;", s);
                             msg += tmp;
                         }
                         else
                         {
-                            msg += *src;
+                            msg += s;
                         }
                     }
                 }

@@ -72,6 +72,7 @@ EXTENSIONTESTS_TARGET=extension_tests
 
 UNITTESTS_TEST_SRCS= \
 		unit_file_tests.cpp \
+		unit_macro_tests.cpp \
 		unit_misc_tests.cpp \
 		unit_string_tests.cpp \
 		unit_string_view_tests.cpp \

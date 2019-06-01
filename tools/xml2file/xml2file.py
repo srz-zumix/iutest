@@ -40,7 +40,9 @@ def parse_command_line():
     )
     parser.add_argument(
         '--verbose',
-        action='store_true',
+        type=int,
+        default=0,
+        metavar='LEVEL',
         help='log verbose'
     )
     parser.add_argument(
@@ -74,8 +76,8 @@ def log(msg):
     print(msg)
 
 
-def logv(msg):
-    if cmdline_options.verbose:
+def logv(lv, msg):
+    if cmdline_options.verbose >= lv:
         print(msg)
 
 
@@ -178,27 +180,36 @@ def write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase):
     f.write(jt)
 
 
+def opentree(path):
+    try:
+        with codecs.open(path, 'r', encoding=cmdline_options.encoding) as f:
+            return ET.parse(f)
+    except Exception as e:
+        loge("error: " + path + ": " + str(e))
+        xmlp = ET.XMLParser(encoding=cmdline_options.encoding)
+        return ET.parse(path, xmlp)
+
+
 def xml2file(path):
     basename = os.path.basename(path)
     filename = os.path.splitext(basename)[0]
-    logv(basename)
+    logv(1, basename)
 
     root_path = make_rootpath(filename)
     clean_dir(root_path)
 
     try:
-        xmlp = ET.XMLParser(encoding=cmdline_options.encoding)
-        tree = ET.parse(path, xmlp)
+        tree = opentree(path)
         root = tree.getroot()
         testsuites = root
 
         testsuites_user_attrib = get_user_properties(testsuites)
         for testsuite in testsuites:
-            logv("  " + testsuite.attrib['name'])
+            logv(2, "  " + testsuite.attrib['name'])
             testsuite_user_attrib = get_user_properties(testsuite)
             for testcase in testsuite:
                 if testcase.tag == 'testcase':
-                    logv("    " + testcase.attrib['name'])
+                    logv(3, "    " + testcase.attrib['name'])
                     f = fopen(make_path(root_path, testsuite, testcase))
                     write_result(f, testsuites_user_attrib, testsuite_user_attrib, testcase)
                     f.close()

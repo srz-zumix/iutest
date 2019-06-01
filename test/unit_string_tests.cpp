@@ -89,6 +89,11 @@ IUTEST(UnitStringTest, ToHexString)
     IUTEST_EXPECT_STREQ(            "0000", ::iutest::detail::ToHexString< ::iutest::UInt16 >(0));
     IUTEST_EXPECT_STREQ(        "00000000", ::iutest::detail::ToHexString< ::iutest::UInt32 >(0));
     IUTEST_EXPECT_STREQ("0000000000000000", ::iutest::detail::ToHexString< ::iutest::UInt64 >(0));
+    IUTEST_EXPECT_STREQ("FFFFFFFFFFFFFFFF", ::iutest::detail::ToHexString< ::iutest::Int64 >(-1));
+#if defined(INT64_MAX)
+    IUTEST_EXPECT_STREQ("7FFFFFFFFFFFFFFF", ::iutest::detail::ToHexString< ::iutest::Int64 >(INT64_MAX));
+    IUTEST_EXPECT_STREQ("8000000000000000", ::iutest::detail::ToHexString< ::iutest::Int64 >(INT64_MIN));
+#endif
     IUTEST_EXPECT_STREQ(        "01234567", ::iutest::detail::ToHexString(0x01234567u));
 }
 
@@ -98,6 +103,11 @@ IUTEST(UnitStringTest, ToOctString)
     IUTEST_EXPECT_STREQ(                "000000", ::iutest::detail::ToOctString< ::iutest::UInt16 >(0));
     IUTEST_EXPECT_STREQ(           "00000000000", ::iutest::detail::ToOctString< ::iutest::UInt32 >(0));
     IUTEST_EXPECT_STREQ("0000000000000000000000", ::iutest::detail::ToOctString< ::iutest::UInt64 >(0));
+    IUTEST_EXPECT_STREQ("1777777777777777777777", ::iutest::detail::ToOctString< ::iutest::Int64 >(-1));
+#if defined(INT64_MAX)
+    IUTEST_EXPECT_STREQ("0777777777777777777777", ::iutest::detail::ToOctString< ::iutest::Int64 >(INT64_MAX));
+    IUTEST_EXPECT_STREQ("1000000000000000000000", ::iutest::detail::ToOctString< ::iutest::Int64 >(INT64_MIN));
+#endif
     IUTEST_EXPECT_STREQ(                   "377", ::iutest::detail::ToOctString< ::iutest::UInt8  >(0377u));
 }
 

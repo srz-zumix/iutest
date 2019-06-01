@@ -1,7 +1,7 @@
 {
 	"folders": [
 		{
-			"path": "..\\.."
+			"path": "../.."
 		}
 	],
 	"settings": {
@@ -29,6 +29,7 @@
 			"string_view": "cpp",
 			"xstring": "cpp",
 			"any": "cpp",
+			"array": "cpp",
 			"cctype": "cpp",
 			"chrono": "cpp",
 			"cmath": "cpp",
@@ -51,6 +52,7 @@
 			"limits": "cpp",
 			"list": "cpp",
 			"locale": "cpp",
+			"map": "cpp",
 			"memory": "cpp",
 			"optional": "cpp",
 			"ostream": "cpp",
