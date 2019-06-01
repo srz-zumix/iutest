@@ -853,6 +853,20 @@
 #  include <typeinfo>
 #endif
 
+#if !defined(IUTEST_WCHAR_UNSIGNED)
+#  if defined(__WCHAR_UNSIGNED__) && __WCHAR_UNSIGNED__
+#    define IUTEST_WCHAR_UNSIGNED   1
+#  elif defined(_MSC_VER)
+#    if defined(_NATIVE_WCHAR_T_DEFINED)
+#      define IUTEST_WCHAR_UNSIGNED 1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_WCHAR_UNSIGNED)
+#  define IUTEST_WCHAR_UNSIGNED 0
+#endif
+
 //! has 128bit type
 #if !defined(IUTEST_HAS_INT128)
 #  if defined(__SIZEOF_INT128__) && __SIZEOF_INT128__ == 16

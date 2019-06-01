@@ -260,26 +260,32 @@ COVARALLS_EXCLUDE_PATTERN  =-E ".*/test/[^\.].*" -E ".*/include/tr1/.*" -E ".*/i
 #COVARALLS_EXCLUDE_PATTERN +=-E ".*iutest_typelist\.hpp" -E ".*iutest_type_traits\.hpp" -E ".*iutest_typed_util\.hpp"
 #COVARALLS_EXCLUDE_PATTERN +=-E ".*iutest_all\.cpp" -E ".*iutest_util_output\.hpp" -E ".*iutest_tuple\.hpp"
 COVARALLS_SRCEXT=-x .h -x .hpp -x .cpp -x .ipp
+ifdef LCOV_GCOV_TOOL
+CCOV_OPT += --gcov-tool $(LCOV_GCOV_TOOL)
+endif
 
 coverage:
 	$(CCOV) -v
 ifeq ($(USE_COVERAGE),lcov)
-	$(CCOV) -c -d . -o coverage.info && $(CCOV) -r coverage.info *gcc* -o coverage.info && $(CCOV) -r coverage.info */test/* -o coverage.info
+	$(CCOV) -c -d . -o coverage.info $(CCOV_OPT)
+	$(CCOV) -r coverage.info *gcc* -o coverage.info
+	$(CCOV) -r coverage.info */test/* -o coverage.info
 endif
 ifeq ($(USE_COVERAGE),gcov)
 ifeq ($(findstring relative-only, $(shell $(CCOV) --help)), relative-only)
-	$(CCOV) -r *.gcda;
+	$(CCOV) -r *.gcda $(CCOV_OPT)
 else
-	$(CCOV) *.gcda;
+	$(CCOV) *.gcda $(CCOV_OPT)
 endif
 endif
 
+COVERALLS_OPTION= --service travis-pro
 send-coveralls: coverage
 ifeq ($(USE_COVERAGE),lcov)
-	cd ../; lcoveralls --retry-count 3 ./test/coverage.info
+	cd ../; lcoveralls ${COVERALLS_OPTION} --retry-count 3 ./test/coverage.info
 endif
 ifeq ($(USE_COVERAGE),gcov)
-	cd ../; coveralls -n -r ./ -b ./test $(COVARALLS_EXCLUDE_PATTERN) $(COVARALLS_EXCLUDE)
+	cd ../; coveralls ${COVERALLS_OPTION} -n -r ./ -b ./test $(COVARALLS_EXCLUDE_PATTERN) $(COVARALLS_EXCLUDE)
 endif
 
 send-codecov: coverage

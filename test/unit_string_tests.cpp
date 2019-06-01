@@ -17,6 +17,62 @@
 // include
 #include "iutest.hpp"
 
+IUTEST(UnitStringTest, Stricmp)
+{
+    const char negative = -1;
+    const char negative_sample[] = { 'a', 'a', 'a', negative, '\0' };
+    IUTEST_EXPECT_EQ(0, ::iutest::detail::iu_stricmp("AAA", "aaa"));
+    IUTEST_EXPECT_LT(0, ::iutest::detail::iu_stricmp("AAAa", "aaa"));
+    IUTEST_EXPECT_LT(0, ::iutest::detail::iu_stricmp("AAAB", "aaaa"));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::iu_stricmp("AAAA", "aaab"));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::iu_stricmp("AAA", negative_sample));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::iu_stricmp("AAA", "aaaA"));
+}
+
+IUTEST(UnitStringTest, OwnStricmp)
+{
+    const char negative = -1;
+    const char negative_sample[] = { 'a', 'a', 'a', negative, '\0' };
+    IUTEST_EXPECT_EQ(0, ::iutest::detail::wrapper::iu_stricmp("AAA", "aaa"));
+    IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_stricmp("AAAa", "aaa"));
+    IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_stricmp("AAAB", "aaaa"));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_stricmp("AAAA", "aaab"));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_stricmp("AAA", negative_sample));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_stricmp("AAA", "aaaA"));
+}
+
+IUTEST(UnitStringTest, Wcsicmp)
+{
+    const wchar_t negative = static_cast<wchar_t>(-1);
+    const wchar_t negative_sample[] = { L'a', L'a', L'a', negative, L'\0' };
+    IUTEST_EXPECT_EQ(0, ::iutest::detail::iu_wcsicmp(L"AAA", L"aaa"));
+    IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp(L"AAAa", L"aaa"));
+    IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp(L"AAAB", L"aaaa"));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::iu_wcsicmp(L"AAAa", L"aaaB"));
+#if IUTEST_WCHAR_UNSIGNED
+    IUTEST_EXPECT_GT(0, ::iutest::detail::iu_wcsicmp(L"AAA", negative_sample));
+#else
+    IUTEST_EXPECT_LT(0, ::iutest::detail::iu_wcsicmp(L"AAA", negative_sample));
+#endif
+    IUTEST_EXPECT_GT(0, ::iutest::detail::iu_wcsicmp(L"AAA", L"aaaA"));
+}
+
+IUTEST(UnitStringTest, OwnWcsicmp)
+{
+    const wchar_t negative = static_cast<wchar_t>(-1);
+    const wchar_t negative_sample[] = { L'a', L'a', L'a', negative, L'\0' };
+    IUTEST_EXPECT_EQ(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", L"aaa"));
+    IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAAa", L"aaa"));
+    IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAAB", L"aaaa"));
+    IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAAa", L"aaaB"));
+#if IUTEST_WCHAR_UNSIGNED
+    IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", negative_sample));
+#else
+    IUTEST_EXPECT_LT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", negative_sample));
+#endif
+    IUTEST_EXPECT_GT(0, ::iutest::detail::wrapper::iu_wcsicmp(L"AAA", L"aaaA"));
+}
+
 IUTEST(UnitStringTest, StringStrip)
 {
     ::std::string str = "   a1 a2  ";
