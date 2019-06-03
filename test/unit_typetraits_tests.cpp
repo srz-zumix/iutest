@@ -94,4 +94,10 @@ IUTEST(UnitTest, has_equal_to_tuple)
 }
 #endif
 
+IUTEST(UnitTest, is_signed)
+{
+    IUTEST_STATIC_ASSERT(  ::iutest_type_traits::is_signed<int>::value );
+    IUTEST_STATIC_ASSERT( !::iutest_type_traits::is_signed<unsigned int>::value );
+}
+
 #endif
