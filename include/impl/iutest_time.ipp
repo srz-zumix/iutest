@@ -60,6 +60,13 @@ IUTEST_IPP_INLINE bool Localtime(time_t sec, struct tm* dst)
 #endif
 }
 
+IUTEST_IPP_INLINE ::std::string FormatTimeInMillisec(TimeInMillisec msec)
+{
+    iu_stringstream ss;
+    ss << msec;
+    return ss.str();
+}
+
 IUTEST_IPP_INLINE ::std::string FormatTimeInMillisecAsSecond(TimeInMillisec msec)
 {
     iu_stringstream ss;

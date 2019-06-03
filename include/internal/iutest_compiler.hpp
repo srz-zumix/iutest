@@ -17,6 +17,7 @@
 
 //======================================================================
 // include
+#include "iutest_platform.hpp"
 
 //======================================================================
 // define
@@ -26,82 +27,7 @@
 #  endif
 #endif
 
-// os
-#if   defined(__CYGWIN__)
-#  define IUTEST_OS_CYGWIN              1
-#  define IUTEST_PLATFORM               "CYGWIN"
-#elif defined(_WIN32) || defined(WIN32) || defined(__WIN32__) || defined(WINAPI_FAMILY)
-#  define IUTEST_OS_WINDOWS             1
-#  if !defined(WIN32_LEAN_AND_MEAN)
-#    define WIN32_LEAN_AND_MEAN
-#  endif
-#  include <windows.h>
-#  if defined(_WIN32_WCE)
-#    define IUTEST_OS_WINDOWS_MOBILE    1
-#    define IUTEST_PLATFORM             "Windows CE"
-#  elif defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)
-#    define IUTEST_OS_WINDOWS_MINGW     1
-#  elif defined(__WINE__)
-#    define IUTEST_OS_WINDOWS_WINE      1
-#    define IUTEST_PLATFORM             "WINE"
-#  elif defined(__CUDACC__)
-#    define IUTEST_OS_WINDOWS_CUDA      1
-#  elif defined(WINAPI_FAMILY)
-#    if defined(WINAPI_FAMILY_PHONE_APP) && (WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
-#      define IUTEST_OS_WINDOWS_PHONE   1
-#      define IUTEST_PLATFORM           "Windows Phone"
-#    elif defined(WINAPI_FAMILY_APP) && (WINAPI_FAMILY == WINAPI_FAMILY_APP)
-#      define IUTEST_OS_WINDOWS_RT      1
-#      define IUTEST_PLATFORM           "Windows RT"
-#    else
-#      define IUTEST_OS_WINDOWS_DESKTOP 1
-#    endif
-#  else
-#    define IUTEST_OS_WINDOWS_DESKTOP   1
-#  endif
-#  if !defined(IUTEST_PLATFORM)
-#    define IUTEST_PLATFORM             "Windows"
-#  endif
-#elif defined(__APPLE__)
-#  include "TargetConditionals.h"
-#  if TARGET_OS_IPHONE
-#    define IUTEST_OS_IOS               1
-#    define IUTEST_PLATFORM             "iOS"
-#  else
-#    define IUTEST_OS_MAC               1
-#    define IUTEST_PLATFORM             "Mac OS"
-#  endif
-#elif defined(__FreeBSD__)
-#  define IUTEST_OS_FREEBSD             1
-#  define IUTEST_PLATFORM               "FreeBSD"
-#elif defined(sun) || defined(__sun)
-#  define IUTEST_OS_SOLARIS             1
-#  define IUTEST_PLATFORM               "Solaris"
-#elif defined(__linux__)
-#  define IUTEST_OS_LINUX               1
-#  if defined(ANDROID) || defined(__ANDROID__)
-#    define IUTEST_OS_LINUX_ANDROID     1
-#    define IUTEST_PLATFORM             "Android"
-#  else
-#    define IUTEST_PLATFORM             "LINUX"
-#  endif
-#elif defined(__native_client__)
-#  define IUTEST_OS_NACL                1   //!< @deprecated native client to eol
-#  define IUTEST_PLATFORM               "Google Native Client"
-#elif defined(__AVR32__) || defined(__avr32__)
-#  define IUTEST_OS_AVR32               1
-#  define IUTEST_PLATFORM               "AVR32"
-#elif defined(__arm__)
-#  define IUTEST_OS_ARM                 1
-#  define IUTEST_PLATFORM               "ARM"
-#endif
-
-#if defined(IUTEST_OS_LINUX_ANDROID)
-#  include <android/api-level.h>
-#endif
-
 // __cplusplus numbers
-
 #define IUTEST_CPLUSPLUS_CXX11 201103L
 #define IUTEST_CPLUSPLUS_CXX14 201402L
 #define IUTEST_CPLUSPLUS_CXX17 201703L
@@ -1312,6 +1238,37 @@
 #if !defined(IUTEST_ATTRIBUTE_INIT_PRIORITY_)
 #  define IUTEST_ATTRIBUTE_INIT_PRIORITY_(n)
 #endif
+
+//! format
+#if !defined(IUTEST_ATTRIBUTE_FORMAT)
+#  if   defined(__has_attribute)
+#    if __has_attribute(format)
+#      define IUTEST_ATTRIBUTE_FORMAT(fmt, fi, vi)  __attribute__ ((__format__ (fmt, fi, vi)))
+#    endif
+#  elif defined(__GNUC__) && !defined(COMPILER_ICC)
+#    define IUTEST_ATTRIBUTE_FORMAT(fmt, fi, vi)    __attribute__ ((__format__ (fmt, fi, vi)))
+#  endif
+#endif
+
+//! format printf
+#if !defined(IUTEST_ATTRIBUTE_FORMAT_PRINTF) && defined(IUTEST_ATTRIBUTE_FORMAT)
+#  if defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)
+#    if !defined(__MINGW_PRINTF_FORMAT)
+#      define __MINGW_PRINTF_FORMAT     gnu_printf
+#    endif
+#    define IUTEST_ATTRIBUTE_FORMAT_PRINTF(fi, vi)  IUTEST_ATTRIBUTE_FORMAT(__MINGW_PRINTF_FORMAT, fi, vi)
+#  else
+#    define IUTEST_ATTRIBUTE_FORMAT_PRINTF(fi, vi)  IUTEST_ATTRIBUTE_FORMAT(__printf__, fi, vi)
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_FORMAT)
+#  define IUTEST_ATTRIBUTE_FORMAT(fmt, fi, vi)
+#endif
+#if !defined(IUTEST_ATTRIBUTE_FORMAT_PRINTF)
+#  define IUTEST_ATTRIBUTE_FORMAT_PRINTF(fi, vi)
+#endif
+
 
 //! MemorySanitizer
 #if !defined(IUTEST_HAS_MEMORY_SANITIZER)

@@ -43,7 +43,7 @@ namespace iutest {
 namespace detail
 {
 
-::std::string StringFormat(const char* format, ...);
+::std::string StringFormat(const char* format, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 2);
 
 namespace wrapper
 {
@@ -136,6 +136,8 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 namespace wrapper
 {
 
+int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 0);
+
 inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
     char buffer[4096];
@@ -151,6 +153,9 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 }
 
 } // end of namespace wrapper
+
+int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 0);
+int iu_snprintf(char* dst, size_t size, const char* format, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 4);
 
 /**
  * @internal
@@ -323,11 +328,6 @@ inline void StringSplit(const ::std::string& str, char delimiter, ::std::vector<
     dst.swap(parsed);
 }
 
-inline IUTEST_CXX_CONSTEXPR char ToOct(unsigned int n)
-{
-    return '0' + (n & 0x7);
-}
-
 template<typename T>
 inline ::std::string ToOctString(T value)
 {
@@ -335,10 +335,12 @@ inline ::std::string ToOctString(T value)
     const size_t kN = (kB + 2) / 3;
     const size_t kD = kB - (kN - 1) * 3;
     const size_t kMask = (1u << kD) - 1u;
-    char buf[kN + 1] = { ToOct(static_cast<unsigned int>((value >> ((kN - 1) * 3)) & kMask)), 0 };
+    const T head = (value >> ((kN - 1) * 3)) & kMask;
+    char buf[kN + 1] = { static_cast<char>('0' + (head & 0x7)), 0 };
     for(size_t i = 1; i < kN; ++i)
     {
-        buf[i] = ToOct(static_cast<unsigned int>((value >> ((kN - i - 1) * 3))));
+        const T n = (value >> ((kN - i - 1) * 3));
+        buf[i] = static_cast<char>('0' + (n & 0x7));
     }
     buf[kN] = '\0';
     return buf;
@@ -346,7 +348,7 @@ inline ::std::string ToOctString(T value)
 
 inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n)
 {
-    return (n&0xF) >= 0xA ? 'A'+((n&0xF)-0xA) : '0'+(n&0xF);
+    return static_cast<char>((n&0xF) >= 0xA ? 'A'+((n&0xF)-0xA) : '0'+(n&0xF));
 }
 
 template<typename T>
@@ -365,10 +367,26 @@ inline ::std::string ToHexString(T value)
 inline ::std::string FormatIntWidth2(int value)
 {
     char buf[3] = "00";
-    buf[0] = (value/10)%10 + '0';
-    buf[1] = (value   )%10 + '0';
+    buf[0] = static_cast<char>((value/10)%10 + '0');
+    buf[1] = static_cast<char>((value   )%10 + '0');
     return buf;
 }
+
+#define IIUT_DECL_TOSTRING(fmt_, type_) \
+    inline ::std::string iu_to_string(type_ value) {\
+        char buf[128];                              \
+        iu_snprintf(buf, sizeof(buf), fmt_, value); \
+        return buf;                                 \
+    }
+
+IIUT_DECL_TOSTRING("%d", int)
+IIUT_DECL_TOSTRING("%u", unsigned int)
+IIUT_DECL_TOSTRING("%ld", long)
+IIUT_DECL_TOSTRING("%lu", unsigned long)
+IIUT_DECL_TOSTRING("%lld", long long)
+IIUT_DECL_TOSTRING("%llu", unsigned long long)
+
+#undef IIUT_DECL_TOSTRING
 
 inline ::std::string FormatSizeByte(UInt64 value)
 {
@@ -388,16 +406,16 @@ inline ::std::string FormatSizeByte(UInt64 value)
         view_value /= 1024;
     }
 
-    const UInt64 n = static_cast<UInt64>(::std::floor(view_value));
-    const UInt64 f = static_cast<UInt64>(view_value * 10.0 - n * 10.0);
+    const UInt32 n = static_cast<UInt32>(::std::floor(view_value));
+    const UInt32 f = static_cast<UInt32>(view_value * 10.0 - n * 10.0);
     const char* suffix = suffixes[index];
-    if(view_value - n == 0)
+    if(view_value - n <= 0.0)
     {
-        return StringFormat("%llu%s", n, suffix);
+        return iu_to_string(n) + suffix;
     }
     else
     {
-        return StringFormat("%llu.%llu%s", n, f, suffix);
+        return iu_to_string(n) + "." + iu_to_string(f) + suffix;
     }
 }
 

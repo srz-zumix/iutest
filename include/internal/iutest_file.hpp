@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -247,7 +247,8 @@ public:
         {
             return GetSizeBySeekSet(fp);
         }
-        return st.st_size;
+        // FIXME: https://github.com/srz-zumix/iutest/issues/227
+        return static_cast<size_t>(st.st_size);
 #else
         IUTEST_UNUSED_VAR(fp);
         return 0;

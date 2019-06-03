@@ -34,7 +34,11 @@ include CommonMakefile.in
 # Optimize
 #OPTIMIZE=-O2
 
-CXXFLAGS += -g -Wall -Wextra $(OPTIMIZE)
+STRICT_CXXFLAGS:= -Wformat=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wfloat-equal -Wpointer-arith
+# Necessary for peep class operator
+# STRICT_CXXFLAGS+= -Wconversion
+
+CXXFLAGS += -g -Wall -Wextra $(STRICT_CXXFLAGS) $(OPTIMIZE)
 
 ifdef _DEBUG
 CXXFLAGS += -ggdb

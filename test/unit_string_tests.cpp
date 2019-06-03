@@ -195,3 +195,8 @@ IUTEST(UnitStringTest, FormatSizeTByte)
     IUTEST_EXPECT_STREQ("1TB", ::iutest::detail::FormatSizeByte(1024ull * 1024 * 1024 * 1024));
     IUTEST_EXPECT_STREQ("1024TB", ::iutest::detail::FormatSizeByte(1024ull * 1024 * 1024 * 1024 * 1024));
 }
+
+IUTEST(UnitStringTest, Utf8AsciiCode)
+{
+    IUTEST_EXPECT_STREQ("A", ::iutest::detail::WideStringToUTF8(L"A", -1));
+}

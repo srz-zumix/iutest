@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -228,10 +228,13 @@ public:
         {
             return false;
         }
+IUTEST_PRAGMA_CLANG_WARN_PUSH()
+IUTEST_PRAGMA_WARN_FLOAT_EQUAL()
         if( m_v.fv == rhs.m_v.fv )
         {
             return true;
         }
+IUTEST_PRAGMA_CLANG_WARN_POP()
         _Myt abs = Abs(rhs);
         if( abs.m_v.fv <= max_abs_error )
         {
