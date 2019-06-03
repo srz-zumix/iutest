@@ -598,7 +598,7 @@ struct is_signed<T, false> : public false_type {};
 */
 template<typename T>
 struct is_signed
-    : public is_signed_helper::is_signed<T>
+    : public is_signed_helper::is_signed<T, true>
 {
 };
 
