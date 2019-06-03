@@ -17,6 +17,9 @@
 
 //======================================================================
 // include
+#define __STDC_FORMAT_MACROS    1
+#include <inttypes.h>
+
 #if defined(IUTEST_USE_GTEST) && defined(__STRICT_ANSI__)
 #  undef __STRICT_ANSI__
 #  include <string.h>
@@ -682,6 +685,25 @@ using tuples::get;
 #  define IUTEST_HAS_INVALID_PARAMETER_HANDLER      0
 #endif
 
+//! size_t format macros
+#if !defined(IUPRzu)
+#  if defined(_MSC_VER) && (_MSC_VER < 1900)
+#    define IUPRzu  "Iu"
+#  elif defined(IUTEST_OS_WINDOWS_MINGW)
+#    if !defined(__STRICT_ANSI__)
+#      if defined(__MINGW64__)
+#        define IUPRzu  PRIu64
+#      elif defined(__MINGW32__)
+#        define IUPRzu  PRIu32
+#      endif
+#    endif
+#  endif
+#endif
+
+#if !defined(IUPRzu)
+#  define IUPRzu  "zu"
+#endif
+
 namespace iutest {
 namespace detail
 {
@@ -754,7 +776,7 @@ struct type_least_t<8>
 /**
  * @brief   type_fit_t
 */
-template<int SIZE>
+template<size_t SIZE>
 struct type_fit_t {};
 
 /** type_fit_t<1> */

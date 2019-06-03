@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,27 +26,28 @@ class SPITest : public ::iutest::Test
 public:
 #if IUTEST_HAS_SPI_LAMBDA_SUPPORT
     const char* null_str;
-    int a, b;
+    const int a, b;
+    const float fa;
+    const double da;
     int  aa[5];
     int  ab[6];
     char ac[5];
-    ::std::string sa;
-    ::std::string sb;
-    ::std::string sa2;
+    const ::std::string sa;
+    const ::std::string sb;
+    const ::std::string sa2;
 
     SPITest()
         : null_str(NULL)
         , a(0), b(0)
+        , fa(0.0f)
+        , da(0.0)
         , sa("a")
         , sb("b")
     {
-        int  aa_[5] = { 0, 1, 2, 3, 4 };
-        int  ab_[6] = { 0, 1, 2, 3, 4, 5 };
-        char ac_[5] = { 0, 0, 2, 3, 5 };
+        const char ac_[5] = { 0, 0, 2, 3, 5 };
         for( int i=0; i < 5; ++i )
         {
-            aa[i] = aa_[i];
-            ab[i] = ab_[i];
+            aa[i] = ab[i] = i;
             ac[i] = ac_[i];
         }
         ab[5] = 5;
@@ -60,12 +61,14 @@ public:
 
 #if !IUTEST_HAS_SPI_LAMBDA_SUPPORT
 const char* null_str = NULL;
-int a=0, b=0;
-int  aa[] = { 0, 1, 2, 3, 4 };
-int  ab[] = { 0, 1, 2, 3, 4, 5 };
-char ac[] = { 0, 0, 2, 3, 5 };
-::std::string sa="a";
-::std::string sb="b";
+const int a=0, b=0;
+const int  aa[] = { 0, 1, 2, 3, 4 };
+const int  ab[] = { 0, 1, 2, 3, 4, 5 };
+const char ac[] = { 0, 0, 2, 3, 5 };
+const ::std::string sa="a";
+const ::std::string sb="b";
+const float fa = static_cast<float>(a);
+const double da = static_cast<double>(a);
 #endif
 
 void SPITest::FatalFailure_Sub(int& count)

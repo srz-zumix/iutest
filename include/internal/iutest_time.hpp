@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -51,6 +51,14 @@ namespace detail
  * @return  成否
 */
 bool Localtime(time_t sec, struct tm* dst);
+
+/**
+ * @internal
+ * @brief   TimeInMillisec to string
+ * @param   [in]    msec    = ミリ秒
+ * @return  ミリ秒数の文字列
+*/
+::std::string FormatTimeInMillisec(TimeInMillisec msec);
 
 /**
  * @internal

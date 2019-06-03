@@ -48,7 +48,7 @@ public:
 
 inline void iuOptionMessage::ShowHelp()
 {
-    const char* readme =
+    detail::iuConsole::color_output(detail::iuConsole::cyan,
         "--------------------------------------------------\n"
         "Name\n"
         "    iutest - iris unit test framework\n"
@@ -91,8 +91,8 @@ inline void iuOptionMessage::ShowHelp()
         "    Copyright (c) 2011-2018, Takazumi-Shirayanagi\n"
         "\n"
         "    This software is released under the new BSD License, see LICENSE\n"
-        "\n";
-    detail::iuConsole::color_output(detail::iuConsole::cyan, readme);
+        "\n"
+    );
 }
 
 inline void iuOptionMessage::ShowVersion()
@@ -235,6 +235,7 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_USE_OWN_LIST);
     IIUT_SHOW_MACRO(IUTEST_USE_OWN_STRING_VIEW);
     IIUT_SHOW_MACRO(IUTEST_USE_THROW_ON_ASSERTION_FAILURE);
+    IIUT_SHOW_MACRO(IUTEST_WCHAR_UNSIGNED);
 
 #ifdef IUTEST_LIBSTDCXX_VERSION
     IIUT_SHOW_MACRO(IUTEST_LIBSTDCXX_VERSION);
@@ -254,6 +255,10 @@ inline void iuOptionMessage::ShowSpec()
 #endif
 #ifdef __POSIX_VISIBLE
     IIUT_SHOW_MACRO(__POSIX_VISIBLE);
+#endif
+
+#ifdef __USE_MINGW_ANSI_STDIO
+    IIUT_SHOW_MACRO(__USE_MINGW_ANSI_STDIO);
 #endif
 
 #undef IIUT_SHOW_MACRO

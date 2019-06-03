@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -193,6 +193,36 @@
 #  define IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY()   IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wempty-body")
 #else
 #  define IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY()
+#endif
+
+#if   defined(_MSC_VER)
+#  define IUTEST_PRAGMA_WARN_FLOAT_EQUAL()      // IUTEST_PRAGMA_MSC_WARN_DISABLE(4390)
+#elif defined(__clang__)
+#  define IUTEST_PRAGMA_WARN_FLOAT_EQUAL()      IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wfloat-equal")
+#elif defined(__GNUC__)
+#  define IUTEST_PRAGMA_WARN_FLOAT_EQUAL()      IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wfloat-equal")
+#else
+#  define IUTEST_PRAGMA_WARN_FLOAT_EQUAL()
+#endif
+
+#if   defined(_MSC_VER)
+#  define IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL()    // IUTEST_PRAGMA_MSC_WARN_DISABLE(4390)
+#elif defined(__clang__)
+#  define IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wformat-nonliteral")
+#elif defined(__GNUC__)
+#  define IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL()    IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wformat-nonliteral")
+#else
+#  define IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL()
+#endif
+
+#if   defined(_MSC_VER)
+#  define IUTEST_PRAGMA_WARN_CAST_ALIGN()   // IUTEST_PRAGMA_MSC_WARN_DISABLE(4390)
+#elif defined(__clang__)
+#  define IUTEST_PRAGMA_WARN_CAST_ALIGN()   IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wcast-align")
+#elif defined(__GNUC__)
+#  define IUTEST_PRAGMA_WARN_CAST_ALIGN()   IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wcast-align")
+#else
+#  define IUTEST_PRAGMA_WARN_CAST_ALIGN()
 #endif
 
 #if   defined(_MSC_VER)

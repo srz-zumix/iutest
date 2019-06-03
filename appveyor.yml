@@ -135,7 +135,7 @@ for:
     cmd: |
       cd test
       g++ --version; clang++ --version; python --version
-      @echo. > foo.h && g++ -std=c++1z -dM -E -x c++ foo.h
+      make showcxxmacros
       uname
       make -j4
   test_script:
@@ -154,7 +154,7 @@ for:
     cmd: |
       cd test
       g++ --version
-      @echo. > foo.h && g++ -std=c++1z -dM -E -x c++ foo.h
+      mingw32-make showcxxmacros
       mingw32-make -j4 %MAKE_OPTIONS%
   test_script:
     cmd: mingw32-make test %MAKE_OPTIONS%

@@ -925,6 +925,9 @@ no_t& operator == (const T1& lhs, const T2& rhs);
 namespace has_equal_to_operator_impl
 {
 
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_FLOAT_EQUAL()
+
 using namespace has_equal_to_operator_helper;   // NOLINT
 /** @private */
 template<typename T>
@@ -932,6 +935,8 @@ struct has_equal_to_operator
 {
     typedef bool_constant< (sizeof(*(T*)0 == *(T*)0) != sizeof(has_equal_to_operator_helper::no_t) ) > type;    // NOLINT
 };
+
+IUTEST_PRAGMA_MSC_WARN_POP()
 
 }   // end of namespace has_equal_to_operator_impl
 

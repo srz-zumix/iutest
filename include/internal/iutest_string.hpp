@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -43,11 +43,64 @@ namespace iutest {
 namespace detail
 {
 
-::std::string StringFormat(const char* format, ...);
+::std::string StringFormat(const char* format, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 2);
+
+namespace wrapper
+{
+
+inline int iu_mbicmp(char l, char r)
+{
+    const int ul = static_cast<int>(static_cast<unsigned char>(toupper(l)));
+    const int ur = static_cast<int>(static_cast<unsigned char>(toupper(r)));
+    return ul - ur;
+}
+
+inline int iu_stricmp(const char* str1, const char* str2)
+{
+    const char* l = str1;
+    const char* r = str2;
+    while(*l)
+    {
+        const int ret = iu_mbicmp(*l, *r);
+        if( ret != 0 )
+        {
+            return ret;
+        }
+        ++l;
+        ++r;
+    }
+    return iu_mbicmp(*l, *r);
+}
+
+inline int iu_wcicmp(wchar_t l, wchar_t r)
+{
+    const ::std::wint_t ul = towupper(l);
+    const ::std::wint_t ur = towupper(r);
+    return ul - ur;
+}
+
+inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
+{
+    const wchar_t* l = str1;
+    const wchar_t* r = str2;
+    while(*l)
+    {
+        const int ret = iu_wcicmp(*l, *r);
+        if( ret != 0 )
+        {
+            return ret;
+        }
+        ++l;
+        ++r;
+    }
+    return iu_wcicmp(*l, *r);
+}
+
+}   // end of namespace wrapper
 
 /**
  * @internal
- * @brief   stricmp
+ * @brief   stricmp (unsigned char compare)
 */
 inline int iu_stricmp(const char* str1, const char* str2)
 {
@@ -57,36 +110,11 @@ inline int iu_stricmp(const char* str1, const char* str2)
     return _stricmp(str1, str2);
 #elif defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MINGW) && !defined(__STRICT_ANSI__)
     return _stricmp(str1, str2);
-#elif !defined(__MWERKS__) && !defined(IUTEST_OS_WINDOWS)
+#elif !defined(__MWERKS__) && !defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_CYGWIN)
+    // NOTE: Cygwin strcasecmp signed compare?
     return strcasecmp(str1, str2);
-
 #else
-    const char* l = str1;
-    const char* r = str2;
-    while(*l)
-    {
-        int ul = toupper(*l);
-        int ur = toupper(*r);
-        if( ul < ur )
-        {
-            return -1;
-        }
-        if( ul > ur )
-        {
-            return 1;
-        }
-        ++l;
-        ++r;
-    }
-    if( *l < *r )
-    {
-        return -1;
-    }
-    if( *l > *r )
-    {
-        return 1;
-    }
-    return 0;
+    return wrapper::iu_stricmp(str1, str2);
 #endif
 }
 
@@ -101,37 +129,14 @@ inline int iu_wcsicmp(const wchar_t * str1, const wchar_t * str2)
 #elif defined(IUTEST_OS_LINUX) && !defined(IUTEST_OS_LINUX_ANDROID)
     return wcscasecmp(str1, str2);
 #else
-    const wchar_t* l = str1;
-    const wchar_t* r = str2;
-    while(*l)
-    {
-        wchar_t ul = towupper(*l);
-        wchar_t ur = towupper(*r);
-        if( ul < ur )
-        {
-            return -1;
-        }
-        if( ul > ur )
-        {
-            return 1;
-        }
-        ++l;
-        ++r;
-    }
-    if( *l < *r )
-    {
-        return -1;
-    }
-    if( *l > *r )
-    {
-        return 1;
-    }
-    return 0;
+    return wrapper::iu_wcsicmp(str1, str2);
 #endif
 }
 
 namespace wrapper
 {
+
+int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 0);
 
 inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
@@ -148,6 +153,9 @@ inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 }
 
 } // end of namespace wrapper
+
+int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 0);
+int iu_snprintf(char* dst, size_t size, const char* format, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 4);
 
 /**
  * @internal
@@ -320,11 +328,6 @@ inline void StringSplit(const ::std::string& str, char delimiter, ::std::vector<
     dst.swap(parsed);
 }
 
-inline IUTEST_CXX_CONSTEXPR char ToOct(unsigned int n)
-{
-    return '0' + (n & 0x7);
-}
-
 template<typename T>
 inline ::std::string ToOctString(T value)
 {
@@ -332,10 +335,12 @@ inline ::std::string ToOctString(T value)
     const size_t kN = (kB + 2) / 3;
     const size_t kD = kB - (kN - 1) * 3;
     const size_t kMask = (1u << kD) - 1u;
-    char buf[kN + 1] = { ToOct(static_cast<unsigned int>((value >> ((kN - 1) * 3)) & kMask)), 0 };
+    const T head = (value >> ((kN - 1) * 3)) & kMask;
+    char buf[kN + 1] = { static_cast<char>('0' + (head & 0x7)), 0 };
     for(size_t i = 1; i < kN; ++i)
     {
-        buf[i] = ToOct(static_cast<unsigned int>((value >> ((kN - i - 1) * 3))));
+        const T n = (value >> ((kN - i - 1) * 3));
+        buf[i] = static_cast<char>('0' + (n & 0x7));
     }
     buf[kN] = '\0';
     return buf;
@@ -343,7 +348,7 @@ inline ::std::string ToOctString(T value)
 
 inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n)
 {
-    return (n&0xF) >= 0xA ? 'A'+((n&0xF)-0xA) : '0'+(n&0xF);
+    return static_cast<char>((n&0xF) >= 0xA ? 'A'+((n&0xF)-0xA) : '0'+(n&0xF));
 }
 
 template<typename T>
@@ -362,10 +367,26 @@ inline ::std::string ToHexString(T value)
 inline ::std::string FormatIntWidth2(int value)
 {
     char buf[3] = "00";
-    buf[0] = (value/10)%10 + '0';
-    buf[1] = (value   )%10 + '0';
+    buf[0] = static_cast<char>((value/10)%10 + '0');
+    buf[1] = static_cast<char>((value   )%10 + '0');
     return buf;
 }
+
+#define IIUT_DECL_TOSTRING(fmt_, type_) \
+    inline ::std::string iu_to_string(type_ value) {\
+        char buf[128];                              \
+        iu_snprintf(buf, sizeof(buf), fmt_, value); \
+        return buf;                                 \
+    }
+
+IIUT_DECL_TOSTRING("%d", int)
+IIUT_DECL_TOSTRING("%u", unsigned int)
+IIUT_DECL_TOSTRING("%ld", long)
+IIUT_DECL_TOSTRING("%lu", unsigned long)
+IIUT_DECL_TOSTRING("%lld", long long)
+IIUT_DECL_TOSTRING("%llu", unsigned long long)
+
+#undef IIUT_DECL_TOSTRING
 
 inline ::std::string FormatSizeByte(UInt64 value)
 {
@@ -385,16 +406,16 @@ inline ::std::string FormatSizeByte(UInt64 value)
         view_value /= 1024;
     }
 
-    const UInt64 n = static_cast<UInt64>(::std::floor(view_value));
-    const UInt64 f = static_cast<UInt64>(view_value * 10.0 - n * 10.0);
+    const UInt32 n = static_cast<UInt32>(::std::floor(view_value));
+    const UInt32 f = static_cast<UInt32>(view_value * 10.0 - n * 10.0);
     const char* suffix = suffixes[index];
-    if(view_value - n == 0)
+    if(view_value - n <= 0.0)
     {
-        return StringFormat("%llu%s", n, suffix);
+        return iu_to_string(n) + suffix;
     }
     else
     {
-        return StringFormat("%llu.%llu%s", n, f, suffix);
+        return iu_to_string(n) + "." + iu_to_string(f) + suffix;
     }
 }
 

@@ -58,6 +58,8 @@
 #  undef IUTEST_OS_NACL
 #endif
 
+#define GTEST_ATTRIBUTE_UNUSED_         IUTEST_ATTRIBUTE_UNUSED_
+
 #endif
 
 //======================================================================
@@ -112,8 +114,6 @@
 
 //======================================================================
 // undef
-#if defined(INCG_IRIS_IUTEST_HPP_)
-
 #ifdef IUTEST_OS_CYGWIN
 #  undef IUTEST_OS_CYGWIN
 #endif
@@ -157,7 +157,7 @@
 #  undef IUTEST_OS_NACL
 #endif
 
-#endif
+#undef IUTEST_ATTRIBUTE_UNUSED_
 
 //======================================================================
 // define
@@ -210,6 +210,8 @@
 #ifdef GTEST_OS_NACL
 #  define IUTEST_OS_NACL                GTEST_OS_NACL
 #endif
+
+#define IUTEST_ATTRIBUTE_UNUSED_        GTEST_ATTRIBUTE_UNUSED_
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 

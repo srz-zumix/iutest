@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -35,9 +35,9 @@ public:
     static T ZERO;
 };
 template<typename T>
-T FloatingpointTest<T>::ONE = (T)1;
+T FloatingpointTest<T>::ONE = static_cast<T>(1);
 template<typename T>
-T FloatingpointTest<T>::ZERO = (T)0;
+T FloatingpointTest<T>::ZERO = static_cast<T>(0);
 
 typedef ::iutest::Types<float, double> FloatingpointTestTypes;
 IUTEST_TYPED_TEST_CASE(FloatingpointTest, FloatingpointTestTypes);
@@ -48,15 +48,15 @@ IUTEST_TYPED_TEST(FloatingpointTest, PINF)
     TypeParam a=TestFixture::ONE;
     TypeParam b=TestFixture::ZERO;
 
-    IUTEST_EXPECT_EQ(FloatType(a/b), TestFixture::ftype::PINF());
+    IUTEST_EXPECT_EQ(FloatType(a/b), FloatType::PINF());
 }
 
 IUTEST_TYPED_TEST(FloatingpointTest, NINF)
 {
     typedef typename TestFixture::ftype FloatType;
-    TypeParam b=TestFixture::ZERO;
-
-    IUTEST_EXPECT_EQ(FloatType(log(b)), TestFixture::ftype::NINF());
+    const TypeParam b=TestFixture::ZERO;
+    const TypeParam lb=static_cast<TypeParam>(log(b));
+    IUTEST_EXPECT_EQ(FloatType(lb), FloatType::NINF());
 }
 
 // MinGW-w64 sqrt bug
@@ -65,9 +65,9 @@ IUTEST_TYPED_TEST(FloatingpointTest, NINF)
 IUTEST_TYPED_TEST(FloatingpointTest, NQNAN)
 {
     typedef typename TestFixture::ftype FloatType;
-    TypeParam a=TestFixture::ONE;
-
-    IUTEST_EXPECT_EQ(FloatType(sqrt(-a)), TestFixture::ftype::NQNAN());
+    const TypeParam a=TestFixture::ONE;
+    const TypeParam sq=static_cast<TypeParam>(sqrt(-a));
+    IUTEST_EXPECT_EQ(FloatType(sq), FloatType::NQNAN());
 }
 #endif
 
