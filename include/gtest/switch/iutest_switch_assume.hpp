@@ -198,8 +198,8 @@
 #define IUTEST_ASSUME_LE                    ASSUME_LE
 #define IUTEST_ASSUME_GT                    ASSUME_GT
 #define IUTEST_ASSUME_GE                    ASSUME_GE
-#define IUTEST_ASSUME_NULL(...)             ASSUME_EQ(NULL, (__VA_ARGS__))
-#define IUTEST_ASSUME_NOTNULL(...)          ASSUME_TRUE(NULL != (__VA_ARGS__))
+#define IUTEST_ASSUME_NULL(...)             ASSUME_EQ(IUTEST_NULLPTR, (__VA_ARGS__))
+#define IUTEST_ASSUME_NOTNULL(...)          ASSUME_TRUE(IUTEST_NULLPTR != (__VA_ARGS__))
 #define IUTEST_ASSUME_SAME(v1, v2)          ASSUME_PRED_FORMAT2(::testing::internal::CmpHelperSame, v1, v2)
 #define IUTEST_ASSUME_NEAR                  ASSUME_NEAR
 #define IUTEST_ASSUME_FLOAT_EQ              ASSUME_FLOAT_EQ

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -45,7 +45,7 @@ public:
         const char* str = static_cast<const char*>(buf);
         for( size_t i=0; i < cnt; ++i )
         {
-            iuConsole::output(str);
+            iuConsole::output("%s", str);
         }
         return true;
     }
