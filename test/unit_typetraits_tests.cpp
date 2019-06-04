@@ -100,4 +100,15 @@ IUTEST(UnitTest, is_signed)
     IUTEST_STATIC_ASSERT( !::iutest_type_traits::is_signed<unsigned int>::value );
 }
 
+IUTEST(UnitTest, is_signed_wchar_t)
+{
+#if IUTEST_WCHAR_UNSIGNED
+    IUTEST_STATIC_ASSERT( !::iutest_type_traits::is_signed<wchar_t>::value );
+#else
+    IUTEST_STATIC_ASSERT(  ::iutest_type_traits::is_signed<wchar_t>::value );
+#endif
+}
+
+
+
 #endif
