@@ -597,8 +597,7 @@
 
 #define IUTEST_TEST_SKIP()                                                          \
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                                  \
-    if( (::iutest::UnitTest::current_test_result()->Failed())                       \
-        || (::iutest::UnitTest::SkipTest(), ::iutest::detail::AlwaysTrue()) )       \
+    if( (::iutest::UnitTest::SkipTest(), ::iutest::detail::AlwaysTrue()) )          \
         IUTEST_SKIP_MESSAGE( ::iutest::UnitTest::current_test_result()->Failed() ?  \
                                 "Skipped. but already failed. " : "Skipped. " )
 
