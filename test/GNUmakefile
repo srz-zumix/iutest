@@ -34,7 +34,8 @@ include CommonMakefile.in
 # Optimize
 #OPTIMIZE=-O2
 
-STRICT_CXXFLAGS:= -Wformat=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wfloat-equal -Wpointer-arith
+STRICT_CXXFLAGS:= -Wformat=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wpointer-arith
+# STRICT_CXXFLAGS+= -Wfloat-equal
 # Necessary for peep class operator
 # STRICT_CXXFLAGS+= -Wconversion
 
