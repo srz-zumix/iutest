@@ -196,7 +196,7 @@
 #endif
 
 #if   defined(_MSC_VER)
-#  define IUTEST_PRAGMA_WARN_FLOAT_EQUAL()      // IUTEST_PRAGMA_MSC_WARN_DISABLE(4390)
+#  define IUTEST_PRAGMA_WARN_FLOAT_EQUAL()      // IUTEST_PRAGMA_MSC_WARN_DISABLE(?)
 #elif defined(__clang__)
 #  define IUTEST_PRAGMA_WARN_FLOAT_EQUAL()      IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wfloat-equal")
 #elif defined(__GNUC__)
@@ -206,7 +206,7 @@
 #endif
 
 #if   defined(_MSC_VER)
-#  define IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL()    // IUTEST_PRAGMA_MSC_WARN_DISABLE(4390)
+#  define IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL()    // IUTEST_PRAGMA_MSC_WARN_DISABLE(?)
 #elif defined(__clang__)
 #  define IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wformat-nonliteral")
 #elif defined(__GNUC__)
@@ -216,7 +216,7 @@
 #endif
 
 #if   defined(_MSC_VER)
-#  define IUTEST_PRAGMA_WARN_CAST_ALIGN()   // IUTEST_PRAGMA_MSC_WARN_DISABLE(4390)
+#  define IUTEST_PRAGMA_WARN_CAST_ALIGN()   // IUTEST_PRAGMA_MSC_WARN_DISABLE(?)
 #elif defined(__clang__)
 #  define IUTEST_PRAGMA_WARN_CAST_ALIGN()   IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wcast-align")
 #elif defined(__GNUC__)
