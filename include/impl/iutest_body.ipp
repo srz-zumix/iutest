@@ -54,7 +54,6 @@ IUTEST_IPP_INLINE void Test::Run(detail::iuITestInfoMediator* test_info)
 
     if( !HasFailure() && !IsSkipped() )
     {
-        IUTEST_BREAK();
         Body();
     }
 
