@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -72,7 +72,7 @@ IUTEST_TYPED_TEST_CASE(TypedTest3, ::iutest::Types<int, float>);
 IUTEST_TYPED_TEST(TypedTest3, Mul2)
 {
     TypeParam x = 1;
-    IUTEST_ASSERT_EQ(x+x, 2*x);
+    IUTEST_ASSERT_LT(x, 2*x);
 }
 
 #endif

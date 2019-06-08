@@ -875,7 +875,7 @@ struct has_equal_to_operator
     typedef bool_constant< (sizeof(*(T*)0 == *(T*)0) != sizeof(has_equal_to_operator_helper::no_t) ) > type;    // NOLINT
 };
 
-IUTEST_PRAGMA_MSC_WARN_POP()
+IUTEST_PRAGMA_WARN_POP()
 
 }   // end of namespace has_equal_to_operator_impl
 
