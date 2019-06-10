@@ -152,6 +152,7 @@ class floating_point
 private:
     typedef floating_point<RawType> _Myt;
 
+public:
     typedef typename detail::type_fit_t<sizeof(RawType)> type;
     typedef typename type::Int  Int;
     typedef typename type::UInt UInt;
