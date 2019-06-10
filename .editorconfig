@@ -49,6 +49,9 @@ indent_size = 2
 [CMakeLists.txt]
 indent_size = 2
 
+[*.code-workspace]
+indent_style = tab
+
 # comment style for lint
 [*]
 # C-style doc comments
