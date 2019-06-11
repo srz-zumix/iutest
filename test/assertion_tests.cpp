@@ -168,8 +168,8 @@ IUTEST(AssertionTest, GT)
     double d0=0.0, d1=1.0;
     IUTEST_EXPECT_GT(f1, f0);
     IUTEST_ASSERT_GT(x1, x0);
-    IUTEST_EXPECT_GT(d1, d0);
     IUTEST_INFORM_GT(0x1, 0.0f);
+    IUTEST_EXPECT_GT(d1, d0);
 }
 
 IUTEST(AssertionTest, GE)

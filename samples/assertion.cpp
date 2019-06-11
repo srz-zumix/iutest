@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -54,11 +54,13 @@ IUTEST(AssertionTest, Base)
     {
         IUTEST_EXPECT_TRUE(true);
         IUTEST_EXPECT_TRUE(1);
-        IUTEST_EXPECT_TRUE(100==100);
+        IUTEST_EXPECT_TRUE(100 == 100);
+        IUTEST_EXPECT_TRUE(f()==42);
 
         IUTEST_EXPECT_FALSE(false);
         IUTEST_EXPECT_FALSE(0);
-        IUTEST_EXPECT_FALSE(100!=100);
+        IUTEST_EXPECT_FALSE(100 != 100);
+        IUTEST_EXPECT_FALSE(f()!=42);
     }
     // EQ
     {

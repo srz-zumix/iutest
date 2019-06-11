@@ -5,6 +5,11 @@
 		}
 	],
 	"settings": {
+		"editor.rulers": [
+			80,
+			120,
+			150
+		],
 		"files.associations": {
 			"*.ipp": "cpp",
 			"future": "cpp",
@@ -79,17 +84,21 @@
 			"xtree": "cpp",
 			"xutility": "cpp"
 		}
-    },
-    "launch": {
-        "configurations": [
-            {
-                "name": "Python: xml2file.py",
-                "type": "python",
-                "request": "launch",
-                "program": "${workspaceFolder}/tools/xml2file/xml2file.py",
-                "args" : ["-o", "${workspaceFolder}/tools/xml2file/tmp/files", "${workspaceFolder}/tools/xml2file/tmp/inputs/japanese_tests.xml"]
-            }
-        ],
-        "compounds": []
-    }
+	},
+	"launch": {
+		"configurations": [
+			{
+				"name": "Python: xml2file.py",
+				"type": "python",
+				"request": "launch",
+				"program": "${workspaceFolder}/tools/xml2file/xml2file.py",
+				"args": [
+					"-o",
+					"${workspaceFolder}/tools/xml2file/tmp/files",
+					"${workspaceFolder}/tools/xml2file/tmp/inputs/japanese_tests.xml"
+				]
+			}
+		],
+		"compounds": []
+	}
 }

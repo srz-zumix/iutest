@@ -24,7 +24,7 @@ void OccurNonFatalFailure(void)
     IUTEST_EXPECT_TRUE(false);
 }
 
-IUTEST_PRAGMA_GCC_WARN_PUSH()
+IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY()
 
 IUTEST(NoFatalFailureTest, Assert)
@@ -43,7 +43,7 @@ IUTEST(NoFatalFailureTest, Inform)
     IUTEST_INFORM_NO_FATAL_FAILURE(OccurNonFatalFailure());
 }
 
-IUTEST_PRAGMA_GCC_WARN_POP()
+IUTEST_PRAGMA_WARN_POP()
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
