@@ -1,15 +1,16 @@
 <map id="internal/iutest_file.hpp" name="internal/iutest_file.hpp">
-<area shape="rect" id="node2" href="$d4/db0/iutest__config_8hpp.html" title="iris unit test config " alt="" coords="1218,379,1351,405"/>
-<area shape="rect" id="node3" href="$d3/d4c/iutest__internal__defs_8hpp.html" title="internal definition " alt="" coords="915,80,1094,107"/>
-<area shape="rect" id="node30" href="$dd/d4f/iutest__stream_8hpp.html" title="io stream " alt="" coords="2224,80,2364,107"/>
-<area shape="rect" id="node4" href="$d1/d84/iutest__defs_8hpp.html" title="iris unit test definition " alt="" coords="1633,155,1768,181"/>
-<area shape="rect" id="node17" href="$d7/d86/iutest__string_8hpp.html" title="iris unit test 文字列操作 ファイル " alt="" coords="408,155,539,181"/>
-<area shape="rect" id="node26" href="$d9/d0b/iutest__type__traits_8hpp_source.html" title="type traits " alt="" coords="2098,155,2262,181"/>
-<area shape="rect" id="node27" href="$d6/d87/iutest__compatible__defs_8hpp.html" title="internal gtest/iutest compatible definition " alt="" coords="218,304,420,331"/>
-<area shape="rect" id="node28" href="$d3/d8e/iutest__exception_8hpp.html" title="iris unit test exception " alt="" coords="808,155,966,181"/>
-<area shape="rect" id="node5" href="$dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル " alt="" coords="1042,229,1246,256"/>
-<area shape="rect" id="node7" href="$d9/d6f/iutest__pp_8hpp.html" title="preprocessor definition " alt="" coords="2098,229,2262,256"/>
-<area shape="rect" id="node8" href="$d9/dad/iutest__stdlib_8hpp.html" title="stdlib " alt="" coords="1322,229,1506,256"/>
-<area shape="rect" id="node14" href="$da/d86/iutest__debug_8hpp.html" title="iris unit test debug 用定義 ファイル " alt="" coords="1530,229,1718,256"/>
-<area shape="rect" id="node6" href="$d7/d02/iutest__pragma_8hpp.html" title="pragma macros " alt="" coords="1052,304,1196,331"/>
+<area shape="rect" id="node2" href="$d4/db0/iutest__config_8hpp.html" title="iris unit test config " alt="" coords="1281,379,1414,405"/>
+<area shape="rect" id="node3" href="$d3/d4c/iutest__internal__defs_8hpp.html" title="internal definition " alt="" coords="1027,80,1206,107"/>
+<area shape="rect" id="node32" href="$dd/d4f/iutest__stream_8hpp.html" title="io stream " alt="" coords="2260,80,2400,107"/>
+<area shape="rect" id="node4" href="$d1/d84/iutest__defs_8hpp.html" title="iris unit test definition " alt="" coords="1676,155,1811,181"/>
+<area shape="rect" id="node19" href="$d7/d86/iutest__string_8hpp.html" title="iris unit test 文字列操作 ファイル " alt="" coords="537,155,667,181"/>
+<area shape="rect" id="node28" href="$d9/d0b/iutest__type__traits_8hpp_source.html" title="type traits " alt="" coords="1035,155,1199,181"/>
+<area shape="rect" id="node29" href="$d6/d87/iutest__compatible__defs_8hpp.html" title="internal gtest/iutest compatible definition " alt="" coords="1939,155,2142,181"/>
+<area shape="rect" id="node30" href="$d3/d8e/iutest__exception_8hpp.html" title="iris unit test exception " alt="" coords="5,155,164,181"/>
+<area shape="rect" id="node5" href="$dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル " alt="" coords="1261,229,1465,256"/>
+<area shape="rect" id="node8" href="$d9/d6f/iutest__pp_8hpp.html" title="preprocessor definition " alt="" coords="1060,229,1224,256"/>
+<area shape="rect" id="node9" href="$d9/dad/iutest__stdlib_8hpp.html" title="stdlib " alt="" coords="1547,229,1731,256"/>
+<area shape="rect" id="node16" href="$da/d86/iutest__debug_8hpp.html" title="iris unit test debug 用定義 ファイル " alt="" coords="1756,229,1944,256"/>
+<area shape="rect" id="node6" href="$da/d9f/iutest__platform_8hpp.html" title="iris unit test platform detection " alt="" coords="1329,304,1480,331"/>
+<area shape="rect" id="node7" href="$d7/d02/iutest__pragma_8hpp.html" title="pragma macros " alt="" coords="1110,304,1254,331"/>
 </map>

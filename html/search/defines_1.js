@@ -1,10 +1,12 @@
 var searchData=
 [
+  ['iuprzu',['IUPRzu',['../d9/dad/iutest__stdlib_8hpp.html#afef25ba7f249c60d571c440b6291ae08',1,'iutest_stdlib.hpp']]],
   ['iutest_5fambiguous_5felse_5fblocker_5f',['IUTEST_AMBIGUOUS_ELSE_BLOCKER_',['../d3/d4c/iutest__internal__defs_8hpp.html#a646dae3b6c926055ae2f597d74f48bc8',1,'iutest_internal_defs.hpp']]],
   ['iutest_5fassume_5fstrin',['IUTEST_ASSUME_STRIN',['../dc/dbb/iutest__util__assertion_8hpp.html#acdaebfae2d5f108a89ccdbdc7a7dd166',1,'iutest_util_assertion.hpp']]],
   ['iutest_5fassume_5fstrlneq',['IUTEST_ASSUME_STRLNEQ',['../dc/dbb/iutest__util__assertion_8hpp.html#ac2127742dece491830be4c17c90be130',1,'iutest_util_assertion.hpp']]],
   ['iutest_5fassume_5fstrnotin',['IUTEST_ASSUME_STRNOTIN',['../dc/dbb/iutest__util__assertion_8hpp.html#a031263afa25551301e8b86447e70307b',1,'iutest_util_assertion.hpp']]],
   ['iutest_5fattribute_5fdeprecated_5f',['IUTEST_ATTRIBUTE_DEPRECATED_',['../dc/d2f/iutest__compiler_8hpp.html#a836dac8cc9db0faf7faa754dbbca3cce',1,'iutest_compiler.hpp']]],
+  ['iutest_5fattribute_5fformat',['IUTEST_ATTRIBUTE_FORMAT',['../dc/d2f/iutest__compiler_8hpp.html#ad16fae6ba79fa1fcdec73173197a6f9d',1,'iutest_compiler.hpp']]],
   ['iutest_5fattribute_5finit_5fpriority_5f',['IUTEST_ATTRIBUTE_INIT_PRIORITY_',['../dc/d2f/iutest__compiler_8hpp.html#a61f680e71839946345998dfe8d2b8255',1,'iutest_compiler.hpp']]],
   ['iutest_5fattribute_5fnoreturn_5f',['IUTEST_ATTRIBUTE_NORETURN_',['../dc/d2f/iutest__compiler_8hpp.html#ae77bae4c5720c1d321484985bbfc763d',1,'iutest_compiler.hpp']]],
   ['iutest_5fattribute_5fpure_5f',['IUTEST_ATTRIBUTE_PURE_',['../dc/d2f/iutest__compiler_8hpp.html#a5125eeb0cda1e5a188d467b3495e6a7f',1,'iutest_compiler.hpp']]],

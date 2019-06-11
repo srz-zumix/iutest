@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.99.18</span>
+   &#160;<span id="projectnumber">1.16.99.20</span>
    </div>
   </td>
  </tr>
@@ -73,6 +73,7 @@ $(function() {
 <p>iris unit test compiler 依存の吸収 ファイル  
 <a href="#details">[詳解]</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="../../d4/db0/iutest__config_8hpp_source.html">iutest_config.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../da/d9f/iutest__platform_8hpp_source.html">iutest_platform.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d7/d02/iutest__pragma_8hpp_source.html">iutest_pragma.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 iutest_compiler.hpp の依存先関係図:</div>
@@ -80,7 +81,8 @@ iutest_compiler.hpp の依存先関係図:</div>
 <div class="center"><img src="../../dd/dff/iutest__compiler_8hpp__incl.png" border="0" usemap="#internal_2iutest__compiler_8hpp" alt=""/></div>
 <map name="internal_2iutest__compiler_8hpp" id="internal_2iutest__compiler_8hpp">
 <area shape="rect" id="node2" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config " alt="" coords="41,155,174,181"/>
-<area shape="rect" id="node3" href="../../d7/d02/iutest__pragma_8hpp.html" title="pragma macros " alt="" coords="90,80,234,107"/>
+<area shape="rect" id="node3" href="../../da/d9f/iutest__platform_8hpp.html" title="iris unit test platform detection " alt="" coords="32,80,183,107"/>
+<area shape="rect" id="node4" href="../../d7/d02/iutest__pragma_8hpp.html" title="pragma macros " alt="" coords="207,80,351,107"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -291,6 +293,9 @@ iutest_compiler.hpp の依存先関係図:</div>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ae13cb328fa68b6edb2e54b19919ac976">IUTEST_HAS_RTTI</a>&#160;&#160;&#160;0</td></tr>
 <tr class="memdesc:ae13cb328fa68b6edb2e54b19919ac976"><td class="mdescLeft">&#160;</td><td class="mdescRight">has RTTI <br /></td></tr>
 <tr class="separator:ae13cb328fa68b6edb2e54b19919ac976"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bef16d39809fff81fa53d5b28db4c2c"><td class="memItemLeft" align="right" valign="top"><a id="a4bef16d39809fff81fa53d5b28db4c2c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_WCHAR_UNSIGNED</b>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a4bef16d39809fff81fa53d5b28db4c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8b7e3dd4fe1e14d5e4d61e187c31166"><td class="memItemLeft" align="right" valign="top"><a id="af8b7e3dd4fe1e14d5e4d61e187c31166"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#af8b7e3dd4fe1e14d5e4d61e187c31166">IUTEST_HAS_INT128</a>&#160;&#160;&#160;0</td></tr>
 <tr class="memdesc:af8b7e3dd4fe1e14d5e4d61e187c31166"><td class="mdescLeft">&#160;</td><td class="mdescRight">has 128bit type <br /></td></tr>
@@ -370,6 +375,12 @@ iutest_compiler.hpp の依存先関係図:</div>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#a61f680e71839946345998dfe8d2b8255">IUTEST_ATTRIBUTE_INIT_PRIORITY_</a>(n)</td></tr>
 <tr class="memdesc:a61f680e71839946345998dfe8d2b8255"><td class="mdescLeft">&#160;</td><td class="mdescRight">init_priority <br /></td></tr>
 <tr class="separator:a61f680e71839946345998dfe8d2b8255"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad16fae6ba79fa1fcdec73173197a6f9d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ad16fae6ba79fa1fcdec73173197a6f9d">IUTEST_ATTRIBUTE_FORMAT</a>(fmt,  fi,  vi)</td></tr>
+<tr class="memdesc:ad16fae6ba79fa1fcdec73173197a6f9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">format  <a href="#ad16fae6ba79fa1fcdec73173197a6f9d">[詳解]</a><br /></td></tr>
+<tr class="separator:ad16fae6ba79fa1fcdec73173197a6f9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae6ffa699dd043f984c0a10db008cf17"><td class="memItemLeft" align="right" valign="top"><a id="aae6ffa699dd043f984c0a10db008cf17"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_ATTRIBUTE_FORMAT_PRINTF</b>(fi,  vi)</td></tr>
+<tr class="separator:aae6ffa699dd043f984c0a10db008cf17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8cc33c8644c0e50fa57314cd41363451"><td class="memItemLeft" align="right" valign="top"><a id="a8cc33c8644c0e50fa57314cd41363451"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#a8cc33c8644c0e50fa57314cd41363451">IUTEST_HAS_MEMORY_SANITIZER</a>&#160;&#160;&#160;0</td></tr>
 <tr class="memdesc:a8cc33c8644c0e50fa57314cd41363451"><td class="mdescLeft">&#160;</td><td class="mdescRight">MemorySanitizer <br /></td></tr>
@@ -400,6 +411,43 @@ iutest_compiler.hpp の依存先関係図:</div>
 <dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2011-2019, Takazumi Shirayanagi<br />
 This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><h2 class="groupheader">マクロ定義詳解</h2>
+<a id="ad16fae6ba79fa1fcdec73173197a6f9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad16fae6ba79fa1fcdec73173197a6f9d">&#9670;&nbsp;</a></span>IUTEST_ATTRIBUTE_FORMAT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_ATTRIBUTE_FORMAT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">fmt, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">fi, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">vi&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>format </p>
+<p>format printf </p>
+
+</div>
+</div>
 <a id="a3276d9ae228c902c9928f9ee94af4a2c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3276d9ae228c902c9928f9ee94af4a2c">&#9670;&nbsp;</a></span>IUTEST_ATTRIBUTE_NO_SANITIZE_ALL</h2>
 
@@ -485,7 +533,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2019年05月28日(火) 01時23分30秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2019年06月11日(火) 01時01分31秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
