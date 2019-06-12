@@ -288,7 +288,7 @@
  * @param   actual      = 検査対象
 */
 #ifndef IUTEST_ASSERT_ALMOST_EQ
-#  define IUTEST_ASSERT_ALMOST_EQ(expected, actual) IUTEST_TEST_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
+#  define IUTEST_ASSERT_ALMOST_EQ(expected, actual) IUTEST_TEST_ALMOST_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_ASSERT_
@@ -642,17 +642,6 @@
 #endif
 /**
  * @ingroup IUTEST_EXPECT_
- * @brief   != テスト（浮動小数点数は誤差考慮）
- * @details actual が expected と等しいことを検証します
- *          浮動小数点数の場合、誤差を考慮した FLOAT_EQ/DOUBLE_EQ での検証になります。
- * @param   expected    = 期待値
- * @param   actual      = 検査対象
-*/
-#ifndef IUTEST_EXPECT_ALMOST_EQ
-#  define IUTEST_EXPECT_ALMOST_EQ(expected, actual) IUTEST_TEST_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
-#endif
-/**
- * @ingroup IUTEST_EXPECT_
  * @brief   式アサーション
  * @param   expression  = 式
 */
@@ -685,6 +674,17 @@
 */
 #ifndef IUTEST_EXPECT_EQ
 #  define IUTEST_EXPECT_EQ(expected, actual)        IUTEST_TEST_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
+#endif
+/**
+ * @ingroup IUTEST_EXPECT_
+ * @brief   != テスト（浮動小数点数は誤差考慮）
+ * @details actual が expected と等しいことを検証します
+ *          浮動小数点数の場合、誤差を考慮した FLOAT_EQ/DOUBLE_EQ での検証になります。
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_EXPECT_ALMOST_EQ
+#  define IUTEST_EXPECT_ALMOST_EQ(expected, actual) IUTEST_TEST_ALMOST_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_EXPECT_
@@ -1090,7 +1090,7 @@
  * @param   actual      = 検査対象
 */
 #ifndef IUTEST_INFORM_ALMOST_EQ
-#  define IUTEST_INFORM_ALMOST_EQ(expected, actual) IUTEST_TEST_EQ(expected, actual, IUTEST_INFORM_FAILURE)
+#  define IUTEST_INFORM_ALMOST_EQ(expected, actual) IUTEST_TEST_ALMOST_EQ(expected, actual, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_INFORM_
@@ -1478,7 +1478,7 @@
  * @param   actual      = 検査対象
 */
 #ifndef IUTEST_ASSUME_ALMOST_EQ
-#  define IUTEST_ASSUME_ALMOST_EQ(expected, actual) IUTEST_TEST_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
+#  define IUTEST_ASSUME_ALMOST_EQ(expected, actual) IUTEST_TEST_ALMOST_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_ASSUME_
