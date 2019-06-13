@@ -484,7 +484,7 @@
         , expected, actual, on_failure )
 
 #define IUTEST_TEST_ALMOST_EQ(expected, actual, on_failure)        \
-    IUTEST_PRED_FORMAT2_( ::iutest::internal::backward::EqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare    \
+    IUTEST_PRED_FORMAT2_( ::iutest::internal::backward::AlmostEqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare    \
         , expected, actual, on_failure )
 
 #define IUTEST_TEST_NE(v1, v2, on_failure)                  \
