@@ -19,15 +19,15 @@
 
 //======================================================================
 // define
-#define INFORM_TRUE     IUTEST_INFORM_TRUE
-#define INFORM_FALSE    IUTEST_INFORM_FALSE
-#define INFORM_EQ       IUTEST_INFORM_EQ
-#define INFORM_NE       IUTEST_INFORM_NE
-#define INFORM_LT       IUTEST_INFORM_LT
-#define INFORM_LE       IUTEST_INFORM_LE
-#define INFORM_GT       IUTEST_INFORM_GT
-#define INFORM_GE       IUTEST_INFORM_GE
-#define INFORM_NEAR     IUTEST_INFORM_NEAR
+#define INFORM_TRUE         IUTEST_INFORM_TRUE
+#define INFORM_FALSE        IUTEST_INFORM_FALSE
+#define INFORM_EQ           IUTEST_INFORM_EQ
+#define INFORM_NE           IUTEST_INFORM_NE
+#define INFORM_LT           IUTEST_INFORM_LT
+#define INFORM_LE           IUTEST_INFORM_LE
+#define INFORM_GT           IUTEST_INFORM_GT
+#define INFORM_GE           IUTEST_INFORM_GE
+#define INFORM_NEAR         IUTEST_INFORM_NEAR
 #define INFORM_FLOAT_EQ     IUTEST_INFORM_FLOAT_EQ
 #define INFORM_DOUBLE_EQ    IUTEST_INFORM_DOUBLE_EQ
 #define INFORM_STREQ        IUTEST_INFORM_STREQ
@@ -72,6 +72,7 @@
 #undef IUTEST_INFORM_TRUE
 #undef IUTEST_INFORM_FALSE
 #undef IUTEST_INFORM_EQ
+#undef IUTEST_INFORM_ALMOST_EQ
 #undef IUTEST_INFORM_NE
 #undef IUTEST_INFORM_LT
 #undef IUTEST_INFORM_LE
@@ -200,6 +201,7 @@
 #define IUTEST_INFORM_TRUE(...)             INFORM_TRUE(!!(__VA_ARGS__))
 #define IUTEST_INFORM_FALSE(...)            INFORM_FALSE((__VA_ARGS__))
 #define IUTEST_INFORM_EQ                    INFORM_EQ
+#define IUTEST_INFORM_ALMOST_EQ             INFORM_EQ
 #define IUTEST_INFORM_NE(expected, actual)  INFORM_PRED_FORMAT2(IIUT_COMPATIBLE_NEHELPER(expected)::Compare, expected, actual)
 #define IUTEST_INFORM_LT                    INFORM_LT
 #define IUTEST_INFORM_LE                    INFORM_LE
@@ -284,8 +286,9 @@ inline void AppendInformSupportPrinter()
 
 #endif // !defined(IUTEST_USE_GTEST)
 
-#define INFORM_NULL     IUTEST_INFORM_NULL
-#define INFORM_NOTNULL  IUTEST_INFORM_NOTNULL
-#define INFORM_SAME     IUTEST_INFORM_SAME
+#define INFORM_ALMOST_EQ    IUTEST_INFORM_ALMOST_EQ
+#define INFORM_NULL         IUTEST_INFORM_NULL
+#define INFORM_NOTNULL      IUTEST_INFORM_NOTNULL
+#define INFORM_SAME         IUTEST_INFORM_SAME
 
 #endif // INCG_IRIS_IUTEST_SWITCH_INFORM_HPP_F4AD6E1B_4B1F_40EE_A0CC_D454587B2C39_

@@ -741,12 +741,12 @@ public:
     template<typename T>
     static AssertionResult Compare(const char* expr1, const char* expr2, const float& val1, const T& val2)
     {
-        return CmpHelperFloatingPointEQ<float>(expr1, expr2, val1, val2);
+        return CmpHelperFloatingPointEQ<float>(expr1, expr2, val1, (float)val2);
     }
     template<typename T>
     static AssertionResult Compare(const char* expr1, const char* expr2, const double& val1, const T& val2)
     {
-        return CmpHelperFloatingPointEQ<double>(expr1, expr2, val1, val2);
+        return CmpHelperFloatingPointEQ<double>(expr1, expr2, val1, (double)val2);
     }
 };
 
