@@ -48,7 +48,8 @@ IUTEST_TYPED_TEST(AlmostUlpTest, Eq)
     FInt ulp;
     ulp.fv = x;
     ulp.uv += 1;
-    IUTEST_ASSERT_ALMOST_EQ(ulp.fv, x);
+    IUTEST_EXPECT_ALMOST_EQ(ulp.fv, x);
+    IUTEST_EXPECT_ALMOST_EQ(ulp.fv, 1);
 }
 
 #endif
