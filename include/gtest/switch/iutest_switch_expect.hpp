@@ -163,7 +163,8 @@
 #define IUTEST_EXPECT_TRUE(...)             EXPECT_TRUE(!!(__VA_ARGS__))
 #define IUTEST_EXPECT_FALSE(...)            EXPECT_FALSE((__VA_ARGS__))
 #define IUTEST_EXPECT_EQ                    EXPECT_EQ
-#define IUTEST_EXPECT_ALMOST_EQ             EXPECT_EQ
+#define IUTEST_EXPECT_ALMOST_EQ(expected, actual)   \
+    EXPECT_PRED_FORMAT2( ::testing::internal::backward::AlmostEqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare, expected, actual)
 #define IUTEST_EXPECT_NE(expected, actual)  EXPECT_PRED_FORMAT2(IIUT_COMPATIBLE_NEHELPER(expected)::Compare, expected, actual)
 #define IUTEST_EXPECT_LT                    EXPECT_LT
 #define IUTEST_EXPECT_LE                    EXPECT_LE

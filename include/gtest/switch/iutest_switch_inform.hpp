@@ -201,7 +201,8 @@
 #define IUTEST_INFORM_TRUE(...)             INFORM_TRUE(!!(__VA_ARGS__))
 #define IUTEST_INFORM_FALSE(...)            INFORM_FALSE((__VA_ARGS__))
 #define IUTEST_INFORM_EQ                    INFORM_EQ
-#define IUTEST_INFORM_ALMOST_EQ             INFORM_EQ
+#define IUTEST_INFORM_ALMOST_EQ(expected, actual)   \
+    INFORM_PRED_FORMAT2( ::testing::internal::backward::AlmostEqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare, expected, actual)
 #define IUTEST_INFORM_NE(expected, actual)  INFORM_PRED_FORMAT2(IIUT_COMPATIBLE_NEHELPER(expected)::Compare, expected, actual)
 #define IUTEST_INFORM_LT                    INFORM_LT
 #define IUTEST_INFORM_LE                    INFORM_LE

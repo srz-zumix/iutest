@@ -101,6 +101,32 @@ public:
     }
 };
 
+template <bool lhs_is_null_literal>
+class AlmostEqHelper : public internal::EqHelper<lhs_is_null_literal>
+{
+public:
+    template<typename T1, typename T2>
+    static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
+    {
+        return EqHelper<false>::Compare(expr1, expr2, val1, (T1)val2);
+    }
+    template<typename T>
+    static AssertionResult Compare(const char* expr1, const char* expr2, const float& val1, const T& val2)
+    {
+        return CmpHelperFloatingPointEQ<float>(expr1, expr2, val1, (float)val2);
+    }
+    template<typename T>
+    static AssertionResult Compare(const char* expr1, const char* expr2, const double& val1, const T& val2)
+    {
+        return CmpHelperFloatingPointEQ<double>(expr1, expr2, val1, (double)val2);
+    }
+};
+
+template <bool lhs_is_null_literal>
+class AlmostEqHelper<true> : public internal::EqHelper<true>
+{
+};
+
 }   // end of namespace backward
 
 //======================================================================

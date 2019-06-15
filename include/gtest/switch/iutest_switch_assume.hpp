@@ -194,7 +194,8 @@
 #define IUTEST_ASSUME_TRUE(...)             ASSUME_TRUE(!!(__VA_ARGS__))
 #define IUTEST_ASSUME_FALSE(...)            ASSUME_FALSE((__VA_ARGS__))
 #define IUTEST_ASSUME_EQ                    ASSUME_EQ
-#define IUTEST_ASSUME_ALMOST_EQ             ASSUME_EQ
+#define IUTEST_ASSUME_ALMOST_EQ(expected, actual)   \
+    ASSUME_PRED_FORMAT2( ::testing::internal::backward::AlmostEqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare, expected, actual)
 #define IUTEST_ASSUME_NE(expected, actual)  ASSUME_PRED_FORMAT2(IIUT_COMPATIBLE_NEHELPER(expected)::Compare, expected, actual)
 #define IUTEST_ASSUME_LT                    ASSUME_LT
 #define IUTEST_ASSUME_LE                    ASSUME_LE
