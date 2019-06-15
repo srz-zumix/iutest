@@ -33,6 +33,9 @@
 #elif IUTEST_HAS_STRSTREAM
 #  include <strstream>
 #endif
+#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+#include <iomanip>
+#endif
 #include <string>
 #include <cstring>
 #include <cmath>
