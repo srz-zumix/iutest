@@ -1,14 +1,20 @@
 version: '1.0'
+mode: parallel
+stages:
+- clone
+- build
+- test
+
 steps:
   main_clone:
     title: Cloning main repository...
     type: git-clone
-    stage: 'clone'
+    stage: clone
     repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
     revision: '${{CF_REVISION}}'
   BuildingDockerImage:
     title: Building Docker Image
-    stage: 'build'
+    stage: build
     type: build
     image_name: srz-zumix/iutest
     working_directory: ./
@@ -16,7 +22,7 @@ steps:
     dockerfile: tools/docker/Dockerfile
   RunningUnitTests:
     type: parallel
-    stage: 'parallel test'
+    stage: test
     steps:
       BasicTest:
         title: Running Basic Tests
