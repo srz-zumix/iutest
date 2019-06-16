@@ -44,8 +44,7 @@ IUTEST_TYPED_TEST_CASE(AlmostUlpTest, AlmostUlpTestTypes);
 IUTEST_TYPED_TEST(AlmostUlpTest, Eq)
 {
     TypeParam x = static_cast<TypeParam>(1);
-    typedef typename ::iutest::floating_point<TypeParam>::FInt FInt;
-    FInt ulp;
+    ::iutest_compatible::FloatingPointUnion<TypeParam> ulp;
     ulp.fv = x;
     ulp.uv += 1;
     IUTEST_EXPECT_ALMOST_EQ(ulp.fv, x);

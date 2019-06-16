@@ -862,6 +862,10 @@ struct type_fit_t<16>
 #endif
 };
 
+// comaptible
+template<size_t SIZE>
+struct TypeWithSize : public type_fit_t<SIZE> {};
+
 //======================================================================
 // function
 /**
