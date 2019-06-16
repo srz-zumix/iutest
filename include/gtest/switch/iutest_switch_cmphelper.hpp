@@ -45,20 +45,20 @@ namespace backward
 
 #if defined(GTEST_IS_NULL_LITERAL_)
 
-template <bool lhs_is_null_literal>
+template<bool lhs_is_null_literal>
 class EqHelper : public internal::EqHelper<lhs_is_null_literal> {};
 
 #else
 
-template <bool lhs_is_null_literal>
+template<bool lhs_is_null_literal>
 class EqHelper : public internal::EqHelper {};
 
 #endif
 
-template <bool lhs_is_null_literal>
+template<bool lhs_is_null_literal>
 class NeHelper {
 public:
-    template <typename T1, typename T2>
+    template<typename T1, typename T2>
     static AssertionResult Compare(const char* expected_expression,
         const char* actual_expression,
         const T1& expected,
@@ -76,10 +76,10 @@ public:
     }
 };
 
-template <>
+template<>
 class NeHelper<true> {
 public:
-    template <typename T1, typename T2>
+    template<typename T1, typename T2>
     static AssertionResult Compare(
         const char* expected_expression,
         const char* actual_expression,
@@ -90,7 +90,7 @@ public:
                 actual);
     }
 
-    template <typename T>
+    template<typename T>
     static AssertionResult Compare(
         const char* expected_expression,
         const char* actual_expression,
@@ -101,7 +101,7 @@ public:
     }
 };
 
-template <bool lhs_is_null_literal>
+template<bool lhs_is_null_literal>
 class AlmostEqHelper : public internal::EqHelper<lhs_is_null_literal>
 {
 public:
@@ -122,7 +122,7 @@ public:
     }
 };
 
-template <bool lhs_is_null_literal>
+template<>
 class AlmostEqHelper<true> : public internal::EqHelper<true>
 {
 };

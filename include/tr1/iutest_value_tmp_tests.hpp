@@ -90,7 +90,7 @@ namespace tr1
  * @tparam  Tester      = テストクラス
  * @tparam  TypePrams   = 型
 */
-template<template <BiggestInt V> class Tester, typename TypePrams>
+template<template<BiggestInt V> class Tester, typename TypePrams>
 class ValueTmpParamTestInstance
 {
     /**
