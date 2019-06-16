@@ -3,12 +3,13 @@ steps:
   main_clone:
     title: Cloning main repository...
     type: git-clone
+    stage: 'clone'
     repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
     revision: '${{CF_REVISION}}'
   BuildingDockerImage:
     title: Building Docker Image
-    type: build
     stage: 'build'
+    type: build
     image_name: srz-zumix/iutest
     working_directory: ./
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
