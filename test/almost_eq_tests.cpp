@@ -33,9 +33,18 @@ IUTEST_TYPED_TEST(AlmostTest, Eq)
     IUTEST_ASSERT_ALMOST_EQ(x+x, 2*x);
 }
 
+template<typename RawType>
+union FloatingPointUnion
+{
+    typedef typename ::iutest::detail::TypeWithSize<sizeof(RawType)>::UInt BitType;
+    RawType fv;
+    BitType uv;
+};
+
 template<typename T>
 class AlmostUlpTest : public ::iutest::Test
 {
+public:
 };
 
 typedef ::iutest::Types<float, double> AlmostUlpTestTypes;
@@ -44,7 +53,7 @@ IUTEST_TYPED_TEST_CASE(AlmostUlpTest, AlmostUlpTestTypes);
 IUTEST_TYPED_TEST(AlmostUlpTest, Eq)
 {
     TypeParam x = static_cast<TypeParam>(1);
-    ::iutest_compatible::FloatingPointUnion<TypeParam> ulp;
+    FloatingPointUnion<TypeParam> ulp;
     ulp.fv = x;
     ulp.uv += 1;
     IUTEST_EXPECT_ALMOST_EQ(ulp.fv, x);

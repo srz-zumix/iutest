@@ -33,14 +33,6 @@ struct IsNullLiteralHelper
     static char (&IsNullLiteral(...))[2];
 };
 
-template<typename RawType>
-union FloatingPointUnion
-{
-    typedef typename ::iutest::detail::TypeWithSize<sizeof(RawType)>::UInt BitType;
-    RawType fv;
-    BitType uv;
-};
-
 }   // end of namespace iutest_compatible
 
 #endif // INCG_IRIS_IUTEST_COMPATIBLE_DEFS_HPP_9BCFF3D0_A045_4B94_B51F_4C6E88D8654C_
