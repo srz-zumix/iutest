@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -100,7 +100,7 @@ public:
         m_stream << message.GetString();
         return *this;
     }
-#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+#if IUTEST_HAS_IOMANIP
     iuStreamMessage& operator << (iu_basic_iomanip val)
     {
         m_stream << val;

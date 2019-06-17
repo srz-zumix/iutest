@@ -267,7 +267,7 @@ public:
             Message::operator << (val);
             return *this;
         }
-#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+#if IUTEST_HAS_IOMANIP
         Fixed& operator << (iu_basic_iomanip val)
         {
             Message::operator << (val);
