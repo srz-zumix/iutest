@@ -267,7 +267,7 @@ public:
             Message::operator << (val);
             return *this;
         }
-#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+#if IUTEST_HAS_IOMANIP
         Fixed& operator << (iu_basic_iomanip val)
         {
             Message::operator << (val);
@@ -397,21 +397,6 @@ template<typename T1, typename T2>
 inline ::std::string FormatForComparisonFailureMessage(const T1& value, const T2& /*other_operand*/)
 {
     return PrintToString(value);
-}
-/**
- * @brief   比較テストの値を文字列にフォーマット
-*/
-template<typename T1, typename T2>
-inline ::std::string FloatingFormatForComparisonFailureMessage(const T1& value, const T2& other)
-{
-#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
-    IUTEST_UNUSED_VAR(other);
-    iu_stringstream ss;
-    ss << ::std::setprecision(::std::numeric_limits<T1>::digits10 + 2) << value;
-    return ss.str();
-#else
-    return FormatForComparisonFailureMessage(value, other);
-#endif
 }
 
 /**
@@ -1267,8 +1252,8 @@ static AssertionResult CmpHelperFloatingPointEQ(const char* expr1, const char* e
         return AssertionSuccess();
     }
     return EqFailure(expr1, expr2
-        , detail::ShowStringQuoted(FloatingFormatForComparisonFailureMessage(f1, f2))
-        , detail::ShowStringQuoted(FloatingFormatForComparisonFailureMessage(f2, f1)));
+        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(f1, f2))
+        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(f2, f1)));
 }
 
 template<typename RawType>
@@ -1285,8 +1270,8 @@ static AssertionResult CmpHelperFloatingPointLE(const char* expr1, const char* e
         return AssertionSuccess();
     }
     return EqFailure(expr1, expr2
-        , detail::ShowStringQuoted(FloatingFormatForComparisonFailureMessage(f1, f2))
-        , detail::ShowStringQuoted(FloatingFormatForComparisonFailureMessage(f2, f1)));
+        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(f1, f2))
+        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(f2, f1)));
 }
 
 #if defined(IUTEST_OS_WINDOWS)

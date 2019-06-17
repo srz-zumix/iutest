@@ -672,6 +672,18 @@ using tuples::get;
 #  define IUTEST_HAS_STRSTREAM      0
 #endif
 
+//! iomanip が使用可能かどうか
+#if !defined(IUTEST_HAS_IOMANIP)
+#  if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+#    define IUTEST_HAS_IOMANIP      1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_IOMANIP)
+#  define IUTEST_HAS_IOMANIP        0
+#endif
+
+
 //! _set_invalid_parameter_handler が使用可能かどうか
 #if !defined(IUTEST_HAS_INVALID_PARAMETER_HANDLER)
 #  if IUTEST_HAS_EXCEPTIONS && (defined(_MSC_VER) && (_MSC_VER >= 1400)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
