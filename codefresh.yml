@@ -1,15 +1,14 @@
 version: '1.0'
 mode: parallel
 stages:
-- clone
-- build
-- test
+  - build
+  - test
 
 steps:
   main_clone:
     title: Cloning main repository...
     type: git-clone
-    stage: clone
+    stage: build
     repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
     revision: '${{CF_REVISION}}'
   BuildingDockerImage:
