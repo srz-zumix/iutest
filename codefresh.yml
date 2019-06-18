@@ -23,9 +23,11 @@ steps:
     type: parallel
     stage: test
     steps:
-      BasicTest:
+      BasicTest: &basic_test
         title: Running Basic Tests
-        image: '${{BuildingDockerImage}}'
+        image: gcc:${{GCC_VERSION}}
+        environment:
+          - GCC_VERSION=9
         working_directory: IMAGE_WORK_DIR
         entry_point:
           - /bin/sh
