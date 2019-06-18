@@ -23,16 +23,9 @@ steps:
     type: parallel
     stage: test
     steps:
-      SetImageTag: &set_image_tag
-        title: Set Image Tag
-        image: alpine:latest
-        environment:
-          - GCC_VERSION=9
-        commands:
-          - cf_export GCC_IMAGE=gcc:${GCC_VERSION}
       BasicTest: &basic_test
         title: Running Basic Tests
-        image: ${{GCC_IMAGE}}
+        image: gcc:9
         working_directory: IMAGE_WORK_DIR
         entry_point:
           - /bin/sh
@@ -44,11 +37,6 @@ steps:
             cd /codefresh/volume/iutest
             cd test
             make test
-        when:
-            steps:
-            - name: SetImageTag
-              on:
-                - success
       BenchmarkTest:
         title: Running Benchmark Tests
         image: '${{BuildingDockerImage}}'
