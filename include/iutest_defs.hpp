@@ -78,6 +78,9 @@ inline IUTEST_CXX_CONSTEXPR TypeId GetTestTypeId()
     return 0;
 }
 
+template<size_t SIZE>
+struct TypeWithSize : public type_fit_t<SIZE> {};
+
 }   // end of namespace internal
 
 //======================================================================

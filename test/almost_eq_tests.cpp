@@ -36,7 +36,7 @@ IUTEST_TYPED_TEST(AlmostTest, Eq)
 template<typename RawType>
 union FloatingPointUnion
 {
-    typedef typename ::iutest::detail::TypeWithSize<sizeof(RawType)>::UInt BitType;
+    typedef typename ::iutest::internal::TypeWithSize<sizeof(RawType)>::UInt BitType;
     RawType fv;
     BitType uv;
 };
