@@ -102,7 +102,7 @@ public:
 };
 
 template<bool lhs_is_null_literal>
-class AlmostEqHelper : public internal::EqHelper<lhs_is_null_literal>
+class AlmostEqHelper : public EqHelper<lhs_is_null_literal>
 {
 public:
     template<typename T1, typename T2>
@@ -123,7 +123,7 @@ public:
 };
 
 template<>
-class AlmostEqHelper<true> : public internal::EqHelper<true>
+class AlmostEqHelper<true> : public EqHelper<true>
 {
 };
 
