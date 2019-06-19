@@ -23,7 +23,7 @@ steps:
     type: parallel
     stage: test
     steps:
-      BasicTest: &basic_test
+      BasicTest-gcc9: &basic_test
         title: Running Basic Tests
         image: gcc:9
         working_directory: IMAGE_WORK_DIR
@@ -37,6 +37,9 @@ steps:
             cd /codefresh/volume/iutest
             cd test
             make test
+      BasicTest-gcc8:
+        <<: *basic_test
+        image: gcc:8
       BenchmarkTest:
         title: Running Benchmark Tests
         image: '${{BuildingDockerImage}}'
