@@ -37,10 +37,14 @@ steps:
             cd /codefresh/volume/iutest
             cd test
             make test
-      # BasicTest-gcc8:
-      #   <<: *basic_test
-      #   title: Running Basic Tests - gcc8
-      #   image: gcc:8
+      BasicTest-gcc8:
+        <<: *basic_test
+        title: Running Basic Tests - gcc8
+        image: gcc:8
+      BasicTest-gcc7:
+        <<: *basic_test
+        title: Running Basic Tests - gcc8
+        image: gcc:7
       BenchmarkTest:
         title: Running Benchmark Tests
         image: '${{BuildingDockerImage}}'
