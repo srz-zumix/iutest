@@ -27,23 +27,15 @@ steps:
         title: Running Basic Tests - gcc9
         image: gcc:9
         working_directory: IMAGE_WORK_DIR
-        entry_point:
-          - /bin/sh
-          - /codefresh/volume/cf-generated/unit_test_script
-        create_file:
-          path: /codefresh/volume/cf-generated
-          name: unit_test_script
-          content: |-
-            cd /codefresh/volume/iutest
-            cd test
-            make test
+        commands:
+          - make -C test test
       BasicTest-gcc8:
         <<: *basic_test
         title: Running Basic Tests - gcc8
         image: gcc:8
       BasicTest-gcc7:
         <<: *basic_test
-        title: Running Basic Tests - gcc8
+        title: Running Basic Tests - gcc7
         image: gcc:7
       BenchmarkTest:
         title: Running Benchmark Tests
