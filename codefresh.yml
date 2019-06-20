@@ -26,7 +26,6 @@ steps:
       BasicTest-gcc9: &basic_test
         title: Running Basic Tests - gcc9
         image: gcc:9
-        working_directory: IMAGE_WORK_DIR
         commands:
           - make -C test test
       BasicTest-gcc8:
