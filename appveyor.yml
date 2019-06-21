@@ -9,9 +9,9 @@ environment:
       CMAKE_GENERATOR_NAME: Visual Studio 14 2015
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       CMAKE_GENERATOR_NAME: Visual Studio 15 2017
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019 Preview
-      PROJECT_DIR: msvc16
-      BUILD_PRE_PROJECT: yes
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      # PROJECT_DIR: msvc16
+      # BUILD_PRE_PROJECT: yes
       CMAKE_GENERATOR_NAME: Visual Studio 16 2019
     # Cygwin
     - BUILD_CYGWIN: yes
