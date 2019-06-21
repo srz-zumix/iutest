@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -32,11 +32,15 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnTestIterationStart(const U
     }
     if( !m_output_path_format.empty() )
     {
+        // FIXME: -Wformat-nonliteral
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL()
         m_output_path = detail::StringFormat(m_output_path_format.c_str(), iteration);
         if( m_output_path == m_output_path_format)
         {
             m_output_path_format.clear();
         }
+IUTEST_PRAGMA_WARN_POP()
         if( m_fp != NULL )
         {
             OnReportTest(m_fp, test);
@@ -332,7 +336,8 @@ IUTEST_IPP_INLINE ::std::string DefaultXmlGeneratorListener::EscapeXml(const cha
     {
         for( const char* src = str; *src; ++src )
         {
-            switch(*src)
+            const char s = *src;
+            switch(s)
             {
             case '<':
                 msg += "&lt;";
@@ -359,20 +364,20 @@ IUTEST_IPP_INLINE ::std::string DefaultXmlGeneratorListener::EscapeXml(const cha
                         msg += detail::WideStringToUTF8(&wc, 1);
                         src += len-1;
                     }
-                    else if( IsValidXmlCharacter(*src) )
+                    else if( IsValidXmlCharacter(s) )
 #else
-                    if( IsValidXmlCharacter(*src) )
+                    if( IsValidXmlCharacter(s) )
 #endif
                     {
-                        if( is_attribute && IsWhitespace(*src) )
+                        if( is_attribute && IsWhitespace(s) )
                         {
                             char tmp[8];
-                            detail::iu_snprintf(tmp, sizeof(tmp), "&#x%02X;", *src);
+                            detail::iu_snprintf(tmp, sizeof(tmp), "&#x%02X;", s);
                             msg += tmp;
                         }
                         else
                         {
-                            msg += *src;
+                            msg += s;
                         }
                     }
                 }

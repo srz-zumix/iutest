@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -54,7 +54,10 @@ int main(int, char**)
 
 #if !defined(IUTEST_USE_GTEST)
 //  ::std::cout << s_outstream.str();
-    if( s_outstream.str().empty() ) return 1;
+    if( s_outstream.str().empty() )
+    {
+        return 1;
+    }
 #endif
     ::std::cout << "*** Successful ***" << ::std::endl;
     return 0;

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -51,7 +51,7 @@
  * @brief   パラメータユーザー指定テスト関数定義マクロ
  * @param   testfixture_    = テストフィクスチャ
  * @param   testname_       = テスト名
- * @note    
+ * @note
  *  class TestCaseName : public ::iutest::TestWithParam<int> {};\n
  *  IUTEST_P(TestCaseName, TestName) {}\n
  *  IUTEST_INSTANTIATE_TEST_CASE_P(InstantiateName, TestCaseName, ParamGenerator);\n
@@ -78,7 +78,7 @@
  * @brief   パラメータユーザー指定テスト関数定義マクロ
  * @param   testcase_   = テストケース名
  * @param   testname_   = テスト名
- * @note    
+ * @note
  *  IUTEST_AP(TestCaseName, TestName) {}\n
  *  IUTEST_INSTANTIATE_TEST_CASE_AP(InstantiateName, TestCaseName, ParamGenerator);\n
 */
@@ -158,7 +158,7 @@
         IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)() { return generator_; }                \
     static ::std::string IIUT_TEST_P_PARAMGENERATOR_NAME_(prefix_, testcase_)(                      \
         const ::iutest::TestParamInfo< basefixture_::ParamType >& info) { return                    \
-             ::iutest::detail::ParamTestCaseInfo< basefixture_ >::paramname_generator_(info); }     \
+            ::iutest::detail::ParamTestCaseInfo< basefixture_ >::paramname_generator_(info); }      \
     int IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)() {                             \
         ::iutest::detail::ParamTestCaseInfo< basefixture_ >* p = IIUT_GETTESTCASEPATTERNHOLDER(     \
                 basefixture_, IIUT_TO_NAME_STR_(testcase_), IUTEST_GET_PACKAGENAME_());             \

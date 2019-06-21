@@ -29,13 +29,13 @@ IUTEST_INCLUDE = -I$(IUTEST_DIR)/include
 
 # All iutest headers.  Usually you shouldn't change this
 # definition.
-IUTEST_HEADERS = $(IUTEST_DIR)/include/*.hpp \
-                 $(IUTEST_DIR)/include/impl/*.ipp \
-                 $(IUTEST_DIR)/include/internal/*.hpp \
-                 $(IUTEST_DIR)/include/listener/*.hpp \
-                 $(IUTEST_DIR)/include/util/*.hpp \
-                 $(IUTEST_DIR)/include/gtest/*.hpp \
-                 $(IUTEST_DIR)/include/gtest/switch/*.hpp
+IUTEST_HEADERS =$(IUTEST_DIR)/include/*.hpp \
+				$(IUTEST_DIR)/include/impl/*.ipp \
+				$(IUTEST_DIR)/include/internal/*.hpp \
+				$(IUTEST_DIR)/include/listener/*.hpp \
+				$(IUTEST_DIR)/include/util/*.hpp \
+				$(IUTEST_DIR)/include/gtest/*.hpp \
+				$(IUTEST_DIR)/include/gtest/switch/*.hpp
 
 CXXFLAGS += $(DEFS) $(STDFLAG)
 CXXFLAGS += -Werror=undef
@@ -55,14 +55,14 @@ MAKEFILE=GNUmakefile
 
 SRCS   = main.cpp
 
-BENCH_SRCS = benchmark_n0.cpp \
-             benchmark_n1.cpp \
-             benchmark_n2.cpp \
-             benchmark_n3.cpp \
-             benchmark_n4.cpp \
+BENCH_SRCS =benchmark_n0.cpp \
+			benchmark_n1.cpp \
+			benchmark_n2.cpp \
+			benchmark_n3.cpp \
+			benchmark_n4.cpp \
 
-OBJS   = $(SRCS:%.cpp=%.o) $(BENCH_SRCS:%.cpp=%.o)
-TARGET = benchmark
+OBJS  = $(SRCS:%.cpp=%.o) $(BENCH_SRCS:%.cpp=%.o)
+TARGET= benchmark
 TARGET_BASE=benchmark_base
 BASIS = basis
 

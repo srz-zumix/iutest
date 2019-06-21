@@ -388,7 +388,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(TestPCombineInstance, TestPCombine
 #if IUTEST_HAS_TYPED_TEST
 
 template<typename T>
-class TypedTest : public iutest::Test 
+class TypedTest : public iutest::Test
 {
 public:
     static void SetUpTestCase(void)

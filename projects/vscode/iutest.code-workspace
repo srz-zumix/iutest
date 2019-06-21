@@ -1,10 +1,15 @@
 {
 	"folders": [
 		{
-			"path": "..\\.."
+			"path": "../.."
 		}
 	],
 	"settings": {
+		"editor.rulers": [
+			80,
+			120,
+			150
+		],
 		"files.associations": {
 			"*.ipp": "cpp",
 			"future": "cpp",
@@ -26,7 +31,74 @@
 			"__string": "cpp",
 			"regex": "cpp",
 			"string": "cpp",
-			"string_view": "cpp"
+			"string_view": "cpp",
+			"xstring": "cpp",
+			"any": "cpp",
+			"array": "cpp",
+			"cctype": "cpp",
+			"chrono": "cpp",
+			"cmath": "cpp",
+			"codecvt": "cpp",
+			"cstddef": "cpp",
+			"cstdint": "cpp",
+			"cstdio": "cpp",
+			"cstdlib": "cpp",
+			"cstring": "cpp",
+			"ctime": "cpp",
+			"cuchar": "cpp",
+			"cwchar": "cpp",
+			"filesystem": "cpp",
+			"iomanip": "cpp",
+			"ios": "cpp",
+			"iosfwd": "cpp",
+			"iostream": "cpp",
+			"istream": "cpp",
+			"iterator": "cpp",
+			"limits": "cpp",
+			"list": "cpp",
+			"locale": "cpp",
+			"map": "cpp",
+			"memory": "cpp",
+			"optional": "cpp",
+			"ostream": "cpp",
+			"ratio": "cpp",
+			"set": "cpp",
+			"sstream": "cpp",
+			"streambuf": "cpp",
+			"strstream": "cpp",
+			"variant": "cpp",
+			"vector": "cpp",
+			"xfacet": "cpp",
+			"xiosbase": "cpp",
+			"xlocale": "cpp",
+			"xlocbuf": "cpp",
+			"xlocinfo": "cpp",
+			"xlocmes": "cpp",
+			"xlocmon": "cpp",
+			"xlocnum": "cpp",
+			"xloctime": "cpp",
+			"xmemory": "cpp",
+			"xmemory0": "cpp",
+			"xstddef": "cpp",
+			"xtr1common": "cpp",
+			"xtree": "cpp",
+			"xutility": "cpp"
 		}
+	},
+	"launch": {
+		"configurations": [
+			{
+				"name": "Python: xml2file.py",
+				"type": "python",
+				"request": "launch",
+				"program": "${workspaceFolder}/tools/xml2file/xml2file.py",
+				"args": [
+					"-o",
+					"${workspaceFolder}/tools/xml2file/tmp/files",
+					"${workspaceFolder}/tools/xml2file/tmp/inputs/japanese_tests.xml"
+				]
+			}
+		],
+		"compounds": []
 	}
 }

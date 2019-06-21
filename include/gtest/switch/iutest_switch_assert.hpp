@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -161,15 +161,16 @@
 #define IUTEST_ASSERT_TRUE(...)             ASSERT_TRUE(!!(__VA_ARGS__))
 #define IUTEST_ASSERT_FALSE(...)            ASSERT_FALSE((__VA_ARGS__))
 #define IUTEST_ASSERT_EQ                    ASSERT_EQ
-#define IUTEST_ASSERT_NE(expected, actual)  ASSERT_PRED_FORMAT2(    \
-                                                ::testing::internal::NeHelper<GTEST_IS_NULL_LITERAL_(expected)>::Compare, expected, actual)
+#define IUTEST_ASSERT_NE(expected, actual)  ASSERT_PRED_FORMAT2(IIUT_COMPATIBLE_NEHELPER(expected)::Compare, expected, actual)
 #define IUTEST_ASSERT_LT                    ASSERT_LT
 #define IUTEST_ASSERT_LE                    ASSERT_LE
 #define IUTEST_ASSERT_GT                    ASSERT_GT
 #define IUTEST_ASSERT_GE                    ASSERT_GE
 #define IUTEST_ASSERT_NEAR                  ASSERT_NEAR
-#define IUTEST_ASSERT_NULL(...)             IUTEST_THROUGH_ANALYSIS_ASSUME((__VA_ARGS__) == NULL, ASSERT_EQ(NULL, (__VA_ARGS__)))
-#define IUTEST_ASSERT_NOTNULL(...)          IUTEST_THROUGH_ANALYSIS_ASSUME((__VA_ARGS__) != NULL, ASSERT_TRUE(NULL != (__VA_ARGS__)))
+#define IUTEST_ASSERT_NULL(...)             IUTEST_THROUGH_ANALYSIS_ASSUME((__VA_ARGS__) == IUTEST_NULLPTR  \
+                                                , ASSERT_EQ(IUTEST_NULLPTR, (__VA_ARGS__)))
+#define IUTEST_ASSERT_NOTNULL(...)          IUTEST_THROUGH_ANALYSIS_ASSUME((__VA_ARGS__) != IUTEST_NULLPTR  \
+                                                , ASSERT_TRUE(IUTEST_NULLPTR != (__VA_ARGS__)))
 #define IUTEST_ASSERT_SAME(v1, v2)          ASSERT_PRED_FORMAT2(::testing::internal::CmpHelperSame, v1, v2)
 #define IUTEST_ASSERT_FLOAT_EQ              ASSERT_FLOAT_EQ
 #define IUTEST_ASSERT_DOUBLE_EQ             ASSERT_DOUBLE_EQ

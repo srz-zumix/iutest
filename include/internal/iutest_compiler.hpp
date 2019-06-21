@@ -17,6 +17,7 @@
 
 //======================================================================
 // include
+#include "iutest_platform.hpp"
 
 //======================================================================
 // define
@@ -26,92 +27,24 @@
 #  endif
 #endif
 
-// os
-#if   defined(__CYGWIN__)
-#  define IUTEST_OS_CYGWIN              1
-#  define IUTEST_PLATFORM               "CYGWIN"
-#elif defined(_WIN32) || defined(WIN32) || defined(__WIN32__) || defined(WINAPI_FAMILY)
-#  define IUTEST_OS_WINDOWS             1
-#  if !defined(WIN32_LEAN_AND_MEAN)
-#    define WIN32_LEAN_AND_MEAN
-#  endif
-#  include <windows.h>
-#  if defined(_WIN32_WCE)
-#    define IUTEST_OS_WINDOWS_MOBILE    1
-#    define IUTEST_PLATFORM             "Windows CE"
-#  elif defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)
-#    define IUTEST_OS_WINDOWS_MINGW     1
-#  elif defined(__WINE__)
-#    define IUTEST_OS_WINDOWS_WINE      1
-#    define IUTEST_PLATFORM             "WINE"
-#  elif defined(__CUDACC__)
-#    define IUTEST_OS_WINDOWS_CUDA      1
-#  elif defined(WINAPI_FAMILY)
-#    if defined(WINAPI_FAMILY_PHONE_APP) && (WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP)
-#      define IUTEST_OS_WINDOWS_PHONE   1
-#      define IUTEST_PLATFORM           "Windows Phone"
-#    elif defined(WINAPI_FAMILY_APP) && (WINAPI_FAMILY == WINAPI_FAMILY_APP)
-#      define IUTEST_OS_WINDOWS_RT      1
-#      define IUTEST_PLATFORM           "Windows RT"
-#    else
-#      define IUTEST_OS_WINDOWS_DESKTOP 1
-#    endif
-#  else
-#    define IUTEST_OS_WINDOWS_DESKTOP   1
-#  endif
-#  if !defined(IUTEST_PLATFORM)
-#    define IUTEST_PLATFORM             "Windows"
-#  endif
-#elif defined(__APPLE__)
-#  include "TargetConditionals.h"
-#  if TARGET_OS_IPHONE
-#    define IUTEST_OS_IOS               1
-#    define IUTEST_PLATFORM             "iOS"
-#  else
-#    define IUTEST_OS_MAC               1
-#    define IUTEST_PLATFORM             "Mac OS"
-#  endif
-#elif defined(__FreeBSD__)
-#  define IUTEST_OS_FREEBSD             1
-#  define IUTEST_PLATFORM               "FreeBSD"
-#elif defined(sun) || defined(__sun)
-#  define IUTEST_OS_SOLARIS             1
-#  define IUTEST_PLATFORM               "Solaris"
-#elif defined(__linux__)
-#  define IUTEST_OS_LINUX               1
-#  if defined(ANDROID) || defined(__ANDROID__)
-#    define IUTEST_OS_LINUX_ANDROID     1
-#    define IUTEST_PLATFORM             "Android"
-#  else
-#    define IUTEST_PLATFORM             "LINUX"
-#  endif
-#elif defined(__native_client__)
-#  define IUTEST_OS_NACL                1   //!< @deprecated native client to eol
-#  define IUTEST_PLATFORM               "Google Native Client"
-#elif defined(__AVR32__) || defined(__avr32__)
-#  define IUTEST_OS_AVR32               1
-#  define IUTEST_PLATFORM               "AVR32"
-#elif defined(__arm__)
-#  define IUTEST_OS_ARM                 1
-#  define IUTEST_PLATFORM               "ARM"
-#endif
-
-#if defined(IUTEST_OS_LINUX_ANDROID)
-#  include <android/api-level.h>
-#endif
-
 // __cplusplus numbers
-
 #define IUTEST_CPLUSPLUS_CXX11 201103L
 #define IUTEST_CPLUSPLUS_CXX14 201402L
 #define IUTEST_CPLUSPLUS_CXX17 201703L
 
+// __cplusplus
+#if     defined(_MSVC_LANG)
+#  define IUTEST_CPLUSPLUS      _MSVC_LANG
+#elif   defined(__cplusplus)
+#  define IUTEST_CPLUSPLUS      __cplusplus
+#else
+#  define IUTEST_CPLUSPLUS      0
+#endif
+
 // c++2a
 
 #if !defined(IUTEST_HAS_CXX2A)
-#  if (defined(__cplusplus) && __cplusplus > IUTEST_CPLUSPLUS_CXX17)
-#    define IUTEST_HAS_CXX2A        1
-#  elif (defined(_MSVC_LANG) && _MSVC_LANG > IUTEST_CPLUSPLUS_CXX17)
+#  if IUTEST_CPLUSPLUS > IUTEST_CPLUSPLUS_CXX17
 #    define IUTEST_HAS_CXX2A        1
 #  endif
 #endif
@@ -123,9 +56,7 @@
 // c++17
 //! is c++17 compiler
 #if !defined(IUTEST_HAS_CXX17)
-#  if (defined(__cplusplus) && __cplusplus >= IUTEST_CPLUSPLUS_CXX17)
-#    define IUTEST_HAS_CXX17        1
-#  elif (defined(_MSVC_LANG) && _MSVC_LANG >= IUTEST_CPLUSPLUS_CXX17)
+#  if IUTEST_CPLUSPLUS >= IUTEST_CPLUSPLUS_CXX17
 #    define IUTEST_HAS_CXX17        1
 #  endif
 #endif
@@ -135,9 +66,7 @@
 #endif
 
 #if !defined(IUTEST_HAS_CXX1Z)
-#  if (defined(__cplusplus) && __cplusplus > IUTEST_CPLUSPLUS_CXX14)
-#    define IUTEST_HAS_CXX1Z        1
-#  elif (defined(_MSVC_LANG) && _MSVC_LANG > IUTEST_CPLUSPLUS_CXX14)
+#  if IUTEST_CPLUSPLUS > IUTEST_CPLUSPLUS_CXX14
 #    define IUTEST_HAS_CXX1Z        1
 #  endif
 #endif
@@ -148,9 +77,7 @@
 
 //! is c++14 compiler
 #if !defined(IUTEST_HAS_CXX14)
-#  if (defined(__cplusplus) && __cplusplus >= IUTEST_CPLUSPLUS_CXX14)
-#    define IUTEST_HAS_CXX14        1
-#  elif (defined(_MSVC_LANG) && _MSVC_LANG >= IUTEST_CPLUSPLUS_CXX14)
+#  if IUTEST_CPLUSPLUS >= IUTEST_CPLUSPLUS_CXX14
 #    define IUTEST_HAS_CXX14        1
 #  endif
 #endif
@@ -161,7 +88,7 @@
 
 //! is c++11 compiler
 #if !defined(IUTEST_HAS_CXX11)
-#  if (defined(__cplusplus) && __cplusplus >= IUTEST_CPLUSPLUS_CXX11) || defined(__GXX_EXPERIMENTAL_CXX0X__)
+#  if (IUTEST_CPLUSPLUS >= IUTEST_CPLUSPLUS_CXX11) || defined(__GXX_EXPERIMENTAL_CXX0X__)
 #    define IUTEST_HAS_CXX11        1
 #  endif
 #endif
@@ -176,7 +103,9 @@
 
 //! inline variable
 #if !defined(IUTEST_HAS_INLINE_VARIABLE)
-#if defined(__clang__)
+#if   defined(__cpp_inline_variables) && __cpp_inline_variables >= 201606
+#  define IUTEST_HAS_INLINE_VARIABLE        1
+#elif defined(__clang__)
 #  if IUTEST_HAS_CXX1Z && (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 9))
 #    define IUTEST_HAS_INLINE_VARIABLE      1
 #  endif
@@ -353,6 +282,13 @@
 #  define IUTEST_CXX_CONSTEXPR
 #endif
 
+#if IUTEST_HAS_CONSTEXPR && \
+        (defined(__cpp_constexpr) && __cpp_constexpr >= 201304 || IUTEST_HAS_CXX14)
+#  define IUTEST_CXX14_CONSTEXPR        constexpr
+#else
+#  define IUTEST_CXX14_CONSTEXPR
+#endif
+
 //! constexpr or const
 #if IUTEST_HAS_CONSTEXPR
 #  define IUTEST_CXX_CONSTEXPR_OR_CONST constexpr
@@ -426,7 +362,7 @@
 #      define IUTEST_HAS_DEFAULT_FUNCTIONS  1
 #    endif
 #  elif defined(__GNUC__)
-     // private destractor = default is not works in gcc 4.5 - 4.6
+// private destractor = default is not works in gcc 4.5 - 4.6
 #    if   (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ == 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_DEFAULT_FUNCTIONS  1
 #    elif (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
@@ -493,7 +429,7 @@
 #      define IUTEST_HAS_VARIADIC_TEMPLATES 1
 #    endif
 #  elif defined(__GNUC__)
-     // http://gcc.gnu.org/bugzilla/show_bug.cgi?id=35722
+// http://gcc.gnu.org/bugzilla/show_bug.cgi?id=35722
 #    if defined(__VARIADIC_TEMPLATES)   \
             || ( ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7))) && defined(__GXX_EXPERIMENTAL_CXX0X__) )
 #      define IUTEST_HAS_VARIADIC_TEMPLATES 1
@@ -725,7 +661,7 @@
 #      define IUTEST_HAS_NOEXCEPT   1
 #    endif
 #  elif defined(_MSC_VER)
-     // https://connect.microsoft.com/VisualStudio/feedback/details/809079/torino-compile-error-template-noexcept
+// https://connect.microsoft.com/VisualStudio/feedback/details/809079/torino-compile-error-template-noexcept
 #    if _MSC_FULL_VER >= 190022816
 #      define IUTEST_HAS_NOEXCEPT   1
 #    endif
@@ -917,6 +853,20 @@
 #  include <typeinfo>
 #endif
 
+#if !defined(IUTEST_WCHAR_UNSIGNED)
+#  if defined(__WCHAR_UNSIGNED__) && __WCHAR_UNSIGNED__
+#    define IUTEST_WCHAR_UNSIGNED   1
+#  elif defined(_MSC_VER)
+#    if defined(_NATIVE_WCHAR_T_DEFINED)
+#      define IUTEST_WCHAR_UNSIGNED 1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_WCHAR_UNSIGNED)
+#  define IUTEST_WCHAR_UNSIGNED 0
+#endif
+
 //! has 128bit type
 #if !defined(IUTEST_HAS_INT128)
 #  if defined(__SIZEOF_INT128__) && __SIZEOF_INT128__ == 16
@@ -933,7 +883,7 @@
 //! explicit instantiation access checking
 #if !defined(IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION)
 #  if defined(_MSC_VER) && ((_MSC_VER < 1600) || (_MSC_VER == 1900))
-     // VS2008 以前では、private なメンバー関数に explicit instantiation でもアクセスできない
+// VS2008 以前では、private なメンバー関数に explicit instantiation でもアクセスできない
 #    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION    0
 #  else
 #    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_MEMBER_FUNCTION    1
@@ -1288,6 +1238,37 @@
 #if !defined(IUTEST_ATTRIBUTE_INIT_PRIORITY_)
 #  define IUTEST_ATTRIBUTE_INIT_PRIORITY_(n)
 #endif
+
+//! format
+#if !defined(IUTEST_ATTRIBUTE_FORMAT)
+#  if   defined(__has_attribute)
+#    if __has_attribute(format)
+#      define IUTEST_ATTRIBUTE_FORMAT(fmt, fi, vi)  __attribute__ ((__format__ (fmt, fi, vi)))
+#    endif
+#  elif defined(__GNUC__) && !defined(COMPILER_ICC)
+#    define IUTEST_ATTRIBUTE_FORMAT(fmt, fi, vi)    __attribute__ ((__format__ (fmt, fi, vi)))
+#  endif
+#endif
+
+//! format printf
+#if !defined(IUTEST_ATTRIBUTE_FORMAT_PRINTF) && defined(IUTEST_ATTRIBUTE_FORMAT)
+#  if defined(__MINGW__) || defined(__MINGW32__) || defined(__MINGW64__)
+#    if !defined(__MINGW_PRINTF_FORMAT)
+#      define __MINGW_PRINTF_FORMAT     gnu_printf
+#    endif
+#    define IUTEST_ATTRIBUTE_FORMAT_PRINTF(fi, vi)  IUTEST_ATTRIBUTE_FORMAT(__MINGW_PRINTF_FORMAT, fi, vi)
+#  else
+#    define IUTEST_ATTRIBUTE_FORMAT_PRINTF(fi, vi)  IUTEST_ATTRIBUTE_FORMAT(__printf__, fi, vi)
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_FORMAT)
+#  define IUTEST_ATTRIBUTE_FORMAT(fmt, fi, vi)
+#endif
+#if !defined(IUTEST_ATTRIBUTE_FORMAT_PRINTF)
+#  define IUTEST_ATTRIBUTE_FORMAT_PRINTF(fi, vi)
+#endif
+
 
 //! MemorySanitizer
 #if !defined(IUTEST_HAS_MEMORY_SANITIZER)

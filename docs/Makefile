@@ -1,4 +1,4 @@
-#!/usr/bin/make 
+#!/usr/bin/make
 
 LANG=ja_JP.SJIS
 HTMLLINT_PATH=$(subst \,/, $(HTMLLINT_ROOT))
@@ -10,7 +10,10 @@ all: target lint
 upgrade:
 	doxygen -u
 
-target: Doxyfile
+target: html/index.html
+
+html/index.html: Makefile Doxyfile doxygen_filter.py
+	export PYTHONIOENCODING=utf-8
 	doxygen Doxyfile
 #	doxyindexer searchdata.xml -o html/
 #	cp '$(DOXYGEN_ROOT)/bin/doxysearch.cgi' html/
@@ -32,3 +35,9 @@ clean:
 lint:
 	(find ./ -maxdepth 1 -type f -name "*.html" -print0 | xargs -0 perl $(HTMLLINT_PATH)/htmllint)
 
+open: target
+ifeq ($(OS),Windows_NT)
+	cmd /c start html/index.html
+else
+	open html/index.html
+endif

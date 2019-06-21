@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -57,17 +57,14 @@ IUTEST_IPP_INLINE void UnitTestImpl::SkipTest()
 
 IUTEST_IPP_INLINE int UnitTestImpl::Listup() const
 {
-    detail::iuConsole::output("%d tests from %d testcase\n", m_total_test_num, m_testcases.size() );
+    detail::iuConsole::output("%d tests from %" IUPRzu " testcase\n", m_total_test_num, m_testcases.size() );
     for( iuTestCases::const_iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
     {
-        detail::iuConsole::output((*it)->name());
-        detail::iuConsole::output("\n");
+        detail::iuConsole::output("%s\n", (*it)->name());
 
         for( TestCase::iuTestInfos::const_iterator it2 = (*it)->begin(), end2=(*it)->end(); it2 != end2; ++it2 )
         {
-            detail::iuConsole::output("  ");
-            detail::iuConsole::output((*it2)->name());
-            detail::iuConsole::output("\n");
+            detail::iuConsole::output("  %s\n", (*it2)->name());
         }
     }
     return 0;
@@ -75,17 +72,14 @@ IUTEST_IPP_INLINE int UnitTestImpl::Listup() const
 
 IUTEST_IPP_INLINE int UnitTestImpl::ListupWithWhere() const
 {
-    detail::iuConsole::output("%d tests from %d testcase\n", m_total_test_num, m_testcases.size() );
+    detail::iuConsole::output("%d tests from %" IUPRzu " testcase\n", m_total_test_num, m_testcases.size() );
     for( iuTestCases::const_iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
     {
-        detail::iuConsole::output((*it)->testcase_name_with_where().c_str());
-        detail::iuConsole::output("\n");
+        detail::iuConsole::output("%s\n", (*it)->testcase_name_with_where().c_str());
 
         for( TestCase::iuTestInfos::const_iterator it2 = (*it)->begin(), end2=(*it)->end(); it2 != end2; ++it2 )
         {
-            detail::iuConsole::output("  ");
-            detail::iuConsole::output((*it2)->test_name_with_where().c_str());
-            detail::iuConsole::output("\n");
+            detail::iuConsole::output("  %s\n", (*it2)->test_name_with_where().c_str());
         }
     }
     return 0;
@@ -213,6 +207,16 @@ IUTEST_IPP_INLINE void UnitTestImpl::InitializeImpl()
 
 #if IUTEST_HAS_INVALID_PARAMETER_HANDLER
     _set_invalid_parameter_handler(OnInvalidParameter);
+#endif
+
+#if !defined(IUTEST_OS_WINDOWS_MOBILE)
+    if( setlocale(LC_CTYPE, TestEnv::get_locale_ctype()) == NULL )
+    {
+        if( TestEnv::is_specific_locale_ctype() )
+        {
+            IUTEST_LOG_(WARNING) << "failed: setlocale LC_CTYPE to " << TestEnv::get_locale_ctype();
+        }
+    }
 #endif
 }
 

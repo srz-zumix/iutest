@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -447,10 +447,10 @@ IUTEST_IPP_INLINE IUTestLog::IUTestLog(Level level, const char* file, int line)
 {
     CountUp(level);
     const char* const tag =
-        (level == LOG_INFO   ) ? "[  INFO ] ":
-        (level == LOG_WARNING) ? "[WARNING] ":
-        (level == LOG_ERROR  ) ? "[ ERROR ] ":
-                                 "[ FATAL ] ";
+        ( level == LOG_INFO    ) ?  "[  INFO ] ":
+        ( level == LOG_WARNING ) ?  "[WARNING] ":
+        ( level == LOG_ERROR   ) ?  "[ ERROR ] ":
+                                    "[ FATAL ] ";
     GetStream() << "\r\n" << tag << FormatFileLocation(file, line).c_str() << ": ";
 }
 

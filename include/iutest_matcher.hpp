@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -730,7 +730,7 @@ private:
         Message ar;
         for( elem=0; b1 != e1 && b2 != e2; ++b1, ++b2, ++elem )
         {
-            if( !internal::EqHelper<false>::Compare("", "", *b1, *b2) )
+            if( !internal::backward::EqHelper<false>::Compare("", "", *b1, *b2) )
             {
                 result = false;
                 ar << "\nMismatch in a position " << elem << ": "
@@ -1814,7 +1814,7 @@ IUTEST_PRAGMA_ASSIGNMENT_OPERATOR_COULD_NOT_GENERATE_WARN_DISABLE_END()
 
 }   // end of namespace detail
 
-/** 
+/**
  * @brief iutest matchers namespace
 */
 namespace matchers
@@ -2425,7 +2425,7 @@ IIUT_DECL_ELEMENTSARE(10)
 
 /**
  * @brief   Make Key matcher
- * @details argument.first は expedted にマッチする 
+ * @details argument.first は expedted にマッチする
 */
 template<typename T>
 detail::KeyMatcher<T> Key(const T& expected)
@@ -2435,7 +2435,7 @@ detail::KeyMatcher<T> Key(const T& expected)
 
 /**
  * @brief   Make Pair matcher
- * @details argument.first は m1 にマッチし、arugment.second が m2 にマッチする 
+ * @details argument.first は m1 にマッチし、arugment.second が m2 にマッチする
 */
 template<typename T1, typename T2>
 detail::PairMatcher<T1, T2> Pair(const T1& m1, const T2& m2)
@@ -2445,7 +2445,7 @@ detail::PairMatcher<T1, T2> Pair(const T1& m1, const T2& m2)
 
 /**
  * @brief   Make Field matcher
- * @details argument.*field は expedted にマッチする 
+ * @details argument.*field は expedted にマッチする
 */
 template<typename F, typename T>
 detail::FieldMatcher<F, T> Field(const F& field, const T& expected)
@@ -2455,7 +2455,7 @@ detail::FieldMatcher<F, T> Field(const F& field, const T& expected)
 
 /**
  * @brief   Make Property matcher
- * @details argument.*property() は expedted にマッチする 
+ * @details argument.*property() は expedted にマッチする
 */
 template<typename P, typename T>
 detail::PropertyMatcher<P, T> Property(const P& prop, const T& expected)
@@ -2465,7 +2465,7 @@ detail::PropertyMatcher<P, T> Property(const P& prop, const T& expected)
 
 /**
  * @brief   Make ResultOf matcher
- * @details func(argument) の戻り値は expedted にマッチする 
+ * @details func(argument) の戻り値は expedted にマッチする
 */
 template<typename F, typename T>
 detail::ResultOfMatcher<F, T> ResultOf(const F& func, const T& expected)

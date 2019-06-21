@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -20,6 +20,7 @@
 #include "../iutest_defs.hpp"
 #include "iutest_string.hpp"
 #include "iutest_type_traits.hpp"
+#include "iutest_compatible_defs.hpp"
 #include "iutest_exception.hpp"
 
 #if IUTEST_HAS_HDR_CXXABI
@@ -146,6 +147,7 @@ inline bool IsTrue(bool b) { return b; }
 
 // detail から使えるようにする
 using namespace iutest_type_traits; // NOLINT
+using namespace iutest_compatible;  // NOLINT
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
@@ -283,15 +285,6 @@ private:
  * @internal
  * @brief   NULL リテラルかどうか
 */
-struct IsNullLiteralHelper
-{
-    class Object;
-
-    static char IsNullLiteral(Object*);
-    static char (&IsNullLiteral(...))[2];
-};
-
-
 #define IUTEST_IS_NULLLITERAL(x)    \
     (sizeof(::iutest::detail::IsNullLiteralHelper::IsNullLiteral(x)) == 1)
 

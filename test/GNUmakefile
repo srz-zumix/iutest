@@ -1,7 +1,7 @@
 #
 # GNUMakefile
 #
-# Copyright (C) 2017-2018, Takazumi Shirayanagi
+# Copyright (C) 2017-2019, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -34,7 +34,12 @@ include CommonMakefile.in
 # Optimize
 #OPTIMIZE=-O2
 
-CXXFLAGS += -g -Wall -Wextra $(OPTIMIZE)
+STRICT_CXXFLAGS:= -Wformat=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wpointer-arith
+# STRICT_CXXFLAGS+= -Wfloat-equal
+# Necessary for peep class operator
+# STRICT_CXXFLAGS+= -Wconversion
+
+CXXFLAGS += -g -Wall -Wextra $(STRICT_CXXFLAGS) $(OPTIMIZE)
 
 ifdef _DEBUG
 CXXFLAGS += -ggdb
@@ -127,7 +132,7 @@ COMMON_RUN_TARGETS=$(ALLTESTS_TARGET) $(EXTENSIONTESTS_TARGET) $(NAMESPACETESTS_
 ifneq ($(USE_GTEST)$(USE_GMOCK),)
 RUN_TARGETS = $(COMMON_RUN_TARGETS)
 else
-RUN_TARGETS = $(COMMON_RUN_TARGETS) $(TARGETS_IUTEST_ONLY)
+RUN_TARGETS = $(COMMON_RUN_TARGETS) $(TARGETS_IUTEST_ONLY) $(UNITTESTS_TARGET)
 endif
 
 ifeq ($(USE_GTEST)$(USE_GMOCK)$(USE_COVERAGE)$(USE_SCANBUILD),)
@@ -146,7 +151,7 @@ IUTEST_INCLUDE=-I$(IUTEST_DIR)/fused-src
 IUTEST_HEADERS+=$(IUTEST_DIR)/fused-src/iutest.hpp
 endif
 
-COVERITY_SCAN_BUILD_TARGETS = $(ALLTESTS_TARGET) $(EXTENSIONTESTS_TARGET) $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY)
+COVERITY_SCAN_BUILD_TARGETS = $(ALLTESTS_TARGET) $(EXTENSIONTESTS_TARGET) $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY) $(UNITTESTS_TARGET)
 
 #
 #
@@ -234,7 +239,7 @@ coverity_scan: $(COVERITY_SCAN_BUILD_TARGETS)
 # fused
 #
 
-FUSED_PY= ../tools/fused/*.py 
+FUSED_PY= ../tools/fused/*.py
 
 fused: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fused/Makefile $(FUSED_PY)
 	make -C ../tools/fused
@@ -256,26 +261,32 @@ COVARALLS_EXCLUDE_PATTERN  =-E ".*/test/[^\.].*" -E ".*/include/tr1/.*" -E ".*/i
 #COVARALLS_EXCLUDE_PATTERN +=-E ".*iutest_typelist\.hpp" -E ".*iutest_type_traits\.hpp" -E ".*iutest_typed_util\.hpp"
 #COVARALLS_EXCLUDE_PATTERN +=-E ".*iutest_all\.cpp" -E ".*iutest_util_output\.hpp" -E ".*iutest_tuple\.hpp"
 COVARALLS_SRCEXT=-x .h -x .hpp -x .cpp -x .ipp
+ifdef LCOV_GCOV_TOOL
+CCOV_OPT += --gcov-tool $(LCOV_GCOV_TOOL)
+endif
 
 coverage:
 	$(CCOV) -v
 ifeq ($(USE_COVERAGE),lcov)
-	$(CCOV) -c -d . -o coverage.info && $(CCOV) -r coverage.info *gcc* -o coverage.info && $(CCOV) -r coverage.info */test/* -o coverage.info
+	$(CCOV) -c -d . -o coverage.info $(CCOV_OPT)
+	$(CCOV) -r coverage.info *gcc* -o coverage.info
+	$(CCOV) -r coverage.info */test/* -o coverage.info
 endif
 ifeq ($(USE_COVERAGE),gcov)
 ifeq ($(findstring relative-only, $(shell $(CCOV) --help)), relative-only)
-	$(CCOV) -r *.gcda;
+	$(CCOV) -r *.gcda $(CCOV_OPT)
 else
-	$(CCOV) *.gcda;
+	$(CCOV) *.gcda $(CCOV_OPT)
 endif
 endif
 
+COVERALLS_OPTION= --service travis-pro
 send-coveralls: coverage
 ifeq ($(USE_COVERAGE),lcov)
-	cd ../; lcoveralls --retry-count 3 ./test/coverage.info
+	cd ../; lcoveralls ${COVERALLS_OPTION} --retry-count 3 ./test/coverage.info
 endif
 ifeq ($(USE_COVERAGE),gcov)
-	cd ../; coveralls -n -r ./ -b ./test $(COVARALLS_EXCLUDE_PATTERN) $(COVARALLS_EXCLUDE)
+	cd ../; coveralls ${COVERALLS_OPTION} -n -r ./ -b ./test $(COVARALLS_EXCLUDE_PATTERN) $(COVARALLS_EXCLUDE)
 endif
 
 send-codecov: coverage
@@ -382,6 +393,9 @@ $(NAMESPACETESTS_TARGET) : $(NAMESPACETESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 
 $(EXTENSIONTESTS_TARGET) : $(EXTENSIONTESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(EXTENSIONTESTS_SRCS) $(LDFLAGS)
+
+$(UNITTESTS_TARGET) : $(UNITTESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(UNITTESTS_SRCS) $(LDFLAGS)
 
 $(SYNTAXTESTS_TARGET) : $(SYNTAXTESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(SYNTAXTESTS_SRCS) $(LDFLAGS)

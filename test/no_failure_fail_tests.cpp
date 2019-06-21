@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -24,7 +24,7 @@ void OccurFatalFailure(void)
     IUTEST_ASSERT_TRUE(false);
 }
 
-IUTEST_PRAGMA_GCC_WARN_PUSH()
+IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY()
 
 IUTEST(NoFatalFailureTest, Assert)
@@ -39,7 +39,7 @@ IUTEST(NoFailureTest, Assert)
     ++nCount;
 }
 
-IUTEST_PRAGMA_GCC_WARN_POP()
+IUTEST_PRAGMA_WARN_POP()
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])

@@ -4,13 +4,16 @@ environment:
   matrix:
     # Visual Studio
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+      PROJECT_DIR: vs2013
       CMAKE_GENERATOR_NAME: Visual Studio 12 2013
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      PROJECT_DIR: vs2015
       CMAKE_GENERATOR_NAME: Visual Studio 14 2015
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      PROJECT_DIR: vs2017
       CMAKE_GENERATOR_NAME: Visual Studio 15 2017
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-      # PROJECT_DIR: msvc16
+      PROJECT_DIR: vs2019
       # BUILD_PRE_PROJECT: yes
       CMAKE_GENERATOR_NAME: Visual Studio 16 2019
     # Cygwin
@@ -51,8 +54,10 @@ environment:
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     # Prefast
     - BUILD_PREFAST: yes
+      PROJECT_DIR: vs2015
     # Menu
     - BUILD_MENU: yes
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     # Package Build
     - BUILD_PACKAGE: yes
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
@@ -149,7 +154,7 @@ for:
     cmd: |
       cd test
       g++ --version; clang++ --version; python --version
-      @echo. > foo.h && g++ -std=c++1z -dM -E -x c++ foo.h
+      make showcxxmacros
       uname
       make -j4
   test_script:
@@ -168,7 +173,7 @@ for:
     cmd: |
       cd test
       g++ --version
-      @echo. > foo.h && g++ -std=c++1z -dM -E -x c++ foo.h
+      mingw32-make showcxxmacros
       mingw32-make -j4 %MAKE_OPTIONS%
   test_script:
     cmd: mingw32-make test %MAKE_OPTIONS%

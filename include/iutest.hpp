@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
  *
@@ -19,6 +19,7 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_ver.hpp"
 #include "iutest_core.hpp"
 #include "iutest_param_tests.hpp"
@@ -35,7 +36,7 @@
 #if defined(__AFX_H__)
 #include "internal/iutest_mfc.hpp"
 #endif
-
+// IWYU pragma: end_exports
 
 //======================================================================
 // define

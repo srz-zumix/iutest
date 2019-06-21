@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -162,15 +162,14 @@
 #define IUTEST_EXPECT_TRUE(...)             EXPECT_TRUE(!!(__VA_ARGS__))
 #define IUTEST_EXPECT_FALSE(...)            EXPECT_FALSE((__VA_ARGS__))
 #define IUTEST_EXPECT_EQ                    EXPECT_EQ
-#define IUTEST_EXPECT_NE(expected, actual)  EXPECT_PRED_FORMAT2(    \
-                                                ::testing::internal::NeHelper<GTEST_IS_NULL_LITERAL_(expected)>::Compare, expected, actual)
+#define IUTEST_EXPECT_NE(expected, actual)  EXPECT_PRED_FORMAT2(IIUT_COMPATIBLE_NEHELPER(expected)::Compare, expected, actual)
 #define IUTEST_EXPECT_LT                    EXPECT_LT
 #define IUTEST_EXPECT_LE                    EXPECT_LE
 #define IUTEST_EXPECT_GT                    EXPECT_GT
 #define IUTEST_EXPECT_GE                    EXPECT_GE
 #define IUTEST_EXPECT_NEAR                  EXPECT_NEAR
-#define IUTEST_EXPECT_NULL(...)             EXPECT_EQ(NULL, (__VA_ARGS__))
-#define IUTEST_EXPECT_NOTNULL(...)          EXPECT_TRUE(NULL != (__VA_ARGS__))
+#define IUTEST_EXPECT_NULL(...)             EXPECT_EQ(IUTEST_NULLPTR, (__VA_ARGS__))
+#define IUTEST_EXPECT_NOTNULL(...)          EXPECT_TRUE(IUTEST_NULLPTR != (__VA_ARGS__))
 #define IUTEST_EXPECT_SAME(v1, v2)          EXPECT_PRED_FORMAT2(::testing::internal::CmpHelperSame, v1, v2)
 #define IUTEST_EXPECT_FLOAT_EQ              EXPECT_FLOAT_EQ
 #define IUTEST_EXPECT_DOUBLE_EQ             EXPECT_DOUBLE_EQ

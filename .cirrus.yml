@@ -1,5 +1,5 @@
 cirrus_gcc_test_task:
-  only_if: $CIRRUS_BRANCH == 'master' || $CIRRUS_BRANCH == 'develop' || $CIRRUS_BRANCH =~ 'feature/.*' || $CIRRUS_BRANCH =~ 'cirrusci/.*' || $CIRRUS_BASE_BRANCH != ''
+  only_if: &default-condition $CIRRUS_BRANCH == 'master' || $CIRRUS_BRANCH == 'develop' || $CIRRUS_BRANCH =~ 'feature/.*' || $CIRRUS_BRANCH =~ 'cirrusci/.*' || $CIRRUS_BASE_BRANCH != ''
   auto_cancellation: true
   container:
     image: gcc:latest
@@ -17,17 +17,22 @@ cirrus_gcc_test_task:
 #    image: srzzumix/googletest:latest
 #  test_script: cd test && make -j4 showcxxversion default && make test
 
-cirrus_osx_test_task:
-  only_if: $CIRRUS_BRANCH == 'master' || $CIRRUS_BRANCH == 'develop' || $CIRRUS_BRANCH =~ 'feature/.*' || $CIRRUS_BRANCH =~ 'cirrusci/.*' || $CIRRUS_BASE_BRANCH != ''
+cirrus_osx_14_test_task: &osx_task
+  only_if: *default-condition
   auto_cancellation: true
   osx_instance:
-    image: high-sierra-xcode-9.4.1
+    image: mojave-xcode-10.1
+    # image: high-sierra-xcode-9.4.1
   env:
-    matrix:
-      STDFLAG: -std=c++14
-      STDFLAG: -std=c++17
-      #STDFLAG: -std=c++2a
+    STDFLAG: -std=c++14
   test_script: cd test && make -j4 showcxxversion default && make test
+
+cirrus_osx_17_test_task:
+  <<: *osx_task
+  env:
+    STDFLAG: -std=c++17
+  depends_on:
+    - cirrus_osx_14_test
 
 # cirrus_worker_info_task:
 #   container:

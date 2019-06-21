@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -153,8 +153,7 @@
 #define INFORM_FALSE(condition) GTEST_TEST_BOOLEAN_(!(condition), #condition, true, false, GTEST_INFORM_FAILURE_)
 
 #define INFORM_EQ(expected, actual) \
-    INFORM_PRED_FORMAT2(::testing::internal:: \
-    EqHelper<GTEST_IS_NULL_LITERAL_(expected)>::Compare, \
+    INFORM_PRED_FORMAT2(IIUT_COMPATIBLE_EQHELPER(expected)::Compare, \
     expected, actual)
 #define INFORM_NE(expected, actual) \
     INFORM_PRED_FORMAT2(::testing::internal::CmpHelperNE, expected, actual)
@@ -201,14 +200,13 @@
 #define IUTEST_INFORM_TRUE(...)             INFORM_TRUE(!!(__VA_ARGS__))
 #define IUTEST_INFORM_FALSE(...)            INFORM_FALSE((__VA_ARGS__))
 #define IUTEST_INFORM_EQ                    INFORM_EQ
-#define IUTEST_INFORM_NE(expected, actual)  INFORM_PRED_FORMAT2(    \
-                                                ::testing::internal::NeHelper<GTEST_IS_NULL_LITERAL_(expected)>::Compare, expected, actual)
+#define IUTEST_INFORM_NE(expected, actual)  INFORM_PRED_FORMAT2(IIUT_COMPATIBLE_NEHELPER(expected)::Compare, expected, actual)
 #define IUTEST_INFORM_LT                    INFORM_LT
 #define IUTEST_INFORM_LE                    INFORM_LE
 #define IUTEST_INFORM_GT                    INFORM_GT
 #define IUTEST_INFORM_GE                    INFORM_GE
-#define IUTEST_INFORM_NULL(...)             INFORM_EQ(NULL, (__VA_ARGS__))
-#define IUTEST_INFORM_NOTNULL(...)          INFORM_TRUE(NULL != (__VA_ARGS__))
+#define IUTEST_INFORM_NULL(...)             INFORM_EQ(IUTEST_NULLPTR, (__VA_ARGS__))
+#define IUTEST_INFORM_NOTNULL(...)          INFORM_TRUE(IUTEST_NULLPTR != (__VA_ARGS__))
 #define IUTEST_INFORM_SAME(v1, v2)          INFORM_PRED_FORMAT2(::testing::internal::CmpHelperSame, v1, v2)
 #define IUTEST_INFORM_NEAR                  INFORM_NEAR
 #define IUTEST_INFORM_FLOAT_EQ              INFORM_FLOAT_EQ

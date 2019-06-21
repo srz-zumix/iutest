@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -149,8 +149,8 @@ void UniversalPrint(const T& value, iu_ostream* os);
 */
 template<typename T>
 inline void DefaultPrintTo(IsContainerHelper::yes_t
-                           , iutest_type_traits::false_type
-                           , const T& container, iu_ostream* os)
+                        , iutest_type_traits::false_type
+                        , const T& container, iu_ostream* os)
 {
     const size_t kMaxCount = kValues::MaxPrintContainerCount;
     size_t count = 0;
@@ -258,7 +258,13 @@ inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ost
 template<typename T>
 inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
 {
-    *os << f.raw() << "(0x" << ToHexString(f.bits()) << ")";
+#if IUTEST_HAS_IOMANIP
+    iu_stringstream ss;
+    ss << ::std::setprecision(::std::numeric_limits<T>::digits10 + 2) << f.raw();
+    *os << ss.str() << "(0x" << ToHexString(f.bits()) << ")";
+#else
+    *os << f.raw()  << "(0x" << ToHexString(f.bits()) << ")";
+#endif
 }
 template<typename T1, typename T2>
 inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)
@@ -351,8 +357,8 @@ inline void PrintTo(const ::std::monostate&, iu_ostream* os)
 #if IUTEST_HAS_CXX_HDR_ANY
 inline void PrintTo(const ::std::any& value, iu_ostream* os)
 {
-   *os << "-Any type-name: " << value.type().name();
-   DefaultPrintNonContainerTo(value, os);
+    *os << "-Any type-name: " << value.type().name();
+    DefaultPrintNonContainerTo(value, os);
 }
 #endif
 

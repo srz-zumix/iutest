@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,6 +17,9 @@
 
 //======================================================================
 // include
+#define __STDC_FORMAT_MACROS    1
+#include <inttypes.h>
+
 #if defined(IUTEST_USE_GTEST) && defined(__STRICT_ANSI__)
 #  undef __STRICT_ANSI__
 #  include <string.h>
@@ -25,6 +28,7 @@
 #  define __STRICT_ANSI__
 #endif
 #include <cstdlib>
+#include <limits>
 
 //======================================================================
 // define
@@ -386,13 +390,13 @@
 #if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
 #  define IUTEST_HAS_CXX_HDR_CODECVT    0
 #endif
-//! has cuchar
-#if !defined(IUTEST_HAS_CXX_HDR_CUCHAR)
-#  define IUTEST_HAS_CXX_HDR_CUCHAR     0
-#endif
 //! has cstdint header
 #if !defined(IUTEST_HAS_CXX_HDR_CSTDINT)
 #  define IUTEST_HAS_CXX_HDR_CSTDINT    0
+#endif
+//! has cuchar
+#if !defined(IUTEST_HAS_CXX_HDR_CUCHAR)
+#  define IUTEST_HAS_CXX_HDR_CUCHAR     0
 #endif
 //! has filesystem header
 #if !defined(IUTEST_HAS_CXX_HDR_FILESYSTEM)
@@ -668,6 +672,18 @@ using tuples::get;
 #  define IUTEST_HAS_STRSTREAM      0
 #endif
 
+//! iomanip が使用可能かどうか
+#if !defined(IUTEST_HAS_IOMANIP)
+#  if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+#    define IUTEST_HAS_IOMANIP      1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_IOMANIP)
+#  define IUTEST_HAS_IOMANIP        0
+#endif
+
+
 //! _set_invalid_parameter_handler が使用可能かどうか
 #if !defined(IUTEST_HAS_INVALID_PARAMETER_HANDLER)
 #  if IUTEST_HAS_EXCEPTIONS && (defined(_MSC_VER) && (_MSC_VER >= 1400)) && !defined(IUTEST_OS_WINDOWS_MOBILE)
@@ -677,6 +693,25 @@ using tuples::get;
 
 #if !defined(IUTEST_HAS_INVALID_PARAMETER_HANDLER)
 #  define IUTEST_HAS_INVALID_PARAMETER_HANDLER      0
+#endif
+
+//! size_t format macros
+#if !defined(IUPRzu)
+#  if defined(_MSC_VER) && (_MSC_VER < 1900)
+#    define IUPRzu  "Iu"
+#  elif defined(IUTEST_OS_WINDOWS_MINGW)
+#    if !defined(__STRICT_ANSI__)
+#      if defined(__MINGW64__)
+#        define IUPRzu  PRIu64
+#      elif defined(__MINGW32__)
+#        define IUPRzu  PRIu32
+#      endif
+#    endif
+#  endif
+#endif
+
+#if !defined(IUPRzu)
+#  define IUPRzu  "zu"
 #endif
 
 namespace iutest {
@@ -751,7 +786,7 @@ struct type_least_t<8>
 /**
  * @brief   type_fit_t
 */
-template<int SIZE>
+template<size_t SIZE>
 struct type_fit_t {};
 
 /** type_fit_t<1> */

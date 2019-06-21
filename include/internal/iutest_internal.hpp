@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -316,14 +316,14 @@
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                          \
     if( const char* msg = "" ) {                                            \
         try {                                                               \
-            IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(IIUT_SEH_THROUGH(statement));    \
+            IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(IIUT_SEH_THROUGH(statement));  \
             msg = "\nExpected: " #statement " throws an exception of type " \
-                  #expected_exception ".\n  Actual: it throws nothing.";    \
+                #expected_exception ".\n  Actual: it throws nothing.";      \
             goto IUTEST_PP_CAT(iutest_label_throw, __LINE__);               \
         } catch( expected_exception const& ) {                              \
         } catch( ... ) {                                                    \
             msg = "\nExpected: " #statement " throws an exception of type " \
-          #expected_exception ".\n  Actual: it throws a different type.";   \
+                #expected_exception ".\n  Actual: it throws a different type.";     \
             goto IUTEST_PP_CAT(iutest_label_throw, __LINE__);               \
         }                                                                   \
     } else                                                                  \
@@ -360,10 +360,10 @@
 
 #define IUTEST_TEST_THROW_VALUE_EQ_(statement, expected_exception, expected_exception_value, on_failure)    \
     IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure            \
-        , ::iutest::internal::EqHelper<IUTEST_IS_NULLLITERAL(expected_exception_value)>::Compare)
+        , ::iutest::internal::backward::EqHelper<IUTEST_IS_NULLLITERAL(expected_exception_value)>::Compare)
 #define IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, expected_exception_value, on_failure)    \
     IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure            \
-        , ::iutest::internal::NeHelper<IUTEST_IS_NULLLITERAL(expected_exception_value)>::Compare)
+        , ::iutest::internal::backward::NeHelper<IUTEST_IS_NULLLITERAL(expected_exception_value)>::Compare)
 #define IUTEST_TEST_THROW_VALUE_STREQ_(statement, expected_exception, expected_exception_value, on_failure) \
     IUTEST_TEST_THROW_VALUE_(statement, expected_exception, expected_exception_value, on_failure            \
         , ::iutest::internal::CmpHelperSTREQ)
@@ -480,11 +480,11 @@
  * @{
 */
 #define IUTEST_TEST_EQ(expected, actual, on_failure)        \
-    IUTEST_PRED_FORMAT2_( ::iutest::internal::EqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare    \
+    IUTEST_PRED_FORMAT2_( ::iutest::internal::backward::EqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare    \
         , expected, actual, on_failure )
 
 #define IUTEST_TEST_NE(v1, v2, on_failure)                  \
-    IUTEST_PRED_FORMAT2_( ::iutest::internal::NeHelper<IUTEST_IS_NULLLITERAL(v1)>::Compare          \
+    IUTEST_PRED_FORMAT2_( ::iutest::internal::backward::NeHelper<IUTEST_IS_NULLLITERAL(v1)>::Compare          \
         , v1, v2, on_failure )
 
 #define IUTEST_TEST_LE(v1, v2, on_failure)                  \
@@ -600,7 +600,7 @@
     if( (::iutest::UnitTest::current_test_result()->Failed())                       \
         || (::iutest::UnitTest::SkipTest(), ::iutest::detail::AlwaysTrue()) )       \
         IUTEST_SKIP_MESSAGE( ::iutest::UnitTest::current_test_result()->Failed() ?  \
-             "Skipped. but already failed. " : "Skipped. " )
+                                "Skipped. but already failed. " : "Skipped. " )
 
 /**
  * @}

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -102,7 +102,7 @@ IUTEST_IPP_INLINE char* CodePointToUtf8(UInt32 code_point, char* buf, size_t siz
     }
     else
     {
-        iu_snprintf(buf, size, "(Invalid UTF16 0x%X)", code_point);
+        iu_snprintf(buf, size, "(Invalid UTF16 0x%s)", ToHexString(code_point).c_str());
     }
     return buf;
 }
@@ -231,7 +231,10 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     return ret;
 #else
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_CAST_ALIGN()
     return WideStringToUTF8(reinterpret_cast<const wchar_t*>(str), num);
+IUTEST_PRAGMA_WARN_POP()
 #endif
 }
 

@@ -6,7 +6,7 @@
  *
  * @author		t.shirayanagi
  * @par			copyright
- * Copyright (C) 2014-2015, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -180,11 +180,11 @@ class is_prime_number
 	};
 
 	template<bool isSimpleFilter>
-	struct is_prime_impl< 5, isSimpleFilter> { typedef detail::true_type type; };	// 5 ‚Í‘f”
+	struct is_prime_impl< 5, isSimpleFilter> { typedef detail::true_type type; };	// 5 ï¿½Í‘fï¿½ï¿½
 	template<bool isSimpleFilter>
-	struct is_prime_impl< 3, isSimpleFilter> { typedef detail::true_type type; };	// 3 ‚Í‘f”
+	struct is_prime_impl< 3, isSimpleFilter> { typedef detail::true_type type; };	// 3 ï¿½Í‘fï¿½ï¿½
 	template<bool isSimpleFilter>
-	struct is_prime_impl< 2, isSimpleFilter> { typedef detail::true_type type; };	// 2 ‚Í‘f”
+	struct is_prime_impl< 2, isSimpleFilter> { typedef detail::true_type type; };	// 2 ï¿½Í‘fï¿½ï¿½
 
 	template<intmax_t N>
 	struct is_prime_impl<N, false>
@@ -203,7 +203,8 @@ template<bool x>struct static_assert_failer;
 template<>struct static_assert_failer<true> { enum { value=1 }; };
 template<int x>struct static_assert_test {};
 }
-#define STATIC_ASSERT(B) typedef detail::static_assert_test< sizeof(detail::static_assert_failer<(bool)B>) > PP_CAT(static_assert_typedef_, __LINE__) 
+#define STATIC_ASSERT(B) \
+    typedef detail::static_assert_test< sizeof(detail::static_assert_failer<(bool)B>) > PP_CAT(static_assert_typedef_, __LINE__)
 
 STATIC_ASSERT( is_prime_number<2>::value );
 STATIC_ASSERT( is_prime_number<3>::value );
