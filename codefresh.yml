@@ -26,16 +26,22 @@ steps:
       BasicTest-gcc9: &basic_test
         title: Running Basic Tests - gcc9
         image: gcc:9
+        environment:
+          - OUTDIR=gcc9
         commands:
           - make -C test test
       BasicTest-gcc8:
         <<: *basic_test
         title: Running Basic Tests - gcc8
         image: gcc:8
+        environment:
+          - OUTDIR=gcc8
       BasicTest-gcc7:
         <<: *basic_test
         title: Running Basic Tests - gcc7
         image: gcc:7
+        environment:
+          - OUTDIR=gcc7
       BenchmarkTest:
         title: Running Benchmark Tests
         image: '${{BuildingDockerImage}}'

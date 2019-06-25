@@ -130,10 +130,11 @@ NAMESPACETESTS_SRCS = main.cpp $(ALLTESTS_TEST_SRCS:%.cpp=%.ns.cpp)
 
 COMMON_RUN_TARGETS=$(ALLTESTS_TARGET) $(EXTENSIONTESTS_TARGET) $(NAMESPACETESTS_TARGET) $(TARGETS1) $(TARGETS2)
 ifneq ($(USE_GTEST)$(USE_GMOCK),)
-RUN_TARGETS = $(COMMON_RUN_TARGETS)
+RUN_TARGETS_ = $(COMMON_RUN_TARGETS)
 else
-RUN_TARGETS = $(COMMON_RUN_TARGETS) $(TARGETS_IUTEST_ONLY) $(UNITTESTS_TARGET)
+RUN_TARGETS_ = $(COMMON_RUN_TARGETS) $(TARGETS_IUTEST_ONLY) $(UNITTESTS_TARGET)
 endif
+RUN_TARGETS = $(RUN_TARGETS_:$(OUTDIR)/%=%)
 
 ifeq ($(USE_GTEST)$(USE_GMOCK)$(USE_COVERAGE)$(USE_SCANBUILD),)
 ERR_TARGETS = $(COMPILEERROR_TARGETS)
@@ -211,23 +212,23 @@ showcxxflags:
 	@echo $(CXXFLAGS)
 
 %_run : %
-	@echo $<
+	@echo $(OUTDIR)/$<
 ifdef USE_COVERAGE
-	${WINE_} ./$< $(RUN_OPTION) --iutest_output=xml:$<.xml > /dev/null
+	${WINE_} $(OUTDIR)/$< $(RUN_OPTION) --iutest_output=xml:$<.xml > /dev/null
 else
 ifdef OUTPUTXML
 ifeq ($(OUTPUTXML),junit)
-	${WINE_} ./$< $(RUN_OPTION) --iutest_output=junit:$<.xml
+	${WINE_} $(OUTDIR)/$< $(RUN_OPTION) --iutest_output=junit:$<.xml
 else
-	${WINE_} ./$< $(RUN_OPTION) --iutest_output=xml:$<.xml
+	${WINE_} $(OUTDIR)/$< $(RUN_OPTION) --iutest_output=xml:$<.xml
 endif
 else
-	${WINE_} ./$< $(RUN_OPTION)
+	${WINE_} $(OUTDIR)/$< $(RUN_OPTION)
 endif
 endif
 
 run_% : %_run
-	@echo $< > /dev/null
+	@echo $(OUTDIR)/$< > /dev/null
 
 # gtest version test
 gtest-version: clean gtest_version_tests_run
@@ -340,6 +341,11 @@ build_benchmark:
 # Build tests.
 #
 
+$(OUTDIR):
+	if [[ ! -d $(OUTDIR) ]]; then
+	 mkdif $(OUTDIR);
+	fi
+
 ifeq ($(USE_GTEST)$(USE_GMOCK),)
 
 TARGETS_EXCLUDE_ALLTESTS= $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY) $(BUILD_ONLY)
@@ -350,8 +356,8 @@ CXXFLAGS += -DIUTEST_USE_LIB=1 -L../lib
 LDFLAGS:= -liutest $(LDFLAGS)
 endif
 
-$(TARGETS_EXCLUDE_ALLTESTS) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS)
+$(TARGETS_EXCLUDE_ALLTESTS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $< $(LDFLAGS)
 
 
 # compiler error test
@@ -366,22 +372,22 @@ ifeq ($(CI),true)
 IUTEST_COMPILE_ERROR_TEST_OPTION+= --verbose
 endif
 
-$(ERR_TARGETS) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS) 2>&1 | python $(PY_COMPILEERROR_TEST_TOOL) $(IUTEST_COMPILE_ERROR_TEST_OPTION)
+$(ERR_TARGETS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE) $(OUTDIR)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $< $(LDFLAGS) 2>&1 | python $(PY_COMPILEERROR_TEST_TOOL) $(IUTEST_COMPILE_ERROR_TEST_OPTION)
 
 else
 
 # use Google Test or Google Mock
 include ../utils/usegtest.mk
 
-$(BUILD_ONLY) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS)
+$(BUILD_ONLY) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $< $(LDFLAGS)
 
-$(TARGETS1) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp $(LDFLAGS)
+$(TARGETS1) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $< $(LDFLAGS)
 
-$(TARGETS2) : % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp
+$(TARGETS2) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $<
 
 endif
 
@@ -404,7 +410,7 @@ $(SYNTAXTESTS_TARGET) : $(SYNTAXTESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp main.cpp $(LDFLAGS)
 
 check_stdlib: % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
-	$(CXX) $(CXXFLAGS) -v -o $@ $@.cpp
+	$(CXX) $(CXXFLAGS) -v -o $@ $<
 	./$@
 
 #
