@@ -198,7 +198,6 @@ for:
   environment:
     MSBUILD_LOGGER_OPTION: /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
     MSBUILD_PREFAST_OPTION: /p:RunCodeAnalysis=true /p:EnablePREfast=true /p:CodeAnalysisTreatWarningsAsErrors=true
-    PROJECT_DIR: msvc14
   before_build:
     cmd: echo.
   build_script:
