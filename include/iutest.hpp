@@ -272,11 +272,23 @@
 /**
  * @ingroup IUTEST_ASSERT_
  * @brief   == テスト
+ * @details actual が expected と等しいことを検証します
  * @param   expected    = 期待値
  * @param   actual      = 検査対象
 */
 #ifndef IUTEST_ASSERT_EQ
-#  define   IUTEST_ASSERT_EQ(expected, actual)      IUTEST_TEST_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
+#  define IUTEST_ASSERT_EQ(expected, actual)        IUTEST_TEST_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
+#endif
+/**
+ * @ingroup IUTEST_ASSERT_
+ * @brief   != テスト（浮動小数点数は誤差考慮）
+ * @details actual が expected と等しいことを検証します
+ *          浮動小数点数の場合、誤差を考慮した FLOAT_EQ/DOUBLE_EQ での検証になります。
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_ASSERT_ALMOST_EQ
+#  define IUTEST_ASSERT_ALMOST_EQ(expected, actual) IUTEST_TEST_ALMOST_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_ASSERT_
@@ -284,7 +296,7 @@
  * @details v1 と v2 が等しくないことを検証します
 */
 #ifndef IUTEST_ASSERT_NE
-#  define   IUTEST_ASSERT_NE(v1, v2)                IUTEST_TEST_NE(v1, v2, IUTEST_ASSERT_FAILURE)
+#  define IUTEST_ASSERT_NE(v1, v2)                  IUTEST_TEST_NE(v1, v2, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_ASSERT_
@@ -292,7 +304,7 @@
  * @details v1 <= v2 が成り立つことを検証します
 */
 #ifndef IUTEST_ASSERT_LE
-#  define   IUTEST_ASSERT_LE(v1, v2)                IUTEST_TEST_LE(v1, v2, IUTEST_ASSERT_FAILURE)
+#  define IUTEST_ASSERT_LE(v1, v2)                  IUTEST_TEST_LE(v1, v2, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_ASSERT_
@@ -300,7 +312,7 @@
  * @details v1 < v2 が成り立つことを検証します
 */
 #ifndef IUTEST_ASSERT_LT
-#  define   IUTEST_ASSERT_LT(v1, v2)                IUTEST_TEST_LT(v1, v2, IUTEST_ASSERT_FAILURE)
+#  define IUTEST_ASSERT_LT(v1, v2)                  IUTEST_TEST_LT(v1, v2, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_ASSERT_
@@ -308,7 +320,7 @@
  * @details v1 >= v2 が成り立つことを検証します
 */
 #ifndef IUTEST_ASSERT_GE
-#  define   IUTEST_ASSERT_GE(v1, v2)                IUTEST_TEST_GE(v1, v2, IUTEST_ASSERT_FAILURE)
+#  define IUTEST_ASSERT_GE(v1, v2)                  IUTEST_TEST_GE(v1, v2, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_ASSERT_
@@ -316,7 +328,7 @@
  * @details v1 > v2 が成り立つことを検証します
 */
 #ifndef IUTEST_ASSERT_GT
-#  define   IUTEST_ASSERT_GT(v1, v2)                IUTEST_TEST_GT(v1, v2, IUTEST_ASSERT_FAILURE)
+#  define IUTEST_ASSERT_GT(v1, v2)                  IUTEST_TEST_GT(v1, v2, IUTEST_ASSERT_FAILURE)
 #endif
 
 /**
@@ -351,9 +363,9 @@
 */
 #ifndef IUTEST_ASSERT_NULL
 #  ifndef IUTEST_NO_VARIADIC_MACROS
-#    define   IUTEST_ASSERT_NULL(...)               IUTEST_TEST_NULL((__VA_ARGS__), IUTEST_ASSERT_FAILURE)
+#    define IUTEST_ASSERT_NULL(...)                 IUTEST_TEST_NULL((__VA_ARGS__), IUTEST_ASSERT_FAILURE)
 #  else
-#    define   IUTEST_ASSERT_NULL(v)                 IUTEST_TEST_NULL(v, IUTEST_ASSERT_FAILURE)
+#    define IUTEST_ASSERT_NULL(v)                   IUTEST_TEST_NULL(v, IUTEST_ASSERT_FAILURE)
 #  endif
 #endif
 /**
@@ -363,9 +375,9 @@
 */
 #ifndef IUTEST_ASSERT_NOTNULL
 #  ifndef IUTEST_NO_VARIADIC_MACROS
-#    define   IUTEST_ASSERT_NOTNULL(...)            IUTEST_TEST_NOTNULL((__VA_ARGS__), IUTEST_ASSERT_FAILURE)
+#    define IUTEST_ASSERT_NOTNULL(...)              IUTEST_TEST_NOTNULL((__VA_ARGS__), IUTEST_ASSERT_FAILURE)
 #  else
-#    define   IUTEST_ASSERT_NOTNULL(v)              IUTEST_TEST_NOTNULL(v, IUTEST_ASSERT_FAILURE)
+#    define IUTEST_ASSERT_NOTNULL(v)                IUTEST_TEST_NOTNULL(v, IUTEST_ASSERT_FAILURE)
 #  endif
 #endif
 
@@ -375,7 +387,7 @@
  * @details v1 と v2 のアドレスが同じであることを検証します
 */
 #ifndef IUTEST_ASSERT_SAME
-#  define   IUTEST_ASSERT_SAME(v1, v2)              IUTEST_TEST_SAME(v1, v2, IUTEST_ASSERT_FAILURE)
+#  define IUTEST_ASSERT_SAME(v1, v2)                IUTEST_TEST_SAME(v1, v2, IUTEST_ASSERT_FAILURE)
 #endif
 
 /**
@@ -385,7 +397,7 @@
  * @param   actual      = 検査対象
 */
 #ifndef IUTEST_ASSERT_FLOAT_EQ
-#  define   IUTEST_ASSERT_FLOAT_EQ(expected, actual)    IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
+#  define IUTEST_ASSERT_FLOAT_EQ(expected, actual)  IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_ASSERT_
@@ -394,7 +406,7 @@
  * @param   actual      = 検査対象
 */
 #ifndef IUTEST_ASSERT_DOUBLE_EQ
-#  define   IUTEST_ASSERT_DOUBLE_EQ(expected, actual)   IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
+#  define IUTEST_ASSERT_DOUBLE_EQ(expected, actual) IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
 #endif
 
 #if IUTEST_HAS_LONG_DOUBLE
@@ -405,7 +417,8 @@
  * @param   actual      = 検査対象
 */
 #ifndef IUTEST_ASSERT_LONG_DOUBLE_EQ
-#  define   IUTEST_ASSERT_LONG_DOUBLE_EQ(expected, actual)  IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
+#  define IUTEST_ASSERT_LONG_DOUBLE_EQ(expected, actual)    \
+    IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_ASSERT_FAILURE)
 #endif
 #endif
 
@@ -417,7 +430,7 @@
  * @param   abs_v   = v1 と v2 の差分の期待値
 */
 #ifndef IUTEST_ASSERT_NEAR
-#  define   IUTEST_ASSERT_NEAR(v1, v2, abs_v)       IUTEST_TEST_NEAR(v1, v2, abs_v, IUTEST_ASSERT_FAILURE)
+#  define IUTEST_ASSERT_NEAR(v1, v2, abs_v)         IUTEST_TEST_NEAR(v1, v2, abs_v, IUTEST_ASSERT_FAILURE)
 #endif
 
 /**
@@ -427,7 +440,8 @@
  * @param   actual_str      = 検査対象
 */
 #ifndef IUTEST_ASSERT_STREQ
-#  define   IUTEST_ASSERT_STREQ(expected_str, actual_str)   IUTEST_TEST_STREQ(expected_str, actual_str, IUTEST_ASSERT_FAILURE)
+#  define IUTEST_ASSERT_STREQ(expected_str, actual_str) \
+    IUTEST_TEST_STREQ(expected_str, actual_str, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_ASSERT_
@@ -435,7 +449,7 @@
  * @details v1 と v2 文字列が異なることを検証します
 */
 #ifndef IUTEST_ASSERT_STRNE
-#  define   IUTEST_ASSERT_STRNE(v1, v2)             IUTEST_TEST_STRNE(v1, v2, IUTEST_ASSERT_FAILURE)
+#  define IUTEST_ASSERT_STRNE(v1, v2)               IUTEST_TEST_STRNE(v1, v2, IUTEST_ASSERT_FAILURE)
 #endif
 
 /**
@@ -445,7 +459,8 @@
  * @param   actual_str      = 検査対象
 */
 #ifndef IUTEST_ASSERT_STRCASEEQ
-#  define   IUTEST_ASSERT_STRCASEEQ(expected_str, actual_str)   IUTEST_TEST_STRCASEEQ(expected_str, actual_str, IUTEST_ASSERT_FAILURE)
+#  define IUTEST_ASSERT_STRCASEEQ(expected_str, actual_str) \
+    IUTEST_TEST_STRCASEEQ(expected_str, actual_str, IUTEST_ASSERT_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_ASSERT_
@@ -453,7 +468,7 @@
  * @details v1 と v2 文字列が異なることを検証します（大文字小文字区別なし）
 */
 #ifndef IUTEST_ASSERT_STRCASENE
-#  define   IUTEST_ASSERT_STRCASENE(v1, v2)         IUTEST_TEST_STRCASENE(v1, v2, IUTEST_ASSERT_FAILURE)
+#  define IUTEST_ASSERT_STRCASENE(v1, v2)           IUTEST_TEST_STRCASENE(v1, v2, IUTEST_ASSERT_FAILURE)
 #endif
 
 /**
@@ -658,7 +673,18 @@
  * @param   actual      = 検査対象
 */
 #ifndef IUTEST_EXPECT_EQ
-#  define   IUTEST_EXPECT_EQ(expected, actual)      IUTEST_TEST_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
+#  define IUTEST_EXPECT_EQ(expected, actual)        IUTEST_TEST_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
+#endif
+/**
+ * @ingroup IUTEST_EXPECT_
+ * @brief   != テスト（浮動小数点数は誤差考慮）
+ * @details actual が expected と等しいことを検証します
+ *          浮動小数点数の場合、誤差を考慮した FLOAT_EQ/DOUBLE_EQ での検証になります。
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_EXPECT_ALMOST_EQ
+#  define IUTEST_EXPECT_ALMOST_EQ(expected, actual) IUTEST_TEST_ALMOST_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_EXPECT_
@@ -666,7 +692,7 @@
  * @details v1 と v2 が等しくないことを検証します
 */
 #ifndef IUTEST_EXPECT_NE
-#  define   IUTEST_EXPECT_NE(v1, v2)                IUTEST_TEST_NE(v1, v2, IUTEST_EXPECT_FAILURE)
+#  define IUTEST_EXPECT_NE(v1, v2)                  IUTEST_TEST_NE(v1, v2, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_EXPECT_
@@ -674,7 +700,7 @@
  * @details v1 <= v2 が成り立つことを検証します
 */
 #ifndef IUTEST_EXPECT_LE
-#  define   IUTEST_EXPECT_LE(v1, v2)                IUTEST_TEST_LE(v1, v2, IUTEST_EXPECT_FAILURE)
+#  define IUTEST_EXPECT_LE(v1, v2)                  IUTEST_TEST_LE(v1, v2, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_EXPECT_
@@ -682,7 +708,7 @@
  * @details v1 < v2 が成り立つことを検証します
 */
 #ifndef IUTEST_EXPECT_LT
-#  define   IUTEST_EXPECT_LT(v1, v2)                IUTEST_TEST_LT(v1, v2, IUTEST_EXPECT_FAILURE)
+#  define IUTEST_EXPECT_LT(v1, v2)                  IUTEST_TEST_LT(v1, v2, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_EXPECT_
@@ -690,7 +716,7 @@
  * @details v1 >= v2 が成り立つことを検証します
 */
 #ifndef IUTEST_EXPECT_GE
-#  define   IUTEST_EXPECT_GE(v1, v2)                IUTEST_TEST_GE(v1, v2, IUTEST_EXPECT_FAILURE)
+#  define IUTEST_EXPECT_GE(v1, v2)                  IUTEST_TEST_GE(v1, v2, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_EXPECT_
@@ -698,7 +724,7 @@
  * @details v1 > v2 が成り立つことを検証します
 */
 #ifndef IUTEST_EXPECT_GT
-#  define   IUTEST_EXPECT_GT(v1, v2)                IUTEST_TEST_GT(v1, v2, IUTEST_EXPECT_FAILURE)
+#  define IUTEST_EXPECT_GT(v1, v2)                  IUTEST_TEST_GT(v1, v2, IUTEST_EXPECT_FAILURE)
 #endif
 
 /**
@@ -733,9 +759,9 @@
 */
 #ifndef IUTEST_EXPECT_NULL
 #  ifndef IUTEST_NO_VARIADIC_MACROS
-#    define   IUTEST_EXPECT_NULL(...)               IUTEST_TEST_NULL((__VA_ARGS__), IUTEST_EXPECT_FAILURE)
+#    define IUTEST_EXPECT_NULL(...)                 IUTEST_TEST_NULL((__VA_ARGS__), IUTEST_EXPECT_FAILURE)
 #  else
-#    define   IUTEST_EXPECT_NULL(v)                 IUTEST_TEST_NULL(v, IUTEST_EXPECT_FAILURE)
+#    define IUTEST_EXPECT_NULL(v)                   IUTEST_TEST_NULL(v, IUTEST_EXPECT_FAILURE)
 #  endif
 #endif
 /**
@@ -745,9 +771,9 @@
 */
 #ifndef IUTEST_EXPECT_NOTNULL
 #  ifndef IUTEST_NO_VARIADIC_MACROS
-#    define   IUTEST_EXPECT_NOTNULL(...)            IUTEST_TEST_NOTNULL((__VA_ARGS__), IUTEST_EXPECT_FAILURE)
+#    define IUTEST_EXPECT_NOTNULL(...)              IUTEST_TEST_NOTNULL((__VA_ARGS__), IUTEST_EXPECT_FAILURE)
 #  else
-#    define   IUTEST_EXPECT_NOTNULL(v)              IUTEST_TEST_NOTNULL(v, IUTEST_EXPECT_FAILURE)
+#    define IUTEST_EXPECT_NOTNULL(v)                IUTEST_TEST_NOTNULL(v, IUTEST_EXPECT_FAILURE)
 #  endif
 #endif
 
@@ -757,7 +783,7 @@
  * @details v1 と v2 のアドレスが同じであることを検証します
 */
 #ifndef IUTEST_EXPECT_SAME
-#  define   IUTEST_EXPECT_SAME(v1, v2)              IUTEST_TEST_SAME(v1, v2, IUTEST_EXPECT_FAILURE)
+#  define IUTEST_EXPECT_SAME(v1, v2)                IUTEST_TEST_SAME(v1, v2, IUTEST_EXPECT_FAILURE)
 #endif
 
 /**
@@ -767,7 +793,7 @@
  * @param   actual      = 検査対象
 */
 #ifndef IUTEST_EXPECT_FLOAT_EQ
-#  define   IUTEST_EXPECT_FLOAT_EQ(expected, actual)    IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
+#  define IUTEST_EXPECT_FLOAT_EQ(expected, actual)  IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_EXPECT_
@@ -776,7 +802,7 @@
  * @param   actual      = 検査対象
 */
 #ifndef IUTEST_EXPECT_DOUBLE_EQ
-#  define   IUTEST_EXPECT_DOUBLE_EQ(expected, actual)   IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
+#  define IUTEST_EXPECT_DOUBLE_EQ(expected, actual) IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
 #endif
 
 #if IUTEST_HAS_LONG_DOUBLE
@@ -787,7 +813,8 @@
  * @param   actual      = 検査対象
 */
 #ifndef IUTEST_EXPECT_LONG_DOUBLE_EQ
-#  define   IUTEST_EXPECT_LONG_DOUBLE_EQ(expected, actual)  IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
+#  define IUTEST_EXPECT_LONG_DOUBLE_EQ(expected, actual)    \
+    IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_EXPECT_FAILURE)
 #endif
 #endif
 
@@ -799,7 +826,7 @@
  * @param   abs_v   = v1 と v2 の差分の期待値
 */
 #ifndef IUTEST_EXPECT_NEAR
-#  define   IUTEST_EXPECT_NEAR(v1, v2, abs_v)       IUTEST_TEST_NEAR(v1, v2, abs_v, IUTEST_EXPECT_FAILURE)
+#  define IUTEST_EXPECT_NEAR(v1, v2, abs_v)         IUTEST_TEST_NEAR(v1, v2, abs_v, IUTEST_EXPECT_FAILURE)
 #endif
 
 /**
@@ -809,7 +836,8 @@
  * @param   actual_str      = 検査対象
 */
 #ifndef IUTEST_EXPECT_STREQ
-#  define   IUTEST_EXPECT_STREQ(expected_str, actual_str)   IUTEST_TEST_STREQ(expected_str, actual_str, IUTEST_EXPECT_FAILURE)
+#  define IUTEST_EXPECT_STREQ(expected_str, actual_str) \
+    IUTEST_TEST_STREQ(expected_str, actual_str, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_EXPECT_
@@ -827,7 +855,8 @@
  * @param   actual_str      = 検査対象
 */
 #ifndef IUTEST_EXPECT_STRCASEEQ
-#  define   IUTEST_EXPECT_STRCASEEQ(expected_str, actual_str)   IUTEST_TEST_STRCASEEQ(expected_str, actual_str, IUTEST_EXPECT_FAILURE)
+#  define   IUTEST_EXPECT_STRCASEEQ(expected_str, actual_str)   \
+    IUTEST_TEST_STRCASEEQ(expected_str, actual_str, IUTEST_EXPECT_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_EXPECT_
@@ -900,7 +929,7 @@
 */
 #ifndef IUTEST_EXPECT_THROW_VALUE_NE
 #  define IUTEST_EXPECT_THROW_VALUE_NE(statement, expected_exception, v)    \
-                                                    IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, v, IUTEST_EXPECT_FAILURE)
+    IUTEST_TEST_THROW_VALUE_NE_(statement, expected_exception, v, IUTEST_EXPECT_FAILURE)
 #endif
 
 /**
@@ -1054,11 +1083,22 @@
 #endif
 /**
  * @ingroup IUTEST_INFORM_
+ * @brief   != テスト（浮動小数点数は誤差考慮）
+ * @details actual が expected と等しいことを検証します
+ *          浮動小数点数の場合、誤差を考慮した FLOAT_EQ/DOUBLE_EQ での検証になります。
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_INFORM_ALMOST_EQ
+#  define IUTEST_INFORM_ALMOST_EQ(expected, actual) IUTEST_TEST_ALMOST_EQ(expected, actual, IUTEST_INFORM_FAILURE)
+#endif
+/**
+ * @ingroup IUTEST_INFORM_
  * @brief   != テスト
  * @details v1 と v2 が等しくないことを検証します
 */
 #ifndef IUTEST_INFORM_NE
-#  define   IUTEST_INFORM_NE(v1, v2)                IUTEST_TEST_NE(v1, v2, IUTEST_INFORM_FAILURE)
+#  define IUTEST_INFORM_NE(v1, v2)                  IUTEST_TEST_NE(v1, v2, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_INFORM_
@@ -1066,7 +1106,7 @@
  * @details v1 <= v2 が成り立つことを検証します
 */
 #ifndef IUTEST_INFORM_LE
-#  define   IUTEST_INFORM_LE(v1, v2)                IUTEST_TEST_LE(v1, v2, IUTEST_INFORM_FAILURE)
+#  define IUTEST_INFORM_LE(v1, v2)                  IUTEST_TEST_LE(v1, v2, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_INFORM_
@@ -1074,7 +1114,7 @@
  * @details v1 < v2 が成り立つことを検証します
 */
 #ifndef IUTEST_INFORM_LT
-#  define   IUTEST_INFORM_LT(v1, v2)                IUTEST_TEST_LT(v1, v2, IUTEST_INFORM_FAILURE)
+#  define IUTEST_INFORM_LT(v1, v2)                  IUTEST_TEST_LT(v1, v2, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_INFORM_
@@ -1082,7 +1122,7 @@
  * @details v1 >= v2 が成り立つことを検証します
 */
 #ifndef IUTEST_INFORM_GE
-#  define   IUTEST_INFORM_GE(v1, v2)                IUTEST_TEST_GE(v1, v2, IUTEST_INFORM_FAILURE)
+#  define IUTEST_INFORM_GE(v1, v2)                  IUTEST_TEST_GE(v1, v2, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_INFORM_
@@ -1090,7 +1130,7 @@
  * @details v1 > v2 が成り立つことを検証します
 */
 #ifndef IUTEST_INFORM_GT
-#  define   IUTEST_INFORM_GT(v1, v2)                IUTEST_TEST_GT(v1, v2, IUTEST_INFORM_FAILURE)
+#  define IUTEST_INFORM_GT(v1, v2)                  IUTEST_TEST_GT(v1, v2, IUTEST_INFORM_FAILURE)
 #endif
 
 /**
@@ -1125,9 +1165,9 @@
 */
 #ifndef IUTEST_INFORM_NULL
 #  ifndef IUTEST_NO_VARIADIC_MACROS
-#    define   IUTEST_INFORM_NULL(...)               IUTEST_TEST_NULL((__VA_ARGS__), IUTEST_INFORM_FAILURE)
+#    define IUTEST_INFORM_NULL(...)                 IUTEST_TEST_NULL((__VA_ARGS__), IUTEST_INFORM_FAILURE)
 #  else
-#    define   IUTEST_INFORM_NULL(v)                 IUTEST_TEST_NULL(v, IUTEST_INFORM_FAILURE)
+#    define IUTEST_INFORM_NULL(v)                   IUTEST_TEST_NULL(v, IUTEST_INFORM_FAILURE)
 #  endif
 #endif
 /**
@@ -1137,9 +1177,9 @@
 */
 #ifndef IUTEST_INFORM_NOTNULL
 #  ifndef IUTEST_NO_VARIADIC_MACROS
-#    define   IUTEST_INFORM_NOTNULL(...)            IUTEST_TEST_NOTNULL((__VA_ARGS__), IUTEST_INFORM_FAILURE)
+#    define IUTEST_INFORM_NOTNULL(...)              IUTEST_TEST_NOTNULL((__VA_ARGS__), IUTEST_INFORM_FAILURE)
 #  else
-#    define   IUTEST_INFORM_NOTNULL(v)              IUTEST_TEST_NOTNULL(v, IUTEST_INFORM_FAILURE)
+#    define IUTEST_INFORM_NOTNULL(v)                IUTEST_TEST_NOTNULL(v, IUTEST_INFORM_FAILURE)
 #  endif
 #endif
 
@@ -1149,7 +1189,7 @@
  * @details v1 と v2 のアドレスが同じであることを検証します
 */
 #ifndef IUTEST_INFORM_SAME
-#  define   IUTEST_INFORM_SAME(v1, v2)              IUTEST_TEST_SAME(v1, v2, IUTEST_INFORM_FAILURE)
+#  define IUTEST_INFORM_SAME(v1, v2)                IUTEST_TEST_SAME(v1, v2, IUTEST_INFORM_FAILURE)
 #endif
 
 /**
@@ -1159,7 +1199,7 @@
  * @param   actual      = 検査対象
 */
 #ifndef IUTEST_INFORM_FLOAT_EQ
-#  define   IUTEST_INFORM_FLOAT_EQ(expected, actual)    IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_INFORM_FAILURE)
+#  define IUTEST_INFORM_FLOAT_EQ(expected, actual)  IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_INFORM_
@@ -1168,7 +1208,7 @@
  * @param   actual      = 検査対象
 */
 #ifndef IUTEST_INFORM_DOUBLE_EQ
-#  define   IUTEST_INFORM_DOUBLE_EQ(expected, actual)   IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_INFORM_FAILURE)
+#  define IUTEST_INFORM_DOUBLE_EQ(expected, actual) IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_INFORM_FAILURE)
 #endif
 
 #if IUTEST_HAS_LONG_DOUBLE
@@ -1179,7 +1219,8 @@
  * @param   actual      = 検査対象
 */
 #ifndef IUTEST_INFORM_LONG_DOUBLE_EQ
-#  define   IUTEST_INFORM_LONG_DOUBLE_EQ(expected, actual)  IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_INFORM_FAILURE)
+#  define IUTEST_INFORM_LONG_DOUBLE_EQ(expected, actual)    \
+    IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_INFORM_FAILURE)
 #endif
 #endif
 
@@ -1191,7 +1232,7 @@
  * @param   abs_v   = v1 と v2 の差分の期待値
 */
 #ifndef IUTEST_INFORM_NEAR
-#  define   IUTEST_INFORM_NEAR(v1, v2, abs_v)       IUTEST_TEST_NEAR(v1, v2, abs_v, IUTEST_INFORM_FAILURE)
+#  define IUTEST_INFORM_NEAR(v1, v2, abs_v)         IUTEST_TEST_NEAR(v1, v2, abs_v, IUTEST_INFORM_FAILURE)
 #endif
 
 /**
@@ -1201,7 +1242,8 @@
  * @param   actual_str      = 検査対象
 */
 #ifndef IUTEST_INFORM_STREQ
-#  define   IUTEST_INFORM_STREQ(expected_str, actual_str)   IUTEST_TEST_STREQ(expected_str, actual_str, IUTEST_INFORM_FAILURE)
+#  define IUTEST_INFORM_STREQ(expected_str, actual_str) \
+    IUTEST_TEST_STREQ(expected_str, actual_str, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_INFORM_
@@ -1209,7 +1251,7 @@
  * @details v1 と v2 文字列が異なることを検証します
 */
 #ifndef IUTEST_INFORM_STRNE
-#  define   IUTEST_INFORM_STRNE(v1, v2)             IUTEST_TEST_STRNE(v1, v2, IUTEST_INFORM_FAILURE)
+#  define IUTEST_INFORM_STRNE(v1, v2)               IUTEST_TEST_STRNE(v1, v2, IUTEST_INFORM_FAILURE)
 #endif
 
 /**
@@ -1219,7 +1261,8 @@
  * @param   actual_str      = 検査対象
 */
 #ifndef IUTEST_INFORM_STRCASEEQ
-#  define   IUTEST_INFORM_STRCASEEQ(expected_str, actual_str)   IUTEST_TEST_STRCASEEQ(expected_str, actual_str, IUTEST_INFORM_FAILURE)
+#  define IUTEST_INFORM_STRCASEEQ(expected_str, actual_str) \
+    IUTEST_TEST_STRCASEEQ(expected_str, actual_str, IUTEST_INFORM_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_INFORM_
@@ -1227,7 +1270,7 @@
  * @details v1 と v2 文字列が異なることを検証します（大文字小文字区別なし）
 */
 #ifndef IUTEST_INFORM_STRCASENE
-#  define   IUTEST_INFORM_STRCASENE(v1, v2)         IUTEST_TEST_STRCASENE(v1, v2, IUTEST_INFORM_FAILURE)
+#  define IUTEST_INFORM_STRCASENE(v1, v2)           IUTEST_TEST_STRCASENE(v1, v2, IUTEST_INFORM_FAILURE)
 #endif
 
 /**
@@ -1424,7 +1467,18 @@
  * @param   actual      = 検査対象
 */
 #ifndef IUTEST_ASSUME_EQ
-#  define   IUTEST_ASSUME_EQ(expected, actual)      IUTEST_TEST_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
+#  define IUTEST_ASSUME_EQ(expected, actual)        IUTEST_TEST_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
+#endif
+/**
+ * @ingroup IUTEST_ASSUME_
+ * @brief   != テスト（浮動小数点数は誤差考慮）
+ * @details actual が expected と等しいことを検証します
+ *          浮動小数点数の場合、誤差を考慮した FLOAT_EQ/DOUBLE_EQ での検証になります。
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_ASSUME_ALMOST_EQ
+#  define IUTEST_ASSUME_ALMOST_EQ(expected, actual) IUTEST_TEST_ALMOST_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_ASSUME_
@@ -1432,7 +1486,7 @@
  * @details v1 と v2 が等しくないことを検証します
 */
 #ifndef IUTEST_ASSUME_NE
-#  define   IUTEST_ASSUME_NE(v1, v2)                IUTEST_TEST_NE(v1, v2, IUTEST_ASSUME_FAILURE)
+#  define IUTEST_ASSUME_NE(v1, v2)                  IUTEST_TEST_NE(v1, v2, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_ASSUME_
@@ -1448,7 +1502,7 @@
  * @details v1 < v2 が成り立つことを検証します
 */
 #ifndef IUTEST_ASSUME_LT
-#  define   IUTEST_ASSUME_LT(v1, v2)                IUTEST_TEST_LT(v1, v2, IUTEST_ASSUME_FAILURE)
+#  define IUTEST_ASSUME_LT(v1, v2)                  IUTEST_TEST_LT(v1, v2, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_ASSUME_
@@ -1456,7 +1510,7 @@
  * @details v1 >= v2 が成り立つことを検証します
 */
 #ifndef IUTEST_ASSUME_GE
-#  define   IUTEST_ASSUME_GE(v1, v2)                IUTEST_TEST_GE(v1, v2, IUTEST_ASSUME_FAILURE)
+#  define IUTEST_ASSUME_GE(v1, v2)                  IUTEST_TEST_GE(v1, v2, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_ASSUME_
@@ -1464,7 +1518,7 @@
  * @details v1 > v2 が成り立つことを検証します
 */
 #ifndef IUTEST_ASSUME_GT
-#  define   IUTEST_ASSUME_GT(v1, v2)                IUTEST_TEST_GT(v1, v2, IUTEST_ASSUME_FAILURE)
+#  define IUTEST_ASSUME_GT(v1, v2)                  IUTEST_TEST_GT(v1, v2, IUTEST_ASSUME_FAILURE)
 #endif
 
 /**
@@ -1499,9 +1553,9 @@
 */
 #ifndef IUTEST_ASSUME_NULL
 #  ifndef IUTEST_NO_VARIADIC_MACROS
-#    define   IUTEST_ASSUME_NULL(...)               IUTEST_TEST_NULL((__VA_ARGS__), IUTEST_ASSUME_FAILURE)
+#    define IUTEST_ASSUME_NULL(...)                 IUTEST_TEST_NULL((__VA_ARGS__), IUTEST_ASSUME_FAILURE)
 #  else
-#    define   IUTEST_ASSUME_NULL(v)                 IUTEST_TEST_NULL(v, IUTEST_ASSUME_FAILURE)
+#    define IUTEST_ASSUME_NULL(v)                   IUTEST_TEST_NULL(v, IUTEST_ASSUME_FAILURE)
 #  endif
 #endif
 /**
@@ -1511,9 +1565,9 @@
 */
 #ifndef IUTEST_ASSUME_NOTNULL
 #  ifndef IUTEST_NO_VARIADIC_MACROS
-#    define   IUTEST_ASSUME_NOTNULL(...)            IUTEST_TEST_NOTNULL((__VA_ARGS__), IUTEST_ASSUME_FAILURE)
+#    define IUTEST_ASSUME_NOTNULL(...)              IUTEST_TEST_NOTNULL((__VA_ARGS__), IUTEST_ASSUME_FAILURE)
 #  else
-#    define   IUTEST_ASSUME_NOTNULL(v)              IUTEST_TEST_NOTNULL(v, IUTEST_ASSUME_FAILURE)
+#    define IUTEST_ASSUME_NOTNULL(v)                IUTEST_TEST_NOTNULL(v, IUTEST_ASSUME_FAILURE)
 #  endif
 #endif
 
@@ -1523,7 +1577,7 @@
  * @details v1 と v2 のアドレスが同じであることを検証します
 */
 #ifndef IUTEST_ASSUME_SAME
-#  define   IUTEST_ASSUME_SAME(v1, v2)              IUTEST_TEST_SAME(v1, v2, IUTEST_ASSUME_FAILURE)
+#  define IUTEST_ASSUME_SAME(v1, v2)                IUTEST_TEST_SAME(v1, v2, IUTEST_ASSUME_FAILURE)
 #endif
 
 /**
@@ -1533,7 +1587,7 @@
  * @param   actual      = 検査対象
 */
 #ifndef IUTEST_ASSUME_FLOAT_EQ
-#  define   IUTEST_ASSUME_FLOAT_EQ(expected, actual)    IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
+#  define IUTEST_ASSUME_FLOAT_EQ(expected, actual)  IUTEST_TEST_FLOAT_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_ASSUME_
@@ -1542,7 +1596,7 @@
  * @param   actual      = 検査対象
 */
 #ifndef IUTEST_ASSUME_DOUBLE_EQ
-#  define   IUTEST_ASSUME_DOUBLE_EQ(expected, actual)   IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
+#  define IUTEST_ASSUME_DOUBLE_EQ(expected, actual) IUTEST_TEST_DOUBLE_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
 #endif
 
 #if IUTEST_HAS_LONG_DOUBLE
@@ -1553,7 +1607,8 @@
  * @param   actual      = 検査対象
 */
 #ifndef IUTEST_ASSUME_LONG_DOUBLE_EQ
-#  define   IUTEST_ASSUME_LONG_DOUBLE_EQ(expected, actual)  IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
+#  define IUTEST_ASSUME_LONG_DOUBLE_EQ(expected, actual)    \
+    IUTEST_TEST_LONG_DOUBLE_EQ(expected, actual, IUTEST_ASSUME_FAILURE)
 #endif
 #endif
 
@@ -1565,7 +1620,7 @@
  * @param   abs_v   = v1 と v2 の差分の期待値
 */
 #ifndef IUTEST_ASSUME_NEAR
-#  define   IUTEST_ASSUME_NEAR(v1, v2, abs_v)       IUTEST_TEST_NEAR(v1, v2, abs_v, IUTEST_ASSUME_FAILURE)
+#  define IUTEST_ASSUME_NEAR(v1, v2, abs_v)         IUTEST_TEST_NEAR(v1, v2, abs_v, IUTEST_ASSUME_FAILURE)
 #endif
 
 /**
@@ -1575,7 +1630,8 @@
  * @param   actual_str      = 検査対象
 */
 #ifndef IUTEST_ASSUME_STREQ
-#  define   IUTEST_ASSUME_STREQ(expected_str, actual_str)   IUTEST_TEST_STREQ(expected_str, actual_str, IUTEST_ASSUME_FAILURE)
+#  define IUTEST_ASSUME_STREQ(expected_str, actual_str) \
+    IUTEST_TEST_STREQ(expected_str, actual_str, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_ASSUME_
@@ -1583,7 +1639,7 @@
  * @details v1 と v2 文字列が異なることを検証します
 */
 #ifndef IUTEST_ASSUME_STRNE
-#  define   IUTEST_ASSUME_STRNE(v1, v2)             IUTEST_TEST_STRNE(v1, v2, IUTEST_ASSUME_FAILURE)
+#  define IUTEST_ASSUME_STRNE(v1, v2)               IUTEST_TEST_STRNE(v1, v2, IUTEST_ASSUME_FAILURE)
 #endif
 
 /**
@@ -1593,7 +1649,8 @@
  * @param   actual_str      = 検査対象
 */
 #ifndef IUTEST_ASSUME_STRCASEEQ
-#  define   IUTEST_ASSUME_STRCASEEQ(expected_str, actual_str)   IUTEST_TEST_STRCASEEQ(expected_str, actual_str, IUTEST_ASSUME_FAILURE)
+#  define IUTEST_ASSUME_STRCASEEQ(expected_str, actual_str) \
+    IUTEST_TEST_STRCASEEQ(expected_str, actual_str, IUTEST_ASSUME_FAILURE)
 #endif
 /**
  * @ingroup IUTEST_ASSUME_
@@ -1601,7 +1658,7 @@
  * @details v1 と v2 文字列が異なることを検証します（大文字小文字区別なし）
 */
 #ifndef IUTEST_ASSUME_STRCASENE
-#  define   IUTEST_ASSUME_STRCASENE(v1, v2)         IUTEST_TEST_STRCASENE(v1, v2, IUTEST_ASSUME_FAILURE)
+#  define IUTEST_ASSUME_STRCASENE(v1, v2)           IUTEST_TEST_STRCASENE(v1, v2, IUTEST_ASSUME_FAILURE)
 #endif
 
 /**

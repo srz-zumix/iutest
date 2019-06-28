@@ -45,20 +45,20 @@ namespace backward
 
 #if defined(GTEST_IS_NULL_LITERAL_)
 
-template <bool lhs_is_null_literal>
+template<bool lhs_is_null_literal>
 class EqHelper : public internal::EqHelper<lhs_is_null_literal> {};
 
 #else
 
-template <bool lhs_is_null_literal>
+template<bool lhs_is_null_literal>
 class EqHelper : public internal::EqHelper {};
 
 #endif
 
-template <bool lhs_is_null_literal>
+template<bool lhs_is_null_literal>
 class NeHelper {
 public:
-    template <typename T1, typename T2>
+    template<typename T1, typename T2>
     static AssertionResult Compare(const char* expected_expression,
         const char* actual_expression,
         const T1& expected,
@@ -76,10 +76,10 @@ public:
     }
 };
 
-template <>
+template<>
 class NeHelper<true> {
 public:
-    template <typename T1, typename T2>
+    template<typename T1, typename T2>
     static AssertionResult Compare(
         const char* expected_expression,
         const char* actual_expression,
@@ -90,7 +90,7 @@ public:
                 actual);
     }
 
-    template <typename T>
+    template<typename T>
     static AssertionResult Compare(
         const char* expected_expression,
         const char* actual_expression,
@@ -99,6 +99,32 @@ public:
             return CmpHelperNE(expected_expression, actual_expression,
                 static_cast<T*>(NULL), actual);
     }
+};
+
+template<bool lhs_is_null_literal>
+class AlmostEqHelper : public EqHelper<lhs_is_null_literal>
+{
+public:
+    template<typename T1, typename T2>
+    static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
+    {
+        return EqHelper<false>::Compare(expr1, expr2, val1, static_cast<T1>(val2));
+    }
+    template<typename T>
+    static AssertionResult Compare(const char* expr1, const char* expr2, const float& val1, const T& val2)
+    {
+        return CmpHelperFloatingPointEQ<float>(expr1, expr2, val1, static_cast<float>(val2));
+    }
+    template<typename T>
+    static AssertionResult Compare(const char* expr1, const char* expr2, const double& val1, const T& val2)
+    {
+        return CmpHelperFloatingPointEQ<double>(expr1, expr2, val1, static_cast<double>(val2));
+    }
+};
+
+template<>
+class AlmostEqHelper<true> : public EqHelper<true>
+{
 };
 
 }   // end of namespace backward
