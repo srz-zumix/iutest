@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -162,6 +162,23 @@ public:
         return d(m_engine);
 #else
         return genrand()%max;
+#endif
+    }
+
+    /**
+     * @brief   乱数の生成
+     * @details [0,max) の乱数を生成
+     * @param [in]  max = 上限値
+     * @return  乱数
+    */
+    template<typename T>
+    T genrand(T max)
+    {
+#if IUTEST_HAS_CXX_HDR_RANDOM
+        ::std::uniform_int_distribution<T> d(0, max-1);
+        return d(m_engine);
+#else
+        return genrand<T>()%max;
 #endif
     }
 
