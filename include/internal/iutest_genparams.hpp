@@ -914,7 +914,8 @@ protected:
     template<int N, typename T>
     static T GetParam(const ::std::vector<T>& params, const ParamIndexes<N>& indexes, int raw)
     {
-        const int index = GetParamIndex(indexes, raw, params.size(), TestEnv::genrand());
+        iuTypedRandom<size_t> rnd(TestEnv::genrand()());
+        const int index = GetParamIndex(indexes, raw, params.size(), rnd);
         return params[index];
     }
 

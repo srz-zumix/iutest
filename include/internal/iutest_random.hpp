@@ -178,7 +178,11 @@ public:
         ::std::uniform_int_distribution<T> d(0, max-1);
         return d(m_engine);
 #else
+#if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
         return genrand<T>()%max;
+#else
+        return genrand(detail::explicit_type<result_type>())%max;
+#endif
 #endif
     }
 
@@ -264,6 +268,11 @@ public:
         return genrand();
     }
 
+    result_type operator ()(result_type max)
+    {
+        return genrand(max);
+    }
+
     result_type genrand()
     {
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
@@ -275,6 +284,11 @@ public:
 #else
         return m_rnd.genrand(detail::explicit_type<result_type>());
 #endif
+    }
+
+    result_type genrand(result_type max)
+    {
+        return m_rnd.genrand(max);
     }
 private:
     iuRandom m_rnd;
