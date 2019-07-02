@@ -165,6 +165,9 @@ default : $(TARGETS)
 
 all : clean default test
 
+# dir :
+# 	@if [ ! -e `dirname $(OUTDIR)` ]; then mkdir -p `dirname $(OUTDIR)`; fi
+
 clean :
 	$(RM) $(TARGETS) $(NO_DEFAULT_TARGETS) *.o *.stackdump *.core *.exe *.log *.ns.cpp check_stdlib
 	$(RM) -R *.dSYM
@@ -211,24 +214,24 @@ showcxxmacros:
 showcxxflags:
 	@echo $(CXXFLAGS)
 
-%_run : %
-	@echo $(OUTDIR)/$<
+%_run : $(OUTDIR)/%
+	echo $(OUTDIR)/$(<F)
 ifdef USE_COVERAGE
-	${WINE_} $(OUTDIR)/$< $(RUN_OPTION) --iutest_output=xml:$<.xml > /dev/null
+	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --iutest_output=xml:$(OUTDIR)/$(<F).xml > /dev/null
 else
 ifdef OUTPUTXML
 ifeq ($(OUTPUTXML),junit)
-	${WINE_} $(OUTDIR)/$< $(RUN_OPTION) --iutest_output=junit:$<.xml
+	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --iutest_output=junit:$(OUTDIR)/$(<F).xml
 else
-	${WINE_} $(OUTDIR)/$< $(RUN_OPTION) --iutest_output=xml:$<.xml
+	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --iutest_output=xml:$(OUTDIR)/$(<F).xml
 endif
 else
-	${WINE_} $(OUTDIR)/$< $(RUN_OPTION)
+	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION)
 endif
 endif
 
 run_% : %_run
-	@echo $(OUTDIR)/$< > /dev/null
+	@echo $< > /dev/null
 
 # gtest version test
 gtest-version: clean gtest_version_tests_run
@@ -341,11 +344,6 @@ build_benchmark:
 # Build tests.
 #
 
-$(OUTDIR):
-	if [[ ! -d $(OUTDIR) ]]; then
-	 mkdif $(OUTDIR);
-	fi
-
 ifeq ($(USE_GTEST)$(USE_GMOCK),)
 
 TARGETS_EXCLUDE_ALLTESTS= $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY) $(BUILD_ONLY)
@@ -372,7 +370,7 @@ ifeq ($(CI),true)
 IUTEST_COMPILE_ERROR_TEST_OPTION+= --verbose
 endif
 
-$(ERR_TARGETS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE) $(OUTDIR)
+$(ERR_TARGETS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $< $(LDFLAGS) 2>&1 | python $(PY_COMPILEERROR_TEST_TOOL) $(IUTEST_COMPILE_ERROR_TEST_OPTION)
 
 else

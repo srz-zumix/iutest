@@ -182,8 +182,8 @@ TARGETS_IUTEST_ONLY = \
 		$(OUTDIR)/type_param_strict_tests
 
 COMPILEERROR_TARGETS=\
-		check_strict_tests \
-		static_assertion_failure_tests \
+		$(OUTDIR)/check_strict_tests \
+		$(OUTDIR)/static_assertion_failure_tests \
 
 BUILD_ONLY = $(OUTDIR)/break_on_failure_tests \
 
