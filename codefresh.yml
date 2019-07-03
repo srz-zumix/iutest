@@ -29,7 +29,8 @@ steps:
         environment:
           - OUTDIR=gcc9
         commands:
-          - mkdir test/${OUTDIR}
+          - mkdir test/${OUTDIR} || true
+          - make -C test clean
           - make -C test test
       BasicTest-gcc8:
         <<: *basic_test
