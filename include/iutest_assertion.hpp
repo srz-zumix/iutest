@@ -720,7 +720,7 @@ public:
     template<typename T1, typename T2>
     static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
     {
-        return CmpHelperEQ(expr1, expr2, val1, static_cast<T1>(val2));
+        return CmpHelperEQ(expr1, expr2, (T2)(val1), val2); // NOLINT
     }
 #endif
 };
@@ -825,7 +825,7 @@ public:
     template<typename T1, typename T2>
     static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
     {
-        return CmpHelperNE(expr1, expr2, val1, static_cast<T1>(val2));
+        return CmpHelperNE(expr1, expr2, (T2)(val1), val2); // NOLINT
     }
 #endif
 };
