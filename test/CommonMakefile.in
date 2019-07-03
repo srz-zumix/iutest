@@ -6,11 +6,6 @@
 # see LICENSE
 #
 
-# config
-ifndef OUTDIR
-OUTDIR = .
-endif
-
 # iutest root directory
 IUTEST_DIR = ..
 IUTEST_INCLUDE = -I$(IUTEST_DIR)/include
