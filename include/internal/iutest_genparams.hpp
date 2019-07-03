@@ -905,7 +905,7 @@ protected:
     }
 
     template<int N, typename Fn>
-    static int GetParamIndex(const ParamIndexes<N>& indexes, int raw, size_t count, Fn& func)
+    static int GetParamIndex(const ParamIndexes<N>& indexes, int raw, int count, Fn& func)
     {
         return indexes.index[raw] == -1 ? func(count)
             : indexes.index[raw];
@@ -914,8 +914,8 @@ protected:
     template<int N, typename T>
     static T GetParam(const ::std::vector<T>& params, const ParamIndexes<N>& indexes, int raw)
     {
-        iuTypedRandom<size_t> rnd(TestEnv::genrand()());
-        const int index = GetParamIndex(indexes, raw, params.size(), rnd);
+        iuTypedRandom<int> rnd(TestEnv::genrand()());
+        const int index = GetParamIndex(indexes, raw, static_cast<int>(params.size()), rnd);
         return params[index];
     }
 
