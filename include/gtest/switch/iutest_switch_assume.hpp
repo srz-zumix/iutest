@@ -19,15 +19,15 @@
 
 //======================================================================
 // define
-#define ASSUME_TRUE     IUTEST_ASSUME_TRUE
-#define ASSUME_FALSE    IUTEST_ASSUME_FALSE
-#define ASSUME_EQ       IUTEST_ASSUME_EQ
-#define ASSUME_NE       IUTEST_ASSUME_NE
-#define ASSUME_LT       IUTEST_ASSUME_LT
-#define ASSUME_LE       IUTEST_ASSUME_LE
-#define ASSUME_GT       IUTEST_ASSUME_GT
-#define ASSUME_GE       IUTEST_ASSUME_GE
-#define ASSUME_NEAR     IUTEST_ASSUME_NEAR
+#define ASSUME_TRUE         IUTEST_ASSUME_TRUE
+#define ASSUME_FALSE        IUTEST_ASSUME_FALSE
+#define ASSUME_EQ           IUTEST_ASSUME_EQ
+#define ASSUME_NE           IUTEST_ASSUME_NE
+#define ASSUME_LT           IUTEST_ASSUME_LT
+#define ASSUME_LE           IUTEST_ASSUME_LE
+#define ASSUME_GT           IUTEST_ASSUME_GT
+#define ASSUME_GE           IUTEST_ASSUME_GE
+#define ASSUME_NEAR         IUTEST_ASSUME_NEAR
 #define ASSUME_FLOAT_EQ     IUTEST_ASSUME_FLOAT_EQ
 #define ASSUME_DOUBLE_EQ    IUTEST_ASSUME_DOUBLE_EQ
 #define ASSUME_STREQ        IUTEST_ASSUME_STREQ
@@ -72,6 +72,7 @@
 #undef IUTEST_ASSUME_TRUE
 #undef IUTEST_ASSUME_FALSE
 #undef IUTEST_ASSUME_EQ
+#undef IUTEST_ASSUME_ALMOST_EQ
 #undef IUTEST_ASSUME_NE
 #undef IUTEST_ASSUME_LT
 #undef IUTEST_ASSUME_LE
@@ -193,6 +194,8 @@
 #define IUTEST_ASSUME_TRUE(...)             ASSUME_TRUE(!!(__VA_ARGS__))
 #define IUTEST_ASSUME_FALSE(...)            ASSUME_FALSE((__VA_ARGS__))
 #define IUTEST_ASSUME_EQ                    ASSUME_EQ
+#define IUTEST_ASSUME_ALMOST_EQ(expected, actual)   \
+    ASSUME_PRED_FORMAT2( ::testing::internal::backward::AlmostEqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare, expected, actual)
 #define IUTEST_ASSUME_NE(expected, actual)  ASSUME_PRED_FORMAT2(IIUT_COMPATIBLE_NEHELPER(expected)::Compare, expected, actual)
 #define IUTEST_ASSUME_LT                    ASSUME_LT
 #define IUTEST_ASSUME_LE                    ASSUME_LE
@@ -239,8 +242,9 @@
 
 #endif // !defined(IUTEST_USE_GTEST)
 
-#define ASSUME_NULL     IUTEST_ASSUME_NULL
-#define ASSUME_NOTNULL  IUTEST_ASSUME_NOTNULL
-#define ASSUME_SAME     IUTEST_ASSUME_SAME
+#define ASSUME_ALMOST_EQ    IUTEST_ASSUME_ALMOST_EQ
+#define ASSUME_NULL         IUTEST_ASSUME_NULL
+#define ASSUME_NOTNULL      IUTEST_ASSUME_NOTNULL
+#define ASSUME_SAME         IUTEST_ASSUME_SAME
 
 #endif // INCG_IRIS_IUTEST_SWITCH_ASSUME_HPP_E22A3162_D581_4F4F_A344_F5D701B21F53_

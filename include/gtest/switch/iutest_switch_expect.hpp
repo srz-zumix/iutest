@@ -60,15 +60,15 @@
 
 //======================================================================
 // define
-#define EXPECT_TRUE     IUTEST_EXPECT_TRUE
-#define EXPECT_FALSE    IUTEST_EXPECT_FALSE
-#define EXPECT_EQ       IUTEST_EXPECT_EQ
-#define EXPECT_NE       IUTEST_EXPECT_NE
-#define EXPECT_LT       IUTEST_EXPECT_LT
-#define EXPECT_LE       IUTEST_EXPECT_LE
-#define EXPECT_GT       IUTEST_EXPECT_GT
-#define EXPECT_GE       IUTEST_EXPECT_GE
-#define EXPECT_NEAR     IUTEST_EXPECT_NEAR
+#define EXPECT_TRUE         IUTEST_EXPECT_TRUE
+#define EXPECT_FALSE        IUTEST_EXPECT_FALSE
+#define EXPECT_EQ           IUTEST_EXPECT_EQ
+#define EXPECT_NE           IUTEST_EXPECT_NE
+#define EXPECT_LT           IUTEST_EXPECT_LT
+#define EXPECT_LE           IUTEST_EXPECT_LE
+#define EXPECT_GT           IUTEST_EXPECT_GT
+#define EXPECT_GE           IUTEST_EXPECT_GE
+#define EXPECT_NEAR         IUTEST_EXPECT_NEAR
 #define EXPECT_FLOAT_EQ     IUTEST_EXPECT_FLOAT_EQ
 #define EXPECT_DOUBLE_EQ    IUTEST_EXPECT_DOUBLE_EQ
 #define EXPECT_STREQ        IUTEST_EXPECT_STREQ
@@ -113,6 +113,7 @@
 #undef IUTEST_EXPECT_TRUE
 #undef IUTEST_EXPECT_FALSE
 #undef IUTEST_EXPECT_EQ
+#undef IUTEST_EXPECT_ALMOST_EQ
 #undef IUTEST_EXPECT_NE
 #undef IUTEST_EXPECT_LT
 #undef IUTEST_EXPECT_LE
@@ -162,6 +163,8 @@
 #define IUTEST_EXPECT_TRUE(...)             EXPECT_TRUE(!!(__VA_ARGS__))
 #define IUTEST_EXPECT_FALSE(...)            EXPECT_FALSE((__VA_ARGS__))
 #define IUTEST_EXPECT_EQ                    EXPECT_EQ
+#define IUTEST_EXPECT_ALMOST_EQ(expected, actual)   \
+    EXPECT_PRED_FORMAT2( ::testing::internal::backward::AlmostEqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare, expected, actual)
 #define IUTEST_EXPECT_NE(expected, actual)  EXPECT_PRED_FORMAT2(IIUT_COMPATIBLE_NEHELPER(expected)::Compare, expected, actual)
 #define IUTEST_EXPECT_LT                    EXPECT_LT
 #define IUTEST_EXPECT_LE                    EXPECT_LE
@@ -206,8 +209,9 @@
 
 #endif // !defined(IUTEST_USE_GTEST)
 
-#define EXPECT_NULL     IUTEST_EXPECT_NULL
-#define EXPECT_NOTNULL  IUTEST_EXPECT_NOTNULL
-#define EXPECT_SAME     IUTEST_EXPECT_SAME
+#define EXPECT_ALMOST_EQ    IUTEST_EXPECT_ALMOST_EQ
+#define EXPECT_NULL         IUTEST_EXPECT_NULL
+#define EXPECT_NOTNULL      IUTEST_EXPECT_NOTNULL
+#define EXPECT_SAME         IUTEST_EXPECT_SAME
 
 #endif // INCG_IRIS_IUTEST_SWITCH_EXPECT_HPP_F4AD6E1B_4B1F_40EE_A0CC_D454587B2C39_

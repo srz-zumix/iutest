@@ -21,6 +21,7 @@ IUTEST_HEADERS =$(IUTEST_DIR)/include/*.hpp \
 				$(IUTEST_DIR)/include/gtest/switch/*.hpp
 
 ALLTESTS_TEST_SRCS= \
+		almost_eq_tests.cpp \
 		assertion_tests.cpp \
 		basic_tests.cpp \
 		combine_tests.cpp \

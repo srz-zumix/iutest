@@ -616,6 +616,38 @@ IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 IUTEST_PRAGMA_WARN_POP()
 }
 
+template<typename RawType>
+inline AssertionResult CmpHelperFloatingPointEQ(const char* expr1, const char* expr2
+                                                , RawType val1, RawType val2)
+{
+    floating_point<RawType> f1(val1), f2(val2);
+    if( f1.AlmostEquals(f2) )
+    {
+        return AssertionSuccess();
+    }
+    return EqFailure(expr1, expr2
+        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(f1, f2))
+        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(f2, f1)));
+}
+
+template<typename RawType>
+inline AssertionResult CmpHelperFloatingPointLE(const char* expr1, const char* expr2
+                                                , RawType val1, RawType val2)
+{
+    if( val1 < val2 )
+    {
+        return AssertionSuccess();
+    }
+    floating_point<RawType> f1(val1), f2(val2);
+    if( f1.AlmostEquals(f2) )
+    {
+        return AssertionSuccess();
+    }
+    return EqFailure(expr1, expr2
+        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(f1, f2))
+        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(f2, f1)));
+}
+
 /**
  * @brief   backward
 */
@@ -688,9 +720,42 @@ public:
     template<typename T1, typename T2>
     static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
     {
-        return CmpHelperEQ(expr1, expr2, (T2)val1, val2);
+        return CmpHelperEQ(expr1, expr2, (T2)(val1), val2); // NOLINT
     }
 #endif
+};
+
+/**
+ * @brief   Almost Equal Helper
+ * @tparam  IsNullLiteral   = val1 が NULL リテラルかどうか
+*/
+template<bool IsNullLiteral>
+class AlmostEqHelper : public EqHelper<false>
+{
+public:
+    template<typename T1, typename T2>
+    static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
+    {
+        return EqHelper<false>::Compare(expr1, expr2, val1, static_cast<T1>(val2));
+    }
+    template<typename T>
+    static AssertionResult Compare(const char* expr1, const char* expr2, const float& val1, const T& val2)
+    {
+        return CmpHelperFloatingPointEQ<float>(expr1, expr2, val1, static_cast<float>(val2));
+    }
+    template<typename T>
+    static AssertionResult Compare(const char* expr1, const char* expr2, const double& val1, const T& val2)
+    {
+        return CmpHelperFloatingPointEQ<double>(expr1, expr2, val1, static_cast<double>(val2));
+    }
+};
+
+/**
+ * @brief   EqHelper 特殊化
+*/
+template<>
+class AlmostEqHelper<true> : public EqHelper<true>
+{
 };
 
 /**
@@ -760,7 +825,7 @@ public:
     template<typename T1, typename T2>
     static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
     {
-        return CmpHelperNE(expr1, expr2, (T2)val1, val2);
+        return CmpHelperNE(expr1, expr2, (T2)(val1), val2); // NOLINT
     }
 #endif
 };
@@ -808,6 +873,7 @@ class NeHelper
 #else
 
 using backward::EqHelper;
+using backward::AlmostEqHelper;
 using backward::NeHelper;
 
 #endif
@@ -1239,39 +1305,6 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(
         , const Elem* val2)
 {
     return CmpHelperSTRCASENE(expr1, expr2, val1.c_str(), val2);
-}
-
-
-template<typename RawType>
-static AssertionResult CmpHelperFloatingPointEQ(const char* expr1, const char* expr2
-                                                , RawType val1, RawType val2)
-{
-    floating_point<RawType> f1(val1), f2(val2);
-    if( f1.AlmostEquals(f2) )
-    {
-        return AssertionSuccess();
-    }
-    return EqFailure(expr1, expr2
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(f1, f2))
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(f2, f1)));
-}
-
-template<typename RawType>
-static AssertionResult CmpHelperFloatingPointLE(const char* expr1, const char* expr2
-                                                , RawType val1, RawType val2)
-{
-    if( val1 < val2 )
-    {
-        return AssertionSuccess();
-    }
-    floating_point<RawType> f1(val1), f2(val2);
-    if( f1.AlmostEquals(f2) )
-    {
-        return AssertionSuccess();
-    }
-    return EqFailure(expr1, expr2
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(f1, f2))
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(f2, f1)));
 }
 
 #if defined(IUTEST_OS_WINDOWS)
