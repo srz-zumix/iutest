@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -68,7 +68,7 @@ public:
     {
         IUTEST_UNUSED_VAR(ep);
         iu_stringstream strm;
-#if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+#if IUTEST_HAS_IOMANIP
         strm << "SEH exception with code 0x" << ::std::setbase(16) << code;
 #else
         strm << "SEH exception with code " << code;

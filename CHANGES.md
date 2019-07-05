@@ -4,8 +4,11 @@
 
 ## Changes for 1.17.0
 
-* Improved
+* New
+  * ALMOST_EQ アサーション を追加
   * --iutest_locale_ctype オプションを追加
+
+* Improved
   * setlocale(LC_CTYPE, IUTEST_FLAG(locale_ctype)) をテスト実行開始時に行うように修正
   * Visual Studio 2019 対応
 

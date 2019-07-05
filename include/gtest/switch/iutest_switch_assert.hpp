@@ -60,15 +60,15 @@
 
 //======================================================================
 // define
-#define ASSERT_TRUE     IUTEST_ASSERT_TRUE
-#define ASSERT_FALSE    IUTEST_ASSERT_FALSE
-#define ASSERT_EQ       IUTEST_ASSERT_EQ
-#define ASSERT_NE       IUTEST_ASSERT_NE
-#define ASSERT_LT       IUTEST_ASSERT_LT
-#define ASSERT_LE       IUTEST_ASSERT_LE
-#define ASSERT_GT       IUTEST_ASSERT_GT
-#define ASSERT_GE       IUTEST_ASSERT_GE
-#define ASSERT_NEAR     IUTEST_ASSERT_NEAR
+#define ASSERT_TRUE         IUTEST_ASSERT_TRUE
+#define ASSERT_FALSE        IUTEST_ASSERT_FALSE
+#define ASSERT_EQ           IUTEST_ASSERT_EQ
+#define ASSERT_NE           IUTEST_ASSERT_NE
+#define ASSERT_LT           IUTEST_ASSERT_LT
+#define ASSERT_LE           IUTEST_ASSERT_LE
+#define ASSERT_GT           IUTEST_ASSERT_GT
+#define ASSERT_GE           IUTEST_ASSERT_GE
+#define ASSERT_NEAR         IUTEST_ASSERT_NEAR
 #define ASSERT_FLOAT_EQ     IUTEST_ASSERT_FLOAT_EQ
 #define ASSERT_DOUBLE_EQ    IUTEST_ASSERT_DOUBLE_EQ
 #define ASSERT_STREQ        IUTEST_ASSERT_STREQ
@@ -113,6 +113,7 @@
 #undef IUTEST_ASSERT_TRUE
 #undef IUTEST_ASSERT_FALSE
 #undef IUTEST_ASSERT_EQ
+#undef IUTEST_ASSERT_ALMOST_EQ
 #undef IUTEST_ASSERT_NE
 #undef IUTEST_ASSERT_LT
 #undef IUTEST_ASSERT_LE
@@ -161,6 +162,8 @@
 #define IUTEST_ASSERT_TRUE(...)             ASSERT_TRUE(!!(__VA_ARGS__))
 #define IUTEST_ASSERT_FALSE(...)            ASSERT_FALSE((__VA_ARGS__))
 #define IUTEST_ASSERT_EQ                    ASSERT_EQ
+#define IUTEST_ASSERT_ALMOST_EQ(expected, actual)   \
+    ASSERT_PRED_FORMAT2( ::testing::internal::backward::AlmostEqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare, expected, actual)
 #define IUTEST_ASSERT_NE(expected, actual)  ASSERT_PRED_FORMAT2(IIUT_COMPATIBLE_NEHELPER(expected)::Compare, expected, actual)
 #define IUTEST_ASSERT_LT                    ASSERT_LT
 #define IUTEST_ASSERT_LE                    ASSERT_LE
@@ -206,8 +209,9 @@
 
 #endif // !defined(IUTEST_USE_GTEST)
 
-#define ASSERT_NULL     IUTEST_ASSERT_NULL
-#define ASSERT_NOTNULL  IUTEST_ASSERT_NOTNULL
-#define ASSERT_SAME     IUTEST_ASSERT_SAME
+#define ASSERT_ALMOST_EQ    IUTEST_ASSERT_ALMOST_EQ
+#define ASSERT_NULL         IUTEST_ASSERT_NULL
+#define ASSERT_NOTNULL      IUTEST_ASSERT_NOTNULL
+#define ASSERT_SAME         IUTEST_ASSERT_SAME
 
 #endif // INCG_IRIS_IUTEST_SWITCH_ASSERT_HPP_F4AD6E1B_4B1F_40EE_A0CC_D454587B2C39_

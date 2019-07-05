@@ -10,7 +10,7 @@
 IUTEST_DIR = ..
 IUTEST_INCLUDE = -I$(IUTEST_DIR)/include
 
-# All iutest headers.  Usually you shouldn't change this
+# All iutest headers. Usually you shouldn't change this
 # definition.
 IUTEST_HEADERS =$(IUTEST_DIR)/include/*.hpp \
 				$(IUTEST_DIR)/include/impl/*.ipp \
@@ -21,6 +21,7 @@ IUTEST_HEADERS =$(IUTEST_DIR)/include/*.hpp \
 				$(IUTEST_DIR)/include/gtest/switch/*.hpp
 
 ALLTESTS_TEST_SRCS= \
+		almost_eq_tests.cpp \
 		assertion_tests.cpp \
 		basic_tests.cpp \
 		combine_tests.cpp \
@@ -49,7 +50,7 @@ ALLTESTS_TEST_SRCS= \
 ALLTESTS_SRCS= main.cpp \
 		$(ALLTESTS_TEST_SRCS)
 
-ALLTESTS_TARGET=all_tests
+ALLTESTS_TARGET=$(OUTDIR)/all_tests
 
 EXTENSIONTESTS_TEST_SRCS= \
 		concat_tests.cpp \
@@ -68,7 +69,7 @@ EXTENSIONTESTS_TEST_SRCS= \
 EXTENSIONTESTS_SRCS= main.cpp \
 		$(EXTENSIONTESTS_TEST_SRCS)
 
-EXTENSIONTESTS_TARGET=extension_tests
+EXTENSIONTESTS_TARGET=$(OUTDIR)/extension_tests
 
 UNITTESTS_TEST_SRCS= \
 		unit_file_tests.cpp \
@@ -80,7 +81,7 @@ UNITTESTS_TEST_SRCS= \
 UNITTESTS_SRCS= main.cpp \
 		$(UNITTESTS_TEST_SRCS)
 
-UNITTESTS_TARGET=unit_tests
+UNITTESTS_TARGET=$(OUTDIR)/unit_tests
 
 SYNTAXTESTS_TEST_SRCS= \
 		syntax_tests.cpp \
@@ -88,97 +89,97 @@ SYNTAXTESTS_TEST_SRCS= \
 SYNTAXTESTS_SRCS= main.cpp \
 		$(SYNTAXTESTS_TEST_SRCS)
 
-SYNTAXTESTS_TARGET=syntax_tests
+SYNTAXTESTS_TARGET=$(OUTDIR)/syntax_tests
 
-NAMESPACETESTS_TARGET=namespace_tests
+NAMESPACETESTS_TARGET=$(OUTDIR)/namespace_tests
 
 TARGETS1= \
-		also_run_disabled_tests \
-		assertion_return_tests \
-		assume_tests \
-		break_on_failure_nobreak_tests \
-		catch_exceptions_tests \
-		charcode_tests \
-		commandline_tests \
-		csvparams_invalid_file_tests \
-		csvparams_tests \
-		cxx_feature_tests \
-		disabled_tests \
-		env_var_gtest_tests \
-		environment_tests \
-		exception_assertion_tests \
-		exception_tests \
-		expression_assertion_tests \
-		file_system_tests \
-		filter_tests \
-		flagfile_gtest_tests \
-		gtest_version_tests \
-		help_tests \
-		inform_tests \
-		internal_log_tests \
-		invalid_commandline_tests \
-		japanese_tests \
-		list_test_tests \
-		listener_tests \
-		matcher_tests \
-		minimum_tests \
-		no_failure_fail_tests \
-		no_fatalfailure_tests \
-		no_test_tests \
-		output_env_var_tests \
-		output_junit_xml_tests \
-		output_xml_tests \
-		port_tests \
-		printers_tests \
-		progress_tests \
-		quiet_result_printer_tests \
-		random_seed_tests \
-		record_property_tests \
-		repeat_tests \
-		scoped_trace_tests \
-		set_up_failure_tests \
-		set_up_global_failure_tests \
-		set_up_testcase_failure_tests \
-		shuffle_tests \
-		skip_tests \
-		spi_failure_tests \
-		streaming_listener_tests \
-		throw_on_assertion_failure_tests \
-		throw_on_failure_tests \
-		tr1_tests \
-		uninitialize_tests \
-		util_tests \
+		$(OUTDIR)/also_run_disabled_tests \
+		$(OUTDIR)/assertion_return_tests \
+		$(OUTDIR)/assume_tests \
+		$(OUTDIR)/break_on_failure_nobreak_tests \
+		$(OUTDIR)/catch_exceptions_tests \
+		$(OUTDIR)/charcode_tests \
+		$(OUTDIR)/commandline_tests \
+		$(OUTDIR)/csvparams_invalid_file_tests \
+		$(OUTDIR)/csvparams_tests \
+		$(OUTDIR)/cxx_feature_tests \
+		$(OUTDIR)/disabled_tests \
+		$(OUTDIR)/env_var_gtest_tests \
+		$(OUTDIR)/environment_tests \
+		$(OUTDIR)/exception_assertion_tests \
+		$(OUTDIR)/exception_tests \
+		$(OUTDIR)/expression_assertion_tests \
+		$(OUTDIR)/file_system_tests \
+		$(OUTDIR)/filter_tests \
+		$(OUTDIR)/flagfile_gtest_tests \
+		$(OUTDIR)/gtest_version_tests \
+		$(OUTDIR)/help_tests \
+		$(OUTDIR)/inform_tests \
+		$(OUTDIR)/internal_log_tests \
+		$(OUTDIR)/invalid_commandline_tests \
+		$(OUTDIR)/japanese_tests \
+		$(OUTDIR)/list_test_tests \
+		$(OUTDIR)/listener_tests \
+		$(OUTDIR)/matcher_tests \
+		$(OUTDIR)/minimum_tests \
+		$(OUTDIR)/no_failure_fail_tests \
+		$(OUTDIR)/no_fatalfailure_tests \
+		$(OUTDIR)/no_test_tests \
+		$(OUTDIR)/output_env_var_tests \
+		$(OUTDIR)/output_junit_xml_tests \
+		$(OUTDIR)/output_xml_tests \
+		$(OUTDIR)/port_tests \
+		$(OUTDIR)/printers_tests \
+		$(OUTDIR)/progress_tests \
+		$(OUTDIR)/quiet_result_printer_tests \
+		$(OUTDIR)/random_seed_tests \
+		$(OUTDIR)/record_property_tests \
+		$(OUTDIR)/repeat_tests \
+		$(OUTDIR)/scoped_trace_tests \
+		$(OUTDIR)/set_up_failure_tests \
+		$(OUTDIR)/set_up_global_failure_tests \
+		$(OUTDIR)/set_up_testcase_failure_tests \
+		$(OUTDIR)/shuffle_tests \
+		$(OUTDIR)/skip_tests \
+		$(OUTDIR)/spi_failure_tests \
+		$(OUTDIR)/streaming_listener_tests \
+		$(OUTDIR)/throw_on_assertion_failure_tests \
+		$(OUTDIR)/throw_on_failure_tests \
+		$(OUTDIR)/tr1_tests \
+		$(OUTDIR)/uninitialize_tests \
+		$(OUTDIR)/util_tests \
 
 TARGETS2= \
-		assertion_only_tests \
+		$(OUTDIR)/assertion_only_tests \
 
 TARGETS_IUTEST_ONLY = \
-		default_main_tests \
-		default_printer_listener_tests \
-		env_var_tests \
-		exit_tests \
-		feature_spec_tests \
-		filter_file_invalid_path_tests \
-		filter_file_syntax_tests \
-		filter_file_tests \
-		flagfile_env_var_tests \
-		flagfile_invalid_path_tests \
-		flagfile_tests \
-		invalid_locale_ctype_tests \
-		ostream_formatter_tests \
-		output_tests \
-		output_xml_invalid_path_tests \
-		output_xml_repeat_tests \
-		param_test_name_invalid_tests \
-		param_test_name_tests \
-		no_yoda_tests \
-		tap_file_generator_listener_tests \
-		tap_printer_listener_tests \
-		type_param_strict_tests
+		$(OUTDIR)/default_main_tests \
+		$(OUTDIR)/default_printer_listener_tests \
+		$(OUTDIR)/env_var_tests \
+		$(OUTDIR)/exit_tests \
+		$(OUTDIR)/feature_spec_tests \
+		$(OUTDIR)/filter_file_invalid_path_tests \
+		$(OUTDIR)/filter_file_syntax_tests \
+		$(OUTDIR)/filter_file_tests \
+		$(OUTDIR)/flagfile_env_var_tests \
+		$(OUTDIR)/flagfile_invalid_path_tests \
+		$(OUTDIR)/flagfile_tests \
+		$(OUTDIR)/invalid_locale_ctype_tests \
+		$(OUTDIR)/ostream_formatter_tests \
+		$(OUTDIR)/output_tests \
+		$(OUTDIR)/output_xml_invalid_path_tests \
+		$(OUTDIR)/output_xml_repeat_tests \
+		$(OUTDIR)/param_test_name_invalid_tests \
+		$(OUTDIR)/param_test_name_tests \
+		$(OUTDIR)/no_yoda_tests \
+		$(OUTDIR)/tap_file_generator_listener_tests \
+		$(OUTDIR)/tap_printer_listener_tests \
+		$(OUTDIR)/type_param_strict_tests
 
 COMPILEERROR_TARGETS=\
-		check_strict_tests \
-		static_assertion_failure_tests \
+		$(OUTDIR)/check_strict_tests \
+		$(OUTDIR)/static_assertion_failure_tests \
 
-BUILD_ONLY = break_on_failure_tests \
+BUILD_ONLY = $(OUTDIR)/break_on_failure_tests \
 

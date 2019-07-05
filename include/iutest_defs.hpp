@@ -78,6 +78,9 @@ inline IUTEST_CXX_CONSTEXPR TypeId GetTestTypeId()
     return 0;
 }
 
+template<size_t SIZE>
+struct TypeWithSize : public detail::type_fit_t<SIZE> {};
+
 }   // end of namespace internal
 
 //======================================================================
@@ -152,6 +155,7 @@ class floating_point
 private:
     typedef floating_point<RawType> _Myt;
 
+private:
     typedef typename detail::type_fit_t<sizeof(RawType)> type;
     typedef typename type::Int  Int;
     typedef typename type::UInt UInt;

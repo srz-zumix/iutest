@@ -185,6 +185,42 @@ TEST(GTestSyntaxTest, Near)
         ASSUME_NEAR(0, x, 2) << x;
 }
 
+TEST(SyntaxTest, AlmostEq)
+{
+    if( int x = 1 )
+        ASSERT_ALMOST_EQ(1, x);
+    if( int x = 1 )
+        EXPECT_ALMOST_EQ(1, x);
+    if( int x = 1 )
+        INFORM_ALMOST_EQ(1, x);
+    if( int x = 1 )
+        ASSUME_ALMOST_EQ(1, x);
+}
+
+TEST(SyntaxTest, AlmostFloatEq)
+{
+    if( float x = 1.0f )
+        ASSERT_ALMOST_EQ(1.0f, x);
+    if( float x = 1.0f )
+        EXPECT_ALMOST_EQ(1.0f, x);
+    if( float x = 1.0f )
+        INFORM_ALMOST_EQ(1.0f, x);
+    if( float x = 1.0f )
+        ASSUME_ALMOST_EQ(1.0f, x);
+}
+
+TEST(SyntaxTest, AlmostDoubleEq)
+{
+    if( double x = 1.0 )
+        ASSERT_ALMOST_EQ(1.0, x);
+    if( double x = 1.0 )
+        EXPECT_ALMOST_EQ(1.0, x);
+    if( double x = 1.0 )
+        INFORM_ALMOST_EQ(1.0, x);
+    if( double x = 1.0 )
+        ASSUME_ALMOST_EQ(1.0, x);
+}
+
 TEST(GTestSyntaxTest, Null)
 {
     int* p = NULL;
