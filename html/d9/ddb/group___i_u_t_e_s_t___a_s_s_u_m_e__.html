@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.99.20</span>
+   &#160;<span id="projectnumber">1.16.99.22</span>
    </div>
   </td>
  </tr>
@@ -92,6 +92,9 @@ ASSUME 連携図</div>
 <tr class="memitem:ga928b5fc213ffa7052a18a5afdd0c280d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/ddb/group___i_u_t_e_s_t___a_s_s_u_m_e__.html#ga928b5fc213ffa7052a18a5afdd0c280d">IUTEST_ASSUME_EQ</a>(expected,  actual)&#160;&#160;&#160;IUTEST_TEST_EQ(expected, actual, IUTEST_ASSUME_FAILURE)</td></tr>
 <tr class="memdesc:ga928b5fc213ffa7052a18a5afdd0c280d"><td class="mdescLeft">&#160;</td><td class="mdescRight">== テスト  <a href="#ga928b5fc213ffa7052a18a5afdd0c280d">[詳解]</a><br /></td></tr>
 <tr class="separator:ga928b5fc213ffa7052a18a5afdd0c280d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf6492a80b1efd63580ec2a701bd9cd48"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/ddb/group___i_u_t_e_s_t___a_s_s_u_m_e__.html#gaf6492a80b1efd63580ec2a701bd9cd48">IUTEST_ASSUME_ALMOST_EQ</a>(expected,  actual)&#160;&#160;&#160;IUTEST_TEST_ALMOST_EQ(expected, actual, IUTEST_ASSUME_FAILURE)</td></tr>
+<tr class="memdesc:gaf6492a80b1efd63580ec2a701bd9cd48"><td class="mdescLeft">&#160;</td><td class="mdescRight">!= テスト（浮動小数点数は誤差考慮）  <a href="#gaf6492a80b1efd63580ec2a701bd9cd48">[詳解]</a><br /></td></tr>
+<tr class="separator:gaf6492a80b1efd63580ec2a701bd9cd48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga816536c1cea5e5536d9881452e13a785"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/ddb/group___i_u_t_e_s_t___a_s_s_u_m_e__.html#ga816536c1cea5e5536d9881452e13a785">IUTEST_ASSUME_NE</a>(v1,  v2)&#160;&#160;&#160;IUTEST_TEST_NE(v1, v2, IUTEST_ASSUME_FAILURE)</td></tr>
 <tr class="memdesc:ga816536c1cea5e5536d9881452e13a785"><td class="mdescLeft">&#160;</td><td class="mdescRight">!= テスト  <a href="#ga816536c1cea5e5536d9881452e13a785">[詳解]</a><br /></td></tr>
 <tr class="separator:ga816536c1cea5e5536d9881452e13a785"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -246,6 +249,43 @@ ASSUME 連携図</div>
 <dl class="params"><dt>引数</dt><dd>
   <table class="params">
     <tr><td class="paramname">expression</td><td>= 式 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gaf6492a80b1efd63580ec2a701bd9cd48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf6492a80b1efd63580ec2a701bd9cd48">&#9670;&nbsp;</a></span>IUTEST_ASSUME_ALMOST_EQ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define IUTEST_ASSUME_ALMOST_EQ</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expected, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">actual&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;IUTEST_TEST_ALMOST_EQ(expected, actual, IUTEST_ASSUME_FAILURE)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>!= テスト（浮動小数点数は誤差考慮） </p>
+<p>actual が expected と等しいことを検証します 浮動小数点数の場合、誤差を考慮した FLOAT_EQ/DOUBLE_EQ での検証になります。 </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">expected</td><td>= 期待値 </td></tr>
+    <tr><td class="paramname">actual</td><td>= 検査対象 </td></tr>
   </table>
   </dd>
 </dl>
@@ -1962,7 +2002,7 @@ ASSUME 連携図</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2019年06月11日(火) 01時01分31秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2019年07月05日(金) 00時57分43秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
