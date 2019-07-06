@@ -32,3 +32,37 @@ IUTEST(StdFileUnitTest, AppendOpenedFileSize)
 
 #endif
 
+#if IUTEST_HAS_CXX_HDR_FILESYSTEM
+
+const ::std::filesystem::path largefile("./testdata/largefile.bin");
+
+class FileSystemTest : public ::iutest::test
+{
+public:
+    static void SetUpTestCase()
+    {
+        ::std::filesystem::copy("./testdata/empty.bin", largefile);
+        ::std::filesystem::resize_file(largefile, 0x100000000ull);
+
+    }
+    static void TearDownTestCase()
+    {
+        ::std::filesystem::remove(largefile);
+    }
+};
+
+#if IUTEST_HAS_FOPEN
+
+IUTEST_F(FileSystemTest, FileSize64bit)
+{
+    IUTEST_ASSUME_EQ(0x100000000ull, ::std::filesystem::file_size(largefile));
+
+    ::iutest::StdioFile file;
+    IUTEST_ASSERT_TRUE( file.Open(largefile, iutest::IFile::Open) );
+    IUTEST_EXPECT_EQ(0x100000000ull, file.GetSize());
+}
+
+#endif
+
+#endif
+
