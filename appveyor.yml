@@ -12,6 +12,10 @@ environment:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       PROJECT_DIR: vs2017
       CMAKE_GENERATOR_NAME: Visual Studio 15 2017
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      PROJECT_DIR: vs2019
+      # BUILD_PRE_PROJECT: yes
+      CMAKE_GENERATOR_NAME: Visual Studio 16 2019
     # Cygwin
     - BUILD_CYGWIN: yes
       USE_GNU_EXTENSION: 0
@@ -119,6 +123,21 @@ test_script:
   cmd: cd build && ctest -C %Configuration% -V
 
 for:
+# Build .sln (no cmake)
+-
+  matrix:
+    only:
+      - BUILD_PRE_PROJECT: yes
+  before_build:
+    cmd: cmake --version
+  build:
+    project: projects\%PROJECT_DIR%\iutest.sln
+    parallel: true
+    verbosity: minimal
+  test_script:
+    cd projects\%PROJECT_DIR%\%Configuration%
+    iutest_sample.exe
+    iutest_sample.exe --spec
 # Cygwin
 -
   matrix:
