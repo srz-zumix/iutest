@@ -20,7 +20,7 @@ steps:
     working_directory: ./
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
     dockerfile: ./tools/docker/Dockerfile
-  RunningUnitTests:
+  PrepareUnitTests:
     title: Prepare
     stage: prepare
     steps:
