@@ -23,12 +23,10 @@ steps:
   PrepareUnitTests:
     title: Prepare
     stage: prepare
-    steps:
-      Prepare:
-      image: gcc:9
-      commands:
-        - make -C test clean
-        - make -C test prepare
+    image: gcc:9
+    commands:
+      - make -C test clean
+      - make -C test prepare
   RunningUnitTests:
     type: parallel
     stage: test
