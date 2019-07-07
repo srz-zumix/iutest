@@ -2,6 +2,7 @@ version: '1.0'
 stages:
   - checkout
   - build
+  - prepare
   - test
 
 steps:
@@ -20,6 +21,15 @@ steps:
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
     dockerfile: ./tools/docker/Dockerfile
   RunningUnitTests:
+    title: Prepare
+    stage: prepare
+    steps:
+      Prepare:
+      image: gcc:9
+      commands:
+        - make -C test clean
+        - make -C test prepare
+  RunningUnitTests:
     type: parallel
     stage: test
     steps:
@@ -29,8 +39,8 @@ steps:
         environment:
           - OUTDIR=gcc9
         commands:
-          - mkdir test/${OUTDIR} || true
-          - make -C test clean
+          - rm -rf test/${OUTDIR} || true
+          - mkdir test/${OUTDIR}
           - make -C test test
       BasicTest-gcc8:
         <<: *basic_test
