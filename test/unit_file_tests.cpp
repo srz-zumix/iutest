@@ -36,7 +36,7 @@ IUTEST(StdFileUnitTest, AppendOpenedFileSize)
 
 const ::std::filesystem::path largefile("./testdata/largefile.bin");
 
-class FileSystemTest : public ::iutest::test
+class FileSystemTest : public ::iutest::Test
 {
 public:
     static void SetUpTestCase()
