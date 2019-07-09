@@ -171,7 +171,7 @@ public:
         }
     public:
         size_t count() const IUTEST_CXX_NOEXCEPT_SPEC { return m_results.size(); }
-        const TestPartResult& GetTestPartResult(int index) const { return m_results[index]; }
+        const TestPartResult& GetTestPartResult(size_t index) const { return m_results[index]; }
 
         void ReportTestPartResult()
         {

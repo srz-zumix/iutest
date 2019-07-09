@@ -136,7 +136,8 @@ LDFLAGS += $(LIBS_)
 
 MAKEFILE=GNUmakefile CommonMakefile.in
 
-NAMESPACETESTS_SRCS = main.cpp $(ALLTESTS_TEST_SRCS:%.cpp=%.ns.cpp)
+NAMESPACETESTS_TEST_SRCS = $(ALLTESTS_TEST_SRCS:%.cpp=%.ns.cpp)
+NAMESPACETESTS_SRCS = main.cpp $(NAMESPACETESTS_TEST_SRCS)
 
 COMMON_RUN_TARGETS=$(ALLTESTS_TARGET) $(EXTENSIONTESTS_TARGET) $(NAMESPACETESTS_TARGET) $(TARGETS1) $(TARGETS2)
 ifneq ($(USE_GTEST)$(USE_GMOCK),)
@@ -243,6 +244,8 @@ endif
 run_% : %_run
 	@echo $< > /dev/null
 
+prepare: $(NAMESPACETESTS_TEST_SRCS)
+
 # gtest version test
 gtest-version: clean gtest_version_tests_run
 
@@ -337,10 +340,11 @@ build_benchmark:
 
 #
 #
-# NAMESPACETESTS_SRCS
+# NAMESPACETESTS_TEST_SRCS
 #
 
 %.ns.cpp: %.cpp
+	@echo $@
 	@echo '#include <cmath>' > $@
 	@echo '#include "../include/gtest/iutest_spi_switch.hpp"' >> $@
 	@echo '#include "../include/internal/iutest_filepath.hpp"' >> $@

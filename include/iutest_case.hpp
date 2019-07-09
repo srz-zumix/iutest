@@ -72,7 +72,7 @@ public:
     const char*     name()                  const { return m_testcase_name.c_str(); }
 
     /** テスト総数 */
-    int             total_test_count()      const IUTEST_CXX_NOEXCEPT_SPEC { return m_testinfos.size(); }
+    int             total_test_count()      const IUTEST_CXX_NOEXCEPT_SPEC { return static_cast<int>(m_testinfos.size()); }
     /** レポート対象のテスト総数 */
     int             reportable_test_count() const;
     /** 実行したテスト総数 */
