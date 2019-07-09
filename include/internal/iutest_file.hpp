@@ -45,6 +45,14 @@ public:
     virtual bool Open(const char* filename, int mode) = 0;
     //! 閉じる
     virtual void Close() = 0;
+
+public:
+#if IUTEST_HAS_CXX_HDR_FILESYSTEM
+    virtual bool Open(const ::std::filesystem::path&, int mode)
+    {
+        return Open(path.string().c_str(), mode);
+    }
+#endif
 };
 
 namespace detail
