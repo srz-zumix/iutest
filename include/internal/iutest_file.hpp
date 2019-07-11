@@ -40,19 +40,36 @@ public:
     };
 public:
     virtual ~IFile() {}
-public:
-    //! 開く
-    virtual bool Open(const char* filename, int mode) = 0;
-    //! 閉じる
-    virtual void Close() = 0;
 
 public:
+    /**
+     * @brief   開く
+     * @param [in]  filename    = ファイルパス
+     * @param [in]  mode        = モード
+     * @return  成否
+    */
+    bool Open(const char* filename, int mode)
+    {
+        return OpenImpl(path.string().c_str(), mode);
+    }
+
 #if IUTEST_HAS_CXX_HDR_FILESYSTEM
-    virtual bool Open(const ::std::filesystem::path& path, int mode)
+    /**
+     * @brief   開く
+     * @param [in]  path        = ファイルパス
+     * @param [in]  mode        = モード
+     * @return  成否
+    */
+    bool Open(const ::std::filesystem::path& path, int mode)
     {
         return Open(path.string().c_str(), mode);
     }
 #endif
+
+    //! 閉じる
+    virtual void Close() = 0;
+private:
+    virtual bool OpenImpl(const char* filename, int mode) = 0;
 };
 
 namespace detail
@@ -165,33 +182,6 @@ public:
     virtual ~StdioFile() { Close(); }
 public:
     /**
-     * @brief   開く
-     * @param [in]  filename    = ファイルパス
-     * @param [in]  mode        = モード
-     * @return  成否
-    */
-    virtual bool Open(const char* filename, int mode) IUTEST_CXX_OVERRIDE
-    {
-        Close();
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
-        switch( mode )
-        {
-        case IFile::OpenRead:
-            m_fp = fopen(filename, "rb");
-            break;
-        case IFile::OpenWrite:
-            m_fp = fopen(filename, "wb");
-            break;
-        case IFile::OpenAppend:
-            m_fp = fopen(filename, "ab");
-            break;
-        default:
-            break;
-        }
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
-        return m_fp != NULL;
-    }
-    /**
      * @brief   閉じる
     */
     virtual void Close() IUTEST_CXX_OVERRIDE
@@ -277,6 +267,28 @@ public:
         }
         return 0;
     }
+private:
+    virtual bool OpenImpl(const char* filename, int mode) IUTEST_CXX_OVERRIDE
+    {
+        Close();
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
+        switch( mode )
+        {
+        case IFile::OpenRead:
+            m_fp = fopen(filename, "rb");
+            break;
+        case IFile::OpenWrite:
+            m_fp = fopen(filename, "wb");
+            break;
+        case IFile::OpenAppend:
+            m_fp = fopen(filename, "ab");
+            break;
+        default:
+            break;
+        }
+IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+        return m_fp != NULL;
+    }
 };
 
 class StdErrorFile : public StdioFile
@@ -286,22 +298,17 @@ public:
     virtual ~StdErrorFile() { Close(); }
 public:
     /**
-     * @brief   開く
-     * @param [in]  filename    = ファイルパス
-     * @param [in]  mode        = モード
-     * @return  成否
-    */
-    virtual bool Open(const char* , int ) IUTEST_CXX_OVERRIDE
-    {
-        m_fp = stderr;
-        return true;
-    }
-    /**
      * @brief   閉じる
     */
     virtual void Close() IUTEST_CXX_OVERRIDE
     {
         m_fp = NULL;
+    }
+private:
+    virtual bool OpenImpl(const char* , int ) IUTEST_CXX_OVERRIDE
+    {
+        m_fp = stderr;
+        return true;
     }
 };
 
@@ -317,16 +324,6 @@ class StringStreamFile : public IFile
 public:
     virtual ~StringStreamFile() { Close(); }
 public:
-    /**
-     * @brief   開く
-     * @return  成否
-    */
-    virtual bool Open(const char* , int ) IUTEST_CXX_OVERRIDE
-    {
-        ss.clear();
-        return true;
-    }
-
     /**
      * @brief   閉じる
     */
@@ -381,6 +378,12 @@ public:
     {
         return ss.str();
     }
+private:
+    virtual bool OpenImpl(const char* , int ) IUTEST_CXX_OVERRIDE
+    {
+        ss.clear();
+        return true;
+    }
 protected:
     ::std::stringstream ss;
 };
@@ -396,11 +399,12 @@ namespace detail
 class NoEffectFile : public IFile
 {
 public:
-    virtual bool Open(const char*, int) IUTEST_CXX_OVERRIDE { return true; }
     virtual void Close() IUTEST_CXX_OVERRIDE {}
     virtual bool Write(const void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true;  }
     virtual bool Read(void*, size_t, size_t) IUTEST_CXX_OVERRIDE { return true; }
     virtual size_t GetSize() IUTEST_CXX_OVERRIDE { return 0; }
+private:
+    virtual bool OpenImpl(const char*, int) IUTEST_CXX_OVERRIDE { return true; }
 };
 
 }   // end of namespace detail
