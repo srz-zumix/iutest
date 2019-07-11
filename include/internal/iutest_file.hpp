@@ -48,7 +48,7 @@ public:
 
 public:
 #if IUTEST_HAS_CXX_HDR_FILESYSTEM
-    virtual bool Open(const ::std::filesystem::path path&, int mode)
+    virtual bool Open(const ::std::filesystem::path& path, int mode)
     {
         return Open(path.string().c_str(), mode);
     }
