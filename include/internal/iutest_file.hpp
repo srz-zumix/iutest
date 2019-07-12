@@ -50,7 +50,7 @@ public:
     */
     bool Open(const char* filename, int mode)
     {
-        return OpenImpl(path.string().c_str(), mode);
+        return OpenImpl(filename, mode);
     }
 
 #if IUTEST_HAS_CXX_HDR_FILESYSTEM
