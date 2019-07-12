@@ -226,6 +226,42 @@ IUTEST(SyntaxTest, Near)
         IUTEST_ASSUME_NEAR(0, x, 2) << x;
 }
 
+IUTEST(SyntaxTest, AlmostEq)
+{
+    if( int x = 1 )
+        IUTEST_ASSERT_ALMOST_EQ(1, x);
+    if( int x = 1 )
+        IUTEST_EXPECT_ALMOST_EQ(1, x);
+    if( int x = 1 )
+        IUTEST_INFORM_ALMOST_EQ(1, x);
+    if( int x = 1 )
+        IUTEST_ASSUME_ALMOST_EQ(1, x);
+}
+
+IUTEST(SyntaxTest, AlmostFloatEq)
+{
+    if( float x = 1.0f )
+        IUTEST_ASSERT_ALMOST_EQ(1.0f, x);
+    if( float x = 1.0f )
+        IUTEST_EXPECT_ALMOST_EQ(1.0f, x);
+    if( float x = 1.0f )
+        IUTEST_INFORM_ALMOST_EQ(1.0f, x);
+    if( float x = 1.0f )
+        IUTEST_ASSUME_ALMOST_EQ(1.0f, x);
+}
+
+IUTEST(SyntaxTest, AlmostDoubleEq)
+{
+    if( double x = 1.0 )
+        IUTEST_ASSERT_ALMOST_EQ(1.0, x);
+    if( double x = 1.0 )
+        IUTEST_EXPECT_ALMOST_EQ(1.0, x);
+    if( double x = 1.0 )
+        IUTEST_INFORM_ALMOST_EQ(1.0, x);
+    if( double x = 1.0 )
+        IUTEST_ASSUME_ALMOST_EQ(1.0, x);
+}
+
 IUTEST(SyntaxTest, Null)
 {
     int* p = NULL;

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -142,9 +142,9 @@ public:
 
 public:
     // リストの総数取得
-    unsigned int count() const IUTEST_CXX_NOEXCEPT_SPEC
+    size_t count() const IUTEST_CXX_NOEXCEPT_SPEC
     {
-        unsigned int cnt = 0;
+        size_t cnt = 0;
         node_ptr cur = m_node;
         while(cur != NULL)
         {
@@ -153,7 +153,7 @@ public:
         }
         return cnt;
     }
-    unsigned int size() const IUTEST_CXX_NOEXCEPT_SPEC
+    size_t size() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return count();
     }

@@ -483,6 +483,10 @@
     IUTEST_PRED_FORMAT2_( ::iutest::internal::backward::EqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare    \
         , expected, actual, on_failure )
 
+#define IUTEST_TEST_ALMOST_EQ(expected, actual, on_failure)        \
+    IUTEST_PRED_FORMAT2_( ::iutest::internal::backward::AlmostEqHelper<IUTEST_IS_NULLLITERAL(expected)>::Compare    \
+        , expected, actual, on_failure )
+
 #define IUTEST_TEST_NE(v1, v2, on_failure)                  \
     IUTEST_PRED_FORMAT2_( ::iutest::internal::backward::NeHelper<IUTEST_IS_NULLLITERAL(v1)>::Compare          \
         , v1, v2, on_failure )
@@ -595,12 +599,10 @@
         IUTEST_PP_CAT(iutest_label_test_no_fatalfailure_, __LINE__):        \
         on_failure("\nExpected: " #statement " doesn't generate new fatal failure.\n  Actual: it does.")
 
-#define IUTEST_TEST_SKIP()                                                          \
-    IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                                  \
-    if( (::iutest::UnitTest::current_test_result()->Failed())                       \
-        || (::iutest::UnitTest::SkipTest(), ::iutest::detail::AlwaysTrue()) )       \
-        IUTEST_SKIP_MESSAGE( ::iutest::UnitTest::current_test_result()->Failed() ?  \
-                                "Skipped. but already failed. " : "Skipped. " )
+#define IUTEST_TEST_SKIP()                  \
+    IUTEST_AMBIGUOUS_ELSE_BLOCKER_          \
+    if( ::iutest::detail::AlwaysTrue() )    \
+        IUTEST_SKIP_MESSAGE( ::iutest::UnitTest::SkipTest() ? "Skipped. " : "Skipped. but already failed. " )
 
 /**
  * @}

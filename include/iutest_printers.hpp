@@ -259,7 +259,13 @@ inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ost
 template<typename T>
 inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
 {
-    *os << f.raw() << "(0x" << ToHexString(f.bits()) << ")";
+#if IUTEST_HAS_IOMANIP
+    iu_stringstream ss;
+    ss << ::std::setprecision(::std::numeric_limits<T>::digits10 + 2) << f.raw();
+    *os << ss.str() << "(0x" << ToHexString(f.bits()) << ")";
+#else
+    *os << f.raw()  << "(0x" << ToHexString(f.bits()) << ")";
+#endif
 }
 template<typename T1, typename T2>
 inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)

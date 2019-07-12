@@ -33,6 +33,9 @@
 #elif IUTEST_HAS_STRSTREAM
 #  include <strstream>
 #endif
+#if IUTEST_HAS_IOMANIP
+#include <iomanip>
+#endif
 #include <string>
 #include <cstring>
 #include <cmath>
@@ -754,7 +757,6 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 #if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
 
 typedef ::std::ostream iu_ostream;
-typedef ::std::ostream& (*iu_basic_iomanip)(::std::ostream&);
 typedef detail::stlstream iu_stringstream;
 
 #else
@@ -762,6 +764,10 @@ typedef detail::stlstream iu_stringstream;
 typedef detail::iu_stream iu_ostream;
 typedef detail::iu_stream iu_stringstream;
 
+#endif
+
+#if IUTEST_HAS_IOMANIP
+typedef iu_ostream& (*iu_basic_iomanip)(iu_ostream&);
 #endif
 
 #if !defined(IUTEST_HAS_BIGGESTINT_OSTREAM)

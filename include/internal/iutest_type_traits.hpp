@@ -159,6 +159,7 @@ using ::std::is_same;
 using ::std::is_class;
 using ::std::is_convertible;
 using ::std::is_base_of;
+using ::std::is_signed;
 using ::std::add_lvalue_reference;
 #if IUTEST_HAS_RVALUE_REFS
 using ::std::add_rvalue_reference;
@@ -662,6 +663,25 @@ struct is_base_of
 {
 };
 
+namespace is_signed_helper
+{
+
+template<typename T, bool Arithmetic>
+struct is_signed :  public bool_constant< T(-1) < T(0) > {};
+
+template<typename T>
+struct is_signed<T, false> : public false_type {};
+
+}   // end of namespace is_signed_helper
+
+/**
+ * @brief   is signed type
+*/
+template<typename T>
+struct is_signed
+    : public is_signed_helper::is_signed<T, true>
+{
+};
 
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
@@ -936,7 +956,7 @@ struct has_equal_to_operator
     typedef bool_constant< (sizeof(*(T*)0 == *(T*)0) != sizeof(has_equal_to_operator_helper::no_t) ) > type;    // NOLINT
 };
 
-IUTEST_PRAGMA_MSC_WARN_POP()
+IUTEST_PRAGMA_WARN_POP()
 
 }   // end of namespace has_equal_to_operator_impl
 

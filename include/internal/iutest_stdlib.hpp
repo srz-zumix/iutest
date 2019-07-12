@@ -31,6 +31,7 @@
 #  include <stdint.h>
 #endif
 #include <cstdlib>
+#include <limits>
 
 //======================================================================
 // define
@@ -673,6 +674,18 @@ using tuples::get;
 #if !defined(IUTEST_HAS_STRSTREAM)
 #  define IUTEST_HAS_STRSTREAM      0
 #endif
+
+//! iomanip が使用可能かどうか
+#if !defined(IUTEST_HAS_IOMANIP)
+#  if IUTEST_HAS_STRINGSTREAM || IUTEST_HAS_STRSTREAM
+#    define IUTEST_HAS_IOMANIP      1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_IOMANIP)
+#  define IUTEST_HAS_IOMANIP        0
+#endif
+
 
 //! _set_invalid_parameter_handler が使用可能かどうか
 #if !defined(IUTEST_HAS_INVALID_PARAMETER_HANDLER)

@@ -86,7 +86,7 @@ public:
     /** @private */
     void AddTestInfo(TestCase* pCase, TestInfo* pInfo);
     /** @private */
-    static void SkipTest();
+    static bool SkipTest();
 
 protected:
     /**

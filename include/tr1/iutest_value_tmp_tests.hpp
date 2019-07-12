@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -90,7 +90,7 @@ namespace tr1
  * @tparam  Tester      = テストクラス
  * @tparam  TypePrams   = 型
 */
-template<template <BiggestInt V> class Tester, typename TypePrams>
+template<template<BiggestInt V> class Tester, typename TypePrams>
 class ValueTmpParamTestInstance
 {
     /**
