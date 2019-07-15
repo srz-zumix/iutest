@@ -26,6 +26,7 @@ addons:
       #- cppcheck
 
 before_install:
+  - ulimit -c
   - python .ci/travisci/travis_blocking_stdout.py || true
   #- apt-cache search clang || true
   #- apt-cache search gcc || true
@@ -92,6 +93,11 @@ script:
   #  else
   #    cd ./test; make showcxxversion ${USE_FUSED} all;
   #  fi
+
+after_failure:
+    - cd ${TRAVIS_BUILD_DIR}/test
+    - ls
+    # - for core in `find . -type f -name *.core`
 
 env:
   global:
