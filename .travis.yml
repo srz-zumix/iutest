@@ -26,7 +26,7 @@ addons:
       #- cppcheck
 
 before_install:
-  - ulimit -c
+  - ulimit -c unlimited
   - python .ci/travisci/travis_blocking_stdout.py || true
   #- apt-cache search clang || true
   #- apt-cache search gcc || true
