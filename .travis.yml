@@ -26,6 +26,7 @@ addons:
       #- cppcheck
 
 before_install:
+  - ulimit -c unlimited
   - python .ci/travisci/travis_blocking_stdout.py || true
   #- apt-cache search clang || true
   #- apt-cache search gcc || true
@@ -69,7 +70,6 @@ install:
   - if [ "${USE_GMOCK}" = '1' ]; then . .ci/travisci/install-gmock.sh; fi
 
 script:
-  - ulimit -c unlimited && ulimit -a
   - if [ "${USE_LIB}" = '1' ]; then cd projects/make && make && cd -; fi
   - if [ "${USE_CMAKE}" = '1' ]; then
       mkdir ./cmake-build && cd ./cmake-build && cmake ../projects/cmake && cmake --build . && ctest -C Debug -V && cd ..;
@@ -96,8 +96,8 @@ script:
 
 after_failure:
     - cd ${TRAVIS_BUILD_DIR}/test
-    - ls
-    # - for core in `find . -type f -name *.core`
+    - COREFILE=$(find . -maxdepth 1 -name "core*" | head -n 1)
+    - if [[ -f "$COREFILE" ]]; then gdb -c "$COREFILE" unit_tests -ex "thread apply all bt" -ex "set pagination 0" -batch; fi
 
 env:
   global:
