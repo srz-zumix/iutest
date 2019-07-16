@@ -26,7 +26,6 @@ addons:
       #- cppcheck
 
 before_install:
-  - ulimit -c unlimited
   - python .ci/travisci/travis_blocking_stdout.py || true
   #- apt-cache search clang || true
   #- apt-cache search gcc || true
@@ -70,6 +69,7 @@ install:
   - if [ "${USE_GMOCK}" = '1' ]; then . .ci/travisci/install-gmock.sh; fi
 
 script:
+  - ulimit -c unlimited && ulimit -a
   - if [ "${USE_LIB}" = '1' ]; then cd projects/make && make && cd -; fi
   - if [ "${USE_CMAKE}" = '1' ]; then
       mkdir ./cmake-build && cd ./cmake-build && cmake ../projects/cmake && cmake --build . && ctest -C Debug -V && cd ..;
