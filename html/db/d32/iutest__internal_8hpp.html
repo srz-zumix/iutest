@@ -1051,7 +1051,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                                  \</div><div class="line">    if( (::iutest::UnitTest::current_test_result()-&gt;Failed())                       \</div><div class="line">        || (::iutest::UnitTest::SkipTest(), ::iutest::detail::AlwaysTrue()) )       \</div><div class="line">        IUTEST_SKIP_MESSAGE( ::iutest::UnitTest::current_test_result()-&gt;Failed() ?  \</div><div class="line">                                <span class="stringliteral">&quot;Skipped. but already failed. &quot;</span> : <span class="stringliteral">&quot;Skipped. &quot;</span> )</div></div><!-- fragment -->
+<b>値:</b><div class="fragment"><div class="line">IUTEST_AMBIGUOUS_ELSE_BLOCKER_          \</div><div class="line">    if( ::iutest::detail::AlwaysTrue() )    \</div><div class="line">        IUTEST_SKIP_MESSAGE( ::iutest::UnitTest::SkipTest() ? <span class="stringliteral">&quot;Skipped. &quot;</span> : <span class="stringliteral">&quot;Skipped. but already failed. &quot;</span> )</div></div><!-- fragment -->
 </div>
 </div>
 <a id="af482ba2983ddfc3f0aaf6bb056b942af"></a>
@@ -1475,7 +1475,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2019年07月09日(火) 00時45分39秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2019年07月16日(火) 00時25分06秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
