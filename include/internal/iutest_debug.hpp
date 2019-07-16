@@ -15,10 +15,7 @@
 #ifndef INCG_IRIS_IUTEST_DEBUG_HPP_A63366D4_2112_4269_9BAF_BD30A5F2C7F2_
 #define INCG_IRIS_IUTEST_DEBUG_HPP_A63366D4_2112_4269_9BAF_BD30A5F2C7F2_
 
-//======================================================================
-// include
-
-#ifdef _IUTEST_DEBUG
+#if defined(_IUTEST_DEBUG)
 // iutest 自体のデバッグ用定義
 
 #if defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)
