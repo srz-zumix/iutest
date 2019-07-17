@@ -346,6 +346,11 @@
 #if !defined(IUTEST_HAS_STD_QUICK_EXIT)
 #  define IUTEST_HAS_STD_QUICK_EXIT     0
 #endif
+//! has to_chars
+#if !defined(IUTEST_HAS_STD_TOCHARS)
+#  define IUTEST_HAS_STD_TOCHARS        0
+#endif
+
 //! use external include tr1::tuple
 #if !defined(IUTEST_USE_EXTERNAL_TR1_TUPLE)
 #  define IUTEST_USE_EXTERNAL_TR1_TUPLE 0
