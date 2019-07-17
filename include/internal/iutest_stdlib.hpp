@@ -300,6 +300,10 @@
 #  endif
 #endif
 
+#if defined(__cpp_lib_to_chars) && __cpp_lib_to_chars >= 201611
+#  define IUTEST_HAS_STD_TO_CHARS           1
+#endif
+
 #endif
 
 #if IUTEST_HAS_CXX17
@@ -347,8 +351,8 @@
 #  define IUTEST_HAS_STD_QUICK_EXIT     0
 #endif
 //! has to_chars
-#if !defined(IUTEST_HAS_STD_TOCHARS)
-#  define IUTEST_HAS_STD_TOCHARS        0
+#if !defined(IUTEST_HAS_STD_TO_CHARS)
+#  define IUTEST_HAS_STD_TO_CHARS       0
 #endif
 
 //! use external include tr1::tuple
