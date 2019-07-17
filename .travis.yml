@@ -101,7 +101,7 @@ after_failure:
     - |
       for f in `find . -maxdepth 1 -name "core_x_*"`; do
         COREFILE=${f}
-        EXECFILE=${f##core_x_}
+        EXECFILE=${f##*/core_x_}
         gdb -c "${COREFILE}" ${EXECFILE} -ex "thread apply all bt" -ex "set pagination 0" -batch
       done
 
