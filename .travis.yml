@@ -28,6 +28,7 @@ addons:
 
 before_install:
   - ulimit -c unlimited
+  - echo "core_x_%e" > /proc/sys/kernel/core_pattern
   - python .ci/travisci/travis_blocking_stdout.py || true
   #- apt-cache search clang || true
   #- apt-cache search gcc || true
@@ -97,8 +98,11 @@ script:
 
 after_failure:
     - cd ${TRAVIS_BUILD_DIR}/test
-    - COREFILE=$(find . -maxdepth 1 -name "core*" | head -n 1)
-    - if [[ -f "$COREFILE" ]]; then gdb -c "$COREFILE" unit_tests -ex "thread apply all bt" -ex "set pagination 0" -batch; fi
+    - for f in `find . -maxdepth 1 -name "core_x_*"`; do
+        COREFILE=${f}
+        EXECFILE=${f##core_x_}
+        gdb -c "${COREFILE}" ${EXECFILE} -ex "thread apply all bt" -ex "set pagination 0" -batch
+      done
 
 env:
   global:
