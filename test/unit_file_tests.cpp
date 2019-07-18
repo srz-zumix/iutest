@@ -44,6 +44,7 @@ public:
         const ::std::filesystem::path from("./testdata/empty.bin");
         IUTEST_ASSERT_TRUE(::std::filesystem::copy_file(from, largefile, ::std::filesystem::copy_options::overwrite_existing));
 //        ::std::filesystem::resize_file(largefile, 0x100000000ull);
+        from.clear();
     }
     static void TearDownTestCase()
     {
