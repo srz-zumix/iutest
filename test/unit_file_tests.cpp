@@ -41,7 +41,7 @@ class FileSystemTest : public ::iutest::Test
 public:
     static void SetUpTestCase()
     {
-        ::std::filesystem::copy_file("./testdata/empty.bin", largefile, ::std::filesystem::copy_options::overwrite_existing);
+        IUTEST_ASSERT_TRUE(::std::filesystem::copy_file("./testdata/empty.bin", largefile, ::std::filesystem::copy_options::overwrite_existing));
 //        ::std::filesystem::resize_file(largefile, 0x100000000ull);
     }
     static void TearDownTestCase()
