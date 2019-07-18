@@ -34,14 +34,14 @@ IUTEST(StdFileUnitTest, AppendOpenedFileSize)
 
 #if IUTEST_HAS_CXX_HDR_FILESYSTEM
 
-const char* largefilepath = "./testdata/largefile.bin";
+const char* largefile = "./testdata/largefile.bin";
 
 class FileSystemTest : public ::iutest::Test
 {
 public:
     void SetUp()
     {
-        IUTEST_ASSERT_TRUE(::std::filesystem::copy_file("./testdata/empty.bin", largefilepath, ::std::filesystem::copy_options::overwrite_existing));
+        IUTEST_ASSERT_TRUE(::std::filesystem::copy_file("./testdata/empty.bin", largefile, ::std::filesystem::copy_options::overwrite_existing));
 //        ::std::filesystem::resize_file(largefile, 0x100000000ull);
     }
     static void TearDownTestCase()
