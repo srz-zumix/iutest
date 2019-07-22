@@ -232,7 +232,7 @@ IUTEST(Any, PrintTo)
 
 #endif
 
-#if IUTEST_USE_CXX_FILESYSTEM
+#if IUTEST_HAS_STD_FILESYSTEM
 
 IUTEST(FileSystem, PathCompare)
 {

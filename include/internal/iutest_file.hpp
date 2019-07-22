@@ -53,7 +53,7 @@ public:
         return OpenImpl(filename, mode);
     }
 
-#if IUTEST_HAS_CXX_HDR_FILESYSTEM
+#if IUTEST_HAS_STD_FILESYSTEM
     /**
      * @brief   開く
      * @param [in]  path        = ファイルパス

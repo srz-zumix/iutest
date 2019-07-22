@@ -32,7 +32,7 @@ IUTEST(StdFileUnitTest, AppendOpenedFileSize)
 
 #endif
 
-#if IUTEST_HAS_CXX_HDR_FILESYSTEM
+#if IUTEST_HAS_STD_FILESYSTEM
 
 const char* largefile = "./testdata/largefile.bin";
 

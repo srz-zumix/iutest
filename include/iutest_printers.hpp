@@ -362,7 +362,7 @@ inline void PrintTo(const ::std::any& value, iu_ostream* os)
 }
 #endif
 
-#if IUTEST_USE_CXX_FILESYSTEM
+#if IUTEST_HAS_STD_FILESYSTEM
 inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_type& value)
 {
     switch(value)
