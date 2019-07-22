@@ -349,6 +349,7 @@ var searchData=
   ['iutest_5fhas_5fstd_5finvoke',['IUTEST_HAS_STD_INVOKE',['../d9/dad/iutest__stdlib_8hpp.html#a6560869998425cd6f808311a56156775',1,'iutest_stdlib.hpp']]],
   ['iutest_5fhas_5fstd_5fquick_5fexit',['IUTEST_HAS_STD_QUICK_EXIT',['../d9/dad/iutest__stdlib_8hpp.html#af3a86409fb549c98f3b1de967b118174',1,'iutest_stdlib.hpp']]],
   ['iutest_5fhas_5fstd_5fstr_5fto_5fvalue',['IUTEST_HAS_STD_STR_TO_VALUE',['../d9/dad/iutest__stdlib_8hpp.html#a0396d6247b2b263e16f6a6939d38ceea',1,'iutest_stdlib.hpp']]],
+  ['iutest_5fhas_5fstd_5fto_5fchars',['IUTEST_HAS_STD_TO_CHARS',['../d9/dad/iutest__stdlib_8hpp.html#a39acb4a7674fdc6c8656116a0e87bedf',1,'iutest_stdlib.hpp']]],
   ['iutest_5fhas_5fstd_5ftuple',['IUTEST_HAS_STD_TUPLE',['../d9/dad/iutest__stdlib_8hpp.html#a0515f4ff4d32531fa847d78b2e5fd637',1,'iutest_stdlib.hpp']]],
   ['iutest_5fhas_5fstream_5fbuffer',['IUTEST_HAS_STREAM_BUFFER',['../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#gaa4fac664b9323f4196f4b223e81a5aed',1,'iutest_config.hpp']]],
   ['iutest_5fhas_5fstream_5fresult',['IUTEST_HAS_STREAM_RESULT',['../d4/da3/group___i_u_t_e_s_t___c_o_n_f_i_g___l_i_s_t_e_n_e_r.html#gae78ded653a3f3d4fe2320e927ee9d26e',1,'iutest_config.hpp']]],
