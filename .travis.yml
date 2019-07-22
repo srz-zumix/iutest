@@ -27,8 +27,11 @@ addons:
       #- cppcheck
 
 before_install:
-  - ulimit -c unlimited
-  - sudo bash -c 'echo "core_x_%e" > /proc/sys/kernel/core_pattern'
+  - |
+    if [[ "${TRAVIS_OS_NAME} != "windows" ]]; then
+      ulimit -c unlimited
+      sudo bash -c 'echo "core_x_%e" > /proc/sys/kernel/core_pattern'
+    fi
   - python .ci/travisci/travis_blocking_stdout.py || true
   #- apt-cache search clang || true
   #- apt-cache search gcc || true
