@@ -28,7 +28,7 @@ addons:
 
 before_install:
   - |
-    if [[ "${TRAVIS_OS_NAME} != "windows" ]]; then
+    if [[ "${TRAVIS_OS_NAME}" != "windows" ]]; then
       ulimit -c unlimited
       sudo bash -c 'echo "core_x_%e" > /proc/sys/kernel/core_pattern'
     fi
