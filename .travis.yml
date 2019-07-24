@@ -131,7 +131,7 @@ matrix:
         apt:
           sources: *apt-common-sources
           packages:
-            - *apt-common-packages
+            - clang-8
             - lcov
             - rubygems-integration
     # fused
