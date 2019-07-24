@@ -17,12 +17,12 @@ addons:
   apt: &apt-global
     sources: &apt-common-sources
       - ubuntu-toolchain-r-test
-      - llvm-toolchain-xenial-8
+      - llvm-toolchain-xenial-9
       - llvm-toolchain-xenial
     packages: &apt-common-packages
       - clang-8
-      - g++-8
-      - gcc-8
+      - g++-9
+      - gcc-9
       #- cppcheck
 
 before_install:
@@ -35,11 +35,11 @@ before_install:
   # g++
   - |
     if [ "${CXX}" = 'g++' ] && [ "${HOST}" != 'WINE' ] && [ "${USE_COVERAGE}" = '' ]; then
-      export CC=gcc-8
-      export CXX=g++-8
-      export CCOV=gcov-8
-      export AR=gcc-ar-8
-      export RANLIB=gcc-ranlib-8
+      export CC=gcc-9
+      export CXX=g++-9
+      export CCOV=gcov-9
+      export AR=gcc-ar-9
+      export RANLIB=gcc-ranlib-9
       #update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-8  90
       #update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-8  90
       #update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-8 90
