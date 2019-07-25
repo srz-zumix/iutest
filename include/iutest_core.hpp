@@ -85,7 +85,7 @@ public:
     int             reportable_test_run_skipped_count() const;
 
     /** テストケース数の総数 */
-    int             total_test_case_count() const { return m_testcases.size(); }
+    int             total_test_case_count() const { return static_cast<int>(m_testcases.size()); }
     /** 実行したテストケース総数 */
     int             test_case_to_run_count() const;
     /** 成功したテストケース総数 */

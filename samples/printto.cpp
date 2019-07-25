@@ -41,8 +41,10 @@ void PrintTo(const Bar& bar, ::iutest::iu_ostream* os)
 IUTEST(PrintToTest, Test1)
 {
     ::std::vector<int> a;
-    for( int i=0; i < 10; ++i )
+    for( int i = 0; i < 10; ++i )
+    {
         a.push_back(i);
+    }
     IUTEST_SUCCEED() << ::iutest::PrintToString(a);
 
     int* pi=NULL;

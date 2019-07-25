@@ -872,7 +872,9 @@
 #  if defined(__SIZEOF_INT128__) && __SIZEOF_INT128__ == 16
 #    define IUTEST_HAS_INT128   1
 #  elif defined(_MSC_VER) && defined(_M_X64)
-#    define IUTEST_HAS_INT128   1
+// https://docs.microsoft.com/ja-jp/cpp/cpp/fundamental-types-cpp?view=vs-2019
+// __int128 is not supported
+// #    define IUTEST_HAS_INT128   1
 #  endif
 #endif
 

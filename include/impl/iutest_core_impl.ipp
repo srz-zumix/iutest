@@ -46,13 +46,18 @@ IUTEST_IPP_INLINE void UnitTestImpl::AddTestInfo(TestCase* pCase, TestInfo* pInf
     pCase->push_back(pInfo);
 }
 
-IUTEST_IPP_INLINE void UnitTestImpl::SkipTest()
+IUTEST_IPP_INLINE bool UnitTestImpl::SkipTest()
 {
+    if( current_test_result()->Failed() )
+    {
+        return false;
+    }
     const Test* test = Test::GetCurrentTest();
     if( test != NULL && test->m_test_info->ptr() != NULL )
     {
         test->m_test_info->ptr()->skip();
     }
+    return true;
 }
 
 IUTEST_IPP_INLINE int UnitTestImpl::Listup() const
