@@ -48,7 +48,7 @@ steps:
         image: gcc:8
         environment:
           - OUTDIR=gcc8
-  RunningUnitTests:
+  RunningUnitTests2:
     type: parallel
     stage: test2
     steps:
