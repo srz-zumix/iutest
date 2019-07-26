@@ -3,7 +3,8 @@ stages:
   - checkout
   - build
   - prepare
-  - test
+  - test1
+  - test2
 
 steps:
   main_clone:
@@ -29,7 +30,7 @@ steps:
       - make -C test prepare
   RunningUnitTests:
     type: parallel
-    stage: test
+    stage: test1
     steps:
       BasicTest-gcc9: &basic_test
         title: Running Basic Tests - gcc9
@@ -52,21 +53,33 @@ steps:
         image: gcc:7
         environment:
           - OUTDIR=gcc7
-      BenchmarkTest:
-        title: Running Benchmark Tests
-        image: '${{BuildingDockerImage}}'
-        working_directory: IMAGE_WORK_DIR
-        entry_point:
-          - /bin/sh
-          - /codefresh/volume/cf-generated/unit_test_script
-        create_file:
-          path: /codefresh/volume/cf-generated
-          name: unit_test_script
-          content: |-
-            cd /codefresh/volume/iutest
-            cd test
-            make -C benchmark
-            make bench
+  BenchmarkTest:
+    title: Running Benchmark Tests
+    stage: test2
+    image: '${{BuildingDockerImage}}'
+    working_directory: IMAGE_WORK_DIR
+    entry_point:
+      - /bin/sh
+      - /codefresh/volume/cf-generated/unit_test_script
+    create_file:
+      path: /codefresh/volume/cf-generated
+      name: unit_test_script
+      content: |-
+        cd /codefresh/volume/iutest
+        cd test
+        make -C benchmark
+        make bench
+    when:
+      steps:
+       - name: Running Basic Tests - gcc9
+         on:
+           - success
+       - name: Running Basic Tests - gcc8
+         on:
+           - success
+       - name: Running Basic Tests - gcc7
+         on:
+           - success
     on_success:
       metadata:
         set:
