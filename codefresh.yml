@@ -12,9 +12,10 @@ steps:
   Prepare:
     title: Prepare
     type: build
+    image_name: alpine:3.10
     when:
       condition:
-        all:
+        - all:
           noSkipCiInCommitMessage1: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "skip ci") == false'
           noSkipCiInCommitMessage2: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "ci skip") == false'
   main_clone:
