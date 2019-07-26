@@ -5,6 +5,7 @@ stages:
   - prepare
   - test1
   - test2
+  - test3
 
 steps:
   main_clone:
@@ -47,6 +48,10 @@ steps:
         image: gcc:8
         environment:
           - OUTDIR=gcc8
+  RunningUnitTests:
+    type: parallel
+    stage: test2
+    steps:
       BasicTest-gcc7:
         <<: *basic_test
         title: Running Basic Tests - gcc7
@@ -55,7 +60,7 @@ steps:
           - OUTDIR=gcc7
   BenchmarkTest:
     title: Running Benchmark Tests
-    stage: test2
+    stage: test3
     image: '${{BuildingDockerImage}}'
     working_directory: IMAGE_WORK_DIR
     entry_point:
