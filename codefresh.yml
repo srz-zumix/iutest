@@ -1,19 +1,33 @@
 version: '1.0'
 stages:
+  - prepare
   - checkout
   - build
-  - prepare
+  - prepare_tests
   - test1
   - test2
   - test3
 
 steps:
+  Prepare:
+    title: Prepare
+    type: build
+    when:
+      condition:
+        all:
+          noSkipCiInCommitMessage1: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "skip ci") == false'
+          noSkipCiInCommitMessage2: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "ci skip") == false'
   main_clone:
     title: Cloning main repository...
     type: git-clone
     stage: checkout
     repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
     revision: '${{CF_REVISION}}'
+    when:
+      condition:
+       - name: Prepare
+         on:
+           - success        
   BuildingDockerImage:
     title: Building Docker Image
     stage: build
@@ -24,7 +38,7 @@ steps:
     dockerfile: ./tools/docker/Dockerfile
   PrepareUnitTests:
     title: Prepare
-    stage: prepare
+    stage: prepare_tests
     image: gcc:9
     commands:
       - make -C test clean
@@ -41,7 +55,7 @@ steps:
         commands:
           - rm -rf test/${OUTDIR} || true
           - mkdir test/${OUTDIR}
-          - make -C test -j4
+          - make -C test
           - make -C test test
       BasicTest-gcc8:
         <<: *basic_test
