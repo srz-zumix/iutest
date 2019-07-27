@@ -66,6 +66,10 @@ CCOV=$(USE_COVERAGE)
 endif
 endif
 
+ifdef CI_SMALL_RESOURCE
+CXXFLAGS += --param ggc-min-expand=0 --param ggc-min-heapsize=8192
+endif
+
 #
 #
 # compiler
