@@ -67,7 +67,7 @@ endif
 endif
 
 ifdef CI_SMALL_RESOURCE
-CXXFLAGS += --param ggc-min-expand=1 --param ggc-min-heapsize=32768
+CXXFLAGS += --param ggc-min-expand=0 --param ggc-min-heapsize=4096
 endif
 
 #
