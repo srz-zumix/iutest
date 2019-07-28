@@ -148,11 +148,10 @@ NAMESPACETESTS_SRCS = main.cpp $(NAMESPACETESTS_TEST_SRCS)
 
 COMMON_RUN_TARGETS=$(ALLTESTS_TARGET) $(EXTENSIONTESTS_TARGET) $(NAMESPACETESTS_TARGET) $(TARGETS1) $(TARGETS2)
 ifneq ($(USE_GTEST)$(USE_GMOCK),)
-RUN_TARGETS_ = $(COMMON_RUN_TARGETS)
+RUN_TARGETS = $(COMMON_RUN_TARGETS)
 else
-RUN_TARGETS_ = $(COMMON_RUN_TARGETS) $(TARGETS_IUTEST_ONLY) $(UNITTESTS_TARGET)
+RUN_TARGETS = $(COMMON_RUN_TARGETS) $(TARGETS_IUTEST_ONLY) $(UNITTESTS_TARGET)
 endif
-RUN_TARGETS = $(RUN_TARGETS_:$(OUTDIR)/%=%)
 
 ifeq ($(USE_GTEST)$(USE_GMOCK)$(USE_COVERAGE)$(USE_SCANBUILD),)
 ERR_TARGETS = $(COMPILEERROR_TARGETS)
@@ -163,7 +162,7 @@ TARGETS = $(BUILD_TARGETS) $(ERR_TARGETS)
 NO_DEFAULT_TARGETS=$(SYNTAXTESTS_TARGET)
 
 SRCS   = $(BUILD_TARGETS:%=%.cpp)
-RUNNER = $(RUN_TARGETS:%=run_%)
+RUNNER = $(RUN_TARGETS:$(OUTDIR)/%=run_%)
 
 ifdef USE_FUSEDD
 IUTEST_INCLUDE=-I$(IUTEST_DIR)/fused-src
@@ -233,7 +232,7 @@ showcxxflags:
 	@echo $(CXXFLAGS)
 
 %_run : $(OUTDIR)/%
-	echo $(OUTDIR)/$(<F)
+	@echo $(OUTDIR)/$(<F)
 ifdef USE_COVERAGE
 	${WINE_} $(OUTDIR)/$(<F) $(RUN_OPTION) --iutest_output=xml:$(OUTDIR)/$(<F).xml > /dev/null
 else
@@ -252,6 +251,7 @@ run_% : %_run
 	@echo $< > /dev/null
 
 prepare: $(NAMESPACETESTS_TEST_SRCS)
+	@if [[ ! -d "${OUTDIR}" ]]; then mkdir $(OUTDIR); fi
 
 # gtest version test
 gtest-version: clean gtest_version_tests_run
