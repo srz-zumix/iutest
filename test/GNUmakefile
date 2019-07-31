@@ -68,7 +68,7 @@ endif
 
 ifdef CI_SMALL_RESOURCE
 CXXFLAGS += --param ggc-min-expand=2 --param ggc-min-heapsize=8192
-CXXFLAGS += -g0
+CXXFLAGS += -g0 -O0
 # CXXFLAGS += -v # for log output without timeout
 endif
 
