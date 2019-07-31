@@ -46,7 +46,7 @@ steps:
         commands:
           - rm -rf test/${OUTDIR} || true
           - mkdir test/${OUTDIR}
-          - make -C test -j2
+          - make -C test -j
           - make -C test test
       BasicTest-gcc8:
         <<: *basic_test
