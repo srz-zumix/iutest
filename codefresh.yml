@@ -47,7 +47,7 @@ steps:
         commands:
           - rm -rf test/${OUTDIR} || true
           - mkdir test/${OUTDIR}
-          - make -C test -j2 all_tests_build
+          - make -C test all_tests_build
       BuildBasicTest-gcc8:
         <<: *build_all_test
         title: Build Basic all_tests - gcc8
@@ -70,7 +70,7 @@ steps:
         environment:
           - OUTDIR=gcc9
         commands:
-          - make -C test -j2
+          - make -C test
         when:
           steps:
           - name: Running Basic all_tests - gcc9
