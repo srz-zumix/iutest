@@ -65,7 +65,6 @@ steps:
     stage: build_other_tests
     steps:
       BuildOtherTest-gcc9: &build_other_test
-        title: Build Basic other tests - gcc9
         image: gcc:9
         environment:
           - OUTDIR=gcc9
@@ -73,29 +72,27 @@ steps:
           - make -C test
         when:
           steps:
-          - name: Running Basic all_tests - gcc9
+          - name: BuildBasicTest-gcc9
             on:
               - success
       BuildOtherTest-gcc8:
         <<: *build_other_test
-        title: Build Basic other tests - gcc8
         image: gcc:8
         environment:
           - OUTDIR=gcc8
         when:
           steps:
-          - name: Running Basic all_tests - gcc8
+          - name: BuildBasicTest-gcc8
             on:
               - success
       BuildOtherTest-gcc7:
         <<: *build_other_test
-        title: Build Basic other tests - gcc7
         image: gcc:7
         environment:
           - OUTDIR=gcc7
         when:
           steps:
-          - name: Running Basic all_tests - gcc7
+          - name: BuildBasicTest-gcc7
             on:
               - success
   RunningUnitTests:
