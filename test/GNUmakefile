@@ -238,6 +238,9 @@ showcxxmacros:
 showcxxflags:
 	@echo $(CXXFLAGS)
 
+%_build: $(OUTDIR)/%
+	@echo $(OUTDIR)/$(<F)
+
 %_run : $(OUTDIR)/%
 	@echo $(OUTDIR)/$(<F)
 ifdef USE_COVERAGE
