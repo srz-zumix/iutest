@@ -100,7 +100,6 @@ steps:
     stage: run_tests
     steps:
       RunningUnitTest-gcc9: &run_test
-        title: Running Unit Tests - gcc9
         image: gcc:9
         environment:
           - OUTDIR=gcc9
@@ -108,29 +107,27 @@ steps:
           - make -C test test
         when:
           steps:
-          - name: Running Basic other tests - gcc9
+          - name: BuildOtherTest-gcc9
             on:
               - success
       RunningUnitTest-gcc8:
         <<: *run_test
-        title: Running Unit Tests - gcc8
         image: gcc:8
         environment:
           - OUTDIR=gcc8
         when:
           steps:
-          - name: Running Basic other tests - gcc8
+          - name: BuildOtherTest-gcc8
             on:
               - success
       RunningUnitTest-gcc7:
         <<: *run_test
-        title: Running Unit Tests - gcc7
         image: gcc:7
         environment:
           - OUTDIR=gcc7
         when:
           steps:
-          - name: Running Basic other tests - gcc7
+          - name: BuildOtherTest-gcc7
             on:
               - success
   BenchmarkTest:
@@ -151,13 +148,13 @@ steps:
         make bench
     when:
       steps:
-       - name: Running Unit Tests - gcc9
+       - name: RunningUnitTest-gcc9
          on:
            - success
-       - name: Running Unit Tests - gcc8
+       - name: RunningUnitTest-gcc8
          on:
            - success
-       - name: Running Unit Tests - gcc7
+       - name: RunningUnitTest-gcc7
          on:
            - success
     on_success:
