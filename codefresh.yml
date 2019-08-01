@@ -98,11 +98,11 @@ steps:
           - name: Running Basic all_tests - gcc7
             on:
               - success
-  RUnningUnitTests:
+  RunningUnitTests:
     type: parallel
     stage: run_tests
     steps:
-      BuildOtherTest-gcc9: &run_test
+      RunningUnitTest-gcc9: &run_test
         title: Running Unit Tests - gcc9
         image: gcc:9
         environment:
@@ -114,7 +114,7 @@ steps:
           - name: Running Basic other tests - gcc9
             on:
               - success
-      BuildOtherTest-gcc8:
+      RunningUnitTest-gcc8:
         <<: *run_test
         title: Running Unit Tests - gcc8
         image: gcc:8
@@ -125,7 +125,7 @@ steps:
           - name: Running Basic other tests - gcc8
             on:
               - success
-      BuildOtherTest-gcc7:
+      RunningUnitTest-gcc7:
         <<: *run_test
         title: Running Unit Tests - gcc7
         image: gcc:7
