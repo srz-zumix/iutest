@@ -3,9 +3,10 @@ stages:
   - checkout
   - build
   - prepare
-  - test1
-  - test2
-  - test3
+  - build_all_tests
+  - build_other_test
+  - run_tests
+  - bench_test
 
 steps:
   main_clone:
@@ -34,39 +35,110 @@ steps:
     commands:
       - make -C test clean
       - make -C test prepare
-  RunningUnitTests:
+  BuildUnitTests:
     type: parallel
-    stage: test1
+    stage: build_all_tests
     steps:
-      BasicTest-gcc9: &basic_test
-        title: Running Basic Tests - gcc9
+      BuildBasicTest-gcc9: &build_all_test
+        title: Build Basic all_tests - gcc9
         image: gcc:9
         environment:
           - OUTDIR=gcc9
         commands:
           - rm -rf test/${OUTDIR} || true
           - mkdir test/${OUTDIR}
-          - make -C test -j3
-          - make -C test test
-      BasicTest-gcc8:
-        <<: *basic_test
-        title: Running Basic Tests - gcc8
+          - make -C test -j2 all_tests
+      BuildBasicTest-gcc8:
+        <<: *build_all_test
+        title: Build Basic all_tests - gcc8
         image: gcc:8
         environment:
           - OUTDIR=gcc8
-  RunningUnitTests2:
-    type: parallel
-    stage: test2
-    steps:
-      BasicTest-gcc7:
-        <<: *basic_test
-        title: Running Basic Tests - gcc7
+      BuildBasicTest-gcc7:
+        <<: *build_all_test
+        title: Build Basic all_tests - gcc7
         image: gcc:7
         environment:
           - OUTDIR=gcc7
+  BuildOtherUnitTests:
+    type: parallel
+    stage: build_other_tests
+    steps:
+      BuildOtherTest-gcc9: &build_other_test
+        title: Build Basic other tests - gcc9
+        image: gcc:9
+        environment:
+          - OUTDIR=gcc9
+        commands:
+          - make -C test -j2
+        when:
+          steps:
+          - name: Running Basic all_tests - gcc9
+            on:
+              - success
+      BuildOtherTest-gcc8:
+        <<: *build_other_test
+        title: Build Basic other tests - gcc8
+        image: gcc:8
+        environment:
+          - OUTDIR=gcc8
+        when:
+          steps:
+          - name: Running Basic all_tests - gcc8
+            on:
+              - success
+      BuildOtherTest-gcc7:
+        <<: *build_other_test
+        title: Build Basic other tests - gcc7
+        image: gcc:7
+        environment:
+          - OUTDIR=gcc7
+        when:
+          steps:
+          - name: Running Basic all_tests - gcc7
+            on:
+              - success
+  RUnningUnitTests:
+    type: parallel
+    stage: run_tests
+    steps:
+      BuildOtherTest-gcc9: &run_test
+        title: Running Unit Tests - gcc9
+        image: gcc:9
+        environment:
+          - OUTDIR=gcc9
+        commands:
+          - make -C test test
+        when:
+          steps:
+          - name: Running Basic other tests - gcc9
+            on:
+              - success
+      BuildOtherTest-gcc8:
+        <<: *run_test
+        title: Running Unit Tests - gcc8
+        image: gcc:8
+        environment:
+          - OUTDIR=gcc8
+        when:
+          steps:
+          - name: Running Basic other tests - gcc8
+            on:
+              - success
+      BuildOtherTest-gcc7:
+        <<: *run_test
+        title: Running Unit Tests - gcc7
+        image: gcc:7
+        environment:
+          - OUTDIR=gcc7
+        when:
+          steps:
+          - name: Running Basic other tests - gcc7
+            on:
+              - success
   BenchmarkTest:
     title: Running Benchmark Tests
-    stage: test3
+    stage: bench_test
     image: '${{BuildingDockerImage}}'
     working_directory: IMAGE_WORK_DIR
     entry_point:
@@ -82,13 +154,13 @@ steps:
         make bench
     when:
       steps:
-       - name: Running Basic Tests - gcc9
+       - name: Running Unit Tests - gcc9
          on:
            - success
-       - name: Running Basic Tests - gcc8
+       - name: Running Unit Tests - gcc8
          on:
            - success
-       - name: Running Basic Tests - gcc7
+       - name: Running Unit Tests - gcc7
          on:
            - success
     on_success:
