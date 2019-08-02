@@ -21,22 +21,22 @@
 
 //======================================================================
 // define
-#ifndef IUTEST_HAS_HDR_TYPETARITS
+#ifndef IUTEST_HAS_CXX_HDR_TYPE_TARITS
 #  if defined(__has_include)
 #    if __has_include( <type_traits> ) && IUTEST_HAS_CXX11
-#      define IUTEST_HAS_HDR_TYPETARITS     1
+#      define IUTEST_HAS_CXX_HDR_TYPE_TARITS     1
 #    endif
 #  elif (defined(__GLIBCXX__) || defined(_LIBCPP_VERSION)) && IUTEST_HAS_CXX11
-#    define IUTEST_HAS_HDR_TYPETARITS       1
+#    define IUTEST_HAS_CXX_HDR_TYPE_TARITS       1
 #  elif defined(_MSC_VER)
 #    if _MSC_VER >= 1600
-#      define IUTEST_HAS_HDR_TYPETARITS     1
+#      define IUTEST_HAS_CXX_HDR_TYPE_TARITS     1
 #    endif
 #  endif
 #endif
 
-#ifndef IUTEST_HAS_HDR_TYPETARITS
-#  define IUTEST_HAS_HDR_TYPETARITS         0
+#ifndef IUTEST_HAS_CXX_HDR_TYPE_TARITS
+#  define IUTEST_HAS_CXX_HDR_TYPE_TARITS         0
 #endif
 
 #ifndef IUTEST_HAS_RVALUE_REFS
@@ -51,7 +51,7 @@
 #  define IUTEST_HAS_RVALUE_REFS    0
 #endif
 
-#if IUTEST_HAS_HDR_TYPETARITS
+#if IUTEST_HAS_CXX_HDR_TYPE_TARITS
 #  include <type_traits>
 #else
 #  if !defined(IUTEST_USE_OWN_IS_MEMBER_FUNCTION_POINTER)
@@ -152,7 +152,7 @@ template<typename T>struct is_member_function_pointer;
 
 #endif
 
-#if IUTEST_HAS_HDR_TYPETARITS
+#if IUTEST_HAS_CXX_HDR_TYPE_TARITS
 
 using ::std::true_type;
 using ::std::false_type;

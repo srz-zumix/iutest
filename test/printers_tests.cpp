@@ -204,11 +204,11 @@ IUTEST(PrintToTest, WideString)
         wchar_t c = L'\n';
         IUTEST_SUCCEED() << ::iutest::PrintToString(c);
     }
-//  {
-//      LogChecker ck("\'A\'");
-//      wchar_t c = L'A';
-//      IUTEST_SUCCEED() << ::iutest::PrintToString(c);
-//  }
+    {
+        LogChecker ck("\'A\'");
+        wchar_t c = L'A';
+        IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+    }
     {
         LogChecker ck("(null)");
         wchar_t* p = NULL;
