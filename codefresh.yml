@@ -95,7 +95,7 @@ steps:
           - name: BuildBasicTest-gcc7
             on:
               - success
-  RunningUnitTests:
+  RunningAllUnitTests:
     type: parallel
     stage: run_tests
     steps:
@@ -130,7 +130,7 @@ steps:
           - name: BuildOtherTest-gcc7
             on:
               - success
-  BenchmarkTest:
+  Benchmark:
     title: Running Benchmark Tests
     stage: bench_test
     image: '${{BuildingDockerImage}}'
