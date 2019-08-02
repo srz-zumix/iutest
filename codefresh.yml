@@ -6,7 +6,7 @@ stages:
   - build_all_tests
   - build_other_test
   - run_tests
-  - bench_test
+  - benchmark
 
 steps:
   main_clone:
@@ -132,7 +132,7 @@ steps:
               - success
   Benchmark:
     title: Running Benchmark Tests
-    stage: bench_test
+    stage: benchmark
     image: '${{BuildingDockerImage}}'
     working_directory: IMAGE_WORK_DIR
     entry_point:
