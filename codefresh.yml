@@ -4,7 +4,7 @@ stages:
   - build
   - prepare
   - build_all_tests
-  - build_other_test
+  - build_other_tests
   - run_tests
   - benchmark
 
