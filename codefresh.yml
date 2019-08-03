@@ -33,14 +33,15 @@ steps:
     stage: prepare
     image: gcc:9
     commands:
-      - cf_export GGC_MIN_HEAPSIZ=32768
+      # - cf_export GGC_MIN_EXPAND=4
+      # - cf_export GGC_MIN_HEAPSIZ=32768
       - make -C test clean
       - make -C test prepare
   BuildUnitTests:
     type: parallel
     stage: build_all_tests
     steps:
-      BuildBasicTest-gcc9: &build_all_test
+      BuildBasicTest_gcc9: &build_all_test
         title: Build Basic all_tests - gcc9
         image: gcc:9
         environment:
@@ -49,13 +50,13 @@ steps:
           - rm -rf test/${OUTDIR} || true
           - mkdir test/${OUTDIR}
           - make -C test all_tests_build
-      BuildBasicTest-gcc8:
+      BuildBasicTest_gcc8:
         <<: *build_all_test
         title: Build Basic all_tests - gcc8
         image: gcc:8
         environment:
           - OUTDIR=gcc8
-      BuildBasicTest-gcc7:
+      BuildBasicTest_gcc7:
         <<: *build_all_test
         title: Build Basic all_tests - gcc7
         image: gcc:7
@@ -65,7 +66,7 @@ steps:
     type: parallel
     stage: build_other_tests
     steps:
-      BuildOtherTest-gcc9: &build_other_test
+      BuildOtherTest_gcc9: &build_other_test
         image: gcc:9
         environment:
           - OUTDIR=gcc9
@@ -73,34 +74,34 @@ steps:
           - make -C test
         when:
           steps:
-          - name: BuildBasicTest-gcc9
+          - name: BuildBasicTest_gcc9
             on:
               - success
-      BuildOtherTest-gcc8:
+      BuildOtherTest_gcc8:
         <<: *build_other_test
         image: gcc:8
         environment:
           - OUTDIR=gcc8
         when:
           steps:
-          - name: BuildBasicTest-gcc8
+          - name: BuildBasicTest_gcc8
             on:
               - success
-      BuildOtherTest-gcc7:
+      BuildOtherTest_gcc7:
         <<: *build_other_test
         image: gcc:7
         environment:
           - OUTDIR=gcc7
         when:
           steps:
-          - name: BuildBasicTest-gcc7
+          - name: BuildBasicTest_gcc7
             on:
               - success
   RunningAllUnitTests:
     type: parallel
     stage: run_tests
     steps:
-      RunningUnitTest-gcc9: &run_test
+      RunningUnitTest_gcc9: &run_test
         image: gcc:9
         environment:
           - OUTDIR=gcc9
@@ -108,27 +109,27 @@ steps:
           - make -C test test
         when:
           steps:
-          - name: BuildOtherTest-gcc9
+          - name: BuildOtherTest_gcc9
             on:
               - success
-      RunningUnitTest-gcc8:
+      RunningUnitTest_gcc8:
         <<: *run_test
         image: gcc:8
         environment:
           - OUTDIR=gcc8
         when:
           steps:
-          - name: BuildOtherTest-gcc8
+          - name: BuildOtherTest_gcc8
             on:
               - success
-      RunningUnitTest-gcc7:
+      RunningUnitTest_gcc7:
         <<: *run_test
         image: gcc:7
         environment:
           - OUTDIR=gcc7
         when:
           steps:
-          - name: BuildOtherTest-gcc7
+          - name: BuildOtherTest_gcc7
             on:
               - success
   Benchmark:
@@ -149,13 +150,13 @@ steps:
         make bench
     when:
       steps:
-       - name: RunningUnitTest-gcc9
+       - name: RunningUnitTest_gcc9
          on:
            - success
-       - name: RunningUnitTest-gcc8
+       - name: RunningUnitTest_gcc8
          on:
            - success
-       - name: RunningUnitTest-gcc7
+       - name: RunningUnitTest_gcc7
          on:
            - success
     on_success:

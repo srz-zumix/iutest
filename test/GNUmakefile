@@ -66,15 +66,9 @@ CCOV=$(USE_COVERAGE)
 endif
 endif
 
-ifdef CI_SMALL_RESOURCE
-# CXXFLAGS += --param ggc-min-expand=10
-ifndef GGC_MIN_HEAPSIZ
-GGC_MIN_HEAPSIZ = 10240
+ifdef GGC_MIN_EXPAND
+CXXFLAGS += --param ggc-min-expand=${GGC_MIN_EXPAND}
 endif
-CXXFLAGS += -g0 -O0
-# CXXFLAGS += -v # for log output without timeout
-endif
-
 ifdef GGC_MIN_HEAPSIZE
 CXXFLAGS += --param ggc-min-heapsize=${GGC_MIN_HEAPSIZE}
 endif
