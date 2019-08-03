@@ -33,7 +33,7 @@ steps:
     stage: prepare
     image: gcc:9
     commands:
-      - cf_export GGC_MIN_HEAPSIZ=‭16384‬
+      - cf_export GGC_MIN_HEAPSIZ=32768
       - make -C test clean
       - make -C test prepare
   BuildUnitTests:
