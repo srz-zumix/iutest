@@ -69,7 +69,7 @@ endif
 ifdef CI_SMALL_RESOURCE
 # CXXFLAGS += --param ggc-min-expand=10
 ifndef GGC_MIN_HEAPSIZ
-GGC_MIN_HEAPSIZ = 12288
+GGC_MIN_HEAPSIZ = 10240
 endif
 CXXFLAGS += -g0 -O0
 # CXXFLAGS += -v # for log output without timeout
