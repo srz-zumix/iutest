@@ -35,6 +35,7 @@ steps:
     commands:
       # - cf_export GGC_MIN_EXPAND=4
       # - cf_export GGC_MIN_HEAPSIZ=32768
+      - cf_export CI_NODEBUG=1
       - make -C test clean
       - make -C test prepare
   BuildUnitTests:

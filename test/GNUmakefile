@@ -73,6 +73,10 @@ ifdef GGC_MIN_HEAPSIZE
 CXXFLAGS += --param ggc-min-heapsize=${GGC_MIN_HEAPSIZE}
 endif
 
+ifdef CI_NODEBUG
+CXXFLAGS += -g0 -O0
+endif
+
 #
 #
 # compiler
