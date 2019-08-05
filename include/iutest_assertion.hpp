@@ -832,7 +832,7 @@ public:
 
 }   // end of namespace backward
 
-#if IUTEST_HAS_NULLPTR && IUTEST_HAS_HDR_TYPETARITS && 0
+#if IUTEST_HAS_NULLPTR && IUTEST_HAS_CXX_HDR_TYPE_TARITS && 0
 
 /**
  * @brief   Equal Helper

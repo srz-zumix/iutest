@@ -305,7 +305,8 @@ inline void PrintTo(const wchar_t value, iu_ostream* os)
     }
     else
     {
-        *os << "\'" << value << "\'";
+        const wchar_t str[2] = { value, L'\0' };
+        *os << "\'" << detail::ShowWideCString(str) << "\'";
     }
 }
 inline void PrintTo(const unsigned char value, iu_ostream* os)
