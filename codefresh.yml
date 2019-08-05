@@ -3,7 +3,10 @@ stages:
   - checkout
   - build
   - prepare
-  - test
+  - build_all_tests
+  - build_other_tests
+  - run_tests
+  - benchmark
 
 steps:
   main_clone:
@@ -12,6 +15,11 @@ steps:
     stage: checkout
     repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
     revision: '${{CF_REVISION}}'
+    when:
+      condition:
+        all:
+          noSkipCiInCommitMessage1: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "skip ci") == false'
+          noSkipCiInCommitMessage2: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "ci skip") == false'
   BuildingDockerImage:
     title: Building Docker Image
     stage: build
@@ -25,48 +33,133 @@ steps:
     stage: prepare
     image: gcc:9
     commands:
+      # - cf_export GGC_MIN_EXPAND=4
+      # - cf_export GGC_MIN_HEAPSIZ=32768
+      - cf_export CI_NODEBUG=1
       - make -C test clean
       - make -C test prepare
-  RunningUnitTests:
+  BuildUnitTests:
     type: parallel
-    stage: test
+    stage: build_all_tests
     steps:
-      BasicTest-gcc9: &basic_test
-        title: Running Basic Tests - gcc9
+      BuildBasicTest_gcc9: &build_all_test
+        title: Build Basic all_tests - gcc9
         image: gcc:9
         environment:
           - OUTDIR=gcc9
         commands:
           - rm -rf test/${OUTDIR} || true
           - mkdir test/${OUTDIR}
-          - make -C test test
-      BasicTest-gcc8:
-        <<: *basic_test
-        title: Running Basic Tests - gcc8
+          - make -C test all_tests_build
+      BuildBasicTest_gcc8:
+        <<: *build_all_test
+        title: Build Basic all_tests - gcc8
         image: gcc:8
         environment:
           - OUTDIR=gcc8
-      BasicTest-gcc7:
-        <<: *basic_test
-        title: Running Basic Tests - gcc7
+      BuildBasicTest_gcc7:
+        <<: *build_all_test
+        title: Build Basic all_tests - gcc7
         image: gcc:7
         environment:
           - OUTDIR=gcc7
-      BenchmarkTest:
-        title: Running Benchmark Tests
-        image: '${{BuildingDockerImage}}'
-        working_directory: IMAGE_WORK_DIR
-        entry_point:
-          - /bin/sh
-          - /codefresh/volume/cf-generated/unit_test_script
-        create_file:
-          path: /codefresh/volume/cf-generated
-          name: unit_test_script
-          content: |-
-            cd /codefresh/volume/iutest
-            cd test
-            make -C benchmark
-            make bench
+  BuildOtherUnitTests:
+    type: parallel
+    stage: build_other_tests
+    steps:
+      BuildOtherTest_gcc9: &build_other_test
+        image: gcc:9
+        environment:
+          - OUTDIR=gcc9
+        commands:
+          - make -C test
+        when:
+          steps:
+          - name: BuildBasicTest_gcc9
+            on:
+              - success
+      BuildOtherTest_gcc8:
+        <<: *build_other_test
+        image: gcc:8
+        environment:
+          - OUTDIR=gcc8
+        when:
+          steps:
+          - name: BuildBasicTest_gcc8
+            on:
+              - success
+      BuildOtherTest_gcc7:
+        <<: *build_other_test
+        image: gcc:7
+        environment:
+          - OUTDIR=gcc7
+        when:
+          steps:
+          - name: BuildBasicTest_gcc7
+            on:
+              - success
+  RunningAllUnitTests:
+    type: parallel
+    stage: run_tests
+    steps:
+      RunningUnitTest_gcc9: &run_test
+        image: gcc:9
+        environment:
+          - OUTDIR=gcc9
+        commands:
+          - make -C test test
+        when:
+          steps:
+          - name: BuildOtherTest_gcc9
+            on:
+              - success
+      RunningUnitTest_gcc8:
+        <<: *run_test
+        image: gcc:8
+        environment:
+          - OUTDIR=gcc8
+        when:
+          steps:
+          - name: BuildOtherTest_gcc8
+            on:
+              - success
+      RunningUnitTest_gcc7:
+        <<: *run_test
+        image: gcc:7
+        environment:
+          - OUTDIR=gcc7
+        when:
+          steps:
+          - name: BuildOtherTest_gcc7
+            on:
+              - success
+  Benchmark:
+    title: Running Benchmark Tests
+    stage: benchmark
+    image: '${{BuildingDockerImage}}'
+    working_directory: IMAGE_WORK_DIR
+    entry_point:
+      - /bin/sh
+      - /codefresh/volume/cf-generated/unit_test_script
+    create_file:
+      path: /codefresh/volume/cf-generated
+      name: unit_test_script
+      content: |-
+        cd /codefresh/volume/iutest
+        cd test
+        make -C benchmark
+        make bench
+    when:
+      steps:
+       - name: RunningUnitTest_gcc9
+         on:
+           - success
+       - name: RunningUnitTest_gcc8
+         on:
+           - success
+       - name: RunningUnitTest_gcc7
+         on:
+           - success
     on_success:
       metadata:
         set:
