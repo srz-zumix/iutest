@@ -5,14 +5,11 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: setup
-    task:
-      jobs:
-      - name: checkout
-        commands:
-          - checkout --use-cache
   - name: tests
     task:
+      prologue:
+        commands:
+          - checkout --use-cache
       jobs:
       - name: basic_tests
         commands:
