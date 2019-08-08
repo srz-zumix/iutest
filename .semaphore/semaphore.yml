@@ -27,7 +27,6 @@ blocks:
         commands:
           - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
           - sudo apt-key update && sudo apt-get -qq update
-          # - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys
           - sudo add-apt-repository -y "deb http://apt.llvm.org/$UBNAME/ llvm-toolchain-$UBNAME-$CLANG_VERSION main"
           - sudo add-apt-repository -y "deb http://apt.llvm.org/$UBNAME/ llvm-toolchain-$UBNAME main"
           - sudo apt-key update && sudo apt-get -qq update
@@ -39,12 +38,14 @@ blocks:
       jobs:
         - name: minimum_tests
           commands:
+            - cd test
             - make CXX=clang++ run_minimum_tests RUN_OPTION=--spec
             - ldd minimum_tests
             - make CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 test
             - make clean
         - name: scan-build
           commands:
+            - cd test
             - scan-build make CXX=clang++ CCC_CXX=clang++ showcxxversion
             - scan-build make CXX=clang++ CCC_CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0
         - name: sample-run
