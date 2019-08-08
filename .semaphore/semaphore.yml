@@ -20,7 +20,7 @@ blocks:
     task:
       env_vars:
         - name: CLANG_VERSION
-          value: 7
+          value: "7"
       prologue:
         commands:
           - sudo add-apt-repository -y 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-$CLANG_VERSION main'
