@@ -85,7 +85,7 @@ public:
         ::iutest::detail::iuConsole::SetLogger(NULL);
     }
 #endif
-}
+};
 
 IUTEST_F(ScopedTraceExceptionTest, Exception)
 {
