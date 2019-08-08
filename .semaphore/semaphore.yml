@@ -33,9 +33,7 @@ blocks:
           - sudo apt-key update && sudo apt-get -qq update
           - sudo apt-cache search clang
           - sudo apt-get -y --force-yes -qq install clang-$CLANG_VERSION clang-tools-$CLANG_VERSION
-          - sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-$CLANG_VERSION 360 \
-            --slave /usr/bin/clang++ clang++ /usr/bin/clang++-$CLANG_VERSION \
-            --slave /usr/bin/scan-build scan-build /usr/bin/scan-build-$CLANG_VERSION
+          - sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-$CLANG_VERSION 360 --slave /usr/bin/clang++ clang++ /usr/bin/clang++-$CLANG_VERSION --slave /usr/bin/scan-build scan-build /usr/bin/scan-build-$CLANG_VERSION
           - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
           - sudo apt-get update && sudo apt-get -qq install g++-7
       jobs:
