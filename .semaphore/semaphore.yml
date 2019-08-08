@@ -6,7 +6,8 @@ agent:
     os_image: ubuntu1804
 blocks:
   - name: tests
-    skip: true
+    skip:
+      when: true
     task:
       prologue:
         commands:
