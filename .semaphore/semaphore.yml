@@ -2,7 +2,7 @@ version: v1.0
 name: iutest
 agent:
   machine:
-    type: e1-standard-2
+    type: e1-standard-8
     os_image: ubuntu1804
 blocks:
   - name: tests
@@ -16,7 +16,7 @@ blocks:
         - name: basic_tests
           commands:
             - cd test
-            - make -j4
+            - make -j8
             - make test
   - name: scan-build
     task:
@@ -25,6 +25,8 @@ blocks:
           value: "7"
         - name: UBNAME
           value: bionic
+        - name: PARALLELS
+          value: -j8
       prologue:
         commands:
           - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
@@ -44,13 +46,13 @@ blocks:
             - cd test
             - make CXX=clang++ run_minimum_tests RUN_OPTION=--spec
             - ldd minimum_tests
-            - make CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 test
+            - make CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 test $PARALLELS
             - make clean
         - name: scan-build
           commands:
             - cd test
             - scan-build make CXX=clang++ CCC_CXX=clang++ showcxxversion
-            - scan-build make CXX=clang++ CCC_CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0
+            - scan-build make CXX=clang++ CCC_CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 $PARALLELS
         - name: sample-run
           commands:
             - cd projects/make
