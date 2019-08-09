@@ -10,6 +10,27 @@ auto_cancel:
     when: "branch != 'master'"
     
 blocks:
+  - name: install
+    task:
+      prologue:
+        commands:
+          - cache restore
+      jobs:
+        - name: install
+          commands:
+            - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+            - sudo apt-key update && sudo apt-get -qq update
+            - sudo add-apt-repository -y "deb http://apt.llvm.org/$UBNAME/ llvm-toolchain-$UBNAME-$CLANG_VERSION main"
+            - sudo add-apt-repository -y "deb http://apt.llvm.org/$UBNAME/ llvm-toolchain-$UBNAME main"
+            - sudo apt-key update && sudo apt-get -qq update
+            - sudo apt-cache search clang
+            - sudo apt-get -y --force-yes -qq install clang-$CLANG_VERSION clang-tools-$CLANG_VERSION
+            - sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-$CLANG_VERSION 360 --slave /usr/bin/clang++ clang++ /usr/bin/clang++-$CLANG_VERSION --slave /usr/bin/scan-build scan-build /usr/bin/scan-build-$CLANG_VERSION
+            - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+            - sudo apt-get update && sudo apt-get -qq install g++-7
+      epilogue:
+        commands:
+          - cache store
   - name: tests
     skip:
       when: true
@@ -34,16 +55,7 @@ blocks:
           value: -j8
       prologue:
         commands:
-          - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-          - sudo apt-key update && sudo apt-get -qq update
-          - sudo add-apt-repository -y "deb http://apt.llvm.org/$UBNAME/ llvm-toolchain-$UBNAME-$CLANG_VERSION main"
-          - sudo add-apt-repository -y "deb http://apt.llvm.org/$UBNAME/ llvm-toolchain-$UBNAME main"
-          - sudo apt-key update && sudo apt-get -qq update
-          - sudo apt-cache search clang
-          - sudo apt-get -y --force-yes -qq install clang-$CLANG_VERSION clang-tools-$CLANG_VERSION
-          - sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-$CLANG_VERSION 360 --slave /usr/bin/clang++ clang++ /usr/bin/clang++-$CLANG_VERSION --slave /usr/bin/scan-build scan-build /usr/bin/scan-build-$CLANG_VERSION
-          - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-          - sudo apt-get update && sudo apt-get -qq install g++-7
+          - cache restore
           - checkout --use-cache
       jobs:
         - name: minimum_tests
