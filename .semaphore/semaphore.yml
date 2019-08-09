@@ -15,6 +15,18 @@ global_job_config:
       value: "7"
     - name: UBNAME
       value: bionic
+  prologue:
+    commands:
+      - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+      - sudo apt-key update && sudo apt-get -qq update
+      - sudo add-apt-repository -y "deb http://apt.llvm.org/$UBNAME/ llvm-toolchain-$UBNAME-$CLANG_VERSION main"
+      - sudo add-apt-repository -y "deb http://apt.llvm.org/$UBNAME/ llvm-toolchain-$UBNAME main"
+      - sudo apt-key update && sudo apt-get -qq update
+      - sudo apt-cache search clang
+      - sudo apt-get -y --force-yes -qq install clang-$CLANG_VERSION clang-tools-$CLANG_VERSION
+      - sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-$CLANG_VERSION 360 --slave /usr/bin/clang++ clang++ /usr/bin/clang++-$CLANG_VERSION --slave /usr/bin/scan-build scan-build /usr/bin/scan-build-$CLANG_VERSION
+      - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+      - sudo apt-get update && sudo apt-get -qq install g++-7
 
 blocks:
   - name: install
@@ -25,16 +37,7 @@ blocks:
       jobs:
         - name: install
           commands:
-            - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-            - sudo apt-key update && sudo apt-get -qq update
-            - sudo add-apt-repository -y "deb http://apt.llvm.org/$UBNAME/ llvm-toolchain-$UBNAME-$CLANG_VERSION main"
-            - sudo add-apt-repository -y "deb http://apt.llvm.org/$UBNAME/ llvm-toolchain-$UBNAME main"
-            - sudo apt-key update && sudo apt-get -qq update
-            - sudo apt-cache search clang
-            - sudo apt-get -y --force-yes -qq install clang-$CLANG_VERSION clang-tools-$CLANG_VERSION
-            - sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-$CLANG_VERSION 360 --slave /usr/bin/clang++ clang++ /usr/bin/clang++-$CLANG_VERSION --slave /usr/bin/scan-build scan-build /usr/bin/scan-build-$CLANG_VERSION
-            - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-            - sudo apt-get update && sudo apt-get -qq install g++-7
+            - echo install
       epilogue:
         commands:
           - cache store
