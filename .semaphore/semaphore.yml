@@ -9,12 +9,19 @@ auto_cancel:
   running:
     when: "branch != 'master'"
     
+global_job_config:
+  env_vars:
+    - name: CLANG_VERSION
+      value: "7"
+    - name: UBNAME
+      value: bionic
+
 blocks:
   - name: install
     task:
-#      prologue:
-#        commands:
-#          - cache restore
+      prologue:
+        commands:
+          - cache restore
       jobs:
         - name: install
           commands:
@@ -28,9 +35,9 @@ blocks:
             - sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-$CLANG_VERSION 360 --slave /usr/bin/clang++ clang++ /usr/bin/clang++-$CLANG_VERSION --slave /usr/bin/scan-build scan-build /usr/bin/scan-build-$CLANG_VERSION
             - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
             - sudo apt-get update && sudo apt-get -qq install g++-7
-#      epilogue:
-#        commands:
-#          - cache store
+      epilogue:
+        commands:
+          - cache store
   - name: tests
     skip:
       when: true
@@ -47,10 +54,6 @@ blocks:
   - name: scan-build
     task:
       env_vars:
-        - name: CLANG_VERSION
-          value: "7"
-        - name: UBNAME
-          value: bionic
         - name: PARALLELS
           value: -j8
       prologue:
