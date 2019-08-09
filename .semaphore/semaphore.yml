@@ -59,7 +59,7 @@ blocks:
             - scan-build -k make CXX=clang++ CCC_CXX=clang++ showcxxversion
             - scan-build -k make CXX=clang++ CCC_CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 $PARALLELS | tee log.txt
             - |-
-              grep -v -e "scan-build: [0-9]+ bugs found." log.txt
+              grep -e "scan-build: [0-9]* bugs found" log.txt >/dev/null || true && false
         - name: sample-run
           commands:
             - cd projects/make
