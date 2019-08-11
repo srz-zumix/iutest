@@ -89,7 +89,7 @@ public:
 
 IUTEST_F(ScopedTraceExceptionTest, Exception)
 {
-    IUTEST_SCOPED_TRACE("Test Scope Exception");
+    // IUTEST_SCOPED_TRACE("Test Scope Exception");
     throw "error";
 }
 
