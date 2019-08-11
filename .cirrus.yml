@@ -47,7 +47,7 @@ cirrus_freebsd_clang_test_task:
       STDFLAG: -std=c++14
       STDFLAG: -std=c++17
       #STDFLAG: -std=c++2a
-  check_script: make --version
-  version_script: make -C test showcxxversion
-  test_script: cd test && make -j4 && make test
+  check_script: gmake --version
+  version_script: gmake -C test showcxxversion
+  test_script: cd test && gmake -j4 && gmake test
 
