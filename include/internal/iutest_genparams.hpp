@@ -59,8 +59,16 @@ class iuParamGenerator : public iuIParamGenerator<T>
 public:
     typedef T type;
 public:
-    iuParamGenerator(_Interface* pInterface=NULL) : m_pInterface(pInterface) {} // NOLINT
+    iuParamGenerator(_Interface* pInterface=NULL) : m_pInterface(pInterface), m_bAutoDelete(true) {} // NOLINT
+    iuParamGenerator(_Interface* pInterface, bool auto_delete) : m_pInterface(pInterface), m_bAutoDelete(auto_delete) {} // NOLINT
 
+    ~iuParamGenerator()
+    {
+        if( m_bAutoDelete && (m_pInterface != NULL) )
+        {
+            delete m_pInterface;
+        }
+    }
 public:
     operator iuIParamGenerator<T>* () const { return m_pInterface; }
 
@@ -80,6 +88,7 @@ public:
     virtual bool    IsEnd() const IUTEST_CXX_OVERRIDE { return m_pInterface->IsEnd(); }
 private:
     _Interface* m_pInterface;
+    bool m_bAutoDelete;
 };
 
 /**
