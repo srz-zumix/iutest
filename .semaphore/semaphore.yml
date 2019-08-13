@@ -4,11 +4,11 @@ agent:
   machine:
     type: e1-standard-8
     os_image: ubuntu1804
-    
+
 auto_cancel:
   running:
     when: "branch != 'master'"
-    
+
 global_job_config:
   env_vars:
     - name: CLANG_VERSION
@@ -72,9 +72,7 @@ blocks:
           commands:
             - cd test
             - scan-build -k make CXX=clang++ CCC_CXX=clang++ showcxxversion
-            - scan-build -k make CXX=clang++ CCC_CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 $PARALLELS | tee log.txt
-            - |-
-              grep -e "scan-build: [0-9]* bugs found" log.txt >/dev/null || true && false
+            - scan-build -k --status-bugs make CXX=clang++ CCC_CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 $PARALLELS
         - name: sample-run
           commands:
             - cd projects/make
