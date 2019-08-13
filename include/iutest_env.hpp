@@ -324,7 +324,7 @@ private:
         ::std::string       m_locale_ctype;
     };
 
-    static Variable& get_vars() { static Variable vars; return vars; }
+    static Variable& get_vars() { static Variable sVars; return sVars; }
 
 public:
     static detail::iuRandom&    genrand() { return get_vars().m_genrand; }              //!< 乱数生成器
