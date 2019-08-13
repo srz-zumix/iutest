@@ -3,20 +3,18 @@
 #
 # Clang version check
 #
-# Copyright (C) 2017, Takazumi Shirayanagi
+# Copyright (C) 2017-2019, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
 
 ifneq ($(CXX_NAME),clang++)
 
-ifeq ($(findstring clang++, $(CXX)), clang++)
-IUTEST_CLANG_CXX=$(CXX)
-else
 # scan-build
 ifeq ($(findstring clang++, $(CCC_CXX)), clang++)
 IUTEST_CLANG_CXX=$(CCC_CXX)
-endif
+else
+IUTEST_CLANG_CXX=$(CXX)
 endif
 
 ifdef IUTEST_CLANG_CXX
