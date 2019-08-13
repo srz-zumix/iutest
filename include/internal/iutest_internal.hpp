@@ -468,6 +468,18 @@
         IUTEST_PP_CAT(iutest_label_analysis_assume, __LINE__):      \
         todo
 
+#elif defined(__clang_analyzer__)
+
+#define IUTEST_THROUGH_ANALYSIS_ASSUME_(expr, todo)                 \
+    IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                  \
+    if( bool b = true ) {                                           \
+        IUTEST_UNUSED_VAR(b);                                       \
+        assert(expr);                                               \
+        goto IUTEST_PP_CAT(iutest_label_analysis_assume, __LINE__); \
+    } else                                                          \
+        IUTEST_PP_CAT(iutest_label_analysis_assume, __LINE__):      \
+        todo
+
 #else
 
 #define IUTEST_THROUGH_ANALYSIS_ASSUME_(expr, todo) todo
