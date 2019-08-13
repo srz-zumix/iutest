@@ -20,6 +20,10 @@
 #include "../iutest_pred.hpp"
 #include "../iutest_package.hpp"
 
+#if defined(__clang_analyzer__)
+#  include <assert.h>
+#endif
+
 //======================================================================
 // define
 /**
