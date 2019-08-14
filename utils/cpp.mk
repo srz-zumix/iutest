@@ -15,9 +15,10 @@ ifeq ($(shell $(CXX) --version | grep -o clang), clang)
 CXX_NAME=clang++
 endif
 
-ifeq ($(shell $(CXX) --version | grep -o g\+\+), g++)
+ifeq ($(shell $(CXX) --version | grep -o GCC), GCC)
 CXX_NAME=g++
 endif
 
-endif
+# $(warning CXX_NAME = $(CXX_NAME))
 
+endif

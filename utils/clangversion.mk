@@ -8,12 +8,16 @@
 # see LICENSE
 #
 
-ifneq ($(CXX_NAME),clang++)
-
 # scan-build
+ifeq ($(findstring clang++, $(CXX)), clang++)
+IUTEST_CLANG_CXX=$(CXX)
+endif
+
 ifeq ($(findstring clang++, $(CCC_CXX)), clang++)
 IUTEST_CLANG_CXX=$(CCC_CXX)
-else
+endif
+
+ifeq ($(CXX_NAME),clang++)
 IUTEST_CLANG_CXX=$(CXX)
 endif
 
@@ -34,8 +38,6 @@ CLANGMINOR:=$(word 2, $(CLANGVERSION))
 else
 CLANGMAJOR:=0
 CLANGMINOR:=0
-endif
-
 endif
 
 endif

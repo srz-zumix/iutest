@@ -121,4 +121,3 @@ endif
 IUTEST_CXX_WARN_FLAGS+=-Wno-missing-field-initializers
 
 endif
-endif
