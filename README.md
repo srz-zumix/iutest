@@ -69,7 +69,8 @@ Platforms
 
 * Windows
 * Linux
-* Mac OS X
+* Mac OS
+* FreeBSD
 * Cygwin
 * MinGW
 
