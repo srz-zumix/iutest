@@ -8,9 +8,11 @@
 # see LICENSE
 #
 
-include ../utils/cpp.mk
-include ../utils/xcode.mk
-include ../utils/gccversion.mk
-include ../utils/clangversion.mk
-include ../utils/cygwin.mk
-include ../utils/ci.mk
+UTILS_MAKEFILE_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+
+include $(UTILS_MAKEFILE_DIR)/cpp.mk
+include $(UTILS_MAKEFILE_DIR)/xcode.mk
+include $(UTILS_MAKEFILE_DIR)/gccversion.mk
+include $(UTILS_MAKEFILE_DIR)/clangversion.mk
+include $(UTILS_MAKEFILE_DIR)/cygwin.mk
+include $(UTILS_MAKEFILE_DIR)/ci.mk
