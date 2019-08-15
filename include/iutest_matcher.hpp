@@ -985,7 +985,7 @@ private:
         typename ::std::vector<T>::iterator it_e=m_expected.begin();
         for( int i=0; it_e != m_expected.end(); ++it_e, ++it_a, ++i )
         {
-            if( *it_a != *it_e )
+            if( (*it_a) != (*it_e) )
             {
                 return AssertionFailure() << WhichIs();
             }
