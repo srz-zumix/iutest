@@ -38,3 +38,16 @@ cirrus_osx_17_test_task:
 #   container:
 #     image: gcc:latest
 #   test_script: env
+
+cirrus_freebsd_clang_test_task:
+  freebsd_instance:
+    image: freebsd-11-2-release-amd64
+  env:
+    matrix:
+      STDFLAG: -std=c++14
+      STDFLAG: -std=c++17
+      #STDFLAG: -std=c++2a
+  install_script: pkg install -y gmake
+  version_script: gmake --version && gmake -C test showcxxversion
+  test_script: cd test && gmake -j4 && gmake test
+
