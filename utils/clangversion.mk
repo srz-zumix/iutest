@@ -17,8 +17,10 @@ ifeq ($(findstring clang++, $(CCC_CXX)), clang++)
 IUTEST_CLANG_CXX=$(CCC_CXX)
 endif
 
+ifndef CXX_APPLE_CLANG
 ifeq ($(CXX_NAME),clang++)
 IUTEST_CLANG_CXX=$(CXX)
+endif
 endif
 
 ifdef IUTEST_CLANG_CXX
