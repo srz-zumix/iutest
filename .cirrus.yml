@@ -7,7 +7,7 @@ cirrus_gcc_test_task:
     matrix:
       STDFLAG: -std=c++14
       STDFLAG: -std=c++17
-      #STDFLAG: -std=c++2a
+      STDFLAG: -std=c++2a
   version_script: make -C test showcxxversion
   test_script: cd test && make -j4 && make test
 
