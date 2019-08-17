@@ -1,0 +1,21 @@
+on: push
+name: Main workflow
+jobs:
+  arm-none-eabi:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: arm-none-eabi
+      uses: ./.github/actions/arm-none-eabi
+      with:
+        args: ./.github/actions/arm-none-eabi/build.sh
+    - name: Include What You Use
+      uses: ./.github/actions/iwyu
+      with:
+        args: /work/projects/cmake -Dbuild_test_namespace_test=OFF
+    - name: lint:editorconfig
+      uses: actions/npm@master
+      with:
+        entrypoint: bash
+        args: -c "apt-get update && apt-get install -y git && npm install && npm run
+          lint:editorconfig"
