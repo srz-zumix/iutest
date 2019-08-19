@@ -10,7 +10,7 @@ jobs:
       with:
         args: ./.github/actions/arm-none-eabi/build.sh
   lint-editorconfig:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
     - name: lint:editorconfig
       uses: actions/npm@master
