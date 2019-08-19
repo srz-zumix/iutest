@@ -7,7 +7,7 @@
 [![Codefresh build status]( https://g.codefresh.io/api/badges/pipeline/srz-zumix/srz-zumix%2Fiutest%2Fiutest_unittest?branch=master&type=cf-2)]( https://g.codefresh.io/pipelines/iutest_unittest/builds?repoOwner=srz-zumix&repoName=iutest&serviceName=srz-zumix%2Fiutest&filter=trigger:build~Build;branch:master;pipeline:58a933be9d1bd40100495882~iutest_unittest)
 [![Codeship Status for srz-zumix/iutest](https://codeship.com/projects/5bc87030-5b41-0133-6000-4242aa07dce3/status?branch=master)](https://codeship.com/projects/110695)
 [![Drone Build Status](https://cloud.drone.io/api/badges/srz-zumix/iutest/status.svg?branch=master)](https://cloud.drone.io/srz-zumix/iutest)
-[![Git Hub Actions Status](https://wdp9fww0r9.execute-api.us-west-2.amazonaws.com/production/badge/srz-zumix/iutest)](https://github.com/srz-zumix/iutest/actions)
+[![GitHub Actions Status](https://wdp9fww0r9.execute-api.us-west-2.amazonaws.com/production/badge/srz-zumix/iutest)](https://github.com/srz-zumix/iutest/actions)
 [![GitLab CI pipeline status](https://gitlab.com/srz-zumix/iutest-test/badges/master/pipeline.svg)](https://gitlab.com/srz-zumix/iutest-test/commits/master)
 [![Scrutinizer Build Status](https://scrutinizer-ci.com/g/srz-zumix/iutest/badges/build.png?b=master)](https://scrutinizer-ci.com/g/srz-zumix/iutest/build-status/master)
 [![Semaphore Build Status](https://semaphoreci.com/api/v1/srz_zumix/iutest/branches/master/badge.svg)](https://semaphoreci.com/srz_zumix/iutest)
