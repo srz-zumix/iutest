@@ -12,6 +12,7 @@ jobs:
   lint-editorconfig:
     runs-on: ubuntu-18.04
     steps:
+    - uses: actions/checkout@master
     - name: lint:editorconfig
       uses: actions/npm@master
       with:
@@ -22,6 +23,7 @@ jobs:
     runs-on: ubuntu-18.04
     needs: lint-editorconfig
     steps:
+    - uses: actions/checkout@master
     - name: Include What You Use
       uses: ./.github/actions/iwyu
       with:
