@@ -24,6 +24,8 @@ addons:
       - g++-9
       - gcc-9
       #- cppcheck
+    config:
+      retries: true
 
 before_install:
   - python .ci/travisci/travis_blocking_stdout.py || true
