@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -89,6 +89,7 @@ IUTEST(Compatibility, TestResult)
     const ::iutest::TestInfo* testinfo = ::iutest::UnitTest::GetInstance()->current_test_info();
     IUTEST_ASSERT_NOTNULL(testinfo);
     const ::iutest::TestResult* result = testinfo->result();
+    IUTEST_ASSERT_NOTNULL(result);
 
     (void)result->total_part_count();
     (void)result->test_property_count();
