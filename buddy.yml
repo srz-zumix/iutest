@@ -1,6 +1,6 @@
 - pipeline: "test"
   trigger_mode: "MANUAL"
-  ref_name: "*"
+  ref_name: "(^(master$|develop$|buddy/.*$))"
   ref_type: "WILDCARD"
   trigger_condition: "ALWAYS"
   auto_clear_cache: true
@@ -28,48 +28,3 @@
   #   mount_filesystem_path: "/buddy/iutest"
   #   shell: "SH"
   #   trigger_condition: "ALWAYS"
-  
-- pipeline: "from master"
-  trigger_mode: "ON_EVERY_PUSH"
-  ref_name: "develop"
-  ref_type: "BRANCH"
-  trigger_condition: "ALWAYS"
-  auto_clear_cache: true
-  actions:
-  - action: "Run test"
-    type: "RUN_NEXT_PIPELINE"
-    comment: "Triggered by $BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
-    revision: "INHERIT"
-    trigger_condition: "ALWAYS"
-    next_project_name: "iutest"
-    next_pipeline_name: "test"
-
-- pipeline: "from develop"
-  trigger_mode: "ON_EVERY_PUSH"
-  ref_name: "develop"
-  ref_type: "BRANCH"
-  trigger_condition: "ALWAYS"
-  auto_clear_cache: true
-  actions:
-  - action: "Run test"
-    type: "RUN_NEXT_PIPELINE"
-    comment: "Triggered by $BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
-    revision: "INHERIT"
-    trigger_condition: "ALWAYS"
-    next_project_name: "iutest"
-    next_pipeline_name: "test"
-
-- pipeline: "from buddy feature"
-  trigger_mode: "ON_EVERY_PUSH"
-  ref_name: "buddy/*"
-  ref_type: "WILDCARD"
-  trigger_condition: "ALWAYS"
-  auto_clear_cache: true
-  actions:
-  - action: "Run test"
-    type: "RUN_NEXT_PIPELINE"
-    comment: "Triggered by $BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
-    revision: "INHERIT"
-    trigger_condition: "ALWAYS"
-    next_project_name: "iutest"
-    next_pipeline_name: "test"
