@@ -1,7 +1,7 @@
 - pipeline: "test"
   trigger_mode: "MANUAL"
-  ref_name: "*buddy*"
-  ref_type: "WILDCARD"
+  ref_name: "buddy/change_test"
+  ref_type: "BRANCH"
   trigger_condition: "ALWAYS"
   auto_clear_cache: true
   actions:
