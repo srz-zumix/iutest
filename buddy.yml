@@ -1,5 +1,7 @@
 - pipeline: "test"
   trigger_mode: "MANUAL"
+  ref_name: "*"
+  ref_type: "WILDCARD"
   trigger_condition: "ALWAYS"
   auto_clear_cache: true
   actions:
@@ -30,7 +32,7 @@
 - pipeline: "from master"
   trigger_mode: "ON_EVERY_PUSH"
   ref_name: "develop"
-  ref_type: "WILDCARD"
+  ref_type: "BRANCH"
   trigger_condition: "ALWAYS"
   auto_clear_cache: true
   actions:
@@ -45,7 +47,7 @@
 - pipeline: "from develop"
   trigger_mode: "ON_EVERY_PUSH"
   ref_name: "develop"
-  ref_type: "WILDCARD"
+  ref_type: "BRANCH"
   trigger_condition: "ALWAYS"
   auto_clear_cache: true
   actions:
