@@ -983,8 +983,9 @@ private:
 
         Ite it_a=actual_begin;
         typename ::std::vector<T>::iterator it_e=m_expected.begin();
-        for( int i=0; it_e != m_expected.end(); ++it_e, ++it_a, ++i )
+        for( int i=0; it_a != actual_end && it_e != m_expected.end(); ++it_e, ++it_a, ++i )
         {
+            (void)i;
             if( *it_a != *it_e )
             {
                 return AssertionFailure() << WhichIs();
@@ -2334,7 +2335,7 @@ detail::ElementsAreArrayMatcher<T> ElementsAreArray(const T* a, int count)
 
 /**
  * @brief   Make ElementsAreArrayForward matcher
- * @details argument はの各要素が a の要素とマッチする
+ * @details argument の各要素が a の要素とマッチする
 */
 template<typename Container>
 detail::ElementsAreArrayMatcher< typename Container::value_type > ElementsAreArrayForward(const Container& container)

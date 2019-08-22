@@ -1,0 +1,30 @@
+on: push
+name: GitHub Actions
+jobs:
+  arm-none-eabi:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@master
+    - name: arm-none-eabi
+      uses: ./.github/actions/arm-none-eabi
+      with:
+        args: ./.github/actions/arm-none-eabi/build.sh
+  lint-editorconfig:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@master
+    - name: lint:editorconfig
+      uses: actions/npm@master
+      with:
+        entrypoint: bash
+        args: -c "apt-get update && apt-get install -y git && npm install && npm run
+          lint:editorconfig"
+  iwyu:
+    runs-on: ubuntu-18.04
+    needs: lint-editorconfig
+    steps:
+    - uses: actions/checkout@master
+    - name: Include What You Use
+      uses: ./.github/actions/iwyu
+      with:
+        args: /work/projects/cmake -Dbuild_test_namespace_test=OFF

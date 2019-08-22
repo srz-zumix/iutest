@@ -3,19 +3,23 @@
 #
 # Clang version check
 #
-# Copyright (C) 2017, Takazumi Shirayanagi
+# Copyright (C) 2017-2019, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
 
-ifneq ($(CXX_NAME),clang++)
-
+# scan-build
 ifeq ($(findstring clang++, $(CXX)), clang++)
 IUTEST_CLANG_CXX=$(CXX)
-else
-# scan-build
+endif
+
 ifeq ($(findstring clang++, $(CCC_CXX)), clang++)
 IUTEST_CLANG_CXX=$(CCC_CXX)
+endif
+
+ifndef CXX_APPLE_CLANG
+ifeq ($(CXX_NAME),clang++)
+IUTEST_CLANG_CXX=$(CXX)
 endif
 endif
 
@@ -36,8 +40,6 @@ CLANGMINOR:=$(word 2, $(CLANGVERSION))
 else
 CLANGMAJOR:=0
 CLANGMINOR:=0
-endif
-
 endif
 
 endif

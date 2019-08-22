@@ -5,6 +5,7 @@
 ## Changes for 1.17.0
 
 * New
+  * FreeBSD 対応
   * ALMOST_EQ アサーション を追加
   * --iutest_locale_ctype オプションを追加
 
