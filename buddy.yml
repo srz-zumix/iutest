@@ -17,7 +17,6 @@
     mount_filesystem_path: "/buddy/iutest"
     shell: "SH"
     trigger_condition: "ALWAYS"
-
 # - action: "Execute: make bench"
   #   type: "BUILD"
   #   working_directory: "/buddy/iutest"
