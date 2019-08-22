@@ -4,7 +4,7 @@
   ref_type: "WILDCARD"
   trigger_condition: "ALWAYS"
   auto_clear_cache: true
-  no_skip_to_most_recent: false
+  no_skip_to_most_recent: true
   actions:
   - action: "Execute: sample run"
     type: "BUILD"
