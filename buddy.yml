@@ -1,11 +1,11 @@
 - pipeline: "test"
   trigger_mode: "ON_EVERY_PUSH"
-  ref_name: "(^(master$|develop$|buddy/*$))"
+  ref_name: "*"
   ref_type: "WILDCARD"
   trigger_condition: "ALWAYS"
   auto_clear_cache: true
   actions:
-  - action: "Execute: make bench"
+  - action: "Execute: sample run"
     type: "BUILD"
     working_directory: "/buddy/iutest"
     docker_image_name: "library/gcc"
