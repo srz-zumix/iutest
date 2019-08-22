@@ -1,6 +1,6 @@
 - pipeline: "test"
   trigger_mode: "MANUAL"
-  ref_name: "(^(master$|develop$|buddy/.*$))"
+  ref_name: "(^(master|develop|buddy/.+)$)"
   ref_type: "WILDCARD"
   trigger_condition: "ALWAYS"
   auto_clear_cache: true
