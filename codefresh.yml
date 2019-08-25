@@ -151,15 +151,15 @@ steps:
         make bench
     when:
       steps:
-       - name: RunningUnitTest_gcc9
-         on:
-           - success
-       - name: RunningUnitTest_gcc8
-         on:
-           - success
-       - name: RunningUnitTest_gcc7
-         on:
-           - success
+        - name: RunningUnitTest_gcc9
+          on:
+            - success
+        - name: RunningUnitTest_gcc8
+          on:
+            - success
+        - name: RunningUnitTest_gcc7
+          on:
+            - success
     on_success:
       metadata:
         set:

@@ -20,6 +20,10 @@
 #include "../iutest_pred.hpp"
 #include "../iutest_package.hpp"
 
+#if defined(__clang_analyzer__)
+#  include <assert.h>
+#endif
+
 //======================================================================
 // define
 /**
@@ -457,12 +461,17 @@
  * @brief   IUTEST_ANALYSIS_ASSUME_ を通す
 */
 #if IUTEST_HAS_ANALYSIS_ASSUME
+#  define IUTEST_ANALYSIS_ASSUME_DELEGATE   IUTEST_ANALYSIS_ASSUME
+#elif defined(__clang_analyzer__)
+#  define IUTEST_ANALYSIS_ASSUME_DELEGATE   assert
+#endif
 
+#if defined(IUTEST_ANALYSIS_ASSUME_DELEGATE)
 #define IUTEST_THROUGH_ANALYSIS_ASSUME_(expr, todo)                 \
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                  \
     if( bool b = true ) {                                           \
         IUTEST_UNUSED_VAR(b);                                       \
-        IUTEST_ANALYSIS_ASSUME(expr);                               \
+        IUTEST_ANALYSIS_ASSUME_DELEGATE(expr);                      \
         goto IUTEST_PP_CAT(iutest_label_analysis_assume, __LINE__); \
     } else                                                          \
         IUTEST_PP_CAT(iutest_label_analysis_assume, __LINE__):      \

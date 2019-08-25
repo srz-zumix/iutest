@@ -25,6 +25,8 @@ addons:
       - gcc-9
       - gdb
       #- cppcheck
+    config:
+      retries: true
 
 before_install:
   - |
