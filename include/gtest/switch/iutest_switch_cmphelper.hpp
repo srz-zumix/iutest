@@ -30,11 +30,9 @@ namespace internal
 
 #if GTEST_VER > 0x01080100 || GTEST_LATEST
 using ::std::is_pointer;
-#endif
-
-#if GTEST_MINORVER < 0x06
-template<bool> struct EnableIf;
-template<> struct EnableIf<true> { typedef void type; };
+using ::std::enable_if;
+#else
+using ::iutest_type_traits::enable_if;
 #endif
 
 //======================================================================
@@ -85,7 +83,7 @@ public:
         const char* actual_expression,
         const T1& expected,
         const T2& actual,
-        typename EnableIf<!is_pointer<T2>::value>::type* = 0) {
+        typename enable_if<!is_pointer<T2>::value>::type* = 0) {
             return CmpHelperNE(expected_expression, actual_expression, expected,
                 actual);
     }
