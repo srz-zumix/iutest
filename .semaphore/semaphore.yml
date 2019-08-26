@@ -21,6 +21,8 @@ global_job_config:
 
 blocks:
   - name: install
+    skip:
+      when: "branch = 'master' OR branch = 'develop' OR branch =~ '^semaphore.*'"
     task:
       prologue:
         commands:
@@ -43,6 +45,8 @@ blocks:
             - make -j8
             - make test
   - name: scan-build
+    skip:
+      when: "branch = 'master' OR branch = 'develop' OR branch =~ '^semaphore.*'"
     task:
       env_vars:
         - name: PARALLELS
