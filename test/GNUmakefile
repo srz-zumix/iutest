@@ -29,11 +29,7 @@ endif
 #
 # include
 #
-include ../utils/xcode.mk
-include ../utils/gccversion.mk
-include ../utils/clangversion.mk
-include ../utils/cygwin.mk
-include ../utils/ci.mk
+include ../utils/utils.mk
 include CommonMakefile.in
 
 #

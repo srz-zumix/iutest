@@ -166,7 +166,7 @@ private:
         iuLogger* pInstance;
     };
 
-    static LoggerInstanceVariable& GetLoggerInstanceVariable() { static LoggerInstanceVariable v; return v; }
+    static LoggerInstanceVariable& GetLoggerInstanceVariable() { static LoggerInstanceVariable sLogger; return sLogger; }
     static iuLogger* GetLogger() { return GetLoggerInstanceVariable().pInstance; }
 };
 
