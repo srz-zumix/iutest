@@ -8,6 +8,8 @@ agent:
 auto_cancel:
   running:
     when: "branch != 'master'"
+  queued:
+    when: "branch = 'master'"
 
 global_job_config:
   env_vars:
