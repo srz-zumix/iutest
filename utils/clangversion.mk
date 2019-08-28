@@ -26,7 +26,7 @@ endif
 ifdef IUTEST_CLANG_CXX
 
 CXX_NAME=clang++
-CLANGVERSION:=$(shell $(IUTEST_CLANG_CXX) --version | grep version | sed "s/.*version\s*\([0-9]*\.[0-9]*\).*/\1/")
+CLANGVERSION:=$(shell $(IUTEST_CLANG_CXX) --version | grep version | sed "s/.*version[ ]*\([0-9]*\.[0-9]*\).*/\1/")
 
 dot:=.
 empty:=
