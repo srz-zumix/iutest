@@ -52,7 +52,7 @@ public:
 
 #if IUTEST_HAS_FOPEN
 
-IUTEST_F(FileSystemTest, FileSize64bit)
+IUTEST_F(DISABLED_FileSystemTest, FileSize64bit)
 {
     IUTEST_ASSUME_EQ(0x100000000ull, ::std::filesystem::file_size(largefile));
 
