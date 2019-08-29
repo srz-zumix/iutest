@@ -1,6 +1,16 @@
 on: push
 name: GitHub Actions
 jobs:
+  llvm-test:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: choco-install
+      run: choco install llvm
+    - name: test
+      run: |
+        make -C test -j8
+        make -C test test
   arm-none-eabi:
     runs-on: ubuntu-18.04
     steps:
