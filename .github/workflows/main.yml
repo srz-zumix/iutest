@@ -8,7 +8,7 @@ jobs:
     - name: choco-install
       run: choco install -y llvm
     - name: llvm clang test
-      shell: bash
+      shell: cmd
       run: |
         make -C test clean
         make -C test CXX=clang++ CC=clang showcxxversion
