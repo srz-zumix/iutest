@@ -6,16 +6,17 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: choco-install
-      run: choco install llvm
+      run: choco install -y llvm
     - name: llvm clang test
+      shell: bash
       run: |
-        make clean
+        make -C test clean
         make -C test CXX=clang++ CC=clang showcxxversion
         make -C test CXX=clang++ CC=clang -j8
         make -C test CXX=clang++ CC=clang test
     - name: mingw test
       run: |
-        make clean
+        make -C test clean
         make -C test showcxxversion
         make -C test -j8
         make -C test test
