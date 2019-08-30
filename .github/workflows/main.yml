@@ -10,6 +10,7 @@ jobs:
         choco install -y llvm
         call refreshenv
     - name: llvm clang test
+      shell: cmd
       run: |
         make -C test clean
         make -C test CXX=clang++ CC=clang showcxxversion
