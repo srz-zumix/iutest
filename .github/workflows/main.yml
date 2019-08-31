@@ -11,7 +11,7 @@ jobs:
         call refreshenv
     - name: llvm clang test
       run: |
-        export PATH=$PATH:C:\Program Files\LLVM\bin
+        set PATH=%PATH%;C:\Program Files\LLVM\bin
         make -C test clean
         make -C test CXX=clang++ CC=clang showcxxversion
         make -C test CXX=clang++ CC=clang -j8
