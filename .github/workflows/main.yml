@@ -10,8 +10,8 @@ jobs:
         choco install -y llvm
         call refreshenv
     - name: llvm clang test
-      shell: cmd
       run: |
+        export PATH=$PATH:C:\Program Files\LLVM\bin
         make -C test clean
         make -C test CXX=clang++ CC=clang showcxxversion
         make -C test CXX=clang++ CC=clang -j8
