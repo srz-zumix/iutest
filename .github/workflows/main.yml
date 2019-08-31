@@ -9,6 +9,12 @@ jobs:
       run: |
         choco install -y llvm
         call refreshenv
+    - name: mingw test
+      run: |
+        make -C test clean
+        make -C test showcxxversion
+        make -C test -j8
+        make -C test test
     - name: llvm clang test
       run: |
         set PATH=%PATH%;C:\Program Files\LLVM\bin
@@ -16,12 +22,6 @@ jobs:
         make -C test CXX=clang++ CC=clang showcxxversion
         make -C test CXX=clang++ CC=clang -j8
         make -C test CXX=clang++ CC=clang test
-    - name: mingw test
-      run: |
-        make -C test clean
-        make -C test showcxxversion
-        make -C test -j8
-        make -C test test
   arm-none-eabi:
     runs-on: ubuntu-18.04
     steps:
