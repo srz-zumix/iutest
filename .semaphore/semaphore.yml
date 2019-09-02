@@ -24,7 +24,7 @@ global_job_config:
 blocks:
   - name: install
     skip:
-      when: "branch = 'master' OR branch = 'develop' OR branch =~ '^semaphore.*'"
+      when: "branch = =~ '^semaphore.*'"
     task:
       prologue:
         commands:
