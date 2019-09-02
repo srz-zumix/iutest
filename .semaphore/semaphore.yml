@@ -2,7 +2,7 @@ version: v1.0
 name: iutest
 agent:
   machine:
-    type: e1-standard-8
+    type: e1-standard-
     os_image: ubuntu1804
 
 auto_cancel:
@@ -24,7 +24,7 @@ global_job_config:
 blocks:
   - name: install
     skip:
-      when: "branch !~ '^semaphore.*'"
+      when: "branch != 'master' AND branch != 'develop' AND branch !~ '^semaphore.*'"
     task:
       prologue:
         commands:
@@ -48,7 +48,7 @@ blocks:
             - make test
   - name: scan-build
     skip:
-      when: "branch = 'master' OR branch = 'develop' OR branch =~ '^semaphore.*'"
+      when: "branch != 'master' AND branch != 'develop' AND branch !~ '^semaphore.*'"
     task:
       env_vars:
         - name: PARALLELS
