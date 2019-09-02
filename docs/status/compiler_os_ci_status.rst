@@ -13,7 +13,7 @@ Compiler
 +==============+====+==========+=========================================+
 | clang        | 8  |    c++2a |                                         |
 +              +    +----------+-----------------------------------------+
-|              |    |    c++17 | |TravisCI|                              |
+|              |    |    c++17 | |TravisCI||GitHubActions|               |
 +              +    +----------+-----------------------------------------+
 |              |    |    c++14 |                                         |
 +              +    +----------+-----------------------------------------+
@@ -90,6 +90,9 @@ OS
 
 .. |Codeship| image:: https://codeship.com/projects/5bc87030-5b41-0133-6000-4242aa07dce3/status?branch=master&.svg
    :target: https://codeship.com/projects/110695
+
+.. |GitHubActions| image:: https://github.com/srz-zumix/iutest/workflows/GitHub%20Actions/badge.svg
+   :target: https://github.com/srz-zumix/iutest/actions
 
 .. |GitLabCI| image:: https://gitlab.com/srz-zumix/iutest-test/badges/master/pipeline.svg
    :target: https://gitlab.com/srz-zumix/iutest-test/commits/master
