@@ -19,9 +19,9 @@
 // define
 
 // pragma
-#if defined(__clang__)
+#if   defined(__clang__)
 #  define IUTEST_PRAGMA(x)  _Pragma(#x)
-#elif   defined(__GNUC__)
+#elif defined(__GNUC__)
 #  define IUTEST_PRAGMA(x)  _Pragma(#x)
 #elif defined(_MSC_VER) && _MSC_VER >= 1310
 #  define IUTEST_PRAGMA(x)  __pragma(x)
