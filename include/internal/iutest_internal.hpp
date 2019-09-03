@@ -52,7 +52,7 @@
 
 #define IIUT_ALIAS_TESTNAME_PP_UNPAREN_(...)    __VA_ARGS__
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(__clang__)
 #  define IUTEST_ALIAS_TESTNAME_(name_)         name_
 #  define IUTEST_ALIAS_TESTNAME_F_(name_, var_) UNPAREN_(dummy, var_, name_)
 #else
@@ -620,7 +620,7 @@
 /**
  * @brief   コンパイルエラーチェックタグ
 */
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(__clang__)
 #  define IUTEST_TEST_COMPILEERROR(e)   \
     IUTEST_PRAGMA_MESSAGE(__FILE__ "(" IUTEST_PP_TOSTRING(__LINE__) "): note : " "IUTEST_TEST_COMPILEERROR( " #e " )")
 #else
