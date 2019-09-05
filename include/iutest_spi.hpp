@@ -21,7 +21,7 @@
 
 #if !defined(IUTEST_USE_GTEST)
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(__clang__)
 // /ZI オプションだと __LINE__ が __LINE__Var+N(Nは番号) になりコンパイルエラーになるための対応
 #  ifndef __LINE__Var
 #    define __LINE__Var 0
