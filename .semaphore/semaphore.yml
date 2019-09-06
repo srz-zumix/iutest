@@ -24,7 +24,7 @@ global_job_config:
 blocks:
   - name: install
     skip:
-      when: "branch != 'master' AND branch != 'develop' AND branch !~ '^semaphore.*'"
+      when: "branch != 'master' AND branch != 'develop' AND branch !~ '^semaphore.*' AND branch !~ '.*scan-build.*'"
     task:
       prologue:
         commands:
@@ -48,7 +48,7 @@ blocks:
             - make test
   - name: scan-build
     skip:
-      when: "branch != 'master' AND branch != 'develop' AND branch !~ '^semaphore.*'"
+      when: "branch != 'master' AND branch != 'develop' AND branch !~ '^semaphore.*' AND branch !~ '.*scan-build.*'"
     task:
       env_vars:
         - name: PARALLELS
