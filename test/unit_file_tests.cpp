@@ -19,15 +19,21 @@
 #include "internal/iutest_filepath.hpp"
 
 
-#if IUTEST_HAS_FILENO && IUTEST_HAS_FOPEN
+#if IUTEST_HAS_FOPEN
 
 IUTEST(StdFileUnitTest, AppendOpenedFileSize)
 {
     ::iutest::StdioFile file;
     ::iutest::internal::FilePath filename(__FILE__);
-    IUTEST_ASSUME_TRUE( filename.FileOrDirectoryExists() );
     IUTEST_ASSERT_TRUE( file.Open(filename.string().c_str(), iutest::IFile::OpenAppend) );
     IUTEST_ASSERT_LT(0u, file.GetSize());
+}
+
+IUTEST(StdFileUnitTest, InvalidOpenMode)
+{
+    ::iutest::StdioFile file;
+    ::iutest::internal::FilePath filename(__FILE__);
+    IUTEST_ASSERT_FALSE( file.Open(filename.string().c_str(), -1) );
 }
 
 #endif
