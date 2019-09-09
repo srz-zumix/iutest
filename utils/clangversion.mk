@@ -27,6 +27,7 @@ ifdef IUTEST_CLANG_CXX
 
 CXX_NAME=clang++
 CLANGVERSION:=$(shell $(IUTEST_CLANG_CXX) --version | grep version | sed "s/.*version[ ]*\([0-9]*\.[0-9]*\).*/\1/")
+CLANG_TATGET:=$(shell $(IUTEST_CLANG_CXX) --version | grep Target | sed "s/.*Target:[ ]*\(.*\)/\1/")
 
 dot:=.
 empty:=
@@ -123,6 +124,10 @@ IUTEST_CXX_WARN_FLAGS+=-Wno-missing-field-initializers
 # 8.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 8 \)))
 IUTEST_CXX_WARN_FLAGS+=-Wextra-semi
+endif
+
+ifeq ($(CLANG_TATGET), x86_64-pc-windows-msvc)
+CXXFLAGS+= -Xclang -flto-visibility-public-std
 endif
 
 endif
