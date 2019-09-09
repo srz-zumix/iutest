@@ -217,13 +217,15 @@ private:
     template<typename T>
     struct params_t
     {
+        typedef iuIParamGenerator<T> IParamGenerater;
         ::std::vector<T> val;
 
-        void append(iuIParamGenerator<T>* gen)
+        void append(IParamGenerater* gen)
         {
-            for( gen->Begin(); !gen->IsEnd(); gen->Next() )
+            detail::scoped_ptr<IParamGenerater> p(gen);
+            for( p->Begin(); !p->IsEnd(); p->Next() )
             {
-                val.push_back(gen->GetCurrent());
+                val.push_back(p->GetCurrent());
             }
         }
         template<typename U>
