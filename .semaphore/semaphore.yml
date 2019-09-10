@@ -24,7 +24,7 @@ global_job_config:
 blocks:
   - name: install
     skip:
-      when: "branch != 'master' AND branch != 'develop' AND branch !~ '^semaphore.*'"
+      when: "branch != 'master' AND branch != 'develop' AND branch !~ '^semaphore.*' AND branch !~ '.*scan-build.*'"
     task:
       prologue:
         commands:
@@ -48,7 +48,7 @@ blocks:
             - make test
   - name: scan-build
     skip:
-      when: "branch != 'master' AND branch != 'develop' AND branch !~ '^semaphore.*'"
+      when: "branch != 'master' AND branch != 'develop' AND branch !~ '^semaphore.*' AND branch !~ '.*scan-build.*'"
     task:
       env_vars:
         - name: PARALLELS
@@ -78,7 +78,7 @@ blocks:
           commands:
             - cd test
             - scan-build -k make CXX=clang++ CCC_CXX=clang++ showcxxversion
-            - scan-build -k --status-bugs make CXX=clang++ CCC_CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 syntax_tests $PARALLELS
+            - scan-build -k --status-bugs make CXX=clang++ CCC_CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 all_tests $PARALLELS
             # - scan-build -k --status-bugs make CXX=clang++ CCC_CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 $PARALLELS
         # - name: sample-run
         #   commands:
