@@ -36,14 +36,17 @@ inline void PrintBytesInObjectTo(const unsigned char* buf, size_t size, iu_ostre
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
     const size_t kMaxCount = detail::kValues::MaxPrintContainerCount;
     *os << size << "-Byte object < ";
-    for( size_t i=0; i < size; ++i )
+    if( buf != NULL && size > 0 )
     {
-        const unsigned char n = buf[i];
-        *os << detail::ToHex((n>>4)&0xF) << ToHex(n&0xF) << " ";
-        if( i == kMaxCount )
+        for( size_t i=0; i < size; ++i )
         {
-            *os << "... ";
-            break;
+            const unsigned char n = buf[i];
+            *os << detail::ToHex((n>>4)&0xF) << ToHex(n&0xF) << " ";
+            if( i == kMaxCount )
+            {
+                *os << "... ";
+                break;
+            }
         }
     }
     *os << ">";
