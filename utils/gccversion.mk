@@ -3,14 +3,22 @@
 #
 # GCC version check
 #
-# Copyright (C) 2017, Takazumi Shirayanagi
+# Copyright (C) 2017-2019, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
 
-#ifeq ($(CXX),g++)
+ifneq ($(CXX_NAME),g++)
+
 ifeq ($(findstring g++, $(CXX)), g++)
 ifneq ($(findstring clang++, $(CXX)), clang++)
+CXX_NAME=g++
+endif
+endif
+
+endif
+
+ifeq ($(CXX_NAME),g++)
 
 GCCDUMPVERSION:=$(shell $(CXX) -dumpversion)
 GCCVERSION_TEMP:=$(GCCDUMPVERSION) 0 0
@@ -22,7 +30,6 @@ GCCVERSION_TEMP:=$(subst $(dot),$(space), $(GCCVERSION_TEMP))
 GCCMAJOR:=$(word 1, $(GCCVERSION_TEMP))
 GCCMINOR:=$(word 2, $(GCCVERSION_TEMP))
 
-CXX_NAME=g++
 STD_CPP03=c++98
 STD_GNU03=gnu++98
 
@@ -113,5 +120,4 @@ endif
 
 IUTEST_CXX_WARN_FLAGS+=-Wno-missing-field-initializers
 
-endif
 endif

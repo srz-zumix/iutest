@@ -49,7 +49,7 @@ public:
         }
         return true;
     }
-    virtual int Printf(const char* fmt, ...) IUTEST_CXX_OVERRIDE
+    virtual int Printf(const char* fmt, ...) IUTEST_CXX_OVERRIDE IUTEST_ATTRIBUTE_FORMAT_PRINTF(2, 3)
     {
         va_list va;
         va_start(va, fmt);

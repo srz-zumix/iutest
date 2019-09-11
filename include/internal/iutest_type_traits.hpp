@@ -108,13 +108,16 @@ struct enable_if : public helper::enable_if_impl_<B>::template inner<T>
 
 #endif
 
+template<bool b, typename T = type_defined_void>
+struct enable_if;
+
 template<class COND, typename T = type_defined_void>
 struct enable_if_t : public enable_if<COND::value, T> {};
 
 /**
  * @brief   disable_if
 */
-template<bool B, typename T>
+template<bool B, typename T = type_defined_void>
 struct disable_if : public enable_if<!B, T> {};
 template<class COND, typename T = type_defined_void>
 struct disable_if_t : public disable_if<COND::value, T> {};

@@ -29,7 +29,8 @@ class FilterFile : public ::iutest::StringStreamFile
 {
 public:
     static ::std::string filter;
-    virtual bool Open(const char* , int ) IUTEST_CXX_OVERRIDE
+private:
+    virtual bool OpenImpl(const char* , int ) IUTEST_CXX_OVERRIDE
     {
         ss.clear();
         ss << filter;

@@ -7,7 +7,7 @@
 [![Codefresh build status]( https://g.codefresh.io/api/badges/pipeline/srz-zumix/srz-zumix%2Fiutest%2Fiutest_unittest?branch=master&type=cf-2)]( https://g.codefresh.io/pipelines/iutest_unittest/builds?repoOwner=srz-zumix&repoName=iutest&serviceName=srz-zumix%2Fiutest&filter=trigger:build~Build;branch:master;pipeline:58a933be9d1bd40100495882~iutest_unittest)
 [![Codeship Status for srz-zumix/iutest](https://codeship.com/projects/5bc87030-5b41-0133-6000-4242aa07dce3/status?branch=master)](https://codeship.com/projects/110695)
 [![Drone Build Status](https://cloud.drone.io/api/badges/srz-zumix/iutest/status.svg?branch=master)](https://cloud.drone.io/srz-zumix/iutest)
-[![Git Hub Actions Status](https://wdp9fww0r9.execute-api.us-west-2.amazonaws.com/production/badge/srz-zumix/iutest)](https://github.com/srz-zumix/iutest/actions)
+[![GitHub Actions Status](https://github.com/srz-zumix/iutest/workflows/GitHub%20Actions/badge.svg?branch=master)](https://github.com/srz-zumix/iutest/actions)
 [![GitLab CI pipeline status](https://gitlab.com/srz-zumix/iutest-test/badges/master/pipeline.svg)](https://gitlab.com/srz-zumix/iutest-test/commits/master)
 [![Scrutinizer Build Status](https://scrutinizer-ci.com/g/srz-zumix/iutest/badges/build.png?b=master)](https://scrutinizer-ci.com/g/srz-zumix/iutest/build-status/master)
 [![Semaphore Build Status](https://semaphoreci.com/api/v1/srz_zumix/iutest/branches/master/badge.svg)](https://semaphoreci.com/srz_zumix/iutest)
@@ -69,7 +69,8 @@ Platforms
 
 * Windows
 * Linux
-* Mac OS X
+* Mac OS
+* FreeBSD
 * Cygwin
 * MinGW
 
@@ -115,13 +116,13 @@ Tests
 |           |[![Bitrise Android Build Status](https://app.bitrise.io/app/f6bc69af3f6e2838/status.svg?token=eqd9m0stwgXuEff2FeLRQA&branch=master)](https://app.bitrise.io/app/f6bc69af3f6e2838?referrer=a9c0b9baf7536067)|[![Bitrise Android Build Status](https://app.bitrise.io/app/f6bc69af3f6e2838/status.svg?token=eqd9m0stwgXuEff2FeLRQA&branch=develop)](https://app.bitrise.io/app/f6bc69af3f6e2838?referrer=a9c0b9baf7536067)|Android|
 |[Buddy](https://buddy.works/)|[![buddy branch](https://app.buddy.works/zumixcpp/iutest/repository/branch/master/badge.svg?token=5e58135ab4831252209e7b1fe75bfe9de669b0dc7e95ed4316eebad2187d59a0 "buddy branch")](https://app.buddy.works/zumixcpp/iutest/repository/branch/master)|[![buddy branch](https://app.buddy.works/zumixcpp/iutest/repository/branch/develop/badge.svg?token=5e58135ab4831252209e7b1fe75bfe9de669b0dc7e95ed4316eebad2187d59a0 "buddy branch")](https://app.buddy.works/zumixcpp/iutest/repository/branch/develop)|benchmark test|
 |[Circle CI](https://circleci.com/)|[![CircleCI](https://circleci.com/gh/srz-zumix/iutest/tree/master.svg?style=svg)](https://circleci.com/gh/srz-zumix/iutest/tree/master)|[![CircleCI](https://circleci.com/gh/srz-zumix/iutest/tree/develop.svg?style=svg)](https://circleci.com/gh/srz-zumix/iutest/tree/develop)|Basic test with opmimize options|
-|[Cirrus CI](https://cirrus-ci.org/)|[![Cirrus Build Status](https://api.cirrus-ci.com/github/srz-zumix/iutest.svg?branch=master)](https://cirrus-ci.com/github/srz-zumix/iutest/master)|[![Cirrus Build Status](https://api.cirrus-ci.com/github/srz-zumix/iutest.svg?branch=develop)](https://cirrus-ci.com/github/srz-zumix/iutest/develop)|g++ std=c++14,17...|
+|[Cirrus CI](https://cirrus-ci.org/)|[![Cirrus Build Status](https://api.cirrus-ci.com/github/srz-zumix/iutest.svg?branch=master)](https://cirrus-ci.com/github/srz-zumix/iutest/master)|[![Cirrus Build Status](https://api.cirrus-ci.com/github/srz-zumix/iutest.svg?branch=develop)](https://cirrus-ci.com/github/srz-zumix/iutest/develop)|g++/clang std=c++14,17.. Basic tests, FreeBSD Basic tests|
 |[Codacy](https://www.codacy.com/)|[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e6407b63c9c844d080ed71c7707bded9?branch=master)](https://www.codacy.com/app/srz-zumix/iutest?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=srz-zumix/iutest&amp;utm_campaign=Badge_Grade)|[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e6407b63c9c844d080ed71c7707bded9?branch=develop)](https://www.codacy.com/app/srz-zumix/iutest?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=srz-zumix/iutest&amp;utm_campaign=Badge_Grade)|Shellcheck, Cppcheck, PyLint, etc...|
 |[Codefresh](https://codefresh.io/)|[![Codefresh build status]( https://g.codefresh.io/api/badges/pipeline/srz-zumix/srz-zumix%2Fiutest%2Fiutest_unittest?branch=master&type=cf-1)]( https://g.codefresh.io/pipelines/iutest_unittest/builds?repoOwner=srz-zumix&repoName=iutest&serviceName=srz-zumix%2Fiutest&filter=trigger:build~Build;branch:master;pipeline:58a933be9d1bd40100495882~iutest_unittest)|[![Codefresh build status]( https://g.codefresh.io/api/badges/pipeline/srz-zumix/srz-zumix%2Fiutest%2Fiutest_unittest?branch=develop&type=cf-1)]( https://g.codefresh.io/pipelines/iutest_unittest/builds?repoOwner=srz-zumix&repoName=iutest&serviceName=srz-zumix%2Fiutest&filter=trigger:build~Build;branch:develop;pipeline:58a933be9d1bd40100495882~iutest_unittest)|Benchmark test, Gcc 7/8/9 basic test|
 |[Codeship](https://codeship.com/)|[![Codeship Status for srz-zumix/iutest](https://app.codeship.com/projects/5bc87030-5b41-0133-6000-4242aa07dce3/status?branch=master)](https://app.codeship.com/projects/110695)|[![Codeship Status for srz-zumix/iutest](https://app.codeship.com/projects/5bc87030-5b41-0133-6000-4242aa07dce3/status?branch=develop)](https://app.codeship.com/projects/110695)|Update documents, Check coding standard of the project|
 |[Coverity Scan](https://scan.coverity.com)|[![Coverity Scan Build Status](https://scan.coverity.com/projects/1316/badge.svg)](https://scan.coverity.com/projects/srz-zumix-iutest)||Coverity Scan|
 |[Drone Cloud](https://cloud.drone.io)|[![Drone Build Status](https://cloud.drone.io/api/badges/srz-zumix/iutest/status.svg?branch=master)](https://cloud.drone.io/srz-zumix/iutest)|[![Build Status](https://cloud.drone.io/api/badges/srz-zumix/iutest/status.svg?branch=develop)](https://cloud.drone.io/srz-zumix/iutest)|gtest compatible test for released versions / gtest version detect test|
-|[GitHub Actions](https://github.com/srz-zumix/iutest/actions)|||EditorConfig Lint, Include What You Use, arm-none-eabi-gcc build|
+|[GitHub Actions](https://github.com/srz-zumix/iutest/actions)|[![GitHub Actions Status](https://github.com/srz-zumix/iutest/workflows/GitHub%20Actions/badge.svg?branch=master)](https://github.com/srz-zumix/iutest/actions)|[![GitHub Actions Status](https://github.com/srz-zumix/iutest/workflows/GitHub%20Actions/badge.svg?branch=develop)](https://github.com/srz-zumix/iutest/actions)|Basic test (Windows LLVM clang and mingw), EditorConfig Lint, Include What You Use, arm-none-eabi-gcc build|
 |[GitLab CI](https://about.gitlab.com/product/continuous-integration/)|[![GitLab CI pipeline status](https://gitlab.com/srz-zumix/iutest-test/badges/master/pipeline.svg)](https://gitlab.com/srz-zumix/iutest-test/commits/master)|[![GitLab CI pipeline status](https://gitlab.com/srz-zumix/iutest-test/badges/develop/pipeline.svg)](https://gitlab.com/srz-zumix/iutest-test/commits/develop)|Google Test/Google Mock compatibility (HEAD)|
 |[INSPECODE](https://rocro.com/)|[![Job Status](https://inspecode.rocro.com/badges/github.com/srz-zumix/iutest/status?token=wt0KUnRUG1-Ul2mLrg8ComR1RznZV3VoXecBJHW0EIk&branch=master)](https://inspecode.rocro.com/jobs/github.com/srz-zumix/iutest/latest?completed=true&branch=master)|[![Job Status](https://inspecode.rocro.com/badges/github.com/srz-zumix/iutest/status?token=wt0KUnRUG1-Ul2mLrg8ComR1RznZV3VoXecBJHW0EIk&branch=develop)](https://inspecode.rocro.com/jobs/github.com/srz-zumix/iutest/latest?completed=true&branch=develop)|Spell check, Cppcheck, cpplint, metrics, scan-build|
 |[Scrutinizer](https://scrutinizer-ci.com/)|[![Scrutinizer Build Status](https://scrutinizer-ci.com/g/srz-zumix/iutest/badges/build.png?b=master)](https://scrutinizer-ci.com/g/srz-zumix/iutest/build-status/master)|[![Scrutinizer Build Status](https://scrutinizer-ci.com/g/srz-zumix/iutest/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/srz-zumix/iutest/build-status/develop)|iuwandbox tests|
@@ -132,15 +133,7 @@ Tests
 
 Basic test
 
-|compiler|c++ version|status|
-|:--|:--|:--|
-|clang++-8|c++98/c++11/c++17|[![Travis-CI Build Status](https://travis-ci.com/srz-zumix/iutest.svg?branch=master)](https://travis-ci.com/srz-zumix/iutest)|
-|g++-9|c++98/c++11/c++17|[![Travis-CI Build Status](https://travis-ci.com/srz-zumix/iutest.svg?branch=master)](https://travis-ci.com/srz-zumix/iutest)|
-|g++-9|c++17|[![Codefresh build status]( https://g.codefresh.io/api/badges/pipeline/srz-zumix/srz-zumix%2Fiutest%2Fiutest_unittest?branch=master&type=cf-1)]( https://g.codefresh.io/pipelines/iutest_unittest/builds?repoOwner=srz-zumix&repoName=iutest&serviceName=srz-zumix%2Fiutest&filter=trigger:build~Build;branch:master;pipeline:58a933be9d1bd40100495882~iutest_unittest)|
-|g++-8|c++17|[![Codefresh build status]( https://g.codefresh.io/api/badges/pipeline/srz-zumix/srz-zumix%2Fiutest%2Fiutest_unittest?branch=master&type=cf-1)]( https://g.codefresh.io/pipelines/iutest_unittest/builds?repoOwner=srz-zumix&repoName=iutest&serviceName=srz-zumix%2Fiutest&filter=trigger:build~Build;branch:master;pipeline:58a933be9d1bd40100495882~iutest_unittest)|
-|g++-7|c++17|[![Codefresh build status]( https://g.codefresh.io/api/badges/pipeline/srz-zumix/srz-zumix%2Fiutest%2Fiutest_unittest?branch=master&type=cf-1)]( https://g.codefresh.io/pipelines/iutest_unittest/builds?repoOwner=srz-zumix&repoName=iutest&serviceName=srz-zumix%2Fiutest&filter=trigger:build~Build;branch:master;pipeline:58a933be9d1bd40100495882~iutest_unittest)|
-|g++-8|c++17/gnu++17|[![CircleCI](https://circleci.com/gh/srz-zumix/iutest/tree/master.svg?style=svg)](https://circleci.com/gh/srz-zumix/iutest/tree/master)|
-|clang++-7|c++17/gnu++17|[![CircleCI](https://circleci.com/gh/srz-zumix/iutest/tree/master.svg?style=svg)](https://circleci.com/gh/srz-zumix/iutest/tree/master)|
+[Compiler and OS tests status](./docs/status/compiler_os_ci_status.rst)
 
 
 Coverage

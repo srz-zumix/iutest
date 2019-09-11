@@ -20,6 +20,10 @@
 #include "../iutest_pred.hpp"
 #include "../iutest_package.hpp"
 
+#if defined(__clang_analyzer__)
+#  include <assert.h>
+#endif
+
 //======================================================================
 // define
 /**
@@ -48,7 +52,7 @@
 
 #define IIUT_ALIAS_TESTNAME_PP_UNPAREN_(...)    __VA_ARGS__
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(__clang__)
 #  define IUTEST_ALIAS_TESTNAME_(name_)         name_
 #  define IUTEST_ALIAS_TESTNAME_F_(name_, var_) UNPAREN_(dummy, var_, name_)
 #else
@@ -457,12 +461,17 @@
  * @brief   IUTEST_ANALYSIS_ASSUME_ を通す
 */
 #if IUTEST_HAS_ANALYSIS_ASSUME
+#  define IUTEST_ANALYSIS_ASSUME_DELEGATE   IUTEST_ANALYSIS_ASSUME
+#elif defined(__clang_analyzer__)
+#  define IUTEST_ANALYSIS_ASSUME_DELEGATE   assert
+#endif
 
+#if defined(IUTEST_ANALYSIS_ASSUME_DELEGATE)
 #define IUTEST_THROUGH_ANALYSIS_ASSUME_(expr, todo)                 \
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                  \
     if( bool b = true ) {                                           \
         IUTEST_UNUSED_VAR(b);                                       \
-        IUTEST_ANALYSIS_ASSUME(expr);                               \
+        IUTEST_ANALYSIS_ASSUME_DELEGATE(expr);                      \
         goto IUTEST_PP_CAT(iutest_label_analysis_assume, __LINE__); \
     } else                                                          \
         IUTEST_PP_CAT(iutest_label_analysis_assume, __LINE__):      \
@@ -611,7 +620,7 @@
 /**
  * @brief   コンパイルエラーチェックタグ
 */
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(__clang__)
 #  define IUTEST_TEST_COMPILEERROR(e)   \
     IUTEST_PRAGMA_MESSAGE(__FILE__ "(" IUTEST_PP_TOSTRING(__LINE__) "): note : " "IUTEST_TEST_COMPILEERROR( " #e " )")
 #else

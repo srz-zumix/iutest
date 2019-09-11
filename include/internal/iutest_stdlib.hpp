@@ -282,13 +282,6 @@
 #endif
 
 #if defined(__has_include)
-#  if __has_include(<filesystem>)
-#    define IUTEST_HAS_CXX_HDR_FILESYSTEM   1
-#  endif
-#endif
-
-
-#if defined(__has_include)
 #  if __has_include(<optional>)
 #    define IUTEST_HAS_CXX_HDR_OPTIONAL     1
 #  endif
@@ -310,12 +303,20 @@
 
 // c++17 feature
 
+#if !defined(IUTEST_HAS_STD_FILESYSTEM)
+#  if defined(__cpp_lib_filesystem) && __cpp_lib_filesystem >= 201703
+#    if !defined(__cpp_lib_experimental_filesystem)
+#      define IUTEST_HAS_STD_FILESYSTEM     1
+#    endif
+#  endif
+#endif
+
 #if !defined(IUTEST_HAS_CXX_HDR_VARIANT)
 #  if IUTEST_HAS_VARIADIC_TEMPLATES && defined(__has_include)
 #    if   defined(__clang__) && (__clang_major__ < 3 || (__clang_major__ == 3 && __clang_minor__ < 6))
-#      define IUTEST_HAS_CXX_HDR_VARIANT      0   // clang 3.5 + variant is not worked
+#      define IUTEST_HAS_CXX_HDR_VARIANT    0   // clang 3.5 + variant is not worked
 #    elif __has_include(<variant>)
-#      define IUTEST_HAS_CXX_HDR_VARIANT      1
+#      define IUTEST_HAS_CXX_HDR_VARIANT    1
 #    endif
 #  endif
 #endif
@@ -341,6 +342,10 @@
 //! has emplace
 #if !defined(IUTEST_HAS_STD_EMPLACE)
 #  define IUTEST_HAS_STD_EMPLACE        0
+#endif
+//! has filesystem
+#if !defined(IUTEST_HAS_STD_FILESYSTEM)
+#  define IUTEST_HAS_STD_FILESYSTEM     0
 #endif
 //! has std::invoke
 #if !defined(IUTEST_HAS_STD_INVOKE)
@@ -407,10 +412,6 @@
 #if !defined(IUTEST_HAS_CXX_HDR_CUCHAR)
 #  define IUTEST_HAS_CXX_HDR_CUCHAR     0
 #endif
-//! has filesystem header
-#if !defined(IUTEST_HAS_CXX_HDR_FILESYSTEM)
-#  define IUTEST_HAS_CXX_HDR_FILESYSTEM 0
-#endif
 //! has optional header
 #if !defined(IUTEST_HAS_CXX_HDR_OPTIONAL)
 #  define IUTEST_HAS_CXX_HDR_OPTIONAL   0
@@ -446,7 +447,7 @@
 #if IUTEST_HAS_CXX_HDR_CSTDINT
 #  include <cstdint>
 #endif
-#if IUTEST_HAS_CXX_HDR_FILESYSTEM
+#if IUTEST_HAS_STD_FILESYSTEM
 #  include <filesystem>
 #endif
 #if IUTEST_HAS_CXX_HDR_OPTIONAL
