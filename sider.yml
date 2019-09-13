@@ -4,6 +4,3 @@ linter:
     root_dir: 'docs'
     glob: '**/*.{css,scss}'
 
-  # goodcheck:
-  #   config: .ci/goodcheck.yml
-
