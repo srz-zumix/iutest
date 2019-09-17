@@ -81,18 +81,18 @@ Documentation
   doc/index.html  
 * online document  
   [least released version(OSDN)](http://iutest.osdn.jp/doc/index.html)  
-  [github master branch (gh-pages)](http://srz-zumix.github.io/iutest/)  
+  [GitHub master branch (gh-pages)](http://srz-zumix.github.io/iutest/)  
 
 Project page
 --------------------------------------------------
 
 * [OSDN Project page](http://iutest.osdn.jp/)  
-* [Github](https://github.com/srz-zumix/iutest)  
+* [GitHub](https://github.com/srz-zumix/iutest)  
 
 Support
 --------------------------------------------------
 
-* Use [Github issues](https://github.com/srz-zumix/iutest/issues) to report bugs and feature requests.
+* Use [GitHub issues](https://github.com/srz-zumix/iutest/issues) to report bugs and feature requests.
 * Ask questions at the twitter ([@srz_zumix](https://twitter.com/srz_zumix))
 
 Tools
