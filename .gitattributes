@@ -57,6 +57,8 @@ Dockerfile  text eol=lf
 # export settings
 .ci         export-ignore
 .circleci   export-ignore
+.github     export-ignore
+.semaphre   export-ignore
 *.yml       export-ignore
 Jenkinsfile export-ignore
 tox.ini     export-ignore
