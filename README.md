@@ -81,13 +81,13 @@ Documentation
   doc/index.html  
 * online document  
   [least released version(OSDN)](http://iutest.osdn.jp/doc/index.html)  
-  [github master branch (gh-pages)](http://srz-zumix.github.io/iutest/)  
+  [Github master branch (gh-pages)](http://srz-zumix.github.io/iutest/)  
 
 Project page
 --------------------------------------------------
 
 * [OSDN Project page](http://iutest.osdn.jp/)  
-* [Github](https://github.com/srz-zumix/iutest)  
+* [GitHub](https://github.com/srz-zumix/iutest)  
 
 Support
 --------------------------------------------------
