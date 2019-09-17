@@ -64,5 +64,6 @@ Dockerfile  text eol=lf
 Jenkinsfile export-ignore
 tox.ini     export-ignore
 docs/dev    export-ignore
+.bandit     export-ignore
 .gitignore  export-ignore
 .gitattributes export-ignore
