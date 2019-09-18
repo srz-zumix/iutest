@@ -86,14 +86,14 @@ public:
 #endif
 
     template<size_t N>
-    iu_basic_string_view(value_type(&str)[N])
+    iu_basic_string_view(value_type(&str)[N]) // NOLINT
         : m_data(str)
         , m_size(N)
     {
     }
 
     template<typename Allocator>
-    iu_basic_string_view(const ::std::basic_string<value_type, traits_type, Allocator>& str)
+    iu_basic_string_view(const ::std::basic_string<value_type, traits_type, Allocator>& str) // NOLINT
         : m_data(str.data())
         , m_size(str.length())
     {
@@ -417,18 +417,18 @@ public:
 #endif
 
     template<size_t N>
-    iu_nullable_basic_string_view(value_type(&str)[N])
+    iu_nullable_basic_string_view(value_type(&str)[N]) // NOLINT
         : _Mybase(str, N)
     {
     }
 
-    iu_nullable_basic_string_view(const _Mybase& str_view)
+    iu_nullable_basic_string_view(const _Mybase& str_view) // NOLINT
         : _Mybase(str_view)
     {
     }
 
     template<typename Allocator>
-    iu_nullable_basic_string_view(const ::std::basic_string<value_type, traits_type, Allocator>& str)
+    iu_nullable_basic_string_view(const ::std::basic_string<value_type, traits_type, Allocator>& str) // NOLINT
         : _Mybase(str.data(), str.length())
     {
     }
