@@ -40,7 +40,11 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
     {
         for( size_t i=0; i < size; ++i )
         {
+#ifdef __clang_analyzer__
+            const unsigned char n = 0;  // suppress
+#else
             const unsigned char n = buf[i];
+#endif
             *os << detail::ToHex((n>>4)&0xF) << ToHex(n&0xF) << " ";
             if( i == kMaxCount )
             {
@@ -366,7 +370,7 @@ inline void PrintTo(const ::std::any& value, iu_ostream* os)
 }
 #endif
 
-#if IUTEST_USE_CXX_FILESYSTEM
+#if IUTEST_HAS_STD_FILESYSTEM
 inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_type& value)
 {
     switch(value)
