@@ -392,7 +392,7 @@ public:
     typedef const value_type* const_pointer;
     typedef size_t size_type;
 public:
-    IUTEST_CXX_CONSTEXPR iu_nullable_basic_string_view() IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_DEFAULT_FUNCTION;
+    IUTEST_CXX_CONSTEXPR iu_nullable_basic_string_view() IUTEST_CXX_NOEXCEPT_SPEC IUTEST_CXX_DEFAULT_FUNCTION
 #if IUTEST_HAS_NULLPTR
     IUTEST_CXX_CONSTEXPR iu_nullable_basic_string_view(::std::nullptr_t)
         : _Mybase(IUTEST_NULLPTR, 0)
