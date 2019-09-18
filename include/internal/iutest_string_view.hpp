@@ -99,7 +99,7 @@ public:
     {
     }
 
-    ~iu_basic_string_view() IUTEST_CXX_DEFAULT_FUNCTION;
+    ~iu_basic_string_view() IUTEST_CXX_DEFAULT_FUNCTION
 
 public:
 #if IUTEST_HAS_DEFAULT_FUNCTIONS
