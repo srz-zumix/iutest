@@ -1021,9 +1021,8 @@ inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T1& val1, const T2& val2)
 template<typename T1, typename T2>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     const char* expr1, const char* expr2
-    , T1 val1, T2 val2
-    , typename detail::enable_if< (!detail::is_integral<T1>::value || !detail::is_pointer<T2>::value)
-    && (!detail::is_integral<T2>::value || !detail::is_pointer<T1>::value), void>::type*& = detail::enabler::value)
+    , T1 val1, T2 val2, typename detail::enable_if<
+        !detail::is_integral<T1>::value || !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value)
 {
     if( StrNeHelper::Compare(val1, val2) )
     {
@@ -1035,39 +1034,20 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
         << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
 }
 
-#if IUTEST_HAS_NULLPTR
-
 template<typename T>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     const char* expr1, const char* expr2
-    , T val1, ::std::nullptr_t)
+    , detail::iu_nullptr_convertible_t, T val2)
 {
-    if( StrNeHelper::Compare(val1, nullptr) )
+    if( StrNeHelper::Compare(IUTEST_NULLPTR, val2) )
     {
         return AssertionSuccess();
     }
 
     return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
-        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(nullptr, val1))
-        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, nullptr));
+        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))
+        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
 }
-
-template<typename T>
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
-    const char* expr1, const char* expr2
-    , ::std::nullptr_t, T val2)
-{
-    if( StrNeHelper::Compare(nullptr, val2) )
-    {
-        return AssertionSuccess();
-    }
-
-    return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
-        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, nullptr))
-        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(nullptr, val2));
-}
-
-#endif
 
 namespace StrCaseEqHelper
 {
