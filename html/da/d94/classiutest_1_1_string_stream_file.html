@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.16.99.26</span>
+   &#160;<span id="projectnumber">1.16.99.27</span>
    </div>
   </td>
  </tr>
@@ -99,9 +99,6 @@ iutest::StringStreamFile 連携図</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 公開メンバ関数</h2></td></tr>
-<tr class="memitem:ab58e3a655c891927a99e9cc37215e5d1"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d94/classiutest_1_1_string_stream_file.html#ab58e3a655c891927a99e9cc37215e5d1">Open</a> (const char *, int) <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></td></tr>
-<tr class="memdesc:ab58e3a655c891927a99e9cc37215e5d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">開く  <a href="#ab58e3a655c891927a99e9cc37215e5d1">[詳解]</a><br /></td></tr>
-<tr class="separator:ab58e3a655c891927a99e9cc37215e5d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab51f2ebbfb888c8ffb067285244dd1f1"><td class="memItemLeft" align="right" valign="top"><a id="ab51f2ebbfb888c8ffb067285244dd1f1"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d94/classiutest_1_1_string_stream_file.html#ab51f2ebbfb888c8ffb067285244dd1f1">Close</a> () <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></td></tr>
 <tr class="memdesc:ab51f2ebbfb888c8ffb067285244dd1f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">閉じる <br /></td></tr>
@@ -120,6 +117,10 @@ virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" 
 virtual ::std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d94/classiutest_1_1_string_stream_file.html#ae91ba3255b56b6497ee8aa2cb7432b13">ReadAll</a> () <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></td></tr>
 <tr class="memdesc:ae91ba3255b56b6497ee8aa2cb7432b13"><td class="mdescLeft">&#160;</td><td class="mdescRight">全読み込み <br /></td></tr>
 <tr class="separator:ae91ba3255b56b6497ee8aa2cb7432b13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classiutest_1_1_i_file"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classiutest_1_1_i_file')"><img src="../../closed.png" alt="-"/>&#160;基底クラス <a class="el" href="../../d9/d57/classiutest_1_1_i_file.html">iutest::IFile</a> に属する継承公開メンバ関数</td></tr>
+<tr class="memitem:a5ff9bd684673f88fdf3409f3e07541d6 inherit pub_methods_classiutest_1_1_i_file"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d57/classiutest_1_1_i_file.html#a5ff9bd684673f88fdf3409f3e07541d6">Open</a> (const char *filename, int mode)</td></tr>
+<tr class="memdesc:a5ff9bd684673f88fdf3409f3e07541d6 inherit pub_methods_classiutest_1_1_i_file"><td class="mdescLeft">&#160;</td><td class="mdescRight">開く  <a href="../../d9/d57/classiutest_1_1_i_file.html#a5ff9bd684673f88fdf3409f3e07541d6">[詳解]</a><br /></td></tr>
+<tr class="separator:a5ff9bd684673f88fdf3409f3e07541d6 inherit pub_methods_classiutest_1_1_i_file"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 限定公開変数類</h2></td></tr>
@@ -140,47 +141,6 @@ virtual ::std::string&#160;</td><td class="memItemRight" valign="bottom"><a clas
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>文字列バッファ書き込み <a class="el" href="../../d9/d57/classiutest_1_1_i_file.html" title="ファイルクラスインターフェイス ">IFile</a> インターフェースクラス </p>
 </div><h2 class="groupheader">関数詳解</h2>
-<a id="ab58e3a655c891927a99e9cc37215e5d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab58e3a655c891927a99e9cc37215e5d1">&#9670;&nbsp;</a></span>Open()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool iutest::StringStreamFile::Open </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>開く </p>
-<dl class="section return"><dt>戻り値</dt><dd>成否 </dd></dl>
-
-<p><a class="el" href="../../d9/d57/classiutest_1_1_i_file.html#ad5e3d6e3009974fce8cffa15984f9a83">iutest::IFile</a>を実装しています。</p>
-
-</div>
-</div>
 <a id="a79949a9a09010201ba06c6e2902dc5f6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a79949a9a09010201ba06c6e2902dc5f6">&#9670;&nbsp;</a></span>Read()</h2>
 
@@ -291,7 +251,7 @@ virtual ::std::string&#160;</td><td class="memItemRight" valign="bottom"><a clas
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2019年08月26日(月) 01時42分38秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2019年09月19日(木) 13時24分59秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
