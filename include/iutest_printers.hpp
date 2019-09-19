@@ -36,14 +36,21 @@ inline void PrintBytesInObjectTo(const unsigned char* buf, size_t size, iu_ostre
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
     const size_t kMaxCount = detail::kValues::MaxPrintContainerCount;
     *os << size << "-Byte object < ";
-    for( size_t i=0; i < size; ++i )
+    if( buf != NULL && size > 0 )
     {
-        const unsigned char n = buf[i];
-        *os << detail::ToHex((n>>4)&0xF) << ToHex(n&0xF) << " ";
-        if( i == kMaxCount )
+        for( size_t i=0; i < size; ++i )
         {
-            *os << "... ";
-            break;
+#ifdef __clang_analyzer__
+            const unsigned char n = 0;  // suppress
+#else
+            const unsigned char n = buf[i];
+#endif
+            *os << detail::ToHex((n>>4)&0xF) << ToHex(n&0xF) << " ";
+            if( i == kMaxCount )
+            {
+                *os << "... ";
+                break;
+            }
         }
     }
     *os << ">";
@@ -363,7 +370,7 @@ inline void PrintTo(const ::std::any& value, iu_ostream* os)
 }
 #endif
 
-#if IUTEST_USE_CXX_FILESYSTEM
+#if IUTEST_HAS_STD_FILESYSTEM
 inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_type& value)
 {
     switch(value)

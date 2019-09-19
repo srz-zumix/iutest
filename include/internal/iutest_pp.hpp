@@ -726,7 +726,7 @@
 
 #endif
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(__clang__)
 #define IIUT_PP_VD_CAT(a, b)            IIUT_PP_VD_CAT_I(a, b)
 #define IIUT_PP_VD_CAT_I(a, b)          IIUT_PP_VD_CAT_II(a ## b)
 #define IIUT_PP_VD_CAT_II(res)          res

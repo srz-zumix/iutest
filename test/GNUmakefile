@@ -79,14 +79,6 @@ endif
 #
 
 #
-# MINGW
-#
-ifeq ($(findstring mingw, $(CXX)),mingw)
-LIBS+=ws2_32
-CXXFLAGS += -static-libgcc -static-libstdc++
-endif
-
-#
 # Wine g++
 #
 ifeq ($(CXX),wineg++)

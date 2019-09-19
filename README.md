@@ -81,18 +81,18 @@ Documentation
   doc/index.html  
 * online document  
   [least released version(OSDN)](http://iutest.osdn.jp/doc/index.html)  
-  [github master branch (gh-pages)](http://srz-zumix.github.io/iutest/)  
+  [GitHub master branch (gh-pages)](http://srz-zumix.github.io/iutest/)  
 
 Project page
 --------------------------------------------------
 
 * [OSDN Project page](http://iutest.osdn.jp/)  
-* [Github](https://github.com/srz-zumix/iutest)  
+* [GitHub](https://github.com/srz-zumix/iutest)  
 
 Support
 --------------------------------------------------
 
-* Use [Github issues](https://github.com/srz-zumix/iutest/issues) to report bugs and feature requests.
+* Use [GitHub issues](https://github.com/srz-zumix/iutest/issues) to report bugs and feature requests.
 * Ask questions at the twitter ([@srz_zumix](https://twitter.com/srz_zumix))
 
 Tools
@@ -122,7 +122,7 @@ Tests
 |[Codeship](https://codeship.com/)|[![Codeship Status for srz-zumix/iutest](https://app.codeship.com/projects/5bc87030-5b41-0133-6000-4242aa07dce3/status?branch=master)](https://app.codeship.com/projects/110695)|[![Codeship Status for srz-zumix/iutest](https://app.codeship.com/projects/5bc87030-5b41-0133-6000-4242aa07dce3/status?branch=develop)](https://app.codeship.com/projects/110695)|Update documents, Check coding standard of the project|
 |[Coverity Scan](https://scan.coverity.com)|[![Coverity Scan Build Status](https://scan.coverity.com/projects/1316/badge.svg)](https://scan.coverity.com/projects/srz-zumix-iutest)||Coverity Scan|
 |[Drone Cloud](https://cloud.drone.io)|[![Drone Build Status](https://cloud.drone.io/api/badges/srz-zumix/iutest/status.svg?branch=master)](https://cloud.drone.io/srz-zumix/iutest)|[![Build Status](https://cloud.drone.io/api/badges/srz-zumix/iutest/status.svg?branch=develop)](https://cloud.drone.io/srz-zumix/iutest)|gtest compatible test for released versions / gtest version detect test|
-|[GitHub Actions](https://github.com/srz-zumix/iutest/actions)|[![GitHub Actions Status](https://github.com/srz-zumix/iutest/workflows/GitHub%20Actions/badge.svg?branch=master)](https://github.com/srz-zumix/iutest/actions)|[![GitHub Actions Status](https://github.com/srz-zumix/iutest/workflows/GitHub%20Actions/badge.svg?branch=develop)](https://github.com/srz-zumix/iutest/actions)|EditorConfig Lint, Include What You Use, arm-none-eabi-gcc build|
+|[GitHub Actions](https://github.com/srz-zumix/iutest/actions)|[![GitHub Actions Status](https://github.com/srz-zumix/iutest/workflows/GitHub%20Actions/badge.svg?branch=master)](https://github.com/srz-zumix/iutest/actions)|[![GitHub Actions Status](https://github.com/srz-zumix/iutest/workflows/GitHub%20Actions/badge.svg?branch=develop)](https://github.com/srz-zumix/iutest/actions)|Basic test (Windows LLVM clang and mingw), EditorConfig Lint, Include What You Use, arm-none-eabi-gcc build|
 |[GitLab CI](https://about.gitlab.com/product/continuous-integration/)|[![GitLab CI pipeline status](https://gitlab.com/srz-zumix/iutest-test/badges/master/pipeline.svg)](https://gitlab.com/srz-zumix/iutest-test/commits/master)|[![GitLab CI pipeline status](https://gitlab.com/srz-zumix/iutest-test/badges/develop/pipeline.svg)](https://gitlab.com/srz-zumix/iutest-test/commits/develop)|Google Test/Google Mock compatibility (HEAD)|
 |[INSPECODE](https://rocro.com/)|[![Job Status](https://inspecode.rocro.com/badges/github.com/srz-zumix/iutest/status?token=wt0KUnRUG1-Ul2mLrg8ComR1RznZV3VoXecBJHW0EIk&branch=master)](https://inspecode.rocro.com/jobs/github.com/srz-zumix/iutest/latest?completed=true&branch=master)|[![Job Status](https://inspecode.rocro.com/badges/github.com/srz-zumix/iutest/status?token=wt0KUnRUG1-Ul2mLrg8ComR1RznZV3VoXecBJHW0EIk&branch=develop)](https://inspecode.rocro.com/jobs/github.com/srz-zumix/iutest/latest?completed=true&branch=develop)|Spell check, Cppcheck, cpplint, metrics, scan-build|
 |[Scrutinizer](https://scrutinizer-ci.com/)|[![Scrutinizer Build Status](https://scrutinizer-ci.com/g/srz-zumix/iutest/badges/build.png?b=master)](https://scrutinizer-ci.com/g/srz-zumix/iutest/build-status/master)|[![Scrutinizer Build Status](https://scrutinizer-ci.com/g/srz-zumix/iutest/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/srz-zumix/iutest/build-status/develop)|iuwandbox tests|

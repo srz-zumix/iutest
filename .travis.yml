@@ -23,11 +23,17 @@ addons:
       - clang-8
       - g++-9
       - gcc-9
+      - gdb
       #- cppcheck
     config:
       retries: true
 
 before_install:
+  - |
+    if [[ "${TRAVIS_OS_NAME}" = "linux" ]]; then
+      ulimit -c unlimited
+      sudo bash -c 'echo "core_x_%e" > /proc/sys/kernel/core_pattern'
+    fi
   - python .ci/travisci/travis_blocking_stdout.py || true
   #- apt-cache search clang || true
   #- apt-cache search gcc || true
@@ -94,6 +100,15 @@ script:
   #  else
   #    cd ./test; make showcxxversion ${USE_FUSED} all;
   #  fi
+
+after_failure:
+    - cd ${TRAVIS_BUILD_DIR}/test
+    - |
+      for f in `find . -maxdepth 1 -name "core_x_*"`; do
+        COREFILE=${f}
+        EXECFILE=${f##*/core_x_}
+        gdb -c "${COREFILE}" ${EXECFILE} -ex "thread apply all bt" -ex "set pagination 0" -batch
+      done
 
 env:
   global:
