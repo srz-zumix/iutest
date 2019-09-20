@@ -44,6 +44,16 @@ IUTEST(StdFileUnitTest, FileSize)
     IUTEST_EXPECT_LT(0u, file.GetSize());
 }
 
+IUTEST(UnitFileSystem, Info)
+{
+#if defined(__cpp_lib_filesystem)
+    IUTEST_SUCCEED() << "__cpp_lib_filesystem: " << __cpp_lib_filesystem;
+#endif
+#if defined(__cpp_lib_experimental_filesystem)
+    IUTEST_SUCCEED() << "__cpp_lib_experimental_filesystem: " << __cpp_lib_experimental_filesystem;
+#endif
+}
+
 #endif
 
 #if IUTEST_HAS_STD_FILESYSTEM
