@@ -1022,7 +1022,8 @@ template<typename T1, typename T2>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     const char* expr1, const char* expr2
     , T1 val1, T2 val2, typename detail::enable_if<
-        !detail::is_integral<T1>::value || !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value)
+        ((!detail::is_integral<T2>::value || !detail::is_pointer<T1>::value) &&
+        (!detail::is_integral<T1>::value || !detail::is_pointer<T2>::value)), void>::type*& = detail::enabler::value)
 {
     if( StrNeHelper::Compare(val1, val2) )
     {
@@ -1039,14 +1040,29 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     const char* expr1, const char* expr2
     , detail::iu_nullptr_convertible_t, T val2)
 {
-    if( StrNeHelper::Compare(IUTEST_NULLPTR, val2) )
+    if( !StrEqHelper::Compare(IUTEST_NULLPTR, val2) )
     {
         return AssertionSuccess();
     }
 
     return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
-        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1))
-        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
+        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, IUTEST_NULLPTR))
+        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(IUTEST_NULLPTR, val2));
+}
+
+template<typename T>
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
+    const char* expr1, const char* expr2
+    , T val1, detail::iu_nullptr_convertible_t)
+{
+    if( !StrEqHelper::Compare(val1, IUTEST_NULLPTR) )
+    {
+        return AssertionSuccess();
+    }
+
+    return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
+        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(IUTEST_NULLPTR, val1))
+        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, IUTEST_NULLPTR));
 }
 
 namespace StrCaseEqHelper
