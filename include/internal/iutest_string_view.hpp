@@ -399,7 +399,6 @@ public:
     {
     }
 #endif
-    // cppcheck-suppress noExplicitConstructor
     IUTEST_CXX_CONSTEXPR iu_nullable_basic_string_view(const_pointer str)
         : _Mybase(str, str ? traits_type::length(str) : 0)
     {
@@ -423,7 +422,6 @@ public:
     {
     }
 
-    // cppcheck-suppress noExplicitConstructor
     iu_nullable_basic_string_view(const _Mybase& str_view) // NOLINT
         : _Mybase(str_view)
     {
