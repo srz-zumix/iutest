@@ -86,8 +86,8 @@ public:
     }
 #endif
 
-     // cppcheck-suppress noExplicitConstructor
-   template<size_t N>
+    // cppcheck-suppress noExplicitConstructor
+    template<size_t N>
     iu_basic_string_view(value_type(&str)[N]) // NOLINT
         : m_data(str)
         , m_size(N)
