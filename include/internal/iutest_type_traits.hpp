@@ -366,7 +366,7 @@ class is_integral<__int128> : public true_type {};
 #endif
 #endif
 
-}
+}   // end of namespace is_integral_helper
 
 /**
  * @brief   is_integral
