@@ -1,7 +1,7 @@
 on: push
 name: GitHub Actions
 jobs:
-  basic-test:
+  llvm-basic-test:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@master
@@ -16,6 +16,10 @@ jobs:
         make -C test CXX=clang++ CC=clang showcxxversion
         make -C test CXX=clang++ CC=clang -j8
         make -C test CXX=clang++ CC=clang test
+  mingw-basic-test:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@master
     - name: mingw test
       run: |
         make -C test clean
