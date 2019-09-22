@@ -176,7 +176,7 @@ IUTEST_IPP_INLINE int SleepMillisecFor(unsigned int millisec)
     volatile int x=0;
     for( unsigned int i=0; i < millisec; ++i )
     {
-        x += 1;
+        x = x + 1;
     }
     return x;
 }
