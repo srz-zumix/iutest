@@ -51,8 +51,8 @@ public:
         , da(0.0)
         , sa("a")
         , sb("b")
-        , ox(0,1,2)
-        , oy(0,0,0)
+        , ox(0, 1, 2)
+        , oy(0, 0, 0)
     {
         const char ac_[5] = { 0, 0, 2, 3, 5 };
         for( int i=0; i < 5; ++i )
