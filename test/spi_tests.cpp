@@ -79,8 +79,8 @@ const ::std::string sa="a";
 const ::std::string sb="b";
 const float fa = static_cast<float>(a);
 const double da = static_cast<double>(a);
-const TestObjectX ox = { 0, 1, 2 };
-const TestObjectX oy = { 0, 0, 0 };
+const TestObjectX ox(0, 1, 2);
+const TestObjectX oy(0, 0, 0);
 #endif
 
 void SPITest::FatalFailure_Sub(int& count)
