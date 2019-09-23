@@ -26,6 +26,7 @@
     FAILURE_MACRO( FLAVOR(_NULL)(reinterpret_cast<void*>(1)), "" );
     FAILURE_MACRO( FLAVOR(_NOTNULL)(reinterpret_cast<void*>(0)), "" );
     FAILURE_MACRO( FLAVOR(_SAME)(a, b), "" );
+    FAILURE_MACRO( FLAVOR(_EQ)(ox, oy), "" );
     FAILURE_MACRO( FLAVOR(_EQ)(0, 1), "" );
     FAILURE_MACRO( FLAVOR(_NE)(1, 1), "" );
     FAILURE_MACRO( FLAVOR(_LE)(1, 0), "" );
@@ -52,11 +53,14 @@
     FAILURE_MACRO( FLAVOR(_STREQ)("A", "a"), "" );
     FAILURE_MACRO( FLAVOR(_STREQ)("A", null_str), "" );
     FAILURE_MACRO( FLAVOR(_STREQ)(null_str, "a"), "" );
+    FAILURE_MACRO( FLAVOR(_STREQ)(NULL, "a"), "" );
     FAILURE_MACRO( FLAVOR(_STREQ)(sa, "A"), "" );
     FAILURE_MACRO( FLAVOR(_STREQ)("A", sa), "" );
     FAILURE_MACRO( FLAVOR(_STREQ)(sa, sb), "" );
     FAILURE_MACRO( FLAVOR(_STREQ)(L"A", L"a"), "" );
     FAILURE_MACRO( FLAVOR(_STRNE)("a", "a"), "" );
+    FAILURE_MACRO( FLAVOR(_STRNE)(NULL, null_str), "" );
+    FAILURE_MACRO( FLAVOR(_STRNE)(null_str, NULL), "" );
     FAILURE_MACRO( FLAVOR(_STRNE)(null_str, null_str), "" );
     FAILURE_MACRO( FLAVOR(_STRNE)(sa, "a"), "" );
     FAILURE_MACRO( FLAVOR(_STRNE)("a", sa), "" );
@@ -77,6 +81,7 @@
     FAILURE_MACRO( FLAVOR(_STRCASENE)("A", sa), "" );
     FAILURE_MACRO( FLAVOR(_STRCASENE)(sa, sa), "" );
     FAILURE_MACRO( FLAVOR(_STRCASENE)(L"A", L"a"), "" );
+
 
     FAILURE_MACRO( FLAVOR(_PRED1)(IsOdd, 2), "evaluates to false, where" );
     FAILURE_MACRO( FLAVOR(_PRED2)(IsGreater, 0, 1), "evaluates to false, where" );
