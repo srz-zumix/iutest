@@ -26,7 +26,9 @@
     FAILURE_MACRO( FLAVOR(_NULL)(reinterpret_cast<void*>(1)), "" );
     FAILURE_MACRO( FLAVOR(_NOTNULL)(reinterpret_cast<void*>(0)), "" );
     FAILURE_MACRO( FLAVOR(_SAME)(a, b), "" );
+#if IUTEST_HAS_ASSERTION_NOEQUALTO_OBJECT
     FAILURE_MACRO( FLAVOR(_EQ)(ox, oy), "" );
+#endif
     FAILURE_MACRO( FLAVOR(_EQ)(0, 1), "" );
     FAILURE_MACRO( FLAVOR(_NE)(1, 1), "" );
     FAILURE_MACRO( FLAVOR(_LE)(1, 0), "" );
