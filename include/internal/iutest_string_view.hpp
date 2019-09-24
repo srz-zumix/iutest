@@ -104,7 +104,7 @@ public:
 public:
 #if IUTEST_HAS_DEFAULT_FUNCTIONS
     iu_basic_string_view& operator=(const iu_basic_string_view&) = default;
-#if IUTEST_HAS_RVALUE_REFS
+#if IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION
     iu_basic_string_view& operator=(iu_basic_string_view&&) = default;
 #endif
 #else
