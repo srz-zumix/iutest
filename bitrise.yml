@@ -120,6 +120,7 @@ workflows:
             set -ex
             #apt-get update
             #apt-get install -qq cmake
+            pip install --upgrade pip
             pip install --upgrade cmake
             cmake --version
             mkdir android-build
