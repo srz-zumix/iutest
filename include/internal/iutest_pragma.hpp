@@ -226,6 +226,16 @@
 #endif
 
 #if   defined(__clang__)
+#  define IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST()
+#elif defined(__GNUC__)
+#  define IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST()
+#elif defined(_MSC_VER)
+#  define IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST()   IUTEST_PRAGMA_MSC_WARN_DISABLE(4814)
+#else
+#  define IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST()
+#endif
+
+#if   defined(__clang__)
 #  if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ > 0))
 #    define IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wdangling-else")
 #  endif

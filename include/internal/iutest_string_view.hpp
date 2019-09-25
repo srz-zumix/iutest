@@ -158,6 +158,9 @@ public:
     }
 
 public:
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST()
+
     IUTEST_CXX14_CONSTEXPR void remove_prefix(size_type n) IUTEST_CXX_NOEXCEPT_SPEC
     {
         m_data += n;
@@ -175,6 +178,8 @@ public:
         other = *this;
         *this = other;
     }
+
+IUTEST_PRAGMA_WARN_POP()
 
 public:
     size_type copy(pointer s, size_type n, size_type pos = 0) const
