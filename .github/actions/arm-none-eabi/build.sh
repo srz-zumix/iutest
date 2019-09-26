@@ -1,5 +1,8 @@
 #!/bin/sh
 
 cd test
-make showcxxversion showcxxmacros DEFS="--specs=nosys.specs -mthumb -mcpu=cortex-m3"
-make DEFS="--specs=nosys.specs -mthumb -mcpu=cortex-m3"
+DEFS="--specs=nosys.specs -mthumb -mcpu=cortex-m3"
+
+make showcxxversion showcxxmacros DEFS="$DEFS"
+make showcxxversion check_stdlib DEFS="$DEFS"
+make DEFS="$DEFS"

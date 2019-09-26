@@ -14,6 +14,7 @@ jobs:
         set PATH=%PATH%;C:\Program Files\LLVM\bin
         make -C test clean
         make -C test CXX=clang++ CC=clang showcxxversion
+        make -C test CXX=clang++ CC=clang check_stdlib
         make -C test CXX=clang++ CC=clang -j8
         make -C test CXX=clang++ CC=clang test
   mingw-basic-test:
@@ -24,6 +25,7 @@ jobs:
       run: |
         make -C test clean
         make -C test showcxxversion
+        make -C test check_stdlib
         make -C test -j8
         make -C test test
   arm-none-eabi:
