@@ -123,6 +123,7 @@ modification, are permitted provided that the following conditions are met: \n
  <ul>
   <li>v1.17.0.0
     <ul>
+      <li>::std::string_view 対応</li>
       <li>::std::filesystem 対応</li>
       <li>FreeBSD 対応</li>
       <li>ALMOST_EQ アサーション を追加</li>
