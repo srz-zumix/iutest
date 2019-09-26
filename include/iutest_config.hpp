@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -652,6 +652,20 @@
 #if !defined(IUTEST_USE_OWN_LIST)
 #  define IUTEST_USE_OWN_LIST   0
 #endif
+
+/**
+ * @brief   独自 string_view クラスを使う
+*/
+#if !defined(IUTEST_USE_OWN_STRING_VIEW)
+#  if !IUTEST_HAS_CXX_HDR_STRING_VIEW
+#    define IUTEST_USE_OWN_STRING_VIEW  1
+#  endif
+#endif
+
+#if !defined(IUTEST_USE_OWN_STRING_VIEW)
+#  define IUTEST_USE_OWN_STRING_VIEW    0
+#endif
+
 
 /**
  * @}

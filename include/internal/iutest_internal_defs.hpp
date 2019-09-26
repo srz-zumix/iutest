@@ -19,6 +19,7 @@
 // include
 #include "../iutest_defs.hpp"
 #include "iutest_string.hpp"
+#include "iutest_string_view.hpp"
 #include "iutest_type_traits.hpp"
 #include "iutest_compatible_defs.hpp"
 #include "iutest_exception.hpp"
@@ -118,6 +119,14 @@ namespace type_traits = iutest_type_traits;
 
 namespace detail
 {
+
+//======================================================================
+// types
+#if IUTEST_HAS_NULLPTR
+typedef ::std::nullptr_t iu_nullptr_convertible_t;
+#else
+typedef ::iutest_compatible::IsNullLiteralHelper::Object* iu_nullptr_convertible_t;
+#endif
 
 //======================================================================
 // function

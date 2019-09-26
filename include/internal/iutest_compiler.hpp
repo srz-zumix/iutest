@@ -355,6 +355,10 @@
 #  define IUTEST_CXX_DELETED_FUNCTION
 #endif
 
+#if !defined(IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION) && !IUTEST_HAS_RVALUE_REFS
+#  define IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION   0
+#endif
+
 //! has default function
 #if !defined(IUTEST_HAS_DEFAULT_FUNCTIONS)
 #  if   defined(__clang__)
@@ -362,15 +366,22 @@
 #      define IUTEST_HAS_DEFAULT_FUNCTIONS  1
 #    endif
 #  elif defined(__GNUC__)
+// move assignment operator = default is not works in gcc 4.4
 // private destractor = default is not works in gcc 4.5 - 4.6
 #    if   (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ == 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_DEFAULT_FUNCTIONS  1
+#      if (_MSV_VER <= 1800) && !defined(IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION)
+#        define IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION 0
+#      endif
 #    elif (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_DEFAULT_FUNCTIONS  1
 #    endif
 #  elif defined(_MSC_VER)
 #    if defined(_MSC_FULL_VER) && (_MSC_FULL_VER >= 180020827)
 #      define IUTEST_HAS_DEFAULT_FUNCTIONS  1
+#      if (_MSV_VER <= 1800) && !defined(IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION)
+#        define IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION 0
+#      endif
 #    endif
 #  elif defined(__INTEL_COMPILER)
 #    if __INTEL_COMPILER >= 1200
@@ -381,6 +392,9 @@
 
 #if !defined(IUTEST_HAS_DEFAULT_FUNCTIONS)
 #  define IUTEST_HAS_DEFAULT_FUNCTIONS      0
+#endif
+#if !defined(IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION)
+#  define IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION   IUTEST_HAS_DEFAULT_FUNCTIONS
 #endif
 
 //! default function
