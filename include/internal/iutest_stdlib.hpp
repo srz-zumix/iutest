@@ -33,6 +33,21 @@
 #include <cstdlib>
 #include <limits>
 
+// <version> header
+#if defined(__has_include)
+#  if __has_include(<version>)
+#    define IUTEST_HAS_CXX_HDR_VERSION  1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CXX_HDR_VERSION)
+#  define IUTEST_HAS_CXX_HDR_VERSION    0
+#endif
+
+#if IUTEST_HAS_CXX_HDR_VERSION
+#include <version>
+#endif
+
 //======================================================================
 // define
 #if   defined(__GLIBCPP__) || defined(__GLIBCXX__)
