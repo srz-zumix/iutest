@@ -139,6 +139,13 @@
 #  endif
 #endif
 
+#if defined(__GNUC__)
+// GCC 8.x requires linking with -lstdc++fs. (iutest not support)
+#  if   (__GNUC__ < 9)
+#    define IUTEST_HAS_CXX_HDR_FILESYSTEM   0
+#  endif
+#endif
+
 #elif defined(_LIBCPP_VERSION)
 
 // libc++
@@ -284,13 +291,8 @@
 #endif
 
 #if !defined(IUTEST_HAS_CXX_HDR_FILESYSTEM)
-#  if __has_include(<filesystem>) &&  !__has_include(<experimental/filesystem>)
+#  if __has_include(<filesystem>)
 #    define IUTEST_HAS_CXX_HDR_FILESYSTEM   1
-#  endif
-#endif
-#if !defined(IUTEST_HAS_CXX_HDR_EXPERIMENTAL_FILESYSTEM)
-#  if __has_include(<experimental/filesystem>)
-#    define IUTEST_HAS_CXX_HDR_EXPERIMENTAL_FILESYSTEM  1
 #  endif
 #endif
 
@@ -375,10 +377,6 @@
 #if !defined(IUTEST_HAS_CXX_HDR_FILESYSTEM)
 #  define IUTEST_HAS_CXX_HDR_FILESYSTEM 0
 #endif
-//! has experimental filesystem
-#if !defined(IUTEST_HAS_CXX_HDR_EXPERIMENTAL_FILESYSTEM)
-#  define IUTEST_HAS_CXX_HDR_EXPERIMENTAL_FILESYSTEM 0
-#endif
 //! has optional header
 #if !defined(IUTEST_HAS_CXX_HDR_OPTIONAL)
 #  define IUTEST_HAS_CXX_HDR_OPTIONAL   0
@@ -414,7 +412,7 @@
 #if IUTEST_HAS_CXX_HDR_CSTDINT
 #  include <cstdint>
 #endif
-#if IUTEST_HAS_CXX_HDR_FILESYSTEM && !IUTEST_HAS_CXX_HDR_EXPERIMENTAL_FILESYSTEM
+#if IUTEST_HAS_CXX_HDR_FILESYSTEM
 #  include <filesystem>
 #endif
 #if IUTEST_HAS_CXX_HDR_OPTIONAL
