@@ -393,7 +393,12 @@ inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_ty
     }
     return PrintToString(static_cast<int>(value));
 }
-inline void PrintTo(const ::std::filesystem::path& value, iu_ostream* os)
+struct fs_path_carrier
+{
+    fs_path_carrier(const ::std::filesystem::path& path) : m_path(path) {}
+    const ::std::filesystem::path& m_path;
+};
+inline void PrintTo(const fs_path_carrier value, iu_ostream* os)
 {
     *os << value.generic_string();
 }
