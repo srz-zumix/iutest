@@ -400,7 +400,7 @@ struct fs_path_carrier
 };
 inline void PrintTo(const fs_path_carrier value, iu_ostream* os)
 {
-    *os << value.generic_string();
+    *os << value.m_path.generic_string();
 }
 inline void PrintTo(const ::std::filesystem::file_type& value, iu_ostream* os)
 {
