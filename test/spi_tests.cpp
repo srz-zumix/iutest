@@ -21,6 +21,12 @@
 namespace spi_test
 {
 
+struct TestObjectX
+{
+    int ma, mb, mc;
+    TestObjectX(int a, int b, int c) : ma(a), mb(b), mc(c) {}
+};
+
 class SPITest : public ::iutest::Test
 {
 public:
@@ -35,6 +41,8 @@ public:
     const ::std::string sa;
     const ::std::string sb;
     const ::std::string sa2;
+    TestObjectX ox;
+    TestObjectX oy;
 
     SPITest()
         : null_str(NULL)
@@ -43,6 +51,8 @@ public:
         , da(0.0)
         , sa("a")
         , sb("b")
+        , ox(0, 1, 2)
+        , oy(0, 0, 0)
     {
         const char ac_[5] = { 0, 0, 2, 3, 5 };
         for( int i=0; i < 5; ++i )
@@ -69,6 +79,8 @@ const ::std::string sa="a";
 const ::std::string sb="b";
 const float fa = static_cast<float>(a);
 const double da = static_cast<double>(a);
+const TestObjectX ox(0, 1, 2);
+const TestObjectX oy(0, 0, 0);
 #endif
 
 void SPITest::FatalFailure_Sub(int& count)

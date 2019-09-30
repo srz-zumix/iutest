@@ -1,0 +1,55 @@
+on: push
+name: GitHub Actions
+jobs:
+  llvm-basic-test:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: choco-install
+      run: |
+        choco install -y llvm
+        call refreshenv
+    - name: llvm clang test
+      run: |
+        set PATH=%PATH%;C:\Program Files\LLVM\bin
+        make -C test clean
+        make -C test CXX=clang++ CC=clang showcxxversion
+        make -C test CXX=clang++ CC=clang -j8
+        make -C test CXX=clang++ CC=clang test
+  mingw-basic-test:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: mingw test
+      run: |
+        make -C test clean
+        make -C test showcxxversion
+        make -C test -j8
+        make -C test test
+  arm-none-eabi:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@master
+    - name: arm-none-eabi
+      uses: ./.github/actions/arm-none-eabi
+      with:
+        args: ./.github/actions/arm-none-eabi/build.sh
+  lint-editorconfig:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@master
+    - name: lint:editorconfig
+      uses: actions/npm@master
+      with:
+        entrypoint: bash
+        args: -c "apt-get update && apt-get install -y git && npm install && npm run
+          lint:editorconfig"
+  iwyu:
+    runs-on: ubuntu-18.04
+    needs: lint-editorconfig
+    steps:
+    - uses: actions/checkout@master
+    - name: Include What You Use
+      uses: ./.github/actions/iwyu
+      with:
+        args: /work/projects/cmake -Dbuild_test_namespace_test=OFF

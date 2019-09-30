@@ -25,7 +25,7 @@ class TestLogger : public ::iutest::detail::iuLogger
 {
     ::std::string m_log;
 public:
-    virtual void voutput(const char* fmt, va_list va) IUTEST_CXX_OVERRIDE
+    virtual void voutput(const char* fmt, va_list va) IUTEST_CXX_OVERRIDE IUTEST_ATTRIBUTE_FORMAT_PRINTF(2, 0)
     {
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         char buf[4096] = { 0 };

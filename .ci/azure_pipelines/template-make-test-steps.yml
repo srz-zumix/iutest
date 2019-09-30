@@ -78,6 +78,7 @@ steps:
 
 - task: PublishPipelineArtifact@0
   condition: failed()
+  continueOnError: true
   inputs:
     artifactName: 'core dump'
     targetPath: 'test/coredump'
@@ -90,6 +91,7 @@ steps:
 
 - task: PublishPipelineArtifact@0
   condition: always()
+  continueOnError: true
   inputs:
     targetPath: $(Build.ArtifactStagingDirectory)
     artifactName: "test result $(Agent.JobName)"

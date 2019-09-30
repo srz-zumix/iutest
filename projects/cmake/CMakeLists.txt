@@ -246,6 +246,7 @@ if (build_tests)
   cxx_executable_test(output_tests)
   cxx_executable_test(output_xml_invalid_path_tests)
   cxx_executable_test(output_xml_repeat_tests)
+  cxx_executable_test(own_string_view_tests)
   cxx_executable_test(param_test_name_invalid_tests)
   cxx_executable_test(param_test_name_tests)
   cxx_executable_test(no_yoda_tests)
@@ -257,6 +258,7 @@ if (build_tests)
     unit_macro_tests.cpp
     unit_misc_tests.cpp
     unit_string_tests.cpp
+    unit_string_view_tests.cpp
     unit_typetraits_tests.cpp
   )
 endif()

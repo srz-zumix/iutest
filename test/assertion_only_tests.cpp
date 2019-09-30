@@ -15,6 +15,7 @@
 
 //======================================================================
 // include
+#include "internal/iutest_compiler.hpp"
 #include <stdarg.h>
 
 //======================================================================
@@ -23,13 +24,13 @@
 
 //======================================================================
 // declare
-void test_vprintf(const char* fmt, va_list va);
+void test_vprintf(const char* fmt, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 0);
 
 //======================================================================
 // include
-#include <iostream>
 #include "iutest.hpp"
 #include "../include/gtest/iutest_assertion_only.hpp"
+#include <iostream>
 
 #ifdef IUTEST_USE_GTEST
 static ::std::stringstream s_outstream;

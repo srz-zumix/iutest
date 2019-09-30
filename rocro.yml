@@ -46,6 +46,7 @@ inspecode:
         - "knownConditionTrueFalse:*/iutest_internal_defs.hpp"
         - "noExplicitConstructor:*/iutest_defs.hpp"
         - "noExplicitConstructor:*/iutest_any.hpp"
+        - "noExplicitConstructor:*/iutest_string_view.hpp"
         - "unusedPrivateFunction:*/iutest_console.hpp"
         - "unusedPrivateFunction:*/iutest_expression_assertion.hpp"
         - "unusedStructMember:*/iutest_constant.hpp"

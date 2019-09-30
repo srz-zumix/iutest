@@ -232,7 +232,7 @@ IUTEST(Any, PrintTo)
 
 #endif
 
-#if IUTEST_USE_CXX_FILESYSTEM
+#if IUTEST_HAS_STD_FILESYSTEM
 
 IUTEST(FileSystem, PathCompare)
 {
@@ -247,7 +247,7 @@ IUTEST(FileSystem, PathPrintTo)
 {
     {
         PrintToLogChecker ck("/cxx_feature_tests.cpp");
-        ::std::filesystem::path v = __FILE__;
+        ::std::filesystem::path v = ::std::filesystem::absolute(__FILE__);
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
 }
@@ -274,19 +274,19 @@ IUTEST(FileSystem, SpaceInfoPrintTo)
 {
     {
         PrintToLogChecker ck("cpacity");
-        ::std::filesystem::path path = __FILE__;
+        ::std::filesystem::path path = ::std::filesystem::absolute(__FILE__);
         ::std::filesystem::space_info v = ::std::filesystem::space(path.remove_filename());
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
     {
         PrintToLogChecker ck("free");
-        ::std::filesystem::path path = __FILE__;
+        ::std::filesystem::path path = ::std::filesystem::absolute(__FILE__);
         ::std::filesystem::space_info v = ::std::filesystem::space(path.remove_filename());
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }
     {
         PrintToLogChecker ck("available");
-        ::std::filesystem::path path = __FILE__;
+        ::std::filesystem::path path = ::std::filesystem::absolute(__FILE__);
         ::std::filesystem::space_info v = ::std::filesystem::space(path.remove_filename());
         IUTEST_SUCCEED() << ::iutest::PrintToString(v);
     }

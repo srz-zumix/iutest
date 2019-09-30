@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01169923u //!< iutest version 1.16.99.23
+#define IUTEST_VER          0x01169928u //!< iutest version 1.16.99.28
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
 #define IUTEST_MICROVER     0x99u       //!< Micro Version
-#define IUTEST_REVISION     0x23u       //!< Revision
+#define IUTEST_REVISION     0x28u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -123,7 +123,9 @@ modification, are permitted provided that the following conditions are met: \n
  <ul>
   <li>v1.17.0.0
     <ul>
-      <li></li>
+      <li>::std::string_view 対応</li>
+      <li>::std::filesystem 対応</li>
+      <li>FreeBSD 対応</li>
       <li>ALMOST_EQ アサーション を追加</li>
       <li>--iutest_locale_ctype オプションを追加</li>
       <li>setlocale(LC_CTYPE, IUTEST_FLAG(locale_ctype)) をテスト実行開始時に行うように修正</li>

@@ -21,7 +21,10 @@
 
 #if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MOBILE)
 #  include <direct.h>
+#elif defined(IUTEST_OS_FREEBSD)
+#  include <sys/sysctl.h>
 #endif
+
 
 namespace iutest {
 namespace detail
@@ -238,7 +241,7 @@ IUTEST_IPP_INLINE iuFilePath iuFilePath::GetExecFilePath()
     return iuFilePath(path);
 #elif defined(IUTEST_OS_SOLARIS)
     return iuFilePath(getexecname());
-#elif defined(__FreeBSD__)
+#elif defined(IUTEST_OS_FREEBSD)
     int exe_path_mib[4] = { CTL_KERN, KERN_PROC, KERN_PROC_PATHNAME, getpid() };
     char buf[1024];
     size_t length = 0;

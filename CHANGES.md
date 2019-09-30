@@ -5,6 +5,9 @@
 ## Changes for 1.17.0
 
 * New
+  * ::std::string_view 対応
+  * ::std::filesystem 対応
+  * FreeBSD 対応
   * ALMOST_EQ アサーション を追加
   * --iutest_locale_ctype オプションを追加
 

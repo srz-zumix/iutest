@@ -832,7 +832,7 @@ public:
 
 }   // end of namespace backward
 
-#if IUTEST_HAS_NULLPTR && IUTEST_HAS_HDR_TYPETARITS && 0
+#if IUTEST_HAS_NULLPTR && IUTEST_HAS_CXX_HDR_TYPE_TARITS && 0
 
 /**
  * @brief   Equal Helper
@@ -840,7 +840,7 @@ public:
 class EqHelper
 {
     template<typename T1, typename T2, typename detail::enable_if<
-        !std::is_integral<T1>::value || !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value>
+        !detail::is_integral<T1>::value || !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value>
     static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
     {
         return backward::EqHelper<false>::Compare(expr1, expr2, val1, val2);
@@ -858,7 +858,7 @@ class EqHelper
 class NeHelper
 {
     template<typename T1, typename T2, typename detail::enable_if<
-        !std::is_integral<T1>::value || !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value>
+        !detail::is_integral<T1>::value || !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value>
     static AssertionResult Compare(const char* expr1, const char* expr2, const T1& val1, const T2& val2)
     {
         return backward::NeHelper<false>::Compare(expr1, expr2, val1, val2);
@@ -938,73 +938,51 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(
 namespace StrEqHelper
 {
 
-inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const char* val1, const char* val2)
-{
-    if( val1 == NULL || val2 == NULL )
-    {
-        return val1 == val2;
+#if IUTEST_HAS_NULLPTR && 0
+#define IIUT_DECL_STREQ_COMPARE_HELPER_NULL_(T)   \
+    inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(::std::nullptr_t, const T* val2) {     \
+        return val2 == NULL;                                                            \
     }
-    return strcmp(val1, val2) == 0;
-}
+#else
+#define IIUT_DECL_STREQ_COMPARE_HELPER_NULL_(T)
+#endif
 
-inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const wchar_t* val1, const wchar_t* val2)
-{
-    if( val1 == NULL || val2 == NULL )
-    {
-        return val1 == val2;
+#define IIUT_DECL_STREQ_COMPARE_HELPER_SV_(T)   \
+    inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(detail::iu_nullable_basic_string_view<T> val1  \
+        , detail::iu_nullable_basic_string_view<T> val2) {                                      \
+        return val1 == val2;                                                                    \
+    }                                                                                           \
+    inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T* val1, const T* val2) {                \
+        if( val1 == NULL || val2 == NULL ) { return val1 == val2; }                             \
+        return Compare(detail::iu_nullable_basic_string_view<T>(val1)                           \
+            , detail::iu_nullable_basic_string_view<T>(val2));                                  \
     }
-    return wcscmp(val1, val2) == 0;
-}
 
-template<typename Elem, typename Traits, typename Ax>
-inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(
-    const ::std::basic_string<Elem, Traits, Ax>& val1
-        , const ::std::basic_string<Elem, Traits, Ax>& val2)
-{
-    return val1 == val2;
-}
-template<typename Elem, typename Traits, typename Ax>
-inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(
-    const Elem* val1
-        , const ::std::basic_string<Elem, Traits, Ax>& val2)
-{
-    return val2 == val1;
-}
-template<typename Elem, typename Traits, typename Ax>
-inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const ::std::basic_string<Elem, Traits, Ax>& val1
-    , const Elem* val2)
-{
-    return val1 == val2;
-}
+#define IIUT_DECL_STREQ_COMPARE_HELPER_(T)      \
+    IIUT_DECL_STREQ_COMPARE_HELPER_SV_(T)       \
+    IIUT_DECL_STREQ_COMPARE_HELPER_NULL_(T)
+
+IIUT_DECL_STREQ_COMPARE_HELPER_(char)
+IIUT_DECL_STREQ_COMPARE_HELPER_(wchar_t)
 #if IUTEST_HAS_CHAR16_T
-inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const char16_t* val1, const char16_t* val2)
-{
-    if( val1 == NULL || val2 == NULL )
-    {
-        return val1 == val2;
-    }
-    ::std::u16string v1 = val1;
-    return Compare(v1, val2);
-}
+IIUT_DECL_STREQ_COMPARE_HELPER_(char16_t)
 #endif
 #if IUTEST_HAS_CHAR32_T
-inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const char32_t* val1, const char32_t* val2)
-{
-    if( val1 == NULL || val2 == NULL )
-    {
-        return val1 == val2;
-    }
-    ::std::u32string v1 = val1;
-    return Compare(v1, val2);
-}
+IIUT_DECL_STREQ_COMPARE_HELPER_(char32_t)
 #endif
 
+#undef IIUT_DECL_STREQ_COMPARE_HELPER_
+#undef IIUT_DECL_STREQ_COMPARE_HELPER_SV_
+
+}   // end of namespace StrEqHelper
+
 template<typename T1, typename T2>
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
     const char* expr1, const char* expr2
-        , const T1& val1, const T2& val2)
+    , T1 val1, T2 val2, typename detail::enable_if<
+        !detail::is_integral<T1>::value || !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value)
 {
-    if( Compare(val1, val2) )
+    if( StrEqHelper::Compare(val1, val2) )
     {
         return AssertionSuccess();
     }
@@ -1014,61 +992,20 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(
         , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, val1)));
 }
 
-}   // end of namespace StrEqHelper
+template<typename T>
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
+    const char* expr1, const char* expr2
+    , detail::iu_nullptr_convertible_t, T val2)
+{
+    if( StrEqHelper::Compare(IUTEST_NULLPTR, val2) )
+    {
+        return AssertionSuccess();
+    }
 
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
-    const char* expr1, const char* expr2
-        , const char* val1, const char* val2)
-{
-    return StrEqHelper::Assertion(expr1, expr2, val1, val2);
+    return EqFailure(expr1, expr2
+        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(IUTEST_NULLPTR, val2))
+        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, IUTEST_NULLPTR)));
 }
-
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
-    const char* expr1, const char* expr2
-        , const wchar_t* val1, const wchar_t* val2)
-{
-    return StrEqHelper::Assertion(expr1, expr2, val1, val2);
-}
-template<typename Elem, typename Traits, typename Ax>
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
-    const char* expr1, const char* expr2
-        , const ::std::basic_string<Elem, Traits, Ax>& val1
-        , const ::std::basic_string<Elem, Traits, Ax>& val2)
-{
-    return StrEqHelper::Assertion(expr1, expr2, val1, val2);
-}
-template<typename Elem, typename Traits, typename Ax>
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
-    const char* expr1, const char* expr2
-        , const Elem* val1
-        , const ::std::basic_string<Elem, Traits, Ax>& val2)
-{
-    return StrEqHelper::Assertion(expr1, expr2, val1, val2);
-}
-template<typename Elem, typename Traits, typename Ax>
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
-    const char* expr1, const char* expr2
-        , const ::std::basic_string<Elem, Traits, Ax>& val1
-        , const Elem* val2)
-{
-    return StrEqHelper::Assertion(expr1, expr2, val1, val2);
-}
-#if IUTEST_HAS_CHAR16_T
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
-    const char* expr1, const char* expr2
-        , const char16_t* val1, const char16_t* val2)
-{
-    return StrEqHelper::Assertion(expr1, expr2, val1, val2);
-}
-#endif
-#if IUTEST_HAS_CHAR32_T
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
-    const char* expr1, const char* expr2
-        , const char32_t* val1, const char32_t* val2)
-{
-    return StrEqHelper::Assertion(expr1, expr2, val1, val2);
-}
-#endif
 
 namespace StrNeHelper
 {
@@ -1079,11 +1016,16 @@ inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T1& val1, const T2& val2)
     return !StrEqHelper::Compare(val1, val2);
 }
 
+}   // end of namespace StrNeHelper
+
 template<typename T1, typename T2>
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* expr1, const char* expr2
-    , const T1& val1, const T2& val2)
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
+    const char* expr1, const char* expr2
+    , T1 val1, T2 val2, typename detail::enable_if<
+        ((!detail::is_integral<T2>::value || !detail::is_pointer<T1>::value) &&
+        (!detail::is_integral<T1>::value || !detail::is_pointer<T2>::value)), void>::type*& = detail::enabler::value)
 {
-    if( Compare(val1, val2) )
+    if( StrNeHelper::Compare(val1, val2) )
     {
         return AssertionSuccess();
     }
@@ -1093,60 +1035,35 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(const char* expr1, con
         << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, val2));
 }
 
-}   // end of namespace StrNeHelper
+template<typename T>
+inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
+    const char* expr1, const char* expr2
+    , detail::iu_nullptr_convertible_t, T val2)
+{
+    if( !StrEqHelper::Compare(IUTEST_NULLPTR, val2) )
+    {
+        return AssertionSuccess();
+    }
 
+    return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
+        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, IUTEST_NULLPTR))
+        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(IUTEST_NULLPTR, val2));
+}
+
+template<typename T>
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     const char* expr1, const char* expr2
-        , const char* val1, const char* val2)
+    , T val1, detail::iu_nullptr_convertible_t)
 {
-    return StrNeHelper::Assertion(expr1, expr2, val1, val2);
+    if( !StrEqHelper::Compare(val1, IUTEST_NULLPTR) )
+    {
+        return AssertionSuccess();
+    }
+
+    return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
+        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(IUTEST_NULLPTR, val1))
+        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, IUTEST_NULLPTR));
 }
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
-    const char* expr1, const char* expr2
-        , const wchar_t* val1, const wchar_t* val2)
-{
-    return StrNeHelper::Assertion(expr1, expr2, val1, val2);
-}
-template<typename Elem, typename Traits, typename Ax>
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
-    const char* expr1, const char* expr2
-        , const ::std::basic_string<Elem, Traits, Ax>& val1
-        , const ::std::basic_string<Elem, Traits, Ax>& val2)
-{
-    return StrNeHelper::Assertion(expr1, expr2, val1, val2);
-}
-template<typename Elem, typename Traits, typename Ax>
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
-    const char* expr1, const char* expr2
-        , const Elem* val1
-        , const ::std::basic_string<Elem, Traits, Ax>& val2)
-{
-    return StrNeHelper::Assertion(expr1, expr2, val1, val2);
-}
-template<typename Elem, typename Traits, typename Ax>
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
-    const char* expr1, const char* expr2
-        , const ::std::basic_string<Elem, Traits, Ax>& val1
-        , const Elem* val2)
-{
-    return StrNeHelper::Assertion(expr1, expr2, val1, val2);
-}
-#if IUTEST_HAS_CHAR16_T
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
-    const char* expr1, const char* expr2
-        , const char16_t* val1, const char16_t* val2)
-{
-    return StrNeHelper::Assertion(expr1, expr2, val1, val2);
-}
-#endif
-#if IUTEST_HAS_CHAR32_T
-inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
-    const char* expr1, const char* expr2
-        , const char32_t* val1, const char32_t* val2)
-{
-    return StrNeHelper::Assertion(expr1, expr2, val1, val2);
-}
-#endif
 
 namespace StrCaseEqHelper
 {
