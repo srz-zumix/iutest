@@ -398,7 +398,7 @@ struct fs_path_carrier
     fs_path_carrier(const ::std::filesystem::path& path) : m_path(path) {}
     const ::std::filesystem::path& m_path;
 };
-inline void PrintTo(const fs_path_carrier value, iu_ostream* os)
+inline void PrintTo(const fs_path_carrier& value, iu_ostream* os)
 {
     *os << value.m_path.generic_string();
 }
