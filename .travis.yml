@@ -108,7 +108,7 @@ after_failure:
         COREFILE=${f}
         EXECFILE=${f##*/core_x_}
         if [ ! -f "${EXECFILE}" ]; then
-          EXECFILE=`gdb -c "${COREFILE}" | grep -o -e "\./[A-Za-z_]*"`
+          EXECFILE=`gdb -c "${COREFILE}" -batch | grep -o -e "\./[A-Za-z_]*"`
         fi
         gdb -c "${COREFILE}" ${EXECFILE} -ex "thread apply all bt" -ex "set pagination 0" -batch
       done
