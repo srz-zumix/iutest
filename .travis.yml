@@ -102,8 +102,9 @@ script:
   #  fi
 
 after_failure:
-    - cd ${TRAVIS_BUILD_DIR}/test
     - |
+      cd ${TRAVIS_BUILD_DIR}/test
+      ls
       for f in `find . -maxdepth 1 -name "core_x_*"`; do
         COREFILE=${f}
         EXECFILE=${f##*/core_x_}
