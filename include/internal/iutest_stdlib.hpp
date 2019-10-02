@@ -310,23 +310,11 @@
 
 #endif
 
-#if defined(__cpp_lib_to_chars) && __cpp_lib_to_chars >= 201611
-#  define IUTEST_HAS_STD_TO_CHARS           1
-#endif
-
 #endif
 
 #if IUTEST_HAS_CXX17
 
 // c++17 feature
-
-#if !defined(IUTEST_HAS_STD_FILESYSTEM)
-#  if defined(__cpp_lib_filesystem) && __cpp_lib_filesystem >= 201703
-#    if !defined(__cpp_lib_experimental_filesystem)
-#      define IUTEST_HAS_STD_FILESYSTEM     1
-#    endif
-#  endif
-#endif
 
 #if !defined(IUTEST_HAS_CXX_HDR_VARIANT)
 #  if IUTEST_HAS_VARIADIC_TEMPLATES && defined(__has_include)
@@ -432,6 +420,11 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_STD_TO_CHARS)
+#  if defined(__cpp_lib_to_chars) && __cpp_lib_to_chars >= 201611
+#    define IUTEST_HAS_STD_TO_CHARS           1
+#  endif
+#endif
 
 // defaults for feature
 
