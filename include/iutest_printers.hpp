@@ -393,14 +393,11 @@ inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_ty
     }
     return PrintToString(static_cast<int>(value));
 }
-struct fs_path_carrier
+template<typename T>
+inline void PrintTo(const T& value, iu_ostream* os
+    , typename iutest_type_traits::enable_if<iutest_type_traits::is_same<T, ::std::filesystem::path>::value>::type*& = iutest_type_traits::enabler::value)
 {
-    fs_path_carrier(const ::std::filesystem::path& path) : m_path(path) {}
-    const ::std::filesystem::path& m_path;
-};
-inline void PrintTo(const fs_path_carrier& value, iu_ostream* os)
-{
-    *os << value.m_path.generic_string();
+    *os << value.generic_string();
 }
 inline void PrintTo(const ::std::filesystem::file_type& value, iu_ostream* os)
 {
