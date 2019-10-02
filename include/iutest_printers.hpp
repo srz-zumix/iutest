@@ -393,9 +393,7 @@ inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_ty
     }
     return PrintToString(static_cast<int>(value));
 }
-template<typename T>
-inline void PrintTo(const T& value, iu_ostream* os
-    , typename iutest_type_traits::enable_if<iutest_type_traits::is_same<T, ::std::filesystem::path>::value>::type*& = iutest_type_traits::enabler::value)
+inline void PrintTo(const ::std::filesystem::path& value, iu_ostream* os)
 {
     *os << value.generic_string();
 }
