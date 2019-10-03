@@ -295,7 +295,7 @@ IUTEST(FileSystem, SpaceInfoPrintTo)
 IUTEST(FileSystem, DirectoryEntryCompare)
 {
     {
-        ::std::filesystem::path path = __FILE__;
+        ::std::filesystem::path path = ::std::filesystem::absolute(__FILE__);
         ::std::filesystem::directory_entry x = *::std::filesystem::directory_iterator(path.remove_filename());
         ::std::filesystem::directory_entry v1 = x;
         ::std::filesystem::directory_entry v2 = x;
@@ -306,7 +306,7 @@ IUTEST(FileSystem, DirectoryEntryCompare)
 IUTEST(FileSystem, DirectoryEntryPrintTo)
 {
     {
-        ::std::filesystem::path path = __FILE__;
+        ::std::filesystem::path path = ::std::filesystem::absolute(__FILE__);
         ::std::filesystem::path directory = path.remove_filename().append("testdata");
         PrintToLogChecker ck(directory.generic_string());
         ::std::filesystem::directory_entry x = *::std::filesystem::directory_iterator(directory);
@@ -317,7 +317,7 @@ IUTEST(FileSystem, DirectoryEntryPrintTo)
 IUTEST(FileSystem, DirectoryIteratorPrintTo)
 {
     {
-        ::std::filesystem::path path = __FILE__;
+        ::std::filesystem::path path = ::std::filesystem::absolute(__FILE__);
         ::std::filesystem::path directory = path.remove_filename().append("testdata");
         PrintToLogChecker ck(directory.generic_string());
         ::std::filesystem::directory_iterator x = ::std::filesystem::directory_iterator(directory);
