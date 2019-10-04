@@ -68,7 +68,6 @@ public:
 
 IUTEST_F(FileSystemTest, FileSize64bit)
 {
-    IUTEST_SUCCEED() << ::std::filesystem::file_size(largefile);
     IUTEST_ASSUME_EQ(0x100000000ull, ::std::filesystem::file_size(largefile));
 
     ::iutest::StdioFile file;
