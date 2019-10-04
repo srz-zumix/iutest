@@ -36,6 +36,14 @@ IUTEST(StdFileUnitTest, InvalidOpenMode)
     IUTEST_ASSERT_FALSE( file.Open(filename.string().c_str(), -1) );
 }
 
+IUTEST(StdFileUnitTest, FileSize)
+{
+    ::iutest::StdioFile file;
+    ::iutest::internal::FilePath filename(__FILE__);
+    IUTEST_ASSERT_TRUE( file.Open(filename.string().c_str(), iutest::IFile::OpenAppend) );
+    IUTEST_EXPECT_LT(0u, file.GetSize());
+}
+
 #endif
 
 #if IUTEST_HAS_STD_FILESYSTEM
@@ -58,7 +66,7 @@ public:
 
 #if IUTEST_HAS_FOPEN
 
-IUTEST_F(DISABLED_FileSystemTest, FileSize64bit)
+IUTEST_F(FileSystemTest, FileSize64bit)
 {
     IUTEST_ASSUME_EQ(0x100000000ull, ::std::filesystem::file_size(largefile));
 
