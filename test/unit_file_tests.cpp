@@ -44,16 +44,6 @@ IUTEST(StdFileUnitTest, FileSize)
     IUTEST_EXPECT_LT(0u, file.GetSize());
 }
 
-IUTEST(UnitFileSystem, Info)
-{
-#if defined(__cpp_lib_filesystem)
-    IUTEST_SUCCEED() << "__cpp_lib_filesystem: " << __cpp_lib_filesystem;
-#endif
-#if defined(__cpp_lib_experimental_filesystem)
-    IUTEST_SUCCEED() << "__cpp_lib_experimental_filesystem: " << __cpp_lib_experimental_filesystem;
-#endif
-}
-
 #endif
 
 #if IUTEST_HAS_STD_FILESYSTEM
@@ -78,6 +68,7 @@ public:
 
 IUTEST_F(FileSystemTest, FileSize64bit)
 {
+    IUTEST_SUCCEED() << ::std::filesystem::file_size(largefile);
     IUTEST_ASSUME_EQ(0x100000000ull, ::std::filesystem::file_size(largefile));
 
     ::iutest::StdioFile file;

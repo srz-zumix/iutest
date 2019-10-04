@@ -232,6 +232,16 @@ IUTEST(Any, PrintTo)
 
 #endif
 
+IUTEST(FileSystem, Info)
+{
+#if defined(__cpp_lib_filesystem)
+    IUTEST_SUCCEED() << "__cpp_lib_filesystem: " << __cpp_lib_filesystem;
+#endif
+#if defined(__cpp_lib_experimental_filesystem)
+    IUTEST_SUCCEED() << "__cpp_lib_experimental_filesystem: " << __cpp_lib_experimental_filesystem;
+#endif
+}
+
 #if IUTEST_HAS_STD_FILESYSTEM
 
 IUTEST(FileSystem, PathCompare)
