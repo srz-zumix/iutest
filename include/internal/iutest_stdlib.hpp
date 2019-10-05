@@ -157,7 +157,7 @@
 #  endif
 #endif
 
-#if defined(__GNUC__)
+#if defined(__GNUC__) && !defined(__clang__)
 // GCC 8.x requires linking with -lstdc++fs. (iutest not support)
 #  if   (__GNUC__ < 9)
 #    define IUTEST_HAS_CXX_HDR_FILESYSTEM   0
