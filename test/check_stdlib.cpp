@@ -50,6 +50,7 @@ int main(int , char* [])
     SHOW_MACRO(IUTEST_HAS_STD_BEGIN_END);
     SHOW_MACRO(IUTEST_HAS_STD_DECLVAL);
     SHOW_MACRO(IUTEST_HAS_STD_EMPLACE);
+    SHOW_MACRO(IUTEST_HAS_STD_FILESYSTEM);
     SHOW_MACRO(IUTEST_HAS_STD_QUICK_EXIT);
     SHOW_MACRO(IUTEST_HAS_STD_STR_TO_VALUE);
     SHOW_MACRO(IUTEST_HAS_STD_TO_CHARS);
@@ -64,6 +65,13 @@ int main(int , char* [])
 #endif
 #ifdef _LIBCPP_VERSION
     SHOW_MACRO(_LIBCPP_VERSION);
+#endif
+
+#if defined(__cpp_lib_filesystem)
+    SHOW_MACRO(__cpp_lib_filesystem);
+#endif
+#if defined(__cpp_lib_experimental_filesystem)
+    SHOW_MACRO(__cpp_lib_experimental_filesystem);
 #endif
     return 0;
 }

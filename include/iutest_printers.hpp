@@ -394,7 +394,8 @@ inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_ty
     }
     return PrintToString(static_cast<int>(value));
 }
-inline void PrintTo(const ::std::filesystem::path& value, iu_ostream* os)
+template<>
+inline void PrintTo<::std::filesystem::path>(const ::std::filesystem::path& value, iu_ostream* os)
 {
     *os << value.generic_string();
 }
