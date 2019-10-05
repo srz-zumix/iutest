@@ -258,6 +258,7 @@
     <ClInclude Include="..\..\include\internal\iutest_log_stream.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_mfc.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_socket.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_string_view.hpp" />
     <ClInclude Include="..\..\include\iutest.hpp" />
     <ClInclude Include="..\..\include\iutest_any.hpp" />
     <ClInclude Include="..\..\include\iutest_assertion.hpp" />

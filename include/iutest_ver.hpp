@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01169927u //!< iutest version 1.16.99.27
+#define IUTEST_VER          0x01169929u //!< iutest version 1.16.99.29
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
 #define IUTEST_MINORVER     0x16u       //!< Minor Version
 #define IUTEST_MICROVER     0x99u       //!< Micro Version
-#define IUTEST_REVISION     0x27u       //!< Revision
+#define IUTEST_REVISION     0x29u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -123,6 +123,7 @@ modification, are permitted provided that the following conditions are met: \n
  <ul>
   <li>v1.17.0.0
     <ul>
+      <li>::std::string_view 対応</li>
       <li>::std::filesystem 対応</li>
       <li>FreeBSD 対応</li>
       <li>ALMOST_EQ アサーション を追加</li>
