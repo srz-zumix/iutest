@@ -1,4 +1,7 @@
 <map id="internal/iutest_type_traits.hpp" name="internal/iutest_type_traits.hpp">
-<area shape="rect" id="node2" href="$d4/db0/iutest__config_8hpp.html" title="iris unit test config " alt="" coords="13,169,147,196"/>
-<area shape="rect" id="node3" href="$d9/d6f/iutest__pp_8hpp.html" title="preprocessor definition " alt="" coords="71,95,182,121"/>
+<area shape="rect" id="node2" href="$d4/db0/iutest__config_8hpp.html" title="iris unit test config " alt="" coords="38,244,171,271"/>
+<area shape="rect" id="node3" href="$dc/d2f/iutest__compiler_8hpp.html" title="iris unit test compiler 依存の吸収 ファイル " alt="" coords="29,95,180,121"/>
+<area shape="rect" id="node6" href="$d9/d6f/iutest__pp_8hpp.html" title="preprocessor definition " alt="" coords="266,95,377,121"/>
+<area shape="rect" id="node4" href="$da/d9f/iutest__platform_8hpp.html" title="iris unit test platform detection " alt="" coords="29,169,180,196"/>
+<area shape="rect" id="node5" href="$d7/d02/iutest__pragma_8hpp.html" title="pragma macros " alt="" coords="204,169,348,196"/>
 </map>
