@@ -73,6 +73,9 @@ ifdef CI_NODEBUG
 CXXFLAGS += -g0 -O0
 endif
 
+# debug options
+# CXXFLAGS += -ftemplate-backtrace-limit=0
+
 #
 #
 # compiler

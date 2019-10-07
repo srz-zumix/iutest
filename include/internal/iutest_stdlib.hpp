@@ -33,6 +33,21 @@
 #include <cstdlib>
 #include <limits>
 
+// <version> header
+#if defined(__has_include)
+#  if __has_include(<version>)
+#    define IUTEST_HAS_CXX_HDR_VERSION  1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CXX_HDR_VERSION)
+#  define IUTEST_HAS_CXX_HDR_VERSION    0
+#endif
+
+#if IUTEST_HAS_CXX_HDR_VERSION
+#include <version>
+#endif
+
 //======================================================================
 // define
 #if   defined(__GLIBCPP__) || defined(__GLIBCXX__)
@@ -142,7 +157,7 @@
 #  endif
 #endif
 
-#if defined(__GNUC__)
+#if defined(__GNUC__) && !defined(__clang__)
 // GCC 8.x requires linking with -lstdc++fs. (iutest not support)
 #  if   (__GNUC__ < 9)
 #    define IUTEST_HAS_CXX_HDR_FILESYSTEM   0
@@ -416,7 +431,7 @@
 //======================================================================
 // define
 #if !defined(IUTEST_HAS_STD_FILESYSTEM)
-#  if defined(__cpp_lib_filesystem) && __cpp_lib_filesystem >= 201703
+#  if IUTEST_HAS_CXX_HDR_FILESYSTEM && defined(__cpp_lib_filesystem) && __cpp_lib_filesystem >= 201703
 #    if !defined(__cpp_lib_experimental_filesystem)
 #      define IUTEST_HAS_STD_FILESYSTEM     1
 #    endif
