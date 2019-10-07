@@ -25,7 +25,7 @@ jobs:
       run: |
         make -C test clean
         make -C test showcxxversion
-        make -C test check_stdlib DEFS=-DIUTEST_HAS_CXX_HDR_FILESYSTEM=0
+        make -C test check_stdlib
         make -C test -j8
         make -C test test
   arm-none-eabi:
