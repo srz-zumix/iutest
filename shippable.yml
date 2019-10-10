@@ -102,11 +102,11 @@ jobs:
     runtime:
       container: false
     steps:
-      TASK:
+      - TASK:
         name: gcc
         script:
           - gcc --version
-      TASK:
+      - TASK:
         name: clang
         script:
           - clang --version
