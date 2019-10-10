@@ -13,22 +13,6 @@ branches:
     - feature/*
     - shippable/*
 
-jobs:
-  - name: cpp
-    type: runSh
-    triggerMode: serial
-    steps:
-      TASK:
-        name: gcc
-        script:
-          - gcc --version
-      TASK:
-        name: clang
-        script:
-          - clang --version
-
-
-
 build:
   ci:
 #    - sudo apt-get update && sudo apt-get install --only-upgrade openssl libssl-dev
@@ -107,3 +91,22 @@ integrations:
           - zumix.cpp@gmail.com
       on_success: change
       on_failure: always
+
+
+#### JOBS CONFIG (GLOBAL ACROSS SUBSCRIPTION)
+
+jobs:
+  - name: cpp
+    type: runSh
+    triggerMode: serial
+    runtime:
+      container: false
+    steps:
+      TASK:
+        name: gcc
+        script:
+          - gcc --version
+      TASK:
+        name: clang
+        script:
+          - clang --version
