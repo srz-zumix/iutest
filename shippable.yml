@@ -14,7 +14,7 @@ branches:
     - shippable/*
 
 jobs:
-  - name: build
+  - name: cpp
     type: runSh
     triggerMode: serial
     steps:
