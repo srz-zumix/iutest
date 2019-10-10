@@ -13,6 +13,22 @@ branches:
     - feature/*
     - shippable/*
 
+jobs:
+  - name: build
+    type: runSh
+    triggerMode: serial
+    steps:
+      TASK:
+        name: gcc
+        script:
+          - gcc --version
+      TASK:
+        name: clang
+        script:
+          - clang --version
+
+
+
 build:
   ci:
 #    - sudo apt-get update && sudo apt-get install --only-upgrade openssl libssl-dev
