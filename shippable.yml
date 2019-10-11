@@ -112,10 +112,10 @@ jobs:
     steps:
       - IN: iutest_runCI
       - TASK:
-        name: gcc
-        script:
-          - gcc --version
+          name: gcc
+          script:
+            - gcc --version
       - TASK:
-        name: clang
-        script:
-          - clang --version
+          name: clang
+          script:
+            - clang --version
