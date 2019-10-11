@@ -94,15 +94,15 @@ integrations:
 
 #### RESOURCES CONFIG (GLOBAL ACROSS SUBSCRIPTION)
 
-resources:
-  - name: iutest_syncRepo
-    type: syncRepo
+# resources:
+#   - name: iutest_syncRepo
+#     type: syncRepo
     
 #### JOBS CONFIG (GLOBAL ACROSS SUBSCRIPTION)
 
 jobs:
-  - name: iutest_runCI
-    type: runCI
+#  - name: iutest_runCI
+#    type: runCI
 
   - name: cpp
     type: runSh
@@ -110,6 +110,7 @@ jobs:
     runtime:
       container: false
     steps:
+      - IN: iutest_ciRepo
       - IN: iutest_runCI
       - TASK:
         name: gcc
