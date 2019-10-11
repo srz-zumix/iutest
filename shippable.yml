@@ -110,7 +110,6 @@ jobs:
     runtime:
       container: false
     steps:
-      - IN: iutest_ciRepo
       - IN: iutest_runCI
       - TASK:
         name: gcc
