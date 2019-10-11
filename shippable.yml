@@ -102,7 +102,7 @@ jobs:
     runtime:
       container: false
     steps:
-      - IN: iutest_gitRepo
+      - IN: iutest_runCI
       - TASK:
         name: gcc
         script:
