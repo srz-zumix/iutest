@@ -97,12 +97,19 @@ integrations:
 # resources:
 #   - name: iutest_syncRepo
 #     type: syncRepo
-    
+
+resources:
+  - name: iutest_ciRepo
+    type: ciRepo
+    pointer: {}
+
 #### JOBS CONFIG (GLOBAL ACROSS SUBSCRIPTION)
 
 jobs:
-#  - name: iutest_runCI
-#    type: runCI
+  - name: iutest_runCI
+    type: runCI
+    steps:
+      - IN: iutest_ciRepo
 
   - name: cpp
     type: runSh
