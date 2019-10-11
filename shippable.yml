@@ -92,7 +92,12 @@ integrations:
       on_success: change
       on_failure: always
 
+#### RESOURCES CONFIG (GLOBAL ACROSS SUBSCRIPTION)
 
+resources:
+  - name: iutest_syncRepo
+    type: syncRepo
+    
 #### JOBS CONFIG (GLOBAL ACROSS SUBSCRIPTION)
 
 jobs:
