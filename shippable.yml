@@ -96,6 +96,9 @@ integrations:
 #### JOBS CONFIG (GLOBAL ACROSS SUBSCRIPTION)
 
 jobs:
+  - name: iutest_runCI
+    type: runCI
+
   - name: cpp
     type: runSh
     triggerMode: serial
