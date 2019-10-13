@@ -101,13 +101,14 @@ integrations:
 #### JOBS CONFIG (GLOBAL ACROSS SUBSCRIPTION)
 
 jobs:
-  # - name: iutest_runCI
-  #   type: runCI
-  #   steps:
-  #     - OUT: iutest_ciState
-
-  - name: iutest_cxx_runCI
+  - name: iutest_runCI
     type: runCI
+    steps:
+      # - OUT: iutest_ciState
+      - TASK: managed
+
+  - name: iutest_cxx_on_centos
+    type: runSh
     triggerMode: parallel
     allowPublicAccess: true
     runtime:
