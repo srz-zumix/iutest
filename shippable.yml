@@ -94,26 +94,26 @@ integrations:
 
 #### RESOURCES CONFIG (GLOBAL ACROSS SUBSCRIPTION)
 
-resources:
-  - name: shippable-state
-    type: state
+# resources:
+#   - name: iutest_ciState
+#     type: state
 
 #### JOBS CONFIG (GLOBAL ACROSS SUBSCRIPTION)
 
 jobs:
-  - name: iutest_runCI
-    type: runCI
-    steps:
-      - OUT: shippable-state
+  # - name: iutest_runCI
+  #   type: runCI
+  #   steps:
+  #     - OUT: iutest_ciState
 
-  - name: cpp
-    type: runSh
+  - name: iutest_cxx_runCI
+    type: runCI
     triggerMode: parallel
     allowPublicAccess: true
     runtime:
       container: false
     steps:
-      - IN: shippable-state
+      - IN: iutest_runCI
       - TASK:
           name: gcc
           script:
