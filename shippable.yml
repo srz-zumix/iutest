@@ -11,6 +11,7 @@ branches:
     - master
     - develop
     - feature/*
+    - fix/*
     - shippable/*
 
 build:
