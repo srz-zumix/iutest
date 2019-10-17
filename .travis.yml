@@ -11,7 +11,9 @@ branches:
     - master
     - develop
     - /feature.*/
+    - /fix.*/
     - /travisci.*/
+    - /travis-ci.*/
 
 addons:
   apt: &apt-global

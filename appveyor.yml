@@ -90,6 +90,7 @@ branches:
     - master
     - develop
     - /feature.*/
+    - /fix.*/
     - /appveyor.*/
 
 # Do not build feature branch with open Pull Requests

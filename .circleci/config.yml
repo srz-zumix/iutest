@@ -120,4 +120,5 @@ workflows:
                 - master
                 - develop
                 #- /^feature.*/
+                - /^fix.*/
                 - /^circleci.*/
