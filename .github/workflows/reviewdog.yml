@@ -1,0 +1,17 @@
+name: GitHub Actions - reviewdog
+on: [pull_request]
+
+jobs:
+  cpplint:
+  lint-editorconfig:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: clone
+      uses: actions/checkout@master
+      with:
+        fetch-depth: 1
+    - uses: srz-zumix/reviewdog-cpplint@master
+      with:
+        github_token: ${{ secrets.github_token }}
+        reporter: github-pr-review # Change reporter
+        flags: "--linelength=150" # Optional
