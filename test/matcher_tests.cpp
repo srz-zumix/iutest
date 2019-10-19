@@ -602,7 +602,7 @@ IUTEST(MatcherFailure, Each)
 
 IUTEST(MatcherFailure, ContainerEq)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, ContainerEq(gc)), "ContainerEq: {1, 1, 1}" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, ContainerEq(gc)), "ContainerEq: { 1, 1, 1 }" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, ContainerEq(gc)), "Mismatch in a position 1: 1 vs 2" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, ContainerEq(gc)), "Mismatch in a position 2: 1 vs 3" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(ga, ContainerEq(gc)), "Mismatch element : 3 vs 10" );
@@ -611,7 +611,7 @@ IUTEST(MatcherFailure, ContainerEq)
 
 IUTEST(MatcherFailure, Pointwise)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, Pointwise(Eq(), gc)), "Pointwise: Eq: {1, 1, 1}" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, Pointwise(Eq(), gc)), "Pointwise: Eq: { 1, 1, 1 }" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(ga, Pointwise(Eq(), gc)), "Mismatch element : 3 vs 10" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(gc, Pointwise(Eq(), ga)), "Mismatch element : 10 vs 3" );
 }
