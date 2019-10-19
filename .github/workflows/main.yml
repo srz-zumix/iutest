@@ -1,5 +1,5 @@
 on: push
-name: GitHub Actions
+name: GitHub Actions - test
 jobs:
   llvm-basic-test:
     runs-on: windows-latest
