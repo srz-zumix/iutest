@@ -3,7 +3,6 @@ on: [pull_request]
 
 jobs:
   cpplint:
-  lint-editorconfig:
     runs-on: ubuntu-18.04
     steps:
     - name: clone
