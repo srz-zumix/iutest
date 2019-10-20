@@ -1,8 +1,26 @@
-on: push
 name: GitHub Actions - test
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - develop
+      - 'feature/**'
+      - 'fix/**'
+      - 'gh/**'
+      - 'github/**'
+      - 'githubactions/**'
+
 jobs:
+  prepare:
+    runs-on: ubuntu-18.04
+    if: "! contains(github.event.head_commit.message, '[ci skip]')"
+    steps:
+      - run: echo "${{ github.event.head_commit.message }}"
+
   llvm-basic-test:
     runs-on: windows-latest
+    needs: prepare
     steps:
     - uses: actions/checkout@master
     - name: choco-install
@@ -19,6 +37,7 @@ jobs:
         make -C test CXX=clang++ CC=clang test
   mingw-basic-test:
     runs-on: windows-latest
+    needs: prepare
     steps:
     - uses: actions/checkout@master
     - name: mingw test
@@ -30,6 +49,7 @@ jobs:
         make -C test test
   arm-none-eabi:
     runs-on: ubuntu-18.04
+    needs: prepare
     steps:
     - uses: actions/checkout@master
     - name: arm-none-eabi
@@ -38,6 +58,7 @@ jobs:
         args: ./.github/actions/arm-none-eabi/build.sh
   lint-editorconfig:
     runs-on: ubuntu-18.04
+    needs: prepare
     steps:
     - uses: actions/checkout@master
     - name: lint:editorconfig
