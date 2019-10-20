@@ -14,4 +14,4 @@ jobs:
         github_token: ${{ secrets.github_token }}
         reporter: local
         # reporter: github-pr-review # Change reporter
-        flags: "--linelength=150" # Optional
+        flags: "--extensions=h,hpp,c,cpp,cc,cu,ipp --linelength=150" # Optional
