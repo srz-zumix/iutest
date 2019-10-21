@@ -345,7 +345,7 @@
 #endif
 
 #if defined(IUTEST_HAS_CXX_HDR_CODECVT) && IUTEST_HAS_CXX_HDR_CODECVT
-IUTEST_PRAGMA_MESSAGE("iutest use codecvt, but codecvt was deprecated. If you do not want to use this, define IUTEST_HAS_CXX_HDR_CODECVT 0")
+// IUTEST_PRAGMA_MESSAGE("iutest use codecvt, but codecvt was deprecated. If you do not want to use this, define IUTEST_HAS_CXX_HDR_CODECVT 0")
 #endif
 
 #endif
