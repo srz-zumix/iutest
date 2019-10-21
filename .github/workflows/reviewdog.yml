@@ -16,4 +16,4 @@ jobs:
         # reporter: github-pr-review # Change reporter
         flags: "--extensions=h,hpp,c,cpp,cc,cu,ipp --linelength=150" # Optional
         # reviewdog_options: "-list"
-        # debug: true
+        debug: true
