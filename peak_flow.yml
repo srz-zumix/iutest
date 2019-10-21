@@ -1,4 +1,6 @@
 before_script:
+  - cat /proc/cpuinfo || true
+  - cat /proc/meminfo || true
   - gcc --version || true
   - clang --version || true
 script:
