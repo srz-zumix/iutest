@@ -12,9 +12,5 @@ jobs:
     - uses: srz-zumix/reviewdog-cpplint@master
       with:
         github_token: ${{ secrets.github_token }}
-        reporter: local
         # reporter: github-pr-review # Change reporter
-        flags: "--extensions=h,hpp,c,cpp,cc,cu,ipp --linelength=150" # Optional
-        level: error
-        # reviewdog_options: "-list"
-        debug: true
+        flags: "--extensions=h,hpp,c,cpp,cc,cu,ipp --linelength=150"
