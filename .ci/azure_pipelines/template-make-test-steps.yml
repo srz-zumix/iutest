@@ -12,6 +12,7 @@ parameters:
 
 steps:
 - script: |
+    nproc
     ulimit -c unlimited && ulimit -a
     mkdir -p ~/.config/apport/
     echo [main] > ~/.config/apport/settings
