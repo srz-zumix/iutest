@@ -43,6 +43,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: mingw test
+      shell: cmd
       run: |
         make -C test clean
         make -C test showcxxversion
