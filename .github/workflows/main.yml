@@ -26,7 +26,7 @@ jobs:
     - name: choco-install
       run: |
         choco install -y llvm
-        call refreshenv
+        # call refreshenv
     - name: llvm clang test
       run: |
         set PATH=%PATH%;C:\Program Files\LLVM\bin
