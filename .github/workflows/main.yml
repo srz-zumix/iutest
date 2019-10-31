@@ -24,10 +24,12 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: choco-install
+      shell: cmd
       run: |
         choco install -y llvm
-        # call refreshenv
+        call refreshenv
     - name: llvm clang test
+      shell: cmd
       run: |
         set PATH=%PATH%;C:\Program Files\LLVM\bin
         make -C test clean
