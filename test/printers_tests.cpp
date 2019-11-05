@@ -96,7 +96,7 @@ IUTEST(PrintToTest, BigVar)
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     LogChecker ck("42");
 #else
-    LogChecker ck("40-Byte object < 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ... >");
+    LogChecker ck("40-Byte object < 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ... >");
 #endif
     IUTEST_SUCCEED() << ::iutest::PrintToString(bigvar);
 }
@@ -317,22 +317,24 @@ IUTEST(PrintToTest, Overload)
 struct Hoge {
     int a[256];
 };
-IUTEST(PrintToTest, MaxElem)
+IUTEST(PrintToTest, ThresholdObjectSize)
 {
     Hoge hoge = { { 0 } };
-    {
-        LogChecker ck(" ...");
-        IUTEST_SUCCEED() << ::iutest::PrintToString(hoge);
-    }
-    {
-        LogChecker ck(", ...");
-        IUTEST_SUCCEED() << ::iutest::PrintToString(hoge.a);
-    }
-    {
-        ::std::vector<int> v(hoge.a, hoge.a+256);
-        LogChecker ck(", ...");
-        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
-    }
+    LogChecker ck("< 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ... >");
+    IUTEST_SUCCEED() << ::iutest::PrintToString(hoge);
+}
+IUTEST(PrintToTest, ThresholdArraySize)
+{
+    int a[256] = { 0 };
+    LogChecker ck("{ 0, 0, 0, 0, 0, 0, 0, 0, 0, ..., 0, 0, 0, 0, 0, 0, 0, 0, 0 }");
+    IUTEST_SUCCEED() << ::iutest::PrintToString(a);
+}
+IUTEST(PrintToTest, ThresholdContainerSizer)
+{
+    int a[256] = { 0 };
+    ::std::vector<int> v(a, a+256);
+    LogChecker ck("{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ... }");
+    IUTEST_SUCCEED() << ::iutest::PrintToString(v);
 }
 
 #if IUTEST_HAS_NULLPTR

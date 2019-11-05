@@ -16,6 +16,7 @@
   * Visual Studio 2019 対応
 
 * Changes
+  * 大きな配列/コンテナ/オブジェクトの pinter を修正
   * iutest_main で setlocale していたものを廃止
   * junit xml 出力で出力するテストが 0 だった場合にファイル書き出ししないように修正
   * CSV パラメータ生成でファイルオープン失敗した場合の警告レベルを FATAL から WARNING に変更
