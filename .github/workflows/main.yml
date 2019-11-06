@@ -16,7 +16,9 @@ jobs:
     runs-on: ubuntu-18.04
     if: "! contains(github.event.head_commit.message, '[ci skip]')"
     steps:
-      - run: echo "${{ github.event.head_commit.message }}"
+      - run: |
+          nproc
+          echo "${{ github.event.head_commit.message }}"
 
   llvm-basic-test:
     runs-on: windows-latest
@@ -24,10 +26,12 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: choco-install
+      shell: cmd
       run: |
         choco install -y llvm
         call refreshenv
     - name: llvm clang test
+      shell: cmd
       run: |
         set PATH=%PATH%;C:\Program Files\LLVM\bin
         make -C test clean
@@ -41,6 +45,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: mingw test
+      shell: cmd
       run: |
         make -C test clean
         make -C test showcxxversion

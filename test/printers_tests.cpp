@@ -96,7 +96,7 @@ IUTEST(PrintToTest, BigVar)
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     LogChecker ck("42");
 #else
-    LogChecker ck("40-Byte object < 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ... >");
+    LogChecker ck("40-Byte object < 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ... >");
 #endif
     IUTEST_SUCCEED() << ::iutest::PrintToString(bigvar);
 }
