@@ -65,8 +65,8 @@ jobs:
       uses: actions/npm@master
       with:
         entrypoint: bash
-        args: -c "apt-get update && apt-get install -y git && npm install && npm run
-          lint:editorconfig"
+        args: -c "apt-get update && apt-get install -y git && npm install &&
+         npm run lint:editorconfig"
   iwyu:
     runs-on: ubuntu-18.04
     needs: lint-editorconfig
