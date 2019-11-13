@@ -102,7 +102,7 @@ else
         line=$REPLY
         if echo "$line" | grep -e "Changes for $RELEASE_VERSION$" > /dev/null; then
             CHANGELOG_ENABLE=1
-        elif [ $CHANGELOG_ENABLE = 1 ]; then                
+        elif [ $CHANGELOG_ENABLE = 1 ]; then
             if echo "$line" | grep -e "Changes for .*" > /dev/null; then
                 break
             elif echo "$line" | grep -v "^--*$" > /dev/null; then

@@ -3,7 +3,7 @@
 
 # make-package
 BASEDIR=$(dirname "$0")
-source $BASEDIR/../make-package.sh $*
+. $BASEDIR/../make-package.sh $*
 
 echo ====================
 echo osdn release
