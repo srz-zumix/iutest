@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 if git rev-parse --ls-include-work-tree > /dev/null 2>&1; then
     IUTEST_ROOT=`pwd`/`git rev-parse --show-cdup`
