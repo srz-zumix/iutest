@@ -7,6 +7,9 @@ FROM ruby:2.5.0
 LABEL maintainer "srz_zumix <https://github.com/srz-zumix>"
 
 RUN gem install osdn-cli
+VOLUME $HOME/.config/osdn
+
+ENV LANG C.UTF-8
 
 VOLUME /iutest
 WORKDIR /iutest
