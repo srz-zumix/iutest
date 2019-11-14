@@ -3,4 +3,4 @@
 cd .ci/osdn
 
 osdn login
-sh release.sh $VERSION
+./release.sh $VERSION

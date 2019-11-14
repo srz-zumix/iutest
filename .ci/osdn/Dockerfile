@@ -2,7 +2,7 @@
 # docker build .ci/osdn -t osdn
 # docker run -it -v $(pwd):/iutest -e VERSION=v1.17.0 osd
 
-FROM ruby:2.5.0
+FROM ruby:2.5
 
 LABEL maintainer "srz_zumix <https://github.com/srz-zumix>"
 
