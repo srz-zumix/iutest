@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if git rev-parse --ls-include-work-tree > /dev/null 2>&1; then
     IUTEST_ROOT=`pwd`/`git rev-parse --show-cdup`
     cd $IUTEST_ROOT
@@ -22,7 +24,7 @@ if [ -z $RELEASE_VERSION ]; then
     RELEASE_VERSION=$BRANCH_NAME
 fi
 
-echo ${RELEASE_VERSION} | grep -e "^[0-9]*.[0.9]*.[0-9]*$" > /dev/null
+echo ${RELEASE_VERSION} | grep -e "^[0-9]*.[0.9]*.[0-9]*$" > /dev/null && :
 if [ $? != 0 ]; then
     RELEASE_VERSION=`echo ${RELEASE_VERSION} | grep -e "v[0-9]*.[0.9]*.[0-9]*"`
     if [ -z "$RELEASE_VERSION" ]; then
