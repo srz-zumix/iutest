@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 if git rev-parse --ls-include-work-tree > /dev/null 2>&1; then
     IUTEST_ROOT=`pwd`/`git rev-parse --show-cdup`
@@ -70,7 +69,7 @@ if $can_packaging; then
     # make fused
     make -C tools/fused --no-print-directory
     git add -f fused-src/*
-    git stash -u
+    git -c user.name=make-package -c user.email=make-package@test.com stash -u
 
     # packaging
     mkdir -p package
