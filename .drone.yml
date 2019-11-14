@@ -13,7 +13,7 @@ steps:
 - name: release-1.10.0
   image: srzzumix/googletest:release-1.10.0
   environment:
-    GTEST_EXPECT_VERSION: 0x01100000
+    - GTEST_EXPECT_VERSION=0x01100000
   commands: &gtest-compatible-commands
     - "cd test"
     - "make showcxxversion"
@@ -106,7 +106,7 @@ steps:
 - name: latest
   image: srzzumix/googletest:latest
   environment:
-    GTEST_EXPECT_VERSION: 0x01100000
+    - GTEST_EXPECT_VERSION=0x01100000
   commands:
     - "cd test"
     - "make showcxxversion"
@@ -119,7 +119,7 @@ steps:
 - name: release-1.10.0
   image: srzzumix/googletest:release-1.10.0
   environment:
-    GTEST_EXPECT_VERSION: 0x01100000
+    - GTEST_EXPECT_VERSION=0x01100000
   commands: &gtest-version-detect-commands
     - "cd test"
     - "make showcxxversion"
