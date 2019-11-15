@@ -33,6 +33,10 @@ cd $BASEDIR
 FRS_ROOT=osdn_frs
 osdn vars set project iutest
 PACKAGE_ID=`osdn package | grep -o '[0-9]* iutest ' | cut -d ' ' -f 1`
+if [ -z "$PACKAGE_ID" ]; then
+  echo osdn package not found..
+  exit 1
+fi
 RELEASE_ID=`osdn release --package $PACKAGE_ID | grep -o "[0-9]* $RELEASE_NAME " | cut -d ' ' -f 1`
 if [ -z "$RELEASE_ID" ]; then
     osdn release create -v hidden --package $PACKAGE_ID $RELEASE_NAME
