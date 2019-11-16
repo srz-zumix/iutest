@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if git rev-parse --ls-include-work-tree > /dev/null 2>&1; then
     IUTEST_ROOT=`pwd`/`git rev-parse --show-cdup`
     cd $IUTEST_ROOT
@@ -22,7 +24,7 @@ if [ -z $RELEASE_VERSION ]; then
     RELEASE_VERSION=$BRANCH_NAME
 fi
 
-echo ${RELEASE_VERSION} | grep -e "^[0-9]*.[0.9]*.[0-9]*$" > /dev/null
+echo ${RELEASE_VERSION} | grep -e "^[0-9]*.[0.9]*.[0-9]*$" > /dev/null && :
 if [ $? != 0 ]; then
     RELEASE_VERSION=`echo ${RELEASE_VERSION} | grep -e "v[0-9]*.[0.9]*.[0-9]*"`
     if [ -z "$RELEASE_VERSION" ]; then
@@ -69,7 +71,7 @@ if $can_packaging; then
     # make fused
     make -C tools/fused --no-print-directory
     git add -f fused-src/*
-    git stash -u
+    git -c user.name=make-package -c user.email=make-package@test.com stash -u
 
     # packaging
     mkdir -p package
@@ -102,7 +104,7 @@ else
         line=$REPLY
         if echo "$line" | grep -e "Changes for $RELEASE_VERSION$" > /dev/null; then
             CHANGELOG_ENABLE=1
-        elif [ $CHANGELOG_ENABLE = 1 ]; then                
+        elif [ $CHANGELOG_ENABLE = 1 ]; then
             if echo "$line" | grep -e "Changes for .*" > /dev/null; then
                 break
             elif echo "$line" | grep -v "^--*$" > /dev/null; then
