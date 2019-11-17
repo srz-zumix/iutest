@@ -26,7 +26,7 @@
 
 //!< Minor Version
 #ifndef GMOCK_MINORVER
-#  if   !defined(GMOCK_IS_SIGNED_)
+#  if   defined(GMOCK_INTERNAL_NOEXCEPT_SPEC_IF_NOEXCEPT)
 #    define GMOCK_MINORVER  0x10
 #    define GMOCK_LATEST    1
 #  elif defined(GMOCK_INCLUDE_GMOCK_GMOCK_NICE_STRICT_H_)
