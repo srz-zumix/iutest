@@ -27,11 +27,11 @@
 
 //!< Minor Version
 #ifndef GTEST_MINORVER
-#  if   defined(GTEST_SKIP)
+#  if   defined(GTEST_TEST_NO_THROW_CATCH_STD_EXCEPTION_)
 #    define GTEST_MINORVER  0x10
 #    define GTEST_LATEST    1
-#  elif !defined(GTEST_INCLUDE_GTEST_INTERNAL_GTEST_LINKED_PTR_H_)
-#    define GTEST_MINORVER  0x08
+#  elif defined(GTEST_SKIP)
+#    define GTEST_MINORVER  0x10
 #  elif defined(GTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS_)
 #    define GTEST_MINORVER  0x08
 #  elif !defined(RUN_ALL_TESTS) && !defined(GTEST_CREF_WORKAROUND_)
