@@ -14,8 +14,11 @@ fi
 
 if [ -z $RELEASE_VERSION ]; then
     echo get branch name from HEAD
-    BRANCH_NAME=`echo $(\git symbolic-ref --short HEAD) | sed s:/:-:g && :` 2>/dev/null
-    RELEASE_VERSION=$BRANCH_NAME
+    git symbolic-ref --short HEAD >/dev/null && :
+    if [ $? != 0 ]; then
+      BRANCH_NAME=`echo $(\git symbolic-ref --short HEAD) | sed s:/:-:g` 2>/dev/null
+      RELEASE_VERSION=$BRANCH_NAME
+    fi
 fi
 
 if [ -z $RELEASE_VERSION ]; then
