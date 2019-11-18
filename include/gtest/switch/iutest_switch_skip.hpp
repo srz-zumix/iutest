@@ -32,15 +32,12 @@
 //======================================================================
 // define
 
-#if defined(GTEST_SKIP)
+#if !defined(GTEST_SKIP)
+#  define GTEST_SKIP()      GTEST_AMBIGUOUS_ELSE_BLOCKER_   \
+                            if( ::testing::internal::AlwaysTrue() ) return GTEST_MESSAGE_("Skipped. ", ::testing::TestPartResult::kSuccess)
+#endif
 
 #define IUTEST_SKIP         GTEST_SKIP
-#else
-
-#define IUTEST_SKIP()       GTEST_AMBIGUOUS_ELSE_BLOCKER_   \
-                            if( ::testing::internal::AlwaysTrue() ) return GTEST_MESSAGE_("Skipped. ", ::testing::TestPartResult::kSuccess)
-
-#endif
 
 #endif // !defined(IUTEST_USE_GTEST)
 
