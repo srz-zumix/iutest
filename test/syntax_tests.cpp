@@ -450,6 +450,12 @@ IUTEST(SyntaxTest, VariadicHResultFailed)
 
 #endif
 
+TEST(SyntaxTest, Skip)
+{
+    if( int x = 1 )
+        IUTEST_SKIP() << x;
+}
+
 IUTEST(SyntaxTest, Pred1)
 {
     if( int x=1 )
