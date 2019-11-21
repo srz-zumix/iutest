@@ -10,15 +10,20 @@ trigger:
     - drone/*
 
 steps:
+- name: release-1.10.0
+  image: srzzumix/googletest:release-1.10.0
+  environment:
+    GTEST_EXPECT_VERSION: 0x01100000
+  commands: &gtest-compatible-commands
+    - "cd test"
+    - "make showcxxversion"
+    - "make USE_GTEST=1             GTEST_EXPECT_VER=$${GTEST_EXPECT_VERSION} test"
+    - "make USE_GTEST=1 USE_GMOCK=1 GTEST_EXPECT_VER=$${GTEST_EXPECT_VERSION} test"
 - name: release-1.8.1
   image: srzzumix/googletest:release-1.8.1
   environment:
     GTEST_EXPECT_VERSION: 0x01080100
-  commands: &gtest-compatible-commands
-    - "cd test"
-    - "make showcxxversion"
-    - "make USE_GTEST=1             GTEST_EXPECT_VER=${GTEST_EXPECT_VERSION} test"
-    - "make USE_GTEST=1 USE_GMOCK=1 GTEST_EXPECT_VER=${GTEST_EXPECT_VERSION} test"
+  commands: *gtest-compatible-commands
 - name: release-1.8.0
   image: srzzumix/googletest:release-1.8.0
   environment:
@@ -97,25 +102,30 @@ steps:
 - name: latest
   image: srzzumix/googletest:latest
   environment:
-    GTEST_EXPECT_VERSION: 0x01080100
+    GTEST_EXPECT_VERSION: 0x01100000
   commands:
     - "cd test"
     - "make showcxxversion"
-    - "make USE_GTEST=1             GTEST_EXPECT_VER=${GTEST_EXPECT_VERSION} GTEST_EXPECT_LATEST=1 gtest-version"
-    - "make USE_GTEST=1 USE_GMOCK=1 GTEST_EXPECT_VER=${GTEST_EXPECT_VERSION} GTEST_EXPECT_LATEST=1 gtest-version"
+    - "make USE_GTEST=1             GTEST_EXPECT_VER=$${GTEST_EXPECT_VERSION} GTEST_EXPECT_LATEST=1 gtest-version"
+    - "make USE_GTEST=1 USE_GMOCK=1 GTEST_EXPECT_VER=$${GTEST_EXPECT_VERSION} GTEST_EXPECT_LATEST=1 gtest-version"
   when:
     branch:
       exclude:
         - master
+- name: release-1.10.0
+  image: srzzumix/googletest:release-1.10.0
+  environment:
+    GTEST_EXPECT_VERSION: 0x01100000
+  commands: &gtest-version-detect-commands
+    - "cd test"
+    - "make showcxxversion"
+    - "make USE_GTEST=1             GTEST_EXPECT_VER=$${GTEST_EXPECT_VERSION} gtest-version"
+    - "make USE_GTEST=1 USE_GMOCK=1 GTEST_EXPECT_VER=$${GTEST_EXPECT_VERSION} gtest-version"
 - name: release-1.8.1
   image: srzzumix/googletest:release-1.8.1
   environment:
     GTEST_EXPECT_VERSION: 0x01080100
-  commands: &gtest-version-detect-commands
-    - "cd test"
-    - "make showcxxversion"
-    - "make USE_GTEST=1             GTEST_EXPECT_VER=${GTEST_EXPECT_VERSION} gtest-version"
-    - "make USE_GTEST=1 USE_GMOCK=1 GTEST_EXPECT_VER=${GTEST_EXPECT_VERSION} gtest-version"
+  commands: *gtest-version-detect-commands
 - name: release-1.8.0
   image: srzzumix/googletest:release-1.8.0
   environment:
