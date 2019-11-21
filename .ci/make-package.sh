@@ -14,8 +14,11 @@ fi
 
 if [ -z $RELEASE_VERSION ]; then
     echo get branch name from HEAD
-    BRANCH_NAME=`echo $(\git symbolic-ref --short HEAD) | sed s:/:-:g` 2>/dev/null
-    RELEASE_VERSION=$BRANCH_NAME
+    git symbolic-ref --short HEAD >/dev/null && :
+    if [ $? = 0 ]; then
+      BRANCH_NAME=`echo $(\git symbolic-ref --short HEAD) | sed s:/:-:g` 2>/dev/null
+      RELEASE_VERSION=$BRANCH_NAME
+    fi
 fi
 
 if [ -z $RELEASE_VERSION ]; then
@@ -26,7 +29,7 @@ fi
 
 echo ${RELEASE_VERSION} | grep -e "^[0-9]*.[0.9]*.[0-9]*$" > /dev/null && :
 if [ $? != 0 ]; then
-    RELEASE_VERSION=`echo ${RELEASE_VERSION} | grep -e "v[0-9]*.[0.9]*.[0-9]*"`
+    RELEASE_VERSION=`echo ${RELEASE_VERSION} | grep -e "v[0-9]*.[0.9]*.[0-9]*" || true`
     if [ -z "$RELEASE_VERSION" ]; then
         echo set dummy version
         RELEASE_VERSION=v0.0.0
