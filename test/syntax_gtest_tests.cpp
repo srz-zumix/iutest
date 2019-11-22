@@ -352,6 +352,12 @@ TEST(GTestSyntaxTest, HResultFailed)
 
 #endif
 
+TEST(GTestSyntaxTest, Skip)
+{
+    if( int x = 1 )
+        GTEST_SKIP() << x;
+}
+
 #if IUTEST_HAS_EXCEPTIONS
 
 namespace syntax_tests
