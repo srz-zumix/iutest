@@ -10,7 +10,7 @@ cirrus_gcc_test_task:
       STDFLAG: -std=c++2a
   spec_script: nproc
   version_script: make -C test showcxxversion
-  test_script: cd test && make -j4 && make test
+  test_script: cd test && make -j$((`nproc`)) && make test
 
 #cirrus_use_gtest_task:
 #  env:
@@ -28,7 +28,7 @@ cirrus_osx_14_test_task: &osx_task
   env:
     STDFLAG: -std=c++14
   version_script: make -C test showcxxversion
-  test_script: cd test && make -j4 && make test
+  test_script: cd test && make -j$((`nproc`)) && make test
 
 cirrus_osx_17_test_task:
   <<: *osx_task
@@ -52,5 +52,5 @@ cirrus_freebsd_clang_test_task:
       #STDFLAG: -std=c++2a
   install_script: pkg install -y gmake
   version_script: gmake --version && gmake -C test showcxxversion
-  test_script: cd test && gmake -j4 && gmake test
+  test_script: cd test && gmake -j$((`nproc`)) && gmake test
 
