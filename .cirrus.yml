@@ -10,7 +10,8 @@ cirrus_gcc_test_task:
       STDFLAG: -std=c++2a
   spec_script: nproc
   version_script: make -C test showcxxversion
-  test_script: cd test && make -j$((`nproc` * 2 / 3)) && make test
+  # NOTE: -j$((`nproc`)): Container errored with 'OOMKilled'
+  test_script: cd test && make -j$((`nproc` / 2)) && make test
 
 #cirrus_use_gtest_task:
 #  env:
