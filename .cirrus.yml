@@ -52,7 +52,7 @@ cirrus_freebsd_clang_test_task:
       STDFLAG: -std=c++17
       #STDFLAG: -std=c++2a
   install_script: pkg install -y gmake
-  spec_script: nproc
+  spec_script: sysctl -n hw.ncpu
   version_script: gmake --version && gmake -C test showcxxversion
-  test_script: cd test && gmake -j$((`nproc`)) && gmake test
+  test_script: cd test && gmake -j$((`sysctl -n hw.ncpu`)) && gmake test
 
