@@ -17,7 +17,7 @@ jobs:
     if: "! contains(github.event.head_commit.message, '[ci skip]')"
     steps:
       - run: |
-          nproc
+          sh ./.ci/spec.sh
           echo "${{ github.event.head_commit.message }}"
 
   llvm-basic-test:
