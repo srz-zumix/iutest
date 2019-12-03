@@ -17,7 +17,11 @@ jobs:
       MAKE_RUN_TARGET: run_all_tests
     steps:
     - checkout
-    - run: nproc
+    - run:
+      name: spec
+      command: |
+        nproc
+        free -m
     - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
     - restore_cache: &restore_cache
         keys:
