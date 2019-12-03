@@ -120,6 +120,6 @@ workflows:
               only:
                 - master
                 - develop
-                #- /^feature.*/
+                - /^feature.*/
                 - /^fix.*/
                 - /^circleci.*/
