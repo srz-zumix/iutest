@@ -8,9 +8,11 @@ cirrus_gcc_test_task:
       STDFLAG: -std=c++14
       STDFLAG: -std=c++17
       STDFLAG: -std=c++2a
-  spec_script: nproc
+  spec_script: sh ./.ci/spec.sh
   version_script: make -C test showcxxversion
-  test_script: cd test && make -j4 && make test
+  # NOTE: -j$((`nproc`)): Container errored with 'OOMKilled'
+  build_script: make -C test -j12 
+  test_script: make -C test test
 
 #cirrus_use_gtest_task:
 #  env:
@@ -27,8 +29,10 @@ cirrus_osx_14_test_task: &osx_task
     # image: high-sierra-xcode-9.4.1
   env:
     STDFLAG: -std=c++14
+  spec_script: sh ./.ci/spec.sh
   version_script: make -C test showcxxversion
-  test_script: cd test && make -j4 && make test
+  build_script: make -C test -j$((`getconf _NPROCESSORS_ONLN`))
+  test_script : make -C test test
 
 cirrus_osx_17_test_task:
   <<: *osx_task
@@ -51,6 +55,9 @@ cirrus_freebsd_clang_test_task:
       STDFLAG: -std=c++17
       #STDFLAG: -std=c++2a
   install_script: pkg install -y gmake
+  spec_script: sh ./.ci/spec.sh
   version_script: gmake --version && gmake -C test showcxxversion
-  test_script: cd test && gmake -j4 && gmake test
+  build_script: gmake -C test -j4
+  test_script : gmake -C test test
+  
 
