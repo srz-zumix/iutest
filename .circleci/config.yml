@@ -77,19 +77,31 @@ jobs:
         environment:
           CXX: clang++
     - run:
-        name: g++ test
+        name: g++ build
         command: |
           make clean
           case $CIRCLE_NODE_INDEX in 0) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-O2 ;; 1) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-Os ;; 2) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-O3 ;; 3) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-O4 ;; esac
+        working_directory: test
+        environment:
+          CXX: g++
+    - run:
+        name: g++ test
+        command: |
           make $MAKE_RUN_TARGET
         working_directory: test
         environment:
           CXX: g++
     - run:
-        name: clang++ test
+        name: clang++ build
         command: |
           make clean
           case $CIRCLE_NODE_INDEX in 0) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-O2 ;; 1) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-Os ;; 2) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-O3 ;; 3) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-Oz ;; esac
+        working_directory: test
+        environment:
+          CXX: clang++
+    - run:
+        name: clang++ test
+        command: |
           make $MAKE_RUN_TARGET
         working_directory: test
         environment:
@@ -120,6 +132,6 @@ workflows:
               only:
                 - master
                 - develop
-                #- /^feature.*/
+                - /^feature.*/
                 - /^fix.*/
                 - /^circleci.*/
