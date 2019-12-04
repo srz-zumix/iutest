@@ -10,7 +10,7 @@ cirrus_gcc_test_task:
       STDFLAG: -std=c++2a
   version_script: make -C test showcxxversion
   # NOTE: -j$((`nproc`)): Container errored with 'OOMKilled'
-  build_script: make -C test -j12
+  build_script: make -C test -j4
   test_script: make -C test test
 
 #cirrus_use_gtest_task:
@@ -24,8 +24,7 @@ cirrus_osx_14_test_task: &osx_task
   only_if: *default-condition
   auto_cancellation: true
   osx_instance:
-    image: mojave-xcode-10.1
-    # image: high-sierra-xcode-9.4.1
+    image: mojave-xcode
   env:
     STDFLAG: -std=c++14
   version_script: make -C test showcxxversion
