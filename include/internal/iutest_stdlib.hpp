@@ -371,7 +371,11 @@
 #if !defined(IUTEST_HAS_CXX_HDR_CHRONO)
 #  define IUTEST_HAS_CXX_HDR_CHRONO     0
 #endif
-//! has codecvt header
+/**
+ * @brief       has codecvt header
+ * @note        P0618R0 Deprecating <codecvt>: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0618r0.html
+ * @deprecated
+*/
 #if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
 #  define IUTEST_HAS_CXX_HDR_CODECVT    0
 #endif
