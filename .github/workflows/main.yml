@@ -65,12 +65,11 @@ jobs:
     needs: prepare
     steps:
     - uses: actions/checkout@master
+    - uses: actions/setup-node@v1
     - name: lint:editorconfig
-      uses: actions/npm@master
-      with:
-        entrypoint: bash
-        args: -c "apt-get update && apt-get install -y git && npm install && npm run
-          lint:editorconfig"
+      run: |
+        npm install
+        npm run lint:editorconfig
   iwyu:
     runs-on: ubuntu-18.04
     needs: lint-editorconfig
