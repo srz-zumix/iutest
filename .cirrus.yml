@@ -35,7 +35,7 @@ cirrus_osx_17_test_task:
   <<: *osx_task
   env:
     STDFLAG: -std=c++17
-    CXXFLAGS: -mmacosx-version-min=10.15 # https://stackoverflow.com/questions/56924853/why-xcode-11-beta-cant-use-c17s-filesystem-header
+    CXXFLAGS: -mmacosx-version-min=10.15 -lstdc++fs # https://stackoverflow.com/questions/56924853/why-xcode-11-beta-cant-use-c17s-filesystem-header
   depends_on:
     - cirrus_osx_14_test
 
