@@ -36,7 +36,7 @@ cirrus_osx_17_test_task:
   env:
     STDFLAG: -std=c++17
     # https://stackoverflow.com/questions/56924853/why-xcode-11-beta-cant-use-c17s-filesystem-header
-    CXXFLAGS: -mmacosx-version-min=10.15 -arch i386
+    CXXFLAGS: -mmacosx-version-min=10.15
   depends_on:
     - cirrus_osx_14_test
 
