@@ -65,8 +65,10 @@ int main(int argc, char* argv[])
 #if defined(IUTEST_USE_GTEST) && GTEST_VER >= 0x01080100
     // "Google Test" fails to set up a test case,
     // it does not report a failure, and the test is also continued
-    if( ret == 1 ) return 1;
+    IUTEST_ASSERT_EXIT( ret == 0 );
+    if( ret != 0 ) return 1;
 #else
+    IUTEST_ASSERT_EXIT( ret != 0 );
     if( ret == 0 ) return 1;
 #endif
 
