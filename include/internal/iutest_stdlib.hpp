@@ -164,13 +164,6 @@
 #  endif
 #endif
 
-// apple(xcode) clang
-#if defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
-#  if __MAC_OS_X_VERSION_MIN_REQUIRED < 101500
-#    define IUTEST_HAS_CXX_HDR_FILESYSTEM   0
-#  endif
-#endif
-
 #elif defined(_LIBCPP_VERSION)
 
 // libc++
@@ -312,6 +305,13 @@
 #if !defined(IUTEST_HAS_CXX_HDR_ANY)
 #  if __has_include(<any>)
 #    define IUTEST_HAS_CXX_HDR_ANY          1
+#  endif
+#endif
+
+// apple(xcode) clang
+#if defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
+#  if __MAC_OS_X_VERSION_MIN_REQUIRED < 101500
+#    define IUTEST_HAS_CXX_HDR_FILESYSTEM   0
 #  endif
 #endif
 
