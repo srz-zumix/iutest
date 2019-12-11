@@ -62,9 +62,10 @@ int main(int argc, char* argv[])
 #endif
     const int ret = IUTEST_RUN_ALL_TESTS();
 
-#if defined(IUTEST_USE_GTEST) && GTEST_VER >= 0x01080100
+#if defined(IUTEST_USE_GTEST) && (GTEST_VER >= 0x01080100 && GTEST_VER <= 0x01100000) && !GTEST_LATEST
     // "Google Test" fails to set up a test case,
     // it does not report a failure, and the test is also continued
+    // fixed at https://github.com/google/googletest/commit/9ed99c6c837ae1cbfcabd36959fc802ebb5ae07f
     IUTEST_ASSERT_EXIT( ret == 0 );
     if( ret != 0 ) return 1;
 #else
