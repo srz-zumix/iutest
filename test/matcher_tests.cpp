@@ -505,6 +505,8 @@ IUTEST(MatcherFailure, NanSensitiveLongDoubleEq)
 
 #endif
 
+#if IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR
+
 IUTEST(MatcherFailure, FloatNear)
 {
     CHECK_FAILURE( IUTEST_ASSERT_THAT(f0, FloatNear(1.0f, f0)), "Near: " );
@@ -547,6 +549,8 @@ IUTEST(MatcherFailure, NanSensitiveLongDoubleNear)
 {
     CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, NanSensitiveLongDoubleNear(1.0, ld0)), "Near: " );
 }
+
+#endif
 
 #endif
 
