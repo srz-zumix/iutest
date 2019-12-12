@@ -2061,6 +2061,8 @@ inline detail::NanSensitiveFloatingPointEqMatcher<long double> NanSensitiveLongD
 
 #endif
 
+#if IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR
+
 /**
  * @brief   Make FloatingPoint Near matcher
  * @details argument は expected と max_abs_error 以内の差分
@@ -2140,6 +2142,8 @@ inline detail::NanSensitiveFloatingPointNearMatcher<long double> NanSensitiveLon
 {
     return detail::NanSensitiveFloatingPointNearMatcher<long double>(expected, max_abs_error);
 }
+
+#endif
 
 #endif
 

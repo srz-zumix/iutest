@@ -5,4 +5,9 @@ linter:
     glob: '**/*.{css,scss}'
   goodcheck:
     config: ./.ci/goodcheck.yml
+  cpplint:
+    filter: "-whitespace/parens"
+    linelength: 150
+    extensions: "c,cpp"
+    headers: "h,hpp,ipp"
 
