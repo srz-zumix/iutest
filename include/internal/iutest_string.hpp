@@ -397,7 +397,7 @@ template<typename T>
 ::std::string iu_to_string(const T& value)
 {
     const size_t kN = 128;
-    buf[kN] = { 0 };
+    char buf[kN] = { 0 };
     const ::std::to_chars_result r = ::std::to_chars(buf, buf + kN, value);
     *r.ptr = '\0';
     return buf;
