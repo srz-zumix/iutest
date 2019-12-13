@@ -368,6 +368,10 @@ struct is_pointer<T* volatile> : public true_type {};
 // ostream
 typedef ::std::ostream  iu_ostream;
 
+#if IUTEST_HAS_NULLPTR
+inline void PrintTo(const ::std::nullptr_t&, iu_ostream* os) { *os << "nullptr"; }
+#endif
+
 #if GTEST_VER < 0x01060000
 
 namespace dummy_printer
