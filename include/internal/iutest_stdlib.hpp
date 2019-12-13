@@ -308,6 +308,12 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_CXX_HDR_CHARCONV)
+#  if __has_include(<charconv>)
+#    define IUTEST_HAS_CXX_HDR_CHARCONV     1
+#  endif
+#endif
+
 // apple(xcode) clang
 #if defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
 #  if __MAC_OS_X_VERSION_MIN_REQUIRED < 101500
@@ -373,6 +379,10 @@
 //! has array header
 #if !defined(IUTEST_HAS_CXX_HDR_ARRAY)
 #  define IUTEST_HAS_CXX_HDR_ARRAY          0
+#endif
+//! has charconv header
+#if !defined(IUTEST_HAS_CXX_HDR_CHARCONV)
+#  define IUTEST_HAS_CXX_HDR_CHARCONV       0
 #endif
 //! has chrono header
 #if !defined(IUTEST_HAS_CXX_HDR_CHRONO)
@@ -441,6 +451,9 @@
 #endif
 #if IUTEST_HAS_CXX_HDR_VARIANT
 #  include <variant>
+#endif
+#if IUTEST_HAS_CXX_HDR_CHARCONV
+#  include <charconv>
 #endif
 
 //======================================================================
