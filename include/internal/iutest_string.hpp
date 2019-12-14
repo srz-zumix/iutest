@@ -334,13 +334,6 @@ inline void StringSplit(const ::std::string& str, char delimiter, ::std::vector<
 template<typename T>
 inline ::std::string ToOctString(T value)
 {
-#if IUTEST_HAS_STD_TO_CHARS
-    const size_t kN = sizeof(T)*8;
-    char buf[kN] = { 0 };
-    const ::std::to_chars_result r = ::std::to_chars(buf, buf + kN, value, 8);
-    *r.ptr = '\0';
-    return buf;
-#else
     const size_t kB = sizeof(T) * 8;
     const size_t kN = (kB + 2) / 3;
     const size_t kD = kB - (kN - 1) * 3;
@@ -354,7 +347,6 @@ inline ::std::string ToOctString(T value)
     }
     buf[kN] = '\0';
     return buf;
-#endif
 }
 
 inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n)
@@ -365,13 +357,6 @@ inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n)
 template<typename T>
 inline ::std::string ToHexString(T value)
 {
-#if IUTEST_HAS_STD_TO_CHARS
-    const size_t kN = sizeof(T)*8;
-    char buf[kN] = { 0 };
-    const ::std::to_chars_result r = ::std::to_chars(buf, buf + kN, value, 16);
-    *r.ptr = '\0';
-    return buf;
-#else
     const size_t kN = sizeof(T)*2;
     char buf[kN + 1] = {0};
     for( size_t i=0; i < kN; ++i )
@@ -380,7 +365,6 @@ inline ::std::string ToHexString(T value)
     }
     buf[kN] = '\0';
     return buf;
-#endif
 }
 
 inline ::std::string FormatIntWidth2(int value)
