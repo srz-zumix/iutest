@@ -308,6 +308,13 @@
 #  endif
 #endif
 
+// apple(xcode) clang
+#if defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
+#  if __MAC_OS_X_VERSION_MIN_REQUIRED < 101500
+#    define IUTEST_HAS_CXX_HDR_FILESYSTEM   0
+#  endif
+#endif
+
 #if !defined(IUTEST_HAS_CXX_HDR_FILESYSTEM)
 #  if __has_include(<filesystem>)
 #    define IUTEST_HAS_CXX_HDR_FILESYSTEM   1
@@ -361,55 +368,59 @@
 // defaults for include
 //! has any header
 #if !defined(IUTEST_HAS_CXX_HDR_ANY)
-#  define IUTEST_HAS_CXX_HDR_ANY        0
+#  define IUTEST_HAS_CXX_HDR_ANY            0
 #endif
 //! has array header
 #if !defined(IUTEST_HAS_CXX_HDR_ARRAY)
-#  define IUTEST_HAS_CXX_HDR_ARRAY      0
+#  define IUTEST_HAS_CXX_HDR_ARRAY          0
 #endif
 //! has chrono header
 #if !defined(IUTEST_HAS_CXX_HDR_CHRONO)
-#  define IUTEST_HAS_CXX_HDR_CHRONO     0
+#  define IUTEST_HAS_CXX_HDR_CHRONO         0
 #endif
-//! has codecvt header
+/**
+ * @brief       has codecvt header
+ * @note        P0618R0 Deprecating <codecvt>: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0618r0.html
+ * @deprecated
+*/
 #if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
-#  define IUTEST_HAS_CXX_HDR_CODECVT    0
+#  define IUTEST_HAS_CXX_HDR_CODECVT        0
 #endif
 //! has cstdint header
 #if !defined(IUTEST_HAS_CXX_HDR_CSTDINT)
-#  define IUTEST_HAS_CXX_HDR_CSTDINT    0
+#  define IUTEST_HAS_CXX_HDR_CSTDINT        0
 #endif
 //! has cuchar
 #if !defined(IUTEST_HAS_CXX_HDR_CUCHAR)
-#  define IUTEST_HAS_CXX_HDR_CUCHAR     0
+#  define IUTEST_HAS_CXX_HDR_CUCHAR         0
 #endif
 //! has filesystem
 #if !defined(IUTEST_HAS_CXX_HDR_FILESYSTEM)
-#  define IUTEST_HAS_CXX_HDR_FILESYSTEM 0
+#  define IUTEST_HAS_CXX_HDR_FILESYSTEM     0
 #endif
 //! has optional header
 #if !defined(IUTEST_HAS_CXX_HDR_OPTIONAL)
-#  define IUTEST_HAS_CXX_HDR_OPTIONAL   0
+#  define IUTEST_HAS_CXX_HDR_OPTIONAL       0
 #endif
 //! has random header
 #if !defined(IUTEST_HAS_CXX_HDR_RANDOM)
-#  define IUTEST_HAS_CXX_HDR_RANDOM     0
+#  define IUTEST_HAS_CXX_HDR_RANDOM         0
 #endif
 //! has regex header
 #if !defined(IUTEST_HAS_CXX_HDR_REGEX)
-#  define IUTEST_HAS_CXX_HDR_REGEX      0
+#  define IUTEST_HAS_CXX_HDR_REGEX          0
 #endif
 //! has string_view header
 #if !defined(IUTEST_HAS_CXX_HDR_STRING_VIEW)
-#  define IUTEST_HAS_CXX_HDR_STRING_VIEW 0
+#  define IUTEST_HAS_CXX_HDR_STRING_VIEW    0
 #endif
 //! has variant header
 #if !defined(IUTEST_HAS_CXX_HDR_VARIANT)
-#  define IUTEST_HAS_CXX_HDR_VARIANT    0
+#  define IUTEST_HAS_CXX_HDR_VARIANT        0
 #endif
 //! has cxxabi header
 #if !defined(IUTEST_HAS_HDR_CXXABI)
-#  define IUTEST_HAS_HDR_CXXABI         0
+#  define IUTEST_HAS_HDR_CXXABI             0
 #endif
 
 //======================================================================

@@ -264,9 +264,11 @@ inline void iuOptionMessage::ShowSpec()
 #ifdef __POSIX_VISIBLE
     IIUT_SHOW_MACRO(__POSIX_VISIBLE);
 #endif
-
 #ifdef __USE_MINGW_ANSI_STDIO
     IIUT_SHOW_MACRO(__USE_MINGW_ANSI_STDIO);
+#endif
+#ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
+    IIUT_SHOW_MACRO(__MAC_OS_X_VERSION_MIN_REQUIRED);
 #endif
 
 #undef IIUT_SHOW_MACRO
