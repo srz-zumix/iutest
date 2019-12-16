@@ -314,15 +314,12 @@
 #  endif
 #endif
 
-<<<<<<< HEAD
-=======
 #if !defined(IUTEST_HAS_CXX_HDR_CHARCONV)
 #  if __has_include(<charconv>)
 #    define IUTEST_HAS_CXX_HDR_CHARCONV     1
 #  endif
 #endif
 
->>>>>>> origin/develop
 // apple(xcode) clang
 #if defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
 #  if __MAC_OS_X_VERSION_MIN_REQUIRED < 101500
