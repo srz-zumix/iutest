@@ -369,7 +369,7 @@ struct is_pointer<T* volatile> : public true_type {};
 typedef ::std::ostream  iu_ostream;
 
 #if IUTEST_HAS_NULLPTR
-inline iu_ostream& operator << (iu_ostream& os, const ::std::nullptr_t& value)
+inline iu_ostream& operator << (iu_ostream& os, const ::std::nullptr_t&)
 {
     return os << "nullptr";
 }
