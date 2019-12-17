@@ -288,6 +288,11 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR)
+//! Wether ::iutest::matchers::(NanSensitive)(Float|Double)Near is available
+#  define IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR 1
+#endif
+
 #if !defined(IUTEST_USE_THROW_ON_ASSERTION_FAILURE)
 /**
  * @brief   失敗時に例外を throw します。
