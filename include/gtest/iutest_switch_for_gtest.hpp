@@ -369,7 +369,10 @@ struct is_pointer<T* volatile> : public true_type {};
 typedef ::std::ostream  iu_ostream;
 
 #if IUTEST_HAS_NULLPTR
-inline void PrintTo(const ::std::nullptr_t&, iu_ostream* os) { *os << "nullptr"; }
+inline iu_ostream& operator << (iu_ostream& os, const ::std::nullptr_t& value)
+{
+    return os << "nullptr";
+}
 #endif
 
 #if GTEST_VER < 0x01060000
