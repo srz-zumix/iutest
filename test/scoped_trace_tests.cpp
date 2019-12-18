@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -67,6 +67,33 @@ IUTEST(ScopedTraceTest, Test)
     ::iutest::detail::iuConsole::SetLogger(NULL);
 #endif
 }
+
+#if IUTEST_HAS_EXCEPTIONS
+
+class ScopedTraceExceptionTest : public ::iutest::Test
+{
+public:
+#if !defined(IUTEST_USE_GTEST)
+    TestLogger logger;
+
+    void SetUp()
+    {
+        ::iutest::detail::iuConsole::SetLogger(&logger);
+    }
+    void TearDown()
+    {
+        ::iutest::detail::iuConsole::SetLogger(NULL);
+    }
+#endif
+};
+
+IUTEST_F(ScopedTraceExceptionTest, Exception)
+{
+    // IUTEST_SCOPED_TRACE("Test Scope Exception");
+    throw "error";
+}
+
+#endif
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
