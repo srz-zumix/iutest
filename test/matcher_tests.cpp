@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -602,7 +602,7 @@ IUTEST(MatcherFailure, Each)
 
 IUTEST(MatcherFailure, ContainerEq)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, ContainerEq(gc)), "ContainerEq: {1, 1, 1}" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, ContainerEq(gc)), "ContainerEq: { 1, 1, 1 }" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, ContainerEq(gc)), "Mismatch in a position 1: 1 vs 2" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, ContainerEq(gc)), "Mismatch in a position 2: 1 vs 3" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(ga, ContainerEq(gc)), "Mismatch element : 3 vs 10" );
@@ -611,7 +611,7 @@ IUTEST(MatcherFailure, ContainerEq)
 
 IUTEST(MatcherFailure, Pointwise)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, Pointwise(Eq(), gc)), "Pointwise: Eq: {1, 1, 1}" );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, Pointwise(Eq(), gc)), "Pointwise: Eq: { 1, 1, 1 }" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(ga, Pointwise(Eq(), gc)), "Mismatch element : 3 vs 10" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(gc, Pointwise(Eq(), ga)), "Mismatch element : 10 vs 3" );
 }
@@ -770,6 +770,30 @@ IUTEST(MatcherFailure, ContainsRegex)
 
 #endif
 
+
+#if IUTEST_HAS_MATCHER_OPTIONAL
+
+IUTEST(Matcher, Optional)
+{
+    IUTEST_EXPECT_THAT("hoge", ElementsAre('h', 'o', 'g', 'e', '\0'));
+#if !defined(IUTEST_USE_GMOCK)
+    IUTEST_EXPECT_THAT(va, ElementsAre(Ge(0), Gt(0)));
+#endif
+}
+
+IUTEST(MatcherFailure, ElementsAre)
+{
+    CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge"
+        , ElementsAre( 'h', 'o', 'G', 'e', '\0')), "ElementsAre(2): G");
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(va
+        , ElementsAre(Ge(0), Gt(0), Lt(1))), "ElementsAre(2): Lt: 1");
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gn, Each(
+        ElementsAre(Lt(3), Lt(3)))), "Each: ElementsAre: {Lt: 3, Lt: 3}");
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(gc
+        , ElementsAre( Ge(0), Gt(0), Ne(0), Eq(0) ) ), "ElementsAre: argument[3] is less than 4");
+}
+
+#endif
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 

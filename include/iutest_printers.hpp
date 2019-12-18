@@ -19,6 +19,7 @@
 // include
 #include "iutest_defs.hpp"
 #include "internal/iutest_string.hpp"
+#include "internal/iutest_string_view.hpp"
 
 namespace iutest
 {
@@ -40,13 +41,17 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
     {
         for( size_t i=0; i < size; ++i )
         {
-            const unsigned char n = buf[i];
-            *os << detail::ToHex((n>>4)&0xF) << ToHex(n&0xF) << " ";
             if( i == kMaxCount )
             {
                 *os << "... ";
                 break;
             }
+#ifdef __clang_analyzer__
+            const unsigned char n = 0;  // suppress
+#else
+            const unsigned char n = buf[i];
+#endif
+            *os << detail::ToHex((n>>4)&0xF) << ToHex(n&0xF) << " ";
         }
     }
     *os << ">";
@@ -389,7 +394,8 @@ inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_ty
     }
     return PrintToString(static_cast<int>(value));
 }
-inline void PrintTo(const ::std::filesystem::path& value, iu_ostream* os)
+template<>
+inline void PrintTo<::std::filesystem::path>(const ::std::filesystem::path& value, iu_ostream* os)
 {
     *os << value.generic_string();
 }
@@ -552,7 +558,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const T* begin, size_t 
     }
     else
     {
-        *os << "{";
+        *os << "{ ";
         const size_t kThreshold = kValues::PrintArrayThreshold;
         const size_t kChunksize = kValues::PrintArrayChunksize;
         if( N <= kThreshold )
@@ -565,7 +571,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalPrintArray(const T* begin, size_t 
             *os << ", ..., ";
             PrintRawArrayTo(begin + N - kChunksize, kChunksize, os);
         }
-        *os << "}";
+        *os << " }";
     }
 }
 /**

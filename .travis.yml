@@ -11,7 +11,9 @@ branches:
     - master
     - develop
     - /feature.*/
+    - /fix.*/
     - /travisci.*/
+    - /travis-ci.*/
 
 addons:
   apt: &apt-global
@@ -102,11 +104,14 @@ script:
   #  fi
 
 after_failure:
-    - cd ${TRAVIS_BUILD_DIR}/test
     - |
+      cd ${TRAVIS_BUILD_DIR}/test
       for f in `find . -maxdepth 1 -name "core_x_*"`; do
         COREFILE=${f}
         EXECFILE=${f##*/core_x_}
+        if [ ! -f "${EXECFILE}" ]; then
+          EXECFILE=`gdb -c "${COREFILE}" -batch | grep -o -e "\./[A-Za-z_]*"`
+        fi
         gdb -c "${COREFILE}" ${EXECFILE} -ex "thread apply all bt" -ex "set pagination 0" -batch
       done
 

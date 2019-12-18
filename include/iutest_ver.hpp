@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01169926u //!< iutest version 1.16.99.26
+#define IUTEST_VER          0x01170001u //!< iutest version 1.17.0.1
 #define IUTEST_MAJORVER     0x01u       //!< Major Version
-#define IUTEST_MINORVER     0x16u       //!< Minor Version
-#define IUTEST_MICROVER     0x99u       //!< Micro Version
-#define IUTEST_REVISION     0x26u       //!< Revision
+#define IUTEST_MINORVER     0x17u       //!< Minor Version
+#define IUTEST_MICROVER     0x00u       //!< Micro Version
+#define IUTEST_REVISION     0x01u       //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -121,8 +121,16 @@ modification, are permitted provided that the following conditions are met: \n
  * @page    CHANGELOG   変更履歴
  * @par     Changes
  <ul>
+  <li>v1.17.1.0
+    <ul>
+      <li>GTEST_SKIP 対応</li>
+    </ul>
+  </li>
   <li>v1.17.0.0
     <ul>
+      <li>大きな配列/コンテナ/オブジェクトの pinter を修正</li>
+      <li>::std::string_view 対応</li>
+      <li>::std::filesystem 対応</li>
       <li>FreeBSD 対応</li>
       <li>ALMOST_EQ アサーション を追加</li>
       <li>--iutest_locale_ctype オプションを追加</li>
@@ -133,6 +141,7 @@ modification, are permitted provided that the following conditions are met: \n
       <li>CSV パラメータ生成でファイルオープン失敗した場合の警告レベルを FATAL から WARNING に変更/li>
       <li>CSV パラメータ生成で要素がなかった場合に WARNING 出力</li>
       <li>deprecated: IUTEST_USE_OWN_LIST</li>
+      <li>deprecated: codecvt</li>
     </ul>
   </li>
   <li>v1.16.7.0

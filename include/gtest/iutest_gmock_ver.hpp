@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,9 +26,11 @@
 
 //!< Minor Version
 #ifndef GMOCK_MINORVER
-#  if   !defined(GTEST_INCLUDE_GTEST_INTERNAL_GTEST_LINKED_PTR_H_)
-#    define GMOCK_MINORVER  0x08
+#  if   defined(GMOCK_INTERNAL_NOEXCEPT_SPEC_IF_NOEXCEPT)
+#    define GMOCK_MINORVER  0x10
 #    define GMOCK_LATEST    1
+#  elif defined(GMOCK_INCLUDE_GMOCK_GMOCK_NICE_STRICT_H_)
+#    define GMOCK_MINORVER  0x10
 #  elif defined(GMOCK_INCLUDE_GMOCK_INTERNAL_CUSTOM_GMOCK_MATCHERS_H_)
 #    define GMOCK_MINORVER  0x08
 #  elif defined(GMOCK_INCLUDE_GMOCK_INTERNAL_CUSTOM_CALLBACK_MATCHERS_H_)
