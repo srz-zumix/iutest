@@ -173,7 +173,11 @@ namespace tr1
 #define IUTEST_HAS_SPI_LAMBDA_SUPPORT   0
 #define IUTEST_HAS_CATCH_SEH_EXCEPTION_ASSERTION    0
 #define IUTEST_HAS_GENRAND              0
-#define IUTEST_HAS_PRINT_TO             1
+#if GTEST_VER < 0x01060000
+#  define IUTEST_HAS_PRINT_TO           0
+#else
+#  define IUTEST_HAS_PRINT_TO           1
+#endif
 #define IUTEST_HAS_TESTNAME_ALIAS       0
 #define IUTEST_HAS_TESTNAME_ALIAS_JP    0
 #define IUTEST_HAS_STREAM_RESULT        1
@@ -373,6 +377,12 @@ inline iu_ostream& operator << (iu_ostream& os, const ::std::nullptr_t&)
 {
     return os << "nullptr";
 }
+#if IUTEST_HAS_RVALUE_REFS
+inline iu_ostream& operator << (iu_ostream&& os, const ::std::nullptr_t&)
+{
+    return os << "nullptr";
+}
+#endif
 #endif
 
 #if GTEST_VER < 0x01060000
