@@ -376,7 +376,8 @@ typedef ::std::ostream  iu_ostream;
 namespace internal
 {
 
-inline String StreamableToString(const ::std::nullptr_t&)
+template<>
+inline String StreamableToString<::std::nullptr_t>(const ::std::nullptr_t&)
 {
   return (Message() << "nullptr").GetString();
 }
