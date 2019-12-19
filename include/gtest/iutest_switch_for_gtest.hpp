@@ -372,17 +372,17 @@ struct is_pointer<T* volatile> : public true_type {};
 // ostream
 typedef ::std::ostream  iu_ostream;
 
-#if IUTEST_HAS_NULLPTR
-inline iu_ostream& operator << (iu_ostream& os, const ::std::nullptr_t&)
+#if IUTEST_HAS_NULLPTR && !IUTEST_HAS_PRINT_TO
+namespace internal
 {
-    return os << "nullptr";
-}
-#if IUTEST_HAS_RVALUE_REFS
-inline iu_ostream& operator << (iu_ostream&& os, const ::std::nullptr_t&)
+
+inline String StreamableToString(const ::std::nullptr_t&)
 {
-    return os << "nullptr";
+  return (Message() << "nullptr").GetString();
 }
-#endif
+
+}
+
 #endif
 
 #if GTEST_VER < 0x01060000
