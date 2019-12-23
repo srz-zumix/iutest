@@ -173,7 +173,11 @@ namespace tr1
 #define IUTEST_HAS_SPI_LAMBDA_SUPPORT   0
 #define IUTEST_HAS_CATCH_SEH_EXCEPTION_ASSERTION    0
 #define IUTEST_HAS_GENRAND              0
-#define IUTEST_HAS_PRINT_TO             1
+#if GTEST_VER < 0x01060000
+#  define IUTEST_HAS_PRINT_TO           0
+#else
+#  define IUTEST_HAS_PRINT_TO           1
+#endif
 #define IUTEST_HAS_TESTNAME_ALIAS       0
 #define IUTEST_HAS_TESTNAME_ALIAS_JP    0
 #define IUTEST_HAS_STREAM_RESULT        1
@@ -367,6 +371,20 @@ struct is_pointer<T* volatile> : public true_type {};
 
 // ostream
 typedef ::std::ostream  iu_ostream;
+
+#if IUTEST_HAS_NULLPTR && !IUTEST_HAS_PRINT_TO
+namespace internal
+{
+
+template<>
+inline String StreamableToString<::std::nullptr_t>(const ::std::nullptr_t&)
+{
+  return (Message() << "nullptr").GetString();
+}
+
+}
+
+#endif
 
 #if GTEST_VER < 0x01060000
 
