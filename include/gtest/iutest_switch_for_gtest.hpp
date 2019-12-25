@@ -173,7 +173,11 @@ namespace tr1
 #define IUTEST_HAS_SPI_LAMBDA_SUPPORT   0
 #define IUTEST_HAS_CATCH_SEH_EXCEPTION_ASSERTION    0
 #define IUTEST_HAS_GENRAND              0
-#define IUTEST_HAS_PRINT_TO             1
+#if GTEST_VER < 0x01060000
+#  define IUTEST_HAS_PRINT_TO           0
+#else
+#  define IUTEST_HAS_PRINT_TO           1
+#endif
 #define IUTEST_HAS_TESTNAME_ALIAS       0
 #define IUTEST_HAS_TESTNAME_ALIAS_JP    0
 #define IUTEST_HAS_STREAM_RESULT        1
@@ -367,6 +371,88 @@ struct is_pointer<T* volatile> : public true_type {};
 
 // ostream
 typedef ::std::ostream  iu_ostream;
+
+/* gtest 1.5 or less comaptible...
+#if !IUTEST_HAS_PRINT_TO
+namespace internal
+{
+    inline char ToHex(unsigned int n)
+    {
+        return static_cast<char>((n&0xF) >= 0xA ? 'A'+((n&0xF)-0xA) : '0'+(n&0xF));
+    }
+
+    inline void PrintBytesInObjectTo(const unsigned char* buf, size_t size, iu_ostream& os)
+    {
+        os << size << "-Byte object < ";
+        if( buf != NULL && size > 0 )
+        {
+            for( size_t i=0; i < size; ++i )
+            {
+                if( i == 8 )
+                {
+                    os << "... ";
+                    break;
+                }
+                const unsigned char n = buf[i];
+                os << ToHex((n>>4)&0xF) << ToHex(n&0xF) << " ";
+            }
+        }
+        os << ">";
+    }
+}
+
+namespace print_internal
+{
+    template<typename T>
+    iu_ostream& operator << (iu_ostream& os, const T& value)
+    {
+        const unsigned char* buf = const_cast<const unsigned char*>(
+            reinterpret_cast<const volatile unsigned char*>(&value));
+        const size_t size = sizeof(T);
+        internal::PrintBytesInObjectTo(buf, size, os);
+        return os;
+    }
+}
+
+namespace internal
+{
+
+#if IUTEST_HAS_NULLPTR
+// template<>
+// String StreamableToString<::std::nullptr_t>(const ::std::nullptr_t&)
+// {
+//   return (Message() << "nullptr").GetString();
+// }
+#endif
+
+#if IUTEST_HAS_DECLTYPE
+
+template<typename T>
+char is_ostreamable(const T&);
+template<typename T>
+auto is_ostreamable(const T& val) -> decltype((StrStream() << val), int());
+
+template<typename T>
+String StreamableToString(const T& val, typename std::enable_if<std::is_same<decltype(is_ostreamable(val)), char>::value>::type*& = iutest_type_traits::enabler::value)
+{
+    using namespace print_internal;
+    StrStream ss_;
+    ss_ << val;
+    return StrStreamToString(&ss_);
+}
+
+template<typename T, typename std::enable_if<std::is_same<T, ::std::nullptr_t>::value>::type* = nullptr>
+String StreamableToString(const T&)
+{
+   return (Message() << "nullptr").GetString();
+}
+
+#endif
+
+}
+
+#endif
+*/
 
 #if GTEST_VER < 0x01060000
 
