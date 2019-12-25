@@ -52,11 +52,12 @@ steps:
   environment:
     GTEST_EXPECT_VERSION: 0x01060000
   commands: *gtest-compatible-commands
-- name: release-1.5.0
-  image: srzzumix/googletest:release-1.5.0
-  environment:
-    GTEST_EXPECT_VERSION: 0x01050000
-  commands: *gtest-compatible-commands
+# https://github.com/srz-zumix/iutest/issues/355
+# - name: release-1.5.0
+#   image: srzzumix/googletest:release-1.5.0
+#   environment:
+#     GTEST_EXPECT_VERSION: 0x01050000
+#   commands: *gtest-compatible-commands
 # https://github.com/srz-zumix/docker-googletest/issues/2
 # - name: release-1.4.0
 #   image: srzzumix/googletest:release-1.4.0
