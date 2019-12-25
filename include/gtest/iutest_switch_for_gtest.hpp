@@ -372,7 +372,7 @@ struct is_pointer<T* volatile> : public true_type {};
 // ostream
 typedef ::std::ostream  iu_ostream;
 
-/* gtest 1.5 or less comaptible...
+/* gtest 1.5 or less compatible...
 #if !IUTEST_HAS_PRINT_TO
 namespace internal
 {
