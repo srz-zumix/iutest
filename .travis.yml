@@ -19,8 +19,8 @@ addons:
   apt: &apt-global
     sources: &apt-common-sources
       - ubuntu-toolchain-r-test
-      - llvm-toolchain-xenial-8
-      - llvm-toolchain-xenial
+      - llvm-toolchain-bionic-8
+      - llvm-toolchain-bionic
     packages: &apt-common-packages
       - clang-8
       - g++-9
