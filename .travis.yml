@@ -18,9 +18,9 @@ branches:
 addons:
   apt: &apt-global
     sources: &apt-common-sources
-      - sourceline: 'ppa:ubuntu-toolchain-r-test'
-      - sourceline: 'llvm-toolchain-bionic-8'
-      - sourceline: 'llvm-toolchain-bionic'
+      - sourceline: 'ppa:ubuntu-toolchain-r/test'
+      - sourceline: 'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-8 main'
+      - sourceline: 'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic main'
     packages: &apt-common-packages
       - clang-8
       - g++-9
