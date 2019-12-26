@@ -51,7 +51,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
 #else
             const unsigned char n = buf[i];
 #endif
-            *os << detail::ToHex((n>>4)&0xF) << ToHex(n&0xF) << " ";
+            *os << ToHex((n>>4)&0xF) << ToHex(n&0xF) << " ";
         }
     }
     *os << ">";
