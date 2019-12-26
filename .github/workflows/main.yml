@@ -27,7 +27,7 @@ jobs:
     - name: choco-install
       shell: cmd
       run: |
-        choco install -y llvm
+        choco install -y llvm || exit 1
         call refreshenv
     - name: llvm clang test
       shell: cmd
