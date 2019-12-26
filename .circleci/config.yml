@@ -95,6 +95,7 @@ jobs:
         command: |
           make clean
           case $CIRCLE_NODE_INDEX in 0) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O2 ;; 1) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Os ;; 2) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O3 ;; 3) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Oz ;; esac
+          cp *.json $CIRCLE_ARTIFACTS/
         working_directory: test
         environment:
           CXX: clang++
