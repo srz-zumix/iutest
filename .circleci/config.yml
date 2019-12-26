@@ -94,11 +94,11 @@ jobs:
         name: clang++ build
         command: |
           make clean
-          MAKE_OPTION_=${MAKE_OPTION} CXXFLAGS=-ftime-trace
-          case $CIRCLE_NODE_INDEX in 0) make $MAKE_TARGET $MAKE_OPTION_ OPTIMIZE=-O2 ;; 1) make $MAKE_TARGET $MAKE_OPTION_ OPTIMIZE=-Os ;; 2) make $MAKE_TARGET $MAKE_OPTION_ OPTIMIZE=-O3 ;; 3) make $MAKE_TARGET $MAKE_OPTION_ OPTIMIZE=-Oz ;; esac
+          case $CIRCLE_NODE_INDEX in 0) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O2 ;; 1) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Os ;; 2) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O3 ;; 3) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Oz ;; esac
         working_directory: test
         environment:
           CXX: clang++
+          MAKE_ADD_OPTION: CXXFLAGS=-ftime-trace
     - run:
         name: clang++ test
         command: |
