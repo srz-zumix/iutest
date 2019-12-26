@@ -1,4 +1,4 @@
-dist: xenial
+dist: bionic
 
 language: cpp
 
@@ -18,9 +18,9 @@ branches:
 addons:
   apt: &apt-global
     sources: &apt-common-sources
-      - ubuntu-toolchain-r-test
-      - llvm-toolchain-xenial-8
-      - llvm-toolchain-xenial
+      - sourceline: 'ppa:ubuntu-toolchain-r-test'
+      - sourceline: 'llvm-toolchain-bionic-8'
+      - sourceline: 'llvm-toolchain-bionic'
     packages: &apt-common-packages
       - clang-8
       - g++-9
