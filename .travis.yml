@@ -1,4 +1,4 @@
-dist: xenial
+dist: cosmic
 
 language: cpp
 
@@ -18,9 +18,9 @@ branches:
 addons:
   apt: &apt-global
     sources: &apt-common-sources
-      - ubuntu-toolchain-r-test
-      - llvm-toolchain-xenial-8
-      - llvm-toolchain-xenial
+      - sourceline: 'ppa:ubuntu-toolchain-r/test'
+      - sourceline: 'deb http://apt.llvm.org/cosmic/ llvm-toolchain-cosmic-8 main'
+      - sourceline: 'deb http://apt.llvm.org/cosmic/ llvm-toolchain-cosmic main'
     packages: &apt-common-packages
       - clang-8
       - g++-9
