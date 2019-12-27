@@ -30,12 +30,19 @@
 #  ifndef _VARIADIC_MAX
 #    define _VARIADIC_MAX   10
 #  endif
+#endif
 
+#if defined(_MSC_VER) && _MSC_VER >= 1700
+// old googletest using std::tr1::tuple
 #include <tuple>
 namespace std {
 namespace tr1
 {
-    using ::std::tuple;
+using ::std::tuple;
+using ::std::tuple_size;
+using ::std::tuple_element;
+using ::std::make_tuple;
+using ::std::get;
 }
 }
 #endif
