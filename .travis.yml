@@ -1,4 +1,4 @@
-dist: bionic
+dist: cosmic
 
 language: cpp
 
@@ -19,8 +19,8 @@ addons:
   apt: &apt-global
     sources: &apt-common-sources
       - sourceline: 'ppa:ubuntu-toolchain-r/test'
-      - sourceline: 'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-8 main'
-      - sourceline: 'deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic main'
+      - sourceline: 'deb http://apt.llvm.org/cosmic/ llvm-toolchain-cosmic-8 main'
+      - sourceline: 'deb http://apt.llvm.org/cosmic/ llvm-toolchain-cosmic main'
     packages: &apt-common-packages
       - clang-8
       - g++-9
