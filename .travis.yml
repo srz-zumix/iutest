@@ -26,7 +26,6 @@ addons:
       - g++-9
       - gcc-9
       - gdb
-      - cmake
       #- cppcheck
     config:
       retries: true
