@@ -481,7 +481,20 @@ using dummy_printer::PrintToString;
 using dummy_printer::PrintToString;
 #endif
 
-#endif
+template<typename T>
+class WithParamInterface
+{
+public:
+    typedef T ParamType;
+    const ParamType& GetParam() const { return *parameter_; }
+private:
+    static void SetParam(const ParamType *parameter) { parameter_ = parameter; }
+    static const ParamType *parameter_;
+    template <class TestClass>
+    friend class internal::ParameterizedTestFactory;
+};
+
+#endif  // #if GTEST_VER < 0x01060000
 
 }   // end of namespace testing
 
