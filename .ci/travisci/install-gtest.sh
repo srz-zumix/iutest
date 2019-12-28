@@ -4,7 +4,9 @@ set -e
 
 if [ "${USE_GTEST_HEAD}" = '1' ]; then
   git clone https://github.com/google/googletest.git googletest
-else
+fi
+
+if [ ! -e googletest/googletest ]; then
   mkdir googletest
   if [ -e /usr/src/gtest ]; then
     cp -r /usr/src/gtest googletest
