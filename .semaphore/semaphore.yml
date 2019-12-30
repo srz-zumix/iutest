@@ -14,7 +14,7 @@ auto_cancel:
 global_job_config:
   env_vars:
     - name: CLANG_VERSION
-      value: "7"
+      value: "9"
     - name: UBNAME
       value: bionic
   prologue:
