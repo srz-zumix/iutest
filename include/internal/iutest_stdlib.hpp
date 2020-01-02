@@ -205,6 +205,9 @@
 #  endif
 #endif
 
+#if _LIBCPP_VERSION < 9000
+#  define IUTEST_HAS_CXX_HDR_FILESYSTEM   0
+#endif
 #if _LIBCPP_VERSION >= 3700
 #  if !defined(IUTEST_HAS_STD_INVOKE) && IUTEST_HAS_CXX1Z
 #    define IUTEST_HAS_STD_INVOKE         1
