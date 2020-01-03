@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -379,7 +379,7 @@ struct is_pointer<T* volatile> : public true_type {};
 // ostream
 typedef ::std::ostream  iu_ostream;
 
-/* gtest 1.5 or less compatible...
+// gtest 1.5 or less compatible...
 #if !IUTEST_HAS_PRINT_TO
 namespace internal
 {
@@ -406,23 +406,6 @@ namespace internal
         }
         os << ">";
     }
-}
-
-namespace print_internal
-{
-    template<typename T>
-    iu_ostream& operator << (iu_ostream& os, const T& value)
-    {
-        const unsigned char* buf = const_cast<const unsigned char*>(
-            reinterpret_cast<const volatile unsigned char*>(&value));
-        const size_t size = sizeof(T);
-        internal::PrintBytesInObjectTo(buf, size, os);
-        return os;
-    }
-}
-
-namespace internal
-{
 
 #if IUTEST_HAS_NULLPTR
 // template<>
@@ -432,34 +415,28 @@ namespace internal
 // }
 #endif
 
-#if IUTEST_HAS_DECLTYPE
+#if IUTEST_HAS_CONCEPTS
 
 template<typename T>
-char is_ostreamable(const T&);
-template<typename T>
-auto is_ostreamable(const T& val) -> decltype((StrStream() << val), int());
+concept printable = requires (T x) { ::std::cout << x; };
 
 template<typename T>
-String StreamableToString(const T& val, typename std::enable_if<std::is_same<decltype(is_ostreamable(val)), char>::value>::type*& = iutest_type_traits::enabler::value)
+    requires (!printable<T>)
+String StreamableToString(const T& val)
 {
-    using namespace print_internal;
     StrStream ss_;
-    ss_ << val;
+    const unsigned char* buf = const_cast<const unsigned char*>(
+        reinterpret_cast<const volatile unsigned char*>(&val));
+    const size_t size = sizeof(T);
+    internal::PrintBytesInObjectTo(buf, size, ss_);
     return StrStreamToString(&ss_);
 }
 
-template<typename T, typename std::enable_if<std::is_same<T, ::std::nullptr_t>::value>::type* = nullptr>
-String StreamableToString(const T&)
-{
-   return (Message() << "nullptr").GetString();
-}
-
 #endif
 
 }
 
 #endif
-*/
 
 #if GTEST_VER < 0x01060000
 
@@ -493,6 +470,9 @@ private:
     template <class TestClass>
     friend class internal::ParameterizedTestFactory;
 };
+
+template<typename T>
+const T* WithParamInterface<T>::parameter_ = NULL;
 
 #endif  // #if GTEST_VER < 0x01060000
 
