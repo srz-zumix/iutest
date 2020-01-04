@@ -14,7 +14,7 @@ auto_cancel:
 global_job_config:
   env_vars:
     - name: CLANG_VERSION
-      value: "7"
+      value: "9"
     - name: UBNAME
       value: bionic
   prologue:
@@ -23,8 +23,8 @@ global_job_config:
 
 blocks:
   - name: install
-    skip:
-      when: "branch != 'master' AND branch != 'develop' AND branch !~ '^semaphore.*' AND branch !~ '.*scan-build.*'"
+    skip: &skip-condition
+      when: "branch != 'master' AND branch != 'develop' AND branch !~ '^feature.*' AND branch !~ '^semaphore.*' AND branch !~ '.*scan-build.*'"
     task:
       prologue:
         commands:
@@ -47,8 +47,7 @@ blocks:
             - make -j8
             - make test
   - name: scan-build
-    skip:
-      when: "branch != 'master' AND branch != 'develop' AND branch !~ '^semaphore.*' AND branch !~ '.*scan-build.*'"
+    skip: *skip-condition
     task:
       env_vars:
         - name: PARALLELS

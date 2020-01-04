@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2019, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -36,6 +36,7 @@
 #undef IUTEST_HAS_MATCHER_ELEMENTSARE
 #undef IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD
 #undef IUTEST_HAS_MATCHER_REGEX
+#undef IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR
 
 #endif
 
@@ -49,6 +50,11 @@
 #define IUTEST_HAS_MATCHER_ELEMENTSARE              1
 #define IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD  0
 #define IUTEST_HAS_MATCHER_REGEX                    1
+#if GMOCK_VER > 0x01060000
+#  define IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR     1
+#else
+#  define IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR     0
+#endif
 
 #define IUTEST_ASSERT_THAT      ASSERT_THAT
 #define IUTEST_EXPECT_THAT      EXPECT_THAT
@@ -66,6 +72,7 @@
 #define IUTEST_HAS_MATCHER_ELEMENTSARE              0
 #define IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD  0
 #define IUTEST_HAS_MATCHER_REGEX                    0
+#define IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR       0
 
 #endif
 
@@ -92,7 +99,7 @@ namespace matchers
     using ::testing::NanSensitiveDoubleEq;
     using ::testing::NanSensitiveFloatEq;
 
-#if GMOCK_VER > 0x01060000
+#if IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR
     using ::testing::DoubleNear;
     using ::testing::FloatNear;
     using ::testing::NanSensitiveDoubleNear;
