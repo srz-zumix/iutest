@@ -64,7 +64,7 @@ template<typename T>struct identity { typedef T type; };
 */
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
-template<bool B, typename T>
+template<bool B, typename T = type_defined_void>
 struct enable_if
 {
     typedef T type;
