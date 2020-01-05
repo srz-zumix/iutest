@@ -28,15 +28,15 @@ RUN pyenv --version && \
     pyenv install 3.5.2 && \
     pyenv install 3.8.0
 RUN pyenv local 2.7.13 && \
-    pip install --upgrade pip \
+    pip install --upgrade pip && \
     pip install --upgrade setuptools tox requests && \
     pyenv local --unset
 RUN pyenv local 3.5.2 && \
-    pip install --upgrade pip \
+    pip install --upgrade pip && \
     pip install --upgrade setuptools tox requests && \
     pyenv local --unset
 RUN pyenv local 3.8.0 && \
-    pip install --upgrade pip \
+    pip install --upgrade pip && \
     pip install --upgrade setuptools tox requests && \
     pyenv local --unset
 RUN pyenv local 2.7.13 3.5.2 3.8.0
