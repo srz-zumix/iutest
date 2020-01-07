@@ -70,7 +70,7 @@ CXXFLAGS += --param ggc-min-heapsize=${GGC_MIN_HEAPSIZE}
 endif
 
 ifdef CI_NODEBUG
-CXXFLAGS += -g0 -O0
+CXXFLAGS += -g0 -O0 -fsyntax-only -w
 endif
 
 # debug options
