@@ -57,12 +57,12 @@ steps:
         image: gcc:8
         environment:
           - OUTDIR=gcc8
-      BuildBasicTest_gcc7:
-        <<: *build_all_test
-        title: Build Basic all_tests - gcc7
-        image: gcc:7
-        environment:
-          - OUTDIR=gcc7
+      # BuildBasicTest_gcc7:
+      #   <<: *build_all_test
+      #   title: Build Basic all_tests - gcc7
+      #   image: gcc:7
+      #   environment:
+      #     - OUTDIR=gcc7
   BuildOtherUnitTests:
     type: parallel
     stage: build_other_tests
