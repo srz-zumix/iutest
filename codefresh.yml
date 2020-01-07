@@ -72,7 +72,7 @@ steps:
         environment:
           - OUTDIR=gcc9
         commands:
-          - make -C test
+          - make -C test -j4
         when:
           steps:
           - name: BuildBasicTest_gcc9
