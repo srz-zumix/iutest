@@ -5,7 +5,7 @@
 macro(fix_default_compiler_settings_)
   if (MSVC)
     if(NOT (MSVC_VERSION LESS 1910))
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17 /permissive-")
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /permissive-")
     endif()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
     if (MSVC_VERSION LESS 1900)
