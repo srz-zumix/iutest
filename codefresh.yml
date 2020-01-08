@@ -57,12 +57,12 @@ steps:
         image: gcc:8
         environment:
           - OUTDIR=gcc8
-      BuildBasicTest_gcc7:
-        <<: *build_all_test
-        title: Build Basic all_tests - gcc7
-        image: gcc:7
-        environment:
-          - OUTDIR=gcc7
+      # BuildBasicTest_gcc7:
+      #   <<: *build_all_test
+      #   title: Build Basic all_tests - gcc7
+      #   image: gcc:7
+      #   environment:
+      #     - OUTDIR=gcc7
   BuildOtherUnitTests:
     type: parallel
     stage: build_other_tests
@@ -88,16 +88,16 @@ steps:
           - name: BuildBasicTest_gcc8
             on:
               - success
-      BuildOtherTest_gcc7:
-        <<: *build_other_test
-        image: gcc:7
-        environment:
-          - OUTDIR=gcc7
-        when:
-          steps:
-          - name: BuildBasicTest_gcc7
-            on:
-              - success
+      # BuildOtherTest_gcc7:
+      #   <<: *build_other_test
+      #   image: gcc:7
+      #   environment:
+      #     - OUTDIR=gcc7
+      #   when:
+      #     steps:
+      #     - name: BuildBasicTest_gcc7
+      #       on:
+      #         - success
   RunningAllUnitTests:
     type: parallel
     stage: run_tests
@@ -123,16 +123,16 @@ steps:
           - name: BuildOtherTest_gcc8
             on:
               - success
-      RunningUnitTest_gcc7:
-        <<: *run_test
-        image: gcc:7
-        environment:
-          - OUTDIR=gcc7
-        when:
-          steps:
-          - name: BuildOtherTest_gcc7
-            on:
-              - success
+      # RunningUnitTest_gcc7:
+      #   <<: *run_test
+      #   image: gcc:7
+      #   environment:
+      #     - OUTDIR=gcc7
+      #   when:
+      #     steps:
+      #     - name: BuildOtherTest_gcc7
+      #       on:
+      #         - success
   Benchmark:
     title: Running Benchmark Tests
     stage: benchmark
@@ -157,9 +157,9 @@ steps:
         - name: RunningUnitTest_gcc8
           on:
             - success
-        - name: RunningUnitTest_gcc7
-          on:
-            - success
+        # - name: RunningUnitTest_gcc7
+        #   on:
+        #     - success
     on_success:
       metadata:
         set:
