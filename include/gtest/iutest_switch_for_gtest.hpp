@@ -258,6 +258,18 @@ namespace tr1
 
 #endif
 
+#if GTEST_VER < 0x01100000
+
+namespace iutest_type_traits
+{
+
+template<bool b, typename T = type_defined_void>
+struct enable_if;
+
+}
+
+#endif
+
 namespace testing
 {
 
