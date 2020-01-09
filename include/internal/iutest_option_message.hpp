@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -180,6 +180,7 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_HAS_CHAR16_T);
     IIUT_SHOW_MACRO(IUTEST_HAS_CHAR32_T);
     IIUT_SHOW_MACRO(IUTEST_HAS_CLOCK);
+    IIUT_SHOW_MACRO(IUTEST_HAS_CONCEPTS);
     IIUT_SHOW_MACRO(IUTEST_HAS_CONSTEXPR);
     IIUT_SHOW_MACRO(IUTEST_HAS_CONSTEXPR_IF);
     IIUT_SHOW_MACRO(IUTEST_HAS_COUNTER_MACRO);
