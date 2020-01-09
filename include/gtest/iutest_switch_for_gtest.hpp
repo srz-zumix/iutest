@@ -213,18 +213,6 @@ using ::std::get;
 #include "../internal/iutest_type_traits.hpp"
 #include "../internal/iutest_compatible_defs.hpp"
 
-#if GTEST_VER < 0x01100000
-
-namespace iutest_type_traits
-{
-
-template<bool b, typename T = type_defined_void>
-struct enable_if;
-
-}
-
-#endif
-
 #include "switch/iutest_switch_port.hpp"
 #include "switch/iutest_switch_core.hpp"
 
