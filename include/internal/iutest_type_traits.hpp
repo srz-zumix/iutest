@@ -90,15 +90,12 @@ struct enable_if_impl_<false>
 
 }   // end of namespace helper
 
-template<bool B, typename T>
+template<bool B, typename T = type_defined_void>
 struct enable_if : public helper::enable_if_impl_<B>::template inner<T>
 {
 };
 
 #endif
-
-template<bool b, typename T = type_defined_void>
-struct enable_if;
 
 template<class COND, typename T = type_defined_void>
 struct enable_if_t : public enable_if<COND::value, T> {};

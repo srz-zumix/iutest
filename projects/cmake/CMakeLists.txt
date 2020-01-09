@@ -3,7 +3,7 @@
 #
 
 # CMake バージョン
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.2)
 
 # option
 option(build_gtest_samples "gtest sample build." OFF)
@@ -24,6 +24,7 @@ endif()
 
 # プロジェクト名
 project(iutest CXX C)
+set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE NEVER)
