@@ -58,6 +58,17 @@ using ::std::get;
 //======================================================================
 // include
 #include "../iutest_ver.hpp"
+
+// gtest 1.5 or less compatible
+#if !IUTEST_HAS_CONCEPTS
+#include <limits>
+#include <vector>
+#include <gtest/internal/gtest-internal.h>
+#define GTestStreamToHelper GTestStreamToHelperForCompatible
+template <typename T>
+void GTestStreamToHelper(std::ostream* os, const T& val);
+#endif
+
 #include <gtest/gtest.h>
 #if defined(IUTEST_USE_GMOCK)
 #include <gmock/gmock.h>
@@ -187,7 +198,11 @@ using ::std::get;
 #endif
 #define IUTEST_HAS_TESTNAME_ALIAS       0
 #define IUTEST_HAS_TESTNAME_ALIAS_JP    0
-#define IUTEST_HAS_STREAM_RESULT        1
+#if GTEST_VER < 0x01060000
+#  define IUTEST_HAS_STREAM_RESULT      0
+#else
+#  define IUTEST_HAS_STREAM_RESULT      1
+#endif
 
 #define IUTEST_HAS_STREAM_BUFFER        0
 
@@ -202,6 +217,10 @@ using ::std::get;
 #define IUTEST_HAS_REGEX            GTEST_USES_POSIX_RE
 #define IUTEST_HAS_SEH              GTEST_HAS_SEH
 #define IUTEST_HAS_LONG_DOUBLE      0
+
+#if GTEST_VER < 0x01080000
+#  define IUTEST_NO_ENV_XML_OUTPUT_FILE
+#endif
 
 #if GTEST_VER < 0x01070000
 #  define IUTEST_NO_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN
@@ -407,14 +426,6 @@ namespace internal
         os << ">";
     }
 
-#if IUTEST_HAS_NULLPTR
-// template<>
-// String StreamableToString<::std::nullptr_t>(const ::std::nullptr_t&)
-// {
-//   return (Message() << "nullptr").GetString();
-// }
-#endif
-
 #if IUTEST_HAS_CONCEPTS
 
 template<typename T>
@@ -432,9 +443,26 @@ String StreamableToString(const T& val)
     return StrStreamToString(&ss_);
 }
 
-#endif
+#else
+
+namespace printer_internal
+{
+
+template<typename T>
+iu_ostream& operator << (iu_ostream& os, const T& val)
+{
+    const unsigned char* buf = const_cast<const unsigned char*>(
+        reinterpret_cast<const volatile unsigned char*>(&val));
+    const size_t size = sizeof(T);
+    internal::PrintBytesInObjectTo(buf, size, os);
+    return os;
+}
 
 }
+
+#endif
+
+}   // end of namespace internal
 
 #endif
 
@@ -477,6 +505,52 @@ const T* WithParamInterface<T>::parameter_ = NULL;
 #endif  // #if GTEST_VER < 0x01060000
 
 }   // end of namespace testing
+
+// gtest 1.5 or less compatible...
+#if !IUTEST_HAS_CONCEPTS
+#if IUTEST_HAS_PRINT_TO
+
+template <typename T>
+inline void GTestStreamToHelperForCompatible(std::ostream* os, const T& val) {
+    *os << val;
+}
+
+#else
+namespace testing
+{
+namespace printer_internal2
+{
+
+template<typename T>
+void GTestStreamTo(std::ostream* os, const T& val)
+{
+    using namespace ::testing::internal::printer_internal; // NOLINT
+    *os << val;
+}
+inline void GTestStreamTo(std::ostream* os, const ::std::string& val)
+{
+    *os << val;
+}
+inline void GTestStreamTo(std::ostream* os, const char* const val)
+{
+    *os << val;
+}
+inline void GTestStreamTo(std::ostream* os, const char val)
+{
+    *os << val;
+}
+
+}   // end of namespace printer_internal2
+}   // end of namespace testing
+
+
+template <typename T>
+inline void GTestStreamToHelperForCompatible(std::ostream* os, const T& val) {
+    ::testing::printer_internal2::GTestStreamTo(os, val);
+}
+
+#endif
+#endif  // #if GTEST_VER < 0x01060000
 
 #if defined(INCG_IRIS_IUTEST_HPP_)
 // すでに iutest namespace が存在するので、define で対応
