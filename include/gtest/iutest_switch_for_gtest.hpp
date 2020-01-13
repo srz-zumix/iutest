@@ -61,8 +61,6 @@ using ::std::get;
 
 // gtest 1.5 or less compatible
 #if !IUTEST_HAS_CONCEPTS
-#include <limits>
-#include <vector>
 #include <gtest/internal/gtest-internal.h>
 #define GTestStreamToHelper GTestStreamToHelperForCompatible
 template <typename T>
@@ -433,7 +431,7 @@ namespace internal
 #if IUTEST_HAS_CONCEPTS
 
 template<typename T>
-concept printable = requires (T x) { ::std::cout << x; };
+concept printable = requires (T x) { ::std::cout << x; };   // NOLINT
 
 template<typename T>
     requires (!printable<T>)
@@ -496,6 +494,7 @@ class WithParamInterface
 public:
     typedef T ParamType;
     const ParamType& GetParam() const { return *parameter_; }
+
 private:
     static void SetParam(const ParamType *parameter) { parameter_ = parameter; }
     static const ParamType *parameter_;
