@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -62,6 +62,9 @@ template<typename T>struct identity { typedef T type; };
 /**
  * @brief   enable_if
 */
+template<bool b, typename T = type_defined_void>
+struct enable_if;
+
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 template<bool B, typename T>
@@ -90,7 +93,7 @@ struct enable_if_impl_<false>
 
 }   // end of namespace helper
 
-template<bool B, typename T = type_defined_void>
+template<bool B, typename T>
 struct enable_if : public helper::enable_if_impl_<B>::template inner<T>
 {
 };
