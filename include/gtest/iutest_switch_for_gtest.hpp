@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -30,12 +30,19 @@
 #  ifndef _VARIADIC_MAX
 #    define _VARIADIC_MAX   10
 #  endif
+#endif
 
+#if defined(_MSC_VER) && _MSC_VER >= 1700
+// old googletest using std::tr1::tuple
 #include <tuple>
 namespace std {
 namespace tr1
 {
-    using ::std::tuple;
+using ::std::tuple;
+using ::std::tuple_size;
+using ::std::tuple_element;
+using ::std::make_tuple;
+using ::std::get;
 }
 }
 #endif
@@ -51,6 +58,17 @@ namespace tr1
 //======================================================================
 // include
 #include "../iutest_ver.hpp"
+
+// gtest 1.5 or less compatible
+#if !IUTEST_HAS_CONCEPTS
+#include <limits>
+#include <vector>
+#include <gtest/internal/gtest-internal.h>
+#define GTestStreamToHelper GTestStreamToHelperForCompatible
+template <typename T>
+void GTestStreamToHelper(std::ostream* os, const T& val);
+#endif
+
 #include <gtest/gtest.h>
 #if defined(IUTEST_USE_GMOCK)
 #include <gmock/gmock.h>
@@ -180,7 +198,11 @@ namespace tr1
 #endif
 #define IUTEST_HAS_TESTNAME_ALIAS       0
 #define IUTEST_HAS_TESTNAME_ALIAS_JP    0
-#define IUTEST_HAS_STREAM_RESULT        1
+#if GTEST_VER < 0x01060000
+#  define IUTEST_HAS_STREAM_RESULT      0
+#else
+#  define IUTEST_HAS_STREAM_RESULT      1
+#endif
 
 #define IUTEST_HAS_STREAM_BUFFER        0
 
@@ -196,27 +218,23 @@ namespace tr1
 #define IUTEST_HAS_SEH              GTEST_HAS_SEH
 #define IUTEST_HAS_LONG_DOUBLE      0
 
+#if GTEST_VER < 0x01080000
+#  define IUTEST_NO_ENV_XML_OUTPUT_FILE
+#endif
+
 #if GTEST_VER < 0x01070000
 #  define IUTEST_NO_RECORDPROPERTY_OUTSIDE_TESTMETHOD_LIFESPAN
 #  define IUTEST_NO_UNITEST_AD_HOC_TEST_RESULT_ACCESSOR
 #  define IUTEST_NO_TESTCASE_AD_HOC_TEST_RESULT_ACCESSOR
 #endif
 
+#if GTEST_VER < 0x01060000
+#  define IUTEST_NO_AD_HOC_TEST_RESULT
+#endif
+
 #include "../internal/iutest_compiler.hpp"
 #include "../internal/iutest_type_traits.hpp"
 #include "../internal/iutest_compatible_defs.hpp"
-
-#if GTEST_VER < 0x01100000
-
-namespace iutest_type_traits
-{
-
-template<bool b, typename T = type_defined_void>
-struct enable_if;
-
-}
-
-#endif
 
 #include "switch/iutest_switch_port.hpp"
 #include "switch/iutest_switch_core.hpp"
@@ -384,7 +402,7 @@ struct is_pointer<T* volatile> : public true_type {};
 // ostream
 typedef ::std::ostream  iu_ostream;
 
-/* gtest 1.5 or less compatible...
+// gtest 1.5 or less compatible...
 #if !IUTEST_HAS_PRINT_TO
 namespace internal
 {
@@ -411,60 +429,46 @@ namespace internal
         }
         os << ">";
     }
-}
 
-namespace print_internal
-{
-    template<typename T>
-    iu_ostream& operator << (iu_ostream& os, const T& value)
-    {
-        const unsigned char* buf = const_cast<const unsigned char*>(
-            reinterpret_cast<const volatile unsigned char*>(&value));
-        const size_t size = sizeof(T);
-        internal::PrintBytesInObjectTo(buf, size, os);
-        return os;
-    }
-}
-
-namespace internal
-{
-
-#if IUTEST_HAS_NULLPTR
-// template<>
-// String StreamableToString<::std::nullptr_t>(const ::std::nullptr_t&)
-// {
-//   return (Message() << "nullptr").GetString();
-// }
-#endif
-
-#if IUTEST_HAS_DECLTYPE
+#if IUTEST_HAS_CONCEPTS
 
 template<typename T>
-char is_ostreamable(const T&);
-template<typename T>
-auto is_ostreamable(const T& val) -> decltype((StrStream() << val), int());
+concept printable = requires (T x) { ::std::cout << x; };
 
 template<typename T>
-String StreamableToString(const T& val, typename std::enable_if<std::is_same<decltype(is_ostreamable(val)), char>::value>::type*& = iutest_type_traits::enabler::value)
+    requires (!printable<T>)
+String StreamableToString(const T& val)
 {
-    using namespace print_internal;
     StrStream ss_;
-    ss_ << val;
+    const unsigned char* buf = const_cast<const unsigned char*>(
+        reinterpret_cast<const volatile unsigned char*>(&val));
+    const size_t size = sizeof(T);
+    internal::PrintBytesInObjectTo(buf, size, ss_);
     return StrStreamToString(&ss_);
 }
 
-template<typename T, typename std::enable_if<std::is_same<T, ::std::nullptr_t>::value>::type* = nullptr>
-String StreamableToString(const T&)
+#else
+
+namespace printer_internal
 {
-   return (Message() << "nullptr").GetString();
+
+template<typename T>
+iu_ostream& operator << (iu_ostream& os, const T& val)
+{
+    const unsigned char* buf = const_cast<const unsigned char*>(
+        reinterpret_cast<const volatile unsigned char*>(&val));
+    const size_t size = sizeof(T);
+    internal::PrintBytesInObjectTo(buf, size, os);
+    return os;
+}
+
 }
 
 #endif
 
-}
+}   // end of namespace internal
 
 #endif
-*/
 
 #if GTEST_VER < 0x01060000
 
@@ -486,9 +490,71 @@ using dummy_printer::PrintToString;
 using dummy_printer::PrintToString;
 #endif
 
-#endif
+template<typename T>
+class WithParamInterface
+{
+public:
+    typedef T ParamType;
+    const ParamType& GetParam() const { return *parameter_; }
+private:
+    static void SetParam(const ParamType *parameter) { parameter_ = parameter; }
+    static const ParamType *parameter_;
+    template <class TestClass>
+    friend class internal::ParameterizedTestFactory;
+};
+
+template<typename T>
+const T* WithParamInterface<T>::parameter_ = NULL;
+
+#endif  // #if GTEST_VER < 0x01060000
 
 }   // end of namespace testing
+
+// gtest 1.5 or less compatible...
+#if !IUTEST_HAS_CONCEPTS
+#if IUTEST_HAS_PRINT_TO
+
+template <typename T>
+inline void GTestStreamToHelperForCompatible(std::ostream* os, const T& val) {
+    *os << val;
+}
+
+#else
+namespace testing
+{
+namespace printer_internal2
+{
+
+template<typename T>
+void GTestStreamTo(std::ostream* os, const T& val)
+{
+    using namespace ::testing::internal::printer_internal; // NOLINT
+    *os << val;
+}
+inline void GTestStreamTo(std::ostream* os, const ::std::string& val)
+{
+    *os << val;
+}
+inline void GTestStreamTo(std::ostream* os, const char* const val)
+{
+    *os << val;
+}
+inline void GTestStreamTo(std::ostream* os, const char val)
+{
+    *os << val;
+}
+
+}   // end of namespace printer_internal2
+}   // end of namespace testing
+
+
+template <typename T>
+inline void GTestStreamToHelperForCompatible(std::ostream* os, const T& val) {
+    ::testing::printer_internal2::GTestStreamTo(os, val);
+}
+
+#endif
+#endif  // #if GTEST_VER < 0x01060000
 
 #if defined(INCG_IRIS_IUTEST_HPP_)
 // すでに iutest namespace が存在するので、define で対応
