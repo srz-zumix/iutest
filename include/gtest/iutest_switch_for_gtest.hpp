@@ -460,7 +460,7 @@ iu_ostream& operator << (iu_ostream& os, const T& val)
     return os;
 }
 
-}
+}   // namespace printer_internal
 
 #endif
 
