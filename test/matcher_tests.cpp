@@ -346,6 +346,7 @@ IUTEST(Matcher, Pair)
 {
     IUTEST_EXPECT_THAT(gm, Each(Pair(Le(10), 100)));
 }
+#endif
 
 IUTEST(Matcher, Field)
 {
