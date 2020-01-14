@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -37,6 +37,8 @@
 #undef IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD
 #undef IUTEST_HAS_MATCHER_REGEX
 #undef IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR
+#undef IUTEST_HAS_MATCHER_EACH
+#undef IUTEST_HAS_MATCHER_POINTWISE
 
 #endif
 
@@ -54,6 +56,13 @@
 #  define IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR     1
 #else
 #  define IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR     0
+#endif
+#if GMOCK_VER > 0x01050000
+#  define IUTEST_HAS_MATCHER_EACH                   1
+#  define IUTEST_HAS_MATCHER_POINTWISE              1
+#else
+#  define IUTEST_HAS_MATCHER_EACH                   0
+#  define IUTEST_HAS_MATCHER_POINTWISE              0
 #endif
 
 #define IUTEST_ASSERT_THAT      ASSERT_THAT
@@ -73,6 +82,8 @@
 #define IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD  0
 #define IUTEST_HAS_MATCHER_REGEX                    0
 #define IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR       0
+#define IUTEST_HAS_MATCHER_EACH                     0
+#define IUTEST_HAS_MATCHER_POINTWISE                0
 
 #endif
 
@@ -116,8 +127,10 @@ namespace matchers
 
     using ::testing::Contains;
     using ::testing::ContainerEq;
-#if GMOCK_VER > 0x01050000
+#if IUTEST_HAS_MATCHER_EACH
     using ::testing::Each;
+#endif
+#if IUTEST_HAS_MATCHER_POINTWISE
     using ::testing::Pointwise;
 #endif
     using ::testing::Key;

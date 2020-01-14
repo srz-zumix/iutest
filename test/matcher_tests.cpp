@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -279,12 +279,14 @@ IUTEST(Matcher, Contains)
     IUTEST_EXPECT_THAT(vv, Contains(Contains(Lt(4))));
 }
 
+#if IUTEST_HAS_MATCHER_EACH
 IUTEST(Matcher, Each)
 {
     IUTEST_EXPECT_THAT(gc, Each(1));
     IUTEST_EXPECT_THAT(va, Each(Le(10)));
     IUTEST_EXPECT_THAT(vv, Each(Each(Le(10))));
 }
+#endif
 
 IUTEST(Matcher, ContainerEq)
 {
@@ -296,6 +298,7 @@ IUTEST(Matcher, ContainerEq)
 #endif
 }
 
+#if IUTEST_HAS_MATCHER_POINTWISE
 IUTEST(Matcher, Pointwise)
 {
     IUTEST_EXPECT_THAT(gn[0], Pointwise(Ne(), gn[1]));
@@ -307,7 +310,7 @@ IUTEST(Matcher, Pointwise)
     IUTEST_EXPECT_THAT(ga, Pointwise(Eq(), va));
     IUTEST_EXPECT_THAT(va, Pointwise(Eq(), ga));
 }
-
+#endif
 
 #if !defined(IUTEST_USE_GMOCK) || (defined(GMOCK_VER) && GMOCK_VER >= 0x01070000)
 IUTEST(Matcher, IsEmpty)
@@ -333,6 +336,7 @@ IUTEST(Matcher, At)
 }
 #endif
 
+#if IUTEST_HAS_MATCHER_EACH
 IUTEST(Matcher, Key)
 {
     IUTEST_EXPECT_THAT(gm, Each(Key(Le(10))));
@@ -347,14 +351,18 @@ IUTEST(Matcher, Field)
 {
     IUTEST_EXPECT_THAT( gx, Field(&X::a, 1));
     IUTEST_EXPECT_THAT(&gx, Field(&X::a, 1));
+#if IUTEST_HAS_MATCHER_EACH
     IUTEST_EXPECT_THAT( mx, Each(Pair(Le(10), Field(&X::b, Ge(0)))));
+#endif
 }
 
 IUTEST(Matcher, Property)
 {
     IUTEST_EXPECT_THAT( gx, Property(&X::GetA, 1));
     IUTEST_EXPECT_THAT(&gx, Property(&X::GetA, 1));
+#if IUTEST_HAS_MATCHER_EACH
     IUTEST_EXPECT_THAT( mx, Each(Pair(Le(10), Property(&X::GetA, Ge(0)))));
+#endif
 }
 
 IUTEST(Matcher, ResultOf)
@@ -608,6 +616,7 @@ IUTEST(MatcherFailure, Contains)
     CHECK_FAILURE( IUTEST_ASSERT_THAT(vv, Contains(Contains(Lt(0)))), "Contains: Contains: Lt: 0" );
 }
 
+#if IUTEST_HAS_MATCHER_EACH
 IUTEST(MatcherFailure, Each)
 {
     CHECK_FAILURE( IUTEST_ASSERT_THAT(va, Each(42)), "Each: 42" );
@@ -615,6 +624,7 @@ IUTEST(MatcherFailure, Each)
     CHECK_FAILURE( IUTEST_ASSERT_THAT(va, Each(Ne(9))), "Each: Ne: 9" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(vv, Each(Each(Gt(5)))), "Each: Each: Gt: 5" );
 }
+#endif
 
 IUTEST(MatcherFailure, ContainerEq)
 {
@@ -625,12 +635,14 @@ IUTEST(MatcherFailure, ContainerEq)
     CHECK_FAILURE( IUTEST_ASSERT_THAT(gc, ContainerEq(ga)), "Mismatch element : 10 vs 3" );
 }
 
+#if IUTEST_HAS_MATCHER_POINTWISE
 IUTEST(MatcherFailure, Pointwise)
 {
     CHECK_FAILURE( IUTEST_ASSERT_THAT(gb, Pointwise(Eq(), gc)), "Pointwise: Eq: { 1, 1, 1 }" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(ga, Pointwise(Eq(), gc)), "Mismatch element : 3 vs 10" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(gc, Pointwise(Eq(), ga)), "Mismatch element : 10 vs 3" );
 }
+#endif
 
 #if !defined(IUTEST_USE_GMOCK) || (defined(GMOCK_VER) && GMOCK_VER >= 0x01070000)
 IUTEST(MatcherFailure, IsEmpty)
@@ -656,6 +668,7 @@ IUTEST(MatcherFailure, At)
 }
 #endif
 
+#if IUTEST_HAS_MATCHER_EACH
 IUTEST(MatcherFailure, Key)
 {
     CHECK_FAILURE( IUTEST_ASSERT_THAT(gm, Each(Key(0))), "Each: Key: 0" );
@@ -666,6 +679,7 @@ IUTEST(MatcherFailure, Pair)
     CHECK_FAILURE( IUTEST_ASSERT_THAT(gm, Each(Pair(Gt(5), 100))), "Each: Pair: (Gt: 5, 100)" );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(gm, Each(Pair(_, Ne(100)))), "Each: Pair: (_, Ne: 100)" );
 }
+#endif
 
 IUTEST(MatcherFailure, Field)
 {
@@ -748,8 +762,10 @@ IUTEST(MatcherFailure, ElementsAre)
         , ElementsAre( 'h', 'o', 'G', 'e', '\0')), "ElementsAre(2): G");
     CHECK_FAILURE( IUTEST_ASSERT_THAT(va
         , ElementsAre(Ge(0), Gt(0), Lt(1))), "ElementsAre(2): Lt: 1");
+#if IUTEST_HAS_MATCHER_EACH
     CHECK_FAILURE( IUTEST_ASSERT_THAT(gn, Each(
         ElementsAre(Lt(3), Lt(3)))), "Each: ElementsAre: {Lt: 3, Lt: 3}");
+#endif
     CHECK_FAILURE( IUTEST_ASSERT_THAT(gc
         , ElementsAre( Ge(0), Gt(0), Ne(0), Eq(0) ) ), "ElementsAre: argument[3] is less than 4");
 }
@@ -803,8 +819,10 @@ IUTEST(MatcherFailure, ElementsAre)
         , ElementsAre( 'h', 'o', 'G', 'e', '\0')), "ElementsAre(2): G");
     CHECK_FAILURE( IUTEST_ASSERT_THAT(va
         , ElementsAre(Ge(0), Gt(0), Lt(1))), "ElementsAre(2): Lt: 1");
+#if IUTEST_HAS_MATCHER_EACH
     CHECK_FAILURE( IUTEST_ASSERT_THAT(gn, Each(
         ElementsAre(Lt(3), Lt(3)))), "Each: ElementsAre: {Lt: 3, Lt: 3}");
+#endif
     CHECK_FAILURE( IUTEST_ASSERT_THAT(gc
         , ElementsAre( Ge(0), Gt(0), Ne(0), Eq(0) ) ), "ElementsAre: argument[3] is less than 4");
 }
@@ -827,7 +845,6 @@ IUTEST(Matcher, AllOf)
         , HasSubstr("7")
         , HasSubstr("8")
     ));
-    IUTEST_EXPECT_THAT(va, Each(AllOf( Ge(0), Le(10) )));
 }
 
 IUTEST(Matcher, AnyOf)
@@ -846,7 +863,6 @@ IUTEST(Matcher, AnyOf)
         , HasSubstr("7")
         , HasSubstr("8")
     ));
-    IUTEST_EXPECT_THAT(va, Each(AnyOf( Ge(0), Le(10) )));
 }
 
 IUTEST(MatcherFailure, AllOf)
@@ -855,17 +871,37 @@ IUTEST(MatcherFailure, AllOf)
         , AllOf( StartsWith("ho"), EndsWith("gE"))), "StartsWith: ho and EndsWith: gE");
     CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge"
         , AllOf( StartsWith("Ho"), EndsWith("ge"))), "StartsWith: Ho");
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(va
-        , Each(AllOf( Ge(0), Le(5) ))), "Each: Ge: 0 and Le: 5");
 }
 
 IUTEST(MatcherFailure, AnyOf)
 {
     CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge"
         , AnyOf( StartsWith("Ho"), EndsWith("gE"))), "StartsWith: Ho or EndsWith: gE");
+}
+
+#if IUTEST_HAS_MATCHER_EACH
+IUTEST(Matcher, EachAllOf)
+{
+    IUTEST_EXPECT_THAT(va, Each(AllOf( Ge(0), Le(10) )));
+}
+
+IUTEST(Matcher, EachAnyOf)
+{
+    IUTEST_EXPECT_THAT(va, Each(AnyOf( Ge(0), Le(10) )));
+}
+
+IUTEST(MatcherFailure, EachAllOf)
+{
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(va
+        , Each(AllOf( Ge(0), Le(5) ))), "Each: Ge: 0 and Le: 5");
+}
+
+IUTEST(MatcherFailure, EachAnyOf)
+{
     CHECK_FAILURE( IUTEST_ASSERT_THAT(va
         , Each(AnyOf( Gt(5), Lt(5) ))), "Each: Gt: 5 or Lt: 5");
 }
+#endif
 
 #endif
 
