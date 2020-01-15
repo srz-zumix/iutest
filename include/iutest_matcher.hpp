@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -645,6 +645,8 @@ private:
     T m_expected;
 };
 
+#if IUTEST_HAS_MATCHER_EACH
+
 /**
  * @brief   Each matcher
 */
@@ -690,6 +692,8 @@ private:
 private:
     T m_expected;
 };
+
+#endif
 
 /**
  * @brief   ContainerEq matcher
@@ -755,6 +759,8 @@ private:
 };
 
 
+#if IUTEST_HAS_MATCHER_POINTWISE
+
 /**
  * @brief   Pointwise matcher
 */
@@ -818,6 +824,8 @@ private:
     const T& m_expected;
     ::std::string m_whichIs;
 };
+
+#endif
 
 /**
  * @brief   IsEmpty matcher
@@ -2227,6 +2235,8 @@ detail::ContainsMatcher<T> Contains(const T& expected)
     return detail::ContainsMatcher<T>(expected);
 }
 
+#if IUTEST_HAS_MATCHER_EACH
+
 /**
  * @brief   Make Each matcher
  * @details argument はすべての要素が expected にマッチする
@@ -2236,6 +2246,8 @@ detail::EachMatcher<T> Each(const T& expected)
 {
     return detail::EachMatcher<T>(expected);
 }
+
+#endif
 
 /**
  * @brief   Make ContainerEq matcher
@@ -2247,6 +2259,8 @@ detail::ContainerEqMatcher<T> ContainerEq(const T& expected)
     return detail::ContainerEqMatcher<T>(expected);
 }
 
+#if IUTEST_HAS_MATCHER_POINTWISE
+
 /**
  * @brief   Make Pointwise matcher
  * @details argument コンテナは expected コンテナの各要素と matcher にマッチする
@@ -2256,6 +2270,8 @@ detail::PointwiseMatcher<M, T> Pointwise(const M& matcher, const T& expected)
 {
     return detail::PointwiseMatcher<M, T>(matcher, expected);
 }
+
+#endif
 
 /**
  * @brief   Make IsEmpty matcher
