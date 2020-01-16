@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -98,6 +98,18 @@
 #endif
 
 
+// c++20 features
+#if !defined(IUTEST_HAS_CONCEPTS)
+#  if   defined(__cpp_concepts) && __cpp_concepts >= 201907
+#    define IUTEST_HAS_CONCEPTS             1
+#  elif IUTEST_HAS_CXX2A && defined(_MSC_FULL_VER) && _MSC_FULL_VER >= 192328105
+#    define IUTEST_HAS_CONCEPTS             1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CONCEPTS)
+#  define IUTEST_HAS_CONCEPTS               0
+#endif
 
 // c++17 features
 
