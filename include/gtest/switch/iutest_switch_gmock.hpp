@@ -104,56 +104,56 @@ namespace testing
 
 template <typename M1, typename M2, typename M3, typename M4, typename M5, typename M6>
 inline internal::BothOfMatcher<M1,
-           internal::BothOfMatcher<M2,
-               internal::BothOfMatcher<M3,
-                   internal::BothOfMatcher<M4
-                       internal::BothOfMatcher<M5, M6> > > > >
+            internal::BothOfMatcher<M2,
+                internal::BothOfMatcher<M3,
+                    internal::BothOfMatcher<M4
+                        internal::BothOfMatcher<M5, M6> > > > >
 AllOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6) {
   return AllOf(m1, AllOf(m2, m3, m4, m5, m6));
 }
 template <typename M1, typename M2, typename M3, typename M4, typename M5, typename M6, typename M7>
 inline internal::BothOfMatcher<M1,
-           internal::BothOfMatcher<M2,
-               internal::BothOfMatcher<M3,
-                   internal::BothOfMatcher<M4
-                       internal::BothOfMatcher<M5
-                           internal::BothOfMatcher<M6, M7> > > > > >
+            internal::BothOfMatcher<M2,
+                internal::BothOfMatcher<M3,
+                    internal::BothOfMatcher<M4
+                        internal::BothOfMatcher<M5
+                            internal::BothOfMatcher<M6, M7> > > > > >
 AllOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 my) {
   return AllOf(m1, AllOf(m2, m3, m4, m5, m6, m7));
 }
 template <typename M1, typename M2, typename M3, typename M4, typename M5, typename M6, typename M7, typename M8>
 inline internal::BothOfMatcher<M1,
-           internal::BothOfMatcher<M2,
-               internal::BothOfMatcher<M3,
-                   internal::BothOfMatcher<M4
-                       internal::BothOfMatcher<M5
-                           internal::BothOfMatcher<M6
-                               internal::BothOfMatcher<M7, M8> > > > > > >
+            internal::BothOfMatcher<M2,
+                internal::BothOfMatcher<M3,
+                    internal::BothOfMatcher<M4
+                        internal::BothOfMatcher<M5
+                            internal::BothOfMatcher<M6
+                                internal::BothOfMatcher<M7, M8> > > > > > >
 AllOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 my, M8 m8) {
   return AllOf(m1, AllOf(m2, m3, m4, m5, m6, m7, m8));
 }
 template <typename M1, typename M2, typename M3, typename M4, typename M5, typename M6, typename M7, typename M8, typename M9>
 inline internal::BothOfMatcher<M1,
-           internal::BothOfMatcher<M2,
-               internal::BothOfMatcher<M3,
-                   internal::BothOfMatcher<M4
-                       internal::BothOfMatcher<M5
-                           internal::BothOfMatcher<M6
-                               internal::BothOfMatcher<M7
-                                  internal::BothOfMatcher<M8, M9> > > > > > > >
+            internal::BothOfMatcher<M2,
+                internal::BothOfMatcher<M3,
+                    internal::BothOfMatcher<M4
+                        internal::BothOfMatcher<M5
+                            internal::BothOfMatcher<M6
+                                internal::BothOfMatcher<M7
+                                    internal::BothOfMatcher<M8, M9> > > > > > > >
 AllOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 my, M8 m8, M9 m9) {
   return AllOf(m1, AllOf(m2, m3, m4, m5, m6, m7, m8, m9));
 }
 template <typename M1, typename M2, typename M3, typename M4, typename M5, typename M6, typename M7, typename M8, typename M9, typename M10>
 inline internal::BothOfMatcher<M1,
-           internal::BothOfMatcher<M2,
-               internal::BothOfMatcher<M3,
-                   internal::BothOfMatcher<M4
-                       internal::BothOfMatcher<M5
-                           internal::BothOfMatcher<M6
-                               internal::BothOfMatcher<M7
-                                  internal::BothOfMatcher<M8
-                                      internal::BothOfMatcher<M9, M10> > > > > > > > >
+            internal::BothOfMatcher<M2,
+                internal::BothOfMatcher<M3,
+                    internal::BothOfMatcher<M4
+                        internal::BothOfMatcher<M5
+                            internal::BothOfMatcher<M6
+                                internal::BothOfMatcher<M7
+                                    internal::BothOfMatcher<M8
+                                        internal::BothOfMatcher<M9, M10> > > > > > > > >
 AllOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 my, M8 m8, M9 m9, M10 m10) {
   return AllOf(m1, AllOf(m2, m3, m4, m5, m6, m7, m8, m9, m10));
 }
