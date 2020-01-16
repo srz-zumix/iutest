@@ -621,6 +621,10 @@ IUTEST(SyntaxTest, AllOf)
         , ::iutest::HasSubstr("6")
         , ::iutest::HasSubstr("7")
         , ::iutest::HasSubstr("8")
+        , ::iutest::HasSubstr("9")
+#if IUTEST_HAS_MATCHER_VARIADIC
+        , ::iutest::HasSubstr("0")
+#endif
     ));
 }
 
@@ -636,6 +640,10 @@ IUTEST(SyntaxTest, AnyOf)
         , ::iutest::HasSubstr("6")
         , ::iutest::HasSubstr("7")
         , ::iutest::HasSubstr("8")
+        , ::iutest::HasSubstr("9")
+#if IUTEST_HAS_MATCHER_VARIADIC
+        , ::iutest::HasSubstr("0")
+#endif
     ));
 }
 

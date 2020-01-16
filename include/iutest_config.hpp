@@ -270,6 +270,11 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_MATCHER_VARIADIC)
+//! matchers が variadic template に対応しているかどうか
+#  define IUTEST_HAS_MATCHER_VARIADIC   IUTEST_HAS_VARIADIC_TEMPLATES
+#endif
+
 #if !defined(IUTEST_HAS_MATCHER_REGEX)
 //! ::iutest::matchers::MatchesRegex, ::iutest::matchers::ContainsRegex matcher が使用可能かどうか
 #  if IUTEST_HAS_CXX_HDR_REGEX && IUTEST_HAS_REGEX

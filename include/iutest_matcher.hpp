@@ -1090,7 +1090,7 @@ private:
     }
 };
 
-#if IUTEST_HAS_VARIADIC_TEMPLATES
+#if IUTEST_HAS_MATCHER_VARIADIC
 
 /**
 * @brief    ElementsAre matcher
@@ -1613,7 +1613,7 @@ private:
     }
 };
 
-#if IUTEST_HAS_VARIADIC_TEMPLATES
+#if IUTEST_HAS_MATCHER_VARIADIC
 
 /**
  * @brief   AllOf matcher
@@ -1740,7 +1740,7 @@ private:
     }
 };
 
-#if IUTEST_HAS_VARIADIC_TEMPLATES
+#if IUTEST_HAS_MATCHER_VARIADIC
 
 /**
  * @brief   AnyOf matcher
@@ -2405,7 +2405,7 @@ detail::ElementsAreArrayMatcher<T> ElementsAreArrayForward(const T* a, int count
 
 #if IUTEST_HAS_MATCHER_ELEMENTSARE
 
-#if IUTEST_HAS_VARIADIC_TEMPLATES
+#if IUTEST_HAS_MATCHER_VARIADIC
 
 /**
  * @brief   Make ElementsAre matcher
@@ -2549,7 +2549,7 @@ inline detail::RegexMatcher ContainsRegex(const ::std::string& str)
 
 #if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF
 
-#if IUTEST_HAS_VARIADIC_TEMPLATES
+#if IUTEST_HAS_MATCHER_VARIADIC
 
 /**
  * @brief   Make AllOf matcher
