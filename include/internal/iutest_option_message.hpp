@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -123,9 +123,12 @@ inline void iuOptionMessage::ShowVersion()
     m (IUTEST_HAS_LIB); \
     m (IUTEST_HAS_MATCHERS); \
     m (IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF); \
+    m (IUTEST_HAS_MATCHER_EACH); \
     m (IUTEST_HAS_MATCHER_ELEMENTSARE); \
     m (IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR);   \
+    m (IUTEST_HAS_MATCHER_POINTWISE); \
     m (IUTEST_HAS_MATCHER_REGEX); \
+    m (IUTEST_HAS_MATCHER_VARIADIC); \
     m (IUTEST_HAS_MINIDUMP); \
     m (IUTEST_HAS_PACKAGE); \
     m (IUTEST_HAS_PAIRWISE); \
@@ -180,6 +183,7 @@ inline void iuOptionMessage::ShowSpec()
     IIUT_SHOW_MACRO(IUTEST_HAS_CHAR16_T);
     IIUT_SHOW_MACRO(IUTEST_HAS_CHAR32_T);
     IIUT_SHOW_MACRO(IUTEST_HAS_CLOCK);
+    IIUT_SHOW_MACRO(IUTEST_HAS_CONCEPTS);
     IIUT_SHOW_MACRO(IUTEST_HAS_CONSTEXPR);
     IIUT_SHOW_MACRO(IUTEST_HAS_CONSTEXPR_IF);
     IIUT_SHOW_MACRO(IUTEST_HAS_COUNTER_MACRO);
