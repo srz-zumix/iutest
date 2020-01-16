@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -545,9 +545,11 @@ IUTEST(SyntaxTest, Matcher)
     int z=1;
     IUTEST_EXPECT_THAT(a, ::iutest::Contains(0));
     IUTEST_EXPECT_THAT(a, ::iutest::Contains(::iutest::Lt(10)));
+#if IUTEST_HAS_MATCHER_EACH
     IUTEST_EXPECT_THAT(a, ::iutest::Each(::iutest::Le(10)));
     IUTEST_EXPECT_THAT(a, ::iutest::Each(::iutest::_));
     IUTEST_EXPECT_THAT(a, ::iutest::Each(::iutest::A<int>()));
+#endif
     IUTEST_EXPECT_THAT(&x, ::iutest::Field(&X::a, 0));
     IUTEST_EXPECT_THAT(x, ::iutest::Field(&X::a, 0));
     IUTEST_EXPECT_THAT(&x, ::iutest::Property(&X::GetA, 0));
@@ -619,6 +621,10 @@ IUTEST(SyntaxTest, AllOf)
         , ::iutest::HasSubstr("6")
         , ::iutest::HasSubstr("7")
         , ::iutest::HasSubstr("8")
+        , ::iutest::HasSubstr("9")
+#if IUTEST_HAS_MATCHER_VARIADIC
+        , ::iutest::HasSubstr("0")
+#endif
     ));
 }
 
@@ -634,6 +640,10 @@ IUTEST(SyntaxTest, AnyOf)
         , ::iutest::HasSubstr("6")
         , ::iutest::HasSubstr("7")
         , ::iutest::HasSubstr("8")
+        , ::iutest::HasSubstr("9")
+#if IUTEST_HAS_MATCHER_VARIADIC
+        , ::iutest::HasSubstr("0")
+#endif
     ));
 }
 
