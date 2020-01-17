@@ -611,6 +611,7 @@ IUTEST(SyntaxTest, MatcherPredicate)
 
 IUTEST(SyntaxTest, AllOf)
 {
+#if IUTEST_HAS_MATCHER_VARIADIC
     IUTEST_EXPECT_THAT("9347812650", ::iutest::AllOf(
           ::iutest::HasSubstr("0")
         , ::iutest::HasSubstr("1")
@@ -622,14 +623,27 @@ IUTEST(SyntaxTest, AllOf)
         , ::iutest::HasSubstr("7")
         , ::iutest::HasSubstr("8")
         , ::iutest::HasSubstr("9")
-#if IUTEST_HAS_MATCHER_VARIADIC
         , ::iutest::HasSubstr("0")
-#endif
     ));
+#else
+    IUTEST_EXPECT_THAT("9347812650", ::iutest::AllOf(
+          ::iutest::HasSubstr("0")
+        , ::iutest::HasSubstr("1")
+        , ::iutest::HasSubstr("2")
+        , ::iutest::HasSubstr("3")
+        , ::iutest::HasSubstr("4")
+        , ::iutest::HasSubstr("5")
+        , ::iutest::HasSubstr("6")
+        , ::iutest::HasSubstr("7")
+        , ::iutest::HasSubstr("8")
+        , ::iutest::HasSubstr("9")
+    ));
+#endif
 }
 
 IUTEST(SyntaxTest, AnyOf)
 {
+#if IUTEST_HAS_MATCHER_VARIADIC
     IUTEST_EXPECT_THAT("hoge7", ::iutest::AnyOf(
           ::iutest::HasSubstr("0")
         , ::iutest::HasSubstr("1")
@@ -641,10 +655,22 @@ IUTEST(SyntaxTest, AnyOf)
         , ::iutest::HasSubstr("7")
         , ::iutest::HasSubstr("8")
         , ::iutest::HasSubstr("9")
-#if IUTEST_HAS_MATCHER_VARIADIC
         , ::iutest::HasSubstr("0")
-#endif
     ));
+#else
+    IUTEST_EXPECT_THAT("hoge7", ::iutest::AnyOf(
+          ::iutest::HasSubstr("0")
+        , ::iutest::HasSubstr("1")
+        , ::iutest::HasSubstr("2")
+        , ::iutest::HasSubstr("3")
+        , ::iutest::HasSubstr("4")
+        , ::iutest::HasSubstr("5")
+        , ::iutest::HasSubstr("6")
+        , ::iutest::HasSubstr("7")
+        , ::iutest::HasSubstr("8")
+        , ::iutest::HasSubstr("9")
+    ));
+#endif
 }
 
 #endif
