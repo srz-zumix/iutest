@@ -293,9 +293,10 @@ public:
         , type_traits::is_member_pointer<peep_type>::value >::type type;
 };
 
+}   // end of namespace peep
+
 #endif
 
-}   // end of namespace peep
 }   // end of namespace detail
 }   // end of namespace iutest
 
