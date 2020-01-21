@@ -32,7 +32,7 @@ jobs:
         curl \
           -H "Content-Type: application/json" \
           -X POST \
-          -d "{\"size\": \"0\"}" \
+          -d "{\"commit\": \"${GITHUB_SHA}\", \"size\": \"0\"}" \
           https://hook.integromat.com/4jgypph6fa0mh7vyf9uy9qwkkx75kwvo
 
 
