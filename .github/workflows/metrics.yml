@@ -1,0 +1,38 @@
+name: GitHub Actions - metrics
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - develop
+      - 'feature/**'
+      - 'fix/**'
+      - 'gh/**'
+      - 'github/**'
+      - 'githubactions/**'
+
+jobs:
+  prepare:
+    runs-on: ubuntu-18.04
+    if: "! contains(github.event.head_commit.message, '[ci skip]')"
+    steps:
+      - run: |
+          echo "${{ github.event.head_commit.message }}"
+
+  fused:
+    runs-on: ubuntu-18.04
+    needs: prepare
+    steps:
+    - uses: actions/checkout@master
+    - name: fused
+      run: |
+        make -C tools/fused fused
+    - name: send metrics
+      run: |
+        curl \
+          -H "Content-Type: application/json" \
+          -X POST \
+          -d "{\"commit\": \"0\", \"size\": \"0\"}" \
+          https://hook.integromat.com/4jgypph6fa0mh7vyf9uy9qwkkx75kwvo
+
+
