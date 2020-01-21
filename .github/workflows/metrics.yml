@@ -27,12 +27,12 @@ jobs:
     - name: fused
       run: |
         make -C tools/fused fused
-    - name: webhook
+    - name: send metrics
       run: |
         curl \
           -H "Content-Type: application/json" \
           -X POST \
           -d "{\"size\": \"0\"}" \
-          https://hook.integromat.com/https://hook.integromat.com/4jgypph6fa0mh7vyf9uy9qwkkx75kwvo
+          https://hook.integromat.com/4jgypph6fa0mh7vyf9uy9qwkkx75kwvo
 
 
