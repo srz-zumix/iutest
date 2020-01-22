@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -87,7 +87,7 @@
  * @param   member_name = メンバー名
 */
 #define IUTEST_PEEP(class_name, member_name)            \
-    ::iutest::Peep< class_name, IIUT_PEEP_TAG_NAME_(class_name, member_name)<class_name> >::type
+    ::iutest::detail::peep::Peep< class_name, IIUT_PEEP_TAG_NAME_(class_name, member_name)<class_name> >::type
 
 #endif
 
@@ -122,7 +122,7 @@
 namespace iutest {
 
 //======================================================================
-// struct
+// class
 namespace detail
 {
 
@@ -137,9 +137,10 @@ struct peep_tag
 template<typename Tag>
 typename Tag::type peep_tag<Tag>::value;
 
-}   // end of namespace detail
-
 #if IUTEST_HAS_PEEP_CLASS
+
+namespace peep
+{
 
 /**
  * @brief   private メンバーアクセスオブジェクト
@@ -292,8 +293,11 @@ public:
         , type_traits::is_member_pointer<peep_type>::value >::type type;
 };
 
+}   // end of namespace peep
+
 #endif
 
+}   // end of namespace detail
 }   // end of namespace iutest
 
 #endif // INCG_IRIS_IUTEST_PROD_HPP_7A316C18_042D_4E48_BC31_E6AE8B6C2E28_
