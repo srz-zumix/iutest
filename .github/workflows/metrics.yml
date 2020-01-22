@@ -6,9 +6,6 @@ on:
       - develop
       - 'feature/**'
       - 'fix/**'
-      - 'gh/**'
-      - 'github/**'
-      - 'githubactions/**'
 
 jobs:
   prepare:
