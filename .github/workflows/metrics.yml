@@ -27,8 +27,8 @@ jobs:
       id: fused
       run: |
         make -C tools/fused fused
-        echo "##[set-output name=size;]$(wc -c < fused-src/iutest.hpp})"
-        echo "##[set-output name=min_size;]$(wc -c < fused-src/iutest.min.hpp})"
+        echo "##[set-output name=size;]$(wc -c < fused-src/iutest.hpp)"
+        echo "##[set-output name=min_size;]$(wc -c < fused-src/iutest.min.hpp)"
     - name: send metrics
       run: |
         curl \
