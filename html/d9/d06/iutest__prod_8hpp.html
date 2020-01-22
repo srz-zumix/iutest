@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.0.3</span>
+   &#160;<span id="projectnumber">1.17.0.4</span>
    </div>
   </td>
  </tr>
@@ -60,7 +60,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">クラス</a> &#124;
 <a href="#namespaces">名前空間</a> &#124;
 <a href="#define-members">マクロ定義</a>  </div>
   <div class="headertitle">
@@ -92,12 +91,6 @@ iutest_prod.hpp の依存先関係図:</div>
 </div>
 <p><a href="../../d9/d06/iutest__prod_8hpp_source.html">[ソースコード]</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-クラス</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dcc/classiutest_1_1_peep.html">iutest::Peep&lt; T, Tag &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">private メンバーアクセスオブジェクト  <a href="../../dc/dcc/classiutest_1_1_peep.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 名前空間</h2></td></tr>
 <tr class="memitem:d3/dda/namespaceiutest"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html">iutest</a></td></tr>
@@ -131,7 +124,7 @@ iutest_prod.hpp の依存先関係図:</div>
 <tr class="memitem:a11f5f182732f422d5ca214f37a13d371"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a11f5f182732f422d5ca214f37a13d371">IUTEST_PEEP_STATIC_GET</a>(class_name,  member_name)&#160;&#160;&#160;(*::iutest::detail::peep_tag&lt; IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::value)</td></tr>
 <tr class="memdesc:a11f5f182732f422d5ca214f37a13d371"><td class="mdescLeft">&#160;</td><td class="mdescRight">static private メンバーへのアクセス  <a href="#a11f5f182732f422d5ca214f37a13d371">[詳解]</a><br /></td></tr>
 <tr class="separator:a11f5f182732f422d5ca214f37a13d371"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2acb8952f9dc74b2c32ded455d13e480"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a2acb8952f9dc74b2c32ded455d13e480">IUTEST_PEEP</a>(class_name,  member_name)&#160;&#160;&#160;::<a class="el" href="../../dc/dcc/classiutest_1_1_peep.html">iutest::Peep</a>&lt; class_name, IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::type</td></tr>
+<tr class="memitem:a2acb8952f9dc74b2c32ded455d13e480"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d06/iutest__prod_8hpp.html#a2acb8952f9dc74b2c32ded455d13e480">IUTEST_PEEP</a>(class_name,  member_name)&#160;&#160;&#160;::iutest::detail::peep::Peep&lt; class_name, IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::type</td></tr>
 <tr class="memdesc:a2acb8952f9dc74b2c32ded455d13e480"><td class="mdescLeft">&#160;</td><td class="mdescRight">private メンバーへのアクセスクラス宣言  <a href="#a2acb8952f9dc74b2c32ded455d13e480">[詳解]</a><br /></td></tr>
 <tr class="separator:a2acb8952f9dc74b2c32ded455d13e480"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
@@ -141,7 +134,7 @@ iutest_prod.hpp の依存先関係図:</div>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>iris unit test production code 対応用 ファイル </p>
 <dl class="section author"><dt>著者</dt><dd>t.shirayanagi </dd></dl>
-<dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2012-2019, Takazumi Shirayanagi<br />
+<dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2012-2020, Takazumi Shirayanagi<br />
 This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><h2 class="groupheader">マクロ定義詳解</h2>
 <a id="a785124bcefaf5c6e494648c4fa581511"></a>
@@ -244,7 +237,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;::<a class="el" href="../../dc/dcc/classiutest_1_1_peep.html">iutest::Peep</a>&lt; class_name, IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::type</td>
+          <td></td><td>&#160;&#160;&#160;::iutest::detail::peep::Peep&lt; class_name, IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -345,7 +338,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年01月13日(月) 09時13分08秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年01月22日(水) 12時51分52秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
