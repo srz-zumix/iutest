@@ -1,6 +1,5 @@
 name: GitHub Actions - metrics
 on:
-  pull_request:
   push:
     branches:
       - master
@@ -25,11 +24,9 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: fused
+      id: fused
       run: |
         make -C tools/fused fused
-    - name: calc file size
-      id: calc_file_size
-      run: |
         echo "##[set-output name=size;]$(wc -c < fused-src/iutest.hpp})"
         echo "##[set-output name=min_size;]$(wc -c < fused-src/iutest.min.hpp})"
     - name: send metrics
@@ -37,7 +34,7 @@ jobs:
         curl \
           -H "Content-Type: application/json" \
           -X POST \
-          -d "{\"commit\": \"${GITHUB_SHA}\", \"size\": \"${{ steps.calc_file_size.outputs.min_size }}\"}" \
-          https://hook.integromat.com/4jgypph6fa0mh7vyf9uy9qwkkx75kwvo
+          -d "{\"commit\": \"${GITHUB_SHA}\", \"size\": \"${{ steps.fused.outputs.min_size }}\"}" \
+          ${{ secrets.FUSED_METRICS_WEBHOOK }}
 
 
