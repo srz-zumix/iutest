@@ -31,7 +31,7 @@ jobs:
         curl \
           -H "Content-Type: application/json" \
           -X POST \
-          -d "{\"commit\": \"${GITHUB_SHA}\", \"size\": \"${{ steps.fused.outputs.size }}\", \"min\": \"${{ steps.fused.outputs.min_size }}\"}" \
+          -d "{\"branch\": \"${GITHUB_REF#refs/heads/}\", \"commit\": \"${GITHUB_SHA}\", \"size\": \"${{ steps.fused.outputs.size }}\", \"min\": \"${{ steps.fused.outputs.min_size }}\"}" \
           ${{ secrets.FUSED_METRICS_WEBHOOK }}
 
 
