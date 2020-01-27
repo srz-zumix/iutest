@@ -57,7 +57,7 @@ environment:
       PROJECT_DIR: vs2015
     # Menu
     - BUILD_MENU: yes
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
     # Package Build
     - BUILD_PACKAGE: yes
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
@@ -90,8 +90,6 @@ matrix:
     # exclude x64
     - platform: x64
       BUILD_PREFAST: yes
-    - platform: x64
-      BUILD_MENU: yes
     - platform: x64
       BUILD_PACKAGE: yes
     - platform: x64
