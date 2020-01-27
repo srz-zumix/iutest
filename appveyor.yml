@@ -156,6 +156,7 @@ for:
   matrix:
     only:
       - configuration: Release
+        platform: Win32
         BUILD_CYGWIN: yes
   install:
     cmd: |
@@ -177,6 +178,7 @@ for:
   matrix:
     only:
       - configuration: Release
+        platform: Win32
         BUILD_MINGW: yes
   install:
     cmd: set path=%MINGW_PATH%;%path%
@@ -195,6 +197,7 @@ for:
   matrix:
     only:
       - configuration: Release
+        platform: Win32
         BUILD_NMAKE: yes
   before_build:
     cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat"'
