@@ -87,6 +87,13 @@ matrix:
       BUILD_PACKAGE: yes
     - configuration: Debug
       BUILD_NUGET: yes
+    # exclude x64
+    - platform: x64
+      BUILD_MENU: yes
+    - platform: x64
+      BUILD_PACKAGE: yes
+    - platform: x64
+      BUILD_NUGET: yes
 
 branches:
   only:
