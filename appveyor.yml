@@ -68,7 +68,7 @@ configuration:
   - Debug
   - Release
 platform:
-  - x86
+  - Win32
   - x64
 
 matrix:
@@ -88,6 +88,8 @@ matrix:
     - configuration: Debug
       BUILD_NUGET: yes
     # exclude x64
+    - platform: x64
+      BUILD_PREFAST: yes
     - platform: x64
       BUILD_MENU: yes
     - platform: x64
