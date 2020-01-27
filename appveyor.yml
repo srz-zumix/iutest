@@ -57,7 +57,7 @@ environment:
       PROJECT_DIR: vs2015
     # Menu
     - BUILD_MENU: yes
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
     # Package Build
     - BUILD_PACKAGE: yes
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
@@ -67,6 +67,9 @@ environment:
 configuration:
   - Debug
   - Release
+platform:
+  - Win32
+  - x64
 
 matrix:
   exclude:
@@ -83,6 +86,13 @@ matrix:
     - configuration: Debug
       BUILD_PACKAGE: yes
     - configuration: Debug
+      BUILD_NUGET: yes
+    # exclude x64
+    - platform: x64
+      BUILD_PREFAST: yes
+    - platform: x64
+      BUILD_PACKAGE: yes
+    - platform: x64
       BUILD_NUGET: yes
 
 branches:
@@ -112,7 +122,7 @@ init:
 before_build:
   cmd: |
       mkdir build && cd build
-      cmake ../projects/cmake -G "%CMAKE_GENERATOR_NAME%" -Dbuild_gtest_samples=ON
+      cmake ../projects/cmake -G "%CMAKE_GENERATOR_NAME%" -A %PLATFORM% -Dbuild_gtest_samples=ON
       cd ..
 
 build:
@@ -144,6 +154,7 @@ for:
   matrix:
     only:
       - configuration: Release
+        platform: Win32
         BUILD_CYGWIN: yes
   install:
     cmd: |
@@ -165,6 +176,7 @@ for:
   matrix:
     only:
       - configuration: Release
+        platform: Win32
         BUILD_MINGW: yes
   install:
     cmd: set path=%MINGW_PATH%;%path%
@@ -183,6 +195,7 @@ for:
   matrix:
     only:
       - configuration: Release
+        platform: Win32
         BUILD_NMAKE: yes
   before_build:
     cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat"'
