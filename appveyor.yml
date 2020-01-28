@@ -19,16 +19,8 @@ environment:
     # Cygwin
     - BUILD_CYGWIN: yes
       USE_GNU_EXTENSION: 0
-      CYGWIN_PATH: C:\cygwin
-      CYGWIN_SETUP_EXE: setup-x86.exe
     - BUILD_CYGWIN: yes
       USE_GNU_EXTENSION: 1
-      CYGWIN_PATH: C:\cygwin
-      CYGWIN_SETUP_EXE: setup-x86.exe
-    - BUILD_CYGWIN: yes
-      USE_GNU_EXTENSION: 1
-      CYGWIN_PATH: C:\cygwin64
-      CYGWIN_SETUP_EXE: setup-x86_64.exe
     # MINGW64
     - BUILD_MINGW: yes
       USE_GNU_EXTENSION: 0
@@ -57,7 +49,7 @@ environment:
       PROJECT_DIR: vs2015
     # Menu
     - BUILD_MENU: yes
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
     # Package Build
     - BUILD_PACKAGE: yes
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
@@ -67,6 +59,9 @@ environment:
 configuration:
   - Debug
   - Release
+platform:
+  - Win32
+  - x64
 
 matrix:
   exclude:
@@ -83,6 +78,17 @@ matrix:
     - configuration: Debug
       BUILD_PACKAGE: yes
     - configuration: Debug
+      BUILD_NUGET: yes
+    # exclude x64
+    - platform: x64
+      BUILD_MINGW: yes
+    - platform: x64
+      BUILD_NMAKE: yes
+    - platform: x64
+      BUILD_PREFAST: yes
+    - platform: x64
+      BUILD_PACKAGE: yes
+    - platform: x64
       BUILD_NUGET: yes
 
 branches:
@@ -112,7 +118,7 @@ init:
 before_build:
   cmd: |
       mkdir build && cd build
-      cmake ../projects/cmake -G "%CMAKE_GENERATOR_NAME%" -Dbuild_gtest_samples=ON
+      cmake ../projects/cmake -G "%CMAKE_GENERATOR_NAME%" -A %PLATFORM% -Dbuild_gtest_samples=ON
       cd ..
 
 build:
@@ -145,6 +151,15 @@ for:
     only:
       - configuration: Release
         BUILD_CYGWIN: yes
+  before_install:
+    ps: |
+      if ($env:PLATFORM -eq "Win32"){
+        $env:CYGWIN_PATH="C:\cygwin"
+        $env:CYGWIN_SETUP_EXE="setup-x86.exe"
+      } else {
+        $env:CYGWIN_PATH="C:\cygwin64"
+        $env:CYGWIN_SETUP_EXE="setup-x86_64.exe"
+      }
   install:
     cmd: |
       %CYGWIN_PATH%\%CYGWIN_SETUP_EXE% -qnNdO -R %CYGWIN_PATH% -s http://cygwin.mirror.constant.com -l %CYGWIN_PATH%/var/cache/setup -P make -P clang
