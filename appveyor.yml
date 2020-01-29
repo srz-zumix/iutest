@@ -161,10 +161,13 @@ for:
         $env:CYGWIN_SETUP_EXE="setup-x86_64.exe"
       }
       $args ="-qnNdO -R $env:CYGWIN_PATH -s http://cygwin.mirror.constant.com -l $env:CYGWIN_PATH/var/cache/setup -P make -P clang"
-      Start-Process -FilePath $env:CYGWIN_PATH\$env:CYGWIN_SETUP_EXE -ArgumentList $args -Wait
+      Start-Process -NoNewWindow -FilePath $env:CYGWIN_PATH\$env:CYGWIN_SETUP_EXE -ArgumentList $args -Wait
       $env:PATH=$env:CYGWIN_PATH + "\bin;" + $env:PATH
   before_build:
-    cmd: echo.
+    cmd:
+      echo %CYGWIN_PATH%
+      echo %CYGWIN_SETUP_EXE%
+      echo %PATH%
   build_script:
     cmd: |
       cd test
