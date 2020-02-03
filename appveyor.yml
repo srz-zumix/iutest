@@ -89,6 +89,7 @@ skip_branch_with_pr: true
 clone_depth: 1
 
 init:
+  # RDP setup
   ps: |
     $commit_message = $env:APPVEYOR_REPO_COMMIT_MESSAGE
     if($commit_message.Contains("[appveyor rdp]")) {
@@ -133,8 +134,7 @@ for:
 -
   matrix:
     only:
-      - configuration: Release
-        BUILD_CYGWIN: yes
+      - BUILD_CYGWIN: yes
   init:
     ps: |
       if($env:PLATFORM -eq "Win32"){
@@ -166,8 +166,7 @@ for:
 -
   matrix:
     only:
-      - configuration: Release
-        BUILD_MINGW: yes
+      - BUILD_MINGW: yes
   install:
     ps: |
       if($env:PLATFORM -eq "Win32"){
@@ -191,8 +190,7 @@ for:
 -
   matrix:
     only:
-      - configuration: Release
-        BUILD_NMAKE: yes
+      - BUILD_NMAKE: yes
   before_build:
     cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat"'
   build_script:
@@ -203,8 +201,7 @@ for:
 -
   matrix:
     only:
-      - configuration: Debug
-        BUILD_PREFAST: yes
+      - BUILD_PREFAST: yes
   environment:
     MSBUILD_LOGGER_OPTION: /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
     MSBUILD_PREFAST_OPTION: /p:RunCodeAnalysis=true /p:EnablePREfast=true /p:CodeAnalysisTreatWarningsAsErrors=true
@@ -217,8 +214,7 @@ for:
 -
   matrix:
     only:
-      - configuration: Release
-        BUILD_MENU: yes
+      - BUILD_MENU: yes
   before_build:
     cmd: echo.
   build:
@@ -230,8 +226,7 @@ for:
 -
   matrix:
     only:
-      - configuration: Release
-        BUILD_PACKAGE: yes
+      - BUILD_PACKAGE: yes
   before_build:
     cmd: echo.
   build_script:
@@ -241,8 +236,7 @@ for:
 -
   matrix:
     only:
-      - configuration: Release
-        BUILD_NUGET: yes
+      - BUILD_NUGET: yes
   before_build:
     cmd: echo.
   build_script:
@@ -253,8 +247,8 @@ for:
   test: off
 
 on_failure:
+  # wait RDP connect
   ps: |
-    # rdp
     $commit_message = $env:APPVEYOR_REPO_COMMIT_MESSAGE
     if($commit_message.Contains("[appveyor rdp]")) {
       $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
