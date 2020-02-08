@@ -61,13 +61,6 @@ blocks:
             - make CXX=clang++ run_minimum_tests RUN_OPTION=--spec
             - ldd minimum_tests
             - make clean
-  - name: scan-build adn test
-    skip: *skip-condition
-    task:
-      prologue:
-        commands:
-          - cache restore
-      jobs:
         - name: basic_tests
           commands:
             - cd test
