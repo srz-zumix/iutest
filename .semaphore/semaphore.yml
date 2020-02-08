@@ -39,8 +39,8 @@ blocks:
         commands:
           - cache store
   - name: tests
+    skip: *skip-condition
     task:
-      skip: *skip-condition
       prologue:
         commands:
           - cache restore
