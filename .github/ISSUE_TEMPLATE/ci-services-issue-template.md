@@ -19,7 +19,6 @@ assignees: ''
 * [ ] Codeship
 * [ ] GitHub Actions
 * [ ] GitLab CI
-* [ ] INSPECODE
 * [ ] Scrutinizer
 * [ ] Semaphore
 * [ ] Shippable
