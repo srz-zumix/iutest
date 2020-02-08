@@ -13,6 +13,8 @@ auto_cancel:
 
 global_job_config:
   env_vars:
+    - name: PARALLELS
+      value: -j8
     - name: CLANG_VERSION
       value: "9"
     - name: UBNAME
@@ -37,21 +39,8 @@ blocks:
         commands:
           - cache store
   - name: tests
-    skip:
-      when: true
-    task:
-      jobs:
-        - name: basic_tests
-          commands:
-            - cd test
-            - make -j8
-            - make test
-  - name: scan-build
     skip: *skip-condition
     task:
-      env_vars:
-        - name: PARALLELS
-          value: -j8
       prologue:
         commands:
           - cache restore
@@ -66,22 +55,34 @@ blocks:
           - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
           - sudo apt-get update && sudo apt-get -qq install g++-7
       jobs:
-        # - name: minimum_tests
-        #   commands:
-        #     - cd test
-        #     - make CXX=clang++ run_minimum_tests RUN_OPTION=--spec
-        #     - ldd minimum_tests
-        #     - make CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 test $PARALLELS
-        #     - make clean
+        - name: minimum_tests
+          commands:
+            - cd test
+            - make CXX=clang++ run_minimum_tests RUN_OPTION=--spec
+            - ldd minimum_tests
+            - make CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 test $PARALLELS
+            - make clean
+  - name: scan-build adn test
+    skip: *skip-condition
+    task:
+      prologue:
+        commands:
+          - cache restore
+      jobs:
+        - name: basic_tests
+          commands:
+            - cd test
+            - make $PARALLELS
+            - make test
         - name: scan-build
           commands:
             - cd test
             - scan-build -k make CXX=clang++ CCC_CXX=clang++ showcxxversion
             - scan-build -k --status-bugs make CXX=clang++ CCC_CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 all_tests $PARALLELS
             # - scan-build -k --status-bugs make CXX=clang++ CCC_CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 $PARALLELS
-        # - name: sample-run
-        #   commands:
-        #     - cd projects/make
-        #     - make run
-        #     - make clean
-        #     - make CXX=clang++ run
+        - name: sample-run
+          commands:
+            - cd projects/make
+            - make run
+            - make clean
+            - make CXX=clang++ run
