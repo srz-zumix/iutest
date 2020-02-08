@@ -60,7 +60,6 @@ blocks:
             - cd test
             - make CXX=clang++ run_minimum_tests RUN_OPTION=--spec
             - ldd minimum_tests
-            - make CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 test $PARALLELS
             - make clean
   - name: scan-build adn test
     skip: *skip-condition
