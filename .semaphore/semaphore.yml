@@ -25,8 +25,8 @@ global_job_config:
 
 blocks:
   - name: install
-    skip: &skip-condition
-      when: "branch != 'master' AND branch != 'develop' AND branch !~ '^feature.*' AND branch !~ '^semaphore.*' AND branch !~ '.*scan-build.*'"
+    skip: &skip-condition false
+      # when: "branch != 'master' AND branch != 'develop' AND branch !~ '^feature.*' AND branch !~ '^semaphore.*' AND branch !~ '.*scan-build.*'"
     task:
       prologue:
         commands:
