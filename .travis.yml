@@ -226,7 +226,7 @@ matrix:
       env: WINDOWS=1
       script:
         - mkdir ./cmake-build && cd ./cmake-build && cmake ../projects/cmake
-        - cmake --build . | tee msbuild.log
+        - cmake --build .
         - ctest -C Debug -V
     # CoverityScan
     - compiler: gcc
