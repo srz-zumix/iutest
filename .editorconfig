@@ -23,7 +23,7 @@ trim_trailing_whitespace = true
 charset = utf-8
 trim_trailing_whitespace = true
 
-[*.yml]
+[*.{yml,yaml}]
 trim_trailing_whitespace = true
 
 [*.{yml,yaml,html}]
