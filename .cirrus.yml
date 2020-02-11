@@ -47,6 +47,7 @@ cirrus_osx_17_test_task:
 #   test_script: env
 
 cirrus_freebsd_clang_test_task:
+  only_if: *default-condition
   freebsd_instance:
     image: freebsd-11-2-release-amd64
   env:
