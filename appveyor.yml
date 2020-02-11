@@ -19,36 +19,14 @@ environment:
     # Cygwin
     - BUILD_CYGWIN: yes
       USE_GNU_EXTENSION: 0
-      CYGWIN_PATH: C:\cygwin
-      CYGWIN_SETUP_EXE: setup-x86.exe
     - BUILD_CYGWIN: yes
       USE_GNU_EXTENSION: 1
-      CYGWIN_PATH: C:\cygwin
-      CYGWIN_SETUP_EXE: setup-x86.exe
-    - BUILD_CYGWIN: yes
-      USE_GNU_EXTENSION: 1
-      CYGWIN_PATH: C:\cygwin64
-      CYGWIN_SETUP_EXE: setup-x86_64.exe
-    # MINGW64
+    # MINGW/MINGW64
     - BUILD_MINGW: yes
       USE_GNU_EXTENSION: 0
-      MAKE_OPTIONS: LIBS=ws2_32
-      MINGW_PATH: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
-      #MINGW_PATH: C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1
-      #APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-    # MINGW64 GNU EXTENSION
+    # MINGW/MINGW64 GNU EXTENSION
     - BUILD_MINGW: yes
       USE_GNU_EXTENSION: 1
-      MAKE_OPTIONS: LIBS=ws2_32
-      MINGW_PATH: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
-    # MINGW32
-    - BUILD_MINGW: yes
-      USE_GNU_EXTENSION: 0
-      MINGW_PATH: c:\mingw\bin
-    # MINGW32 GNU EXTENSION
-    - BUILD_MINGW: yes
-      USE_GNU_EXTENSION: 1
-      MINGW_PATH: c:\mingw\bin
     # NMAKE
     - BUILD_NMAKE: yes
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -57,7 +35,7 @@ environment:
       PROJECT_DIR: vs2015
     # Menu
     - BUILD_MENU: yes
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
     # Package Build
     - BUILD_PACKAGE: yes
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
@@ -67,6 +45,9 @@ environment:
 configuration:
   - Debug
   - Release
+platform:
+  - Win32
+  - x64
 
 matrix:
   exclude:
@@ -84,6 +65,15 @@ matrix:
       BUILD_PACKAGE: yes
     - configuration: Debug
       BUILD_NUGET: yes
+    # exclude x64
+    - platform: x64
+      BUILD_NMAKE: yes
+    - platform: x64
+      BUILD_PREFAST: yes
+    - platform: x64
+      BUILD_PACKAGE: yes
+    - platform: x64
+      BUILD_NUGET: yes
 
 branches:
   only:
@@ -99,6 +89,7 @@ skip_branch_with_pr: true
 clone_depth: 1
 
 init:
+  # RDP setup
   ps: |
     $commit_message = $env:APPVEYOR_REPO_COMMIT_MESSAGE
     if($commit_message.Contains("[appveyor rdp]")) {
@@ -112,7 +103,7 @@ init:
 before_build:
   cmd: |
       mkdir build && cd build
-      cmake ../projects/cmake -G "%CMAKE_GENERATOR_NAME%" -Dbuild_gtest_samples=ON
+      cmake ../projects/cmake -G "%CMAKE_GENERATOR_NAME%" -A %PLATFORM% -Dbuild_gtest_samples=ON
       cd ..
 
 build:
@@ -143,18 +134,29 @@ for:
 -
   matrix:
     only:
-      - configuration: Release
-        BUILD_CYGWIN: yes
+      - BUILD_CYGWIN: yes
+  init:
+    ps: |
+      if($env:PLATFORM -eq "Win32"){
+        $env:CYGWIN_PATH="C:\cygwin"
+        $env:CYGWIN_SETUP_EXE="setup-x86.exe"
+      } else {
+        $env:CYGWIN_PATH="C:\cygwin64"
+        $env:CYGWIN_SETUP_EXE="setup-x86_64.exe"
+      }
+      $env:PATH=$env:CYGWIN_PATH + "\bin;" + $env:PATH
   install:
     cmd: |
       %CYGWIN_PATH%\%CYGWIN_SETUP_EXE% -qnNdO -R %CYGWIN_PATH% -s http://cygwin.mirror.constant.com -l %CYGWIN_PATH%/var/cache/setup -P make -P clang
       SET PATH=%CYGWIN_PATH%\bin;%PATH%
   before_build:
-    cmd: echo.
+    cmd: |
+      g++ --version
+      clang++ --version
+      python --version
   build_script:
     cmd: |
       cd test
-      g++ --version; clang++ --version; python --version
       make showcxxmacros
       uname
       make -j4
@@ -164,10 +166,16 @@ for:
 -
   matrix:
     only:
-      - configuration: Release
-        BUILD_MINGW: yes
+      - BUILD_MINGW: yes
   install:
-    cmd: set path=%MINGW_PATH%;%path%
+    ps: |
+      if($env:PLATFORM -eq "Win32"){
+        $env:MAKE_OPTIONS="LIBS=ws2_32"
+        $env:MINGW_PATH="C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin"
+      } else {
+        $env:MINGW_PATH="C:\mingw\bin"
+      }
+      $env:PATH=$env:MINGW_PATH + ";" + $env:PATH
   before_build:
     cmd: echo.
   build_script:
@@ -182,8 +190,7 @@ for:
 -
   matrix:
     only:
-      - configuration: Release
-        BUILD_NMAKE: yes
+      - BUILD_NMAKE: yes
   before_build:
     cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat"'
   build_script:
@@ -194,8 +201,7 @@ for:
 -
   matrix:
     only:
-      - configuration: Debug
-        BUILD_PREFAST: yes
+      - BUILD_PREFAST: yes
   environment:
     MSBUILD_LOGGER_OPTION: /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
     MSBUILD_PREFAST_OPTION: /p:RunCodeAnalysis=true /p:EnablePREfast=true /p:CodeAnalysisTreatWarningsAsErrors=true
@@ -208,8 +214,7 @@ for:
 -
   matrix:
     only:
-      - configuration: Release
-        BUILD_MENU: yes
+      - BUILD_MENU: yes
   before_build:
     cmd: echo.
   build:
@@ -221,8 +226,7 @@ for:
 -
   matrix:
     only:
-      - configuration: Release
-        BUILD_PACKAGE: yes
+      - BUILD_PACKAGE: yes
   before_build:
     cmd: echo.
   build_script:
@@ -232,8 +236,7 @@ for:
 -
   matrix:
     only:
-      - configuration: Release
-        BUILD_NUGET: yes
+      - BUILD_NUGET: yes
   before_build:
     cmd: echo.
   build_script:
@@ -244,8 +247,8 @@ for:
   test: off
 
 on_failure:
+  # wait RDP connect
   ps: |
-    # rdp
     $commit_message = $env:APPVEYOR_REPO_COMMIT_MESSAGE
     if($commit_message.Contains("[appveyor rdp]")) {
       $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
