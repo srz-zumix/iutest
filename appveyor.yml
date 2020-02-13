@@ -112,7 +112,7 @@ build:
   verbosity: minimal
 
 test_script:
-  cmd: cd build && ctest -C %Configuration% -V
+  cmd: exit 1
 
 on_failure:
   # wait RDP connect
