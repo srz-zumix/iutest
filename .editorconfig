@@ -23,7 +23,7 @@ trim_trailing_whitespace = true
 charset = utf-8
 trim_trailing_whitespace = true
 
-[*.yml]
+[*.{yml,yaml}]
 trim_trailing_whitespace = true
 
 [*.{yml,yaml,html}]
@@ -43,7 +43,7 @@ end_of_line = lf
 [*.json]
 indent_size = 2
 
-[{COPYING,LICENSE}]
+[{COPYING,LICENSE,LICENSE-MIXING}]
 indent_size = 2
 
 [CMakeLists.txt]
