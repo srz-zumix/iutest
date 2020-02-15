@@ -5,12 +5,6 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 
-auto_cancel:
-  running:
-    when: "branch != 'master'"
-  queued:
-    when: "branch = 'master'"
-
 global_job_config:
   env_vars:
     - name: PARALLELS
@@ -25,8 +19,6 @@ global_job_config:
 
 blocks:
   - name: install
-    skip: &skip-condition
-      when: "branch != 'master' AND branch != 'develop' AND branch !~ '^feature.*' AND branch !~ '^semaphore.*' AND branch !~ '.*scan-build.*'"
     task:
       prologue:
         commands:
@@ -39,7 +31,6 @@ blocks:
         commands:
           - cache store
   - name: tests
-    skip: *skip-condition
     task:
       prologue:
         commands:
