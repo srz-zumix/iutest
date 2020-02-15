@@ -17,7 +17,8 @@ global_job_config:
       value: bionic
   prologue:
     commands:
-      - checkout --use-cache
+      # - checkout --use-cache
+      - checkout
 
 blocks:
   # - name: install
