@@ -5,6 +5,8 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 
+# branch filter: GUI Config
+
 global_job_config:
   env_vars:
     - name: PARALLELS
@@ -18,18 +20,18 @@ global_job_config:
       - checkout --use-cache
 
 blocks:
-  - name: install
-    task:
-      prologue:
-        commands:
-          - cache restore
-      jobs:
-        - name: install
-          commands:
-            - echo install
-      epilogue:
-        commands:
-          - cache store
+  # - name: install
+  #   task:
+  #     prologue:
+  #       commands:
+  #         - cache restore
+  #     jobs:
+  #       - name: install
+  #         commands:
+  #           - echo install
+  #     epilogue:
+  #       commands:
+  #         - cache store
   - name: tests
     task:
       prologue:
