@@ -13,8 +13,10 @@ jobs:
       CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
       CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
       MAKE_OPTION: -j4 OUTPUTXML=1
-      MAKE_TARGET: all_tests
-      MAKE_RUN_TARGET: run_all_tests
+      MAKE_TARGET: default
+      MAKE_RUN_TARGET: test
+      # MAKE_TARGET: all_tests
+      # MAKE_RUN_TARGET: run_all_tests
     steps:
     - checkout
     - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
