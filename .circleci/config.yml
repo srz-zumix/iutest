@@ -1,5 +1,5 @@
 version: 2
-aliases
+aliases:
   - &branch-filter
     branches:
     only:
