@@ -1,121 +1,104 @@
 version: 2
-default: &default
-  shell: /bin/bash --login
-  docker:
-  - image: circleci/buildpack-deps:cosmic-browsers
-
-jobs:
-  optimize_test:
+aliases:
+  - &branch-filter
+    branches:
+    only:
+      - master
+      - develop
+      - /^feature.*/
+      - /^fix.*/
+      - /^circleci.*/
+  - &default
     working_directory: ~/srz-zumix/iutest
-    parallelism: 4
-    <<: *default
-    environment:
-      CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
-      CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
-      MAKE_OPTION: -j4 OUTPUTXML=1
-      MAKE_TARGET: default
-      MAKE_RUN_TARGET: test
-      # MAKE_TARGET: all_tests
-      # MAKE_RUN_TARGET: run_all_tests
-    steps:
+    shell: /bin/bash --login
+    docker:
+      - image: circleci/buildpack-deps:cosmic-browsers
+        environment:
+          CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+          CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
+          MAKE_OPTION: -j4 OUTPUTXML=1
+          MAKE_TARGET: default
+          MAKE_RUN_TARGET: test
+          # MAKE_TARGET: all_tests
+          # MAKE_RUN_TARGET: run_all_tests
+  - &restore_cache
+      keys:
+      # This branch if available
+      - v2-dep-{{ .Branch }}-
+      # Default branch if not
+      - v2-dep-master-
+      # Any branch if there are none on the default branch - this should be unnecessary if you have your default branch configured correctly
+      - v2-dep-
+  - &setup-step
+      name: SetUp
+      command: |
+        sudo apt-get -y --allow-unauthenticated update
+        sudo apt-get install software-properties-common
+        sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+        wget -q -O - http://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+        sudo add-apt-repository -y 'deb http://apt.llvm.org/cosmic/ llvm-toolchain-cosmic-9 main'
+        sudo apt-get -y --allow-unauthenticated update
+        sudo apt-get -qq install clang-9
+        sudo apt-get -qq install g++-8
+        sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 90
+        sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
+        sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-9 60
+        sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-9 60
+  - &save_cache
+      key: v2-dep-{{ .Branch }}-{{ epoch }}
+      paths:
+      # This is a broad list of cache paths to include many possible development environments
+      # You can probably delete some of these entries
+      - vendor/bundle
+      - ~/virtualenvs
+      - ~/.m2
+      - ~/.ivy2
+      - ~/.bundle
+      - ~/.go_workspace
+      - ~/.gradle
+      - ~/.cache/bower
+  - &check-version-step
+      name: check compiler version
+      working_directory: test
+      command: |
+        if [ "$CIRCLE_NODE_INDEX" == "0" ]; then
+          make showcxxversion;
+        fi
+  - &min-tests-and-spec-step
+    name: minimum_tests and show feature / spec
+    command: if [ "$CIRCLE_NODE_INDEX" == "0" ]; then make minimum_tests && ./minimum_tests --spec --feature; fi
+    working_directory: test
+  - &build-step
+      name: build
+      command: |
+        make clean
+        case $CIRCLE_NODE_INDEX in 0) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O2 ;; 1) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Os ;; 2) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O3 ;; 3) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Oz ;; esac
+        cp *.json $CIRCLE_ARTIFACTS/
+      working_directory: test
+  - &test-step
+      name: run test
+      command: |
+        make $MAKE_RUN_TARGET
+      working_directory: test
+  - &move-result-step
+      name: move result xml
+      command: |
+        if [ "$CIRCLE_NODE_INDEX" == "0" ]; then
+          mkdir -p $CIRCLE_TEST_REPORTS/junit/;
+          find . -type f -regex ".*/test/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;;
+        fi
+  - &build-test-steps
     - checkout
     - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
-    - restore_cache: &restore_cache
-        keys:
-        # This branch if available
-        - v2-dep-{{ .Branch }}-
-        # Default branch if not
-        - v2-dep-master-
-        # Any branch if there are none on the default branch - this should be unnecessary if you have your default branch configured correctly
-        - v2-dep-
-    - run: &setup-step
-        name: SetUp
-        command: |
-          sudo apt-get -y --allow-unauthenticated update
-          sudo apt-get install software-properties-common
-          sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-          wget -q -O - http://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-          sudo add-apt-repository -y 'deb http://apt.llvm.org/cosmic/ llvm-toolchain-cosmic-9 main'
-          sudo apt-get -y --allow-unauthenticated update
-          sudo apt-get -qq install clang-9
-          sudo apt-get -qq install g++-8
-          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 90
-          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
-          sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-9 60
-          sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-9 60
-    - save_cache: &save_cache
-        key: v2-dep-{{ .Branch }}-{{ epoch }}
-        paths:
-        # This is a broad list of cache paths to include many possible development environments
-        # You can probably delete some of these entries
-        - vendor/bundle
-        - ~/virtualenvs
-        - ~/.m2
-        - ~/.ivy2
-        - ~/.bundle
-        - ~/.go_workspace
-        - ~/.gradle
-        - ~/.cache/bower
+    - restore_cache: *restore_cache
+    - run: *setup-step
+    - save_cache: *save_cache
     # Test
-    - run:
-        name: check compiler version
-        working_directory: test
-        command: |
-          if [ "$CIRCLE_NODE_INDEX" == "0" ]; then
-            make CXX=g++ showcxxversion;
-            make CXX=clang++ showcxxversion;
-          fi
-    - run:
-        name: g++ minimum_tests and show feature / spec
-        command: if [ "$CIRCLE_NODE_INDEX" == "0" ]; then make minimum_tests && ./minimum_tests --spec --feature; fi
-        working_directory: test
-        environment:
-          CXX: g++
-    - run:
-        name: clang++ minimum_tests and show feature / spec
-        command: if [ "$CIRCLE_NODE_INDEX" == "0" ]; then make minimum_tests && ./minimum_tests --spec --feature; fi
-        working_directory: test
-        environment:
-          CXX: clang++
-    - run:
-        name: g++ build
-        command: |
-          make clean
-          case $CIRCLE_NODE_INDEX in 0) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-O2 ;; 1) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-Os ;; 2) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-O3 ;; 3) make $MAKE_TARGET $MAKE_OPTION OPTIMIZE=-O4 ;; esac
-        working_directory: test
-        environment:
-          CXX: g++
-    - run:
-        name: g++ test
-        command: |
-          make $MAKE_RUN_TARGET
-        working_directory: test
-        environment:
-          CXX: g++
-    - run:
-        name: clang++ build
-        command: |
-          make clean
-          case $CIRCLE_NODE_INDEX in 0) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O2 ;; 1) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Os ;; 2) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O3 ;; 3) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Oz ;; esac
-          cp *.json $CIRCLE_ARTIFACTS/
-        working_directory: test
-        environment:
-          CXX: clang++
-          MAKE_ADD_OPTION: CXXFLAGS=-ftime-trace
-    - run:
-        name: clang++ test
-        command: |
-          make $MAKE_RUN_TARGET
-        working_directory: test
-        environment:
-          CXX: clang++
-    - run:
-        name: move result xml
-        command: |
-          if [ "$CIRCLE_NODE_INDEX" == "0" ]; then
-            mkdir -p $CIRCLE_TEST_REPORTS/junit/;
-            find . -type f -regex ".*/test/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;;
-          fi
+    - run: *check-version-step
+    - run: *min-tests-and-spec-step
+    - run: *build-step
+    - run: *test-step
+    - run: *move-result-step
     # Teardown
     - store_test_results:
         path: /tmp/circleci-test-results
@@ -125,16 +108,26 @@ jobs:
     - store_artifacts:
         path: /tmp/circleci-test-results
 
+jobs:
+  gcc_optimize_test:
+    parallelism: 4
+    <<: *default
+    environment:
+      CXX: g++
+    steps: *build-test-steps
+  clang_optimize_test:
+    parallelism: 4
+    <<: *default
+    environment:
+      CXX: clang++
+      MAKE_ADD_OPTION: CXXFLAGS=-ftime-trace
+    steps: *build-test-steps
+
 workflows:
   version: 2
   default-test:
     jobs:
-      - optimize_test:
-          filters:
-            branches:
-              only:
-                - master
-                - develop
-                - /^feature.*/
-                - /^fix.*/
-                - /^circleci.*/
+      - gcc_optimize_test:
+          filters: *branch-filter
+      - clang_optimize_test:
+        filters: *branch-filter
