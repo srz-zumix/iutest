@@ -2,12 +2,12 @@ version: 2
 aliases:
   - &branch-filter
     branches:
-    only:
-      - master
-      - develop
-      - /^feature.*/
-      - /^fix.*/
-      - /^circleci.*/
+      only:
+        - master
+        - develop
+        - /^feature.*/
+        - /^fix.*/
+        - /^circleci.*/
   - &default
     working_directory: ~/srz-zumix/iutest
     shell: /bin/bash --login
@@ -128,6 +128,6 @@ workflows:
   default-test:
     jobs:
       - gcc_optimize_test:
-          filters: *branch-filter
+        filters: *branch-filter
       - clang_optimize_test:
         filters: *branch-filter
