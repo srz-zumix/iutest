@@ -69,24 +69,24 @@ aliases:
     command: if [ "$CIRCLE_NODE_INDEX" == "0" ]; then make minimum_tests && ./minimum_tests --spec --feature; fi
     working_directory: test
   - &build-step
-      name: build
-      command: |
-        make clean
-        case $CIRCLE_NODE_INDEX in 0) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O2 ;; 1) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Os ;; 2) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O3 ;; 3) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Oz ;; esac
-        cp *.json $CIRCLE_ARTIFACTS/
-      working_directory: test
+    name: build
+    command: |
+      make clean
+      case $CIRCLE_NODE_INDEX in 0) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O2 ;; 1) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Os ;; 2) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O3 ;; 3) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Oz ;; esac
+      cp *.json $CIRCLE_ARTIFACTS/
+    working_directory: test
   - &test-step
-      name: run test
-      command: |
-        make $MAKE_RUN_TARGET
-      working_directory: test
+    name: run test
+    command: |
+      make $MAKE_RUN_TARGET
+    working_directory: test
   - &move-result-step
-      name: move result xml
-      command: |
-        if [ "$CIRCLE_NODE_INDEX" == "0" ]; then
-          mkdir -p $CIRCLE_TEST_REPORTS/junit/;
-          find . -type f -regex ".*/test/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;;
-        fi
+    name: move result xml
+    command: |
+      if [ "$CIRCLE_NODE_INDEX" == "0" ]; then
+        mkdir -p $CIRCLE_TEST_REPORTS/junit/;
+        find . -type f -regex ".*/test/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;;
+      fi
   - &build-test-steps
     - checkout
     - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
@@ -128,6 +128,6 @@ workflows:
   default-test:
     jobs:
       - gcc_optimize_test:
-        filters: *branch-filter
+          filters: *branch-filter
       - clang_optimize_test:
-        filters: *branch-filter
+          filters: *branch-filter
