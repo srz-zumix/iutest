@@ -11,8 +11,7 @@ trigger:
       - "*.md"
       - docs/*
       - Jenkinsfile
-      - CHANGES.md
-      - README.md
+      - LICENSE
       - .bandit
       - .editorconfig
       - .hadolint.yaml
