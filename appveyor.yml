@@ -154,8 +154,8 @@ for:
       $env:PATH=$env:CYGWIN_PATH + "\bin;" + $env:PATH
   install:
     cmd: |
+      set path
       %CYGWIN_PATH%\%CYGWIN_SETUP_EXE% -qnNdO -R %CYGWIN_PATH% -s http://cygwin.mirror.constant.com -l %CYGWIN_PATH%/var/cache/setup -P make -P clang
-      SET PATH=%CYGWIN_PATH%\bin;%PATH%
   before_build: &noop
     cmd: echo.
   build_script:
