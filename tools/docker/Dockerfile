@@ -13,7 +13,7 @@ RUN apt-get update -q -y && \
     apt-get install -y \
         wget vim iputils-ping curl \
         libsqlite3-dev libssl-dev \
-        python2.7 python2.7-dev python-virtualenv \
+        python-virtualenv \
         git subversion \
         build-essential gdb && \
     apt-get clean && \
@@ -24,22 +24,17 @@ ENV PYENV_ROOT $HOME/.pyenv
 ENV PATH $HOME/.pyenv/shims:$HOME/.pyenv/bin:$PATH
 RUN wget https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer -O - | bash && \
     pyenv --version && \
-    pyenv install 2.7.13 && \
     pyenv install 3.5.2 && \
-    pyenv install 3.8.0
-RUN pyenv local 2.7.13 && \
-    pip install --upgrade pip && \
-    pip install --upgrade setuptools tox requests && \
-    pyenv local --unset
+    pyenv install 3.8.2
 RUN pyenv local 3.5.2 && \
     pip install --upgrade pip && \
     pip install --upgrade setuptools tox requests && \
     pyenv local --unset
-RUN pyenv local 3.8.0 && \
+RUN pyenv local 3.8.2 && \
     pip install --upgrade pip && \
     pip install --upgrade setuptools tox requests && \
     pyenv local --unset
-RUN pyenv local 2.7.13 3.5.2 3.8.0 && \
+RUN pyenv local 3.5.2 3.8.2 && \
     pip install virtualenv
 
 # gcc
