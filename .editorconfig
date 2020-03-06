@@ -57,3 +57,6 @@ indent_size = 2
 
 [*.code-workspace]
 indent_style = tab
+
+[Dockerfile]
+indent_size = 2
