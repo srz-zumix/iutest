@@ -4,6 +4,12 @@ root = true
 indent_style = space
 indent_size = 4
 insert_final_newline = true
+# comment style for lint
+# C-style doc comments
+block_comment_start = /*
+block_comment = *
+block_comment_end = */
+line_comment = //
 
 [{Makefile,GNUmakefile}]
 indent_style = tab
@@ -51,11 +57,3 @@ indent_size = 2
 
 [*.code-workspace]
 indent_style = tab
-
-# comment style for lint
-[*]
-# C-style doc comments
-block_comment_start = /*
-block_comment = *
-block_comment_end = */
-line_comment = //
