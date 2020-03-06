@@ -12,7 +12,7 @@ RUN apt-get update -q -y && \
     apt-get update -q -y && \
     apt-get install -y \
         wget vim iputils-ping curl \
-        libsqlite3-dev libssl-dev \
+        libsqlite3-dev libssl-dev libffi-dev \
         python-virtualenv \
         git subversion \
         build-essential gdb && \
