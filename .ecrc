@@ -1,0 +1,6 @@
+{
+    "Verbose": false,
+    "IgnoreDefaults": true,
+    "Exclude": ["\\.sln$", "\\..*proj$", "\\.git/"],
+    "SpacesAftertabs": false
+}
