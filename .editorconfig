@@ -4,6 +4,12 @@ root = true
 indent_style = space
 indent_size = 4
 insert_final_newline = true
+# comment style for lint
+# C-style doc comments
+block_comment_start = /*
+block_comment = *
+block_comment_end = */
+line_comment = //
 
 [{Makefile,GNUmakefile}]
 indent_style = tab
@@ -24,14 +30,23 @@ charset = utf-8
 trim_trailing_whitespace = true
 
 [*.{yml,yaml}]
+indent_size = 2
 trim_trailing_whitespace = true
 
-[*.{yml,yaml,html}]
+[*.{html}]
+charset = utf-8-bom
+trim_trailing_whitespace = true
+
+[*.{html,css}]
 indent_size = 2
 
 [*.md]
 indent_size = 2
 trim_trailing_whitespace = false
+
+[*.rst]
+indent_size = 2
+trim_trailing_whitespace = true
 
 [*.bat]
 end_of_line = crlf
@@ -52,10 +67,5 @@ indent_size = 2
 [*.code-workspace]
 indent_style = tab
 
-# comment style for lint
-[*]
-# C-style doc comments
-block_comment_start = /*
-block_comment = *
-block_comment_end = */
-line_comment = //
+[Dockerfile]
+indent_size = 2
