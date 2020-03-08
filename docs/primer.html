@@ -389,7 +389,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(My1, AnyParamTest, ::iutest::Values(0));
 <div class="source">
 <pre class="brush:cpp">
 IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
-     , ::iutest::Pairwise( ::iutest::Bool()
+    , ::iutest::Pairwise( ::iutest::Bool()
         , ::iutest::Values(1, 2)
         , ::iutest::Values(10, 11) ) );
 </pre>
@@ -402,7 +402,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
 <div class="source">
 <pre class="brush:cpp">
 IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
-     , ::iutest::RandomValues( 5 ) );
+    , ::iutest::RandomValues( 5 ) );
 </pre>
 </div>
       RandomValues の第一引数にパラメータの総数を指定します。（第二引数に乱数シードを指定可能）<br />
@@ -413,7 +413,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
 <pre class="brush:cpp">
 bool Filter(int n) { return n != 100 &amp;&amp; n != 500 &amp;&amp; n != 1000; }
 IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
-     , ::iutest::ValuesGen( 5,  ::iutest::RandomGenerator&lt;int&gt;(&amp;Filter) ) );
+    , ::iutest::ValuesGen( 5,  ::iutest::RandomGenerator&lt;int&gt;(&amp;Filter) ) );
 </pre>
 </div>
       <br />
@@ -430,19 +430,19 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
 <div class="source">
 <pre class="brush:cpp">
 IUTEST_INSTANTIATE_TEST_CASE_P(A1, TestP
-     , ::iutest::Concat( ::iutest::Range(1, 10), ::iutest::Range(101, 110) ) );
+    , ::iutest::Concat( ::iutest::Range(1, 10), ::iutest::Range(101, 110) ) );
 IUTEST_INSTANTIATE_TEST_CASE_P(A2, TestP
-     , ::iutest::Concat( ::iutest::Range(1, 10), ::iutest::Bool() ) );
+    , ::iutest::Concat( ::iutest::Range(1, 10), ::iutest::Bool() ) );
 </pre>
 </div>
       operator + の場合<br />
 <div class="source">
 <pre class="brush:cpp">
 IUTEST_INSTANTIATE_TEST_CASE_P(A1, TestP
-     , ::iutest::Range(1, 10)
+    , ::iutest::Range(1, 10)
         + ::iutest::Range(101, 110) );
 IUTEST_INSTANTIATE_TEST_CASE_P(A2, TestP
-     , ::iutest::Range(1, 10)
+    , ::iutest::Range(1, 10)
         + ::iutest::Bool()
         + ::iutest::Values(99, 88, 77) ) );
 </pre>
@@ -455,9 +455,9 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A2, TestP
 <div class="source">
 <pre class="brush:cpp">
 IUTEST_INSTANTIATE_TEST_CASE_P(I, TestI
-     , ::iutest::CSV&lt;int&gt;("intparams.csv") );
+    , ::iutest::CSV&lt;int&gt;("intparams.csv") );
 IUTEST_INSTANTIATE_TEST_CASE_P(F, TestF
-     , ::iutest::CSV&lt;float&gt;("fparams.tsv", '\t') );
+    , ::iutest::CSV&lt;float&gt;("fparams.tsv", '\t') );
 </pre>
 </div>
       ファイルからのパラメータは動的に生成されるため、実行ファイルを更新せずにパラメータだけ更新することが可能になります。<br />
