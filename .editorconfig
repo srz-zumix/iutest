@@ -25,6 +25,9 @@ trim_trailing_whitespace = true
 charset = utf-8-bom
 trim_trailing_whitespace = true
 
+[iutest_ver.hpp]
+indent_size = 2
+
 [*.py]
 charset = utf-8
 trim_trailing_whitespace = true

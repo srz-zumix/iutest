@@ -1,6 +1,14 @@
 {
     "Verbose": false,
     "IgnoreDefaults": true,
-    "Exclude": ["\\.sln$", "\\..*proj$", "\\.filters$", "\\.md$", "Doxyfile", "\\.git/"],
+    "Exclude": [
+        "\\.sln$",
+        "\\..*proj$",
+        "\\.filters$",
+        "iutest_ver.hpp",
+        "\\.md$",
+        "Doxyfile",
+        "\\.git/"
+    ],
     "SpacesAftertabs": false
 }
