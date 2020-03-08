@@ -1,6 +1,6 @@
 {
     "Verbose": false,
     "IgnoreDefaults": true,
-    "Exclude": ["\\.sln$", "\\..*proj$", "\\.md$", "Doxyfile", "\\.git/"],
+    "Exclude": ["\\.sln$", "\\..*proj$", "\\.filters$", "\\.md$", "Doxyfile", "\\.git/"],
     "SpacesAftertabs": false
 }
