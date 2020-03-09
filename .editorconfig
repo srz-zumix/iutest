@@ -83,6 +83,10 @@ indent_size = 2
 [CMakeLists.txt]
 indent_size = 2
 
+# Visual Studio
+[*.rc]
+insert_final_newline = false
+
 # VSCode
 
 [*.code-workspace]
