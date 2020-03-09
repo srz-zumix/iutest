@@ -38,6 +38,11 @@ trim_trailing_whitespace = true
 [*.json]
 indent_size = 2
 
+# Project
+
+[*.{nuspec,targets}]
+indent_size = 2
+
 # Makefile
 
 [{Makefile,GNUmakefile}]
