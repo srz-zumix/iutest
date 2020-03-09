@@ -1,4 +1,4 @@
-# �T���v�� Makefile
+# AVR Sample Makefile
 #
 # SYNOPSIS:
 #
