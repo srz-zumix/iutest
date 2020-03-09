@@ -12,6 +12,8 @@
 		],
 		"files.associations": {
 			"*.ipp": "cpp",
+			"*.in": "makefile",
+			".ecrc": "json",
 			"future": "cpp",
 			"system_error": "cpp",
 			"random": "cpp",
