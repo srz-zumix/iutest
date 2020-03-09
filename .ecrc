@@ -8,6 +8,7 @@
         "iutest_ver.hpp",
         "\\.md$",
         "Doxyfile",
+        "node_modules/",
         "\\.git/"
     ],
     "SpacesAftertabs": false
