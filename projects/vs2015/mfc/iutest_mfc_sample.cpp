@@ -1,4 +1,4 @@
-// iutest_mfc_sample.cpp : ƒRƒ“ƒ\[ƒ‹ ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ÌƒGƒ“ƒgƒŠ ƒ|ƒCƒ“ƒg‚ð’è‹`‚µ‚Ü‚·B
+ï»¿// iutest_mfc_sample.cpp : ã‚³ãƒ³ã‚½ãƒ¼ãƒ« ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¨ãƒ³ãƒˆãƒª ãƒã‚¤ãƒ³ãƒˆã‚’å®šç¾©ã—ã¾ã™ã€‚
 //
 
 #include "stdafx.h"
@@ -11,7 +11,7 @@
 #endif
 
 
-// —Bˆê‚ÌƒAƒvƒŠƒP[ƒVƒ‡ƒ“ ƒIƒuƒWƒFƒNƒg‚Å‚·B
+// å”¯ä¸€ã®ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ã™ã€‚
 
 CWinApp theApp;
 
@@ -26,24 +26,24 @@ int _tmain(int argc, TCHAR* argv[], TCHAR* envp[])
 
 	if (hModule != NULL)
 	{
-		// MFC ‚ð‰Šú‰»‚µ‚ÄAƒGƒ‰[‚Ìê‡‚ÍŒ‹‰Ê‚ðˆóü‚µ‚Ü‚·B
+		// MFC ã‚’åˆæœŸåŒ–ã—ã¦ã€ã‚¨ãƒ©ãƒ¼ã®å ´åˆã¯çµæžœã‚’å°åˆ·ã—ã¾ã™ã€‚
 		if (!AfxWinInit(hModule, NULL, ::GetCommandLine(), 0))
 		{
-			// TODO: •K—v‚É‰ž‚¶‚ÄƒGƒ‰[ ƒR[ƒh‚ð•ÏX‚µ‚Ä‚­‚¾‚³‚¢B
-			_tprintf(_T("’v–½“I‚ÈƒGƒ‰[: MFC ‚Ì‰Šú‰»‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B\n"));
+			// TODO: å¿…è¦ã«å¿œã˜ã¦ã‚¨ãƒ©ãƒ¼ ã‚³ãƒ¼ãƒ‰ã‚’å¤‰æ›´ã—ã¦ãã ã•ã„ã€‚
+			_tprintf(_T("è‡´å‘½çš„ãªã‚¨ãƒ©ãƒ¼: MFC ã®åˆæœŸåŒ–ãŒã§ãã¾ã›ã‚“ã§ã—ãŸã€‚\n"));
 			nRetCode = 1;
 		}
 		else
 		{
-			// TODO: ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Ì“®ì‚ð‹Lq‚·‚éƒR[ƒh‚ð‚±‚±‚É‘}“ü‚µ‚Ä‚­‚¾‚³‚¢B
+			// TODO: ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®å‹•ä½œã‚’è¨˜è¿°ã™ã‚‹ã‚³ãƒ¼ãƒ‰ã‚’ã“ã“ã«æŒ¿å…¥ã—ã¦ãã ã•ã„ã€‚
 			IUTEST_INIT(&argc, argv);
 			nRetCode = IUTEST_RUN_ALL_TESTS();
 		}
 	}
 	else
 	{
-		// TODO: •K—v‚É‰ž‚¶‚ÄƒGƒ‰[ ƒR[ƒh‚ð•ÏX‚µ‚Ä‚­‚¾‚³‚¢B
-		_tprintf(_T("’v–½“I‚ÈƒGƒ‰[: GetModuleHandle ‚ªŽ¸”s‚µ‚Ü‚µ‚½\n"));
+		// TODO: å¿…è¦ã«å¿œã˜ã¦ã‚¨ãƒ©ãƒ¼ ã‚³ãƒ¼ãƒ‰ã‚’å¤‰æ›´ã—ã¦ãã ã•ã„ã€‚
+		_tprintf(_T("è‡´å‘½çš„ãªã‚¨ãƒ©ãƒ¼: GetModuleHandle ãŒå¤±æ•—ã—ã¾ã—ãŸ\n"));
 		nRetCode = 1;
 	}
 
