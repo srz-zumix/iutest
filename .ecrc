@@ -6,6 +6,8 @@
         "\\..*proj$",
         "\\.filters$",
         "iutest_ver.hpp",
+        ".*\\.NativeActivity/",
+        ".*\\.Packaging/",
         "\\.md$",
         "Doxyfile",
         "node_modules/",
