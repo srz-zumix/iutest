@@ -8,6 +8,8 @@
         "iutest_ver.hpp",
         ".*\\.NativeActivity/",
         ".*\\.Packaging/",
+        "samples/gmock",
+        "samples/gtest",
         "\\.md$",
         "Doxyfile",
         "node_modules/",
