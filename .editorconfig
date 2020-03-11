@@ -29,7 +29,7 @@ end_of_line = crlf
 indent_size = 2
 end_of_line = lf
 
-# Config
+# Config/Data
 
 [*.{yml,yaml}]
 indent_size = 2
@@ -37,6 +37,9 @@ trim_trailing_whitespace = true
 
 [*.json]
 indent_size = 2
+
+[*.csv]
+insert_final_newline = false
 
 # Project
 
