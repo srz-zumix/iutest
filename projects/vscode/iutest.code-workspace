@@ -12,6 +12,11 @@
 		],
 		"files.associations": {
 			"*.ipp": "cpp",
+			"*.in": "makefile",
+			".ecrc": "json",
+			".nuspec": "xml",
+			".targets": "xml",
+			".wsf": "xml",
 			"future": "cpp",
 			"system_error": "cpp",
 			"random": "cpp",
