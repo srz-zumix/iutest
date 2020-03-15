@@ -38,7 +38,7 @@ trim_trailing_whitespace = true
 [*.json]
 indent_size = 2
 
-[*.csv]
+[*.{csv,tsv}]
 insert_final_newline = false
 
 # Project
@@ -64,6 +64,9 @@ trim_trailing_whitespace = true
 indent_size = 2
 trim_trailing_whitespace = false
 
+[*.txt]
+trim_trailing_whitespace = false
+
 [*.rst]
 indent_size = 2
 trim_trailing_whitespace = true
@@ -87,8 +90,12 @@ indent_size = 2
 indent_size = 2
 
 # Visual Studio
+
 [*.rc]
 insert_final_newline = false
+
+[*.{natvis,natstepfilter}]
+indent_size = 2
 
 # VSCode
 

@@ -16,6 +16,8 @@
 			".ecrc": "json",
 			".nuspec": "xml",
 			".targets": "xml",
+			".nativs": "xml",
+			".natstepfilter": "xml",
 			".wsf": "xml",
 			"future": "cpp",
 			"system_error": "cpp",
