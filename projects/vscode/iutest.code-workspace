@@ -16,6 +16,7 @@
 			".ecrc": "json",
 			".nuspec": "xml",
 			".targets": "xml",
+			".props": "xml",
 			".nativs": "xml",
 			".natstepfilter": "xml",
 			".wsf": "xml",

@@ -3,7 +3,6 @@ root = true
 [*]
 indent_style = space
 indent_size = 4
-insert_final_newline = true
 # comment style for lint
 # C-style doc comments
 block_comment_start = /*
@@ -14,9 +13,11 @@ line_comment = //
 [*.{cpp,hpp,ipp}]
 charset = utf-8-bom
 trim_trailing_whitespace = true
+insert_final_newline = true
 
 [iutest_ver.hpp]
 indent_size = 2
+insert_final_newline = true
 
 [*.py]
 charset = utf-8
@@ -37,9 +38,6 @@ trim_trailing_whitespace = true
 
 [*.json]
 indent_size = 2
-
-[*.{csv,tsv}]
-insert_final_newline = false
 
 # Project
 
@@ -91,10 +89,7 @@ indent_size = 2
 
 # Visual Studio
 
-[*.rc]
-insert_final_newline = false
-
-[*.{natvis,natstepfilter}]
+[*.{natvis,natstepfilter,props}]
 indent_size = 2
 
 # VSCode
