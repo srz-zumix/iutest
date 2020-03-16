@@ -15,5 +15,8 @@
         "node_modules/",
         "\\.git/"
     ],
+    "Disable": {
+        "IndentSize": true
+    },
     "SpacesAftertabs": false
 }
