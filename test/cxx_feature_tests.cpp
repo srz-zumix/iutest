@@ -130,23 +130,23 @@ IUTEST(Variant, Compare)
 #if IUTEST_HAS_EXCEPTIONS
 struct AlwaysThrow
 {
-  AlwaysThrow() = default;
-  AlwaysThrow(const AlwaysThrow&)
-  {
-    throw std::exception();
-  }
-  AlwaysThrow(AlwaysThrow&&)
-  {
-    throw std::exception();
-  }
-  AlwaysThrow& operator=(const AlwaysThrow&)
-  {
-    throw std::exception();
-  }
-  AlwaysThrow& operator=(AlwaysThrow&&)
-  {
-    throw std::exception();
-  }
+    AlwaysThrow() = default;
+    AlwaysThrow(const AlwaysThrow &)
+    {
+        throw std::exception();
+    }
+    AlwaysThrow(AlwaysThrow &&)
+    {
+        throw std::exception();
+    }
+    AlwaysThrow &operator=(const AlwaysThrow &)
+    {
+        throw std::exception();
+    }
+    AlwaysThrow &operator=(AlwaysThrow &&)
+    {
+        throw std::exception();
+    }
 };
 #endif
 
