@@ -16,7 +16,7 @@
         "\\.git/"
     ],
     "Disable": {
-        "IndentSize": true
+        "IndentSize": false
     },
     "SpacesAftertabs": false
 }
