@@ -10,7 +10,7 @@
   },
   "scripts": {
     "lint:editorconfig": "npm-run-all eclint eccheck",
-    "eccheck": "editorconfig-checker .",
+    "eccheck": "editorconfig-checker -disable-indent-size .",
     "eccheck:cpp": "editorconfig-checker src include",
     "eclint": "npm-run-all eclint:*",
     "eclint:src": "eclint check ./src",
