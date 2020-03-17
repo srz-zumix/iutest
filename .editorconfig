@@ -36,7 +36,7 @@ end_of_line = lf
 indent_size = 2
 trim_trailing_whitespace = true
 
-[*.json]
+[*.{json,ecrc}]
 indent_size = 2
 
 # Project

@@ -1,22 +1,26 @@
 {
-    "Verbose": false,
-    "IgnoreDefaults": true,
-    "Exclude": [
-        "\\.sln$",
-        "\\..*proj$",
-        "\\.filters$",
-        "iutest_ver.hpp",
-        ".*\\.NativeActivity/",
-        ".*\\.Packaging/",
-        "samples/gmock",
-        "samples/gtest",
-        "\\.md$",
-        "Doxyfile",
-        "node_modules/",
-        "\\.git/"
-    ],
-    "Disable": {
-        "IndentSize": false
-    },
-    "SpacesAftertabs": false
+  "Verbose": false,
+  "IgnoreDefaults": true,
+  "Exclude": [
+    "\\.sln$",
+    "\\..*proj$",
+    "\\.filters$",
+    "iutest_ver.hpp",
+    ".*\\.NativeActivity/",
+    ".*\\.Packaging/",
+    "samples/gmock",
+    "samples/gtest",
+    "\\.md$",
+    "Doxyfile",
+    "node_modules/",
+    "\\.git/"
+  ],
+  "Disable": {
+    "EndOfLine": false,
+    "Indentation": false,
+    "InsertFinalNewline": false,
+    "TrimTrailingWhitespace": false,
+    "IndentSize": true
+  },
+  "SpacesAftertabs": false
 }
