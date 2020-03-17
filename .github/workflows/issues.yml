@@ -1,0 +1,16 @@
+name: GitHub Actions - issue trigger
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  prepare:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Check condition
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: |
+        echo "$GITHUB_CONTEXT"
+    - name: Show Event
+      run: cat ${GITHUB_EVENT_PATH}
