@@ -1,10 +1,6 @@
 name: GitHub Actions - comment trigger
 on:
   pull_request_review_comment:
-    types: [created]
-  issue_comment:
-    types: [created]
-  pull_request_review:
 
 jobs:
   prepare:
