@@ -13,6 +13,7 @@ jobs:
         reporter: github-pr-review
         flags: --extensions=h,hpp,c,cpp,cc,cu,ipp --linelength=150
         filter: "-readability/braces\
+          ,-readability/todo\
           ,-whitespace/braces\
           ,-whitespace/comments\
           ,-whitespace/indent\
