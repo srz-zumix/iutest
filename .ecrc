@@ -17,7 +17,7 @@
   ],
   "Disable": {
     "EndOfLine": false,
-    "Indentation": false,
+    "Indentation": true,
     "InsertFinalNewline": false,
     "TrimTrailingWhitespace": false,
     "IndentSize": true
