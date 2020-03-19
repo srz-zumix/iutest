@@ -561,9 +561,9 @@ class IutestPreprocessor:
                     if self.prev_line is not None:
                         line = self.__strip_namespaces(line)
                         if self.prev_line.startswith('#'):
-                             self.prev_line += '\n'
+                            self.prev_line += '\n'
                         elif line.startswith('#'):
-                             self.prev_line += '\n'
+                            self.prev_line += '\n'
                         dst += self.prev_line
                     self.prev_line = line
         dst += self.prev_line + '\n'

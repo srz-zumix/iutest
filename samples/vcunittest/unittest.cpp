@@ -377,7 +377,7 @@ IUTEST_P(TestPCombine, TestA)
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P(TestPCombineInstance, TestPCombine
-                               , iutest::Combine( iutest::Bool(), iutest::Values(1, 2), iutest::Values(10, 11) ) );
+                                , iutest::Combine( iutest::Bool(), iutest::Values(1, 2), iutest::Values(10, 11) ) );
 #endif
 
 #endif
