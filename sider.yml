@@ -7,6 +7,7 @@ linter:
     config: ./.ci/goodcheck.yml
   cpplint:
     filter: "-readability/braces\
+      ,-readability/todo\
       ,-whitespace/braces\
       ,-whitespace/comments\
       ,-whitespace/indent\
@@ -17,4 +18,6 @@ linter:
     linelength: 150
     extensions: "c,cpp"
     headers: "h,hpp,ipp"
+    exclude:
+      - "*iutest_android.NativeActivity/"
 
