@@ -19,5 +19,5 @@ linter:
     extensions: "c,cpp"
     headers: "h,hpp,ipp"
     exclude:
-      - "*/iutest_android.NativeActivity/*"
+      - "projects/*/android/iutest_android.NativeActivity/"
 
