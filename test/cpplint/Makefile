@@ -51,6 +51,17 @@ samples: $(SAMPLES) cpplint.py Makefile
 test: $(SRC_CPP) cpplint.py Makefile
 	python cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS),-build/namespace,-build/include $(TESTS)
 
+sider:
+	python cpplint.py --extensions=hpp,cpp,c,h --linelength=150 --filter="-readability/braces\
+      ,-readability/todo\
+      ,-whitespace/braces\
+      ,-whitespace/comments\
+      ,-whitespace/indent\
+      ,-whitespace/newline\
+      ,-whitespace/operators\
+      ,-whitespace/parens\
+      " --recursive ../../projects --exclude="projects/*/android/iutest_android.NativeActivity/*"
+
 clean:
 	rm -rf cpplint.py
 
