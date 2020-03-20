@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="Shift_JIS" standalone="yes" ?>
 <package>
-	<job id="environment">
-	<?job error="true" debug="true" ?>
-	<object id="objFs" progid="Scripting.FileSystemObject" />
-	<script language="VBScript">
-	<![CDATA[
-		Set WshShell=WScript.CreateObject("WScript.Shell")
-		Set WshEnvironment=WshShell.Environment("User")
-		WshEnvironment.Item("IUTEST_ROOT")=WshShell.CurrentDirectory
+    <job id="environment">
+    <?job error="true" debug="true" ?>
+    <object id="objFs" progid="Scripting.FileSystemObject" />
+    <script language="VBScript">
+    <![CDATA[
+        Set WshShell=WScript.CreateObject("WScript.Shell")
+        Set WshEnvironment=WshShell.Environment("User")
+        WshEnvironment.Item("IUTEST_ROOT")=WshShell.CurrentDirectory
 
-		result = "setup is completed :" + vbLf + vbLf + "[IUTEST_ROOT] " + WshEnvironment.Item("IUTEST_ROOT")
-		WScript.echo result
-	]]>
-	</script>
-	</job>
+        result = "setup is completed :" + vbLf + vbLf + "[IUTEST_ROOT] " + WshEnvironment.Item("IUTEST_ROOT")
+        WScript.echo result
+    ]]>
+    </script>
+    </job>
 </package>
