@@ -7,6 +7,8 @@ linter:
     config: ./.ci/goodcheck.yml
   cpplint:
     filter: "-readability/braces\
+      ,-readability/todo\
+      ,-runtime/int\
       ,-whitespace/braces\
       ,-whitespace/comments\
       ,-whitespace/indent\
@@ -17,4 +19,7 @@ linter:
     linelength: 150
     extensions: "c,cpp"
     headers: "h,hpp,ipp"
+    exclude:
+      - "projects/*"
+      - "samples/*/*"
 

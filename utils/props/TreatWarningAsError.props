@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <!-- Usage: msbuild /p:ForceImportAfterCppTargets=TreatWarningAsError.props -->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
   <ItemDefinitionGroup>
     <ClCompile>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
   </ItemDefinitionGroup>
-
 </Project>
