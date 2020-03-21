@@ -8,6 +8,7 @@ linter:
   cpplint:
     filter: "-readability/braces\
       ,-readability/todo\
+      ,-runtime/int\
       ,-whitespace/braces\
       ,-whitespace/comments\
       ,-whitespace/indent\

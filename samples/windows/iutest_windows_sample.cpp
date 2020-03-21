@@ -105,7 +105,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     }
 #ifdef IUTEST_USE_GTEST
     argc = 0;
-    ::iutest::InitIrisUnitTest(&argc, (char **)NULL);
+    ::iutest::InitIrisUnitTest(&argc, reinterpret_cast<char **>(NULL));
 #else
     ::iutest::InitIrisUnitTest(argv);
 #endif
