@@ -20,6 +20,7 @@ linter:
     extensions: "c,cpp"
     headers: "h,hpp,ipp"
     exclude:
-      - "projects/*"
+      - "projects/*/android/iutest_android.NativeActivity/*"
+      - "projects/*/mfc/*"
       - "samples/*/*"
 
