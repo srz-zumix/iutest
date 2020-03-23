@@ -70,7 +70,14 @@ aliases:
     name: build
     command: |
       make clean
-      case $CIRCLE_NODE_INDEX in 0) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O2 ;; 1) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Os ;; 2) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O3 ;; 3) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Oz ;; esac
+      case $CIRCLE_NODE_INDEX in \
+        0) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O0 ;; \
+        1) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O1 ;; \
+        2) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O2 ;; \
+        3) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O3 ;; \
+        4) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Oz ;; \
+        5) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Os ;; \
+      esac
       cp *.json $CIRCLE_ARTIFACTS/ 2>/dev/null || true
     working_directory: test
   - &test-step
@@ -108,13 +115,13 @@ aliases:
 
 jobs:
   gcc_optimize_test:
-    parallelism: 4
+    parallelism: 6
     <<: *default
     environment:
       CXX: g++
     steps: *build-test-steps
   clang_optimize_test:
-    parallelism: 4
+    parallelism: 6
     <<: *default
     environment:
       CXX: clang++
