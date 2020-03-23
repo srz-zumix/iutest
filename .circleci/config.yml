@@ -71,12 +71,10 @@ aliases:
     command: |
       make clean
       case $CIRCLE_NODE_INDEX in \
-        0) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O0 ;; \
-        1) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O1 ;; \
-        2) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O2 ;; \
-        3) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O3 ;; \
-        4) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Oz ;; \
-        5) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Os ;; \
+        0) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O2 ;; \
+        1) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O3 ;; \
+        2) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Os ;; \
+        3) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=$FAST_OPTIMIZE ;; \
       esac
       cp *.json $CIRCLE_ARTIFACTS/ 2>/dev/null || true
     working_directory: test
@@ -115,16 +113,18 @@ aliases:
 
 jobs:
   gcc_optimize_test:
-    parallelism: 6
+    parallelism: 4
     <<: *default
     environment:
       CXX: g++
+      FAST_OPTIMIZE: -Ofast
     steps: *build-test-steps
   clang_optimize_test:
-    parallelism: 6
+    parallelism: 4
     <<: *default
     environment:
       CXX: clang++
+      FAST_OPTIMIZE: -Ot
       MAKE_ADD_OPTION: CXXFLAGS=-ftime-trace
     steps: *build-test-steps
 
