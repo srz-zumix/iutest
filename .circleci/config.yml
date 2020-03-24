@@ -117,7 +117,8 @@ jobs:
     <<: *default
     environment:
       CXX: g++
-      FAST_OPTIMIZE: -Ofast
+      FAST_OPTIMIZE: -Og
+      # FAST_OPTIMIZE: -Ofast # https://github.com/srz-zumix/iutest/issues/396
     steps: *build-test-steps
   clang_optimize_test:
     parallelism: 4
