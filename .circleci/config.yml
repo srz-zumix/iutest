@@ -70,7 +70,12 @@ aliases:
     name: build
     command: |
       make clean
-      case $CIRCLE_NODE_INDEX in 0) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O2 ;; 1) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Os ;; 2) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O3 ;; 3) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Oz ;; esac
+      case $CIRCLE_NODE_INDEX in \
+        0) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O2 ;; \
+        1) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-O3 ;; \
+        2) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=-Os ;; \
+        3) make $MAKE_TARGET $MAKE_OPTION $MAKE_ADD_OPTION OPTIMIZE=$FAST_OPTIMIZE ;; \
+      esac
       cp *.json $CIRCLE_ARTIFACTS/ 2>/dev/null || true
     working_directory: test
   - &test-step
@@ -112,12 +117,15 @@ jobs:
     <<: *default
     environment:
       CXX: g++
+      FAST_OPTIMIZE: -Og
+      # FAST_OPTIMIZE: -Ofast # https://github.com/srz-zumix/iutest/issues/396
     steps: *build-test-steps
   clang_optimize_test:
     parallelism: 4
     <<: *default
     environment:
       CXX: clang++
+      FAST_OPTIMIZE: -Ot
       MAKE_ADD_OPTION: CXXFLAGS=-ftime-trace
     steps: *build-test-steps
 
