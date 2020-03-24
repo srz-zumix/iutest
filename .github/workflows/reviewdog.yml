@@ -12,9 +12,14 @@ jobs:
         github_token: ${{ secrets.github_token }}
         reporter: github-pr-review
         flags: --extensions=h,hpp,c,cpp,cc,cu,ipp --linelength=150
-        filter: "-readability/braces\
+        filter: "-build/c++11\
+          ,-build/c++tr1\
+          ,-build/header_guard\
+          ,-readability/braces\
           ,-readability/todo\
           ,-runtime/int\
+          ,-runtime/references\
+          ,-runtime/string\
           ,-whitespace/braces\
           ,-whitespace/comments\
           ,-whitespace/indent\

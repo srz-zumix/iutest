@@ -1,11 +1,11 @@
-//======================================================================
+﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file		test.cpp
- * @brief		test
+ * @file        test.cpp
+ * @brief       test
  *
- * @author		t.shirayanagi
- * @par			copyright
+ * @author      t.shirayanagi
+ * @par         copyright
  * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
@@ -17,8 +17,8 @@
 #include "../../include/internal/iutest_compiler.hpp"
 #include "../../include/internal/iutest_pp.hpp"
 
-#define PP_CAT	IUTEST_PP_CAT
-#define PP_DEC	IUTEST_PP_DEC
+#define PP_CAT  IUTEST_PP_CAT
+#define PP_DEC  IUTEST_PP_DEC
 
 namespace detail
 {
@@ -34,23 +34,23 @@ typedef struct false_type
     static const bool value = false;
 } false_type;
 
-}
+}   // end of namespace detail
 
 template<bool select, typename YES_T, typename NO_T>
 struct type_select
 {
-    typedef YES_T	type;
+    typedef YES_T   type;
 };
 template<typename YES_T, typename NO_T>
 struct type_select<false, YES_T, NO_T>
 {
-    typedef NO_T	type;
+    typedef NO_T    type;
 };
 
 template<intmax_t V>
 class is_prime_number
 {
-    static const intmax_t	RECURSIVE_MAX=200;
+    static const intmax_t   RECURSIVE_MAX=200;
 
     template<intmax_t N, intmax_t D1, intmax_t D2, intmax_t Cnt, intmax_t Max>
     struct is_prime_calc_recursive0
@@ -64,82 +64,82 @@ class is_prime_number
     template<intmax_t N, intmax_t D1, intmax_t Max>
     struct is_prime_calc_recursive0<N, D1, N, Max, Max>
     {
-        static const intmax_t	TMP1=D1;
-        static const intmax_t	TMP2=N;
+        static const intmax_t   TMP1=D1;
+        static const intmax_t   TMP2=N;
         typedef detail::true_type type;
         typedef char e[ Max ? 1 : -1];
     };
     template<intmax_t N, intmax_t D2, intmax_t Max>
     struct is_prime_calc_recursive0<N, N, D2, Max, Max>
     {
-        static const intmax_t	TMP1=N;
-        static const intmax_t	TMP2=D2;
+        static const intmax_t   TMP1=N;
+        static const intmax_t   TMP2=D2;
         typedef detail::true_type type;
         typedef char e[ Max ? 1 : -1];
     };
     template<intmax_t N, intmax_t D1, intmax_t D2, intmax_t Max>
     struct is_prime_calc_recursive0<N, D1, D2, Max, Max>
     {
-        static const intmax_t	TMP1= D1;
-        static const intmax_t	TMP2= D2;
+        static const intmax_t   TMP1= D1;
+        static const intmax_t   TMP2= D2;
         typedef detail::true_type type;
         typedef char e[ Max ? 1 : -1];
     };
     template<intmax_t N, intmax_t D1, intmax_t Cnt, intmax_t Max>
     struct is_prime_calc_recursive0<N, D1, N, Cnt, Max>
     {
-        static const intmax_t	TMP1=D1;
-        static const intmax_t	TMP2=N;
+        static const intmax_t   TMP1=D1;
+        static const intmax_t   TMP2=N;
         typedef detail::true_type type;
         typedef char e[ Max ? 1 : -1];
     };
     template<intmax_t N, intmax_t D2, intmax_t Cnt, intmax_t Max>
     struct is_prime_calc_recursive0<N, N, D2, Cnt, Max>
     {
-        static const intmax_t	TMP1=N;
-        static const intmax_t	TMP2=D2;
+        static const intmax_t   TMP1=N;
+        static const intmax_t   TMP2=D2;
         typedef detail::true_type type;
         typedef char e[ Max ? 1 : -1];
     };
 
-#define PRIME_NUMBER_RECURSIVE_IMPL(index)	\
-    template<intmax_t N, intmax_t D1, intmax_t D2, intmax_t Cnt, intmax_t Max>	\
-    struct is_prime_calc_recursive##index							\
-    {																\
-        static const bool value = PP_CAT(is_prime_calc_recursive, PP_DEC(index))<N, D1, D2, 0, Max-Cnt>::type::value;	\
-        static const intmax_t TMP1 = PP_CAT(is_prime_calc_recursive, PP_DEC(index))<N, D1, D2, 0, Max-Cnt>::TMP1;		\
-        static const intmax_t TMP2 = PP_CAT(is_prime_calc_recursive, PP_DEC(index))<N, D1, D2, 0, Max-Cnt>::TMP2;		\
-        typedef typename type_select<value															\
-            , typename is_prime_calc_recursive##index<N, TMP1, TMP2, Cnt+1, Max >::type				\
-            , detail::false_type >::type type;														\
-    };																								\
-    template<intmax_t N, intmax_t D1, intmax_t D2, intmax_t Max>									\
-    struct is_prime_calc_recursive##index<N, D1, D2, Max, Max>										\
-    {																								\
-        static const intmax_t	TMP1=D1;															\
-        static const intmax_t	TMP2=D2;															\
-        typedef detail::true_type type;																\
-    };																								\
-    template<intmax_t N, intmax_t D2, intmax_t Cnt, intmax_t Max>									\
-    struct is_prime_calc_recursive##index<N, N, D2, Cnt, Max>										\
-    {																								\
-        static const intmax_t	TMP1=N;																\
-        static const intmax_t	TMP2=D2;															\
-        typedef detail::true_type type;																\
-    };																								\
-    template<intmax_t N, intmax_t D1, intmax_t Cnt, intmax_t Max>									\
-    struct is_prime_calc_recursive##index<N, D1, N, Cnt, Max>										\
-    {																								\
-        static const intmax_t	TMP1=D1;															\
-        static const intmax_t	TMP2=N;																\
-        typedef detail::true_type type;																\
-    };																								\
-    template<intmax_t N, intmax_t Cnt, intmax_t Max>												\
-    struct is_prime_calc_recursive##index<N, N, N, Cnt, Max>										\
-    {																								\
-        static const intmax_t	TMP1=N;																\
-        static const intmax_t	TMP2=N;																\
-        typedef detail::true_type type;																\
+#define PRIME_NUMBER_RECURSIVE_IMPL(index)  \
+    template<intmax_t N, intmax_t D1, intmax_t D2, intmax_t Cnt, intmax_t Max>  \
+    struct is_prime_calc_recursive##index                           \
+    {                                                               \
+        static const bool value = PP_CAT(is_prime_calc_recursive, PP_DEC(index))<N, D1, D2, 0, Max-Cnt>::type::value;   \
+        static const intmax_t TMP1 = PP_CAT(is_prime_calc_recursive, PP_DEC(index))<N, D1, D2, 0, Max-Cnt>::TMP1;       \
+        static const intmax_t TMP2 = PP_CAT(is_prime_calc_recursive, PP_DEC(index))<N, D1, D2, 0, Max-Cnt>::TMP2;       \
+        typedef typename type_select<value                                                          \
+            , typename is_prime_calc_recursive##index<N, TMP1, TMP2, Cnt+1, Max >::type             \
+            , detail::false_type >::type type;                                                      \
+    };                                                                                              \
+    template<intmax_t N, intmax_t D1, intmax_t D2, intmax_t Max>                                    \
+    struct is_prime_calc_recursive##index<N, D1, D2, Max, Max>                                      \
+    {                                                                                               \
+        static const intmax_t   TMP1=D1;                                                            \
+        static const intmax_t   TMP2=D2;                                                            \
+        typedef detail::true_type type;                                                             \
+    };                                                                                              \
+    template<intmax_t N, intmax_t D2, intmax_t Cnt, intmax_t Max>                                   \
+    struct is_prime_calc_recursive##index<N, N, D2, Cnt, Max>                                       \
+    {                                                                                               \
+        static const intmax_t   TMP1=N;                                                             \
+        static const intmax_t   TMP2=D2;                                                            \
+        typedef detail::true_type type;                                                             \
+    };                                                                                              \
+    template<intmax_t N, intmax_t D1, intmax_t Cnt, intmax_t Max>                                   \
+    struct is_prime_calc_recursive##index<N, D1, N, Cnt, Max>                                       \
+    {                                                                                               \
+        static const intmax_t   TMP1=D1;                                                            \
+        static const intmax_t   TMP2=N;                                                             \
+        typedef detail::true_type type;                                                             \
+    };                                                                                              \
+    template<intmax_t N, intmax_t Cnt, intmax_t Max>                                                \
+    struct is_prime_calc_recursive##index<N, N, N, Cnt, Max>                                        \
+    {                                                                                               \
+        static const intmax_t   TMP1=N;                                                             \
+        static const intmax_t   TMP2=N;                                                             \
+        typedef detail::true_type type;                                                             \
     }
 
     PRIME_NUMBER_RECURSIVE_IMPL(1);
@@ -151,7 +151,7 @@ class is_prime_number
 
 #undef PRIME_NUMBER_RECURSIVE_IMPL
 
-#define PRIME_NUMBER_RECURSIVE_LEVEL	5
+#define PRIME_NUMBER_RECURSIVE_LEVEL    5
     template<intmax_t N, intmax_t D1, intmax_t D2>
     struct is_prime_calc_impl
     {
@@ -169,7 +169,7 @@ class is_prime_number
     template<intmax_t N, intmax_t D2>
     struct is_prime_calc_impl<N, N, D2> { typedef detail::true_type type; };
     template<intmax_t N>
-    struct is_prime_calc_impl<N, N, N>	{ typedef detail::true_type type; };
+    struct is_prime_calc_impl<N, N, N>  { typedef detail::true_type type; };
 
     template<intmax_t N, bool isSimpleFilter>
     struct is_prime_impl
@@ -180,11 +180,11 @@ class is_prime_number
     };
 
     template<bool isSimpleFilter>
-    struct is_prime_impl< 5, isSimpleFilter> { typedef detail::true_type type; };	// 5 �͑f��
+    struct is_prime_impl< 5, isSimpleFilter> { typedef detail::true_type type; };
     template<bool isSimpleFilter>
-    struct is_prime_impl< 3, isSimpleFilter> { typedef detail::true_type type; };	// 3 �͑f��
+    struct is_prime_impl< 3, isSimpleFilter> { typedef detail::true_type type; };
     template<bool isSimpleFilter>
-    struct is_prime_impl< 2, isSimpleFilter> { typedef detail::true_type type; };	// 2 �͑f��
+    struct is_prime_impl< 2, isSimpleFilter> { typedef detail::true_type type; };
 
     template<intmax_t N>
     struct is_prime_impl<N, false>
@@ -204,7 +204,7 @@ template<>struct static_assert_failer<true> { enum { value=1 }; };
 template<int x>struct static_assert_test {};
 }
 #define STATIC_ASSERT(B) \
-    typedef detail::static_assert_test< sizeof(detail::static_assert_failer<(bool)B>) > PP_CAT(static_assert_typedef_, __LINE__)
+    typedef detail::static_assert_test< sizeof(detail::static_assert_failer<static_cast<bool>(B)>) > PP_CAT(static_assert_typedef_, __LINE__)
 
 STATIC_ASSERT( is_prime_number<2>::value );
 STATIC_ASSERT( is_prime_number<3>::value );

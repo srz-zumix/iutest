@@ -1,9 +1,24 @@
-#include "../../include/iutest.hpp"
+//======================================================================
+//-----------------------------------------------------------------------
+/**
+ * @file        sample.cpp
+ * @brief       wandbox sample
+ *
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2020, Takazumi Shirayanagi\n
+ * This software is released under the new BSD License,
+ * see LICENSE
+*/
+//-----------------------------------------------------------------------
+//======================================================================
+
 #include "sample.h"
+#include <iostream>
+#include "../../include/iutest.hpp"
 #if defined(SAMPLE2)
 #include "sample2.h"
 #endif
-#include <iostream>
 
 int main(int argc, char** argv)
 {
