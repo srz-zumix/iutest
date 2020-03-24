@@ -52,15 +52,27 @@ test: $(SRC_CPP) cpplint.py Makefile
 	python cpplint.py --extensions=hpp,cpp --linelength=150 --filter=$(SUPPRESS),-build/namespace,-build/include $(TESTS)
 
 sider:
-	python cpplint.py --extensions=hpp,cpp,c,h --linelength=150 --filter="-readability/braces\
-      ,-readability/todo\
-      ,-whitespace/braces\
-      ,-whitespace/comments\
-      ,-whitespace/indent\
-      ,-whitespace/newline\
-      ,-whitespace/operators\
-      ,-whitespace/parens\
-      " --recursive ../../projects --exclude="projects/*/android/iutest_android.NativeActivity/*"
+	cd ../../ && \
+	python test/cpplint/cpplint.py --extensions=hpp,cpp,c,h --linelength=150 --quiet --output vs7 \
+		--filter="-build/c++11\
+		,-build/c++tr1\
+		,-build/header_guard\
+		,-build/include_what_you_use\
+		,-readability/braces\
+		,-readability/todo\
+		,-runtime/int\
+		,-runtime/references\
+		,-runtime/string\
+		,-whitespace/braces\
+		,-whitespace/comments\
+		,-whitespace/indent\
+		,-whitespace/newline\
+		,-whitespace/operators\
+		,-whitespace/parens\
+		" --recursive . \
+
+help:
+	python cpplint.py
 
 clean:
 	rm -rf cpplint.py
