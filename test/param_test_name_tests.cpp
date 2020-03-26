@@ -16,7 +16,6 @@
 //======================================================================
 // include
 #include "iutest.hpp"
-
 #include "main.cpp"
 
 #if IUTEST_HAS_PARAM_TEST

@@ -6,7 +6,14 @@ linter:
   goodcheck:
     config: ./.ci/goodcheck.yml
   cpplint:
-    filter: "-readability/braces\
+    filter: "-build/c++11\
+      ,-build/c++tr1\
+      ,-build/header_guard\
+      ,-readability/braces\
+      ,-readability/todo\
+      ,-runtime/int\
+      ,-runtime/references\
+      ,-runtime/string\
       ,-whitespace/braces\
       ,-whitespace/comments\
       ,-whitespace/indent\
@@ -17,4 +24,3 @@ linter:
     linelength: 150
     extensions: "c,cpp"
     headers: "h,hpp,ipp"
-

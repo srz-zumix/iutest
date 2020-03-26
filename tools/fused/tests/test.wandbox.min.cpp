@@ -1,3 +1,18 @@
+//======================================================================
+//-----------------------------------------------------------------------
+/**
+ * @file        test.wandbox.main.cpp
+ * @brief       test main
+ *
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2020, Takazumi Shirayanagi\n
+ * This software is released under the new BSD License,
+ * see LICENSE
+*/
+//-----------------------------------------------------------------------
+//======================================================================
+
 #include "../../../fused-src/iutest.wandbox.min.hpp"
 
 int main(int argc, char** argv)
