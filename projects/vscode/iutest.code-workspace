@@ -12,6 +12,7 @@
 		],
 		"files.associations": {
 			"*.ipp": "cpp",
+			"*.inl": "cpp",
 			"*.in": "makefile",
 			".ecrc": "json",
 			".nuspec": "xml",
