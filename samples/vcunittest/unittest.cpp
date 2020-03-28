@@ -1,4 +1,19 @@
-﻿#include "stdafx.h"
+﻿//======================================================================
+//-----------------------------------------------------------------------
+/**
+ * @file        unittest.cpp
+ * @brief       vc unittest sample
+ *
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2020, Takazumi Shirayanagi\n
+ * This software is released under the new BSD License,
+ * see LICENSE
+*/
+//-----------------------------------------------------------------------
+//======================================================================
+
+#include "stdafx.h"
 #include "CppUnitTest.h"
 
 #include "../../include/iutest.hpp"
@@ -29,9 +44,8 @@ namespace iutest_unittest
         {
             Assert::AreEqual(0, 1);
         }
-
     };
-}
+}   // end of namespace iutest_unittest
 #endif
 
 /** --------------------------------------------------
@@ -125,7 +139,7 @@ IUTEST(AssertionTest, Base)
         IUTEST_ASSERT_NE(x0, x1);
         IUTEST_EXPECT_NE(x0, x1);
         IUTEST_INFORM_NE(x0, x1);
-        int* one=(int*)1;
+        int* one=reinterpret_cast<int*>(1);
         IUTEST_ASSERT_NE(NULL, one);
     }
 
@@ -377,7 +391,7 @@ IUTEST_P(TestPCombine, TestA)
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P(TestPCombineInstance, TestPCombine
-                               , iutest::Combine( iutest::Bool(), iutest::Values(1, 2), iutest::Values(10, 11) ) );
+                                , iutest::Combine( iutest::Bool(), iutest::Values(1, 2), iutest::Values(10, 11) ) );
 #endif
 
 #endif
@@ -507,7 +521,7 @@ IUTEST(AssertionTest, Exception)
 class exception_test
 {
 public:
-    exception_test(const ::std::vector<int>&)
+    explicit exception_test(const ::std::vector<int>&)
     {
         IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING(throw ::std::exception());
     }

@@ -1,17 +1,17 @@
-/*
+﻿/*
  * Copyright (C) 2010 The Android Open Source Project
  *
- * Apache License Version 2.0 (�u�{���C�Z���X�v) �Ɋ�Â��ă��C�Z���X����܂��B;
- * �{���C�Z���X�ɏ������Ȃ��ꍇ�͂��̃t�@�C�����g�p�ł��܂���B
- * �{���C�Z���X�̃R�s�[�́A�ȉ��̏ꏊ�������ł��܂��B
+ * Apache License Version 2.0 (「本ライセンス」) に基づいてライセンスされます。;
+ * 本ライセンスに準拠しない場合はこのファイルを使用できません。
+ * 本ライセンスのコピーは、以下の場所から入手できます。
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
- * �K�p�����@�߂܂��͏��ʂł̍��ӂɂ��ʒi�̒�߂��Ȃ�����A�{���C�Z���X�Ɋ�Â��ĔЕz�����\�t�g�E�F�A�́A
- * �����َ����킸�A�����Ȃ�ۏ؂��������Ȃ��Ɍ���̂܂�
- * �Еz����܂��B
- * �{���C�Z���X�ł̌�����
- * �������K�肵�������ɂ��ẮA�{���C�Z���X���Q�Ƃ��Ă��������B
+ * 適用される法令または書面での合意により別段の定めがない限り、本ライセンスに基づいて頒布されるソフトウェアは、
+ * 明示黙示を問わず、いかなる保証も条件もなしに現状のまま
+ * 頒布されます。
+ * 本ライセンスでの権利と
+ * 制限を規定した文言については、本ライセンスを参照してください。
  *
 */
 
@@ -31,138 +31,138 @@ extern "C" {
 #endif
 
 /**
- * <android/native_activity.h> ����񋟂����l�C�e�B�u �A�N�e�B�r�e�B �C���^�[�t�F�C�X
- * �́A����̃C�x���g�����������Ƃ��ɃA�N�e�B�r�e�B�̃��C�� �X���b�h�ɂ���ČĂяo�����
- * �A�v���P�[�V��������̈�A�̃R�[���o�b�N�Ɋ�Â��Ă��܂��B
+ * <android/native_activity.h> から提供されるネイティブ アクティビティ インターフェイス
+ * は、特定のイベントが発生したときにアクティビティのメイン スレッドによって呼び出される
+ * アプリケーションからの一連のコールバックに基づいています。
  *
- * �܂�A�V�X�e���ɂ���ăA�v���P�[�V�����������I�������댯�����邽�߁A
- * �����X�̃R�[���o�b�N�����ۂ��Ă͂Ȃ�܂���B���̃v���O���~���O
- *  ���f���͒��ړI�ŃR���p�N�g�ł����A����I�ł��B
+ * つまり、システムによってアプリケーションが強制終了される危険があるため、
+ * これら個々のコールバックを拒否してはなりません。このプログラミング
+ *  モデルは直接的でコンパクトですが、制約的です。
  *
- * 'threaded_native_app' �ÓI���C�u�����́A�A�v���P�[�V������
- * ���ꎩ�̂̃��C�� �C�x���g ���[�v��ʂ̃X���b�h�Ɏ����ł���
- * �قȂ���s���f����񋟂���̂Ɏg�p����܂��B�ȉ��̂悤�Ɏ��s���܂��B
+ * 'threaded_native_app' 静的ライブラリは、アプリケーションが
+ * それ自体のメイン イベント ループを別のスレッドに実装できる
+ * 異なる実行モデルを提供するのに使用されます。以下のように実行します。
  *
- * 1/ �A�v���P�[�V�����́A�A�N�e�B�r�e�B���쐬���ꂽ�Ƃ��ɌĂяo�����
- *    "android_main()" �Ƃ������O�̊֐����A�A�N�e�B�r�e�B�̃��C�� �X���b�h�Ƃ�
- *    �قȂ�V�����X���b�h�ɒ񋟂���K�v������܂��B
+ * 1/ アプリケーションは、アクティビティが作成されたときに呼び出される
+ *    "android_main()" という名前の関数を、アクティビティのメイン スレッドとは
+ *    異なる新しいスレッドに提供する必要があります。
  *
- * 2/ android_main() �́A�A�v���P�[�V���������s����Ă��� 
- *     ANativeActivity �I�u�W�F�N�g �C���X�^���X�ȂǁA���̏d�v�ȃI�u�W�F�N�g�ւ̎Q�Ƃ��܂�
- *    �L���� "android_app" �\���̂ւ̃|�C���^�[���󂯎��܂��B
+ * 2/ android_main() は、アプリケーションが実行されている 
+ *     ANativeActivity オブジェクト インスタンスなど、他の重要なオブジェクトへの参照を含む
+ *    有効な "android_app" 構造体へのポインターを受け取ります。
  *
- * 3/ "android_app" �I�u�W�F�N�g�́A�ȉ��� 2 �̏d�v�ȃC�x���g�����Ƀ��b�X�����Ă��� 
- *    ALooper �C���X�^���X��ێ����܂��B
+ * 3/ "android_app" オブジェクトは、以下の 2 つの重要なイベントを既にリッスンしている 
+ *    ALooper インスタンスを保持します。
  *
- *      - �A�N�e�B�r�e�B ���C�t�T�C�N�� �C�x���g ("�ꎞ��~"�A"�ĊJ" �Ȃ�)�B�ȉ��� APP_CMD_XXX
- *        �錾���Q�Ƃ��Ă��������B
+ *      - アクティビティ ライフサイクル イベント ("一時停止"、"再開" など)。以下の APP_CMD_XXX
+ *        宣言を参照してください。
  *
- *      - �A�N�e�B�r�e�B�ɃA�^�b�`����Ă��� AInputQueue ����̓��̓C�x���g�B
+ *      - アクティビティにアタッチされている AInputQueue からの入力イベント。
  *
- *    �����͂��ꂼ��  LOOPER_ID_MAIN ����� LOOPER_ID_INPUT �Ƃ����l������ 
- *    ALooper_pollOnce �ɂ���ĕԂ���� ALooper ���ʎq��
- *    �Ή����Ă��܂��B
+ *    これらはそれぞれ  LOOPER_ID_MAIN および LOOPER_ID_INPUT という値を持つ 
+ *    ALooper_pollOnce によって返される ALooper 識別子に
+ *    対応しています。
  *
- *    ���q�l�̃A�v���P�[�V�����ł����� ALooper ���g�p���đ��̃t�@�C���L�q�q
- *    �����b�X���ł��܂��B�����̓R�[���o�b�N�x�[�X�ł��邩�A LOOPER_ID_USER �Ŏn�܂�
- *    ���ʎq��Ԃ����̂����ꂩ�ł��B
+ *    お客様のアプリケーションでも同じ ALooper を使用して他のファイル記述子
+ *    をリッスンできます。それらはコールバックベースであるか、 LOOPER_ID_USER で始まる
+ *    識別子を返すかのいずれかです。
  *
- * 4/ LOOPER_ID_MAIN �܂��� LOOPER_ID_INPUT �C�x���g���󂯎��Ƃ��ɂ͏��
- *    �Ԃ��ꂽ�f�[�^�� android_poll_source �\���̂��w���܂��B
- *    ������ process() �֐����Ăяo���A�C�x���g����������Ƃ��� android_app->onAppCmd
- *    ����� android_app->onInputEvent ��
- *    �Ăяo�����悤�ɓ��͂ł��܂��B
+ * 4/ LOOPER_ID_MAIN または LOOPER_ID_INPUT イベントを受け取るときには常に
+ *    返されたデータは android_poll_source 構造体を指します。
+ *    そこで process() 関数を呼び出し、イベントを処理するときに android_app->onAppCmd
+ *    および android_app->onInputEvent が
+ *    呼び出されるように入力できます。
  *
- *    �܂��́A�჌�x���֐����Ăяo���Ē��ڃf�[�^��
- *    �ǂݎ�����菈��������ł��܂��B���̕��@�ɂ��ẮA�O���[���� process_cmd() ������ process_input()
- *    �������m�F���܂��B
+ *    または、低レベル関数を呼び出して直接データを
+ *    読み取ったり処理したりできます。その方法については、グルー内の process_cmd() 実装と process_input()
+ *    実装を確認します。
  *
- * ���ׂĂ̎g�p�Ⴊ�܂܂�Ă��� NDK �ƃZ�b�g�� "native-activity" �Ƃ������O��
- * �T���v�����Q�Ƃ��Ă��������B����ɁANativeActivity �� JavaDoc ���Q�Ƃ��Ă��������B
+ * すべての使用例が含まれている NDK とセットの "native-activity" という名前の
+ * サンプルを参照してください。さらに、NativeActivity の JavaDoc も参照してください。
  */
 
 struct android_app;
 
 /**
- * �\�[�X���̃f�[�^�̏��������������Ƃ��� "outData" �Ƃ���
- * �Ԃ���� ALooper fd �Ɋ֘A�t�����Ă���f�[�^�B
+ * ソース内のデータの準備が完了したときに "outData" として
+ * 返される ALooper fd に関連付けられているデータ。
  */
 struct android_poll_source {
-    //���̃\�[�X�̎��ʎq�́ALOOPER_ID_MAIN �܂��� 
-    //LOOPER_ID_INPUT �ł��B
+    //このソースの識別子は、LOOPER_ID_MAIN または 
+    //LOOPER_ID_INPUT です。
     int32_t id;
 
-    // ���� ident �Ɋ֘A�t�����Ă��� android_app�B
+    // この ident に関連付けられている android_app。
     struct android_app* app;
 
-    //���̃\�[�X����̃f�[�^�̕W���v���Z�X�����s���邽�߂�
-    //�Ăяo���֐��B
+    //このソースからのデータの標準プロセスを実行するために
+    //呼び出す関数。
     void (*process)(struct android_app* app, struct android_poll_source* source);
 };
 
 /**
- * ����́A�X���b�h�����ꂽ�A�v���P�[�V�����̕W���O���[ �R�[�h�Ɏg�p����
- * �C���^�[�t�F�C�X�ł��B���̃��f���ł́A�A�v���P�[�V�����̃R�[�h���v���Z�X�̃��C�� �X���b�h�Ƃ�
- * �قȂ邻�ꎩ�̂̃X���b�h�Ŏ��s����Ă��܂��B
- * ���̃X���b�h�� Java VM �Ɗ֘A�t�����Ă���K�v
- * �͂���܂��񂪁AJNI ���C�ӂ� Java �I�u�W�F�N�g
- * ���Ăяo���ۂɂ͂��������K�v������܂��B
+ * これは、スレッド化されたアプリケーションの標準グルー コードに使用する
+ * インターフェイスです。このモデルでは、アプリケーションのコードがプロセスのメイン スレッドとは
+ * 異なるそれ自体のスレッドで実行されています。
+ * このスレッドは Java VM と関連付けられている必要
+ * はありませんが、JNI が任意の Java オブジェクト
+ * を呼び出す際にはそうされる必要があります。
  */
 struct android_app {
-    //�K�؂ȏꍇ�ɂ́A�A�v���P�[�V�����͂��̏�ԃI�u�W�F�N�g�Ƀ|�C���^�[�����킹�邱�Ƃ�
-    //�ł��܂��B
+    //適切な場合には、アプリケーションはその状態オブジェクトにポインターを合わせることが
+    //できます。
     void* userData;
 
-    //���C�� �A�v�� �R�}���h (APP_CMD_*) ���������邽�߂̊֐�����͂��܂�
+    //メイン アプリ コマンド (APP_CMD_*) を処理するための関数を入力します
     void (*onAppCmd)(struct android_app* app, int32_t cmd);
 
-    //���̓C�x���g���������邽�߂̊֐�����͂��܂��B�����_��
-    // �C�x���g�͊��Ƀf�B�X�p�b�`����Ă���A�Ԃ����Ƃ��ɂ͊������Ă��܂��B
-    // �C�x���g�������������Ƃ�����ꍇ�� 1 ��Ԃ��A���ׂĂ̊���̃f�B�X�p�b�`�ɂ��Ă�
-    // 0 ��Ԃ��܂��B
+    //入力イベントを処理するための関数を入力します。現時点で
+    // イベントは既にディスパッチされており、返されるときには完了しています。
+    // イベントを処理したことがある場合は 1 を返し、すべての既定のディスパッチについては
+    // 0 を返します。
     int32_t (*onInputEvent)(struct android_app* app, AInputEvent* event);
 
-    // ���̃A�v�������s����Ă��� ANativeActivity �I�u�W�F�N�g �C���X�^���X�B
+    // このアプリが実行されている ANativeActivity オブジェクト インスタンス。
     ANativeActivity* activity;
 
-    // ���̃A�v�������s����Ă��錻�݂̍\���B
+    // このアプリが実行されている現在の構成。
     AConfiguration* config;
 
-    // ���ꂪ�쐬���Ɏw�肳�ꂽ�Ō�̃C���X�^���X�̕ۑ��̏�Ԃł��B
-    // ��Ԃ��Ȃ��ꍇ�� NULL �ł��B�K�v�ɉ����Ďg�p�ł��܂��B
-    //�������[�́A��������ʒu�� APP_CMD_RESUME �ɑ΂��� android_app_exec_cmd()
-    // ���Ăяo���܂ŕێ�����AsavedState �� NULL �ɐݒ肳��܂��B
-    // �����̕ϐ��́ANULL �ɏ����������ʒu�� APP_CMD_SAVE_STATE ��
-    //��������ꍇ�ɂ̂ݕύX�����K�v������A��Ԃ� malloc �ɂ���
-    //���������ɔz�u���܂��B�������邱�ƂŁA��Ń������[��
-    //�������܂��B
+    // これが作成時に指定された最後のインスタンスの保存の状態です。
+    // 状態がない場合は NULL です。必要に応じて使用できます。
+    //メモリーは、解放される位置で APP_CMD_RESUME に対して android_app_exec_cmd()
+    // を呼び出すまで保持され、savedState は NULL に設定されます。
+    // これらの変数は、NULL に初期化される位置で APP_CMD_SAVE_STATE を
+    //処理する場合にのみ変更される必要があり、状態を malloc にして
+    //情報をここに配置します。そうすることで、後でメモリーが
+    //解放されます。
     void* savedState;
     size_t savedStateSize;
 
-    // �A�v���̃X���b�h�Ɋ֘A�t�����Ă��� ALooper�B
+    // アプリのスレッドに関連付けられている ALooper。
     ALooper* looper;
 
-    // ���ꂪ�ANULL �ȊO�̏ꍇ�ɃA�v�������[�U�[���̓C�x���g��
-    // ��M������̓L���[�ł��B
+    // これが、NULL 以外の場合にアプリがユーザー入力イベントを
+    // 受信する入力キューです。
     AInputQueue* inputQueue;
 
-    // ���ꂪ�ANULL �ȊO�̏ꍇ�ɃA�v�����`��ł���E�B���h�E��ʂł��B
+    // これが、NULL 以外の場合にアプリが描画できるウィンドウ画面です。
     ANativeWindow* window;
 
-    // �E�B���h�E�̌��݂̃R���e���c�̈�́A���[�U�[�ɑ΂��ĕ\�������
-    // �E�B���h�E�̃R���e���c���z�u�����ꏊ�ł��B
+    // ウィンドウの現在のコンテンツ領域は、ユーザーに対して表示される
+    // ウィンドウのコンテンツが配置される場所です。
     ARect contentRect;
 
-    // �A�v���̃A�N�e�B�r�e�B�̌��݂̏�Ԃ́AAPP_CMD_START�A
-    // APP_CMD_RESUME�AAPP_CMD_PAUSE�A�܂��� APP_CMD_STOP �̂����ꂩ�ł��B�ȉ����Q�Ƃ��Ă��������B
+    // アプリのアクティビティの現在の状態は、APP_CMD_START、
+    // APP_CMD_RESUME、APP_CMD_PAUSE、または APP_CMD_STOP のいずれかです。以下を参照してください。
     int activityState;
 
-    // ����́A�A�v���P�[�V������ NativeActivity �̔j���������
-    // �A�v�� �X���b�h�̊����̑ҋ@���̓[���ȊO�ɂȂ�܂��B
+    // これは、アプリケーションの NativeActivity の破棄中および
+    // アプリ スレッドの完了の待機中はゼロ以外になります。
     int destroyRequested;
 
     // -------------------------------------------------
-    // �ȉ��̓O���[ �R�[�h�� "�l" �̎����ł��B
+    // 以下はグルー コードの "個人" の実装です。
 
     pthread_mutex_t mutex;
     pthread_cond_t cond;
@@ -186,154 +186,154 @@ struct android_app {
 
 enum {
     /**
-     * �A�v���̃��C�� �X���b�h����擾�����R�}���h�� Looper �f�[�^ ID �ł��B
-     * ����� ALooper_pollOnce() ����̎��ʎq�Ƃ��ĕԂ���܂��B���̎��ʎq�̃f�[�^�́A
-     * android_poll_source �\���̂ւ̃|�C���^�[�ł��B
-     * ������ android_app_read_cmd()
-     * ����� android_app_exec_cmd() �Ŏ擾���A�����ł��܂��B
+     * アプリのメイン スレッドから取得したコマンドの Looper データ ID です。
+     * これは ALooper_pollOnce() からの識別子として返されます。この識別子のデータは、
+     * android_poll_source 構造体へのポインターです。
+     * これらは android_app_read_cmd()
+     * および android_app_exec_cmd() で取得し、処理できます。
      */
     LOOPER_ID_MAIN = 1,
 
     /**
-     * �A�v���P�[�V�����̃E�B���h�E�� AInputQueue ����擾�����C�x���g�� Looper �f�[�^ ID �ł��B
-     * ����� ALooper_pollOnce() �����
-     * ���ʎq�Ƃ��ĕԂ���܂��B���̎��ʎq�̃f�[�^��
-     * android_poll_source �\���̂ւ̃|�C���^�[�ł��B������ android_app �� inputQueue �I�u�W�F�N�g
-     * ����ǂݎ��܂��B
+     * アプリケーションのウィンドウの AInputQueue から取得したイベントの Looper データ ID です。
+     * これは ALooper_pollOnce() からの
+     * 識別子として返されます。この識別子のデータは
+     * android_poll_source 構造体へのポインターです。これらは android_app の inputQueue オブジェクト
+     * から読み取れます。
      */
     LOOPER_ID_INPUT = 2,
 
     /**
-     * ���[�U�[��`���ꂽ ALooper �̍ŏ��̎��ʎq�B
+     * ユーザー定義された ALooper の最初の識別子。
      */
     LOOPER_ID_USER = 3,
 };
 
 enum {
     /**
-     * ���C�� �X���b�h����̃R�}���h: AInputQueue ���ύX����܂����B���̃R�}���h�̏����̍ہA
-     * android_app->inputQueue �͐V�����L���[ (�܂��� NULL)
-     * �ɍX�V����܂��B
+     * メイン スレッドからのコマンド: AInputQueue が変更されました。このコマンドの処理の際、
+     * android_app->inputQueue は新しいキュー (または NULL)
+     * に更新されます。
      */
     APP_CMD_INPUT_CHANGED,
 
     /**
-     * ���C�� �X���b�h����̃R�}���h: �V���� ANativeWindow ���g�p���鏀�����ł��܂����B���̃R�}���h����M����ہA
-     * android_app->window �ɐV�����E�B���h�E��ʂ�
-     * �܂܂�܂��B
+     * メイン スレッドからのコマンド: 新しい ANativeWindow を使用する準備ができました。このコマンドを受信する際、
+     * android_app->window に新しいウィンドウ画面が
+     * 含まれます。
      */
     APP_CMD_INIT_WINDOW,
 
     /**
-     * ���C�� �X���b�h����̃R�}���h: ������ ANativeWindow ���I������K�v��
-     * ����܂��B���̃R�}���h����M����ۂɂ� android_app->window �ɂ͈�������
-     * �����̃E�B���h�E���܂܂�Ă���Aandroid_app_exec_cmd
- ���Ăяo�������    * NULL �ɐݒ肳��܂��B
+     * メイン スレッドからのコマンド: 既存の ANativeWindow を終了する必要が
+     * あります。このコマンドを受信する際にも android_app->window には引き続き
+     * 既存のウィンドウが含まれており、android_app_exec_cmd
+ を呼び出した後に    * NULL に設定されます。
      */
     APP_CMD_TERM_WINDOW,
 
     /**
-     * ���C�� �X���b�h����̃R�}���h: ���݂� ANativeWindow �̃T�C�Y���ύX����܂����B
-     * �V�����T�C�Y���g�p���čĕ`�悵�Ă��������B
+     * メイン スレッドからのコマンド: 現在の ANativeWindow のサイズが変更されました。
+     * 新しいサイズを使用して再描画してください。
      */
     APP_CMD_WINDOW_RESIZED,
 
     /**
-     * ���C�� �X���b�h����̃R�}���h: ���̃V�X�e���ł́A���݂� ANativeWindow ���ĕ`��
-     * �����K�v������܂��B�ꎞ�I�ȕ`��̕s���������邽�߂ɂ́Aandroid_app_exec_cmd() 
-     * �ɓn���O�ɃE�B���h�E���ĕ`�悷��K�v������܂��B
+     * メイン スレッドからのコマンド: このシステムでは、現在の ANativeWindow が再描画
+     * される必要があります。一時的な描画の不具合を回避するためには、android_app_exec_cmd() 
+     * に渡す前にウィンドウを再描画する必要があります。
      */
     APP_CMD_WINDOW_REDRAW_NEEDED,
 
     /**
-     * ���C�� �X���b�h����̃R�}���h: �E�B���h�E�̃R���e���c�̈悪�ύX (�\���܂��͔�\��
-     * �̃\�t�g���̓E�B���h�E�Ȃǂ���) ����܂����B�V�����R���e���c�̈�́A
-     * android_app::contentRect �ɂ���܂��B
+     * メイン スレッドからのコマンド: ウィンドウのコンテンツ領域が変更 (表示または非表示
+     * のソフト入力ウィンドウなどから) されました。新しいコンテンツ領域は、
+     * android_app::contentRect にあります。
      */
     APP_CMD_CONTENT_RECT_CHANGED,
 
     /**
-     * ���C�� �X���b�h����̃R�}���h: �A�v���̃A�N�e�B�r�e�B �E�B���h�E�����̓t�H�[�J�X
-     * ���擾���܂����B
+     * メイン スレッドからのコマンド: アプリのアクティビティ ウィンドウが入力フォーカス
+     * を取得しました。
      */
     APP_CMD_GAINED_FOCUS,
 
     /**
-     * ���C�� �X���b�h����̃R�}���h: �A�v���̃A�N�e�B�r�e�B �E�B���h�E�����̓t�H�[�J�X
-     * �������܂����B
+     * メイン スレッドからのコマンド: アプリのアクティビティ ウィンドウが入力フォーカス
+     * を失いました。
      */
     APP_CMD_LOST_FOCUS,
 
     /**
-     * ���C�� �X���b�h����̃R�}���h: ���݂̃f�o�C�X�\�����ύX����܂����B
+     * メイン スレッドからのコマンド: 現在のデバイス構成が変更されました。
      */
     APP_CMD_CONFIG_CHANGED,
 
     /**
-     * ���C�� �X���b�h����̃R�}���h: �V�X�e�� ���������s�����Ă��܂��B
-     * �������̎g�p�ʂ����炵�Ă��������B
+     * メイン スレッドからのコマンド: システム メモリが不足しています。
+     * メモリの使用量を減らしてください。
      */
     APP_CMD_LOW_MEMORY,
 
     /**
-     * ���C�� �X���b�h����̃R�}���h: �A�v���̃A�N�e�B�r�e�B���J�n����܂����B
+     * メイン スレッドからのコマンド: アプリのアクティビティが開始されました。
      */
     APP_CMD_START,
 
     /**
-     * ���C�� �X���b�h����̃R�}���h: �A�v���̃A�N�e�B�r�e�B���ĊJ����܂����B
+     * メイン スレッドからのコマンド: アプリのアクティビティが再開されました。
      */
     APP_CMD_RESUME,
 
     /**
-     * ���C�� �X���b�h����̃R�}���h: �K�v�ɉ����Č�ŕ����ł���悤�ɁA�A�v����
-     * �V�����ۑ���Ԃ𐶐�����K�v������܂��B��Ԃ�ۑ������ꍇ��
-     * malloc �����蓖�āAandroid_app.savedStateSize �̃T�C�Y�� 
-     * android_app.savedState �ɔz�u���܂��B��ŉ��
-     * ����܂��B
+     * メイン スレッドからのコマンド: 必要に応じて後で復元できるように、アプリが
+     * 新しい保存状態を生成する必要があります。状態を保存した場合は
+     * malloc を割り当て、android_app.savedStateSize のサイズで 
+     * android_app.savedState に配置します。後で解放
+     * されます。
      */
     APP_CMD_SAVE_STATE,
 
     /**
-     * ���C�� �X���b�h����̃R�}���h: �A�v���̃A�N�e�B�r�e�B���ꎞ��~���܂����B
+     * メイン スレッドからのコマンド: アプリのアクティビティが一時停止しました。
      */
     APP_CMD_PAUSE,
 
     /**
-     * ���C�� �X���b�h����̃R�}���h: �A�v���̃A�N�e�B�r�e�B����~���܂����B
+     * メイン スレッドからのコマンド: アプリのアクティビティが停止しました。
      */
     APP_CMD_STOP,
 
     /**
-     * ���C�� �X���b�h����̃R�}���h: �A�v���̃A�N�e�B�r�e�B���j������Ă���A
-     * ���s����O�ɁA�A�v�� �X���b�h���N���[�� �A�b�v���ďI������̂�ҋ@���Ă��܂��B
+     * メイン スレッドからのコマンド: アプリのアクティビティが破棄されており、
+     * 続行する前に、アプリ スレッドがクリーン アップして終了するのを待機しています。
      */
     APP_CMD_DESTROY,
 };
 
 /**
- * ALooper_pollAll() �� LOOPER_ID_MAIN ��Ԃ��ۂɌĂяo���A����
- * �A�v�� �R�}���h ���b�Z�[�W��ǂݎ��܂��B
+ * ALooper_pollAll() が LOOPER_ID_MAIN を返す際に呼び出し、次の
+ * アプリ コマンド メッセージを読み取ります。
  */
 int8_t android_app_read_cmd(struct android_app* android_app);
 
 /**
- * �w�肳�ꂽ�R�}���h�̍ŏ��̃v���v���Z�b�T�����s����ɂ́Aandroid_app_read_cmd()
- * ����Ԃ��ꂽ�R�}���h���g�p���ČĂяo���܂��B���̊֐����Ăяo������ɁA
- * ���̃R�}���h�ɑ΂���Ǝ��̃A�N�V���������s�ł��܂��B
+ * 指定されたコマンドの最初のプリプロセッサを実行するには、android_app_read_cmd()
+ * から返されたコマンドを使用して呼び出します。この関数を呼び出した後に、
+ * そのコマンドに対する独自のアクションを実行できます。
  */
 void android_app_pre_exec_cmd(struct android_app* android_app, int8_t cmd);
 
 /**
- * �w�肳�ꂽ�R�}���h�̍Ō�̌㏈�������s����ɂ́Aandroid_app_read_cmd()
- * ����Ԃ��ꂽ�R�}���h���g�p���ČĂяo���܂��B���̊֐����Ăяo���O�ɁA���̃R�}���h��
- * �΂���Ǝ��̃A�N�V���������s����Ă���K�v������܂��B
+ * 指定されたコマンドの最後の後処理を実行するには、android_app_read_cmd()
+ * から返されたコマンドを使用して呼び出します。この関数を呼び出す前に、そのコマンドに
+ * 対する独自のアクションが実行されている必要があります。
  */
 void android_app_post_exec_cmd(struct android_app* android_app, int8_t cmd);
 
 /**
- * ���ꂪ�A�A�v���P�[�V���� �R�[�h����������K�v�̂���֐��ł���A
- * �A�v���ւ̃��C�� �G���g���������Ă��܂��B
+ * これが、アプリケーション コードが実装する必要のある関数であり、
+ * アプリへのメイン エントリを示しています。
  */
 extern void android_main(struct android_app* app);
 
