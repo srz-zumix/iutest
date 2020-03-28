@@ -26,5 +26,5 @@ linter:
     linelength: 150
     extensions: "c,cpp"
     headers: "h,hpp,ipp"
-  remark-lint:
+  remark_lint:
     ext: md
