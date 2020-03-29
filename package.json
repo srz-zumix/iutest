@@ -1,12 +1,12 @@
 {
   "name": "iutest",
   "version": "1.0.0",
-  "description": "",
-  "dependencies": {},
   "devDependencies": {
     "eclint": "^2.8.1",
     "editorconfig-checker": "^3.0.0",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "remark-lint": "^6.0.6",
+    "remark-preset-lint-recommended": "^3.0.4"
   },
   "scripts": {
     "lint:editorconfig": "npm-run-all eclint eccheck",
@@ -15,7 +15,13 @@
     "eclint": "npm-run-all eclint:*",
     "eclint:src": "eclint check ./src",
     "eclint:include": "find ./include -type f -not -name iutest_ver.hpp | xargs eclint check -s 2",
-    "eclint:root": "find . -maxdepth 1 -type f | xargs eclint check"
+    "eclint:root": "find . -maxdepth 1 -type f | xargs eclint check",
+    "lint-md": "remark ."
+  },
+  "remarkConfig": {
+    "plugins": [
+      "remark-preset-lint-recommended"
+    ]
   },
   "repository": {
     "type": "git",
