@@ -5,8 +5,17 @@ linter:
     glob: '**/*.{css,scss}'
   goodcheck:
     config: ./.ci/goodcheck.yml
+  cppcheck:
+    std: "c++11"
   cpplint:
-    filter: "-readability/braces\
+    filter: "-build/c++11\
+      ,-build/c++tr1\
+      ,-build/header_guard\
+      ,-readability/braces\
+      ,-readability/todo\
+      ,-runtime/int\
+      ,-runtime/references\
+      ,-runtime/string\
       ,-whitespace/braces\
       ,-whitespace/comments\
       ,-whitespace/indent\
@@ -17,4 +26,5 @@ linter:
     linelength: 150
     extensions: "c,cpp"
     headers: "h,hpp,ipp"
-
+  remark_lint:
+    ext: md
