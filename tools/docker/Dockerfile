@@ -8,7 +8,7 @@ LABEL maintainer "srz_zumix <https://github.com/srz-zumix>"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update -q -y && \
-    apt-get install -y --no-install-recommends software-properties-common && \
+    apt-get install -y --no-install-recommends software-properties-common apt-transport-https && \
     apt-get update -q -y && \
     apt-get install -y \
         wget vim iputils-ping curl \
