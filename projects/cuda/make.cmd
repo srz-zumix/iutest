@@ -9,10 +9,10 @@ SET PATH=%CUDA_PATH%\bin;%PATH%
 
 rem VC
 for %%v in (%VCLIST%) do (
-	if not %%v == "" (
-		call :vcenv %%v
-		if not errorlevel 1 goto build
-	)
+    if not %%v == "" (
+        call :vcenv %%v
+        if not errorlevel 1 goto build
+    )
 )
 
 @echo visual studio not installed.

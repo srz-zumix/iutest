@@ -26,7 +26,7 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-	IUTEST_INIT(&argc, argv);
-	return IUTEST_RUN_ALL_TESTS();
+    IUTEST_INIT(&argc, argv);
+    return IUTEST_RUN_ALL_TESTS();
 }
 
