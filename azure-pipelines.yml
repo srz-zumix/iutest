@@ -37,6 +37,7 @@ pr:
       - master
       - develop
       - feature/*
+      - fix/*
 
 stages:
   - stage: Precheck

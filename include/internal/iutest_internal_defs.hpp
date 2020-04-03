@@ -325,10 +325,11 @@ inline ::std::string GetTypeName()
 
 #if IUTEST_HAS_HDR_CXXABI
     using abi::__cxa_demangle;
+    char buf[1024];
+    size_t size = sizeof(buf);
     int status=1;
-    char* const read_name = __cxa_demangle(name, 0, 0, &status);
+    char* const read_name = __cxa_demangle(name, buf, &size, &status);
     ::std::string str(status == 0 ? read_name : name);
-    free(read_name);
     return str;
 #else
     return name;
