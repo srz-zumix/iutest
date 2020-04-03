@@ -330,7 +330,6 @@ inline ::std::string GetTypeName()
     int status=1;
     char* const read_name = __cxa_demangle(name, buf, &size, &status);
     ::std::string str(status == 0 ? read_name : name);
-    free(read_name);
     return str;
 #else
     return name;
