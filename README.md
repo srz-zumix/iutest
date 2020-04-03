@@ -70,7 +70,7 @@ Platforms
 
 * Windows
 * Linux
-* Mac OS
+* MacOS
 * FreeBSD
 * Cygwin
 * MinGW
