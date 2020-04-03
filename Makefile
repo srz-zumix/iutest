@@ -9,5 +9,5 @@
 fused:
 	make -C tools/fused
 
-editorconfig:
+editorconfig-self-lint:
 	make -C tools/python editorconfig
