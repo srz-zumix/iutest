@@ -10,5 +10,5 @@ sample: $(TOOLS) Makefile
 clean:
 	rm -rf pp_inc.h
 
-editorconfig:
-	python editorconfig-lint.py ../../.editorconfig
+editorconfig-self-lint:
+	python editorconfig-self-lint.py ../../.editorconfig
