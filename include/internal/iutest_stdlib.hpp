@@ -145,13 +145,11 @@
 #    endif
 #endif
 
-#if   IUTEST_HAS_VARIADIC_TEMPLATES
-#  if !defined(IUTEST_HAS_STD_TUPLE)
-#    define IUTEST_HAS_STD_TUPLE          1
-#  endif
-#elif (!defined(__CUDACC__) && !defined(__ARMCC_VERSION) && (IUTEST_LIBSTDCXX_VERSION >= 40000))
-#  if !defined(IUTEST_HAS_TR1_TUPLE)
-#    define IUTEST_HAS_TR1_TUPLE          1
+#if !defined(IUTEST_HAS_STD_TUPLE)
+#  if (!defined(__CUDACC__) && !defined(__ARMCC_VERSION) && (IUTEST_LIBSTDCXX_VERSION >= 40000))
+#    if !defined(IUTEST_HAS_TR1_TUPLE)
+#      define IUTEST_HAS_TR1_TUPLE          1
+#    endif
 #  endif
 #endif
 
@@ -231,10 +229,12 @@
 #if defined(__has_include)
 #  if !defined(IUTEST_HAS_STD_TUPLE) && __has_include( <tuple> )
 #    define IUTEST_HAS_STD_TUPLE          1
-#  endif
-#  if !defined(IUTEST_HAS_TR1_TUPLE) && __has_include( <tr1/tuple> )
+#  elif !defined(IUTEST_HAS_TR1_TUPLE) && __has_include( <tr1/tuple> )
 #    define IUTEST_HAS_TR1_TUPLE          1
 #  endif
+#endif
+
+#if defined(__has_include)
 #  if !defined(IUTEST_HAS_HDR_CXXABI) && __has_include( <cxxabi.h> )
 #    define IUTEST_HAS_HDR_CXXABI         1
 #  endif
