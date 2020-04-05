@@ -137,6 +137,14 @@
 #endif
 
 // tuple
+#  if !defined(IUTEST_HAS_STD_TUPLE)
+#    if defined(__has_include)
+#      if __has_include( <tuple> )
+#        define IUTEST_HAS_STD_TUPLE      1
+#      endif
+#    endif
+#endif
+
 #if   IUTEST_HAS_VARIADIC_TEMPLATES
 #  if !defined(IUTEST_HAS_STD_TUPLE)
 #    define IUTEST_HAS_STD_TUPLE          1
