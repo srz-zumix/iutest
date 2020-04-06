@@ -49,7 +49,7 @@ cirrus_osx_17_test_task:
 cirrus_freebsd_clang_test_task:
   only_if: *default-condition
   freebsd_instance:
-    image: freebsd-11-2-release-amd64
+    image: freebsd-12-1-snap
   env:
     matrix:
       - STDFLAG: -std=c++14
