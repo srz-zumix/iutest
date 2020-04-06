@@ -24,7 +24,7 @@ cirrus_osx_14_test_task: &osx_task
   only_if: *default-condition
   auto_cancellation: true
   osx_instance:
-    image: mojave-xcode
+    image: catalina-xcode
   env:
     - STDFLAG: -std=c++14
   version_script: make -C test showcxxversion
