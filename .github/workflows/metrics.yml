@@ -4,6 +4,19 @@ on:
     branches:
       - master
       - develop
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - '*.yml'
+      - '.circleci/**'
+      - '.semaphore/**'
+      - 'docs/**'
+      - 'projects/**'
+      - 'samples/**'
+      - 'src/**'
+      - 'test/**'
+      - 'tools/**'
+      - 'utils/**'
 
 jobs:
   prepare:
