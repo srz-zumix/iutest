@@ -80,51 +80,51 @@
 #if IUTEST_HAS_CXX11
 #  if IUTEST_LIBSTDCXX_VERSION >= 60100
 #    if !defined(IUTEST_HAS_STD_INVOKE) && IUTEST_HAS_CXX1Z
-#      define IUTEST_HAS_STD_INVOKE       1
+#      define IUTEST_HAS_STD_INVOKE         1
 #    endif
 #  endif
 #  if IUTEST_LIBSTDCXX_VERSION >= 50100
 #    if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
-#      define IUTEST_HAS_CXX_HDR_CODECVT  1
+#      define IUTEST_HAS_CXX_HDR_CODECVT    1
 #    endif
 #  endif
 #  if IUTEST_LIBSTDCXX_VERSION >= 40900
 #    if !defined(IUTEST_HAS_CXX_HDR_REGEX)
-#      define IUTEST_HAS_CXX_HDR_REGEX    1
+#      define IUTEST_HAS_CXX_HDR_REGEX      1
 #    endif
 #  endif
 #  if IUTEST_LIBSTDCXX_VERSION >= 40700
 #    if !defined(IUTEST_HAS_STD_EMPLACE)
-#      define IUTEST_HAS_STD_EMPLACE      1
+#      define IUTEST_HAS_STD_EMPLACE        1
 #    endif
 #    if !defined(IUTEST_HAS_CXX_HDR_CHRONO)
-#      define IUTEST_HAS_CXX_HDR_CHRONO   1
+#      define IUTEST_HAS_CXX_HDR_CHRONO     1
 #    endif
 #  endif
 #  if IUTEST_LIBSTDCXX_VERSION >= 40600
 #    if !defined(IUTEST_HAS_STD_BEGIN_END)
-#      define IUTEST_HAS_STD_BEGIN_END    1
+#      define IUTEST_HAS_STD_BEGIN_END      1
 #    endif
 #  endif
 #  if IUTEST_LIBSTDCXX_VERSION >= 40500
 #    if !defined(IUTEST_HAS_STD_DECLVAL)
-#      define IUTEST_HAS_STD_DECLVAL      1
+#      define IUTEST_HAS_STD_DECLVAL        1
 #    endif
 #    if !defined(IUTEST_HAS_CXX_HDR_RANDOM)
-#      define IUTEST_HAS_CXX_HDR_RANDOM   1
+#      define IUTEST_HAS_CXX_HDR_RANDOM     1
 #    endif
 #    if !defined(IUTEST_HAS_CXX_HDR_CSTDINT)
-#      define IUTEST_HAS_CXX_HDR_CSTDINT  1
+#      define IUTEST_HAS_CXX_HDR_CSTDINT    1
 #    endif
 #  endif
 #  if IUTEST_LIBSTDCXX_VERSION >= 40300
 #    if !defined(IUTEST_HAS_CXX_HDR_ARRAY)
-#      define IUTEST_HAS_CXX_HDR_ARRAY    1
+#      define IUTEST_HAS_CXX_HDR_ARRAY      1
 #    endif
 #  endif
 #  if defined(_GLIBCXX_HAVE_QUICK_EXIT) && defined(_GLIBCXX_HAVE_AT_QUICK_EXIT)
 #    if !defined(IUTEST_HAS_STD_QUICK_EXIT)
-#      define IUTEST_HAS_STD_QUICK_EXIT   1
+#      define IUTEST_HAS_STD_QUICK_EXIT     1
 #    endif
 #  endif
 #  if defined(__has_include)
@@ -136,13 +136,14 @@
 #  endif
 #endif
 
+// c++11 or later
+#if IUTEST_HAS_CXX11 && defined(__has_include)
+
 // tuple
-#  if !defined(IUTEST_HAS_STD_TUPLE)
-#    if defined(__has_include)
-#      if __has_include( <tuple> )
-#        define IUTEST_HAS_STD_TUPLE      1
-#      endif
-#    endif
+#if !defined(IUTEST_HAS_STD_TUPLE) && __has_include( <tuple> )
+#  define IUTEST_HAS_STD_TUPLE              1
+#endif
+
 #endif
 
 #if !defined(IUTEST_HAS_STD_TUPLE)
@@ -156,10 +157,10 @@
 #if !defined(IUTEST_HAS_HDR_CXXABI)
 #  if   defined(__has_include)
 #    if __has_include( <cxxabi.h> )
-#      define IUTEST_HAS_HDR_CXXABI       1
+#      define IUTEST_HAS_HDR_CXXABI         1
 #    endif
 #  else
-#    define IUTEST_HAS_HDR_CXXABI         1
+#    define IUTEST_HAS_HDR_CXXABI           1
 #  endif
 #endif
 
@@ -227,7 +228,7 @@
 
 // tuple
 #if defined(__has_include)
-#  if !defined(IUTEST_HAS_STD_TUPLE) && __has_include( <tuple> )
+#  if !defined(IUTEST_HAS_STD_TUPLE) && IUTEST_HAS_CXX11 && __has_include( <tuple> )
 #    define IUTEST_HAS_STD_TUPLE          1
 #  elif !defined(IUTEST_HAS_TR1_TUPLE) && __has_include( <tr1/tuple> )
 #    define IUTEST_HAS_TR1_TUPLE          1
