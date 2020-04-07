@@ -82,6 +82,34 @@ branches:
     - /fix.*/
     - /appveyor.*/
 
+skip_commits:
+  files:
+    - .circleci/
+    - .github/
+    - .semaphore/
+    - "*.md"
+    - docs/
+    - Jenkinsfile
+    - LICENSE
+    - .bandit
+    - .editorconfig
+    - .hadolint.yaml
+    - tox.ini
+    - azure-pipelines.yml
+    - bitrise.yml
+    - buddy.yml
+    - .circleci/*
+    - .cirrus.yml
+    - codecov.yml
+    - codefresh.yml
+    - .drone.yml
+    - .github/*
+    - .semaphore/*
+    - shippable.yml
+    - sider.yml
+    - .travis.yml
+    - wercker.yml
+
 # Do not build feature branch with open Pull Requests
 skip_branch_with_pr: true
 
