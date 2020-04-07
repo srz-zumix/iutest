@@ -634,6 +634,7 @@ namespace alias = ::std::tr1;
 #endif
 
 using alias::tuple;
+using alias::tuple_cat;
 using alias::tuple_element;
 using alias::make_tuple;
 using alias::get;
