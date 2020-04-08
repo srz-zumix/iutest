@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -634,7 +634,6 @@ namespace alias = ::std::tr1;
 #endif
 
 using alias::tuple;
-using alias::tuple_cat;
 using alias::tuple_element;
 using alias::make_tuple;
 using alias::get;

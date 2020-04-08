@@ -479,7 +479,7 @@ class iuCartesianProductGenerator : public iuIParamGenerator< tuples::tuple<Args
     tuples::tuple<T1, TArgs...> current_foreach(
         typename detail::enable_if<index != end-1, void>::type*& = detail::enabler::value ) const
     {
-        return tuples::tuple_cat( tuples::tuple<T1>(tuples::get<index>(v).GetCurrent())
+        return ::std::tuple_cat( tuples::tuple<T1>(tuples::get<index>(v).GetCurrent())
             , current_foreach<index+1, end, TArgs...>());
     }
     template<int index, int end, typename T1, typename ...TArgs>
@@ -1047,7 +1047,7 @@ private:
     static tuples::tuple<T1, TArgs...> MakeParam(ParamsTuple& list, const _MyParamIndexes& indexes
         , typename detail::disable_if<N == kRAW_COUNT -1, void>::type*& = detail::enabler::value)
     {
-        return tuples::tuple_cat( tuples::tuple<T1>(GetParam(tuples::get<N>(list), indexes, N))
+        return ::std::tuple_cat( tuples::tuple<T1>(GetParam(tuples::get<N>(list), indexes, N))
             , MakeParam<N+1, TArgs...>(list, indexes) );
     }
     template<int N, typename T1, typename... TArgs>
