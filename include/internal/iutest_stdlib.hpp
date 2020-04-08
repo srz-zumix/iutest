@@ -121,6 +121,9 @@
 #    if !defined(IUTEST_HAS_CXX_HDR_ARRAY)
 #      define IUTEST_HAS_CXX_HDR_ARRAY      1
 #    endif
+#    if !defined(IUTEST_HAS_STD_TUPLE)
+#      define IUTEST_HAS_STD_TUPLE          1
+#    endif
 #  endif
 #  if defined(_GLIBCXX_HAVE_QUICK_EXIT) && defined(_GLIBCXX_HAVE_AT_QUICK_EXIT)
 #    if !defined(IUTEST_HAS_STD_QUICK_EXIT)
@@ -134,16 +137,6 @@
 #      endif
 #    endif
 #  endif
-#endif
-
-// c++11 or later
-#if IUTEST_HAS_CXX11 && defined(__has_include)
-
-// tuple
-#if !defined(IUTEST_HAS_STD_TUPLE) && __has_include( <tuple> )
-#  define IUTEST_HAS_STD_TUPLE              1
-#endif
-
 #endif
 
 #if !defined(IUTEST_HAS_STD_TUPLE)
@@ -209,6 +202,9 @@
 #    if !defined(IUTEST_HAS_CXX_HDR_CUCHAR) && __has_include( <cuchar> )
 #      define IUTEST_HAS_CXX_HDR_CUCHAR   1
 #    endif
+#    if !defined(IUTEST_HAS_STD_TUPLE) && __has_include( <tuple> )
+#      define IUTEST_HAS_STD_TUPLE          1
+#    endif
 #  endif
 #endif
 
@@ -226,16 +222,10 @@
 #  endif
 #endif
 
-// tuple
 #if defined(__has_include)
-#  if !defined(IUTEST_HAS_STD_TUPLE) && IUTEST_HAS_CXX11 && __has_include( <tuple> )
-#    define IUTEST_HAS_STD_TUPLE          1
-#  elif !defined(IUTEST_HAS_TR1_TUPLE) && __has_include( <tr1/tuple> )
+#  if !defined(IUTEST_HAS_STD_TUPLE) && !defined(IUTEST_HAS_TR1_TUPLE) && __has_include( <tr1/tuple> )
 #    define IUTEST_HAS_TR1_TUPLE          1
 #  endif
-#endif
-
-#if defined(__has_include)
 #  if !defined(IUTEST_HAS_HDR_CXXABI) && __has_include( <cxxabi.h> )
 #    define IUTEST_HAS_HDR_CXXABI         1
 #  endif
