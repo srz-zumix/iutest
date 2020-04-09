@@ -1,5 +1,12 @@
 name: GitHub Actions - reviewdog
-on: [pull_request]
+on:
+  pull_request:
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - '*.yml'
+      - '.circleci/**'
+      - '.semaphore/**'
 
 jobs:
   cpplint:
