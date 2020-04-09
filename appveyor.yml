@@ -117,7 +117,7 @@ clone_depth: 1
 
 init:
   # RDP setup
-  ps: |
+  - ps: |
     $commit_message = $env:APPVEYOR_REPO_COMMIT_MESSAGE
     if($commit_message.Contains("[appveyor rdp]")) {
         iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
@@ -128,7 +128,7 @@ init:
     }
 
 before_build:
-  cmd: |
+  - cmd: |
       mkdir build && cd build
       cmake ../projects/cmake -G "%CMAKE_GENERATOR_NAME%" -A %PLATFORM% -Dbuild_gtest_samples=ON
       cd ..
@@ -139,11 +139,11 @@ build:
   verbosity: minimal
 
 test_script:
-  cmd: cd build && ctest -C %Configuration% -V
+  - cmd: cd build && ctest -C %Configuration% -V
 
 on_failure:
   # wait RDP connect
-  ps: |
+  - ps: |
     $commit_message = $env:APPVEYOR_REPO_COMMIT_MESSAGE
     if($commit_message.Contains("[appveyor rdp]")) {
       $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
