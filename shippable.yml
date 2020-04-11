@@ -2,7 +2,7 @@
 
 language: python
 
-python: 2.7
+python: 3.7
 cache: true
 parallelized_test: true
 
@@ -34,7 +34,8 @@ build:
 env:
   matrix:
     - WANDBOX_COMPILER=gcc-head
-    - WANDBOX_COMPILER=gcc-9.2.0
+    - WANDBOX_COMPILER=gcc-9.3.0
+    # - WANDBOX_COMPILER=gcc-9.2.0
     # - WANDBOX_COMPILER=gcc-9.1.0
     - WANDBOX_COMPILER=gcc-8.3.0
     # - WANDBOX_COMPILER=gcc-8.2.0
