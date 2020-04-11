@@ -89,6 +89,18 @@ int main(int argc, char* argv[])
         IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(type_param2)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
         FileIO::s_io.clear();
     }
+
+    ::iutest::IUTEST_FLAG(output) = "junit:test.xml";
+    {
+        const int ret = IUTEST_RUN_ALL_TESTS();
+
+        if( ret != 0 ) return 1;
+        ::std::string type_param1 = HackXmlGeneratorListener::EscapeXmlAttribute(iutest::detail::GetTypeName< ::iutest::Types<int, float> >());
+        ::std::string type_param2 = HackXmlGeneratorListener::EscapeXmlAttribute(iutest::detail::GetTypeName< AliasTestType >());
+        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(type_param1)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(type_param2)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        FileIO::s_io.clear();
+    }
     printf("*** Successful ***\n");
 #else
     (void)argc;
