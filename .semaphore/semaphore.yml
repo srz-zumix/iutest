@@ -14,7 +14,7 @@ global_job_config:
     - name: CLANG_VERSION
       value: "9"
     - name: INSATLL_CLANG_TOOLS
-      value: true
+      value: "true"
     - name: GCC_VERSION
       value: "7"
   prologue:
