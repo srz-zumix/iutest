@@ -40,8 +40,8 @@ blocks:
       prologue:
         commands:
           # - cache restore
-          - sudo ./.ci/linux/install-clang.sh
-          - sudo ./.ci/linux/install-gcc.sh
+          - ./.ci/linux/install-clang.sh
+          - ./.ci/linux/install-gcc.sh
       jobs:
         - name: minimum_tests
           commands:
