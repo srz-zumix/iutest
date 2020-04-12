@@ -1,13 +1,13 @@
 #!/bin/sh
 
-set -ex
+set -e
 
 if [ -z ${GCC_VERSION+x} ]; then
   echo "GCC_VERSION is empty. skip install gcc..."
   return
 fi
 
-sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test || true
 sudo apt-get -y update
 sudo apt-get -qq install g++-${GCC_VERSION}
 sudo update-alternatives --install /usr/bin/gcc gcc \
