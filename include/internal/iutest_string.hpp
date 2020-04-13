@@ -466,7 +466,7 @@ inline ::std::string StringFormat(const char* format, va_list va)
     size_t n = strlen(format) * 2 + 1;
     {
         va_list va2;
-        iu_va_copy(va2, va);
+        iu_va_copy(va2, va);    // cppcheck-suppress va_list_usedBeforeStarted
         const size_t ret = iu_vsnprintf(NULL, 0, format, va2);
         va_end(va2);
         if( ret > 0 )
@@ -478,7 +478,7 @@ inline ::std::string StringFormat(const char* format, va_list va)
     {
         char* dst = new char[n];
         va_list va2;
-        iu_va_copy(va2, va);
+        iu_va_copy(va2, va);    // cppcheck-suppress va_list_usedBeforeStarted
         const int written = iu_vsnprintf(dst, n, format, va2);
         va_end(va2);
         if( written < 0 )
