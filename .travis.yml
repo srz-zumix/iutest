@@ -126,10 +126,10 @@ env:
     - STDFLAG=-std=c++11
     - STDFLAG=
 
-  allow_failures:
-    - env:
-      - COVERITY_SCAN=1
-      - USE_LIBCXX=1
+allow_failures:
+  - env:
+    - COVERITY_SCAN=1
+    - USE_LIBCXX=1
 
 matrix:
   include:
