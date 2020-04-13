@@ -1,8 +1,12 @@
 # Usage
-# docker build tools/docker -t iutest
+# docker build tools/docker --build-arg VERSION=latest -t iutest
 # docker run -it -v $(pwd):/iutest iutest bash
 
-FROM ubuntu:xenial
+ARG VERSION=latest
+FROM ubuntu:$VERSION
+ARG VERSION
+ARG CLANG_VERSION=9
+RUN echo ${VERSION} > image_version
 
 LABEL maintainer "srz_zumix <https://github.com/srz-zumix>"
 
@@ -48,14 +52,15 @@ RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && \
                         --slave   /usr/bin/gcov gcov /usr/bin/gcov-8
 
 # clang
-RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
-    apt-add-repository "deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-9 main" && \
+RUN . /etc/os-release && \
+    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
+    apt-add-repository "deb http://apt.llvm.org/${VERSION_CODENAME}/ llvm-toolchain-${VERSION_CODENAME}-${CLANG_VERSION} main" && \
     apt-get update && \
-    apt-get install -y --no-install-recommends clang-9 && \
+    apt-get install -y --no-install-recommends clang-${CLANG_VERSION} && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-9 1000 \
-                        --slave   /usr/bin/clang clang /usr/bin/clang-9
+    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${CLANG_VERSION} 1000 \
+                        --slave   /usr/bin/clang clang /usr/bin/clang-${CLANG_VERSION}
 
 RUN mkdir /iutest
 VOLUME [ "/iutest" ]
