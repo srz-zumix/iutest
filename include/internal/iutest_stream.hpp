@@ -43,8 +43,6 @@ public:
         const size_t len = str.length();
         Write(str.c_str(), len, 1);
         return static_cast<int>(len);
-
-IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     }
 };
 
