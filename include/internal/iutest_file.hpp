@@ -204,6 +204,10 @@ public:
         {
             return false;
         }
+        if( fflush(m_fp) != 0 )
+        {
+            return false;
+        }
         return true;
     }
 
