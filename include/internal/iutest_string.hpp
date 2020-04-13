@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_string.hpp
- * @brief       iris unit test 文字列操作 ファイル
+ * @brief       iris unit test string utilities
  *
  * @author      t.shirayanagi
  * @par         copyright
@@ -466,11 +466,7 @@ inline ::std::string StringFormat(const char* format, va_list va)
     size_t n = strlen(format) * 2 + 1;
     {
         va_list va2;
-#ifdef va_copy
-        va_copy(va2, va);
-#else
-        va2 = va;
-#endif
+        iu_va_copy(va2, va);
         const size_t ret = iu_vsnprintf(NULL, 0, format, va2);
         va_end(va2);
         if( ret > 0 )
@@ -482,11 +478,7 @@ inline ::std::string StringFormat(const char* format, va_list va)
     {
         char* dst = new char[n];
         va_list va2;
-#ifdef va_copy
-        va_copy(va2, va);
-#else
-        va2 = va;
-#endif
+        iu_va_copy(va2, va);
         const int written = iu_vsnprintf(dst, n, format, va2);
         va_end(va2);
         if( written < 0 )

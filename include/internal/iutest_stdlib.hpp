@@ -804,6 +804,16 @@ using tuples::get;
 #  define IUPRzu  "zu"
 #endif
 
+#if !defined(iu_va_copy)
+#  if defined(va_copy)
+#    define iu_va_copy              va_copy
+#  elif defined(__GNUC__) || defined(__clang__)
+#    define iu_va_copy(dest, src)   __builtin_va_copy(dest, src)
+#  else
+#    define iu_va_copy(dest, src)   (dest = src)
+#  endif
+#endif
+
 namespace iutest {
 namespace detail
 {
