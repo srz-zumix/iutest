@@ -29,18 +29,12 @@ public:
     {
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
         char buf[4096] = { 0 };
-#ifdef va_copy
         va_list va2;
-        va_copy(va2, va);
+        iu_va_copy(va2, va);
         vsprintf(buf, fmt, va2);
         va_end(va2);
         m_log += buf;
         ::iutest::detail::iuConsole::nl_voutput(fmt, va);
-#else
-        vsprintf(buf, fmt, va);
-        m_log += buf;
-        ::iutest::detail::iuConsole::nl_output("%s", buf);
-#endif
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     }
     void clear(void) { m_log.clear(); }

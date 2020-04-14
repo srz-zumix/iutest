@@ -25,6 +25,8 @@ int main(int argc, char** argv)
 {
     IUTEST_INIT(&argc, argv);
 #if !defined(IUTEST_USE_GTEST)
+    ::iutest::IUTEST_FLAG(locale_ctype) = "";
+
     IUTEST_LOG_(INFO) << "a";
 
     ::iutest::IUTEST_FLAG(warning_into_error) = false;
