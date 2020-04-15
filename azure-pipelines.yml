@@ -6,6 +6,8 @@ trigger:
       - develop
       - azure-pipelines/*
       - azurepipelines/*
+      - feature/*
+      - fix/*
   paths:
     exclude:
       - "*.md"
@@ -36,8 +38,6 @@ pr:
     include:
       - master
       - develop
-      - feature/*
-      - fix/*
 
 stages:
   - stage: Precheck
