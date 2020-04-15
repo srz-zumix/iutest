@@ -28,7 +28,7 @@ steps:
   environment:
     GTEST_EXPECT_VERSION: 0x01100000
   commands: &gtest-compatible-commands
-    - "cp -R ./test ./${DRONE_STEP_NAME} && cd ${DRONE_STEP_NAME}"
+    - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
     - "make showcxxversion"
     - "make clean && make -j4 USE_GTEST=1             GTEST_EXPECT_VER=$${GTEST_EXPECT_VERSION} && make test"
     - "make clean && make -j4 USE_GTEST=1 USE_GMOCK=1 GTEST_EXPECT_VER=$${GTEST_EXPECT_VERSION} && make test"
@@ -157,7 +157,7 @@ steps:
   environment:
     GTEST_EXPECT_VERSION: 0x01100000
   commands: &gtest-version-detect-commands
-    - "cp -R ./test ./${DRONE_STEP_NAME} && cd ${DRONE_STEP_NAME}"
+    - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
     - "make showcxxversion"
     - "make clean && make USE_GTEST=1             GTEST_EXPECT_VER=$${GTEST_EXPECT_VERSION} gtest-version"
     - "make clean && make USE_GTEST=1 USE_GMOCK=1 GTEST_EXPECT_VER=$${GTEST_EXPECT_VERSION} gtest-version"
