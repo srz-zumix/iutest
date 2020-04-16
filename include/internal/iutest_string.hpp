@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_string.hpp
- * @brief       iris unit test 文字列操作 ファイル
+ * @brief       iris unit test string utilities
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -47,6 +47,7 @@ namespace detail
 {
 
 ::std::string StringFormat(const char* format, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 2);
+::std::string StringFormat(const char* format, va_list va) IUTEST_ATTRIBUTE_FORMAT_PRINTF(1, 0);
 
 namespace wrapper
 {
@@ -143,13 +144,16 @@ int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va) IUTEST_
 
 inline int iu_vsnprintf(char* dst, size_t size, const char* format, va_list va)
 {
-    char buffer[4096];
-    const int ret = vsprintf(buffer, format, va);
+    char buffer[4096] = {0};
+    char* write_buffer = dst != NULL && size >= 4096 ? dst : buffer;
+    const int ret = vsprintf(write_buffer, format, va);
     if( dst != NULL )
     {
         const size_t length = static_cast<size_t>(ret);
         const size_t write = (size <= length) ? size - 1 : length;
-        strncpy(dst, buffer, write);
+        if( write_buffer == buffer ) {
+            strncpy(dst, buffer, write);
+        }
         dst[write] = '\0';
     }
     return ret;
@@ -334,13 +338,6 @@ inline void StringSplit(const ::std::string& str, char delimiter, ::std::vector<
 template<typename T>
 inline ::std::string ToOctString(T value)
 {
-#if IUTEST_HAS_STD_TO_CHARS
-    const size_t kN = sizeof(T)*8;
-    char buf[kN] = { 0 };
-    const ::std::to_chars_result r = ::std::to_chars(buf, buf + kN, value, 8);
-    *r.ptr = '\0';
-    return buf;
-#else
     const size_t kB = sizeof(T) * 8;
     const size_t kN = (kB + 2) / 3;
     const size_t kD = kB - (kN - 1) * 3;
@@ -354,7 +351,6 @@ inline ::std::string ToOctString(T value)
     }
     buf[kN] = '\0';
     return buf;
-#endif
 }
 
 inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n)
@@ -365,13 +361,6 @@ inline IUTEST_CXX_CONSTEXPR char ToHex(unsigned int n)
 template<typename T>
 inline ::std::string ToHexString(T value)
 {
-#if IUTEST_HAS_STD_TO_CHARS
-    const size_t kN = sizeof(T)*8;
-    char buf[kN] = { 0 };
-    const ::std::to_chars_result r = ::std::to_chars(buf, buf + kN, value, 16);
-    *r.ptr = '\0';
-    return buf;
-#else
     const size_t kN = sizeof(T)*2;
     char buf[kN + 1] = {0};
     for( size_t i=0; i < kN; ++i )
@@ -380,7 +369,6 @@ inline ::std::string ToHexString(T value)
     }
     buf[kN] = '\0';
     return buf;
-#endif
 }
 
 inline ::std::string FormatIntWidth2(int value)
@@ -397,7 +385,7 @@ template<typename T>
 ::std::string iu_to_string(const T& value)
 {
     const size_t kN = 128;
-    buf[kN] = { 0 };
+    char buf[kN] = { 0 };
     const ::std::to_chars_result r = ::std::to_chars(buf, buf + kN, value);
     *r.ptr = '\0';
     return buf;
@@ -467,12 +455,20 @@ inline ::std::string ShowStringQuoted(const ::std::string& str)
 
 inline ::std::string StringFormat(const char* format, ...)
 {
+    va_list va;
+    va_start(va, format);
+    ::std::string str = StringFormat(format, va);
+    va_end(va);
+    return str;
+}
+inline ::std::string StringFormat(const char* format, va_list va)
+{
     size_t n = strlen(format) * 2 + 1;
     {
-        va_list va;
-        va_start(va, format);
-        const size_t ret = iu_vsnprintf(NULL, 0, format, va);
-        va_end(va);
+        va_list va2;
+        iu_va_copy(va2, va);    // cppcheck-suppress va_list_usedBeforeStarted
+        const size_t ret = iu_vsnprintf(NULL, 0, format, va2);
+        va_end(va2);
         if( ret > 0 )
         {
             n = ret + 1;
@@ -481,10 +477,10 @@ inline ::std::string StringFormat(const char* format, ...)
     for( ;; )
     {
         char* dst = new char[n];
-        va_list va;
-        va_start(va, format);
-        const int written = iu_vsnprintf(dst, n, format, va);
-        va_end(va);
+        va_list va2;
+        iu_va_copy(va2, va);    // cppcheck-suppress va_list_usedBeforeStarted
+        const int written = iu_vsnprintf(dst, n, format, va2);
+        va_end(va2);
         if( written < 0 )
         {
 #if defined(EOVERFLOW)

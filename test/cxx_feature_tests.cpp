@@ -130,23 +130,23 @@ IUTEST(Variant, Compare)
 #if IUTEST_HAS_EXCEPTIONS
 struct AlwaysThrow
 {
-  AlwaysThrow() = default;
-  AlwaysThrow(const AlwaysThrow&)
-  {
-    throw std::exception();
-  }
-  AlwaysThrow(AlwaysThrow&&)
-  {
-    throw std::exception();
-  }
-  AlwaysThrow& operator=(const AlwaysThrow&)
-  {
-    throw std::exception();
-  }
-  AlwaysThrow& operator=(AlwaysThrow&&)
-  {
-    throw std::exception();
-  }
+    AlwaysThrow() = default;
+    AlwaysThrow(const AlwaysThrow &)
+    {
+        throw std::exception();
+    }
+    AlwaysThrow(AlwaysThrow &&)
+    {
+        throw std::exception();
+    }
+    AlwaysThrow &operator=(const AlwaysThrow &)
+    {
+        throw std::exception();
+    }
+    AlwaysThrow &operator=(AlwaysThrow &&)
+    {
+        throw std::exception();
+    }
 };
 #endif
 
@@ -232,6 +232,16 @@ IUTEST(Any, PrintTo)
 
 #endif
 
+IUTEST(FileSystem, Info)
+{
+#if defined(__cpp_lib_filesystem)
+    IUTEST_SUCCEED() << "__cpp_lib_filesystem: " << __cpp_lib_filesystem;
+#endif
+#if defined(__cpp_lib_experimental_filesystem)
+    IUTEST_SUCCEED() << "__cpp_lib_experimental_filesystem: " << __cpp_lib_experimental_filesystem;
+#endif
+}
+
 #if IUTEST_HAS_STD_FILESYSTEM
 
 IUTEST(FileSystem, PathCompare)
@@ -295,7 +305,7 @@ IUTEST(FileSystem, SpaceInfoPrintTo)
 IUTEST(FileSystem, DirectoryEntryCompare)
 {
     {
-        ::std::filesystem::path path = __FILE__;
+        ::std::filesystem::path path = ::std::filesystem::absolute(__FILE__);
         ::std::filesystem::directory_entry x = *::std::filesystem::directory_iterator(path.remove_filename());
         ::std::filesystem::directory_entry v1 = x;
         ::std::filesystem::directory_entry v2 = x;
@@ -306,7 +316,7 @@ IUTEST(FileSystem, DirectoryEntryCompare)
 IUTEST(FileSystem, DirectoryEntryPrintTo)
 {
     {
-        ::std::filesystem::path path = __FILE__;
+        ::std::filesystem::path path = ::std::filesystem::absolute(__FILE__);
         ::std::filesystem::path directory = path.remove_filename().append("testdata");
         PrintToLogChecker ck(directory.generic_string());
         ::std::filesystem::directory_entry x = *::std::filesystem::directory_iterator(directory);
@@ -317,7 +327,7 @@ IUTEST(FileSystem, DirectoryEntryPrintTo)
 IUTEST(FileSystem, DirectoryIteratorPrintTo)
 {
     {
-        ::std::filesystem::path path = __FILE__;
+        ::std::filesystem::path path = ::std::filesystem::absolute(__FILE__);
         ::std::filesystem::path directory = path.remove_filename().append("testdata");
         PrintToLogChecker ck(directory.generic_string());
         ::std::filesystem::directory_iterator x = ::std::filesystem::directory_iterator(directory);

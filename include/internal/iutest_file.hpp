@@ -204,6 +204,10 @@ public:
         {
             return false;
         }
+        if( fflush(m_fp) != 0 )
+        {
+            return false;
+        }
         return true;
     }
 
@@ -248,8 +252,7 @@ public:
         // FIXME: https://github.com/srz-zumix/iutest/issues/227
         return static_cast<size_t>(st.st_size);
 #else
-        IUTEST_UNUSED_VAR(fp);
-        return 0;
+        return GetSizeBySeekSet(fp);
 #endif
     }
     static size_t GetSizeBySeekSet(FILE* fp)

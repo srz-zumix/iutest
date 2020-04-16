@@ -2,9 +2,20 @@
 
 --------------------------------------------------
 
+## Changes for 1.17.1
+
+* New
+  * GTEST_SKIP 対応
+
+* Bug fixes
+  * いくつかの不具合を修正
+
+--------------------------------------------------
+
 ## Changes for 1.17.0
 
 * New
+  * ::std::string_view 対応
   * ::std::filesystem 対応
   * FreeBSD 対応
   * ALMOST_EQ アサーション を追加
@@ -15,6 +26,7 @@
   * Visual Studio 2019 対応
 
 * Changes
+  * 大きな配列/コンテナ/オブジェクトの pinter を修正
   * iutest_main で setlocale していたものを廃止
   * junit xml 出力で出力するテストが 0 だった場合にファイル書き出ししないように修正
   * CSV パラメータ生成でファイルオープン失敗した場合の警告レベルを FATAL から WARNING に変更
@@ -22,6 +34,7 @@
   * deprecated: IUTEST_USE_OWN_LIST
 
 * Bug fixes
+  * いくつかの不具合を修正
 
 --------------------------------------------------
 
@@ -29,7 +42,7 @@
 
 * Improved
   * iuwandbox: コードサイズをさらに削減したヘッダーファイルに対応（--iutest-use-wandbox-min）
-  
+
 * Bug fixes
   * 古い google mock の互換性エラー修正
   * いくつかの不具合を修正
@@ -42,7 +55,7 @@
   * Matcher に (NanSensitive)FloatNear/DoubleNear を追加
   * Matcher に template 版の浮動小数点数比較を追加・(NanSensitive)FloatingPointEq/FloatingPointNear
   * long double に対応
-  
+
 * Changes
   * iuwandbox: -D__WANDBOX__ コンパイラーオプションを必ずつけるように変更
 

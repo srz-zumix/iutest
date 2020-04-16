@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -450,6 +450,12 @@ IUTEST(SyntaxTest, VariadicHResultFailed)
 
 #endif
 
+IUTEST(SyntaxTest, Skip)
+{
+    if( int x = 1 )
+        IUTEST_SKIP() << x;
+}
+
 IUTEST(SyntaxTest, Pred1)
 {
     if( int x=1 )
@@ -539,9 +545,11 @@ IUTEST(SyntaxTest, Matcher)
     int z=1;
     IUTEST_EXPECT_THAT(a, ::iutest::Contains(0));
     IUTEST_EXPECT_THAT(a, ::iutest::Contains(::iutest::Lt(10)));
+#if IUTEST_HAS_MATCHER_EACH
     IUTEST_EXPECT_THAT(a, ::iutest::Each(::iutest::Le(10)));
     IUTEST_EXPECT_THAT(a, ::iutest::Each(::iutest::_));
     IUTEST_EXPECT_THAT(a, ::iutest::Each(::iutest::A<int>()));
+#endif
     IUTEST_EXPECT_THAT(&x, ::iutest::Field(&X::a, 0));
     IUTEST_EXPECT_THAT(x, ::iutest::Field(&X::a, 0));
     IUTEST_EXPECT_THAT(&x, ::iutest::Property(&X::GetA, 0));
@@ -603,6 +611,7 @@ IUTEST(SyntaxTest, MatcherPredicate)
 
 IUTEST(SyntaxTest, AllOf)
 {
+#if IUTEST_HAS_MATCHER_VARIADIC
     IUTEST_EXPECT_THAT("9347812650", ::iutest::AllOf(
           ::iutest::HasSubstr("0")
         , ::iutest::HasSubstr("1")
@@ -613,11 +622,28 @@ IUTEST(SyntaxTest, AllOf)
         , ::iutest::HasSubstr("6")
         , ::iutest::HasSubstr("7")
         , ::iutest::HasSubstr("8")
+        , ::iutest::HasSubstr("9")
+        , ::iutest::HasSubstr("0")
     ));
+#else
+    IUTEST_EXPECT_THAT("9347812650", ::iutest::AllOf(
+          ::iutest::HasSubstr("0")
+        , ::iutest::HasSubstr("1")
+        , ::iutest::HasSubstr("2")
+        , ::iutest::HasSubstr("3")
+        , ::iutest::HasSubstr("4")
+        , ::iutest::HasSubstr("5")
+        , ::iutest::HasSubstr("6")
+        , ::iutest::HasSubstr("7")
+        , ::iutest::HasSubstr("8")
+        , ::iutest::HasSubstr("9")
+    ));
+#endif
 }
 
 IUTEST(SyntaxTest, AnyOf)
 {
+#if IUTEST_HAS_MATCHER_VARIADIC
     IUTEST_EXPECT_THAT("hoge7", ::iutest::AnyOf(
           ::iutest::HasSubstr("0")
         , ::iutest::HasSubstr("1")
@@ -628,7 +654,23 @@ IUTEST(SyntaxTest, AnyOf)
         , ::iutest::HasSubstr("6")
         , ::iutest::HasSubstr("7")
         , ::iutest::HasSubstr("8")
+        , ::iutest::HasSubstr("9")
+        , ::iutest::HasSubstr("0")
     ));
+#else
+    IUTEST_EXPECT_THAT("hoge7", ::iutest::AnyOf(
+          ::iutest::HasSubstr("0")
+        , ::iutest::HasSubstr("1")
+        , ::iutest::HasSubstr("2")
+        , ::iutest::HasSubstr("3")
+        , ::iutest::HasSubstr("4")
+        , ::iutest::HasSubstr("5")
+        , ::iutest::HasSubstr("6")
+        , ::iutest::HasSubstr("7")
+        , ::iutest::HasSubstr("8")
+        , ::iutest::HasSubstr("9")
+    ));
+#endif
 }
 
 #endif

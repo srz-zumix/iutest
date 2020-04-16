@@ -1,0 +1,48 @@
+name: GitHub Actions - metrics
+on:
+  push:
+    branches:
+      - master
+      - develop
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - '*.yml'
+      - '.circleci/**'
+      - '.semaphore/**'
+      - 'docs/**'
+      - 'projects/**'
+      - 'samples/**'
+      - 'src/**'
+      - 'test/**'
+      - 'tools/**'
+      - 'utils/**'
+
+jobs:
+  prepare:
+    runs-on: ubuntu-18.04
+    if: "! contains(github.event.head_commit.message, '[ci skip]') && ! contains(github.event.head_commit.message, '[skip ci]') "
+    steps:
+      - run: |
+          echo "${{ github.event.head_commit.message }}"
+
+  fused:
+    runs-on: ubuntu-18.04
+    needs: prepare
+    steps:
+    - uses: actions/checkout@master
+    - name: fused
+      id: fused
+      run: |
+        make -C tools/fused fused
+        echo "##[set-output name=size;]$(wc -c < fused-src/iutest.hpp)"
+        echo "##[set-output name=min_size;]$(wc -c < fused-src/iutest.min.hpp)"
+    - name: send metrics
+      run: |
+        curl \
+          -H "Content-Type: application/json" \
+          -X POST \
+          -d "{\"branch\": \"${GITHUB_REF#refs/heads/}\", \"commit\": \"${GITHUB_SHA}\", \"size\": \"${{ steps.fused.outputs.size }}\", \"min\": \"${{ steps.fused.outputs.min_size }}\"}" \
+          ${{ secrets.FUSED_METRICS_WEBHOOK }}
+
+

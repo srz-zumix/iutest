@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,6 +17,7 @@
 
 //======================================================================
 // include
+#include "iutest_compiler.hpp"
 #include "iutest_pp.hpp"
 
 //======================================================================
@@ -37,18 +38,6 @@
 
 #ifndef IUTEST_HAS_CXX_HDR_TYPE_TARITS
 #  define IUTEST_HAS_CXX_HDR_TYPE_TARITS         0
-#endif
-
-#ifndef IUTEST_HAS_RVALUE_REFS
-#  if   (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ > 2)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
-#    define IUTEST_HAS_RVALUE_REFS  1
-#  elif defined(_MSC_VER) && (_MSC_VER >= 1700)
-#    define IUTEST_HAS_RVALUE_REFS  1
-#  endif
-#endif
-
-#ifndef IUTEST_HAS_RVALUE_REFS
-#  define IUTEST_HAS_RVALUE_REFS    0
 #endif
 
 #if IUTEST_HAS_CXX_HDR_TYPE_TARITS
@@ -73,6 +62,9 @@ template<typename T>struct identity { typedef T type; };
 /**
  * @brief   enable_if
 */
+template<bool b, typename T = type_defined_void>
+struct enable_if;
+
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 template<bool B, typename T>
@@ -107,9 +99,6 @@ struct enable_if : public helper::enable_if_impl_<B>::template inner<T>
 };
 
 #endif
-
-template<bool b, typename T = type_defined_void>
-struct enable_if;
 
 template<class COND, typename T = type_defined_void>
 struct enable_if_t : public enable_if<COND::value, T> {};
@@ -164,7 +153,9 @@ using ::std::remove_volatile;
 using ::std::remove_reference;
 using ::std::remove_cv;
 using ::std::remove_pointer;
+using ::std::is_integral;
 using ::std::is_pointer;
+using ::std::is_reference;
 using ::std::is_void;
 using ::std::is_const;
 using ::std::is_same;
@@ -292,6 +283,96 @@ public:
 };
 
 #endif
+
+namespace is_integral_helper
+{
+
+/** @private */
+template<typename T>
+class is_integral : public false_type {};
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+template<typename T>
+class is_integral<const T> : public is_integral<T> {};
+template<typename T>
+class is_integral<volatile T> : public is_integral<T> {};
+template<typename T>
+class is_integral<const volatile T> : public is_integral<T> {};
+#endif
+
+template<>
+class is_integral<unsigned char> : public true_type {};
+template<>
+class is_integral<unsigned short> : public true_type {};
+template<>
+class is_integral<unsigned int> : public true_type {};
+template<>
+class is_integral<unsigned long> : public true_type {};
+
+template<>
+class is_integral<signed char> : public true_type {};
+template<>
+class is_integral<signed short> : public true_type {};
+template<>
+class is_integral<signed int> : public true_type {};
+template<>
+class is_integral<signed long> : public true_type {};
+
+#if 1
+template<>
+class is_integral<unsigned long long> : public true_type {};
+template<>
+class is_integral<signed long long> : public true_type {};
+#endif
+
+#if 1
+template<>
+class is_integral<wchar_t> : public true_type {};
+#endif
+
+#if IUTEST_HAS_CHAR16_T
+template<>
+class is_integral<char16_t> : public true_type {};
+#endif
+
+#if IUTEST_HAS_CHAR32_T
+template<>
+class is_integral<char32_t> : public true_type {};
+#endif
+
+template<>
+class is_integral<char> : public true_type {};
+template<>
+class is_integral<bool> : public true_type {};
+
+#if defined(_MSC_VER)
+template<>
+class is_integral<unsigned __int64> : public true_type {};
+template<>
+class is_integral<__int64> : public true_type {};
+#endif
+
+#if IUTEST_HAS_INT128
+#if defined(_MSC_VER)
+template<>
+class is_integral<unsigned __int128> : public true_type {};
+template<>
+class is_integral<__int128> : public true_type {};
+#else
+template<>
+class is_integral<__uint128_t> : public true_type {};
+template<>
+class is_integral<__int128> : public true_type {};
+#endif
+#endif
+
+}   // end of namespace is_integral_helper
+
+/**
+ * @brief   is_integral
+*/
+template<typename T>
+struct is_integral : public is_integral_helper::is_integral<T> {};
 
 namespace is_pointer_helper
 {

@@ -1,29 +1,65 @@
-on: push
 name: GitHub Actions
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - develop
+      - 'feature/**'
+      - 'fix/**'
+      - 'gh/**'
+      - 'github/**'
+      - 'githubactions/**'
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - '*.yml'
+      - '.circleci/**'
+      - '.semaphore/**'
+
 jobs:
-  basic-test:
+  prepare:
+    runs-on: ubuntu-18.04
+    if: "! contains(github.event.head_commit.message, '[ci skip]') && ! contains(github.event.head_commit.message, '[skip ci]') "
+    steps:
+      - run: |
+          echo "${{ github.event.head_commit.message }}"
+
+  llvm-basic-test:
     runs-on: windows-latest
+    needs: prepare
     steps:
     - uses: actions/checkout@master
     - name: choco-install
+      shell: cmd
       run: |
-        choco install -y llvm
+        choco install -y llvm || exit 1
         call refreshenv
     - name: llvm clang test
+      shell: cmd
       run: |
         set PATH=%PATH%;C:\Program Files\LLVM\bin
         make -C test clean
         make -C test CXX=clang++ CC=clang showcxxversion
+        make -C test CXX=clang++ CC=clang check_stdlib
         make -C test CXX=clang++ CC=clang -j8
         make -C test CXX=clang++ CC=clang test
+  mingw-basic-test:
+    runs-on: windows-latest
+    needs: prepare
+    steps:
+    - uses: actions/checkout@master
     - name: mingw test
+      shell: cmd
       run: |
         make -C test clean
         make -C test showcxxversion
+        make -C test check_stdlib
         make -C test -j8
         make -C test test
   arm-none-eabi:
     runs-on: ubuntu-18.04
+    needs: prepare
     steps:
     - uses: actions/checkout@master
     - name: arm-none-eabi
@@ -32,14 +68,14 @@ jobs:
         args: ./.github/actions/arm-none-eabi/build.sh
   lint-editorconfig:
     runs-on: ubuntu-18.04
+    needs: prepare
     steps:
     - uses: actions/checkout@master
+    - uses: actions/setup-node@v1
     - name: lint:editorconfig
-      uses: actions/npm@master
-      with:
-        entrypoint: bash
-        args: -c "apt-get update && apt-get install -y git && npm install && npm run
-          lint:editorconfig"
+      run: |
+        npm install
+        npm run lint:editorconfig
   iwyu:
     runs-on: ubuntu-18.04
     needs: lint-editorconfig
