@@ -36,6 +36,10 @@ blocks:
   #       commands:
   #         - cache store
   - name: tests
+    # skip:
+    #   when: "change_in(['/.circleci', '/.github', '/docs', '/*.md', '/*.yml', '/*.yaml', '/*.ini', '/LICENSE'])"
+    run:
+      when: "change_in(['/.ci', '/include', '/src', '/samples', '/test', './semaphore.yml'])"
     task:
       prologue:
         commands:
