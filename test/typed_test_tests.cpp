@@ -95,8 +95,8 @@ IUTEST_TYPED_TEST(MultiTypedTest, Get)
 #if IUTEST_HAS_STATIC_ASSERT_TYPEEQ
     ::iutest::StaticAssertTypeEq< Type1, int >();
 #endif
-    IUTEST_SUCCEED() << ::iutest::detail::GetTypeName< Type1 >();
-    IUTEST_SUCCEED() << ::iutest::detail::GetTypeName< Type2 >();
+    IUTEST_SUCCEED() << ::iutest::detail::GetTypeNameProxy< Type1 >::GetTypeName();
+    IUTEST_SUCCEED() << ::iutest::detail::GetTypeNameProxy< Type2 >::GetTypeName();
 }
 
 #endif
