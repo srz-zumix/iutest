@@ -1195,7 +1195,7 @@ public:
     {
         iu_global_format_stringstream strm;
         strm << "Field: " << m_expected;
-        //strm << "Field: (" << detail::GetTypeName<F>() << ") " << m_expected;
+        //strm << "Field: (" << detail::GetTypeNameProxy<F>::GetTypeName() << ") " << m_expected;
         return strm.str();
     }
 private:
@@ -1250,7 +1250,7 @@ public:
     {
         iu_global_format_stringstream strm;
         strm << "Property: " << m_expected;
-        //strm << "Property: (" << detail::GetTypeName<F>() << ") " << m_expected;
+        //strm << "Property: (" << detail::GetTypeNameProxy<F>::GetTypeName() << ") " << m_expected;
         return strm.str();
     }
 private:
@@ -1380,7 +1380,7 @@ public:
     {
         iu_global_format_stringstream strm;
         strm << "Result of: " << m_expected;
-        //strm << "Result of " << detail::GetTypeName<F>() << "(): " << m_expected;
+        //strm << "Result of " << detail::GetTypeNameProxy<F>::GetTypeName() << "(): " << m_expected;
         return strm.str();
     }
 private:
@@ -1481,7 +1481,7 @@ public:
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
-        strm << "A: " << detail::GetTypeName<T>();
+        strm << "A: " << detail::GetTypeNameProxy<T>::GetTypeName();
         return strm.str();
     }
 };

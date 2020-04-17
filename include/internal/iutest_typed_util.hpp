@@ -54,15 +54,34 @@ struct Types
 
 #undef IIUT_DECL_DEFAULT_ARG_
 
+#define IIUT_DECL_TYPES_CONCATTYPENAME_(i, param)  GetTypeNameProxy<IUTEST_PP_CAT(param, i)>::GetTypeName() + ", " +
+#define IIUT_DECL_TYPES_GETTYPENAME_I_(n, m)                        \
+        template<IUTEST_PP_ENUM_PARAMS(n, typename T)>struct        \
+            GetTypeNameProxy<Types< IUTEST_PP_ENUM_PARAMS(n, T)     \
+            , IUTEST_PP_ENUM(m, IIUT_DECL_SPEC_NONE_, detail::None)> > {  \
+            static ::std::string GetTypeName() {                    \
+                ::std::string name = "iutest::Types<";              \
+                name += IUTEST_PP_REPEAT(IUTEST_PP_DEC(n), IIUT_DECL_TYPES_CONCATTYPENAME_, T)      \
+                        GetTypeNameProxy<IUTEST_PP_CAT(T, IUTEST_PP_DEC(n))>::GetTypeName() + ">";  \
+                return name;                                        \
+            }                                                       \
+        }
+#define IIUT_DECL_TYPES_GETTYPENAME_(n, m)                          \
+    namespace detail {                                              \
+        IIUT_DECL_TYPES_GETTYPENAME_I_(n, m);                       \
+    }
+
 #define IIUT_DECL_SPEC_NONE_(i, param)  param
-#define IIUT_DECL_TYPES_(n, m)                              \
-    template< IUTEST_PP_ENUM_PARAMS(n, typename T) >        \
-    struct Types< IUTEST_PP_ENUM_PARAMS(n, T)               \
+#define IIUT_DECL_TYPES_(n, m)                                      \
+    IIUT_DECL_TYPES_GETTYPENAME_(n, m)                              \
+    template< IUTEST_PP_ENUM_PARAMS(n, typename T) >                \
+    struct Types< IUTEST_PP_ENUM_PARAMS(n, T)                       \
         , IUTEST_PP_ENUM(m, IIUT_DECL_SPEC_NONE_, detail::None) > { \
-        typedef IUTEST_PP_CAT(detail::TypeList, n)<         \
-            IUTEST_PP_ENUM_PARAMS(n, T) > type;             \
+        typedef IUTEST_PP_CAT(detail::TypeList, n)<                 \
+            IUTEST_PP_ENUM_PARAMS(n, T) > type;                     \
         template<size_t N>struct get : public detail::typelist_get<type, N> {}; \
     }
+
 
 template<>
 struct Types< IUTEST_PP_ENUM(50, IIUT_DECL_SPEC_NONE_, detail::None) >
@@ -120,6 +139,9 @@ IIUT_DECL_TYPES_(47,  3);
 IIUT_DECL_TYPES_(48,  2);
 IIUT_DECL_TYPES_(49,  1);
 
+#undef IIUT_DECL_TYPES_CONCATTYPENAME_
+#undef IIUT_DECL_TYPES_GETTYPENAME_I_
+#undef IIUT_DECL_TYPES_GETTYPENAME_
 #undef IIUT_DECL_SPEC_NONE_
 #undef IIUT_DECL_TYPES_
 

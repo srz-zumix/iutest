@@ -209,7 +209,7 @@ template<typename T>
 #if IUTEST_HAS_RTTI
     ::std::string name = MakeIndexTestName(basename, index);
     name += "/";
-    name += GetTypeName<T>();
+    name += GetTypeNameProxy<T>::GetTypeNameProxy();
     return name;
 #else
     return MakeIndexTestName(basename, index);
