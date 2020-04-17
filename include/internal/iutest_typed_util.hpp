@@ -54,9 +54,8 @@ struct Types
 
 #undef IIUT_DECL_DEFAULT_ARG_
 
-#define IIUT_DECL_TYPES_CONCATTYPENAME_(i, param)  GetTypeNameProxy<IUTEST_PP_CAT(param,i)>::GetTypeName() + ", " +
-#define IIUT_DECL_TYPES_GETTYPENAME_(n, m)                              \
-    namespace detail {                                              \
+#define IIUT_DECL_TYPES_CONCATTYPENAME_(i, param)  GetTypeNameProxy<IUTEST_PP_CAT(param, i)>::GetTypeName() + ", " +
+#define IIUT_DECL_TYPES_GETTYPENAME_I_(n, m)                        \
         template<IUTEST_PP_ENUM_PARAMS(n, typename T)>struct        \
             GetTypeNameProxy<Types< IUTEST_PP_ENUM_PARAMS(n, T)     \
             , IUTEST_PP_ENUM(m, IIUT_DECL_SPEC_NONE_, detail::None)> > {  \
@@ -66,7 +65,10 @@ struct Types
                         GetTypeNameProxy<IUTEST_PP_CAT(T, IUTEST_PP_DEC(n))>::GetTypeName() + ">";  \
                 return name;                                        \
             }                                                       \
-        };                                                          \
+        }
+#define IIUT_DECL_TYPES_GETTYPENAME_(n, m)                          \
+    namespace detail {                                              \
+        IIUT_DECL_TYPES_GETTYPENAME_I_(n, m);                       \
     }
 
 #define IIUT_DECL_SPEC_NONE_(i, param)  param
@@ -138,6 +140,7 @@ IIUT_DECL_TYPES_(48,  2);
 IIUT_DECL_TYPES_(49,  1);
 
 #undef IIUT_DECL_TYPES_CONCATTYPENAME_
+#undef IIUT_DECL_TYPES_GETTYPENAME_I_
 #undef IIUT_DECL_TYPES_GETTYPENAME_
 #undef IIUT_DECL_SPEC_NONE_
 #undef IIUT_DECL_TYPES_
