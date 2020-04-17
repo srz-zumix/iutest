@@ -120,7 +120,7 @@ jobs:
     <<: *default
     environment:
       CXX: clang++
-      CLANG_VERSION: "9"
+      CLANG_VERSION: "10"
       FAST_OPTIMIZE: -Ot
       MAKE_ADD_OPTION: CXXFLAGS=-ftime-trace
     steps: *build-test-steps
