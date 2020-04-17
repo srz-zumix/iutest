@@ -80,8 +80,10 @@ int main(int argc, char* argv[])
 #if OUTPUT_XML_TEST
     IUTEST_INIT(&argc, argv);
 
-    const ::std::string type_param1 = HackXmlGeneratorListener::EscapeXmlAttribute(iutest::detail::GetTypeNameProxy< ::iutest::Types<int, float> >::GetTypeName());
-    const ::std::string type_param2 = HackXmlGeneratorListener::EscapeXmlAttribute(iutest::detail::GetTypeNameProxy< AliasTestType >::GetTypeName());
+    const ::std::string type_param1 = iutest::detail::GetTypeNameProxy< ::iutest::Types<int, float> >::GetTypeName();
+    const ::std::string type_param2 = iutest::detail::GetTypeNameProxy< AliasTestType >::GetTypeName();
+    const ::std::string xml_type_param1 = HackXmlGeneratorListener::EscapeXmlAttribute(type_param1);
+    const ::std::string xml_type_param2 = HackXmlGeneratorListener::EscapeXmlAttribute(type_param2);
 
     ::iutest::IUTEST_FLAG(output) = "xml:test.xml";
     {
@@ -89,8 +91,8 @@ int main(int argc, char* argv[])
 
         if( ret != 0 ) return 1;
         IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("iutest::detail::None")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
-        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(type_param1)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
-        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(type_param2)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(xml_type_param1)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(xml_type_param2)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
         FileIO::s_io.clear();
     }
 
@@ -100,8 +102,8 @@ int main(int argc, char* argv[])
 
         if( ret != 0 ) return 1;
         IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("iutest::detail::None")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
-        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(type_param1)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
-        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(type_param2)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(xml_type_param1)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(xml_type_param2)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
         FileIO::s_io.clear();
     }
     printf("*** Successful ***\n");
