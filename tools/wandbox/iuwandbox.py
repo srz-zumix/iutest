@@ -749,19 +749,24 @@ def listup_options(compiler):
             if 'switches' in d:
                 switches = d['switches']
                 for s in switches:
-                    if 'options' in s:
-                        default_option = s['default']
-                        print(s['name'])
-                        for o in s['options']:
-                            if o['name'] == default_option:
-                                print('  ' + o['name'] + ' (default)')
+                    try:
+                        if 'options' in s:
+                            default_option = s['default']
+                            if 'name' in s:
+                                print(s['name'])
+                            for o in s['options']:
+                                if o['name'] == default_option:
+                                    print('  ' + o['name'] + ' (default)')
+                                else:
+                                    print('  ' + o['name'])
+                        elif 'name' in s:
+                            if s['default']:
+                                print(s['name'] + ' (default)')
                             else:
-                                print('  ' + o['name'])
-                    elif 'name' in s:
-                        if s['default']:
-                            print(s['name'] + ' (default)')
-                        else:
-                            print(s['name'])
+                                print(s['name'])
+                    except KeyError:
+                        print("unknown format:")
+                        print(s)
 
 
 def get_options(compiler):
