@@ -15,12 +15,13 @@ RUN apt-get update -q -y && \
     apt-get install -y --no-install-recommends software-properties-common apt-transport-https && \
     apt-get update -q -y && \
     apt-get install -y \
-        wget vim iputils-ping curl \
-        libsqlite3-dev libssl-dev libffi-dev libbz2-dev libreadline-dev \
-        python-openssl python-virtualenv \
-        git subversion \
-        doxygen graphviz \
-        build-essential gdb && \
+        make build-essential libssl-dev zlib1g-dev libbz2-dev \
+        libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+        xz-utils tk-dev libffi-dev liblzma-dev python-openssl git \
+        vim gdb iputils-ping \
+        python-virtualenv \
+        subversion \
+        doxygen graphviz && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
