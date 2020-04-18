@@ -1,0 +1,4 @@
+iutest:
+  build: ./tools/docker/
+  volumes:
+    - ./:/work
