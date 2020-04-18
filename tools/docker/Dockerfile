@@ -19,6 +19,7 @@ RUN apt-get update -q -y && \
         libsqlite3-dev libssl-dev libffi-dev \
         python-virtualenv \
         git subversion \
+        doxygen graphviz \
         build-essential gdb && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
