@@ -16,9 +16,10 @@ RUN apt-get update -q -y && \
     apt-get update -q -y && \
     apt-get install -y \
         wget vim iputils-ping curl \
-        libsqlite3-dev libssl-dev libffi-dev \
+        libsqlite3-dev libssl-dev libffi-dev libbz2-dev \
         python-virtualenv \
         git subversion \
+        doxygen graphviz \
         build-essential gdb && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
