@@ -764,7 +764,7 @@ def listup_options(compiler):
                                 print(s['name'] + ' (default)')
                             else:
                                 print(s['name'])
-                    except:
+                    except KeyError:
                         print("unknown format:")
                         print(s)
 
