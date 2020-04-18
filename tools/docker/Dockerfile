@@ -16,8 +16,8 @@ RUN apt-get update -q -y && \
     apt-get update -q -y && \
     apt-get install -y \
         wget vim iputils-ping curl \
-        libsqlite3-dev libssl-dev libffi-dev libbz2-dev \
-        python-virtualenv \
+        libsqlite3-dev libssl-dev libffi-dev libbz2-dev libreadline-dev \
+        python-openssl python-virtualenv \
         git subversion \
         doxygen graphviz \
         build-essential gdb && \
