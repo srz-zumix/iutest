@@ -362,6 +362,15 @@ IIUT_GeTypeNameSpecialization(bool)     // NOLINT
 
 #endif
 
+/**
+ * @brief   型名の取得
+*/
+template<typename T>
+struct GetTypeNameProxy
+{
+    static ::std::string    GetTypeName() { return detail::GetTypeName<T>(); }
+};
+
 }   // end of namespace detail
 }   // end of namespace iutest
 

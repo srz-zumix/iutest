@@ -43,7 +43,9 @@ public:
 template<IUTEST_PP_ENUM_SHIFTED_PARAMS(50, typename A)>
 struct TestType {};
 
-typedef TestType<IUTEST_PP_ENUM(50, IIUT_PP_REPEAT_PARAMS_MACRO_, iutest::detail::None)> AliasTestType;
+class TestNone {};
+
+typedef TestType<IUTEST_PP_ENUM(50, IIUT_PP_REPEAT_PARAMS_MACRO_, TestNone)> AliasTestType;
 
 IUTEST_FILESYSTEM_INSTANTIATE(FileIO);
 
@@ -78,15 +80,19 @@ int main(int argc, char* argv[])
 #if OUTPUT_XML_TEST
     IUTEST_INIT(&argc, argv);
 
+    const ::std::string type_param1 = iutest::detail::GetTypeNameProxy< ::iutest::Types<int, float> >::GetTypeName();
+    const ::std::string type_param2 = iutest::detail::GetTypeNameProxy< AliasTestType >::GetTypeName();
+    const ::std::string xml_type_param1 = HackXmlGeneratorListener::EscapeXmlAttribute(type_param1);
+    const ::std::string xml_type_param2 = HackXmlGeneratorListener::EscapeXmlAttribute(type_param2);
+
     ::iutest::IUTEST_FLAG(output) = "xml:test.xml";
     {
         const int ret = IUTEST_RUN_ALL_TESTS();
 
         if( ret != 0 ) return 1;
-        ::std::string type_param1 = HackXmlGeneratorListener::EscapeXmlAttribute(iutest::detail::GetTypeName< ::iutest::Types<int, float> >());
-        ::std::string type_param2 = HackXmlGeneratorListener::EscapeXmlAttribute(iutest::detail::GetTypeName< AliasTestType >());
-        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(type_param1)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
-        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(type_param2)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("iutest::detail::None")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(xml_type_param1)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(xml_type_param2)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
         FileIO::s_io.clear();
     }
 
@@ -95,10 +101,9 @@ int main(int argc, char* argv[])
         const int ret = IUTEST_RUN_ALL_TESTS();
 
         if( ret != 0 ) return 1;
-        ::std::string type_param1 = HackXmlGeneratorListener::EscapeXmlAttribute(iutest::detail::GetTypeName< ::iutest::Types<int, float> >());
-        ::std::string type_param2 = HackXmlGeneratorListener::EscapeXmlAttribute(iutest::detail::GetTypeName< AliasTestType >());
-        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(type_param1)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
-        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(type_param2)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_EQ(::std::string::npos, FileIO::s_io.find("iutest::detail::None")) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(xml_type_param1)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
+        IUTEST_ASSERT_NE(::std::string::npos, FileIO::s_io.find(xml_type_param2)) << FileIO::s_io << ::iutest::AssertionReturn<int>(1);
         FileIO::s_io.clear();
     }
     printf("*** Successful ***\n");
