@@ -25,6 +25,8 @@ trigger:
       - .cirrus.yml
       - codecov.yml
       - codefresh.yml
+      - codeship-services.yml
+      - codeship-steps.yml
       - .drone.yml
       - .github/*
       - .semaphore/*
