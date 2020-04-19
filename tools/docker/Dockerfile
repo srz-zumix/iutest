@@ -31,9 +31,9 @@ ENV PYENV_ROOT $HOME/.pyenv
 ENV PATH $HOME/.pyenv/shims:$HOME/.pyenv/bin:$PATH
 RUN wget https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer -O - | bash && \
     pyenv --version && \
-    pyenv install 3.5.2 && \
+    pyenv install 3.5.9 && \
     pyenv install 3.8.2
-RUN pyenv local 3.5.2 && \
+RUN pyenv local 3.5.9 && \
     pip install --upgrade pip && \
     pip install --upgrade setuptools tox requests && \
     pyenv local --unset
@@ -41,7 +41,7 @@ RUN pyenv local 3.8.2 && \
     pip install --upgrade pip && \
     pip install --upgrade setuptools tox requests && \
     pyenv local --unset
-RUN pyenv local 3.5.2 3.8.2 && \
+RUN pyenv local 3.5.9 3.8.2 && \
     pip install virtualenv
 
 # gcc
