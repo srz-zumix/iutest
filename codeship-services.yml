@@ -2,3 +2,4 @@ iutest:
   build: ./tools/docker/
   volumes:
     - ./:/work
+  cached: true
