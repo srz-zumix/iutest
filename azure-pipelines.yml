@@ -6,6 +6,8 @@ trigger:
       - develop
       - azure-pipelines/*
       - azurepipelines/*
+      - feature/*
+      - fix/*
   paths:
     exclude:
       - "*.md"
@@ -23,6 +25,8 @@ trigger:
       - .cirrus.yml
       - codecov.yml
       - codefresh.yml
+      - codeship-services.yml
+      - codeship-steps.yml
       - .drone.yml
       - .github/*
       - .semaphore/*
@@ -36,8 +40,6 @@ pr:
     include:
       - master
       - develop
-      - feature/*
-      - fix/*
 
 stages:
   - stage: Precheck
