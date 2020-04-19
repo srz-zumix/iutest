@@ -1,7 +1,7 @@
 iutest:
   build:
     image: codeship/iutest
-    dockerfile: ./tools/docker/
+    dockerfile: ./tools/docker/Dockerfile
   volumes:
     - ./:/work
   cached: true
