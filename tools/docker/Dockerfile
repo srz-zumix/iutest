@@ -10,6 +10,7 @@ RUN echo ${VERSION} > image_version
 
 LABEL maintainer "srz_zumix <https://github.com/srz-zumix>"
 
+ENV DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN apt-get update -q -y && \
     apt-get install -y --no-install-recommends software-properties-common apt-transport-https && \
