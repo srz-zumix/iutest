@@ -25,15 +25,6 @@ build:
   # Read more about steps on our dev center:
   # http://devcenter.wercker.com/docs/steps/index.html
   steps:
-    # A step that sets up the python virtual environment
-    # - virtualenv:
-    #     name: setup virtual environment
-
-    # # Use this virtualenv step for python 3.2
-    # - virtualenv
-    #     name: setup virtual environment
-    #     python_location: /usr/bin/python3.2
-
     # A step that executes `pip install` command.
     - pip-install:
         requirements_file: ""
@@ -59,9 +50,6 @@ build:
 
 wandbox:
   steps:
-    - virtualenv:
-        name: setup virtual environment
-
     - pip-install:
         requirements_file: ""
         packages_list: "requests"
@@ -97,9 +85,6 @@ wandbox:
 
 wandbox-all-compiler:
   steps:
-    - virtualenv:
-        name: setup virtual environment
-
     - pip-install:
         requirements_file: ""
         packages_list: "requests"
