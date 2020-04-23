@@ -20,15 +20,15 @@ steps:
         all:
           noSkipCiInCommitMessage1: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "skip ci") == false'
           noSkipCiInCommitMessage2: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "ci skip") == false'
-  BuildingDockerImage:
-    title: Building Docker Image
-    stage: build
-    type: build
-    image_name: srz-zumix/iutest
-    working_directory: ./
-    tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
-    dockerfile: ./tools/docker/Dockerfile
-    when: *skip_condition
+  # BuildingDockerImage:
+  #   title: Building Docker Image
+  #   stage: build
+  #   type: build
+  #   image_name: srz-zumix/iutest
+  #   working_directory: ./
+  #   tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
+  #   dockerfile: ./tools/docker/Dockerfile
+  #   when: *skip_condition
   PrepareUnitTests:
     title: Prepare
     stage: prepare
@@ -163,13 +163,13 @@ steps:
         # - name: RunningUnitTest_gcc7
         #   on:
         #     - success
-    on_success:
-      metadata:
-        set:
-          - '${{BuildingDockerImage.imageId}}':
-              - CF_QUALITY: true
-    on_fail:
-      metadata:
-        set:
-          - '${{BuildingDockerImage.imageId}}':
-              - CF_QUALITY: false
+    # on_success:
+    #   metadata:
+    #     set:
+    #       - '${{BuildingDockerImage.imageId}}':
+    #           - CF_QUALITY: true
+    # on_fail:
+    #   metadata:
+    #     set:
+    #       - '${{BuildingDockerImage.imageId}}':
+    #           - CF_QUALITY: false
