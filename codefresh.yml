@@ -24,7 +24,7 @@ steps:
     title: Building Docker Image
     stage: build
     type: build
-    image_name: srz-zumix/iutest
+    image_name: srz-zumix/iutest_dev_env
     working_directory: ./
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}'
     dockerfile: ./tools/docker/Dockerfile
