@@ -163,13 +163,13 @@ steps:
         # - name: RunningUnitTest_gcc7
         #   on:
         #     - success
-    on_success:
-      metadata:
-        set:
-          - '${{BuildingDockerImage.imageId}}':
-              - CF_QUALITY: true
-    on_fail:
-      metadata:
-        set:
-          - '${{BuildingDockerImage.imageId}}':
-              - CF_QUALITY: false
+    # on_success:
+    #   metadata:
+    #     set:
+    #       - '${{BuildingDockerImage.imageId}}':
+    #           - CF_QUALITY: true
+    # on_fail:
+    #   metadata:
+    #     set:
+    #       - '${{BuildingDockerImage.imageId}}':
+    #           - CF_QUALITY: false
