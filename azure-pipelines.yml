@@ -23,6 +23,7 @@ trigger:
       - buddy.yml
       - .circleci/*
       - .cirrus.yml
+      - .scrutinizer.yml
       - codecov.yml
       - codefresh.yml
       - codeship-services.yml
