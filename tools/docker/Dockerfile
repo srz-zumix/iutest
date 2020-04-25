@@ -20,13 +20,13 @@ RUN apt-get update -q -y && \
         libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
         xz-utils tk-dev libffi-dev liblzma-dev python-openssl git \
         vim gdb iputils-ping \
-        python-virtualenv \
-        subversion \
+        subversion python3.7 \
         doxygen graphviz && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # pyenv
+RUN pip install virtualenv virtualenvwrapper
 ENV PYENV_ROOT $HOME/.pyenv
 ENV PATH $HOME/.pyenv/shims:$HOME/.pyenv/bin:$PATH
 RUN wget https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer -O - | bash && \
