@@ -1,0 +1,711 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+  <title>iutest - 入門</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="content-style-type" content="text/css" />
+  <meta http-equiv="content-script-type" content="text/javascript" />
+
+  <link href="http://alexgorbatchev.com/pub/sh/current/styles/shCore.css" rel="stylesheet" type="text/css" />
+  <link href="http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+  <link href="css/doc.css" rel="stylesheet" type="text/css" />
+
+  <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js" type="text/javascript"></script>
+  <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushCpp.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    SyntaxHighlighter.all();
+  </script>
+</head>
+<body>
+
+<div class="contents">
+<h1>入門ガイド</h1>
+<ul>
+  <li><a href="#concept">コンセプト</a></li>
+  <li><a href="#difference">Google Test との違い</a>
+    <ul>
+      <li><a href="#diff_non">Google Test にあって iutest にない機能</a></li>
+      <li><a href="#diff_compat">iutest 拡張機能</a>
+        <ul>
+          <li><a href="#ext_assertion">アサーション</a>
+            <ul>
+              <li><a href="#ext_assert_ex">アサーションの拡張</a></li>
+              <li><a href="#ext_test_return">戻り値のある関数での ASSERT 使用</a></li>
+              <li><a href="#ext_assert_except">例外の値のアサーション</a></li>
+              <li><a href="#ext_assert_warn">警告アサーション</a></li>
+              <li><a href="#ext_assert_assume">前提条件アサーション</a></li>
+              <li><a href="#ext_assert_vs_ana">Visual Studio コード分析に対応</a></li>
+            </ul>
+          </li>
+          <li><a href="#ext_listener">イベントリスナー</a></li>
+          <li><a href="#ext_prod">Private コードのテスト</a></li>
+          <li><a href="#win_menu">Windows メニューへの登録ユーティリティ</a></li>
+        </ul>
+      </li>
+      <li><a href="#diff_orig">iutest 独自機能</a>
+        <ul>
+          <li><a href="#org_assertion">アサーション</a>
+            <ul>
+              <li><a href="#org_expr_assert">式アサーション</a></li>
+            </ul>
+          </li>
+          <li><a href="#org_test">テストの生成</a>
+            <ul>
+              <li><a href="#org_test_pmz">IUTEST_PMZ/IUTEST_PMZ_F</a></li>
+              <li><a href="#org_test_anyparam">テストフィクスチャの省略（IUTEST_P）</a></li>
+              <li><a href="#org_test_pairwise">Pairwise</a></li>
+              <li><a href="#org_test_randparam">乱数パラメータの生成</a></li>
+              <li><a href="#org_test_concatparam">パラメータの連結</a></li>
+              <li><a href="#org_test_csvparam">CSV ファイルからパラメータを生成</a></li>
+              <li><a href="#org_test_variadic">Variadic Templates の対応</a></li>
+              <li><a href="#org_test_package">パッケージ</a></li>
+              <li><a href="#org_test_japanese">日本語テスト名</a></li>
+            </ul>
+          </li>
+          <li><a href="#org_skip">テストのスキップ</a></li>
+          <li><a href="#org_listener">イベントリスナー</a></li>
+          <li><a href="#org_prod">Private コードのテスト</a></li>
+          <li><a href="#org_junitxml">junit 形式での出力</a></li>
+          <li><a href="#org_cmdline">コマンドラインオプション</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#switch">iutest / Google Test 切り替え</a>
+    <ul>
+      <li><a href="#switch_iutest">iutest モード</a></li>
+      <li><a href="#switch_gtest">Google Test モード</a></li>
+    </ul>
+  </li>
+  <li><a href="#filter">テストのフィルタリング</a>
+    <ul>
+      <li><a href="#filter_format">フォーマット</a></li>
+      <li><a href="#filter_exsample">例</a></li>
+      <li><a href="#filter_file">ファイルから指定</a></li>
+    </ul>
+  </li>
+  <li><a href="#matcher">Matcher</a>
+    <ul>
+      <li><a href="#matcher_summary">Matcher の概要</a></li>
+      <li><a href="#matcher_assertion">アサーション</a></li>
+      <li><a href="#matcher_matchers">Matcher の種類</a>
+      <!--
+        <ul>
+          <li><a href="#matcher_gernal">一般的な比較</a></li>
+          <li><a href="#matcher_float">浮動小数点 Matcher</a></li>
+          <li><a href="#matcher_string">文字列 Matcher</a></li>
+          <li><a href="#matcher_container">コンテナ Matcher</a></li>
+          <li><a href="#matcher_member">メンバー Matcher</a></li>
+        </ul>
+      -->
+      </li>
+    </ul>
+  </li>
+</ul>
+</div> <!-- end of contents -->
+
+<div class="contents">
+<h2><a name="concept" id="concept">コンセプト</a></h2>
+<div class="text_block">
+iutest の基本コンセプトは Google Test のそれと同じです。<br />
+ここでは、iutest 独自のコンセプトを上げます。<br />
+<ul>
+<li>include オンリーで使用できる<br />
+iutest は「簡単に」「すぐに」テストが書けることを目的としています。<br />
+そのため、ライブラリを作成しなくても include するだけで使用できるようにし、初期障壁をなくすようにしました。<br />
+<br />
+</li>
+<li>Google Test との互換性<br />
+iutest は、Google Test のインターフェイスを踏襲しています。<br />
+iutest では、 Googlet Test のマクロに IUTEST_ プリフィックスを付けた名前にしています。<br />
+( ASSERT_EQ &gt; IUTEST_ASSERT_EQ )<br />
+また、「Google Test のコードで iutest を利用する」、「iutest のコードで Google Test を利用する」ことができるように、<br />
+iutest_switch.hpp が用意されています。<br />
+</li>
+</ul>
+</div>
+</div> <!-- end of contents -->
+
+<div class="contents">
+<h2><a name="difference" id="difference">Google Test との違い</a></h2>
+<div class="text_block">
+<h3><a name="diff_non" id="diff_non">Google Test にあって iutest にない機能</a></h3>
+<ul>
+<li>Death Test</li>
+<li>スタックトレース</li>
+<li>スレッド対応</li>
+<li>etc...</li>
+</ul>
+<h3><a name="diff_compat" id="diff_compat">iutest 拡張機能</a></h3>
+こちらの機能は、iutest_switch.hpp を使用することで Google Test でも使用できるようになる機能です。<br />
+<ul>
+  <li><a name="ext_assertion" id="ext_assertion">アサーション</a>
+    <ul>
+      <li><a name="ext_assert_ex" id="ext_assert_ex">アサーションの拡張</a><br />
+      <ul>
+        <li>IUTEST_ASSERT_ALMOST_EQ</li>
+        <li>IUTEST_ASSERT_EQ_RANGE</li>
+        <li>IUTEST_ASSERT_EQ_COLLECTIONS</li>
+        <li>IUTEST_ASSERT_STRLNEQ</li>
+        <li>IUTEST_ASSERT_STRIN</li>
+        <li>IUTEST_ASSERT_NULL</li>
+        <li>IUTEST_ASSERT_NOTNULL</li>
+        <li>IUTEST_ASSERT_SAME</li>
+        <li>IUTEST_ASSERT_MATCHES_REGEXEQ</li>
+        <li>IUTEST_ASSERT_MATCHES_REGEXNE</li>
+        <li>IUTEST_ASSERT_CONTAINS_REGEXEQ</li>
+        <li>IUTEST_ASSERT_CONTAINS_REGEXNE</li>
+      </ul>
+      など<br />
+      <br />
+      </li>
+
+      <li><a name="ext_assert_except" id="ext_assert_except">例外の値のアサーション</a><br />
+      THROW,ANY_THROW,NO_THROW に加えて例外の値をテストするアサーションを追加しています。<br />
+<div class="source">
+<pre class="brush:cpp">
+IUTEST(Hoge, ThrowValue)
+{
+  IUTEST_ASSERT_THROW_VALUE_EQ(throw 2, int, 2);
+  IUTEST_ASSERT_THROW_VALUE_STREQ(throw "error", const char *, "error");
+}
+</pre>
+</div>
+      <br />
+      </li>
+
+      <li><a name="ext_test_return" id="ext_test_return">戻り値のある関数での ASSERT 使用</a><br />
+      基本的に IUTEST_ASSERT_* マクロは return 文でテストの中断を行なっています。<br />
+      そのため、戻り値の型が void でない関数では、IUTEST_ASSERT_* は使用できませんでした。<br />
+      iutest では ::iutest::AssertionReturn を使用することで、明示的に IUTEST_ASSERT_* マクロの戻り値型を変更できます。<br />
+      (gtest モードでも使用できるようになりました。)
+<div class="source">
+<pre class="brush:cpp">
+int ReturnTest(void)
+{
+    IUTEST_ASSERT_TRUE(true) &lt;&lt; ::iutest::AssertionReturn&lt;int&gt;(-1);
+    return 0;
+}
+</pre>
+</div>
+      <br />
+      </li>
+
+      <li><a name="ext_assert_warn" id="ext_assert_warn">警告アサーション</a><br />
+      Boost.Test の WARN フレーバーと同等のアサーションです。<br />
+      ログの出力はされますが、テスト失敗にはなりません。<br />
+<div class="source">
+<pre class="brush:cpp">
+IUTEST(Hoge, Inform)
+{
+  IUTEST_INFORM_TRUE(IsEven(2));
+}
+</pre>
+</div>
+      <br />
+      </li>
+
+      <li><a name="ext_assert_assume" id="ext_assert_assume">前提条件アサーション</a><br />
+      テストの前提条件を検証するためのアサーションです。<br />
+      この検証に失敗した場合、ログを出力してテストを即座に終了します。<br />
+      テスト失敗にはなりません。（iutest の場合はスキップになります。）<br />
+<div class="source">
+<pre class="brush:cpp">
+IUTEST(Hoge, Size)
+{
+  IUTEST_ASSUME_EQ(4, sizeof(int));
+}
+</pre>
+</div>
+      <br />
+      </li>
+
+      <li><a name="ext_assert_vs_ana" id="ext_assert_vs_ana">Visual Studio コード分析に対応</a><br />
+      コード分析では NULL ポインタ参照の可能性のあるコードに警告(C6011)が報告されます。<br />
+      下記のようなコードの場合、コード分析ツールに p が NULL でないことを __analysis_assume で教えることでより正しく分析されます。<br />
+<div class="source">
+<pre class="brush:cpp">
+IUTTEST(NullCheck, Sample)
+{
+    int* p = (int*)malloc(4);
+    IUTEST_ASSERT_TRUE(p != NULL);
+    __analysis_assume(p != NULL);
+    *p = 1;
+    IUTEST_ASSERT_EQ(1, *p);
+}
+</pre>
+</div>
+      しかし、このような __analysis_assume は冗長な記述です。<br />
+      iutest では、IUTEST_*_NOTNULL, IUTEST_*_NULL を使用することで、__analysis_assume の記述を省くことができます。<br />
+<div class="source">
+<pre class="brush:cpp">
+IUTEST(NullCheck, Sample)
+{
+    int* p = (int*)malloc(4);
+    IUTEST_ASSERT_NOTNULL(p);
+    *p = 1;
+    IUTEST_ASSERT_EQ(1, *p);
+}
+</pre>
+</div>
+      <br />
+      </li>
+    </ul>
+  </li>
+  <li><a name="ext_listener" id="ext_listener">イベントリスナー</a>
+    <ul>
+      <li>QuietResultPrinter<br />
+      成功時のテストログを出さないようにするイベントリスナーです。<br />
+      <br />
+      </li>
+    </ul>
+  </li>
+  <li><a name="ext_prod" id="ext_prod">Private コードのテスト</a>
+    <ul>
+      <li>IUTEST_FRIEND_TYPED_TEST<br />
+      TYPED_TEST に対しての friend 宣言をします。
+      <br />
+      </li>
+    </ul>
+  </li>
+  <li><a name="win_menu" id="win_menu">Windows メニューへの登録ユーティリティ</a>
+    <ul>
+      <li>util/iutest_util_menu.hpp<br />
+      Windows のメニューバーにテストの実行メニューを生成するユーティリティです。<br />
+      コマンドラインからの実行ではなく、GUI から任意のテストを実行できます。<br />
+      テストの自動化ではなく、ランチャーとしての利用を想定しています。
+      <br />
+      </li>
+    </ul>
+  </li>
+</ul>
+<h3><a name="diff_orig" id="diff_orig">iutest 独自機能</a></h3>
+こちらの機能は、iutest でのみ利用できる機能です。<br />
+<ul>
+  <li><a name="org_assertion" id="org_assertion">アサーション</a>
+    <ul>
+      <li><a name="org_expr_assert" id="org_expr_assert">式アサーション</a><br />
+      <ul>
+        <li>IUTEST_(ASSERT|EXPECT|INFORM|ASSUME) マクロ<br />
+        通常のアサーションではオペランドに合わせてマクロを変える必要がありましたが、式アサーションでは１つのマクロで記述できます。<br />
+<div class="source">
+<pre class="brush:cpp">
+int f() { return 42; }
+IUTEST(Test, Sample)
+{
+    IUTEST_ASSERT_EQ( 42, f() );
+    IUTEST_ASSERT_TRUE( f() == 42 );
+    IUTEST_ASSERT( f() == 42 );
+
+    IUTEST_ASSERT_LE( f(), 0 );
+    IUTEST_ASSERT_TRUE( f() &lt;= 0 );
+    IUTEST_ASSERT( f() &lt;= 0 );
+}
+</pre>
+</div>
+        IUTEST_ASSERT_TRUE を使用した場合と違い、式アサーションでは式を分解して値を出力します。<br />
+        IUTEST_ASSERT( f() &lt;= 0 ); は通常の出力に加えて "expansion: 42 &lt;= 0" と出力されます。<br />
+        <br />
+        </li>
+        <li>IUTEST_*_NOT マクロ<br />
+        式アサーションの偽条件マクロです。<br />
+        <br />
+        </li>
+        <li>||, &amp;&amp; による複合条件<br />
+        式アサーションの式の分解には制限があり、|| や &amp;&amp; で連結した以降の式は分解されません。<br />
+        iutest では式の展開を補助する２つのマクロを用意しています。<br />
+        IUTEST_OPERAND: <br />
+<div class="source">
+<pre class="brush:cpp">
+IUTEST(Test, Sample)
+{
+    IUTEST_ASSERT(f() &lt;= 0 IUTEST_OPERAND(||) f() &gt;= 100 );
+}
+</pre>
+</div>
+        IUTEST_EXPRESSION: <br />
+<div class="source">
+<pre class="brush:cpp">
+IUTEST(Test, Sample)
+{
+    IUTEST_ASSERT(f() &lt;= 0 || IUTEST_EXPRESSION(f() &gt;= 100) );
+    IUTEST_ASSERT(IUTEST_EXPRESSION(f() &lt;= 0) || IUTEST_EXPRESSION(f() &gt;= 100) );
+
+    IUTEST_ASSERT_TRUE(IUTEST_EXPRESSION(f() &lt;= 0) || IUTEST_EXPRESSION(f() &gt;= 100) );
+}
+</pre>
+</div>
+        IUTEST_OPERAND は || , &amp;&amp; を補助します。これは式アサーション専用のマクロになります。<br />
+        IUTEST_EXPRESSION は式を補助します。こちらは式アサーション以外（例えば IUTEST_ASSERT_TRUE）でも利用可能です。<br />
+        <br />
+        </li>
+      </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a name="org_test" id="org_test">テストの生成</a>
+    <ul>
+      <li><a name="org_test_pmz" id="org_test_pmz">IUTEST_PMZ/IUTEST_PMZ_F</a><br />
+      IUTEST_P とは違い、関数と引数を直指定するテストマクロです。<br />
+      IUTEST_P よりも直感的にテストが可能です。<br />
+<div class="source">
+<pre class="brush:cpp">
+void TestFunction(int x, int y)
+{
+    IUTEST_ASSERT_EQ(x, y);
+}
+IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 0, 0);
+IUTEST_PMZ(ParamMethodTest, EQ, TestFunction, 1, 1);
+</pre>
+</div>
+      <br />
+      </li>
+
+      <li><a name="org_test_anyparam" id="org_test_anyparam">テストフィクスチャの省略（IUTEST_P）</a><br />
+      iutest の値のパラメータ化テストでは、テストフィクスチャの定義が省略できます。<br />
+<div class="source">
+<pre class="brush:cpp">
+//class AnyParamtest : public ::iutest::TestWithParam&lt;int&gt; {}; // 不要
+IUTEST_P(AnyParamTest, Test)
+{
+    const int value = GetParam&lt;int&gt;();
+    IUTEST_ASSERT_EQ(0, value);
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_P(My1, AnyParamTest, ::iutest::Values(0));
+</pre>
+</div>
+      テストフィクスチャを省略した場合のパラメータ型は、::iutest::any になっています。<br />
+      パラメータの値を取り出す際は、template 版の GetParam を使用してください。<br />
+      ※template 版の GetParam は型安全でないキャストを行います。キャスト不可能な型にキャストしないよう十分に注意してください。<br />
+      型をチェックする場合は、非 template な GetParam を使用して any を取得し、 ::iutest::any_cast で目的の型にキャストしてください。<br />
+      <br />
+      </li>
+
+      <li><a name="org_test_pairwise" id="org_test_pairwise">Pairwise</a><br />
+      オールペア法による組み合わせの作成ができます。<br />
+<div class="source">
+<pre class="brush:cpp">
+IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
+    , ::iutest::Pairwise( ::iutest::Bool()
+        , ::iutest::Values(1, 2)
+        , ::iutest::Values(10, 11) ) );
+</pre>
+</div>
+      <br />
+      </li>
+
+      <li><a name="org_test_randparam" id="org_test_randparam">乱数パラメータの生成</a><br />
+      iutest ではランダムなパラメータを生成するためのジェネレータを用意しています。<br />
+<div class="source">
+<pre class="brush:cpp">
+IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
+    , ::iutest::RandomValues( 5 ) );
+</pre>
+</div>
+      RandomValues の第一引数にパラメータの総数を指定します。（第二引数に乱数シードを指定可能）<br />
+      <br />
+      また、特定の値を除いた乱数をパラメータにするなどフィルタリングにも対応しています。<br />
+      この場合、::iutest::ValuesGen と ::iutest::RandomGenerator を使用します。<br />
+<div class="source">
+<pre class="brush:cpp">
+bool Filter(int n) { return n != 100 &amp;&amp; n != 500 &amp;&amp; n != 1000; }
+IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
+    , ::iutest::ValuesGen( 5,  ::iutest::RandomGenerator&lt;int&gt;(&amp;Filter) ) );
+</pre>
+</div>
+      <br />
+      ※ これらのジェネレータは補助的なジェネレータです。ValuesIn に乱数を格納した vector などのコンテナを渡すことで実現可能です。<br />
+      <br />
+      </li>
+
+      <li><a name="org_test_concatparam" id="org_test_concatparam">パラメータの連結</a><br />
+      iutest では複数のパラメータの連結ができます。<br />
+      連結をすることにより、より複雑なパラメータでも簡単に生成することができます。<br />
+      連結をするには ::iutest::Concat もしくは operator + を使用します。<br />
+      <br />
+      ::iutest::Concat の場合<br />
+<div class="source">
+<pre class="brush:cpp">
+IUTEST_INSTANTIATE_TEST_CASE_P(A1, TestP
+    , ::iutest::Concat( ::iutest::Range(1, 10), ::iutest::Range(101, 110) ) );
+IUTEST_INSTANTIATE_TEST_CASE_P(A2, TestP
+    , ::iutest::Concat( ::iutest::Range(1, 10), ::iutest::Bool() ) );
+</pre>
+</div>
+      operator + の場合<br />
+<div class="source">
+<pre class="brush:cpp">
+IUTEST_INSTANTIATE_TEST_CASE_P(A1, TestP
+    , ::iutest::Range(1, 10)
+        + ::iutest::Range(101, 110) );
+IUTEST_INSTANTIATE_TEST_CASE_P(A2, TestP
+    , ::iutest::Range(1, 10)
+        + ::iutest::Bool()
+        + ::iutest::Values(99, 88, 77) ) );
+</pre>
+</div>
+      <br />
+      </li>
+
+      <li><a name="org_test_csvparam" id="org_test_csvparam">CSV ファイルからパラメータを生成</a><br />
+      CSV ファイルからパラメータを生成できます。<br />
+<div class="source">
+<pre class="brush:cpp">
+IUTEST_INSTANTIATE_TEST_CASE_P(I, TestI
+    , ::iutest::CSV&lt;int&gt;("intparams.csv") );
+IUTEST_INSTANTIATE_TEST_CASE_P(F, TestF
+    , ::iutest::CSV&lt;float&gt;("fparams.tsv", '\t') );
+</pre>
+</div>
+      ファイルからのパラメータは動的に生成されるため、実行ファイルを更新せずにパラメータだけ更新することが可能になります。<br />
+      </li>
+
+      <li><a name="org_test_variadic" id="org_test_variadic">Variadic Templates の対応</a><br />
+      C++11 Variadic Templates が利用可能な環境で、Variadic Templates に対応した Types,Values,Combine,Pairwise が利用可能です。<br />
+      <br />
+      </li>
+
+      <li><a name="org_test_package" id="org_test_package">パッケージ</a><br />
+      IUTEST_PACKAGE マクロを使うことで、名前空間をパッケージとして扱うことができます。<br />
+      通常の名前空間ではテスト名が衝突してしまい、出力 XML で区別がつかなくなってしまいますが、<br />
+      IUTEST_PACKAGE マクロを使うことで、名前空間名がパッケージ名としてテストケース名に追加され、区別できるようになります。<br />
+<div class="source">
+<pre class="brush:cpp">
+IUTEST_PACKAGE(TestPackageA)
+{
+  IUTEST(Test, Hoge)
+  {
+    IUTEST_ASSERT_TRUE(true);
+  }
+}
+IUTEST_PACKAGE(TestPackageB)
+{
+  IUTEST(Test, Hoge)
+  {
+    IUTEST_ASSERT_TRUE(true);
+  }
+}
+</pre>
+</div>
+      また、--iutest_default_package_name コマンドラインオプションでデフォルトのパッケージ名を設定できます。<br />
+      <br />
+      </li>
+
+      <li><a name="org_test_japanese" id="org_test_japanese">日本語テスト名</a><br />
+      IUTEST_JAPANESE_NAME マクロを使用することでテスト名に日本語を使用できます。<br />
+<div class="source">
+<pre class="brush:cpp">
+IUTEST(IUTEST_JAPANESE_NAME(あいうえお)
+                    , IUTEST_JAPANESE_NAME(かきくけこ))
+{
+}
+</pre>
+</div>
+      テストフィクスチャを利用する場合は、IUTEST_JAPANESE_NAME_F マクロを使用してください。<br />
+<div class="source">
+<pre class="brush:cpp">
+class FixedTest : public ::iutest::Test {};
+IUTEST_F(IUTEST_JAPANESE_NAME_F(あいうえお, FixedTest)
+                    , IUTEST_JAPANESE_NAME(かきくけこ))
+{
+}
+</pre>
+</div>
+      ※ IUTEST_TYPED_TEST_P は未対応です。
+      <br />
+      </li>
+    </ul>
+  </li>
+
+  <li><a name="org_skip" id="org_skip">テストのスキップ</a>
+    <ul>
+      <li>IUTEST_SKIP<br />
+      テストを明示的にスキップします。<br />
+      ASSUME と同等の機能ですが、IUTEST_SKIP には条件式がありません。<br />
+      ユーザーが適切な場所で呼び出してください。<br />
+<div class="source">
+<pre class="brush:cpp">
+IUTEST(SkipTest, Skip)
+{
+    if(sizeof(int) != 4 ) IUTEST_SKIP() &lt;&lt; "sizeof(int) != 4";
+}
+</pre>
+</div>
+      <br />
+      </li>
+    </ul>
+  </li>
+
+  <li><a name="org_listener" id="org_listener">イベントリスナー</a>
+    <ul>
+      <li>ProgressPrintListener<br />
+      テストの実行状況をプログレス表示するイベントリスナーです。<br />
+      <br />
+      </li>
+      <li>SSTPNotifier<br />
+      伺かにテスト結果を通知するイベントリスナーです。<br />
+      <br />
+      </li>
+    </ul>
+  </li>
+
+  <li><a name="org_prod" id="org_prod">Private コードのテスト</a>
+    <ul>
+      <li>PEEP<br />
+      テンプレートの明示的な実体化を利用した private メンバーへのアクセスを簡易に行うためのマクロです。<br />
+      メンバーにアクセスするには、IUTEST_PEEP_GET マクロを使用するかクラスオブジェクト版の IUTEST_PEEP マクロを使用します。<br />
+<div class="source">
+<pre class="brush:cpp">
+class Hoge
+{
+  int m_x;
+  int GetX() { return m_x; }
+};
+
+IUTEST_MAKE_PEEP(int Hoge::*, Hoge, m_x);
+IUTEST_MAKE_PEEP(int (Hoge::*)(), Hoge, GetX);
+
+IUTEST(ProdTest, Peep)
+{
+  Hoge hoge;
+  IUTEST_PEEP_GET(hoge, Hoge, m_x) = 4;
+  IUTEST_ASSERT_EQ(4, IUTEST_PEEP_GET(hoge, Hoge, m_x));
+  IUTEST_ASSERT_EQ(4, IUTEST_PEEP_GET(hoge, Hoge, GetX)());
+
+  IUTEST_PEEP(Hoge, m_x) hoge_x(&amp;hoge);
+  hoge_x = 5;
+  IUTEST_ASSERT_EQ(5, hoge_x);
+}
+</pre>
+</div>
+      <br />
+      </li>
+    </ul>
+  </li>
+
+  <li><a name="org_junitxml" id="org_junitxml">junit 形式での出力</a><br />
+    iutest では、junit 形式の XML 出力に対応しています。<br />
+    コマンドラインオプションに --iutest_output=junit[:path] と指定すると junit 形式で XML 出力を行います。<br />
+    <br />
+  </li>
+
+  <li><a name="org_cmdline" id="org_cmdline">コマンドラインオプション</a>
+    <ul>
+      <li>--iutest_file_location<br />
+      エラーログなどのファイル/行表記のフォーマット gcc,vs,auto から指定します。<br />
+      例えば、ビルドエラーと区別を付けるために別のフォーマットで出力するという使い方が考えられます。
+      <br />
+      </li>
+      <li>--iutest_output=junit[:path]<br />
+      junit 形式で XML 出力を行います。
+      </li>
+      <li>--iutest_default_package_name<br />
+      トップのパッケージ名を指定できます。
+      </li>
+      <li>--iutest_list_tests_with_where<br />
+      パラメータの情報を含んだテストリストを出力します。
+      </li>
+      <li>--iutest_warning_into_error<br />
+      警告をエラーとします。
+      </li>
+      <li>--verbose<br />
+      冗長出力を有効にします。
+      </li>
+      <li>--feature<br />
+      iutest の機能をリストアップします。
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+</div> <!-- end of contents -->
+
+<div class="contents">
+<h2><a name="switch" id="switch">iutest / Google Test 切り替え</a></h2>
+<div class="text_block">
+iutest と Google Test の切り替えには gtest/iutest_switch.hpp を使用します。<br />
+<div class="source">
+<pre class="brush:cpp">
+//#include "iutest.hpp"
+#include "gtest/iutest_switch.hpp" // iutest.hpp の代わりに iutest_switch.hpp を使用する
+</pre>
+</div>
+
+<h3><a name="switch_iutest" id="switch_iutest">iutest モード</a></h3>
+デフォルトでは iutest モードになっています。<br />
+iutest.hpp と違うのは Google Test の記法が使えるという点です。<br />
+既存の Google Test のテストコードも iutest_switch.hpp ヘッダーをインクルードすることで、<br />
+iutest の実装に切り替わります。<br />
+
+<h3><a name="switch_gtest" id="switch_gtest">Google Test モード</a></h3>
+Google Test モードに切り替えるには iutest_switch.hpp ヘッダーをインクルードする前に、<br />
+IUTEST_USE_GTEST マクロを定義してください。<br />
+これにより、iutest のテストコードで Google Test の実装を使用するようになります。<br />
+
+</div>
+</div> <!-- end of contents -->
+
+<div class="contents">
+<h2><a name="filter" id="filter">テストのフィルタリング</a></h2>
+<div class="text_block">
+--iutest_filter コマンドラインオプションでフィルタを指定できます。
+ここでは、フィルタのフォーマットについて説明をします。
+
+<h3><a name="filter_format" id="filter_format">フォーマット</a></h3>
+<p>フィルタのフォーマットは、':' で区切られたワイルドカードパターン（ポジティブパターン）になります。<br />
+また、先頭に '-' を付けることで、マッチしたテストを除外するネガティブパターンも指定できます。<br />
+（iutest のテスト名は、TestCaseName.TestName です）<br />
+</p>
+<table class="ruled" summary="フィルターフォーマット" >
+<tr><td>*</td><td>任意の文字列にマッチ</td></tr>
+<tr><td>?</td><td>任意の1文字にマッチ</td></tr>
+</table>
+
+<h3><a name="filter_exsample" id="filter_exsample">例</a></h3>
+<table class="ruled" summary="フィルターサンプル">
+<tr><td>./foo_test</td><td rowspan="2">全てのテストを実行します</td></tr>
+<tr><td>./foo_test --iutest_filter=*</td></tr>
+<tr><td>./foo_test --iutest_filter=FooTest.*</td><td>テストケース FooTest 内のテストを全て実行します</td></tr>
+<tr><td>./foo_test --iutest_filter=*Null*:*Init*</td><td>名前に "Null" または "Init" を含むテストを実行します</td></tr>
+<tr><td>./foo_test --iutest_filter=-*Foo*</td><td>名前に "Foo" を含むテスト 以外 を全て実行します</td></tr>
+<tr><td>./foo_test --iutest_filter=FooTest.*-FooTest.Bar</td><td>テストケース FooTest 内のテストで FooTest.Bar を除く<br />全てのテストを実行します</td></tr>
+<tr><td>./foo_test --iutest_filter=FooTest.*-FooTest.Bar:FooTest.Baz</td><td>テストケース FooTest 内のテストで FooTest.Bar と<br /> FooTest.Baz を除く全てのテストを実行します</td></tr>
+</table>
+
+<h3><a name="filter_file" id="filter_file">ファイルから指定</a></h3>
+<p>iutest ではフィルターをファイルから読み込むことができます。<br />
+--iutest_filter=@filter.txt のように先頭に @ を付け、その後にファイル名を指定することで読み込みできます。<br />
+フォーマットはコマンドラインと同じです。（改行は ':' に置き換えられます）
+</p>
+</div> <!-- end of text_block -->
+</div> <!-- end of contents -->
+
+<div class="contents">
+<h2><a name="matcher" id="matcher">Matcher</a></h2>
+<div class="text_block">
+<h3><a name="matcher_summary" id="matcher_summary">Matcher の概要</a></h3>
+<p>iutest では Matcher を提供しています。iutest の Matcher は Google Mock のそれとほぼ同じ使い方をします。<br />
+ただし、Google Mock との互換性対応はしていませんのでご注意ください。
+</p>
+<h3><a name="matcher_assertion" id="matcher_assertion">アサーション</a></h3>
+<p>
+Matcher は IUTEST_*_THAT アサーションで利用します。
+</p>
+<table class="ruled" summary="THAT" >
+<tr><td>IUTEST_*_THAT(expression, m)</td><td>expression の値が Mathcer m にマッチするか検証します</td></tr>
+</table>
+
+<h3><a name="matcher_matchers" id="matcher_matchers">Matcher の種類</a></h3>
+Matcher の種類については Doxygen 生成のドキュメントを確認してください。
+
+</div> <!-- end of text_block -->
+</div> <!-- end of contents -->
+
+<br />
+<div class="copyright">Copyright (c) 2011-2020, Takazumi-Shirayanagi, All rights reserved.</div>
+
+</body>
+</html>
