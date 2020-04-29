@@ -18,7 +18,7 @@ dot --version || true
 
 cd docs
 export PATH=$PATH:"$PWD"
-git clone -b gh-pages git@github.com:srz-zumix/iutest.git gh-pages
+git clone --depth 1 -b gh-pages git@github.com:srz-zumix/iutest.git gh-pages
 
 OUTDIR="gh-pages/${DIRNAME}"
 if [ -d "${OUTDIR}" ]; then
@@ -31,6 +31,7 @@ make
 make gh-pages GHPAGES_DIR="${OUTDIR}"
 
 cd gh-pages
+git config --list
 git config user.email "zumix.cpp@gmail.com"
 git config user.name "${GITHUB_ACTOR}"
 git add --all
