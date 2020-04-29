@@ -1,0 +1,19 @@
+name: GitHubPages
+on:
+  push:
+    branches:
+      - master
+      - ghpages/*
+
+jobs:
+  update_document:
+    runs-on: ubuntu-latest
+    needs: lint-editorconfig
+    steps:
+    - uses: actions/checkout@master
+    - name: Include What You Use
+      uses: ./.github/actions/iwyu
+      with:
+        args: /work/projects/cmake -Dbuild_test_namespace_test=OFF
+
+
