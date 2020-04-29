@@ -2,9 +2,15 @@ name: 'Update GitHub Pages'
 description: 'update GitHub Pages'
 author: 'srz-zumix'
 
+inputs:
+  github_token:
+    description: 'GITHUB_TOKEN'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+    - ${{ inputs.github_token }}
 branding:
   icon: 'book-open'
   color: 'green'

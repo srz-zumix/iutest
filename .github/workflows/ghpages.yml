@@ -17,5 +17,7 @@ jobs:
     - uses: actions/checkout@master
     - name: Update GitHub Pages
       uses: ./.github/actions/update-ghpages
+      with:
+        github_token: ${{ secrets.github_token }}
 
 

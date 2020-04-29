@@ -14,11 +14,11 @@ if [ "${DIRNAME}" != 'master' ]; then
 fi
 
 doxygen --version
-dot --version || true
+dot -V || true
 
 cd docs
 export PATH=$PATH:"$PWD"
-git clone --depth 1 -b gh-pages git@github.com:srz-zumix/iutest.git gh-pages
+git clone --depth 1 -b gh-pages https://github.com/srz-zumix/iutest.git gh-pages
 
 OUTDIR="gh-pages/${DIRNAME}"
 if [ -d "${OUTDIR}" ]; then
@@ -39,4 +39,4 @@ git add --all
 #git commit -m $GIT_COMMIT_MESSAGE
 git commit -m "update gh-pages git@$CI_COMMIT_ID"
 
-git push
+git push https://${GITHUB_ACTOR}:${INPUT_GITHUB_TOKEN}@github.com/srz-zumix/iutest.git
