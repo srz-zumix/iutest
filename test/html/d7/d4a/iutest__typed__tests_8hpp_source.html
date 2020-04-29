@@ -66,7 +66,7 @@ $(function() {
 <div class="title">iutest_typed_tests.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
+<a href="../../d7/d4a/iutest__typed__tests_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div>
@@ -75,10 +75,10 @@ $(function() {
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// include</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;internal/iutest_typed_util.hpp&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../df/dbd/iutest__typed__util_8hpp.html">internal/iutest_typed_util.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#if IUTEST_HAS_TYPED_TEST_P</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#  include &quot;internal/iutest_pool.hpp&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#  include &quot;<a class="code" href="../../db/d71/iutest__pool_8hpp.html">internal/iutest_pool.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">//======================================================================</span></div>
@@ -88,14 +88,14 @@ $(function() {
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_VARIADIC_MACROS)</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#  define IUTEST_TYPED_TEST_CASE(testcase_, ...)    IIUT_TYPED_TEST_CASE_(testcase_, __VA_ARGS__)</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#gae66e40268541c8a179af720f0beee90c">   43</a></span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#  define IUTEST_TYPED_TEST_CASE(testcase_, types_) IIUT_TYPED_TEST_CASE_(testcase_, types_)</span></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#define IUTEST_TYPED_TEST(testcase_, testname_)     IUTEST_TYPED_TEST_(testcase_, testname_)</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga20179a8a238b2ddb2aea8ff3e7eb67a2">   55</a></span>&#160; </div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#define IUTEST_T(testcase_, testname_)              IUTEST_TYPED_TEST_(testcase_, testname_)</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga203a686b252b4c476de35dad665f5b38">   64</a></span>&#160; </div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE</span></div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#define IIUT_TYPED_TEST_PARAMS_(testcase_)                                          \</span></div>
@@ -186,16 +186,16 @@ $(function() {
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="preprocessor">#if IUTEST_HAS_TYPED_TEST_P</span></div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="preprocessor">#define IUTEST_TYPED_TEST_CASE_P(testcase_)             IIUT_TYPED_TEST_CASE_P_(testcase_)</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#gace17d2e293ca0c8cfe17c700a1169512">  172</a></span>&#160; </div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="preprocessor">#define IUTEST_TYPED_TEST_P(testcase_, testname_)       IIUT_TYPED_TEST_P_(testcase_, testname_)</span></div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
+<div class="line"><a name="l00181"></a><span class="lineno"><a class="line" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga911461d4ee14abaa56ee213157f98b39">  181</a></span>&#160; </div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="preprocessor">#define IUTEST_TP(testcase_, testname_)                 IIUT_TYPED_TEST_P_(testcase_, testname_)</span></div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
+<div class="line"><a name="l00190"></a><span class="lineno"><a class="line" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga21b5bebe63e4abbdd0c231ad00f4149a">  190</a></span>&#160; </div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="preprocessor">#define IUTEST_REGISTER_TYPED_TEST_CASE_P(testcase_, ...)   \</span></div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="preprocessor">    IIUT_REGISTER_TYPED_TEST_CASE_P_(testcase_, __VA_ARGS__)</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno"><a class="line" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga40893436e3a722535ed0a4a3490df78f">  198</a></span>&#160;<span class="preprocessor">    IIUT_REGISTER_TYPED_TEST_CASE_P_(testcase_, __VA_ARGS__)</span></div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="preprocessor">#define IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(prefix_, testcase_, ...)   \</span></div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="preprocessor">    IIUT_INSTANTIATE_TYPED_TEST_CASE_P_(prefix_, testcase_, __VA_ARGS__)</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno"><a class="line" href="../../d2/d55/group___t_y_p_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#gadb6dd5aac39e34288180e982b92407f7">  209</a></span>&#160;<span class="preprocessor">    IIUT_INSTANTIATE_TYPED_TEST_CASE_P_(prefix_, testcase_, __VA_ARGS__)</span></div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="preprocessor">#define IIUT_TYPED_TEST_CASE_PSTATE_NAME_(testcase_)    s_iutest_typed_test_case_p_state_##testcase_##_</span></div>
@@ -254,7 +254,7 @@ $(function() {
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="keyword">namespace </span>iutest</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d3/dda/namespaceiutest.html">iutest</a></div>
 <div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;{</div>
 <div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160; </div>
 <div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;<span class="comment">//======================================================================</span></div>
@@ -296,7 +296,7 @@ $(function() {
 <div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;            <span class="keywordflow">return</span> UnitTest::instance().AddTestCase(</div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;#endif</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;#<span class="keywordflow">if</span> IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;#<span class="keywordflow">if</span> <a class="code" href="../../dc/d51/group___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t.html#gad63f0570fcda66cc955d45ff5b6d656d">IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME</a></div>
 <div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;                detail::MakeIndexTypedTestName&lt;TypeParam&gt;(testcase, index)</div>
 <div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;#<span class="keywordflow">else</span></div>
 <div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;                detail::MakeIndexTestName(testcase, index)</div>
@@ -356,7 +356,7 @@ $(function() {
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    EachTest&lt;TypeParams, void&gt; m_tests;</div>
 <div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160; </div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeParamTestInstance);</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    <a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>(TypeParamTestInstance);</div>
 <div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;};</div>
 <div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160; </div>
 <div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="preprocessor">#endif</span></div>
@@ -379,7 +379,7 @@ $(function() {
 <div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;    {</div>
 <div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        <span class="keywordflow">if</span>( m_names != NULL )</div>
 <div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;        {</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;            IUTEST_LOG_(WARNING) &lt;&lt; detail::FormatCompilerIndependentFileLocation(file, line)</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;            <a class="code" href="../../d1/d2a/iutest__port_8hpp.html#a967848348e16a7d0ab2a31c1593ca9ef">IUTEST_LOG_</a>(WARNING) &lt;&lt; detail::FormatCompilerIndependentFileLocation(file, line)</div>
 <div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;                &lt;&lt; <span class="stringliteral">&quot;: Test \&quot;&quot;</span> &lt;&lt; test_name &lt;&lt; <span class="stringliteral">&quot;\&quot; must be defined before IUTEST_REGISTER_TYPED_TEST_CASE_P(&quot;</span></div>
 <div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;                &lt;&lt; testcase_name &lt;&lt; <span class="stringliteral">&quot;, ...).\n&quot;</span>;</div>
 <div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;        }</div>
@@ -405,11 +405,11 @@ $(function() {
 <div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;                {</div>
 <div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;                    <span class="keywordflow">continue</span>;</div>
 <div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;                }</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;                IUTEST_LOG_(FATAL) &lt;&lt; detail::FormatCompilerIndependentFileLocation(file, line)</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;                <a class="code" href="../../d1/d2a/iutest__port_8hpp.html#a967848348e16a7d0ab2a31c1593ca9ef">IUTEST_LOG_</a>(FATAL) &lt;&lt; detail::FormatCompilerIndependentFileLocation(file, line)</div>
 <div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;                &lt;&lt; <span class="stringliteral">&quot;: Test \&quot;&quot;</span> &lt;&lt; test_name &lt;&lt; <span class="stringliteral">&quot;\&quot; is find in \&quot;&quot;</span> &lt;&lt; test_names</div>
 <div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;                    &lt;&lt; <span class="stringliteral">&quot;\&quot;. expected whitespace or comma : &quot;</span> &lt;&lt; p[len] &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(p[len]) &lt;&lt;  <span class="stringliteral">&quot;)\n&quot;</span>;</div>
 <div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;            }</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;            IUTEST_LOG_(WARNING) &lt;&lt; detail::FormatCompilerIndependentFileLocation(file, line)</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;            <a class="code" href="../../d1/d2a/iutest__port_8hpp.html#a967848348e16a7d0ab2a31c1593ca9ef">IUTEST_LOG_</a>(WARNING) &lt;&lt; detail::FormatCompilerIndependentFileLocation(file, line)</div>
 <div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;                &lt;&lt; <span class="stringliteral">&quot;: Test \&quot;&quot;</span> &lt;&lt; test_name &lt;&lt; <span class="stringliteral">&quot;\&quot; has not been registered.\n&quot;</span> &lt;&lt; <span class="stringliteral">&quot;    TestNames: &quot;</span> &lt;&lt; test_names;</div>
 <div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;            ret = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;        }</div>
@@ -429,7 +429,7 @@ $(function() {
 <div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;    nameset_t m_list;</div>
 <div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160; </div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypedTestCasePState);</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;    <a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>(TypedTestCasePState);</div>
 <div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;};</div>
 <div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160; </div>
 <div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class </span>Fixture, <span class="keyword">typename</span> Tests, <span class="keyword">typename</span> Types&gt;</div>
@@ -454,11 +454,11 @@ $(function() {
 <div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> Register(TestCase* testcase, <span class="keyword">const</span> <span class="keywordtype">char</span>* test_names)</div>
 <div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;        {</div>
 <div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()</div>
-<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;            IUTEST_CHECK_(test_names != NULL);</div>
-<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;            const <span class="keywordtype">char</span>* str = detail::SkipSpace(test_names);</div>
-<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;            const <span class="keywordtype">char</span>* comma = strchr(str, &#39;,&#39;);</div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;            ::std::<span class="keywordtype">string</span> test_name;</div>
-<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;            if( comma == NULL )</div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;            <a class="code" href="../../d1/d2a/iutest__port_8hpp.html#ace4f988a8127594f5c65ee322e6c88fd">IUTEST_CHECK_</a>(test_names != NULL);</div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">char</span>* str = detail::SkipSpace(test_names);</div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">char</span>* comma = strchr(str, <span class="charliteral">&#39;,&#39;</span>);</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;            ::std::string test_name;</div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;            <span class="keywordflow">if</span>( comma == NULL )</div>
 <div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;            {</div>
 <div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;                test_name = str;</div>
 <div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;            }</div>
@@ -498,12 +498,12 @@ $(function() {
 <div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;        }</div>
 <div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;        <span class="keywordflow">catch</span> (const ::std::exception&amp; e)</div>
 <div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;        {</div>
-<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;            IUTEST_LOG_(FATAL) &lt;&lt; <span class="stringliteral">&quot;IUTEST_INSTANTIATE_TYPED_TEST_CASE_P register tests failed...\n&quot;</span></div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;            <a class="code" href="../../d1/d2a/iutest__port_8hpp.html#a967848348e16a7d0ab2a31c1593ca9ef">IUTEST_LOG_</a>(FATAL) &lt;&lt; <span class="stringliteral">&quot;IUTEST_INSTANTIATE_TYPED_TEST_CASE_P register tests failed...\n&quot;</span></div>
 <div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;                &lt;&lt; e.what();</div>
 <div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;        }</div>
 <div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;        <span class="keywordflow">catch</span>(...)</div>
 <div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;        {</div>
-<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;            IUTEST_LOG_(FATAL) &lt;&lt; <span class="stringliteral">&quot;IUTEST_INSTANTIATE_TYPED_TEST_CASE_P register tests failed...\n&quot;</span>;</div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;            <a class="code" href="../../d1/d2a/iutest__port_8hpp.html#a967848348e16a7d0ab2a31c1593ca9ef">IUTEST_LOG_</a>(FATAL) &lt;&lt; <span class="stringliteral">&quot;IUTEST_INSTANTIATE_TYPED_TEST_CASE_P register tests failed...\n&quot;</span>;</div>
 <div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;        }</div>
 <div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;<span class="preprocessor">#else</span></div>
@@ -567,9 +567,17 @@ $(function() {
 <div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160; </div>
 <div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_TYPED_TESTS_HPP_DA9562C6_8CAB_4242_9E9E_22FFB490DE30_</span></div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t_html_gad63f0570fcda66cc955d45ff5b6d656d"><div class="ttname"><a href="../../dc/d51/group___i_u_t_e_s_t___c_o_n_f_i_g___t_e_s_t.html#gad63f0570fcda66cc955d45ff5b6d656d">IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME</a></div><div class="ttdeci">#define IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME</div><div class="ttdoc">型付けテスト名に型名を付けるかどうか</div><div class="ttdef"><b>Definition:</b> iutest_config.hpp:501</div></div>
+<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:31</div></div>
+<div class="ttc" id="aiutest__port_8hpp_html_a967848348e16a7d0ab2a31c1593ca9ef"><div class="ttname"><a href="../../d1/d2a/iutest__port_8hpp.html#a967848348e16a7d0ab2a31c1593ca9ef">IUTEST_LOG_</a></div><div class="ttdeci">#define IUTEST_LOG_(level)</div><div class="ttdoc">ログメッセージストリーム</div><div class="ttdef"><b>Definition:</b> iutest_port.hpp:53</div></div>
+<div class="ttc" id="aiutest__typed__util_8hpp_html"><div class="ttname"><a href="../../df/dbd/iutest__typed__util_8hpp.html">iutest_typed_util.hpp</a></div><div class="ttdoc">typed util</div></div>
+<div class="ttc" id="aiutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義</div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:25</div></div>
+<div class="ttc" id="aiutest__pool_8hpp_html"><div class="ttname"><a href="../../db/d71/iutest__pool_8hpp.html">iutest_pool.hpp</a></div><div class="ttdoc">iris unit test memory pool</div></div>
+<div class="ttc" id="aiutest__port_8hpp_html_ace4f988a8127594f5c65ee322e6c88fd"><div class="ttname"><a href="../../d1/d2a/iutest__port_8hpp.html#ace4f988a8127594f5c65ee322e6c88fd">IUTEST_CHECK_</a></div><div class="ttdeci">#define IUTEST_CHECK_(condition)</div><div class="ttdoc">内部エラーチェック</div><div class="ttdef"><b>Definition:</b> iutest_port.hpp:60</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年04月29日(水) 07時06分32秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年04月29日(水) 08時44分31秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

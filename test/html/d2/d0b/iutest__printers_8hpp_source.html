@@ -66,7 +66,7 @@ $(function() {
 <div class="title">iutest_printers.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
+<a href="../../d2/d0b/iutest__printers_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div>
@@ -75,17 +75,17 @@ $(function() {
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// include</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;iutest_defs.hpp&quot;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;internal/iutest_string.hpp&quot;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;internal/iutest_string_view.hpp&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d1/d84/iutest__defs_8hpp.html">iutest_defs.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d7/d86/iutest__string_8hpp.html">internal/iutest_string.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d8/dc8/iutest__string__view_8hpp.html">internal/iutest_string_view.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">namespace </span>iutest</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d3/dda/namespaceiutest.html">iutest</a></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">// declare</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;std::string PrintToString(<span class="keyword">const</span> T&amp; v);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;std::string <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">PrintToString</a>(<span class="keyword">const</span> T&amp; v);</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">namespace </span>detail</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;{</div>
@@ -142,9 +142,9 @@ $(function() {
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> Print(<span class="keyword">const</span> T&amp; value, iu_ostream* os)</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    {</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#if IUTEST_HAS_BIGGESTINT_OSTREAM</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keyword">const</span> BiggestInt v = value;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d3/dda/namespaceiutest.html#af0a26182ebcee67d79f27f7c9b248448">BiggestInt</a> v = value;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keyword">const</span> Int32 v = value;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keyword">const</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a59de77dc10130fce6e48fde0024fd10b">Int32</a> v = value;</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        *os &lt;&lt; v;</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    }</div>
@@ -441,7 +441,7 @@ $(function() {
 <div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    <span class="keywordflow">default</span>:</div>
 <div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    }</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    <span class="keywordflow">return</span> PrintToString(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(value));</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">PrintToString</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(value));</div>
 <div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;}</div>
 <div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
 <div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> PrintTo&lt;::std::filesystem::path&gt;(const ::std::filesystem::path&amp; value, iu_ostream* os)</div>
@@ -677,9 +677,9 @@ $(function() {
 <div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;<span class="comment">// function</span></div>
 <div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160; </div>
 <div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;inline ::std::string PrintToString(<span class="keyword">const</span> T&amp; v)</div>
-<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;{</div>
-<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;    iu_global_format_stringstream strm;</div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;inline ::std::string <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">PrintToString</a>(<span class="keyword">const</span> T&amp; v)</div>
+<div class="line"><a name="l00649"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#aea88e2bda2f483b0781d7985060acbfe">  649</a></span>&#160;{</div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;    <a class="code" href="../../d0/dc6/classiutest_1_1iu__global__format__stringstream.html">iu_global_format_stringstream</a> strm;</div>
 <div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;    detail::UniversalTersePrint(v, &amp;strm);</div>
 <div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;    <span class="keywordflow">return</span> strm.str();</div>
 <div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;}</div>
@@ -687,17 +687,17 @@ $(function() {
 <div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;<span class="preprocessor">#if IUTEST_HAS_VARIADIC_TEMPLATES</span></div>
 <div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160; </div>
 <div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;inline ::std::string PrintToStrings(<span class="keyword">const</span> <span class="keywordtype">char</span>* separate, <span class="keyword">const</span> T&amp; v)</div>
-<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;{</div>
+<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;inline ::std::string <a class="code" href="../../d3/dda/namespaceiutest.html#ae4fa9663c60e0130393ded072932fea8">PrintToStrings</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* separate, <span class="keyword">const</span> T&amp; v)</div>
+<div class="line"><a name="l00661"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#ae4fa9663c60e0130393ded072932fea8">  661</a></span>&#160;{</div>
 <div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;    IUTEST_UNUSED_VAR(separate);</div>
-<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;    <span class="keywordflow">return</span> PrintToString(v);</div>
+<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">PrintToString</a>(v);</div>
 <div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;}</div>
 <div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> ...Args&gt;</div>
-<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;inline ::std::string PrintToStrings(<span class="keyword">const</span> <span class="keywordtype">char</span>* separate, <span class="keyword">const</span> T&amp; v, Args... args)</div>
-<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;{</div>
-<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;    ::std::string str = PrintToString(v);</div>
+<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;inline ::std::string <a class="code" href="../../d3/dda/namespaceiutest.html#ae4fa9663c60e0130393ded072932fea8">PrintToStrings</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* separate, <span class="keyword">const</span> T&amp; v, Args... args)</div>
+<div class="line"><a name="l00670"></a><span class="lineno"><a class="line" href="../../d3/dda/namespaceiutest.html#a50c9f84ad22ebca5f82954daf5e9ec93">  670</a></span>&#160;{</div>
+<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;    ::std::string str = <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">PrintToString</a>(v);</div>
 <div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;    str += separate;</div>
-<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;    str += PrintToStrings(separate, args...);</div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;    str += <a class="code" href="../../d3/dda/namespaceiutest.html#ae4fa9663c60e0130393ded072932fea8">PrintToStrings</a>(separate, args...);</div>
 <div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;    <span class="keywordflow">return</span> str;</div>
 <div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;}</div>
 <div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;<span class="preprocessor">#endif</span></div>
@@ -706,9 +706,19 @@ $(function() {
 <div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160; </div>
 <div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PRINTERS_HPP_A6A321C9_9279_4336_8167_058C59EC0FD0_</span></div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
+<div class="ttc" id="anamespaceiutest_html_a089d4c220696dc46e2ef184fc945367c"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">iutest::PrintToString</a></div><div class="ttdeci">std::string PrintToString(const T &amp;v)</div><div class="ttdoc">文字列化</div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:649</div></div>
+<div class="ttc" id="aiutest__defs_8hpp_html"><div class="ttname"><a href="../../d1/d84/iutest__defs_8hpp.html">iutest_defs.hpp</a></div><div class="ttdoc">iris unit test definition</div></div>
+<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:31</div></div>
+<div class="ttc" id="aiutest__string_8hpp_html"><div class="ttname"><a href="../../d7/d86/iutest__string_8hpp.html">iutest_string.hpp</a></div><div class="ttdoc">iris unit test string utilities</div></div>
+<div class="ttc" id="aclassiutest_1_1iu__global__format__stringstream_html"><div class="ttname"><a href="../../d0/dc6/classiutest_1_1iu__global__format__stringstream.html">iutest::iu_global_format_stringstream</a></div><div class="ttdoc">ostream_formatter オプションが適用されてた stringstream</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:809</div></div>
+<div class="ttc" id="anamespaceiutest_html_ae4fa9663c60e0130393ded072932fea8"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#ae4fa9663c60e0130393ded072932fea8">iutest::PrintToStrings</a></div><div class="ttdeci">inline ::std::string PrintToStrings(const char *separate, const T &amp;v)</div><div class="ttdoc">文字列化</div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:661</div></div>
+<div class="ttc" id="anamespaceiutest_html_a59de77dc10130fce6e48fde0024fd10b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a59de77dc10130fce6e48fde0024fd10b">iutest::Int32</a></div><div class="ttdeci">detail::type_fit_t&lt; 4 &gt;::Int Int32</div><div class="ttdoc">32 bit 符号付き整数型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:418</div></div>
+<div class="ttc" id="aiutest__string__view_8hpp_html"><div class="ttname"><a href="../../d8/dc8/iutest__string__view_8hpp.html">iutest_string_view.hpp</a></div><div class="ttdoc">string_view</div></div>
+<div class="ttc" id="anamespaceiutest_html_af0a26182ebcee67d79f27f7c9b248448"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#af0a26182ebcee67d79f27f7c9b248448">iutest::BiggestInt</a></div><div class="ttdeci">detail::type_least_t&lt; 8 &gt;::Int BiggestInt</div><div class="ttdoc">Biggest Int</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:435</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年04月29日(水) 07時06分32秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年04月29日(水) 08時44分31秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

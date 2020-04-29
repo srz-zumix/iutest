@@ -66,7 +66,7 @@ $(function() {
 <div class="title">iutest_prod.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
+<a href="../../d9/d06/iutest__prod_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div>
@@ -76,42 +76,42 @@ $(function() {
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// define</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"></span><span class="preprocessor">#define IUTEST_FRIEND_TEST(testcasename_, testname_)   \</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">    friend class IUTEST_TEST_CLASS_NAME_(testcasename_, testname_)</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#acc7b460ffb47d86372e63b46fd5bc7f0">   24</a></span>&#160;<span class="preprocessor">    friend class IUTEST_TEST_CLASS_NAME_(testcasename_, testname_)</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#if !defined(_MSC_VER) || _MSC_VER &gt; 1200</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#if IUTEST_HAS_TYPED_TEST</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#define IUTEST_FRIEND_TYPED_TEST(testcasename_, testname_) \</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">    template&lt;typename T&gt;IUTEST_FRIEND_TEST(testcasename_, testname_)</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#a31eea07b567b1cf2a2e8e7329a88b33c">   34</a></span>&#160;<span class="preprocessor">    template&lt;typename T&gt;IUTEST_FRIEND_TEST(testcasename_, testname_)</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#if IUTEST_HAS_TYPED_TEST_P</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#define IUTEST_FRIEND_TYPED_TEST_P_DECLARATION(testcasename_, testname_) \</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">    namespace IIUT_TYPED_TEST_P_NAMESPACE_(testcasename_) { template&lt;typename T&gt;class testname_; }</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#aa83e508bbe4d7ed7ec332541813284e4">   44</a></span>&#160;<span class="preprocessor">    namespace IIUT_TYPED_TEST_P_NAMESPACE_(testcasename_) { template&lt;typename T&gt;class testname_; }</span></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#define IUTEST_FRIEND_TYPED_TEST_P(testcasename_, testname_) \</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">    template&lt;typename T&gt;friend class IIUT_TYPED_TEST_P_NAMESPACE_(testcasename_)::testname_</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#a0719268f46c1b648e4f1638fe3828af8">   50</a></span>&#160;<span class="preprocessor">    template&lt;typename T&gt;friend class IIUT_TYPED_TEST_P_NAMESPACE_(testcasename_)::testname_</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#define IUTEST_MAKE_PEEP(member_type, class_name, member_name)      \</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">    IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name)</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#a785124bcefaf5c6e494648c4fa581511">   63</a></span>&#160;<span class="preprocessor">    IUTEST_MAKE_PEEP_TAG_(member_type, class_name, member_name)</span></div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#define IUTEST_PEEP_GET(v, class_name, member_name)     \</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">    (v.*::iutest::detail::peep_tag&lt; IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::value)</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#abf3dc05618b1eeea337fa8d758d6534c">   72</a></span>&#160;<span class="preprocessor">    (v.*::iutest::detail::peep_tag&lt; IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::value)</span></div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#define IUTEST_PEEP_STATIC_GET(class_name, member_name) \</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">    (*::iutest::detail::peep_tag&lt; IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::value)</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#a11f5f182732f422d5ca214f37a13d371">   80</a></span>&#160;<span class="preprocessor">    (*::iutest::detail::peep_tag&lt; IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::value)</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#if IUTEST_HAS_PEEP_CLASS</span></div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#define IUTEST_PEEP(class_name, member_name)            \</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">    ::iutest::detail::peep::Peep&lt; class_name, IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::type</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#a2acb8952f9dc74b2c32ded455d13e480">   90</a></span>&#160;<span class="preprocessor">    ::iutest::detail::peep::Peep&lt; class_name, IIUT_PEEP_TAG_NAME_(class_name, member_name)&lt;class_name&gt; &gt;::type</span></div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
@@ -135,7 +135,7 @@ $(function() {
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor">#define IIUT_PEEP_SETTER_NAME_(class_name, member_name)     \</span></div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">    IUTEST_PP_CAT(IUTEST_PP_CAT(iu_peep_set_, member_name), __LINE__)</span></div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="keyword">namespace </span>iutest {</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d3/dda/namespaceiutest.html">iutest</a> {</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">// class</span></div>
@@ -226,7 +226,7 @@ $(function() {
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        peep_member_object_impl(<span class="keyword">const</span> peep_member_object_impl&amp;);</div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        <span class="keyword">operator</span> value_type ()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> (*m_ptr).*detail::peep_tag&lt;peep_tag&gt;::value; }</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        peep_member_object_impl&amp; operator = (<span class="keyword">const</span> value_type&amp; value) IUTEST_CXX_DELETED_FUNCTION;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        peep_member_object_impl&amp; operator = (<span class="keyword">const</span> value_type&amp; value) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#a42fd5b126100cbf2e505fec4f669f3ba">IUTEST_CXX_DELETED_FUNCTION</a>;</div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    };</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> Type&gt;</div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keyword">class </span>peep_member_object_impl&lt;U, Type, false&gt;</div>
@@ -311,9 +311,12 @@ $(function() {
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PROD_HPP_7A316C18_042D_4E48_BC31_E6AE8B6C2E28_</span></div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
+<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:31</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_a42fd5b126100cbf2e505fec4f669f3ba"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a42fd5b126100cbf2e505fec4f669f3ba">IUTEST_CXX_DELETED_FUNCTION</a></div><div class="ttdeci">#define IUTEST_CXX_DELETED_FUNCTION</div><div class="ttdoc">delete function</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:368</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年04月29日(水) 07時06分32秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年04月29日(水) 08時44分31秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

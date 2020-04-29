@@ -70,7 +70,7 @@ $(function() {
 <div class="title">iutest_mfc.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
+<a href="../../dc/d5d/iutest__mfc_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div>
@@ -81,28 +81,28 @@ $(function() {
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// include</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;iterator&gt;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>iutest {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d3/dda/namespaceiutest.html">iutest</a> {</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span>mfc</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">class </span>mfc_iterator : <span class="keyword">public</span> ::std::iterator &lt; ::std::input_iterator_tag, U &gt;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">   31</a></span>&#160;{</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> iutest_type_traits::add_const_to_pointer&lt;U&gt;::type Item;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    mfc_iterator(<span class="keyword">const</span> T&amp; container, POSITION pos) : m_container(container), m_pos(pos) {}</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    mfc_iterator(<span class="keyword">const</span> mfc_iterator&amp; rhs) : m_container(rhs.m_container), m_pos(rhs.m_pos) {}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">mfc_iterator</a>(<span class="keyword">const</span> T&amp; container, POSITION pos) : m_container(container), m_pos(pos) {}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">mfc_iterator</a>(<span class="keyword">const</span> <a class="code" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">mfc_iterator</a>&amp; rhs) : m_container(rhs.m_container), m_pos(rhs.m_pos) {}</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    mfc_iterator&amp; operator = (<span class="keyword">const</span> mfc_iterator&amp; rhs) { m_container = rhs.m_container; m_pos = m_pos; <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">mfc_iterator</a>&amp; operator = (<span class="keyword">const</span> <a class="code" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">mfc_iterator</a>&amp; rhs) { m_container = rhs.m_container; m_pos = m_pos; <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    mfc_iterator&amp; operator ++ ()    { advance(); <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    mfc_iterator&amp; operator ++ (<span class="keywordtype">int</span>) { mfc_iterator r(*<span class="keyword">this</span>); advance(); <span class="keywordflow">return</span> r; }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">mfc_iterator</a>&amp; operator ++ ()    { advance(); <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">mfc_iterator</a>&amp; operator ++ (<span class="keywordtype">int</span>) { <a class="code" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">mfc_iterator</a> r(*<span class="keyword">this</span>); advance(); <span class="keywordflow">return</span> r; }</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    Item operator *  ()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_container.GetAt(m_pos); }</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    Item operator -&gt; ()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_container.GetAt(m_pos); }</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">bool</span> operator == (mfc_iterator&amp; rhs) { <span class="keywordflow">return</span> rhs.m_pos == m_pos; }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">bool</span> operator != (mfc_iterator&amp; rhs) { <span class="keywordflow">return</span> rhs.m_pos != m_pos; }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">bool</span> operator == (<a class="code" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">mfc_iterator</a>&amp; rhs) { <span class="keywordflow">return</span> rhs.m_pos == m_pos; }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">bool</span> operator != (<a class="code" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">mfc_iterator</a>&amp; rhs) { <span class="keywordflow">return</span> rhs.m_pos != m_pos; }</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> advance()</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    {</div>
@@ -119,23 +119,23 @@ $(function() {
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Key, <span class="keyword">typename</span> Value&gt;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">class </span>mfc_map_iterator : <span class="keyword">public</span> ::std::iterator &lt; ::std::input_iterator_tag, ::std::pair&lt;Key, Value&gt; &gt;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;{</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">class </span><a class="code" href="../../d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html">mfc_map_iterator</a> : <span class="keyword">public</span> ::std::iterator &lt; ::std::input_iterator_tag, ::std::pair&lt;Key, Value&gt; &gt;</div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="../../d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html">   67</a></span>&#160;{</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    typedef ::std::pair&lt;Key, Value&gt; Item;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    mfc_map_iterator(<span class="keyword">const</span> T&amp; container, POSITION pos) : m_container(container), m_pos(pos) {}</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    mfc_map_iterator(<span class="keyword">const</span> mfc_map_iterator&amp; rhs) : m_container(rhs.m_container), m_pos(rhs.m_pos) {}</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="../../d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html">mfc_map_iterator</a>(<span class="keyword">const</span> T&amp; container, POSITION pos) : m_container(container), m_pos(pos) {}</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="../../d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html">mfc_map_iterator</a>(<span class="keyword">const</span> <a class="code" href="../../d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html">mfc_map_iterator</a>&amp; rhs) : m_container(rhs.m_container), m_pos(rhs.m_pos) {}</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    mfc_map_iterator&amp; operator = (<span class="keyword">const</span> mfc_map_iterator&amp; rhs) { m_container = rhs.m_container; m_pos = m_pos; <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="../../d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html">mfc_map_iterator</a>&amp; operator = (<span class="keyword">const</span> <a class="code" href="../../d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html">mfc_map_iterator</a>&amp; rhs) { m_container = rhs.m_container; m_pos = m_pos; <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    mfc_map_iterator&amp; operator ++ ()    { advance(); <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    mfc_map_iterator&amp; operator ++ (<span class="keywordtype">int</span>) { mfc_iterator r(*<span class="keyword">this</span>); advance(); <span class="keywordflow">return</span> r; }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="../../d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html">mfc_map_iterator</a>&amp; operator ++ ()    { advance(); <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="../../d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html">mfc_map_iterator</a>&amp; operator ++ (<span class="keywordtype">int</span>) { <a class="code" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">mfc_iterator</a> r(*<span class="keyword">this</span>); advance(); <span class="keywordflow">return</span> r; }</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    Item operator *  ()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_pair; }</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    Item operator -&gt; ()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_pair; }</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">bool</span> operator == (mfc_map_iterator&amp; rhs) { <span class="keywordflow">return</span> rhs.m_pos == m_pos; }</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">bool</span> operator != (mfc_map_iterator&amp; rhs) { <span class="keywordflow">return</span> rhs.m_pos != m_pos; }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">bool</span> operator == (<a class="code" href="../../d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html">mfc_map_iterator</a>&amp; rhs) { <span class="keywordflow">return</span> rhs.m_pos == m_pos; }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">bool</span> operator != (<a class="code" href="../../d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html">mfc_map_iterator</a>&amp; rhs) { <span class="keywordflow">return</span> rhs.m_pos != m_pos; }</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">void</span> advance()</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    {</div>
@@ -151,9 +151,9 @@ $(function() {
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;};</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;mfc_iterator&lt;CList&lt;T, U&gt;, T&gt; begin(CList&lt;T, U&gt;&amp; list)</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<a class="code" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">mfc_iterator&lt;CList&lt;T, U&gt;</a>, T&gt; begin(CList&lt;T, U&gt;&amp; list)</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;{</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">return</span> mfc_iterator&lt;CList&lt;T, U&gt;, T&gt;(list, list.GetHeadPosition());</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">mfc_iterator&lt;CList&lt;T, U&gt;</a>, T&gt;(list, list.GetHeadPosition());</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;mfc_iterator&lt;CList&lt;T, U&gt;, T&gt; end(CList&lt;T, U&gt;&amp; list)</div>
@@ -323,33 +323,39 @@ $(function() {
 <div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
 <div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;<span class="keyword">class </span>CContainer</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;{</div>
+<div class="line"><a name="l00273"></a><span class="lineno"><a class="line" href="../../d0/ded/classiutest_1_1mfc_1_1_c_container.html">  273</a></span>&#160;{</div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> peep::base_type&lt;T&gt;::BASE_TYPE BASE_TYPE;</div>
 <div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> peep::base_type&lt;T&gt;::BASE_KEY BASE_KEY;</div>
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> peep::base_type&lt;T&gt;::BASE_VALUE BASE_VALUE;</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> peep::mfc_iterator_traits&lt;T&gt;::type iterator_type;</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> <a class="code" href="../../d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html">peep::mfc_iterator_traits&lt;T&gt;::type</a> <a class="code" href="../../d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html">iterator_type</a>;</div>
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    <span class="keyword">explicit</span> CContainer(T&amp; container) : m_container(container) {}</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="../../d0/ded/classiutest_1_1mfc_1_1_c_container.html">CContainer</a>(T&amp; container) : m_container(container) {}</div>
 <div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160; </div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    iterator_type begin()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mfc::begin(m_container); }</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    iterator_type end()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mfc::end(m_container); }</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <a class="code" href="../../d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html">iterator_type</a> begin()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mfc::begin(m_container); }</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <a class="code" href="../../d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html">iterator_type</a> end()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> mfc::end(m_container); }</div>
 <div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
 <div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    T&amp; m_container;</div>
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;};</div>
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160; </div>
 <div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;CContainer&lt;T&gt; make_container(T&amp; obj) { <span class="keywordflow">return</span> CContainer&lt;T&gt;(obj); }</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;<a class="code" href="../../d0/ded/classiutest_1_1mfc_1_1_c_container.html">CContainer&lt;T&gt;</a> <a class="code" href="../../dc/d5d/iutest__mfc_8hpp.html#a78b02c3c64088ef9987816a4f3f4ed4c">make_container</a>(T&amp; obj) { <span class="keywordflow">return</span> <a class="code" href="../../d0/ded/classiutest_1_1mfc_1_1_c_container.html">CContainer&lt;T&gt;</a>(obj); }</div>
+<div class="line"><a name="l00301"></a><span class="lineno"><a class="line" href="../../dc/d5d/iutest__mfc_8hpp.html#a78b02c3c64088ef9987816a4f3f4ed4c">  301</a></span>&#160; </div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;}   <span class="comment">// end of namespace mfc</span></div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160; </div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_MFC_HPP_43CC925C_BED2_4D9D_8502_78204B69B675_</span></div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
+<div class="ttc" id="aiutest__mfc_8hpp_html_a78b02c3c64088ef9987816a4f3f4ed4c"><div class="ttname"><a href="../../dc/d5d/iutest__mfc_8hpp.html#a78b02c3c64088ef9987816a4f3f4ed4c">iutest::mfc::make_container</a></div><div class="ttdeci">CContainer&lt; T &gt; make_container(T &amp;obj)</div><div class="ttdoc">make mfc container</div><div class="ttdef"><b>Definition:</b> iutest_mfc.hpp:301</div></div>
+<div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:31</div></div>
+<div class="ttc" id="aclassiutest_1_1mfc_1_1_c_container_html"><div class="ttname"><a href="../../d0/ded/classiutest_1_1mfc_1_1_c_container.html">iutest::mfc::CContainer</a></div><div class="ttdoc">provide begin/end in mfc container</div><div class="ttdef"><b>Definition:</b> iutest_mfc.hpp:273</div></div>
+<div class="ttc" id="aclassiutest_1_1mfc_1_1mfc__map__iterator_html"><div class="ttname"><a href="../../d3/dd1/classiutest_1_1mfc_1_1mfc__map__iterator.html">iutest::mfc::mfc_map_iterator</a></div><div class="ttdoc">mfc map container iterator</div><div class="ttdef"><b>Definition:</b> iutest_mfc.hpp:67</div></div>
+<div class="ttc" id="aclassiutest_1_1mfc_1_1mfc__iterator_html"><div class="ttname"><a href="../../dd/dbd/classiutest_1_1mfc_1_1mfc__iterator.html">iutest::mfc::mfc_iterator</a></div><div class="ttdoc">mfc container iterator</div><div class="ttdef"><b>Definition:</b> iutest_mfc.hpp:31</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年04月29日(水) 07時06分32秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年04月29日(水) 08時44分28秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

@@ -70,7 +70,7 @@ $(function() {
 <div class="title">iutest_util_menu.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
+<a href="../../d3/d9d/iutest__util__menu_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div>
@@ -79,13 +79,13 @@ $(function() {
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// include</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;iutest_util_tests.hpp&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d8/def/iutest__util__tests_8hpp.html">iutest_util_tests.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#if defined(IUTEST_OS_WINDOWS)</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;windows.h&gt;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">namespace </span>iuutil</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">namespace </span><a class="code" href="../../d8/dbf/namespaceiuutil.html">iuutil</a></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;{</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">//======================================================================</span></div>
@@ -129,12 +129,12 @@ $(function() {
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        Append(hRoot, <span class="stringliteral">&quot;以下をすべて実行&quot;</span>, m_nID);</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        ++m_nID;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        ::iutest::UnitTest* pUnitTest = ::iutest::UnitTest::GetInstance();</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> testcase_count = pUnitTest-&gt;total_test_case_count();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html">::iutest::UnitTest</a>* pUnitTest = <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">::iutest::UnitTest::GetInstance</a>();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> testcase_count = pUnitTest-&gt;<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a37d3f62e16d16ee87fb7574849a3fcb1">total_test_case_count</a>();</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">for</span>( <span class="keywordtype">int</span> i=0; i &lt; testcase_count; ++i )</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            const ::iutest::TestCase* pTestCase = pUnitTest-&gt;GetTestCase(i);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">int</span> test_count = pTestCase-&gt;total_test_count();</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            const ::iutest::TestCase* pTestCase = pUnitTest-&gt;<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#ac982058918f7cdec72624b7842ad96c4">GetTestCase</a>(i);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">int</span> test_count = pTestCase-&gt;<a class="code" href="../../df/d67/classiutest_1_1_test_case.html#ac8f9395c5fdc7b578e3acb998fe208f3">total_test_count</a>();</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            HMENU hTestCase = AppendPopup(hRoot, pTestCase-&gt;name());</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            Append(hTestCase, <span class="stringliteral">&quot;以下をすべて実行&quot;</span>, m_nID);</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STD_EMPLACE</span></div>
@@ -163,16 +163,16 @@ $(function() {
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    {</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordflow">if</span>( wID == m_nIDTop )</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        {</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            ::iutest::IUTEST_FLAG(filter) = <span class="stringliteral">&quot;*&quot;</span>;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <span class="keywordflow">return</span> IUTEST_RUN_ALL_TESTS() == 0 ? true : <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75">::iutest::IUTEST_FLAG</a>(filter) = <span class="stringliteral">&quot;*&quot;</span>;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga8a327cf27dd6c68be0943a4863197982">IUTEST_RUN_ALL_TESTS</a>() == 0 ? true : <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        }</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        {</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            TestInfoMap::iterator it = m_TestInfoList.find(wID);</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="keywordflow">if</span>( it != m_TestInfoList.end() )</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            {</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                ::iutest::IUTEST_FLAG(filter) = TestFullName(it-&gt;second);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                <span class="keywordflow">return</span> IUTEST_RUN_ALL_TESTS() == 0 ? true : <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75">::iutest::IUTEST_FLAG</a>(filter) = <a class="code" href="../../d8/dbf/namespaceiuutil.html#adf05d2ff6e124f8b2cb9a3a3f2968fab">TestFullName</a>(it-&gt;second);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga8a327cf27dd6c68be0943a4863197982">IUTEST_RUN_ALL_TESTS</a>() == 0 ? true : <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            }</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        }</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        {</div>
@@ -181,8 +181,8 @@ $(function() {
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            {</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                ::std::string filter = it-&gt;second-&gt;name();</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                filter += <span class="stringliteral">&quot;.*&quot;</span>;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                ::iutest::IUTEST_FLAG(filter) = filter;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                <span class="keywordflow">return</span> IUTEST_RUN_ALL_TESTS() == 0 ? true : <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75">::iutest::IUTEST_FLAG</a>(filter) = filter;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga8a327cf27dd6c68be0943a4863197982">IUTEST_RUN_ALL_TESTS</a>() == 0 ? true : <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            }</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        }</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
@@ -256,9 +256,20 @@ $(function() {
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_MENU_TESTS_HPP_52925DE1_A4AE_4CCB_B524_8E97AA73E03D_</span></div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclassiutest_1_1_unit_test_html_a1154caf184eb447dd0fe5fbde60e1868"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">iutest::UnitTest::GetInstance</a></div><div class="ttdeci">static UnitTest * GetInstance()</div><div class="ttdoc">UnitTest インスタンスの取得</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:41</div></div>
+<div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
+<div class="ttc" id="aclassiutest_1_1_unit_test_html"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html">iutest::UnitTest</a></div><div class="ttdoc">テスト全体の管理者</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:33</div></div>
+<div class="ttc" id="aclassiutest_1_1_unit_test_html_a37d3f62e16d16ee87fb7574849a3fcb1"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a37d3f62e16d16ee87fb7574849a3fcb1">iutest::UnitTest::total_test_case_count</a></div><div class="ttdeci">int total_test_case_count() const</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:89</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga650662dc23cc31b5bee68981633a4a75"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75">IUTEST_FLAG</a></div><div class="ttdeci">#define IUTEST_FLAG(name)</div><div class="ttdoc">フラグセット</div><div class="ttdef"><b>Definition:</b> iutest_env.hpp:55</div></div>
+<div class="ttc" id="aclassiutest_1_1_unit_test_html_ac982058918f7cdec72624b7842ad96c4"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#ac982058918f7cdec72624b7842ad96c4">iutest::UnitTest::GetTestCase</a></div><div class="ttdeci">const TestCase * GetTestCase(int index) const</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:113</div></div>
+<div class="ttc" id="anamespaceiuutil_html"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html">iuutil</a></div><div class="ttdoc">iutest utility namespace</div><div class="ttdef"><b>Definition:</b> iutest_util.hpp:33</div></div>
+<div class="ttc" id="anamespaceiuutil_html_adf05d2ff6e124f8b2cb9a3a3f2968fab"><div class="ttname"><a href="../../d8/dbf/namespaceiuutil.html#adf05d2ff6e124f8b2cb9a3a3f2968fab">iuutil::TestFullName</a></div><div class="ttdeci">inline ::std::string TestFullName(const ::iutest::TestInfo *test_info)</div><div class="ttdoc">テスト名を取得</div><div class="ttdef"><b>Definition:</b> iutest_util_tests.hpp:30</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_case_html_ac8f9395c5fdc7b578e3acb998fe208f3"><div class="ttname"><a href="../../df/d67/classiutest_1_1_test_case.html#ac8f9395c5fdc7b578e3acb998fe208f3">iutest::TestCase::total_test_count</a></div><div class="ttdeci">int total_test_count() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_case.hpp:76</div></div>
+<div class="ttc" id="aiutest__util__tests_8hpp_html"><div class="ttname"><a href="../../d8/def/iutest__util__tests_8hpp.html">iutest_util_tests.hpp</a></div><div class="ttdoc">iris unit test テスト情報 utility ファイル</div></div>
+<div class="ttc" id="agroup___t_e_s_t_d_e_f_html_ga8a327cf27dd6c68be0943a4863197982"><div class="ttname"><a href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga8a327cf27dd6c68be0943a4863197982">IUTEST_RUN_ALL_TESTS</a></div><div class="ttdeci">#define IUTEST_RUN_ALL_TESTS()</div><div class="ttdoc">すべてのテストを実行する</div><div class="ttdef"><b>Definition:</b> iutest.hpp:154</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年04月29日(水) 07時06分32秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年04月29日(水) 08時44分32秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
