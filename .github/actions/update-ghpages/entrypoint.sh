@@ -17,8 +17,7 @@ doxygen --version
 dot --version || true
 
 cd docs
-export PATH=$PATH:$PWD
-echo $PATH
+export PATH=$PATH:"$PWD"
 git clone -b gh-pages git@github.com:srz-zumix/iutest.git gh-pages
 
 OUTDIR="gh-pages/${DIRNAME}"
