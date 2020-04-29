@@ -18,6 +18,7 @@ dot -V || true
 
 cd docs
 export PATH=$PATH:"$PWD"
+git config --global http.sslverify false
 git clone --depth 1 -b gh-pages https://github.com/srz-zumix/iutest.git gh-pages
 
 OUTDIR="gh-pages/${DIRNAME}"
