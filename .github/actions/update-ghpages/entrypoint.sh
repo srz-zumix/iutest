@@ -32,12 +32,15 @@ make
 make gh-pages GHPAGES_DIR="${OUTDIR}"
 
 cd gh-pages
-git config --list
-git config user.email "zumix.cpp@gmail.com"
+if [ -z "${INPUT_GITHUB_TOKEN}" ]; then
+git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+else
+git config user.email "${INPUT_GITHUB_TOKEN}"
+fi
 git config user.name "${GITHUB_ACTOR}"
 git add --all
 #export GIT_COMMIT_MESSAGE='update gh-pages git@$CI_COMMIT_ID'
 #git commit -m $GIT_COMMIT_MESSAGE
 git commit -m "update gh-pages git@$CI_COMMIT_ID"
 
-git push https://${GITHUB_ACTOR}:${INPUT_GITHUB_TOKEN}@github.com/srz-zumix/iutest.git
+git push "https://${GITHUB_ACTOR}:${INPUT_GITHUB_TOKEN}@github.com/srz-zumix/iutest.git"
