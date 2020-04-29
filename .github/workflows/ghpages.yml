@@ -4,6 +4,9 @@ on:
     branches:
       - master
       - 'ghpages/**'
+    paths:
+      - include/
+      - docs/
 
 jobs:
   update_document:
