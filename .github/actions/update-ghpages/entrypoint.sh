@@ -30,6 +30,7 @@ fi
 
 make
 make gh-pages GHPAGES_DIR="${OUTDIR}"
+make gh-pages-ci
 
 cd gh-pages
 if [ -z "${INPUT_GITHUB_TOKEN}" ]; then

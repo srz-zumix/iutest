@@ -26,6 +26,8 @@ gh-pages: target
 	cp -r html ${GHPAGES_DIR}/
 	cp -r images ${GHPAGES_DIR}/
 	cp ../README.md ${GHPAGES_DIR}/
+
+gh-pages-ci:
 	cp -r dev/.circleci ${GHPAGES_DIR}/
 	cp dev/*.yml ${GHPAGES_DIR}/
 
