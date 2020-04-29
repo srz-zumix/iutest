@@ -7,6 +7,8 @@ on:
     paths:
       - include/
       - docs/
+      - .github/actions/update-ghpages
+      - .github/workflows/ghpages.yml
 
 jobs:
   update_document:
