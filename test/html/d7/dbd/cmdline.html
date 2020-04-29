@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>iutest: 環境変数オプション</title>
+<title>iutest: コマンドラインオプション</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -63,47 +63,63 @@ $(function() {
 </div><!-- top -->
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">環境変数オプション </div>  </div>
+<div class="title">コマンドラインオプション </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><dl class="section user"><dt>Environment variable Options</dt><dd><table class="doxtable">
+<div class="textblock"><dl class="section user"><dt>Command Line Options</dt><dd><table class="doxtable">
 <tr>
-<td>IUTEST_OUTPUT=xml|junit[:path] </td><td>Path of xml report. </td></tr>
+<td>&ndash;help, -h </td><td></td><td>Generate help message. </td></tr>
 <tr>
-<td>IUTEST_COLOR=yes|no|auto </td><td>Console color enable. </td></tr>
+<td>&ndash;iutest_output </td><td>xml|junit[:path]</td><td>Path of xml report. </td></tr>
 <tr>
-<td>IUTEST_FLAGFILE=file </td><td>Set the flag from the file. </td></tr>
+<td>&ndash;iutest_list_tests </td><td></td><td>List up tests. </td></tr>
 <tr>
-<td>IUTEST_FILTER=filter </td><td>Select the test run. </td></tr>
+<td>&ndash;iutest_list_tests_with_where </td><td></td><td>List up tests with where. </td></tr>
 <tr>
-<td>IUTEST_SHUFFLE </td><td>Do shuffle test. </td></tr>
+<td>&ndash;iutest_color </td><td>&lt;yes|no|auto|ansi&gt;</td><td>Console color enable. </td></tr>
 <tr>
-<td>IUTEST_RANDOM_SEED=seed </td><td>Set random seed. </td></tr>
+<td>&ndash;iutest_flagfile </td><td>&lt;file&gt;</td><td>Set the flag from the file. </td></tr>
 <tr>
-<td>IUTEST_ALSO_RUN_DISABLED_TESTS </td><td>Run disabled tests. </td></tr>
+<td>&ndash;iutest_filter </td><td>&lt;filter&gt;</td><td>Select the test run. </td></tr>
 <tr>
-<td>IUTEST_BREAK_ON_FAILURE=0|1 </td><td>When that failed to break. </td></tr>
+<td>&ndash;iutest_shuffle </td><td></td><td>Do shuffle test. </td></tr>
 <tr>
-<td>IUTEST_THROW_ON_FAILURE=0|1 </td><td>When that failed to throw. </td></tr>
+<td>&ndash;iutest_random_seed </td><td>&lt;seed&gt;</td><td>Set random seed. </td></tr>
 <tr>
-<td>IUTEST_WARNING_INTO_ERROR=0|1 </td><td>Make warnings into error. </td></tr>
+<td>&ndash;iutest_also_run_disabled_tests </td><td></td><td>Run disabled tests. </td></tr>
 <tr>
-<td>IUTEST_CATCH_EXCEPTIONS=0|1 </td><td>Catch exceptions enable. </td></tr>
+<td>&ndash;iutest_break_on_failure </td><td>[yes|no]</td><td>When that failed to break. </td></tr>
 <tr>
-<td>IUTEST_PRINT_TIME=0|1 </td><td>Setting the display of elapsed time. </td></tr>
+<td>&ndash;iutest_throw_on_failure </td><td>[yes|no]</td><td>When that failed to throw. </td></tr>
 <tr>
-<td>IUTEST_REPEAT=count </td><td>Set the number of repetitions of the test. </td></tr>
+<td>&ndash;iutest_warning_into_error </td><td>[yes|no]</td><td>Make warnings into error. </td></tr>
 <tr>
-<td>IUTEST_FILE_LOCATION=auto|vs|gcc</td><td>Format file location messages. </td></tr>
+<td>&ndash;iutest_catch_exceptions </td><td>&lt;yes|no&gt;</td><td>Catch exceptions enable. </td></tr>
 <tr>
-<td>IUTEST_ROOT_PACKAGE_NAME=[name] </td><td>Set root package name. </td></tr>
+<td>&ndash;iutest_print_time </td><td>&lt;yes|no&gt;</td><td>Setting the display of elapsed time. </td></tr>
+<tr>
+<td>&ndash;iutest_repeat </td><td>&lt;count&gt;</td><td>Set the number of repetitions of the test. use a negative count to repeat forever. </td></tr>
+<tr>
+<td>&ndash;iutest_stream_result_to </td><td>&lt;host:port&gt;</td><td>Set stream test results server. </td></tr>
+<tr>
+<td>&ndash;iutest_file_location </td><td>&lt;auto|vs|gcc&gt;</td><td>Format file location messages. </td></tr>
+<tr>
+<td>&ndash;iutest_default_package_name </td><td>[name]</td><td>Set default root package name. </td></tr>
+<tr>
+<td>&ndash;iutest_locale_ctype </td><td>[name]</td><td>setlocate(LC_CTYPE, [name]). </td></tr>
+<tr>
+<td>&ndash;verbose </td><td></td><td>Verbose option. </td></tr>
+<tr>
+<td>&ndash;feature </td><td></td><td>Show iutest feature. </td></tr>
+<tr>
+<td>&ndash;version, -v </td><td></td><td>Show iutest version. </td></tr>
 </table>
-</dd></dl>
+yes or no option can use "yes|y|on|true|t|1|no|n|off|false|f|0" </dd></dl>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年04月29日(水) 08時44分33秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年04月29日(水) 12時26分44秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

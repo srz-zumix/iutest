@@ -23,9 +23,9 @@
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/1316/badge.svg)](https://scan.coverity.com/projects/srz-zumix-iutest)
 [![GuardRails badge](https://badges.guardrails.io/srz-zumix/iutest.svg?token=fe1bb5ca5f743800d26e4d2b7282c5b316df83c0b228048f4192510bdd7280f0)](https://dashboard.guardrails.io/default/gh/srz-zumix/iutest)
 [![GitHub Actions reviewdog Status](https://github.com/srz-zumix/iutest/workflows/GitHub%20Actions%20-%20reviewdog/badge.svg?branch=develop)](https://github.com/srz-zumix/iutest/actions?query=workflow%3A%22GitHub+Actions+-+reviewdog%22)  
-[![New(3-clause) BSD License](https://img.shields.io/badge/license-New_BSD-blue.svg)](http://opensource.org/licenses/BSD-3-Clause)
+[![New(3-clause) BSD License](https://img.shields.io/badge/license-New_BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![NuGet version](https://badge.fury.io/nu/iutest.svg)](https://badge.fury.io/nu/iutest)  
-[![support](https://img.shields.io/badge/%24-support-orange.svg)](http://amzn.asia/6fNxDZU)
+[![support](https://img.shields.io/badge/%24-support-orange.svg)](https://amzn.asia/6fNxDZU)
 
 iutest
 ==========
@@ -81,13 +81,13 @@ Documentation
 * in repository  
   doc/index.html  
 * online document  
-  [least released version(OSDN)](http://iutest.osdn.jp/doc/index.html)  
-  [GitHub master branch (gh-pages)](http://srz-zumix.github.io/iutest/)  
+  [least released version(OSDN)](https://iutest.osdn.jp/doc/index.html)  
+  [GitHub master branch (gh-pages)](https://srz-zumix.github.io/iutest/)  
 
 Project page
 --------------------------------------------------
 
-* [OSDN Project page](http://iutest.osdn.jp/)  
+* [OSDN Project page](https://iutest.osdn.jp/)  
 * [GitHub](https://github.com/srz-zumix/iutest)  
 
 Support
@@ -130,9 +130,9 @@ Tests
 |[Scrutinizer](https://scrutinizer-ci.com/)|[![Scrutinizer Build Status](https://scrutinizer-ci.com/g/srz-zumix/iutest/badges/build.png?b=master)](https://scrutinizer-ci.com/g/srz-zumix/iutest/build-status/master)|[![Scrutinizer Build Status](https://scrutinizer-ci.com/g/srz-zumix/iutest/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/srz-zumix/iutest/build-status/develop)|iuwandbox tests|
 |[Semaphore](https://semaphoreci.com/)|[![Semaphore Build Status](https://semaphoreci.com/api/v1/srz_zumix/iutest/branches/master/badge.svg)](https://semaphoreci.com/srz_zumix/iutest)|[![Semaphore Build Status](https://semaphoreci.com/api/v1/srz_zumix/iutest/branches/develop/badge.svg)](https://semaphoreci.com/srz_zumix/iutest)|Scan-build|
 |[Semaphore 2.0](https://semaphoreci.com/)|[![Semaphore 2.0 Build Status](https://srz-zumix.semaphoreci.com/badges/iutest/branches/master.svg)](https://srz-zumix.semaphoreci.com/projects/iutest)|[![Semaphore 2.0 Build Status](https://srz-zumix.semaphoreci.com/badges/iutest/branches/develop.svg)](https://srz-zumix.semaphoreci.com/projects/iutest)|Scan-build, Basic test, sample run|
-|[Shippable](http://shippable.com/)|[![Shippable Run Status](https://api.shippable.com/projects/541904d2ac22859af743f867/badge?branch=master)](https://app.shippable.com/github/srz-zumix/iutest)|[![Run Status](https://api.shippable.com/projects/541904d2ac22859af743f867/badge?branch=develop)](https://app.shippable.com/github/srz-zumix/iutest)|Syntax tests for compiler each version (c++98)|
+|[Shippable](https://shippable.com/)|[![Shippable Run Status](https://api.shippable.com/projects/541904d2ac22859af743f867/badge?branch=master)](https://app.shippable.com/github/srz-zumix/iutest)|[![Run Status](https://api.shippable.com/projects/541904d2ac22859af743f867/badge?branch=develop)](https://app.shippable.com/github/srz-zumix/iutest)|Syntax tests for compiler each version (c++98)|
 |[Travis CI](https://travis-ci.com/)|[![Travis-CI Build Status](https://travis-ci.com/srz-zumix/iutest.svg?branch=master)](https://travis-ci.com/srz-zumix/iutest)|[![Travis-CI Build Status](https://travis-ci.com/srz-zumix/iutest.svg?branch=develop)](https://travis-ci.com/srz-zumix/iutest)|Basic tests, Google Test compatibility, Coverage, Coverity-scan|
-|[Wercker](http://www.wercker.com/)|[![wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/master "wercker status")](https://app.wercker.com/project/byKey/d385156052aa4118a7f24affe4a8f851)|[![wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/develop "wercker status")](https://app.wercker.com/project/byKey/d385156052aa4118a7f24affe4a8f851)|Syntax tests for compiler each version (c++latest)|
+|[Wercker](https://www.wercker.com/)|[![wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/master "wercker status")](https://app.wercker.com/project/byKey/d385156052aa4118a7f24affe4a8f851)|[![wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/develop "wercker status")](https://app.wercker.com/project/byKey/d385156052aa4118a7f24affe4a8f851)|Syntax tests for compiler each version (c++latest)|
 
 Basic test
 
