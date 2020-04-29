@@ -33,10 +33,10 @@ make gh-pages GHPAGES_DIR="${OUTDIR}"
 make gh-pages-ci
 
 cd gh-pages
-if [ -z "${INPUT_GITHUB_TOKEN}" ]; then
+if [ -z "${INPUT_GITHUB_EMAIL}" ]; then
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 else
-git config user.email "${INPUT_GITHUB_TOKEN}"
+git config user.email "${INPUT_GITHUB_EMAIL}"
 fi
 git config user.name "${GITHUB_ACTOR}"
 git add --all
