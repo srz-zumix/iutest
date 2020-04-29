@@ -1,0 +1,10 @@
+name: 'Update GitHub Pages'
+description: 'update GitHub Pages'
+author: 'srz-zumix'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+branding:
+  icon: 'book-open'
+  color: 'green'
