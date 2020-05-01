@@ -8,15 +8,15 @@ rm -rf git-svn/.git
 cd git-svn
 ls
 svn st
-if `svn st | grep -q '^!'` ; then
+if $(svn st | grep -q '^!') ; then
   svn st | grep '^!' | awk '{print $2}' | xargs svn delete
 fi
 svn add * --force
 svn st
 export PREVCOMMIT=
 svn log . -l 1
-if `svn log . -l 1 | grep -q 'git@[0-9a-zA-Z]*'` ; then
-  export PREVCOMMIT=`svn log . -l 1 | grep 'git@[0-9a-zA-Z]*' | head -1 | sed -e 's/.*git@\([0-9a-zA-Z]*\).*/\1/g'`
+if $(svn log . -l 1 | grep -q 'git@[0-9a-zA-Z]*') ; then
+  export PREVCOMMIT=$(svn log . -l 1 | grep 'git@[0-9a-zA-Z]*' | head -1 | sed -e 's/.*git@\([0-9a-zA-Z]*\).*/\1/g')
 fi
 echo "$PREVCOMMIT"
 git log "$CI_COMMIT_ID" -n 1 --pretty="%B%ngit@%H%nhttps://github.com/srz-zumix/iutest/commit/%H" > ../svn.msg
