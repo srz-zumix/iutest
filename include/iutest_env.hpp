@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -302,6 +302,7 @@ private:
             , m_before_origin_random_seed(0)
             , m_repeat_count(1)
             , m_testpartresult_reporter(NULL)
+            , m_locale_ctype("")
         {}
         unsigned int        m_random_seed;
         unsigned int        m_current_random_seed;

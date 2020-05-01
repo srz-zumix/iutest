@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -198,5 +198,5 @@ IUTEST(UnitStringTest, FormatSizeTByte)
 
 IUTEST(UnitStringTest, Utf8AsciiCode)
 {
-    IUTEST_EXPECT_STREQ("A", ::iutest::detail::WideStringToUTF8(L"A", -1));
+    IUTEST_EXPECT_STREQ("A", ::iutest::detail::AnyStringToUTF8(L"A", -1));
 }

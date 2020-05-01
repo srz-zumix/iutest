@@ -129,6 +129,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #undef IUTEST_HAS_VARIADIC_TEMPLATES
 #undef IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES
 #undef IUTEST_HAS_INITIALIZER_LIST
+#undef IUTEST_HAS_CHAR8_T
 #undef IUTEST_HAS_CHAR16_T
 #undef IUTEST_HAS_CHAR32_T
 
@@ -207,6 +208,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #define IUTEST_HAS_VARIADIC_TEMPLATES   0
 #define IUTEST_HAS_VARIADIC_TEMPLATE_TEMPLATES  0
 #define IUTEST_HAS_INITIALIZER_LIST     0
+#define IUTEST_HAS_CHAR8_T              0
 #define IUTEST_HAS_CHAR16_T             0
 #define IUTEST_HAS_CHAR32_T             0
 
