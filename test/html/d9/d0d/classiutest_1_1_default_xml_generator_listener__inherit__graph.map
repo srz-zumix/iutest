@@ -1,6 +1,6 @@
 <map id="iutest::DefaultXmlGeneratorListener" name="iutest::DefaultXmlGeneratorListener">
-<area shape="rect" id="node1" title="xml出力イベントリスナー" alt="" coords="13,155,196,196"/>
-<area shape="rect" id="node4" href="$d7/d5b/classiutest_1_1_junit_xml_generator_listener.html" title="xml出力イベントリスナー" alt="" coords="21,244,189,285"/>
-<area shape="rect" id="node2" href="$d6/d68/classiutest_1_1_empty_test_event_listener.html" title="空のイベントリスナー" alt="" coords="5,80,204,107"/>
-<area shape="rect" id="node3" href="$dd/d01/classiutest_1_1_test_event_listener.html" title="イベントリスナー" alt="" coords="23,5,187,32"/>
+<area shape="rect" id="node1" title="xml出力イベントリスナー" alt="" coords="14,155,221,196"/>
+<area shape="rect" id="node4" href="$d7/d5b/classiutest_1_1_junit_xml_generator_listener.html" title="xml出力イベントリスナー" alt="" coords="24,244,211,285"/>
+<area shape="rect" id="node2" href="$d6/d68/classiutest_1_1_empty_test_event_listener.html" title="空のイベントリスナー" alt="" coords="5,80,229,107"/>
+<area shape="rect" id="node3" href="$dd/d01/classiutest_1_1_test_event_listener.html" title="イベントリスナー" alt="" coords="26,5,209,32"/>
 </map>

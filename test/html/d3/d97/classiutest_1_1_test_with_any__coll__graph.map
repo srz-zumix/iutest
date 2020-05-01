@@ -1,6 +1,6 @@
 <map id="iutest::TestWithAny" name="iutest::TestWithAny">
-<area shape="rect" id="node1" title="any パラメータテストフィクスチャ" alt="" coords="111,185,245,212"/>
-<area shape="rect" id="node2" href="$dc/d0e/classiutest_1_1_test.html" title="テストベース" alt="" coords="17,102,105,129"/>
-<area shape="rect" id="node3" href="$d8/d3d/classiutest_1_1_test_info.html" title="テスト情報クラス" alt="" coords="5,5,116,32"/>
-<area shape="rect" id="node4" href="$df/d22/classiutest_1_1_with_param_interface.html" title=" " alt="" coords="129,95,307,136"/>
+<area shape="rect" id="node1" title="any パラメータテストフィクスチャ" alt="" coords="75,185,223,212"/>
+<area shape="rect" id="node2" href="$dc/d0e/classiutest_1_1_test.html" title="テストベース" alt="" coords="18,102,111,129"/>
+<area shape="rect" id="node3" href="$d8/d3d/classiutest_1_1_test_info.html" title="テスト情報クラス" alt="" coords="5,5,124,32"/>
+<area shape="rect" id="node4" href="$df/d22/classiutest_1_1_with_param_interface.html" title=" " alt="" coords="136,95,332,136"/>
 </map>

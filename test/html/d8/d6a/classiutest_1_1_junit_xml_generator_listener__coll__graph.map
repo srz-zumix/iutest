@@ -1,9 +1,9 @@
 <map id="iutest::JunitXmlGeneratorListener" name="iutest::JunitXmlGeneratorListener">
-<area shape="rect" id="node1" title="xml出力イベントリスナー" alt="" coords="126,261,294,303"/>
-<area shape="rect" id="node2" href="$db/da9/classiutest_1_1_default_xml_generator_listener.html" title="xml出力イベントリスナー" alt="" coords="119,171,301,212"/>
-<area shape="rect" id="node3" href="$d6/d68/classiutest_1_1_empty_test_event_listener.html" title="空のイベントリスナー" alt="" coords="5,81,204,108"/>
-<area shape="rect" id="node4" href="$dd/d01/classiutest_1_1_test_event_listener.html" title="イベントリスナー" alt="" coords="9,5,173,32"/>
-<area shape="rect" id="node5" href="$d9/d57/classiutest_1_1_i_file.html" title="ファイルクラスインターフェイス" alt="" coords="240,81,327,108"/>
-<area shape="rect" id="node6" title="出力ストリームインターフェイス" alt="" coords="198,5,369,32"/>
-<area shape="rect" id="node7" title="入力ストリームインターフェイス" alt="" coords="393,5,555,32"/>
+<area shape="rect" id="node1" title="xml出力イベントリスナー" alt="" coords="115,261,301,303"/>
+<area shape="rect" id="node2" href="$db/da9/classiutest_1_1_default_xml_generator_listener.html" title="xml出力イベントリスナー" alt="" coords="105,171,311,212"/>
+<area shape="rect" id="node3" href="$d6/d68/classiutest_1_1_empty_test_event_listener.html" title="空のイベントリスナー" alt="" coords="5,81,229,108"/>
+<area shape="rect" id="node4" href="$dd/d01/classiutest_1_1_test_event_listener.html" title="イベントリスナー" alt="" coords="13,5,195,32"/>
+<area shape="rect" id="node5" href="$d9/d57/classiutest_1_1_i_file.html" title="ファイルクラスインターフェイス" alt="" coords="266,81,361,108"/>
+<area shape="rect" id="node6" title="出力ストリームインターフェイス" alt="" coords="220,5,407,32"/>
+<area shape="rect" id="node7" title="入力ストリームインターフェイス" alt="" coords="431,5,606,32"/>
 </map>

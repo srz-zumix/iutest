@@ -1,5 +1,5 @@
 <map id="iutest::UnitTest::current_test_info" name="iutest::UnitTest::current_test_info">
-<area shape="rect" id="node1" title="テスト中の TestInfo の取得" alt="" coords="5,5,167,47"/>
-<area shape="rect" id="node2" href="$dc/d0e/classiutest_1_1_test.html#a82600ea64053455a9f3c7189338f1c67" title="実行中の TestInfo の取得" alt="" coords="215,5,375,47"/>
-<area shape="rect" id="node3" href="$dc/d0e/classiutest_1_1_test.html#a69f141c4284b30b119c5691c7933d56f" title="実行中の Test の取得" alt="" coords="423,13,608,39"/>
+<area shape="rect" id="node1" title="テスト中の TestInfo の取得" alt="" coords="5,5,180,47"/>
+<area shape="rect" id="node2" href="$dc/d0e/classiutest_1_1_test.html#a82600ea64053455a9f3c7189338f1c67" title="実行中の TestInfo の取得" alt="" coords="228,5,400,47"/>
+<area shape="rect" id="node3" href="$dc/d0e/classiutest_1_1_test.html#a69f141c4284b30b119c5691c7933d56f" title="実行中の Test の取得" alt="" coords="448,13,647,39"/>
 </map>

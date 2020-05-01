@@ -1,6 +1,6 @@
 <map id="iutest::StdioFile" name="iutest::StdioFile">
-<area shape="rect" id="node1" title="標準ファイルクラス" alt="" coords="129,155,241,181"/>
-<area shape="rect" id="node2" href="$d9/d57/classiutest_1_1_i_file.html" title="ファイルクラスインターフェイス" alt="" coords="142,80,229,107"/>
-<area shape="rect" id="node3" title="出力ストリームインターフェイス" alt="" coords="5,5,176,32"/>
-<area shape="rect" id="node4" title="入力ストリームインターフェイス" alt="" coords="201,5,362,32"/>
+<area shape="rect" id="node1" title="標準ファイルクラス" alt="" coords="140,155,263,181"/>
+<area shape="rect" id="node2" href="$d9/d57/classiutest_1_1_i_file.html" title="ファイルクラスインターフェイス" alt="" coords="154,80,249,107"/>
+<area shape="rect" id="node3" title="出力ストリームインターフェイス" alt="" coords="5,5,192,32"/>
+<area shape="rect" id="node4" title="入力ストリームインターフェイス" alt="" coords="217,5,391,32"/>
 </map>
