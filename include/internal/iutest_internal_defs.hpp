@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -73,7 +73,7 @@
 #      define IUTEST_BREAK()    DebugBreak()
 #    endif
 #  elif defined(IUTEST_OS_MAC)
-// http://www.cocoawithlove.com/2008/03/break-into-debugger.html
+// https://www.cocoawithlove.com/2008/03/break-into-debugger.html
 #    if defined(__ppc64__) || defined(__ppc__)
 #      define IUTEST_BREAK()    __asm__("li r0, 20\nsc\nnop\nli r0, 37\nli r4, 2\nsc\nnop\n" : : : "memory", "r0", "r3", "r4" )
 #    else

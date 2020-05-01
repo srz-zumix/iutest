@@ -28,7 +28,7 @@
 /**
  * @mainpage
  * @sa  @b  ProjectHome \n
- *          OSDN        : http://osdn.jp/projects/iutest/ \n
+ *          OSDN        : https://osdn.jp/projects/iutest/ \n
  *          github      : https://github.com/srz-zumix/iutest \n
  *          google group: https://groups.google.com/forum/?fromgroups#!forum/g-iutest \n
  *
@@ -65,7 +65,7 @@ modification, are permitted provided that the following conditions are met: \n
 */
 
 /**
- * @page    CMDLINE     コマンドラインオプション
+ * @page    cmdline     コマンドラインオプション
  * @par     Command Line Options
  <table>
    <tr><td>--help, -h                        </td><td></td><td>Generate help message.</td></tr>
@@ -96,7 +96,7 @@ modification, are permitted provided that the following conditions are met: \n
 */
 
 /**
- * @page    ENVIRONMENT_OPTIONS 環境変数オプション
+ * @page    environmentoptions  環境変数オプション
  * @par     Environment variable Options
  <table>
    <tr><td>IUTEST_OUTPUT=xml|junit[:path]  </td><td>Path of xml report.</td></tr>
@@ -118,7 +118,7 @@ modification, are permitted provided that the following conditions are met: \n
 */
 
 /**
- * @page    CHANGELOG   変更履歴
+ * @page    changelog   変更履歴
  * @par     Changes
  <ul>
   <li>v1.17.1.0

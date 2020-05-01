@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -208,7 +208,7 @@ public:
 
     /**
      * @brief   浮動小数点数がほぼ一致するかどうか
-     * @sa      http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
+     * @sa      https://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
     */
     bool    NanSensitiveAlmostEquals(const _Myt& rhs) const
     {
