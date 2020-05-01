@@ -111,6 +111,21 @@
 #  define IUTEST_HAS_CONCEPTS               0
 #endif
 
+//! has char8_t
+#if !defined(IUTEST_HAS_CHAR8_T)
+#  if   defined(__cpp_char8_t) && __cpp_char8_t >= 201811L
+#    define IUTEST_HAS_CHAR8_T      1
+#  elif IUTEST_HAS_CXX2A && defined(_MSC_FULL_VER) && _MSC_FULL_VER >= 192127702
+#    define IUTEST_HAS_CHAR8_T    1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CHAR8_T)
+#  define IUTEST_HAS_CHAR8_T        0
+#endif
+
+
+
 // c++17 features
 
 //! inline variable
