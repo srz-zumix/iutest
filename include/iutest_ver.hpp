@@ -17,18 +17,18 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01170006u     //!< iutest version 1.17.0.6
+#define IUTEST_VER          0x01170007u     //!< iutest version 1.17.0.7
 #define IUTEST_MAJORVER     0x01u           //!< Major Version
 #define IUTEST_MINORVER     0x17u           //!< Minor Version
 #define IUTEST_MICROVER     0x00u           //!< Micro Version
-#define IUTEST_REVISION     0x06u           //!< Revision
+#define IUTEST_REVISION     0x07u           //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
 /**
  * @mainpage
  * @sa  @b  ProjectHome \n
- *          OSDN        : http://osdn.jp/projects/iutest/ \n
+ *          OSDN        : https://osdn.jp/projects/iutest/ \n
  *          github      : https://github.com/srz-zumix/iutest \n
  *          google group: https://groups.google.com/forum/?fromgroups#!forum/g-iutest \n
  *
@@ -65,7 +65,7 @@ modification, are permitted provided that the following conditions are met: \n
 */
 
 /**
- * @page    CMDLINE     コマンドラインオプション
+ * @page    cmdline     コマンドラインオプション
  * @par     Command Line Options
  <table>
    <tr><td>--help, -h                        </td><td></td><td>Generate help message.</td></tr>
@@ -96,7 +96,7 @@ modification, are permitted provided that the following conditions are met: \n
 */
 
 /**
- * @page    ENVIRONMENT_OPTIONS 環境変数オプション
+ * @page    environmentoptions  環境変数オプション
  * @par     Environment variable Options
  <table>
    <tr><td>IUTEST_OUTPUT=xml|junit[:path]  </td><td>Path of xml report.</td></tr>
@@ -118,7 +118,7 @@ modification, are permitted provided that the following conditions are met: \n
 */
 
 /**
- * @page    CHANGELOG   変更履歴
+ * @page    changelog   変更履歴
  * @par     Changes
  <ul>
   <li>v1.17.1.0

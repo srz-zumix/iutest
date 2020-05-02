@@ -26,3 +26,17 @@
     - name: check-remote-crlf
       service: iutest
       command: make -C /work/test/repository check-remote-crlf
+
+- type: parallel
+  tag: master
+  steps:
+    - name: sync-svn
+      service: iutest
+      command:  /work/.ci/sync-svn.sh
+
+- type: parallel
+  tag: v.*
+  steps:
+    - name: sync-svn
+      service: iutest
+      command:  /work/.ci/sync-svn-tag.sh

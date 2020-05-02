@@ -455,7 +455,7 @@
 #      define IUTEST_HAS_VARIADIC_TEMPLATES 1
 #    endif
 #  elif defined(__GNUC__)
-// http://gcc.gnu.org/bugzilla/show_bug.cgi?id=35722
+// https://gcc.gnu.org/bugzilla/show_bug.cgi?id=35722
 #    if defined(__VARIADIC_TEMPLATES)   \
             || ( ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7))) && defined(__GXX_EXPERIMENTAL_CXX0X__) )
 #      define IUTEST_HAS_VARIADIC_TEMPLATES 1
@@ -1397,7 +1397,7 @@
 */
 
 #if defined(_MSC_VER)
-// http://stackoverflow.com/questions/14487241/avoiding-an-inheritance-by-dominance-warning-for-a-mocked-stdfstream-class
+// https://stackoverflow.com/questions/14487241/avoiding-an-inheritance-by-dominance-warning-for-a-mocked-stdfstream-class
 #  define IUTEST_WORKAROUND_MSC_STLSTREAM_C4250()   \
     void _Add_vtordisp1() {}    \
     void _Add_vtordisp2() {}
