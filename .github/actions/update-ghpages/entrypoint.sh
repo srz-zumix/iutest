@@ -16,7 +16,9 @@ export DIRNAME_="${GITHUB_REF#refs/heads/}"
 export DIRNAME="${DIRNAME_#refs/tags/}"
 
 if [ "${DIRNAME}" != 'master' ]; then
-  if [[ ! "${DIRNAME}" =~ v.* ]]; then
+  if [[ "${DIRNAME}" =~ v.* ]]; then
+      DIRNAME=latest
+  else
       DIRNAME=test
   fi
 fi
