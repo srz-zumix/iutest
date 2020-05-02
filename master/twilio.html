@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+  <title>iutest - Twilio</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="content-style-type" content="text/css" />
+
+  <link href="css/doc.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<div class="contents">
+<h1>Twilio の利用</h1>
+
+<h2>iutwilio</h2>
+<div class="text_block">
+<a href="https://twilio.kddi-web.com/">Twilio</a> を利用しテスト結果を電話やSMSで通知できます。<br />
+</div>
+
+<h2>使い方</h2>
+<div class="text_block">
+tools/twilio/iutwilio.py を使用します。<br />
+iutwilio は python で書かれていますので、python が利用可能な環境で実行してください。<br />
+実行にはテスト結果の xml と、Twilio のアカウント情報、発信先番号を指定します。<br />
+<br />
+
+例）<br />
+<pre class="console">
+iutwilio.py result.xml --call +810123456789 --account_sid=AC00000000000000000000000000000000 --auth_token=XXX --number=+815012345678
+</pre>
+</div>
+
+<h2>コマンドラインオプション</h2>
+<div class="text_block">
+<table class="ruled" summary="コマンドラインオプション" >
+<tr><td>--account_sid SID   </td><td>Twilio アカウントの SID を指定します。</td></tr>
+<tr><td>--auth_token TOKEN  </td><td>Twilio REST API の auth トークンを指定します。</td></tr>
+<tr><td>--number NUMBER     </td><td>発信元番号を指定します。</td></tr>
+<tr><td>--url URL           </td><td>発信内容の TwiML もしくは アプリケーション URL を指定します。</td></tr>
+<tr><td>--call NUMBER       </td><td>電話を発信します。NUMBER に発信先電話番号を指定します。</td></tr>
+<tr><td>--sms NUMBER        </td><td>SMS を送信します。NUMBER に送信先電話番号を指定します。</td></tr>
+<tr><td>--ini               </td><td>設定を INI ファイルから読み込みます。[Twilio] account_sid,auth_token,number,sms_number</td></tr>
+<tr><td>--dryrun            </td><td>発信を行わず実行します。</td></tr>
+<tr><td>-v,--version        </td><td>バージョンを表示します。</td></tr>
+<tr><td>-h,--help           </td><td>ヘルプを表示します。</td></tr>
+</table>
+</div>
+
+</div> <!-- end of contents -->
+
+<br />
+<div class="copyright">Copyright (c) 2011-2016, Takazumi-Shirayanagi, All rights reserved.</div>
+
+</body>
+</html>

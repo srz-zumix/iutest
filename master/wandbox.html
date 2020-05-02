@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<head>
+  <title>iutest - Wandbox</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="content-style-type" content="text/css" />
+
+  <link href="css/doc.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<div class="contents">
+<h1>Wandbox の利用</h1>
+
+<h2>iuwandbox</h2>
+<div class="text_block">
+<a href="https://melpon.org/wandbox/">Wandbox</a> で iutest を使ったテストコードを書けるように対応しました。<br />
+様々なコンパイラー・バージョンでビルド・テストができるため、あなたのプログラムのコンパイラー対応を助けます。<br />
+</div>
+
+<h2>使い方</h2>
+<div class="text_block">
+tools/wandbox/iuwandbox.py を使用します。<br />
+iuwandbox は python で書かれていますので、python が利用可能な環境で実行してください。<br />
+実行は簡単です。ビルド・実行したいソースコードファイルを引数に渡すだけです。<br />
+<br />
+
+例）<br />
+<pre class="console">
+iuwandbox.py sample.cpp
+</pre>
+
+ソースコードに特別な記述は必要ありません。<br />
+重要なのは iutest.hpp を include することです。このとき、iutest.hpp にパスが通っていなくても問題ありません。<br />
+<pre class="source">
+#include "../../include/iutest.hpp"
+#include &lt;iostream&gt;
+
+int main(int argc, char** argv)
+{
+    int x = 0;
+    ::std::cout &lt;&lt; "hoge" &lt;&lt; ::std::endl;
+
+    IUTEST_INIT(&amp;argc, argv);
+    return IUTEST_RUN_ALL_TESTS();
+}
+
+IUTEST(Foo, Bar)
+{
+    IUTEST_ASSERT_EQ(1, abs(-1));
+}
+</pre>
+
+サンプルの実行結果はこちらになります。<br />
+<img src="./images/iuwandbox_sample.png" alt="サンプル実行結果" />
+<a href="https://melpon.org/wandbox/permlink/VspJQN4s3NzUR3C9" target="_blank">https://melpon.org/wandbox/permlink/VspJQN4s3NzUR3C9</a><br />
+<br />
+コンパイラーの選択などは後述のコマンドラインオプションの項をご覧ください。<br />
+</div>
+
+<h2>コマンドラインオプション</h2>
+<div class="text_block">
+<table class="ruled wandbox" summary="コマンドラインオプション" >
+<tr><td>-c</td><td>--compiler COMPILER    </td><td>コンパイラーを選択します。選択できるコンパイラーは Wandbox を確認するか、--list_compiler オプションで確認してください。デフォルト：[gcc-head]</td></tr>
+<tr><td>-x</td><td>--options OPTIONS      </td><td>オプションを選択します。選択できるコンパイラーは Wandbox を確認するか、--list_options オプションで確認してください。</td></tr>
+<tr><td>  </td><td><s>--default       </s></td><td><s>Wandbox のデフォルトオプションを使用します。</s>廃止されました。デフォルトで有効です。</td></tr>
+<tr><td>  </td><td>--no-default           </td><td>Wandbox のデフォルトオプションを使用しないようにします。</td></tr>
+<tr><td>  </td><td>--std VERSION          </td><td>使用する C++ のバージョンを指定します。</td></tr>
+<tr><td>  </td><td>--boost VERSION        </td><td>使用する boost のバージョンを指定します。nothing を指定すると boost を使用しません。</td></tr>
+<tr><td>  </td><td>--cpp-verbose          </td><td>Wandbox の Verbose を有効にします。</td></tr>
+<tr><td>  </td><td>--optimize             </td><td>Wandbox の Optimization を有効します。</td></tr>
+<tr><td>  </td><td>--sprout               </td><td><a href="https://github.com/bolero-MURAKAMI/Sprout">Sprout</a> を使用します。</td></tr>
+<tr><td>  </td><td>--msgpack              </td><td><a href="https://msgpack.org/">MessagePack</a> を使用します。</td></tr>
+<tr><td>-f</td><td>--compiler-options-raw OPTIONS</td><td>コンパイラーのオプションを直接指定します。複数のオプションを指定する場合は、[ -f"-Dx=hogefuga -O3" ] とするか、[ -f"-Dx=hogefuga" -f"-O3" ] のように記述できます。 </td></tr>
+<tr><td>-r</td><td>--runtime-options-raw OPTIONS</td><td>ビルドした実行ファイルのコマンドラインオプションを指定します。複数のオプションを指定する場合は、[ -r"--iutest_shuffle --iutest_random_seed=1" ] とするか、[ -r"--iutest_shuffle" -r"--iutest_random_seed=1" ] のように複数オプションを記述してください。 </td></tr>
+<tr><td>  </td><td>--iutest-use-main      </td><td>-DIUTEST_USE_MAIN をコンパイルオプションにつけます。main 関数の記述が省略できます。</td></tr>
+<tr><td>  </td><td>--list-compiler        </td><td>利用可能なコンパイラーを列挙します。</td></tr>
+<tr><td>  </td><td>--list-options COMPILER</td><td>COMPILER で利用可能なオプションを列挙します。</td></tr>
+<tr><td>  </td><td>--stdin                </td><td>実行時の stdin の内容を指定します。</td></tr>
+<tr><td>  </td><td>--encoding ENCODING    </td><td>入力ソースコードファイルのエンコードを指定します。</td></tr>
+<tr><td>  </td><td>--expand-include       </td><td>入力ソースコードファイルに含まれる include を展開します。</td></tr>
+<tr><td>-o</td><td>--output FILE          </td><td>ソースコードを FILE に書き出します。</td></tr>
+<tr><td>  </td><td>--xml FILE             </td><td>テスト結果 xml を FILE に書き出します。</td></tr>
+<tr><td>  </td><td>--junit FILE           </td><td>テスト結果 xml を junit 形式で FILE に書き出します。</td></tr>
+<tr><td>-s</td><td>--save                 </td><td>permarnent link を生成します。</td></tr>
+<tr><td>  </td><td>--verbose              </td><td>実行前にパラメータを表示します。</td></tr>
+<tr><td>  </td><td>--dryrun               </td><td>Wandbox で実行せず終了します。</td></tr>
+<tr><td>  </td><td>--permlink ID          </td><td>ID の permarnent link の情報を取得します。--output オプションを指定すると、ソースコードをファイルに書き出します。</td></tr>
+<tr><td>-v</td><td>--version              </td><td>バージョンを表示します。</td></tr>
+<tr><td>-h</td><td>--help                 </td><td>ヘルプを表示します。</td></tr>
+</table>
+</div>
+
+</div> <!-- end of contents -->
+
+<br />
+<div class="copyright">Copyright (c) 2011-2017, Takazumi-Shirayanagi, All rights reserved.</div>
+
+</body>
+</html>
