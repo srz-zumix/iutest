@@ -46,7 +46,9 @@ fi
 
 make
 make gh-pages GHPAGES_DIR="${OUTDIR}"
-make gh-pages-ci
+if [ "${DIRNAME}" = 'master' ]; then
+  make gh-pages-for-master
+fi
 
 cd gh-pages
 
