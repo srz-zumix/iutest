@@ -369,7 +369,7 @@ IUTEST_IPP_INLINE bool GetEnvironmentInt(const char* name, int& var)
 
 #if defined(IUTEST_OS_WINDOWS)
 namespace win
-{   
+{
 
 IUTEST_IPP_INLINE ::std::string WideStringToMultiByteString(const wchar_t* wide_c_str, int num)
 {

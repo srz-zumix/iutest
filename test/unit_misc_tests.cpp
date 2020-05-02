@@ -48,7 +48,7 @@ IUTEST_P(UnitLocaleTest, ScopedEncoding)
     IUTEST_ASSUME_NOTNULL(p);
     ::iutest::detail::ScopedEncoding loc(LC_CTYPE, "UTF-8");
     IUTEST_ASSERT_TRUE(loc);
-    IUTEST_EXPECT_STRIN(".UTF-8", setlocale(LC_CTYPE, NULL)) << "Before: " << p;
+    IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.[Uu][Tt][Ff](8|-8)", setlocale(LC_CTYPE, NULL)) << "Before: " << p;
 }
 
 IUTEST_INSTANTIATE_TEST_CASE_P(My1, UnitLocaleTest, ::iutest::Values("", "C", "ja_JP.932"));
