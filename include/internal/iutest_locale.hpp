@@ -54,9 +54,10 @@ private:
         {
             const char* p = strchr(curr, '.');
             ::std::string locale = p == NULL ? curr : ::std::string(curr, p + 1);
-            if( locale != "C" )
+            locale += encoding;
+            ScopedLocale loc(category, locale.c_str());
+            if( loc )
             {
-                locale += encoding;
                 return locale;
             }
         }
