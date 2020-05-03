@@ -1,4 +1,5 @@
 - type: parallel
+  name: checks
   exclude: gh-pages
   steps:
     - name: cpplint
@@ -21,6 +22,7 @@
       command: /work/.ci/check-crlf.sh
 
 - type: parallel
+  name: crlf-check
   exclude: gh-pages
   steps:
     - name: check-remote-crlf
@@ -28,6 +30,7 @@
       command: make -C /work/test/repository check-remote-crlf
 
 - type: parallel
+  name: sync-svn
   tag: master
   steps:
     - name: sync-svn
@@ -35,8 +38,9 @@
       command:  /work/.ci/sync-svn.sh
 
 - type: parallel
+  name: sync-svn-tags
   tag: v.*
   steps:
-    - name: sync-svn
+    - name: sync-svn-tags
       service: iutest
       command:  /work/.ci/sync-svn-tag.sh
