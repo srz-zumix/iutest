@@ -68,6 +68,13 @@ RUN . /etc/os-release && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${CLANG_VERSION} 1000 \
                         --slave   /usr/bin/clang clang /usr/bin/clang-${CLANG_VERSION}
 
+# .ssh/config
+
+RUN mkdir ~/.ssh ; \
+    echo "host svn.osdn.jp" >> ~/.ssh/config && \
+    echo "  StrictHostKeyChecking no" >> ~/.ssh/config && \
+    chmod 600 ~/.ssh/config
+
 RUN mkdir /iutest
 VOLUME [ "/iutest" ]
 WORKDIR /iutest
