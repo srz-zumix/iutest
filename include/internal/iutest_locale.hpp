@@ -47,7 +47,7 @@ public:
 class IuLocalUtil
 {
 private:
-    static ::std::string GetLocaleWithEncoding_(int category, const char* encoding, bool auto_load)
+    static ::std::string GetLocaleWithEncoding_(int category, const char* encoding)
     {
         const char* curr = setlocale(category, NULL);
         if( curr != NULL )
@@ -61,17 +61,29 @@ private:
                 return locale;
             }
         }
-        if( auto_load )
-        {
-            ScopedLocale loc(category, "");
-            return GetLocaleWithEncoding_(category, encoding, false);
-        }
         return "";
     }
 public:
     static ::std::string GetWithEncoding(int category, const char* encoding)
     {
-        return GetLocaleWithEncoding_(category, encoding, true);
+        {
+            ::std::string locale = GetLocaleWithEncoding_(category, encoding);
+            if( !locale.empty() )
+            {
+                return locale;
+            }
+        }
+        const char* list[] = { "", "en_US" };
+        for( size_t i=0; i < IUTEST_PP_COUNTOF(list); ++i )
+        {
+            ScopedLocale loc(category, list[i]);
+            ::std::string locale = GetLocaleWithEncoding_(category, encoding);
+            if( !locale.empty() )
+            {
+                return locale;
+            }
+        }
+        return "";
     }
 };
 
