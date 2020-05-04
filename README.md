@@ -81,8 +81,8 @@ Documentation
 * in repository  
   doc/index.html  
 * online document  
-  [least released version(OSDN)](https://iutest.osdn.jp/doc/index.html)  
-  [GitHub master branch (gh-pages)](https://srz-zumix.github.io/iutest/master)  
+  [latest released version](https://srz-zumix.github.io/iutest/latest)  
+  [GitHub master branch](https://srz-zumix.github.io/iutest/master)  
 
 Project page
 --------------------------------------------------

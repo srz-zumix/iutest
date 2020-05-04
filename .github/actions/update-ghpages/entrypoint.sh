@@ -9,7 +9,10 @@ fi
 export CI_COMMIT_ID="${GITHUB_SHA}"
 
 if [ -z "${GITHUB_REF+x}" ]; then
-  GITHUB_REF=$(git symbolic-ref --short HEAD)
+  GITHUB_REF=$(git describe --tags)
+  if [[ ! "${GITHUB_REF}" =~ v[0-9]*\.[0-9]*\.[0-9]*$ ]]; then
+    GITHUB_REF=$(git symbolic-ref --short HEAD)
+  fi
   export GITHUB_REF
 fi
 export DIRNAME_="${GITHUB_REF#refs/heads/}"
@@ -22,6 +25,8 @@ if [ "${DIRNAME}" != 'master' ]; then
       DIRNAME=test
   fi
 fi
+
+echo ${DIRNAME}
 
 doxygen --version
 dot -V || true
