@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.13"/>
+<meta name="generator" content="Doxygen 1.8.15"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: 変更履歴</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.0.5</span>
+   &#160;<span id="projectnumber">1.17.0.0</span>
    </div>
   </td>
  </tr>
@@ -30,18 +30,21 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.8.13 -->
+<!-- 構築: Doxygen 1.8.15 -->
 <script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
 var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
+/* @license-end */
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
 $(function() {
   initMenu('../../',true,false,'search.php','検索');
   $(document).ready(function() { init_search(); });
 });
-</script>
+/* @license-end */</script>
 <div id="main-nav"></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -58,20 +61,12 @@ $(function() {
 </div>
 
 </div><!-- top -->
-<div class="header">
+<div class="PageDoc"><div class="header">
   <div class="headertitle">
 <div class="title">変更履歴 </div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><dl class="section user"><dt>Changes</dt><dd><ul>
-<li>
-v1.17.1.0 <ul>
-<li>
-GTEST_SKIP 対応 </li>
-<li>
-Google Test 旧バージョンとの互換性を修正 </li>
-</ul>
-</li>
 <li>
 v1.17.0.0 <ul>
 <li>
@@ -195,7 +190,7 @@ iuwandbox の &ndash;boost オプションが Python3 で使えない問題を�
 <li>
 iuwandbox で未定義オプションを指定した場合にエラーにならない問題を修正 </li>
 <li>
-<a class="el" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9" title="テスト関数定義マクロ ">IUTEST(A, B_C)</a> と <a class="el" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9" title="テスト関数定義マクロ ">IUTEST(A_B, C)</a> が名前の衝突でコンパイルエラーになる問題を修正 </li>
+<a class="el" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9" title="テスト関数定義マクロ">IUTEST(A, B_C)</a> と <a class="el" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9" title="テスト関数定義マクロ">IUTEST(A_B, C)</a> が名前の衝突でコンパイルエラーになる問題を修正 </li>
 <li>
 色付きコンソールの自動判定を修正 </li>
 <li>
@@ -237,7 +232,7 @@ IUTEST_TYPED_TEST_APPEND_TYPENAME を IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME に�
 <li>
 v1.14.0.0 <ul>
 <li>
-<a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gafe52fa82b3a1ff61cd1b1ea3732d4208" title="範囲パラメータ ">iutest::Range</a> を Enum に対応 </li>
+<a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gafe52fa82b3a1ff61cd1b1ea3732d4208" title="範囲パラメータ">iutest::Range</a> を Enum に対応 </li>
 <li>
 大幅なリファクタリング </li>
 </ul>
@@ -273,7 +268,7 @@ ElementsAreArray で要素数の一致チェックを行うように変更（以
 <li>
 IUTEST_*_MATCHES_REGEXEQ,NE、IUTEST_*_CONTAINS_REGEXEQ,NE 追加 </li>
 <li>
-&ndash;iutest_filter=.txt のようにファイルからフィルター指定できるように対応 </li>
+&ndash;iutest_filter=@filter.txt のようにファイルからフィルター指定できるように対応 </li>
 <li>
 IUTEST_MAKE_PEEP で関数ポインターの typedef をしなくてもいいように修正 </li>
 <li>
@@ -337,7 +332,7 @@ junit xml 出力に対応（&ndash;iutest_output=junit） </li>
 <li>
 tuple の要素を取得する GetParam template 関数を追加 </li>
 <li>
-<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75" title="フラグセット ">IUTEST_FLAG(ostream_formatter)</a> を追加 </li>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75" title="フラグセット">IUTEST_FLAG(ostream_formatter)</a> を追加 </li>
 <li>
 tuple 要素を取得する GetParam tempalate 関数を追加 </li>
 <li>
@@ -397,7 +392,7 @@ IUTEST_*_EQ_RANGE を追加 </li>
 <li>
 IUTEST_*_STRIN,IUTEST_*_STRNOTIN を追加 </li>
 <li>
-<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75" title="フラグセット ">IUTEST_FLAG(output)</a> に対応 </li>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga650662dc23cc31b5bee68981633a4a75" title="フラグセット">IUTEST_FLAG(output)</a> に対応 </li>
 <li>
 IUTEST_*_NO_FAILURE の gtest モード対応 </li>
 <li>
@@ -429,7 +424,7 @@ v1.7.0.0 <ul>
 <li>
 値のパラメータを operator + で連結できるように修正 </li>
 <li>
-値のパラメータを連結する <a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb" title="パラメータの結合 ">iutest::Concat</a> を追加 </li>
+値のパラメータを連結する <a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb" title="パラメータの結合">iutest::Concat</a> を追加 </li>
 <li>
 IUTEST_TYPED_TEST,IUTEST_TYPED_TEST_P の別名マクロを追加(IUTEST_T, IUTEST_TP) </li>
 <li>
@@ -461,9 +456,9 @@ gtest モードで AssertionReturn が使えるように対応 </li>
 <li>
 AssertionReturn の仕様変更 </li>
 <li>
-<a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga2f0d56dbeb39611fc7f569d84739912f" title="乱数ジェネレータ ">iutest::RandomGenerator</a> を追加 </li>
+<a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga2f0d56dbeb39611fc7f569d84739912f" title="乱数ジェネレータ">iutest::RandomGenerator</a> を追加 </li>
 <li>
-<a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac93012a573d46ad7eba4201f8bb40851" title="乱数値パラメータ ">iutest::RandomValues</a> で乱数シードを指定できるように修正 </li>
+<a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac93012a573d46ad7eba4201f8bb40851" title="乱数値パラメータ">iutest::RandomValues</a> で乱数シードを指定できるように修正 </li>
 <li>
 spi で TestPartResult 数をチェックするように変更 </li>
 <li>
@@ -493,7 +488,7 @@ SetUpTestCase などのテスト実行中以外でも RecordProperty できる�
 <li>
 iutest_list_tests_with_where コマンドラインオプションを追加 </li>
 <li>
-IUTEST_TYPED_TEST_CASE,IUTEST_TYPED_TEST_CASE_P に直接 <a class="el" href="../../da/d5c/structiutest_1_1_types.html" title="Type List ">iutest::Types</a> を書けるように修正/li&gt; </li>
+IUTEST_TYPED_TEST_CASE,IUTEST_TYPED_TEST_CASE_P に直接 <a class="el" href="../../da/d5c/structiutest_1_1_types.html" title="Type List">iutest::Types</a> を書けるように修正/li&gt; </li>
 <li>
 誤った使い方をした場合にエラーを出力するように修正 </li>
 <li>
@@ -509,9 +504,9 @@ v1.4.0.0 <ul>
 <li>
 IUTEST_ASSERT_* で void 以外の戻り値を返せるように修正(::iutest::AssertionReturn) </li>
 <li>
-<a class="el" href="../../da/d5c/structiutest_1_1_types.html" title="Type List ">iutest::Types</a> メンバーに型を取得する get を追加 </li>
+<a class="el" href="../../da/d5c/structiutest_1_1_types.html" title="Type List">iutest::Types</a> メンバーに型を取得する get を追加 </li>
 <li>
-<a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac6abe955506654f40f5f3aa68aa2349d" title="値配列パラメータ ">iutest::ValuesIn</a> を initializer_list に対応 </li>
+<a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac6abe955506654f40f5f3aa68aa2349d" title="値配列パラメータ">iutest::ValuesIn</a> を initializer_list に対応 </li>
 <li>
 値のパラメータ化テスト向けに任意のパラメータを生成する ValuesGen を追加 </li>
 <li>
@@ -531,7 +526,7 @@ v1.3.1.0 <ul>
 <li>
 IUTEST_SKIP したときのログを追加 </li>
 <li>
-<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#gae5dfd482090363d33d905171c2149828" title="テストの明示的なスキップ ">IUTEST_SKIP()</a> &lt;&lt; "message" に対応 </li>
+<a class="el" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#gae5dfd482090363d33d905171c2149828" title="テストの明示的なスキップ">IUTEST_SKIP()</a> &lt;&lt; "message" に対応 </li>
 <li>
 スキップしたテストのログ出力を修正 </li>
 <li>
@@ -635,7 +630,7 @@ Visual Studio UnitTest Framework で IUTEST_P,IUTEST_TYPED_TEST,IUTEST_TYPED_TES
 <li>
 v1.0.4.0 <ul>
 <li>
-<a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga014c8a9e6e4d5099970128c8174de99d" title="複合条件パラメータ化(オールペア法) ">iutest::Pairwise</a> を追加 </li>
+<a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga014c8a9e6e4d5099970128c8174de99d" title="複合条件パラメータ化(オールペア法)">iutest::Pairwise</a> を追加 </li>
 <li>
 コードサイズ削減 </li>
 </ul>
@@ -661,7 +656,7 @@ v1.0.1.0 <ul>
 <li>
 CRT セキュリティ強化関数の失敗時ハンドラに対応 </li>
 <li>
-<a class="el" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab" title="初期化 ">iutest::InitIrisUnitTest</a> が呼ばれていない場合に警告を出すように変更 </li>
+<a class="el" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab" title="初期化">iutest::InitIrisUnitTest</a> が呼ばれていない場合に警告を出すように変更 </li>
 </ul>
 </li>
 <li>
@@ -723,7 +718,7 @@ util 修正 </li>
 <li>
 v0.32.0.0 <ul>
 <li>
-<a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga1f15f9d0ca7db7b667c89361ca2666b7" title="複合条件パラメータ化 ">iutest::Combine</a> を可変長に対応 </li>
+<a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga1f15f9d0ca7db7b667c89361ca2666b7" title="複合条件パラメータ化">iutest::Combine</a> を可変長に対応 </li>
 <li>
 IUTEST_PEEP を cv 修飾されたメンバに対応 </li>
 <li>
@@ -739,11 +734,11 @@ IUTEST_SCOPED_TRACE で gtest と同じ記法が使えるように修正 </li>
 <li>
 ::std::chrono::high_resolution_clock に対応 </li>
 <li>
-<a class="el" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c" title="文字列化 ">iutest::PrintToString</a> でストリーム出力できない型に対応（バイト配列を出力） </li>
+<a class="el" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c" title="文字列化">iutest::PrintToString</a> でストリーム出力できない型に対応（バイト配列を出力） </li>
 <li>
 テスト用乱数のシード取得を追加 </li>
 <li>
-IUTEST_*_TRUE|FALSE で <a class="el" href="../../d9/d5f/classiutest_1_1_assertion_result.html" title="Assertion Result ">iutest::AssertionResult</a> を受け取れるように修正 </li>
+IUTEST_*_TRUE|FALSE で <a class="el" href="../../d9/d5f/classiutest_1_1_assertion_result.html" title="Assertion Result">iutest::AssertionResult</a> を受け取れるように修正 </li>
 <li>
 &ndash;feature オプションを追加 </li>
 </ul>
@@ -763,7 +758,7 @@ nullptr に対応 </li>
 <li>
 時刻取得用のコンフィグマクロを追加 </li>
 <li>
-<a class="el" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c" title="文字列化 ">iutest::PrintToString</a> でコンパイルが通らない型があったので修正 </li>
+<a class="el" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c" title="文字列化">iutest::PrintToString</a> でコンパイルが通らない型があったので修正 </li>
 <li>
 EQ系アサーションのメッセージを修正 </li>
 </ul>
@@ -785,7 +780,7 @@ Environment の解放タイミングを修正 </li>
 <li>
 v0.28.0.1 <ul>
 <li>
-<a class="el" href="../../d3/d17/classiutest_1_1_environment.html#a43492193c9cb2d97a5a32bf533f52387" title="事前処理 ">iutest::Environment::SetUp</a> などテスト以外の場所で失敗した場合に対応 </li>
+<a class="el" href="../../d3/d17/classiutest_1_1_environment.html#a43492193c9cb2d97a5a32bf533f52387" title="事前処理">iutest::Environment::SetUp</a> などテスト以外の場所で失敗した場合に対応 </li>
 </ul>
 </li>
 <li>
@@ -793,11 +788,11 @@ v0.27.0.0 <ul>
 <li>
 namespace を考慮した IUTEST_MAKE_SCOPED_PEEP, IUTEST_SCOPED_PEEP マクロを追加 </li>
 <li>
-<a class="el" href="../../d3/dda/namespaceiutest.html#ae122192fab03fe831e82c32db2bbd3be" title="グローバル環境セットクラスの追加 ">iutest::AddGlobalTestEnvironment</a> を使うとコンパイルエラーになる問題を修正 </li>
+<a class="el" href="../../d3/dda/namespaceiutest.html#ae122192fab03fe831e82c32db2bbd3be" title="グローバル環境セットクラスの追加">iutest::AddGlobalTestEnvironment</a> を使うとコンパイルエラーになる問題を修正 </li>
 <li>
-<a class="el" href="../../d3/d17/classiutest_1_1_environment.html" title="環境セットクラス ">iutest::Environment</a> は new して使うように仕様変更 </li>
+<a class="el" href="../../d3/d17/classiutest_1_1_environment.html" title="環境セットクラス">iutest::Environment</a> は new して使うように仕様変更 </li>
 <li>
-<a class="el" href="../../d3/d17/classiutest_1_1_environment.html" title="環境セットクラス ">iutest::Environment</a> の TearDown の実行順序を SetUp の逆順に変更 </li>
+<a class="el" href="../../d3/d17/classiutest_1_1_environment.html" title="環境セットクラス">iutest::Environment</a> の TearDown の実行順序を SetUp の逆順に変更 </li>
 </ul>
 </li>
 <li>
@@ -807,7 +802,7 @@ RecordProperty でキーが重複した場合に上書きするように修正 <
 <li>
 IUTEST_HAS_PEEP, IUTEST_HAS_PEEP_FUNC, IUTEST_PEEP_STATIC_FUNC コンフィグマクロを追加 </li>
 <li>
-<a class="el" href="../../d9/d06/iutest__prod_8hpp.html" title="iris unit test production code 対応用 ファイル ">iutest_prod.hpp</a> に private メンバーへのアクセス機能を追加(IUTEST_MAKE_PEEP, IUTEST_PEEP_GET etc...) </li>
+<a class="el" href="../../d9/d06/iutest__prod_8hpp.html" title="iris unit test production code 対応用 ファイル">iutest_prod.hpp</a> に private メンバーへのアクセス機能を追加(IUTEST_MAKE_PEEP, IUTEST_PEEP_GET etc...) </li>
 <li>
 IUTEST_FRIEND_TEST 不具合修正 </li>
 </ul>
@@ -859,7 +854,7 @@ Test Anyting Protocol リスナーの追加 </li>
 <li>
 デフォルトリスナーを解放したときに NULL 参照する不具合を修正 </li>
 <li>
-テストユーティリティのテスト用に <a class="el" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル ">iutest_spi.hpp</a> を追加 </li>
+テストユーティリティのテスト用に <a class="el" href="../../d9/df7/iutest__spi_8hpp.html" title="iris unit test spi 対応用 ファイル">iutest_spi.hpp</a> を追加 </li>
 <li>
 IUTEST_*_STR* アサーションで NULL を与えて失敗させると落ちる問題を修正 </li>
 <li>
@@ -933,7 +928,7 @@ On*End イベントは、リストの後ろから実行するように変更 </l
 <li>
 警告用（失敗にならない）テスト IUTEST_INFORM_*** マクロを追加 </li>
 <li>
-<a class="el" href="../../d8/d3c/classiutest_1_1_test_part_result.html" title="テスト結果を示すクラス ">iutest::TestPartResult</a> のインターフェイスを修正 </li>
+<a class="el" href="../../d8/d3c/classiutest_1_1_test_part_result.html" title="テスト結果を示すクラス">iutest::TestPartResult</a> のインターフェイスを修正 </li>
 <li>
 エラー出力の Actual と Expected が逆になっていた不具合を修正 </li>
 <li>
@@ -959,7 +954,7 @@ gtest のコマンドライン引数に対応 </li>
 <li>
 v0.16.1.1 <ul>
 <li>
-<a class="el" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab" title="初期化 ">iutest::InitIrisUnitTest</a> の vector 対応 </li>
+<a class="el" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab" title="初期化">iutest::InitIrisUnitTest</a> の vector 対応 </li>
 <li>
 NaCl, ARM 対応 </li>
 <li>
@@ -973,7 +968,7 @@ v0.16.0.2 <ul>
 <li>
 RecoredProperty 対応 </li>
 <li>
-<a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga1f15f9d0ca7db7b667c89361ca2666b7" title="複合条件パラメータ化 ">iutest::Combine</a> 対応/li&gt; </li>
+<a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga1f15f9d0ca7db7b667c89361ca2666b7" title="複合条件パラメータ化">iutest::Combine</a> 対応/li&gt; </li>
 <li>
 型をパラメータ化したテスト&lt;に対応/li&gt; </li>
 <li>
@@ -987,7 +982,7 @@ googletest との差異を吸収 </li>
 <li>
 実行するテストの選択オプション対応( &ndash;iutest_filter=selection ) </li>
 <li>
-<a class="el" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c" title="文字列化 ">iutest::PrintToString</a> 対応 </li>
+<a class="el" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c" title="文字列化">iutest::PrintToString</a> 対応 </li>
 <li>
 IUTEST_FLAG マクロによるオプション指定に対応 </li>
 <li>
@@ -1026,12 +1021,13 @@ xml 出力に対応 </li>
 </li>
 </ul>
 </dd></dl>
-</div></div><!-- contents -->
+</div></div><!-- PageDoc -->
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年03月31日(火) 13時55分29秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年05月04日(月) 20時55分14秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
-</a> 1.8.13
+</a> 1.8.15
 </small></address>
 </body>
 </html>
