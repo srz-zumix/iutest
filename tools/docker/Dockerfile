@@ -73,6 +73,8 @@ RUN . /etc/os-release && \
 RUN mkdir ~/.ssh ; \
     echo "host svn.osdn.jp" >> ~/.ssh/config && \
     echo "  StrictHostKeyChecking no" >> ~/.ssh/config && \
+    echo "host github.com" >> ~/.ssh/config && \
+    echo "  StrictHostKeyChecking no" >> ~/.ssh/config && \
     chmod 600 ~/.ssh/config
 
 RUN mkdir /iutest
