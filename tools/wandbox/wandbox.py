@@ -69,7 +69,10 @@ class Wandbox:
         payload = json.dumps(self.parameter)
         response = requests.post(self.api_url + '/compile.json', data=payload, headers=headers)
         response.raise_for_status()
-        return response.json()
+        try:
+            return response.json()
+        except json.decoder.JSONDecodeError as e:
+            raise requests.exceptions.HTTPError(e, response.status_code)
 
     def code(self, code):
         """
