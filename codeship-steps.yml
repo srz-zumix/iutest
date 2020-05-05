@@ -28,7 +28,6 @@
       command: make -C /work/test/repository check-remote-crlf
 
 - type: parallel
-  tag: master
   steps:
     - name: sync-svn
       service: iutest
