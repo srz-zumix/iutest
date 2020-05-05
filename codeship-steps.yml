@@ -28,6 +28,7 @@
       command: make -C /work/test/repository check-remote-crlf
 
 - type: parallel
+  exclude: gh-pages
   steps:
     - name: sync-svn
       service: iutest
