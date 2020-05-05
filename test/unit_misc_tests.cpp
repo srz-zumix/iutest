@@ -47,7 +47,7 @@ IUTEST_P(UnitLocaleTest, ScopedEncoding)
     const char* p = setlocale(LC_CTYPE, GetParam());
     IUTEST_ASSUME_NOTNULL(p);
     ::iutest::detail::ScopedEncoding loc(LC_CTYPE, "UTF-8");
-    IUTEST_ASSERT_TRUE(loc);
+    IUTEST_ASSERT_TRUE(loc) << loc;
     IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.[Uu][Tt][Ff](8|-8)", setlocale(LC_CTYPE, NULL)) << "Before: " << p;
 }
 

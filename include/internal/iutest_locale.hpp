@@ -33,6 +33,10 @@ public:
         : m_Category(category)
         , m_pLocale(setlocale(category, locale))
     {
+        if( m_pLocale == NULL )
+        {
+            IUTEST_LOG_(WARNING) << "Failed setlocale: " << category << ", " << locale;
+        }
     }
     ~ScopedLocale()
     {
@@ -42,10 +46,26 @@ public:
         }
     }
     operator bool() const { return m_pLocale != NULL; }
+protected:
+    ScopedLocale(int category, const char* locale, bool)
+        : m_Category(category)
+        , m_pLocale(setlocale(category, locale))
+    {
+    }
+
+    friend class ScopedEncoding;
 };
 
-class IuLocalUtil
+class ScopedEncoding : public ScopedLocale
 {
+public:
+    ScopedEncoding(int category, const char* encoding)
+    : ScopedLocale(category, GetWithEncoding(category, encoding).c_str())
+    {
+    }
+    ~ScopedEncoding()
+    {
+    }
 private:
     static ::std::string GetLocaleWithEncoding_(int category, const char* encoding)
     {
@@ -55,7 +75,7 @@ private:
             const char* p = strchr(curr, '.');
             ::std::string locale = p == NULL ? curr : ::std::string(curr, p + 1);
             locale += encoding;
-            ScopedLocale loc(category, locale.c_str());
+            ScopedLocale loc(category, locale.c_str(), true);
             if( loc )
             {
                 return locale;
@@ -76,29 +96,22 @@ public:
         const char* list[] = { "", "en_US" };
         for( size_t i=0; i < IUTEST_PP_COUNTOF(list); ++i )
         {
-            ScopedLocale loc(category, list[i]);
+            ScopedLocale loc(category, list[i], true);
+            if( !loc )
+            {
+                continue;
+            }
             ::std::string locale = GetLocaleWithEncoding_(category, encoding);
             if( !locale.empty() )
             {
                 return locale;
             }
         }
-        return "";
+        ::std::string r = ".";
+        r += encoding;
+        return r;
     }
 };
-
-class ScopedEncoding : public ScopedLocale
-{
-public:
-    ScopedEncoding(int category, const char* encoding)
-    : ScopedLocale(category, IuLocalUtil::GetWithEncoding(category, encoding).c_str())
-    {
-    }
-    ~ScopedEncoding()
-    {
-    }
-};
-
 
 }   // end of namespace detail
 }   // end of namespace iutest
