@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# .ssh/config
-ssh-keyscan -H "svn.osdn.jp" >> ~/.ssh/known_hosts
-ssh-keyscan -H "github.com" >> ~/.ssh/known_hosts
-
 svn --version
 svn co svn+ssh://srz_zumix@svn.osdn.jp/svnroot/iutest/trunk svn
 git clone git@github.com:srz-zumix/iutest.git git-svn
