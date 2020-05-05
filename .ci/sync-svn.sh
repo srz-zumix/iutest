@@ -7,6 +7,8 @@ echo "host github.com" >> ~/.ssh/config && \
 echo "  StrictHostKeyChecking no" >> ~/.ssh/config && \
 chmod 600 ~/.ssh/config
 
+ls ~/.ssh/
+
 svn --version
 svn co svn+ssh://srz_zumix@svn.osdn.jp/svnroot/iutest/trunk svn
 git clone git@github.com:srz-zumix/iutest.git git-svn
