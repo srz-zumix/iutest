@@ -93,7 +93,7 @@ public:
                 return locale;
             }
         }
-        const char* list[] = { "", "en_US" };
+        const char* list[] = { "", "C" };
         for( size_t i=0; i < IUTEST_PP_COUNTOF(list); ++i )
         {
             ScopedLocale loc(category, list[i], true);
