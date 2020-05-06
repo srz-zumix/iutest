@@ -58,6 +58,12 @@ public:
     {
         ::iutest::detail::iuConsole::SetLogger(&printer_logger);
     }
+#if IUTEST_HAS_RVALUE_REFS
+    explicit LogChecker(std::string&& str) : m_str(str)
+    {
+        ::iutest::detail::iuConsole::SetLogger(&printer_logger);
+    }
+#endif
     ~LogChecker(void)
     {
         ::iutest::detail::iuConsole::SetLogger(NULL);
