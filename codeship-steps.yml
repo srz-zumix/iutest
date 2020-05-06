@@ -1,3 +1,5 @@
+# iutest using codeship basic
+# this file is codeship settings sample
 - type: parallel
   exclude: gh-pages
   steps:
