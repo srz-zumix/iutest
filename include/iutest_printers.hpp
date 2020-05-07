@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -262,6 +262,7 @@ inline void PrintTo(int v, iu_ostream* os)  { *os << v; }
 #endif
 template<typename CharT, typename Traits, typename Alloc>
 inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)   { *os << str.c_str(); }
+inline void PrintTo(const ::std::locale& l, iu_ostream* os) { *os << l.name(); }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 template<typename T>
 inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
@@ -519,6 +520,12 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t* str, iu_
 {
     UniversalPrint(detail::ShowWideCString(str), os);
 }
+#if IUTEST_HAS_CHAR8_T
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char8_t* str, iu_ostream* os)
+{
+    UniversalPrint(detail::ShowWideCString(str), os);
+}
+#endif
 #if IUTEST_HAS_CHAR16_T
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t* str, iu_ostream* os)
 {
