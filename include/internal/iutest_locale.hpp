@@ -88,6 +88,7 @@ public:
             ScopedLocale loc(category, list[i], true);
             if( !loc )
             {
+                IUTEST_LOG_(WARNING) << "Failed setlocale: " << category << ", " << list[i];
                 continue;
             }
             ::std::string locale = GetLocaleWithEncoding_(category, encoding);
@@ -116,6 +117,7 @@ private:
             {
                 return locale;
             }
+            IUTEST_LOG_(WARNING) << "Failed setlocale: " << category << ", " << locale;
         }
         return "";
     }
