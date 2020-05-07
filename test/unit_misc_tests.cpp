@@ -51,6 +51,6 @@ IUTEST_P(UnitLocaleTest, ScopedEncoding)
     IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.[Uu][Tt][Ff](8|-8)", setlocale(LC_CTYPE, NULL)) << "Before: " << p;
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, UnitLocaleTest, ::iutest::Combine(::iutest::Values("", "C", "ja_JP.932"), ::iutest::Values("utf8", "UTF-8")));
+IUTEST_INSTANTIATE_TEST_CASE_P(My1, UnitLocaleTest, ::iutest::Combine(::iutest::Values("", "C", "ja_JP.932"), ::iutest::Values("UTF-8")));
 
 #endif

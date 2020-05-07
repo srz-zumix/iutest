@@ -66,29 +66,7 @@ public:
     ~ScopedEncoding()
     {
     }
-private:
 
-#if !defined(_MSC_VER)
-    static ::std::string GetLocaleWithEncoding_(int category, const char* encoding)
-    {
-        const char* curr = setlocale(category, NULL);
-        if( curr != NULL )
-        {
-            const char* p = strchr(curr, '.');
-            ::std::string locale = p == NULL ? curr : ::std::string(curr, p + 1);
-            locale += encoding;
-            ScopedLocale loc(category, locale.c_str(), true);
-            if( loc )
-            {
-                return locale;
-            }
-            IUTEST_LOG_(WARNING) << "Failed setlocale: " << category << ", " << locale;
-        }
-        return "";
-    }
-#endif
-
-public:
     static ::std::string GetWithEncoding(int category, const char* encoding)
     {
 #if defined(_MSC_VER)
@@ -104,7 +82,7 @@ public:
                 return locale;
             }
         }
-        const char* list[] = { "", "en_US", "C" };
+        const char* list[] = { "", "C" };
         for( size_t i=0; i < IUTEST_PP_COUNTOF(list); ++i )
         {
             ScopedLocale loc(category, list[i], true);
@@ -121,6 +99,27 @@ public:
         return encoding;
 #endif
     }
+
+private:
+#if !defined(_MSC_VER)
+    static ::std::string GetLocaleWithEncoding_(int category, const char* encoding)
+    {
+        const char* curr = setlocale(category, NULL);
+        if( curr != NULL )
+        {
+            const char* p = strchr(curr, '.');
+            ::std::string locale = p == NULL ? curr : ::std::string(curr, p);
+            locale += ".";
+            locale += encoding;
+            ScopedLocale loc(category, locale.c_str(), true);
+            if( loc )
+            {
+                return locale;
+            }
+        }
+        return "";
+    }
+#endif
 };
 
 }   // end of namespace detail
