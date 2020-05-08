@@ -58,8 +58,8 @@ public:
     {
         ::iutest::detail::iuConsole::SetLogger(&printer_logger);
     }
-#if IUTEST_HAS_RVALUE_REFS
-    explicit LogChecker(std::string&& str) : m_str(str)
+#if defined(_GLIBCXX_USE_CXX11_ABI) && _GLIBCXX_USE_CXX11_ABI
+    explicit LogChecker(const std::__cxx::string& str) : m_str(str)
     {
         ::iutest::detail::iuConsole::SetLogger(&printer_logger);
     }
