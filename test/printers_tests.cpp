@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -244,6 +244,32 @@ IUTEST(PrintToTest, String)
     }
 }
 
+IUTEST(PrintToTest, Locale)
+{
+    {
+        ::std::locale loc;
+        LogChecker ck(loc.name());
+        IUTEST_SUCCEED() << ::iutest::PrintToString(loc);
+    }
+}
+
+#if IUTEST_HAS_CHAR8_T
+IUTEST(PrintToTest, U8String)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(u8"Test");
+    {
+        LogChecker ck("(null)");
+        char8_t* p = NULL;
+        IUTEST_SUCCEED() << ::iutest::PrintToString(p);
+    }
+}
+
+IUTEST(PrintToTest, U8StringJp)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(u8"テスト");
+}
+#endif
+
 #if IUTEST_HAS_CHAR16_T
 IUTEST(PrintToTest, U16String)
 {
@@ -253,6 +279,11 @@ IUTEST(PrintToTest, U16String)
         char16_t* p = NULL;
         IUTEST_SUCCEED() << ::iutest::PrintToString(p);
     }
+}
+
+IUTEST(PrintToTest, U16StringJp)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(u"テスト");
 }
 #endif
 
@@ -265,6 +296,11 @@ IUTEST(PrintToTest, U32String)
         char32_t* p = NULL;
         IUTEST_SUCCEED() << ::iutest::PrintToString(p);
     }
+}
+
+IUTEST(PrintToTest, U32StringJp)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(U"テスト");
 }
 #endif
 
