@@ -69,7 +69,7 @@ public:
 
     static ::std::string GetWithEncoding(int category, const char* encoding)
     {
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) || defined(IUTEST_OS_WINDOWS_MINGW)
         IUTEST_UNUSED_VAR(category);
         ::std::string loc = ".";
         loc += encoding;
