@@ -19,6 +19,7 @@ RUN apt-get update -q -y && \
         make build-essential libssl-dev zlib1g-dev libbz2-dev \
         libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
         xz-utils tk-dev libffi-dev liblzma-dev python-openssl git \
+        language-pack-ja-base language-pack-ja ibus-mozc \
         vim gdb iputils-ping \
         subversion \
         python3 python3-pip \
