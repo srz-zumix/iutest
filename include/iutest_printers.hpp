@@ -208,7 +208,7 @@ template<typename T>
 inline void DefaultPtrPrintTo(T* ptr, iu_ostream* os
     , typename iutest_type_traits::enable_if_t< iutest_type_traits::is_convertible<T*, const void*> >::type*& = iutest_type_traits::enabler::value)
 {
-    *os << ptr;
+    *os << reiterpret_cast<iu_uintptr_t>(ptr);
 }
 template<typename T>
 inline void DefaultPtrPrintTo(T* ptr, iu_ostream* os
