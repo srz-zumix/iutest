@@ -298,7 +298,7 @@ inline void PrintTo(int v, iu_ostream* os)  { *os << v; }
 #endif
 inline void PrintTo(const ::std::string& str, iu_ostream* os)   { *os << str.c_str(); }
 template<typename CharT, typename Traits, typename Alloc>
-inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)   { UniversalTersePrint(os, str.c_str()); }
+inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)   { UniversalTersePrint(str.c_str(), os); }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 template<typename T>
 inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
