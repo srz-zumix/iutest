@@ -261,7 +261,7 @@ inline void PrintTo(const char* c, iu_ostream* os)  { *os << c; }
 inline void PrintTo(int v, iu_ostream* os)  { *os << v; }
 #endif
 template<typename CharT, typename Traits, typename Alloc>
-inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)   { *os << str.c_str(); }
+inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)   { *os << str; }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 template<typename T>
 inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
