@@ -191,8 +191,8 @@ IUTEST(PrintToTest, Iomanip)
 IUTEST(PrintToTest, WideString)
 {
     {
-        LogChecker ck("Test");
-        IUTEST_SUCCEED() << ::iutest::PrintToString(L"Test");
+        LogChecker ck("XYZ");
+        IUTEST_SUCCEED() << ::iutest::PrintToString(L"XYZ");
     }
     {
         LogChecker ck("\\0");
@@ -219,8 +219,8 @@ IUTEST(PrintToTest, WideString)
 IUTEST(PrintToTest, String)
 {
     {
-        LogChecker ck("Test");
-        IUTEST_SUCCEED() << ::iutest::PrintToString("Test");
+        LogChecker ck("XYZ");
+        IUTEST_SUCCEED() << ::iutest::PrintToString("XYZ");
     }
     {
         LogChecker ck("\\0");
@@ -247,7 +247,10 @@ IUTEST(PrintToTest, String)
 #if IUTEST_HAS_CHAR16_T
 IUTEST(PrintToTest, U16String)
 {
-    IUTEST_SUCCEED() << ::iutest::PrintToString(u"Test");
+    {
+        LogChecker ck("XYZ");
+        IUTEST_SUCCEED() << ::iutest::PrintToString(u"XYZ");
+    }
     {
         LogChecker ck("(null)");
         char16_t* p = NULL;
@@ -259,7 +262,10 @@ IUTEST(PrintToTest, U16String)
 #if IUTEST_HAS_CHAR32_T
 IUTEST(PrintToTest, U32String)
 {
-    IUTEST_SUCCEED() << ::iutest::PrintToString(U"Test");
+    {
+        LogChecker ck("XYZ");
+        IUTEST_SUCCEED() << ::iutest::PrintToString(U"XYZ");
+    }
     {
         LogChecker ck("(null)");
         char32_t* p = NULL;
