@@ -261,7 +261,17 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char* str, iu_ost
         UniversalPrint(::std::string(str), os);
     }
 }
+template<size_t N>
+void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char(&str)[N], iu_ostream* os)
+{
+    return UniversalTersePrint(static_cast<const char*>(str), os);
+}
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t* str, iu_ostream* os)
+{
+    UniversalPrint(detail::ShowWideCString(str), os);
+}
+template<size_t N>
+void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t(&str)[N], iu_ostream* os)
 {
     UniversalPrint(detail::ShowWideCString(str), os);
 }
@@ -270,9 +280,19 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t* str, iu
 {
     UniversalPrint(detail::ShowWideCString(str), os);
 }
+template<size_t N>
+void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t(&str)[N], iu_ostream* os)
+{
+    UniversalPrint(detail::ShowWideCString(str), os);
+}
 #endif
 #if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_CXX_HDR_CUCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char32_t* str, iu_ostream* os)
+{
+    UniversalPrint(detail::ShowWideCString(str), os);
+}
+template<size_t N>
+void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char32_t(&str)[N], iu_ostream* os)
 {
     UniversalPrint(detail::ShowWideCString(str), os);
 }
