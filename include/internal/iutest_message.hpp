@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -18,6 +18,7 @@
 //======================================================================
 // include
 #include "../iutest_env.hpp"
+#include "../iutest_printers.hpp"
 
 namespace iutest {
 namespace detail
@@ -52,54 +53,17 @@ public:
     template<typename T>
     iuStreamMessage& operator << (const T& value)
     {
-        m_stream << value;
+        m_stream << PrintToString(value);
         return *this;
     }
-#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-    template<typename T>
-    iuStreamMessage& operator << (T* const& value)
+
+    template<typename T, size_t SIZE>
+    iuStreamMessage& operator << (const T(&value)[SIZE])
     {
-        if( value == NULL )
-        {
-            m_stream << kStrings::Null;
-        }
-        else
-        {
-            m_stream << value;
-        }
+        m_stream << PrintToString(value);
         return *this;
     }
-#endif
-    iuStreamMessage& operator << (bool b)
-    {
-        m_stream << (b ? "true" : "false");
-        return *this;
-    }
-    iuStreamMessage& operator << (char* str)
-    {
-        append(str);
-        return *this;
-    }
-    iuStreamMessage& operator << (const char* str)
-    {
-        append(str);
-        return *this;
-    }
-    iuStreamMessage& operator << (wchar_t* str)
-    {
-        m_stream << ShowWideCString(str);
-        return *this;
-    }
-    iuStreamMessage& operator << (const wchar_t* str)
-    {
-        m_stream << ShowWideCString(str);
-        return *this;
-    }
-    iuStreamMessage& operator << (const iuStreamMessage& message)
-    {
-        m_stream << message.GetString();
-        return *this;
-    }
+
 #if IUTEST_HAS_IOMANIP
     iuStreamMessage& operator << (iu_basic_iomanip val)
     {

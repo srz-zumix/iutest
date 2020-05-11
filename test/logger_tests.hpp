@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -64,6 +64,10 @@ public:
         IUTEST_EXPECT_STRIN(m_str.c_str(), printer_logger.c_str());
         printer_logger.clear();
     }
+
+public:
+    operator const char* () const { return m_str.c_str(); }
+    const char* c_str(void) const { return m_str.c_str(); }
 };
 #else
 class LogChecker
