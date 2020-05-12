@@ -44,7 +44,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 6.2'
+        version=u'%(prog)s version 6.3'
     )
     parser.add_argument(
         '--list-compiler',
