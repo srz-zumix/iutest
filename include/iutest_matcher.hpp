@@ -74,7 +74,8 @@ public:
     virtual ::std::string WhichIs() const = 0;
 };
 
-inline iu_ostream& operator << (iu_ostream& os, const IMatcher& msg)
+template<typename T, typename detail::enable_if_t< IMatcher::is_matcher<T> >::type*& = detail::enabler::value>
+inline iu_ostream& operator << (iu_ostream& os, const T& msg)
 {
     return os << msg.WhichIs();
 }
