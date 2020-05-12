@@ -268,33 +268,33 @@ void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char(&str)[N], iu_ostrea
 }
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t* str, iu_ostream* os)
 {
-    UniversalPrint(detail::ShowWideCString(str), os);
+    UniversalPrint(detail::ShowAnyCString(str), os);
 }
 template<size_t N>
 void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t(&str)[N], iu_ostream* os)
 {
-    UniversalPrint(detail::ShowWideCString(str), os);
+    UniversalPrint(detail::ShowAnyCString(str), os);
 }
 #if IUTEST_HAS_CHAR16_T
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t* str, iu_ostream* os)
 {
-    UniversalPrint(detail::ShowWideCString(str), os);
+    UniversalPrint(detail::ShowAnyCString(str), os);
 }
 template<size_t N>
 void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t(&str)[N], iu_ostream* os)
 {
-    UniversalPrint(detail::ShowWideCString(str), os);
+    UniversalPrint(detail::ShowAnyCString(str), os);
 }
 #endif
 #if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_CXX_HDR_CUCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char32_t* str, iu_ostream* os)
 {
-    UniversalPrint(detail::ShowWideCString(str), os);
+    UniversalPrint(detail::ShowAnyCString(str), os);
 }
 template<size_t N>
 void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char32_t(&str)[N], iu_ostream* os)
 {
-    UniversalPrint(detail::ShowWideCString(str), os);
+    UniversalPrint(detail::ShowAnyCString(str), os);
 }
 #endif
 
@@ -341,9 +341,11 @@ inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)
     *os << ")";
 }
 #endif
-// char or unsigned char の時に、 0 が NULL 文字にならないように修正
-inline void PrintTo(const char value, iu_ostream* os)
+
+template<typename T>
+void PrintToChar(const T value, iu_ostream* os)
 {
+    // char or unsigned char の時に、 0 が NULL 文字にならないように修正
     if( value == 0 )
     {
         *os << "\\0";
@@ -354,25 +356,30 @@ inline void PrintTo(const char value, iu_ostream* os)
     }
     else
     {
-        *os << "\'" << value << "\'";
+        const T str[2] = { value, 0 };
+        *os << "\'" << detail::ShowAnyCString(str) << "\'";
     }
+}
+inline void PrintTo(const char value, iu_ostream* os)
+{
+    PrintToChar(value, os);
 }
 inline void PrintTo(const wchar_t value, iu_ostream* os)
 {
-    if( value == 0 )
-    {
-        *os << "\\0";
-    }
-    else if( value < 0x20 )
-    {
-        *os << static_cast<int>(value);
-    }
-    else
-    {
-        const wchar_t str[2] = { value, L'\0' };
-        *os << "\'" << detail::ShowWideCString(str) << "\'";
-    }
+    PrintToChar(value, os);
 }
+#if IUTEST_HAS_CHAR16_T
+inline void PrintTo(const char16_t value, iu_ostream* os)
+{
+    PrintToChar(value, os);
+}
+#endif
+#if IUTEST_HAS_CHAR32_T
+inline void PrintTo(const char32_t value, iu_ostream* os)
+{
+    PrintToChar(value, os);
+}
+#endif
 inline void PrintTo(const unsigned char value, iu_ostream* os)
 {
     *os << static_cast<unsigned int>(value);
@@ -381,8 +388,8 @@ inline void PrintTo(const unsigned char value, iu_ostream* os)
 template<typename CharT, typename Traits>
 inline void PrintTo(const ::std::basic_string_view<CharT, Traits>& value, iu_ostream* os)
 {
-    const ::std::basic_string<CharT, Traits> tmp{ value };
-    *os << tmp;
+    const ::std::basic_string<CharT, Traits> str{ value };
+    UniversalTersePrint(str.c_str(), os);
 }
 #endif
 

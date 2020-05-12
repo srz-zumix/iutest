@@ -153,39 +153,6 @@ IUTEST(PrintToTest, Null)
     IUTEST_SUCCEED() << p;
 }
 
-IUTEST(PrintToTest, WideString)
-{
-    {
-        LogChecker ck("XYZ");
-        IUTEST_PRINTTOSTRING_EQ(ck, L"XYZ");
-        IUTEST_SUCCEED() << L"XYZ";
-    }
-    {
-        LogChecker ck("\\0");
-        wchar_t c = 0;
-        IUTEST_PRINTTOSTRING_EQ(ck, c);
-        IUTEST_SUCCEED() << c;
-    }
-    {
-        LogChecker ck("10");
-        wchar_t c = L'\n';
-        IUTEST_PRINTTOSTRING_EQ(ck, c);
-        IUTEST_SUCCEED() << c;
-    }
-    {
-        LogChecker ck("\'A\'");
-        wchar_t c = L'A';
-        IUTEST_PRINTTOSTRING_EQ(ck, c);
-        IUTEST_SUCCEED() << c;
-    }
-    {
-        LogChecker ck("(null)");
-        wchar_t* p = NULL;
-        IUTEST_PRINTTOSTRING_EQ(ck, p);
-        IUTEST_SUCCEED() << p;
-    }
-}
-
 IUTEST(PrintToTest, String)
 {
     {
@@ -219,6 +186,63 @@ IUTEST(PrintToTest, String)
     }
 }
 
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+IUTEST(PrintToTest, StringStringView)
+{
+    {
+        LogChecker ck("XYZ");
+        ::std::string_view view = "XYZ";
+        IUTEST_PRINTTOSTRING_EQ(ck, view);
+        IUTEST_SUCCEED() << view;
+    }
+}
+#endif
+
+IUTEST(PrintToTest, WideString)
+{
+    {
+        LogChecker ck("XYZ");
+        IUTEST_PRINTTOSTRING_EQ(ck, L"XYZ");
+        IUTEST_SUCCEED() << L"XYZ";
+    }
+    {
+        LogChecker ck("\\0");
+        wchar_t c = 0;
+        IUTEST_PRINTTOSTRING_EQ(ck, c);
+        IUTEST_SUCCEED() << c;
+    }
+    {
+        LogChecker ck("10");
+        wchar_t c = L'\n';
+        IUTEST_PRINTTOSTRING_EQ(ck, c);
+        IUTEST_SUCCEED() << c;
+    }
+    {
+        LogChecker ck("\'A\'");
+        wchar_t c = L'A';
+        IUTEST_PRINTTOSTRING_EQ(ck, c);
+        IUTEST_SUCCEED() << c;
+    }
+    {
+        LogChecker ck("(null)");
+        wchar_t* p = NULL;
+        IUTEST_PRINTTOSTRING_EQ(ck, p);
+        IUTEST_SUCCEED() << p;
+    }
+}
+
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+IUTEST(PrintToTest, WideStringStringView)
+{
+    {
+        LogChecker ck("XYZ");
+        ::std::wstring_view view = L"XYZ";
+        IUTEST_PRINTTOSTRING_EQ(ck, view);
+        IUTEST_SUCCEED() << view;
+    }
+}
+#endif
+
 #if IUTEST_HAS_CHAR16_T
 IUTEST(PrintToTest, U16String)
 {
@@ -228,13 +252,13 @@ IUTEST(PrintToTest, U16String)
         IUTEST_SUCCEED() << u"XYZ";
     }
     {
-        LogChecker ck("0");
+        LogChecker ck("\\0");
         char16_t c = 0;
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_SUCCEED() << c;
     }
     {
-        LogChecker ck("65");
+        LogChecker ck("\'A\'");
         char16_t c = u'A';
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_SUCCEED() << c;
@@ -246,6 +270,18 @@ IUTEST(PrintToTest, U16String)
         IUTEST_SUCCEED() << p;
     }
 }
+
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+IUTEST(PrintToTest, U16StringStringView)
+{
+    {
+        LogChecker ck("XYZ");
+        ::std::u16string_view view = u"XYZ";
+        IUTEST_PRINTTOSTRING_EQ(ck, view);
+        IUTEST_SUCCEED() << view;
+    }
+}
+#endif
 #endif
 
 #if IUTEST_HAS_CHAR32_T
@@ -257,13 +293,13 @@ IUTEST(PrintToTest, U32String)
         IUTEST_SUCCEED() << U"XYZ";
     }
     {
-        LogChecker ck("0");
+        LogChecker ck("\\0");
         char32_t c = 0;
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_SUCCEED() << c;
     }
     {
-        LogChecker ck("65");
+        LogChecker ck("\'A\'");
         char32_t c = U'A';
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_SUCCEED() << c;
@@ -275,6 +311,18 @@ IUTEST(PrintToTest, U32String)
         IUTEST_SUCCEED() << p;
     }
 }
+
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+IUTEST(PrintToTest, U32StringStringView)
+{
+    {
+        LogChecker ck("XYZ");
+        ::std::u32string_view view = U"XYZ";
+        IUTEST_PRINTTOSTRING_EQ(ck, view);
+        IUTEST_SUCCEED() << view;
+    }
+}
+#endif
 #endif
 
 struct Point0

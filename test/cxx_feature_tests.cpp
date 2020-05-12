@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2018-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2018-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -69,13 +69,6 @@ IUTEST(StringView, Compare)
 {
     ::std::string_view view = "Hello";
     IUTEST_ASSERT_EQ("Hello", view);
-}
-
-IUTEST(StringView, PrintTo)
-{
-    PrintToLogChecker ck("Hello");
-    ::std::string_view view = "Hello";
-    IUTEST_SUCCEED() << ::iutest::PrintToString(view);
 }
 
 #endif

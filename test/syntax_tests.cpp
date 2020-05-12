@@ -928,15 +928,32 @@ IUTEST(PrintToTest, Iomanip)
 #if IUTEST_HAS_CHAR16_T
 IUTEST(PrintToTest, U16String)
 {
-    IUTEST_SUCCEED() << ::iutest::PrintToString(u"テスト");
+    IUTEST_SUCCEED() << u"テスト";
 }
+
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+IUTEST(PrintToTest, U16StringStringView)
+{
+    ::std::u16string_view view = u"Hello";
+    IUTEST_SUCCEED() << view;
+}
+#endif
+
 #endif
 
 #if IUTEST_HAS_CHAR32_T
 IUTEST(PrintToTest, U32String)
 {
-    IUTEST_SUCCEED() << ::iutest::PrintToString(U"テスト");
+    IUTEST_SUCCEED() << U"テスト";
 }
+
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+IUTEST(PrintToTest, U32StringStringView)
+{
+    ::std::u32string_view view = U"Hello";
+    IUTEST_SUCCEED() << view;
+}
+#endif
 #endif
 
 #if defined(__WANDBOX__)
