@@ -123,6 +123,9 @@ modification, are permitted provided that the following conditions are met: \n
  <ul>
   <li>v1.17.1.0
     <ul>
+      <li>アサーションに operator &lt;&lt; したときの出力を PrintToString したものと同じになるように変更</li>
+      <li>C++20 で削除された basic_ostream::operator &lt;&lt; に対応</li>
+      <li>wstring_view/u16string_view/u32string_view 対応</li>
       <li>GTEST_SKIP 対応</li>
       <li>Google Test 旧バージョンとの互換性を修正</li>
     </ul>
