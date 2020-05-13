@@ -53,14 +53,22 @@ public:
     template<typename T>
     iuStreamMessage& operator << (const T& value)
     {
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
         m_stream << PrintToString(value);
+#else
+        m_stream << value;
+#endif
         return *this;
     }
 
     template<typename T, size_t SIZE>
     iuStreamMessage& operator << (const T(&value)[SIZE])
     {
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
         m_stream << PrintToString(value);
+#else
+        m_stream << value;
+#endif
         return *this;
     }
 
