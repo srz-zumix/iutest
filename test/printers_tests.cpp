@@ -19,11 +19,29 @@
 #include "iutest.hpp"
 #include "logger_tests.hpp"
 
+#if !defined(IUTEST_USE_GTEST)
+
+#define IUTEST_STREAMOUT_CHECK(val) \
+    IUTEST_SUCCEED() << val
+
 #define IUTEST_PRINTTOSTRING_EQ(expect, val)        \
     IUTEST_EXPECT_STREQ(static_cast<const char*>(expect), ::iutest::PrintToString(val))
 
 #define IUTEST_PRINTTOSTRING_CONTAINE(expect, val)  \
     IUTEST_EXPECT_STRIN(static_cast<const char*>(expect), ::iutest::PrintToString(val))
+
+#else
+
+#define IUTEST_STREAMOUT_CHECK(val) \
+    IUTEST_SUCCEED() << ::iutest::PrintToString(val)
+
+#define IUTEST_PRINTTOSTRING_EQ(expect, val)        \
+    (void)(expect, val)
+
+#define IUTEST_PRINTTOSTRING_CONTAINE(expect, val)  \
+    (void)(expect, val)
+
+#endif
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
@@ -60,7 +78,7 @@ IUTEST(PrintToTest, Bar)
     Bar bar = {0, 1, 2};
     LogChecker ck("x:0 y:1 z:2");
     IUTEST_PRINTTOSTRING_EQ(ck, bar);
-    IUTEST_SUCCEED() << bar;
+    IUTEST_STREAMOUT_CHECK(bar);
 }
 
 #if !defined(IUTEST_USE_GTEST)
@@ -74,7 +92,7 @@ IUTEST(PrintToTest, IutestAnyNotInitialized)
     LogChecker ck("8-Byte object < 00 00 00 00 00 00 00 00 >");
 #endif
     IUTEST_PRINTTOSTRING_EQ(ck, a);
-    IUTEST_SUCCEED() << a;
+    IUTEST_STREAMOUT_CHECK(a);
 }
 
 IUTEST(PrintToTest, IutestAnyString)
@@ -86,7 +104,7 @@ IUTEST(PrintToTest, IutestAnyString)
     LogChecker ck("8-Byte object");
 #endif
     IUTEST_PRINTTOSTRING_EQ(ck, a);
-    IUTEST_SUCCEED() << a;
+    IUTEST_STREAMOUT_CHECK(a);
 }
 
 struct BigVar
@@ -108,7 +126,7 @@ IUTEST(PrintToTest, BigVar)
     LogChecker ck("40-Byte object < 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ... >");
 #endif
     IUTEST_PRINTTOSTRING_EQ(ck, bigvar);
-    IUTEST_SUCCEED() << bigvar;
+    IUTEST_STREAMOUT_CHECK(bigvar);
 }
 #endif
 
@@ -117,7 +135,7 @@ IUTEST(PrintToTest, RawArray)
     unsigned char a[3] = {0, 1, 2};
     LogChecker ck("{ 0, 1, 2 }");
     IUTEST_PRINTTOSTRING_EQ(ck, a);
-    IUTEST_SUCCEED() << a;
+    IUTEST_STREAMOUT_CHECK(a);
 }
 
 IUTEST(PrintToTest, RawMultiArray)
@@ -125,7 +143,7 @@ IUTEST(PrintToTest, RawMultiArray)
     int a[2][2] = { {0, 1}, {2, 3} };
     LogChecker ck("{ { 0, 1 }, { 2, 3 } }");
     IUTEST_PRINTTOSTRING_EQ(ck, a);
-    IUTEST_SUCCEED() << a;
+    IUTEST_STREAMOUT_CHECK(a);
 }
 
 IUTEST(PrintToTest, StdPair)
@@ -133,7 +151,7 @@ IUTEST(PrintToTest, StdPair)
     ::std::pair<int, int> p(0, 1);
     LogChecker ck("(0, 1)");
     IUTEST_PRINTTOSTRING_EQ(ck, p);
-    IUTEST_SUCCEED() << p;
+    IUTEST_STREAMOUT_CHECK(p);
 }
 
 IUTEST(PrintToTest, StdVector)
@@ -142,7 +160,7 @@ IUTEST(PrintToTest, StdVector)
     ::std::vector<int> v(a, a+(sizeof(a)/sizeof(a[0])));
     LogChecker ck("{ 0, 1, 2 }");
     IUTEST_PRINTTOSTRING_EQ(ck, v);
-    IUTEST_SUCCEED() << v;
+    IUTEST_STREAMOUT_CHECK(v);
 }
 
 IUTEST(PrintToTest, Null)
@@ -150,7 +168,7 @@ IUTEST(PrintToTest, Null)
     LogChecker ck("(null)");
     void* p = NULL;
     IUTEST_PRINTTOSTRING_EQ(ck, p);
-    IUTEST_SUCCEED() << p;
+    IUTEST_STREAMOUT_CHECK(p);
 }
 
 IUTEST(PrintToTest, String)
@@ -158,31 +176,31 @@ IUTEST(PrintToTest, String)
     {
         LogChecker ck("XYZ");
         IUTEST_PRINTTOSTRING_EQ(ck, "XYZ");
-        IUTEST_SUCCEED() << "XYZ";
+        IUTEST_STREAMOUT_CHECK("XYZ");
     }
     {
         LogChecker ck("\\0");
         char c = 0;
         IUTEST_PRINTTOSTRING_EQ(ck, c);
-        IUTEST_SUCCEED() << c;
+        IUTEST_STREAMOUT_CHECK(c);
     }
     {
         LogChecker ck("10");
         char c = '\n';
         IUTEST_PRINTTOSTRING_EQ(ck, c);
-        IUTEST_SUCCEED() << c;
+        IUTEST_STREAMOUT_CHECK(c);
     }
     {
         LogChecker ck("\'A\'");
         char c = 'A';
         IUTEST_PRINTTOSTRING_EQ(ck, c);
-        IUTEST_SUCCEED() << c;
+        IUTEST_STREAMOUT_CHECK(c);
     }
     {
         LogChecker ck("(null)");
         char* p = NULL;
         IUTEST_PRINTTOSTRING_EQ(ck, p);
-        IUTEST_SUCCEED() << p;
+        IUTEST_STREAMOUT_CHECK(p);
     }
 }
 
@@ -193,7 +211,7 @@ IUTEST(PrintToTest, StringStringView)
         LogChecker ck("XYZ");
         ::std::string_view view = "XYZ";
         IUTEST_PRINTTOSTRING_EQ(ck, view);
-        IUTEST_SUCCEED() << view;
+        IUTEST_STREAMOUT_CHECK(view);
     }
 }
 #endif
@@ -203,31 +221,31 @@ IUTEST(PrintToTest, WideString)
     {
         LogChecker ck("XYZ");
         IUTEST_PRINTTOSTRING_EQ(ck, L"XYZ");
-        IUTEST_SUCCEED() << L"XYZ";
+        IUTEST_STREAMOUT_CHECK(L"XYZ");
     }
     {
         LogChecker ck("\\0");
         wchar_t c = 0;
         IUTEST_PRINTTOSTRING_EQ(ck, c);
-        IUTEST_SUCCEED() << c;
+        IUTEST_STREAMOUT_CHECK(c);
     }
     {
         LogChecker ck("10");
         wchar_t c = L'\n';
         IUTEST_PRINTTOSTRING_EQ(ck, c);
-        IUTEST_SUCCEED() << c;
+        IUTEST_STREAMOUT_CHECK(c);
     }
     {
         LogChecker ck("\'A\'");
         wchar_t c = L'A';
         IUTEST_PRINTTOSTRING_EQ(ck, c);
-        IUTEST_SUCCEED() << c;
+        IUTEST_STREAMOUT_CHECK(c);
     }
     {
         LogChecker ck("(null)");
         wchar_t* p = NULL;
         IUTEST_PRINTTOSTRING_EQ(ck, p);
-        IUTEST_SUCCEED() << p;
+        IUTEST_STREAMOUT_CHECK(p);
     }
 }
 
@@ -238,7 +256,7 @@ IUTEST(PrintToTest, WideStringStringView)
         LogChecker ck("XYZ");
         ::std::wstring_view view = L"XYZ";
         IUTEST_PRINTTOSTRING_EQ(ck, view);
-        IUTEST_SUCCEED() << view;
+        IUTEST_STREAMOUT_CHECK(view);
     }
 }
 #endif
@@ -249,25 +267,25 @@ IUTEST(PrintToTest, U16String)
     {
         LogChecker ck("XYZ");
         IUTEST_PRINTTOSTRING_EQ(ck, u"XYZ");
-        IUTEST_SUCCEED() << u"XYZ";
+        IUTEST_STREAMOUT_CHECK(u"XYZ");
     }
     {
         LogChecker ck("\\0");
         char16_t c = 0;
         IUTEST_PRINTTOSTRING_EQ(ck, c);
-        IUTEST_SUCCEED() << c;
+        IUTEST_STREAMOUT_CHECK(c);
     }
     {
         LogChecker ck("\'A\'");
         char16_t c = u'A';
         IUTEST_PRINTTOSTRING_EQ(ck, c);
-        IUTEST_SUCCEED() << c;
+        IUTEST_STREAMOUT_CHECK(c);
     }
     {
         LogChecker ck("(null)");
         char16_t* p = NULL;
         IUTEST_PRINTTOSTRING_EQ(ck, p);
-        IUTEST_SUCCEED() << p;
+        IUTEST_STREAMOUT_CHECK(p);
     }
 }
 
@@ -278,7 +296,7 @@ IUTEST(PrintToTest, U16StringStringView)
         LogChecker ck("XYZ");
         ::std::u16string_view view = u"XYZ";
         IUTEST_PRINTTOSTRING_EQ(ck, view);
-        IUTEST_SUCCEED() << view;
+        IUTEST_STREAMOUT_CHECK(view);
     }
 }
 #endif
@@ -290,25 +308,25 @@ IUTEST(PrintToTest, U32String)
     {
         LogChecker ck("XYZ");
         IUTEST_PRINTTOSTRING_EQ(ck, U"XYZ");
-        IUTEST_SUCCEED() << U"XYZ";
+        IUTEST_STREAMOUT_CHECK(U"XYZ");
     }
     {
         LogChecker ck("\\0");
         char32_t c = 0;
         IUTEST_PRINTTOSTRING_EQ(ck, c);
-        IUTEST_SUCCEED() << c;
+        IUTEST_STREAMOUT_CHECK(c);
     }
     {
         LogChecker ck("\'A\'");
         char32_t c = U'A';
         IUTEST_PRINTTOSTRING_EQ(ck, c);
-        IUTEST_SUCCEED() << c;
+        IUTEST_STREAMOUT_CHECK(c);
     }
     {
         LogChecker ck("(null)");
         char32_t* p = NULL;
         IUTEST_PRINTTOSTRING_EQ(ck, p);
-        IUTEST_SUCCEED() << p;
+        IUTEST_STREAMOUT_CHECK(p);
     }
 }
 
@@ -319,7 +337,7 @@ IUTEST(PrintToTest, U32StringStringView)
         LogChecker ck("XYZ");
         ::std::u32string_view view = U"XYZ";
         IUTEST_PRINTTOSTRING_EQ(ck, view);
-        IUTEST_SUCCEED() << view;
+        IUTEST_STREAMOUT_CHECK(view);
     }
 }
 #endif
@@ -358,17 +376,17 @@ IUTEST(PrintToTest, Overload)
     {
         LogChecker ck("8-Byte object < 78 56 34 12 F0 DE BC 9A >");
         IUTEST_PRINTTOSTRING_EQ(ck, p0);
-        IUTEST_SUCCEED() << p0;
+        IUTEST_STREAMOUT_CHECK(p0);
     }
     {
         LogChecker ck("0, 0(operator overload)");
         IUTEST_PRINTTOSTRING_EQ(ck, p1);
-        IUTEST_SUCCEED() << p1;
+        IUTEST_STREAMOUT_CHECK(p1);
     }
     {
         LogChecker ck("1, 1(function overload)");
         IUTEST_PRINTTOSTRING_EQ(ck, p2);
-        IUTEST_SUCCEED() << p2;
+        IUTEST_STREAMOUT_CHECK(p2);
     }
 }
 
@@ -382,14 +400,14 @@ IUTEST(PrintToTest, ThresholdObjectSize)
     Hoge hoge = { { 0 } };
     LogChecker ck("1024-Byte object < 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ... >");
     IUTEST_PRINTTOSTRING_EQ(ck, hoge);
-    IUTEST_SUCCEED() << hoge;
+    IUTEST_STREAMOUT_CHECK(hoge);
 }
 IUTEST(PrintToTest, ThresholdArraySize)
 {
     int a[256] = { 0 };
     LogChecker ck("{ 0, 0, 0, 0, 0, 0, 0, 0, 0, ..., 0, 0, 0, 0, 0, 0, 0, 0, 0 }");
     IUTEST_PRINTTOSTRING_EQ(ck, a);
-    IUTEST_SUCCEED() << a;
+    IUTEST_STREAMOUT_CHECK(a);
 }
 IUTEST(PrintToTest, ThresholdContainerSizer)
 {
@@ -397,7 +415,7 @@ IUTEST(PrintToTest, ThresholdContainerSizer)
     ::std::vector<int> v(a, a+256);
     LogChecker ck("{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ... }");
     IUTEST_PRINTTOSTRING_EQ(ck, v);
-    IUTEST_SUCCEED() << v;
+    IUTEST_STREAMOUT_CHECK(v);
 }
 
 #if IUTEST_HAS_NULLPTR
@@ -413,7 +431,7 @@ IUTEST(PrintToTest, Tuple)
     LogChecker ck("(false, 100, 'a')");
     ::iutest::tuples::tuple<bool, int, char> t(false, 100, 'a');
     IUTEST_PRINTTOSTRING_EQ(ck, t);
-    IUTEST_SUCCEED() << t;
+    IUTEST_STREAMOUT_CHECK(t);
 }
 #endif
 
