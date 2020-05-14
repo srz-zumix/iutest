@@ -18,8 +18,8 @@ jobs:
           MIX_CONFIG: "-DIUTEST_HAS_TYPED_TEST=0 -DIUTEST_HAS_PARAM_TEST=0 -DIUTEST_HAS_TYPED_TEST_P=0 -DIUTEST_HAS_VARIADIC_PRED=0"
           PKG_NAME: NoParameAndType
         Mix_StrStream:
-          MIX_CONFIG: "-DIUTEST_HAS_STRINGSTREAM=0 -DIUTEST_HAS_STRSTREAM=1"
-          ADD_OPT: "STDFLAG=-std=c++03"
+          MIX_CONFIG: "-DIUTEST_HAS_STRINGSTREAM=0 -DIUTEST_HAS_STRSTREAM=1 -Wno-deprecated"
+          # ADD_OPT: "STDFLAG=-std=c++03"
           PKG_NAME: StrStream
     pool:
       vmImage: ${{ parameters.vmImage }}
