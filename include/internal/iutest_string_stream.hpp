@@ -17,27 +17,15 @@
 
 //======================================================================
 // include
-#if defined(__MWERKS__)
-#  define _MBSTATE_T
-#endif
-
-#include <wchar.h>
-#include <wctype.h>
-#include <stdarg.h>
-#include <errno.h>
-#if defined(IUTEST_OS_CYGWIN) || defined(IUTEST_OS_ARM)
-#include <strings.h>
-#endif
+#include "iutest_string.hpp"
 #if   IUTEST_HAS_STRINGSTREAM
 #  include <sstream>
 #elif IUTEST_HAS_STRSTREAM
 #  include <strstream>
 #endif
 #if IUTEST_HAS_IOMANIP
-#include <iomanip>
+#  include <iomanip>
 #endif
-#include <string>
-#include <cstring>
 
 #if !IUTEST_HAS_STRINGSTREAM && !IUTEST_HAS_STRSTREAM
 
@@ -266,6 +254,9 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 #endif
 
 namespace iutest
+{
+
+namespace detail
 {
 
 //======================================================================

@@ -17,8 +17,6 @@
 
 //======================================================================
 // include
-#include "iutest_string_stream.hpp"
-
 #if defined(__MWERKS__)
 #  define _MBSTATE_T
 #endif
@@ -504,6 +502,7 @@ inline ::std::string StringFormat(const char* format, va_list va)
 
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 
+}   // end of namespace detail
 }   // end of namespace iutest
 
 #endif // INCG_IRIS_IUTEST_STRING_HPP_E22B02D7_E9E7_412C_B609_DC3D9C66895D_
