@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_string_stream.hpp
- * @brief       iris unit test iu_basic_stream implimentaion
+ * @brief       iris unit test iu_basic_ostream implimentaion
  *
  * @author      t.shirayanagi
  * @par         copyright
@@ -27,20 +27,23 @@
 #  include <iomanip>
 #endif
 
+namespace iutest
+{
+
+namespace detail
+{
+
 #if !IUTEST_HAS_STRINGSTREAM && !IUTEST_HAS_STRSTREAM
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
-
-namespace iutest_subrogate
-{
 
 //======================================================================
 // class
 
 template<class _Elem, class _Traits>
-class iu_basic_stream
+class iu_basic_ostream
 {
-    typedef iu_basic_stream<_Elem, _Traits>         _Myt;
+    typedef iu_basic_ostream<_Elem, _Traits>         _Myt;
     //typedef ::std::basic_streambuf<_Elem, _Traits>    streambuf;
     //typedef ::std::basic_ostream<_Elem, _Traits>  ostream;
     typedef ::std::basic_string<_Elem, _Traits>     string;
@@ -105,9 +108,9 @@ class iu_basic_stream
         }
     };
 public:
-    iu_basic_stream() {}
-    explicit iu_basic_stream(const char* str) : s(str) {}
-    explicit iu_basic_stream(const ::std::string& str) : s(str) {}
+    iu_basic_ostream() {}
+    explicit iu_basic_ostream(const char* str) : s(str) {}
+    explicit iu_basic_ostream(const ::std::string& str) : s(str) {}
 
 public:
     inline _Myt& operator<< (char v)
@@ -249,15 +252,7 @@ public:
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
-}   // end of namespace iutest_subrogate
-
 #endif
-
-namespace iutest
-{
-
-namespace detail
-{
 
 //======================================================================
 // declare
@@ -301,9 +296,6 @@ public:
 
 IUTEST_PRAGMA_MSC_WARN_POP()
 
-#else
-    typedef ::iutest_subrogate::iu_basic_stream<char, ::std::char_traits<char> >        iu_stream;
-    typedef ::iutest_subrogate::iu_basic_stream<wchar_t, ::std::char_traits<wchar_t> >  iu_wstream;
 #endif
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
@@ -317,8 +309,9 @@ typedef detail::stlstream iu_stringstream;
 
 #else
 
-typedef detail::iu_stream iu_ostream;
-typedef detail::iu_stream iu_stringstream;
+typedef detail::iu_basic_ostream<char, ::std::char_traits<char> >        iu_ostream;
+typedef detail::iu_basic_ostream<wchar_t, ::std::char_traits<wchar_t> >  iu_wostream;
+typedef iu_ostream  iu_stringstream;
 
 #endif
 

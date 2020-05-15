@@ -117,8 +117,8 @@ template<typename Elem, typename Traits, typename T>
     return os;
 }
 #else
-template<typename T>
-iu_ostream& operator << (iu_ostream& os, const T& value)
+template<typename Elem, typename Traits, typename T>
+detail::iu_basic_ostream<Elem, Traits>& operator << (detail::iu_basic_ostream<Elem, Traits>& os, const T& value)
 {
     TypeWithoutFormatter::PrintValue(value, &os);
     return os;
