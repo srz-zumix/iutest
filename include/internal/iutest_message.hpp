@@ -61,16 +61,30 @@ public:
         return *this;
     }
 
+#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     template<typename T, size_t SIZE>
     iuStreamMessage& operator << (const T(&value)[SIZE])
     {
-#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
         m_stream << PrintToString(value);
-#else
-        m_stream << value;
-#endif
         return *this;
     }
+#else
+#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
+    template<typename T>
+    iuStreamMessage& operator << (T* const& value)
+    {
+        if( value == NULL )
+        {
+            m_stream << kStrings::Null;
+        }
+        else
+        {
+            m_stream << value;
+        }
+        return *this;
+    }
+#endif
+#endif
 
 #if IUTEST_HAS_IOMANIP
     iuStreamMessage& operator << (iu_basic_iomanip val)
