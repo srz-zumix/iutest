@@ -425,6 +425,12 @@ typedef ::std::uintmax_t    iu_off_t;
 typedef UInt64              iu_off_t;
 #endif
 
+#if IUTEST_HAS_CXX11 && IUTEST_HAS_CXX_HDR_CSTDINT
+typedef ::std::uintptr_t                                iu_uintptr_t;
+#else
+typedef detail::type_fit_t<sizeof(ptrdiff_t)>::UInt     iu_uintptr_t;
+#endif
+
 typedef internal::TypeId TestTypeId;    //!< テスト識別型
 
 typedef void (*SetUpMethod)();      //!< SetUp 関数型
