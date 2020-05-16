@@ -98,7 +98,7 @@ IUTEST(PrintToTest, IutestAnyNotInitialized)
     IUTEST_PRINTTOSTRING_EQ(ck, a);
 #else
     LogChecker ck("-Byte object < 00 00 00 00 ");
-    IUTEST_PRINTTOSTRING_CONTAINE(ck, a)
+    IUTEST_PRINTTOSTRING_CONTAINE(ck, a);
 #endif
     IUTEST_STREAMOUT_CHECK(a);
 }
@@ -111,7 +111,7 @@ IUTEST(PrintToTest, IutestAnyString)
     IUTEST_PRINTTOSTRING_EQ(ck, a);
 #else
     LogChecker ck("-Byte object");
-    IUTEST_PRINTTOSTRING_CONTAINE(ck, a)
+    IUTEST_PRINTTOSTRING_CONTAINE(ck, a);
 #endif
     IUTEST_STREAMOUT_CHECK(a);
 }

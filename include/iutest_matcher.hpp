@@ -74,7 +74,7 @@ public:
     virtual ::std::string WhichIs() const = 0;
 };
 
-#if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+#if !defined(IUTEST_NO_SFINAE)
 template<typename T>
 inline typename detail::enable_if_t< IMatcher::is_matcher<T>, iu_ostream>::type& operator << (iu_ostream& os, const T& m)
 {
