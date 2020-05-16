@@ -352,6 +352,8 @@ IUTEST(PrintToTest, U32StringStringView)
 #endif
 #endif
 
+#if IUTEST_HAS_PRINT_TO
+
 struct Point0
 {
     unsigned int x, y;
@@ -375,25 +377,23 @@ void PrintTo(const Point2& x, ::iutest::iu_ostream* os)
     *os << x.x << ", " << x.y << "(function overload)";
 }
 
-#if IUTEST_HAS_PRINT_TO
-
 IUTEST(PrintToTest, Overload)
 {
     Point0 p0 = { 0x12345678, 0x9ABCDEF0 };
     Point1 p1 = {0, 0};
     Point2 p2 = {1, 1};
     {
-        LogChecker ck("8-Byte object < 78 56 34 12 F0 DE BC 9A >");
+        PrintToLogChecker ck("8-Byte object < 78 56 34 12 F0 DE BC 9A >");
         IUTEST_PRINTTOSTRING_EQ(ck, p0);
         IUTEST_STREAMOUT_CHECK(p0);
     }
     {
-        LogChecker ck("0, 0(operator overload)");
+        PrintToLogChecker ck("0, 0(operator overload)");
         IUTEST_PRINTTOSTRING_EQ(ck, p1);
         IUTEST_STREAMOUT_CHECK(p1);
     }
     {
-        LogChecker ck("1, 1(function overload)");
+        PrintToLogChecker ck("1, 1(function overload)");
         IUTEST_PRINTTOSTRING_EQ(ck, p2);
         IUTEST_STREAMOUT_CHECK(p2);
     }

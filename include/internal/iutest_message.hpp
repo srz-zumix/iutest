@@ -69,21 +69,11 @@ public:
         return *this;
     }
 #else
-#if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-    template<typename T>
-    iuStreamMessage& operator << (T* const& value)
+    iuStreamMessage& operator << (bool b)
     {
-        if( value == NULL )
-        {
-            m_stream << kStrings::Null;
-        }
-        else
-        {
-            m_stream << value;
-        }
+        m_stream << (b ? "true" : "false");
         return *this;
     }
-#endif
 #endif
 
 #if IUTEST_HAS_IOMANIP

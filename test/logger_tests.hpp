@@ -81,7 +81,7 @@ public:
 typedef LogCheckerBase  LogChecker;
 #endif
 
-#if !defined(IUTEST_USE_GTEST) && !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_PRINT_TO
 class PrintToLogChecker : public LogCheckerBase
 {
     TestLogger printer_logger;
