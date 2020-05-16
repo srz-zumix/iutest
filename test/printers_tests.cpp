@@ -21,9 +21,6 @@
 
 #if !defined(IUTEST_USE_GTEST)
 
-#define IUTEST_STREAMOUT_CHECK(val) \
-    IUTEST_SUCCEED() << val
-
 #define IUTEST_PRINTTOSTRING_EQ(expect, val)        \
     IUTEST_EXPECT_STREQ(static_cast<const char*>(expect), ::iutest::PrintToString(val))
 
@@ -32,9 +29,6 @@
 
 #else
 
-#define IUTEST_STREAMOUT_CHECK(val) \
-    IUTEST_SUCCEED() << ::iutest::PrintToString(val)
-
 #define IUTEST_PRINTTOSTRING_EQ(expect, val)        \
     (void)(expect, val)
 
@@ -42,6 +36,19 @@
     (void)(expect, val)
 
 #endif
+
+#if !defined(IUTEST_USE_GTEST) && !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
+
+#define IUTEST_STREAMOUT_CHECK(val) \
+    IUTEST_SUCCEED() << val
+
+#else
+
+#define IUTEST_STREAMOUT_CHECK(val) \
+    IUTEST_SUCCEED() << ::iutest::PrintToString(val)
+
+#endif
+
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
@@ -88,10 +95,11 @@ IUTEST(PrintToTest, IutestAnyNotInitialized)
     ::iutest::any a;
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     LogChecker ck("empty");
-#else
-    LogChecker ck("8-Byte object < 00 00 00 00 00 00 00 00 >");
-#endif
     IUTEST_PRINTTOSTRING_EQ(ck, a);
+#else
+    LogChecker ck("-Byte object < 00 00 00 00 ");
+    IUTEST_PRINTTOSTRING_CONTAINE(ck, a)
+#endif
     IUTEST_STREAMOUT_CHECK(a);
 }
 
@@ -100,10 +108,11 @@ IUTEST(PrintToTest, IutestAnyString)
     ::iutest::any a = "any-test";
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
     LogChecker ck("any-test");
-#else
-    LogChecker ck("8-Byte object");
-#endif
     IUTEST_PRINTTOSTRING_EQ(ck, a);
+#else
+    LogChecker ck("-Byte object");
+    IUTEST_PRINTTOSTRING_CONTAINE(ck, a)
+#endif
     IUTEST_STREAMOUT_CHECK(a);
 }
 
