@@ -69,6 +69,12 @@ stages:
       - template: .ci/azure_pipelines/template-make-nofeature-test.yml
         parameters:
           name: nofeature
+  - stage: MixConfigTest
+    dependsOn: Precheck
+    jobs:
+      - template: .ci/azure_pipelines/template-make-mix-test.yml
+        parameters:
+          name: mix
   # - stage: Publish
   #   dependsOn:
   #     Test
