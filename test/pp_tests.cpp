@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,7 +17,7 @@
 // include
 #include "iutest.hpp"
 
-#define PPTEST_DEC(n)   IUTEST_STATIC_ASSERT(n-1 == (IUTEST_PP_DEC(n)))
+#define PPTEST_DEC(n)   IUTEST_STATIC_ASSERT((n-1 == IUTEST_PP_DEC(n)))
 
 IUTEST(PPTest, Dec)
 {
@@ -123,7 +123,7 @@ IUTEST(PPTest, Dec)
     PPTEST_DEC(100);
 }
 
-#define PPTEST_INC(n)   IUTEST_STATIC_ASSERT(n+1 == (IUTEST_PP_INC(n)))
+#define PPTEST_INC(n)   IUTEST_STATIC_ASSERT((n+1 == IUTEST_PP_INC(n)))
 
 IUTEST(PPTest, Inc)
 {
