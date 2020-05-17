@@ -869,18 +869,91 @@ IUTEST(SyntaxTest, ShowSpec)
 
 #endif
 
+#if IUTEST_HAS_TYPED_TEST
+
+template<typename T>
+class TypedPrintToTest : public ::iutest::Test {};
+typedef ::iutest::Types<char, unsigned char, short, unsigned short, int, unsigned int, long, unsigned long, int*> PrintStringTestTypes;
+IUTEST_TYPED_TEST_CASE(TypedPrintToTest, PrintStringTestTypes);
+
+IUTEST_TYPED_TEST(TypedPrintToTest, Print)
+{
+    TypeParam a = 0;
+    TypeParam& b = a;
+    const TypeParam c = a;
+    const volatile TypeParam d = a;
+
+    IUTEST_SUCCEED() << ::iutest::PrintToString(a);
+    IUTEST_SUCCEED() << ::iutest::PrintToString(b);
+    IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+    IUTEST_SUCCEED() << ::iutest::PrintToString(d);
+}
+
+#endif
+
+IUTEST(PrintToTest, RawArray)
+{
+    {
+        unsigned char a[3] = {0, 1, 2};
+        const unsigned char b[3] = {0, 1, 2};
+        const volatile unsigned char c[3] = {0, 1, 2};
+        volatile unsigned char d[3] = {0, 1, 2};
+
+        IUTEST_SUCCEED() << ::iutest::PrintToString(a);
+        IUTEST_SUCCEED() << ::iutest::PrintToString(b);
+        IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+        IUTEST_SUCCEED() << ::iutest::PrintToString(d);
+    }
+    {
+        char a[3] = {0, 1, 2};
+        const char b[3] = {0, 1, 2};
+        const volatile char c[3] = {0, 1, 2};
+        volatile char d[3] = {0, 1, 2};
+
+        IUTEST_SUCCEED() << ::iutest::PrintToString(a);
+        IUTEST_SUCCEED() << ::iutest::PrintToString(b);
+        IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+        IUTEST_SUCCEED() << ::iutest::PrintToString(d);
+    }
+}
+
+#if IUTEST_HAS_IOMANIP
+IUTEST(PrintToTest, Iomanip)
+{
+    IUTEST_SUCCEED() << ::std::endl;
+    IUTEST_SUCCEED() << ::std::ends;
+}
+#endif
+
 #if IUTEST_HAS_CHAR16_T
 IUTEST(PrintToTest, U16String)
 {
-    IUTEST_SUCCEED() << ::iutest::PrintToString(u"テスト");
+    IUTEST_SUCCEED() << u"テスト";
 }
+
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+IUTEST(PrintToTest, U16StringStringView)
+{
+    ::std::u16string_view view = u"Hello";
+    IUTEST_SUCCEED() << view;
+}
+#endif
+
 #endif
 
 #if IUTEST_HAS_CHAR32_T
 IUTEST(PrintToTest, U32String)
 {
-    IUTEST_SUCCEED() << ::iutest::PrintToString(U"テスト");
+    IUTEST_SUCCEED() << U"テスト";
 }
+
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+IUTEST(PrintToTest, U32StringStringView)
+{
+    ::std::u32string_view view = U"Hello";
+    IUTEST_SUCCEED() << view;
+}
+#endif
 #endif
 
 #if defined(__WANDBOX__)
