@@ -591,6 +591,8 @@ struct is_convertible
 {
 };
 
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) || IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION
+
 namespace is_base_of_helper
 {
 
@@ -638,13 +640,8 @@ struct is_base_of_select<true, true, false>
 template<typename Base, typename Derived>
 class is_base_of
 {
-#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
     typedef typename remove_cv<Base>::type B;
     typedef typename remove_cv<Derived>::type D;
-#else
-    typedef Base B;
-    typedef Derived D;
-#endif
     typedef is_base_of_select<
     is_class<Base>::value
     , is_class<Derived>::value
@@ -665,6 +662,8 @@ struct is_base_of
     : public is_base_of_helper::is_base_of<Base, Derived>::type
 {
 };
+
+#endif
 
 namespace is_signed_helper
 {
