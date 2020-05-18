@@ -273,20 +273,22 @@ IUTEST(PrintToTest, WideStringStringView)
 #if IUTEST_HAS_CHAR16_T
 IUTEST(PrintToTest, U16String)
 {
+#if IUTEST_HAS_CHAR16_T_PRINTABLE
     {
         LogChecker ck("XYZ");
         IUTEST_PRINTTOSTRING_EQ(ck, u"XYZ");
         IUTEST_STREAMOUT_CHECK(u"XYZ");
     }
     {
-        LogChecker ck("\\0");
-        char16_t c = 0;
+        LogChecker ck("\'A\'");
+        char16_t c = u'A';
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
     }
+#endif
     {
-        LogChecker ck("\'A\'");
-        char16_t c = u'A';
+        LogChecker ck("\\0");
+        char16_t c = 0;
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
     }
@@ -314,20 +316,22 @@ IUTEST(PrintToTest, U16StringStringView)
 #if IUTEST_HAS_CHAR32_T
 IUTEST(PrintToTest, U32String)
 {
+#if IUTEST_HAS_CHAR32_T_PRINTABLE
     {
         LogChecker ck("XYZ");
         IUTEST_PRINTTOSTRING_EQ(ck, U"XYZ");
         IUTEST_STREAMOUT_CHECK(U"XYZ");
     }
     {
-        LogChecker ck("\\0");
-        char32_t c = 0;
+        LogChecker ck("\'A\'");
+        char32_t c = U'A';
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
     }
+#endif
     {
-        LogChecker ck("\'A\'");
-        char32_t c = U'A';
+        LogChecker ck("\\0");
+        char32_t c = 0;
         IUTEST_PRINTTOSTRING_EQ(ck, c);
         IUTEST_STREAMOUT_CHECK(c);
     }

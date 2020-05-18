@@ -363,6 +363,17 @@ inline ::std::string ToHexString(T value)
     return buf;
 }
 
+template<typename T>
+inline ::std::string ToHexString(const T* str, size_t length)
+{
+    ::std::string r;
+    for( size_t i=0; i < length && *str != 0; ++str, ++i)
+    {
+        r += "%%" + ToHexString(*str);
+    }
+    return r;
+}
+
 inline ::std::string FormatIntWidth2(int value)
 {
     char buf[3] = "00";

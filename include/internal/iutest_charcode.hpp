@@ -51,7 +51,7 @@ inline ::std::string AnyStringToMultiByteString(const char* str, int num = -1)
  * @param [in]  num = 入力バッファサイズ
  * @return  UTF8 文字列
 */
-::std::string WideStringToUTF8(const wchar_t* str, int num=-1);
+::std::string AnyStringToUTF8(const wchar_t* str, int num=-1);
 
 /**
  * @brief   ワイド文字列からマルチバイトへ変換
@@ -69,7 +69,7 @@ inline ::std::string AnyStringToMultiByteString(const char* str, int num = -1)
  * @param [in]  num = 入力バッファサイズ
  * @return  マルチバイト文字列
 */
-::std::string WideStringToUTF8(const char16_t* str, int num=-1);
+::std::string AnyStringToUTF8(const char16_t* str, int num=-1);
 
 /**
  * @brief   ワイド文字列からマルチバイトへ変換
@@ -89,7 +89,7 @@ inline ::std::string AnyStringToMultiByteString(const char* str, int num = -1)
  * @param [in]   num = 入力バッファサイズ
  * @return   マルチバイト文字列
 */
-::std::string WideStringToUTF8(const char32_t* str, int num = -1);
+::std::string AnyStringToUTF8(const char32_t* str, int num = -1);
 
 /**
  * @brief    ワイド文字列からマルチバイトへ変換
