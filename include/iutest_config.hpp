@@ -604,6 +604,37 @@
  * @}
 */
 
+/**
+ * @defgroup    IUTEST_CONFIG_CODECVT  CODECVT
+ * @brief       charcode convert CONFIG
+ * @{
+*/
+
+//! char16_t printable
+#if !defined(IUTEST_HAS_CHAR16_T_PRINTABLE)
+#  if defined(_MSC_VER) || IUTEST_HAS_CXX_HDR_CODECVT || IUTEST_HAS_CXX_HDR_CUCHAR
+#    define IUTEST_HAS_CHAR16_T_PRINTABLE   1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CHAR16_T_PRINTABLE)
+#  define IUTEST_HAS_CHAR16_T_PRINTABLE     0
+#endif
+
+//! char32_t printable
+#if !defined(IUTEST_HAS_CHAR32_T_PRINTABLE)
+#  if defined(_MSC_VER) || IUTEST_HAS_CXX_HDR_CODECVT || IUTEST_HAS_CXX_HDR_CUCHAR
+#    define IUTEST_HAS_CHAR32_T_PRINTABLE   1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CHAR32_T_PRINTABLE)
+#  define IUTEST_HAS_CHAR32_T_PRINTABLE     0
+#endif
+
+/**
+ * @}
+*/
 
 /**
  * @defgroup    IUTEST_CONFIG_OTHER OTHER
