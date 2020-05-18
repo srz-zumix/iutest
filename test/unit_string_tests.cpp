@@ -151,6 +151,9 @@ IUTEST(UnitStringTest, ToHexString)
     IUTEST_EXPECT_STREQ("8000000000000000", ::iutest::detail::ToHexString< ::iutest::Int64 >(INT64_MIN));
 #endif
     IUTEST_EXPECT_STREQ(        "01234567", ::iutest::detail::ToHexString(0x01234567u));
+    IUTEST_EXPECT_STREQ(          "414243", ::iutest::detail::ToHexString("ABC", -1));
+    IUTEST_EXPECT_STREQ(            "4142", ::iutest::detail::ToHexString("ABC", 2));
+    IUTEST_EXPECT_STREQ(                "", ::iutest::detail::ToHexString("ABC", 0));
 }
 
 IUTEST(UnitStringTest, ToOctString)
@@ -198,5 +201,5 @@ IUTEST(UnitStringTest, FormatSizeTByte)
 
 IUTEST(UnitStringTest, Utf8AsciiCode)
 {
-    IUTEST_EXPECT_STREQ("A", ::iutest::detail::WideStringToUTF8(L"A", -1));
+    IUTEST_EXPECT_STREQ("A", ::iutest::detail::AnyStringToUTF8(L"A", -1));
 }
