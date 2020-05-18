@@ -364,12 +364,12 @@ inline ::std::string ToHexString(T value)
 }
 
 template<typename T>
-inline ::std::string ToHexString(const T* str, size_t length)
+inline ::std::string ToHexString(const T* str, int length)
 {
     ::std::string r;
-    for( size_t i=0; i < length && *str != 0; ++str, ++i)
+    for( int i=0; (length < 0 || i < length) && *str != 0; ++str, ++i)
     {
-        r += "%%" + ToHexString(*str);
+        r += ToHexString(*str);
     }
     return r;
 }

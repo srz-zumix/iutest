@@ -290,8 +290,8 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 
 IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToUTF8(const char32_t* str, int num)
 {
-    const size_t length = num < 0 ? ::std::char_traits<char32_t>::length(str) : num;
 #if IUTEST_HAS_CXX_HDR_CUCHAR
+    const size_t length = num < 0 ? ::std::char_traits<char32_t>::length(str) : num;
     char mbs[6];
     mbstate_t state = {};
     IUTEST_CHECK_(mbsinit(&state) != 0);
@@ -310,7 +310,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     return ret;
 #else
-    return ToHexString(str, length);
+    return ToHexString(str, num);
 #endif
 }
 
