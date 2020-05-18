@@ -183,7 +183,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     if( wcstombs(mbs, str, length) == static_cast<size_t>(-1))
     {
         delete [] mbs;
-        return ToHexString(str, num)
+        return ToHexString(str, num);
     }
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     ::std::string ret = mbs;
@@ -310,7 +310,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     return ret;
 #else
-    return ToHexString(str, length)
+    return ToHexString(str, length);
 #endif
 }
 
