@@ -260,6 +260,8 @@ IUTEST(PrintToTest, WideString)
 
 IUTEST(PrintToTest, SurrogatePair)
 {
+    const char* loc = setlocale(LC_CTYPE, "ja_JP.UTF-8");
+    IUTEST_SUCCEED() << loc;
 #if !defined(IUTEST_USE_GTEST)
     {
         const wchar_t* p = L"\U00020BB7野家";
@@ -290,6 +292,7 @@ IUTEST(PrintToTest, SurrogatePair)
         IUTEST_STREAMOUT_CHECK(p);
     }
 #endif
+    setlocale(LC_CTYPE, loc);
 }
 
 #if IUTEST_HAS_CXX_HDR_STRING_VIEW
