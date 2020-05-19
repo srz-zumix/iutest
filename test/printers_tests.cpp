@@ -260,13 +260,24 @@ IUTEST(PrintToTest, WideString)
 
 IUTEST(PrintToTest, SurrogatePair)
 {
-    char* loc = setlocale(LC_CTYPE, "ja_JP.UTF-8");
+#if !defined(IUTEST_USE_GTEST)
     {
-        LogChecker ck("\U00020BB7野家");
         const wchar_t* p = L"\U00020BB7野家";
-        IUTEST_PRINTTOSTRING_EQ(ck, p);
-        IUTEST_STREAMOUT_CHECK(p);
+        const ::std::string s = ::iutest::PrintToString(p);
+        if( errno == EINVAL )
+        {
+            LogChecker ck("00020BB7000091CE00005BB6");
+            IUTEST_PRINTTOSTRING_EQ(ck, s);
+            IUTEST_STREAMOUT_CHECK(p);
+        }
+        else
+        {
+            LogChecker ck("\U00020BB7野家");
+            IUTEST_PRINTTOSTRING_EQ(ck, s);
+            IUTEST_STREAMOUT_CHECK(p);
+        }
     }
+#endif
 #if IUTEST_HAS_CHAR16_T_PRINTABLE
     {
         LogChecker ck("\U00020BB7野家");
@@ -275,7 +286,6 @@ IUTEST(PrintToTest, SurrogatePair)
         IUTEST_STREAMOUT_CHECK(p);
     }
 #endif
-    setlocale(LC_CTYPE, loc);
 }
 
 #if IUTEST_HAS_CXX_HDR_STRING_VIEW
