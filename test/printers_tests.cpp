@@ -482,3 +482,80 @@ IUTEST(PrintToTest, Tuple)
 }
 #endif
 
+#if IUTEST_HAS_CXX_HDR_VARIANT
+
+#if IUTEST_HAS_EXCEPTIONS
+struct AlwaysThrow
+{
+    AlwaysThrow() = default;
+    AlwaysThrow(const AlwaysThrow &)
+    {
+        throw std::exception();
+    }
+    AlwaysThrow(AlwaysThrow &&)
+    {
+        throw std::exception();
+    }
+    AlwaysThrow &operator=(const AlwaysThrow &)
+    {
+        throw std::exception();
+    }
+    AlwaysThrow &operator=(AlwaysThrow &&)
+    {
+        throw std::exception();
+    }
+};
+#endif
+
+IUTEST(PrintToTest, Variant)
+{
+    {
+        PrintToLogChecker ck("1234");
+        ::std::variant<int, float, ::std::string> v = 1234;
+        IUTEST_PRINTTOSTRING_EQ(ck, v);
+        IUTEST_STREAMOUT_CHECK(v);
+    }
+    {
+        PrintToLogChecker ck("test");
+        ::std::variant<int, float, ::std::string> v("test");
+        IUTEST_PRINTTOSTRING_EQ(ck, v);
+        IUTEST_STREAMOUT_CHECK(v);
+    }
+    {
+        PrintToLogChecker ck("monostate");
+        ::std::variant<std::monostate, int, float, std::string> v;
+        IUTEST_PRINTTOSTRING_EQ(ck, v);
+        IUTEST_STREAMOUT_CHECK(v);
+    }
+#if IUTEST_HAS_EXCEPTIONS
+    {
+        PrintToLogChecker ck("valueless_by_exception");
+        ::std::variant<int, float, AlwaysThrow> v = 0.2f;
+        try
+        {
+            struct S { operator int() { throw 42; } };
+            v.emplace<0>(S());
+        }
+        catch(...)
+        {
+            IUTEST_INFORM_TRUE(v.valueless_by_exception());
+        }
+        if( !v.valueless_by_exception() )
+        {
+            try
+            {
+                v = AlwaysThrow();
+            }
+            catch(...)
+            {
+                IUTEST_INFORM_TRUE(v.valueless_by_exception());
+            }
+        }
+
+        IUTEST_PRINTTOSTRING_EQ(ck, v);
+        IUTEST_STREAMOUT_CHECK(v);
+    }
+#endif
+}
+
+#endif

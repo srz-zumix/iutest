@@ -563,8 +563,6 @@ template<typename T1, typename T2>
 inline AssertionResult CmpHelperEQ(const char* expected_str, const char* actual_str
     , const T1& expected, const T2& actual)
 {
-    IUTEST_UNUSED_VAR(expected_str);
-
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 
