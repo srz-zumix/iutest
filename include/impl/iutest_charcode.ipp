@@ -180,12 +180,14 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStr
     const size_t length = wcslen(str) * MB_CUR_MAX + 1;
     char* mbs = new char [length];
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
-    if( wcstombs(mbs, str, length) == static_cast<size_t>(-1))
+    const size_t written = wcstombs(mbs, str, length - 1);
+    if( written == static_cast<size_t>(-1))
     {
         delete [] mbs;
         return ToHexString(str, num);
     }
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+    mbs[written] = '\0';
     ::std::string ret = mbs;
     delete [] mbs;
     return ret;
