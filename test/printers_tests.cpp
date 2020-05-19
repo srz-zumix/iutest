@@ -262,12 +262,9 @@ IUTEST(PrintToTest, SurrogatePair)
 {
 #if !defined(IUTEST_USE_GTEST)
     {
-        const char* loc = setlocale(LC_CTYPE, "JPN");
-        IUTEST_SUCCEED() << loc;
-
         const wchar_t* p = L"\U00020BB7野家";
         const ::std::string s = ::iutest::PrintToString(p);
-        if( errno == EINVAL )
+        if( s[0] == '0' )
         {
             LogChecker ck("00020BB7000091CE00005BB6");
             IUTEST_PRINTTOSTRING_EQ(ck, s);
@@ -279,7 +276,6 @@ IUTEST(PrintToTest, SurrogatePair)
             IUTEST_PRINTTOSTRING_EQ(ck, s);
             IUTEST_STREAMOUT_CHECK(p);
         }
-        setlocale(LC_CTYPE, loc);
     }
 #endif
 #if IUTEST_HAS_CHAR16_T_PRINTABLE
