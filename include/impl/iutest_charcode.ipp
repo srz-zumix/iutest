@@ -244,9 +244,6 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
 {
 #if defined(_MSC_VER)
     return UTF8ToSJIS(AnyStringToUTF8(str, num));
-#elif IUTEST_HAS_CXX_HDR_CODECVT
-    IUTEST_UNUSED_VAR(num);
-    return CodeConvert<char16_t, char, ::std::mbstate_t>(str);
 #elif IUTEST_HAS_CXX_HDR_CUCHAR
     IUTEST_UNUSED_VAR(num);
     const size_t length = ::std::char_traits<char16_t>::length(str);
@@ -281,6 +278,9 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
     }
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     return ret;
+#elif IUTEST_HAS_CXX_HDR_CODECVT
+    IUTEST_UNUSED_VAR(num);
+    return CodeConvert<char16_t, char, ::std::mbstate_t>(str);
 #else
     return AnyStringToMultiByteString(reinterpret_cast<const wchar_t*>(str), num);
 #endif
