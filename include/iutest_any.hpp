@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_any.hpp
- * @brief       iris unit test any ファイル
+ * @brief       iris unit test any object
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -181,7 +181,11 @@ inline const T* any_cast(const any* p)
 template<typename T>
 inline T any_cast(any& value)
 {
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
     typedef typename type_traits::remove_reference<T>::type nonref_t;
+#else
+    typedef T nonref_t;
+#endif
     nonref_t* p = any_cast<nonref_t>(&value);
 #if IUTEST_HAS_EXCEPTIONS
     if( p == NULL ) {
@@ -224,7 +228,11 @@ inline const T* unsafe_any_cast(const any* p)
 template<typename T>
 inline T unsafe_any_cast(any& value)
 {
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
     typedef typename type_traits::remove_reference<T>::type nonref_t;
+#else
+    typedef T nonref_t;
+#endif
     nonref_t* p = unsafe_any_cast<nonref_t>(&value);
     return static_cast<nonref_t&>(*p);
 }

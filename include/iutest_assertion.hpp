@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -267,6 +267,12 @@ public:
             Message::operator << (val);
             return *this;
         }
+        template<typename T, size_t SIZE>
+        Fixed& operator << (const T(&val)[SIZE])
+        {
+            Message::operator << (val);
+            return *this;
+        }
 #if IUTEST_HAS_IOMANIP
         Fixed& operator << (iu_basic_iomanip val)
         {
@@ -274,7 +280,6 @@ public:
             return *this;
         }
 #endif
-
 #if IUTEST_HAS_ASSERTION_RETURN
         Fixed& operator << (const AssertionReturnType<void>&)
         {
@@ -558,8 +563,6 @@ template<typename T1, typename T2>
 inline AssertionResult CmpHelperEQ(const char* expected_str, const char* actual_str
     , const T1& expected, const T2& actual)
 {
-    IUTEST_UNUSED_VAR(expected_str);
-
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 
