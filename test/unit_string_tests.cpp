@@ -202,4 +202,5 @@ IUTEST(UnitStringTest, FormatSizeTByte)
 IUTEST(UnitStringTest, Utf8AsciiCode)
 {
     IUTEST_EXPECT_STREQ("A", ::iutest::detail::AnyStringToUTF8(L"A", -1));
+    IUTEST_EXPECT_STREQ("A", ::iutest::detail::AnyStringToUTF8(L"A", 1024));
 }

@@ -258,6 +258,24 @@ IUTEST(PrintToTest, WideString)
     }
 }
 
+IUTEST(PrintToTest, SurrogatePair)
+{
+    {
+        LogChecker ck("\U00020BB7野家");
+        const wchar_t* p = L"\U00020BB7野家";
+        IUTEST_PRINTTOSTRING_EQ(ck, p);
+        IUTEST_STREAMOUT_CHECK(p);
+    }
+#if IUTEST_HAS_CHAR16_T_PRINTABLE
+    {
+        LogChecker ck("\U00020BB7野家");
+        const char16_t* p = u"\U00020BB7野家";
+        IUTEST_PRINTTOSTRING_EQ(ck, p);
+        IUTEST_STREAMOUT_CHECK(p);
+    }
+#endif
+}
+
 #if IUTEST_HAS_CXX_HDR_STRING_VIEW
 IUTEST(PrintToTest, WideStringStringView)
 {

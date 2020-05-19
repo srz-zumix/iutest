@@ -613,7 +613,7 @@
 //! char16_t printable
 #if !defined(IUTEST_HAS_CHAR16_T_PRINTABLE)
 #  if defined(_MSC_VER) || IUTEST_HAS_CXX_HDR_CODECVT || IUTEST_HAS_CXX_HDR_CUCHAR
-#    define IUTEST_HAS_CHAR16_T_PRINTABLE   1
+#    define IUTEST_HAS_CHAR16_T_PRINTABLE   IUTEST_HAS_CHAR16_T
 #  endif
 #endif
 
@@ -624,7 +624,7 @@
 //! char32_t printable
 #if !defined(IUTEST_HAS_CHAR32_T_PRINTABLE)
 #  if defined(_MSC_VER) || IUTEST_HAS_CXX_HDR_CODECVT || IUTEST_HAS_CXX_HDR_CUCHAR
-#    define IUTEST_HAS_CHAR32_T_PRINTABLE   1
+#    define IUTEST_HAS_CHAR32_T_PRINTABLE   IUTEST_HAS_CHAR32_T
 #  endif
 #endif
 
