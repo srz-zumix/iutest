@@ -204,3 +204,10 @@ IUTEST(UnitStringTest, Utf8AsciiCode)
     IUTEST_EXPECT_STREQ("A", ::iutest::detail::AnyStringToUTF8(L"A", -1));
     IUTEST_EXPECT_STREQ("A", ::iutest::detail::AnyStringToUTF8(L"A", 1024));
 }
+
+IUTEST(UnitStringTest, SurrogatePair)
+{
+    ::std::string s = ::iutest::detail::AnyStringToUTF8(L"\U00020BB7", -1);
+    const char expect[] = { static_cast<char>(0xF0), static_cast<char>(0xA0), static_cast<char>(0xAE), static_cast<char>(0xB7) };
+    IUTEST_EXPECT_EQ_RANGE(expect, s);
+}
