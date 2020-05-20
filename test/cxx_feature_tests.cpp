@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2018-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2018-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -71,13 +71,6 @@ IUTEST(StringView, Compare)
     IUTEST_ASSERT_EQ("Hello", view);
 }
 
-IUTEST(StringView, PrintTo)
-{
-    PrintToLogChecker ck("Hello");
-    ::std::string_view view = "Hello";
-    IUTEST_SUCCEED() << ::iutest::PrintToString(view);
-}
-
 #endif
 
 #if IUTEST_HAS_CXX_HDR_OPTIONAL
@@ -125,76 +118,6 @@ IUTEST(Variant, Compare)
         ::std::variant<int, float, ::std::string> v2 = 1234;
         IUTEST_EXPECT_EQ(v1, v2);
     }
-}
-
-#if IUTEST_HAS_EXCEPTIONS
-struct AlwaysThrow
-{
-    AlwaysThrow() = default;
-    AlwaysThrow(const AlwaysThrow &)
-    {
-        throw std::exception();
-    }
-    AlwaysThrow(AlwaysThrow &&)
-    {
-        throw std::exception();
-    }
-    AlwaysThrow &operator=(const AlwaysThrow &)
-    {
-        throw std::exception();
-    }
-    AlwaysThrow &operator=(AlwaysThrow &&)
-    {
-        throw std::exception();
-    }
-};
-#endif
-
-IUTEST(Variant, PrintTo)
-{
-    {
-        PrintToLogChecker ck("1234");
-        ::std::variant<int, float, ::std::string> v = 1234;
-        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
-    }
-    {
-        PrintToLogChecker ck("test");
-        ::std::variant<int, float, ::std::string> v("test");
-        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
-    }
-    {
-        PrintToLogChecker ck("monostate");
-        ::std::variant<std::monostate, int, float, std::string> v;
-        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
-    }
-#if IUTEST_HAS_EXCEPTIONS
-    {
-        PrintToLogChecker ck("valueless_by_exception");
-        ::std::variant<int, float, AlwaysThrow> v = 0.2f;
-        try
-        {
-            struct S { operator int() { throw 42; } };
-            v.emplace<0>(S());
-        }
-        catch(...)
-        {
-            IUTEST_INFORM_TRUE(v.valueless_by_exception());
-        }
-        if( !v.valueless_by_exception() )
-        {
-            try
-            {
-                v = AlwaysThrow();
-            }
-            catch(...)
-            {
-                IUTEST_INFORM_TRUE(v.valueless_by_exception());
-            }
-        }
-
-        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
-    }
-#endif
 }
 
 #endif
