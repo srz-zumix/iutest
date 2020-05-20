@@ -361,7 +361,7 @@ IUTEST_IPP_INLINE ::std::string DefaultXmlGeneratorListener::EscapeXml(const cha
                     const int len = detail::iu_mbtowc(&wc, src, MB_CUR_MAX);
                     if( len > 1 )
                     {
-                        msg += detail::WideStringToUTF8(&wc, 1);
+                        msg += detail::AnyStringToUTF8(&wc, 1);
                         src += len-1;
                     }
                     else if( IsValidXmlCharacter(s) )
