@@ -77,7 +77,7 @@ static bool StaticAssertTypeEq()
 */
 #ifdef IUTEST_STATIC_ASSERT_MSG
 #  ifdef IUTEST_NO_VARIADIC_MACROS
-#    define IUTEST_STATIC_ASSERT(B)     IUTEST_STATIC_ASSERT_MSG(B, #B)
+#    define IUTEST_STATIC_ASSERT(B)     IUTEST_STATIC_ASSERT_MSG((B), #B)
 #  else
 #    define IUTEST_STATIC_ASSERT(...)   IUTEST_STATIC_ASSERT_MSG((__VA_ARGS__), #__VA_ARGS__)
 #  endif

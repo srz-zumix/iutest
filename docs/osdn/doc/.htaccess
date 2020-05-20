@@ -1,0 +1,3 @@
+RewriteEngine on
+RewriteBase /doc
+RewriteRule ^(.*) https://srz-zumix.github.io/iutest/latest/$1 [R=301,L]

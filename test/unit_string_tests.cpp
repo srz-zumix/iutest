@@ -151,6 +151,9 @@ IUTEST(UnitStringTest, ToHexString)
     IUTEST_EXPECT_STREQ("8000000000000000", ::iutest::detail::ToHexString< ::iutest::Int64 >(INT64_MIN));
 #endif
     IUTEST_EXPECT_STREQ(        "01234567", ::iutest::detail::ToHexString(0x01234567u));
+    IUTEST_EXPECT_STREQ(          "414243", ::iutest::detail::ToHexString("ABC", -1));
+    IUTEST_EXPECT_STREQ(            "4142", ::iutest::detail::ToHexString("ABC", 2));
+    IUTEST_EXPECT_STREQ(                "", ::iutest::detail::ToHexString("ABC", 0));
 }
 
 IUTEST(UnitStringTest, ToOctString)
@@ -199,4 +202,14 @@ IUTEST(UnitStringTest, FormatSizeTByte)
 IUTEST(UnitStringTest, Utf8AsciiCode)
 {
     IUTEST_EXPECT_STREQ("A", ::iutest::detail::AnyStringToUTF8(L"A", -1));
+    IUTEST_EXPECT_STREQ("A", ::iutest::detail::AnyStringToUTF8(L"A", 1024));
+}
+
+IUTEST(UnitStringTest, SurrogatePair)
+{
+    ::std::string s = ::iutest::detail::AnyStringToUTF8(L"\U00020BB7", -1);
+    const unsigned char uexpect[4] = { 0xF0, 0xA0, 0xAE, 0xB7 };
+    char expect[4];
+    memcpy(expect, uexpect, sizeof(expect));
+    IUTEST_EXPECT_EQ_RANGE(expect, s);
 }

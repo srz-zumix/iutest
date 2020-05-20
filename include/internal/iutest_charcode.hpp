@@ -33,6 +33,18 @@ namespace detail
 
 //======================================================================
 // declare
+
+/**
+ * @brief   マルチバイト文字列をそのまま返す
+ * @param [in]  str = 入力
+ * @param [in]  num = 入力バッファサイズ
+ * @return  マルチバイト文字列
+*/
+inline ::std::string AnyStringToMultiByteString(const char* str, int num = -1)
+{
+    return num < 0 ? str : ::std::string(str, num);
+}
+
 /**
  * @brief   ワイド文字列からUTF8へ変換
  * @param [in]  str = 入力
@@ -126,18 +138,18 @@ namespace detail
 
 /**
  * @brief   ワイド文字列から ::std::string へ変換
- * @param [in]  wide_c_str  = 入力
+ * @param [in]  any_c_str  = 入力
  * @return  string
 */
 template<typename CharType>
-::std::string ShowWideCString(const CharType* wide_c_str)
+::std::string ShowAnyCString(const CharType* any_c_str)
 {
-    if( wide_c_str == NULL )
+    if( any_c_str == NULL )
     {
         return kStrings::Null;
     }
     ScopedEncoding(LC_CTYPE, "UTF-8");
-    return AnyStringToMultiByteString(wide_c_str);
+    return AnyStringToMultiByteString(any_c_str);
 }
 
 #if IUTEST_HAS_CXX_HDR_CODECVT
@@ -184,7 +196,7 @@ struct wcs_to_mbs_ptr
     ::std::string m_arg;
     const char* ptr(const wchar_t* arg)
     {
-        m_arg = ShowWideCString(arg);
+        m_arg = ShowAnyCString(arg);
         return m_arg.c_str();
     }
 };
