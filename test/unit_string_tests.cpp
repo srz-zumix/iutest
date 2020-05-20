@@ -208,6 +208,8 @@ IUTEST(UnitStringTest, Utf8AsciiCode)
 IUTEST(UnitStringTest, SurrogatePair)
 {
     ::std::string s = ::iutest::detail::AnyStringToUTF8(L"\U00020BB7", -1);
-    const char expect[] = { static_cast<char>(0xF0), static_cast<char>(0xA0), static_cast<char>(0xAE), static_cast<char>(0xB7) };
+    const unsigned char uexpect[4] = { 0xF0, 0xA0, 0xAE, 0xB7 };
+    char expect[4];
+    memcpy(expect, uexpect, sizeof(expect));
     IUTEST_EXPECT_EQ_RANGE(expect, s);
 }
