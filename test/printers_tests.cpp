@@ -180,6 +180,15 @@ IUTEST(PrintToTest, Null)
     IUTEST_STREAMOUT_CHECK(p);
 }
 
+IUTEST(PrintToTest, Locale)
+{
+    {
+        ::std::locale loc;
+        LogChecker ck(loc.name());
+        IUTEST_SUCCEED() << ::iutest::PrintToString(loc);
+    }
+}
+
 IUTEST(PrintToTest, String)
 {
     {
@@ -317,6 +326,23 @@ IUTEST(PrintToTest, WideStringStringView)
 }
 #endif
 
+#if IUTEST_HAS_CHAR8_T
+IUTEST(PrintToTest, U8String)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(u8"Test");
+    {
+        LogChecker ck("(null)");
+        char8_t* p = NULL;
+        IUTEST_SUCCEED() << ::iutest::PrintToString(p);
+    }
+}
+
+IUTEST(PrintToTest, U8StringJp)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(u8"テスト");
+}
+#endif
+
 #if IUTEST_HAS_CHAR16_T
 IUTEST(PrintToTest, U16String)
 {
@@ -356,6 +382,11 @@ IUTEST(PrintToTest, U16StringStringView)
         IUTEST_PRINTTOSTRING_EQ(ck, view);
         IUTEST_STREAMOUT_CHECK(view);
     }
+}
+
+IUTEST(PrintToTest, U16StringJp)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(u"テスト");
 }
 #endif
 #endif
@@ -399,6 +430,11 @@ IUTEST(PrintToTest, U32StringStringView)
         IUTEST_PRINTTOSTRING_EQ(ck, view);
         IUTEST_STREAMOUT_CHECK(view);
     }
+}
+
+IUTEST(PrintToTest, U32StringJp)
+{
+    IUTEST_SUCCEED() << ::iutest::PrintToString(U"テスト");
 }
 #endif
 #endif
