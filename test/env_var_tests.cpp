@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        env_var_tests.cpp
- * @brief       環境変数対応テスト
+ * @brief       environment variable tests
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -16,7 +16,6 @@
 //======================================================================
 // include
 #include "iutest.hpp"
-#include <errno.h>
 
 #if defined(USE_GTEST_PREFIX) || defined(IUTEST_USE_GTEST)
 #  define ENV_PREFIX    "GTEST_"
