@@ -44,7 +44,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 6.2'
+        version=u'%(prog)s version 6.3'
     )
     parser.add_argument(
         '--list-compiler',
@@ -446,27 +446,7 @@ def expand_wandbox_options(w, compiler, options):
 
 
 def wandbox_api_call(callback, retries, retry_wait):
-    try:
-        return callback()
-    except (HTTPError, ConnectionError) as e:
-
-        def is_retry(e):
-            if not e.response:
-                return True
-            return e.response.status_code in [504]
-
-        if is_retry(e) and retries > 0:
-            try:
-                print(e.message)
-            except:
-                pass
-            print('wait {0}sec...'.format(retry_wait))
-            sleep(retry_wait)
-            return wandbox_api_call(callback, retries - 1, retry_wait)
-        else:
-            raise
-    except:
-        raise
+    return Wandbox.Call(callback, retries, retry_wait)
 
 
 def wandbox_get_compilerlist():
