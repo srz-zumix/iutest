@@ -459,16 +459,48 @@ inline AssertionResult CmpHelperOpFailure(const char* expr1, const char* expr2, 
  * @private
  * @{
  */
+
+#define IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_BASE_(op_name, op)    \
+    template<typename T1, typename T2>                              \
+    bool iuOperator##op_name(const T1& v1, const T2& v2) {          \
+        return v1 op v2;                                            \
+    }
+
+#if IUTEST_HAS_CXX_HDR_VARIANT && IUTEST_HAS_VARIADIC_TEMPLATES
+#define IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_VARIANT_(op_name, op)             \
+    template<typename ...V1, typename ...V2>                                    \
+    bool iuOperator##op_name(const ::std::variant<V1...>&& v1, const ::std::variant<V2...>& v2) {    \
+        return v1 op v2;                                                        \
+    }                                                                           \
+    template<typename T1, typename ...V>                                        \
+    bool iuOperator##op_name(const T1& v1, const ::std::variant<V...>& v2       \
+        , typename detail::enable_if< !detail::is_variant<T1>::value, void>::type*& = detail::enabler::value ) {    \
+        ::std::variant<V...> vv1(v1); return vv1 op v2;                         \
+    }                                                                           \
+    template<typename ...V, typename T2>                                        \
+    bool iuOperator##op_name(const ::std::variant<V...>& v1, const T2& v2       \
+        , typename detail::enable_if< !detail::is_variant<T2>::value, void>::type*& = detail::enabler::value ) {    \
+        ::std::variant<V...> vv2(v2); return v1 op vv2;                         \
+    }
+#else
+#define IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_VARIANT_(op_name, op)
+#endif
+
+#define IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_(op_name, op)     \
+    IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_BASE_(op_name, op)    \
+    IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_VARIANT_(op_name, op)
+
 #define IIUT_DECL_COMPARE_HELPER_I_(op_name, op, type1, type2)                  \
     inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelper##op_name(         \
             const char* expr1, const char* expr2, type1 val1, type2 val2) {     \
-        if( val1 op val2 ) { return AssertionSuccess();                         \
+        if( iuOperator##op_name(val1, val2) ) { return AssertionSuccess();      \
         } else { return CmpHelperOpFailure(expr1, expr2, #op, val1, val2); }    \
     }
 
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 
 #define IIUT_DECL_COMPARE_HELPER_(op_name, op)                      \
+    IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_(op_name, op)             \
     template<typename T1, typename T2>                              \
     IIUT_DECL_COMPARE_HELPER_I_(op_name, op, const T1&, const T2&)  \
     IIUT_DECL_COMPARE_HELPER_I_(op_name, op, BiggestInt, BiggestInt)
@@ -476,10 +508,21 @@ inline AssertionResult CmpHelperOpFailure(const char* expr1, const char* expr2, 
 #else
 
 #define IIUT_DECL_COMPARE_HELPER_(op_name, op)                      \
+    IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_(op_name, op)             \
     template<typename T1, typename T2>                              \
     IIUT_DECL_COMPARE_HELPER_I_(op_name, op, const T1&, const T2&)
 
 #endif
+
+template<typename T1, typename T2>
+bool iuOperatorEQ(const T1& v1, const T2& v2)
+{
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
+    return v1 == v2;
+IUTEST_PRAGMA_WARN_POP()
+}
+IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_VARIANT_(EQ, ==)
 
 IIUT_DECL_COMPARE_HELPER_(NE, !=)
 IIUT_DECL_COMPARE_HELPER_(LE, <=)
@@ -487,6 +530,10 @@ IIUT_DECL_COMPARE_HELPER_(LT, < )
 IIUT_DECL_COMPARE_HELPER_(GE, >=)
 IIUT_DECL_COMPARE_HELPER_(GT, > )
 
+
+#undef IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_
+#undef IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_BASE
+#undef IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_VARIANT
 #undef IIUT_DECL_COMPARE_HELPER_I_
 #undef IIUT_DECL_COMPARE_HELPER_
 
@@ -563,10 +610,7 @@ template<typename T1, typename T2>
 inline AssertionResult CmpHelperEQ(const char* expected_str, const char* actual_str
     , const T1& expected, const T2& actual)
 {
-IUTEST_PRAGMA_WARN_PUSH()
-IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
-
-    if( actual == expected )
+    if( iuOperatorEQ(actual, expected) )
     {
         return AssertionSuccess();
     }
@@ -575,8 +619,6 @@ IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
         , FormatForComparisonFailureMessage(expected, actual)
         , FormatForComparisonFailureMessage(actual, expected)
         );
-
-IUTEST_PRAGMA_WARN_POP()
 }
 
 template<typename T>
