@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01170007u     //!< iutest version 1.17.0.7
+#define IUTEST_VER          0x01170008u     //!< iutest version 1.17.0.8
 #define IUTEST_MAJORVER     0x01u           //!< Major Version
 #define IUTEST_MINORVER     0x17u           //!< Minor Version
 #define IUTEST_MICROVER     0x00u           //!< Micro Version
-#define IUTEST_REVISION     0x07u           //!< Revision
+#define IUTEST_REVISION     0x08u           //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -123,10 +123,11 @@ modification, are permitted provided that the following conditions are met: \n
  <ul>
   <li>v1.17.1.0
     <ul>
-      <li>アサーションに operator &lt;&lt; したときの出力を PrintToString したものと同じになるように変更</li>
-      <li>C++20 で削除された basic_ostream::operator &lt;&lt; に対応</li>
-      <li>wstring_view/u16string_view/u32string_view 対応</li>
       <li>GTEST_SKIP 対応</li>
+      <li>::std::wstring_view / ::std::u16string_view / ::std::u32string_view 対応</li>
+      <li>アサーションに operator &lt;&lt; したときの出力を PrintToString したものと同じになるように変更</li>
+      <li>Python2 のサポート終了</li>
+      <li>C++20 で削除された basic_ostream::operator &lt;&lt; に対応</li>
       <li>Google Test 旧バージョンとの互換性を修正</li>
     </ul>
   </li>
