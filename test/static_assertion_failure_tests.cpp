@@ -42,4 +42,9 @@ IUTEST(StaticAssertTypeEqTest, Fail3)
     IUTEST_STATIC_ASSERT(test_struct<false, false>::value);
 }
 
+IUTEST(,)
+{
+
+}
+
 #endif
