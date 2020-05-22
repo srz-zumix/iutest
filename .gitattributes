@@ -38,6 +38,9 @@ COPYING     text eol=lf
 *.mm        text eol=lf
 *.cu        text eol=lf
 
+# test input data
+test/testdata/*     text eol=lf
+
 # project file
 *.code-workspace    text eol=lf
 *.sln               text eol=crlf
