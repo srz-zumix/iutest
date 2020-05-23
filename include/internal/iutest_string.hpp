@@ -225,14 +225,18 @@ inline bool IsStringContains(const char* str1, const char* str2) { return strstr
 inline bool IsStringContains(const ::std::string& str1, const char* str2) { return str1.find(str2) != ::std::string::npos; }
 inline bool IsStringContains(const ::std::string& str1, const ::std::string& str2) { return str1.find(str2) != ::std::string::npos; }
 
-inline void StringReplace(::std::string& str, char a, const char* to)
+inline void StringReplace(::std::string& str, const char* from, size_t n, const char* to)
 {
     ::std::string::size_type pos = 0;
-    while( static_cast<void>(pos = str.find(a, pos)), pos != ::std::string::npos )
+    while( static_cast<void>(pos = str.find(from, pos)), pos != ::std::string::npos )
     {
-        str.replace(pos, 1, to);
+        str.replace(pos, n, to);
         ++pos;
     }
+}
+inline void StringReplace(::std::string& str, char a, const char* to)
+{
+    return StringReplace(str, &a, 1, to);
 }
 inline ::std::string StripLeadingSpace(const ::std::string& str)
 {
