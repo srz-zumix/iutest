@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -81,11 +81,25 @@ IUTEST(UnitStringTest, StringStrip)
     IUTEST_EXPECT_STREQ("a1 a2"   , ::iutest::detail::StripSpace(str));
 }
 
-IUTEST(UnitStringTest, StringReplace)
+IUTEST(UnitStringTest, StringReplaceChar)
 {
     ::std::string str = "a1a2a3a4b5";
     ::iutest::detail::StringReplace(str, 'a', "ii");
     IUTEST_EXPECT_STREQ("ii1ii2ii3ii4b5", str);
+}
+
+IUTEST(UnitStringTest, StringReplaceString)
+{
+    {
+        ::std::string str = "a1a2a3a4b5";
+        ::iutest::detail::StringReplace(str, "a1", 2, "ii");
+        IUTEST_EXPECT_STREQ("iia2a3a4b5", str);
+    }
+    {
+        ::std::string str = "a1a2a3a4b5";
+        ::iutest::detail::StringReplace(str, "a1", 1, "ii");
+        IUTEST_EXPECT_STREQ("ii1a2a3a4b5", str);
+    }
 }
 
 IUTEST(UnitStringTest, StringReplaceToLF)
