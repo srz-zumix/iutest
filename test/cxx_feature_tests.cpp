@@ -120,6 +120,93 @@ IUTEST(Variant, Compare)
     }
 }
 
+IUTEST(Variant, CompareRawType)
+{
+    ::std::variant<int, float, ::std::string> v = 1;
+    IUTEST_EXPECT_EQ(1, v);
+    IUTEST_EXPECT_EQ(v, 1);
+    IUTEST_EXPECT_NE(0, v);
+    IUTEST_EXPECT_NE(v, 0);
+    IUTEST_EXPECT_LE(1, v);
+    IUTEST_EXPECT_LE(v, 1);
+    IUTEST_EXPECT_LT(0, v);
+    IUTEST_EXPECT_LT(v, 2);
+    IUTEST_EXPECT_GE(1, v);
+    IUTEST_EXPECT_GE(v, 1);
+    IUTEST_EXPECT_GT(2, v);
+    IUTEST_EXPECT_GT(v, 0);
+}
+
+#if IUTEST_HAS_EXCEPTIONS
+struct AlwaysThrow
+{
+    AlwaysThrow() = default;
+    AlwaysThrow(const AlwaysThrow &)
+    {
+        throw std::exception();
+    }
+    AlwaysThrow(AlwaysThrow &&)
+    {
+        throw std::exception();
+    }
+    AlwaysThrow &operator=(const AlwaysThrow &)
+    {
+        throw std::exception();
+    }
+    AlwaysThrow &operator=(AlwaysThrow &&)
+    {
+        throw std::exception();
+    }
+};
+#endif
+
+IUTEST(Variant, PrintTo)
+{
+    {
+        PrintToLogChecker ck("1234");
+        ::std::variant<int, float, ::std::string> v = 1234;
+        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
+    }
+    {
+        PrintToLogChecker ck("test");
+        ::std::variant<int, float, ::std::string> v("test");
+        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
+    }
+    {
+        PrintToLogChecker ck("monostate");
+        ::std::variant<std::monostate, int, float, std::string> v;
+        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
+    }
+#if IUTEST_HAS_EXCEPTIONS
+    {
+        PrintToLogChecker ck("valueless_by_exception");
+        ::std::variant<int, float, AlwaysThrow> v = 0.2f;
+        try
+        {
+            struct S { operator int() { throw 42; } };
+            v.emplace<0>(S());
+        }
+        catch(...)
+        {
+            IUTEST_INFORM_TRUE(v.valueless_by_exception());
+        }
+        if( !v.valueless_by_exception() )
+        {
+            try
+            {
+                v = AlwaysThrow();
+            }
+            catch(...)
+            {
+                IUTEST_INFORM_TRUE(v.valueless_by_exception());
+            }
+        }
+
+        IUTEST_SUCCEED() << ::iutest::PrintToString(v);
+    }
+#endif
+}
+
 #endif
 
 #if IUTEST_HAS_CXX_HDR_ARRAY
