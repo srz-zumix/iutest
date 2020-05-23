@@ -236,7 +236,8 @@ inline void StringReplace(::std::string& str, const char* from, size_t n, const 
 }
 inline void StringReplace(::std::string& str, char a, const char* to)
 {
-    return StringReplace(str, &a, 1, to);
+    char s[] = { a, 0 };
+    return StringReplace(str, s, 1, to);
 }
 inline ::std::string StripLeadingSpace(const ::std::string& str)
 {
