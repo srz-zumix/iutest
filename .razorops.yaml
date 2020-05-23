@@ -1,0 +1,7 @@
+tasks:
+  ubuntu-tests:
+    image: srzzumix/gcc3:ubuntu
+    commands:
+      - find . -type f \( -name \*.hpp -or -name \*.cpp \) | xargs nkf --overwrite --oc=UTF-8
+      - make -C test -j4
+      - make -C test test
