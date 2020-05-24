@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        output_xml_repeat_tests.cpp
- * @brief       xml 出力対応テスト
+ * @brief       Test output file name when repeating
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2016-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -59,12 +59,22 @@ int main(int argc, char* argv[])
 #if OUTPUT_XML_TEST
     IUTEST_INIT(&argc, argv);
 
-    ::iutest::IUTEST_FLAG(output) = "xml:test_%d.xml";
     if( ::iutest::IUTEST_FLAG(repeat) == 1 )
     {
         ::iutest::IUTEST_FLAG(repeat) = 3;
     }
-    return IUTEST_RUN_ALL_TESTS();
+    ::iutest::IUTEST_FLAG(output) = "xml:test_{I}.xml";
+    if( IUTEST_RUN_ALL_TESTS() )
+    {
+        return 1;
+    }
+    TestF::nI = 0;
+    ::iutest::IUTEST_FLAG(output) = "xml:test_%d.xml"; // deprecated format
+    if( IUTEST_RUN_ALL_TESTS() )
+    {
+        return 1;
+    }
+    return 0;
 #else
     (void)argc;
     (void)argv;
