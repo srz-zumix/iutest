@@ -109,6 +109,19 @@ IUTEST(UnitStringTest, StringReplaceToLF)
     IUTEST_EXPECT_STREQ("a\nb\n\nc\n\nd", str);
 }
 
+int test_iu_vsnprintf(char* dst, size_t size, const char* fmt, ...)
+{
+    va_list va;
+    va_start(va, fmt);
+    const int ret = ::iutest::detail::iu_vsnprintf(dst, size, fmt, va);
+    va_end(va);
+    return ret;
+}
+IUTEST(UnitStringTest, InvalidVsnprintf)
+{
+    IUTEST_EXPECT_EQ(-1, test_iu_vsnprintf(NULL, 1, "test"));
+}
+
 IUTEST(UnitStringTest, AddDefaultPackageName)
 {
     const ::std::string prev_name = ::iutest::IUTEST_FLAG(default_package_name);
