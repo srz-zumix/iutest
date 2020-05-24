@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2019-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -127,7 +127,14 @@ public:
     }
     IUTEST_CXX_CONSTEXPR size_type max_size() const IUTEST_CXX_NOEXCEPT_SPEC
     {
-        return (::std::min)(static_cast<size_type>(PTRDIFF_MAX), static_cast<size_type>(-1) / sizeof(value_type));
+        const size_type max_ = static_cast<size_type>(
+#if defined(PTRDIFF_MAX)
+            PTRDIFF_MAX
+#else
+            INT_MAX
+#endif
+        );
+        return (::std::min)(max_, static_cast<size_type>(-1) / sizeof(value_type));
     }
     IUTEST_CXX_CONSTEXPR bool empty() const IUTEST_CXX_NOEXCEPT_SPEC
     {

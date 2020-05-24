@@ -38,8 +38,8 @@
 #if !defined(IUTEST_USE_GTEST)
     FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0, 1), "(0x" );
     FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0, 1), "(0x" );
-    FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0.0f/fa, 0.0f/fa), "(0x" );
-    FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0.0/da, 0.0f/da), "(0x" );
+    FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(Div(0.0f, fa), Div(0.0f, fa)), "(0x" );
+    FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(Div(0.0, da), Div(0.0, da)), "(0x" );
     FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::FloatLE , 2, 0), "(0x" );
     FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::DoubleLE, 2, 0), "(0x" );
 #else
