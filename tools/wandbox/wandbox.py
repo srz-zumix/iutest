@@ -85,7 +85,8 @@ class Wandbox:
         try:
             return response.json()
         except json.decoder.JSONDecodeError as e:
-            raise requests.exceptions.HTTPError(e, response.status_code)
+            response.status_code = 500
+            raise RHTTPError(e, response=response)
 
     def code(self, code):
         """
