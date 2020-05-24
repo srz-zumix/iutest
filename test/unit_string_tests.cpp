@@ -109,7 +109,8 @@ IUTEST(UnitStringTest, StringReplaceToLF)
     IUTEST_EXPECT_STREQ("a\nb\n\nc\n\nd", str);
 }
 
-int test_print(char* dst, size_t size, const char* fmt, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 4)
+int test_print(char* dst, size_t size, const char* fmt, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 4);
+int test_print(char* dst, size_t size, const char* fmt, ...)
 {
     va_list va;
     va_start(va, fmt);
