@@ -109,7 +109,7 @@ IUTEST(UnitStringTest, StringReplaceToLF)
     IUTEST_EXPECT_STREQ("a\nb\n\nc\n\nd", str);
 }
 
-int test_iu_vsnprintf(char* dst, size_t size, const char* fmt, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 4)
+int test_print(char* dst, size_t size, const char* fmt, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 4)
 {
     va_list va;
     va_start(va, fmt);
@@ -119,7 +119,7 @@ int test_iu_vsnprintf(char* dst, size_t size, const char* fmt, ...) IUTEST_ATTRI
 }
 IUTEST(UnitStringTest, InvalidVsnprintf)
 {
-    IUTEST_EXPECT_EQ(-1, test_iu_vsnprintf(NULL, 1, "test"));
+    IUTEST_EXPECT_EQ(-1, test_print(NULL, 1, "test"));
 }
 
 IUTEST(UnitStringTest, AddDefaultPackageName)
