@@ -1005,7 +1005,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
 
     return EqFailure(expr1, expr2
         , detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val2))
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, IUTEST_NULLPTR)));
+        , detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(val2, IUTEST_NULLPTR)));
 }
 
 namespace StrNeHelper
@@ -1047,7 +1047,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     }
 
     return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
-        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, IUTEST_NULLPTR))
+        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(val2, IUTEST_NULLPTR))
         << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val2));
 }
 
@@ -1063,7 +1063,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
 
     return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
         << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val1))
-        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, IUTEST_NULLPTR));
+        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(val1, IUTEST_NULLPTR));
 }
 
 namespace StrCaseEqHelper
