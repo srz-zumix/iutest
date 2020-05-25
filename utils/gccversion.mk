@@ -33,6 +33,8 @@ GCCMINOR:=$(word 2, $(GCCVERSION_TEMP))
 STD_CPP03=c++98
 STD_GNU03=gnu++98
 
+# $(warning ${GCCMAJOR})
+
 #
 # c++11
 #
@@ -44,8 +46,11 @@ STD_GNU11=gnu++11
 
 NO_UNUSED_LOCAL_TYPEDEFS=-Wno-unused-local-typedefs
 else
+# 4.3 later
+ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) \| \( $(GCCMAJOR) \>= 4 \& $(GCCMINOR) \>= 3 \)))
 STD_CPP11=c++0x
 STD_GNU11=gnu++0x
+endif
 endif
 
 #
@@ -111,6 +116,7 @@ endif
 # until 4.6
 ifeq (1,$(shell expr \( $(GCCMAJOR) \< 4 \) \| \( $(GCCMAJOR) = 4 \& $(GCCMINOR) \< 6 \)))
 IUTEST_CXX_WARN_FLAGS+=-Wno-sign-compare
+IUTEST_CXX_WARN_FLAGS+=-Wno-conversion-null
 endif
 
 # arm
@@ -118,6 +124,8 @@ ifeq ($(findstring arm, $(CXX)), arm)
 IUTEST_CXX_WARN_FLAGS+=-Wno-psabi
 endif
 
+ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) ))
 IUTEST_CXX_WARN_FLAGS+=-Wno-missing-field-initializers
+endif
 
 endif
