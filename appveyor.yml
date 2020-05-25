@@ -107,6 +107,7 @@ skip_commits:
     - codeship-steps.yml
     - .drone.yml
     - .github/*
+    - .razorops.yaml
     - .semaphore/*
     - shippable.yml
     - sider.yml
