@@ -5,6 +5,7 @@ on:
       - '*.ini'
       - '*.md'
       - '*.yml'
+      - '*.yaml'
       - '.circleci/**'
       - '.semaphore/**'
 

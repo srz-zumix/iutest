@@ -5,9 +5,9 @@ trigger:
   branch:
     - master
     - develop
-    - feature/*
-    - fix/*
-    - drone/*
+    # - feature/*
+    # - fix/*
+    # - drone/*
 
 steps:
 - name: latest
