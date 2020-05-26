@@ -134,8 +134,9 @@ trigger:
   branch:
     - master
     - develop
-    - feature/*
-    - drone/*
+    # - feature/*
+    # - fix/*
+    # - drone/*
 
 steps:
 - name: latest
