@@ -1093,6 +1093,17 @@ public:
     typedef typename impl< typename remove_cv<T>::type >::type type;
 };
 
+#if IUTEST_HAS_CXX_HDR_VARIANT && IUTEST_HAS_VARIADIC_TEMPLATES
+
+template<typename T>
+struct is_variant : public false_type {};
+
+template<typename ...T>
+struct is_variant< ::std::variant<T...> > : public true_type {};
+
+
+#endif
+
 #endif // #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 }   // end of namespace iutest_type_traits
