@@ -112,6 +112,8 @@
 
     FAILURE_MACRO( FLAVOR(_STRNOTIN)("a", "a"), "strstr" );
 
+    FAILURE_MACRO( FLAVOR(_STRLNEQ)(1, "ab"), "strlen" );
+
     FAILURE_MACRO( FLAVOR(_EQ_COLLECTIONS)(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0]))), "Mismatch element" );
     FAILURE_MACRO( FLAVOR(_EQ_COLLECTIONS)(ab, ab+(sizeof(ab)/sizeof(ab[0])), aa, aa+(sizeof(aa)/sizeof(aa[0]))), "Mismatch element" );
     FAILURE_MACRO( FLAVOR(_EQ_COLLECTIONS)(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0]))), "Mismatch in a position" );
