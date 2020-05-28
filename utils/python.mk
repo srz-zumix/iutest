@@ -31,3 +31,5 @@ IUTEST_USE_PYTHON:=1
 else
 IUTEST_USE_PYTHON:=0
 endif
+
+$(warning ${IUTEST_USE_PYTHON})
