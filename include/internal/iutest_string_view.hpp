@@ -59,6 +59,15 @@ public:
 public:
     static const size_type npos = static_cast<size_type >(-1);
 
+private:
+    static const size_type size_type_max = static_cast<size_type>(
+#if defined(PTRDIFF_MAX)
+        PTRDIFF_MAX
+#else
+        INT_MAX
+#endif
+    );
+
 public:
     IUTEST_CXX_CONSTEXPR iu_basic_string_view() IUTEST_CXX_NOEXCEPT_SPEC
         : m_data(IUTEST_NULLPTR)
@@ -127,14 +136,7 @@ public:
     }
     IUTEST_CXX_CONSTEXPR size_type max_size() const IUTEST_CXX_NOEXCEPT_SPEC
     {
-        const size_type max_ = static_cast<size_type>(
-#if defined(PTRDIFF_MAX)
-            PTRDIFF_MAX
-#else
-            INT_MAX
-#endif
-        );
-        return (::std::min)(max_, static_cast<size_type>(-1) / sizeof(value_type));
+        return (::std::min)(size_type_max, static_cast<size_type>(-1) / sizeof(value_type));
     }
     IUTEST_CXX_CONSTEXPR bool empty() const IUTEST_CXX_NOEXCEPT_SPEC
     {
