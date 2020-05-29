@@ -21,6 +21,12 @@
 #  error FLAVOR
 #endif
 
+#if !defined(IUTEST_USE_GTEST)
+#  define EXPECT_NULL_STR   "(null)"
+#else
+#  define EXPECT_NULL_STR   ""
+#endif
+
     FAILURE_MACRO( FLAVOR(_TRUE)(false), "" );
     FAILURE_MACRO( FLAVOR(_FALSE)(true), "" );
     FAILURE_MACRO( FLAVOR(_NULL)(reinterpret_cast<void*>(1)), "" );
@@ -38,8 +44,8 @@
 #if !defined(IUTEST_USE_GTEST)
     FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0, 1), "(0x" );
     FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0, 1), "(0x" );
-    FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(0.0f/fa, 0.0f/fa), "(0x" );
-    FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(0.0/da, 0.0f/da), "(0x" );
+    FAILURE_MACRO( FLAVOR(_FLOAT_EQ)(Div(0.0f, fa), Div(0.0f, fa)), "(0x" );
+    FAILURE_MACRO( FLAVOR(_DOUBLE_EQ)(Div(0.0, da), Div(0.0, da)), "(0x" );
     FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::FloatLE , 2, 0), "(0x" );
     FAILURE_MACRO( FLAVOR(_PRED_FORMAT2)(::iutest::DoubleLE, 2, 0), "(0x" );
 #else
@@ -55,15 +61,15 @@
     FAILURE_MACRO( FLAVOR(_STREQ)("A", "a"), "" );
     FAILURE_MACRO( FLAVOR(_STREQ)("A", null_str), "" );
     FAILURE_MACRO( FLAVOR(_STREQ)(null_str, "a"), "" );
-    FAILURE_MACRO( FLAVOR(_STREQ)(NULL, "a"), "" );
+    FAILURE_MACRO( FLAVOR(_STREQ)(NULL, "a"), EXPECT_NULL_STR );
     FAILURE_MACRO( FLAVOR(_STREQ)(sa, "A"), "" );
     FAILURE_MACRO( FLAVOR(_STREQ)("A", sa), "" );
     FAILURE_MACRO( FLAVOR(_STREQ)(sa, sb), "" );
     FAILURE_MACRO( FLAVOR(_STREQ)(L"A", L"a"), "" );
     FAILURE_MACRO( FLAVOR(_STRNE)("a", "a"), "" );
-    FAILURE_MACRO( FLAVOR(_STRNE)(NULL, null_str), "" );
-    FAILURE_MACRO( FLAVOR(_STRNE)(null_str, NULL), "" );
-    FAILURE_MACRO( FLAVOR(_STRNE)(null_str, null_str), "" );
+    FAILURE_MACRO( FLAVOR(_STRNE)(NULL, null_str), EXPECT_NULL_STR );
+    FAILURE_MACRO( FLAVOR(_STRNE)(null_str, NULL), EXPECT_NULL_STR );
+    FAILURE_MACRO( FLAVOR(_STRNE)(null_str, null_str), EXPECT_NULL_STR );
     FAILURE_MACRO( FLAVOR(_STRNE)(sa, "a"), "" );
     FAILURE_MACRO( FLAVOR(_STRNE)("a", sa), "" );
     FAILURE_MACRO( FLAVOR(_STRNE)(sa, sa), "" );

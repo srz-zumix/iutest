@@ -344,7 +344,7 @@ private:
         }
         ScopedTrace::GetInstance().append_message(m_part_result);
 
-        if( TestEnv::GetGlobalTestPartResultReporter() != NULL )
+        if( TestEnv::GetGlobalTestPartResultReporter() != IUTEST_NULLPTR )
         {
             TestEnv::GetGlobalTestPartResultReporter()->ReportTestPartResult(m_part_result);
         }
@@ -552,7 +552,7 @@ public:
     template<typename T>
     static AssertionResult CompareEq(const char* expr, const T* val)
     {
-        if( NULL == val )
+        if( IUTEST_NULLPTR == val )
         {
             return AssertionSuccess();
         }
@@ -564,7 +564,7 @@ public:
     template<typename T>
     static AssertionResult CompareNe(const char* expr, const T* val)
     {
-        if( NULL != val )
+        if( IUTEST_NULLPTR != val )
         {
             return AssertionSuccess();
         }
@@ -757,7 +757,7 @@ public:
         , detail::IsNullLiteralHelper::Object* val1, T2* val2)
     {
         IUTEST_UNUSED_VAR(val1);
-        return CmpHelperEQ(expr1, expr2, static_cast<T2*>(NULL), val2);
+        return CmpHelperEQ(expr1, expr2, static_cast<T2*>(IUTEST_NULLPTR), val2);
     }
 #else
     template<typename T1, typename T2>
@@ -862,7 +862,7 @@ public:
         , detail::IsNullLiteralHelper::Object* val1, T2* val2)
     {
         IUTEST_UNUSED_VAR(val1);
-        return CmpHelperNE(expr1, expr2, static_cast<T2*>(NULL), val2);
+        return CmpHelperNE(expr1, expr2, static_cast<T2*>(IUTEST_NULLPTR), val2);
     }
 #else
     template<typename T1, typename T2>
@@ -891,7 +891,7 @@ class EqHelper
     template<typename T>
     static AssertionResult Compare(const char* expr1, const char* expr2, ::std::nullptr_t, T* val2)
     {
-        return CmpHelperEQ(expr1, expr2, static_cast<T*>(NULL), val2);
+        return CmpHelperEQ(expr1, expr2, static_cast<T*>(IUTEST_NULLPTR), val2);
     }
 };
 
@@ -909,7 +909,7 @@ class NeHelper
     template<typename T>
     static AssertionResult Compare(const char* expr1, const char* expr2, ::std::nullptr_t, T* val2)
     {
-        return CmpHelperNE(expr1, expr2, static_cast<T*>(NULL), val2);
+        return CmpHelperNE(expr1, expr2, static_cast<T*>(IUTEST_NULLPTR), val2);
     }
 };
 
@@ -984,7 +984,7 @@ namespace StrEqHelper
 #if IUTEST_HAS_NULLPTR && 0
 #define IIUT_DECL_STREQ_COMPARE_HELPER_NULL_(T)   \
     inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(::std::nullptr_t, const T* val2) {     \
-        return val2 == NULL;                                                            \
+        return val2 == IUTEST_NULLPTR;                                                  \
     }
 #else
 #define IIUT_DECL_STREQ_COMPARE_HELPER_NULL_(T)
@@ -996,7 +996,7 @@ namespace StrEqHelper
         return val1 == val2;                                                                    \
     }                                                                                           \
     inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T* val1, const T* val2) {                \
-        if( val1 == NULL || val2 == NULL ) { return val1 == val2; }                             \
+        if( val1 == IUTEST_NULLPTR || val2 == IUTEST_NULLPTR ) { return val1 == val2; }         \
         return Compare(detail::iu_nullable_basic_string_view<T>(val1)                           \
             , detail::iu_nullable_basic_string_view<T>(val2));                                  \
     }
@@ -1046,8 +1046,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
     }
 
     return EqFailure(expr1, expr2
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(IUTEST_NULLPTR, val2))
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, IUTEST_NULLPTR)));
+        , detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val2))
+        , detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(val2, IUTEST_NULLPTR)));
 }
 
 namespace StrNeHelper
@@ -1089,8 +1089,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     }
 
     return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
-        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, IUTEST_NULLPTR))
-        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(IUTEST_NULLPTR, val2));
+        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(val2, IUTEST_NULLPTR))
+        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val2));
 }
 
 template<typename T>
@@ -1104,8 +1104,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     }
 
     return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
-        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(IUTEST_NULLPTR, val1))
-        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, IUTEST_NULLPTR));
+        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val1))
+        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(val1, IUTEST_NULLPTR));
 }
 
 namespace StrCaseEqHelper
@@ -1113,7 +1113,7 @@ namespace StrCaseEqHelper
 
 inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const char* val1, const char* val2)
 {
-    if( val1 == NULL || val2 == NULL )
+    if( val1 == IUTEST_NULLPTR || val2 == IUTEST_NULLPTR )
     {
         return val1 == val2;
     }
@@ -1122,7 +1122,7 @@ inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const char* val1, const char* val2)
 
 inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const wchar_t* val1, const wchar_t* val2)
 {
-    if( val1 == NULL || val2 == NULL )
+    if( val1 == IUTEST_NULLPTR || val2 == IUTEST_NULLPTR )
     {
         return val1 == val2;
     }
