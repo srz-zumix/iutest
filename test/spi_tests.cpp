@@ -27,6 +27,9 @@ struct TestObjectX
     TestObjectX(int a, int b, int c) : ma(a), mb(b), mc(c) {}
 };
 
+template<typename T>
+T Div(T a, T b) { return a/b; }
+
 class SPITest : public ::iutest::Test
 {
 public:
