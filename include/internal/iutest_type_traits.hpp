@@ -669,7 +669,7 @@ namespace is_signed_helper
 {
 
 template<typename T, bool Arithmetic>
-struct is_signed :  public bool_constant< T(-1) < T(0) > {};
+struct is_signed :  public bool_constant< ! (T(-1) > T(0)) > {};
 
 template<typename T>
 struct is_signed<T, false> : public false_type {};

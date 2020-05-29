@@ -3,7 +3,7 @@
 #
 # makefile utils
 #
-# Copyright (C) 2019, Takazumi Shirayanagi
+# Copyright (C) 2019-2020, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -17,3 +17,4 @@ include $(UTILS_MAKEFILE_DIR)/clangversion.mk
 include $(UTILS_MAKEFILE_DIR)/cygwin.mk
 include $(UTILS_MAKEFILE_DIR)/mingw.mk
 include $(UTILS_MAKEFILE_DIR)/ci.mk
+include $(UTILS_MAKEFILE_DIR)/python.mk
