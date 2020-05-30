@@ -7,7 +7,16 @@
 * New
   * GTEST_SKIP 対応
 
+* Improved
+  * ::std::wstring_view / ::std::u16string_view / ::std::u32string_view 対応
+  * Variadic Templates 非対応コンパイラーでの型パラメータの型表示を改善
+
+* Changes
+  * アサーションに operator << したときの出力を PrintToString したものと同じになるように変更
+  * Python2 のサポート終了
+
 * Bug fixes
+  * C++20 で削除された basic_ostream::operator << に対応
   * いくつかの不具合を修正
 
 --------------------------------------------------

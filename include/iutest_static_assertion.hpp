@@ -66,7 +66,7 @@ static bool StaticAssertTypeEq()
 #  define IUTEST_STATIC_ASSERT_MSG(B, Msg)  static_assert(B, Msg)
 #endif
 #else
-#  define IIUT_STATIC_ASSERT_SIZECHECK(B)   sizeof(::iutest::detail::static_assert_failure< (bool)B >)  // NOLINT
+#  define IIUT_STATIC_ASSERT_SIZECHECK(B)   sizeof(::iutest::detail::static_assert_failure< (bool)(B) >)  // NOLINT
 #  define IUTEST_STATIC_ASSERT_MSG(B, Msg)                                              \
     typedef ::iutest::detail::StaticAssertionTest< IIUT_STATIC_ASSERT_SIZECHECK(B) >    \
         IUTEST_PP_CAT(iutest_static_assert_typedef_, IUTEST_PP_COUNTER) IUTEST_ATTRIBUTE_UNUSED_
@@ -77,7 +77,7 @@ static bool StaticAssertTypeEq()
 */
 #ifdef IUTEST_STATIC_ASSERT_MSG
 #  ifdef IUTEST_NO_VARIADIC_MACROS
-#    define IUTEST_STATIC_ASSERT(B)     IUTEST_STATIC_ASSERT_MSG(B, #B)
+#    define IUTEST_STATIC_ASSERT(B)     IUTEST_STATIC_ASSERT_MSG((B), #B)
 #  else
 #    define IUTEST_STATIC_ASSERT(...)   IUTEST_STATIC_ASSERT_MSG((__VA_ARGS__), #__VA_ARGS__)
 #  endif
