@@ -105,6 +105,9 @@ aliases:
     - store_artifacts:
         path: /tmp/circleci-test-results
 
+orbs:
+  win: circleci/windows@2.2.0
+
 jobs:
   gcc_optimize_test:
     parallelism: 4
@@ -124,6 +127,20 @@ jobs:
       FAST_OPTIMIZE: -Ot
       MAKE_ADD_OPTION: CXXFLAGS=-ftime-trace
     steps: *build-test-steps
+  vcperf:
+    executor: win/default
+    environment:
+      CMAKE_GENERATOR_NAME: "Visual Studio 16 2019"
+    steps:
+      - checkout
+      - run:
+          name: cmake
+          command: |
+            - mkdir build && cd build && cmake ../projects/cmake -G "${CMAKE_GENERATOR_NAME}" -A x64
+      - run:
+          name: vcperf
+          command: |
+            - .ci/vcperf_build.bat cmake --build ./build
 
 workflows:
   version: 2.1
