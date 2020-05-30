@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.0.7</span>
+   &#160;<span id="projectnumber">1.17.0.9</span>
    </div>
   </td>
  </tr>
@@ -206,7 +206,7 @@ $(function() {
 <div class="line">    <a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>(a++, GetParam());</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line"><span class="preprocessor">#if IUTEST_HAS_IF_EXISTS &amp;&amp; !defined(IUTEST_USE_GTEST)</span></div>
+<div class="line"><span class="preprocessor">#if IUTEST_HAS_AUTOFIXTURE_PARAM_TEST &amp;&amp; !defined(IUTEST_USE_GTEST)</span></div>
 <div class="line"><a class="code" href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga4e4ed763e41980f829340e2778f99545">IUTEST_P</a>(TestPAutoAny, Test)</div>
 <div class="line">{</div>
 <div class="line">    <a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>(1, GetParam&lt;int&gt;());</div>
@@ -337,7 +337,7 @@ $(function() {
 <div class="ttc" id="aclassiutest_1_1_test_html"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html">iutest::Test</a></div><div class="ttdoc">テストベース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:43</div></div>
 <div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga02da50530b96ac2d6fc4f23dcd28fb9a"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a></div><div class="ttdeci">#define IUTEST_SUCCEED()</div><div class="ttdoc">明示的な成功</div><div class="ttdef"><b>Definition:</b> iutest.hpp:175</div></div>
 <div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gafe52fa82b3a1ff61cd1b1ea3732d4208"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gafe52fa82b3a1ff61cd1b1ea3732d4208">iutest::Range</a></div><div class="ttdeci">detail::iuParamGenerator&lt; T &gt; IUTEST_ATTRIBUTE_UNUSED_ Range(T begin, T end, T step=static_cast&lt; T &gt;(1))</div><div class="ttdoc">範囲パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:390</div></div>
-<div class="ttc" id="agroup___m_a_t_c_h_e_r_s_html_ga7dff43861c1c0e66369395115b2b4e42"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga7dff43861c1c0e66369395115b2b4e42">iutest::matchers::A</a></div><div class="ttdeci">detail::AnyMatcher&lt; T &gt; A()</div><div class="ttdoc">Make Any matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2520</div></div>
+<div class="ttc" id="agroup___m_a_t_c_h_e_r_s_html_ga7dff43861c1c0e66369395115b2b4e42"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga7dff43861c1c0e66369395115b2b4e42">iutest::matchers::A</a></div><div class="ttdeci">detail::AnyMatcher&lt; T &gt; A()</div><div class="ttdoc">Make Any matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2528</div></div>
 <div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga9575e6fc375dbd9609d8a27b8783ef37"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga9575e6fc375dbd9609d8a27b8783ef37">IUTEST_FAIL</a></div><div class="ttdeci">#define IUTEST_FAIL()</div><div class="ttdoc">明示的な失敗</div><div class="ttdef"><b>Definition:</b> iutest.hpp:184</div></div>
 <div class="ttc" id="agroup___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_ga70a4eff92bac97b228bfb52ac549acf9"><div class="ttname"><a href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#ga70a4eff92bac97b228bfb52ac549acf9">IUTEST_PMZ</a></div><div class="ttdeci">#define IUTEST_PMZ(testcase_, testname_, method_,...)</div><div class="ttdoc">パラメタライズ関数コールテスト定義マクロ</div><div class="ttdef"><b>Definition:</b> iutest.hpp:86</div></div>
 <div class="ttc" id="agroup___i_u_t_e_s_t___e_x_p_e_c_t___html_ga8506ae7f9175652fbe66b6e3eeab5cdf"><div class="ttname"><a href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a></div><div class="ttdeci">#define IUTEST_EXPECT_EQ(expected, actual)</div><div class="ttdoc">== テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:677</div></div>
@@ -353,7 +353,7 @@ $(function() {
 <div class="ttc" id="agroup___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t_html_gae0f80c7105344b14cd5cfa5705fd2813"><div class="ttname"><a href="../../d5/d31/group___v_a_l_u_e___p_a_r_a_m_e_t_e_r_i_z_e_d___t_e_s_t.html#gae0f80c7105344b14cd5cfa5705fd2813">IUTEST_INSTANTIATE_TEST_CASE_P</a></div><div class="ttdeci">#define IUTEST_INSTANTIATE_TEST_CASE_P(prefix_, testfixture_, generator_,...)</div><div class="ttdoc">パラメータテストインスタンス化マクロ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:42</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年05月06日(水) 07時58分47秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年05月30日(土) 04時04分25秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

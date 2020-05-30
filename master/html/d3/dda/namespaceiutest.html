@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.0.7</span>
+   &#160;<span id="projectnumber">1.17.0.9</span>
    </div>
   </td>
  </tr>
@@ -205,12 +205,15 @@ $(function() {
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 型定義</h2></td></tr>
-<tr class="memitem:ab91c3c8c1acf3d29da4a574f5cc053d2"><td class="memItemLeft" align="right" valign="top"><a id="ab91c3c8c1acf3d29da4a574f5cc053d2"></a>
-typedef detail::iu_stream&#160;</td><td class="memItemRight" valign="bottom"><b>iu_ostream</b></td></tr>
-<tr class="separator:ab91c3c8c1acf3d29da4a574f5cc053d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c16dea7e85fd3f9b1f7b29db472d920"><td class="memItemLeft" align="right" valign="top"><a id="a3c16dea7e85fd3f9b1f7b29db472d920"></a>
-typedef detail::iu_stream&#160;</td><td class="memItemRight" valign="bottom"><b>iu_stringstream</b></td></tr>
-<tr class="separator:a3c16dea7e85fd3f9b1f7b29db472d920"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad580a3333f0bae23ba713249d9e1863f"><td class="memItemLeft" align="right" valign="top"><a id="ad580a3333f0bae23ba713249d9e1863f"></a>
+typedef detail::iu_basic_ostream&lt; char, ::std::char_traits&lt; char &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>iu_ostream</b></td></tr>
+<tr class="separator:ad580a3333f0bae23ba713249d9e1863f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d184c8f4d38d264507479ab87884b37"><td class="memItemLeft" align="right" valign="top"><a id="a5d184c8f4d38d264507479ab87884b37"></a>
+typedef detail::iu_basic_ostream&lt; wchar_t, ::std::char_traits&lt; wchar_t &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>iu_wostream</b></td></tr>
+<tr class="separator:a5d184c8f4d38d264507479ab87884b37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e0f610803f23cdb76ce18c1918b873a"><td class="memItemLeft" align="right" valign="top"><a id="a8e0f610803f23cdb76ce18c1918b873a"></a>
+typedef iu_ostream&#160;</td><td class="memItemRight" valign="bottom"><b>iu_stringstream</b></td></tr>
+<tr class="separator:a8e0f610803f23cdb76ce18c1918b873a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a543a2a28ba663224cb511a4ae93877dc"><td class="memItemLeft" align="right" valign="top"><a id="a543a2a28ba663224cb511a4ae93877dc"></a>
 typedef detail::iuStreamMessage&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html#a543a2a28ba663224cb511a4ae93877dc">Message</a></td></tr>
 <tr class="memdesc:a543a2a28ba663224cb511a4ae93877dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Message クラス <br /></td></tr>
@@ -250,6 +253,9 @@ typedef detail::type_fit_t&lt; 8 &gt;::UInt&#160;</td><td class="memItemRight" v
 <tr class="memitem:afedd6af489cdd9a15cd1c006b6759f76"><td class="memItemLeft" align="right" valign="top"><a id="afedd6af489cdd9a15cd1c006b6759f76"></a>
 typedef <a class="el" href="../../d3/dda/namespaceiutest.html#a62aa2996f3c0266896c334cfcd7b6c50">UInt64</a>&#160;</td><td class="memItemRight" valign="bottom"><b>iu_off_t</b></td></tr>
 <tr class="separator:afedd6af489cdd9a15cd1c006b6759f76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c64ffa69a8e660e85d971fd6ca08dcc"><td class="memItemLeft" align="right" valign="top"><a id="a3c64ffa69a8e660e85d971fd6ca08dcc"></a>
+typedef detail::type_fit_t&lt; sizeof(ptrdiff_t)&gt;::UInt&#160;</td><td class="memItemRight" valign="bottom"><b>iu_uintptr_t</b></td></tr>
+<tr class="separator:a3c64ffa69a8e660e85d971fd6ca08dcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add3d75edff7febed1ad134ae3235f5dc"><td class="memItemLeft" align="right" valign="top"><a id="add3d75edff7febed1ad134ae3235f5dc"></a>
 typedef internal::TypeId&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a></td></tr>
 <tr class="memdesc:add3d75edff7febed1ad134ae3235f5dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">テスト識別型 <br /></td></tr>
@@ -867,7 +873,7 @@ template&lt;typename T &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年05月06日(水) 07時58分53秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年05月30日(土) 04時04分31秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
