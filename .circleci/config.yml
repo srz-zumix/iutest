@@ -131,6 +131,7 @@ jobs:
     executor: win/default
     environment:
       CMAKE_GENERATOR_NAME: "Visual Studio 16 2019"
+      CMAKE: "C:/CMake/bin/cmake.exe"
     steps:
       - checkout
       - run:
@@ -138,19 +139,20 @@ jobs:
           command: |
             $ProgressPreference = "SilentlyContinue"
             Invoke-WebRequest -URI https://github.com/Kitware/CMake/releases/download/v3.16.4/cmake-3.16.4-win64-x64.zip -OutFile $Env:HOMEPATH\cmake-3.16.4-win64-x64.zip
-            Expand-Archive $Env:HOMEPATH\cmake-3.16.4-win64-x64.zip -DestinationPath $Env:HOMEPATH
+            Expand-Archive $Env:HOMEPATH\cmake-3.16.4-win64-x64.zip -DestinationPath "C:\"
+            Rename-Item "C:\cmake-3.16.4-win64-x64" -NewName CMake
       - run:
           name: cmake
           shell: bash.exe
           command: |
-            mkdir build && cd build && cmake ../projects/cmake -G "${CMAKE_GENERATOR_NAME}" -A x64
+            mkdir build && cd build && ${CMAKE} ../projects/cmake -G "${CMAKE_GENERATOR_NAME}" -A x64
       - run:
           name: vcperf
           shell: cmd.exe
           command: |
             tools/VisualStudio/vcvars.bat 16.0 x64
             vcperf /start /level3 iutest
-            cmake --build ./build
+            %CMAKE% --build ./build
             vcperf /stop /templates iutest iutest.etl
 
 workflows:
