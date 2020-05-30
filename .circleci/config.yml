@@ -150,9 +150,9 @@ jobs:
           name: vcperf
           shell: cmd.exe
           command: |
-            ..\tools\VisualStudio\vcvars.bat 16.0 x64
+            tools\VisualStudio\vcvars.bat 16.0 x64
             vcperf /start /level3 iutest
-            %CMAKE% --build .
+            %CMAKE% --build .\build
             vcperf /stop /templates iutest iutest.etl
 
 workflows:
