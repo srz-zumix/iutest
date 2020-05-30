@@ -150,3 +150,4 @@ workflows:
           filters: *branch-filter
       - clang_optimize_test:
           filters: *branch-filter
+      - vcperf
