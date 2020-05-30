@@ -268,7 +268,6 @@ class IutestPreprocessor:
                     error = e
         raise error
 
-
     def __eval_ppif(self, expr):
         expand = self.__expand_ppif_macro(expr)
         expand_expr = re.sub(r'([0-9])+L', r'\1', expand)
