@@ -130,6 +130,7 @@ modification, are permitted provided that the following conditions are met: \n
       <li>Python2 のサポート終了</li>
       <li>C++20 で削除された basic_ostream::operator &lt;&lt; に対応</li>
       <li>Google Test 旧バージョンとの互換性を修正</li>
+      <li>junit 出力に長い type_param を出力すると壊れた文字列が出力される問題を修正</li>
     </ul>
   </li>
   <li>v1.17.0.0
