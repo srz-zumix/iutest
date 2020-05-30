@@ -382,7 +382,7 @@
 // private destractor = default is not works in gcc 4.5 - 4.6
 #    if   (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ == 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_DEFAULT_FUNCTIONS  1
-#      if (_MSV_VER <= 1800) && !defined(IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION)
+#      if !defined(IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION)
 #        define IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION 0
 #      endif
 #    elif (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
