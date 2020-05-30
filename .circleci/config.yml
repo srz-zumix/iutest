@@ -135,12 +135,17 @@ jobs:
       - checkout
       - run:
           name: cmake
+          shell: bash.exe
           command: |
             - mkdir build && cd build && cmake ../projects/cmake -G "${CMAKE_GENERATOR_NAME}" -A x64
       - run:
           name: vcperf
+          shell: cmd.exe
           command: |
-            - .ci/vcperf_build.bat cmake --build ./build
+            - tools/VisualStudio/vcvars.bat 16.0 x64
+            - vcperf /start /level3 iutest
+            - cmake --build ./build
+            - vcperf /stop /templates iutest iutest.etl
 
 workflows:
   version: 2.1
