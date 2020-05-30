@@ -345,9 +345,6 @@
     <ClInclude Include="..\..\include\gtest\iutest_switch_for_iutest.hpp">
       <Filter>iutest\gtest</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\internal\iutest_string_view.hpp">
-      <Filter>iutest\internal</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\internal\iutest_locale.hpp">
       <Filter>iutest\internal</Filter>
     </ClInclude>
@@ -413,5 +410,8 @@
     <None Include="..\..\docs\index.html">
       <Filter>doxygen</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\..\tools\VisualStudio\Visualizers\iutest.natvis" />
   </ItemGroup>
 </Project>

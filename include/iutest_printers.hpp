@@ -37,7 +37,7 @@ inline void PrintBytesInObjectTo(const unsigned char* buf, size_t size, iu_ostre
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
     const size_t kMaxCount = detail::kValues::MaxPrintContainerCount;
     *os << size << "-Byte object < ";
-    if( buf != NULL && size > 0 )
+    if( buf != IUTEST_NULLPTR && size > 0 )
     {
         for( size_t i=0; i < size; ++i )
         {
@@ -232,7 +232,7 @@ inline void DefaultPrintTo(IsContainerHelper::no_t
                         , iutest_type_traits::true_type
                         , T* ptr, iu_ostream* os)
 {
-    if( ptr == NULL )
+    if( ptr == IUTEST_NULLPTR )
     {
         *os << kStrings::Null;
     }
@@ -252,7 +252,7 @@ inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const T& value, iu_ostr
 
 inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char* str, iu_ostream* os)
 {
-    if( str == NULL )
+    if( str == IUTEST_NULLPTR )
     {
         *os << kStrings::Null;
     }

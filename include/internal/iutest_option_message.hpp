@@ -267,6 +267,9 @@ inline void iuOptionMessage::ShowSpec()
 #ifdef __GLIBCPP__
     IIUT_SHOW_MACRO(__GLIBCPP__);
 #endif
+#ifdef _GLIBCXX_USE_CXX11_ABI
+    IIUT_SHOW_MACRO(_GLIBCXX_USE_CXX11_ABI);
+#endif
 #ifdef _LIBCPP_VERSION
     IIUT_SHOW_MACRO(_LIBCPP_VERSION);
 #endif
