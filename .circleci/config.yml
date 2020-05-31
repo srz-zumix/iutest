@@ -149,10 +149,7 @@ jobs:
       - run:
           name: vcperf
           shell: cmd.exe
-          command: |
-            tools\VisualStudio\vcperf.bat /start /level3 iutest && \
-            %CMAKE% --build .\build && \
-            tools\VisualStudio\vcperf.bat /stop /templates iutest iutest.etl
+          command: .\.circleci\veperf_build.bat
       - store_artifacts:
           path: .\iutest.etl
 
