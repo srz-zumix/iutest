@@ -149,7 +149,7 @@ jobs:
       - run:
           name: vcperf
           shell: cmd.exe
-          command: .\.circleci\veperf_build.bat
+          command: .circleci\veperf_build.bat
       - store_artifacts:
           path: .\iutest.etl
 
