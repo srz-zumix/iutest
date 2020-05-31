@@ -147,17 +147,12 @@ jobs:
           command: |
             mkdir build && cd build && ${CMAKE} ../projects/cmake -G "${CMAKE_GENERATOR_NAME}" -A x64
       - run:
-          name: make vcperf bat
-          shell: cmd.exe
-          command: |
-            echo call tools\VisualStudio\vcvars.bat 16.0 x64 > vcperf_build.bat
-            echo vcperf /start /level3 iutest >> vcperf_build.bat
-            echo %CMAKE% --build .\build >> vcperf_build.bat
-            echo vcperf /stop /templates iutest iutest.etl >> vcperf_build.bat
-      - run:
           name: vcperf
           shell: cmd.exe
-          command: vcperf_build.bat
+          command: |
+            tools\VisualStudio\vcperf.bat /start /level3 iutest
+            %CMAKE% --build .\build
+            tools\VisualStudio\vcperf.bat /stop /templates iutest iutest.etl
       - store_artifacts:
           path: .\iutest.etl
 
