@@ -428,7 +428,7 @@ $(function() {
 <div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;<span class="comment">// private destractor = default is not works in gcc 4.5 - 4.6</span></div>
 <div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;<span class="preprocessor">#    if   (__GNUC__ &gt; 4 || (__GNUC__ == 4 &amp;&amp; __GNUC_MINOR__ == 4)) &amp;&amp; defined(__GXX_EXPERIMENTAL_CXX0X__)</span></div>
 <div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="preprocessor">#      define IUTEST_HAS_DEFAULT_FUNCTIONS  1</span></div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="preprocessor">#      if (_MSV_VER &lt;= 1800) &amp;&amp; !defined(IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION)</span></div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="preprocessor">#      if !defined(IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION)</span></div>
 <div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;<span class="preprocessor">#        define IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION 0</span></div>
 <div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="preprocessor">#      endif</span></div>
 <div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="preprocessor">#    elif (__GNUC__ &gt; 4 || (__GNUC__ == 4 &amp;&amp; __GNUC_MINOR__ &gt;= 7)) &amp;&amp; defined(__GXX_EXPERIMENTAL_CXX0X__)</span></div>
@@ -1405,7 +1405,7 @@ $(function() {
 <div class="ttc" id="aiutest__platform_8hpp_html"><div class="ttname"><a href="../../da/d9f/iutest__platform_8hpp.html">iutest_platform.hpp</a></div><div class="ttdoc">iris unit test platform detection</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年05月30日(土) 04時04分25秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年06月01日(月) 11時41分08秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
