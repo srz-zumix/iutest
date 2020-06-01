@@ -105,6 +105,9 @@ aliases:
     - store_artifacts:
         path: /tmp/circleci-test-results
 
+orbs:
+  win: circleci/windows@2.2.0
+
 jobs:
   gcc_optimize_test:
     parallelism: 4
@@ -124,6 +127,31 @@ jobs:
       FAST_OPTIMIZE: -Ot
       MAKE_ADD_OPTION: CXXFLAGS=-ftime-trace
     steps: *build-test-steps
+  vcperf:
+    executor: win/default
+    environment:
+      CMAKE_GENERATOR_NAME: "Visual Studio 16 2019"
+      CMAKE: "C:/CMake/bin/cmake.exe"
+    steps:
+      - checkout
+      - run:
+          name: install
+          command: |
+            $ProgressPreference = "SilentlyContinue"
+            Invoke-WebRequest -URI https://github.com/Kitware/CMake/releases/download/v3.16.4/cmake-3.16.4-win64-x64.zip -OutFile $Env:HOMEPATH\cmake-3.16.4-win64-x64.zip
+            Expand-Archive $Env:HOMEPATH\cmake-3.16.4-win64-x64.zip -DestinationPath "C:\"
+            Rename-Item "C:\cmake-3.16.4-win64-x64" -NewName CMake
+      - run:
+          name: cmake
+          shell: bash.exe
+          command: |
+            mkdir build && cd build && ${CMAKE} ../projects/cmake -G "${CMAKE_GENERATOR_NAME}" -A x64
+      - run:
+          name: vcperf
+          shell: cmd.exe
+          command: .circleci\vcperf_build.bat
+      - store_artifacts:
+          path: .\iutest.etl
 
 workflows:
   version: 2.1
@@ -133,3 +161,4 @@ workflows:
           filters: *branch-filter
       - clang_optimize_test:
           filters: *branch-filter
+      - vcperf
