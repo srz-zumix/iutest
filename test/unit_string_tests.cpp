@@ -241,3 +241,44 @@ IUTEST(UnitStringTest, SurrogatePair)
     memcpy(expect, uexpect, sizeof(expect));
     IUTEST_EXPECT_EQ_RANGE(expect, s);
 }
+
+IUTEST(UnitStringTest, StringToValue)
+{
+    {
+        float f;
+        IUTEST_EXPECT_TRUE(::iutest::detail::StringToValue("1.0", f));
+        IUTEST_EXPECT_FLOAT_EQ(1.0f, f);
+    }
+    {
+        double f;
+        IUTEST_EXPECT_TRUE(::iutest::detail::StringToValue("1.0", f));
+        IUTEST_EXPECT_DOUBLE_EQ(1.0, f);
+    }
+#if IUTEST_HAS_LONG_DOUBLE
+    {
+        long double f;
+        IUTEST_EXPECT_TRUE(::iutest::detail::StringToValue("1.0", f));
+        IUTEST_EXPECT_DOUBLE_EQ(1.0, f);
+    }
+#endif
+}
+
+#if IUTEST_HAS_EXCEPTIONS
+IUTEST(UnitStringTest, StringToValueException)
+{
+    {
+        float f;
+        IUTEST_EXPECT_THROW(::iutest::detail::StringToValue("ABC", f), ::std::invalid_argument);
+    }
+    {
+        double f;
+        IUTEST_EXPECT_THROW(::iutest::detail::StringToValue("ABC", f), ::std::invalid_argument);
+    }
+#if IUTEST_HAS_LONG_DOUBLE
+    {
+        long double f;
+        IUTEST_EXPECT_THROW(::iutest::detail::StringToValue("ABC", f), ::std::invalid_argument);
+    }
+#endif
+}
+#endif
