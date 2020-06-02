@@ -31,6 +31,7 @@
 #  include <stdint.h>
 #endif
 #include <cstdlib>
+#include <cstddef>
 #include <limits>
 
 // <version> header

@@ -81,11 +81,25 @@ IUTEST(UnitStringTest, StringStrip)
     IUTEST_EXPECT_STREQ("a1 a2"   , ::iutest::detail::StripSpace(str));
 }
 
-IUTEST(UnitStringTest, StringReplace)
+IUTEST(UnitStringTest, StringReplaceChar)
 {
     ::std::string str = "a1a2a3a4b5";
     ::iutest::detail::StringReplace(str, 'a', "ii");
     IUTEST_EXPECT_STREQ("ii1ii2ii3ii4b5", str);
+}
+
+IUTEST(UnitStringTest, StringReplaceString)
+{
+    {
+        ::std::string str = "a1a2a3a4b5";
+        ::iutest::detail::StringReplace(str, "a1", 2, "ii");
+        IUTEST_EXPECT_STREQ("iia2a3a4b5", str);
+    }
+    {
+        ::std::string str = "a1a2a3a4b5";
+        ::iutest::detail::StringReplace(str, "a1", 1, "ii");
+        IUTEST_EXPECT_STREQ("ii1a2a3a4b5", str);
+    }
 }
 
 IUTEST(UnitStringTest, StringReplaceToLF)
@@ -93,6 +107,20 @@ IUTEST(UnitStringTest, StringReplaceToLF)
     ::std::string str = "a\r\nb\r\rc\r\n\nd";
     ::iutest::detail::StringReplaceToLF(str);
     IUTEST_EXPECT_STREQ("a\nb\n\nc\n\nd", str);
+}
+
+int test_print(char* dst, size_t size, const char* fmt, ...) IUTEST_ATTRIBUTE_FORMAT_PRINTF(3, 4);
+int test_print(char* dst, size_t size, const char* fmt, ...)
+{
+    va_list va;
+    va_start(va, fmt);
+    const int ret = ::iutest::detail::iu_vsnprintf(dst, size, fmt, va);
+    va_end(va);
+    return ret;
+}
+IUTEST(UnitStringTest, InvalidVsnprintf)
+{
+    IUTEST_EXPECT_EQ(-1, test_print(NULL, 1, "test"));
 }
 
 IUTEST(UnitStringTest, AddDefaultPackageName)
@@ -151,6 +179,9 @@ IUTEST(UnitStringTest, ToHexString)
     IUTEST_EXPECT_STREQ("8000000000000000", ::iutest::detail::ToHexString< ::iutest::Int64 >(INT64_MIN));
 #endif
     IUTEST_EXPECT_STREQ(        "01234567", ::iutest::detail::ToHexString(0x01234567u));
+    IUTEST_EXPECT_STREQ(          "414243", ::iutest::detail::ToHexString("ABC", -1));
+    IUTEST_EXPECT_STREQ(            "4142", ::iutest::detail::ToHexString("ABC", 2));
+    IUTEST_EXPECT_STREQ(                "", ::iutest::detail::ToHexString("ABC", 0));
 }
 
 IUTEST(UnitStringTest, ToOctString)
@@ -199,4 +230,14 @@ IUTEST(UnitStringTest, FormatSizeTByte)
 IUTEST(UnitStringTest, Utf8AsciiCode)
 {
     IUTEST_EXPECT_STREQ("A", ::iutest::detail::AnyStringToUTF8(L"A", -1));
+    IUTEST_EXPECT_STREQ("A", ::iutest::detail::AnyStringToUTF8(L"A", 1024));
+}
+
+IUTEST(UnitStringTest, SurrogatePair)
+{
+    ::std::string s = ::iutest::detail::AnyStringToUTF8(L"\U00020BB7", -1);
+    const unsigned char uexpect[4] = { 0xF0, 0xA0, 0xAE, 0xB7 };
+    char expect[4];
+    memcpy(expect, uexpect, sizeof(expect));
+    IUTEST_EXPECT_EQ_RANGE(expect, s);
 }

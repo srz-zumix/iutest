@@ -4,10 +4,6 @@ trigger:
     include:
       - master
       - develop
-      - azure-pipelines/*
-      - azurepipelines/*
-      - feature/*
-      - fix/*
   paths:
     exclude:
       - "*.md"
@@ -30,6 +26,7 @@ trigger:
       - codeship-steps.yml
       - .drone.yml
       - .github/*
+      - .razorops.yaml
       - .semaphore/*
       - shippable.yml
       - sider.yml
@@ -41,6 +38,10 @@ pr:
     include:
       - master
       - develop
+      - azure-pipelines/*
+      - azurepipelines/*
+      - feature/*
+      - fix/*
 
 stages:
   - stage: Precheck
@@ -69,6 +70,12 @@ stages:
       - template: .ci/azure_pipelines/template-make-nofeature-test.yml
         parameters:
           name: nofeature
+  - stage: MixConfigTest
+    dependsOn: Precheck
+    jobs:
+      - template: .ci/azure_pipelines/template-make-mix-test.yml
+        parameters:
+          name: mix
   # - stage: Publish
   #   dependsOn:
   #     Test

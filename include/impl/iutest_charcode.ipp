@@ -189,13 +189,15 @@ IUTEST_IPP_INLINE ::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStr
     const size_t length = num < 0 ? (wcslen(str) * MB_CUR_MAX + 1) : static_cast<size_t>(num);
     char* mbs = new char [length];
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
-    if( wcstombs(mbs, str, length) == static_cast<size_t>(-1))
+    const size_t written = wcstombs(mbs, str, length - 1);
+    if( written == static_cast<size_t>(-1))
     {
         delete [] mbs;
         IUTEST_LOG_(WARNING) << "AnyStringToMultiByteString: convert error";
-        return "(convert error)";
+\        return ToHexString(str, num);
     }
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
+    mbs[written] = '\0';
     ::std::string ret = mbs;
     delete [] mbs;
     return ret;
@@ -339,10 +341,8 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
     IUTEST_UNUSED_VAR(num);
     return CodeConvert<char32_t, char, ::std::mbstate_t>(str);
 #else
-    IUTEST_UNUSED_VAR(num);
-    IUTEST_UNUSED_VAR(str);
     IUTEST_LOG_(WARNING) << "AnyStringToMultiByteString: convert error";
-    return "(convert error)";
+    return ToHexString(str, num);
 #endif
 }
 

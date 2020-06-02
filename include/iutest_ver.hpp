@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01170006u     //!< iutest version 1.17.0.6
+#define IUTEST_VER          0x01170009u     //!< iutest version 1.17.0.9
 #define IUTEST_MAJORVER     0x01u           //!< Major Version
 #define IUTEST_MINORVER     0x17u           //!< Minor Version
 #define IUTEST_MICROVER     0x00u           //!< Micro Version
-#define IUTEST_REVISION     0x06u           //!< Revision
+#define IUTEST_REVISION     0x09u           //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -124,6 +124,11 @@ modification, are permitted provided that the following conditions are met: \n
   <li>v1.17.1.0
     <ul>
       <li>GTEST_SKIP 対応</li>
+      <li>::std::wstring_view / ::std::u16string_view / ::std::u32string_view 対応</li>
+      <li>アサーションに operator &lt;&lt; したときの出力を PrintToString したものと同じになるように変更</li>
+      <li>テストをリピートした際のレポート出力ファイル名の書式を printf 書式から {I} に変更({I} にリピート回数が置換されます)</li>
+      <li>Python2 のサポート終了</li>
+      <li>C++20 で削除された basic_ostream::operator &lt;&lt; に対応</li>
       <li>Google Test 旧バージョンとの互換性を修正</li>
       <li>junit 出力に長い type_param を出力すると壊れた文字列が出力される問題を修正</li>
     </ul>
