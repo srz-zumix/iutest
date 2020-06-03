@@ -267,17 +267,20 @@ IUTEST(UnitStringTest, StringToValue)
 IUTEST(UnitStringTest, StringToValueException)
 {
     {
-        float f;
+        float f = -10.0f;
         IUTEST_EXPECT_THROW(::iutest::detail::StringToValue("ABC", f), ::std::invalid_argument);
+        IUTEST_EXPECT_FLOAT_EQ(-10.0f, f);
     }
     {
-        double f;
+        float f = -10.0;
         IUTEST_EXPECT_THROW(::iutest::detail::StringToValue("ABC", f), ::std::invalid_argument);
+        IUTEST_EXPECT_DOUBLE_EQ(-10.0, f);
     }
 #if IUTEST_HAS_LONG_DOUBLE
     {
-        long double f;
+        long double f = -10.0;
         IUTEST_EXPECT_THROW(::iutest::detail::StringToValue("ABC", f), ::std::invalid_argument);
+        IUTEST_EXPECT_LONG_DOUBLE_EQ(-10.0, f);
     }
 #endif
 }
