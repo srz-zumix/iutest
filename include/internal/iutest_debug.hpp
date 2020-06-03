@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -22,7 +22,7 @@
 #  include <crtdbg.h>
 #  include <xlocnum>
 #  include <xtree>
-#  include <streambuf>
+#  include <streambuf>  // NOLINT
 #  ifndef _DEBUG_NEW_
 #    define _DEBUG_NEW_     new ( _NORMAL_BLOCK , __FILE__, __LINE__)
 #    pragma push_macro("new")
