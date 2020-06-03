@@ -19,10 +19,10 @@
 // iutest 自体のデバッグ用定義
 
 #if defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+#  include <streambuf>
 #  include <crtdbg.h>
 #  include <xlocnum>
 #  include <xtree>
-#  include <streambuf>  // NOLINT
 #  ifndef _DEBUG_NEW_
 #    define _DEBUG_NEW_     new ( _NORMAL_BLOCK , __FILE__, __LINE__)
 #    pragma push_macro("new")
