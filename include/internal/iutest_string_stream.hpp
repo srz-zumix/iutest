@@ -33,6 +33,66 @@ namespace iutest
 namespace detail
 {
 
+template<typename T>
+bool StringToValue(const ::std::string& s, T& out)
+{
+    ::std::istringstream strm(s);
+    if( strm >> out )
+    {
+        return true;
+    }
+    return false;
+}
+
+inline bool StringToValue(const ::std::string& s, float& out)
+{
+#if IUTEST_HAS_STD_STR_TO_VALUE
+    out = ::std::stof(s);
+#else
+    out = strtof(s.c_str(), NULL);
+#if IUTEST_HAS_EXCEPTIONS
+    if ((errno == ERANGE) || (out == HUGE_VALF) || (out == -HUGE_VALF)) {
+        throw ::std::invalid_argument(s.c_str());
+    }
+#endif
+#endif
+    return true;
+}
+
+inline bool StringToValue(const ::std::string& s, double& out)
+{
+#if IUTEST_HAS_STD_STR_TO_VALUE
+    out = ::std::stod(s);
+#else
+    out = strtod(s.c_str(), NULL);
+#if IUTEST_HAS_EXCEPTIONS
+    if ((errno == ERANGE) || (out == HUGE_VAL) || (out == -HUGE_VAL)) {
+        throw ::std::invalid_argument(s.c_str());
+    }
+#endif
+#endif
+    return true;
+}
+
+#if IUTEST_HAS_LONG_DOUBLE
+
+inline bool StringToValue(const ::std::string& s, long double& out)
+{
+#if IUTEST_HAS_STD_STR_TO_VALUE
+    out = ::std::stold(s);
+#else
+    out = strtold(s.c_str(), NULL);
+#if IUTEST_HAS_EXCEPTIONS
+    if ((errno == ERANGE) || (out == HUGE_VAL) || (out == -HUGE_VAL)) {
+        throw ::std::invalid_argument(s.c_str());
+    }
+#endif
+#endif
+    return true;
+}
+
+#endif
+
 #if !IUTEST_HAS_STRINGSTREAM && !IUTEST_HAS_STRSTREAM
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
