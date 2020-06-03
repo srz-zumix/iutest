@@ -20,8 +20,8 @@
 #include "iutest_util_tests.hpp"
 
 #if defined(IUTEST_OS_WINDOWS)
-#include <windows.h>
 #include <map>
+#include <windows.h>
 
 namespace iuutil
 {

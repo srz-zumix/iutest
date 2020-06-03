@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,10 +19,10 @@
 // iutest 自体のデバッグ用定義
 
 #if defined(_MSC_VER) && !defined(IUTEST_OS_WINDOWS_MOBILE)
+#  include <streambuf>
 #  include <crtdbg.h>
 #  include <xlocnum>
 #  include <xtree>
-#  include <streambuf>
 #  ifndef _DEBUG_NEW_
 #    define _DEBUG_NEW_     new ( _NORMAL_BLOCK , __FILE__, __LINE__)
 #    pragma push_macro("new")
