@@ -70,12 +70,6 @@ public:
     {
         ::iutest::detail::iuConsole::SetLogger(&printer_logger);
     }
-#if defined(_GLIBCXX_USE_CXX11_ABI) && _GLIBCXX_USE_CXX11_ABI
-    explicit LogChecker(const std::__cxx11::string& str) : m_str(str)
-    {
-        ::iutest::detail::iuConsole::SetLogger(&printer_logger);
-    }
-#endif
     ~LogChecker(void)
     {
         ::iutest::detail::iuConsole::SetLogger(NULL);
