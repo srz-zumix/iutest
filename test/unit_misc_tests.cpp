@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -37,3 +37,20 @@ IUTEST(UnitAnyTest, String)
     ::iutest::any a = "test";
     IUTEST_EXPECT_EQ("test", ::iutest::any_cast< ::std::string >(a));
 }
+
+#if IUTEST_HAS_PARAM_TEST
+
+class UnitLocaleTest : public ::iutest::TestWithParam<iutest::tuples::tuple<const char*, const char*>> {};
+
+IUTEST_P(UnitLocaleTest, ScopedEncoding)
+{
+    const char* p = setlocale(LC_CTYPE, GetParam<0>());
+    IUTEST_ASSUME_NOTNULL(p);
+    ::iutest::detail::ScopedEncoding loc(LC_CTYPE, GetParam<1>());
+    IUTEST_ASSERT_TRUE(loc);
+    IUTEST_EXPECT_CONTAINS_REGEXEQ("\\.[Uu][Tt][Ff](8|-8)", setlocale(LC_CTYPE, NULL)) << "Before: " << p;
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_P(My1, UnitLocaleTest, ::iutest::Combine(::iutest::Values("", "C", "ja_JP.932"), ::iutest::Values("UTF-8")));
+
+#endif
