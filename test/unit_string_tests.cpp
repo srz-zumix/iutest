@@ -294,7 +294,7 @@ IUTEST(UnitStringTest, StringToValueException)
     }
     {
         long double f = -10.0;
-        IUTEST_EXPECT_THROW(::iutest::detail::StringToValue("123456789e1000", f), ::std::out_of_range);
+        IUTEST_EXPECT_THROW(::iutest::detail::StringToValue("123456789e1000000", f), ::std::out_of_range);
         IUTEST_EXPECT_LONG_DOUBLE_EQ(-10.0, f);
     }
 #endif
