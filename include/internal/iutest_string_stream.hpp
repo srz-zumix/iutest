@@ -49,10 +49,18 @@ inline bool StringToValue(const ::std::string& s, float& out)
 #if IUTEST_HAS_STD_STR_TO_VALUE
     out = ::std::stof(s);
 #else
-    out = strtof(s.c_str(), NULL);
+    char* endptr=NULL;
+    const char* p = s.c_str();
+    errno = 0;
+    out = strtof(p, &endptr);
 #if IUTEST_HAS_EXCEPTIONS
-    if ((errno == ERANGE) || (out == HUGE_VALF) || (out == -HUGE_VALF)) {
-        throw ::std::invalid_argument(s.c_str());
+    if (p == endptr)
+    {
+        throw ::std::invalid_argument(p);
+    }
+    if (errno == ERANGE)
+    {
+        throw ::std::out_of_range(p);
     }
 #endif
 #endif
@@ -64,10 +72,18 @@ inline bool StringToValue(const ::std::string& s, double& out)
 #if IUTEST_HAS_STD_STR_TO_VALUE
     out = ::std::stod(s);
 #else
-    out = strtod(s.c_str(), NULL);
+    char* endptr=NULL;
+    const char* p = s.c_str();
+    errno = 0;
+    out = strtod(s.c_str(), &endptr);
 #if IUTEST_HAS_EXCEPTIONS
-    if ((errno == ERANGE) || (out == HUGE_VAL) || (out == -HUGE_VAL)) {
-        throw ::std::invalid_argument(s.c_str());
+    if (p == endptr)
+    {
+        throw ::std::invalid_argument(p);
+    }
+    if (errno == ERANGE)
+    {
+        throw ::std::out_of_range(p);
     }
 #endif
 #endif
@@ -81,10 +97,18 @@ inline bool StringToValue(const ::std::string& s, long double& out)
 #if IUTEST_HAS_STD_STR_TO_VALUE
     out = ::std::stold(s);
 #else
-    out = strtold(s.c_str(), NULL);
+    char* endptr=NULL;
+    const char* p = s.c_str();
+    errno = 0;
+    out = strtold(s.c_str(), &endptr);
 #if IUTEST_HAS_EXCEPTIONS
-    if ((errno == ERANGE) || (out == HUGE_VAL) || (out == -HUGE_VAL)) {
-        throw ::std::invalid_argument(s.c_str());
+    if (p == endptr)
+    {
+        throw ::std::invalid_argument(p);
+    }
+    if (errno == ERANGE)
+    {
+        throw ::std::out_of_range(p);
     }
 #endif
 #endif
