@@ -367,7 +367,7 @@ class IutestPreprocessor:
             brother = self.brothers[-1]
             brother.append(self.depth[-1])
             f = -1
-            if f == 1 or any(x == 1 for x in brother):
+            if any(x == 1 for x in brother):
                 f = 0
             elif all(x == 0 for x in brother):
                 f = 1
@@ -521,10 +521,9 @@ class IutestPreprocessor:
 
     def __strip_namespace(self, line, ns):
         s = ""
-        for n in ns:
-            s += "namespace " + n + "{"
         e = ""
         for n in ns:
+            s += "namespace " + n + "{"
             e += "}"
         def __is_namespace_open_close_line(x):
             return x.startswith(s) and x.endswith(e)

@@ -2,20 +2,20 @@
 #
 # eval_line.py
 #
-# Copyright (C) 2014-2016, Takazumi Shirayanagi
+# Copyright (C) 2014-2020, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
 
-import argparse
 import re
 import codecs
 
 from argparse import ArgumentParser
+from argparse import Action
 
 
 # EvalIntAction
-class EvalIntAction(argparse.Action):
+class EvalIntAction(Action):
     def __call__(self, parser, namespace, values, options_string=None):
         setattr(namespace, self.dest, int(eval(values[0])))
 
