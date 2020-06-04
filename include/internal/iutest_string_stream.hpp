@@ -55,7 +55,7 @@ inline bool StringToValue(const ::std::string& s, float& out)
     char* endptr=NULL;
     const char* p = s.c_str();
     errno = 0;
-    out = strtof(p, &endptr);
+    const float v = strtof(p, &endptr);
 #if IUTEST_HAS_EXCEPTIONS
     if (p == endptr)
     {
@@ -66,6 +66,7 @@ inline bool StringToValue(const ::std::string& s, float& out)
         throw ::std::out_of_range(p);
     }
 #endif
+    out = v;
 #endif
     return true;
 }
@@ -78,7 +79,7 @@ inline bool StringToValue(const ::std::string& s, double& out)
     char* endptr=NULL;
     const char* p = s.c_str();
     errno = 0;
-    out = strtod(s.c_str(), &endptr);
+    const double v = strtod(s.c_str(), &endptr);
 #if IUTEST_HAS_EXCEPTIONS
     if (p == endptr)
     {
@@ -89,6 +90,7 @@ inline bool StringToValue(const ::std::string& s, double& out)
         throw ::std::out_of_range(p);
     }
 #endif
+    out = v;
 #endif
     return true;
 }
@@ -103,7 +105,7 @@ inline bool StringToValue(const ::std::string& s, long double& out)
     char* endptr=NULL;
     const char* p = s.c_str();
     errno = 0;
-    out = strtold(s.c_str(), &endptr);
+    const long double v = strtold(s.c_str(), &endptr);
 #if IUTEST_HAS_EXCEPTIONS
     if (p == endptr)
     {
@@ -114,6 +116,7 @@ inline bool StringToValue(const ::std::string& s, long double& out)
         throw ::std::out_of_range(p);
     }
 #endif
+    out = v;
 #endif
     return true;
 }
