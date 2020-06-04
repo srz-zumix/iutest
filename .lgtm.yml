@@ -9,9 +9,9 @@ extraction:
     after_prepare:    # Customizable step used by all languages.
       - export GNU_MAKE=make
       - export GIT=true
-    # configure:    # Customizable step used only by C/C++ extraction.
-    #   command:
-    #     - ./prepare_deps
+    configure:    # Customizable step used only by C/C++ extraction.
+      command:
+        - echo configure
     before_index:    # Customizable step used by all languages.
       - export GTEST_ROOT=$LGTM_SRC/googletest
     index:    # Customizable step used by all languages.
