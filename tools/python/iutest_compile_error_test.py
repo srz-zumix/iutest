@@ -10,10 +10,10 @@
 
 import os
 import sys
-import argparse
 import re
 
 from argparse import ArgumentParser
+from argparse import FileType
 from subprocess import Popen, PIPE, STDOUT
 
 
@@ -176,7 +176,7 @@ def parse_command_line():
         parser.add_argument(
             '-i',
             '--infile',
-            type=argparse.FileType('r', encoding='UTF-8'),
+            type=FileType('r', encoding='UTF-8'),
             help='compiler stdout.',
             default=sys.stdin
         )
@@ -184,7 +184,7 @@ def parse_command_line():
         parser.add_argument(
             '-i',
             '--infile',
-            type=argparse.FileType('r'),
+            type=FileType('r'),
             help='compiler stdout.',
             default=sys.stdin
         )
