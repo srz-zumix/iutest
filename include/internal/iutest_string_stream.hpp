@@ -26,6 +26,9 @@
 #if IUTEST_HAS_IOMANIP
 #  include <iomanip>
 #endif
+#if IUTEST_HAS_EXCEPTIONS
+#  include <stdexcept>
+#endif
 
 namespace iutest
 {
