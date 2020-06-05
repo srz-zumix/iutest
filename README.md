@@ -18,6 +18,8 @@
 [![Wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/master "wercker status")](https://app.wercker.com/project/bykey/d385156052aa4118a7f24affe4a8f851)  
   
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e6407b63c9c844d080ed71c7707bded9?branch=master)](https://www.codacy.com/app/srz-zumix/iutest?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=srz-zumix/iutest&amp;utm_campaign=Badge_Grade)
+[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/srz-zumix/iutest.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/srz-zumix/iutest/context:cpp)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/srz-zumix/iutest.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/srz-zumix/iutest/context:python)
 [![Codecov](https://codecov.io/gh/srz-zumix/iutest/branch/master/graph/badge.svg)](https://codecov.io/gh/srz-zumix/iutest)
 [![Coveralls Coverage Status](https://coveralls.io/repos/github/srz-zumix/iutest/badge.svg?branch=master)](https://coveralls.io/github/srz-zumix/iutest?branch=master)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/1316/badge.svg)](https://scan.coverity.com/projects/srz-zumix-iutest)
