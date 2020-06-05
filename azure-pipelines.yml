@@ -13,6 +13,7 @@ trigger:
       - .bandit
       - .editorconfig
       - .hadolint.yaml
+      - .lgtm.yaml
       - tox.ini
       - appveyor.yml
       - bitrise.yml
