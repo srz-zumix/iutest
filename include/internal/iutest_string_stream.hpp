@@ -61,7 +61,7 @@ inline bool StringToValue(const ::std::string& s, float& out)
     {
         throw ::std::invalid_argument(p);
     }
-    if((errno == ERANGE) || v.inf() )
+    if((errno == ERANGE) || v.is_inf() )
     {
         throw ::std::out_of_range(p);
     }
@@ -85,7 +85,7 @@ inline bool StringToValue(const ::std::string& s, double& out)
     {
         throw ::std::invalid_argument(p);
     }
-    if((errno == ERANGE) || v.inf() )
+    if((errno == ERANGE) || v.is_inf() )
     {
         throw ::std::out_of_range(p);
     }
@@ -111,7 +111,7 @@ inline bool StringToValue(const ::std::string& s, long double& out)
     {
         throw ::std::invalid_argument(p);
     }
-    if((errno == ERANGE) || v.inf() )
+    if((errno == ERANGE) || v.is_inf() )
     {
         throw ::std::out_of_range(p);
     }
