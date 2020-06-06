@@ -311,7 +311,7 @@ $(function() {
 <div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;<span class="preprocessor">#if IUTEST_HAS_ASSERTION_RETURN</span></div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160; </div>
 <div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> R&gt;</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    R operator = (<span class="keyword">const</span> ReturnTypedFixed&lt;R&gt;&amp; fixed)</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    R operator = (<span class="keyword">const</span> ReturnTypedFixed&lt;R&gt;&amp; fixed) <span class="comment">// lgtm [cpp/assignment-does-not-return-this]</span></div>
 <div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    {</div>
 <div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        this-&gt;operator=(fixed.fixed);</div>
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        <span class="keywordflow">return</span> fixed.ret.value;</div>
@@ -1277,7 +1277,7 @@ $(function() {
 <div class="ttc" id="astructiutest_1_1_assertion_return_type_html"><div class="ttname"><a href="../../dd/d41/structiutest_1_1_assertion_return_type.html">iutest::AssertionReturnType</a></div><div class="ttdoc">Assetion Return Type</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:144</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年06月03日(水) 23時45分50秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年06月06日(土) 05時22分51秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
