@@ -112,7 +112,8 @@ def setup(options):
 def get_ini(ini, s, n):
     try:
         return ini.get(s, n)
-    except:
+    except Exception as e:
+        print(e)
         return None
 
 

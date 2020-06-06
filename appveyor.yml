@@ -94,6 +94,7 @@ skip_commits:
     - .bandit
     - .editorconfig
     - .hadolint.yaml
+    - .lgtm.yaml
     - tox.ini
     - azure-pipelines.yml
     - bitrise.yml
