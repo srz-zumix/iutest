@@ -55,10 +55,10 @@ inline bool StringToValue(const ::std::string& s, float& out)
     char* endptr=NULL;
     const char* p = s.c_str();
     errno = 0;
-#if !defined(IUTEST_OS_WINDOWS_MINGW) || defined(__USE_MINGW_STRTOX)
+#if !defined(IUTEST_OS_WINDOWS_MINGW) || !defined(__STRICT_ANSI__)
     const floating_point<float> v = strtof(p, &endptr);
 #else
-    const floating_point<float> v = __strtof(p, &endptr);
+    const floating_point<float> v = static_cast<float>(strtod(p, &endptr));
 #endif
 #if IUTEST_HAS_EXCEPTIONS
     if(p == endptr)
