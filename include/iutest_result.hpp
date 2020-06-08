@@ -75,9 +75,6 @@ public:
     */
     TestPartResult(const char* file, int line, const char* message, Type type)
         : detail::iuCodeMessage(file, line, message), m_type(type) {}
-    //! コピーコンストラクタ
-    TestPartResult(const TestPartResult& rhs) : detail::iuCodeMessage(rhs)
-        , m_type(rhs.m_type) {}
 
 public:
     /**
