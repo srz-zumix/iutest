@@ -78,3 +78,4 @@ docs/* linguist-documentation
 .ci/* linguist-documentation
 .circleci/* linguist-documentation
 .github/* linguist-documentation
+.semaphore/* linguist-documentation
