@@ -101,6 +101,6 @@ jobs:
         args: -o lizard.html --html
     - name: Archive code metrics results
       uses: actions/upload-artifact@v1
-    with:
-      name: lizard.html
-      path: lizard.html
+      with:
+        name: lizard.html
+        path: lizard.html
