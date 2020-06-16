@@ -98,7 +98,7 @@ jobs:
     - name: Lizard
       uses: docker://srzzumix/lizard
       with:
-        args: -o lizard.html --html
+        args: -o lizard.html --html ./include
     - name: Archive code metrics results
       uses: actions/upload-artifact@v1
       with:
