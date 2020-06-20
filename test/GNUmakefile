@@ -40,10 +40,12 @@ include CommonMakefile.in
 # Optimize
 #OPTIMIZE=-O2
 
-STRICT_CXXFLAGS:= -Wsystem-headers -Wformat=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wpointer-arith
+STRICT_CXXFLAGS:= -Wformat=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wpointer-arith
 # STRICT_CXXFLAGS+= -Wfloat-equal
 # Necessary for peep class operator
 # STRICT_CXXFLAGS+= -Wconversion
+STRICT_CXXFLAGS+= -Wsystem-headers
+STRICT_CXXFLAGS+= -Wno-nullability-completeness -Wno-expansion-to-defined
 
 CXXFLAGS += -g -Wall -Wextra $(STRICT_CXXFLAGS) $(OPTIMIZE)
 
