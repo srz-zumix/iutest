@@ -51,18 +51,13 @@ IUTEST_AP(AnyParamTest, Test)
 
 IUTEST_INSTANTIATE_TEST_CASE_AP(My1, AnyParamTest, ::iutest::Values(0));
 
-namespace workaround
-{
-
 IUTEST_AP(AnyParamTest2, Test)
 {
     const ::std::string value = GetParam< ::std::string >();
     IUTEST_ASSERT_EQ("0", value);
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_AP(My2, AnyParamTest2, ::iutest::Values("0"));
-
-} // end of namespace workaround
+IUTEST_INSTANTIATE_TEST_CASE_AP(My1, AnyParamTest2, ::iutest::Values("0"));
 
 #endif
 
