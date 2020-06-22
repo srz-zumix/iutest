@@ -241,12 +241,14 @@
 #endif
 
 #define IIUT_TEST_AP_FIXTURE_NAME_(testcase_) IUTEST_PP_CAT(iuTestWithAny, testcase_)
+#define IIUT_ALIAS_TESTNAME_AP_(testcase_)    IUTEST_ALIAS_TESTNAME_F(testcase_, IIUT_TEST_AP_FIXTURE_NAME_(testcase_))
+
 #define IUTEST_TEST_AP_(testcase_, testname_) \
-    typedef ::iutest::TestWithAny IIUT_TEST_AP_FIXTURE_NAME_(testcast_);  \
-    IUTEST_TEST_P_(IUTEST_ALIAS_TESTNAME_F(testcase_, IIUT_TEST_AP_FIXTURE_NAME_(testcase_)), testname_)
+    typedef ::iutest::TestWithAny IIUT_TEST_AP_FIXTURE_NAME_(testcase_);  \
+    IUTEST_TEST_P_(IIUT_ALIAS_TESTNAME_AP_(testcase_), testname_)
 
 #define IIUT_INSTANTIATE_TEST_CASE_AP_(prefix_, testcase_, generator_) \
-    IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, IUTEST_ALIAS_TESTNAME_F(testcase_, IIUT_TEST_AP_FIXTURE_NAME_(testcase_)), generator_)
+    IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, IIUT_ALIAS_TESTNAME_AP_(testcase_), generator_)
 
 
 #define IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)     IIUT_TEST_P_EVALGENERATOR_NAME_I(prefix_, IIUT_TO_VARNAME_(testcase_))
