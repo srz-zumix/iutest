@@ -1,7 +1,7 @@
 #
 # GNUMakefile
 #
-# Copyright (C) 2017-2019, Takazumi Shirayanagi
+# Copyright (C) 2017-2020, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -45,7 +45,7 @@ STRICT_CXXFLAGS:= -Wformat=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wpointer-
 # Necessary for peep class operator
 # STRICT_CXXFLAGS+= -Wconversion
 STRICT_CXXFLAGS+= -Wsystem-headers
-STRICT_CXXFLAGS+= -Wno-nullability-completeness -Wno-expansion-to-defined
+STRICT_CXXFLAGS+= -Wno-nullability-completeness -Wno-expansion-to-defined -Wno-c++11-inline-namespace -Wno-keyword-compat
 
 CXXFLAGS += -g -Wall -Wextra $(STRICT_CXXFLAGS) $(OPTIMIZE)
 
