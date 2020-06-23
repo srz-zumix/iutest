@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01170009u     //!< iutest version 1.17.0.9
+#define IUTEST_VER          0x01170010u     //!< iutest version 1.17.0.10
 #define IUTEST_MAJORVER     0x01u           //!< Major Version
 #define IUTEST_MINORVER     0x17u           //!< Minor Version
 #define IUTEST_MICROVER     0x00u           //!< Micro Version
-#define IUTEST_REVISION     0x09u           //!< Revision
+#define IUTEST_REVISION     0x10u           //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -129,6 +129,7 @@ modification, are permitted provided that the following conditions are met: \n
       <li>テストをリピートした際のレポート出力ファイル名の書式を printf 書式から {I} に変更({I} にリピート回数が置換されます)</li>
       <li>Python2 のサポート終了</li>
       <li>C++20 で削除された basic_ostream::operator &lt;&lt; に対応</li>
+      <li>IUTEST_AP が同じ名前空間に複数定義できない問題を修正</li>
       <li>Google Test 旧バージョンとの互換性を修正</li>
     </ul>
   </li>
