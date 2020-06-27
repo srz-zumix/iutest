@@ -47,7 +47,7 @@ STRICT_CXXFLAGS:= -Wformat=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wpointer-
 STRICT_CXXFLAGS+= -Wsystem-headers
 STRICT_CXXFLAGS+= -Wno-nullability-completeness -Wno-expansion-to-defined -Wno-c++11-inline-namespace -Wno-keyword-compat
 STRICT_CXXFLAGS+= -Wno-cast-qual -Wno-ignored-pragma-intrinsic
-STRICT_CXXFLAGS+= -Wno-ignored-attributes -Wno-pragma-pack
+STRICT_CXXFLAGS+= -Wno-ignored-attributes -Wno-pragma-pack -Wno-unknown-pragmas
 
 CXXFLAGS += -g -Wall -Wextra $(STRICT_CXXFLAGS) $(OPTIMIZE)
 
