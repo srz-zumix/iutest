@@ -16,7 +16,7 @@ RUN apt-get update -q -y && \
     apt-get install -y --no-install-recommends software-properties-common apt-transport-https && \
     apt-get update -q -y && \
     apt-get install -y \
-        make build-essential libssl-dev zlib1g-dev libbz2-dev \
+        make cmake build-essential libssl-dev zlib1g-dev libbz2-dev \
         libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
         xz-utils tk-dev libffi-dev liblzma-dev python-openssl git \
         vim gdb iputils-ping \
