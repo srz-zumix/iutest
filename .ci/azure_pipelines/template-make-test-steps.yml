@@ -78,8 +78,7 @@ steps:
     done
     (cd test/coredump && ls -Ra)
   displayName: 'core dump unpack'
-  condition: always()
-  # condition: failed()
+  condition: failed()
 
 - task: PublishPipelineArtifact@0
   condition: failed()
