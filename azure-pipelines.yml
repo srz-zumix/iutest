@@ -14,7 +14,9 @@ trigger:
       - .editorconfig
       - .hadolint.yaml
       - .lgtm.yaml
-      - tox.ini
+      - .git*
+      - "*.ini"
+      - "*.wsf"
       - appveyor.yml
       - bitrise.yml
       - buddy.yml
