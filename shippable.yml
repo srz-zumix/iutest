@@ -25,9 +25,18 @@ build:
     - mkdir -p shippable/testresults
     - cd tools/wandbox
     - python ./iuwandbox.py --list-options ${WANDBOX_COMPILER}
-    - export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --boost nothing --encoding utf-8-sig --expand-include --verbose --check-config"
-    - python ./iuwandbox.py --iutest-use-wandbox-min ${IUWANDBOX_COMMANDLINE_OPTION} ${IUWANDBOX_ADD_OPTION} --std   "c++98" --junit ../../shippable/testresults/test_result.xml
-    - python ./iuwandbox.py --iutest-use-wandbox-min ${IUWANDBOX_COMMANDLINE_OPTION} ${IUWANDBOX_ADD_OPTION} --std "gnu++98" --junit ../../shippable/testresults/test_result_gnu.xml
+    - >
+      export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp
+        -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --boost nothing
+        --encoding utf-8-sig --expand-include --verbose --check-config"
+    - >
+      python ./iuwandbox.py --iutest-use-wandbox-min
+        ${IUWANDBOX_COMMANDLINE_OPTION} ${IUWANDBOX_ADD_OPTION} --std   "c++98"
+        --junit ../../shippable/testresults/test_result.xml
+    - >
+      python ./iuwandbox.py --iutest-use-wandbox-min
+        ${IUWANDBOX_COMMANDLINE_OPTION} ${IUWANDBOX_ADD_OPTION} --std "gnu++98"
+        --junit ../../shippable/testresults/test_result_gnu.xml
   on_success:
     - echo OK
 
