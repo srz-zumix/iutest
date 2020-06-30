@@ -48,7 +48,8 @@ STRICT_CXXFLAGS+= -Wsystem-headers
 STRICT_CXXFLAGS+= -Wno-nullability-completeness -Wno-expansion-to-defined -Wno-c++11-inline-namespace -Wno-keyword-compat
 STRICT_CXXFLAGS+= -Wno-cast-qual -Wno-ignored-pragma-intrinsic
 STRICT_CXXFLAGS+= -Wno-ignored-attributes -Wno-pragma-pack -Wno-unknown-pragmas -Wno-c++98-compat-extra-semi
-STRICT_CXXFLAGS+= -Wno-deprecated-declarations -Wno-unused-local-typedefs -Wno-return-type
+STRICT_CXXFLAGS+= -Wno-deprecated-declarations -Wno-unused-local-typedefs -Wno-return-type -Wno-unused-parameter
+STRICT_CXXFLAGS+= -Wno-parentheses -Wno-cast-align
 
 CXXFLAGS += -g -Wall -Wextra $(STRICT_CXXFLAGS) $(OPTIMIZE)
 
