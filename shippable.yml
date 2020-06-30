@@ -28,7 +28,7 @@ build:
     - >
       export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp
         -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --boost nothing
-        --encoding utf-8-sig --expand-include --verbose --check-config
+        --encoding utf-8-sig --expand-include --verbose --check-config"
     - >
       python ./iuwandbox.py --iutest-use-wandbox-min
         ${IUWANDBOX_COMMANDLINE_OPTION} ${IUWANDBOX_ADD_OPTION} --std   "c++98"
