@@ -1,5 +1,10 @@
 cirrus_gcc_test_task:
-  only_if: &default-condition $CIRRUS_BRANCH == 'master' || $CIRRUS_BRANCH == 'develop' || $CIRRUS_BRANCH =~ 'feature/.*' || $CIRRUS_BRANCH =~ 'cirrusci/.*' || $CIRRUS_BASE_BRANCH != ''
+  only_if: &default-condition >
+    $CIRRUS_BRANCH == 'master' ||
+    $CIRRUS_BRANCH == 'develop' ||
+    $CIRRUS_BRANCH =~ 'feature/.*' ||
+    $CIRRUS_BRANCH =~ 'cirrusci/.*' ||
+    $CIRRUS_BASE_BRANCH != ''
   auto_cancellation: true
   container:
     image: gcc:latest
