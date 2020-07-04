@@ -11,5 +11,5 @@ tasks:
       - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
       - make -C test -j4
       - make -C test test
-    when: branch == 'master' || branch == 'develop' || branch =~ 'razorops/.*'
+    when: branch == 'master' || branch == 'develop' || branch =~ /razorops.*/
 
