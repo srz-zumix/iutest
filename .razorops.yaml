@@ -11,7 +11,7 @@ tasks:
       - echo test
     when: >
       branch in ('master', 'develop') ||
-      branch =~ 'razorops.*'
+      branch =~ '.*razorops.*'
   centos-tests:
     image: srzzumix/gcc3:centos5
     commands:
