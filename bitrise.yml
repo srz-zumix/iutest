@@ -28,6 +28,7 @@ workflows:
         - content: |-
             #!/bin/bash
             set -ex
+            git remote rm fork || true
             bitrise run ${BITRISE_APP_TITLE}-${BITRISE_TRIGGERED_WORKFLOW_ID}
   iutest-ci:
     after_run:
