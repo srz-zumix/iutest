@@ -10,8 +10,7 @@ tasks:
     commands:
       - echo test
     when: >
-      branch in ('master', 'develop') ||
-      branch == 'razorops/update'
+      branch in ('master', 'develop', 'razorops/update')
   centos-tests:
     image: srzzumix/gcc3:centos5
     commands:
