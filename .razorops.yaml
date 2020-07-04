@@ -5,6 +5,10 @@ tasks:
   #     - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) | xargs nkf --overwrite --oc=UTF-8
   #     - make -C test -j4
   #     - make -C test test
+  hello:
+    image: srzzumix/gcc3:centos5
+    commands:
+      - echo test
   centos-tests:
     image: srzzumix/gcc3:centos5
     commands:
