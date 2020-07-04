@@ -6,7 +6,7 @@ tasks:
   #     - make -C test -j4
   #     - make -C test test
   hello:
-    image: srzzumix/gcc3:centos5
+    image: ruby:2.6
     commands:
       - echo test
   centos-tests:
