@@ -5,9 +5,18 @@ tasks:
   #     - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) | xargs nkf --overwrite --oc=UTF-8
   #     - make -C test -j4
   #     - make -C test test
+  hello:
+    image: ruby:2.6
+    commands:
+      - echo test
+    when: >
+      branch in ('master', 'develop') ||
+      branch =~ '.*razorops.*'
   centos-tests:
     image: srzzumix/gcc3:centos5
     commands:
       - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
       - make -C test -j4
       - make -C test test
+    # when: branch in ('master', 'develop') || branch =~ /razorops.*/
+
