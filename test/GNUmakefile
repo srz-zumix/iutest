@@ -50,7 +50,7 @@ STRICT_CXXFLAGS+= -Wno-cast-qual -Wno-ignored-pragma-intrinsic
 STRICT_CXXFLAGS+= -Wno-ignored-attributes -Wno-pragma-pack -Wno-unknown-pragmas -Wno-c++98-compat
 STRICT_CXXFLAGS+= -Wno-deprecated-declarations -Wno-unused-local-typedefs -Wno-return-type -Wno-unused-parameter
 STRICT_CXXFLAGS+= -Wno-parentheses -Wno-cast-align -Wno-sign-compare -Wno-implicit-fallthrough -Wno-overflow
-STRICT_CXXFLAGS+= -Wno-unknown-attributes
+STRICT_CXXFLAGS+= -Wno-unknown-attributes -Wno-ambiguous-ellipsis -Wno-format-nonliteral
 STRICT_CXXFLAGS+= -Wno-extra
 
 CXXFLAGS += -g -Wall -Wextra $(STRICT_CXXFLAGS) $(OPTIMIZE)
