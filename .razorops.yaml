@@ -8,7 +8,7 @@ tasks:
   centos:
     image: centos/devtoolset-7-toolchain-centos7:latest
     commands:
-      - make -C test -j4
+      - make -C test
       - make -C test test
     when: &condition >
       branch in ('master', 'develop') ||
