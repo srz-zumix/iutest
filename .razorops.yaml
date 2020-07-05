@@ -8,6 +8,10 @@ tasks:
   centos:
     image: centos/devtoolset-7-toolchain-centos7:latest
     commands:
+      - mkdir /build
+      - cp -r . /build
+      - cd /build
+      - ls
       - make -C test clean
       - make -C test
       - make -C test test
