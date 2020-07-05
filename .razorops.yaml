@@ -1,13 +1,57 @@
 tasks:
-  # ubuntu-tests:
-  #   image: srzzumix/gcc3:ubuntu
-  #   commands:
-  #     - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) | xargs nkf --overwrite --oc=UTF-8
-  #     - make -C test -j4
-  #     - make -C test test
-  centos-tests:
-    image: srzzumix/gcc3:centos5
+  build-image:
+    type: build
+    image: iutest/razorops_test
+    push: false
+    tags: ["latest"]
+    dockerfile: .ci/docker/centos/Dockerfile
+    context: .
+    when: &condition >
+      branch in ('master', 'develop') ||
+      branch =~ 'razorops.*'
+
+  test:
+    image: iutest/razorops_test
     commands:
-      - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
-      - make -C test -j4
-      - make -C test test
+      # - cd /iutest/test
+      - cd test
+      - make
+      - make test
+      - make clean
+    when: *condition
+
+  # build-gcc3-image:
+  #   type: build
+  #   image: iutest/razorops_gcc3
+  #   push: false
+  #   tags: ["latest"]
+  #   dockerfile: .ci/docker/centos/gcc3/Dockerfile
+  #   context: .
+  #   when: *condition
+
+  # gcc3-test:
+  #   image: iutest/razorops_gcc3
+  #   commands:
+  #     - cd /iutest/test
+  #     - make
+  #     - make test
+  #     - make clean
+  #   when: *condition
+
+  # centos7:
+  #   image: centos/devtoolset-7-toolchain-centos7:latest
+  #   commands:
+  #     - cd test
+  #     - make clean
+  #     - make
+  #     - make test
+  #     - make clean
+  #   when: *condition
+
+  # gcc3-centos5:
+  #   image: srzzumix/gcc3:centos5
+  #   commands:
+  #     - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
+  #     - make -C test
+  #     - make -C test test
+  #   when: *condition
