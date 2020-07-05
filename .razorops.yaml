@@ -5,14 +5,7 @@ tasks:
   #     - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) | xargs nkf --overwrite --oc=UTF-8
   #     - make -C test -j4
   #     - make -C test test
-  prev:
-    image: gcc
-    commands:
-      - mkdir /build
-      - cp -r . /build
-      - cd /build
-      - ls
-  centos:
+  centos7:
     image: centos/devtoolset-7-toolchain-centos7:latest
     commands:
       - mkdir /build
