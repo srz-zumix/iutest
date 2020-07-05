@@ -10,10 +10,10 @@ tasks:
   test:
     image: iutest/razorops_test
     commands:
-      - cd /iutest
-      - make -C test clean
-      - make -C test
-      - make -C test test
+      - cd /iutest/test
+      - make clean
+      - make
+      - make test
 
   centos7:
     image: centos/devtoolset-7-toolchain-centos7:latest
