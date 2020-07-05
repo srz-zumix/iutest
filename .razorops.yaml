@@ -6,10 +6,11 @@ tasks:
   #     - make -C test -j4
   #     - make -C test test
   centos:
-    image: centos/devtoolset-7-toolchain-centos7:latest
+    # image: centos/devtoolset-7-toolchain-centos7:latest
+    image: gcc
     commands:
-      - sudo make -C test
-      - sudo make -C test test
+      - make -C test
+      - make -C test test
     when: &condition >
       branch in ('master', 'develop') ||
       branch =~ 'razorops.*'
