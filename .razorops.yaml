@@ -11,7 +11,7 @@ tasks:
     image: iutest/razorops_test
     commands:
       - cd /iutest/test
-      - ls -l
+      - mkdir build
       - make clean
       - make
       - make test
