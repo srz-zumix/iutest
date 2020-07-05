@@ -19,9 +19,11 @@ tasks:
   centos7:
     image: centos/devtoolset-7-toolchain-centos7:latest
     commands:
-      - make -C test clean
-      - make -C test
-      - make -C test test
+      - cd test
+      - make clean
+      - make
+      - make test
+      - make clean
     when: &condition >
       branch in ('master', 'develop') ||
       branch =~ 'razorops.*'
