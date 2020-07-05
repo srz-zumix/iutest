@@ -13,7 +13,7 @@ tasks:
   test:
     image: iutest/razorops_test
     commands:
-      - cd /iutest/test
+      # - cd /iutest/test
       - make
       - make test
       - make clean
