@@ -5,5 +5,5 @@ USER root
 WORKDIR /iutest
 ADD . /iutest/
 
-WORKDIR /iutest/test
-RUN make && make test
+# WORKDIR /iutest/test
+# RUN make && make test
