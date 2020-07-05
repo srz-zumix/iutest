@@ -6,27 +6,28 @@ tasks:
     tags: ["latest"]
     dockerfile: .ci/docker/centos/Dockerfile
     context: .
+  when: &condition >
+    branch in ('master', 'develop') ||
+    branch =~ 'razorops.*'
 
   test:
     image: iutest/razorops_test
     commands:
       - cd /iutest/test
-      - mkdir build
-      - make clean
       - make
       - make test
+      - make clean
+    when: *condition
 
-  centos7:
-    image: centos/devtoolset-7-toolchain-centos7:latest
-    commands:
-      - cd test
-      - make clean
-      - make
-      - make test
-      - make clean
-    when: &condition >
-      branch in ('master', 'develop') ||
-      branch =~ 'razorops.*'
+  # centos7:
+  #   image: centos/devtoolset-7-toolchain-centos7:latest
+  #   commands:
+  #     - cd test
+  #     - make clean
+  #     - make
+  #     - make test
+  #     - make clean
+  #   when: *condition
 
   # gcc3-centos5:
   #   image: srzzumix/gcc3:centos5
