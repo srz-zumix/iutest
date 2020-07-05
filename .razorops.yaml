@@ -12,9 +12,9 @@ tasks:
       - cp -r . /build
       - cd /build
       - ls
-      - make -C test clean
-      - make -C test
-      - make -C test test
+      # - make -C test clean
+      # - make -C test
+      # - make -C test test
     when: &condition >
       branch in ('master', 'develop') ||
       branch =~ 'razorops.*'
