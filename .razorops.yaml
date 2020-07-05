@@ -8,7 +8,7 @@ tasks:
   centos:
     image: centos/devtoolset-7-toolchain-centos7:latest
     commands:
-      - mkdir /build
+      - mkdir /build
       - cp -r . /build
       - cd /build
       - ls
