@@ -11,7 +11,7 @@ steps:
     name: 10
     image: gcc:10
     commands:
-      - cd test
+      - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - make showcxxversion
       - make clean && make -j4 && make test && make report
     depends_on: [ clone ]
