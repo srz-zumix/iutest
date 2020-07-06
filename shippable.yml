@@ -1,6 +1,4 @@
-﻿# shippable test c++98 compile...
-
-language: c
+﻿language: c
 compiler:
   - gcc
   - clang
