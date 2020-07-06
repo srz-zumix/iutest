@@ -31,7 +31,9 @@ gtest-compat:
     - script:
         name: check
         code: |
+          pwd && ls
           docker run --rm -v $(pwd):/iutest -w /iutest ${DOCKER_IMAGE} bash -c "pwd && ls"
+          docker run --rm -v $PWD:/iutest -w /iutest ${DOCKER_IMAGE} bash -c "pwd && ls"
     - script:
         name: Use GTest
         code: |
