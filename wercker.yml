@@ -29,21 +29,20 @@ gtest-compat:
         name: Install docker
         code: apk --no-cache add docker
     - script:
-        name: check
+        name: Launch docker container
         code: |
-          pwd && ls
-          docker run --rm -v $(pwd):/iutest -w /iutest ${DOCKER_IMAGE} bash -c "pwd && ls"
-          docker run --rm -v /pipeline/source:/iutest -w /iutest ${DOCKER_IMAGE} bash -c "pwd && ls"
+          docker run --rm -d --name iutest-work -w /iutest ${DOCKER_IMAGE} bash
+          docker cp . iutest-work:/iutest
     - script:
         name: Use GTest
         code: |
-          docker run --rm -v $(pwd):/iutest -w /iutest ${DOCKER_IMAGE} \
+          docker exec iutest-work \
             make -C test USE_GTEST=1 \
             GTEST_EXPECT_VER=${GTEST_EXPECT_VERSION} GTEST_EXPECT_LATEST=${GTEST_EXPECT_LATEST} clean ${MAKE_TARGET}
     - script:
         name: Use GMock
         code: |
-          docker run --rm -v $(pwd):/iutest -w /iutest ${DOCKER_IMAGE} \
+          docker exec iutest-work \
             make -C test USE_GTEST=1 USE_GMOCK=1 \
             GTEST_EXPECT_VER=${GTEST_EXPECT_VERSION} GTEST_EXPECT_LATEST=${GTEST_EXPECT_LATEST} clean ${MAKE_TARGET}
 
