@@ -50,7 +50,7 @@ if [ -z ${INTEGROMAT_WEBHOOK_URL} ]; then
   export INTEGROMAT_WEBHOOK_URL="https://hook.integromat.com/cthwc5562x2xzx2r5ytzepi5aks9gqis"
 fi
 
-curl \
+curl -k \
   -H "Content-Type: application/json" \
   -X POST \
   -d "{\"time\": \"${DATE}\", \"ci\": \"${CI_ENV_NAME}\", \"commit\": \"${CI_ENV_GIT_COMMIT}\", \"os\": \"${PLATFORM}\", \"cxx\":\"${CXX_NAME}\", \"version\":\"${CXX_VERSION}\", \"std\":\"${STDFLAG}\" }" \
