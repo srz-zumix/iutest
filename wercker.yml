@@ -29,8 +29,8 @@ gtest-compat:
         name: Install docker
         code: apk --no-cache add docker
     - script:
-        name: Install Curl
-        code: apk --no-cache add curl
+        name: check
+        code: pwd && ls
     - script:
         name: Use GTest
         code: |
