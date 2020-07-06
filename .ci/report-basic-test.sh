@@ -1,14 +1,15 @@
 #!/bin/sh
 
 BASEDIR=$(dirname $0)
-
-wget -qO - --no-check-certificate https://raw.githubusercontent.com/srz-zumix/ci-normalize-envvars/master/ci-env.sh | sh
+wget -qO ${BASEDIR}/ci-env.sh --no-check-certificate "https://raw.githubusercontent.com/srz-zumix/ci-normalize-envvars/master/ci-env.sh"
+. ${BASEDIR}/ci-env.sh
+rm -f ${BASEDIR}/ci-env.sh
 
 lower() {
     if [ $# -eq 0 ]; then
         cat <&0
     elif [ $# -eq 1 ]; then
-        if [ -f "$1" -a -r "$1" ]; then
+        if [ -f "$1" ] && [ -r "$1" ]; then
             cat "$1"
         else
             echo "$1"
@@ -37,16 +38,16 @@ os_detect() {
 
 os_detect
 uname
-echo $PLATFORM
+echo "$PLATFORM"
 
 DATE=$(date -u)
-echo $CI_ENV_NAME
-echo $CI_ENV_GIT_COMMIT
-echo $CXX_NAME
-echo $CXX_VERSION
-echo $STDFLAG
+echo "$CI_ENV_NAME"
+echo "$CI_ENV_GIT_COMMIT"
+echo "$CXX_NAME"
+echo "$CXX_VERSION"
+echo "$STDFLAG"
 
-if [ -z ${INTEGROMAT_WEBHOOK_URL} ]; then
+if [ -z "${INTEGROMAT_WEBHOOK_URL}" ]; then
   export INTEGROMAT_WEBHOOK_URL="https://hook.integromat.com/cthwc5562x2xzx2r5ytzepi5aks9gqis"
 fi
 
