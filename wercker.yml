@@ -74,14 +74,14 @@ wandbox:
               python ./iuwandbox.py ${IUWANDBOX_EXPERIMENTAL_OPTION} ${IUWANDBOX_COMMANDLINE_OPTION} -c $compiler --std "c++${IUWANDBOX_CPPVER}" ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION};
           done
 
-    - script: &gnucpp
-        name: gnuc++
-        code: |
-          cd tools/wandbox
-          for compiler in ${IUWANDBOX_COMPILER}
-          do
-              python ./iuwandbox.py ${IUWANDBOX_EXPERIMENTAL_OPTION} ${IUWANDBOX_COMMANDLINE_OPTION} -c $compiler --std "gnu++${IUWANDBOX_CPPVER}" ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION};
-          done
+    # - script: &gnucpp
+    #     name: gnuc++
+    #     code: |
+    #       cd tools/wandbox
+    #       for compiler in ${IUWANDBOX_COMPILER}
+    #       do
+    #           python ./iuwandbox.py ${IUWANDBOX_EXPERIMENTAL_OPTION} ${IUWANDBOX_COMMANDLINE_OPTION} -c $compiler --std "gnu++${IUWANDBOX_CPPVER}" ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION};
+    #       done
 
 wandbox-no-experimental:
   steps:
@@ -89,7 +89,7 @@ wandbox-no-experimental:
     - script: *make-fused
     - script: *setup
     - script: *cpp
-    - script: *gnucpp
+    # - script: *gnucpp
 
 wandbox-all-compiler:
   steps:
