@@ -3,8 +3,7 @@ cirrus_gcc_test_task:
     $CIRRUS_BRANCH == 'master' ||
     $CIRRUS_BRANCH == 'develop' ||
     $CIRRUS_BRANCH =~ 'feature/.*' ||
-    $CIRRUS_BRANCH =~ 'cirrusci/.*' ||
-    $CIRRUS_BASE_BRANCH != ''
+    $CIRRUS_BRANCH =~ 'cirrusci/.*'
   auto_cancellation: true
   container:
     image: gcc:latest

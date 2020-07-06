@@ -38,13 +38,43 @@ trigger:
 
 pr:
   branches:
+    # base branch name filter
     include:
       - master
       - develop
       - azure-pipelines/*
       - azurepipelines/*
-      - feature/*
-      - fix/*
+  paths:
+    exclude:
+      - "*.md"
+      - docs/*
+      - Jenkinsfile
+      - LICENSE
+      - .bandit
+      - .editorconfig
+      - .hadolint.yaml
+      - .lgtm.yaml
+      - .git*
+      - "*.ini"
+      - "*.wsf"
+      - appveyor.yml
+      - bitrise.yml
+      - buddy.yml
+      - .circleci/*
+      - .cirrus.yml
+      - .scrutinizer.yml
+      - codecov.yml
+      - codefresh.yml
+      - codeship-services.yml
+      - codeship-steps.yml
+      - .drone.yml
+      - .github/*
+      - .razorops.yaml
+      - .semaphore/*
+      - shippable.yml
+      - sider.yml
+      - .travis.yml
+      - wercker.yml
 
 stages:
   - stage: Precheck
