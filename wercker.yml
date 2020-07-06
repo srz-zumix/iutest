@@ -31,7 +31,7 @@ gtest-compat:
     - script:
         name: Launch docker container
         code: |
-          docker run --rm -d --name iutest-work -w /iutest ${DOCKER_IMAGE} bash
+          docker run --rm -d -i --name iutest-work -w /iutest ${DOCKER_IMAGE} bash
           docker cp . iutest-work:/iutest
     - script:
         name: Use GTest
