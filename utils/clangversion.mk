@@ -43,6 +43,10 @@ CLANGMAJOR:=0
 CLANGMINOR:=0
 endif
 
+CXX_MAJOR=${CLANGMAJOR}
+CXX_MINOR=${CLANGMINOR}
+CXX_VERSION=${CXX_MAJOR}.${CXX_MINOR}
+
 endif
 
 ifeq ($(CXX_NAME),clang++)
@@ -131,7 +135,3 @@ CXXFLAGS+= -Xclang -flto-visibility-public-std
 endif
 
 endif
-
-CXX_MAJOR=${CLANGMAJOR}
-CXX_MINOR=${CLANGMINOR}
-CXX_VERSION=${CXX_MAJOR}.${CXX_MINOR}
