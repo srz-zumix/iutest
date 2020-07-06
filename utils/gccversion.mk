@@ -3,7 +3,7 @@
 #
 # GCC version check
 #
-# Copyright (C) 2017-2019, Takazumi Shirayanagi
+# Copyright (C) 2017-2020, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -129,3 +129,7 @@ IUTEST_CXX_WARN_FLAGS+=-Wno-missing-field-initializers
 endif
 
 endif
+
+CXX_MAJOR=${GCCMAJOR}
+CXX_MINOR=${GCCMINOR}
+CXX_VERSION=${CXX_MAJOR}.${CXX_MINOR}

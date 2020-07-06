@@ -470,4 +470,4 @@ cppcheck:
 #
 
 report:
-	./../.ci/report-basic-test.sh
+	CXX_NAME=${CXX_NAME} CXX_VERSION=${CXX_VERSION} STDFLAG=${STDFLAG} ./../.ci/report-basic-test.sh
