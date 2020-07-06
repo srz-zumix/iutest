@@ -91,6 +91,9 @@ steps:
       - make showcxxversion
       - make clean && make -j4 && make test && make report
       - make clean
+    environment:
+      CC: clang
+      CXX: clang++
     depends_on: [ clone ]
   -
     <<: *clang
@@ -184,6 +187,7 @@ steps:
     name: 10-c++03
     image: gcc:10
     commands: &syntax-test-commands
+      - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - make clean && make run_syntax_tests report ${MAKE_OPTIONS}
       - make clean && make run_syntax_tests report ${MAKE_OPTIONS} USE_GNU_EXTENSION=1
       - make clean
