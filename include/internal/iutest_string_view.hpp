@@ -24,6 +24,7 @@
 #if IUTEST_HAS_EXCEPTIONS
 #  include <stdexcept>
 #endif
+#include <climits>
 
 namespace iutest {
 namespace detail
