@@ -3,7 +3,7 @@
 #
 # Clang version check
 #
-# Copyright (C) 2017-2019, Takazumi Shirayanagi
+# Copyright (C) 2017-2020, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -131,3 +131,7 @@ CXXFLAGS+= -Xclang -flto-visibility-public-std
 endif
 
 endif
+
+CXX_MAJOR=${CLANGMAJOR}
+CXX_MINOR=${CLANGMINOR}
+CXX_VERSION=${CXX_MAJOR}.${CXX_MINOR}
