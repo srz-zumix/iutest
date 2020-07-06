@@ -30,6 +30,7 @@ gtest-compat:
         code: apk --no-cache add docker
     - script:
         name: Launch docker container
+        # https://devcenter.wercker.com/development/pipelines/direct-docker-access/#volumes-and-mounts
         code: |
           docker run --rm -d -i --name iutest-work -w /iutest ${DOCKER_IMAGE} bash
           docker cp . iutest-work:/iutest
