@@ -464,3 +464,10 @@ check_incg: $(IUTEST_INCLUDE_GUARD_CHECK)
 
 cppcheck:
 	make -C cppcheck
+
+#
+# report
+#
+
+report:
+	./../.ci/report-basic-test.sh

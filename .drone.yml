@@ -1,10 +1,86 @@
 kind: pipeline
-name: gtest-compatible-released
+name: gcc-matrix
 
 trigger:
   branch:
     - master
     - develop
+
+steps:
+  - &gcc
+    name: 10
+    image: gcc:10
+    commands:
+      - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
+      - make showcxxversion
+      - make clean && make -j4 && make test && make report
+    depends_on: [ clone ]
+  -
+    <<: *gcc
+    name: 9
+    image: gcc:9
+  -
+    <<: *gcc
+    name: 8
+    image: gcc:8
+  -
+    <<: *gcc
+    name: 7
+    image: gcc:7
+  -
+    <<: *gcc
+    name: 6
+    image: gcc:6
+  -
+    <<: *gcc
+    name: 5
+    image: gcc:5
+  -
+    <<: *gcc
+    name: 4.9
+    image: gcc:4.9
+  -
+    <<: *gcc
+    name: 4.8
+    image: gcc:4.8
+  -
+    <<: *gcc
+    name: 4.7
+    image: gcc:4.7
+  -
+    <<: *gcc
+    name: 4.6
+    image: gcc:4.6
+  -
+    <<: *gcc
+    name: latest
+    image: gcc:latest
+    when:
+      branch:
+        exclude:
+          - master
+  -
+    <<: *gcc
+    name: 3
+    image: srzzumix/gcc3:centos5
+    commands:
+      - "cp -R ./ ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
+      - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
+      - cd test
+      - make showcxxversion
+      - make clean && make -j4 && make test && make report
+
+
+---
+
+kind: pipeline
+name: gtest-compatible-released
+
+trigger:
+  branch:
+    - drone/*
+    # - master
+    # - develop
     # - feature/*
     # - fix/*
     # - drone/*
@@ -145,8 +221,9 @@ name: gtest-version-detect
 
 trigger:
   branch:
-    - master
-    - develop
+    - drone/*
+    # - master
+    # - develop
     # - feature/*
     # - fix/*
     # - drone/*
