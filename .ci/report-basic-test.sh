@@ -1,9 +1,9 @@
 #!/bin/sh
 
 BASEDIR=$(dirname $0)
-wget -qO ${BASEDIR}/ci-env.sh --no-check-certificate "https://raw.githubusercontent.com/srz-zumix/ci-normalize-envvars/master/ci-env.sh"
-. ${BASEDIR}/ci-env.sh
-rm -f ${BASEDIR}/ci-env.sh
+wget -qO "${BASEDIR}/ci-env.sh" --no-check-certificate "https://raw.githubusercontent.com/srz-zumix/ci-normalize-envvars/master/ci-env.sh"
+. "${BASEDIR}/ci-env.sh"
+rm -f "${BASEDIR}/ci-env.sh"
 
 lower() {
     if [ $# -eq 0 ]; then
