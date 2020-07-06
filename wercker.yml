@@ -30,7 +30,8 @@ gtest-compat:
         code: apk --no-cache add docker
     - script:
         name: check
-        code: pwd && ls
+        code: |
+          docker run --rm -v $(pwd):/iutest -w /iutest ${DOCKER_IMAGE} ls
     - script:
         name: Use GTest
         code: |
