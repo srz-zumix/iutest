@@ -69,7 +69,27 @@ trigger:
 steps:
   - &clang
     name: 10
-    image: silkeh/clang:10
+    image: silkeh/clang
+    settings:
+      tags:
+        - '10'
+        - '9'
+        - '8'
+        - '7'
+        - '6'
+        - '5'
+        - '4'
+        - '3.9'
+        - '3.8'
+        - '3.7'
+        - '3.6'
+        - '3.5'
+        - '3.4'
+        - '3.3'
+        - '3.2'
+        - '3.1'
+        - '3.0'
+        - '2.9'
     commands:
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - make showcxxversion && make clean && make -j4
@@ -80,82 +100,6 @@ steps:
       CC: clang
       CXX: clang++
     depends_on: [ clone ]
-  -
-    <<: *clang
-    name: 9
-    image: silkeh/clang:9
-  -
-    <<: *clang
-    name: 8
-    image: silkeh/clang:8
-  -
-    <<: *clang
-    name: 7
-    image: silkeh/clang:7
-  -
-    <<: *clang
-    name: 6
-    image: silkeh/clang:6
-  -
-    <<: *clang
-    name: 5
-    image: silkeh/clang:5
-  -
-    <<: *clang
-    name: 4
-    image: silkeh/clang:4
-  -
-    <<: *clang
-    name: 3.9
-    image: silkeh/clang:3.9
-  -
-    <<: *clang
-    name: 3.8
-    image: silkeh/clang:3.8
-  -
-    <<: *clang
-    name: 3.7
-    image: silkeh/clang:3.7
-  -
-    <<: *clang
-    name: 3.6
-    image: silkeh/clang:3.6
-  -
-    <<: *clang
-    name: 3.5
-    image: silkeh/clang:3.5
-  -
-    <<: *clang
-    name: 3.4
-    image: silkeh/clang:3.4
-  -
-    <<: *clang
-    name: 3.3
-    image: silkeh/clang:3.3
-  -
-    <<: *clang
-    name: 3.2
-    image: silkeh/clang:3.2
-  -
-    <<: *clang
-    name: 3.1
-    image: silkeh/clang:3.1
-  -
-    <<: *clang
-    name: 3.0
-    image: silkeh/clang:3.0
-  -
-    <<: *clang
-    name: 2.9
-    image: silkeh/clang:2.9
-  -
-    <<: *clang
-    name: latest
-    image: silkeh/clang:latest
-    when:
-      branch:
-        exclude:
-          - master
 
 ---
 
