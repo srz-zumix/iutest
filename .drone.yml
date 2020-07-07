@@ -195,7 +195,7 @@ steps:
 ---
 
 kind: pipeline
-name: clang3-matrix
+name: clang2-matrix
 
 trigger:
   branch:
