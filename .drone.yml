@@ -21,22 +21,27 @@ steps:
     <<: *gcc
     name: 9
     image: gcc:9
+    depends_on: [ clone ]
   -
     <<: *gcc
     name: 8
     image: gcc:8
+    depends_on: [ 10 ]
   -
     <<: *gcc
     name: 7
     image: gcc:7
+    depends_on: [ 9 ]
   -
     <<: *gcc
     name: 6
     image: gcc:6
+    depends_on: [ 8 ]
   -
     <<: *gcc
     name: 5
     image: gcc:5
+    depends_on: [ 7 ]
   -
     <<: *gcc
     name: latest
@@ -115,7 +120,7 @@ steps:
     environment:
       CC: clang
       CXX: clang++
-    depends_on: [ clone ]
+    # depends_on: [ clone ]
   -
     <<: *clang
     name: 9
