@@ -191,12 +191,33 @@ steps:
       <<: *clang
       name: 3.0
       image: silkeh/clang:3.0
-    -
-      <<: *clang
-      name: 2.9
-      image: silkeh/clang:2.9
 
 ---
+
+  kind: pipeline
+  name: clang3-matrix
+
+  trigger:
+    branch:
+      - master
+      - develop
+
+  steps:
+    - &clang
+      name: 2.9
+      image: silkeh/clang:2.9
+      commands:
+        - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
+        - make showcxxversion && make clean && make -j4
+        - make test
+        - make report
+        - make clean
+      environment:
+        CC: clang
+        CXX: clang++
+      depends_on: [ clone ]
+
+      ---
 
 kind: pipeline
 name: cpp03
