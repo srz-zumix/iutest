@@ -141,7 +141,7 @@ steps:
     name: 3.7
     image: teeks99/clang-ubuntu:3.7
     environment:
-      MAKE_OPTIONS: SRDFLAG="-std=c++11"
+      MAKE_OPTIONS: STDFLAG="-std=c++11"
   -
     <<: *clang
     name: 3.6
