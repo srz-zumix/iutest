@@ -87,8 +87,10 @@ trigger:
 steps:
   - &clang
     name: 11
-    image: docker pull clangbuiltlinux/debian:llvm11-latest
+    image: teeks99/clang-ubuntu:11
     commands:
+      - export CC=clang-${DRONE_STEP_NAME}
+      - export CXX=clang++-${DRONE_STEP_NAME}
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - make showcxxversion && make clean && make -j4
       - make test
@@ -101,83 +103,83 @@ steps:
   -
     <<: *clang
     name: 10
-    image: docker pull clangbuiltlinux/debian:llvm10-latest
+    image: teeks99/clang-ubuntu:10
   -
     <<: *clang
     name: 9
-    image: docker pull clangbuiltlinux/debian:llvm9-latest
+    image: teeks99/clang-ubuntu:9
   -
     <<: *clang
     name: 8
-    image: docker pull clangbuiltlinux/debian:llvm8-latest
-  # -
-  #   <<: *clang
-  #   name: 7
-  #   image: docker pull clangbuiltlinux/debian:7
-  # -
-  #   <<: *clang
-  #   name: 6
-  #   image: docker pull clangbuiltlinux/debian:6
-  # -
-  #   <<: *clang
-  #   name: 5
-  #   image: docker pull clangbuiltlinux/debian:5
-  # -
-  #   <<: *clang
-  #   name: 4
-  #   image: docker pull clangbuiltlinux/debian:4
-  # -
-  #   <<: *clang
-  #   name: 3.９
-  #   image: docker pull clangbuiltlinux/debian:3.９
-  # -
-  #   <<: *clang
-  #   name: 3.8
-  #   image: docker pull clangbuiltlinux/debian:3.8
-  # -
-  #   <<: *clang
-  #   name: 3.7
-  #   image: docker pull clangbuiltlinux/debian:3.7
-  # -
-  #   <<: *clang
-  #   name: 3.6
-  #   image: docker pull clangbuiltlinux/debian:3.6
-  # -
-  #   <<: *clang
-  #   name: 3.5
-  #   image: docker pull clangbuiltlinux/debian:3.5
-  # -
-  #   <<: *clang
-  #   name: 3.4
-  #   image: docker pull clangbuiltlinux/debian:3.4
-  # -
-  #   <<: *clang
-  #   name: 3.3
-  #   image: docker pull clangbuiltlinux/debian:3.3
-  # -
-  #   <<: *clang
-  #   name: 3.2
-  #   image: docker pull clangbuiltlinux/debian:3.2
-  # -
-  #   <<: *clang
-  #   name: 3.1
-  #   image: docker pull clangbuiltlinux/debian:3.1
-  # -
-  #   <<: *clang
-  #   name: 3.0
-  #   image: docker pull clangbuiltlinux/debian:3.0
-  # -
-  #   <<: *clang
-  #   name: 2.9
-  #   image: docker pull clangbuiltlinux/debian:2.9  -
-  # -
-  #   <<: *clang
-  #   name: latest
-  #   image: docker pull clangbuiltlinux/debian:latest
-  #   when:
-  #     branch:
-  #       exclude:
-  #         - master
+    image: teeks99/clang-ubuntu:8
+  -
+    <<: *clang
+    name: 7
+    image: teeks99/clang-ubuntu:7
+  -
+    <<: *clang
+    name: 6
+    image: teeks99/clang-ubuntu:6
+  -
+    <<: *clang
+    name: 5
+    image: teeks99/clang-ubuntu:5
+  -
+    <<: *clang
+    name: 4
+    image: teeks99/clang-ubuntu:4
+  -
+    <<: *clang
+    name: 3.９
+    image: teeks99/clang-ubuntu:3.９
+  -
+    <<: *clang
+    name: 3.8
+    image: teeks99/clang-ubuntu:3.8
+  -
+    <<: *clang
+    name: 3.7
+    image: teeks99/clang-ubuntu:3.7
+  -
+    <<: *clang
+    name: 3.6
+    image: teeks99/clang-ubuntu:3.6
+  -
+    <<: *clang
+    name: 3.5
+    image: teeks99/clang-ubuntu:3.5
+  -
+    <<: *clang
+    name: 3.4
+    image: teeks99/clang-ubuntu:3.4
+  -
+    <<: *clang
+    name: 3.3
+    image: teeks99/clang-ubuntu:3.3
+  -
+    <<: *clang
+    name: 3.2
+    image: teeks99/clang-ubuntu:3.2
+  -
+    <<: *clang
+    name: 3.1
+    image: teeks99/clang-ubuntu:3.1
+  -
+    <<: *clang
+    name: 3.0
+    image: teeks99/clang-ubuntu:3.0
+  -
+    <<: *clang
+    name: 2.9
+    image: teeks99/clang-ubuntu:2.9  -
+  -
+    <<: *clang
+    name: latest
+    image: teeks99/clang-ubuntu:latest
+    when:
+      branch:
+        exclude:
+          - master
 
 ---
 
