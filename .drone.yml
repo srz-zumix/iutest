@@ -11,7 +11,6 @@ steps:
     name: 10
     image: gcc:10
     commands:
-      - set -e
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - make showcxxversion
       - make clean && make -j4 && make test && make report
@@ -66,7 +65,6 @@ steps:
     name: 3
     image: srzzumix/gcc3:centos5
     commands:
-      - set -e
       - "cp -R ./ ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
       - cd test
@@ -89,7 +87,6 @@ steps:
     name: 10
     image: silkeh/clang:10
     commands:
-      - set -e
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - make showcxxversion
       - make clean && make -j4 && make test && make report
@@ -190,7 +187,6 @@ steps:
     name: 10-c++03
     image: gcc:10
     commands: &syntax-test-commands
-      - set -e
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - make clean && make run_syntax_tests report ${MAKE_OPTIONS}
       - make clean && make run_syntax_tests report ${MAKE_OPTIONS} USE_GNU_EXTENSION=1
