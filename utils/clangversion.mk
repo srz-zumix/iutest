@@ -81,8 +81,8 @@ endif
 # c++17
 #
 
-# 4.0 later
-ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 4 \)))
+# 5.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 5 \)))
 STD_CPP17=c++17
 STD_GNU17=gnu++17
 else
