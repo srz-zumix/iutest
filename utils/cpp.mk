@@ -3,11 +3,10 @@
 #
 # c++ command help
 #
-# Copyright (C) 2019, Takazumi Shirayanagi
+# Copyright (C) 2019-2020, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
-
 
 ifeq ($(findstring c++, $(CXX)), c++)
 
