@@ -118,20 +118,20 @@ steps:
     image: teeks99/clang-ubuntu:7
   -
     <<: *clang
-    name: 6
+    name: 6.0
     image: teeks99/clang-ubuntu:6
   -
     <<: *clang
-    name: 5
+    name: 5.0
     image: teeks99/clang-ubuntu:5
   -
     <<: *clang
-    name: 4
+    name: 4.0
     image: teeks99/clang-ubuntu:4
   -
     <<: *clang
-    name: 3.９
-    image: teeks99/clang-ubuntu:3.９
+    name: 3.9
+    image: teeks99/clang-ubuntu:3.9
   -
     <<: *clang
     name: 3.8
