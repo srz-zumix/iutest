@@ -175,14 +175,6 @@ steps:
     <<: *clang
     name: 2.9
     image: teeks99/clang-ubuntu:2.9  -
-  -
-    <<: *clang
-    name: latest
-    image: teeks99/clang-ubuntu:latest
-    when:
-      branch:
-        exclude:
-          - master
 
 ---
 
