@@ -126,46 +126,46 @@ steps:
     <<: *clang
     name: 3.9
     image: silkeh/clang:3.9
-  -
-    <<: *clang
-    name: 3.8
-    image: silkeh/clang:3.8
-  -
-    <<: *clang
-    name: 3.7
-    image: silkeh/clang:3.7
-  -
-    <<: *clang
-    name: 3.6
-    image: silkeh/clang:3.6
-  -
-    <<: *clang
-    name: 3.5
-    image: silkeh/clang:3.5
-  -
-    <<: *clang
-    name: 3.4
-    image: silkeh/clang:3.4
-  -
-    <<: *clang
-    name: 3.3
-    image: silkeh/clang:3.3
-  -
-    <<: *clang
-    name: 3.2
-    image: silkeh/clang:3.2
-  -
-    <<: *clang
-    name: 3.1
-    image: silkeh/clang:3.1
-  -
-    <<: *clang
-    name: 3.0
-    image: silkeh/clang:3.0
-  -
-    <<: *clang
-    name: 2.9
-    image: silkeh/clang:2.9
+  # -
+  #   <<: *clang
+  #   name: 3.8
+  #   image: silkeh/clang:3.8
+  # -
+  #   <<: *clang
+  #   name: 3.7
+  #   image: silkeh/clang:3.7
+  # -
+  #   <<: *clang
+  #   name: 3.6
+  #   image: silkeh/clang:3.6
+  # -
+  #   <<: *clang
+  #   name: 3.5
+  #   image: silkeh/clang:3.5
+  # -
+  #   <<: *clang
+  #   name: 3.4
+  #   image: silkeh/clang:3.4
+  # -
+  #   <<: *clang
+  #   name: 3.3
+  #   image: silkeh/clang:3.3
+  # -
+  #   <<: *clang
+  #   name: 3.2
+  #   image: silkeh/clang:3.2
+  # -
+  #   <<: *clang
+  #   name: 3.1
+  #   image: silkeh/clang:3.1
+  # -
+  #   <<: *clang
+  #   name: 3.0
+  #   image: silkeh/clang:3.0
+  # -
+  #   <<: *clang
+  #   name: 2.9
+  #   image: silkeh/clang:2.9
   -
     <<: *clang
     name: latest
