@@ -8,8 +8,20 @@ trigger:
 
 steps:
   - &gcc
-    name: 10
-    image: gcc:10
+    name: gcc
+    image: gcc
+    settings:
+      tags:
+        - '10'
+        - '9'
+        - '8'
+        - '7'
+        - '6'
+        - '5'
+        - '4.9'
+        - '4.8'
+        - '4.7'
+        - '4.6'
     commands:
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - make showcxxversion && make clean && make -j4
@@ -18,51 +30,20 @@ steps:
       - make clean
     depends_on: [ clone ]
   -
-    <<: *gcc
-    name: 9
-    image: gcc:9
-  -
-    <<: *gcc
-    name: 8
-    image: gcc:8
-  -
-    <<: *gcc
-    name: 7
-    image: gcc:7
-  -
-    <<: *gcc
-    name: 6
-    image: gcc:6
-  -
-    <<: *gcc
-    name: 5
-    image: gcc:5
-  -
-    <<: *gcc
-    name: 4.9
-    image: gcc:4.9
-  -
-    <<: *gcc
-    name: 4.8
-    image: gcc:4.8
-  -
-    <<: *gcc
-    name: 4.7
-    image: gcc:4.7
-  -
-    <<: *gcc
-    name: 4.6
-    image: gcc:4.6
-  -
-    <<: *gcc
     name: latest
     image: gcc:latest
+    commands:
+      - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
+      - make showcxxversion && make clean && make -j4
+      - make test
+      - make report
+      - make clean
+    depends_on: [ clone ]
     when:
       branch:
         exclude:
           - master
   -
-    <<: *gcc
     name: 3
     image: srzzumix/gcc3:centos5
     commands:
@@ -73,6 +54,7 @@ steps:
       - make test
       - make report
       - make clean
+    depends_on: [ clone ]
 
 ---
 
@@ -126,46 +108,46 @@ steps:
     <<: *clang
     name: 3.9
     image: silkeh/clang:3.9
-  # -
-  #   <<: *clang
-  #   name: 3.8
-  #   image: silkeh/clang:3.8
-  # -
-  #   <<: *clang
-  #   name: 3.7
-  #   image: silkeh/clang:3.7
-  # -
-  #   <<: *clang
-  #   name: 3.6
-  #   image: silkeh/clang:3.6
-  # -
-  #   <<: *clang
-  #   name: 3.5
-  #   image: silkeh/clang:3.5
-  # -
-  #   <<: *clang
-  #   name: 3.4
-  #   image: silkeh/clang:3.4
-  # -
-  #   <<: *clang
-  #   name: 3.3
-  #   image: silkeh/clang:3.3
-  # -
-  #   <<: *clang
-  #   name: 3.2
-  #   image: silkeh/clang:3.2
-  # -
-  #   <<: *clang
-  #   name: 3.1
-  #   image: silkeh/clang:3.1
-  # -
-  #   <<: *clang
-  #   name: 3.0
-  #   image: silkeh/clang:3.0
-  # -
-  #   <<: *clang
-  #   name: 2.9
-  #   image: silkeh/clang:2.9
+  -
+    <<: *clang
+    name: 3.8
+    image: silkeh/clang:3.8
+  -
+    <<: *clang
+    name: 3.7
+    image: silkeh/clang:3.7
+  -
+    <<: *clang
+    name: 3.6
+    image: silkeh/clang:3.6
+  -
+    <<: *clang
+    name: 3.5
+    image: silkeh/clang:3.5
+  -
+    <<: *clang
+    name: 3.4
+    image: silkeh/clang:3.4
+  -
+    <<: *clang
+    name: 3.3
+    image: silkeh/clang:3.3
+  -
+    <<: *clang
+    name: 3.2
+    image: silkeh/clang:3.2
+  -
+    <<: *clang
+    name: 3.1
+    image: silkeh/clang:3.1
+  -
+    <<: *clang
+    name: 3.0
+    image: silkeh/clang:3.0
+  -
+    <<: *clang
+    name: 2.9
+    image: silkeh/clang:2.9
   -
     <<: *clang
     name: latest
