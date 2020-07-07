@@ -183,8 +183,9 @@ name: cpp03
 
 trigger:
   branch:
-    - master
-    - develop
+    - drone/*
+    # - master
+    # - develop
 
 steps:
   - &gcc
