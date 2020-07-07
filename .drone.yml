@@ -1,5 +1,5 @@
 kind: pipeline
-name: cxx-matrix
+name: gcc-matrix
 
 trigger:
   branch:
@@ -8,168 +8,211 @@ trigger:
 
 steps:
   - &gcc
-    name: gcc-10
+    name: 10
     image: gcc:10
     commands:
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
-      - make showcxxversion && make clean && make ${MAKE_PARALLEL}
+      - make showcxxversion && make clean && make -j4
       - make test
       - make report
       - make clean
-    environment:
-      MAKE_PARALLEL: -j1
     depends_on: [ clone ]
   -
     <<: *gcc
-    name: gcc-9
+    name: 9
     image: gcc:9
   -
     <<: *gcc
-    name: gcc-8
+    name: 8
     image: gcc:8
   -
     <<: *gcc
-    name: gcc-7
+    name: 7
     image: gcc:7
   -
     <<: *gcc
-    name: gcc-6
+    name: 6
     image: gcc:6
   -
     <<: *gcc
-    name: gcc-5
+    name: 5
     image: gcc:5
   -
     <<: *gcc
-    name: gcc-4.9
-    image: gcc:4.9
-  -
-    <<: *gcc
-    name: gcc-4.8
-    image: gcc:4.8
-  -
-    <<: *gcc
-    name: gcc-4.7
-    image: gcc:4.7
-  -
-    <<: *gcc
-    name: gcc-4.6
-    image: gcc:4.6
-  -
-    <<: *gcc
-    name: gcc-latest
+    name: latest
     image: gcc:latest
     when:
       branch:
         exclude:
           - master
+
+---
+
+kind: pipeline
+name: gcc-old-matrix
+
+trigger:
+  branch:
+    - master
+    - develop
+
+steps:
+  - &gcc
+    name: 4.9
+    image: gcc:4.9
+    commands:
+      - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
+      - make showcxxversion && make clean && make -j4
+      - make test
+      - make report
+      - make clean
+    # depends_on: [ clone ]
   -
     <<: *gcc
-    name: gcc-3
+    name: 4.8
+    image: gcc:4.8
+  -
+    <<: *gcc
+    name: 4.7
+    image: gcc:4.7
+  -
+    <<: *gcc
+    name: 4.6
+    image: gcc:4.6
+  -
+    <<: *gcc
+    name: 3
     image: srzzumix/gcc3:centos5
     commands:
       - "cp -R ./ ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
       - cd test
-      - make showcxxversion && make clean && make ${MAKE_PARALLEL}
+      - make showcxxversion && make clean && make -j4
       - make test
       - make report
       - make clean
-  - name: gcc_ok
-    image: gcc
-    commands:
-      - echo ok
-    depends_on: [ gcc-10, gcc-9, gcc-8, gcc-7, gcc-6, gcc-5, gcc-4.9, gcc-4.8, gcc-4.7, gcc-4.6 ]
 
+---
+
+kind: pipeline
+name: clang-matrix
+
+trigger:
+  branch:
+    - master
+    - develop
+
+steps:
   - &clang
-    name: clang-10
+    name: 10
     image: silkeh/clang:10
     commands:
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
-      - make showcxxversion && make clean && make ${MAKE_PARALLEL}
+      - make showcxxversion && make clean && make -j4
       - make test
       - make report
       - make clean
     environment:
       CC: clang
       CXX: clang++
-      MAKE_PARALLEL: -j1
-    depends_on: [ gcc_ok ]
+    depends_on: [ clone ]
   -
     <<: *clang
-    name: clang-9
+    name: 9
     image: silkeh/clang:9
   -
     <<: *clang
-    name: clang-8
+    name: 8
     image: silkeh/clang:8
   -
     <<: *clang
-    name: clang-7
+    name: 7
     image: silkeh/clang:7
   -
     <<: *clang
-    name: clang-6
+    name: 6
     image: silkeh/clang:6
   -
     <<: *clang
-    name: clang-5
+    name: 5
     image: silkeh/clang:5
   -
     <<: *clang
-    name: clang-4
+    name: 4
     image: silkeh/clang:4
   -
     <<: *clang
-    name: clang-3.9
-    image: silkeh/clang:3.9
-  -
-    <<: *clang
-    name: clang-3.8
-    image: silkeh/clang:3.8
-  -
-    <<: *clang
-    name: clang-3.7
-    image: silkeh/clang:3.7
-  -
-    <<: *clang
-    name: clang-3.6
-    image: silkeh/clang:3.6
-  -
-    <<: *clang
-    name: clang-3.5
-    image: silkeh/clang:3.5
-  -
-    <<: *clang
-    name: clang-3.4
-    image: silkeh/clang:3.4
-  -
-    <<: *clang
-    name: clang-3.3
-    image: silkeh/clang:3.3
-  -
-    <<: *clang
-    name: clang-3.2
-    image: silkeh/clang:3.2
-  -
-    <<: *clang
-    name: clang-3.1
-    image: silkeh/clang:3.1
-  -
-    <<: *clang
-    name: clang-3.0
-    image: silkeh/clang:3.0
-  -
-    <<: *clang
-    name: clang-2.9
-    image: silkeh/clang:2.9  -
-  - <<: *clang
-    name: clang-latest
+    name: latest
     image: silkeh/clang:latest
     when:
       branch:
         exclude:
           - master
+
+---
+
+kind: pipeline
+name: clang3-matrix
+
+trigger:
+  branch:
+    - master
+    - develop
+
+steps:
+  - &clang
+    name: 3.9
+    image: silkeh/clang:3.9
+    commands:
+      - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
+      - make showcxxversion && make clean && make -j4
+      - make test
+      - make report
+      - make clean
+    environment:
+      CC: clang
+      CXX: clang++
+    # depends_on: [ clone ]
+  -
+    <<: *clang
+    name: 3.8
+    image: silkeh/clang:3.8
+  -
+    <<: *clang
+    name: 3.7
+    image: silkeh/clang:3.7
+  -
+    <<: *clang
+    name: 3.6
+    image: silkeh/clang:3.6
+  -
+    <<: *clang
+    name: 3.5
+    image: silkeh/clang:3.5
+  -
+    <<: *clang
+    name: 3.4
+    image: silkeh/clang:3.4
+  -
+    <<: *clang
+    name: 3.3
+    image: silkeh/clang:3.3
+  -
+    <<: *clang
+    name: 3.2
+    image: silkeh/clang:3.2
+  -
+    <<: *clang
+    name: 3.1
+    image: silkeh/clang:3.1
+  -
+    <<: *clang
+    name: 3.0
+    image: silkeh/clang:3.0
+  -
+    <<: *clang
+    name: 2.9
+    image: silkeh/clang:2.9
 
 ---
 
@@ -183,7 +226,7 @@ trigger:
 
 steps:
   - &gcc-03
-    name: gcc-10-c++03
+    name: 10-c++03
     image: gcc:10
     commands: &syntax-test-commands
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
