@@ -1,10 +1,255 @@
 kind: pipeline
-name: gtest-compatible-released
+name: gcc-matrix
 
 trigger:
   branch:
     - master
     - develop
+
+steps:
+  - &gcc
+    name: 10
+    image: gcc:10
+    commands:
+      - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
+      - make showcxxversion && make clean && make -j4
+      - make test
+      - make report
+      - make clean
+    depends_on: [ clone ]
+  -
+    <<: *gcc
+    name: 9
+    image: gcc:9
+  -
+    <<: *gcc
+    name: 8
+    image: gcc:8
+  -
+    <<: *gcc
+    name: 7
+    image: gcc:7
+  -
+    <<: *gcc
+    name: 6
+    image: gcc:6
+  -
+    <<: *gcc
+    name: 5
+    image: gcc:5
+  -
+    <<: *gcc
+    name: 4.9
+    image: gcc:4.9
+  -
+    <<: *gcc
+    name: 4.8
+    image: gcc:4.8
+  -
+    <<: *gcc
+    name: 4.7
+    image: gcc:4.7
+  -
+    <<: *gcc
+    name: 4.6
+    image: gcc:4.6
+  -
+    <<: *gcc
+    name: latest
+    image: gcc:latest
+    when:
+      branch:
+        exclude:
+          - master
+  -
+    <<: *gcc
+    name: 3
+    image: srzzumix/gcc3:centos5
+    commands:
+      - "cp -R ./ ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
+      - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
+      - cd test
+      - make showcxxversion && make clean && make -j4
+      - make test
+      - make report
+      - make clean
+
+---
+
+kind: pipeline
+name: clang-matrix
+
+trigger:
+  branch:
+    - master
+    - develop
+
+steps:
+  - &clang
+    name: 10
+    image: silkeh/clang:10
+    commands:
+      - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
+      - make showcxxversion && make clean && make -j4
+      - make test
+      - make report
+      - make clean
+    environment:
+      CC: clang
+      CXX: clang++
+    depends_on: [ clone ]
+  -
+    <<: *clang
+    name: 9
+    image: silkeh/clang:9
+  -
+    <<: *clang
+    name: 8
+    image: silkeh/clang:8
+  -
+    <<: *clang
+    name: 7
+    image: silkeh/clang:7
+  -
+    <<: *clang
+    name: 6
+    image: silkeh/clang:6
+  -
+    <<: *clang
+    name: 5
+    image: silkeh/clang:5
+  -
+    <<: *clang
+    name: 4
+    image: silkeh/clang:4
+  -
+    <<: *clang
+    name: latest
+    image: silkeh/clang:latest
+    when:
+      branch:
+        exclude:
+          - master
+
+---
+
+  kind: pipeline
+  name: clang3-matrix
+
+  trigger:
+    branch:
+      - master
+      - develop
+
+  steps:
+    - &clang
+      name: 3.9
+      image: silkeh/clang:3.9
+      commands:
+        - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
+        - make showcxxversion && make clean && make -j4
+        - make test
+        - make report
+        - make clean
+      environment:
+        CC: clang
+        CXX: clang++
+      depends_on: [ clone ]
+    -
+      <<: *clang
+      name: 3.8
+      image: silkeh/clang:3.8
+    -
+      <<: *clang
+      name: 3.7
+      image: silkeh/clang:3.7
+    -
+      <<: *clang
+      name: 3.6
+      image: silkeh/clang:3.6
+    -
+      <<: *clang
+      name: 3.5
+      image: silkeh/clang:3.5
+    -
+      <<: *clang
+      name: 3.4
+      image: silkeh/clang:3.4
+    -
+      <<: *clang
+      name: 3.3
+      image: silkeh/clang:3.3
+    -
+      <<: *clang
+      name: 3.2
+      image: silkeh/clang:3.2
+    -
+      <<: *clang
+      name: 3.1
+      image: silkeh/clang:3.1
+    -
+      <<: *clang
+      name: 3.0
+      image: silkeh/clang:3.0
+
+---
+
+  kind: pipeline
+  name: clang3-matrix
+
+  trigger:
+    branch:
+      - master
+      - develop
+
+  steps:
+    - &clang
+      name: 2.9
+      image: silkeh/clang:2.9
+      commands:
+        - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
+        - make showcxxversion && make clean && make -j4
+        - make test
+        - make report
+        - make clean
+      environment:
+        CC: clang
+        CXX: clang++
+      depends_on: [ clone ]
+
+      ---
+
+kind: pipeline
+name: cpp03
+
+trigger:
+  branch:
+    - master
+    - develop
+
+steps:
+  - &gcc-03
+    name: 10-c++03
+    image: gcc:10
+    commands: &syntax-test-commands
+      - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
+      - make clean && make run_syntax_tests report ${MAKE_OPTIONS}
+      - make clean && make run_syntax_tests report ${MAKE_OPTIONS} USE_GNU_EXTENSION=1
+      - make clean
+    environment:
+      MAKE_OPTIONS: STDFLAGS=c++03
+    depends_on: [ clone ]
+
+---
+
+kind: pipeline
+name: gtest-compatible-released
+
+trigger:
+  branch:
+    - drone/*
+    # - master
+    # - develop
     # - feature/*
     # - fix/*
     # - drone/*
@@ -145,8 +390,9 @@ name: gtest-version-detect
 
 trigger:
   branch:
-    - master
-    - develop
+    - drone/*
+    # - master
+    # - develop
     # - feature/*
     # - fix/*
     # - drone/*
