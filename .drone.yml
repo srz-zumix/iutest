@@ -3,8 +3,9 @@ name: gcc-matrix
 
 trigger:
   branch:
-    - master
-    - develop
+    - drone/*
+    # - master
+    # - develop
 
 steps:
   - &gcc
@@ -99,7 +100,7 @@ steps:
     # environment:
     #   CC: clang
     #   CXX: clang++
-    # depends_on: [ clone ]
+    depends_on: [ clone ]
   # -
   #   <<: *clang
   #   name: 10
@@ -142,10 +143,10 @@ steps:
   # #   image: teeks99/clang-ubuntu:3.7
   # #   environment:
   # #     MAKE_OPTIONS: STDFLAG="-std=c++11"
-  -
-    <<: *clang
-    name: 3.6
-    image: teeks99/clang-ubuntu:3.6
+  # # -
+  # #   <<: *clang
+  # #   name: 3.6
+  # #   image: teeks99/clang-ubuntu:3.6
   -
     <<: *clang
     name: 3.5
