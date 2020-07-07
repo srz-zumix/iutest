@@ -44,46 +44,31 @@ steps:
     depends_on: [ 7 ]
   -
     <<: *gcc
+    name: 4.9
+    image: gcc:4.8
+  -
+    <<: *gcc
+    name: 4.8
+    image: gcc:4.8
+    depends_on: [ 4.9 ]
+  -
+    <<: *gcc
+    name: 4.7
+    image: gcc:4.7
+    depends_on: [ 4.7 ]
+  -
+    <<: *gcc
+    name: 4.6
+    image: gcc:4.6
+    depends_on: [ 4.6 ]
+  -
+    <<: *gcc
     name: latest
     image: gcc:latest
     when:
       branch:
         exclude:
           - master
-
----
-
-kind: pipeline
-name: gcc-old-matrix
-
-trigger:
-  branch:
-    - master
-    - develop
-
-steps:
-  - &gcc
-    name: 4.9
-    image: gcc:4.9
-    commands:
-      - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
-      - make showcxxversion && make clean && make -j4
-      - make test
-      - make report
-      - make clean
-    # depends_on: [ clone ]
-  -
-    <<: *gcc
-    name: 4.8
-    image: gcc:4.8
-  -
-    <<: *gcc
-    name: 4.7
-    image: gcc:4.7
-  -
-    <<: *gcc
-    name: 4.6
-    image: gcc:4.6
   -
     <<: *gcc
     name: 3
@@ -147,37 +132,8 @@ steps:
     image: silkeh/clang:4
   -
     <<: *clang
-    name: latest
-    image: silkeh/clang:latest
-    when:
-      branch:
-        exclude:
-          - master
-
----
-
-kind: pipeline
-name: clang3-matrix
-
-trigger:
-  branch:
-    - master
-    - develop
-
-steps:
-  - &clang
-    name: 3.9
-    image: silkeh/clang:3.9
-    commands:
-      - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
-      - make showcxxversion && make clean && make -j4
-      - make test
-      - make report
-      - make clean
-    environment:
-      CC: clang
-      CXX: clang++
-    # depends_on: [ clone ]
+    name: 3.９
+    image: silkeh/clang:3.９
   -
     <<: *clang
     name: 3.8
@@ -217,7 +173,14 @@ steps:
   -
     <<: *clang
     name: 2.9
-    image: silkeh/clang:2.9
+    image: silkeh/clang:2.9  -
+    <<: *clang
+    name: latest
+    image: silkeh/clang:latest
+    when:
+      branch:
+        exclude:
+          - master
 
 ---
 
