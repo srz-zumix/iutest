@@ -1947,6 +1947,4 @@ inline Environment* IUTEST_ATTRIBUTE_UNUSED_ AddGlobalTestEnvironment(Environmen
 #  include "internal/iutest_default_main.hpp"
 #endif
 
-aaa
-
 #endif // INCG_IRIS_IUTEST_HPP_
