@@ -537,14 +537,14 @@
 #  endif
 #  define IUTEST_HAS_TUPLE              0
 #endif
-#if !defned(IUTEST_HAS_VARIADIC_TUPLES) && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_STD_TUPLE
+#if !defined(IUTEST_HAS_VARIADIC_TUPLES) && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_STD_TUPLE
 #  if defined(__clang__) && (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ > 7))
 #    define IUTEST_HAS_VARIADIC_TUPLES  1
 #  else
 #    define IUTEST_HAS_VARIADIC_TUPLES  1
 #  endif
 #endif
-#if !defned(IUTEST_HAS_VARIADIC_TUPLES)
+#if !defined(IUTEST_HAS_VARIADIC_TUPLES)
 #  define IUTEST_HAS_VARIADIC_TUPLES    0
 #endif
 
