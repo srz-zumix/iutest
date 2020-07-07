@@ -3,8 +3,9 @@ name: gcc-matrix
 
 trigger:
   branch:
-    - master
-    - develop
+    - test
+    # - master
+    # - develop
     # - drone/*
 
 steps:
@@ -184,8 +185,9 @@ name: cpp03
 
 trigger:
   branch:
-    - master
-    - develop
+    - test
+    # - master
+    # - develop
     # - drone/*
 
 steps:
