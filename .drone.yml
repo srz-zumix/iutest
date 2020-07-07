@@ -92,7 +92,7 @@ steps:
       - export CC=clang-$${DRONE_STEP_NAME}
       - export CXX=clang++-$${DRONE_STEP_NAME}
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
-      - make showcxxversion && make clean && make -j4
+      - make showcxxversion && make clean && make -j4 $${MAKE_OPTIONS}
       - make test
       - make report
       - make clean
@@ -140,6 +140,8 @@ steps:
     <<: *clang
     name: 3.7
     image: teeks99/clang-ubuntu:3.7
+    environment:
+      MAKE_OPTIONS: SRDFLAG="-std=c++11"
   -
     <<: *clang
     name: 3.6
@@ -201,7 +203,7 @@ steps:
       - make clean && make run_syntax_tests report $${MAKE_OPTIONS} USE_GNU_EXTENSION=1
       - make clean
     environment:
-      MAKE_OPTIONS: STDFLAGS=c++03
+      MAKE_OPTIONS: STDFLAG="-std=c++03"
     # depends_on: [ clone ]
   -
     <<: *gcc
