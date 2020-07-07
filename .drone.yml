@@ -1,5 +1,5 @@
 kind: pipeline
-name: gcc-matrix
+name: cxx-matrix
 
 trigger:
   branch:
@@ -73,18 +73,12 @@ steps:
       - make test
       - make report
       - make clean
+  - name: gcc_ok
+    image: gcc
+    commands:
+      - echo ok
+    depends_on: [ 10, 9, 8, 7, 6, 5, 4.9, 4.8, 4.7, 4.6 ]
 
----
-
-kind: pipeline
-name: clang-matrix
-
-trigger:
-  branch:
-    - master
-    - develop
-
-steps:
   - &clang
     name: 10
     image: silkeh/clang:10
@@ -97,7 +91,7 @@ steps:
     environment:
       CC: clang
       CXX: clang++
-    depends_on: [ clone ]
+    depends_on: [ gcc_ok ]
   -
     <<: *clang
     name: 9
@@ -124,37 +118,8 @@ steps:
     image: silkeh/clang:4
   -
     <<: *clang
-    name: latest
-    image: silkeh/clang:latest
-    when:
-      branch:
-        exclude:
-          - master
-
----
-
-kind: pipeline
-name: clang3-matrix
-
-trigger:
-  branch:
-    - master
-    - develop
-
-steps:
-  - &clang
     name: 3.9
     image: silkeh/clang:3.9
-    commands:
-      - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
-      - make showcxxversion && make clean && make -j4
-      - make test
-      - make report
-      - make clean
-    environment:
-      CC: clang
-      CXX: clang++
-    depends_on: [ clone ]
   -
     <<: *clang
     name: 3.8
@@ -191,31 +156,17 @@ steps:
     <<: *clang
     name: 3.0
     image: silkeh/clang:3.0
-
----
-
-kind: pipeline
-name: clang2-matrix
-
-trigger:
-  branch:
-    - master
-    - develop
-
-steps:
-  - &clang
+  -
+    <<: *clang
     name: 2.9
-    image: silkeh/clang:2.9
-    commands:
-      - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
-      - make showcxxversion && make clean && make -j4
-      - make test
-      - make report
-      - make clean
-    environment:
-      CC: clang
-      CXX: clang++
-    depends_on: [ clone ]
+    image: silkeh/clang:2.9  -
+    <<: *clang
+    name: latest
+    image: silkeh/clang:latest
+    when:
+      branch:
+        exclude:
+          - master
 
 ---
 
