@@ -89,8 +89,8 @@ steps:
     name: 11
     image: teeks99/clang-ubuntu:11
     commands:
-      - export CC=clang-${DRONE_STEP_NAME}
-      - export CXX=clang++-${DRONE_STEP_NAME}
+      - export CC=clang-$${DRONE_STEP_NAME}
+      - export CXX=clang++-$${DRONE_STEP_NAME}
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - make showcxxversion && make clean && make -j4
       - make test
@@ -197,8 +197,8 @@ steps:
     image: gcc:10
     commands: &syntax-test-commands
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
-      - make clean && make run_syntax_tests report ${MAKE_OPTIONS}
-      - make clean && make run_syntax_tests report ${MAKE_OPTIONS} USE_GNU_EXTENSION=1
+      - make clean && make run_syntax_tests report $${MAKE_OPTIONS}
+      - make clean && make run_syntax_tests report $${MAKE_OPTIONS} USE_GNU_EXTENSION=1
       - make clean
     environment:
       MAKE_OPTIONS: STDFLAGS=c++03
