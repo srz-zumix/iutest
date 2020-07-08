@@ -68,6 +68,51 @@
 
 /**
  * @ingroup IUTEST_ASSERT_
+ * @brief   == テスト(collection)
+ * @param   b1  = 期待値の先頭
+ * @param   e1  = 期待値の終端
+ * @param   b2  = 検査対象の先頭
+ * @param   e2  = 検査対象の終端
+*/
+#ifndef IUTEST_ASSERT_NE_COLLECTIONS
+#  define   IUTEST_ASSERT_NE_COLLECTIONS(b1, e1, b2, e2)    IUTEST_TEST_NE_COLLECTIONS(b1, e1, b2, e2, IUTEST_ASSERT_FAILURE)
+#endif
+/**
+ * @ingroup IUTEST_EXPECT_
+ * @brief   == テスト(collection)
+ * @param   b1  = 期待値の先頭
+ * @param   e1  = 期待値の終端
+ * @param   b2  = 検査対象の先頭
+ * @param   e2  = 検査対象の終端
+*/
+#ifndef IUTEST_EXPECT_NE_COLLECTIONS
+#  define   IUTEST_EXPECT_NE_COLLECTIONS(b1, e1, b2, e2)    IUTEST_TEST_NE_COLLECTIONS(b1, e1, b2, e2, IUTEST_EXPECT_FAILURE)
+#endif
+/**
+ * @ingroup IUTEST_INFORM_
+ * @brief   == テスト(collection)
+ * @param   b1  = 期待値の先頭
+ * @param   e1  = 期待値の終端
+ * @param   b2  = 検査対象の先頭
+ * @param   e2  = 検査対象の終端
+*/
+#ifndef IUTEST_INFORM_NE_COLLECTIONS
+#  define   IUTEST_INFORM_NE_COLLECTIONS(b1, e1, b2, e2)    IUTEST_TEST_NE_COLLECTIONS(b1, e1, b2, e2, IUTEST_INFORM_FAILURE)
+#endif
+/**
+ * @ingroup IUTEST_ASSUME_
+ * @brief   == テスト(collection)
+ * @param   b1  = 期待値の先頭
+ * @param   e1  = 期待値の終端
+ * @param   b2  = 検査対象の先頭
+ * @param   e2  = 検査対象の終端
+*/
+#ifndef IUTEST_ASSUME_NE_COLLECTIONS
+#  define   IUTEST_ASSUME_NE_COLLECTIONS(b1, e1, b2, e2)    IUTEST_TEST_NE_COLLECTIONS(b1, e1, b2, e2, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
+ * @ingroup IUTEST_ASSERT_
  * @brief   == テスト(range)
  * @param   expected    = 期待値
  * @param   actual      = 検査対象
@@ -101,6 +146,43 @@
 */
 #ifndef IUTEST_ASSUME_EQ_RANGE
 #  define   IUTEST_ASSUME_EQ_RANGE(expected, actual)    IUTEST_TEST_EQ_RANGE(expected, actual, IUTEST_ASSUME_FAILURE)
+#endif
+
+/**
+ * @ingroup IUTEST_ASSERT_
+ * @brief   == テスト(range)
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_ASSERT_NE_RANGE
+#  define   IUTEST_ASSERT_NE_RANGE(expected, actual)    IUTEST_TEST_NE_RANGE(expected, actual, IUTEST_ASSERT_FAILURE)
+#endif
+/**
+ * @ingroup IUTEST_EXPECT_
+ * @brief   == テスト(range)
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_EXPECT_NE_RANGE
+#  define   IUTEST_EXPECT_NE_RANGE(expected, actual)    IUTEST_TEST_NE_RANGE(expected, actual, IUTEST_EXPECT_FAILURE)
+#endif
+/**
+ * @ingroup IUTEST_INFORM_
+ * @brief   == テスト(range)
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_INFORM_NE_RANGE
+#  define   IUTEST_INFORM_NE_RANGE(expected, actual)    IUTEST_TEST_NE_RANGE(expected, actual, IUTEST_INFORM_FAILURE)
+#endif
+/**
+ * @ingroup IUTEST_ASSUME_
+ * @brief   == テスト(range)
+ * @param   expected    = 期待値
+ * @param   actual      = 検査対象
+*/
+#ifndef IUTEST_ASSUME_NE_RANGE
+#  define   IUTEST_ASSUME_NE_RANGE(expected, actual)    IUTEST_TEST_NE_RANGE(expected, actual, IUTEST_ASSUME_FAILURE)
 #endif
 
 /**
@@ -394,25 +476,33 @@
 #ifndef IUTEST_NO_UTIL_ASSERTION_GTEST_COMPATIBLE
 
 #define ASSERT_EQ_COLLECTIONS   IUTEST_ASSERT_EQ_COLLECTIONS
+#define ASSERT_NE_COLLECTIONS   IUTEST_ASSERT_NE_COLLECTIONS
 #define ASSERT_EQ_RANGE         IUTEST_ASSERT_EQ_RANGE
+#define ASSERT_NE_RANGE         IUTEST_ASSERT_NE_RANGE
 #define ASSERT_STRLNEQ          IUTEST_ASSERT_STRLNEQ
 #define ASSERT_STRIN            IUTEST_ASSERT_STRIN
 #define ASSERT_STRNOTIN         IUTEST_ASSERT_STRNOTIN
 
 #define EXPECT_EQ_COLLECTIONS   IUTEST_EXPECT_EQ_COLLECTIONS
+#define EXPECT_NE_COLLECTIONS   IUTEST_EXPECT_NE_COLLECTIONS
 #define EXPECT_EQ_RANGE         IUTEST_EXPECT_EQ_RANGE
+#define EXPECT_NE_RANGE         IUTEST_EXPECT_NE_RANGE
 #define EXPECT_STRLNEQ          IUTEST_EXPECT_STRLNEQ
 #define EXPECT_STRIN            IUTEST_EXPECT_STRIN
 #define EXPECT_STRNOTIN         IUTEST_EXPECT_STRNOTIN
 
 #define INFORM_EQ_COLLECTIONS   IUTEST_INFORM_EQ_COLLECTIONS
+#define INFORM_NE_COLLECTIONS   IUTEST_INFORM_NE_COLLECTIONS
 #define INFORM_EQ_RANGE         IUTEST_INFORM_EQ_RANGE
+#define INFORM_NE_RANGE         IUTEST_INFORM_NE_RANGE
 #define INFORM_STRLNEQ          IUTEST_INFORM_STRLNEQ
 #define INFORM_STRIN            IUTEST_INFORM_STRIN
 #define INFORM_STRNOTIN         IUTEST_INFORM_STRNOTIN
 
 #define ASSUME_EQ_COLLECTIONS   IUTEST_ASSUME_EQ_COLLECTIONS
+#define ASSUME_NE_COLLECTIONS   IUTEST_ASSUME_NE_COLLECTIONS
 #define ASSUME_EQ_RANGE         IUTEST_ASSUME_EQ_RANGE
+#define ASSUME_NE_RANGE         IUTEST_ASSUME_NE_RANGE
 #define ASSUME_STRLNEQ          IUTEST_ASSUME_STRLNEQ
 #define ASSUME_STRIN            IUTEST_ASSUME_STRIN
 #define ASSUME_STRNOTIN         IUTEST_ASSUME_STRNOTIN
@@ -452,7 +542,9 @@
  * @{
 */
 #define IUTEST_TEST_EQ_COLLECTIONS(b1, e1, b2, e2, on_failure)  IUTEST_PRED_FORMAT4_( ::iuutil::CmpHelperEqCollections, b1, e1, b2, e2, on_failure)
+#define IUTEST_TEST_NE_COLLECTIONS(b1, e1, b2, e2, on_failure)  IUTEST_PRED_FORMAT4_( ::iuutil::CmpHelperNeCollections, b1, e1, b2, e2, on_failure)
 #define IUTEST_TEST_EQ_RANGE(expected, actual, on_failure)      IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperEqRange, expected, actual, on_failure)
+#define IUTEST_TEST_NE_RANGE(expected, actual, on_failure)      IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperNeRange, expected, actual, on_failure)
 
 #define IUTEST_TEST_STRLNEQ(len, v2, on_failure)                IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRLNEQ, len, v2, on_failure )
 #define IUTEST_TEST_STRIN(substr, actual, on_failure)           IUTEST_PRED_FORMAT2_( ::iuutil::CmpHelperSTRIN, substr, actual, on_failure )
@@ -517,6 +609,35 @@ template<typename T1, typename T2>
     return ::iutest::AssertionSuccess();
 }
 
+template<typename T1, typename T2>
+::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNeIterator(T1 b1, T1 e1, T2 b2, T2 e2)
+{
+    int elem=0;
+    bool result = false;
+    ::iutest::Message ar;
+    for(elem=0; b1 != e1 && b2 != e2; ++b1, ++b2, ++elem)
+    {
+        if(!::iutest::internal::backward::NeHelper<false>::Compare("", "", *b1, *b2))
+        {
+            ar << ::iutest::internal::FormatForComparisonFailureMessage(*b1, *b2);
+        }
+        else
+        {
+            result = true;
+        }
+    }
+    if( (b1 != e1) || (b2 != e2) )
+    {
+        result = true;
+    }
+    if( !result )
+    {
+        return ::iutest::AssertionFailure() << ar;
+    }
+    return ::iutest::AssertionSuccess();
+}
+
+
 /**
  * @brief   Equal Collection Helper
 */
@@ -532,6 +653,25 @@ template<typename T1, typename T2>
     else
     {
         return ::iutest::AssertionFailure() << "error: Expected: { " << expr1b << ", " << expr1e << " } == { "
+            << expr2b << ", " << expr2e << " }\n  Actual:" << GetAssertionResultMessage(ar);
+    }
+}
+
+/**
+ * @brief   Equal Collection Helper
+*/
+template<typename T1, typename T2>
+::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNeCollections(const char* expr1b, const char* expr1e
+    , const char* expr2b, const char* expr2e
+    , T1 b1, T1 e1, T2 b2, T2 e2)
+{
+    if( ::iutest::AssertionResult ar = CmpHelperNeIterator(b1, e1, b2, e2) )
+    {
+        return ::iutest::AssertionSuccess();
+    }
+    else
+    {
+        return ::iutest::AssertionFailure() << "error: Expected: { " << expr1b << ", " << expr1e << " } != { "
             << expr2b << ", " << expr2e << " }\n  Actual:" << GetAssertionResultMessage(ar);
     }
 }
@@ -566,6 +706,26 @@ template<typename T1, typename T2>
     IUTEST_USING_BEGIN_END();
     return detail::CmpHelperEqRange(expected_expr, actual_expr, begin(expected), end(expected)
         , begin(actual), end(actual));
+}
+
+/**
+ * @brief   Not Equal Range Helper
+*/
+template<typename T1, typename T2>
+::iutest::AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNeRange(const char* expected_expr, const char* actual_expr
+    , const T1& expected, const T2& actual)
+{
+    IUTEST_USING_BEGIN_END();
+    if( ::iutest::AssertionResult ar =
+        CmpHelperNeIterator(begin(expected), end(expected), begin(actual), end(actual)))
+    {
+        return ::iutest::AssertionSuccess();
+    }
+    else
+    {
+        return ::iutest::AssertionFailure() << "error: Expected: " << expected_expr << " != " << actual_expr
+            << " \n  Actual:" << actual;
+    }
 }
 
 /**

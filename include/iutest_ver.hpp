@@ -124,6 +124,8 @@ modification, are permitted provided that the following conditions are met: \n
   <li>v1.17.1.0
     <ul>
       <li>GTEST_SKIP 対応</li>
+      <li>IUTEST_*_NE_RANGE アサーションを追加</li>
+      <li>IUTEST_*_NE_COLLECTIONS アサーションを追加</li>
       <li>::std::wstring_view / ::std::u16string_view / ::std::u32string_view 対応</li>
       <li>アサーションに operator &lt;&lt; したときの出力を PrintToString したものと同じになるように変更</li>
       <li>テストをリピートした際のレポート出力ファイル名の書式を printf 書式から {I} に変更({I} にリピート回数が置換されます)</li>
