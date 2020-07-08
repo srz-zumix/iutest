@@ -14,7 +14,7 @@ steps:
     image: gcc:10
     commands:
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
-      - make showcxxversion && make clean && make -j4
+      - make showcxxversion && make clean && make -j4 $${MAKE_OPTIONS}
       - make test
       - make report
       - make clean
@@ -71,7 +71,7 @@ steps:
       - "cp -R ./ ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
       - cd test
-      - make showcxxversion && make clean && make -j4
+      - make showcxxversion && make clean && make -j4 $${MAKE_OPTIONS}
       - make test
       - make report
       - make clean
@@ -181,12 +181,10 @@ steps:
       - "cp -R ./ ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
       - cd test
-      - make showcxxversion && make clean && make -j4
+      - make showcxxversion && make clean && make -j4 STDFLAG=-std=c++98
       - make test
       - make report
       - make clean
-    environment:
-      MAKE_OPTIONS: STDFLAG="-std=c++98"
 
 ---
 
