@@ -110,6 +110,7 @@ steps:
     name: 11
     image: teeks99/clang-ubuntu:11
     commands:
+      - apt-get -qq -y install curl
       - export CC=clang-$${DRONE_STEP_NAME}
       - export CXX=clang++-$${DRONE_STEP_NAME}
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
@@ -162,6 +163,7 @@ steps:
     name: 3.9
     image: teeks99/clang-ubuntu:3.9
     commands:
+      - apt-get -qq -y install curl
       - export CC=clang-$${DRONE_STEP_NAME}
       - export CXX=clang++-$${DRONE_STEP_NAME}
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
@@ -288,6 +290,7 @@ steps:
     name: 11
     image: teeks99/clang-ubuntu:11
     commands:
+      - apt-get -qq -y install curl
       - export CC=clang-$${DRONE_STEP_NAME}
       - export CXX=clang++-$${DRONE_STEP_NAME}
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"

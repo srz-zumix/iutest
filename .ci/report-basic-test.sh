@@ -2,13 +2,13 @@
 
 BASEDIR=$(dirname $0)
 
-if builtin command -v wget > /dev/null ; then
+if command -v wget > /dev/null ; then
   wget -qO ci-env.sh --no-check-certificate "https://raw.githubusercontent.com/srz-zumix/ci-normalize-envvars/master/ci-env.sh"
 else
   curl -sOL "https://raw.githubusercontent.com/srz-zumix/ci-normalize-envvars/master/ci-env.sh"
 fi
-. ci-env.sh
-rm -f ci-env.sh
+. ./ci-env.sh
+rm -f ./ci-env.sh
 
 lower() {
     if [ $# -eq 0 ]; then
