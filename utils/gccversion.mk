@@ -3,7 +3,7 @@
 #
 # GCC version check
 #
-# Copyright (C) 2017-2019, Takazumi Shirayanagi
+# Copyright (C) 2017-2020, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -29,6 +29,10 @@ space:=$(empty) $(empty)
 GCCVERSION_TEMP:=$(subst $(dot),$(space), $(GCCVERSION_TEMP))
 GCCMAJOR:=$(word 1, $(GCCVERSION_TEMP))
 GCCMINOR:=$(word 2, $(GCCVERSION_TEMP))
+
+CXX_MAJOR=${GCCMAJOR}
+CXX_MINOR=${GCCMINOR}
+CXX_VERSION=${CXX_MAJOR}.${CXX_MINOR}
 
 STD_CPP03=c++98
 STD_GNU03=gnu++98
@@ -105,8 +109,11 @@ STD_CPP=$(STD_CPP17)
 STD_GNU=$(STD_GNU17)
 endif
 
+ifndef STDFLAG_VALUE
+STDFLAG_VALUE=$(STD_CPP)
+endif
 ifndef STDFLAG
-STDFLAG=-std=$(STD_CPP)
+STDFLAG=-std=$(STDFLAG_VALUE)
 endif
 
 #
