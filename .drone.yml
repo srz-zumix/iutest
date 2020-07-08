@@ -228,7 +228,7 @@ steps:
 ---
 
 kind: pipeline
-name: cpp03
+name: cpp98
 
 trigger:
   branch:
@@ -237,7 +237,7 @@ trigger:
 
 steps:
   - &gcc
-    name: gcc-10-c++03
+    name: gcc-10-c++98
     image: gcc:10
     commands: &syntax-test-commands
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
@@ -245,43 +245,43 @@ steps:
       - make clean && make run_syntax_tests report $${MAKE_OPTIONS} USE_GNU_EXTENSION=1
       - make clean
     environment:
-      MAKE_OPTIONS: STDFLAG_VALUE=c++03
+      MAKE_OPTIONS: STDFLAG_VALUE=c++98
     # depends_on: [ clone ]
   -
     <<: *gcc
-    name: gcc-9-c++03
+    name: gcc-9-c++98
     image: gcc:9
   -
     <<: *gcc
-    name: gcc-8-c++03
+    name: gcc-8-c++98
     image: gcc:8
   -
     <<: *gcc
-    name: gcc-7-c++03
+    name: gcc-7-c++98
     image: gcc:7
   -
     <<: *gcc
-    name: gcc-6-c++03
+    name: gcc-6-c++98
     image: gcc:6
   -
     <<: *gcc
-    name: gcc-5-c++03
+    name: gcc-5-c++98
     image: gcc:5
   -
     <<: *gcc
-    name: gcc-4.9-c++03
+    name: gcc-4.9-c++98
     image: gcc:4.9
   -
     <<: *gcc
-    name: gcc-4.8-c++03
+    name: gcc-4.8-c++98
     image: gcc:4.8
   -
     <<: *gcc
-    name: gcc-4.7-c++03
+    name: gcc-4.7-c++98
     image: gcc:4.7
   -
     <<: *gcc
-    name: gcc-4.6-c++03
+    name: gcc-4.6-c++98
     image: gcc:4.6
 
   - &clang
@@ -295,7 +295,7 @@ steps:
       - make clean && make run_syntax_tests report $${MAKE_OPTIONS} USE_GNU_EXTENSION=1
       - make clean
     environment:
-      MAKE_OPTIONS: STDFLAG_VALUE=c++03
+      MAKE_OPTIONS: STDFLAG_VALUE=c++98
     # depends_on: [ clone ]
   -
     <<: *clang
