@@ -43,7 +43,7 @@ const UInt32 kMaxCodePoint4 = (static_cast<UInt32>(1) << (3+3*6)) - 1;
 IUTEST_IPP_INLINE IUTEST_CXX_CONSTEXPR bool IsUtf16SurrogatePair(wchar_t first, wchar_t second)
 {
     return (sizeof(wchar_t) == 2)
-        && ((first & 0xFC00) == 0xD800) && ((second & 0xFC00) == 0xDC00);
+        && ((static_cast<UInt32>(first) & 0xFC00) == 0xD800) && ((static_cast<UInt32>(second) & 0xFC00) == 0xDC00);
 }
 /**
  * @brief   サロゲートペアからコードポイントへ変換
@@ -53,7 +53,7 @@ IUTEST_IPP_INLINE IUTEST_CXX_CONSTEXPR UInt32 CreateCodePointFromUtf16SurrogateP
     //const UInt32 mask = (1<<10) -1;   // 0x3FF
     return (sizeof(wchar_t)==2) ?
         (((first & 0x3FF) << 10) | (second & 0x3FF)) + 0x10000 :
-        static_cast<UInt32>(first); // こっちは未対応
+        static_cast<UInt32>(first); // not supported
 }
 /**
  * @brief   下位から指定ビット数のビットを取得してシフトする
