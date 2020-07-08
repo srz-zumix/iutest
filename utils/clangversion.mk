@@ -125,8 +125,11 @@ STD_CPP=$(STD_CPP17)
 STD_GNU=$(STD_GNU17)
 endif
 
+ifndef STDFLAG_VALUE
+STDFLAG_VALUE=$(STD_CPP)
+endif
 ifndef STDFLAG
-STDFLAG=-std=$(STD_CPP)
+STDFLAG=-std=$(STDFLAG_VALUE)
 endif
 #ifndef STDLIB
 #STDLIB=-stdlib=libc++
