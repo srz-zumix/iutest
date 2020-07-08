@@ -60,6 +60,19 @@ STD_GNU11=gnu++11
 NO_UNUSED_LOCAL_TYPEDEFS=-Wno-unused-local-typedefs
 
 #
+# c++11
+#
+
+# 3.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) ))
+STD_CPP11=c++11
+STD_GNU11=gnu++11
+else
+STD_CPP11=c++0x
+STD_GNU11=gnu++0x
+endif
+
+#
 # c++14
 #
 
