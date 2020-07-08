@@ -143,8 +143,6 @@ steps:
   # #   <<: *clang
   # #   name: 3.7
   # #   image: teeks99/clang-ubuntu:3.7
-  # #   environment:
-  # #     MAKE_OPTIONS: STDFLAG="-std=c++11"
   # # -
   # #   <<: *clang
   # #   name: 3.6
@@ -187,6 +185,8 @@ steps:
       - make test
       - make report
       - make clean
+    environment:
+      MAKE_OPTIONS: STDFLAG="-std=c++98"
 
 ---
 
