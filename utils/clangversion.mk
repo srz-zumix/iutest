@@ -3,7 +3,7 @@
 #
 # Clang version check
 #
-# Copyright (C) 2017-2019, Takazumi Shirayanagi
+# Copyright (C) 2017-2020, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -43,6 +43,10 @@ CLANGMAJOR:=0
 CLANGMINOR:=0
 endif
 
+CXX_MAJOR=${CLANGMAJOR}
+CXX_MINOR=${CLANGMINOR}
+CXX_VERSION=${CXX_MAJOR}.${CXX_MINOR}
+
 endif
 
 ifeq ($(CXX_NAME),clang++)
@@ -54,6 +58,19 @@ STD_CPP11=c++11
 STD_GNU11=gnu++11
 
 NO_UNUSED_LOCAL_TYPEDEFS=-Wno-unused-local-typedefs
+
+#
+# c++11
+#
+
+# 3.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) ))
+STD_CPP11=c++11
+STD_GNU11=gnu++11
+else
+STD_CPP11=c++0x
+STD_GNU11=gnu++0x
+endif
 
 #
 # c++14
@@ -77,8 +94,8 @@ endif
 # c++17
 #
 
-# 4.0 later
-ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 4 \)))
+# 5.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 5 \)))
 STD_CPP17=c++17
 STD_GNU17=gnu++17
 else
@@ -108,8 +125,11 @@ STD_CPP=$(STD_CPP17)
 STD_GNU=$(STD_GNU17)
 endif
 
+ifndef STDFLAG_VALUE
+STDFLAG_VALUE=$(STD_CPP)
+endif
 ifndef STDFLAG
-STDFLAG=-std=$(STD_CPP)
+STDFLAG=-std=$(STDFLAG_VALUE)
 endif
 #ifndef STDLIB
 #STDLIB=-stdlib=libc++
