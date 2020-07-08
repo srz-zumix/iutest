@@ -118,9 +118,13 @@
     FAILURE_MACRO( FLAVOR(_EQ_COLLECTIONS)(ab, ab+(sizeof(ab)/sizeof(ab[0])), aa, aa+(sizeof(aa)/sizeof(aa[0]))), "Mismatch element" );
     FAILURE_MACRO( FLAVOR(_EQ_COLLECTIONS)(aa, aa+(sizeof(aa)/sizeof(aa[0])), ac, ac+(sizeof(ac)/sizeof(ac[0]))), "Mismatch in a position" );
 
+    FAILURE_MACRO( FLAVOR(_NE_COLLECTIONS)(aa, aa+(sizeof(aa)/sizeof(aa[0])), aa2, aa2+(sizeof(aa2)/sizeof(aa2[0]))), "!=" );
+
     FAILURE_MACRO( FLAVOR(_EQ_RANGE)(aa, ab), "Mismatch element" );
     FAILURE_MACRO( FLAVOR(_EQ_RANGE)(ab, aa), "Mismatch element" );
     FAILURE_MACRO( FLAVOR(_EQ_RANGE)(aa, ac), "Mismatch in a position" );
+
+    FAILURE_MACRO( FLAVOR(_NE_RANGE)(aa, aa2), "!=" );
 
 #if IUTEST_HAS_REGEX
     FAILURE_MACRO( FLAVOR(_MATCHES_REGEXEQ)("te[0-9]*st", "te0123sta"), "Matches Regex (\"te[0-9]*st\")" );
