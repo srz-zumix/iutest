@@ -43,7 +43,7 @@ const UInt32 kMaxCodePoint4 = (static_cast<UInt32>(1) << (3+3*6)) - 1;
 IUTEST_IPP_INLINE IUTEST_CXX_CONSTEXPR bool IsUtf16SurrogatePair(wchar_t first, wchar_t second)
 {
     return (sizeof(wchar_t) == 2)
-        && ((first & 0xFC00) == 0xD800) && ((second & 0xFC00) == 0xDC00);
+        && ((static_cast<UInt32>(first) & 0xFC00) == 0xD800) && ((static_cast<UInt32>(second) & 0xFC00) == 0xDC00);
 }
 /**
  * @brief   サロゲートペアからコードポイントへ変換
@@ -53,7 +53,7 @@ IUTEST_IPP_INLINE IUTEST_CXX_CONSTEXPR UInt32 CreateCodePointFromUtf16SurrogateP
     //const UInt32 mask = (1<<10) -1;   // 0x3FF
     return (sizeof(wchar_t)==2) ?
         (((first & 0x3FF) << 10) | (second & 0x3FF)) + 0x10000 :
-        static_cast<UInt32>(first); // こっちは未対応
+        static_cast<UInt32>(first); // not supported
 }
 /**
  * @brief   下位から指定ビット数のビットを取得してシフトする
@@ -146,7 +146,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
     }
 #if IUTEST_HAS_CXX_HDR_CODECVT && 0
 #else
-    iu_stringstream ss;
+    std::string s;
     for(int i=0; i < num; ++i )
     {
         UInt32 code_point = 0;
@@ -164,9 +164,9 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
             code_point = static_cast<UInt32>(str[i]);
         }
         char buf[32];
-        ss << CodePointToUtf8(code_point, buf, sizeof(buf));
+        s += CodePointToUtf8(code_point, buf, sizeof(buf));
     }
-    return ss.str();
+    return s;
 #endif
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 }
