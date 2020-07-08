@@ -103,50 +103,50 @@ steps:
     #   CC: clang
     #   CXX: clang++
     depends_on: [ clone ]
-  # -
-  #   <<: *clang
-  #   name: 10
-  #   image: teeks99/clang-ubuntu:10
-  # -
-  #   <<: *clang
-  #   name: 9
-  #   image: teeks99/clang-ubuntu:9
-  # -
-  #   <<: *clang
-  #   name: 8
-  #   image: teeks99/clang-ubuntu:8
-  # -
-  #   <<: *clang
-  #   name: 7
-  #   image: teeks99/clang-ubuntu:7
-  # -
-  #   <<: *clang
-  #   name: 6.0
-  #   image: teeks99/clang-ubuntu:6
-  # -
-  #   <<: *clang
-  #   name: 5.0
-  #   image: teeks99/clang-ubuntu:5
-  # -
-  #   <<: *clang
-  #   name: 4.0
-  #   image: teeks99/clang-ubuntu:4
-  # -
-  #   <<: *clang
-  #   name: 3.9
-  #   image: teeks99/clang-ubuntu:3.9
-  # -
-  #   <<: *clang
-  #   name: 3.8
-  #   image: teeks99/clang-ubuntu:3.8
-  # -
-  # #   <<: *clang
-  # #   name: 3.7
-  # #   image: teeks99/clang-ubuntu:3.7
-  # # -
-  # #   <<: *clang
-  # #   name: 3.6
-  # #   image: teeks99/clang-ubuntu:3.6
+  -
+    <<: *clang
+    name: 10
+    image: teeks99/clang-ubuntu:10
+  -
+    <<: *clang
+    name: 9
+    image: teeks99/clang-ubuntu:9
+  -
+    <<: *clang
+    name: 8
+    image: teeks99/clang-ubuntu:8
+  -
+    <<: *clang
+    name: 7
+    image: teeks99/clang-ubuntu:7
+  -
+    <<: *clang
+    name: 6.0
+    image: teeks99/clang-ubuntu:6
+  -
+    <<: *clang
+    name: 5.0
+    image: teeks99/clang-ubuntu:5
+  -
+    <<: *clang
+    name: 4.0
+    image: teeks99/clang-ubuntu:4
+  -
+    <<: *clang
+    name: 3.9
+    image: teeks99/clang-ubuntu:3.9
+  -
+    <<: *clang
+    name: 3.8
+    image: teeks99/clang-ubuntu:3.8
+  -
+    <<: *clang
+    name: 3.7
+    image: teeks99/clang-ubuntu:3.7
+  -
+    <<: *clang
+    name: 3.6
+    image: teeks99/clang-ubuntu:3.6
   -
     <<: *clang
     name: 3.5
