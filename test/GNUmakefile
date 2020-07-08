@@ -108,14 +108,14 @@ WINE_ =
 endif
 
 ifeq ($(IUTEST_MKFLAG_CYGWIN),1)
-STDFLAG:=$(subst c++,gnu++, $(STDFLAG))
+STDFLAG:=$(subst c++,gnu++,$(STDFLAG))
 endif
 
 ifdef USE_GNU_EXTENSION
 ifeq ($(USE_GNU_EXTENSION),0)
-STDFLAG:=$(subst gnu++,c++, $(STDFLAG))
+STDFLAG:=$(subst gnu++,c++,$(STDFLAG))
 else
-STDFLAG:=$(subst c++,gnu++, $(STDFLAG))
+STDFLAG:=$(subst c++,gnu++,$(STDFLAG))
 endif
 endif
 
@@ -464,3 +464,10 @@ check_incg: $(IUTEST_INCLUDE_GUARD_CHECK)
 
 cppcheck:
 	make -C cppcheck
+
+#
+# report
+#
+
+report:
+	CXX_NAME=${CXX_NAME} CXX_VERSION=${CXX_VERSION} STDFLAG=${STDFLAG} ./../.ci/report-basic-test.sh || true
