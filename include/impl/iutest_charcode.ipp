@@ -146,7 +146,7 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
     }
 #if IUTEST_HAS_CXX_HDR_CODECVT && 0
 #else
-    iu_stringstream ss;
+    std::string s;
     for(int i=0; i < num; ++i )
     {
         UInt32 code_point = 0;
@@ -164,9 +164,9 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
             code_point = static_cast<UInt32>(str[i]);
         }
         char buf[32];
-        ss << CodePointToUtf8(code_point, buf, sizeof(buf));
+        s += CodePointToUtf8(code_point, buf, sizeof(buf));
     }
-    return ss.str();
+    return s;
 #endif
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 }
