@@ -35,8 +35,37 @@ steps:
     image: gcc:6
   -
     <<: *gcc
+    name: latest
+    image: gcc:latest
+    when:
+      branch:
+        exclude:
+          - master
+
+---
+kind: pipeline
+name: gcc-old-matrix
+
+trigger:
+  branch:
+    - master
+    - develop
+
+steps:
+  - &gcc
     name: 5
     image: gcc:5
+    commands:
+      - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
+      - make showcxxversion && make clean && make -j4 $${MAKE_OPTIONS}
+      - make test
+      - make report
+      - make clean
+    # depends_on: [ clone ]
+  # -
+  #   <<: *gcc
+  #   name: 5
+  #   image: gcc:5
   -
     <<: *gcc
     name: 4.9
@@ -53,14 +82,6 @@ steps:
     <<: *gcc
     name: 4.6
     image: gcc:4.6
-  -
-    <<: *gcc
-    name: latest
-    image: gcc:latest
-    when:
-      branch:
-        exclude:
-          - master
   -
     <<: *gcc
     name: 3
