@@ -177,6 +177,16 @@ steps:
     <<: *clang
     name: 2.9
     image: teeks99/clang-ubuntu:2.9
+    commands:
+      - export CC=clang-$${DRONE_STEP_NAME}
+      - export CXX=clang++-$${DRONE_STEP_NAME}
+      - "cp -R ./ ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
+      - find . -type f \( -name \*.hpp -or -name \*.cpp -or -name \*.ipp \) -exec sed -i -e '1s/^\xEF\xBB\xBF//' {} \;
+      - cd test
+      - make showcxxversion && make clean && make -j4
+      - make test
+      - make report
+      - make clean
 
 ---
 
