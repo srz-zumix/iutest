@@ -3,10 +3,8 @@ name: gcc-matrix
 
 trigger:
   branch:
-    - test
-    # - master
-    # - develop
-    # - drone/*
+    - master
+    - develop
 
 steps:
   - &gcc
@@ -85,7 +83,6 @@ trigger:
   branch:
     - master
     - develop
-    # - drone/*
 
 steps:
   - &clang
@@ -99,10 +96,7 @@ steps:
       - make test
       - make report
       - make clean
-    # environment:
-    #   CC: clang
-    #   CXX: clang++
-    depends_on: [ clone ]
+    # depends_on: [ clone ]
   -
     <<: *clang
     name: 10
@@ -131,10 +125,34 @@ steps:
     <<: *clang
     name: 4.0
     image: teeks99/clang-ubuntu:4
-  -
-    <<: *clang
+
+---
+
+kind: pipeline
+name: clang-old-matrix
+
+trigger:
+  branch:
+    - master
+    - develop
+
+steps:
+  - &clang
     name: 3.9
     image: teeks99/clang-ubuntu:3.9
+    commands:
+      - export CC=clang-$${DRONE_STEP_NAME}
+      - export CXX=clang++-$${DRONE_STEP_NAME}
+      - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
+      - make showcxxversion && make clean && make -j4 $${MAKE_OPTIONS}
+      - make test
+      - make report
+      - make clean
+    # depends_on: [ clone ]
+  # -
+  #   <<: *clang
+  #   name: 3.9
+  #   image: teeks99/clang-ubuntu:3.9
   -
     <<: *clang
     name: 3.8
@@ -193,10 +211,8 @@ name: cpp03
 
 trigger:
   branch:
-    - test
-    # - master
-    # - develop
-    # - drone/*
+    - master
+    - develop
 
 steps:
   - &gcc
