@@ -270,7 +270,7 @@ IUTEST(PrintToTest, SurrogatePair)
         if( s[0] == '0' )
         {
             LogChecker ck("00020BB7000091CE00005BB6");
-            IUTEST_PRINTTOSTRING_EQ(ck, s);
+            IUTEST_PRINTTOSTRING_EQ(ck, s) << sizeof(wchar_t);
             IUTEST_STREAMOUT_CHECK(p);
         }
         else if( s[0] == '?' )

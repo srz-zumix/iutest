@@ -153,6 +153,9 @@
 #    if __has_feature(cxx_nullptr)
 #      define IUTEST_HAS_NULLPTR    1
 #    endif
+#    if  (__clang_major__ < 3 || (__clang_major__ == 3 && __clang_minor__ <= 2))
+#      define IUTEST_NO_NULL_TO_NULLPTR_T   1   // -Wnull-conversion
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_NULLPTR    1
