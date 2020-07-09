@@ -724,7 +724,7 @@ template<typename T1, typename T2>
     else
     {
         return ::iutest::AssertionFailure() << "error: Expected: " << expected_expr << " != " << actual_expr
-            << " \n  Actual:" << actual;
+            << " \n  Actual:" << ::iutest::internal::FormatForComparisonFailureMessage(expected, actual);
     }
 }
 
