@@ -99,9 +99,9 @@ IUTEST(AssertionTest, EQ_COLLECTIONS_Vector)
 IUTEST(AssertionTest, NE_COLLECTIONS)
 {
     int  a[] = { 0, 1, 2, 3, 4 };
-    int  b[] = { 0, 1, 1, 3, 4 };
+    int  b[] = { 0, 1, 2, 3, 4, 5 };
     char c[] = { 0, 1, 2, 1, 4 };
-    ::std::vector<int> d = { 0, 1, 2, 3, 4, 5 };
+    ::std::vector<int> d(b+1, b+(sizeof(b)/sizeof(b[0])));
 
     IUTEST_ASSERT_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
     IUTEST_EXPECT_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
@@ -179,9 +179,9 @@ IUTEST(AssertionTest, EQ_RANGE_Vector)
 IUTEST(AssertionTest, NE_RANGE)
 {
     int  a[] = { 0, 1, 2, 3, 4 };
-    int  b[] = { 0, 1, 0, 3, 4 };
+    int  b[] = { 0, 1, 2, 3, 4, 5 };
     char c[] = { 0, 1, 2, 0, 4 };
-    ::std::vector<int> d = { 0, 1, 2, 3, 4, 5 };
+    ::std::vector<int> d(b+1, b+(sizeof(b)/sizeof(b[0])));
 
     IUTEST_ASSERT_NE_RANGE(a, b);
     IUTEST_EXPECT_NE_RANGE(a, b);
