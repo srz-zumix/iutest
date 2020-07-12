@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -148,7 +148,7 @@ IUTEST_P(TestPValuesN, TestA)
     IUTEST_ASSERT_EQ(a++, GetParam());
 }
 
-#if IUTEST_HAS_IF_EXISTS && !defined(IUTEST_USE_GTEST)
+#if IUTEST_HAS_AUTOFIXTURE_PARAM_TEST && !defined(IUTEST_USE_GTEST)
 IUTEST_P(TestPAutoAny, Test)
 {
     IUTEST_ASSERT_EQ(1, GetParam<int>());

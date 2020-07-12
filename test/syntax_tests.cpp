@@ -102,8 +102,8 @@ IUTEST(SyntaxTest, EQ)
 
 IUTEST(SyntaxTest, EQ_COLLECTIONS)
 {
-    int  a[] = { 0, 1, 2, 3, 4 };
-    int  b[] = { 0, 1, 2, 3, 4 };
+    int a[] = { 0, 1, 2, 3, 4 };
+    int b[] = { 0, 1, 2, 3, 4 };
 
     if( int size = (sizeof(a)/sizeof(a[0])) )
         IUTEST_ASSERT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
@@ -115,10 +115,25 @@ IUTEST(SyntaxTest, EQ_COLLECTIONS)
         IUTEST_ASSUME_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
 }
 
+IUTEST(SyntaxTest, NE_COLLECTIONS)
+{
+    int a[] = { 0, 1, 2, 3, 4 };
+    int b[] = { 0, 1, 5, 3, 4 };
+
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_ASSERT_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_EXPECT_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_INFORM_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_ASSUME_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
+}
+
 IUTEST(SyntaxTest, EQ_RANGE)
 {
-    int  a[] = { 0, 1, 2, 3, 4 };
-    int  b[] = { 0, 1, 2, 3, 4 };
+    int a[] = { 0, 1, 2, 3, 4 };
+    int b[] = { 0, 1, 2, 3, 4 };
 
     if( int size = (sizeof(a)/sizeof(a[0])) )
         IUTEST_ASSERT_EQ_RANGE(a, b) << size;
@@ -128,6 +143,21 @@ IUTEST(SyntaxTest, EQ_RANGE)
         IUTEST_INFORM_EQ_RANGE(a, b) << size;
     if( int size = (sizeof(a)/sizeof(a[0])) )
         IUTEST_ASSUME_EQ_RANGE(a, b) << size;
+}
+
+IUTEST(SyntaxTest, NE_RANGE)
+{
+    int a[] = { 0, 1, 2, 3, 4 };
+    int b[] = { 0, 1, 0, 3, 4 };
+
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_ASSERT_NE_RANGE(a, b) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_EXPECT_NE_RANGE(a, b) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_INFORM_NE_RANGE(a, b) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_ASSUME_NE_RANGE(a, b) << size;
 }
 
 IUTEST(SyntaxTest, NE)
@@ -869,18 +899,91 @@ IUTEST(SyntaxTest, ShowSpec)
 
 #endif
 
+#if IUTEST_HAS_TYPED_TEST
+
+template<typename T>
+class TypedPrintToTest : public ::iutest::Test {};
+typedef ::iutest::Types<char, unsigned char, short, unsigned short, int, unsigned int, long, unsigned long, int*> PrintStringTestTypes;
+IUTEST_TYPED_TEST_CASE(TypedPrintToTest, PrintStringTestTypes);
+
+IUTEST_TYPED_TEST(TypedPrintToTest, Print)
+{
+    TypeParam a = 0;
+    TypeParam& b = a;
+    const TypeParam c = a;
+    const volatile TypeParam d = a;
+
+    IUTEST_SUCCEED() << ::iutest::PrintToString(a);
+    IUTEST_SUCCEED() << ::iutest::PrintToString(b);
+    IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+    IUTEST_SUCCEED() << ::iutest::PrintToString(d);
+}
+
+#endif
+
+IUTEST(PrintToTest, RawArray)
+{
+    {
+        unsigned char a[3] = {0, 1, 2};
+        const unsigned char b[3] = {0, 1, 2};
+        const volatile unsigned char c[3] = {0, 1, 2};
+        volatile unsigned char d[3] = {0, 1, 2};
+
+        IUTEST_SUCCEED() << ::iutest::PrintToString(a);
+        IUTEST_SUCCEED() << ::iutest::PrintToString(b);
+        IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+        IUTEST_SUCCEED() << ::iutest::PrintToString(d);
+    }
+    {
+        char a[3] = {0, 1, 2};
+        const char b[3] = {0, 1, 2};
+        const volatile char c[3] = {0, 1, 2};
+        volatile char d[3] = {0, 1, 2};
+
+        IUTEST_SUCCEED() << ::iutest::PrintToString(a);
+        IUTEST_SUCCEED() << ::iutest::PrintToString(b);
+        IUTEST_SUCCEED() << ::iutest::PrintToString(c);
+        IUTEST_SUCCEED() << ::iutest::PrintToString(d);
+    }
+}
+
+#if IUTEST_HAS_IOMANIP
+IUTEST(PrintToTest, Iomanip)
+{
+    IUTEST_SUCCEED() << ::std::endl;
+    IUTEST_SUCCEED() << ::std::ends;
+}
+#endif
+
 #if IUTEST_HAS_CHAR16_T
 IUTEST(PrintToTest, U16String)
 {
-    IUTEST_SUCCEED() << ::iutest::PrintToString(u"テスト");
+    IUTEST_SUCCEED() << u"テスト";
 }
+
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+IUTEST(PrintToTest, U16StringStringView)
+{
+    ::std::u16string_view view = u"Hello";
+    IUTEST_SUCCEED() << view;
+}
+#endif
+
 #endif
 
 #if IUTEST_HAS_CHAR32_T
 IUTEST(PrintToTest, U32String)
 {
-    IUTEST_SUCCEED() << ::iutest::PrintToString(U"テスト");
+    IUTEST_SUCCEED() << U"テスト";
 }
+
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+IUTEST(PrintToTest, U32StringStringView)
+{
+    ::std::u32string_view view = U"Hello";
+    IUTEST_SUCCEED() << view;
+}
+#endif
 #endif
 
 #if defined(__WANDBOX__)

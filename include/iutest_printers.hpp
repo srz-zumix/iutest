@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -18,7 +18,7 @@
 //======================================================================
 // include
 #include "iutest_defs.hpp"
-#include "internal/iutest_string.hpp"
+#include "internal/iutest_string_stream.hpp"
 #include "internal/iutest_string_view.hpp"
 
 namespace iutest
@@ -37,7 +37,7 @@ inline void PrintBytesInObjectTo(const unsigned char* buf, size_t size, iu_ostre
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
     const size_t kMaxCount = detail::kValues::MaxPrintContainerCount;
     *os << size << "-Byte object < ";
-    if( buf != NULL && size > 0 )
+    if( buf != IUTEST_NULLPTR && size > 0 )
     {
         for( size_t i=0; i < size; ++i )
         {
@@ -117,8 +117,8 @@ template<typename Elem, typename Traits, typename T>
     return os;
 }
 #else
-template<typename T>
-iu_ostream& operator << (iu_ostream& os, const T& value)
+template<typename Elem, typename Traits, typename T>
+detail::iu_basic_ostream<Elem, Traits>& operator << (detail::iu_basic_ostream<Elem, Traits>& os, const T& value)
 {
     TypeWithoutFormatter::PrintValue(value, &os);
     return os;
@@ -208,7 +208,7 @@ template<typename T>
 inline void DefaultPtrPrintTo(T* ptr, iu_ostream* os
     , typename iutest_type_traits::enable_if_t< iutest_type_traits::is_convertible<T*, const void*> >::type*& = iutest_type_traits::enabler::value)
 {
-    *os << ptr;
+    *os << reinterpret_cast<iu_uintptr_t>(ptr);
 }
 template<typename T>
 inline void DefaultPtrPrintTo(T* ptr, iu_ostream* os
@@ -232,7 +232,7 @@ inline void DefaultPrintTo(IsContainerHelper::no_t
                         , iutest_type_traits::true_type
                         , T* ptr, iu_ostream* os)
 {
-    if( ptr == NULL )
+    if( ptr == IUTEST_NULLPTR )
     {
         *os << kStrings::Null;
     }
@@ -241,6 +241,62 @@ inline void DefaultPrintTo(IsContainerHelper::no_t
         DefaultPtrPrintTo<T>(ptr, os);
     }
 }
+
+
+/** @private */
+template<typename T>
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const T& value, iu_ostream* os)
+{
+    UniversalPrint(value, os);
+}
+
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char* str, iu_ostream* os)
+{
+    if( str == IUTEST_NULLPTR )
+    {
+        *os << kStrings::Null;
+    }
+    else
+    {
+        UniversalPrint(::std::string(str), os);
+    }
+}
+template<size_t N>
+void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char(&str)[N], iu_ostream* os)
+{
+    return UniversalTersePrint(static_cast<const char*>(str), os);
+}
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t* str, iu_ostream* os)
+{
+    UniversalPrint(detail::ShowAnyCString(str), os);
+}
+template<size_t N>
+void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t(&str)[N], iu_ostream* os)
+{
+    UniversalPrint(detail::ShowAnyCString(str), os);
+}
+#if IUTEST_HAS_CHAR16_T
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t* str, iu_ostream* os)
+{
+    UniversalPrint(detail::ShowAnyCString(str), os);
+}
+template<size_t N>
+void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t(&str)[N], iu_ostream* os)
+{
+    UniversalPrint(detail::ShowAnyCString(str), os);
+}
+#endif
+#if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_CXX_HDR_CUCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
+inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char32_t* str, iu_ostream* os)
+{
+    UniversalPrint(detail::ShowAnyCString(str), os);
+}
+template<size_t N>
+void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char32_t(&str)[N], iu_ostream* os)
+{
+    UniversalPrint(detail::ShowAnyCString(str), os);
+}
+#endif
 
 /**
  * @brief   文字列変換関数
@@ -260,8 +316,9 @@ inline void PrintTo(const char* c, iu_ostream* os)  { *os << c; }
 #if defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 inline void PrintTo(int v, iu_ostream* os)  { *os << v; }
 #endif
+inline void PrintTo(const ::std::string& str, iu_ostream* os)   { *os << str.c_str(); }
 template<typename CharT, typename Traits, typename Alloc>
-inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)   { *os << str.c_str(); }
+inline void PrintTo(const ::std::basic_string<CharT, Traits, Alloc>& str, iu_ostream* os)   { UniversalTersePrint(str.c_str(), os); }
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 template<typename T>
 inline void PrintTo(const floating_point<T>& f, iu_ostream* os)
@@ -284,9 +341,11 @@ inline void PrintTo(const ::std::pair<T1, T2>& value, iu_ostream* os)
     *os << ")";
 }
 #endif
-// char or unsigned char の時に、 0 が NULL 文字にならないように修正
-inline void PrintTo(const char value, iu_ostream* os)
+
+template<typename T>
+void PrintToChar(const T value, iu_ostream* os)
 {
+    // char or unsigned char の時に、 0 が NULL 文字にならないように修正
     if( value == 0 )
     {
         *os << "\\0";
@@ -297,25 +356,30 @@ inline void PrintTo(const char value, iu_ostream* os)
     }
     else
     {
-        *os << "\'" << value << "\'";
+        const T str[2] = { value, 0 };
+        *os << "\'" << detail::ShowAnyCString(str) << "\'";
     }
+}
+inline void PrintTo(const char value, iu_ostream* os)
+{
+    PrintToChar(value, os);
 }
 inline void PrintTo(const wchar_t value, iu_ostream* os)
 {
-    if( value == 0 )
-    {
-        *os << "\\0";
-    }
-    else if( value < 0x20 )
-    {
-        *os << static_cast<int>(value);
-    }
-    else
-    {
-        const wchar_t str[2] = { value, L'\0' };
-        *os << "\'" << detail::ShowWideCString(str) << "\'";
-    }
+    PrintToChar(value, os);
 }
+#if IUTEST_HAS_CHAR16_T
+inline void PrintTo(const char16_t value, iu_ostream* os)
+{
+    PrintToChar(value, os);
+}
+#endif
+#if IUTEST_HAS_CHAR32_T
+inline void PrintTo(const char32_t value, iu_ostream* os)
+{
+    PrintToChar(value, os);
+}
+#endif
 inline void PrintTo(const unsigned char value, iu_ostream* os)
 {
     *os << static_cast<unsigned int>(value);
@@ -324,8 +388,8 @@ inline void PrintTo(const unsigned char value, iu_ostream* os)
 template<typename CharT, typename Traits>
 inline void PrintTo(const ::std::basic_string_view<CharT, Traits>& value, iu_ostream* os)
 {
-    const ::std::basic_string<CharT, Traits> tmp{ value };
-    *os << tmp;
+    const ::std::basic_string<CharT, Traits> str{ value };
+    UniversalTersePrint(str.c_str(), os);
 }
 #endif
 
@@ -386,7 +450,7 @@ inline ::std::string FileSystemFileTypeToString(const ::std::filesystem::file_ty
     IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, fifo);
     IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, socket);
     IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, unknown);
-#if defined(IUTEST_OS_WINDOWS)
+#if defined(IUTEST_OS_WINDOWS) && !defined(IUTEST_OS_WINDOWS_MINGW)
     IUTEST_PP_NAMESPACE_ENUM_CASE_RETURN_STRING(::std::filesystem::file_type, junction);
 #endif
     default:
@@ -495,41 +559,6 @@ IIUT_DECL_TUPLE_PRINTTO(9)
 
 #endif
 
-#endif
-
-/** @private */
-template<typename T>
-inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const T& value, iu_ostream* os)
-{
-    UniversalPrint(value, os);
-}
-
-inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char* str, iu_ostream* os)
-{
-    if( str == NULL )
-    {
-        *os << kStrings::Null;
-    }
-    else
-    {
-        UniversalPrint(::std::string(str), os);
-    }
-}
-inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const wchar_t* str, iu_ostream* os)
-{
-    UniversalPrint(detail::ShowWideCString(str), os);
-}
-#if IUTEST_HAS_CHAR16_T
-inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char16_t* str, iu_ostream* os)
-{
-    UniversalPrint(detail::ShowWideCString(str), os);
-}
-#endif
-#if IUTEST_HAS_CHAR32_T && (IUTEST_HAS_CXX_HDR_CUCHAR || IUTEST_HAS_CXX_HDR_CODECVT)
-inline void IUTEST_ATTRIBUTE_UNUSED_ UniversalTersePrint(const char32_t* str, iu_ostream* os)
-{
-    UniversalPrint(detail::ShowWideCString(str), os);
-}
 #endif
 
 /**

@@ -78,9 +78,9 @@ branches:
   only:
     - master
     - develop
-    - /feature.*/
-    - /fix.*/
-    - /appveyor.*/
+    # - /feature.*/
+    # - /fix.*/
+    # - /appveyor.*/
 
 skip_commits:
   files:
@@ -94,6 +94,7 @@ skip_commits:
     - .bandit
     - .editorconfig
     - .hadolint.yaml
+    - .lgtm.yaml
     - tox.ini
     - azure-pipelines.yml
     - bitrise.yml
@@ -107,6 +108,7 @@ skip_commits:
     - codeship-steps.yml
     - .drone.yml
     - .github/*
+    - .razorops.yaml
     - .semaphore/*
     - shippable.yml
     - sider.yml

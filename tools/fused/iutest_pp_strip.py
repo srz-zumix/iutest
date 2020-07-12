@@ -23,6 +23,7 @@ RE_PPIF = re.compile('#\s*(ifdef|ifndef|if)\s*(.*)$')
 RE_PPELIF = re.compile('#\s*elif\s*(.*)$')
 RE_PPELSE = re.compile('#\s*else\s*$')
 RE_PPENDIF = re.compile('#\s*endif')
+RE_AND = re.compile('and')
 RE_CPP_COMMENT = re.compile('^//.*')
 RE_SYSTEM_INCLUDE_REGEX = re.compile(r'^\s*#\s*include\s*<(.*)>')
 
@@ -245,15 +246,33 @@ class IutestPreprocessor:
                 return r0
         return -1
 
-    def __eval_ppif(self, expr):
-        expand = self.__expand_ppif_macro(expr)
-        expand_expr = re.sub(r'([0-9])+L', r'\1', expand)
+    def __eval_expanded_expr(self, expand_expr):
+        error = None
         try:
             r = eval(expand_expr)
             if r:
                 return (1, '1')
             else:
                 return (0, '0')
+        except Exception as e:
+            error = e
+
+        expand = expand_expr
+        if 'or' not in expand:
+            for expr in RE_AND.split(expand):
+                try:
+                    r = eval(expr)
+                    if not r:
+                        return (0, '0')
+                except Exception as e:
+                    error = e
+        raise error
+
+    def __eval_ppif(self, expr):
+        expand = self.__expand_ppif_macro(expr)
+        expand_expr = re.sub(r'([0-9])+L', r'\1', expand)
+        try:
+            return self.__eval_expanded_expr(expand_expr)
         except Exception as e:
             r = -1
             if len(expand.split()) > 1:
@@ -348,7 +367,7 @@ class IutestPreprocessor:
             brother = self.brothers[-1]
             brother.append(self.depth[-1])
             f = -1
-            if f == 1 or any(x == 1 for x in brother):
+            if any(x == 1 for x in brother):
                 f = 0
             elif all(x == 0 for x in brother):
                 f = 1
@@ -375,10 +394,10 @@ class IutestPreprocessor:
         m = RE_SYSTEM_INCLUDE_REGEX.match(line)
         if m:
             path = m.group(1)
-            if path in self.included_path[-1]:
-                return False
-            else:
-                self.included_path[-1].append(path)
+            for include_paths in self.included_path:
+                if path in include_paths:
+                    return False
+            self.included_path[-1].append(path)
         return True
 
     def __reduction(self, line):
@@ -502,10 +521,9 @@ class IutestPreprocessor:
 
     def __strip_namespace(self, line, ns):
         s = ""
-        for n in ns:
-            s += "namespace " + n + "{"
         e = ""
         for n in ns:
+            s += "namespace " + n + "{"
             e += "}"
         def __is_namespace_open_close_line(x):
             return x.startswith(s) and x.endswith(e)

@@ -591,6 +591,8 @@ struct is_convertible
 {
 };
 
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) || IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION
+
 namespace is_base_of_helper
 {
 
@@ -638,13 +640,8 @@ struct is_base_of_select<true, true, false>
 template<typename Base, typename Derived>
 class is_base_of
 {
-#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
     typedef typename remove_cv<Base>::type B;
     typedef typename remove_cv<Derived>::type D;
-#else
-    typedef Base B;
-    typedef Derived D;
-#endif
     typedef is_base_of_select<
     is_class<Base>::value
     , is_class<Derived>::value
@@ -666,11 +663,13 @@ struct is_base_of
 {
 };
 
+#endif
+
 namespace is_signed_helper
 {
 
 template<typename T, bool Arithmetic>
-struct is_signed :  public bool_constant< T(-1) < T(0) > {};
+struct is_signed :  public bool_constant< ! (T(-1) > T(0)) > {};
 
 template<typename T>
 struct is_signed<T, false> : public false_type {};
@@ -1093,6 +1092,17 @@ class function_return_type
 public:
     typedef typename impl< typename remove_cv<T>::type >::type type;
 };
+
+#if IUTEST_HAS_CXX_HDR_VARIANT && IUTEST_HAS_VARIADIC_TEMPLATES
+
+template<typename T>
+struct is_variant : public false_type {};
+
+template<typename ...T>
+struct is_variant< ::std::variant<T...> > : public true_type {};
+
+
+#endif
 
 #endif // #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 

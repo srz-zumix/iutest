@@ -11,13 +11,10 @@ import os
 import sys
 import re
 import codecs
-import argparse
 
-from time import sleep
 from argparse import ArgumentParser
+from argparse import SUPPRESS
 from wandbox import Wandbox
-from requests.exceptions import HTTPError
-from requests.exceptions import ConnectionError
 
 IUTEST_FUSED_SRC = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.min.hpp'))
 IUTEST_WANDBOX_FUSED_SRC = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.wandbox.min.hpp'))
@@ -44,7 +41,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 6.2'
+        version=u'%(prog)s version 6.3'
     )
     parser.add_argument(
         '--list-compiler',
@@ -175,7 +172,7 @@ def parse_command_line():
     parser.add_argument(
         '--make',
         action='store_true',
-        help=argparse.SUPPRESS
+        help=SUPPRESS
     )
     parser.add_argument(
         '--retry-wait',
@@ -278,7 +275,7 @@ def make_code(path, encoding, expand, includes, included_files):
                     includes['iutest.hpp'] = iutest_src
                     global iutest_incg_list
                     iutest_incg_list = IUTEST_INCG_REGEX.findall(iutest_src)
-                except:
+                except Exception:
                     print('{0} is not found...'.format(fused_src))
                     print('please try \"make fused\"')
                     exit(1)
@@ -410,7 +407,6 @@ def create_option_list(options):
 #        if options.compiler in ['clang-3.4', 'clang-3.3']:
 #            if not options.boost:
 #                options.boost = 'nothing'
-        pass
     if options.boost:
         if options.compiler not in options.boost:
             options.boost = options.boost + '-' + options.compiler
@@ -446,27 +442,7 @@ def expand_wandbox_options(w, compiler, options):
 
 
 def wandbox_api_call(callback, retries, retry_wait):
-    try:
-        return callback()
-    except (HTTPError, ConnectionError) as e:
-
-        def is_retry(e):
-            if not e.response:
-                return True
-            return e.response.status_code in [504]
-
-        if is_retry(e) and retries > 0:
-            try:
-                print(e.message)
-            except:
-                pass
-            print('wait {0}sec...'.format(retry_wait))
-            sleep(retry_wait)
-            return wandbox_api_call(callback, retries - 1, retry_wait)
-        else:
-            raise
-    except:
-        raise
+    return Wandbox.Call(callback, retries, retry_wait)
 
 
 def wandbox_get_compilerlist():
@@ -574,7 +550,6 @@ def run_wandbox_cxx(code, includes, impliments, options):
                 if options.compiler in ['clang-3.4', 'clang-3.3']:
                     colist.append('-fno-exceptions')
                     colist.append('-fno-rtti')
-            pass
         if colist:
             co = '\n'.join(colist)
             co = co.replace('\\n', '\n')
@@ -622,7 +597,7 @@ def text_transform(value):
             return value.decode()
         elif isinstance(value, unicode):
             return value.encode('utf_8')
-    except:
+    except Exception:
         pass
     return value
 

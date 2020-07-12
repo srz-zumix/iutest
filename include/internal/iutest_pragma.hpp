@@ -59,9 +59,6 @@
 #endif
 
 #if defined(__GNUC__)
-//#  if ((__GNUC__ > 4) || (__GNUC__ == 4 && __GNUC_MINOR__ >= 2))
-//#    define IUTEST_PRAGMA_GCC_WARN_DISABLE(x) IUTEST_PRAGMA(GCC diagnostic ignored x)
-//#  endif
 #  if ((__GNUC__ > 4) || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6))
 #    define IUTEST_PRAGMA_GCC_WARN_PUSH()       IUTEST_PRAGMA(GCC diagnostic push)
 #    define IUTEST_PRAGMA_GCC_WARN_DISABLE(x)   IUTEST_PRAGMA(GCC diagnostic ignored x)

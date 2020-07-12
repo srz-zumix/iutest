@@ -117,6 +117,10 @@ jobs:
           DISABLED_CONFIG: IUTEST_HAS_FILE_STAT
         Disable_FOpen:
           DISABLED_CONFIG: IUTEST_HAS_FOPEN
+        Disable_LongDouble:
+          DISABLED_CONFIG: IUTEST_HAS_LONG_DOUBLE
+        Disable_StrToValue:
+          DISABLED_CONFIG: IUTEST_HAS_STD_STR_TO_VALUE
         Disable_StringStream:
           DISABLED_CONFIG: IUTEST_HAS_STRINGSTREAM
         Disable_Tuple:

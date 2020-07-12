@@ -143,6 +143,7 @@ TARGETS1= \
 		$(OUTDIR)/set_up_testcase_failure_tests \
 		$(OUTDIR)/shuffle_tests \
 		$(OUTDIR)/skip_tests \
+		$(OUTDIR)/spec_tests \
 		$(OUTDIR)/spi_failure_tests \
 		$(OUTDIR)/streaming_listener_tests \
 		$(OUTDIR)/throw_on_assertion_failure_tests \

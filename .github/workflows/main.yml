@@ -1,7 +1,6 @@
 name: GitHub Actions
 on:
   pull_request:
-  push:
     branches:
       - master
       - develop
@@ -14,13 +13,20 @@ on:
       - '*.ini'
       - '*.md'
       - '*.yml'
+      - '*.yaml'
       - '.circleci/**'
       - '.semaphore/**'
+  push:
+    branches:
+      - master
+      - develop
 
 jobs:
   prepare:
     runs-on: ubuntu-18.04
-    if: "! contains(github.event.head_commit.message, '[ci skip]') && ! contains(github.event.head_commit.message, '[skip ci]') "
+    if: >
+      ! contains(github.event.head_commit.message, '[ci skip]') &&
+      ! contains(github.event.head_commit.message, '[skip ci]')
     steps:
       - run: |
           echo "${{ github.event.head_commit.message }}"
@@ -85,3 +91,18 @@ jobs:
       uses: ./.github/actions/iwyu
       with:
         args: /work/projects/cmake -Dbuild_test_namespace_test=OFF
+
+  lizard:
+    runs-on: ubuntu-18.04
+    needs: prepare
+    steps:
+    - uses: actions/checkout@master
+    - name: Lizard
+      uses: docker://srzzumix/lizard
+      with:
+        args: -o lizard.html --html ./include
+    - name: Archive code metrics results
+      uses: actions/upload-artifact@v1
+      with:
+        name: lizard.html
+        path: lizard.html

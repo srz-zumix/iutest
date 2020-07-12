@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -39,9 +39,9 @@ bool CheckProperty(const ::iutest::TestResult* tr, const char* key, const char* 
 #if IUTEST_HAS_ASSERTION_RETURN
     if( tr != NULL )
     {
-        IUTEST_ASSERT_EQ(1, tr->test_property_count()) << ::iutest::AssertionReturn<bool>(false);
-        IUTEST_EXPECT_STREQ(key, tr->GetTestProperty(0).key()) << ::iutest::AssertionReturn<bool>(false);
-        IUTEST_EXPECT_STREQ(value, tr->GetTestProperty(0).value()) << ::iutest::AssertionReturn<bool>(false);
+        IUTEST_ASSERT_EQ(1, tr->test_property_count()) << ::iutest::AssertionReturn(false);
+        IUTEST_EXPECT_STREQ(key, tr->GetTestProperty(0).key()) << ::iutest::AssertionReturn(false);
+        IUTEST_EXPECT_STREQ(value, tr->GetTestProperty(0).value()) << ::iutest::AssertionReturn(false);
     }
 #else
     CheckProperty_(tr, key, value);

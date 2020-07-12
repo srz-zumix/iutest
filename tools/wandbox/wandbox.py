@@ -10,6 +10,10 @@ Wandbox API for Python
 import requests
 import json
 
+from time import sleep
+from requests.exceptions import HTTPError as RHTTPError
+from requests.exceptions import ConnectionError as RConnectionError
+from requests.exceptions import ConnectTimeout as RConnectTimeout
 
 #
 #
@@ -18,6 +22,7 @@ class Wandbox:
 
     #api_url = 'http://melpon.org/wandbox/api'
     api_url = 'https://wandbox.org/api'
+    timeout_ = (3.0, 60.0 * 5)
 
     def __init__(self):
         self.reset()
@@ -34,7 +39,7 @@ class Wandbox:
         """
         get compiler list
         """
-        response = requests.get(Wandbox.api_url + '/list.json')
+        response = requests.get(Wandbox.api_url + '/list.json', timeout=3.0)
         response.raise_for_status()
         return response.json()
 
@@ -50,9 +55,17 @@ class Wandbox:
         """
         get wandbox permanet link
         """
-        response = requests.get(Wandbox.api_url + '/permlink/' + link)
+        response = requests.get(Wandbox.api_url + '/permlink/' + link, timeout=3.0)
         response.raise_for_status()
         return response.json()
+
+    @property
+    def timeout(self):
+        return self.timeout_
+
+    @timeout.setter
+    def timeout(self, v):
+        self.timeout_ = v
 
     def get_permlink(self, link):
         """
@@ -67,12 +80,13 @@ class Wandbox:
         """
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         payload = json.dumps(self.parameter)
-        response = requests.post(self.api_url + '/compile.json', data=payload, headers=headers)
+        response = requests.post(self.api_url + '/compile.json', data=payload, headers=headers, timeout=self.timeout_)
         response.raise_for_status()
         try:
             return response.json()
         except json.decoder.JSONDecodeError as e:
-            raise requests.exceptions.HTTPError(e, response.status_code)
+            response.status_code = 500
+            raise RHTTPError(e, response=response)
 
     def code(self, code):
         """
@@ -149,11 +163,38 @@ class Wandbox:
         """
         self.parameter = {'code': ''}
 
+    @staticmethod
+    def Call(action, retries, retry_wait):
+        try:
+            return action()
+        except (RHTTPError, RConnectionError, RConnectTimeout) as e:
+
+            def is_retry(e):
+                if e is None:
+                    return False
+                if e.response is None:
+                    return False
+                return e.response.status_code in [500, 502, 503, 504]
+
+            retries -= 1
+            if is_retry(e) and retries > 0:
+                try:
+                    print(e.message)
+                except Exception:
+                    pass
+                print('wait {0}sec...'.format(retry_wait))
+                sleep(retry_wait)
+                return Wandbox.Call(action, retries, retry_wait)
+            else:
+                raise
+        except Exception:
+            raise
+
 
 if __name__ == '__main__':
     with Wandbox() as w:
         w.compiler('gcc-head')
         w.options('warning,gnu++1y')
         w.compiler_options('-Dx=hogefuga\n-O3')
-        w.code('#include <iostream>\nint main() { int x = 0; ::std::cout << "hoge" << ::std::endl; }')
+        w.code('#include <iostream>\nint main() { int x = 0; std::cout << "hoge" << std::endl; }')
         print(w.run())

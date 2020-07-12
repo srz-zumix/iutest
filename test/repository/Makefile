@@ -8,7 +8,7 @@
 default: check-fullpath check-remote-crlf
 
 check-fullpath:
-	! find ../../projects -type f -print | xargs grep '[d-zD-Z]:\\'
+	! find ../../projects -type f -print0 | xargs -0 grep '[d-zD-Z]:\\.*'
 
 check-remote-crlf:
 	! git grep --cached -I -l -P '\r'

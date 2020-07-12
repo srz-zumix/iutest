@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -225,6 +225,8 @@
     static ::iutest::detail::TypedTestCasePState    IIUT_TYPED_TEST_CASE_PSTATE_NAME_(testcase_)
 
 #define IIUT_TYPED_TEST_P_(testcase_, testname_)                \
+    IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testcase_)) > 1, "testcase_ must not be empty");    \
+    IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testname_)) > 1, "testname_ must not be empty");    \
     namespace IIUT_TYPED_TEST_P_NAMESPACE_(testcase_) {         \
     template<typename iutest_TypeParam>                         \
     class testname_ : public testcase_<iutest_TypeParam> {      \

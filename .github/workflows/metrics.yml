@@ -8,6 +8,7 @@ on:
       - '*.ini'
       - '*.md'
       - '*.yml'
+      - '*.yaml'
       - '.circleci/**'
       - '.semaphore/**'
       - 'docs/**'
@@ -34,15 +35,16 @@ jobs:
     - name: fused
       id: fused
       run: |
-        make -C tools/fused fused
+        make -C tools/fused
         echo "##[set-output name=size;]$(wc -c < fused-src/iutest.hpp)"
         echo "##[set-output name=min_size;]$(wc -c < fused-src/iutest.min.hpp)"
+        echo "##[set-output name=wandbox_min_size;]$(wc -c < fused-src/iutest.wandbox.min.hpp)"
     - name: send metrics
       run: |
         curl \
           -H "Content-Type: application/json" \
           -X POST \
-          -d "{\"branch\": \"${GITHUB_REF#refs/heads/}\", \"commit\": \"${GITHUB_SHA}\", \"size\": \"${{ steps.fused.outputs.size }}\", \"min\": \"${{ steps.fused.outputs.min_size }}\"}" \
+          -d "{\"branch\": \"${GITHUB_REF#refs/heads/}\", \"commit\": \"${GITHUB_SHA}\", \"size\": \"${{ steps.fused.outputs.size }}\", \"min\": \"${{ steps.fused.outputs.min_size }}\", \"wandbox\": \"${{ steps.fused.outputs.wandbox_min_size }}\"}" \
           ${{ secrets.FUSED_METRICS_WEBHOOK }}
 
 

@@ -1,8 +1,7 @@
-﻿# shippable test c++98 compile...
-
-language: python
-
-python: 3.7
+﻿language: c
+compiler:
+  - gcc
+  - clang
 cache: true
 parallelized_test: true
 
@@ -16,75 +15,10 @@ branches:
 
 build:
   ci:
-#    - sudo apt-get update && sudo apt-get install --only-upgrade openssl libssl-dev
-#    - pip install -i https://pypi.python.org/simple/ --upgrade pip
-#    - pip --version
-    - pip install requests # || cat /home/shippable/.pip/pip.log
-    - export PYTHONDONTWRITEBYTECODE=1
-    - make -C tools/fused
-    - mkdir -p shippable/testresults
-    - cd tools/wandbox
-    - python ./iuwandbox.py --list-options ${WANDBOX_COMPILER}
-    - export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --boost nothing --encoding utf-8-sig --expand-include --verbose --check-config"
-    - python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} ${IUWANDBOX_ADD_OPTION} --std   "c++98" --junit ../../shippable/testresults/test_result.xml
-    - python ./iuwandbox.py ${IUWANDBOX_COMMANDLINE_OPTION} ${IUWANDBOX_ADD_OPTION} --std "gnu++98" --junit ../../shippable/testresults/test_result_gnu.xml
-  on_success:
-    - echo OK
-
-env:
-  matrix:
-    - WANDBOX_COMPILER=gcc-head
-    - WANDBOX_COMPILER=gcc-9.3.0
-    # - WANDBOX_COMPILER=gcc-9.2.0
-    # - WANDBOX_COMPILER=gcc-9.1.0
-    - WANDBOX_COMPILER=gcc-8.3.0
-    # - WANDBOX_COMPILER=gcc-8.2.0
-#    - WANDBOX_COMPILER=gcc-8.1.0
-    - WANDBOX_COMPILER=gcc-7.3.0
-#    - WANDBOX_COMPILER=gcc-7.2.0
-#    - WANDBOX_COMPILER=gcc-7.1.0
-    - WANDBOX_COMPILER=gcc-6.3.0
-#    - WANDBOX_COMPILER=gcc-6.2.0
-#    - WANDBOX_COMPILER=gcc-6.1.0
-    - WANDBOX_COMPILER=gcc-5.5.0
-#    - WANDBOX_COMPILER=gcc-5.4.0
-#    - WANDBOX_COMPILER=gcc-5.3.0
-#    - WANDBOX_COMPILER=gcc-5.2.0
-#    - WANDBOX_COMPILER=gcc-5.1.0
-    - WANDBOX_COMPILER=gcc-4.9.3
-#    - WANDBOX_COMPILER=gcc-4.9.2
-#    - WANDBOX_COMPILER=gcc-4.9.1
-#    - WANDBOX_COMPILER=gcc-4.9.0
-    - WANDBOX_COMPILER=gcc-4.8.5
-#    - WANDBOX_COMPILER=gcc-4.8.4
-#    - WANDBOX_COMPILER=gcc-4.8.3
-#    - WANDBOX_COMPILER=gcc-4.8.2
-#    - WANDBOX_COMPILER=gcc-4.8.1
-    - WANDBOX_COMPILER=gcc-4.7.4
-#    - WANDBOX_COMPILER=gcc-4.7.3
-    - WANDBOX_COMPILER=gcc-4.6.4
-    - WANDBOX_COMPILER=gcc-4.5.4
-    - WANDBOX_COMPILER=gcc-4.4.7
-    - WANDBOX_COMPILER=clang-head IUWANDBOX_ADD_OPTION=-f"-Wno-c++11-inline-namespace"
-    - WANDBOX_COMPILER=clang-10.0.0
-    - WANDBOX_COMPILER=clang-9.0.0
-    - WANDBOX_COMPILER=clang-8.0.0
-    - WANDBOX_COMPILER=clang-7.0.0
-    - WANDBOX_COMPILER=clang-6.0.1
-#    - WANDBOX_COMPILER=clang-6.0.0
-    - WANDBOX_COMPILER=clang-5.0.0
-    - WANDBOX_COMPILER=clang-4.0.1
-    - WANDBOX_COMPILER=clang-4.0.0
-    - WANDBOX_COMPILER=clang-3.9.1
-    - WANDBOX_COMPILER=clang-3.8.1
-    - WANDBOX_COMPILER=clang-3.7.1
-    - WANDBOX_COMPILER=clang-3.6.0
-    - WANDBOX_COMPILER=clang-3.5.0
-#    - WANDBOX_COMPILER=clang-3.4
-#    - WANDBOX_COMPILER=clang-3.3
-#    - WANDBOX_COMPILER=clang-3.2
-#    - WANDBOX_COMPILER=clang-3.1
-    - WANDBOX_COMPILER=zapcc-1.0.1
+    - cd test
+    - make showcxxversion
+    - make -j2
+    - make test
 
 integrations:
   notifications:

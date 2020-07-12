@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -44,17 +44,29 @@ public:
 
 #endif
 
-#if !defined(IUTEST_USE_GTEST)
-class LogChecker
+class LogCheckerBase
 {
-    TestLogger printer_logger;
+protected:
     ::std::string m_str;
 public:
-    explicit LogChecker(const char* str) : m_str(str)
+    explicit LogCheckerBase(const char* str) : m_str(str) {}
+    explicit LogCheckerBase(const std::string& str) : m_str(str) {}
+public:
+    operator const char* () const { return m_str.c_str(); }
+    const char* c_str(void) const { return m_str.c_str(); }
+};
+
+
+#if !defined(IUTEST_USE_GTEST)
+class LogChecker : public LogCheckerBase
+{
+    TestLogger printer_logger;
+public:
+    explicit LogChecker(const char* str) : LogCheckerBase(str)
     {
         ::iutest::detail::iuConsole::SetLogger(&printer_logger);
     }
-    explicit LogChecker(const std::string& str) : m_str(str)
+    explicit LogChecker(const std::string& str) : LogCheckerBase(str)
     {
         ::iutest::detail::iuConsole::SetLogger(&printer_logger);
     }
@@ -66,24 +78,19 @@ public:
     }
 };
 #else
-class LogChecker
-{
-public:
-    explicit LogChecker(const char*) {}
-};
+typedef LogCheckerBase  LogChecker;
 #endif
 
-#if !defined(IUTEST_USE_GTEST) && !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
-class PrintToLogChecker
+#if !defined(IUTEST_USE_GTEST) && IUTEST_HAS_PRINT_TO
+class PrintToLogChecker : public LogCheckerBase
 {
     TestLogger printer_logger;
-    ::std::string m_str;
 public:
-    explicit PrintToLogChecker(const char* str) : m_str(str)
+    explicit PrintToLogChecker(const char* str) : LogCheckerBase(str)
     {
         ::iutest::detail::iuConsole::SetLogger(&printer_logger);
     }
-    explicit PrintToLogChecker(const std::string& str) : m_str(str)
+    explicit PrintToLogChecker(const std::string& str) : LogCheckerBase(str)
     {
         ::iutest::detail::iuConsole::SetLogger(&printer_logger);
     }
@@ -95,11 +102,7 @@ public:
     }
 };
 #else
-class PrintToLogChecker
-{
-public:
-    explicit PrintToLogChecker(const char*) {}
-};
+typedef LogCheckerBase  PrintToLogChecker;
 #endif
 
 #endif

@@ -74,10 +74,18 @@ public:
     virtual ::std::string WhichIs() const = 0;
 };
 
-inline iu_ostream& operator << (iu_ostream& os, const IMatcher& msg)
+#if !defined(IUTEST_NO_SFINAE)
+template<typename T>
+inline typename detail::enable_if_t< IMatcher::is_matcher<T>, iu_ostream>::type& operator << (iu_ostream& os, const T& m)
 {
-    return os << msg.WhichIs();
+    return os << m.WhichIs();
 }
+#else
+inline iu_ostream& operator << (iu_ostream& os, const IMatcher& m)
+{
+    return os << m.WhichIs();
+}
+#endif
 
 /**
  * @private

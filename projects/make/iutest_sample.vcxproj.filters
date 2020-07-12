@@ -303,6 +303,12 @@
     <ClInclude Include="..\..\include\internal\iutest_stream.hpp">
       <Filter>iutest\internal</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\internal\iutest_string_stream.hpp">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\internal\iutest_string_view.hpp">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\internal\iutest_string.hpp">
       <Filter>iutest\internal</Filter>
     </ClInclude>

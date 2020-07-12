@@ -128,9 +128,17 @@ function(cxx_library name cxx_flags)
   cxx_library_with_type(${name} "" "${cxx_flags}" ${ARGN})
 endfunction()
 
+function(iutest_add_executable name)
+if (MSVC)
+  add_executable(${name} ${ARGN} ${IUTEST_ROOT_DIR}/tools/VisualStudio/Visualizers/iutest.natvis)
+else()
+  add_executable(${name} ${ARGN})
+endif()
+endfunction()
+
 function(cxx_executable_with_flags name cxx_flags libs)
   # ソースコード
-  add_executable(${name} ${ARGN})
+  iutest_add_executable(${name} ${ARGN})
   if (cxx_flags)
     set_target_properties(${name}
       PROPERTIES
@@ -146,7 +154,7 @@ endfunction()
 # サンプル用
 #
 function(cxx_executable_sample name)
-  add_executable(${name} ${ARGN})
+iutest_add_executable(${name} ${ARGN})
   set_target_properties(${name}
     PROPERTIES
     COMPILE_FLAGS "${cxx_default}")
@@ -160,7 +168,7 @@ function(cxx_executable_gtest_sample name dir)
   foreach (src ${ARGN})
     set(SRCS ${SRCS} ${dir}/${src})
   endforeach()
-  add_executable(${name} ${SRCS})
+  iutest_add_executable(${name} ${SRCS})
 endfunction()
 
 #
@@ -171,7 +179,7 @@ function(cxx_executable_test name)
   foreach (src ${ARGN})
     set(SRCS ${SRCS} ${IUTEST_ROOT_DIR}/test/${src})
   endforeach()
-  add_executable(${name} ${SRCS})
+  iutest_add_executable(${name} ${SRCS})
 endfunction()
 
 function(cxx_executable_test_with_main name)
@@ -179,7 +187,7 @@ function(cxx_executable_test_with_main name)
   foreach (src ${ARGN})
     set(SRCS ${SRCS} ${IUTEST_ROOT_DIR}/test/${src})
   endforeach()
-  add_executable(${name} ${SRCS})
+  iutest_add_executable(${name} ${SRCS})
 endfunction()
 
 
@@ -200,7 +208,7 @@ function(cxx_namespace_test name)
     file(APPEND ${ns_src} "}\n")
     set(SRCS ${SRCS} ${ns_src})
   endforeach()
-  add_executable(${name} ${SRCS})
+  iutest_add_executable(${name} ${SRCS})
 endfunction()
 
 #

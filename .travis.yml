@@ -10,10 +10,10 @@ branches:
   only:
     - master
     - develop
-    - /feature.*/
-    - /fix.*/
-    - /travisci.*/
-    - /travis-ci.*/
+    # - /feature.*/
+    # - /fix.*/
+    # - /travisci.*/
+    # - /travis-ci.*/
 
 addons:
   apt: &apt-global
@@ -80,13 +80,24 @@ install:
   - if [ "${USE_GMOCK}" = '1' ]; then . .ci/travisci/install-gmock.sh; fi
 
 script:
-  - if [ "${USE_LIB}" = '1' ]; then cd projects/make && make && cd -; fi
-  - if [ "${USE_CMAKE}" = '1' ]; then
-      mkdir ./cmake-build && cd ./cmake-build && cmake ../projects/cmake && cmake --build . && ctest -C Debug -V && cd ..;
+  - |
+    if [ "${USE_LIB}" = '1' ]; then
+      cd projects/make && make && cd -
+    fi
+  - |
+    if [ "${USE_CMAKE}" = '1' ]; then
+      mkdir ./cmake-build &&
+      cd ./cmake-build &&
+      cmake ../projects/cmake &&
+      cmake --build . &&
+      ctest -C Debug -V &&
+      cd ..
     fi
   - cd ./test
-  - if [ "${COVERITY_SCAN}" != '1' ] && [ "${USE_CMAKE}" != '1' ]; then
-      make -j4 showcxxversion ${USE_FUSED} default && make test ${USE_FUSED};
+  - |
+    if [ "${COVERITY_SCAN}" != '1' ] && [ "${USE_CMAKE}" != '1' ]; then
+      make -j4 showcxxversion ${USE_FUSED} default &&
+      make test ${USE_FUSED}
     fi
   - |
     if [ "${COVERITY_SCAN}" = '1' ] && [ -d cov-int ]; then
@@ -246,7 +257,9 @@ matrix:
             name: "srz-zumix/iutest"
             description: "iutest c++ testing framework"
           notification_email: zumix.cpp@gmail.com
-          build_command_prepend: "cov-configure --comptype gcc --compiler gcc-7 --template && cd ./test"
+          build_command_prepend: >
+            cov-configure --comptype gcc --compiler gcc-7 --template &&
+            cd ./test
           build_command: make -j4 coverity_scan STDFLAG=-std=c++17
           branch_pattern: master|.*coverity_scan.*
     # Sanitize

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -70,7 +70,7 @@
  * @param   generator_  = Range, Bool, Values, ValuesIn, Combine, Pairwise ...
 */
 #define IUTEST_INSTANTIATE_TEST_CASE_AP(prefix_, testcase_, generator_) \
-    IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, IUTEST_ALIAS_TESTNAME_F(testcase_, iuTestWithAny), generator_)
+    IIUT_INSTANTIATE_TEST_CASE_AP_(prefix_, testcase_, generator_)
 
 /**
  * @ingroup VALUE_PARAMETERIZED_TEST
@@ -83,8 +83,7 @@
  *  IUTEST_INSTANTIATE_TEST_CASE_AP(InstantiateName, TestCaseName, ParamGenerator);\n
 */
 #define IUTEST_AP(testcase_, testname_) \
-    IUTEST_TEST_P_(IUTEST_ALIAS_TESTNAME_F(testcase_, iuTestWithAny), testname_)
-
+    IUTEST_TEST_AP_(testcase_, testname_)
 
 #endif
 
@@ -240,6 +239,17 @@
 #endif
 
 #endif
+
+#define IIUT_TEST_AP_FIXTURE_NAME_(testcase_) IUTEST_PP_CAT(iuTestWithAny, testcase_)
+#define IIUT_ALIAS_TESTNAME_AP_(testcase_)    IUTEST_ALIAS_TESTNAME_F(testcase_, IIUT_TEST_AP_FIXTURE_NAME_(testcase_))
+
+#define IUTEST_TEST_AP_(testcase_, testname_) \
+    typedef ::iutest::TestWithAny IIUT_TEST_AP_FIXTURE_NAME_(testcase_);  \
+    IUTEST_TEST_P_(IIUT_ALIAS_TESTNAME_AP_(testcase_), testname_)
+
+#define IIUT_INSTANTIATE_TEST_CASE_AP_(prefix_, testcase_, generator_) \
+    IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, IIUT_ALIAS_TESTNAME_AP_(testcase_), generator_)
+
 
 #define IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)     IIUT_TEST_P_EVALGENERATOR_NAME_I(prefix_, IIUT_TO_VARNAME_(testcase_))
 #define IIUT_TEST_P_EVALGENERATOR_NAME_I(prefix_, testcase_)    IIUT_TEST_P_EVALGENERATOR_NAME_I_(prefix_, testcase_)

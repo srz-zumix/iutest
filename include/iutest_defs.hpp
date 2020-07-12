@@ -306,6 +306,11 @@ public:
     */
     bool    is_nan() const { return exponent_bits() == kExpMask && fraction_bits() != 0; }
 
+    /**
+     * @brief   is inf
+    */
+    bool    is_inf() const { return exponent_bits() == kExpMask && fraction_bits() == 0; }
+
 public:
     //! plus inf
     static _Myt PINF()
@@ -423,6 +428,12 @@ typedef detail::type_fit_t<8>::UInt UInt64; //!< 64 bit 符号なし整数型
 typedef ::std::uintmax_t    iu_off_t;
 #else
 typedef UInt64              iu_off_t;
+#endif
+
+#if IUTEST_HAS_CXX11 && IUTEST_HAS_CXX_HDR_CSTDINT
+typedef ::std::uintptr_t                                iu_uintptr_t;
+#else
+typedef detail::type_fit_t<sizeof(ptrdiff_t)>::UInt     iu_uintptr_t;
 #endif
 
 typedef internal::TypeId TestTypeId;    //!< テスト識別型

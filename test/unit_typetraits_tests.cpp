@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * The new BSD License is applied to this software.
  * see LICENSE
 */
@@ -31,18 +31,24 @@ IUTEST(UnitTest, is_class)
     IUTEST_STATIC_ASSERT( !::iutest_type_traits::is_class<void (*)()>::value );
 }
 
-IUTEST(UnitTest, is_same)
-{
-    IUTEST_STATIC_ASSERT( !(::iutest_type_traits::is_same<int, char>::value) );
-    IUTEST_STATIC_ASSERT(  (::iutest_type_traits::is_same<int, int>::value) );
-    IUTEST_STATIC_ASSERT(  (::iutest_type_traits::is_same<int, inttype>::value) );
-}
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
 IUTEST(UnitTest, is_void)
 {
     IUTEST_STATIC_ASSERT( !::iutest_type_traits::is_void<void*>::value );
     IUTEST_STATIC_ASSERT(  ::iutest_type_traits::is_void<void>::value );
     IUTEST_STATIC_ASSERT( !::iutest_type_traits::is_void<int>::value );
+}
+
+#endif
+
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) || IUTEST_HAS_CLASS_MEMBER_TEMPLATE_SPECIALIZATION
+
+IUTEST(UnitTest, is_same)
+{
+    IUTEST_STATIC_ASSERT( !(::iutest_type_traits::is_same<int, char>::value) );
+    IUTEST_STATIC_ASSERT(  (::iutest_type_traits::is_same<int, int>::value) );
+    IUTEST_STATIC_ASSERT(  (::iutest_type_traits::is_same<int, inttype>::value) );
 }
 
 IUTEST(UnitTest, is_base_of)
@@ -55,6 +61,8 @@ IUTEST(UnitTest, is_base_of)
     IUTEST_STATIC_ASSERT( !(::iutest_type_traits::is_base_of<Base, Hoge>::value) );
     IUTEST_STATIC_ASSERT(  (::iutest_type_traits::is_base_of<Derived, Derived>::value) );
 }
+
+#endif
 
 #if !defined(IUTEST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 

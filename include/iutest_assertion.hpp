@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -267,6 +267,12 @@ public:
             Message::operator << (val);
             return *this;
         }
+        template<typename T, size_t SIZE>
+        Fixed& operator << (const T(&val)[SIZE])
+        {
+            Message::operator << (val);
+            return *this;
+        }
 #if IUTEST_HAS_IOMANIP
         Fixed& operator << (iu_basic_iomanip val)
         {
@@ -274,7 +280,6 @@ public:
             return *this;
         }
 #endif
-
 #if IUTEST_HAS_ASSERTION_RETURN
         Fixed& operator << (const AssertionReturnType<void>&)
         {
@@ -321,7 +326,7 @@ public:
 #if IUTEST_HAS_ASSERTION_RETURN
     /** @private */
     template<typename R>
-    R operator = (const ReturnTypedFixed<R>& fixed)
+    R operator = (const ReturnTypedFixed<R>& fixed) // lgtm [cpp/assignment-does-not-return-this]
     {
         this->operator=(fixed.fixed);
         return fixed.ret.value;
@@ -339,7 +344,7 @@ private:
         }
         ScopedTrace::GetInstance().append_message(m_part_result);
 
-        if( TestEnv::GetGlobalTestPartResultReporter() != NULL )
+        if( TestEnv::GetGlobalTestPartResultReporter() != IUTEST_NULLPTR )
         {
             TestEnv::GetGlobalTestPartResultReporter()->ReportTestPartResult(m_part_result);
         }
@@ -454,16 +459,48 @@ inline AssertionResult CmpHelperOpFailure(const char* expr1, const char* expr2, 
  * @private
  * @{
  */
+
+#define IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_BASE_(op_name, op)    \
+    template<typename T1, typename T2>                              \
+    bool iuOperator##op_name(const T1& v1, const T2& v2) {          \
+        return v1 op v2;                                            \
+    }
+
+#if IUTEST_HAS_CXX_HDR_VARIANT && IUTEST_HAS_VARIADIC_TEMPLATES
+#define IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_VARIANT_(op_name, op)             \
+    template<typename ...V1, typename ...V2>                                    \
+    bool iuOperator##op_name(const ::std::variant<V1...>&& v1, const ::std::variant<V2...>& v2) {    \
+        return v1 op v2;                                                        \
+    }                                                                           \
+    template<typename T1, typename ...V>                                        \
+    bool iuOperator##op_name(const T1& v1, const ::std::variant<V...>& v2       \
+        , typename detail::enable_if< !detail::is_variant<T1>::value, void>::type*& = detail::enabler::value ) {    \
+        ::std::variant<V...> vv1(v1); return vv1 op v2;                         \
+    }                                                                           \
+    template<typename ...V, typename T2>                                        \
+    bool iuOperator##op_name(const ::std::variant<V...>& v1, const T2& v2       \
+        , typename detail::enable_if< !detail::is_variant<T2>::value, void>::type*& = detail::enabler::value ) {    \
+        ::std::variant<V...> vv2(v2); return v1 op vv2;                         \
+    }
+#else
+#define IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_VARIANT_(op_name, op)
+#endif
+
+#define IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_(op_name, op)     \
+    IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_BASE_(op_name, op)    \
+    IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_VARIANT_(op_name, op)
+
 #define IIUT_DECL_COMPARE_HELPER_I_(op_name, op, type1, type2)                  \
     inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelper##op_name(         \
             const char* expr1, const char* expr2, type1 val1, type2 val2) {     \
-        if( val1 op val2 ) { return AssertionSuccess();                         \
+        if( iuOperator##op_name(val1, val2) ) { return AssertionSuccess();      \
         } else { return CmpHelperOpFailure(expr1, expr2, #op, val1, val2); }    \
     }
 
 #if !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 
 #define IIUT_DECL_COMPARE_HELPER_(op_name, op)                      \
+    IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_(op_name, op)             \
     template<typename T1, typename T2>                              \
     IIUT_DECL_COMPARE_HELPER_I_(op_name, op, const T1&, const T2&)  \
     IIUT_DECL_COMPARE_HELPER_I_(op_name, op, BiggestInt, BiggestInt)
@@ -471,10 +508,21 @@ inline AssertionResult CmpHelperOpFailure(const char* expr1, const char* expr2, 
 #else
 
 #define IIUT_DECL_COMPARE_HELPER_(op_name, op)                      \
+    IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_(op_name, op)             \
     template<typename T1, typename T2>                              \
     IIUT_DECL_COMPARE_HELPER_I_(op_name, op, const T1&, const T2&)
 
 #endif
+
+template<typename T1, typename T2>
+bool iuOperatorEQ(const T1& v1, const T2& v2)
+{
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
+    return v1 == v2;
+IUTEST_PRAGMA_WARN_POP()
+}
+IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_VARIANT_(EQ, ==)
 
 IIUT_DECL_COMPARE_HELPER_(NE, !=)
 IIUT_DECL_COMPARE_HELPER_(LE, <=)
@@ -482,6 +530,10 @@ IIUT_DECL_COMPARE_HELPER_(LT, < )
 IIUT_DECL_COMPARE_HELPER_(GE, >=)
 IIUT_DECL_COMPARE_HELPER_(GT, > )
 
+
+#undef IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_
+#undef IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_BASE
+#undef IIUT_DECL_COMPARE_HELPER_EXTEND_POINT_VARIANT
 #undef IIUT_DECL_COMPARE_HELPER_I_
 #undef IIUT_DECL_COMPARE_HELPER_
 
@@ -500,7 +552,7 @@ public:
     template<typename T>
     static AssertionResult CompareEq(const char* expr, const T* val)
     {
-        if( NULL == val )
+        if( IUTEST_NULLPTR == val )
         {
             return AssertionSuccess();
         }
@@ -512,7 +564,7 @@ public:
     template<typename T>
     static AssertionResult CompareNe(const char* expr, const T* val)
     {
-        if( NULL != val )
+        if( IUTEST_NULLPTR != val )
         {
             return AssertionSuccess();
         }
@@ -558,12 +610,7 @@ template<typename T1, typename T2>
 inline AssertionResult CmpHelperEQ(const char* expected_str, const char* actual_str
     , const T1& expected, const T2& actual)
 {
-    IUTEST_UNUSED_VAR(expected_str);
-
-IUTEST_PRAGMA_WARN_PUSH()
-IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
-
-    if( actual == expected )
+    if( iuOperatorEQ(actual, expected) )
     {
         return AssertionSuccess();
     }
@@ -572,16 +619,12 @@ IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
         , FormatForComparisonFailureMessage(expected, actual)
         , FormatForComparisonFailureMessage(actual, expected)
         );
-
-IUTEST_PRAGMA_WARN_POP()
 }
 
 template<typename T>
 inline AssertionResult CmpHelperMemCmpEQ(const char* expected_str, const char* actual_str
     , const T& expected, const T& actual)
 {
-    IUTEST_UNUSED_VAR(expected_str);
-
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 
@@ -714,7 +757,7 @@ public:
         , detail::IsNullLiteralHelper::Object* val1, T2* val2)
     {
         IUTEST_UNUSED_VAR(val1);
-        return CmpHelperEQ(expr1, expr2, static_cast<T2*>(NULL), val2);
+        return CmpHelperEQ(expr1, expr2, static_cast<T2*>(IUTEST_NULLPTR), val2);
     }
 #else
     template<typename T1, typename T2>
@@ -819,7 +862,7 @@ public:
         , detail::IsNullLiteralHelper::Object* val1, T2* val2)
     {
         IUTEST_UNUSED_VAR(val1);
-        return CmpHelperNE(expr1, expr2, static_cast<T2*>(NULL), val2);
+        return CmpHelperNE(expr1, expr2, static_cast<T2*>(IUTEST_NULLPTR), val2);
     }
 #else
     template<typename T1, typename T2>
@@ -848,7 +891,7 @@ class EqHelper
     template<typename T>
     static AssertionResult Compare(const char* expr1, const char* expr2, ::std::nullptr_t, T* val2)
     {
-        return CmpHelperEQ(expr1, expr2, static_cast<T*>(NULL), val2);
+        return CmpHelperEQ(expr1, expr2, static_cast<T*>(IUTEST_NULLPTR), val2);
     }
 };
 
@@ -866,7 +909,7 @@ class NeHelper
     template<typename T>
     static AssertionResult Compare(const char* expr1, const char* expr2, ::std::nullptr_t, T* val2)
     {
-        return CmpHelperNE(expr1, expr2, static_cast<T*>(NULL), val2);
+        return CmpHelperNE(expr1, expr2, static_cast<T*>(IUTEST_NULLPTR), val2);
     }
 };
 
@@ -941,7 +984,7 @@ namespace StrEqHelper
 #if IUTEST_HAS_NULLPTR && 0
 #define IIUT_DECL_STREQ_COMPARE_HELPER_NULL_(T)   \
     inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(::std::nullptr_t, const T* val2) {     \
-        return val2 == NULL;                                                            \
+        return val2 == IUTEST_NULLPTR;                                                  \
     }
 #else
 #define IIUT_DECL_STREQ_COMPARE_HELPER_NULL_(T)
@@ -953,7 +996,7 @@ namespace StrEqHelper
         return val1 == val2;                                                                    \
     }                                                                                           \
     inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const T* val1, const T* val2) {                \
-        if( val1 == NULL || val2 == NULL ) { return val1 == val2; }                             \
+        if( val1 == IUTEST_NULLPTR || val2 == IUTEST_NULLPTR ) { return val1 == val2; }         \
         return Compare(detail::iu_nullable_basic_string_view<T>(val1)                           \
             , detail::iu_nullable_basic_string_view<T>(val2));                                  \
     }
@@ -1003,8 +1046,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
     }
 
     return EqFailure(expr1, expr2
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(IUTEST_NULLPTR, val2))
-        , detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, IUTEST_NULLPTR)));
+        , detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val2))
+        , detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(val2, IUTEST_NULLPTR)));
 }
 
 namespace StrNeHelper
@@ -1046,8 +1089,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     }
 
     return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
-        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val2, IUTEST_NULLPTR))
-        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(IUTEST_NULLPTR, val2));
+        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(val2, IUTEST_NULLPTR))
+        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val2));
 }
 
 template<typename T>
@@ -1061,8 +1104,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     }
 
     return AssertionFailure() << "error: Expected: " << expr1 << " != " << expr2
-        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(IUTEST_NULLPTR, val1))
-        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage(val1, IUTEST_NULLPTR));
+        << "\n  Actual: " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(IUTEST_NULLPTR, val1))
+        << " vs " << detail::ShowStringQuoted(FormatForComparisonFailureMessage<T, T>(val1, IUTEST_NULLPTR));
 }
 
 namespace StrCaseEqHelper
@@ -1070,7 +1113,7 @@ namespace StrCaseEqHelper
 
 inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const char* val1, const char* val2)
 {
-    if( val1 == NULL || val2 == NULL )
+    if( val1 == IUTEST_NULLPTR || val2 == IUTEST_NULLPTR )
     {
         return val1 == val2;
     }
@@ -1079,7 +1122,7 @@ inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const char* val1, const char* val2)
 
 inline bool IUTEST_ATTRIBUTE_UNUSED_ Compare(const wchar_t* val1, const wchar_t* val2)
 {
-    if( val1 == NULL || val2 == NULL )
+    if( val1 == IUTEST_NULLPTR || val2 == IUTEST_NULLPTR )
     {
         return val1 == val2;
     }

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -33,13 +33,25 @@ namespace detail
 
 //======================================================================
 // declare
+
+/**
+ * @brief   マルチバイト文字列をそのまま返す
+ * @param [in]  str = 入力
+ * @param [in]  num = 入力バッファサイズ
+ * @return  マルチバイト文字列
+*/
+inline ::std::string AnyStringToMultiByteString(const char* str, int num = -1)
+{
+    return num < 0 ? str : ::std::string(str, num);
+}
+
 /**
  * @brief   ワイド文字列からUTF8へ変換
  * @param [in]  str = 入力
  * @param [in]  num = 入力バッファサイズ
  * @return  UTF8 文字列
 */
-::std::string WideStringToUTF8(const wchar_t* str, int num=-1);
+::std::string AnyStringToUTF8(const wchar_t* str, int num=-1);
 
 /**
  * @brief   ワイド文字列からマルチバイトへ変換
@@ -47,7 +59,7 @@ namespace detail
  * @param [in]  num = 入力バッファサイズ
  * @return  マルチバイト文字列
 */
-::std::string WideStringToMultiByteString(const wchar_t* str, int num=-1);
+::std::string AnyStringToMultiByteString(const wchar_t* str, int num=-1);
 
 #if IUTEST_HAS_CHAR16_T
 
@@ -57,7 +69,7 @@ namespace detail
  * @param [in]  num = 入力バッファサイズ
  * @return  マルチバイト文字列
 */
-::std::string WideStringToUTF8(const char16_t* str, int num=-1);
+::std::string AnyStringToUTF8(const char16_t* str, int num=-1);
 
 /**
  * @brief   ワイド文字列からマルチバイトへ変換
@@ -65,7 +77,7 @@ namespace detail
  * @param [in]  num = 入力バッファサイズ
  * @return  マルチバイト文字列
 */
-::std::string WideStringToMultiByteString(const char16_t* str, int num=-1);
+::std::string AnyStringToMultiByteString(const char16_t* str, int num=-1);
 
 #endif
 
@@ -77,7 +89,7 @@ namespace detail
  * @param [in]   num = 入力バッファサイズ
  * @return   マルチバイト文字列
 */
-::std::string WideStringToUTF8(const char32_t* str, int num = -1);
+::std::string AnyStringToUTF8(const char32_t* str, int num = -1);
 
 /**
  * @brief    ワイド文字列からマルチバイトへ変換
@@ -85,7 +97,7 @@ namespace detail
  * @param [in]   num = 入力バッファサイズ
  * @return   マルチバイト文字列
 */
-::std::string WideStringToMultiByteString(const char32_t* str, int num = -1);
+::std::string AnyStringToMultiByteString(const char32_t* str, int num = -1);
 
 #endif
 
@@ -106,17 +118,17 @@ namespace detail
 
 /**
  * @brief   ワイド文字列から ::std::string へ変換
- * @param [in]  wide_c_str  = 入力
+ * @param [in]  any_c_str  = 入力
  * @return  string
 */
 template<typename CharType>
-::std::string ShowWideCString(const CharType* wide_c_str)
+::std::string ShowAnyCString(const CharType* any_c_str)
 {
-    if( wide_c_str == NULL )
+    if( any_c_str == NULL )
     {
         return kStrings::Null;
     }
-    return WideStringToMultiByteString(wide_c_str);
+    return AnyStringToMultiByteString(any_c_str);
 }
 
 #if IUTEST_HAS_CXX_HDR_CODECVT
@@ -163,7 +175,7 @@ struct wcs_to_mbs_ptr
     ::std::string m_arg;
     const char* ptr(const wchar_t* arg)
     {
-        m_arg = ShowWideCString(arg);
+        m_arg = ShowAnyCString(arg);
         return m_arg.c_str();
     }
 };
