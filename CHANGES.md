@@ -6,6 +6,8 @@
 
 * New
   * GTEST_SKIP 対応
+  * IUTEST_*_NE_RANGE アサーションを追加
+  * IUTEST_*_NE_COLLECTIONS アサーションを追加
 
 * Improved
   * ::std::wstring_view / ::std::u16string_view / ::std::u32string_view 対応
