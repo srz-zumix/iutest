@@ -471,6 +471,8 @@
 #  define IUTEST_ASSERT_STRCASENE(v1, v2)           IUTEST_TEST_STRCASENE(v1, v2, IUTEST_ASSERT_FAILURE)
 #endif
 
+#if defined(IUTEST_OS_WINDOWS)
+
 /**
  * @ingroup IUTEST_ASSERT_
  * @brief   HRESULT の成功 テスト
@@ -494,6 +496,8 @@
 #  else
 #    define IUTEST_ASSERT_HRESULT_FAILED(hr)        IUTEST_TEST_HRESULT_FAILED(hr, IUTEST_ASSERT_FAILURE)
 #  endif
+#endif
+
 #endif
 
 #if IUTEST_HAS_EXCEPTIONS
@@ -867,6 +871,8 @@
 #  define   IUTEST_EXPECT_STRCASENE(v1, v2)         IUTEST_TEST_STRCASENE(v1, v2, IUTEST_EXPECT_FAILURE)
 #endif
 
+#if defined(IUTEST_OS_WINDOWS)
+
 /**
  * @ingroup IUTEST_EXPECT_
  * @brief   HRESULT の成功 テスト
@@ -890,6 +896,8 @@
 #  else
 #    define IUTEST_EXPECT_HRESULT_FAILED(hr)        IUTEST_TEST_HRESULT_FAILED(hr, IUTEST_EXPECT_FAILURE)
 #  endif
+#endif
+
 #endif
 
 #if IUTEST_HAS_EXCEPTIONS
@@ -1273,6 +1281,8 @@
 #  define IUTEST_INFORM_STRCASENE(v1, v2)           IUTEST_TEST_STRCASENE(v1, v2, IUTEST_INFORM_FAILURE)
 #endif
 
+#if defined(IUTEST_OS_WINDOWS)
+
 /**
  * @ingroup IUTEST_INFORM_
  * @brief   HRESULT の成功 テスト
@@ -1296,6 +1306,8 @@
 #  else
 #    define IUTEST_INFORM_HRESULT_FAILED(hr)        IUTEST_TEST_HRESULT_FAILED(hr, IUTEST_INFORM_FAILURE)
 #  endif
+#endif
+
 #endif
 
 #if IUTEST_HAS_EXCEPTIONS
@@ -1661,6 +1673,8 @@
 #  define IUTEST_ASSUME_STRCASENE(v1, v2)           IUTEST_TEST_STRCASENE(v1, v2, IUTEST_ASSUME_FAILURE)
 #endif
 
+#if defined(IUTEST_OS_WINDOWS)
+
 /**
  * @ingroup IUTEST_ASSUME_
  * @brief   HRESULT の成功 テスト
@@ -1684,6 +1698,8 @@
 #  else
 #    define IUTEST_ASSUME_HRESULT_FAILED(hr)        IUTEST_TEST_HRESULT_FAILED(hr, IUTEST_ASSUME_FAILURE)
 #  endif
+#endif
+
 #endif
 
 #if IUTEST_HAS_EXCEPTIONS
