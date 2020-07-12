@@ -492,6 +492,7 @@ class IutestPreprocessor:
             'II_PEEP_SETTER_NAME_': 'II_PE_S_N_',
             'II_GeTypeNameSpecialization': 'II_GTNS',
             'II_WORKAROUND_GENRAND': 'II_WA_GENRAND',
+            'II_FILESYSTEM_INSTANTIATE_': 'II_FS_I_',
         }
         line = line.replace('IIUT_', 'II_')
         line = line.replace('II_PP_', 'IP_')
@@ -506,8 +507,21 @@ class IutestPreprocessor:
         line = line.replace('pred_formatter',  'pd_fmt')
         line = line.replace('on_failure',  'on_f')
         line = line.replace('testcasename_',  'tcn_')
+        line = line.replace('testcase_',  't_c_')
         line = line.replace('testname_',  'tn_')
         line = line.replace('testfixture_',  'tf_')
+        line = line.replace('result_type_',  'rt_')
+        line = line.replace('parent_class_',  'p_c_')
+        line = line.replace('type_id_',  'tid_')
+        line = line.replace('methodName',  'mN_')
+        line = line.replace('method_',  'mtd_')
+        line = line.replace('prefix_',  'pfx_')
+        line = line.replace('paramname_generator_',  'pn_gen_')
+        line = line.replace('generator_',  'gen_')
+        line = line.replace('dummy',  'dmy')
+        # line = line.replace('value',  'val')
+        line = line.replace('macro',  'mcr')
+        line = line.replace('EXTEND_POINT_',  'EX_P_')
         for k,v in reduction_macros.items():
             if collections.Counter(reduction_macros.values())[v] > 1:
                 print('error: duplicated ' + v)
