@@ -53,6 +53,7 @@ STRICT_CXXFLAGS+= -Wno-parentheses -Wno-cast-align -Wno-sign-compare -Wno-implic
 STRICT_CXXFLAGS+= -Wno-unknown-attributes -Wno-ambiguous-ellipsis -Wno-format-nonliteral -Wno-mismatched-tags
 STRICT_CXXFLAGS+= -Wno-narrowing
 STRICT_CXXFLAGS+= -Wno-comment
+STRICT_CXXFLAGS+= -Wno-invalid-constexpr
 STRICT_CXXFLAGS+= -Wno-extra -Wno-c++98-compat -Wno-c++11-compat
 STRICT_CXXFLAGS+= -Wno-unknown-warning-option
 
