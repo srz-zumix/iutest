@@ -353,7 +353,7 @@ class WandboxPreprocessor:
             if len(rename_macro) == 0:
                 break
         for line in code.splitlines():
-            for k,v in found_macros.items():
+            for k, v in found_macros.items():
                 line = line.replace(k, v)
             line = line.replace('backward', 'bkw')
             line = line.replace('IUTEST_MAKE_ASSERTIONRESULT_', '')

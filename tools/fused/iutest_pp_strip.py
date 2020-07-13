@@ -436,11 +436,11 @@ class IutestPreprocessor:
             'II_DECL_TUPLE_PRINTTO': 'II_D_T_PT',
             'II_DECL_ANYOF_AND_ALLOF': 'II_D_AAA',
             'II_DECL_COMPARE_HELPER_': 'II_D_C_H_',
-            'II_DECL_COMBINE_':   'II_D_C_',
-            'II_DECL_VALUES_':    'II_D_V_',
-            'II_DECL_TYPES_':     'II_D_T_',
+            'II_DECL_COMBINE_': 'II_D_C_',
+            'II_DECL_VALUES_': 'II_D_V_',
+            'II_DECL_TYPES_': 'II_D_T_',
             'II_DECL_TEMPLATES_': 'II_D_TPL_',
-            'II_DECL_TYPELIST_':  'II_D_TL_',
+            'II_DECL_TYPELIST_': 'II_D_TL_',
             'II_DECL_TEMPLATETYPELIST_': 'II_D_TTL_',
             'II_DECL_PEEP_MEMBER_FUNC_': 'II_D_PE_M_F_',
             'II_DECL_COMPARE_MATCHER': 'II_D_COMP_M',
@@ -460,7 +460,7 @@ class IutestPreprocessor:
             'II_CONCAT_PACKAGE': 'II_CC_PKG',
             'II_PACKAGE_': 'II_PKG_',
             'II_PKG_CURRENT_NAMESPACE_': 'II_PKG_C_NS_',
-            'II_PKG_PARENT_NAMESPACE_':  'II_PKG_P_NS_',
+            'II_PKG_PARENT_NAMESPACE_': 'II_PKG_P_NS_',
             'II_TEST_CLASS_NAME_': 'II_T_C_N_',
             'II_TEST_INSTANCE_NAME_': 'II_T_INST_N_',
             'II_TO_VARNAME_': 'II_TO_VN_',
@@ -469,8 +469,8 @@ class IutestPreprocessor:
             'II_PMZ_TEST_CLASS_NAME_': 'II_PMZ_T_C_N_',
             'II_GETTESTCASEPATTERNHOLDER': 'II_GTCPH',
             'II_INSTANTIATE_TEST_CASE_P_': 'II_INST_TC_P_',
-            'II_TEST_P_EVALGENERATOR_NAME_':    'II_T_P_EGEN_N_',
-            'II_TEST_P_PARAMGENERATOR_NAME_':   'II_T_P_PGEN_N_',
+            'II_TEST_P_EVALGENERATOR_NAME_': 'II_T_P_EGEN_N_',
+            'II_TEST_P_PARAMGENERATOR_NAME_': 'II_T_P_PGEN_N_',
             'II_TEST_P_INSTANTIATIONREGISTER_': 'II_T_P_INST_R_',
             'II_TEST_P_FIXTURE_DECL_': 'II_T_P_FX_D_',
             'II_TEST_P_BASE_FIXTURE': 'II_T_P_B_FX',
@@ -486,9 +486,9 @@ class IutestPreprocessor:
             'II_T_T_P_NAMESPACE_': 'II_T_T_P_NS_',
             'II_T_T_P_ADDTESTNAME': 'II_T_T_P_ADD_TN',
             'II_T_T_PARAMS_': 'II_T_T_PRMS_',
-            'II_REGISTER_TYPED_TEST_CASE_P_':    'II_R_T_TC_P_',
+            'II_REGISTER_TYPED_TEST_CASE_P_': 'II_R_T_TC_P_',
             'II_INSTANTIATE_TYPED_TEST_CASE_P_': 'II_INST_T_TC_P_',
-            'II_PEEP_TAG_NAME_':    'II_PE_T_N_',
+            'II_PEEP_TAG_NAME_': 'II_PE_T_N_',
             'II_PEEP_SETTER_NAME_': 'II_PE_S_N_',
             'II_GeTypeNameSpecialization': 'II_GTNS',
             'II_WORKAROUND_GENRAND': 'II_WA_GENRAND',
@@ -500,28 +500,28 @@ class IutestPreprocessor:
         line = line.replace('statement', 'st')
         line = line.replace('expected_exception', 'exp_e')
         line = line.replace('exp_e_value', 'exp_e_v')
-        line = line.replace('expected_str',   'exp_s')
+        line = line.replace('expected_str', 'exp_s')
         line = line.replace('expected_value', 'exp_v')
-        line = line.replace('actual_str',  'act_s')
-        line = line.replace('regex_str',  'regex_s')
-        line = line.replace('pred_formatter',  'pd_fmt')
-        line = line.replace('on_failure',  'on_f')
-        line = line.replace('testcasename_',  'tcn_')
-        line = line.replace('testcase_',  't_c_')
-        line = line.replace('testname_',  'tn_')
-        line = line.replace('testfixture_',  'tf_')
-        line = line.replace('result_type_',  'rt_')
-        line = line.replace('parent_class_',  'p_c_')
-        line = line.replace('type_id_',  'tid_')
-        line = line.replace('methodName',  'mN_')
-        line = line.replace('method_',  'mtd_')
-        line = line.replace('prefix_',  'pfx_')
-        line = line.replace('paramname_generator_',  'pn_gen_')
-        line = line.replace('generator_',  'gen_')
-        line = line.replace('dummy',  'dmy')
-        # line = line.replace('value',  'val')
-        line = line.replace('macro',  'mcr')
-        line = line.replace('EXTEND_POINT_',  'EX_P_')
+        line = line.replace('actual_str', 'act_s')
+        line = line.replace('regex_str', 'regex_s')
+        line = line.replace('pred_formatter', 'pd_fmt')
+        line = line.replace('on_failure', 'on_f')
+        line = line.replace('testcasename_', 'tcn_')
+        line = line.replace('testcase_', 't_c_')
+        line = line.replace('testname_', 'tn_')
+        line = line.replace('testfixture_', 'tf_')
+        line = line.replace('result_type_', 'rt_')
+        line = line.replace('parent_class_', 'p_c_')
+        line = line.replace('type_id_', 'tid_')
+        line = line.replace('methodName', 'mN_')
+        line = line.replace('method_', 'mtd_')
+        line = line.replace('prefix_', 'pfx_')
+        line = line.replace('paramname_generator_', 'pn_gen_')
+        line = line.replace('generator_', 'gen_')
+        line = line.replace('dummy', 'dmy')
+        # line = line.replace('value', 'val')
+        line = line.replace('macro', 'mcr')
+        line = line.replace('EXTEND_POINT_', 'EX_P_')
         for k,v in reduction_macros.items():
             if collections.Counter(reduction_macros.values())[v] > 1:
                 print('error: duplicated ' + v)
