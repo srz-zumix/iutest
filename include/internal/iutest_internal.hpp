@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -558,6 +558,8 @@
     IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSTRCASENE    \
         , v1, v2, on_failure )
 
+#if defined(IUTEST_OS_WINDOWS)
+
 #define IUTEST_TEST_HRESULT_SUCCEEDED(hr, on_failure)           \
     IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTSuccess  \
         , hr, on_failure )
@@ -565,6 +567,8 @@
 #define IUTEST_TEST_HRESULT_FAILED(hr, on_failure)              \
     IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTFailure  \
         , hr, on_failure )
+
+#endif
 
 #define IUTEST_TEST_SAME(v1, v2, on_failure)                    \
     IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSame     \
