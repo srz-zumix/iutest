@@ -18,6 +18,7 @@ build:
                     -
                         command: pylint-run
                         use_website_config: true
+                        idle_timeout: 660
                     - py-scrutinizer-run
 
 filter:
