@@ -457,9 +457,9 @@
 #if IUTEST_HAS_CXX_HDR_VARIANT
 #  include <variant>
 #endif
-#if IUTEST_HAS_CXX_HDR_CHARCONV
-#  include <charconv>
-#endif
+// #if IUTEST_HAS_CXX_HDR_CHARCONV
+// #  include <charconv>
+// #endif
 
 //======================================================================
 // define
