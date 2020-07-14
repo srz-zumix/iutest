@@ -340,11 +340,7 @@
 
 #if !defined(IUTEST_HAS_SPI_LAMBDA_SUPPORT)
 //! spi マクロで lambda を使って変数にアクセス可能かどうか
-#  if IUTEST_HAS_LAMBDA_STATEMENTS
-#    define IUTEST_HAS_SPI_LAMBDA_SUPPORT       1
-#  else
-#    define IUTEST_HAS_SPI_LAMBDA_SUPPORT       0
-#  endif
+#  define IUTEST_HAS_SPI_LAMBDA_SUPPORT       IUTEST_HAS_LAMBDA_STATEMENTS
 #endif
 
 #if !defined(IUTEST_HAS_CATCH_SEH_EXCEPTION_ASSERTION)
