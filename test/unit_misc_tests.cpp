@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file        unit_misc_tests.cpp
- * @brief       iutest test
+ * @brief       iutest misc test
  *
  * @author      t.shirayanagi
  * @par         copyright
