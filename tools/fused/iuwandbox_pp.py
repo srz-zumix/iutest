@@ -57,6 +57,11 @@ predefined_macros = {
     'sun': None,
     '__sun': None,
     '__MAC_OS_X_VERSION_MIN_REQUIRED': None,
+    '_STLPORT_VERSION': None,
+    '_BSD_SOURCE': None,
+    '__USE_MINGW_ANSI_STDIO': None,
+    'MAX_PATH': None,
+    'PATH_MAX': None,
     'IUTEST_OS_WINDOWS': None,
     'IUTEST_OS_WINDOWS_MINGW': None,
     'IUTEST_OS_WINDOWS_MOBILE': None,
@@ -160,6 +165,7 @@ iutest_config_macro = {
     'IUTEST_HAS_REPORT_SKIPPED': '1',
     'IUTEST_HAS_STREAM_BUFFER': '1',
     # 'IUTEST_HAS_STREAM_RESULT': '1',
+    'IUTEST_HAS_BIGGESTINT_OSTREAM': '1',
     'IUTEST_CHECK_STRICT': '1',
 }
 
@@ -284,6 +290,9 @@ rename_macro = {
     'IUTEST_PMZ_TEST_CLASS_NAME_': 'II_P_T_CLS_N_',
     'IUTEST_MESSAGE_AT': 'II_MSG_AT',
     'IUTEST_MESSAGE': 'II_MSG',
+    'IUTEST_IS_NULLLITERAL': 'II_IS_NL',
+    'IUTEST_ALIAS_TESTNAME_': 'II_ALS_TN',
+    'IUTEST_THROUGH_ANALYSIS_ASSUME_': 'II_TRGH_A_A_',
 }
 
 debug = False
