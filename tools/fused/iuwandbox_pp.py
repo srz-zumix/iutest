@@ -338,11 +338,11 @@ class WandboxPreprocessor:
         dst = ""
         global rename_macro
         found_macros = {}
-        for k,v in rename_macro.items():
+        for k, v in rename_macro.items():
             if collections.Counter(rename_macro.values())[v] > 1:
                 print('error: duplicated ' + v)
                 return
-        RE_DEFINE = re.compile('#\s*define\s([\w_]+)(.*)$')
+        RE_DEFINE = re.compile(r'#\s*define\s([\w_]+)(.*)$')
         for line in code.splitlines():
             m = RE_DEFINE.match(line)
             if m:
@@ -360,7 +360,7 @@ class WandboxPreprocessor:
             line = line.replace('IUTEST_MAKE_ASSERTIONRESULT_', '')
             line += "\n"
             dst += line
-        for k,v in found_macros.items():
+        for k, v in found_macros.items():
             dst += "#define " + k + " " + v + "\n"
         return dst
 
