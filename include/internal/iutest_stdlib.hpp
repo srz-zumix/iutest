@@ -279,7 +279,7 @@
 #endif
 
 #if _MSC_VER >= 1916
-#  if !defined(IUTEST_HAS_CXX_HDR_CHARCONV)
+#  if !defined(IUTEST_HAS_CXX_HDR_CHARCONV) && IUTEST_HAS_CXX17
 #    define IUTEST_HAS_CXX_HDR_CHARCONV     1
 #  endif
 #endif
@@ -457,9 +457,9 @@
 #if IUTEST_HAS_CXX_HDR_VARIANT
 #  include <variant>
 #endif
-// #if IUTEST_HAS_CXX_HDR_CHARCONV
-// #  include <charconv>
-// #endif
+#if IUTEST_HAS_CXX_HDR_CHARCONV
+#  include <charconv>
+#endif
 
 //======================================================================
 // define
@@ -475,7 +475,7 @@
 
 #if !defined(IUTEST_HAS_STD_TO_CHARS)
 #  if defined(__cpp_lib_to_chars) && __cpp_lib_to_chars >= 201611
-#    define IUTEST_HAS_STD_TO_CHARS           1
+#    define IUTEST_HAS_STD_TO_CHARS         1
 #  endif
 #endif
 
