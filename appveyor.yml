@@ -274,11 +274,3 @@ for:
       Write-Output "Building NuGet package"
       nuget pack $nuspecPath -OutputDirectory ".\"
   test: off
-
-notifications:
-  - provider: Email
-    to:
-      - zumix.cpp@gmail.com
-    on_build_success: false
-    on_build_failure: true
-    on_build_status_changed: true
