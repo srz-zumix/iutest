@@ -65,5 +65,5 @@ cirrus_freebsd_clang_test_task:
   version_script: gmake --version && gmake -C test showcxxversion
   build_script: gmake -C test -j4
   test_script : gmake -C test test
-  report_script: make -C test report
+  report_script: gmake -C test report
 

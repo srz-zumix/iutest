@@ -6,4 +6,4 @@ before_script:
 script:
   - make -C test -j4 CXXFLAGS=-ftime-report
   - make -C test test
-  - make -C report
+  - make -C test report
