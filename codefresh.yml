@@ -110,7 +110,7 @@ steps:
         environment:
           - OUTDIR=gcc9
         commands:
-          - make -C test test
+          - make -C test test && make -C test report
         when:
           steps:
           - name: BuildOtherUnitTest_gcc9

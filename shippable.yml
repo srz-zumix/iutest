@@ -19,3 +19,4 @@ build:
     - make showcxxversion
     - make -j2
     - make test
+    - make report
