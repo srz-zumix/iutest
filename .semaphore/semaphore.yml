@@ -58,6 +58,7 @@ blocks:
             - cd test
             - make $PARALLELS
             - make test
+            - make report
         - name: scan-build
           commands:
             - cd test

@@ -17,6 +17,7 @@ tasks:
       - cd test
       - make
       - make test
+      - make report
       - make clean
     when: *condition
 
