@@ -27,7 +27,7 @@ iutest_incg_list = []
 workaround = True
 api_retries = 3
 api_retry_wait = 60
-fused_src = IUTEST_FUSED_SRC
+fused_src = IUTEST_WANDBOX_FUSED_SRC
 
 
 # command line option
@@ -202,7 +202,13 @@ def parse_command_line():
     parser.add_argument(
         '--iutest-use-wandbox-min',
         action='store_true',
-        help='use iutest.wandbox.min.hpp (experimental).'
+        default=True,
+        help='!this option is deprecated! use iutest.wandbox.min.hpp (default true).'
+    )
+    parser.add_argument(
+        '--no-iutest-use-wandbox-min',
+        action='store_true',
+        help='not use iutest.wandbox.min.hpp (experimental).'
     )
     parser.add_argument(
         '--verbose',
@@ -223,8 +229,8 @@ def parse_command_line():
     options = parser.parse_args()
     api_retries = options.retry
     api_retry_wait = options.retry_wait
-    if options.iutest_use_wandbox_min:
-        fused_src = IUTEST_WANDBOX_FUSED_SRC
+    if options.no_iutest_use_wandbox_min:
+        fused_src = IUTEST_FUSED_SRC
     return options, parser
 
 

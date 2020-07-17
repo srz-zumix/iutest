@@ -129,6 +129,9 @@ modification, are permitted provided that the following conditions are met: \n
       <li>::std::wstring_view / ::std::u16string_view / ::std::u32string_view 対応</li>
       <li>アサーションに operator &lt;&lt; したときの出力を PrintToString したものと同じになるように変更</li>
       <li>テストをリピートした際のレポート出力ファイル名の書式を printf 書式から {I} に変更({I} にリピート回数が置換されます)</li>
+      <li>iuwandbox: Wandbox 向けにサイズ圧縮したヘッダーをデフォルトで使用するように変更</li>
+      <li>iuwandbox: 上記に伴いフルバージョンのヘッダーを使うオプション(--no-iutest-use-wandbox-min)を追加</li>
+      <li>deprecated: iuwandbox: --iutest-use-wandbox-min</li>
       <li>Python2 のサポート終了</li>
       <li>C++20 で削除された basic_ostream::operator &lt;&lt; に対応</li>
       <li>IUTEST_AP が同じ名前空間に複数定義できない問題を修正</li>
