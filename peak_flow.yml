@@ -5,4 +5,5 @@ before_script:
   - clang --version || true
 script:
   - make -C test -j4 CXXFLAGS=-ftime-report
-  # - make -C test test
+  - make -C test test
+  - make -C report
