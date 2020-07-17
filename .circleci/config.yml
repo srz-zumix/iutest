@@ -77,6 +77,11 @@ aliases:
     command: |
       make $MAKE_RUN_TARGET
     working_directory: test
+  - &report-step
+    name: report
+    command: |
+      make report
+    working_directory: test
   - &move-result-step
     name: move result xml
     command: |
@@ -95,6 +100,7 @@ aliases:
     - run: *min-tests-and-spec-step
     - run: *build-step
     - run: *test-step
+    - run: *report-step
     - run: *move-result-step
     # Teardown
     - store_test_results:
