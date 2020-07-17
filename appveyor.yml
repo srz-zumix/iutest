@@ -196,7 +196,7 @@ for:
       make showcxxmacros
       make -j4
   test_script:
-    cmd: make test
+    cmd: make test && make report
 # MINGW
 -
   matrix:
@@ -218,7 +218,7 @@ for:
       mingw32-make showcxxmacros
       mingw32-make -j4 %MAKE_OPTIONS%
   test_script:
-    cmd: mingw32-make test %MAKE_OPTIONS%
+    cmd: mingw32-make test %MAKE_OPTIONS% && mingw32-make report
 # NAMKE
 -
   matrix:
@@ -229,7 +229,7 @@ for:
   build_script:
     cmd: cd test && nmake
   test_script:
-    cmd: nmake test
+    cmd: nmake test && make report
 # Prefast
 -
   matrix:
