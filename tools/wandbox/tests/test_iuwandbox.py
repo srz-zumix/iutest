@@ -155,7 +155,7 @@ class iuwandbox_test(iuwandbox_test_base):
             iuwandbox.main()
         output = self.dump()
         self.assertEqual(cm.exception.code, 0, output)
-        self.assertRegex(output, '\[ \s+OK \]')
+        self.assertRegex(output, r'\[ \s+OK \]')
         self.assertFalse('-Wmisleading-indentation' in output)
 
     def test_same_filename(self):
@@ -177,7 +177,7 @@ class iuwandbox_test(iuwandbox_test_base):
             iuwandbox.main()
         output = self.dump()
         self.assertEqual(cm.exception.code, 0, output)
-        self.assertRegex(output, '\[ \s+OK \]')
+        self.assertRegex(output, r'\[ \s+OK \]')
         self.assertFalse('-Wmisleading-indentation' in output)
 
 
