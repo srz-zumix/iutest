@@ -91,18 +91,3 @@ jobs:
       uses: ./.github/actions/iwyu
       with:
         args: /work/projects/cmake -Dbuild_test_namespace_test=OFF
-
-  lizard:
-    runs-on: ubuntu-18.04
-    needs: prepare
-    steps:
-    - uses: actions/checkout@master
-    - name: Lizard
-      uses: docker://srzzumix/lizard
-      with:
-        args: -o lizard.html --html ./include
-    - name: Archive code metrics results
-      uses: actions/upload-artifact@v1
-      with:
-        name: lizard.html
-        path: lizard.html
