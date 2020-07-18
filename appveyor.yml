@@ -229,7 +229,7 @@ for:
   build_script:
     cmd: cd test && nmake
   test_script:
-    cmd: nmake test && make report
+    cmd: nmake test
 # Prefast
 -
   matrix:
