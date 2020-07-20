@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -276,6 +276,7 @@ IUTEST_IPP_INLINE bool TestEnv::SetFlag(int enable, int mask)
 
 IUTEST_IPP_INLINE void TestEnv::LoadEnvironmentVariable()
 {
+#if !defined(__WANDBOX__)
     {
         int var = 0;
         if( detail::GetEnvironmentInt("IUTEST_ALSO_RUN_DISABLED_TESTS", var)
@@ -378,6 +379,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
             ParseFlagFileOption(str);
         }
     }
+#endif
 }
 
 IUTEST_IPP_INLINE void TestEnv::SetUp()

@@ -196,7 +196,7 @@ for:
       make showcxxmacros
       make -j4
   test_script:
-    cmd: make test
+    cmd: make test && make report
 # MINGW
 -
   matrix:
@@ -218,7 +218,7 @@ for:
       mingw32-make showcxxmacros
       mingw32-make -j4 %MAKE_OPTIONS%
   test_script:
-    cmd: mingw32-make test %MAKE_OPTIONS%
+    cmd: mingw32-make test %MAKE_OPTIONS% && mingw32-make report
 # NAMKE
 -
   matrix:
@@ -274,11 +274,3 @@ for:
       Write-Output "Building NuGet package"
       nuget pack $nuspecPath -OutputDirectory ".\"
   test: off
-
-notifications:
-  - provider: Email
-    to:
-      - zumix.cpp@gmail.com
-    on_build_success: false
-    on_build_failure: true
-    on_build_status_changed: true

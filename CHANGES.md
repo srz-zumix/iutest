@@ -6,6 +6,8 @@
 
 * New
   * GTEST_SKIP 対応
+  * IUTEST_*_NE_RANGE アサーションを追加
+  * IUTEST_*_NE_COLLECTIONS アサーションを追加
 
 * Improved
   * ::std::wstring_view / ::std::u16string_view / ::std::u32string_view 対応
@@ -13,6 +15,9 @@
 
 * Changes
   * アサーションに operator << したときの出力を PrintToString したものと同じになるように変更
+  * iuwandbox: Wandbox 向けにサイズ圧縮したヘッダーをデフォルトで使用するように変更
+  * iuwandbox: 上記に伴いフルバージョンのヘッダーを使うオプション(--no-iutest-use-wandbox-min)を追加
+  * deprecated: iuwandbox: --iutest-use-wandbox-min
   * Python2 のサポート終了
 
 * Bug fixes
