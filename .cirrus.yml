@@ -16,6 +16,7 @@ cirrus_gcc_test_task:
   # NOTE: -j$((`nproc`)): Container errored with 'OOMKilled'
   build_script: make -C test -j4
   test_script: make -C test test
+  report_script: make -C test report
 
 #cirrus_use_gtest_task:
 #  env:
@@ -34,6 +35,7 @@ cirrus_osx_14_test_task: &osx_task
   version_script: make -C test showcxxversion
   build_script: make -C test -j$((`getconf _NPROCESSORS_ONLN`))
   test_script : make -C test test
+  report_script: make -C test report
 
 cirrus_osx_17_test_task:
   <<: *osx_task
@@ -63,4 +65,5 @@ cirrus_freebsd_clang_test_task:
   version_script: gmake --version && gmake -C test showcxxversion
   build_script: gmake -C test -j4
   test_script : gmake -C test test
+  report_script: gmake -C test report
 

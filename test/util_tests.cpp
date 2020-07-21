@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -51,108 +51,160 @@ IUTEST(UtilTest, TestCaseNameRemoveInstantiateAndIndexName)
     IUTEST_EXPECT_STREQ( "TestCase" , ::iuutil::TestCaseNameRemoveInstantiateAndIndexName("prefix/TestCase/0") );
 }
 
-IUTEST(AssertionTest, EQ_COLLECTIONS)
+IUTEST(AssertionTest, EQ_COLLECTIONS_Array)
 {
-    {
-        int  a[] = { 0, 1, 2, 3, 4 };
-        int  b[] = { 0, 1, 2, 3, 4 };
-        char c[] = { 0, 1, 2, 3, 4 };
+    int  a[] = { 0, 1, 2, 3, 4 };
+    int  b[] = { 0, 1, 2, 3, 4 };
+    char c[] = { 0, 1, 2, 3, 4 };
 
-        IUTEST_ASSERT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
-        IUTEST_EXPECT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
-        IUTEST_INFORM_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
-        IUTEST_ASSUME_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
+    IUTEST_ASSERT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
+    IUTEST_EXPECT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
+    IUTEST_INFORM_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
+    IUTEST_ASSUME_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
 
-        IUTEST_ASSERT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
-        IUTEST_EXPECT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
-        IUTEST_INFORM_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
-        IUTEST_ASSUME_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
-    }
-
-    {
-        int  d[] = { 0, 1, 2, 3, 4 };
-        const int COUNT=sizeof(d)/sizeof(d[0]);
-        ::std::vector<int> a, b;
-        ::std::vector<char> c;
-        for( int i=0; i < COUNT; ++i )
-        {
-            a.push_back(i);
-            b.push_back(i);
-            c.push_back(static_cast<char>(i));
-        }
-        IUTEST_ASSERT_EQ_COLLECTIONS(a.begin(), a.end(), b.begin(), b.end());
-        IUTEST_EXPECT_EQ_COLLECTIONS(a.begin(), a.end(), b.begin(), b.end());
-        IUTEST_INFORM_EQ_COLLECTIONS(a.begin(), a.end(), b.begin(), b.end());
-        IUTEST_ASSUME_EQ_COLLECTIONS(a.begin(), a.end(), b.begin(), b.end());
-
-        IUTEST_ASSERT_EQ_COLLECTIONS(a.begin(), a.end(), c.begin(), c.end());
-        IUTEST_EXPECT_EQ_COLLECTIONS(a.begin(), a.end(), c.begin(), c.end());
-        IUTEST_INFORM_EQ_COLLECTIONS(a.begin(), a.end(), c.begin(), c.end());
-        IUTEST_ASSUME_EQ_COLLECTIONS(a.begin(), a.end(), c.begin(), c.end());
-
-        IUTEST_ASSERT_EQ_COLLECTIONS(a.begin(), a.end(), d, d+(sizeof(d)/sizeof(d[0])));
-        IUTEST_EXPECT_EQ_COLLECTIONS(a.begin(), a.end(), d, d+(sizeof(d)/sizeof(d[0])));
-        IUTEST_INFORM_EQ_COLLECTIONS(a.begin(), a.end(), d, d+(sizeof(d)/sizeof(d[0])));
-        IUTEST_ASSUME_EQ_COLLECTIONS(a.begin(), a.end(), d, d+(sizeof(d)/sizeof(d[0])));
-    }
+    IUTEST_ASSERT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
+    IUTEST_EXPECT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
+    IUTEST_INFORM_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
+    IUTEST_ASSUME_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
 }
 
-IUTEST(AssertionTest, EQ_RANGE)
+IUTEST(AssertionTest, EQ_COLLECTIONS_Vector)
 {
+    int  d[] = { 0, 1, 2, 3, 4 };
+    const int COUNT=sizeof(d)/sizeof(d[0]);
+    ::std::vector<int> a, b;
+    ::std::vector<char> c;
+    for( int i=0; i < COUNT; ++i )
     {
-        int  a[] = { 0, 1, 2, 3, 4 };
-        int  b[] = { 0, 1, 2, 3, 4 };
-        char c[] = { 0, 1, 2, 3, 4 };
+        a.push_back(i);
+        b.push_back(i);
+        c.push_back(static_cast<char>(i));
+    }
+    IUTEST_ASSERT_EQ_COLLECTIONS(a.begin(), a.end(), b.begin(), b.end());
+    IUTEST_EXPECT_EQ_COLLECTIONS(a.begin(), a.end(), b.begin(), b.end());
+    IUTEST_INFORM_EQ_COLLECTIONS(a.begin(), a.end(), b.begin(), b.end());
+    IUTEST_ASSUME_EQ_COLLECTIONS(a.begin(), a.end(), b.begin(), b.end());
 
-        IUTEST_ASSERT_EQ_RANGE(a, b);
-        IUTEST_EXPECT_EQ_RANGE(a, b);
-        IUTEST_INFORM_EQ_RANGE(a, b);
-        IUTEST_ASSUME_EQ_RANGE(a, b);
+    IUTEST_ASSERT_EQ_COLLECTIONS(a.begin(), a.end(), c.begin(), c.end());
+    IUTEST_EXPECT_EQ_COLLECTIONS(a.begin(), a.end(), c.begin(), c.end());
+    IUTEST_INFORM_EQ_COLLECTIONS(a.begin(), a.end(), c.begin(), c.end());
+    IUTEST_ASSUME_EQ_COLLECTIONS(a.begin(), a.end(), c.begin(), c.end());
 
-        IUTEST_ASSERT_EQ_RANGE(a, c);
-        IUTEST_EXPECT_EQ_RANGE(a, c);
-        IUTEST_INFORM_EQ_RANGE(a, c);
-        IUTEST_ASSUME_EQ_RANGE(a, c);
+    IUTEST_ASSERT_EQ_COLLECTIONS(a.begin(), a.end(), d, d+(sizeof(d)/sizeof(d[0])));
+    IUTEST_EXPECT_EQ_COLLECTIONS(a.begin(), a.end(), d, d+(sizeof(d)/sizeof(d[0])));
+    IUTEST_INFORM_EQ_COLLECTIONS(a.begin(), a.end(), d, d+(sizeof(d)/sizeof(d[0])));
+    IUTEST_ASSUME_EQ_COLLECTIONS(a.begin(), a.end(), d, d+(sizeof(d)/sizeof(d[0])));
+}
+
+IUTEST(AssertionTest, NE_COLLECTIONS)
+{
+    int  a[] = { 0, 1, 2, 3, 4 };
+    int  b[] = { 0, 1, 2, 3, 4, 5 };
+    char c[] = { 0, 1, 2, 1, 4 };
+    ::std::vector<int> d(b+1, b+(sizeof(b)/sizeof(b[0])));
+
+    IUTEST_ASSERT_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
+    IUTEST_EXPECT_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
+    IUTEST_INFORM_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
+    IUTEST_ASSUME_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0])));
+
+    IUTEST_ASSERT_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
+    IUTEST_EXPECT_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
+    IUTEST_INFORM_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
+    IUTEST_ASSUME_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), c, c+(sizeof(c)/sizeof(c[0])));
+
+    IUTEST_ASSERT_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), d.begin(), d.end());
+    IUTEST_EXPECT_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), d.begin(), d.end());
+    IUTEST_INFORM_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), d.begin(), d.end());
+    IUTEST_ASSUME_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), d.begin(), d.end());
+}
+
+IUTEST(AssertionTest, EQ_RANGE_Array)
+{
+    int  a[] = { 0, 1, 2, 3, 4 };
+    int  b[] = { 0, 1, 2, 3, 4 };
+    char c[] = { 0, 1, 2, 3, 4 };
+
+    IUTEST_ASSERT_EQ_RANGE(a, b);
+    IUTEST_EXPECT_EQ_RANGE(a, b);
+    IUTEST_INFORM_EQ_RANGE(a, b);
+    IUTEST_ASSUME_EQ_RANGE(a, b);
+
+    IUTEST_ASSERT_EQ_RANGE(a, c);
+    IUTEST_EXPECT_EQ_RANGE(a, c);
+    IUTEST_INFORM_EQ_RANGE(a, c);
+    IUTEST_ASSUME_EQ_RANGE(a, c);
 #if IUTEST_HAS_INITIALIZER_LIST
-        IUTEST_ASSERT_EQ_RANGE(::std::initializer_list<int>({0, 1, 2, 3, 4}), a);
+    IUTEST_ASSERT_EQ_RANGE(::std::initializer_list<int>({0, 1, 2, 3, 4}), a);
 #if IUTEST_HAS_AUTO
-        auto il = {0, 1, 2, 3, 4};
-        IUTEST_ASSERT_EQ_RANGE(il, a);
+    auto il = {0, 1, 2, 3, 4};
+    IUTEST_ASSERT_EQ_RANGE(il, a);
 #endif
 #endif
-    }
+}
 
+IUTEST(AssertionTest, EQ_RANGE_Vector)
+{
+    int  d[] = { 0, 1, 2, 3, 4 };
+    const int COUNT=sizeof(d)/sizeof(d[0]);
+    ::std::vector<int> a, b;
+    ::std::vector<char> c;
+    for( int i=0; i < COUNT; ++i )
     {
-        int  d[] = { 0, 1, 2, 3, 4 };
-        const int COUNT=sizeof(d)/sizeof(d[0]);
-        ::std::vector<int> a, b;
-        ::std::vector<char> c;
-        for( int i=0; i < COUNT; ++i )
-        {
-            a.push_back(i);
-            b.push_back(i);
-            c.push_back(static_cast<char>(i));
-        }
-        IUTEST_ASSERT_EQ_RANGE(a, b);
-        IUTEST_EXPECT_EQ_RANGE(a, b);
-        IUTEST_INFORM_EQ_RANGE(a, b);
-        IUTEST_ASSUME_EQ_RANGE(a, b);
-
-        IUTEST_ASSERT_EQ_RANGE(a, c);
-        IUTEST_EXPECT_EQ_RANGE(a, c);
-        IUTEST_INFORM_EQ_RANGE(a, c);
-        IUTEST_ASSUME_EQ_RANGE(a, c);
-
-        IUTEST_ASSERT_EQ_RANGE(a, d);
-        IUTEST_EXPECT_EQ_RANGE(a, d);
-        IUTEST_INFORM_EQ_RANGE(a, d);
-        IUTEST_ASSUME_EQ_RANGE(a, d);
-
-        IUTEST_ASSERT_EQ_RANGE(d, c);
-        IUTEST_EXPECT_EQ_RANGE(d, c);
-        IUTEST_INFORM_EQ_RANGE(d, c);
-        IUTEST_ASSUME_EQ_RANGE(d, c);
+        a.push_back(i);
+        b.push_back(i);
+        c.push_back(static_cast<char>(i));
     }
+    IUTEST_ASSERT_EQ_RANGE(a, b);
+    IUTEST_EXPECT_EQ_RANGE(a, b);
+    IUTEST_INFORM_EQ_RANGE(a, b);
+    IUTEST_ASSUME_EQ_RANGE(a, b);
+
+    IUTEST_ASSERT_EQ_RANGE(a, c);
+    IUTEST_EXPECT_EQ_RANGE(a, c);
+    IUTEST_INFORM_EQ_RANGE(a, c);
+    IUTEST_ASSUME_EQ_RANGE(a, c);
+
+    IUTEST_ASSERT_EQ_RANGE(a, d);
+    IUTEST_EXPECT_EQ_RANGE(a, d);
+    IUTEST_INFORM_EQ_RANGE(a, d);
+    IUTEST_ASSUME_EQ_RANGE(a, d);
+
+    IUTEST_ASSERT_EQ_RANGE(d, c);
+    IUTEST_EXPECT_EQ_RANGE(d, c);
+    IUTEST_INFORM_EQ_RANGE(d, c);
+    IUTEST_ASSUME_EQ_RANGE(d, c);
+}
+
+IUTEST(AssertionTest, NE_RANGE)
+{
+    int  a[] = { 0, 1, 2, 3, 4 };
+    int  b[] = { 0, 1, 2, 3, 4, 5 };
+    char c[] = { 0, 1, 2, 0, 4 };
+    ::std::vector<int> d(b+1, b+(sizeof(b)/sizeof(b[0])));
+
+    IUTEST_ASSERT_NE_RANGE(a, b);
+    IUTEST_EXPECT_NE_RANGE(a, b);
+    IUTEST_INFORM_NE_RANGE(a, b);
+    IUTEST_ASSUME_NE_RANGE(a, b);
+
+    IUTEST_ASSERT_NE_RANGE(a, c);
+    IUTEST_EXPECT_NE_RANGE(a, c);
+    IUTEST_INFORM_NE_RANGE(a, c);
+    IUTEST_ASSUME_NE_RANGE(a, c);
+
+    IUTEST_ASSERT_NE_RANGE(a, d);
+    IUTEST_EXPECT_NE_RANGE(a, d);
+    IUTEST_INFORM_NE_RANGE(a, d);
+    IUTEST_ASSUME_NE_RANGE(a, d);
+
+#if IUTEST_HAS_INITIALIZER_LIST
+    IUTEST_ASSERT_NE_RANGE(::std::initializer_list<int>({0, 1, 2, 3, 0}), a);
+#if IUTEST_HAS_AUTO
+    auto il = {1, 1, 2, 3, 4};
+    IUTEST_ASSERT_NE_RANGE(il, a);
+#endif
+#endif
 }
 
 IUTEST(AssertionTest, STRIN)

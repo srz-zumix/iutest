@@ -102,8 +102,8 @@ IUTEST(SyntaxTest, EQ)
 
 IUTEST(SyntaxTest, EQ_COLLECTIONS)
 {
-    int  a[] = { 0, 1, 2, 3, 4 };
-    int  b[] = { 0, 1, 2, 3, 4 };
+    int a[] = { 0, 1, 2, 3, 4 };
+    int b[] = { 0, 1, 2, 3, 4 };
 
     if( int size = (sizeof(a)/sizeof(a[0])) )
         IUTEST_ASSERT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
@@ -115,10 +115,25 @@ IUTEST(SyntaxTest, EQ_COLLECTIONS)
         IUTEST_ASSUME_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
 }
 
+IUTEST(SyntaxTest, NE_COLLECTIONS)
+{
+    int a[] = { 0, 1, 2, 3, 4 };
+    int b[] = { 0, 1, 5, 3, 4 };
+
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_ASSERT_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_EXPECT_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_INFORM_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_ASSUME_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
+}
+
 IUTEST(SyntaxTest, EQ_RANGE)
 {
-    int  a[] = { 0, 1, 2, 3, 4 };
-    int  b[] = { 0, 1, 2, 3, 4 };
+    int a[] = { 0, 1, 2, 3, 4 };
+    int b[] = { 0, 1, 2, 3, 4 };
 
     if( int size = (sizeof(a)/sizeof(a[0])) )
         IUTEST_ASSERT_EQ_RANGE(a, b) << size;
@@ -128,6 +143,21 @@ IUTEST(SyntaxTest, EQ_RANGE)
         IUTEST_INFORM_EQ_RANGE(a, b) << size;
     if( int size = (sizeof(a)/sizeof(a[0])) )
         IUTEST_ASSUME_EQ_RANGE(a, b) << size;
+}
+
+IUTEST(SyntaxTest, NE_RANGE)
+{
+    int a[] = { 0, 1, 2, 3, 4 };
+    int b[] = { 0, 1, 0, 3, 4 };
+
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_ASSERT_NE_RANGE(a, b) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_EXPECT_NE_RANGE(a, b) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_INFORM_NE_RANGE(a, b) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        IUTEST_ASSUME_NE_RANGE(a, b) << size;
 }
 
 IUTEST(SyntaxTest, NE)
