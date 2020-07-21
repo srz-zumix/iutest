@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.0.11</span>
+   &#160;<span id="projectnumber">1.17.0.12</span>
    </div>
   </td>
  </tr>
@@ -517,81 +517,85 @@ $(function() {
 <div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSTRCASENE    \</span></div>
 <div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;<span class="preprocessor">        , v1, v2, on_failure )</span></div>
 <div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160; </div>
-<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;<span class="preprocessor">#define IUTEST_TEST_HRESULT_SUCCEEDED(hr, on_failure)           \</span></div>
-<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTSuccess  \</span></div>
-<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;<span class="preprocessor">        , hr, on_failure )</span></div>
-<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160; </div>
-<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;<span class="preprocessor">#define IUTEST_TEST_HRESULT_FAILED(hr, on_failure)              \</span></div>
-<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTFailure  \</span></div>
-<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;<span class="preprocessor">        , hr, on_failure )</span></div>
-<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160; </div>
-<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;<span class="preprocessor">#define IUTEST_TEST_SAME(v1, v2, on_failure)                    \</span></div>
-<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSame     \</span></div>
-<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;<span class="preprocessor">        , v1, v2, on_failure )</span></div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;<span class="preprocessor">#if defined(IUTEST_OS_WINDOWS)</span></div>
+<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160; </div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;<span class="preprocessor">#define IUTEST_TEST_HRESULT_SUCCEEDED(hr, on_failure)           \</span></div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTSuccess  \</span></div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;<span class="preprocessor">        , hr, on_failure )</span></div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160; </div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;<span class="preprocessor">#define IUTEST_TEST_HRESULT_FAILED(hr, on_failure)              \</span></div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTFailure  \</span></div>
+<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;<span class="preprocessor">        , hr, on_failure )</span></div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160; </div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160; </div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;<span class="preprocessor">#define IUTEST_TEST_NULL(v, on_failure)                     \</span></div>
-<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;<span class="preprocessor">    IUTEST_THROUGH_ANALYSIS_ASSUME_(v==IUTEST_NULLPTR       \</span></div>
-<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;<span class="preprocessor">        , IUTEST_PRED_FORMAT1_( ::iutest::internal::NullHelper&lt;IUTEST_IS_NULLLITERAL(v)&gt;::CompareEq \</span></div>
-<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;<span class="preprocessor">            , v, on_failure ))</span></div>
-<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160; </div>
-<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;<span class="preprocessor">#define IUTEST_TEST_NOTNULL(v, on_failure)                  \</span></div>
-<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;<span class="preprocessor">    IUTEST_THROUGH_ANALYSIS_ASSUME_(v!=IUTEST_NULLPTR       \</span></div>
-<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;<span class="preprocessor">        , IUTEST_PRED_FORMAT1_( ::iutest::internal::NullHelper&lt;IUTEST_IS_NULLLITERAL(v)&gt;::CompareNe \</span></div>
-<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;<span class="preprocessor">            , v, on_failure ))</span></div>
-<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160; </div>
-<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;<span class="preprocessor">#define IUTEST_TEST_NO_FAILURE_(statement, on_failure)                      \</span></div>
-<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;<span class="preprocessor">    IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                          \</span></div>
-<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;<span class="preprocessor">    if( ::iutest::detail::AlwaysTrue() ) {                                  \</span></div>
-<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;<span class="preprocessor">        ::iutest::detail::NewTestPartResultCheckHelper::Counter&lt;            \</span></div>
-<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;<span class="preprocessor">            ::iutest::detail::NewTestPartResultCheckHelper::CondGt&lt;         \</span></div>
-<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;<span class="preprocessor">            ::iutest::TestPartResult::kSuccess&gt; &gt; iutest_failure_checker;   \</span></div>
-<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;<span class="preprocessor">        IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING( { (void)0; statement; } ) \</span></div>
-<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;<span class="preprocessor">        if( iutest_failure_checker.count() &gt; 0 ) {                          \</span></div>
-<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;<span class="preprocessor">            goto IUTEST_PP_CAT(iutest_label_test_no_failure_, __LINE__);    \</span></div>
-<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;<span class="preprocessor">        }                                                                   \</span></div>
-<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;<span class="preprocessor">    } else                                                                  \</span></div>
-<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;<span class="preprocessor">        IUTEST_PP_CAT(iutest_label_test_no_failure_, __LINE__):             \</span></div>
-<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;<span class="preprocessor">        on_failure(&quot;\nExpected: &quot; #statement &quot; doesn&#39;t generate new failure.\n  Actual: it does.&quot;)</span></div>
-<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160; </div>
-<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;<span class="preprocessor">#define IUTEST_TEST_NO_FATAL_FAILURE_(statement, on_failure)                \</span></div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;<span class="preprocessor">    IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                          \</span></div>
-<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;<span class="preprocessor">    if( ::iutest::detail::AlwaysTrue() ) {                                  \</span></div>
-<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;<span class="preprocessor">        ::iutest::detail::NewTestPartResultCheckHelper::Counter&lt;            \</span></div>
-<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;<span class="preprocessor">            ::iutest::detail::NewTestPartResultCheckHelper::CondEq&lt;         \</span></div>
-<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;<span class="preprocessor">            ::iutest::TestPartResult::kFatalFailure&gt; &gt; iutest_failure_checker;  \</span></div>
-<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;<span class="preprocessor">        IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING( { (void)0; statement; } ) \</span></div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;<span class="preprocessor">        if( iutest_failure_checker.count() &gt; 0 ) {                          \</span></div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;<span class="preprocessor">            goto IUTEST_PP_CAT(iutest_label_test_no_fatalfailure_, __LINE__);   \</span></div>
-<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;<span class="preprocessor">        }                                                                   \</span></div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;<span class="preprocessor">    } else                                                                  \</span></div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;<span class="preprocessor">        IUTEST_PP_CAT(iutest_label_test_no_fatalfailure_, __LINE__):        \</span></div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;<span class="preprocessor">        on_failure(&quot;\nExpected: &quot; #statement &quot; doesn&#39;t generate new fatal failure.\n  Actual: it does.&quot;)</span></div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160; </div>
-<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;<span class="preprocessor">#define IUTEST_TEST_SKIP()                  \</span></div>
-<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;<span class="preprocessor">    IUTEST_AMBIGUOUS_ELSE_BLOCKER_          \</span></div>
-<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;<span class="preprocessor">    if( ::iutest::detail::AlwaysTrue() )    \</span></div>
-<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;<span class="preprocessor">        IUTEST_SKIP_MESSAGE( ::iutest::UnitTest::SkipTest() ? &quot;Skipped. &quot; : &quot;Skipped. but already failed. &quot; )</span></div>
-<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160; </div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;<span class="preprocessor">#if defined(_MSC_VER) &amp;&amp; !defined(__clang__)</span></div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;<span class="preprocessor">#  define IUTEST_TEST_COMPILEERROR(e)   \</span></div>
-<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;<span class="preprocessor">    IUTEST_PRAGMA_MESSAGE(__FILE__ &quot;(&quot; IUTEST_PP_TOSTRING(__LINE__) &quot;): note : &quot; &quot;IUTEST_TEST_COMPILEERROR( &quot; #e &quot; )&quot;)</span></div>
-<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;<span class="preprocessor">#  define IUTEST_TEST_COMPILEERROR(e)   \</span></div>
-<div class="line"><a name="l00628"></a><span class="lineno"><a class="line" href="../../db/d32/iutest__internal_8hpp.html#a89d9ec3d8fcba78b3a83c8be0203c05c">  628</a></span>&#160;<span class="preprocessor">    IUTEST_PRAGMA_MESSAGE(&quot;IUTEST_TEST_COMPILEERROR( &quot; #e &quot; )&quot;)</span></div>
-<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160; </div>
-<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STATIC_ASSERT</span></div>
-<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;<span class="preprocessor">#  define IUTEST_TEST_STATICASSERT(e)   IUTEST_TEST_COMPILEERROR(e)</span></div>
-<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;<span class="preprocessor">#  define IUTEST_TEST_STATICASSERT(e)   IUTEST_TEST_COMPILEERROR(&quot;static_assert&quot;)</span></div>
-<div class="line"><a name="l00639"></a><span class="lineno"><a class="line" href="../../db/d32/iutest__internal_8hpp.html#acf8595280f52986005b9531802039012">  639</a></span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160; </div>
-<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_INTERNAL_HPP_A5BD9FBB_B57A_4C1D_B205_0ADB7798DBF9_</span></div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;<span class="preprocessor">#define IUTEST_TEST_SAME(v1, v2, on_failure)                    \</span></div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;<span class="preprocessor">    IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperSame     \</span></div>
+<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;<span class="preprocessor">        , v1, v2, on_failure )</span></div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160; </div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;<span class="preprocessor">#define IUTEST_TEST_NULL(v, on_failure)                     \</span></div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;<span class="preprocessor">    IUTEST_THROUGH_ANALYSIS_ASSUME_(v==IUTEST_NULLPTR       \</span></div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;<span class="preprocessor">        , IUTEST_PRED_FORMAT1_( ::iutest::internal::NullHelper&lt;IUTEST_IS_NULLLITERAL(v)&gt;::CompareEq \</span></div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;<span class="preprocessor">            , v, on_failure ))</span></div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160; </div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;<span class="preprocessor">#define IUTEST_TEST_NOTNULL(v, on_failure)                  \</span></div>
+<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;<span class="preprocessor">    IUTEST_THROUGH_ANALYSIS_ASSUME_(v!=IUTEST_NULLPTR       \</span></div>
+<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;<span class="preprocessor">        , IUTEST_PRED_FORMAT1_( ::iutest::internal::NullHelper&lt;IUTEST_IS_NULLLITERAL(v)&gt;::CompareNe \</span></div>
+<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;<span class="preprocessor">            , v, on_failure ))</span></div>
+<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160; </div>
+<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;<span class="preprocessor">#define IUTEST_TEST_NO_FAILURE_(statement, on_failure)                      \</span></div>
+<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;<span class="preprocessor">    IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                          \</span></div>
+<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;<span class="preprocessor">    if( ::iutest::detail::AlwaysTrue() ) {                                  \</span></div>
+<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;<span class="preprocessor">        ::iutest::detail::NewTestPartResultCheckHelper::Counter&lt;            \</span></div>
+<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;<span class="preprocessor">            ::iutest::detail::NewTestPartResultCheckHelper::CondGt&lt;         \</span></div>
+<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;<span class="preprocessor">            ::iutest::TestPartResult::kSuccess&gt; &gt; iutest_failure_checker;   \</span></div>
+<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;<span class="preprocessor">        IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING( { (void)0; statement; } ) \</span></div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;<span class="preprocessor">        if( iutest_failure_checker.count() &gt; 0 ) {                          \</span></div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;<span class="preprocessor">            goto IUTEST_PP_CAT(iutest_label_test_no_failure_, __LINE__);    \</span></div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;<span class="preprocessor">        }                                                                   \</span></div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;<span class="preprocessor">    } else                                                                  \</span></div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;<span class="preprocessor">        IUTEST_PP_CAT(iutest_label_test_no_failure_, __LINE__):             \</span></div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;<span class="preprocessor">        on_failure(&quot;\nExpected: &quot; #statement &quot; doesn&#39;t generate new failure.\n  Actual: it does.&quot;)</span></div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160; </div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;<span class="preprocessor">#define IUTEST_TEST_NO_FATAL_FAILURE_(statement, on_failure)                \</span></div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;<span class="preprocessor">    IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                          \</span></div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;<span class="preprocessor">    if( ::iutest::detail::AlwaysTrue() ) {                                  \</span></div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;<span class="preprocessor">        ::iutest::detail::NewTestPartResultCheckHelper::Counter&lt;            \</span></div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;<span class="preprocessor">            ::iutest::detail::NewTestPartResultCheckHelper::CondEq&lt;         \</span></div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;<span class="preprocessor">            ::iutest::TestPartResult::kFatalFailure&gt; &gt; iutest_failure_checker;  \</span></div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;<span class="preprocessor">        IUTEST_SUPPRESS_UNREACHABLE_CODE_WARNING( { (void)0; statement; } ) \</span></div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;<span class="preprocessor">        if( iutest_failure_checker.count() &gt; 0 ) {                          \</span></div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;<span class="preprocessor">            goto IUTEST_PP_CAT(iutest_label_test_no_fatalfailure_, __LINE__);   \</span></div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;<span class="preprocessor">        }                                                                   \</span></div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;<span class="preprocessor">    } else                                                                  \</span></div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;<span class="preprocessor">        IUTEST_PP_CAT(iutest_label_test_no_fatalfailure_, __LINE__):        \</span></div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;<span class="preprocessor">        on_failure(&quot;\nExpected: &quot; #statement &quot; doesn&#39;t generate new fatal failure.\n  Actual: it does.&quot;)</span></div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160; </div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;<span class="preprocessor">#define IUTEST_TEST_SKIP()                  \</span></div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;<span class="preprocessor">    IUTEST_AMBIGUOUS_ELSE_BLOCKER_          \</span></div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;<span class="preprocessor">    if( ::iutest::detail::AlwaysTrue() )    \</span></div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;<span class="preprocessor">        IUTEST_SKIP_MESSAGE( ::iutest::UnitTest::SkipTest() ? &quot;Skipped. &quot; : &quot;Skipped. but already failed. &quot; )</span></div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160; </div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;<span class="preprocessor">#if defined(_MSC_VER) &amp;&amp; !defined(__clang__)</span></div>
+<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;<span class="preprocessor">#  define IUTEST_TEST_COMPILEERROR(e)   \</span></div>
+<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;<span class="preprocessor">    IUTEST_PRAGMA_MESSAGE(__FILE__ &quot;(&quot; IUTEST_PP_TOSTRING(__LINE__) &quot;): note : &quot; &quot;IUTEST_TEST_COMPILEERROR( &quot; #e &quot; )&quot;)</span></div>
+<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;<span class="preprocessor">#  define IUTEST_TEST_COMPILEERROR(e)   \</span></div>
+<div class="line"><a name="l00632"></a><span class="lineno"><a class="line" href="../../db/d32/iutest__internal_8hpp.html#a89d9ec3d8fcba78b3a83c8be0203c05c">  632</a></span>&#160;<span class="preprocessor">    IUTEST_PRAGMA_MESSAGE(&quot;IUTEST_TEST_COMPILEERROR( &quot; #e &quot; )&quot;)</span></div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160; </div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;<span class="preprocessor">#if IUTEST_HAS_STATIC_ASSERT</span></div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;<span class="preprocessor">#  define IUTEST_TEST_STATICASSERT(e)   IUTEST_TEST_COMPILEERROR(e)</span></div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;<span class="preprocessor">#  define IUTEST_TEST_STATICASSERT(e)   IUTEST_TEST_COMPILEERROR(&quot;static_assert&quot;)</span></div>
+<div class="line"><a name="l00643"></a><span class="lineno"><a class="line" href="../../db/d32/iutest__internal_8hpp.html#acf8595280f52986005b9531802039012">  643</a></span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160; </div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_INTERNAL_HPP_A5BD9FBB_B57A_4C1D_B205_0ADB7798DBF9_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年07月09日(木) 01時09分30秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年07月21日(火) 10時40分13秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.0.11</span>
+   &#160;<span id="projectnumber">1.17.0.12</span>
    </div>
   </td>
  </tr>
@@ -256,10 +256,6 @@ iutest_internal.hpp の依存先関係図:</div>
 <tr class="separator:af482ba2983ddfc3f0aaf6bb056b942af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44ab7c9e8d72e21f59574999f16218af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_STRCASENE</b>(v1,  v2,  on_failure)</td></tr>
 <tr class="separator:a44ab7c9e8d72e21f59574999f16218af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae32d8a8f884d69cded158ed0270bc2da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_HRESULT_SUCCEEDED</b>(hr,  on_failure)</td></tr>
-<tr class="separator:ae32d8a8f884d69cded158ed0270bc2da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4633d1665baa3c81cac549c6fabc9e1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_HRESULT_FAILED</b>(hr,  on_failure)</td></tr>
-<tr class="separator:ae4633d1665baa3c81cac549c6fabc9e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10d0d803b598251c1fdae5247e1a9866"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_SAME</b>(v1,  v2,  on_failure)</td></tr>
 <tr class="separator:a10d0d803b598251c1fdae5247e1a9866"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae91cc32cbb8f01e684f4e9ae2fe5b305"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_TEST_NULL</b>(v,  on_failure)</td></tr>
@@ -320,7 +316,7 @@ iutest_internal.hpp の依存先関係図:</div>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>iris unit test internal definition </p>
 <dl class="section author"><dt>著者</dt><dd>t.shirayanagi </dd></dl>
-<dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2011-2019, Takazumi Shirayanagi<br  />
+<dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2011-2020, Takazumi Shirayanagi<br  />
 This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><h2 class="groupheader">マクロ定義詳解</h2>
 <a id="a8696d4733a86ddd9ebea68dedb0fa536"></a>
@@ -731,66 +727,6 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><div class="memdoc">
 <b>値:</b><div class="fragment"><div class="line">    IUTEST_PRED_FORMAT2_( ::iutest::internal::CmpHelperGT   \</div>
 <div class="line">        , v1, v2, on_failure )</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="ae4633d1665baa3c81cac549c6fabc9e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4633d1665baa3c81cac549c6fabc9e1">&#9670;&nbsp;</a></span>IUTEST_TEST_HRESULT_FAILED</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define IUTEST_TEST_HRESULT_FAILED</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">hr, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">on_failure&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">    IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTFailure  \</div>
-<div class="line">        , hr, on_failure )</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="ae32d8a8f884d69cded158ed0270bc2da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae32d8a8f884d69cded158ed0270bc2da">&#9670;&nbsp;</a></span>IUTEST_TEST_HRESULT_SUCCEEDED</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define IUTEST_TEST_HRESULT_SUCCEEDED</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">hr, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">on_failure&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">    IUTEST_PRED_FORMAT1_( ::iutest::internal::IsHRESULTSuccess  \</div>
-<div class="line">        , hr, on_failure )</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1671,7 +1607,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 <div class="ttc" id="anamespaceiutest_html_a0538466708443c65f3c7b2c84b7fce0b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a></div><div class="ttdeci">AssertionResult AssertionSuccess()</div><div class="ttdoc">テスト成功を示す AssertionResult オブジェクトの取得</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:382</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年07月09日(木) 01時09分34秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年07月21日(火) 10時40分18秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
