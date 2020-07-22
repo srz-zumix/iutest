@@ -306,6 +306,11 @@ public:
     */
     bool    is_nan() const { return exponent_bits() == kExpMask && fraction_bits() != 0; }
 
+    /**
+     * @brief   is inf
+    */
+    bool    is_inf() const { return exponent_bits() == kExpMask && fraction_bits() == 0; }
+
 public:
     //! plus inf
     static _Myt PINF()

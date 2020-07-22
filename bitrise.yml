@@ -4,16 +4,39 @@ default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: other
 trigger_map:
 - push_branch: master
-  workflow: iOS
+  workflow: ci
 - push_branch: develop
-  workflow: iOS
+  workflow: ci
 - pull_request_source_branch: "*"
   pull_request_target_branch: develop
-  workflow: iOS
+  workflow: ci
 - pull_request_source_branch: "*"
-  workflow: iOS
+  workflow: ci
   pull_request_target_branch: master
 workflows:
+  ci:
+    after_run:
+    - run_from_repo
+  run_from_repo:
+    steps:
+    - activate-ssh-key:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone: {}
+    - script:
+        title: continue from repo
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+            git remote rm fork || true
+            bitrise run ${BITRISE_APP_TITLE}-${BITRISE_TRIGGERED_WORKFLOW_ID}
+  iutest-ci:
+    after_run:
+    - iOS
+  iutest-android-ci:
+    after_run:
+    - Android
+
   iOS:
     steps:
     - activate-ssh-key:

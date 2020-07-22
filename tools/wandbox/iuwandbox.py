@@ -11,13 +11,10 @@ import os
 import sys
 import re
 import codecs
-import argparse
 
-from time import sleep
 from argparse import ArgumentParser
+from argparse import SUPPRESS
 from wandbox import Wandbox
-from requests.exceptions import HTTPError
-from requests.exceptions import ConnectionError
 
 IUTEST_FUSED_SRC = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.min.hpp'))
 IUTEST_WANDBOX_FUSED_SRC = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.wandbox.min.hpp'))
@@ -30,7 +27,7 @@ iutest_incg_list = []
 workaround = True
 api_retries = 3
 api_retry_wait = 60
-fused_src = IUTEST_FUSED_SRC
+fused_src = IUTEST_WANDBOX_FUSED_SRC
 
 
 # command line option
@@ -44,7 +41,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 6.3'
+        version=u'%(prog)s version 7.0'
     )
     parser.add_argument(
         '--list-compiler',
@@ -175,7 +172,7 @@ def parse_command_line():
     parser.add_argument(
         '--make',
         action='store_true',
-        help=argparse.SUPPRESS
+        help=SUPPRESS
     )
     parser.add_argument(
         '--retry-wait',
@@ -205,7 +202,13 @@ def parse_command_line():
     parser.add_argument(
         '--iutest-use-wandbox-min',
         action='store_true',
-        help='use iutest.wandbox.min.hpp (experimental).'
+        default=True,
+        help='!this option is deprecated! use iutest.wandbox.min.hpp (default true).'
+    )
+    parser.add_argument(
+        '--no-iutest-use-wandbox-min',
+        action='store_true',
+        help='not use iutest.wandbox.min.hpp (experimental).'
     )
     parser.add_argument(
         '--verbose',
@@ -226,8 +229,8 @@ def parse_command_line():
     options = parser.parse_args()
     api_retries = options.retry
     api_retry_wait = options.retry_wait
-    if options.iutest_use_wandbox_min:
-        fused_src = IUTEST_WANDBOX_FUSED_SRC
+    if options.no_iutest_use_wandbox_min:
+        fused_src = IUTEST_FUSED_SRC
     return options, parser
 
 
@@ -278,7 +281,7 @@ def make_code(path, encoding, expand, includes, included_files):
                     includes['iutest.hpp'] = iutest_src
                     global iutest_incg_list
                     iutest_incg_list = IUTEST_INCG_REGEX.findall(iutest_src)
-                except:
+                except Exception:
                     print('{0} is not found...'.format(fused_src))
                     print('please try \"make fused\"')
                     exit(1)
@@ -410,7 +413,6 @@ def create_option_list(options):
 #        if options.compiler in ['clang-3.4', 'clang-3.3']:
 #            if not options.boost:
 #                options.boost = 'nothing'
-        pass
     if options.boost:
         if options.compiler not in options.boost:
             options.boost = options.boost + '-' + options.compiler
@@ -554,7 +556,6 @@ def run_wandbox_cxx(code, includes, impliments, options):
                 if options.compiler in ['clang-3.4', 'clang-3.3']:
                     colist.append('-fno-exceptions')
                     colist.append('-fno-rtti')
-            pass
         if colist:
             co = '\n'.join(colist)
             co = co.replace('\\n', '\n')
@@ -602,7 +603,7 @@ def text_transform(value):
             return value.decode()
         elif isinstance(value, unicode):
             return value.encode('utf_8')
-    except:
+    except Exception:
         pass
     return value
 

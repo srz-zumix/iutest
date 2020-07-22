@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file        unit_misc_tests.cpp
- * @brief       iutest test
+ * @brief       iutest misc test
  *
  * @author      t.shirayanagi
  * @par         copyright
@@ -36,6 +36,22 @@ IUTEST(UnitAnyTest, String)
 {
     ::iutest::any a = "test";
     IUTEST_EXPECT_EQ("test", ::iutest::any_cast< ::std::string >(a));
+}
+
+IUTEST(UnitRandomTest, Size64)
+{
+    ::iutest::detail::iuRandom r;
+    iutest::UInt64 x[10];
+    for( int i=0; i < 10; ++i)
+    {
+        x[i] = r.genrand<iutest::UInt64>() >> 32;
+    }
+    iutest::UInt64 y[10];
+    for( int i=0; i < 10; ++i)
+    {
+        y[i] = r.genrand<iutest::UInt64>() >> 32;
+    }
+    IUTEST_EXPECT_NE_RANGE(x, y);
 }
 
 #if IUTEST_HAS_PARAM_TEST

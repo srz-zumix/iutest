@@ -279,7 +279,7 @@
 #endif
 
 #if _MSC_VER >= 1916
-#  if !defined(IUTEST_HAS_CXX_HDR_CHARCONV)
+#  if !defined(IUTEST_HAS_CXX_HDR_CHARCONV) && IUTEST_HAS_CXX17
 #    define IUTEST_HAS_CXX_HDR_CHARCONV     1
 #  endif
 #endif
@@ -475,7 +475,7 @@
 
 #if !defined(IUTEST_HAS_STD_TO_CHARS)
 #  if defined(__cpp_lib_to_chars) && __cpp_lib_to_chars >= 201611
-#    define IUTEST_HAS_STD_TO_CHARS           1
+#    define IUTEST_HAS_STD_TO_CHARS         1
 #  endif
 #endif
 
@@ -545,6 +545,19 @@
 #  endif
 #  define IUTEST_HAS_TUPLE              0
 #endif
+#if !defined(IUTEST_HAS_VARIADIC_TUPLES) && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE && IUTEST_HAS_STD_TUPLE
+#  if defined(__clang__)
+#    if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ > 7))
+#      define IUTEST_HAS_VARIADIC_TUPLES    1
+#    endif
+#  else
+#    define IUTEST_HAS_VARIADIC_TUPLES      1
+#  endif
+#endif
+#if !defined(IUTEST_HAS_VARIADIC_TUPLES)
+#  define IUTEST_HAS_VARIADIC_TUPLES        0
+#endif
+
 
 
 //======================================================================

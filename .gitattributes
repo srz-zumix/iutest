@@ -70,3 +70,12 @@ docs/dev    export-ignore
 .bandit     export-ignore
 .gitignore  export-ignore
 .gitattributes export-ignore
+
+# linguist
+*.h linguist-language=C++
+*.ipp linguist-language=C++
+docs/* linguist-documentation
+.ci/* linguist-documentation
+.circleci/* linguist-documentation
+.github/* linguist-documentation
+.semaphore/* linguist-documentation

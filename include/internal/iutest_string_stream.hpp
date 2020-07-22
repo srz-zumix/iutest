@@ -26,12 +26,106 @@
 #if IUTEST_HAS_IOMANIP
 #  include <iomanip>
 #endif
+#if IUTEST_HAS_EXCEPTIONS
+#  include <stdexcept>
+#endif
 
 namespace iutest
 {
 
 namespace detail
 {
+
+template<typename T>
+bool StringToValue(const ::std::string& s, T& out)
+{
+    ::std::istringstream strm(s);
+    if( strm >> out )
+    {
+        return true;
+    }
+    return false;
+}
+
+inline bool StringToValue(const ::std::string& s, float& out)
+{
+#if IUTEST_HAS_STD_STR_TO_VALUE
+    out = ::std::stof(s);
+#else
+    char* endptr=NULL;
+    const char* p = s.c_str();
+    errno = 0;
+#if !defined(IUTEST_OS_WINDOWS_MINGW) || !defined(__STRICT_ANSI__)
+    const floating_point<float> v = strtof(p, &endptr);
+#else
+    const floating_point<float> v = static_cast<float>(strtod(p, &endptr));
+#endif
+#if IUTEST_HAS_EXCEPTIONS
+    if(p == endptr)
+    {
+        throw ::std::invalid_argument(p);
+    }
+    if((errno == ERANGE) || v.is_inf() )
+    {
+        throw ::std::out_of_range(p);
+    }
+#endif
+    out = v;
+#endif
+    return true;
+}
+
+inline bool StringToValue(const ::std::string& s, double& out)
+{
+#if IUTEST_HAS_STD_STR_TO_VALUE
+    out = ::std::stod(s);
+#else
+    char* endptr=NULL;
+    const char* p = s.c_str();
+    errno = 0;
+    const floating_point<double> v = strtod(s.c_str(), &endptr);
+#if IUTEST_HAS_EXCEPTIONS
+    if(p == endptr)
+    {
+        throw ::std::invalid_argument(p);
+    }
+    if((errno == ERANGE) || v.is_inf() )
+    {
+        throw ::std::out_of_range(p);
+    }
+#endif
+    out = v;
+#endif
+    return true;
+}
+
+#if IUTEST_HAS_LONG_DOUBLE
+
+inline bool StringToValue(const ::std::string& s, long double& out)
+{
+#if IUTEST_HAS_STD_STR_TO_VALUE
+    out = ::std::stold(s);
+#else
+    char* endptr=NULL;
+    const char* p = s.c_str();
+    errno = 0;
+    const floating_point<long double> v = strtold(s.c_str(), &endptr);
+#if IUTEST_HAS_EXCEPTIONS
+    if(p == endptr)
+    {
+        throw ::std::invalid_argument(p);
+    }
+    if((errno == ERANGE) || v.is_inf() )
+    {
+        throw ::std::out_of_range(p);
+    }
+#endif
+    out = v;
+#endif
+    return true;
+}
+
+#endif
 
 #if !IUTEST_HAS_STRINGSTREAM && !IUTEST_HAS_STRSTREAM
 

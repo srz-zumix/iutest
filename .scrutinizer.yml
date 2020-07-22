@@ -9,7 +9,7 @@ build:
             - make -C tools/fused
         override:
             - command: tox
-              idle_timeout: 300
+              idle_timeout: 660
     nodes:
         tests: true
         analysis:

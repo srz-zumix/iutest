@@ -6,6 +6,8 @@
 
 * New
   * GTEST_SKIP 対応
+  * IUTEST_*_NE_RANGE アサーションを追加
+  * IUTEST_*_NE_COLLECTIONS アサーションを追加
 
 * Improved
   * ::std::wstring_view / ::std::u16string_view / ::std::u32string_view 対応
@@ -13,13 +15,18 @@
 
 * Changes
   * アサーションに operator << したときの出力を PrintToString したものと同じになるように変更
+  * iuwandbox: Wandbox 向けにサイズ圧縮したヘッダーをデフォルトで使用するように変更
+  * iuwandbox: 上記に伴いフルバージョンのヘッダーを使うオプション(--no-iutest-use-wandbox-min)を追加
+  * deprecated: iuwandbox: --iutest-use-wandbox-min
   * Python2 のサポート終了
 
 * Bug fixes
   * junit 出力に長い type_param を出力すると壊れた文字列が出力される問題を修正
   * Google Test 旧バージョンとの互換性を修正
   * C++20 で削除された basic_ostream::operator << に対応
-  * その他いくつかの不具合を修正
+  * IUTEST_AP が同じ名前空間に複数定義できない問題を修正
+  * Google Test 旧バージョンとの互換性を修正
+  * いくつかの不具合を修正
 
 --------------------------------------------------
 

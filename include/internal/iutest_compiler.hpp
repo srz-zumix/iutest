@@ -168,6 +168,9 @@
 #    if __has_feature(cxx_nullptr)
 #      define IUTEST_HAS_NULLPTR    1
 #    endif
+#    if  (__clang_major__ < 3 || (__clang_major__ == 3 && __clang_minor__ <= 2))
+#      define IUTEST_NO_NULL_TO_NULLPTR_T   1   // -Wnull-conversion
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_NULLPTR    1
@@ -397,7 +400,7 @@
 // private destractor = default is not works in gcc 4.5 - 4.6
 #    if   (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ == 4)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
 #      define IUTEST_HAS_DEFAULT_FUNCTIONS  1
-#      if (_MSV_VER <= 1800) && !defined(IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION)
+#      if !defined(IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION)
 #        define IUTEST_HAS_MOVE_ASSIGNMENT_DEFAULT_FUNCTION 0
 #      endif
 #    elif (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7)) && defined(__GXX_EXPERIMENTAL_CXX0X__)

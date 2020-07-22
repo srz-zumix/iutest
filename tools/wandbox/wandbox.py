@@ -176,18 +176,37 @@ class Wandbox:
                     return False
                 return e.response.status_code in [500, 502, 503, 504]
 
+            def is_limit(e):
+                if e is None:
+                    return False
+                if e.response is None:
+                    return False
+                return e.response.status_code in [400]
+
             retries -= 1
             if is_retry(e) and retries > 0:
                 try:
                     print(e.message)
-                except:
+                except Exception:
                     pass
                 print('wait {0}sec...'.format(retry_wait))
                 sleep(retry_wait)
                 return Wandbox.Call(action, retries, retry_wait)
+            elif is_limit(e) and retries > 0:
+                try:
+                    print(e.message)
+                except Exception:
+                    pass
+                limit_wait = 10
+                print('wait {0}min'.format(limit_wait), end='', flush=True)
+                for x in range(limit_wait):
+                    print('.', end='', flush=True)
+                    sleep(60)
+                print('.')
+                return Wandbox.Call(action, retries, retry_wait)
             else:
                 raise
-        except:
+        except Exception:
             raise
 
 

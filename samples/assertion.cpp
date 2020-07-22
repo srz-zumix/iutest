@@ -71,12 +71,6 @@ IUTEST(AssertionTest, Base)
         ::std::vector<int> v1, v2;
         IUTEST_EXPECT_EQ(v1, v2);
     }
-    // EQ_COLLECTIONS
-    {
-        int a[] = { 0, 1, 2, 3 };
-        int b[] = { 0, 1, 2, 3 };
-        IUTEST_ASSERT_EQ_COLLECTIONS(a, a+4, b, b+4);
-    }
 
     // NE
     {
@@ -142,11 +136,21 @@ IUTEST(AssertionTest, Base2)
     }
     // EQ_COLLECTIONS/EQ_RANGE
     {
-        int  aa[] ={ 0, 1, 2, 3, 4 };
-        int  ab[] ={ 0, 1, 2, 3, 4 };
+        int aa[] ={ 0, 1, 2, 3, 4 };
+        int ab[] ={ 0, 1, 2, 3, 4 };
         IUTEST_EXPECT_EQ_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0])));
 #if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
         IUTEST_EXPECT_EQ_RANGE(aa, ab);
+#endif
+    }
+    // NE_COLLECTIONS/NE_RANGE
+    // NE_COLLECTIONS
+    {
+        int aa[] ={ 0, 1, 2, 3, 4 };
+        int ab[] ={ 9, 1, 2, 3, 4 };
+        IUTEST_EXPECT_NE_COLLECTIONS(aa, aa+(sizeof(aa)/sizeof(aa[0])), ab, ab+(sizeof(ab)/sizeof(ab[0])));
+#if !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+        IUTEST_EXPECT_NE_RANGE(aa, ab);
 #endif
     }
 }

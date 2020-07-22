@@ -326,7 +326,7 @@ public:
 #if IUTEST_HAS_ASSERTION_RETURN
     /** @private */
     template<typename R>
-    R operator = (const ReturnTypedFixed<R>& fixed)
+    R operator = (const ReturnTypedFixed<R>& fixed) // lgtm [cpp/assignment-does-not-return-this]
     {
         this->operator=(fixed.fixed);
         return fixed.ret.value;

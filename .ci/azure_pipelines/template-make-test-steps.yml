@@ -70,8 +70,12 @@ steps:
     ls /var/crash/
     mkdir test/coredump
     # for file in `find /var/crash/ -name '*.crash'`; do sudo cp $file test/coredump ; done
-    for file in `find /var/crash/ -name '*.crash'`; do sudo sed -i -e "s/UserGroups:\s*$/UserGroups:iutest/g" $file ; done
-    for file in `find /var/crash/ -name '*.crash'`; do apport-unpack $file test/coredump/`basename $file .crash` ; done
+    for file in `find /var/crash/ -name '*.crash'`; do \
+      sudo sed -i -e "s/UserGroups:\s*$/UserGroups:iutest/g" $file ; \
+    done
+    for file in `find /var/crash/ -name '*.crash'`; do \
+      apport-unpack $file test/coredump/`basename $file .crash` ; \
+    done
     (cd test/coredump && ls -Ra)
   displayName: 'core dump unpack'
   condition: failed()
