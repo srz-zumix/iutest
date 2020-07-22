@@ -177,6 +177,11 @@ IUTEST(AssertionTest, MemCmpEQ)
 
 IUTEST(AssertionTest, Cpp11)
 {
+#if IUTEST_HAS_CHAR8_T
+    const char8_t c8[] = u8"test";
+    IUTEST_EXPECT_STREQ(c8, u8"test");
+#endif
+
 #if IUTEST_HAS_CHAR16_T
     const char16_t c16[] = u"test";
     IUTEST_EXPECT_STREQ(c16, u"test");
