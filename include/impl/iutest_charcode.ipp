@@ -178,7 +178,6 @@ IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_BEGIN()
         s += CodePointToUtf8(code_point, buf, sizeof(buf));
     }
     return s;
-#endif
 IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 }
 
@@ -228,17 +227,17 @@ IUTEST_IPP_INLINE::std::string IUTEST_ATTRIBUTE_UNUSED_ AnyStringToMultiByteStri
     ::std::string ret;
 
     IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
-        for( size_t i = 0; i < length; ++i )
+    for( size_t i = 0; i < length; ++i )
+    {
+        const size_t len = ::std::c8rtomb(mbs, str[i], &state);
+        if( len != static_cast<size_t>(-1) )
         {
-            const size_t len = ::std::c8rtomb(mbs, str[i], &state);
-            if( len != static_cast<size_t>(-1) )
-            {
-                mbs[len] = '\0';
-                ret += mbs;
-            }
+            mbs[len] = '\0';
+            ret += mbs;
         }
+    }
     IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
-        return ret;
+    return ret;
 #else
     const char* p = reinterpret_cast<const char*>(str);
     return (num < 0) ? p : std::string(p, num);
