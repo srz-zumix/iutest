@@ -1,7 +1,7 @@
 #
 # GNUMakefile
 #
-# Copyright (C) 2017-2019, Takazumi Shirayanagi
+# Copyright (C) 2017-2020, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -44,6 +44,19 @@ STRICT_CXXFLAGS:= -Wformat=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wpointer-
 # STRICT_CXXFLAGS+= -Wfloat-equal
 # Necessary for peep class operator
 # STRICT_CXXFLAGS+= -Wconversion
+STRICT_CXXFLAGS+= -Wsystem-headers
+STRICT_CXXFLAGS+= -Wno-nullability-completeness -Wno-expansion-to-defined -Wno-c++11-inline-namespace -Wno-keyword-compat
+STRICT_CXXFLAGS+= -Wno-cast-qual -Wno-ignored-pragma-intrinsic
+STRICT_CXXFLAGS+= -Wno-ignored-attributes -Wno-pragma-pack -Wno-unknown-pragmas
+STRICT_CXXFLAGS+= -Wno-deprecated-declarations -Wno-unused-local-typedefs -Wno-return-type -Wno-unused-parameter
+STRICT_CXXFLAGS+= -Wno-parentheses -Wno-cast-align -Wno-sign-compare -Wno-implicit-fallthrough -Wno-overflow
+STRICT_CXXFLAGS+= -Wno-unknown-attributes -Wno-ambiguous-ellipsis -Wno-format-nonliteral -Wno-mismatched-tags
+STRICT_CXXFLAGS+= -Wno-narrowing
+STRICT_CXXFLAGS+= -Wno-comment -Wno-unused-variable -Wno-constant-logical-operand
+STRICT_CXXFLAGS+= -Wno-invalid-constexpr
+STRICT_CXXFLAGS+= -Wno-builtin-declaration-mismatch -Wno-macro-redefined -Wno-pragmas -Wno-unused-function
+STRICT_CXXFLAGS+= -Wno-extra -Wno-c++98-compat -Wno-c++11-compat
+STRICT_CXXFLAGS+= -Wno-unknown-warning-option
 
 CXXFLAGS += -g -Wall -Wextra $(STRICT_CXXFLAGS) $(OPTIMIZE)
 
