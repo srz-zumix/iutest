@@ -54,7 +54,7 @@ STRICT_CXXFLAGS+= -Wno-unknown-attributes -Wno-ambiguous-ellipsis -Wno-format-no
 STRICT_CXXFLAGS+= -Wno-narrowing
 STRICT_CXXFLAGS+= -Wno-comment -Wno-unused-variable -Wno-constant-logical-operand
 STRICT_CXXFLAGS+= -Wno-invalid-constexpr
-STRICT_CXXFLAGS+= -Wno-builtin-declaration-mismatch -Wno-macro-redefined -Wno-pragmas
+STRICT_CXXFLAGS+= -Wno-builtin-declaration-mismatch -Wno-macro-redefined -Wno-pragmas -Wno-unused-function
 STRICT_CXXFLAGS+= -Wno-extra -Wno-c++98-compat -Wno-c++11-compat
 STRICT_CXXFLAGS+= -Wno-unknown-warning-option
 
