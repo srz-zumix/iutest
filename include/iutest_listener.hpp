@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -27,7 +27,7 @@ namespace iutest
 // declare
 class UnitTest;
 class TestInfo;
-class TestCase;
+class TestSuite;
 class TestPartResult;
 class TestProperty;
 class TestEventListener;
@@ -71,12 +71,12 @@ public:
                                     , int iteration)                = 0;    //!< 単体テスト開始時に毎回呼ばれます
     virtual void OnEnvironmentsSetUpStart(const UnitTest& test)     = 0;    //!< グローバル環境設定 SetUp 前に呼ばれます
     virtual void OnEnvironmentsSetUpEnd(const UnitTest& test)       = 0;    //!< グローバル環境設定 SetUp 後に呼ばれます
-    virtual void OnTestCaseStart(const TestCase& test_case)         = 0;    //!< テストケース開始時に呼ばれます
+    virtual void OnTestSuiteStart(const TestSuite& test_suite)      = 0;    //!< テストケース開始時に呼ばれます
     virtual void OnTestStart(const TestInfo& test_info)             = 0;    //!< テスト開始時に呼ばれます
-    virtual void OnTestPartResult(const TestPartResult& test_part_result)   = 0;    //!< テスト失敗時に呼ばれます
+    virtual void OnTestPartResult(const TestPartResult& test_part_result) = 0;    //!< テスト失敗時に呼ばれます
     virtual void OnTestRecordProperty(const TestProperty& /*test_property*/) {} //!< RecordProperty 時に呼ばれます
     virtual void OnTestEnd(const TestInfo& test_info)               = 0;    //!< テストケース終了時にに呼ばれます
-    virtual void OnTestCaseEnd(const TestCase& test_case)           = 0;    //!< テスト終了時にに呼ばれます
+    virtual void OnTestSuiteEnd(const TestSuite& test_suite)        = 0;    //!< テスト終了時にに呼ばれます
     virtual void OnEnvironmentsTearDownStart(const UnitTest& test)  = 0;    //!< グローバル環境設定 TearDown 前に呼ばれます
     virtual void OnEnvironmentsTearDownEnd(const UnitTest& test)    = 0;    //!< グローバル環境設定 TearDown 前に呼ばれます
     virtual void OnTestIterationEnd(const UnitTest& test
@@ -95,12 +95,12 @@ public:
                                     , int /*iteration*/)                IUTEST_CXX_OVERRIDE {}
     virtual void OnEnvironmentsSetUpStart(const UnitTest& /*test*/)     IUTEST_CXX_OVERRIDE {}
     virtual void OnEnvironmentsSetUpEnd(const UnitTest& /*test*/)       IUTEST_CXX_OVERRIDE {}
-    virtual void OnTestCaseStart(const TestCase& /*test_case*/)         IUTEST_CXX_OVERRIDE {}
+    virtual void OnTestSuiteStart(const TestSuite& /*test_suite*/)      IUTEST_CXX_OVERRIDE {}
     virtual void OnTestStart(const TestInfo& /*test_info*/)             IUTEST_CXX_OVERRIDE {}
     virtual void OnTestPartResult(const TestPartResult& /*test_part_result*/) IUTEST_CXX_OVERRIDE   {}
     virtual void OnTestRecordProperty(const TestProperty& /*test_propterty*/) IUTEST_CXX_OVERRIDE   {}
     virtual void OnTestEnd(const TestInfo& /*test_info*/)               IUTEST_CXX_OVERRIDE {}
-    virtual void OnTestCaseEnd(const TestCase& /*test_case*/)           IUTEST_CXX_OVERRIDE {}
+    virtual void OnTestSuiteEnd(const TestSuite& /*test_suite*/)        IUTEST_CXX_OVERRIDE {}
     virtual void OnEnvironmentsTearDownStart(const UnitTest& /*test*/)  IUTEST_CXX_OVERRIDE {}
     virtual void OnEnvironmentsTearDownEnd(const UnitTest& /*test*/)    IUTEST_CXX_OVERRIDE {}
     virtual void OnTestIterationEnd(const UnitTest& /*test*/
@@ -130,22 +130,22 @@ public:
 
 public:
     // On*End は後ろから実行
-    virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;
+    virtual void OnTestProgramStart(const UnitTest& test)           IUTEST_CXX_OVERRIDE;
     virtual void OnTestIterationStart(const UnitTest& test
-                                    , int iteration) IUTEST_CXX_OVERRIDE;
-    virtual void OnEnvironmentsSetUpStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;
-    virtual void OnEnvironmentsSetUpEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
-    virtual void OnTestCaseStart(const TestCase& test_case) IUTEST_CXX_OVERRIDE;
-    virtual void OnTestStart(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;
-    virtual void OnTestPartResult(const TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE;
-    virtual void OnTestRecordProperty(const TestProperty& test_property) IUTEST_CXX_OVERRIDE;
-    virtual void OnTestEnd(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;
-    virtual void OnTestCaseEnd(const TestCase& test_case) IUTEST_CXX_OVERRIDE;
-    virtual void OnEnvironmentsTearDownStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;
-    virtual void OnEnvironmentsTearDownEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
+                                    , int iteration)                IUTEST_CXX_OVERRIDE;
+    virtual void OnEnvironmentsSetUpStart(const UnitTest& test)     IUTEST_CXX_OVERRIDE;
+    virtual void OnEnvironmentsSetUpEnd(const UnitTest& test)       IUTEST_CXX_OVERRIDE;
+    virtual void OnTestSuiteStart(const TestSuite& test_suite)      IUTEST_CXX_OVERRIDE;
+    virtual void OnTestStart(const TestInfo& test_info)             IUTEST_CXX_OVERRIDE;
+    virtual void OnTestPartResult(const TestPartResult& test_part_result)   IUTEST_CXX_OVERRIDE;
+    virtual void OnTestRecordProperty(const TestProperty& test_property)    IUTEST_CXX_OVERRIDE;
+    virtual void OnTestEnd(const TestInfo& test_info)               IUTEST_CXX_OVERRIDE;
+    virtual void OnTestSuiteEnd(const TestSuite& test_suite)        IUTEST_CXX_OVERRIDE;
+    virtual void OnEnvironmentsTearDownStart(const UnitTest& test)  IUTEST_CXX_OVERRIDE;
+    virtual void OnEnvironmentsTearDownEnd(const UnitTest& test)    IUTEST_CXX_OVERRIDE;
     virtual void OnTestIterationEnd(const UnitTest& test
-                                    , int iteration) IUTEST_CXX_OVERRIDE;
-    virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
+                                    , int iteration)                IUTEST_CXX_OVERRIDE;
+    virtual void OnTestProgramEnd(const UnitTest& test)             IUTEST_CXX_OVERRIDE;
 
 private:
     ListenerContainer m_listeners;
@@ -190,12 +190,12 @@ private:
     void OnEnvironmentsSetUpStart(const UnitTest& test)             { m_repeater.OnEnvironmentsSetUpStart(test); }
     void OnEnvironmentsSetUpEnd(const UnitTest& test)               { m_repeater.OnEnvironmentsSetUpEnd(test); }
 
-    void OnTestCaseStart(const TestCase& test_case)                 { m_repeater.OnTestCaseStart(test_case); }
+    void OnTestSuiteStart(const TestSuite& test_suite)              { m_repeater.OnTestSuiteStart(test_suite); }
     void OnTestStart(const TestInfo& test_info)                     { m_repeater.OnTestStart(test_info); }
     void OnTestPartResult(const TestPartResult& test_part_result)   { m_repeater.OnTestPartResult(test_part_result); }
     void OnTestRecordProperty(const TestProperty& test_property)    { m_repeater.OnTestRecordProperty(test_property); }
     void OnTestEnd(const TestInfo& test_info)                       { m_repeater.OnTestEnd(test_info); }
-    void OnTestCaseEnd(const TestCase& test_case)                   { m_repeater.OnTestCaseEnd(test_case); }
+    void OnTestSuiteEnd(const TestSuite& test_suite)                { m_repeater.OnTestSuiteEnd(test_suite); }
 
     void OnEnvironmentsTearDownStart(const UnitTest& test)          { m_repeater.OnEnvironmentsTearDownStart(test); }
     void OnEnvironmentsTearDownEnd(const UnitTest& test)            { m_repeater.OnEnvironmentsTearDownEnd(test); }
@@ -211,7 +211,7 @@ private:
     friend class UnitTestImpl;
     friend class UnitTest;
     friend class TestInfo;
-    friend class TestCase;
+    friend class TestSuite;
     friend class Test;
 
     friend class detail::DefaultGlobalTestPartResultReporter;

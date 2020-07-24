@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -361,12 +361,12 @@ public:
     virtual void OnTestProgramStart(const UnitTest& test) IUTEST_CXX_OVERRIDE;
     virtual void OnTestIterationStart(const UnitTest& test
                                     , int iteration) IUTEST_CXX_OVERRIDE;
-    virtual void OnTestCaseStart(const TestCase& test_case) IUTEST_CXX_OVERRIDE;
+    virtual void OnTestSuiteStart(const TestSuite& test_suite) IUTEST_CXX_OVERRIDE;
     virtual void OnTestStart(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;
     virtual void OnTestPartResult(const TestPartResult& test_part_result) IUTEST_CXX_OVERRIDE;
     virtual void OnTestRecordProperty(const TestProperty& test_property) IUTEST_CXX_OVERRIDE;
     virtual void OnTestEnd(const TestInfo& test_info) IUTEST_CXX_OVERRIDE;
-    virtual void OnTestCaseEnd(const TestCase& test_case) IUTEST_CXX_OVERRIDE;
+    virtual void OnTestSuiteEnd(const TestSuite& test_suite) IUTEST_CXX_OVERRIDE;
     virtual void OnTestIterationEnd(const UnitTest& test
                                     , int iteration) IUTEST_CXX_OVERRIDE;
     virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
@@ -431,14 +431,14 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestIterationStart(const UnitTest& test
 #endif
         .End();
 }
-IUTEST_IPP_INLINE void SSTPNotifier::OnTestCaseStart(const TestCase& test_case)
+IUTEST_IPP_INLINE void SSTPNotifier::OnTestSuiteStart(const TestSuite& test_suite)
 {
     m_sstp.Notify()
         .Script(Script().Surface(Ghost::Normal)
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-            .Append(StreamableToString(test_case.name()) + " テストケースを開始").Concat().Ln().ToString())
+            .Append(StreamableToString(test_suite.name()) + " テストケースを開始").Concat().Ln().ToString())
 #else
-            .Append(StreamableToString(test_case.name()) + " Start TestCase...").Concat().Ln().ToString())
+            .Append(StreamableToString(test_suite.name()) + " Start TestSuite...").Concat().Ln().ToString())
 #endif
         .End();
 }
@@ -495,16 +495,16 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestEnd(const TestInfo& test_info)
             + "(" + StreamableToString(test_info.elapsed_time()) + "ms)").Concat().Ln().ToString())
         .End();
 }
-IUTEST_IPP_INLINE void SSTPNotifier::OnTestCaseEnd(const TestCase& test_case)
+IUTEST_IPP_INLINE void SSTPNotifier::OnTestSuiteEnd(const TestSuite& test_suite)
 {
     m_sstp.Notify()
-        .Script(Script(StreamableToString(test_case.name())
+        .Script(Script(StreamableToString(test_suite.name())
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-            + " テストケースは" + FormatBool(test_case.Passed()) + "したよ"
+            + " テストケースは" + FormatBool(test_suite.Passed()) + "したよ"
 #else
-            + " TestCase is"    + FormatBool(test_case.Passed()) + "."
+            + " TestSuite is"    + FormatBool(test_suite.Passed()) + "."
 #endif
-            + "(" + StreamableToString(test_case.elapsed_time()) + "ms)").Concat().Ln().ToString())
+            + "(" + StreamableToString(test_suite.elapsed_time()) + "ms)").Concat().Ln().ToString())
         .End();
 }
 IUTEST_IPP_INLINE void SSTPNotifier::OnTestIterationEnd(const UnitTest& test
