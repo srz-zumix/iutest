@@ -169,7 +169,7 @@ protected:
     int             m_total_test_num;   //!< 登録されたテスト総数
     int             m_disable_num;      //!< 無視したテスト総数
     int             m_should_run_num;   //!< 実行すべきテスト総数
-    TestSuite*      m_current_testsuite;//!< 現在実行中のTestSuite
+    TestSuite*      m_current_testsuite;//!< 現在実行中の TestSuite
     TimeInMillisec  m_elapsedmsec;      //!< テストの実行時間
     iuTestSuites    m_testsuites;       //!< TestSuite リスト
     TestResult      m_ad_hoc_testresult;//!< テストが実行中でないときのリザルト

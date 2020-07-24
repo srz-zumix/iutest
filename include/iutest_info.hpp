@@ -36,7 +36,7 @@ class TestInfo
 public:
     /**
      * @brief   コンストラクタ
-     * @param [in]  testsuite    = TestSuite 仲介者
+     * @param [in]  testsuite   = TestSuite 仲介者
      * @param [in]  name        = テスト名
      * @param [in]  factory     = テスト生成器
     */
