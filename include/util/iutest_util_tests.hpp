@@ -28,7 +28,7 @@ namespace iuutil
 */
 inline ::std::string TestFullName(const ::iutest::TestInfo* test_info)
 {
-    ::std::string fullname = test_info->test_case_name();
+    ::std::string fullname = test_info->test_suite_name();
     fullname += ".";
     fullname += test_info->name();
     return fullname;
@@ -50,7 +50,7 @@ inline ::std::string TestNameRemoveIndexName(const char* name)
 /**
  * @brief   インデックスを除いたテストケース名を取得
 */
-inline ::std::string TestCaseNameRemoveIndexName(const char* name)
+inline ::std::string TestSuiteNameRemoveIndexName(const char* name)
 {
     return TestNameRemoveIndexName(name);
 }
@@ -58,7 +58,7 @@ inline ::std::string TestCaseNameRemoveIndexName(const char* name)
 /**
  * @brief   インスタンス名とインデックスを除いたテストケース名を取得
 */
-inline ::std::string TestCaseNameRemoveInstantiateAndIndexName(const char* name)
+inline ::std::string TestSuiteNameRemoveInstantiateAndIndexName(const char* name)
 {
     // パッケージ名があれば取得
     const char* const pkg = strrchr(name, '.');
@@ -70,67 +70,67 @@ inline ::std::string TestCaseNameRemoveInstantiateAndIndexName(const char* name)
     }
     if( pkg == NULL )
     {
-        return TestCaseNameRemoveIndexName(p1 + 1);
+        return TestSuiteNameRemoveIndexName(p1 + 1);
     }
     else
     {
-        return ::std::string(name, pkg + 1) + TestCaseNameRemoveIndexName(p1 + 1);
+        return ::std::string(name, pkg + 1) + TestSuiteNameRemoveIndexName(p1 + 1);
     }
 }
 
 /**
- * @brief   TestCase の検索
+ * @brief   TestSuite の検索
 */
-inline const ::iutest::TestCase* FindTestCase(const char* testcase_name)
+inline const ::iutest::TestSuite* FindTestSuite(const char* testsuite_name)
 {
-    if( testcase_name == NULL )
+    if( testsuite_name == NULL )
     {
         return NULL;
     }
-    const int testcase_count = ::iutest::UnitTest::GetInstance()->total_test_case_count();
-    for( int i=0; i < testcase_count; ++i )
+    const int testsuite_count = ::iutest::UnitTest::GetInstance()->total_test_suite_count();
+    for( int i=0; i < testsuite_count; ++i )
     {
-        const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->GetTestCase(i);
-        if( strcmp(testcase->name(), testcase_name) == 0 )
+        const ::iutest::TestSuite* testsuite = ::iutest::UnitTest::GetInstance()->GetTestSuite(i);
+        if( strcmp(testsuite->name(), testsuite_name) == 0 )
         {
-            return testcase;
+            return testsuite;
         }
     }
     return NULL;
 }
 
 /**
- * @brief   TestCase の検索
+ * @brief   TestSuite の検索
 */
-inline const ::iutest::TestCase* FindParamTestCase(const char* testcase_name, const ::iutest::TestCase* begin=NULL)
+inline const ::iutest::TestSuite* FindParamTestSuite(const char* testsuite_name, const ::iutest::TestSuite* begin=NULL)
 {
-    if( testcase_name == NULL )
+    if( testsuite_name == NULL )
     {
         return NULL;
     }
-    const int testcase_count = ::iutest::UnitTest::GetInstance()->total_test_case_count();
+    const int testsuite_count = ::iutest::UnitTest::GetInstance()->total_test_suite_count();
     int i=0;
     if( begin != NULL )
     {
-        for( ; i < testcase_count; ++i )
+        for( ; i < testsuite_count; ++i )
         {
-            const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->GetTestCase(i);
-            if( testcase == begin )
+            const ::iutest::TestSuite* testsuite = ::iutest::UnitTest::GetInstance()->GetTestSuite(i);
+            if( testsuite == begin )
             {
                 break;
             }
         }
         ++i;
     }
-    for( ; i < testcase_count; ++i )
+    for( ; i < testsuite_count; ++i )
     {
-        const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->GetTestCase(i);
-        const char* testcase_origin_name = strchr(testcase->name(), '/');
-        if( testcase_origin_name != NULL )
+        const ::iutest::TestSuite* testsuite = ::iutest::UnitTest::GetInstance()->GetTestSuite(i);
+        const char* testsuite_origin_name = strchr(testsuite->name(), '/');
+        if( testsuite_origin_name != NULL )
         {
-            if( strcmp(testcase_origin_name+1, testcase_name) == 0 )
+            if( strcmp(testsuite_origin_name+1, testsuite_name) == 0 )
             {
-                return testcase;
+                return testsuite;
             }
         }
     }
@@ -138,39 +138,39 @@ inline const ::iutest::TestCase* FindParamTestCase(const char* testcase_name, co
 }
 
 /**
- * @brief   Typed Test の TestCase の検索
+ * @brief   Typed Test の TestSuite の検索
 */
-inline const ::iutest::TestCase* FindTypedTestCase(const char* testcase_name, const ::iutest::TestCase* begin=NULL)
+inline const ::iutest::TestSuite* FindTypedTestSuite(const char* testsuite_name, const ::iutest::TestSuite* begin=NULL)
 {
-    if( testcase_name == NULL )
+    if( testsuite_name == NULL )
     {
         return NULL;
     }
-    const int testcase_count = ::iutest::UnitTest::GetInstance()->total_test_case_count();
+    const int testsuite_count = ::iutest::UnitTest::GetInstance()->total_test_suite_count();
     int i=0;
     if( begin != NULL )
     {
-        for( ; i < testcase_count; ++i )
+        for( ; i < testsuite_count; ++i )
         {
-            const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->GetTestCase(i);
-            if( testcase == begin )
+            const ::iutest::TestSuite* testsuite = ::iutest::UnitTest::GetInstance()->GetTestSuite(i);
+            if( testsuite == begin )
             {
                 break;
             }
         }
         ++i;
     }
-    for( ; i < testcase_count; ++i )
+    for( ; i < testsuite_count; ++i )
     {
-        const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->GetTestCase(i);
-        if( testcase != NULL )
+        const ::iutest::TestSuite* testsuite = ::iutest::UnitTest::GetInstance()->GetTestSuite(i);
+        if( testsuite != NULL )
         {
-            const char* name = testcase->name();
+            const char* name = testsuite->name();
             if( name != NULL
-                && strstr(name, testcase_name) == name
-                && name[strlen(testcase_name)] == '/' )
+                && strstr(name, testsuite_name) == name
+                && name[strlen(testsuite_name)] == '/' )
             {
-                return testcase;
+                return testsuite;
             }
         }
     }
@@ -178,39 +178,39 @@ inline const ::iutest::TestCase* FindTypedTestCase(const char* testcase_name, co
 }
 
 /**
- * @brief   Type Parameter Test の TestCase の検索
+ * @brief   Type Parameter Test の TestSuite の検索
 */
-inline const ::iutest::TestCase* FindParamTypedTestCase(const char* testcase_name, const ::iutest::TestCase* begin=NULL)
+inline const ::iutest::TestSuite* FindParamTypedTestSuite(const char* testsuite_name, const ::iutest::TestSuite* begin=NULL)
 {
-    if( testcase_name == NULL )
+    if( testsuite_name == NULL )
     {
         return NULL;
     }
-    const int testcase_count = ::iutest::UnitTest::GetInstance()->total_test_case_count();
+    const int testsuite_count = ::iutest::UnitTest::GetInstance()->total_test_suite_count();
     int i=0;
     if( begin != NULL )
     {
-        for( ; i < testcase_count; ++i )
+        for( ; i < testsuite_count; ++i )
         {
-            const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->GetTestCase(i);
-            if( testcase == begin )
+            const ::iutest::TestSuite* testsuite = ::iutest::UnitTest::GetInstance()->GetTestSuite(i);
+            if( testsuite == begin )
             {
                 break;
             }
         }
         ++i;
     }
-    for( ; i < testcase_count; ++i )
+    for( ; i < testsuite_count; ++i )
     {
-        const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->GetTestCase(i);
-        const char* name = strchr(testcase->name(), '/');
+        const ::iutest::TestSuite* testsuite = ::iutest::UnitTest::GetInstance()->GetTestSuite(i);
+        const char* name = strchr(testsuite->name(), '/');
         if( name != NULL )
         {
             ++name;
-            if( strstr(name, testcase_name) == name
-                && name[strlen(testcase_name)] == '/' )
+            if( strstr(name, testsuite_name) == name
+                && name[strlen(testsuite_name)] == '/' )
             {
-                return testcase;
+                return testsuite;
             }
         }
     }
@@ -220,17 +220,17 @@ inline const ::iutest::TestCase* FindParamTypedTestCase(const char* testcase_nam
 /**
  * @brief   TestInfo の検索
 */
-inline const ::iutest::TestInfo* FindTestInfo(const ::iutest::TestCase* testcase, const char* testinfo_name)
+inline const ::iutest::TestInfo* FindTestInfo(const ::iutest::TestSuite* testsuite, const char* testinfo_name)
 {
-    if( testcase == NULL || testinfo_name == NULL )
+    if( testsuite == NULL || testinfo_name == NULL )
     {
         return NULL;
     }
 
-    const int testinfo_count = testcase->total_test_count();
+    const int testinfo_count = testsuite->total_test_count();
     for( int i=0; i < testinfo_count; ++i )
     {
-        const ::iutest::TestInfo* testinfo = testcase->GetTestInfo(i);
+        const ::iutest::TestInfo* testinfo = testsuite->GetTestInfo(i);
         if( strcmp(testinfo->name(), testinfo_name) == 0 )
         {
             return testinfo;
@@ -242,34 +242,34 @@ inline const ::iutest::TestInfo* FindTestInfo(const ::iutest::TestCase* testcase
 /**
  * @brief   TestInfo の検索
 */
-inline const ::iutest::TestInfo* FindTestInfo(const char* testcase_name, const char* testinfo_name)
+inline const ::iutest::TestInfo* FindTestInfo(const char* testsuite_name, const char* testinfo_name)
 {
-    if( testcase_name == NULL || testinfo_name == NULL )
+    if( testsuite_name == NULL || testinfo_name == NULL )
     {
         return NULL;
     }
-    const ::iutest::TestCase* testcase = FindTestCase(testcase_name);
-    return FindTestInfo(testcase, testinfo_name);
+    const ::iutest::TestSuite* testsuite = FindTestSuite(testsuite_name);
+    return FindTestInfo(testsuite, testinfo_name);
 }
 
 /**
  * @brief   TestInfo の検索
 */
-inline const ::iutest::TestInfo* FindParamTestInfo(const ::iutest::TestCase* testcase, const char* testinfo_name
+inline const ::iutest::TestInfo* FindParamTestInfo(const ::iutest::TestSuite* testsuite, const char* testinfo_name
                                                     , const ::iutest::TestInfo* begin=NULL)
 {
-    if( testcase == NULL || testinfo_name == NULL )
+    if( testsuite == NULL || testinfo_name == NULL )
     {
         return NULL;
     }
 
-    const int testinfo_count = testcase->total_test_count();
+    const int testinfo_count = testsuite->total_test_count();
     int i=0;
     if( begin != NULL )
     {
         for( ; i < testinfo_count; ++i )
         {
-            const ::iutest::TestInfo* testinfo = testcase->GetTestInfo(i);
+            const ::iutest::TestInfo* testinfo = testsuite->GetTestInfo(i);
             if( testinfo == begin )
             {
                 break;
@@ -280,7 +280,7 @@ inline const ::iutest::TestInfo* FindParamTestInfo(const ::iutest::TestCase* tes
 
     for( ; i < testinfo_count; ++i )
     {
-        const ::iutest::TestInfo* testinfo = testcase->GetTestInfo(i);
+        const ::iutest::TestInfo* testinfo = testsuite->GetTestInfo(i);
         if( testinfo != NULL )
         {
             const char* name = testinfo->name();
@@ -323,24 +323,24 @@ inline const ::iutest::TestResult* GetAdHocTestResult()
 }
 
 /**
- * @brief   TestCase の ad_hoc_test_result の取得
+ * @brief   TestSuite の ad_hoc_test_result の取得
 */
-inline const ::iutest::TestResult* GetTestCaseAdHocResult(const ::iutest::TestCase* test_case)
+inline const ::iutest::TestResult* GetTestSuiteAdHocResult(const ::iutest::TestSuite* test_suite)
 {
 #if !defined(IUTEST_NO_TESTCASE_AD_HOC_TEST_RESULT_ACCESSOR)
-    return TestResultPointer(test_case->ad_hoc_test_result());
+    return TestResultPointer(test_suite->ad_hoc_test_result());
 #else
-    IUTEST_UNUSED_VAR(test_case);
+    IUTEST_UNUSED_VAR(test_suite);
     return GetAdHocTestResult();
 #endif
 }
 
 /**
- * @brief   TestCase の ad_hoc_test_result の取得
+ * @brief   TestSuite の ad_hoc_test_result の取得
 */
-inline const ::iutest::TestResult* GetCurrentTestCaseAdHocResult()
+inline const ::iutest::TestResult* GetCurrentTestSuiteAdHocResult()
 {
-    return GetTestCaseAdHocResult(::iutest::UnitTest::GetInstance()->current_test_case());
+    return GetTestSuiteAdHocResult(::iutest::UnitTest::GetInstance()->current_test_suite());
 }
 
 /**
