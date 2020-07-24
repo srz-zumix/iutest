@@ -515,6 +515,9 @@ def run_wandbox_make(main_filepath, code, includes, impliments, options):
 
         makefile = '#!/bin/make\n# generate makefile by iuwandbox.py\n'
         cxx = get_compiler_exec(options.compiler)
+        if cxx is None:
+            print('failed: invalid compiler...')
+            sys.exit(1)
         makefile += '\nCXX=/opt/wandbox/' + options.compiler + '/bin/' + cxx
         makefile += '\nCXXFLAGS+='
         for opt in colist:
