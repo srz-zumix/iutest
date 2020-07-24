@@ -57,6 +57,9 @@ test-gcc-98: ../../test/syntax_tests.cpp Makefile
 test-make: ../../test/syntax_tests.cpp Makefile
 	python iuwandbox.py $< -c gcc-head -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --make
 
+save-make: ../../test/syntax_tests.cpp Makefile
+	python iuwandbox.py $< -c gcc-head -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --make -s
+
 boost: ../../test/syntax_tests.cpp Makefile
 	python iuwandbox.py $< -c $(WANDBOX_COMPILER) --boost 1.60 -f"-DIUTEST_USE_MAIN" --encoding utf-8-sig $(EXPAND_INCLUDE) --verbose --dryrun
 
