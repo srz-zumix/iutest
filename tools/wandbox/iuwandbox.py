@@ -41,7 +41,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 7.0'
+        version=u'%(prog)s version 7.1'
     )
     parser.add_argument(
         '--list-compiler',
@@ -486,6 +486,16 @@ def create_compiler_raw_option_list(options):
     return colist
 
 
+def get_compiler_exec(compiler):
+    if 'gcc' in compiler:
+        return 'g++'
+    if 'clang' in compiler:
+        return 'clang++'
+    if 'zapcc' in compiler:
+        return 'zapcc++'
+    return None
+
+
 # run wandbox (makefile)
 def run_wandbox_make(main_filepath, code, includes, impliments, options):
     with Wandbox() as w:
@@ -504,6 +514,11 @@ def run_wandbox_make(main_filepath, code, includes, impliments, options):
                 rolist.extend(opt.split())
 
         makefile = '#!/bin/make\n# generate makefile by iuwandbox.py\n'
+        cxx = get_compiler_exec(options.compiler)
+        if cxx is None:
+            print('failed: invalid compiler...')
+            sys.exit(1)
+        makefile += '\nCXX=/opt/wandbox/' + options.compiler + '/bin/' + cxx
         makefile += '\nCXXFLAGS+='
         for opt in colist:
             makefile += opt + ' '
