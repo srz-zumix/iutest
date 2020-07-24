@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -41,9 +41,9 @@ public:
 
 public:
     /**
-     * @brief   テスト中の TestCase の取得
+     * @brief   テスト中の TestSuite の取得
     */
-    const TestCase*     current_test_case() const { return m_current_testcase; }
+    const TestSuite*     current_test_suite() const { return m_current_testsuite; }
 
     /**
      * @brief   テスト中の TestInfo の取得
@@ -84,14 +84,14 @@ public:
     /** レポート対象の明示的にスキップされたテスト総数 (SKIP, ASSUME) */
     int             reportable_test_run_skipped_count() const;
 
-    /** テストケース数の総数 */
-    int             total_test_case_count() const { return static_cast<int>(m_testcases.size()); }
-    /** 実行したテストケース総数 */
-    int             test_case_to_run_count() const;
-    /** 成功したテストケース総数 */
-    int             successful_test_case_count() const;
-    /** 失敗したテストケース総数 */
-    int             failed_test_case_count() const;
+    /** TestSuite 数の総数 */
+    int             total_test_suite_count() const { return static_cast<int>(m_testsuites.size()); }
+    /** 実行した TestSuite 総数 */
+    int             test_suite_to_run_count() const;
+    /** 成功した TestSuite 総数 */
+    int             successful_test_suite_count() const;
+    /** 失敗した TestSuite 総数 */
+    int             failed_test_suite_count() const;
 
     /**
      * @brief テスト実行中じゃないときのリザルトの取得
@@ -108,8 +108,8 @@ public:
     /** テスト開始時のタイムスタンプを取得 */
     TimeInMillisec  start_timestamp()   const IUTEST_CXX_NOEXCEPT_SPEC { return m_start_timestamp; }
 
-    /** テストケースの取得 */
-    const TestCase* GetTestCase(int index)  const { return m_testcases[index]; }
+    /** TestSuite の取得 */
+    const TestSuite* GetTestSuite(int index)  const { return m_testsuites[index]; }
 
     /** テストが成功したかどうか */
     bool            Passed()            const;
@@ -118,6 +118,15 @@ public:
 
     /** イベントリスナーの取得 */
     TestEventListeners& listeners()     const { return TestEnv::event_listeners(); }
+
+#if !defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
+    const TestCase*     GetTestCase(int index)  const { return m_testsuites[index]; }
+    const TestCase*     current_test_case() const { return m_current_testsuite; }
+    int                 total_test_case_count() const { return static_cast<int>(m_testsuites.size()); }
+    int                 test_case_to_run_count() const { return test_suite_to_run_count(); }
+    int                 successful_test_case_count() const { return successful_test_suite_count(); }
+    int                 failed_test_case_count() const { return failed_test_suite_count(); }
+#endif
 
 protected:
     /**
@@ -197,13 +206,13 @@ private:
 #if IUTEST_HAS_PARAM_TEST
 public:
     /** @private */
-    detail::ParamTestCaseHolder& parameterized_test_registry() IUTEST_CXX_NOEXCEPT_SPEC
+    detail::ParamTestSuiteHolder& parameterized_test_registry() IUTEST_CXX_NOEXCEPT_SPEC
     {
-        return m_param_testcase_holder;
+        return m_param_testsuite_holder;
     }
 
 private:
-    detail::ParamTestCaseHolder m_param_testcase_holder;
+    detail::ParamTestSuiteHolder m_param_testsuite_holder;
 #endif
 
 private:
@@ -231,34 +240,34 @@ class TestInstance
 {
 public:
     /** コンストラクタ */
-    TestInstance(const char* testcase, const char* name, TestTypeId id
+    TestInstance(const char* testsuite, const char* name, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown)
-        : m_mediator(AddTestCase(testcase, id, setup, teardown))
+        : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
         , m_info(&m_mediator, name, &m_factory)
     {
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
     }
     /** コンストラクタ */
-    TestInstance(const ::std::string& testcase, const char* name, TestTypeId id
+    TestInstance(const ::std::string& testsuite, const char* name, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown)
-        : m_mediator(AddTestCase(testcase, id, setup, teardown))
+        : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
         , m_info(&m_mediator, name, &m_factory)
     {
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
     }
     /** コンストラクタ */
-    TestInstance(const char* testcase, const char* name, const char*  value_params, TestTypeId id
+    TestInstance(const char* testsuite, const char* name, const char*  value_params, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown)
-        : m_mediator(AddTestCase(testcase, id, setup, teardown))
+        : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
         , m_info(&m_mediator, name, &m_factory)
     {
         m_info.set_value_param(value_params);
         UnitTest::instance().AddTestInfo(m_mediator.ptr(), &m_info);
     }
     /** コンストラクタ */
-    TestInstance(const ::std::string& testcase, const char* name, const char*  value_params, TestTypeId id
+    TestInstance(const ::std::string& testsuite, const char* name, const char*  value_params, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown)
-        : m_mediator(AddTestCase(testcase, id, setup, teardown))
+        : m_mediator(AddTestSuite(testsuite, id, setup, teardown))
         , m_info(&m_mediator, name, &m_factory)
     {
         m_info.set_value_param(value_params);
@@ -266,25 +275,25 @@ public:
     }
 
 private:
-    TestCase* AddTestCase(const char* testcase, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+    TestSuite* AddTestSuite(const char* testsuite, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
     {
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-        return UnitTest::instance().AddTestCase<TestCase>(testcase, id, setup, teardown);
+        return UnitTest::instance().AddTestSuite<TestSuite>(testsuite, id, setup, teardown);
 #else
-        return UnitTest::instance().AddTestCase(testcase, id, setup, teardown, detail::explicit_type<TestCase>());
+        return UnitTest::instance().AddTestSuite(testsuite, id, setup, teardown, detail::explicit_type<TestSuite>());
 #endif
     }
-    TestCase* AddTestCase(const ::std::string& testcase, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
+    TestSuite* AddTestSuite(const ::std::string& testsuite, TestTypeId id, SetUpMethod setup, TearDownMethod teardown)
     {
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-        return UnitTest::instance().AddTestCase<TestCase>(testcase, id, setup, teardown);
+        return UnitTest::instance().AddTestSuite<TestSuite>(testsuite, id, setup, teardown);
 #else
-        return UnitTest::instance().AddTestCase(testcase, id, setup, teardown, detail::explicit_type<TestCase>());
+        return UnitTest::instance().AddTestSuite(testsuite, id, setup, teardown, detail::explicit_type<TestSuite>());
 #endif
     }
 
 private:
-    TestCaseMediator    m_mediator;
+    TestSuiteMediator    m_mediator;
     TestInfo            m_info;
     iuFactory<Tester>   m_factory;
 };
