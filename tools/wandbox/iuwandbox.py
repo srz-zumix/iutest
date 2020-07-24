@@ -493,7 +493,7 @@ def get_compiler_exec(compiler):
         return 'clang++'
     if 'zapcc' in compiler:
         return 'zapcc++'
-    return nil
+    return None
 
 
 # run wandbox (makefile)
