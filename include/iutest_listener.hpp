@@ -71,12 +71,22 @@ public:
                                     , int iteration)                = 0;    //!< 単体テスト開始時に毎回呼ばれます
     virtual void OnEnvironmentsSetUpStart(const UnitTest& test)     = 0;    //!< グローバル環境設定 SetUp 前に呼ばれます
     virtual void OnEnvironmentsSetUpEnd(const UnitTest& test)       = 0;    //!< グローバル環境設定 SetUp 後に呼ばれます
-    virtual void OnTestSuiteStart(const TestSuite& test_suite)      = 0;    //!< テストケース開始時に呼ばれます
+#if !defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
+    virtual void OnTestSuiteStart(const TestSuite& test_suite)      { OnTestCaseStart(test_suite); }    //!< TestSuite 開始時に呼ばれます
+    virtual void OnTestCaseStart(const TestSuite& /*test_suite*/)   {}
+#else
+    virtual void OnTestSuiteStart(const TestSuite& test_suite)      = 0;    //!< TestSuite 開始時に呼ばれます
+#endif
     virtual void OnTestStart(const TestInfo& test_info)             = 0;    //!< テスト開始時に呼ばれます
     virtual void OnTestPartResult(const TestPartResult& test_part_result) = 0;    //!< テスト失敗時に呼ばれます
     virtual void OnTestRecordProperty(const TestProperty& /*test_property*/) {} //!< RecordProperty 時に呼ばれます
-    virtual void OnTestEnd(const TestInfo& test_info)               = 0;    //!< テストケース終了時にに呼ばれます
-    virtual void OnTestSuiteEnd(const TestSuite& test_suite)        = 0;    //!< テスト終了時にに呼ばれます
+    virtual void OnTestEnd(const TestInfo& test_info)               = 0;    //!< テスト終了時にに呼ばれます
+#if !defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
+    virtual void OnTestSuiteEnd(const TestSuite& test_suite)        { OnTestSuiteEnd(test_suite); }    //!< TestSuite 終了時にに呼ばれます
+    virtual void OnTestCaseEnd(const TestSuite& /*test_suite*/)     {}
+#else
+    virtual void OnTestSuiteEnd(const TestSuite& test_suite)        = 0;    //!< TestSuite 終了時にに呼ばれます
+#endif
     virtual void OnEnvironmentsTearDownStart(const UnitTest& test)  = 0;    //!< グローバル環境設定 TearDown 前に呼ばれます
     virtual void OnEnvironmentsTearDownEnd(const UnitTest& test)    = 0;    //!< グローバル環境設定 TearDown 前に呼ばれます
     virtual void OnTestIterationEnd(const UnitTest& test

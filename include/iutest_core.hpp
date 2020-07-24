@@ -84,13 +84,13 @@ public:
     /** レポート対象の明示的にスキップされたテスト総数 (SKIP, ASSUME) */
     int             reportable_test_run_skipped_count() const;
 
-    /** テストケース数の総数 */
+    /** TestSuite 数の総数 */
     int             total_test_suite_count() const { return static_cast<int>(m_testsuites.size()); }
-    /** 実行したテストケース総数 */
+    /** 実行した TestSuite 総数 */
     int             test_suite_to_run_count() const;
-    /** 成功したテストケース総数 */
+    /** 成功した TestSuite 総数 */
     int             successful_test_suite_count() const;
-    /** 失敗したテストケース総数 */
+    /** 失敗した TestSuite 総数 */
     int             failed_test_suite_count() const;
 
     /**
@@ -108,7 +108,7 @@ public:
     /** テスト開始時のタイムスタンプを取得 */
     TimeInMillisec  start_timestamp()   const IUTEST_CXX_NOEXCEPT_SPEC { return m_start_timestamp; }
 
-    /** テストケースの取得 */
+    /** TestSuite の取得 */
     const TestSuite* GetTestSuite(int index)  const { return m_testsuites[index]; }
 
     /** テストが成功したかどうか */

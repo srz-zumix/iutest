@@ -189,8 +189,8 @@ template<typename T>
 #endif
 
 /**
- * @brief   テストケース名との結合
- * @return  テストケース名
+ * @brief   TestSuite 名との結合
+ * @return  TestSuite 名
 */
 inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestSuiteName(const ::std::string& package, const char* testsuite_name)
 {

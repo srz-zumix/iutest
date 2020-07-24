@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -48,7 +48,7 @@ inline ::std::string TestNameRemoveIndexName(const char* name)
 }
 
 /**
- * @brief   インデックスを除いたテストケース名を取得
+ * @brief   インデックスを除いた TestSuite 名を取得
 */
 inline ::std::string TestSuiteNameRemoveIndexName(const char* name)
 {
@@ -56,7 +56,7 @@ inline ::std::string TestSuiteNameRemoveIndexName(const char* name)
 }
 
 /**
- * @brief   インスタンス名とインデックスを除いたテストケース名を取得
+ * @brief   インスタンス名とインデックスを除いた TestSuite 名を取得
 */
 inline ::std::string TestSuiteNameRemoveInstantiateAndIndexName(const char* name)
 {
@@ -358,6 +358,36 @@ inline const ::iutest::TestResult* GetCurrentTestResult()
 {
     return GetTestResult(::iutest::UnitTest::GetInstance()->current_test_info());
 }
+
+#if !defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
+
+inline ::std::string TestCaseNameRemoveIndexName(const char* name) { return TestSuiteNameRemoveIndexName(name); }
+inline ::std::string TestCaseNameRemoveInstantiateAndIndexName(const char* name) { return TestSuiteNameRemoveInstantiateAndIndexName(name); }
+inline const ::iutest::TestCase* FindTestCase(const char* name) { return FindTestSuite(name); }
+
+inline const ::iutest::TestCase* FindParamTestCase(const char* name, const ::iutest::TestCase* begin=NULL)
+{
+    return FindParamTestSuite(name, begin);
+}
+inline const ::iutest::TestCase* FindTypedTestCase(const char* name, const ::iutest::TestCase* begin=NULL)
+{
+    return FindTypedTestSuite(name, begin);
+}
+inline const ::iutest::TestCase* FindParamTypedTestCase(const char* name, const ::iutest::TestCase* begin=NULL)
+{
+    return FindParamTypedTestSuite(name, begin);
+}
+inline const ::iutest::TestResult* GetTestCaseAdHocResult(const ::iutest::TestCase* testcase)
+{
+    return GetTestSuiteAdHocResult(testcase);
+}
+inline const ::iutest::TestResult* GetCurrentTestCaseAdHocResult()
+{
+    return GetCurrentTestSuiteAdHocResult();
+}
+
+
+#endif
 
 }   // end of namespace iuutil
 

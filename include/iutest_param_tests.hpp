@@ -66,7 +66,7 @@
  * @def     IUTEST_INSTANTIATE_TEST_CASE_AP
  * @brief   パラメータテストインスタンス化マクロ
  * @param   prefix_     = インスタンス名
- * @param   testsuite_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   generator_  = Range, Bool, Values, ValuesIn, Combine, Pairwise ...
 */
 #define IUTEST_INSTANTIATE_TEST_CASE_AP(prefix_, testsuite_, generator_) \
@@ -76,7 +76,7 @@
  * @ingroup VALUE_PARAMETERIZED_TEST
  * @def     IUTEST_AP(testsuite_, testname_)
  * @brief   パラメータユーザー指定テスト関数定義マクロ
- * @param   testsuite_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
  * @note
  *  IUTEST_AP(TestSuiteName, TestName) {}\n
@@ -315,7 +315,7 @@ public:
     explicit ParamTestInstance(const char* testsuite_name) : IParamTestInfoData(testsuite_name) {}
 
 private:
-    // テストケースの作成
+    // TestSuite の作成
     virtual TestSuite* MakeTestSuite(const ::std::string& testsuite_name, TestTypeId id
         , SetUpMethod setup, TearDownMethod teardown) const IUTEST_CXX_OVERRIDE
     {

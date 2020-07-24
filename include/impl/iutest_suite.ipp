@@ -76,7 +76,10 @@ IUTEST_IPP_INLINE bool TestSuite::RunImpl()
     bool result=true;
     m_elapsedmsec = 0;
 
-    m_setup();
+    if( m_setup != NULL )
+    {
+        m_setup();
+    }
 
     if( m_ad_hoc_testresult.HasFatalFailure() )
     {
@@ -102,7 +105,10 @@ IUTEST_IPP_INLINE bool TestSuite::RunImpl()
         m_elapsedmsec = sw.stop();
     }
 
-    m_teardown();
+    if( m_teardown != NULL )
+    {
+        m_teardown();
+    }
     if( m_ad_hoc_testresult.HasFatalFailure() )
     {
         return false;

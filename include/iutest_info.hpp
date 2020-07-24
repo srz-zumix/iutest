@@ -36,7 +36,7 @@ class TestInfo
 public:
     /**
      * @brief   コンストラクタ
-     * @param [in]  testsuite    = テストケース仲介者
+     * @param [in]  testsuite    = TestSuite 仲介者
      * @param [in]  name        = テスト名
      * @param [in]  factory     = テスト生成器
     */
@@ -246,7 +246,7 @@ private:
     TestResult              m_test_result;      //!< テスト結果
     Mediator                m_mediator;         //!< 自身の仲介インスタンス
     detail::iuFactoryBase*          m_factory;  //!< テスト生成器
-    detail::iuITestSuiteMediator*   m_testsuite;//!< テストケース仲介者
+    detail::iuITestSuiteMediator*   m_testsuite;//!< TestSuite 仲介者
     bool                    m_should_run;       //!< 実行すべきかの真偽値
     bool                    m_ran;              //!< 実行したかどうか
     bool                    m_disable;          //!< 無効真偽値

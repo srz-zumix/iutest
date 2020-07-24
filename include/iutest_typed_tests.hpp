@@ -34,8 +34,8 @@
 /**
  * @ingroup TYPED_TEST
  * @def     IUTEST_TYPED_TEST_CASE(testsuite_, types_)
- * @brief   型付けテストケースの登録
- * @param   testsuite_   = テストケース名
+ * @brief   型付けTestSuite の登録
+ * @param   testsuite_  = TestSuite 名
  * @param   ...         = タイプリスト
 */
 #if !defined(IUTEST_NO_VARIADIC_MACROS)
@@ -48,7 +48,7 @@
  * @ingroup TYPED_TEST
  * @def     IUTEST_TYPED_TEST(testsuite_, testname_)
  * @brief   型付けテスト関数定義マクロ
- * @param   testsuite_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
 */
 #define IUTEST_TYPED_TEST(testsuite_, testname_)        IUTEST_TYPED_TEST_(testsuite_, testname_)
@@ -57,7 +57,7 @@
  * @ingroup TYPED_TEST
  * @def     IUTEST_T(testsuite_, testname_)
  * @brief   型付けテスト関数定義マクロ
- * @param   testsuite_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
 */
 #define IUTEST_T(testsuite_, testname_)                 IUTEST_TYPED_TEST_(testsuite_, testname_)
@@ -167,8 +167,8 @@
 /**
  * @ingroup TYPE_PARAMETERIZED_TEST
  * @def     IUTEST_TYPED_TEST_CASE_P(testsuite_)
- * @brief   型パラメータテストケースの登録
- * @param   testsuite_   = テストケース名
+ * @brief   型パラメータTestSuite の登録
+ * @param   testsuite_  = TestSuite 名
 */
 #define IUTEST_TYPED_TEST_CASE_P(testsuite_)            IIUT_TYPED_TEST_CASE_P_(testsuite_)
 
@@ -176,7 +176,7 @@
  * @ingroup TYPE_PARAMETERIZED_TEST
  * @def     IUTEST_TYPED_TEST_P(testsuite_, testname_)
  * @brief   型パラメータテスト関数定義マクロ
- * @param   testsuite_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
 */
 #define IUTEST_TYPED_TEST_P(testsuite_, testname_)      IIUT_TYPED_TEST_P_(testsuite_, testname_)
@@ -185,7 +185,7 @@
  * @ingroup TYPE_PARAMETERIZED_TEST
  * @def     IUTEST_TP(testsuite_, testname_)
  * @brief   型パラメータテスト関数定義マクロ
- * @param   testsuite_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
 */
 #define IUTEST_TP(testsuite_, testname_)                IIUT_TYPED_TEST_P_(testsuite_, testname_)
@@ -194,7 +194,7 @@
  * @ingroup TYPE_PARAMETERIZED_TEST
  * @def     IUTEST_REGISTER_TYPED_TEST_CASE_P(testsuite_, ...)
  * @brief   型パラメータテスト関数登録マクロ
- * @param   testsuite_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
 */
 #define IUTEST_REGISTER_TYPED_TEST_CASE_P(testsuite_, ...)  \
     IIUT_REGISTER_TYPED_TEST_CASE_P_(testsuite_, __VA_ARGS__)
@@ -204,7 +204,7 @@
  * @def     IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(prefix_, testsuite_, types_)
  * @brief   型パラメータテスト登録マクロ
  * @param   prefix_     = インスタンス名
- * @param   testsuite_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   ...         = タイプリスト
 */
 #define IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(prefix_, testsuite_, ...)  \

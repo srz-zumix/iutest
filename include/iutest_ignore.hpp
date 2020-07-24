@@ -24,7 +24,7 @@
  * @ingroup TESTDEF
  * @def     IUTEST_TEST_IGNORE(testsuite_, testname_)
  * @brief   テスト関数定義マクロ
- * @param   testsuite_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
  * @note    ignore 版ではテストコードのコンパイルが通らなくても問題ない
  * @deprecated
@@ -37,7 +37,7 @@
  * @ingroup TESTDEF
  * @def     IUTEST_TEST_IGNORE(testsuite_, testname_)
  * @brief   テスト関数定義マクロ
- * @param   testsuite_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
  * @note    ignore 版ではテストコードのコンパイルが通らなくても問題ない
  * @deprecated
@@ -63,7 +63,7 @@
  * @ingroup TESTDEF
  * @def     IUTEST_P_IGNORE(testsuite_, testname_)
  * @brief   パラメータユーザー指定テスト関数定義マクロ
- * @param   testsuite_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
  * @note    ignore 版ではテストコードのコンパイルが通らなくても問題ない
  * @deprecated
@@ -79,7 +79,7 @@
  * @ingroup TESTDEF
  * @def     IUTEST_TYPED_TEST(testsuite_, testname_)
  * @brief   型付けテスト関数定義マクロ
- * @param   testsuite_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
  * @note    ignore 版ではテストコードのコンパイルが通らなくても問題ない
  * @deprecated
@@ -95,7 +95,7 @@
  * @ingroup TESTDEF
  * @def     IUTEST_TYPED_TEST_P(testsuite_, testname_)
  * @brief   型パラメータテスト関数定義マクロ
- * @param   testsuite_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
  * @note    ignore 版ではテストコードのコンパイルが通らなくても問題ない
  * @deprecated

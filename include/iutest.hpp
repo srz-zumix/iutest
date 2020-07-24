@@ -50,7 +50,7 @@
  * @ingroup TESTDEF
  * @def     IUTEST_TEST(testsuite_, testname_)
  * @brief   テスト関数定義マクロ
- * @param   testsuite_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
 */
 #define IUTEST_TEST(testsuite_, testname_)      IUTEST_TEST_STRICT_(testsuite_, testname_    \
@@ -60,7 +60,7 @@
  * @ingroup TESTDEF
  * @def     IUTEST(testsuite_, testname_)
  * @brief   テスト関数定義マクロ
- * @param   testsuite_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
 */
 #define IUTEST(testsuite_, testname_)           IUTEST_TEST(testsuite_, testname_)
@@ -79,7 +79,7 @@
  * @ingroup VALUE_PARAMETERIZED_TEST
  * @def     IUTEST_PMZ(testsuite_, testname_, method_, ...)
  * @brief   パラメタライズ関数コールテスト定義マクロ
- * @param   testsuite_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
  * @param   method_     = 関数
 */
@@ -113,7 +113,7 @@
 /**
  * @ingroup TESTDEF
  * @brief   テストフィクスチャ用テストの別名
- * @param   testsuitename_   = テストケース名
+ * @param   testsuitename_   = TestSuite 名
  * @param   testfixture_    = テストフィクスチャ名
 */
 #define IUTEST_ALIAS_TESTNAME_F(testsuitename_, testfixture_)   IUTEST_ALIAS_TESTNAME_F_(testsuitename_, testfixture_)
@@ -130,7 +130,7 @@
 /**
  * @ingroup TESTDEF
  * @brief   テストフィクスチャ用日本語テスト名
- * @param   testsuitename_   = テストケース名
+ * @param   testsuitename_   = TestSuite 名
  * @param   testfixture_    = テストフィクスチャ名
 */
 #define IUTEST_JAPANESE_NAME_F(testsuitename_, testfixture_)    IUTEST_ALIAS_TESTNAME_F(testsuitename_, testfixture_)

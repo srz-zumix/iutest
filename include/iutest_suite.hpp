@@ -25,7 +25,7 @@ namespace iutest
 //======================================================================
 // class
 /**
- * @brief   テストケース
+ * @brief   TestSuite
 */
 class TestSuite
 #if IUTEST_USE_OWN_LIST
@@ -43,8 +43,8 @@ protected:
 protected:
     /**
      * @brief   コンストラクタ
-     * @param [in]  testsuite_name   = テストケース名
-     * @param [in]  id              = テストケースID
+     * @param [in]  testsuite_name  = TestSuite 名
+     * @param [in]  id              = TestSuite ID
      * @param [in]  setup           = テスト事前実行関数
      * @param [in]  teardown        = テスト事後実行関数
     */
@@ -185,7 +185,7 @@ private:
 public:
     /**
      * @private
-     * @brief   テストケース比較用オブジェクト
+     * @brief   TestSuite 比較用オブジェクト
     */
     struct FindOp
     {
@@ -245,7 +245,7 @@ private:
     friend struct FindOp;
 #endif
 
-    ::std::string   m_testsuite_name;    //!< テストケース名
+    ::std::string   m_testsuite_name;   //!< TestSuite 名
     iuTestInfos     m_testinfos;        //!< テスト情報リスト
     SetUpMethod     m_setup;            //!< SetUp 関数
     TearDownMethod  m_teardown;         //!< TearDown 関数
@@ -261,7 +261,7 @@ private:
 };
 
 /**
- * @brief   型つきテストケース
+ * @brief   型つきTestSuite
 */
 template<typename T>
 class TypedTestSuite : public TestSuite
@@ -272,8 +272,8 @@ public:
 protected:
     /**
      * @brief   コンストラクタ
-     * @param [in]  testsuite_name   = テストケース名
-     * @param [in]  id              = テストケースID
+     * @param [in]  testsuite_name  = TestSuite 名
+     * @param [in]  id              = TestSuite ID
      * @param [in]  setup           = テスト事前実行関数
      * @param [in]  teardown        = テスト事後実行関数
     */
@@ -300,7 +300,7 @@ namespace detail
 {
 
 /**
- * @brief   テストケース仲介者
+ * @brief   TestSuite 仲介者
 */
 class TestSuiteMediator IUTEST_CXX_FINAL : public detail::iuITestSuiteMediator
 {

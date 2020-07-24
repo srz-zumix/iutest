@@ -26,7 +26,7 @@
 /**
  * @ingroup TESTDEF
  * @def     IUTEST_VALUETMP_TEST_CASE(testsuite_, types_)
- * @brief   型付けテストケースの登録
+ * @brief   型付け TestSuite の登録
 */
 #define IUTEST_VALUETMP_TEST_CASE(testsuite_, types_)    IIUT_TYPED_TEST_CASE_(testsuite_, types_)
 
@@ -51,7 +51,7 @@
         protected: virtual void Body();                                                 \
     };                                                                                  \
     iutest::tr1::ValueTmpParamTestInstance<IUTEST_TEST_CLASS_NAME_(testsuite_, testname_), IIUT_TYPED_TEST_PARAMS_(testsuite_)>   \
-    s_##testsuite_##_##testname_( #testsuite_, #testname_);                             \
+    s_##testsuite_##_##testname_( #testsuite_, #testname_, __FILE__, __LINE__);         \
     template<iutest::BiggestInt iutest_ValueParam>                                      \
     void IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)<iutest_ValueParam>::Body()
 
@@ -94,8 +94,8 @@ template<template<BiggestInt V> class Tester, typename TypePrams>
 class ValueTmpParamTestInstance
 {
     /**
-     * @brief   テストケース名の作成
-     * @param [in]  testsuite    = ベース名
+     * @brief   TestSuite 名の作成
+     * @param [in]  testsuite   = ベース名
      * @param [in]  index       = 型インデックス
     */
     static ::std::string MakeTestSuiteName(const char* testsuite, size_t index)

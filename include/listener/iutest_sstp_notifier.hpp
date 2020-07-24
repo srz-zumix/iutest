@@ -436,7 +436,7 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestSuiteStart(const TestSuite& test_suit
     m_sstp.Notify()
         .Script(Script().Surface(Ghost::Normal)
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-            .Append(StreamableToString(test_suite.name()) + " テストケースを開始").Concat().Ln().ToString())
+            .Append(StreamableToString(test_suite.name()) + " TestSuite を開始").Concat().Ln().ToString())
 #else
             .Append(StreamableToString(test_suite.name()) + " Start TestSuite...").Concat().Ln().ToString())
 #endif
@@ -500,7 +500,7 @@ IUTEST_IPP_INLINE void SSTPNotifier::OnTestSuiteEnd(const TestSuite& test_suite)
     m_sstp.Notify()
         .Script(Script(StreamableToString(test_suite.name())
 #if IUTEST_SSTPNOTIFIER_JAPANESE
-            + " テストケースは" + FormatBool(test_suite.Passed()) + "したよ"
+            + " TestSuite は" + FormatBool(test_suite.Passed()) + "したよ"
 #else
             + " TestSuite is"    + FormatBool(test_suite.Passed()) + "."
 #endif

@@ -38,7 +38,7 @@ public:
     virtual void OnTestProgramEnd(const UnitTest& test) IUTEST_CXX_OVERRIDE;
 
 protected:
-    /// テストケース毎の処理
+    /// TestSuite 毎の処理
     void OnReportTestSuite(detail::IOutStream* const stream, const TestSuite& test_suite, int top=1);
 
 public:
