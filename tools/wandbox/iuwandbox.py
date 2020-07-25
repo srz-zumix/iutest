@@ -480,7 +480,8 @@ def create_compiler_raw_option_list(options):
         for x in raw_options:
             colist.extend(re.split('\s(?=-)', x.strip('"')))
     if options.iutest_use_main:
-        colist.append('-DIUTEST_USE_MAIN')
+        if len(options.code) < 2:
+            colist.append('-DIUTEST_USE_MAIN')
     if '-D__WANDBOX__' not in colist:
         colist.append('-D__WANDBOX__')
     return colist
@@ -690,7 +691,11 @@ def run(options):
     includes = {}
     included_files = {}
     impliments = {}
-    code = make_code(main_filepath, options.encoding, options.expand_include, includes, included_files)
+    code = ""
+    if len(options.code) > 1 and options.iutest_use_main:
+        code += '#define IUTEST_USE_MAIN\n'
+    code += make_code(main_filepath, options.encoding, options.expand_include, includes, included_files)
+
 
     for filepath_ in options.code[1:]:
         filepath = filepath_.strip()
