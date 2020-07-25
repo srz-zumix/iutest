@@ -29,46 +29,49 @@ typedef TestSuite   TestCase;
 
 namespace detail
 {
+
 ::std::string FormatCompilerIndependentFileLocation(const char* file, int line);
+
 }
 
 namespace legacy
 {
-    typedef void (*SetUpTearDownTestSuiteFuncType)();
 
-    inline SetUpTearDownTestSuiteFuncType  GetNotDefaultOrNull(SetUpTearDownTestSuiteFuncType a, SetUpTearDownTestSuiteFuncType def)
+typedef void (*SetUpTearDownTestSuiteFuncType)();
+
+inline SetUpTearDownTestSuiteFuncType  GetNotDefaultOrNull(SetUpTearDownTestSuiteFuncType a, SetUpTearDownTestSuiteFuncType def)
+{
+    return a == def ? NULL : a;
+}
+
+template<typename T>
+struct SuiteApiResolver : T
+{
+    typedef typename iutest_type_traits::enable_if<sizeof(T) != 0, ::iutest::Test>::type Tester;
+
+    static SetUpTearDownTestSuiteFuncType GetSetUpCaseOrSuite(const char* file, int line)
     {
-        return a == def ? NULL : a;
+        SetUpTearDownTestSuiteFuncType testcase = GetNotDefaultOrNull(&T::SetUpTestCase, &Tester::SetUpTestCase);
+        SetUpTearDownTestSuiteFuncType testsuite = GetNotDefaultOrNull(&T::SetUpTestSuite, &Tester::SetUpTestSuite);
+
+        IUTEST_CHECK_( testcase == NULL || testsuite == NULL )
+            << "Test can not provide both SetUpTestSuite and SetUpTestCase, please make sure there is only one present at "
+            << detail::FormatCompilerIndependentFileLocation(file, line);
+
+        return testcase != NULL ? testcase : testsuite;
     }
-
-    template<typename T>
-    struct SuiteApiResolver : T
+    static SetUpTearDownTestSuiteFuncType GetTearDownCaseOrSuite(const char* file, int line)
     {
-        typedef typename iutest_type_traits::enable_if<sizeof(T) != 0, ::iutest::Test>::type Tester;
+        SetUpTearDownTestSuiteFuncType testcase = GetNotDefaultOrNull(&T::TearDownTestCase, &Tester::TearDownTestCase);
+        SetUpTearDownTestSuiteFuncType testsuite = GetNotDefaultOrNull(&T::TearDownTestSuite, &Tester::TearDownTestSuite);
 
-        static SetUpTearDownTestSuiteFuncType GetSetUpCaseOrSuite(const char* file, int line)
-        {
-            SetUpTearDownTestSuiteFuncType testcase = GetNotDefaultOrNull(&T::SetUpTestCase, &Tester::SetUpTestCase);
-            SetUpTearDownTestSuiteFuncType testsuite = GetNotDefaultOrNull(&T::SetUpTestSuite, &Tester::SetUpTestSuite);
+        IUTEST_CHECK_( testcase == NULL || testsuite == NULL )
+            << "Test can not provide both TearDownTestSuite and TearDownTestCase, please make sure there is only one present at "
+            << detail::FormatCompilerIndependentFileLocation(file, line);
 
-            IUTEST_CHECK_( testcase == NULL || testsuite == NULL )
-                << "Test can not provide both SetUpTestSuite and SetUpTestCase, please make sure there is only one present at "
-                << detail::FormatCompilerIndependentFileLocation(file, line);
-
-            return testcase != NULL ? testcase : testsuite;
-        }
-        static SetUpTearDownTestSuiteFuncType GetTearDownCaseOrSuite(const char* file, int line)
-        {
-            SetUpTearDownTestSuiteFuncType testcase = GetNotDefaultOrNull(&T::TearDownTestCase, &Tester::TearDownTestCase);
-            SetUpTearDownTestSuiteFuncType testsuite = GetNotDefaultOrNull(&T::TearDownTestSuite, &Tester::TearDownTestSuite);
-
-            IUTEST_CHECK_( testcase == NULL || testsuite == NULL )
-                << "Test can not provide both TearDownTestSuite and TearDownTestCase, please make sure there is only one present at "
-                << detail::FormatCompilerIndependentFileLocation(file, line);
-
-            return testcase != NULL ? testcase : testsuite;
-        }
-    };
+        return testcase != NULL ? testcase : testsuite;
+    }
+};
 
 }   // end of namespace legacy
 }   // end of namespace iutest

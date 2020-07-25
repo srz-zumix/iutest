@@ -260,9 +260,10 @@
 #define IIUT_TEST_P_PARAMGENERATOR_NAME_I(prefix_, testsuite_)   IIUT_TEST_P_PARAMGENERATOR_NAME_I_(prefix_, testsuite_)
 #define IIUT_TEST_P_PARAMGENERATOR_NAME_I_(prefix_, testsuite_)  s_##prefix_##_x_iutest_x_##testsuite_##_ParamGenerator_
 
-#define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testsuite_)     IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I(prefix_, IIUT_TO_VARNAME_(testsuite_))
-#define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I(prefix_, testsuite_)    IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I_(prefix_, testsuite_)
-#define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I_(prefix_, testsuite_)   prefix_##_x_iutest_x_##testsuite_##_TestSuiteInstantiationRegister
+#define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testsuite_)    \
+    IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I(prefix_, IIUT_TO_VARNAME_(testsuite_))
+#define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I(prefix_, testsuite_)   IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I_(prefix_, testsuite_)
+#define IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_I_(prefix_, testsuite_)  prefix_##_x_iutest_x_##testsuite_##_TestSuiteInstantiationRegister
 
 #define IIUT_TEST_P_INSTANTIATIONREGISTER_(prefix_, testsuite_)  \
     IIUT_TEST_P_INSTANTIATIONREGISTER_I(prefix_, IIUT_TO_VARNAME_(testsuite_), IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testsuite_))

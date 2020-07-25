@@ -554,7 +554,7 @@ public:
         }
         return false;
 #else
-        return Register_(prefix, testsuite_name, package_name, names, index);
+        return Register_(prefix, testsuite_name, package_name, names, file, line, index);
 #endif
     }
 
