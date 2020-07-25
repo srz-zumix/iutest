@@ -54,7 +54,7 @@ IUTEST(UnitRandomTest, Size64)
     IUTEST_EXPECT_NE_RANGE(x, y);
 }
 
-#if IUTEST_HAS_PARAM_TEST
+#if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_REGEX
 
 class UnitLocaleTest : public ::iutest::TestWithParam<iutest::tuples::tuple<const char*, const char*>> {};
 
