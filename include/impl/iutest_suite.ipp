@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_suite.ipp
- * @brief       testsuite implimentation
+ * @brief       testsuite implementation
  *
  * @author      t.shirayanagi
  * @par         copyright
