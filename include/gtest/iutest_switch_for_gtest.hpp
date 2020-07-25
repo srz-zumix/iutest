@@ -555,6 +555,19 @@ inline void GTestStreamToHelperForCompatible(std::ostream* os, const T& val) {
 #endif
 #endif  // #if GTEST_VER < 0x01060000
 
+#if GTEST_VER >= 0x01100000
+
+#if !defined(GTEST_REMOVE_LEGACY_TEST_CASEAPI_)
+
+namespace testing
+{
+    typedef TestSuite   TestCase;
+}
+
+#endif
+
+#endif
+
 #if defined(INCG_IRIS_IUTEST_HPP_)
 // すでに iutest namespace が存在するので、define で対応
 #  define iutest testing
