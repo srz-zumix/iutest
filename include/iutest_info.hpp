@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -36,14 +36,14 @@ class TestInfo
 public:
     /**
      * @brief   コンストラクタ
-     * @param [in]  testcase    = テストケース仲介者
+     * @param [in]  testsuite   = TestSuite 仲介者
      * @param [in]  name        = テスト名
      * @param [in]  factory     = テスト生成器
     */
-    TestInfo(detail::iuITestCaseMediator* testcase, const ::std::string& name, detail::iuFactoryBase* factory)
+    TestInfo(detail::iuITestSuiteMediator* testsuite, const ::std::string& name, detail::iuFactoryBase* factory)
         : m_testname(name)
         , m_factory(factory)
-        , m_testcase(testcase)
+        , m_testsuite(testsuite)
         , m_should_run(true)
         , m_ran(false)
         , m_disable(detail::IsDisableTestName(name))
@@ -54,8 +54,11 @@ public:
     }
 
 public:
-    /** test case 名の取得 */
-    const   char*   test_case_name()    const { return m_testcase->test_case_name(); }
+    /** test suite 名の取得 */
+    const   char*   test_suite_name()    const { return m_testsuite->test_suite_name(); }
+#if !defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
+    const   char*   test_case_name()    const { return m_testsuite->test_suite_name(); }
+#endif
     /** test 名の取得 */
     const   char*   name()              const { return m_testname.c_str(); }
     /** should_run */
@@ -76,12 +79,12 @@ public:
     /** value param 文字列の取得 */
     const   char*   value_param()       const { return m_value_param.empty() ? NULL : m_value_param.c_str(); }
     /** type param 文字列の取得 */
-    const   char*   type_param()        const { return m_testcase->type_param(); }
+    const   char*   type_param()        const { return m_testsuite->type_param(); }
 
-    /** default package 名を含む TestCase 名の取得 */
-    ::std::string testcase_name_with_default_package_name() const
+    /** default package 名を含む TestSuite 名の取得 */
+    ::std::string testsuite_name_with_default_package_name() const
     {
-        return TestEnv::AddDefaultPackageName(test_case_name());
+        return TestEnv::AddDefaultPackageName(test_suite_name());
     }
 public:
     /**
@@ -137,7 +140,7 @@ public:
     /** テストのフル名を取得 */
     ::std::string test_full_name() const
     {
-        ::std::string fullname = test_case_name();
+        ::std::string fullname = test_suite_name();
         fullname += ".";
         fullname += name();
         return fullname;
@@ -236,14 +239,14 @@ private:
 private:
     friend class UnitTestImpl;
     friend class UnitTest;
-    friend class TestCase;
+    friend class TestSuite;
 
     ::std::string           m_testname;         //!< テスト名
     ::std::string           m_value_param;      //!< value param string
     TestResult              m_test_result;      //!< テスト結果
     Mediator                m_mediator;         //!< 自身の仲介インスタンス
     detail::iuFactoryBase*          m_factory;  //!< テスト生成器
-    detail::iuITestCaseMediator*    m_testcase; //!< テストケース仲介者
+    detail::iuITestSuiteMediator*   m_testsuite;//!< TestSuite 仲介者
     bool                    m_should_run;       //!< 実行すべきかの真偽値
     bool                    m_ran;              //!< 実行したかどうか
     bool                    m_disable;          //!< 無効真偽値
