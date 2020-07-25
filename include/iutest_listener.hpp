@@ -82,7 +82,7 @@ public:
     virtual void OnTestRecordProperty(const TestProperty& /*test_property*/) {} //!< RecordProperty 時に呼ばれます
     virtual void OnTestEnd(const TestInfo& test_info)               = 0;    //!< テスト終了時にに呼ばれます
 #if !defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
-    virtual void OnTestSuiteEnd(const TestSuite& test_suite)        { OnTestSuiteEnd(test_suite); }    //!< TestSuite 終了時にに呼ばれます
+    virtual void OnTestSuiteEnd(const TestSuite& test_suite)        { OnTestCaseEnd(test_suite); }    //!< TestSuite 終了時にに呼ばれます
     virtual void OnTestCaseEnd(const TestSuite& /*test_suite*/)     {}
 #else
     virtual void OnTestSuiteEnd(const TestSuite& test_suite)        = 0;    //!< TestSuite 終了時にに呼ばれます
