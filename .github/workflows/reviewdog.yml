@@ -14,7 +14,7 @@ jobs:
     name: runner / cpplint
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - uses: reviewdog/action-cpplint@master
       with:
         github_token: ${{ secrets.github_token }}
@@ -39,7 +39,7 @@ jobs:
     name: runner / shellcheck
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2F
       - uses: reviewdog/action-shellcheck@v1
         with:
           github_token: ${{ secrets.github_token }}
