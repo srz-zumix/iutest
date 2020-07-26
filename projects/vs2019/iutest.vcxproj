@@ -270,6 +270,7 @@
     <ClInclude Include="..\..\include\iutest_expression_assertion.hpp" />
     <ClInclude Include="..\..\include\iutest_ignore.hpp" />
     <ClInclude Include="..\..\include\iutest_info.hpp" />
+    <ClInclude Include="..\..\include\iutest_legacy.hpp" />
     <ClInclude Include="..\..\include\iutest_listener.hpp" />
     <ClInclude Include="..\..\include\iutest_matcher.hpp" />
     <ClInclude Include="..\..\include\iutest_package.hpp" />
