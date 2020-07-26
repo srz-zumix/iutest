@@ -1,5 +1,5 @@
 <map id="iutest::any::empty" name="iutest::any::empty">
-<area shape="rect" id="node1" title="空かどうか" alt="" coords="204,31,332,57"/>
-<area shape="rect" id="node2" href="$d6/d7f/classiutest_1_1any.html#ab48b5b50df8291d9cc141e88c416f08c" title="所持している値の文字列化" alt="" coords="9,5,152,32"/>
-<area shape="rect" id="node3" href="$d6/d7f/classiutest_1_1any.html#a0a3d4348d722a232bd9d16c493287dc0" title="要素があるかどうか" alt="" coords="5,56,156,83"/>
+<area shape="rect" id="node1" title="空かどうか" alt="" coords="217,31,357,57"/>
+<area shape="rect" id="node2" href="$d6/d7f/classiutest_1_1any.html#a0a3d4348d722a232bd9d16c493287dc0" title="要素があるかどうか" alt="" coords="5,5,169,32"/>
+<area shape="rect" id="node3" href="$d6/d7f/classiutest_1_1any.html#ab48b5b50df8291d9cc141e88c416f08c" title="所持している値の文字列化" alt="" coords="10,56,165,83"/>
 </map>

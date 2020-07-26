@@ -1,13 +1,11 @@
 <map id="internal/iutest_string.hpp" name="internal/iutest_string.hpp">
-<area shape="rect" id="node1" title="iris unit test 文字列操作 ファイル" alt="" coords="426,5,591,32"/>
-<area shape="rect" id="node2" href="$d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="5,80,124,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="148,80,216,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="240,80,313,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="338,80,407,107"/>
-<area shape="rect" id="node6" title=" " alt="" coords="431,80,495,107"/>
-<area shape="rect" id="node7" title=" " alt="" coords="520,80,588,107"/>
-<area shape="rect" id="node8" title=" " alt="" coords="613,80,679,107"/>
-<area shape="rect" id="node9" title=" " alt="" coords="704,80,759,107"/>
-<area shape="rect" id="node10" title=" " alt="" coords="783,80,843,107"/>
-<area shape="rect" id="node11" title=" " alt="" coords="867,80,924,107"/>
+<area shape="rect" id="node1" title="iris unit test string utilities" alt="" coords="358,5,543,32"/>
+<area shape="rect" id="node2" href="$d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="5,80,139,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="163,80,235,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="259,80,341,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="365,80,440,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="465,80,533,107"/>
+<area shape="rect" id="node7" title=" " alt="" coords="557,80,616,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="640,80,707,107"/>
+<area shape="rect" id="node9" title=" " alt="" coords="731,80,794,107"/>
 </map>

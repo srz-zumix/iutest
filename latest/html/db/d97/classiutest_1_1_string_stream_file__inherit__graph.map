@@ -1,6 +1,6 @@
 <map id="iutest::StringStreamFile" name="iutest::StringStreamFile">
-<area shape="rect" id="node1" title="文字列バッファ書き込み IFile インターフェースクラス" alt="" coords="106,155,265,181"/>
-<area shape="rect" id="node2" href="$d9/d57/classiutest_1_1_i_file.html" title="ファイルクラスインターフェイス" alt="" coords="142,80,229,107"/>
-<area shape="rect" id="node3" title="出力ストリームインターフェイス" alt="" coords="5,5,176,32"/>
-<area shape="rect" id="node4" title="入力ストリームインターフェイス" alt="" coords="201,5,362,32"/>
+<area shape="rect" id="node1" title="文字列バッファ書き込み IFile インターフェースクラス" alt="" coords="114,155,289,181"/>
+<area shape="rect" id="node2" href="$d9/d57/classiutest_1_1_i_file.html" title="ファイルクラスインターフェイス" alt="" coords="154,80,249,107"/>
+<area shape="rect" id="node3" title="出力ストリームインターフェイス" alt="" coords="5,5,192,32"/>
+<area shape="rect" id="node4" title="入力ストリームインターフェイス" alt="" coords="217,5,391,32"/>
 </map>

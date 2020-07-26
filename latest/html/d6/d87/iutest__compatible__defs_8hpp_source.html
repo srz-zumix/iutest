@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.15"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: internal/iutest_compatible_defs.hpp ソースファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.0.0</span>
+   &#160;<span id="projectnumber">1.17.1.0</span>
    </div>
   </td>
  </tr>
@@ -30,7 +30,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.8.15 -->
+<!-- 構築: Doxygen 1.8.17 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
 var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
@@ -70,12 +70,38 @@ $(function() {
 <div class="title">iutest_compatible_defs.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="../../d6/d87/iutest__compatible__defs_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#ifndef INCG_IRIS_IUTEST_COMPATIBLE_DEFS_HPP_9BCFF3D0_A045_4B94_B51F_4C6E88D8654C_</span></div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#define INCG_IRIS_IUTEST_COMPATIBLE_DEFS_HPP_9BCFF3D0_A045_4B94_B51F_4C6E88D8654C_</span></div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>iutest_compatible</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//======================================================================</span></div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">// function</span></div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">struct </span>IsNullLiteralHelper</div><div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="../../d4/d32/structiutest__compatible_1_1_is_null_literal_helper.html">   29</a></span>&#160;{</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">class </span>Object;</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">char</span> IsNullLiteral(Object*);</div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">static</span> char (&amp;IsNullLiteral(...))[2];</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;};</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}   <span class="comment">// end of namespace iutest_compatible</span></div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_COMPATIBLE_DEFS_HPP_9BCFF3D0_A045_4B94_B51F_4C6E88D8654C_</span></div></div><!-- fragment --></div><!-- contents -->
+<a href="../../d6/d87/iutest__compatible__defs_8hpp.html">[詳解]</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//======================================================================</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//======================================================================</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#ifndef INCG_IRIS_IUTEST_COMPATIBLE_DEFS_HPP_9BCFF3D0_A045_4B94_B51F_4C6E88D8654C_</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#define INCG_IRIS_IUTEST_COMPATIBLE_DEFS_HPP_9BCFF3D0_A045_4B94_B51F_4C6E88D8654C_</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>iutest_compatible</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//======================================================================</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">// function</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">struct </span>IsNullLiteralHelper</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="../../d4/d32/structiutest__compatible_1_1_is_null_literal_helper.html">   29</a></span>&#160;{</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">class </span>Object;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">char</span> IsNullLiteral(Object*);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">static</span> char (&amp;IsNullLiteral(...))[2];</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;};</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}   <span class="comment">// end of namespace iutest_compatible</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_COMPATIBLE_DEFS_HPP_9BCFF3D0_A045_4B94_B51F_4C6E88D8654C_</span></div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
+<div class="ttc" id="astructiutest__compatible_1_1_is_null_literal_helper_html"><div class="ttname"><a href="../../d4/d32/structiutest__compatible_1_1_is_null_literal_helper.html">iutest_compatible::IsNullLiteralHelper</a></div><div class="ttdef"><b>Definition:</b> iutest_compatible_defs.hpp:29</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年05月04日(月) 20時54分27秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年07月26日(日) 09時00分06秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
-</a> 1.8.15
+</a> 1.8.17
 </small></address>
 </body>
 </html>

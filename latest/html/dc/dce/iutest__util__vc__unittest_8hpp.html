@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.15"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: util/iutest_util_vc_unittest.hpp ファイル</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.0.0</span>
+   &#160;<span id="projectnumber">1.17.1.0</span>
    </div>
   </td>
  </tr>
@@ -30,7 +30,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.8.15 -->
+<!-- 構築: Doxygen 1.8.17 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
 var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
@@ -84,11 +84,11 @@ iutest_util_vc_unittest.hpp の依存先関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d4/d39/iutest__util__vc__unittest_8hpp__incl.png" border="0" usemap="#util_2iutest__util__vc__unittest_8hpp" alt=""/></div>
 <map name="util_2iutest__util__vc__unittest_8hpp" id="util_2iutest__util__vc__unittest_8hpp">
-<area shape="rect"  title="iris unit test, visual studio 11 C++ Unit Test Framework å¯¾å¿ ãã¡ã¤ã«" alt="" coords="86,5,205,47"/>
-<area shape="rect"  href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="155,184,274,211"/>
-<area shape="rect"  title=" " alt="" coords="26,102,129,129"/>
-<area shape="rect"  href="../../d9/d06/iutest__prod_8hpp.html" title="iris unit test production code å¯¾å¿ç¨ ãã¡ã¤ã«" alt="" coords="153,95,277,136"/>
-<area shape="rect"  href="../../d8/def/iutest__util__tests_8hpp.html" title="iris unit test ãã¹ãæå ± utility ãã¡ã¤ã«" alt="" coords="301,95,443,136"/>
+<area shape="rect" title="iris unit test, visual studio 11 C++ Unit Test Framework 対応 ファイル" alt="" coords="87,5,222,47"/>
+<area shape="rect" href="../../d4/db0/iutest__config_8hpp.html" title="iris unit test config" alt="" coords="163,184,296,211"/>
+<area shape="rect" title=" " alt="" coords="25,102,137,129"/>
+<area shape="rect" href="../../d9/d06/iutest__prod_8hpp.html" title="iris unit test production code 対応用 ファイル" alt="" coords="162,95,297,136"/>
+<area shape="rect" href="../../d8/def/iutest__util__tests_8hpp.html" title="iris unit test テスト情報 utility ファイル" alt="" coords="321,95,479,136"/>
 </map>
 </div>
 </div>
@@ -125,7 +125,7 @@ iutest_util_vc_unittest.hpp の依存先関係図:</div>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>iris unit test, visual studio 11 C++ Unit Test Framework 対応 ファイル </p>
 <dl class="section author"><dt>著者</dt><dd>t.shirayanagi </dd></dl>
-<dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2015-2018, Takazumi Shirayanagi<br />
+<dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2015-2018, Takazumi Shirayanagi<br  />
 This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><h2 class="groupheader">マクロ定義詳解</h2>
 <a id="a627b3e659e006f52b4350aa50716b5e9"></a>
@@ -153,7 +153,8 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">IUTEST_VCUNIT_I(testcase_, testname_, testcase_##testname_##_class, testcase_##<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">_</a>##testname_);   \</div><div class="line">    IUTEST_TEST(testcase_, testname_)</div><div class="ttc" id="group___m_a_t_c_h_e_r_s_html_gad2cb56dba55586fba899a4785616081b"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">iutest::matchers::_</a></div><div class="ttdeci">const detail::AnythingMatcher _</div><div class="ttdoc">Anything matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2509</div></div>
+<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_I(testcase_, testname_, testcase_##testname_##_class, testcase_##<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">_</a>##testname_);   \</div>
+<div class="line">    IUTEST_TEST(testcase_, testname_)</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -182,7 +183,8 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">IUTEST_VCUNIT_I(testfixture_, testname_, testfixture_##testname_##_class, testfixture_##<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">_</a>##testname_);  \</div><div class="line">    IUTEST_TEST_F_(testfixture_, testname_)</div><div class="ttc" id="group___m_a_t_c_h_e_r_s_html_gad2cb56dba55586fba899a4785616081b"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">iutest::matchers::_</a></div><div class="ttdeci">const detail::AnythingMatcher _</div><div class="ttdoc">Anything matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2509</div></div>
+<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_I(testfixture_, testname_, testfixture_##testname_##_class, testfixture_##<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">_</a>##testname_);  \</div>
+<div class="line">    IUTEST_TEST_F_(testfixture_, testname_)</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -211,7 +213,8 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">IUTEST_VCUNIT_I(testfixture_, testname_, testfixture_##testname_##_class, testfixture_##<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">_</a>##testname_);  \</div><div class="line">    IUTEST_TEST_P_(testfixture_, testname_)</div><div class="ttc" id="group___m_a_t_c_h_e_r_s_html_gad2cb56dba55586fba899a4785616081b"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">iutest::matchers::_</a></div><div class="ttdeci">const detail::AnythingMatcher _</div><div class="ttdoc">Anything matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2509</div></div>
+<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_I(testfixture_, testname_, testfixture_##testname_##_class, testfixture_##<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">_</a>##testname_);  \</div>
+<div class="line">    IUTEST_TEST_P_(testfixture_, testname_)</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -240,7 +243,8 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">IUTEST_VCUNIT_I(testfixture_, testname_, testfixture_##testname_##_class, testfixture_##<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">_</a>##testname_);  \</div><div class="line">    IUTEST_TYPED_TEST_(testfixture_, testname_)</div><div class="ttc" id="group___m_a_t_c_h_e_r_s_html_gad2cb56dba55586fba899a4785616081b"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">iutest::matchers::_</a></div><div class="ttdeci">const detail::AnythingMatcher _</div><div class="ttdoc">Anything matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2509</div></div>
+<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_I(testfixture_, testname_, testfixture_##testname_##_class, testfixture_##<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">_</a>##testname_);  \</div>
+<div class="line">    IUTEST_TYPED_TEST_(testfixture_, testname_)</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -269,7 +273,8 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">IUTEST_VCUNIT_I(testfixture_, testname_, testfixture_##testname_##_class, testfixture_##<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">_</a>##testname_);  \</div><div class="line">    IIUT_TYPED_TEST_P_(testfixture_, testname_)</div><div class="ttc" id="group___m_a_t_c_h_e_r_s_html_gad2cb56dba55586fba899a4785616081b"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">iutest::matchers::_</a></div><div class="ttdeci">const detail::AnythingMatcher _</div><div class="ttdoc">Anything matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2509</div></div>
+<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_I(testfixture_, testname_, testfixture_##testname_##_class, testfixture_##<a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">_</a>##testname_);  \</div>
+<div class="line">    IIUT_TYPED_TEST_P_(testfixture_, testname_)</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -310,15 +315,21 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">IUTEST_VCUNIT_TEST_CLASS(className) {                               \</div><div class="line">    public: TEST_METHOD(methodName) {                                   \</div><div class="line">        IUTEST_VCUNIT_EXEC_(testcase_, testname_); }                    \</div><div class="line">    IIUT_VCUNIT_METHOD_ATTRIBUTE(testcase_, methodName)                 \</div><div class="line">    }</div></div><!-- fragment -->
+<b>値:</b><div class="fragment"><div class="line">    IUTEST_VCUNIT_TEST_CLASS(className) {                               \</div>
+<div class="line">    public: TEST_METHOD(methodName) {                                   \</div>
+<div class="line">        IUTEST_VCUNIT_EXEC_(testcase_, testname_); }                    \</div>
+<div class="line">    IIUT_VCUNIT_METHOD_ATTRIBUTE(testcase_, methodName)                 \</div>
+<div class="line">    }</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->
+<div class="ttc" id="agroup___m_a_t_c_h_e_r_s_html_gad2cb56dba55586fba899a4785616081b"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gad2cb56dba55586fba899a4785616081b">iutest::matchers::_</a></div><div class="ttdeci">const detail::AnythingMatcher _</div><div class="ttdoc">Anything matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2537</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年05月04日(月) 20時55分13秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年07月26日(日) 09時00分12秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
-</a> 1.8.15
+</a> 1.8.17
 </small></address>
 </body>
 </html>

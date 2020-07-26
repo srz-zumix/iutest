@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.15"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: simple.cpp</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.0.0</span>
+   &#160;<span id="projectnumber">1.17.1.0</span>
    </div>
   </td>
  </tr>
@@ -30,7 +30,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.8.15 -->
+<!-- 構築: Doxygen 1.8.17 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
 var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
@@ -66,12 +66,181 @@ $(function() {
 <div class="title">simple.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><span class="comment">//======================================================================</span></div><div class="line"><span class="comment">//-----------------------------------------------------------------------</span></div><div class="line"><span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div><div class="line"><span class="comment">//======================================================================</span></div><div class="line"><span class="preprocessor">#include &quot;../include/iutest.hpp&quot;</span></div><div class="line"></div><div class="line"><span class="comment">/* ---------------------------------------------------</span></div><div class="line"><span class="comment"> * 簡単なテスト</span></div><div class="line"><span class="comment">*/</span><span class="comment">/*--------------------------------------------------*/</span></div><div class="line"><a name="a0"></a><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(Test, Version)</div><div class="line">{</div><div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> v = (<a name="a1"></a><a class="code" href="../../d9/df2/iutest__ver_8hpp.html#a04132dc14c8fc0b3d36b1a9f825dd56e">IUTEST_MAJORVER</a> &lt;&lt; 24) | (<a name="a2"></a><a class="code" href="../../d9/df2/iutest__ver_8hpp.html#af241d6bd575713b6ee489f71aeb7ab11">IUTEST_MINORVER</a> &lt;&lt; 16) | (<a name="a3"></a><a class="code" href="../../d9/df2/iutest__ver_8hpp.html#acf987d77bd0705cf1a7a2d395a733506">IUTEST_BUILD</a> &lt;&lt; 8) | <a name="a4"></a><a class="code" href="../../d9/df2/iutest__ver_8hpp.html#a32d4e72c7bcbf6f467f3f3d9eae5ac0f">IUTEST_REVISION</a>;</div><div class="line">    <a name="a5"></a><a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>( <a name="a6"></a><a class="code" href="../../d9/df2/iutest__ver_8hpp.html#a9b876104ea502270d421c161c26fea46">IUTEST_VER</a>, v );</div><div class="line">}</div><div class="line"></div><div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(Test, GetName)</div><div class="line">{</div><div class="line">    <a name="a7"></a><a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga42c6f361e39a9841053233f1618cc15a">IUTEST_ASSERT_STREQ</a>(<span class="stringliteral">&quot;GetName&quot;</span>, test_info_-&gt;name());</div><div class="line">    RecordProperty(<span class="stringliteral">&quot;test_name&quot;</span>, ::<a name="a8"></a><a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">iutest::UnitTest::GetInstance</a>()-&gt;current_test_info()-&gt;name());</div><div class="line">    RecordProperty(<span class="stringliteral">&quot;number&quot;</span>, 1);</div><div class="line">}</div><div class="line"></div><div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(Test, Stream)</div><div class="line">{</div><div class="line">    <a name="a9"></a><a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <span class="stringliteral">&quot;OK!!&quot;</span>;</div><div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; L<span class="stringliteral">&quot;OK!!&quot;</span>;</div><div class="line">}</div><div class="line"></div><div class="line"><span class="comment">/* ---------------------------------------------------</span></div><div class="line"><span class="comment"> * スキップ</span></div><div class="line"><span class="comment">*/</span><span class="comment">/*--------------------------------------------------*/</span></div><div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(SkipTest, Skip)</div><div class="line">{</div><div class="line">    <a name="a10"></a><a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#gae5dfd482090363d33d905171c2149828">IUTEST_SKIP</a>() &lt;&lt; <span class="stringliteral">&quot;empty.&quot;</span>;</div><div class="line">}</div><div class="line"></div><div class="line"><span class="preprocessor">#if IUTEST_HAS_ASSERTION_RETURN</span></div><div class="line"></div><div class="line"><span class="comment">/* ---------------------------------------------------</span></div><div class="line"><span class="comment"> * 戻り値のある関数での使用</span></div><div class="line"><span class="comment">*/</span><span class="comment">/*--------------------------------------------------*/</span></div><div class="line"><span class="keywordtype">int</span> ReturnTest()</div><div class="line">{</div><div class="line">    <a name="a11"></a><a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga6d1aeedf55a5104948331b619131965c">IUTEST_ASSERT_TRUE</a>(<span class="keyword">true</span>) &lt;&lt; <a name="a12"></a><a class="code" href="../../d3/dda/namespaceiutest.html#a58cf9f6611f8a453aba8c89d4f7465f3">::iutest::AssertionReturn</a>(-1);</div><div class="line">    <span class="keywordflow">return</span> 0;</div><div class="line">}</div><div class="line"></div><div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(ReturnTest, Test)</div><div class="line">{</div><div class="line">    ReturnTest();</div><div class="line">    <a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga6d1aeedf55a5104948331b619131965c">IUTEST_ASSERT_TRUE</a>(<span class="keyword">true</span>);</div><div class="line">    <a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga6d1aeedf55a5104948331b619131965c">IUTEST_ASSERT_TRUE</a>(<span class="keyword">true</span>) &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a58cf9f6611f8a453aba8c89d4f7465f3">::iutest::AssertionReturn</a>();</div><div class="line">}</div><div class="line"></div><div class="line"><span class="preprocessor">#endif</span></div><div class="line"></div><div class="line"><span class="comment">/* ---------------------------------------------------</span></div><div class="line"><span class="comment"> * パッケージ</span></div><div class="line"><span class="comment">*/</span><span class="comment">/*--------------------------------------------------*/</span></div><div class="line"><a name="a13"></a><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#gae64e21d033c63b6e2223bff23449d8db">IUTEST_PACKAGE</a>(TestPackage)</div><div class="line">{</div><div class="line">    <a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(Test, Version)</div><div class="line">    {</div><div class="line">        <a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga6d1aeedf55a5104948331b619131965c">IUTEST_ASSERT_TRUE</a>(<span class="keyword">true</span>);</div><div class="line">    }</div><div class="line">}</div><div class="line"></div><div class="line"><span class="preprocessor">#if IUTEST_HAS_IF_EXISTS</span></div><div class="line"></div><div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#gae64e21d033c63b6e2223bff23449d8db">IUTEST_PACKAGE</a>(TestPackage)</div><div class="line">{</div><div class="line">    <a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#gae64e21d033c63b6e2223bff23449d8db">IUTEST_PACKAGE</a>(TestPackage)</div><div class="line">    {</div><div class="line">        <a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(Test, Version)</div><div class="line">        {</div><div class="line">            <a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga6d1aeedf55a5104948331b619131965c">IUTEST_ASSERT_TRUE</a>(<span class="keyword">true</span>);</div><div class="line">        }</div><div class="line">    }</div><div class="line">}</div><div class="line"></div><div class="line"><span class="preprocessor">#endif</span></div><div class="line"></div><div class="line"><span class="comment">/* ---------------------------------------------------</span></div><div class="line"><span class="comment"> * 失敗の確認</span></div><div class="line"><span class="comment">*/</span><span class="comment">/*--------------------------------------------------*/</span></div><div class="line"><span class="preprocessor">#if IUTEST_HAS_GENRAND</span></div><div class="line"></div><div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(DISABLED_TestFailure, Random)</div><div class="line">{</div><div class="line">    <a name="a14"></a><a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>( genrand(), genrand() );</div><div class="line">    <a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>( genrand(), genrand() );</div><div class="line">    <a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>( genrand(), genrand() );</div><div class="line">    <a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>( genrand(), genrand() );</div><div class="line">    <a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>( genrand(), genrand() );</div><div class="line">    <a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>( genrand(), genrand() );</div><div class="line">}</div><div class="line"></div><div class="line"><span class="preprocessor">#endif</span></div><div class="line"></div><div class="line"><span class="comment">// サブルーチン</span></div><div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> Sub1(<span class="keywordtype">int</span> n)</div><div class="line">{</div><div class="line">    <a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>(1, n);</div><div class="line">}</div><div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> Sub2(<span class="keywordtype">int</span> n)</div><div class="line">{</div><div class="line">    <a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>(1, n);</div><div class="line">}</div><div class="line"></div><div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(DISABLED_TestFailure, Subroutine1)</div><div class="line">{</div><div class="line">    {</div><div class="line">        <span class="keywordtype">int</span> x=100;</div><div class="line">        <a name="a15"></a><a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga7f06c61b0fb3ae0eb13cda9aa373f348">IUTEST_SCOPED_TRACE</a>(::<a class="code" href="../../d3/dda/namespaceiutest.html#a543a2a28ba663224cb511a4ae93877dc">iutest::Message</a>() &lt;&lt; <span class="stringliteral">&quot;routine1. x=&quot;</span> &lt;&lt; x);</div><div class="line"></div><div class="line">        Sub1(x);</div><div class="line">    }</div><div class="line">    <span class="comment">// ここの失敗には &quot;routine1.&quot; のメッセージは表示されません。</span></div><div class="line">    Sub1(3);</div><div class="line">}</div><div class="line"></div><div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(DISABLED_TestFailure, Subroutine2)</div><div class="line">{</div><div class="line">    {</div><div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga7f06c61b0fb3ae0eb13cda9aa373f348">IUTEST_SCOPED_TRACE</a>(<span class="stringliteral">&quot;routine2.&quot;</span>);</div><div class="line"><span class="preprocessor">#if !defined(IUTEST_USE_GTEST)</span></div><div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga7f06c61b0fb3ae0eb13cda9aa373f348">IUTEST_SCOPED_TRACE</a>(<span class="stringliteral">&quot;routine2.&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;iutest can do.&quot;</span>;</div><div class="line"><span class="preprocessor">#endif</span></div><div class="line"></div><div class="line">        Sub2(2);</div><div class="line">    }</div><div class="line">    <span class="comment">// ここの失敗には &quot;routine2.&quot; のメッセージは表示されません。</span></div><div class="line">    Sub2(3);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">class </span>ProdClass</div><div class="line">{</div><div class="line">    <span class="keywordtype">int</span> m_x;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    ProdClass() : m_x(100) {}</div><div class="line">    <span class="keywordtype">int</span> GetX()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_x; }</div><div class="line">};</div><div class="line"></div><div class="line"><a name="a16"></a><a class="code" href="../../d9/d06/iutest__prod_8hpp.html#a785124bcefaf5c6e494648c4fa581511">IUTEST_MAKE_PEEP</a>(<span class="keywordtype">int</span> ProdClass::*, ProdClass, m_x);</div><div class="line"></div><div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(ProdTest, Peep)</div><div class="line">{</div><div class="line">    ProdClass c;</div><div class="line">    <a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>(100, <a name="a17"></a><a class="code" href="../../d9/d06/iutest__prod_8hpp.html#abf3dc05618b1eeea337fa8d758d6534c">IUTEST_PEEP_GET</a>(c, ProdClass, m_x));</div><div class="line">}</div></div><!-- fragment --> </div><!-- contents -->
+<div class="fragment"><div class="line"><span class="comment">//======================================================================</span></div>
+<div class="line"><span class="comment">//-----------------------------------------------------------------------</span></div>
+<div class="line"><span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
+<div class="line"><span class="comment">//======================================================================</span></div>
+<div class="line"><span class="preprocessor">#include &quot;../include/iutest.hpp&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">/* ---------------------------------------------------</span></div>
+<div class="line"><span class="comment"> * 簡単なテスト</span></div>
+<div class="line"><span class="comment">*/</span><span class="comment">/*--------------------------------------------------*/</span></div>
+<div class="line"><a name="a0"></a><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(Test, Version)</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> v = (<a name="a1"></a><a class="code" href="../../d9/df2/iutest__ver_8hpp.html#a04132dc14c8fc0b3d36b1a9f825dd56e">IUTEST_MAJORVER</a> &lt;&lt; 24) | (<a name="a2"></a><a class="code" href="../../d9/df2/iutest__ver_8hpp.html#af241d6bd575713b6ee489f71aeb7ab11">IUTEST_MINORVER</a> &lt;&lt; 16) | (<a name="a3"></a><a class="code" href="../../d9/df2/iutest__ver_8hpp.html#acf987d77bd0705cf1a7a2d395a733506">IUTEST_BUILD</a> &lt;&lt; 8) | <a name="a4"></a><a class="code" href="../../d9/df2/iutest__ver_8hpp.html#a32d4e72c7bcbf6f467f3f3d9eae5ac0f">IUTEST_REVISION</a>;</div>
+<div class="line">    <a name="a5"></a><a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>( <a name="a6"></a><a class="code" href="../../d9/df2/iutest__ver_8hpp.html#a9b876104ea502270d421c161c26fea46">IUTEST_VER</a>, v );</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(Test, GetName)</div>
+<div class="line">{</div>
+<div class="line">    <a name="a7"></a><a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga42c6f361e39a9841053233f1618cc15a">IUTEST_ASSERT_STREQ</a>(<span class="stringliteral">&quot;GetName&quot;</span>, test_info_-&gt;name());</div>
+<div class="line">    RecordProperty(<span class="stringliteral">&quot;test_name&quot;</span>, ::<a name="a8"></a><a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">iutest::UnitTest::GetInstance</a>()-&gt;current_test_info()-&gt;name());</div>
+<div class="line">    RecordProperty(<span class="stringliteral">&quot;number&quot;</span>, 1);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(Test, Stream)</div>
+<div class="line">{</div>
+<div class="line">    <a name="a9"></a><a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <span class="stringliteral">&quot;OK!!&quot;</span>;</div>
+<div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; L<span class="stringliteral">&quot;OK!!&quot;</span>;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">/* ---------------------------------------------------</span></div>
+<div class="line"><span class="comment"> * スキップ</span></div>
+<div class="line"><span class="comment">*/</span><span class="comment">/*--------------------------------------------------*/</span></div>
+<div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(SkipTest, Skip)</div>
+<div class="line">{</div>
+<div class="line">    <a name="a10"></a><a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#gae5dfd482090363d33d905171c2149828">IUTEST_SKIP</a>() &lt;&lt; <span class="stringliteral">&quot;empty.&quot;</span>;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#if IUTEST_HAS_ASSERTION_RETURN</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">/* ---------------------------------------------------</span></div>
+<div class="line"><span class="comment"> * 戻り値のある関数での使用</span></div>
+<div class="line"><span class="comment">*/</span><span class="comment">/*--------------------------------------------------*/</span></div>
+<div class="line"><span class="keywordtype">int</span> ReturnTest()</div>
+<div class="line">{</div>
+<div class="line">    <a name="a11"></a><a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga6d1aeedf55a5104948331b619131965c">IUTEST_ASSERT_TRUE</a>(<span class="keyword">true</span>) &lt;&lt; <a name="a12"></a><a class="code" href="../../d3/dda/namespaceiutest.html#a58cf9f6611f8a453aba8c89d4f7465f3">::iutest::AssertionReturn</a>(-1);</div>
+<div class="line">    <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(ReturnTest, Test)</div>
+<div class="line">{</div>
+<div class="line">    ReturnTest();</div>
+<div class="line">    <a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga6d1aeedf55a5104948331b619131965c">IUTEST_ASSERT_TRUE</a>(<span class="keyword">true</span>);</div>
+<div class="line">    <a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga6d1aeedf55a5104948331b619131965c">IUTEST_ASSERT_TRUE</a>(<span class="keyword">true</span>) &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a58cf9f6611f8a453aba8c89d4f7465f3">::iutest::AssertionReturn</a>();</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">/* ---------------------------------------------------</span></div>
+<div class="line"><span class="comment"> * パッケージ</span></div>
+<div class="line"><span class="comment">*/</span><span class="comment">/*--------------------------------------------------*/</span></div>
+<div class="line"><a name="a13"></a><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#gae64e21d033c63b6e2223bff23449d8db">IUTEST_PACKAGE</a>(TestPackage)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(Test, Version)</div>
+<div class="line">    {</div>
+<div class="line">        <a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga6d1aeedf55a5104948331b619131965c">IUTEST_ASSERT_TRUE</a>(<span class="keyword">true</span>);</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#if IUTEST_HAS_IF_EXISTS</span></div>
+<div class="line"> </div>
+<div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#gae64e21d033c63b6e2223bff23449d8db">IUTEST_PACKAGE</a>(TestPackage)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#gae64e21d033c63b6e2223bff23449d8db">IUTEST_PACKAGE</a>(TestPackage)</div>
+<div class="line">    {</div>
+<div class="line">        <a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(Test, Version)</div>
+<div class="line">        {</div>
+<div class="line">            <a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga6d1aeedf55a5104948331b619131965c">IUTEST_ASSERT_TRUE</a>(<span class="keyword">true</span>);</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">/* ---------------------------------------------------</span></div>
+<div class="line"><span class="comment"> * 失敗の確認</span></div>
+<div class="line"><span class="comment">*/</span><span class="comment">/*--------------------------------------------------*/</span></div>
+<div class="line"><span class="preprocessor">#if IUTEST_HAS_GENRAND</span></div>
+<div class="line"> </div>
+<div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(DISABLED_TestFailure, Random)</div>
+<div class="line">{</div>
+<div class="line">    <a name="a14"></a><a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>( genrand(), genrand() );</div>
+<div class="line">    <a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>( genrand(), genrand() );</div>
+<div class="line">    <a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>( genrand(), genrand() );</div>
+<div class="line">    <a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>( genrand(), genrand() );</div>
+<div class="line">    <a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>( genrand(), genrand() );</div>
+<div class="line">    <a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>( genrand(), genrand() );</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// サブルーチン</span></div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> Sub1(<span class="keywordtype">int</span> n)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a>(1, n);</div>
+<div class="line">}</div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> Sub2(<span class="keywordtype">int</span> n)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>(1, n);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(DISABLED_TestFailure, Subroutine1)</div>
+<div class="line">{</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordtype">int</span> x=100;</div>
+<div class="line">        <a name="a15"></a><a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga7f06c61b0fb3ae0eb13cda9aa373f348">IUTEST_SCOPED_TRACE</a>(::<a class="code" href="../../d3/dda/namespaceiutest.html#a543a2a28ba663224cb511a4ae93877dc">iutest::Message</a>() &lt;&lt; <span class="stringliteral">&quot;routine1. x=&quot;</span> &lt;&lt; x);</div>
+<div class="line"> </div>
+<div class="line">        Sub1(x);</div>
+<div class="line">    }</div>
+<div class="line">    <span class="comment">// ここの失敗には &quot;routine1.&quot; のメッセージは表示されません。</span></div>
+<div class="line">    Sub1(3);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(DISABLED_TestFailure, Subroutine2)</div>
+<div class="line">{</div>
+<div class="line">    {</div>
+<div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga7f06c61b0fb3ae0eb13cda9aa373f348">IUTEST_SCOPED_TRACE</a>(<span class="stringliteral">&quot;routine2.&quot;</span>);</div>
+<div class="line"><span class="preprocessor">#if !defined(IUTEST_USE_GTEST)</span></div>
+<div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga7f06c61b0fb3ae0eb13cda9aa373f348">IUTEST_SCOPED_TRACE</a>(<span class="stringliteral">&quot;routine2.&quot;</span>) &lt;&lt; <span class="stringliteral">&quot;iutest can do.&quot;</span>;</div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"> </div>
+<div class="line">        Sub2(2);</div>
+<div class="line">    }</div>
+<div class="line">    <span class="comment">// ここの失敗には &quot;routine2.&quot; のメッセージは表示されません。</span></div>
+<div class="line">    Sub2(3);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">class </span>ProdClass</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordtype">int</span> m_x;</div>
+<div class="line"><span class="keyword">public</span>:</div>
+<div class="line">    ProdClass() : m_x(100) {}</div>
+<div class="line">    <span class="keywordtype">int</span> GetX()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_x; }</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line"><a name="a16"></a><a class="code" href="../../d9/d06/iutest__prod_8hpp.html#a785124bcefaf5c6e494648c4fa581511">IUTEST_MAKE_PEEP</a>(<span class="keywordtype">int</span> ProdClass::*, ProdClass, m_x);</div>
+<div class="line"> </div>
+<div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(ProdTest, Peep)</div>
+<div class="line">{</div>
+<div class="line">    ProdClass c;</div>
+<div class="line">    <a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>(100, <a name="a17"></a><a class="code" href="../../d9/d06/iutest__prod_8hpp.html#abf3dc05618b1eeea337fa8d758d6534c">IUTEST_PEEP_GET</a>(c, ProdClass, m_x));</div>
+<div class="line">}</div>
+</div><!-- fragment --> </div><!-- contents -->
+<div class="ttc" id="anamespaceiutest_html_a58cf9f6611f8a453aba8c89d4f7465f3"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a58cf9f6611f8a453aba8c89d4f7465f3">iutest::AssertionReturn</a></div><div class="ttdeci">AssertionReturnType&lt; T &gt; AssertionReturn(const T &amp;ret)</div><div class="ttdoc">Assetion Return 設定</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:169</div></div>
+<div class="ttc" id="aclassiutest_1_1_unit_test_html_a1154caf184eb447dd0fe5fbde60e1868"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">iutest::UnitTest::GetInstance</a></div><div class="ttdeci">static UnitTest * GetInstance()</div><div class="ttdoc">UnitTest インスタンスの取得</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:41</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga02da50530b96ac2d6fc4f23dcd28fb9a"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a></div><div class="ttdeci">#define IUTEST_SUCCEED()</div><div class="ttdoc">明示的な成功</div><div class="ttdef"><b>Definition:</b> iutest.hpp:175</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_gae5dfd482090363d33d905171c2149828"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#gae5dfd482090363d33d905171c2149828">IUTEST_SKIP</a></div><div class="ttdeci">#define IUTEST_SKIP()</div><div class="ttdoc">テストの明示的なスキップ</div><div class="ttdef"><b>Definition:</b> iutest.hpp:213</div></div>
+<div class="ttc" id="aiutest__prod_8hpp_html_abf3dc05618b1eeea337fa8d758d6534c"><div class="ttname"><a href="../../d9/d06/iutest__prod_8hpp.html#abf3dc05618b1eeea337fa8d758d6534c">IUTEST_PEEP_GET</a></div><div class="ttdeci">#define IUTEST_PEEP_GET(v, class_name, member_name)</div><div class="ttdoc">private メンバーへのアクセス</div><div class="ttdef"><b>Definition:</b> iutest_prod.hpp:72</div></div>
+<div class="ttc" id="anamespaceiutest_html_a543a2a28ba663224cb511a4ae93877dc"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a543a2a28ba663224cb511a4ae93877dc">iutest::Message</a></div><div class="ttdeci">detail::iuStreamMessage Message</div><div class="ttdoc">Message クラス</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:31</div></div>
+<div class="ttc" id="aiutest__ver_8hpp_html_acf987d77bd0705cf1a7a2d395a733506"><div class="ttname"><a href="../../d9/df2/iutest__ver_8hpp.html#acf987d77bd0705cf1a7a2d395a733506">IUTEST_BUILD</a></div><div class="ttdeci">#define IUTEST_BUILD</div><div class="ttdef"><b>Definition:</b> iutest_ver.hpp:27</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___e_x_p_e_c_t___html_ga8506ae7f9175652fbe66b6e3eeab5cdf"><div class="ttname"><a href="../../dc/d8f/group___i_u_t_e_s_t___e_x_p_e_c_t__.html#ga8506ae7f9175652fbe66b6e3eeab5cdf">IUTEST_EXPECT_EQ</a></div><div class="ttdeci">#define IUTEST_EXPECT_EQ(expected, actual)</div><div class="ttdoc">== テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:681</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___a_s_s_e_r_t___html_ga2efc1300f1fa10aa4a83161967493bf5"><div class="ttname"><a href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a></div><div class="ttdeci">#define IUTEST_ASSERT_EQ(expected, actual)</div><div class="ttdoc">== テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:281</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___a_s_s_e_r_t___html_ga6d1aeedf55a5104948331b619131965c"><div class="ttname"><a href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga6d1aeedf55a5104948331b619131965c">IUTEST_ASSERT_TRUE</a></div><div class="ttdeci">#define IUTEST_ASSERT_TRUE(...)</div><div class="ttdoc">TRUE テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:342</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___a_s_s_e_r_t___html_ga42c6f361e39a9841053233f1618cc15a"><div class="ttname"><a href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga42c6f361e39a9841053233f1618cc15a">IUTEST_ASSERT_STREQ</a></div><div class="ttdeci">#define IUTEST_ASSERT_STREQ(expected_str, actual_str)</div><div class="ttdoc">文字列の一致 テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:444</div></div>
+<div class="ttc" id="aiutest__ver_8hpp_html_a04132dc14c8fc0b3d36b1a9f825dd56e"><div class="ttname"><a href="../../d9/df2/iutest__ver_8hpp.html#a04132dc14c8fc0b3d36b1a9f825dd56e">IUTEST_MAJORVER</a></div><div class="ttdeci">#define IUTEST_MAJORVER</div><div class="ttdoc">Major Version</div><div class="ttdef"><b>Definition:</b> iutest_ver.hpp:22</div></div>
+<div class="ttc" id="aiutest__prod_8hpp_html_a785124bcefaf5c6e494648c4fa581511"><div class="ttname"><a href="../../d9/d06/iutest__prod_8hpp.html#a785124bcefaf5c6e494648c4fa581511">IUTEST_MAKE_PEEP</a></div><div class="ttdeci">#define IUTEST_MAKE_PEEP(member_type, class_name, member_name)</div><div class="ttdoc">private メンバーへのアクセス権を作成</div><div class="ttdef"><b>Definition:</b> iutest_prod.hpp:63</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga7f06c61b0fb3ae0eb13cda9aa373f348"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga7f06c61b0fb3ae0eb13cda9aa373f348">IUTEST_SCOPED_TRACE</a></div><div class="ttdeci">#define IUTEST_SCOPED_TRACE(msg)</div><div class="ttdoc">スコープ内のテストメッセージへのメッセージ追加</div><div class="ttdef"><b>Definition:</b> iutest.hpp:167</div></div>
+<div class="ttc" id="agroup___t_e_s_t_d_e_f_html_gae64e21d033c63b6e2223bff23449d8db"><div class="ttname"><a href="../../d2/d24/group___t_e_s_t_d_e_f.html#gae64e21d033c63b6e2223bff23449d8db">IUTEST_PACKAGE</a></div><div class="ttdeci">#define IUTEST_PACKAGE(name)</div><div class="ttdoc">パッケージ名前空間の定義</div><div class="ttdef"><b>Definition:</b> iutest_package.hpp:26</div></div>
+<div class="ttc" id="aiutest__ver_8hpp_html_a32d4e72c7bcbf6f467f3f3d9eae5ac0f"><div class="ttname"><a href="../../d9/df2/iutest__ver_8hpp.html#a32d4e72c7bcbf6f467f3f3d9eae5ac0f">IUTEST_REVISION</a></div><div class="ttdeci">#define IUTEST_REVISION</div><div class="ttdoc">Revision</div><div class="ttdef"><b>Definition:</b> iutest_ver.hpp:25</div></div>
+<div class="ttc" id="aiutest__ver_8hpp_html_a9b876104ea502270d421c161c26fea46"><div class="ttname"><a href="../../d9/df2/iutest__ver_8hpp.html#a9b876104ea502270d421c161c26fea46">IUTEST_VER</a></div><div class="ttdeci">#define IUTEST_VER</div><div class="ttdoc">iutest version 1.17.1.0</div><div class="ttdef"><b>Definition:</b> iutest_ver.hpp:21</div></div>
+<div class="ttc" id="aiutest__ver_8hpp_html_af241d6bd575713b6ee489f71aeb7ab11"><div class="ttname"><a href="../../d9/df2/iutest__ver_8hpp.html#af241d6bd575713b6ee489f71aeb7ab11">IUTEST_MINORVER</a></div><div class="ttdeci">#define IUTEST_MINORVER</div><div class="ttdoc">Minor Version</div><div class="ttdef"><b>Definition:</b> iutest_ver.hpp:23</div></div>
+<div class="ttc" id="agroup___t_e_s_t_d_e_f_html_ga627b3e659e006f52b4350aa50716b5e9"><div class="ttname"><a href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a></div><div class="ttdeci">#define IUTEST(testcase_, testname_)</div><div class="ttdoc">テスト関数定義マクロ</div><div class="ttdef"><b>Definition:</b> iutest.hpp:66</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年05月04日(月) 20時54分26秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年07月26日(日) 09時00分06秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
-</a> 1.8.15
+</a> 1.8.17
 </small></address>
 </body>
 </html>

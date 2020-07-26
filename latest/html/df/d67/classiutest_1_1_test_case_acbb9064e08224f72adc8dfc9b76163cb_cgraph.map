@@ -1,8 +1,0 @@
-<map id="iutest::TestCase::disabled_test_count" name="iutest::TestCase::disabled_test_count">
-<area shape="rect" id="node2" href="$df/d67/classiutest_1_1_test_case.html#ae97ff1f1790aadb1a1865404a6e8d073" title="iutest::TestCase::reportable\l_disabled_test_count" alt="" coords="242,5,442,47"/>
-<area shape="rect" id="node3" href="$df/d67/classiutest_1_1_test_case.html#a0ca2cd7d86e040dcbb3af18d69b879a4" title="iutest::TestCase::successful\l_test_count" alt="" coords="241,71,443,112"/>
-<area shape="rect" id="node4" href="$df/d67/classiutest_1_1_test_case.html#a1f1f6a890fccd846d52bedc2de2a59be" title="iutest::TestCase::skip\l_test_count" alt="" coords="262,136,422,177"/>
-<area shape="rect" id="node5" href="$df/d67/classiutest_1_1_test_case.html#a2f01e3c84bdf03a9737bf6cc05cdb1ec" title="iutest::TestCase::reportable\l_skip_test_count" alt="" coords="242,201,442,243"/>
-<area shape="rect" id="node6" href="$df/d67/classiutest_1_1_test_case.html#a41cd67db11eca33e71ca4acbf5a0beac" title="iutest::TestCase::test\l_run_skipped_count" alt="" coords="263,267,421,308"/>
-<area shape="rect" id="node7" href="$df/d67/classiutest_1_1_test_case.html#a4169155d633d03453b870d12bca8b104" title="iutest::TestCase::reportable\l_test_run_skipped_count" alt="" coords="242,332,442,373"/>
-</map>

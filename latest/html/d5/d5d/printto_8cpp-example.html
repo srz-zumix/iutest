@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.15"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: printto.cpp</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.0.0</span>
+   &#160;<span id="projectnumber">1.17.1.0</span>
    </div>
   </td>
  </tr>
@@ -30,7 +30,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.8.15 -->
+<!-- 構築: Doxygen 1.8.17 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
 var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
@@ -66,12 +66,141 @@ $(function() {
 <div class="title">printto.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><span class="comment">//======================================================================</span></div><div class="line"><span class="comment">//-----------------------------------------------------------------------</span></div><div class="line"><span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div><div class="line"><span class="comment">//======================================================================</span></div><div class="line"><span class="preprocessor">#include &quot;../include/iutest.hpp&quot;</span></div><div class="line"></div><div class="line"><span class="comment">/* ---------------------------------------------------</span></div><div class="line"><span class="comment"> * PrintTo</span></div><div class="line"><span class="comment">*/</span><span class="comment">/*--------------------------------------------------*/</span></div><div class="line"><span class="preprocessor">#if IUTEST_HAS_PRINT_TO</span></div><div class="line"></div><div class="line"><span class="keyword">struct </span>Bar</div><div class="line">{</div><div class="line">    <span class="keywordtype">int</span> x, y, z;</div><div class="line">    <span class="keywordtype">bool</span> operator == (<span class="keyword">const</span> Bar&amp; rhs)<span class="keyword"> const</span></div><div class="line"><span class="keyword">    </span>{</div><div class="line">        <span class="keywordflow">return</span> x == rhs.x &amp;&amp; y == rhs.y &amp;&amp; z == rhs.z;</div><div class="line">    }</div><div class="line">};</div><div class="line"></div><div class="line">::iutest::iu_ostream&amp; operator &lt;&lt; (::iutest::iu_ostream&amp; os, <span class="keyword">const</span> Bar&amp; bar)</div><div class="line">{</div><div class="line">    <span class="keywordflow">return</span> os &lt;&lt; <span class="stringliteral">&quot;X:&quot;</span> &lt;&lt; bar.x &lt;&lt; <span class="stringliteral">&quot; Y:&quot;</span> &lt;&lt; bar.y &lt;&lt; <span class="stringliteral">&quot; Z:&quot;</span> &lt;&lt; bar.z;</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keywordtype">void</span> PrintTo(<span class="keyword">const</span> Bar&amp; bar, ::iutest::iu_ostream* os)</div><div class="line">{</div><div class="line">    *os &lt;&lt; <span class="stringliteral">&quot;x:&quot;</span> &lt;&lt; bar.x &lt;&lt; <span class="stringliteral">&quot; y:&quot;</span> &lt;&lt; bar.y &lt;&lt; <span class="stringliteral">&quot; z:&quot;</span> &lt;&lt; bar.z;</div><div class="line">}</div><div class="line"></div><div class="line"><a name="a0"></a><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(PrintToTest, Test1)</div><div class="line">{</div><div class="line">    ::std::vector&lt;int&gt; a;</div><div class="line">    <span class="keywordflow">for</span>( <span class="keywordtype">int</span> i = 0; i &lt; 10; ++i )</div><div class="line">    {</div><div class="line">        a.push_back(i);</div><div class="line">    }</div><div class="line">    <a name="a1"></a><a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a name="a2"></a><a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(a);</div><div class="line"></div><div class="line">    <span class="keywordtype">int</span>* pi=NULL;</div><div class="line">    <span class="keywordtype">void</span>* p=NULL;</div><div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(p);</div><div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(pi);</div><div class="line"></div><div class="line">    Bar bar = {0, 1, 2};</div><div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(bar);</div><div class="line">}</div><div class="line"></div><div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(PrintToTest, Test2)</div><div class="line">{</div><div class="line">    Bar bar1 = {0, 1, 2};</div><div class="line">    Bar bar2 = {0, 1, 2};</div><div class="line">    <a name="a3"></a><a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>(bar1, bar2);</div><div class="line">}</div><div class="line"></div><div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(PrintToTest, RawArray)</div><div class="line">{</div><div class="line">    {</div><div class="line">        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> a[3] = {0, 1, 2};</div><div class="line">        <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> b[3] = {0, 1, 2};</div><div class="line">        <span class="keyword">const</span> <span class="keyword">volatile</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> c[3] = {0, 1, 2};</div><div class="line">        <span class="keyword">volatile</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> d[3] = {0, 1, 2};</div><div class="line"></div><div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(a);</div><div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(b);</div><div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(c);</div><div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(d);</div><div class="line">    }</div><div class="line">    {</div><div class="line">        <span class="keywordtype">char</span> a[3] = {0, 1, 2};</div><div class="line">        <span class="keyword">const</span> <span class="keywordtype">char</span> b[3] = {0, 1, 2};</div><div class="line">        <span class="keyword">const</span> <span class="keyword">volatile</span> <span class="keywordtype">char</span> c[3] = {0, 1, 2};</div><div class="line">        <span class="keyword">volatile</span> <span class="keywordtype">char</span> d[3] = {0, 1, 2};</div><div class="line"></div><div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(a);</div><div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(b);</div><div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(c);</div><div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(d);</div><div class="line">    }</div><div class="line">}</div><div class="line"></div><div class="line"><span class="preprocessor">#if IUTEST_HAS_TYPED_TEST</span></div><div class="line"></div><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div><div class="line"><span class="keyword">class </span>TypedPrintToTest : <span class="keyword">public</span> <a name="_a4"></a><a class="code" href="../../dc/d0e/classiutest_1_1_test.html">::iutest::Test</a> {};</div><div class="line">typedef ::iutest::Types&lt;char, <span class="keywordtype">unsigned</span> char</div><div class="line">            , short, <span class="keywordtype">unsigned</span> short</div><div class="line">            , int, <span class="keywordtype">unsigned</span> int</div><div class="line">            , long, <span class="keywordtype">unsigned</span> long</div><div class="line">            , <span class="keywordtype">int</span>*&gt; PrintStringTestTypes;</div><div class="line"><a name="a5"></a><a class="code" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#gae66e40268541c8a179af720f0beee90c">IUTEST_TYPED_TEST_CASE</a>(TypedPrintToTest, PrintStringTestTypes);</div><div class="line"></div><div class="line"><a name="a6"></a><a class="code" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga20179a8a238b2ddb2aea8ff3e7eb67a2">IUTEST_TYPED_TEST</a>(TypedPrintToTest, Print)</div><div class="line">{</div><div class="line">    TypeParam a = 0;</div><div class="line">    TypeParam&amp; b = a;</div><div class="line">    <span class="keyword">const</span> TypeParam c = a;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">volatile</span> TypeParam d = a;</div><div class="line"></div><div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(a);</div><div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(b);</div><div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(c);</div><div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(d);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="preprocessor">#if IUTEST_HAS_CHAR16_T</span></div><div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(PrintToTest, U16String)</div><div class="line">{</div><div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(u<span class="stringliteral">&quot;テスト&quot;</span>);</div><div class="line">}</div><div class="line"><span class="preprocessor">#endif</span></div><div class="line"></div><div class="line"><span class="preprocessor">#if IUTEST_HAS_CHAR32_T</span></div><div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(PrintToTest, U32String)</div><div class="line">{</div><div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(U<span class="stringliteral">&quot;テスト&quot;</span>);</div><div class="line">}</div><div class="line"><span class="preprocessor">#endif</span></div><div class="line"></div><div class="line"><span class="preprocessor">#endif</span></div><div class="line"></div><div class="line"><span class="preprocessor">#endif</span></div></div><!-- fragment --> </div><!-- contents -->
+<div class="fragment"><div class="line"><span class="comment">//======================================================================</span></div>
+<div class="line"><span class="comment">//-----------------------------------------------------------------------</span></div>
+<div class="line"><span class="comment"></span><span class="comment">//-----------------------------------------------------------------------</span></div>
+<div class="line"><span class="comment">//======================================================================</span></div>
+<div class="line"><span class="preprocessor">#include &quot;../include/iutest.hpp&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">/* ---------------------------------------------------</span></div>
+<div class="line"><span class="comment"> * PrintTo</span></div>
+<div class="line"><span class="comment">*/</span><span class="comment">/*--------------------------------------------------*/</span></div>
+<div class="line"><span class="preprocessor">#if IUTEST_HAS_PRINT_TO</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">struct </span>Bar</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordtype">int</span> x, y, z;</div>
+<div class="line">    <span class="keywordtype">bool</span> operator == (<span class="keyword">const</span> Bar&amp; rhs)<span class="keyword"> const</span></div>
+<div class="line"><span class="keyword">    </span>{</div>
+<div class="line">        <span class="keywordflow">return</span> x == rhs.x &amp;&amp; y == rhs.y &amp;&amp; z == rhs.z;</div>
+<div class="line">    }</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line">::iutest::iu_ostream&amp; operator &lt;&lt; (::iutest::iu_ostream&amp; os, <span class="keyword">const</span> Bar&amp; bar)</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordflow">return</span> os &lt;&lt; <span class="stringliteral">&quot;X:&quot;</span> &lt;&lt; bar.x &lt;&lt; <span class="stringliteral">&quot; Y:&quot;</span> &lt;&lt; bar.y &lt;&lt; <span class="stringliteral">&quot; Z:&quot;</span> &lt;&lt; bar.z;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> PrintTo(<span class="keyword">const</span> Bar&amp; bar, ::iutest::iu_ostream* os)</div>
+<div class="line">{</div>
+<div class="line">    *os &lt;&lt; <span class="stringliteral">&quot;x:&quot;</span> &lt;&lt; bar.x &lt;&lt; <span class="stringliteral">&quot; y:&quot;</span> &lt;&lt; bar.y &lt;&lt; <span class="stringliteral">&quot; z:&quot;</span> &lt;&lt; bar.z;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><a name="a0"></a><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(PrintToTest, Test1)</div>
+<div class="line">{</div>
+<div class="line">    ::std::vector&lt;int&gt; a;</div>
+<div class="line">    <span class="keywordflow">for</span>( <span class="keywordtype">int</span> i = 0; i &lt; 10; ++i )</div>
+<div class="line">    {</div>
+<div class="line">        a.push_back(i);</div>
+<div class="line">    }</div>
+<div class="line">    <a name="a1"></a><a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a name="a2"></a><a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(a);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordtype">int</span>* pi=NULL;</div>
+<div class="line">    <span class="keywordtype">void</span>* p=NULL;</div>
+<div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(p);</div>
+<div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(pi);</div>
+<div class="line"> </div>
+<div class="line">    Bar bar = {0, 1, 2};</div>
+<div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(bar);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(PrintToTest, Test2)</div>
+<div class="line">{</div>
+<div class="line">    Bar bar1 = {0, 1, 2};</div>
+<div class="line">    Bar bar2 = {0, 1, 2};</div>
+<div class="line">    <a name="a3"></a><a class="code" href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a>(bar1, bar2);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(PrintToTest, RawArray)</div>
+<div class="line">{</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> a[3] = {0, 1, 2};</div>
+<div class="line">        <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> b[3] = {0, 1, 2};</div>
+<div class="line">        <span class="keyword">const</span> <span class="keyword">volatile</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> c[3] = {0, 1, 2};</div>
+<div class="line">        <span class="keyword">volatile</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> d[3] = {0, 1, 2};</div>
+<div class="line"> </div>
+<div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(a);</div>
+<div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(b);</div>
+<div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(c);</div>
+<div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(d);</div>
+<div class="line">    }</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordtype">char</span> a[3] = {0, 1, 2};</div>
+<div class="line">        <span class="keyword">const</span> <span class="keywordtype">char</span> b[3] = {0, 1, 2};</div>
+<div class="line">        <span class="keyword">const</span> <span class="keyword">volatile</span> <span class="keywordtype">char</span> c[3] = {0, 1, 2};</div>
+<div class="line">        <span class="keyword">volatile</span> <span class="keywordtype">char</span> d[3] = {0, 1, 2};</div>
+<div class="line"> </div>
+<div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(a);</div>
+<div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(b);</div>
+<div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(c);</div>
+<div class="line">        <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(d);</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#if IUTEST_HAS_TYPED_TEST</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><span class="keyword">class </span>TypedPrintToTest : <span class="keyword">public</span> <a name="_a4"></a><a class="code" href="../../dc/d0e/classiutest_1_1_test.html">::iutest::Test</a> {};</div>
+<div class="line">typedef ::iutest::Types&lt;char, <span class="keywordtype">unsigned</span> char</div>
+<div class="line">            , short, <span class="keywordtype">unsigned</span> short</div>
+<div class="line">            , int, <span class="keywordtype">unsigned</span> int</div>
+<div class="line">            , long, <span class="keywordtype">unsigned</span> long</div>
+<div class="line">            , <span class="keywordtype">int</span>*&gt; PrintStringTestTypes;</div>
+<div class="line"><a name="a5"></a><a class="code" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#gae66e40268541c8a179af720f0beee90c">IUTEST_TYPED_TEST_CASE</a>(TypedPrintToTest, PrintStringTestTypes);</div>
+<div class="line"> </div>
+<div class="line"><a name="a6"></a><a class="code" href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga20179a8a238b2ddb2aea8ff3e7eb67a2">IUTEST_TYPED_TEST</a>(TypedPrintToTest, Print)</div>
+<div class="line">{</div>
+<div class="line">    TypeParam a = 0;</div>
+<div class="line">    TypeParam&amp; b = a;</div>
+<div class="line">    <span class="keyword">const</span> TypeParam c = a;</div>
+<div class="line">    <span class="keyword">const</span> <span class="keyword">volatile</span> TypeParam d = a;</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(a);</div>
+<div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(b);</div>
+<div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(c);</div>
+<div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(d);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#if IUTEST_HAS_CHAR16_T</span></div>
+<div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(PrintToTest, U16String)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(u<span class="stringliteral">&quot;テスト&quot;</span>);</div>
+<div class="line">}</div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#if IUTEST_HAS_CHAR32_T</span></div>
+<div class="line"><a class="code" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a>(PrintToTest, U32String)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a>() &lt;&lt; <a class="code" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">::iutest::PrintToString</a>(U<span class="stringliteral">&quot;テスト&quot;</span>);</div>
+<div class="line">}</div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+</div><!-- fragment --> </div><!-- contents -->
+<div class="ttc" id="aclassiutest_1_1_test_html"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html">iutest::Test</a></div><div class="ttdoc">テストベース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:43</div></div>
+<div class="ttc" id="agroup___t_y_p_e_d___t_e_s_t_html_gae66e40268541c8a179af720f0beee90c"><div class="ttname"><a href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#gae66e40268541c8a179af720f0beee90c">IUTEST_TYPED_TEST_CASE</a></div><div class="ttdeci">#define IUTEST_TYPED_TEST_CASE(testcase_,...)</div><div class="ttdoc">型付けテストケースの登録</div><div class="ttdef"><b>Definition:</b> iutest_typed_tests.hpp:43</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___u_t_i_l_html_ga02da50530b96ac2d6fc4f23dcd28fb9a"><div class="ttname"><a href="../../dd/df9/group___i_u_t_e_s_t___u_t_i_l.html#ga02da50530b96ac2d6fc4f23dcd28fb9a">IUTEST_SUCCEED</a></div><div class="ttdeci">#define IUTEST_SUCCEED()</div><div class="ttdoc">明示的な成功</div><div class="ttdef"><b>Definition:</b> iutest.hpp:175</div></div>
+<div class="ttc" id="anamespaceiutest_html_a089d4c220696dc46e2ef184fc945367c"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">iutest::PrintToString</a></div><div class="ttdeci">std::string PrintToString(const T &amp;v)</div><div class="ttdoc">文字列化</div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:678</div></div>
+<div class="ttc" id="agroup___t_y_p_e_d___t_e_s_t_html_ga20179a8a238b2ddb2aea8ff3e7eb67a2"><div class="ttname"><a href="../../d4/deb/group___t_y_p_e_d___t_e_s_t.html#ga20179a8a238b2ddb2aea8ff3e7eb67a2">IUTEST_TYPED_TEST</a></div><div class="ttdeci">#define IUTEST_TYPED_TEST(testcase_, testname_)</div><div class="ttdoc">型付けテスト関数定義マクロ</div><div class="ttdef"><b>Definition:</b> iutest_typed_tests.hpp:55</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___a_s_s_e_r_t___html_ga2efc1300f1fa10aa4a83161967493bf5"><div class="ttname"><a href="../../d5/dab/group___i_u_t_e_s_t___a_s_s_e_r_t__.html#ga2efc1300f1fa10aa4a83161967493bf5">IUTEST_ASSERT_EQ</a></div><div class="ttdeci">#define IUTEST_ASSERT_EQ(expected, actual)</div><div class="ttdoc">== テスト</div><div class="ttdef"><b>Definition:</b> iutest.hpp:281</div></div>
+<div class="ttc" id="agroup___t_e_s_t_d_e_f_html_ga627b3e659e006f52b4350aa50716b5e9"><div class="ttname"><a href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9">IUTEST</a></div><div class="ttdeci">#define IUTEST(testcase_, testname_)</div><div class="ttdoc">テスト関数定義マクロ</div><div class="ttdef"><b>Definition:</b> iutest.hpp:66</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年05月04日(月) 20時54分26秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年07月26日(日) 09時00分06秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
-</a> 1.8.15
+</a> 1.8.17
 </small></address>
 </body>
 </html>

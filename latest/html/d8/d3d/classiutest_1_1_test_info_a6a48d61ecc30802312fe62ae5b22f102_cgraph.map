@@ -1,4 +1,4 @@
 <map id="iutest::TestInfo::HasFailure" name="iutest::TestInfo::HasFailure">
-<area shape="rect" id="node1" title="エラーが出たかどうか" alt="" coords="5,13,185,39"/>
-<area shape="rect" id="node2" href="$d0/d7b/classiutest_1_1_test_result.html#abddf109b7e5d59a6804ac22e884083e5" title="失敗したかどうか" alt="" coords="233,5,356,47"/>
+<area shape="rect" id="node1" title="エラーが出たかどうか" alt="" coords="5,13,200,39"/>
+<area shape="rect" id="node2" href="$d0/d7b/classiutest_1_1_test_result.html#abddf109b7e5d59a6804ac22e884083e5" title="失敗したかどうか" alt="" coords="248,5,383,47"/>
 </map>

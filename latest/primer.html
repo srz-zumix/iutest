@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
   <title>iutest - 入門</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta http-equiv="content-style-type" content="text/css" />
   <meta http-equiv="content-script-type" content="text/javascript" />
-  
-  <link href="http://alexgorbatchev.com/pub/sh/current/styles/shCore.css" rel="stylesheet" type="text/css" />
-  <link href="http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+
+  <link href="https://alexgorbatchev.com/pub/sh/current/styles/shCore.css" rel="stylesheet" type="text/css" />
+  <link href="https://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
   <link href="css/doc.css" rel="stylesheet" type="text/css" />
 
-  <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js" type="text/javascript"></script>
-  <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushCpp.js" type="text/javascript"></script>
+  <script src="https://alexgorbatchev.com/pub/sh/current/scripts/shCore.js" type="text/javascript"></script>
+  <script src="https://alexgorbatchev.com/pub/sh/current/scripts/shBrushCpp.js" type="text/javascript"></script>
   <script type="text/javascript">
     SyntaxHighlighter.all();
   </script>
@@ -115,7 +115,7 @@ iutest の基本コンセプトは Google Test のそれと同じです。<br />
 <li>include オンリーで使用できる<br />
 iutest は「簡単に」「すぐに」テストが書けることを目的としています。<br />
 そのため、ライブラリを作成しなくても include するだけで使用できるようにし、初期障壁をなくすようにしました。<br />
- <br />
+<br />
 </li>
 <li>Google Test との互換性<br />
 iutest は、Google Test のインターフェイスを踏襲しています。<br />
@@ -147,7 +147,9 @@ iutest_switch.hpp が用意されています。<br />
       <ul>
         <li>IUTEST_ASSERT_ALMOST_EQ</li>
         <li>IUTEST_ASSERT_EQ_RANGE</li>
+        <li>IUTEST_ASSERT_NE_RANGE</li>
         <li>IUTEST_ASSERT_EQ_COLLECTIONS</li>
+        <li>IUTEST_ASSERT_NE_COLLECTIONS</li>
         <li>IUTEST_ASSERT_STRLNEQ</li>
         <li>IUTEST_ASSERT_STRIN</li>
         <li>IUTEST_ASSERT_NULL</li>
@@ -161,7 +163,7 @@ iutest_switch.hpp が用意されています。<br />
       など<br />
       <br />
       </li>
-      
+
       <li><a name="ext_assert_except" id="ext_assert_except">例外の値のアサーション</a><br />
       THROW,ANY_THROW,NO_THROW に加えて例外の値をテストするアサーションを追加しています。<br />
 <div class="source">
@@ -192,7 +194,7 @@ int ReturnTest(void)
 </div>
       <br />
       </li>
-      
+
       <li><a name="ext_assert_warn" id="ext_assert_warn">警告アサーション</a><br />
       Boost.Test の WARN フレーバーと同等のアサーションです。<br />
       ログの出力はされますが、テスト失敗にはなりません。<br />
@@ -298,7 +300,7 @@ IUTEST(Test, Sample)
     IUTEST_ASSERT_EQ( 42, f() );
     IUTEST_ASSERT_TRUE( f() == 42 );
     IUTEST_ASSERT( f() == 42 );
-    
+
     IUTEST_ASSERT_LE( f(), 0 );
     IUTEST_ASSERT_TRUE( f() &lt;= 0 );
     IUTEST_ASSERT( f() &lt;= 0 );
@@ -332,7 +334,7 @@ IUTEST(Test, Sample)
 {
     IUTEST_ASSERT(f() &lt;= 0 || IUTEST_EXPRESSION(f() &gt;= 100) );
     IUTEST_ASSERT(IUTEST_EXPRESSION(f() &lt;= 0) || IUTEST_EXPRESSION(f() &gt;= 100) );
-    
+
     IUTEST_ASSERT_TRUE(IUTEST_EXPRESSION(f() &lt;= 0) || IUTEST_EXPRESSION(f() &gt;= 100) );
 }
 </pre>
@@ -382,7 +384,6 @@ IUTEST_INSTANTIATE_TEST_CASE_P(My1, AnyParamTest, ::iutest::Values(0));
       ※template 版の GetParam は型安全でないキャストを行います。キャスト不可能な型にキャストしないよう十分に注意してください。<br />
       型をチェックする場合は、非 template な GetParam を使用して any を取得し、 ::iutest::any_cast で目的の型にキャストしてください。<br />
       <br />
-      
       </li>
 
       <li><a name="org_test_pairwise" id="org_test_pairwise">Pairwise</a><br />
@@ -390,20 +391,20 @@ IUTEST_INSTANTIATE_TEST_CASE_P(My1, AnyParamTest, ::iutest::Values(0));
 <div class="source">
 <pre class="brush:cpp">
 IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
-     , ::iutest::Pairwise( ::iutest::Bool()
+    , ::iutest::Pairwise( ::iutest::Bool()
         , ::iutest::Values(1, 2)
         , ::iutest::Values(10, 11) ) );
 </pre>
 </div>
       <br />
       </li>
-      
+
       <li><a name="org_test_randparam" id="org_test_randparam">乱数パラメータの生成</a><br />
       iutest ではランダムなパラメータを生成するためのジェネレータを用意しています。<br />
 <div class="source">
 <pre class="brush:cpp">
 IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
-     , ::iutest::RandomValues( 5 ) );
+    , ::iutest::RandomValues( 5 ) );
 </pre>
 </div>
       RandomValues の第一引数にパラメータの総数を指定します。（第二引数に乱数シードを指定可能）<br />
@@ -414,7 +415,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
 <pre class="brush:cpp">
 bool Filter(int n) { return n != 100 &amp;&amp; n != 500 &amp;&amp; n != 1000; }
 IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
-     , ::iutest::ValuesGen( 5,  ::iutest::RandomGenerator&lt;int&gt;(&amp;Filter) ) );
+    , ::iutest::ValuesGen( 5,  ::iutest::RandomGenerator&lt;int&gt;(&amp;Filter) ) );
 </pre>
 </div>
       <br />
@@ -431,19 +432,19 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
 <div class="source">
 <pre class="brush:cpp">
 IUTEST_INSTANTIATE_TEST_CASE_P(A1, TestP
-     , ::iutest::Concat( ::iutest::Range(1, 10), ::iutest::Range(101, 110) ) );
+    , ::iutest::Concat( ::iutest::Range(1, 10), ::iutest::Range(101, 110) ) );
 IUTEST_INSTANTIATE_TEST_CASE_P(A2, TestP
-     , ::iutest::Concat( ::iutest::Range(1, 10), ::iutest::Bool() ) );
+    , ::iutest::Concat( ::iutest::Range(1, 10), ::iutest::Bool() ) );
 </pre>
 </div>
       operator + の場合<br />
 <div class="source">
 <pre class="brush:cpp">
 IUTEST_INSTANTIATE_TEST_CASE_P(A1, TestP
-     , ::iutest::Range(1, 10)
+    , ::iutest::Range(1, 10)
         + ::iutest::Range(101, 110) );
 IUTEST_INSTANTIATE_TEST_CASE_P(A2, TestP
-     , ::iutest::Range(1, 10)
+    , ::iutest::Range(1, 10)
         + ::iutest::Bool()
         + ::iutest::Values(99, 88, 77) ) );
 </pre>
@@ -456,9 +457,9 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A2, TestP
 <div class="source">
 <pre class="brush:cpp">
 IUTEST_INSTANTIATE_TEST_CASE_P(I, TestI
-     , ::iutest::CSV&lt;int&gt;("intparams.csv") );
+    , ::iutest::CSV&lt;int&gt;("intparams.csv") );
 IUTEST_INSTANTIATE_TEST_CASE_P(F, TestF
-     , ::iutest::CSV&lt;float&gt;("fparams.tsv", '\t') );
+    , ::iutest::CSV&lt;float&gt;("fparams.tsv", '\t') );
 </pre>
 </div>
       ファイルからのパラメータは動的に生成されるため、実行ファイルを更新せずにパラメータだけ更新することが可能になります。<br />
@@ -468,7 +469,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(F, TestF
       C++11 Variadic Templates が利用可能な環境で、Variadic Templates に対応した Types,Values,Combine,Pairwise が利用可能です。<br />
       <br />
       </li>
-      
+
       <li><a name="org_test_package" id="org_test_package">パッケージ</a><br />
       IUTEST_PACKAGE マクロを使うことで、名前空間をパッケージとして扱うことができます。<br />
       通常の名前空間ではテスト名が衝突してしまい、出力 XML で区別がつかなくなってしまいますが、<br />
@@ -520,7 +521,7 @@ IUTEST_F(IUTEST_JAPANESE_NAME_F(あいうえお, FixedTest)
       </li>
     </ul>
   </li>
-  
+
   <li><a name="org_skip" id="org_skip">テストのスキップ</a>
     <ul>
       <li>IUTEST_SKIP<br />
@@ -539,7 +540,7 @@ IUTEST(SkipTest, Skip)
       </li>
     </ul>
   </li>
-  
+
   <li><a name="org_listener" id="org_listener">イベントリスナー</a>
     <ul>
       <li>ProgressPrintListener<br />
@@ -552,7 +553,7 @@ IUTEST(SkipTest, Skip)
       </li>
     </ul>
   </li>
-  
+
   <li><a name="org_prod" id="org_prod">Private コードのテスト</a>
     <ul>
       <li>PEEP<br />
@@ -575,7 +576,7 @@ IUTEST(ProdTest, Peep)
   IUTEST_PEEP_GET(hoge, Hoge, m_x) = 4;
   IUTEST_ASSERT_EQ(4, IUTEST_PEEP_GET(hoge, Hoge, m_x));
   IUTEST_ASSERT_EQ(4, IUTEST_PEEP_GET(hoge, Hoge, GetX)());
-  
+
   IUTEST_PEEP(Hoge, m_x) hoge_x(&amp;hoge);
   hoge_x = 5;
   IUTEST_ASSERT_EQ(5, hoge_x);
@@ -706,7 +707,7 @@ Matcher の種類については Doxygen 生成のドキュメントを確認し
 </div> <!-- end of contents -->
 
 <br />
-<div class="copyright">Copyright (c) 2011-2019, Takazumi-Shirayanagi, All rights reserved.</div>
+<div class="copyright">Copyright (c) 2011-2020, Takazumi-Shirayanagi, All rights reserved.</div>
 
 </body>
 </html>

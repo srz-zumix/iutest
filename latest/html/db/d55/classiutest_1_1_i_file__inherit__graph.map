@@ -1,9 +1,9 @@
 <map id="iutest::IFile" name="iutest::IFile">
-<area shape="rect" id="node1" title="ファイルクラスインターフェイス" alt="" coords="213,80,299,107"/>
-<area shape="rect" id="node4" title="何もしない IFile インターフェースクラス" alt="" coords="5,155,176,181"/>
-<area shape="rect" id="node5" href="$de/d67/classiutest_1_1_stdio_file.html" title="標準ファイルクラス" alt="" coords="200,155,312,181"/>
-<area shape="rect" id="node7" href="$da/d94/classiutest_1_1_string_stream_file.html" title="文字列バッファ書き込み IFile インターフェースクラス" alt="" coords="337,155,495,181"/>
-<area shape="rect" id="node2" title="出力ストリームインターフェイス" alt="" coords="76,5,247,32"/>
-<area shape="rect" id="node3" title="入力ストリームインターフェイス" alt="" coords="271,5,433,32"/>
-<area shape="rect" id="node6" href="$d4/d62/classiutest_1_1_std_error_file.html" title=" " alt="" coords="191,229,321,256"/>
+<area shape="rect" id="node1" title="ファイルクラスインターフェイス" alt="" coords="235,80,329,107"/>
+<area shape="rect" id="node4" title="何もしない IFile インターフェースクラス" alt="" coords="5,155,196,181"/>
+<area shape="rect" id="node5" href="$de/d67/classiutest_1_1_stdio_file.html" title="標準ファイルクラス" alt="" coords="221,155,343,181"/>
+<area shape="rect" id="node7" href="$da/d94/classiutest_1_1_string_stream_file.html" title="文字列バッファ書き込み IFile インターフェースクラス" alt="" coords="368,155,543,181"/>
+<area shape="rect" id="node2" title="出力ストリームインターフェイス" alt="" coords="86,5,273,32"/>
+<area shape="rect" id="node3" title="入力ストリームインターフェイス" alt="" coords="297,5,472,32"/>
+<area shape="rect" id="node6" href="$d4/d62/classiutest_1_1_std_error_file.html" title=" " alt="" coords="211,229,353,256"/>
 </map>

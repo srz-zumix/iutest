@@ -1,3 +1,4 @@
 <map id="クラス階層図" name="クラス階層図">
-<area shape="rect" id="node1" href="$dc/d05/structiutest_1_1_test_param_info.html" title="値のパラメータ化テストのパラメータ情報" alt="" coords="5,5,152,47"/>
+<area shape="rect" id="node1" title="ファイル/ライン/メッセージクラス" alt="" coords="5,5,220,32"/>
+<area shape="rect" id="node2" href="$d8/d3c/classiutest_1_1_test_part_result.html" title="テスト結果を示すクラス" alt="" coords="268,5,427,32"/>
 </map>

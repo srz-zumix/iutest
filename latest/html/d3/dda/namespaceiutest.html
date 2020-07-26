@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.8.15"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>iutest: iutest 名前空間</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.0.0</span>
+   &#160;<span id="projectnumber">1.17.1.0</span>
    </div>
   </td>
  </tr>
@@ -30,7 +30,7 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.8.15 -->
+<!-- 構築: Doxygen 1.8.17 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
 var searchBox = new SearchBox("searchBox", "../../search",false,'検索');
@@ -73,7 +73,7 @@ $(function() {
 <div class="contents">
 
 <p>iutest root namespace  
-<a href="#details">[詳解]</a></p>
+<a href="../../d3/dda/namespaceiutest.html#details">[詳解]</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 名前空間</h2></td></tr>
@@ -124,9 +124,6 @@ $(function() {
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d5b/classiutest_1_1_junit_xml_generator_listener.html">JunitXmlGeneratorListener</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">xml出力イベントリスナー  <a href="../../d7/d5b/classiutest_1_1_junit_xml_generator_listener.html#details">[詳解]</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dcc/classiutest_1_1_peep.html">Peep</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">private メンバーアクセスオブジェクト  <a href="../../dc/dcc/classiutest_1_1_peep.html#details">[詳解]</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/db3/classiutest_1_1_progress_print_listener.html">ProgressPrintListener</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">プログレス出力イベントリスナー  <a href="../../d6/db3/classiutest_1_1_progress_print_listener.html#details">[詳解]</a><br /></td></tr>
@@ -208,12 +205,15 @@ $(function() {
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 型定義</h2></td></tr>
-<tr class="memitem:ab91c3c8c1acf3d29da4a574f5cc053d2"><td class="memItemLeft" align="right" valign="top"><a id="ab91c3c8c1acf3d29da4a574f5cc053d2"></a>
-typedef detail::iu_stream&#160;</td><td class="memItemRight" valign="bottom"><b>iu_ostream</b></td></tr>
-<tr class="separator:ab91c3c8c1acf3d29da4a574f5cc053d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c16dea7e85fd3f9b1f7b29db472d920"><td class="memItemLeft" align="right" valign="top"><a id="a3c16dea7e85fd3f9b1f7b29db472d920"></a>
-typedef detail::iu_stream&#160;</td><td class="memItemRight" valign="bottom"><b>iu_stringstream</b></td></tr>
-<tr class="separator:a3c16dea7e85fd3f9b1f7b29db472d920"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad580a3333f0bae23ba713249d9e1863f"><td class="memItemLeft" align="right" valign="top"><a id="ad580a3333f0bae23ba713249d9e1863f"></a>
+typedef detail::iu_basic_ostream&lt; char, ::std::char_traits&lt; char &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>iu_ostream</b></td></tr>
+<tr class="separator:ad580a3333f0bae23ba713249d9e1863f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d184c8f4d38d264507479ab87884b37"><td class="memItemLeft" align="right" valign="top"><a id="a5d184c8f4d38d264507479ab87884b37"></a>
+typedef detail::iu_basic_ostream&lt; wchar_t, ::std::char_traits&lt; wchar_t &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>iu_wostream</b></td></tr>
+<tr class="separator:a5d184c8f4d38d264507479ab87884b37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e0f610803f23cdb76ce18c1918b873a"><td class="memItemLeft" align="right" valign="top"><a id="a8e0f610803f23cdb76ce18c1918b873a"></a>
+typedef iu_ostream&#160;</td><td class="memItemRight" valign="bottom"><b>iu_stringstream</b></td></tr>
+<tr class="separator:a8e0f610803f23cdb76ce18c1918b873a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a543a2a28ba663224cb511a4ae93877dc"><td class="memItemLeft" align="right" valign="top"><a id="a543a2a28ba663224cb511a4ae93877dc"></a>
 typedef detail::iuStreamMessage&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html#a543a2a28ba663224cb511a4ae93877dc">Message</a></td></tr>
 <tr class="memdesc:a543a2a28ba663224cb511a4ae93877dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Message クラス <br /></td></tr>
@@ -253,6 +253,9 @@ typedef detail::type_fit_t&lt; 8 &gt;::UInt&#160;</td><td class="memItemRight" v
 <tr class="memitem:afedd6af489cdd9a15cd1c006b6759f76"><td class="memItemLeft" align="right" valign="top"><a id="afedd6af489cdd9a15cd1c006b6759f76"></a>
 typedef <a class="el" href="../../d3/dda/namespaceiutest.html#a62aa2996f3c0266896c334cfcd7b6c50">UInt64</a>&#160;</td><td class="memItemRight" valign="bottom"><b>iu_off_t</b></td></tr>
 <tr class="separator:afedd6af489cdd9a15cd1c006b6759f76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c64ffa69a8e660e85d971fd6ca08dcc"><td class="memItemLeft" align="right" valign="top"><a id="a3c64ffa69a8e660e85d971fd6ca08dcc"></a>
+typedef detail::type_fit_t&lt; sizeof(ptrdiff_t)&gt;::UInt&#160;</td><td class="memItemRight" valign="bottom"><b>iu_uintptr_t</b></td></tr>
+<tr class="separator:a3c64ffa69a8e660e85d971fd6ca08dcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add3d75edff7febed1ad134ae3235f5dc"><td class="memItemLeft" align="right" valign="top"><a id="add3d75edff7febed1ad134ae3235f5dc"></a>
 typedef internal::TypeId&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a></td></tr>
 <tr class="memdesc:add3d75edff7febed1ad134ae3235f5dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">テスト識別型 <br /></td></tr>
@@ -283,21 +286,13 @@ typedef detail::StderrXmlGeneratorListenerBase&lt; <a class="el" href="../../d7/
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 関数</h2></td></tr>
 <tr class="memitem:abdd686869c9d13105c648526d03c57ab"><td class="memItemLeft" align="right" valign="top">void IUTEST_ATTRIBUTE_UNUSED_&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">InitIrisUnitTest</a> (int *pargc, char **argv)</td></tr>
-<tr class="memdesc:abdd686869c9d13105c648526d03c57ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">初期化  <a href="#abdd686869c9d13105c648526d03c57ab">[詳解]</a><br /></td></tr>
+<tr class="memdesc:abdd686869c9d13105c648526d03c57ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">初期化  <a href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab">[詳解]</a><br /></td></tr>
 <tr class="separator:abdd686869c9d13105c648526d03c57ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6013efe772402c9212f84b06e72cd203"><td class="memItemLeft" align="right" valign="top">void IUTEST_ATTRIBUTE_UNUSED_&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html#a6013efe772402c9212f84b06e72cd203">InitIrisUnitTest</a> (int *pargc, wchar_t **argv)</td></tr>
-<tr class="separator:a6013efe772402c9212f84b06e72cd203"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb670d325e5ba57eb8f4a83bb76501c7"><td class="memItemLeft" align="right" valign="top">void IUTEST_ATTRIBUTE_UNUSED_&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html#abb670d325e5ba57eb8f4a83bb76501c7">InitIrisUnitTest</a> (int *pargc, const char **argv)</td></tr>
-<tr class="separator:abb670d325e5ba57eb8f4a83bb76501c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accbc20f5e026c9a6fc4976b59789571e"><td class="memItemLeft" align="right" valign="top">void IUTEST_ATTRIBUTE_UNUSED_&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html#accbc20f5e026c9a6fc4976b59789571e">InitIrisUnitTest</a> (int *pargc, const wchar_t **argv)</td></tr>
-<tr class="separator:accbc20f5e026c9a6fc4976b59789571e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d7b06b8264f2033b410fe646f78c2c9"><td class="memItemLeft" align="right" valign="top">void IUTEST_ATTRIBUTE_UNUSED_&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html#a6d7b06b8264f2033b410fe646f78c2c9">InitIrisUnitTest</a> ()</td></tr>
-<tr class="separator:a6d7b06b8264f2033b410fe646f78c2c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af15fd0a68e4cbc64eca4d56446593163"><td class="memTemplParams" colspan="2">template&lt;typename CharType &gt; </td></tr>
 <tr class="memitem:af15fd0a68e4cbc64eca4d56446593163"><td class="memTemplItemLeft" align="right" valign="top">void IUTEST_ATTRIBUTE_UNUSED_&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html#af15fd0a68e4cbc64eca4d56446593163">InitIrisUnitTest</a> (::std::vector&lt; ::std::basic_string&lt; CharType &gt; &gt; &amp;argv)</td></tr>
 <tr class="separator:af15fd0a68e4cbc64eca4d56446593163"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae122192fab03fe831e82c32db2bbd3be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/d17/classiutest_1_1_environment.html">Environment</a> *IUTEST_ATTRIBUTE_UNUSED_&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html#ae122192fab03fe831e82c32db2bbd3be">AddGlobalTestEnvironment</a> (<a class="el" href="../../d3/d17/classiutest_1_1_environment.html">Environment</a> *env)</td></tr>
-<tr class="memdesc:ae122192fab03fe831e82c32db2bbd3be"><td class="mdescLeft">&#160;</td><td class="mdescRight">グローバル環境セットクラスの追加  <a href="#ae122192fab03fe831e82c32db2bbd3be">[詳解]</a><br /></td></tr>
+<tr class="memdesc:ae122192fab03fe831e82c32db2bbd3be"><td class="mdescLeft">&#160;</td><td class="mdescRight">グローバル環境セットクラスの追加  <a href="../../d3/dda/namespaceiutest.html#ae122192fab03fe831e82c32db2bbd3be">[詳解]</a><br /></td></tr>
 <tr class="separator:ae122192fab03fe831e82c32db2bbd3be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00bad00d18e4adf33fdb39f21306f4c8"><td class="memItemLeft" align="right" valign="top"><a id="a00bad00d18e4adf33fdb39f21306f4c8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>swap</b> (<a class="el" href="../../d6/d7f/classiutest_1_1any.html">any</a> &amp;lhs, <a class="el" href="../../d6/d7f/classiutest_1_1any.html">any</a> &amp;rhs)</td></tr>
@@ -358,10 +353,10 @@ const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memdesc:a8378a13fea823d34999165f7f4dba302"><td class="mdescLeft">&#160;</td><td class="mdescRight">テスト結果のメッセージを取得する（for compatible） <br /></td></tr>
 <tr class="separator:a8378a13fea823d34999165f7f4dba302"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1321b4a46ed9da0895a47f0370875e38"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d5f/classiutest_1_1_assertion_result.html">AssertionResult</a> IUTEST_ATTRIBUTE_UNUSED_&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html#a1321b4a46ed9da0895a47f0370875e38">FloatLE</a> (const char *expr1, const char *expr2, float val1, float val2)</td></tr>
-<tr class="memdesc:a1321b4a46ed9da0895a47f0370875e38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Float LE Formatter  <a href="#a1321b4a46ed9da0895a47f0370875e38">[詳解]</a><br /></td></tr>
+<tr class="memdesc:a1321b4a46ed9da0895a47f0370875e38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Float LE Formatter  <a href="../../d3/dda/namespaceiutest.html#a1321b4a46ed9da0895a47f0370875e38">[詳解]</a><br /></td></tr>
 <tr class="separator:a1321b4a46ed9da0895a47f0370875e38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ceceea2f7b45e7f7e337c01387e3d97"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d5f/classiutest_1_1_assertion_result.html">AssertionResult</a> IUTEST_ATTRIBUTE_UNUSED_&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html#a8ceceea2f7b45e7f7e337c01387e3d97">DoubleLE</a> (const char *expr1, const char *expr2, double val1, double val2)</td></tr>
-<tr class="memdesc:a8ceceea2f7b45e7f7e337c01387e3d97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Double LE Formatter  <a href="#a8ceceea2f7b45e7f7e337c01387e3d97">[詳解]</a><br /></td></tr>
+<tr class="memdesc:a8ceceea2f7b45e7f7e337c01387e3d97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Double LE Formatter  <a href="../../d3/dda/namespaceiutest.html#a8ceceea2f7b45e7f7e337c01387e3d97">[詳解]</a><br /></td></tr>
 <tr class="separator:a8ceceea2f7b45e7f7e337c01387e3d97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5e1f14a7e9af692a946985d2de08198"><td class="memItemLeft" align="right" valign="top"><a id="ac5e1f14a7e9af692a946985d2de08198"></a>
 inline ::std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html#ac5e1f14a7e9af692a946985d2de08198">EnvironmentString</a> (const char *name)</td></tr>
@@ -384,10 +379,6 @@ detail::iuParamGenerator&lt; bool &gt; IUTEST_ATTRIBUTE_UNUSED_&#160;</td><td cl
 <tr class="memitem:ga2f0d56dbeb39611fc7f569d84739912f"><td class="memTemplItemLeft" align="right" valign="top">detail::iuRandomFilterParamGenerator&lt; T, Filter &gt; IUTEST_ATTRIBUTE_UNUSED_&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga2f0d56dbeb39611fc7f569d84739912f">RandomGenerator</a> (const Filter &amp;filter, unsigned int seed=0)</td></tr>
 <tr class="memdesc:ga2f0d56dbeb39611fc7f569d84739912f"><td class="mdescLeft">&#160;</td><td class="mdescRight">乱数ジェネレータ  <a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga2f0d56dbeb39611fc7f569d84739912f">[詳解]</a><br /></td></tr>
 <tr class="separator:ga2f0d56dbeb39611fc7f569d84739912f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac93012a573d46ad7eba4201f8bb40851"><td class="memItemLeft" align="right" valign="top">
-detail::iuRandomParamsHolder IUTEST_ATTRIBUTE_UNUSED_&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac93012a573d46ad7eba4201f8bb40851">RandomValues</a> (size_t num, unsigned int seed=0)</td></tr>
-<tr class="memdesc:gac93012a573d46ad7eba4201f8bb40851"><td class="mdescLeft">&#160;</td><td class="mdescRight">乱数値パラメータ <br /></td></tr>
-<tr class="separator:gac93012a573d46ad7eba4201f8bb40851"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac6abe955506654f40f5f3aa68aa2349d"><td class="memTemplParams" colspan="2">
 template&lt;typename Container &gt; </td></tr>
 <tr class="memitem:gac6abe955506654f40f5f3aa68aa2349d"><td class="memTemplItemLeft" align="right" valign="top">detail::iuParamGenerator&lt; typename Container::value_type &gt; IUTEST_ATTRIBUTE_UNUSED_&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gac6abe955506654f40f5f3aa68aa2349d">ValuesIn</a> (Container container)</td></tr>
@@ -399,26 +390,10 @@ template&lt;typename Container &gt; </td></tr>
 <tr class="memitem:gad7bc6d96181e3e7209be2c07ddc909f7"><td class="memTemplParams" colspan="2">template&lt;typename Ite &gt; </td></tr>
 <tr class="memitem:gad7bc6d96181e3e7209be2c07ddc909f7"><td class="memTemplItemLeft" align="right" valign="top">detail::iuParamGenerator&lt; typename detail::IteratorTraits&lt; Ite &gt;::type &gt; IUTEST_ATTRIBUTE_UNUSED_&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gad7bc6d96181e3e7209be2c07ddc909f7">ValuesIn</a> (Ite begin, Ite end)</td></tr>
 <tr class="separator:gad7bc6d96181e3e7209be2c07ddc909f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga951d255252237b62f579ae4b72c66b86"><td class="memTemplParams" colspan="2">
-template&lt;typename ... Args&gt; </td></tr>
-<tr class="memitem:ga951d255252237b62f579ae4b72c66b86"><td class="memTemplItemLeft" align="right" valign="top">detail::iuValueArray&lt; Args... &gt; IUTEST_ATTRIBUTE_UNUSED_&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga951d255252237b62f579ae4b72c66b86">Values</a> (Args... args)</td></tr>
-<tr class="memdesc:ga951d255252237b62f579ae4b72c66b86"><td class="mdescLeft">&#160;</td><td class="mdescRight">値配列パラメータ <br /></td></tr>
-<tr class="separator:ga951d255252237b62f579ae4b72c66b86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa6075f95d9a7a1784623e0aebf6488bb"><td class="memTemplParams" colspan="2">
-template&lt;typename Generator1 , typename Generator2 &gt; </td></tr>
+<tr class="memitem:gaa6075f95d9a7a1784623e0aebf6488bb"><td class="memTemplParams" colspan="2">template&lt;typename Generator1 , typename Generator2 &gt; </td></tr>
 <tr class="memitem:gaa6075f95d9a7a1784623e0aebf6488bb"><td class="memTemplItemLeft" align="right" valign="top">detail::iuConcatParamHolder&lt; Generator1, Generator2 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb">Concat</a> (const Generator1 &amp;g1, const Generator2 &amp;g2)</td></tr>
-<tr class="memdesc:gaa6075f95d9a7a1784623e0aebf6488bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">パラメータの結合 <br /></td></tr>
+<tr class="memdesc:gaa6075f95d9a7a1784623e0aebf6488bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">値配列パラメータ  <a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb">[詳解]</a><br /></td></tr>
 <tr class="separator:gaa6075f95d9a7a1784623e0aebf6488bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1f15f9d0ca7db7b667c89361ca2666b7"><td class="memTemplParams" colspan="2">
-template&lt;typename ... Generator&gt; </td></tr>
-<tr class="memitem:ga1f15f9d0ca7db7b667c89361ca2666b7"><td class="memTemplItemLeft" align="right" valign="top">detail::iuCartesianProductHolder&lt; Generator... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga1f15f9d0ca7db7b667c89361ca2666b7">Combine</a> (const Generator &amp;... generators)</td></tr>
-<tr class="memdesc:ga1f15f9d0ca7db7b667c89361ca2666b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">複合条件パラメータ化 <br /></td></tr>
-<tr class="separator:ga1f15f9d0ca7db7b667c89361ca2666b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga014c8a9e6e4d5099970128c8174de99d"><td class="memTemplParams" colspan="2">
-template&lt;typename ... Generator&gt; </td></tr>
-<tr class="memitem:ga014c8a9e6e4d5099970128c8174de99d"><td class="memTemplItemLeft" align="right" valign="top">detail::iuPairwiseHolder&lt; Generator... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#ga014c8a9e6e4d5099970128c8174de99d">Pairwise</a> (const Generator &amp;... generators)</td></tr>
-<tr class="memdesc:ga014c8a9e6e4d5099970128c8174de99d"><td class="mdescLeft">&#160;</td><td class="mdescRight">複合条件パラメータ化(オールペア法) <br /></td></tr>
-<tr class="separator:ga014c8a9e6e4d5099970128c8174de99d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a089d4c220696dc46e2ef184fc945367c"><td class="memTemplParams" colspan="2"><a id="a089d4c220696dc46e2ef184fc945367c"></a>
 template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a089d4c220696dc46e2ef184fc945367c"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">PrintToString</a> (const T &amp;v)</td></tr>
@@ -447,7 +422,7 @@ iu_ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>iutest root namespace </p>
 <p>親パッケージ名参照用定義</p>
-<dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000002">非推奨:</a></b></dt><dd></dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000003">非推奨:</a></b></dt><dd></dd></dl>
 </div><h2 class="groupheader">関数詳解</h2>
 <a id="ae122192fab03fe831e82c32db2bbd3be"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae122192fab03fe831e82c32db2bbd3be">&#9670;&nbsp;</a></span>AddGlobalTestEnvironment()</h2>
@@ -482,51 +457,22 @@ iu_ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el
 </dl>
 <dl class="section return"><dt>戻り値</dt><dd>登録されたクラスアドレス </dd></dl>
 <dl class="section note"><dt>覚え書き</dt><dd>メモリ管理はしない。new した <a class="el" href="../../d3/d17/classiutest_1_1_environment.html" title="環境セットクラス">Environment</a> はユーザーが解放する </dd></dl>
-<dl class="section examples"><dt>各種例</dt><dd><a class="el" href="../../df/d25/main_8cpp-example.html#a4">main.cpp</a>.</dd>
+<dl class="section examples"><dt>各種例</dt><dd><a class="el" href="../../df/d25/main_8cpp-example.html#a2">main.cpp</a>.</dd>
 </dl>
 <div class="dynheader">
 呼び出し関係図:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/dda/namespaceiutest_ae122192fab03fe831e82c32db2bbd3be_cgraph.png" border="0" usemap="#d3/dda/namespaceiutest_ae122192fab03fe831e82c32db2bbd3be_cgraph" alt=""/></div>
 <map name="d3/dda/namespaceiutest_ae122192fab03fe831e82c32db2bbd3be_cgraph" id="d3/dda/namespaceiutest_ae122192fab03fe831e82c32db2bbd3be_cgraph">
-<area shape="rect"  title="ã°ã­ã¼ãã«ç°å¢ã»ããã¯ã©ã¹ã®è¿½å " alt="" coords="5,13,221,39"/>
-<area shape="rect"  href="../../d7/d8c/classiutest_1_1_test_env.html#aa4ad04d5148c7d8226ae00b8ae53ac77" title="ã°ã­ã¼ãã«ç°å¢ã»ããã¯ã©ã¹ã®è¿½å " alt="" coords="269,5,444,47"/>
+<area shape="rect" title="グローバル環境セットクラスの追加" alt="" coords="5,13,248,39"/>
+<area shape="rect" href="../../d7/d8c/classiutest_1_1_test_env.html#aa4ad04d5148c7d8226ae00b8ae53ac77" title="グローバル環境セットクラスの追加" alt="" coords="296,5,487,47"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="a2c2a408673b1b61fe00877f425a0f6c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c2a408673b1b61fe00877f425a0f6c6">&#9670;&nbsp;</a></span>any_cast() <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const T* iutest::any_cast </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d6/d7f/classiutest_1_1any.html">any</a> *&#160;</td>
-          <td class="paramname"><em>p</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>これはオーバーロードされたメンバ関数です。利便性のために用意されています。元の関数との違いは引き数のみです。 </p>
-
-</div>
-</div>
 <a id="ade2fcf3e0dbe9ef7d3ec55ed517f3a58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade2fcf3e0dbe9ef7d3ec55ed517f3a58">&#9670;&nbsp;</a></span>any_cast() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ade2fcf3e0dbe9ef7d3ec55ed517f3a58">&#9670;&nbsp;</a></span>any_cast() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -555,7 +501,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a5cf09ba5b34aa890067dd25a501664dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cf09ba5b34aa890067dd25a501664dd">&#9670;&nbsp;</a></span>any_cast() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cf09ba5b34aa890067dd25a501664dd">&#9670;&nbsp;</a></span>any_cast() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -570,6 +516,35 @@ template&lt;typename T &gt; </div>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d6/d7f/classiutest_1_1any.html">any</a> &amp;&#160;</td>
           <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>これはオーバーロードされたメンバ関数です。利便性のために用意されています。元の関数との違いは引き数のみです。 </p>
+
+</div>
+</div>
+<a id="a2c2a408673b1b61fe00877f425a0f6c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c2a408673b1b61fe00877f425a0f6c6">&#9670;&nbsp;</a></span>any_cast() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const T* iutest::any_cast </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d6/d7f/classiutest_1_1any.html">any</a> *&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -712,8 +687,55 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="af15fd0a68e4cbc64eca4d56446593163"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af15fd0a68e4cbc64eca4d56446593163">&#9670;&nbsp;</a></span>InitIrisUnitTest() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename CharType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void IUTEST_ATTRIBUTE_UNUSED_ iutest::InitIrisUnitTest </td>
+          <td>(</td>
+          <td class="paramtype">::std::vector&lt; ::std::basic_string&lt; CharType &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>argv</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>これはオーバーロードされたメンバ関数です。利便性のために用意されています。元の関数との違いは引き数のみです。 </p>
+<div class="dynheader">
+呼び出し関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d3/dda/namespaceiutest_af15fd0a68e4cbc64eca4d56446593163_cgraph.png" border="0" usemap="#d3/dda/namespaceiutest_af15fd0a68e4cbc64eca4d56446593163_cgraph" alt=""/></div>
+<map name="d3/dda/namespaceiutest_af15fd0a68e4cbc64eca4d56446593163_cgraph" id="d3/dda/namespaceiutest_af15fd0a68e4cbc64eca4d56446593163_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,167,32"/>
+<area shape="rect" href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701" title="フラグファイルをロード" alt="" coords="215,5,421,32"/>
+</map>
+</div>
+<div class="dynheader">
+被呼び出し関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d3/dda/namespaceiutest_af15fd0a68e4cbc64eca4d56446593163_icgraph.png" border="0" usemap="#d3/dda/namespaceiutest_af15fd0a68e4cbc64eca4d56446593163_icgraph" alt=""/></div>
+<map name="d3/dda/namespaceiutest_af15fd0a68e4cbc64eca4d56446593163_icgraph" id="d3/dda/namespaceiutest_af15fd0a68e4cbc64eca4d56446593163_icgraph">
+<area shape="rect" title=" " alt="" coords="215,5,376,32"/>
+<area shape="rect" href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab" title="初期化" alt="" coords="5,5,167,32"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="abdd686869c9d13105c648526d03c57ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdd686869c9d13105c648526d03c57ab">&#9670;&nbsp;</a></span>InitIrisUnitTest() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abdd686869c9d13105c648526d03c57ab">&#9670;&nbsp;</a></span>InitIrisUnitTest() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -753,259 +775,16 @@ template&lt;typename T &gt; </div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/dda/namespaceiutest_abdd686869c9d13105c648526d03c57ab_cgraph.png" border="0" usemap="#d3/dda/namespaceiutest_abdd686869c9d13105c648526d03c57ab_cgraph" alt=""/></div>
 <map name="d3/dda/namespaceiutest_abdd686869c9d13105c648526d03c57ab_cgraph" id="d3/dda/namespaceiutest_abdd686869c9d13105c648526d03c57ab_cgraph">
-<area shape="rect"  title="åæå" alt="" coords="5,5,152,32"/>
-<area shape="rect"  href="../../d3/dda/namespaceiutest.html#af15fd0a68e4cbc64eca4d56446593163" title=" " alt="" coords="200,5,347,32"/>
-<area shape="rect"  href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701" title="ãã©ã°ãã¡ã¤ã«ãã­ã¼ã" alt="" coords="395,5,584,32"/>
+<area shape="rect" title="初期化" alt="" coords="5,5,167,32"/>
+<area shape="rect" href="../../d3/dda/namespaceiutest.html#af15fd0a68e4cbc64eca4d56446593163" title=" " alt="" coords="215,5,376,32"/>
+<area shape="rect" href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701" title="フラグファイルをロード" alt="" coords="424,5,631,32"/>
 </map>
 </div>
-
-</div>
-</div>
-<a id="a6013efe772402c9212f84b06e72cd203"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6013efe772402c9212f84b06e72cd203">&#9670;&nbsp;</a></span>InitIrisUnitTest() <span class="overload">[2/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IUTEST_ATTRIBUTE_UNUSED_ iutest::InitIrisUnitTest </td>
-          <td>(</td>
-          <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>pargc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">wchar_t **&#160;</td>
-          <td class="paramname"><em>argv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>これはオーバーロードされたメンバ関数です。利便性のために用意されています。元の関数との違いは引き数のみです。 </p>
-<div class="dynheader">
-呼び出し関係図:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d3/dda/namespaceiutest_a6013efe772402c9212f84b06e72cd203_cgraph.png" border="0" usemap="#d3/dda/namespaceiutest_a6013efe772402c9212f84b06e72cd203_cgraph" alt=""/></div>
-<map name="d3/dda/namespaceiutest_a6013efe772402c9212f84b06e72cd203_cgraph" id="d3/dda/namespaceiutest_a6013efe772402c9212f84b06e72cd203_cgraph">
-<area shape="rect"  title=" " alt="" coords="5,5,152,32"/>
-<area shape="rect"  href="../../d3/dda/namespaceiutest.html#af15fd0a68e4cbc64eca4d56446593163" title=" " alt="" coords="200,5,347,32"/>
-<area shape="rect"  href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701" title="ãã©ã°ãã¡ã¤ã«ãã­ã¼ã" alt="" coords="395,5,584,32"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="abb670d325e5ba57eb8f4a83bb76501c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb670d325e5ba57eb8f4a83bb76501c7">&#9670;&nbsp;</a></span>InitIrisUnitTest() <span class="overload">[3/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IUTEST_ATTRIBUTE_UNUSED_ iutest::InitIrisUnitTest </td>
-          <td>(</td>
-          <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>pargc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char **&#160;</td>
-          <td class="paramname"><em>argv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>これはオーバーロードされたメンバ関数です。利便性のために用意されています。元の関数との違いは引き数のみです。 </p>
-<div class="dynheader">
-呼び出し関係図:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d3/dda/namespaceiutest_abb670d325e5ba57eb8f4a83bb76501c7_cgraph.png" border="0" usemap="#d3/dda/namespaceiutest_abb670d325e5ba57eb8f4a83bb76501c7_cgraph" alt=""/></div>
-<map name="d3/dda/namespaceiutest_abb670d325e5ba57eb8f4a83bb76501c7_cgraph" id="d3/dda/namespaceiutest_abb670d325e5ba57eb8f4a83bb76501c7_cgraph">
-<area shape="rect"  title=" " alt="" coords="5,5,152,32"/>
-<area shape="rect"  href="../../d3/dda/namespaceiutest.html#af15fd0a68e4cbc64eca4d56446593163" title=" " alt="" coords="200,5,347,32"/>
-<area shape="rect"  href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701" title="ãã©ã°ãã¡ã¤ã«ãã­ã¼ã" alt="" coords="395,5,584,32"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="accbc20f5e026c9a6fc4976b59789571e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#accbc20f5e026c9a6fc4976b59789571e">&#9670;&nbsp;</a></span>InitIrisUnitTest() <span class="overload">[4/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IUTEST_ATTRIBUTE_UNUSED_ iutest::InitIrisUnitTest </td>
-          <td>(</td>
-          <td class="paramtype">int *&#160;</td>
-          <td class="paramname"><em>pargc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const wchar_t **&#160;</td>
-          <td class="paramname"><em>argv</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>これはオーバーロードされたメンバ関数です。利便性のために用意されています。元の関数との違いは引き数のみです。 </p>
-<div class="dynheader">
-呼び出し関係図:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d3/dda/namespaceiutest_accbc20f5e026c9a6fc4976b59789571e_cgraph.png" border="0" usemap="#d3/dda/namespaceiutest_accbc20f5e026c9a6fc4976b59789571e_cgraph" alt=""/></div>
-<map name="d3/dda/namespaceiutest_accbc20f5e026c9a6fc4976b59789571e_cgraph" id="d3/dda/namespaceiutest_accbc20f5e026c9a6fc4976b59789571e_cgraph">
-<area shape="rect"  title=" " alt="" coords="5,5,152,32"/>
-<area shape="rect"  href="../../d3/dda/namespaceiutest.html#af15fd0a68e4cbc64eca4d56446593163" title=" " alt="" coords="200,5,347,32"/>
-<area shape="rect"  href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701" title="ãã©ã°ãã¡ã¤ã«ãã­ã¼ã" alt="" coords="395,5,584,32"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a6d7b06b8264f2033b410fe646f78c2c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d7b06b8264f2033b410fe646f78c2c9">&#9670;&nbsp;</a></span>InitIrisUnitTest() <span class="overload">[5/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IUTEST_ATTRIBUTE_UNUSED_ iutest::InitIrisUnitTest </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>これはオーバーロードされたメンバ関数です。利便性のために用意されています。元の関数との違いは引き数のみです。 </p>
-
-</div>
-</div>
-<a id="af15fd0a68e4cbc64eca4d56446593163"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af15fd0a68e4cbc64eca4d56446593163">&#9670;&nbsp;</a></span>InitIrisUnitTest() <span class="overload">[6/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename CharType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IUTEST_ATTRIBUTE_UNUSED_ iutest::InitIrisUnitTest </td>
-          <td>(</td>
-          <td class="paramtype">::std::vector&lt; ::std::basic_string&lt; CharType &gt; &gt; &amp;&#160;</td>
-          <td class="paramname"><em>argv</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>これはオーバーロードされたメンバ関数です。利便性のために用意されています。元の関数との違いは引き数のみです。 </p>
-<div class="dynheader">
-呼び出し関係図:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d3/dda/namespaceiutest_af15fd0a68e4cbc64eca4d56446593163_cgraph.png" border="0" usemap="#d3/dda/namespaceiutest_af15fd0a68e4cbc64eca4d56446593163_cgraph" alt=""/></div>
-<map name="d3/dda/namespaceiutest_af15fd0a68e4cbc64eca4d56446593163_cgraph" id="d3/dda/namespaceiutest_af15fd0a68e4cbc64eca4d56446593163_cgraph">
-<area shape="rect"  title=" " alt="" coords="5,5,152,32"/>
-<area shape="rect"  href="../../d7/d8c/classiutest_1_1_test_env.html#aa78aa2f004d67eeabecfb1ac74648701" title="ãã©ã°ãã¡ã¤ã«ãã­ã¼ã" alt="" coords="200,5,389,32"/>
-</map>
-</div>
-<div class="dynheader">
-被呼び出し関係図:</div>
-<div class="dyncontent">
-<div class="center"><img src="../../d3/dda/namespaceiutest_af15fd0a68e4cbc64eca4d56446593163_icgraph.png" border="0" usemap="#d3/dda/namespaceiutest_af15fd0a68e4cbc64eca4d56446593163_icgraph" alt=""/></div>
-<map name="d3/dda/namespaceiutest_af15fd0a68e4cbc64eca4d56446593163_icgraph" id="d3/dda/namespaceiutest_af15fd0a68e4cbc64eca4d56446593163_icgraph">
-<area shape="rect"  title=" " alt="" coords="200,5,347,32"/>
-<area shape="rect"  href="../../d3/dda/namespaceiutest.html#abdd686869c9d13105c648526d03c57ab" title="åæå" alt="" coords="5,5,152,32"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a340fdbef63bc92cf49707828517f7d70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a340fdbef63bc92cf49707828517f7d70">&#9670;&nbsp;</a></span>unsafe_any_cast() <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const T* iutest::unsafe_any_cast </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="../../d6/d7f/classiutest_1_1any.html">any</a> *&#160;</td>
-          <td class="paramname"><em>p</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>これはオーバーロードされたメンバ関数です。利便性のために用意されています。元の関数との違いは引き数のみです。 </p>
 
 </div>
 </div>
 <a id="ac64e381906dc04457bcefc22c9b3dc21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac64e381906dc04457bcefc22c9b3dc21">&#9670;&nbsp;</a></span>unsafe_any_cast() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac64e381906dc04457bcefc22c9b3dc21">&#9670;&nbsp;</a></span>unsafe_any_cast() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1034,7 +813,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ac369c5b3694e6883ffbd5b80e4a7d22c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac369c5b3694e6883ffbd5b80e4a7d22c">&#9670;&nbsp;</a></span>unsafe_any_cast() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac369c5b3694e6883ffbd5b80e4a7d22c">&#9670;&nbsp;</a></span>unsafe_any_cast() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1062,12 +841,41 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="a340fdbef63bc92cf49707828517f7d70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a340fdbef63bc92cf49707828517f7d70">&#9670;&nbsp;</a></span>unsafe_any_cast() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const T* iutest::unsafe_any_cast </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d6/d7f/classiutest_1_1any.html">any</a> *&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>これはオーバーロードされたメンバ関数です。利便性のために用意されています。元の関数との違いは引き数のみです。 </p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年05月04日(月) 20時55分18秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年07月26日(日) 09時00分12秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
-</a> 1.8.15
+</a> 1.8.17
 </small></address>
 </body>
 </html>
