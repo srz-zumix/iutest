@@ -63,6 +63,19 @@ jobs:
         make -C test check_stdlib
         make -C test -j8
         make -C test test
+  zapcc-basic-test:
+    runs-on: ubuntu-18.04
+    container: docker://srzzumix/zapcc
+    needs: prepare
+    steps:
+    - uses: actions/checkout@master
+    - name: zapcc test
+      run: |
+        make -C test clean
+        make -C test showcxxversion
+        make -C test check_stdlib
+        make -C test -j8
+        make -C test test
   arm-none-eabi:
     runs-on: ubuntu-18.04
     needs: prepare
