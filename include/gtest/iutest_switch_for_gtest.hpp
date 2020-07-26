@@ -566,6 +566,13 @@ namespace testing
 
 #endif
 
+#else
+
+namespace testing
+{
+    typedef TestCase    TestSuite;
+}
+
 #endif
 
 #if defined(INCG_IRIS_IUTEST_HPP_)
