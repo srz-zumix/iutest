@@ -9,6 +9,8 @@ on:
       - 'docs/**'
       - '.github/actions/update-ghpages/**'
       - '.github/workflows/ghpages.yml'
+  tags:
+    - v*
 
 jobs:
   update_document:
