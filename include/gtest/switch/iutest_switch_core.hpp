@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -62,12 +62,20 @@
 #define SCOPED_TRACE        IUTEST_SCOPED_TRACE
 #define GTEST_FLAG          IUTEST_FLAG
 
-#define TYPED_TEST_CASE     IUTEST_TYPED_TEST_CASE
 #define TYPED_TEST          IUTEST_TYPED_TEST
-#define TYPED_TEST_CASE_P   IUTEST_TYPED_TEST_CASE_P
 #define TYPED_TEST_P        IUTEST_TYPED_TEST_P
+
+#if defined(TYPED_TEST_SUITE)
+#define TYPED_TEST_SUITE                IUTEST_TYPED_TEST_CASE
+#define TYPED_TEST_SUITE_P              IUTEST_TYPED_TEST_CASE_P
+#define REGISTER_TYPED_TEST_SUITE_P     IUTEST_REGISTER_TYPED_TEST_CASE_P
+#define INSTANTIATE_TYPED_TEST_SUITE_P  IUTEST_INSTANTIATE_TYPED_TEST_CASE_P
+#else
+#define TYPED_TEST_CASE                 IUTEST_TYPED_TEST_CASE
+#define TYPED_TEST_CASE_P               IUTEST_TYPED_TEST_CASE_P
 #define REGISTER_TYPED_TEST_CASE_P      IUTEST_REGISTER_TYPED_TEST_CASE_P
 #define INSTANTIATE_TYPED_TEST_CASE_P   IUTEST_INSTANTIATE_TYPED_TEST_CASE_P
+#endif
 
 #define GTEST_AMBIGUOUS_ELSE_BLOCKER_   IUTEST_AMBIGUOUS_ELSE_BLOCKER_
 
@@ -147,21 +155,29 @@
 
 #define IUTEST_FRIEND_TEST          FRIEND_TEST
 #define IUTEST_FRIEND_TYPED_TEST    template<typename T>FRIEND_TEST
-#define IUTEST_FRIEND_TYPED_TEST_P_DECLARATION(test_case_name, test_name)   \
-    namespace GTEST_SUITE_NAMESPACE_(test_case_name) { template<typename T>class test_name; }
-#define IUTEST_FRIEND_TYPED_TEST_P(test_case_name, test_name)               \
-    template<typename T>friend class GTEST_SUITE_NAMESPACE_(test_case_name)::test_name
+#define IUTEST_FRIEND_TYPED_TEST_P_DECLARATION(test_suite_name, test_name)   \
+    namespace GTEST_SUITE_NAMESPACE_(test_suite_name) { template<typename T>class test_name; }
+#define IUTEST_FRIEND_TYPED_TEST_P(test_suite_name, test_name)               \
+    template<typename T>friend class GTEST_SUITE_NAMESPACE_(test_suite_name)::test_name
 #define IUTEST_SCOPED_TRACE         SCOPED_TRACE
 #define IUTEST_FLAG                 GTEST_FLAG
 
-#define IUTEST_TYPED_TEST_CASE      TYPED_TEST_CASE
 #define IUTEST_TYPED_TEST           TYPED_TEST
 #define IUTEST_T                    TYPED_TEST
-#define IUTEST_TYPED_TEST_CASE_P    TYPED_TEST_CASE_P
 #define IUTEST_TYPED_TEST_P         TYPED_TEST_P
 #define IUTEST_TP                   TYPED_TEST_P
+
+#if defined(TYPED_TEST_SUITE)
+#define IUTEST_TYPED_TEST_CASE                  TYPED_TEST_SUITE
+#define IUTEST_TYPED_TEST_CASE_P                TYPED_TEST_SUITE_P
+#define IUTEST_REGISTER_TYPED_TEST_CASE_P       REGISTER_TYPED_TEST_SUITE_P
+#define IUTEST_INSTANTIATE_TYPED_TEST_CASE_P    INSTANTIATE_TYPED_TEST_SUITE_P
+#else
+#define IUTEST_TYPED_TEST_CASE                  TYPED_TEST_CASE
+#define IUTEST_TYPED_TEST_CASE_P                TYPED_TEST_CASE_P
 #define IUTEST_REGISTER_TYPED_TEST_CASE_P       REGISTER_TYPED_TEST_CASE_P
 #define IUTEST_INSTANTIATE_TYPED_TEST_CASE_P    INSTANTIATE_TYPED_TEST_CASE_P
+#endif
 
 #define IUTEST_AMBIGUOUS_ELSE_BLOCKER_  GTEST_AMBIGUOUS_ELSE_BLOCKER_
 

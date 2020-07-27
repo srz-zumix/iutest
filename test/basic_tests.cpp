@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -50,15 +50,15 @@ IUTEST(CommandLineFlagTest, CanBeAccessed)
     IUTEST_EXPECT_NE(0, x);
 }
 
-IUTEST(TestInformation, CurrentTestCase)
+IUTEST(TestInformation, CurrentTestSuite)
 {
-    IUTEST_ASSERT_STREQ("TestInformation", ::iutest::UnitTest::GetInstance()->current_test_case()->name());
-    IUTEST_ASSERT_TRUE(::iutest::UnitTest::GetInstance()->current_test_case()->should_run());
+    IUTEST_ASSERT_STREQ("TestInformation", ::iuutil::GetCurrentTestSuite()->name());
+    IUTEST_ASSERT_TRUE(::iuutil::GetCurrentTestSuite()->should_run());
 }
 
 IUTEST(TestInformation, CurrentTestInfo)
 {
-    IUTEST_ASSERT_STREQ("TestInformation", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+    IUTEST_ASSERT_STREQ("TestInformation", ::iuutil::GetTestSuiteName(::iutest::UnitTest::GetInstance()->current_test_info()));
     IUTEST_ASSERT_STREQ("CurrentTestInfo", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
     IUTEST_ASSERT_TRUE(::iutest::UnitTest::GetInstance()->current_test_info()->should_run());
 #if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x06)
@@ -73,20 +73,20 @@ IUTEST(TestInformation, DISABLED_Test)
 
 IUTEST(TestInformation, TestInfoCount)
 {
-    IUTEST_ASSERT_EQ(4, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count());
-    IUTEST_ASSERT_EQ(3, ::iutest::UnitTest::GetInstance()->current_test_case()->test_to_run_count());
-    IUTEST_ASSERT_EQ(3, ::iutest::UnitTest::GetInstance()->current_test_case()->successful_test_count());
-    IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->failed_test_count());
-    IUTEST_ASSERT_EQ(1, ::iutest::UnitTest::GetInstance()->current_test_case()->disabled_test_count());
+    IUTEST_ASSERT_EQ(4, ::iuutil::GetCurrentTestSuite()->total_test_count());
+    IUTEST_ASSERT_EQ(3, ::iuutil::GetCurrentTestSuite()->test_to_run_count());
+    IUTEST_ASSERT_EQ(3, ::iuutil::GetCurrentTestSuite()->successful_test_count());
+    IUTEST_ASSERT_EQ(0, ::iuutil::GetCurrentTestSuite()->failed_test_count());
+    IUTEST_ASSERT_EQ(1, ::iuutil::GetCurrentTestSuite()->disabled_test_count());
 #if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x07)
-    IUTEST_ASSERT_EQ(1, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_disabled_test_count());
-    IUTEST_ASSERT_EQ(4, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_test_count());
+    IUTEST_ASSERT_EQ(1, ::iuutil::GetCurrentTestSuite()->reportable_disabled_test_count());
+    IUTEST_ASSERT_EQ(4, ::iuutil::GetCurrentTestSuite()->reportable_test_count());
 #endif
 #if !defined(IUTEST_USE_GTEST)
-    IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->test_run_skipped_count());
-    IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_test_run_skipped_count());
-    IUTEST_ASSERT_EQ(1, ::iutest::UnitTest::GetInstance()->current_test_case()->skip_test_count());
-    IUTEST_ASSERT_EQ(1, ::iutest::UnitTest::GetInstance()->current_test_case()->reportable_skip_test_count());
+    IUTEST_ASSERT_EQ(0, ::iuutil::GetCurrentTestSuite()->test_run_skipped_count());
+    IUTEST_ASSERT_EQ(0, ::iuutil::GetCurrentTestSuite()->reportable_test_run_skipped_count());
+    IUTEST_ASSERT_EQ(1, ::iuutil::GetCurrentTestSuite()->skip_test_count());
+    IUTEST_ASSERT_EQ(1, ::iuutil::GetCurrentTestSuite()->reportable_skip_test_count());
 #endif
 }
 
