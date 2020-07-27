@@ -24,6 +24,22 @@ namespace iuutil
 // function
 
 /**
+ * @brief   現在の TestSuite を取得
+*/
+inline const ::iutest::TestSuite* GetCurrentTestSuite()
+{
+    return ::iutest::UnitTest::GetInstance()->current_test_suite();
+}
+
+/**
+ * @brief   Get TestSuite Name
+*/
+inline const ::std::string GetTestSuiteName(const ::iutest::TestInfo* test_info)
+{
+    return test_info->test_suite_name();
+}
+
+/**
  * @brief   テスト名を取得
 */
 inline ::std::string TestFullName(const ::iutest::TestInfo* test_info)
@@ -340,7 +356,7 @@ inline const ::iutest::TestResult* GetTestSuiteAdHocResult(const ::iutest::TestS
 */
 inline const ::iutest::TestResult* GetCurrentTestSuiteAdHocResult()
 {
-    return GetTestSuiteAdHocResult(::iutest::UnitTest::GetInstance()->current_test_suite());
+    return GetTestSuiteAdHocResult(GetCurrentTestSuite());
 }
 
 /**
@@ -359,7 +375,10 @@ inline const ::iutest::TestResult* GetCurrentTestResult()
     return GetTestResult(::iutest::UnitTest::GetInstance()->current_test_info());
 }
 
-#if !defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
+#if IUTEST_HAS_TESTCASE
+
+inline const ::iutest::TestCase* GetCurrentTestCase() { return GetCurrentTestSuite(); }
+inline const ::std::string GetTestCaseName(const ::iutest::TestInfo* test_info) { return GetTestSuiteName(test_info); }
 
 inline ::std::string TestCaseNameRemoveIndexName(const char* name) { return TestSuiteNameRemoveIndexName(name); }
 inline ::std::string TestCaseNameRemoveInstantiateAndIndexName(const char* name) { return TestSuiteNameRemoveInstantiateAndIndexName(name); }
@@ -385,7 +404,6 @@ inline const ::iutest::TestResult* GetCurrentTestCaseAdHocResult()
 {
     return GetCurrentTestSuiteAdHocResult();
 }
-
 
 #endif
 

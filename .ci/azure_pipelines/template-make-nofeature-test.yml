@@ -28,8 +28,6 @@ jobs:
           NOFEATURE_CONFIG: IUTEST_NO_VARIADIC_MACROS
         No_SFINAE:
           NOFEATURE_CONFIG: IUTEST_NO_SFINAE
-        Remove_LegacyTestCaseApi:
-          NOFEATURE_CONFIG: IUTEST_REMOVE_LEGACY_TEST_CASEAPI_
     pool:
       vmImage: ${{ parameters.vmImage }}
     steps:

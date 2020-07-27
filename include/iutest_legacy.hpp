@@ -15,9 +15,9 @@
 #ifndef INCG_IRIS_IUTEST_LEGACY_HPP_E7B75232_2AB9_44F5_B9C5_CF62CD3FF958_
 #define INCG_IRIS_IUTEST_LEGACY_HPP_E7B75232_2AB9_44F5_B9C5_CF62CD3FF958_
 
-#if !defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
-
 #include "internal/iutest_port.hpp"
+
+#if IUTEST_HAS_TESTCASE
 
 namespace iutest
 {
@@ -81,8 +81,8 @@ struct SuiteApiResolver : T
 
 #else
 
-#define IUTEST_GET_SETUP_TESTSUITE(type, file, line)       ((void)(file, line), type::SetUpTestSuite)
-#define IUTEST_GET_TEARDOWN_TESTSUITE(type, file, line)    ((void)(file, line), type::TearDownTestSuite)
+#define IUTEST_GET_SETUP_TESTSUITE(type, file, line)       ((void)(file), (void)(line), type::SetUpTestSuite)
+#define IUTEST_GET_TEARDOWN_TESTSUITE(type, file, line)    ((void)(file), (void)(line), type::TearDownTestSuite)
 
 #endif
 

@@ -807,6 +807,18 @@
 */
 
 /**
+ * @brief   iutest has testsuite api
+*/
+#define IUTEST_HAS_TESTSUITE    1
+
+/**
+ * @brief   iutest has testcase api
+*/
+#if !defined(IUTEST_HAS_TESTCASE)
+#  define IUTEST_HAS_TESTCASE   1
+#endif
+
+/**
  * @private
  * @{
 */

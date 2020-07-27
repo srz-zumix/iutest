@@ -119,7 +119,7 @@ public:
     /** イベントリスナーの取得 */
     TestEventListeners& listeners()     const { return TestEnv::event_listeners(); }
 
-#if !defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
+#if IUTEST_HAS_TESTCASE
     const TestCase*     GetTestCase(int index)  const { return m_testsuites[index]; }
     const TestCase*     current_test_case() const { return m_current_testsuite; }
     int                 total_test_case_count() const { return static_cast<int>(m_testsuites.size()); }

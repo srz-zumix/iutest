@@ -174,7 +174,7 @@ protected:
 public:
     static void SetUpTestSuite() {}      //!< test suite setup
     static void TearDownTestSuite() {}   //!< test suite tear down
-#if !defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
+#if IUTEST_HAS_TESTCASE
     static void SetUpTestCase() {}
     static void TearDownTestCase() {}
 #endif

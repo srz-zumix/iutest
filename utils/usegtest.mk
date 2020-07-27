@@ -9,7 +9,8 @@
 ifdef GTEST_ROOT
 
 GTEST_ROOT_=$(subst \,/,$(GTEST_ROOT))
-ifeq ($(shell test -e $(GTEST_ROOT_)/googletest/include && echo -n yes), yes)
+ifeq ($(findstring yes, $(shell test -e $(GTEST_ROOT_)/googletest/include && echo -n yes)), yes)
+GTEST_GMOCK_ROOT:=${GTEST_ROOT_}
 GTEST_ROOT_:=$(GTEST_ROOT_)/googletest
 endif
 
@@ -18,17 +19,18 @@ endif
 ifdef GMOCK_ROOT
 
 GMOCK_ROOT_=$(subst \,/,$(GMOCK_ROOT))
-ifeq ($(shell test -e $(GMOCK_ROOT_)/googlemock/include && echo -n yes), yes)
+ifeq ($(findstring yes, $(shell test -e $(GMOCK_ROOT_)/googlemock/include && echo -n yes)), yes)
+GTEST_GMOCK_ROOT:=${GMOCK_ROOT_}
 GMOCK_ROOT_:=$(GMOCK_ROOT_)/googlemock
 endif
 
 ifndef GTEST_ROOT_
 
-ifeq ($(shell test -e $(GMOCK_ROOT_)/gtest/include && echo -n yes), yes)
+ifeq ($(findstring yes, $(shell test -e $(GMOCK_ROOT_)/gtest/include && echo -n yes)), yes)
 GTEST_ROOT_:=$(GMOCK_ROOT_)/gtest
 endif
 
-ifeq ($(shell test -e $(GMOCK_ROOT_)/googletest/include && echo -n yes), yes)
+ifeq ($(findstring yes, $(shell test -e $(GMOCK_ROOT_)/googletest/include && echo -n yes)), yes)
 GTEST_ROOT_:=$(GMOCK_ROOT_)/googletest
 endif
 
@@ -45,7 +47,25 @@ ifdef GTEST_ROOT_
 
 GTEST_INC_=-I$(GTEST_ROOT_)/include
 #GTEST_LIB_=$(GTEST_ROOT_)/make/gtest.a
+
+ifeq ($(findstring yes, $(shell test -e $(GTEST_ROOT_)/make/gtest-all.o && echo -n yes)), yes)
+
 GTEST_LIB_=$(GTEST_ROOT_)/make/gtest-all.o
+
+else
+
+ifeq ($(findstring yes, $(shell test -e $(GTEST_GMOCK_ROOT)/build/lib/libgtest.a && echo -n yes)), yes)
+
+GTEST_LIB_=-L $(GTEST_GMOCK_ROOT)/build/lib/ -lgtest
+
+else
+
+GTEST_LIB_=-lgtest
+
+endif
+
+endif
+
 
 else
 
@@ -70,7 +90,7 @@ ifdef GTEST_ROOT_
 
 ifndef GMOCK_ROOT_
 
-ifeq ($(shell test -e $(GTEST_ROOT_)/../googlemock/include && echo -n yes), yes)
+ifeq ($(findstring yes, $(shell test -e $(GTEST_ROOT_)/../googlemock/include && echo -n yes)), yes)
 GMOCK_ROOT_=$(GTEST_ROOT_)/../googlemock
 endif
 

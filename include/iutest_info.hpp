@@ -56,7 +56,7 @@ public:
 public:
     /** test suite 名の取得 */
     const   char*   test_suite_name()    const { return m_testsuite->test_suite_name(); }
-#if !defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
+#if IUTEST_HAS_TESTCASE
     const   char*   test_case_name()    const { return m_testsuite->test_suite_name(); }
 #endif
     /** test 名の取得 */
