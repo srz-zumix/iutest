@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -22,7 +22,7 @@
 #if IUTEST_HAS_PACKAGE
 
 #define IUTEST_EXPECT_PACKAGENAME(package_name, testcase_name)  \
-    IUTEST_EXPECT_PACKAGENAME_( package_name, testcase_name, ::iutest::UnitTest::GetInstance()->current_test_case()->name())
+    IUTEST_EXPECT_PACKAGENAME_( package_name, testcase_name, ::iuutil::GetCurrentTestSuite()->name())
 
 #define IUTEST_EXPECT_PACKAGENAME_(package_name, testcase_name, name)   \
     IUTEST_EXPECT_STREQ( #package_name "." #testcase_name, name)
@@ -30,7 +30,7 @@
 #else
 
 #define IUTEST_EXPECT_PACKAGENAME(package_name, testcase_name)  \
-    IUTEST_EXPECT_PACKAGENAME_( package_name, testcase_name, ::iutest::UnitTest::GetInstance()->current_test_case()->name())
+    IUTEST_EXPECT_PACKAGENAME_( package_name, testcase_name, ::iuutil::GetCurrentTestSuite()->name())
 
 #define IUTEST_EXPECT_PACKAGENAME_(package_name, testcase_name, name)   \
     IUTEST_EXPECT_STREQ( #testcase_name, name)
@@ -71,7 +71,7 @@ IUTEST_PACKAGE(pkg1)
 
     IUTEST_TYPED_TEST_P(PackageTypeParamTest, A)
     {
-        const char* name = ::iutest::UnitTest::GetInstance()->current_test_case()->name();
+        const char* name = ::iuutil::GetCurrentTestSuite()->name();
         IUTEST_EXPECT_PACKAGENAME_(pkg1, PackageTypeParamTest, ::iuutil::TestCaseNameRemoveInstantiateAndIndexName(name));
     }
 
