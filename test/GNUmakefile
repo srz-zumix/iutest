@@ -46,16 +46,16 @@ STRICT_CXXFLAGS:= -Wformat=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wpointer-
 # STRICT_CXXFLAGS+= -Wconversion
 STRICT_CXXFLAGS+= -Wsystem-headers
 STRICT_CXXFLAGS+= -Wno-nullability-completeness -Wno-expansion-to-defined -Wno-c++11-inline-namespace -Wno-keyword-compat
-STRICT_CXXFLAGS+= -Wno-cast-qual -Wno-ignored-pragma-intrinsic
+STRICT_CXXFLAGS+= -Wno-cast-qual -Wno-ignored-pragma-intrinsic -Wno-unused-lambda-capture
 STRICT_CXXFLAGS+= -Wno-ignored-attributes -Wno-pragma-pack -Wno-unknown-pragmas
 STRICT_CXXFLAGS+= -Wno-deprecated-declarations -Wno-unused-local-typedefs -Wno-return-type -Wno-unused-parameter
 STRICT_CXXFLAGS+= -Wno-parentheses -Wno-cast-align -Wno-sign-compare -Wno-implicit-fallthrough -Wno-overflow
 STRICT_CXXFLAGS+= -Wno-unknown-attributes -Wno-ambiguous-ellipsis -Wno-format-nonliteral -Wno-mismatched-tags
-STRICT_CXXFLAGS+= -Wno-narrowing
+STRICT_CXXFLAGS+= -Wno-narrowing -Wno-unused-macros
 STRICT_CXXFLAGS+= -Wno-comment -Wno-unused-variable -Wno-constant-logical-operand
 STRICT_CXXFLAGS+= -Wno-invalid-constexpr -Wno-extra-semi
 STRICT_CXXFLAGS+= -Wno-builtin-declaration-mismatch -Wno-macro-redefined -Wno-pragmas -Wno-unused-function
-STRICT_CXXFLAGS+= -Wno-extra -Wno-c++98-compat -Wno-c++11-compat
+STRICT_CXXFLAGS+= -Wno-extra -Wno-c++98-compat -Wno-c++11-compat -Wno-c++98-compat-extra-semi
 STRICT_CXXFLAGS+= -Wno-unknown-warning-option
 
 CXXFLAGS += -g -Wall -Wextra $(STRICT_CXXFLAGS) $(OPTIMIZE)
@@ -389,8 +389,8 @@ build_benchmark:
 ifeq ($(USE_GTEST)$(USE_GMOCK),)
 
 TARGETS_EXCLUDE_ALLTESTS= $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY) $(BUILD_ONLY)
-# CXXFLAGS += -Werror $(IUTEST_CXX_WARN_FLAGS)
-CXXFLAGS += $(IUTEST_CXX_WARN_FLAGS)
+CXXFLAGS += -Werror $(IUTEST_CXX_WARN_FLAGS)
+# CXXFLAGS += $(IUTEST_CXX_WARN_FLAGS)
 
 ifdef USE_LIB
 CXXFLAGS += -DIUTEST_USE_LIB=1 -L../lib
