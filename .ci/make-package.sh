@@ -7,14 +7,14 @@ if git rev-parse --ls-include-work-tree > /dev/null 2>&1; then
     cd $IUTEST_ROOT
 fi
 
-if [ -n $1 ]; then
+if [ -n "$1" ]; then
     RELEASE_VERSION=$1
     echo $RELEASE_VERSION
 fi
 
 if [ -z $RELEASE_VERSION ]; then
     echo get branch name from HEAD
-    git symbolic-ref --short HEAD >/dev/null && :
+    git symbolic-ref --short HEAD >/dev/null 2>/dev/null && :
     if [ $? = 0 ]; then
       BRANCH_NAME=`echo $(\git symbolic-ref --short HEAD) | sed s:/:-:g` 2>/dev/null
       RELEASE_VERSION=$BRANCH_NAME
@@ -24,6 +24,9 @@ fi
 if [ -z $RELEASE_VERSION ]; then
     echo get branch name from branch command
     BRANCH_NAME=`git branch | grep -e "^*" | cut -d' ' -f 2`
+    if [ "${BRANCH_NAME}" = "(HEAD" ]; then
+      BRANCH_NAME=`git branch | grep -e "^*" | cut -d' ' -f 5 | cut -d')' -f 1`
+    fi
     RELEASE_VERSION=$BRANCH_NAME
 fi
 
@@ -67,6 +70,10 @@ fi
 if [ -n "`git clean -fdn`" ]; then
     echo untracked file detected...
     can_packaging=false
+fi
+
+if [ ${FORCE_PACKAGING:=0} -ne 0 ]; then
+    can_packaging=true
 fi
 
 if $can_packaging; then
