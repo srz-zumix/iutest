@@ -63,7 +63,8 @@ wandbox:
         name: setup
         code: |
           export PYTHONDONTWRITEBYTECODE=1
-          export IUWANDBOX_COMMANDLINE_OPTION="../../test/syntax_tests.cpp -f"-DIUTEST_USE_MAIN=1" -f"-Werror" --encoding utf-8-sig --expand-include --verbose --check-config --retry-wait 180"
+          export IUWANDBOX_COMMANDLINE_OPTION="-f"-Werror" --encoding utf-8-sig --expand-include --verbose --check-config --retry-wait 180 --iutest-use-main"
+          if [ "${IUWANDBOX_TARGET_SRC+x}" ]; then export IUWANDBOX_TARGET_SRC="../../test/syntax_tests.cpp"; fi
 
     - script: &experimental
         name: experimental setup
@@ -76,7 +77,7 @@ wandbox:
           cd tools/wandbox
           for compiler in ${IUWANDBOX_COMPILER}
           do
-              python ./iuwandbox.py ${IUWANDBOX_EXPERIMENTAL_OPTION} ${IUWANDBOX_COMMANDLINE_OPTION} -c $compiler --std "c++${IUWANDBOX_CPPVER}" ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION};
+              python ./iuwandbox.py ${IUWANDBOX_EXPERIMENTAL_OPTION} ${IUWANDBOX_COMMANDLINE_OPTION} -c $compiler --std "c++${IUWANDBOX_CPPVER}" ${IUWANDBOX_TARGET_SRC} ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION};
           done
 
     # - script: &gnucpp
