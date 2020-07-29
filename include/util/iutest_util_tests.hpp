@@ -44,15 +44,15 @@ class Test : public ::iutest::Test
 public:
 #if IUTEST_HAS_TESTSUITE
 #if defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
-    static void SetUpTestSuite() { T::SetUpTestCase(); }
+    static void SetUpTestSuite()    { T::SetUpTestCase(); }
     static void TearDownTestSuite() { T::TearDownTestCase(); }
-    static void SetUpTestCase() {}
-    static void TearDownTestCase() {}
+    static void SetUpTestCase()     {}
+    static void TearDownTestCase()  {}
 #endif
 #else
-    static void SetUpTestCase() { T::SetUpTestSuite(); }
-    static void TearDownTestCase() { T::TearDownTestSuite(); }
-    static void SetUpTestSuite() {}
+    static void SetUpTestCase()     { T::SetUpTestSuite(); }
+    static void TearDownTestCase()  { T::TearDownTestSuite(); }
+    static void SetUpTestSuite()    {}
     static void TearDownTestSuite() {}
 #endif
 };
@@ -67,16 +67,14 @@ class TestEventListener : public ::iutest::TestEventListener
     virtual void OnTestCaseEnd(const ::iutest::TestSuite& /*test_suite*/)   {}
 #endif
 #else
-    virtual void OnTestCaseStart(const ::iutest::TestCase& test_case)       { OnTestCaseStart(test_suite); }
-    virtual void OnTestSuiteStart(const ::iutest::TestCase& /*test_suite*/) {}
-    virtual void OnTestCaseEnd(const ::iutest::TestCase& test_case)         { OnTestCaseEnd(test_suite); }
-    virtual void OnTestSuiteEnd(const ::iutest::TestCase& /*test_suite*/)   {}
+    virtual void OnTestCaseStart(const ::iutest::TestCase& test_case)       { OnTestCaseStart(test_case); }
+    virtual void OnTestSuiteStart(const ::iutest::TestCase& /*test_case*/) {}
+    virtual void OnTestCaseEnd(const ::iutest::TestCase& test_case)         { OnTestCaseEnd(test_case); }
+    virtual void OnTestSuiteEnd(const ::iutest::TestCase& /*test_case*/)   {}
 #endif
-
 };
 
-}
-
+}   // end of namespace backward
 
 //======================================================================
 // function

@@ -36,7 +36,8 @@ IUTEST(Util, Api)
     IUTEST_EXPECT_EQ(::iuutil::FindTestSuite(name), ::iuutil::FindTestCase(name));
     IUTEST_EXPECT_EQ(::iuutil::FindParamTestSuite(name), ::iuutil::FindParamTestCase(name));
     IUTEST_EXPECT_EQ(::iuutil::FindParamTypedTestSuite(name), ::iuutil::FindParamTypedTestCase(name));
-    IUTEST_EXPECT_EQ(::iuutil::GetTestSuiteAdHocResult(::iuutil::GetCurrentTestSuite()), ::iuutil::GetTestCaseAdHocResult(::iuutil::GetCurrentTestCase()));
+    IUTEST_EXPECT_EQ(::iuutil::GetTestSuiteAdHocResult(::iuutil::GetCurrentTestSuite())
+        , ::iuutil::GetTestCaseAdHocResult(::iuutil::GetCurrentTestCase()));
     IUTEST_EXPECT_EQ(::iuutil::GetCurrentTestSuiteAdHocResult(), ::iuutil::GetCurrentTestCaseAdHocResult());
 }
 
