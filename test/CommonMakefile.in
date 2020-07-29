@@ -120,6 +120,7 @@ TARGETS1= \
 		$(OUTDIR)/internal_log_tests \
 		$(OUTDIR)/invalid_commandline_tests \
 		$(OUTDIR)/japanese_tests \
+		$(OUTDIR)/legacy_testcase_api_tests \
 		$(OUTDIR)/list_test_tests \
 		$(OUTDIR)/listener_tests \
 		$(OUTDIR)/matcher_tests \

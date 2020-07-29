@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -38,9 +38,9 @@ IUTEST(JapaneseTest, IUTEST_JAPANESE_NAME(かきくけこ))
 IUTEST(IUTEST_JAPANESE_NAME(あいうえお), IUTEST_JAPANESE_NAME(かきくけこ))
 {
 #if IUTEST_HAS_PACKAGE
-    IUTEST_ASSERT_STREQ("japanese_test.あいうえお", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+    IUTEST_ASSERT_STREQ("japanese_test.あいうえお", ::iuutil::GetCurrentTestSuite()->name());
 #else
-    IUTEST_ASSERT_STREQ("あいうえお", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+    IUTEST_ASSERT_STREQ("あいうえお", ::iuutil::GetCurrentTestSuite()->name());
 #endif
     IUTEST_ASSERT_STREQ("かきくけこ", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
@@ -50,9 +50,9 @@ class FixedTest : public ::iutest::Test {};
 IUTEST_F(IUTEST_JAPANESE_NAME_F(あいうえお, FixedTest), IUTEST_JAPANESE_NAME(かきくけこ))
 {
 #if IUTEST_HAS_PACKAGE
-    IUTEST_ASSERT_STREQ("japanese_test.あいうえお", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+    IUTEST_ASSERT_STREQ("japanese_test.あいうえお", ::iuutil::GetCurrentTestSuite()->name());
 #else
-    IUTEST_ASSERT_STREQ("あいうえお", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+    IUTEST_ASSERT_STREQ("あいうえお", ::iuutil::GetCurrentTestSuite()->name());
 #endif
     IUTEST_ASSERT_STREQ("かきくけこ", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
@@ -63,9 +63,9 @@ class ParamTest : public ::iutest::TestWithParam<int> {};
 IUTEST_P(IUTEST_JAPANESE_NAME_F(あいうえお, ParamTest), IUTEST_JAPANESE_NAME(あいうえお))
 {
 #if IUTEST_HAS_PACKAGE
-    IUTEST_ASSERT_STREQ("japanese_test.My1/あいうえお", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+    IUTEST_ASSERT_STREQ("japanese_test.My1/あいうえお", ::iuutil::GetCurrentTestSuite()->name());
 #else
-    IUTEST_ASSERT_STREQ("My1/あいうえお", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+    IUTEST_ASSERT_STREQ("My1/あいうえお", ::iuutil::GetCurrentTestSuite()->name());
 #endif
     IUTEST_ASSERT_STREQ("あいうえお/0", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
@@ -73,9 +73,9 @@ IUTEST_P(IUTEST_JAPANESE_NAME_F(あいうえお, ParamTest), IUTEST_JAPANESE_NAM
 IUTEST_P(IUTEST_JAPANESE_NAME_F(あいうえお, ParamTest), Japanese)
 {
 #if IUTEST_HAS_PACKAGE
-    IUTEST_ASSERT_STREQ("japanese_test.My1/あいうえお", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+    IUTEST_ASSERT_STREQ("japanese_test.My1/あいうえお", ::iuutil::GetCurrentTestSuite()->name());
 #else
-    IUTEST_ASSERT_STREQ("My1/あいうえお", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+    IUTEST_ASSERT_STREQ("My1/あいうえお", ::iuutil::GetCurrentTestSuite()->name());
 #endif
     IUTEST_ASSERT_STREQ("Japanese/0", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
@@ -94,9 +94,9 @@ IUTEST_TYPED_TEST_CASE(TypedTest, int);
 IUTEST_TYPED_TEST(IUTEST_JAPANESE_NAME_F(あいうえお, TypedTest), IUTEST_JAPANESE_NAME(あいうえお))
 {
 #if IUTEST_HAS_PACKAGE
-    IUTEST_ASSERT_STREQ("japanese_test.あいうえお/0", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+    IUTEST_ASSERT_STREQ("japanese_test.あいうえお/0", ::iuutil::GetCurrentTestSuite()->name());
 #else
-    IUTEST_ASSERT_STREQ("あいうえお/0", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+    IUTEST_ASSERT_STREQ("あいうえお/0", ::iuutil::GetCurrentTestSuite()->name());
 #endif
     IUTEST_ASSERT_STREQ("あいうえお", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
@@ -130,9 +130,9 @@ void TestFunction(int x, int y)
 {
     IUTEST_ASSERT_EQ(x, y);
 #if IUTEST_HAS_PACKAGE
-    IUTEST_ASSERT_STREQ("japanese_test.あいうえお", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+    IUTEST_ASSERT_STREQ("japanese_test.あいうえお", ::iuutil::GetCurrentTestSuite()->name());
 #else
-    IUTEST_ASSERT_STREQ("あいうえお", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+    IUTEST_ASSERT_STREQ("あいうえお", ::iuutil::GetCurrentTestSuite()->name());
 #endif
     IUTEST_ASSERT_STREQ("イコール/0", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
@@ -189,14 +189,14 @@ int main(int argc, char* argv[])
 
 #if IUTEST_HAS_TESTNAME_ALIAS_JP
 
-    int testcase_count = 3;
+    int testsuite_count = 3;
     int test_count = 4;
 #if IUTEST_HAS_PARAM_TEST
-    testcase_count+=1;
+    testsuite_count+=1;
     test_count += 2;
 #endif
 #if IUTEST_HAS_TYPED_TEST
-    testcase_count+=1;
+    testsuite_count+=1;
     test_count += 1;
 #endif
 #if IUTEST_HAS_PARAM_METHOD_TEST
@@ -214,10 +214,10 @@ int main(int argc, char* argv[])
 #endif
 
 #if IUTEST_HAS_ASSERTION_RETURN
-    IUTEST_ASSERT_EQ( testcase_count, ::iutest::UnitTest::GetInstance()->total_test_case_count()) << ::iutest::AssertionReturn(1);
+    IUTEST_ASSERT_EQ( testsuite_count, ::iuutil::GetTotalTestSuiteCount()) << ::iutest::AssertionReturn(1);
     IUTEST_ASSERT_EQ( test_count, ::iutest::UnitTest::GetInstance()->total_test_count() ) << ::iutest::AssertionReturn(1);
 #else
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->total_test_case_count() == testcase_count );
+    IUTEST_ASSERT_EXIT( ::iuutil::GetTotalTestSuiteCount() == testsuite_count );
     IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->total_test_count() == test_count );
 #endif
 
