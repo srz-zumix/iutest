@@ -21,6 +21,7 @@
 
 IUTEST(Util, Api)
 {
+    IUTEST_EXPECT_EQ(::iuutil::GetTestSuite(0), ::iuutil::GetTestCase(0));
     IUTEST_EXPECT_EQ(::iuutil::GetCurrentTestSuite(), ::iuutil::GetCurrentTestCase());
     IUTEST_EXPECT_STREQ(::iuutil::GetTestSuiteName(::iutest::UnitTest::GetInstance()->current_test_info())
         , ::iuutil::GetTestCaseName(::iutest::UnitTest::GetInstance()->current_test_info()));

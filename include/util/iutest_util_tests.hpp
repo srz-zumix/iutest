@@ -80,6 +80,19 @@ class TestEventListener : public ::iutest::TestEventListener
 // function
 
 /**
+ * @brief   Get TestSuite by index
+ * @param   index = test suite index
+*/
+inline const ::iutest::TestSuite* GetTestSuite(int index)
+{
+#if IUTEST_HAS_TESTSUITE
+    return ::iuutil::GetTestSuite(index);
+#else
+    return ::iutest::UnitTest::GetInstance()->GetTestCasae(index);
+#endif
+}
+
+/**
  * @brief   現在の TestSuite を取得
 */
 inline const ::iutest::TestSuite* GetCurrentTestSuite()
@@ -93,6 +106,7 @@ inline const ::iutest::TestSuite* GetCurrentTestSuite()
 
 /**
  * @brief   Get TestSuite Name
+ * @param   test_info = test info
 */
 inline const ::std::string GetTestSuiteName(const ::iutest::TestInfo* test_info)
 {
@@ -128,7 +142,8 @@ inline int GetSuccessfulTestSuiteCount()
 }
 
 /**
- * @brief   テスト名を取得
+ * @brief   Get TestName
+ * @param   test_info = test info
 */
 inline ::std::string TestFullName(const ::iutest::TestInfo* test_info)
 {
@@ -140,6 +155,7 @@ inline ::std::string TestFullName(const ::iutest::TestInfo* test_info)
 
 /**
  * @brief   インデックスを除いたテスト名を取得
+ * @param   name = test name
 */
 inline ::std::string TestNameRemoveIndexName(const char* name)
 {
@@ -153,6 +169,7 @@ inline ::std::string TestNameRemoveIndexName(const char* name)
 
 /**
  * @brief   インデックスを除いた TestSuite 名を取得
+ * @param   name = test name
 */
 inline ::std::string TestSuiteNameRemoveIndexName(const char* name)
 {
@@ -161,6 +178,7 @@ inline ::std::string TestSuiteNameRemoveIndexName(const char* name)
 
 /**
  * @brief   インスタンス名とインデックスを除いた TestSuite 名を取得
+ * @param   name = test name
 */
 inline ::std::string TestSuiteNameRemoveInstantiateAndIndexName(const char* name)
 {
@@ -184,6 +202,7 @@ inline ::std::string TestSuiteNameRemoveInstantiateAndIndexName(const char* name
 
 /**
  * @brief   TestSuite の検索
+ * @param   testsuite_name = test suite name
 */
 inline const ::iutest::TestSuite* FindTestSuite(const char* testsuite_name)
 {
@@ -194,7 +213,7 @@ inline const ::iutest::TestSuite* FindTestSuite(const char* testsuite_name)
     const int testsuite_count = ::iutest::UnitTest::GetInstance()->total_test_suite_count();
     for( int i=0; i < testsuite_count; ++i )
     {
-        const ::iutest::TestSuite* testsuite = ::iutest::UnitTest::GetInstance()->GetTestSuite(i);
+        const ::iutest::TestSuite* testsuite = ::iuutil::GetTestSuite(i);
         if( strcmp(testsuite->name(), testsuite_name) == 0 )
         {
             return testsuite;
@@ -205,6 +224,8 @@ inline const ::iutest::TestSuite* FindTestSuite(const char* testsuite_name)
 
 /**
  * @brief   TestSuite の検索
+ * @param   testsuite_name  = test suite name
+ * @param   begin           = search begin
 */
 inline const ::iutest::TestSuite* FindParamTestSuite(const char* testsuite_name, const ::iutest::TestSuite* begin=NULL)
 {
@@ -218,7 +239,7 @@ inline const ::iutest::TestSuite* FindParamTestSuite(const char* testsuite_name,
     {
         for( ; i < testsuite_count; ++i )
         {
-            const ::iutest::TestSuite* testsuite = ::iutest::UnitTest::GetInstance()->GetTestSuite(i);
+            const ::iutest::TestSuite* testsuite = ::iuutil::GetTestSuite(i);
             if( testsuite == begin )
             {
                 break;
@@ -228,7 +249,7 @@ inline const ::iutest::TestSuite* FindParamTestSuite(const char* testsuite_name,
     }
     for( ; i < testsuite_count; ++i )
     {
-        const ::iutest::TestSuite* testsuite = ::iutest::UnitTest::GetInstance()->GetTestSuite(i);
+        const ::iutest::TestSuite* testsuite = ::iuutil::GetTestSuite(i);
         const char* testsuite_origin_name = strchr(testsuite->name(), '/');
         if( testsuite_origin_name != NULL )
         {
@@ -243,6 +264,8 @@ inline const ::iutest::TestSuite* FindParamTestSuite(const char* testsuite_name,
 
 /**
  * @brief   Typed Test の TestSuite の検索
+ * @param   testsuite_name  = test suite name
+ * @param   begin           = search begin
 */
 inline const ::iutest::TestSuite* FindTypedTestSuite(const char* testsuite_name, const ::iutest::TestSuite* begin=NULL)
 {
@@ -256,7 +279,7 @@ inline const ::iutest::TestSuite* FindTypedTestSuite(const char* testsuite_name,
     {
         for( ; i < testsuite_count; ++i )
         {
-            const ::iutest::TestSuite* testsuite = ::iutest::UnitTest::GetInstance()->GetTestSuite(i);
+            const ::iutest::TestSuite* testsuite = ::iuutil::GetTestSuite(i);
             if( testsuite == begin )
             {
                 break;
@@ -266,7 +289,7 @@ inline const ::iutest::TestSuite* FindTypedTestSuite(const char* testsuite_name,
     }
     for( ; i < testsuite_count; ++i )
     {
-        const ::iutest::TestSuite* testsuite = ::iutest::UnitTest::GetInstance()->GetTestSuite(i);
+        const ::iutest::TestSuite* testsuite = ::iuutil::GetTestSuite(i);
         if( testsuite != NULL )
         {
             const char* name = testsuite->name();
@@ -283,6 +306,8 @@ inline const ::iutest::TestSuite* FindTypedTestSuite(const char* testsuite_name,
 
 /**
  * @brief   Type Parameter Test の TestSuite の検索
+ * @param   testsuite_name  = test suite name
+ * @param   begin           = search begin
 */
 inline const ::iutest::TestSuite* FindParamTypedTestSuite(const char* testsuite_name, const ::iutest::TestSuite* begin=NULL)
 {
@@ -296,7 +321,7 @@ inline const ::iutest::TestSuite* FindParamTypedTestSuite(const char* testsuite_
     {
         for( ; i < testsuite_count; ++i )
         {
-            const ::iutest::TestSuite* testsuite = ::iutest::UnitTest::GetInstance()->GetTestSuite(i);
+            const ::iutest::TestSuite* testsuite = ::iuutil::GetTestSuite(i);
             if( testsuite == begin )
             {
                 break;
@@ -306,7 +331,7 @@ inline const ::iutest::TestSuite* FindParamTypedTestSuite(const char* testsuite_
     }
     for( ; i < testsuite_count; ++i )
     {
-        const ::iutest::TestSuite* testsuite = ::iutest::UnitTest::GetInstance()->GetTestSuite(i);
+        const ::iutest::TestSuite* testsuite = ::iuutil::GetTestSuite(i);
         const char* name = strchr(testsuite->name(), '/');
         if( name != NULL )
         {
@@ -465,6 +490,7 @@ inline const ::iutest::TestResult* GetCurrentTestResult()
 
 #if IUTEST_HAS_TESTCASE
 
+inline const ::iutest::TestSuite* GetTestCase(int index) { return GetTestSuite(index); }
 inline const ::iutest::TestCase* GetCurrentTestCase() { return GetCurrentTestSuite(); }
 inline const ::std::string GetTestCaseName(const ::iutest::TestInfo* test_info) { return GetTestSuiteName(test_info); }
 inline int GetSuccessfulTestCaseCount() { return GetSuccessfulTestSuiteCount(); }
