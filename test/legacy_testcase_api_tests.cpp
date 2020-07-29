@@ -17,14 +17,27 @@
 // include
 #include "iutest.hpp"
 
-#if IUTEST_HAS_TESTCASE
+#if IUTEST_HAS_TESTSUITE && IUTEST_HAS_TESTCASE
 
 IUTEST(Util, Api)
 {
     IUTEST_EXPECT_EQ(::iuutil::GetCurrentTestSuite(), ::iuutil::GetCurrentTestCase());
     IUTEST_EXPECT_STREQ(::iuutil::GetTestSuiteName(::iutest::UnitTest::GetInstance()->current_test_info())
         , ::iuutil::GetTestCaseName(::iutest::UnitTest::GetInstance()->current_test_info()));
+    IUTEST_EXPECT_EQ(::iuutil::GetTotalTestSuiteCount(), ::iuutil::GetTotalTestCaseCount());
     IUTEST_EXPECT_EQ(::iuutil::GetSuccessfulTestSuiteCount(), ::iuutil::GetSuccessfulTestCaseCount());
+
+    const char* name = "pkg.prefix/TestCase/0";
+    IUTEST_EXPECT_STREQ(::iuutil::TestSuiteNameRemoveInstantiateAndIndexName(name)
+        , ::iuutil::TestCaseNameRemoveInstantiateAndIndexName(name));
+    IUTEST_EXPECT_STREQ(::iuutil::TestSuiteNameRemoveIndexName(name)
+        , ::iuutil::TestCaseNameRemoveIndexName(name));
+
+    IUTEST_EXPECT_EQ(::iuutil::FindTestSuite(name), ::iuutil::FindTestCase(name));
+    IUTEST_EXPECT_EQ(::iuutil::FindParamTestSuite(name), ::iuutil::FindParamTestCase(name));
+    IUTEST_EXPECT_EQ(::iuutil::FindParamTypedTestSuite(name), ::iuutil::FindParamTypedTestCase(name));
+    IUTEST_EXPECT_EQ(::iuutil::GetTestSuiteAdHocResult(::iuutil::GetCurrentTestSuite()), ::iuutil::GetTestCaseAdHocResult(::iuutil::GetCurrentTestCase()));
+    IUTEST_EXPECT_EQ(::iuutil::GetCurrentTestSuiteAdHocResult(), ::iuutil::GetCurrentTestCaseAdHocResult());
 }
 
 #endif

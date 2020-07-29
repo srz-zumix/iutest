@@ -36,8 +36,8 @@ IUTEST_PACKAGE(pkg1)
 #if IUTEST_HAS_PARAM_TEST
     IUTEST_P(PackageParamTest, B)
     {
-        const char* name = :::iuutil::GetCurrentTestSuite()->name();
-        IUTEST_EXPECT_PACKAGENAME_(pkg1, PackageParamTest, ::iuutil::TestCaseNameRemoveInstantiateAndIndexName(name));
+        const char* name = ::iuutil::GetCurrentTestSuite()->name();
+        IUTEST_EXPECT_PACKAGENAME_(pkg1, PackageParamTest, ::iuutil::TestSuiteNameRemoveInstantiateAndIndexName(name));
     }
     IUTEST_INSTANTIATE_TEST_CASE_P(B, PackageParamTest, ::iutest::Range<int>(0, 2));
 #endif

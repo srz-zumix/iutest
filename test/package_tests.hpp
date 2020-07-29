@@ -21,19 +21,19 @@
 
 #if IUTEST_HAS_PACKAGE
 
-#define IUTEST_EXPECT_PACKAGENAME(package_name, testcase_name)  \
-    IUTEST_EXPECT_PACKAGENAME_( package_name, testcase_name, ::iuutil::GetCurrentTestSuite()->name())
+#define IUTEST_EXPECT_PACKAGENAME(package_name, testsuite_name)         \
+    IUTEST_EXPECT_PACKAGENAME_( package_name, testsuite_name, ::iuutil::GetCurrentTestSuite()->name())
 
-#define IUTEST_EXPECT_PACKAGENAME_(package_name, testcase_name, name)   \
-    IUTEST_EXPECT_STREQ( #package_name "." #testcase_name, name)
+#define IUTEST_EXPECT_PACKAGENAME_(package_name, testsuite_name, name)  \
+    IUTEST_EXPECT_STREQ( #package_name "." #testsuite_name, name)
 
 #else
 
-#define IUTEST_EXPECT_PACKAGENAME(package_name, testcase_name)  \
-    IUTEST_EXPECT_PACKAGENAME_( package_name, testcase_name, ::iuutil::GetCurrentTestSuite()->name())
+#define IUTEST_EXPECT_PACKAGENAME(package_name, testsuite_name)         \
+    IUTEST_EXPECT_PACKAGENAME_( package_name, testsuite_name, ::iuutil::GetCurrentTestSuite()->name())
 
-#define IUTEST_EXPECT_PACKAGENAME_(package_name, testcase_name, name)   \
-    IUTEST_EXPECT_STREQ( #testcase_name, name)
+#define IUTEST_EXPECT_PACKAGENAME_(package_name, testsuite_name, name)  \
+    IUTEST_EXPECT_STREQ( #testsuite_name, name)
 
 #endif
 
@@ -72,7 +72,7 @@ IUTEST_PACKAGE(pkg1)
     IUTEST_TYPED_TEST_P(PackageTypeParamTest, A)
     {
         const char* name = ::iuutil::GetCurrentTestSuite()->name();
-        IUTEST_EXPECT_PACKAGENAME_(pkg1, PackageTypeParamTest, ::iuutil::TestCaseNameRemoveInstantiateAndIndexName(name));
+        IUTEST_EXPECT_PACKAGENAME_(pkg1, PackageTypeParamTest, ::iuutil::TestSuiteNameRemoveInstantiateAndIndexName(name));
     }
 
     IUTEST_REGISTER_TYPED_TEST_CASE_P(PackageTypeParamTest, A);

@@ -211,19 +211,6 @@
 #endif
 
 /**
- * @private
- * @{
-*/
-#define IUTEST_CLASS_INITIALIZE(methodName)     static void SetUpTestSuite() { methodName(); } static void methodName()
-#define IUTEST_CLASS_CLEANUP(methodName)        static void TearDownTestSuite() { methodName(); } static void methodName()
-
-#define IUTEST_METHOD_INITIALIZE(methodName)    virtual void SetUp() IUTEST_CXX_OVERRIDE { methodName(); } void methodName()
-#define IUTEST_METHOD_CLEANUP(methodName)       virtual void TearDown() IUTEST_CXX_OVERRIDE { methodName(); } void methodName()
-/**
- * @}
-*/
-
-/**
  * @internal
  * @brief   Assertion message
 */

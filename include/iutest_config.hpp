@@ -818,6 +818,14 @@
 #  define IUTEST_HAS_TESTCASE   1
 #endif
 
+#if defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
+#  undef IUTEST_REMOVE_LEGACY_TEST_CASEAPI_
+#endif
+
+#if !IUTEST_HAS_TESTCASE
+#  define IUTEST_REMOVE_LEGACY_TEST_CASEAPI_
+#endif
+
 /**
  * @private
  * @{

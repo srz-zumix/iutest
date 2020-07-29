@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -67,7 +67,7 @@ private:
 bool MyEnvironment::setup = false;
 bool MyEnvironment::teardown = false;
 
-IUTEST(FlagTest, Check)
+IUTEST(EnvironmentTest, FlagCheck)
 {
     IUTEST_ASSERT_TRUE(MyEnvironment::setup);
     IUTEST_ASSERT_FALSE(MyEnvironment::teardown);

@@ -570,7 +570,9 @@ inline void GTestStreamToHelperForCompatible(std::ostream* os, const T& val) {
 
 namespace testing
 {
-    typedef TestSuite    TestCase;
+
+typedef TestSuite    TestCase;
+
 }
 
 #endif

@@ -16,9 +16,67 @@
 #define INCG_IRIS_IUTEST_UTIL_TESTS_HPP_4095FF9B_D6B8_4CD3_BF86_43DFED1760EA_
 
 //======================================================================
-// include
+// define
+#if IUTEST_HAS_TESTSUITE
+#  define IUTEST_CLASS_INITIALIZE(methodName)   static void SetUpTestSuite() { methodName(); } static void methodName()
+#  define IUTEST_CLASS_CLEANUP(methodName)      static void TearDownTestSuite() { methodName(); } static void methodName()
+#else
+#  define IUTEST_CLASS_INITIALIZE(methodName)   static void SetUpTestCase() { methodName(); } static void methodName()
+#  define IUTEST_CLASS_CLEANUP(methodName)      static void TearDownTestCase() { methodName(); } static void methodName()
+#endif
+
+#define IUTEST_METHOD_INITIALIZE(methodName)    virtual void SetUp() IUTEST_CXX_OVERRIDE { methodName(); } void methodName()
+#define IUTEST_METHOD_CLEANUP(methodName)       virtual void TearDown() IUTEST_CXX_OVERRIDE { methodName(); } void methodName()
+
 namespace iuutil
 {
+
+//======================================================================
+// class
+
+/// backward compatible for googletest old version
+namespace backward
+{
+
+template<typename T>
+class Test : public ::iutest::Test
+{
+public:
+#if IUTEST_HAS_TESTSUITE
+#if defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
+    static void SetUpTestSuite() { T::SetUpTestCase(); }
+    static void TearDownTestSuite() { T::TearDownTestCase(); }
+    static void SetUpTestCase() {}
+    static void TearDownTestCase() {}
+#endif
+#else
+    static void SetUpTestCase() { T::SetUpTestSuite(); }
+    static void TearDownTestCase() { T::TearDownTestSuite(); }
+    static void SetUpTestSuite() {}
+    static void TearDownTestSuite() {}
+#endif
+};
+
+class TestEventListener : public ::iutest::TestEventListener
+{
+#if IUTEST_HAS_TESTSUITE
+#if defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
+    virtual void OnTestSuiteStart(const ::iutest::TestSuite& test_suite)    { OnTestCaseStart(test_suite); }
+    virtual void OnTestCaseStart(const ::iutest::TestSuite& /*test_suite*/) {}
+    virtual void OnTestSuiteEnd(const ::iutest::TestSuite& test_suite)      { OnTestCaseEnd(test_suite); }
+    virtual void OnTestCaseEnd(const ::iutest::TestSuite& /*test_suite*/)   {}
+#endif
+#else
+    virtual void OnTestCaseStart(const ::iutest::TestCase& test_case)       { OnTestCaseStart(test_suite); }
+    virtual void OnTestSuiteStart(const ::iutest::TestCase& /*test_suite*/) {}
+    virtual void OnTestCaseEnd(const ::iutest::TestCase& test_case)         { OnTestCaseEnd(test_suite); }
+    virtual void OnTestSuiteEnd(const ::iutest::TestCase& /*test_suite*/)   {}
+#endif
+
+};
+
+}
+
 
 //======================================================================
 // function
@@ -28,7 +86,11 @@ namespace iuutil
 */
 inline const ::iutest::TestSuite* GetCurrentTestSuite()
 {
+#if IUTEST_HAS_TESTSUITE
     return ::iutest::UnitTest::GetInstance()->current_test_suite();
+#else
+    return ::iutest::UnitTest::GetInstance()->current_test_case();
+#endif
 }
 
 /**
@@ -36,7 +98,35 @@ inline const ::iutest::TestSuite* GetCurrentTestSuite()
 */
 inline const ::std::string GetTestSuiteName(const ::iutest::TestInfo* test_info)
 {
+#if IUTEST_HAS_TESTSUITE
     return test_info->test_suite_name();
+#else
+    return test_info->test_case_name();
+#endif
+}
+
+/**
+ * @brief   Get total TestSuite count
+*/
+inline int GetTotalTestSuiteCount()
+{
+#if IUTEST_HAS_TESTSUITE
+    return ::iutest::UnitTest::GetInstance()->total_test_suite_count();
+#else
+    return ::iutest::UnitTest::GetInstance()->total_test_case_count();
+#endif
+}
+
+/**
+ * @brief   Get successful TestSuite count
+*/
+inline int GetSuccessfulTestSuiteCount()
+{
+#if IUTEST_HAS_TESTSUITE
+    return ::iutest::UnitTest::GetInstance()->successful_test_suite_count();
+#else
+    return ::iutest::UnitTest::GetInstance()->successful_test_case_count();
+#endif
 }
 
 /**
@@ -44,7 +134,7 @@ inline const ::std::string GetTestSuiteName(const ::iutest::TestInfo* test_info)
 */
 inline ::std::string TestFullName(const ::iutest::TestInfo* test_info)
 {
-    ::std::string fullname = test_info->test_suite_name();
+    ::std::string fullname = GetTestSuiteName(test_info);
     fullname += ".";
     fullname += test_info->name();
     return fullname;
@@ -379,6 +469,8 @@ inline const ::iutest::TestResult* GetCurrentTestResult()
 
 inline const ::iutest::TestCase* GetCurrentTestCase() { return GetCurrentTestSuite(); }
 inline const ::std::string GetTestCaseName(const ::iutest::TestInfo* test_info) { return GetTestSuiteName(test_info); }
+inline int GetSuccessfulTestCaseCount() { return GetSuccessfulTestSuiteCount(); }
+inline int GetTotalTestCaseCount() { return GetTotalTestSuiteCount(); }
 
 inline ::std::string TestCaseNameRemoveIndexName(const char* name) { return TestSuiteNameRemoveIndexName(name); }
 inline ::std::string TestCaseNameRemoveInstantiateAndIndexName(const char* name) { return TestSuiteNameRemoveInstantiateAndIndexName(name); }

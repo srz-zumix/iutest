@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -39,7 +39,7 @@ int SetUpEnvironment(void)
 
 static volatile int g_dummy = SetUpEnvironment();
 
-IUTEST(FlagTest, Check)
+IUTEST(FlagFileTest, FlagCheck)
 {
     if( g_dummy != 0 ) return;  // putenv に失敗した場合はテストしない
 #if !defined(IUTEST_USE_GTEST)

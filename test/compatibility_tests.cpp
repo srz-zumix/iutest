@@ -52,9 +52,10 @@ IUTEST(Compatibility, UnitTest)
     (void)::iutest::UnitTest::GetInstance()->listeners();
 }
 
-IUTEST(Compatibility, TestSuite)
+#if !defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
+IUTEST(Compatibility, TestCase)
 {
-    const ::iutest::TestCase* testcase = ::iuutil::GetCurrentTestSuite();
+    const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->current_test_case();
     IUTEST_ASSERT_NOTNULL(testcase);
     (void)testcase->disabled_test_count();
     (void)testcase->failed_test_count();
@@ -74,6 +75,34 @@ IUTEST(Compatibility, TestSuite)
 
     (void)testcase->GetTestInfo(0);
 }
+#endif
+
+#if IUTEST_HAS_TESTSUITE
+
+IUTEST(Compatibility, TestSuite)
+{
+    const ::iutest::TestSuite* testsuite = ::iutest::UnitTest::GetInstance()->current_test_suite();
+    IUTEST_ASSERT_NOTNULL(testsuite);
+    (void)testsuite->disabled_test_count();
+    (void)testsuite->failed_test_count();
+    (void)testsuite->successful_test_count();
+    (void)testsuite->total_test_count();
+    (void)testsuite->test_to_run_count();
+
+    (void)testsuite->Passed();
+    (void)testsuite->Failed();
+
+    (void)testsuite->name();
+#if !defined(IUTEST_USE_GTEST) || (defined(GTEST_MINOR) && GTEST_MINOR >= 0x06)
+    (void)testsuite->type_param();
+#endif
+    (void)testsuite->should_run();
+    (void)testsuite->elapsed_time();
+
+    (void)testsuite->GetTestInfo(0);
+}
+
+#endif
 
 IUTEST(Compatibility, TestInfo)
 {
