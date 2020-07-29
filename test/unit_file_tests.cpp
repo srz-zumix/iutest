@@ -50,7 +50,7 @@ IUTEST(StdFileUnitTest, FileSize)
 
 const std::filesystem::path largefile("./testdata/largefile.bin");
 
-class FileSystemTest : public ::iutest::Test
+class FileSystemTest : public ::iuutil::backward::Test<FileSystemTest>
 {
 public:
     static void SetUpTestCase()

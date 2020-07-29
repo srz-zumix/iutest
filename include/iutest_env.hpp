@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -632,7 +632,7 @@ public:
     /**
      * @brief   default package name を追加
     */
-    static ::std::string AddDefaultPackageName(const char* testcase_name);
+    static ::std::string AddDefaultPackageName(const char* testsuite_name);
 
 private:
     /**
