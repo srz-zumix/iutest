@@ -31,7 +31,7 @@ public:
     static Tuple list[2*2*TABLE_SIZE];
 
 public:
-    static void SetUpTestCase(void) { index = 0; }
+    static void SetUpTestSuite(void) { index = 0; }
 };
 
 int CombineTest::index = 0;
@@ -48,7 +48,7 @@ CombineTest::Tuple CombineTest::list[2*2*CombineTest::TABLE_SIZE] = {
 
 IUTEST_P(CombineTest, Num)
 {
-    IUTEST_EXPECT_EQ( (2*2*TABLE_SIZE) * 2, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count() );
+    IUTEST_EXPECT_EQ( (2*2*TABLE_SIZE) * 2, ::iuutil::GetCurrentTestSuite()->total_test_count() );
 }
 
 IUTEST_P(CombineTest, Param)
@@ -126,7 +126,7 @@ int VariadicCombineTest::count = 0;
 
 IUTEST_P(VariadicCombineTest, Num)
 {
-    IUTEST_EXPECT_EQ( num, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count() );
+    IUTEST_EXPECT_EQ( num, ::iuutil::GetCurrentTestSuite()->total_test_count() );
     IUTEST_EXPECT_EQ( count_to_tuple(count++), GetParam() );
 }
 
