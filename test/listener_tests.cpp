@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,19 +17,19 @@
 // include
 #include "iutest.hpp"
 
-class MyTestEventListener : public ::iutest::TestEventListener
+class MyTestEventListener : public ::iuutil::backward::TestEventListener
 {
 public:
     bool called_OnTestProgramStart;
     bool called_OnTestIterationStart;
     bool called_OnEnvironmentsSetUpStart;
     bool called_OnEnvironmentsSetUpEnd;
-    bool called_OnTestCaseStart;
+    bool called_OnTestSuiteStart;
     bool called_OnTestStart;
     bool called_OnTestPartResult;
     bool called_OnTestRecordProperty;
     bool called_OnTestEnd;
-    bool called_OnTestCaseEnd;
+    bool called_OnTestSuiteEnd;
     bool called_OnEnvironmentsTearDownStart;
     bool called_OnEnvironmentsTearDownEnd;
     bool called_OnTestIterationEnd;
@@ -41,12 +41,12 @@ public:
     , called_OnTestIterationStart(false)
     , called_OnEnvironmentsSetUpStart(false)
     , called_OnEnvironmentsSetUpEnd(false)
-    , called_OnTestCaseStart(false)
+    , called_OnTestSuiteStart(false)
     , called_OnTestStart(false)
     , called_OnTestPartResult(false)
     , called_OnTestRecordProperty(false)
     , called_OnTestEnd(false)
-    , called_OnTestCaseEnd(false)
+    , called_OnTestSuiteEnd(false)
     , called_OnEnvironmentsTearDownStart(false)
     , called_OnEnvironmentsTearDownEnd(false)
     , called_OnTestIterationEnd(false)
@@ -71,9 +71,9 @@ public:
     {
         called_OnEnvironmentsSetUpEnd = true;
     }
-    virtual void OnTestCaseStart(const ::iutest::TestCase& /*test_case*/)
+    virtual void OnTestSuiteStart(const ::iutest::TestSuite& /*test_case*/)
     {
-        called_OnTestCaseStart = true;
+        called_OnTestSuiteStart = true;
     }
     virtual void OnTestStart(const ::iutest::TestInfo& /*test_info*/)
     {
@@ -96,9 +96,9 @@ public:
     {
         called_OnTestEnd = true;
     }
-    virtual void OnTestCaseEnd(const ::iutest::TestCase& /*test_case*/)
+    virtual void OnTestSuiteEnd(const ::iutest::TestSuite& /*test_case*/)
     {
-        called_OnTestCaseEnd = true;
+        called_OnTestSuiteEnd = true;
     }
     virtual void OnEnvironmentsTearDownStart(const ::iutest::UnitTest& /*test*/)
     {
@@ -122,17 +122,17 @@ public:
 
 static MyTestEventListener* listener = NULL;
 
-IUTEST(FlagTest, Check)
+IUTEST(EventListenerTest, FlagCheck)
 {
     IUTEST_ASSERT_TRUE( listener->called_OnTestProgramStart );
     IUTEST_ASSERT_TRUE( listener->called_OnTestIterationStart );
     IUTEST_ASSERT_TRUE( listener->called_OnEnvironmentsSetUpStart );
     IUTEST_ASSERT_TRUE( listener->called_OnEnvironmentsSetUpEnd );
-    IUTEST_ASSERT_TRUE( listener->called_OnTestCaseStart );
+    IUTEST_ASSERT_TRUE( listener->called_OnTestSuiteStart );
     IUTEST_ASSERT_TRUE( listener->called_OnTestStart );
 
     IUTEST_ASSERT_FALSE( listener->called_OnTestEnd );
-    IUTEST_ASSERT_FALSE( listener->called_OnTestCaseEnd );
+    IUTEST_ASSERT_FALSE( listener->called_OnTestSuiteEnd );
     IUTEST_ASSERT_FALSE( listener->called_OnEnvironmentsTearDownStart );
     IUTEST_ASSERT_FALSE( listener->called_OnEnvironmentsTearDownEnd );
     IUTEST_ASSERT_FALSE( listener->called_OnTestIterationEnd );
@@ -166,7 +166,7 @@ int main(int argc, char* argv[])
     const int ret = IUTEST_RUN_ALL_TESTS();
 
     IUTEST_ASSERT_EXIT( listener->called_OnTestEnd );
-    IUTEST_ASSERT_EXIT( listener->called_OnTestCaseEnd );
+    IUTEST_ASSERT_EXIT( listener->called_OnTestSuiteEnd );
     IUTEST_ASSERT_EXIT( listener->called_OnEnvironmentsTearDownStart );
     IUTEST_ASSERT_EXIT( listener->called_OnEnvironmentsTearDownEnd );
     IUTEST_ASSERT_EXIT( listener->called_OnTestIterationEnd );
