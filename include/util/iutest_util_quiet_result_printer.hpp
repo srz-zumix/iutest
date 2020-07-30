@@ -52,10 +52,17 @@ public:
     {
         m_default_printer->OnEnvironmentsSetUpEnd(unit_test);
     }
+#if IUTEST_HAS_TESTSUITE
     virtual void OnTestSuiteStart(const ::iutest::TestSuite& test_suite) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnTestSuiteStart(test_suite);
     }
+#else
+    virtual void OnTestCasetart(const ::iutest::TestSuite& test_suite) IUTEST_CXX_OVERRIDE
+    {
+        m_default_printer->OnTestCaseStart(test_suite);
+    }
+#endif
 
 #if 0
     virtual void OnTestStart(const ::iutest::TestInfo& test_info) IUTEST_CXX_OVERRIDE {}
@@ -92,10 +99,17 @@ public:
             m_default_printer->OnTestEnd(test_info);
         }
     }
+#if IUTEST_HAS_TESTSUITE
     virtual void OnTestSuiteEnd(const ::iutest::TestSuite& test_suite) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnTestSuiteEnd(test_suite);
     }
+#else
+    virtual void OnTestCaseEnd(const ::iutest::TestSuite& test_suite) IUTEST_CXX_OVERRIDE
+    {
+        m_default_printer->OnTestCaseEnd(test_suite);
+    }
+#endif
     virtual void OnEnvironmentsTearDownStart(const ::iutest::UnitTest& unit_test) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnEnvironmentsTearDownStart(unit_test);
