@@ -86,7 +86,7 @@ class TestEventListener : public ::iutest::TestEventListener
 inline const ::iutest::TestSuite* GetTestSuite(int index)
 {
 #if IUTEST_HAS_TESTSUITE
-    return ::iuutil::GetTestSuite(index);
+    return ::iutest::UnitTest::GetInstance()->GetTestSuite(index);
 #else
     return ::iutest::UnitTest::GetInstance()->GetTestCasae(index);
 #endif
