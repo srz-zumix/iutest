@@ -807,6 +807,26 @@
 */
 
 /**
+ * @brief   iutest has testsuite api
+*/
+#define IUTEST_HAS_TESTSUITE    1
+
+/**
+ * @brief   iutest has testcase api
+*/
+#if !defined(IUTEST_HAS_TESTCASE)
+#  define IUTEST_HAS_TESTCASE   1
+#endif
+
+#if defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
+#  undef IUTEST_REMOVE_LEGACY_TEST_CASEAPI_
+#endif
+
+#if !IUTEST_HAS_TESTCASE
+#  define IUTEST_REMOVE_LEGACY_TEST_CASEAPI_
+#endif
+
+/**
  * @private
  * @{
 */

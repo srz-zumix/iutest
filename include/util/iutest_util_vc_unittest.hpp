@@ -51,9 +51,9 @@
 #ifdef IUTEST
 #  undef IUTEST
 #endif
-#define IUTEST(testcase_, testname_)    \
-    IUTEST_VCUNIT_I(testcase_, testname_, testcase_##testname_##_class, testcase_##_##testname_);   \
-    IUTEST_TEST(testcase_, testname_)
+#define IUTEST(testsuite_, testname_)    \
+    IUTEST_VCUNIT_I(testsuite_, testname_, testsuite_##testname_##_class, testsuite_##_##testname_);        \
+    IUTEST_TEST(testsuite_, testname_)
 
 #ifdef IUTEST_F
 #  undef IUTEST_F
@@ -84,29 +84,29 @@
     IIUT_TYPED_TEST_P_(testfixture_, testname_)
 
 
-#define IUTEST_VCUNIT_I(testcase_, testname_, className, methodName)    \
+#define IUTEST_VCUNIT_I(testsuite_, testname_, className, methodName)   \
     IUTEST_VCUNIT_TEST_CLASS(className) {                               \
     public: TEST_METHOD(methodName) {                                   \
-        IUTEST_VCUNIT_EXEC_(testcase_, testname_); }                    \
-    IIUT_VCUNIT_METHOD_ATTRIBUTE(testcase_, methodName)                 \
+        IUTEST_VCUNIT_EXEC_(testsuite_, testname_); }                   \
+    IIUT_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)                \
     }
 
-//#define IUTEST_VCUNIT_F(testcase_, testname_, className, methodName)  \
+//#define IUTEST_VCUNIT_F(testsuite_, testname_, className, methodName) \
 //  IUTEST_VCUNIT_TEST_CLASS(className) {                               \
 //  public: TEST_METHOD(methodName) {                                   \
-//      IUTEST_VCUNIT_EXEC_(testcase_, testname_); }                    \
-//  IIUT_VCUNIT_METHOD_ATTRIBUTE(testcase_, methodName)                 \
-//  TEST_CLASS_INITIALIZE(iuSetUp) { testcase_::SetUpTestCase(); }      \
-//  TEST_CLASS_CLEANUP(iuTearDown) { testcase_::TearDownTestCase(); }   \
+//      IUTEST_VCUNIT_EXEC_(testsuite_, testname_); }                   \
+//  IIUT_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)                \
+//  TEST_CLASS_INITIALIZE(iuSetUp) { IUTEST_GET_SETUP_TESTSUITE(testsuite_, __FILE__, __LINE__)(); }      \
+//  TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_GET_TEARDOWN_TESTSUITE(testsuite_, __FILE__, __LINE__)(); }   \
 //  }
 
-#define IIUT_VCUNIT_METHOD_ATTRIBUTE(testcase_, methodName)     \
+#define IIUT_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)    \
     BEGIN_TEST_METHOD_ATTRIBUTE(methodName)                     \
-        TEST_METHOD_ATTRIBUTE(L"TestCase", L#testcase_)         \
+        TEST_METHOD_ATTRIBUTE(L"TestSuite", L#testsuite_)       \
     END_TEST_METHOD_ATTRIBUTE()
 
-#define IUTEST_VCUNIT_EXEC_(testcase_, testname_)   \
-    Body( "*" #testcase_ "." #testname_ "*" )
+#define IUTEST_VCUNIT_EXEC_(testsuite_, testname_)   \
+    Body( "*" #testsuite_ "." #testname_ "*" )
 
 #define IUTEST_VCUNIT_TEST_CLASS(className) \
     ONLY_USED_AT_NAMESPACE_SCOPE class className : public ::iuutil::VisualStudio::TestClass<className>
@@ -215,7 +215,7 @@ public:
 
     virtual void OnEnvironmentsSetUpEnd(const ::iutest::UnitTest& ) {}
 
-    virtual void OnTestCaseStart(const ::iutest::TestCase& ) {}
+    virtual void OnTestSuiteStart(const ::iutest::TestSuite& ) {}
 
     virtual void OnTestStart(const ::iutest::TestInfo& test_info)
     {
@@ -230,7 +230,7 @@ public:
         m_default_printer->OnTestEnd(test_info);
     }
 
-    virtual void OnTestCaseEnd(const ::iutest::TestCase& ) {}
+    virtual void OnTestSuiteEnd(const ::iutest::TestSuite& ) {}
 
     virtual void OnEnvironmentsTearDownStart(const ::iutest::UnitTest& ) {}
 

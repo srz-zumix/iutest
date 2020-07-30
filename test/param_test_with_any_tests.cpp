@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -44,7 +44,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(My1, WithAnyParamTest, ::iutest::Values(0));
 
 IUTEST_AP(AnyParamTest, Test)
 {
-    IUTEST_EXPECT_STREQ("My1/AnyParamTest", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+    IUTEST_EXPECT_STREQ("My1/AnyParamTest", ::iuutil::GetCurrentTestSuite()->name());
     const int value = GetParam<int>();
     IUTEST_ASSERT_EQ(0, value);
 }
@@ -65,7 +65,7 @@ IUTEST_INSTANTIATE_TEST_CASE_AP(My1, AnyParamTest2, ::iutest::Values("0"));
 
 IUTEST_P(NoFixtureAnyParamTest, Test)
 {
-    IUTEST_EXPECT_STREQ("My1/NoFixtureAnyParamTest", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+    IUTEST_EXPECT_STREQ("My1/NoFixtureAnyParamTest", ::iuutil::GetCurrentTestSuite()->name());
     const int value = GetParam<int>();
     IUTEST_ASSERT_EQ(0, value);
 }
