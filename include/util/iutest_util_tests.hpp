@@ -88,7 +88,7 @@ inline const ::iutest::TestSuite* GetTestSuite(int index)
 #if IUTEST_HAS_TESTSUITE
     return ::iutest::UnitTest::GetInstance()->GetTestSuite(index);
 #else
-    return ::iutest::UnitTest::GetInstance()->GetTestCasae(index);
+    return ::iutest::UnitTest::GetInstance()->GetTestCase(index);
 #endif
 }
 
