@@ -17,7 +17,7 @@
 // include
 #include "iutest.hpp"
 
-class TestSetUpEachCall : public ::iutest::Test
+class TestSetUpEachCall : public ::iuutil::backward::Test<TestSetUpEachCall>
 {
 protected:
     static int x;
@@ -43,7 +43,7 @@ IUTEST_F(TestSetUpEachCall, Test2)
     IUTEST_ASSERT_EQ(2, x);
 }
 
-class TestFixture : public ::iutest::Test
+class TestFixture : public ::iuutil::backward::Test<TestFixture>
 {
 public:
     static int x;
