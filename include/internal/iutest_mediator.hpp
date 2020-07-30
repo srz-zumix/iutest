@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -20,7 +20,7 @@ namespace iutest {
 //======================================================================
 // declare
 class TestInfo;
-class TestCase;
+class TestSuite;
 class TestPartResult;
 
 namespace detail
@@ -47,19 +47,19 @@ public:
 };
 
 /**
- * @brief   TestCase 仲介者インターフェイス
+ * @brief   TestSuite 仲介者インターフェイス
 */
-class iuITestCaseMediator
+class iuITestSuiteMediator
 {
 protected:
-    TestCase* m_test_case;
+    TestSuite* m_test_suite;
 public:
-    explicit iuITestCaseMediator(TestCase* p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_test_case(p) {}
+    explicit iuITestSuiteMediator(TestSuite* p=NULL) IUTEST_CXX_NOEXCEPT_SPEC : m_test_suite(p) {}
 public:
-    virtual ~iuITestCaseMediator() IUTEST_CXX_DEFAULT_FUNCTION
-    virtual const char* test_case_name() const = 0;
+    virtual ~iuITestSuiteMediator() IUTEST_CXX_DEFAULT_FUNCTION
+    virtual const char* test_suite_name() const = 0;
     virtual const char* type_param() const = 0;
-    TestCase* ptr() const IUTEST_CXX_NOEXCEPT_SPEC { return m_test_case; }
+    TestSuite* ptr() const IUTEST_CXX_NOEXCEPT_SPEC { return m_test_suite; }
 };
 
 }   // end of namespace detail
