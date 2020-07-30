@@ -58,7 +58,7 @@ public:
         m_default_printer->OnTestSuiteStart(test_suite);
     }
 #else
-    virtual void OnTestCasetart(const ::iutest::TestCase& test_case) IUTEST_CXX_OVERRIDE
+    virtual void OnTestCaseStart(const ::iutest::TestCase& test_case) IUTEST_CXX_OVERRIDE
     {
         m_default_printer->OnTestCaseStart(test_case);
     }
