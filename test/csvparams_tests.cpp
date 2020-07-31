@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -28,7 +28,7 @@ using namespace ::iutest::matchers;
 static const int CsvParamsIntTest_Params[] = {
     #include "testdata/intcsvparams.csv"
 };
-class CsvParamsIntTest : public ::iutest::TestWithParam< int >
+class CsvParamsIntTest : public ::iuutil::backward::Test<CsvParamsIntTest>, public ::iutest::WithParamInterface<int>
 {
 protected:
     static int check_params[IUTEST_PP_COUNTOF(CsvParamsIntTest_Params)];
@@ -51,7 +51,7 @@ int CsvParamsIntTest::check_params[IUTEST_PP_COUNTOF(CsvParamsIntTest_Params)];
 
 IUTEST_P(CsvParamsIntTest, Num)
 {
-    IUTEST_EXPECT_EQ( IUTEST_PP_COUNTOF(check_params)*2, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count() );
+    IUTEST_EXPECT_EQ( IUTEST_PP_COUNTOF(check_params)*2, ::iuutil::GetCurrentTestSuite()->total_test_count() );
 }
 
 IUTEST_P(CsvParamsIntTest, Param)
@@ -89,11 +89,11 @@ protected:
     static float check_params[IUTEST_PP_COUNTOF(CsvParamsFloatTest_Params)];
 
 public:
-    static void SetUpTestCase(void)
+    IUTEST_CLASS_INITIALIZE(setup)
     {
         memcpy(check_params, CsvParamsFloatTest_Params, sizeof(CsvParamsFloatTest_Params));
     }
-    static void TearDownTestCase(void)
+    IUTEST_CLASS_CLEANUP(teardown)
     {
         for( size_t i=0; i < IUTEST_PP_COUNTOF(check_params); ++i )
         {
@@ -106,7 +106,7 @@ float CsvParamsFloatTest::check_params[IUTEST_PP_COUNTOF(CsvParamsFloatTest_Para
 
 IUTEST_P(CsvParamsFloatTest, Num)
 {
-    IUTEST_EXPECT_EQ( IUTEST_PP_COUNTOF(check_params)*2, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count() );
+    IUTEST_EXPECT_EQ( IUTEST_PP_COUNTOF(check_params)*2, ::iuutil::GetCurrentTestSuite()->total_test_count() );
 }
 
 IUTEST_P(CsvParamsFloatTest, Param)
