@@ -67,10 +67,10 @@ class TestEventListener : public ::iutest::TestEventListener
     virtual void OnTestCaseEnd(const ::iutest::TestSuite& /*test_suite*/)   {}
 #endif
 #else
-    virtual void OnTestCaseStart(const ::iutest::TestCase& test_case)       { OnTestCaseStart(test_case); }
     virtual void OnTestSuiteStart(const ::iutest::TestCase& /*test_case*/) {}
-    virtual void OnTestCaseEnd(const ::iutest::TestCase& test_case)         { OnTestCaseEnd(test_case); }
+    virtual void OnTestCaseStart(const ::iutest::TestCase& test_case)       { OnTestSuiteStart(test_case); }
     virtual void OnTestSuiteEnd(const ::iutest::TestCase& /*test_case*/)   {}
+    virtual void OnTestCaseEnd(const ::iutest::TestCase& test_case)         { OnTestSuiteEnd(test_case); }
 #endif
 };
 
