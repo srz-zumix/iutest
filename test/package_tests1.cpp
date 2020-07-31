@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -36,8 +36,8 @@ IUTEST_PACKAGE(pkg1)
 #if IUTEST_HAS_PARAM_TEST
     IUTEST_P(PackageParamTest, A)
     {
-        const char* name = ::iutest::UnitTest::GetInstance()->current_test_case()->name();
-        IUTEST_EXPECT_PACKAGENAME_(pkg1, PackageParamTest, ::iuutil::TestCaseNameRemoveInstantiateAndIndexName(name));
+        const char* name = ::iuutil::GetCurrentTestSuite()->name();
+        IUTEST_EXPECT_PACKAGENAME_(pkg1, PackageParamTest, ::iuutil::TestSuiteNameRemoveInstantiateAndIndexName(name));
     }
     IUTEST_INSTANTIATE_TEST_CASE_P(A, PackageParamTest, ::iutest::Range<int>(0, 2));
 #endif
@@ -45,8 +45,8 @@ IUTEST_PACKAGE(pkg1)
 #if IUTEST_HAS_TYPED_TEST
     IUTEST_TYPED_TEST(PackageTypedTest, A)
     {
-        const char* name = ::iutest::UnitTest::GetInstance()->current_test_case()->name();
-        IUTEST_EXPECT_PACKAGENAME_(pkg1, PackageTypedTest, ::iuutil::TestCaseNameRemoveIndexName(name));
+        const char* name = ::iuutil::GetCurrentTestSuite()->name();
+        IUTEST_EXPECT_PACKAGENAME_(pkg1, PackageTypedTest, ::iuutil::TestSuiteNameRemoveIndexName(name));
     }
 #endif
 

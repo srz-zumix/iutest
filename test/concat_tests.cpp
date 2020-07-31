@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -63,7 +63,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(P5, ConcatTest
 
 void ConcatTestCheckCount(const char* name, int num)
 {
-    const ::iutest::TestCase* p = ::iuutil::FindTestCase(name);
+    const ::iutest::TestSuite* p = ::iuutil::FindTestSuite(name);
     IUTEST_ASSERT_NOTNULL(p);
     IUTEST_ASSERT_EQ(num, p->total_test_count());
 }
