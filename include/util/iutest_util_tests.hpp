@@ -210,7 +210,7 @@ inline const ::iutest::TestSuite* FindTestSuite(const char* testsuite_name)
     {
         return NULL;
     }
-    const int testsuite_count = ::iutest::UnitTest::GetInstance()->total_test_suite_count();
+    const int testsuite_count = ::iuutil::GetTotalTestSuiteCount();
     for( int i=0; i < testsuite_count; ++i )
     {
         const ::iutest::TestSuite* testsuite = ::iuutil::GetTestSuite(i);
@@ -233,7 +233,7 @@ inline const ::iutest::TestSuite* FindParamTestSuite(const char* testsuite_name,
     {
         return NULL;
     }
-    const int testsuite_count = ::iutest::UnitTest::GetInstance()->total_test_suite_count();
+    const int testsuite_count = ::iuutil::GetTotalTestSuiteCount();
     int i=0;
     if( begin != NULL )
     {
@@ -273,7 +273,7 @@ inline const ::iutest::TestSuite* FindTypedTestSuite(const char* testsuite_name,
     {
         return NULL;
     }
-    const int testsuite_count = ::iutest::UnitTest::GetInstance()->total_test_suite_count();
+    const int testsuite_count = ::iuutil::GetTotalTestSuiteCount();
     int i=0;
     if( begin != NULL )
     {
@@ -315,7 +315,7 @@ inline const ::iutest::TestSuite* FindParamTypedTestSuite(const char* testsuite_
     {
         return NULL;
     }
-    const int testsuite_count = ::iutest::UnitTest::GetInstance()->total_test_suite_count();
+    const int testsuite_count = ::iuutil::GetTotalTestSuiteCount();
     int i=0;
     if( begin != NULL )
     {
