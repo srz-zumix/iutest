@@ -52,7 +52,7 @@
             return IUTEST_CAST_TO_PARAM_GENERATOR_(testsuite_::ParamType, __VA_ARGS__); }   \
     int IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testsuite_)() {                    \
         ::iutest::detail::ParamTestSuiteInfo< IIUT_TEST_P_BASE_FIXTURE(testsuite_) >* p =   \
-            IIUT_GETTESTCASEPATTERNHOLDER( IIUT_TEST_P_BASE_FIXTURE(testsuite_)             \
+            IIUT_GETTESTSUITEPATTERNHOLDER( IIUT_TEST_P_BASE_FIXTURE(testsuite_)            \
                 , IIUT_TO_NAME_STR_(testsuite_), IUTEST_GET_PACKAGENAME_());                \
         return p->AddTestSuiteInstantiation(#prefix_                                        \
                     , IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testsuite_)                  \

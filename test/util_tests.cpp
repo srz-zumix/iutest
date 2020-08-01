@@ -35,6 +35,94 @@ IUTEST(UtilTest, Find)
     IUTEST_EXPECT_NULL(::iuutil::FindTestInfo("UtilTestXXX", "Find"));
 }
 
+#if IUTEST_HAS_PARAM_TEST
+
+class ParamTest : public ::iutest::TestWithParam<int> {};
+
+IUTEST_P(ParamTest, Test)
+{
+}
+
+IUTEST_INSTANTIATE_TEST_CASE_P(A, ParamTest, ::iutest::Values(0, 1));
+IUTEST_INSTANTIATE_TEST_CASE_P(B, ParamTest, ::iutest::Values(0, 1, 10));
+
+#endif
+
+IUTEST(UtilTest, FindParamTest)
+{
+    IUTEST_EXPECT_NULL(::iuutil::FindParamTestSuite(NULL));
+    IUTEST_EXPECT_NULL(::iuutil::FindParamTestSuite("UnitTest"));
+
+#if IUTEST_HAS_PARAM_TEST
+    const ::iutest::TestSuite* find_testsuite = ::iuutil::FindParamTestSuite("ParamTest");
+    IUTEST_EXPECT_NOTNULL(find_testsuite);
+    find_testsuite = ::iuutil::FindParamTestSuite("ParamTest", find_testsuite);
+    IUTEST_EXPECT_NOTNULL(find_testsuite);
+    find_testsuite = ::iuutil::FindParamTestSuite("ParamTest", find_testsuite);
+    IUTEST_EXPECT_NULL(find_testsuite);
+#endif
+}
+
+#if IUTEST_HAS_TYPED_TEST
+
+template<typename T>
+class TypedTest : public ::iutest::Test {};
+
+typedef ::iutest::Types<int, float> TypedTestTypes;
+IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
+
+IUTEST_TYPED_TEST(TypedTest, Test)
+{
+}
+
+#endif
+
+IUTEST(UtilTest, FindTypedTest)
+{
+    IUTEST_EXPECT_NULL(::iuutil::FindTypedTestSuite(NULL));
+    IUTEST_EXPECT_NULL(::iuutil::FindTypedTestSuite("UnitTest"));
+
+#if IUTEST_HAS_PARAM_TEST
+    const ::iutest::TestSuite* find_testsuite = ::iuutil::FindTypedTestSuite("TypedTest");
+    IUTEST_EXPECT_NOTNULL(find_testsuite);
+    find_testsuite = ::iuutil::FindTypedTestSuite("TypedTest", find_testsuite);
+    IUTEST_EXPECT_NOTNULL(find_testsuite);
+    find_testsuite = ::iuutil::FindTypedTestSuite("TypedTest", find_testsuite);
+    IUTEST_EXPECT_NULL(find_testsuite);
+#endif
+}
+
+#if IUTEST_HAS_TYPED_TEST
+
+template<typename T>
+class TypeParamTest : public ::iutest::Test {};
+
+IUTEST_TYPED_TEST_CASE_P(TypeParamTest);
+IUTEST_TYPED_TEST_P(TypeParamTest, Test)
+{
+}
+IUTEST_REGISTER_TYPED_TEST_CASE_P(TypeParamTest, Test);
+
+typedef ::iutest::Types<int, float> TypeParamTestTypes;
+IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(My1, TypeParamTest, TypeParamTestTypes);
+
+#endif
+
+IUTEST(UtilTest, FindParamTypedTest)
+{
+    IUTEST_EXPECT_NULL(::iuutil::FindParamTypedTestSuite(NULL));
+    IUTEST_EXPECT_NULL(::iuutil::FindParamTypedTestSuite("UnitTest"));
+
+#if IUTEST_HAS_PARAM_TEST
+    const ::iutest::TestSuite* find_testsuite = ::iuutil::FindParamTypedTestSuite("TypeParamTest");
+    IUTEST_EXPECT_NOTNULL(find_testsuite);
+    find_testsuite = ::iuutil::FindParamTypedTestSuite("TypeParamTest", find_testsuite);
+    IUTEST_EXPECT_NOTNULL(find_testsuite);
+    find_testsuite = ::iuutil::FindParamTypedTestSuite("TypeParamTest", find_testsuite);
+    IUTEST_EXPECT_NULL(find_testsuite);
+#endif
+}
+
 IUTEST(UtilTest, TestSuiteNameRemoveIndexName)
 {
     IUTEST_EXPECT_STREQ( "pkg.TestSuite" , ::iuutil::TestSuiteNameRemoveIndexName("pkg.TestSuite") );

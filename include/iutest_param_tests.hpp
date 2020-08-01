@@ -94,11 +94,11 @@
 */
 
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-#  define IIUT_GETTESTCASEPATTERNHOLDER(T, testsuite_, package_)    \
+#  define IIUT_GETTESTSUITEPATTERNHOLDER(T, testsuite_, package_)   \
     ::iutest::UnitTest::GetInstance()->parameterized_test_registry( \
         ).GetTestSuitePatternHolder<T>(testsuite_, package_)
 #else
-#  define IIUT_GETTESTCASEPATTERNHOLDER(T, testsuite_, package_)    \
+#  define IIUT_GETTESTSUITEPATTERNHOLDER(T, testsuite_, package_)   \
     ::iutest::UnitTest::GetInstance()->parameterized_test_registry( \
         ).GetTestSuitePatternHolder(testsuite_, package_, ::iutest::detail::explicit_type<T>())
 #endif
@@ -159,7 +159,7 @@
         const ::iutest::TestParamInfo< basefixture_::ParamType >& info) { return                    \
             ::iutest::detail::ParamTestSuiteInfo< basefixture_ >::paramname_generator_(info); }     \
     int IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testsuite_)() {                            \
-        ::iutest::detail::ParamTestSuiteInfo< basefixture_ >* p = IIUT_GETTESTCASEPATTERNHOLDER(    \
+        ::iutest::detail::ParamTestSuiteInfo< basefixture_ >* p = IIUT_GETTESTSUITEPATTERNHOLDER(   \
                 basefixture_, IIUT_TO_NAME_STR_(testsuite_), IUTEST_GET_PACKAGENAME_());            \
         return p->AddTestSuiteInstantiation(#prefix_                                                \
                     , IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testsuite_)                          \
@@ -177,7 +177,7 @@
         protected: virtual void Body() IUTEST_CXX_OVERRIDE;                                 \
         private: static int AddRegister() {                                                 \
             static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_);   \
-            IIUT_GETTESTCASEPATTERNHOLDER(testsuite_, testsuitename_                        \
+            IIUT_GETTESTSUITEPATTERNHOLDER(testsuite_, testsuitename_                       \
                     , IUTEST_GET_PACKAGENAME_())->AddTestPattern(&testinfo); return 0;      \
         }                                                                                   \
         static int dummy_;                                                                  \
@@ -195,7 +195,7 @@
         template<typename T>void Body();                                                    \
         private: static int AddRegister() {                                                 \
             static ::iutest::detail::ParamTestInstance< classname_ > testinfo(testname_);   \
-            IIUT_GETTESTCASEPATTERNHOLDER(testsuite_, testsuitename_                        \
+            IIUT_GETTESTSUITEPATTERNHOLDER(testsuite_, testsuitename_                       \
                 , IUTEST_GET_PACKAGENAME_())->AddTestPattern(&testinfo); return 0;          \
         }                                                                                   \
         static int dummy_;                                                                  \
