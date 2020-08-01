@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -96,44 +96,44 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTest(IFile* file, co
 
     file->Printf(">\n");
 
-    for( int i=0, count=test.total_test_case_count(); i < count; ++i )
+    for( int i=0, count=test.total_test_suite_count(); i < count; ++i )
     {
-        OnReportTestCase(file, *test.GetTestCase(i));
+        OnReportTestSuite(file, *test.GetTestSuite(i));
     }
     file->Printf("</testsuites>\n");
 }
 
-IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestCase(IFile* file, const TestCase& test_case)
+IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestSuite(IFile* file, const TestSuite& test_suite)
 {
-    if( test_case.reportable_test_count() <= 0 )
+    if( test_suite.reportable_test_count() <= 0 )
     {
         return;
     }
 
     file->Printf("  <testsuite ");
     OutputXmlAttribute(file, "name"
-        , EscapeXmlAttribute(test_case.testcase_name_with_default_package_name()).c_str());
+        , EscapeXmlAttribute(test_suite.testsuite_name_with_default_package_name()).c_str());
     file->Printf("tests=\"%d\" failures=\"%d\" disabled=\"%d\" "
-        , test_case.reportable_test_count()
-        , test_case.failed_test_count()
-        , test_case.reportable_disabled_test_count()
+        , test_suite.reportable_test_count()
+        , test_suite.failed_test_count()
+        , test_suite.reportable_disabled_test_count()
         );
 #if IUTEST_HAS_REPORT_SKIPPED
-    file->Printf("skip=\"%d\" ", test_case.reportable_skip_test_count() );
+    file->Printf("skip=\"%d\" ", test_suite.reportable_skip_test_count() );
 #endif
     file->Printf("errors=\"0\" time=\"%s\" timestamp=\"%s\""
-        , detail::FormatTimeInMillisecAsSecond(test_case.elapsed_time()).c_str()
-        , detail::FormatTimeInMillisecAsIso8601(test_case.start_timestamp()).c_str()
+        , detail::FormatTimeInMillisecAsSecond(test_suite.elapsed_time()).c_str()
+        , detail::FormatTimeInMillisecAsIso8601(test_suite.start_timestamp()).c_str()
         );
 
     // propertys
-    OnReportTestProperty(file, *test_case.ad_hoc_test_result(), TestCase::ValidateTestPropertyName);
+    OnReportTestProperty(file, *test_suite.ad_hoc_test_result(), TestSuite::ValidateTestPropertyName);
 
     file->Printf(">\n");
 
-    for( int i=0, count=test_case.total_test_count(); i < count; ++i )
+    for( int i=0, count=test_suite.total_test_count(); i < count; ++i )
     {
-        OnReportTestInfo(file, *test_case.GetTestInfo(i));
+        OnReportTestInfo(file, *test_suite.GetTestInfo(i));
     }
     file->Printf("  </testsuite>\n");
 }
@@ -145,7 +145,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
         return;
     }
 
-    file->Printf("    <testcase ");
+    file->Printf("    <testsuite ");
     OutputXmlAttribute(file, "name", EscapeXmlAttribute(test_info.name()).c_str() );
 
     {
@@ -177,7 +177,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
         , detail::FormatTimeInMillisecAsSecond(test_info.elapsed_time()).c_str()
         );
     OutputXmlAttribute(file, "classname"
-        , EscapeXmlAttribute(test_info.testcase_name_with_default_package_name()).c_str());
+        , EscapeXmlAttribute(test_info.testsuite_name_with_default_package_name()).c_str());
 
     // propertys
     OnReportTestProperty(file, *test_info.result(), TestInfo::ValidateTestPropertyName);
@@ -210,7 +210,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
             OutputXmlCDataSection(file, "Not Run");
             file->Printf("\n      </failure>\n");
         }
-        file->Printf("    </testcase>\n");
+        file->Printf("    </testsuite>\n");
     }
     else
     {
@@ -220,7 +220,7 @@ IUTEST_IPP_INLINE void DefaultXmlGeneratorListener::OnReportTestInfo(IFile* file
         {
             file->Printf(">\n");
             OnReportTestSkipped(file, test_info);
-            file->Printf("    </testcase>\n");
+            file->Printf("    </testsuite>\n");
         }
         else
 #endif

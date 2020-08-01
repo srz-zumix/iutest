@@ -7,7 +7,7 @@
  * @author      t.shirayanagi
  * @par         copyright
  * @deprecated
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -32,11 +32,11 @@
  * @def     IUTEST_INSTANTIATE_TEST_CASE_P
  * @brief   パラメータテストインスタンス化マクロ
  * @param   prefix_     = インスタンス名
- * @param   testcase_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   generator_  = Range, Bool, Values, ValuesIn, Combine, Pairwise ...
 */
-#define IUTEST_INSTANTIATE_TEST_CASE_P(prefix_, testcase_, ...) \
-                                                    IIUT_INSTANTIATE_TEST_CASE_PV_(prefix_, testcase_, __VA_ARGS__)
+#define IUTEST_INSTANTIATE_TEST_CASE_P(prefix_, testsuite_, ...) \
+                                                    IIUT_INSTANTIATE_TEST_CASE_PV_(prefix_, testsuite_, __VA_ARGS__)
 
 /**
  * @private
@@ -46,18 +46,18 @@
 /**
  * @brief   パラメータテスト登録(可変長対応)
 */
-#define IIUT_INSTANTIATE_TEST_CASE_PV_(prefix_, testcase_, ...)                             \
-    static ::iutest::detail::iuIParamGenerator<testcase_::ParamType>*                       \
-        IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)() {                             \
-            return IUTEST_CAST_TO_PARAM_GENERATOR_(testcase_::ParamType, __VA_ARGS__); }    \
-    int IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testcase_)() {                     \
-        ::iutest::detail::ParamTestCaseInfo< IIUT_TEST_P_BASE_FIXTURE(testcase_) >* p =     \
-            IIUT_GETTESTCASEPATTERNHOLDER( IIUT_TEST_P_BASE_FIXTURE(testcase_)              \
-                , IIUT_TO_NAME_STR_(testcase_), IUTEST_GET_PACKAGENAME_());                 \
-        return p->AddTestCaseInstantiation(#prefix_                                         \
-                    , IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testcase_)                   \
-                    , p->GetParamNameGen() );                                               \
-    } IIUT_TEST_P_INSTANTIATIONREGISTER_(prefix_, testcase_)
+#define IIUT_INSTANTIATE_TEST_CASE_PV_(prefix_, testsuite_, ...)                            \
+    static ::iutest::detail::iuIParamGenerator<testsuite_::ParamType>*                      \
+        IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testsuite_)() {                            \
+            return IUTEST_CAST_TO_PARAM_GENERATOR_(testsuite_::ParamType, __VA_ARGS__); }   \
+    int IIUT_TEST_P_INSTANTIATIONREGISTER_NAME_(prefix_, testsuite_)() {                    \
+        ::iutest::detail::ParamTestSuiteInfo< IIUT_TEST_P_BASE_FIXTURE(testsuite_) >* p =   \
+            IIUT_GETTESTSUITEPATTERNHOLDER( IIUT_TEST_P_BASE_FIXTURE(testsuite_)            \
+                , IIUT_TO_NAME_STR_(testsuite_), IUTEST_GET_PACKAGENAME_());                \
+        return p->AddTestSuiteInstantiation(#prefix_                                        \
+                    , IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testsuite_)                  \
+                    , p->GetParamNameGen(), __FILE__, __LINE__ );                           \
+    } IIUT_TEST_P_INSTANTIATIONREGISTER_(prefix_, testsuite_)
 
 #define IUTEST_CAST_TO_PARAM_GENERATOR_(type, ...)  ::iutest::tr1::iuCastToParamGenerator<type>(__VA_ARGS__)
 
