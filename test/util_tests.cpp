@@ -82,7 +82,7 @@ IUTEST(UtilTest, FindTypedTest)
     IUTEST_EXPECT_NULL(::iuutil::FindTypedTestSuite(NULL));
     IUTEST_EXPECT_NULL(::iuutil::FindTypedTestSuite("UnitTest"));
 
-#if IUTEST_HAS_PARAM_TEST
+#if IUTEST_HAS_TYPED_TEST
     const ::iutest::TestSuite* find_testsuite = ::iuutil::FindTypedTestSuite("TypedTest");
     IUTEST_EXPECT_NOTNULL(find_testsuite);
     find_testsuite = ::iuutil::FindTypedTestSuite("TypedTest", find_testsuite);
@@ -92,7 +92,7 @@ IUTEST(UtilTest, FindTypedTest)
 #endif
 }
 
-#if IUTEST_HAS_TYPED_TEST
+#if IUTEST_HAS_TYPED_TEST_P
 
 template<typename T>
 class TypeParamTest : public ::iutest::Test {};
@@ -113,7 +113,7 @@ IUTEST(UtilTest, FindParamTypedTest)
     IUTEST_EXPECT_NULL(::iuutil::FindParamTypedTestSuite(NULL));
     IUTEST_EXPECT_NULL(::iuutil::FindParamTypedTestSuite("UnitTest"));
 
-#if IUTEST_HAS_PARAM_TEST
+#if IUTEST_HAS_TYPED_TEST_P
     const ::iutest::TestSuite* find_testsuite = ::iuutil::FindParamTypedTestSuite("TypeParamTest");
     IUTEST_EXPECT_NOTNULL(find_testsuite);
     find_testsuite = ::iuutil::FindParamTypedTestSuite("TypeParamTest", find_testsuite);

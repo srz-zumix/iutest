@@ -30,7 +30,7 @@
 
 /**
  * @ingroup VALUE_PARAMETERIZED_TEST
- * @def     IUTEST_INSTANTIATE_TEST_CASE_P
+ * @def     IUTEST_INSTANTIATE_TEST_SUITE_P
  * @brief   パラメータテストインスタンス化マクロ
  * @param   prefix_         = インスタンス名
  * @param   testfixture_    = テストフィクスチャ
@@ -38,10 +38,10 @@
  * @param   ...             = Param name generator function (option)
 */
 #if IUTEST_HAS_PARAM_TEST_PARAM_NAME_GENERATOR
-#  define IUTEST_INSTANTIATE_TEST_CASE_P(prefix_, testfixture_, generator_, ...)    \
+#  define IUTEST_INSTANTIATE_TEST_SUITE_P(prefix_, testfixture_, generator_, ...)   \
     IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testfixture_, generator_, __VA_ARGS__)
 #else
-#  define IUTEST_INSTANTIATE_TEST_CASE_P(prefix_, testfixture_, generator_)         \
+#  define IUTEST_INSTANTIATE_TEST_SUITE_P(prefix_, testfixture_, generator_)        \
     IIUT_INSTANTIATE_TEST_CASE_P_(prefix_, testfixture_, generator_)
 #endif
 
@@ -54,7 +54,7 @@
  * @note
  *  class TestSuiteName : public ::iutest::TestWithParam<int> {};\n
  *  IUTEST_P(TestSuiteName, TestName) {}\n
- *  IUTEST_INSTANTIATE_TEST_CASE_P(InstantiateName, TestSuiteName, ParamGenerator);\n
+ *  IUTEST_INSTANTIATE_TEST_SUITE_P(InstantiateName, TestSuiteName, ParamGenerator);\n
 */
 #define IUTEST_P(testfixture_, testname_)       IUTEST_TEST_P_(testfixture_, testname_)
 
@@ -390,7 +390,7 @@ struct paramtest_select_base_testsuite< void(int (T)) >
  * @ingroup     VALUE_PARAMETERIZED_TEST
  * @defgroup    PARAM_GENERATOR Parameter Generator
  * @brief       パラメータ生成器
- * @details     IUTEST_INSTANTIATE_TEST_CASE_P に使用可能なパラメータ生成器
+ * @details     IUTEST_INSTANTIATE_TEST_SUITE_P に使用可能なパラメータ生成器
  * @{
 */
 

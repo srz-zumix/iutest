@@ -26,16 +26,16 @@
 // define
 #if !defined(IUTEST_NO_VARIADIC_MACROS)
 
-#undef IUTEST_INSTANTIATE_TEST_CASE_P
+#undef IUTEST_INSTANTIATE_TEST_SUITE_P
 /**
  * @ingroup TESTDEF
- * @def     IUTEST_INSTANTIATE_TEST_CASE_P
+ * @def     IUTEST_INSTANTIATE_TEST_SUITE_P
  * @brief   パラメータテストインスタンス化マクロ
  * @param   prefix_     = インスタンス名
  * @param   testsuite_  = TestSuite 名
  * @param   generator_  = Range, Bool, Values, ValuesIn, Combine, Pairwise ...
 */
-#define IUTEST_INSTANTIATE_TEST_CASE_P(prefix_, testsuite_, ...) \
+#define IUTEST_INSTANTIATE_TEST_SUITE_P(prefix_, testsuite_, ...)   \
                                                     IIUT_INSTANTIATE_TEST_CASE_PV_(prefix_, testsuite_, __VA_ARGS__)
 
 /**
