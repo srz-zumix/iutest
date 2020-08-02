@@ -110,6 +110,8 @@ jobs:
           DISABLED_CONFIG: IUTEST_HAS_VARIADIC_PAIRWISE
         Disable_VariadicValues:
           DISABLED_CONFIG: IUTEST_HAS_VARIADIC_VALUES
+        Disable_TestCase:
+          DISABLED_CONFIG: IUTEST_HAS_TESTCASE
         # spec config
         Disable_BitwiseExpressionDecompose:
           DISABLED_CONFIG: IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE
