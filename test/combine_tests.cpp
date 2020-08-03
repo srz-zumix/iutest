@@ -56,16 +56,16 @@ IUTEST_P(CombineTest, Param)
     IUTEST_EXPECT_EQ( list[index++], GetParam() );
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(A, CombineTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, CombineTest
     , ::iutest::Combine(::iutest::Bool(), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble)));
 #if IUTEST_HAS_CONCAT
-IUTEST_INSTANTIATE_TEST_CASE_P(B, CombineTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(B, CombineTest
     , ::iutest::Concat(
         ::iutest::Combine(::iutest::Values(false), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble))
         , ::iutest::Combine(::iutest::Values(true), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble))
     )
     );
-IUTEST_INSTANTIATE_TEST_CASE_P(C, CombineTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(C, CombineTest
     , ::iutest::Combine(::iutest::Values(false), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble))
         + ::iutest::Combine(::iutest::Values(true), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble))
     );
@@ -80,9 +80,9 @@ IUTEST_P(CombineInTest, A)
 {
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(A, CombineInTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, CombineInTest
     , ::iutest::Combine( ::iutest::Combine(::iutest::Bool(), ::iutest::Values(1, 10)), ::iutest::ValuesIn(tble)) );
-IUTEST_INSTANTIATE_TEST_CASE_P(B, CombineInTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(B, CombineInTest
     , ::iutest::Combine( ::iutest::Values( ::iutest::tuples::tuple<bool, int>(false, 1), ::iutest::tuples::tuple<bool, int>(true, 10) )
         , ::iutest::ValuesIn(tble)) );
 
@@ -130,7 +130,7 @@ IUTEST_P(VariadicCombineTest, Num)
     IUTEST_EXPECT_EQ( count_to_tuple(count++), GetParam() );
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(A, VariadicCombineTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, VariadicCombineTest
     , ::iutest::Combine(::iutest::ValuesIn(test_table)
         , ::iutest::ValuesIn(test_table)
         , ::iutest::ValuesIn(test_table)

@@ -37,7 +37,7 @@ const int kNumberOfParamTests = 10;
 
 class TestP : public ::iutest::TestWithParam<int> {};
 
-IUTEST_INSTANTIATE_TEST_CASE_P(Foo, TestP, ::iutest::Range<int>(0, kNumberOfParamTests));
+IUTEST_INSTANTIATE_TEST_SUITE_P(Foo, TestP, ::iutest::Range<int>(0, kNumberOfParamTests));
 
 IUTEST_P(TestP, Bar)
 {

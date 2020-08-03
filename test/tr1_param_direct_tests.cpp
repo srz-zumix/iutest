@@ -31,13 +31,13 @@ IUTEST_P(ParamDirectTest, Test)
 
 int param_test_array[] = { 3, 2, 1, 0 };
 ::std::vector<int> va(param_test_array, param_test_array+(sizeof(param_test_array)/sizeof(param_test_array[0])));
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, ParamDirectTest, ::iutest::Range<int>(0, 10));
-IUTEST_INSTANTIATE_TEST_CASE_P(My3, ParamDirectTest, ::iutest::Values(0, 1, 10));
-IUTEST_INSTANTIATE_TEST_CASE_P(My4, ParamDirectTest, ::iutest::ValuesIn(param_test_array));
-IUTEST_INSTANTIATE_TEST_CASE_P(My5, ParamDirectTest, ::iutest::ValuesIn(va));
+IUTEST_INSTANTIATE_TEST_SUITE_P(My1, ParamDirectTest, ::iutest::Range<int>(0, 10));
+IUTEST_INSTANTIATE_TEST_SUITE_P(My3, ParamDirectTest, ::iutest::Values(0, 1, 10));
+IUTEST_INSTANTIATE_TEST_SUITE_P(My4, ParamDirectTest, ::iutest::ValuesIn(param_test_array));
+IUTEST_INSTANTIATE_TEST_SUITE_P(My5, ParamDirectTest, ::iutest::ValuesIn(va));
 #if IUTEST_HAS_INITIALIZER_LIST
-IUTEST_INSTANTIATE_TEST_CASE_P(My6, ParamDirectTest, ::iutest::ValuesIn({ 3, 2, 1, 0 }));
-IUTEST_INSTANTIATE_TEST_CASE_P(My7, ParamDirectTest, { 3, 2, 1, 0 });
+IUTEST_INSTANTIATE_TEST_SUITE_P(My6, ParamDirectTest, ::iutest::ValuesIn({ 3, 2, 1, 0 }));
+IUTEST_INSTANTIATE_TEST_SUITE_P(My7, ParamDirectTest, { 3, 2, 1, 0 });
 #endif
 
 #endif

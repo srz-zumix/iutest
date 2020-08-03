@@ -38,7 +38,7 @@ IUTEST_P(WithAnyParamTest, BadCast)
 }
 #endif
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, WithAnyParamTest, ::iutest::Values(0));
+IUTEST_INSTANTIATE_TEST_SUITE_P(My1, WithAnyParamTest, ::iutest::Values(0));
 
 #if IUTEST_HAS_ANY_PARAM_TEST
 
@@ -70,7 +70,7 @@ IUTEST_P(NoFixtureAnyParamTest, Test)
     IUTEST_ASSERT_EQ(0, value);
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, NoFixtureAnyParamTest, ::iutest::Values(0));
+IUTEST_INSTANTIATE_TEST_SUITE_P(My1, NoFixtureAnyParamTest, ::iutest::Values(0));
 
 #if IUTEST_HAS_IGNORE_TEST
 IUTEST_P(NoFixtureAnyParamIgnoreTest, Test)
@@ -79,7 +79,7 @@ IUTEST_P(NoFixtureAnyParamIgnoreTest, Test)
     IUTEST_ASSERT_EQ(0, value);
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, NoFixtureAnyParamIgnoreTest, ::iutest::Values(0));
+IUTEST_INSTANTIATE_TEST_SUITE_P(My1, NoFixtureAnyParamIgnoreTest, ::iutest::Values(0));
 #endif
 
 #endif

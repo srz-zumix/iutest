@@ -39,7 +39,7 @@ IUTEST_PACKAGE(pkg1)
         const char* name = ::iuutil::GetCurrentTestSuite()->name();
         IUTEST_EXPECT_PACKAGENAME_(pkg1, PackageParamTest, ::iuutil::TestSuiteNameRemoveInstantiateAndIndexName(name));
     }
-    IUTEST_INSTANTIATE_TEST_CASE_P(A, PackageParamTest, ::iutest::Range<int>(0, 2));
+    IUTEST_INSTANTIATE_TEST_SUITE_P(A, PackageParamTest, ::iutest::Range<int>(0, 2));
 #endif
 
 #if IUTEST_HAS_TYPED_TEST

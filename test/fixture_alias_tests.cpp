@@ -64,7 +64,7 @@ IUTEST_P(ParamTestAliasName, Test2)
         ::iuutil::GetCurrentTestSuite()->name()) );
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, ParamTestAliasName, ::iutest::Values(42));
+IUTEST_INSTANTIATE_TEST_SUITE_P(My1, ParamTestAliasName, ::iutest::Values(42));
 
 #endif
 

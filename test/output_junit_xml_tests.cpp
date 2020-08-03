@@ -88,7 +88,7 @@ IUTEST_P(ParamTest, Test)
 {
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, ParamTest, ::iutest::Values(0, 10));
+IUTEST_INSTANTIATE_TEST_SUITE_P(My1, ParamTest, ::iutest::Values(0, 10));
 
 #endif
 

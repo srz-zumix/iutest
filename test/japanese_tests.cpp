@@ -80,7 +80,7 @@ IUTEST_P(IUTEST_JAPANESE_NAME_F(あいうえお, ParamTest), Japanese)
     IUTEST_ASSERT_STREQ("Japanese/0", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, IUTEST_JAPANESE_NAME_F(あいうえお, ParamTest), ::iutest::Values(0));
+IUTEST_INSTANTIATE_TEST_SUITE_P(My1, IUTEST_JAPANESE_NAME_F(あいうえお, ParamTest), ::iutest::Values(0));
 
 #endif
 

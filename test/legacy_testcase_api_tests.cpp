@@ -42,6 +42,48 @@ IUTEST(Util, Api)
     IUTEST_EXPECT_EQ(::iuutil::GetCurrentTestSuiteAdHocResult(), ::iuutil::GetCurrentTestCaseAdHocResult());
 }
 
+#if IUTEST_HAS_PARAM_TEST
+
+class ParamTest : public ::iutest::TestWithParam<int> {};
+
+IUTEST_P(ParamTest, Test)
+{
+}
+
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, ParamTest, ::iutest::Values(0, 1));
+
+#endif
+
+#if IUTEST_HAS_TYPED_TEST
+
+template<typename T>
+class TypedTest : public ::iutest::Test {};
+
+typedef ::iutest::Types<int, float> TypedTestTypes;
+IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
+
+IUTEST_TYPED_TEST(TypedTest, Test)
+{
+}
+
+#endif
+
+#if IUTEST_HAS_TYPED_TEST_P
+
+template<typename T>
+class TypeParamTest : public ::iutest::Test {};
+
+IUTEST_TYPED_TEST_CASE_P(TypeParamTest);
+IUTEST_TYPED_TEST_P(TypeParamTest, Test)
+{
+}
+IUTEST_REGISTER_TYPED_TEST_CASE_P(TypeParamTest, Test);
+
+typedef ::iutest::Types<int, float> TypeParamTestTypes;
+IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(My1, TypeParamTest, TypeParamTestTypes);
+
+#endif
+
 #endif
 
 

@@ -70,8 +70,8 @@ IUTEST_P(CsvParamsIntTest, Param)
     }
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(CSV, CsvParamsIntTest, ::iutest::CSV<int>("testdata/intcsvparams.csv") );
-IUTEST_INSTANTIATE_TEST_CASE_P(TSV, CsvParamsIntTest, ::iutest::CSV<int>("testdata/intcsvparams.tsv", '\t') );
+IUTEST_INSTANTIATE_TEST_SUITE_P(CSV, CsvParamsIntTest, ::iutest::CSV<int>("testdata/intcsvparams.csv") );
+IUTEST_INSTANTIATE_TEST_SUITE_P(TSV, CsvParamsIntTest, ::iutest::CSV<int>("testdata/intcsvparams.tsv", '\t') );
 
 IUTEST_PRAGMA_MSC_WARN_PUSH()
 IUTEST_PRAGMA_MSC_WARN_DISABLE(4838)
@@ -125,7 +125,7 @@ IUTEST_P(CsvParamsFloatTest, Param)
     }
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(A, CsvParamsFloatTest, ::iutest::CSV<float>("testdata/floatcsvparams.csv") );
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, CsvParamsFloatTest, ::iutest::CSV<float>("testdata/floatcsvparams.csv") );
 
 #endif
 

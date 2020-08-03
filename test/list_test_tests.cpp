@@ -29,7 +29,7 @@ class ParamTest : public ::iutest::TestWithParam<int> {};
 IUTEST_P(ParamTest, A)
 {
 }
-IUTEST_INSTANTIATE_TEST_CASE_P(Test, ParamTest, ::iutest::Values(42));
+IUTEST_INSTANTIATE_TEST_SUITE_P(Test, ParamTest, ::iutest::Values(42));
 
 #endif
 
