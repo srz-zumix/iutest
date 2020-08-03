@@ -21,6 +21,7 @@
 // include
 // IWYU pragma: begin_exports
 #include "iutest_ver.hpp"
+#include "iutest_legacy.hpp"
 #include "iutest_core.hpp"
 #include "iutest_param_tests.hpp"
 #include "iutest_typed_tests.hpp"
@@ -47,22 +48,22 @@
 
 /**
  * @ingroup TESTDEF
- * @def     IUTEST_TEST(testcase_, testname_)
+ * @def     IUTEST_TEST(testsuite_, testname_)
  * @brief   テスト関数定義マクロ
- * @param   testcase_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
 */
-#define IUTEST_TEST(testcase_, testname_)       IUTEST_TEST_STRICT_(testcase_, testname_    \
+#define IUTEST_TEST(testsuite_, testname_)      IUTEST_TEST_STRICT_(testsuite_, testname_    \
                                                     , ::iutest::Test, ::iutest::internal::GetTestTypeId())
 
 /**
  * @ingroup TESTDEF
- * @def     IUTEST(testcase_, testname_)
+ * @def     IUTEST(testsuite_, testname_)
  * @brief   テスト関数定義マクロ
- * @param   testcase_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
 */
-#define IUTEST(testcase_, testname_)            IUTEST_TEST(testcase_, testname_)
+#define IUTEST(testsuite_, testname_)           IUTEST_TEST(testsuite_, testname_)
 
 /**
  * @ingroup TESTDEF
@@ -76,13 +77,13 @@
 #if IUTEST_HAS_PARAM_METHOD_TEST
 /**
  * @ingroup VALUE_PARAMETERIZED_TEST
- * @def     IUTEST_PMZ(testcase_, testname_, method_, ...)
+ * @def     IUTEST_PMZ(testsuite_, testname_, method_, ...)
  * @brief   パラメタライズ関数コールテスト定義マクロ
- * @param   testcase_   = テストケース名
+ * @param   testsuite_  = TestSuite 名
  * @param   testname_   = テスト名
  * @param   method_     = 関数
 */
-#define IUTEST_PMZ(testcase_, testname_, method_, ...)  IIUT_TEST_PMZ_(testcase_, testname_     \
+#define IUTEST_PMZ(testsuite_, testname_, method_, ...) IIUT_TEST_PMZ_(testsuite_, testname_    \
                                                             , method_, ::iutest::Test           \
                                                             , ::iutest::internal::GetTestTypeId(), __VA_ARGS__)
 
@@ -112,10 +113,10 @@
 /**
  * @ingroup TESTDEF
  * @brief   テストフィクスチャ用テストの別名
- * @param   testcasename_   = テストケース名
+ * @param   testsuitename_   = TestSuite 名
  * @param   testfixture_    = テストフィクスチャ名
 */
-#define IUTEST_ALIAS_TESTNAME_F(testcasename_, testfixture_)    IUTEST_ALIAS_TESTNAME_F_(testcasename_, testfixture_)
+#define IUTEST_ALIAS_TESTNAME_F(testsuitename_, testfixture_)   IUTEST_ALIAS_TESTNAME_F_(testsuitename_, testfixture_)
 
 #if IUTEST_HAS_TESTNAME_ALIAS_JP
 
@@ -129,10 +130,10 @@
 /**
  * @ingroup TESTDEF
  * @brief   テストフィクスチャ用日本語テスト名
- * @param   testcasename_   = テストケース名
+ * @param   testsuitename_   = TestSuite 名
  * @param   testfixture_    = テストフィクスチャ名
 */
-#define IUTEST_JAPANESE_NAME_F(testcasename_, testfixture_)     IUTEST_ALIAS_TESTNAME_F(testcasename_, testfixture_)
+#define IUTEST_JAPANESE_NAME_F(testsuitename_, testfixture_)    IUTEST_ALIAS_TESTNAME_F(testsuitename_, testfixture_)
 
 #endif
 
