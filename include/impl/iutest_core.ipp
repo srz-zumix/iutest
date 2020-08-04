@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -24,57 +24,57 @@ namespace iutest
 
 IUTEST_IPP_INLINE int UnitTest::reportable_test_count() const
 {
-    return detail::SumOverList(m_testcases, &TestCase::reportable_test_count);
+    return detail::SumOverList(m_testsuites, &TestSuite::reportable_test_count);
 }
 
 IUTEST_IPP_INLINE int UnitTest::failed_test_count() const
 {
-    return detail::SumOverList(m_testcases, &TestCase::failed_test_count);
+    return detail::SumOverList(m_testsuites, &TestSuite::failed_test_count);
 }
 
 IUTEST_IPP_INLINE int UnitTest::reportable_disabled_test_count() const
 {
-    return detail::SumOverList(m_testcases, &TestCase::reportable_disabled_test_count);
+    return detail::SumOverList(m_testsuites, &TestSuite::reportable_disabled_test_count);
 }
 
 IUTEST_IPP_INLINE int UnitTest::successful_test_count() const
 {
-    return detail::SumOverList(m_testcases, &TestCase::successful_test_count);
+    return detail::SumOverList(m_testsuites, &TestSuite::successful_test_count);
 }
 
 IUTEST_IPP_INLINE int UnitTest::skip_test_count() const
 {
-    return detail::SumOverList(m_testcases, &TestCase::skip_test_count);
+    return detail::SumOverList(m_testsuites, &TestSuite::skip_test_count);
 }
 
 IUTEST_IPP_INLINE int UnitTest::reportable_skip_test_count() const
 {
-    return detail::SumOverList(m_testcases, &TestCase::reportable_skip_test_count);
+    return detail::SumOverList(m_testsuites, &TestSuite::reportable_skip_test_count);
 }
 
 IUTEST_IPP_INLINE int UnitTest::test_run_skipped_count() const
 {
-    return detail::SumOverList(m_testcases, &TestCase::test_run_skipped_count);
+    return detail::SumOverList(m_testsuites, &TestSuite::test_run_skipped_count);
 }
 
 IUTEST_IPP_INLINE int UnitTest::reportable_test_run_skipped_count() const
 {
-    return detail::SumOverList(m_testcases, &TestCase::reportable_test_run_skipped_count);
+    return detail::SumOverList(m_testsuites, &TestSuite::reportable_test_run_skipped_count);
 }
 
-IUTEST_IPP_INLINE int UnitTest::test_case_to_run_count() const
+IUTEST_IPP_INLINE int UnitTest::test_suite_to_run_count() const
 {
-    return detail::CountIfOverList(m_testcases, &TestCase::should_run);
+    return detail::CountIfOverList(m_testsuites, &TestSuite::should_run);
 }
 
-IUTEST_IPP_INLINE int UnitTest::successful_test_case_count() const
+IUTEST_IPP_INLINE int UnitTest::successful_test_suite_count() const
 {
-    return detail::CountIfOverList(m_testcases, &TestCase::Passed);
+    return detail::CountIfOverList(m_testsuites, &TestSuite::Passed);
 }
 
-IUTEST_IPP_INLINE int UnitTest::failed_test_case_count() const
+IUTEST_IPP_INLINE int UnitTest::failed_test_suite_count() const
 {
-    return detail::CountIfOverList(m_testcases, &TestCase::Failed);
+    return detail::CountIfOverList(m_testsuites, &TestSuite::Failed);
 }
 
 IUTEST_IPP_INLINE bool UnitTest::Passed() const
@@ -83,7 +83,7 @@ IUTEST_IPP_INLINE bool UnitTest::Passed() const
     {
         return false;
     }
-    for( iuTestCases::const_iterator it=m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
+    for( iuTestSuites::const_iterator it=m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
     {
         if( (*it)->Failed() )
         {
@@ -98,7 +98,7 @@ IUTEST_IPP_INLINE int UnitTest::Run()
     if( m_init_iutest_count == 0 )
     {
 //#if IUTEST_HAS_PARAM_TEST
-//      if( m_param_testcase_holder.count() )
+//      if( m_param_testsuite_holder.count() )
 //#endif
         {
             detail::iuConsole::output(
@@ -223,7 +223,7 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce()
     // シャッフル
     if( TestFlag::IsEnableFlag(TestFlag::SHUFFLE_TESTS) )
     {
-        detail::RandomShuffle(m_testcases, TestEnv::genrand());
+        detail::RandomShuffle(m_testsuites, TestEnv::genrand());
     }
 
     // グローバル環境セット
@@ -237,11 +237,11 @@ IUTEST_IPP_INLINE bool UnitTest::RunOnce()
     {
         detail::iuStopWatch sw;
         sw.start();
-        for( iuTestCases::iterator it=m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
+        for( iuTestSuites::iterator it=m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
         {
-            m_current_testcase = *it;
-            m_current_testcase->Run();
-            m_current_testcase = NULL;
+            m_current_testsuite = *it;
+            m_current_testsuite->Run();
+            m_current_testsuite = NULL;
         }
         m_elapsedmsec = sw.stop();
     }
@@ -266,12 +266,12 @@ IUTEST_IPP_INLINE void UnitTest::TestProgramStart()
     // フィルタリング
     m_should_run_num = 0;
     m_disable_num = 0;
-    for( iuTestCases::iterator it = m_testcases.begin(), end=m_testcases.end(); it != end; ++it )
+    for( iuTestSuites::iterator it = m_testsuites.begin(), end=m_testsuites.end(); it != end; ++it )
     {
-        TestCase* testcase = *it;
-        testcase->filter();
-        m_should_run_num += testcase->test_to_run_count();
-        m_disable_num += testcase->disabled_test_count();
+        TestSuite* testsuite = *it;
+        testsuite->filter();
+        m_should_run_num += testsuite->test_to_run_count();
+        m_disable_num += testsuite->disabled_test_count();
     }
 
     atexit(OnExit);
@@ -348,7 +348,7 @@ IUTEST_IPP_INLINE void UnitTest::Initialize()
     }
 
 #if IUTEST_HAS_PARAM_TEST
-    m_param_testcase_holder.RegisterTests();
+    m_param_testsuite_holder.RegisterTests();
 #endif
 }
 

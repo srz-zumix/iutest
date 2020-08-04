@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -44,9 +44,9 @@ IUTEST_IPP_INLINE void StreamResultListener::OnTestIterationStart(const UnitTest
     IUTEST_UNUSED_VAR(test);
     SendLn("event=TestIterationStart&iteration=" + StreamableToString(iteration));
 }
-IUTEST_IPP_INLINE void StreamResultListener::OnTestCaseStart(const TestCase& test_case)
+IUTEST_IPP_INLINE void StreamResultListener::OnTestSuiteStart(const TestSuite& test_suite)
 {
-    SendLn("event=TestCaseStart&name=" + StreamableToString(test_case.name()));
+    SendLn("event=TestSuiteStart&name=" + StreamableToString(test_suite.name()));
 }
 IUTEST_IPP_INLINE void StreamResultListener::OnTestStart(const TestInfo& test_info)
 {
@@ -75,11 +75,11 @@ IUTEST_IPP_INLINE void StreamResultListener::OnTestEnd(const TestInfo& test_info
         + "&elapsed_time=" + StreamableToString(test_info.elapsed_time()) + "ms"
         );
 }
-IUTEST_IPP_INLINE void StreamResultListener::OnTestCaseEnd(const TestCase& test_case)
+IUTEST_IPP_INLINE void StreamResultListener::OnTestSuiteEnd(const TestSuite& test_suite)
 {
-    SendLn("event=TestCaseEnd&passed="
-        + FormatBool(test_case.Passed())
-        + "&elapsed_time=" + StreamableToString(test_case.elapsed_time()) + "ms"
+    SendLn("event=TestSuiteEnd&passed="
+        + FormatBool(test_suite.Passed())
+        + "&elapsed_time=" + StreamableToString(test_suite.elapsed_time()) + "ms"
         );
 }
 IUTEST_IPP_INLINE void StreamResultListener::OnTestIterationEnd(const UnitTest& test

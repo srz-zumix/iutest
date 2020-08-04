@@ -996,12 +996,12 @@ IUTEST_P(ValuesTest, Test)
 {
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P( X1, ValuesTest, ::iutest::Values(1) );
-IUTEST_INSTANTIATE_TEST_CASE_P( X2, ValuesTest, ::iutest::Values(1, 2) );
+IUTEST_INSTANTIATE_TEST_SUITE_P( X1, ValuesTest, ::iutest::Values(1) );
+IUTEST_INSTANTIATE_TEST_SUITE_P( X2, ValuesTest, ::iutest::Values(1, 2) );
 
 #if IUTEST_HAS_VARIADIC_VALUES
 
-IUTEST_INSTANTIATE_TEST_CASE_P( X51, ValuesTest
+IUTEST_INSTANTIATE_TEST_SUITE_P( X51, ValuesTest
     , ::iutest::Values( IUTEST_PP_ENUM_PARAMS(51, IUTEST_PP_EMPTY()) ) );
 
 #endif

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2017-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -38,11 +38,11 @@ int main(int argc, char** argv)
     const int ret = IUTEST_RUN_ALL_TESTS();
 #if !defined(IUTEST_USE_GTEST)
     IUTEST_ASSERT_EXIT( ret != 0 );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->successful_test_case_count() == 0 );
+    IUTEST_ASSERT_EXIT( ::iuutil::GetSuccessfulTestSuiteCount() == 0 );
     IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
 #else
     IUTEST_ASSERT_EXIT( ret == 0 );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->successful_test_case_count() == 1 );
+    IUTEST_ASSERT_EXIT( ::iuutil::GetSuccessfulTestSuiteCount() == 1 );
     IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 0 );
 #endif
     printf("*** Successful ***\n");
