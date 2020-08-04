@@ -27,7 +27,7 @@
 
 IUTEST_FILESYSTEM_INSTANTIATE( ::iutest::detail::NoEffectFile );
 
-class TestF : public ::iutest::Test
+class TestF : public ::iuutil::backward::Test<TestF>
 {
 public:
     static int nI;

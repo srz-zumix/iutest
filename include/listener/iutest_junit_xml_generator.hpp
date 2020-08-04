@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -46,7 +46,7 @@ public:
     virtual void OnReportTest(IFile* file, const UnitTest& test) IUTEST_CXX_OVERRIDE;
 
 private:
-    static void OnReportTestCase(IFile* file, const TestCase& test_case);
+    static void OnReportTestSuite(IFile* file, const TestSuite& test_suite);
     static void OnReportTestInfo(IFile* file, const TestInfo& test_info);
     static void OnReportProperty(IFile* file, const char* name, const char* value);
     static void OnReportTestProperty(IFile* file, const TestResult& test_result);

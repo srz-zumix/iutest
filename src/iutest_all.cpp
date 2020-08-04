@@ -28,7 +28,7 @@ template class ::std::vector< ::std::basic_string<wchar_t> >;
 // ipp
 #include "../include/impl/iutest_port.ipp"
 #include "../include/impl/iutest_body.ipp"
-#include "../include/impl/iutest_case.ipp"
+#include "../include/impl/iutest_suite.ipp"
 #include "../include/impl/iutest_core.ipp"
 #include "../include/impl/iutest_core_impl.ipp"
 #include "../include/impl/iutest_info.ipp"
