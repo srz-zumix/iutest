@@ -49,7 +49,7 @@ IUTEST_AP(AnyParamTest, Test)
     IUTEST_ASSERT_EQ(0, value);
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_AP(My1, AnyParamTest, ::iutest::Values(0));
+IUTEST_INSTANTIATE_TEST_SUITE_AP(My1, AnyParamTest, ::iutest::Values(0));
 
 IUTEST_AP(AnyParamTest2, Test)
 {
@@ -57,7 +57,7 @@ IUTEST_AP(AnyParamTest2, Test)
     IUTEST_ASSERT_EQ("0", value);
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_AP(My1, AnyParamTest2, ::iutest::Values("0"));
+IUTEST_INSTANTIATE_TEST_SUITE_AP(My1, AnyParamTest2, ::iutest::Values("0"));
 
 #endif
 

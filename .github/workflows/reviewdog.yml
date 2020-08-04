@@ -23,6 +23,7 @@ jobs:
         filter: "-build/c++11\
           ,-build/c++tr1\
           ,-build/header_guard\
+          ,-build/include\
           ,-build/include_what_you_use\
           ,-readability/braces\
           ,-readability/todo\
