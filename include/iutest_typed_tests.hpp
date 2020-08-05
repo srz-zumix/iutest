@@ -39,9 +39,9 @@
  * @param   ...         = タイプリスト
 */
 #if !defined(IUTEST_NO_VARIADIC_MACROS)
-#  define IUTEST_TYPED_TEST_CASE(testsuite_, ...)       IIUT_TYPED_TEST_CASE_(testsuite_, __VA_ARGS__)
+#  define IUTEST_TYPED_TEST_CASE(testsuite_, ...)       IIUT_TYPED_TEST_SUITE_(testsuite_, __VA_ARGS__)
 #else
-#  define IUTEST_TYPED_TEST_CASE(testsuite_, types_)    IIUT_TYPED_TEST_CASE_(testsuite_, types_)
+#  define IUTEST_TYPED_TEST_CASE(testsuite_, types_)    IIUT_TYPED_TEST_SUITE_(testsuite_, types_)
 #endif
 
 /**
@@ -80,10 +80,10 @@
 #define IIUT_TYPED_TEST_PARAMS_III_(testsuite_)     iutest_types_params_##testsuite_
 
 #if !defined(IUTEST_NO_VARIADIC_MACROS)
-#  define IIUT_TYPED_TEST_CASE_(testsuite_, ...)     \
+#  define IIUT_TYPED_TEST_SUITE_(testsuite_, ...)       \
     typedef ::iutest::detail::TypeList< __VA_ARGS__ >::type IIUT_TYPED_TEST_PARAMS_(testsuite_)
 #else
-#  define IIUT_TYPED_TEST_CASE_(testsuite_, types_)      \
+#  define IIUT_TYPED_TEST_SUITE_(testsuite_, types_)    \
     typedef ::iutest::detail::TypeList< types_ >::type  IIUT_TYPED_TEST_PARAMS_(testsuite_)
 #endif
 
@@ -170,7 +170,7 @@
  * @brief   型パラメータTestSuite の登録
  * @param   testsuite_  = TestSuite 名
 */
-#define IUTEST_TYPED_TEST_CASE_P(testsuite_)            IIUT_TYPED_TEST_CASE_P_(testsuite_)
+#define IUTEST_TYPED_TEST_CASE_P(testsuite_)            IIUT_TYPED_TEST_SUITE_P_(testsuite_)
 
 /**
  * @ingroup TYPE_PARAMETERIZED_TEST
@@ -197,7 +197,7 @@
  * @param   testsuite_  = TestSuite 名
 */
 #define IUTEST_REGISTER_TYPED_TEST_CASE_P(testsuite_, ...)  \
-    IIUT_REGISTER_TYPED_TEST_CASE_P_(testsuite_, __VA_ARGS__)
+    IIUT_REGISTER_TYPED_TEST_SUITE_P_(testsuite_, __VA_ARGS__)
 
 /**
  * @ingroup TYPE_PARAMETERIZED_TEST
@@ -208,7 +208,7 @@
  * @param   ...         = タイプリスト
 */
 #define IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(prefix_, testsuite_, ...)  \
-    IIUT_INSTANTIATE_TYPED_TEST_CASE_P_(prefix_, testsuite_, __VA_ARGS__)
+    IIUT_INSTANTIATE_TYPED_TEST_SUITE_P_(prefix_, testsuite_, __VA_ARGS__)
 
 
 /**
@@ -216,15 +216,15 @@
  * @{
 */
 
-#define IIUT_TYPED_TEST_CASE_PSTATE_NAME_(testsuite_)    s_iutest_typed_test_suite_p_state_##testsuite_##_
-#define IIUT_TYPED_TEST_P_NAMESPACE_(testsuite_)         iutest_typed_test_suite_p_name_##testsuite_##_
+#define IIUT_TYPED_TEST_SUITE_PSTATE_NAME_(testsuite_)  s_iutest_typed_test_suite_p_state_##testsuite_##_
+#define IIUT_TYPED_TEST_P_NAMESPACE_(testsuite_)        iutest_typed_test_suite_p_name_##testsuite_##_
 #define IIUT_TYPED_TEST_P_ADDTESTNAME(testsuite_, testname_)                            \
     static const int s_iutest_##testname_##_defined_dummy_  IUTEST_ATTRIBUTE_UNUSED_ =  \
-    IIUT_TYPED_TEST_CASE_PSTATE_NAME_(testsuite_).AddTestName(__FILE__, __LINE__, #testsuite_, #testname_)
+    IIUT_TYPED_TEST_SUITE_PSTATE_NAME_(testsuite_).AddTestName(__FILE__, __LINE__, #testsuite_, #testname_)
 
 
-#define IIUT_TYPED_TEST_CASE_P_(testsuite_)     \
-    static ::iutest::detail::TypedTestSuitePState IIUT_TYPED_TEST_CASE_PSTATE_NAME_(testsuite_)
+#define IIUT_TYPED_TEST_SUITE_P_(testsuite_)    \
+    static ::iutest::detail::TypedTestSuitePState IIUT_TYPED_TEST_SUITE_PSTATE_NAME_(testsuite_)
 
 #define IIUT_TYPED_TEST_P_(testsuite_, testname_)               \
     IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testsuite_)) > 1, "testsuite_ must not be empty");   \
@@ -257,20 +257,20 @@
 
 #endif
 
-#define IIUT_REGISTER_TYPED_TEST_CASE_P_(testsuite_, ...)                                   \
+#define IIUT_REGISTER_TYPED_TEST_SUITE_P_(testsuite_, ...)                                  \
     namespace IIUT_TYPED_TEST_P_NAMESPACE_(testsuite_) {                                    \
         typedef ::iutest::detail::Templates< __VA_ARGS__ >::type iutest_AllTests_;          \
     }                                                                                       \
     static const bool s_iutest_##testsuite_##_register_dummy_ IUTEST_ATTRIBUTE_UNUSED_ =    \
-    IIUT_TYPED_TEST_CASE_PSTATE_NAME_(testsuite_).VerifyTestNames(__FILE__, __LINE__, #__VA_ARGS__)
+    IIUT_TYPED_TEST_SUITE_PSTATE_NAME_(testsuite_).VerifyTestNames(__FILE__, __LINE__, #__VA_ARGS__)
 
-#define IIUT_INSTANTIATE_TYPED_TEST_CASE_P_(prefix_, testsuite_, ...)           \
+#define IIUT_INSTANTIATE_TYPED_TEST_SUITE_P_(prefix_, testsuite_, ...)          \
     const bool iutest_##prefix_##_##testsuite_ IUTEST_ATTRIBUTE_UNUSED_ =       \
         ::iutest::detail::TypeParameterizedTestSuite< testsuite_                \
         , IIUT_TYPED_TEST_P_NAMESPACE_(testsuite_)::iutest_AllTests_            \
         , ::iutest::detail::TypeList< __VA_ARGS__ >::type >::Register(          \
             #prefix_, IIUT_TO_NAME_STR_(testsuite_), IUTEST_GET_PACKAGENAME_()  \
-            , IIUT_TYPED_TEST_CASE_PSTATE_NAME_(testsuite_).names(), __FILE__, __LINE__)
+            , IIUT_TYPED_TEST_SUITE_PSTATE_NAME_(testsuite_).names(), __FILE__, __LINE__)
 
 /**
  * @}
