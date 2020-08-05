@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2019-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -16,7 +16,7 @@
 //======================================================================
 // include
 #include "iutest.hpp"
-#include "disabled_testcases.cpp"
+#include "disabled_tests_decl.cpp"
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])

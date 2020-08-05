@@ -496,7 +496,9 @@ IUTEST(PrintToTest, Tuple)
 }
 #endif
 
-#if IUTEST_HAS_CXX_HDR_VARIANT
+#if IUTEST_HAS_CXX_HDR_VARIANT && !defined(IUTEST_USE_GTEST)
+
+// std::monostate for gtest default variant printer is not supported, and formt is different
 
 #if IUTEST_HAS_EXCEPTIONS
 struct AlwaysThrow
