@@ -192,11 +192,11 @@
 
 /**
  * @ingroup TYPE_PARAMETERIZED_TEST
- * @def     IUTEST_REGISTER_TYPED_TEST_CASE_P(testsuite_, ...)
+ * @def     IUTEST_REGISTER_TYPED_TEST_SUITE_P(testsuite_, ...)
  * @brief   型パラメータテスト関数登録マクロ
  * @param   testsuite_  = TestSuite 名
 */
-#define IUTEST_REGISTER_TYPED_TEST_CASE_P(testsuite_, ...)  \
+#define IUTEST_REGISTER_TYPED_TEST_SUITE_P(testsuite_, ...)     \
     IIUT_REGISTER_TYPED_TEST_SUITE_P_(testsuite_, __VA_ARGS__)
 
 /**
@@ -418,7 +418,7 @@ public:
         if( m_names != NULL )
         {
             IUTEST_LOG_(WARNING) << detail::FormatCompilerIndependentFileLocation(file, line)
-                << ": Test \"" << test_name << "\" must be defined before IUTEST_REGISTER_TYPED_TEST_CASE_P("
+                << ": Test \"" << test_name << "\" must be defined before IUTEST_REGISTER_TYPED_TEST_SUITE_P("
                 << testsuite_name << ", ...).\n";
         }
 #if IUTEST_TYPED_TEST_P_STRICT
