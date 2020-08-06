@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,39 +31,39 @@ IUTEST_P(ConcatTest, Dummy)
 {
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(A1, ConcatTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(A1, ConcatTest
     , ::iutest::Concat(::iutest::Bool(), ::iutest::Values(1, 10)));
-IUTEST_INSTANTIATE_TEST_CASE_P(A2, ConcatTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(A2, ConcatTest
     , ::iutest::Concat(::iutest::Bool(), ::iutest::ValuesIn(tble)));
-IUTEST_INSTANTIATE_TEST_CASE_P(A3, ConcatTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(A3, ConcatTest
     , ::iutest::Concat(::iutest::ValuesIn(tble), ::iutest::Range(1, 10)));
-IUTEST_INSTANTIATE_TEST_CASE_P(A4, ConcatTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(A4, ConcatTest
     , ::iutest::Concat(::iutest::Values(1, 10)
     , ::iutest::Concat(::iutest::ValuesIn(tble), ::iutest::Range(1, 10))) );
-IUTEST_INSTANTIATE_TEST_CASE_P(A5, ConcatTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(A5, ConcatTest
     , ::iutest::Concat(::iutest::ValuesIn(ftble), ::iutest::Range<char>(1, 10)));
 #if IUTEST_HAS_RANDOMVALUES
-IUTEST_INSTANTIATE_TEST_CASE_P(A6, ConcatTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(A6, ConcatTest
     , ::iutest::Concat(::iutest::ValuesIn(tble), ::iutest::RandomValues(1)));
 #endif
 
 // operator +
-IUTEST_INSTANTIATE_TEST_CASE_P(P1, ConcatTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(P1, ConcatTest
     , ::iutest::Bool() + ::iutest::Values(1, 10));
-IUTEST_INSTANTIATE_TEST_CASE_P(P2, ConcatTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(P2, ConcatTest
     , ::iutest::Values(1, 10) + ::iutest::Bool() );
-IUTEST_INSTANTIATE_TEST_CASE_P(P3, ConcatTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(P3, ConcatTest
     , ::iutest::ValuesIn(ftble) + ::iutest::ValuesIn(tble) );
 #if IUTEST_HAS_RANDOMVALUES
-IUTEST_INSTANTIATE_TEST_CASE_P(P4, ConcatTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(P4, ConcatTest
     , ::iutest::RandomValues(1) + ::iutest::Bool() );
 #endif
-IUTEST_INSTANTIATE_TEST_CASE_P(P5, ConcatTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(P5, ConcatTest
     , ::iutest::Range(1, 10) + ::iutest::Bool() + ::iutest::Values(1, 10));
 
 void ConcatTestCheckCount(const char* name, int num)
 {
-    const ::iutest::TestCase* p = ::iuutil::FindTestCase(name);
+    const ::iutest::TestSuite* p = ::iuutil::FindTestSuite(name);
     IUTEST_ASSERT_NOTNULL(p);
     IUTEST_ASSERT_EQ(num, p->total_test_count());
 }

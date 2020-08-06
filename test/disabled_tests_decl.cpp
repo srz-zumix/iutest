@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file        disabled_testcases.cpp
- * @brief       disabled tests testcase definitions
+ * @file        disabled_tests_decl.cpp
+ * @brief       disabled tests testsuite definitions
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2019-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -62,9 +62,9 @@ IUTEST_P(DISABLED_FooP, Bar)
     IUTEST_FAIL() << v;
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(A, FooP, ::iutest::Values(0, 2));
-IUTEST_INSTANTIATE_TEST_CASE_P(A, FooP_DISABLED_, ::iutest::Values(0, 2));
-IUTEST_INSTANTIATE_TEST_CASE_P(A, DISABLED_FooP , ::iutest::Values(0, 2));
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, FooP, ::iutest::Values(0, 2));
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, FooP_DISABLED_, ::iutest::Values(0, 2));
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, DISABLED_FooP , ::iutest::Values(0, 2));
 
 #endif
 

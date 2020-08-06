@@ -54,7 +54,7 @@ IUTEST_F(ProdFixtureTest, Friend)
 
 class ProdParamTest : public ::iutest::TestWithParam<int> {};
 
-IUTEST_INSTANTIATE_TEST_CASE_P(X, ProdParamTest, ::iutest::Values(0));
+IUTEST_INSTANTIATE_TEST_SUITE_P(X, ProdParamTest, ::iutest::Values(0));
 
 IUTEST_P(ProdParamTest, Friend)
 {

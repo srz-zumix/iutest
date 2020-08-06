@@ -60,20 +60,20 @@ IUTEST_IPP_INLINE::std::string TestEnv::get_report_junit_xml_filepath()
     return "";
 }
 
-IUTEST_IPP_INLINE::std::string TestEnv::AddDefaultPackageName(const char* testcase_name)
+IUTEST_IPP_INLINE::std::string TestEnv::AddDefaultPackageName(const char* testsuite_name)
 {
     ::std::string str = TestEnv::get_default_package_name();
     if( str.empty() )
     {
-        return testcase_name;
+        return testsuite_name;
     }
-    if( strchr(testcase_name, '.') != NULL )
+    if( strchr(testsuite_name, '.') != NULL )
     {
-        return testcase_name;
+        return testsuite_name;
     }
 
     str += ".";
-    str += testcase_name;
+    str += testsuite_name;
     return str;
 }
 
