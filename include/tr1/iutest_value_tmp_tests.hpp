@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -25,35 +25,35 @@
 // define
 /**
  * @ingroup TESTDEF
- * @def     IUTEST_VALUETMP_TEST_CASE(testcase_, types_)
- * @brief   型付けテストケースの登録
+ * @def     IUTEST_VALUETMP_TEST_CASE(testsuite_, types_)
+ * @brief   型付け TestSuite の登録
 */
-#define IUTEST_VALUETMP_TEST_CASE(testcase_, types_)    IIUT_TYPED_TEST_CASE_(testcase_, types_)
+#define IUTEST_VALUETMP_TEST_CASE(testsuite_, types_)    IIUT_TYPED_TEST_SUITE_(testsuite_, types_)
 
 /**
  * @ingroup TESTDEF
- * @def     IUTEST_VALUETMP_TEST(testcase_, testname_)
+ * @def     IUTEST_VALUETMP_TEST(testsuite_, testname_)
  * @brief   型付けテスト関数定義マクロ
 */
 
-#define IUTEST_VALUETMP_TEST(testcase_, testname_)      IIUT_VALUETMP_TEST_(testcase_, testname_)
+#define IUTEST_VALUETMP_TEST(testsuite_, testname_)      IIUT_VALUETMP_TEST_(testsuite_, testname_)
 
 
 /**
  * @private
  * @{
 */
-#define IIUT_VALUETMP_TEST_(testcase_, testname_)                                       \
+#define IIUT_VALUETMP_TEST_(testsuite_, testname_)                                      \
     template<iutest::BiggestInt iutest_ValueParam>                                      \
-    class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public testcase_<iutest_ValueParam> { \
-        typedef testcase_<iutest_ValueParam> TestFixture;                               \
+    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) : public testsuite_<iutest_ValueParam> { \
+        typedef testsuite_<iutest_ValueParam> TestFixture;                              \
         static const iutest::BiggestInt ValueParam = iutest_ValueParam;                 \
         protected: virtual void Body();                                                 \
     };                                                                                  \
-    iutest::tr1::ValueTmpParamTestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_), IIUT_TYPED_TEST_PARAMS_(testcase_)>   \
-    s_##testcase_##_##testname_( #testcase_, #testname_);                               \
+    iutest::tr1::ValueTmpParamTestInstance<IUTEST_TEST_CLASS_NAME_(testsuite_, testname_), IIUT_TYPED_TEST_PARAMS_(testsuite_)>   \
+    s_##testsuite_##_##testname_( #testsuite_, #testname_, __FILE__, __LINE__);         \
     template<iutest::BiggestInt iutest_ValueParam>                                      \
-    void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)<iutest_ValueParam>::Body()
+    void IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)<iutest_ValueParam>::Body()
 
 /**
  * @}
@@ -94,13 +94,13 @@ template<template<BiggestInt V> class Tester, typename TypePrams>
 class ValueTmpParamTestInstance
 {
     /**
-     * @brief   テストケース名の作成
-     * @param [in]  testcase    = ベース名
+     * @brief   TestSuite 名の作成
+     * @param [in]  testsuite   = ベース名
      * @param [in]  index       = 型インデックス
     */
-    static ::std::string MakeTestCaseName(const char* testcase, size_t index)
+    static ::std::string MakeTestSuiteName(const char* testsuite, size_t index)
     {
-        ::std::string name = testcase;
+        ::std::string name = testsuite;
         iu_stringstream strm; strm << index;
         name += "/";
         name += strm.str();
@@ -115,29 +115,29 @@ class ValueTmpParamTestInstance
     {
         typedef typename TT::Head           TypeParam;
         typedef Tester<TypeParam::kValue>   TestBody;
-        typedef TypedTestCase<TypeParam>    _MyTestCase;
+        typedef TypedTestSuite<TypeParam>    _MyTestSuite;
     public:
         // コンストラクタ
-        EachTest(const char* testcase, const char* name, size_t index)
-            : m_mediator(AddTestCase(testcase, index))
+        EachTest(const char* testsuite, const char* name, size_t index, const char* file, int line)
+            : m_mediator(AddTestSuite(testsuite, index, file, line))
             , m_info(&m_mediator, name, &m_factory)
-            , m_next(testcase, name, index+1)
+            , m_next(testsuite, name, index+1, file, line)
         {
         }
     private:
-        static TestCase* AddTestCase(const char* testcase, size_t index)
+        static TestSuite* AddTestSuite(const char* testsuite, size_t index, const char* file, int line)
         {
 #if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-            return UnitTest::instance().AddTestCase<_MyTestCase>(
+            return UnitTest::instance().AddTestSuite<_MyTestSuite>(
 #else
-            return UnitTest::instance().AddTestCase(
+            return UnitTest::instance().AddTestSuite(
 #endif
-                MakeTestCaseName(testcase, index).c_str()
+                MakeTestSuiteName(testsuite, index).c_str()
                 , internal::GetTypeId<detail::None>()   // TypeId を統一するためダミー引数を渡す
-                , TestBody::SetUpTestCase
-                , TestBody::TearDownTestCase
+                , IUTEST_GET_SETUP_TESTSUITE(TestBody, file, line)
+                , IUTEST_GET_TEARDOWN_TESTSUITE(TestBody, file, line)
 #if defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)
-                , detail::explicit_type<_MyTestCase>()
+                , detail::explicit_type<_MyTestSuite>()
 #endif
                 );
         }
@@ -150,7 +150,7 @@ class ValueTmpParamTestInstance
             m_next.AddTest();
         }
     private:
-        detail::TestCaseMediator    m_mediator;
+        detail::TestSuiteMediator   m_mediator;
         TestInfo                    m_info;
         detail::iuFactory<TestBody> m_factory;
 
@@ -162,14 +162,14 @@ class ValueTmpParamTestInstance
     class EachTest<detail::TypeList0, DMY>
     {
     public:
-        EachTest(const char* /*testcase*/, const char* /*name*/, size_t /*index*/) {}
+        EachTest(const char* /*testsuite*/, const char* /*name*/, size_t /*index*/, const char* /*file*/, int /*line*/) {}
         void AddTest() {}
     };
 
 public:
     // コンストラクタ
-    ValueTmpParamTestInstance(const char* testcase, const char* name)
-        : m_tests(testcase, name, 0)
+    ValueTmpParamTestInstance(const char* testsuite, const char* name, const char* file, int line)
+        : m_tests(testsuite, name, 0, file, line)
     {
         m_tests.AddTest();
     }

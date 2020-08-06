@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -62,11 +62,11 @@ IUTEST_IPP_INLINE void TestEventRepeater::OnEnvironmentsSetUpEnd(const UnitTest&
     }
 }
 
-IUTEST_IPP_INLINE void TestEventRepeater::OnTestCaseStart(const TestCase& test_case)
+IUTEST_IPP_INLINE void TestEventRepeater::OnTestSuiteStart(const TestSuite& test_suite)
 {
     for( ListenerContainer::iterator it=m_listeners.begin(), end=m_listeners.end(); it != end; ++it )
     {
-        (*it)->OnTestCaseStart(test_case);
+        (*it)->OnTestSuiteStart(test_suite);
     }
 }
 IUTEST_IPP_INLINE void TestEventRepeater::OnTestStart(const TestInfo& test_info)
@@ -97,11 +97,11 @@ IUTEST_IPP_INLINE void TestEventRepeater::OnTestEnd(const TestInfo& test_info)
         (*it)->OnTestEnd(test_info);
     }
 }
-IUTEST_IPP_INLINE void TestEventRepeater::OnTestCaseEnd(const TestCase& test_case)
+IUTEST_IPP_INLINE void TestEventRepeater::OnTestSuiteEnd(const TestSuite& test_suite)
 {
     for( ListenerContainer::reverse_iterator it=m_listeners.rbegin(), end=m_listeners.rend(); it != end; ++it )
     {
-        (*it)->OnTestCaseEnd(test_case);
+        (*it)->OnTestSuiteEnd(test_suite);
     }
 }
 
