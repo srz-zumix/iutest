@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -78,7 +78,7 @@ IUTEST_TYPED_TEST_P_IGNORE(IgnoreTypedTestP, A)
     IUTEST_ASSERT_EQ(100, vm.GetTotalAmount());
 }
 
-IUTEST_REGISTER_TYPED_TEST_CASE_P(IgnoreTypedTestP, A);
+IUTEST_REGISTER_TYPED_TEST_SUITE_P(IgnoreTypedTestP, A);
 
 IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(I, IgnoreTypedTestP, int);
 

@@ -453,7 +453,7 @@ IUTEST_TYPED_TEST_P(TypedTestP, Litle)
     IUTEST_ASSERT_LT(0, a);
 }
 
-IUTEST_REGISTER_TYPED_TEST_CASE_P(TypedTestP, Equal, Litle);
+IUTEST_REGISTER_TYPED_TEST_SUITE_P(TypedTestP, Equal, Litle);
 IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(TypedTestPInstance, TypedTestP, TypedTestTypes);
 
 #endif

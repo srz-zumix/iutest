@@ -116,7 +116,7 @@ IUTEST_TYPED_TEST_P(TypeParamTest, IUTEST_JAPANESE_NAME_F(あいうえお, aiueo
     IUTEST_ASSERT_STREQ("あいうえお", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
 
-IUTEST_REGISTER_TYPED_TEST_CASE_P(TypeParamTest, aiueo);
+IUTEST_REGISTER_TYPED_TEST_SUITE_P(TypeParamTest, aiueo);
 
 IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(My1, TypeParamTest, int);
 

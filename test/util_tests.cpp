@@ -101,7 +101,7 @@ IUTEST_TYPED_TEST_CASE_P(TypeParamTest);
 IUTEST_TYPED_TEST_P(TypeParamTest, Test)
 {
 }
-IUTEST_REGISTER_TYPED_TEST_CASE_P(TypeParamTest, Test);
+IUTEST_REGISTER_TYPED_TEST_SUITE_P(TypeParamTest, Test);
 
 typedef ::iutest::Types<int, float> TypeParamTestTypes;
 IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(My1, TypeParamTest, TypeParamTestTypes);

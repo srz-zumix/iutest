@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -36,7 +36,7 @@ IUTEST_TYPED_TEST_P(VerifyFailTypeParamTest, B)
     IUTEST_FAIL();
 }
 
-IUTEST_REGISTER_TYPED_TEST_CASE_P(VerifyFailTypeParamTest, A);
+IUTEST_REGISTER_TYPED_TEST_SUITE_P(VerifyFailTypeParamTest, A);
 
 IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, VerifyFailTypeParamTest, ::iutest::Types<int>);
 
@@ -49,7 +49,7 @@ IUTEST_TYPED_TEST_CASE_P(RegisterFailTypeParamTest);
 IUTEST_TYPED_TEST_P(RegisterFailTypeParamTest, A)
 {
 }
-IUTEST_REGISTER_TYPED_TEST_CASE_P(RegisterFailTypeParamTest, A);
+IUTEST_REGISTER_TYPED_TEST_SUITE_P(RegisterFailTypeParamTest, A);
 
 IUTEST_TYPED_TEST_P(RegisterFailTypeParamTest, B)
 {
@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
     IUTEST_EXPECT_STRIN("Test \"B\" has not been registered.", stderr_capture.GetStreamString());
 #endif
     IUTEST_EXPECT_STRIN(
-        "Test \"B\" must be defined before IUTEST_REGISTER_TYPED_TEST_CASE_P(RegisterFailTypeParamTest, ...)."
+        "Test \"B\" must be defined before IUTEST_REGISTER_TYPED_TEST_SUITE_P(RegisterFailTypeParamTest, ...)."
         , stderr_capture.GetStreamString() );
 #endif
     if( IUTEST_RUN_ALL_TESTS() ) return 1;

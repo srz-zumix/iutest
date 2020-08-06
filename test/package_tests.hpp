@@ -75,7 +75,7 @@ IUTEST_PACKAGE(pkg1)
         IUTEST_EXPECT_PACKAGENAME_(pkg1, PackageTypeParamTest, ::iuutil::TestSuiteNameRemoveInstantiateAndIndexName(name));
     }
 
-    IUTEST_REGISTER_TYPED_TEST_CASE_P(PackageTypeParamTest, A);
+    IUTEST_REGISTER_TYPED_TEST_SUITE_P(PackageTypeParamTest, A);
 #endif
 }
 
