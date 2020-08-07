@@ -48,8 +48,8 @@ IUTEST_P(RandomValuesTest3, Test)
     IUTEST_SUCCEED() << v;
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(A, RandomValuesTest1, ::iutest::RandomValues(5));
-IUTEST_INSTANTIATE_TEST_CASE_P(A, RandomValuesTest2, ::iutest::RandomValues(5));
-IUTEST_INSTANTIATE_TEST_CASE_P(A, RandomValuesTest3, ::iutest::RandomValues(5));
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, RandomValuesTest1, ::iutest::RandomValues(5));
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, RandomValuesTest2, ::iutest::RandomValues(5));
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, RandomValuesTest3, ::iutest::RandomValues(5));
 
 #endif
