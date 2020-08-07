@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -54,7 +54,7 @@ IUTEST_F(ProdFixtureTest, Friend)
 
 class ProdParamTest : public ::iutest::TestWithParam<int> {};
 
-IUTEST_INSTANTIATE_TEST_CASE_P(X, ProdParamTest, ::iutest::Values(0));
+IUTEST_INSTANTIATE_TEST_SUITE_P(X, ProdParamTest, ::iutest::Values(0));
 
 IUTEST_P(ProdParamTest, Friend)
 {
@@ -103,7 +103,7 @@ IUTEST_TYPED_TEST_P(ProdTypeParamTest, Friend)
     IUTEST_ASSERT_EQ(2, s_prod.GetX());
 }
 
-IUTEST_REGISTER_TYPED_TEST_CASE_P(ProdTypeParamTest, Friend);
+IUTEST_REGISTER_TYPED_TEST_SUITE_P(ProdTypeParamTest, Friend);
 IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, ProdTypeParamTest, ::iutest::Types<int>);
 
 #endif
