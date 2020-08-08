@@ -61,7 +61,7 @@ IUTEST_TYPED_TEST_P(TypedTestP, Litle)
 }
 
 IUTEST_REGISTER_TYPED_TEST_SUITE_P(TypedTestP, Equal, Litle);
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(TypedTestPInstance, TypedTestP, TypedTestTypes);
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(TypedTestPInstance, TypedTestP, TypedTestTypes);
 
 #endif
 

@@ -38,7 +38,7 @@ IUTEST_TYPED_TEST_P(VerifyFailTypeParamTest, B)
 
 IUTEST_REGISTER_TYPED_TEST_SUITE_P(VerifyFailTypeParamTest, A);
 
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, VerifyFailTypeParamTest, ::iutest::Types<int>);
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(A, VerifyFailTypeParamTest, ::iutest::Types<int>);
 
 #endif
 

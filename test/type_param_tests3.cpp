@@ -49,8 +49,8 @@ IUTEST_REGISTER_TYPED_TEST_SUITE_P(TypeParamTest3, StaticMul2, Mul2);
 namespace type_param_test
 {
 
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(My3, TypeParamTest, float);
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(My3, TypeParamTest3, short);
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(My3, TypeParamTest, float);
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(My3, TypeParamTest3, short);
 
 }
 

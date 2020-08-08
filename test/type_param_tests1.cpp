@@ -24,11 +24,11 @@ namespace type_param_test
 
 typedef ::iutest::Types<int, short, char> MyTypes1;
 
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(My1, TypeParamTest, MyTypes1);
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(My1, TypeParamTest, MyTypes1);
 
 #if !defined(IUTEST_USE_GTEST)
 
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(My12, TypeParamTest, ::iutest::Types<int, short, char>);
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(My12, TypeParamTest, ::iutest::Types<int, short, char>);
 
 #endif
 
@@ -49,7 +49,7 @@ IUTEST_TYPED_TEST_P(VerifyFailTypeParamTest, B)
 
 IUTEST_REGISTER_TYPED_TEST_SUITE_P(VerifyFailTypeParamTest, A);
 
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, VerifyFailTypeParamTest, ::iutest::Types<int>);
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(A, VerifyFailTypeParamTest, ::iutest::Types<int>);
 
 
 #endif
@@ -70,7 +70,7 @@ IUTEST_TYPED_TEST_P(RegisterVerboseSpaceTypeParamTest, B)
 }
 
 IUTEST_REGISTER_TYPED_TEST_SUITE_P(RegisterVerboseSpaceTypeParamTest, A         , B        );
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, RegisterVerboseSpaceTypeParamTest, ::iutest::Types<int>);
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(A, RegisterVerboseSpaceTypeParamTest, ::iutest::Types<int>);
 
 #endif
 

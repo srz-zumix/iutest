@@ -104,7 +104,7 @@ IUTEST_TYPED_TEST_P(ProdTypeParamTest, Friend)
 }
 
 IUTEST_REGISTER_TYPED_TEST_SUITE_P(ProdTypeParamTest, Friend);
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, ProdTypeParamTest, ::iutest::Types<int>);
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(A, ProdTypeParamTest, ::iutest::Types<int>);
 
 #endif
 

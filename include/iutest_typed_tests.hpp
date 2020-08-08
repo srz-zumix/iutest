@@ -201,13 +201,13 @@
 
 /**
  * @ingroup TYPE_PARAMETERIZED_TEST
- * @def     IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(prefix_, testsuite_, types_)
+ * @def     IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(prefix_, testsuite_, types_)
  * @brief   型パラメータテスト登録マクロ
  * @param   prefix_     = インスタンス名
  * @param   testsuite_  = TestSuite 名
  * @param   ...         = タイプリスト
 */
-#define IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(prefix_, testsuite_, ...)  \
+#define IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(prefix_, testsuite_, ...) \
     IIUT_INSTANTIATE_TYPED_TEST_SUITE_P_(prefix_, testsuite_, __VA_ARGS__)
 
 
@@ -545,12 +545,12 @@ public:
         }
         catch (const ::std::exception& e)
         {
-            IUTEST_LOG_(FATAL) << "IUTEST_INSTANTIATE_TYPED_TEST_CASE_P register tests failed...\n"
+            IUTEST_LOG_(FATAL) << "IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P register tests failed...\n"
                 << e.what();
         }
         catch(...)
         {
-            IUTEST_LOG_(FATAL) << "IUTEST_INSTANTIATE_TYPED_TEST_CASE_P register tests failed...\n";
+            IUTEST_LOG_(FATAL) << "IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P register tests failed...\n";
         }
         return false;
 #else

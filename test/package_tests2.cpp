@@ -52,6 +52,6 @@ IUTEST_PACKAGE(pkg1)
 
 #if IUTEST_HAS_TYPED_TEST_P
     typedef ::iutest::Types<int, float> MyTypesB;
-    IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(B, PackageTypeParamTest, MyTypesB);
+    IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(B, PackageTypeParamTest, MyTypesB);
 #endif
 }
