@@ -69,7 +69,7 @@ public:
         IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("errors"   , "A"), "Reserved key");
         IUTEST_EXPECT_NONFATAL_FAILURE( RecordProperty("time"     , "A"), "Reserved key");
 #endif
-        CheckProperty(::iuutil::GetCurrentTestCaseAdHocResult(), "foo", "A");
+        CheckProperty(::iuutil::GetCurrentTestSuiteAdHocResult(), "foo", "A");
     }
 };
 

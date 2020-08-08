@@ -43,7 +43,7 @@ static volatile SetUpResult g_result IUTEST_ATTRIBUTE_INIT_PRIORITY_(101) = SetU
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
-IUTEST(FlagTest, Check)
+IUTEST(OutputEnvVarTest, FlagCheck)
 {
     IUTEST_ASSUME_EQ(0, g_result.setup_environment) << lasterror << ": " << strerror(lasterror);  // putenv に失敗した場合はテストしない
 #if !defined(IUTEST_NO_ENV_XML_OUTPUT_FILE)

@@ -47,7 +47,7 @@ IUTEST_P(PairwiseTest2, Num)
     mtx[::iutest::tuples::get<0>(param)][::iutest::tuples::get<1>(param)] = true;
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(A, PairwiseTest2
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, PairwiseTest2
     , ::iutest::Pairwise(::iutest::Range(0, 2), ::iutest::Range(0, 2)) );
 
 
@@ -75,7 +75,7 @@ IUTEST_P(PairwiseTest, Num)
 #endif
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(A, PairwiseTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, PairwiseTest
     , ::iutest::Pairwise(
           ::iutest::Range(0, 2)
         , ::iutest::Range(0, 2)
@@ -88,7 +88,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, PairwiseTest
         , ::iutest::Range(0, 2)
     ));
 #if IUTEST_HAS_CONCAT
-IUTEST_INSTANTIATE_TEST_CASE_P(B, PairwiseTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(B, PairwiseTest
     , ::iutest::Concat(
         ::iutest::Pairwise(
               ::iutest::Range(0, 1)
@@ -114,7 +114,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(B, PairwiseTest
         )
     )
     );
-IUTEST_INSTANTIATE_TEST_CASE_P(C, PairwiseTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(C, PairwiseTest
     , ::iutest::Pairwise(
           ::iutest::Range(0, 1)
         , ::iutest::Range(0, 2)
@@ -166,7 +166,7 @@ IUTEST_P(VariadicPairwiseTest, Num)
 #endif
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(A, VariadicPairwiseTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, VariadicPairwiseTest
     , ::iutest::Pairwise(
           ::iutest::Range(0, 2)
         , ::iutest::Range(0, 2)
