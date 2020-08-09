@@ -69,7 +69,7 @@ template<typename T>
 class TypedTest : public ::iutest::Test {};
 
 typedef ::iutest::Types<int, float> TypedTestTypes;
-IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(TypedTest, TypedTestTypes);
 
 IUTEST_TYPED_TEST(TypedTest, Test)
 {
@@ -97,7 +97,7 @@ IUTEST(UtilTest, FindTypedTest)
 template<typename T>
 class TypeParamTest : public ::iutest::Test {};
 
-IUTEST_TYPED_TEST_CASE_P(TypeParamTest);
+IUTEST_TYPED_TEST_SUITE_P(TypeParamTest);
 IUTEST_TYPED_TEST_P(TypeParamTest, Test)
 {
 }

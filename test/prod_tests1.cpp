@@ -72,7 +72,7 @@ IUTEST_P(ProdParamTest, Friend)
 template<typename T>
 class ProdTypedTest : public ::iutest::Test {};
 
-IUTEST_TYPED_TEST_CASE(ProdTypedTest, int);
+IUTEST_TYPED_TEST_SUITE(ProdTypedTest, int);
 
 IUTEST_TYPED_TEST(ProdTypedTest, Friend)
 {
@@ -92,7 +92,7 @@ typedef ::iutest::Types<int, float> ProdTypeParams;
 template<typename T>
 class ProdTypeParamTest : public ::iutest::Test {};
 
-IUTEST_TYPED_TEST_CASE_P(ProdTypeParamTest);
+IUTEST_TYPED_TEST_SUITE_P(ProdTypeParamTest);
 
 IUTEST_TYPED_TEST_P(ProdTypeParamTest, Friend)
 {

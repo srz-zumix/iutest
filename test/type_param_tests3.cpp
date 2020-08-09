@@ -30,7 +30,7 @@ template<typename T>
 T TypeParamTest3<T>::value = 0;
 
 
-IUTEST_TYPED_TEST_CASE_P(TypeParamTest3);
+IUTEST_TYPED_TEST_SUITE_P(TypeParamTest3);
 
 IUTEST_TYPED_TEST_P(TypeParamTest3, Mul2)
 {

@@ -60,14 +60,14 @@ IUTEST_PACKAGE(pkg1)
     class PackageTypedTest : public ::iutest::Test {};
 
     typedef ::iutest::Types<int, float> TypedTestTypes;
-    IUTEST_TYPED_TEST_CASE(PackageTypedTest, TypedTestTypes);
+    IUTEST_TYPED_TEST_SUITE(PackageTypedTest, TypedTestTypes);
 #endif
 
 #if IUTEST_HAS_TYPED_TEST_P
     template<typename T>
     class PackageTypeParamTest : public ::iutest::Test {};
 
-    IUTEST_TYPED_TEST_CASE_P(PackageTypeParamTest);
+    IUTEST_TYPED_TEST_SUITE_P(PackageTypeParamTest);
 
     IUTEST_TYPED_TEST_P(PackageTypeParamTest, A)
     {

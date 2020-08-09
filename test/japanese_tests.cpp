@@ -89,7 +89,7 @@ IUTEST_INSTANTIATE_TEST_SUITE_P(My1, IUTEST_JAPANESE_NAME_F(あいうえお, Par
 template<typename T>
 class TypedTest : public ::iutest::Test {};
 
-IUTEST_TYPED_TEST_CASE(TypedTest, int);
+IUTEST_TYPED_TEST_SUITE(TypedTest, int);
 
 IUTEST_TYPED_TEST(IUTEST_JAPANESE_NAME_F(あいうえお, TypedTest), IUTEST_JAPANESE_NAME(あいうえお))
 {
@@ -109,7 +109,7 @@ IUTEST_TYPED_TEST(IUTEST_JAPANESE_NAME_F(あいうえお, TypedTest), IUTEST_JAP
 template<typename T>
 class TypeParamTest : public ::iutest::Test {};
 
-IUTEST_TYPED_TEST_CASE_P(TypeParamTest);
+IUTEST_TYPED_TEST_SUITE_P(TypeParamTest);
 
 IUTEST_TYPED_TEST_P(TypeParamTest, IUTEST_JAPANESE_NAME_F(あいうえお, aiueo))
 {

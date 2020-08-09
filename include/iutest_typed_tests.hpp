@@ -33,15 +33,15 @@
 
 /**
  * @ingroup TYPED_TEST
- * @def     IUTEST_TYPED_TEST_CASE(testsuite_, types_)
+ * @def     IUTEST_TYPED_TEST_SUITE(testsuite_, types_)
  * @brief   型付けTestSuite の登録
  * @param   testsuite_  = TestSuite 名
  * @param   ...         = タイプリスト
 */
 #if !defined(IUTEST_NO_VARIADIC_MACROS)
-#  define IUTEST_TYPED_TEST_CASE(testsuite_, ...)       IIUT_TYPED_TEST_SUITE_(testsuite_, __VA_ARGS__)
+#  define IUTEST_TYPED_TEST_SUITE(testsuite_, ...)      IIUT_TYPED_TEST_SUITE_(testsuite_, __VA_ARGS__)
 #else
-#  define IUTEST_TYPED_TEST_CASE(testsuite_, types_)    IIUT_TYPED_TEST_SUITE_(testsuite_, types_)
+#  define IUTEST_TYPED_TEST_SUITE(testsuite_, types_)   IIUT_TYPED_TEST_SUITE_(testsuite_, types_)
 #endif
 
 /**
@@ -166,11 +166,11 @@
 
 /**
  * @ingroup TYPE_PARAMETERIZED_TEST
- * @def     IUTEST_TYPED_TEST_CASE_P(testsuite_)
+ * @def     IUTEST_TYPED_TEST_SUITE_P(testsuite_)
  * @brief   型パラメータTestSuite の登録
  * @param   testsuite_  = TestSuite 名
 */
-#define IUTEST_TYPED_TEST_CASE_P(testsuite_)            IIUT_TYPED_TEST_SUITE_P_(testsuite_)
+#define IUTEST_TYPED_TEST_SUITE_P(testsuite_)           IIUT_TYPED_TEST_SUITE_P_(testsuite_)
 
 /**
  * @ingroup TYPE_PARAMETERIZED_TEST

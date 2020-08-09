@@ -33,8 +33,7 @@ public:
 template<typename T>
 T TypeParamTest<T>::value = 0;
 
-
-IUTEST_TYPED_TEST_CASE_P(TypeParamTest);
+IUTEST_TYPED_TEST_SUITE_P(TypeParamTest);
 
 IUTEST_TYPED_TEST_P(TypeParamTest, Mul2)
 {

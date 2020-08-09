@@ -37,7 +37,7 @@ IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(My12, TypeParamTest, ::iutest::Types<int, 
 template<typename T>
 class VerifyFailTypeParamTest : public ::iutest::Test {};
 
-IUTEST_TYPED_TEST_CASE_P(VerifyFailTypeParamTest);
+IUTEST_TYPED_TEST_SUITE_P(VerifyFailTypeParamTest);
 
 IUTEST_TYPED_TEST_P(VerifyFailTypeParamTest, A)
 {
@@ -59,7 +59,7 @@ IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(A, VerifyFailTypeParamTest, ::iutest::Type
 template<typename T>
 class RegisterVerboseSpaceTypeParamTest : public ::iutest::Test {};
 
-IUTEST_TYPED_TEST_CASE_P(RegisterVerboseSpaceTypeParamTest);
+IUTEST_TYPED_TEST_SUITE_P(RegisterVerboseSpaceTypeParamTest);
 IUTEST_TYPED_TEST_P(RegisterVerboseSpaceTypeParamTest, A)
 {
     IUTEST_ASSERT_STREQ("A", ::iutest::UnitTest::GetInstance()->current_test_info()->name());

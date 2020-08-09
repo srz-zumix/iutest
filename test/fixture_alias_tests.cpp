@@ -83,7 +83,7 @@ template<typename T>
 T TypedFixtureTest<T>::value = 0;
 
 typedef ::iutest::Types<int, long, short> TypedTestTypes;
-IUTEST_TYPED_TEST_CASE(TypedTestAliasName, TypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(TypedTestAliasName, TypedTestTypes);
 
 IUTEST_TYPED_TEST(TypedTestAliasName, Test1)
 {

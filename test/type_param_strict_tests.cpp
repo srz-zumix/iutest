@@ -26,7 +26,7 @@
 template<typename T>
 class VerifyFailTypeParamTest : public ::iutest::Test {};
 
-IUTEST_TYPED_TEST_CASE_P(VerifyFailTypeParamTest);
+IUTEST_TYPED_TEST_SUITE_P(VerifyFailTypeParamTest);
 
 IUTEST_TYPED_TEST_P(VerifyFailTypeParamTest, A)
 {
@@ -45,7 +45,7 @@ IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(A, VerifyFailTypeParamTest, ::iutest::Type
 template<typename T>
 class RegisterFailTypeParamTest : public ::iutest::Test {};
 
-IUTEST_TYPED_TEST_CASE_P(RegisterFailTypeParamTest);
+IUTEST_TYPED_TEST_SUITE_P(RegisterFailTypeParamTest);
 IUTEST_TYPED_TEST_P(RegisterFailTypeParamTest, A)
 {
 }

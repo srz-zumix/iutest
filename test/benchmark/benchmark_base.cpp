@@ -81,7 +81,7 @@ IUTEST_PACKAGE(PACKAGENAME)
         , int, signed int, unsigned int
         , long, signed long, unsigned long
         , float, double> TypedTestTypes;
-    IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
+    IUTEST_TYPED_TEST_SUITE(TypedTest, TypedTestTypes);
 
     IUTEST_TYPED_TEST(TypedTest, Mul2)
     {
@@ -91,7 +91,7 @@ IUTEST_PACKAGE(PACKAGENAME)
 
     template<typename T>
     class TypeParamTest : public ::iutest::Test {};
-    IUTEST_TYPED_TEST_CASE_P(TypeParamTest);
+    IUTEST_TYPED_TEST_SUITE_P(TypeParamTest);
 
     IUTEST_TYPED_TEST_P(TypeParamTest, Mul2)
     {

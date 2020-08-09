@@ -38,7 +38,7 @@ IUTEST_INSTANTIATE_TEST_SUITE_P(Test, ParamTest, ::iutest::Values(42));
 template<typename T>
 class TypedTest : public ::iutest::Test {};
 
-IUTEST_TYPED_TEST_CASE(TypedTest, int);
+IUTEST_TYPED_TEST_SUITE(TypedTest, int);
 
 IUTEST_TYPED_TEST(TypedTest, A)
 {

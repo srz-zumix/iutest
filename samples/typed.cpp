@@ -22,7 +22,7 @@
 template<typename T>
 class TypedTest : public ::iutest::Test {};
 typedef ::iutest::Types<int, long, short> TypedTestTypes;
-IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(TypedTest, TypedTestTypes);
 
 IUTEST_TYPED_TEST(TypedTest, Equal)
 {
@@ -46,7 +46,7 @@ IUTEST_TYPED_TEST(TypedTest, Litle)
 template<typename T>
 class TypedTestP : public ::iutest::Test {};
 typedef ::iutest::Types<int, long, short> TypedTestTypes;
-IUTEST_TYPED_TEST_CASE_P(TypedTestP);
+IUTEST_TYPED_TEST_SUITE_P(TypedTestP);
 
 IUTEST_TYPED_TEST_P(TypedTestP, Equal)
 {

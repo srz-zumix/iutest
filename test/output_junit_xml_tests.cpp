@@ -98,7 +98,7 @@ template<typename T>
 class TypedTest : public ::iutest::Test {};
 
 typedef ::iutest::Types<int> TypedTestTypes;
-IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(TypedTest, TypedTestTypes);
 
 IUTEST_TYPED_TEST(TypedTest, Test)
 {

@@ -99,9 +99,9 @@ template<typename T>
 class DISABLED_TypedFoo : public ::iutest::Test {};
 
 typedef ::iutest::Types<int> TypedTestTypes;
-IUTEST_TYPED_TEST_CASE(TypedFoo, TypedTestTypes);
-IUTEST_TYPED_TEST_CASE(TypedFoo_DISABLED_, TypedTestTypes);
-IUTEST_TYPED_TEST_CASE(DISABLED_TypedFoo , TypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(TypedFoo, TypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(TypedFoo_DISABLED_, TypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(DISABLED_TypedFoo , TypedTestTypes);
 
 IUTEST_TYPED_TEST(TypedFoo_DISABLED_, Bar)
 {
@@ -128,9 +128,9 @@ class TypedPFoo_DISABLED_ : public ::iutest::Test {};
 template<typename T>
 class DISABLED_TypedPFoo : public ::iutest::Test {};
 
-IUTEST_TYPED_TEST_CASE_P(TypePFoo);
-IUTEST_TYPED_TEST_CASE_P(TypedPFoo_DISABLED_);
-IUTEST_TYPED_TEST_CASE_P(DISABLED_TypedPFoo);
+IUTEST_TYPED_TEST_SUITE_P(TypePFoo);
+IUTEST_TYPED_TEST_SUITE_P(TypedPFoo_DISABLED_);
+IUTEST_TYPED_TEST_SUITE_P(DISABLED_TypedPFoo);
 
 IUTEST_TYPED_TEST_P(TypedPFoo_DISABLED_, Bar)
 {

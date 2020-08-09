@@ -53,7 +53,7 @@ template<typename T>
 class IgnoreTypedTest : public ::iutest::Test {};
 
 typedef ::iutest::Types<int, long, short> IgnoreTypedTestTypes;
-IUTEST_TYPED_TEST_CASE(IgnoreTypedTest, IgnoreTypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(IgnoreTypedTest, IgnoreTypedTestTypes);
 
 IUTEST_TYPED_TEST_IGNORE(IgnoreTypedTest, A)
 {
@@ -69,7 +69,7 @@ IUTEST_TYPED_TEST_IGNORE(IgnoreTypedTest, A)
 template<typename T>
 class IgnoreTypedTestP : public ::iutest::Test {};
 
-IUTEST_TYPED_TEST_CASE_P(IgnoreTypedTestP);
+IUTEST_TYPED_TEST_SUITE_P(IgnoreTypedTestP);
 
 IUTEST_TYPED_TEST_P_IGNORE(IgnoreTypedTestP, A)
 {
