@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -30,7 +30,7 @@ template<typename T>
 T TypeParamTest3<T>::value = 0;
 
 
-IUTEST_TYPED_TEST_CASE_P(TypeParamTest3);
+IUTEST_TYPED_TEST_SUITE_P(TypeParamTest3);
 
 IUTEST_TYPED_TEST_P(TypeParamTest3, Mul2)
 {
@@ -44,13 +44,13 @@ IUTEST_TYPED_TEST_P(TypeParamTest3, StaticMul2)
     IUTEST_ASSERT_EQ(TestFixture::value+TestFixture::value, 2*TestFixture::value);
 }
 
-IUTEST_REGISTER_TYPED_TEST_CASE_P(TypeParamTest3, StaticMul2, Mul2);
+IUTEST_REGISTER_TYPED_TEST_SUITE_P(TypeParamTest3, StaticMul2, Mul2);
 
 namespace type_param_test
 {
 
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(My3, TypeParamTest, float);
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(My3, TypeParamTest3, short);
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(My3, TypeParamTest, float);
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(My3, TypeParamTest3, short);
 
 }
 

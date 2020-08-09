@@ -22,7 +22,7 @@
 namespace type_param_test
 {
 
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(My2, TypeParamTest, float);
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(My2, TypeParamTest, float);
 
 }
 
