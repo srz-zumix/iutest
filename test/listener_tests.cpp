@@ -71,7 +71,7 @@ public:
     {
         called_OnEnvironmentsSetUpEnd = true;
     }
-    virtual void OnTestSuiteStart(const ::iutest::TestSuite& /*test_case*/)
+    virtual void OnTestSuiteStart(const ::iutest::TestSuite& /*test_suite*/)
     {
         called_OnTestSuiteStart = true;
     }
@@ -96,7 +96,7 @@ public:
     {
         called_OnTestEnd = true;
     }
-    virtual void OnTestSuiteEnd(const ::iutest::TestSuite& /*test_case*/)
+    virtual void OnTestSuiteEnd(const ::iutest::TestSuite& /*test_suite*/)
     {
         called_OnTestSuiteEnd = true;
     }

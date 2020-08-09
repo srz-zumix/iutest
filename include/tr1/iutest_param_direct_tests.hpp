@@ -36,7 +36,7 @@
  * @param   generator_  = Range, Bool, Values, ValuesIn, Combine, Pairwise ...
 */
 #define IUTEST_INSTANTIATE_TEST_SUITE_P(prefix_, testsuite_, ...)   \
-                                                    IIUT_INSTANTIATE_TEST_CASE_PV_(prefix_, testsuite_, __VA_ARGS__)
+            IIUT_INSTANTIATE_TEST_SUITE_PV_(prefix_, testsuite_, __VA_ARGS__)
 
 /**
  * @private
@@ -46,7 +46,7 @@
 /**
  * @brief   パラメータテスト登録(可変長対応)
 */
-#define IIUT_INSTANTIATE_TEST_CASE_PV_(prefix_, testsuite_, ...)                            \
+#define IIUT_INSTANTIATE_TEST_SUITE_PV_(prefix_, testsuite_, ...)                           \
     static ::iutest::detail::iuIParamGenerator<testsuite_::ParamType>*                      \
         IIUT_TEST_P_EVALGENERATOR_NAME_(prefix_, testsuite_)() {                            \
             return IUTEST_CAST_TO_PARAM_GENERATOR_(testsuite_::ParamType, __VA_ARGS__); }   \

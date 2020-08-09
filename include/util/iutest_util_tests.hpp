@@ -105,6 +105,18 @@ inline const ::iutest::TestSuite* GetCurrentTestSuite()
 }
 
 /**
+ * @brief   現在の TestSuite を取得
+*/
+inline const ::iutest::TestSuite* GetCurrentTestSuite(const ::iutest::UnitTest* unit_test)
+{
+#if IUTEST_HAS_TESTSUITE
+    return unit_test->current_test_suite();
+#else
+    return unit_test->current_test_case();
+#endif
+}
+
+/**
  * @brief   Get TestSuite Name
  * @param   test_info = test info
 */
@@ -490,8 +502,9 @@ inline const ::iutest::TestResult* GetCurrentTestResult()
 
 #if IUTEST_HAS_TESTCASE
 
-inline const ::iutest::TestSuite* GetTestCase(int index) { return GetTestSuite(index); }
+inline const ::iutest::TestCase* GetTestCase(int index) { return GetTestSuite(index); }
 inline const ::iutest::TestCase* GetCurrentTestCase() { return GetCurrentTestSuite(); }
+inline const ::iutest::TestCase* GetCurrentTestCase(const ::iutest::UnitTest* unit_test) { return GetCurrentTestSuite(unit_test); }
 inline const ::std::string GetTestCaseName(const ::iutest::TestInfo* test_info) { return GetTestSuiteName(test_info); }
 inline int GetSuccessfulTestCaseCount() { return GetSuccessfulTestSuiteCount(); }
 inline int GetTotalTestCaseCount() { return GetTotalTestSuiteCount(); }

@@ -25,10 +25,10 @@
 // define
 /**
  * @ingroup TESTDEF
- * @def     IUTEST_VALUETMP_TEST_CASE(testsuite_, types_)
+ * @def     IUTEST_VALUETMP_TEST_SUITE(testsuite_, types_)
  * @brief   型付け TestSuite の登録
 */
-#define IUTEST_VALUETMP_TEST_CASE(testsuite_, types_)    IIUT_TYPED_TEST_SUITE_(testsuite_, types_)
+#define IUTEST_VALUETMP_TEST_SUITE(testsuite_, types_)  IIUT_TYPED_TEST_SUITE_(testsuite_, types_)
 
 /**
  * @ingroup TESTDEF
