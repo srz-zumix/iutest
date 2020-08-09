@@ -36,13 +36,13 @@ IUTEST_P(ValuesGenTest, Test)
     IUTEST_SUCCEED() << v;
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(A, ValuesGenTest, ::iutest::ValuesGen(5, ValuesGenTest::Gen(0)));
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, ValuesGenTest, ::iutest::ValuesGen(5, ValuesGenTest::Gen(0)));
 
 #if IUTEST_HAS_LAMBDA && IUTEST_HAS_CXX_HDR_RANDOM
 
 #if !defined(IUTEST_NO_LAMBDA_LOCAL_OBJECT_TEMPLATE_PARAMETERS)
 
-IUTEST_INSTANTIATE_TEST_CASE_P(Random, ValuesGenTest, ::iutest::ValuesGen(5,
+IUTEST_INSTANTIATE_TEST_SUITE_P(Random, ValuesGenTest, ::iutest::ValuesGen(5,
     []() {
         struct {
             ::std::mt19937 engine;
@@ -63,7 +63,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(Random, ValuesGenTest, ::iutest::ValuesGen(5,
 #endif
 
 /*
-IUTEST_INSTANTIATE_TEST_CASE_P(Random, ValuesGenTest, ::iutest::ValuesIn(
+IUTEST_INSTANTIATE_TEST_SUITE_P(Random, ValuesGenTest, ::iutest::ValuesIn(
     [](int n) {
         struct {
             ::std::mt19937 engine;
@@ -102,12 +102,12 @@ struct RandomVMExceptMoneyGenerator
 };
 
 #if IUTEST_HAS_LAMBDA
-IUTEST_INSTANTIATE_TEST_CASE_P(RandomGen_lambda, ValuesGenTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(RandomGen_lambda, ValuesGenTest
     , ::iutest::ValuesGen(5, ::iutest::RandomGenerator<int>([](int n){ return n != 10 && n != 50 && n != 100 && n != 500; })));
 #endif
 
-IUTEST_INSTANTIATE_TEST_CASE_P(Random03_00, ValuesGenTest, ::iutest::ValuesGen(5, RandomVMExceptMoneyGenerator()));
-IUTEST_INSTANTIATE_TEST_CASE_P(Random03_01, ValuesGenTest, ::iutest::ValuesGen(5, ::iutest::RandomGenerator<int>(&VMExceptMoney)));
+IUTEST_INSTANTIATE_TEST_SUITE_P(Random03_00, ValuesGenTest, ::iutest::ValuesGen(5, RandomVMExceptMoneyGenerator()));
+IUTEST_INSTANTIATE_TEST_SUITE_P(Random03_01, ValuesGenTest, ::iutest::ValuesGen(5, ::iutest::RandomGenerator<int>(&VMExceptMoney)));
 
 ::std::vector<int> RandomVMExceptMoneyParams(int n)
 {
@@ -116,6 +116,6 @@ IUTEST_INSTANTIATE_TEST_CASE_P(Random03_01, ValuesGenTest, ::iutest::ValuesGen(5
     return v;
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(Random03_2, ValuesGenTest, ::iutest::ValuesIn(RandomVMExceptMoneyParams(5)));
+IUTEST_INSTANTIATE_TEST_SUITE_P(Random03_2, ValuesGenTest, ::iutest::ValuesIn(RandomVMExceptMoneyParams(5)));
 
 #endif

@@ -376,7 +376,7 @@ IUTEST_P(AnyParamTest, Test)
     IUTEST_ASSERT_EQ(0, value);
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, AnyParamTest, ::iutest::Values(0));
+IUTEST_INSTANTIATE_TEST_SUITE_P(My1, AnyParamTest, ::iutest::Values(0));
 </pre>
 </div>
       テストフィクスチャを省略した場合のパラメータ型は、::iutest::any になっています。<br />
@@ -390,7 +390,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(My1, AnyParamTest, ::iutest::Values(0));
       オールペア法による組み合わせの作成ができます。<br />
 <div class="source">
 <pre class="brush:cpp">
-IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, TestP
     , ::iutest::Pairwise( ::iutest::Bool()
         , ::iutest::Values(1, 2)
         , ::iutest::Values(10, 11) ) );
@@ -403,7 +403,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
       iutest ではランダムなパラメータを生成するためのジェネレータを用意しています。<br />
 <div class="source">
 <pre class="brush:cpp">
-IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, TestP
     , ::iutest::RandomValues( 5 ) );
 </pre>
 </div>
@@ -414,7 +414,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
 <div class="source">
 <pre class="brush:cpp">
 bool Filter(int n) { return n != 100 &amp;&amp; n != 500 &amp;&amp; n != 1000; }
-IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, TestP
     , ::iutest::ValuesGen( 5,  ::iutest::RandomGenerator&lt;int&gt;(&amp;Filter) ) );
 </pre>
 </div>
@@ -431,19 +431,19 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, TestP
       ::iutest::Concat の場合<br />
 <div class="source">
 <pre class="brush:cpp">
-IUTEST_INSTANTIATE_TEST_CASE_P(A1, TestP
+IUTEST_INSTANTIATE_TEST_SUITE_P(A1, TestP
     , ::iutest::Concat( ::iutest::Range(1, 10), ::iutest::Range(101, 110) ) );
-IUTEST_INSTANTIATE_TEST_CASE_P(A2, TestP
+IUTEST_INSTANTIATE_TEST_SUITE_P(A2, TestP
     , ::iutest::Concat( ::iutest::Range(1, 10), ::iutest::Bool() ) );
 </pre>
 </div>
       operator + の場合<br />
 <div class="source">
 <pre class="brush:cpp">
-IUTEST_INSTANTIATE_TEST_CASE_P(A1, TestP
+IUTEST_INSTANTIATE_TEST_SUITE_P(A1, TestP
     , ::iutest::Range(1, 10)
         + ::iutest::Range(101, 110) );
-IUTEST_INSTANTIATE_TEST_CASE_P(A2, TestP
+IUTEST_INSTANTIATE_TEST_SUITE_P(A2, TestP
     , ::iutest::Range(1, 10)
         + ::iutest::Bool()
         + ::iutest::Values(99, 88, 77) ) );
@@ -456,9 +456,9 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A2, TestP
       CSV ファイルからパラメータを生成できます。<br />
 <div class="source">
 <pre class="brush:cpp">
-IUTEST_INSTANTIATE_TEST_CASE_P(I, TestI
+IUTEST_INSTANTIATE_TEST_SUITE_P(I, TestI
     , ::iutest::CSV&lt;int&gt;("intparams.csv") );
-IUTEST_INSTANTIATE_TEST_CASE_P(F, TestF
+IUTEST_INSTANTIATE_TEST_SUITE_P(F, TestF
     , ::iutest::CSV&lt;float&gt;("fparams.tsv", '\t') );
 </pre>
 </div>
@@ -473,7 +473,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(F, TestF
       <li><a name="org_test_package" id="org_test_package">パッケージ</a><br />
       IUTEST_PACKAGE マクロを使うことで、名前空間をパッケージとして扱うことができます。<br />
       通常の名前空間ではテスト名が衝突してしまい、出力 XML で区別がつかなくなってしまいますが、<br />
-      IUTEST_PACKAGE マクロを使うことで、名前空間名がパッケージ名としてテストケース名に追加され、区別できるようになります。<br />
+      IUTEST_PACKAGE マクロを使うことで、名前空間名がパッケージ名としてテストスイート名に追加され、区別できるようになります。<br />
 <div class="source">
 <pre class="brush:cpp">
 IUTEST_PACKAGE(TestPackageA)
@@ -659,7 +659,7 @@ IUTEST_USE_GTEST マクロを定義してください。<br />
 <h3><a name="filter_format" id="filter_format">フォーマット</a></h3>
 <p>フィルタのフォーマットは、':' で区切られたワイルドカードパターン（ポジティブパターン）になります。<br />
 また、先頭に '-' を付けることで、マッチしたテストを除外するネガティブパターンも指定できます。<br />
-（iutest のテスト名は、TestCaseName.TestName です）<br />
+（iutest のテスト名は、TestSuiteName.TestName です）<br />
 </p>
 <table class="ruled" summary="フィルターフォーマット" >
 <tr><td>*</td><td>任意の文字列にマッチ</td></tr>
@@ -670,11 +670,11 @@ IUTEST_USE_GTEST マクロを定義してください。<br />
 <table class="ruled" summary="フィルターサンプル">
 <tr><td>./foo_test</td><td rowspan="2">全てのテストを実行します</td></tr>
 <tr><td>./foo_test --iutest_filter=*</td></tr>
-<tr><td>./foo_test --iutest_filter=FooTest.*</td><td>テストケース FooTest 内のテストを全て実行します</td></tr>
+<tr><td>./foo_test --iutest_filter=FooTest.*</td><td>テストスイート FooTest 内のテストを全て実行します</td></tr>
 <tr><td>./foo_test --iutest_filter=*Null*:*Init*</td><td>名前に "Null" または "Init" を含むテストを実行します</td></tr>
 <tr><td>./foo_test --iutest_filter=-*Foo*</td><td>名前に "Foo" を含むテスト 以外 を全て実行します</td></tr>
-<tr><td>./foo_test --iutest_filter=FooTest.*-FooTest.Bar</td><td>テストケース FooTest 内のテストで FooTest.Bar を除く<br />全てのテストを実行します</td></tr>
-<tr><td>./foo_test --iutest_filter=FooTest.*-FooTest.Bar:FooTest.Baz</td><td>テストケース FooTest 内のテストで FooTest.Bar と<br /> FooTest.Baz を除く全てのテストを実行します</td></tr>
+<tr><td>./foo_test --iutest_filter=FooTest.*-FooTest.Bar</td><td>テストスイート FooTest 内のテストで FooTest.Bar を除く<br />全てのテストを実行します</td></tr>
+<tr><td>./foo_test --iutest_filter=FooTest.*-FooTest.Bar:FooTest.Baz</td><td>テストスイート FooTest 内のテストで FooTest.Bar と<br /> FooTest.Baz を除く全てのテストを実行します</td></tr>
 </table>
 
 <h3><a name="filter_file" id="filter_file">ファイルから指定</a></h3>
