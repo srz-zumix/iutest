@@ -14,6 +14,7 @@ include $(UTILS_MAKEFILE_DIR)/cpp.mk
 include $(UTILS_MAKEFILE_DIR)/xcode.mk
 include $(UTILS_MAKEFILE_DIR)/gccversion.mk
 include $(UTILS_MAKEFILE_DIR)/clangversion.mk
+include $(UTILS_MAKEFILE_DIR)/zapccversion.mk
 include $(UTILS_MAKEFILE_DIR)/cygwin.mk
 include $(UTILS_MAKEFILE_DIR)/mingw.mk
 include $(UTILS_MAKEFILE_DIR)/ci.mk

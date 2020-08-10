@@ -74,7 +74,7 @@ jobs:
         make -C test clean
         make -C test showcxxversion
         make -C test check_stdlib
-        make -C test -j8
+        make -C test -j1
         make -C test test
   arm-none-eabi:
     runs-on: ubuntu-18.04
