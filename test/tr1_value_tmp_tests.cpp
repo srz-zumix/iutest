@@ -60,7 +60,7 @@ protected:
 
 typedef ::iutest::Types< ::iutest::TemplateValue<10>, ::iutest::TemplateValue<0> > Types;
 
-IUTEST_VALUETMP_TEST_CASE(TestValueType, Types);
+IUTEST_VALUETMP_TEST_SUITE(TestValueType, Types);
 
 IUTEST_VALUETMP_TEST(TestValueType, Equal)
 {
