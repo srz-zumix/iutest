@@ -262,7 +262,7 @@
     <ClInclude Include="..\..\include\iutest_any.hpp" />
     <ClInclude Include="..\..\include\iutest_assertion.hpp" />
     <ClInclude Include="..\..\include\iutest_body.hpp" />
-    <ClInclude Include="..\..\include\iutest_case.hpp" />
+    <ClInclude Include="..\..\include\iutest_suite.hpp" />
     <ClInclude Include="..\..\include\iutest_config.hpp" />
     <ClInclude Include="..\..\include\iutest_core.hpp" />
     <ClInclude Include="..\..\include\iutest_defs.hpp" />
@@ -351,7 +351,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\impl\iutest_body.ipp" />
-    <None Include="..\..\include\impl\iutest_case.ipp" />
     <None Include="..\..\include\impl\iutest_charcode.ipp" />
     <None Include="..\..\include\impl\iutest_core.ipp" />
     <None Include="..\..\include\impl\iutest_core_impl.ipp" />
@@ -366,6 +365,7 @@
     <None Include="..\..\include\impl\iutest_message.ipp" />
     <None Include="..\..\include\impl\iutest_port.ipp" />
     <None Include="..\..\include\impl\iutest_regex.ipp" />
+    <None Include="..\..\include\impl\iutest_suite.ipp" />
     <None Include="..\..\docs\Doxyfile" />
     <None Include="..\..\docs\index.html" />
     <None Include="..\..\include\impl\iutest_streaming_listener.ipp" />
