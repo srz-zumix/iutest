@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -46,16 +46,16 @@ IUTEST(SkipTest, Syntax)
 
 #if !defined(IUTEST_USE_GTEST)
 
-class SetUpTestCaseSkipTest : public ::iutest::Test
+class SetUpTestSuiteSkipTest : public ::iuutil::backward::Test<SetUpTestSuiteSkipTest>
 {
 public:
-    static void SetUpTestCase()
+    static void SetUpTestSuite()
     {
-        IUTEST_SKIP() << "skip in SetUpTestCase";
+        IUTEST_SKIP() << "skip in SetUpTestSuite";
     }
 };
 
-IUTEST_F(SetUpTestCaseSkipTest, NotRun)
+IUTEST_F(SetUpTestSuiteSkipTest, NotRun)
 {
     IUTEST_EXPECT_EQ(2, 3);
 }
@@ -96,8 +96,8 @@ int main(int argc, char* argv[])
     IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->skip_test_count() == 4 );
     IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == 4 );
     IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->successful_test_count() == 0 );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->total_test_case_count() == 4 );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->successful_test_case_count() == 3 );
+    IUTEST_ASSERT_EXIT( ::iuutil::GetTotalTestSuiteCount() == 4 );
+    IUTEST_ASSERT_EXIT( ::iuutil::GetSuccessfulTestSuiteCount() == 3 );
 #else
     IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->test_to_run_count() == 3 );
 #endif

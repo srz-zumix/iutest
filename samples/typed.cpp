@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -22,7 +22,7 @@
 template<typename T>
 class TypedTest : public ::iutest::Test {};
 typedef ::iutest::Types<int, long, short> TypedTestTypes;
-IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(TypedTest, TypedTestTypes);
 
 IUTEST_TYPED_TEST(TypedTest, Equal)
 {
@@ -46,7 +46,7 @@ IUTEST_TYPED_TEST(TypedTest, Litle)
 template<typename T>
 class TypedTestP : public ::iutest::Test {};
 typedef ::iutest::Types<int, long, short> TypedTestTypes;
-IUTEST_TYPED_TEST_CASE_P(TypedTestP);
+IUTEST_TYPED_TEST_SUITE_P(TypedTestP);
 
 IUTEST_TYPED_TEST_P(TypedTestP, Equal)
 {
@@ -60,8 +60,8 @@ IUTEST_TYPED_TEST_P(TypedTestP, Litle)
     IUTEST_ASSERT_LT(0, a);
 }
 
-IUTEST_REGISTER_TYPED_TEST_CASE_P(TypedTestP, Equal, Litle);
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(TypedTestPInstance, TypedTestP, TypedTestTypes);
+IUTEST_REGISTER_TYPED_TEST_SUITE_P(TypedTestP, Equal, Litle);
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(TypedTestPInstance, TypedTestP, TypedTestTypes);
 
 #endif
 

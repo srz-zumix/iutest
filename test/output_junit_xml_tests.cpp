@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -67,10 +67,10 @@ IUTEST(Foo, DISABLED_Test)
 {
 }
 
-class Fixture : public ::iutest::Test
+class Fixture : public ::iuutil::backward::Test<Fixture>
 {
 public:
-    static void SetUpTestCase()
+    static void SetUpTestSuite()
     {
         RecordProperty("fixture", 1);
     }
@@ -88,7 +88,7 @@ IUTEST_P(ParamTest, Test)
 {
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, ParamTest, ::iutest::Values(0, 10));
+IUTEST_INSTANTIATE_TEST_SUITE_P(My1, ParamTest, ::iutest::Values(0, 10));
 
 #endif
 
@@ -98,7 +98,7 @@ template<typename T>
 class TypedTest : public ::iutest::Test {};
 
 typedef ::iutest::Types<int> TypedTestTypes;
-IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(TypedTest, TypedTestTypes);
 
 IUTEST_TYPED_TEST(TypedTest, Test)
 {
