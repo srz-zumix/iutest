@@ -496,9 +496,7 @@ IUTEST(PrintToTest, Tuple)
 }
 #endif
 
-#if IUTEST_HAS_CXX_HDR_VARIANT && !defined(IUTEST_USE_GTEST)
-
-// std::monostate for gtest default variant printer is not supported, and formt is different
+#if IUTEST_HAS_CXX_HDR_VARIANT
 
 #if IUTEST_HAS_EXCEPTIONS
 struct AlwaysThrow
@@ -545,6 +543,7 @@ IUTEST(PrintToTest, Variant)
     }
 #if IUTEST_HAS_EXCEPTIONS && !defined(IUTEST_USE_GTEST)
     {
+        // gtest no support variant valueless
         PrintToLogChecker ck("valueless_by_exception");
         ::std::variant<int, float, AlwaysThrow> v = 0.2f;
         try
