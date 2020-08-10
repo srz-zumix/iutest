@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -119,7 +119,7 @@ IUTEST_IPP_INLINE void TestInfo::MiniDump(_EXCEPTION_POINTERS* ep)
 #if defined(_MSC_VER)
     char path[IUTEST_MAX_PATH];
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
-    _snprintf(path, sizeof(path), "%s_%s.dump", test_case_name(), name());
+    _snprintf(path, sizeof(path), "%s_%s.dump", test_suite_name(), name());
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     detail::MiniDump::Create(path, ep);
 #endif
