@@ -541,7 +541,7 @@ IUTEST(PrintToTest, Variant)
         IUTEST_PRINTTOSTRING_EQ(ck, v);
         IUTEST_STREAMOUT_CHECK(v);
     }
-#if IUTEST_HAS_EXCEPTIONS
+#if IUTEST_HAS_EXCEPTIONS && !defined(IUTEST_USE_GTEST)
     {
         PrintToLogChecker ck("valueless_by_exception");
         ::std::variant<int, float, AlwaysThrow> v = 0.2f;
