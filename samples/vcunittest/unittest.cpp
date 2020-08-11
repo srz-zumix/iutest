@@ -459,9 +459,8 @@ IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(TypedTestPInstance, TypedTestP, TypedTestT
 #endif
 
 /** --------------------------------------------------
- * Diabled テスト
+ * Diabled Test
 *//*--------------------------------------------------*/
-// このテストは無効テスト
 IUTEST(TestDisabled, DISABLED_Test1)
 {
     IUTEST_ASSERT_TRUE(false);
@@ -472,7 +471,6 @@ IUTEST(TestDisabled, Test2)
     IUTEST_ASSERT_TRUE(true);
 }
 
-// テストケースすべてを無効にする
 IUTEST(DISABLED_TestCaseDisabled, Test1)
 {
     IUTEST_ASSERT_TRUE(false);

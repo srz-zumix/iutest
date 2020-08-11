@@ -15,26 +15,28 @@
 #include "../include/iutest.hpp"
 
 /* ---------------------------------------------------
- * Diabled テスト
+ * Diabled Test
 *//*--------------------------------------------------*/
-// このテストは無効テスト
 IUTEST(TestDisabled, DISABLED_Test1)
 {
+    // disable
     IUTEST_ASSERT_TRUE(false);
 }
 
 IUTEST(TestDisabled, Test2)
 {
+    // enable
     IUTEST_ASSERT_TRUE(true);
 }
 
-// テストケースすべてを無効にする
 IUTEST(DISABLED_TestCaseDisabled, Test1)
 {
+    // disable
     IUTEST_ASSERT_TRUE(false);
 }
 IUTEST(DISABLED_TestCaseDisabled, Test2)
 {
+    // disable
     IUTEST_ASSERT_TRUE(false);
 }
 
