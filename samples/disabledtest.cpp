@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -50,7 +50,7 @@ IUTEST(DISABLED_MacroTest, Enable)
 
 IUTEST(EnabledTest, Count)
 {
-    const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->current_test_case();
+    const ::iutest::TestCase* testcase = ::iuutil::GetCurrentTestSuite();
     IUTEST_ASSERT_NOTNULL(testcase);
     IUTEST_ASSERT_EQ(2, testcase->total_test_count());
     IUTEST_ASSERT_EQ(2, testcase->test_to_run_count());
@@ -83,7 +83,7 @@ IUTEST_F(DISABLED_MacroTestF, Run)
 
 IUTEST_F(EnabledTestFixed, Count)
 {
-    const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->current_test_case();
+    const ::iutest::TestCase* testcase = ::iuutil::GetCurrentTestSuite();
     IUTEST_ASSERT_NOTNULL(testcase);
     IUTEST_ASSERT_EQ(2, testcase->total_test_count());
     IUTEST_ASSERT_EQ(2, testcase->test_to_run_count());

@@ -55,7 +55,7 @@ class MultiTypedTest : public ::iutest::Test
 };
 typedef ::iutest::Types< ::iutest::Types<int, float>, AliasTestType > MultiTypedTestTypes;
 
-IUTEST_TYPED_TEST_CASE(MultiTypedTest, MultiTypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(MultiTypedTest, MultiTypedTestTypes);
 
 IUTEST_TYPED_TEST(MultiTypedTest, Get)
 {

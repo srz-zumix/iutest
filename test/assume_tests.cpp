@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -162,7 +162,7 @@ int main(int argc, char** argv)
     IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->reportable_test_run_skipped_count() == assume_test_count );
     IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->skip_test_count() == assume_test_count );
     IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->reportable_skip_test_count() == assume_test_count );
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->successful_test_case_count() == 0 );
+    IUTEST_ASSERT_EXIT( ::iuutil::GetSuccessfulTestSuiteCount() == 0 );
     IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 1 );
 #endif
     printf("*** Successful ***\n");

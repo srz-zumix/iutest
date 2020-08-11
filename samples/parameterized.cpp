@@ -34,10 +34,10 @@ public:
 int TestP::a = 0;
 int TestP::b = 0;
 
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPInstance, TestP, ::iutest::Range<int>(0, 10));
+IUTEST_INSTANTIATE_TEST_SUITE_P(TestPInstance, TestP, ::iutest::Range<int>(0, 10));
 
 #if IUTEST_HAS_CONCAT
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPInstance2, TestP, ::iutest::Concat( ::iutest::Bool(), ::iutest::Range(2, 4)));
+IUTEST_INSTANTIATE_TEST_SUITE_P(TestPInstance2, TestP, ::iutest::Concat( ::iutest::Bool(), ::iutest::Range(2, 4)));
 #endif
 
 IUTEST_P(TestP, TestA)
@@ -70,7 +70,7 @@ int TestPIBase::b = 0;
 
 class TestPI : public TestPIBase, public ::iutest::WithParamInterface<int> {};
 
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPInstance, TestPI, ::iutest::Range<int>(0, 10));
+IUTEST_INSTANTIATE_TEST_SUITE_P(TestPInstance, TestPI, ::iutest::Range<int>(0, 10));
 
 IUTEST_P(TestPI, TestA)
 {
@@ -86,7 +86,7 @@ IUTEST_P(TestPI, TestB)
 
 // Param Test Bool
 class TestBool : public ::iutest::TestWithParam<bool> {};
-IUTEST_INSTANTIATE_TEST_CASE_P(TestBoolInstance, TestBool, ::iutest::Bool());
+IUTEST_INSTANTIATE_TEST_SUITE_P(TestBoolInstance, TestBool, ::iutest::Bool());
 
 IUTEST_P(TestBool, TestA)
 {
@@ -108,7 +108,7 @@ public:
     }
 };
 int TestPValueIn::a = 0;
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPValueInInstance, TestPValueIn, ::iutest::ValuesIn(ValueInTestText));
+IUTEST_INSTANTIATE_TEST_SUITE_P(TestPValueInInstance, TestPValueIn, ::iutest::ValuesIn(ValueInTestText));
 
 IUTEST_P(TestPValueIn, TestA)
 {
@@ -117,7 +117,7 @@ IUTEST_P(TestPValueIn, TestA)
 
 // Param Test Values
 class TestPValues1 : public ::iutest::TestWithParam<float> {};
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPValues1Instance, TestPValues1, ::iutest::Values(1.0f));
+IUTEST_INSTANTIATE_TEST_SUITE_P(TestPValues1Instance, TestPValues1, ::iutest::Values(1.0f));
 
 IUTEST_P(TestPValues1, TestA)
 {
@@ -135,7 +135,7 @@ public:
     }
 };
 int TestPValuesN::a = 1;
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPValuesNInstance, TestPValuesN, ::iutest::Values(1, 2, 3, 4, 5, 6, 7, 8, 9
+IUTEST_INSTANTIATE_TEST_SUITE_P(TestPValuesNInstance, TestPValuesN, ::iutest::Values(1, 2, 3, 4, 5, 6, 7, 8, 9
                                                                     //, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
                                                                     //, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29
                                                                     //, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39
@@ -154,7 +154,7 @@ IUTEST_P(TestPAutoAny, Test)
     IUTEST_ASSERT_EQ(1, GetParam<int>());
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPValuesNInstance, TestPAutoAny, ::iutest::Values(1));
+IUTEST_INSTANTIATE_TEST_SUITE_P(TestPValuesNInstance, TestPAutoAny, ::iutest::Values(1));
 #endif
 
 #if IUTEST_HAS_COMBINE
@@ -177,7 +177,7 @@ IUTEST_P(TestPCombine, TestA)
 #endif
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPCombineInstance, TestPCombine
+IUTEST_INSTANTIATE_TEST_SUITE_P(TestPCombineInstance, TestPCombine
         , ::iutest::Combine( ::iutest::Bool(), ::iutest::Values(1, 2), ::iutest::Values(10, 11) ) );
 #endif
 
@@ -190,7 +190,7 @@ IUTEST_P(InitializerListValuesTest, Test)
     int v = GetParam();
     IUTEST_SUCCEED() << v;
 }
-IUTEST_INSTANTIATE_TEST_CASE_P(A, InitializerListValuesTest, ::iutest::ValuesIn({1, 9, 8, 6, 3, 9}));
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, InitializerListValuesTest, ::iutest::ValuesIn({1, 9, 8, 6, 3, 9}));
 
 #endif
 
@@ -203,7 +203,7 @@ IUTEST_P(RandomValuesTest, Test)
     int v = GetParam();
     IUTEST_SUCCEED() << v;
 }
-IUTEST_INSTANTIATE_TEST_CASE_P(A, RandomValuesTest, ::iutest::RandomValues(5));
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, RandomValuesTest, ::iutest::RandomValues(5));
 
 #endif
 
@@ -216,7 +216,7 @@ IUTEST_P(CSVValuesTest, Test)
     int v = GetParam();
     IUTEST_SUCCEED() << v;
 }
-IUTEST_INSTANTIATE_TEST_CASE_P(A, CSVValuesTest, ::iutest::CSV<int>("csvparams.csv", __FILE__));
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, CSVValuesTest, ::iutest::CSV<int>("csvparams.csv", __FILE__));
 
 #endif
 
@@ -257,7 +257,7 @@ IUTEST_P(DISABLED_TestPFailure, Test)
     int v = GetParam();
     IUTEST_FAIL() << v;
 }
-IUTEST_INSTANTIATE_TEST_CASE_P(A, DISABLED_TestPFailure, ::iutest::Values(0, 1, 2, 3));
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, DISABLED_TestPFailure, ::iutest::Values(0, 1, 2, 3));
 
 /* ---------------------------------------------------
  * パラメタライズ関数コール

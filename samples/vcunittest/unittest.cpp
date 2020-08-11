@@ -298,7 +298,7 @@ public:
 int TestP::a = 0;
 int TestP::b = 0;
 
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPInstance, TestP, iutest::Range<int>(0, 10));
+IUTEST_INSTANTIATE_TEST_SUITE_P(TestPInstance, TestP, iutest::Range<int>(0, 10));
 
 IUTEST_P(TestP, TestA)
 {
@@ -314,7 +314,7 @@ IUTEST_P(TestP, TestB)
 
 // Param Test Bool
 class TestBool : public iutest::TestWithParam<bool> {};
-IUTEST_INSTANTIATE_TEST_CASE_P(TestBoolInstance, TestBool, iutest::Bool());
+IUTEST_INSTANTIATE_TEST_SUITE_P(TestBoolInstance, TestBool, iutest::Bool());
 
 IUTEST_P(TestBool, TestA)
 {
@@ -336,7 +336,7 @@ public:
     }
 };
 int TestPValueIn::a = 0;
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPValueInInstance, TestPValueIn, iutest::ValuesIn(ValueInTestText));
+IUTEST_INSTANTIATE_TEST_SUITE_P(TestPValueInInstance, TestPValueIn, iutest::ValuesIn(ValueInTestText));
 
 IUTEST_P(TestPValueIn, TestA)
 {
@@ -345,7 +345,7 @@ IUTEST_P(TestPValueIn, TestA)
 
 // Param Test Values
 class TestPValues1 : public iutest::TestWithParam<float> {};
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPValues1Instance, TestPValues1, iutest::Values(1.0f));
+IUTEST_INSTANTIATE_TEST_SUITE_P(TestPValues1Instance, TestPValues1, iutest::Values(1.0f));
 
 IUTEST_P(TestPValues1, TestA)
 {
@@ -363,7 +363,7 @@ public:
     }
 };
 int TestPValuesN::a = 1;
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPValuesNInstance, TestPValuesN, iutest::Values(1, 2, 3, 4, 5, 6, 7, 8, 9
+IUTEST_INSTANTIATE_TEST_SUITE_P(TestPValuesNInstance, TestPValuesN, iutest::Values(1, 2, 3, 4, 5, 6, 7, 8, 9
                                                                     //, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
                                                                     //, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29
                                                                     //, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39
@@ -390,7 +390,7 @@ IUTEST_P(TestPCombine, TestA)
     IUTEST_SUCCEED() << b << ", " << i1 << ", " << i2;
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(TestPCombineInstance, TestPCombine
+IUTEST_INSTANTIATE_TEST_SUITE_P(TestPCombineInstance, TestPCombine
                                 , iutest::Combine( iutest::Bool(), iutest::Values(1, 2), iutest::Values(10, 11) ) );
 #endif
 
@@ -415,7 +415,7 @@ public:
     }
 };
 typedef iutest::Types<int, long, short> TypedTestTypes;
-IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(TypedTest, TypedTestTypes);
 
 IUTEST_TYPED_TEST(TypedTest, Equal)
 {
@@ -439,7 +439,7 @@ IUTEST_TYPED_TEST(TypedTest, Litle)
 template<typename T>
 class TypedTestP : public iutest::Test {};
 typedef iutest::Types<int, long, short> TypedTestTypes;
-IUTEST_TYPED_TEST_CASE_P(TypedTestP);
+IUTEST_TYPED_TEST_SUITE_P(TypedTestP);
 
 IUTEST_TYPED_TEST_P(TypedTestP, Equal)
 {
@@ -453,8 +453,8 @@ IUTEST_TYPED_TEST_P(TypedTestP, Litle)
     IUTEST_ASSERT_LT(0, a);
 }
 
-IUTEST_REGISTER_TYPED_TEST_CASE_P(TypedTestP, Equal, Litle);
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(TypedTestPInstance, TypedTestP, TypedTestTypes);
+IUTEST_REGISTER_TYPED_TEST_SUITE_P(TypedTestP, Equal, Litle);
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(TypedTestPInstance, TypedTestP, TypedTestTypes);
 
 #endif
 

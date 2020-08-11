@@ -78,7 +78,7 @@
     <ClInclude Include="..\..\..\include\iutest_body.hpp">
       <Filter>iutest</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\iutest_case.hpp">
+    <ClInclude Include="..\..\..\include\iutest_suite.hpp">
       <Filter>iutest</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\iutest_core.hpp">
@@ -250,7 +250,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\include\impl\iutest_case.ipp">
+    <None Include="..\..\..\include\impl\iutest_suite.ipp">
       <Filter>iutest\impl</Filter>
     </None>
     <None Include="..\..\..\include\impl\iutest_charcode.ipp">
