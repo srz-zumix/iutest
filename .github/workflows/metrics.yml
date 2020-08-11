@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-18.04
     needs: prepare
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - name: fused
       id: fused
       run: |
@@ -51,7 +51,7 @@ jobs:
     runs-on: ubuntu-18.04
     needs: prepare
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - name: Lizard
       uses: docker://srzzumix/lizard
       with:

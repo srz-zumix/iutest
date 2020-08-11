@@ -77,5 +77,6 @@ docs/dev    export-ignore
 docs/* linguist-documentation
 .ci/* linguist-documentation
 .circleci/* linguist-documentation
+.semaphore/* linguist-documentation
 .github/* linguist-documentation
 .semaphore/* linguist-documentation
