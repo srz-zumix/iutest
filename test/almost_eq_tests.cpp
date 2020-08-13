@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2019-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -25,7 +25,7 @@ class AlmostTest : public ::iutest::Test
 };
 
 typedef ::iutest::Types<int, float, double> AlmostTestTypes;
-IUTEST_TYPED_TEST_CASE(AlmostTest, AlmostTestTypes);
+IUTEST_TYPED_TEST_SUITE(AlmostTest, AlmostTestTypes);
 
 IUTEST_TYPED_TEST(AlmostTest, Eq)
 {
@@ -48,7 +48,7 @@ public:
 };
 
 typedef ::iutest::Types<float, double> AlmostUlpTestTypes;
-IUTEST_TYPED_TEST_CASE(AlmostUlpTest, AlmostUlpTestTypes);
+IUTEST_TYPED_TEST_SUITE(AlmostUlpTest, AlmostUlpTestTypes);
 
 IUTEST_TYPED_TEST(AlmostUlpTest, Eq)
 {

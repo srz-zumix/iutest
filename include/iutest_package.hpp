@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        iutest_package.hpp
- * @brief       iris unit test testcase package
+ * @brief       iris unit test testsuite package
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,41 +31,41 @@
 
 #if IUTEST_HAS_PACKAGE
 
-#define IUTEST_CONCAT_PACKAGE_(testcasename_)   IIUT_CONCAT_PACKAGE_I(testcasename_)
-#define IIUT_CONCAT_PACKAGE_I(testcasename_)                    \
-    iuTest_ConcatTestCaseName( iuTest_GetTestCasePackageName(   \
-        static_cast<iuTest_TestCasePackage*>(NULL))             \
-        , #testcasename_)
+#define IUTEST_CONCAT_PACKAGE_(testsuitename_)   IIUT_CONCAT_PACKAGE_I(testsuitename_)
+#define IIUT_CONCAT_PACKAGE_I(testsuitename_)                    \
+    iuTest_ConcatTestSuiteName( iuTest_GetTestSuitePackageName(  \
+        static_cast<iuTest_TestSuitePackage*>(NULL))             \
+        , #testsuitename_)
 
 #define IUTEST_GET_PACKAGENAME_()   \
-    iuTest_GetTestCasePackageName( static_cast<iuTest_TestCasePackage*>(NULL) )
+    iuTest_GetTestSuitePackageName( static_cast<iuTest_TestSuitePackage*>(NULL) )
 
 
 #if IUTEST_HAS_IF_EXISTS
 
 #define IIUT_PACKAGE_DECL_NAME_FUNC(name)               \
     static ::std::string IUTEST_ATTRIBUTE_UNUSED_       \
-    iuTest_GetTestCasePackageName(const iuTest_TestCasePackage*) {          \
-        return iuTest_GetTestCaseParentPackageName(     \
-            static_cast<iuTest_TestCaseParentPackage*>(NULL)) + #name ".";  \
+    iuTest_GetTestSuitePackageName(const iuTest_TestSuitePackage*) {        \
+        return iuTest_GetTestSuiteParentPackageName(    \
+            static_cast<iuTest_TestSuiteParentPackage*>(NULL)) + #name "."; \
     }
 
 #define IIUT_PACKAGE_DECL_PARENT_NAME_FUNC(name)        \
     static ::std::string IUTEST_ATTRIBUTE_UNUSED_       \
-    iuTest_GetTestCaseParentPackageName(const iuTest_TestCaseParentPackage*) {              \
-        return iuTest_GetTestCasePackageName(static_cast<iuTest_TestCasePackage*>(NULL));   \
+    iuTest_GetTestSuiteParentPackageName(const iuTest_TestSuiteParentPackage*) {              \
+        return iuTest_GetTestSuitePackageName(static_cast<iuTest_TestSuitePackage*>(NULL));   \
     }
 
 
 #define IIUT_PACKAGE_CURRENT_NAMESPACE_(name)               \
-    class iuTest_TestCasePackage;                           \
-    __if_not_exists(name::iuTest_GetTestCasePackageName) {  \
+    class iuTest_TestSuitePackage;                          \
+    __if_not_exists(name::iuTest_GetTestSuitePackageName) { \
         IIUT_PACKAGE_DECL_NAME_FUNC(name)                   \
     }
 
 #define IIUT_PACKAGE_PARENT_NAMESPACE_(name)                \
-    class iuTest_TestCaseParentPackage;                     \
-    __if_not_exists(name::iuTest_GetTestCaseParentPackageName) {    \
+    class iuTest_TestSuiteParentPackage;                    \
+    __if_not_exists(name::iuTest_GetTestSuiteParentPackageName) {   \
         IUTEST_PRAGMA_MSC_WARN_PUSH()                       \
         IUTEST_PRAGMA_MSC_WARN_DISABLE(4505)                \
         IIUT_PACKAGE_DECL_PARENT_NAME_FUNC(name)            \
@@ -75,18 +75,18 @@
 #else
 
 #define IIUT_PACKAGE_CURRENT_NAMESPACE_(name)               \
-    class iuTest_TestCasePackage;                           \
+    class iuTest_TestSuitePackage;                          \
     namespace { const int IUTEST_PP_CAT(k_iutest_package_##name##_dummy_, IUTEST_PP_UNIQUEID)   \
         IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::package_name_server<                       \
-                iuTest_TestCasePackage>::setname(iuTest_GetTestCaseParentPackageName(           \
-                    static_cast<iuTest_TestCaseParentPackage*>(NULL)) + #name ".");             \
+                iuTest_TestSuitePackage>::setname(iuTest_GetTestSuiteParentPackageName(         \
+                    static_cast<iuTest_TestSuiteParentPackage*>(NULL)) + #name ".");            \
     }
 
 #define IIUT_PACKAGE_PARENT_NAMESPACE_(name)                \
-    class iuTest_TestCaseParentPackage;                     \
+    class iuTest_TestSuiteParentPackage;                    \
     namespace { const int IUTEST_PP_CAT(k_iutest_package_##name##_parent_dummy_, IUTEST_PP_UNIQUEID)    \
-        IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::package_name_server<iuTest_TestCaseParentPackage>  \
-        ::setname(iuTest_GetTestCasePackageName(static_cast<iuTest_TestCasePackage*>(NULL)));           \
+        IUTEST_ATTRIBUTE_UNUSED_ = ::iutest::detail::package_name_server<iuTest_TestSuiteParentPackage> \
+        ::setname(iuTest_GetTestSuitePackageName(static_cast<iuTest_TestSuitePackage*>(NULL)));         \
     }
 
 #endif
@@ -100,8 +100,8 @@
 
 #else
 
-#define IUTEST_CONCAT_PACKAGE_(testcasename_)   IIUT_CONCAT_PACKAGE_I(testcasename_)
-#define IIUT_CONCAT_PACKAGE_I(testcasename_)    #testcasename_
+#define IUTEST_CONCAT_PACKAGE_(testsuitename_)  IIUT_CONCAT_PACKAGE_I(testsuitename_)
+#define IIUT_CONCAT_PACKAGE_I(testsuitename_)   #testsuitename_
 #define IIUT_PACKAGE_(name)                     namespace name
 #define IUTEST_GET_PACKAGENAME_()               ""
 
@@ -113,8 +113,8 @@
 
 #if IUTEST_HAS_PACKAGE
 
-class iuTest_TestCasePackage;           //!< パッケージ名参照用定義
-class iuTest_TestCaseParentPackage;     //!< 親パッケージ名参照用定義
+class iuTest_TestSuitePackage;           //!< パッケージ名参照用定義
+class iuTest_TestSuiteParentPackage;     //!< 親パッケージ名参照用定義
 
 #if IUTEST_HAS_IF_EXISTS
 
@@ -122,7 +122,7 @@ class iuTest_TestCaseParentPackage;     //!< 親パッケージ名参照用定�
  * @brief   グローバルパッケージ名の取得
  * @return  パッケージ名
 */
-inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_GetTestCasePackageName(const iuTest_TestCasePackage*)
+inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_GetTestSuitePackageName(const iuTest_TestSuitePackage*)
 {
     return "";
 }
@@ -131,7 +131,7 @@ inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_GetTestCasePackageName(cons
  * @brief   親空間のパッケージ名の取得
  * @return  パッケージ名
 */
-inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_GetTestCaseParentPackageName(const iuTest_TestCaseParentPackage*)
+inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_GetTestSuiteParentPackageName(const iuTest_TestSuiteParentPackage*)
 {
     return "";
 }
@@ -171,7 +171,7 @@ public:
  * @return  パッケージ名
 */
 template<typename T>
-::std::string iuTest_GetTestCasePackageName(T*)         // NOLINT
+::std::string iuTest_GetTestSuitePackageName(T*)         // NOLINT
 {
     return ::iutest::detail::package_name_server<T>::getname();
 }
@@ -181,7 +181,7 @@ template<typename T>
  * @return  パッケージ名
 */
 template<typename T>
-::std::string iuTest_GetTestCaseParentPackageName(T*)   // NOLINT
+::std::string iuTest_GetTestSuiteParentPackageName(T*)   // NOLINT
 {
     return ::iutest::detail::package_name_server<T>::getname();
 }
@@ -189,12 +189,12 @@ template<typename T>
 #endif
 
 /**
- * @brief   テストケース名との結合
- * @return  テストケース名
+ * @brief   TestSuite 名との結合
+ * @return  TestSuite 名
 */
-inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestCaseName(const ::std::string& package, const char* testcase_name)
+inline ::std::string IUTEST_ATTRIBUTE_UNUSED_ iuTest_ConcatTestSuiteName(const ::std::string& package, const char* testsuite_name)
 {
-    return package + testcase_name;
+    return package + testsuite_name;
 }
 
 #endif
