@@ -56,6 +56,18 @@ IUTEST(UtilTest, FindParamTest)
 #if IUTEST_HAS_PARAM_TEST
     const ::iutest::TestSuite* find_testsuite = ::iuutil::FindParamTestSuite("ParamTest");
     IUTEST_EXPECT_NOTNULL(find_testsuite);
+    const ::iutest::TestInfo* find_testinfo = ::iuutil::FindParamTestInfo(find_testsuite, "Test");
+    IUTEST_EXPECT_NOTNULL(find_testinfo);
+    find_testinfo = ::iuutil::FindParamTestInfo(find_testsuite, "Test", find_testinfo);
+    IUTEST_EXPECT_NOTNULL(find_testinfo);
+    find_testinfo = ::iuutil::FindParamTestInfo(find_testsuite, "Test", find_testinfo);
+    IUTEST_EXPECT_NULL(find_testinfo);
+
+    IUTEST_EXPECT_NULL(::iuutil::FindParamTestInfo(NULL, "Test"));
+    IUTEST_EXPECT_NULL(::iuutil::FindParamTestInfo(find_testsuite, NULL));
+    IUTEST_EXPECT_NULL(::iuutil::FindParamTestInfo(find_testsuite, "FindParamTest"));
+
+
     find_testsuite = ::iuutil::FindParamTestSuite("ParamTest", find_testsuite);
     IUTEST_EXPECT_NOTNULL(find_testsuite);
     find_testsuite = ::iuutil::FindParamTestSuite("ParamTest", find_testsuite);
