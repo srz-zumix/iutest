@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -15,26 +15,28 @@
 #include "../include/iutest.hpp"
 
 /* ---------------------------------------------------
- * Diabled テスト
+ * Diabled Test
 *//*--------------------------------------------------*/
-// このテストは無効テスト
 IUTEST(TestDisabled, DISABLED_Test1)
 {
+    // disable
     IUTEST_ASSERT_TRUE(false);
 }
 
 IUTEST(TestDisabled, Test2)
 {
+    // enable
     IUTEST_ASSERT_TRUE(true);
 }
 
-// テストケースすべてを無効にする
 IUTEST(DISABLED_TestCaseDisabled, Test1)
 {
+    // disable
     IUTEST_ASSERT_TRUE(false);
 }
 IUTEST(DISABLED_TestCaseDisabled, Test2)
 {
+    // disable
     IUTEST_ASSERT_TRUE(false);
 }
 
@@ -50,7 +52,7 @@ IUTEST(DISABLED_MacroTest, Enable)
 
 IUTEST(EnabledTest, Count)
 {
-    const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->current_test_case();
+    const ::iutest::TestCase* testcase = ::iuutil::GetCurrentTestSuite();
     IUTEST_ASSERT_NOTNULL(testcase);
     IUTEST_ASSERT_EQ(2, testcase->total_test_count());
     IUTEST_ASSERT_EQ(2, testcase->test_to_run_count());
@@ -83,7 +85,7 @@ IUTEST_F(DISABLED_MacroTestF, Run)
 
 IUTEST_F(EnabledTestFixed, Count)
 {
-    const ::iutest::TestCase* testcase = ::iutest::UnitTest::GetInstance()->current_test_case();
+    const ::iutest::TestCase* testcase = ::iuutil::GetCurrentTestSuite();
     IUTEST_ASSERT_NOTNULL(testcase);
     IUTEST_ASSERT_EQ(2, testcase->total_test_count());
     IUTEST_ASSERT_EQ(2, testcase->test_to_run_count());

@@ -19,36 +19,124 @@
 
 IUTEST(UtilTest, Find)
 {
-    const ::iutest::TestCase* testcase = ::iuutil::FindTestCase("UtilTest");
-    IUTEST_EXPECT_NOTNULL(testcase);
+    const ::iutest::TestSuite* testsuite = ::iuutil::FindTestSuite("UtilTest");
+    IUTEST_EXPECT_NOTNULL(testsuite);
     IUTEST_EXPECT_NOTNULL(::iuutil::FindTestInfo("UtilTest", "Find"));
 
-    const ::iutest::TestCase* null_testcase = NULL;
-    const char* null_testcase_name = NULL;
-    IUTEST_EXPECT_NULL(::iuutil::FindTestCase(NULL));
-    IUTEST_EXPECT_NULL(::iuutil::FindTestCase("UtilTestXXX"));
-    IUTEST_EXPECT_NULL(::iuutil::FindTestInfo(null_testcase, "Find"));
-    IUTEST_EXPECT_NULL(::iuutil::FindTestInfo(null_testcase_name, "Find"));
-    IUTEST_EXPECT_NULL(::iuutil::FindTestInfo(testcase, NULL));
+    const ::iutest::TestSuite* null_testsuite = NULL;
+    const char* null_testsuite_name = NULL;
+    IUTEST_EXPECT_NULL(::iuutil::FindTestSuite(NULL));
+    IUTEST_EXPECT_NULL(::iuutil::FindTestSuite("UtilTestXXX"));
+    IUTEST_EXPECT_NULL(::iuutil::FindTestInfo(null_testsuite, "Find"));
+    IUTEST_EXPECT_NULL(::iuutil::FindTestInfo(null_testsuite_name, "Find"));
+    IUTEST_EXPECT_NULL(::iuutil::FindTestInfo(testsuite, NULL));
     IUTEST_EXPECT_NULL(::iuutil::FindTestInfo("UtilTest", NULL));
     IUTEST_EXPECT_NULL(::iuutil::FindTestInfo("UtilTest", "FindXXX"));
     IUTEST_EXPECT_NULL(::iuutil::FindTestInfo("UtilTestXXX", "Find"));
 }
 
-IUTEST(UtilTest, TestCaseNameRemoveIndexName)
+#if IUTEST_HAS_PARAM_TEST
+
+class ParamTest : public ::iutest::TestWithParam<int> {};
+
+IUTEST_P(ParamTest, Test)
 {
-    IUTEST_EXPECT_STREQ( "pkg.TestCase" , ::iuutil::TestCaseNameRemoveIndexName("pkg.TestCase") );
-    IUTEST_EXPECT_STREQ( "pkg.TestCase" , ::iuutil::TestCaseNameRemoveIndexName("pkg.TestCase/0") );
-    IUTEST_EXPECT_STREQ( "TestCase" , ::iuutil::TestCaseNameRemoveIndexName("TestCase") );
 }
 
-IUTEST(UtilTest, TestCaseNameRemoveInstantiateAndIndexName)
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, ParamTest, ::iutest::Values(0, 1));
+IUTEST_INSTANTIATE_TEST_SUITE_P(B, ParamTest, ::iutest::Values(0, 1, 10));
+
+#endif
+
+IUTEST(UtilTest, FindParamTest)
 {
-    IUTEST_EXPECT_STREQ( "pkg.TestCase" , ::iuutil::TestCaseNameRemoveInstantiateAndIndexName("pkg.prefix/TestCase") );
-    IUTEST_EXPECT_STREQ( "pkg.TestCase" , ::iuutil::TestCaseNameRemoveInstantiateAndIndexName("pkg.prefix/TestCase/0") );
-    IUTEST_EXPECT_STREQ( "TestCase" , ::iuutil::TestCaseNameRemoveInstantiateAndIndexName("TestCase") );
-    IUTEST_EXPECT_STREQ( "TestCase" , ::iuutil::TestCaseNameRemoveInstantiateAndIndexName("prefix/TestCase") );
-    IUTEST_EXPECT_STREQ( "TestCase" , ::iuutil::TestCaseNameRemoveInstantiateAndIndexName("prefix/TestCase/0") );
+    IUTEST_EXPECT_NULL(::iuutil::FindParamTestSuite(NULL));
+    IUTEST_EXPECT_NULL(::iuutil::FindParamTestSuite("UnitTest"));
+
+#if IUTEST_HAS_PARAM_TEST
+    const ::iutest::TestSuite* find_testsuite = ::iuutil::FindParamTestSuite("ParamTest");
+    IUTEST_EXPECT_NOTNULL(find_testsuite);
+    find_testsuite = ::iuutil::FindParamTestSuite("ParamTest", find_testsuite);
+    IUTEST_EXPECT_NOTNULL(find_testsuite);
+    find_testsuite = ::iuutil::FindParamTestSuite("ParamTest", find_testsuite);
+    IUTEST_EXPECT_NULL(find_testsuite);
+#endif
+}
+
+#if IUTEST_HAS_TYPED_TEST
+
+template<typename T>
+class TypedTest : public ::iutest::Test {};
+
+typedef ::iutest::Types<int, float> TypedTestTypes;
+IUTEST_TYPED_TEST_SUITE(TypedTest, TypedTestTypes);
+
+IUTEST_TYPED_TEST(TypedTest, Test)
+{
+}
+
+#endif
+
+IUTEST(UtilTest, FindTypedTest)
+{
+    IUTEST_EXPECT_NULL(::iuutil::FindTypedTestSuite(NULL));
+    IUTEST_EXPECT_NULL(::iuutil::FindTypedTestSuite("UnitTest"));
+
+#if IUTEST_HAS_TYPED_TEST
+    const ::iutest::TestSuite* find_testsuite = ::iuutil::FindTypedTestSuite("TypedTest");
+    IUTEST_EXPECT_NOTNULL(find_testsuite);
+    find_testsuite = ::iuutil::FindTypedTestSuite("TypedTest", find_testsuite);
+    IUTEST_EXPECT_NOTNULL(find_testsuite);
+    find_testsuite = ::iuutil::FindTypedTestSuite("TypedTest", find_testsuite);
+    IUTEST_EXPECT_NULL(find_testsuite);
+#endif
+}
+
+#if IUTEST_HAS_TYPED_TEST_P
+
+template<typename T>
+class TypeParamTest : public ::iutest::Test {};
+
+IUTEST_TYPED_TEST_SUITE_P(TypeParamTest);
+IUTEST_TYPED_TEST_P(TypeParamTest, Test)
+{
+}
+IUTEST_REGISTER_TYPED_TEST_SUITE_P(TypeParamTest, Test);
+
+typedef ::iutest::Types<int, float> TypeParamTestTypes;
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(My1, TypeParamTest, TypeParamTestTypes);
+
+#endif
+
+IUTEST(UtilTest, FindParamTypedTest)
+{
+    IUTEST_EXPECT_NULL(::iuutil::FindParamTypedTestSuite(NULL));
+    IUTEST_EXPECT_NULL(::iuutil::FindParamTypedTestSuite("UnitTest"));
+
+#if IUTEST_HAS_TYPED_TEST_P
+    const ::iutest::TestSuite* find_testsuite = ::iuutil::FindParamTypedTestSuite("TypeParamTest");
+    IUTEST_EXPECT_NOTNULL(find_testsuite);
+    find_testsuite = ::iuutil::FindParamTypedTestSuite("TypeParamTest", find_testsuite);
+    IUTEST_EXPECT_NOTNULL(find_testsuite);
+    find_testsuite = ::iuutil::FindParamTypedTestSuite("TypeParamTest", find_testsuite);
+    IUTEST_EXPECT_NULL(find_testsuite);
+#endif
+}
+
+IUTEST(UtilTest, TestSuiteNameRemoveIndexName)
+{
+    IUTEST_EXPECT_STREQ( "pkg.TestSuite" , ::iuutil::TestSuiteNameRemoveIndexName("pkg.TestSuite") );
+    IUTEST_EXPECT_STREQ( "pkg.TestSuite" , ::iuutil::TestSuiteNameRemoveIndexName("pkg.TestSuite/0") );
+    IUTEST_EXPECT_STREQ( "TestSuite" , ::iuutil::TestSuiteNameRemoveIndexName("TestSuite") );
+}
+
+IUTEST(UtilTest, TestSuiteNameRemoveInstantiateAndIndexName)
+{
+    IUTEST_EXPECT_STREQ( "pkg.TestSuite" , ::iuutil::TestSuiteNameRemoveInstantiateAndIndexName("pkg.prefix/TestSuite") );
+    IUTEST_EXPECT_STREQ( "pkg.TestSuite" , ::iuutil::TestSuiteNameRemoveInstantiateAndIndexName("pkg.prefix/TestSuite/0") );
+    IUTEST_EXPECT_STREQ( "TestSuite" , ::iuutil::TestSuiteNameRemoveInstantiateAndIndexName("TestSuite") );
+    IUTEST_EXPECT_STREQ( "TestSuite" , ::iuutil::TestSuiteNameRemoveInstantiateAndIndexName("prefix/TestSuite") );
+    IUTEST_EXPECT_STREQ( "TestSuite" , ::iuutil::TestSuiteNameRemoveInstantiateAndIndexName("prefix/TestSuite/0") );
 }
 
 IUTEST(AssertionTest, EQ_COLLECTIONS_Array)
