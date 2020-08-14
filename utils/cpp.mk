@@ -8,7 +8,11 @@
 # see LICENSE
 #
 
-ifeq ($(findstring c++, $(CXX)), c++)
+ifeq ($(CXX), c++)
+
+ifeq ($(shell $(CXX) --version | grep -o zapcc), zapcc)
+CXX_NAME=zapcc++
+endif
 
 ifeq ($(shell $(CXX) --version | grep -o clang), clang)
 CXX_NAME=clang++
