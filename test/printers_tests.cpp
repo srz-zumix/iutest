@@ -543,6 +543,7 @@ IUTEST(PrintToTest, Variant)
     }
 #if IUTEST_HAS_EXCEPTIONS && !defined(IUTEST_USE_GTEST)
     {
+        // gtest no support variant valueless
         PrintToLogChecker ck("valueless_by_exception");
         ::std::variant<int, float, AlwaysThrow> v = 0.2f;
         try

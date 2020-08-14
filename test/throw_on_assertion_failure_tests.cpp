@@ -57,10 +57,10 @@ IUTEST(Foo, Test)
     IUTEST_EXPECT_EQ(0, x);
 }
 
-class TestFix : public ::iutest::Test
+class TestFix : public ::iuutil::backward::Test<TestFix>
 {
 public:
-    static void SetUpTestCase(void)
+    static void SetUpTestSuite(void)
     {
         Sub1();
         ++x;

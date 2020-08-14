@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -32,7 +32,7 @@ template<typename T>
 T TypedTest<T>::value = 0;
 
 typedef ::iutest::Types<int, long, short> TypedTestTypes;
-IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(TypedTest, TypedTestTypes);
 
 
 IUTEST_TYPED_TEST(TypedTest, Mul2)
@@ -49,7 +49,7 @@ IUTEST_TYPED_TEST(TypedTest, StaticMul2)
 
 template<typename T>
 class TypedTest2 : public TypedTest<T> {};
-IUTEST_TYPED_TEST_CASE(TypedTest2, float);
+IUTEST_TYPED_TEST_SUITE(TypedTest2, float);
 
 IUTEST_TYPED_TEST(TypedTest2, Mul2)
 {
@@ -67,7 +67,7 @@ IUTEST_TYPED_TEST(TypedTest2, StaticMul2)
 
 template<typename T>
 class TypedTest3 : public TypedTest<T> {};
-IUTEST_TYPED_TEST_CASE(TypedTest3, ::iutest::Types<int, float>);
+IUTEST_TYPED_TEST_SUITE(TypedTest3, ::iutest::Types<int, float>);
 
 IUTEST_TYPED_TEST(TypedTest3, Mul2)
 {
@@ -85,7 +85,7 @@ class MultiTypedTest : public ::iutest::Test
 };
 typedef ::iutest::Types< ::iutest::Types<int, float>, ::iutest::Types<int, double> > MultiTypedTestTypes;
 
-IUTEST_TYPED_TEST_CASE(MultiTypedTest, MultiTypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(MultiTypedTest, MultiTypedTestTypes);
 
 IUTEST_TYPED_TEST(MultiTypedTest, Get)
 {
