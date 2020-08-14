@@ -105,6 +105,84 @@ IUTEST_INSTANTIATE_TEST_CASE_AP(My1, AnyParamTest2, ::iutest::Values("0"));
 
 #endif
 
+#if !defined(IUTEST_USE_GTEST)
+
+class MyTestEventListener : public ::iutest::TestEventListener
+{
+public:
+    bool called_OnTestCaseStart;
+    bool called_OnTestCaseEnd;
+
+public:
+    MyTestEventListener(void)
+    : called_OnTestCaseStart(false)
+    , called_OnTestCaseEnd(false)
+    {}
+
+public:
+    virtual void OnTestProgramStart(const ::iutest::UnitTest& /*test*/)
+    {
+    }
+    virtual void OnTestIterationStart(const ::iutest::UnitTest& /*test*/
+                                    , int /*iteration*/)
+    {
+    }
+    virtual void OnEnvironmentsSetUpStart(const ::iutest::UnitTest& /*test*/)
+    {
+    }
+    virtual void OnEnvironmentsSetUpEnd(const ::iutest::UnitTest& /*test*/)
+    {
+    }
+    virtual void OnTestCaseStart(const ::iutest::TestCase& test_case)
+    {
+        if( ::iutest::detail::IsStringEqual(test_case.name(), "EventListenerTest") )
+        {
+            called_OnTestCaseStart = true;
+        }
+    }
+    virtual void OnTestStart(const ::iutest::TestInfo& /*test_info*/)
+    {
+    }
+    virtual void OnTestPartResult(const ::iutest::TestPartResult& /*test_part_result*/)
+    {
+    }
+    virtual void OnTestRecordProperty(const ::iutest::TestProperty& /*test_property*/)
+    {
+    }
+    virtual void OnTestEnd(const ::iutest::TestInfo& /*test_info*/)
+    {
+    }
+    virtual void OnTestCaseEnd(const ::iutest::TestCase& test_case)
+    {
+        if( ::iutest::detail::IsStringEqual(test_case.name(), "EventListenerTest") )
+        {
+            called_OnTestCaseEnd = true;
+        }
+    }
+    virtual void OnEnvironmentsTearDownStart(const ::iutest::UnitTest& /*test*/)
+    {
+    }
+    virtual void OnEnvironmentsTearDownEnd(const ::iutest::UnitTest& /*test*/)
+    {
+    }
+    virtual void OnTestIterationEnd(const ::iutest::UnitTest& /*test*/
+                                    , int /*iteration*/)
+    {
+    }
+    virtual void OnTestProgramEnd(const ::iutest::UnitTest& /*test*/)
+    {
+    }
+};
+
+static MyTestEventListener* listener = NULL;
+
+IUTEST(EventListenerTest, FlagCheck)
+{
+    IUTEST_ASSERT_TRUE( listener->called_OnTestCaseStart );
+    IUTEST_ASSERT_FALSE( listener->called_OnTestCaseEnd );
+}
+#endif
+
 #endif
 
 #ifdef UNICODE
@@ -114,5 +192,16 @@ int main(int argc, char* argv[])
 #endif
 {
     IUTEST_INIT(&argc, argv);
+
+#if !defined(IUTEST_USE_GTEST)
+    ::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
+    listener = new MyTestEventListener();
+    listeners.Append( listener );
+    const int ret = IUTEST_RUN_ALL_TESTS();
+
+    IUTEST_ASSERT_EXIT( listener->called_OnTestCaseEnd );
+    return ret;
+#else
     return IUTEST_RUN_ALL_TESTS();
+#endif
 }
