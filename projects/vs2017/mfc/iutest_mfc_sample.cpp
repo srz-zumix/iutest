@@ -84,7 +84,7 @@ struct test_value < CString >
 
 template<typename T>
 class MFCArrayTypedTest : public ::iutest::Test {};
-IUTEST_TYPED_TEST_CASE(MFCArrayTypedTest, ::iutest::Types<CArray<int>, CTypedPtrArray<CPtrArray, int*>
+IUTEST_TYPED_TEST_SUITE(MFCArrayTypedTest, ::iutest::Types<CArray<int>, CTypedPtrArray<CPtrArray, int*>
     , CByteArray, CWordArray, CDWordArray, CUIntArray, CStringArray, CPtrArray, CObArray>);
 
 IUTEST_TYPED_TEST(MFCArrayTypedTest, EqCollections)
@@ -107,7 +107,7 @@ IUTEST_TYPED_TEST(MFCArrayTypedTest, EqCollections)
 
 template<typename T>
 class MFCListTypedTest : public ::iutest::Test {};
-IUTEST_TYPED_TEST_CASE(MFCListTypedTest, ::iutest::Types<CList<int>, CTypedPtrList<CPtrList, int*>
+IUTEST_TYPED_TEST_SUITE(MFCListTypedTest, ::iutest::Types<CList<int>, CTypedPtrList<CPtrList, int*>
     , CStringList, CPtrList, CObList>);
 
 IUTEST_TYPED_TEST(MFCListTypedTest, EqCollections)
@@ -129,7 +129,7 @@ IUTEST_TYPED_TEST(MFCListTypedTest, EqCollections)
 
 template<typename T>
 class MFCMapTypedTest : public ::iutest::Test {};
-IUTEST_TYPED_TEST_CASE(MFCMapTypedTest, ::iutest::Types< CMap<int, int, int, int>
+IUTEST_TYPED_TEST_SUITE(MFCMapTypedTest, ::iutest::Types< CMap<int, int, int, int>
     , CTypedPtrMap<CMapPtrToPtr, int*, int*>, CTypedPtrMap<CMapPtrToWord, int*, WORD>
     , CTypedPtrMap<CMapWordToPtr, WORD, int*>, CTypedPtrMap<CMapStringToPtr, CString, int*>
     , CMapWordToPtr, CMapWordToOb, CMapPtrToPtr, CMapPtrToWord

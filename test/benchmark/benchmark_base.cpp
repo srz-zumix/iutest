@@ -45,9 +45,9 @@ IUTEST_PACKAGE(PACKAGENAME)
         IUTEST_ASSUME_NE(0, GetParam());
     }
 
-    IUTEST_INSTANTIATE_TEST_CASE_P(A, ParamTest, ::iutest::Range<int>(0, 100000));
-    IUTEST_INSTANTIATE_TEST_CASE_P(B, ParamTest, ::iutest::Values(IUTEST_PP_ENUM_PARAMS(IUTEST_PP_LIMIT_ENUM, IUTEST_PP_EMPTY())));
-    IUTEST_INSTANTIATE_TEST_CASE_P(C, ParamTest, ::iutest::ValuesIn(make_param(1000, 0)));
+    IUTEST_INSTANTIATE_TEST_SUITE_P(A, ParamTest, ::iutest::Range<int>(0, 100000));
+    IUTEST_INSTANTIATE_TEST_SUITE_P(B, ParamTest, ::iutest::Values(IUTEST_PP_ENUM_PARAMS(IUTEST_PP_LIMIT_ENUM, IUTEST_PP_EMPTY())));
+    IUTEST_INSTANTIATE_TEST_SUITE_P(C, ParamTest, ::iutest::ValuesIn(make_param(1000, 0)));
 
 #if IUTEST_HAS_COMBINE
 
@@ -58,15 +58,15 @@ IUTEST_PACKAGE(PACKAGENAME)
     {
         (void)GetParam();
     }
-    IUTEST_INSTANTIATE_TEST_CASE_P(A, CombineTest
+    IUTEST_INSTANTIATE_TEST_SUITE_P(A, CombineTest
         , ::iutest::Combine(::iutest::Bool(), ::iutest::Values(1, 10), ::iutest::ValuesIn(kCombineTestTable)));
-    IUTEST_INSTANTIATE_TEST_CASE_P(B, CombineTest
+    IUTEST_INSTANTIATE_TEST_SUITE_P(B, CombineTest
         , ::iutest::Concat(
             ::iutest::Combine(::iutest::Values(false), ::iutest::Values(1, 10), ::iutest::ValuesIn(kCombineTestTable))
             , ::iutest::Combine(::iutest::Values(true), ::iutest::Values(1, 10), ::iutest::ValuesIn(kCombineTestTable))
         )
     );
-    IUTEST_INSTANTIATE_TEST_CASE_P(C, CombineTest
+    IUTEST_INSTANTIATE_TEST_SUITE_P(C, CombineTest
         , ::iutest::Combine(::iutest::Values(false), ::iutest::Values(1, 10), ::iutest::ValuesIn(kCombineTestTable))
             + ::iutest::Combine(::iutest::Values(true), ::iutest::Values(1, 10), ::iutest::ValuesIn(kCombineTestTable))
     );
@@ -81,7 +81,7 @@ IUTEST_PACKAGE(PACKAGENAME)
         , int, signed int, unsigned int
         , long, signed long, unsigned long
         , float, double> TypedTestTypes;
-    IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
+    IUTEST_TYPED_TEST_SUITE(TypedTest, TypedTestTypes);
 
     IUTEST_TYPED_TEST(TypedTest, Mul2)
     {
@@ -91,7 +91,7 @@ IUTEST_PACKAGE(PACKAGENAME)
 
     template<typename T>
     class TypeParamTest : public ::iutest::Test {};
-    IUTEST_TYPED_TEST_CASE_P(TypeParamTest);
+    IUTEST_TYPED_TEST_SUITE_P(TypeParamTest);
 
     IUTEST_TYPED_TEST_P(TypeParamTest, Mul2)
     {
@@ -99,6 +99,6 @@ IUTEST_PACKAGE(PACKAGENAME)
         IUTEST_ASSERT_EQ(x+x, 2*x);
     }
 
-    IUTEST_REGISTER_TYPED_TEST_CASE_P(TypeParamTest, Mul2);
-    IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, TypeParamTest, TypedTestTypes);
+    IUTEST_REGISTER_TYPED_TEST_SUITE_P(TypeParamTest, Mul2);
+    IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(A, TypeParamTest, TypedTestTypes);
 }
