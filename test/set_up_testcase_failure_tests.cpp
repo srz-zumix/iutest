@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file        set_up_testcase_failure_tests.cpp
- * @brief       SetUpTestCase で失敗したときのテスト
+ * @file        set_up_TestSuite_failure_tests.cpp
+ * @brief       SetUpTestSuite で失敗したときのテスト
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -20,12 +20,12 @@
 static int setup_flag = 0;
 static int teardown_flag = 0;
 
-class TestSetUpFailure : public ::iutest::Test
+class TestSetUpFailure : public ::iuutil::backward::Test<TestSetUpFailure>
 {
 public:
-    static void SetUpTestCase()
+    static void SetUpTestSuite()
     {
-        IUTEST_FAIL() << "SetUp TestCase Failed.";
+        IUTEST_FAIL() << "SetUp TestSuite Failed.";
     }
 };
 
@@ -34,12 +34,12 @@ IUTEST_F(TestSetUpFailure, Test)
     ++setup_flag;
 }
 
-class TestTearDownFailure : public ::iutest::Test
+class TestTearDownFailure : public ::iuutil::backward::Test<TestTearDownFailure>
 {
 public:
-    static void TearDownTestCase()
+    static void TearDownTestSuite()
     {
-        IUTEST_FAIL() << "TearDown TestCase Failed.";
+        IUTEST_FAIL() << "TearDown TestSuite Failed.";
     }
 };
 
