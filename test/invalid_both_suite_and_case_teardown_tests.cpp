@@ -37,12 +37,6 @@
 class BothTest : public ::iutest::Test
 {
 public:
-    static void SetUpTestSuite()
-    {
-    }
-    static void SetUpTestCase()
-    {
-    }
     static void TearDownTestSuite()
     {
     }
@@ -67,11 +61,6 @@ int main(int argc, char* argv[])
 #if HAS_INVALID_TESTSUITE_AND_TESTCASE
     int ret = IUTEST_RUN_ALL_TESTS();
 #if IUTEST_HAS_ASSERTION_RETURN && IUTEST_HAS_STREAM_BUFFER
-    // FATAL log flushed
-    IUTEST_ASSERT_STRNOTIN(
-        "Test can not provide both SetUpTestSuite and SetUpTestCase"
-        ", please make sure there is only one present at "
-        , stderr_capture.GetStreamString()) << ::iutest::AssertionReturn<int>(1);
     IUTEST_ASSERT_STRIN(
         "Test can not provide both TearDownTestSuite and TearDownTestCase"
         ", please make sure there is only one present at "
