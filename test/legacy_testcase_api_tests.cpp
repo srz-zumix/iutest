@@ -193,7 +193,7 @@ int main(int argc, char* argv[])
 {
     IUTEST_INIT(&argc, argv);
 
-#if !defined(IUTEST_USE_GTEST)
+#if IUTEST_HAS_TESTSUITE && IUTEST_HAS_TESTCASE && !defined(IUTEST_USE_GTEST)
     ::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
     listener = new MyTestEventListener();
     listeners.Append( listener );
