@@ -82,7 +82,7 @@ public:
     {
         ++x;
     }
-    static void SetUpTestCase(void)
+    static void SetUpTestSuite(void)
     {
         x = 0;
     }
@@ -284,15 +284,15 @@ protected:
     static int a;
     static int b;
 public:
-    static void SetUpTestCase(void)
+    static void SetUpTestSuite(void)
     {
         a = 0;
         b = 0;
-        IUTEST_SUCCEED() << "SetUpTestCase";
+        IUTEST_SUCCEED() << "SetUpTestSuite";
     }
-    static void TearDownTestCase(void)
+    static void TearDownTestSuite(void)
     {
-        IUTEST_SUCCEED() << "TearDownTestCase";
+        IUTEST_SUCCEED() << "TearDownTestSuite";
     }
 };
 int TestP::a = 0;
@@ -330,7 +330,7 @@ class TestPValueIn : public iutest::TestWithParam<char>
 protected:
     static int a;
 public:
-    static void SetUpTestCase(void)
+    static void SetUpTestSuite(void)
     {
         a = 0;
     }
@@ -357,7 +357,7 @@ class TestPValuesN : public iutest::TestWithParam<int>
 protected:
     static int a;
 public:
-    static void SetUpTestCase(void)
+    static void SetUpTestSuite(void)
     {
         a = 1;
     }
@@ -405,13 +405,13 @@ template<typename T>
 class TypedTest : public iutest::Test
 {
 public:
-    static void SetUpTestCase(void)
+    static void SetUpTestSuite(void)
     {
-        IUTEST_SUCCEED() << "SetUpTestCase";
+        IUTEST_SUCCEED() << "SetUpTestSuite";
     }
-    static void TearDownTestCase(void)
+    static void TearDownTestSuite(void)
     {
-        IUTEST_SUCCEED() << "TearDownTestCase";
+        IUTEST_SUCCEED() << "TearDownTestSuite";
     }
 };
 typedef iutest::Types<int, long, short> TypedTestTypes;

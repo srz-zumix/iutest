@@ -25,7 +25,7 @@ protected:
     static int a;
     static int b;
 public:
-    static void SetUpTestCase()
+    static void SetUpTestSuite()
     {
         a = 0;
         b = 0;
@@ -59,7 +59,7 @@ protected:
     static int a;
     static int b;
 public:
-    static void SetUpTestCase()
+    static void SetUpTestSuite()
     {
         a = 0;
         b = 0;
@@ -102,7 +102,7 @@ class TestPValueIn : public ::iutest::TestWithParam<char>
 protected:
     static int a;
 public:
-    static void SetUpTestCase()
+    static void SetUpTestSuite()
     {
         a = 0;
     }
@@ -129,7 +129,7 @@ class TestPValuesN : public ::iutest::TestWithParam<int>
 protected:
     static int a;
 public:
-    static void SetUpTestCase()
+    static void SetUpTestSuite()
     {
         a = 1;
     }
