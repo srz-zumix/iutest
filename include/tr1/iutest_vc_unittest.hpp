@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -28,38 +28,38 @@
 #ifdef IUTEST
 #  undef IUTEST
 #endif
-#define IUTEST(testcase_, testname_)    IUTEST_TR1_VCUNIT(testcase_, testname_, iutest::Test    \
+#define IUTEST(testsuite_, testname_)    IUTEST_TR1_VCUNIT(testsuite_, testname_, iutest::Test    \
                                             , iutest::internal::GetTestTypeId()                 \
-                                            , testcase_##testname_##_class, testcase_##_##testname_)
+                                            , testsuite_##testname_##_class, testsuite_##_##testname_)
 
 #ifdef IUTEST_F
 #  undef IUTEST_F
 #endif
-#define IUTEST_F(testcase_, testname_)  IUTEST_TR1_VCUNIT(testcase_, testname_, testcase_   \
-                                            , iutest::internal::GetTypeId<testcase_>()      \
-                                            , testcase_##testname_##_class, testcase_##_##testname_)
+#define IUTEST_F(testsuite_, testname_)  IUTEST_TR1_VCUNIT(testsuite_, testname_, testsuite_    \
+                                            , iutest::internal::GetTypeId<testsuite_>()         \
+                                            , testsuite_##testname_##_class, testsuite_##_##testname_)
 
-#define IUTEST_TR1_VCUNIT_CHECK_DISABLED(testcase_, testname_)              \
-    if( const char* p = #testcase_)         \
+#define IUTEST_TR1_VCUNIT_CHECK_DISABLED(testsuite_, testname_) \
+    if( const char* p = #testsuite_)        \
         if(strstr(p, "DISABLED_") == p)     \
             return;                         \
     if( const char* p = #testname_ )        \
         if(strstr(p, "DISABLED_") == p)     \
             return
 
-#define IUTEST_TR1_VCUNIT(testcase_, testname_, parent_, type_id_, className, methodName)   \
-    IUTEST_TEST_(testcase_, testname_, parent_, type_id_) {}                                \
-    IUTEST_TR1_VCUNIT_I(testcase_, testname_, className, methodName)
+#define IUTEST_TR1_VCUNIT(testsuite_, testname_, parent_, type_id_, className, methodName)   \
+    IUTEST_TEST_(testsuite_, testname_, parent_, type_id_) {}                                \
+    IUTEST_TR1_VCUNIT_I(testsuite_, testname_, className, methodName)
 
-#define IUTEST_TR1_VCUNIT_I(testcase_, testname_, className, methodName)    \
-    IUTEST_TR1_VCUNIT_TEST_CLASS(className), public IUTEST_TEST_CLASS_NAME_(testcase_, testname_) { \
+#define IUTEST_TR1_VCUNIT_I(testsuite_, testname_, className, methodName)   \
+    IUTEST_TR1_VCUNIT_TEST_CLASS(className), public IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) { \
     public: TEST_METHOD(methodName) {                                       \
-        IUTEST_TR1_VCUNIT_CHECK_DISABLED(testcase_, testname_);             \
-        OnTestStart(#testcase_, #testname_); SetUp();                       \
-        Body(); TearDown(); OnTestEnd(#testcase_, #testname_); }            \
-    TEST_CLASS_INITIALIZE(iuSetUp) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::SetUpTestCase(); }      \
-    TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::TearDownTestCase(); }   \
-    IIUT_TR1_VCUNIT_METHOD_ATTRIBUTE(testcase_, methodName) \
+        IUTEST_TR1_VCUNIT_CHECK_DISABLED(testsuite_, testname_);            \
+        OnTestStart(#testsuite_, #testname_); SetUp();                      \
+        Body(); TearDown(); OnTestEnd(#testsuite_, #testname_); }           \
+    TEST_CLASS_INITIALIZE(iuSetUp) { IUTEST_GET_SETUP_TESTSUITE(IUTEST_TEST_CLASS_NAME_(testsuite_, testname_), __FILE__, __LINE__)(); }    \
+    TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_GET_TEARDOWN_TESTSUITE(IUTEST_TEST_CLASS_NAME_(testsuite_, testname_), __FILE__, __LINE__)(); }  \
+    IIUT_TR1_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName) \
     virtual void Body();                                    \
     };                                                      \
     void className::Body()
@@ -74,9 +74,9 @@
 //
 //  TEST_METHOD_ATTRIBUTE(L"Package", GetPackageNameW() )   \
 
-#define IIUT_TR1_VCUNIT_METHOD_ATTRIBUTE(testcase_, methodName) \
-    BEGIN_TEST_METHOD_ATTRIBUTE(methodName)                     \
-        TEST_METHOD_ATTRIBUTE(L"TestCase", L#testcase_)         \
+#define IIUT_TR1_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)    \
+    BEGIN_TEST_METHOD_ATTRIBUTE(methodName)                         \
+        TEST_METHOD_ATTRIBUTE(L"TestSuite", L#testsuite_)           \
     END_TEST_METHOD_ATTRIBUTE()
 
 #ifndef IUTEST_USE_GTEST
@@ -87,27 +87,27 @@
 
 IUTEST_MAKE_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, ::iutest::TestInfo, m_factory);
 
-#define IUTEST_P(testcase_, testname_)                                                      \
-    class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public testcase_ {                \
-    public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)() {}                              \
+#define IUTEST_P(testsuite_, testname_)                                                     \
+    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) : public testsuite_ {              \
+    public: IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)() {}                             \
     protected: virtual void Body() {}                                                       \
-        IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));  \
+        IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)); \
     };                                                                                      \
-    IUTEST_P_VCUNIT_I(testcase_, testname_, testcase_##testname_##_class, testcase_##_##testname_)
+    IUTEST_P_VCUNIT_I(testsuite_, testname_, testsuite_##testname_##_class, testsuite_##_##testname_)
 
-#define IUTEST_P_VCUNIT_I(testcase_, testname_, className, methodName)                      \
-    IUTEST_TR1_VCUNIT_TEST_CLASS(className), public IUTEST_TEST_CLASS_NAME_(testcase_, testname_) { \
+#define IUTEST_P_VCUNIT_I(testsuite_, testname_, className, methodName)                     \
+    IUTEST_TR1_VCUNIT_TEST_CLASS(className), public IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) { \
     public: TEST_METHOD(methodName) {                                                       \
-        IUTEST_TR1_VCUNIT_CHECK_DISABLED(testcase_, testname_);                             \
-        const ::iutest::TestCase* testcase = ::iuutil::FindParamTestCase(#testcase_);       \
-        ::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testcase);       \
-        while( testcase != NULL ) {                                                         \
-            ::iuutil::tr1::VisualStudio::VCCppUnitTestAdapter::SetCurrentTestCase(testcase);        \
-            const char* testcase_name = testcase->name();                                   \
+        IUTEST_TR1_VCUNIT_CHECK_DISABLED(testsuite_, testname_);                            \
+        const ::iutest::TestSuite* testsuite = ::iuutil::FindParamTestSuite(#testsuite_);   \
+        ::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testsuite);      \
+        while( testsuite != NULL ) {                                                        \
+            ::iuutil::tr1::VisualStudio::VCCppUnitTestAdapter::SetCurrentTestSuite(testsuite);  \
+            const char* testsuite_name = testsuite->name();                                 \
             ::std::string name(#testname_); name += "/";                                    \
-            int testinfo_count = testcase->total_test_count();                              \
+            int testinfo_count = testsuite->total_test_count();                             \
             for( int i=0; i < testinfo_count; ++i ) {                                       \
-                const ::iutest::TestInfo* testinfo = testcase->GetTestInfo(i);              \
+                const ::iutest::TestInfo* testinfo = testsuite->GetTestInfo(i);             \
                 ::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testinfo);   \
                 const char* testinfo_name = testinfo->name();                               \
                 if( strstr(testinfo_name, name.c_str()) == testinfo_name ) {                \
@@ -116,23 +116,23 @@ IUTEST_MAKE_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, ::iutes
                             IUTEST_PEEP_GET(*testinfo, ::iutest::TestInfo, m_factory));     \
                     ::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(factory);    \
                     SetParam(&factory->GetParam());                                         \
-                    OnTestStart(testcase_name, testinfo_name);                              \
+                    OnTestStart(testsuite_name, testinfo_name);                             \
                     SetUp(); Body(); TearDown();                                            \
-                    OnTestEnd(testcase_name, testinfo_name);                                \
+                    OnTestEnd(testsuite_name, testinfo_name);                               \
                 }                                                                           \
             }                                                                               \
-            testcase = ::iuutil::FindParamTestCase(#testcase_, testcase);                   \
-            ::iuutil::tr1::VisualStudio::VCCppUnitTestAdapter::SetCurrentTestCase(NULL);    \
+            testsuite = ::iuutil::FindParamTestSuite(#testsuite_, testsuite);               \
+            ::iuutil::tr1::VisualStudio::VCCppUnitTestAdapter::SetCurrentTestSuite(NULL);   \
         }                                                                                   \
     }                                                                                       \
-    TEST_CLASS_INITIALIZE(iuSetUp) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::SetUpTestCase(); }      \
-    TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::TearDownTestCase(); }   \
-    IIUT_TR1_VCUNIT_METHOD_ATTRIBUTE(testcase_, methodName)                                     \
+    TEST_CLASS_INITIALIZE(iuSetUp) { IUTEST_GET_SETUP_TESTSUITE(IUTEST_TEST_CLASS_NAME_(testsuite_, testname_), __FILE__, __LINE__)(); }      \
+    TEST_CLASS_CLEANUP(iuTearDown) { IUTEST_GET_TEARDOWN_TESTSUITE(IUTEST_TEST_CLASS_NAME_(testsuite_, testname_), __FILE__, __LINE__)(); }   \
+    IIUT_TR1_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)                                \
     virtual void Body();                                                                    \
     private: static int AddRegister() {                                                     \
             static ::iutest::detail::ParamTestInstance< className > testinfo(#testname_);   \
             ::iutest::UnitTest::GetInstance()->parameterized_test_registry().               \
-            GetTestCasePatternHolder< testcase_ >(#testcase_, IUTEST_GET_PACKAGENAME_())    \
+            GetTestSuitePatternHolder< testsuite_ >(#testsuite_, IUTEST_GET_PACKAGENAME_()) \
                 ->AddTestPattern(&testinfo); return 0;                                      \
         }                                                                                   \
         static int dummy_;                                                                  \
@@ -146,34 +146,34 @@ IUTEST_MAKE_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, ::iutes
 #  undef IUTEST_TYPED_TEST
 #endif
 
-#define IUTEST_TYPED_TEST(testcase_, testname_)                                         \
-    IUTEST_TYPED_TEST_VCUNIT_I(testcase_, testname_, testcase_##testname_##_class, testcase_##_##testname_);    \
-    IIUT_TYPED_TEST_(testcase_, testname_)
+#define IUTEST_TYPED_TEST(testsuite_, testname_)                                         \
+    IUTEST_TYPED_TEST_VCUNIT_I(testsuite_, testname_, testsuite_##testname_##_class, testsuite_##_##testname_);    \
+    IIUT_TYPED_TEST_(testsuite_, testname_)
 
-#define IUTEST_TYPED_TEST_VCUNIT_I(testcase_, testname_, className, methodName)         \
-    IUTEST_TR1_VCUNIT_TEST_CLASS(className) {                                           \
-    public: TEST_METHOD(methodName) {                                                   \
-        IUTEST_TR1_VCUNIT_CHECK_DISABLED(testcase_, testname_);                         \
-        const ::iutest::TestCase* testcase = ::iuutil::FindTypedTestCase(#testcase_);   \
-        ::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testcase);   \
-        while( testcase != NULL ) {                                                     \
-            const char* testcase_name = testcase->name();                               \
-            const ::iutest::TestInfo* testinfo = ::iuutil::FindTestInfo(testcase, #testname_);  \
+#define IUTEST_TYPED_TEST_VCUNIT_I(testsuite_, testname_, className, methodName)            \
+    IUTEST_TR1_VCUNIT_TEST_CLASS(className) {                                               \
+    public: TEST_METHOD(methodName) {                                                       \
+        IUTEST_TR1_VCUNIT_CHECK_DISABLED(testsuite_, testname_);                            \
+        const ::iutest::TestSuite* testsuite = ::iuutil::FindTypedTestSuite(#testsuite_);   \
+        ::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testsuite);      \
+        while( testsuite != NULL ) {                                                        \
+            const char* testsuite_name = testsuite->name();                                 \
+            const ::iutest::TestInfo* testinfo = ::iuutil::FindTestInfo(testsuite, #testname_);  \
             ::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testinfo);   \
-            ::iutest::detail::iuFactoryBase* factory =                                  \
-                IUTEST_PEEP_GET(*testinfo, ::iutest::TestInfo, m_factory);              \
+            ::iutest::detail::iuFactoryBase* factory =                                      \
+                IUTEST_PEEP_GET(*testinfo, ::iutest::TestInfo, m_factory);                  \
             ::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(factory);    \
-            ::iutest::detail::auto_ptr< ::iutest::Test > p = factory->Create();         \
+            ::iutest::detail::auto_ptr< ::iutest::Test > p = factory->Create();             \
             ::iuutil::tr1::VisualStudio::Test* tester = static_cast< ::iuutil::tr1::VisualStudio::Test*>(p.get());  \
-            ::iuutil::tr1::VisualStudio::VCCppUnitTestAdapter::SetCurrentTestCase(testcase);    \
-            OnTestStart(testcase_name, #testname_);                                     \
-            tester->SetUp(); tester->Body(); tester->TearDown();                        \
-            OnTestEnd(testcase_name, #testname_);                                       \
-            testcase = ::iuutil::FindTypedTestCase(#testcase_, testcase);               \
-            ::iuutil::tr1::VisualStudio::VCCppUnitTestAdapter::SetCurrentTestCase(NULL);        \
-        }                                                                               \
-    }                                                                                   \
-    IIUT_TR1_VCUNIT_METHOD_ATTRIBUTE(testcase_, methodName)                             \
+            ::iuutil::tr1::VisualStudio::VCCppUnitTestAdapter::SetCurrentTestSuite(testsuite);    \
+            OnTestStart(testsuite_name, #testname_);                                        \
+            tester->SetUp(); tester->Body(); tester->TearDown();                            \
+            OnTestEnd(testsuite_name, #testname_);                                          \
+            testsuite = ::iuutil::FindTypedTestSuite(#testsuite_, testsuite);               \
+            ::iuutil::tr1::VisualStudio::VCCppUnitTestAdapter::SetCurrentTestSuite(NULL);   \
+        }                                                                                   \
+    }                                                                                       \
+    IIUT_TR1_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)                                \
     }
 
 #endif
@@ -183,34 +183,34 @@ IUTEST_MAKE_PEEP(::iutest::detail::iuFactoryBase* ::iutest::TestInfo::*, ::iutes
 #  undef IUTEST_TYPED_TEST_P
 #endif
 
-#define IUTEST_TYPED_TEST_P(testcase_, testname_)       \
-    IUTEST_TYPED_TEST_P_VCUNIT_I(testcase_, testname_, testcase_##testname_##_class, testcase_##_##testname_);  \
-    IIUT_TYPED_TEST_P_(testcase_, testname_)
+#define IUTEST_TYPED_TEST_P(testsuite_, testname_)       \
+    IUTEST_TYPED_TEST_P_VCUNIT_I(testsuite_, testname_, testsuite_##testname_##_class, testsuite_##_##testname_);  \
+    IIUT_TYPED_TEST_P_(testsuite_, testname_)
 
-#define IUTEST_TYPED_TEST_P_VCUNIT_I(testcase_, testname_, className, methodName)           \
+#define IUTEST_TYPED_TEST_P_VCUNIT_I(testsuite_, testname_, className, methodName)           \
     IUTEST_TR1_VCUNIT_TEST_CLASS(className) {                                               \
     public: TEST_METHOD(methodName) {                                                       \
-        const ::iutest::TestCase* testcase = ::iuutil::FindParamTypedTestCase(#testcase_);  \
-        ::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testcase);       \
-        while( testcase != NULL ) {                                                         \
-        ::Microsoft::VisualStudio::CppUnitTestFramework::Logger::WriteMessage(#testcase_);  \
-            const char* testcase_name = testcase->name();                                   \
-            const ::iutest::TestInfo* testinfo = ::iuutil::FindTestInfo(testcase, #testname_);  \
+        const ::iutest::TestSuite* testsuite = ::iuutil::FindParamTypedTestSuite(#testsuite_);  \
+        ::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testsuite);       \
+        while( testsuite != NULL ) {                                                         \
+        ::Microsoft::VisualStudio::CppUnitTestFramework::Logger::WriteMessage(#testsuite_);  \
+            const char* testsuite_name = testsuite->name();                                   \
+            const ::iutest::TestInfo* testinfo = ::iuutil::FindTestInfo(testsuite, #testname_);  \
             ::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(testinfo);   \
             ::iutest::detail::iuFactoryBase* factory =                                      \
                 IUTEST_PEEP_GET(*testinfo, ::iutest::TestInfo, m_factory);                  \
             ::Microsoft::VisualStudio::CppUnitTestFramework::Assert::IsNotNull(factory);    \
             ::iutest::detail::auto_ptr< ::iutest::Test > p = factory->Create();             \
             ::iuutil::tr1::VisualStudio::Test* tester = static_cast< ::iuutil::tr1::VisualStudio::Test*>(p.get());  \
-            ::iuutil::tr1::VisualStudio::VCCppUnitTestAdapter::SetCurrentTestCase(testcase);    \
-            OnTestStart(testcase_name, #testname_);                                     \
+            ::iuutil::tr1::VisualStudio::VCCppUnitTestAdapter::SetCurrentTestSuite(testsuite);    \
+            OnTestStart(testsuite_name, #testname_);                                     \
             tester->SetUp(); tester->Body(); tester->TearDown();                        \
-            OnTestEnd(testcase_name, #testname_);                                       \
-            testcase = ::iuutil::FindParamTypedTestCase(#testcase_, testcase);          \
-            ::iuutil::tr1::VisualStudio::VCCppUnitTestAdapter::SetCurrentTestCase(NULL);        \
+            OnTestEnd(testsuite_name, #testname_);                                       \
+            testsuite = ::iuutil::FindParamTypedTestSuite(#testsuite_, testsuite);          \
+            ::iuutil::tr1::VisualStudio::VCCppUnitTestAdapter::SetCurrentTestSuite(NULL);        \
         }                                                                               \
     }                                                                                   \
-    IIUT_TR1_VCUNIT_METHOD_ATTRIBUTE(testcase_, methodName)                             \
+    IIUT_TR1_VCUNIT_METHOD_ATTRIBUTE(testsuite_, methodName)                             \
     }
 
 #endif
@@ -279,9 +279,9 @@ class TestClass : public ::Microsoft::VisualStudio::CppUnitTestFramework::TestCl
 {
     typedef ::Microsoft::VisualStudio::CppUnitTestFramework::Logger Logger;
 public:
-    void OnTestStart(const char* testcase_name, const char* testinfo_name)
+    void OnTestStart(const char* testsuite_name, const char* testinfo_name)
     {
-        const ::iutest::TestInfo* testinfo = iuutil::FindTestInfo(testcase_name, testinfo_name);
+        const ::iutest::TestInfo* testinfo = iuutil::FindTestInfo(testsuite_name, testinfo_name);
         if( testinfo == NULL )
         {
             return;
@@ -290,9 +290,9 @@ public:
         ::iutest::TestEventListener* repeator = GetTestEventListenerRepeater(listeners);
         repeator->OnTestStart(*testinfo);
     }
-    void OnTestEnd(const char* testcase_name, const char* testinfo_name)
+    void OnTestEnd(const char* testsuite_name, const char* testinfo_name)
     {
-        const ::iutest::TestInfo* testinfo = iuutil::FindTestInfo(testcase_name, testinfo_name);
+        const ::iutest::TestInfo* testinfo = iuutil::FindTestInfo(testsuite_name, testinfo_name);
         if( testinfo == NULL )
         {
             return;
@@ -305,18 +305,18 @@ public:
 
 #ifndef IUTEST_USE_GTEST
 
-IUTEST_MAKE_PEEP(::iutest::TestCase* ::iutest::UnitTestImpl::*, ::iutest::UnitTest, m_current_testcase);
+IUTEST_MAKE_PEEP(::iutest::TestSuite* ::iutest::UnitTestImpl::*, ::iutest::UnitTest, m_current_testsuite);
 
 #endif
 
 class VCCppUnitTestAdapter
 {
 public:
-    static void SetCurrentTestCase(const ::iutest::TestCase* testcase)
+    static void SetCurrentTestSuite(const ::iutest::TestSuite* testsuite)
     {
 #ifndef IUTEST_USE_GTEST
         (IUTEST_PEEP_GET(*(::iutest::UnitTest::GetInstance())
-            , ::iutest::UnitTest, m_current_testcase)) = const_cast< ::iutest::TestCase* >(testcase);
+            , ::iutest::UnitTest, m_current_testsuite)) = const_cast< ::iutest::TestSuite* >(testsuite);
 #endif
     }
 };
