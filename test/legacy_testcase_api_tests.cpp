@@ -42,6 +42,40 @@ IUTEST(Util, Api)
     IUTEST_EXPECT_EQ(::iuutil::GetCurrentTestSuiteAdHocResult(), ::iuutil::GetCurrentTestCaseAdHocResult());
 }
 
+class CaseFixture : public ::iutest::Test
+{
+public:
+    static void SetUpTestCase()
+    {
+        ::iutest::Test::SetUpTestCase();
+    }
+    static void TearDownTestCase()
+    {
+        ::iutest::Test::TearDownTestCase();
+    }
+};
+
+IUTEST_F(CaseFixture, Test)
+{
+}
+
+class SuiteFixture : public ::iutest::Test
+{
+public:
+    static void SetUpTestSuite()
+    {
+        ::iutest::Test::SetUpTestSuite();
+    }
+    static void TearDownTestSuite()
+    {
+        ::iutest::Test::TearDownTestSuite();
+    }
+};
+
+IUTEST_F(SuiteFixture, Test)
+{
+}
+
 #if IUTEST_HAS_PARAM_TEST
 
 class ParamTest : public ::iutest::TestWithParam<int> {};
