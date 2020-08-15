@@ -33,8 +33,8 @@ IUTEST_P(CsvParamsIntTest, DoNothing)
 {
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(NotExist, CsvParamsIntTest, ::iutest::CSV<int>("testdata/not-exist?.csv") );
-IUTEST_INSTANTIATE_TEST_CASE_P(EmptyCsv, CsvParamsIntTest, ::iutest::CSV<int>("testdata/empty.csv") );
+IUTEST_INSTANTIATE_TEST_SUITE_P(NotExist, CsvParamsIntTest, ::iutest::CSV<int>("testdata/not-exist?.csv") );
+IUTEST_INSTANTIATE_TEST_SUITE_P(EmptyCsv, CsvParamsIntTest, ::iutest::CSV<int>("testdata/empty.csv") );
 
 #endif
 

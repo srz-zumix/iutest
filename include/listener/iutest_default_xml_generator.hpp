@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -84,7 +84,7 @@ private:
     virtual void OnReportTest(IFile* file, const UnitTest& test);
 
 private:
-    static void OnReportTestCase(IFile* file, const TestCase& test_case);
+    static void OnReportTestSuite(IFile* file, const TestSuite& test_suite);
     static void OnReportTestInfo(IFile* file, const TestInfo& test_info);
     static void OnReportTestProperty(IFile* file, const TestResult& test_result
         , bool (*pfnValidate)(const ::std::string&));
