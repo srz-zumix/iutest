@@ -2,7 +2,7 @@
 //-----------------------------------------------------------------------
 /**
  * @file        invalid_both_suite_and_case_tests.cpp
- * @brief       invalid testsuite and testcase both impliment
+ * @brief       invalid testsuite and testcase both implement
  *
  * @author      t.shirayanagi
  * @par         copyright
