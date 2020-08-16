@@ -19,7 +19,7 @@
 
 // well-formed test definitions..
 
-IUTEST(,)
+IUTEST(, )
 {
 }
 
@@ -63,7 +63,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(A, ParamTest, ::iutest::Values(0, 1));
 
 #if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
 typedef ParamTest   ParamTest2;
-#define ParamTestAlias  (,ParamTest2)
+#define ParamTestAlias  (, ParamTest2)
 IUTEST_P(ParamTestAlias, )
 {
 }
@@ -87,7 +87,7 @@ IUTEST_TYPED_TEST(TypedTest, )
 #if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
 template<typename T>
 class TypedTest2 : public ::iutest::Test {};
-#define TypedTestAlias  (,TypedTest2)
+#define TypedTestAlias  (, TypedTest2)
 IUTEST_TYPED_TEST_CASE(TypedTestAlias, TypedTestTypes);
 IUTEST_TYPED_TEST(TypedTestAlias, )
 {
