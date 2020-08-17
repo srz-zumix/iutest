@@ -25,15 +25,6 @@ IUTEST(, )
 
 class BaseFixture : public ::iutest::Test
 {
-public:
-    static void SetUpTestSuite()
-    {
-        ::iutest::Test::SetUpTestSuite();
-    }
-    static void TearDownTestSuite()
-    {
-        ::iutest::Test::TearDownTestSuite();
-    }
 };
 
 IUTEST_F(BaseFixture, )
