@@ -19,29 +19,6 @@
 
 // well-formed test definitions..
 
-IUTEST(, )
-{
-}
-
-class BaseFixture : public ::iutest::Test
-{
-};
-
-IUTEST_F(BaseFixture, )
-{
-}
-
-#if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
-namespace fixture_alias
-{
-
-IUTEST_F((, BaseFixture), )
-{
-}
-
-}
-#endif
-
 #if IUTEST_HAS_PARAM_TEST
 
 class ParamTest : public ::iutest::TestWithParam<int> {};
@@ -50,7 +27,7 @@ IUTEST_P(ParamTest, )
 {
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(A, ParamTest, ::iutest::Values(0, 1));
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, ParamTest, ::iutest::Values(0, 1));
 
 #if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
 typedef ParamTest   ParamTest2;
@@ -58,7 +35,7 @@ typedef ParamTest   ParamTest2;
 IUTEST_P(ParamTestAlias, )
 {
 }
-IUTEST_INSTANTIATE_TEST_CASE_P(A, ParamTestAlias, ::iutest::Values(0, 1));
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, ParamTestAlias, ::iutest::Values(0, 1));
 #endif
 
 #endif
@@ -69,7 +46,7 @@ template<typename T>
 class TypedTest : public ::iutest::Test {};
 
 typedef ::iutest::Types<int, float> TypedTestTypes;
-IUTEST_TYPED_TEST_CASE(TypedTest, TypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(TypedTest, TypedTestTypes);
 
 IUTEST_TYPED_TEST(TypedTest, )
 {
@@ -79,7 +56,7 @@ IUTEST_TYPED_TEST(TypedTest, )
 template<typename T>
 class TypedTest2 : public ::iutest::Test {};
 #define TypedTestAlias  (, TypedTest2)
-IUTEST_TYPED_TEST_CASE(TypedTestAlias, TypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(TypedTestAlias, TypedTestTypes);
 IUTEST_TYPED_TEST(TypedTestAlias, )
 {
 }
@@ -93,7 +70,7 @@ IUTEST_AP(AnyParamTest, )
 {
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_AP(My1, AnyParamTest, ::iutest::Values(0));
+IUTEST_INSTANTIATE_TEST_SUITE_AP(My1, AnyParamTest, ::iutest::Values(0));
 
 #endif
 
