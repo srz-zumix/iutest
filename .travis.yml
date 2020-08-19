@@ -97,7 +97,7 @@ script:
   - |
     if [ "${COVERITY_SCAN}" != '1' ] && [ "${USE_CMAKE}" != '1' ]; then
       make -j4 showcxxversion ${USE_FUSED} default &&
-      make test ${USE_FUSED}
+      make test ${USE_FUSED} &&
       make report
     fi
   - |
