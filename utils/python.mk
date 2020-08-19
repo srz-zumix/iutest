@@ -46,7 +46,7 @@ endif
 # $(warning ${PYTHON_VERSION_PATCH})
 
 # 2.7 later
-ifeq (1,$(shell expr \( \( $(PYTHON_VERSION_MAJOR) \> 3 \) \| \( $(PYTHON_VERSION_MAJOR) \>= 2 \& $(PYTHON_VERSION_MINOR) \>= 7 \) \)))
+ifeq (1,$(shell expr \( \( $(PYTHON_VERSION_MAJOR) \>= 3 \) \| \( $(PYTHON_VERSION_MAJOR) \>= 2 \& $(PYTHON_VERSION_MINOR) \>= 7 \) \)))
 IUTEST_USE_PYTHON:=1
 else
 IUTEST_USE_PYTHON:=0
