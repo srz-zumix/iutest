@@ -249,7 +249,7 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
                 return int(self.m1.group(2))
             if self.m2:
                 return int(self.m2.group(2))
-            return None
+            return 0
 
         def message(self):
             if self.m0:
@@ -300,6 +300,7 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
 
             if prev:
                 is_expr = re_expansion.search(msg.message)
+                # print('%s - %d: %s %s %s %s' % (msg.file, msg.line, is_child, is_type_none, is_declaration, is_expr))
                 if is_child or is_type_none or is_declaration or is_expr:
                     prev.child = msg
                     msg.parent = prev
@@ -307,12 +308,13 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
             if msg:
                 msg.message += '\n'
                 msg.message += line
+    print('%s - %d' % (msg.file, msg.line))
     msg_list.append(msg)
     return msg_list
 
 
 def parse_gcc(options, f):
-    return parse_gcc_clang(options, f, r'in expansion of macro', False)
+    return parse_gcc_clang(options, f, r'in (definition|expansion) of macro', False)
 
 
 def parse_clang(options, f):
