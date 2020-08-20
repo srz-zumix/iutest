@@ -160,6 +160,11 @@ ifeq ($(IUTEST_USE_PYTHON),1)
 ifeq ($(USE_GTEST)$(USE_GMOCK)$(USE_COVERAGE)$(USE_SCANBUILD),)
 ERR_TARGETS = $(COMPILEERROR_TARGETS)
 endif
+else
+ifdef IUTEST_REQUIRE_PYTHON
+$(warning detected python ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}.${PYTHON_VERSION_PATCH})
+$(error iutest test require python 2.7 or later)
+endif
 endif
 
 BUILD_TARGETS = $(RUN_TARGETS) $(BUILD_ONLY)
