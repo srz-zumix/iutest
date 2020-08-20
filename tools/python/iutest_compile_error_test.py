@@ -11,6 +11,7 @@
 import os
 import sys
 import re
+import copy
 
 from argparse import ArgumentParser
 from argparse import FileType
@@ -283,9 +284,11 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
     re_message = re.compile(r'.*:\d+:\s*(\S*):\s*(.*)')
     re_expansion = re.compile(r_expansion)
     re_declaration = re.compile(r'.*declaration of\s*(.*)')
+    re_required_from = re.compile(r'.*required from here')
     msg_list = []
     msg = None
     prev = None
+    is_prev_required_from = False
     for line in f:
         if options.verbose:
             print(line.rstrip())
@@ -320,9 +323,10 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
                 is_expansion = re_expansion.search(msg.message)
                 msg.expansion = is_expansion
                 # print('%s - %d: %s %s %s %s' % (msg.file, msg.line, is_child, is_type_none, is_declaration, is_expansion))
-                if is_child or is_type_none or is_declaration or is_expansion:
+                if is_child or is_type_none or is_declaration or is_expansion or is_prev_required_from:
                     prev.child = msg
                     msg.parent = prev
+            is_prev_required_from = re_required_from.search(msg.message)
         else:
             if msg:
                 msg.message += '\n'
@@ -463,7 +467,7 @@ def iutest(l):
                     actual = msg.get_error()
                     #print(actual.message)
                     msg.checked = True
-                    if not check.expect or actual.message.find(check.expect) != -1:
+                    if not check.expect or re.search(check.expect, actual.message):
                         check.msg.checked = True
                         break
             if msg.is_tail() and not msg.is_checked():

@@ -615,6 +615,7 @@
 
 /**
  * @brief   コンパイルエラーチェックタグ
+ * @param   e = error message regexp
 */
 #if defined(_MSC_VER) && !defined(__clang__)
 #  define IUTEST_TEST_COMPILEERROR(e)   \
@@ -625,8 +626,9 @@
 #endif
 
 /**
-* @brief    static_assert チェックタグ
-* @{
+ * @brief   static_assert チェックタグ
+ * @param   e = error message regexp
+ * @{
 */
 #if IUTEST_HAS_STATIC_ASSERT
 #  define IUTEST_TEST_STATICASSERT(e)   IUTEST_TEST_COMPILEERROR(e)
@@ -634,7 +636,7 @@
 #  define IUTEST_TEST_STATICASSERT(e)   IUTEST_TEST_COMPILEERROR("static_assert")
 #endif
 /**
-* @}
+ * @}
 */
 
 #endif // INCG_IRIS_IUTEST_INTERNAL_HPP_A5BD9FBB_B57A_4C1D_B205_0ADB7798DBF9_
