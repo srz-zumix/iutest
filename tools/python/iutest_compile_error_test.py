@@ -11,7 +11,6 @@
 import os
 import sys
 import re
-import copy
 
 from argparse import ArgumentParser
 from argparse import FileType
