@@ -25,6 +25,8 @@ class ErrorMessage:
     parent = None
     child = None
     checked = False
+    target = False
+    expansion = False
 
     def set_type(self, str):
         s = str.strip()
@@ -68,6 +70,13 @@ class ErrorMessage:
             return True
         return False
 
+    def is_type_root(self):
+        if self.is_warning():
+            return True
+        if self.is_error():
+            return True
+        return False
+
     def has_error(self):
         if self.type == "error":
             return True
@@ -97,6 +106,9 @@ class ErrorMessage:
         elif self.parent:
             return self.parent.is_checked()
         return False
+
+    def is_expansion(self):
+        return self.expansion
 
     def is_tail(self):
         if self.child:
@@ -129,6 +141,20 @@ class ErrorMessage:
         elif self.child:
             return self.child.get_error_child()
         return None
+
+    def get_root_msg(self):
+        if self.parent:
+            return self.parent.get_root_msg()
+        return self
+
+    def get_source_msg(self):
+        root = self.get_root_msg()
+        while root.child:
+            if root.child.expansion:
+                root = root.child
+            else:
+                break
+        return root
 
 
 class ExpectMessage:
@@ -197,16 +223,21 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
     re_fatal = re.compile(r'(\S+)\s*:\s*fatal\s*error\s*.*')
 
     class rmessage:
-        re_file = re.compile(r'(\S+):(\d+):(?:\d+\s*:|)(.*)')
+        re_file_col = re.compile(r'(\S+):(\d+):(\d+):(.*)')
+        re_file = re.compile(r'(\S+):(\d+):(.*)')
         re_infile = re.compile(r'In file included from (\S+):(\d+):(?:\d+|)(.*)')
         re_ininst = re.compile(r'(\S+):\s* (In instantiation of .*)')
 
         def __init__(self):
+            self.m0 = None
             self.m1 = None
             self.m2 = None
             self.m3 = None
 
         def match(self, line):
+            self.m0 = self.re_file_col.match(line)
+            if self.m0:
+                return True
             self.m1 = self.re_file.match(line)
             if self.m1:
                 return True
@@ -219,6 +250,8 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
             return False
 
         def file(self):
+            if self.m0:
+                return self.m0.group(1)
             if self.m1:
                 return self.m1.group(1)
             if self.m2:
@@ -228,13 +261,17 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
             return None
 
         def line(self):
+            if self.m0:
+                return int(self.m0.group(2))
             if self.m1:
                 return int(self.m1.group(2))
             if self.m2:
                 return int(self.m2.group(2))
-            return None
+            return 0
 
         def message(self):
+            if self.m0:
+                return self.m0.group(4)
             if self.m1:
                 return self.m1.group(3)
             if self.m2:
@@ -243,12 +280,14 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
                 return self.m3.group(2)
             return None
 
-    re_message = re.compile(r'.*:\d+:(\d+:|)\s*(\S*):\s*(.*)')
+    re_message = re.compile(r'.*:\d+:\s*(\S*):\s*(.*)')
     re_expansion = re.compile(r_expansion)
     re_declaration = re.compile(r'.*declaration of\s*(.*)')
+    re_required_from = re.compile(r'.*required from here')
     msg_list = []
     msg = None
     prev = None
+    is_prev_required_from = False
     for line in f:
         if options.verbose:
             print(line.rstrip())
@@ -280,9 +319,13 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
                 is_declaration = True
 
             if prev:
-                if is_child or is_type_none or is_declaration or re_expansion.search(msg.message):
+                is_expansion = re_expansion.search(msg.message)
+                msg.expansion = is_expansion
+                # print('%s - %d: %s %s %s %s' % (msg.file, msg.line, is_child, is_type_none, is_declaration, is_expansion))
+                if is_child or is_type_none or is_declaration or is_expansion or is_prev_required_from:
                     prev.child = msg
                     msg.parent = prev
+            is_prev_required_from = re_required_from.search(msg.message)
         else:
             if msg:
                 msg.message += '\n'
@@ -292,7 +335,7 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
 
 
 def parse_gcc(options, f):
-    return parse_gcc_clang(options, f, r'in expansion of macro', False)
+    return parse_gcc_clang(options, f, r'in (definition|expansion) of macro', False)
 
 
 def parse_clang(options, f):
@@ -399,7 +442,7 @@ def test_result(result, msg, e):
 
 def iutest(l):
     result = True
-    re_iutest = re.compile(r'IUTEST_TEST_COMPILEERROR\( (.*) \)')
+    re_iutest = re.compile(r'IUTEST_TEST_COMPILEERROR\( ([^#]*) \)')
     checkList = []
     messageList = []
     for i, msg in enumerate(l):
@@ -407,9 +450,11 @@ def iutest(l):
             continue
         mm = re_iutest.search(msg.message)
         if mm:
-            if not msg.parent:
+            root = msg.get_source_msg()
+            if not root.target:
                 expect = mm.group(1).strip('"')
-                checkList.append(ExpectMessage(msg, expect, mm.group(0)))
+                checkList.append(ExpectMessage(root, expect, mm.group(0)))
+                root.target = True
         else:
             messageList.append(msg)
 
@@ -421,7 +466,7 @@ def iutest(l):
                     actual = msg.get_error()
                     #print(actual.message)
                     msg.checked = True
-                    if not check.expect or actual.message.find(check.expect) != -1:
+                    if not check.expect or re.search(check.expect, actual.message):
                         check.msg.checked = True
                         break
             if msg.is_tail() and not msg.is_checked():
