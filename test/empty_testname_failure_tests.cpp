@@ -19,12 +19,12 @@
 
 // ill-formed test definitions..
 
-IUTEST_TEST_STATICASSERT("static_assert: testsuite_ must not be empty")
+IUTEST_TEST_STATICASSERT("testsuite_ must not be empty")
 IUTEST(, Test)
 {
 }
 
-IUTEST_TEST_STATICASSERT("static_assert: testname_ must not be empty")
+IUTEST_TEST_STATICASSERT("testname_ must not be empty")
 IUTEST(Test, )
 {
 }
@@ -33,37 +33,30 @@ class BaseFixture : public ::iutest::Test
 {
 };
 
-IUTEST_TEST_STATICASSERT("static_assert: testname_ must not be empty")
+IUTEST_TEST_STATICASSERT("testname_ must not be empty")
 IUTEST_F(BaseFixture, )
 {
 }
 
-#if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
-namespace fixture_alias
-{
-
-IUTEST_TEST_STATICASSERT("static_assert: testsuite_ must not be empty")
-IUTEST_F((, BaseFixture), Test)
+IUTEST_TEST_STATICASSERT("testsuite_ must not be empty")
+IUTEST_F(, Test)
 {
 }
-
-}
-#endif
 
 #if IUTEST_HAS_TYPED_TEST_P
 
 template<typename T>
 class TypeParamTest : public ::iutest::Test {};
 
-IUTEST_TYPED_TEST_SUITE_P(TypeParamTest);
-IUTEST_TEST_STATICASSERT("static_assert: testname_ must not be empty")
+IUTEST_TEST_STATICASSERT("testname_ must not be empty")
 IUTEST_TYPED_TEST_P(TypeParamTest, )
 {
 }
-IUTEST_REGISTER_TYPED_TEST_SUITE_P(TypeParamTest, );
 
-typedef ::iutest::Types<int, float> TypeParamTestTypes;
-IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(My1, TypeParamTest, TypeParamTestTypes);
+IUTEST_TEST_STATICASSERT("testsuite_ must not be empty")
+IUTEST_TYPED_TEST_P(, Test)
+{
+}
 
 #endif
 

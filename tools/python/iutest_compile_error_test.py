@@ -327,7 +327,6 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
             if msg:
                 msg.message += '\n'
                 msg.message += line
-    print('%s - %d' % (msg.file, msg.line))
     msg_list.append(msg)
     return msg_list
 

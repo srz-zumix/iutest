@@ -139,6 +139,8 @@
  * @brief   Test class defined macro
 */
 #define IUTEST_TEST_(testsuite_, testname_, parent_class_, type_id_)                        \
+    IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testsuite_)) > 1, "testsuite_ must not be empty");   \
+    IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testname_)) > 1, "testname_ must not be empty");     \
     class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) : public parent_class_ {           \
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testsuite_, testname_));     \
         public: IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)() {}                         \
