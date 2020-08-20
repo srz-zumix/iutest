@@ -26,6 +26,7 @@ class ErrorMessage:
     child = None
     checked = False
     target = False
+    expansion = False
 
     def set_type(self, str):
         s = str.strip()
@@ -106,6 +107,9 @@ class ErrorMessage:
             return self.parent.is_checked()
         return False
 
+    def is_expansion(self):
+        return self.expansion
+
     def is_tail(self):
         if self.child:
             return False
@@ -137,6 +141,20 @@ class ErrorMessage:
         elif self.child:
             return self.child.get_error_child()
         return None
+
+    def get_root_msg(self):
+        if self.parent:
+            return self.parent.get_root_msg()
+        return self
+
+    def get_source_msg(self):
+        root = self.get_root_msg()
+        while root.child:
+            if root.child.expansion:
+                root = root.child
+            else:
+                break
+        return root
 
 
 class ExpectMessage:
@@ -299,9 +317,10 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
                 is_declaration = True
 
             if prev:
-                is_expr = re_expansion.search(msg.message)
-                # print('%s - %d: %s %s %s %s' % (msg.file, msg.line, is_child, is_type_none, is_declaration, is_expr))
-                if is_child or is_type_none or is_declaration or is_expr:
+                is_expansion = re_expansion.search(msg.message)
+                msg.expansion = is_expansion
+                # print('%s - %d: %s %s %s %s' % (msg.file, msg.line, is_child, is_type_none, is_declaration, is_expansion))
+                if is_child or is_type_none or is_declaration or is_expansion:
                     prev.child = msg
                     msg.parent = prev
         else:
@@ -419,12 +438,6 @@ def test_result(result, msg, e):
             print('[NG] ' + msg)
 
 
-def get_root_msg(msg):
-    if msg.parent:
-        return get_root_msg(msg.parent)
-    return msg
-
-
 def iutest(l):
     result = True
     re_iutest = re.compile(r'IUTEST_TEST_COMPILEERROR\( ([^#]*) \)')
@@ -435,7 +448,7 @@ def iutest(l):
             continue
         mm = re_iutest.search(msg.message)
         if mm:
-            root = get_root_msg(msg)
+            root = msg.get_source_msg()
             if not root.target:
                 expect = mm.group(1).strip('"')
                 checkList.append(ExpectMessage(root, expect, mm.group(0)))
