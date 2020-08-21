@@ -19,7 +19,7 @@
 #include "iutest.hpp"
 
 #if !defined(IUTEST_USE_GTEST)
-#  if IUTEST_HAS_TESTSUITE && IUTEST_HAS_TESTCASE
+#  if IUTEST_HAS_TESTSUITE && IUTEST_HAS_TESTCASE && !defined(IUTEST_USE_LIB)
 #    define HAS_INVALID_TESTSUITE_AND_TESTCASE  1
 #  endif
 #endif
