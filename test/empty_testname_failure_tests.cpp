@@ -19,28 +19,48 @@
 
 // ill-formed test definitions..
 
-IUTEST_TEST_STATICASSERT("testsuite_ must not be empty")
-IUTEST(, Test)
+namespace emptyname
 {
-}
 
 IUTEST_TEST_STATICASSERT("testname_ must not be empty")
 IUTEST(Test, )
 {
 }
 
+}
+
+namespace emptysuite
+{
+
+IUTEST_TEST_STATICASSERT("testsuite_ must not be empty")
+IUTEST(, Test)
+{
+}
+
+}
+
 class BaseFixture : public ::iutest::Test
 {
 };
+
+namespace emptyname
+{
 
 IUTEST_TEST_STATICASSERT("testname_ must not be empty")
 IUTEST_F(BaseFixture, )
 {
 }
 
+}
+
+namespace emptysuite
+{
+
 IUTEST_TEST_STATICASSERT("testsuite_ must not be empty")
 IUTEST_F(, Test)
 {
+}
+
 }
 
 #if IUTEST_HAS_TYPED_TEST_P
@@ -48,14 +68,24 @@ IUTEST_F(, Test)
 template<typename T>
 class TypeParamTest : public ::iutest::Test {};
 
+namespace emptyname
+{
+
 IUTEST_TEST_STATICASSERT("testname_ must not be empty")
 IUTEST_TYPED_TEST_P(TypeParamTest, )
 {
 }
 
+}
+
+namespace emptysuite
+{
+
 IUTEST_TEST_STATICASSERT("testsuite_ must not be empty")
 IUTEST_TYPED_TEST_P(, Test)
 {
+}
+
 }
 
 #endif
