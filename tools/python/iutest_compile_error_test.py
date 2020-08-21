@@ -27,6 +27,7 @@ class ErrorMessage:
     checked = False
     target = False
     expansion = False
+    root_is_expansion = False
 
     def set_type(self, str):
         s = str.strip()
@@ -149,11 +150,12 @@ class ErrorMessage:
 
     def get_source_msg(self):
         root = self.get_root_msg()
-        while root.child:
-            if root.child.expansion:
-                root = root.child
-            else:
-                break
+        if self.root_is_expansion:
+            while root.child:
+                if root.child.expansion:
+                    root = root.child
+                else:
+                    break
         return root
 
 
@@ -219,7 +221,7 @@ def parse_command_line():
     return options
 
 
-def parse_gcc_clang(options, f, r_expansion, note_is_child):
+def parse_gcc_clang(options, f, r_expansion, note_is_child, root_is_expansion):
     re_fatal = re.compile(r'(\S+)\s*:\s*fatal\s*error\s*.*')
 
     class rmessage:
@@ -303,6 +305,7 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
             msg.file = m.file()
             msg.line = m.line()
             msg.type = ""
+            msg.root_is_expansion = root_is_expansion
             n = re_message.match(line)
             if n:
                 msg.set_type(n.group(1))
@@ -335,11 +338,11 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child):
 
 
 def parse_gcc(options, f):
-    return parse_gcc_clang(options, f, r'in (definition|expansion) of macro', False)
+    return parse_gcc_clang(options, f, r'in (definition|expansion) of macro', False, True)
 
 
 def parse_clang(options, f):
-    return parse_gcc_clang(options, f, r'expanded from ', True)
+    return parse_gcc_clang(options, f, r'expanded from ', True, False)
 
 
 def parse_vc(options, f):
