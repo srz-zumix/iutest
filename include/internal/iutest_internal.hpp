@@ -139,6 +139,8 @@
  * @brief   Test class defined macro
 */
 #define IUTEST_TEST_(testsuite_, testname_, parent_class_, type_id_)                        \
+    IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testsuite_)) > 1, "testsuite_ must not be empty");   \
+    IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testname_)) > 1, "testname_ must not be empty");     \
     class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) : public parent_class_ {           \
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testsuite_, testname_));     \
         public: IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)() {}                         \
@@ -613,6 +615,7 @@
 
 /**
  * @brief   コンパイルエラーチェックタグ
+ * @param   e = error message regexp
 */
 #if defined(_MSC_VER) && !defined(__clang__)
 #  define IUTEST_TEST_COMPILEERROR(e)   \
@@ -623,8 +626,9 @@
 #endif
 
 /**
-* @brief    static_assert チェックタグ
-* @{
+ * @brief   static_assert チェックタグ
+ * @param   e = error message regexp
+ * @{
 */
 #if IUTEST_HAS_STATIC_ASSERT
 #  define IUTEST_TEST_STATICASSERT(e)   IUTEST_TEST_COMPILEERROR(e)
@@ -632,7 +636,7 @@
 #  define IUTEST_TEST_STATICASSERT(e)   IUTEST_TEST_COMPILEERROR("static_assert")
 #endif
 /**
-* @}
+ * @}
 */
 
 #endif // INCG_IRIS_IUTEST_INTERNAL_HPP_A5BD9FBB_B57A_4C1D_B205_0ADB7798DBF9_
