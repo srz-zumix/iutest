@@ -39,7 +39,7 @@ IUTEST(StaticAssertTypeEqTest, Fail2)
 IUTEST(StaticAssertTypeEqTest, Fail3)
 {
     IUTEST_TEST_STATICASSERT("(static_assert|static assertion failed)")
-    IUTEST_STATIC_ASSERT(test_struct<false, false>::value);
+    IUTEST_STATIC_ASSERT((test_struct<false, false>::value));
 }
 
 #endif
