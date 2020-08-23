@@ -31,10 +31,10 @@ public:
 
 #if IUTEST_HAS_IF_EXISTS || !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
 IUTEST_TEST_STATICASSERT("TestFixture is fixture class, mistake the IUTEST_F?")
-#endif
 IUTEST(TestFixture, Test)
 {
 }
+#endif
 
 #ifdef UNICODE
 int wmain(int argc, wchar_t* argv[])
