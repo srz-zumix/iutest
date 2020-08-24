@@ -445,6 +445,7 @@ def test_result(result, msg, e):
 
 def iutest(l):
     result = True
+    unexpected = []
     re_iutest = re.compile(r'IUTEST_TEST_COMPILEERROR\( ([^#]*) \)')
     checkList = []
     messageList = []
@@ -473,8 +474,7 @@ def iutest(l):
                         check.msg.checked = True
                         break
             if msg.is_tail() and not msg.is_checked():
-                dump_msgs(msg)
-                result = False
+                unexpected.append(msg)
         elif msg.is_warning():
             dump_msg(msg)
 
@@ -484,6 +484,9 @@ def iutest(l):
         else:
             test_result(False, check.expression, check.msg)
             result = False
+    for msg in unexpected:
+        test_result(False, "Unexpected error: " + msg.message, msg)
+        result = False
     return result
 
 
