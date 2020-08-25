@@ -186,9 +186,14 @@ def parse_command_line():
         default='gcc'
     )
     parser.add_argument(
-        '--verbose',
+        '--passthrough',
         action='store_true',
         help='print input message.'
+    )
+    parser.add_argument(
+        '--verbose',
+        action='store_true',
+        help='print input message when failed.'
     )
     parser.add_argument(
         '--debug',
@@ -291,7 +296,7 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child, root_is_expansion):
     prev = None
     is_prev_required_from = False
     for line in f:
-        if options.verbose:
+        if options.passthrough:
             print(line.rstrip())
         if re_fatal.match(line):
             raise Exception(line)
@@ -353,7 +358,7 @@ def parse_vc(options, f):
     msg = None
     prev = None
     for line in f:
-        if options.verbose:
+        if options.passthrough:
             print(line.rstrip())
         if re_fatal.match(line):
             raise Exception(line)
@@ -487,6 +492,9 @@ def iutest(l):
     for msg in unexpected:
         test_result(False, "Unexpected error: " + msg.message, msg)
         result = False
+    if not result:
+        if self.verbose:
+            dump_list(l)
     return result
 
 
@@ -520,7 +528,7 @@ def parse_output(options):
 
     if options.debug:
         dump_list(l)
-    if options.verbose:
+    if options.passthrough:
         print('----')
     return iutest(l)
 
