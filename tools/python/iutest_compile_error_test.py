@@ -529,7 +529,7 @@ def parse_output(options):
         print('----')
     result = iutest(l)
     if not result:
-        if self.verbose:
+        if options.verbose:
             dump_list(l)
     return result
 
