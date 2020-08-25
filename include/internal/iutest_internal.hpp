@@ -619,10 +619,10 @@
 */
 #if defined(_MSC_VER) && !defined(__clang__)
 #  define IUTEST_TEST_COMPILEERROR(e)   \
-    IUTEST_PRAGMA_MESSAGE(__FILE__ "(" IUTEST_PP_TOSTRING(__LINE__) "): note : " "IUTEST_TEST_COMPILEERROR( " #e " )")
+    IUTEST_PRAGMA_MESSAGE(__FILE__ "(" IUTEST_PP_TOSTRING(__LINE__) "): note : " "IUTEST_TEST_COMPILEERROR( " e " )")
 #else
 #  define IUTEST_TEST_COMPILEERROR(e)   \
-    IUTEST_PRAGMA_MESSAGE("IUTEST_TEST_COMPILEERROR( " #e " )")
+    IUTEST_PRAGMA_MESSAGE("IUTEST_TEST_COMPILEERROR( " e " )")
 #endif
 
 /**
