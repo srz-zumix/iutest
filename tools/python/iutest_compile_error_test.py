@@ -492,9 +492,6 @@ def iutest(l):
     for msg in unexpected:
         test_result(False, "Unexpected error: " + msg.message, msg)
         result = False
-    if not result:
-        if self.verbose:
-            dump_list(l)
     return result
 
 
@@ -530,8 +527,11 @@ def parse_output(options):
         dump_list(l)
     if options.passthrough:
         print('----')
-    return iutest(l)
-
+    result = iutest(l)
+    if not result:
+        if self.verbose:
+            dump_list(l)
+    return result
 
 def setup():
     global color_prompt
