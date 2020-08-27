@@ -28,6 +28,7 @@ class ErrorMessage:
     checked = False
     target = False
     expansion = False
+    provided_for = False
     root_is_expansion = False
     included_from = []
 
@@ -109,6 +110,9 @@ class ErrorMessage:
         elif self.parent:
             return self.parent.is_checked()
         return False
+
+    def is_provided_for(self):
+        return self.provided_for
 
     def is_expansion(self):
         return self.expansion
@@ -298,6 +302,7 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child, root_is_expansion):
     re_expansion = re.compile(r_expansion)
     re_declaration = re.compile(r'.*declaration of\s*(.*)')
     re_required_from = re.compile(r'.*required from here')
+    re_provided_for = re.compile(r'\s*provided for .*')
     msg_list = []
     included_from_list = []
     msg = None
@@ -343,6 +348,8 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child, root_is_expansion):
             n = re_declaration.match(line)
             if n and prev and prev.message.find(n.group(1)) != -1:
                 is_declaration = True
+            if re_provided_for.match(msg.message):
+                msg.provided_for= True
 
             if prev:
                 is_expansion = re_expansion.search(msg.message)
@@ -503,7 +510,7 @@ def iutest(l):
                     if not check.expect or re.search(check.expect, actual.message):
                         check.msg.checked = True
                         break
-            if msg.is_tail() and not msg.is_checked():
+            if msg.is_tail() and not msg.is_checked() and not msg.is_provided_for():
                 unexpected.append(msg)
         elif msg.is_warning():
             dump_msg(msg)
