@@ -349,7 +349,7 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child, root_is_expansion):
             if n and prev and prev.message.find(n.group(1)) != -1:
                 is_declaration = True
             if re_provided_for.match(msg.message):
-                msg.provided_for= True
+                msg.provided_for = True
 
             if prev:
                 is_expansion = re_expansion.search(msg.message)
