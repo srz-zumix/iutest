@@ -11,6 +11,7 @@
 import os
 import sys
 import re
+import copy
 
 from argparse import ArgumentParser
 from argparse import FileType
@@ -28,6 +29,7 @@ class ErrorMessage:
     target = False
     expansion = False
     root_is_expansion = False
+    included_from = []
 
     def set_type(self, str):
         s = str.strip()
@@ -287,11 +289,17 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child, root_is_expansion):
                 return self.m3.group(2)
             return None
 
+        def is_included_from(self):
+            if self.m2:
+                return True
+            return False
+
     re_message = re.compile(r'.*:\d+:\s*(\S*):\s*(.*)')
     re_expansion = re.compile(r_expansion)
     re_declaration = re.compile(r'.*declaration of\s*(.*)')
     re_required_from = re.compile(r'.*required from here')
     msg_list = []
+    included_from_list = []
     msg = None
     prev = None
     is_prev_required_from = False
@@ -304,8 +312,18 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child, root_is_expansion):
         m = rmessage()
         if m.match(line):
             if msg:
+                msg.included_from = copy.deepcopy(included_from_list)
                 msg_list.append(msg)
+                included_from_list[:] = []
                 prev = msg
+            if m.is_included_from():
+                inc = ErrorMessage()
+                inc.file = m.file()
+                inc.line = m.line()
+                inc.type = 'In file included from'
+                included_from_list.append(inc)
+                msg = None
+                continue
             msg = ErrorMessage()
             msg.file = m.file()
             msg.line = m.line()
@@ -392,7 +410,13 @@ def parse_vc(options, f):
     return msg_list
 
 
+def dump_included_from(m):
+    for inc in m.included_from:
+        print("%s %s:%d:" % (inc.type, inc.file, inc.line))
+
+
 def dump_msg(m):
+    dump_included_from(m)
     s = m.file
     s += ':'
     if format_gcc:
@@ -403,7 +427,7 @@ def dump_msg(m):
         print("%s %s" % (s, m.message))
     else:
         if m.line:
-            s += '(%d);' % (m.line)
+            s += '(%d):' % (m.line)
         if m.parent:
             print("\t%s %s %s" % (s, m.type, m.message))
         else:
@@ -421,6 +445,7 @@ def dump_list(l):
         if not m.parent:
             print('------------------------------')
         dump_msg(m)
+        print('==')
         if not m.child:
             print('------------------------------')
 
