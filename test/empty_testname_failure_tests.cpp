@@ -63,6 +63,29 @@ IUTEST_F(, Test)
 
 }
 
+#if IUTEST_HAS_TYPED_TEST
+
+namespace emptyname
+{
+
+IUTEST_TEST_STATICASSERT("testname_ must not be empty")
+IUTEST_TYPED_TEST(TypedTest, )
+{
+}
+
+}
+
+namespace emptysuite
+{
+
+IUTEST_TEST_STATICASSERT("testsuite_ must not be empty")
+IUTEST_TYPED_TEST(, Test)
+{
+}
+
+}
+#endif
+
 #if IUTEST_HAS_TYPED_TEST_P
 
 template<typename T>

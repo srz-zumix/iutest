@@ -55,30 +55,6 @@ IUTEST_INSTANTIATE_TEST_SUITE_P(A, ParamTestAlias, ::iutest::Values(0, 1));
 
 #endif
 
-#if IUTEST_HAS_TYPED_TEST
-
-template<typename T>
-class TypedTest : public ::iutest::Test {};
-
-typedef ::iutest::Types<int, float> TypedTestTypes;
-IUTEST_TYPED_TEST_SUITE(TypedTest, TypedTestTypes);
-
-IUTEST_TYPED_TEST(TypedTest, )
-{
-}
-
-#if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
-template<typename T>
-class TypedTest2 : public ::iutest::Test {};
-#define TypedTestAlias  (, TypedTest2)
-IUTEST_TYPED_TEST_SUITE(TypedTestAlias, TypedTestTypes);
-IUTEST_TYPED_TEST(TypedTestAlias, )
-{
-}
-#endif
-
-#endif
-
 #if IUTEST_HAS_ANY_PARAM_TEST
 
 IUTEST_AP(AnyParamTest, )
