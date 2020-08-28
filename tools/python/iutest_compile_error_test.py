@@ -301,7 +301,7 @@ def parse_gcc_clang(options, f, r_expansion, note_is_child, root_is_expansion):
     re_message = re.compile(r'.*:\d+:\s*(\S*):\s*(.*)')
     re_expansion = re.compile(r_expansion)
     re_declaration = re.compile(r'.*declaration of\s*(.*)')
-    re_required_from = re.compile(r'.*required from here')
+    re_required_from = re.compile(r'.*(required|instantiated) from here')
     re_provided_for = re.compile(r'\s*provided for .*')
     msg_list = []
     included_from_list = []
