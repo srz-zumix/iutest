@@ -19,21 +19,6 @@
 
 // well-formed test definitions..
 
-class BaseFixture : public ::iutest::Test
-{
-};
-
-#if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
-namespace fixture_alias
-{
-
-IUTEST_F((, BaseFixture), Test)
-{
-}
-
-}
-#endif
-
 #if IUTEST_HAS_PARAM_TEST
 
 class ParamTest : public ::iutest::TestWithParam<int> {};

@@ -63,6 +63,18 @@ IUTEST_F(, Test)
 
 }
 
+#if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
+namespace fixture_alias
+{
+
+IUTEST_TEST_STATICASSERT("testsuite alias name must not be empty")
+IUTEST_F((, BaseFixture), Test)
+{
+}
+
+}
+#endif
+
 #if IUTEST_HAS_TYPED_TEST
 
 namespace emptyname
