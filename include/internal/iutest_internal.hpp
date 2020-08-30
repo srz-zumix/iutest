@@ -30,19 +30,13 @@
  * @private
  * @{
 */
-#define IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)  IIUT_TEST_CLASS_NAME_I(IIUT_TO_VARNAME(testsuite_), IIUT_TO_VARNAME(testname_))
+#define IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)  IIUT_TEST_CLASS_NAME_I(IIUT_TO_VARNAME_(testsuite_), IIUT_TO_VARNAME_(testname_))
 #define IIUT_TEST_CLASS_NAME_I(testsuite_, testname_)   IIUT_TEST_CLASS_NAME_I_(testsuite_, testname_)
 #define IIUT_TEST_CLASS_NAME_I_(testsuite_, testname_)  iu_##testsuite_##_x_iutest_x_##testname_##_Test
 
-#define IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)   IIUT_TEST_INSTANCE_NAME_I(IIUT_TO_VARNAME(testsuite_), IIUT_TO_VARNAME(testname_))
+#define IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)   IIUT_TEST_INSTANCE_NAME_I(IIUT_TO_VARNAME_(testsuite_), IIUT_TO_VARNAME_(testname_))
 #define IIUT_TEST_INSTANCE_NAME_I(testsuite_, testname_)    IIUT_TEST_INSTANCE_NAME_I_(testsuite_, testname_)
 #define IIUT_TEST_INSTANCE_NAME_I_(testsuite_, testname_)   s_##testsuite_##_x_iutest_x_##testname_##_Instance
-
-#ifndef IUTEST_NO_VARIADIC_MACROS
-#  define IIUT_TO_VARNAME(...)      IIUT_TO_VARNAME_("" __VA_ARGS__)
-#else
-#  define IIUT_TO_VARNAME(name_)    IIUT_TO_VARNAME_(name_)
-#endif
 
 #if IUTEST_HAS_TESTNAME_ALIAS
 
@@ -90,7 +84,7 @@
 #  define IIUT_CHECK_TESTFIXTURE_I(testfixture_)
 #endif
 #define IIUT_CHECK_TESTFIXTURE_(testfixture_)   IIUT_CHECK_TESTFIXTURE_I(testfixture_)
-#define IIUT_CHECK_TESTFIXTURE(testfixture_)    IIUT_CHECK_TESTFIXTURE_(IIUT_TO_VARNAME(testfixture_))
+#define IIUT_CHECK_TESTFIXTURE(testfixture_)    IIUT_CHECK_TESTFIXTURE_(IIUT_TO_VARNAME_(testfixture_))
 
 #if !defined(IUTEST_TEST_STRICT_)
 #if IUTEST_CHECK_STRICT
@@ -103,8 +97,8 @@
 #endif
 
 #define IIUT_TEST_F_(macro, testfixture_, testname_)                            \
-    macro(testfixture_, testname_, IIUT_TO_VARNAME(testfixture_)                \
-        , ::iutest::internal::GetTypeId< IIUT_TO_VARNAME(testfixture_) >())
+    macro(testfixture_, testname_, IIUT_TO_VARNAME_(testfixture_)               \
+        , ::iutest::internal::GetTypeId< IIUT_TO_VARNAME_(testfixture_) >())
 
 #if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
 
@@ -189,7 +183,7 @@
  * @private
  * @{
 */
-#define IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)  IIUT_PMZ_TEST_CLASS_NAME_I(IIUT_TO_VARNAME(testsuite_), IIUT_TO_VARNAME(testname_))
+#define IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)  IIUT_PMZ_TEST_CLASS_NAME_I(IIUT_TO_VARNAME_(testsuite_), IIUT_TO_VARNAME_(testname_))
 #define IIUT_PMZ_TEST_CLASS_NAME_I(testsuite_, testname_)   IIUT_PMZ_TEST_CLASS_NAME_I_(testsuite_, testname_)
 #define IIUT_PMZ_TEST_CLASS_NAME_I_(testsuite_, testname_)  IUTEST_PP_CAT( IUTEST_PP_CAT(iu_##testsuite_##_x_Test_, testname_), __LINE__)
 /**
