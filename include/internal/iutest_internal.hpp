@@ -40,20 +40,20 @@
 
 #if IUTEST_HAS_TESTNAME_ALIAS
 
-#define IIUT_TO_VARNAME_(name_)                 IIUT_TO_VARNAME_I( (IIUT_ALIAS_TESTNAME_PP_##name_, name_, dummy_) )
+#define IIUT_TO_VARNAME_(name_, ...)            IIUT_TO_VARNAME_I( (IIUT_ALIAS_TESTNAME_PP_##name_, name_, dummy_) )
 #define IIUT_TO_VARNAME_I(tuple_)               IUTEST_PP_EXPAND( IIUT_TO_VARNAME_I_ tuple_ )
 #define IIUT_TO_VARNAME_I_(dummy, name_, ...)   name_
 
-#define IIUT_TO_NAME_(name_)                    IIUT_TO_NAME_I( (IIUT_ALIAS_TESTNAME_PP_##name_, name_, name_, dummy_) )
+#define IIUT_TO_NAME_(name_, ...)               IIUT_TO_NAME_I( (IIUT_ALIAS_TESTNAME_PP_##name_, name_, name_, dummy_) )
 #define IIUT_TO_NAME_I(tuple_)                  IUTEST_PP_EXPAND( IIUT_TO_NAME_I_ tuple_ )
 #define IIUT_TO_NAME_I_(dummy, dummy_2, name_, ...) name_
 
-#define IIUT_TO_NAME_STR_(name_)                IUTEST_PP_TOSTRING( IIUT_TO_NAME_(name_) )
+#define IIUT_TO_NAME_STR_(name_, ...)           IUTEST_PP_TOSTRING( IIUT_TO_NAME_(name_) )
 
 #define IIUT_ALIAS_TESTNAME_PP_UNPAREN_(...)    __VA_ARGS__
 
 #if defined(_MSC_VER) && !defined(__clang__)
-#  define IUTEST_ALIAS_TESTNAME_(name_)         name_
+#  define IUTEST_ALIAS_TESTNAME_(name_, ...)    name_
 #  define IUTEST_ALIAS_TESTNAME_F_(name_, var_) UNPAREN_(dummy, var_, name_)
 #else
 #  define IUTEST_ALIAS_TESTNAME_(name_)         UNPAREN_(dummy, IUTEST_PP_CAT(iutest_japanese_var, __LINE__), name_)
