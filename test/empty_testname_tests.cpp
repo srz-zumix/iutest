@@ -18,6 +18,7 @@
 #include "iutest.hpp"
 
 // well-formed test definitions..
+IUTEST_PRAGMA_MSC_WARN_DISABLE(4003)
 
 #if IUTEST_HAS_PARAM_TEST
 
