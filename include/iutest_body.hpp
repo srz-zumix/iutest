@@ -164,11 +164,7 @@ public:
 
 protected:
     virtual void SetUp() {} //!< 実行前処理
-#if IUTEST_HAS_AUTOFIXTURE_PARAM_TEST
     virtual void Body() {}  //!< テスト実装部
-#else
-    virtual void Body() = 0;    //!< テスト実装部
-#endif
     virtual void TearDown() {}  //!< 実行後処理
 
 public:

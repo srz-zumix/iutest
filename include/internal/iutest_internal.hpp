@@ -30,13 +30,19 @@
  * @private
  * @{
 */
-#define IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)  IIUT_TEST_CLASS_NAME_I(IIUT_TO_VARNAME_(testsuite_), IIUT_TO_VARNAME_(testname_))
+#define IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)  IIUT_TEST_CLASS_NAME_I(IIUT_TO_VARNAME(testsuite_), IIUT_TO_VARNAME(testname_))
 #define IIUT_TEST_CLASS_NAME_I(testsuite_, testname_)   IIUT_TEST_CLASS_NAME_I_(testsuite_, testname_)
 #define IIUT_TEST_CLASS_NAME_I_(testsuite_, testname_)  iu_##testsuite_##_x_iutest_x_##testname_##_Test
 
-#define IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)   IIUT_TEST_INSTANCE_NAME_I(IIUT_TO_VARNAME_(testsuite_), IIUT_TO_VARNAME_(testname_))
+#define IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)   IIUT_TEST_INSTANCE_NAME_I(IIUT_TO_VARNAME(testsuite_), IIUT_TO_VARNAME(testname_))
 #define IIUT_TEST_INSTANCE_NAME_I(testsuite_, testname_)    IIUT_TEST_INSTANCE_NAME_I_(testsuite_, testname_)
 #define IIUT_TEST_INSTANCE_NAME_I_(testsuite_, testname_)   s_##testsuite_##_x_iutest_x_##testname_##_Instance
+
+#ifndef IUTEST_NO_VARIADIC_MACROS
+#  define IIUT_TO_VARNAME(...)      IIUT_TO_VARNAME_("" __VA_ARGS__)
+#else
+#  define IIUT_TO_VARNAME(name_)    IIUT_TO_VARNAME_(name_)
+#endif
 
 #if IUTEST_HAS_TESTNAME_ALIAS
 
@@ -84,7 +90,7 @@
 #  define IIUT_CHECK_TESTFIXTURE_I(testfixture_)
 #endif
 #define IIUT_CHECK_TESTFIXTURE_(testfixture_)   IIUT_CHECK_TESTFIXTURE_I(testfixture_)
-#define IIUT_CHECK_TESTFIXTURE(testfixture_)    IIUT_CHECK_TESTFIXTURE_(IIUT_TO_VARNAME_(testfixture_))
+#define IIUT_CHECK_TESTFIXTURE(testfixture_)    IIUT_CHECK_TESTFIXTURE_(IIUT_TO_VARNAME(testfixture_))
 
 #if !defined(IUTEST_TEST_STRICT_)
 #if IUTEST_CHECK_STRICT
@@ -97,8 +103,8 @@
 #endif
 
 #define IIUT_TEST_F_(macro, testfixture_, testname_)                            \
-    macro(testfixture_, testname_, IIUT_TO_VARNAME_(testfixture_)               \
-        , ::iutest::internal::GetTypeId< IIUT_TO_VARNAME_(testfixture_) >())
+    macro(testfixture_, testname_, IIUT_TO_VARNAME(testfixture_)                \
+        , ::iutest::internal::GetTypeId< IIUT_TO_VARNAME(testfixture_) >())
 
 #if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
 
@@ -139,6 +145,9 @@
  * @brief   Test class defined macro
 */
 #define IUTEST_TEST_(testsuite_, testname_, parent_class_, type_id_)                        \
+    IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testsuite_)) > 1, "testsuite_ must not be empty");   \
+    IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testname_)) > 1, "testname_ must not be empty");     \
+    IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(IIUT_TO_NAME_(testsuite_))) > 1, "testsuite alias name must not be empty");     \
     class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) : public parent_class_ {           \
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testsuite_, testname_));     \
         public: IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)() {}                         \
@@ -180,7 +189,7 @@
  * @private
  * @{
 */
-#define IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)  IIUT_PMZ_TEST_CLASS_NAME_I(IIUT_TO_VARNAME_(testsuite_), IIUT_TO_VARNAME_(testname_))
+#define IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)  IIUT_PMZ_TEST_CLASS_NAME_I(IIUT_TO_VARNAME(testsuite_), IIUT_TO_VARNAME(testname_))
 #define IIUT_PMZ_TEST_CLASS_NAME_I(testsuite_, testname_)   IIUT_PMZ_TEST_CLASS_NAME_I_(testsuite_, testname_)
 #define IIUT_PMZ_TEST_CLASS_NAME_I_(testsuite_, testname_)  IUTEST_PP_CAT( IUTEST_PP_CAT(iu_##testsuite_##_x_Test_, testname_), __LINE__)
 /**
@@ -613,18 +622,20 @@
 
 /**
  * @brief   コンパイルエラーチェックタグ
+ * @param   e = error message regexp
 */
 #if defined(_MSC_VER) && !defined(__clang__)
 #  define IUTEST_TEST_COMPILEERROR(e)   \
-    IUTEST_PRAGMA_MESSAGE(__FILE__ "(" IUTEST_PP_TOSTRING(__LINE__) "): note : " "IUTEST_TEST_COMPILEERROR( " #e " )")
+    IUTEST_PRAGMA_MESSAGE(__FILE__ "(" IUTEST_PP_TOSTRING(__LINE__) "): note : " "IUTEST_TEST_COMPILEERROR( " e " )")
 #else
 #  define IUTEST_TEST_COMPILEERROR(e)   \
-    IUTEST_PRAGMA_MESSAGE("IUTEST_TEST_COMPILEERROR( " #e " )")
+    IUTEST_PRAGMA_MESSAGE("IUTEST_TEST_COMPILEERROR( " e " )")
 #endif
 
 /**
-* @brief    static_assert チェックタグ
-* @{
+ * @brief   static_assert チェックタグ
+ * @param   e = error message regexp
+ * @{
 */
 #if IUTEST_HAS_STATIC_ASSERT
 #  define IUTEST_TEST_STATICASSERT(e)   IUTEST_TEST_COMPILEERROR(e)
@@ -632,7 +643,7 @@
 #  define IUTEST_TEST_STATICASSERT(e)   IUTEST_TEST_COMPILEERROR("static_assert")
 #endif
 /**
-* @}
+ * @}
 */
 
 #endif // INCG_IRIS_IUTEST_INTERNAL_HPP_A5BD9FBB_B57A_4C1D_B205_0ADB7798DBF9_
