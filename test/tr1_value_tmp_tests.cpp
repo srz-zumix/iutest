@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -60,7 +60,7 @@ protected:
 
 typedef ::iutest::Types< ::iutest::TemplateValue<10>, ::iutest::TemplateValue<0> > Types;
 
-IUTEST_VALUETMP_TEST_CASE(TestValueType, Types);
+IUTEST_VALUETMP_TEST_SUITE(TestValueType, Types);
 
 IUTEST_VALUETMP_TEST(TestValueType, Equal)
 {
@@ -72,7 +72,7 @@ class TestValueType2 : public ::iutest::Test
 {
 };
 
-IUTEST_TYPED_TEST_CASE(TestValueType2, Types);
+IUTEST_TYPED_TEST_SUITE(TestValueType2, Types);
 
 IUTEST_TYPED_TEST(TestValueType2, Equal)
 {

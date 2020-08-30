@@ -30,13 +30,13 @@
  * @private
  * @{
 */
-#define IUTEST_TEST_CLASS_NAME_(testcase_, testname_)   IIUT_TEST_CLASS_NAME_I(IIUT_TO_VARNAME_(testcase_), IIUT_TO_VARNAME_(testname_))
-#define IIUT_TEST_CLASS_NAME_I(testcase_, testname_)    IIUT_TEST_CLASS_NAME_I_(testcase_, testname_)
-#define IIUT_TEST_CLASS_NAME_I_(testcase_, testname_)   iu_##testcase_##_x_iutest_x_##testname_##_Test
+#define IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)  IIUT_TEST_CLASS_NAME_I(IIUT_TO_VARNAME_(testsuite_), IIUT_TO_VARNAME_(testname_))
+#define IIUT_TEST_CLASS_NAME_I(testsuite_, testname_)   IIUT_TEST_CLASS_NAME_I_(testsuite_, testname_)
+#define IIUT_TEST_CLASS_NAME_I_(testsuite_, testname_)  iu_##testsuite_##_x_iutest_x_##testname_##_Test
 
-#define IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)    IIUT_TEST_INSTANCE_NAME_I(IIUT_TO_VARNAME_(testcase_), IIUT_TO_VARNAME_(testname_))
-#define IIUT_TEST_INSTANCE_NAME_I(testcase_, testname_)     IIUT_TEST_INSTANCE_NAME_I_(testcase_, testname_)
-#define IIUT_TEST_INSTANCE_NAME_I_(testcase_, testname_)    s_##testcase_##_x_iutest_x_##testname_##_Instance
+#define IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)   IIUT_TEST_INSTANCE_NAME_I(IIUT_TO_VARNAME_(testsuite_), IIUT_TO_VARNAME_(testname_))
+#define IIUT_TEST_INSTANCE_NAME_I(testsuite_, testname_)    IIUT_TEST_INSTANCE_NAME_I_(testsuite_, testname_)
+#define IIUT_TEST_INSTANCE_NAME_I_(testsuite_, testname_)   s_##testsuite_##_x_iutest_x_##testname_##_Instance
 
 #if IUTEST_HAS_TESTNAME_ALIAS
 
@@ -88,9 +88,9 @@
 
 #if !defined(IUTEST_TEST_STRICT_)
 #if IUTEST_CHECK_STRICT
-#  define IUTEST_TEST_STRICT_(testcase_, testname_, parent_class_, type_id_)    \
-            IIUT_CHECK_TESTFIXTURE(testcase_)                                   \
-            IUTEST_TEST_(testcase_, testname_, parent_class_, type_id_)
+#  define IUTEST_TEST_STRICT_(testsuite_, testname_, parent_class_, type_id_)   \
+            IIUT_CHECK_TESTFIXTURE(testsuite_)                                  \
+            IUTEST_TEST_(testsuite_, testname_, parent_class_, type_id_)
 #else
 #  define IUTEST_TEST_STRICT_   IUTEST_TEST_
 #endif
@@ -138,17 +138,18 @@
  * @internal
  * @brief   Test class defined macro
 */
-#define IUTEST_TEST_(testcase_, testname_, parent_class_, type_id_)                         \
-    class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {            \
-    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testcase_, testname_));      \
-        public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)() {}                          \
+#define IUTEST_TEST_(testsuite_, testname_, parent_class_, type_id_)                        \
+    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) : public parent_class_ {           \
+    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_TEST_CLASS_NAME_(testsuite_, testname_));     \
+        public: IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)() {}                         \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE;                                 \
     };                                                                                      \
-    ::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>           \
-    IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(                                       \
-        IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_)      \
-        , type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);         \
-    void IUTEST_TEST_CLASS_NAME_(testcase_, testname_)::Body()
+    ::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)>          \
+    IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)(                                      \
+        IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testsuite_)), IIUT_TO_NAME_STR_(testname_)     \
+        , type_id_, IUTEST_GET_SETUP_TESTSUITE(parent_class_, __FILE__, __LINE__)           \
+        , IUTEST_GET_TEARDOWN_TESTSUITE(parent_class_, __FILE__, __LINE__));                \
+    void IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)::Body()
 
 #if IUTEST_HAS_IGNORE_TEST
 
@@ -157,18 +158,19 @@
  * @brief   Test class defined macro
  *          関数の中はコンパイルできなくてもよい
 */
-#define IUTEST_TEST_IGNORE_(testcase_, testname_, parent_class_, type_id_)                  \
-    class IUTEST_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {            \
-    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN( IUTEST_TEST_CLASS_NAME_(testcase_, testname_) );    \
-        public: IUTEST_TEST_CLASS_NAME_(testcase_, testname_)() {}                          \
-        protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }          \
+#define IUTEST_TEST_IGNORE_(testsuite_, testname_, parent_class_, type_id_)                 \
+    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) : public parent_class_ {           \
+    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN( IUTEST_TEST_CLASS_NAME_(testsuite_, testname_) );   \
+        public: IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)() {}                         \
+        protected: virtual void Body() IUTEST_CXX_OVERRIDE { IUTEST_SKIP() << "ignored test..."; }  \
         template<typename T>void Body();                                                    \
     };                                                                                      \
-    ::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>           \
-    IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_)(                                       \
-        IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_)), IIUT_TO_NAME_STR_(testname_)      \
-        , type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase);         \
-    template<typename T>void IUTEST_TEST_CLASS_NAME_(testcase_, testname_ )::Body()
+    ::iutest::detail::TestInstance<IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)>          \
+    IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_)(                                      \
+        IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testsuite_)), IIUT_TO_NAME_STR_(testname_)     \
+        , type_id_, IUTEST_GET_SETUP_TESTSUITE(parent_class_, __FILE__, __LINE__)           \
+        , IUTEST_GET_TEARDOWN_TESTSUITE(parent_class_, __FILE__, __LINE__));                \
+    template<typename T>void IUTEST_TEST_CLASS_NAME_(testsuite_, testname_ )::Body()
 
 #endif
 
@@ -178,9 +180,9 @@
  * @private
  * @{
 */
-#define IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)   IIUT_PMZ_TEST_CLASS_NAME_I(IIUT_TO_VARNAME_(testcase_), IIUT_TO_VARNAME_(testname_))
-#define IIUT_PMZ_TEST_CLASS_NAME_I(testcase_, testname_)    IIUT_PMZ_TEST_CLASS_NAME_I_(testcase_, testname_)
-#define IIUT_PMZ_TEST_CLASS_NAME_I_(testcase_, testname_)   IUTEST_PP_CAT( IUTEST_PP_CAT(iu_##testcase_##_x_Test_, testname_), __LINE__)
+#define IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)  IIUT_PMZ_TEST_CLASS_NAME_I(IIUT_TO_VARNAME_(testsuite_), IIUT_TO_VARNAME_(testname_))
+#define IIUT_PMZ_TEST_CLASS_NAME_I(testsuite_, testname_)   IIUT_PMZ_TEST_CLASS_NAME_I_(testsuite_, testname_)
+#define IIUT_PMZ_TEST_CLASS_NAME_I_(testsuite_, testname_)  IUTEST_PP_CAT( IUTEST_PP_CAT(iu_##testsuite_##_x_Test_, testname_), __LINE__)
 /**
  * @}
 */
@@ -189,36 +191,24 @@
  * @internal
  * @brief   Parameterized test class defined macro
 */
-#define IIUT_TEST_PMZ_(testcase_, testname_, method_, parent_class_, type_id_, ...)             \
-    class IUTEST_TEST_CLASS_NAME_(testcase_, testname_);                                        \
-    class IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_) : public parent_class_ {            \
-    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_));      \
-        public: IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)() {}                          \
+#define IIUT_TEST_PMZ_(testsuite_, testname_, method_, parent_class_, type_id_, ...)            \
+    class IUTEST_TEST_CLASS_NAME_(testsuite_, testname_);                                       \
+    class IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_) : public parent_class_ {           \
+    IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_));     \
+        public: IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)() {}                         \
         static ::std::string MakeTestName() { return ::iutest::detail::MakeIndexTestName(       \
             IIUT_TO_NAME_STR_(testname_), ::iutest::detail::GetTypeUniqueCounter<               \
-                IUTEST_TEST_CLASS_NAME_(testcase_, testname_)>()); }                            \
+                IUTEST_TEST_CLASS_NAME_(testsuite_, testname_)>()); }                           \
         protected: virtual void Body() IUTEST_CXX_OVERRIDE { method_(__VA_ARGS__); }            \
     };                                                                                          \
-    ::iutest::detail::TestInstance<IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)>           \
-    IUTEST_PP_CAT( IUTEST_TEST_INSTANCE_NAME_(testcase_, testname_), __LINE__)(                 \
-        IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testcase_))                                        \
-        , IUTEST_PMZ_TEST_CLASS_NAME_(testcase_, testname_)::MakeTestName().c_str()             \
-        , #__VA_ARGS__, type_id_, parent_class_::SetUpTestCase, parent_class_::TearDownTestCase)
+    ::iutest::detail::TestInstance<IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)>          \
+    IUTEST_PP_CAT( IUTEST_TEST_INSTANCE_NAME_(testsuite_, testname_), __LINE__)(                \
+        IUTEST_CONCAT_PACKAGE_(IIUT_TO_NAME_(testsuite_))                                       \
+        , IUTEST_PMZ_TEST_CLASS_NAME_(testsuite_, testname_)::MakeTestName().c_str()            \
+        , #__VA_ARGS__, type_id_, IUTEST_GET_SETUP_TESTSUITE(parent_class_, __FILE__, __LINE__) \
+        , IUTEST_GET_TEARDOWN_TESTSUITE(parent_class_, __FILE__, __LINE__))
 
 #endif
-
-/**
- * @private
- * @{
-*/
-#define IUTEST_CLASS_INITIALIZE(methodName)     static void SetUpTestCase() { methodName(); } static void methodName()
-#define IUTEST_CLASS_CLEANUP(methodName)        static void TearDownTestCase() { methodName(); } static void methodName()
-
-#define IUTEST_METHOD_INITIALIZE(methodName)    virtual void SetUp() IUTEST_CXX_OVERRIDE { methodName(); } void methodName()
-#define IUTEST_METHOD_CLEANUP(methodName)       virtual void TearDown() IUTEST_CXX_OVERRIDE { methodName(); } void methodName()
-/**
- * @}
-*/
 
 /**
  * @internal
