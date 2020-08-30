@@ -180,7 +180,7 @@ class iuwandbox_test(iuwandbox_test_base):
         self.assertRegex(output, r'\[ \s+OK \]')
         self.assertFalse('-Wmisleading-indentation' in output)
 
-    def test_run(self):
+    def test_make_run(self):
         sys.argv[1:] = [test_src]
         sys.argv.extend(test_opt)
         sys.argv.extend(['--make'])
