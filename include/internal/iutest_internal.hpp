@@ -42,11 +42,11 @@
 
 #define IIUT_TO_VARNAME_(name_)                 IIUT_TO_VARNAME_I( (IIUT_ALIAS_TESTNAME_PP_##name_, name_, dummy_) )
 #define IIUT_TO_VARNAME_I(tuple_)               IUTEST_PP_EXPAND( IIUT_TO_VARNAME_I_ tuple_ )
-#define IIUT_TO_VARNAME_I_(dummy, name_)        name_
+#define IIUT_TO_VARNAME_I_(dummy, name_, ...)   name_
 
 #define IIUT_TO_NAME_(name_)                    IIUT_TO_NAME_I( (IIUT_ALIAS_TESTNAME_PP_##name_, name_, name_, dummy_) )
 #define IIUT_TO_NAME_I(tuple_)                  IUTEST_PP_EXPAND( IIUT_TO_NAME_I_ tuple_ )
-#define IIUT_TO_NAME_I_(dummy, dummy_2, name_)  name_
+#define IIUT_TO_NAME_I_(d1_, d2_, name_, ...)   name_
 
 #define IIUT_TO_NAME_STR_(name_)                IUTEST_PP_TOSTRING( IIUT_TO_NAME_(name_) )
 
