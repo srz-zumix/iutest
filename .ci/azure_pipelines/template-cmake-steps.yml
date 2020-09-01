@@ -1,0 +1,22 @@
+# optional cmake test steps template
+
+parameters:
+  CMAKE_GENERATOR_NAME: 'Visual Studio 2019'
+  PLATFORM: 'x64'
+  CMAKE_OPTIONS: ''
+
+steps:
+- script: |
+    mkdir build && cd build
+    cmake ../projects/cmake -G "${{ parameters.CMAKE_GENERATOR_NAME}}" -A ${{ parameters.PLATFORM }} ${{ parameters.CMAKE_OPTIONS }}
+  displayName: 'generate'
+
+- script: |
+    echo ${TestResultBranchName}
+    make -C test showcxxversion
+  displayName: 'versions'
+
+- script: |
+    echo "make -C test -j4 OUTPUTXML=junit ${{ parameters.options }}"
+    make -C test -j4 OUTPUTXML=junit ${{ parameters.options }}
+  displayName: 'make'
