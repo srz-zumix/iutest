@@ -99,7 +99,7 @@ IUTEST_TYPED_TEST(TypedTestAliasName, Test2)
         ::iuutil::GetCurrentTestSuite()->name()) );
 }
 
-    #endif
+#endif
 
 #endif
 
