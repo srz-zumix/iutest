@@ -113,6 +113,12 @@ stages:
     dependsOn: Precheck
     jobs:
       - job: vs_experimental_test
+        strategy:
+          matrix:
+            NO_EXPERIMENTAL:
+              CMAKE_OPTIONS: -Dbuild_gtest_samples=ON
+            USE_EXPERIMENTAL:
+              CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_use_experimental=ON
         pool:
           vmImage: windows-2019
         steps:
@@ -120,7 +126,7 @@ stages:
           parameters:
               CMAKE_GENERATOR_NAME: Visual Studio 16 2019
               PLATFORM: x64
-              CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_use_experimental=ON
+              CMAKE_OPTIONS: ${CMAKE_OPTIONS}
   # - stage: Publish
   #   dependsOn:
   #     Test
