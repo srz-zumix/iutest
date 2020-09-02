@@ -227,7 +227,7 @@ for:
   before_build:
     cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat"'
   build_script:
-    cmd: cd test && nmake
+    cmd: cd test && nmake all_tests && all_tests --spec && nmake
   test_script:
     cmd: nmake test
 # Prefast
