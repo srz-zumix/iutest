@@ -112,7 +112,7 @@ stages:
   - stage: VisualStudioExperimental
     dependsOn: Precheck
     jobs:
-      - job: vs experimental test
+      - job: vs_experimental_test
         pool:
           vmImage: windows-2019
         steps:
