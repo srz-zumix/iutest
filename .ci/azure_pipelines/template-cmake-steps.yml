@@ -4,6 +4,7 @@ parameters:
   CMAKE_GENERATOR_NAME: 'Visual Studio 2019'
   PLATFORM: 'x64'
   CMAKE_OPTIONS: ''
+  TEST_CONFIGURATION: 'Debug'
 
 steps:
 - script: |
@@ -12,11 +13,9 @@ steps:
   displayName: 'generate'
 
 - script: |
-    echo ${TestResultBranchName}
-    make -C test showcxxversion
-  displayName: 'versions'
+    cmake --build ./build
+  displayName: 'build'
 
 - script: |
-    echo "make -C test -j4 OUTPUTXML=junit ${{ parameters.options }}"
-    make -C test -j4 OUTPUTXML=junit ${{ parameters.options }}
-  displayName: 'make'
+    cd build && ctest -C ${TEST_CONFIGURATION} -V
+  displayName: 'test'
