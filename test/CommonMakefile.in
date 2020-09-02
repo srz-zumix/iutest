@@ -106,6 +106,7 @@ TARGETS1= \
 		$(OUTDIR)/csvparams_tests \
 		$(OUTDIR)/cxx_feature_tests \
 		$(OUTDIR)/disabled_tests \
+		$(OUTDIR)/empty_testname_tests \
 		$(OUTDIR)/env_var_gtest_tests \
 		$(OUTDIR)/environment_tests \
 		$(OUTDIR)/exception_assertion_tests \
@@ -186,6 +187,7 @@ TARGETS_IUTEST_ONLY = \
 
 COMPILEERROR_TARGETS=\
 		$(OUTDIR)/check_strict_tests \
+		$(OUTDIR)/empty_testname_failure_tests \
 		$(OUTDIR)/static_assertion_failure_tests \
 
 BUILD_ONLY = $(OUTDIR)/break_on_failure_tests \
