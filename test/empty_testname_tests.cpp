@@ -1,39 +1,53 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file        check_strict_tests.cpp
- * @brief       IUTEST_CHECK_STRICT test
+ * @file        empty_testname_tests.cpp
+ * @brief       iutest empty testname allow test
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
 //-----------------------------------------------------------------------
 //======================================================================
 
-#if defined(IUTEST_CHECK_STRICT)
-#  undef IUTEST_CHECK_STRICT
-#endif
-
-#define IUTEST_CHECK_STRICT 1
-
 //======================================================================
 // include
 #include "iutest.hpp"
 
-class TestFixture : public ::iutest::Test
-{
-public:
-    virtual void SetUp() {}
-};
+// well-formed test definitions..
 
-#if IUTEST_HAS_IF_EXISTS || !defined(IUTEST_NO_TEMPLATE_PARTIAL_SPECIALIZATION) && !defined(IUTEST_NO_FUNCTION_TEMPLATE_ORDERING)
-IUTEST_TEST_STATICASSERT("TestFixture is fixture class, mistake the IUTEST_F?")
-IUTEST(TestFixture, Test)
+#if IUTEST_HAS_PARAM_TEST
+
+class ParamTest : public ::iutest::TestWithParam<int> {};
+
+IUTEST_P(ParamTest, )
 {
 }
+
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, ParamTest, ::iutest::Values(0, 1));
+
+#if IUTEST_HAS_TESTFIXTURE_ALIAS_BY_TUPLE
+typedef ParamTest   ParamTest2;
+#define ParamTestAlias  (, ParamTest2)
+IUTEST_P(ParamTestAlias, )
+{
+}
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, ParamTestAlias, ::iutest::Values(0, 1));
+#endif
+
+#endif
+
+#if IUTEST_HAS_ANY_PARAM_TEST
+
+IUTEST_AP(AnyParamTest, )
+{
+}
+
+IUTEST_INSTANTIATE_TEST_SUITE_AP(My1, AnyParamTest, ::iutest::Values(0));
+
 #endif
 
 #ifdef UNICODE
@@ -45,4 +59,3 @@ int main(int argc, char* argv[])
     IUTEST_INIT(&argc, argv);
     return IUTEST_RUN_ALL_TESTS();
 }
-
