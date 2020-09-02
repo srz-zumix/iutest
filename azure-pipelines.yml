@@ -109,6 +109,18 @@ stages:
       - template: .ci/azure_pipelines/template-make-mix-test.yml
         parameters:
           name: mix
+  - stage: VisualStudioExperimental
+    dependsOn: Precheck
+    jobs:
+      - job: vs experimental test
+        pool:
+          vmImage: windows-2019
+        steps:
+        - template: .ci/azure_pipelines/template-cmake-steps.yml
+          parameters:
+              CMAKE_GENERATOR_NAME: Visual Studio 2019
+              PLATFORM: x64
+              CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_use_experimental=ON
   # - stage: Publish
   #   dependsOn:
   #     Test

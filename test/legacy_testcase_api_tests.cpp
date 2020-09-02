@@ -118,27 +118,6 @@ IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(My1, TypeParamTest, TypeParamTestTypes);
 
 #endif
 
-#if IUTEST_HAS_ANY_PARAM_TEST
-
-IUTEST_AP(AnyParamTest, Test)
-{
-    IUTEST_EXPECT_STREQ("My1/AnyParamTest", ::iuutil::GetCurrentTestSuite()->name());
-    const int value = GetParam<int>();
-    IUTEST_ASSERT_EQ(0, value);
-}
-
-IUTEST_INSTANTIATE_TEST_CASE_AP(My1, AnyParamTest, ::iutest::Values(0));
-
-IUTEST_AP(AnyParamTest2, Test)
-{
-    const ::std::string value = GetParam< ::std::string >();
-    IUTEST_ASSERT_EQ("0", value);
-}
-
-IUTEST_INSTANTIATE_TEST_CASE_AP(My1, AnyParamTest2, ::iutest::Values("0"));
-
-#endif
-
 #if !defined(IUTEST_USE_GTEST)
 
 class MyTestEventListener : public ::iutest::TestEventListener
