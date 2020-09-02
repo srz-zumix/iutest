@@ -41,10 +41,11 @@ class ProdClass
 #endif
 
 public:
-    ProdClass(void) : m_dummy(0), m_x(0), m_z(0), m_a(0), m_c(42) {}
+    ProdClass(void) : m_dummy(0), m_x(0), m_z(0), m_a(0), m_b(0), m_c(42) {}
     ProdClass(const ProdClass& rhs) : m_dummy(rhs.m_dummy), m_x(rhs.m_x), m_z(rhs.m_z), m_a(rhs.m_a), m_c(42) {}
 
     int GetA(void) const { return m_a; }
+    int GetB(void) const { return m_b; }
     int GetX(void) const { return m_x; }
     int GetZ(void) const { return m_z; }
 private:
@@ -71,6 +72,23 @@ public:
     int GetX(void) { return m_x; }
 private:
     int m_x;
+};
+
+class ProtectedProdClass
+{
+public:
+    ProtectedProdClass(void) : m_x(0) {}
+
+    int GetX(void) { return m_x; }
+protected:
+    int m_x;
+    void SetX(int x) { m_x = x; }
+
+public:
+    static int GetY(void) { return m_y; }
+protected:
+    static int m_y;
+    static void SetY(int x) { m_y = x; }
 };
 
 #if IUTEST_HAS_PEEP
