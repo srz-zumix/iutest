@@ -124,9 +124,9 @@ stages:
         steps:
         - template: .ci/azure_pipelines/template-cmake-steps.yml
           parameters:
-              CMAKE_GENERATOR_NAME: Visual Studio 16 2019
-              PLATFORM: x64
-              CMAKE_OPTIONS: ${CMAKE_OPTIONS}
+            generator_name: Visual Studio 16 2019
+            platform: x64
+            cmake_options: ${CMAKE_OPTIONS}
   # - stage: Publish
   #   dependsOn:
   #     Test

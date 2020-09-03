@@ -1,15 +1,15 @@
 # optional cmake test steps template
 
 parameters:
-  CMAKE_GENERATOR_NAME: 'Visual Studio 2019'
-  PLATFORM: 'x64'
-  CMAKE_OPTIONS: ''
+  generator_name: 'Visual Studio 2019'
+  platform: 'x64'
+  cmake_options: ''
   TEST_CONFIGURATION: 'Debug'
 
 steps:
 - script: |
     mkdir build && cd build
-    cmake ../projects/cmake -G "${{ parameters.CMAKE_GENERATOR_NAME}}" -A ${{ parameters.PLATFORM }} ${{ parameters.CMAKE_OPTIONS }}
+    cmake ../projects/cmake -G "${{ parameters.generator_name}}" -A ${{ parameters.platform }} ${{ parameters.cmake_options }}
   displayName: 'generate'
 
 - script: |
