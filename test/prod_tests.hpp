@@ -83,6 +83,10 @@ protected:
     int m_x;
     void SetX(int x) { m_x = x; }
 
+    int GetProtectedX() const { return m_x; }
+    // template<typename T>
+    // T GetProtectedX() const { return static_cast<T>(m_x); }
+
 public:
     static int GetY(void) { return m_y; }
 protected:
