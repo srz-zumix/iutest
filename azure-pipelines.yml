@@ -126,7 +126,7 @@ stages:
           parameters:
             generator_name: Visual Studio 16 2019
             platform: x64
-            cmake_options: ${CMAKE_OPTIONS}
+            cmake_options: "${CMAKE_OPTIONS}"
   # - stage: Publish
   #   dependsOn:
   #     Test
