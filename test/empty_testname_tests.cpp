@@ -19,7 +19,7 @@
 
 // well-formed test definitions..
 
-#if defined(_MSV_VER)
+#if defined(_MSC_VER)
 #if defined(_MSVC_TRADITIONAL) && _MSVC_TRADITIONAL
 #  define ENABLE_EMPTY_NAMETEST 1
 #else
