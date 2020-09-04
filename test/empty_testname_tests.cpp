@@ -19,14 +19,9 @@
 
 // well-formed test definitions..
 
-#if defined(_MSC_VER)
-#if defined(_MSVC_TRADITIONAL) && _MSVC_TRADITIONAL
-#  define ENABLE_EMPTY_NAMETEST 1
-#else
+#if defined(IUTEST_PP_MSVC_TRADITIONAL)
 #  define ENABLE_EMPTY_NAMETEST 0
 #endif
-#endif
-
 
 #if !defined(ENABLE_EMPTY_NAMETEST)
 #  define ENABLE_EMPTY_NAMETEST 1

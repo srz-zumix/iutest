@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,6 +17,12 @@
 
 //======================================================================
 // define
+
+#if defined(_MSC_VER) && !defined(__clang__)
+#  if !defined(_MSVC_TRADITIONAL) || _MSVC_TRADITIONAL
+#    define IUTEST_PP_MSVC_TRADITIONAL
+#  endif
+#endif
 
 /**
  * @brief       コピー禁止定義
@@ -729,7 +735,7 @@
 
 #endif
 
-#if defined(_MSC_VER) && !defined(__clang__)
+#if defined(IUTEST_PP_MSVC_TRADITIONAL)
 #define IIUT_PP_VD_CAT(a, b)            IIUT_PP_VD_CAT_I(a, b)
 #define IIUT_PP_VD_CAT_I(a, b)          IIUT_PP_VD_CAT_II(a ## b)
 #define IIUT_PP_VD_CAT_II(res)          res
