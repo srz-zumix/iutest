@@ -19,6 +19,21 @@
 
 // well-formed test definitions..
 
+#if defined(_MSV_VER)
+#if defined(_MSVC_TRADITIONAL) && _MSVC_TRADITIONAL
+#  define ENABLE_EMPTY_NAMETEST 1
+#else
+#  define ENABLE_EMPTY_NAMETEST 0
+#endif
+#endif
+
+
+#if !defined(ENABLE_EMPTY_NAMETEST)
+#  define ENABLE_EMPTY_NAMETEST 1
+#endif
+
+#if ENABLE_EMPTY_NAMETEST
+
 #if IUTEST_HAS_PARAM_TEST
 
 class ParamTest : public ::iutest::TestWithParam<int> {};
@@ -47,6 +62,8 @@ IUTEST_AP(AnyParamTest, )
 }
 
 IUTEST_INSTANTIATE_TEST_SUITE_AP(My1, AnyParamTest, ::iutest::Values(0));
+
+#endif
 
 #endif
 
