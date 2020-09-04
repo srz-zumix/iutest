@@ -17,5 +17,5 @@ steps:
   displayName: 'build'
 
 - bash: |
-    cd build && ctest -C ${TEST_CONFIGURATION} -V
+    cd build && ctest -C ${{ parameters.TEST_CONFIGURATION }} -V
   displayName: 'test'
