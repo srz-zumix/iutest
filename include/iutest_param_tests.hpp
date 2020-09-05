@@ -313,6 +313,7 @@ class ParamTestInstance : public IParamTestInfoData
         TestInfo            m_info;
     };
 public:
+    ParamTestInstance() : IParamTestInfoData("") {} // allow empty name
     explicit ParamTestInstance(const char* testsuite_name) : IParamTestInfoData(testsuite_name) {}
 
 private:
