@@ -232,7 +232,9 @@ IUTEST(PeepClassTest, StaticPeep)
 IUTEST_MAKE_PEEP(void (ProdClass::*)(int), ProdClass, SetX);
 IUTEST_MAKE_PEEP(int (ProdClass::*)() const, ProdClass, ConstGetX);
 IUTEST_MAKE_PEEP(void (ProtectedProdClass::*)(int), ProtectedProdClass, SetX);
+#if IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_OVERLOAD_MEMBER_FUNCTION
 IUTEST_MAKE_PEEP(int (ProtectedProdClass::*)() const, ProtectedProdClass, GetProtectedX);
+#endif
 
 IUTEST(PeepTest, Function)
 {
@@ -246,7 +248,9 @@ IUTEST(PeepTest, ProtectedFunction)
     IUTEST_PEEP_GET(s_protected, ProtectedProdClass, SetX)(100);
     IUTEST_EXPECT_EQ(100, s_protected.GetX());
 
+#if IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_OVERLOAD_MEMBER_FUNCTION
     IUTEST_EXPECT_EQ(100, IUTEST_PEEP_GET(s_protected, ProtectedProdClass, GetProtectedX)());
+#endif
 }
 
 #if IUTEST_HAS_PEEP_CLASS

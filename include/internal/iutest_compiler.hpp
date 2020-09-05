@@ -931,6 +931,16 @@
 #  endif
 #endif
 
+//! explicit instantiation access checking (overload member function)
+#if !defined(IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_OVERLOAD_MEMBER_FUNCTION)
+#  if defined(__clang__)
+// Does clang give priority to access restrictions during overload resolution?
+#    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_OVERLOAD_MEMBER_FUNCTION   0
+#  else
+#    define IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_OVERLOAD_MEMBER_FUNCTION   1
+#  endif
+#endif
+
 // 可変長引数マクロ
 #if !defined(IUTEST_NO_VARIADIC_MACROS)
 #  if defined(_MSC_VER) && (_MSC_VER < 1500)
