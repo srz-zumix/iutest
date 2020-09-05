@@ -112,11 +112,11 @@ stages:
   - stage: VisualStudioExperimental
     dependsOn: Precheck
     jobs:
-      - job: vs_experimental_test
+      - job: visual_studio_test
         strategy:
           matrix:
-            NO_EXPERIMENTAL:
-              CMAKE_OPTIONS: -Dbuild_gtest_samples=ON
+            NO_EXCEPTION_HANDLER:
+              CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -DCMAKE_CXX_FLAGS=/EHs-c-
             USE_EXPERIMENTAL:
               CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_use_experimental=ON
         pool:
