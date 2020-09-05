@@ -33,6 +33,13 @@ macro(fix_default_compiler_settings_)
             )
       message(STATUS "${flag_var}=${${flag_var}}")
     endforeach()
+
+    # experimental
+    if (build_use_experimental)
+      if(NOT (MSVC_VERSION LESS 1910))
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_DEBUG} /experimental:preprocessor /Wv:18")
+      endif()
+    endif()
   endif()
   set(CMAKE_CXX_FLAGS_DEBUG_GTEST "${CMAKE_CXX_FLAGS_DEBUG} -DIUTEST_USE_GTEST")
   set(CMAKE_EXE_LINKER_FLAGS_DEBUG_GTEST ${CMAKE_EXE_LINKER_FLAGS_DEBUG})
