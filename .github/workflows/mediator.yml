@@ -1,0 +1,23 @@
+name: Workflow Mediator
+
+on:
+  workflow_dispatch:
+    inputs:
+      job_name:
+        required: true
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "${{ github.event.inputs.job_name }}"
+
+  gitlab:
+    needs: prepare
+    runs-on: ubuntu-latest
+    if: >
+      github.event.inputs.job_name == 'gitlab'
+    steps:
+      - run: |
+          echo "${{ github.event.inputs.job_name }}"
