@@ -73,6 +73,27 @@ private:
     int m_x;
 };
 
+class ProtectedProdClass
+{
+public:
+    ProtectedProdClass(void) : m_x(0) {}
+
+    int GetX(void) { return m_x; }
+protected:
+    int m_x;
+    void SetX(int x) { m_x = x; }
+
+    int GetProtectedX() const { return m_x; }
+    template<typename T>
+    T GetProtectedX() const { return static_cast<T>(m_x); }
+
+public:
+    static int GetY(void) { return m_y; }
+protected:
+    static int m_y;
+    static void SetY(int x) { m_y = x; }
+};
+
 #if IUTEST_HAS_PEEP
 
 IUTEST_MAKE_PEEP(int ProdClass::*, ProdClass, m_a);
