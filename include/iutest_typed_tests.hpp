@@ -88,6 +88,8 @@
 #endif
 
 #define IIUT_TYPED_TEST_I(classname_, testsuite_, testsuitename_, testname_)        \
+    IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testsuite_)) > 1, "testsuite_ must not be empty");   \
+    IUTEST_STATIC_ASSERT_MSG(sizeof(IUTEST_PP_TOSTRING(testname_)) > 1, "testname_ must not be empty");     \
     template<typename iutest_TypeParam> class classname_ : public testsuite_<iutest_TypeParam> {    \
         typedef testsuite_<iutest_TypeParam> TestFixture;                           \
         typedef iutest_TypeParam TypeParam;                                         \
