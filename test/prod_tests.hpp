@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -41,10 +41,11 @@ class ProdClass
 #endif
 
 public:
-    ProdClass(void) : m_dummy(0), m_x(0), m_z(0), m_a(0), m_c(42) {}
+    ProdClass(void) : m_dummy(0), m_x(0), m_z(0), m_a(0), m_b(&m_a), m_c(42) {}
     ProdClass(const ProdClass& rhs) : m_dummy(rhs.m_dummy), m_x(rhs.m_x), m_z(rhs.m_z), m_a(rhs.m_a), m_c(42) {}
 
     int GetA(void) const { return m_a; }
+    const int* GetB(void) const { return m_b; }
     int GetX(void) const { return m_x; }
     int GetZ(void) const { return m_z; }
 private:
@@ -52,6 +53,7 @@ private:
     int m_x;
     int m_z;
     int m_a;
+    int* m_b;
     const int m_c;
     void SetX(int x) { m_x = x; }
     int ConstGetX(void) const { return m_x; }

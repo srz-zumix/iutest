@@ -116,6 +116,7 @@ static ProdClass2 s_prod2;
 static ProtectedProdClass s_protected;
 
 // peep を使ってのアクセス
+IUTEST_MAKE_PEEP(int* ProdClass::*, ProdClass, m_b);
 IUTEST_MAKE_PEEP(int ProdClass::*, ProdClass, m_x);
 IUTEST_MAKE_PEEP(const int ProdClass::*, ProdClass, m_c);
 
@@ -139,6 +140,13 @@ IUTEST(PeepTest, PeepMacro)
     IUTEST_EXPECT_EQ(42, s_protected.GetX());
 
     IUTEST_EXPECT_EQ(42, IUTEST_PEEP_GET(s_protected, ProtectedProdClass, m_x));
+}
+
+IUTEST(PeepTest, PeepPointer)
+{
+    int* pb = IUTEST_PEEP_GET(s_prod, ProdClass, m_b);
+    *pb = 4;
+    IUTEST_EXPECT_EQ(4, *s_prod.GetB());
 }
 
 #if IUTEST_HAS_PEEP_CLASS
