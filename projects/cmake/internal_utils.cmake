@@ -98,7 +98,7 @@ macro(config_compiler_and_linker)
     "${CMAKE_CXX_FLAGS} ${cxx_base_flags} ${cxx_no_exception_flags}")
   if (build_no_exceptions)
     set(cxx_default "${cxx_no_exception}")
-  else
+  else()
     set(cxx_default "${cxx_exception}")
   endif()
   set(cxx_no_rtti "${cxx_default} ${cxx_no_rtti_flags}")
