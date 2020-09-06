@@ -116,7 +116,7 @@ stages:
         strategy:
           matrix:
             NO_EXCEPTION_HANDLER:
-              CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -DCMAKE_CXX_FLAGS="/EHs-c- -D_HAS_EXCEPTIONS=0"
+              CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_no_exceptions=ON
             USE_EXPERIMENTAL:
               CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_use_experimental=ON
         pool:
