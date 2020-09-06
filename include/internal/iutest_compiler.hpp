@@ -99,6 +99,8 @@
 
 
 // c++20 features
+
+//! has concepts
 #if !defined(IUTEST_HAS_CONCEPTS)
 #  if   defined(__cpp_concepts) && __cpp_concepts >= 201907
 #    define IUTEST_HAS_CONCEPTS             1
@@ -109,6 +111,19 @@
 
 #if !defined(IUTEST_HAS_CONCEPTS)
 #  define IUTEST_HAS_CONCEPTS               0
+#endif
+
+//! has likely/unlikely attribute
+#if !defined(IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY)
+#  if defined(__has_cpp_attribute)
+#    if __has_cpp_attribute(likely) >= 201803L && __has_cpp_attribute(unlikely) >= 201803L
+#      define IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY  1
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY)
+#  define IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY      0
 #endif
 
 // c++17 features
@@ -1188,6 +1203,30 @@
 
 #if !defined(IUTEST_HAS_ATTRIBUTE)
 #  define IUTEST_HAS_ATTRIBUTE      0
+#endif
+
+//! likely attribute
+#if !defined(IUTEST_ATTRIBUTE_LIKELY_)
+#  if IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY
+#    define IUTEST_ATTRIBUTE_LIKELY_    [[likely]]
+#  else
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_LIKELY_)
+#  define IUTEST_ATTRIBUTE_LIKELY_
+#endif
+
+//! unlikely attribute
+#if !defined(IUTEST_ATTRIBUTE_UNLIKELY_)
+#  if IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY
+#    define IUTEST_ATTRIBUTE_UNLIKELY_  [[unlikely]]
+#  else
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_UNLIKELY_)
+#  define IUTEST_ATTRIBUTE_UNLIKELY_
 #endif
 
 //! has deprecated attribute
