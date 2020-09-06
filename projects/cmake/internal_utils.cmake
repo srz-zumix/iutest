@@ -26,6 +26,13 @@ macro(fix_default_compiler_settings_)
       #else()
       #  set(${flag_var} "${${flag_var}} /W4")
       endif()
+
+      # /EHsc
+      # string(REPLACE "/EHsc" "" ${flag_var} "${${flag_var}}")
+      if (build_no_exceptions)
+      else()
+        string(REPLACE "/EHsc" "EHs-c- -D_HAS_EXCEPTIONS=0" ${flag_var} "${${flag_var}}")
+      endif()
     endforeach()
 
     foreach (flag_var
@@ -54,12 +61,12 @@ macro(config_compiler_and_linker)
   if (MSVC)
     # Newlines inside flags variables break CMake's NMake generator.
     # TODO(vladl@google.com): Add -RTCs and -RTCu to debug builds.
-    set(cxx_base_flags "-GS -nologo -J -Zi")
+    set(cxx_base_flags "/GS /nologo -J -Zi")
     set(cxx_base_flags "${cxx_base_flags} -D_UNICODE -DUNICODE -DWIN32 -D_WIN32")
     set(cxx_base_flags "${cxx_base_flags} -DSTRICT -DWIN32_LEAN_AND_MEAN")
-    set(cxx_exception_flags "-EHsc -D_HAS_EXCEPTIONS=1")
-    set(cxx_no_exception_flags "-D_HAS_EXCEPTIONS=0")
-    set(cxx_no_rtti_flags "-GR-")
+    set(cxx_exception_flags "/EHsc -D_HAS_EXCEPTIONS=1")
+    set(cxx_no_exception_flags "/EHs-c- -D_HAS_EXCEPTIONS=0")
+    set(cxx_no_rtti_flags "/GR-")
   elseif (CMAKE_COMPILER_IS_GNUCXX)
     set(cxx_base_flags "-Wall -Wshadow")
     set(cxx_exception_flags "-fexceptions")
@@ -96,7 +103,11 @@ macro(config_compiler_and_linker)
   set(cxx_exception "${CMAKE_CXX_FLAGS} ${cxx_base_flags} ${cxx_exception_flags}")
   set(cxx_no_exception
     "${CMAKE_CXX_FLAGS} ${cxx_base_flags} ${cxx_no_exception_flags}")
-  set(cxx_default "${cxx_exception}")
+  if (build_no_exceptions)
+    set(cxx_default "${cxx_no_exception}")
+  else()
+    set(cxx_default "${cxx_exception}")
+  endif()
   set(cxx_no_rtti "${cxx_default} ${cxx_no_rtti_flags}")
   set(cxx_use_own_tuple "${cxx_default}")
 
