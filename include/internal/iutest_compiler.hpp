@@ -798,7 +798,11 @@
 // c++
 //! has exceptions
 #if !defined(IUTEST_HAS_EXCEPTIONS)
-#  if   defined(_MSC_VER) || defined(__BORLANDC__)
+#  if   defined(_MSC_VER)
+#    if defined(_CPPUNWIND) && _CPPUNWIND
+#      define IUTEST_HAS_EXCEPTIONS 1
+#    endif
+#  elif defined(__BORLANDC__)
 #    ifndef _HAS_EXCEPTIONS
 #      define _HAS_EXCEPTIONS       1
 #    endif
