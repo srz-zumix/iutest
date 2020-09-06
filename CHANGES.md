@@ -2,6 +2,20 @@
 
 --------------------------------------------------
 
+## Changes for 1.18.0
+
+* Improved
+  * 空のテストスイート名・テスト名に static_assert を追加
+  * GoogleTest の GTEST_REMOVE_LEGACY_TEST_CASEAPI_ に対応
+
+* Changes
+  * TestCase の別名 TestSuite に対応（iutest はどちらもサポートし続けます）
+
+* Bug fixes
+  * その他いくつかの不具合を修正
+
+--------------------------------------------------
+
 ## Changes for 1.17.1
 
 * New
