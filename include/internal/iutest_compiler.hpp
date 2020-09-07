@@ -113,24 +113,6 @@
 #  define IUTEST_HAS_CONCEPTS               0
 #endif
 
-//! has likely/unlikely attribute
-#if !defined(IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY)
-#  if defined(__has_cpp_attribute)
-#    if __has_cpp_attribute(likely) >= 201803L && __has_cpp_attribute(unlikely) >= 201803L
-#      if defined(__GNUC__) && (__GNUC__ <= 9)
-// gcc 9.X likely is experimental. can be used in switch~case, cannot be used in if statement
-#        define IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY  0
-#       else
-#        define IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY  1
-#       endif
-#    endif
-#  endif
-#endif
-
-#if !defined(IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY)
-#  define IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY      0
-#endif
-
 // c++17 features
 
 //! inline variable
@@ -1210,6 +1192,24 @@
 #  define IUTEST_HAS_ATTRIBUTE      0
 #endif
 
+//! has likely/unlikely attribute
+#if !defined(IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY)
+#  if defined(__has_cpp_attribute)
+#    if __has_cpp_attribute(likely) >= 201803L && __has_cpp_attribute(unlikely) >= 201803L
+#      if defined(__GNUC__) && (__GNUC__ <= 9)
+// gcc 9.X likely is experimental. can be used in switch~case, cannot be used in if statement
+#        define IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY  0
+#       else
+#        define IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY  IUTEST_HAS_ATTRIBUTE
+#       endif
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY)
+#  define IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY      0
+#endif
+
 //! likely attribute
 #if !defined(IUTEST_ATTRIBUTE_LIKELY_)
 #  if IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY
@@ -1238,7 +1238,7 @@
 #if !defined(IUTEST_HAS_ATTRIBUTE_DEPRECATED)
 #  if defined(__has_cpp_attribute)
 #    if __has_cpp_attribute(deprecated) >= 201309
-#      define IUTEST_HAS_ATTRIBUTE_DEPRECATED   1
+#      define IUTEST_HAS_ATTRIBUTE_DEPRECATED   IUTEST_HAS_ATTRIBUTE
 #    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 9)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
