@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.1.0</span>
+   &#160;<span id="projectnumber">1.17.99.0</span>
    </div>
   </td>
  </tr>
@@ -91,8 +91,8 @@ $(function() {
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">static</span> <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a>* <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">GetInstance</a>() { <span class="keywordflow">return</span> &amp;instance(); }</div>
 <div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">   41</a></span>&#160; </div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../df/d67/classiutest_1_1_test_case.html">TestCase</a>*     <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a4a95cc38ae4bf660e8ffcee5852f157c">current_test_case</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_current_testcase; }</div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="../../de/d13/classiutest_1_1_unit_test.html#a4a95cc38ae4bf660e8ffcee5852f157c">   47</a></span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html">TestSuite</a>*     <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a100223f01427f11df56331f96a939275">current_test_suite</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_current_testsuite; }</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="../../de/d13/classiutest_1_1_unit_test.html#a100223f01427f11df56331f96a939275">   47</a></span>&#160; </div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html">TestInfo</a>*     <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#aa00c38496f9f380d5a62ad6b5c75fb69">current_test_info</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="../../dc/d0e/classiutest_1_1_test.html#a82600ea64053455a9f3c7189338f1c67">Test::GetCurrentTestInfo</a>(); }</div>
 <div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="../../de/d13/classiutest_1_1_unit_test.html#aa00c38496f9f380d5a62ad6b5c75fb69">   53</a></span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>        <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a3881fb108023353078fd4594ffc540f6">random_seed</a>()<span class="keyword">       const </span>{ <span class="keywordflow">return</span> TestEnv::current_random_seed(); }</div>
@@ -114,10 +114,10 @@ $(function() {
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#ab1b5de7bbd33a55457b3c0a695d63bae">test_run_skipped_count</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a30aa56bc8b0aaa1381cef5ab42deb9c3">reportable_test_run_skipped_count</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a37d3f62e16d16ee87fb7574849a3fcb1">total_test_case_count</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(m_testcases.size()); }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#af5e4691bbb21d1e1ef1e3a8248993135">test_case_to_run_count</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#ab4cbb328043e4c9369e93345fa657619">successful_test_case_count</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#ab04f469133050cbc869ba7aee88b2b6c">failed_test_case_count</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#af3c3eba296ba08dea8d5a3df005b27d3">total_test_suite_count</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(m_testsuites.size()); }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a23be5249104462a365651d16aab952b9">test_suite_to_run_count</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a2f76ad364e4940d3caac93d6de9ae5df">successful_test_suite_count</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">int</span>             <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a20aa5c82f03d7696efb4f800f7efc562">failed_test_suite_count</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keyword">const</span> TestResult* <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#aebff55392dbb8a6dfdcc8f167feeee13">ad_hoc_testresult</a>() const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> { <span class="keywordflow">return</span> <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a2e3f4886e28213ef0f012e417ff5cdc4">ad_hoc_test_result</a>(); }</div>
 <div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="../../de/d13/classiutest_1_1_unit_test.html#aebff55392dbb8a6dfdcc8f167feeee13">  101</a></span>&#160; </div>
@@ -127,211 +127,220 @@ $(function() {
 <div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="../../de/d13/classiutest_1_1_unit_test.html#a0817cd50ee6668ce5a856c26e23f388b">  107</a></span>&#160; </div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">TimeInMillisec</a>  <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a900d4f9337a24d48d8e2cc0ab9314393">start_timestamp</a>()   const <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a> { <span class="keywordflow">return</span> m_start_timestamp; }</div>
 <div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="../../de/d13/classiutest_1_1_unit_test.html#a900d4f9337a24d48d8e2cc0ab9314393">  110</a></span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../df/d67/classiutest_1_1_test_case.html">TestCase</a>* <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#ac982058918f7cdec72624b7842ad96c4">GetTestCase</a>(<span class="keywordtype">int</span> index)<span class="keyword">  const </span>{ <span class="keywordflow">return</span> m_testcases[index]; }</div>
-<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="../../de/d13/classiutest_1_1_unit_test.html#ac982058918f7cdec72624b7842ad96c4">  113</a></span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html">TestSuite</a>* <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#afd77f0b8d7205253431c74a734438848">GetTestSuite</a>(<span class="keywordtype">int</span> index)<span class="keyword">  const </span>{ <span class="keywordflow">return</span> m_testsuites[index]; }</div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="../../de/d13/classiutest_1_1_unit_test.html#afd77f0b8d7205253431c74a734438848">  113</a></span>&#160; </div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordtype">bool</span>            <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a400cfd3c04df86592c9eaf02ceb7fab1">Passed</a>()            <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordtype">bool</span>            <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a1393bfea8c72c960764d288958cf710f">Failed</a>()<span class="keyword">            const </span>{ <span class="keywordflow">return</span> !<a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a400cfd3c04df86592c9eaf02ceb7fab1">Passed</a>(); }</div>
 <div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="../../de/d13/classiutest_1_1_unit_test.html#a1393bfea8c72c960764d288958cf710f">  118</a></span>&#160; </div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <a class="code" href="../../d3/d08/classiutest_1_1_test_event_listeners.html">TestEventListeners</a>&amp; <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#ae09115bd12edb303535b0ab93ade6005">listeners</a>()<span class="keyword">     const </span>{ <span class="keywordflow">return</span> TestEnv::event_listeners(); }</div>
 <div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="../../de/d13/classiutest_1_1_unit_test.html#ae09115bd12edb303535b0ab93ade6005">  121</a></span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a627e7647a230edbeab4687cf5eb1c6c7">Run</a>();</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="preprocessor">#if IUTEST_HAS_SEH &amp;&amp; IUTEST_HAS_EXCEPTIONS</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordtype">int</span> RunOnMSC();</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordtype">int</span> RunImpl();</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordtype">bool</span> RunOnce();</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordtype">void</span> TestProgramStart();</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keywordtype">void</span> SetUpTestIteration();</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordtype">void</span> EnvironmentSetUp();</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordtype">void</span> EnvironmentTearDown();</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="keywordtype">void</span> TestProgramEnd();</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="comment">// C言語の終了コールバック関数</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> OnExit()</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    {</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        instance().TestProgramEnd();</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    }</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html">UnitTest</a>()</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        : m_repeat_counter(0)</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        , m_init_iutest_count(0)</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        , m_test_started(false)</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        , m_start_timestamp(0)</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    {</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="comment">// デフォルトリポーターをセット</span></div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        TestEnv::SetGlobalTestPartResultReporter(&amp;m_default_test_part_result_reporter);</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <span class="comment">// 環境変数によるテストフラグ指定をロード</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        TestEnv::LoadEnvironmentVariable();</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    }</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="preprocessor">#if defined(_MSC_VER) &amp;&amp; _MSC_VER &lt; 1300</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="keyword">public</span>: <span class="comment">// VC++6.0 bug</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    ~UnitTest()</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    {</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        TestEnv::ReleaseGlobalTestEnvironment();</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        TestEnv::SetGlobalTestPartResultReporter(NULL);</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    }</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="comment">// 初期化処理</span></div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordtype">void</span> Initialize();</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="preprocessor">#if IUTEST_HAS_PARAM_TEST</span></div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    detail::ParamTestCaseHolder&amp; parameterized_test_registry() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    {</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        <span class="keywordflow">return</span> m_param_testcase_holder;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    }</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    detail::ParamTestCaseHolder m_param_testcase_holder;</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>UnitTestSource;</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keywordtype">int</span> m_repeat_counter;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordtype">int</span> m_init_iutest_count;</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="keywordtype">bool</span> m_test_started;</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <a class="code" href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">TimeInMillisec</a> m_start_timestamp;</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    detail::DefaultGlobalTestPartResultReporter m_default_test_part_result_reporter;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">#if IUTEST_HAS_TESTCASE</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html">TestCase</a>*     GetTestCase(<span class="keywordtype">int</span> index)<span class="keyword">  const </span>{ <span class="keywordflow">return</span> m_testsuites[index]; }</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keyword">const</span> <a class="code" href="../../d3/d87/classiutest_1_1_test_suite.html">TestCase</a>*     current_test_case()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_current_testsuite; }</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordtype">int</span>                 total_test_case_count()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(m_testsuites.size()); }</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">int</span>                 test_case_to_run_count()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a23be5249104462a365651d16aab952b9">test_suite_to_run_count</a>(); }</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordtype">int</span>                 successful_test_case_count()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a2f76ad364e4940d3caac93d6de9ae5df">successful_test_suite_count</a>(); }</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordtype">int</span>                 failed_test_case_count()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a20aa5c82f03d7696efb4f800f7efc562">failed_test_suite_count</a>(); }</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="../../de/d13/classiutest_1_1_unit_test.html#a627e7647a230edbeab4687cf5eb1c6c7">Run</a>();</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">#if IUTEST_HAS_SEH &amp;&amp; IUTEST_HAS_EXCEPTIONS</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordtype">int</span> RunOnMSC();</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordtype">int</span> RunImpl();</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordtype">bool</span> RunOnce();</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordtype">void</span> TestProgramStart();</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordtype">void</span> SetUpTestIteration();</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordtype">void</span> EnvironmentSetUp();</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keywordtype">void</span> EnvironmentTearDown();</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordtype">void</span> TestProgramEnd();</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="comment">// C言語の終了コールバック関数</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> OnExit()</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    {</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        instance().TestProgramEnd();</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    }</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    UnitTest()</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        : m_repeat_counter(0)</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        , m_init_iutest_count(0)</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        , m_test_started(false)</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        , m_start_timestamp(0)</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    {</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        <span class="comment">// デフォルトリポーターをセット</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        TestEnv::SetGlobalTestPartResultReporter(&amp;m_default_test_part_result_reporter);</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        <span class="comment">// 環境変数によるテストフラグ指定をロード</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        TestEnv::LoadEnvironmentVariable();</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    }</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="preprocessor">#if defined(_MSC_VER) &amp;&amp; _MSC_VER &lt; 1300</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="keyword">public</span>: <span class="comment">// VC++6.0 bug</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    ~UnitTest()</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    {</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        TestEnv::ReleaseGlobalTestEnvironment();</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        TestEnv::SetGlobalTestPartResultReporter(NULL);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    }</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <span class="comment">// 初期化処理</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keywordtype">void</span> Initialize();</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="preprocessor">#if IUTEST_HAS_PARAM_TEST</span></div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    detail::ParamTestSuiteHolder&amp; parameterized_test_registry() <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    {</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        <span class="keywordflow">return</span> m_param_testsuite_holder;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    }</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    detail::ParamTestSuiteHolder m_param_testsuite_holder;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>(UnitTest);</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;};</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>UnitTestSource;</div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;<span class="keyword">namespace </span>detail</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;{</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">class</span> Tester&gt;</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="keyword">class </span>TestInstance</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keywordtype">int</span> m_repeat_counter;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keywordtype">int</span> m_init_iutest_count;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keywordtype">bool</span> m_test_started;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <a class="code" href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">TimeInMillisec</a> m_start_timestamp;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    detail::DefaultGlobalTestPartResultReporter m_default_test_part_result_reporter;</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>(UnitTest);</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;};</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="keyword">namespace </span>detail</div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;{</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    TestInstance(<span class="keyword">const</span> <span class="keywordtype">char</span>* testcase, <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a> <span class="keywordtype">id</span></div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        , <a class="code" href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">SetUpMethod</a> setup, <a class="code" href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">TearDownMethod</a> teardown)</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        : m_mediator(AddTestCase(testcase, id, setup, teardown))</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        , m_info(&amp;m_mediator, name, &amp;m_factory)</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    {</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        UnitTest::instance().AddTestInfo(m_mediator.ptr(), &amp;m_info);</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    }</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    TestInstance(const ::std::string&amp; testcase, <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a> <span class="keywordtype">id</span></div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        , <a class="code" href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">SetUpMethod</a> setup, <a class="code" href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">TearDownMethod</a> teardown)</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        : m_mediator(AddTestCase(testcase, id, setup, teardown))</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        , m_info(&amp;m_mediator, name, &amp;m_factory)</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    {</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        UnitTest::instance().AddTestInfo(m_mediator.ptr(), &amp;m_info);</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    }</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    TestInstance(<span class="keyword">const</span> <span class="keywordtype">char</span>* testcase, <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keyword">const</span> <span class="keywordtype">char</span>*  value_params, <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a> <span class="keywordtype">id</span></div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        , <a class="code" href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">SetUpMethod</a> setup, <a class="code" href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">TearDownMethod</a> teardown)</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        : m_mediator(AddTestCase(testcase, id, setup, teardown))</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        , m_info(&amp;m_mediator, name, &amp;m_factory)</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    {</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        m_info.set_value_param(value_params);</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">class</span> Tester&gt;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;<span class="keyword">class </span>TestInstance</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;{</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    TestInstance(<span class="keyword">const</span> <span class="keywordtype">char</span>* testsuite, <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a> <span class="keywordtype">id</span></div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        , <a class="code" href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">SetUpMethod</a> setup, <a class="code" href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">TearDownMethod</a> teardown)</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        : m_mediator(AddTestSuite(testsuite, id, setup, teardown))</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        , m_info(&amp;m_mediator, name, &amp;m_factory)</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    {</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        UnitTest::instance().AddTestInfo(m_mediator.ptr(), &amp;m_info);</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    }</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    TestInstance(const ::std::string&amp; testsuite, <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a> <span class="keywordtype">id</span></div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        , <a class="code" href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">SetUpMethod</a> setup, <a class="code" href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">TearDownMethod</a> teardown)</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        : m_mediator(AddTestSuite(testsuite, id, setup, teardown))</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        , m_info(&amp;m_mediator, name, &amp;m_factory)</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    {</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        UnitTest::instance().AddTestInfo(m_mediator.ptr(), &amp;m_info);</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    }</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    TestInstance(const ::std::string&amp; testcase, <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keyword">const</span> <span class="keywordtype">char</span>*  value_params, <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a> <span class="keywordtype">id</span></div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    TestInstance(<span class="keyword">const</span> <span class="keywordtype">char</span>* testsuite, <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keyword">const</span> <span class="keywordtype">char</span>*  value_params, <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a> <span class="keywordtype">id</span></div>
 <div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        , <a class="code" href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">SetUpMethod</a> setup, <a class="code" href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">TearDownMethod</a> teardown)</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        : m_mediator(AddTestCase(testcase, id, setup, teardown))</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        : m_mediator(AddTestSuite(testsuite, id, setup, teardown))</div>
 <div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        , m_info(&amp;m_mediator, name, &amp;m_factory)</div>
 <div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    {</div>
 <div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        m_info.set_value_param(value_params);</div>
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        UnitTest::instance().AddTestInfo(m_mediator.ptr(), &amp;m_info);</div>
 <div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    }</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    TestCase* AddTestCase(<span class="keyword">const</span> <span class="keywordtype">char</span>* testcase, <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a> <span class="keywordtype">id</span>, <a class="code" href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">SetUpMethod</a> setup, <a class="code" href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">TearDownMethod</a> teardown)</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    {</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)</span></div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        <span class="keywordflow">return</span> UnitTest::instance().AddTestCase&lt;TestCase&gt;(testcase, id, setup, teardown);</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        <span class="keywordflow">return</span> UnitTest::instance().AddTestCase(testcase, <span class="keywordtype">id</span>, setup, teardown, detail::explicit_type&lt;TestCase&gt;());</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    }</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    TestCase* AddTestCase(const ::std::string&amp; testcase, <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a> <span class="keywordtype">id</span>, <a class="code" href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">SetUpMethod</a> setup, <a class="code" href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">TearDownMethod</a> teardown)</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    {</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)</span></div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        <span class="keywordflow">return</span> UnitTest::instance().AddTestCase&lt;TestCase&gt;(testcase, id, setup, teardown);</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        <span class="keywordflow">return</span> UnitTest::instance().AddTestCase(testcase, <span class="keywordtype">id</span>, setup, teardown, detail::explicit_type&lt;TestCase&gt;());</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    }</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160; </div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    TestCaseMediator    m_mediator;</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    TestInfo            m_info;</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    iuFactory&lt;Tester&gt;   m_factory;</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;};</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    TestInstance(const ::std::string&amp; testsuite, <span class="keyword">const</span> <span class="keywordtype">char</span>* name, <span class="keyword">const</span> <span class="keywordtype">char</span>*  value_params, <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a> <span class="keywordtype">id</span></div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        , <a class="code" href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">SetUpMethod</a> setup, <a class="code" href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">TearDownMethod</a> teardown)</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        : m_mediator(AddTestSuite(testsuite, id, setup, teardown))</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        , m_info(&amp;m_mediator, name, &amp;m_factory)</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    {</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        m_info.set_value_param(value_params);</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        UnitTest::instance().AddTestInfo(m_mediator.ptr(), &amp;m_info);</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    }</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    TestSuite* AddTestSuite(<span class="keyword">const</span> <span class="keywordtype">char</span>* testsuite, <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a> <span class="keywordtype">id</span>, <a class="code" href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">SetUpMethod</a> setup, <a class="code" href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">TearDownMethod</a> teardown)</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    {</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        <span class="keywordflow">return</span> UnitTest::instance().AddTestSuite&lt;TestSuite&gt;(testsuite, id, setup, teardown);</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        <span class="keywordflow">return</span> UnitTest::instance().AddTestSuite(testsuite, <span class="keywordtype">id</span>, setup, teardown, detail::explicit_type&lt;TestSuite&gt;());</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    }</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    TestSuite* AddTestSuite(const ::std::string&amp; testsuite, <a class="code" href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">TestTypeId</a> <span class="keywordtype">id</span>, <a class="code" href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">SetUpMethod</a> setup, <a class="code" href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">TearDownMethod</a> teardown)</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    {</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="preprocessor">#if !defined(IUTEST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS)</span></div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        <span class="keywordflow">return</span> UnitTest::instance().AddTestSuite&lt;TestSuite&gt;(testsuite, id, setup, teardown);</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;        <span class="keywordflow">return</span> UnitTest::instance().AddTestSuite(testsuite, <span class="keywordtype">id</span>, setup, teardown, detail::explicit_type&lt;TestSuite&gt;());</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    }</div>
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_LIB</span></div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;<span class="preprocessor">#  include &quot;impl/iutest_core.ipp&quot;</span></div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160; </div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_CORE_HPP_33560431_783B_4AE7_8FC8_6E78355CAF87_</span></div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    TestSuiteMediator    m_mediator;</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    TestInfo            m_info;</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    iuFactory&lt;Tester&gt;   m_factory;</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;};</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160; </div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;}   <span class="comment">// end of namespace detail</span></div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_LIB</span></div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="preprocessor">#  include &quot;impl/iutest_core.ipp&quot;</span></div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160; </div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_CORE_HPP_33560431_783B_4AE7_8FC8_6E78355CAF87_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_a627e7647a230edbeab4687cf5eb1c6c7"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a627e7647a230edbeab4687cf5eb1c6c7">iutest::UnitTest::Run</a></div><div class="ttdeci">int Run()</div><div class="ttdoc">テストの実行</div></div>
-<div class="ttc" id="aclassiutest_1_1_unit_test_html_af5e4691bbb21d1e1ef1e3a8248993135"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#af5e4691bbb21d1e1ef1e3a8248993135">iutest::UnitTest::test_case_to_run_count</a></div><div class="ttdeci">int test_case_to_run_count() const</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_result_html"><div class="ttname"><a href="../../d0/d7b/classiutest_1_1_test_result.html">iutest::TestResult</a></div><div class="ttdoc">テスト結果を示すクラス</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:213</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_a1154caf184eb447dd0fe5fbde60e1868"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a1154caf184eb447dd0fe5fbde60e1868">iutest::UnitTest::GetInstance</a></div><div class="ttdeci">static UnitTest * GetInstance()</div><div class="ttdoc">UnitTest インスタンスの取得</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:41</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_aebff55392dbb8a6dfdcc8f167feeee13"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#aebff55392dbb8a6dfdcc8f167feeee13">iutest::UnitTest::ad_hoc_testresult</a></div><div class="ttdeci">const TestResult * ad_hoc_testresult() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">テスト実行中じゃないときのリザルトの取得</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:101</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_a49dfb72ceee7027262ba0a75cea4b4f9"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a49dfb72ceee7027262ba0a75cea4b4f9">iutest::UnitTest::reportable_disabled_test_count</a></div><div class="ttdeci">int reportable_disabled_test_count() const</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_a32beb3463df18b6b9de316d732b4c559"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a32beb3463df18b6b9de316d732b4c559">iutest::UnitTest::failed_test_count</a></div><div class="ttdeci">int failed_test_count() const</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_info_html"><div class="ttname"><a href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a></div><div class="ttdoc">テスト情報クラス</div><div class="ttdef"><b>Definition:</b> iutest_info.hpp:32</div></div>
-<div class="ttc" id="aclassiutest_1_1_unit_test_html_a4a95cc38ae4bf660e8ffcee5852f157c"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a4a95cc38ae4bf660e8ffcee5852f157c">iutest::UnitTest::current_test_case</a></div><div class="ttdeci">const TestCase * current_test_case() const</div><div class="ttdoc">テスト中の TestCase の取得</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:47</div></div>
 <div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_a2e3f4886e28213ef0f012e417ff5cdc4"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a2e3f4886e28213ef0f012e417ff5cdc4">iutest::UnitTest::ad_hoc_test_result</a></div><div class="ttdeci">const TestResult * ad_hoc_test_result() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:104</div></div>
-<div class="ttc" id="aclassiutest_1_1_unit_test_html_ab4cbb328043e4c9369e93345fa657619"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#ab4cbb328043e4c9369e93345fa657619">iutest::UnitTest::successful_test_case_count</a></div><div class="ttdeci">int successful_test_case_count() const</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_a01d55023ac5d8c79a3654789adbddc40"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a01d55023ac5d8c79a3654789adbddc40">iutest::UnitTest::reportable_test_count</a></div><div class="ttdeci">int reportable_test_count() const</div></div>
 <div class="ttc" id="aiutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:734</div></div>
 <div class="ttc" id="aiutest__result__reporter_8hpp_html"><div class="ttname"><a href="../../d5/d65/iutest__result__reporter_8hpp.html">iutest_result_reporter.hpp</a></div><div class="ttdoc">iris unit test TestPartResult リポーター ファイル</div></div>
+<div class="ttc" id="aclassiutest_1_1_unit_test_html_a2f76ad364e4940d3caac93d6de9ae5df"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a2f76ad364e4940d3caac93d6de9ae5df">iutest::UnitTest::successful_test_suite_count</a></div><div class="ttdeci">int successful_test_suite_count() const</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_aa00c38496f9f380d5a62ad6b5c75fb69"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#aa00c38496f9f380d5a62ad6b5c75fb69">iutest::UnitTest::current_test_info</a></div><div class="ttdeci">const TestInfo * current_test_info() const</div><div class="ttdoc">テスト中の TestInfo の取得</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:53</div></div>
 <div class="ttc" id="aiutest__file_8hpp_html"><div class="ttname"><a href="../../d3/d0a/iutest__file_8hpp.html">iutest_file.hpp</a></div><div class="ttdoc">iris unit test ファイルクラス ファイル</div></div>
 <div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:31</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html">iutest::UnitTest</a></div><div class="ttdoc">テスト全体の管理者</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:33</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_suite_html"><div class="ttname"><a href="../../d3/d87/classiutest_1_1_test_suite.html">iutest::TestSuite</a></div><div class="ttdoc">TestSuite</div><div class="ttdef"><b>Definition:</b> iutest_suite.hpp:31</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_acad602ceb6e7c83f02761b35e89c1b26"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#acad602ceb6e7c83f02761b35e89c1b26">iutest::UnitTest::skip_test_count</a></div><div class="ttdeci">int skip_test_count() const</div></div>
-<div class="ttc" id="aclassiutest_1_1_unit_test_html_a37d3f62e16d16ee87fb7574849a3fcb1"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a37d3f62e16d16ee87fb7574849a3fcb1">iutest::UnitTest::total_test_case_count</a></div><div class="ttdeci">int total_test_case_count() const</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:89</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_html_a82600ea64053455a9f3c7189338f1c67"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html#a82600ea64053455a9f3c7189338f1c67">iutest::Test::GetCurrentTestInfo</a></div><div class="ttdeci">static const TestInfo * GetCurrentTestInfo()</div><div class="ttdoc">実行中の TestInfo の取得</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:67</div></div>
+<div class="ttc" id="aclassiutest_1_1_unit_test_html_a100223f01427f11df56331f96a939275"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a100223f01427f11df56331f96a939275">iutest::UnitTest::current_test_suite</a></div><div class="ttdeci">const TestSuite * current_test_suite() const</div><div class="ttdoc">テスト中の TestSuite の取得</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:47</div></div>
 <div class="ttc" id="anamespaceiutest_html_add3d75edff7febed1ad134ae3235f5dc"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#add3d75edff7febed1ad134ae3235f5dc">iutest::TestTypeId</a></div><div class="ttdeci">internal::TypeId TestTypeId</div><div class="ttdoc">テスト識別型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:440</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_a7191f0706f63b734c3d86f58e8799aea"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a7191f0706f63b734c3d86f58e8799aea">iutest::UnitTest::successful_test_count</a></div><div class="ttdeci">int successful_test_count() const</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_a1393bfea8c72c960764d288958cf710f"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a1393bfea8c72c960764d288958cf710f">iutest::UnitTest::Failed</a></div><div class="ttdeci">bool Failed() const</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:118</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_adfd2b2b25b2851a739ebbbb09d93f3eb"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#adfd2b2b25b2851a739ebbbb09d93f3eb">iutest::UnitTest::disabled_test_count</a></div><div class="ttdeci">int disabled_test_count() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:74</div></div>
-<div class="ttc" id="aiutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義</div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:25</div></div>
-<div class="ttc" id="aclassiutest_1_1_unit_test_html_ac982058918f7cdec72624b7842ad96c4"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#ac982058918f7cdec72624b7842ad96c4">iutest::UnitTest::GetTestCase</a></div><div class="ttdeci">const TestCase * GetTestCase(int index) const</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:113</div></div>
+<div class="ttc" id="aiutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義</div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:31</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_a5571fc161893e359d9fe42e3cfbb75fc"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a5571fc161893e359d9fe42e3cfbb75fc">iutest::UnitTest::reportable_skip_test_count</a></div><div class="ttdeci">int reportable_skip_test_count() const</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_a3881fb108023353078fd4594ffc540f6"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a3881fb108023353078fd4594ffc540f6">iutest::UnitTest::random_seed</a></div><div class="ttdeci">unsigned int random_seed() const</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:56</div></div>
 <div class="ttc" id="anamespaceiutest_html_a192c2ae3b556bc59e31bc9e4b1bb1f85"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a192c2ae3b556bc59e31bc9e4b1bb1f85">iutest::TimeInMillisec</a></div><div class="ttdeci">detail::type_least_t&lt; 8 &gt;::UInt TimeInMillisec</div><div class="ttdoc">ミリ秒単位を扱う型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:445</div></div>
 <div class="ttc" id="anamespaceiutest_html_a4b4e0725aff84c407822b9009ae75b12"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a4b4e0725aff84c407822b9009ae75b12">iutest::TearDownMethod</a></div><div class="ttdeci">void(* TearDownMethod)()</div><div class="ttdoc">TearDown 関数型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:443</div></div>
-<div class="ttc" id="aclassiutest_1_1_unit_test_html_ab04f469133050cbc869ba7aee88b2b6c"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#ab04f469133050cbc869ba7aee88b2b6c">iutest::UnitTest::failed_test_case_count</a></div><div class="ttdeci">int failed_test_case_count() const</div></div>
+<div class="ttc" id="aclassiutest_1_1_unit_test_html_afd77f0b8d7205253431c74a734438848"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#afd77f0b8d7205253431c74a734438848">iutest::UnitTest::GetTestSuite</a></div><div class="ttdeci">const TestSuite * GetTestSuite(int index) const</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:113</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_a0817cd50ee6668ce5a856c26e23f388b"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a0817cd50ee6668ce5a856c26e23f388b">iutest::UnitTest::elapsed_time</a></div><div class="ttdeci">TimeInMillisec elapsed_time() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:107</div></div>
 <div class="ttc" id="anamespaceiutest_html_a3d4347414b4f9246d02cc912beead66d"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a3d4347414b4f9246d02cc912beead66d">iutest::SetUpMethod</a></div><div class="ttdeci">void(* SetUpMethod)()</div><div class="ttdoc">SetUp 関数型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:442</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_a8d8852eb3b43c8943da736760fdc944b"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a8d8852eb3b43c8943da736760fdc944b">iutest::UnitTest::repeat_count</a></div><div class="ttdeci">int repeat_count() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:62</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_a900d4f9337a24d48d8e2cc0ab9314393"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a900d4f9337a24d48d8e2cc0ab9314393">iutest::UnitTest::start_timestamp</a></div><div class="ttdeci">TimeInMillisec start_timestamp() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:110</div></div>
 <div class="ttc" id="aiutest__params__util_8hpp_html"><div class="ttname"><a href="../../d7/d42/iutest__params__util_8hpp.html">iutest_params_util.hpp</a></div><div class="ttdoc">iris unit test parameter 定義 ファイル</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_event_listeners_html"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html">iutest::TestEventListeners</a></div><div class="ttdoc">イベントリスナーの管理クラス</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:158</div></div>
+<div class="ttc" id="aclassiutest_1_1_unit_test_html_a20aa5c82f03d7696efb4f800f7efc562"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a20aa5c82f03d7696efb4f800f7efc562">iutest::UnitTest::failed_test_suite_count</a></div><div class="ttdeci">int failed_test_suite_count() const</div></div>
+<div class="ttc" id="aclassiutest_1_1_test_event_listeners_html"><div class="ttname"><a href="../../d3/d08/classiutest_1_1_test_event_listeners.html">iutest::TestEventListeners</a></div><div class="ttdoc">イベントリスナーの管理クラス</div><div class="ttdef"><b>Definition:</b> iutest_listener.hpp:168</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_a73b0b2d337cb69db3a0dea577cb456a7"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a73b0b2d337cb69db3a0dea577cb456a7">iutest::UnitTest::total_test_count</a></div><div class="ttdeci">int total_test_count() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:66</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_a9c2882849606cab2748517bdb1f88ea8"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a9c2882849606cab2748517bdb1f88ea8">iutest::UnitTest::test_to_run_count</a></div><div class="ttdeci">int test_to_run_count() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:70</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_a400cfd3c04df86592c9eaf02ceb7fab1"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a400cfd3c04df86592c9eaf02ceb7fab1">iutest::UnitTest::Passed</a></div><div class="ttdeci">bool Passed() const</div></div>
+<div class="ttc" id="aclassiutest_1_1_unit_test_html_af3c3eba296ba08dea8d5a3df005b27d3"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#af3c3eba296ba08dea8d5a3df005b27d3">iutest::UnitTest::total_test_suite_count</a></div><div class="ttdeci">int total_test_suite_count() const</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:89</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_ae09115bd12edb303535b0ab93ade6005"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#ae09115bd12edb303535b0ab93ade6005">iutest::UnitTest::listeners</a></div><div class="ttdeci">TestEventListeners &amp; listeners() const</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:121</div></div>
-<div class="ttc" id="aclassiutest_1_1_test_case_html"><div class="ttname"><a href="../../df/d67/classiutest_1_1_test_case.html">iutest::TestCase</a></div><div class="ttdoc">テストケース</div><div class="ttdef"><b>Definition:</b> iutest_case.hpp:31</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_a30aa56bc8b0aaa1381cef5ab42deb9c3"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a30aa56bc8b0aaa1381cef5ab42deb9c3">iutest::UnitTest::reportable_test_run_skipped_count</a></div><div class="ttdeci">int reportable_test_run_skipped_count() const</div></div>
+<div class="ttc" id="aclassiutest_1_1_unit_test_html_a23be5249104462a365651d16aab952b9"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#a23be5249104462a365651d16aab952b9">iutest::UnitTest::test_suite_to_run_count</a></div><div class="ttdeci">int test_suite_to_run_count() const</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_abd68feada2e9c36b5e0d63306232655a"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#abd68feada2e9c36b5e0d63306232655a">iutest::UnitTest::repeat_counter</a></div><div class="ttdeci">int repeat_counter() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:59</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_ab1b5de7bbd33a55457b3c0a695d63bae"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#ab1b5de7bbd33a55457b3c0a695d63bae">iutest::UnitTest::test_run_skipped_count</a></div><div class="ttdeci">int test_run_skipped_count() const</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年08月12日(水) 23時41分33秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年09月07日(月) 01時56分55秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

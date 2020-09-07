@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.1.0</span>
+   &#160;<span id="projectnumber">1.17.99.0</span>
    </div>
   </td>
  </tr>
@@ -67,7 +67,9 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">クラス</a> &#124;
 <a href="#namespaces">名前空間</a> &#124;
+<a href="#define-members">マクロ定義</a> &#124;
 <a href="#func-members">関数</a>  </div>
   <div class="headertitle">
 <div class="title">iutest_util_tests.hpp ファイル</div>  </div>
@@ -102,70 +104,109 @@ iutest_util_tests.hpp の依存先関係図:</div>
 </div>
 <p><a href="../../d8/def/iutest__util__tests_8hpp_source.html">[ソースコード]</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+クラス</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dcb/classiuutil_1_1backward_1_1_test.html">iuutil::backward::Test&lt; T &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d19/classiuutil_1_1backward_1_1_test_event_listener.html">iuutil::backward::TestEventListener</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 名前空間</h2></td></tr>
 <tr class="memitem:d8/dbf/namespaceiuutil"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html">iuutil</a></td></tr>
 <tr class="memdesc:d8/dbf/namespaceiuutil"><td class="mdescLeft">&#160;</td><td class="mdescRight">iutest utility namespace <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:d6/d97/namespaceiuutil_1_1backward"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d97/namespaceiuutil_1_1backward.html">iuutil::backward</a></td></tr>
+<tr class="memdesc:d6/d97/namespaceiuutil_1_1backward"><td class="mdescLeft">&#160;</td><td class="mdescRight">backward compatible for googletest old version <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+マクロ定義</h2></td></tr>
+<tr class="memitem:a23c00c719efd2d4ded587a1539dc07f7"><td class="memItemLeft" align="right" valign="top"><a id="a23c00c719efd2d4ded587a1539dc07f7"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_CLASS_INITIALIZE</b>(methodName)&#160;&#160;&#160;static void SetUpTestCase() { methodName(); } static void methodName()</td></tr>
+<tr class="separator:a23c00c719efd2d4ded587a1539dc07f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d3aa8f745d3d017b91389ce70617d84"><td class="memItemLeft" align="right" valign="top"><a id="a4d3aa8f745d3d017b91389ce70617d84"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_CLASS_CLEANUP</b>(methodName)&#160;&#160;&#160;static void TearDownTestCase() { methodName(); } static void methodName()</td></tr>
+<tr class="separator:a4d3aa8f745d3d017b91389ce70617d84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38f6e76a2b005f5cd3e77ff1b1b8750d"><td class="memItemLeft" align="right" valign="top"><a id="a38f6e76a2b005f5cd3e77ff1b1b8750d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_METHOD_INITIALIZE</b>(methodName)&#160;&#160;&#160;virtual void SetUp() <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> { methodName(); } void methodName()</td></tr>
+<tr class="separator:a38f6e76a2b005f5cd3e77ff1b1b8750d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3eb91c6cc4c65a05ad6f1009f9bed9a1"><td class="memItemLeft" align="right" valign="top"><a id="a3eb91c6cc4c65a05ad6f1009f9bed9a1"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>IUTEST_METHOD_CLEANUP</b>(methodName)&#160;&#160;&#160;virtual void TearDown() <a class="el" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a> { methodName(); } void methodName()</td></tr>
+<tr class="separator:a3eb91c6cc4c65a05ad6f1009f9bed9a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 関数</h2></td></tr>
-<tr class="memitem:adf05d2ff6e124f8b2cb9a3a3f2968fab"><td class="memItemLeft" align="right" valign="top"><a id="adf05d2ff6e124f8b2cb9a3a3f2968fab"></a>
-inline ::std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#adf05d2ff6e124f8b2cb9a3a3f2968fab">iuutil::TestFullName</a> (const ::<a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a> *test_info)</td></tr>
-<tr class="memdesc:adf05d2ff6e124f8b2cb9a3a3f2968fab"><td class="mdescLeft">&#160;</td><td class="mdescRight">テスト名を取得 <br /></td></tr>
+<tr class="memitem:a0b62f5d121c142e435aec0bb0d5ee58a"><td class="memItemLeft" align="right" valign="top">const ::<a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">iutest::TestSuite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a0b62f5d121c142e435aec0bb0d5ee58a">iuutil::GetTestSuite</a> (int index)</td></tr>
+<tr class="memdesc:a0b62f5d121c142e435aec0bb0d5ee58a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get TestSuite by index  <a href="../../d8/dbf/namespaceiuutil.html#a0b62f5d121c142e435aec0bb0d5ee58a">[詳解]</a><br /></td></tr>
+<tr class="separator:a0b62f5d121c142e435aec0bb0d5ee58a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45867a6383f237789aa78ea8dd86b566"><td class="memItemLeft" align="right" valign="top"><a id="a45867a6383f237789aa78ea8dd86b566"></a>
+const ::<a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">iutest::TestSuite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a45867a6383f237789aa78ea8dd86b566">iuutil::GetCurrentTestSuite</a> ()</td></tr>
+<tr class="memdesc:a45867a6383f237789aa78ea8dd86b566"><td class="mdescLeft">&#160;</td><td class="mdescRight">現在の TestSuite を取得 <br /></td></tr>
+<tr class="separator:a45867a6383f237789aa78ea8dd86b566"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a827a1fbcd895d3d9efc0f8c829bd3226"><td class="memItemLeft" align="right" valign="top"><a id="a827a1fbcd895d3d9efc0f8c829bd3226"></a>
+const ::<a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">iutest::TestSuite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a827a1fbcd895d3d9efc0f8c829bd3226">iuutil::GetCurrentTestSuite</a> (const ::<a class="el" href="../../de/d13/classiutest_1_1_unit_test.html">iutest::UnitTest</a> *unit_test)</td></tr>
+<tr class="memdesc:a827a1fbcd895d3d9efc0f8c829bd3226"><td class="mdescLeft">&#160;</td><td class="mdescRight">現在の TestSuite を取得 <br /></td></tr>
+<tr class="separator:a827a1fbcd895d3d9efc0f8c829bd3226"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07f7775303d0636b09c6891c619b54ac"><td class="memItemLeft" align="right" valign="top">const ::std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a07f7775303d0636b09c6891c619b54ac">iuutil::GetTestSuiteName</a> (const ::<a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a> *test_info)</td></tr>
+<tr class="memdesc:a07f7775303d0636b09c6891c619b54ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get TestSuite Name  <a href="../../d8/dbf/namespaceiuutil.html#a07f7775303d0636b09c6891c619b54ac">[詳解]</a><br /></td></tr>
+<tr class="separator:a07f7775303d0636b09c6891c619b54ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89156c3f0e37b075a1791fc1858c144a"><td class="memItemLeft" align="right" valign="top"><a id="a89156c3f0e37b075a1791fc1858c144a"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a89156c3f0e37b075a1791fc1858c144a">iuutil::GetTotalTestSuiteCount</a> ()</td></tr>
+<tr class="memdesc:a89156c3f0e37b075a1791fc1858c144a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get total TestSuite count <br /></td></tr>
+<tr class="separator:a89156c3f0e37b075a1791fc1858c144a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a987d7eb840646e8695e7f397a0c07bec"><td class="memItemLeft" align="right" valign="top"><a id="a987d7eb840646e8695e7f397a0c07bec"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a987d7eb840646e8695e7f397a0c07bec">iuutil::GetSuccessfulTestSuiteCount</a> ()</td></tr>
+<tr class="memdesc:a987d7eb840646e8695e7f397a0c07bec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get successful TestSuite count <br /></td></tr>
+<tr class="separator:a987d7eb840646e8695e7f397a0c07bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf05d2ff6e124f8b2cb9a3a3f2968fab"><td class="memItemLeft" align="right" valign="top">inline ::std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#adf05d2ff6e124f8b2cb9a3a3f2968fab">iuutil::TestFullName</a> (const ::<a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a> *test_info)</td></tr>
+<tr class="memdesc:adf05d2ff6e124f8b2cb9a3a3f2968fab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get TestName  <a href="../../d8/dbf/namespaceiuutil.html#adf05d2ff6e124f8b2cb9a3a3f2968fab">[詳解]</a><br /></td></tr>
 <tr class="separator:adf05d2ff6e124f8b2cb9a3a3f2968fab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f5df62845fdd7cb3238b48ceddbc9e0"><td class="memItemLeft" align="right" valign="top"><a id="a8f5df62845fdd7cb3238b48ceddbc9e0"></a>
-inline ::std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a8f5df62845fdd7cb3238b48ceddbc9e0">iuutil::TestNameRemoveIndexName</a> (const char *name)</td></tr>
-<tr class="memdesc:a8f5df62845fdd7cb3238b48ceddbc9e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">インデックスを除いたテスト名を取得 <br /></td></tr>
+<tr class="memitem:a8f5df62845fdd7cb3238b48ceddbc9e0"><td class="memItemLeft" align="right" valign="top">inline ::std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a8f5df62845fdd7cb3238b48ceddbc9e0">iuutil::TestNameRemoveIndexName</a> (const char *name)</td></tr>
+<tr class="memdesc:a8f5df62845fdd7cb3238b48ceddbc9e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">インデックスを除いたテスト名を取得  <a href="../../d8/dbf/namespaceiuutil.html#a8f5df62845fdd7cb3238b48ceddbc9e0">[詳解]</a><br /></td></tr>
 <tr class="separator:a8f5df62845fdd7cb3238b48ceddbc9e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac79621915023a893120049a334aac654"><td class="memItemLeft" align="right" valign="top"><a id="ac79621915023a893120049a334aac654"></a>
-inline ::std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#ac79621915023a893120049a334aac654">iuutil::TestCaseNameRemoveIndexName</a> (const char *name)</td></tr>
-<tr class="memdesc:ac79621915023a893120049a334aac654"><td class="mdescLeft">&#160;</td><td class="mdescRight">インデックスを除いたテストケース名を取得 <br /></td></tr>
-<tr class="separator:ac79621915023a893120049a334aac654"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2dd11c4737e2e0287efa442797046fd7"><td class="memItemLeft" align="right" valign="top"><a id="a2dd11c4737e2e0287efa442797046fd7"></a>
-inline ::std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a2dd11c4737e2e0287efa442797046fd7">iuutil::TestCaseNameRemoveInstantiateAndIndexName</a> (const char *name)</td></tr>
-<tr class="memdesc:a2dd11c4737e2e0287efa442797046fd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">インスタンス名とインデックスを除いたテストケース名を取得 <br /></td></tr>
-<tr class="separator:a2dd11c4737e2e0287efa442797046fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8323e0176c865c7b024d8dba9336f26"><td class="memItemLeft" align="right" valign="top"><a id="ac8323e0176c865c7b024d8dba9336f26"></a>
-const ::<a class="el" href="../../df/d67/classiutest_1_1_test_case.html">iutest::TestCase</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#ac8323e0176c865c7b024d8dba9336f26">iuutil::FindTestCase</a> (const char *testcase_name)</td></tr>
-<tr class="memdesc:ac8323e0176c865c7b024d8dba9336f26"><td class="mdescLeft">&#160;</td><td class="mdescRight">TestCase の検索 <br /></td></tr>
-<tr class="separator:ac8323e0176c865c7b024d8dba9336f26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af72317d8937edadd6c94e2310b00225f"><td class="memItemLeft" align="right" valign="top"><a id="af72317d8937edadd6c94e2310b00225f"></a>
-const ::<a class="el" href="../../df/d67/classiutest_1_1_test_case.html">iutest::TestCase</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#af72317d8937edadd6c94e2310b00225f">iuutil::FindParamTestCase</a> (const char *testcase_name, const ::<a class="el" href="../../df/d67/classiutest_1_1_test_case.html">iutest::TestCase</a> *begin=NULL)</td></tr>
-<tr class="memdesc:af72317d8937edadd6c94e2310b00225f"><td class="mdescLeft">&#160;</td><td class="mdescRight">TestCase の検索 <br /></td></tr>
-<tr class="separator:af72317d8937edadd6c94e2310b00225f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a267701080dcf662c5c6a3408167ce9fa"><td class="memItemLeft" align="right" valign="top"><a id="a267701080dcf662c5c6a3408167ce9fa"></a>
-const ::<a class="el" href="../../df/d67/classiutest_1_1_test_case.html">iutest::TestCase</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a267701080dcf662c5c6a3408167ce9fa">iuutil::FindTypedTestCase</a> (const char *testcase_name, const ::<a class="el" href="../../df/d67/classiutest_1_1_test_case.html">iutest::TestCase</a> *begin=NULL)</td></tr>
-<tr class="memdesc:a267701080dcf662c5c6a3408167ce9fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typed Test の TestCase の検索 <br /></td></tr>
-<tr class="separator:a267701080dcf662c5c6a3408167ce9fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a690ad6d60b8e401393a3cc52b68c7295"><td class="memItemLeft" align="right" valign="top"><a id="a690ad6d60b8e401393a3cc52b68c7295"></a>
-const ::<a class="el" href="../../df/d67/classiutest_1_1_test_case.html">iutest::TestCase</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a690ad6d60b8e401393a3cc52b68c7295">iuutil::FindParamTypedTestCase</a> (const char *testcase_name, const ::<a class="el" href="../../df/d67/classiutest_1_1_test_case.html">iutest::TestCase</a> *begin=NULL)</td></tr>
-<tr class="memdesc:a690ad6d60b8e401393a3cc52b68c7295"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type Parameter Test の TestCase の検索 <br /></td></tr>
-<tr class="separator:a690ad6d60b8e401393a3cc52b68c7295"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1710fc5d95970d2a96416525e201fde"><td class="memItemLeft" align="right" valign="top"><a id="ac1710fc5d95970d2a96416525e201fde"></a>
-const ::<a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#ac1710fc5d95970d2a96416525e201fde">iuutil::FindTestInfo</a> (const ::<a class="el" href="../../df/d67/classiutest_1_1_test_case.html">iutest::TestCase</a> *testcase, const char *testinfo_name)</td></tr>
-<tr class="memdesc:ac1710fc5d95970d2a96416525e201fde"><td class="mdescLeft">&#160;</td><td class="mdescRight">TestInfo の検索 <br /></td></tr>
-<tr class="separator:ac1710fc5d95970d2a96416525e201fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e567e5fdfa399293df03355fd3ef9eb"><td class="memItemLeft" align="right" valign="top"><a id="a0e567e5fdfa399293df03355fd3ef9eb"></a>
-const ::<a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a0e567e5fdfa399293df03355fd3ef9eb">iuutil::FindTestInfo</a> (const char *testcase_name, const char *testinfo_name)</td></tr>
-<tr class="memdesc:a0e567e5fdfa399293df03355fd3ef9eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">TestInfo の検索 <br /></td></tr>
-<tr class="separator:a0e567e5fdfa399293df03355fd3ef9eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4a4e53149c0da32bbd3eae91054484b"><td class="memItemLeft" align="right" valign="top"><a id="ac4a4e53149c0da32bbd3eae91054484b"></a>
-const ::<a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#ac4a4e53149c0da32bbd3eae91054484b">iuutil::FindParamTestInfo</a> (const ::<a class="el" href="../../df/d67/classiutest_1_1_test_case.html">iutest::TestCase</a> *testcase, const char *testinfo_name, const ::<a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a> *begin=NULL)</td></tr>
-<tr class="memdesc:ac4a4e53149c0da32bbd3eae91054484b"><td class="mdescLeft">&#160;</td><td class="mdescRight">TestInfo の検索 <br /></td></tr>
-<tr class="separator:ac4a4e53149c0da32bbd3eae91054484b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab22382f8bc5e5633f1d77095dc96307b"><td class="memItemLeft" align="right" valign="top">inline ::std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#ab22382f8bc5e5633f1d77095dc96307b">iuutil::TestSuiteNameRemoveIndexName</a> (const char *name)</td></tr>
+<tr class="memdesc:ab22382f8bc5e5633f1d77095dc96307b"><td class="mdescLeft">&#160;</td><td class="mdescRight">インデックスを除いた TestSuite 名を取得  <a href="../../d8/dbf/namespaceiuutil.html#ab22382f8bc5e5633f1d77095dc96307b">[詳解]</a><br /></td></tr>
+<tr class="separator:ab22382f8bc5e5633f1d77095dc96307b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a310dc686154648dd3756f13d0c2dee04"><td class="memItemLeft" align="right" valign="top">inline ::std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a310dc686154648dd3756f13d0c2dee04">iuutil::TestSuiteNameRemoveInstantiateAndIndexName</a> (const char *name)</td></tr>
+<tr class="memdesc:a310dc686154648dd3756f13d0c2dee04"><td class="mdescLeft">&#160;</td><td class="mdescRight">インスタンス名とインデックスを除いた TestSuite 名を取得  <a href="../../d8/dbf/namespaceiuutil.html#a310dc686154648dd3756f13d0c2dee04">[詳解]</a><br /></td></tr>
+<tr class="separator:a310dc686154648dd3756f13d0c2dee04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec09443a3c2b7b8019c2aa45e6262a8b"><td class="memItemLeft" align="right" valign="top">const ::<a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">iutest::TestSuite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#aec09443a3c2b7b8019c2aa45e6262a8b">iuutil::FindTestSuite</a> (const char *testsuite_name)</td></tr>
+<tr class="memdesc:aec09443a3c2b7b8019c2aa45e6262a8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">TestSuite の検索  <a href="../../d8/dbf/namespaceiuutil.html#aec09443a3c2b7b8019c2aa45e6262a8b">[詳解]</a><br /></td></tr>
+<tr class="separator:aec09443a3c2b7b8019c2aa45e6262a8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9869a1b9d0d0cee35af71c6917a5b737"><td class="memItemLeft" align="right" valign="top">const ::<a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">iutest::TestSuite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a9869a1b9d0d0cee35af71c6917a5b737">iuutil::FindParamTestSuite</a> (const char *testsuite_name, const ::<a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">iutest::TestSuite</a> *begin=NULL)</td></tr>
+<tr class="memdesc:a9869a1b9d0d0cee35af71c6917a5b737"><td class="mdescLeft">&#160;</td><td class="mdescRight">TestSuite の検索  <a href="../../d8/dbf/namespaceiuutil.html#a9869a1b9d0d0cee35af71c6917a5b737">[詳解]</a><br /></td></tr>
+<tr class="separator:a9869a1b9d0d0cee35af71c6917a5b737"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ae72dac09f4a727b8e3add81f29d89a"><td class="memItemLeft" align="right" valign="top">const ::<a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">iutest::TestSuite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a1ae72dac09f4a727b8e3add81f29d89a">iuutil::FindTypedTestSuite</a> (const char *testsuite_name, const ::<a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">iutest::TestSuite</a> *begin=NULL)</td></tr>
+<tr class="memdesc:a1ae72dac09f4a727b8e3add81f29d89a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typed Test の TestSuite の検索  <a href="../../d8/dbf/namespaceiuutil.html#a1ae72dac09f4a727b8e3add81f29d89a">[詳解]</a><br /></td></tr>
+<tr class="separator:a1ae72dac09f4a727b8e3add81f29d89a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39b6d7f97f48f679be598f6c9f83d959"><td class="memItemLeft" align="right" valign="top">const ::<a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">iutest::TestSuite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a39b6d7f97f48f679be598f6c9f83d959">iuutil::FindParamTypedTestSuite</a> (const char *testsuite_name, const ::<a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">iutest::TestSuite</a> *begin=NULL)</td></tr>
+<tr class="memdesc:a39b6d7f97f48f679be598f6c9f83d959"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type Parameter Test の TestSuite の検索  <a href="../../d8/dbf/namespaceiuutil.html#a39b6d7f97f48f679be598f6c9f83d959">[詳解]</a><br /></td></tr>
+<tr class="separator:a39b6d7f97f48f679be598f6c9f83d959"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb35413682b198d60cc03b19cf29972a"><td class="memItemLeft" align="right" valign="top"><a id="aeb35413682b198d60cc03b19cf29972a"></a>
+const ::<a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#aeb35413682b198d60cc03b19cf29972a">iuutil::FindTestInfo</a> (const ::<a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">iutest::TestSuite</a> *testsuite, const char *testinfo_name)</td></tr>
+<tr class="memdesc:aeb35413682b198d60cc03b19cf29972a"><td class="mdescLeft">&#160;</td><td class="mdescRight">TestInfo の検索 <br /></td></tr>
+<tr class="separator:aeb35413682b198d60cc03b19cf29972a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ff478bab704d01ba0b5486d442ead0e"><td class="memItemLeft" align="right" valign="top"><a id="a1ff478bab704d01ba0b5486d442ead0e"></a>
+const ::<a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a1ff478bab704d01ba0b5486d442ead0e">iuutil::FindTestInfo</a> (const char *testsuite_name, const char *testinfo_name)</td></tr>
+<tr class="memdesc:a1ff478bab704d01ba0b5486d442ead0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">TestInfo の検索 <br /></td></tr>
+<tr class="separator:a1ff478bab704d01ba0b5486d442ead0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb3d6dc6a19ffc9bb7ee12bb8c77311e"><td class="memItemLeft" align="right" valign="top"><a id="abb3d6dc6a19ffc9bb7ee12bb8c77311e"></a>
+const ::<a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#abb3d6dc6a19ffc9bb7ee12bb8c77311e">iuutil::FindParamTestInfo</a> (const ::<a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">iutest::TestSuite</a> *testsuite, const char *testinfo_name, const ::<a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a> *begin=NULL)</td></tr>
+<tr class="memdesc:abb3d6dc6a19ffc9bb7ee12bb8c77311e"><td class="mdescLeft">&#160;</td><td class="mdescRight">TestInfo の検索 <br /></td></tr>
+<tr class="separator:abb3d6dc6a19ffc9bb7ee12bb8c77311e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9b98c72a899938b23603b8059f0dd43"><td class="memItemLeft" align="right" valign="top"><a id="aa9b98c72a899938b23603b8059f0dd43"></a>
 const ::<a class="el" href="../../d0/d7b/classiutest_1_1_test_result.html">iutest::TestResult</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#aa9b98c72a899938b23603b8059f0dd43">iuutil::GetAdHocTestResult</a> ()</td></tr>
 <tr class="memdesc:aa9b98c72a899938b23603b8059f0dd43"><td class="mdescLeft">&#160;</td><td class="mdescRight">ad_hoc_test_result の取得 <br /></td></tr>
 <tr class="separator:aa9b98c72a899938b23603b8059f0dd43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43cf5939a597f8dcec8edceb298459ac"><td class="memItemLeft" align="right" valign="top"><a id="a43cf5939a597f8dcec8edceb298459ac"></a>
-const ::<a class="el" href="../../d0/d7b/classiutest_1_1_test_result.html">iutest::TestResult</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a43cf5939a597f8dcec8edceb298459ac">iuutil::GetTestCaseAdHocResult</a> (const ::<a class="el" href="../../df/d67/classiutest_1_1_test_case.html">iutest::TestCase</a> *test_case)</td></tr>
-<tr class="memdesc:a43cf5939a597f8dcec8edceb298459ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">TestCase の ad_hoc_test_result の取得 <br /></td></tr>
-<tr class="separator:a43cf5939a597f8dcec8edceb298459ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bbc54bac55b0d220efe6de8872d4e67"><td class="memItemLeft" align="right" valign="top"><a id="a4bbc54bac55b0d220efe6de8872d4e67"></a>
-const ::<a class="el" href="../../d0/d7b/classiutest_1_1_test_result.html">iutest::TestResult</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a4bbc54bac55b0d220efe6de8872d4e67">iuutil::GetCurrentTestCaseAdHocResult</a> ()</td></tr>
-<tr class="memdesc:a4bbc54bac55b0d220efe6de8872d4e67"><td class="mdescLeft">&#160;</td><td class="mdescRight">TestCase の ad_hoc_test_result の取得 <br /></td></tr>
-<tr class="separator:a4bbc54bac55b0d220efe6de8872d4e67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6b46119bdb9a820e60a30bf7474fad2"><td class="memItemLeft" align="right" valign="top"><a id="ac6b46119bdb9a820e60a30bf7474fad2"></a>
+const ::<a class="el" href="../../d0/d7b/classiutest_1_1_test_result.html">iutest::TestResult</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#ac6b46119bdb9a820e60a30bf7474fad2">iuutil::GetTestSuiteAdHocResult</a> (const ::<a class="el" href="../../d3/d87/classiutest_1_1_test_suite.html">iutest::TestSuite</a> *test_suite)</td></tr>
+<tr class="memdesc:ac6b46119bdb9a820e60a30bf7474fad2"><td class="mdescLeft">&#160;</td><td class="mdescRight">TestSuite の ad_hoc_test_result の取得 <br /></td></tr>
+<tr class="separator:ac6b46119bdb9a820e60a30bf7474fad2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a4254cbb1300614a43528e2136daa9a"><td class="memItemLeft" align="right" valign="top"><a id="a9a4254cbb1300614a43528e2136daa9a"></a>
+const ::<a class="el" href="../../d0/d7b/classiutest_1_1_test_result.html">iutest::TestResult</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a9a4254cbb1300614a43528e2136daa9a">iuutil::GetCurrentTestSuiteAdHocResult</a> ()</td></tr>
+<tr class="memdesc:a9a4254cbb1300614a43528e2136daa9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">TestSuite の ad_hoc_test_result の取得 <br /></td></tr>
+<tr class="separator:a9a4254cbb1300614a43528e2136daa9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2868d2577890f1ce343ff75ad66a2dcb"><td class="memItemLeft" align="right" valign="top"><a id="a2868d2577890f1ce343ff75ad66a2dcb"></a>
 const ::<a class="el" href="../../d0/d7b/classiutest_1_1_test_result.html">iutest::TestResult</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dbf/namespaceiuutil.html#a2868d2577890f1ce343ff75ad66a2dcb">iuutil::GetTestResult</a> (const ::<a class="el" href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a> *test_info)</td></tr>
 <tr class="memdesc:a2868d2577890f1ce343ff75ad66a2dcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">get test result <br /></td></tr>
@@ -178,12 +219,12 @@ const ::<a class="el" href="../../d0/d7b/classiutest_1_1_test_result.html">iutes
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><p>iris unit test テスト情報 utility ファイル </p>
 <dl class="section author"><dt>著者</dt><dd>t.shirayanagi </dd></dl>
-<dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2012-2019, Takazumi Shirayanagi<br  />
+<dl class="section user"><dt>copyright</dt><dd>Copyright (C) 2012-2020, Takazumi Shirayanagi<br  />
 This software is released under the new BSD License, see LICENSE </dd></dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年08月12日(水) 23時41分35秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年09月07日(月) 01時56分58秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

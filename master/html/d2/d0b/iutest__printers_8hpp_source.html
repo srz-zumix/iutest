@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.1.0</span>
+   &#160;<span id="projectnumber">1.17.99.0</span>
    </div>
   </td>
  </tr>
@@ -456,7 +456,7 @@ $(function() {
 <div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;}</div>
 <div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160; </div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="preprocessor">#if IUTEST_HAS_CXX_HDR_VARIANT</span></div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="preprocessor">#if IUTEST_HAS_VARIADIC_TEMPLATES &amp;&amp; IUTEST_HAS_CXX_HDR_VARIANT</span></div>
 <div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Types&gt;</div>
 <div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> PrintTo(const ::std::variant&lt;Types...&gt;&amp; value, iu_ostream* os)</div>
 <div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;{</div>
@@ -466,7 +466,7 @@ $(function() {
 <div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    }</div>
 <div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    <span class="keywordflow">else</span></div>
 <div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    {</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;        std::visit([&amp;os](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; v) { UniversalPrint(v, os); }, value);</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;        ::std::visit([&amp;os](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; v) { UniversalPrint(v, os); }, value);</div>
 <div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    }</div>
 <div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;}</div>
 <div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> PrintTo(const ::std::monostate&amp;, iu_ostream* os)</div>
@@ -548,14 +548,14 @@ $(function() {
 <div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160; </div>
 <div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keywordtype">int</span> I, <span class="keywordtype">int</span> SIZE&gt;</div>
 <div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> PrintTupleElemTo(<span class="keyword">const</span> T&amp; t, iu_ostream* os</div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;    , <span class="keyword">typename</span> iutest_type_traits::enable_if&lt;I == 0, void&gt;::type*&amp; = iutest_type_traits::enabler::value)</div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;    , <span class="keyword">typename</span> <a class="code" href="../../dc/d0e/classiutest_1_1_test.html">iutest_type_traits::enable_if&lt;I == 0, void&gt;::type</a>*&amp; = iutest_type_traits::enabler::value)</div>
 <div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;{</div>
 <div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;    IUTEST_UNUSED_VAR(t);</div>
 <div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;    IUTEST_UNUSED_VAR(os);</div>
 <div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;}</div>
 <div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keywordtype">int</span> I, <span class="keywordtype">int</span> SIZE&gt;</div>
 <div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> PrintTupleElemTo(<span class="keyword">const</span> T&amp; t, iu_ostream* os</div>
-<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;    , <span class="keyword">typename</span> iutest_type_traits::enable_if&lt;I == 1, void&gt;::type*&amp; = iutest_type_traits::enabler::value)</div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;    , <span class="keyword">typename</span> <a class="code" href="../../dc/d0e/classiutest_1_1_test.html">iutest_type_traits::enable_if&lt;I == 1, void&gt;::type</a>*&amp; = iutest_type_traits::enabler::value)</div>
 <div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;{</div>
 <div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;    PrintTo(tuples::get&lt;SIZE-I&gt;(t), os);</div>
 <div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;}</div>
@@ -735,6 +735,7 @@ $(function() {
 <div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160; </div>
 <div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_PRINTERS_HPP_A6A321C9_9279_4336_8167_058C59EC0FD0_</span></div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclassiutest_1_1_test_html"><div class="ttname"><a href="../../dc/d0e/classiutest_1_1_test.html">iutest::Test</a></div><div class="ttdoc">テストベース</div><div class="ttdef"><b>Definition:</b> iutest_body.hpp:43</div></div>
 <div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
 <div class="ttc" id="anamespaceiutest_html_a089d4c220696dc46e2ef184fc945367c"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a089d4c220696dc46e2ef184fc945367c">iutest::PrintToString</a></div><div class="ttdeci">std::string PrintToString(const T &amp;v)</div><div class="ttdoc">文字列化</div><div class="ttdef"><b>Definition:</b> iutest_printers.hpp:678</div></div>
 <div class="ttc" id="aiutest__defs_8hpp_html"><div class="ttname"><a href="../../d1/d84/iutest__defs_8hpp.html">iutest_defs.hpp</a></div><div class="ttdoc">iris unit test definition</div></div>
@@ -747,7 +748,7 @@ $(function() {
 <div class="ttc" id="anamespaceiutest_html_af0a26182ebcee67d79f27f7c9b248448"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#af0a26182ebcee67d79f27f7c9b248448">iutest::BiggestInt</a></div><div class="ttdeci">detail::type_least_t&lt; 8 &gt;::Int BiggestInt</div><div class="ttdoc">Biggest Int</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:446</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年08月12日(水) 23時41分34秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年09月07日(月) 01時56分56秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

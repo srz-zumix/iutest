@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.1.0</span>
+   &#160;<span id="projectnumber">1.17.99.0</span>
    </div>
   </td>
  </tr>
@@ -299,7 +299,7 @@ $(function() {
 <div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>UnitTestImpl;</div>
 <div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>TestInfo;</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>TestCase;</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>TestSuite;</div>
 <div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>detail::DefaultGlobalTestPartResultReporter;</div>
 <div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160; </div>
 <div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    TestPartResults m_test_part_results;</div>
@@ -339,7 +339,7 @@ $(function() {
 <div class="ttc" id="aclassiutest_1_1_test_result_html_a03cc291fd15221563df04540ae9a35a3"><div class="ttname"><a href="../../d0/d7b/classiutest_1_1_test_result.html#a03cc291fd15221563df04540ae9a35a3">iutest::TestResult::HasAssumeFailure</a></div><div class="ttdeci">bool HasAssumeFailure() const</div><div class="ttdoc">前提条件エラーがあるかどうか</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:275</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_part_result_html_adf20e1dcc987d62994745be18490dc9a"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#adf20e1dcc987d62994745be18490dc9a">iutest::TestPartResult::TestPartResult</a></div><div class="ttdeci">TestPartResult(const char *file, int line, const char *message, Type type)</div><div class="ttdoc">コンストラクタ</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:77</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_part_result_html_abe81938176ab1bcea96e0e9f4d67f152"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#abe81938176ab1bcea96e0e9f4d67f152">iutest::TestPartResult::fatally_failed</a></div><div class="ttdeci">bool fatally_failed() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">致命的な失敗かどうか</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:130</div></div>
-<div class="ttc" id="aiutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義</div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:25</div></div>
+<div class="ttc" id="aiutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義</div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:31</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_part_result_html_ae262de3fe0170939c8353621126f5355"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#ae262de3fe0170939c8353621126f5355">iutest::TestPartResult::type</a></div><div class="ttdeci">Type type() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">結果のタイプ取得</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:140</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_part_result_html_a611b78a968052b144546b58d83a686e5a81b189615c5da276536705d46827d8b3"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5a81b189615c5da276536705d46827d8b3">iutest::TestPartResult::kAssumeFailure</a></div><div class="ttdeci">@ kAssumeFailure</div><div class="ttdoc">前提条件エラー</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:62</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_part_result_html_abb4e1af0eb44a7f8c188dedb22abe892"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#abb4e1af0eb44a7f8c188dedb22abe892">iutest::TestPartResult::succeeded</a></div><div class="ttdeci">bool succeeded() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">成功かどうか（警告を除く）</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:120</div></div>
@@ -364,7 +364,7 @@ $(function() {
 <div class="ttc" id="aclassiutest_1_1_test_result_html_a54b0d9258545f81f3da76aea86181071"><div class="ttname"><a href="../../d0/d7b/classiutest_1_1_test_result.html#a54b0d9258545f81f3da76aea86181071">iutest::TestResult::Passed</a></div><div class="ttdeci">bool Passed() const</div><div class="ttdoc">成功したかどうか</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:225</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年08月12日(水) 23時41分34秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年09月07日(月) 01時56分56秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

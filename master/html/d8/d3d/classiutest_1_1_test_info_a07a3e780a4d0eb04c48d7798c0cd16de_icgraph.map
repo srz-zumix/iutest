@@ -1,6 +1,6 @@
 <map id="iutest::TestInfo::name" name="iutest::TestInfo::name">
 <area shape="rect" id="node1" title=" " alt="" coords="453,78,616,105"/>
-<area shape="rect" id="node2" href="$d6/d0f/classiutest_1_1_t_a_p_print_listener.html#af1025ff7acae98e17ebda943a5285601" title="テストケース毎の処理" alt="" coords="229,5,403,47"/>
+<area shape="rect" id="node2" href="$d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a4f6c10af8ddd13cab947bbe4ae0a000e" title="TestSuite 毎の処理" alt="" coords="229,5,403,47"/>
 <area shape="rect" id="node4" href="$d8/d3d/classiutest_1_1_test_info.html#a74c359284cf1fc2942363040a8fe07f4" title=" " alt="" coords="241,71,391,112"/>
 <area shape="rect" id="node5" href="$d8/d3d/classiutest_1_1_test_info.html#ac6e42bd193874670802ca02b19fd2798" title="有効なプロパティ名かどうかチェック" alt="" coords="227,136,405,177"/>
 <area shape="rect" id="node3" href="$d6/d0f/classiutest_1_1_t_a_p_print_listener.html#a7ddbe8a0b6823eadee5ac19a07572752" title="テストプログラム終了時に呼ばれます" alt="" coords="5,5,179,47"/>

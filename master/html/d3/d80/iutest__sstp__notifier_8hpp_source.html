@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.1.0</span>
+   &#160;<span id="projectnumber">1.17.99.0</span>
    </div>
   </td>
  </tr>
@@ -411,12 +411,12 @@ $(function() {
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestProgramStart(<span class="keyword">const</span> UnitTest&amp; test) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestIterationStart(<span class="keyword">const</span> UnitTest&amp; test</div>
 <div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;                                    , <span class="keywordtype">int</span> iteration) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestCaseStart(<span class="keyword">const</span> TestCase&amp; test_case) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestSuiteStart(<span class="keyword">const</span> TestSuite&amp; test_suite) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;</div>
 <div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestStart(<span class="keyword">const</span> TestInfo&amp; test_info) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;</div>
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestPartResult(<span class="keyword">const</span> TestPartResult&amp; test_part_result) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;</div>
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestRecordProperty(<span class="keyword">const</span> TestProperty&amp; test_property) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;</div>
 <div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestEnd(<span class="keyword">const</span> TestInfo&amp; test_info) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestCaseEnd(<span class="keyword">const</span> TestCase&amp; test_case) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestSuiteEnd(<span class="keyword">const</span> TestSuite&amp; test_suite) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;</div>
 <div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestIterationEnd(<span class="keyword">const</span> UnitTest&amp; test</div>
 <div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;                                    , <span class="keywordtype">int</span> iteration) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;</div>
 <div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTestProgramEnd(<span class="keyword">const</span> UnitTest&amp; test) <a class="code" href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a>;</div>
@@ -478,14 +478,14 @@ $(function() {
 <div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;        .End();</div>
 <div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;}</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;IUTEST_IPP_INLINE <span class="keywordtype">void</span> SSTPNotifier::OnTestCaseStart(<span class="keyword">const</span> TestCase&amp; test_case)</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;IUTEST_IPP_INLINE <span class="keywordtype">void</span> SSTPNotifier::OnTestSuiteStart(<span class="keyword">const</span> TestSuite&amp; test_suite)</div>
 <div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;{</div>
 <div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    m_sstp.Notify()</div>
 <div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;        .Script(Script().Surface(Ghost::Normal)</div>
 <div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;#<span class="keywordflow">if</span> IUTEST_SSTPNOTIFIER_JAPANESE</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;            .Append(StreamableToString(test_case.name()) + <span class="stringliteral">&quot; テストケースを開始&quot;</span>).Concat().Ln().ToString())</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;            .Append(StreamableToString(test_suite.name()) + <span class="stringliteral">&quot; TestSuite を開始&quot;</span>).Concat().Ln().ToString())</div>
 <div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;            .Append(StreamableToString(test_case.name()) + <span class="stringliteral">&quot; Start TestCase...&quot;</span>).Concat().Ln().ToString())</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;            .Append(StreamableToString(test_suite.name()) + <span class="stringliteral">&quot; Start TestSuite...&quot;</span>).Concat().Ln().ToString())</div>
 <div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;#endif</div>
 <div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;        .End();</div>
 <div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;}</div>
@@ -542,16 +542,16 @@ $(function() {
 <div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;            + <span class="stringliteral">&quot;(&quot;</span> + StreamableToString(test_info.elapsed_time()) + <span class="stringliteral">&quot;ms)&quot;</span>).Concat().Ln().ToString())</div>
 <div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;        .End();</div>
 <div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;}</div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;IUTEST_IPP_INLINE <span class="keywordtype">void</span> SSTPNotifier::OnTestCaseEnd(<span class="keyword">const</span> TestCase&amp; test_case)</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;IUTEST_IPP_INLINE <span class="keywordtype">void</span> SSTPNotifier::OnTestSuiteEnd(<span class="keyword">const</span> TestSuite&amp; test_suite)</div>
 <div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;{</div>
 <div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;    m_sstp.Notify()</div>
-<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;        .Script(Script(StreamableToString(test_case.name())</div>
+<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;        .Script(Script(StreamableToString(test_suite.name())</div>
 <div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;#<span class="keywordflow">if</span> IUTEST_SSTPNOTIFIER_JAPANESE</div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;            + <span class="stringliteral">&quot; テストケースは&quot;</span> + FormatBool(test_case.Passed()) + <span class="stringliteral">&quot;したよ&quot;</span></div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;            + <span class="stringliteral">&quot; TestSuite は&quot;</span> + FormatBool(test_suite.Passed()) + <span class="stringliteral">&quot;したよ&quot;</span></div>
 <div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;#<span class="keywordflow">else</span></div>
-<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;            + <span class="stringliteral">&quot; TestCase is&quot;</span>    + FormatBool(test_case.Passed()) + <span class="stringliteral">&quot;.&quot;</span></div>
+<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;            + <span class="stringliteral">&quot; TestSuite is&quot;</span>    + FormatBool(test_suite.Passed()) + <span class="stringliteral">&quot;.&quot;</span></div>
 <div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;#endif</div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;            + <span class="stringliteral">&quot;(&quot;</span> + StreamableToString(test_case.elapsed_time()) + <span class="stringliteral">&quot;ms)&quot;</span>).Concat().Ln().ToString())</div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;            + <span class="stringliteral">&quot;(&quot;</span> + StreamableToString(test_suite.elapsed_time()) + <span class="stringliteral">&quot;ms)&quot;</span>).Concat().Ln().ToString())</div>
 <div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;        .End();</div>
 <div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;}</div>
 <div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;IUTEST_IPP_INLINE <span class="keywordtype">void</span> SSTPNotifier::OnTestIterationEnd(<span class="keyword">const</span> UnitTest&amp; test</div>
@@ -607,13 +607,13 @@ $(function() {
 <div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:31</div></div>
 <div class="ttc" id="aiutest__port_8hpp_html_a967848348e16a7d0ab2a31c1593ca9ef"><div class="ttname"><a href="../../d1/d2a/iutest__port_8hpp.html#a967848348e16a7d0ab2a31c1593ca9ef">IUTEST_LOG_</a></div><div class="ttdeci">#define IUTEST_LOG_(level)</div><div class="ttdoc">ログメッセージストリーム</div><div class="ttdef"><b>Definition:</b> iutest_port.hpp:53</div></div>
 <div class="ttc" id="aiutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:670</div></div>
-<div class="ttc" id="aiutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義</div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:25</div></div>
-<div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gaa6075f95d9a7a1784623e0aebf6488bb"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb">iutest::Concat</a></div><div class="ttdeci">detail::iuConcatParamHolder&lt; Generator1, Generator2 &gt; Concat(const Generator1 &amp;g1, const Generator2 &amp;g2)</div><div class="ttdoc">値配列パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:573</div></div>
+<div class="ttc" id="aiutest__pp_8hpp_html_ae1a8e577dffb6a2c69e22df8cc8d7a17"><div class="ttname"><a href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a></div><div class="ttdeci">#define IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TypeName)</div><div class="ttdoc">コピー禁止定義</div><div class="ttdef"><b>Definition:</b> iutest_pp.hpp:31</div></div>
+<div class="ttc" id="agroup___p_a_r_a_m___g_e_n_e_r_a_t_o_r_html_gaa6075f95d9a7a1784623e0aebf6488bb"><div class="ttname"><a href="../../d4/d5d/group___p_a_r_a_m___g_e_n_e_r_a_t_o_r.html#gaa6075f95d9a7a1784623e0aebf6488bb">iutest::Concat</a></div><div class="ttdeci">detail::iuConcatParamHolder&lt; Generator1, Generator2 &gt; Concat(const Generator1 &amp;g1, const Generator2 &amp;g2)</div><div class="ttdoc">値配列パラメータ</div><div class="ttdef"><b>Definition:</b> iutest_param_tests.hpp:576</div></div>
 <div class="ttc" id="anamespaceiutest_html_a5310e5fc6c9c1a8b16f75992fbc947ee"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a5310e5fc6c9c1a8b16f75992fbc947ee">iutest::UInt32</a></div><div class="ttdeci">detail::type_fit_t&lt; 4 &gt;::UInt UInt32</div><div class="ttdoc">32 bit 符号なし整数型</div><div class="ttdef"><b>Definition:</b> iutest_defs.hpp:424</div></div>
 <div class="ttc" id="aclassiutest_1_1_unit_test_html_ae09115bd12edb303535b0ab93ade6005"><div class="ttname"><a href="../../de/d13/classiutest_1_1_unit_test.html#ae09115bd12edb303535b0ab93ade6005">iutest::UnitTest::listeners</a></div><div class="ttdeci">TestEventListeners &amp; listeners() const</div><div class="ttdef"><b>Definition:</b> iutest_core.hpp:121</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年08月12日(水) 23時41分35秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年09月07日(月) 01時56分57秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

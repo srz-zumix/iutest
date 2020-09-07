@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.1.0</span>
+   &#160;<span id="projectnumber">1.17.99.0</span>
    </div>
   </td>
  </tr>
@@ -67,6 +67,14 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><dl class="section user"><dt>Changes</dt><dd><ul>
+<li>
+v1.18.0.0 <ul>
+<li>
+TestCase の別名 TestSuite に対応（iutest はどちらもサポートし続けます） </li>
+<li>
+空のテストスイート名・テスト名に static_assert を追加 </li>
+</ul>
+</li>
 <li>
 v1.17.1.0 <ul>
 <li>
@@ -220,7 +228,7 @@ iuwandbox の &ndash;boost オプションが Python3 で使えない問題を�
 <li>
 iuwandbox で未定義オプションを指定した場合にエラーにならない問題を修正 </li>
 <li>
-<a class="el" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9" title="テスト関数定義マクロ">IUTEST(A, B_C)</a> と <a class="el" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga627b3e659e006f52b4350aa50716b5e9" title="テスト関数定義マクロ">IUTEST(A_B, C)</a> が名前の衝突でコンパイルエラーになる問題を修正 </li>
+<a class="el" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga620d00f1c27d534e477e9ffe1739b3ea" title="テスト関数定義マクロ">IUTEST(A, B_C)</a> と <a class="el" href="../../d2/d24/group___t_e_s_t_d_e_f.html#ga620d00f1c27d534e477e9ffe1739b3ea" title="テスト関数定義マクロ">IUTEST(A_B, C)</a> が名前の衝突でコンパイルエラーになる問題を修正 </li>
 <li>
 色付きコンソールの自動判定を修正 </li>
 <li>
@@ -1055,7 +1063,7 @@ xml 出力に対応 </li>
 </div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年08月12日(水) 23時41分35秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年09月07日(月) 01時56分58秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

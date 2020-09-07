@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.1.0</span>
+   &#160;<span id="projectnumber">1.17.99.0</span>
    </div>
   </td>
  </tr>
@@ -75,25 +75,25 @@ $(function() {
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// define</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"></span><span class="preprocessor">#define IUTEST_FRIEND_TEST(testcasename_, testname_)   \</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#acc7b460ffb47d86372e63b46fd5bc7f0">   24</a></span>&#160;<span class="preprocessor">    friend class IUTEST_TEST_CLASS_NAME_(testcasename_, testname_)</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"></span><span class="preprocessor">#define IUTEST_FRIEND_TEST(testsuitename_, testname_)       \</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#aefaa85d6e5a269fca00f36810d1e966e">   24</a></span>&#160;<span class="preprocessor">    friend class IUTEST_TEST_CLASS_NAME_(testsuitename_, testname_)</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#if !defined(_MSC_VER) || _MSC_VER &gt; 1200</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#if IUTEST_HAS_TYPED_TEST</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#define IUTEST_FRIEND_TYPED_TEST(testcasename_, testname_) \</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#a31eea07b567b1cf2a2e8e7329a88b33c">   34</a></span>&#160;<span class="preprocessor">    template&lt;typename T&gt;IUTEST_FRIEND_TEST(testcasename_, testname_)</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#define IUTEST_FRIEND_TYPED_TEST(testsuitename_, testname_) \</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#a814b239140e2b32c649db1e684d58928">   34</a></span>&#160;<span class="preprocessor">    template&lt;typename T&gt;IUTEST_FRIEND_TEST(testsuitename_, testname_)</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#if IUTEST_HAS_TYPED_TEST_P</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#define IUTEST_FRIEND_TYPED_TEST_P_DECLARATION(testcasename_, testname_) \</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#aa83e508bbe4d7ed7ec332541813284e4">   44</a></span>&#160;<span class="preprocessor">    namespace IIUT_TYPED_TEST_P_NAMESPACE_(testcasename_) { template&lt;typename T&gt;class testname_; }</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#define IUTEST_FRIEND_TYPED_TEST_P_DECLARATION(testsuitename_, testname_)   \</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#a7261907761f9b8a96e11aa5648aa9539">   44</a></span>&#160;<span class="preprocessor">    namespace IIUT_TYPED_TEST_P_NAMESPACE_(testsuitename_) { template&lt;typename T&gt;class testname_; }</span></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#define IUTEST_FRIEND_TYPED_TEST_P(testcasename_, testname_) \</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#a0719268f46c1b648e4f1638fe3828af8">   50</a></span>&#160;<span class="preprocessor">    template&lt;typename T&gt;friend class IIUT_TYPED_TEST_P_NAMESPACE_(testcasename_)::testname_</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#define IUTEST_FRIEND_TYPED_TEST_P(testsuitename_, testname_)   \</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="../../d9/d06/iutest__prod_8hpp.html#a4abc82d1db9303a8c0097c6bdc386b76">   50</a></span>&#160;<span class="preprocessor">    template&lt;typename T&gt;friend class IIUT_TYPED_TEST_P_NAMESPACE_(testsuitename_)::testname_</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
@@ -316,7 +316,7 @@ $(function() {
 <div class="ttc" id="aiutest__compiler_8hpp_html_a42fd5b126100cbf2e505fec4f669f3ba"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#a42fd5b126100cbf2e505fec4f669f3ba">IUTEST_CXX_DELETED_FUNCTION</a></div><div class="ttdeci">#define IUTEST_CXX_DELETED_FUNCTION</div><div class="ttdoc">delete function</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:371</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年08月12日(水) 23時41分34秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年09月07日(月) 01時56分56秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
