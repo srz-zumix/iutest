@@ -353,8 +353,8 @@ private:
             detail::DefaultReportTestPartResult(m_part_result);
         }
 
-        if( m_part_result.failed()
-            && TestFlag::IsEnableFlag(iutest::TestFlag::BREAK_ON_FAILURE) )
+        if IUTEST_COND_UNLIKELY(m_part_result.failed()
+            && TestFlag::IsEnableFlag(iutest::TestFlag::BREAK_ON_FAILURE))
         {
             IUTEST_BREAK();
         }
