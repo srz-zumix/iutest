@@ -830,10 +830,10 @@
 #if !defined(IUTEST_HAS_SEH)
 #  if   defined(_WIN32) && !defined(__clang__)
 #    if defined(_MSC_VER) && _MSC_VER > 1400
-#      define IUTEST_HAS_SEH    1
+#      define IUTEST_HAS_SEH    IUTEST_HAS_EXCEPTIONS
 #    endif
 #  elif defined(__BORLANDC__)
-#    define IUTEST_HAS_SEH      1
+#    define IUTEST_HAS_SEH      IUTEST_HAS_EXCEPTIONS
 #  endif
 #endif
 
