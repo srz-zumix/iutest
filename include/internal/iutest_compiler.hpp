@@ -1359,22 +1359,22 @@
 
 // builtin
 
-//! builtin except
-#if !defined(IUTEST_HAS_BUILTIN_EXCEPT)
+//! builtin expect
+#if !defined(IUTEST_HAS_BUILTIN_EXPECT)
 #  if defined(__clang__) || defined(__GNUC__)
-#    define IUTEST_HAS_BUILTIN_EXCEPT   1
+#    define IUTEST_HAS_BUILTIN_EXPECT   1
 #  endif
 #endif
 
-#if !defined(IUTEST_HAS_BUILTIN_EXCEPT)
-#  define IUTEST_HAS_BUILTIN_EXCEPT     0
+#if !defined(IUTEST_HAS_BUILTIN_EXPECT)
+#  define IUTEST_HAS_BUILTIN_EXPECT     0
 #endif
 
 #if !defined(IUTEST_COND_LIKELY)
 #  if IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY
 #    define IUTEST_COND_LIKELY(cond)    (cond) IUTEST_ATTRIBUTE_LIKELY_
-#  elif IUTEST_HAS_BUILTIN_EXCEPT
-#    define IUTEST_COND_LIKELY(cond)    (__builtin_except(!!(cond), 1))
+#  elif IUTEST_HAS_BUILTIN_EXPECT
+#    define IUTEST_COND_LIKELY(cond)    (__builtin_expect(!!(cond), 1))
 #  else
 #    define IUTEST_COND_LIKELY(cond)    (cond)
 #  endif
@@ -1383,8 +1383,8 @@
 #if !defined(IUTEST_COND_UNLIKELY)
 #  if IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY
 #    define IUTEST_COND_UNLIKELY(cond)  (cond) IUTEST_ATTRIBUTE_UNLIKELY_
-#  elif IUTEST_HAS_BUILTIN_EXCEPT
-#    define IUTEST_COND_UNLIKELY(cond)  (__builtin_except(!!(cond), 0))
+#  elif IUTEST_HAS_BUILTIN_EXPECT
+#    define IUTEST_COND_UNLIKELY(cond)  (__builtin_expect(!!(cond), 0))
 #  else
 #    define IUTEST_COND_UNLIKELY(cond)  (cond)
 #  endif
