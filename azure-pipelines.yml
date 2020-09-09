@@ -109,12 +109,14 @@ stages:
       - template: .ci/azure_pipelines/template-make-mix-test.yml
         parameters:
           name: mix
-  - stage: VisualStudioExperimental
+  - stage: VisualStudio
     dependsOn: Precheck
     jobs:
-      - job: visual_studio_test
+      - job: vstest
         strategy:
           matrix:
+            NO_EXCEPTION_HANDLER:
+              CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_no_exceptions=ON
             USE_EXPERIMENTAL:
               CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_use_experimental=ON
         pool:
