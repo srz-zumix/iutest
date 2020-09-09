@@ -414,7 +414,7 @@
 #define IUTEST_TEST_BOOLEAN_(expression, text, actual, expected, on_failure)    \
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                              \
     if( const ::iutest::AssertionResult iutest_ar = ::iutest::AssertionResult::Is(expression) ) \
-        ;                                                                       \
+        IUTEST_ATTRIBUTE_LIKELY_;                                               \
     else                                                                        \
         on_failure(::iutest::internal::GetBooleanAssertionFailureMessage(       \
             iutest_ar, text, #actual, #expected).c_str() )
@@ -423,7 +423,7 @@
  * @internal
  * @brief   assert
 */
-#define IUTEST_ASSERT_EXIT(cond)            do { if( !(cond) ) {                                                \
+#define IUTEST_ASSERT_EXIT(cond)            do { if IUTEST_COND_UNLIKELY( !(cond) ) {                           \
                                                 IUTEST_MESSAGE(#cond, ::iutest::TestPartResult::kFatalFailure); \
                                                 exit(1);                                                        \
                                             } } while(::iutest::detail::AlwaysFalse())
