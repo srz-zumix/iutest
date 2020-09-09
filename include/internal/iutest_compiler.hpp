@@ -1374,7 +1374,7 @@
 #  if IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY
 #    define IUTEST_COND_LIKELY(cond)    (cond) IUTEST_ATTRIBUTE_LIKELY_
 #  elif IUTEST_HAS_BUILTIN_EXPECT
-#    define IUTEST_COND_LIKELY(cond)    (__builtin_expect(!!(cond), true))
+#    define IUTEST_COND_LIKELY(cond)    (__builtin_expect(static_cast<bool>(!!(cond)), 1))
 #  else
 #    define IUTEST_COND_LIKELY(cond)    (cond)
 #  endif
@@ -1384,7 +1384,7 @@
 #  if IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY
 #    define IUTEST_COND_UNLIKELY(cond)  (cond) IUTEST_ATTRIBUTE_UNLIKELY_
 #  elif IUTEST_HAS_BUILTIN_EXPECT
-#    define IUTEST_COND_UNLIKELY(cond)  (__builtin_expect(!!(cond), false))
+#    define IUTEST_COND_UNLIKELY(cond)  (__builtin_expect(static_cast<bool>(!!(cond)), 0))
 #  else
 #    define IUTEST_COND_UNLIKELY(cond)  (cond)
 #  endif
