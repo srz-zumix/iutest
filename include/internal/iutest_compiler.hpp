@@ -99,6 +99,8 @@
 
 
 // c++20 features
+
+//! has concepts
 #if !defined(IUTEST_HAS_CONCEPTS)
 #  if   defined(__cpp_concepts) && __cpp_concepts >= 201907
 #    define IUTEST_HAS_CONCEPTS             1
@@ -1194,11 +1196,53 @@
 #  define IUTEST_HAS_ATTRIBUTE      0
 #endif
 
+//! has likely/unlikely attribute
+#if !defined(IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY)
+#  if defined(__has_cpp_attribute)
+#    if __has_cpp_attribute(likely) >= 201803L && __has_cpp_attribute(unlikely) >= 201803L
+#      if defined(__GNUC__) && (__GNUC__ <= 9)
+// gcc 9.X likely is experimental. can be used in switch~case, cannot be used in if statement
+#        define IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY  0
+#       else
+#        define IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY  IUTEST_HAS_ATTRIBUTE
+#       endif
+#    endif
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY)
+#  define IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY      0
+#endif
+
+//! likely attribute
+#if !defined(IUTEST_ATTRIBUTE_LIKELY_)
+#  if IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY
+#    define IUTEST_ATTRIBUTE_LIKELY_    [[likely]]
+#  else
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_LIKELY_)
+#  define IUTEST_ATTRIBUTE_LIKELY_
+#endif
+
+//! unlikely attribute
+#if !defined(IUTEST_ATTRIBUTE_UNLIKELY_)
+#  if IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY
+#    define IUTEST_ATTRIBUTE_UNLIKELY_  [[unlikely]]
+#  else
+#  endif
+#endif
+
+#if !defined(IUTEST_ATTRIBUTE_UNLIKELY_)
+#  define IUTEST_ATTRIBUTE_UNLIKELY_
+#endif
+
 //! has deprecated attribute
 #if !defined(IUTEST_HAS_ATTRIBUTE_DEPRECATED)
 #  if defined(__has_cpp_attribute)
 #    if __has_cpp_attribute(deprecated) >= 201309
-#      define IUTEST_HAS_ATTRIBUTE_DEPRECATED   1
+#      define IUTEST_HAS_ATTRIBUTE_DEPRECATED   IUTEST_HAS_ATTRIBUTE
 #    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 9)) && defined(__GXX_EXPERIMENTAL_CXX0X__)
@@ -1316,6 +1360,39 @@
 #  define IUTEST_ATTRIBUTE_FORMAT_PRINTF(fi, vi)
 #endif
 
+
+// builtin
+
+//! builtin expect
+#if !defined(IUTEST_HAS_BUILTIN_EXPECT)
+#  if defined(__clang__) || defined(__GNUC__)
+#    define IUTEST_HAS_BUILTIN_EXPECT   1
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_BUILTIN_EXPECT)
+#  define IUTEST_HAS_BUILTIN_EXPECT     0
+#endif
+
+#if !defined(IUTEST_COND_LIKELY)
+#  if IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY
+#    define IUTEST_COND_LIKELY(cond)    (cond) IUTEST_ATTRIBUTE_LIKELY_
+#  elif IUTEST_HAS_BUILTIN_EXPECT
+#    define IUTEST_COND_LIKELY(cond)    (__builtin_expect(static_cast<bool>(!!(cond)), 1))
+#  else
+#    define IUTEST_COND_LIKELY(cond)    (cond)
+#  endif
+#endif
+
+#if !defined(IUTEST_COND_UNLIKELY)
+#  if IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY
+#    define IUTEST_COND_UNLIKELY(cond)  (cond) IUTEST_ATTRIBUTE_UNLIKELY_
+#  elif IUTEST_HAS_BUILTIN_EXPECT
+#    define IUTEST_COND_UNLIKELY(cond)  (__builtin_expect(static_cast<bool>(!!(cond)), 0))
+#  else
+#    define IUTEST_COND_UNLIKELY(cond)  (cond)
+#  endif
+#endif
 
 //! MemorySanitizer
 #if !defined(IUTEST_HAS_MEMORY_SANITIZER)
