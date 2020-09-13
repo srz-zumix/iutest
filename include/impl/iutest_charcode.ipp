@@ -45,7 +45,8 @@ IUTEST_IPP_INLINE IUTEST_CXX_CONSTEXPR bool IsUtf16SurrogatePair(wchar_t first, 
 #if defined(__SIZEOF_WCHAR_T__) && __SIZEOF_WCHAR_T__ == 2
     return ((first & 0xFC00) == 0xD800) && ((second & 0xFC00) == 0xDC00);
 #else
-    return false;
+    return (sizeof(wchar_t) == 2) &&
+        ((first & 0xFC00) == 0xD800) && ((second & 0xFC00) == 0xDC00);
 #endif
 }
 /**
@@ -57,7 +58,9 @@ IUTEST_IPP_INLINE IUTEST_CXX_CONSTEXPR UInt32 CreateCodePointFromUtf16SurrogateP
     //const UInt32 mask = (1<<10) -1;   // 0x3FF
     return static_cast<UInt32>((((first & 0x3FF) << 10) | (second & 0x3FF)) + 0x10000);
 #else
-    return static_cast<UInt32>(first); // こっちは未対応
+    return (sizeof(wchar_t)==2) ?
+        static_cast<UInt32>((((first & 0x3FF) << 10) | (second & 0x3FF)) + 0x10000) :
+        static_cast<UInt32>(first); // こっちは未対応
 #endif
 }
 /**
