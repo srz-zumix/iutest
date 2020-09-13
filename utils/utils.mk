@@ -19,3 +19,4 @@ include $(UTILS_MAKEFILE_DIR)/cygwin.mk
 include $(UTILS_MAKEFILE_DIR)/mingw.mk
 include $(UTILS_MAKEFILE_DIR)/ci.mk
 include $(UTILS_MAKEFILE_DIR)/python.mk
+include $(UTILS_MAKEFILE_DIR)/warning.mk
