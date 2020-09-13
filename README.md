@@ -63,7 +63,7 @@ Features
 * Test packages (grouping).
 * Skip test.
 * Private member test.
-* Janaese test name (C++03). 
+* Japanese test name (C++03). 
 * Various options for running the tests.
 * Compatible with [Google Test](https://github.com/google/googletest). (1.5 or later)
 
