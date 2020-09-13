@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.0</span>
+   &#160;<span id="projectnumber">1.17.99.1</span>
    </div>
   </td>
  </tr>
@@ -319,7 +319,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>値:</b><div class="fragment"><div class="line">                                                <span class="keywordflow">do</span> { <span class="keywordflow">if</span>( !(cond) ) {                                                \</div>
+<b>値:</b><div class="fragment"><div class="line">                                                <span class="keywordflow">do</span> { <span class="keywordflow">if</span> IUTEST_COND_UNLIKELY( !(cond) ) {                           \</div>
 <div class="line">                                                IUTEST_MESSAGE(#cond, ::<a class="code" href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6">iutest::TestPartResult::kFatalFailure</a>); \</div>
 <div class="line">                                                exit(1);                                                        \</div>
 <div class="line">                                            } } <span class="keywordflow">while</span>(::iutest::detail::AlwaysFalse())</div>
@@ -532,7 +532,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div><div class="memdoc">
 <b>値:</b><div class="fragment"><div class="line">    IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                              \</div>
 <div class="line">    if( const ::iutest::AssertionResult iutest_ar = ::<a class="code" href="../../d9/d5f/classiutest_1_1_assertion_result.html#a670d58b4331f0ebc08f21118f839b868">iutest::AssertionResult::Is</a>(expression) ) \</div>
-<div class="line">        ;                                                                       \</div>
+<div class="line">        IUTEST_ATTRIBUTE_LIKELY_;                                               \</div>
 <div class="line">    else                                                                        \</div>
 <div class="line">        on_failure(::iutest::internal::GetBooleanAssertionFailureMessage(       \</div>
 <div class="line">            iutest_ar, text, #actual, #expected).c_str() )</div>
@@ -1640,7 +1640,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 </div>
 </div><!-- contents -->
 <div class="ttc" id="anamespaceiutest_html"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html">iutest</a></div><div class="ttdoc">iutest root namespace</div><div class="ttdef"><b>Definition:</b> iutest_charcode.hpp:31</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:670</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:672</div></div>
 <div class="ttc" id="aclassiutest_1_1_assertion_result_html"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html">iutest::AssertionResult</a></div><div class="ttdoc">Assertion Result</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:54</div></div>
 <div class="ttc" id="aclassiutest_1_1_assertion_result_html_a670d58b4331f0ebc08f21118f839b868"><div class="ttname"><a href="../../d9/d5f/classiutest_1_1_assertion_result.html#a670d58b4331f0ebc08f21118f839b868">iutest::AssertionResult::Is</a></div><div class="ttdeci">static AssertionResult Is(const T &amp;b)</div><div class="ttdoc">成否の取得</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:128</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_part_result_html_a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6"><div class="ttname"><a href="../../d8/d3c/classiutest_1_1_test_part_result.html#a611b78a968052b144546b58d83a686e5ac9d0b73cce11a0db79ba4d9b30a3d3d6">iutest::TestPartResult::kFatalFailure</a></div><div class="ttdeci">@ kFatalFailure</div><div class="ttdoc">致命的な失敗</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:67</div></div>
@@ -1648,7 +1648,7 @@ This software is released under the new BSD License, see LICENSE </dd></dl>
 <div class="ttc" id="anamespaceiutest_html_a0538466708443c65f3c7b2c84b7fce0b"><div class="ttname"><a href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">iutest::AssertionSuccess</a></div><div class="ttdeci">AssertionResult AssertionSuccess()</div><div class="ttdoc">テスト成功を示す AssertionResult オブジェクトの取得</div><div class="ttdef"><b>Definition:</b> iutest_assertion.hpp:382</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年09月07日(月) 01時56分58秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年09月13日(日) 07時43分36秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

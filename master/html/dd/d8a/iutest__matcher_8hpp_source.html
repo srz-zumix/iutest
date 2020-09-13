@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.0</span>
+   &#160;<span id="projectnumber">1.17.99.1</span>
    </div>
   </td>
  </tr>
@@ -140,7 +140,7 @@ $(function() {
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor">        strm &lt;&lt; #name &quot;: &quot; &lt;&lt; m_expected; return strm.str();                    \</span></div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">    }                                                                           \</span></div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">    template&lt;typename U&gt;AssertionResult operator ()(const U&amp; actual) const {    \</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">        if( actual op m_expected ) return AssertionSuccess();                   \</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">        if IUTEST_COND_LIKELY( actual op m_expected ) return AssertionSuccess();\</span></div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">        return AssertionFailure() &lt;&lt; WhichIs();                                 \</span></div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">    }                                                                           \</span></div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">    private: const T&amp; m_expected;                                               \</span></div>
@@ -151,7 +151,7 @@ $(function() {
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">    public: ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return #name; }         \</span></div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="preprocessor">    template&lt;typename T, typename U&gt;AssertionResult operator ()                         \</span></div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">        (const T&amp; actual, const U&amp; expected) const {                                    \</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">        if( actual op expected ) return AssertionSuccess();                             \</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">        if IUTEST_COND_LIKELY( actual op expected ) return AssertionSuccess();          \</span></div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor">        return AssertionFailure() &lt;&lt; WhichIs() &lt;&lt; &quot;: &quot; &lt;&lt; actual &lt;&lt; &quot; vs &quot; &lt;&lt; expected; \</span></div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">    }                                                                                   \</span></div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">    }</span></div>
@@ -182,7 +182,7 @@ $(function() {
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="preprocessor">    template&lt;typename T&gt;class IUTEST_PP_CAT(name, Matcher): public IMatcher {   \</span></div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="preprocessor">    public: IUTEST_PP_CAT(name, Matcher)(const T&amp; value) : m_expected(value) {} \</span></div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="preprocessor">    template&lt;typename U&gt;AssertionResult operator ()(const U&amp; actual) const {    \</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="preprocessor">        if( internal::IUTEST_PP_CAT(name, Helper)::Compare(                     \</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="preprocessor">        if IUTEST_COND_LIKELY( internal::IUTEST_PP_CAT(name, Helper)::Compare(  \</span></div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="preprocessor">            actual, m_expected) ) { return AssertionSuccess(); }                \</span></div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="preprocessor">        return AssertionFailure() &lt;&lt; WhichIs();                                 \</span></div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="preprocessor">    }                                                                           \</span></div>
@@ -207,7 +207,7 @@ $(function() {
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U* actual)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="keywordflow">if</span>( actual == NULL )</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( actual == NULL )</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        {</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        }</div>
@@ -225,7 +225,7 @@ $(function() {
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U* actual)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <span class="keywordflow">if</span>( actual != NULL )</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( actual != NULL )</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        {</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        }</div>
@@ -247,8 +247,8 @@ $(function() {
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        floating_point&lt;T&gt; f2(actual);</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        <span class="keywordflow">if</span>( m_expected.AlmostEquals(f2) )</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        <span class="keyword">const</span> floating_point&lt;T&gt; f2(actual);</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( m_expected.AlmostEquals(f2) )</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        {</div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        }</div>
@@ -275,8 +275,8 @@ $(function() {
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        floating_point&lt;T&gt; f2(actual);</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        <span class="keywordflow">if</span>( m_expected.NanSensitiveAlmostEquals(f2) )</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        <span class="keyword">const</span> floating_point&lt;T&gt; f2(actual);</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( m_expected.NanSensitiveAlmostEquals(f2) )</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        {</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        }</div>
@@ -304,8 +304,8 @@ $(function() {
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        floating_point&lt;T&gt; a(actual);</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        <span class="keywordflow">if</span>( m_expected.AlmostNear(a, m_max_abs_error) )</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        <span class="keyword">const</span> floating_point&lt;T&gt; a(actual);</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( m_expected.AlmostNear(a, m_max_abs_error) )</div>
 <div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        {</div>
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        }</div>
@@ -334,8 +334,8 @@ $(function() {
 <div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;        floating_point&lt;T&gt; a(actual);</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;        <span class="keywordflow">if</span>( m_expected.NanSensitiveAlmostNear(a, m_max_abs_error) )</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;        <span class="keyword">const</span> floating_point&lt;T&gt; a(actual);</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( m_expected.NanSensitiveAlmostNear(a, m_max_abs_error) )</div>
 <div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;        {</div>
 <div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        }</div>
@@ -363,7 +363,7 @@ $(function() {
 <div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        <span class="keywordflow">if</span>( <a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga759591fa39341d804bf20f23c89fb7ec">StartsWith</a>(actual, m_expected) )</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( <a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga759591fa39341d804bf20f23c89fb7ec">StartsWith</a>(actual, m_expected) )</div>
 <div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        {</div>
 <div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;        }</div>
@@ -410,7 +410,7 @@ $(function() {
 <div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;        <span class="keywordflow">if</span>( <a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga09be25ed93ecadb991297e272152ee9b">HasSubstr</a>(actual, m_expected) )</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( <a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga09be25ed93ecadb991297e272152ee9b">HasSubstr</a>(actual, m_expected) )</div>
 <div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;        {</div>
 <div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        }</div>
@@ -459,7 +459,7 @@ $(function() {
 <div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;        <span class="keywordflow">if</span>( <a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga2dc2e16d19f16d66d1de7e7b581c6d16">EndsWith</a>(actual, m_expected) )</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( <a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga2dc2e16d19f16d66d1de7e7b581c6d16">EndsWith</a>(actual, m_expected) )</div>
 <div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;        {</div>
 <div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;        }</div>
@@ -522,7 +522,7 @@ $(function() {
 <div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;        <span class="keywordflow">if</span>( <a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga7eac2b24944dfffee3c91721a1106f73">Equals</a>(actual, m_expected) )</div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( <a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga7eac2b24944dfffee3c91721a1106f73">Equals</a>(actual, m_expected) )</div>
 <div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;        {</div>
 <div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;        }</div>
@@ -617,7 +617,7 @@ $(function() {
 <div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)</div>
 <div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;    {</div>
 <div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;        <a class="code" href="../../d9/dad/iutest__stdlib_8hpp.html#a9323b8b4a8d3fab05f085b08de5ae9ac">IUTEST_USING_BEGIN_END</a>();</div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;        <span class="keywordflow">if</span>( <a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gaefd5d189935ab4951b50b11c00c774bf">Contains</a>(begin(actual), end(actual)) )</div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( <a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gaefd5d189935ab4951b50b11c00c774bf">Contains</a>(begin(actual), end(actual)) )</div>
 <div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;        {</div>
 <div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;        }</div>
@@ -662,7 +662,7 @@ $(function() {
 <div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)</div>
 <div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;    {</div>
 <div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;        <a class="code" href="../../d9/dad/iutest__stdlib_8hpp.html#a9323b8b4a8d3fab05f085b08de5ae9ac">IUTEST_USING_BEGIN_END</a>();</div>
-<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;        <span class="keywordflow">if</span>( <a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga11b9aaa5a426b9e78e3085cc85ef0f27">Each</a>(begin(actual), end(actual)) )</div>
+<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( <a class="code" href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga11b9aaa5a426b9e78e3085cc85ef0f27">Each</a>(begin(actual), end(actual)) )</div>
 <div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;        {</div>
 <div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;        }</div>
@@ -707,7 +707,7 @@ $(function() {
 <div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)</div>
 <div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;    {</div>
 <div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;        <a class="code" href="../../d9/dad/iutest__stdlib_8hpp.html#a9323b8b4a8d3fab05f085b08de5ae9ac">IUTEST_USING_BEGIN_END</a>();</div>
-<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;        <span class="keywordflow">if</span>( Check(begin(m_expected), end(m_expected)</div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( Check(begin(m_expected), end(m_expected)</div>
 <div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;            , begin(actual), end(actual)) )</div>
 <div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;        {</div>
 <div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
@@ -771,7 +771,7 @@ $(function() {
 <div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)</div>
 <div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;    {</div>
 <div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;        <a class="code" href="../../d9/dad/iutest__stdlib_8hpp.html#a9323b8b4a8d3fab05f085b08de5ae9ac">IUTEST_USING_BEGIN_END</a>();</div>
-<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;        <span class="keywordflow">if</span>( Check(begin(m_expected), end(m_expected)</div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( Check(begin(m_expected), end(m_expected)</div>
 <div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;            , begin(actual), end(actual)) )</div>
 <div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;        {</div>
 <div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
@@ -828,7 +828,7 @@ $(function() {
 <div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)</div>
 <div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;    {</div>
-<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;        <span class="keywordflow">if</span>( (actual).empty() )</div>
+<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( (actual).empty() )</div>
 <div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;        {</div>
 <div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;        }</div>
@@ -853,7 +853,7 @@ $(function() {
 <div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)</div>
 <div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;    {</div>
-<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;        <span class="keywordflow">if</span>( Check(actual) )</div>
+<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( Check(actual) )</div>
 <div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;        {</div>
 <div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;        }</div>
@@ -895,7 +895,7 @@ $(function() {
 <div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l00918"></a><span class="lineno">  918</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)</div>
 <div class="line"><a name="l00919"></a><span class="lineno">  919</span>&#160;    {</div>
-<div class="line"><a name="l00920"></a><span class="lineno">  920</span>&#160;        <span class="keywordflow">if</span>( CastToMatcher(m_expected)(actual[m_index]) )</div>
+<div class="line"><a name="l00920"></a><span class="lineno">  920</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( CastToMatcher(m_expected)(actual[m_index]) )</div>
 <div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160;        {</div>
 <div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160;        }</div>
@@ -959,13 +959,13 @@ $(function() {
 <div class="line"><a name="l00984"></a><span class="lineno">  984</span>&#160;    {</div>
 <div class="line"><a name="l00985"></a><span class="lineno">  985</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">size_t</span> actual_cnt = ::std::distance(actual_begin, actual_end);</div>
 <div class="line"><a name="l00986"></a><span class="lineno">  986</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">size_t</span> expected_cnt = m_expected.size();</div>
-<div class="line"><a name="l00987"></a><span class="lineno">  987</span>&#160;        <span class="keywordflow">if</span>( actual_cnt &lt; expected_cnt )</div>
+<div class="line"><a name="l00987"></a><span class="lineno">  987</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_UNLIKELY( actual_cnt &lt; expected_cnt )</div>
 <div class="line"><a name="l00988"></a><span class="lineno">  988</span>&#160;        {</div>
 <div class="line"><a name="l00989"></a><span class="lineno">  989</span>&#160;            iu_global_format_stringstream stream;</div>
 <div class="line"><a name="l00990"></a><span class="lineno">  990</span>&#160;            stream &lt;&lt; <span class="stringliteral">&quot;actual argument[&quot;</span> &lt;&lt; actual_cnt &lt;&lt; <span class="stringliteral">&quot;] is less than &quot;</span> &lt;&lt; expected_cnt;</div>
 <div class="line"><a name="l00991"></a><span class="lineno">  991</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; WhichIs(stream.str());</div>
 <div class="line"><a name="l00992"></a><span class="lineno">  992</span>&#160;        }</div>
-<div class="line"><a name="l00993"></a><span class="lineno">  993</span>&#160;        <span class="keywordflow">if</span>( m_expected_elem_count &amp;&amp; actual_cnt &gt; expected_cnt )</div>
+<div class="line"><a name="l00993"></a><span class="lineno">  993</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_UNLIKELY( m_expected_elem_count &amp;&amp; actual_cnt &gt; expected_cnt )</div>
 <div class="line"><a name="l00994"></a><span class="lineno">  994</span>&#160;        {</div>
 <div class="line"><a name="l00995"></a><span class="lineno">  995</span>&#160;            iu_global_format_stringstream stream;</div>
 <div class="line"><a name="l00996"></a><span class="lineno">  996</span>&#160;            stream &lt;&lt; <span class="stringliteral">&quot;actual argument[&quot;</span> &lt;&lt; actual_cnt &lt;&lt; <span class="stringliteral">&quot;] is greater than &quot;</span> &lt;&lt; expected_cnt;</div>
@@ -977,7 +977,7 @@ $(function() {
 <div class="line"><a name="l01002"></a><span class="lineno"> 1002</span>&#160;        <span class="keywordflow">for</span>( <span class="keywordtype">int</span> i=0; it_a != actual_end &amp;&amp; it_e != m_expected.end(); ++it_e, ++it_a, ++i )</div>
 <div class="line"><a name="l01003"></a><span class="lineno"> 1003</span>&#160;        {</div>
 <div class="line"><a name="l01004"></a><span class="lineno"> 1004</span>&#160;            (void)i;</div>
-<div class="line"><a name="l01005"></a><span class="lineno"> 1005</span>&#160;            <span class="keywordflow">if</span>( *it_a != *it_e )</div>
+<div class="line"><a name="l01005"></a><span class="lineno"> 1005</span>&#160;            <span class="keywordflow">if</span> IUTEST_COND_UNLIKELY( *it_a != *it_e )</div>
 <div class="line"><a name="l01006"></a><span class="lineno"> 1006</span>&#160;            {</div>
 <div class="line"><a name="l01007"></a><span class="lineno"> 1007</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; WhichIs();</div>
 <div class="line"><a name="l01008"></a><span class="lineno"> 1008</span>&#160;            }</div>
@@ -1014,7 +1014,7 @@ $(function() {
 <div class="line"><a name="l01042"></a><span class="lineno"> 1042</span>&#160;    <span class="keyword">static</span> AssertionResult Check(Ite it, Ite end, M&amp; matchers)</div>
 <div class="line"><a name="l01043"></a><span class="lineno"> 1043</span>&#160;    {</div>
 <div class="line"><a name="l01044"></a><span class="lineno"> 1044</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">size_t</span> cnt = ::std::distance(it, end);</div>
-<div class="line"><a name="l01045"></a><span class="lineno"> 1045</span>&#160;        <span class="keywordflow">if</span>( cnt &lt; LAST+1 )</div>
+<div class="line"><a name="l01045"></a><span class="lineno"> 1045</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_UNLIKELY( cnt &lt; LAST+1 )</div>
 <div class="line"><a name="l01046"></a><span class="lineno"> 1046</span>&#160;        {</div>
 <div class="line"><a name="l01047"></a><span class="lineno"> 1047</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; <span class="stringliteral">&quot;ElementsAre: argument[&quot;</span> &lt;&lt; cnt &lt;&lt; <span class="stringliteral">&quot;] is less than &quot;</span> &lt;&lt; LAST+1;</div>
 <div class="line"><a name="l01048"></a><span class="lineno"> 1048</span>&#160;        }</div>
@@ -1028,7 +1028,7 @@ $(function() {
 <div class="line"><a name="l01056"></a><span class="lineno"> 1056</span>&#160;        <span class="keywordflow">for</span>( <span class="keywordtype">int</span> index=N; it != end; ++it, ++index )</div>
 <div class="line"><a name="l01057"></a><span class="lineno"> 1057</span>&#160;        {</div>
 <div class="line"><a name="l01058"></a><span class="lineno"> 1058</span>&#160;            AssertionResult ar = CastToMatcher(tuples::get&lt;N&gt;(matchers))(*it);</div>
-<div class="line"><a name="l01059"></a><span class="lineno"> 1059</span>&#160;            <span class="keywordflow">if</span>( !ar )</div>
+<div class="line"><a name="l01059"></a><span class="lineno"> 1059</span>&#160;            <span class="keywordflow">if</span> IUTEST_COND_UNLIKELY( !ar )</div>
 <div class="line"><a name="l01060"></a><span class="lineno"> 1060</span>&#160;            {</div>
 <div class="line"><a name="l01061"></a><span class="lineno"> 1061</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; WhichIsElem&lt;N&gt;(matchers, index);</div>
 <div class="line"><a name="l01062"></a><span class="lineno"> 1062</span>&#160;            }</div>
@@ -1041,7 +1041,7 @@ $(function() {
 <div class="line"><a name="l01069"></a><span class="lineno"> 1069</span>&#160;        , <span class="keyword">typename</span> detail::disable_if&lt;N == LAST, void&gt;::type*&amp; = detail::enabler::value)</div>
 <div class="line"><a name="l01070"></a><span class="lineno"> 1070</span>&#160;    {</div>
 <div class="line"><a name="l01071"></a><span class="lineno"> 1071</span>&#160;        AssertionResult ar = CastToMatcher(tuples::get&lt;N&gt;(matchers))(*it);</div>
-<div class="line"><a name="l01072"></a><span class="lineno"> 1072</span>&#160;        <span class="keywordflow">if</span>( ar )</div>
+<div class="line"><a name="l01072"></a><span class="lineno"> 1072</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( ar )</div>
 <div class="line"><a name="l01073"></a><span class="lineno"> 1073</span>&#160;        {</div>
 <div class="line"><a name="l01074"></a><span class="lineno"> 1074</span>&#160;            <span class="keywordflow">return</span> CheckElem&lt;N + 1, LAST&gt;(++it, end, matchers);</div>
 <div class="line"><a name="l01075"></a><span class="lineno"> 1075</span>&#160;        }</div>
@@ -1157,7 +1157,7 @@ $(function() {
 <div class="line"><a name="l01191"></a><span class="lineno"> 1191</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l01192"></a><span class="lineno"> 1192</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)</div>
 <div class="line"><a name="l01193"></a><span class="lineno"> 1193</span>&#160;    {</div>
-<div class="line"><a name="l01194"></a><span class="lineno"> 1194</span>&#160;        <span class="keywordflow">if</span>( Check(actual) )</div>
+<div class="line"><a name="l01194"></a><span class="lineno"> 1194</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( Check(actual) )</div>
 <div class="line"><a name="l01195"></a><span class="lineno"> 1195</span>&#160;        {</div>
 <div class="line"><a name="l01196"></a><span class="lineno"> 1196</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l01197"></a><span class="lineno"> 1197</span>&#160;        }</div>
@@ -1209,7 +1209,7 @@ $(function() {
 <div class="line"><a name="l01246"></a><span class="lineno"> 1246</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l01247"></a><span class="lineno"> 1247</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)</div>
 <div class="line"><a name="l01248"></a><span class="lineno"> 1248</span>&#160;    {</div>
-<div class="line"><a name="l01249"></a><span class="lineno"> 1249</span>&#160;        <span class="keywordflow">if</span>( Check(actual) )</div>
+<div class="line"><a name="l01249"></a><span class="lineno"> 1249</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( Check(actual) )</div>
 <div class="line"><a name="l01250"></a><span class="lineno"> 1250</span>&#160;        {</div>
 <div class="line"><a name="l01251"></a><span class="lineno"> 1251</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l01252"></a><span class="lineno"> 1252</span>&#160;        }</div>
@@ -1261,7 +1261,7 @@ $(function() {
 <div class="line"><a name="l01301"></a><span class="lineno"> 1301</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l01302"></a><span class="lineno"> 1302</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)<span class="keyword"> const</span></div>
 <div class="line"><a name="l01303"></a><span class="lineno"> 1303</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l01304"></a><span class="lineno"> 1304</span>&#160;        <span class="keywordflow">if</span>( CastToMatcher(m_expected)(actual.first) )</div>
+<div class="line"><a name="l01304"></a><span class="lineno"> 1304</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( CastToMatcher(m_expected)(actual.first) )</div>
 <div class="line"><a name="l01305"></a><span class="lineno"> 1305</span>&#160;        {</div>
 <div class="line"><a name="l01306"></a><span class="lineno"> 1306</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l01307"></a><span class="lineno"> 1307</span>&#160;        }</div>
@@ -1290,11 +1290,11 @@ $(function() {
 <div class="line"><a name="l01333"></a><span class="lineno"> 1333</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l01334"></a><span class="lineno"> 1334</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)</div>
 <div class="line"><a name="l01335"></a><span class="lineno"> 1335</span>&#160;    {</div>
-<div class="line"><a name="l01336"></a><span class="lineno"> 1336</span>&#160;        <span class="keywordflow">if</span>( !CheckElem(actual.first, m_m1) )</div>
+<div class="line"><a name="l01336"></a><span class="lineno"> 1336</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_UNLIKELY( !CheckElem(actual.first, m_m1) )</div>
 <div class="line"><a name="l01337"></a><span class="lineno"> 1337</span>&#160;        {</div>
 <div class="line"><a name="l01338"></a><span class="lineno"> 1338</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; WhichIs();</div>
 <div class="line"><a name="l01339"></a><span class="lineno"> 1339</span>&#160;        }</div>
-<div class="line"><a name="l01340"></a><span class="lineno"> 1340</span>&#160;        <span class="keywordflow">if</span>( !CheckElem(actual.second, m_m2) )</div>
+<div class="line"><a name="l01340"></a><span class="lineno"> 1340</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_UNLIKELY( !CheckElem(actual.second, m_m2) )</div>
 <div class="line"><a name="l01341"></a><span class="lineno"> 1341</span>&#160;        {</div>
 <div class="line"><a name="l01342"></a><span class="lineno"> 1342</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a49b30d45309d9c8e820b2252082e0c99">AssertionFailure</a>() &lt;&lt; WhichIs();</div>
 <div class="line"><a name="l01343"></a><span class="lineno"> 1343</span>&#160;        }</div>
@@ -1330,7 +1330,7 @@ $(function() {
 <div class="line"><a name="l01376"></a><span class="lineno"> 1376</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l01377"></a><span class="lineno"> 1377</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)</div>
 <div class="line"><a name="l01378"></a><span class="lineno"> 1378</span>&#160;    {</div>
-<div class="line"><a name="l01379"></a><span class="lineno"> 1379</span>&#160;        <span class="keywordflow">if</span>( Check(actual) )</div>
+<div class="line"><a name="l01379"></a><span class="lineno"> 1379</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( Check(actual) )</div>
 <div class="line"><a name="l01380"></a><span class="lineno"> 1380</span>&#160;        {</div>
 <div class="line"><a name="l01381"></a><span class="lineno"> 1381</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l01382"></a><span class="lineno"> 1382</span>&#160;        }</div>
@@ -1366,7 +1366,7 @@ $(function() {
 <div class="line"><a name="l01415"></a><span class="lineno"> 1415</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l01416"></a><span class="lineno"> 1416</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)</div>
 <div class="line"><a name="l01417"></a><span class="lineno"> 1417</span>&#160;    {</div>
-<div class="line"><a name="l01418"></a><span class="lineno"> 1418</span>&#160;        <span class="keywordflow">if</span>( Check(actual) )</div>
+<div class="line"><a name="l01418"></a><span class="lineno"> 1418</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( Check(actual) )</div>
 <div class="line"><a name="l01419"></a><span class="lineno"> 1419</span>&#160;        {</div>
 <div class="line"><a name="l01420"></a><span class="lineno"> 1420</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l01421"></a><span class="lineno"> 1421</span>&#160;        }</div>
@@ -1400,7 +1400,7 @@ $(function() {
 <div class="line"><a name="l01452"></a><span class="lineno"> 1452</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l01453"></a><span class="lineno"> 1453</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)</div>
 <div class="line"><a name="l01454"></a><span class="lineno"> 1454</span>&#160;    {</div>
-<div class="line"><a name="l01455"></a><span class="lineno"> 1455</span>&#160;        <span class="keywordflow">if</span>( !CastToMatcher(m_unexpected)(actual) )</div>
+<div class="line"><a name="l01455"></a><span class="lineno"> 1455</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( !CastToMatcher(m_unexpected)(actual) )</div>
 <div class="line"><a name="l01456"></a><span class="lineno"> 1456</span>&#160;        {</div>
 <div class="line"><a name="l01457"></a><span class="lineno"> 1457</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l01458"></a><span class="lineno"> 1458</span>&#160;        }</div>
@@ -1468,7 +1468,7 @@ $(function() {
 <div class="line"><a name="l01529"></a><span class="lineno"> 1529</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l01530"></a><span class="lineno"> 1530</span>&#160;    AssertionResult operator ()(<span class="keyword">const</span> U&amp; actual)<span class="keyword"> const</span></div>
 <div class="line"><a name="l01531"></a><span class="lineno"> 1531</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l01532"></a><span class="lineno"> 1532</span>&#160;        <span class="keywordflow">if</span>( Regex(actual) )</div>
+<div class="line"><a name="l01532"></a><span class="lineno"> 1532</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( Regex(actual) )</div>
 <div class="line"><a name="l01533"></a><span class="lineno"> 1533</span>&#160;        {</div>
 <div class="line"><a name="l01534"></a><span class="lineno"> 1534</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="../../d3/dda/namespaceiutest.html#a0538466708443c65f3c7b2c84b7fce0b">AssertionSuccess</a>();</div>
 <div class="line"><a name="l01535"></a><span class="lineno"> 1535</span>&#160;        }</div>
@@ -1528,7 +1528,7 @@ $(function() {
 <div class="line"><a name="l01592"></a><span class="lineno"> 1592</span>&#160;    <span class="keyword">static</span> AssertionResult Check_(T&amp; matchers, <span class="keyword">const</span> U&amp; actual, <span class="keyword">typename</span> detail::enable_if&lt;N == LAST, void&gt;::type*&amp; = detail::enabler::value)</div>
 <div class="line"><a name="l01593"></a><span class="lineno"> 1593</span>&#160;    {</div>
 <div class="line"><a name="l01594"></a><span class="lineno"> 1594</span>&#160;        AssertionResult ar = tuples::get&lt;N&gt;(matchers)(actual);</div>
-<div class="line"><a name="l01595"></a><span class="lineno"> 1595</span>&#160;        <span class="keywordflow">if</span>( ar )</div>
+<div class="line"><a name="l01595"></a><span class="lineno"> 1595</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( ar )</div>
 <div class="line"><a name="l01596"></a><span class="lineno"> 1596</span>&#160;        {</div>
 <div class="line"><a name="l01597"></a><span class="lineno"> 1597</span>&#160;            <span class="keywordflow">return</span> ar;</div>
 <div class="line"><a name="l01598"></a><span class="lineno"> 1598</span>&#160;        }</div>
@@ -1538,7 +1538,7 @@ $(function() {
 <div class="line"><a name="l01602"></a><span class="lineno"> 1602</span>&#160;    <span class="keyword">static</span> AssertionResult Check_(T&amp; matchers, <span class="keyword">const</span> U&amp; actual, <span class="keyword">typename</span> detail::disable_if&lt;N == LAST, void&gt;::type*&amp; = detail::enabler::value)</div>
 <div class="line"><a name="l01603"></a><span class="lineno"> 1603</span>&#160;    {</div>
 <div class="line"><a name="l01604"></a><span class="lineno"> 1604</span>&#160;        AssertionResult ar = tuples::get&lt;N&gt;(matchers)(actual);</div>
-<div class="line"><a name="l01605"></a><span class="lineno"> 1605</span>&#160;        <span class="keywordflow">if</span>( ar )</div>
+<div class="line"><a name="l01605"></a><span class="lineno"> 1605</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( ar )</div>
 <div class="line"><a name="l01606"></a><span class="lineno"> 1606</span>&#160;        {</div>
 <div class="line"><a name="l01607"></a><span class="lineno"> 1607</span>&#160;            <span class="keywordflow">return</span> Check_&lt;T, U, N + 1, LAST&gt;(matchers, actual);</div>
 <div class="line"><a name="l01608"></a><span class="lineno"> 1608</span>&#160;        }</div>
@@ -1649,7 +1649,7 @@ $(function() {
 <div class="line"><a name="l01719"></a><span class="lineno"> 1719</span>&#160;    <span class="keyword">static</span> AssertionResult Check_(T&amp; matchers, <span class="keyword">const</span> U&amp; actual, <span class="keyword">typename</span> detail::enable_if&lt;N == LAST, void&gt;::type*&amp; = detail::enabler::value)</div>
 <div class="line"><a name="l01720"></a><span class="lineno"> 1720</span>&#160;    {</div>
 <div class="line"><a name="l01721"></a><span class="lineno"> 1721</span>&#160;        AssertionResult ar = tuples::get&lt;N&gt;(matchers)(actual);</div>
-<div class="line"><a name="l01722"></a><span class="lineno"> 1722</span>&#160;        <span class="keywordflow">if</span>( ar )</div>
+<div class="line"><a name="l01722"></a><span class="lineno"> 1722</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( ar )</div>
 <div class="line"><a name="l01723"></a><span class="lineno"> 1723</span>&#160;        {</div>
 <div class="line"><a name="l01724"></a><span class="lineno"> 1724</span>&#160;            <span class="keywordflow">return</span> ar;</div>
 <div class="line"><a name="l01725"></a><span class="lineno"> 1725</span>&#160;        }</div>
@@ -1659,7 +1659,7 @@ $(function() {
 <div class="line"><a name="l01729"></a><span class="lineno"> 1729</span>&#160;    <span class="keyword">static</span> AssertionResult Check_(T&amp; matchers, <span class="keyword">const</span> U&amp; actual, <span class="keyword">typename</span> detail::disable_if&lt;N == LAST, void&gt;::type*&amp; = detail::enabler::value)</div>
 <div class="line"><a name="l01730"></a><span class="lineno"> 1730</span>&#160;    {</div>
 <div class="line"><a name="l01731"></a><span class="lineno"> 1731</span>&#160;        AssertionResult ar = tuples::get&lt;N&gt;(matchers)(actual);</div>
-<div class="line"><a name="l01732"></a><span class="lineno"> 1732</span>&#160;        <span class="keywordflow">if</span>( ar )</div>
+<div class="line"><a name="l01732"></a><span class="lineno"> 1732</span>&#160;        <span class="keywordflow">if</span> IUTEST_COND_LIKELY( ar )</div>
 <div class="line"><a name="l01733"></a><span class="lineno"> 1733</span>&#160;        {</div>
 <div class="line"><a name="l01734"></a><span class="lineno"> 1734</span>&#160;            <span class="keywordflow">return</span> ar;</div>
 <div class="line"><a name="l01735"></a><span class="lineno"> 1735</span>&#160;        }</div>
@@ -2326,7 +2326,7 @@ $(function() {
 <div class="ttc" id="agroup___m_a_t_c_h_e_r_s_html_ga17d504316de4b8aa00f43662c74c4b88"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga17d504316de4b8aa00f43662c74c4b88">iutest::matchers::NotNull</a></div><div class="ttdeci">detail::NotNullMatcher NotNull()</div><div class="ttdoc">Make NotNull matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:1984</div></div>
 <div class="ttc" id="agroup___m_a_t_c_h_e_r_s_html_ga99a557b19f8d3524304b9382b258205f"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga99a557b19f8d3524304b9382b258205f">iutest::matchers::Eq</a></div><div class="ttdeci">detail::TwofoldEqMatcher Eq()</div><div class="ttdoc">Make Twofold Eq matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:1921</div></div>
 <div class="ttc" id="agroup___m_a_t_c_h_e_r_s_html_gaa3ef937e2b025dee35072f2417c77df8"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#gaa3ef937e2b025dee35072f2417c77df8">iutest::matchers::Value</a></div><div class="ttdeci">bool Value(const T &amp;value, const M &amp;expected)</div><div class="ttdoc">Value predicate</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2625</div></div>
-<div class="ttc" id="aiutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:670</div></div>
+<div class="ttc" id="aiutest__compiler_8hpp_html_ab25b077e96644679cf46ba82c0a02731"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ab25b077e96644679cf46ba82c0a02731">IUTEST_CXX_OVERRIDE</a></div><div class="ttdeci">#define IUTEST_CXX_OVERRIDE</div><div class="ttdoc">override definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:672</div></div>
 <div class="ttc" id="agroup___m_a_t_c_h_e_r_s_html_ga8df3045dd99b968722591dc7ce64b894"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga8df3045dd99b968722591dc7ce64b894">iutest::matchers::SizeIs</a></div><div class="ttdeci">detail::SizeIsMatcher&lt; T &gt; SizeIs(const T &amp;expected)</div><div class="ttdoc">Make SizeIs matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2299</div></div>
 <div class="ttc" id="agroup___m_a_t_c_h_e_r_s_html_ga7eac2b24944dfffee3c91721a1106f73"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga7eac2b24944dfffee3c91721a1106f73">iutest::matchers::Equals</a></div><div class="ttdeci">detail::EqMatcher&lt; T &gt; Equals(const T &amp;expected)</div><div class="ttdoc">Make Equals matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:1852</div></div>
 <div class="ttc" id="agroup___m_a_t_c_h_e_r_s_html_ga485c2f61fcfe8df221341609b5c3a72a"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga485c2f61fcfe8df221341609b5c3a72a">iutest::matchers::AnyOf</a></div><div class="ttdeci">detail::AnyOfMatcher&lt; T... &gt; AnyOf(const T &amp;... m)</div><div class="ttdoc">Make AnyOf matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2578</div></div>
@@ -2363,7 +2363,7 @@ $(function() {
 <div class="ttc" id="agroup___m_a_t_c_h_e_r_s_html_ga55d4f87b218eb0e76e0ba5b15809d9ab"><div class="ttname"><a href="../../d4/d14/group___m_a_t_c_h_e_r_s.html#ga55d4f87b218eb0e76e0ba5b15809d9ab">iutest::matchers::NanSensitiveFloatingPointEq</a></div><div class="ttdeci">detail::NanSensitiveFloatingPointEqMatcher&lt; T &gt; NanSensitiveFloatingPointEq(T expected)</div><div class="ttdoc">Make FloatingPoint Eq matcher</div><div class="ttdef"><b>Definition:</b> iutest_matcher.hpp:2045</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年09月07日(月) 01時56分56秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年09月13日(日) 07時43分34秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>
