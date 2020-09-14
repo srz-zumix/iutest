@@ -140,6 +140,7 @@ endif
 #
 
 IUTEST_CXX_WARN_FLAGS+=-Wno-missing-field-initializers
+IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code
 
 # 8.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 8 \)))

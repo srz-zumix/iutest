@@ -135,4 +135,8 @@ ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) ))
 IUTEST_CXX_WARN_FLAGS+=-Wno-missing-field-initializers
 endif
 
+ifeq (1,$(shell expr \( $(GCCMAJOR) \> 3 \) ))
+IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code
+endif
+
 endif

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -80,8 +80,7 @@
 #define IUTEST_TEST_FATAL_FAILURE_(statement, text, substr, on_failure)                 \
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                                      \
     if( ::iutest::AssertionResult iutest_spi_ar = [&]() -> ::iutest::AssertionResult {  \
-        ::iutest::detail::SPIFailureChecker<                                            \
-            ::iutest::TestPartResult::kFatalFailure> iutest_failure_checker;            \
+        ::iutest::detail::SPIFailureChecker iutest_failure_checker(::iutest::TestPartResult::kFatalFailure);    \
         IIUT_SPI_STATEMENT_EXECUTER(statement);                                         \
         return iutest_failure_checker.GetResult(substr);                                \
     }() )                                                                               \
@@ -92,8 +91,7 @@
 #define IUTEST_TEST_NONFATAL_FAILURE_(statement, text, substr, on_failure)              \
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                                      \
     if( ::iutest::AssertionResult iutest_spi_ar = [&]() -> ::iutest::AssertionResult {  \
-        ::iutest::detail::SPIFailureChecker<                                            \
-            ::iutest::TestPartResult::kNonFatalFailure> iutest_failure_checker;         \
+        ::iutest::detail::SPIFailureChecker iutest_failure_checker(::iutest::TestPartResult::kNonFatalFailure); \
         IIUT_SPI_STATEMENT_EXECUTER(statement);                                         \
         return iutest_failure_checker.GetResult(substr);                                \
     }() )                                                                               \
@@ -119,8 +117,7 @@
 #define IUTEST_TEST_FATAL_FAILURE_(statement, text, substr, on_failure)             \
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                                  \
     if( ::iutest::AssertionResult iutest_spi_ar = ::iutest::AssertionSuccess() ) {  \
-        ::iutest::detail::SPIFailureChecker<                                        \
-            ::iutest::TestPartResult::kFatalFailure> iutest_failure_checker;        \
+        ::iutest::detail::SPIFailureChecker iutest_failure_checker(::iutest::TestPartResult::kFatalFailure);    \
         IIUT_SPI_STATEMENT_EXECUTER(statement);                                     \
         ::iutest::AssertionResult ar = iutest_failure_checker.GetResult(substr);    \
         if( !ar ) {                                                                 \
@@ -134,8 +131,7 @@
 #define IUTEST_TEST_NONFATAL_FAILURE_(statement, text, substr, on_failure)          \
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                                  \
     if( ::iutest::AssertionResult iutest_spi_ar = ::iutest::AssertionSuccess() ) {  \
-        ::iutest::detail::SPIFailureChecker<                                        \
-            ::iutest::TestPartResult::kNonFatalFailure> iutest_failure_checker;     \
+        ::iutest::detail::SPIFailureChecker iutest_failure_checker(::iutest::TestPartResult::kNonFatalFailure); \
         IIUT_SPI_STATEMENT_EXECUTER(statement);                                     \
         ::iutest::AssertionResult ar = iutest_failure_checker.GetResult(substr);    \
         if( !ar ) {                                                                 \
@@ -164,15 +160,16 @@ namespace detail
 /**
  * @brief   SPI チェッカー
 */
-template<TestPartResult::Type Type>
 class SPIFailureChecker
     : public NewTestPartResultCheckHelper::Collector<NoTestPartResultReporter>
 {
 public:
+    SPIFailureChecker(TestPartResult::Type type) : m_Type(type) {}
+public:
     AssertionResult GetResult(const ::std::string& substr)
     {
         const char* expected =
-            (Type == TestPartResult::kFatalFailure) ? "1 fatal failure" : "1 non-fatal failure";
+            (m_Type == TestPartResult::kFatalFailure) ? "1 fatal failure" : "1 non-fatal failure";
         const size_t num = count();
         if( num != 1 )
         {
@@ -186,7 +183,7 @@ public:
         }
 
         const TestPartResult& tr = GetTestPartResult(0);
-        if( tr.type() != Type )
+        if( tr.type() != m_Type )
         {
             return AssertionFailure() << "error: Expected: " << expected
                 << "\"\n  Actual:\n" << tr;
@@ -200,6 +197,8 @@ public:
         }
         return AssertionSuccess();
     }
+private:
+    TestPartResult::Type m_Type;
 };
 
 /**
