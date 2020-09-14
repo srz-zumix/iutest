@@ -27,10 +27,8 @@ static void ExceptionFunction(int i)
         return;
     case 1:
         throw 2;
-        break;
     case 2:
         throw ::std::bad_exception();
-        break;
     case 3:
         throw "error";
     case 4:
