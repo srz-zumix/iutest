@@ -140,12 +140,17 @@ endif
 #
 
 IUTEST_CXX_WARN_FLAGS+=-Wno-missing-field-initializers
-IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code
 
 # 8.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 8 \)))
 IUTEST_CXX_WARN_FLAGS+=-Wextra-semi
 endif
+
+# 3.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code
+endif
+
 
 ifeq ($(CLANG_TATGET), x86_64-pc-windows-msvc)
 CXXFLAGS+= -Xclang -flto-visibility-public-std

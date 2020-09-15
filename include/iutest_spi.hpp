@@ -164,7 +164,7 @@ class SPIFailureChecker
     : public NewTestPartResultCheckHelper::Collector<NoTestPartResultReporter>
 {
 public:
-    SPIFailureChecker(TestPartResult::Type type) : m_Type(type) {}
+    explicit SPIFailureChecker(TestPartResult::Type type) : m_Type(type) {}
 public:
     AssertionResult GetResult(const ::std::string& substr)
     {
