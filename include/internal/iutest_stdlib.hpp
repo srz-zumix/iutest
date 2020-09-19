@@ -828,7 +828,82 @@ using tuples::get;
 #  endif
 #endif
 
-namespace iutest {
+namespace iutest
+{
+
+namespace stl
+{
+
+// #if IUTEST_HAS_CXX_HDR_OPTIONAL
+// #else
+// #endif
+
+#if IUTEST_HAS_EXCEPTIONS
+/**
+ * @brief   any_cast の失敗例外
+*/
+class bad_optional_access : public ::std::exception {};
+#endif
+
+class nullpot_t {};
+
+template<typename T>
+class optional
+{
+public:
+    typedef T value_type;
+public:
+    optional() IUTEST_CXX_NOEXCEPT_SPEC : m_ptr(NULL) {}
+    explicit optional(nullpot_t) IUTEST_CXX_NOEXCEPT_SPEC : m_ptr(NULL) {}
+    explicit optional(const T& rhs) : m_ptr(&m_value), m_value(rhs) {}
+    template<typename U>
+    explicit optional(const U& rhs) : m_ptr(&m_value), m_value(rhs) {}
+    optional(const optional& rhs) : m_ptr(rhs.m_ptr == NULL ? NULL : &m_value), m_value(rhs.value) {}
+
+public:
+    optional& operator = (const T& rhs) { m_ptr = &m_value; m_value = rhs; }
+    operator bool () const { return has_value(); }
+    const T& operator * () const { return value(); }
+    T& operator * () { return value(); }
+    const T* operator -> () const { return m_ptr; }
+    T* operator -> () { return m_ptr; }
+
+public:
+    bool has_value() const { return m_ptr != NULL; }
+    const T& value() const
+    {
+#if IUTEST_HAS_EXCEPTIONS
+        if( m_ptr == NULL ) {
+            throw bad_optional_access();
+        }
+#endif
+        return m_value;
+    }
+    T& value()
+    {
+#if IUTEST_HAS_EXCEPTIONS
+        if( m_ptr == NULL ) {
+            throw bad_optional_access();
+        }
+#endif
+        return m_value;
+    }
+    template<typename U>
+    T value_or(const U& v) const
+    {
+        if( m_ptr == NULL ) {
+            return v;
+        }
+        return m_value;
+    }
+
+private:
+    T* m_ptr;
+    T m_value;
+};
+
+}   // end of namespace stl
+
 namespace detail
 {
 
