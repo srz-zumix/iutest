@@ -807,24 +807,43 @@ IUTEST(MatcherFailure, ContainsRegex)
 #if IUTEST_HAS_MATCHER_OPTIONAL
 
 #if IUTEST_HAS_CXX_HDR_OPTIONAL
+typedef ::std::optional<int> OptionalInt;
+typedef ::std::optional<::std::unique_ptr<int>> OptionalIntPtr;
+#elif !defined(IUTEST_USE_GTEST)
 typedef ::iutest::stl::optional<int> OptionalInt;
 typedef ::iutest::stl::optional<::std::unique_ptr<int>> OptionalIntPtr;
 #else
-typedef ::iutest::stl::optional<int> OptionalInt;
-typedef ::iutest::stl::optional<::std::unique_ptr<int>> OptionalIntPtr;
+template <typename T>
+class SampleOptional
+{
+public:
+    typedef T value_type;
+    template<typename U>
+    explicit SampleOptional(const U& value)
+        : value_(value), has_value_(true) {}
+    SampleOptional() : value_(), has_value_(false) {}
+    operator bool() const { return has_value_; }
+    const T &operator*() const { return value_; }
+
+private:
+    T value_;
+    bool has_value_;
+};
+typedef SampleOptional<int> OptionalInt;
+typedef SampleOptional<::std::unique_ptr<int>> OptionalIntPtr;
 #endif
 
 IUTEST(Matcher, Optional)
 {
     {
         OptionalInt x(1);
-        IUTEST_EXPECT_THAT(x, Optional(1);
-        IUTEST_EXPECT_THAT(x, Optional(Eq(1));
-        IUTEST_EXPECT_THAT(x, Optional(Lt(2));
+        IUTEST_EXPECT_THAT(x, Optional(1));
+        IUTEST_EXPECT_THAT(x, Optional(Eq(1)));
+        IUTEST_EXPECT_THAT(x, Optional(Lt(2)));
     }
     {
-        OptionalIntPtr x(NULL);
-        IUTEST_EXPECT_THAT(x, Optional(Eq(NULL));
+        OptionalIntPtr x(IUTEST_NULLPTR);
+        IUTEST_EXPECT_THAT(x, Optional(Eq(IUTEST_NULLPTR)));
     }
 }
 
@@ -832,8 +851,8 @@ IUTEST(MatcherFailure, Optional)
 {
     OptionalInt empty;
     OptionalInt x(1);
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(empty, Optional(1)), "Optional: empty");
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(x, Optional(2)), "Optional: 2 vs 1");
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(empty, Optional(1)), "Optional: 1 (which is not engaged)");
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(x, Optional(2)), "Optional: 2 (1)");
 }
 
 #endif
