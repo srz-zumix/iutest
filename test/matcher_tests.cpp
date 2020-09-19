@@ -806,26 +806,53 @@ IUTEST(MatcherFailure, ContainsRegex)
 
 #if IUTEST_HAS_MATCHER_OPTIONAL
 
+#if IUTEST_HAS_CXX_HDR_OPTIONAL
+typedef ::std::optional<int> OptionalInt;
+typedef ::std::optional<::std::unique_ptr<int>> OptionalIntPtr;
+#elif !defined(IUTEST_USE_GTEST)
+typedef ::iutest::stl::optional<int> OptionalInt;
+typedef ::iutest::stl::optional<::std::unique_ptr<int>> OptionalIntPtr;
+#else
+template <typename T>
+class SampleOptional
+{
+public:
+    typedef T value_type;
+    template<typename U>
+    explicit SampleOptional(const U& value)
+        : value_(value), has_value_(true) {}
+    SampleOptional() : value_(), has_value_(false) {}
+    operator bool() const { return has_value_; }
+    const T &operator*() const { return value_; }
+
+private:
+    T value_;
+    bool has_value_;
+};
+typedef SampleOptional<int> OptionalInt;
+typedef SampleOptional<::std::unique_ptr<int>> OptionalIntPtr;
+#endif
+
 IUTEST(Matcher, Optional)
 {
-    IUTEST_EXPECT_THAT("hoge", ElementsAre('h', 'o', 'g', 'e', '\0'));
-#if !defined(IUTEST_USE_GMOCK)
-    IUTEST_EXPECT_THAT(va, ElementsAre(Ge(0), Gt(0)));
-#endif
+    {
+        OptionalInt x(1);
+        IUTEST_EXPECT_THAT(x, Optional(1));
+        IUTEST_EXPECT_THAT(x, Optional(Eq(1)));
+        IUTEST_EXPECT_THAT(x, Optional(Lt(2)));
+    }
+    {
+        OptionalIntPtr x(IUTEST_NULLPTR);
+        IUTEST_EXPECT_THAT(x, Optional(Eq(IUTEST_NULLPTR)));
+    }
 }
 
-IUTEST(MatcherFailure, ElementsAre)
+IUTEST(MatcherFailure, Optional)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT("hoge"
-        , ElementsAre( 'h', 'o', 'G', 'e', '\0')), "ElementsAre(2): G");
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(va
-        , ElementsAre(Ge(0), Gt(0), Lt(1))), "ElementsAre(2): Lt: 1");
-#if IUTEST_HAS_MATCHER_EACH
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(gn, Each(
-        ElementsAre(Lt(3), Lt(3)))), "Each: ElementsAre: {Lt: 3, Lt: 3}");
-#endif
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(gc
-        , ElementsAre( Ge(0), Gt(0), Ne(0), Eq(0) ) ), "ElementsAre: argument[3] is less than 4");
+    OptionalInt empty;
+    OptionalInt x(1);
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(empty, Optional(1)), "Optional: 1 (which is not engaged)");
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(x, Optional(2)), "Optional: 2 (1)");
 }
 
 #endif
