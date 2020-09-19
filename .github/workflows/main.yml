@@ -67,14 +67,19 @@ jobs:
     runs-on: ubuntu-18.04
     container: docker://srzzumix/zapcc
     needs: prepare
+    env:
+      LD_LIBRARY_PATH: /home/runner/actions-runner/_work/_tool/Python/3.8.5/x64/lib
     steps:
     - uses: actions/checkout@master
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.8.5
     - name: zapcc test
       run: |
         make -C test clean
         make -C test showcxxversion
         make -C test check_stdlib
-        make -C test -j1
+        make -C test -j1 IUTEST_REQUIRE_PYTHON=1
         make -C test test
   arm-none-eabi:
     runs-on: ubuntu-18.04
