@@ -73,7 +73,7 @@ jobs:
     - uses: actions/checkout@master
     - name: Set Python environment variable
       run: |
-        ls
+        which ptyhon
         echo '::set-env name=LD_LIBRARY_PATH::/tmp/runner/work/_tool/Python/${PYTHON_VERSION}/x64/lib'
     - uses: actions/setup-python@v2
       with:
