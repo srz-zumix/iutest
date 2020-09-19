@@ -68,12 +68,16 @@ jobs:
     container: docker://srzzumix/zapcc
     needs: prepare
     env:
-      LD_LIBRARY_PATH: /home/runner/actions-runner/_work/_tool/Python/3.8.5/x64/lib
+      PYTHON_VERSION: 3.8.5
     steps:
     - uses: actions/checkout@master
+    - name: Set Python environment variable
+      run: |
+        ls
+        echo '::set-env name=LD_LIBRARY_PATH::/tmp/runner/work/_tool/Python/${PYTHON_VERSION}/x64/lib'
     - uses: actions/setup-python@v2
       with:
-        python-version: 3.8.5
+        python-version: ${PYTHON_VERSION}
     - name: zapcc test
       run: |
         make -C test clean
