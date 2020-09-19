@@ -833,26 +833,23 @@ typedef SampleOptional<int> OptionalInt;
 typedef SampleOptional<::std::unique_ptr<int>> OptionalIntPtr;
 #endif
 
+OptionalInt opt1(1);
+OptionalIntPtr optnull(IUTEST_NULLPTR);
+OptionalInt optempty;
+
 IUTEST(Matcher, Optional)
 {
-    {
-        OptionalInt x(1);
-        IUTEST_EXPECT_THAT(x, Optional(1));
-        IUTEST_EXPECT_THAT(x, Optional(Eq(1)));
-        IUTEST_EXPECT_THAT(x, Optional(Lt(2)));
-    }
-    {
-        OptionalIntPtr x(IUTEST_NULLPTR);
-        IUTEST_EXPECT_THAT(x, Optional(Eq(IUTEST_NULLPTR)));
-    }
+    IUTEST_EXPECT_THAT(opt1, Optional(1));
+    IUTEST_EXPECT_THAT(opt1, Optional(Eq(1)));
+    IUTEST_EXPECT_THAT(opt1, Optional(Lt(2)));
+
+    IUTEST_EXPECT_THAT(optnull, Optional(Eq(IUTEST_NULLPTR)));
 }
 
 IUTEST(MatcherFailure, Optional)
 {
-    OptionalInt empty;
-    OptionalInt x(1);
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(empty, Optional(1)), "Optional: 1 (which is not engaged)");
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(x, Optional(2)), "Optional: 2 (1)");
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(optempty, Optional(1)), "Optional: 1 (which is not engaged)");
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(opt1, Optional(2)), "Optional: 2 (1)");
 }
 
 #endif

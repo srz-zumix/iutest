@@ -844,7 +844,7 @@ template<typename T>
 class OptionalMatcher : public IMatcher
 {
 public:
-    OptionalMatcher(const T& expected)
+    explicit OptionalMatcher(const T& expected)
         : m_expected(expected) {}
 
 public:

@@ -854,7 +854,7 @@ public:
     typedef T value_type;
 public:
     optional() IUTEST_CXX_NOEXCEPT_SPEC : m_ptr(NULL) {}
-    optional(nullpot_t) IUTEST_CXX_NOEXCEPT_SPEC : m_ptr(NULL) {}
+    explicit optional(nullpot_t) IUTEST_CXX_NOEXCEPT_SPEC : m_ptr(NULL) {}
     explicit optional(const T& rhs) : m_ptr(&m_value), m_value(rhs) {}
     template<typename U>
     explicit optional(const U& rhs) : m_ptr(&m_value), m_value(rhs) {}
