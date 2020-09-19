@@ -804,14 +804,19 @@ IUTEST(MatcherFailure, ContainsRegex)
 #endif
 
 
+#if IUTEST_HAS_CXX11 && 0
+typedef ::std::unique_ptr<int> test_nit_ptr;
+#else
+typedef void* test_nit_ptr;
+#endif
 #if IUTEST_HAS_MATCHER_OPTIONAL
 
 #if IUTEST_HAS_CXX_HDR_OPTIONAL
 typedef ::std::optional<int> OptionalInt;
-typedef ::std::optional<::std::unique_ptr<int>> OptionalIntPtr;
+typedef ::std::optional<test_nit_ptr> OptionalIntPtr;
 #elif !defined(IUTEST_USE_GTEST)
 typedef ::iutest::stl::optional<int> OptionalInt;
-typedef ::iutest::stl::optional<::std::unique_ptr<int>> OptionalIntPtr;
+typedef ::iutest::stl::optional<test_nit_ptr> OptionalIntPtr;
 #else
 template <typename T>
 class SampleOptional
@@ -830,7 +835,7 @@ private:
     bool has_value_;
 };
 typedef SampleOptional<int> OptionalInt;
-typedef SampleOptional<::std::unique_ptr<int>> OptionalIntPtr;
+typedef SampleOptional<test_nit_ptr> OptionalIntPtr;
 #endif
 
 OptionalInt opt1(1);
