@@ -69,6 +69,11 @@ jobs:
     needs: prepare
     steps:
     - uses: actions/checkout@master
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Set Python environment variable
+      run: echo '::set-env name=LD_LIBRARY_PATH::/tmp/runner/work/_tool/Python/3.8/x64/lib'
     - name: zapcc test
       run: |
         make -C test clean
