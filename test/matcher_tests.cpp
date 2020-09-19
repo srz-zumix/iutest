@@ -848,7 +848,7 @@ IUTEST(Matcher, Optional)
     IUTEST_EXPECT_THAT(opt1, Optional(Eq(1)));
     IUTEST_EXPECT_THAT(opt1, Optional(Lt(2)));
 
-    IUTEST_EXPECT_THAT(optnull, Optional(Eq(IUTEST_NULLPTR)));
+    IUTEST_EXPECT_THAT(optnull, Optional(IsNull()));
 }
 
 IUTEST(MatcherFailure, Optional)
