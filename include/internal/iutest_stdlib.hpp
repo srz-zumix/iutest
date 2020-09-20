@@ -853,15 +853,15 @@ class optional
 public:
     typedef T value_type;
 public:
-    optional() IUTEST_CXX_NOEXCEPT_SPEC : m_ptr(NULL) {}
-    explicit optional(nullpot_t) IUTEST_CXX_NOEXCEPT_SPEC : m_ptr(NULL) {}
-    explicit optional(const T& rhs) : m_ptr(&m_value), m_value(rhs) {}
+    optional() IUTEST_CXX_NOEXCEPT_SPEC : m_init(false) {}
+    explicit optional(nullpot_t) IUTEST_CXX_NOEXCEPT_SPEC : m_init(fales) {}
+    explicit optional(const T& rhs) : m_ptr(true), m_value(rhs) {}
     template<typename U>
-    explicit optional(const U& rhs) : m_ptr(&m_value), m_value(static_cast<T>(rhs)) {}
-    optional(const optional& rhs) : m_ptr(rhs.m_ptr == NULL ? NULL : &m_value), m_value(rhs.value) {}
+    explicit optional(const U& rhs) : m_init(true), m_value(T(rhs)) {}
+    optional(const optional& rhs) : m_init(rhs.m_init), m_value(rhs.value) {}
 
 public:
-    optional& operator = (const T& rhs) { m_ptr = &m_value; m_value = rhs; }
+    optional& operator = (const T& rhs) { m_init = true; m_value = rhs; }
     operator bool () const { return has_value(); }
     const T& operator * () const { return value(); }
     T& operator * () { return value(); }
@@ -869,11 +869,11 @@ public:
     T* operator -> () { return m_ptr; }
 
 public:
-    bool has_value() const { return m_ptr != NULL; }
+    bool has_value() const { return m_init; }
     const T& value() const
     {
 #if IUTEST_HAS_EXCEPTIONS
-        if( m_ptr == NULL ) {
+        if( !m_init ) {
             throw bad_optional_access();
         }
 #endif
@@ -882,7 +882,7 @@ public:
     T& value()
     {
 #if IUTEST_HAS_EXCEPTIONS
-        if( m_ptr == NULL ) {
+        if( !m_init ) {
             throw bad_optional_access();
         }
 #endif
@@ -891,14 +891,14 @@ public:
     template<typename U>
     T value_or(const U& v) const
     {
-        if( m_ptr == NULL ) {
+        if( !m_init ) {
             return v;
         }
         return m_value;
     }
 
 private:
-    T* m_ptr;
+    bool m_init;
     T m_value;
 };
 
