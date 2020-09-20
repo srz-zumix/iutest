@@ -39,6 +39,8 @@ jobs:
           DISABLED_CONFIG: IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD
         Disable_MatcherFloatingPointNear:
           DISABLED_CONFIG: IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR
+        Disable_MatcherOptional:
+          DISABLED_CONFIG: IUTEST_HAS_MATCHER_OPTIONAL
         Disable_MatcherPointwise:
           DISABLED_CONFIG: IUTEST_HAS_MATCHER_POINTWISE
         Disable_MatcherRegex:

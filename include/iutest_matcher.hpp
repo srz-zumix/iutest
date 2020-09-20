@@ -174,7 +174,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U* actual) const
     {
-        if IUTEST_COND_LIKELY( actual == NULL )
+        if IUTEST_COND_LIKELY( actual == static_cast<U*>(NULL) )
         {
             return AssertionSuccess();
         }
@@ -195,7 +195,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U* actual) const
     {
-        if IUTEST_COND_LIKELY( actual != NULL )
+        if IUTEST_COND_LIKELY( actual != static_cast<U*>(NULL) )
         {
             return AssertionSuccess();
         }
@@ -527,7 +527,7 @@ public:
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
-        strm << "Eq: " << m_expected;
+        strm << "Eq: " << PrintToString(m_expected);
         return strm.str();
     }
 private:
@@ -834,6 +834,65 @@ private:
 };
 
 #endif
+
+#if IUTEST_HAS_MATCHER_OPTIONAL
+
+/**
+ * @brief   Optional matcher
+*/
+template<typename T>
+class OptionalMatcher : public IMatcher
+{
+public:
+    explicit OptionalMatcher(const T& expected)
+        : m_expected(expected) {}
+
+public:
+    template<typename U>
+    AssertionResult operator ()(const U& actual)
+    {
+        if( Check(actual) )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << WhichIs();
+    }
+
+private:
+    template<typename U>
+    bool Check(const U& actual)
+    {
+        bool result = true;
+        Message ar;
+        if( !actual )
+        {
+            result = false;
+            ar << "which is not engaged";
+        }
+        else if( !CastToMatcher(m_expected)(*actual) )
+        {
+            result = false;
+            ar << actual;
+        }
+        m_whichIs = ar.GetString();
+        return result;
+    }
+
+public:
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        iu_global_format_stringstream strm;
+        strm << "Optional: " << PrintToString(m_expected);
+        strm << " (" << m_whichIs << ")";
+        return strm.str();
+    }
+private:
+    const T& m_expected;
+    ::std::string m_whichIs;
+};
+
+#endif
+
 
 /**
  * @brief   IsEmpty matcher
@@ -2277,6 +2336,20 @@ template<typename M, typename T>
 detail::PointwiseMatcher<M, T> Pointwise(const M& matcher, const T& expected)
 {
     return detail::PointwiseMatcher<M, T>(matcher, expected);
+}
+
+#endif
+
+#if IUTEST_HAS_MATCHER_OPTIONAL
+
+/**
+ * @brief   Make Optional matcher
+ * @details argument は expected にマッチする
+*/
+template<typename T>
+detail::OptionalMatcher<T> Optional(const T& expected)
+{
+    return detail::OptionalMatcher<T>(expected);
 }
 
 #endif
