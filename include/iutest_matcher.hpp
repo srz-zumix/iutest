@@ -174,7 +174,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U* actual) const
     {
-        if IUTEST_COND_LIKELY( actual == static_cast<U*>(NULL) )
+        if IUTEST_COND_LIKELY( actual == IUTEST_NULLPTR )
         {
             return AssertionSuccess();
         }
@@ -195,7 +195,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U* actual) const
     {
-        if IUTEST_COND_LIKELY( actual != static_cast<U*>(NULL) )
+        if IUTEST_COND_LIKELY( actual != IUTEST_NULLPTR )
         {
             return AssertionSuccess();
         }
