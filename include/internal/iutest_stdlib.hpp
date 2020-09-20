@@ -855,7 +855,7 @@ public:
 public:
     optional() IUTEST_CXX_NOEXCEPT_SPEC : m_init(false) {}
     explicit optional(nullpot_t) IUTEST_CXX_NOEXCEPT_SPEC : m_init(false) {}
-    explicit optional(const T& rhs) : m_ptr(true), m_value(rhs) {}
+    explicit optional(const T& rhs) : m_init(true), m_value(rhs) {}
     template<typename U>
     explicit optional(const U& rhs) : m_init(true), m_value(T(rhs)) {}
     optional(const optional& rhs) : m_init(rhs.m_init), m_value(rhs.value) {}
@@ -865,11 +865,13 @@ public:
     operator bool () const { return has_value(); }
     const T& operator * () const { return value(); }
     T& operator * () { return value(); }
-    const T* operator -> () const { return m_ptr; }
-    T* operator -> () { return m_ptr; }
+    const T* operator -> () const { return ptr(); }
+    T* operator -> () { return ptr(); }
 
 public:
     bool has_value() const { return m_init; }
+    const T* ptr() const { return &m_value; }
+    T* ptr() { return &m_value; }
     const T& value() const
     {
 #if IUTEST_HAS_EXCEPTIONS
