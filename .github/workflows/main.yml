@@ -67,17 +67,28 @@ jobs:
     runs-on: ubuntu-18.04
     container: docker://srzzumix/zapcc
     needs: prepare
+    env:
+      PYTHON_VERSION: 3.8
     steps:
     - uses: actions/checkout@master
+<<<<<<< HEAD
     - uses: actions/setup-python@v2
       with:
         python-version: 3.8
+||||||| 9f78656f4
+=======
+    - uses: actions/setup-python@v2
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    - name: Set Python environment variable
+      run: echo '::set-env name=LD_LIBRARY_PATH::${{ env.pythonLocation }}/lib'
+>>>>>>> 57054536d244d9431809970dc51a53bdb5e3da3e
     - name: zapcc test
       run: |
         make -C test clean
         make -C test showcxxversion
         make -C test check_stdlib
-        make -C test -j1
+        make -C test -j1 IUTEST_REQUIRE_PYTHON=1
         make -C test test
   arm-none-eabi:
     runs-on: ubuntu-18.04
