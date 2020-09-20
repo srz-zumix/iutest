@@ -172,7 +172,7 @@ class IsNullMatcher : public IMatcher
 {
 public:
     template<typename U>
-    AssertionResult operator ()(const U* actual) const
+    AssertionResult operator ()(const U& actual) const
     {
         if IUTEST_COND_LIKELY( actual == IUTEST_NULLPTR )
         {
@@ -193,7 +193,7 @@ class NotNullMatcher : public IMatcher
 {
 public:
     template<typename U>
-    AssertionResult operator ()(const U* actual) const
+    AssertionResult operator ()(const U& actual) const
     {
         if IUTEST_COND_LIKELY( actual != IUTEST_NULLPTR )
         {
@@ -201,6 +201,7 @@ public:
         }
         return AssertionFailure() << WhichIs();
     }
+
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         return "Not Null";
