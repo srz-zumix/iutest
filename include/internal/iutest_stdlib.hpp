@@ -854,7 +854,7 @@ public:
     typedef T value_type;
 public:
     optional() IUTEST_CXX_NOEXCEPT_SPEC : m_init(false) {}
-    explicit optional(nullpot_t) IUTEST_CXX_NOEXCEPT_SPEC : m_init(fales) {}
+    explicit optional(nullpot_t) IUTEST_CXX_NOEXCEPT_SPEC : m_init(false) {}
     explicit optional(const T& rhs) : m_ptr(true), m_value(rhs) {}
     template<typename U>
     explicit optional(const U& rhs) : m_init(true), m_value(T(rhs)) {}
@@ -873,7 +873,7 @@ public:
     const T& value() const
     {
 #if IUTEST_HAS_EXCEPTIONS
-        if( !m_init ) {
+        if( !has_value() ) {
             throw bad_optional_access();
         }
 #endif
@@ -882,7 +882,7 @@ public:
     T& value()
     {
 #if IUTEST_HAS_EXCEPTIONS
-        if( !m_init ) {
+        if( !has_value() ) {
             throw bad_optional_access();
         }
 #endif
@@ -891,7 +891,7 @@ public:
     template<typename U>
     T value_or(const U& v) const
     {
-        if( !m_init ) {
+        if( !has_value() ) {
             return v;
         }
         return m_value;
