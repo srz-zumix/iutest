@@ -825,7 +825,7 @@ public:
     typedef T value_type;
     template<typename U>
     explicit SampleOptional(const U& value)
-        : value_(value), has_value_(true) {}
+        : value_(static_cast<T>(value)), has_value_(true) {}
     SampleOptional() : value_(), has_value_(false) {}
     operator bool() const { return has_value_; }
     const T &operator*() const { return value_; }

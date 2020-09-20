@@ -857,7 +857,7 @@ public:
     explicit optional(nullpot_t) IUTEST_CXX_NOEXCEPT_SPEC : m_ptr(NULL) {}
     explicit optional(const T& rhs) : m_ptr(&m_value), m_value(rhs) {}
     template<typename U>
-    explicit optional(const U& rhs) : m_ptr(&m_value), m_value(rhs) {}
+    explicit optional(const U& rhs) : m_ptr(&m_value), m_value(static_cast<T>(rhs)) {}
     optional(const optional& rhs) : m_ptr(rhs.m_ptr == NULL ? NULL : &m_value), m_value(rhs.value) {}
 
 public:
