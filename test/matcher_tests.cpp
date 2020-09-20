@@ -804,10 +804,10 @@ IUTEST(MatcherFailure, ContainsRegex)
 #endif
 
 
-#if IUTEST_HAS_CXX11 && 0
+#if IUTEST_HAS_CXX11
 typedef ::std::unique_ptr<int> test_nit_ptr;
 #else
-typedef void* test_nit_ptr;
+typedef int* test_nit_ptr;
 #endif
 #if IUTEST_HAS_MATCHER_OPTIONAL
 
@@ -839,7 +839,7 @@ typedef SampleOptional<test_nit_ptr> OptionalIntPtr;
 #endif
 
 OptionalInt opt1(1);
-OptionalIntPtr optnull(IUTEST_NULLPTR);
+OptionalIntPtr optnull(p1);
 OptionalInt optempty;
 
 IUTEST(Matcher, Optional)
