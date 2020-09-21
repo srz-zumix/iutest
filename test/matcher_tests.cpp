@@ -16,6 +16,7 @@
 //======================================================================
 // include
 #include <map>
+#include <memory>
 #include "../include/gtest/iutest_spi_switch.hpp"
 
 #if IUTEST_HAS_MATCHERS
