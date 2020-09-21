@@ -66,7 +66,7 @@
 #  define IUTEST_HAS_MATCHER_EACH                   0
 #  define IUTEST_HAS_MATCHER_POINTWISE              0
 #endif
-#if GMOCK_VER > 0x01100000 || GMOCK_LATEST
+#if GMOCK_VER > 0x01080000
 #  define IUTEST_HAS_MATCHER_OPTIONAL               1
 #else
 #  define IUTEST_HAS_MATCHER_OPTIONAL               0
@@ -222,6 +222,14 @@ AnyOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7, M8 m8, M9 m9, M10 m10) {
 
 #endif
 
+#if IUTEST_HAS_MATCHER_OPTIONAL && (GMOCK_VER <= 0x01100000) && (GMOCK_VER > 0x01080000) && !GMOCK_LATEST
+template <typename ValueMatcher>
+inline internal::OptionalMatcher<ValueMatcher> Optional(
+    const ValueMatcher& value_matcher) {
+  return internal::OptionalMatcher<ValueMatcher>(value_matcher);
+}
+#endif
+
 namespace matchers
 {
 
@@ -277,6 +285,9 @@ namespace matchers
     using ::testing::MatchesRegex;
     using ::testing::ContainsRegex;
 
+#if IUTEST_HAS_MATCHER_OPTIONAL
+    using ::testing::Optional
+#endif
     using ::testing::AllOf;
     using ::testing::AnyOf;
 
