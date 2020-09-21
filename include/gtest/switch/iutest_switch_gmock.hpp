@@ -278,7 +278,7 @@ namespace matchers
     using ::testing::ContainsRegex;
 
 #if IUTEST_HAS_MATCHER_OPTIONAL
-    using ::testing::Optional
+    using ::testing::Optional;
 #endif
     using ::testing::AllOf;
     using ::testing::AnyOf;
