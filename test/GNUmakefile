@@ -190,12 +190,12 @@ COVERITY_SCAN_BUILD_TARGETS = $(ALLTESTS_TARGET) $(EXTENSIONTESTS_TARGET) $(TARG
 
 default : $(TARGETS)
 
-all : clean default test
+all : clean default test ## clean and build, run
 
 # dir :
 # 	@if [ ! -e `dirname $(OUTDIR)` ]; then mkdir -p `dirname $(OUTDIR)`; fi
 
-clean :
+clean : ## clean
 	$(RM) $(TARGETS) $(NO_DEFAULT_TARGETS) $(ALL_OBJS) *.o *.stackdump *.core *.exe *.log *.ns.cpp check_stdlib
 	$(RM) -R *.dSYM
 ifdef OUTPUTXML
@@ -205,25 +205,25 @@ ifdef USE_COVERAGE
 	$(RM) *.xml *.gcov *.gcno *.gcda coverage.info
 endif
 
-clean-xml :
+clean-xml : ## clean xml
 	$(RM) *.xml
 
-clean-cov :
+clean-cov : ## clean coverages
 	$(RM) *.xml *.gcov *.gcno *.gcda coverage.info
 
-clean-all : clean clean-xml clean-cov
+clean-all : clean clean-xml clean-cov ## clean all
 	make -C benchmark clean
 	make -C configcheck clean
 	make -C cpplint clean
 
 check : test
-run : test
-test : $(BUILD_ONLY) $(RUNNER)
+run : test ## run tests
+test : $(BUILD_ONLY) $(RUNNER) ## run tests
 
-lint : cpplint/Makefile $(IUTEST_HEADERS) $(MAKEFILE)
+lint : cpplint/Makefile $(IUTEST_HEADERS) $(MAKEFILE) ## lint
 	make -C cpplint
 
-showcxxversion:
+showcxxversion: ## show compiler version
 	$(CXX) --version
 ifeq ($(CXX_NAME),g++)
 	$(CXX) -dumpversion
@@ -238,10 +238,10 @@ ifdef CXX_NAME
 	@echo ${CXX_NAME}-$(CXX_MAJOR).$(CXX_MINOR)
 endif
 
-showcxxmacros:
+showcxxmacros: ## show compiler predefined macros
 	$(CXX) $(STDFLAG) -dM -E -x c++ - < /dev/null
 
-showcxxflags:
+showcxxflags: ## show cxxflags
 	@echo $(CXXFLAGS)
 
 %_build: $(OUTDIR)/%
@@ -266,11 +266,10 @@ endif
 run_% : %_run
 	@echo $< > /dev/null
 
-prepare: $(NAMESPACETESTS_TEST_SRCS)
+prepare: $(NAMESPACETESTS_TEST_SRCS) ## test code prepare
 	@if [[ ! -d "${OUTDIR}" ]]; then mkdir $(OUTDIR); fi
 
-# gtest version test
-gtest-version: clean gtest_version_tests_run
+gtest-version: clean gtest_version_tests_run ## gtest version test
 
 coverity_scan: $(COVERITY_SCAN_BUILD_TARGETS)
 
@@ -281,10 +280,10 @@ coverity_scan: $(COVERITY_SCAN_BUILD_TARGETS)
 
 FUSED_PY= ../tools/fused/*.py
 
-fused: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fused/Makefile $(FUSED_PY)
+fused: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fused/Makefile $(FUSED_PY) ## create fused-src
 	make -C ../tools/fused
 
-fused_min: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fused/Makefile $(FUSED_PY)
+fused_min: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fused/Makefile $(FUSED_PY) ## create minimize fused-src
 	make -C ../tools/fused min
 
 #
@@ -485,7 +484,7 @@ check_incg: $(IUTEST_INCLUDE_GUARD_CHECK)
 # cppcheck
 #
 
-cppcheck:
+cppcheck: ## cppcheck
 	make -C cppcheck
 
 #
@@ -494,3 +493,9 @@ cppcheck:
 
 report:
 	CXX_NAME=${CXX_NAME} CXX_VERSION=${CXX_VERSION} STDFLAG=${STDFLAG} ./../.ci/report-basic-test.sh || true
+
+#
+# help
+#
+help: ## show help
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sed -e 's/^GNUmakefile://' | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
