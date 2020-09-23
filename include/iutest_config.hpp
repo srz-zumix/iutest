@@ -308,6 +308,10 @@
 #  define IUTEST_HAS_MATCHER_POINTWISE          1
 #endif
 
+#if !defined(IUTEST_HAS_MATCHER_OPTIONAL)
+#  define IUTEST_HAS_MATCHER_OPTIONAL           1
+#endif
+
 #if !defined(IUTEST_USE_THROW_ON_ASSERTION_FAILURE)
 /**
  * @brief   失敗時に例外を throw します。
