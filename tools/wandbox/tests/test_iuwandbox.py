@@ -32,7 +32,7 @@ test_opt = ['-f"-DIUTEST_USE_MAIN"']
 test_opt.extend(test_opt_default)
 test_opt_verbose = ['--verbose']
 test_opt_dryrun = ['--dryrun']
-test_opt_no_min = ['--iutest-use-wandbox-min']
+test_opt_no_min = ['--no-iutest-use-wandbox-min']
 
 
 def eprint(*args, **kwargs):
