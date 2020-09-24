@@ -572,6 +572,8 @@ def run_wandbox_cxx(code, includes, impliments, options):
                 if options.compiler in ['clang-3.4', 'clang-3.3']:
                     colist.append('-fno-exceptions')
                     colist.append('-fno-rtti')
+            if 'gcc' in options.compiler:
+                colist.append('-flarge-source-files')
         if colist:
             co = '\n'.join(colist)
             co = co.replace('\\n', '\n')
