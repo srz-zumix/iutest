@@ -231,6 +231,8 @@ def parse_command_line():
     api_retry_wait = options.retry_wait
     if options.no_iutest_use_wandbox_min:
         fused_src = IUTEST_FUSED_SRC
+    else:
+        fused_src = IUTEST_WANDBOX_FUSED_SRC
     return options, parser
 
 
@@ -572,8 +574,8 @@ def run_wandbox_cxx(code, includes, impliments, options):
                 if options.compiler in ['clang-3.4', 'clang-3.3']:
                     colist.append('-fno-exceptions')
                     colist.append('-fno-rtti')
-            if 'gcc' in options.compiler:
-                colist.append('-flarge-source-files')
+            # if 'gcc' in options.compiler:
+            #     colist.append('-flarge-source-files')
         if colist:
             co = '\n'.join(colist)
             co = co.replace('\\n', '\n')

@@ -101,11 +101,14 @@ class iuwandbox_test(iuwandbox_test_base):
                 pass
         if not os.path.exists(os.path.join(fused_src, 'iutest.min.hpp')):
             self.skipTest('fused-src is not exists')
+        if not os.path.exists(os.path.join(fused_src, 'iutest.wandbox.min.hpp')):
+            self.skipTest('fused-src (wandbox) is not exists')
         return super(iuwandbox_test, self).setUp()
 
     def test_nomain(self):
         sys.argv[1:] = [test_src]
         sys.argv.extend(test_opt_nomain)
+        print(sys.argv)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
         output = self.dump()
@@ -117,6 +120,7 @@ class iuwandbox_test(iuwandbox_test_base):
         sys.argv[1:] = [test_src]
         sys.argv.extend(test_opt_nomain)
         sys.argv.append('--iutest-use-main')
+        print(sys.argv)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
         output = self.dump()
@@ -129,6 +133,7 @@ class iuwandbox_test(iuwandbox_test_base):
         sys.argv.extend(test_opt_dryrun)
         sys.argv.extend(test_opt_verbose)
         sys.argv.append('-f"-DTEST"')
+        print(sys.argv)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
         output = self.dump()
@@ -140,6 +145,7 @@ class iuwandbox_test(iuwandbox_test_base):
         sys.argv[1:] = [test_src]
         sys.argv.extend(test_opt_nomain)
         sys.argv.extend(['--boost', '1.65.0'])
+        print(sys.argv)
         with self.assertRaises(SystemExit) as cm:
             iuwandbox.main()
         output = self.dump()
@@ -178,7 +184,8 @@ class iuwandbox_test(iuwandbox_test_base):
         output = self.dump()
         self.assertEqual(cm.exception.code, 0, output)
         self.assertRegex(output, r'\[ \s+OK \]')
-        self.assertFalse('-Wmisleading-indentation' in output)
+        # false positive : IUTEST_COND_LIKELY/IUTEST_COND_UNLIKELY
+        # self.assertFalse('-Wmisleading-indentation' in output)
 
     def test_make_run(self):
         sys.argv[1:] = [test_src]
