@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2016-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,14 +17,14 @@
 // include
 #include "iutest.hpp"
 
-#if IUTEST_HAS_QUICK_EXIT
+#if IUTEST_HAS_STD_QUICK_EXIT
 
 class ExitCheckEventListener : public ::iutest::EmptyTestEventListener
 {
     virtual void OnTestProgramEnd(const ::iutest::UnitTest& test) IUTEST_CXX_OVERRIDE
     {
         if( test.current_test_info() == NULL ) throw "current_test_info() == NULL";
-        if( GetCurrentTestCase(test) == NULL ) throw "current_test_suite() == NULL";
+        if( iuutil::GetCurrentTestSuite(&test) == NULL ) throw "current_test_suite() == NULL";
         if( !test.current_test_info()->is_ran() ) throw "is_ran()";
         if( !test.current_test_info()->HasFailure() ) throw "HasFailure()";
     }
@@ -43,7 +43,7 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-#if IUTEST_HAS_QUICK_EXIT
+#if IUTEST_HAS_STD_QUICK_EXIT
     ::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
     listeners.Append(new ExitCheckEventListener());
 
@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
 #else
     (void)argc;
     (void)argv;
-    printf("*** IUTEST_HAS_QUICK_EXIT=0 ***\n");
+    printf("*** IUTEST_HAS_STD_QUICK_EXIT=0 ***\n");
     return 0;
 #endif
 }
