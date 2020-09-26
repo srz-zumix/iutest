@@ -24,7 +24,7 @@ class ExitCheckEventListener : public ::iutest::EmptyTestEventListener
     virtual void OnTestProgramEnd(const ::iutest::UnitTest& test) IUTEST_CXX_OVERRIDE
     {
         if( test.current_test_info() == NULL ) throw "current_test_info() == NULL";
-        if( GetCurrentTestCase(test) == NULL ) throw "current_test_suite() == NULL";
+        if( iuutil::GetCurrentTestSuite(test) == NULL ) throw "current_test_suite() == NULL";
         if( !test.current_test_info()->is_ran() ) throw "is_ran()";
         if( !test.current_test_info()->HasFailure() ) throw "HasFailure()";
     }
