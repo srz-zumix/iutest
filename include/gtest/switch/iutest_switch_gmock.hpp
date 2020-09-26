@@ -40,6 +40,7 @@
 #undef IUTEST_HAS_MATCHER_EACH
 #undef IUTEST_HAS_MATCHER_POINTWISE
 #undef IUTEST_HAS_MATCHER_VARIADIC
+#undef IUTEST_HAS_MATCHER_OPTIONAL
 
 #endif
 
@@ -64,6 +65,11 @@
 #else
 #  define IUTEST_HAS_MATCHER_EACH                   0
 #  define IUTEST_HAS_MATCHER_POINTWISE              0
+#endif
+#if GMOCK_VER > 0x01080000
+#  define IUTEST_HAS_MATCHER_OPTIONAL               1
+#else
+#  define IUTEST_HAS_MATCHER_OPTIONAL               0
 #endif
 #if defined(GTEST_LANG_CXX11) && GTEST_LANG_CXX11
 #  define IUTEST_HAS_MATCHER_VARIADIC               1
@@ -90,7 +96,6 @@
 #define IUTEST_HAS_MATCHER_REGEX                    0
 #define IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR       0
 #define IUTEST_HAS_MATCHER_EACH                     0
-#define IUTEST_HAS_MATCHER_POINTWISE                0
 
 #endif
 
@@ -272,6 +277,9 @@ namespace matchers
     using ::testing::MatchesRegex;
     using ::testing::ContainsRegex;
 
+#if IUTEST_HAS_MATCHER_OPTIONAL
+    using ::testing::Optional;
+#endif
     using ::testing::AllOf;
     using ::testing::AnyOf;
 

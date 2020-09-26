@@ -545,7 +545,7 @@ def parse_output(options):
         f = options.infile
         #f = codecs.getreader('utf-8')(options.infile)
 
-    if any(options.compiler.find(s) != -1 for s in ('clang', 'clang++')):
+    if any(options.compiler.find(s) != -1 for s in ('clang', 'clang++', 'zapcc', 'zapcc++')):
         l = parse_clang(options, f)
     elif any(options.compiler.find(s) != -1 for s in ('gcc', 'g++')):
         l = parse_gcc(options, f)
