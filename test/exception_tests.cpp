@@ -26,8 +26,11 @@
 #if !defined(EXCEPTION_CATCH_TEST)
 #  if IUTEST_HAS_EXCEPTIONS
 #    define EXCEPTION_CATCH_TEST  1
+#  else
+#    define EXCEPTION_CATCH_TEST  0
 #  endif
 #endif
+
 
 #if EXCEPTION_CATCH_TEST
 #include <stdexcept>
