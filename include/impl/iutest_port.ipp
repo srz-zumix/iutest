@@ -371,11 +371,11 @@ IUTEST_IPP_INLINE bool GetEnvironmentInt(const char* name, int& var)
 namespace win
 {
 
-IUTEST_IPP_INLINE ::std::string WideStringToMultiByteString(const wchar_t* wide_c_str)
+IUTEST_IPP_INLINE ::std::string WideStringToMultiByteString(const wchar_t* wide_c_str, int num)
 {
     if( wide_c_str == NULL ) return "";
     ::std::string str;
-    const int length = static_cast<int>(wcslen(wide_c_str)) * 2 + 1;
+    const int length = num < 0 ? static_cast<int>(wcslen(wide_c_str) * 2 + 1) : num;
     char* mbs = new char [length];
     WideCharToMultiByte(932, 0, wide_c_str, static_cast<int>(wcslen(wide_c_str))+1, mbs, length, NULL, NULL);
     str = mbs;

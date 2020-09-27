@@ -509,6 +509,14 @@
 #if !defined(IUTEST_HAS_STD_TO_CHARS)
 #  define IUTEST_HAS_STD_TO_CHARS       0
 #endif
+//! has char8_t support lib
+#if !defined(IUTEST_HAS_STD_CHAR8_T)
+#  if defined(__cpp_lib_char8_t) && __cpp_lib_char8_t >= 201907
+#    define IUTEST_HAS_STD_CHAR8_T      1
+#  else
+#    define IUTEST_HAS_STD_CHAR8_T      0
+#  endif
+#endif
 
 //! use external include tr1::tuple
 #if !defined(IUTEST_USE_EXTERNAL_TR1_TUPLE)
@@ -549,6 +557,7 @@
 #if !defined(IUTEST_HAS_VARIADIC_TUPLES)
 #  define IUTEST_HAS_VARIADIC_TUPLES        0
 #endif
+
 
 
 //======================================================================
@@ -826,6 +835,15 @@ using tuples::get;
 #  else
 #    define iu_va_copy(dest, src)   (dest = src)
 #  endif
+#endif
+
+#if !defined(IU_MB_CUR_MAX)
+#  if defined(MB_CUR_MAX)
+//#    define IU_MB_CUR_MAX   MB_CUR_MAX
+#  endif
+#endif
+#if !defined(IU_MB_CUR_MAX)
+#  define IU_MB_CUR_MAX   6
 #endif
 
 namespace iutest
