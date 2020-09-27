@@ -11,13 +11,10 @@ import os
 import sys
 import re
 import codecs
-import argparse
 
-from time import sleep
 from argparse import ArgumentParser
+from argparse import SUPPRESS
 from wandbox import Wandbox
-from requests.exceptions import HTTPError
-from requests.exceptions import ConnectionError
 
 IUTEST_FUSED_SRC = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.min.hpp'))
 IUTEST_WANDBOX_FUSED_SRC = os.path.normpath(os.path.join(os.path.dirname(__file__), '../../fused-src/iutest.wandbox.min.hpp'))
@@ -30,7 +27,7 @@ iutest_incg_list = []
 workaround = True
 api_retries = 3
 api_retry_wait = 60
-fused_src = IUTEST_FUSED_SRC
+fused_src = IUTEST_WANDBOX_FUSED_SRC
 
 
 # command line option
@@ -44,7 +41,7 @@ def parse_command_line():
         '-v',
         '--version',
         action='version',
-        version=u'%(prog)s version 6.2'
+        version=u'%(prog)s version 7.1'
     )
     parser.add_argument(
         '--list-compiler',
@@ -175,7 +172,7 @@ def parse_command_line():
     parser.add_argument(
         '--make',
         action='store_true',
-        help=argparse.SUPPRESS
+        help=SUPPRESS
     )
     parser.add_argument(
         '--retry-wait',
@@ -205,7 +202,13 @@ def parse_command_line():
     parser.add_argument(
         '--iutest-use-wandbox-min',
         action='store_true',
-        help='use iutest.wandbox.min.hpp (experimental).'
+        default=True,
+        help='!this option is deprecated! use iutest.wandbox.min.hpp (default true).'
+    )
+    parser.add_argument(
+        '--no-iutest-use-wandbox-min',
+        action='store_true',
+        help='not use iutest.wandbox.min.hpp (experimental).'
     )
     parser.add_argument(
         '--verbose',
@@ -226,7 +229,9 @@ def parse_command_line():
     options = parser.parse_args()
     api_retries = options.retry
     api_retry_wait = options.retry_wait
-    if options.iutest_use_wandbox_min:
+    if options.no_iutest_use_wandbox_min:
+        fused_src = IUTEST_FUSED_SRC
+    else:
         fused_src = IUTEST_WANDBOX_FUSED_SRC
     return options, parser
 
@@ -278,7 +283,7 @@ def make_code(path, encoding, expand, includes, included_files):
                     includes['iutest.hpp'] = iutest_src
                     global iutest_incg_list
                     iutest_incg_list = IUTEST_INCG_REGEX.findall(iutest_src)
-                except:
+                except Exception:
                     print('{0} is not found...'.format(fused_src))
                     print('please try \"make fused\"')
                     exit(1)
@@ -410,7 +415,6 @@ def create_option_list(options):
 #        if options.compiler in ['clang-3.4', 'clang-3.3']:
 #            if not options.boost:
 #                options.boost = 'nothing'
-        pass
     if options.boost:
         if options.compiler not in options.boost:
             options.boost = options.boost + '-' + options.compiler
@@ -446,27 +450,7 @@ def expand_wandbox_options(w, compiler, options):
 
 
 def wandbox_api_call(callback, retries, retry_wait):
-    try:
-        return callback()
-    except (HTTPError, ConnectionError) as e:
-
-        def is_retry(e):
-            if not e.response:
-                return True
-            return e.response.status_code in [504]
-
-        if is_retry(e) and retries > 0:
-            try:
-                print(e.message)
-            except:
-                pass
-            print('wait {0}sec...'.format(retry_wait))
-            sleep(retry_wait)
-            return wandbox_api_call(callback, retries - 1, retry_wait)
-        else:
-            raise
-    except:
-        raise
+    return Wandbox.Call(callback, retries, retry_wait)
 
 
 def wandbox_get_compilerlist():
@@ -498,10 +482,21 @@ def create_compiler_raw_option_list(options):
         for x in raw_options:
             colist.extend(re.split('\s(?=-)', x.strip('"')))
     if options.iutest_use_main:
-        colist.append('-DIUTEST_USE_MAIN')
+        if len(options.code) < 2:
+            colist.append('-DIUTEST_USE_MAIN')
     if '-D__WANDBOX__' not in colist:
         colist.append('-D__WANDBOX__')
     return colist
+
+
+def get_compiler_exec(compiler):
+    if 'gcc' in compiler:
+        return 'g++'
+    if 'clang' in compiler:
+        return 'clang++'
+    if 'zapcc' in compiler:
+        return 'zapcc++'
+    return None
 
 
 # run wandbox (makefile)
@@ -522,6 +517,11 @@ def run_wandbox_make(main_filepath, code, includes, impliments, options):
                 rolist.extend(opt.split())
 
         makefile = '#!/bin/make\n# generate makefile by iuwandbox.py\n'
+        cxx = get_compiler_exec(options.compiler)
+        if cxx is None:
+            print('failed: invalid compiler...')
+            sys.exit(1)
+        makefile += '\nCXX=/opt/wandbox/' + options.compiler + '/bin/' + cxx
         makefile += '\nCXXFLAGS+='
         for opt in colist:
             makefile += opt + ' '
@@ -574,7 +574,8 @@ def run_wandbox_cxx(code, includes, impliments, options):
                 if options.compiler in ['clang-3.4', 'clang-3.3']:
                     colist.append('-fno-exceptions')
                     colist.append('-fno-rtti')
-            pass
+            # if 'gcc' in options.compiler:
+            #     colist.append('-flarge-source-files')
         if colist:
             co = '\n'.join(colist)
             co = co.replace('\\n', '\n')
@@ -622,7 +623,7 @@ def text_transform(value):
             return value.decode()
         elif isinstance(value, unicode):
             return value.encode('utf_8')
-    except:
+    except Exception:
         pass
     return value
 
@@ -694,7 +695,11 @@ def run(options):
     includes = {}
     included_files = {}
     impliments = {}
-    code = make_code(main_filepath, options.encoding, options.expand_include, includes, included_files)
+    code = ""
+    if len(options.code) > 1 and options.iutest_use_main:
+        code += '#define IUTEST_USE_MAIN\n'
+    code += make_code(main_filepath, options.encoding, options.expand_include, includes, included_files)
+
 
     for filepath_ in options.code[1:]:
         filepath = filepath_.strip()
@@ -749,19 +754,24 @@ def listup_options(compiler):
             if 'switches' in d:
                 switches = d['switches']
                 for s in switches:
-                    if 'options' in s:
-                        default_option = s['default']
-                        print(s['name'])
-                        for o in s['options']:
-                            if o['name'] == default_option:
-                                print('  ' + o['name'] + ' (default)')
+                    try:
+                        if 'options' in s:
+                            default_option = s['default']
+                            if 'name' in s:
+                                print(s['name'])
+                            for o in s['options']:
+                                if o['name'] == default_option:
+                                    print('  ' + o['name'] + ' (default)')
+                                else:
+                                    print('  ' + o['name'])
+                        elif 'name' in s:
+                            if s['default']:
+                                print(s['name'] + ' (default)')
                             else:
-                                print('  ' + o['name'])
-                    elif 'name' in s:
-                        if s['default']:
-                            print(s['name'] + ' (default)')
-                        else:
-                            print(s['name'])
+                                print(s['name'])
+                    except KeyError:
+                        print("unknown format:")
+                        print(s)
 
 
 def get_options(compiler):

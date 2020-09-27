@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -30,14 +30,14 @@ public:
 
 IUTEST_F((AliasName, FixtureTest), Test1)
 {
-    IUTEST_EXPECT_STREQ("AliasName", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+    IUTEST_EXPECT_STREQ("AliasName", ::iuutil::GetCurrentTestSuite()->name());
     IUTEST_EXPECT_STREQ("Test1", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
     IUTEST_EXPECT_EQ(42, GetX());
 }
 
 IUTEST_F((AliasName, FixtureTest), Test2)
 {
-    IUTEST_EXPECT_STREQ("AliasName", ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name());
+    IUTEST_EXPECT_STREQ("AliasName", ::iuutil::GetCurrentTestSuite()->name());
     IUTEST_EXPECT_STREQ("Test2", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
 
@@ -53,18 +53,18 @@ public:
 
 IUTEST_P(ParamTestAliasName, Test1)
 {
-    IUTEST_EXPECT_STREQ("AliasName", ::iuutil::TestCaseNameRemoveInstantiateAndIndexName(
-        ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name()) );
+    IUTEST_EXPECT_STREQ("AliasName", ::iuutil::TestSuiteNameRemoveInstantiateAndIndexName(
+        ::iuutil::GetCurrentTestSuite()->name()) );
     IUTEST_EXPECT_EQ(GetParam(), GetX());
 }
 
 IUTEST_P(ParamTestAliasName, Test2)
 {
-    IUTEST_EXPECT_STREQ("AliasName", ::iuutil::TestCaseNameRemoveInstantiateAndIndexName(
-        ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name()) );
+    IUTEST_EXPECT_STREQ("AliasName", ::iuutil::TestSuiteNameRemoveInstantiateAndIndexName(
+        ::iuutil::GetCurrentTestSuite()->name()) );
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, ParamTestAliasName, ::iutest::Values(42));
+IUTEST_INSTANTIATE_TEST_SUITE_P(My1, ParamTestAliasName, ::iutest::Values(42));
 
 #endif
 
@@ -83,23 +83,23 @@ template<typename T>
 T TypedFixtureTest<T>::value = 0;
 
 typedef ::iutest::Types<int, long, short> TypedTestTypes;
-IUTEST_TYPED_TEST_CASE(TypedTestAliasName, TypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(TypedTestAliasName, TypedTestTypes);
 
 IUTEST_TYPED_TEST(TypedTestAliasName, Test1)
 {
-    IUTEST_EXPECT_STREQ("AliasName", ::iuutil::TestCaseNameRemoveIndexName(
-        ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name()) );
+    IUTEST_EXPECT_STREQ("AliasName", ::iuutil::TestSuiteNameRemoveIndexName(
+        ::iuutil::GetCurrentTestSuite()->name()) );
     TypeParam x = 1;
     IUTEST_ASSERT_EQ(x+x, 2*x);
 }
 
 IUTEST_TYPED_TEST(TypedTestAliasName, Test2)
 {
-    IUTEST_EXPECT_STREQ("AliasName", ::iuutil::TestCaseNameRemoveIndexName(
-        ::iutest::UnitTest::GetInstance()->current_test_info()->test_case_name()) );
+    IUTEST_EXPECT_STREQ("AliasName", ::iuutil::TestSuiteNameRemoveIndexName(
+        ::iuutil::GetCurrentTestSuite()->name()) );
 }
 
-    #endif
+#endif
 
 #endif
 

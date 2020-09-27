@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -59,9 +59,6 @@
 #endif
 
 #if defined(__GNUC__)
-//#  if ((__GNUC__ > 4) || (__GNUC__ == 4 && __GNUC_MINOR__ >= 2))
-//#    define IUTEST_PRAGMA_GCC_WARN_DISABLE(x) IUTEST_PRAGMA(GCC diagnostic ignored x)
-//#  endif
 #  if ((__GNUC__ > 4) || (__GNUC__ == 4 && __GNUC_MINOR__ >= 6))
 #    define IUTEST_PRAGMA_GCC_WARN_PUSH()       IUTEST_PRAGMA(GCC diagnostic push)
 #    define IUTEST_PRAGMA_GCC_WARN_DISABLE(x)   IUTEST_PRAGMA(GCC diagnostic ignored x)
@@ -174,85 +171,98 @@
 #  define IUTEST_PRAGMA_CONSTEXPR_CALLED_AT_RUNTIME_WARN_DISABLE_END()
 #endif
 
-
-#if   defined(__clang__)
-#  define IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE() IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wsign-compare")
-#elif defined(__GNUC__)
-#  define IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE() IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wsign-compare")
-#elif defined(_MSC_VER)
-#  define IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE() IUTEST_PRAGMA_MSC_WARN_DISABLE(4389 4018)
-#else
-#  define IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
-#endif
-
-#if   defined(__clang__)
-#  define IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY()   IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wempty-body")
-#elif defined(__GNUC__)
-#  define IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY()   IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wempty-body")
-#elif defined(_MSC_VER)
-#  define IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY()   IUTEST_PRAGMA_MSC_WARN_DISABLE(4390)
-#else
-#  define IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY()
-#endif
-
-#if   defined(__clang__)
-#  define IUTEST_PRAGMA_WARN_FLOAT_EQUAL()      IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wfloat-equal")
-#elif defined(__GNUC__)
-#  define IUTEST_PRAGMA_WARN_FLOAT_EQUAL()      IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wfloat-equal")
-#elif defined(_MSC_VER)
-#  define IUTEST_PRAGMA_WARN_FLOAT_EQUAL()      // IUTEST_PRAGMA_MSC_WARN_DISABLE(?)
-#else
-#  define IUTEST_PRAGMA_WARN_FLOAT_EQUAL()
-#endif
-
-#if   defined(__clang__)
-#  define IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wformat-nonliteral")
-#elif defined(__GNUC__)
-#  define IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL()    IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wformat-nonliteral")
-#elif defined(_MSC_VER)
-#  define IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL()    // IUTEST_PRAGMA_MSC_WARN_DISABLE(?)
-#else
-#  define IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL()
-#endif
-
-#if   defined(__clang__)
-#  define IUTEST_PRAGMA_WARN_CAST_ALIGN()   IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wcast-align")
-#elif defined(__GNUC__)
-#  define IUTEST_PRAGMA_WARN_CAST_ALIGN()   IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wcast-align")
-#elif defined(_MSC_VER)
-#  define IUTEST_PRAGMA_WARN_CAST_ALIGN()   // IUTEST_PRAGMA_MSC_WARN_DISABLE(?)
-#else
-#  define IUTEST_PRAGMA_WARN_CAST_ALIGN()
-#endif
-
-#if   defined(__clang__)
-#  define IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST()
-#elif defined(__GNUC__)
-#  define IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST()
-#elif defined(_MSC_VER)
-#  define IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST()   IUTEST_PRAGMA_MSC_WARN_DISABLE(4814)
-#else
-#  define IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST()
-#endif
-
-#if   defined(__clang__)
-#  if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ > 0))
-#    define IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wdangling-else")
+#if !defined(IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE)
+#  if   defined(__clang__)
+#    define IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE() IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wsign-compare")
+#  elif defined(__GNUC__)
+#    define IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE() IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wsign-compare")
+#  elif defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE() IUTEST_PRAGMA_MSC_WARN_DISABLE(4389 4018)
+#  else
+#    define IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 #  endif
-#elif defined(__GNUC__)
-#  if (__GNUC__ > 6)
-#    define IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()  IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wdangling-else")
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY)
+#  if   defined(__clang__)
+#    define IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY()   IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wempty-body")
+#  elif defined(__GNUC__)
+#    define IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY()   IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wempty-body")
+#  elif defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY()   IUTEST_PRAGMA_MSC_WARN_DISABLE(4390)
+#  else
+#    define IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY()
 #  endif
-#elif defined(_MSC_VER)
-#  define IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_FLOAT_EQUAL)
+#  if   defined(__clang__)
+#    define IUTEST_PRAGMA_WARN_FLOAT_EQUAL()      IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wfloat-equal")
+#  elif defined(__GNUC__)
+#    define IUTEST_PRAGMA_WARN_FLOAT_EQUAL()      IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wfloat-equal")
+#  elif defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_FLOAT_EQUAL()      // IUTEST_PRAGMA_MSC_WARN_DISABLE(?)
+#  else
+#    define IUTEST_PRAGMA_WARN_FLOAT_EQUAL()
+#  endif
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL)
+#  if   defined(__clang__)
+#    define IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wformat-nonliteral")
+#  elif defined(__GNUC__)
+#    define IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL()    IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wformat-nonliteral")
+#  elif defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL()    // IUTEST_PRAGMA_MSC_WARN_DISABLE(?)
+#  else
+#    define IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL()
+#  endif
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_CAST_ALIGN)
+#  if   defined(__clang__)
+#    define IUTEST_PRAGMA_WARN_CAST_ALIGN()   IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wcast-align")
+#  elif defined(__GNUC__)
+#    define IUTEST_PRAGMA_WARN_CAST_ALIGN()   IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wcast-align")
+#  elif defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_CAST_ALIGN()   // IUTEST_PRAGMA_MSC_WARN_DISABLE(?)
+#  else
+#    define IUTEST_PRAGMA_WARN_CAST_ALIGN()
+#  endif
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST)
+#  if   defined(__clang__)
+#    define IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST()
+#  elif defined(__GNUC__)
+#    define IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST()
+#  elif defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST()   IUTEST_PRAGMA_MSC_WARN_DISABLE(4814)
+#  else
+#    define IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST()
+#  endif
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE)
+#  if   defined(__clang__)
+#    if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ > 0))
+#      define IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wdangling-else")
+#    endif
+#  elif defined(__GNUC__)
+#    if (__GNUC__ > 6)
+#      define IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()  IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wdangling-else")
+#    endif
+#  elif defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()
+#  endif
 #endif
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE)
 #  define IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()
 #endif
 
-#if defined(__GNUC__)
-#  if (__GNUC__ > 6)
+#if !defined(IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE)
+#  if defined(__GNUC__) && (__GNUC__ > 6)
 #    define IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE()  IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wnoexcept-type")
 #  endif
 #endif

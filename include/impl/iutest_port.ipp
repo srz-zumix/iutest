@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -461,7 +461,7 @@ IUTEST_IPP_INLINE IUTestLog::~IUTestLog()
     if( kLevel == LOG_FATAL )
     {
         fflush(stderr);
-        posix::Abort();
+        IUTEST_ABORT();
     }
 }
 

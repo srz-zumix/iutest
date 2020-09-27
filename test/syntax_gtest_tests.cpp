@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2018 Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2020 Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -61,8 +61,8 @@ TEST(GTestSyntaxTest, EQ)
 
 TEST(GTestSyntaxTest, EQ_COLLECTIONS)
 {
-    int  a[] = { 0, 1, 2, 3, 4 };
-    int  b[] = { 0, 1, 2, 3, 4 };
+    int a[] = { 0, 1, 2, 3, 4 };
+    int b[] = { 0, 1, 2, 3, 4 };
 
     if( int size = (sizeof(a)/sizeof(a[0])) )
         ASSERT_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
@@ -74,10 +74,25 @@ TEST(GTestSyntaxTest, EQ_COLLECTIONS)
         ASSUME_EQ_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
 }
 
+TEST(GTestSyntaxTest, NE_COLLECTIONS)
+{
+    int a[] = { 0, 1, 2, 3, 4 };
+    int b[] = { 0, 2, 2, 3, 4 };
+
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        ASSERT_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        EXPECT_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        INFORM_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        ASSUME_NE_COLLECTIONS(a, a+(sizeof(a)/sizeof(a[0])), b, b+(sizeof(b)/sizeof(b[0]))) << size;
+}
+
 TEST(GTestSyntaxTest, EQ_RANGE)
 {
-    int  a[] = { 0, 1, 2, 3, 4 };
-    int  b[] = { 0, 1, 2, 3, 4 };
+    int a[] = { 0, 1, 2, 3, 4 };
+    int b[] = { 0, 1, 2, 3, 4 };
 
     if( int size = (sizeof(a)/sizeof(a[0])) )
         ASSERT_EQ_RANGE(a, b) << size;
@@ -87,6 +102,21 @@ TEST(GTestSyntaxTest, EQ_RANGE)
         INFORM_EQ_RANGE(a, b) << size;
     if( int size = (sizeof(a)/sizeof(a[0])) )
         ASSUME_EQ_RANGE(a, b) << size;
+}
+
+TEST(GTestSyntaxTest, NE_RANGE)
+{
+    int a[] = { 0, 1, 2, 3, 4 };
+    int b[] = { 0, 1, 2, 1, 4 };
+
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        ASSERT_NE_RANGE(a, b) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        EXPECT_NE_RANGE(a, b) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        INFORM_NE_RANGE(a, b) << size;
+    if( int size = (sizeof(a)/sizeof(a[0])) )
+        ASSUME_NE_RANGE(a, b) << size;
 }
 
 TEST(GTestSyntaxTest, NE)
@@ -371,10 +401,8 @@ static void ExceptionFunction(int i)
         return;
     case 1:
         throw 2;
-        break;
     case 2:
         throw ::std::bad_exception();
-        break;
     case 3:
         throw "error";
     case 4:

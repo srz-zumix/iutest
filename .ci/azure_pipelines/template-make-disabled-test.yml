@@ -39,6 +39,8 @@ jobs:
           DISABLED_CONFIG: IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD
         Disable_MatcherFloatingPointNear:
           DISABLED_CONFIG: IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR
+        Disable_MatcherOptional:
+          DISABLED_CONFIG: IUTEST_HAS_MATCHER_OPTIONAL
         Disable_MatcherPointwise:
           DISABLED_CONFIG: IUTEST_HAS_MATCHER_POINTWISE
         Disable_MatcherRegex:
@@ -110,6 +112,8 @@ jobs:
           DISABLED_CONFIG: IUTEST_HAS_VARIADIC_PAIRWISE
         Disable_VariadicValues:
           DISABLED_CONFIG: IUTEST_HAS_VARIADIC_VALUES
+        Disable_TestCase:
+          DISABLED_CONFIG: IUTEST_HAS_TESTCASE
         # spec config
         Disable_BitwiseExpressionDecompose:
           DISABLED_CONFIG: IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE
@@ -117,6 +121,10 @@ jobs:
           DISABLED_CONFIG: IUTEST_HAS_FILE_STAT
         Disable_FOpen:
           DISABLED_CONFIG: IUTEST_HAS_FOPEN
+        Disable_LongDouble:
+          DISABLED_CONFIG: IUTEST_HAS_LONG_DOUBLE
+        Disable_StrToValue:
+          DISABLED_CONFIG: IUTEST_HAS_STD_STR_TO_VALUE
         Disable_StringStream:
           DISABLED_CONFIG: IUTEST_HAS_STRINGSTREAM
         Disable_Tuple:

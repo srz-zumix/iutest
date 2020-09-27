@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,6 +31,7 @@
 #  include <stdint.h>
 #endif
 #include <cstdlib>
+#include <cstddef>
 #include <limits>
 
 // <version> header
@@ -80,51 +81,54 @@
 #if IUTEST_HAS_CXX11
 #  if IUTEST_LIBSTDCXX_VERSION >= 60100
 #    if !defined(IUTEST_HAS_STD_INVOKE) && IUTEST_HAS_CXX1Z
-#      define IUTEST_HAS_STD_INVOKE       1
+#      define IUTEST_HAS_STD_INVOKE         1
 #    endif
 #  endif
 #  if IUTEST_LIBSTDCXX_VERSION >= 50100
 #    if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
-#      define IUTEST_HAS_CXX_HDR_CODECVT  1
+#      define IUTEST_HAS_CXX_HDR_CODECVT    1
 #    endif
 #  endif
 #  if IUTEST_LIBSTDCXX_VERSION >= 40900
 #    if !defined(IUTEST_HAS_CXX_HDR_REGEX)
-#      define IUTEST_HAS_CXX_HDR_REGEX    1
+#      define IUTEST_HAS_CXX_HDR_REGEX      1
 #    endif
 #  endif
 #  if IUTEST_LIBSTDCXX_VERSION >= 40700
 #    if !defined(IUTEST_HAS_STD_EMPLACE)
-#      define IUTEST_HAS_STD_EMPLACE      1
+#      define IUTEST_HAS_STD_EMPLACE        1
 #    endif
 #    if !defined(IUTEST_HAS_CXX_HDR_CHRONO)
-#      define IUTEST_HAS_CXX_HDR_CHRONO   1
+#      define IUTEST_HAS_CXX_HDR_CHRONO     1
 #    endif
 #  endif
 #  if IUTEST_LIBSTDCXX_VERSION >= 40600
 #    if !defined(IUTEST_HAS_STD_BEGIN_END)
-#      define IUTEST_HAS_STD_BEGIN_END    1
+#      define IUTEST_HAS_STD_BEGIN_END      1
 #    endif
 #  endif
 #  if IUTEST_LIBSTDCXX_VERSION >= 40500
 #    if !defined(IUTEST_HAS_STD_DECLVAL)
-#      define IUTEST_HAS_STD_DECLVAL      1
+#      define IUTEST_HAS_STD_DECLVAL        1
 #    endif
 #    if !defined(IUTEST_HAS_CXX_HDR_RANDOM)
-#      define IUTEST_HAS_CXX_HDR_RANDOM   1
+#      define IUTEST_HAS_CXX_HDR_RANDOM     1
 #    endif
 #    if !defined(IUTEST_HAS_CXX_HDR_CSTDINT)
-#      define IUTEST_HAS_CXX_HDR_CSTDINT  1
+#      define IUTEST_HAS_CXX_HDR_CSTDINT    1
 #    endif
 #  endif
 #  if IUTEST_LIBSTDCXX_VERSION >= 40300
 #    if !defined(IUTEST_HAS_CXX_HDR_ARRAY)
-#      define IUTEST_HAS_CXX_HDR_ARRAY    1
+#      define IUTEST_HAS_CXX_HDR_ARRAY      1
+#    endif
+#    if !defined(IUTEST_HAS_STD_TUPLE)
+#      define IUTEST_HAS_STD_TUPLE          1
 #    endif
 #  endif
 #  if defined(_GLIBCXX_HAVE_QUICK_EXIT) && defined(_GLIBCXX_HAVE_AT_QUICK_EXIT)
 #    if !defined(IUTEST_HAS_STD_QUICK_EXIT)
-#      define IUTEST_HAS_STD_QUICK_EXIT   1
+#      define IUTEST_HAS_STD_QUICK_EXIT     1
 #    endif
 #  endif
 #  if defined(__has_include)
@@ -136,24 +140,21 @@
 #  endif
 #endif
 
-// tuple
-#if   IUTEST_HAS_VARIADIC_TEMPLATES
-#  if !defined(IUTEST_HAS_STD_TUPLE)
-#    define IUTEST_HAS_STD_TUPLE          1
-#  endif
-#elif (!defined(__CUDACC__) && !defined(__ARMCC_VERSION) && (IUTEST_LIBSTDCXX_VERSION >= 40000))
-#  if !defined(IUTEST_HAS_TR1_TUPLE)
-#    define IUTEST_HAS_TR1_TUPLE          1
+#if !defined(IUTEST_HAS_STD_TUPLE)
+#  if (!defined(__CUDACC__) && !defined(__ARMCC_VERSION) && (IUTEST_LIBSTDCXX_VERSION >= 40000))
+#    if !defined(IUTEST_HAS_TR1_TUPLE)
+#      define IUTEST_HAS_TR1_TUPLE          1
+#    endif
 #  endif
 #endif
 
 #if !defined(IUTEST_HAS_HDR_CXXABI)
 #  if   defined(__has_include)
 #    if __has_include( <cxxabi.h> )
-#      define IUTEST_HAS_HDR_CXXABI       1
+#      define IUTEST_HAS_HDR_CXXABI         1
 #    endif
 #  else
-#    define IUTEST_HAS_HDR_CXXABI         1
+#    define IUTEST_HAS_HDR_CXXABI           1
 #  endif
 #endif
 
@@ -202,6 +203,9 @@
 #    if !defined(IUTEST_HAS_CXX_HDR_CUCHAR) && __has_include( <cuchar> )
 #      define IUTEST_HAS_CXX_HDR_CUCHAR   1
 #    endif
+#    if !defined(IUTEST_HAS_STD_TUPLE) && __has_include( <tuple> )
+#      define IUTEST_HAS_STD_TUPLE          1
+#    endif
 #  endif
 #endif
 
@@ -219,20 +223,12 @@
 #  endif
 #endif
 
-// tuple
-#if   IUTEST_HAS_VARIADIC_TEMPLATES
-#  if !defined(IUTEST_HAS_STD_TUPLE)
-#    define IUTEST_HAS_STD_TUPLE          1
+#if defined(__has_include)
+#  if !defined(IUTEST_HAS_STD_TUPLE) && !defined(IUTEST_HAS_TR1_TUPLE) && __has_include( <tr1/tuple> )
+#    define IUTEST_HAS_TR1_TUPLE          1
 #  endif
-#elif defined(__has_include)
-#  if !defined(IUTEST_HAS_TR1_TUPLE) && __has_include( <tr1/tuple> )
-#    define IUTEST_HAS_TR1_TUPLE        1
-#  endif
-#endif
-
-#if   defined(__has_include)
 #  if !defined(IUTEST_HAS_HDR_CXXABI) && __has_include( <cxxabi.h> )
-#    define IUTEST_HAS_HDR_CXXABI       1
+#    define IUTEST_HAS_HDR_CXXABI         1
 #  endif
 #endif
 
@@ -283,7 +279,7 @@
 #endif
 
 #if _MSC_VER >= 1916
-#  if !defined(IUTEST_HAS_CXX_HDR_CHARCONV)
+#  if !defined(IUTEST_HAS_CXX_HDR_CHARCONV) && IUTEST_HAS_CXX17
 #    define IUTEST_HAS_CXX_HDR_CHARCONV     1
 #  endif
 #endif
@@ -399,7 +395,7 @@
 #endif
 /**
  * @brief       has codecvt header
- * @note        P0618R0 Deprecating <codecvt>: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0618r0.html
+ * @note        P0618R0 Deprecating <codecvt>: https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0618r0.html
  * @deprecated
 */
 #if !defined(IUTEST_HAS_CXX_HDR_CODECVT)
@@ -479,7 +475,7 @@
 
 #if !defined(IUTEST_HAS_STD_TO_CHARS)
 #  if defined(__cpp_lib_to_chars) && __cpp_lib_to_chars >= 201611
-#    define IUTEST_HAS_STD_TO_CHARS           1
+#    define IUTEST_HAS_STD_TO_CHARS         1
 #  endif
 #endif
 
@@ -541,6 +537,19 @@
 #  endif
 #  define IUTEST_HAS_TUPLE              0
 #endif
+#if !defined(IUTEST_HAS_VARIADIC_TUPLES) && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE && IUTEST_HAS_STD_TUPLE
+#  if defined(__clang__)
+#    if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ > 7))
+#      define IUTEST_HAS_VARIADIC_TUPLES    1
+#    endif
+#  else
+#    define IUTEST_HAS_VARIADIC_TUPLES      1
+#  endif
+#endif
+#if !defined(IUTEST_HAS_VARIADIC_TUPLES)
+#  define IUTEST_HAS_VARIADIC_TUPLES        0
+#endif
+
 
 //======================================================================
 // declare
@@ -809,7 +818,94 @@ using tuples::get;
 #  define IUPRzu  "zu"
 #endif
 
-namespace iutest {
+#if !defined(iu_va_copy)
+#  if defined(va_copy)
+#    define iu_va_copy              va_copy
+#  elif defined(__GNUC__) || defined(__clang__)
+#    define iu_va_copy(dest, src)   __builtin_va_copy(dest, src)
+#  else
+#    define iu_va_copy(dest, src)   (dest = src)
+#  endif
+#endif
+
+namespace iutest
+{
+
+namespace stl
+{
+
+// #if IUTEST_HAS_CXX_HDR_OPTIONAL
+// #else
+// #endif
+
+#if IUTEST_HAS_EXCEPTIONS
+/**
+ * @brief   any_cast の失敗例外
+*/
+class bad_optional_access : public ::std::exception {};
+#endif
+
+class nullpot_t {};
+
+template<typename T>
+class optional
+{
+public:
+    typedef T value_type;
+public:
+    optional() IUTEST_CXX_NOEXCEPT_SPEC : m_init(false) {}
+    explicit optional(nullpot_t) IUTEST_CXX_NOEXCEPT_SPEC : m_init(false) {}
+    explicit optional(const T& rhs) : m_init(true), m_value(rhs) {}
+    template<typename U>
+    explicit optional(const U& rhs) : m_init(true), m_value(T(rhs)) {}
+    optional(const optional& rhs) : m_init(rhs.m_init), m_value(rhs.value) {}
+
+public:
+    optional& operator = (const T& rhs) { m_init = true; m_value = rhs; }
+    operator bool () const { return has_value(); }
+    const T& operator * () const { return value(); }
+    T& operator * () { return value(); }
+    const T* operator -> () const { return ptr(); }
+    T* operator -> () { return ptr(); }
+
+public:
+    bool has_value() const { return m_init; }
+    const T* ptr() const { return &m_value; }
+    T* ptr() { return &m_value; }
+    const T& value() const
+    {
+#if IUTEST_HAS_EXCEPTIONS
+        if( !has_value() ) {
+            throw bad_optional_access();
+        }
+#endif
+        return m_value;
+    }
+    T& value()
+    {
+#if IUTEST_HAS_EXCEPTIONS
+        if( !has_value() ) {
+            throw bad_optional_access();
+        }
+#endif
+        return m_value;
+    }
+    template<typename U>
+    T value_or(const U& v) const
+    {
+        if( !has_value() ) {
+            return v;
+        }
+        return m_value;
+    }
+
+private:
+    bool m_init;
+    T m_value;
+};
+
+}   // end of namespace stl
+
 namespace detail
 {
 

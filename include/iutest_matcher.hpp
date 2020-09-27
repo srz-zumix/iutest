@@ -74,10 +74,18 @@ public:
     virtual ::std::string WhichIs() const = 0;
 };
 
-inline iu_ostream& operator << (iu_ostream& os, const IMatcher& msg)
+#if !defined(IUTEST_NO_SFINAE)
+template<typename T>
+inline typename detail::enable_if_t< IMatcher::is_matcher<T>, iu_ostream>::type& operator << (iu_ostream& os, const T& m)
 {
-    return os << msg.WhichIs();
+    return os << m.WhichIs();
 }
+#else
+inline iu_ostream& operator << (iu_ostream& os, const IMatcher& m)
+{
+    return os << m.WhichIs();
+}
+#endif
 
 /**
  * @private
@@ -92,7 +100,7 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& msg)
         strm << #name ": " << m_expected; return strm.str();                    \
     }                                                                           \
     template<typename U>AssertionResult operator ()(const U& actual) const {    \
-        if( actual op m_expected ) return AssertionSuccess();                   \
+        if IUTEST_COND_LIKELY( actual op m_expected ) return AssertionSuccess();\
         return AssertionFailure() << WhichIs();                                 \
     }                                                                           \
     private: const T& m_expected;                                               \
@@ -103,7 +111,7 @@ inline iu_ostream& operator << (iu_ostream& os, const IMatcher& msg)
     public: ::std::string WhichIs() const IUTEST_CXX_OVERRIDE { return #name; }         \
     template<typename T, typename U>AssertionResult operator ()                         \
         (const T& actual, const U& expected) const {                                    \
-        if( actual op expected ) return AssertionSuccess();                             \
+        if IUTEST_COND_LIKELY( actual op expected ) return AssertionSuccess();          \
         return AssertionFailure() << WhichIs() << ": " << actual << " vs " << expected; \
     }                                                                                   \
     }
@@ -134,7 +142,7 @@ IUTEST_PRAGMA_WARN_POP()
     template<typename T>class IUTEST_PP_CAT(name, Matcher): public IMatcher {   \
     public: IUTEST_PP_CAT(name, Matcher)(const T& value) : m_expected(value) {} \
     template<typename U>AssertionResult operator ()(const U& actual) const {    \
-        if( internal::IUTEST_PP_CAT(name, Helper)::Compare(                     \
+        if IUTEST_COND_LIKELY( internal::IUTEST_PP_CAT(name, Helper)::Compare(  \
             actual, m_expected) ) { return AssertionSuccess(); }                \
         return AssertionFailure() << WhichIs();                                 \
     }                                                                           \
@@ -164,9 +172,9 @@ class IsNullMatcher : public IMatcher
 {
 public:
     template<typename U>
-    AssertionResult operator ()(const U* actual) const
+    AssertionResult operator ()(const U& actual) const
     {
-        if( actual == NULL )
+        if IUTEST_COND_LIKELY( actual == IUTEST_NULLPTR )
         {
             return AssertionSuccess();
         }
@@ -185,14 +193,15 @@ class NotNullMatcher : public IMatcher
 {
 public:
     template<typename U>
-    AssertionResult operator ()(const U* actual) const
+    AssertionResult operator ()(const U& actual) const
     {
-        if( actual != NULL )
+        if IUTEST_COND_LIKELY( actual != IUTEST_NULLPTR )
         {
             return AssertionSuccess();
         }
         return AssertionFailure() << WhichIs();
     }
+
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         return "Not Null";
@@ -212,8 +221,8 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        floating_point<T> f2(actual);
-        if( m_expected.AlmostEquals(f2) )
+        const floating_point<T> f2(actual);
+        if IUTEST_COND_LIKELY( m_expected.AlmostEquals(f2) )
         {
             return AssertionSuccess();
         }
@@ -243,8 +252,8 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        floating_point<T> f2(actual);
-        if( m_expected.NanSensitiveAlmostEquals(f2) )
+        const floating_point<T> f2(actual);
+        if IUTEST_COND_LIKELY( m_expected.NanSensitiveAlmostEquals(f2) )
         {
             return AssertionSuccess();
         }
@@ -275,8 +284,8 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        floating_point<T> a(actual);
-        if( m_expected.AlmostNear(a, m_max_abs_error) )
+        const floating_point<T> a(actual);
+        if IUTEST_COND_LIKELY( m_expected.AlmostNear(a, m_max_abs_error) )
         {
             return AssertionSuccess();
         }
@@ -308,8 +317,8 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        floating_point<T> a(actual);
-        if( m_expected.NanSensitiveAlmostNear(a, m_max_abs_error) )
+        const floating_point<T> a(actual);
+        if IUTEST_COND_LIKELY( m_expected.NanSensitiveAlmostNear(a, m_max_abs_error) )
         {
             return AssertionSuccess();
         }
@@ -340,7 +349,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if( StartsWith(actual, m_expected) )
+        if IUTEST_COND_LIKELY( StartsWith(actual, m_expected) )
         {
             return AssertionSuccess();
         }
@@ -390,7 +399,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if( HasSubstr(actual, m_expected) )
+        if IUTEST_COND_LIKELY( HasSubstr(actual, m_expected) )
         {
             return AssertionSuccess();
         }
@@ -442,7 +451,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if( EndsWith(actual, m_expected) )
+        if IUTEST_COND_LIKELY( EndsWith(actual, m_expected) )
         {
             return AssertionSuccess();
         }
@@ -508,7 +517,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if( Equals(actual, m_expected) )
+        if IUTEST_COND_LIKELY( Equals(actual, m_expected) )
         {
             return AssertionSuccess();
         }
@@ -519,7 +528,7 @@ public:
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
-        strm << "Eq: " << m_expected;
+        strm << "Eq: " << PrintToString(m_expected);
         return strm.str();
     }
 private:
@@ -613,7 +622,7 @@ public:
     AssertionResult operator ()(const U& actual)
     {
         IUTEST_USING_BEGIN_END();
-        if( Contains(begin(actual), end(actual)) )
+        if IUTEST_COND_LIKELY( Contains(begin(actual), end(actual)) )
         {
             return AssertionSuccess();
         }
@@ -661,7 +670,7 @@ public:
     AssertionResult operator ()(const U& actual)
     {
         IUTEST_USING_BEGIN_END();
-        if( Each(begin(actual), end(actual)) )
+        if IUTEST_COND_LIKELY( Each(begin(actual), end(actual)) )
         {
             return AssertionSuccess();
         }
@@ -709,7 +718,7 @@ public:
     AssertionResult operator ()(const U& actual)
     {
         IUTEST_USING_BEGIN_END();
-        if( Check(begin(m_expected), end(m_expected)
+        if IUTEST_COND_LIKELY( Check(begin(m_expected), end(m_expected)
             , begin(actual), end(actual)) )
         {
             return AssertionSuccess();
@@ -776,7 +785,7 @@ public:
     AssertionResult operator ()(const U& actual)
     {
         IUTEST_USING_BEGIN_END();
-        if( Check(begin(m_expected), end(m_expected)
+        if IUTEST_COND_LIKELY( Check(begin(m_expected), end(m_expected)
             , begin(actual), end(actual)) )
         {
             return AssertionSuccess();
@@ -827,6 +836,65 @@ private:
 
 #endif
 
+#if IUTEST_HAS_MATCHER_OPTIONAL
+
+/**
+ * @brief   Optional matcher
+*/
+template<typename T>
+class OptionalMatcher : public IMatcher
+{
+public:
+    explicit OptionalMatcher(const T& expected)
+        : m_expected(expected) {}
+
+public:
+    template<typename U>
+    AssertionResult operator ()(const U& actual)
+    {
+        if( Check(actual) )
+        {
+            return AssertionSuccess();
+        }
+        return AssertionFailure() << WhichIs();
+    }
+
+private:
+    template<typename U>
+    bool Check(const U& actual)
+    {
+        bool result = true;
+        Message ar;
+        if( !actual )
+        {
+            result = false;
+            ar << "which is not engaged";
+        }
+        else if( !CastToMatcher(m_expected)(*actual) )
+        {
+            result = false;
+            ar << actual;
+        }
+        m_whichIs = ar.GetString();
+        return result;
+    }
+
+public:
+    ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
+    {
+        iu_global_format_stringstream strm;
+        strm << "Optional: " << PrintToString(m_expected);
+        strm << " (" << m_whichIs << ")";
+        return strm.str();
+    }
+private:
+    const T& m_expected;
+    ::std::string m_whichIs;
+};
+
+#endif
+
+
 /**
  * @brief   IsEmpty matcher
 */
@@ -836,7 +904,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if( (actual).empty() )
+        if IUTEST_COND_LIKELY( (actual).empty() )
         {
             return AssertionSuccess();
         }
@@ -864,7 +932,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if( Check(actual) )
+        if IUTEST_COND_LIKELY( Check(actual) )
         {
             return AssertionSuccess();
         }
@@ -909,7 +977,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if( CastToMatcher(m_expected)(actual[m_index]) )
+        if IUTEST_COND_LIKELY( CastToMatcher(m_expected)(actual[m_index]) )
         {
             return AssertionSuccess();
         }
@@ -976,13 +1044,13 @@ private:
     {
         const size_t actual_cnt = ::std::distance(actual_begin, actual_end);
         const size_t expected_cnt = m_expected.size();
-        if( actual_cnt < expected_cnt )
+        if IUTEST_COND_UNLIKELY( actual_cnt < expected_cnt )
         {
             iu_global_format_stringstream stream;
             stream << "actual argument[" << actual_cnt << "] is less than " << expected_cnt;
             return AssertionFailure() << WhichIs(stream.str());
         }
-        if( m_expected_elem_count && actual_cnt > expected_cnt )
+        if IUTEST_COND_UNLIKELY( m_expected_elem_count && actual_cnt > expected_cnt )
         {
             iu_global_format_stringstream stream;
             stream << "actual argument[" << actual_cnt << "] is greater than " << expected_cnt;
@@ -994,7 +1062,7 @@ private:
         for( int i=0; it_a != actual_end && it_e != m_expected.end(); ++it_e, ++it_a, ++i )
         {
             (void)i;
-            if( *it_a != *it_e )
+            if IUTEST_COND_UNLIKELY( *it_a != *it_e )
             {
                 return AssertionFailure() << WhichIs();
             }
@@ -1034,7 +1102,7 @@ private:
     static AssertionResult Check(Ite it, Ite end, M& matchers)
     {
         const size_t cnt = ::std::distance(it, end);
-        if( cnt < LAST+1 )
+        if IUTEST_COND_UNLIKELY( cnt < LAST+1 )
         {
             return AssertionFailure() << "ElementsAre: argument[" << cnt << "] is less than " << LAST+1;
         }
@@ -1048,7 +1116,7 @@ private:
         for( int index=N; it != end; ++it, ++index )
         {
             AssertionResult ar = CastToMatcher(tuples::get<N>(matchers))(*it);
-            if( !ar )
+            if IUTEST_COND_UNLIKELY( !ar )
             {
                 return AssertionFailure() << WhichIsElem<N>(matchers, index);
             }
@@ -1061,7 +1129,7 @@ private:
         , typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
         AssertionResult ar = CastToMatcher(tuples::get<N>(matchers))(*it);
-        if( ar )
+        if IUTEST_COND_LIKELY( ar )
         {
             return CheckElem<N + 1, LAST>(++it, end, matchers);
         }
@@ -1183,7 +1251,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if( Check(actual) )
+        if IUTEST_COND_LIKELY( Check(actual) )
         {
             return AssertionSuccess();
         }
@@ -1195,7 +1263,7 @@ public:
     {
         iu_global_format_stringstream strm;
         strm << "Field: " << m_expected;
-        //strm << "Field: (" << detail::GetTypeName<F>() << ") " << m_expected;
+        //strm << "Field: (" << detail::GetTypeNameProxy<F>::GetTypeName() << ") " << m_expected;
         return strm.str();
     }
 private:
@@ -1238,7 +1306,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if( Check(actual) )
+        if IUTEST_COND_LIKELY( Check(actual) )
         {
             return AssertionSuccess();
         }
@@ -1250,7 +1318,7 @@ public:
     {
         iu_global_format_stringstream strm;
         strm << "Property: " << m_expected;
-        //strm << "Property: (" << detail::GetTypeName<F>() << ") " << m_expected;
+        //strm << "Property: (" << detail::GetTypeNameProxy<F>::GetTypeName() << ") " << m_expected;
         return strm.str();
     }
 private:
@@ -1293,7 +1361,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if( CastToMatcher(m_expected)(actual.first) )
+        if IUTEST_COND_LIKELY( CastToMatcher(m_expected)(actual.first) )
         {
             return AssertionSuccess();
         }
@@ -1325,11 +1393,11 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if( !CheckElem(actual.first, m_m1) )
+        if IUTEST_COND_UNLIKELY( !CheckElem(actual.first, m_m1) )
         {
             return AssertionFailure() << WhichIs();
         }
-        if( !CheckElem(actual.second, m_m2) )
+        if IUTEST_COND_UNLIKELY( !CheckElem(actual.second, m_m2) )
         {
             return AssertionFailure() << WhichIs();
         }
@@ -1368,7 +1436,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if( Check(actual) )
+        if IUTEST_COND_LIKELY( Check(actual) )
         {
             return AssertionSuccess();
         }
@@ -1380,7 +1448,7 @@ public:
     {
         iu_global_format_stringstream strm;
         strm << "Result of: " << m_expected;
-        //strm << "Result of " << detail::GetTypeName<F>() << "(): " << m_expected;
+        //strm << "Result of " << detail::GetTypeNameProxy<F>::GetTypeName() << "(): " << m_expected;
         return strm.str();
     }
 private:
@@ -1407,7 +1475,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if( Check(actual) )
+        if IUTEST_COND_LIKELY( Check(actual) )
         {
             return AssertionSuccess();
         }
@@ -1444,7 +1512,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual)
     {
-        if( !CastToMatcher(m_unexpected)(actual) )
+        if IUTEST_COND_LIKELY( !CastToMatcher(m_unexpected)(actual) )
         {
             return AssertionSuccess();
         }
@@ -1481,7 +1549,7 @@ public:
     ::std::string WhichIs() const IUTEST_CXX_OVERRIDE
     {
         iu_global_format_stringstream strm;
-        strm << "A: " << detail::GetTypeName<T>();
+        strm << "A: " << detail::GetTypeNameProxy<T>::GetTypeName();
         return strm.str();
     }
 };
@@ -1521,7 +1589,7 @@ public:
     template<typename U>
     AssertionResult operator ()(const U& actual) const
     {
-        if( Regex(actual) )
+        if IUTEST_COND_LIKELY( Regex(actual) )
         {
             return AssertionSuccess();
         }
@@ -1584,7 +1652,7 @@ private:
     static AssertionResult Check_(T& matchers, const U& actual, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
         AssertionResult ar = tuples::get<N>(matchers)(actual);
-        if( ar )
+        if IUTEST_COND_LIKELY( ar )
         {
             return ar;
         }
@@ -1594,7 +1662,7 @@ private:
     static AssertionResult Check_(T& matchers, const U& actual, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
         AssertionResult ar = tuples::get<N>(matchers)(actual);
-        if( ar )
+        if IUTEST_COND_LIKELY( ar )
         {
             return Check_<T, U, N + 1, LAST>(matchers, actual);
         }
@@ -1711,7 +1779,7 @@ private:
     static AssertionResult Check_(T& matchers, const U& actual, typename detail::enable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
         AssertionResult ar = tuples::get<N>(matchers)(actual);
-        if( ar )
+        if IUTEST_COND_LIKELY( ar )
         {
             return ar;
         }
@@ -1721,7 +1789,7 @@ private:
     static AssertionResult Check_(T& matchers, const U& actual, typename detail::disable_if<N == LAST, void>::type*& = detail::enabler::value)
     {
         AssertionResult ar = tuples::get<N>(matchers)(actual);
-        if( ar )
+        if IUTEST_COND_LIKELY( ar )
         {
             return ar;
         }
@@ -2269,6 +2337,20 @@ template<typename M, typename T>
 detail::PointwiseMatcher<M, T> Pointwise(const M& matcher, const T& expected)
 {
     return detail::PointwiseMatcher<M, T>(matcher, expected);
+}
+
+#endif
+
+#if IUTEST_HAS_MATCHER_OPTIONAL
+
+/**
+ * @brief   Make Optional matcher
+ * @details argument は expected にマッチする
+*/
+template<typename T>
+detail::OptionalMatcher<T> Optional(const T& expected)
+{
+    return detail::OptionalMatcher<T>(expected);
 }
 
 #endif

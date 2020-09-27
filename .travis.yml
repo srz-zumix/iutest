@@ -10,10 +10,10 @@ branches:
   only:
     - master
     - develop
-    - /feature.*/
-    - /fix.*/
-    - /travisci.*/
-    - /travis-ci.*/
+    # - /feature.*/
+    # - /fix.*/
+    # - /travisci.*/
+    # - /travis-ci.*/
 
 addons:
   apt: &apt-global
@@ -80,13 +80,25 @@ install:
   - if [ "${USE_GMOCK}" = '1' ]; then . .ci/travisci/install-gmock.sh; fi
 
 script:
-  - if [ "${USE_LIB}" = '1' ]; then cd projects/make && make && cd -; fi
-  - if [ "${USE_CMAKE}" = '1' ]; then
-      mkdir ./cmake-build && cd ./cmake-build && cmake ../projects/cmake && cmake --build . && ctest -C Debug -V && cd ..;
+  - |
+    if [ "${USE_LIB}" = '1' ]; then
+      cd projects/make && make && cd -
+    fi
+  - |
+    if [ "${USE_CMAKE}" = '1' ]; then
+      mkdir ./cmake-build &&
+      cd ./cmake-build &&
+      cmake ../projects/cmake &&
+      cmake --build . &&
+      ctest -C Debug -V &&
+      cd ..
     fi
   - cd ./test
-  - if [ "${COVERITY_SCAN}" != '1' ] && [ "${USE_CMAKE}" != '1' ]; then
-      make -j4 showcxxversion ${USE_FUSED} default && make test ${USE_FUSED};
+  - |
+    if [ "${COVERITY_SCAN}" != '1' ] && [ "${USE_CMAKE}" != '1' ]; then
+      make -j4 showcxxversion ${USE_FUSED} default &&
+      make test ${USE_FUSED} &&
+      make report
     fi
   - |
     if [ "${COVERITY_SCAN}" = '1' ] && [ -d cov-int ]; then
@@ -120,16 +132,17 @@ env:
   global:
     # COVERITY_SCAN_TOKEN
     - secure: "R+KDlvwR4+5JbW/Ahm9HHkGHfe3MdU7VPpqxOpbAMc95KFIHLsRcMaJBNCBZMUWXGEjXNsTy6gBR4ZI/XQvTnlYMxabzNbJgMMO6YmI7czXw8yt7zR1+UnVaWE7KEA3d9suZ4jnwIUsIw0AtYZYbCHnDNuOUbpRf+8DrpXsSa/sPqYAvHcvDg4rRtEcLii0lsygcQHNzz0vUivDEiZtBVFlJTo+BkxicVH/Jkv/30KYcFD6Ao9wpJCMC4ysvlTeytTQj0s59PLVkfhYEc3VFQL1BLVGZoesS0BFNY/ZJ8n61Dvu8yNjg/tEMYht0H8278okc59RM2a2MUM5OSs+qC59pGsbsGpm9ScrIoLPi7YzaH6dxpm5iAIcKCVCiOFUdBjqNramfg+X0SMVV1hxPbaQEwQTX9M74QxPj7iue7W9MAYzqrcGJguDZYt/+m/SaM6rzOzI10GY+gNzlyp0aPOQZkp1Mw63NttCatr7Klw2yVP7CE+UuB648AVGrIFgfLAuugSCw3OVCFSnThhXfSjH57v0+3HTivsm3QHLYbTtyHymQOtfG7AB/FgvKF9nxCnDkzP3d5ijNEVWEfL8dF8+QqM8AFZGFHHjXHeopK22myzfuyRVZI8LIbcRAT1MCddmp2hgrRFJRX/Hl29QvGumZtU45xOKJwyKQorxXlfU="
+    - IUTEST_REQUIRE_PYTHON: yes
 
   matrix:
     - STDFLAG=-std=c++98
     - STDFLAG=-std=c++11
     - STDFLAG=
 
-  allow_failures:
-    - env:
-      - COVERITY_SCAN=1
-      - USE_LIBCXX=1
+allow_failures:
+  - env:
+    - COVERITY_SCAN=1
+    - USE_LIBCXX=1
 
 matrix:
   include:
@@ -246,7 +259,9 @@ matrix:
             name: "srz-zumix/iutest"
             description: "iutest c++ testing framework"
           notification_email: zumix.cpp@gmail.com
-          build_command_prepend: "cov-configure --comptype gcc --compiler gcc-7 --template && cd ./test"
+          build_command_prepend: >
+            cov-configure --comptype gcc --compiler gcc-7 --template &&
+            cd ./test
           build_command: make -j4 coverity_scan STDFLAG=-std=c++17
           branch_pattern: master|.*coverity_scan.*
     # Sanitize

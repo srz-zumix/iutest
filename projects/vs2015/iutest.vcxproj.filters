@@ -45,7 +45,7 @@
     <ClInclude Include="..\..\include\iutest_body.hpp">
       <Filter>iutest</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\iutest_case.hpp">
+    <ClInclude Include="..\..\include\iutest_suite.hpp">
       <Filter>iutest</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\iutest_config.hpp">
@@ -178,6 +178,12 @@
       <Filter>iutest\internal</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\internal\iutest_stream.hpp">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\internal\iutest_string_stream.hpp">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\internal\iutest_string_view.hpp">
       <Filter>iutest\internal</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\internal\iutest_string.hpp">
@@ -344,7 +350,7 @@
     <None Include="..\..\include\impl\iutest_body.ipp">
       <Filter>iutest\impl</Filter>
     </None>
-    <None Include="..\..\include\impl\iutest_case.ipp">
+    <None Include="..\..\include\impl\iutest_suite.ipp">
       <Filter>iutest\impl</Filter>
     </None>
     <None Include="..\..\include\impl\iutest_core.ipp">

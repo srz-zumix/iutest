@@ -2,6 +2,7 @@
 
 LANG=ja_JP.SJIS
 HTMLLINT_PATH=$(subst \,/, $(HTMLLINT_ROOT))
+GHPAGES_DIR:=gh-pages
 
 default: target
 
@@ -19,14 +20,17 @@ html/index.html: Makefile Doxyfile doxygen_filter.py
 #	cp '$(DOXYGEN_ROOT)/bin/doxysearch.cgi' html/
 
 gh-pages: target
-	- mkdir gh-pages
-	cp *.html gh-pages/
-	cp -r css gh-pages/
-	cp -r html gh-pages/
-	cp -r images gh-pages/
-	cp ../README.md gh-pages/
-	cp -r dev/.circleci gh-pages/
-	cp dev/*.yml gh-pages/
+	- mkdir ${GHPAGES_DIR}
+	cp *.html ${GHPAGES_DIR}/
+	cp -r css ${GHPAGES_DIR}/
+	cp -r html ${GHPAGES_DIR}/
+	cp -r images ${GHPAGES_DIR}/
+	cp ../README.md ${GHPAGES_DIR}/
+
+gh-pages-for-master:
+	cp -r dev/.circleci ${GHPAGES_DIR}/
+	cp dev/*.yml ${GHPAGES_DIR}/
+	cp ../README.md ${GHPAGES_DIR}/
 
 clean:
 	rm -rf html

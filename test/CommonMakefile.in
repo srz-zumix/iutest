@@ -106,6 +106,7 @@ TARGETS1= \
 		$(OUTDIR)/csvparams_tests \
 		$(OUTDIR)/cxx_feature_tests \
 		$(OUTDIR)/disabled_tests \
+		$(OUTDIR)/empty_testname_tests \
 		$(OUTDIR)/env_var_gtest_tests \
 		$(OUTDIR)/environment_tests \
 		$(OUTDIR)/exception_assertion_tests \
@@ -120,6 +121,7 @@ TARGETS1= \
 		$(OUTDIR)/internal_log_tests \
 		$(OUTDIR)/invalid_commandline_tests \
 		$(OUTDIR)/japanese_tests \
+		$(OUTDIR)/legacy_testcase_api_tests \
 		$(OUTDIR)/list_test_tests \
 		$(OUTDIR)/listener_tests \
 		$(OUTDIR)/matcher_tests \
@@ -143,6 +145,7 @@ TARGETS1= \
 		$(OUTDIR)/set_up_testcase_failure_tests \
 		$(OUTDIR)/shuffle_tests \
 		$(OUTDIR)/skip_tests \
+		$(OUTDIR)/spec_tests \
 		$(OUTDIR)/spi_failure_tests \
 		$(OUTDIR)/streaming_listener_tests \
 		$(OUTDIR)/throw_on_assertion_failure_tests \
@@ -166,8 +169,11 @@ TARGETS_IUTEST_ONLY = \
 		$(OUTDIR)/flagfile_env_var_tests \
 		$(OUTDIR)/flagfile_invalid_path_tests \
 		$(OUTDIR)/flagfile_tests \
+		$(OUTDIR)/invalid_both_suite_and_case_setup_tests \
+		$(OUTDIR)/invalid_both_suite_and_case_teardown_tests \
 		$(OUTDIR)/invalid_locale_ctype_tests \
 		$(OUTDIR)/ostream_formatter_tests \
+		$(OUTDIR)/output_long_type_param_tests \
 		$(OUTDIR)/output_tests \
 		$(OUTDIR)/output_xml_invalid_path_tests \
 		$(OUTDIR)/output_xml_repeat_tests \
@@ -181,6 +187,7 @@ TARGETS_IUTEST_ONLY = \
 
 COMPILEERROR_TARGETS=\
 		$(OUTDIR)/check_strict_tests \
+		$(OUTDIR)/empty_testname_failure_tests \
 		$(OUTDIR)/static_assertion_failure_tests \
 
 BUILD_ONLY = $(OUTDIR)/break_on_failure_tests \

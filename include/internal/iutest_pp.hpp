@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,6 +17,12 @@
 
 //======================================================================
 // define
+
+#if defined(_MSC_VER) && !defined(__clang__)
+#  if !defined(_MSVC_TRADITIONAL) || _MSVC_TRADITIONAL
+#    define IUTEST_PP_MSVC_TRADITIONAL
+#  endif
+#endif
 
 /**
  * @brief       コピー禁止定義
@@ -65,13 +71,13 @@
 
 #define IUTEST_PP_COUNTOF(x)        (sizeof(x)/sizeof(x[0]))
 
-#if IUTEST_HAS_COUNTER_MACRO
+#if defined(IUTEST_HAS_COUNTER_MACRO) && IUTEST_HAS_COUNTER_MACRO
 #  define IUTEST_PP_COUNTER         __COUNTER__
 #else
 #  define IUTEST_PP_COUNTER         __LINE__
 #endif
 
-#if IUTEST_HAS_COUNTER_MACRO
+#if defined(IUTEST_HAS_COUNTER_MACRO) && IUTEST_HAS_COUNTER_MACRO
 #  define IUTEST_PP_UNIQUEID        IUTEST_PP_CAT(__LINE__, __COUNTER__)
 #else
 #  define IUTEST_PP_UNIQUEID        __LINE__
@@ -714,6 +720,9 @@
 #define IIUT_PP_EMPTY_TAG() , 0
 #define IIUT_PP_EMPTY_TAG_IIUT_PP_EMPTY_TAG     1, 1 IUTEST_PP_EMPTY
 
+// IF EMPTY
+#define IUTEST_PP_IF_EMPTY(x, t, f) IUTEST_PP_IF(IUTEST_PP_IS_EMPTY(x), t, f)
+
 // IDENTITY
 #define IUTEST_PP_IDENTITY(x)       x IUTEST_PP_EMPTY
 
@@ -726,7 +735,7 @@
 
 #endif
 
-#if defined(_MSC_VER) && !defined(__clang__)
+#if defined(IUTEST_PP_MSVC_TRADITIONAL)
 #define IIUT_PP_VD_CAT(a, b)            IIUT_PP_VD_CAT_I(a, b)
 #define IIUT_PP_VD_CAT_I(a, b)          IIUT_PP_VD_CAT_II(a ## b)
 #define IIUT_PP_VD_CAT_II(res)          res

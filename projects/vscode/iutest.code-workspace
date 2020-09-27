@@ -93,7 +93,12 @@
 			"xtree": "cpp",
 			"xutility": "cpp",
 			"concepts": "cpp",
-			"charconv": "cpp"
+			"charconv": "cpp",
+			"__functional_base": "cpp",
+			"__functional_base_03": "cpp",
+			"__hash_table": "cpp",
+			"__tree": "cpp",
+			"__tuple": "cpp"
 		}
 	},
 	"launch": {
@@ -111,5 +116,7 @@
 			}
 		],
 		"compounds": []
-	}
+	},
+	"C_Cpp.default.cppStandard": "c++17",
+	"C_Cpp.default.includePath": [ "${workspaceFolder}/include" ],
 }

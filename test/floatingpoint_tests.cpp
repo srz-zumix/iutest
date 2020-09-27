@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -40,7 +40,7 @@ template<typename T>
 T FloatingpointTest<T>::ZERO = static_cast<T>(0);
 
 typedef ::iutest::Types<float, double> FloatingpointTestTypes;
-IUTEST_TYPED_TEST_CASE(FloatingpointTest, FloatingpointTestTypes);
+IUTEST_TYPED_TEST_SUITE(FloatingpointTest, FloatingpointTestTypes);
 
 IUTEST_TYPED_TEST(FloatingpointTest, PINF)
 {

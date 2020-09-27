@@ -78,9 +78,42 @@ branches:
   only:
     - master
     - develop
-    - /feature.*/
-    - /fix.*/
-    - /appveyor.*/
+    # - /feature.*/
+    # - /fix.*/
+    # - /appveyor.*/
+
+skip_commits:
+  files:
+    - .circleci/
+    - .github/
+    - .semaphore/
+    - "*.md"
+    - docs/
+    - Jenkinsfile
+    - LICENSE
+    - .bandit
+    - .editorconfig
+    - .hadolint.yaml
+    - .lgtm.yaml
+    - tox.ini
+    - azure-pipelines.yml
+    - bitrise.yml
+    - buddy.yml
+    - .circleci/*
+    - .cirrus.yml
+    - .scrutinizer.yml
+    - codecov.yml
+    - codefresh.yml
+    - codeship-services.yml
+    - codeship-steps.yml
+    - .drone.yml
+    - .github/*
+    - .razorops.yaml
+    - .semaphore/*
+    - shippable.yml
+    - sider.yml
+    - .travis.yml
+    - wercker.yml
 
 # Do not build feature branch with open Pull Requests
 skip_branch_with_pr: true
@@ -163,7 +196,7 @@ for:
       make showcxxmacros
       make -j4
   test_script:
-    cmd: make test
+    cmd: make test && make report
 # MINGW
 -
   matrix:
@@ -185,7 +218,7 @@ for:
       mingw32-make showcxxmacros
       mingw32-make -j4 %MAKE_OPTIONS%
   test_script:
-    cmd: mingw32-make test %MAKE_OPTIONS%
+    cmd: mingw32-make test %MAKE_OPTIONS% && mingw32-make report
 # NAMKE
 -
   matrix:
@@ -194,7 +227,7 @@ for:
   before_build:
     cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat"'
   build_script:
-    cmd: cd test && nmake
+    cmd: cd test && nmake all_tests && all_tests --spec && nmake
   test_script:
     cmd: nmake test
 # Prefast
@@ -241,11 +274,3 @@ for:
       Write-Output "Building NuGet package"
       nuget pack $nuspecPath -OutputDirectory ".\"
   test: off
-
-notifications:
-  - provider: Email
-    to:
-      - zumix.cpp@gmail.com
-    on_build_success: false
-    on_build_failure: true
-    on_build_status_changed: true

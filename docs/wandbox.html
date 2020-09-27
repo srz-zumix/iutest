@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml" lang="ja" xml:lang="ja">
 <head>
   <title>iutest - Wandbox</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -16,7 +16,7 @@
 
 <h2>iuwandbox</h2>
 <div class="text_block">
-<a href="http://melpon.org/wandbox/">Wandbox</a> で iutest を使ったテストコードを書けるように対応しました。<br />
+<a href="https://melpon.org/wandbox/">Wandbox</a> で iutest を使ったテストコードを書けるように対応しました。<br />
 様々なコンパイラー・バージョンでビルド・テストができるため、あなたのプログラムのコンパイラー対応を助けます。<br />
 </div>
 
@@ -55,7 +55,7 @@ IUTEST(Foo, Bar)
 
 サンプルの実行結果はこちらになります。<br />
 <img src="./images/iuwandbox_sample.png" alt="サンプル実行結果" />
-<a href="http://melpon.org/wandbox/permlink/VspJQN4s3NzUR3C9" target="_blank">http://melpon.org/wandbox/permlink/VspJQN4s3NzUR3C9</a><br />
+<a href="https://melpon.org/wandbox/permlink/VspJQN4s3NzUR3C9" target="_blank">https://melpon.org/wandbox/permlink/VspJQN4s3NzUR3C9</a><br />
 <br />
 コンパイラーの選択などは後述のコマンドラインオプションの項をご覧ください。<br />
 </div>
@@ -72,7 +72,7 @@ IUTEST(Foo, Bar)
 <tr><td>  </td><td>--cpp-verbose          </td><td>Wandbox の Verbose を有効にします。</td></tr>
 <tr><td>  </td><td>--optimize             </td><td>Wandbox の Optimization を有効します。</td></tr>
 <tr><td>  </td><td>--sprout               </td><td><a href="https://github.com/bolero-MURAKAMI/Sprout">Sprout</a> を使用します。</td></tr>
-<tr><td>  </td><td>--msgpack              </td><td><a href="http://msgpack.org/">MessagePack</a> を使用します。</td></tr>
+<tr><td>  </td><td>--msgpack              </td><td><a href="https://msgpack.org/">MessagePack</a> を使用します。</td></tr>
 <tr><td>-f</td><td>--compiler-options-raw OPTIONS</td><td>コンパイラーのオプションを直接指定します。複数のオプションを指定する場合は、[ -f"-Dx=hogefuga -O3" ] とするか、[ -f"-Dx=hogefuga" -f"-O3" ] のように記述できます。 </td></tr>
 <tr><td>-r</td><td>--runtime-options-raw OPTIONS</td><td>ビルドした実行ファイルのコマンドラインオプションを指定します。複数のオプションを指定する場合は、[ -r"--iutest_shuffle --iutest_random_seed=1" ] とするか、[ -r"--iutest_shuffle" -r"--iutest_random_seed=1" ] のように複数オプションを記述してください。 </td></tr>
 <tr><td>  </td><td>--iutest-use-main      </td><td>-DIUTEST_USE_MAIN をコンパイルオプションにつけます。main 関数の記述が省略できます。</td></tr>

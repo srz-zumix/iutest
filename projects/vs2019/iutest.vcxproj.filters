@@ -45,7 +45,7 @@
     <ClInclude Include="..\..\include\iutest_body.hpp">
       <Filter>iutest</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\iutest_case.hpp">
+    <ClInclude Include="..\..\include\iutest_suite.hpp">
       <Filter>iutest</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\iutest_config.hpp">
@@ -178,6 +178,12 @@
       <Filter>iutest\internal</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\internal\iutest_stream.hpp">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\internal\iutest_string_stream.hpp">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\internal\iutest_string_view.hpp">
       <Filter>iutest\internal</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\internal\iutest_string.hpp">
@@ -339,15 +345,18 @@
     <ClInclude Include="..\..\include\gtest\iutest_switch_for_iutest.hpp">
       <Filter>iutest\gtest</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\internal\iutest_string_view.hpp">
-      <Filter>iutest\internal</Filter>
+    <ClInclude Include="..\..\include\iutest_legacy.hpp">
+      <Filter>iutest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\iutest_case.hpp">
+      <Filter>iutest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\impl\iutest_body.ipp">
       <Filter>iutest\impl</Filter>
     </None>
-    <None Include="..\..\include\impl\iutest_case.ipp">
+    <None Include="..\..\include\impl\iutest_suite.ipp">
       <Filter>iutest\impl</Filter>
     </None>
     <None Include="..\..\include\impl\iutest_core.ipp">
@@ -404,5 +413,8 @@
     <None Include="..\..\docs\index.html">
       <Filter>doxygen</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\..\tools\VisualStudio\Visualizers\iutest.natvis" />
   </ItemGroup>
 </Project>

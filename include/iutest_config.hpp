@@ -218,7 +218,7 @@
 
 #if !defined(IUTEST_HAS_VARIADIC_VALUES)
 //! 可変長引数に対応した ::iutest::Values が使用可能かどうか
-#  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
+#  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_VARIADIC_TUPLES
 #    define IUTEST_HAS_VARIADIC_VALUES  1
 #  else
 #    define IUTEST_HAS_VARIADIC_VALUES  0
@@ -227,7 +227,7 @@
 
 #if !defined(IUTEST_HAS_VARIADIC_COMBINE)
 //! 可変長引数に対応した ::iutest::Combine が使用可能かどうか
-#  if IUTEST_HAS_COMBINE && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
+#  if IUTEST_HAS_COMBINE && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_VARIADIC_TUPLES
 #    define IUTEST_HAS_VARIADIC_COMBINE 1
 #  else
 #    define IUTEST_HAS_VARIADIC_COMBINE 0
@@ -236,7 +236,7 @@
 
 #if !defined(IUTEST_HAS_VARIADIC_PAIRWISE)
 //! 可変長引数に対応した ::iutest::Pairwise が使用可能かどうか
-#  if IUTEST_HAS_PAIRWISE && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
+#  if IUTEST_HAS_PAIRWISE && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_VARIADIC_TUPLES
 #    define IUTEST_HAS_VARIADIC_PAIRWISE    1
 #  else
 #    define IUTEST_HAS_VARIADIC_PAIRWISE    0
@@ -308,6 +308,10 @@
 #  define IUTEST_HAS_MATCHER_POINTWISE          1
 #endif
 
+#if !defined(IUTEST_HAS_MATCHER_OPTIONAL)
+#  define IUTEST_HAS_MATCHER_OPTIONAL           1
+#endif
+
 #if !defined(IUTEST_USE_THROW_ON_ASSERTION_FAILURE)
 /**
  * @brief   失敗時に例外を throw します。
@@ -340,11 +344,7 @@
 
 #if !defined(IUTEST_HAS_SPI_LAMBDA_SUPPORT)
 //! spi マクロで lambda を使って変数にアクセス可能かどうか
-#  if IUTEST_HAS_LAMBDA_STATEMENTS
-#    define IUTEST_HAS_SPI_LAMBDA_SUPPORT       1
-#  else
-#    define IUTEST_HAS_SPI_LAMBDA_SUPPORT       0
-#  endif
+#  define IUTEST_HAS_SPI_LAMBDA_SUPPORT       IUTEST_HAS_LAMBDA_STATEMENTS
 #endif
 
 #if !defined(IUTEST_HAS_CATCH_SEH_EXCEPTION_ASSERTION)
@@ -604,6 +604,37 @@
  * @}
 */
 
+/**
+ * @defgroup    IUTEST_CONFIG_CODECVT  CODECVT
+ * @brief       charcode convert CONFIG
+ * @{
+*/
+
+//! char16_t printable
+#if !defined(IUTEST_HAS_CHAR16_T_PRINTABLE)
+#  if defined(_MSC_VER) || IUTEST_HAS_CXX_HDR_CODECVT || IUTEST_HAS_CXX_HDR_CUCHAR
+#    define IUTEST_HAS_CHAR16_T_PRINTABLE   IUTEST_HAS_CHAR16_T
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CHAR16_T_PRINTABLE)
+#  define IUTEST_HAS_CHAR16_T_PRINTABLE     0
+#endif
+
+//! char32_t printable
+#if !defined(IUTEST_HAS_CHAR32_T_PRINTABLE)
+#  if defined(_MSC_VER) || IUTEST_HAS_CXX_HDR_CODECVT || IUTEST_HAS_CXX_HDR_CUCHAR
+#    define IUTEST_HAS_CHAR32_T_PRINTABLE   IUTEST_HAS_CHAR32_T
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CHAR32_T_PRINTABLE)
+#  define IUTEST_HAS_CHAR32_T_PRINTABLE     0
+#endif
+
+/**
+ * @}
+*/
 
 /**
  * @defgroup    IUTEST_CONFIG_OTHER OTHER
@@ -778,6 +809,26 @@
 /**
  * @}
 */
+
+/**
+ * @brief   iutest has testsuite api
+*/
+#define IUTEST_HAS_TESTSUITE    1
+
+/**
+ * @brief   iutest has testcase api
+*/
+#if !defined(IUTEST_HAS_TESTCASE)
+#  define IUTEST_HAS_TESTCASE   1
+#endif
+
+#if defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
+#  undef IUTEST_REMOVE_LEGACY_TEST_CASEAPI_
+#endif
+
+#if !IUTEST_HAS_TESTCASE
+#  define IUTEST_REMOVE_LEGACY_TEST_CASEAPI_
+#endif
 
 /**
  * @private

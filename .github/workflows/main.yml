@@ -1,7 +1,6 @@
 name: GitHub Actions
 on:
   pull_request:
-  push:
     branches:
       - master
       - develop
@@ -10,11 +9,24 @@ on:
       - 'gh/**'
       - 'github/**'
       - 'githubactions/**'
+    paths-ignore:
+      - '*.ini'
+      - '*.md'
+      - '*.yml'
+      - '*.yaml'
+      - '.circleci/**'
+      - '.semaphore/**'
+  push:
+    branches:
+      - master
+      - develop
 
 jobs:
   prepare:
     runs-on: ubuntu-18.04
-    if: "! contains(github.event.head_commit.message, '[ci skip]') && ! contains(github.event.head_commit.message, '[skip ci]') "
+    if: >
+      ! contains(github.event.head_commit.message, '[ci skip]') &&
+      ! contains(github.event.head_commit.message, '[skip ci]')
     steps:
       - run: |
           echo "${{ github.event.head_commit.message }}"
@@ -23,7 +35,7 @@ jobs:
     runs-on: windows-latest
     needs: prepare
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - name: choco-install
       shell: cmd
       run: |
@@ -42,7 +54,7 @@ jobs:
     runs-on: windows-latest
     needs: prepare
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - name: mingw test
       shell: cmd
       run: |
@@ -51,11 +63,31 @@ jobs:
         make -C test check_stdlib
         make -C test -j8
         make -C test test
+  zapcc-basic-test:
+    runs-on: ubuntu-18.04
+    container: docker://srzzumix/zapcc
+    needs: prepare
+    env:
+      PYTHON_VERSION: 3.8
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-python@v2
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    - name: Set Python environment variable
+      run: echo '::set-env name=LD_LIBRARY_PATH::${{ env.pythonLocation }}/lib'
+    - name: zapcc test
+      run: |
+        make -C test clean
+        make -C test showcxxversion
+        make -C test check_stdlib
+        make -C test -j1 IUTEST_REQUIRE_PYTHON=1
+        make -C test test
   arm-none-eabi:
     runs-on: ubuntu-18.04
     needs: prepare
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - name: arm-none-eabi
       uses: ./.github/actions/arm-none-eabi
       with:
@@ -64,7 +96,7 @@ jobs:
     runs-on: ubuntu-18.04
     needs: prepare
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
     - name: lint:editorconfig
       run: |
@@ -74,7 +106,7 @@ jobs:
     runs-on: ubuntu-18.04
     needs: lint-editorconfig
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - name: Include What You Use
       uses: ./.github/actions/iwyu
       with:
