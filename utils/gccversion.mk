@@ -139,4 +139,9 @@ ifeq (1,$(shell expr \( $(GCCMAJOR) \> 3 \) ))
 IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code
 endif
 
+# 5.1 later
+ifeq (1,$(shell expr \( $(GCCMAJOR) \> 5 \) \| \( $(GCCMAJOR) = 5 \& $(GCCMINOR) \> 0 \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wsuggest-override
+endif
+
 endif
