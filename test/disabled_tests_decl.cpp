@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file        disabled_testcases.cpp
- * @brief       disabled tests testcase definitions
+ * @file        disabled_tests_decl.cpp
+ * @brief       disabled tests testsuite definitions
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2019-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -62,9 +62,9 @@ IUTEST_P(DISABLED_FooP, Bar)
     IUTEST_FAIL() << v;
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(A, FooP, ::iutest::Values(0, 2));
-IUTEST_INSTANTIATE_TEST_CASE_P(A, FooP_DISABLED_, ::iutest::Values(0, 2));
-IUTEST_INSTANTIATE_TEST_CASE_P(A, DISABLED_FooP , ::iutest::Values(0, 2));
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, FooP, ::iutest::Values(0, 2));
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, FooP_DISABLED_, ::iutest::Values(0, 2));
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, DISABLED_FooP , ::iutest::Values(0, 2));
 
 #endif
 
@@ -99,9 +99,9 @@ template<typename T>
 class DISABLED_TypedFoo : public ::iutest::Test {};
 
 typedef ::iutest::Types<int> TypedTestTypes;
-IUTEST_TYPED_TEST_CASE(TypedFoo, TypedTestTypes);
-IUTEST_TYPED_TEST_CASE(TypedFoo_DISABLED_, TypedTestTypes);
-IUTEST_TYPED_TEST_CASE(DISABLED_TypedFoo , TypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(TypedFoo, TypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(TypedFoo_DISABLED_, TypedTestTypes);
+IUTEST_TYPED_TEST_SUITE(DISABLED_TypedFoo , TypedTestTypes);
 
 IUTEST_TYPED_TEST(TypedFoo_DISABLED_, Bar)
 {
@@ -128,9 +128,9 @@ class TypedPFoo_DISABLED_ : public ::iutest::Test {};
 template<typename T>
 class DISABLED_TypedPFoo : public ::iutest::Test {};
 
-IUTEST_TYPED_TEST_CASE_P(TypePFoo);
-IUTEST_TYPED_TEST_CASE_P(TypedPFoo_DISABLED_);
-IUTEST_TYPED_TEST_CASE_P(DISABLED_TypedPFoo);
+IUTEST_TYPED_TEST_SUITE_P(TypePFoo);
+IUTEST_TYPED_TEST_SUITE_P(TypedPFoo_DISABLED_);
+IUTEST_TYPED_TEST_SUITE_P(DISABLED_TypedPFoo);
 
 IUTEST_TYPED_TEST_P(TypedPFoo_DISABLED_, Bar)
 {
@@ -146,13 +146,13 @@ IUTEST_TYPED_TEST_P(DISABLED_TypedPFoo, Bar)
     IUTEST_FAIL();
 }
 
-IUTEST_REGISTER_TYPED_TEST_CASE_P(TypedPFoo_DISABLED_, Bar);
-IUTEST_REGISTER_TYPED_TEST_CASE_P(TypePFoo, DISABLED_Bar);
-IUTEST_REGISTER_TYPED_TEST_CASE_P(DISABLED_TypedPFoo, Bar);
+IUTEST_REGISTER_TYPED_TEST_SUITE_P(TypedPFoo_DISABLED_, Bar);
+IUTEST_REGISTER_TYPED_TEST_SUITE_P(TypePFoo, DISABLED_Bar);
+IUTEST_REGISTER_TYPED_TEST_SUITE_P(DISABLED_TypedPFoo, Bar);
 
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, TypedPFoo_DISABLED_, int);
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, TypePFoo, int);
-IUTEST_INSTANTIATE_TYPED_TEST_CASE_P(A, DISABLED_TypedPFoo, int);
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(A, TypedPFoo_DISABLED_, int);
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(A, TypePFoo, int);
+IUTEST_INSTANTIATE_TYPED_TEST_SUITE_P(A, DISABLED_TypedPFoo, int);
 
 #endif
 

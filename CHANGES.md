@@ -2,6 +2,20 @@
 
 --------------------------------------------------
 
+## Changes for 1.17.99
+
+* Improved
+  * 空のテストスイート名・テスト名に static_assert を追加
+  * GoogleTest の GTEST_REMOVE_LEGACY_TEST_CASEAPI_ に対応
+
+* Changes
+  * TestCase の別名 TestSuite に対応（iutest はどちらもサポートし続けます）
+
+* Bug fixes
+  * その他いくつかの不具合を修正
+
+--------------------------------------------------
+
 ## Changes for 1.17.1
 
 * New
@@ -26,7 +40,7 @@
   * C++20 で削除された basic_ostream::operator << に対応
   * IUTEST_AP が同じ名前空間に複数定義できない問題を修正
   * Google Test 旧バージョンとの互換性を修正
-  * いくつかの不具合を修正
+  * その他いくつかの不具合を修正
 
 --------------------------------------------------
 

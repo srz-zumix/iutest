@@ -461,7 +461,7 @@ IUTEST_IPP_INLINE IUTestLog::~IUTestLog()
     if( kLevel == LOG_FATAL )
     {
         fflush(stderr);
-        posix::Abort();
+        IUTEST_ABORT();
     }
 }
 

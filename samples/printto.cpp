@@ -98,7 +98,7 @@ typedef ::iutest::Types<char, unsigned char
             , int, unsigned int
             , long, unsigned long
             , int*> PrintStringTestTypes;
-IUTEST_TYPED_TEST_CASE(TypedPrintToTest, PrintStringTestTypes);
+IUTEST_TYPED_TEST_SUITE(TypedPrintToTest, PrintStringTestTypes);
 
 IUTEST_TYPED_TEST(TypedPrintToTest, Print)
 {

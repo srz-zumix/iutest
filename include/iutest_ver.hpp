@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01170012u     //!< iutest version 1.17.0.12
+#define IUTEST_VER          0x01179901u     //!< iutest version 1.17.99.1
 #define IUTEST_MAJORVER     0x01u           //!< Major Version
 #define IUTEST_MINORVER     0x17u           //!< Minor Version
-#define IUTEST_MICROVER     0x00u           //!< Micro Version
-#define IUTEST_REVISION     0x12u           //!< Revision
+#define IUTEST_MICROVER     0x99u           //!< Micro Version
+#define IUTEST_REVISION     0x01u           //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -121,6 +121,12 @@ modification, are permitted provided that the following conditions are met: \n
  * @page    changelog   変更履歴
  * @par     Changes
  <ul>
+  <li>v1.18.0.0
+    <ul>
+      <li>TestCase の別名 TestSuite に対応（iutest はどちらもサポートし続けます）</li>
+      <li>空のテストスイート名・テスト名に static_assert を追加</li>
+    </ul>
+  </li>
   <li>v1.17.1.0
     <ul>
       <li>GTEST_SKIP 対応</li>

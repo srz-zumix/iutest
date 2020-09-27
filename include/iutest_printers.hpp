@@ -409,7 +409,7 @@ inline void PrintTo(const ::std::optional<T>& value, iu_ostream* os)
 }
 #endif
 
-#if IUTEST_HAS_CXX_HDR_VARIANT
+#if IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_CXX_HDR_VARIANT
 template<typename... Types>
 inline void PrintTo(const ::std::variant<Types...>& value, iu_ostream* os)
 {
@@ -419,7 +419,7 @@ inline void PrintTo(const ::std::variant<Types...>& value, iu_ostream* os)
     }
     else
     {
-        std::visit([&os](const auto& v) { UniversalPrint(v, os); }, value);
+        ::std::visit([&os](const auto& v) { UniversalPrint(v, os); }, value);
     }
 }
 inline void PrintTo(const ::std::monostate&, iu_ostream* os)

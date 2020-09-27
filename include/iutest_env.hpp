@@ -633,7 +633,7 @@ public:
     /**
      * @brief   default package name を追加
     */
-    static ::std::string AddDefaultPackageName(const char* testcase_name);
+    static ::std::string AddDefaultPackageName(const char* testsuite_name);
 
 private:
     /**

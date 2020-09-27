@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2013-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2013-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -29,7 +29,7 @@ class ParamTest : public ::iutest::TestWithParam<int> {};
 IUTEST_P(ParamTest, A)
 {
 }
-IUTEST_INSTANTIATE_TEST_CASE_P(Test, ParamTest, ::iutest::Values(42));
+IUTEST_INSTANTIATE_TEST_SUITE_P(Test, ParamTest, ::iutest::Values(42));
 
 #endif
 
@@ -38,7 +38,7 @@ IUTEST_INSTANTIATE_TEST_CASE_P(Test, ParamTest, ::iutest::Values(42));
 template<typename T>
 class TypedTest : public ::iutest::Test {};
 
-IUTEST_TYPED_TEST_CASE(TypedTest, int);
+IUTEST_TYPED_TEST_SUITE(TypedTest, int);
 
 IUTEST_TYPED_TEST(TypedTest, A)
 {
@@ -48,11 +48,11 @@ IUTEST_TYPED_TEST(TypedTest, A)
 
 const char list_test_str[] =
 #if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TYPED_TEST
-"3 tests from 3 testcase\n"
+"3 tests from 3 testsuite\n"
 #elif IUTEST_HAS_TYPED_TEST || IUTEST_HAS_PARAM_TEST
-"2 tests from 2 testcase\n"
+"2 tests from 2 testsuite\n"
 #else
-"1 tests from 1 testcase\n"
+"1 tests from 1 testsuite\n"
 #endif
 "Test\n"
 "  A\n"
@@ -68,11 +68,11 @@ const char list_test_str[] =
 
 const char list_test_with_where_str[] =
 #if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_TYPED_TEST
-"3 tests from 3 testcase\n"
+"3 tests from 3 testsuite\n"
 #elif IUTEST_HAS_TYPED_TEST || IUTEST_HAS_PARAM_TEST
-"2 tests from 2 testcase\n"
+"2 tests from 2 testsuite\n"
 #else
-"1 tests from 1 testcase\n"
+"1 tests from 1 testsuite\n"
 #endif
 "Test\n"
 "  A\n"

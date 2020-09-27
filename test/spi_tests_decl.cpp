@@ -34,6 +34,7 @@
     FAILURE_MACRO( FLAVOR(_SAME)(a, b), "" );
 #if IUTEST_HAS_ASSERTION_NOEQUALTO_OBJECT
     FAILURE_MACRO( FLAVOR(_EQ)(ox, oy), "" );
+    FAILURE_MACRO( FLAVOR(_NE)(ox, ox), "" );
 #endif
     FAILURE_MACRO( FLAVOR(_EQ)(0, 1), "" );
     FAILURE_MACRO( FLAVOR(_NE)(1, 1), "" );
@@ -89,7 +90,6 @@
     FAILURE_MACRO( FLAVOR(_STRCASENE)("A", sa), "" );
     FAILURE_MACRO( FLAVOR(_STRCASENE)(sa, sa), "" );
     FAILURE_MACRO( FLAVOR(_STRCASENE)(L"A", L"a"), "" );
-
 
     FAILURE_MACRO( FLAVOR(_PRED1)(IsOdd, 2), "evaluates to false, where" );
     FAILURE_MACRO( FLAVOR(_PRED2)(IsGreater, 0, 1), "evaluates to false, where" );

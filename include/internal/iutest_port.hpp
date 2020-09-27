@@ -61,6 +61,13 @@
     if( !::iutest::detail::IsTrue(condition) )  \
         IUTEST_LOG_(FATAL) << "Condition " #condition " failed. "
 
+/**
+ * @brief   Abort
+*/
+#if !defined(IUTEST_ABORT)
+#  define IUTEST_ABORT()  ::iutest::internal::posix::Abort()
+#endif
+
 namespace iutest {
 
 #ifdef IUTEST_OS_NACL
@@ -89,10 +96,8 @@ const char* GetCWD(char* buf, size_t length);
 
 void SleepMillisec(unsigned int millisec);
 
-#if defined(IUTEST_OS_WINDOWS_MOBILE)
-void Abort();
-#else
 IUTEST_ATTRIBUTE_NORETURN_ void Abort();
+#if !defined(IUTEST_OS_WINDOWS_MOBILE)
 inline void Abort() { abort(); }
 #endif
 

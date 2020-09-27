@@ -353,8 +353,8 @@ private:
             detail::DefaultReportTestPartResult(m_part_result);
         }
 
-        if( m_part_result.failed()
-            && TestFlag::IsEnableFlag(iutest::TestFlag::BREAK_ON_FAILURE) )
+        if IUTEST_COND_UNLIKELY(m_part_result.failed()
+            && TestFlag::IsEnableFlag(iutest::TestFlag::BREAK_ON_FAILURE))
         {
             IUTEST_BREAK();
         }
@@ -493,7 +493,7 @@ inline AssertionResult CmpHelperOpFailure(const char* expr1, const char* expr2, 
 #define IIUT_DECL_COMPARE_HELPER_I_(op_name, op, type1, type2)                  \
     inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelper##op_name(         \
             const char* expr1, const char* expr2, type1 val1, type2 val2) {     \
-        if( iuOperator##op_name(val1, val2) ) { return AssertionSuccess();      \
+        if IUTEST_COND_LIKELY(iuOperator##op_name(val1, val2)) { return AssertionSuccess();      \
         } else { return CmpHelperOpFailure(expr1, expr2, #op, val1, val2); }    \
     }
 
@@ -552,7 +552,7 @@ public:
     template<typename T>
     static AssertionResult CompareEq(const char* expr, const T* val)
     {
-        if( IUTEST_NULLPTR == val )
+        if IUTEST_COND_LIKELY( IUTEST_NULLPTR == val )
         {
             return AssertionSuccess();
         }
@@ -564,7 +564,7 @@ public:
     template<typename T>
     static AssertionResult CompareNe(const char* expr, const T* val)
     {
-        if( IUTEST_NULLPTR != val )
+        if IUTEST_COND_LIKELY( IUTEST_NULLPTR != val )
         {
             return AssertionSuccess();
         }
@@ -596,7 +596,7 @@ template<typename T1, typename T2>
 inline AssertionResult CmpHelperSame(const char* expected_str, const char* actual_str
                                     , const T1& expected, const T2& actual)
 {
-    if( &expected == &actual )
+    if IUTEST_COND_LIKELY( &expected == &actual )
     {
         return AssertionSuccess();
     }
@@ -610,7 +610,7 @@ template<typename T1, typename T2>
 inline AssertionResult CmpHelperEQ(const char* expected_str, const char* actual_str
     , const T1& expected, const T2& actual)
 {
-    if( iuOperatorEQ(actual, expected) )
+    if IUTEST_COND_LIKELY( iuOperatorEQ(actual, expected) )
     {
         return AssertionSuccess();
     }
@@ -628,7 +628,7 @@ inline AssertionResult CmpHelperMemCmpEQ(const char* expected_str, const char* a
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 
-    if( memcmp(&actual, &expected, sizeof(T)) == 0 )
+    if IUTEST_COND_LIKELY( memcmp(&actual, &expected, sizeof(T)) == 0 )
     {
         return AssertionSuccess();
     }
@@ -648,7 +648,7 @@ inline AssertionResult CmpHelperMemCmpNE(const char* expected_str, const char* a
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
 
-    if( memcmp(&actual, &expected, sizeof(T)) != 0 )
+    if IUTEST_COND_LIKELY( memcmp(&actual, &expected, sizeof(T)) != 0 )
     {
         return AssertionSuccess();
     }
@@ -664,7 +664,7 @@ inline AssertionResult CmpHelperFloatingPointEQ(const char* expr1, const char* e
                                                 , RawType val1, RawType val2)
 {
     floating_point<RawType> f1(val1), f2(val2);
-    if( f1.AlmostEquals(f2) )
+    if IUTEST_COND_LIKELY( f1.AlmostEquals(f2) )
     {
         return AssertionSuccess();
     }
@@ -677,12 +677,12 @@ template<typename RawType>
 inline AssertionResult CmpHelperFloatingPointLE(const char* expr1, const char* expr2
                                                 , RawType val1, RawType val2)
 {
-    if( val1 < val2 )
+    if IUTEST_COND_LIKELY( val1 < val2 )
     {
         return AssertionSuccess();
     }
     floating_point<RawType> f1(val1), f2(val2);
-    if( f1.AlmostEquals(f2) )
+    if IUTEST_COND_LIKELY( f1.AlmostEquals(f2) )
     {
         return AssertionSuccess();
     }
@@ -926,13 +926,13 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNearFloatingPoint(
     const char* expr1, const char* expr2, const char* absc
         , RawType val1, RawType val2, RawType abs_v)
 {
-    RawType diff = val1 > val2 ? val1 - val2 : val2 - val1;
-    if( diff < abs_v )
+    const RawType diff = val1 > val2 ? val1 - val2 : val2 - val1;
+    if IUTEST_COND_LIKELY( diff < abs_v )
     {
         return AssertionSuccess();
     }
     floating_point<RawType> f1(diff), f2(abs_v);
-    if( f1.AlmostEquals(f2) )
+    if IUTEST_COND_LIKELY( f1.AlmostEquals(f2) )
     {
         return AssertionSuccess();
     }
@@ -952,8 +952,8 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperNear(
     const char* expr1, const char* expr2, const char* absc
         , const T& val1, const T& val2, const A& abs_v)
 {
-    T diff = val1 > val2 ? val1 - val2 : val2 - val1;
-    if( diff <= abs_v )
+    const T diff = val1 > val2 ? val1 - val2 : val2 - val1;
+    if IUTEST_COND_LIKELY( diff <= abs_v )
     {
         return AssertionSuccess();
     }
@@ -1028,7 +1028,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
     , T1 val1, T2 val2, typename detail::enable_if<
         !detail::is_integral<T1>::value || !detail::is_pointer<T2>::value, void>::type*& = detail::enabler::value)
 {
-    if( StrEqHelper::Compare(val1, val2) )
+    if IUTEST_COND_LIKELY( StrEqHelper::Compare(val1, val2) )
     {
         return AssertionSuccess();
     }
@@ -1043,7 +1043,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTREQ(
     const char* expr1, const char* expr2
     , detail::iu_nullptr_convertible_t, T val2)
 {
-    if( StrEqHelper::Compare(IUTEST_NULLPTR, val2) )
+    if IUTEST_COND_LIKELY( StrEqHelper::Compare(IUTEST_NULLPTR, val2) )
     {
         return AssertionSuccess();
     }
@@ -1071,7 +1071,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
         ((!detail::is_integral<T2>::value || !detail::is_pointer<T1>::value) &&
         (!detail::is_integral<T1>::value || !detail::is_pointer<T2>::value)), void>::type*& = detail::enabler::value)
 {
-    if( StrNeHelper::Compare(val1, val2) )
+    if IUTEST_COND_LIKELY( StrNeHelper::Compare(val1, val2) )
     {
         return AssertionSuccess();
     }
@@ -1086,7 +1086,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     const char* expr1, const char* expr2
     , detail::iu_nullptr_convertible_t, T val2)
 {
-    if( !StrEqHelper::Compare(IUTEST_NULLPTR, val2) )
+    if IUTEST_COND_LIKELY( !StrEqHelper::Compare(IUTEST_NULLPTR, val2) )
     {
         return AssertionSuccess();
     }
@@ -1101,7 +1101,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRNE(
     const char* expr1, const char* expr2
     , T val1, detail::iu_nullptr_convertible_t)
 {
-    if( !StrEqHelper::Compare(val1, IUTEST_NULLPTR) )
+    if IUTEST_COND_LIKELY( !StrEqHelper::Compare(val1, IUTEST_NULLPTR) )
     {
         return AssertionSuccess();
     }
@@ -1159,7 +1159,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(
     const char* expr1, const char* expr2
         , const T1& val1, const T2& val2)
 {
-    if( Compare(val1, val2) )
+    if IUTEST_COND_LIKELY( Compare(val1, val2) )
     {
         return AssertionSuccess();
     }
@@ -1221,7 +1221,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ Assertion(
     const char* expr1, const char* expr2
         , const T1& val1, const T2& val2)
 {
-    if( Compare(val1, val2) )
+    if IUTEST_COND_LIKELY( Compare(val1, val2) )
     {
         return AssertionSuccess();
     }
@@ -1274,7 +1274,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ CmpHelperSTRCASENE(
 
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ IsHRESULTSuccess(const char* expr, HRESULT hr)
 {
-    if( SUCCEEDED(hr) )
+    if IUTEST_COND_LIKELY( SUCCEEDED(hr) )
     {
         return AssertionSuccess();
     }
@@ -1283,7 +1283,7 @@ inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ IsHRESULTSuccess(const char* exp
 }
 inline AssertionResult IUTEST_ATTRIBUTE_UNUSED_ IsHRESULTFailure(const char* expr, HRESULT hr)
 {
-    if( FAILED(hr) )
+    if IUTEST_COND_LIKELY( FAILED(hr) )
     {
         return AssertionSuccess();
     }

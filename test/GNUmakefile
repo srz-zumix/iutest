@@ -40,7 +40,7 @@ include CommonMakefile.in
 # Optimize
 #OPTIMIZE=-O2
 
-STRICT_CXXFLAGS:= -Wformat=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wpointer-arith
+STRICT_CXXFLAGS:= ${IUTEST_CXX_STRICT_FLAGS}
 # STRICT_CXXFLAGS+= -Wfloat-equal
 # Necessary for peep class operator
 # STRICT_CXXFLAGS+= -Wconversion
@@ -160,6 +160,11 @@ ifeq ($(IUTEST_USE_PYTHON),1)
 ifeq ($(USE_GTEST)$(USE_GMOCK)$(USE_COVERAGE)$(USE_SCANBUILD),)
 ERR_TARGETS = $(COMPILEERROR_TARGETS)
 endif
+else
+ifdef IUTEST_REQUIRE_PYTHON
+$(warning detected python ${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}.${PYTHON_VERSION_PATCH})
+$(error iutest test require python 2.7 or later)
+endif
 endif
 
 BUILD_TARGETS = $(RUN_TARGETS) $(BUILD_ONLY)
@@ -185,12 +190,12 @@ COVERITY_SCAN_BUILD_TARGETS = $(ALLTESTS_TARGET) $(EXTENSIONTESTS_TARGET) $(TARG
 
 default : $(TARGETS)
 
-all : clean default test
+all : clean default test ## clean and build, run
 
 # dir :
 # 	@if [ ! -e `dirname $(OUTDIR)` ]; then mkdir -p `dirname $(OUTDIR)`; fi
 
-clean :
+clean : ## clean
 	$(RM) $(TARGETS) $(NO_DEFAULT_TARGETS) $(ALL_OBJS) *.o *.stackdump *.core *.exe *.log *.ns.cpp check_stdlib
 	$(RM) -R *.dSYM
 ifdef OUTPUTXML
@@ -200,25 +205,25 @@ ifdef USE_COVERAGE
 	$(RM) *.xml *.gcov *.gcno *.gcda coverage.info
 endif
 
-clean-xml :
+clean-xml : ## clean xml
 	$(RM) *.xml
 
-clean-cov :
+clean-cov : ## clean coverages
 	$(RM) *.xml *.gcov *.gcno *.gcda coverage.info
 
-clean-all : clean clean-xml clean-cov
+clean-all : clean clean-xml clean-cov ## clean all
 	make -C benchmark clean
 	make -C configcheck clean
 	make -C cpplint clean
 
 check : test
-run : test
-test : $(BUILD_ONLY) $(RUNNER)
+run : test ## run tests
+test : $(BUILD_ONLY) $(RUNNER) ## run tests
 
-lint : cpplint/Makefile $(IUTEST_HEADERS) $(MAKEFILE)
+lint : cpplint/Makefile $(IUTEST_HEADERS) $(MAKEFILE) ## lint
 	make -C cpplint
 
-showcxxversion:
+showcxxversion: ## show compiler version
 	$(CXX) --version
 ifeq ($(CXX_NAME),g++)
 	$(CXX) -dumpversion
@@ -229,11 +234,14 @@ endif
 ifdef CLANGMAJOR
 	@echo clang++-$(CLANGMAJOR).$(CLANGMINOR)
 endif
+ifdef CXX_NAME
+	@echo ${CXX_NAME}-$(CXX_MAJOR).$(CXX_MINOR)
+endif
 
-showcxxmacros:
+showcxxmacros: ## show compiler predefined macros
 	$(CXX) $(STDFLAG) -dM -E -x c++ - < /dev/null
 
-showcxxflags:
+showcxxflags: ## show cxxflags
 	@echo $(CXXFLAGS)
 
 %_build: $(OUTDIR)/%
@@ -258,11 +266,10 @@ endif
 run_% : %_run
 	@echo $< > /dev/null
 
-prepare: $(NAMESPACETESTS_TEST_SRCS)
+prepare: $(NAMESPACETESTS_TEST_SRCS) ## test code prepare
 	@if [[ ! -d "${OUTDIR}" ]]; then mkdir $(OUTDIR); fi
 
-# gtest version test
-gtest-version: clean gtest_version_tests_run
+gtest-version: clean gtest_version_tests_run ## gtest version test
 
 coverity_scan: $(COVERITY_SCAN_BUILD_TARGETS)
 
@@ -273,10 +280,10 @@ coverity_scan: $(COVERITY_SCAN_BUILD_TARGETS)
 
 FUSED_PY= ../tools/fused/*.py
 
-fused: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fused/Makefile $(FUSED_PY)
+fused: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fused/Makefile $(FUSED_PY) ## create fused-src
 	make -C ../tools/fused
 
-fused_min: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fused/Makefile $(FUSED_PY)
+fused_min: $(IUTEST_HEADERS) $(MAKEFILE) ../tools/fused/Makefile $(FUSED_PY) ## create minimize fused-src
 	make -C ../tools/fused min
 
 #
@@ -373,6 +380,10 @@ build_benchmark:
 # Build tests.
 #
 
+ifeq ($(CXX_NAME),zapcc++)
+BUILD4ZAPCC=pkill zapcc++; sleep 1
+endif
+
 ifeq ($(USE_GTEST)$(USE_GMOCK),)
 
 TARGETS_EXCLUDE_ALLTESTS= $(TARGETS1) $(TARGETS2) $(TARGETS_IUTEST_ONLY) $(BUILD_ONLY)
@@ -384,6 +395,7 @@ LDFLAGS:= -liutest $(LDFLAGS)
 endif
 
 $(TARGETS_EXCLUDE_ALLTESTS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
+	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $< $(LDFLAGS)
 
 
@@ -399,8 +411,10 @@ ifeq ($(CI),true)
 IUTEST_COMPILE_ERROR_TEST_OPTION+= --verbose
 endif
 
+CXX_ERROR_TEST_FLAGS:=-ferror-limit=100
+
 $(ERR_TARGETS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
-	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $< $(LDFLAGS) 2>&1 | python $(PY_COMPILEERROR_TEST_TOOL) $(IUTEST_COMPILE_ERROR_TEST_OPTION)
+	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) $(CXX_ERROR_TEST_FLAGS) -o $@ $< $(LDFLAGS) 2>&1 | python $(PY_COMPILEERROR_TEST_TOOL) $(IUTEST_COMPILE_ERROR_TEST_OPTION)
 
 else
 
@@ -411,32 +425,40 @@ $(BUILD_ONLY) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $< $(LDFLAGS)
 
 $(TARGETS1) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
+	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $< $(LDFLAGS)
 
 $(TARGETS2) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
+	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $<
 
 endif
 
 $(ALLTESTS_TARGET) : $(ALLTESTS_SRC_OBJS) $(IUTEST_HEADERS) $(MAKEFILE)
+	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(ALLTESTS_SRC_OBJS) $(LDFLAGS)
 
 $(NAMESPACETESTS_TARGET) : $(NAMESPACETESTS_SRC_AND_OBJS) $(IUTEST_HEADERS) $(MAKEFILE)
+	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(NAMESPACETESTS_SRC_AND_OBJS) $(LDFLAGS)
 
 $(EXTENSIONTESTS_TARGET) : $(EXTENSIONTESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
+	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(EXTENSIONTESTS_SRCS) $(LDFLAGS)
 
 $(UNITTESTS_TARGET) : $(UNITTESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
+	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(UNITTESTS_SRCS) $(LDFLAGS)
 
 $(SYNTAXTESTS_TARGET) : $(SYNTAXTESTS_SRCS) $(IUTEST_HEADERS) $(MAKEFILE)
+	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $(SYNTAXTESTS_SRCS) $(LDFLAGS)
 
 $(OUTDIR)/%.o: %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -c -o $@ $<
 
 .cpp: $(IUTEST_HEADERS) $(MAKEFILE)
+	$(BUILD4ZAPCC)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $@.cpp main.cpp $(LDFLAGS)
 
 check_stdlib: % : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
@@ -462,7 +484,7 @@ check_incg: $(IUTEST_INCLUDE_GUARD_CHECK)
 # cppcheck
 #
 
-cppcheck:
+cppcheck: ## cppcheck
 	make -C cppcheck
 
 #
@@ -471,3 +493,9 @@ cppcheck:
 
 report:
 	CXX_NAME=${CXX_NAME} CXX_VERSION=${CXX_VERSION} STDFLAG=${STDFLAG} ./../.ci/report-basic-test.sh || true
+
+#
+# help
+#
+help: ## show help
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sed -e 's/^GNUmakefile://' | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -164,16 +164,16 @@ public:
 
 protected:
     virtual void SetUp() {} //!< 実行前処理
-#if IUTEST_HAS_AUTOFIXTURE_PARAM_TEST
     virtual void Body() {}  //!< テスト実装部
-#else
-    virtual void Body() = 0;    //!< テスト実装部
-#endif
     virtual void TearDown() {}  //!< 実行後処理
 
 public:
-    static void SetUpTestCase() {}      //!< test case setup
-    static void TearDownTestCase() {}   //!< test case tear down
+    static void SetUpTestSuite() {}      //!< test suite setup
+    static void TearDownTestSuite() {}   //!< test suite tear down
+#if IUTEST_HAS_TESTCASE
+    static void SetUpTestCase() {}
+    static void TearDownTestCase() {}
+#endif
 
 private:
     /**

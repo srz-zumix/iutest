@@ -3,7 +3,7 @@
 #
 # detect xcode compiler
 #
-# Copyright (C) 2018, Takazumi Shirayanagi
+# Copyright (C) 2018-2020, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #

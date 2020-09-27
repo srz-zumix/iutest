@@ -9,3 +9,7 @@
 ifneq ($(CI),)
 CI=true
 endif
+
+ifdef AZURE_HTTP_USER_AGENT
+CI=true
+endif

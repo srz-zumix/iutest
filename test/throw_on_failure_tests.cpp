@@ -87,6 +87,7 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
+    printf("start");
     IUTEST_INIT(&argc, argv);
     ::iutest::IUTEST_FLAG(throw_on_failure) = true;
 #if !defined(IUTEST_USE_GTEST)
@@ -97,6 +98,8 @@ int main(int argc, char* argv[])
     ::iutest::IUTEST_FLAG(output) = NULL;
 #endif
 
+    printf("dummy");
+
     {
         ::iutest::IUTEST_FLAG(filter) = "*Dummy*";
         IUTEST_INIT(&argc, argv);
@@ -104,6 +107,8 @@ int main(int argc, char* argv[])
     }
 
 #if IUTEST_HAS_EXCEPTIONS
+    printf("expect");
+
     try
     {
         ::iutest::IUTEST_FLAG(filter) = "*Expect*";
@@ -115,6 +120,8 @@ int main(int argc, char* argv[])
     catch(...)
     {
     }
+
+    printf("assert");
 
     try
     {
@@ -128,6 +135,8 @@ int main(int argc, char* argv[])
     {
     }
 
+    printf("throw");
+
     try
     {
         ::iutest::IUTEST_FLAG(filter) = "Throw*";
@@ -140,6 +149,8 @@ int main(int argc, char* argv[])
     {
     }
 
+    printf("setup throw");
+
     try
     {
         ::iutest::IUTEST_FLAG(filter) = "SetUpThrow*";
@@ -151,6 +162,8 @@ int main(int argc, char* argv[])
     catch(...)
     {
     }
+
+    printf("setup testcase throw");
 
     try
     {
@@ -165,6 +178,8 @@ int main(int argc, char* argv[])
     }
 
 #if !defined(IUTEST_USE_GTEST)
+    printf("throw");
+
     try
     {
         ::iutest::IUTEST_FLAG(catch_exceptions_global) = true;
