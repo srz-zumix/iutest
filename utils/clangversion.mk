@@ -151,6 +151,11 @@ ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \)))
 IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code
 endif
 
+# 10.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 10 \)))
+IUTEST_CXX_STRICT_FLAGS+=Wsuggest-override
+endif
+
 
 ifeq ($(CLANG_TATGET), x86_64-pc-windows-msvc)
 CXXFLAGS+= -Xclang -flto-visibility-public-std
