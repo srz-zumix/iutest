@@ -30,7 +30,7 @@ class FileIO : public ::iutest::StringStreamFile
 public:
     static ::std::string s_io;
 
-    virtual void Close()
+    virtual void Close() IUTEST_CXX_OVERRIDE
     {
         s_io = ss.str();
     }
