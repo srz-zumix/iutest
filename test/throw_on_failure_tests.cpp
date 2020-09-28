@@ -68,7 +68,7 @@ IUTEST_F(SetUpTestCaseThrow, Test)
 class SetUpThrow : public ::iutest::Test
 {
 public:
-    void SetUp()
+    void SetUp() IUTEST_CXX_OVERRIDE
     {
         throw 2;
     }
