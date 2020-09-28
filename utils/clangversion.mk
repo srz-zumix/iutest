@@ -159,7 +159,7 @@ ifeq (1,$(shell expr \( $(CPPVER_Y) \>= 2011 \) ))
 
 # 10.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 10 \)))
-IUTEST_CXX_STRICT_FLAGS+=Wsuggest-override
+IUTEST_CXX_STRICT_FLAGS+=-Wsuggest-override
 endif
 
 endif
