@@ -13,6 +13,7 @@ import codecs
 import re
 import collections
 from iutest_pp_strip import IutestPreprocessor
+from iutest_pp_strip import UNUSED_
 
 predefined_macros = {
     '__WANDBOX__': '1',
@@ -60,6 +61,7 @@ predefined_macros = {
     '_STLPORT_VERSION': None,
     '_BSD_SOURCE': None,
     '__USE_MINGW_ANSI_STDIO': None,
+    '__GLIBCPP__': None,
     'MAX_PATH': None,
     'PATH_MAX': None,
     'IUTEST_OS_WINDOWS': None,
@@ -105,15 +107,17 @@ predefined_macros = {
     'IUTEST_USE_EXTERNAL_STD_TUPLE': '0',
     'IUTEST_USE_EXTERNAL_TR1_TUPLE': '0',
     'IUTEST_USE_CXX_FILESYSTEM': '0',
-    'IUTEST_CXX_NOEXCEPT': 'unused',
-    'IUTEST_CXX_NOEXCEPT_AS': 'unused',
-    'IUTEST_CXX_NOTHROW': 'unused',
-    'IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY': 'unused',
-    'IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL': 'unused',
-    'IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST': 'unused',
-    'IUTEST_MAKE_ASSERTIONRESULT_': 'unused',
-    'IUTEST_COND_LIKELY': 'unused',
-    'IUTEST_COND_UNLIKELY': 'unused',
+    'IUTEST_HAS_TESTSUITE': '1',
+    'IUTEST_HAS_TESTCASE': '1',
+    'IUTEST_CXX_NOEXCEPT': UNUSED_,
+    'IUTEST_CXX_NOEXCEPT_AS': UNUSED_,
+    'IUTEST_CXX_NOTHROW': UNUSED_,
+    'IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY': UNUSED_,
+    'IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL': UNUSED_,
+    'IUTEST_PRAGMA_WARN_CXX14_CONSTEXPR_NOT_IMPLY_CONST': UNUSED_,
+    'IUTEST_MAKE_ASSERTIONRESULT_': UNUSED_,
+    'IUTEST_COND_LIKELY': UNUSED_,
+    'IUTEST_COND_UNLIKELY': UNUSED_,
     'IUTEST_ATTRIBUTE_LIKELY_': '',
     'IUTEST_ATTRIBUTE_UNLIKELY_': '',
     # no overridable
@@ -298,6 +302,31 @@ predefined_macros = {
     'IUTEST_ASSUME_MATCHES_REGEXNE': None,
     'IUTEST_ASSUME_CONTAINS_REGEXEQ': None,
     'IUTEST_ASSUME_CONTAINS_REGEXNE': None,
+    'IUTEST_VPRINTF': None,
+    'IUTEST_REMOVE_LEGACY_TEST_CASEAPI_': None,
+    'IUTEST_HAS_MATCHER_VARIADIC': None,
+    'IUTEST_HAS_REGEX': None,
+    'IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD': None,
+    'IUTEST_HAS_MATCHER_ELEMENTSARE': None,
+    'IUTEST_HAS_VARIADIC_PAIRWISE': None,
+    'IUTEST_HAS_VARIADIC_COMBINE': None,
+    'IUTEST_HAS_VARIADIC_VALUES': None,
+    'IUTEST_HAS_PAIRWISE': None,
+    'IUTEST_HAS_COMBINE': None,
+    'IUTEST_HAS_BITWISE_EXPRESSION_DECOMPOSE': None,
+    'IUTEST_USE_THROW_ON_ASSERTION_FAILURE': None,
+    'IUTEST_HAS_SPI_LAMBDA_SUPPORT': None,
+    'IUTEST_HAS_LAMBDA_STATEMENTS': None,
+    'IUTEST_HAS_PEEP_FUNC': None,
+    'IUTEST_HAS_PEEP_STATIC_FUNC': None,
+    'IUTEST_HAS_PEEP_CLASS': None,
+    'IUTEST_HAS_VARIADIC_PRED': None,
+    'IUTEST_HAS_TYPED_TEST_APPEND_TYPENAME': None,
+    'IUTEST_HAS_LONG_DOUBLE': None,
+    'IUTEST_HAS_CLOCK': None,
+    'IUTEST_HAS_CHAR16_T_PRINTABLE': None,
+    'IUTEST_HAS_CHAR32_T_PRINTABLE': None,
+    'IUTEST_USE_OWN_STRING_VIEW': None,
 }
 
 iutest_config_macro = {
@@ -350,12 +379,16 @@ iutest_config_macro = {
     'IUTEST_HAS_TESTNAME_ALIAS': '1',
     'IUTEST_HAS_REPORT_SKIPPED': '1',
     'IUTEST_HAS_STREAM_BUFFER': '1',
-    # 'IUTEST_HAS_STREAM_RESULT': '1',
+    'IUTEST_HAS_STREAM_RESULT': '0',
     'IUTEST_HAS_BIGGESTINT_OSTREAM': '1',
     'IUTEST_CHECK_STRICT': '1',
     'IUTEST_HAS_COLORCONSOLE': '0',
     'IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY': '0',
     'IUTEST_HAS_BUILTIN_EXPECT': '0',
+    'IUTEST_HAS_PARAM_METHOD_TEST': '1',
+    'IUTEST_HAS_MATCHER_OPTIONAL': '1',
+    'IUTEST_TYPED_TEST_APPEND_TYPENAME': '0',
+    'IUTEST_HAS_FILENO': '0',
 }
 
 expands_macros = [
@@ -371,6 +404,8 @@ expands_macros = [
     'IUTEST_ATTRIBUTE_NO_SANITIZE_ADDRESS',
     'IUTEST_ATTRIBUTE_NO_SANITIZE_THREAD',
     'IUTEST_ATTRIBUTE_NO_SANITIZE_ALL',
+    'IUTEST_HAS_TESTSUITE',
+    'IUTEST_HAS_TESTCASE',
 ]
 
 # expand function macros
@@ -404,6 +439,9 @@ expand_function_macros = [
     'IUTEST_CLASS_CLEANUP',
     'IUTEST_METHOD_INITIALIZE',
     'IUTEST_METHOD_CLEANUP',
+    'IUTEST_PRAGMA_MESSAGE',
+    'IUTEST_TEST_COMPILEERROR',
+    'IUTEST_TEST_STATICASSERT',
     # 'IUTEST_MAKE_ASSERTIONRESULT_',
 ]
 
@@ -606,6 +644,17 @@ class WandboxPreprocessor:
             dst += "#define " + k + " " + v + "\n"
         return dst
 
+    def remove_redudant_pragma(self, code):
+        dst = ""
+        RE_PRAGMA_WARN_STRIP = re.compile(r'II_PGM_W_PU\(\)(.*?)II_PGM_W_PP\(\)')
+        for line in code.splitlines():
+            for m in RE_PRAGMA_WARN_STRIP.finditer(line):
+                if 'II_PGM_W' not in m.group(1):
+                    line = line.replace(m.group(0), m.group(1))
+            line += "\n"
+            dst += line
+        return dst
+
 
 def default_pp():
     output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../fused-src")
@@ -619,6 +668,67 @@ def default_pp():
     code = pp.remove_empty_ppif(code)
     code = pp.remove_redudant(code)
     code = pp.rename_macros(code)
+    code = pp.remove_redudant_pragma(code)
+    output_file.write(code)
+    output_file.close()
+
+
+def clang_pp():
+    output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../fused-src")
+    output = "iutest.wandbox.min.clang.hpp"
+    f = codecs.open(os.path.join(output_dir, "iutest.wandbox.min.hpp"), 'r', 'utf-8-sig')
+    code = f.read()
+    f.close()
+    output_file = codecs.open(os.path.join(output_dir, output), 'w', 'utf-8-sig')
+    clang_predefined_macros = {
+        '__clang__': '1',
+        '__GNUC__': None,
+        '__GXX_EXPERIMENTAL_CXX0X__': None,
+    }
+    clang_predefined_macros.update(predefined_macros)
+    clagn_config_macro = {
+        'IUTEST_HAS_COUNTER_MACRO': '1',
+        'IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_OVERLOAD_MEMBER_FUNCTION': '0',
+    }
+    clagn_config_macro.update(iutest_config_macro)
+    pp = IutestPreprocessor(clang_predefined_macros
+        , clagn_config_macro
+        , expand_function_macros
+        , expands_macros
+        , has_features
+        , has_include)
+    code = pp.preprocess(code, None)
+    code = pp.remove_empty_ppif(code)
+    output_file.write(code)
+    output_file.close()
+
+
+def gcc_pp():
+    output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../fused-src")
+    output = "iutest.wandbox.min.gcc.hpp"
+    f = codecs.open(os.path.join(output_dir, "iutest.wandbox.min.hpp"), 'r', 'utf-8-sig')
+    code = f.read()
+    f.close()
+    output_file = codecs.open(os.path.join(output_dir, output), 'w', 'utf-8-sig')
+    gcc_predefined_macros = {
+        '__clang__': None,
+        '__GNUC__': '1',
+        '_LIBCPP_VERSION': None,
+    }
+    gcc_predefined_macros.update(predefined_macros)
+    clagn_config_macro = {
+        'IUTEST_HAS_COUNTER_MACRO': '0',
+        'IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_OVERLOAD_MEMBER_FUNCTION': '1',
+    }
+    clagn_config_macro.update(iutest_config_macro)
+    pp = IutestPreprocessor(gcc_predefined_macros
+        , iutest_config_macro
+        , expand_function_macros
+        , expands_macros
+        , has_features
+        , has_include)
+    code = pp.preprocess(code, None)
+    code = pp.remove_empty_ppif(code)
     output_file.write(code)
     output_file.close()
 
@@ -630,6 +740,8 @@ def main():
         if sys.argv[1] == 'debug':
             debug = True
     default_pp()
+    clang_pp()
+    gcc_pp()
 
 if __name__ == '__main__':
     main()
