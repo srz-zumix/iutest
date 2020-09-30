@@ -116,6 +116,9 @@ ifndef STDFLAG
 STDFLAG=-std=$(STDFLAG_VALUE)
 endif
 
+UTILS_MAKEFILE_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+include $(UTILS_MAKEFILE_DIR)/stdcver.mk
+
 #
 # Warning Option
 #
@@ -137,6 +140,16 @@ endif
 
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 3 \) ))
 IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code
+endif
+
+# c++11 later
+ifeq (1,$(shell expr \( $(CPPVER_Y) \>= 2011 \) ))
+
+# 5.1 later
+ifeq (1,$(shell expr \( $(GCCMAJOR) \> 5 \) \| \( $(GCCMAJOR) = 5 \& $(GCCMINOR) \> 0 \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wsuggest-override
+endif
+
 endif
 
 endif
