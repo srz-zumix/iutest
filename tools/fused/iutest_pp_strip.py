@@ -31,21 +31,17 @@ RE_STRIP_INCG_REGEX = re.compile(r'^INCG_\S*_[IH]PP_\S+\Z')
 
 RE_EVAL_UNDEFINED_EXCEPTION = re.compile(r'^name \'(defined_.*)\' is not defined\Z')
 
+UNUSED_ = "unused"
+
 
 class IutestPreprocessor:
     macros = {}
-    depth_macros = [ {} ]
     expands_macros = []
     expand_function_macros = []
     iutest_config_macro = []
-    included_path = [ [] ]
     has_include = {}
     has_features = {}
-    unknowns = []
-    depth = []
-    brothers = []
     debug = False
-    prev_line = None
 
     def __init__(self
             , predefined_macros
@@ -60,6 +56,13 @@ class IutestPreprocessor:
         self.set_expands_macros(expands_macros)
         self.set_has_features(has_features)
         self.set_has_include(has_include)
+        self.unknowns = []
+        self.included_path = [[]]
+        self.depth_macros = [{}]
+        self.depth = []
+        self.brothers = []
+        self.prev_line = None
+
 
     def set_predefined_macros(self, predefined_macros):
         self.macros = predefined_macros
@@ -82,6 +85,11 @@ class IutestPreprocessor:
 
     def set_debug_flag(self, flag):
         self.debug = flag
+
+    def __none_or_unused(self, v):
+        if v is None or v == UNUSED_:
+            return True
+        return False
 
     def __expand_macro(self, line):
         dst = ""
@@ -108,7 +116,7 @@ class IutestPreprocessor:
                 for m in RE_FUNC_MACRO.finditer(ss):
                     d = m.group(1)
                     if d in self.expand_function_macros:
-                        if d not in self.macros or self.macros[d] is None:
+                        if d not in self.macros or self.__none_or_unused(self.macros[d]):
                             ss = ss.replace(m.group(0), '')
                 if len(tokens) > 0:
                     tokens[-1] += ss
