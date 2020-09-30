@@ -76,6 +76,9 @@ endif
 
 LDFLAGS += $(GTEST_LIB_)
 CXXFLAGS += -DIUTEST_USE_GTEST -DIUTEST_HAS_SOCKET=0 $(NO_UNUSED_LOCAL_TYPEDEFS) -Wno-sign-compare $(GTEST_INC_)
+ifeq ($(findstring suggest-override, $(CXXFLAGS)), suggest-override)
+CXXFLAGS += -Wno-suggest-override
+endif
 # CXXFLAGS += -DGTEST_REMOVE_LEGACY_TEST_CASEAPI_
 
 endif
