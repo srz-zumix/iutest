@@ -58,10 +58,11 @@ using ::std::get;
 //======================================================================
 // include
 #include "../iutest_ver.hpp"
-#include "../internal/iutest_compiler.hpp"
-#include "../internal/iutest_stdlib.hpp"
 
 // gtest 1.5 or less compatible
+#if !defined(IUTEST_HAS_CONCEPTS)
+#  define IUTEST_HAS_CONCEPTS       0
+#endif
 #if !IUTEST_HAS_CONCEPTS
 #include <gtest/internal/gtest-internal.h>
 #define GTestStreamToHelper GTestStreamToHelperForCompatible
@@ -236,6 +237,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #endif
 
 #include "../internal/iutest_compiler.hpp"
+#include "../internal/iutest_stdlib.hpp"
 #include "../internal/iutest_type_traits.hpp"
 #include "../internal/iutest_compatible_defs.hpp"
 
