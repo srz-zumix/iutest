@@ -31,7 +31,7 @@ RE_STRIP_INCG_REGEX = re.compile(r'^INCG_\S*_[IH]PP_\S+\Z')
 
 RE_EVAL_UNDEFINED_EXCEPTION = re.compile(r'^name \'(defined_.*)\' is not defined\Z')
 
-UNUSED_="unused"
+UNUSED_ = "unused"
 
 
 class IutestPreprocessor:
