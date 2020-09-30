@@ -60,6 +60,9 @@ using ::std::get;
 #include "../iutest_ver.hpp"
 
 // gtest 1.5 or less compatible
+#if !defined(IUTEST_HAS_CONCEPTS)
+#  define IUTEST_HAS_CONCEPTS       0
+#endif
 #if !IUTEST_HAS_CONCEPTS
 #include <gtest/internal/gtest-internal.h>
 #define GTestStreamToHelper GTestStreamToHelperForCompatible
