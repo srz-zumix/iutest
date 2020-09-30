@@ -63,7 +63,7 @@ IUTEST_F(SetUpTestSuiteSkipTest, NotRun)
 class SetUpSkipTest : public ::iutest::Test
 {
 public:
-    virtual void SetUp()
+    virtual void SetUp() IUTEST_CXX_OVERRIDE
     {
         IUTEST_SKIP() << "skip in SetUp";
     }

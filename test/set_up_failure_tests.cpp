@@ -23,7 +23,7 @@ static int teardown_flag = 0;
 class TestSetUpFailure : public ::iutest::Test
 {
 public:
-    virtual void SetUp()
+    virtual void SetUp() IUTEST_CXX_OVERRIDE
     {
         IUTEST_FAIL() << "SetUp Failed.";
     }
@@ -37,7 +37,7 @@ IUTEST_F(TestSetUpFailure, Test)
 class TestTearDownFailure : public ::iutest::Test
 {
 public:
-    virtual void TearDown()
+    virtual void TearDown() IUTEST_CXX_OVERRIDE
     {
         IUTEST_FAIL() << "TearDown Failed.";
     }
