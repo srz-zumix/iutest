@@ -135,6 +135,9 @@ endif
 #STDLIB=-stdlib=libc++
 #endif
 
+UTILS_MAKEFILE_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+include $(UTILS_MAKEFILE_DIR)/stdcver.mk
+
 #
 # Warning Option
 #
@@ -151,6 +154,15 @@ ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \)))
 IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code
 endif
 
+# c++11 later
+ifeq (1,$(shell expr \( $(CPPVER_Y) \>= 2011 \) ))
+
+# 10.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 10 \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wsuggest-override
+endif
+
+endif
 
 ifeq ($(CLANG_TATGET), x86_64-pc-windows-msvc)
 CXXFLAGS+= -Xclang -flto-visibility-public-std
