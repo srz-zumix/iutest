@@ -691,12 +691,12 @@ def clang_pp():
         'IUTEST_EXPLICIT_INSTANTIATION_ACCESS_PRIVATE_OVERLOAD_MEMBER_FUNCTION': '0',
     }
     clagn_config_macro.update(iutest_config_macro)
-    pp = IutestPreprocessor(clang_predefined_macros
-        , clagn_config_macro
-        , expand_function_macros
-        , expands_macros
-        , has_features
-        , has_include)
+    pp = IutestPreprocessor(clang_predefined_macros,
+        clagn_config_macro,
+        expand_function_macros,
+        expands_macros,
+        has_features,
+        has_include)
     code = pp.preprocess(code, None)
     code = pp.remove_empty_ppif(code)
     output_file.write(code)

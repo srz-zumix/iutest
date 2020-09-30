@@ -731,8 +731,8 @@ def run(options):
 
     for filepath_ in options.code[1:]:
         filepath = filepath_.strip()
-        implements[os.path.basename(filepath)] = make_code(filepath
-            , options.compiler, options.encoding, options.expand_include, includes, included_files)
+        implements[os.path.basename(filepath)] = make_code(filepath,
+            options.compiler, options.encoding, options.expand_include, includes, included_files)
 
     if options.output:
         f = file_open(options.output, 'w', options.encoding)
