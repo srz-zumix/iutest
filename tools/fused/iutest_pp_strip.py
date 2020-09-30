@@ -57,8 +57,8 @@ class IutestPreprocessor:
         self.set_has_features(has_features)
         self.set_has_include(has_include)
         self.unknowns = []
-        self.included_path = [ [] ]
-        self.depth_macros = [ {} ]
+        self.included_path = [[]]
+        self.depth_macros = [{}]
         self.depth = []
         self.brothers = []
         self.prev_line = None
