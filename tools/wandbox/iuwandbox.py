@@ -528,13 +528,13 @@ def get_compiler_exec(compiler):
 
 
 # run wandbox (makefile)
-def run_wandbox_make(main_filepath, code, includes, impliments, options):
+def run_wandbox_make(main_filepath, code, includes, implements, options):
     with Wandbox() as w:
         w.compiler('bash')
         woptions = create_option_list(options)
         if options.stdin:
             w.stdin(options.stdin)
-        impliments[os.path.basename(main_filepath)] = code
+        implements[os.path.basename(main_filepath)] = code
 
         colist = create_compiler_raw_option_list(options)
         colist.extend(expand_wandbox_options(w, options.compiler, woptions))
@@ -554,7 +554,7 @@ def run_wandbox_make(main_filepath, code, includes, impliments, options):
         for opt in colist:
             makefile += opt + ' '
         makefile += '\nOBJS='
-        for filename in impliments.keys():
+        for filename in implements.keys():
             makefile += os.path.splitext(filename)[0] + '.o '
 
         makefile += '\n\
@@ -562,7 +562,7 @@ prog: $(OBJS)\n\
 \t$(CXX) -o $@ $^ $(CXXFLAGS) $(LDFLAGS)\n\
 '
 
-        impliments['Makefile'] = makefile
+        implements['Makefile'] = makefile
 
         bashscript = 'make -j 4\n'
         bashscript += './prog '
@@ -575,14 +575,14 @@ prog: $(OBJS)\n\
             w.permanent_link(options.save)
         if options.verbose:
             w.dump()
-        add_files(w, impliments)
+        add_files(w, implements)
         add_files(w, includes)
 
         return run_wandbox_impl(w, options)
 
 
 # run wandbox (cxx)
-def run_wandbox_cxx(code, includes, impliments, options):
+def run_wandbox_cxx(code, includes, implements, options):
     with Wandbox() as w:
         w.compiler(options.compiler)
         woptions = ','.join(create_option_list(options))
@@ -617,22 +617,22 @@ def run_wandbox_cxx(code, includes, impliments, options):
             w.runtime_options(ro)
         if options.save:
             w.permanent_link(options.save)
-        for filename in impliments.keys():
+        for filename in implements.keys():
             w.add_compiler_options(filename)
         if options.verbose:
             w.dump()
         w.code(code)
-        add_files(w, impliments)
+        add_files(w, implements)
         add_files(w, includes)
 
         return run_wandbox_impl(w, options)
 
 
 # run wandbox
-def run_wandbox(main_filepath, code, includes, impliments, options):
+def run_wandbox(main_filepath, code, includes, implements, options):
     if options.make:
-        return run_wandbox_make(main_filepath, code, includes, impliments, options)
-    return run_wandbox_cxx(code, includes, impliments, options)
+        return run_wandbox_make(main_filepath, code, includes, implements, options)
+    return run_wandbox_cxx(code, includes, implements, options)
 
 
 def wandbox_hint(r):
@@ -722,7 +722,7 @@ def run(options):
         sys.exit(1)
     includes = {}
     included_files = {}
-    impliments = {}
+    implements = {}
     code = ""
     if len(options.code) > 1 and options.iutest_use_main:
         code += '#define IUTEST_USE_MAIN\n'
@@ -731,7 +731,8 @@ def run(options):
 
     for filepath_ in options.code[1:]:
         filepath = filepath_.strip()
-        impliments[os.path.basename(filepath)] = make_code(filepath, options.compiler, options.encoding, options.expand_include, includes, included_files)
+        implements[os.path.basename(filepath)] = make_code(filepath
+            , options.compiler, options.encoding, options.expand_include, includes, included_files)
 
     if options.output:
         f = file_open(options.output, 'w', options.encoding)
@@ -744,7 +745,7 @@ def run(options):
     if options.junit:
         xml = options.junit
         set_output_xml(options, 'junit', xml)
-    r = run_wandbox(main_filepath, code, includes, impliments, options)
+    r = run_wandbox(main_filepath, code, includes, implements, options)
     b = show_result(r, options)
     if xml and 'program_error' in r:
         f = file_open(xml, 'w', options.encoding)
