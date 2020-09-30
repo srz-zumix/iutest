@@ -58,6 +58,8 @@ using ::std::get;
 //======================================================================
 // include
 #include "../iutest_ver.hpp"
+#include "../internal/iutest_compiler.hpp"
+#include "../internal/iutest_stdlib.hpp"
 
 // gtest 1.5 or less compatible
 #if !IUTEST_HAS_CONCEPTS
