@@ -310,6 +310,7 @@
     <ClInclude Include="..\..\include\internal\iutest_random.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_regex.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_result_reporter.hpp" />
+    <ClInclude Include="..\..\include\internal\iutest_stdlib_defs.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_stdlib.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_stream.hpp" />
     <ClInclude Include="..\..\include\internal\iutest_string_stream.hpp" />

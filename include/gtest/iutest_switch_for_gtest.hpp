@@ -237,6 +237,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #endif
 
 #include "../internal/iutest_compiler.hpp"
+#include "../internal/iutest_stdlib_defs.hpp"
 #include "../internal/iutest_type_traits.hpp"
 #include "../internal/iutest_compatible_defs.hpp"
 
