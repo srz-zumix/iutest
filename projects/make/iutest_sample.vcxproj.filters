@@ -297,6 +297,9 @@
     <ClInclude Include="..\..\include\internal\iutest_result_reporter.hpp">
       <Filter>iutest\internal</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\internal\iutest_stdlib_defs.hpp">
+      <Filter>iutest\internal</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\internal\iutest_stdlib.hpp">
       <Filter>iutest\internal</Filter>
     </ClInclude>
