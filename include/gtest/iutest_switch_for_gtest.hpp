@@ -146,6 +146,8 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 
 #undef IUTEST_HAS_STREAM_BUFFER
 
+#undef IUTEST_HAS_STD_FILESYSTEM
+
 #undef IUTEST_OPERAND
 #undef IUTEST_EXPRESSION
 
@@ -207,6 +209,8 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #else
 #  define IUTEST_HAS_STREAM_RESULT      1
 #endif
+
+#define IUTEST_HAS_STD_FILESYSTEM       0
 
 #define IUTEST_HAS_STREAM_BUFFER        0
 
