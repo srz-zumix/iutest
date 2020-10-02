@@ -60,6 +60,9 @@ using ::std::get;
 #include "../iutest_ver.hpp"
 
 // gtest 1.5 or less compatible
+#if !defined(IUTEST_HAS_CONCEPTS)
+#  define IUTEST_HAS_CONCEPTS       0
+#endif
 #if !IUTEST_HAS_CONCEPTS
 #include <gtest/internal/gtest-internal.h>
 #define GTestStreamToHelper GTestStreamToHelperForCompatible
@@ -143,6 +146,8 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 
 #undef IUTEST_HAS_STREAM_BUFFER
 
+#undef IUTEST_HAS_STD_FILESYSTEM
+
 #undef IUTEST_OPERAND
 #undef IUTEST_EXPRESSION
 
@@ -205,6 +210,8 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #  define IUTEST_HAS_STREAM_RESULT      1
 #endif
 
+#define IUTEST_HAS_STD_FILESYSTEM       0
+
 #define IUTEST_HAS_STREAM_BUFFER        0
 
 #define IUTEST_HAS_VARIADIC_TEMPLATES   0
@@ -234,6 +241,7 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 #endif
 
 #include "../internal/iutest_compiler.hpp"
+#include "../internal/iutest_stdlib_defs.hpp"
 #include "../internal/iutest_type_traits.hpp"
 #include "../internal/iutest_compatible_defs.hpp"
 
