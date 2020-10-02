@@ -81,7 +81,7 @@ public:
     {
     }
 public:
-    virtual void ReportTestPartResult(const TestPartResult& result)
+    virtual void ReportTestPartResult(const TestPartResult& result) IUTEST_CXX_OVERRIDE
     {
         if( result.failed() )
         {
