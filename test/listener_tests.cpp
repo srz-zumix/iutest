@@ -83,15 +83,13 @@ public:
     {
         called_OnTestPartResult = true;
     }
+#if !defined(IUTEST_USE_GTEST)
     virtual void OnTestRecordProperty(const ::iutest::TestProperty& test_property) IUTEST_CXX_OVERRIDE
     {
         called_OnTestRecordProperty = true;
-#if !defined(IUTEST_USE_GTEST)
         TestEventListener::OnTestRecordProperty(test_property);
-#else
-        IUTEST_UNUSED_VAR(test_property);
-#endif
     }
+#endif
     virtual void OnTestEnd(const ::iutest::TestInfo& /*test_info*/) IUTEST_CXX_OVERRIDE
     {
         called_OnTestEnd = true;
