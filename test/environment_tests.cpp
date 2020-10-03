@@ -33,14 +33,14 @@ public:
     }
 
 private:
-    virtual void SetUp(void)
+    virtual void SetUp(void) IUTEST_CXX_OVERRIDE
     {
         setup = true;
         ++test_counter;
         Environment::SetUp();
     }
 
-    virtual void TearDown(void)
+    virtual void TearDown(void) IUTEST_CXX_OVERRIDE
     {
         teardown = true;
         --test_counter;
@@ -51,13 +51,13 @@ private:
 class MyEnvironment2 : public ::iutest::Environment
 {
 private:
-    virtual void SetUp(void)
+    virtual void SetUp(void) IUTEST_CXX_OVERRIDE
     {
         IUTEST_ASSERT_EQ(1, test_counter);
         ++test_counter;
     }
 
-    virtual void TearDown(void)
+    virtual void TearDown(void) IUTEST_CXX_OVERRIDE
     {
         IUTEST_ASSERT_EQ(2, test_counter);
         --test_counter;
