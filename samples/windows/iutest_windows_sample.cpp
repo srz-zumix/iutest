@@ -7,20 +7,20 @@
 #define MAX_LOADSTRING 100
 
 // グローバル変数:
-HINSTANCE hInst;                                // 現在のインターフェイス
-TCHAR szTitle[MAX_LOADSTRING];                  // タイトル バーのテキスト
-TCHAR szWindowClass[MAX_LOADSTRING];            // メイン ウィンドウ クラス名
+HINSTANCE hInst;                     // 現在のインターフェイス
+TCHAR szTitle[MAX_LOADSTRING];       // タイトル バーのテキスト
+TCHAR szWindowClass[MAX_LOADSTRING]; // メイン ウィンドウ クラス名
 
 // このコード モジュールに含まれる関数の宣言を転送します:
-ATOM                MyRegisterClass(HINSTANCE hInstance);
-BOOL                InitInstance(HINSTANCE, int);
-LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
-INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
+ATOM MyRegisterClass(HINSTANCE hInstance);
+BOOL InitInstance(HINSTANCE, int);
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
 
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
-                     _In_opt_ HINSTANCE hPrevInstance,
-                     _In_ LPTSTR    lpCmdLine,
-                     _In_ int       nCmdShow)
+                       _In_opt_ HINSTANCE hPrevInstance,
+                       _In_ LPTSTR lpCmdLine,
+                       _In_ int nCmdShow)
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
@@ -35,7 +35,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
     MyRegisterClass(hInstance);
 
     // アプリケーションの初期化を実行します:
-    if (!InitInstance (hInstance, nCmdShow))
+    if (!InitInstance(hInstance, nCmdShow))
     {
         return FALSE;
     }
@@ -52,10 +52,8 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
-    return (int) msg.wParam;
+    return (int)msg.wParam;
 }
-
-
 
 //
 //  関数: MyRegisterClass()
@@ -68,17 +66,17 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 
     wcex.cbSize = sizeof(WNDCLASSEX);
 
-    wcex.style          = CS_HREDRAW | CS_VREDRAW;
-    wcex.lpfnWndProc    = WndProc;
-    wcex.cbClsExtra     = 0;
-    wcex.cbWndExtra     = 0;
-    wcex.hInstance      = hInstance;
-    wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_IUTEST_WINDOWS_SAMPLE));
-    wcex.hCursor        = LoadCursor(NULL, IDC_ARROW);
-    wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCE(IDC_IUTEST_WINDOWS_SAMPLE);
-    wcex.lpszClassName  = szWindowClass;
-    wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
+    wcex.style = CS_HREDRAW | CS_VREDRAW;
+    wcex.lpfnWndProc = WndProc;
+    wcex.cbClsExtra = 0;
+    wcex.cbWndExtra = 0;
+    wcex.hInstance = hInstance;
+    wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_IUTEST_WINDOWS_SAMPLE));
+    wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+    wcex.lpszMenuName = MAKEINTRESOURCE(IDC_IUTEST_WINDOWS_SAMPLE);
+    wcex.lpszClassName = szWindowClass;
+    wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
     return RegisterClassEx(&wcex);
 }
@@ -97,44 +95,43 @@ static ::iuutil::TestMenu s_test_menu(4000);
 //
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
-   HWND hWnd;
+    HWND hWnd;
 
-   int argc = __argc;
-   ::std::vector< ::std::string > argv;
-   for( int i=0; i < argc; ++i )
-   {
-       argv.push_back(__argv[i]);
-   }
+    int argc = __argc;
+    ::std::vector<::std::string> argv;
+    for (int i = 0; i < argc; ++i)
+    {
+        argv.push_back(__argv[i]);
+    }
 #ifdef IUTEST_USE_GTEST
-   argc = 0;
-   ::iutest::InitIrisUnitTest(&argc, (char**)NULL);
+    argc = 0;
+    ::iutest::InitIrisUnitTest(&argc, reinterpret_cast<char **>(NULL));
 #else
-   ::iutest::InitIrisUnitTest(argv);
+    ::iutest::InitIrisUnitTest(argv);
 #endif
 
-   hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
+    hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
 
-   hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, 400, 200, NULL, NULL, hInstance, NULL);
+    hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+                        CW_USEDEFAULT, 0, 400, 200, NULL, NULL, hInstance, NULL);
 
-   if (!hWnd)
-   {
-      return FALSE;
-   }
+    if (!hWnd)
+    {
+        return FALSE;
+    }
 
-   AllocConsole();
-   FILE* fp=NULL;
-   freopen_s(&fp, "CON", "w", stdout);
-   freopen_s(&fp, "CON", "r", stdin);
-   freopen_s(&fp, "CON", "w", stderr);
+    AllocConsole();
+    FILE *fp = NULL;
+    freopen_s(&fp, "CON", "w", stdout);
+    freopen_s(&fp, "CON", "r", stdin);
+    freopen_s(&fp, "CON", "w", stderr);
 
-   s_test_menu.Create( GetMenu(hWnd) );
+    s_test_menu.Create(GetMenu(hWnd));
 
+    ShowWindow(hWnd, nCmdShow);
+    UpdateWindow(hWnd);
 
-   ShowWindow(hWnd, nCmdShow);
-   UpdateWindow(hWnd);
-
-   return TRUE;
+    return TRUE;
 }
 
 //
@@ -156,7 +153,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     switch (message)
     {
     case WM_COMMAND:
-        wmId    = LOWORD(wParam);
+        wmId = LOWORD(wParam);
         wmEvent = HIWORD(wParam);
         // 選択されたメニューの解析:
         switch (wmId)
@@ -173,14 +170,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         }
         break;
     case WM_RBUTTONUP:
-        {
-            POINT point;
-            point.x = LOWORD(lParam);
-            point.y = HIWORD(lParam);
-            ClientToScreen(hWnd, &point);
-            s_test_menu.TrackPopupMenu(hWnd, point);
-        }
-        break;
+    {
+        POINT point;
+        point.x = LOWORD(lParam);
+        point.y = HIWORD(lParam);
+        ClientToScreen(hWnd, &point);
+        s_test_menu.TrackPopupMenu(hWnd, point);
+    }
+    break;
     case WM_PAINT:
         hdc = BeginPaint(hWnd, &ps);
         // TODO: 描画コードをここに追加してください...

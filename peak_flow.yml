@@ -4,5 +4,6 @@ before_script:
   - gcc --version || true
   - clang --version || true
 script:
-  - make -C test -j4
+  - make -C test -j4 CXXFLAGS=-ftime-report
   - make -C test test
+  - make -C test report

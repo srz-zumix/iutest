@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -36,6 +36,11 @@
 #undef IUTEST_HAS_MATCHER_ELEMENTSARE
 #undef IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD
 #undef IUTEST_HAS_MATCHER_REGEX
+#undef IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR
+#undef IUTEST_HAS_MATCHER_EACH
+#undef IUTEST_HAS_MATCHER_POINTWISE
+#undef IUTEST_HAS_MATCHER_VARIADIC
+#undef IUTEST_HAS_MATCHER_OPTIONAL
 
 #endif
 
@@ -49,6 +54,28 @@
 #define IUTEST_HAS_MATCHER_ELEMENTSARE              1
 #define IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD  0
 #define IUTEST_HAS_MATCHER_REGEX                    1
+#if GMOCK_VER > 0x01060000
+#  define IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR     1
+#else
+#  define IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR     0
+#endif
+#if GMOCK_VER > 0x01050000
+#  define IUTEST_HAS_MATCHER_EACH                   1
+#  define IUTEST_HAS_MATCHER_POINTWISE              1
+#else
+#  define IUTEST_HAS_MATCHER_EACH                   0
+#  define IUTEST_HAS_MATCHER_POINTWISE              0
+#endif
+#if GMOCK_VER > 0x01080000
+#  define IUTEST_HAS_MATCHER_OPTIONAL               1
+#else
+#  define IUTEST_HAS_MATCHER_OPTIONAL               0
+#endif
+#if defined(GTEST_LANG_CXX11) && GTEST_LANG_CXX11
+#  define IUTEST_HAS_MATCHER_VARIADIC               1
+#else
+#  define IUTEST_HAS_MATCHER_VARIADIC               0
+#endif
 
 #define IUTEST_ASSERT_THAT      ASSERT_THAT
 #define IUTEST_EXPECT_THAT      EXPECT_THAT
@@ -62,10 +89,13 @@
 #else
 
 #define IUTEST_HAS_MATCHERS                         0
+#define IUTEST_HAS_MATCHER_VARIADIC                 0
 #define IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF          0
 #define IUTEST_HAS_MATCHER_ELEMENTSARE              0
 #define IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD  0
 #define IUTEST_HAS_MATCHER_REGEX                    0
+#define IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR       0
+#define IUTEST_HAS_MATCHER_EACH                     0
 
 #endif
 
@@ -73,7 +103,125 @@
 // using
 #if defined(IUTEST_USE_GMOCK)
 
-namespace testing {
+namespace testing
+{
+
+#if IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF && (GMOCK_VER <= 0x01050000)
+
+template <typename M1, typename M2, typename M3, typename M4, typename M5, typename M6>
+inline internal::BothOfMatcher<M1,
+            internal::BothOfMatcher<M2,
+                internal::BothOfMatcher<M3,
+                    internal::BothOfMatcher<M4,
+                        internal::BothOfMatcher<M5, M6> > > > >
+AllOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6) {
+    return AllOf(m1, AllOf(m2, m3, m4, m5, m6));
+}
+template <typename M1, typename M2, typename M3, typename M4, typename M5, typename M6, typename M7>
+inline internal::BothOfMatcher<M1,
+            internal::BothOfMatcher<M2,
+                internal::BothOfMatcher<M3,
+                    internal::BothOfMatcher<M4,
+                        internal::BothOfMatcher<M5,
+                            internal::BothOfMatcher<M6, M7> > > > > >
+AllOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7) {
+    return AllOf(m1, AllOf(m2, m3, m4, m5, m6, m7));
+}
+template <typename M1, typename M2, typename M3, typename M4, typename M5, typename M6, typename M7, typename M8>
+inline internal::BothOfMatcher<M1,
+            internal::BothOfMatcher<M2,
+                internal::BothOfMatcher<M3,
+                    internal::BothOfMatcher<M4,
+                        internal::BothOfMatcher<M5,
+                            internal::BothOfMatcher<M6,
+                                internal::BothOfMatcher<M7, M8> > > > > > >
+AllOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7, M8 m8) {
+    return AllOf(m1, AllOf(m2, m3, m4, m5, m6, m7, m8));
+}
+template <typename M1, typename M2, typename M3, typename M4, typename M5, typename M6, typename M7, typename M8, typename M9>
+inline internal::BothOfMatcher<M1,
+            internal::BothOfMatcher<M2,
+                internal::BothOfMatcher<M3,
+                    internal::BothOfMatcher<M4,
+                        internal::BothOfMatcher<M5,
+                            internal::BothOfMatcher<M6,
+                                internal::BothOfMatcher<M7,
+                                    internal::BothOfMatcher<M8, M9> > > > > > > >
+AllOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7, M8 m8, M9 m9) {
+    return AllOf(m1, AllOf(m2, m3, m4, m5, m6, m7, m8, m9));
+}
+template <typename M1, typename M2, typename M3, typename M4, typename M5, typename M6, typename M7, typename M8, typename M9, typename M10>
+inline internal::BothOfMatcher<M1,
+            internal::BothOfMatcher<M2,
+                internal::BothOfMatcher<M3,
+                    internal::BothOfMatcher<M4,
+                        internal::BothOfMatcher<M5,
+                            internal::BothOfMatcher<M6,
+                                internal::BothOfMatcher<M7,
+                                    internal::BothOfMatcher<M8,
+                                        internal::BothOfMatcher<M9, M10> > > > > > > > >
+AllOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7, M8 m8, M9 m9, M10 m10) {
+    return AllOf(m1, AllOf(m2, m3, m4, m5, m6, m7, m8, m9, m10));
+}
+
+template <typename M1, typename M2, typename M3, typename M4, typename M5, typename M6>
+inline internal::EitherOfMatcher<M1,
+            internal::EitherOfMatcher<M2,
+                internal::EitherOfMatcher<M3,
+                    internal::EitherOfMatcher<M4,
+                        internal::EitherOfMatcher<M5, M6> > > > >
+AnyOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6) {
+    return AnyOf(m1, AnyOf(m2, m3, m4, m5, m6));
+}
+template <typename M1, typename M2, typename M3, typename M4, typename M5, typename M6, typename M7>
+inline internal::EitherOfMatcher<M1,
+            internal::EitherOfMatcher<M2,
+                internal::EitherOfMatcher<M3,
+                    internal::EitherOfMatcher<M4,
+                        internal::EitherOfMatcher<M5,
+                            internal::EitherOfMatcher<M6, M7> > > > > >
+AnyOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7) {
+    return AnyOf(m1, AnyOf(m2, m3, m4, m5, m6, m7));
+}
+template <typename M1, typename M2, typename M3, typename M4, typename M5, typename M6, typename M7, typename M8>
+inline internal::EitherOfMatcher<M1,
+            internal::EitherOfMatcher<M2,
+                internal::EitherOfMatcher<M3,
+                    internal::EitherOfMatcher<M4,
+                        internal::EitherOfMatcher<M5,
+                            internal::EitherOfMatcher<M6,
+                                internal::EitherOfMatcher<M7, M8> > > > > > >
+AnyOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7, M8 m8) {
+    return AnyOf(m1, AnyOf(m2, m3, m4, m5, m6, m7, m8));
+}
+template <typename M1, typename M2, typename M3, typename M4, typename M5, typename M6, typename M7, typename M8, typename M9>
+inline internal::EitherOfMatcher<M1,
+            internal::EitherOfMatcher<M2,
+                internal::EitherOfMatcher<M3,
+                    internal::EitherOfMatcher<M4,
+                        internal::EitherOfMatcher<M5,
+                            internal::EitherOfMatcher<M6,
+                                internal::EitherOfMatcher<M7,
+                                    internal::EitherOfMatcher<M8, M9> > > > > > > >
+AnyOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7, M8 m8, M9 m9) {
+    return AnyOf(m1, AnyOf(m2, m3, m4, m5, m6, m7, m8, m9));
+}
+template <typename M1, typename M2, typename M3, typename M4, typename M5, typename M6, typename M7, typename M8, typename M9, typename M10>
+inline internal::EitherOfMatcher<M1,
+            internal::EitherOfMatcher<M2,
+                internal::EitherOfMatcher<M3,
+                    internal::EitherOfMatcher<M4,
+                        internal::EitherOfMatcher<M5,
+                            internal::EitherOfMatcher<M6,
+                                internal::EitherOfMatcher<M7,
+                                    internal::EitherOfMatcher<M8,
+                                        internal::EitherOfMatcher<M9, M10> > > > > > > > >
+AnyOf(M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, M6 m6, M7 m7, M8 m8, M9 m9, M10 m10) {
+    return AnyOf(m1, AnyOf(m2, m3, m4, m5, m6, m7, m8, m9, m10));
+}
+
+#endif
+
 namespace matchers
 {
 
@@ -92,7 +240,7 @@ namespace matchers
     using ::testing::NanSensitiveDoubleEq;
     using ::testing::NanSensitiveFloatEq;
 
-#if GMOCK_VER > 0x01060000
+#if IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR
     using ::testing::DoubleNear;
     using ::testing::FloatNear;
     using ::testing::NanSensitiveDoubleNear;
@@ -109,8 +257,10 @@ namespace matchers
 
     using ::testing::Contains;
     using ::testing::ContainerEq;
-#if GMOCK_VER > 0x01050000
+#if IUTEST_HAS_MATCHER_EACH
     using ::testing::Each;
+#endif
+#if IUTEST_HAS_MATCHER_POINTWISE
     using ::testing::Pointwise;
 #endif
     using ::testing::Key;
@@ -127,6 +277,9 @@ namespace matchers
     using ::testing::MatchesRegex;
     using ::testing::ContainsRegex;
 
+#if IUTEST_HAS_MATCHER_OPTIONAL
+    using ::testing::Optional;
+#endif
     using ::testing::AllOf;
     using ::testing::AnyOf;
 
@@ -158,7 +311,7 @@ namespace matchers
     }
 
 #if GMOCK_VER >= 0x01070000
-    // gmock 1.7 later
+    // gmock 1.7 or later
     using ::testing::IsEmpty;
     using ::testing::SizeIs;
 #endif

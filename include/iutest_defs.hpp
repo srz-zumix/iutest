@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -208,7 +208,7 @@ public:
 
     /**
      * @brief   浮動小数点数がほぼ一致するかどうか
-     * @sa      http://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
+     * @sa      https://www.cygnus-software.com/papers/comparingfloats/comparingfloats.htm
     */
     bool    NanSensitiveAlmostEquals(const _Myt& rhs) const
     {
@@ -305,6 +305,11 @@ public:
      * @brief   is nan
     */
     bool    is_nan() const { return exponent_bits() == kExpMask && fraction_bits() != 0; }
+
+    /**
+     * @brief   is inf
+    */
+    bool    is_inf() const { return exponent_bits() == kExpMask && fraction_bits() == 0; }
 
 public:
     //! plus inf
@@ -423,6 +428,12 @@ typedef detail::type_fit_t<8>::UInt UInt64; //!< 64 bit 符号なし整数型
 typedef ::std::uintmax_t    iu_off_t;
 #else
 typedef UInt64              iu_off_t;
+#endif
+
+#if IUTEST_HAS_CXX11 && IUTEST_HAS_CXX_HDR_CSTDINT
+typedef ::std::uintptr_t                                iu_uintptr_t;
+#else
+typedef detail::type_fit_t<sizeof(ptrdiff_t)>::UInt     iu_uintptr_t;
 #endif
 
 typedef internal::TypeId TestTypeId;    //!< テスト識別型

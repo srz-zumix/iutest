@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -218,7 +218,7 @@
 
 #if !defined(IUTEST_HAS_VARIADIC_VALUES)
 //! 可変長引数に対応した ::iutest::Values が使用可能かどうか
-#  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
+#  if IUTEST_HAS_PARAM_TEST && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_VARIADIC_TUPLES
 #    define IUTEST_HAS_VARIADIC_VALUES  1
 #  else
 #    define IUTEST_HAS_VARIADIC_VALUES  0
@@ -227,7 +227,7 @@
 
 #if !defined(IUTEST_HAS_VARIADIC_COMBINE)
 //! 可変長引数に対応した ::iutest::Combine が使用可能かどうか
-#  if IUTEST_HAS_COMBINE && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
+#  if IUTEST_HAS_COMBINE && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_VARIADIC_TUPLES
 #    define IUTEST_HAS_VARIADIC_COMBINE 1
 #  else
 #    define IUTEST_HAS_VARIADIC_COMBINE 0
@@ -236,7 +236,7 @@
 
 #if !defined(IUTEST_HAS_VARIADIC_PAIRWISE)
 //! 可変長引数に対応した ::iutest::Pairwise が使用可能かどうか
-#  if IUTEST_HAS_PAIRWISE && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_TUPLE
+#  if IUTEST_HAS_PAIRWISE && IUTEST_HAS_VARIADIC_TEMPLATES && IUTEST_HAS_VARIADIC_TUPLES
 #    define IUTEST_HAS_VARIADIC_PAIRWISE    1
 #  else
 #    define IUTEST_HAS_VARIADIC_PAIRWISE    0
@@ -270,6 +270,11 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_HAS_MATCHER_VARIADIC)
+//! matchers が variadic template に対応しているかどうか
+#  define IUTEST_HAS_MATCHER_VARIADIC   IUTEST_HAS_VARIADIC_TEMPLATES
+#endif
+
 #if !defined(IUTEST_HAS_MATCHER_REGEX)
 //! ::iutest::matchers::MatchesRegex, ::iutest::matchers::ContainsRegex matcher が使用可能かどうか
 #  if IUTEST_HAS_CXX_HDR_REGEX && IUTEST_HAS_REGEX
@@ -286,6 +291,25 @@
 #  else
 #    define IUTEST_HAS_MATCHER_ALLOF_AND_ANYOF  0
 #  endif
+#endif
+
+#if !defined(IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR)
+//! Wether ::iutest::matchers::(NanSensitive)(Float|Double)Near is available
+#  define IUTEST_HAS_MATCHER_FLOATINGPOINT_NEAR 1
+#endif
+
+#if !defined(IUTEST_HAS_MATCHER_EACH)
+//! Wether ::iutest::matchers::Each is available
+#  define IUTEST_HAS_MATCHER_EACH               1
+#endif
+
+#if !defined(IUTEST_HAS_MATCHER_POINTWISE)
+//! Wether ::iutest::matchers::Pointwise is available
+#  define IUTEST_HAS_MATCHER_POINTWISE          1
+#endif
+
+#if !defined(IUTEST_HAS_MATCHER_OPTIONAL)
+#  define IUTEST_HAS_MATCHER_OPTIONAL           1
 #endif
 
 #if !defined(IUTEST_USE_THROW_ON_ASSERTION_FAILURE)
@@ -320,11 +344,7 @@
 
 #if !defined(IUTEST_HAS_SPI_LAMBDA_SUPPORT)
 //! spi マクロで lambda を使って変数にアクセス可能かどうか
-#  if IUTEST_HAS_LAMBDA_STATEMENTS
-#    define IUTEST_HAS_SPI_LAMBDA_SUPPORT       1
-#  else
-#    define IUTEST_HAS_SPI_LAMBDA_SUPPORT       0
-#  endif
+#  define IUTEST_HAS_SPI_LAMBDA_SUPPORT       IUTEST_HAS_LAMBDA_STATEMENTS
 #endif
 
 #if !defined(IUTEST_HAS_CATCH_SEH_EXCEPTION_ASSERTION)
@@ -584,6 +604,37 @@
  * @}
 */
 
+/**
+ * @defgroup    IUTEST_CONFIG_CODECVT  CODECVT
+ * @brief       charcode convert CONFIG
+ * @{
+*/
+
+//! char16_t printable
+#if !defined(IUTEST_HAS_CHAR16_T_PRINTABLE)
+#  if defined(_MSC_VER) || IUTEST_HAS_CXX_HDR_CODECVT || IUTEST_HAS_CXX_HDR_CUCHAR
+#    define IUTEST_HAS_CHAR16_T_PRINTABLE   IUTEST_HAS_CHAR16_T
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CHAR16_T_PRINTABLE)
+#  define IUTEST_HAS_CHAR16_T_PRINTABLE     0
+#endif
+
+//! char32_t printable
+#if !defined(IUTEST_HAS_CHAR32_T_PRINTABLE)
+#  if defined(_MSC_VER) || IUTEST_HAS_CXX_HDR_CODECVT || IUTEST_HAS_CXX_HDR_CUCHAR
+#    define IUTEST_HAS_CHAR32_T_PRINTABLE   IUTEST_HAS_CHAR32_T
+#  endif
+#endif
+
+#if !defined(IUTEST_HAS_CHAR32_T_PRINTABLE)
+#  define IUTEST_HAS_CHAR32_T_PRINTABLE     0
+#endif
+
+/**
+ * @}
+*/
 
 /**
  * @defgroup    IUTEST_CONFIG_OTHER OTHER
@@ -758,6 +809,26 @@
 /**
  * @}
 */
+
+/**
+ * @brief   iutest has testsuite api
+*/
+#define IUTEST_HAS_TESTSUITE    1
+
+/**
+ * @brief   iutest has testcase api
+*/
+#if !defined(IUTEST_HAS_TESTCASE)
+#  define IUTEST_HAS_TESTCASE   1
+#endif
+
+#if defined(IUTEST_REMOVE_LEGACY_TEST_CASEAPI_)
+#  undef IUTEST_REMOVE_LEGACY_TEST_CASEAPI_
+#endif
+
+#if !IUTEST_HAS_TESTCASE
+#  define IUTEST_REMOVE_LEGACY_TEST_CASEAPI_
+#endif
 
 /**
  * @private

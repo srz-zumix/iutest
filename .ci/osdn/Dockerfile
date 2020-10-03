@@ -9,7 +9,8 @@ LABEL maintainer "srz_zumix <https://github.com/srz-zumix>"
 RUN gem install osdn-cli
 VOLUME $HOME/.config/osdn
 
-ENV LANG C.UTF-8
+ENV LANG C
+ENV LC_CTYPE=en_US.UTF-8
 
 VOLUME /iutest
 WORKDIR /iutest

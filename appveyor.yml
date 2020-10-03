@@ -14,41 +14,18 @@ environment:
       CMAKE_GENERATOR_NAME: Visual Studio 15 2017
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       PROJECT_DIR: vs2019
-      # BUILD_PRE_PROJECT: yes
       CMAKE_GENERATOR_NAME: Visual Studio 16 2019
     # Cygwin
     - BUILD_CYGWIN: yes
       USE_GNU_EXTENSION: 0
-      CYGWIN_PATH: C:\cygwin
-      CYGWIN_SETUP_EXE: setup-x86.exe
     - BUILD_CYGWIN: yes
       USE_GNU_EXTENSION: 1
-      CYGWIN_PATH: C:\cygwin
-      CYGWIN_SETUP_EXE: setup-x86.exe
-    - BUILD_CYGWIN: yes
-      USE_GNU_EXTENSION: 1
-      CYGWIN_PATH: C:\cygwin64
-      CYGWIN_SETUP_EXE: setup-x86_64.exe
-    # MINGW64
+    # MINGW/MINGW64
     - BUILD_MINGW: yes
       USE_GNU_EXTENSION: 0
-      MAKE_OPTIONS: LIBS=ws2_32
-      MINGW_PATH: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
-      #MINGW_PATH: C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1
-      #APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-    # MINGW64 GNU EXTENSION
+    # MINGW/MINGW64 GNU EXTENSION
     - BUILD_MINGW: yes
       USE_GNU_EXTENSION: 1
-      MAKE_OPTIONS: LIBS=ws2_32
-      MINGW_PATH: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
-    # MINGW32
-    - BUILD_MINGW: yes
-      USE_GNU_EXTENSION: 0
-      MINGW_PATH: c:\mingw\bin
-    # MINGW32 GNU EXTENSION
-    - BUILD_MINGW: yes
-      USE_GNU_EXTENSION: 1
-      MINGW_PATH: c:\mingw\bin
     # NMAKE
     - BUILD_NMAKE: yes
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -57,7 +34,7 @@ environment:
       PROJECT_DIR: vs2015
     # Menu
     - BUILD_MENU: yes
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
     # Package Build
     - BUILD_PACKAGE: yes
       APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu
@@ -67,6 +44,9 @@ environment:
 configuration:
   - Debug
   - Release
+platform:
+  - Win32
+  - x64
 
 matrix:
   exclude:
@@ -84,14 +64,56 @@ matrix:
       BUILD_PACKAGE: yes
     - configuration: Debug
       BUILD_NUGET: yes
+    # exclude x64
+    - platform: x64
+      BUILD_NMAKE: yes
+    - platform: x64
+      BUILD_PREFAST: yes
+    - platform: x64
+      BUILD_PACKAGE: yes
+    - platform: x64
+      BUILD_NUGET: yes
 
 branches:
   only:
     - master
     - develop
-    - /feature.*/
-    - /fix.*/
-    - /appveyor.*/
+    # - /feature.*/
+    # - /fix.*/
+    # - /appveyor.*/
+
+skip_commits:
+  files:
+    - .circleci/
+    - .github/
+    - .semaphore/
+    - "*.md"
+    - docs/
+    - Jenkinsfile
+    - LICENSE
+    - .bandit
+    - .editorconfig
+    - .hadolint.yaml
+    - .lgtm.yaml
+    - tox.ini
+    - azure-pipelines.yml
+    - bitrise.yml
+    - buddy.yml
+    - .circleci/*
+    - .cirrus.yml
+    - .scrutinizer.yml
+    - codecov.yml
+    - codefresh.yml
+    - codeship-services.yml
+    - codeship-steps.yml
+    - .drone.yml
+    - .github/*
+    - .razorops.yaml
+    - .semaphore/*
+    - shippable.yml
+    - sider.yml
+    - .travis.yml
+    - wercker.yml
 
 # Do not build feature branch with open Pull Requests
 skip_branch_with_pr: true
@@ -99,6 +121,7 @@ skip_branch_with_pr: true
 clone_depth: 1
 
 init:
+  # RDP setup
   ps: |
     $commit_message = $env:APPVEYOR_REPO_COMMIT_MESSAGE
     if($commit_message.Contains("[appveyor rdp]")) {
@@ -112,7 +135,7 @@ init:
 before_build:
   cmd: |
       mkdir build && cd build
-      cmake ../projects/cmake -G "%CMAKE_GENERATOR_NAME%" -Dbuild_gtest_samples=ON
+      cmake ../projects/cmake -G "%CMAKE_GENERATOR_NAME%" -A %PLATFORM% -Dbuild_gtest_samples=ON
       cd ..
 
 build:
@@ -122,6 +145,14 @@ build:
 
 test_script:
   cmd: cd build && ctest -C %Configuration% -V
+
+on_failure:
+  # wait RDP connect
+  ps: |
+    $commit_message = $env:APPVEYOR_REPO_COMMIT_MESSAGE
+    if($commit_message.Contains("[appveyor rdp]")) {
+      $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+    }
 
 for:
 # Build .sln (no cmake)
@@ -143,64 +174,71 @@ for:
 -
   matrix:
     only:
-      - configuration: Release
-        BUILD_CYGWIN: yes
+      - BUILD_CYGWIN: yes
+  init:
+    ps: |
+      if($env:PLATFORM -eq "Win32"){
+        $env:CYGWIN_PATH="C:\cygwin"
+        $env:CYGWIN_SETUP_EXE="setup-x86.exe"
+      } else {
+        $env:CYGWIN_PATH="C:\cygwin64"
+        $env:CYGWIN_SETUP_EXE="setup-x86_64.exe"
+      }
+      $env:PATH=$env:CYGWIN_PATH + "\bin;" + $env:PATH
   install:
     cmd: |
       %CYGWIN_PATH%\%CYGWIN_SETUP_EXE% -qnNdO -R %CYGWIN_PATH% -s http://cygwin.mirror.constant.com -l %CYGWIN_PATH%/var/cache/setup -P make -P clang
-      SET PATH=%CYGWIN_PATH%\bin;%PATH%
-  before_build:
+  before_build: &noop
     cmd: echo.
   build_script:
     cmd: |
       cd test
-      g++ --version; clang++ --version; python --version
       make showcxxmacros
-      uname
       make -j4
   test_script:
-    cmd: make test
+    cmd: make test && make report
 # MINGW
 -
   matrix:
     only:
-      - configuration: Release
-        BUILD_MINGW: yes
+      - BUILD_MINGW: yes
   install:
-    cmd: set path=%MINGW_PATH%;%path%
-  before_build:
-    cmd: echo.
+    ps: |
+      if($env:PLATFORM -eq "Win32"){
+        $env:MAKE_OPTIONS="LIBS=ws2_32"
+        $env:MINGW_PATH="C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin"
+      } else {
+        $env:MINGW_PATH="C:\mingw\bin"
+      }
+      $env:PATH=$env:MINGW_PATH + ";" + $env:PATH
+  before_build: *noop
   build_script:
     cmd: |
       cd test
-      g++ --version
       mingw32-make showcxxmacros
       mingw32-make -j4 %MAKE_OPTIONS%
   test_script:
-    cmd: mingw32-make test %MAKE_OPTIONS%
+    cmd: mingw32-make test %MAKE_OPTIONS% && mingw32-make report
 # NAMKE
 -
   matrix:
     only:
-      - configuration: Release
-        BUILD_NMAKE: yes
+      - BUILD_NMAKE: yes
   before_build:
     cmd: '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\vsdevcmd.bat"'
   build_script:
-    cmd: cd test && nmake
+    cmd: cd test && nmake all_tests && all_tests --spec && nmake
   test_script:
     cmd: nmake test
 # Prefast
 -
   matrix:
     only:
-      - configuration: Debug
-        BUILD_PREFAST: yes
+      - BUILD_PREFAST: yes
   environment:
     MSBUILD_LOGGER_OPTION: /verbosity:minimal /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
     MSBUILD_PREFAST_OPTION: /p:RunCodeAnalysis=true /p:EnablePREfast=true /p:CodeAnalysisTreatWarningsAsErrors=true
-  before_build:
-    cmd: echo.
+  before_build: *noop
   build_script:
     cmd: msbuild "projects\%PROJECT_DIR%\iutest_sample.vcxproj" /m %MSBUILD_LOGGER_OPTION% %MSBUILD_PREFAST_OPTION%
   test: off
@@ -208,10 +246,8 @@ for:
 -
   matrix:
     only:
-      - configuration: Release
-        BUILD_MENU: yes
-  before_build:
-    cmd: echo.
+      - BUILD_MENU: yes
+  before_build: *noop
   build:
     project: samples\windows\iutest_windows_sample.sln
     parallel: true
@@ -221,10 +257,8 @@ for:
 -
   matrix:
     only:
-      - configuration: Release
-        BUILD_PACKAGE: yes
-  before_build:
-    cmd: echo.
+      - BUILD_PACKAGE: yes
+  before_build: *noop
   build_script:
     sh: bash ./.ci/make-package.sh
   test: off
@@ -232,29 +266,11 @@ for:
 -
   matrix:
     only:
-      - configuration: Release
-        BUILD_NUGET: yes
-  before_build:
-    cmd: echo.
+      - BUILD_NUGET: yes
+  before_build: *noop
   build_script:
     ps: |
       $nuspecPath = "projects\nuget\iutest.nuspec"
       Write-Output "Building NuGet package"
       nuget pack $nuspecPath -OutputDirectory ".\"
   test: off
-
-on_failure:
-  ps: |
-    # rdp
-    $commit_message = $env:APPVEYOR_REPO_COMMIT_MESSAGE
-    if($commit_message.Contains("[appveyor rdp]")) {
-      $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-    }
-
-notifications:
-  - provider: Email
-    to:
-      - zumix.cpp@gmail.com
-    on_build_success: false
-    on_build_failure: true
-    on_build_status_changed: true

@@ -93,7 +93,7 @@ IUTEST(AssertionTest, EQ)
     }
 #endif
 
-#if IUTEST_HAS_STRONG_ENUMS
+#if IUTEST_HAS_STRONG_ENUMS && IUTEST_HAS_PRINT_TO
     {
         enum class eTest { Var1=1, Var2=1 };
         IUTEST_ASSERT_EQ(eTest::Var1, eTest::Var2);

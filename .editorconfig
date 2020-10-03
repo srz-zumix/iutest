@@ -3,7 +3,48 @@ root = true
 [*]
 indent_style = space
 indent_size = 4
+# comment style for lint
+# C-style doc comments
+block_comment_start = /*
+block_comment = *
+block_comment_end = */
+line_comment = //
+
+[*.{cpp,hpp,ipp,inl}]
+charset = utf-8-bom
+trim_trailing_whitespace = true
 insert_final_newline = true
+
+[iutest_ver.hpp]
+indent_size = 2
+insert_final_newline = true
+
+[*.py]
+charset = utf-8
+trim_trailing_whitespace = true
+
+[*.{bat,cmd}]
+end_of_line = crlf
+
+[*.{sh,htaccess}]
+indent_size = 2
+end_of_line = lf
+
+# Config/Data
+
+[*.{yml,yaml}]
+indent_size = 2
+trim_trailing_whitespace = true
+
+[*.{json,ecrc}]
+indent_size = 2
+
+# Project
+
+[*.{nuspec,targets}]
+indent_size = 2
+
+# Makefile
 
 [{Makefile,GNUmakefile}]
 indent_style = tab
@@ -15,47 +56,48 @@ indent_style = tab
 end_of_line = lf
 trim_trailing_whitespace = true
 
-[*.{cpp,hpp,ipp}]
-charset = utf-8-bom
-trim_trailing_whitespace = true
-
-[*.py]
-charset = utf-8
-trim_trailing_whitespace = true
-
-[*.yml]
-trim_trailing_whitespace = true
-
-[*.{yml,yaml,html}]
-indent_size = 2
+# Document
 
 [*.md]
 indent_size = 2
 trim_trailing_whitespace = false
 
-[*.bat]
-end_of_line = crlf
+[*.txt]
+trim_trailing_whitespace = false
 
-[*.sh]
+[*.rst]
 indent_size = 2
-end_of_line = lf
+trim_trailing_whitespace = true
 
-[*.json]
+[*.{html}]
+charset = utf-8-bom
+trim_trailing_whitespace = true
+
+[*.{html,css}]
 indent_size = 2
 
-[{COPYING,LICENSE}]
+[{COPYING,LICENSE,LICENSE-MIXING}]
+indent_size = 2
+
+# CMake
+
+[*.cmake]
 indent_size = 2
 
 [CMakeLists.txt]
 indent_size = 2
 
+# Visual Studio
+
+[*.{natvis,natstepfilter,props}]
+indent_size = 2
+
+# VSCode
+
 [*.code-workspace]
 indent_style = tab
 
-# comment style for lint
-[*]
-# C-style doc comments
-block_comment_start = /*
-block_comment = *
-block_comment_end = */
-line_comment = //
+# Docker
+
+[Dockerfile]
+indent_size = 2

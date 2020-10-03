@@ -5,84 +5,69 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 
-auto_cancel:
-  running:
-    when: "branch != 'master'"
-  queued:
-    when: "branch = 'master'"
+# branch filter: GUI Config
 
 global_job_config:
   env_vars:
+    - name: PARALLELS
+      value: -j8
     - name: CLANG_VERSION
+      value: "9"
+    - name: INSATLL_CLANG_TOOLS
+      value: "true"
+    - name: GCC_VERSION
       value: "7"
-    - name: UBNAME
-      value: bionic
   prologue:
     commands:
-      - checkout --use-cache
+      # - checkout --use-cache
+      - checkout
 
 blocks:
-  - name: install
-    skip:
-      when: "branch != 'master' AND branch != 'develop' AND branch !~ '^semaphore.*' AND branch !~ '.*scan-build.*'"
+  # - name: install
+  #   task:
+  #     prologue:
+  #       commands:
+  #         - cache restore
+  #     jobs:
+  #       - name: install
+  #         commands:
+  #           - echo install
+  #     epilogue:
+  #       commands:
+  #         - cache store
+  - name: tests
+    # skip:
+    #   when: "change_in(['/.circleci', '/.github', '/docs', '/*.md', '/*.yml', '/*.yaml', '/*.ini', '/LICENSE'])"
+    run:
+      when: "change_in(['/.ci', '/include', '/src', '/samples', '/test', './semaphore.yml'])"
     task:
       prologue:
         commands:
-          - cache restore
+          # - cache restore
+          - ./.ci/linux/install-clang.sh
+          - ./.ci/linux/install-gcc.sh
       jobs:
-        - name: install
+        - name: minimum_tests
           commands:
-            - echo install
-      epilogue:
-        commands:
-          - cache store
-  - name: tests
-    skip:
-      when: true
-    task:
-      jobs:
+            - cd test
+            - make CXX=clang++ run_minimum_tests RUN_OPTION=--spec
+            - ldd minimum_tests
+            - make clean
         - name: basic_tests
           commands:
             - cd test
-            - make -j8
+            - make $PARALLELS
             - make test
-  - name: scan-build
-    skip:
-      when: "branch != 'master' AND branch != 'develop' AND branch !~ '^semaphore.*' AND branch !~ '.*scan-build.*'"
-    task:
-      env_vars:
-        - name: PARALLELS
-          value: -j8
-      prologue:
-        commands:
-          - cache restore
-          - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-          - sudo apt-key update && sudo apt-get -qq update
-          - sudo add-apt-repository -y "deb http://apt.llvm.org/$UBNAME/ llvm-toolchain-$UBNAME-$CLANG_VERSION main"
-          - sudo add-apt-repository -y "deb http://apt.llvm.org/$UBNAME/ llvm-toolchain-$UBNAME main"
-          - sudo apt-key update && sudo apt-get -qq update
-          - sudo apt-cache search clang
-          - sudo apt-get -y --force-yes -qq install clang-$CLANG_VERSION clang-tools-$CLANG_VERSION
-          - sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-$CLANG_VERSION 360 --slave /usr/bin/clang++ clang++ /usr/bin/clang++-$CLANG_VERSION --slave /usr/bin/scan-build scan-build /usr/bin/scan-build-$CLANG_VERSION
-          - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-          - sudo apt-get update && sudo apt-get -qq install g++-7
-      jobs:
-        # - name: minimum_tests
-        #   commands:
-        #     - cd test
-        #     - make CXX=clang++ run_minimum_tests RUN_OPTION=--spec
-        #     - ldd minimum_tests
-        #     - make CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 test $PARALLELS
-        #     - make clean
+            - make report
         - name: scan-build
           commands:
             - cd test
             - scan-build -k make CXX=clang++ CCC_CXX=clang++ showcxxversion
             - scan-build -k --status-bugs make CXX=clang++ CCC_CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 all_tests $PARALLELS
             # - scan-build -k --status-bugs make CXX=clang++ CCC_CXX=clang++ DEFS=-DIUTEST_HAS_CXX_HDR_VARIANT=0 $PARALLELS
-        # - name: sample-run
-        #   commands:
-        #     - cd projects/make
-        #     - make run
-        #     - make clean
-        #     - make CXX=clang++ run
+        - name: sample-run
+          commands:
+            - cd projects/make
+            - make run
+            - make clean
+            - make CXX=clang++ run

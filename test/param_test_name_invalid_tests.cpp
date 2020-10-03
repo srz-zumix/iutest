@@ -36,7 +36,7 @@ IUTEST_P(RenameParamTest, Test)
     IUTEST_ASSERT_STREQ("Test", ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, RenameParamTest, ::iutest::Bool());
+IUTEST_INSTANTIATE_TEST_SUITE_P(My1, RenameParamTest, ::iutest::Bool());
 
 #endif
 

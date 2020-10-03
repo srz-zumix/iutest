@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -20,8 +20,8 @@
 /**
  * @brief   テストから見えるように fried 登録
 */
-#define IUTEST_FRIEND_TEST(testcasename_, testname_)   \
-    friend class IUTEST_TEST_CLASS_NAME_(testcasename_, testname_)
+#define IUTEST_FRIEND_TEST(testsuitename_, testname_)       \
+    friend class IUTEST_TEST_CLASS_NAME_(testsuitename_, testname_)
 
 #if !defined(_MSC_VER) || _MSC_VER > 1200
 
@@ -30,8 +30,8 @@
 /**
  * @brief   テストから見えるように fried 登録(IUTEST_TYPED_TEST 用)
 */
-#define IUTEST_FRIEND_TYPED_TEST(testcasename_, testname_) \
-    template<typename T>IUTEST_FRIEND_TEST(testcasename_, testname_)
+#define IUTEST_FRIEND_TYPED_TEST(testsuitename_, testname_) \
+    template<typename T>IUTEST_FRIEND_TEST(testsuitename_, testname_)
 
 #endif
 
@@ -40,14 +40,14 @@
 /**
  * @brief   テストから見えるように fried 登録するための宣言
 */
-#define IUTEST_FRIEND_TYPED_TEST_P_DECLARATION(testcasename_, testname_) \
-    namespace IIUT_TYPED_TEST_P_NAMESPACE_(testcasename_) { template<typename T>class testname_; }
+#define IUTEST_FRIEND_TYPED_TEST_P_DECLARATION(testsuitename_, testname_)   \
+    namespace IIUT_TYPED_TEST_P_NAMESPACE_(testsuitename_) { template<typename T>class testname_; }
 
 /**
  * @brief   テストから見えるように fried 登録(IUTEST_TYPED_TEST_P 用)
 */
-#define IUTEST_FRIEND_TYPED_TEST_P(testcasename_, testname_) \
-    template<typename T>friend class IIUT_TYPED_TEST_P_NAMESPACE_(testcasename_)::testname_
+#define IUTEST_FRIEND_TYPED_TEST_P(testsuitename_, testname_)   \
+    template<typename T>friend class IIUT_TYPED_TEST_P_NAMESPACE_(testsuitename_)::testname_
 
 #endif
 
@@ -87,7 +87,7 @@
  * @param   member_name = メンバー名
 */
 #define IUTEST_PEEP(class_name, member_name)            \
-    ::iutest::Peep< class_name, IIUT_PEEP_TAG_NAME_(class_name, member_name)<class_name> >::type
+    ::iutest::detail::peep::Peep< class_name, IIUT_PEEP_TAG_NAME_(class_name, member_name)<class_name> >::type
 
 #endif
 
@@ -122,7 +122,7 @@
 namespace iutest {
 
 //======================================================================
-// struct
+// class
 namespace detail
 {
 
@@ -137,9 +137,10 @@ struct peep_tag
 template<typename Tag>
 typename Tag::type peep_tag<Tag>::value;
 
-}   // end of namespace detail
-
 #if IUTEST_HAS_PEEP_CLASS
+
+namespace peep
+{
 
 /**
  * @brief   private メンバーアクセスオブジェクト
@@ -292,8 +293,11 @@ public:
         , type_traits::is_member_pointer<peep_type>::value >::type type;
 };
 
+}   // end of namespace peep
+
 #endif
 
+}   // end of namespace detail
 }   // end of namespace iutest
 
 #endif // INCG_IRIS_IUTEST_PROD_HPP_7A316C18_042D_4E48_BC31_E6AE8B6C2E28_

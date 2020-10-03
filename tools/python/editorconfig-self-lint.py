@@ -46,8 +46,9 @@ def main():
     if not os.path.exists(path):
         sys.stderr.write('%s not found...' % path)
         sys.exit(2)
-    ini.readfp(EditorConfig(path))
+    ini.read_file(EditorConfig(path))
     sys.exit(0)
+
 
 if __name__ == '__main__':
     main()

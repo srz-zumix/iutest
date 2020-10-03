@@ -3,7 +3,7 @@
 #
 
 # CMake バージョン
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.2)
 
 # option
 option(build_gtest_samples "gtest sample build." OFF)
@@ -24,6 +24,7 @@ endif()
 
 # プロジェクト名
 project(iutest CXX C)
+set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE NEVER)
@@ -76,17 +77,17 @@ cxx_library(iutest_main "${cxx_strict}" ${IUTEST_ROOT_DIR}/src/iutest_main.cpp)
 # サンプル
 #
 cxx_executable_sample(iutest_sample
- ${IUTEST_ROOT_DIR}/samples/main.cpp
- ${IUTEST_ROOT_DIR}/samples/assertion.cpp
- ${IUTEST_ROOT_DIR}/samples/disabledtest.cpp
- ${IUTEST_ROOT_DIR}/samples/exception.cpp
- ${IUTEST_ROOT_DIR}/samples/fixture.cpp
- ${IUTEST_ROOT_DIR}/samples/japanese.cpp
- ${IUTEST_ROOT_DIR}/samples/matcher.cpp
- ${IUTEST_ROOT_DIR}/samples/parameterized.cpp
- ${IUTEST_ROOT_DIR}/samples/printto.cpp
- ${IUTEST_ROOT_DIR}/samples/simple.cpp
- ${IUTEST_ROOT_DIR}/samples/typed.cpp
+  ${IUTEST_ROOT_DIR}/samples/main.cpp
+  ${IUTEST_ROOT_DIR}/samples/assertion.cpp
+  ${IUTEST_ROOT_DIR}/samples/disabledtest.cpp
+  ${IUTEST_ROOT_DIR}/samples/exception.cpp
+  ${IUTEST_ROOT_DIR}/samples/fixture.cpp
+  ${IUTEST_ROOT_DIR}/samples/japanese.cpp
+  ${IUTEST_ROOT_DIR}/samples/matcher.cpp
+  ${IUTEST_ROOT_DIR}/samples/parameterized.cpp
+  ${IUTEST_ROOT_DIR}/samples/printto.cpp
+  ${IUTEST_ROOT_DIR}/samples/simple.cpp
+  ${IUTEST_ROOT_DIR}/samples/typed.cpp
 )
 
 ########################################################################
@@ -113,30 +114,30 @@ endif()
 #
 if (build_tests)
   cxx_executable_test_with_main(all_tests
-   assertion_tests.cpp
-   basic_tests.cpp
-   combine_tests.cpp
-   compatibility_tests.cpp
-   filepath_tests.cpp
-   fixture_tests.cpp
-   floatingpoint_tests.cpp
-   no_failure_tests.cpp
-   nullptr_tests.cpp
-   param_test_tests1.cpp
-   param_test_tests2.cpp
-   pred_tests.cpp
-   prod_tests1.cpp
-   prod_tests2.cpp
-   spi_tests.cpp
-   static_assertion_tests.cpp
-   string_assertion_tests.cpp
-   syntax_tests.cpp
-   syntax_gtest_tests.cpp
-   type_param_tests1.cpp
-   type_param_tests2.cpp
-   type_param_tests3.cpp
-   typed_test_tests.cpp
-   values_tests.cpp
+    assertion_tests.cpp
+    basic_tests.cpp
+    combine_tests.cpp
+    compatibility_tests.cpp
+    filepath_tests.cpp
+    fixture_tests.cpp
+    floatingpoint_tests.cpp
+    no_failure_tests.cpp
+    nullptr_tests.cpp
+    param_test_tests1.cpp
+    param_test_tests2.cpp
+    pred_tests.cpp
+    prod_tests1.cpp
+    prod_tests2.cpp
+    spi_tests.cpp
+    static_assertion_tests.cpp
+    string_assertion_tests.cpp
+    syntax_tests.cpp
+    syntax_gtest_tests.cpp
+    type_param_tests1.cpp
+    type_param_tests2.cpp
+    type_param_tests3.cpp
+    typed_test_tests.cpp
+    values_tests.cpp
   )
   cxx_executable_test(assertion_return_tests)
   cxx_executable_test(assume_tests)
@@ -147,6 +148,7 @@ if (build_tests)
   cxx_executable_test(csvparams_tests)
   cxx_executable_test(cxx_feature_tests)
   cxx_executable_test(disabled_tests)
+  cxx_executable_test(empty_testname_tests)
   cxx_executable_test(env_var_gtest_tests)
   cxx_executable_test(environment_tests)
   cxx_executable_test(exception_assertion_tests)
@@ -279,6 +281,7 @@ if (build_tests)
   cxx_add_test(commandline_tests)
   cxx_add_test(csvparams_tests)
   cxx_add_test(disabled_tests)
+  cxx_add_test(empty_testname_tests)
   cxx_add_test(env_var_gtest_tests)
   cxx_add_test(environment_tests)
   cxx_add_test(exception_assertion_tests)
@@ -322,7 +325,7 @@ if (build_tests)
   cxx_add_test(uninitialize_tests)
   cxx_add_test(util_tests)
   if (build_namespace_tests)
-      cxx_add_test(namespace_tests)
+    cxx_add_test(namespace_tests)
   endif()
   # iutest only
   cxx_add_test(default_main_tests)
@@ -351,20 +354,20 @@ if (build_tests)
 endif()
 
 install(TARGETS iutest
-    EXPORT iutest-export
-    ARCHIVE  DESTINATION lib
-    LIBRARY  DESTINATION lib
-    COMPONENT   library
-    )
+  EXPORT iutest-export
+  ARCHIVE   DESTINATION lib
+  LIBRARY   DESTINATION lib
+  COMPONENT library
+)
 install(TARGETS iutest_main
-    ARCHIVE  DESTINATION lib
-    LIBRARY  DESTINATION lib
-    COMPONENT   library
-    )
+  ARCHIVE   DESTINATION lib
+  LIBRARY   DESTINATION lib
+  COMPONENT library
+)
 install(DIRECTORY ${IUTEST_ROOT_DIR}/include/
-    DESTINATION include/iutest
-    )
+  DESTINATION include/iutest
+)
 install(EXPORT iutest-export
-    FILE IUTEST-config.cmake
-    DESTINATION share/cmake/iutest/
-    )
+  FILE IUTEST-config.cmake
+  DESTINATION share/cmake/iutest/
+)

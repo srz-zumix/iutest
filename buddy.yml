@@ -13,11 +13,9 @@
     docker_image_name: "library/gcc"
     docker_image_tag: "7"
     execute_commands:
-    - "cd projects/make"
-    - "make run"
+    - "cd projects/make && make run"
     mount_filesystem_path: "/buddy/iutest"
     shell: "SH"
-    trigger_condition: "ALWAYS"
 # - action: "Execute: make bench"
   #   type: "BUILD"
   #   working_directory: "/buddy/iutest"

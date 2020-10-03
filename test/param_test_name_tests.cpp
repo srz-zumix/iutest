@@ -16,7 +16,6 @@
 //======================================================================
 // include
 #include "iutest.hpp"
-
 #include "main.cpp"
 
 #if IUTEST_HAS_PARAM_TEST
@@ -44,7 +43,7 @@ IUTEST_P(iuRenameParamTest, Test)
     }
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(My1, iuRenameParamTest, ::iutest::Bool());
+IUTEST_INSTANTIATE_TEST_SUITE_P(My1, iuRenameParamTest, ::iutest::Bool());
 
 #endif
 
@@ -72,16 +71,16 @@ IUTEST_P(RenameParamTest, Test)
     IUTEST_ASSERT_STREQ(name, ::iutest::UnitTest::GetInstance()->current_test_info()->name());
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(CustomParamNameFunctor, RenameParamTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(CustomParamNameFunctor, RenameParamTest
                                 , ::iutest::Values("abcdefghijklmnopqrstuvwxyz", "1234567890")
                                 , CustomParamNameFunctor() );
 
-IUTEST_INSTANTIATE_TEST_CASE_P(CustomParamNameFunction, RenameParamTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(CustomParamNameFunction, RenameParamTest
                                 , ::iutest::Values("abcdefghijklmnopqrstuvwxyz", "1234567890")
                                 , CustomParamNameFunction );
 
 #if IUTEST_HAS_LAMBDA
-IUTEST_INSTANTIATE_TEST_CASE_P(CustomParamNameLambda, RenameParamTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(CustomParamNameLambda, RenameParamTest
                                 , ::iutest::Values("abcdefghijklmnopqrstuvwxyz", "1234567890")
                                 , [](const ::iutest::TestParamInfo< ::std::string >& info) {
                                     return info.param;

@@ -12,6 +12,15 @@
 		],
 		"files.associations": {
 			"*.ipp": "cpp",
+			"*.inl": "cpp",
+			"*.in": "makefile",
+			".ecrc": "json",
+			".nuspec": "xml",
+			".targets": "xml",
+			".props": "xml",
+			".nativs": "xml",
+			".natstepfilter": "xml",
+			".wsf": "xml",
 			"future": "cpp",
 			"system_error": "cpp",
 			"random": "cpp",
@@ -83,7 +92,13 @@
 			"xtr1common": "cpp",
 			"xtree": "cpp",
 			"xutility": "cpp",
-			"concepts": "cpp"
+			"concepts": "cpp",
+			"charconv": "cpp",
+			"__functional_base": "cpp",
+			"__functional_base_03": "cpp",
+			"__hash_table": "cpp",
+			"__tree": "cpp",
+			"__tuple": "cpp"
 		}
 	},
 	"launch": {
@@ -101,5 +116,7 @@
 			}
 		],
 		"compounds": []
-	}
+	},
+	"C_Cpp.default.cppStandard": "c++17",
+	"C_Cpp.default.includePath": [ "${workspaceFolder}/include" ],
 }

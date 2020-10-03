@@ -4,59 +4,141 @@ trigger:
     include:
       - master
       - develop
+  paths:
+    exclude:
+      - "*.md"
+      - docs/*
+      - Jenkinsfile
+      - LICENSE
+      - .bandit
+      - .editorconfig
+      - .hadolint.yaml
+      - .lgtm.yaml
+      - .git*
+      - "*.ini"
+      - "*.wsf"
+      - appveyor.yml
+      - bitrise.yml
+      - buddy.yml
+      - .circleci/*
+      - .cirrus.yml
+      - .scrutinizer.yml
+      - codecov.yml
+      - codefresh.yml
+      - codeship-services.yml
+      - codeship-steps.yml
+      - .drone.yml
+      - .github/*
+      - .razorops.yaml
+      - .semaphore/*
+      - shippable.yml
+      - sider.yml
+      - .travis.yml
+      - wercker.yml
+
+pr:
+  branches:
+    # base branch name filter
+    include:
+      - master
+      - develop
       - azure-pipelines/*
       - azurepipelines/*
   paths:
     exclude:
       - "*.md"
       - docs/*
-      - .circleci/*
-      - .cirrus.yml
-      - .travis.yml
+      - Jenkinsfile
+      - LICENSE
+      - .bandit
+      - .editorconfig
+      - .hadolint.yaml
+      - .lgtm.yaml
+      - .git*
+      - "*.ini"
+      - "*.wsf"
       - appveyor.yml
       - bitrise.yml
       - buddy.yml
+      - .circleci/*
+      - .cirrus.yml
+      - .scrutinizer.yml
       - codecov.yml
       - codefresh.yml
-      - rocro.yml
+      - codeship-services.yml
+      - codeship-steps.yml
+      - .drone.yml
+      - .github/*
+      - .razorops.yaml
+      - .semaphore/*
       - shippable.yml
+      - sider.yml
+      - .travis.yml
       - wercker.yml
-      - Jenkinsfile
-      - .editorconfig
 
-pr:
-  branches:
-    include:
-      - master
-      - develop
-      - feature/*
-
-jobs:
-  - job: syntax_test
-    pool:
-      vmImage: ubuntu-16.04
-    steps:
-      - script: make -C test -j4 syntax_tests_run
-        displayName: 'syntax test'
-  - template: .ci/azure_pipelines/template-make-test.yml
-    parameters:
-      name: default
-  - template: .ci/azure_pipelines/template-make-disabled-test.yml
-    parameters:
-      name: disabled
-  - template: .ci/azure_pipelines/template-make-nofeature-test.yml
-    parameters:
-      name: nofeature
-  # - job: publish
-  #   pool:
-  #     vmImage: ubuntu-16.04
+stages:
+  - stage: Precheck
+    jobs:
+      - job: syntax_test
+        pool:
+          vmImage: ubuntu-16.04
+        steps:
+          - script: make -C test -j4 syntax_tests_run
+            displayName: 'syntax test'
+  - stage: Test
+    dependsOn: Precheck
+    jobs:
+      - template: .ci/azure_pipelines/template-make-test.yml
+        parameters:
+          name: default
+  - stage: ConfigDisabledTest
+    dependsOn: Precheck
+    jobs:
+      - template: .ci/azure_pipelines/template-make-disabled-test.yml
+        parameters:
+          name: disabled
+  - stage: ConfigNoFeatureTest
+    dependsOn: Precheck
+    jobs:
+      - template: .ci/azure_pipelines/template-make-nofeature-test.yml
+        parameters:
+          name: nofeature
+  - stage: MixConfigTest
+    dependsOn: Precheck
+    jobs:
+      - template: .ci/azure_pipelines/template-make-mix-test.yml
+        parameters:
+          name: mix
+  - stage: VisualStudio
+    dependsOn: Precheck
+    jobs:
+      - job: vstest
+        strategy:
+          matrix:
+            NO_EXCEPTION_HANDLER:
+              CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_no_exceptions=ON
+            USE_EXPERIMENTAL:
+              CMAKE_OPTIONS: -Dbuild_gtest_samples=ON -Dbuild_use_experimental=ON
+        pool:
+          vmImage: windows-2019
+        steps:
+        - template: .ci/azure_pipelines/template-cmake-steps.yml
+          parameters:
+            generator_name: Visual Studio 16 2019
+            platform: x64
+            cmake_options: "${CMAKE_OPTIONS}"
+  # - stage: Publish
   #   dependsOn:
-  #     - disabled
-  #     - nofeature
-  #   condition: always()
-  #   steps:
-  #     - task: PublishPipelineArtifact@0
-  #       inputs:
-  #         artifactName: 'xml2file'
-  #         targetPath: $(Build.ArtifactStagingDirectory)
-
+  #     Test
+  #     ConfigDisabledTest
+  #     ConfigNoFeatureTest
+  #   jobs:
+  #     - job: publish
+  #       pool:
+  #         vmImage: ubuntu-16.04
+  #       condition: always()
+  #       steps:
+  #         - task: PublishPipelineArtifact@0
+  #           inputs:
+  #             artifactName: 'xml2file'
+  #             targetPath: $(Build.ArtifactStagingDirectory)

@@ -1,0 +1,44 @@
+# iutest using codeship basic
+# this file is codeship settings sample
+- type: parallel
+  exclude: gh-pages
+  steps:
+    - name: cpplint
+      service: iutest
+      command: make -C /work/test/cpplint
+    - name: check-include-guard
+      service: iutest
+      command: make -C /work/test check_incg
+    - name: check-documents
+      service: iutest
+      command:  make -C /work/test/docs version-test doxygen-test
+    - name: editorconfig-self-lint
+      service: iutest
+      command: make -C /work editorconfig-self-lint
+    - name: check-fullpath
+      service: iutest
+      command: make -C /work/test/repository check-fullpath
+    - name: check-crlf
+      service: iutest
+      command: /work/.ci/check-crlf.sh
+
+- type: parallel
+  exclude: gh-pages
+  steps:
+    - name: check-remote-crlf
+      service: iutest
+      command: make -C /work/test/repository check-remote-crlf
+
+- type: parallel
+  tag: master
+  steps:
+    - name: sync-svn
+      service: iutest
+      command:  /work/.ci/sync-svn.sh
+
+- type: parallel
+  tag: v.*
+  steps:
+    - name: sync-svn
+      service: iutest
+      command:  /work/.ci/sync-svn-tag.sh

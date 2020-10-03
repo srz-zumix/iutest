@@ -1,4 +1,18 @@
-﻿
+﻿//======================================================================
+//-----------------------------------------------------------------------
+/**
+ * @file        main.cpp
+ * @brief       gmock sample
+ *
+ * @author      t.shirayanagi
+ * @par         copyright
+ * Copyright (C) 2020, Takazumi Shirayanagi\n
+ * This software is released under the new BSD License,
+ * see LICENSE
+*/
+//-----------------------------------------------------------------------
+//======================================================================
+
 /*
  * is not available vprintf, can be replaced.
 */
@@ -20,11 +34,11 @@ int main(int argc, char* argv[])
 {
     ::testing::InitGoogleMock(&argc, argv);
     IUTEST_INIT(&argc, argv);
-    return IUTEST_RUN_ALL_TESTS();	// run all
+    return IUTEST_RUN_ALL_TESTS();  // run all
 }
 
 /**
- * @brief	モック対象のオブジェクト
+ * @brief   モック対象のオブジェクト
 */
 class Foo
 {
@@ -33,7 +47,7 @@ public:
 };
 
 /**
- * @brief	モック
+ * @brief   モック
 */
 class MockFoo : public Foo
 {
@@ -42,13 +56,13 @@ public:
 };
 
 /**
- * @brief	テストしたいクラス
+ * @brief   テストしたいクラス
 */
 class FooTest
 {
-    Foo*	m_foo;
+    Foo*    m_foo;
 public:
-    FooTest(Foo* foo) : m_foo(foo) {}
+    explicit FooTest(Foo* foo) : m_foo(foo) {}
 
     ::std::string name(void) { return m_foo->name(); }
     ::std::string repeat(int n)

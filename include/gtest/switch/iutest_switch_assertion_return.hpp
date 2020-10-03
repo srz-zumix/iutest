@@ -25,13 +25,18 @@
 #  undef IUTEST_HAS_ASSERTION_RETURN
 #endif
 
-#ifdef GTEST_MESSAGE_AT_
-#  undef GTEST_MESSAGE_AT_
-#endif
-
 //======================================================================
 // define
 #define IUTEST_HAS_ASSERTION_RETURN 1
+
+#if defined(GTEST_MESSAGE_AT_)
+#  undef GTEST_MESSAGE_AT_
+#else
+#  if defined(GTEST_MESSAGE_)
+#    undef GTEST_MESSAGE_
+#    define GTEST_MESSAGE_(message, result_type) GTEST_MESSAGE_AT_(__FILE__, __LINE__, message, result_type)
+#  endif
+#endif
 
 #define GTEST_MESSAGE_AT_(file, line, message, result_type)                 \
     ::testing::internal::AssertHelperEx(result_type, file, line, message)   \

@@ -25,8 +25,8 @@ static int random_speed_test_count = 0;
 class MyEnvironment : public ::iutest::Environment
 {
 private:
-    virtual void SetUp(void) {}
-    virtual void TearDown(void) { seed = ::iutest::UnitTest::GetInstance()->random_seed(); ++random_speed_test_count; }
+    virtual void SetUp(void) IUTEST_CXX_OVERRIDE {}
+    virtual void TearDown(void) IUTEST_CXX_OVERRIDE { seed = ::iutest::UnitTest::GetInstance()->random_seed(); ++random_speed_test_count; }
 };
 
 IUTEST(Foo, Bar)
@@ -48,7 +48,7 @@ const int kNumberOfParamTests = 10;
 
 class OrderTest : public ::iutest::TestWithParam<int> {};
 
-IUTEST_INSTANTIATE_TEST_CASE_P(Foo, OrderTest, ::iutest::Range<int>(0, kNumberOfParamTests));
+IUTEST_INSTANTIATE_TEST_SUITE_P(Foo, OrderTest, ::iutest::Range<int>(0, kNumberOfParamTests));
 
 IUTEST_P(OrderTest, Bar)
 {

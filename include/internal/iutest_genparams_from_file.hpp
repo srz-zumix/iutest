@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2015-2018, Takazumi Shirayanagi\n
+ * Copyright (C) 2015-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -41,17 +41,6 @@ public:
     }
 
 private:
-    bool ToParam(const ::std::string& data, T& param)
-    {
-        ::std::istringstream strm(data);
-        if( strm >> param )
-        {
-            return true;
-        }
-        return false;
-    }
-
-private:
     void AppendParams(params_t& params, const ::std::string& data)
     {
         if( StringIsBlank(data) )
@@ -59,7 +48,7 @@ private:
             return;
         }
         T param;
-        if( !ToParam(data, param) )
+        if( !StringToValue(data, param) )
         {
             return;
         }
@@ -96,22 +85,6 @@ private:
         return params;
     }
 };
-
-template<>inline bool iuCsvFileParamsGenerator<float>::ToParam(const ::std::string& data, float& param)
-{
-#if IUTEST_HAS_STD_STR_TO_VALUE
-    param = ::std::stof(data);
-    return true;
-#else
-    ::std::istringstream strm(data);
-    if( !(strm >> param) )
-    {
-        param = static_cast<float>(atof(data.c_str()));
-    }
-    return true;
-#endif
-}
-
 
 }   // end of namespace detail
 }   // end of namespace iutest

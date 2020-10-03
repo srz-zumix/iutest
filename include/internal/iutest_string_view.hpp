@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2019-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -24,6 +24,7 @@
 #if IUTEST_HAS_EXCEPTIONS
 #  include <stdexcept>
 #endif
+#include <climits>
 
 namespace iutest {
 namespace detail
@@ -58,6 +59,15 @@ public:
 
 public:
     static const size_type npos = static_cast<size_type >(-1);
+
+private:
+    static const size_type size_type_max = static_cast<size_type>(
+#if defined(PTRDIFF_MAX)
+        PTRDIFF_MAX
+#else
+        INT_MAX
+#endif
+    );
 
 public:
     IUTEST_CXX_CONSTEXPR iu_basic_string_view() IUTEST_CXX_NOEXCEPT_SPEC
@@ -127,7 +137,7 @@ public:
     }
     IUTEST_CXX_CONSTEXPR size_type max_size() const IUTEST_CXX_NOEXCEPT_SPEC
     {
-        return (::std::min)(static_cast<size_type>(PTRDIFF_MAX), static_cast<size_type>(-1) / sizeof(value_type));
+        return (::std::min)(size_type_max, static_cast<size_type>(-1) / sizeof(value_type));
     }
     IUTEST_CXX_CONSTEXPR bool empty() const IUTEST_CXX_NOEXCEPT_SPEC
     {

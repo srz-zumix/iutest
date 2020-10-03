@@ -2,10 +2,43 @@
 
 --------------------------------------------------
 
-## Changes for 1.17.0
+## Changes for 1.17.99
+
+* Improved
+  * 空のテストスイート名・テスト名に static_assert を追加
+  * GoogleTest の GTEST_REMOVE_LEGACY_TEST_CASEAPI_ に対応
+
+* Changes
+  * TestCase の別名 TestSuite に対応（iutest はどちらもサポートし続けます）
+
+* Bug fixes
+  * その他いくつかの不具合を修正
+
+--------------------------------------------------
+
+## Changes for 1.17.1
 
 * New
   * GTEST_SKIP 対応
+  * IUTEST_*_NE_RANGE アサーションを追加
+  * IUTEST_*_NE_COLLECTIONS アサーションを追加
+
+* Improved
+  * ::std::wstring_view / ::std::u16string_view / ::std::u32string_view 対応
+  * Variadic Templates 非対応コンパイラーでの型パラメータの型表示を改善
+
+* Changes
+  * アサーションに operator << したときの出力を PrintToString したものと同じになるように変更
+  * iuwandbox: Wandbox 向けにサイズ圧縮したヘッダーをデフォルトで使用するように変更
+  * iuwandbox: 上記に伴いフルバージョンのヘッダーを使うオプション(--no-iutest-use-wandbox-min)を追加
+  * deprecated: iuwandbox: --iutest-use-wandbox-min
+  * Python2 のサポート終了
+
+* Bug fixes
+  * C++20 で削除された basic_ostream::operator << に対応
+  * IUTEST_AP が同じ名前空間に複数定義できない問題を修正
+  * Google Test 旧バージョンとの互換性を修正
+  * その他いくつかの不具合を修正
 
 --------------------------------------------------
 

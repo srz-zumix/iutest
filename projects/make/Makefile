@@ -1,6 +1,6 @@
 # sample Makefile
 #
-# Copyright (C) 2018, Takazumi Shirayanagi
+# Copyright (C) 2018-2020, Takazumi Shirayanagi
 # This software is released under the new BSD License,
 # see LICENSE
 #
@@ -19,16 +19,16 @@ IUTEST_DIR = ../..
 # sample code
 SAMPLE_DIR = ../../samples
 SAMPLE_SRCS = main.cpp \
-              assertion.cpp \
-              disabledtest.cpp \
-              exception.cpp \
-              fixture.cpp \
-			  japanese.cpp \
-              matcher.cpp \
-              parameterized.cpp \
-              printto.cpp \
-              simple.cpp \
-              typed.cpp
+			assertion.cpp \
+			disabledtest.cpp \
+			exception.cpp \
+			fixture.cpp \
+			japanese.cpp \
+			matcher.cpp \
+			parameterized.cpp \
+			printto.cpp \
+			simple.cpp \
+			typed.cpp
 
 SAMPLE_OBJS = $(SAMPLE_SRCS:%.cpp=%.o)
 
@@ -60,15 +60,15 @@ LIBRARYS  = $(LIBRARYS_:%=$(LIBRARY_INSTALL_PATH)/lib%)
 
 # All iutest headers.  Usually you shouldn't change this
 # definition.
-IUTEST_HEADERS = $(IUTEST_DIR)/include/*.hpp \
-                 $(IUTEST_DIR)/include/impl/*.ipp \
-                 $(IUTEST_DIR)/include/internal/*.hpp \
-                 $(IUTEST_DIR)/include/listener/*.hpp \
-                 $(IUTEST_DIR)/include/util/*.hpp \
-                 $(IUTEST_DIR)/include/gtest/*.hpp
+IUTEST_HEADERS =$(IUTEST_DIR)/include/*.hpp \
+				$(IUTEST_DIR)/include/impl/*.ipp \
+				$(IUTEST_DIR)/include/internal/*.hpp \
+				$(IUTEST_DIR)/include/listener/*.hpp \
+				$(IUTEST_DIR)/include/util/*.hpp \
+				$(IUTEST_DIR)/include/gtest/*.hpp
 
-IUTEST_SRCS    = $(IUTEST_DIR)/src/*.cpp \
-                 $(IUTEST_HEADERS)
+IUTEST_SRCS    =$(IUTEST_DIR)/src/*.cpp \
+				$(IUTEST_HEADERS)
 
 # House-keeping build targets.
 

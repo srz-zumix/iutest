@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -17,7 +17,22 @@
 // include
 #include "iutest.hpp"
 
-#if IUTEST_HAS_EXCEPTIONS
+#if defined(IUTEST_USE_GTEST)
+#  if GTEST_VER < 0x01060000 && !IUTEST_HAS_SEH
+#    define EXCEPTION_CATCH_TEST  0
+#  endif
+#endif
+
+#if !defined(EXCEPTION_CATCH_TEST)
+#  if IUTEST_HAS_EXCEPTIONS
+#    define EXCEPTION_CATCH_TEST  1
+#  else
+#    define EXCEPTION_CATCH_TEST  0
+#  endif
+#endif
+
+
+#if EXCEPTION_CATCH_TEST
 #include <stdexcept>
 
 IUTEST(ExceptionTest, StdExceptionThrow)
@@ -39,7 +54,9 @@ int main(int argc, char* argv[])
 #endif
 {
     IUTEST_INIT(&argc, argv);
-#if IUTEST_HAS_EXCEPTIONS
+#if EXCEPTION_CATCH_TEST
+    ::iutest::IUTEST_FLAG(catch_exceptions) = true;
+
 #if defined(OUTPUTXML)
     // 失敗テストを含むので xml 出力しない
     ::iutest::IUTEST_FLAG(output) = NULL;

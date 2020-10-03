@@ -48,4 +48,10 @@
       <Filter>params</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="..\..\tools\VisualStudio\Visualizers\iutest.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\tools\VisualStudio\Visualizers\iutest.natstepfilter" />
+  </ItemGroup>
 </Project>

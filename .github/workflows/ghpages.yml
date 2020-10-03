@@ -1,0 +1,26 @@
+name: GitHubPages
+on:
+  push:
+    branches:
+      - master
+      - 'ghpages/**'
+    paths:
+      - 'include/**'
+      - 'docs/**'
+      - '.github/actions/update-ghpages/**'
+      - '.github/workflows/ghpages.yml'
+    tags:
+      - v*
+
+jobs:
+  update_document:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Update GitHub Pages
+      uses: ./.github/actions/update-ghpages
+      with:
+        github_token: ${{ secrets.github_token }}
+        github_email: ${{ secrets.GHPAGES_COMMIT_USER_EMAIL }}
+
+

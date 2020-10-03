@@ -2,11 +2,11 @@
 //-----------------------------------------------------------------------
 /**
  * @file        combine_tests.cpp
- * @brief       Combine 対応テスト
+ * @brief       test ;;iutest::Combine
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,7 +31,7 @@ public:
     static Tuple list[2*2*TABLE_SIZE];
 
 public:
-    static void SetUpTestCase(void) { index = 0; }
+    static void SetUpTestSuite(void) { index = 0; }
 };
 
 int CombineTest::index = 0;
@@ -48,7 +48,7 @@ CombineTest::Tuple CombineTest::list[2*2*CombineTest::TABLE_SIZE] = {
 
 IUTEST_P(CombineTest, Num)
 {
-    IUTEST_EXPECT_EQ( (2*2*TABLE_SIZE) * 2, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count() );
+    IUTEST_EXPECT_EQ( (2*2*TABLE_SIZE) * 2, ::iuutil::GetCurrentTestSuite()->total_test_count() );
 }
 
 IUTEST_P(CombineTest, Param)
@@ -56,16 +56,16 @@ IUTEST_P(CombineTest, Param)
     IUTEST_EXPECT_EQ( list[index++], GetParam() );
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(A, CombineTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, CombineTest
     , ::iutest::Combine(::iutest::Bool(), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble)));
 #if IUTEST_HAS_CONCAT
-IUTEST_INSTANTIATE_TEST_CASE_P(B, CombineTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(B, CombineTest
     , ::iutest::Concat(
         ::iutest::Combine(::iutest::Values(false), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble))
         , ::iutest::Combine(::iutest::Values(true), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble))
     )
     );
-IUTEST_INSTANTIATE_TEST_CASE_P(C, CombineTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(C, CombineTest
     , ::iutest::Combine(::iutest::Values(false), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble))
         + ::iutest::Combine(::iutest::Values(true), ::iutest::Values(1, 10), ::iutest::ValuesIn(tble))
     );
@@ -80,9 +80,9 @@ IUTEST_P(CombineInTest, A)
 {
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(A, CombineInTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, CombineInTest
     , ::iutest::Combine( ::iutest::Combine(::iutest::Bool(), ::iutest::Values(1, 10)), ::iutest::ValuesIn(tble)) );
-IUTEST_INSTANTIATE_TEST_CASE_P(B, CombineInTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(B, CombineInTest
     , ::iutest::Combine( ::iutest::Values( ::iutest::tuples::tuple<bool, int>(false, 1), ::iutest::tuples::tuple<bool, int>(true, 10) )
         , ::iutest::ValuesIn(tble)) );
 
@@ -126,11 +126,11 @@ int VariadicCombineTest::count = 0;
 
 IUTEST_P(VariadicCombineTest, Num)
 {
-    IUTEST_EXPECT_EQ( num, ::iutest::UnitTest::GetInstance()->current_test_case()->total_test_count() );
+    IUTEST_EXPECT_EQ( num, ::iuutil::GetCurrentTestSuite()->total_test_count() );
     IUTEST_EXPECT_EQ( count_to_tuple(count++), GetParam() );
 }
 
-IUTEST_INSTANTIATE_TEST_CASE_P(A, VariadicCombineTest
+IUTEST_INSTANTIATE_TEST_SUITE_P(A, VariadicCombineTest
     , ::iutest::Combine(::iutest::ValuesIn(test_table)
         , ::iutest::ValuesIn(test_table)
         , ::iutest::ValuesIn(test_table)

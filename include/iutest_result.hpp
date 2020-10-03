@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2017, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -75,9 +75,6 @@ public:
     */
     TestPartResult(const char* file, int line, const char* message, Type type)
         : detail::iuCodeMessage(file, line, message), m_type(type) {}
-    //! コピーコンストラクタ
-    TestPartResult(const TestPartResult& rhs) : detail::iuCodeMessage(rhs)
-        , m_type(rhs.m_type) {}
 
 public:
     /**
@@ -377,7 +374,7 @@ private:
 private:
     friend class UnitTestImpl;
     friend class TestInfo;
-    friend class TestCase;
+    friend class TestSuite;
     friend class detail::DefaultGlobalTestPartResultReporter;
 
     TestPartResults m_test_part_results;
