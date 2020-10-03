@@ -137,12 +137,14 @@ IUTEST(EventListenerTest, FlagCheck)
     IUTEST_ASSERT_FALSE( listener->called_OnTestProgramEnd );
 
     IUTEST_ASSERT_FALSE( listener->called_OnTestPartResult );
-    IUTEST_EXPECT_EQ(1, 2);
+    IUTEST_INFORM_EQ(1, 2);
     IUTEST_ASSERT_TRUE( listener->called_OnTestPartResult );
 
+#if !defined(IUTEST_USE_GTEST)
     IUTEST_ASSERT_FALSE( listener->called_OnTestRecordProperty );
     RecordProperty("dummy", 0);
     IUTEST_ASSERT_TRUE( listener->called_OnTestRecordProperty );
+#endif
 }
 
 #ifdef UNICODE
@@ -152,10 +154,6 @@ int main(int argc, char* argv[])
 #endif
 {
     IUTEST_INIT(&argc, argv);
-#if defined(OUTPUTXML)
-    // 失敗テストを含むので xml 出力しない
-    ::iutest::IUTEST_FLAG(output) = NULL;
-#endif
 
     ::iutest::TestEventListeners& listeners = ::iutest::UnitTest::GetInstance()->listeners();
     listener = new MyTestEventListener();
@@ -170,7 +168,5 @@ int main(int argc, char* argv[])
     IUTEST_ASSERT_EXIT( listener->called_OnTestIterationEnd );
     IUTEST_ASSERT_EXIT( listener->called_OnTestProgramEnd );
 
-    if( ret == 0 ) return 1;
-    printf("*** Successful ***\n");
-    return 0;
+    return ret;
 }
