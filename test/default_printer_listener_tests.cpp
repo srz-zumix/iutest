@@ -24,11 +24,11 @@ static ::std::string s_log_testcases;
 class LoggerClear : public ::iutest::Environment
 {
 private:
-    virtual void SetUp(void)
+    virtual void SetUp(void) IUTEST_CXX_OVERRIDE
     {
         logger.clear();
     }
-    virtual void TearDown(void)
+    virtual void TearDown(void) IUTEST_CXX_OVERRIDE
     {
         s_log_testcases = logger.c_str();
         logger.clear();
