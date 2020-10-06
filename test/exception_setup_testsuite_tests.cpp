@@ -1,12 +1,12 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file        exception_tests.cpp
- * @brief       iutest test 例外テスト
+ * @file        exception_setup_testsuite_tests.cpp
+ * @brief       iutest exception at SetUpTestSuite
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2014-2020, Takazumi Shirayanagi\n
+ * Copyright (C) 2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -31,19 +31,7 @@
 #  endif
 #endif
 
-
 #if EXCEPTION_CATCH_TEST
-#include <stdexcept>
-
-IUTEST(ExceptionTest, StdExceptionThrow)
-{
-    throw ::std::runtime_error("ExceptionTest");
-}
-
-IUTEST(ExceptionTest, Throw)
-{
-    throw "ExceptionTest";
-}
 
 class ExceptionSetUpTest : public ::iuutil::backward::Test<ExceptionSetUpTest>
 {
@@ -76,10 +64,10 @@ int main(int argc, char* argv[])
 #endif
     if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
 #if IUTEST_HAS_ASSERTION_RETURN
-    IUTEST_ASSERT_EQ(2, ::iutest::UnitTest::GetInstance()->failed_test_count())
+    IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->failed_test_count())
         << ::iutest::AssertionReturn<int>(1);
 #else
-    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
+    IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 0 );
 #endif
 
 #endif
