@@ -75,7 +75,7 @@ jobs:
       with:
         python-version: ${{ env.PYTHON_VERSION }}
     - name: Set Python environment variable
-      run: echo '::set-env name=LD_LIBRARY_PATH::${{ env.pythonLocation }}/lib'
+      run: echo "LD_LIBRARY_PATH=${{ env.pythonLocation }}/lib" >> $GITHUB_ENV
     - name: zapcc test
       run: |
         make -C test clean
