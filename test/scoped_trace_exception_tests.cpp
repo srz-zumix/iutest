@@ -100,8 +100,6 @@ int wmain(int argc, wchar_t* argv[])
 int main(int argc, char* argv[])
 #endif
 {
-    IUTEST_UNUSED_VAR(argc);
-    IUTEST_UNUSED_VAR(argv);
 #if EXCEPTION_CATCH_TEST
     IUTEST_INIT(&argc, argv);
     ::iutest::IUTEST_FLAG(catch_exceptions) = true;
@@ -167,6 +165,9 @@ int main(int argc, char* argv[])
     IUTEST_ASSERT_STRNOTIN("ScopedTraceExceptionTest Scoped Exception D", logger.c_str())
         << ::iutest::AssertionReturn<int>(1);
 
+#else
+    IUTEST_UNUSED_VAR(argc);
+    IUTEST_UNUSED_VAR(argv);
 #endif
     printf("*** Successful ***\n");
     return 0;
