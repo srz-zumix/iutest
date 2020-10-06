@@ -53,7 +53,7 @@ public:
     static ::std::string Get();
 };
 
-}
+}   // end of namespace detail
 
 //======================================================================
 // class
