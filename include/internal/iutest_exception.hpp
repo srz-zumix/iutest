@@ -44,10 +44,20 @@ inline ::std::string FormatCxxException(const char* description)
     return strm.str();
 }
 
+// class scoped_trace_uncaught_exception : public ::std::exception
+// {
+// public:
+//     scoped_trace_uncaught_exception() : ::std::exception() {}
+//     explicit scoped_trace_uncaught_exception(const char *const& what) : ::std::exception(what), inner(IUTEST_NULLPTR) {}
+//     scoped_trace_uncaught_exception(const char *const& what, ::std::exception* nested) : ::std::exception(what), inner(nested) {}
+// private:
+//     ::std::exception* inner;
+// };
+
 }   // end of namespace detail
 }   // end of namespace iutest
 
-#if IUTEST_HAS_SEH && IUTEST_HAS_EXCEPTIONS
+#if IUTEST_HAS_SEH
 #include <iomanip>
 
 namespace iutest {
@@ -61,7 +71,7 @@ class seh_exception : public ::std::exception
 {
 public:
     seh_exception() : ::std::exception() {}
-    explicit seh_exception(const char *const& _What) : ::std::exception(_What) {}
+    explicit seh_exception(const char *const& what) : ::std::exception(what) {}
 public:
     static void translator(DWORD code, _EXCEPTION_POINTERS* ep)
     {

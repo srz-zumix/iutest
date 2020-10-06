@@ -217,6 +217,10 @@ public:
         ~ScopedMessage()
         {
             ScopedTrace::GetInstance().list.remove(this);
+            if( stl::uncaught_exception() )
+            {
+                ScopedTrace::GetInstance().uncaught_messages.push_back(*this);
+            }
         }
     };
 private:
@@ -228,20 +232,29 @@ private:
 #else
         typedef ::std::list<ScopedMessage*> msg_list;
 #endif
+        typedef ::std::vector<detail::iuCodeMessage> uncaught_messages_type;
+
         msg_list list;
+        uncaught_messages_type uncaught_messages;
+
         static ScopedTrace& GetInstance() { static ScopedTrace inst; return inst; }
     public:
         void append_message(TestPartResult& part_result)
         {
-            if( list.size() )
+            if( !list.empty() || !uncaught_messages.empty() )
             {
                 part_result.add_message("\niutest trace:");
+                // TODO : 追加メッセージとして保存するべき
+                // 現状はテスト結果のメッセージに追加している。
                 for( msg_list::iterator it = list.begin(), end=list.end(); it != end; ++it )
                 {
-                    // TODO : 追加メッセージとして保存するべき
-                    // 現状はテスト結果のメッセージに追加している。
                     part_result.add_message("\n");
                     part_result.add_message((*it)->make_message().c_str());
+                }
+                for( uncaught_messages_type::iterator it = uncaught_messages.begin(), end=uncaught_messages.end(); it != end; ++it)
+                {
+                    part_result.add_message("\n");
+                    part_result.add_message(it->make_message().c_str());
                 }
             }
         }
