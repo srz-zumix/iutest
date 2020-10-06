@@ -41,16 +41,18 @@ inline ::std::string StreamableToString(const T& value)
 // declare
 namespace detail
 {
-    //! TestPartResultReporter がない場合の処理関数
-    void DefaultReportTestPartResult(const TestPartResult& test_part_result);
 
-    class UncaughtScopedTrace
-    {
-    public:
-        static void Add(const detail::iuCodeMessage& msg);
-        static bool Has();
-        static ::std::string Get();
-    };
+//! TestPartResultReporter がない場合の処理関数
+void DefaultReportTestPartResult(const TestPartResult& test_part_result);
+
+class UncaughtScopedTrace
+{
+public:
+    static void Add(const detail::iuCodeMessage& msg);
+    static bool Has();
+    static ::std::string Get();
+};
+
 }
 
 //======================================================================
