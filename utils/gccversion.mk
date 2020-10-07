@@ -125,18 +125,20 @@ include $(UTILS_MAKEFILE_DIR)/stdcver.mk
 
 # until 4.6
 ifeq (1,$(shell expr \( $(GCCMAJOR) \< 4 \) \| \( $(GCCMAJOR) = 4 \& $(GCCMINOR) \< 6 \)))
-IUTEST_CXX_WARN_FLAGS+=-Wno-sign-compare
-IUTEST_CXX_WARN_FLAGS+=-Wno-conversion-null
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-sign-compare
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-conversion-null
 endif
 
 # arm
 ifeq ($(findstring arm, $(CXX)), arm)
-IUTEST_CXX_WARN_FLAGS+=-Wno-psabi
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-psabi
 endif
 
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) ))
-IUTEST_CXX_WARN_FLAGS+=-Wno-missing-field-initializers
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-missing-field-initializers
 endif
+
+IUTEST_CXX_STRICT_FLAGS+=-Wmissing-noreturn
 
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 3 \) ))
 IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code
