@@ -240,6 +240,7 @@ private:
     friend class UnitTestImpl;
     friend class UnitTest;
     friend class TestSuite;
+    friend class detail::UncaughtScopedTrace;
 
     ::std::string           m_testname;         //!< テスト名
     ::std::string           m_value_param;      //!< value param string
@@ -252,6 +253,9 @@ private:
     bool                    m_disable;          //!< 無効真偽値
     bool                    m_skip;             //!< スキップしたかどうか
     bool                    m_matches_filter;   //!< フィルターにマッチしたかどうか
+
+    typedef ::std::vector<detail::iuCodeMessage> UncaughtMessagesType;
+    UncaughtMessagesType    m_uncaught_messages;
 
     IUTEST_PP_DISALLOW_COPY_AND_ASSIGN(TestInfo);
 };

@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -156,6 +156,10 @@ public:
     size_t size() const IUTEST_CXX_NOEXCEPT_SPEC
     {
         return count();
+    }
+    bool empty() const IUTEST_CXX_NOEXCEPT_SPEC
+    {
+        return m_node == NULL;
     }
 public:
     // ソートして挿入
