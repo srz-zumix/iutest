@@ -300,6 +300,46 @@ IUTEST_IPP_INLINE ::std::string MakePrefixedIndexTestName(const char* prefix, co
     return name;
 }
 
+IUTEST_IPP_INLINE void UncaughtScopedTrace::Add(const detail::iuCodeMessage& msg)
+{
+    const Test* curr = Test::GetCurrentTest();
+    if( curr == NULL || curr->m_test_info == NULL )
+    {
+        return;
+    }
+    TestInfo* p = curr->m_test_info->ptr();
+    if( p != NULL )
+    {
+        p->m_uncaught_messages.push_back(msg);
+    }
+}
+
+IUTEST_IPP_INLINE bool UncaughtScopedTrace::Has()
+{
+    const TestInfo* curr = Test::GetCurrentTestInfo();
+    if( curr == NULL )
+    {
+        return false;
+    }
+    return !curr->m_uncaught_messages.empty();
+}
+
+IUTEST_IPP_INLINE ::std::string UncaughtScopedTrace::Get()
+{
+    const TestInfo* curr = Test::GetCurrentTestInfo();
+    ::std::string msg = "";
+    if( curr != NULL )
+    {
+        const TestInfo::UncaughtMessagesType& v = curr->m_uncaught_messages;
+        for( TestInfo::UncaughtMessagesType::const_iterator it = v.begin(), end=v.end(); it != end; ++it )
+        {
+            msg.append("\n");
+            msg.append(it->make_message().c_str());
+        }
+    }
+    return msg;
+}
+
 }   // end of namespace detail
 
 IUTEST_IPP_INLINE void Test::TestRecordPropertyHelper::RecordProperty(const TestProperty& prop)
