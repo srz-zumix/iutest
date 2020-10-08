@@ -217,6 +217,7 @@ private:
     friend class UnitTest;
     friend class UnitTestImpl;
     friend class TestInfo;
+    friend class detail::UncaughtScopedTrace;
 
     detail::iuITestInfoMediator*    m_test_info;
 #if IUTEST_HAS_GENRAND
