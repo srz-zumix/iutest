@@ -178,7 +178,7 @@ IUTEST_CXX_NOWARN_FLAGS+= \
 	-Wno-inconsistent-missing-destructor-override \
 	-Wno-global-constructors -Wno-weak-vtables \
 	-Wno-missing-variable-declarations \
-	-Wno-padded -Wno-sign-conversion \
+	-Wno-padded \
 	-Wno-redundant-parens -Wno-deprecated \
 	-Wno-documentation
 
