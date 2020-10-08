@@ -268,7 +268,7 @@ private:
 
 inline bool uncaught_exception()
 {
-#if IUTEST_HAS_CXX17
+#if IUTEST_HAS_CXX1Z && (IUTEST_LIBSTDCXX_VERSION >= 60000)
     return ::std::uncaught_exceptions() > 0;
 #else
     return ::std::uncaught_exception();
