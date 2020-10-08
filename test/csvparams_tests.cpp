@@ -74,9 +74,8 @@ IUTEST_INSTANTIATE_TEST_SUITE_P(CSV, CsvParamsIntTest, ::iutest::CSV<int>("testd
 IUTEST_INSTANTIATE_TEST_SUITE_P(TSV, CsvParamsIntTest, ::iutest::CSV<int>("testdata/intcsvparams.tsv", '\t') );
 
 IUTEST_PRAGMA_WARN_PUSH()
-IUTEST_PRAGMA_MSC_WARN_DISABLE(4838)
-IUTEST_PRAGMA_MSC_WARN_DISABLE(4305)
-IUTEST_PRAGMA_WARN_DISABLE("-Wimplicit-float-conversion")
+IUTEST_PRAGMA_WARN_NARROWING()
+IUTEST_PRAGMA_WARN_IMPLICIT_FLOAT_CONVERSION()
 
 static const float CsvParamsFloatTest_Params[] = {
     #include "testdata/floatcsvparams.csv"

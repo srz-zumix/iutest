@@ -207,6 +207,30 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_PRAGMA_WARN_IMPLICIT_FLOAT_CONVERSION)
+#  if   defined(__clang__)
+#    define IUTEST_PRAGMA_WARN_IMPLICIT_FLOAT_CONVERSION()  IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wimplicit-float-conversion")
+#  elif defined(__GNUC__)
+#    define IUTEST_PRAGMA_WARN_IMPLICIT_FLOAT_CONVERSION()  IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wfloat-conversion")
+#  elif defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_IMPLICIT_FLOAT_CONVERSION()  IUTEST_PRAGMA_MSC_WARN_DISABLE(4305)
+#  else
+#    define IUTEST_PRAGMA_WARN_IMPLICIT_FLOAT_CONVERSION()
+#  endif
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_NARROWING)
+#  if   defined(__clang__)
+#    define IUTEST_PRAGMA_WARN_NARROWING()  IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wc++11-narrowing")
+#  elif defined(__GNUC__)
+#    define IUTEST_PRAGMA_WARN_NARROWING()  IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wnarrowing")
+#  elif defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_NARROWING()  IUTEST_PRAGMA_MSC_WARN_DISABLE(4838)
+#  else
+#    define IUTEST_PRAGMA_WARN_NARROWING()
+#  endif
+#endif
+
 #if !defined(IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL)
 #  if   defined(__clang__)
 #    define IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wformat-nonliteral")
