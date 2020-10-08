@@ -240,7 +240,7 @@ IUTEST_IPP_INLINE void UnitTestImpl::TerminateImpl()
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
 // _invalid_parameter_handler
-IUTEST_IPP_INLINE IUTEST_ATTRIBUTE_NORETURN_ void UnitTestImpl::OnInvalidParameter(const wchar_t * expression, const wchar_t * function
+IUTEST_IPP_INLINE void UnitTestImpl::OnInvalidParameter(const wchar_t * expression, const wchar_t * function
     , const wchar_t * file, unsigned int line, uintptr_t pReserved)
 {
     IUTEST_UNUSED_VAR(file);
