@@ -207,6 +207,30 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_PRAGMA_WARN_IMPLICIT_FLOAT_CONVERSION)
+#  if   defined(__clang__)
+#    define IUTEST_PRAGMA_WARN_IMPLICIT_FLOAT_CONVERSION()  IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wimplicit-float-conversion")
+#  elif defined(__GNUC__)
+#    define IUTEST_PRAGMA_WARN_IMPLICIT_FLOAT_CONVERSION()  IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wfloat-conversion")
+#  elif defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_IMPLICIT_FLOAT_CONVERSION()  IUTEST_PRAGMA_MSC_WARN_DISABLE(4305)
+#  else
+#    define IUTEST_PRAGMA_WARN_IMPLICIT_FLOAT_CONVERSION()
+#  endif
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_NARROWING)
+#  if   defined(__clang__)
+#    define IUTEST_PRAGMA_WARN_NARROWING()  IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wc++11-narrowing")
+#  elif defined(__GNUC__)
+#    define IUTEST_PRAGMA_WARN_NARROWING()  IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wnarrowing")
+#  elif defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_NARROWING()  IUTEST_PRAGMA_MSC_WARN_DISABLE(4838)
+#  else
+#    define IUTEST_PRAGMA_WARN_NARROWING()
+#  endif
+#endif
+
 #if !defined(IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL)
 #  if   defined(__clang__)
 #    define IUTEST_PRAGMA_WARN_FORMAT_NONLITERAL()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wformat-nonliteral")
@@ -269,6 +293,24 @@
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE)
 #  define IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE()
+#endif
+
+#if   defined(__clang__)
+#  define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()     IUTEST_PRAGMA_CLANG_WARN_PUSH() \
+                                                        IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wused-but-marked-unused") \
+                                                        IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wzero-as-null-pointer-constant") \
+                                                        IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wexit-time-destructors") \
+                                                        IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wold-style-cast") \
+
+#  define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_END()       IUTEST_PRAGMA_CLANG_WARN_POP()
+#elif defined(__GNUC__)
+#  define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()     IUTEST_PRAGMA_GCC_WARN_PUSH() \
+
+#  define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_END()       IUTEST_PRAGMA_GCC_WARN_POP()
+#elif defined(_MSC_VER)
+#  define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()     IUTEST_PRAGMA_MSC_WARN_PUSH()   \
+
+#  define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_END()       IUTEST_PRAGMA_MSC_WARN_POP()
 #endif
 
 #endif // INCG_IRIS_IUTEST_PRAGMA_HPP_FBC5A1DE_3D0C_443E_84B1_5F0618DF9A6B_
