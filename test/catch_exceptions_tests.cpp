@@ -17,8 +17,10 @@
 // include
 #include "iutest.hpp"
 
-
 #if IUTEST_HAS_EXCEPTIONS
+
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE("-Wmissing-noreturn")
 
 IUTEST(Foo, Bar)
 {
@@ -31,6 +33,8 @@ IUTEST_ATTRIBUTE_NORETURN_ void TerminateHandler(void)
     printf("*** Successful ***\n");
     exit(0);
 }
+
+IUTEST_PRAGMA_WARN_POP()
 
 #endif
 
