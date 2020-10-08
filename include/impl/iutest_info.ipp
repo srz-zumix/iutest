@@ -66,7 +66,8 @@ IUTEST_IPP_INLINE void TestInfo::RunImpl()
         catch (const ::std::exception& e)
         {
             elapsedmsec = sw.stop();
-            iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(e.what()), TestPartResult::kFatalFailure).OnFixed(AssertionHelper::Fixed());
+            iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(e.what())
+                , TestPartResult::kFatalFailure).OnFixed(AssertionHelper::Fixed(), true);
             if( TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
             {
                 throw;
@@ -83,7 +84,8 @@ IUTEST_IPP_INLINE void TestInfo::RunImpl()
         catch (...)
         {
             elapsedmsec = sw.stop();
-            iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(NULL), TestPartResult::kFatalFailure).OnFixed(AssertionHelper::Fixed());
+            iutest::AssertionHelper(NULL, -1, detail::FormatCxxException(NULL)
+                , TestPartResult::kFatalFailure).OnFixed(AssertionHelper::Fixed(), true);
             if( TestFlag::IsEnableFlag(TestFlag::THROW_ON_FAILURE) )
             {
                 throw;
@@ -150,6 +152,7 @@ IUTEST_IPP_INLINE void TestInfo::clear()
     m_ran = false;
     m_skip = false;
     m_test_result.Clear();
+    m_uncaught_messages.clear();
 }
 
 IUTEST_IPP_INLINE bool TestInfo::filter()
