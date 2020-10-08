@@ -178,9 +178,11 @@ IUTEST_CXX_NOWARN_FLAGS+= \
 	-Wno-inconsistent-missing-destructor-override \
 	-Wno-global-constructors -Wno-weak-vtables \
 	-Wno-missing-variable-declarations \
-	-Wno-padded \
+	-Wno-padded -Wno-sign-conversion \
 	-Wno-redundant-parens -Wno-deprecated \
 	-Wno-documentation
+
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-sign-conversion
 
 ifeq ($(CLANG_TATGET), x86_64-pc-windows-msvc)
 CXXFLAGS+= -Xclang -flto-visibility-public-std
