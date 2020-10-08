@@ -142,11 +142,11 @@ include $(UTILS_MAKEFILE_DIR)/stdcver.mk
 # Warning Option
 #
 
-IUTEST_CXX_WARN_FLAGS+=-Wno-missing-field-initializers
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-missing-field-initializers
 
 # 8.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 8 \)))
-IUTEST_CXX_WARN_FLAGS+=-Wextra-semi
+IUTEST_CXX_STRICT_FLAGS+=-Wextra-semi
 endif
 
 # 3.0 later
@@ -163,6 +163,26 @@ IUTEST_CXX_STRICT_FLAGS+=-Wsuggest-override
 endif
 
 endif
+
+IUTEST_CXX_STRICT_FLAGS+=-Wmissing-noreturn -Wimplicit-float-conversion \
+	-Wshadow-all -Wshadow-uncaptured-local
+
+IUTEST_CXX_STRICT_FLAGS+=-fcomment-block-commands=private,internal,retval
+IUTEST_CXX_STRICT_FLAGS+=-Weverything
+
+IUTEST_CXX_NOWARN_FLAGS+= \
+	-Wno-c++98-compat -Wno-c++98-compat-pedantic \
+	-Wno-missing-prototypes -Wno-gnu-zero-variadic-macro-arguments \
+	-Wno-exit-time-destructors -Wno-reserved-id-macro \
+	-Wno-used-but-marked-unused \
+	-Wno-inconsistent-missing-destructor-override \
+	-Wno-global-constructors -Wno-weak-vtables \
+	-Wno-missing-variable-declarations \
+	-Wno-padded -Wno-sign-conversion \
+	-Wno-redundant-parens -Wno-deprecated \
+	-Wno-documentation
+
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-sign-conversion
 
 ifeq ($(CLANG_TATGET), x86_64-pc-windows-msvc)
 CXXFLAGS+= -Xclang -flto-visibility-public-std
