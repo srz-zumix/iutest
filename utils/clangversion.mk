@@ -182,7 +182,9 @@ IUTEST_CXX_NOWARN_FLAGS+= \
 	-Wno-redundant-parens -Wno-deprecated \
 	-Wno-documentation
 
-IUTEST_CXX_NOWARN_FLAGS+=-Wno-sign-conversion
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-sign-conversion -Wno-suggest-destructor-override
+
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-error=unknown-warning-option
 
 ifeq ($(CLANG_TATGET), x86_64-pc-windows-msvc)
 CXXFLAGS+= -Xclang -flto-visibility-public-std

@@ -301,6 +301,7 @@
                                                         IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wzero-as-null-pointer-constant") \
                                                         IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wexit-time-destructors") \
                                                         IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wold-style-cast") \
+                                                        IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wsuggest-destructor-override")
 
 #  define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_END()       IUTEST_PRAGMA_CLANG_WARN_POP()
 #elif defined(__GNUC__)
