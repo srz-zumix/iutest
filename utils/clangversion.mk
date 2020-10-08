@@ -164,7 +164,8 @@ endif
 
 endif
 
-IUTEST_CXX_STRICT_FLAGS+=-Wmissing-noreturn -Wimplicit-float-conversion
+IUTEST_CXX_STRICT_FLAGS+=-Wmissing-noreturn -Wimplicit-float-conversion \
+	-Wshadow-all -Wshadow-uncaptured-local
 
 IUTEST_CXX_STRICT_FLAGS+=-fcomment-block-commands=private,internal,retval
 IUTEST_CXX_STRICT_FLAGS+=-Weverything
