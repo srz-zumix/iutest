@@ -82,6 +82,9 @@ int main(int argc, char* argv[])
     IUTEST_ASSERT_EXIT( ::iutest::UnitTest::GetInstance()->failed_test_count() == 2 );
 #endif
 
+#else
+    IUTEST_UNUSED_VAR(argc);
+    IUTEST_UNUSED_VAR(argv);
 #endif
     printf("*** Successful ***\n");
     return 0;
