@@ -33,6 +33,7 @@ template<int A, int B>struct T
 
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE()
+IUTEST_PRAGMA_WARN_DISABLE("-Wfloat-conversion")
 
 IUTEST(SyntaxTest, True)
 {
