@@ -21,6 +21,10 @@
 // include
 // IWYU pragma: begin_exports
 #include "iutest_ver.hpp"
+#include "internal/iutest_compiler.hpp"
+
+IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()
+
 #include "iutest_legacy.hpp"
 #include "iutest_core.hpp"
 #include "iutest_param_tests.hpp"
@@ -1963,5 +1967,7 @@ inline Environment* IUTEST_ATTRIBUTE_UNUSED_ AddGlobalTestEnvironment(Environmen
 #if defined(IUTEST_USE_MAIN)
 #  include "internal/iutest_default_main.hpp"
 #endif
+
+IUTEST_PRAGMA_IUTEST_WARN_DISABLE_END()
 
 #endif // INCG_IRIS_IUTEST_HPP_
