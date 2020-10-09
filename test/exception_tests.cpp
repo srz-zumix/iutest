@@ -35,6 +35,9 @@
 #if EXCEPTION_CATCH_TEST
 #include <stdexcept>
 
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE("-Wmissing-noreturn")
+
 IUTEST(ExceptionTest, StdExceptionThrow)
 {
     throw ::std::runtime_error("ExceptionTest");
@@ -44,6 +47,8 @@ IUTEST(ExceptionTest, Throw)
 {
     throw "ExceptionTest";
 }
+
+IUTEST_PRAGMA_WARN_POP()
 
 #endif
 
