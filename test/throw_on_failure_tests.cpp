@@ -19,6 +19,9 @@
 
 #if IUTEST_HAS_EXCEPTIONS
 
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE("-Wmissing-noreturn")
+
 IUTEST(Expect, Test)
 {
     IUTEST_EXPECT_EQ(2, 1);
@@ -78,6 +81,8 @@ IUTEST_F(SetUpThrow, Test)
 {
     throw 2;
 }
+
+IUTEST_PRAGMA_WARN_POP()
 
 #endif
 
