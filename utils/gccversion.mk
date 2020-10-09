@@ -138,7 +138,7 @@ ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) ))
 IUTEST_CXX_NOWARN_FLAGS+=-Wno-missing-field-initializers
 endif
 
-IUTEST_CXX_STRICT_FLAGS+=-Wmissing-noreturn -Wshadow-compatible-local
+IUTEST_CXX_STRICT_FLAGS+=-Wshadow-compatible-local
 
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 3 \) ))
 IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code
