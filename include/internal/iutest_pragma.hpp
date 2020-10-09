@@ -219,6 +219,18 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_PRAGMA_WARN_IMPLICIT_INT_FLOAT_CONVERSION)
+#  if   defined(__clang__)
+#    define IUTEST_PRAGMA_WARN_IMPLICIT_INT_FLOAT_CONVERSION()  IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wimplicit-int-float-conversion")
+#  elif defined(__GNUC__)
+#    define IUTEST_PRAGMA_WARN_IMPLICIT_INT_FLOAT_CONVERSION()  //IUTEST_PRAGMA_GCC_WARN_DISABLE(?)
+#  elif defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_IMPLICIT_INT_FLOAT_CONVERSION()  //IUTEST_PRAGMA_MSC_WARN_DISABLE(?)
+#  else
+#    define IUTEST_PRAGMA_WARN_IMPLICIT_INT_FLOAT_CONVERSION()
+#  endif
+#endif
+
 #if !defined(IUTEST_PRAGMA_WARN_NARROWING)
 #  if   defined(__clang__)
 #    define IUTEST_PRAGMA_WARN_NARROWING()  IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wc++11-narrowing")
