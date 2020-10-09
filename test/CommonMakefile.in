@@ -110,7 +110,7 @@ TARGETS1= \
 		$(OUTDIR)/env_var_gtest_tests \
 		$(OUTDIR)/environment_tests \
 		$(OUTDIR)/exception_assertion_tests \
-		${OUTDIR}/exception_setup_testsuite_tests \
+		$(OUTDIR)/exception_setup_testsuite_tests \
 		$(OUTDIR)/exception_tests \
 		$(OUTDIR)/expression_assertion_tests \
 		$(OUTDIR)/file_system_tests \
