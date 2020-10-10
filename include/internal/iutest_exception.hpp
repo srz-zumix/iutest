@@ -47,7 +47,7 @@ inline ::std::string FormatCxxException(const char* description)
 }   // end of namespace detail
 }   // end of namespace iutest
 
-#if IUTEST_HAS_SEH && IUTEST_HAS_EXCEPTIONS
+#if IUTEST_HAS_SEH
 #include <iomanip>
 
 namespace iutest {
@@ -61,7 +61,7 @@ class seh_exception : public ::std::exception
 {
 public:
     seh_exception() : ::std::exception() {}
-    explicit seh_exception(const char *const& _What) : ::std::exception(_What) {}
+    explicit seh_exception(const char *const& what) : ::std::exception(what) {}
 public:
     static void translator(DWORD code, _EXCEPTION_POINTERS* ep)
     {
