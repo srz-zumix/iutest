@@ -237,7 +237,7 @@
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION)
 #  if   defined(__clang__)
-#    if __clang_major__ > 6
+#    if __clang_major__ > 7
 #      define IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wimplicit-int-float-conversion")
 #    endif
 #  elif defined(__GNUC__)
@@ -329,17 +329,22 @@
 
 #if   defined(__clang__)
 #  if __clang_major__ > 10
-#    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_11() IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wsuggest-destructor-override")
+#    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_11()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wsuggest-destructor-override")
 #  else
 #    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_11()
+#  endif
+#  if __clang_major__ > 3
+#    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_4()     IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wzero-as-null-pointer-constant")
+#  else
+#    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_4()
 #  endif
 
 #  define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()     IUTEST_PRAGMA_CLANG_WARN_PUSH() \
                                                         IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wused-but-marked-unused") \
-                                                        IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wzero-as-null-pointer-constant") \
                                                         IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wexit-time-destructors") \
                                                         IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wold-style-cast") \
-                                                        IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_11()
+                                                        IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_11() \
+                                                        IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_4()
 
 #  define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_END()       IUTEST_PRAGMA_CLANG_WARN_POP()
 #elif defined(__GNUC__)

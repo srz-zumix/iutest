@@ -146,12 +146,9 @@ IUTEST_CXX_NOWARN_FLAGS+=-Wno-missing-field-initializers
 
 # 8.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 8 \)))
-IUTEST_CXX_STRICT_FLAGS+=-Wextra-semi -Wimplicit-float-conversion
-endif
-
-# 7.0 later
-ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \)))
-IUTEST_CXX_STRICT_FLAGS+=-Wimplicit-int-float-conversion
+IUTEST_CXX_STRICT_FLAGS+=-Wextra-semi \
+	-Wimplicit-float-conversion \
+	-Wimplicit-int-float-conversion
 endif
 
 # 3.0 later
