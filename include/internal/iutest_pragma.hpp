@@ -207,6 +207,22 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION)
+#  if   defined(__clang__)
+#    if __clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 8)
+#      define IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION() IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wdouble-promotion")
+#    endif
+#  elif defined(__GNUC__)
+#    define IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION()   IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wdouble-promotion")
+#  elif defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION()   // IUTEST_PRAGMA_MSC_WARN_DISABLE(?)
+#  endif
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION)
+#  define IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION()
+#endif
+
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_FLOAT_CONVERSION)
 #  if   defined(__clang__)
 #    define IUTEST_PRAGMA_WARN_DISABLE_FLOAT_CONVERSION()   IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wfloat-conversion")
@@ -273,14 +289,18 @@
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_NARROWING)
 #  if   defined(__clang__)
-#    define IUTEST_PRAGMA_WARN_DISABLE_NARROWING()  IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wc++11-narrowing")
+#    define IUTEST_PRAGMA_WARN_DISABLE_NARROWING()      IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wc++11-narrowing")
 #  elif defined(__GNUC__)
-#    define IUTEST_PRAGMA_WARN_DISABLE_NARROWING()  IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wnarrowing")
+#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7))
+#      define IUTEST_PRAGMA_WARN_DISABLE_NARROWING()    IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wnarrowing")
+#    endif
 #  elif defined(_MSC_VER)
-#    define IUTEST_PRAGMA_WARN_DISABLE_NARROWING()  IUTEST_PRAGMA_MSC_WARN_DISABLE(4838)
-#  else
-#    define IUTEST_PRAGMA_WARN_DISABLE_NARROWING()
+#    define IUTEST_PRAGMA_WARN_DISABLE_NARROWING()      IUTEST_PRAGMA_MSC_WARN_DISABLE(4838)
 #  endif
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_DISABLE_NARROWING)
+#  define IUTEST_PRAGMA_WARN_DISABLE_NARROWING()
 #endif
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_FORMAT_NONLITERAL)
@@ -348,15 +368,15 @@
 #endif
 
 #if   defined(__clang__)
-#  if __clang_major__ > 10
+#  if !defined(__APPLE_CC__) && __clang_major__ > 10
 #    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_11()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wsuggest-destructor-override")
 #  else
 #    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_11()
 #  endif
-#  if __clang_major__ > 3
-#    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_4()     IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wzero-as-null-pointer-constant")
+#  if __clang_major__ > 4
+#    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_5()     IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wzero-as-null-pointer-constant")
 #  else
-#    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_4()
+#    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_5()
 #  endif
 
 #  define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()     IUTEST_PRAGMA_CLANG_WARN_PUSH() \
@@ -364,7 +384,7 @@
                                                         IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wexit-time-destructors") \
                                                         IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wold-style-cast") \
                                                         IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_11() \
-                                                        IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_4()
+                                                        IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_5()
 
 #  define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_END()       IUTEST_PRAGMA_CLANG_WARN_POP()
 #elif defined(__GNUC__)

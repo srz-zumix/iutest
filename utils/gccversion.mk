@@ -164,4 +164,6 @@ endif
 
 endif
 
+IUTEST_CXX_STRICT_FLAGS+=-Wdouble-promotion
+
 endif

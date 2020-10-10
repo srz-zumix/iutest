@@ -156,6 +156,11 @@ ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \)))
 IUTEST_CXX_STRICT_FLAGS+=-Wshadow-all -Wshadow-uncaptured-local
 endif
 
+# 3.8 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 8 \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wdouble-promotion
+endif
+
 # 3.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \)))
 IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code

@@ -308,7 +308,7 @@ public:
     {
         _Elem a[64];
 IUTEST_PRAGMA_WARN_PUSH()
-IUTEST_PRAGMA_WARN_DISABLE("-Wdouble-promotion")
+IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION()
         impl::tostring(a, 64, IIUT_PP_XCS("%f"), v);
 IUTEST_PRAGMA_WARN_POP()
         s += a;
