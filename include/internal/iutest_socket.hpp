@@ -23,8 +23,8 @@
 #ifdef IUTEST_HAS_SOCKET
 
 #ifdef IUTEST_OS_WINDOWS
-#  include <winsock2.h>
-#  include <ws2tcpip.h>
+#  include <WinSock2.h>
+#  include <WS2tcpip.h>
 #else
 #  include <arpa/inet.h>
 #  include <netdb.h>
@@ -62,7 +62,7 @@ public:
 
 #else
     typedef int descriptor_t;
-    typedef size_t length_t;
+    typedef unsigned int length_t;
 
 #if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
     static const descriptor_t INVALID_DESCRIPTOR = -1;

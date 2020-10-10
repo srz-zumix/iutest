@@ -196,7 +196,7 @@ class iu_basic_ostream
         {
             va_list va;
             va_start(va, fmt);
-            int ret = vastring(dst, len, fmt, va);
+            const int ret = vastring(dst, len, fmt, va);
             va_end(va);
             return ret;
         }
@@ -307,7 +307,10 @@ public:
     inline _Myt& operator<< (float v)
     {
         _Elem a[64];
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE("-Wdouble-promotion")
         impl::tostring(a, 64, IIUT_PP_XCS("%f"), v);
+IUTEST_PRAGMA_WARN_POP()
         s += a;
         return *this;
     }
