@@ -31,7 +31,7 @@ class ExitCheckEventListener : public ::iutest::EmptyTestEventListener
 };
 
 IUTEST_PRAGMA_WARN_PUSH()
-IUTEST_PRAGMA_WARN_DISABLE("-Wmissing-noreturn")
+IUTEST_PRAGMA_WARN_DISABLE_MISSING_NORETURN()
 
 IUTEST(ExitTest, QuickExit)
 {

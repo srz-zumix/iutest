@@ -164,6 +164,11 @@ ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 10 \)))
 IUTEST_CXX_STRICT_FLAGS+=-Wsuggest-override
 endif
 
+else
+
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-variadic-macros -Wno-c++11-long-long \
+	-Wno-suggest-override
+
 endif
 
 IUTEST_CXX_STRICT_FLAGS+=\
