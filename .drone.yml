@@ -53,8 +53,8 @@ trigger:
 
 steps:
   - &gcc
-    name: 5
-    image: gcc:5
+    name: 5.5
+    image: gcc:5.5
     commands:
       - "cp -R ./test ./$${DRONE_STEP_NAME} && cd $${DRONE_STEP_NAME}"
       - make showcxxversion && make clean && make -j4 $${MAKE_OPTIONS}
@@ -66,6 +66,10 @@ steps:
   #   <<: *gcc
   #   name: 5
   #   image: gcc:5
+  -
+    <<: *gcc
+    name: 5.1
+    image: gcc:5.1
   -
     <<: *gcc
     name: 4.9

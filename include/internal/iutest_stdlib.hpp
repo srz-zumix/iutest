@@ -266,6 +266,15 @@ private:
     T m_value;
 };
 
+inline bool uncaught_exception()
+{
+#if IUTEST_HAS_CXX1Z && (!defined(IUTEST_LIBSTDCXX_VERSION) || (IUTEST_LIBSTDCXX_VERSION >= 60000))
+    return ::std::uncaught_exceptions() > 0;
+#else
+    return ::std::uncaught_exception();
+#endif
+}
+
 }   // end of namespace stl
 
 namespace detail
