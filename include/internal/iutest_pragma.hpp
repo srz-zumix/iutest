@@ -221,14 +221,18 @@
 
 #if !defined(IUTEST_PRAGMA_WARN_IMPLICIT_INT_FLOAT_CONVERSION)
 #  if   defined(__clang__)
-#    define IUTEST_PRAGMA_WARN_IMPLICIT_INT_FLOAT_CONVERSION()  IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wimplicit-int-float-conversion")
+#    if __clang_major__ > 6
+#      define IUTEST_PRAGMA_WARN_IMPLICIT_INT_FLOAT_CONVERSION()  IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wimplicit-int-float-conversion")
+#    endif
 #  elif defined(__GNUC__)
 #    define IUTEST_PRAGMA_WARN_IMPLICIT_INT_FLOAT_CONVERSION()  //IUTEST_PRAGMA_GCC_WARN_DISABLE(?)
 #  elif defined(_MSC_VER)
 #    define IUTEST_PRAGMA_WARN_IMPLICIT_INT_FLOAT_CONVERSION()  //IUTEST_PRAGMA_MSC_WARN_DISABLE(?)
-#  else
-#    define IUTEST_PRAGMA_WARN_IMPLICIT_INT_FLOAT_CONVERSION()
 #  endif
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_IMPLICIT_INT_FLOAT_CONVERSION)
+#  define IUTEST_PRAGMA_WARN_IMPLICIT_INT_FLOAT_CONVERSION()
 #endif
 
 #if !defined(IUTEST_PRAGMA_WARN_NARROWING)
@@ -309,6 +313,7 @@
 
 #if   defined(__clang__)
 #  define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()     IUTEST_PRAGMA_CLANG_WARN_PUSH() \
+                                                        IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wunknown-warning-option") \
                                                         IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wused-but-marked-unused") \
                                                         IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wzero-as-null-pointer-constant") \
                                                         IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wexit-time-destructors") \

@@ -149,6 +149,11 @@ ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 8 \)))
 IUTEST_CXX_STRICT_FLAGS+=-Wextra-semi
 endif
 
+# 7.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wimplicit-int-float-conversion
+endif
+
 # 3.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \)))
 IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code
@@ -165,7 +170,8 @@ endif
 endif
 
 IUTEST_CXX_STRICT_FLAGS+=-Wimplicit-float-conversion \
-	-Wshadow-all -Wshadow-uncaptured-local -Wnonportable-system-include-path
+	-Wshadow-all -Wshadow-uncaptured-local -Wnonportable-system-include-path \
+	-Wfloat-conversion
 
 IUTEST_CXX_STRICT_FLAGS+=-fcomment-block-commands=private,internal,retval
 IUTEST_CXX_STRICT_FLAGS+=-Weverything
