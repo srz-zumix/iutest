@@ -79,7 +79,7 @@ IUTEST(ScopedTraceExceptionTest, Assertion)
 class ScopedTraceExceptionSetUpTest : public ::iuutil::backward::Test<ScopedTraceExceptionSetUpTest>
 {
 public:
-    static void SetUpTestSuite()
+    IUTEST_ATTRIBUTE_NORETURN_ static void SetUpTestSuite()
     {
         IUTEST_SCOPED_TRACE("ScopedTraceExceptionSetUpTest Scoped Exception");
         throw "ScopedTraceExceptionSetUpTest";

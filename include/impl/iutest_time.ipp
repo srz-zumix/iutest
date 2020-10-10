@@ -116,8 +116,8 @@ IUTEST_IPP_INLINE TimeInMillisec GetTimeInMillis()
     return IUTEST_GetMillisec();
 
 #elif IUTEST_HAS_CXX_HDR_CHRONO
-    return ::std::chrono::duration_cast< ::std::chrono::milliseconds >(
-        ::std::chrono::high_resolution_clock::now().time_since_epoch() ).count();
+    return static_cast<TimeInMillisec>(::std::chrono::duration_cast< ::std::chrono::milliseconds >(
+        ::std::chrono::high_resolution_clock::now().time_since_epoch() ).count());
 
 #elif IUTEST_HAS_GETTIMEOFDAY
     timeval tv;
