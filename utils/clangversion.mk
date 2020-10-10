@@ -146,7 +146,7 @@ IUTEST_CXX_NOWARN_FLAGS+=-Wno-missing-field-initializers
 
 # 8.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 8 \)))
-IUTEST_CXX_STRICT_FLAGS+=-Wextra-semi
+IUTEST_CXX_STRICT_FLAGS+=-Wextra-semi -Wimplicit-float-conversion
 endif
 
 # 7.0 later
@@ -169,7 +169,7 @@ endif
 
 endif
 
-IUTEST_CXX_STRICT_FLAGS+=-Wimplicit-float-conversion \
+IUTEST_CXX_STRICT_FLAGS+=\
 	-Wshadow-all -Wshadow-uncaptured-local -Wnonportable-system-include-path \
 	-Wfloat-conversion
 

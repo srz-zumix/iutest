@@ -53,7 +53,7 @@ IUTEST_PRAGMA_WARN_POP()
 class ExceptionSetUpTest : public ::iuutil::backward::Test<ExceptionSetUpTest>
 {
 public:
-    static void SetUpTestSuite()
+    IUTEST_ATTRIBUTE_NORETURN_ static void SetUpTestSuite()
     {
         throw "ExceptionSetUpTest";
     }
