@@ -138,10 +138,12 @@ ifeq (1,$(shell expr \( $(GCCMAJOR) \> 4 \) ))
 IUTEST_CXX_NOWARN_FLAGS+=-Wno-missing-field-initializers
 endif
 
-IUTEST_CXX_STRICT_FLAGS+=-Wshadow-compatible-local
-
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 3 \) ))
 IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code
+endif
+
+ifeq (1,$(shell expr \( $(GCCMAJOR) \> 6 \) ))
+IUTEST_CXX_STRICT_FLAGS+=-Wshadow-compatible-local
 endif
 
 # c++11 later

@@ -62,7 +62,7 @@ public:
 
 #else
     typedef int descriptor_t;
-    typedef size_t length_t;
+    typedef unsigned int length_t;
 
 #if !defined(IUTEST_NO_INCLASS_MEMBER_INITIALIZATION)
     static const descriptor_t INVALID_DESCRIPTOR = -1;
