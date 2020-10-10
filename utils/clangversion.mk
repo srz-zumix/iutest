@@ -151,6 +151,11 @@ IUTEST_CXX_STRICT_FLAGS+=-Wextra-semi \
 	-Wimplicit-int-float-conversion
 endif
 
+# 4.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wshadow-all -Wshadow-uncaptured-local
+endif
+
 # 3.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \)))
 IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code
@@ -166,13 +171,15 @@ endif
 
 else
 
-IUTEST_CXX_NOWARN_FLAGS+=-Wno-variadic-macros -Wno-c++11-long-long \
+IUTEST_CXX_NOWARN_FLAGS+=-Wc99-extensions \
+	-Wno-variadic-macros \
+	-Wno-c++11-long-long \
 	-Wno-suggest-override
 
 endif
 
 IUTEST_CXX_STRICT_FLAGS+=\
-	-Wshadow-all -Wshadow-uncaptured-local -Wnonportable-system-include-path \
+	-Wnonportable-system-include-path \
 	-Wfloat-conversion
 
 IUTEST_CXX_STRICT_FLAGS+=-fcomment-block-commands=private,internal,retval
