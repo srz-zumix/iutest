@@ -242,7 +242,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
     return ret;
 #else
 IUTEST_PRAGMA_WARN_PUSH()
-IUTEST_PRAGMA_WARN_CAST_ALIGN()
+IUTEST_PRAGMA_WARN_DISABLE_CAST_ALIGN()
     return AnyStringToUTF8(reinterpret_cast<const wchar_t*>(str), num);
 IUTEST_PRAGMA_WARN_POP()
 #endif

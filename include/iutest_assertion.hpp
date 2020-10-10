@@ -486,7 +486,7 @@ inline AssertionResult CmpHelperOpFailure(const char* expr1, const char* expr2, 
     template<typename T1, typename T2>                              \
     bool iuOperator##op_name(const T1& v1, const T2& v2) {          \
         IUTEST_PRAGMA_WARN_PUSH()                                   \
-        IUTEST_PRAGMA_WARN_IMPLICIT_INT_FLOAT_CONVERSION()          \
+        IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION()          \
         return v1 op v2;                                            \
         IUTEST_PRAGMA_WARN_POP()                                    \
     }
@@ -544,7 +544,7 @@ bool iuOperatorEQ(const T1& v1, const T2& v2)
 {
 IUTEST_PRAGMA_WARN_PUSH()
 IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE()
-IUTEST_PRAGMA_WARN_IMPLICIT_INT_FLOAT_CONVERSION()
+IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION()
     return v1 == v2;
 IUTEST_PRAGMA_WARN_POP()
 }
