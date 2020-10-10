@@ -27,7 +27,7 @@
 #  if !defined(WIN32_LEAN_AND_MEAN)
 #    define WIN32_LEAN_AND_MEAN
 #  endif
-#  include <windows.h>
+#  include <Windows.h>
 #  if defined(_WIN32_WCE)
 #    define IUTEST_OS_WINDOWS_MOBILE    1
 #    define IUTEST_PLATFORM             "Windows CE"
