@@ -104,8 +104,8 @@ inline void iuOptionMessage::ShowVersion()
 /** @private */
 #define IIUT_SHOW_MACRO(macro)  IIUT_SHOW_MACRO_I(#macro, IUTEST_PP_TOSTRING(macro))
 #define IIUT_SHOW_MACRO_I(name, value)  detail::iuConsole::output("#define %s  %s\n", name, value)
-#define IIUT_SHOW_ENABLE_MACRO(macro)   IUTEST_PP_IF(macro, IIUT_SHOW_MACRO_I(#macro, IUTEST_PP_TOSTRING(macro)), IUTEST_PP_EMPTY())
-#define IIUT_SHOW_DISABLE_MACRO(macro)  IUTEST_PP_IF(macro, IUTEST_PP_EMPTY(), IIUT_SHOW_MACRO_I(#macro, IUTEST_PP_TOSTRING(macro)))
+#define IIUT_SHOW_ENABLE_MACRO(macro)   IUTEST_PP_IF(macro, IIUT_SHOW_MACRO_I(#macro, IUTEST_PP_TOSTRING(macro)), (void)(0))
+#define IIUT_SHOW_DISABLE_MACRO(macro)  IUTEST_PP_IF(macro, (void)(0), IIUT_SHOW_MACRO_I(#macro, IUTEST_PP_TOSTRING(macro)))
 
 /** @private */
 #define IIUT_SHOW_FEATURE_MACROS(m) \
