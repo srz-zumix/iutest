@@ -213,7 +213,9 @@
 #      define IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION() IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wdouble-promotion")
 #    endif
 #  elif defined(__GNUC__)
-#    define IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION()   IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wdouble-promotion")
+#    if __GNUC__ > 3
+#      define IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION() IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wdouble-promotion")
+#    endif
 #  elif defined(_MSC_VER)
 #    define IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION()   // IUTEST_PRAGMA_MSC_WARN_DISABLE(?)
 #  endif
@@ -225,7 +227,9 @@
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_FLOAT_CONVERSION)
 #  if   defined(__clang__)
-#    define IUTEST_PRAGMA_WARN_DISABLE_FLOAT_CONVERSION()   IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wfloat-conversion")
+#    if __clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ >= 5)
+#      define IUTEST_PRAGMA_WARN_DISABLE_FLOAT_CONVERSION() IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wfloat-conversion")
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 9))
 #      define IUTEST_PRAGMA_WARN_DISABLE_FLOAT_CONVERSION() IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wfloat-conversion")

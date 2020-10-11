@@ -161,9 +161,14 @@ ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLA
 IUTEST_CXX_STRICT_FLAGS+=-Wdouble-promotion
 endif
 
+# 3.5 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 5 \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wdouble-promotion
+endif
+
 # 3.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \)))
-IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code
+IUTEST_CXX_STRICT_FLAGS+=-Wfloat-conversion
 endif
 
 # c++11 later
@@ -176,16 +181,14 @@ endif
 
 else
 
-IUTEST_CXX_NOWARN_FLAGS+=-Wc99-extensions \
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-c99-extensions \
 	-Wno-variadic-macros \
 	-Wno-c++11-long-long \
 	-Wno-suggest-override
 
 endif
 
-IUTEST_CXX_STRICT_FLAGS+=\
-	-Wnonportable-system-include-path \
-	-Wfloat-conversion
+IUTEST_CXX_STRICT_FLAGS+=-Wnonportable-system-include-path
 
 IUTEST_CXX_STRICT_FLAGS+=-fcomment-block-commands=private,internal,retval
 IUTEST_CXX_STRICT_FLAGS+=-Weverything
