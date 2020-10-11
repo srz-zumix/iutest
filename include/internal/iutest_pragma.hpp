@@ -277,7 +277,7 @@
 #  if   defined(__clang__)
 #    define IUTEST_PRAGMA_WARN_DISABLE_MISSING_NORETURN()   IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wmissing-noreturn")
 #  elif defined(__GNUC__)
-#    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 8))
+#    if __GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 8) || __GNUC__ < 4
 #      define IUTEST_PRAGMA_WARN_DISABLE_MISSING_NORETURN() IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wmissing-noreturn")
 #    else
 #      define IUTEST_PRAGMA_WARN_DISABLE_MISSING_NORETURN() IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wsuggest-attribute=noreturn")

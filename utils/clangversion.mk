@@ -151,11 +151,6 @@ IUTEST_CXX_STRICT_FLAGS+=-Wextra-semi \
 	-Wimplicit-int-float-conversion
 endif
 
-# 4.0 later
-ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \)))
-IUTEST_CXX_STRICT_FLAGS+=-Wshadow-all -Wshadow-uncaptured-local
-endif
-
 # 3.8 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 8 \)))
 IUTEST_CXX_STRICT_FLAGS+=-Wdouble-promotion
@@ -166,9 +161,10 @@ ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLA
 IUTEST_CXX_STRICT_FLAGS+=-Wdouble-promotion
 endif
 
-# 3.0 later
-ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \)))
-IUTEST_CXX_STRICT_FLAGS+=-Wfloat-conversion
+# 3.3 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 3 \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wshadow-all -Wshadow-uncaptured-local -Wfloat-conversion
+IUTEST_CXX_STRICT_FLAGS+=-fcomment-block-commands=private,internal,retval
 endif
 
 # c++11 later
@@ -190,7 +186,6 @@ endif
 
 IUTEST_CXX_STRICT_FLAGS+=-Wnonportable-system-include-path
 
-IUTEST_CXX_STRICT_FLAGS+=-fcomment-block-commands=private,internal,retval
 IUTEST_CXX_STRICT_FLAGS+=-Weverything
 
 IUTEST_CXX_NOWARN_FLAGS+= \
