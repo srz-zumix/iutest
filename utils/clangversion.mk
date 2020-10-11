@@ -143,11 +143,16 @@ include $(UTILS_MAKEFILE_DIR)/stdcver.mk
 #
 
 IUTEST_CXX_NOWARN_FLAGS+=-Wno-missing-field-initializers \
-	-Wno-disabled-macro-expansion
+	-Wno-disabled-macro-expansion -Wno-poison-system-directories
 
 # until 3.4
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \< 3 \) \| \( $(CLANGMAJOR) = 3 \& $(CLANGMINOR) \< 4 \)))
 IUTEST_CXX_NOWARN_FLAGS+=-Wno-gnu
+endif
+
+# until 3.2
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \< 3 \) \| \( $(CLANGMAJOR) = 3 \& $(CLANGMINOR) \< 2 \)))
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-pedantic
 endif
 
 
@@ -192,7 +197,7 @@ IUTEST_CXX_NOWARN_FLAGS+=-Wno-c99-extensions \
 
 endif
 
-IUTEST_CXX_STRICT_FLAGS+=-Wmissing-noreturn
+IUTEST_CXX_STRICT_FLAGS+=-Wmissing-noreturn -Wswitch-enum
 IUTEST_CXX_STRICT_FLAGS+=-Weverything
 
 IUTEST_CXX_NOWARN_FLAGS+= \

@@ -152,7 +152,7 @@ endif
 # 4.0 later
 ifeq (1,$(shell expr \( $(GCCMAJOR) \> 3 \) ))
 IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code -Wdouble-promotion \
-	-Wmissing-noreturn
+	-Wmissing-noreturn -Wswitch-enum
 endif
 
 # c++11 later
