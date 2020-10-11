@@ -343,6 +343,24 @@
 #  endif
 #endif
 
+#if !defined(IUTEST_PRAGMA_WARN_DISABLE_SWITCH_ENUM)
+#  if   defined(__clang__)
+#    define IUTEST_PRAGMA_WARN_DISABLE_SWITCH_ENUM()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wswitch-enum")
+#  elif defined(__GNUC__)
+#    if __GNUC__ > 3
+#      define IUTEST_PRAGMA_WARN_DISABLE_SWITCH_ENUM()  IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wswitch-enum")
+#    else
+#      define IUTEST_PRAGMA_WARN_DISABLE_SWITCH_ENUM()  IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wswitch")
+#    endif
+#  elif defined(_MSC_VER)
+#    define IUTEST_PRAGMA_WARN_DISABLE_SWITCH_ENUM()    IUTEST_PRAGMA_MSC_WARN_DISABLE(4061)
+#  endif
+#endif
+
+#if !defined(IUTEST_PRAGMA_WARN_DISABLE_SWITCH_ENUM)
+#  define IUTEST_PRAGMA_WARN_DISABLE_SWITCH_ENUM()
+#endif
+
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE)
 #  if   defined(__clang__)
 #    if (__clang_major__ > 3 || (__clang_major__ == 3 && __clang_minor__ > 0))

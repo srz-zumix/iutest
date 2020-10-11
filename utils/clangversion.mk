@@ -142,7 +142,8 @@ include $(UTILS_MAKEFILE_DIR)/stdcver.mk
 # Warning Option
 #
 
-IUTEST_CXX_NOWARN_FLAGS+=-Wno-missing-field-initializers
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-missing-field-initializers \
+	-Wno-disabled-macro-expansion
 
 # until 3.4
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \< 3 \) \| \( $(CLANGMAJOR) = 3 \& $(CLANGMINOR) \< 4 \)))
@@ -187,7 +188,6 @@ IUTEST_CXX_NOWARN_FLAGS+=-Wno-c99-extensions \
 	-Wno-variadic-macros \
 	-Wno-c++11-long-long \
 	-Wno-long-long \
-	-Wno-disabled-macro-expansion \
 	-Wno-suggest-override
 
 endif

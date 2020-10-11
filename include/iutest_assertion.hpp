@@ -330,8 +330,8 @@ public:
         OnFixed(fixed);
 #if IUTEST_HAS_EXCEPTIONS && IUTEST_USE_THROW_ON_ASSERTION_FAILURE
         {
-            IUTEST_PRAGMA_WARN_PUSH()
-            IUTEST_PRAGMA_WARN_DISABLE("-Wswitch-enum")
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_SWITCH_ENUM()
             switch( m_part_result.type() )
             {
             case TestPartResult::kSkip:
@@ -341,7 +341,7 @@ public:
             default:
                 break;
             }
-            IUTEST_PRAGMA_WARN_POP()
+IUTEST_PRAGMA_WARN_POP()
         }
 #endif
     }
