@@ -1,1 +1,4 @@
-IUTEST_CXX_STRICT_FLAGS+=-Wformat=2 -Wcast-qual -Wcast-align -Wwrite-strings -Wpointer-arith -Wundef
+IUTEST_CXX_STRICT_FLAGS+= \
+	-Wformat=2 -Wcast-qual -Wcast-align \
+	-Wwrite-strings -Wpointer-arith -Wundef -Wunused-macros \
+	-Wmissing-noreturn -Wswitch-enum
