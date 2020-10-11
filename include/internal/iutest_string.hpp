@@ -470,11 +470,11 @@ inline ::std::string StringFormat(const char* format, va_list va)
     {
         va_list va2;
         iu_va_copy(va2, va);    // cppcheck-suppress va_list_usedBeforeStarted
-        const size_t ret = iu_vsnprintf(NULL, 0, format, va2);
+        const int ret = iu_vsnprintf(NULL, 0u, format, va2);
         va_end(va2);
         if( ret > 0 )
         {
-            n = ret + 1;
+            n = static_cast<size_t>(ret + 1);
         }
     }
     for( ;; )

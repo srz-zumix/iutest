@@ -279,7 +279,7 @@ IUTEST_IPP_INLINE size_t FindLastPathSeparatorPosition(const char* path, size_t 
     {
         return ::std::string::npos;
     }
-    return p - path;
+    return static_cast<size_t>(p - path);
 }
 
 IUTEST_IPP_INLINE bool SetEnvironmentVariable(const char* name, const char* value)
