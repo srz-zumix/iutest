@@ -30,10 +30,15 @@ class ExitCheckEventListener : public ::iutest::EmptyTestEventListener
     }
 };
 
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_MISSING_NORETURN()
+
 IUTEST(ExitTest, QuickExit)
 {
     ::std::quick_exit(0);
 }
+
+IUTEST_PRAGMA_WARN_POP()
 
 #endif
 
