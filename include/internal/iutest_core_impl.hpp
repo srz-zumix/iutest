@@ -149,7 +149,7 @@ private:
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_BEGIN()
 
     // _invalid_parameter_handler
-    static void OnInvalidParameter(const wchar_t * expression, const wchar_t * function
+    IUTEST_ATTRIBUTE_NORETURN_ static void OnInvalidParameter(const wchar_t * expression, const wchar_t * function
         , const wchar_t * file, unsigned int line, uintptr_t pReserved);
 
 IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
