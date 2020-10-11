@@ -144,6 +144,12 @@ include $(UTILS_MAKEFILE_DIR)/stdcver.mk
 
 IUTEST_CXX_NOWARN_FLAGS+=-Wno-missing-field-initializers
 
+# until 3.4
+ifeq (1,$(shell expr \( $(GCCMAJOR) \< 3 \) \| \( $(GCCMAJOR) = 3 \& $(GCCMINOR) \< 4 \)))
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-gnu
+endif
+
+
 # 8.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 8 \)))
 IUTEST_CXX_STRICT_FLAGS+=-Wextra-semi \
@@ -158,12 +164,12 @@ endif
 
 # 3.5 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 5 \)))
-IUTEST_CXX_STRICT_FLAGS+=-Wdouble-promotion
+IUTEST_CXX_STRICT_FLAGS+=-Wshadow-all -Wshadow-uncaptured-local -Wnonportable-system-include-path
 endif
 
 # 3.3 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 3 \)))
-IUTEST_CXX_STRICT_FLAGS+=-Wshadow-all -Wshadow-uncaptured-local -Wfloat-conversion
+IUTEST_CXX_STRICT_FLAGS+=-Wfloat-conversion
 IUTEST_CXX_STRICT_FLAGS+=-fcomment-block-commands=private,internal,retval
 endif
 
@@ -180,11 +186,10 @@ else
 IUTEST_CXX_NOWARN_FLAGS+=-Wno-c99-extensions \
 	-Wno-variadic-macros \
 	-Wno-c++11-long-long \
+	-Wno-disabled-macro-expansion \
 	-Wno-suggest-override
 
 endif
-
-IUTEST_CXX_STRICT_FLAGS+=-Wnonportable-system-include-path
 
 IUTEST_CXX_STRICT_FLAGS+=-Weverything
 
