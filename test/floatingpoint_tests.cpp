@@ -51,6 +51,9 @@ IUTEST_TYPED_TEST(FloatingpointTest, PINF)
     IUTEST_EXPECT_EQ(FloatType(a/b), FloatType::PINF());
 }
 
+IUTEST_PRAGMA_WARN_PUSH()
+IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION()
+
 IUTEST_TYPED_TEST(FloatingpointTest, NINF)
 {
     typedef typename TestFixture::ftype FloatType;
@@ -70,6 +73,8 @@ IUTEST_TYPED_TEST(FloatingpointTest, NQNAN)
     IUTEST_EXPECT_EQ(FloatType(sq), FloatType::NQNAN());
 }
 #endif
+
+IUTEST_PRAGMA_WARN_POP()
 
 }   // end of namespace floatingpoint_test
 
