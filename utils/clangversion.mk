@@ -155,6 +155,16 @@ ifeq (1,$(shell expr \( $(CLANGMAJOR) \< 3 \) \| \( $(CLANGMAJOR) = 3 \& $(CLANG
 IUTEST_CXX_NOWARN_FLAGS+=-Wno-pedantic
 endif
 
+# 11.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 11 \)))
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-suggest-override -Wno-suggest-destructor-override
+endif
+
+
+# 10.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 10 \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wimplicit-int-float-conversion
+endif
 
 # 8.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 8 \)))
@@ -182,8 +192,8 @@ endif
 # c++11 later
 ifeq (1,$(shell expr \( $(CPPVER_Y) \>= 2011 \) ))
 
-# 10.0 later
-ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 10 \)))
+# 11.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 11 \)))
 IUTEST_CXX_STRICT_FLAGS+=-Wsuggest-override
 endif
 
@@ -192,13 +202,16 @@ else
 IUTEST_CXX_NOWARN_FLAGS+=-Wno-c99-extensions \
 	-Wno-variadic-macros \
 	-Wno-c++11-long-long \
-	-Wno-long-long \
-	-Wno-suggest-override
+	-Wno-long-long
 
 endif
 
 IUTEST_CXX_STRICT_FLAGS+=-Wmissing-noreturn -Wswitch-enum
+
+# 3.2 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 2 \)))
 IUTEST_CXX_STRICT_FLAGS+=-Weverything
+endif
 
 IUTEST_CXX_NOWARN_FLAGS+= \
 	-Wno-c++98-compat -Wno-c++98-compat-pedantic \
@@ -214,7 +227,7 @@ IUTEST_CXX_NOWARN_FLAGS+= \
 
 IUTEST_CXX_NOWARN_FLAGS+=-Wno-sign-conversion -Wno-suggest-destructor-override
 
-IUTEST_CXX_NOWARN_FLAGS+=-Wno-error=unknown-warning-option
+# IUTEST_CXX_NOWARN_FLAGS+=-Wno-error=unknown-warning-option
 
 ifeq ($(CLANG_TATGET), x86_64-pc-windows-msvc)
 CXXFLAGS+= -Xclang -flto-visibility-public-std
