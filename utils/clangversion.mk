@@ -143,7 +143,7 @@ include $(UTILS_MAKEFILE_DIR)/stdcver.mk
 #
 
 IUTEST_CXX_NOWARN_FLAGS+=-Wno-missing-field-initializers \
-	-Wno-disabled-macro-expansion -Wno-poison-system-directories
+	-Wno-disabled-macro-expansion
 
 # until 3.4
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \< 3 \) \| \( $(CLANGMAJOR) = 3 \& $(CLANGMINOR) \< 4 \)))
@@ -164,13 +164,13 @@ endif
 # 10.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 10 \)))
 IUTEST_CXX_STRICT_FLAGS+=-Wimplicit-int-float-conversion
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-poison-system-directories
 endif
 
 # 8.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 8 \)))
 IUTEST_CXX_STRICT_FLAGS+=-Wextra-semi \
-	-Wimplicit-float-conversion \
-	-Wimplicit-int-float-conversion
+	-Wimplicit-float-conversion
 endif
 
 # 3.8 later
