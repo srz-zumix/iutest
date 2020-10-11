@@ -233,7 +233,7 @@ public:
             return false;
         }
 IUTEST_PRAGMA_WARN_PUSH()
-IUTEST_PRAGMA_WARN_FLOAT_EQUAL()
+IUTEST_PRAGMA_WARN_DISABLE_FLOAT_EQUAL()
         if( m_v.fv == rhs.m_v.fv )
         {
             return true;
