@@ -203,9 +203,13 @@ ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLA
 IUTEST_CXX_STRICT_NOWARN_FLAGS+=-Wno-reserved-id-macro
 endif
 
+# 3.5 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 5 \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wfloat-conversion
+endif
+
 # 3.3 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 3 \)))
-IUTEST_CXX_STRICT_FLAGS+=-Wfloat-conversion
 IUTEST_CXX_STRICT_FLAGS+=-fcomment-block-commands=private,internal,retval
 endif
 

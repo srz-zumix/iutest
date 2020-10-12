@@ -14,19 +14,19 @@ ifeq ($(APPLE_CXXVERSION),Apple)
 
 CXX_APPLE_CLANG=1
 CXX_NAME=clang++
-CLANGVERSION:=$(shell $(CXX) --version | grep -o "version\s[0-9]*\.[0-9]*")
+APPLE_CLANGVERSION:=$(shell $(CXX) --version | grep -o "version\s[0-9]*\.[0-9]*")
 
 dot:=.
 empty:=
 space:=$(empty) $(empty)
-CLANGVERSION:=$(subst -,$(dot), $(CLANGVERSION))
-CLANGVERSION:=$(subst $(dot),$(space), $(CLANGVERSION))
+APPLE_CLANGVERSION:=$(subst -,$(dot), $(APPLE_CLANGVERSION))
+APPLE_CLANGVERSION:=$(subst $(dot),$(space), $(APPLE_CLANGVERSION))
 
-$(warning ${CLANGVERSION})
+# $(warning ${APPLE_CLANGVERSION})
 
-ifeq ($(words $(CLANGVERSION)), 3)
-APPLE_CLANGMAJOR:=$(word 2, $(CLANGVERSION))
-APPLE_CLANGMINOR:=$(word 3, $(CLANGVERSION))
+ifeq ($(words $(APPLE_CLANGVERSION)), 3)
+APPLE_CLANGMAJOR:=$(word 2, $(APPLE_CLANGVERSION))
+APPLE_CLANGMINOR:=$(word 3, $(APPLE_CLANGVERSION))
 ifeq (1,$(shell expr \( $(APPLE_CLANGMAJOR) \>= 7 \)))
 
 # https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
