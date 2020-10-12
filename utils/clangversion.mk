@@ -173,10 +173,20 @@ IUTEST_CXX_STRICT_FLAGS+=-Wextra-semi \
 	-Wimplicit-float-conversion
 endif
 
+# ６.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 4 \)))
+IUTEST_CXX_STRICT_NOWARN_FLAGS+=-Wno-redundant-parens
+endif
+
 # 4.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 4 \)))
 IUTEST_CXX_STRICT_FLAGS+=-Wshadow-uncaptured-local
-IUTEST_CXX_STRICT_NOWARN_FLAGS+=-Wno-inconsistent-missing-destructor-override -Wno-redundant-parens
+IUTEST_CXX_STRICT_NOWARN_FLAGS+=-Wno-inconsistent-missing-destructor-override
+endif
+
+# 3.９ later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= ９ \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wshadow-all -Wnonportable-system-include-path
 endif
 
 # 3.8 later
@@ -186,7 +196,6 @@ endif
 
 # 3.5 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 5 \)))
-IUTEST_CXX_STRICT_FLAGS+=-Wshadow-all -Wnonportable-system-include-path
 endif
 
 # 3.3 later
