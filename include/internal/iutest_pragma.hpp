@@ -257,7 +257,7 @@
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION)
 #  if   defined(__clang__)
-#    if __clang_major__ > 7
+#    if __clang_major__ > 9
 #      define IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wimplicit-int-float-conversion")
 #    else
 #      define IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wconversion")
