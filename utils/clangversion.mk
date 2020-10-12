@@ -174,7 +174,7 @@ IUTEST_CXX_STRICT_FLAGS+=-Wextra-semi \
 endif
 
 # ６.0 later
-ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 4 \)))
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 6 \)))
 IUTEST_CXX_STRICT_NOWARN_FLAGS+=-Wno-redundant-parens
 endif
 
