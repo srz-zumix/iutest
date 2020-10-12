@@ -144,8 +144,7 @@ include $(UTILS_MAKEFILE_DIR)/stdcver.mk
 # Warning Option
 #
 
-IUTEST_CXX_NOWARN_FLAGS+=-Wno-missing-field-initializers \
-	-Wno-disabled-macro-expansion
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-missing-field-initializers
 
 # until 3.4
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \< 3 \) \| \( $(CLANGMAJOR) = 3 \& $(CLANGMINOR) \< 4 \)))
@@ -220,6 +219,17 @@ ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLA
 IUTEST_CXX_STRICT_FLAGS+=-fcomment-block-commands=private,internal,retval
 endif
 
+# 3.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \)))
+IUTEST_CXX_STRICT_NOWARN_FLAGS+=\
+	-Wno-c++98-compat -Wno-c++98-compat-pedantic \
+	-Wno-disabled-macro-expansion \
+	-Wno-documentation \
+	-Wno-exit-time-destructors \
+	-Wno-missing-variable-declarations \
+
+endif
+
 # c++11 later
 ifeq (1,$(shell expr \( $(CPPVER_Y) \>= 2011 \) ))
 
@@ -239,6 +249,13 @@ endif
 
 IUTEST_CXX_STRICT_FLAGS+=-Wmissing-noreturn -Wswitch-enum
 
+IUTEST_CXX_STRICT_NOWARN_FLAGS+= \
+	-Wno-missing-prototypes \
+	-Wno-used-but-marked-unused \
+	-Wno-global-constructors -Wno-weak-vtables \
+	-Wno-padded \
+	-Wno-deprecated \
+
 # 3.2 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 2 \)))
 
@@ -246,17 +263,6 @@ IUTEST_CXX_STRICT_FLAGS+=-Weverything
 IUTEST_CXX_NOWARN_FLAGS+=${IUTEST_CXX_STRICT_NOWARN_FLAGS}
 
 endif
-
-IUTEST_CXX_NOWARN_FLAGS+= \
-	-Wno-c++98-compat -Wno-c++98-compat-pedantic \
-	-Wno-missing-prototypes \
-	-Wno-exit-time-destructors \
-	-Wno-used-but-marked-unused \
-	-Wno-global-constructors -Wno-weak-vtables \
-	-Wno-missing-variable-declarations \
-	-Wno-padded -Wno-sign-conversion \
-	-Wno-deprecated \
-	-Wno-documentation
 
 IUTEST_CXX_NOWARN_FLAGS+=-Wno-sign-conversion
 
