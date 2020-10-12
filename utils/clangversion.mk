@@ -142,27 +142,100 @@ include $(UTILS_MAKEFILE_DIR)/stdcver.mk
 # Warning Option
 #
 
-IUTEST_CXX_WARN_FLAGS+=-Wno-missing-field-initializers
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-missing-field-initializers \
+	-Wno-disabled-macro-expansion
+
+# until 3.4
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \< 3 \) \| \( $(CLANGMAJOR) = 3 \& $(CLANGMINOR) \< 4 \)))
+IUTEST_CXX_STRICT_NOWARN_FLAGS+=-Wno-gnu
+endif
+
+# until 3.2
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \< 3 \) \| \( $(CLANGMAJOR) = 3 \& $(CLANGMINOR) \< 2 \)))
+IUTEST_CXX_STRICT_NOWARN_FLAGS+=-Wno-pedantic
+endif
+
+# 11.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 11 \)))
+IUTEST_CXX_STRICT_NOWARN_FLAGS+=-Wno-suggest-override -Wno-suggest-destructor-override
+endif
+
+
+# 10.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 10 \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wimplicit-int-float-conversion
+IUTEST_CXX_STRICT_NOWARN_FLAGS+=-Wno-poison-system-directories
+endif
 
 # 8.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 8 \)))
-IUTEST_CXX_WARN_FLAGS+=-Wextra-semi
+IUTEST_CXX_STRICT_FLAGS+=-Wextra-semi \
+	-Wimplicit-float-conversion
 endif
 
-# 3.0 later
-ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \)))
-IUTEST_CXX_STRICT_FLAGS+=-Wunreachable-code
+# 4.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 4 \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wshadow-uncaptured-local
+IUTEST_CXX_STRICT_NOWARN_FLAGS+=-Wno-inconsistent-missing-destructor-override -Wno-redundant-parens
+endif
+
+# 3.8 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 8 \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wdouble-promotion
+endif
+
+# 3.5 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 5 \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wshadow-all -Wnonportable-system-include-path
+endif
+
+# 3.3 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 3 \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wfloat-conversion
+IUTEST_CXX_STRICT_FLAGS+=-fcomment-block-commands=private,internal,retval
 endif
 
 # c++11 later
 ifeq (1,$(shell expr \( $(CPPVER_Y) \>= 2011 \) ))
 
-# 10.0 later
-ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 10 \)))
+# 11.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 11 \)))
 IUTEST_CXX_STRICT_FLAGS+=-Wsuggest-override
 endif
 
+else
+
+IUTEST_CXX_STRICT_NOWARN_FLAGS+=-Wno-c99-extensions \
+	-Wno-variadic-macros \
+	-Wno-c++11-long-long \
+	-Wno-long-long
+
 endif
+
+IUTEST_CXX_STRICT_FLAGS+=-Wmissing-noreturn -Wswitch-enum
+
+# 3.2 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 2 \)))
+
+IUTEST_CXX_STRICT_FLAGS+=-Weverything
+IUTEST_CXX_NOWARN_FLAGS+=${IUTEST_CXX_STRICT_NOWARN_FLAGS}
+
+endif
+
+IUTEST_CXX_NOWARN_FLAGS+= \
+	-Wno-c++98-compat -Wno-c++98-compat-pedantic \
+	-Wno-missing-prototypes -Wno-gnu-zero-variadic-macro-arguments \
+	-Wno-exit-time-destructors -Wno-reserved-id-macro \
+	-Wno-used-but-marked-unused \
+	-Wno-global-constructors -Wno-weak-vtables \
+	-Wno-missing-variable-declarations \
+	-Wno-padded -Wno-sign-conversion \
+	-Wno-deprecated \
+	-Wno-documentation
+
+IUTEST_CXX_NOWARN_FLAGS+=-Wno-sign-conversion
+
+# IUTEST_CXX_NOWARN_FLAGS+=-Wno-error=unknown-warning-option
 
 ifeq ($(CLANG_TATGET), x86_64-pc-windows-msvc)
 CXXFLAGS+= -Xclang -flto-visibility-public-std
