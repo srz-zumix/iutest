@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.1</span>
+   &#160;<span id="projectnumber">1.17.99.2</span>
    </div>
   </td>
  </tr>
@@ -240,29 +240,33 @@ $(function() {
 <div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>UnitTestImpl;</div>
 <div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>UnitTest;</div>
 <div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>TestSuite;</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    ::std::string           m_testname;         </div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    ::std::string           m_value_param;      </div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    TestResult              m_test_result;      </div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    Mediator                m_mediator;         </div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    detail::iuFactoryBase*          m_factory;  </div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    detail::iuITestSuiteMediator*   m_testsuite;</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    <span class="keywordtype">bool</span>                    m_should_run;       </div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keywordtype">bool</span>                    m_ran;              </div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keywordtype">bool</span>                    m_disable;          </div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <span class="keywordtype">bool</span>                    m_skip;             </div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordtype">bool</span>                    m_matches_filter;   </div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>(<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#a51bc74058d97d3125bd202f02d99c142">TestInfo</a>);</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;};</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160; </div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_LIB</span></div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;<span class="preprocessor">#  include &quot;impl/iutest_info.ipp&quot;</span></div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span>detail::UncaughtScopedTrace;</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    ::std::string           m_testname;         </div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    ::std::string           m_value_param;      </div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    TestResult              m_test_result;      </div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    Mediator                m_mediator;         </div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    detail::iuFactoryBase*          m_factory;  </div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    detail::iuITestSuiteMediator*   m_testsuite;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keywordtype">bool</span>                    m_should_run;       </div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keywordtype">bool</span>                    m_ran;              </div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <span class="keywordtype">bool</span>                    m_disable;          </div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordtype">bool</span>                    m_skip;             </div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keywordtype">bool</span>                    m_matches_filter;   </div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    typedef ::std::vector&lt;detail::iuCodeMessage&gt; UncaughtMessagesType;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    UncaughtMessagesType    m_uncaught_messages;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <a class="code" href="../../d9/d6f/iutest__pp_8hpp.html#ae1a8e577dffb6a2c69e22df8cc8d7a17">IUTEST_PP_DISALLOW_COPY_AND_ASSIGN</a>(<a class="code" href="../../d8/d3d/classiutest_1_1_test_info.html#a51bc74058d97d3125bd202f02d99c142">TestInfo</a>);</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;};</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160; </div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;}   <span class="comment">// end of namespace iutest</span></div>
 <div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_INFO_HPP_764A79A8_E822_4C0F_8CB7_82C635BA28BA_</span></div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;<span class="preprocessor">#if !IUTEST_HAS_LIB</span></div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;<span class="preprocessor">#  include &quot;impl/iutest_info.ipp&quot;</span></div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160; </div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="preprocessor">#endif // INCG_IRIS_IUTEST_INFO_HPP_764A79A8_E822_4C0F_8CB7_82C635BA28BA_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclassiutest_1_1_test_result_html"><div class="ttname"><a href="../../d0/d7b/classiutest_1_1_test_result.html">iutest::TestResult</a></div><div class="ttdoc">テスト結果を示すクラス</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:213</div></div>
 <div class="ttc" id="aiutest__factory_8hpp_html"><div class="ttname"><a href="../../d1/dc9/iutest__factory_8hpp.html">iutest_factory.hpp</a></div><div class="ttdoc">iris unit test テストファクトリー ファイル</div></div>
@@ -274,7 +278,7 @@ $(function() {
 <div class="ttc" id="aclassiutest_1_1_test_info_html"><div class="ttname"><a href="../../d8/d3d/classiutest_1_1_test_info.html">iutest::TestInfo</a></div><div class="ttdoc">テスト情報クラス</div><div class="ttdef"><b>Definition:</b> iutest_info.hpp:32</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_info_html_a6957fe432548da07e4c381b1bb375a4f"><div class="ttname"><a href="../../d8/d3d/classiutest_1_1_test_info.html#a6957fe432548da07e4c381b1bb375a4f">iutest::TestInfo::HasWarning</a></div><div class="ttdeci">bool HasWarning() const</div><div class="ttdoc">警告があるかどうか</div><div class="ttdef"><b>Definition:</b> iutest_info.hpp:122</div></div>
 <div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
-<div class="ttc" id="agroup___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r_html_ga0811f1e5c03ce4c5962630a6707acb75"><div class="ttname"><a href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#ga0811f1e5c03ce4c5962630a6707acb75">IUTEST_USE_OWN_LIST</a></div><div class="ttdeci">#define IUTEST_USE_OWN_LIST</div><div class="ttdoc">テストの所持を独自リストクラスで行う</div><div class="ttdef"><b>Definition:</b> iutest_config.hpp:700</div></div>
+<div class="ttc" id="agroup___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r_html_ga0811f1e5c03ce4c5962630a6707acb75"><div class="ttname"><a href="../../d7/d89/group___i_u_t_e_s_t___c_o_n_f_i_g___o_t_h_e_r.html#ga0811f1e5c03ce4c5962630a6707acb75">IUTEST_USE_OWN_LIST</a></div><div class="ttdeci">#define IUTEST_USE_OWN_LIST</div><div class="ttdoc">テストの所持を独自リストクラスで行う</div><div class="ttdef"><b>Definition:</b> iutest_config.hpp:704</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_info_html_a51bc74058d97d3125bd202f02d99c142"><div class="ttname"><a href="../../d8/d3d/classiutest_1_1_test_info.html#a51bc74058d97d3125bd202f02d99c142">iutest::TestInfo::TestInfo</a></div><div class="ttdeci">TestInfo(detail::iuITestSuiteMediator *testsuite, const ::std::string &amp;name, detail::iuFactoryBase *factory)</div><div class="ttdoc">コンストラクタ</div><div class="ttdef"><b>Definition:</b> iutest_info.hpp:44</div></div>
 <div class="ttc" id="aiutest__compiler_8hpp_html_ae1e0ca3e2280e436f4a47eba8a2d9763"><div class="ttname"><a href="../../dc/d2f/iutest__compiler_8hpp.html#ae1e0ca3e2280e436f4a47eba8a2d9763">IUTEST_CXX_NOEXCEPT_SPEC</a></div><div class="ttdeci">#define IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdoc">noexcept specification definition</div><div class="ttdef"><b>Definition:</b> iutest_compiler.hpp:736</div></div>
 <div class="ttc" id="aclassiutest_1_1_test_info_html_a080c3d7727d6e929357ed845794edae9"><div class="ttname"><a href="../../d8/d3d/classiutest_1_1_test_info.html#a080c3d7727d6e929357ed845794edae9">iutest::TestInfo::is_disabled_test</a></div><div class="ttdeci">bool is_disabled_test() const IUTEST_CXX_NOEXCEPT_SPEC</div><div class="ttdef"><b>Definition:</b> iutest_info.hpp:70</div></div>
@@ -308,7 +312,7 @@ $(function() {
 <div class="ttc" id="aclassiutest_1_1_test_result_html_a54b0d9258545f81f3da76aea86181071"><div class="ttname"><a href="../../d0/d7b/classiutest_1_1_test_result.html#a54b0d9258545f81f3da76aea86181071">iutest::TestResult::Passed</a></div><div class="ttdeci">bool Passed() const</div><div class="ttdoc">成功したかどうか</div><div class="ttdef"><b>Definition:</b> iutest_result.hpp:225</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年09月13日(日) 07時43分33秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年10月12日(月) 13時32分42秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

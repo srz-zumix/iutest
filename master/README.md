@@ -113,7 +113,7 @@ Tools
   make fused-src.
 * Twilio  
   notifies the test results using Twilio
-* Wandbox  
+* Wandbox (deprecated) 
   tools to make use of the iutest in [Wandbox](https://wandbox.org/)
 
 Tests

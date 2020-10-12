@@ -1,4 +1,3 @@
 <map id="クラス階層図" name="クラス階層図">
-<area shape="rect" id="node1" title="ファイル/ライン/メッセージクラス" alt="" coords="5,5,220,32"/>
-<area shape="rect" id="node2" href="$d8/d3c/classiutest_1_1_test_part_result.html" title="テスト結果を示すクラス" alt="" coords="268,5,427,32"/>
+<area shape="rect" id="node1" href="$d8/d00/classiutest_1_1_test_flag.html" title="テストフラグ" alt="" coords="5,5,127,32"/>
 </map>

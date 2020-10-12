@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">iutest
-   &#160;<span id="projectnumber">1.17.99.1</span>
+   &#160;<span id="projectnumber">1.17.99.2</span>
    </div>
   </td>
  </tr>
@@ -119,13 +119,13 @@ $(function() {
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#define IUTEST_PP_COUNTOF(x)        (sizeof(x)/sizeof(x[0]))</span></div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#if IUTEST_HAS_COUNTER_MACRO</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#if defined(IUTEST_HAS_COUNTER_MACRO) &amp;&amp; IUTEST_HAS_COUNTER_MACRO</span></div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#  define IUTEST_PP_COUNTER         __COUNTER__</span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#  define IUTEST_PP_COUNTER         __LINE__</span></div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#if IUTEST_HAS_COUNTER_MACRO</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#if defined(IUTEST_HAS_COUNTER_MACRO) &amp;&amp; IUTEST_HAS_COUNTER_MACRO</span></div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#  define IUTEST_PP_UNIQUEID        IUTEST_PP_CAT(__LINE__, __COUNTER__)</span></div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#  define IUTEST_PP_UNIQUEID        __LINE__</span></div>
@@ -813,7 +813,7 @@ $(function() {
 <div class="ttc" id="aiutest__config_8hpp_html"><div class="ttname"><a href="../../d4/db0/iutest__config_8hpp.html">iutest_config.hpp</a></div><div class="ttdoc">iris unit test config</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-2020年09月13日(日) 07時43分31秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
+2020年10月12日(月) 13時32分40秒作成 - iutest / 構成:  &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="../../doxygen.png" alt="doxygen"/>
 </a> 1.8.17
 </small></address>

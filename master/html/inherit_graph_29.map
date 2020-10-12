@@ -1,6 +1,4 @@
 <map id="クラス階層図" name="クラス階層図">
-<area shape="rect" id="node1" href="$dc/d0e/classiutest_1_1_test.html" title="テストベース" alt="" coords="57,71,150,98"/>
-<area shape="rect" id="node2" href="$dd/d91/classiutest_1_1_test_with_any.html" title="any パラメータテストフィクスチャ" alt="" coords="275,17,423,43"/>
-<area shape="rect" id="node3" href="$d8/dcb/classiuutil_1_1backward_1_1_test.html" title=" " alt="" coords="249,71,448,98"/>
-<area shape="rect" id="node4" href="$df/d22/classiutest_1_1_with_param_interface.html" title=" " alt="" coords="5,5,201,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,167,47"/>
+<area shape="rect" id="node2" href="$d3/d35/structiutest_1_1_types_1_1get.html" title=" " alt="" coords="215,5,363,47"/>
 </map>
