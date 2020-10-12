@@ -178,10 +178,14 @@ ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 6 \)))
 IUTEST_CXX_STRICT_NOWARN_FLAGS+=-Wno-redundant-parens
 endif
 
+# 5.0 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 5 \)))
+IUTEST_CXX_STRICT_NOWARN_FLAGS+=-Wno-inconsistent-missing-destructor-override
+endif
+
 # 4.0 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 4 \)))
 IUTEST_CXX_STRICT_FLAGS+=-Wshadow-uncaptured-local
-IUTEST_CXX_STRICT_NOWARN_FLAGS+=-Wno-inconsistent-missing-destructor-override
 endif
 
 # 3.９ later
@@ -194,8 +198,9 @@ ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLA
 IUTEST_CXX_STRICT_FLAGS+=-Wdouble-promotion
 endif
 
-# 3.5 later
-ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 5 \)))
+# 3.6 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 6 \)))
+IUTEST_CXX_STRICT_NOWARN_FLAGS+=-Wno-reserved-id-macro
 endif
 
 # 3.3 later
@@ -234,7 +239,7 @@ endif
 IUTEST_CXX_NOWARN_FLAGS+= \
 	-Wno-c++98-compat -Wno-c++98-compat-pedantic \
 	-Wno-missing-prototypes -Wno-gnu-zero-variadic-macro-arguments \
-	-Wno-exit-time-destructors -Wno-reserved-id-macro \
+	-Wno-exit-time-destructors \
 	-Wno-used-but-marked-unused \
 	-Wno-global-constructors -Wno-weak-vtables \
 	-Wno-missing-variable-declarations \
