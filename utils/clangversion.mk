@@ -24,6 +24,7 @@ endif
 endif
 
 ifdef IUTEST_CLANG_CXX
+ifeq (${CLANGMAJOR}${CLANGMINOR},)
 
 CXX_NAME=clang++
 CLANGVERSION:=$(shell $(IUTEST_CLANG_CXX) --version | grep version | sed "s/.*version[ ]*\([0-9]*\.[0-9]*\).*/\1/")
@@ -47,6 +48,7 @@ CXX_MAJOR=${CLANGMAJOR}
 CXX_MINOR=${CLANGMINOR}
 CXX_VERSION=${CXX_MAJOR}.${CXX_MINOR}
 
+endif
 endif
 
 ifeq ($(CXX_NAME),clang++)
@@ -208,6 +210,11 @@ ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLA
 IUTEST_CXX_STRICT_FLAGS+=-Wfloat-conversion
 endif
 
+# 3.4 later
+ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 4 \)))
+IUTEST_CXX_STRICT_FLAGS+=-Wno-gnu-zero-variadic-macro-arguments
+endif
+
 # 3.3 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 3 \)))
 IUTEST_CXX_STRICT_FLAGS+=-fcomment-block-commands=private,internal,retval
@@ -242,7 +249,7 @@ endif
 
 IUTEST_CXX_NOWARN_FLAGS+= \
 	-Wno-c++98-compat -Wno-c++98-compat-pedantic \
-	-Wno-missing-prototypes -Wno-gnu-zero-variadic-macro-arguments \
+	-Wno-missing-prototypes \
 	-Wno-exit-time-destructors \
 	-Wno-used-but-marked-unused \
 	-Wno-global-constructors -Wno-weak-vtables \
