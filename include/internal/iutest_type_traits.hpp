@@ -948,7 +948,7 @@ namespace has_equal_to_operator_impl
 {
 
 IUTEST_PRAGMA_WARN_PUSH()
-IUTEST_PRAGMA_WARN_FLOAT_EQUAL()
+IUTEST_PRAGMA_WARN_DISABLE_FLOAT_EQUAL()
 
 using namespace has_equal_to_operator_helper;   // NOLINT
 /** @private */
