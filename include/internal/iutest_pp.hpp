@@ -716,7 +716,8 @@
 #define IIUT_PP_IS_EMPTY_II(x)      IIUT_PP_IS_EMPTY_II_ x
 #define IIUT_PP_IS_EMPTY_II_(a, b)  b
 
-#define IUTEST_PP_EMPTY()
+#define IUTEST_PP_EMPTY()     IUTEST_PP_EMPTY_()
+#define IUTEST_PP_EMPTY_()
 #define IIUT_PP_EMPTY_TAG() , 0
 #define IIUT_PP_EMPTY_TAG_IIUT_PP_EMPTY_TAG     1, 1 IUTEST_PP_EMPTY
 
