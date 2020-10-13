@@ -101,4 +101,10 @@ CXX_MAJOR=${CLANGMAJOR}
 CXX_MINOR=${CLANGMINOR}
 CXX_VERSION=${CXX_MAJOR}.${CXX_MINOR}
 
+# 9.0 later
+ifeq (1,$(shell expr \( $(APPLE_CLANGMAJOR) \>= 9 \)))
+IUTEST_CXX_STRICT_NOWARN_FLAGS+=-Wno-inconsistent-missing-destructor-override
+endif
+
+
 endif
