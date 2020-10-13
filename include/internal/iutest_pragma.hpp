@@ -400,13 +400,18 @@
 #  else
 #    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_5()
 #  endif
+#  if __clang_major__ > ２
+#    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_3()     IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wexit-time-destructors")
+#  else
+#    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_3()
+#  endif
 
 #  define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()     IUTEST_PRAGMA_CLANG_WARN_PUSH() \
                                                         IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wused-but-marked-unused") \
-                                                        IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wexit-time-destructors") \
                                                         IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wold-style-cast") \
                                                         IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_11() \
-                                                        IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_5()
+                                                        IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_5() \
+                                                        IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_3()
 
 #  define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_END()       IUTEST_PRAGMA_CLANG_WARN_POP()
 #elif defined(__GNUC__)
