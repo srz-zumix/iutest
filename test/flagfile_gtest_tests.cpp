@@ -48,12 +48,12 @@ IUTEST(Foo, OK)
     IUTEST_ASSERT_EQ(3, 3);
 }
 
-#endif
-
 #ifdef UNICODE
 #  define DECAL_ARGV(...) const wchar_t* targv[] = { argv[0], L ##__VA_ARGS__ }
 #else
 #  define DECAL_ARGV(...) const char*    targv[] = { argv[0],     __VA_ARGS__ }
+#endif
+
 #endif
 
 #ifdef UNICODE
