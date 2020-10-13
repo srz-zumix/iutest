@@ -400,7 +400,7 @@
 #  else
 #    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_5()
 #  endif
-#  if __clang_major__ > ２
+#  if __clang_major__ > 2
 #    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_3()     IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wexit-time-destructors")
 #  else
 #    define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_3()
