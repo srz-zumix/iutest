@@ -293,7 +293,9 @@
 
 #if !defined(IUTEST_PRAGMA_WARN_DISABLE_NARROWING)
 #  if   defined(__clang__)
-#    define IUTEST_PRAGMA_WARN_DISABLE_NARROWING()      IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wc++11-narrowing")
+#    if __clang_major__ > 2
+#      define IUTEST_PRAGMA_WARN_DISABLE_NARROWING()    IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wc++11-narrowing")
+#    endif
 #  elif defined(__GNUC__)
 #    if (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 7))
 #      define IUTEST_PRAGMA_WARN_DISABLE_NARROWING()    IUTEST_PRAGMA_GCC_WARN_DISABLE("-Wnarrowing")
