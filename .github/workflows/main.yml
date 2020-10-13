@@ -79,6 +79,7 @@ jobs:
     - name: zapcc test
       run: |
         make -C test clean
+        make -C test showcxxmacros
         make -C test showcxxversion
         make -C test check_stdlib
         make -C test -j1 IUTEST_REQUIRE_PYTHON=1

@@ -43,7 +43,7 @@ int** p2 = &p1;
 float f0 = 0.0f;
 double d0 = 0.0;
 #if IUTEST_HAS_LONG_DOUBLE
-long double ld0 = 0.0;
+long double ld0 = 0.0l;
 #endif
 
 struct X { int a, b; X(int _a, int _b) : a(_a), b(_b) {} int GetA() const { return a; } };
@@ -118,9 +118,9 @@ IUTEST(Matcher, DoubleEq)
 
 IUTEST(Matcher, LongDoubleEq)
 {
-    IUTEST_EXPECT_THAT(ld0, LongDoubleEq(0.0));
-    long double ldx = 0.001;
-    IUTEST_EXPECT_THAT(ldx, LongDoubleEq(0.001));
+    IUTEST_EXPECT_THAT(ld0, LongDoubleEq(0.0l));
+    long double ldx = 0.001l;
+    IUTEST_EXPECT_THAT(ldx, LongDoubleEq(0.001l));
 }
 
 #endif
@@ -143,10 +143,10 @@ IUTEST(Matcher, NanSensitiveDoubleEq)
 
 IUTEST(Matcher, NanSensitiveLongDoubleEq)
 {
-    IUTEST_EXPECT_THAT(ld0, NanSensitiveLongDoubleEq(0.0));
-    IUTEST_EXPECT_THAT(0.0/ld0, NanSensitiveLongDoubleEq(0.0/ld0));
-    long double ldx = 0.001;
-    IUTEST_EXPECT_THAT(ldx, NanSensitiveLongDoubleEq(0.001));
+    IUTEST_EXPECT_THAT(ld0, NanSensitiveLongDoubleEq(0.0l));
+    IUTEST_EXPECT_THAT(0.0l/ld0, NanSensitiveLongDoubleEq(0.0l/ld0));
+    long double ldx = 0.001l;
+    IUTEST_EXPECT_THAT(ldx, NanSensitiveLongDoubleEq(0.001l));
 }
 
 #endif
@@ -171,8 +171,8 @@ IUTEST(Matcher, DoubleNear)
 
 IUTEST(Matcher, LongDoubleNear)
 {
-    IUTEST_EXPECT_THAT(ld0, LongDoubleNear(0.0, 0.0));
-    long double ldx = 0.001;
+    IUTEST_EXPECT_THAT(ld0, LongDoubleNear(0.0l, 0.0l));
+    long double ldx = 0.001l;
     IUTEST_EXPECT_THAT(ld0, LongDoubleNear(ldx, ldx));
 }
 #endif
@@ -197,9 +197,9 @@ IUTEST(Matcher, NanSensitiveDoubleNear)
 
 IUTEST(Matcher, NanSensitiveLongDoubleNear)
 {
-    IUTEST_EXPECT_THAT(ld0, NanSensitiveLongDoubleNear(0.0, 0.0));
-    IUTEST_EXPECT_THAT(0.0/ld0, NanSensitiveLongDoubleNear(0.0/ld0, 0.0));
-    long double ldx = 0.001;
+    IUTEST_EXPECT_THAT(ld0, NanSensitiveLongDoubleNear(0.0l, 0.0l));
+    IUTEST_EXPECT_THAT(0.0l/ld0, NanSensitiveLongDoubleNear(0.0l/ld0, 0.0l));
+    long double ldx = 0.001l;
     IUTEST_EXPECT_THAT(ld0, NanSensitiveLongDoubleNear(ldx, ldx));
 }
 
@@ -488,7 +488,7 @@ IUTEST(MatcherFailure, DoubleEq)
 
 IUTEST(MatcherFailure, LongDoubleEq)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, LongDoubleEq(1.0)), "Eq: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, LongDoubleEq(1.0l)), "Eq: " );
     CHECK_FAILURE( IUTEST_ASSERT_THAT(0/ld0, LongDoubleEq(0/ld0)), "Eq: " );
 }
 
@@ -510,7 +510,7 @@ IUTEST(MatcherFailure, NanSensitiveDoubleEq)
 
 IUTEST(MatcherFailure, NanSensitiveLongDoubleEq)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, NanSensitiveLongDoubleEq(1.0)), "Eq: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, NanSensitiveLongDoubleEq(1.0l)), "Eq: " );
 }
 
 #endif
@@ -535,8 +535,8 @@ IUTEST(MatcherFailure, DoubleNear)
 
 IUTEST(MatcherFailure, LongDoubleNear)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, LongDoubleNear(1.0, ld0)), "Near: " );
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(0/ld0, LongDoubleNear(0/ld0, 1.0)), "Near: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, LongDoubleNear(1.0l, ld0)), "Near: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(0/ld0, LongDoubleNear(0/ld0, 1.0l)), "Near: " );
 }
 
 #endif
@@ -557,7 +557,7 @@ IUTEST(MatcherFailure, NanSensitiveDoubleNear)
 
 IUTEST(MatcherFailure, NanSensitiveLongDoubleNear)
 {
-    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, NanSensitiveLongDoubleNear(1.0, ld0)), "Near: " );
+    CHECK_FAILURE( IUTEST_ASSERT_THAT(ld0, NanSensitiveLongDoubleNear(1.0l, ld0)), "Near: " );
 }
 
 #endif
