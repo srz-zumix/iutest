@@ -411,6 +411,7 @@
 #  define IUTEST_PRAGMA_IUTEST_WARN_DISABLE_BEGIN()     IUTEST_PRAGMA_CLANG_WARN_PUSH() \
                                                         IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wused-but-marked-unused") \
                                                         IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wold-style-cast") \
+                                                        IUTEST_PRAGMA_CLANG_WARN_DISABLE("-Wunused-macros") \
                                                         IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_11() \
                                                         IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_5() \
                                                         IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_3()
