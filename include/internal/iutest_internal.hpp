@@ -462,8 +462,8 @@
 #if defined(IUTEST_ANALYSIS_ASSUME_DELEGATE)
 #define IUTEST_THROUGH_ANALYSIS_ASSUME_(expr, todo)                 \
     IUTEST_AMBIGUOUS_ELSE_BLOCKER_                                  \
-    if( bool b = true ) {                                           \
-        IUTEST_UNUSED_VAR(b);                                       \
+    if( bool iu_b_ = true ) {                                       \
+        IUTEST_UNUSED_VAR(iu_b_);                                   \
         IUTEST_ANALYSIS_ASSUME_DELEGATE(expr);                      \
         goto IUTEST_PP_CAT(iutest_label_analysis_assume, __LINE__); \
     } else                                                          \
