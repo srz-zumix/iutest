@@ -259,8 +259,12 @@ IUTEST_CXX_STRICT_NOWARN_FLAGS+= \
 # 3.2 later
 ifeq (1,$(shell expr \( $(CLANGMAJOR) \> 3 \) \| \( $(CLANGMAJOR) \>= 3 \& $(CLANGMINOR) \>= 2 \)))
 
+ifeq ($(IUTEST_WARN_EVERYTHING),1)
+
 IUTEST_CXX_STRICT_FLAGS+=-Weverything
 IUTEST_CXX_NOWARN_FLAGS+=${IUTEST_CXX_STRICT_NOWARN_FLAGS}
+
+endif
 
 endif
 
