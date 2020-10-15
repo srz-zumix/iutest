@@ -7,6 +7,10 @@ linter:
     config: ./.ci/goodcheck.yml
   cppcheck:
     std: "c++11"
+    target:
+      - "src/*.cpp"
+      - "samples/*.cpp"
+      - "test/*.cpp"
   cpplint:
     filter: "-build/c++11\
       ,-build/c++tr1\
