@@ -17,11 +17,11 @@
 
 //======================================================================
 // define
-#define IUTEST_VER          0x01179901u     //!< iutest version 1.17.99.1
+#define IUTEST_VER          0x01179902u     //!< iutest version 1.17.99.2
 #define IUTEST_MAJORVER     0x01u           //!< Major Version
 #define IUTEST_MINORVER     0x17u           //!< Minor Version
 #define IUTEST_MICROVER     0x99u           //!< Micro Version
-#define IUTEST_REVISION     0x01u           //!< Revision
+#define IUTEST_REVISION     0x02u           //!< Revision
 
 #define IUTEST_BUILD        IUTEST_MICROVER //!< @deprecated
 
@@ -124,7 +124,9 @@ modification, are permitted provided that the following conditions are met: \n
   <li>v1.18.0.0
     <ul>
       <li>TestCase の別名 TestSuite に対応（iutest はどちらもサポートし続けます）</li>
+      <li>例外発生時にも SCOPED_TRACE のメッセージを出力するように変更</li>
       <li>空のテストスイート名・テスト名に static_assert を追加</li>
+      <li>GoogleTest の GTEST_REMOVE_LEGACY_TEST_CASEAPI_ に対応</li>
     </ul>
   </li>
   <li>v1.17.1.0
