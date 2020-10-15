@@ -74,10 +74,11 @@ showcxxversion:
 
 $(RUNNER) : $(@:_tests_run=_tests)
 	@echo $@
+	cacls $?
 !ifdef OUTPUTXML
-	$?.exe $(RUN_OPTION) --iutest_output=xml:$?.xml
+	$? $(RUN_OPTION) --iutest_output=xml:$?.xml
 !else
-	$?.exe $(RUN_OPTION)
+	$? $(RUN_OPTION)
 !endif
 
 #
