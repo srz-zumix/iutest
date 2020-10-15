@@ -21,6 +21,9 @@ aliases:
           MAKE_RUN_TARGET: test
           # MAKE_TARGET: all_tests
           # MAKE_RUN_TARGET: run_all_tests
+        auth:
+          username: srzzumix
+          password: $DOCKERHUB_PASSWORD
   - &restore_cache
       keys:
       # This branch if available
