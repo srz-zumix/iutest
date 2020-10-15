@@ -78,9 +78,7 @@ branches:
   only:
     - master
     - develop
-    # - /feature.*/
-    # - /fix.*/
-    # - /appveyor.*/
+    - /appveyor.*/
 
 skip_commits:
   files:
