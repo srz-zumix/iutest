@@ -96,7 +96,7 @@ public:
     /**
      * @brief   失敗かどうか
     */
-    bool        failed() const IUTEST_CXX_NOEXCEPT_SPEC { return type_is_failed(m_type);; }
+    bool        failed() const IUTEST_CXX_NOEXCEPT_SPEC { return type_is_failed(m_type); }
     /**
      * @brief   成功かどうか
     */
