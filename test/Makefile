@@ -50,7 +50,8 @@ NAMESPACETESTS_TEST_SRCS = $(ALLTESTS_TEST_SRCS:.cpp=.ns.cpp)
 NAMESPACETESTS_SRCS = main.cpp $(NAMESPACETESTS_TEST_SRCS)
 
 SRCS   = $(BUILD_TARGETS:_tests=_tests.cpp)
-RUNNER = $(RUN_TARGETS:_tests=_tests_run)
+RUNNER_ = $(RUN_TARGETS:_tests=_tests_run)
+RUNNER = $(RUNNER_:./=)
 
 
 # build targets.
@@ -75,9 +76,9 @@ showcxxversion:
 $(RUNNER) : $(@:_tests_run=_tests)
 	@echo $@
 !ifdef OUTPUTXML
-	$< $(RUN_OPTION) --iutest_output=xml:$<.xml
+	$?.exe $(RUN_OPTION) --iutest_output=xml:$?.xml
 !else
-	$< $(RUN_OPTION)
+	$?.exe $(RUN_OPTION)
 !endif
 
 #
