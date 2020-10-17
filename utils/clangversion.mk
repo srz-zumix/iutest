@@ -224,7 +224,6 @@ ifeq (1,$(shell expr \( $(CLANGMAJOR) \>= 3 \)))
 IUTEST_CXX_STRICT_NOWARN_FLAGS+=\
 	-Wno-c++98-compat -Wno-c++98-compat-pedantic \
 	-Wno-disabled-macro-expansion \
-	-Wno-documentation \
 	-Wno-exit-time-destructors \
 	-Wno-missing-variable-declarations \
 

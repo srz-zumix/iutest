@@ -25,6 +25,8 @@ ifndef OUTDIR
 OUTDIR = .
 endif
 
+# IUTEST_WARN_EVERYTHING:=1
+
 #
 #
 # include
