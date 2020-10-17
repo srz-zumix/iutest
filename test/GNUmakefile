@@ -501,15 +501,20 @@ report:
 
 CMAKE_CHECKS = $(RUN_TARGETS:$(OUTDIR)/%=%)
 cmake-sync-check: ../projects/cmake/CMakeLists.txt $(MAKEFILE)
-	@echo ========== cxx_executable_test ==========
+	@echo ========== invalid test names ==========
+	@for f in $(CMAKE_CHECKS); do \
+		echo $$f | grep -v "setup" > /dev/null || echo $$f; \
+	done
+	@echo ========== cxx_executable_test not found ==========
 	@for f in $(CMAKE_CHECKS); do \
 		grep "cxx_executable_test.*($$f" $< > /dev/null || echo $$f; \
 	done
-	@echo ========== cxx_add_test ==========
+	@echo ========== cxx_add_test not found ==========
 	@for f in $(CMAKE_CHECKS); do \
 		grep "cxx_add_test($$f" $< > /dev/null || echo $$f; \
 	done
 	@for f in $(CMAKE_CHECKS); do \
+		echo $$f | grep -v "setup" > /dev/null || exit 1; \
 		grep "cxx_executable_test.*($$f" $< > /dev/null || exit 1; \
 		grep "cxx_add_test($$f" $< > /dev/null || exit 1; \
 	done
