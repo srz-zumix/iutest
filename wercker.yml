@@ -21,6 +21,14 @@ build:
           cd tools/wandbox
           python iuwandbox.py --list-compiler --verbose
 
+cmake-check:
+  steps:
+    - script:
+        name: CMake tests check
+        code: |
+          cd test
+          make cmake-sync-check
+
 gtest-compat:
   box: alpine
   docker: true
