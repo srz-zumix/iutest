@@ -1,7 +1,7 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file        invalid_both_suite_and_case_setup_tests.cpp
+ * @file        invalid_both_suite_and_case_set_up_tests.cpp
  * @brief       invalid testsuite and testcase both implement
  *
  * @author      t.shirayanagi
