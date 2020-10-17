@@ -139,6 +139,7 @@ if (build_tests)
     typed_test_tests.cpp
     values_tests.cpp
   )
+  cxx_executable_test(also_run_disabled_tests)
   cxx_executable_test(assertion_return_tests)
   cxx_executable_test(assume_tests)
   cxx_executable_test(break_on_failure_nobreak_tests)
