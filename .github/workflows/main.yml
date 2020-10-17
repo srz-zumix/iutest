@@ -65,7 +65,7 @@ jobs:
         make -C test test
   zapcc-basic-test:
     runs-on: ubuntu-18.04
-    container: docker://srzzumix/zapcc
+    container: docker://srzzumix/zapcc:bionic
     needs: prepare
     env:
       PYTHON_VERSION: 3.8
@@ -79,6 +79,7 @@ jobs:
     - name: zapcc test
       run: |
         make -C test clean
+        make -C test showcxxmacros
         make -C test showcxxversion
         make -C test check_stdlib
         make -C test -j1 IUTEST_REQUIRE_PYTHON=1
