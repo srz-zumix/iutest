@@ -494,6 +494,26 @@ cppcheck: ## cppcheck
 report:
 	CXX_NAME=${CXX_NAME} CXX_VERSION=${CXX_VERSION} STDFLAG=${STDFLAG} ./../.ci/report-basic-test.sh || true
 
+
+#
+# cmake sync test
+#
+
+CMAKE_CHECKS = $(RUN_TARGETS:$(OUTDIR)/%=%)
+cmake-sync-check: ../projects/cmake/CMakeLists.txt $(MAKEFILE)
+	@echo ========== cxx_executable_test ==========
+	@for f in $(CMAKE_CHECKS); do \
+		grep "cxx_executable_test.*($$f" $< > /dev/null || echo $$f; \
+	done
+	@echo ========== cxx_add_test ==========
+	@for f in $(CMAKE_CHECKS); do \
+		grep "cxx_add_test($$f" $< > /dev/null || echo $$f; \
+	done
+	@for f in $(CMAKE_CHECKS); do \
+		grep "cxx_executable_test.*($$f" $< > /dev/null || exit 1; \
+		grep "cxx_add_test($$f" $< > /dev/null || exit 1; \
+	done
+
 #
 # help
 #
