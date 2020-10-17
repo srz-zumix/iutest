@@ -1,7 +1,7 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file        exception_setup_testsuite_tests.cpp
+ * @file        exception_set_up_testsuite_tests.cpp
  * @brief       iutest exception at SetUpTestSuite
  *
  * @author      t.shirayanagi
