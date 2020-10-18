@@ -62,7 +62,12 @@ int main(int argc, char* argv[])
     // 失敗テストを含むので xml 出力しない
     ::iutest::IUTEST_FLAG(output) = NULL;
 #endif
-    if( IUTEST_RUN_ALL_TESTS() == 0 ) return 1;
+    if( IUTEST_RUN_ALL_TESTS() == 0 )
+    {
+        printf("Test expect fail.\n");
+        return 1;
+    }
+    printf("failed_test_count: %d", ::iutest::UnitTest::GetInstance()->failed_test_count());
 #if IUTEST_HAS_ASSERTION_RETURN
     IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->failed_test_count())
         << ::iutest::AssertionReturn<int>(1);
