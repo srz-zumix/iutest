@@ -419,6 +419,7 @@ $(ERR_TARGETS) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 else
 
 # use Google Test or Google Mock
+CXXFLAGS += -Werror $(IUTEST_CXX_WARN_FLAGS)
 include ../utils/usegtest.mk
 
 $(BUILD_ONLY) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
