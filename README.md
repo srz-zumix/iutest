@@ -14,6 +14,7 @@
 [![Semaphore Build Status](https://semaphoreci.com/api/v1/srz_zumix/iutest/branches/master/badge.svg)](https://semaphoreci.com/srz_zumix/iutest)
 [![Semaphore 2.0 Build Status](https://srz-zumix.semaphoreci.com/badges/iutest/branches/master.svg)](https://srz-zumix.semaphoreci.com/projects/iutest)
 [![Shippable Run Status](https://api.shippable.com/projects/541904d2ac22859af743f867/badge?branch=master)](https://app.shippable.com/github/srz-zumix/iutest)
+[![TeamCity Cloud Build Status](https://iutest.beta.teamcity.com/app/rest/builds/buildType:Iutest_GoogleTestCompatibleTest/statusIcon?guest=1)](https://iutest.beta.teamcity.com/viewType.html?buildTypeId=Iutest_GoogleTestCompatibleTest&guest=1)
 [![Travis-CI Build Status](https://travis-ci.com/srz-zumix/iutest.svg?branch=master)](https://travis-ci.com/srz-zumix/iutest)
 [![Wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/master "wercker status")](https://app.wercker.com/project/bykey/d385156052aa4118a7f24affe4a8f851)  
   
@@ -143,6 +144,7 @@ Tests
 |[Semaphore](https://semaphoreci.com/)|[![Semaphore Build Status](https://semaphoreci.com/api/v1/srz_zumix/iutest/branches/master/badge.svg)](https://semaphoreci.com/srz_zumix/iutest)|[![Semaphore Build Status](https://semaphoreci.com/api/v1/srz_zumix/iutest/branches/develop/badge.svg)](https://semaphoreci.com/srz_zumix/iutest)|Scan-build|
 |[Semaphore 2.0](https://semaphoreci.com/)|[![Semaphore 2.0 Build Status](https://srz-zumix.semaphoreci.com/badges/iutest/branches/master.svg)](https://srz-zumix.semaphoreci.com/projects/iutest)|[![Semaphore 2.0 Build Status](https://srz-zumix.semaphoreci.com/badges/iutest/branches/develop.svg)](https://srz-zumix.semaphoreci.com/projects/iutest)|Scan-build, Basic test, sample run|
 |[Shippable](https://shippable.com/)|[![Shippable Run Status](https://api.shippable.com/projects/541904d2ac22859af743f867/badge?branch=master)](https://app.shippable.com/github/srz-zumix/iutest)|[![Run Status](https://api.shippable.com/projects/541904d2ac22859af743f867/badge?branch=develop)](https://app.shippable.com/github/srz-zumix/iutest)|CentOS gcc/clang Baisc test|
+|[TeamCity Cloud](https://www.jetbrains.com/teamcity/cloud/)|[![TeamCity Cloud Build Status](https://iutest.beta.teamcity.com/app/rest/builds/buildType:Iutest_GoogleTestCompatibleTest/statusIcon)](https://iutest.beta.teamcity.com/viewType.html?buildTypeId=Iutest_GoogleTestCompatibleTest&guest=1)||gtest compatible test for released versions|
 |[Travis CI](https://travis-ci.com/)|[![Travis-CI Build Status](https://travis-ci.com/srz-zumix/iutest.svg?branch=master)](https://travis-ci.com/srz-zumix/iutest)|[![Travis-CI Build Status](https://travis-ci.com/srz-zumix/iutest.svg?branch=develop)](https://travis-ci.com/srz-zumix/iutest)|Basic tests, Google Test compatibility, Coverage, Coverity-scan|
 |[Wercker](https://www.wercker.com/)|[![wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/master "wercker status")](https://app.wercker.com/project/byKey/d385156052aa4118a7f24affe4a8f851)|[![wercker status](https://app.wercker.com/status/d385156052aa4118a7f24affe4a8f851/s/develop "wercker status")](https://app.wercker.com/project/byKey/d385156052aa4118a7f24affe4a8f851)|gtest compatible test for released versions / gtest version detect test, iuwandbox make build|
 
@@ -150,12 +152,10 @@ Basic test
 
 [Compiler and OS tests status](./docs/status/compiler_os_ci_status.rst)
 
-
 Coverage
 --------------------------------------------------
 
 [![Coveralls Coverage Status](https://coveralls.io/repos/github/srz-zumix/iutest/badge.svg?branch=master)](https://coveralls.io/github/srz-zumix/iutest?branch=master)  
-
 
 [![Codecov](https://codecov.io/gh/srz-zumix/iutest/branch/master/graph/badge.svg)](https://codecov.io/gh/srz-zumix/iutest)  
 [![Codecov](https://codecov.io/gh/srz-zumix/iutest/branch/master/graphs/icicle.svg)](https://codecov.io/gh/srz-zumix/iutest)  
