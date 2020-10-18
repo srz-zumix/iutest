@@ -21,6 +21,14 @@ build:
           cd tools/wandbox
           python iuwandbox.py --list-compiler --verbose
 
+cmake-check:
+  steps:
+    - script:
+        name: CMake tests check
+        code: |
+          cd test
+          make cmake-sync-check
+
 gtest-compat:
   box: alpine
   docker: true
@@ -77,6 +85,7 @@ wandbox:
           cd tools/wandbox
           for compiler in ${IUWANDBOX_COMPILER}
           do
+              echo ./iuwandbox.py ${IUWANDBOX_EXPERIMENTAL_OPTION} ${IUWANDBOX_COMMANDLINE_OPTION} -c $compiler --std "c++${IUWANDBOX_CPPVER}" ${IUWANDBOX_TARGET_SRC} ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION};
               python ./iuwandbox.py ${IUWANDBOX_EXPERIMENTAL_OPTION} ${IUWANDBOX_COMMANDLINE_OPTION} -c $compiler --std "c++${IUWANDBOX_CPPVER}" ${IUWANDBOX_TARGET_SRC} ${IUWANDBOX_ADD_OPTION} ${IUWANDBOX_STDC_ADD_OPTION};
           done
 
