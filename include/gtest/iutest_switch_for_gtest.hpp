@@ -557,6 +557,13 @@ inline void GTestStreamTo(std::ostream* os, const char val)
 {
     *os << val;
 }
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+inline void GTestStreamTo(std::ostream* os, const ::std::string_view& val)
+{
+    const ::std::basic_string<CharT, Traits> str{ val };
+    *os << str.c_str();
+}
+#endif
 
 }   // end of namespace printer_internal2
 }   // end of namespace testing
