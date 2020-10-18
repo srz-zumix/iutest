@@ -67,6 +67,7 @@ int main(int argc, char* argv[])
         printf("Test expect fail.\n");
         return 1;
     }
+    printf("failed_test_count: %d", ::iutest::UnitTest::GetInstance()->failed_test_count());
 #if IUTEST_HAS_ASSERTION_RETURN
     IUTEST_ASSERT_EQ(0, ::iutest::UnitTest::GetInstance()->failed_test_count())
         << ::iutest::AssertionReturn<int>(1);
