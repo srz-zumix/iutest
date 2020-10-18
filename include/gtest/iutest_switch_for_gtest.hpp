@@ -84,6 +84,10 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 //======================================================================
 // define
 
+#if !defined(GTEST_HAS_PARAM_TEST)
+#  define GTEST_HAS_PARAM_TEST  1
+#endif
+
 #if defined(INCG_IRIS_IUTEST_HPP_)
 #undef IUTEST_SUCCEED
 #undef IUTEST_FAIL
