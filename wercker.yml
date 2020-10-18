@@ -72,7 +72,7 @@ wandbox:
         code: |
           export PYTHONDONTWRITEBYTECODE=1
           export IUWANDBOX_COMMANDLINE_OPTION="-f"-Werror" --encoding utf-8-sig --expand-include --verbose --check-config --retry-wait 180 --iutest-use-main"
-          if [ "${IUWANDBOX_TARGET_SRC+x}" ]; then export IUWANDBOX_TARGET_SRC="../../test/syntax_tests.cpp"; fi
+          if [ -z "${IUWANDBOX_TARGET_SRC+x}" ]; then export IUWANDBOX_TARGET_SRC="../../test/syntax_tests.cpp"; fi
 
     - script: &experimental
         name: experimental setup
