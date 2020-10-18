@@ -1,7 +1,7 @@
 ﻿//======================================================================
 //-----------------------------------------------------------------------
 /**
- * @file        invalid_both_suite_and_case_setup_tests.cpp
+ * @file        invalid_both_suite_and_case_set_up_tests.cpp
  * @brief       invalid testsuite and testcase both implement
  *
  * @author      t.shirayanagi
@@ -37,17 +37,23 @@
 class BothTest : public ::iutest::Test
 {
 public:
+    static int x;
+public:
     static void SetUpTestSuite()
     {
+        ++x;
     }
     static void SetUpTestCase()
     {
+        ++x;
     }
 };
 
 IUTEST_F(BothTest, Run)
 {
 }
+
+int BothTest::x = 0;
 
 #endif
 
@@ -60,11 +66,14 @@ int main(int argc, char* argv[])
     IUTEST_INIT(&argc, argv);
 #if HAS_INVALID_TESTSUITE_AND_TESTCASE
     int ret = IUTEST_RUN_ALL_TESTS();
-#if IUTEST_HAS_ASSERTION_RETURN && IUTEST_HAS_STREAM_BUFFER
+#if IUTEST_HAS_ASSERTION_RETURN
+#if IUTEST_HAS_STREAM_BUFFER
     IUTEST_ASSERT_STRIN(
         "Test can not provide both SetUpTestSuite and SetUpTestCase"
         ", please make sure there is only one present at "
         , stderr_capture.GetStreamString()) << ::iutest::AssertionReturn<int>(1);
+#endif
+    IUTEST_ASSERT_EQ(1, BothTest::x) << ::iutest::AssertionReturn<int>(1);
 #endif
     if( ret == 0 )
     {
