@@ -37,13 +37,19 @@
 class BothTest : public ::iutest::Test
 {
 public:
+    static int x;
+public:
     static void TearDownTestSuite()
     {
+        ++x;
     }
     static void TearDownTestCase()
     {
+        ++x;
     }
 };
+
+int BothTest::x = 0;
 
 IUTEST_F(BothTest, Run)
 {
@@ -60,11 +66,14 @@ int main(int argc, char* argv[])
     IUTEST_INIT(&argc, argv);
 #if HAS_INVALID_TESTSUITE_AND_TESTCASE
     int ret = IUTEST_RUN_ALL_TESTS();
-#if IUTEST_HAS_ASSERTION_RETURN && IUTEST_HAS_STREAM_BUFFER
+#if IUTEST_HAS_ASSERTION_RETURN
+#if IUTEST_HAS_STREAM_BUFFER
     IUTEST_ASSERT_STRIN(
         "Test can not provide both TearDownTestSuite and TearDownTestCase"
         ", please make sure there is only one present at "
         , stderr_capture.GetStreamString()) << ::iutest::AssertionReturn<int>(1);
+#endif
+    IUTEST_ASSERT_EQ(1, BothTest::x) << ::iutest::AssertionReturn<int>(1);
 #endif
     if( ret == 0 )
     {
