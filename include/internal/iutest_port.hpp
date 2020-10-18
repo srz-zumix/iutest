@@ -305,7 +305,7 @@ public:
     }
 
 public:
-    ::std::string GetStreamString() { fflush(m_fp); return m_buf; }
+    ::std::string GetStreamString() { return m_buf; }
 
 private:
     FILE* m_fp;
