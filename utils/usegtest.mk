@@ -45,7 +45,8 @@ ifdef USE_GTEST
 
 ifdef GTEST_ROOT_
 
-GTEST_INC_=-I$(GTEST_ROOT_)/include
+GTEST_INC_=-isystem$(GTEST_ROOT_)/include
+GTEST_SYSTEM_INCLUDED=1
 #GTEST_LIB_=$(GTEST_ROOT_)/make/gtest.a
 
 ifeq ($(findstring yes, $(shell test -e $(GTEST_ROOT_)/make/gtest-all.o && echo -n yes)), yes)
@@ -106,6 +107,7 @@ ifdef GMOCK_ROOT_
 
 GMOCK_INC_=-isystem$(GMOCK_ROOT_)/include -isystem$(GTEST_ROOT_)/include
 GMOCK_LIB_=$(GMOCK_ROOT_)/make/gmock-all.o $(GMOCK_ROOT_)/make/gtest-all.o
+GTEST_SYSTEM_INCLUDED=1
 
 else
 
