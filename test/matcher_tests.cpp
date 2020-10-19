@@ -53,6 +53,11 @@ int X2(int v) { return v*2; }
 
 }   // end of namespace
 
+IUTEST(Matcher, SuppressWarning)
+{
+    (void)gn;
+}
+
 IUTEST(Matcher, Eq)
 {
     IUTEST_EXPECT_THAT(1, Eq(1));

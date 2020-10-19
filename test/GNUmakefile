@@ -422,6 +422,9 @@ else
 
 # use Google Test or Google Mock
 include ../utils/usegtest.mk
+ifdef GTEST_SYSTEM_INCLUDED
+CXXFLAGS += -Werror $(IUTEST_CXX_WARN_FLAGS)
+endif
 
 $(BUILD_ONLY) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $< $(LDFLAGS)
@@ -495,6 +498,31 @@ cppcheck: ## cppcheck
 
 report:
 	CXX_NAME=${CXX_NAME} CXX_VERSION=${CXX_VERSION} STDFLAG=${STDFLAG} ./../.ci/report-basic-test.sh || true
+
+
+#
+# cmake sync test
+#
+
+CMAKE_CHECKS = $(RUN_TARGETS:$(OUTDIR)/%=%)
+cmake-sync-check: ../projects/cmake/CMakeLists.txt $(MAKEFILE)
+	@echo ========== invalid test names ==========
+	@for f in $(CMAKE_CHECKS); do \
+		echo $$f | grep -v "setup" > /dev/null || echo $$f; \
+	done
+	@echo ========== cxx_executable_test not found ==========
+	@for f in $(CMAKE_CHECKS); do \
+		grep "cxx_executable_test.*($$f" $< > /dev/null || echo $$f; \
+	done
+	@echo ========== cxx_add_test not found ==========
+	@for f in $(CMAKE_CHECKS); do \
+		grep "cxx_add_test($$f" $< > /dev/null || echo $$f; \
+	done
+	@for f in $(CMAKE_CHECKS); do \
+		echo $$f | grep -v "setup" > /dev/null || exit 1; \
+		grep "cxx_executable_test.*($$f" $< > /dev/null || exit 1; \
+		grep "cxx_add_test($$f" $< > /dev/null || exit 1; \
+	done
 
 #
 # help
