@@ -84,6 +84,10 @@ void GTestStreamToHelper(std::ostream* os, const T& val);
 //======================================================================
 // define
 
+#if !defined(GTEST_HAS_PARAM_TEST)
+#  define GTEST_HAS_PARAM_TEST  1
+#endif
+
 #if defined(INCG_IRIS_IUTEST_HPP_)
 #undef IUTEST_SUCCEED
 #undef IUTEST_FAIL
@@ -553,6 +557,13 @@ inline void GTestStreamTo(std::ostream* os, const char val)
 {
     *os << val;
 }
+#if IUTEST_HAS_CXX_HDR_STRING_VIEW
+inline void GTestStreamTo(std::ostream* os, const ::std::string_view& val)
+{
+    const ::std::basic_string<CharT, Traits> str{ val };
+    *os << str.c_str();
+}
+#endif
 
 }   // end of namespace printer_internal2
 }   // end of namespace testing
