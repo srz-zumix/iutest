@@ -25,5 +25,6 @@ assignees: ''
 * [ ] Scrutinizer
 * [ ] Semaphore
 * [ ] Shippable
+* [ ] TeamCity Cloud
 * [ ] Travis CI
 * [ ] Wercker
