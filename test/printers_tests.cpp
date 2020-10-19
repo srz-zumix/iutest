@@ -30,10 +30,10 @@
 #else
 
 #define IUTEST_PRINTTOSTRING_EQ(expect, val)        \
-    (void)(expect, val)
+    (void)(expect);(void)(val)
 
 #define IUTEST_PRINTTOSTRING_CONTAINE(expect, val)  \
-    (void)(expect, val)
+    (void)(expect);(void)(val)
 
 #endif
 
