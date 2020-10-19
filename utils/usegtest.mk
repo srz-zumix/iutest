@@ -104,7 +104,7 @@ endif
 
 ifdef GMOCK_ROOT_
 
-GMOCK_INC_=-I$(GMOCK_ROOT_)/include -I$(GTEST_ROOT_)/include
+GMOCK_INC_=-isystem$(GMOCK_ROOT_)/include -isystem$(GTEST_ROOT_)/include
 GMOCK_LIB_=$(GMOCK_ROOT_)/make/gmock-all.o $(GMOCK_ROOT_)/make/gtest-all.o
 
 else
