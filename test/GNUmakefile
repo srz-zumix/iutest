@@ -420,6 +420,9 @@ else
 
 # use Google Test or Google Mock
 include ../utils/usegtest.mk
+ifdef GTEST_SYSTEM_INCLUDED
+CXXFLAGS += -Werror $(IUTEST_CXX_WARN_FLAGS)
+endif
 
 $(BUILD_ONLY) : $(OUTDIR)/% : %.cpp $(IUTEST_HEADERS) $(MAKEFILE)
 	$(CXX) $(IUTEST_INCLUDE) $(CXXFLAGS) -o $@ $< $(LDFLAGS)
