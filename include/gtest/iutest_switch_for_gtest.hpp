@@ -558,7 +558,8 @@ inline void GTestStreamTo(std::ostream* os, const char val)
     *os << val;
 }
 #if IUTEST_HAS_CXX_HDR_STRING_VIEW
-inline void GTestStreamTo(std::ostream* os, const ::std::string_view& val)
+template<typename CharT, typename Traits>
+inline void GTestStreamTo(std::ostream* os, const ::std::basic_string_view<CharT, Traits>& val)
 {
     const ::std::basic_string<CharT, Traits> str{ val };
     *os << str.c_str();
