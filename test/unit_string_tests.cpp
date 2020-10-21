@@ -258,7 +258,7 @@ IUTEST(UnitStringTest, StringToValue)
     {
         long double f;
         IUTEST_EXPECT_TRUE(::iutest::detail::StringToValue("1.0", f));
-        IUTEST_EXPECT_DOUBLE_EQ(1.0, f);
+        IUTEST_EXPECT_LONG_DOUBLE_EQ(1.0l, f);
     }
 #endif
 }
@@ -277,25 +277,25 @@ IUTEST(UnitStringTest, StringToValueException)
         IUTEST_EXPECT_FLOAT_EQ(-10.0f, f);
     }
     {
-        float f = -10.0;
+        double f = -10.0;
         IUTEST_EXPECT_THROW(::iutest::detail::StringToValue("ABC", f), ::std::invalid_argument);
         IUTEST_EXPECT_DOUBLE_EQ(-10.0, f);
     }
     {
-        float f = -10.0;
+        double f = -10.0;
         IUTEST_EXPECT_THROW(::iutest::detail::StringToValue("123456789e1000", f), ::std::out_of_range);
         IUTEST_EXPECT_DOUBLE_EQ(-10.0, f);
     }
 #if IUTEST_HAS_LONG_DOUBLE
     {
-        long double f = -10.0;
+        long double f = -10.0l;
         IUTEST_EXPECT_THROW(::iutest::detail::StringToValue("ABC", f), ::std::invalid_argument);
-        IUTEST_EXPECT_LONG_DOUBLE_EQ(-10.0, f);
+        IUTEST_EXPECT_LONG_DOUBLE_EQ(-10.0l, f);
     }
     {
-        long double f = -10.0;
+        long double f = -10.0l;
         IUTEST_EXPECT_THROW(::iutest::detail::StringToValue("123456789e1000000", f), ::std::out_of_range);
-        IUTEST_EXPECT_LONG_DOUBLE_EQ(-10.0, f);
+        IUTEST_EXPECT_LONG_DOUBLE_EQ(-10.0l, f);
     }
 #endif
 }
