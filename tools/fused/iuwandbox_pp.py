@@ -37,6 +37,7 @@ predefined_macros = {
     '__ANDROID__': None,
     'IUTEST_OS_LINUX_ANDROID': None,
     '__APPLE__': None,
+    '__APPLE_CC__': None,
     'IUTEST_OS_IOS': None,
     'IUTEST_OS_MAC': None,
     '__INTEL_COMPILER': None,
@@ -115,7 +116,6 @@ predefined_macros = {
     'IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY': UNUSED_,
     'IUTEST_PRAGMA_WARN_DISABLE_FORMAT_NONLITERAL': UNUSED_,
     'IUTEST_PRAGMA_WARN_DISABLE_CXX14_CONSTEXPR_NOT_IMPLY_CONST': UNUSED_,
-    'IUTEST_PRAGMA_WARN_DISABLE_FLOAT_CONVERSION': UNUSED_,
     'IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_FLOAT_CONVERSION': UNUSED_,
     'IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION': UNUSED_,
     'IUTEST_PRAGMA_WARN_DISABLE_NARROWING': UNUSED_,
@@ -123,11 +123,20 @@ predefined_macros = {
     'IUTEST_PRAGMA_WARN_DISABLE_CAST_ALIGN': UNUSED_,
     'IUTEST_PRAGMA_WARN_DISABLE_MISSING_NORETURN': UNUSED_,
     'IUTEST_PRAGMA_WARN_DISABLE_DOUBLE_PROMOTION': UNUSED_,
+    'IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE': None,
+    'IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE': None,
+    'IUTEST_PRAGMA_WARN_DISABLE_FLOAT_CONVERSION': None,
+    'IUTEST_PRAGMA_WARN_DISABLE_FLOAT_EQUAL': None,
+    'IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE': None,
     'IUTEST_MAKE_ASSERTIONRESULT_': UNUSED_,
     'IUTEST_COND_LIKELY': UNUSED_,
     'IUTEST_COND_UNLIKELY': UNUSED_,
     'IUTEST_ATTRIBUTE_LIKELY_': '',
     'IUTEST_ATTRIBUTE_UNLIKELY_': '',
+    'IUTEST_ATTRIBUTE_UNUSED_': None,
+    'IUTEST_ATTRIBUTE_NORETURN_': None,
+    'IUTEST_ATTRIBUTE_FORMAT_PRINTF': None,
+    'IUTEST_ATTRIBUTE_FORMAT': None,
     # no overridable
     'IUTEST_SUCCEED': None,
     'IUTEST_FAIL': None,
@@ -312,6 +321,38 @@ predefined_macros = {
     'IUTEST_ASSUME_CONTAINS_REGEXNE': None,
     'IUTEST_VPRINTF': None,
     'IUTEST_REMOVE_LEGACY_TEST_CASEAPI_': None,
+    'IUTEST_HAS_CXX11': None,
+    'IUTEST_HAS_CXX14': None,
+    'IUTEST_HAS_CXX1Z': None,
+    'IUTEST_HAS_CXX17': None,
+    'IUTEST_HAS_CXX2A': None,
+    'IUTEST_HAS_CXX20': None,
+    'IUTEST_HAS_ATTRIBUTE': None,
+    'IUTEST_HAS_AUTO': None,
+    'IUTEST_HAS_CHAR8_T': None,
+    'IUTEST_HAS_CHAR16_T': None,
+    'IUTEST_HAS_CHAR32_T': None,
+    'IUTEST_HAS_CONCEPTS': None,
+    'IUTEST_HAS_CONSTEXPR': None,
+    'IUTEST_HAS_CONSTEXPR_IF': None,
+    'IUTEST_HAS_DECLTYPE': None,
+    'IUTEST_HAS_DELETED_FUNCTIONS': None,
+    'IUTEST_HAS_DEFAULT_FUNCTIONS': None,
+    'IUTEST_HAS_EXCEPTIONS': None,
+    'IUTEST_HAS_EXPLICIT_CONVERSION': None,
+    'IUTEST_HAS_INITIALIZER_LIST': None,
+    'IUTEST_HAS_INLINE_VARIABLE': None,
+    'IUTEST_HAS_INT128': None,
+    'IUTEST_HAS_LAMBDA': None,
+    'IUTEST_HAS_NOEXCEPT': None,
+    'IUTEST_HAS_NULLPTR': None,
+    'IUTEST_HAS_OVERRIDE_AND_FINAL': None,
+    'IUTEST_HAS_RTTI': None,
+    'IUTEST_HAS_RVALUE_REFS': None,
+    'IUTEST_HAS_STATIC_ASSERT': None,
+    'IUTEST_HAS_STD_FILESYSTEM': None,
+    'IUTEST_HAS_VARIADIC_TEMPLATES': None,
+    'IUTEST_WCHAR_UNSIGNED': None,
     'IUTEST_HAS_MATCHER_VARIADIC': None,
     'IUTEST_HAS_REGEX': None,
     'IUTEST_HAS_MATCHER_ELEMENTSAREARRAYFORWARD': None,
@@ -335,6 +376,15 @@ predefined_macros = {
     'IUTEST_HAS_CHAR16_T_PRINTABLE': None,
     'IUTEST_HAS_CHAR32_T_PRINTABLE': None,
     'IUTEST_USE_OWN_STRING_VIEW': None,
+    'IUTEST_HAS_HDR_CXXABI', None,
+    'IUTEST_HAS_CXX_HDR_ANY', None,
+    'IUTEST_HAS_CXX_HDR_FILESYSTEM', None,
+    'IUTEST_HAS_CXX_HDR_OPTIONAL', None,
+    'IUTEST_HAS_CXX_HDR_STRING_VIEW', None,
+    'IUTEST_HAS_CXX_HDR_TYPE_TARITS', None,
+    'IUTEST_HAS_CXX_HDR_VARIANT': None,
+    'IUTEST_HAS_CXX_HDR_VERSION': None,
+    'IUTEST_PP_MSVC_TRADITIONAL': None,
 }
 
 iutest_config_macro = {
@@ -389,7 +439,7 @@ iutest_config_macro = {
     'IUTEST_HAS_STREAM_BUFFER': '1',
     'IUTEST_HAS_STREAM_RESULT': '0',
     'IUTEST_HAS_BIGGESTINT_OSTREAM': '1',
-    'IUTEST_CHECK_STRICT': '1',
+    'IUTEST_CHECK_STRICT': '0',
     'IUTEST_HAS_COLORCONSOLE': '0',
     'IUTEST_HAS_ATTRIBUTE_LIKELY_UNLIKELY': '0',
     'IUTEST_HAS_BUILTIN_EXPECT': '0',
@@ -434,7 +484,6 @@ expand_function_macros = [
     'IUTEST_PRAGMA_WARN_DISABLE_EMPTY_BODY',
     'IUTEST_PRAGMA_WARN_DISABLE_FORMAT_NONLITERAL',
     'IUTEST_PRAGMA_WARN_DISABLE_CXX14_CONSTEXPR_NOT_IMPLY_CONST',
-    'IUTEST_PRAGMA_WARN_DISABLE_FLOAT_CONVERSION',
     'IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_FLOAT_CONVERSION',
     'IUTEST_PRAGMA_WARN_DISABLE_IMPLICIT_INT_FLOAT_CONVERSION',
     'IUTEST_PRAGMA_WARN_DISABLE_NARROWING',
@@ -495,20 +544,20 @@ rename_macro = {
     'IUTEST_APPEND_EXPLICIT_TEMPLATE_TYPE_': 'II_A_E_TT',
     'IUTEST_PRAGMA_ASSIGNMENT_OPERATOR_COULD_NOT_GENERATE_WARN_DISABLE_BEGIN': 'II_PGM_A_O_CN_G_W_D_B',
     'IUTEST_PRAGMA_ASSIGNMENT_OPERATOR_COULD_NOT_GENERATE_WARN_DISABLE_END': 'II_PGM_A_O_CN_G_W_D_E',
-    'IUTEST_PRAGMA_WARN_DISABLE_FLOAT_EQUAL': 'II_PGM_W_FE',
+    # 'IUTEST_PRAGMA_WARN_DISABLE_FLOAT_EQUAL': 'II_PGM_W_FE',
     'IUTEST_PRAGMA_WARN_DISABLE_CAST_ALIGN': 'II_PGM_W_CA',
     'IUTEST_PRAGMA_WARN_DISABLE_NOEXCEPT_TPYE': 'II_PGM_W_D_NE_T',
     'IUTEST_PRAGMA_WARN_DISABLE_SIGN_COMPARE': 'II_PGM_W_D_S_C',
-    'IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE': 'II_PGM_W_D_D_E',
+    # 'IUTEST_PRAGMA_WARN_DISABLE_DANGLING_ELSE': 'II_PGM_W_D_D_E',
     'IUTEST_PRAGMA_CLANG_WARN_PUSH': 'II_PGM_C_W_PU',
     'IUTEST_PRAGMA_CLANG_WARN_DISABLE': 'II_PGM_C_W_D',
     'IUTEST_PRAGMA_CLANG_WARN_POP': 'II_PGM_C_W_PP',
     'IUTEST_PRAGMA_GCC_WARN_PUSH': 'II_PGM_G_W_PU',
     'IUTEST_PRAGMA_GCC_WARN_DISABLE': 'II_PGM_G_W_D',
     'IUTEST_PRAGMA_GCC_WARN_POP': 'II_PGM_G_W_PP',
-    'IUTEST_PRAGMA_WARN_PUSH': 'II_PGM_W_PU',
+    # 'IUTEST_PRAGMA_WARN_PUSH': 'II_PGM_W_PU',
     # 'IUTEST_PRAGMA_WARN_DISABLE': 'II_PGM_W_D',
-    'IUTEST_PRAGMA_WARN_POP': 'II_PGM_W_PP',
+    # 'IUTEST_PRAGMA_WARN_POP': 'II_PGM_W_PP',
     'IUTEST_PP_DISALLOW_COPY_AND_ASSIGN': 'IP_DIS_C_A_A',
     'IUTEST_PP_DISALLOW_ASSIGN': 'IP_DIS_A',
     'IUTEST_PP_DISALLOW_MOVE_AND_COPY_AND_ASSIGN': 'IP_DIS_M_A_C_A_A',
@@ -568,6 +617,7 @@ rename_macro = {
 rename_text = {
     'backward': 'bkw',
     # 'CmpHelper': 'CHlpr',
+    'IUTEST_PRAGMA_IUTEST_WARN_DISABLE_CLANG_': 'II_PGM_IWD_CLNG_',
     'IUTEST_MAKE_ASSERTIONRESULT_': '',
     'II_DECL_STREQ_COMPARE_HELPER_': 'II_DECL_SE_C_H_',
     'II_INSTANTIATE_TEST_CASE_AP_': 'II_INST_TC_AP_',
@@ -672,6 +722,10 @@ class WandboxPreprocessor:
             dst += line
         return dst
 
+    def trancate_line(self, code):
+        return self.pp.trancate_line(code)
+
+
 
 def default_pp():
     output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../fused-src")
@@ -686,6 +740,7 @@ def default_pp():
     code = pp.remove_redudant(code)
     code = pp.rename_macros(code)
     code = pp.remove_redudant_pragma(code)
+    code = pp.trancate_line(code)
     output_file.write(code)
     output_file.close()
 
@@ -716,6 +771,7 @@ def clang_pp():
         has_include)
     code = pp.preprocess(code, None)
     code = pp.remove_empty_ppif(code)
+    code = pp.trancate_line(code)
     output_file.write(code)
     output_file.close()
 
@@ -729,7 +785,7 @@ def gcc_pp():
     output_file = codecs.open(os.path.join(output_dir, output), 'w', 'utf-8-sig')
     gcc_predefined_macros = {
         '__clang__': None,
-        '__GNUC__': '1',
+        '__GNUC__': 'unknown',
         '_LIBCPP_VERSION': None,
     }
     gcc_predefined_macros.update(predefined_macros)
@@ -746,6 +802,7 @@ def gcc_pp():
         has_include)
     code = pp.preprocess(code, None)
     code = pp.remove_empty_ppif(code)
+    code = pp.trancate_line(code)
     output_file.write(code)
     output_file.close()
 
