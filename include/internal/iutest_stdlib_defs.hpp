@@ -36,13 +36,15 @@
 
 // <version> header
 #if !defined(IUTEST_HAS_CXX_HDR_VERSION)
-#  if defined(__has_include) && __has_include(<version>)
-#    define IUTEST_HAS_CXX_HDR_VERSION  1
+#  if defined(__has_include)
+#    if __has_include(<version>)
+#      define IUTEST_HAS_CXX_HDR_VERSION    1
+#    endif
 #  endif
 #endif
 
 #if !defined(IUTEST_HAS_CXX_HDR_VERSION)
-#  define IUTEST_HAS_CXX_HDR_VERSION    0
+#  define IUTEST_HAS_CXX_HDR_VERSION        0
 #endif
 
 #if IUTEST_HAS_CXX_HDR_VERSION
