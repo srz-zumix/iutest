@@ -505,7 +505,7 @@ report:
 #
 
 CMAKE_CHECKS = $(RUN_TARGETS:$(OUTDIR)/%=%)
-cmake-sync-check: ../projects/cmake/CMakeLists.txt $(MAKEFILE)
+cmake-sync-check: ../projects/cmake/CMakeLists.txt $(MAKEFILE) ## check cmake and test makefile
 	@echo ========== invalid test names ==========
 	@for f in $(CMAKE_CHECKS); do \
 		echo $$f | grep -v "setup" > /dev/null || echo $$f; \
