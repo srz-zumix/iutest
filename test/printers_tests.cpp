@@ -504,19 +504,19 @@ IUTEST(PrintToTest, Tuple)
 struct AlwaysThrow
 {
     AlwaysThrow() = default;
-    AlwaysThrow(const AlwaysThrow &)
+    IUTEST_ATTRIBUTE_NORETURN_ AlwaysThrow(const AlwaysThrow &)
     {
         throw std::exception();
     }
-    AlwaysThrow(AlwaysThrow &&)
+    IUTEST_ATTRIBUTE_NORETURN_ AlwaysThrow(AlwaysThrow &&)
     {
         throw std::exception();
     }
-    AlwaysThrow &operator=(const AlwaysThrow &)
+    IUTEST_ATTRIBUTE_NORETURN_ AlwaysThrow &operator=(const AlwaysThrow &)
     {
         throw std::exception();
     }
-    AlwaysThrow &operator=(AlwaysThrow &&)
+    IUTEST_ATTRIBUTE_NORETURN_ AlwaysThrow &operator=(AlwaysThrow &&)
     {
         throw std::exception();
     }
