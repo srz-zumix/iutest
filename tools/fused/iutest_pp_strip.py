@@ -297,10 +297,10 @@ class IutestPreprocessor:
                     expand = re.sub(r'\s*\(1\)\s*and\s*', '', expand)
                     expand = re.sub(r'\s*and\s*\(1\)\s*', '', expand)
                     expand = expand.replace(' and ', '&&')
-                    expand = expand.replace(' or ',  '||')
-                    expand = expand.replace(' not ',  '!')
-                    expand = expand.replace('(0)',  '0')
-                    expand = expand.replace('(1)',  '1')
+                    expand = expand.replace(' or ' , '||')
+                    expand = expand.replace(' not ', '!')
+                    expand = expand.replace('(0)', '0')
+                    expand = expand.replace('(1)', '1')
                     return (r, expand)
             return (r, None)
 
@@ -670,7 +670,7 @@ class IutestPreprocessor:
             found = True
             while len(line) >= limit and found:
                 found = False
-                for sep in [ '}}', '};', '";' ]:
+                for sep in ['}}', '};', '";']:
                     idx = line.rfind(sep, 0, limit)
                     if idx >= 0:
                         idx += len(sep)
@@ -681,4 +681,3 @@ class IutestPreprocessor:
             line += "\n"
             dst += line
         return dst
-
