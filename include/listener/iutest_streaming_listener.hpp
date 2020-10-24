@@ -82,7 +82,7 @@ public:
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "../impl/iutest_streaming_listener.ipp"
+#  include "../impl/iutest_streaming_listener.ipp" // IWYU pragma: export
 #endif
 
 #endif

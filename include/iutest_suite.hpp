@@ -17,7 +17,9 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_info.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {
@@ -315,7 +317,7 @@ public:
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "impl/iutest_suite.ipp"
+#  include "impl/iutest_suite.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_SUITE_HPP_0534E0BE_6BC4_4E99_80C0_56F441AD34ED_

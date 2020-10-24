@@ -17,11 +17,15 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_genparams.hpp"
 #include "iutest_genparams_from_file.hpp"
+// IWYU pragma: end_exports
 
 #if IUTEST_HAS_PARAM_TEST
+// IWYU pragma: begin_exports
 #include "iutest_pool.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest {
 namespace detail
