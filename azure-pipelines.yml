@@ -157,10 +157,10 @@ stages:
           vmImage: ubuntu-latest
         steps:
           - task: Docker@2
-          displayName: Logout of Docker Hub
-          inputs:
-            command: logout
-            containerRegistry: DockerHub
+            displayName: Logout of Docker Hub
+            inputs:
+              command: logout
+              containerRegistry: DockerHub
 
 
   # - stage: Publish
