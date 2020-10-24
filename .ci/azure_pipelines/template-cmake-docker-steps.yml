@@ -1,7 +1,7 @@
 # optional cmake test steps template
 
 parameters:
-  container_target: 'gcc_10'
+  container_target: 'rikorose/gcc-cmake:gcc-10'
   cmake_options: ''
   ctest_options: ''
 

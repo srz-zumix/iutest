@@ -77,11 +77,6 @@ pr:
       - .travis.yml
       - wercker.yml
 
-resources:
-  containers:
-  - container: gcc_10
-    image: rikorose/gcc-cmake:gcc-10
-
 stages:
   - stage: Precheck
     jobs:
