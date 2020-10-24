@@ -17,11 +17,13 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "internal/iutest_typed_util.hpp"
 
 #if IUTEST_HAS_TYPED_TEST_P
 #  include "internal/iutest_pool.hpp"
 #endif
+// IWYU pragma: end_exports
 
 //======================================================================
 // define
