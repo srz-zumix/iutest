@@ -836,7 +836,7 @@ public:
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "impl/iutest_env.ipp"
+#  include "impl/iutest_env.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_ENV_HPP_F4017EAB_6CA3_4E6E_8983_059393DADD04_

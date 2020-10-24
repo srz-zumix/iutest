@@ -22,11 +22,11 @@
 #include "util/iutest_util_output.hpp"
 #include "util/iutest_util_quiet_result_printer.hpp"
 #include "util/iutest_util_tests.hpp"
+// IWYU pragma: end_exports
 
 #if defined(MS_CPP_UNITTESTFRAMEWORK)
 #include "util/iutest_util_vc_unittest.hpp"
 #endif
-// IWYU pragma: end_exports
 
 /**
  * @brief iutest utility namespace

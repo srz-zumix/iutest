@@ -221,7 +221,7 @@ IUTEST_PRAGMA_CRT_SECURE_WARN_DISABLE_END()
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "../impl/iutest_charcode.ipp"
+#  include "../impl/iutest_charcode.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_CHARCODE_HPP_D444FB3E_3AFA_46D0_AD69_33FAAF5615E3_

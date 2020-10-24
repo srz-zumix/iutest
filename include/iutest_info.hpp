@@ -265,7 +265,7 @@ private:
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "impl/iutest_info.ipp"
+#  include "impl/iutest_info.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_INFO_HPP_764A79A8_E822_4C0F_8CB7_82C635BA28BA_
