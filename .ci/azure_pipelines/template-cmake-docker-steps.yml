@@ -1,7 +1,7 @@
 # optional cmake test steps template
 
 parameters:
-  container_target: 'gcc_latest'
+  container_target: 'gcc_10'
   cmake_options: ''
   ctest_options: ''
 

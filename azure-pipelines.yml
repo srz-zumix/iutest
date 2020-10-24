@@ -79,8 +79,8 @@ pr:
 
 resources:
   containers:
-  - container: gcc_latest
-    image: gcc:latest
+  - container: gcc_10
+    image: rikorose/gcc-cmake:gcc-10
 
 stages:
   - stage: Precheck
