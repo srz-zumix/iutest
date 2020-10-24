@@ -87,7 +87,7 @@ IUTEST(Optional, Compare)
         IUTEST_EXPECT_EQ(::std::nullopt, opt);
     }
     {
-        ::std::optional<int> opt = ::std::nullopt;
+        static const ::std::optional<int> opt = ::std::nullopt;
         IUTEST_EXPECT_FALSE(opt);
         IUTEST_EXPECT_NONFATAL_FAILURE(IUTEST_EXPECT_EQ(1234, opt), "1234");
     }
