@@ -17,8 +17,10 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_port.hpp"
 #include "iutest_constant.hpp"
+// IWYU pragma: end_exports
 
 #if IUTEST_HAS_CXX_HDR_CODECVT
 #  include <locale>

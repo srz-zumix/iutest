@@ -17,10 +17,12 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "internal/iutest_charcode.hpp"
 #include "internal/iutest_random.hpp"
 #include "internal/iutest_regex.hpp"
 #include "iutest_listener.hpp"
+// IWYU pragma: end_exports
 
 //======================================================================
 // define

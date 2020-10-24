@@ -17,6 +17,7 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "util/iutest_util_assertion.hpp"
 #include "util/iutest_util_output.hpp"
 #include "util/iutest_util_quiet_result_printer.hpp"
@@ -25,6 +26,7 @@
 #if defined(MS_CPP_UNITTESTFRAMEWORK)
 #include "util/iutest_util_vc_unittest.hpp"
 #endif
+// IWYU pragma: end_exports
 
 /**
  * @brief iutest utility namespace
