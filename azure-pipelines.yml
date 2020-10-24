@@ -77,6 +77,11 @@ pr:
       - .travis.yml
       - wercker.yml
 
+resources:
+  containers:
+  - container: gcc_latest
+    image: gcc:latest
+
 stages:
   - stage: Precheck
     jobs:
