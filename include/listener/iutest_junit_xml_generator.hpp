@@ -17,7 +17,9 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_default_xml_generator.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {

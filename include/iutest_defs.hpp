@@ -17,6 +17,7 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "internal/iutest_compiler.hpp"
 #include "internal/iutest_pp.hpp"
 #include "internal/iutest_stdlib.hpp"
@@ -25,6 +26,7 @@
 #include <vector>
 #include <algorithm>
 #include "internal/iutest_debug.hpp"
+// IWYU pragma: end_exports
 
 #if IUTEST_HAS_TYPED_TEST_P
 #  if IUTEST_TYPED_TEST_P_STRICT
