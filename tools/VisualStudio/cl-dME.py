@@ -8,9 +8,11 @@
 
 import os
 
+
 def main():
     print(os.environ['MSC_CMD_FLAGS'])
     print(os.environ['MSC_IDE_FLAGS'])
+
 
 if __name__ == "__main__":
     main()
