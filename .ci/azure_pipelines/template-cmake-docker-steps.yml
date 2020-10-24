@@ -1,0 +1,31 @@
+# optional cmake test steps template
+
+parameters:
+  container_target: 'gcc_10'
+  cmake_options: ''
+  ctest_options: ''
+
+steps:
+- script: |
+    mkdir build && cd build
+    cmake ../projects/cmake ${{ parameters.cmake_options }}
+  target:
+    container: ${{ parameters.container_target }}
+  displayName: 'generate'
+
+- script: |
+    cd build && cmake --build .
+  target:
+    container: ${{ parameters.container_target }}
+  displayName: 'build'
+
+- script: |
+    cd build && ctest ${{ parameters.ctest_options }} -V --output-on-failure
+  target:
+    container: ${{ parameters.container_target }}
+  displayName: 'test'
+
+- task: Docker@2
+  inputs:
+    command: stop
+    container: ${{ parameters.container_target }}
