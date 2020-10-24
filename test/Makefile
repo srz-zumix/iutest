@@ -49,9 +49,9 @@ TARGETS = $(BUILD_TARGETS)
 NAMESPACETESTS_TEST_SRCS = $(ALLTESTS_TEST_SRCS:.cpp=.ns.cpp)
 NAMESPACETESTS_SRCS = main.cpp $(NAMESPACETESTS_TEST_SRCS)
 
-SRCS   = $(BUILD_TARGETS:_tests=_tests.cpp)
+SRCS    = $(BUILD_TARGETS:_tests=_tests.cpp)
 RUNNER_ = $(RUN_TARGETS:_tests=_tests_run)
-RUNNER = $(RUNNER_:./=)
+RUNNER  = $(RUNNER_:./=)
 
 
 # build targets.
@@ -72,6 +72,9 @@ test : $(BUILD_ONLY) $(RUNNER)
 
 showcxxversion:
 	-$(CXX)
+
+showcxxmacros: ## show compiler predefined macros
+	$(CXX) /Bx../tools/VisualStudio/cl-dME.py main.cpp
 
 $(RUNNER) : $(@:_tests_run=_tests)
 	@echo $@
