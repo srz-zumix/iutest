@@ -15,7 +15,11 @@
 #ifndef INCG_IRIS_IUTEST_STREAM_HPP_3A4AF139_9F24_4730_81D0_DADFCE6DCF99_
 #define INCG_IRIS_IUTEST_STREAM_HPP_3A4AF139_9F24_4730_81D0_DADFCE6DCF99_
 
+//======================================================================
+// include
+// IWYU pragma: begin_exports
 #include "iutest_string.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest {
 namespace detail
