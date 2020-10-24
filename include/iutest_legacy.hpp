@@ -15,7 +15,9 @@
 #ifndef INCG_IRIS_IUTEST_LEGACY_HPP_E7B75232_2AB9_44F5_B9C5_CF62CD3FF958_
 #define INCG_IRIS_IUTEST_LEGACY_HPP_E7B75232_2AB9_44F5_B9C5_CF62CD3FF958_
 
+// IWYU pragma: begin_exports
 #include "internal/iutest_port.hpp"
+// IWYU pragma: end_exports
 
 #if IUTEST_HAS_TESTCASE
 

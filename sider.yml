@@ -8,7 +8,7 @@ linter:
   cppcheck:
     std: "c++11"
     target:
-      - "test/"
+      - "src/"
     include-path:
       - "include"
       - "test"
