@@ -5,7 +5,7 @@ parameters:
   cmake_options: ''
   ctest_options: ''
 
-# cmake steps
+steps:
 - script: |
     mkdir build && cd build
     cmake ../projects/cmake ${{ parameters.cmake_options }}
