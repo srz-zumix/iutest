@@ -17,7 +17,10 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_string.hpp"
+// IWYU pragma: end_exports
+
 #if   IUTEST_HAS_STRINGSTREAM
 #  include <sstream>
 #elif IUTEST_HAS_STRSTREAM
