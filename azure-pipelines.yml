@@ -83,6 +83,7 @@ resources:
     image: rikorose/gcc-cmake:gcc-10
   - container: wine_msvc
     image: madduci/docker-wine
+    options: "-u root"
 
 stages:
   - stage: Precheck
