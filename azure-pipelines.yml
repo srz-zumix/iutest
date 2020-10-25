@@ -152,6 +152,15 @@ stages:
           vmImage: ubuntu-latest
         steps:
         - template: .ci/azure_pipelines/template-cmake-docker-steps.yml
+          parameters:
+            container_target: gcc_10
+      - job: wine-msvc
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+        - template: .ci/azure_pipelines/template-cmake-docker-steps.yml
+          parameters:
+            container_target: wine_msvc
       - job: logout
         pool:
           vmImage: ubuntu-latest
