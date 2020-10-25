@@ -15,7 +15,6 @@
 
 //======================================================================
 // include
-#include <vector>
 #include "iutest.hpp"
 #include "logger_tests.hpp"
 
