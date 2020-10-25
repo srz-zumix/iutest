@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "internal/iutest_compiler.hpp"
+#include "internal/iutest_compiler.hpp" // IWYU pragma: keep
 #include <stdarg.h>
 
 //======================================================================
