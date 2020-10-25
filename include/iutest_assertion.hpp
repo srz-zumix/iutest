@@ -17,9 +17,11 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_result.hpp"
 #include "iutest_printers.hpp"
 #include "internal/iutest_list.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {
