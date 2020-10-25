@@ -154,7 +154,7 @@ stages:
         - template: .ci/azure_pipelines/template-cmake-docker-steps.yml
           parameters:
             container_target: gcc_10
-      - job: wine-msvc
+      - job: wine_msvc
         pool:
           vmImage: ubuntu-latest
         steps:
