@@ -17,7 +17,9 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_console.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest {
 namespace detail

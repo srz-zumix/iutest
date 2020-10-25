@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2011-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2011-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -72,6 +72,7 @@
 
 #define GTEST_IS_THREADSAFE     0
 
+// IWYU pragma: begin_exports
 #include "switch/iutest_switch_port.hpp"
 #include "switch/iutest_switch_core.hpp"
 
@@ -94,6 +95,7 @@
 #include "switch/iutest_switch_filepath.hpp"
 
 #include "switch/iutest_switch_cmphelper.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {

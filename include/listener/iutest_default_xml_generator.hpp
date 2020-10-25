@@ -152,7 +152,7 @@ public:
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "../impl/iutest_default_xml_generator.ipp"
+#  include "../impl/iutest_default_xml_generator.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_DEFAULT_XML_GENERATOR_HPP_791DCB98_05CC_49BA_8518_0EC9CA2B5450_

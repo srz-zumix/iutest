@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "param_test_tests.hpp"
+#include "param_test_tests.hpp"  // IWYU pragma: keep
 
 #if IUTEST_HAS_PARAM_TEST
 

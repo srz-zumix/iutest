@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "../include/gtest/iutest_spi_switch.hpp"
+#include "../include/gtest/iutest_spi_switch.hpp"  // IWYU pragma: keep
 
 IUTEST_PRAGMA_UNREACHCODE_WARN_DISABLE_BEGIN()
 

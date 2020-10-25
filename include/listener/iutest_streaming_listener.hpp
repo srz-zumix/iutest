@@ -18,7 +18,9 @@
 //======================================================================
 // include
 #if IUTEST_HAS_STREAM_RESULT
+// IWYU pragma: begin_exports
 #include "../internal/iutest_socket.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {
@@ -82,7 +84,7 @@ public:
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "../impl/iutest_streaming_listener.ipp"
+#  include "../impl/iutest_streaming_listener.ipp" // IWYU pragma: export
 #endif
 
 #endif

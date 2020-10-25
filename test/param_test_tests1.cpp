@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -15,7 +15,7 @@
 
 //======================================================================
 // include
-#include "param_test_tests.hpp"
+#include "param_test_tests.hpp"  // IWYU pragma: keep
 
 #if IUTEST_HAS_PARAM_TEST
 
