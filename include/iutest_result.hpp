@@ -17,7 +17,9 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "internal/iutest_message.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {
