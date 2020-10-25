@@ -17,9 +17,11 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "internal/iutest_result_reporter.hpp"
 #include "internal/iutest_file.hpp"
 #include "internal/iutest_params_util.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {
@@ -302,7 +304,7 @@ private:
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "impl/iutest_core.ipp"
+#  include "impl/iutest_core.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_CORE_HPP_33560431_783B_4AE7_8FC8_6E78355CAF87_

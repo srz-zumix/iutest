@@ -323,7 +323,7 @@ private:
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "../impl/iutest_port.ipp"
+#  include "../impl/iutest_port.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_PORT_HPP_7893F685_A1A9_477A_82E8_BF06237697FF_

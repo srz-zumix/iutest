@@ -17,7 +17,9 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "iutest_default_xml_generator.hpp"
+// IWYU pragma: end_exports
 
 namespace iutest
 {
@@ -68,7 +70,7 @@ public:
 }   // end of namespace iutest
 
 #if !IUTEST_HAS_LIB
-#  include "../impl/iutest_junit_xml_generator.ipp"
+#  include "../impl/iutest_junit_xml_generator.ipp" // IWYU pragma: export
 #endif
 
 #endif // INCG_IRIS_IUTEST_JUNIT_XML_GENERATOR_HPP_C6AD11BD_BDA4_45F3_A736_53B09DD6A7BD_
