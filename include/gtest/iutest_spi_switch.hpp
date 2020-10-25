@@ -15,7 +15,9 @@
 #ifndef INCG_IRIS_IUTEST_SPI_SWITCH_HPP_673AE7AC_6F80_4BE0_9209_581E3A568525_
 #define INCG_IRIS_IUTEST_SPI_SWITCH_HPP_673AE7AC_6F80_4BE0_9209_581E3A568525_
 
+// IWYU pragma: begin_exports
 #include "iutest_switch.hpp"
+// IWYU pragma: end_exports
 
 #if !defined(IUTEST_USE_GTEST)
 
