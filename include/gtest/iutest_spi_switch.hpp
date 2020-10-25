@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2019, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -19,7 +19,9 @@
 
 #if !defined(IUTEST_USE_GTEST)
 
+// IWYU pragma: begin_exports
 #include "../iutest_spi.hpp"
+// IWYU pragma: end_exports
 
 #if defined(GTEST_INCLUDE_GTEST_GTEST_SPI_H_)
 #undef EXPECT_FATAL_FAILURE

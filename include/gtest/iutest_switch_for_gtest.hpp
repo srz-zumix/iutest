@@ -57,7 +57,9 @@ using ::std::get;
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "../iutest_ver.hpp"
+// IWYU pragma: end_exports
 
 // gtest 1.5 or less compatible
 #if !defined(IUTEST_HAS_CONCEPTS)
