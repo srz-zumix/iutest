@@ -6,7 +6,7 @@
  *
  * @author      t.shirayanagi
  * @par         copyright
- * Copyright (C) 2012-2016, Takazumi Shirayanagi\n
+ * Copyright (C) 2012-2020, Takazumi Shirayanagi\n
  * This software is released under the new BSD License,
  * see LICENSE
 */
@@ -26,23 +26,23 @@ template class ::std::vector< ::std::basic_string<char> >;
 template class ::std::vector< ::std::basic_string<wchar_t> >;
 
 // ipp
-#include "../include/impl/iutest_port.ipp"
-#include "../include/impl/iutest_body.ipp"
-#include "../include/impl/iutest_suite.ipp"
-#include "../include/impl/iutest_core.ipp"
-#include "../include/impl/iutest_core_impl.ipp"
-#include "../include/impl/iutest_info.ipp"
-#include "../include/impl/iutest_env.ipp"
-#include "../include/impl/iutest_listener.ipp"
-#include "../include/impl/iutest_message.ipp"
-#include "../include/impl/iutest_regex.ipp"
-#include "../include/impl/iutest_charcode.ipp"
-#include "../include/impl/iutest_time.ipp"
+#include "../include/impl/iutest_port.ipp"                  // IWYU pragma: keep
+#include "../include/impl/iutest_body.ipp"                  // IWYU pragma: keep
+#include "../include/impl/iutest_suite.ipp"                 // IWYU pragma: keep
+#include "../include/impl/iutest_core.ipp"                  // IWYU pragma: keep
+#include "../include/impl/iutest_core_impl.ipp"             // IWYU pragma: keep
+#include "../include/impl/iutest_info.ipp"                  // IWYU pragma: keep
+#include "../include/impl/iutest_env.ipp"                   // IWYU pragma: keep
+#include "../include/impl/iutest_listener.ipp"              // IWYU pragma: keep
+#include "../include/impl/iutest_message.ipp"               // IWYU pragma: keep
+#include "../include/impl/iutest_regex.ipp"                 // IWYU pragma: keep
+#include "../include/impl/iutest_charcode.ipp"              // IWYU pragma: keep
+#include "../include/impl/iutest_time.ipp"                  // IWYU pragma: keep
 
-#include "../include/impl/iutest_debug.ipp"
-#include "../include/impl/iutest_filepath.ipp"
+#include "../include/impl/iutest_debug.ipp"                 // IWYU pragma: keep
+#include "../include/impl/iutest_filepath.ipp"              // IWYU pragma: keep
 
-#include "../include/impl/iutest_default_printer.ipp"
-#include "../include/impl/iutest_default_xml_generator.ipp"
-#include "../include/impl/iutest_junit_xml_generator.ipp"
-#include "../include/impl/iutest_streaming_listener.ipp"
+#include "../include/impl/iutest_default_printer.ipp"       // IWYU pragma: keep
+#include "../include/impl/iutest_default_xml_generator.ipp" // IWYU pragma: keep
+#include "../include/impl/iutest_junit_xml_generator.ipp"   // IWYU pragma: keep
+#include "../include/impl/iutest_streaming_listener.ipp"    // IWYU pragma: keep

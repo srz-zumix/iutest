@@ -17,12 +17,14 @@
 
 //======================================================================
 // include
+// IWYU pragma: begin_exports
 #include "../iutest_defs.hpp"
 #include "iutest_string_stream.hpp"
 #include "iutest_string_view.hpp"
 #include "iutest_type_traits.hpp"
 #include "iutest_compatible_defs.hpp"
 #include "iutest_exception.hpp"
+// IWYU pragma: end_exports
 
 #if IUTEST_HAS_HDR_CXXABI
 #  include <cxxabi.h>
