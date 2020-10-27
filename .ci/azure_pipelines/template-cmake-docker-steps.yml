@@ -4,8 +4,16 @@ parameters:
   container_target: 'gcc_10'
   cmake_options: ''
   ctest_options: ''
+  apt_get: false
 
 steps:
+- ${{ if eq(parameters.apt_get, 'true') }}:
+  - script: |
+      apt-get install -y cmake
+    target:
+      container: ${{ parameters.container_target }}
+    displayName: 'setup'
+
 - script: |
     mkdir build && cd build
     cmake ../projects/cmake ${{ parameters.cmake_options }}

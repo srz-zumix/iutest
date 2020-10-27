@@ -162,6 +162,7 @@ stages:
         - template: .ci/azure_pipelines/template-cmake-docker-steps.yml
           parameters:
             container_target: wine_msvc
+            apt_get: true
       - job: logout
         pool:
           vmImage: ubuntu-latest
